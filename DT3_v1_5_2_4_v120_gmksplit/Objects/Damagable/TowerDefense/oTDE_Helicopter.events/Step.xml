@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  if bActive=true and stunnedTime=0 and life&gt;0
+  {
+    if direction&gt;=90 and direction&lt;270 {image_xscale=-1}
+    else {image_xscale=1}
+    
+    if bSlowed=1
+    {
+      speed=runAcc/1.5
+      slowTime-=1
+      if slowTime&lt;=0 {bSlowed=0}
+    }
+    else {speed=runAcc}
+    speed=speed
+  }
+  else if life&lt;=0
+  {
+    playSound(global.snd_HardHit1,0,0.98,1)
+    tEffect=instance_create(x,y-19,oEffect)
+    tEffect.sprite_index=sRobotExplosion; tEffect.image_speed=0.5; tEffect.image_alpha=0.75
+    tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+    tEfCir=instance_create(x,y-19,oEfCircleBlast)
+    tEfCir.image_alpha=0.75; tEfCir.myRad=8; tEfCir.radScl=4; tEfCir.fadeSpeed=0.05
+    oTD_HUD.tdStat_Resources+=4+(16*siegeLv)
+    instance_destroy()
+  }
+  enemyStepEvent()
+}
+else {speed=0}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

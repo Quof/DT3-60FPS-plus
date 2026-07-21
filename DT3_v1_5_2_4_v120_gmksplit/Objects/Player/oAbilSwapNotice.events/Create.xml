@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="CREATE" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">image_speed=0
+lifeTime=60
+bDisplay=1
+abilCount=0
+textColFill=make_color_rgb(255,248,155)
+textColBorder=make_color_rgb(16,8,8)
+
+if global.activeCharacter=0 //Jerry
+{
+  if global.activeAbility[0]=1
+  {
+    abilCount=3
+    currAbil="LINK"
+    textColFill=make_color_rgb(0,255,0)
+    atkType[0]=0
+    atkType[1]=1
+    atkType[2]=4
+  }
+  else if global.activeAbility[0]=2
+  {
+    abilCount=3
+    currAbil="MEGA MAN"
+    textColFill=make_color_rgb(80,170,255)
+    atkType[0]=3
+    atkType[1]=2
+    atkType[2]=5
+  }
+  else if global.activeAbility[0]=3
+  {
+    abilCount=2
+    currAbil="JERRY"
+    atkType[0]=3
+    atkType[1]=5
+  }
+  else if global.activeAbility[0]=4
+  {
+    currAbil="DEFENDER"
+  }
+  else {bDisplay=0}
+}
+else //Claire
+{
+  if global.activeAbility[1]=1
+  {
+    abilCount=3
+    currAbil="BELMONT"
+    textColFill=make_color_rgb(230,200,0)
+    atkType[0]=0
+    atkType[1]=1
+    atkType[2]=2
+  }
+  else if global.activeAbility[1]=2
+  {
+    abilCount=3
+    currAbil="SAMUS"
+    textColFill=make_color_rgb(230,20,20)
+    atkType[0]=3
+    atkType[1]=5
+    atkType[2]=4
+  }
+  else if global.activeAbility[1]=3
+  {
+    abilCount=2
+    currAbil="CLAIRE"
+    atkType[0]=0
+    atkType[1]=1
+  }
+  else if global.activeAbility[1]=4
+  {
+    currAbil="DEFENDER"
+  }
+  else {bDisplay=0}
+}
+if abilCount=2 {xOffset=20}
+else {xOffset=32}
+
+if bDisplay=0 {instance_destroy()}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="ALARM" id="1">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">///RESTART MESSAGES
+//============================== Situational restart messages to the player from the characters ==============================
+//-------------------- Non-Gate --------------------
+if room=rExtGateE_4 and global.rmDeaths=4
+{
+  for(i=0;i&lt;2;i+=1)
+  {
+    for(ii=0;ii&lt;7;ii+=1)
+    {
+      msgCreate(-32+(i*259),-16+(54*ii),"Jerry","Since you've killed me a lot. I figured I'd help your growing death count by doing this!",0,2,oMessagePerson,0)
+      newMessage.fadingTime=160
+    }
+  }
+}
+//-------------------- Gate 1 --------------------
+if room=rMario1_CCc and global.rmDeaths=3
+{
+  messToPlayerChk=string_char_at(global.heartPiece,6)
+  if messToPlayerChk="0"
+  {
+    msgCreate(0,0,"Jerry","Hey bruh, could you... oh I don't know... stop getting us killed over and over for the heart piece.",0,2,oMessagePerson,0)
+    newMessage.fadingTime=160
+  }
+}
+else if room=rExtGateA_2
+{
+  if global.rmDeaths=4
+  {
+    msgCreate(0,0,"Claire","Okay stop, hold on a moment there... Have you any clue about what's at the bottom of that pit?",0,2,oMessagePerson,0)
+    newMessage.fadingTime=150
+  }
+  else if global.rmDeaths=5
+  {
+    msgCreate(0,0,"Claire","I'll give you a clue. It's bottomless.",0,1,oMessagePerson,0)
+    newMessage.fadingTime=120
+  }
+  else if global.rmDeaths=6
+  {
+    msgCreate(0,0,"Claire","Forever falling until you summon me back here to do it again.",0,1,oMessagePerson,0)
+    newMessage.fadingTime=140
+  }
+  else if global.rmDeaths=7
+  {
+    msgCreate(0,0,"Claire","I'm going to cry. Not because you keep making the same mistake, but because every time you fail, I wonder if it's the last attempt you'll make, because... that's when I fall forever.",0,3,oMessagePerson,0)
+    newMessage.fadingTime=230
+  }
+  else if global.rmDeaths=8
+  {
+    msgCreate(0,0,"Claire","There's one good thing about this... you didn't stop.",0,1,oMessagePerson,0)
+    newMessage.fadingTime=130
+  }
+  else if global.rmDeaths=9
+  {
+    msgCreate(0,0,"Claire","Are you doing this on purpose now?",0,1,oMessagePerson,0)
+    newMessage.fadingTime=120
+  }
+  else if global.rmDeaths=10
+  {
+    msgCreate(0,0,"Jerry","I know that in your failing attempts, you could have been playing as me, which would make some of that kinda weird... I was just being lazy. Also this is the last message in this string of deaths. We're done, you can do this, bro.",0,3,oMessagePerson,0)
+    newMessage.fadingTime=270
+  }
+}
+//-------------------- Gate 2 --------------------
+if room=rExtGateB_3 and global.rmDeaths=3
+{
+  msgCreate(0,0,"Jerry","I don't blame you for your deaths here. That said, it would be very appreciated if you'd stop dying to spikes and fireballs... they hurt.",0,2,oMessagePerson,0)
+  newMessage.fadingTime=180
+}
+//-------------------- Gate 3 --------------------
+if room=rBelmont3_1A and global.gameProgress&lt;=1170 and global.rmDeaths=1
+{
+  msgCreate(0,0,"Claire","You getting me killed here is all sorts of sad and special.",0,2,oMessagePerson,0)
+  newMessage.fadingTime=140
+}
+else if room=rBelmont3_2D and global.gameProgress&lt;=1230 and global.rmDeaths=2
+{
+  msgCreate(0,0,"Claire","I'd really really appreciate it if you'd quit running me into axes and Medusa Heads.",0,2,oMessagePerson,0)
+  newMessage.fadingTime=160
+}
+else if room=rBelmont3_3D and global.gameProgress&lt;=1270 and global.rmDeaths=3
+{
+  msgCreate(0,0,"Claire","I get that you're probably getting frustrated, but remember that it's not you that's getting her back repeatedly impaled.",0,2,oMessagePerson,0)
+  newMessage.fadingTime=170
+}
+else if room=rBelmont3_4F and global.gameProgress&lt;=1370 and global.rmDeaths=3
+{
+  msgCreate(0,0,"Claire","I get it. You really like how this map looks and you love throwing me into spikes, ghosts, and fireballs. It's just... can we stop with that now?",0,3,oMessagePerson,0)
+  newMessage.fadingTime=190
+}
+else if room=rBelmont3_5D and global.gameProgress&lt;=1370 and global.rmDeaths=3
+{
+  msgCreate(0,0,"Claire","Dude... or dudette... Those bottomless pits... that... just... NO MORE! I don't want to fall down there anymore!",0,2,oMessagePerson,0)
+  newMessage.fadingTime=230
+}
+else if room=rBelmont3_6E and global.gameProgress&lt;=1460 and global.rmDeaths=3
+{
+  msgCreate(0,0,"Claire","I feel like a pin cushion right now.",0,1,oMessagePerson,0)
+  newMessage.fadingTime=120
+}
+else if room=rExtGateC_3 and global.rmDeaths=3
+{
+  msgCreate(0,0,"Claire","Let me give you a hand with that.",0,1,oMessagePerson,0)
+  newMessage.fadingTime=100
+  deathConvoType=2
+}
+else if room=rExtGateC_4 and global.rmDeaths=3
+{
+  msgCreate(0,0,"Claire","Beyond a shadow of a doubt.",0,1,oMessagePerson,0)
+  newMessage.fadingTime=100
+  deathConvoType=3
+}
+//-------------------- Gate 4 --------------------
+if room=rMega4_IntroC and global.rmDeaths=2
+{
+  msgCreate(0,0,"Jerry","I am the best pancake!",0,1,oMessagePerson,0)
+  newMessage.fadingTime=120
+}
+else if room=rMega4_OstrichD and global.rmDeaths=3
+{
+  msgCreate(0,0,"Jerry","You must really like Macs, because you like crashing a lot.",0,2,oMessagePerson,0)
+  newMessage.fadingTime=140
+  deathConvoType=1
+}
+else if room=rMega4_ToxicJungleC and global.rmDeaths=3
+{
+  msgCreate(0,0,"Jerry","AHHHHHH!! WHYYYYYYY!!",0,1,oMessagePerson,0)
+  newMessage.fadingTime=120
+}
+else if room=rMega4_SigmaA3 and global.rmDeaths=3
+{
+  msgCreate(0,0,"Jerry","Siiiiiiiiiiiiiiiiiiiiiigh. Electric walls...",0,1,oMessagePerson,0)
+  newMessage.fadingTime=110
+}
+else if room=rMega4_SigmaA4 and global.rmDeaths=3
+{
+  msgCreate(0,0,"Jerry","I'm less of a fan of those lasers than you are.",0,1,oMessagePerson,0)
+  newMessage.fadingTime=140
+}
+else if room=rMega4_SigmaB2 and global.rmDeaths=4
+{
+  msgCreate(0,0,"Jerry","Ignore the Game Over messages man, you can do this... I'm only saying this so that maybe it'll encourage you to do better because lasers and electric floors are painful!",0,3,oMessagePerson,0)
+  newMessage.fadingTime=220
+}
+else if room=rExtGateD_4 and global.rmDeaths=3
+{
+  msgCreate(0,0,"Jerry","I like the part where you face slammed me into that... again and again.",0,2,oMessagePerson,0)
+  newMessage.fadingTime=150
+}
+//-------------------- Gate 5 --------------------
+else if room=rExtGateF_4 and global.rmDeaths=3
+{
+  msgCreate(0,0,"Claire","Burning passions... not in the heart, but through the back.",0,1,oMessagePerson,0)
+  newMessage.fadingTime=150
+}
+//-------------------- Gate 6 --------------------
+if room=rGame6_EarthI and global.gameProgress&lt;=3470 and global.rmDeaths=4
+{
+  msgCreate(0,0,"Claire","Spike, pitfall. Spike, pitfall. It never ends.",0,1,oMessagePerson,0)
+  newMessage.fadingTime=140
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

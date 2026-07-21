@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="COLLISION" with="oPlayer1">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/*
+Vault Gate script.
+This will move the player to the Vault.
+*/
+if global.gamePaused=false
+{
+  if global.gameProgress&gt;=2170
+  {
+    if oKeyCodes.kCodePressed[3]=1
+    {
+      resetKeyCodes()
+      global.recAreaTrans+=1
+      global.rmDeaths=0
+      global.newMapX=160
+      global.newMapY=288
+      writeToPlayerGlobals()
+      
+      transition_steps=20
+      transition_kind=21
+      room_goto(rVault_1)
+    }
+  }
+  else //First time going into the Vault
+  {
+    global.gamePaused=true
+    global.gameProgress=2160
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

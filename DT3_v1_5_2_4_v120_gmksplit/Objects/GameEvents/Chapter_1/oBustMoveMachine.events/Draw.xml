@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="DRAW" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">draw_set_alpha(0.4)
+draw_set_color(c_red)
+lineX=x+lengthdir_x(512,image_angle)
+lineY=y-32+lengthdir_y(512,image_angle)
+draw_line(x,y-32,lineX,lineY)
+
+draw_sprite(sprite_index,image_index,x,y)
+draw_sprite_ext(sBustMoveArrow,0,x,y-32,image_xscale,image_yscale,image_angle,image_blend,image_alpha)
+
+if rechargeTime&gt;0 //Recharge bar
+{
+  draw_set_alpha(1)
+  draw_set_color(c_black)
+  draw_rectangle(x-32,y+12,x-32+(rechargeTotal*2),y+17,0)
+  draw_set_color(c_white)
+  draw_rectangle(x-32,y+12,x-32+(rechargeTotal*2),y+17,1)
+  draw_set_color(c_green)
+  draw_rectangle(x-31,y+13,x-31+(rechargeTime*2),y+16,0)
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

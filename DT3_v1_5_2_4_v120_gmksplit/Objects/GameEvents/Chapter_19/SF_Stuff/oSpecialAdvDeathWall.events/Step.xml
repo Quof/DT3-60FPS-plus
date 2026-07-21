@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">//Advance death wall
+if global.gamePaused=false
+{
+  //Variable speed depending on how far off screen the wall is
+  if x&gt;=view_xview[0]-32 {xSpd=2.5}
+  else if x&gt;=view_xview[0]-96 and x&lt;=view_xview[0]-33 {xSpd=6}
+  else if x&gt;=view_xview[0]-240 and x&lt;=view_xview[0]-97 {xSpd=8}
+  else {xSpd=10}
+  
+  x+=xSpd
+  if x+32&gt;=oPlayer1.x
+    oPlayer1.life-=oPlayer1.maxLife
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

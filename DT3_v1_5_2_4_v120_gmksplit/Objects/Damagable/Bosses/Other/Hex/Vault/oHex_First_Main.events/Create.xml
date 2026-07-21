@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="CREATE" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">event_inherited()
+bCanTakeDamage=false
+image_speed=0
+
+//Enemy base statistics
+eName="Hex"
+eLevel=20
+maxLife=10000 //24000 in chains
+life=maxLife
+atkPower=7
+stunResist=50
+bIsBoss=true
+bNoBonus=true
+affiliation=8
+dieEffect=0
+bossProgress=0
+activateBoss=0
+
+//--------------------
+dmgCount=0
+lastPhaseTime=0
+wingFrm=-1
+
+arcShotTime=300
+arcShotDelay=300
+warnFrm=0
+warnScl=2
+
+sliceTime=-80
+sliceDelay=150
+currSlice=0
+maxSlice=2
+
+pullShotTime=0
+pullShotDelay=1000000
+
+superAtkTime=-1
+spcAtkApos=272; spcAtkAMax=14
+spcAtkBpos=624; spcAtkBMax=14
+spcAtkCpos=0; spcAtkCMax=14
+spcAtkDpos=room_height; spcAtkDMax=14
+spcAtkMod=6
+
+spcAtkHCAng=0
+//--------------------
+
+//Misc Data
+xCenter=448
+yGround=304
+roomSpan=240
+
+jeremyText="Hex has me completely blocked as expected. He's gotten a lot better at keeping me at bay. A little too good."
+chaoText="His data strings are too confusing to read. I think he's encrypted his own code. In fact, the whole room is unreadable. He's hiding something..."
+devText="No Dev Commentary at this time."
+
+chains=4
+chain[0]=instance_create(x+10,y+3,oHex_First_Chain)
+chain[1]=instance_create(x-10,y+3,oHex_First_Chain); chain[1].image_xscale=-1
+chain[2]=instance_create(x+5,y-9,oHex_First_Chain); chain[2].sprite_index=sHexChainB
+chain[3]=instance_create(x-5,y-9,oHex_First_Chain); chain[3].sprite_index=sHexChainB; chain[3].image_xscale=-1
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

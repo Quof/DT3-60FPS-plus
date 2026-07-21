@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="COLLISION" with="oFacCleaner">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if instance_exists(myOwner) //Be sure owner exists
+{
+  if other.id=myOwner.id
+  {
+    tEffect=instance_create(x,y,oEffectB)
+    tEffect.type=3; tEffect.sprite_index=sEfCleanBotElec; tEffect.image_alpha=0.75
+    tEffect.image_speed=0.4; tEffect.direction=random(360); tEffect.friction=0.01
+    tEffect.speed=random(1)+1; tEffect.fadeSpd=0.01
+    tEffect.AccelX=0; tEffect.AccelY=0; tEffect.newBlend=-1; tEffect.followID=-1; tEffect.rotation=random_range(-5,5)
+    if myOwner.bRockForm=0
+    {
+      playSound(global.snd_Slam,0,0.85,29000)
+      myOwner.bRockForm=1
+      myOwner.shotTime=0
+      myOwner.life+=180
+      myOwner.sprite_index=sFacCleanerRock
+      myOwner.stunResist=15
+      for(i=0;i&lt;6;i+=1)
+      {
+        myOwner.resType[i]=2
+      }
+      myOwner.resType[0]=1
+      if myOwner.life&gt;myOwner.maxLife {myOwner.life=myOwner.maxLife}
+    }
+    instance_destroy()
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="ALARM" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if type=1 //Quad
+{
+  setCollisionBounds(-18,-32,18,-1)
+  sprite_index=sWS_QuadShooter
+  eName="Warship Spider Shooter"
+  runAcc=5
+}
+else if type=2 //Rocket
+{
+  setCollisionBounds(-7,-24,7,-1)
+  sprite_index=sWS_RocketShooter
+  eName="Warship Rocket Shooter"
+  runAcc=3
+}
+else if type=3 //Spread
+{
+  setCollisionBounds(-11,-42,11,-1)
+  sprite_index=sWS_SpreadShooter
+  eName="Warship Spread Shooter"
+  runAcc=4
+}
+
+if moveType=1
+{
+  image_speed=0
+  image_index=2
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

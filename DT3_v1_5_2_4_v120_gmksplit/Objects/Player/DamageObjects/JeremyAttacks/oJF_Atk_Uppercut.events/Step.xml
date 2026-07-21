@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">event_inherited()
+if global.gamePaused=false
+{
+  x=oPlayer1.x+(5*image_xscale)
+  y=oPlayer1.y-57
+  image_xscale=oPlayer1.image_xscale*myScale
+  image_yscale=1.5
+  image_speed=0.5
+  
+  if image_xscale&gt;0 {image_angle=90}
+  else {image_angle=-90}
+  
+  oPlayer1.xVel=(1.5*oPlayer1.image_xscale)*(decayTime/3)
+  oPlayer1.yVel=-decayTime/1.25
+  
+  decayTime-=1
+  if decayTime=15 {oPlayer1.image_index=1}
+  if decayTime&lt;=0
+  {
+    instance_destroy()
+  }
+}
+else
+  image_speed=0
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

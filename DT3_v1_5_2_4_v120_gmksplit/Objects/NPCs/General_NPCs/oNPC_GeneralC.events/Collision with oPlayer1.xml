@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="COLLISION" with="oPlayer1">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if oKeyCodes.kCodePressed[3]=1 and global.gamePaused=false
+{
+  if oPlayer1.state=oPlayer1.STANDING or oPlayer1.state=oPlayer1.RUNNING or oPlayer1.state=oPlayer1.DUCKING or oPlayer1.state=oPlayer1.LOOKING_UP
+  {
+    global.recPeopleTalkNum+=1
+    with oMessageNPCchat {instance_destroy()}
+    sceneProgress=0
+    scenePChk(oPlayer1.x,oPlayer1.y,0,0.1,1)
+    if oPlayer1.x&lt;=x {oPlayer1.x=x-32; oPlayer1.image_xscale=1}
+    else {oPlayer1.x=x+32; oPlayer1.image_xscale=-1}
+    
+    if sprite_index=sWarmasterA_Idle
+    {
+      if x&lt;=oPlayer1.x {image_xscale=1.25}
+      else {image_xscale=-1.25}
+    }
+    else
+    {
+      if x&lt;=oPlayer1.x {image_xscale=1}
+      else {image_xscale=-1}
+    }
+    bTalking=1
+    global.gamePaused=true
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

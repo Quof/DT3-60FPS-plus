@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="DRAW" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">draw_sprite_ext(sMalevBody,0,xCenter,yGround-68,image_xscale,image_yscale,image_angle,image_blend,image_alpha)
+draw_sprite_ext(sMalevNeck,0,xCenter,yGround-68,image_xscale,image_yscale,image_angle,image_blend,image_alpha)
+//Neck parts
+var tNeckDist,tNeckDir;
+tNeckDist=point_distance(xCenter,yGround-68,x,y+24)
+tNeckDir=point_direction(xCenter,yGround-68,x,y+24)
+for(i=0;i&lt;4;i+=1)
+{
+  draw_sprite_ext(sMalevNeck,0,xCenter+lengthdir_x(tNeckDist*(0.2*(i+1)),tNeckDir),yGround-68+lengthdir_y(tNeckDist*(0.2*(i+1)),tNeckDir),image_xscale,image_yscale,image_angle,image_blend,image_alpha)
+}
+
+draw_sprite_ext(sMalevNeck,0,x,y+24,image_xscale,image_yscale,image_angle,image_blend,image_alpha)
+event_inherited() //Head
+if mouthOpen=1 {draw_sprite_ext(sMalevJaw,0,x,y,image_xscale,image_yscale,image_angle,image_blend,image_alpha)}
+if eyeFrm&gt;=0 {}draw_sprite_ext(sMalevEyes,eyeFrm,x,y-20,image_xscale,image_yscale,image_angle,image_blend,image_alpha)
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

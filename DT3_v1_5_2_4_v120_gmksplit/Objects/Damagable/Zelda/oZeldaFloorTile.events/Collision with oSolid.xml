@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="COLLISION" with="oSolid">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if atkProg=2 and atkTime&gt;5
+{
+  playSound(global.snd_MarioBlockBreak,0,1,1)
+  tEffect=instance_create(x+4,y-4,oEffect)
+  tEffect.sprite_index=sEfMarioBHit; tEffect.decay=10; tEffect.xSpd=1; tEffect.ySpd=-1
+  tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=5
+  tEffect=instance_create(x-4,y-4,oEffect)
+  tEffect.sprite_index=sEfMarioBHit; tEffect.decay=10; tEffect.xSpd=-1; tEffect.ySpd=-1
+  tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=5
+  tEffect=instance_create(x-4,y+4,oEffect)
+  tEffect.sprite_index=sEfMarioBHit; tEffect.decay=10; tEffect.xSpd=-1; tEffect.ySpd=1
+  tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=5
+  tEffect=instance_create(x+4,y+4,oEffect)
+  tEffect.sprite_index=sEfMarioBHit; tEffect.decay=10; tEffect.xSpd=1; tEffect.ySpd=1
+  tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=5
+  instance_destroy()
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

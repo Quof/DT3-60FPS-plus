@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  speed=bulletSpeed
+  if type=0 //Ground
+  {
+    if y&gt;=282 //Shatter
+    {
+      playSound(global.snd_LightballSpread,0,0.92,24000)
+      tNewAttack=instance_create(x,y,oGravPassBullet)
+      tNewAttack.sprite_index=sSeraAtkIceB; tNewAttack.atkPower=atkPower-1
+      tNewAttack.image_speed=0.25; tNewAttack.xVel=-4; tNewAttack.yVel=-4; tNewAttack.damageType="ELEMENTAL"
+      tNewAttack=instance_create(x,y,oGravPassBullet)
+      tNewAttack.sprite_index=sSeraAtkIceB; tNewAttack.atkPower=atkPower-1
+      tNewAttack.image_speed=0.25; tNewAttack.xVel=-3; tNewAttack.yVel=-5.5; tNewAttack.damageType="ELEMENTAL"
+      tNewAttack=instance_create(x,y,oGravPassBullet)
+      tNewAttack.sprite_index=sSeraAtkIceB; tNewAttack.atkPower=atkPower-1
+      tNewAttack.image_speed=0.25; tNewAttack.xVel=3; tNewAttack.yVel=-5.5; tNewAttack.damageType="ELEMENTAL"
+      tNewAttack=instance_create(x,y,oGravPassBullet)
+      tNewAttack.sprite_index=sSeraAtkIceB; tNewAttack.atkPower=atkPower-1
+      tNewAttack.image_speed=0.25; tNewAttack.xVel=4; tNewAttack.yVel=-4; tNewAttack.damageType="ELEMENTAL"
+      
+      tNewAttack=instance_create(x,y,oPassBullet)
+      tNewAttack.sprite_index=sSeraAtkIceB; tNewAttack.atkPower=atkPower-1; tNewAttack.bulletSpeed=6
+      tNewAttack.decayTime=-100; tNewAttack.image_speed=0.25; tNewAttack.direction=90; tNewAttack.damageType="ELEMENTAL"
+      instance_destroy()
+    }
+  }
+  else if type=1 //Ceiling
+  {
+    if y&lt;=70 //Shatter
+    {
+      playSound(global.snd_LightballSpread,0,0.92,28000)
+      var tDir,tNum;
+      if oSera.bossProgress&lt;=2 {tDir=234; tNum=7}
+      else {tDir=222; tNum=9}
+      for(i=0;i&lt;tNum;i+=1)
+      {
+        tNewAttack=instance_create(x,y,oPassBullet)
+        tNewAttack.sprite_index=sSeraAtkIceB; tNewAttack.atkPower=atkPower-1; tNewAttack.bulletSpeed=8
+        tNewAttack.decayTime=-100; tNewAttack.image_speed=0.25; tNewAttack.direction=tDir; tNewAttack.damageType="ELEMENTAL"
+        tDir+=12
+      }
+      instance_destroy()
+    }
+  }
+}
+else {speed=0}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  if sequence=0 //Init
+  {
+    playSound(global.snd_DemonVoice1,0,1,13000)
+    var tEffect;
+    for(i=0;i&lt;60;i+=1)
+    {
+      tEffect=instance_create(oPlayer1.x+random_range(-128,128),1968+random(48),oEffect)
+      tEffect.sprite_index=sZeldaEnemyDie; tEffect.followID=-1; tEffect.image_speed=0.4
+      tEffect.newBlend=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=1+random(3)
+      tEffect.image_xscale=choose(-1,1); tEffect.image_yscale=choose(-1,1)
+      tEffect.image_blend=make_color_rgb(180,180+random(75),180)
+    }
+    oPlayer1.yVelLimit=20
+    yVel=-13
+    sequence+=1
+  }
+  else if sequence=1 //Boost player
+  {
+    tEffect=instance_create(oPlayer1.x+random_range(-3,3),oPlayer1.y-4-random(4),oEffect)
+    tEffect.sprite_index=sZeldaEnemyDie; tEffect.followID=-1; tEffect.image_speed=0.4
+    tEffect.newBlend=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=1+random(3)
+    tEffect.image_xscale=choose(-1,1); tEffect.image_yscale=choose(-1,1)
+    tEffect.image_blend=make_color_rgb(180,180+random(75),180)
+    
+    oPlayer1.yVel=-20
+    seqTime+=1
+    if seqTime&gt;=82
+    {
+      yVel=0
+      y=room_height
+      seqTime=0; sequence+=1
+    }
+  }
+  else if sequence=2 //Check if player misses the right ledge
+  {
+    if oPlayer1.y&gt;=832
+    {
+      x=oPlayer1.x
+      y=oPlayer1.y+336
+      yVel=-2
+      seqTime=0; sequence+=1
+    }
+  }
+  else if sequence=3 //Eat player
+  {
+    jawAng+=6
+    if jawAng&gt;=90
+    {
+      oPlayer1.life-=oPlayer1.maxLife
+    }
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  if mapProg=0
+  {
+    if oPlayer1.x&gt;=944
+    {
+      mapProg=1
+    }
+  }
+  else if mapProg=1
+  {
+    SS_SetSoundFreq(global.msc_MarioWorld,mySoundFreq)
+    mySoundFreq-=100
+    if mySoundFreq&lt;=1500
+    {
+      SS_SetSoundFreq(global.msc_MarioWorld,22050)
+      SS_StopSound(global.msc_MarioWorld)
+      mapProg=2
+    }
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

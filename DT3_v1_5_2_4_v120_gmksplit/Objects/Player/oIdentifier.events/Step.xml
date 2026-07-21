@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gameOver=false and bChaoActive=1
+{
+  event_user(0) //Treasure find
+  
+  if room=rAbomF
+  {
+    willFollowMouse=1
+    fairyAutoRoam=0
+    
+    if chaoGraze&gt;0 and global.gamePaused=0
+    {
+      if degradeDelay=0
+      {
+        chaoGraze-=3
+        if chaoGraze&lt;0 {chaoGraze=0}
+      }
+      else {degradeDelay-=1}
+    }
+    grazePercent=chaoGraze/chaoGrazeMax
+  }
+  //-------------------- Movement --------------------
+  if fairyAutoRoam=false //Chao tracks mouse
+  {
+    if willFollowMouse=1
+    {
+      if room=rAbomF //Virus Parasite
+      {
+        if global.gamePaused=0
+        {
+          if point_distance(x,y,mouse_x,mouse_y)&lt;=32
+          {
+            dotPointer=0
+            x=mouse_x; y=mouse_y
+            speed=0
+          }
+          else
+          {
+            dotPointer=1
+            direction=point_direction(x,y,mouse_x,mouse_y)
+            speed=32
+          }
+        }
+        else
+        {
+          dotPointer=1
+          speed=0
+        }
+      }
+      else
+      {
+        x=mouse_x; y=mouse_y
+      }
+    }
+  }
+  else if fairyAutoRoam=true and global.optChaoRoam=1 //Chao on automove
+  {
+    if global.gameProgress&lt;=2150 and global.gameProgress&gt;=2250 //If Jerry is not unconscious in the Vault
+    {
+      if global.optChaoAttack=1 //Tell Chao to go to nearest enemy to her
+      {
+        if instance_exists(oEnemyBase)
+        {
+          followTarget=instance_nearest(x,y,oEnemyBase)
+        }
+      }
+      else if global.optChaoAttack=2 //Tell Chao to go to nearest enemy to player
+      {
+        if instance_exists(oEnemyBase)
+        {
+          followTarget=instance_nearest(oPlayer1.x,returnPlayerYCenter(),oEnemyBase)
+        }
+      }
+    }
+    
+    if followTarget!=oPlayer1
+    {
+      if !instance_exists(followTarget) {followTarget=oPlayer1}
+    }
+    tgtOffsetX=0; tgtOffsetY=0
+    
+    if followTarget=oPlayer1
+    {
+      tgtOffsetY=-26
+      if oPlayer1.xVel!=0
+      {
+        tgtOffsetX=128*oPlayer1.image_xscale
+        myDist=point_distance(x,y,followTarget.x+tgtOffsetX,followTarget.y)
+      }
+      else {myDist=point_distance(x,y,followTarget.x,followTarget.y)}
+    }
+    else {myDist=point_distance(x,y,followTarget.x,followTarget.y)}
+    
+    myDist=round(myDist/32)
+    if myDist&gt;12 {myDist=12}
+    if global.optChaoAttack=0
+    {
+      if myDist&lt;2 {myDist=2}
+    }
+    else
+    {
+      if myDist&lt;2.5 {myDist=2.5}
+    }
+    maxSpeed=myDist
+    
+    if x&gt;followTarget.x+tgtOffsetX
+    {
+      if hspeed&gt;-maxSpeed {hspeed-=0.1}
+      else {hspeed=-maxSpeed}
+    }
+    else if x&lt;followTarget.x+tgtOffsetX
+    {
+      if hspeed&lt;maxSpeed {hspeed+=0.1}
+      else {hspeed=maxSpeed}
+    }
+    if y&gt;followTarget.y+tgtOffsetY
+    {
+      if vspeed&gt;-maxSpeed {vspeed-=0.1}
+      else {vspeed=-maxSpeed}
+    }
+    else if y&lt;followTarget.y+tgtOffsetY
+    {
+      if vspeed&lt;maxSpeed {vspeed+=0.1}
+      else {vspeed=maxSpeed}
+    }
+  }
+  else {hspeed=0; vspeed=0}
+  
+  if global.gamePaused=false
+  {
+    effectTime+=1
+    if effectTime=effectDelay
+    {
+      var tFFScl,tEffect;
+      tFFScl=random(0.1)
+      tEffect=instance_create(x,y,oEffectB)
+      tEffect.type=3; tEffect.sprite_index=sEfFirefly; tEffect.newBlend=1
+      tEffect.image_alpha=0.3; tEffect.image_xscale=0.15+tFFScl; tEffect.image_yscale=0.15+tFFScl
+      tEffect.direction=random(360); tEffect.speed=random(0.5)+0.5; tEffect.friction=random(0.01)+0.01
+      tEffect.fadeSpd=0.005; tEffect.image_blend=make_color_rgb(random(50),255,random(50))
+      tEffect.AccelX=0; tEffect.AccelY=0; tEffect.followID=-1; tEffect.rotation=0
+      effectTime=0
+    }
+  }
+  
+  if willFollowMouse=1 //Check if the mouse has been moved
+  {
+    mouseWindowX2=display_mouse_get_x()
+    mouseWindowY2=display_mouse_get_y()
+    if mouseWindowX1!=mouseWindowX2
+    {
+      mouseWindowX1=mouseWindowX2
+      autoMoveDelay=0
+      if fairyAutoRoam=true
+      {
+        //display_mouse_set(x,y)
+        fairyAutoRoam=false
+      }
+    }
+    if mouseWindowY1!=mouseWindowY2
+    {
+      mouseWindowY1=mouseWindowY2
+      autoMoveDelay=0
+      if fairyAutoRoam=true
+      {
+        //display_mouse_set(x,y)
+        fairyAutoRoam=false
+      }
+    }
+  }
+  if autoMoveDelay&lt;60 //Keep Chao from moving if the mouse is used by the player
+  {
+    if room!=rAbomF {hspeed=0; vspeed=0}
+    if global.optChaoRoam=1 {autoMoveDelay+=1}
+    if autoMoveDelay=60 {fairyAutoRoam=true}
+  }
+  
+  if heartEmote&lt;100 //When the player loses enough times in one map and then transitions to a new one
+  {
+    heartEmote+=1
+    if heartEmote&gt;=35
+    {
+      showEmote(oIdentifier,0,-6,sEmLove)
+      heartEmote=100
+    }
+  }
+  
+  if chaoEndAssisted&gt;0 //When Chao assists the player during the Warship escape sequence
+  {
+    chaoEndAssisted+=1
+    if chaoEndAssisted mod 2=0
+    {
+      if chaoLightAssistAlpha=0.25 {chaoLightAssistAlpha=0.75}
+      else {chaoLightAssistAlpha=0.25}
+    }
+    if chaoEndAssisted&gt;=145
+    {
+      chaoLightAssistAlpha=0.25
+      chaoEndAssisted=0
+    }
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="CREATE" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">//----- Gate 2: Hyrule -----
+event_inherited()
+enemyCount=-1
+fadeColor=c_white
+if global.gameProgress=1150
+  fadeAlpha=1
+else
+  fadeAlpha=0
+
+if global.gameProgress=1270 and room=rBelmont3_3D
+{
+  bWallSpawn=0
+}
+
+if room=rBelmont3_4F //Achievement
+{
+  if global.newMapX=48 {myAchProg=0}
+  else {myAchProg=100}
+}
+
+if room=rBelmont3_4E or room=rBelmont3_4G or room=rBelmont3_4H or room=rBelmont3_6E
+{
+  gameProgCheck=string_char_at(global.gameGate3Prog,1)
+  if room=rBelmont3_6E
+  {
+    if gameProgCheck="0" or gameProgCheck="1" or gameProgCheck="2"
+    {
+      gameProgCheck="3"
+      var tNewString;
+      tNewString=string_delete(global.gameGate3Prog,1,1)
+      tNewString=string_insert("3",tNewString,1)
+      global.gameGate3Prog=tNewString
+    }
+  }
+}
+if room=rBelmont3_4C or room=rBelmont3_4I or room=rBelmont3_6A or room=rBelmont3_6F
+{
+  gameProgCheck=string_char_at(global.gameGate3Prog,2)
+  if room=rBelmont3_6A or room=rBelmont3_6F
+  {
+    if gameProgCheck="0" or gameProgCheck="1"
+    {
+      gameProgCheck="2"
+      var tNewString;
+      tNewString=string_delete(global.gameGate3Prog,2,1)
+      tNewString=string_insert("2",tNewString,2)
+      global.gameGate3Prog=tNewString
+    }
+  }
+  
+  if room=rBelmont3_6A
+  {
+    if gameProgCheck="3"
+    {
+      gameProgCheck="4"
+      var tNewString;
+      tNewString=string_delete(global.gameGate3Prog,2,1)
+      tNewString=string_insert("4",tNewString,2)
+      global.gameGate3Prog=tNewString
+    }
+  }
+  else if room=rBelmont3_6F
+  {
+    var i;
+    for(i=182816;i&lt;182826;i+=1)
+    {
+      (i).y-=1024
+    }
+  }
+}
+
+backGBlend=0
+if global.bossTrack=1 and room=rBelmont3_6C //Menace background
+{
+  backFol=instance_create(0,0,oBackgroundFollow)
+  backFol.type=0
+  backFol.backSet=backCV_Menace
+  backFol.wSize=480
+  backFol.hSize=352
+  backCChg=255
+  backCTime=0
+  backGBlend=1
+}
+
+if room=rBelmont3_7C
+{
+  if global.gameProgress&lt;=1490
+  {
+    (184752).y-=1024
+  }
+}
+if room=rBelmont3_7G
+{
+  transWidth=0
+  transAlpha=0.5
+  musicCheck=0
+  circleRad=0
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

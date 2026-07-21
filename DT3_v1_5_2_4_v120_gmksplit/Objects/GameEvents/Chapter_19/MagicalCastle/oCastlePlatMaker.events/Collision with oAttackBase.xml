@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="COLLISION" with="oAttackBase">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if platDelay=0
+{
+  var tPlat;
+  tPlat=instance_create(x,y,oMCastle_PlatB)
+  if image_angle=0 {tPlat.xVel=2; tPlat.yVel=0}
+  else if image_angle=90 {tPlat.xVel=0; tPlat.yVel=-2}
+  else if image_angle=180 {tPlat.xVel=-2; tPlat.yVel=0}
+  else if image_angle=270 {tPlat.xVel=0; tPlat.yVel=2}
+  platDelay=90
+  if other.bCanPierce=0
+  {
+    with other {instance_destroy()}
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

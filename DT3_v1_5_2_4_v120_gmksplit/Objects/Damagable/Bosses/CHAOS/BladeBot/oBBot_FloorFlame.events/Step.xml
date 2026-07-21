@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  decayTime-=1
+  if decayTime=128
+  {
+    if room=rLowFacG
+    {
+      if type=1 //Spawn to right
+      {
+        var tFloorFlame;
+        tFloorFlame=instance_create(x+18,oBladeBot.yGround,oBBot_FloorFlame)
+        tFloorFlame.atkPower=atkPower
+        if x&gt;=oBladeBot.xCenter+oBladeBot.roomSpan-8 {tFloorFlame.type=0}
+        else {tFloorFlame.type=1}
+      }
+      else if type=2 //Spawn to left
+      {
+        var tFloorFlame;
+        tFloorFlame=instance_create(x-18,oBladeBot.yGround,oBBot_FloorFlame)
+        tFloorFlame.atkPower=atkPower
+        if x&lt;=oBladeBot.xCenter-oBladeBot.roomSpan+8 {tFloorFlame.type=0}
+        else {tFloorFlame.type=2}
+      }
+    }
+    else if room=rLowFacR
+    {
+      if type=1 //Spawn to right
+      {
+        var tFloorFlame;
+        tFloorFlame=instance_create(x+18,oCACA_Main.yGround,oBBot_FloorFlame)
+        tFloorFlame.atkPower=atkPower
+        if x&gt;=oCACA_Main.xCenter+oCACA_Main.roomSpan-8 {tFloorFlame.type=0}
+        else {tFloorFlame.type=1}
+      }
+      else if type=2 //Spawn to left
+      {
+        var tFloorFlame;
+        tFloorFlame=instance_create(x-18,oCACA_Main.yGround,oBBot_FloorFlame)
+        tFloorFlame.atkPower=atkPower
+        if x&lt;=oCACA_Main.xCenter-oCACA_Main.roomSpan+8 {tFloorFlame.type=0}
+        else {tFloorFlame.type=2}
+      }
+    }
+  }
+  else if decayTime&lt;=0 {instance_destroy()}
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

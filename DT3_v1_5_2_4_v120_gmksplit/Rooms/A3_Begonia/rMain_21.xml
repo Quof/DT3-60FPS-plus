@@ -1,0 +1,3478 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<room id="255">
+  <caption>[21] Dividing your health bar in half is more like it.</caption>
+  <size height="352" width="2048"/>
+  <grid>
+    <isometric>false</isometric>
+    <snap x="16" y="16"/>
+  </grid>
+  <speed>30</speed>
+  <persistent>false</persistent>
+  <creationCode>locationCheck(21)
+
+gameScene=instance_create(0,0,oEvCh7MainA)
+
+backGrad=instance_create(0,0,oCh7GradientBack)
+backGrad.type=1
+backGrad.colorTop=make_color_rgb(118,225,0)
+backGrad.yStart=322
+
+if global.bossTrack=101 //Encounter: Blood Tyrant
+{
+  var tempMplay;
+  tempMplay=findMusic(809)
+  
+  instance_create(0,0,oScreenColorOverlay)
+  oScreenColorOverlay.image_blend=c_red
+  oScreenColorOverlay.image_alpha=0.2
+  var enemyBarrier;
+  enemyBarrier=instance_create(1136,0,oEnemyBarrier); enemyBarrier.image_yscale=16
+  enemyBarrier=instance_create(1536,0,oEnemyBarrier); enemyBarrier.image_yscale=16
+  var enemyCounter;
+  enemyCounter=instance_create(0,0,oEnemyRemain)
+  enemyCounter.enemyCount=1
+  createEnemy(1232,288,oBloodTyrant,2,0,1)
+  oPlayer1.x=1456; oPlayer1.y=288
+  storeStatus(1)
+}
+else
+{
+  var tempMplay;
+  tempMplay=findMusic(7)
+}
+playMusic(tempMplay,0,0)</creationCode>
+  <backgroundColor>27B5EA</backgroundColor>
+  <drawBackgroundColor>true</drawBackgroundColor>
+  <clearViewBackground>false</clearViewBackground>
+  <backgrounds>
+    <backgroundDef>
+      <visibleOnRoomStart>true</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage>backBegoniaE</backgroundImage>
+      <offset x="0" y="164"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>false</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+  </backgrounds>
+  <enableViews>true</enableViews>
+  <views>
+    <view>
+      <visibleOnRoomStart>true</visibleOnRoomStart>
+      <viewInRoom height="352" width="480" x="0" y="0"/>
+      <portOnScreen height="352" width="480" x="0" y="0"/>
+      <objectFollowing hBorder="240" hSpeed="-1" vBorder="176" vSpeed="-1">oPlayer1</objectFollowing>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+  </views>
+  <instances>
+    <instance id="201402">
+      <object>oExit</object>
+      <position x="2008" y="256"/>
+      <creationCode>bShowArrow=true
+exitType=0
+newMapX=32
+newMapY=544
+toRoom=rMain_20
+colorChange=1</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="201624">
+      <object>oExit</object>
+      <position x="24" y="256"/>
+      <creationCode>bShowArrow=true
+exitType=0
+newMapX=2016
+newMapY=192
+toRoom=rMain_22
+colorChange=1</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="216435">
+      <object>oDiveBird</object>
+      <position x="1904" y="128"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="216436">
+      <object>oDiveBird</object>
+      <position x="1920" y="128"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="216437">
+      <object>oDiveBird</object>
+      <position x="1936" y="128"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="216438">
+      <object>oDiveBird</object>
+      <position x="1912" y="128"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="216439">
+      <object>oDiveBird</object>
+      <position x="1928" y="128"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="238165">
+      <object>oAPBoost</object>
+      <position x="1920" y="96"/>
+      <creationCode>objectNum=11</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="365400">
+      <object>oMarioCoin</object>
+      <position x="480" y="176"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="365401">
+      <object>oMarioCoin</object>
+      <position x="496" y="176"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="365402">
+      <object>oMarioCoin</object>
+      <position x="512" y="176"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="365403">
+      <object>oMarioCoin</object>
+      <position x="656" y="208"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="365404">
+      <object>oMarioCoin</object>
+      <position x="672" y="208"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="365405">
+      <object>oMarioCoin</object>
+      <position x="688" y="208"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201526">
+      <object>oMarioSpikeFloor</object>
+      <position x="352" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201527">
+      <object>oMarioSpikeFloor</object>
+      <position x="368" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201528">
+      <object>oMarioSpikeFloor</object>
+      <position x="384" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201529">
+      <object>oMarioSpikeFloor</object>
+      <position x="400" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201530">
+      <object>oMarioSpikeFloor</object>
+      <position x="416" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201531">
+      <object>oMarioSpikeFloor</object>
+      <position x="432" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201532">
+      <object>oMarioSpikeFloor</object>
+      <position x="448" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201533">
+      <object>oMarioSpikeFloor</object>
+      <position x="464" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201534">
+      <object>oMarioSpikeFloor</object>
+      <position x="480" y="304"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201535">
+      <object>oMarioSpikeFloor</object>
+      <position x="496" y="304"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201536">
+      <object>oMarioSpikeFloor</object>
+      <position x="512" y="304"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201537">
+      <object>oMarioSpikeFloor</object>
+      <position x="528" y="304"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201538">
+      <object>oMarioSpikeFloor</object>
+      <position x="544" y="304"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201539">
+      <object>oMarioSpikeFloor</object>
+      <position x="560" y="304"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201540">
+      <object>oMarioSpikeFloor</object>
+      <position x="576" y="304"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201541">
+      <object>oMarioSpikeFloor</object>
+      <position x="592" y="304"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201542">
+      <object>oMarioSpikeFloor</object>
+      <position x="608" y="304"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201543">
+      <object>oMarioSpikeFloor</object>
+      <position x="624" y="304"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201544">
+      <object>oMarioSpikeFloor</object>
+      <position x="640" y="304"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201545">
+      <object>oMarioSpikeFloor</object>
+      <position x="656" y="304"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201546">
+      <object>oMarioSpikeFloor</object>
+      <position x="672" y="304"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201547">
+      <object>oMarioSpikeFloor</object>
+      <position x="688" y="304"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201548">
+      <object>oMarioSpikeFloor</object>
+      <position x="704" y="304"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201549">
+      <object>oMarioSpikeFloor</object>
+      <position x="720" y="304"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201550">
+      <object>oMarioSpikeL</object>
+      <position x="480" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201621">
+      <object>oMarioSpikeR</object>
+      <position x="720" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201608">
+      <object>oWB_Crab</object>
+      <position x="816" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201609">
+      <object>oWB_Crab</object>
+      <position x="1344" y="288"/>
+      <creationCode>if global.CHAOS_Invasion=1 {instance_destroy()}
+if global.gameProgress&lt;=1580 {instance_destroy()}</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="201611">
+      <object>oWB_BigBat</object>
+      <position x="1520" y="112"/>
+      <creationCode>if global.CHAOS_Invasion=1 {instance_destroy()}
+if global.gameProgress&lt;=1580 {instance_destroy()}</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="201612">
+      <object>oWB_BigBat</object>
+      <position x="592" y="112"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201613">
+      <object>oWB_Monkey</object>
+      <position x="288" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="360846">
+      <object>oBloodTyrant</object>
+      <position x="1312" y="288"/>
+      <creationCode>if global.CHAOS_Invasion=0 {instance_destroy()}</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="201401">
+      <object>oPlayer1</object>
+      <position x="1984" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201412">
+      <object>oInvCollPH</object>
+      <position x="1984" y="208"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201413">
+      <object>oInvCollPH</object>
+      <position x="2000" y="208"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201414">
+      <object>oInvCollPH</object>
+      <position x="2016" y="208"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201415">
+      <object>oInvCollPH</object>
+      <position x="2032" y="208"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201416">
+      <object>oInvCollPH</object>
+      <position x="1936" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201417">
+      <object>oInvCollPH</object>
+      <position x="1936" y="176"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201418">
+      <object>oInvCollPH</object>
+      <position x="1952" y="176"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201419">
+      <object>oInvCollPH</object>
+      <position x="1968" y="176"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201420">
+      <object>oInvCollPH</object>
+      <position x="1920" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201421">
+      <object>oInvCollPH</object>
+      <position x="1920" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201422">
+      <object>oInvCollPH</object>
+      <position x="1856" y="16"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201423">
+      <object>oInvCollPH</object>
+      <position x="1872" y="16"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201424">
+      <object>oInvCollPH</object>
+      <position x="1888" y="16"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201425">
+      <object>oInvCollPH</object>
+      <position x="1904" y="16"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201426">
+      <object>oInvCollPH</object>
+      <position x="1792" y="16"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201427">
+      <object>oInvCollPH</object>
+      <position x="1808" y="16"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201428">
+      <object>oInvCollPH</object>
+      <position x="1824" y="16"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201429">
+      <object>oInvCollPH</object>
+      <position x="1840" y="16"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201430">
+      <object>oInvCollPH</object>
+      <position x="1728" y="16"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201431">
+      <object>oInvCollPH</object>
+      <position x="1744" y="16"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201432">
+      <object>oInvCollPH</object>
+      <position x="1760" y="16"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201433">
+      <object>oInvCollPH</object>
+      <position x="1776" y="16"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201434">
+      <object>oInvCollPH</object>
+      <position x="1952" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201435">
+      <object>oInvCollPH</object>
+      <position x="1968" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201436">
+      <object>oInvCollPH</object>
+      <position x="1984" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201437">
+      <object>oInvCollPH</object>
+      <position x="2000" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201438">
+      <object>oInvCollPH</object>
+      <position x="2016" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201439">
+      <object>oInvCollPH</object>
+      <position x="2032" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201440">
+      <object>oInvCollPH</object>
+      <position x="1808" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201441">
+      <object>oInvCollPH</object>
+      <position x="1824" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201442">
+      <object>oInvCollPH</object>
+      <position x="1840" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201443">
+      <object>oInvCollPH</object>
+      <position x="1856" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201444">
+      <object>oInvCollPH</object>
+      <position x="1872" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201445">
+      <object>oInvCollPH</object>
+      <position x="1888" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201446">
+      <object>oInvCollPH</object>
+      <position x="1904" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201447">
+      <object>oInvCollPH</object>
+      <position x="1920" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201448">
+      <object>oInvCollPH</object>
+      <position x="1936" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201474">
+      <object>oInvCollPH</object>
+      <position x="1792" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201475">
+      <object>oInvCollPH</object>
+      <position x="1776" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201476">
+      <object>oInvCollPH</object>
+      <position x="1776" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201477">
+      <object>oInvCollPH</object>
+      <position x="1760" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201478">
+      <object>oInvCollPH</object>
+      <position x="1744" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201479">
+      <object>oInvCollPH</object>
+      <position x="1728" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201480">
+      <object>oInvCollPH</object>
+      <position x="1712" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201481">
+      <object>oInvCollPH</object>
+      <position x="1696" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201482">
+      <object>oInvCollPH</object>
+      <position x="1680" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201483">
+      <object>oInvCollPH</object>
+      <position x="1664" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201484">
+      <object>oInvCollPH</object>
+      <position x="1648" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201485">
+      <object>oInvCollPH</object>
+      <position x="1632" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201486">
+      <object>oInvCollPH</object>
+      <position x="1616" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201487">
+      <object>oInvCollPH</object>
+      <position x="1600" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201488">
+      <object>oInvCollPH</object>
+      <position x="1584" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201489">
+      <object>oInvCollPH</object>
+      <position x="1568" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201490">
+      <object>oInvCollPH</object>
+      <position x="1552" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201491">
+      <object>oInvCollPH</object>
+      <position x="1520" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201492">
+      <object>oInvCollPH</object>
+      <position x="1536" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201493">
+      <object>oInvCollPH</object>
+      <position x="1040" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201494">
+      <object>oInvCollPH</object>
+      <position x="1056" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201495">
+      <object>oInvCollPH</object>
+      <position x="1072" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201496">
+      <object>oInvCollPH</object>
+      <position x="1088" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201497">
+      <object>oInvCollPH</object>
+      <position x="1104" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201498">
+      <object>oInvCollPH</object>
+      <position x="1120" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201499">
+      <object>oInvCollPH</object>
+      <position x="1136" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201500">
+      <object>oInvCollPH</object>
+      <position x="1136" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201501">
+      <object>oInvCollPH</object>
+      <position x="928" y="208"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201502">
+      <object>oInvCollPH</object>
+      <position x="944" y="192"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201503">
+      <object>oInvCollPH</object>
+      <position x="960" y="192"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201504">
+      <object>oInvCollPH</object>
+      <position x="976" y="192"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201505">
+      <object>oInvCollPH</object>
+      <position x="992" y="192"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201506">
+      <object>oInvCollPH</object>
+      <position x="1008" y="192"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201507">
+      <object>oInvCollPH</object>
+      <position x="1008" y="208"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201508">
+      <object>oInvCollPH</object>
+      <position x="912" y="224"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201509">
+      <object>oInvCollPH</object>
+      <position x="896" y="240"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201510">
+      <object>oInvCollPH</object>
+      <position x="896" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201511">
+      <object>oInvCollPH</object>
+      <position x="896" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201512">
+      <object>oInvCollPH</object>
+      <position x="1008" y="224"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201513">
+      <object>oInvCollPH</object>
+      <position x="1008" y="240"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201514">
+      <object>oInvCollPH</object>
+      <position x="1152" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201515">
+      <object>oInvCollPH</object>
+      <position x="1168" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201516">
+      <object>oInvCollPH</object>
+      <position x="880" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201517">
+      <object>oInvCollPH</object>
+      <position x="864" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201518">
+      <object>oInvCollPH</object>
+      <position x="848" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201519">
+      <object>oInvCollPH</object>
+      <position x="832" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201520">
+      <object>oInvCollPH</object>
+      <position x="816" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201521">
+      <object>oInvCollPH</object>
+      <position x="800" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201522">
+      <object>oInvCollPH</object>
+      <position x="784" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201523">
+      <object>oInvCollPH</object>
+      <position x="768" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201524">
+      <object>oInvCollPH</object>
+      <position x="752" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201557">
+      <object>oInvCollPH</object>
+      <position x="672" y="240"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201558">
+      <object>oInvCollPH</object>
+      <position x="688" y="240"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201559">
+      <object>oInvCollPH</object>
+      <position x="496" y="208"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201560">
+      <object>oInvCollPH</object>
+      <position x="512" y="208"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201561">
+      <object>oInvCollPH</object>
+      <position x="496" y="320"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201562">
+      <object>oInvCollPH</object>
+      <position x="512" y="320"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201563">
+      <object>oInvCollPH</object>
+      <position x="528" y="320"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201564">
+      <object>oInvCollPH</object>
+      <position x="544" y="320"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201565">
+      <object>oInvCollPH</object>
+      <position x="560" y="320"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201566">
+      <object>oInvCollPH</object>
+      <position x="576" y="320"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201567">
+      <object>oInvCollPH</object>
+      <position x="592" y="320"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201568">
+      <object>oInvCollPH</object>
+      <position x="608" y="320"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201569">
+      <object>oInvCollPH</object>
+      <position x="624" y="320"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201570">
+      <object>oInvCollPH</object>
+      <position x="640" y="320"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201571">
+      <object>oInvCollPH</object>
+      <position x="656" y="320"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201572">
+      <object>oInvCollPH</object>
+      <position x="672" y="320"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201573">
+      <object>oInvCollPH</object>
+      <position x="688" y="320"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201574">
+      <object>oInvCollPH</object>
+      <position x="704" y="320"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201575">
+      <object>oInvCollPH</object>
+      <position x="720" y="320"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201576">
+      <object>oInvCollPH</object>
+      <position x="160" y="240"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201577">
+      <object>oInvCollPH</object>
+      <position x="160" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201578">
+      <object>oInvCollPH</object>
+      <position x="160" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201579">
+      <object>oInvCollPH</object>
+      <position x="176" y="224"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201580">
+      <object>oInvCollPH</object>
+      <position x="176" y="240"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201581">
+      <object>oInvCollPH</object>
+      <position x="208" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201582">
+      <object>oInvCollPH</object>
+      <position x="224" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201583">
+      <object>oInvCollPH</object>
+      <position x="240" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201584">
+      <object>oInvCollPH</object>
+      <position x="256" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201585">
+      <object>oInvCollPH</object>
+      <position x="272" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201586">
+      <object>oInvCollPH</object>
+      <position x="288" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201587">
+      <object>oInvCollPH</object>
+      <position x="304" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201588">
+      <object>oInvCollPH</object>
+      <position x="320" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201589">
+      <object>oInvCollPH</object>
+      <position x="336" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201590">
+      <object>oInvCollPH</object>
+      <position x="336" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201591">
+      <object>oInvCollPH</object>
+      <position x="464" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201592">
+      <object>oInvCollPH</object>
+      <position x="448" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201593">
+      <object>oInvCollPH</object>
+      <position x="432" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201594">
+      <object>oInvCollPH</object>
+      <position x="416" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201595">
+      <object>oInvCollPH</object>
+      <position x="400" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201596">
+      <object>oInvCollPH</object>
+      <position x="384" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201597">
+      <object>oInvCollPH</object>
+      <position x="368" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201598">
+      <object>oInvCollPH</object>
+      <position x="352" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201599">
+      <object>oInvCollPH</object>
+      <position x="16" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201600">
+      <object>oInvCollPH</object>
+      <position x="32" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201601">
+      <object>oInvCollPH</object>
+      <position x="48" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201602">
+      <object>oInvCollPH</object>
+      <position x="64" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201603">
+      <object>oInvCollPH</object>
+      <position x="80" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201604">
+      <object>oInvCollPH</object>
+      <position x="96" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201605">
+      <object>oInvCollPH</object>
+      <position x="112" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201606">
+      <object>oInvCollPH</object>
+      <position x="128" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201607">
+      <object>oInvCollPH</object>
+      <position x="144" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201618">
+      <object>oInvCollPH</object>
+      <position x="1104" y="128"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201619">
+      <object>oInvCollPH</object>
+      <position x="1712" y="192"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201620">
+      <object>oInvCollPH</object>
+      <position x="1568" y="144"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="216415">
+      <object>oInvCollPH</object>
+      <position x="1952" y="80"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="216416">
+      <object>oInvCollPH</object>
+      <position x="1952" y="96"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="216417">
+      <object>oInvCollPH</object>
+      <position x="1952" y="112"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="216418">
+      <object>oInvCollPH</object>
+      <position x="1904" y="128"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="216419">
+      <object>oInvCollPH</object>
+      <position x="1920" y="128"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="216420">
+      <object>oInvCollPH</object>
+      <position x="1936" y="128"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="216421">
+      <object>oInvCollPH</object>
+      <position x="1920" y="176"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="216422">
+      <object>oInvCollPH</object>
+      <position x="1904" y="176"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="216423">
+      <object>oInvCollPH</object>
+      <position x="1888" y="176"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="216424">
+      <object>oInvCollPH</object>
+      <position x="1888" y="160"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="216425">
+      <object>oInvCollPH</object>
+      <position x="1840" y="96"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="216426">
+      <object>oInvCollPH</object>
+      <position x="1856" y="96"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="216427">
+      <object>oInvCollPH</object>
+      <position x="1872" y="96"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="216428">
+      <object>oInvCollPH</object>
+      <position x="1872" y="112"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="216429">
+      <object>oInvCollPH</object>
+      <position x="1824" y="112"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="216430">
+      <object>oInvCollPH</object>
+      <position x="1824" y="128"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="216431">
+      <object>oInvCollPH</object>
+      <position x="1824" y="144"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="216432">
+      <object>oInvCollPH</object>
+      <position x="1840" y="144"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="216433">
+      <object>oInvCollPH</object>
+      <position x="1856" y="144"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="216434">
+      <object>oInvCollPH</object>
+      <position x="1872" y="144"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201455">
+      <object>oInvCollSH</object>
+      <position x="1200" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201456">
+      <object>oInvCollSH</object>
+      <position x="1216" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201457">
+      <object>oInvCollSH</object>
+      <position x="1232" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201458">
+      <object>oInvCollSH</object>
+      <position x="1248" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201459">
+      <object>oInvCollSH</object>
+      <position x="1264" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201460">
+      <object>oInvCollSH</object>
+      <position x="1280" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201461">
+      <object>oInvCollSH</object>
+      <position x="1296" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201462">
+      <object>oInvCollSH</object>
+      <position x="1312" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201463">
+      <object>oInvCollSH</object>
+      <position x="1328" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201464">
+      <object>oInvCollSH</object>
+      <position x="1344" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201465">
+      <object>oInvCollSH</object>
+      <position x="1360" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201466">
+      <object>oInvCollSH</object>
+      <position x="1376" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201467">
+      <object>oInvCollSH</object>
+      <position x="1392" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201468">
+      <object>oInvCollSH</object>
+      <position x="1408" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201469">
+      <object>oInvCollSH</object>
+      <position x="1424" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201470">
+      <object>oInvCollSH</object>
+      <position x="1440" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201471">
+      <object>oInvCollSH</object>
+      <position x="1456" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201472">
+      <object>oInvCollSH</object>
+      <position x="1472" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201473">
+      <object>oInvCollSH</object>
+      <position x="1488" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="201405">
+      <object>oInvisibleSolid</object>
+      <position x="1984" y="192"/>
+      <creationCode>image_xscale=4
+image_yscale=2</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="201406">
+      <object>oInvisibleSolid</object>
+      <position x="1952" y="64"/>
+      <creationCode>image_xscale=6
+image_yscale=8</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="201407">
+      <object>oInvisibleSolid</object>
+      <position x="1888" y="128"/>
+      <creationCode>image_xscale=4
+image_yscale=4</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="201408">
+      <object>oInvisibleSolid</object>
+      <position x="1824" y="96"/>
+      <creationCode>image_xscale=4
+image_yscale=4</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="201409">
+      <object>oInvisibleSolid</object>
+      <position x="1920" y="0"/>
+      <creationCode>image_xscale=8
+image_yscale=4</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="201410">
+      <object>oInvisibleSolid</object>
+      <position x="1728" y="0"/>
+      <creationCode>image_xscale=12
+image_yscale=2</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="201411">
+      <object>oInvisibleSolid</object>
+      <position x="1504" y="288"/>
+      <creationCode>image_xscale=34
+image_yscale=4</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="201449">
+      <object>oInvisibleSolid</object>
+      <position x="1536" y="256"/>
+      <creationCode>image_xscale=16
+image_yscale=2</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="201450">
+      <object>oInvisibleSolid</object>
+      <position x="736" y="288"/>
+      <creationCode>image_xscale=28
+image_yscale=4</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="201451">
+      <object>oInvisibleSolid</object>
+      <position x="928" y="192"/>
+      <creationCode>image_xscale=6
+image_yscale=2</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="201452">
+      <object>oInvisibleSolid</object>
+      <position x="896" y="224"/>
+      <creationCode>image_xscale=8
+image_yscale=4</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="201453">
+      <object>oInvisibleSolid</object>
+      <position x="1024" y="256"/>
+      <creationCode>image_xscale=8
+image_yscale=2</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="201454">
+      <object>oInvisibleSlimSolid</object>
+      <position x="1184" y="288"/>
+      <creationCode>image_xscale=20</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="201551">
+      <object>oInvisibleSolid</object>
+      <position x="0" y="288"/>
+      <creationCode>image_xscale=30
+image_yscale=4</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="201552">
+      <object>oInvisibleSolid</object>
+      <position x="160" y="224"/>
+      <creationCode>image_xscale=2
+image_yscale=4</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="201553">
+      <object>oInvisibleSolid</object>
+      <position x="192" y="256"/>
+      <creationCode>image_xscale=10
+image_yscale=2</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="201554">
+      <object>oInvisibleSolid</object>
+      <position x="480" y="320"/>
+      <creationCode>image_xscale=16
+image_yscale=2</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="201555">
+      <object>oInvisibleSolid</object>
+      <position x="480" y="208"/>
+      <creationCode>image_xscale=3</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="201556">
+      <object>oInvisibleSolid</object>
+      <position x="656" y="240"/>
+      <creationCode>image_xscale=3</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="201615">
+      <object>oInvisibleSolid</object>
+      <position x="1696" y="192"/>
+      <creationCode>image_xscale=2</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="201616">
+      <object>oInvisibleSolid</object>
+      <position x="1552" y="144"/>
+      <creationCode>image_xscale=2</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="201617">
+      <object>oInvisibleSolid</object>
+      <position x="1088" y="128"/>
+      <creationCode>image_xscale=2</creationCode>
+      <locked>false</locked>
+    </instance>
+  </instances>
+  <tiles>
+    <tile id="10187051">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="2016" y="288"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187052">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="1984" y="288"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187053">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="1952" y="288"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187054">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="32"/>
+      <roomPosition x="2016" y="192"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187055">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="32"/>
+      <roomPosition x="2016" y="160"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187056">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="32"/>
+      <roomPosition x="1984" y="192"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187057">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="32"/>
+      <roomPosition x="1984" y="160"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187058">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="32"/>
+      <roomPosition x="1952" y="160"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187059">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="32"/>
+      <roomPosition x="1952" y="128"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187060">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="32"/>
+      <roomPosition x="1984" y="128"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187061">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="32"/>
+      <roomPosition x="2016" y="128"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187062">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="32"/>
+      <roomPosition x="1952" y="96"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187063">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="32"/>
+      <roomPosition x="1984" y="96"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187064">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="32"/>
+      <roomPosition x="2016" y="96"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187069">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="32"/>
+      <roomPosition x="1952" y="64"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187070">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="32"/>
+      <roomPosition x="1984" y="64"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187071">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="32"/>
+      <roomPosition x="2016" y="64"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187072">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="32"/>
+      <roomPosition x="1856" y="0"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187075">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="32"/>
+      <roomPosition x="1824" y="0"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187077">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="32"/>
+      <roomPosition x="1792" y="0"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187078">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="32"/>
+      <roomPosition x="1760" y="0"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187080">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="32"/>
+      <roomPosition x="1728" y="0"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187081">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="32"/>
+      <roomPosition x="1888" y="0"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187082">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="32"/>
+      <roomPosition x="1920" y="0"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187083">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="32"/>
+      <roomPosition x="1952" y="0"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187084">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="32"/>
+      <roomPosition x="1984" y="0"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187085">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="32"/>
+      <roomPosition x="2016" y="0"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187087">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="32"/>
+      <roomPosition x="1920" y="32"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187088">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="32"/>
+      <roomPosition x="1952" y="32"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187089">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="32"/>
+      <roomPosition x="1984" y="32"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187090">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="32"/>
+      <roomPosition x="2016" y="32"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187115">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="1920" y="288"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187116">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="1888" y="288"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187117">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="1856" y="288"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187118">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="1824" y="288"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187119">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="1792" y="288"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187126">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="128" y="80"/>
+      <roomPosition x="2000" y="256"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187127">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="1760" y="256"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187128">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="1728" y="256"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187129">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="1696" y="256"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187134">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="1536" y="256"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187135">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="1568" y="256"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187136">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="1600" y="256"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187137">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="1632" y="256"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187138">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="1664" y="256"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187139">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="1504" y="288"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187153">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="1152" y="288"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187154">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="1120" y="256"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187155">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="1088" y="256"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187156">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="1056" y="256"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187157">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="1024" y="256"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187158">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="992" y="192"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187159">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="960" y="192"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187160">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="928" y="192"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187163">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="896" y="224"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187164">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="864" y="288"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187165">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="832" y="288"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187166">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="800" y="288"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187167">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="768" y="288"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187168">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="736" y="288"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187183">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="32"/>
+      <roomPosition x="928" y="256"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187184">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="32"/>
+      <roomPosition x="960" y="256"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187185">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="32"/>
+      <roomPosition x="992" y="256"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187186">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="32"/>
+      <roomPosition x="896" y="288"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187187">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="32"/>
+      <roomPosition x="928" y="288"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187188">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="32"/>
+      <roomPosition x="960" y="288"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187189">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="32"/>
+      <roomPosition x="992" y="288"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187190">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="32"/>
+      <roomPosition x="896" y="320"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187191">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="32"/>
+      <roomPosition x="928" y="320"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187192">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="32"/>
+      <roomPosition x="960" y="320"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187193">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="32"/>
+      <roomPosition x="992" y="320"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187194">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="32"/>
+      <roomPosition x="1024" y="320"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187195">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="32"/>
+      <roomPosition x="1056" y="320"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187196">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="32"/>
+      <roomPosition x="1088" y="320"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187197">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="32"/>
+      <roomPosition x="1120" y="320"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187209">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="32"/>
+      <roomPosition x="1536" y="320"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187210">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="32"/>
+      <roomPosition x="1568" y="320"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187211">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="32"/>
+      <roomPosition x="1600" y="320"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187212">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="32"/>
+      <roomPosition x="1632" y="320"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187213">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="32"/>
+      <roomPosition x="1664" y="320"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187214">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="32"/>
+      <roomPosition x="1696" y="320"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187215">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="32"/>
+      <roomPosition x="1728" y="320"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187216">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="32"/>
+      <roomPosition x="1760" y="320"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187227">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="96" y="0"/>
+      <roomPosition x="1184" y="288"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187228">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="96" y="0"/>
+      <roomPosition x="1200" y="288"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187229">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="96" y="0"/>
+      <roomPosition x="1216" y="288"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187230">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="96" y="0"/>
+      <roomPosition x="1232" y="288"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187231">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="96" y="0"/>
+      <roomPosition x="1248" y="288"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187232">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="96" y="0"/>
+      <roomPosition x="1264" y="288"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187233">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="96" y="0"/>
+      <roomPosition x="1280" y="288"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187234">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="96" y="0"/>
+      <roomPosition x="1296" y="288"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187235">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="96" y="0"/>
+      <roomPosition x="1312" y="288"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187236">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="96" y="0"/>
+      <roomPosition x="1328" y="288"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187237">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="96" y="0"/>
+      <roomPosition x="1344" y="288"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187238">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="96" y="0"/>
+      <roomPosition x="1360" y="288"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187239">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="96" y="0"/>
+      <roomPosition x="1376" y="288"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187240">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="96" y="0"/>
+      <roomPosition x="1392" y="288"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187241">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="96" y="0"/>
+      <roomPosition x="1408" y="288"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187242">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="96" y="0"/>
+      <roomPosition x="1424" y="288"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187243">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="96" y="0"/>
+      <roomPosition x="1440" y="288"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187244">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="96" y="0"/>
+      <roomPosition x="1456" y="288"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187245">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="96" y="0"/>
+      <roomPosition x="1472" y="288"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187246">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="96" y="0"/>
+      <roomPosition x="1488" y="288"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187247">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="104" y="64"/>
+      <roomPosition x="1176" y="272"/>
+      <size height="16" width="24"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187248">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="104" y="64"/>
+      <roomPosition x="1504" y="272"/>
+      <size height="16" width="8"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187249">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="112" y="64"/>
+      <roomPosition x="1488" y="272"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187251">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="112" y="64"/>
+      <roomPosition x="1200" y="272"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187252">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="112" y="64"/>
+      <roomPosition x="1472" y="272"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187253">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="112" y="64"/>
+      <roomPosition x="1216" y="272"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187254">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="104" y="64"/>
+      <roomPosition x="1232" y="272"/>
+      <size height="16" width="24"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187255">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="104" y="64"/>
+      <roomPosition x="1448" y="272"/>
+      <size height="16" width="24"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187256">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="112" y="64"/>
+      <roomPosition x="1256" y="272"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187257">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="112" y="64"/>
+      <roomPosition x="1272" y="272"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187258">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="112" y="64"/>
+      <roomPosition x="1432" y="272"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187259">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="112" y="64"/>
+      <roomPosition x="1416" y="272"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187260">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="104" y="64"/>
+      <roomPosition x="1392" y="272"/>
+      <size height="16" width="24"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187261">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="104" y="64"/>
+      <roomPosition x="1288" y="272"/>
+      <size height="16" width="24"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187262">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="112" y="64"/>
+      <roomPosition x="1376" y="272"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187263">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="112" y="64"/>
+      <roomPosition x="1360" y="272"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187264">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="112" y="64"/>
+      <roomPosition x="1344" y="272"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187265">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="112" y="64"/>
+      <roomPosition x="1312" y="272"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187266">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="112" y="64"/>
+      <roomPosition x="1328" y="272"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187270">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="704" y="320"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187271">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="672" y="320"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187272">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="640" y="320"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187273">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="608" y="320"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187274">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="576" y="320"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187275">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="544" y="320"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187276">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="512" y="320"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187277">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="480" y="320"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187278">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="448" y="288"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187279">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="416" y="288"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187280">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="384" y="288"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187281">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="352" y="288"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187282">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="320" y="256"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187283">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="288" y="256"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187284">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="256" y="256"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187285">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="224" y="256"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187286">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="192" y="256"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187287">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="160" y="224"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187288">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="128" y="288"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187289">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="96" y="288"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187290">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="0" y="288"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187291">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="32" y="288"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187292">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="64" y="288"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187293">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="32"/>
+      <roomPosition x="160" y="288"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187294">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="32"/>
+      <roomPosition x="160" y="320"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187295">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="32"/>
+      <roomPosition x="192" y="320"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187296">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="32"/>
+      <roomPosition x="224" y="320"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187297">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="32"/>
+      <roomPosition x="256" y="320"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187298">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="32"/>
+      <roomPosition x="288" y="320"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187299">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="32"/>
+      <roomPosition x="320" y="320"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187301">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="32" y="0"/>
+      <roomPosition x="656" y="240"/>
+      <size height="16" width="48"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187302">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="32" y="0"/>
+      <roomPosition x="480" y="208"/>
+      <size height="16" width="48"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187306">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="32" y="16"/>
+      <roomPosition x="736" y="48"/>
+      <size height="16" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187307">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="32" y="16"/>
+      <roomPosition x="1520" y="48"/>
+      <size height="16" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187308">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="32" y="16"/>
+      <roomPosition x="1136" y="80"/>
+      <size height="16" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187309">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="32" y="16"/>
+      <roomPosition x="80" y="64"/>
+      <size height="16" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187310">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="32" y="16"/>
+      <roomPosition x="288" y="16"/>
+      <size height="16" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187311">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="112" y="0"/>
+      <roomPosition x="928" y="112"/>
+      <size height="32" width="80"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187312">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="112" y="0"/>
+      <roomPosition x="256" y="192"/>
+      <size height="32" width="80"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187313">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="112" y="0"/>
+      <roomPosition x="48" y="224"/>
+      <size height="32" width="80"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187314">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="128" y="32"/>
+      <roomPosition x="80" y="256"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187315">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="128" y="32"/>
+      <roomPosition x="288" y="224"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187317">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="128" y="32"/>
+      <roomPosition x="960" y="144"/>
+      <size height="48" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187318">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="32" y="0"/>
+      <roomPosition x="1088" y="128"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187319">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="64" y="0"/>
+      <roomPosition x="1104" y="128"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187320">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="32" y="0"/>
+      <roomPosition x="1696" y="192"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187321">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="64" y="0"/>
+      <roomPosition x="1712" y="192"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187322">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="32" y="0"/>
+      <roomPosition x="1552" y="144"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187323">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="64" y="0"/>
+      <roomPosition x="1568" y="144"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187619">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="128" y="80"/>
+      <roomPosition x="16" y="256"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10189495">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="64" y="80"/>
+      <roomPosition x="1552" y="224"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10189496">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="112" y="80"/>
+      <roomPosition x="1568" y="224"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10189497">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="80" y="80"/>
+      <roomPosition x="1792" y="256"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10189498">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="80" y="80"/>
+      <roomPosition x="1824" y="256"/>
+      <size height="32" width="48"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10189499">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="64" y="80"/>
+      <roomPosition x="1040" y="224"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10189502">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="96" y="80"/>
+      <roomPosition x="800" y="256"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10189503">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="64" y="80"/>
+      <roomPosition x="784" y="256"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10213940">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="1920" y="128"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10213941">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="1888" y="128"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10213942">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="1856" y="96"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10213943">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="1824" y="96"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187094">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1728" y="0"/>
+      <size height="32" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187095">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1888" y="160"/>
+      <size height="32" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187100">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1984" y="192"/>
+      <size height="32" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187101">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1744" y="16"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187102">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1760" y="16"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187103">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1776" y="16"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187104">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1792" y="16"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187105">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1808" y="16"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187106">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1824" y="16"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187111">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1968" y="176"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187112">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="2000" y="208"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187113">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="2016" y="208"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187114">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="2032" y="208"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187225">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1008" y="224"/>
+      <size height="32" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187226">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="896" y="256"/>
+      <size height="32" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187300">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="160" y="256"/>
+      <size height="32" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187303">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="32" y="32"/>
+      <roomPosition x="48" y="48"/>
+      <size height="32" width="80"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187304">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="32" y="32"/>
+      <roomPosition x="416" y="96"/>
+      <size height="32" width="80"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10187305">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="32" y="32"/>
+      <roomPosition x="1104" y="64"/>
+      <size height="32" width="80"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10213945">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1824" y="128"/>
+      <size height="32" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10213946">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1920" y="32"/>
+      <size height="32" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10213947">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1952" y="64"/>
+      <size height="32" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10213948">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1952" y="96"/>
+      <size height="32" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10213949">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1840" y="16"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10213950">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1856" y="16"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10213951">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1872" y="16"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10213954">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1936" y="48"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10213955">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1920" y="176"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10213956">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1936" y="176"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10213957">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1952" y="176"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10213958">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1904" y="176"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10213959">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1840" y="144"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10213960">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1856" y="144"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10213961">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1872" y="144"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10213962">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1888" y="16"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10213963">
+      <background>tileBegoniaA</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1904" y="16"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+  </tiles>
+  <editorSettings remember="true">
+    <size height="591" width="1323"/>
+    <showGrid>false</showGrid>
+    <showObjects>false</showObjects>
+    <showTiles>true</showTiles>
+    <showBackgrounds>true</showBackgrounds>
+    <showForegrounds>true</showForegrounds>
+    <showViews>false</showViews>
+    <deleteUnderlyingObjects>true</deleteUnderlyingObjects>
+    <deleteUnderlyingTiles>true</deleteUnderlyingTiles>
+    <currentTab>0</currentTab>
+    <horizontalScrollPosition>88</horizontalScrollPosition>
+    <verticalScrollPosition>-92</verticalScrollPosition>
+  </editorSettings>
+</room>

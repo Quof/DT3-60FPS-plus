@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="CREATE" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">loadImage=false
+versionTag="1.5.2.4 - [The Saved Edition]"
+//Load external files
+if !variable_global_exists("gamePriority")
+{
+  SS_Init()
+  loadExtFiles()
+  global.gamePriority=0     //initialize game priority var (loading purposes as well)
+  global.sessionPlayTime=0  //how long the player has been playing this play session
+}
+stopAllMusic()
+stopLoopingSounds()
+global.debugMenu=0
+global.location=0
+titleBirdNum=0
+initGameVars()
+//Check ini
+sectionRead=""
+locCheck=0
+event_user(0)
+
+if locCheck&gt;0 {titleLocation=locationCheck(locCheck)}
+else {titleLocation=""}
+
+SS_LoopSound(global.msc_TitleMenu); SS_SetSoundVol(global.msc_TitleMenu,global.optMusic*100)
+window_set_size(480*screenCheck,352*screenCheck)
+window_center()
+
+global.gamePaused=true
+
+//Initialize start up screen --------------------------------------------------
+if progressCheck=0
+{
+  fileCursorPos=1
+  fileCursorY=150
+}
+else //Start cursor on "Continue" if the player has a saved game in progress
+{
+  fileCursorPos=2
+  fileCursorY=175
+}
+fileCursorX=120
+cursorMoveInc=25
+arraySizeMax=4
+
+//-- Intro data --
+bCanUseMenu=0
+introProg=0
+loadImage=true
+loadingType=""
+controlHelp="Controls:#[W] Up    [S] Down#[J] Confirm"
+
+//-- Title and menu stuff --
+titleDelay=0
+titleWidth=0
+titleRGB=255
+titleCl=make_color_rgb(titleRGB,titleRGB,titleRGB)
+titleCTime=0
+subtitleAlpha=0
+fileWAlpha=0
+textColorMain=make_color_rgb(240,240,240)
+textColorShadow=make_color_rgb(0,120,72)
+
+//-- Characters stuff --
+charJerry=instance_create(424,305,oMisc)
+charJerry.sprite_index=sJerryGetUp
+charJerry.type=1; charJerry.image_index=1; charJerry.image_speed=0; charJerry.image_xscale=-1
+charClaire=instance_create(104,321,oMisc)
+charClaire.sprite_index=sClaireSitUp
+charClaire.type=1; charClaire.image_index=2; charClaire.image_speed=0
+
+var titleBird;
+for(i=0;i&lt;titleBirdNum;i+=1)
+{
+  titleBird=instance_create(328-(i*5),320,oLittleBirdStaticA)
+}
+
+//-- Effects stuff --
+screenEfA=0
+instance_create(512,256,oTitleScreenChao)
+
+//-- Nightmare effect stuff --
+nmm_redAlpha=0.2
+nmm_redPulse=0
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

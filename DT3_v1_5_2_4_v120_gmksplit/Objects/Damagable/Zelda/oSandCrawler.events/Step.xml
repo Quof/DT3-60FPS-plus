@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  biteTime+=1
+  if biteTime=7
+  {
+    sprite_index=sSandCrawlerBite
+    image_index=0
+  }
+  
+  if sprite_index=sSandCrawlerBite
+  {
+    image_speed=0.3
+    if image_index&gt;=1.1 and image_index&lt;=3.9 {bCanDealDamage=true; bCanTakeDamage=true}
+    else {bCanDealDamage=false; bCanTakeDamage=false}
+    if image_index&gt;=5.5 {instance_destroy()}
+  }
+  else {image_speed=0.6}
+  
+  enemyStepEvent()
+}
+else {image_speed=0}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

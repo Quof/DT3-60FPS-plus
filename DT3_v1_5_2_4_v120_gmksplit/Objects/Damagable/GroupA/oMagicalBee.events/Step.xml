@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  makeEnemyActive(0)
+  if bActive=true and stunnedTime=0
+  {
+    chargeTime+=1
+    if chargeProg=0 //Normal behavior
+    {
+      if x&lt;oPlayer1.x {image_xscale=1}
+      else {image_xscale=-1}
+      
+      direction=player_sprite_center()
+      speed=runAcc
+      
+      if chargeTime&gt;=chargeDelay
+      {
+        findTargetX=point_distance(x,y,oPlayer1.x,oPlayer1.y-26)
+        if findTargetX&lt;160
+        {
+          speed=0
+          image_xscale=1
+          image_angle=direction-225
+          chargeTime=0
+          chargeProg+=1
+        }
+      }
+    }
+    else if chargeProg=1 //Wait time
+    {
+      if chargeTime&gt;=15
+      {
+        chargeTime=0
+        chargeProg+=1
+      }
+    }
+    else if chargeProg=2 //Charge sting
+    {
+      speed=runAcc*7.5
+      if chargeTime&gt;=25
+      {
+        image_angle=0
+        chargeTime=0
+        chargeProg=0
+      }
+    }
+  }
+  else {speed=0}
+  enemyStepEvent()
+}
+else {speed=0}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

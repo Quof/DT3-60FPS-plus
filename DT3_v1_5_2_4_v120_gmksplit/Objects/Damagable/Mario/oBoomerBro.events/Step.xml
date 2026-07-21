@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  makeEnemyActive(0)
+  if bActive=true and stunnedTime=0
+  {
+    //---------- Movement ----------
+    if point_distance(x,0,oPlayer1.x,0)&gt;96 and throwTime&lt;throwDelay
+    {
+      if x&lt;oPlayer1.x {xVel=runAcc}
+      else {xVel=-runAcc}
+      
+      sprite_index=sBoomerBroWalk
+      animSpd=0.1
+    }
+    else
+    {
+      xVel=0
+      if throwTime&lt;throwDelay
+      {
+        sprite_index=sBoomerBroThrow
+        animSpd=0
+        image_index=0
+      }
+    }
+    if throwTime&lt;throwDelay
+    {
+      if x&lt;oPlayer1.x {image_xscale=1}
+      else {image_xscale=-1}
+    }
+    
+    //---------- Boomerang time ----------
+    throwTime+=1
+    if throwTime&gt;=throwDelay
+    {
+      if throwTime=throwDelay //Init boomerang
+      {
+        sprite_index=sBoomerBroThrow
+        image_index=0
+        animSpd=0.5
+      }
+      else if throwTime&gt;=throwDelay+1 and throwTime&lt;=throwDelay+500
+      {
+        animSpd=0.33
+        if bEnraged=1 {animSpd=1}
+        
+        if image_index&gt;=6 //On boomerang frame
+        {
+          //Check distance to player
+          var tNewAttack,tXshift,tXSpd,tDir;
+          tXSpd=point_distance(x,0,oPlayer1.x,0)/32
+          if bEnraged=1 {tXSpd+=irandom_range(-1.5,1.5)}
+          
+          if tXSpd&gt;8 {tXSpd=8}
+          else if tXSpd&lt;3 {tXSpd=3}
+          
+          if image_xscale=1 {tXshift=9}
+          else {tXshift=-9}
+          
+          if image_xscale=1
+          {
+            tDir=35
+            if bEnraged=1 {tDir+=random_range(-4,4)}
+          }
+          else
+          {
+            tDir=145
+            if bEnraged=1 {tDir+=random_range(-4,4)}
+          }
+          //Spit fire
+          tNewAttack=instance_create(x+tXshift,y-12,oBroBoomerang)
+          tNewAttack.atkPower=atkPower; tNewAttack.type=image_xscale; tNewAttack.direction=tDir
+          tNewAttack.bulletSpeed=tXSpd; tNewAttack.myThrower=id
+          
+          //Boomerang spam
+          boomSpam+=1
+          if boomSpam&gt;=4
+          {
+            image_index=0
+            throwTime=throwDelay
+            if bEnraged=1 and boomSpam&gt;=10
+            {
+              animSpd=0
+              bEnraged=0
+              boomSpam=0
+              throwTime=throwDelay+600
+            }
+            else if bEnraged=0 and boomSpam&gt;=7
+            {
+              animSpd=0
+              boomSpam=0
+              throwTime=throwDelay+600
+            }
+          }
+          else
+          {
+            animSpd=0
+            throwTime=throwDelay+600
+          }
+        }
+      }
+      else if throwTime&gt;=throwDelay+608 //End attack
+      {
+        throwTime=0
+        sprite_index=sBoomerBroWalk
+        animSpd=0.1
+      }
+    }
+    
+    yVel+=0.2
+    if isCollisionBottom(1)
+      yVel=0
+    if isCollisionLeft(1)
+      xVel=runAcc
+    if isCollisionRight(1)
+      xVel=-runAcc
+    if isCollisionSolid()
+      y-=2
+    
+    if xVel&gt;0
+      image_xscale=1
+    else if xVel&lt;0
+      image_xscale=-1
+    moveTo(xVel,yVel)
+    if y&gt;room_height+24
+      instance_destroy()
+  }
+  enemyStepEvent()
+}
+else
+  animSpd=0
+image_speed=animSpd
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

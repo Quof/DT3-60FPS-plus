@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="COLLISION" with="oSamusMissile">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  if type=0 and hitTime=0 {hitTime=5} //Normal (anything)
+  if type=1 and hitTime&lt;=4 and hitDelay=0 //Red (5 missiles or 1 super missile)
+  {
+    if other.sprite_index=sSamusSuperMissile {hitTime=5}
+    hitTime+=1; flashTime=15; hitDelay=2; image_blend=c_red
+  }
+  else if type=2 and hitTime=0 //Green (1 super missile)
+  {
+    if other.sprite_index=sSamusSuperMissile {hitTime=5}
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

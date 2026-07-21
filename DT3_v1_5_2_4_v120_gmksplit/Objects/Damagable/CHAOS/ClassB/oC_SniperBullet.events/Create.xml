@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="CREATE" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/*
+Bullet behavior
+0:  [Start] Bullet is shot straight ahead without line of sight to player.
+1:  [&gt;&gt;&gt;&gt;&gt;] Bullet has found vertical line of sight with player. (Will find horizontal next)
+2:  [Start] Bullet is shot with line of sight to player. (Will not use vertical/horizontal tracking behavior)
+5:  [&gt;&gt;&gt;&gt;&gt;] Bullet has bounced off wall at least once.
+10: [&gt;&gt;&gt;&gt;&gt;] Bullet has gone through at least 2 tracks or bounces.
+*/
+event_inherited()
+setCollisionBounds(-3,-3,3,3)
+
+//Enemy base statistics
+bShowHealthBar=false
+bShowDamage=false
+bCanTakeDamage=false
+hitWall=0
+breakFix=0
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

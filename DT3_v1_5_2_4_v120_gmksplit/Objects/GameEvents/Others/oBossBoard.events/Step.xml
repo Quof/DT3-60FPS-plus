@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if oKeyCodes.kCodePressed[1]=1 or oKeyCodes.kCodePressed[3]=1 //Left/Up
+{
+  playSound(global.snd_MenuCursor,0,1,1)
+  if currentPage=1 {currentPage=5}
+  else {currentPage-=1}
+}
+else if oKeyCodes.kCodePressed[2]=1 or oKeyCodes.kCodePressed[4]=1 //Right/Down
+{
+  playSound(global.snd_MenuCursor,0,1,1)
+  if currentPage=5 {currentPage=1}
+  else {currentPage+=1}
+}
+else if oKeyCodes.kCodePressed[6]=1 //Close board
+{
+  io_clear()
+  resetKeyCodes()
+  playSound(global.snd_MenuClose,0,1,1)
+  global.gamePaused=0
+  instance_destroy()
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="DRAW" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if fadeAlpha&gt;0
+{
+  draw_set_alpha(fadeAlpha)
+  draw_set_color(fadeColor)
+  draw_rectangle(view_xview[0]-1,view_yview[0]-1,view_xview[0]+view_wview[0]+1,view_yview[0]+view_hview[0]+1,0)
+}
+
+if progressBar&gt;=1 //When Jeremy decodes the east gate on map(rMain_11)
+{
+  draw_set_font(fnt_Swap)
+  draw_set_halign(fa_left)
+  draw_set_alpha(1)
+  textDropShadow("DECODING PROGRESS",view_xview[0]+16,view_yview[0]+327,c_green,c_black,1)
+  draw_set_color(c_gray)
+  draw_rectangle(view_xview[0]+16,view_yview[0]+342,view_xview[0]+216,view_yview[0]+350,0)
+  draw_set_color(c_green)
+  draw_rectangle(view_xview[0]+16,view_yview[0]+342,view_xview[0]+16+(progressBar/2),view_yview[0]+350,0)
+  draw_set_color(c_black)
+  draw_rectangle(view_xview[0]+16,view_yview[0]+342,view_xview[0]+216,view_yview[0]+350,1)
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  if activateBoss=1
+  {
+    oGlobalEvent.enemyCount=1
+    bActive=true
+    bShowHealthBar=true
+    showBossHP=instance_create(0,0,oBossLifeDisplay); showBossHP.bossID=id; showBossHP.type=0
+    jeremyText="I know you're probably pretty upset at me right now, but let's not focus on that right now. This thing is piss easy. It has 3 fairly 'meh' attacks, they're kinda threatening when used together, but you've come across a lot worse. Some breath attack and lightning attack that you've already seen. Oh right, laser eyes. Yaaaaawn. You guys shouldn't have any problem with this...right?"
+    chaoText="This is the final battle from the game 'King of Demons.' I think it was Japan only though."
+    devText="While I wasn't going for a typical horror setting for the previous rooms, I was going for something a bit creepy. Chao and the HUD got in the way of the feel I was going for with this place, so it made sense to put this part at a moment when Jeremy is blocked out again."
+    activateBoss=2
+  }
+  
+  if bActive=true and life&gt;0
+  {
+    if specialAttack=0 or specialAttack=2
+    {
+      //Check player position and change eye direction based on that
+      playerDist=point_distance(x,0,oPlayer1.x,0)
+      if playerDist&lt;=48 {eyeFrm=0}
+      else
+      {
+        if oPlayer1.x&lt;x {eyeFrm=1} else {eyeFrm=2}
+      }
+      
+      //Head movement
+      if bossProgress&gt;=4
+      {
+        if mouthFlameTime&lt;mouthFlameDelay
+        {
+          if x&lt;oPlayer1.x
+          {
+            if x&gt;xCenter-(roomSpan-104) {x-=1}
+          }
+          else if x&gt;oPlayer1.x
+          {
+            if x&lt;xCenter+(roomSpan-104) {x+=1}
+          }
+        }
+      }
+      
+      //-------------------- ATTACK: MOUTH FLAME --------------------
+      mouthFlameTime+=1
+      if mouthFlameTime&gt;=mouthFlameDelay and mouthFlameTime&lt;=mouthFlameDelay+100 //Trigger attack
+      {
+        mouthOpen=1
+        sideStart=choose(1,2)
+        mouthFlameTime=10000
+      }
+      else if mouthFlameTime&gt;=10001 and mouthFlameTime&lt;=10099 //Go to chosen side
+      {
+        if sideStart=1
+        {
+          x-=6
+          if x&lt;xCenter-(roomSpan-56) {mouthFlameTime=10100}
+        }
+        else if sideStart=2
+        {
+          x+=6
+          if x&gt;xCenter+(roomSpan-56) {mouthFlameTime=10100}
+        }
+        
+        if specialAttack=0
+        {
+          if y&gt;yCenter-32 {y-=4}
+          else {y+=4}
+        }
+        else if specialAttack=2
+        {
+          if y&gt;yCenter-64 {y-=4}
+          else {y+=4}
+        }
+      }
+      else if mouthFlameTime&gt;=10120 and mouthFlameTime&lt;=10299 //Glide across room
+      {
+        if mouthFlameTime=10121 {playSound(global.snd_Beam,0,0.95,11025)}
+        var tPoison;
+        tPoison=instance_create(x+random_range(-3,3),y+random_range(-3,3),oM_PoisonBreath)
+        tPoison.atkPower=atkPower; tPoison.bulletSpeed=5+random(2); tPoison.depth=24
+        tPoison.animSpeed=0.25; tPoison.direction=270+random_range(-5,5); tPoison.image_blend=c_maroon
+        
+        if sideStart=1
+        {
+          x+=3
+          if x&gt;xCenter+(roomSpan-56) {mouthFlameTime=10300}
+        }
+        else if sideStart=2
+        {
+          x-=3
+          if x&lt;xCenter-(roomSpan-56) {mouthFlameTime=10300}
+        }
+      }
+      else if mouthFlameTime=10301 {mouthOpen=0}
+      else if mouthFlameTime&gt;=10302 //Reset head position and end attack
+      {
+        if x&lt;xCenter {x+=4}
+        else {x-=4}
+        if specialAttack=0
+        {
+          if y&lt;yCenter {y+=4}
+          else {y-=4}
+          var tCentDist;
+          tCentDist=point_distance(x,y,xCenter,yCenter)
+        }
+        else if specialAttack=2
+        {
+          if y&lt;yCenter-80 {y+=4}
+          else {y-=4}
+          var tCentDist;
+          tCentDist=point_distance(x,y,xCenter,yCenter-80)
+        }
+        
+        if tCentDist&lt;=3
+        {
+          x=xCenter
+          if specialAttack=0 {y=yCenter}
+          else if specialAttack=2 {y=yCenter-80}
+          mouthFlameTime=0
+        }
+      }
+      
+      //-------------------- ATTACK: EYE LASER --------------------
+      eyeLaserTime+=1
+      if eyeLaserTime&gt;=eyeLaserDelay and eyeLaserTime&lt;=eyeLaserDelay+100 //Trigger attack
+      {
+        var tEffect;
+        tEffect=instance_create(x+14,y-26,oEffect)
+        tEffect.sprite_index=sMMchargeComplete; tEffect.image_speed=0.5; tEffect.image_xscale=1.25; tEffect.image_yscale=1.25
+        tEffect.newBlend=-1; tEffect.followID=id; tEffect.xFollow=14; tEffect.yFollow=-26
+        tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+        tEffect=instance_create(x-14,y-26,oEffect)
+        tEffect.sprite_index=sMMchargeComplete; tEffect.image_speed=0.5; tEffect.image_xscale=1.25; tEffect.image_yscale=1.25
+        tEffect.newBlend=-1; tEffect.followID=id; tEffect.xFollow=-14; tEffect.yFollow=-26
+        tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+        eyeLaserTime=10000
+      }
+      else if eyeLaserTime=10025
+      {
+        playSound(global.snd_LaserA,0,0.95,24000)
+        playSound(global.snd_CShotA,0,0.85,24000)
+        var tNewAttack;
+        tNewAttack=instance_create(x+14,y-26,oPassBullet)
+        tNewAttack.sprite_index=sLB_Laser; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
+        tNewAttack.decayTime=-100; tNewAttack.direction=point_direction(x+14,y-26,oPlayer1.x,oPlayer1.y-26)
+        tNewAttack.image_angle=point_direction(x+14,y-26,oPlayer1.x,oPlayer1.y-26)
+        tNewAttack=instance_create(x-14,y-26,oPassBullet)
+        tNewAttack.sprite_index=sLB_Laser; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
+        tNewAttack.decayTime=-100; tNewAttack.direction=point_direction(x+14,y-26,oPlayer1.x,oPlayer1.y-26)
+        tNewAttack.image_angle=point_direction(x+14,y-26,oPlayer1.x,oPlayer1.y-26)
+        eyeLaserTime=0
+      }
+      
+      //-------------------- ATTACK: LIGHTNING --------------------
+      lightningTime+=1
+      if lightningTime&gt;=lightningDelay and lightningTime&lt;=lightningDelay+100 //Trigger attack
+      {
+        var tEffect;
+        tEffect=instance_create(x+14,y-26,oEffect)
+        tEffect.sprite_index=sFlameUp; tEffect.image_speed=0.5; tEffect.image_xscale=1.5; tEffect.image_yscale=1.5
+        tEffect.newBlend=-1; tEffect.followID=id; tEffect.xFollow=14; tEffect.yFollow=-26
+        tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+        tEffect=instance_create(x-14,y-26,oEffect)
+        tEffect.sprite_index=sFlameUp; tEffect.image_speed=0.5; tEffect.image_xscale=1.5; tEffect.image_yscale=1.5
+        tEffect.newBlend=-1; tEffect.followID=id; tEffect.xFollow=-14; tEffect.yFollow=-26
+        tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+        lightningTime=10000
+      }
+      else if lightningTime&gt;=10030 and lightningTime&lt;=10030+lightningLength //Spawn lightning attack
+      {
+        if lightningTime mod lightningFreq=0
+        {
+          playSound(global.snd_OrbThrow,0,0.95,1)
+          var tNewAttack;
+          tNewAttack=instance_create(choose(112,176,240,304,368),1040,oPassBullet)
+          tNewAttack.sprite_index=sMalevLightning; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=4.5
+          tNewAttack.decayTime=300; tNewAttack.direction=270
+        }
+      }
+      else if lightningTime&gt;=10031+lightningLength //End attack
+      {
+        lightningTime=0
+      }
+      
+      if firePillar=1 or firePillar=3 or firePillar=5 or firePillar=7
+      {
+        firePTime+=1
+        if firePTime=1
+        {
+          var tWarnSign;
+          if firePillar=1 {tWarnSign=instance_create(176,yGround-16,oEfWarningPopup); tWarnSign.warnMax=35}
+          else if firePillar=3 {tWarnSign=instance_create(304,yGround-16,oEfWarningPopup); tWarnSign.warnMax=35}
+          else if firePillar=5
+          {
+            tWarnSign=instance_create(80,yGround-16,oEfWarningPopup); tWarnSign.warnMax=35
+            tWarnSign=instance_create(376,yGround-16,oEfWarningPopup); tWarnSign.warnMax=35
+          }
+        }
+        else if firePTime&gt;=40
+        {
+          var tFireString;
+          if firePillar=1 {tFireString=instance_create(176,1120,oMalevFireString); tFireString.atkPower=atkPower}
+          else if firePillar=3 {tFireString=instance_create(304,1120,oMalevFireString); tFireString.atkPower=atkPower}
+          else if firePillar=5
+          {
+            for(i=0;i&lt;4;i+=1)
+            {
+              tFireString=instance_create(72+(i*8),1120,oMalevFireString); tFireString.atkPower=atkPower
+              tFireString=instance_create(384+(i*8),1120,oMalevFireString); tFireString.atkPower=atkPower
+            }
+          }
+          firePillar+=1
+          firePTime=0
+        }
+      }
+    }
+    else if specialAttack=1 //Special Attack
+    {
+      specTime+=1
+      if specTime=1 //Init
+      {
+        eyeFrm=-1
+        mouthOpen=0
+        mouthFlameTime=180
+        lightningTime=200
+      }
+      else if specTime&gt;=2 and specTime&lt;=99 //Go to center -112,176,240,304,368
+      {
+        if x&lt;xCenter {x+=4}
+        else {x-=4}
+        if y&lt;yCenter-64 {y+=4}
+        else {y-=4}
+        var tCentDist;
+        tCentDist=point_distance(x,y,xCenter,yCenter-64)
+        if tCentDist&lt;=2
+        {
+          x=xCenter; y=yCenter-64
+          specTime=100
+        }
+      }
+      else if specTime=110 {specX=112; event_user(0); specX=368; event_user(0)}
+      else if specTime=150 {specX=240; event_user(0); specX=368; event_user(0)}
+      else if specTime=190 {specX=112; event_user(0); specX=240; event_user(0)}
+      else if specTime=230 {specX=176; event_user(0); specX=368; event_user(0)}
+      else if specTime=270 {specX=112; event_user(0); specX=304; event_user(0)}
+      else if specTime&gt;=310
+      {
+        for(i=0;i&lt;6;i+=1)
+        {
+          resType[i]=3
+        }
+        specialAttack+=1
+      }
+    }
+    
+    //---------- Boss Difficulty Curve ----------
+    if lifePercent&lt;=0.8 and lifePercent&gt;=0.61 and bossProgress=0
+    {
+      mouthFlameDelay-=10
+      eyeLaserDelay-=15
+      lightningDelay-=15
+      lightningFreq-=6
+      lightningLength+=9
+      firePillar+=1
+      (314511).image_xscale-=0.05; (314511).image_yscale-=0.1
+      (314512).image_xscale-=0.05; (314512).image_yscale-=0.1
+      bossProgress+=1
+    }
+    else if lifePercent&lt;=0.6 and lifePercent&gt;=0.51 and bossProgress=1
+    {
+      mouthFlameDelay-=10
+      eyeLaserDelay-=15
+      lightningDelay-=15
+      lightningFreq-=6
+      lightningLength+=9
+      firePillar+=1
+      (314511).image_xscale-=0.05; (314511).image_yscale-=0.2
+      (314512).image_xscale-=0.05; (314512).image_yscale-=0.2
+      bossProgress+=1
+    }
+    else if lifePercent&lt;=0.5 and lifePercent&gt;=0.38 and bossProgress=2
+    {
+      specialAttack+=1
+      for(i=0;i&lt;6;i+=1)
+      {
+        resType[i]=1
+      }
+      bossProgress+=1
+    }
+    else if lifePercent&lt;=0.37 and lifePercent&gt;=0.2 and bossProgress=3
+    {
+      mouthFlameDelay-=20
+      eyeLaserDelay-=15
+      lightningDelay-=25
+      lightningFreq-=6
+      lightningLength+=8
+      firePillar+=1
+      (314511).image_xscale-=0.1; (314511).image_yscale-=0.2
+      (314512).image_xscale-=0.1; (314512).image_yscale-=0.2
+      bossProgress+=1
+    }
+    else if lifePercent&lt;=0.19 and lifePercent&gt;=0 and bossProgress=4
+    {
+      mouthFlameDelay-=20
+      eyeLaserDelay-=15
+      lightningDelay-=25
+      lightningFreq-=5
+      lightningLength+=8
+      (314511).image_xscale-=0.2; (314511).image_yscale-=0.3
+      (314512).image_xscale-=0.2; (314512).image_yscale-=0.3
+      bossProgress+=1
+    }
+  }
+  enemyStepEvent()
+}
+
+if life&lt;=0 //Defeat animation
+{
+  deathAnim+=1
+  if deathAnim=1
+  {
+    with oEProjectileBase {instance_destroy()}
+    with oAttackBase {instance_destroy()}
+  }
+  else if deathAnim&gt;=2 and deathAnim&lt;=90
+  {
+    if deathAnim mod 3=0 {playSound(global.snd_BombExplode,0,0.92,1)}
+    if oGame.time mod 2=0
+    {
+      var tEffect;
+      tEffect=instance_create((x-sprite_width/2)+random(sprite_width),(y-sprite_height/2)+random(sprite_height),oEffect)
+      tEffect.sprite_index=sSamusSMissileHit; tEffect.image_speed=0.5; tEffect.image_xscale=0.5; tEffect.image_yscale=0.5
+      tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+    }
+  }
+  else if deathAnim&gt;=91
+  {
+    if global.bBossGallery=1
+    {
+      bossRoomTally(39)
+      global.newMapX=2328; global.newMapY=752; room_goto(rBossGallery)
+    }
+    else {instance_destroy()}
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

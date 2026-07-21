@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="COLLISION" with="oPlayerGameIcon">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/*
+Gate 6 world map exit script.
+This will move the player to another room.
+*/
+if oPlayerGameIcon.bOnBird=0
+{
+  if bIsLocation=1 {bOnMe=1}
+  else
+  {
+    if oPlayerGameIcon.sprite_index=sClaireGUp {bOnMe=1}
+  }
+  
+  if oKeyCodes.kCodePressed[5]=1 and !instance_exists(oZeldaSaveMenu) and bIsLocation=1
+  {
+    resetKeyCodes()
+    oPlayerGameIcon.bCanMove=0
+  
+    global.recAreaTrans+=1
+    global.newMapX=newMapX
+    global.newMapY=newMapY
+    
+    transition_steps=15
+    transition_kind=5
+    
+    if variable_local_exists("newStep")
+      transition_steps=newStep
+    if variable_local_exists("newTrans")
+      transition_kind=newTrans
+    room_goto(toRoom)
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

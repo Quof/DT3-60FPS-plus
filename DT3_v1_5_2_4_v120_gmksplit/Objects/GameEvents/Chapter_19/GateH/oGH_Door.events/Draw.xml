@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="DRAW" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if bOpened=0
+{
+  image_xscale=1
+  draw_sprite(sGateHDoorClosed,0,x,y)
+}
+else if bOpened=1
+{
+  if mySide=1 {image_xscale=-1}
+  else {image_xscale=1}
+  draw_sprite_ext(sGateHDoorOpen,0,x,y,image_xscale,1,0,c_white,1)
+}
+
+if showKeyType&gt;0
+{
+  showKeyType-=1
+  draw_set_alpha(1)
+  draw_set_font(fnt_NES)
+  draw_set_halign(fa_middle)
+  var tCheckKeyX;
+  if keySide=1 {tCheckKeyX=48}
+  else {tCheckKeyX=-48}
+  textDropShadow(keyType,x+tCheckKeyX,317,helpTextInner,helpTextOuter,4)
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

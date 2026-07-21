@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="DESTROY" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if bTouched=1
+{
+  playSound(global.snd_MetEnemyDieA,0,0.92,1)
+  var tEffect;
+  tEffect=instance_create(bbox_left+(abs(sprite_width)/2),bbox_top+(sprite_height/2),oEffect)
+  tEffect.sprite_index=sSamusMissileHit; tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+}
+if oFireFleaRmLight.darkNum&lt;7
+{
+  oFireFleaRmLight.darkNum+=1
+  oFireFleaRmLight.image_alpha+=0.13
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

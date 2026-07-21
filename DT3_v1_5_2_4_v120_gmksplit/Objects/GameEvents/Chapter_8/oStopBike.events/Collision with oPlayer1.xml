@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="COLLISION" with="oPlayer1">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if oPlayer1.attackState=oPlayer1.ACT_IN_BIKE and bJumpedOut=0
+{
+  with oPlayer1
+  {
+    setCollisionBounds(-8,-40,8,-1)
+    attackState=0
+    yVel=-8; yAcc=-8
+    maxSlope=4; maxDownSlope=8
+  }
+  oBikeViewFollow.viewProg=1
+  x=oPlayer1.x; y=oPlayer1.y
+  image_yscale=1
+  sprite_index=sJerryBike
+  bJumpedOut=1
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

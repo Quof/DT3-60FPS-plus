@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="ALARM" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if variable_local_exists("deactivate") {bChaoActive=0}
+else
+{
+  if global.chaoRecognition=1
+  {
+    heartEmote=0
+  }
+}
+global.chaoRecognition=0
+
+if global.gameProgress&gt;=5580 and room=rCh21_WastelandA
+{
+  followTarget=oNPC_GeneralA
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

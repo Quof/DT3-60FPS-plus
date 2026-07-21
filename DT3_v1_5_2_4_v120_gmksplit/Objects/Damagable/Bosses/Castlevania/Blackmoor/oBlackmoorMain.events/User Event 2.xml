@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="OTHER" id="12">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">//Desperation Attack
+if despProg=1 //Be sure arm attacks are not in progress
+{
+  if dArmSwingTime&lt;dArmSwingDelay and armMeteorTime&lt;armMeteorDelay
+  {
+    dArmSwingTime=dArmSwingDelay-30
+    armMeteorTime=armMeteorDelay-90
+    moveCycle=0; moveTime=0
+    bCanTakeDamage=0
+    despProg+=1
+  }
+}
+else if despProg=2 //Back away to the right and dim room lights
+{
+  if oEvExGates.fadeAlpha&lt;0.2 {oEvExGates.fadeAlpha+=0.005; image_alpha-=0.005}
+  if x&lt;688 {x+=2}
+  if x&gt;=688 and oEvExGates.fadeAlpha&gt;=0.2 {despProg+=1}
+}
+else if despProg=3 //Attack
+{
+  despTime+=1
+  if despTime=10 {instance_create(x,despY1,oBlackmoorSword)} //Set 1
+  else if despTime=25 {instance_create(x,despY2,oBlackmoorSword)}
+  else if despTime=40 {instance_create(x,despY3,oBlackmoorSword)}
+  else if despTime=100 {instance_create(x,despY1,oBlackmoorSword)} //Set 2
+  else if despTime=105 {instance_create(x,despY3,oBlackmoorSword)}
+  else if despTime=130 {instance_create(x,despY2,oBlackmoorSword)}
+  else if despTime=170 {instance_create(x,despY3,oBlackmoorSword)} //Set 3
+  else if despTime=180 {instance_create(x,despY2,oBlackmoorSword)}
+  else if despTime=190 {instance_create(x,despY1,oBlackmoorSword)}
+  else if despTime&gt;=260 and despTime&lt;=280 //Set 4
+  {
+    if despTime mod 5=0
+    {
+      instance_create(x,despY1,oBlackmoorSword)
+      instance_create(x,despY3,oBlackmoorSword)
+    }
+  }
+  else if despTime&gt;=300 {despTime=0; despProg+=1}
+  
+  if despTime mod 45=0 //Meteors
+  {
+    var newMeteor;
+    newMeteor=instance_create(oPlayer1.x,-24,oBlackmoorMeteor)
+    newMeteor.atkPower=atkPower; newMeteor.bulletSpeed=8+(i/10); newMeteor.direction=270
+  }
+}
+else if despProg=4 //End
+{
+  despTime+=1
+  if despTime&gt;=45
+  {
+    if oEvExGates.fadeAlpha&gt;0 {oEvExGates.fadeAlpha-=0.005; image_alpha+=0.005}
+    speed=2
+    direction=point_direction(x,y,576,256)
+    
+    if point_distance(x,y,576,256)&lt;4 and oEvExGates.fadeAlpha=0
+    {
+      bCanTakeDamage=1
+      speed=0
+      x=576; y=256
+      despProg=0
+    }
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

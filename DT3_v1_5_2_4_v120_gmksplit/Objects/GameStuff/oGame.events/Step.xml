@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+  gameStepEvent()
+
+//game window check
+windowUpdate+=1
+if windowUpdate mod 30=0
+{
+  if !window_get_fullscreen()
+  {
+    var tCheckWidth;
+    tCheckWidth=round(window_get_width()*0.7333)
+    window_set_size(window_get_width(),tCheckWidth)
+  }
+}
+
+//play time
+if global.playTimeFrameCount&gt;=30
+{
+  global.playTimeFrameCount=0
+  global.playTimeSecond+=1
+  if global.playTimeSecond&gt;=60
+  {
+    global.playTimeSecond=0
+    global.playTimeMinute+=1
+    if global.playTimeMinute&gt;=60
+    {
+      global.playTimeMinute=0
+      global.playTimeHour+=1
+    }
+  }
+  
+  global.sessionPlayTime+=1
+  if global.sessionPlayTime=7200 //2 hour notice
+  {
+    createScreenText(514,336,-1,fnt_Swap,fa_left,"You have been playing for 2 hours. It might be a good idea to take a break. Remember, extended play could be hazardous to your health or something like that. Actually you seem to be having fun if you've been playing that long, so go ahead and continue.",3,c_white,1,1)
+  }
+  else if global.sessionPlayTime=86400 //24 hour notice
+  {
+    createScreenText(514,336,-1,fnt_Swap,fa_left,"Go to sleep, Quof! You have been playing for 24 hours! It's time to sleep... ... ... GO TO SLEEP!",3,c_white,1,1)
+  }
+}
+else {global.playTimeFrameCount+=1}
+
+//close the game
+if global.bCanUseEsc=1
+{
+  if keyboard_check_pressed(vk_escape)
+  {
+    var closeGame;
+    closeGame=show_question("Do you want to quit the game? :(")
+    if closeGame=true {game_end()}
+  }
+}
+
+//windowed mode scale change 1x/2x/3x
+if keyboard_check_pressed(vk_f3)
+{
+  if global.optWindowSize&lt;2 {global.optWindowSize=2}
+  else if global.optWindowSize&gt;=2 and global.optWindowSize&lt;3 {global.optWindowSize=3}
+  else {global.optWindowSize=1}
+  window_set_size(480*global.optWindowSize,352*global.optWindowSize)
+  window_center()
+}
+//windowed/fullscreen mode
+if keyboard_check_pressed(vk_f4) //and room!=rAbomF
+{
+  windowUpdate=15
+  if window_get_fullscreen()
+  {
+    window_set_fullscreen(false)
+    window_center()
+  }
+  else
+  {
+    window_set_fullscreen(true)
+    window_center()
+  }
+}
+
+if global.debugMenu=true //debug commands
+{
+  if keyboard_check_pressed(vk_f2)
+  {
+    if bStatRender=false
+      bStatRender=true
+    else
+      bStatRender=false
+  }
+  else if keyboard_check_pressed(vk_f7)
+  {
+    //global.debugMenu=false
+  }
+  else if keyboard_check_pressed(vk_f8)
+  {
+    if global.gamePaused=0
+      global.gamePaused=1
+    else
+      global.gamePaused=0
+  }
+  else if keyboard_check_pressed(vk_f11)
+  {
+    execute_string(get_string("Command?",""))
+  }
+  
+  if keyboard_check_pressed(ord("N"))
+  {
+    if oInvisibleSolid.visible=false
+    {
+      oInvisibleSolid.visible=1
+      oInvisibleSlimSolid.visible=1
+      oInvisibleSlimVertSolidMask.visible=1
+      oInvisibleSolidMorph.visible=1
+      oInvisibleRupLowSlope.visible=1
+      oInvisibleLupLowSlope.visible=1
+      oInvisibleRCeilingLowSlope.visible=1
+      oInvisibleLCeilingLowSlope.visible=1
+      oInvisibleRupSlope.visible=1
+      oInvisibleLupSlope.visible=1
+      oInvisibleRCeilingSlope.visible=1
+      oInvisibleLCeilingSlope.visible=1
+      oInvisibleRUpSteepSlope.visible=1
+      oInvisibleLUpSteepSlope.visible=1
+      oInvisibleRCeilingSteepSlope.visible=1
+      oInvisibleLCeilingSteepSlope.visible=1
+      oInvisiblePlatform.visible=1
+      oIVaultHoriz.visible=1
+      oIVaultVert.visible=1
+      oIVaultC1.visible=1
+      oIVaultC2.visible=1
+      oIVaultC3.visible=1
+      oIVaultC4.visible=1
+      oIVaultCir1.visible=1
+      oIVaultCir2.visible=1
+      oIVaultCir3.visible=1
+      oIVaultCir4.visible=1
+    }
+    else
+    {
+      oInvisibleSolid.visible=0
+      oInvisibleSlimSolid.visible=0
+      oInvisibleSlimVertSolidMask.visible=0
+      oInvisibleSolidMorph.visible=0
+      oInvisibleRupLowSlope.visible=0
+      oInvisibleLupLowSlope.visible=0
+      oInvisibleRCeilingLowSlope.visible=0
+      oInvisibleLCeilingLowSlope.visible=0
+      oInvisibleRupSlope.visible=0
+      oInvisibleLupSlope.visible=0
+      oInvisibleRCeilingSlope.visible=0
+      oInvisibleLCeilingSlope.visible=0
+      oInvisibleRUpSteepSlope.visible=0
+      oInvisibleLUpSteepSlope.visible=0
+      oInvisibleRCeilingSteepSlope.visible=0
+      oInvisibleLCeilingSteepSlope.visible=0
+      oInvisiblePlatform.visible=0
+      oIVaultHoriz.visible=0
+      oIVaultVert.visible=0
+      oIVaultC1.visible=0
+      oIVaultC2.visible=0
+      oIVaultC3.visible=0
+      oIVaultC4.visible=0
+      oIVaultCir1.visible=0
+      oIVaultCir2.visible=0
+      oIVaultCir3.visible=0
+      oIVaultCir4.visible=0
+    }
+  }
+  else if keyboard_check_pressed(ord("B"))
+  {
+    oPlayer1.life=oPlayer1.maxLife
+  }
+  else if keyboard_check(ord("Y"))
+    instance_create(0,0,oScreenEffect)
+  else if keyboard_check(ord("T"))
+  {
+    oPlayer1.dashEnergy=oPlayer1.dashMeterMax
+    global.desertHeat=1500
+    global.pCurrBreath=global.pBreathMax
+    global.hudLink_Arrows[0]=global.hudLink_Arrows[1]
+    global.hudLink_BombEn[0]=150-(global.skillTree[1]*15)-oPlayer1.equipValA
+    global.hudBelmont_WeaponEn[0]=global.hudBelmont_WeaponEn[1]
+    global.hudMega_BusterEn[0]=32
+    global.hudMega_ShotIceEn[0]=32
+    global.hudMega_GravityEn[0]=32
+    global.hudSamus_CannonEn[0]=0
+    global.hudSamus_Missiles[0]=global.hudSamus_Missiles[1]
+    global.hudGame_WeaponEn[0]=global.hudGame_WeaponEn[1]
+  }
+  
+  if keyboard_check_pressed(vk_numpad1)
+  {
+    stopLoopingSounds()
+    room_restart()
+  }
+  else if keyboard_check_pressed(vk_numpad3)
+  {
+    stopLoopingSounds()
+    writeToPlayerGlobals()
+    room_restart()
+  }
+  else if keyboard_check_pressed(vk_numpad7)
+  {
+    if room!=room_first
+    {
+      stopLoopingSounds()
+      writeToPlayerGlobals()
+      room_goto_previous()
+    }
+  }
+  else if keyboard_check_pressed(vk_numpad8)
+  {
+    if room!=room_last
+    {
+      stopLoopingSounds()
+      writeToPlayerGlobals()
+      room_goto_next()
+    }
+  }
+  else if keyboard_check_pressed(vk_numpad9)
+  {
+    stopLoopingSounds()
+    stopAllMusic()
+    room_goto(rIntro)
+  }
+  else if keyboard_check_pressed(ord("R"))
+  {
+    if global.debugInvincible=false
+      global.debugInvincible=true
+    else
+      global.debugInvincible=false
+  }
+}
+else
+{
+  /*if keyboard_check_pressed(vk_f7)
+  {
+    global.debugMenu=true
+  }*/
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

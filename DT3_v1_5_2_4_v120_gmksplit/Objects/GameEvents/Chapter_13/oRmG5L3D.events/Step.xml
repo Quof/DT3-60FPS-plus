@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if room=rSamus5_Lv3_D
+{
+  //Going through tube
+  if (oPlayer1.x&gt;=240 and oPlayer1.x&lt;=272) or (oPlayer1.x&gt;=544 and oPlayer1.x&lt;=576)
+  {
+    if oPlayer1.y&gt;=352 and oPlayer1.y&lt;=448
+    {
+      tile_layer_depth(8,999999)
+      if tubeRunA=noone
+      {
+        tubeRunA=instance_create(336,352,oInvisibleSolid); tubeRunA.image_xscale=9
+        tubeRunB=instance_create(336,432,oInvisibleSolid); tubeRunB.image_xscale=9
+        if tubeDropA!=noone
+        {
+          with tubeDropA {instance_destroy()}
+          with tubeDropB {instance_destroy()}
+          tubeDropA=noone; tubeDropB=noone
+        }
+      }
+    }
+  }
+  //Passing down behind tube
+  if oPlayer1.x&gt;=320 and oPlayer1.x&lt;=544
+  {
+    if (oPlayer1.y&gt;=320 and oPlayer1.y&lt;=336) or (oPlayer1.y&gt;=512 and oPlayer1.y&lt;=528)
+    {
+      tile_layer_depth(999999,8)
+      if tubeDropA=noone
+      {
+        tubeDropA=instance_create(320,368,oInvisibleSolid); tubeDropA.image_yscale=4
+        tubeDropB=instance_create(480,368,oInvisibleSolid); tubeDropB.image_yscale=4
+        if tubeRunA!=noone
+        {
+          with tubeRunA {instance_destroy()}
+          with tubeRunB {instance_destroy()}
+          tubeRunA=noone; tubeRunB=noone
+        }
+      }
+    }
+  }
+}
+else if room=rExtGateF_5
+{
+  //Going through tube
+  if (oPlayer1.x&gt;=80 and oPlayer1.x&lt;=160) or (oPlayer1.x&gt;=512 and oPlayer1.x&lt;=592)
+  {
+    if oPlayer1.y&gt;=528 and oPlayer1.y&lt;=544
+    {
+      tile_layer_depth(8,999999)
+      if tubeRunA=noone
+      {
+        tubeRunA=instance_create(320,608,oInvisibleSolid); tubeRunA.image_xscale=4
+        tubeRunB=instance_create(320,688,oInvisibleSolid); tubeRunB.image_xscale=4
+        if tubeDropA!=noone
+        {
+          with tubeDropA {instance_destroy()}
+          with tubeDropB {instance_destroy()}
+          tubeDropA=noone; tubeDropB=noone
+        }
+      }
+    }
+  }
+  //Passing down behind tube
+  if oPlayer1.x&gt;=320 and oPlayer1.x&lt;=384
+  {
+    if oPlayer1.y&gt;=528 and oPlayer1.y&lt;=544
+    {
+      tile_layer_depth(999999,8)
+      if tubeDropA=noone
+      {
+        tubeDropA=instance_create(304,624,oInvisibleSolid); tubeDropA.image_yscale=4
+        tubeDropB=instance_create(384,624,oInvisibleSolid); tubeDropB.image_yscale=4
+        if tubeRunA!=noone
+        {
+          with tubeRunA {instance_destroy()}
+          with tubeRunB {instance_destroy()}
+          tubeRunA=noone; tubeRunB=noone
+        }
+      }
+    }
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

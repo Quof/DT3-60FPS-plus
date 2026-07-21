@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  life=maxLife
+  shotTime+=1
+  if shotTime&gt;=shotMax
+  {
+    playSound(global.snd_CShotA,0,0.9,42000)
+    var tNewAtk,tDir;
+    tDir=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
+    for(i=0;i&lt;3;i+=1)
+    {
+      tNewAtk=instance_create(x,y,oPassBullet)
+      tNewAtk.sprite_index=sE_Bubble; tNewAtk.image_speed=0.5; tNewAtk.image_blend=c_orange
+      tNewAtk.atkPower=atkPower; tNewAtk.decayTime=-100; tNewAtk.direction=tDir
+      if i=0 {tNewAtk.bulletSpeed=6}
+      else {tNewAtk.bulletSpeed=1}
+      tDir+=120
+    }
+    shotTime=0
+  }
+  enemyStepEvent()
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

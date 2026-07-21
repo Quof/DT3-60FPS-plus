@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="OTHER" id="12">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if attackTime=1 //Check side
+{
+  if x&lt;(room_width/2) {sideStart=1}
+  else {sideStart=2}
+}
+else if attackTime&gt;=2 and attackTime&lt;=99 //Move off map
+{
+  if y&lt;224 {y+=3}
+  if sideStart=1
+  {
+    x-=12
+    if x&lt;=0 {image_index=2; attackTime=100}
+  }
+  else if sideStart=2
+  {
+    x+=12
+    if x&gt;=room_width {image_index=2; attackTime=100}
+  }
+}
+else if attackTime&gt;=101 and attackTime&lt;=399 //Fly across map, use fireballs down
+{
+  var myAtk;
+  if attackTime mod atkC_Freq=0
+  {
+    if x&lt;496 or x&gt;656
+    {
+      playSound(global.snd_Flame1,0,0.9,47000)
+      myAtk=instance_create(x,y,oTOTO_FireB)
+      myAtk.atkType=0; myAtk.atkPower=atkPower
+      myAtk.mySpd=8; myAtk.direction=270
+    }
+  }
+  
+  if sideStart=1
+  {
+    x+=8
+    if x&gt;=room_width-96 {attackTime=400}
+  }
+  else if sideStart=2
+  {
+    x-=8
+    if x&lt;=96 {attackTime=400}
+  }
+}
+else if attackTime&gt;=401 //End
+{
+  image_index=0
+  waitTime=round(waitDelay/2)
+  attackTime=0
+  attackCycle+=1
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

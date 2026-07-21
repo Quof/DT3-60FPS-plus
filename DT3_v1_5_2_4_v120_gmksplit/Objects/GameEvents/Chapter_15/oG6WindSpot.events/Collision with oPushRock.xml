@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="COLLISION" with="oPushRock">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">//If the object is inside wind volume, move object
+if bWindWorks=1
+{
+  if global.gamePaused=false
+  {
+    pushBlockX=0
+    pushBlockY=0
+    if direction=0 {pushBlockX=2}
+    else if direction=90 {pushBlockY=-5}
+    else if direction=180 {pushBlockX=-2}
+    else if direction=270 {pushBlockY=1}
+    
+    with other
+    {
+      if other.pushBlockY&lt;1 {yVel=other.pushBlockY}
+      moveTo(other.pushBlockX,other.pushBlockY)
+    }
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="CREATE" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">event_inherited()
+enemyCount=-1
+fadeColor=c_white
+fadeAlpha=0
+//global.difficulty=2
+
+bClouds=0
+if room=rExtGateA_1 or room=rExtGateA_2
+{
+  bClouds=1
+  cloudSpawn=irandom(50)
+  lakituSpawn=120
+}
+else if room=rExtGateA_6
+{
+  bossCheck=string_char_at(global.eGateProg,1)
+  if bossCheck="8" {global.mapTeleport=0}
+  else {global.mapTeleport=1}
+}
+else if room=rExtGateB_5 {rmCheck=0}
+else if room=rExtGateB_6
+{
+  bossCheck=string_char_at(global.eGateProg,2)
+  if bossCheck="8" {global.mapTeleport=0}
+  else {global.mapTeleport=2}
+  bgCol=20
+  bgSeq=0
+}
+else if room=rExtGateC_5
+{
+  fadeColor=c_black
+  bossCheck=string_char_at(global.eGateProg,3)
+  if bossCheck="8" {global.mapTeleport=0}
+  else {global.mapTeleport=3}
+}
+else if room=rExtGateD_2 or room=rExtGateD_6
+{
+  bossCheck=string_char_at(global.eGateProg,4)
+  if room=rExtGateD_2
+  {
+    rmProg=0
+    rmTime=0
+  }
+  else if rExtGateD_6
+  {
+    if bossCheck="7" and global.bossTrack=0
+    {
+      npcElpizo=instance_create(448,416,oMisc)
+      npcElpizo.sprite_index=sElpizoEngarde; npcElpizo.image_speed=0
+      npcElpizo.image_xscale=-1; npcElpizo.type=1
+    }
+    if bossCheck="8" {global.mapTeleport=0}
+    else {global.mapTeleport=4}
+  }
+}
+else if room=rExtGateE_5
+{
+  bossCheck=string_char_at(global.eGateProg,5)
+  if bossCheck="8" {global.mapTeleport=0}
+  else {global.mapTeleport=5}
+}
+else if room=rExtGateF_3 or room=rExtGateF_4
+{
+  bWallSpawn=0
+}
+else if room=rExtGateF_6
+{
+  bossCheck=string_char_at(global.eGateProg,6)
+  if bossCheck="8" {global.mapTeleport=0}
+  else {global.mapTeleport=6}
+}
+else if room=rExtGateG_1 or room=rExtGateG_2 or room=rExtGateG_3 or room=rExtGateG_4 or room=rExtGateG_5
+{
+  backIsleSpawn=0
+  for(i=0;i&lt;round(room_width/256);i+=1)
+  {
+    instance_create(random_range(48,room_width-48),random_range(48,room_height+48),oGG_BackIsle)
+  }
+  
+  if room=rExtGateG_1
+  {
+    var tTrap,tDir;
+    tDir=0
+    for(i=0;i&lt;24;i+=1)
+    {
+      tTrap=instance_create(4808,208,oMovingTrap)
+      tTrap.shiftTime=0; tTrap.shiftMax=60; tTrap.moveSpd=3; tTrap.bShowLine=1
+      tTrap.direction=tDir
+      tDir+=360/24
+    }
+  }
+  else if room=rExtGateG_2
+  {
+    mapTime=0
+    slimeTime=0
+  }
+  else if room=rExtGateG_3
+  {
+    var tTrap,tDir;
+    tDir=0
+    for(i=0;i&lt;24;i+=1)
+    {
+      tTrap=instance_create(3584,224,oMovingTrap)
+      tTrap.shiftTime=0; tTrap.shiftMax=60; tTrap.moveSpd=3; tTrap.bShowLine=1
+      tTrap.direction=tDir
+      tDir+=360/24
+    }
+  }
+  else if room=rExtGateG_4
+  {
+    if global.newMapX&gt;=2800
+    {
+      with (346602) {instance_destroy()}
+      with (346605) {instance_destroy()}
+      sceneProgress=1
+    }
+    if global.newMapX&gt;=3600 {sceneProgress=3}
+  }
+  else if room=rExtGateG_5
+  {
+    bossCheck=string_char_at(global.eGateProg,7)
+    if bossCheck="8" {global.mapTeleport=0}
+    else {global.mapTeleport=7}
+  }
+}
+else if room=rSacredTemple
+{
+  //-- Check which instrument player is obtaining --
+  instrStory=-1
+  exitCreate=0
+  instrObj=0
+  instrNum=0
+  for(i=0;i&lt;8;i+=1)
+  {
+    instrNum+=1
+    instrProg[i]=string_char_at(global.eGateProg,i+1)
+    if instrProg[i]="8"
+    {
+      instrObj=instance_create(1024,1176,oInstrument)
+      instrObj.instrType=instrNum
+      instrStory=0
+      break;
+    }
+  }
+  //-- Check the number of instruments the player has --
+  if instrStory!=-1
+  {
+    var tCountInstr;
+    tCountInstr=0
+    for(i=0;i&lt;8;i+=1)
+    {
+      tCountInstr=string_char_at(global.eGateProg,i+1)
+      if tCountInstr="9"
+        instrStory+=1
+    }
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

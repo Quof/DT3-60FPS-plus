@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  speed=bulletSpeed
+  if y&lt;=48 //Shatter
+  {
+    playSound(global.snd_LightballSpread,0,0.92,28000)
+    var tDir,tNum;
+    if rWarshipZ_E3 //EX MODE
+    {
+      tDir=230; tNum=9
+    }
+    else
+    {
+      if warTarget.DIFFICULTY=0 {tDir=248; tNum=5}
+      else {tDir=237; tNum=7}
+    }
+    for(i=0;i&lt;tNum;i+=1)
+    {
+      tNewAttack=instance_create(x,y,oPassBullet)
+      tNewAttack.sprite_index=sSeraAtkIceB; tNewAttack.atkPower=atkPower-1; tNewAttack.bulletSpeed=7
+      tNewAttack.decayTime=-100; tNewAttack.image_speed=0.25; tNewAttack.direction=tDir; tNewAttack.damageType="ELEMENTAL"
+      tDir+=iceSpread
+    }
+    instance_destroy()
+  }
+}
+else {speed=0}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

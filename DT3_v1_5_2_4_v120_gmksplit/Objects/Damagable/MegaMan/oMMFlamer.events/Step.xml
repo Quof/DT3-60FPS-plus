@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  makeEnemyActive(0)
+  if bActive=true and stunnedTime=0 and life&gt;0
+  {
+    if flameTime&lt;flameDelay
+    {
+      if x&lt;oPlayer1.x {image_xscale=1}
+      else {image_xscale=-1}
+    }
+    
+    flameTime+=1
+    if flameTime&gt;=flameDelay and flameTime&lt;=flameDelay+100
+    {
+      image_speed=0.33
+      if curFlame&lt;6
+      {
+        if flameTime mod 5=0
+        {
+          flameAtk[curFlame]=instance_create(x,y,oMMFlamerFlame)
+          flameAtk[curFlame].atkPower=atkPower
+          flameAtk[curFlame].image_xscale=1+(curFlame/10)
+          flameAtk[curFlame].image_yscale=1+(curFlame/10)
+          curFlame+=1
+        }
+      }
+      else
+      {
+        image_speed=0; image_index=0
+        flameTime=flameDelay+100
+      }
+    }
+    else if flameTime&gt;=flameDelay+140 and flameTime&lt;=flameDelay+240
+    {
+      image_speed=0.33
+      if flameTime mod 5=0
+      {
+        curFlame-=1
+        with flameAtk[curFlame] {instance_destroy()}
+        if curFlame=0
+        {
+          image_speed=0; image_index=0
+          flameTime=0
+        }
+      }
+    }
+  }
+  else if life&lt;=0
+  {
+    playSound(global.snd_EnemyDieMM,0,1,1)
+    tEffect=instance_create(x,y-12,oEffect)
+    tEffect.sprite_index=sMMExplosion
+    tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+    instance_destroy()
+  }
+  
+  followInstance()
+  if curFlame&gt;0
+  {
+    for(i=0;i&lt;curFlame;i+=1)
+    {
+      flameAtk[i].x=x+((22+(i*13))*image_xscale)
+      flameAtk[i].y=y-12
+    }
+  }
+  
+  enemyStepEvent()
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="CREATE" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">imageScaling=0.9
+image_xscale=imageScaling
+image_yscale=imageScaling
+image_speed=0.5
+image_blend=make_color_rgb(72,0,68)
+if room=rExtGateH_8 {moveSpd=3.805}
+else {moveSpd=2}
+stepMod=0
+bWalking=1
+
+armAngle=0
+myDist=1000
+
+warnAlpha=0
+warnScaling=1
+if room=rExtGateH_8 {extScaling=1.4}
+{
+  if global.gateHProg&lt;30 {extScaling=1}
+  else {extScaling=1.2}
+}
+
+bSightToPlayer=0
+bCatchPlayer=0
+catchSequence=0
+redWarn=0
+
+talkToClaire=0
+
+if x&lt;oPlayer1.x //Left of player
+{
+  image_xscale=imageScaling
+  x+=moveSpd
+}
+else if x&gt;oPlayer1.x //Right of player
+{
+  image_xscale=-imageScaling
+  x-=moveSpd
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

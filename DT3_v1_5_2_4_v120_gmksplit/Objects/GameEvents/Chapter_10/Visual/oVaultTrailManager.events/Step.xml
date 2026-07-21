@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">trailTime+=1
+if trailTime&gt;=15
+{
+  var tTrailNum;
+  tTrailNum=instance_number(oVaultLineMain)
+  
+  if tTrailNum&lt;3
+  {
+    var tNewTrail,tSizeSet;
+    tSizeSet=irandom_range(0,2)
+    tNewTrail=instance_create(view_xview[0]+64+random(352),view_yview[0]+64+random(224),oVaultLineMain)
+    tNewTrail.size=tSizeSet; tNewTrail.fadeSpd=0.03+(0.01*tSizeSet); tNewTrail.speed=tSizeSet
+    tNewTrail.image_blend=choose(c_teal,c_blue,c_red,c_purple)
+  }
+  trailTime=0
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

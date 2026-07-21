@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if bCanMoveCursor=1
+{
+  if oKeyCodes.kCodePressed[3]=1
+  {
+    playSound(global.snd_MenuCursor,0,1,1)
+    if curPos=1
+    {
+      curPos=curMax
+      curY+=curInc*(curMax-1)
+    }
+    else
+    {
+      curPos-=1
+      curY-=curInc
+    }
+  }
+  else if oKeyCodes.kCodePressed[4]=1
+  {
+    playSound(global.snd_MenuCursor,0,1,1)
+    if curPos=curMax
+    {
+      curPos=1
+      curY-=curInc*(curMax-1)
+    }
+    else
+    {
+      curPos+=1
+      curY+=curInc
+    }
+  }
+  if oKeyCodes.kCodePressed[5]=1
+  {
+    if curPos&gt;=1 and curPos&lt;=8 //To Dragoon segment
+    {
+      global.gamePaused=false
+      if curPos=1 {global.newMapX=0}
+      else if curPos=2 {global.newMapX=5}
+      else if curPos=3 {global.newMapX=6}
+      else if curPos=4 {global.newMapX=10}
+      else if curPos=5 {global.newMapX=11}
+      else if curPos=6 {global.newMapX=14}
+      else if curPos=7 {global.newMapX=15}
+      else if curPos=8 {global.newMapX=16}
+      global.recAreaTrans+=1
+      global.shooterDifficulty=1
+      global.newMapY=192
+      writeToPlayerGlobals()
+      transition_steps=10
+      transition_kind=21
+      room_goto(rDragoonMapA)
+    }
+    else //To Warship
+    {
+      global.gamePaused=false
+      global.recAreaTrans+=1
+      global.newMapX=1072; global.newMapY=416
+      writeToPlayerGlobals()
+      transition_steps=10
+      transition_kind=21
+      room_goto(rWarshipA)
+    }
+  }
+  else if oKeyCodes.kCodePressed[6]=1
+  {
+    resetKeyCodes()
+    global.gamePaused=false
+    instance_destroy()
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  if life&gt;0 and bActive=1
+  {
+    if life&lt;maxLife
+    {
+      life+=2
+      if life&gt;maxLife {life=maxLife}
+    }
+  }
+  else if life&lt;=0
+  {
+    playSound(global.snd_MetEnemyDieA,0,0.92,1)
+    for(i=0;i&lt;3;i+=1)
+    {
+      tEffect=instance_create(x,y-16+(i*16),oEffect)
+      tEffect.sprite_index=sMMExplosion
+      tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+    }
+    with myCollision {instance_destroy()}
+    instance_destroy()
+  }
+  enemyStepEvent()
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

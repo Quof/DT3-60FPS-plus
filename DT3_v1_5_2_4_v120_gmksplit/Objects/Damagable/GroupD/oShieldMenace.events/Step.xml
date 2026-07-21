@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  makeEnemyActive(0)
+  if bActive=true and stunnedTime=0 and life&gt;0
+  {
+    if initDir=0
+    {
+      xVel=runAcc
+      if x&gt;oPlayer1.x
+        xVel*=-1
+      initDir=1
+    }
+    
+    //Turn around if turn timer is 0 and player is close enough
+    if point_distance(x,0,oPlayer1.x,0)&lt;128
+    {
+      if (x&lt;oPlayer1.x and image_xscale=-1) or (x&gt;oPlayer1.x and image_xscale=1)
+      {
+        turnTime-=1
+        if turnTime=0
+        {
+          xVel*=-1
+          turnTime=25
+        }
+      }
+    }
+    
+    if shotTime&lt;shotDelay //Check direction
+    {
+      if xVel&gt;0 {image_xscale=1}
+      else {image_xscale=-1}
+    }
+    
+    //Check if at cliff edge and turn around
+    tDrop=0
+    if aiCheckHoriz(1,1,0,8,4)
+    {
+      if aiCheckVert(0,1,8,8,4)=1
+        tDrop=1
+    }
+    if tDrop=0
+    {
+      xVel*=-1
+      turnTime=25
+    }
+    
+    //---------- Swing sword (wave) ----------
+    shotTime+=1
+    if shotTime&gt;=shotDelay
+    {
+      if shotTime=shotDelay //Change anim and step back if too close to player
+      {
+        if point_distance(x,0,oPlayer1.x,0)&lt;224 and ((x&gt;oPlayer1.x and image_xscale=-1) or (x&lt;oPlayer1.x and image_xscale=1))
+        {
+          xVel=0
+          resType[0]=4
+          sprite_index=sShieldMenaceSwing
+          image_speed=0
+          image_index=0
+        }
+        else {shotTime=shotDelay-5}
+      }
+      else if shotTime=shotDelay+12 //Fire shot
+      {
+        image_index=1
+        var tNewAttack;
+        tNewAttack=instance_create(x+(12*image_xscale),y-28,oPassBullet)
+        tNewAttack.sprite_index=sShieldMenaceBeam; tNewAttack.atkPower=atkPower
+        tNewAttack.bulletSpeed=8.25; tNewAttack.decayTime=-100
+        if image_xscale=-1 {tNewAttack.direction=180}
+      }
+      else if shotTime=shotDelay+21 //End attack
+      {
+        xVel=runAcc
+        if x&gt;oPlayer1.x {xVel*=-1}
+        resType[0]=3
+        sprite_index=sShieldMenaceWalk
+        image_speed=0.15
+        turnTime=25
+        shotTime=0
+      }
+    }
+    
+    yVel+=0.3
+    if isCollisionBottom(1)
+      yVel=0
+    if isCollisionLeft(1)
+      xVel*=-1
+    if isCollisionRight(1)
+      xVel*=-1
+    if isCollisionSolid()
+      y-=2
+    
+    moveTo(xVel,yVel)
+    if y&gt;room_height+24
+    {
+      if questType&gt;0 {enemyQuest(questType)}
+      instance_destroy()
+    }
+  }
+  else if life&lt;=0
+  {
+    deathAnim+=1
+    image_speed=0
+    if deathAnim mod 4=0
+    {
+      if deathAnim mod 8=0 {playSound(global.snd_HardHit1,0,0.9,1)}
+      tEffect=instance_create(x+random_range(-11,11),y-1-random(44),oEffect)
+      tEffect.sprite_index=sDeathFlameA; tEffect.image_speed=0.33
+      tEffect.image_alpha=0.5+(image_alpha/3)
+      tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+    }
+    image_alpha-=0.04
+    if image_alpha&lt;0 {instance_destroy()}
+  }
+  enemyStepEvent()
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

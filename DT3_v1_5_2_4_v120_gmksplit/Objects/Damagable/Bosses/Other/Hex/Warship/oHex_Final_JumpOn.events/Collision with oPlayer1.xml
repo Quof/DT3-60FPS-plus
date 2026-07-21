@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="COLLISION" with="oPlayer1">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if bCanTakeDamage=true
+{
+  yAdjust=0
+  with oPlayer1
+  {
+    if platformCharacterIs(ON_GROUND) {other.yAdjust=-8}
+    if platformCharacterIs(IN_AIR) {other.yAdjust=0}
+  }
+  veloAssist=0
+  if oPlayer1.yVel&gt;0
+    veloAssist=round(oPlayer1.yVel/2)
+  
+  if bbox_bottom+yAdjust+veloAssist&lt;oPlayer1.bbox_bottom
+  {
+    //Do nothing since Hex has no hurt-box
+  }
+  else
+  {
+    if global.hasAbilToken[0]&gt;=2
+    {
+      if oPlayer1.bCanTakeHit=true and oPlayer1.sprite_index!=sJerryDamaged and oPlayer1.sprite_index!=sClaireDamaged
+      {
+        with oPlayer1
+        {
+          scrSlowFall(5,0.4,0)
+        }
+        
+        //Damage effect
+        var tFlash,tEffect;
+        tFlash=instance_create(0,0,oScreenFlash)
+        tFlash.image_alpha=0.5; tFlash.fadeSpeed=0.1
+        oPlayer1.canAirDash=1; oPlayer1.doubleJumpCheck=1
+        bCanTakeDamage=false
+        hitStateTime=30
+        oHex_Final_Main.bJumpedOn=1
+        global.gamePaused=1
+        instance_destroy()
+      }
+    }
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

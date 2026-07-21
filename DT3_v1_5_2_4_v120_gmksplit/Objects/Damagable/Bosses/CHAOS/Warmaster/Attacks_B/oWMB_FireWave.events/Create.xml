@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="CREATE" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">warTarget=oCHAOS_Warmaster_Main
+if room=rWarshipZ_E3
+{
+  if global.bBossGallery=1 {warTarget=oCHAOS_Warmaster_EX}
+  else {warTarget=oFedex}
+}
+else if room=rBT_WarmasterA {warTarget=oCHAOS_Warmaster_Fixed}
+
+//Flame Ground Trail
+event_inherited()
+image_speed=0
+
+//Enemy base statistics
+bShowHealthBar=false
+bShowDamage=false
+bCanTakeDamage=false
+size=2
+atkTime=0
+if warTarget.DIFFICULTY=1 {moveSpd=7}
+else
+{
+  moveSpd=8
+  if warTarget=oCHAOS_Warmaster_EX
+  {
+    if oCHAOS_Warmaster_EX.ATTACK_FORM=2
+    {
+      if image_xscale=1.1 {moveSpd=13}
+      else if image_xscale=1.3 {moveSpd=11}
+      else if image_xscale=1.6 {moveSpd=9}
+    }
+  }
+  else if warTarget=oFedex
+  {
+    if oFedex.ATTACK_FORM=2
+    {
+      if image_xscale=1.1 {moveSpd=13}
+      else if image_xscale=1.3 {moveSpd=11}
+      else if image_xscale=1.6 {moveSpd=9}
+    }
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

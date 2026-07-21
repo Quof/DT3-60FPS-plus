@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="DRAW" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if fadeAlpha&gt;0
+{
+  draw_set_alpha(fadeAlpha)
+  draw_set_color(c_white)
+  draw_rectangle(view_xview[0]-1,view_yview[0]-1,view_xview[0]+view_wview[0]+1,view_yview[0]+view_hview[0]+1,0)
+}
+
+event_inherited()
+if sprite_index=sSigmaA_Walk
+  draw_sprite_ext(armSpr,armFrm,x-(11*image_xscale),y-59,image_xscale,image_yscale,image_angle,image_blend,image_alpha)
+else if sprite_index=sSigmaA_Lean
+{
+  draw_sprite_ext(sSigmaA_Head,headFrm,x+(17*image_xscale),y-41,image_xscale,image_yscale,image_angle,image_blend,image_alpha)
+  draw_sprite_ext(armSpr,armFrm,x-(3*image_xscale),y-46,image_xscale,image_yscale,image_angle,image_blend,image_alpha)
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

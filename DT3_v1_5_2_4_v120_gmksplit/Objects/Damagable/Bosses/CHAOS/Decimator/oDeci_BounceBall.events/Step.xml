@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  if yVel&lt;10 {yVel+=grav}
+  
+  if xVel&gt;0.75 {xVel-=xFalloff}
+  else if xVel&lt;-0.75 {xVel+=xFalloff}
+  
+  if xVel&gt;-1 and xVel&lt;1
+  {
+    instance_destroy()
+  }
+  
+  if isCollisionTop(1)
+    yVel=4
+  if isCollisionBottom(1)
+  {
+    yVel=-bounceNum*2
+    bounceNum-=1
+    if bounceNum=0 {instance_destroy()}
+  }
+  if isCollisionLeft(1)
+  {
+    var tBufX;
+    tBufX=abs(xVel)
+    xVel=tBufX
+  }
+  if isCollisionRight(1)
+  {
+    var tBufX;
+    tBufX=abs(xVel)
+    xVel=-tBufX
+  }
+  moveTo(xVel,yVel)
+  
+  
+  if y&gt;room_height+32
+    instance_destroy()
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

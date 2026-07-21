@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">//If the character is standing on the platform, move the platform
+if global.gamePaused=false
+{
+  if isCollisionCharacterTop(1,0)
+  {
+    if eLineAlpha&lt;1 {eLineAlpha+=0.05}
+    //if isCollisionBottom(1)
+    //  yVel=0
+    //else
+    //{
+      var tMove; tMove=0
+      if fallSpeed&gt;0 {if y&lt;ystart+distMax {tMove=1}}
+      else if fallSpeed&lt;0 {if y&gt;ystart-distMax {tMove=1}}
+      
+      if tMove=1 {yVel=fallSpeed}
+      else {yVel=0}
+    //}
+  }
+  else
+  {
+    if eLineAlpha&gt;0 {eLineAlpha-=0.05}
+    if riseSpeed&gt;0
+    {
+      if y&gt;ystart
+        yVel=-riseSpeed
+      else
+        yVel=0
+    }
+    else if riseSpeed&lt;0
+    {
+      if y&lt;ystart
+        yVel=-riseSpeed
+      else
+        yVel=0
+    }
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

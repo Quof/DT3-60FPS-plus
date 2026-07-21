@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  makeEnemyActive(0)
+  if bActive=true and stunnedTime=0 and life&gt;0
+  {
+    if x&lt;oPlayer1.x {image_xscale=1}
+    else {image_xscale=-1}
+    
+    bombTime+=1
+    if bombTime&gt;=bombDelay+1 and bombTime&lt;=bombDelay+6 {pipeY[0]-=0.5}
+    else if bombTime&gt;=bombDelay+12 and bombTime&lt;=bombDelay+14 {pipeY[0]+=1}
+    else if bombTime=bombDelay+15
+    {
+      var tNewAttack;
+      tNewAttack=instance_create(x+(6*image_xscale),y-39,oMegaTBomb); tNewAttack.type=0
+      tNewAttack.atkPower=atkPower; tNewAttack.xVel=7*image_xscale; tNewAttack.yVel=-8
+    }
+    else if bombTime&gt;=bombDelay+18 and bombTime&lt;=bombDelay+23 {pipeY[1]-=0.5}
+    else if bombTime&gt;=bombDelay+27 and bombTime&lt;=bombDelay+29 {pipeY[1]+=1}
+    else if bombTime=bombDelay+30
+    {
+      var tNewAttack;
+      tNewAttack=instance_create(x-(9*image_xscale),y-39,oMegaTBomb); tNewAttack.type=1
+      tNewAttack.atkPower=atkPower; tNewAttack.xVel=7*image_xscale; tNewAttack.yVel=-8
+      bombTime=0
+    }
+  }
+  else if life&lt;=0
+  {
+    playSound(global.snd_EnemyDieMM,0,1,1)
+    tEffect=instance_create(x,y-24,oEffect); tEffect.sprite_index=sMMExplosion
+    tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+    tEffect=instance_create(x-12,y-12,oEffect); tEffect.sprite_index=sMMExplosion
+    tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+    tEffect=instance_create(x+12,y-12,oEffect); tEffect.sprite_index=sMMExplosion
+    tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+    instance_destroy()
+  }
+  
+  enemyStepEvent()
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

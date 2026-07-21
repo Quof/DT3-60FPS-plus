@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="DRAW" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">findTargetX=point_distance(oPlayer1.x,0,x,0)
+findTargetY=point_distance(0,oPlayer1.y,0,y)
+if findTargetX&lt;drawRangeX and findTargetY&lt;drawRangeY
+{
+  if newSprite=0
+  {
+    draw_set_alpha(eLineAlpha)
+    draw_set_color(c_black)
+    draw_line_width(x+(sprite_width/2),ystart-distMax+(sprite_height/2),x+(sprite_width/2),ystart+(sprite_height/2),2)
+    draw_sprite_ext(sprite_index,image_index,x,y,image_xscale,image_yscale,image_angle,image_blend,image_alpha)
+  }
+  else if newSprite=1 //Sacred Temple
+  {
+    draw_sprite_ext(sTrapDoor,image_index,x,y+16,1,1,90,image_blend,image_alpha)
+    
+    if eLineAlpha&gt;0
+    {
+      for(i=0;i&lt;4;i+=1)
+      {
+        if bColUp[i]=1
+        {
+          lineColor[i]+=3
+          if lineColor[i]&gt;=255 {bColUp[i]=0}
+        }
+        else
+        {
+          lineColor[i]-=3
+          if lineColor[i]&lt;=0 {bColUp[i]=1}
+        }
+      }
+      colorA=make_color_rgb(lineColor[0],lineColor[1],lineColor[2])
+      colorB=make_color_rgb(lineColor[1],lineColor[2],lineColor[3])
+      colorC=make_color_rgb(lineColor[2],lineColor[3],lineColor[0])
+      colorD=make_color_rgb(lineColor[3],lineColor[0],lineColor[1])
+      
+      draw_set_alpha(eLineAlpha/10)
+      draw_rectangle_color(x,ystart-distMax,x+63,ystart+16,lineColor[0],lineColor[1],lineColor[2],lineColor[3],0)
+      draw_set_alpha(eLineAlpha)
+      draw_line_width_color(x,ystart-distMax,x,ystart+16,2,colorA,colorB)
+      draw_line_width_color(x+63,ystart-distMax,x+63,ystart+16,2,colorC,colorD)
+    }
+  }
+  else if newSprite=2 //Begonia Mountain Temple
+  {
+    draw_set_alpha(eLineAlpha)
+    draw_set_color(c_black)
+    draw_line_width(x+32,ystart-distMax+8,x+32,ystart+8,2)
+    draw_background_part(tileBegoniaA,96,192,16,8,x,y)
+    draw_background_part(tileBegoniaA,0,176,32,8,x+16,y)
+    draw_background_part(tileBegoniaA,112,192,16,8,x+48,y)
+    draw_background_part(tileBegoniaA,96,192,16,8,x,y+8)
+    draw_background_part(tileBegoniaA,0,176,32,8,x+16,y+8)
+    draw_background_part(tileBegoniaA,112,192,16,8,x+48,y+8)
+  }
+  else if newSprite=3 //Gate 6 - Castle of DOOM
+  {
+    draw_set_alpha(eLineAlpha)
+    draw_set_color(c_black)
+    draw_line_width(x+32,ystart-distMax+8,x+32,ystart+8,2)
+    draw_background_part(tileCastleOfDoom,64,64,64,16,x,y)
+  }
+  else if newSprite=4 //Magical Castle
+  {
+    draw_sprite_ext(sCastleEleA,image_index,x,y,image_xscale,image_yscale,image_angle,image_blend,image_alpha)
+  }
+  else if newSprite=5 //Distortion
+  {
+    draw_sprite_ext(sprite_index,image_index,x,y,image_xscale,image_yscale,image_angle,image_blend,image_alpha)
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

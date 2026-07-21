@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="DRAW" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if type=0 //Clouds
+{
+  draw_background_ext(backWastelandClouds,0,0,1,1,0,c_white,1)
+  draw_background_ext(backWastelandClouds,800,0,-1,1,0,c_white,1)
+  draw_background_ext(backWastelandClouds,800,0,1,1,0,c_white,1)
+  draw_background_ext(backWastelandClouds,1600,0,-1,1,0,c_white,1)
+  draw_background_ext(backWastelandClouds,1600,0,1,1,0,c_white,1)
+}
+else if type=1 //Mountains
+{
+  for(i=0;i&lt;6;i+=1)
+  {
+    draw_background_ext(backWastelandMountains,i*252,240,1,1,0,c_white,1)
+  }
+}
+else if type=2 //Rain
+{
+  draw_background_tiled_ext(backWastelandRain,0,rainY,1,1,c_white,0.25)
+}
+else if type=3 //Fill color
+{
+  draw_set_alpha(1)
+  draw_set_color(backColorA)
+  draw_rectangle(0,129,room_width,240,0)
+  draw_set_color(backColorB)
+  draw_rectangle(0,282,room_width,room_height,0)
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

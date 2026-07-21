@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  makeEnemyActive(0)
+  
+  frameProg+=1
+  if frameProg=4 {propFrm=1}
+  else if frameProg=8 {propFrm=2}
+  else if frameProg=12 {propFrm=3}
+  else if frameProg=16 {propFrm=2}
+  else if frameProg=20 {propFrm=1}
+  else if frameProg=24 {propFrm=0; frameProg=0}
+  
+  if bActive=true and stunnedTime=0
+  {
+    if x&lt;oPlayer1.x
+      image_xscale=1
+    else
+      image_xscale=-1
+  }
+  enemyStepEvent()
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

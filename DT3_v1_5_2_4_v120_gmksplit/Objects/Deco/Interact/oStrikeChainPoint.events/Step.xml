@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  //----- Movement -----
+  if bCanMove=1
+  {
+    shiftTime+=1
+    if shiftTime&gt;=shiftTimeMax
+    {
+      shiftTime=0
+      xVel*=-1
+      yVel*=-1
+    }
+    x+=xVel; y+=yVel
+  }
+  
+  //----- Retract animation -----
+  if retractTime&gt;0 {retractTime-=1}
+  if retractTime&gt;=1 and retractTime&lt;=10 {poleExtendDist-=1}
+  
+  //----- Grapple reuse time -----
+  if reuseTime&gt;=1 and reuseTime&lt;=5 {poleExtendDist+=2} //Starting time is 20
+  
+  if reuseTime&gt;0
+  {
+    reuseTime-=1
+    if reuseTime=0 {poleExtendDist=5; bGrappled=0}
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">//----- Controls -----
+if !instance_exists(oZeldaSaveMenu)
+{
+  if bOnBird=0 {image_speed=0.15}
+  else {image_speed=0.25}
+  event_user(0)
+  if bMoveStep&gt;0
+  {
+    if bOnBird=0
+    {
+      if bMoveStep=1 {y-=4}
+      else if bMoveStep=2 {y+=4}
+      else if bMoveStep=3 {x-=4}
+      else if bMoveStep=4 {x+=4}
+    }
+    else if bOnBird=1
+    {
+      if bMoveStep=1 {y-=8}
+      else if bMoveStep=2 {y+=8}
+      else if bMoveStep=3 {x-=8}
+      else if bMoveStep=4 {x+=8}
+    }
+    
+    moveTime+=1
+    if moveTime=4 and bOnBird=0
+    {
+      moveTime=0
+      bMoveStep=0
+    }
+    else if moveTime=2 and bOnBird=1
+    {
+      moveTime=0
+      bMoveStep=0
+    }
+  }
+  event_user(0)
+  
+  //----- Pause Menu -----
+  if bMoveStep=0 and bCanMove=1 and bOnBird=0
+  {
+    if oKeyCodes.kCodePressed[12]=1
+    {
+      io_clear()
+      resetKeyCodes()
+      playSound(global.snd_MenuOpen,0,1,1)
+      instance_create(0,0,oZeldaSaveMenu)
+    }
+  }
+  
+  if oKeyCodes.kCodePressed[6]=1 and bOnBird=1 and bMoveStep=0 //Get off bird
+  {
+    if !collision_point(x,y,oSolid,0,1) and !collision_point(x,y,oGameMapExit,0,1) and !collision_point(x,y,oNoLandingZone,0,1)
+    {
+      io_clear()
+      bOnBird=0
+      sprite_index=sClaireGDown
+      global.stCGame_C[1]=x
+      global.stCGame_C[2]=y
+      instance_create(x,y,oGreatBird)
+    }
+  }
+  
+  if oKeyCodes.kCodePressed[8]=1 and bOnBird=0 and bMoveStep=0 and global.gameProgress&gt;=3810 //Call bird
+  {
+    if !collision_point(x,y,oSolid,0,1) and !collision_point(x,y,oGameMapExit,0,1) and !collision_point(x,y,oNoLandingZone,0,1)
+    {
+      io_clear()
+      playSound(global.snd_RPG_ItemGrab,0,1,33500)
+      global.stCGame_C[1]=x
+      global.stCGame_C[2]=y
+      oGreatBird.x=global.stCGame_C[1]
+      oGreatBird.y=global.stCGame_C[2]
+    }
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

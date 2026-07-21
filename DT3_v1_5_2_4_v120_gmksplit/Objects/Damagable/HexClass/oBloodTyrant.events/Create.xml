@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="CREATE" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">event_inherited()
+makeActive()
+setCollisionBounds(-19,-52,19,-1)
+animSpd=0.33
+image_speed=0
+
+//Enemy base statistics
+eName="Blood Tyrant"
+eLevel=20
+maxLife=1600
+life=maxLife
+pointWorth=40
+atkPower=8
+stunResist=4
+baseItemChance=85
+baseDropIndex=85
+moneyWorth=10
+affiliation=8
+dieSound=0
+dieEffect=0
+enemyProg=0
+inactiveDist*=2
+
+runAcc=2.25
+bJumpReady=1
+minDistToPlayer=80
+shielding=0
+shieldPower=0
+myShield=0
+imageEffect=0
+
+atkChosen=0
+earthPillar=0
+earthX=0
+earthY=0
+earthPDir=0
+earthPilScl=1
+atkCloseTime=80
+atkCloseDelay=130
+atkChargeTime=50
+atkChargeDelay=145
+atkJumpTime=90
+atkJumpDelay=250
+resElemTime=-1
+
+jeremyText="I can't read anything on this guy. It's as if someone knows my methods and is blocking them."
+chaoText="I'm not blocked out. First up, it can detect different terrain types and navigate fairly well to chase you. During its swing, it lunges forward, which it uses if you're close. If you back away, it'll charge, leaving a trail of fire behind it. Another thing it may do is dash back then leap. Get ready to dash when it does this, it's going to use a projectile attack. Another thing, don't use PIERCE or SHOT type weapons if it's not attacking."
+devText="This is the first of a group of 'Elite' class enemies in DT3. Enemies marked like this are supposed to give a sense of fear due to their combat style. Better get used to combat in DT3, enemies of this class ramp it up."
+extraInfo="Boosts defenses when guarding."
+
+deathAnim=0
+
+if global.gameProgress&gt;=3270
+{
+  eName="Upgraded Blood Tyrant"
+  eLevel=28
+  maxLife=2000
+  life=maxLife
+  pointWorth=60
+  atkPower=9
+  stunResist=7
+  if global.location=99 //Warship only
+  {
+    eName="Oppressive Blood Tyrant"
+    eLevel=38
+    maxLife=2400
+    life=maxLife
+    pointWorth=110
+    atkPower=10
+    stunResist=9
+  }
+  jeremyText="Oh man... I can scan them now! Something to note about them that I can actually scan now. They've been upgraded slightly. Its HP has increased a bit as well as its Stun Resist. Oh man, OH MAN. I just saw something else. They've always had this exploit, but right after they do their flashy shield thing and annoyingly spam the screen with projectiles. They take 2x damage to ELEMENTAL type."
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

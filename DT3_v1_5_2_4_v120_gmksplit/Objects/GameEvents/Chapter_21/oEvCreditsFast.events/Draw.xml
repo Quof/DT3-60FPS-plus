@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="DRAW" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">draw_set_alpha(1)
+draw_set_color(c_black)
+draw_rectangle(0,0,room_width,room_height,0)
+
+if endText&gt;=1
+{
+  draw_set_alpha(1)
+  draw_set_color(c_white)
+  draw_set_font(fnt_NES)
+  
+  draw_set_halign(fa_left)
+  draw_text(view_xview[0]+textLeft,view_yview[0]+64,"Number of times you saw the Game Over screen:")
+  draw_set_halign(fa_right)
+  draw_text(view_xview[0]+textRight,view_yview[0]+64,global.recDeathCount)
+}
+if endText&gt;=2
+{
+  draw_set_halign(fa_left)
+  draw_text(view_xview[0]+textLeft,view_yview[0]+80,"Amount of damage you took:")
+  draw_set_halign(fa_right)
+  draw_text(view_xview[0]+textRight,view_yview[0]+80,global.recDmgTaken)
+}
+if endText&gt;=3
+{
+  draw_set_halign(fa_left)
+  draw_text(view_xview[0]+textLeft,view_yview[0]+96,"Number of times you were hit:")
+  draw_set_halign(fa_right)
+  draw_text(view_xview[0]+textRight,view_yview[0]+96,global.recTimesHit)
+}
+if endText&gt;=4
+{
+  draw_set_halign(fa_left)
+  draw_text(view_xview[0]+textLeft,view_yview[0]+112,"Number of times you fell off the level:")
+  draw_set_halign(fa_right)
+  draw_text(view_xview[0]+textRight,view_yview[0]+112,global.recFallenOffLevel)
+}
+if endText&gt;=5
+{
+  draw_set_halign(fa_left)
+  draw_text(view_xview[0]+textLeft,view_yview[0]+128,"Amount of money you lost from dying all the time:")
+  draw_set_halign(fa_right)
+  draw_text(view_xview[0]+textRight,view_yview[0]+128,global.recInterLostDeath)
+}
+if endText&gt;=6
+{
+  draw_set_halign(fa_left)
+  draw_text(view_xview[0]+textLeft,view_yview[0]+144,"Number of times you hilariously drowned:")
+  draw_set_halign(fa_right)
+  draw_text(view_xview[0]+textRight,view_yview[0]+144,global.recDrowned)
+}
+if endText&gt;=7
+{
+  draw_set_halign(fa_left)
+  draw_text(view_xview[0]+textLeft,view_yview[0]+160,"Number of times you allowed your shield to break:")
+  draw_set_halign(fa_right)
+  draw_text(view_xview[0]+textRight,view_yview[0]+160,global.recShieldBroken)
+}
+if endText&gt;=8
+{
+  draw_set_halign(fa_center)
+  draw_set_font(fnt_Chapter)
+  draw_text(view_xview[0]+240,view_yview[0]+208,"There, this reference was made!#Now go play something else!")
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

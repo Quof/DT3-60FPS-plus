@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">//requires: timeCurr, timeTillOn, timeTillOff
+if global.gamePaused=false
+{
+  if oGame.time mod 2=0
+  {
+    if image_alpha=1 {image_alpha=0.5}
+    else {image_alpha=1}
+  }
+  
+  timeCurr+=1
+  if mask_index=sNull
+  {
+    if timeCurr&gt;=timeTillOn
+    {
+      mask_index=sPlatTempFade
+      timeCurr=0
+    }
+  }
+  else
+  {
+    if timeCurr&gt;=timeTillOff
+    {
+      mask_index=sNull
+      timeCurr=0
+    }
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

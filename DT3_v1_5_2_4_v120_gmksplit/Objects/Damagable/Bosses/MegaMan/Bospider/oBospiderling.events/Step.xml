@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  if life&gt;0
+  {
+    if atkProg=0 //Falling
+    {
+      yVel+=0.4
+      if yVel&gt;12 {yVel=12}
+      if isCollisionBottom(1)
+      {
+        atkProg=1
+        xVel=0
+        yVel=0
+      }
+      if isCollisionLeft(1) {xVel=0}
+      if isCollisionRight(1) {xVel=0}
+      moveTo(xVel,yVel)
+    }
+    else if atkProg=1 //On ground
+    {
+      atkTime+=1
+      if atkTime=12
+      {
+        image_index=1
+        if moveDir=1 {xVel=7}
+        else if moveDir=2 {xVel=3}
+        else if moveDir=3{xVel=-7}
+        else if moveDir=4 {xVel=-3}
+      }
+      else if atkTime&gt;=15 and atkTime&lt;=999
+      {
+        if atkTime mod abs(xVel)=0
+        {
+          if image_index=1 {image_index=2}
+          else {image_index=1}
+        }
+        
+        if xVel&gt;0
+        {
+          if isCollisionRight(1)
+          {
+            x=oBospider.xCenter+oBospider.roomSpan
+            y=oBospider.yGround-10
+            image_angle=90
+            atkTime=1000
+          }
+        }
+        else if xVel&lt;0
+        {
+          if isCollisionLeft(1)
+          {
+            x=oBospider.xCenter-oBospider.roomSpan
+            y=oBospider.yGround-10
+            image_angle=270
+            atkTime=1000
+          }
+        }
+      }
+      if atkTime&gt;=1000
+      {
+        if moveDir=1 {yVel=7}
+        else if moveDir=2 {yVel=3}
+        else if moveDir=3{yVel=7}
+        else if moveDir=4 {yVel=3}
+        atkProg=2
+      }
+      if atkTime&lt;1000 {moveTo(xVel,yVel)}
+    }
+    else if atkProg=2 //Run up wall
+    {
+      atkTime+=1
+      if atkTime mod abs(yVel)=0
+      {
+        if image_index=1 {image_index=2}
+        else {image_index=1}
+      }
+      y-=yVel
+      if y&lt;=-16 {instance_destroy()}
+    }
+  }
+  else
+  {
+    playSound(global.snd_EnemyDieMM,0,1,1)
+    tEffect=instance_create(x,y,oEffect)
+    tEffect.sprite_index=sMMExplosion
+    tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+    instance_destroy()
+  }
+  enemyStepEvent()
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

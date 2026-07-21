@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="OTHER" id="10">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if instance_exists(oElpizoPortal)
+{
+  if portalAction=1 //Turn to other side if one portal is close
+  {
+    var tNextPortal;
+    tNextPortal=instance_nearest(x,y-22,oElpizoPortal)
+    if point_distance(x,y-22,tNextPortal.x,tNextPortal.y)&lt;=80
+    {
+      if x&gt;=tNextPortal.x and image_xscale=-1 {image_xscale=1}
+      else if x&lt;=tNextPortal.x and image_xscale=1 {image_xscale=-1}
+    }
+  }
+  else if portalAction=2 //Checks if a portal is close
+  {
+    var tNextPortal;
+    tNextPortal=instance_nearest(x,y-22,oElpizoPortal)
+    if point_distance(x,y-22,tNextPortal.x,tNextPortal.y)&lt;=80 {portalAction=100}
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

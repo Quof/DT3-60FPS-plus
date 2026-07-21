@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="COLLISION" with="oPlayer1">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.difficulty&gt;=2
+{
+  playSound(global.snd_MoneyPickup,0,0.9,1)
+  tEffect=instance_create(x+8,y+8,oEffect)
+  tEffect.sprite_index=sEfInternetzGrab; tEffect.followID=-1; tEffect.xFollow=0; tEffect.yFollow=0
+  tEffect.newBlend=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0; tEffect.image_alpha=0.9; tEffect.image_speed=0.75
+  
+  if variable_local_exists("enemyDrop") {global.recInterEarnEnemy+=moneyWorth}
+  oPlayer1.moneyEarnedOnMap+=moneyWorth
+  global.recInterEarnTotal+=moneyWorth
+  oPlayer1.currentMoney+=moneyWorth
+  if oPlayer1.currentMoney&gt;global.pMoneyMax {oPlayer1.currentMoney=global.pMoneyMax}
+  awardAwesome(moneyWorth*10)
+  if global.optShowMoney=1
+  {
+    var tNewAmt;
+    tNewAmt=instance_create(x+8,y+8,oMoneyAward)
+    tNewAmt.moneyValue=round(moneyWorth)
+  }
+  instance_destroy()
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

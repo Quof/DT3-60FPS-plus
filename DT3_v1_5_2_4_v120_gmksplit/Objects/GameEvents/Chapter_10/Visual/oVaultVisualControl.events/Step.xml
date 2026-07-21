@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if !instance_exists(oVaultLightball)
+{
+  lightballTime+=1
+  if lightballTime&gt;=240
+  {
+    var tNewBall,tXPos,tYPos,tPosYSet;
+    tXPos=view_xview[0]+random(480)
+    tPosYSet=choose(1,2)
+    if tPosYSet=1 {tYPos=view_yview[0]-32}
+    else {tYPos=view_yview[0]+384}
+    tNewBall=instance_create(tXPos,tYPos,oVaultLightball)
+    if tPosYSet=1
+    {
+      if tXPos&lt;oPlayer1.x {tNewBall.direction=315}
+      else {tNewBall.direction=225}
+    }
+    else
+    {
+      if tXPos&lt;oPlayer1.x {tNewBall.direction=45}
+      else {tNewBall.direction=135}
+    }
+    lightballTime=irandom(30)
+  }
+}
+
+if instance_number(oVaultBackBinary)&lt;2
+{
+  binaryTime+=1
+  if binaryTime&gt;=600
+  {
+    var tNewBinary;
+    event_user(0)
+    tNewBinary=instance_create(view_xview[0]+496,view_yview[0]+8+random(300),oVaultBackBinary)
+    tNewBinary.binaryString=tBinaryString
+    binaryTime=irandom(180)
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

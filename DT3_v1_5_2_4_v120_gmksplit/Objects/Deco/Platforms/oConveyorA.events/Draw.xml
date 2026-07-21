@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="DRAW" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if drawType=0 //Central City
+{
+  if image_xscale&gt;2
+  {
+    var ii;
+    for(ii=1;ii&lt;image_xscale-1;ii+=1)
+    {
+      draw_sprite(sConveyorA_Mid,image_index,x+(ii*16),y)
+    }
+  }
+  draw_sprite(sConveyorA_Left,image_index,x,y)
+  draw_sprite(sConveyorA_Right,image_index,x+(image_xscale*16)-16,y)
+}
+else if drawType=1 //MM Sigma Stage
+{
+  var ii;
+  for(ii=0;ii&lt;image_xscale;ii+=1)
+  {
+    draw_sprite(sConveyorB_Mid,image_index,x+(ii*16),y)
+  }
+  draw_sprite(sConveyorB_Left,image_index,x,y)
+  draw_sprite(sConveyorB_Right,image_index,x+(image_xscale*16),y)
+}
+else if drawType=2 //Warship
+{
+  if image_xscale&gt;2
+  {
+    var ii;
+    for(ii=1;ii&lt;image_xscale-1;ii+=1)
+    {
+      draw_sprite_ext(sConveyorC_Mid,image_index,x+(ii*16),y,1,1,0,image_blend,image_alpha)
+    }
+  }
+  draw_sprite_ext(sConveyorC_Left,image_index,x,y,1,1,0,image_blend,image_alpha)
+  draw_sprite_ext(sConveyorC_Right,image_index,x+(image_xscale*16)-16,y,1,1,0,image_blend,image_alpha)
+}
+
+if global.optShowHoverInfo=1 and hoverAlpha!=-1 //Hover info
+{
+  if place_meeting(x,y,oIdentifier) {hoverAlpha=1.5}
+  if hoverAlpha&gt;0 and oIdentifier.bCanScan=1
+  {
+    hoverAlpha-=0.05
+    draw_set_font(fnt_EnemyName)
+    draw_set_halign(fa_center)
+    draw_set_alpha(hoverAlpha)
+    var tHoverX,tHoverY;
+    tHoverX=floor(x+(image_xscale*8))
+    tHoverY=floor(y)+32
+    textDropShadow(string("Conveyor Speed: ") +string(pushPower),tHoverX,tHoverY,make_color_rgb(0,255,0),c_black,1)
+  }
+}
+event_inherited()
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

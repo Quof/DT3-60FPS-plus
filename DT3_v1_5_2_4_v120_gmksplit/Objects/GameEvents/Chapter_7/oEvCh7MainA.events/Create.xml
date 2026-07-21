@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="CREATE" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">event_inherited()
+enemyCount=-1
+fadeColor=c_white
+fadeAlpha=0
+followBack=0
+progressBar=0
+achievementCoins=0
+
+if global.gameProgress=1530
+{
+  fadeColor=c_black
+  fadeAlpha=1
+  oNPC_Syrus.image_xscale=-1
+}
+
+if room=rMain_21
+{
+  skyBeamAlpha=0
+  skyBeamX=1232
+  skyBeamWidth=0
+}
+else if room=rMountTemple_J
+{
+  if global.gameProgress=1690
+  {
+    npcMMX=instance_create(240,288,oMisc)
+    npcMMX.sprite_index=sMegamanXIdle
+    npcMMX.type=1
+    storyObject=instance_create(288,256,oMisc)
+    storyObject.sprite_index=sAccessCode
+    storyObject.type=1
+  }
+}
+else if room=rMain_28
+{
+  if global.gameProgress=1720
+  {
+    npcMMX=instance_create(1248,288,oMisc)
+    npcMMX.sprite_index=sMegamanXKneel
+    npcMMX.type=1
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

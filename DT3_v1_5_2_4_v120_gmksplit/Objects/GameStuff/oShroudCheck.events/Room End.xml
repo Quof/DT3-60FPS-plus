@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="OTHER" id="5">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if shroudProg=3
+{
+  if global.shroudThreat&gt;60 and global.shroudThreat&lt;120 //chance that Shrouds will follow
+  {
+    var followChance;
+    followChance=random(100)
+    if global.shroudThreat&gt;75
+      followChance-=10
+    else if global.shroudThreat&gt;90
+      followChance-=50
+    
+    if followChance&lt;=15
+      global.shroudThreat+=1000
+  }
+  if global.shroudThreat&lt;120 //increase threat level if player runs
+  {
+    if global.shroudThreat&lt;40
+      global.shroudThreat+=10
+    else
+      global.shroudThreat+=5
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

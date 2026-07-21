@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="CREATE" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">event_inherited()
+enemyCount=-1
+fadeColor=c_white
+fadeAlpha=0
+rmLSpawn=1
+
+if room=rHPF_E {scriptPlat=0}
+else if room=rHPF_L {virusTime=0}
+else if room=rHPF_N and global.gameProgress=4020
+{
+  fadeColor=c_black
+  fadeAlpha=1
+}
+else if room=rHPF_R and global.gameProgress=4060
+{
+  sentrySpawn=1260
+}
+else if room=rHPF_V
+{
+  remMenuState=global.optShowHUD
+}
+else if room=rCCity_NA_S1 and global.gameProgress=4190
+{
+  fadeColor=c_black
+  fadeAlpha=1
+}
+
+if global.gameProgress&gt;=4130 and global.gameProgress&lt;=4190 //Escape sequence
+{
+  with oInjectorVirus {instance_destroy()}
+  with oEnemySpawnZone {instance_destroy()}
+  rmLSpawn=0
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

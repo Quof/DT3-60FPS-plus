@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="COLLISION" with="oAttackBase">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/*
+-Types-
+1:  Enemies
+2:  Traps
+3:  Blackmoor
+5:  Normal Switches
+6:  Timed Switches
+*/
+
+if type=5 //Player Weapon to Normal Switch
+{
+  if room=rExtGateC_1
+  {
+    if oGateCRoomProg.rmProg=0
+    {
+      if ownerID=(197475)
+      {
+        playSound(global.snd_SwitchHit,0,1,1)
+        with (197561) {instance_destroy()}
+        oGateCRoomProg.rmProg+=1
+      }
+    }
+  }
+  else if room=rExtGateC_3
+  {
+    if oGateCRoomProg.flameSwitch[0]=0
+    {
+      if ownerID=(199515)
+      {
+        playSound(global.snd_SwitchHit,0,1,1)
+        with (199577) {instance_destroy()}
+        oGateCRoomProg.flameSwitch[0]+=1
+      }
+    }
+    if oGateCRoomProg.flameSwitch[1]=0
+    {
+      if ownerID=(199519)
+      {
+        playSound(global.snd_SwitchHit,0,1,1)
+        with (199579) {instance_destroy()}
+        oGateCRoomProg.flameSwitch[1]+=1
+      }
+    }
+    if oGateCRoomProg.flameSwitch[2]=0
+    {
+      if ownerID=(199527)
+      {
+        playSound(global.snd_SwitchHit,0,1,1)
+        with (199580) {instance_destroy()}
+        oGateCRoomProg.flameSwitch[2]+=1
+      }
+    }
+  }
+}
+
+if type=6 //Player Weapon to Timed Switch
+{
+  if activated=0
+  {
+    playSound(global.snd_SwitchHit,0,0.9,1)
+    activated=1
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

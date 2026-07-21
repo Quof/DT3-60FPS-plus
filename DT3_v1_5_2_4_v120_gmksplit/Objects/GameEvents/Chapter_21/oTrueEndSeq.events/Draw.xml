@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="DRAW" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if jeremyLaser&gt;0
+{
+  if scaleUp=1
+  {
+    laserScaleY+=0.01
+    if laserScaleY&gt;=0.9 {scaleUp=0}
+  }
+  else
+  {
+    laserScaleY-=0.01
+    if laserScaleY&lt;=0.8 {scaleUp=1}
+  }
+  
+  draw_sprite_ext(sDeci_BigLaser,0,1088,272,20,laserScaleY,115,c_white,1)
+  var tEffect,tFFScl,tFFDir;
+  for(i=0;i&lt;4;i+=1)
+  {
+    tFFScl=random(0.2)
+    tFFDir=random(360)
+    tEffect=instance_create(x+lengthdir_x(8,tFFDir),y+lengthdir_y(8,tFFDir),oEffectB)
+    tEffect.type=3; tEffect.sprite_index=sEfFirefly; tEffect.newBlend=1
+    tEffect.image_alpha=0.5; tEffect.image_xscale=0.2+tFFScl; tEffect.image_yscale=0.2+tFFScl
+    tEffect.direction=tFFDir; tEffect.speed=10
+    tEffect.fadeSpd=0.05; tEffect.AccelX=0; tEffect.AccelY=0; tEffect.followID=-1; tEffect.rotation=0
+  }
+}
+
+if fadeAlpha&gt;0
+{
+  draw_set_alpha(fadeAlpha)
+  draw_set_color(fadeColor)
+  draw_rectangle(view_xview[0]-1,view_yview[0]-1,view_xview[0]+view_wview[0]+1,view_yview[0]+view_hview[0]+1,0)
+}
+
+if dtAlpha&gt;=0
+{
+  draw_sprite_ext(sEndingLogo,0,240,128,1,1,0,c_white,dtAlpha)
+}
+if thanksAlpha&gt;0
+{
+  draw_set_font(fnt_UnrealGuy)
+  draw_set_halign(fa_center)
+  draw_set_alpha(thanksAlpha)
+  draw_set_color(c_white)
+  draw_text(240,196,"Thanks for playing!")
+}
+if pressAnyAlpha=1
+{
+  draw_set_font(fnt_EnemyName)
+  draw_set_halign(fa_right)
+  draw_set_alpha(1)
+  draw_set_color(c_white)
+  draw_text(468,320,"Pst, you've uh, kinda won, so you're allowed to stop now.#Press any button to return to the title screen.")
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

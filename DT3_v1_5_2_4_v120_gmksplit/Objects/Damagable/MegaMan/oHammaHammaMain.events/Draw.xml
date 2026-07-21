@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="DRAW" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">event_inherited()
+
+var tLeftDist,tLeftDir;
+tLeftDist=point_distance(x+offsetLeftX,y+offsetLeftY,leftBall.x,leftBall.y)
+tLeftDir=point_direction(x+offsetLeftX,y+offsetLeftY,leftBall.x,leftBall.y)
+draw_sprite(sHammaHammaRing,0,x+offsetLeftX,y+offsetLeftY)
+for(i=0;i&lt;3;i+=1)
+{
+  draw_sprite_ext(sHammaHammaRing,0,x+offsetLeftX+lengthdir_x(tLeftDist*(0.25*(i+1)),tLeftDir),y+offsetLeftY+lengthdir_y(tLeftDist*(0.25*(i+1)),tLeftDir),image_xscale,image_yscale,image_angle,c_ltgray,image_alpha)
+}
+
+var tRightDist,tRightDir;
+tRightDist=point_distance(x+offsetRightX,y+offsetRightY,rightBall.x,rightBall.y)
+tRightDir=point_direction(x+offsetRightX,y+offsetRightY,rightBall.x,rightBall.y)
+draw_sprite(sHammaHammaRing,0,x+offsetRightX,y+offsetRightY)
+for(i=0;i&lt;3;i+=1)
+{
+  draw_sprite(sHammaHammaRing,0,x+offsetRightX+lengthdir_x(tRightDist*(0.25*(i+1)),tRightDir),y+offsetRightY+lengthdir_y(tRightDist*(0.25*(i+1)),tRightDir))
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

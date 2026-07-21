@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="2">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if jerryWeakened&gt;=180 //Check player status
+{
+  if global.activeCharacter=0 //Disable all abilities when Jerry is active
+  {
+    global.activeAbility[0]=0
+    for(i=0;i&lt;4;i+=1)
+    {
+      global.hasShoes[i]=1
+    }
+    global.hasAbilToken[1]=1
+    global.hasAbilToken[3]=1
+    oPlayer1.sprite_index=sJerrySickFall
+    oPlayer1.image_index=3
+  }
+  else
+  {
+    global.activeAbility[0]=1
+    for(i=0;i&lt;4;i+=1)
+    {
+      global.hasShoes[i]=2
+    }
+    global.hasAbilToken[2]=5
+    global.hasAbilToken[4]=8
+    oPlayerIdle.sprite_index=sJerrySickFall
+    oPlayerIdle.image_index=3
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

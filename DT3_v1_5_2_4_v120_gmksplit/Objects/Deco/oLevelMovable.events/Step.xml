@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  if xVel&gt;maxVel
+    xVel=maxVel
+  else if xVel&lt;-maxVel
+    xVel=-maxVel
+  if xVel&gt;0
+    xVel-=0.05
+  else if xVel&lt;0
+    xVel+=0.05
+  yVel+=0.2
+  if yVel&gt;maxYvel
+    yVel=maxYvel
+  if isCollisionBottom(1)
+    yVel=0
+  //if isCollisionLeft(1)
+  //  xVel=0
+  //if isCollisionRight(1)
+  //  xVel=0
+  //if isCollisionSolid()
+  //  y-=2
+  if y&gt;room_height+24
+    instance_destroy()
+}</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

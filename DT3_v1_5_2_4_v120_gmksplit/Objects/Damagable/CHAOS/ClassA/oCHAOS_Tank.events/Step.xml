@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  makeEnemyActive(0)
+  if bActive=true and life&gt;0
+  {
+    if armorBreak&gt;0 //Restore armor
+    {
+      armorBreak+=1
+      if armorBreak&gt;=300
+      {
+        for(i=0;i&lt;6;i+=1)
+        {
+          resType[i]-=1
+        }
+        baseColor=c_white
+        image_blend=baseColor
+        armorBreak=0
+      }
+    }
+    else
+    {
+      if life&lt;maxLife {life+=1}
+    }
+    
+    //Facing direction
+    if x&lt;oPlayer1.x {image_xscale=1}
+    else {image_xscale=-1}
+    
+    //Movement
+    if point_distance(x,0,oPlayer1.x,0)&gt;152
+    {
+      if image_xscale=1 {xVel=runAcc}
+      else {xVel=-runAcc}
+    }
+    else if point_distance(x,0,oPlayer1.x,0)&lt;104
+    {
+      if image_xscale=1 {xVel=-runAcc*0.75}
+      else {xVel=runAcc*0.75}
+    }
+    
+    //Fire at player
+    gunShot+=1
+    if gunShot&gt;=gunDelay
+    {
+      //Check distance to player
+      xThrow=point_distance(x,0,oPlayer1.x,0)/48
+      xThrow*=1.1
+      if xThrow&gt;8 {xThrow=8}
+      else if xThrow&lt;0.75 {xThrow=0.75}
+      
+      if multiShot mod 2=0 {xThrow*=random_range(0.75,1.25)} //Offset every other shot
+      var tNewAttack;
+      tNewAttack=instance_create(x+(28*image_xscale),y-77,oGravBulletAlt)
+      tNewAttack.sprite_index=sNotorBangerBomb; tNewAttack.atkPower=atkPower; tNewAttack.bExplode=1
+      tNewAttack.xVel=xThrow*image_xscale; tNewAttack.yVel=-6; tNewAttack.damageType="EXPLOSION"
+      tNewAttack.xGrav=0; tNewAttack.yGrav=0.4
+      multiShot+=1
+      if multiShot&lt;5 {gunShot=gunDelay-5}
+      else
+      {
+        playSound(global.snd_BombLaunch,0,0.85,41000)
+        var tMissile;
+        tMissile=instance_create(x-(50*image_xscale),y-58,oHomingMissile)
+        tMissile.atkPower=atkPower; tMissile.targetTime=20; tMissile.sprite_index=sJunkCarMissile
+        tMissile.bulletSpeed=7; tMissile.seekThres=20; tMissile.minSpd=3; tMissile.maxSpd=8
+        tMissile.turnSpd=4; tMissile.accel=0.2
+        if image_xscale=1 {tMissile.direction=135}
+        else {tMissile.direction=45}
+        multiShot=0
+        gunShot=0
+      }
+    }
+    
+    if isCollisionBottom(1)
+    {
+      yVel=0
+    }
+    if isCollisionLeft(1)
+    {
+      xVel=runAcc
+    }
+    if isCollisionRight(1)
+    {
+      xVel=-runAcc
+    }
+    if isCollisionSolid()
+      y-=2
+    
+    moveTo(xVel,yVel)
+  }
+  else if life&lt;=0
+  {
+    deathAnim+=1
+    if deathAnim&gt;=1 and deathAnim&lt;=39
+    {
+      if deathAnim mod 5=0 {playSound(global.snd_HardHit1,0,0.97,1)}
+      if deathAnim mod 3=0
+      {
+        tEffect=instance_create(x+random_range(-48,48),y-6-random(64),oEffect)
+        tEffect.sprite_index=sBombExplosion; tEffect.image_speed=0.5
+        tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+      }
+    }
+    else if deathAnim&gt;=40
+    {
+      instance_destroy()
+    }
+  }
+  enemyStepEvent()
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

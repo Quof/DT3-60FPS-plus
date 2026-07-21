@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="CREATE" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">//----- MENACE: MAIN (BODY) -----
+event_inherited()
+bCanTakeDamage=false
+
+//Enemy base statistics
+eName="Menace"
+maxLife=100
+life=maxLife
+atkPower=7
+stunResist=50
+affiliation=3
+bIsBoss=true
+bNoBonus=true
+bossProgress=0
+activateBoss=0
+//--------------------
+//-- Leg Data --
+stepDelay=30
+stepTime=0
+animProg=0
+footPlacement=0 //0:Neutral, 1:Left Leg Forward
+stepForward=0 //0:Forward, 1:Back
+stepScale=1
+currPos=8 //10
+
+//-- Left Arm Data --
+armScale=1
+armAtkDelayL=250
+armAtkTimeL=80
+armAnimProgL=0
+//-- Right Arm Data --
+armAtkDelayR=190
+armAtkTimeR=90
+armAnimProgR=0
+//-- Spinning Arm Data --
+armSpinTime=45
+armSpinDelay=970
+
+//-- Head/Jaw Data --
+headPoisonTime=170
+headPoisonDelay=460
+headLaserTime=250
+headLaserDelay=840
+
+//-- Other Attacks Data --
+floorFire=0
+firePillarTime=-1
+firePillarDelay=620
+
+//-- Spawn Data --
+spawnTime=370
+spawnDelay=480
+
+//-- Misc Data --
+yBodyMid=200
+yGround=512
+angleAdj=90
+
+deathAnim=0
+
+bHS=instance_create(x,y,oMenaceHitSpot)
+bGroin=instance_create(x,y,oMenaceGroin)
+bWings=instance_create(x,y,oMenaceWings)
+bHead=instance_create(x,y,oMenaceHead)
+bJaw=instance_create(x,y,oMenaceJaw)
+bShoulderL=instance_create(x,y,oMenaceShoulder)
+bShoulderL.side=0
+bForearmL=instance_create(x,y,oMenaceForearm)
+bForearmL.side=0
+bHandL=instance_create(x,y,oMenaceHand)
+bHandL.side=0
+bLegL=instance_create(x,y,oMenaceLeg)
+bLegL.side=0
+bCalfL=instance_create(x,y,oMenaceCalf)
+bCalfL.side=0
+bFootL=instance_create(x,y,oMenaceFoot)
+bFootL.side=0
+
+bShoulderR=instance_create(x,y,oMenaceShoulder)
+bShoulderR.side=1
+bShoulderR.depth=38
+bShoulderR.sprite_index=sMenaceBShoulder
+bForearmR=instance_create(x,y,oMenaceForearm)
+bForearmR.side=1
+bForearmR.depth=37
+bForearmR.sprite_index=sMenaceBForearm
+bHandR=instance_create(x,y,oMenaceHand)
+bHandR.side=1
+bHandR.depth=36
+bHandR.sprite_index=sMenaceBHand
+bLegR=instance_create(x,y,oMenaceLeg)
+bLegR.side=1
+bLegR.depth=40
+bLegR.sprite_index=sMenaceBLeg
+bCalfR=instance_create(x,y,oMenaceCalf)
+bCalfR.side=1
+bCalfR.depth=41
+bCalfR.sprite_index=sMenaceBCalf
+bFootR=instance_create(x,y,oMenaceFoot)
+bFootR.side=1
+bFootR.depth=39
+bFootR.sprite_index=sMenaceBFoot
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

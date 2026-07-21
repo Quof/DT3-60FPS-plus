@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  if oGame.time mod 2=0
+  {
+    var tEffect;
+    tEffect=instance_create(x,y,oEffectB)
+    tEffect.type=5; tEffect.sprite_index=sBitBall; tEffect.fadeSpd=0.1
+    tEffect.AccelX=0; tEffect.AccelY=0; tEffect.newBlend=-1; tEffect.followID=-1; tEffect.rotation=0
+  }
+  
+  speed=bulletSpeed
+  diff=angle_difference(direction,point_direction(x,y,oPlayer1.x,returnPlayerYCenter()))
+  if diff&lt;20 and diff&gt;-20
+  {
+    if bulletSpeed&lt;6 {bulletSpeed+=0.25}
+  }
+  else
+  {
+    if bulletSpeed&gt;2 {bulletSpeed-=0.25}
+  }
+  turn_toward_direction(point_direction(x,y,oPlayer1.x,returnPlayerYCenter()),3)
+  
+  atkProg+=1
+  if atkProg&gt;=decayTime {instance_destroy()}
+}
+else
+  speed=0
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

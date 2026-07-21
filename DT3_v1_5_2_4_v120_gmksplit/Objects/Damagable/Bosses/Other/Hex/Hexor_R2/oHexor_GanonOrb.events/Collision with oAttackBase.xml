@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="COLLISION" with="oAttackBase">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if bCanBeHitBack=1 and hitByPlayer=0
+{
+  var tEfCir;
+  tEfCir=instance_create(x,y,oEfCircleBlast)
+  tEfCir.image_alpha=0.75; tEfCir.myRad=8; tEfCir.radScl=2; tEfCir.fadeSpeed=0.08
+  bulletSpeed+=spdInc
+  hitBackNum+=1
+  hitByPlayer=1
+  playSound(global.snd_HitOrb,0,1,22000+(hitBackNum*2000))
+  direction=point_direction(x,y,oHexor_Main_R2.x,oHexor_Main_R2.y)
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

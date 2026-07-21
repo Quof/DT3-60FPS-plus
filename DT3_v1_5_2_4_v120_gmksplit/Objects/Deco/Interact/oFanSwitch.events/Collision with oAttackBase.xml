@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="COLLISION" with="oAttackBase">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if reHitTime=0 and other.bCanHitSwitch=1 and global.gamePaused=false
+{
+  playSound(global.snd_RBSwitch,0,1,1)
+  image_blend=make_color_rgb(255,120,120)
+  
+  for(i=0;i&lt;fanMax;i+=1)
+  {
+    if fanID[i].spinning=1 {fanID[i].spinning=0}
+    else {fanID[i].spinning=1}
+  }
+  reHitTime=20
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

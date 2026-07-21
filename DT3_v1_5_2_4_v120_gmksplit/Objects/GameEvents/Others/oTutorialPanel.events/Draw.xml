@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="DRAW" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if initObj=1
+{
+  xx=view_xview[0]+scrAreaX
+  if scrAreaY=0
+    yy=view_yview[0]+5
+  else if scrAreaY=1
+    yy=view_yview[0]+251
+  draw_sprite_ext(sprite_index,0,xx,yy,1,1,0,c_white,image_alpha)
+  draw_set_font(fnt_HUDnum)
+  draw_set_alpha(image_alpha)
+  draw_set_halign(fa_middle)
+  textDropShadowExt(tutorialTitle,xx,yy+1,textColorMain,c_black,1,13,190)
+  draw_set_halign(fa_left)
+  draw_set_font(fnt_EnemyName)
+  textDropShadowExt(tutorialInfo,xx-94,yy+19,textColorMain,c_black,1,13,190)
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

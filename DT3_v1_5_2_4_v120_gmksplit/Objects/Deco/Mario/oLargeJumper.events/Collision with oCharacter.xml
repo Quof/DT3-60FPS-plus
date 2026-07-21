@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="COLLISION" with="oCharacter">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if room=rPttT_07
+{
+  oPlayer1.canAirDash=1
+  oPlayer1.doubleJumpCheck=1
+  other.yVel=-16
+  bouncePlayerTime=round(7*image_xscale)
+}
+else
+{
+  if other.yVel&gt;0
+  {
+    playSound(global.snd_SpringJump,0,0.95,1)
+    oPlayer1.canAirDash=1
+    oPlayer1.doubleJumpCheck=1
+    other.yVel=-16
+    bouncePlayerTime=round(7*image_xscale)
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

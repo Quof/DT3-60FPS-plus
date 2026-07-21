@@ -1,0 +1,979 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<room id="540">
+  <caption>[G6-Gate] Until Jerry and Claire are back together, you aren't leaving.</caption>
+  <size height="352" width="608"/>
+  <grid>
+    <isometric>false</isometric>
+    <snap x="16" y="16"/>
+  </grid>
+  <speed>30</speed>
+  <persistent>false</persistent>
+  <creationCode>locationCheck(58)
+global.partySplit=0
+abilSetRemove(1)
+global.hasShoes[0]=2; global.hasShoes[1]=2
+
+if global.gameProgress&gt;=3430 //Claire Abil A/B
+{
+  global.hasAbilToken[6]=2
+  global.activeAbility[1]=3
+  if global.gameProgress&gt;=3520 //Jerry Abil A/B
+  {
+    global.canCharSwap=2
+    global.hasAbilToken[5]=2
+    global.activeAbility[0]=3
+    if global.gameProgress&gt;=3600 //Double Jump
+    {
+      global.canDoubleJump=2
+      if global.gameProgress&gt;=3771 //Jerry/Claire Abil C
+      {
+        global.hasAbilToken[5]=3
+        global.hasAbilToken[6]=3
+        if global.gameProgress&gt;=3840 //Dashes
+        {
+          global.hasShoes[2]=2; global.hasShoes[3]=2
+        }
+      }
+    }
+  }
+}
+
+gameScene=instance_create(0,0,oEvCh15MainA)
+
+var tempMplay;
+tempMplay=findMusic(601)
+playMusic(tempMplay,0,0)
+
+musicUnload(0)</creationCode>
+  <backgroundColor>000000</backgroundColor>
+  <drawBackgroundColor>true</drawBackgroundColor>
+  <clearViewBackground>true</clearViewBackground>
+  <backgrounds>
+    <backgroundDef>
+      <visibleOnRoomStart>true</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage>backWhisperWoods</backgroundImage>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+  </backgrounds>
+  <enableViews>true</enableViews>
+  <views>
+    <view>
+      <visibleOnRoomStart>true</visibleOnRoomStart>
+      <viewInRoom height="352" width="480" x="0" y="0"/>
+      <portOnScreen height="352" width="480" x="0" y="0"/>
+      <objectFollowing hBorder="240" hSpeed="-1" vBorder="176" vSpeed="-1">oPlayer1</objectFollowing>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+  </views>
+  <instances>
+    <instance id="316528">
+      <object>oExit</object>
+      <position x="0" y="256"/>
+      <creationCode>bShowArrow=true
+exitType=1
+newMapX=1240
+newMapY=472
+toRoom=rGame6_Overworld</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="317532">
+      <object>oExit</object>
+      <position x="592" y="240"/>
+      <creationCode>bShowArrow=true
+exitType=1
+newMapX=1240
+newMapY=472
+toRoom=rGame6_Overworld</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="317533">
+      <object>oAccessGate</object>
+      <position x="288" y="192"/>
+      <creationCode>cutsceneCheck=0
+newMapX=416
+newMapY=224
+toRoom=rMain_56Gate</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="330597">
+      <object>oGateItemTerminal</object>
+      <position x="144" y="288"/>
+      <creationCode>gateNum=6
+if global.gameProgress&lt;=3860 {instance_destroy()}</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="459168">
+      <object>oVendingMachine</object>
+      <position x="448" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="316402">
+      <object>oPlayer1</object>
+      <position x="48" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="316352">
+      <object>oInvCollPH</object>
+      <position x="272" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="316353">
+      <object>oInvCollPH</object>
+      <position x="288" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="316354">
+      <object>oInvCollPH</object>
+      <position x="304" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="316355">
+      <object>oInvCollPH</object>
+      <position x="320" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="316356">
+      <object>oInvCollPH</object>
+      <position x="336" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="316357">
+      <object>oInvCollPH</object>
+      <position x="352" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="316358">
+      <object>oInvCollPH</object>
+      <position x="368" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="316359">
+      <object>oInvCollPH</object>
+      <position x="416" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="316360">
+      <object>oInvCollPH</object>
+      <position x="432" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="316361">
+      <object>oInvCollPH</object>
+      <position x="448" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="316362">
+      <object>oInvCollPH</object>
+      <position x="464" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="316367">
+      <object>oInvCollPH</object>
+      <position x="16" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="316368">
+      <object>oInvCollPH</object>
+      <position x="32" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="316369">
+      <object>oInvCollPH</object>
+      <position x="48" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="316370">
+      <object>oInvCollPH</object>
+      <position x="64" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="316371">
+      <object>oInvCollPH</object>
+      <position x="80" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="316372">
+      <object>oInvCollPH</object>
+      <position x="96" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="316373">
+      <object>oInvCollPH</object>
+      <position x="112" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="316374">
+      <object>oInvCollPH</object>
+      <position x="128" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="316375">
+      <object>oInvCollPH</object>
+      <position x="144" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="316376">
+      <object>oInvCollPH</object>
+      <position x="160" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="316377">
+      <object>oInvCollPH</object>
+      <position x="176" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="459159">
+      <object>oInvCollPH</object>
+      <position x="480" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="459160">
+      <object>oInvCollPH</object>
+      <position x="496" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="459161">
+      <object>oInvCollPH</object>
+      <position x="512" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="459162">
+      <object>oInvCollPH</object>
+      <position x="528" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="459164">
+      <object>oInvCollPH</object>
+      <position x="544" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="459165">
+      <object>oInvCollPH</object>
+      <position x="560" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="459166">
+      <object>oInvCollPH</object>
+      <position x="576" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="459167">
+      <object>oInvCollPH</object>
+      <position x="592" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="316344">
+      <object>oInvisibleLupLowSlope</object>
+      <position x="384" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="316346">
+      <object>oInvisibleRupLowSlope</object>
+      <position x="224" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="316347">
+      <object>oInvisibleRupLowSlope</object>
+      <position x="192" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="316348">
+      <object>oInvisibleSolid</object>
+      <position x="256" y="256"/>
+      <creationCode>image_xscale=8</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="316349">
+      <object>oInvisibleSolid</object>
+      <position x="224" y="272"/>
+      <creationCode>image_xscale=24</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="316351">
+      <object>oInvisibleSolid</object>
+      <position x="0" y="288"/>
+      <creationCode>image_xscale=38
+image_yscale=4</creationCode>
+      <locked>false</locked>
+    </instance>
+  </instances>
+  <tiles>
+    <tile id="10403868">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="16" y="16"/>
+      <roomPosition x="64" y="288"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10403869">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="16" y="16"/>
+      <roomPosition x="96" y="288"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10403870">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="16" y="16"/>
+      <roomPosition x="128" y="288"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10403872">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="48" y="112"/>
+      <roomPosition x="192" y="256"/>
+      <size height="48" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10403873">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="48" y="112"/>
+      <roomPosition x="224" y="240"/>
+      <size height="48" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10403878">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="80" y="112"/>
+      <roomPosition x="384" y="240"/>
+      <size height="48" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10403896">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="16" y="64"/>
+      <roomPosition x="192" y="304"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10403897">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="16" y="64"/>
+      <roomPosition x="192" y="320"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10403898">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="16" y="64"/>
+      <roomPosition x="192" y="336"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10403899">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="16" y="64"/>
+      <roomPosition x="224" y="288"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10403900">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="16" y="64"/>
+      <roomPosition x="224" y="304"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10403901">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="16" y="64"/>
+      <roomPosition x="224" y="320"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10403902">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="16" y="64"/>
+      <roomPosition x="224" y="336"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10403903">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="16" y="64"/>
+      <roomPosition x="384" y="288"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10403904">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="16" y="64"/>
+      <roomPosition x="384" y="304"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10403908">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="16" y="64"/>
+      <roomPosition x="256" y="320"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10403909">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="16" y="64"/>
+      <roomPosition x="288" y="320"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10403910">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="16" y="64"/>
+      <roomPosition x="320" y="320"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10403911">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="16" y="64"/>
+      <roomPosition x="352" y="320"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10403912">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="16" y="64"/>
+      <roomPosition x="384" y="320"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10403913">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="16" y="64"/>
+      <roomPosition x="256" y="336"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10403914">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="16" y="64"/>
+      <roomPosition x="288" y="336"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10403915">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="16" y="64"/>
+      <roomPosition x="320" y="336"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10403916">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="16" y="64"/>
+      <roomPosition x="352" y="336"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10403917">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="16" y="64"/>
+      <roomPosition x="384" y="336"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10403918">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="16" y="64"/>
+      <roomPosition x="416" y="336"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10403919">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="16" y="64"/>
+      <roomPosition x="448" y="336"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10403934">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="16" y="16"/>
+      <roomPosition x="0" y="288"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10403935">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="16" y="16"/>
+      <roomPosition x="32" y="288"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10403936">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="16" y="16"/>
+      <roomPosition x="160" y="288"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10403937">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="16" y="16"/>
+      <roomPosition x="256" y="256"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10403938">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="16" y="16"/>
+      <roomPosition x="288" y="256"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10403939">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="16" y="16"/>
+      <roomPosition x="320" y="256"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10403940">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="16" y="16"/>
+      <roomPosition x="352" y="256"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10403941">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="16" y="16"/>
+      <roomPosition x="416" y="272"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10403942">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="16" y="16"/>
+      <roomPosition x="448" y="272"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10403957">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="0" y="272"/>
+      <size height="16" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10403959">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="16" y="0"/>
+      <roomPosition x="64" y="272"/>
+      <size height="16" width="48"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10403961">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="16" y="0"/>
+      <roomPosition x="144" y="272"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10403962">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="176" y="272"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10403963">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="256" y="240"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10403965">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="16" y="0"/>
+      <roomPosition x="320" y="240"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10403967">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="16" y="0"/>
+      <roomPosition x="416" y="256"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10403983">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="80" y="48"/>
+      <roomPosition x="128" y="272"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10403984">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="80" y="48"/>
+      <roomPosition x="352" y="240"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10403988">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="80" y="32"/>
+      <roomPosition x="448" y="256"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10403989">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="80" y="32"/>
+      <roomPosition x="288" y="240"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10403990">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="16" y="0"/>
+      <roomPosition x="304" y="240"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10403991">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="16" y="0"/>
+      <roomPosition x="368" y="240"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10403992">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="16" y="0"/>
+      <roomPosition x="464" y="256"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10403995">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="16" y="0"/>
+      <roomPosition x="112" y="272"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10617461">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="16" y="16"/>
+      <roomPosition x="480" y="272"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10617462">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="16" y="16"/>
+      <roomPosition x="512" y="272"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10617463">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="16" y="48"/>
+      <roomPosition x="480" y="336"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10617464">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="16" y="48"/>
+      <roomPosition x="512" y="336"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10617465">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="16" y="0"/>
+      <roomPosition x="544" y="256"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10617466">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="16" y="0"/>
+      <roomPosition x="480" y="256"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10617467">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="80" y="48"/>
+      <roomPosition x="528" y="256"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10617468">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="16" y="16"/>
+      <roomPosition x="544" y="272"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10617469">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="16" y="16"/>
+      <roomPosition x="576" y="272"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10617470">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="16" y="48"/>
+      <roomPosition x="544" y="336"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10617471">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="16" y="48"/>
+      <roomPosition x="576" y="336"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10617472">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="16" y="0"/>
+      <roomPosition x="496" y="256"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10617473">
+      <background>tileWhisperWoods</background>
+      <backgroundPosition x="16" y="0"/>
+      <roomPosition x="576" y="256"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+  </tiles>
+  <editorSettings remember="true">
+    <size height="628" width="882"/>
+    <showGrid>false</showGrid>
+    <showObjects>false</showObjects>
+    <showTiles>true</showTiles>
+    <showBackgrounds>true</showBackgrounds>
+    <showForegrounds>true</showForegrounds>
+    <showViews>false</showViews>
+    <deleteUnderlyingObjects>true</deleteUnderlyingObjects>
+    <deleteUnderlyingTiles>true</deleteUnderlyingTiles>
+    <currentTab>0</currentTab>
+    <horizontalScrollPosition>-13</horizontalScrollPosition>
+    <verticalScrollPosition>-121</verticalScrollPosition>
+  </editorSettings>
+</room>

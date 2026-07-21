@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">indexCheck=string_char_at(global.gameVaultProg,objectNum)
+if type=0 //Key
+{
+  if indexCheck="0" //Player does not have key
+  {
+    image_alpha=1
+  }
+  else if indexCheck="1" //Player has key
+  {
+    image_alpha=0.35
+  }
+  else if indexCheck="9" //Sequence complete
+  {
+    instance_destroy()
+  }
+}
+else if type=1 //Lock
+{
+  if indexCheck="8" //Key brought to lock (Unlock sequence)
+  {
+    var tNewString;
+    tNewString=string_delete(global.gameVaultProg,objectNum,1)
+    tNewString=string_insert("9",tNewString,objectNum)
+    global.gameVaultProg=tNewString
+  }
+  else if indexCheck="9" //Sequence complete
+  {
+    instance_destroy()
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

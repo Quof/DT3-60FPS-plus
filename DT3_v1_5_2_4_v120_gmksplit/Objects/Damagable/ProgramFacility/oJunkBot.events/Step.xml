@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  makeEnemyActive(0)
+  if bActive=true and stunnedTime=0
+  {
+    //Drop when player is close enough
+    if dropped=-1
+    {
+      if point_distance(x,y,oPlayer1.x,oPlayer1.y-26)&lt;192 {dropped=0}
+    }
+    else if dropped&lt;dropDist {dropped+=6; y+=6}
+    
+    //Hanging wave
+    moveWave+=pi/40
+    x+=cos(moveWave)/1.75
+    
+    if bInfected=1
+    {
+      if x&lt;oPlayer1.x {image_xscale=1}
+      else {image_xscale=-1}
+      
+      shotTime+=1
+      if shotTime=shotDelay {headFrm=2}
+      else if shotTime&gt;=shotDelay+10
+      {
+        if shotTime mod 10=0
+        {
+          var tNewAttack;
+          tNewAttack=instance_create(x,y,oPassBullet)
+          tNewAttack.sprite_index=sWolfHeadShot; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=4
+          tNewAttack.image_speed=0.33; tNewAttack.decayTime=-100
+          tNewAttack.direction=point_direction(x,y,oPlayer1.x,oPlayer1.y-26)
+        }
+      }
+      if shotTime&gt;=shotDelay+40
+      {
+        headFrm=1
+        shotTime=0
+      }
+    }
+  }
+  enemyStepEvent()
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

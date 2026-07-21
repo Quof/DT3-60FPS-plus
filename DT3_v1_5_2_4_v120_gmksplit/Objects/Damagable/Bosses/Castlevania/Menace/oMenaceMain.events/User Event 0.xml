@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="OTHER" id="10">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">//-- ANIMATION: LEFT LEG (FRONT) --
+animProg+=1*stepScale
+if animProg&gt;=1 and animProg&lt;=40 //Rotate leg to lift foot up
+{
+  if stepForward=0 //Forward
+  {
+    bLegL.x-=1*stepScale
+    x-=0.5*stepScale
+  }
+  else if stepForward=1 //Back
+  {
+    bLegL.x+=1*stepScale
+    x+=0.5*stepScale
+  }
+  bLegL.bendAngle-=1*stepScale
+  bLegL.y-=0.25*stepScale
+  y-=0.25*stepScale
+}
+else if animProg&gt;=41 and animProg&lt;=80 //Rotate leg to bring foot back down
+{
+  if stepForward=0 //Forward
+  {
+    bLegL.x-=1*stepScale
+    x-=0.5*stepScale
+  }
+  else if stepForward=1 //Back
+  {
+    bLegL.x+=1*stepScale
+    x+=0.5*stepScale
+  }
+  bLegL.bendAngle+=1*stepScale
+  bLegL.y+=0.25*stepScale
+  y+=0.25*stepScale
+  if animProg=80 //End
+  {
+    playSound(global.snd_HardHit1,0,1,7000)
+    for(i=0;i&lt;13;i+=1)
+    {
+      var tEffect,tEfSize;
+      tEfSize=1+random(1)
+      tEffect=instance_create((bFootL.x-82)+(i*9),yGround,oEffect)
+      tEffect.sprite_index=sMMSmokeCloud; tEffect.image_speed=0.3+random(0.45)
+      tEffect.image_xscale=tEfSize; tEffect.image_yscale=tEfSize
+      tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+    }
+    stepTime=irandom(29)
+    animProg=0
+    footPlacement=1
+    if stepForward=0 currPos-=1
+    else currPos+=1
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

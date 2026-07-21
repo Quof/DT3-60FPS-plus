@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  if xDist&gt;=400
+  {
+    xDist-=0.125
+    yDist-=0.0625
+  }
+  else if xDist&gt;=250 and xDist&lt;=399.999
+  {
+    xDist-=0.25
+    yDist-=0.125
+  }
+  else if xDist&gt;=96 and xDist&lt;=249.999
+  {
+    xDist-=0.5
+    yDist-=0.25
+  }
+  else if xDist&lt;=95.999
+  {
+    xDist-=1
+    yDist-=0.5
+  }
+  direction+=0.33
+  x=1248+lengthdir_x(xDist,direction)
+  y=288+lengthdir_y(yDist,direction)
+  if xDist&lt;=12
+  {
+    oPlayer1.life-=oPlayer1.maxLife
+  }
+  
+  enemyStepEvent()
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

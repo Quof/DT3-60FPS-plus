@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if animPlayerExit&gt;0 //Going down pipe
+{
+  animPlayerExit+=1
+  oPlayer1.bCanTakeDamage=true
+  oPlayer1.x=x+(sprite_width/2)
+  oPlayer1.y+=2
+  if animPlayerExit=30
+  {
+    global.gamePaused=false
+    global.recAreaTrans+=1
+    global.newMapX=newMapX; global.newMapY=newMapY
+    writeToPlayerGlobals()
+    if global.bNightmareMode=0 {global.difficulty=2}
+    if global.rmDeaths&gt;=7 {global.chaoRecognition=1}
+    global.rmDeaths=0; global.hitsTaken=0
+    SS_StopSound(global.msc_Starman)
+    transition_steps=10
+    transition_kind=21
+    if variable_local_exists("newStep") {transition_steps=newStep}
+    if variable_local_exists("newTrans") {transition_kind=newTrans}
+    room_goto(toRoom)
+  }
+}
+
+if sprite_index=sPillarOfLight
+{
+  if oGame.time mod 2=0
+  {
+    if image_alpha=0.75 {image_alpha=0.5}
+    else {image_alpha=0.75}
+  }
+}
+
+if sprite_index=sWS_MetalDoor
+{
+  if point_distance(x,y+24,oPlayer1.x,oPlayer1.y-26)&lt;96
+  {
+    if lockFrm&lt;5 {lockFrm+=0.5}
+  }
+  else
+  {
+    if lockFrm&gt;0 {lockFrm-=0.5}
+  }
+}
+
+if drawType=1 //Extra gate early exit
+{
+  var tFFScl,tEffect;
+  tFFScl=random(0.1)
+  tEffect=instance_create(x+8+lengthdir_x(random(16),random(360)),y+16+lengthdir_y(random(16),random(360)),oEffectB)
+  tEffect.type=3; tEffect.sprite_index=sEfFirefly; tEffect.image_alpha=0.6
+  tEffect.image_xscale=0.15+tFFScl; tEffect.image_yscale=0.15+tFFScl; tEffect.direction=random(360)
+  tEffect.speed=random(0.1)+0.1; tEffect.friction=random(0.001)+0.001
+  tEffect.fadeSpd=0.01; tEffect.image_blend=image_blend
+  tEffect.AccelX=0; tEffect.AccelY=0; tEffect.newBlend=-1; tEffect.followID=-1; tEffect.rotation=0
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

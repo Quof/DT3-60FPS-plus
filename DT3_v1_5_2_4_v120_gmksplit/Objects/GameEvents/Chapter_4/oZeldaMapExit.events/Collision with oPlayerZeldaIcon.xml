@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="COLLISION" with="oPlayerZeldaIcon">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/*
+Zelda world map exit script.
+This will move the player to another room.
+*/
+oPlayerZeldaIcon.bCanMove=0
+animPlayerExit+=1
+if animPlayerExit&gt;=5
+{
+  global.recAreaTrans+=1
+  global.newMapX=newMapX
+  global.newMapY=newMapY
+  if variable_local_exists("newMapXUp") and oPlayerZeldaIcon.sprite_index=sJerryZUp
+  {
+    global.newMapX=newMapXUp
+    global.newMapY=newMapYUp
+  }
+  else if variable_local_exists("newMapXDown") and oPlayerZeldaIcon.sprite_index=sJerryZDown
+  {
+    global.newMapX=newMapXDown
+    global.newMapY=newMapYDown
+  }
+  else if variable_local_exists("newMapXLeft") and oPlayerZeldaIcon.sprite_index=sJerryZRight and oPlayerZeldaIcon.image_xscale=-1
+  {
+    global.newMapX=newMapXLeft
+    global.newMapY=newMapYLeft
+  }
+  else if variable_local_exists("newMapXRight") and oPlayerZeldaIcon.sprite_index=sJerryZRight and oPlayerZeldaIcon.image_xscale=1
+  {
+    global.newMapX=newMapXRight
+    global.newMapY=newMapYRight
+  }
+  
+  transition_steps=15
+  transition_kind=5
+  
+  if variable_local_exists("newStep")
+    transition_steps=newStep
+  if variable_local_exists("newTrans")
+    transition_kind=newTrans
+  room_goto(toRoom)
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

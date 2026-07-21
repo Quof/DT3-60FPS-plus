@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="COLLISION" with="oCharacter">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">//post message
+if (keyboard_check_pressed(ord(global.ctrlUp)) or keyboard_check_pressed(vk_up)) and global.gamePaused=false
+{
+  global.recBinariesRead+=1
+  with oMessageSign
+    instance_destroy()
+  messageWidth=string_width(stringToShow)
+  newMessage=instance_create(256-(messageWidth/2),48,oMessageInfoSpot)
+  newMessage.message=stringToShow
+  newMessage.talker=talker
+  newMessage.window=window
+  newMessage.fadingTime=(string_length(stringToShow)*1.5)+10
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

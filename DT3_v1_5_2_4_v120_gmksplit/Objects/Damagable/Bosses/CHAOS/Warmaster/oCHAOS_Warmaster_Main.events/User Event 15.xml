@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="OTHER" id="25">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">///ALTER SHIFT TIME
+if ATTACK_FORM=1 //======================================== MAIN FORM ========================================
+{
+  if other.damageType="NORMAL"
+  {
+    if timeTillLastHit&lt;=25 {shiftDamage+=6; shiftTime+=6}
+    else {shiftDamage+=3; shiftTime+=4}
+  }
+  else
+  {
+    if timeTillLastHit&lt;=25 {shiftDamage+=2; shiftTime+=3}
+    else {shiftDamage+=2; shiftTime+=2}
+  }
+}
+else if ATTACK_FORM=2 //======================================== FIRE FORM ========================================
+{
+  if other.damageType="PIERCE" or other.damageType="ELEMENTAL"
+  {
+    if timeTillLastHit&lt;=25 {shiftDamage+=6; shiftTime+=6}
+    else {shiftDamage+=3; shiftTime+=4}
+    if other.weaponTag=32 {shiftDamage+=2; shiftTime+=3}
+  }
+  else
+  {
+    if timeTillLastHit&lt;=25 {shiftDamage+=2; shiftTime+=3}
+    else {shiftDamage+=2; shiftTime+=2}
+  }
+}
+else if ATTACK_FORM=3 //======================================== ICE FORM ========================================
+{
+  if other.damageType="SHOT" or other.damageType="EXPLOSION"
+  {
+    if timeTillLastHit&lt;=25 {shiftDamage+=6; shiftTime+=6}
+    else {shiftDamage+=3; shiftTime+=4}
+  }
+  else
+  {
+    if timeTillLastHit&lt;=25 {shiftDamage+=2; shiftTime+=3}
+    else {shiftDamage+=2; shiftTime+=2}
+  }
+}
+else if ATTACK_FORM=4 //======================================== WIND FORM ========================================
+{
+  if other.damageType="SPECIAL"
+  {
+    if timeTillLastHit&lt;=25 {shiftDamage+=6; shiftTime+=6}
+    else {shiftDamage+=3; shiftTime+=4}
+  }
+  else
+  {
+    if timeTillLastHit&lt;=25 {shiftDamage+=2; shiftTime+=3}
+    else {shiftDamage+=2; shiftTime+=2}
+  }
+}
+timeTillLastHit=0
+if waitTime&lt;waitDelay {waitTime+=1}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

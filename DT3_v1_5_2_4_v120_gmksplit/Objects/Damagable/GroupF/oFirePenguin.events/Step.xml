@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  makeEnemyActive(0)
+  if bActive=true and stunnedTime=0
+  {
+    if enemyProg=0 //Standard behavior
+    {
+      if myCannon!=0
+      {
+        if myCannon.bLaunch&gt;=1
+        {
+          launchTime+=1
+          if launchTime&gt;=30
+          {
+            var targetYVel,tNewAttack,tEffect;
+            targetYVel=intercept_target_arc(oPlayer1,7,0.3)
+            
+            if targetYVel&gt;-2 {targetYVel=-2}
+            else if targetYVel&lt;-9 {targetYVel=-9}
+            
+            if x&gt;oPlayer1.x {tDir=-1}
+            else {tDir=1}
+            for(i=0;i&lt;8;i+=1)
+            {
+              tEffect=instance_create(myCannon.x+(7*myCannon.image_xscale),myCannon.y-23,oEffectB)
+              tEffect.type=3; tEffect.sprite_index=sMMSmokeCloud; tEffect.newBlend=-1; tEffect.depth=26
+              tEffect.speed=random(0.75)+0.5; tEffect.image_speed=0.2; tEffect.direction=random(360)
+              tEffect.fadeSpd=0.05; tEffect.image_blend=c_black
+              tEffect.AccelX=0; tEffect.AccelY=0; tEffect.followID=-1; tEffect.rotation=0
+            }
+            tNewAttack=instance_create(myCannon.x+(7*myCannon.image_xscale),myCannon.y-23,oGravityBullet)
+            tNewAttack.sprite_index=sPenCannonBall; tNewAttack.atkPower=atkPower; tNewAttack.grav=0.3
+            tNewAttack.xVel=7*tDir; tNewAttack.yVel=targetYVel
+            launchTime=0
+          }
+        }
+      }
+      
+      if point_distance(x,y-10,oPlayer1.x,returnPlayerYCenter())&lt;=76
+      {
+        sprite_index=sFirePenguin_Run
+        enemyProg=1
+      }
+    }
+    else if enemyProg=1 //Run away from player
+    {
+      if x&gt;oPlayer1.x
+      {
+        image_xscale=1
+        xVel=runAcc
+      }
+      else
+      {
+        image_xscale=-1
+        xVel=-runAcc
+      }
+    }
+    
+    yVel+=0.3
+    if isCollisionBottom(1)
+      yVel=0
+    if isCollisionLeft(1)
+      xVel=runAcc
+    if isCollisionRight(1)
+      xVel=-runAcc
+    if isCollisionSolid()
+      y-=2
+    
+    moveTo(xVel,yVel)
+    
+    if y&gt;room_height+24
+    {
+      if questType&gt;0 {enemyQuest(questType)}
+      instance_destroy()
+    }
+  }
+  enemyStepEvent()
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

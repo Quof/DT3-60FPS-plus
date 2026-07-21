@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  if initVars=1
+  {
+    if type=10 or type=20
+    {
+      moveTick+=0.5
+      x+=cos(moveTick/5)
+      
+      if oKingWorm.life&gt;0 and mySeg&gt;2
+      {
+        if oKingWorm.bSpraySpikes=1
+        {
+          sprayTime+=1
+          if sprayTime&gt;=oKingWorm.sprayDelay
+          {
+            var tAtk;
+            tAtk=instance_create(x,y,oMetBulletGrav)
+            tAtk.sprite_index=sKingWormSpike; tAtk.atkPower=atkPower
+            if type=10 {tAtk.xVel=2+throwDist[myThrow]} else if type=20 {tAtk.xVel=-2-throwDist[myThrow]}
+            tAtk.yVel=-2.5; tAtk.grav=0.2
+            myThrow+=1
+            if myThrow=12 {myThrow=0}
+            sprayTime=0
+          }
+        }
+      }
+    }
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

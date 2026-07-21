@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="DRAW" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">//----- Top Background Fire -----
+if topFireAmt&gt;1
+{
+  topFireFrm+=0.25
+  for(i=0;i&lt;topFireAmt;i+=1)
+  {
+    draw_sprite_ext(sHFight_FloorFire,topFireFrm,xCenter-176+(22*i),196,1,1,0,c_white,0.2)
+  }
+}
+
+//----- Chains -----
+if bHexChains=1
+{
+  draw_sprite_ext(sHFight_Chain,0,x+4,y-6,1,1,30,c_white,1)
+  draw_sprite_ext(sHFight_Chain,0,x-4,y-6,1,1,150,c_white,1)
+  draw_sprite_ext(sHFight_Chain,0,x+4,y+6,1,1,330,c_white,1)
+  draw_sprite_ext(sHFight_Chain,0,x-4,y+6,1,1,210,c_white,1)
+  draw_sprite_ext(sHFight_Chain,0,x,y,1,1,0,c_white,1)
+  draw_sprite_ext(sHFight_Chain,0,x,y,1,1,180,c_white,1)
+}
+//----- Swap Deterrent warning -----
+if swapDeterTime&gt;=swapDeterDelay-60 and swapDeterTime&lt;=swapDeterDelay
+{
+  preSwapWarnAngle-=10
+  draw_sprite_ext(sHFight_SwapDeterrent,0,oPlayerIdle.x,oPlayerIdle.y-26,1.25,1.25,preSwapWarnAngle,c_red,0.3)
+}
+//----- Jerry Paralysis warning -----
+if jerryWeakWarn&gt;0
+{
+  jerryWeakWarn+=6
+  var tPXX,tPYY;
+  if global.activeCharacter=0 {tPXX=oPlayer1.x; tPYY=returnPlayerYCenter()}
+  else {tPXX=oPlayerIdle.x; tPYY=oPlayerIdle.y-26}
+  for(i=0;i&lt;8;i+=1)
+  {
+    draw_sprite_ext(sHexStealSkull,image_index,tPXX+lengthdir_x(30,jerryWeakWarn+(i*45)),tPYY+lengthdir_y(30,jerryWeakWarn+(i*45)),0.5,0.5,image_angle,image_blend,0.7)
+  }
+}
+//----- Hex Circle Back -----
+if bHexCircleBack=1
+{
+  if hexCBackAlphaUp=1
+  {
+    hexCircleBack_Alpha+=0.0004
+    if hexCircleBack_Alpha&gt;=0.09 {hexCBackAlphaUp=0}
+  }
+  else
+  {
+    hexCircleBack_Alpha-=0.0004
+    if hexCircleBack_Alpha&lt;=0.05 {hexCBackAlphaUp=1}
+  }
+  hexCircleBack_Angle-=0.5
+  draw_sprite_ext(sHexBackCircle,0,448,160,1,1,hexCircleBack_Angle,c_white,hexCircleBack_Alpha)
+}
+//----- Fadeout AF -----
+fadeoutHexAF_Scale+=0.05
+fadeoutHexAF_Alpha-=0.008
+if fadeoutHexAF_Scale&gt;=2
+{
+  fadeoutHexAF_Scale=1
+  fadeoutHexAF_Alpha=0.33
+}
+draw_sprite_ext(sprite_index,image_index,x,y,fadeoutHexAF_Scale,fadeoutHexAF_Scale,image_angle,image_blend,fadeoutHexAF_Alpha)
+//----- Upper wings -----
+if wingFrm&gt;=0
+{
+  draw_sprite_ext(sHex_A_WingsTop,wingFrm,x+xJitter+4,y-9,1,1,image_angle,image_blend,image_alpha)
+  draw_sprite_ext(sHex_A_WingsTop,wingFrm,x+xJitter-4,y-9,-1,1,image_angle,image_blend,image_alpha)
+}
+//----- Main body -----
+draw_sprite_ext(sprite_index,image_index,x+xJitter,y,image_xscale,image_yscale,image_angle,image_blend,image_alpha)
+//----- Lower wings -----
+if wingFrm&gt;=0
+{
+  draw_sprite_ext(sHex_A_WingsBottom,wingFrm,x+xJitter+2,y-3,1,1,image_angle,image_blend,image_alpha)
+  draw_sprite_ext(sHex_A_WingsBottom,wingFrm,x+xJitter-2,y-3,-1,1,image_angle,image_blend,image_alpha)
+}
+//----- Hex Flame -----
+if bHexFlame=1
+{
+  hexFlameFrm+=0.33
+  draw_sprite_ext(sHexFireRing,hexFlameFrm,x,y,image_xscale,image_yscale,image_angle,image_blend,0.3)
+}
+//----- Hex Bubble Shield -----
+if despBubbleShield=1
+{
+  draw_sprite_ext(sWaterBarrier,oGame.time/4,x,y,0.75,0.75,image_angle,image_blend,0.3)
+}
+//----- Hex Desperation Lightning Warn -----
+if desperationTime&gt;=1 and desperationTime&lt;=45 and desperationProg=2
+{
+  if desperationTime mod 9=0
+  {
+    if despWarn=1 {despWarn=0}
+    else {despWarn=1}
+  }
+  for(i=0;i&lt;4;i+=1)
+  {
+    draw_sprite_ext(sWarningSymbol,0,304+(96*i),yGround,0.5,0.5,0,c_white,despWarn)
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

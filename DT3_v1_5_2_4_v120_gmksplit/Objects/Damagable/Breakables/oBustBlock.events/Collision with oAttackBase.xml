@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="COLLISION" with="oAttackBase">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if other.damageType="NORMAL" and other.weaponTag&lt;100
+{
+  playSound(global.snd_BoxBreak,0,0.94,1)
+  awardAwesome(20)
+  var tEffect;
+  for(i=0;i&lt;8;i+=1)
+  {
+    tEffect=instance_create(x+16+random_range(-12,12),y+16+random_range(-12,12),oEffectB)
+    tEffect.type=3; tEffect.sprite_index=sMMSmokeCloud; tEffect.newBlend=-1; tEffect.image_alpha=0.75
+    tEffect.direction=random(360); tEffect.speed=random(1)+0.5; tEffect.fadeSpd=0.025; tEffect.image_speed=0.25
+    tEffect.AccelX=0; tEffect.AccelY=0; tEffect.followID=-1; tEffect.rotation=random_range(-5,5)
+  }
+  instance_destroy()
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="OTHER" id="10">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">//==================== ATTACKS ====================
+if atkChoice=1 //---------- Closing Spikes ----------
+{
+  playSound(global.snd_OrbThrow,0,1,42200)
+  var tNewAtk;
+  for(i=0;i&lt;6;i+=1)
+  {
+    tNewAtk=instance_create(x,y-52+(i*18),oHexor_RedSpikeA)
+    if i mod 2=0 {tNewAtk.type=0} else {tNewAtk.type=1}
+  }
+}
+else if atkChoice=2 //---------- Lingering Spike ----------
+{
+  var tNewAtk;
+  tNewAtk=instance_create(x,y,oHexor_RedSpikeB)
+  tNewAtk.atkDelay=25; tNewAtk.atkLinger=150; tNewAtk.image_xscale=1.5; tNewAtk.image_yscale=1.5
+}
+else if atkChoice=3 //---------- Wall of Spikes ----------
+{
+  playSound(global.snd_Wave,0,1,10000)
+  var tNewAtk;
+  for(i=0;i&lt;36;i+=1)
+  {
+    for(ii=0;ii&lt;10;ii+=1)
+    {
+      tNewAtk=instance_create(8+(i*14),128+(ii*14),oHexor_RedSpikeB)
+      tNewAtk.atkDelay=40; tNewAtk.atkLinger=50; tNewAtk.image_xscale=1.5; tNewAtk.image_yscale=1.5; tNewAtk.depth=21
+    }
+  }
+}
+else if atkChoice=4 //---------- Machine Spike (Aimed) ----------
+{
+  playSound(global.snd_PortalCreate,0,0.92,40000+random(8000))
+  var tNewAtk;
+  tNewAtk=instance_create(spawnX,spawnY,oHexor_MachinePartA)
+  tNewAtk.atkDelay=25; tNewAtk.type=0; tNewAtk.atkPower=atkPower
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

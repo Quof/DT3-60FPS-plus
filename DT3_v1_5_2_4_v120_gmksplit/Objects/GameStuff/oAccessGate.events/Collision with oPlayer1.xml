@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="COLLISION" with="oPlayer1">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/*
+Access Gate script.
+This will move the player to another room.
+*/
+if oKeyCodes.kCodePressed[3]=1 and global.gamePaused=false
+{
+  if bCanUse=1
+  {
+    if cutsceneCheck=global.gameProgress
+    {
+      playSound(global.snd_NewGateTransport,0,1,1)
+      global.gameProgress+=10
+    }
+    else
+    {
+      global.recAreaTrans+=1
+      global.rmDeaths=0
+      global.newMapX=newMapX
+      global.newMapY=newMapY
+      writeToPlayerGlobals()
+      if global.bNightmareMode=0 {global.difficulty=2}
+      if global.rmDeaths&gt;=7 {global.chaoRecognition=1}
+      global.rmDeaths=0; global.hitsTaken=0
+      transition_steps=20
+      transition_kind=21
+      if variable_local_exists("newStep") {transition_steps=newStep}
+      if variable_local_exists("newTrans") {transition_kind=newTrans}
+      room_goto(toRoom)
+    }
+  }
+  else
+  {
+    msgCreate(0,0,talker,stringToShow,0,1,oMessagePerson,0)
+    newMessage.fadingTime=fadingTime
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

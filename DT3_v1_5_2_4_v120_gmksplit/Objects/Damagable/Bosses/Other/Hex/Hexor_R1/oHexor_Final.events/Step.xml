@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  if bActive=true and life&gt;0
+  {
+    //==================== MOVEMENT ====================
+    if dashDuration&gt;0
+    {
+      var tAfterI;
+      tAfterI=instance_create(x,y,oEnemyAfterImage)
+      tAfterI.sprite_index=sH_AfterImage; tAfterI.image_index=image_index; tAfterI.image_blend=c_white
+      tAfterI.image_xscale=image_xscale; tAfterI.depth=26; tAfterI.imageFade=0.06
+      tAfterI.xScaling=0; tAfterI.yScaling=0; tAfterI.xShift=0; tAfterI.yShift=0
+      tAfterI.bFollow=1; tAfterI.idFollow=id; tAfterI.xFollow=0; tAfterI.yFollow=0
+      dashDuration-=1
+    }
+    else //Dash energy recovery
+    {
+      if dashEnergy&lt;dashMeterMax
+      {
+        dashEnergy+=dashRecovery
+        if dashEnergy&gt;dashMeterMax {dashEnergy=dashMeterMax}
+      }
+    }
+    
+    moveTime+=1
+    if movePhase=0 //Selective positioning
+    {
+      if moveTime&gt;=120
+      {
+        moveProg+=1
+        if moveProg=1 {centralPointX=384; centralPointY=192}
+        else if moveProg=2 {centralPointX=240; centralPointY=100}
+        else if moveProg=3 {centralPointX=96; centralPointY=192}
+        else if moveProg=4 {centralPointX=160; centralPointY=240}
+        else if moveProg=5 {centralPointX=320; centralPointY=240; moveProg=0}
+        moveTime=0
+      }
+      
+      myDist=point_distance(x,y,centralPointX,centralPointY)
+      myDist=round(myDist/16)
+      if myDist&gt;6 {myDist=6}
+      if myDist&lt;2.5 {myDist=2.5}
+      maxSpeed=myDist
+      
+      if x&gt;centralPointX
+      {
+        if hspeed&gt;-maxSpeed {hspeed-=0.4}
+        else {hspeed=-maxSpeed}
+      }
+      else if x&lt;centralPointX
+      {
+        if hspeed&lt;maxSpeed {hspeed+=0.4}
+        else {hspeed=maxSpeed}
+      }
+      if y&gt;centralPointY
+      {
+        if vspeed&gt;-maxSpeed {vspeed-=0.4}
+        else {vspeed=-maxSpeed}
+      }
+      else if y&lt;centralPointY
+      {
+        if vspeed&lt;maxSpeed {vspeed+=0.4}
+        else {vspeed=maxSpeed}
+      }
+      
+      if point_distance(x,y,centralPointX,centralPointY)&lt;=6.5 and dashDuration=0 //Find point and stop
+      {
+        x=centralPointX; y=centralPointY
+        hspeed=0; vspeed=0; xSpd=0; ySpd=0
+      }
+    }
+    
+    //==================== SEQUENCE ====================
+    atkTime+=1
+    if atkPhase=0
+    {
+      if atkProg=0
+      {
+        if atkTime=110 {atkChoice=1; event_user(0)}
+        else if atkTime=180 {atkChoice=2; event_user(0)}
+        else if atkTime=220 {atk_FallingSpikesActive=1}
+        else if atkTime&gt;=261
+        {
+          moveCycles+=1
+          if moveCycles=2 {moveCycles=0; atkProg=1}
+          atkTime=0
+        }
+        
+        if lifePercent&lt;=0.8 //Next phase check
+        {
+          msgCreate(60,80,"Hexor","Try punching these!",0,1,oMessagePerson,0)
+          newMessage.fadingTime=60
+          atkTime=0; atkProg=0; moveCycles=0; atkPhase=1
+        }
+      }
+      else if atkProg=1
+      {
+        if atkTime=100 {atkChoice=3; event_user(0)}
+        else if atkTime&gt;=120
+        {
+          atkTime=-20; atkProg=0
+        }
+      }
+    }
+    else if atkPhase=1
+    {
+      if atkTime=30 {spawnX=448; spawnY=176; atkChoice=4; event_user(0)}
+      else if atkTime=50 {spawnX=448; spawnY=160; atkChoice=4; event_user(0)}
+      else if atkTime=70 {spawnX=448; spawnY=144; atkChoice=4; event_user(0)}
+      else if atkTime=90 {spawnX=448; spawnY=128; atkChoice=4; event_user(0)}
+      else if atkTime=150 {spawnX=32; spawnY=176; atkChoice=4; event_user(0)}
+      else if atkTime=170 {spawnX=32; spawnY=160; atkChoice=4; event_user(0)}
+      else if atkTime=190 {spawnX=32; spawnY=144; atkChoice=4; event_user(0)}
+      else if atkTime=210 {spawnX=32; spawnY=128; atkChoice=4; event_user(0)}
+      else if atkTime=250 {atk_FallingSpikesActive=1}
+      else if atkTime&gt;=280
+      {
+        atkTime=0
+      }
+      
+      if lifePercent&lt;=0.6 //Next phase check
+      {
+        atkTime=0; atkProg=0; moveCycles=0; atkPhase=2
+      }
+    }
+    else if atkPhase=2
+    {
+      if atkProg=0
+      {
+        if atkTime=1
+        {
+          msgCreate(60,80,"Hexor","This isn't working. I can just turn on invulnerability to your attacks though.",0,2,oMessagePerson,0)
+          newMessage.fadingTime=130
+          for(i=0;i&lt;6;i+=1)
+          {
+            resType[i]=1
+          }
+        }
+        else if atkTime=130
+        {
+          msgCreate(60,80,"Jeremy","Why didn't you do that at the start? And you know I can just remove that, right?",0,2,oMessagePerson,0)
+          newMessage.fadingTime=130
+        }
+        else if atkTime=260
+        {
+          msgCreate(60,80,"Hexor","Fine...",0,0,oMessagePerson,0)
+          newMessage.fadingTime=60
+        }
+        else if atkTime=320
+        {
+          msgCreate(60,80,"Hexor","If I can't beat you like this, then...",0,1,oMessagePerson,0)
+          newMessage.fadingTime=90
+        }
+        else if atkTime&gt;=400 //To Pong
+        {
+          global.recAreaTrans+=1
+          global.finalBossHP=life
+          newLifeAmt=round((oPlayer1.maxLife-oPlayer1.life)/2)
+          oPlayer1.life+=newLifeAmt
+          global.pLife=oPlayer1.life
+          global.jeremySuperEnergy=oPlayer1.jeremySuperEnergy
+          transition_steps=1; transition_kind=21
+          room_goto(rDistFinal_Pong)
+        }
+        
+        if atkTime=70
+        {
+          atkChoice=1; event_user(0)
+          atkChoice=2; event_user(0)
+          atkChoice=3; event_user(0)
+        }
+      }
+    }
+    
+    //LINGERING ATTACKS
+    event_user(1)
+    
+    //CONVO SEQUENCE
+    if convoSequence=0 and lifePercent&lt;=0.97
+    {
+      msgCreate(60,80,"Jeremy","Using the dash now?",0,1,oMessagePerson,0)
+      newMessage.fadingTime=60
+      convoSequence+=1
+    }
+    else if convoSequence=1
+    {
+      convoTime+=1
+      if convoTime=60
+      {
+        msgCreate(60,80,"Hexor","Might as well.",0,1,oMessagePerson,0)
+        newMessage.fadingTime=60
+      }
+      else if convoTime=120
+      {
+        convoTime=0; convoSequence+=1
+      }
+    }
+    else if convoSequence=2 and lifePercent&lt;=0.92
+    {
+      msgCreate(60,80,"Hexor","I've blocked your escape.",0,1,oMessagePerson,0)
+      newMessage.fadingTime=60
+      convoSequence+=1
+    }
+    else if convoSequence=3
+    {
+      convoTime+=1
+      if convoTime=60
+      {
+        msgCreate(60,80,"Jeremy","Makes no difference.",0,1,oMessagePerson,0)
+        newMessage.fadingTime=60
+      }
+      else if convoTime=120
+      {
+        convoTime=0; convoSequence+=1
+      }
+    }
+    else if convoSequence=4 and lifePercent&lt;=0.86
+    {
+      msgCreate(60,80,"Hexor","I've been blocking your functions.",0,1,oMessagePerson,0)
+      newMessage.fadingTime=60
+      convoSequence+=1
+    }
+    else if convoSequence=5
+    {
+      convoTime+=1
+      if convoTime=60
+      {
+        msgCreate(60,80,"Jeremy","And I said it makes no difference. I'm not leaving.",0,1,oMessagePerson,0)
+        newMessage.fadingTime=90
+      }
+      else if convoTime=150
+      {
+        convoTime=0; convoSequence+=1
+      }
+    }
+    else if convoSequence=6 and lifePercent&lt;=0.72
+    {
+      msgCreate(60,80,"Jeremy","What's wrong? Ah right, I blocked most everything else you can do.",0,2,oMessagePerson,0)
+      newMessage.fadingTime=100
+      convoSequence+=1
+    }
+    else if convoSequence=7
+    {
+      convoTime+=1
+      if convoTime=100
+      {
+        msgCreate(60,80,"Hexor","I'll break it soon enough.",0,1,oMessagePerson,0)
+        newMessage.fadingTime=60
+      }
+      else if convoTime=160
+      {
+        convoTime=0; convoSequence+=1
+      }
+    }
+  }
+  
+  enemyStepEvent()
+}
+else
+{
+  hspeed=0; vspeed=0
+  speed=0
+}
+
+/*
+movePhase,moveProg,moveTime,moveCycles,moveSpd,xSpd,ySpd
+centralPointX=320
+centralPointY=224
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

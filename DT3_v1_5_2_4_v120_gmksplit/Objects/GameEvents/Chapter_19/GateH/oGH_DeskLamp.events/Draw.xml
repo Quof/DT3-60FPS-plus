@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="DRAW" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">draw_sprite_ext(sprite_index,image_index,x,y,image_xscale,image_yscale,image_angle,image_blend,image_alpha)
+if bOpened=1
+{
+  draw_set_alpha(0.4)
+  draw_set_blend_mode(bm_add)
+  draw_circle_color(x,y-11,24,make_color_rgb(240,193,64),c_black,false)
+  draw_set_blend_mode(bm_normal)
+}
+
+
+if showControls&gt;0
+{
+  showControls-=1
+  draw_set_alpha(1)
+  draw_set_font(fnt_NES)
+  draw_set_halign(fa_left)
+  if bOpened=0
+  {
+    draw_sprite_ext(sGateH_UI_Arrow,0,x-21,320,1,1,90,c_white,1)
+    textDropShadow("TURN ON",x-12,317,helpTextInner,helpTextOuter,4)
+  }
+  else if bOpened=1
+  {
+    draw_sprite_ext(sGateH_UI_Arrow,0,x-21,320,1,1,90,c_white,1)
+    textDropShadow("TURN OFF",x-12,317,helpTextInner,helpTextOuter,4)
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

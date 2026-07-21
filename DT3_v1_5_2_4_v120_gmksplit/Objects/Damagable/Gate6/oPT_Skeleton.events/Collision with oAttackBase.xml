@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="COLLISION" with="oAttackBase">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if enemyDeflect(1,1,1,1,1,1)=1 and bBlocking=1 and global.stJGame_C[0]&lt;4000
+{
+  playSound(global.snd_MMBulletDeflect,0,1,1)
+  var tEffect;
+  tEffect=instance_create(x+random_range(-11,11),y-4-random(44),oEffect)
+  tEffect.sprite_index=sMMchargeComplete
+  tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+}
+else {event_inherited()}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

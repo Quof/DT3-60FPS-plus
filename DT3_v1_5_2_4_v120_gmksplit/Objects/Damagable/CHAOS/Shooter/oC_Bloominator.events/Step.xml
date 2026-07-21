@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  event_inherited()
+  if bActive=true and bIsSucked=0
+  {
+    if moveProg=0 //Fly in
+    {
+      x-=runAcc
+      if x&lt;=432 {moveProg+=1}
+    }
+    else if moveProg=1 //Slight wait
+    {
+      bulletTime+=1
+      if bulletTime&gt;=15 {bulletTime=0; moveProg+=1}
+    }
+    else if moveProg=2 //Angle up
+    {
+      image_angle-=3
+      if image_angle&lt;=155 {moveProg+=1}
+    }
+    else if moveProg=3 //Fire (go down)
+    {
+      image_angle+=2
+      bulletTime+=1
+      if bulletTime mod bulletMod=0
+      {
+        var tNewAttack;
+        tNewAttack=instance_create(x+lengthdir_x(19,45+image_angle),y+lengthdir_y(19,45+image_angle),oPassBullet)
+        tNewAttack.sprite_index=sC_BloomShot; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=8
+        tNewAttack.decayTime=-100; tNewAttack.direction=image_angle
+        tNewAttack=instance_create(x+lengthdir_x(19,-45+image_angle),y+lengthdir_y(19,-45+image_angle),oPassBullet)
+        tNewAttack.sprite_index=sC_BloomShot; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=8
+        tNewAttack.decayTime=-100; tNewAttack.direction=image_angle
+      }
+      if image_angle&gt;=205 {moveProg+=1}
+    }
+    else if moveProg=4 //Slight wait
+    {
+      bulletTime+=1
+      if bulletTime&gt;=15 {bulletTime=0; moveProg+=1}
+    }
+    else if moveProg=5 //Fire (go up)
+    {
+      image_angle-=2
+      bulletTime+=1
+      if bulletTime mod bulletMod=0
+      {
+        var tNewAttack;
+        tNewAttack=instance_create(x+lengthdir_x(19,45+image_angle),y+lengthdir_y(19,45+image_angle),oPassBullet)
+        tNewAttack.sprite_index=sC_BloomShot; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=8
+        tNewAttack.decayTime=-100; tNewAttack.direction=image_angle
+        tNewAttack=instance_create(x+lengthdir_x(19,-45+image_angle),y+lengthdir_y(19,-45+image_angle),oPassBullet)
+        tNewAttack.sprite_index=sC_BloomShot; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=8
+        tNewAttack.decayTime=-100; tNewAttack.direction=image_angle
+      }
+      if image_angle&lt;=155
+      {
+        movePass+=1
+        if movePass&gt;=2 {moveProg=7}
+        else {moveProg=6}
+      }
+    }
+    else if moveProg=6 //Longer wait (Go to 3)
+    {
+      bulletTime+=1
+      if bulletTime&gt;=40 {bulletTime=0; moveProg=3}
+    }
+    else if moveProg=7 //Angle down (stop at mid)
+    {
+      image_angle+=3
+      if image_angle&gt;=180 {image_angle=180; moveProg+=1}
+    }
+    else if moveProg=8 //Slight wait
+    {
+      bulletTime+=1
+      if bulletTime&gt;=15 {bulletTime=0; moveProg+=1}
+    }
+    else if moveProg=9
+    {
+      x-=runAcc
+    }
+    
+    if x&lt;=-32 {instance_destroy()}
+  }
+  enemyStepEvent()
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

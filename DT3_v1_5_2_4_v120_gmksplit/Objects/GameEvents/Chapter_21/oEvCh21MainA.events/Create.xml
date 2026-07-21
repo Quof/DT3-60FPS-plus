@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="CREATE" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">event_inherited()
+enemyCount=-1
+fadeColor=c_white
+fadeAlpha=0
+followBack=0
+
+if global.gameProgress=5520 and room=rCh21_Main_75
+{
+  npcJerry=instance_create(688,288,oMisc)
+  npcJerry.type=0; npcJerry.sprite_index=sJerrySit; npcJerry.image_xscale=-1
+  npcJerry.image_speed=0
+  stopPlayer()
+  oPlayer1.sprite_index=sClaireLayDown
+  global.gamePaused=1
+  fadeColor=c_black
+  fadeAlpha=1
+}
+else if room=rAbomF
+{
+  if global.gameProgress=5550 and global.bossTrack=0
+  {
+    global.gamePaused=1
+    fadeColor=c_black
+    fadeAlpha=1
+  }
+}
+else if global.gameProgress=5560 and room=rAbomCutA
+{
+  fadeColor=c_black
+  fadeAlpha=1
+  theWarship=instance_create(208,240,oMisc)
+  theWarship.type=0; theWarship.sprite_index=sCHAOS_WarshipMain
+  theWarship.image_xscale=0.3; theWarship.image_yscale=0.3
+  
+  theAbomination=instance_create(240,432,oMisc)
+  theAbomination.type=0; theAbomination.sprite_index=sAbom_Base
+  theAbomination.image_xscale=0.3; theAbomination.image_yscale=0.3
+}
+else if global.gameProgress=5560 and room=rCh21_WastelandA
+{
+  abilSetRemove(0)
+  charSwitcher(0)
+  fadeColor=c_black
+  fadeAlpha=1
+}
+else if global.gameProgress=5590 and room=rDistortionA
+{
+  global.gamePaused=1
+  fadeColor=c_black
+  fadeAlpha=1
+}
+else if room=rDistFinal_Round2
+{
+  hexorFadeBlack=255
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="DRAW" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">//set in the instance creation code
+if !variable_local_exists("doorId2")
+  image_yscale=doorId1.stepScale*scaleFactor
+else
+{
+  if doorId1.stepScale&lt;doorId2.stepScale
+    image_yscale=doorId1.stepScale*scaleFactor
+  else
+    image_yscale=doorId2.stepScale*scaleFactor
+}
+
+draw_sprite_ext(sStepSwitchBottom,-1,x,y,1,image_yscale,image_angle,image_blend,1)</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

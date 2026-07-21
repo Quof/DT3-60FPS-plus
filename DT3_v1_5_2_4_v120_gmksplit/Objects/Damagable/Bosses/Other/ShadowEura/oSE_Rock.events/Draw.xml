@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="DRAW" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if rockSequence=1 or rockSequence=2 //Draw string
+{
+  draw_set_color(c_white)
+  draw_set_alpha(1)
+  draw_line(x,y-28,x,64)
+}
+
+if global.bossTrack&gt;0
+{
+  if oShadowEura.bossProgress&gt;=2
+  {
+    if oGame.time mod 2=0 {draw_set_color(c_red)}
+    else {draw_set_color(c_orange)}
+    draw_set_alpha(1)
+    
+    if type=1
+    {
+      if instance_exists(oShadowEura.myRockA)
+      {
+        //draw_line(x,y,oShadowEura.myRockA.x,oShadowEura.myRockA.y)
+        var tLineDir,tDotAmt;
+        tLineDir=point_direction(x,y,oShadowEura.myRockA.x,oShadowEura.myRockA.y)
+        tDotAmt=ceil(point_distance(x,y,oShadowEura.myRockA.x,oShadowEura.myRockA.y)/11)
+        laserCrawl-=1
+        if laserCrawl&lt;-12 {laserCrawl=0}
+        for(i=0;i&lt;tDotAmt;i+=1)
+        {
+          draw_circle(x+lengthdir_x((12*i)+laserCrawl,tLineDir),y+lengthdir_y((12*i)+laserCrawl,tLineDir),2,0)
+        }
+      }
+      if instance_exists(oShadowEura.myRockB)
+      {
+        //draw_line(x,y,oShadowEura.myRockB.x,oShadowEura.myRockB.y)
+        var tLineDir,tDotAmt;
+        tLineDir=point_direction(x,y,oShadowEura.myRockB.x,oShadowEura.myRockB.y)
+        tDotAmt=ceil(point_distance(x,y,oShadowEura.myRockB.x,oShadowEura.myRockB.y)/11)
+        laserCrawl-=1
+        if laserCrawl&lt;-12 {laserCrawl=0}
+        for(i=0;i&lt;tDotAmt;i+=1)
+        {
+          draw_circle(x+lengthdir_x((12*i)+laserCrawl,tLineDir),y+lengthdir_y((12*i)+laserCrawl,tLineDir),2,0)
+        }
+      }
+    }
+  }
+}
+
+if daggerTime&gt;0 //Barrier
+{
+  draw_set_alpha(0.1+(daggerTime*0.02))
+  draw_set_color(c_white)
+  draw_rectangle(x-44,64,x+44,y-28,0)
+}
+
+draw_sprite_ext(sprite_index,image_index,x,y,image_xscale,image_yscale,image_angle,image_blend,image_alpha)
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

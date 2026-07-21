@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="CREATE" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">event_inherited()
+bActive=true
+image_speed=0.3
+animFrm=0
+
+//Enemy base statistics
+eName="Abomination Weak Spot"
+if global.modeWahfuu=1 {eName="Wahfuu Weak Spot"}
+eLevel=39
+maxLife=2000
+life=maxLife
+atkPower=12
+stunResist=50
+affiliation=9
+bIsBoss=true
+bNoBonus=true
+dieEffect=0
+
+scaleWave=pi/2
+
+deathAnim=0
+
+var tEffect;
+for(i=0;i&lt;20;i+=1)
+{
+  tEffect=instance_create(x+random_range(-12,12),y+random_range(-12,12),oEffect)
+  tEffect.sprite_index=sWitchFire; tEffect.followID=-1; tEffect.xFollow=0; tEffect.yFollow=0; tEffect.image_speed=0.2+random(0.2)
+  tEffect.newBlend=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0; tEffect.image_alpha=0.05
+  tEffect.image_xscale=1+(i*1.25); tEffect.image_yscale=1+(i*1.25); tEffect.image_angle=random(360)
+}
+
+jeremyText="This is one of the weak spots that formed when the melody started playing. As for attacks this creature has; There's a continuous one where it summons those weird... things from the bottom that slowly rise up. They're a constant annoyance. Another attack I see are from those spike claws. It used this attack in the Vault. The other attack is some rain attack that I can't get info on."
+chaoText="These 'weak spots' are awfully odd, even for this thing. It's like something is trying to hide itself. Let's keep the music playing and maybe we can drive it out of the creature."
+devText="Oh man, this thing. Its design has changed many times over the course of the project, but the one thing that remained the same is keeping the instruments playing."
+
+alarm[0]=1
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

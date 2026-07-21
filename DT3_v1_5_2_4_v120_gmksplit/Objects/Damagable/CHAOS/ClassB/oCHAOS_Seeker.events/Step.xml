@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  if bActive=true and life&gt;0
+  {
+    if alertMode=0 //Not alert
+    {
+      myRange.image_blend=c_blue
+      for(i=0;i&lt;6;i+=1) {resType[i]=3}; resType[4]=2; resType[5]=2
+      if boostResist=1 {resType[1]=2; resType[3]=2}
+      
+      if moveType=0 //Move in a set path (stop for a moment before turning around)
+      {
+        turnTime+=1
+        if turnTime&lt;turnDelay {speed=moveSpd}
+        else {speed=0}
+        if turnTime&gt;=turnDelay+10
+        {
+          direction+=turnDegree
+          turnTime=0
+        }
+      }
+      else if moveType=1 //Spin in circle
+      {
+        direction+=turnDegree
+      }
+      else if moveType=2 //Scan(rotate) to set range
+      {
+        if turnTime&lt;turnDelay {direction+=scanDegree}
+        turnTime+=1
+        if turnTime&gt;=turnDelay+20
+        {
+          scanDegree*=-1
+          turnTime=0
+        }
+      }
+    }
+    else if alertMode=1 //Go toward point (Just checking)
+    {
+      myRange.image_blend=c_yellow
+      for(i=0;i&lt;6;i+=1) {resType[i]=2}; resType[4]=1; resType[5]=1
+      if boostResist=1 {resType[1]=1; resType[3]=1}
+      
+      if movePause=0
+      {
+        mp_grid_path(oCS_Grid.myGrid,myPath,x,y,pointX,pointY,1)
+        spdChk=(moveSpd*0.9)*moveMod
+        if spdChk&lt;2 {spdChk=2}
+        else if spdChk&gt;5 {spdChk=5}
+        path_start(myPath,spdChk,2,1)
+        if point_distance(x,y,pointX,pointY)&lt;(moveSpd*0.9)*moveMod
+        {
+          movePause=10
+          alertMode=2
+        }
+      }
+      else {movePause-=1}
+    }
+    else if alertMode=2 //Go back to position
+    {
+      myRange.image_blend=c_yellow
+      for(i=0;i&lt;6;i+=1) {resType[i]=2}; resType[4]=1; resType[5]=1
+      if boostResist=1 {resType[1]=1; resType[3]=1}
+      
+      if movePause=0
+      {
+        mp_grid_path(oCS_Grid.myGrid,myPath,x,y,xstart,ystart,1)
+        spdChk=moveSpd*1.25
+        if spdChk&gt;5 {spdChk=5}
+        path_start(myPath,spdChk,2,1)
+        if point_distance(x,y,xstart,ystart)&lt;moveSpd*1.25
+        {
+          speed=0
+          direction=initDir
+          scanDegree=turnDegree
+          path_end()
+          turnTime=0
+          alertMode=0
+        }
+      }
+      else {movePause-=1}
+    }
+    else if alertMode=3 //Search for player
+    {
+      myRange.image_blend=c_red
+      for(i=0;i&lt;6;i+=1) {resType[i]=2}; resType[4]=1; resType[5]=1
+      if boostResist=1 {resType[1]=1; resType[3]=1}
+      
+      alertTime-=1
+      if alertTime&lt;=120
+      {
+        mp_grid_path(oCS_Grid.myGrid,myPath,x,y,oPlayer1.x,returnPlayerYCenter(),1)
+        spdChk=moveSpd*0.6
+        if spdChk&lt;1.5 {spdChk=1.5}
+        else if spdChk&gt;5 {spdChk=5}
+        path_start(myPath,spdChk,2,1)
+        
+        if oGame.time mod 10=0
+        {
+          if !collision_line(x+lengthdir_x(21,direction),y+lengthdir_y(21,direction),oPlayer1.x,returnPlayerYCenter(),oSolid,1,1)
+          {
+            tNewAttack=instance_create(x+lengthdir_x(21,direction),y+lengthdir_y(21,direction),oNormalBullet)
+            tNewAttack.sprite_index=sEBShot; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=8
+            tNewAttack.direction=image_angle
+          }
+        }
+      }
+      if alertTime&lt;=0
+      {
+        alertMode=2
+      }
+    }
+    
+    if boostResist=0 //Boost PIERCE and SHOT resist at half HP
+    {
+      if life&lt;=maxLife/2
+      {
+        boostResist=1
+      }
+    }
+    
+    image_angle=direction
+    myRange.x=x+lengthdir_x(21,direction)
+    myRange.y=y+lengthdir_y(21,direction)
+    myRange.image_angle=direction
+  }
+  else if life&lt;=0
+  {
+    deathAnim+=1
+    if deathAnim=1
+    {
+      with myRange {instance_destroy()}
+    }
+    if deathAnim mod 2=0
+    {
+      if deathAnim mod 4=0 {playSound(global.snd_BombExplode,0,0.85,1)}
+      tEffect=instance_create(x+random_range(-12,12),y+random_range(-12,12),oEffect)
+      tEffect.sprite_index=sRobotExplosion; tEffect.image_alpha=0.5+(image_alpha/3)
+      tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+    }
+    image_alpha-=0.075
+    if image_alpha&lt;0
+    {
+      instance_destroy()
+    }
+  }
+  enemyStepEvent()
+}
+else
+{
+  speed=0
+  path_end()
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

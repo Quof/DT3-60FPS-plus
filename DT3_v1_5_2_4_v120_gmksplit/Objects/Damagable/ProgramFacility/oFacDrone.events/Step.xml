@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  makeEnemyActive(0)
+  if bActive=true and stunnedTime=0
+  {
+    if turnTime&gt;=64
+    {
+      image_xscale*=-1
+      turnTime=0
+    }
+    
+    if shotTime&lt;=shotDelay
+    {
+      turnTime+=1
+      x+=runAcc*image_xscale
+    }
+    
+    if bInfected=1
+    {
+      shotTime+=1
+      if shotTime&gt;=shotDelay {lineW+=0.33}
+      if shotTime&gt;=shotDelay+30
+      {
+        if !collision_line(x,y,oPlayer1.x,oPlayer1.y-26,oSolid,true,true)
+        {
+          playSound(global.snd_Shock,0,0.82,17000)
+          with oPlayer1 {hitPlayer(other)}
+        }
+        lineW=1
+        shotTime=0
+      }
+    }
+  }
+  else if bActive=false {shotTime=20}
+  enemyStepEvent()
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

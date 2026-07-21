@@ -1,0 +1,1026 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<room id="720">
+  <caption>[LCC] Blargg, I am dead.</caption>
+  <size height="352" width="896"/>
+  <grid>
+    <isometric>false</isometric>
+    <snap x="16" y="16"/>
+  </grid>
+  <speed>30</speed>
+  <persistent>false</persistent>
+  <creationCode>locationCheck(70)
+
+backFollow=instance_create(0,0,oBackgroundFollow)
+backFollow.type=2
+backFollow.backSet=backLavaCave
+backFollow.xMoveScale=0.6
+backFollow.yMoveScale=0.6
+backFollow.depth=1499999
+
+backFore=instance_create(0,0,oBackSpriteStaticRepeat)
+backFore.sprite_index=sCh18AnimFore; backFore.depth=0; backFore.image_speed=0.2; backFore.image_alpha=0.15
+backFore.xRepeat=round((room_width+128)/128); backFore.yRepeat=round((room_height+128)/128)
+
+gameScene=instance_create(0,0,oEvCh18MainA)
+mapScene=instance_create(0,0,oEvCh18SideA)
+
+instance_create(0,304,oCh18LavaFloor)
+instance_create(0,0,oCh18LavaCaveEffects)
+
+if global.bossTrack=1 //Boss Fight: Giant Blarg
+{
+  var tempMplay;
+  tempMplay=findMusic(801)
+  var enemyBarrier,boss;
+  enemyBarrier=instance_create(144,48,oEnemyBarrier); enemyBarrier.image_yscale=20
+  enemyBarrier=instance_create(736,48,oEnemyBarrier); enemyBarrier.image_yscale=20
+  oPlayer1.x=448; oPlayer1.y=256
+  storeStatus(1)
+  boss=instance_create(664,room_height+160,oGiantBlarg)
+  boss.activateBoss=1
+}
+else
+{
+  var tempMplay;
+  if global.gameProgress&gt;=4490 {tempMplay=findMusic(0)}
+  else {tempMplay=findMusic(23)}
+}
+playMusic(tempMplay,0,0)
+SS_SetSoundFreq(global.msc_BowserFight,22050)</creationCode>
+  <backgroundColor>820000</backgroundColor>
+  <drawBackgroundColor>true</drawBackgroundColor>
+  <clearViewBackground>true</clearViewBackground>
+  <backgrounds>
+    <backgroundDef>
+      <visibleOnRoomStart>true</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage>backLavaCave</backgroundImage>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+  </backgrounds>
+  <enableViews>true</enableViews>
+  <views>
+    <view>
+      <visibleOnRoomStart>true</visibleOnRoomStart>
+      <viewInRoom height="352" width="480" x="0" y="0"/>
+      <portOnScreen height="352" width="480" x="0" y="0"/>
+      <objectFollowing hBorder="240" hSpeed="-1" vBorder="176" vSpeed="-1">oPlayer1</objectFollowing>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+  </views>
+  <instances>
+    <instance id="385861">
+      <object>oExit</object>
+      <position x="0" y="224"/>
+      <creationCode>bShowArrow=true
+exitType=1
+newMapX=6192
+newMapY=256
+toRoom=rLavaCaveB</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="386143">
+      <object>oExit</object>
+      <position x="880" y="224"/>
+      <creationCode>bShowArrow=true
+exitType=1
+newMapX=48
+newMapY=256
+toRoom=rLavaCaveD</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="386136">
+      <object>oLavaGuy</object>
+      <position x="208" y="320"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="386137">
+      <object>oLavaGuy</object>
+      <position x="688" y="320"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="386138">
+      <object>oLavaGuy</object>
+      <position x="338" y="320"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="386139">
+      <object>oLavaGuy</object>
+      <position x="558" y="320"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="385857">
+      <object>oPlayer1</object>
+      <position x="48" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="385856">
+      <object>oMarioLava</object>
+      <position x="0" y="320"/>
+      <creationCode>image_xscale=room_width/16
+visible=0</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="385863">
+      <object>oInvCollPH</object>
+      <position x="16" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="385864">
+      <object>oInvCollPH</object>
+      <position x="32" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="385865">
+      <object>oInvCollPH</object>
+      <position x="48" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="385866">
+      <object>oInvCollPH</object>
+      <position x="64" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="385867">
+      <object>oInvCollPH</object>
+      <position x="80" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="385868">
+      <object>oInvCollPH</object>
+      <position x="96" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="385869">
+      <object>oInvCollPH</object>
+      <position x="112" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="385870">
+      <object>oInvCollPH</object>
+      <position x="112" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="385871">
+      <object>oInvCollPH</object>
+      <position x="112" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="385872">
+      <object>oInvCollPH</object>
+      <position x="112" y="304"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="385873">
+      <object>oInvCollPH</object>
+      <position x="112" y="320"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="385874">
+      <object>oInvCollPH</object>
+      <position x="112" y="336"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="385875">
+      <object>oInvCollPH</object>
+      <position x="336" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="385876">
+      <object>oInvCollPH</object>
+      <position x="352" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="385877">
+      <object>oInvCollPH</object>
+      <position x="368" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="385878">
+      <object>oInvCollPH</object>
+      <position x="384" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="385879">
+      <object>oInvCollPH</object>
+      <position x="400" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="385880">
+      <object>oInvCollPH</object>
+      <position x="416" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="385881">
+      <object>oInvCollPH</object>
+      <position x="432" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="385882">
+      <object>oInvCollPH</object>
+      <position x="320" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="385883">
+      <object>oInvCollPH</object>
+      <position x="320" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="385884">
+      <object>oInvCollPH</object>
+      <position x="320" y="304"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="385885">
+      <object>oInvCollPH</object>
+      <position x="320" y="320"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="385886">
+      <object>oInvCollPH</object>
+      <position x="320" y="336"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="385887">
+      <object>oInvCollPH</object>
+      <position x="448" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="385888">
+      <object>oInvCollPH</object>
+      <position x="464" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="385889">
+      <object>oInvCollPH</object>
+      <position x="480" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="385890">
+      <object>oInvCollPH</object>
+      <position x="496" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="385891">
+      <object>oInvCollPH</object>
+      <position x="512" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="385892">
+      <object>oInvCollPH</object>
+      <position x="528" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="385893">
+      <object>oInvCollPH</object>
+      <position x="544" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="385894">
+      <object>oInvCollPH</object>
+      <position x="560" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="385895">
+      <object>oInvCollPH</object>
+      <position x="560" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="385896">
+      <object>oInvCollPH</object>
+      <position x="560" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="385897">
+      <object>oInvCollPH</object>
+      <position x="560" y="304"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="385898">
+      <object>oInvCollPH</object>
+      <position x="560" y="320"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="385899">
+      <object>oInvCollPH</object>
+      <position x="560" y="336"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="385900">
+      <object>oInvCollPH</object>
+      <position x="768" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="385901">
+      <object>oInvCollPH</object>
+      <position x="768" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="385902">
+      <object>oInvCollPH</object>
+      <position x="768" y="304"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="385903">
+      <object>oInvCollPH</object>
+      <position x="768" y="320"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="385904">
+      <object>oInvCollPH</object>
+      <position x="768" y="336"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="385905">
+      <object>oInvCollPH</object>
+      <position x="784" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="385906">
+      <object>oInvCollPH</object>
+      <position x="800" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="385907">
+      <object>oInvCollPH</object>
+      <position x="816" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="385908">
+      <object>oInvCollPH</object>
+      <position x="832" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="385909">
+      <object>oInvCollPH</object>
+      <position x="848" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="385910">
+      <object>oInvCollPH</object>
+      <position x="864" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="385911">
+      <object>oInvCollPH</object>
+      <position x="880" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="386096">
+      <object>oInvCollPH</object>
+      <position x="64" y="16"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="386097">
+      <object>oInvCollPH</object>
+      <position x="64" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="386098">
+      <object>oInvCollPH</object>
+      <position x="80" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="386099">
+      <object>oInvCollPH</object>
+      <position x="96" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="386100">
+      <object>oInvCollPH</object>
+      <position x="112" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="386101">
+      <object>oInvCollPH</object>
+      <position x="128" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="386102">
+      <object>oInvCollPH</object>
+      <position x="144" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="386103">
+      <object>oInvCollPH</object>
+      <position x="144" y="16"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="386104">
+      <object>oInvCollPH</object>
+      <position x="144" y="0"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="386105">
+      <object>oInvCollPH</object>
+      <position x="256" y="16"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="386106">
+      <object>oInvCollPH</object>
+      <position x="256" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="386107">
+      <object>oInvCollPH</object>
+      <position x="272" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="386108">
+      <object>oInvCollPH</object>
+      <position x="288" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="386109">
+      <object>oInvCollPH</object>
+      <position x="304" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="386110">
+      <object>oInvCollPH</object>
+      <position x="320" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="386111">
+      <object>oInvCollPH</object>
+      <position x="336" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="386112">
+      <object>oInvCollPH</object>
+      <position x="352" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="386113">
+      <object>oInvCollPH</object>
+      <position x="368" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="386114">
+      <object>oInvCollPH</object>
+      <position x="368" y="16"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="386115">
+      <object>oInvCollPH</object>
+      <position x="368" y="0"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="386116">
+      <object>oInvCollPH</object>
+      <position x="512" y="16"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="386117">
+      <object>oInvCollPH</object>
+      <position x="512" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="386118">
+      <object>oInvCollPH</object>
+      <position x="528" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="386119">
+      <object>oInvCollPH</object>
+      <position x="544" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="386120">
+      <object>oInvCollPH</object>
+      <position x="560" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="386121">
+      <object>oInvCollPH</object>
+      <position x="576" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="386122">
+      <object>oInvCollPH</object>
+      <position x="592" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="386123">
+      <object>oInvCollPH</object>
+      <position x="608" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="386124">
+      <object>oInvCollPH</object>
+      <position x="624" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="386125">
+      <object>oInvCollPH</object>
+      <position x="624" y="16"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="386126">
+      <object>oInvCollPH</object>
+      <position x="624" y="0"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="386127">
+      <object>oInvCollPH</object>
+      <position x="736" y="16"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="386128">
+      <object>oInvCollPH</object>
+      <position x="736" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="386129">
+      <object>oInvCollPH</object>
+      <position x="752" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="386130">
+      <object>oInvCollPH</object>
+      <position x="768" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="386131">
+      <object>oInvCollPH</object>
+      <position x="784" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="386132">
+      <object>oInvCollPH</object>
+      <position x="800" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="386133">
+      <object>oInvCollPH</object>
+      <position x="816" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="386134">
+      <object>oInvCollPH</object>
+      <position x="816" y="16"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="386135">
+      <object>oInvCollPH</object>
+      <position x="816" y="0"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="385855">
+      <object>oInvisibleSolid</object>
+      <position x="0" y="336"/>
+      <creationCode>image_xscale=room_width/16</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="385858">
+      <object>oInvisibleSolid</object>
+      <position x="0" y="256"/>
+      <creationCode>image_xscale=8
+image_yscale=6</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="385859">
+      <object>oInvisibleSolid</object>
+      <position x="320" y="256"/>
+      <creationCode>image_xscale=16
+image_yscale=6</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="385860">
+      <object>oInvisibleSolid</object>
+      <position x="768" y="256"/>
+      <creationCode>image_xscale=8
+image_yscale=6</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="386092">
+      <object>oInvisibleSolid</object>
+      <position x="64" y="0"/>
+      <creationCode>image_xscale=6
+image_yscale=3</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="386093">
+      <object>oInvisibleSolid</object>
+      <position x="256" y="0"/>
+      <creationCode>image_xscale=8
+image_yscale=3</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="386094">
+      <object>oInvisibleSolid</object>
+      <position x="512" y="0"/>
+      <creationCode>image_xscale=8
+image_yscale=3</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="386095">
+      <object>oInvisibleSolid</object>
+      <position x="736" y="0"/>
+      <creationCode>image_xscale=6
+image_yscale=3</creationCode>
+      <locked>false</locked>
+    </instance>
+  </instances>
+  <tiles>
+    <tile id="10505815">
+      <background>tileLavaCave</background>
+      <backgroundPosition x="16" y="0"/>
+      <roomPosition x="0" y="256"/>
+      <size height="64" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10505817">
+      <background>tileLavaCave</background>
+      <backgroundPosition x="32" y="0"/>
+      <roomPosition x="64" y="256"/>
+      <size height="64" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10505818">
+      <background>tileLavaCave</background>
+      <backgroundPosition x="32" y="32"/>
+      <roomPosition x="64" y="320"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10505819">
+      <background>tileLavaCave</background>
+      <backgroundPosition x="16" y="32"/>
+      <roomPosition x="0" y="320"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10505820">
+      <background>tileLavaCave</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="320" y="256"/>
+      <size height="64" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10505821">
+      <background>tileLavaCave</background>
+      <backgroundPosition x="16" y="0"/>
+      <roomPosition x="384" y="256"/>
+      <size height="64" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10505822">
+      <background>tileLavaCave</background>
+      <backgroundPosition x="16" y="0"/>
+      <roomPosition x="448" y="256"/>
+      <size height="64" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10505823">
+      <background>tileLavaCave</background>
+      <backgroundPosition x="32" y="0"/>
+      <roomPosition x="512" y="256"/>
+      <size height="64" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10505824">
+      <background>tileLavaCave</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="768" y="256"/>
+      <size height="64" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10505826">
+      <background>tileLavaCave</background>
+      <backgroundPosition x="16" y="0"/>
+      <roomPosition x="832" y="256"/>
+      <size height="64" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10505827">
+      <background>tileLavaCave</background>
+      <backgroundPosition x="0" y="32"/>
+      <roomPosition x="320" y="320"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10505828">
+      <background>tileLavaCave</background>
+      <backgroundPosition x="0" y="32"/>
+      <roomPosition x="768" y="320"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10505829">
+      <background>tileLavaCave</background>
+      <backgroundPosition x="32" y="32"/>
+      <roomPosition x="512" y="320"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10505830">
+      <background>tileLavaCave</background>
+      <backgroundPosition x="16" y="32"/>
+      <roomPosition x="384" y="320"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10505831">
+      <background>tileLavaCave</background>
+      <backgroundPosition x="16" y="32"/>
+      <roomPosition x="448" y="320"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10505832">
+      <background>tileLavaCave</background>
+      <backgroundPosition x="16" y="32"/>
+      <roomPosition x="832" y="320"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10505869">
+      <background>tileLavaCave</background>
+      <backgroundPosition x="0" y="48"/>
+      <roomPosition x="64" y="0"/>
+      <size height="48" width="96"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10505871">
+      <background>tileLavaCave</background>
+      <backgroundPosition x="0" y="48"/>
+      <roomPosition x="256" y="0"/>
+      <size height="48" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10505872">
+      <background>tileLavaCave</background>
+      <backgroundPosition x="0" y="48"/>
+      <roomPosition x="512" y="0"/>
+      <size height="48" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10505873">
+      <background>tileLavaCave</background>
+      <backgroundPosition x="32" y="48"/>
+      <roomPosition x="320" y="0"/>
+      <size height="48" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10505874">
+      <background>tileLavaCave</background>
+      <backgroundPosition x="32" y="48"/>
+      <roomPosition x="576" y="0"/>
+      <size height="48" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10505875">
+      <background>tileLavaCave</background>
+      <backgroundPosition x="0" y="48"/>
+      <roomPosition x="736" y="0"/>
+      <size height="48" width="96"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+  </tiles>
+  <editorSettings remember="true">
+    <size height="619" width="1267"/>
+    <showGrid>false</showGrid>
+    <showObjects>false</showObjects>
+    <showTiles>true</showTiles>
+    <showBackgrounds>true</showBackgrounds>
+    <showForegrounds>true</showForegrounds>
+    <showViews>false</showViews>
+    <deleteUnderlyingObjects>true</deleteUnderlyingObjects>
+    <deleteUnderlyingTiles>true</deleteUnderlyingTiles>
+    <currentTab>0</currentTab>
+    <horizontalScrollPosition>-54</horizontalScrollPosition>
+    <verticalScrollPosition>-112</verticalScrollPosition>
+  </editorSettings>
+</room>

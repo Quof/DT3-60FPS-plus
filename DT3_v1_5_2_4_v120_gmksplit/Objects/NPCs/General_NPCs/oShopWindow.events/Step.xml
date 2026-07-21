@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if oKeyCodes.kCodePressed[3]=1
+{
+  playSound(global.snd_MenuCursor,0,1,1)
+  if cursorPos=1
+  {
+    cursorPos=cursorMax
+    cursorY+=cursorInc*(cursorMax-1)
+  }
+  else
+  {
+    cursorPos-=1
+    cursorY-=cursorInc
+  }
+}
+else if oKeyCodes.kCodePressed[4]=1
+{
+  playSound(global.snd_MenuCursor,0,1,1)
+  if cursorPos=cursorMax
+  {
+    cursorPos=1
+    cursorY-=cursorInc*(cursorMax-1)
+  }
+  else
+  {
+    cursorPos+=1
+    cursorY+=cursorInc
+  }
+}
+
+if oKeyCodes.kCodePressed[5]=1
+{
+  if oPlayer1.currentMoney!=404
+  {
+    if bCanBuy[cursorPos-1]="0" //In stock
+    {
+      if oPlayer1.currentMoney&gt;=stock[cursorPos-1,2] //Item bought
+      {
+        playSound(global.snd_MenuConfirm,0,1,1)
+        global.recItemBought+=1
+        oPlayer1.currentMoney-=stock[cursorPos-1,2] //Take money
+        global.pMoney-=stock[cursorPos-1,2]
+        global.recInterSpent+=stock[cursorPos-1,2]
+        //Put item in player stock
+        var tNewString;
+        tNewString=string_delete(global.equipItems,stock[cursorPos-1,0],1)
+        tNewString=string_insert("1",tNewString,stock[cursorPos-1,0])
+        global.equipItems=tNewString
+        bCanBuy[cursorPos-1]="1"
+      }
+      else //Not enough internetz
+      {
+        playSound(global.snd_Error,0,1,1)
+        msgCreate(120,120,"","Stop trying to bum items off the shopkeeper.",7,1,oMessagePerson,0)
+        newMessage.fadingTime=35
+      }
+    }
+    else //Item out of stock
+    {
+      playSound(global.snd_Error,0,1,1)
+      msgCreate(120,120,"","That item is out of stock.",7,1,oMessagePerson,0)
+      newMessage.fadingTime=35
+    }
+  }
+  else //Money count is 404
+  {
+    playSound(global.snd_Error,0,1,1)
+    msgCreate(120,120,"","There is an error with your current Internetz balance. Please check your balance and try again later.",7,2,oMessagePerson,0)
+    newMessage.fadingTime=55
+  }
+}
+
+if oKeyCodes.kCodePressed[6]=1 //Close shop window
+{
+  io_clear()
+  resetKeyCodes()
+  playSound(global.snd_MenuCancel,0,1,1)
+  global.gamePaused=false
+  instance_destroy()
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

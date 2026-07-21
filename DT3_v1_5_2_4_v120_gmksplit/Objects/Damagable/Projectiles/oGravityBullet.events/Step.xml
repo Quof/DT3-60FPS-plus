@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  yVel+=grav
+  if sprite_index=sHammerBHam or sprite_index=sHammerThrowerHammer or sprite_index=sFireBroFire or sprite_index=sKingWormSpike or sprite_index=sLargeSnowball
+  {
+    if xVel&gt;0 {image_angle-=10}
+    else if xVel&lt;0 {image_angle+=10}
+  }
+  
+  if isCollisionTop(1) {bDestroy=1}
+  if isCollisionBottom(1) {bDestroy=1}
+  if isCollisionLeft(1) {bDestroy=1}
+  if isCollisionRight(1) {bDestroy=1}
+  moveTo(xVel,yVel)
+  
+  if bDestroy=1
+  {
+    if sprite_index=sBDBomb or sprite_index=sEnmityBomb
+    {
+      newAttack=instance_create(x,y,oDamageExplosion)
+      newAttack.atkPower=atkPower; newAttack.sprite_index=sBombExplosion
+      newAttack.image_xscale=0.75; newAttack.image_yscale=0.75; newAttack.decayTime=-100
+    }
+    else if sprite_index=sNotorBangerBomb
+    {
+      newAttack=instance_create(x,y,oDamageExplosion)
+      newAttack.atkPower=atkPower; newAttack.sprite_index=sBombExplosion; newAttack.decayTime=-100
+    }
+    else if sprite_index=sBelmontHolyWater
+    {
+      newAttack=instance_create(x,y,oDamageExplosion)
+      newAttack.atkPower=atkPower; newAttack.sprite_index=sBelmontHolyFire; newAttack.decayTime=-100
+      newAttack.image_xscale=1.75; newAttack.image_yscale=1.75
+      newAttack.image_blend=c_black
+    }
+    else if sprite_index=sC_TurretBombA
+    {
+      newAttack=instance_create(x,y,oDamageExplosion)
+      newAttack.atkPower=atkPower; newAttack.sprite_index=sC_TBExplodeA; newAttack.decayTime=-100
+    }
+    else if sprite_index=sC_TurretBombB
+    {
+      newAttack=instance_create(x,y,oDamageExplosion)
+      newAttack.atkPower=atkPower; newAttack.sprite_index=sC_TBExplodeB; newAttack.decayTime=-100
+    }
+    instance_destroy()
+  }
+  if y&gt;room_height+32 {instance_destroy()}
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

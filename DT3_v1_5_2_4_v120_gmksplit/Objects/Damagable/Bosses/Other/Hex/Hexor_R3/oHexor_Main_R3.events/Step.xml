@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  if bActive=true and life&gt;0
+  {
+    //==================== SEQUENCE ====================
+    //Push Jeremy back
+    oPlayer1.xAcc=-0.3
+    
+    if oPlayer1.x&gt;=128 and atkPhase=0
+    {
+      msgCreate(60,80,"Jeremy","Jerry and I would find this fun.",0,1,oMessagePerson,0)
+      newMessage.fadingTime=70; atkPhase+=1
+    }
+    else if oPlayer1.x&gt;=224 and atkPhase=1
+    {
+      msgCreate(60,80,"Jeremy","I won't try to explain it to you.",0,1,oMessagePerson,0)
+      newMessage.fadingTime=70; atkPhase+=1
+    }
+    else if oPlayer1.x&gt;=320 and atkPhase=2
+    {
+      msgCreate(60,80,"Jeremy","You just wouldn't care.",0,1,oMessagePerson,0)
+      newMessage.fadingTime=70; atkPhase+=1
+    }
+    else if oPlayer1.x&gt;=448 and atkPhase=3
+    {
+      msgCreate(60,80,"Jeremy","Don't answer then. We're done talking anyway.",0,1,oMessagePerson,0)
+      newMessage.fadingTime=90; atkPhase+=1
+    }
+    
+    if atkPhase=4
+    {
+      if life&lt;maxLife
+      {
+        global.gamePaused=true
+        oEvCh21MainA.sceneProgress=11
+        atkPhase+=1
+      }
+    }
+  }
+  
+  enemyStepEvent()
+}
+else
+{
+  hspeed=0; vspeed=0
+  speed=0
+}
+
+if bWindSound=1
+{
+  if windSoundRep=0
+  {
+    playSound(global.snd_WindBlow,0,0.97,10000)
+    windSoundRep=50
+  }
+  else {windSoundRep-=1}
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

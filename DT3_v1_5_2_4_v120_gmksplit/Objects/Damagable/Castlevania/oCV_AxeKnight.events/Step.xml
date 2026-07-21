@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  makeEnemyActive(0)
+  if bActive=true and stunnedTime=0 and life&gt;0
+  {
+    //---------- Movement ----------
+    image_index+=0.2
+    if sprite_index=sCV_AxeKnight_Walk
+    {
+      if x&lt;oPlayer1.x {image_xscale=1}
+      else {image_xscale=-1}
+      
+      if point_distance(x,0,oPlayer1.x,0)&gt;112
+      {
+        if x&lt;oPlayer1.x {xVel=runAcc}
+        else {xVel=-runAcc}
+      }
+      else if point_distance(x,0,oPlayer1.x,0)&lt;108
+      {
+        if x&lt;oPlayer1.x {xVel=-walkAcc}
+        else {xVel=walkAcc}
+      }
+      else {xVel=0}
+    }
+    else {xVel=0}
+    
+    //---------- Throw axerang ----------
+    throwTime+=1
+    if point_distance(x,0,oPlayer1.x,0)&lt;112 and throwTime&lt;throwDelay-5
+    {
+      if oGame.time mod 2=0 {throwTime+=1}
+    }
+    
+    if throwTime&gt;=throwDelay
+    {
+      if throwTime=throwDelay //change anim
+      {
+        if random(100)&lt;2.5
+        {
+          var newMessage;
+          newMessage=instance_create(x-46,y-100,oEnemyChat)
+          newMessage.enemyMessage="I'd like to axe you a question."
+        }
+        image_index=0
+        var tThrowArc; tThrowArc=0
+        if point_distance(0,y,0,oPlayer1.y)&lt;8 {tThrowArc=10}
+        else if point_distance(0,y,0,oPlayer1.y)&gt;56 {tThrowArc=-10}
+        
+        if random(100)+tThrowArc&gt;50 {sprite_index=sCV_AxeKnight_ThrowDown}
+        else {sprite_index=sCV_AxeKnight_ThrowUp}
+      }
+      else if throwTime=throwDelay+9 //Throw axerang
+      {
+        if checkScreenArea(x,y,48)=1 {playSound(global.snd_ChargeStrike,0,0.91,40000)}
+        var tNewAttack,tOffsetY;
+        tOffsetY=0
+        if sprite_index=sCV_AxeKnight_ThrowUp {tOffsetY=32}
+        tNewAttack=instance_create(x-(4*image_xscale),y-13-tOffsetY,oDoomknockerHammerang)
+        tNewAttack.sprite_index=sAxeKnightAxe; tNewAttack.image_xscale=image_xscale
+        tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5.25*image_xscale
+      }
+      else if throwTime=throwDelay+15 //End attack
+      {
+        sprite_index=sCV_AxeKnight_Walk
+        throwTime=0
+      }
+    }
+    
+    yVel+=0.2
+    if isCollisionBottom(1)
+      yVel=0
+    if isCollisionLeft(1)
+      xVel=runAcc
+    if isCollisionRight(1)
+      xVel=-runAcc
+    if isCollisionSolid()
+      y-=2
+    moveTo(xVel,yVel)
+    
+    if y&gt;room_height+24
+    {
+      if questType&gt;0
+        enemyQuest(questType)
+      instance_destroy()
+    }
+  }
+  else if life&lt;=0
+  {
+    deathAnim+=1
+    if deathAnim=1
+    {
+      sprite_index=sCV_AxeKnight_ThrowDown
+      image_index=2
+      image_speed=0
+    }
+    if deathAnim mod 3=0
+    {
+      if deathAnim mod 6=0 {playSound(global.snd_HardHit1,0,0.9,1)}
+      tEffect=instance_create(x+random_range(-15,15),y-1-random(52),oEffect)
+      tEffect.sprite_index=sDeathFlameA; tEffect.image_speed=0.33
+      tEffect.image_alpha=0.5+(image_alpha/3)
+      tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+    }
+    image_alpha-=0.04
+    if image_alpha&lt;0 {instance_destroy()}
+  }
+  enemyStepEvent()
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

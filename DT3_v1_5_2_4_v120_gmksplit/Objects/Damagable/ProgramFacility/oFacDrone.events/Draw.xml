@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="DRAW" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if bActive=true
+{
+  if shotTime&gt;=shotDelay
+  {
+    draw_set_alpha(1)
+    if !collision_line(x,y,oPlayer1.x,oPlayer1.y-24,oSolid,true,true)
+      draw_set_color(c_red)
+    else
+      draw_set_color(c_blue)
+    draw_line_width(x,y,oPlayer1.x,oPlayer1.y-24,lineW)
+  }
+}
+event_inherited()
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

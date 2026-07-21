@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="OTHER" id="15">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">///SWAPPING FORM
+if instance_exists(oWMC_IceHoverA)
+{
+  with oWMC_IceHoverA
+  {
+    EX_MODE=1
+    bOrbit=0
+    moveProg=2
+    moveTime=fireDelay-5
+  }
+}
+
+if superChangeAtk=0 //If Warmaster was about to attack, set back attack timer
+{
+  if waitTime&gt;=waitDelay-15 {waitTime=waitDelay-15}
+}
+
+bGravity=1; hoverMode=0
+currHspd=0; currVspd=0
+tornadoNum=0
+
+var tEffect;
+tEffect=instance_create(x,y-(27*image_yscale),oEffect)
+tEffect.sprite_index=sCWM_Ef_AtkPulse; tEffect.followID=-1; tEffect.newBlend=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+tEffect.image_xscale=1.25; tEffect.image_yscale=1.25
+shiftTime=0; shiftDamage=0
+if ATTACK_FORM=1
+{
+  sprite_index=sWarmasterA_Idle
+  jeremyText="This variation of the Warmaster has him in his turbo mode for the entire duration of the fight. Other alterations are dealing slightly more damage and HP, and having more attacks. You have a modification too, your dash recovery is faster for this fight."
+  chaoText="Can you imagine the reaction people would have had if this was the original version of the fight? Oh right, helpful tips. Uh, his weaknesses are the same as the original encounter, but after half of his HP is depleted, his weaknesses change to the original fight's final phase variant."
+  for(i=0;i&lt;6;i+=1)
+  {
+    resType[i]=3
+  }
+  if weaknessChange=0 {resType[1]=2; resType[2]=1; resType[3]=1; resType[4]=2; resType[5]=1}
+  else {resType[1]=1; resType[2]=1; resType[3]=1; resType[4]=2; resType[5]=1}
+  if shiftType=0 {shiftDmgMax=42; shiftMaxTime=750}
+  else {shiftDmgMax=30; shiftMaxTime=660}
+}
+else if ATTACK_FORM=2
+{
+  sprite_index=sWarmasterB_Idle
+  jeremyText="I think the two most notable changes are his short hop fireball attack will now cause the entire floor to get a mini fire pillar attack, so be ready for that. The other would be his standing ground pound. Every other time he performs that, it'll have much larger range."
+  for(i=0;i&lt;6;i+=1)
+  {
+    resType[i]=3
+  }
+  if weaknessChange=0 {resType[0]=2; resType[3]=1; resType[4]=1; resType[5]=2}
+  else {resType[0]=1; resType[1]=1; resType[3]=1; resType[4]=1; resType[5]=1}
+  if shiftType=0 {shiftDmgMax=81; shiftMaxTime=750}
+  else {shiftDmgMax=60; shiftMaxTime=660}
+}
+else if ATTACK_FORM=3
+{
+  bGoombaStomp=1; goombaStompTime=15
+  numOfAtks=0
+  sprite_index=sWarmasterC_Idle
+  jeremyText="He's even more spammy this time. Biggest change that you should be aware of would be his twirling spear now stops projectiles. Another big change is the super attack lingering after a form change. Each ice shot no longer targets you, but they now target directly from Warmaster himself, which will cause a much larger circle of ice shots aiming."
+  for(i=0;i&lt;6;i+=1)
+  {
+    resType[i]=3
+  }
+  if weaknessChange=0 {resType[0]=1; resType[1]=1; resType[2]=1; resType[5]=2}
+  else {resType[0]=1; resType[1]=1; resType[2]=1; resType[4]=1; resType[5]=1}
+  if shiftType=0 {shiftDmgMax=132; shiftMaxTime=750}
+  else {shiftDmgMax=90; shiftMaxTime=660}
+}
+else if ATTACK_FORM=4
+{
+  sprite_index=sWarmasterD_Idle
+  jeremyText="He's mostly the same here, but again there are two major things to note. His attacks linger just a bit longer and he's much much faster. Wind form really earns its name."
+  for(i=0;i&lt;6;i+=1)
+  {
+    resType[i]=3
+  }
+  if weaknessChange=0 {resType[0]=1; resType[1]=1; resType[2]=2; resType[4]=2}
+  else {resType[0]=1; resType[1]=1; resType[2]=1; resType[3]=1; resType[4]=1}
+  if shiftType=0 {shiftDmgMax=75; shiftMaxTime=750}
+  else {shiftDmgMax=54; shiftMaxTime=660}
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

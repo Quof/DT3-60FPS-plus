@@ -1,0 +1,1723 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">global.recTimeInMenu+=1
+if cursorRepeatMove&gt;0
+{
+  cursorRepeatMove+=1
+  if cursorRepeatMove&gt;=global.optCursorRepeat+1
+    cursorRepeatMove=0
+}
+if subMenu=0 //---------- Main Menu ----------
+{
+  if oKeyCodes.kCodePressed[3]=1
+  {
+    playSound(global.snd_MenuCursor,0,1,1)
+    if mainCurPos=1
+    {
+      mainCurPos=mainMax
+      mainCurY+=mainInc*(mainMax-1)
+    }
+    else
+    {
+      mainCurPos-=1
+      mainCurY-=mainInc
+    }
+  }
+  else if oKeyCodes.kCodePressed[4]=1
+  {
+    playSound(global.snd_MenuCursor,0,1,1)
+    if mainCurPos=mainMax
+    {
+      mainCurPos=1
+      mainCurY-=mainInc*(mainMax-1)
+    }
+    else
+    {
+      mainCurPos+=1
+      mainCurY+=mainInc
+    }
+  }
+  
+  if oKeyCodes.kCodePressed[5]=1
+  {
+    resetKeyCodes()
+    subMenu=mainCurPos
+  }
+}
+else if subMenu=1 //---------- PROGRESS ----------
+{
+  if oKeyCodes.kCodePressed[1]=1
+  {
+    playSound(global.snd_MenuCursor,0,1,1)
+    if mP_Page=1
+    {
+      mP_Page=mP_PageMax
+      mP_PageCurX+=mP_PageCurInc*(mP_PageMax-1)
+    }
+    else
+    {
+      mP_Page-=1
+      mP_PageCurX-=mP_PageCurInc
+    }
+  }
+  else if oKeyCodes.kCodePressed[2]=1
+  {
+    playSound(global.snd_MenuCursor,0,1,1)
+    if mP_Page=mP_PageMax
+    {
+      mP_Page=1
+      mP_PageCurX-=mP_PageCurInc*(mP_PageMax-1)
+    }
+    else
+    {
+      mP_Page+=1
+      mP_PageCurX+=mP_PageCurInc
+    }
+  }
+}
+else if subMenu=2 //---------- EQUIPMENT ----------
+{
+  if oKeyCodes.kCodePressed[1]=1 //Left
+  {
+    playSound(global.snd_MenuCursor,0,1,1)
+    if mEq_CurPos=1 {mEq_CurPos=6}
+    else if mEq_CurPos=2 {mEq_CurPos=1}
+    else if mEq_CurPos=3 {mEq_CurPos=2}
+    else if mEq_CurPos=4 {mEq_CurPos=3}
+    else if mEq_CurPos=5 {mEq_CurPos=4}
+    else if mEq_CurPos=6 {mEq_CurPos=5}
+    else if mEq_CurPos=7 {mEq_CurPos=8}
+    else if mEq_CurPos=8 {mEq_CurPos=7}
+  }
+  else if oKeyCodes.kCodePressed[2]=1 //Right
+  {
+    playSound(global.snd_MenuCursor,0,1,1)
+    if mEq_CurPos=1 {mEq_CurPos=2}
+    else if mEq_CurPos=2 {mEq_CurPos=3}
+    else if mEq_CurPos=3 {mEq_CurPos=4}
+    else if mEq_CurPos=4 {mEq_CurPos=5}
+    else if mEq_CurPos=5 {mEq_CurPos=6}
+    else if mEq_CurPos=6 {mEq_CurPos=1}
+    else if mEq_CurPos=7 {mEq_CurPos=8}
+    else if mEq_CurPos=8 {mEq_CurPos=7}
+  }
+  else if oKeyCodes.kCodePressed[3]=1 or oKeyCodes.kCodePressed[4]=1 //Up/Down
+  {
+    playSound(global.snd_MenuCursor,0,1,1)
+    if mEq_CurPos=1 {mEq_CurPos=7}
+    else if mEq_CurPos=2 {mEq_CurPos=7}
+    else if mEq_CurPos=3 {mEq_CurPos=7}
+    else if mEq_CurPos=4 {mEq_CurPos=8}
+    else if mEq_CurPos=5 {mEq_CurPos=8}
+    else if mEq_CurPos=6 {mEq_CurPos=8}
+    else if mEq_CurPos=7 {mEq_CurPos=1}
+    else if mEq_CurPos=8 {mEq_CurPos=4}
+  }
+  
+  //Find cursor positions
+  if mEq_CurPos=1 {mEq_CurX=70; mEq_CurY=151}
+  else if mEq_CurPos=2 {mEq_CurX=104; mEq_CurY=151}
+  else if mEq_CurPos=3 {mEq_CurX=138; mEq_CurY=151}
+  else if mEq_CurPos=4 {mEq_CurX=184; mEq_CurY=151}
+  else if mEq_CurPos=5 {mEq_CurX=218; mEq_CurY=151}
+  else if mEq_CurPos=6 {mEq_CurX=252; mEq_CurY=151}
+  else if mEq_CurPos=7 {mEq_CurX=152; mEq_CurY=30}
+  else if mEq_CurPos=8 {mEq_CurX=170; mEq_CurY=30}
+  
+  if oKeyCodes.kCodePressed[5]=1 //Goto item menu or use potion
+  {
+    resetKeyCodes()
+    if global.currentBoss="" //If there is no boss encounter
+    {
+      if global.bShooter=0 //If the player is not in the Dragoon segment
+      {
+        if room!=rMain_76 //If the player is in the Abomination map
+        {
+          var tBCursed,tCurseCheck;
+          tBCursed=0
+          tCurseCheck=0
+          for(i=0;i&lt;3;i+=1)
+          {
+            if global.activeCharacter=0
+            {
+              if global.equipJerry[i]=10 {tCurseCheck+=1}
+              else if global.equipJerry[i]=11 {tCurseCheck+=1}
+              else if global.equipJerry[i]=12 {tCurseCheck+=1}
+            }
+            else
+            {
+              if global.equipClaire[i]=10 {tCurseCheck+=1}
+              else if global.equipClaire[i]=11 {tCurseCheck+=1}
+              else if global.equipClaire[i]=12 {tCurseCheck+=1}
+            }
+          }
+          if tCurseCheck=3 and global.canCharSwap=1 {tBCursed=1}
+          
+          if tBCursed=0 //If the player is not in the cursed arenas
+          {
+            if mEq_CurPos&gt;=1 and mEq_CurPos&lt;=3 //Jerry Equip Slots
+            {
+              if global.equipJerry[mEq_CurPos-1]&gt;-1 {subMenu=12}
+            }
+            else if mEq_CurPos&gt;=4 and mEq_CurPos&lt;=6 //Claire Equip Slots
+            {
+              if global.equipClaire[mEq_CurPos-4]&gt;-1 {subMenu=12}
+            }
+            else if mEq_CurPos=7 or mEq_CurPos=8 //Bottle Slots
+            {
+              var tHexorMsg;
+              tHexorMsg=0
+              
+              if bottles[mEq_CurPos-7]="2" //Half life restored
+              {
+                if oPlayer1.life&lt;oPlayer1.maxLife
+                {
+                  if global.activeCharacter=4 {tHexorMsg=1}
+                  playSound(global.snd_HealingPlant,0,1,1)
+                  global.recItemUsed+=1
+                  var tLifeRecover;
+                  tLifeRecover=oPlayer1.maxLife/2
+                  oPlayer1.life+=tLifeRecover
+                  if oPlayer1.life&gt;oPlayer1.maxLife {oPlayer1.life=oPlayer1.maxLife}
+                  oPlayer1.pBottles[mEq_CurPos-7]="1"
+                  bottles[mEq_CurPos-7]="1"
+                }
+                else
+                {
+                  playSound(global.snd_Error,0,1,1)
+                  msgCreate(120,120,"","Your life is already full.",7,1,oMessagePerson,0)
+                  newMessage.fadingTime=35
+                }
+              }
+              else if bottles[mEq_CurPos-7]="3" //Full life restored
+              {
+                if oPlayer1.life&lt;oPlayer1.maxLife
+                {
+                  if global.activeCharacter=4 {tHexorMsg=1}
+                  playSound(global.snd_HealingPlant,0,1,1)
+                  global.recItemUsed+=1
+                  oPlayer1.life=oPlayer1.maxLife
+                  oPlayer1.pBottles[mEq_CurPos-7]="1"
+                  bottles[mEq_CurPos-7]="1"
+                }
+                else
+                {
+                  playSound(global.snd_Error,0,1,1)
+                  msgCreate(120,120,"","Your life is already full.",7,1,oMessagePerson,0)
+                  newMessage.fadingTime=35
+                }
+              }
+              
+              if tHexorMsg=1
+              {
+                if room=rDistFinal_Pong
+                {
+                  msgCreate(260,80,"Hexor","Jeremy, stop that. Those don't work in here.",0,1,oMessagePerson,0)
+                  newMessage.fadingTime=90
+                }
+                else
+                {
+                  msgCreate(260,80,"Hexor","Jeremy please. I thought we were above that.",0,1,oMessagePerson,0)
+                  newMessage.fadingTime=90
+                }
+              }
+            }
+          }
+          else
+          {
+            playSound(global.snd_Error,0,1,1)
+            msgCreate(120,120,"","Can't use items or change equipment while within the cursed arena with the cursed equipment on.",7,2,oMessagePerson,0)
+            newMessage.fadingTime=55
+          }
+        }
+        else
+        {
+          playSound(global.snd_Error,0,1,1)
+          msgCreate(120,120,"","Can't use items or change equipment in this area.",7,2,oMessagePerson,0)
+          newMessage.fadingTime=45
+        }
+      }
+      else
+      {
+        playSound(global.snd_Error,0,1,1)
+        msgCreate(120,120,"","Can't use items or change equipment during this segment.",7,2,oMessagePerson,0)
+        newMessage.fadingTime=45
+      }
+    }
+    else
+    {
+      playSound(global.snd_Error,0,1,1)
+      msgCreate(120,120,"","Can't use items or change equipment during boss fights.",7,2,oMessagePerson,0)
+      newMessage.fadingTime=45
+    }
+  }
+  else if oKeyCodes.kCodePressed[7]=1 and global.currentBoss="" //Unequip item
+  {
+    resetKeyCodes()
+    if mEq_CurPos&gt;=1 and mEq_CurPos&lt;=3 //Jerry
+    {
+      if global.equipJerry[mEq_CurPos-1]&gt;0
+      {
+        playSound(global.snd_Error,0,1,1)
+        var tNewString,teSlotCheck;
+        teSlotCheck=global.equipJerry[mEq_CurPos-1]-1
+        tNewString=string_delete(global.equipItems,global.equipJerry[mEq_CurPos-1],1)
+        tNewString=string_insert("1",tNewString,global.equipJerry[mEq_CurPos-1])
+        global.equipItems=tNewString
+        eCheck[teSlotCheck]="1"
+        global.equipJerry[mEq_CurPos-1]=0
+        //Check Speed Booster
+        oPlayer1.dashRecovery=20+(global.skillTree[22]*4)
+        for(i=0;i&lt;3;i+=1)
+        {
+          if global.equipJerry[i]=25 {oPlayer1.dashRecovery+=2}
+        }
+      }
+    }
+    else if mEq_CurPos&gt;=4 and mEq_CurPos&lt;=6 //Claire
+    {
+      if global.equipClaire[mEq_CurPos-4]&gt;0
+      {
+        playSound(global.snd_Error,0,1,1)
+        var tNewString,teSlotCheck;
+        teSlotCheck=global.equipClaire[mEq_CurPos-4]-1
+        tNewString=string_delete(global.equipItems,global.equipClaire[mEq_CurPos-4],1)
+        tNewString=string_insert("1",tNewString,global.equipClaire[mEq_CurPos-4])
+        global.equipItems=tNewString
+        eCheck[teSlotCheck]="1"
+        global.equipClaire[mEq_CurPos-4]=0
+        //Check Speed Booster
+        oPlayer1.dashRecovery=20+(global.skillTree[22]*4)
+        for(i=0;i&lt;3;i+=1)
+        {
+          if global.equipClaire[i]=25 {oPlayer1.dashRecovery+=2}
+        }
+      }
+    }
+  }
+  /*else if oKeyCodes.kCodePressed[8]=1 and global.currentBoss="" //Unequip all items
+  {
+    resetKeyCodes()
+    playSound(global.snd_Error,0,1,1)
+    var tNewString,tRemoveSlotJ,tRemoveSlotC;
+    for(i=0;i&lt;3;i+=1)
+    {
+      tRemoveSlotJ[i]=global.equipJerry[i]-1
+      tRemoveSlotC[i]=global.equipClaire[i]-1
+      if global.equipJerry[i]&gt;0 {global.equipJerry[i]=0}
+      if global.equipClaire[i]&gt;0 {global.equipClaire[i]=0}
+      tNewString=string_delete(global.equipItems,global.equipJerry[i],1)
+      tNewString=string_insert("1",tNewString,global.equipJerry[i])
+      global.equipItems=tNewString
+      tNewString=string_delete(global.equipItems,global.equipClaire[i],1)
+      tNewString=string_insert("1",tNewString,global.equipClaire[i])
+      global.equipItems=tNewString
+      if tRemoveSlotJ[i]&gt;=0 {eCheck[tRemoveSlotJ[i]]="1"}
+      if tRemoveSlotC[i]&gt;=0 {eCheck[tRemoveSlotC[i]]="1"}
+    }
+    //Check Speed Booster
+    oPlayer1.dashRecovery=20+(global.skillTree[22]*4)
+  }*/
+}
+else if subMenu=3 //---------- SKILL TREE ----------
+{
+  if scrController(3) and cursorRepeatMove=0
+  {
+    playSound(global.snd_MenuCursor,0,1,1)
+    if cursorRepeatMove=0 {cursorRepeatMove=1}
+    if mSAP_CurY=2 {mSAP_CurY+=8}
+    else {mSAP_CurY-=1}
+  }
+  else if scrController(4) and cursorRepeatMove=0
+  {
+    playSound(global.snd_MenuCursor,0,1,1)
+    if cursorRepeatMove=0 {cursorRepeatMove=1}
+    if mSAP_CurY=10 {mSAP_CurY-=8}
+    else {mSAP_CurY+=1}
+  }
+  else if scrController(1) and cursorRepeatMove=0
+  {
+    playSound(global.snd_MenuCursor,0,1,1)
+    if cursorRepeatMove=0 {cursorRepeatMove=1}
+    if mSAP_CurX=1 {mSAP_CurX+=18}
+    else {mSAP_CurX-=1}
+  }
+  else if scrController(2) and cursorRepeatMove=0
+  {
+    playSound(global.snd_MenuCursor,0,1,1)
+    if cursorRepeatMove=0 {cursorRepeatMove=1}
+    if mSAP_CurX=19 {mSAP_CurX-=18}
+    else {mSAP_CurX+=1}
+  }
+  
+  if oKeyCodes.kCodePressed[5]=1
+  {
+    if global.pAP&gt;=info_Cost and info_Index!=-1
+    {
+      if info_Lv&lt;info_Max
+      {
+        playSound(global.snd_SkillGet,0,1,1)
+        global.pAP-=info_Cost
+        global.skillTree[info_Index]+=1
+        
+        //Scripted upgrades
+        if info_Index=1 {global.hudLink_BombEn[0]=150-(global.skillTree[1]*15)}
+        else if info_Index=22 {oPlayer1.dashRecovery=24+(global.skillTree[22]*2)}
+        else if info_Index=23 {oPlayer1.dashInvulnerability=9+global.skillTree[23]}
+        else if info_Index=24 {oPlayer1.recoverTime=17+global.skillTree[24]}
+      }
+    }
+  }
+}
+else if subMenu=4 //---------- MAP ----------
+{
+  if mMap_Submenu=1
+  {
+    if scrController(3) and cursorRepeatMove=0
+    {
+      playSound(global.snd_MenuCursor,0,1,1)
+      if cursorRepeatMove=0 {cursorRepeatMove=1}
+      if mMap_CurY=2 {mMap_CurY+=16}
+      else {mMap_CurY-=1}
+    }
+    else if scrController(4) and cursorRepeatMove=0
+    {
+      playSound(global.snd_MenuCursor,0,1,1)
+      if cursorRepeatMove=0 {cursorRepeatMove=1}
+      if mMap_CurY=18 {mMap_CurY-=16}
+      else {mMap_CurY+=1}
+    }
+    else if scrController(1) and cursorRepeatMove=0
+    {
+      playSound(global.snd_MenuCursor,0,1,1)
+      if cursorRepeatMove=0 {cursorRepeatMove=1}
+      if mMap_CurX=1 {mMap_CurX+=36}
+      else {mMap_CurX-=1}
+    }
+    else if scrController(2) and cursorRepeatMove=0
+    {
+      playSound(global.snd_MenuCursor,0,1,1)
+      if cursorRepeatMove=0 {cursorRepeatMove=1}
+      if mMap_CurX=37 {mMap_CurX-=36}
+      else {mMap_CurX+=1}
+    }
+  }
+  
+  if oKeyCodes.kCodePressed[9]=1
+  {
+    playSound(global.snd_MenuCursor,0,1,1)
+    if mMap_Submenu=1 {mMap_Submenu=mMap_Max}
+    else {mMap_Submenu-=1}
+  }
+  else if oKeyCodes.kCodePressed[10]=1
+  {
+    playSound(global.snd_MenuCursor,0,1,1)
+    if mMap_Submenu&lt;mMap_Max {mMap_Submenu+=1}
+    else {mMap_Submenu=1}
+  }
+}
+else if subMenu=5 //---------- ABILITY SET ----------
+{
+  if oKeyCodes.kCodePressed[1]=1 or oKeyCodes.kCodePressed[2]=1
+  {
+    playSound(global.snd_MenuCursor,0,1,1)
+    if mAS_Character="JERRY"
+    {
+      mAS_Character="CLAIRE"
+      mAS_Ability="BELMONT"
+    }
+    else
+    {
+      mAS_Character="JERRY"
+      mAS_Ability="LINK"
+    }
+  }
+  
+  if oKeyCodes.kCodePressed[3]=1
+  {
+    playSound(global.snd_MenuCursor,0,1,1)
+    if mAS_Character="JERRY"
+    {
+      if mAS_Ability="LINK" {mAS_Ability="GAME"}
+      else if mAS_Ability="GAME" {mAS_Ability="MEGA MAN"}
+      else if mAS_Ability="MEGA MAN" {mAS_Ability="LINK"}
+    }
+    else if mAS_Character="CLAIRE"
+    {
+      if mAS_Ability="BELMONT" {mAS_Ability="GAME"}
+      else if mAS_Ability="GAME" {mAS_Ability="SAMUS"}
+      else if mAS_Ability="SAMUS" {mAS_Ability="BELMONT"}
+    }
+  }
+  else if oKeyCodes.kCodePressed[4]=1
+  {
+    playSound(global.snd_MenuCursor,0,1,1)
+    if mAS_Character="JERRY"
+    {
+      if mAS_Ability="LINK" {mAS_Ability="MEGA MAN"}
+      else if mAS_Ability="MEGA MAN" {mAS_Ability="GAME"}
+      else if mAS_Ability="GAME" {mAS_Ability="LINK"}
+    }
+    else if mAS_Character="CLAIRE"
+    {
+      if mAS_Ability="BELMONT" {mAS_Ability="SAMUS"}
+      else if mAS_Ability="SAMUS" {mAS_Ability="GAME"}
+      else if mAS_Ability="GAME" {mAS_Ability="BELMONT"}
+    }
+  }
+}
+else if subMenu=6 //---------- RECORDS ----------
+{
+  if oKeyCodes.kCodePressed[1]=1 or oKeyCodes.kCodePressed[2]=1
+  {
+    playSound(global.snd_MenuCursor,0,1,1)
+    if mR_Tab=1
+    {
+      mR_Tab=2
+      mR_CurX+=15
+      mR_CurY=30
+    }
+    else
+    {
+      mR_Tab=1
+      mR_CurX-=15
+      mR_CurY=30
+    }
+    mR_Page=1
+  }
+  
+  if mR_Tab=1 //Records
+  {
+    if oKeyCodes.kCodePressed[3]=1
+    {
+      playSound(global.snd_MenuCursor,0,1,1)
+      if mR_Page=1
+      {
+        mR_Page=mR_PageMax
+        mR_CurY+=mR_CurInc*(mR_PageMax-1)
+      }
+      else
+      {
+        mR_Page-=1
+        mR_CurY-=mR_CurInc
+      }
+    }
+    else if oKeyCodes.kCodePressed[4]=1
+    {
+      playSound(global.snd_MenuCursor,0,1,1)
+      if mR_Page=mR_PageMax
+      {
+        mR_Page=1
+        mR_CurY-=mR_CurInc*(mR_PageMax-1)
+      }
+      else
+      {
+        mR_Page+=1
+        mR_CurY+=mR_CurInc
+      }
+    }
+  }
+  else //Recognitions
+  {
+    if oKeyCodes.kCodePressed[3]=1
+    {
+      playSound(global.snd_MenuCursor,0,1,1)
+      if mR_Page=1
+      {
+        mR_Page=mR_RecPageMax
+        mR_CurY+=mR_CurRecInc*(mR_RecPageMax-1)
+      }
+      else
+      {
+        mR_Page-=1
+        mR_CurY-=mR_CurRecInc
+      }
+    }
+    else if oKeyCodes.kCodePressed[4]=1
+    {
+      playSound(global.snd_MenuCursor,0,1,1)
+      if mR_Page=mR_RecPageMax
+      {
+        mR_Page=1
+        mR_CurY-=mR_CurRecInc*(mR_RecPageMax-1)
+      }
+      else
+      {
+        mR_Page+=1
+        mR_CurY+=mR_CurRecInc
+      }
+    }
+    
+    if oKeyCodes.kCodePressed[5]=1
+    {
+      mR_RecCurPos=1
+      subMenu=13
+    }
+  }
+}
+else if subMenu=7 //---------- OPTIONS ----------
+{
+  if mO_OptSubMenu=2
+  {
+    if global.wearingHatJ=9 and sawBirdHatJ=0
+    {
+      global.recBirdsSeen+=1
+      sawBirdHatJ=1
+    }
+    else if global.wearingHatC=9 and sawBirdHatC=0
+    {
+      global.recBirdsSeen+=1
+      sawBirdHatC=1
+    }
+  }
+  
+  mO_CurX=24
+  mO_CurY=37+(mO_CurPos*12)
+  
+  if oKeyCodes.kCodePressed[3]=1 //Up
+  {
+    playSound(global.snd_MenuCursor,0,1,1)
+    if mO_CurPos=1 {mO_CurPos=mO_OptMax}
+    else {mO_CurPos-=1}
+  }
+  else if oKeyCodes.kCodePressed[4]=1 //Down
+  {
+    playSound(global.snd_MenuCursor,0,1,1)
+    if mO_CurPos=mO_OptMax {mO_CurPos=1}
+    else {mO_CurPos+=1}
+  }
+  else if oKeyCodes.kCodePressed[9]=1 //Opt Menu Left
+  {
+    playSound(global.snd_MenuCursor,0,1,1)
+    mO_CurPos=1
+    if mO_OptSubMenu=1 {mO_OptSubMenu=6}
+    else {mO_OptSubMenu-=1}
+  }
+  else if oKeyCodes.kCodePressed[10]=1 //Opt Menu Right
+  {
+    playSound(global.snd_MenuCursor,0,1,1)
+    mO_CurPos=1
+    if mO_OptSubMenu=6 {mO_OptSubMenu=1}
+    else {mO_OptSubMenu+=1}
+  }
+  
+  if mO_OptSubMenu=1 {mO_OptMax=9} //Control
+  else if mO_OptSubMenu=2 {mO_OptMax=10} //Graphics
+  else if mO_OptSubMenu=3 {mO_OptMax=9} //Display
+  else if mO_OptSubMenu=4 {mO_OptMax=10} //Gameplay
+  else if mO_OptSubMenu=5 {mO_OptMax=7} //Unreal Guy
+  else if mO_OptSubMenu=6 {mO_OptMax=5} //Audio
+  
+  if scrController(1) and cursorRepeatMove mod 2=0 //----- Left -----
+  {
+    if mO_OptSubMenu=2
+    {
+      if mO_CurPos=3 //Window Scaling
+      {
+        if oKeyCodes.kCodePressed[1]=1
+        {
+          global.optWindowSize-=0.25
+          if global.optWindowSize&lt;1 {global.optWindowSize=3}
+          window_set_size(480*global.optWindowSize,352*global.optWindowSize)
+          window_center()
+          playSound(global.snd_MenuCursor,0,1,1)
+        }
+      }
+      else if mO_CurPos=9 or mO_CurPos=10 //Hat cycle
+      {
+        if oKeyCodes.kCodePressed[1]=1
+        {
+          playSound(global.snd_MenuCursor,0,1,1)
+          if mO_CurPos=9
+          {
+            if global.wearingHatJ=0 {global.wearingHatJ=maxHats}
+            else {global.wearingHatJ-=1}
+          }
+          else
+          {
+            if global.wearingHatC=0 {global.wearingHatC=maxHats}
+            else {global.wearingHatC-=1}
+          }
+        }
+      }
+    }
+    else if mO_OptSubMenu=3
+    {
+      if mO_CurPos=3 //Show Split Window
+      {
+        if global.optSplitWindow&gt;0
+        {
+          playSound(global.snd_MenuCursor,0,1,1)
+          global.optSplitWindow-=1
+        }
+      }
+    }
+    else if mO_OptSubMenu=5
+    {
+      if mO_CurPos=5 //Unreal Guy Voice Volume
+      {
+        if global.optUnrealVolume&gt;0
+        {
+          playSound(global.snd_MenuCursor,0,1,1)
+          global.optUnrealVolume-=1
+        }
+      }
+      else if mO_CurPos=6 //Unreal Guy Voice Pitch
+      {
+        if oKeyCodes.kCodePressed[1]=1
+        {
+          if global.optUnrealPitch&gt;0.5
+          {
+            playSound(global.snd_MenuCursor,0,1,1)
+            global.optUnrealPitch-=0.25
+          }
+        }
+      }
+    }
+    else if mO_OptSubMenu=6
+    {
+      if mO_CurPos=1 //Music Volume
+      {
+        if global.optMusic&gt;0
+        {
+          playSound(global.snd_MenuCursor,0,1,1)
+          global.optMusic-=1
+          var tempMplay;
+          tempMplay=findMusic(global.currentMusic)
+          SS_SetSoundVol(tempMplay,global.optMusic*100)
+          if global.optMusic=0 {stopAllMusic()}
+        }
+      }
+      else if mO_CurPos=2 //Sound Volume
+      {
+        if global.optSound&gt;0
+        {
+          playSound(global.snd_MenuCursor,0,1,1)
+          global.optSound-=1
+        }
+      }
+    }
+  }
+  else if scrController(2) and cursorRepeatMove mod 2=0 //----- Right -----
+  {
+    if mO_OptSubMenu=2
+    {
+      if mO_CurPos=3 //Window Scaling
+      {
+        if oKeyCodes.kCodePressed[2]=1
+        {
+          global.optWindowSize+=0.25
+          if global.optWindowSize&gt;3 {global.optWindowSize=1}
+          window_set_size(480*global.optWindowSize,352*global.optWindowSize)
+          window_center()
+          playSound(global.snd_MenuCursor,0,1,1)
+        }
+      }
+      else if mO_CurPos=9 or mO_CurPos=10 //Hat cycle
+      {
+        if oKeyCodes.kCodePressed[2]=1
+        {
+          playSound(global.snd_MenuCursor,0,1,1)
+          if mO_CurPos=9
+          {
+            if global.wearingHatJ=maxHats {global.wearingHatJ=0}
+            else {global.wearingHatJ+=1}
+          }
+          else
+          {
+            if global.wearingHatC=maxHats {global.wearingHatC=0}
+            else {global.wearingHatC+=1}
+          }
+        }
+      }
+    }
+    else if mO_OptSubMenu=3
+    {
+      if mO_CurPos=3 //Show Split Window
+      {
+        if global.optSplitWindow&lt;60
+        {
+          playSound(global.snd_MenuCursor,0,1,1)
+          global.optSplitWindow+=1
+        }
+      }
+    }
+    else if mO_OptSubMenu=5
+    {
+      if mO_CurPos=5 //Unreal Guy Voice Volume
+      {
+        if global.optUnrealVolume&lt;100
+        {
+          playSound(global.snd_MenuCursor,0,1,1)
+          global.optUnrealVolume+=1
+        }
+      }
+      else if mO_CurPos=6 //Unreal Guy Voice Pitch
+      {
+        if oKeyCodes.kCodePressed[2]=1
+        {
+          if global.optUnrealPitch&lt;2
+          {
+            playSound(global.snd_MenuCursor,0,1,1)
+            global.optUnrealPitch+=0.25
+          }
+        }
+      }
+    }
+    else if mO_OptSubMenu=6
+    {
+      if mO_CurPos=1 //Music Volume
+      {
+        if global.optMusic&lt;100
+        {
+          playSound(global.snd_MenuCursor,0,1,1)
+          var prevVol,tempMplay;
+          prevVol=global.optMusic
+          tempMplay=findMusic(global.currentMusic)
+          global.optMusic+=1
+          if prevVol=0 {playMusic(tempMplay,0,0)}
+          SS_SetSoundVol(tempMplay,global.optMusic*100)
+        }
+      }
+      else if mO_CurPos=2 //Sound Volume
+      {
+        if global.optSound&lt;100
+        {
+          playSound(global.snd_MenuCursor,0,1,1)
+          global.optSound+=1
+        }
+      }
+    }
+  }
+  
+  if oKeyCodes.kCodePressed[5]=1
+  {
+    resetKeyCodes()
+    if mO_OptSubMenu!=5 {playSound(global.snd_MenuConfirm,0,1,1)}
+    
+    if mO_OptSubMenu=1 //---------- CONTROL ----------
+    {
+      if mO_CurPos=1 //Change Controls
+      {
+        subMenu=11
+      }
+      else if mO_CurPos=2 //Gamepad setup
+      {
+        subMenu=14
+      }
+      else if mO_CurPos=3 //Gamepad input
+      {
+        if global.optGamePad=1 {global.optGamePad=0}
+        else {global.optGamePad=1}
+      }
+      else if mO_CurPos=4 //D-Pad Dash
+      {
+        if global.optDPadDash=1 {global.optDPadDash=0}
+        else {global.optDPadDash=1}
+      }
+      else if mO_CurPos=5 //Right is Forward
+      {
+        if global.optRightIsForward=1 {global.optRightIsForward=0}
+        else {global.optRightIsForward=1}
+      }
+      else if mO_CurPos=6 //Show Key State
+      {
+        if global.optShowKeyState=1 {global.optShowKeyState=0}
+        else {global.optShowKeyState=1}
+      }
+      else if mO_CurPos=7 //Cursor Repeat
+      {
+        global.optCursorRepeat+=1
+        if global.optCursorRepeat=6 {global.optCursorRepeat=1}
+      }
+      else if mO_CurPos=8 //Keep Menu Position
+      {
+        if global.optKeepMenuPos&gt;0 {global.optKeepMenuPos=0}
+        else {global.optKeepMenuPos=1}
+      }
+      else if mO_CurPos=9 //Swap Type
+      {
+        global.optSwapType+=1
+        if global.optSwapType&gt;=4 {global.optSwapType=0}
+      }
+    }
+    else if mO_OptSubMenu=2 //---------- GRAPHICS ----------
+    {
+      if mO_CurPos=1 //Game Priority
+      {
+        global.gamePriority+=1
+        if global.gamePriority=3 {global.gamePriority=0}
+        set_program_priority(global.gamePriority)
+      }
+      else if mO_CurPos=2 //Set Synchronization
+      {
+        if global.optVSync=1 {global.optVSync=0}
+        else {global.optVSync=1}
+        set_synchronization(global.optVSync)
+      }
+      else if mO_CurPos=3 //Window Scaling
+      {
+        if global.optWindowSize&lt;2 {global.optWindowSize=2}
+        else if global.optWindowSize&gt;=2 and global.optWindowSize&lt;3 {global.optWindowSize=3}
+        else {global.optWindowSize=1}
+        window_set_size(480*global.optWindowSize,352*global.optWindowSize)
+        window_center()
+      }
+      else if mO_CurPos=4 //Window Resizing
+      {
+        if global.optCanResizeWindow=1 {global.optCanResizeWindow=0}
+        else {global.optCanResizeWindow=1}
+        window_set_sizeable(global.optCanResizeWindow)
+      }
+      else if mO_CurPos=5 //Low Health Warn
+      {
+        if global.optLowHealthWarn=1 {global.optLowHealthWarn=0}
+        else {global.optLowHealthWarn=1}
+      }
+      else if mO_CurPos=6 //Game Over Settings
+      {
+        global.optBitrateExplosion+=1
+        if global.optBitrateExplosion&gt;=3 {global.optBitrateExplosion=0}
+      }
+      else if mO_CurPos=7 //Player Trail
+      {
+        if global.optPlayerTrail=1 {global.optPlayerTrail=0}
+        else {global.optPlayerTrail=1}
+      }
+      else if mO_CurPos=8 //Weapon Trail
+      {
+        if global.optWeaponTrail=1 {global.optWeaponTrail=0}
+        else {global.optWeaponTrail=1}
+      }
+      else if mO_CurPos=9 //Jerry Hat
+      {
+        global.wearingHatJ=0
+      }
+      else if mO_CurPos=10 //Claire Hat
+      {
+        global.wearingHatC=0
+      }
+    }
+    else if mO_OptSubMenu=3 //---------- DISPLAY ----------
+    {
+      if mO_CurPos=1 //Show HUD
+      {
+        if global.optShowHUD&lt;2
+        {
+          if global.optShowHUD=1 {global.optShowHUD=0}
+          else {global.optShowHUD=1}
+        }
+      }
+      else if mO_CurPos=2 //Centralize Mobility HUD
+      {
+        if global.optCentralizeHUD=1 {global.optCentralizeHUD=0}
+        else {global.optCentralizeHUD=1}
+      }
+      else if mO_CurPos=3 //Show Split Window
+      {
+        if global.optSplitWindow=0 {global.optSplitWindow=30}
+        else {global.optSplitWindow=0}
+      }
+      else if mO_CurPos=4 //Show Combat Awards
+      {
+        if global.optShowCombatAward=1 {global.optShowCombatAward=0}
+        else {global.optShowCombatAward=1}
+      }
+      else if mO_CurPos=5 //Show Chain Time
+      {
+        if global.optShowChainMeter=1 {global.optShowChainMeter=0}
+        else {global.optShowChainMeter=1}
+      }
+      else if mO_CurPos=6 //Show Area
+      {
+        if global.optShowArea=1 {global.optShowArea=0}
+        else {global.optShowArea=1}
+      }
+      else if mO_CurPos=7 //Show Score
+      {
+        if global.optShowScore=1 {global.optShowScore=0}
+        else {global.optShowScore=1}
+      }
+      else if mO_CurPos=8 //Show Map Header
+      {
+        if global.optShowMapHeader=1 {global.optShowMapHeader=0}
+        else {global.optShowMapHeader=1}
+      }
+      else if mO_CurPos=9 //Show Death Counter
+      {
+        if global.optDeathCounter=1 {global.optDeathCounter=0}
+        else {global.optDeathCounter=1}
+      }
+    }
+    else if mO_OptSubMenu=4 //---------- GAMEPLAY ----------
+    {
+      if mO_CurPos=1 //Show Damage
+      {
+        if global.optShowDamage&lt;2
+        {
+          if global.optShowDamage=1 {global.optShowDamage=0}
+          else {global.optShowDamage=1}
+        }
+      }
+      else if mO_CurPos=2 //Show AP Earned
+      {
+        if global.optShowPointsEarned=1 {global.optShowPointsEarned=0}
+        else {global.optShowPointsEarned=1}
+      }
+      else if mO_CurPos=3 //Show Enemy HP
+      {
+        if global.optEnemyHP&lt;2
+        {
+          if global.optEnemyHP=1 {global.optEnemyHP=0}
+          else {global.optEnemyHP=1}
+        }
+      }
+      else if mO_CurPos=4 //Show Money Pickup
+      {
+        if global.optShowMoney=1 {global.optShowMoney=0}
+        else {global.optShowMoney=1}
+      }
+      else if mO_CurPos=5 //Show Atk Type
+      {
+        if global.optAtkTShow=1 {global.optAtkTShow=0}
+        else {global.optAtkTShow=1}
+      }
+      else if mO_CurPos=6 //Let Chao Roam
+      {
+        if global.optChaoRoam=1
+        {
+          global.optChaoRoam=0
+          oIdentifier.fairyAutoRoam=false
+        }
+        else {global.optChaoRoam=1}
+      }
+      else if mO_CurPos=7 //Show Hover Info
+      {
+        if global.optShowHoverInfo=1 {global.optShowHoverInfo=0}
+        else {global.optShowHoverInfo=1}
+      }
+      else if mO_CurPos=8 //Chao Seek Enemy
+      {
+        if global.optChaoAttack=0 {global.optChaoAttack=1}
+        else if global.optChaoAttack=1 {global.optChaoAttack=2}
+        else if global.optChaoAttack=2
+        {
+          global.optChaoAttack=0
+          oIdentifier.followTarget=oPlayer1
+        }
+      }
+      else if mO_CurPos=9 //No Air Stall on Down
+      {
+        if global.optNoBounce=1 {global.optNoBounce=0}
+        else {global.optNoBounce=1}
+      }
+      else if mO_CurPos=10 //Morph Controls
+      {
+        if global.optMorphControls=0 {global.optMorphControls=1}
+        else if global.optMorphControls=1 {global.optMorphControls=2}
+        else {global.optMorphControls=0}
+      }
+    }
+    else if mO_OptSubMenu=5 //---------- UNREAL GUY ----------
+    {
+      if mO_CurPos=1 //Unreal Chain Audio
+      {
+        playSound(global.snd_MenuConfirm,0,1,1)
+        if global.optUnrealGuyChainAudio=1 {global.optUnrealGuyChainAudio=0}
+        else {global.optUnrealGuyChainAudio=1}
+      }
+      else if mO_CurPos=2 //Unreal Chain Visual
+      {
+        playSound(global.snd_MenuConfirm,0,1,1)
+        if global.optUnrealGuyChainVisual=1 {global.optUnrealGuyChainVisual=0}
+        else {global.optUnrealGuyChainVisual=1}
+      }
+      else if mO_CurPos=3 //Unreal Spree Audio
+      {
+        playSound(global.snd_MenuConfirm,0,1,1)
+        if global.optUnrealGuySpreeAudio=1 {global.optUnrealGuySpreeAudio=0}
+        else {global.optUnrealGuySpreeAudio=1}
+      }
+      else if mO_CurPos=4 //Unreal Spree Visual
+      {
+        playSound(global.snd_MenuConfirm,0,1,1)
+        if global.optUnrealGuySpreeVisual=1 {global.optUnrealGuySpreeVisual=0}
+        else {global.optUnrealGuySpreeVisual=1}
+      }
+      else if mO_CurPos=5 //Unreal Guy Voice Volume
+      {
+        playSound(global.snd_MenuConfirm,0,1,1)
+        global.optUnrealVolume=100
+      }
+      else if mO_CurPos=6 //Unreal Guy Voice Pitch
+      {
+        playSound(global.snd_MenuConfirm,0,1,1)
+        global.optUnrealPitch=1
+      }
+      else if mO_CurPos=7 //Unreal Guy Sound Test
+      {
+        if choose(0,1)=0 {playSound(global.snd_killChain[0],0,1-(1-(global.optUnrealVolume/100)),22050*global.optUnrealPitch)}
+        else {playSound(global.snd_killingSpree[0],0,1-(1-(global.optUnrealVolume/100)),22050*global.optUnrealPitch)}
+      }
+    }
+    else if mO_OptSubMenu=6 //---------- AUDIO ----------
+    {
+      if mO_CurPos=1 //Music Volume
+      {
+        if global.optMusic=0
+        {
+          global.optMusic=100
+          var tempMplay;
+          tempMplay=findMusic(global.currentMusic)
+          playMusic(tempMplay,0,0)
+        }
+        else
+        {
+          global.optMusic=0
+          stopAllMusic()
+        }
+      }
+      else if mO_CurPos=2 //Sound Volume
+      {
+        if global.optSound=0 {global.optSound=100}
+        else {global.optSound=0}
+      }
+      else if mO_CurPos=3 //Message Plink
+      {
+        if global.optMessagePlink=1 {global.optMessagePlink=0}
+        else {global.optMessagePlink=1}
+      }
+      else if mO_CurPos=4 //Dash Warn
+      {
+        if global.optDashWarn=1 {global.optDashWarn=0}
+        else {global.optDashWarn=1}
+      }
+      else if mO_CurPos=5 //Chao Item Warn
+      {
+        if global.optChaoItemWarn=1 {global.optChaoItemWarn=0}
+        else {global.optChaoItemWarn=1}
+      }
+    }
+  }
+}
+else if subMenu=8 //---------- TELEPORT ----------
+{
+  if oKeyCodes.kCodePressed[5]=1
+  {
+    resetKeyCodes()
+    if global.mapTeleport=0 or global.bBossGallery=1 //Can't use
+    {
+      playSound(global.snd_Error,0,1,1)
+      msgCreate(120,120,"","This function is either being blocked or there are no active teleport locations.",7,2,oMessagePerson,0)
+      newMessage.fadingTime=45
+    }
+    else
+    {
+      writeToPlayerGlobals()
+      global.gamePaused=false
+      global.bossTrack=0; global.rmDeaths=0; global.currentBoss=""
+    }
+    
+    if global.bBossGallery=0
+    {
+      if global.mapTeleport=1 //Gate A
+      {
+        global.newMapX=208; global.newMapY=128
+        room_goto(rMain_5Gate)
+        exit;
+      }
+      else if global.mapTeleport=2 //Gate B
+      {
+        global.newMapX=128; global.newMapY=160
+        room_goto(rMain_8Gate)
+        exit;
+      }
+      else if global.mapTeleport=3 //Gate C
+      {
+        global.newMapX=416; global.newMapY=192
+        room_goto(rMain_14Gate)
+        exit;
+      }
+      else if global.mapTeleport=4 //Gate D
+      {
+        global.newMapX=256; global.newMapY=96
+        room_goto(rMain_28Gate)
+        exit;
+      }
+      else if global.mapTeleport=5 //Gate E
+      {
+        global.newMapX=320; global.newMapY=128
+        room_goto(rMain_39Vault)
+        exit;
+      }
+      else if global.mapTeleport=6 //Gate F
+      {
+        global.newMapX=288; global.newMapY=208
+        room_goto(rMain_48Gate)
+        exit;
+      }
+      else if global.mapTeleport=7 //Gate G
+      {
+        global.newMapX=208; global.newMapY=272
+        room_goto(rMain_56Gate)
+        exit;
+      }
+      else if global.mapTeleport=8 //Gate H
+      {
+        //Do nothing, can't teleport from here; this is just here to take up space and confuse you if you're reading this
+      }
+      else if global.mapTeleport=9 //Gate 4 (Megapolis)
+      {
+        if global.gameProgress&gt;=1840
+        {
+          global.newMapX=0; global.newMapY=0
+          room_goto(rMega4_Map)
+        }
+        else
+        {
+          global.newMapX=208; global.newMapY=304
+          room_goto(rMega4_Gate)
+        }
+        exit;
+      }
+      else if global.mapTeleport=14 //Vault Shift Maze
+      {
+        global.newMapX=368; global.newMapY=272
+        room_goto(rVault_16)
+        exit;
+      }
+      else if global.mapTeleport=15 //Vault (After completing Chapter 10)
+      {
+        global.newMapX=64; global.newMapY=208
+        room_goto(rMain_39Vault)
+        exit;
+      }
+      else if global.mapTeleport=16 //Main_45
+      {
+        global.newMapX=48; global.newMapY=384
+        room_goto(rMain_44)
+        exit;
+      }
+      else if global.mapTeleport=17 //Gate 6 - Earth Temple
+      {
+        global.newMapX=80; global.newMapY=288
+        room_goto(rGame6_EarthA)
+        exit;
+      }
+      else if global.mapTeleport=18 //Gate 6 - Fire Temple
+      {
+        global.newMapX=80; global.newMapY=272
+        room_goto(rGame6_FireA)
+        exit;
+      }
+      else if global.mapTeleport=19 //Gate 6 - Wind Temple
+      {
+        global.newMapX=176; global.newMapY=992
+        room_goto(rGame6_WindA)
+        exit;
+      }
+      else if global.mapTeleport=20 //Gate 6 - Paradise Island
+      {
+        global.newMapX=128; global.newMapY=288
+        room_goto(rGame6_ParaIslandA)
+        exit;
+      }
+      else if global.mapTeleport=21 //Gate 6 - Watery Cave
+      {
+        global.newMapX=80; global.newMapY=288
+        room_goto(rGame6_WaterCaveA)
+        exit;
+      }
+      else if global.mapTeleport=22 //Subconscious Filter
+      {
+        global.newMapX=192; global.newMapY=304
+        room_goto(rMain_92)
+        exit;
+      }
+      else if global.mapTeleport=23 //Gate 6 - Doom Castle
+      {
+        global.newMapX=80; global.newMapY=272
+        room_goto(rGame6_CoDA)
+        exit;
+      }
+      else if global.mapTeleport=24 //Mountain Temple
+      {
+        global.newMapX=352; global.newMapY=208
+        room_goto(rMain_24)
+        exit;
+      }
+      else if global.mapTeleport=25 //Displaced Construction Site
+      {
+        global.newMapX=144; global.newMapY=336
+        room_goto(rDCS_A)
+        exit;
+      }
+      else if global.mapTeleport=26 //Magical Castle
+      {
+        global.newMapX=128; global.newMapY=416
+        room_goto(rMC_A)
+        exit;
+      }
+      else if global.mapTeleport=27 //Hidden Program Facility
+      {
+        global.newMapX=224; global.newMapY=288
+        room_goto(rHPF_A)
+        exit;
+      }
+      else if global.mapTeleport=28 //Bubble Tower
+      {
+        global.newMapX=272; global.newMapY=304
+        room_goto(rBubbleTowerMain)
+        exit;
+      }
+      else if global.mapTeleport=29 //Path to the Truth
+      {
+        global.newMapX=112; global.newMapY=448
+        room_goto(rPttT_02)
+        exit;
+      }
+      else if global.mapTeleport=31 //Gate 1
+      {
+        global.newMapX=192; global.newMapY=224
+        room_goto(rMario1_1)
+        exit;
+      }
+      else if global.mapTeleport=32 //Gate 2
+      {
+        global.newMapX=512; global.newMapY=288
+        room_goto(rLink2_HP)
+        exit;
+      }
+      else if global.mapTeleport=33 //Gate 3
+      {
+        global.newMapX=256; global.newMapY=288
+        room_goto(rBelmont3_Gate)
+        exit;
+      }
+      else if global.mapTeleport=34 //Gate 4
+      {
+        global.newMapX=176; global.newMapY=304
+        room_goto(rMega4_Gate)
+        exit;
+      }
+      else if global.mapTeleport=35 //Gate 5
+      {
+        global.newMapX=256; global.newMapY=288
+        room_goto(rSamus5_Gate)
+        exit;
+      }
+      else if global.mapTeleport=36 //Gate 6
+      {
+        global.newMapX=256; global.newMapY=256
+        room_goto(rGame6_Gate)
+        exit;
+      }
+      else if global.mapTeleport=41 //Bubble Tower B HUB
+      {
+        global.newMapX=160; global.newMapY=304
+        room_goto(rBT_HUB)
+        exit;
+      }
+    }
+  }
+}
+else if subMenu=9 //---------- SAVE ----------
+{
+  event_user(1)
+  if confirmationMenu=0
+  {
+    if oKeyCodes.kCodePressed[3]=1
+    {
+      playSound(global.snd_MenuCursor,0,1,1)
+      if mS_CurPos=1
+      {
+        mS_CurPos=mS_CurMax
+        mS_CurY+=mS_CurInc*(mS_CurMax-1)
+      }
+      else
+      {
+        mS_CurPos-=1
+        mS_CurY-=mS_CurInc
+      }
+    }
+    else if oKeyCodes.kCodePressed[4]=1
+    {
+      playSound(global.snd_MenuCursor,0,1,1)
+      if mS_CurPos=mS_CurMax
+      {
+        mS_CurPos=1
+        mS_CurY-=mS_CurInc*(mS_CurMax-1)
+      }
+      else
+      {
+        mS_CurPos+=1
+        mS_CurY+=mS_CurInc
+      }
+    }
+  
+    if oKeyCodes.kCodePressed[5]=1
+    {
+      resetKeyCodes()
+      if mS_CurPos=1 //Save
+      {
+        if global.bCanSave=true
+        {
+          global.recSaveNum+=1
+          saveData()
+        }
+        else {playSound(global.snd_MenuCancel,0,1,1)}
+      }
+      else if mS_CurPos=2 //Retry (Game Over)
+      {
+        if global.bCanForceGO=true
+        {
+          global.recForcedGameOver+=1
+          global.quickGameOver=1
+          oPlayer1.life-=oPlayer1.maxLife
+          oHUD.menuOpen=false
+          instance_destroy()
+          exit;
+        }
+        else {playSound(global.snd_MenuCancel,0,1,1)}
+      }
+      else if mS_CurPos=3 //Load
+      {
+        confirmationMenu=1
+        confirmMenuPos=1
+      }
+      else if mS_CurPos=4 //Title Screen
+      {
+        confirmationMenu=2
+        confirmMenuPos=1
+      }
+    }
+  }
+}
+else if subMenu=11 //---------- CONTROLS ----------
+{
+  if oKeyCodes.kCodePressed[3]=1
+  {
+    playSound(global.snd_MenuCursor,0,1,1)
+    if mCon_CurPos=1
+    {
+      mCon_CurPos=mCon_CurMax
+      mCon_CurY+=mCon_CurInc*(mCon_CurMax-1)
+    }
+    else
+    {
+      mCon_CurPos-=1
+      mCon_CurY-=mCon_CurInc
+    }
+  }
+  else if oKeyCodes.kCodePressed[4]=1
+  {
+    playSound(global.snd_MenuCursor,0,1,1)
+    if mCon_CurPos=mCon_CurMax
+    {
+      mCon_CurPos=1
+      mCon_CurY-=mCon_CurInc*(mCon_CurMax-1)
+    }
+    else
+    {
+      mCon_CurPos+=1
+      mCon_CurY+=mCon_CurInc
+    }
+  }
+  
+  if oKeyCodes.kCodePressed[5]=1
+  {
+    resetKeyCodes()
+    playSound(global.snd_MenuConfirm,0,1,1)
+    var keyHelpInfo,keyChange;
+    keyHelpInfo="Enter the key you would like to#change this action to and press Enter."
+    if mCon_CurPos=1 //Up
+    {
+      keyChange=get_string(keyHelpInfo,global.ctrlUp)
+      global.ctrlUp=string_upper(keyChange)
+    }
+    else if mCon_CurPos=2 //Down
+    {
+      keyChange=get_string(keyHelpInfo,global.ctrlDown)
+      global.ctrlDown=string_upper(keyChange)
+    }
+    else if mCon_CurPos=3 //Left
+    {
+      keyChange=get_string(keyHelpInfo,global.ctrlLeft)
+      global.ctrlLeft=string_upper(keyChange)
+    }
+    else if mCon_CurPos=4 //Right
+    {
+      keyChange=get_string(keyHelpInfo,global.ctrlRight)
+      global.ctrlRight=string_upper(keyChange)
+    }
+    else if mCon_CurPos=5 //Jump
+    {
+      keyChange=get_string(keyHelpInfo,global.ctrlJump)
+      global.ctrlJump=string_upper(keyChange)
+    }
+    else if mCon_CurPos=6 //Swap Character
+    {
+      keyChange=get_string(keyHelpInfo,global.ctrlCharSwap)
+      global.ctrlCharSwap=string_upper(keyChange)
+    }
+    else if mCon_CurPos=7 //Swap Ability Set
+    {
+      keyChange=get_string(keyHelpInfo,global.ctrlAbilSwap)
+      global.ctrlAbilSwap=string_upper(keyChange)
+    }
+    else if mCon_CurPos=8 //Action A
+    {
+      keyChange=get_string(keyHelpInfo,global.ctrlActA)
+      global.ctrlActA=string_upper(keyChange)
+    }
+    else if mCon_CurPos=9 //Action B
+    {
+      keyChange=get_string(keyHelpInfo,global.ctrlActB)
+      global.ctrlActB=string_upper(keyChange)
+    }
+    else if mCon_CurPos=10 //Action C
+    {
+      keyChange=get_string(keyHelpInfo,global.ctrlActC)
+      global.ctrlActC=string_upper(keyChange)
+    }
+    else if mCon_CurPos=11 //Dash Back
+    {
+      keyChange=get_string(keyHelpInfo,global.ctrlDashLeft)
+      global.ctrlDashLeft=string_upper(keyChange)
+    }
+    else if mCon_CurPos=12 //Dash Right
+    {
+      keyChange=get_string(keyHelpInfo,global.ctrlDashRight)
+      global.ctrlDashRight=string_upper(keyChange)
+    }
+    else if mCon_CurPos=13 //Set to default controls
+    {
+      global.ctrlUp="W"
+      global.ctrlDown="S"
+      global.ctrlLeft="A"
+      global.ctrlRight="D"
+      global.ctrlJump="J"
+      global.ctrlCharSwap="U"
+      global.ctrlAbilSwap="I"
+      global.ctrlActA="K"
+      global.ctrlActB="L"
+      global.ctrlActC="O"
+      global.ctrlDashLeft="Q"
+      global.ctrlDashRight="E"
+    }
+  }
+}
+else if subMenu=12 //---------- ITEM MENU ----------
+{
+  if oKeyCodes.kCodePressed[3]=1
+  {
+    playSound(global.snd_MenuCursor,0,1,1)
+    if mItem_CurY=1 {mItem_CurY=4}
+    else {mItem_CurY-=1}
+  }
+  else if oKeyCodes.kCodePressed[4]=1
+  {
+    playSound(global.snd_MenuCursor,0,1,1)
+    if mItem_CurY=4 {mItem_CurY=1}
+    else {mItem_CurY+=1}
+  }
+  else if oKeyCodes.kCodePressed[1]=1
+  {
+    playSound(global.snd_MenuCursor,0,1,1)
+    if mItem_CurX=1 {mItem_CurX=10}
+    else {mItem_CurX-=1}
+  }
+  else if oKeyCodes.kCodePressed[2]=1
+  {
+    playSound(global.snd_MenuCursor,0,1,1)
+    if mItem_CurX=10 {mItem_CurX=1}
+    else {mItem_CurX+=1}
+  }
+  
+  if oKeyCodes.kCodePressed[5]=1 //Equip item
+  {
+    resetKeyCodes()
+    if mEq_CurPos&gt;=1 and mEq_CurPos&lt;=3 //Jerry
+    {
+      var tIndAdj;
+      tIndAdj=-1
+      if mItem_CurY=1 {tIndAdj=0}
+      else if mItem_CurY=2 {tIndAdj=10}
+      else if mItem_CurY=3 {tIndAdj=20}
+      else if mItem_CurY=4 {tIndAdj=30}
+      
+      if eCheck[mItem_CurX-1+tIndAdj]="1" and tIndAdj&gt;-1
+      {
+        playSound(global.snd_Equip,0,1,1)
+        if global.equipJerry[mEq_CurPos-1]&gt;0
+        {
+          var tNewString,teSlotCheck,tStringHold;
+          teSlotCheck=global.equipJerry[mEq_CurPos-1]-1
+          tNewString=string_delete(global.equipItems,global.equipJerry[mEq_CurPos-1],1)
+          tNewString=string_insert("1",tNewString,global.equipJerry[mEq_CurPos-1])
+          global.equipItems=tNewString
+          eCheck[teSlotCheck]="1"
+        }
+        global.equipJerry[mEq_CurPos-1]=mItem_CurX+tIndAdj
+        var tNewString;
+        tNewString=string_delete(global.equipItems,mItem_CurX+tIndAdj,1)
+        tNewString=string_insert("2",tNewString,mItem_CurX+tIndAdj)
+        global.equipItems=tNewString
+        eCheck[mItem_CurX-1+tIndAdj]="2"
+        
+        //Check Speed Booster
+        oPlayer1.dashRecovery=20+(global.skillTree[22]*2)
+        for(i=0;i&lt;3;i+=1)
+        {
+          if global.equipJerry[i]=25 {oPlayer1.dashRecovery+=4}
+        }
+        subMenu=2
+      }
+    }
+    else if mEq_CurPos&gt;=4 and mEq_CurPos&lt;=6 //Claire
+    {
+      var tIndAdj;
+      tIndAdj=-1
+      if mItem_CurY=1 {tIndAdj=0}
+      else if mItem_CurY=2 {tIndAdj=10}
+      else if mItem_CurY=3 {tIndAdj=20}
+      else if mItem_CurY=4 {tIndAdj=30}
+      
+      if eCheck[mItem_CurX-1+tIndAdj]="1" and tIndAdj&gt;-1
+      {
+        playSound(global.snd_Equip,0,1,1)
+        if global.equipClaire[mEq_CurPos-4]&gt;0
+        {
+          var tNewString,teSlotCheck,tStringHold;
+          teSlotCheck=global.equipClaire[mEq_CurPos-4]-1
+          tNewString=string_delete(global.equipItems,global.equipClaire[mEq_CurPos-4],1)
+          tNewString=string_insert("1",tNewString,global.equipClaire[mEq_CurPos-4])
+          global.equipItems=tNewString
+          eCheck[teSlotCheck]="1"
+        }
+        global.equipClaire[mEq_CurPos-4]=mItem_CurX+tIndAdj
+        var tNewString;
+        tNewString=string_delete(global.equipItems,mItem_CurX+tIndAdj,1)
+        tNewString=string_insert("2",tNewString,mItem_CurX+tIndAdj)
+        global.equipItems=tNewString
+        eCheck[mItem_CurX-1+tIndAdj]="2"
+        
+        //Check Speed Booster
+        oPlayer1.dashRecovery=20+(global.skillTree[22]*2)
+        for(i=0;i&lt;3;i+=1)
+        {
+          if global.equipClaire[i]=25 {oPlayer1.dashRecovery+=4}
+        }
+        subMenu=2
+      }
+    }
+  }
+}
+else if subMenu=13 //---------- RECOGNITIONS ----------
+{
+  if oKeyCodes.kCodePressed[3]=1
+  {
+    playSound(global.snd_MenuCursor,0,1,1)
+    if mR_RecCurPos=1 {mR_RecCurPos=6}
+    else {mR_RecCurPos-=1}
+  }
+  else if oKeyCodes.kCodePressed[4]=1
+  {
+    playSound(global.snd_MenuCursor,0,1,1)
+    if mR_RecCurPos=6 {mR_RecCurPos=1}
+    else {mR_RecCurPos+=1}
+  }
+}
+else if subMenu=14 //---------- GAMEPAD SETUP ----------
+{
+  //Change button layout
+  if oKeyCodes.kCodePressed[1]=1
+  {
+    playSound(global.snd_MenuCursor,0,1,1)
+    if global.optGamepadSetup=1 {global.optGamepadSetup=mO_OptConMax}
+    else {global.optGamepadSetup-=1}
+  }
+  else if oKeyCodes.kCodePressed[2]=1
+  {
+    playSound(global.snd_MenuCursor,0,1,1)
+    if global.optGamepadSetup=mO_OptConMax {global.optGamepadSetup=1}
+    else {global.optGamepadSetup+=1}
+  }
+  //Change stick dead zone
+  if oKeyCodes.kCodePressed[3]=1
+  {
+    playSound(global.snd_MenuCursor,0,1,1)
+    if global.optStickDeadZone=0.8 {global.optStickDeadZone=0.2}
+    else {global.optStickDeadZone+=0.05}
+  }
+  else if oKeyCodes.kCodePressed[4]=1
+  {
+    playSound(global.snd_MenuCursor,0,1,1)
+    if global.optStickDeadZone=0.2 {global.optStickDeadZone=0.8}
+    else {global.optStickDeadZone-=0.05}
+  }
+  
+}
+
+if keyboard_check_pressed(vk_home)
+{
+  playSound(global.snd_MenuConfirm,0,1,1)
+  global.ctrlUp="W"
+  global.ctrlDown="S"
+  global.ctrlLeft="A"
+  global.ctrlRight="D"
+  global.ctrlJump="J"
+  global.ctrlCharSwap="U"
+  global.ctrlAbilSwap="I"
+  global.ctrlActA="K"
+  global.ctrlActB="L"
+  global.ctrlActC="O"
+  global.ctrlDashLeft="Q"
+  global.ctrlDashRight="E"
+}
+
+if oKeyCodes.kCodePressed[6]=1 //Go back to a specific submenu
+{
+  resetKeyCodes()
+  if subMenu&gt;0 and subMenu&lt;11 {subMenu=0} //From main submenus to main menu
+  else if subMenu=11 or subMenu=14 {subMenu=7} //From (Control or Gamepad Setup) to Options
+  else if subMenu=12 {subMenu=2} //From Item list to Equipment
+  else if subMenu=13 {subMenu=6} //From Recognitions to Records
+  mapDetails=0
+}
+if keyboard_check_pressed(curInfo) //Show game info
+{
+  io_clear()
+  show_info()
+}
+
+if oKeyCodes.kCodePressed[12]=1 //Close menu
+{
+  io_clear()
+  resetKeyCodes()
+  playSound(global.snd_MenuClose,0,1,1)
+  global.gamePaused=false
+  oHUD.menuOpen=false
+  if global.optKeepMenuPos&gt;0 {global.optKeepMenuPos=mainCurPos+10}
+  with oPauseMenu {instance_destroy()}
+  instance_destroy()
+  exit;
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

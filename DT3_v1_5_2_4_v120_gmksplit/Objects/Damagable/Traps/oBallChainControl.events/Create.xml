@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="CREATE" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">spawnChainMid=oChainMid
+spawnChainEnd=oChainEnd
+if variable_local_exists("newMid")
+  spawnChainMid=newMid
+if variable_local_exists("newEnd")
+  spawnChainEnd=newEnd
+
+var sprChangeMid,sprChangeEnd;
+sprChangeMid=0; sprChangeEnd=0
+if variable_local_exists("newSpriteMid")
+  sprChangeMid=newSpriteMid
+if variable_local_exists("newSpriteEnd")
+  sprChangeEnd=newSpriteEnd
+
+for(i=1;i&lt;=maxChain;i+=1)
+{
+  chain[i]=instance_create(x,y+4+i*8,spawnChainMid)
+  chain[i].image_blend=image_blend
+  if sprChangeMid!=0
+    chain[i].sprite_index=sprChangeMid
+  if spawnChainMid=oMarioSwingSpike
+  {
+    if myInc=0
+    {
+      chain[i].image_angle=irandom(360)
+      chain[i].swingSpeed=random_range(-mySpeed,mySpeed)
+    }
+    else
+    {
+      chain[i].image_angle=myInc*i
+      chain[i].swingSpeed=mySpeed
+    }
+  }
+}
+ball=instance_create(x,y+4+i*8,spawnChainEnd)
+ball.image_blend=image_blend
+if sprChangeEnd!=0
+  ball.sprite_index=sprChangeEnd
+if spawnChainEnd=oMarioSwingSpike
+{
+  ball.image_angle=myInc*i
+  ball.swingSpeed=mySpeed
+}
+else if spawnChainEnd=oStrikeChainPoint {spawnChainEnd.depth=28}
+
+dir=0
+e=0
+g=0
+bFollow=false
+if variable_local_exists("newE")
+  e=newE
+if variable_local_exists("idFollow")
+  bFollow=true
+
+midNoRotate=0
+endNoRotate=0
+if !variable_local_exists("midNoRotateN")
+  midNoRotate=1
+if !variable_local_exists("endNoRotateN")
+  endNoRotate=1
+
+alarm[0]=1
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

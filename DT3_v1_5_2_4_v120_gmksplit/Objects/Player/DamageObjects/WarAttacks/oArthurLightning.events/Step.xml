@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">event_inherited()
+if global.gamePaused=false
+{
+  if type=0 //Lightning downward
+  {
+    if oGame.time mod 3=0
+    {
+      if image_xscale=1 {image_xscale=-1}
+      else {image_xscale=1}
+    }
+    
+    y+=6
+    if y&gt;=ownerID.y
+    {
+      for(i=0;i&lt;24;i+=1)
+      {
+        tEffect=instance_create(x,y,oEffect)
+        tEffect.sprite_index=sEfDiffusionParticle; tEffect.image_xscale=1.5+random(1.5); tEffect.image_yscale=1.5+random(1.5)
+        tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0; tEffect.image_alpha=0.75+random(0.25)
+        tEffect.direction=random_range(45,135); tEffect.speed=3+random(3)
+      }
+      ownerID.npcTime=1000
+      var tAttack,tDir;
+      tDir=50
+      for(i=0;i&lt;9;i+=1)
+      {
+        tAttack=instance_create(x,y,oArthurLightning)
+        tAttack.type=1; tAttack.sprite_index=sZapTrap
+        tAttack.direction=tDir; tAttack.image_angle=tDir; tAttack.moveSpd=8
+        tDir+=10
+      }
+      instance_destroy()
+    }
+  }
+  else if type=1 //Light balls outward
+  {
+    atkPower=125
+    speed=moveSpd
+    lifeTime-=1
+    if lifeTime&lt;=0 {instance_destroy()}
+  }
+}
+else {speed=0}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

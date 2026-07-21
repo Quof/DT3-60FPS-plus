@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="DRAW" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if findTargetX&lt;drawRangeX and findTargetY&lt;drawRangeY
+{
+  if newSprite=0 //Normal
+    draw_sprite_ext(sprite_index,image_index,x,y,image_xscale,image_yscale,image_angle,image_blend,image_alpha)
+  else if newSprite=1 //Mario platforms
+  {
+    draw_sprite_part(sMovingPlatform1,0,0,0,32,16,x,y)
+    draw_sprite_part(sMovingPlatform1,0,16,0,32,16,x+32,y)
+  }
+  else if newSprite=2 //Highlands Tree Branch
+  {
+    draw_background_part(tileHighlands,64,64,64,16,x,y)
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

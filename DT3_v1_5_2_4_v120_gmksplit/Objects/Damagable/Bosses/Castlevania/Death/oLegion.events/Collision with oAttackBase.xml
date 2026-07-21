@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="COLLISION" with="oAttackBase">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if bTakingDamage=false and other.bCanDealDamage=true and bActive=true
+{
+  var tEffect,txSpd,tLen,tDir;
+  for(i=0;i&lt;4;i+=1)
+  {
+    txSpd=random_range(-3,3)
+    tLen=random(60)
+    tDir=random(360)
+    tEffect=instance_create(x,y,oEffectGrav)
+    tEffect.x=x+lengthdir_x(tLen,tDir); tEffect.y=y+lengthdir_y(tLen,tDir); tEffect.type=2
+    tEffect.sprite_index=sLegionBones; tEffect.image_speed=0; tEffect.image_index=choose(0,1); tEffect.fadeSpd=0.015
+    tEffect.xSpd=txSpd; tEffect.ySpd=-4-random(3); tEffect.grav=0.4; tEffect.rotation=-8*txSpd
+    tEffect.newBlend=-1; tEffect.decay=-100; tEffect.followID=-1
+  }
+}
+event_inherited()
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

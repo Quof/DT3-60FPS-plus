@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="DRAW" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if initSet=1
+{
+  findTargetX=point_distance(oCharacter.x,0,x,0)
+  findTargetY=point_distance(0,oCharacter.y,0,y)
+  if findTargetX&lt;drawRangeX and findTargetY&lt;drawRangeY
+  {
+    draw_set_color(c_black)
+    var circleRad,circleAlpha;
+    circleRad=2
+    circleAlpha=1
+    for(i=0;i&lt;6;i+=1)
+    {
+      draw_set_alpha(circleAlpha)
+      draw_circle(x,y,circleRad,0)
+      circleRad+=1.5
+      circleAlpha-=0.15
+    }
+    draw_set_alpha(0.75)
+    for(i=0;i&lt;maxString;i+=1)
+    {
+      draw_line_width(x,y,stringTo[i].x+offsetX,stringTo[i].y+offsetY,2)
+    }
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

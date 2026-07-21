@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="MOUSE" id="52">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gameOver=false and bChaoActive=1
+{
+  if room!=rEnd_SceneA
+  {
+    if currentColor&lt;=5 //Normal Spray
+    {
+      var tFFEScl,tEEffect;
+      tFFEScl=random(0.1)
+      tEEffect=instance_create(x,y,oEffectB)
+      tEEffect.type=3; tEEffect.sprite_index=sEfFirefly; tEEffect.newBlend=1
+      tEEffect.image_alpha=0.3; tEEffect.image_xscale=0.15+tFFEScl; tEEffect.image_yscale=0.15+tFFEScl
+      tEEffect.direction=random(360); tEEffect.speed=random(0.5)+0.5; tEEffect.friction=random(0.005)+0.005
+      tEEffect.fadeSpd=0.0025
+      if currentColor=0
+        tEEffect.image_blend=make_color_rgb(random(50),255,random(50))
+      else if currentColor=1
+        tEEffect.image_blend=c_red
+      else if currentColor=2
+        tEEffect.image_blend=c_blue
+      else if currentColor=3
+        tEEffect.image_blend=c_yellow
+      else if currentColor=4
+        tEEffect.image_blend=c_silver
+      else if currentColor=5
+        tEEffect.image_blend=make_color_rgb(random(255),random(255),random(255))
+      tEEffect.AccelX=0; tEEffect.AccelY=0; tEEffect.followID=-1; tEEffect.rotation=0
+    }
+    else if currentColor=6 //Drawing on screen
+    {
+      instance_create(x,y,oEfChaoDraw)
+    }
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

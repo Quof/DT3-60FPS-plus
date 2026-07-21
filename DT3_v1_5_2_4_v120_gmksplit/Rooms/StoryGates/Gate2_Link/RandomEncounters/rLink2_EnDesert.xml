@@ -1,0 +1,3597 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<room id="89">
+  <caption>[G2-EncC] I never did like the desert encounters.</caption>
+  <size height="352" width="1280"/>
+  <grid>
+    <isometric>false</isometric>
+    <snap x="16" y="16"/>
+  </grid>
+  <speed>30</speed>
+  <persistent>false</persistent>
+  <creationCode>locationCheck(10)
+
+if global.zEncZone=2
+{
+  with oEnemyBase
+    instance_destroy()
+  instance_create(128,288,oMegmet)
+  instance_create(384,288,oMegmet)
+  instance_create(880,288,oMegmet)
+  instance_create(1088,288,oMegmet)
+}
+else if global.zEncZone=3
+{
+  with oEnemyBase
+    instance_destroy()
+  instance_create(128,288,oMegmet)
+  instance_create(512,256,oOctorok)
+  instance_create(880,288,oOctorok)
+  instance_create(1088,288,oMegmet)
+}
+else if global.zEncZone=4
+{
+  with oEnemyBase
+    instance_destroy()
+  instance_create(128,272,oTektile)
+  instance_create(384,272,oTektile)
+  instance_create(880,272,oTektile)
+  instance_create(1088,272,oTektile)
+}
+
+global.bCanSave=false
+gameScene=instance_create(0,0,oEvCh4MainA)
+
+var tempMplay;
+tempMplay=findMusic(203)
+playMusic(tempMplay,0,0)</creationCode>
+  <backgroundColor>5C94FC</backgroundColor>
+  <drawBackgroundColor>true</drawBackgroundColor>
+  <clearViewBackground>true</clearViewBackground>
+  <backgrounds>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+  </backgrounds>
+  <enableViews>true</enableViews>
+  <views>
+    <view>
+      <visibleOnRoomStart>true</visibleOnRoomStart>
+      <viewInRoom height="352" width="480" x="0" y="0"/>
+      <portOnScreen height="352" width="480" x="0" y="0"/>
+      <objectFollowing hBorder="240" hSpeed="-1" vBorder="176" vSpeed="-1">oPlayer1</objectFollowing>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+  </views>
+  <instances>
+    <instance id="135186">
+      <object>oExit</object>
+      <position x="0" y="256"/>
+      <creationCode>bShowArrow=true
+exitType=1
+newMapX=global.newMapX
+newMapY=global.newMapY
+if global.newMapY&lt;10000
+  toRoom=rLink2_Overworld
+else
+  toRoom=rLink2_Overworld2
+</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="135187">
+      <object>oExit</object>
+      <position x="1264" y="256"/>
+      <creationCode>bShowArrow=true
+exitType=1
+newMapX=global.newMapX
+newMapY=global.newMapY
+if global.newMapY&lt;10000
+  toRoom=rLink2_Overworld
+else
+  toRoom=rLink2_Overworld2
+</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="197255">
+      <object>oZeldaBreakPot</object>
+      <position x="672" y="272"/>
+      <creationCode>if global.recZeldaEnc mod 3!=0 {instance_destroy()}</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="135182">
+      <object>oGreenSlime</object>
+      <position x="128" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135183">
+      <object>oGreenSlime</object>
+      <position x="384" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135184">
+      <object>oGreenSlime</object>
+      <position x="880" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135185">
+      <object>oGreenSlime</object>
+      <position x="1088" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135102">
+      <object>oPlayer1</object>
+      <position x="640" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135103">
+      <object>oInvCollPH</object>
+      <position x="464" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135104">
+      <object>oInvCollPH</object>
+      <position x="480" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135105">
+      <object>oInvCollPH</object>
+      <position x="16" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135106">
+      <object>oInvCollPH</object>
+      <position x="32" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135107">
+      <object>oInvCollPH</object>
+      <position x="48" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135108">
+      <object>oInvCollPH</object>
+      <position x="64" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135109">
+      <object>oInvCollPH</object>
+      <position x="80" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135110">
+      <object>oInvCollPH</object>
+      <position x="96" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135111">
+      <object>oInvCollPH</object>
+      <position x="112" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135112">
+      <object>oInvCollPH</object>
+      <position x="128" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135113">
+      <object>oInvCollPH</object>
+      <position x="144" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135114">
+      <object>oInvCollPH</object>
+      <position x="944" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135115">
+      <object>oInvCollPH</object>
+      <position x="928" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135116">
+      <object>oInvCollPH</object>
+      <position x="912" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135117">
+      <object>oInvCollPH</object>
+      <position x="896" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135118">
+      <object>oInvCollPH</object>
+      <position x="880" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135119">
+      <object>oInvCollPH</object>
+      <position x="864" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135120">
+      <object>oInvCollPH</object>
+      <position x="848" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135121">
+      <object>oInvCollPH</object>
+      <position x="832" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135122">
+      <object>oInvCollPH</object>
+      <position x="816" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135123">
+      <object>oInvCollPH</object>
+      <position x="800" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135124">
+      <object>oInvCollPH</object>
+      <position x="160" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135125">
+      <object>oInvCollPH</object>
+      <position x="176" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135126">
+      <object>oInvCollPH</object>
+      <position x="192" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135127">
+      <object>oInvCollPH</object>
+      <position x="208" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135128">
+      <object>oInvCollPH</object>
+      <position x="224" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135129">
+      <object>oInvCollPH</object>
+      <position x="720" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135130">
+      <object>oInvCollPH</object>
+      <position x="736" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135131">
+      <object>oInvCollPH</object>
+      <position x="752" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135132">
+      <object>oInvCollPH</object>
+      <position x="768" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135133">
+      <object>oInvCollPH</object>
+      <position x="784" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135134">
+      <object>oInvCollPH</object>
+      <position x="304" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135135">
+      <object>oInvCollPH</object>
+      <position x="288" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135136">
+      <object>oInvCollPH</object>
+      <position x="272" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135137">
+      <object>oInvCollPH</object>
+      <position x="256" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135138">
+      <object>oInvCollPH</object>
+      <position x="240" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135139">
+      <object>oInvCollPH</object>
+      <position x="640" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135140">
+      <object>oInvCollPH</object>
+      <position x="656" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135141">
+      <object>oInvCollPH</object>
+      <position x="672" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135142">
+      <object>oInvCollPH</object>
+      <position x="688" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135143">
+      <object>oInvCollPH</object>
+      <position x="704" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135144">
+      <object>oInvCollPH</object>
+      <position x="384" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135145">
+      <object>oInvCollPH</object>
+      <position x="368" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135146">
+      <object>oInvCollPH</object>
+      <position x="352" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135147">
+      <object>oInvCollPH</object>
+      <position x="336" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135148">
+      <object>oInvCollPH</object>
+      <position x="320" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135149">
+      <object>oInvCollPH</object>
+      <position x="560" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135150">
+      <object>oInvCollPH</object>
+      <position x="576" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135151">
+      <object>oInvCollPH</object>
+      <position x="592" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135152">
+      <object>oInvCollPH</object>
+      <position x="608" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135153">
+      <object>oInvCollPH</object>
+      <position x="624" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135154">
+      <object>oInvCollPH</object>
+      <position x="496" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135155">
+      <object>oInvCollPH</object>
+      <position x="512" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135156">
+      <object>oInvCollPH</object>
+      <position x="528" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135157">
+      <object>oInvCollPH</object>
+      <position x="544" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135158">
+      <object>oInvCollPH</object>
+      <position x="448" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135159">
+      <object>oInvCollPH</object>
+      <position x="432" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135160">
+      <object>oInvCollPH</object>
+      <position x="416" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135161">
+      <object>oInvCollPH</object>
+      <position x="400" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135188">
+      <object>oInvCollPH</object>
+      <position x="960" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135189">
+      <object>oInvCollPH</object>
+      <position x="976" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135190">
+      <object>oInvCollPH</object>
+      <position x="992" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135191">
+      <object>oInvCollPH</object>
+      <position x="1008" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135192">
+      <object>oInvCollPH</object>
+      <position x="1024" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135193">
+      <object>oInvCollPH</object>
+      <position x="1040" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135194">
+      <object>oInvCollPH</object>
+      <position x="1056" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135195">
+      <object>oInvCollPH</object>
+      <position x="1072" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135196">
+      <object>oInvCollPH</object>
+      <position x="1088" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135197">
+      <object>oInvCollPH</object>
+      <position x="1104" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135198">
+      <object>oInvCollPH</object>
+      <position x="1120" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135199">
+      <object>oInvCollPH</object>
+      <position x="1136" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135200">
+      <object>oInvCollPH</object>
+      <position x="1152" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135201">
+      <object>oInvCollPH</object>
+      <position x="1168" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135202">
+      <object>oInvCollPH</object>
+      <position x="1184" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135203">
+      <object>oInvCollPH</object>
+      <position x="1200" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135204">
+      <object>oInvCollPH</object>
+      <position x="1216" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135205">
+      <object>oInvCollPH</object>
+      <position x="1232" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135206">
+      <object>oInvCollPH</object>
+      <position x="1248" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135207">
+      <object>oInvCollPH</object>
+      <position x="1264" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135211">
+      <object>oInvCollPH</object>
+      <position x="192" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135212">
+      <object>oInvCollPH</object>
+      <position x="512" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135213">
+      <object>oInvCollPH</object>
+      <position x="1152" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="135101">
+      <object>oInvisibleSolid</object>
+      <position x="0" y="288"/>
+      <creationCode>image_xscale=80
+image_yscale=4
+</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="135208">
+      <object>oInvisibleSolid</object>
+      <position x="176" y="256"/>
+      <creationCode>image_xscale=2
+image_yscale=2
+</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="135209">
+      <object>oInvisibleSolid</object>
+      <position x="496" y="256"/>
+      <creationCode>image_xscale=2
+image_yscale=2
+</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="135210">
+      <object>oInvisibleSolid</object>
+      <position x="1136" y="256"/>
+      <creationCode>image_xscale=2
+image_yscale=2
+</creationCode>
+      <locked>false</locked>
+    </instance>
+  </instances>
+  <tiles>
+    <tile id="10049030">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="0" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049031">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="16" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049032">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="32" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049033">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="48" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049034">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="64" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049035">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="80" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049036">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="96" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049037">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="112" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049038">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="128" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049039">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="144" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049040">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="160" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049041">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="176" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049042">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="192" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049043">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="208" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049044">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="224" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049045">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="240" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049046">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="256" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049047">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="272" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049048">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="288" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049049">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="304" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049050">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="320" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049051">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="336" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049052">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="352" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049053">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="368" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049054">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="384" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049055">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="400" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049056">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="416" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049057">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="432" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049058">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="448" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049059">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="464" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049060">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="480" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049061">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="496" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049062">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="512" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049063">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="528" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049064">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="544" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049065">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="560" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049066">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="576" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049067">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="592" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049068">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="608" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049069">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="624" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049070">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="640" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049071">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="656" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049072">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="672" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049073">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="688" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049074">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="704" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049075">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="720" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049076">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="736" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049077">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="752" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049078">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="768" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049079">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="784" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049080">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="800" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049081">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="816" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049082">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="832" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049083">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="848" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049084">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="864" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049085">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="880" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049086">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="896" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049087">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="912" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049088">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="928" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049089">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="944" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049090">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="960" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049091">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="976" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049092">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="992" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049093">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="1008" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049094">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="1024" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049095">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="1040" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049096">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="1056" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049097">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="1072" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049098">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="1088" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049099">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="1104" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049100">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="1120" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049101">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="1136" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049102">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="1152" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049103">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="1168" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049104">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="1184" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049105">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="1200" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049106">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="1216" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049107">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="1232" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049108">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="1248" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049109">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="1264" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049110">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1264" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049111">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1248" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049112">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1232" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049113">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1216" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049114">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1200" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049115">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1184" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049116">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1168" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049117">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1152" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049118">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1136" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049119">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1120" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049120">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1104" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049121">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1088" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049122">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1072" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049123">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1056" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049124">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1040" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049125">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1024" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049126">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1008" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049127">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="992" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049128">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="976" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049129">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="960" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049130">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="944" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049131">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="928" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049132">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="912" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049133">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="896" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049134">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="880" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049135">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="864" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049136">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="848" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049137">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="832" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049138">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="816" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049139">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="800" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049140">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="784" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049141">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="768" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049142">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="752" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049143">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="736" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049144">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="720" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049145">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="720" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049146">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="736" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049147">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="752" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049148">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="768" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049149">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="784" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049150">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="800" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049151">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="816" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049152">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="832" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049153">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="848" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049154">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="864" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049155">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="880" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049156">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="896" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049157">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="912" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049158">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="928" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049159">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="944" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049160">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="960" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049161">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="976" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049162">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="992" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049163">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1008" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049164">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1024" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049165">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1040" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049166">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1056" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049167">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1072" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049168">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1088" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049169">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1104" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049170">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1120" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049171">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1136" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049172">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1152" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049173">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1168" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049174">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1184" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049175">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1200" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049176">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1216" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049177">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1232" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049178">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1248" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049179">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1264" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049180">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1264" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049181">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1248" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049182">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1232" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049183">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1216" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049184">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1200" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049185">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1184" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049186">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1168" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049187">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1152" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049188">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1136" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049189">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1120" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049190">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1104" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049191">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1088" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049192">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1072" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049193">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1056" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049194">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1040" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049195">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1024" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049196">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="1008" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049197">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="992" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049198">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="976" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049199">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="960" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049200">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="944" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049201">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="928" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049202">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="912" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049203">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="896" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049204">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="880" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049205">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="864" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049206">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="848" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049207">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="832" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049208">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="816" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049209">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="800" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049210">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="784" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049211">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="768" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049212">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="752" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049213">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="736" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049214">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="720" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049215">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="704" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049216">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="688" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049217">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="672" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049218">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="656" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049219">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="640" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049220">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="624" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049221">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="608" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049222">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="592" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049223">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="576" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049224">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="560" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049225">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="544" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049226">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="528" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049227">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="512" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049228">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="496" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049229">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="480" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049230">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="464" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049231">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="448" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049232">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="432" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049233">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="416" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049234">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="400" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049235">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="384" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049236">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="368" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049237">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="368" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049238">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="384" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049239">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="400" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049240">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="416" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049241">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="432" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049242">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="448" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049243">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="464" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049244">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="480" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049245">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="496" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049246">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="512" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049247">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="528" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049248">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="544" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049249">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="560" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049250">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="576" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049251">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="592" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049252">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="608" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049253">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="624" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049254">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="640" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049255">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="656" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049256">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="672" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049257">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="688" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049258">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="704" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049259">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="704" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049260">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="688" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049261">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="672" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049262">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="656" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049263">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="640" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049264">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="624" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049265">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="608" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049266">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="592" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049267">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="576" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049268">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="560" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049269">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="544" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049270">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="528" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049271">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="512" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049272">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="496" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049273">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="480" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049274">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="464" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049275">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="448" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049276">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="432" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049277">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="416" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049278">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="400" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049279">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="384" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049280">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="368" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049281">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="352" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049282">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="336" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049283">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="320" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049284">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="304" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049285">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="288" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049286">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="272" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049287">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="256" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049288">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="240" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049289">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="224" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049290">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="208" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049291">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="192" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049292">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="176" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049293">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="160" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049294">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="144" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049295">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="128" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049296">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="112" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049297">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="96" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049298">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="80" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049299">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="64" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049300">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="48" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049301">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="32" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049302">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="16" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049303">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="0" y="304"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049304">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="0" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049305">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="16" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049306">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="32" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049307">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="48" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049308">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="64" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049309">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="80" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049310">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="96" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049311">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="112" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049312">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="128" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049313">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="144" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049314">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="160" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049315">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="176" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049316">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="192" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049317">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="208" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049318">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="224" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049319">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="240" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049320">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="256" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049321">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="272" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049322">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="288" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049323">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="304" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049324">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="320" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049325">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="336" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049326">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="352" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049327">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="352" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049328">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="336" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049329">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="320" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049330">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="304" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049331">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="288" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049332">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="272" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049333">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="256" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049334">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="240" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049335">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="224" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049336">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="208" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049337">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="192" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049338">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="176" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049339">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="160" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049340">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="144" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049341">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="128" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049342">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="112" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049343">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="96" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049344">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="80" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049345">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="64" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049346">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="48" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049347">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="32" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049348">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="16" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049349">
+      <background>tileZelda2</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="0" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049358">
+      <background>tileZelda2</background>
+      <backgroundPosition x="48" y="32"/>
+      <roomPosition x="288" y="256"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049359">
+      <background>tileZelda2</background>
+      <backgroundPosition x="48" y="32"/>
+      <roomPosition x="560" y="256"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049360">
+      <background>tileZelda2</background>
+      <backgroundPosition x="48" y="32"/>
+      <roomPosition x="784" y="256"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049361">
+      <background>tileZelda2</background>
+      <backgroundPosition x="48" y="32"/>
+      <roomPosition x="1024" y="256"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049362">
+      <background>tileZelda2</background>
+      <backgroundPosition x="64" y="32"/>
+      <roomPosition x="752" y="240"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049363">
+      <background>tileZelda2</background>
+      <backgroundPosition x="64" y="32"/>
+      <roomPosition x="1200" y="240"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049364">
+      <background>tileZelda2</background>
+      <backgroundPosition x="64" y="32"/>
+      <roomPosition x="320" y="240"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049365">
+      <background>tileZelda2</background>
+      <backgroundPosition x="64" y="32"/>
+      <roomPosition x="80" y="240"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049366">
+      <background>tileZelda2</background>
+      <backgroundPosition x="64" y="48"/>
+      <roomPosition x="80" y="272"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049367">
+      <background>tileZelda2</background>
+      <backgroundPosition x="64" y="48"/>
+      <roomPosition x="320" y="272"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049368">
+      <background>tileZelda2</background>
+      <backgroundPosition x="64" y="48"/>
+      <roomPosition x="752" y="272"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10049369">
+      <background>tileZelda2</background>
+      <backgroundPosition x="64" y="48"/>
+      <roomPosition x="1200" y="272"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10052580">
+      <background>tileZelda2</background>
+      <backgroundPosition x="32" y="16"/>
+      <roomPosition x="80" y="80"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10052581">
+      <background>tileZelda2</background>
+      <backgroundPosition x="32" y="16"/>
+      <roomPosition x="272" y="144"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10052582">
+      <background>tileZelda2</background>
+      <backgroundPosition x="32" y="16"/>
+      <roomPosition x="1152" y="80"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10052583">
+      <background>tileZelda2</background>
+      <backgroundPosition x="32" y="16"/>
+      <roomPosition x="688" y="32"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10052584">
+      <background>tileZelda2</background>
+      <backgroundPosition x="64" y="16"/>
+      <roomPosition x="928" y="112"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10052585">
+      <background>tileZelda2</background>
+      <backgroundPosition x="64" y="16"/>
+      <roomPosition x="448" y="80"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10052586">
+      <background>tileZelda2</background>
+      <backgroundPosition x="64" y="16"/>
+      <roomPosition x="176" y="16"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10069821">
+      <background>tileZelda2</background>
+      <backgroundPosition x="144" y="112"/>
+      <roomPosition x="176" y="256"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10069822">
+      <background>tileZelda2</background>
+      <backgroundPosition x="144" y="112"/>
+      <roomPosition x="192" y="256"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10069823">
+      <background>tileZelda2</background>
+      <backgroundPosition x="144" y="112"/>
+      <roomPosition x="496" y="256"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10069824">
+      <background>tileZelda2</background>
+      <backgroundPosition x="144" y="112"/>
+      <roomPosition x="512" y="256"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10069825">
+      <background>tileZelda2</background>
+      <backgroundPosition x="144" y="112"/>
+      <roomPosition x="1136" y="256"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10069826">
+      <background>tileZelda2</background>
+      <backgroundPosition x="144" y="112"/>
+      <roomPosition x="1152" y="256"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10428450">
+      <background>tileZelda2</background>
+      <backgroundPosition x="96" y="16"/>
+      <roomPosition x="240" y="272"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10428451">
+      <background>tileZelda2</background>
+      <backgroundPosition x="96" y="16"/>
+      <roomPosition x="640" y="272"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10428452">
+      <background>tileZelda2</background>
+      <backgroundPosition x="96" y="16"/>
+      <roomPosition x="912" y="272"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10428453">
+      <background>tileZelda2</background>
+      <backgroundPosition x="96" y="16"/>
+      <roomPosition x="1088" y="272"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10428454">
+      <background>tileZelda2</background>
+      <backgroundPosition x="96" y="16"/>
+      <roomPosition x="384" y="272"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10428455">
+      <background>tileZelda2</background>
+      <backgroundPosition x="96" y="16"/>
+      <roomPosition x="400" y="272"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+  </tiles>
+  <editorSettings remember="true">
+    <size height="589" width="1214"/>
+    <showGrid>false</showGrid>
+    <showObjects>false</showObjects>
+    <showTiles>true</showTiles>
+    <showBackgrounds>true</showBackgrounds>
+    <showForegrounds>true</showForegrounds>
+    <showViews>false</showViews>
+    <deleteUnderlyingObjects>true</deleteUnderlyingObjects>
+    <deleteUnderlyingTiles>true</deleteUnderlyingTiles>
+    <currentTab>0</currentTab>
+    <horizontalScrollPosition>297</horizontalScrollPosition>
+    <verticalScrollPosition>-124</verticalScrollPosition>
+  </editorSettings>
+</room>

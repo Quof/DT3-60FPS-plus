@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="COLLISION" with="oPlayer1">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if !collision_line(x,y,oPlayer1.x,returnPlayerYCenter(),oSolid,1,1) //tColCheck=1 //Player spotted
+{
+  if ownerID.alertMode&lt;3
+  {
+    if point_distance(x,y,oPlayer1.x,returnPlayerYCenter())&lt;=alertRange
+    {
+      playSound(global.snd_Alert,0,1,1)
+      oSeekerAlertDoor.sprite_index=sInvisibleSolidMask
+      global.recSpottedSeeker+=1
+      ownerID.alertNotice=1
+      ownerID.alertNScale=0
+      ownerID.alertMode=3
+      ownerID.alertTime=135
+      ownerID.speed=0
+      ownerID.direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
+    }
+    else
+    {
+      if ownerID.alertMode=0
+      {
+        ownerID.movePause=10
+        ownerID.alertNotice=1
+        ownerID.alertNScale=0
+        ownerID.alertMode=1
+        ownerID.speed=0
+        ownerID.pointX=oPlayer1.x
+        ownerID.pointY=returnPlayerYCenter()
+      }
+    }
+  }
+  else
+  {
+    if ownerID.alertTime&lt;120 {ownerID.alertTime=120}
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  vaultMaze[0]=string_char_at(global.gameVaultProg,1)
+  vaultMaze[1]=string_char_at(global.gameVaultProg,2)
+  vaultMaze[2]=string_char_at(global.gameVaultProg,3)
+  vaultMaze[3]=string_char_at(global.gameVaultProg,4)
+  
+  //Key timer
+  if global.tempAction[2]&gt;0 {global.tempAction[2]-=1}
+  haveKey=0
+  for(i=0;i&lt;4;i+=1) //Check for key
+  {
+    if vaultMaze[i]="1" {haveKey=1}
+  }
+  if haveKey=1 and global.tempAction[2]&lt;=0 //Time runs out
+  {
+    var tWhichKey;
+    tWhichKey=1
+    for(i=0;i&lt;4;i+=1)
+    {
+      if vaultMaze[i]="1" {break;}
+      tWhichKey+=1
+    }
+    var tNewString;
+    tNewString=string_delete(global.gameVaultProg,tWhichKey,1)
+    tNewString=string_insert("0",tNewString,tWhichKey)
+    global.gameVaultProg=tNewString
+    
+    global.tempAction[2]=0
+  }
+  
+  //Shift time
+  if oPlayer1.state=oPlayer1.LOOKING_UP {global.tempAction[1]-=12}
+  else {global.tempAction[1]-=1}
+  if global.tempAction[1]&lt;=0 //Shift rooms
+  {
+    playSound(global.snd_HardHit1,0,0.98,7000)
+    tSrnInv=instance_create(0,0,oScreenInvert); tSrnInv.invertTime=20
+    
+    global.vaultRooms+=1
+    if global.vaultRooms=5 {global.vaultRooms=1}
+    if room=rVault_R_A
+    {
+      if global.vaultRooms=1 or global.vaultRooms=3
+      {
+        with (257026) {toRoom=rVault_R_B}
+        with (257033) {toRoom=rVault_R_B}
+        with (257034) {toRoom=rVault_R_B}
+        with (257035) {toRoom=rVault_R_B}
+        with (257036) {toRoom=rVault_R_B}
+        with (257037) {toRoom=rVault_R_B}
+        with (257038) {toRoom=rVault_R_D}
+      }
+      else if global.vaultRooms=2 or global.vaultRooms=4
+      {
+        with (257026) {toRoom=rVault_R_D}
+        with (257033) {toRoom=rVault_R_D}
+        with (257034) {toRoom=rVault_R_D}
+        with (257035) {toRoom=rVault_R_D}
+        with (257036) {toRoom=rVault_R_D}
+        with (257037) {toRoom=rVault_R_D}
+        with (257038) {toRoom=rVault_R_B}
+      }
+    }
+    else if room=rVault_R_B
+    {
+      if global.vaultRooms=1 or global.vaultRooms=3
+      {
+        with (257039) {toRoom=rVault_R_A}
+        with (257040) {toRoom=rVault_R_A}
+        with (257041) {toRoom=rVault_R_A}
+        with (257042) {toRoom=rVault_R_A}
+        with (257043) {toRoom=rVault_R_A}
+        with (257044) {toRoom=rVault_R_A}
+        with (257045) {toRoom=rVault_R_C}
+      }
+      else if global.vaultRooms=2 or global.vaultRooms=4
+      {
+        with (257039) {toRoom=rVault_R_C}
+        with (257040) {toRoom=rVault_R_C}
+        with (257041) {toRoom=rVault_R_C}
+        with (257042) {toRoom=rVault_R_C}
+        with (257043) {toRoom=rVault_R_C}
+        with (257044) {toRoom=rVault_R_C}
+        with (257045) {toRoom=rVault_R_A}
+      }
+    }
+    else if room=rVault_R_C
+    {
+      if global.vaultRooms=1 or global.vaultRooms=3
+      {
+        with (257046) {toRoom=rVault_R_D}
+        with (257047) {toRoom=rVault_R_D}
+        with (257063) {toRoom=rVault_R_D}
+        with (257064) {toRoom=rVault_R_D}
+        with (257065) {toRoom=rVault_R_D}
+        with (257066) {toRoom=rVault_R_D}
+        with (257067) {toRoom=rVault_R_B}
+      }
+      else if global.vaultRooms=2 or global.vaultRooms=4
+      {
+        with (257046) {toRoom=rVault_R_B}
+        with (257047) {toRoom=rVault_R_B}
+        with (257063) {toRoom=rVault_R_B}
+        with (257064) {toRoom=rVault_R_B}
+        with (257065) {toRoom=rVault_R_B}
+        with (257066) {toRoom=rVault_R_B}
+        with (257067) {toRoom=rVault_R_D}
+      }
+    }
+    else if room=rVault_R_D
+    {
+      if global.vaultRooms=1 or global.vaultRooms=3
+      {
+        with (257068) {toRoom=rVault_R_C}
+        with (257069) {toRoom=rVault_R_C}
+        with (257070) {toRoom=rVault_R_C}
+        with (257071) {toRoom=rVault_R_C}
+        with (257072) {toRoom=rVault_R_C}
+        with (257073) {toRoom=rVault_R_C}
+        with (257074) {toRoom=rVault_R_A}
+      }
+      else if global.vaultRooms=2 or global.vaultRooms=4
+      {
+        with (257068) {toRoom=rVault_R_A}
+        with (257069) {toRoom=rVault_R_A}
+        with (257070) {toRoom=rVault_R_A}
+        with (257071) {toRoom=rVault_R_A}
+        with (257072) {toRoom=rVault_R_A}
+        with (257073) {toRoom=rVault_R_A}
+        with (257074) {toRoom=rVault_R_C}
+      }
+    }
+    global.tempAction[1]=1500
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

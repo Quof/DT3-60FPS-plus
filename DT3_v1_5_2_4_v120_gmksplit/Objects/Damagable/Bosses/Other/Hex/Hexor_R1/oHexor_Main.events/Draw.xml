@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="DRAW" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if bShowChainLines=1
+{
+  draw_set_alpha(chainLineAlpha)
+  draw_set_color(chainLineColor)
+  draw_line_width(0,0,x+twitchRanX,y+twitchRanY,chainLineWidth)
+  draw_line_width(room_width,0,x+twitchRanX,y+twitchRanY,chainLineWidth)
+  draw_line_width(0,room_height,x+twitchRanX,y+twitchRanY,chainLineWidth)
+  draw_line_width(room_width,room_height,x+twitchRanX,y+twitchRanY,chainLineWidth)
+  draw_line_width(room_width/2,0,x+twitchRanX,y+twitchRanY,chainLineWidth)
+  draw_line_width(room_width/2,room_height,x+twitchRanX,y+twitchRanY,chainLineWidth)
+  draw_line_width(0,room_height/2,x+twitchRanX,y+twitchRanY,chainLineWidth)
+  draw_line_width(room_width,room_height/2,x+twitchRanX,y+twitchRanY,chainLineWidth)
+}
+
+if bShowTentacles=1
+{
+  tentacleFrm+=0.07
+  draw_sprite_ext(sHexor_TentaclesA,tentacleFrm,x+twitchRanX-image_xscale,y+twitchRanY,tentacleScale*image_xscale,tentacleScale,image_angle,c_purple,image_alpha)
+}
+
+//Draw Hex
+draw_sprite_ext(sprite_index,image_index,x+twitchRanX,y+twitchRanY,image_xscale,image_yscale,image_angle,image_blend,image_alpha)
+
+if bShowHellDogParts=1
+{
+  draw_sprite_ext(sHexor_HellD_Head,0,x+twitchRanX,y+twitchRanY-13,image_xscale,image_yscale,image_angle,image_blend,image_alpha)
+  
+  draw_sprite_ext(sHexor_HellD_LShoulder,0,x+twitchRanX-(9*image_xscale),y+twitchRanY+3,image_xscale,image_yscale,image_angle,image_blend,image_alpha)
+  draw_sprite_ext(sHexor_HellD_LForearm,0,x+twitchRanX-(19*image_xscale),y+twitchRanY+13,image_xscale,image_yscale,hellLF_Angle,image_blend,image_alpha)
+  
+  draw_sprite_ext(sHexor_HellD_RShoulder,0,x+twitchRanX+(11*image_xscale),y+twitchRanY-2,image_xscale,image_yscale,image_angle,image_blend,image_alpha)
+  draw_sprite_ext(sHexor_HellD_RForearm,0,x+twitchRanX+(25*image_xscale),y+twitchRanY+28,image_xscale,image_yscale,hellRF_Angle,image_blend,image_alpha)
+}
+
+//Draw Swords
+if bShowSwords=1
+{
+  swordWave+=0.2
+  swordDist+=sin(swordWave)
+  swordDir+=5.7
+  for(i=0;i&lt;8;i+=1)
+  {
+    draw_sprite_ext(sHexor_DemonBlade,0,x+lengthdir_x(52+swordDist,swordDir+random_range(-9,9)+(i*45)),y+lengthdir_y(52+swordDist,swordDir+random_range(-9,9)+(i*45)),image_xscale,image_yscale,swordDir-90+(i*45),c_white,swordAlpha)
+  }
+}
+
+//Draw Shield
+if (shieldProg&gt;=1 and shieldProg&lt;=499) or (shieldProg=600)
+{
+  phase+=0.2
+  draw_sprite_wave_fixed(sHexor_Shield,0,x,y,1,12,3,phase)
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

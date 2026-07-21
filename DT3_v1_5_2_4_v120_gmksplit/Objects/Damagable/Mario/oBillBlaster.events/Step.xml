@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  makeEnemyActive(0)
+  if bActive=true and findTargetX&lt;=detectDistX and findTargetY&lt;=detectDistY
+  {
+    makeEnemyActive(1)
+    if bVert=0 //Horizontal shot
+    {
+      findTargetX=point_distance(oPlayer1.x,0,x,0)
+      if findTargetX&gt;=56
+      {
+        shotTime+=1
+        if shotTime=shotDelay-10
+        {
+          var tEffect;
+          for(i=0;i&lt;2;i+=1)
+          {
+            tEffect=instance_create(x,y+8,oEffect)
+            tEffect.sprite_index=sMMSmokeCloud; tEffect.image_speed=0.5; tEffect.ySpd=-1-(i*0.5)
+            tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0
+          }
+        }
+        if shotTime&gt;=shotDelay
+        {
+          var tSndVol;
+          if global.location=91 {tSndVol=0.9}
+          else {tSndVol=1}
+          playSound(global.snd_MarioCannon,0,tSndVol,1)
+          var bBill,xOffset;
+          if x&gt;=oPlayer1.x {xOffset=-8}
+          else {xOffset=8}
+          bBill=instance_create(x+xOffset,y+8,oBulletBill)
+          bBill.bActive=true
+          bBill.bVert=bVert
+          if xOffset&lt;0
+          {
+            bBill.bulletSpeed=-7.5
+            bBill.image_xscale=-1
+          }
+          else {bBill.bulletSpeed=7.5}
+          shotTime=0
+        }
+      }
+    }
+    else //Vertical shot
+    {
+      findTargetY=point_distance(0,oPlayer1.y-26,0,y)
+      if findTargetY&gt;=56
+      {
+        shotTime+=1
+        if shotTime=shotDelay-10
+        {
+          var tEffect;
+          for(i=0;i&lt;2;i+=1)
+          {
+            tEffect=instance_create(x,y+8,oEffect)
+            tEffect.sprite_index=sMMSmokeCloud; tEffect.image_speed=0.5; tEffect.ySpd=-1-(i*0.5)
+            tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0
+          }
+        }
+        if shotTime&gt;=shotDelay
+        {
+          playSound(global.snd_MarioCannon,0,1,1)
+          var bBill,yOffset;
+          if y&gt;=oPlayer1.y {yOffset=-8}
+          else {yOffset=8}
+          bBill=instance_create(x,y+yOffset+8,oBulletBill)
+          bBill.bActive=true
+          bBill.bVert=bVert
+          bBill.image_angle=90
+          if yOffset&lt;0 {bBill.bulletSpeed=-7.5}
+          else
+          {
+            bBill.bulletSpeed=7.5
+            bBill.image_xscale=-1
+          }
+          shotTime=0
+        }
+      }
+    }
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

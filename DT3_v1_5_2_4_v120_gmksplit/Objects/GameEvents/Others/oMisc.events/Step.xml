@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if type=2 //Scene Player Character
+{
+  //Check animation
+  if animCheck&gt;0
+  {
+    if image_index&gt;=lastFrame
+    {
+      sprite_index=spriteEnd
+      image_index=frameEnd
+      image_speed=animEnd
+      animCheck=0
+    }
+  }
+}
+else if type=3 //Pulled into Vault
+{
+  image_alpha-=0.001
+  image_angle+=turnSpd
+}
+else if type=4 //Float up and down
+{
+  moveStep+=0.05
+  y+=sin(moveStep)
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

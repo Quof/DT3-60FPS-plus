@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="DRAW" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if image_angle=0
+{
+  draw_sprite_part_ext(sEnemyDoor,0,0,0,16,16,x,y,1,1,image_blend,image_alpha)
+  draw_sprite_part_ext(sEnemyDoor,0,0,16,16,32,x,y+16,1,1,image_blend,image_alpha)
+  for(i=0;i&lt;(image_yscale-4)/2;i+=1)
+  {
+    draw_sprite_part_ext(sEnemyDoor,0,0,16,16,32,x,y+48+(i*32),1,1,image_blend,image_alpha)
+  }
+  draw_sprite_part_ext(sEnemyDoor,0,0,48,16,16,x,y+48+(i*32),1,1,image_blend,image_alpha)
+}
+else if image_angle=90
+{
+  draw_sprite_general(sEnemyDoor,0,0,0,16,16,x,y,1,1,90,image_blend,image_blend,image_blend,image_blend,image_alpha)
+  draw_sprite_general(sEnemyDoor,0,0,16,16,32,x+16,y,1,1,90,image_blend,image_blend,image_blend,image_blend,image_alpha)
+  for(i=0;i&lt;(image_yscale-4)/2;i+=1)
+  {
+    draw_sprite_general(sEnemyDoor,0,0,16,16,32,x+48+(i*32),y,1,1,90,image_blend,image_blend,image_blend,image_blend,image_alpha)
+  }
+  draw_sprite_general(sEnemyDoor,0,0,48,16,16,x+48+(i*32),y,1,1,90,image_blend,image_blend,image_blend,image_blend,image_alpha)
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

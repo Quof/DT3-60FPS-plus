@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  if life&lt;=0
+  {
+    deathAnim+=1
+    if deathAnim mod 4=0
+    {
+      if deathAnim mod 8=0 {playSound(global.snd_HardHit1,0,0.9,1)}
+      tEffect=instance_create(x+random_range(-9,9),y+random_range(-8,8),oEffect)
+      tEffect.sprite_index=sDeathFlameA; tEffect.image_speed=0.33
+      tEffect.image_alpha=0.5+(image_alpha/3)
+      tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+    }
+    image_alpha-=0.04
+    if image_alpha&lt;0
+    {
+      var tCheckAchieve;
+      tCheckAchieve=string_char_at(global.tokenRecognitions,40)
+      if tCheckAchieve="0"
+      {
+        var tAchievement;
+        tAchievement=instance_create(0,0,oAchievementNotice)
+        tAchievement.myAchievement="Burn Bad Smileys"; tAchievement.checkNum=40
+      }
+      instance_destroy()
+    }
+  }
+  enemyStepEvent()
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

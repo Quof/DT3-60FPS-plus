@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  atkTime+=1
+  if atkTime&lt;=99
+  {
+    y+=4
+    if y&gt;=96
+    {
+      atkTime=130
+    }
+  }
+  
+  if atkTime&gt;=135 and atkTime mod 55=0
+  {
+    var tAtk;
+    tAtk=instance_create(x,y+7,oPassBullet)
+    tAtk.sprite_index=sWarmasterD_EX_Ball; tAtk.atkPower=atkPower; tAtk.bulletSpeed=6
+    tAtk.decayTime=-100; tAtk.damageType="ELEMENTAL"; tAtk.image_speed=0.33; tAtk.direction=image_angle
+  }
+  enemyStepEvent()
+  
+  decay-=1
+  if decay&lt;=0 {life=0}
+  
+  if life&lt;=0
+  {
+    playSound(global.snd_BombExplode,0,0.9,1)
+    var tEffect;
+    tEffect=instance_create(x,y,oEffect)
+    tEffect.sprite_index=sRobotExplosion; tEffect.image_xscale=0.45; tEffect.image_yscale=0.45
+    tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+    instance_destroy()
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

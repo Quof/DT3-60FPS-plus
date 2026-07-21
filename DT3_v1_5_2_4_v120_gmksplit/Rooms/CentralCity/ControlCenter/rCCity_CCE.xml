@@ -1,0 +1,3581 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<room id="167">
+  <caption>[ControlCenterE] Now be the killing hand.</caption>
+  <size height="352" width="1008"/>
+  <grid>
+    <isometric>false</isometric>
+    <snap x="16" y="16"/>
+  </grid>
+  <speed>30</speed>
+  <persistent>false</persistent>
+  <creationCode>locationCheck(9)
+
+if global.gameProgress=970 {global.gameProgress=980}
+else if global.gameProgress&gt;=990 and global.bBossGallery=0
+{
+  var newExit;
+  newExit=instance_create(352,288,oExit)
+  newExit.sprite_index=sWarpGateStand; newExit.bShowArrow=false
+  newExit.exitType=0; newExit.newMapX=352; newExit.newMapY=304
+  newExit.toRoom=rCCity_CCA
+}
+
+gameScene=instance_create(0,0,oEvCh5MainA)
+compScr=instance_create(0,0,oCh5CC_CompScr)
+
+if global.bossTrack=1 //Boss Fight: Control Virus
+{
+  viewFix=instance_create(336,176,oMisc)
+  viewFix.type=0
+  viewFix.sprite_index=sNull
+  view_object[0]=viewFix
+  var tempMplay;
+  tempMplay=findMusic(813)
+  var bossBarr;
+  bossBarr=instance_create(112,144,oBossBarrier)
+  bossBarr.image_yscale=2.25
+  oPlayer1.x=224; oPlayer1.y=288
+  storeStatus(1)
+  boss=instance_create(528,272,oControlVirus)
+  boss.activateBoss=1
+}
+else
+{
+  var tempMplay;
+  tempMplay=findMusic(3)
+}
+playMusic(tempMplay,0,0)</creationCode>
+  <backgroundColor>D0D0C8</backgroundColor>
+  <drawBackgroundColor>true</drawBackgroundColor>
+  <clearViewBackground>true</clearViewBackground>
+  <backgrounds>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+  </backgrounds>
+  <enableViews>true</enableViews>
+  <views>
+    <view>
+      <visibleOnRoomStart>true</visibleOnRoomStart>
+      <viewInRoom height="352" width="480" x="0" y="0"/>
+      <portOnScreen height="352" width="480" x="0" y="0"/>
+      <objectFollowing hBorder="240" hSpeed="-1" vBorder="176" vSpeed="-1">oPlayer1</objectFollowing>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+  </views>
+  <instances>
+    <instance id="160939">
+      <object>oExit</object>
+      <position x="0" y="256"/>
+      <creationCode>bShowArrow=true
+exitType=1
+newMapX=2128
+newMapY=288
+toRoom=rCCity_CCD</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="161123">
+      <object>oHealingPost</object>
+      <position x="88" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="295778">
+      <object>oControlCenterComputer</object>
+      <position x="224" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="160964">
+      <object>oConveyorA</object>
+      <position x="128" y="288"/>
+      <creationCode>drawType=0
+pushPower=1.5
+image_xscale=24</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="246170">
+      <object>oWalletBoost</object>
+      <position x="904" y="272"/>
+      <creationCode>objectNum=9</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="455646">
+      <object>oSolidVirusBlock</object>
+      <position x="512" y="176"/>
+      <creationCode>image_yscale=5
+if global.gameProgress&gt;=990 and global.bBossGallery=0 {instance_destroy()}</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="455647">
+      <object>oSolidVirusBlock</object>
+      <position x="528" y="176"/>
+      <creationCode>image_yscale=5
+if global.gameProgress&gt;=990 and global.bBossGallery=0 {instance_destroy()}</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="455648">
+      <object>oSolidVirusBlock</object>
+      <position x="544" y="256"/>
+      <creationCode>image_xscale=6
+if global.gameProgress&gt;=990 and global.bBossGallery=0 {instance_destroy()}</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="455649">
+      <object>oSolidVirusBlock</object>
+      <position x="544" y="272"/>
+      <creationCode>image_xscale=6
+if global.gameProgress&gt;=990 and global.bBossGallery=0 {instance_destroy()}</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="455650">
+      <object>oSolidVirusBlock</object>
+      <position x="48" y="120"/>
+      <creationCode>image_xscale=4
+if global.gameProgress&gt;=990 and global.bBossGallery=0 {instance_destroy()}</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="455651">
+      <object>oSolidVirusBlock</object>
+      <position x="176" y="120"/>
+      <creationCode>image_xscale=6
+if global.gameProgress&gt;=990 and global.bBossGallery=0 {instance_destroy()}</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="455652">
+      <object>oSolidVirusBlock</object>
+      <position x="336" y="120"/>
+      <creationCode>image_xscale=4
+if global.gameProgress&gt;=990 and global.bBossGallery=0 {instance_destroy()}</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="455653">
+      <object>oSolidVirusBlock</object>
+      <position x="128" y="320"/>
+      <creationCode>image_xscale=24
+if global.gameProgress&gt;=990 and global.bBossGallery=0 {instance_destroy()}</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="161122">
+      <object>oBotDoorA</object>
+      <position x="144" y="288"/>
+      <creationCode>bFunctional=0
+pushDir=0</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="160938">
+      <object>oPlayer1</object>
+      <position x="48" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="160941">
+      <object>oInvCollPH</object>
+      <position x="16" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="160942">
+      <object>oInvCollPH</object>
+      <position x="32" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="160943">
+      <object>oInvCollPH</object>
+      <position x="48" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="160944">
+      <object>oInvCollPH</object>
+      <position x="64" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="160945">
+      <object>oInvCollPH</object>
+      <position x="80" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="160946">
+      <object>oInvCollPH</object>
+      <position x="96" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="160947">
+      <object>oInvCollPH</object>
+      <position x="112" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="160955">
+      <object>oInvCollPH</object>
+      <position x="32" y="112"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="160956">
+      <object>oInvCollPH</object>
+      <position x="32" y="128"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="160957">
+      <object>oInvCollPH</object>
+      <position x="32" y="144"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="160958">
+      <object>oInvCollPH</object>
+      <position x="32" y="160"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="160959">
+      <object>oInvCollPH</object>
+      <position x="32" y="176"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="160960">
+      <object>oInvCollPH</object>
+      <position x="32" y="192"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="160961">
+      <object>oInvCollPH</object>
+      <position x="32" y="208"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="160962">
+      <object>oInvCollPH</object>
+      <position x="16" y="208"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="160963">
+      <object>oInvCollPH</object>
+      <position x="0" y="208"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161002">
+      <object>oInvCollPH</object>
+      <position x="512" y="304"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161003">
+      <object>oInvCollPH</object>
+      <position x="512" y="320"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161004">
+      <object>oInvCollPH</object>
+      <position x="512" y="336"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161005">
+      <object>oInvCollPH</object>
+      <position x="528" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161006">
+      <object>oInvCollPH</object>
+      <position x="544" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161007">
+      <object>oInvCollPH</object>
+      <position x="560" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161008">
+      <object>oInvCollPH</object>
+      <position x="576" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161009">
+      <object>oInvCollPH</object>
+      <position x="592" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161010">
+      <object>oInvCollPH</object>
+      <position x="592" y="304"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161011">
+      <object>oInvCollPH</object>
+      <position x="592" y="320"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161012">
+      <object>oInvCollPH</object>
+      <position x="640" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161013">
+      <object>oInvCollPH</object>
+      <position x="656" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161014">
+      <object>oInvCollPH</object>
+      <position x="672" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161015">
+      <object>oInvCollPH</object>
+      <position x="688" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161016">
+      <object>oInvCollPH</object>
+      <position x="688" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161017">
+      <object>oInvCollPH</object>
+      <position x="640" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161018">
+      <object>oInvCollPH</object>
+      <position x="640" y="304"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161019">
+      <object>oInvCollPH</object>
+      <position x="640" y="320"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161020">
+      <object>oInvCollPH</object>
+      <position x="640" y="336"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161021">
+      <object>oInvCollPH</object>
+      <position x="800" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161022">
+      <object>oInvCollPH</object>
+      <position x="816" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161023">
+      <object>oInvCollPH</object>
+      <position x="832" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161024">
+      <object>oInvCollPH</object>
+      <position x="848" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161025">
+      <object>oInvCollPH</object>
+      <position x="848" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161026">
+      <object>oInvCollPH</object>
+      <position x="736" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161027">
+      <object>oInvCollPH</object>
+      <position x="720" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161029">
+      <object>oInvCollPH</object>
+      <position x="752" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161030">
+      <object>oInvCollPH</object>
+      <position x="768" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161031">
+      <object>oInvCollPH</object>
+      <position x="784" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161032">
+      <object>oInvCollPH</object>
+      <position x="864" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161033">
+      <object>oInvCollPH</object>
+      <position x="880" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161034">
+      <object>oInvCollPH</object>
+      <position x="896" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161035">
+      <object>oInvCollPH</object>
+      <position x="912" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161036">
+      <object>oInvCollPH</object>
+      <position x="928" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161037">
+      <object>oInvCollPH</object>
+      <position x="944" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161038">
+      <object>oInvCollPH</object>
+      <position x="960" y="192"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161039">
+      <object>oInvCollPH</object>
+      <position x="960" y="208"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161040">
+      <object>oInvCollPH</object>
+      <position x="960" y="224"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161041">
+      <object>oInvCollPH</object>
+      <position x="960" y="240"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161042">
+      <object>oInvCollPH</object>
+      <position x="960" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161043">
+      <object>oInvCollPH</object>
+      <position x="960" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161044">
+      <object>oInvCollPH</object>
+      <position x="416" y="192"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161046">
+      <object>oInvCollPH</object>
+      <position x="400" y="224"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161047">
+      <object>oInvCollPH</object>
+      <position x="400" y="240"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161052">
+      <object>oInvCollPH</object>
+      <position x="480" y="240"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161053">
+      <object>oInvCollPH</object>
+      <position x="480" y="224"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161054">
+      <object>oInvCollPH</object>
+      <position x="480" y="208"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161055">
+      <object>oInvCollPH</object>
+      <position x="480" y="192"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161056">
+      <object>oInvCollPH</object>
+      <position x="480" y="176"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161057">
+      <object>oInvCollPH</object>
+      <position x="592" y="192"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161058">
+      <object>oInvCollPH</object>
+      <position x="592" y="208"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161059">
+      <object>oInvCollPH</object>
+      <position x="608" y="208"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161060">
+      <object>oInvCollPH</object>
+      <position x="624" y="208"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161061">
+      <object>oInvCollPH</object>
+      <position x="640" y="208"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161062">
+      <object>oInvCollPH</object>
+      <position x="656" y="208"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161063">
+      <object>oInvCollPH</object>
+      <position x="672" y="208"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161064">
+      <object>oInvCollPH</object>
+      <position x="688" y="208"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161065">
+      <object>oInvCollPH</object>
+      <position x="704" y="208"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161066">
+      <object>oInvCollPH</object>
+      <position x="720" y="208"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161067">
+      <object>oInvCollPH</object>
+      <position x="736" y="208"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161068">
+      <object>oInvCollPH</object>
+      <position x="848" y="176"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161069">
+      <object>oInvCollPH</object>
+      <position x="848" y="192"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161070">
+      <object>oInvCollPH</object>
+      <position x="848" y="208"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161071">
+      <object>oInvCollPH</object>
+      <position x="832" y="208"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161072">
+      <object>oInvCollPH</object>
+      <position x="816" y="208"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161073">
+      <object>oInvCollPH</object>
+      <position x="800" y="208"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161074">
+      <object>oInvCollPH</object>
+      <position x="784" y="208"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161075">
+      <object>oInvCollPH</object>
+      <position x="768" y="208"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161076">
+      <object>oInvCollPH</object>
+      <position x="752" y="208"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161077">
+      <object>oInvCollPH</object>
+      <position x="112" y="128"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161078">
+      <object>oInvCollPH</object>
+      <position x="128" y="128"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161079">
+      <object>oInvCollPH</object>
+      <position x="144" y="128"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161080">
+      <object>oInvCollPH</object>
+      <position x="160" y="128"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161081">
+      <object>oInvCollPH</object>
+      <position x="160" y="112"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161082">
+      <object>oInvCollPH</object>
+      <position x="272" y="128"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161083">
+      <object>oInvCollPH</object>
+      <position x="288" y="128"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161084">
+      <object>oInvCollPH</object>
+      <position x="304" y="128"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161085">
+      <object>oInvCollPH</object>
+      <position x="320" y="128"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161086">
+      <object>oInvCollPH</object>
+      <position x="320" y="112"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161087">
+      <object>oInvCollPH</object>
+      <position x="48" y="96"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161088">
+      <object>oInvCollPH</object>
+      <position x="64" y="96"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161089">
+      <object>oInvCollPH</object>
+      <position x="80" y="96"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161090">
+      <object>oInvCollPH</object>
+      <position x="96" y="96"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161091">
+      <object>oInvCollPH</object>
+      <position x="176" y="96"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161092">
+      <object>oInvCollPH</object>
+      <position x="192" y="96"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161093">
+      <object>oInvCollPH</object>
+      <position x="208" y="96"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161094">
+      <object>oInvCollPH</object>
+      <position x="224" y="96"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161095">
+      <object>oInvCollPH</object>
+      <position x="240" y="96"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161096">
+      <object>oInvCollPH</object>
+      <position x="256" y="96"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161097">
+      <object>oInvCollPH</object>
+      <position x="336" y="96"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161098">
+      <object>oInvCollPH</object>
+      <position x="352" y="96"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161099">
+      <object>oInvCollPH</object>
+      <position x="368" y="96"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161100">
+      <object>oInvCollPH</object>
+      <position x="384" y="96"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161101">
+      <object>oInvCollPH</object>
+      <position x="400" y="128"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161102">
+      <object>oInvCollPH</object>
+      <position x="400" y="144"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161103">
+      <object>oInvCollPH</object>
+      <position x="400" y="160"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161104">
+      <object>oInvCollPH</object>
+      <position x="496" y="160"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161105">
+      <object>oInvCollPH</object>
+      <position x="512" y="160"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161106">
+      <object>oInvCollPH</object>
+      <position x="528" y="160"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161107">
+      <object>oInvCollPH</object>
+      <position x="544" y="160"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161108">
+      <object>oInvCollPH</object>
+      <position x="560" y="160"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161109">
+      <object>oInvCollPH</object>
+      <position x="576" y="160"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161110">
+      <object>oInvCollPH</object>
+      <position x="864" y="160"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161111">
+      <object>oInvCollPH</object>
+      <position x="880" y="160"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161112">
+      <object>oInvCollPH</object>
+      <position x="896" y="160"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161113">
+      <object>oInvCollPH</object>
+      <position x="912" y="160"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161114">
+      <object>oInvCollPH</object>
+      <position x="928" y="160"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161115">
+      <object>oInvCollPH</object>
+      <position x="944" y="160"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161116">
+      <object>oInvCollPH</object>
+      <position x="592" y="336"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="160965">
+      <object>oInvCollConvey</object>
+      <position x="144" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="160966">
+      <object>oInvCollConvey</object>
+      <position x="160" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="160967">
+      <object>oInvCollConvey</object>
+      <position x="176" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="160968">
+      <object>oInvCollConvey</object>
+      <position x="240" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="160969">
+      <object>oInvCollConvey</object>
+      <position x="224" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="160970">
+      <object>oInvCollConvey</object>
+      <position x="208" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="160971">
+      <object>oInvCollConvey</object>
+      <position x="192" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="160972">
+      <object>oInvCollConvey</object>
+      <position x="304" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="160973">
+      <object>oInvCollConvey</object>
+      <position x="288" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="160974">
+      <object>oInvCollConvey</object>
+      <position x="272" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="160975">
+      <object>oInvCollConvey</object>
+      <position x="256" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="160976">
+      <object>oInvCollConvey</object>
+      <position x="368" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="160977">
+      <object>oInvCollConvey</object>
+      <position x="352" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="160978">
+      <object>oInvCollConvey</object>
+      <position x="336" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="160979">
+      <object>oInvCollConvey</object>
+      <position x="320" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="160980">
+      <object>oInvCollConvey</object>
+      <position x="432" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="160981">
+      <object>oInvCollConvey</object>
+      <position x="416" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="160982">
+      <object>oInvCollConvey</object>
+      <position x="400" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="160983">
+      <object>oInvCollConvey</object>
+      <position x="384" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="160984">
+      <object>oInvCollConvey</object>
+      <position x="496" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="160985">
+      <object>oInvCollConvey</object>
+      <position x="480" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="160986">
+      <object>oInvCollConvey</object>
+      <position x="464" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="160987">
+      <object>oInvCollConvey</object>
+      <position x="448" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161119">
+      <object>oInvCollSM</object>
+      <position x="432" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161120">
+      <object>oInvCollSM</object>
+      <position x="448" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="161121">
+      <object>oInvCollSM</object>
+      <position x="464" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="160940">
+      <object>oInvisibleSolid</object>
+      <position x="0" y="288"/>
+      <creationCode>image_xscale=8
+image_yscale=4</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="160953">
+      <object>oInvisibleSolid</object>
+      <position x="0" y="112"/>
+      <creationCode>image_xscale=3
+image_yscale=7</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="160954">
+      <object>oInvisibleSolid</object>
+      <position x="0" y="0"/>
+      <creationCode>image_xscale=63
+image_yscale=7</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="160992">
+      <object>oInvisibleSolid</object>
+      <position x="112" y="112"/>
+      <creationCode>image_xscale=4
+image_yscale=2</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="160993">
+      <object>oInvisibleSolid</object>
+      <position x="272" y="112"/>
+      <creationCode>image_xscale=4
+image_yscale=2</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="160994">
+      <object>oInvisibleSolid</object>
+      <position x="416" y="176"/>
+      <creationCode>image_xscale=5
+image_yscale=2</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="160995">
+      <object>oInvisibleSolid</object>
+      <position x="400" y="112"/>
+      <creationCode>image_xscale=38
+image_yscale=4</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="160996">
+      <object>oInvisibleSolid</object>
+      <position x="592" y="176"/>
+      <creationCode>image_xscale=17
+image_yscale=3</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="160997">
+      <object>oInvisibleSolid</object>
+      <position x="960" y="176"/>
+      <creationCode>image_xscale=3
+image_yscale=11</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="160998">
+      <object>oInvisibleSolid</object>
+      <position x="704" y="288"/>
+      <creationCode>image_xscale=16
+image_yscale=4</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="160999">
+      <object>oInvisibleSolid</object>
+      <position x="800" y="256"/>
+      <creationCode>image_xscale=4
+image_yscale=2</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="161000">
+      <object>oInvisibleSolid</object>
+      <position x="512" y="288"/>
+      <creationCode>image_xscale=6
+image_yscale=4</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="161001">
+      <object>oInvisibleSolid</object>
+      <position x="640" y="256"/>
+      <creationCode>image_xscale=4
+image_yscale=6</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="161117">
+      <object>oInvisibleSolid</object>
+      <position x="400" y="208"/>
+      <creationCode>image_xscale=6
+image_yscale=3</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="161118">
+      <object>oInvisibleSolidMorph</object>
+      <position x="416" y="256"/>
+      <creationCode>image_xscale=4</creationCode>
+      <locked>false</locked>
+    </instance>
+  </instances>
+  <tiles>
+    <tile id="10107396">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="64" y="48"/>
+      <roomPosition x="0" y="288"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107397">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="64" y="48"/>
+      <roomPosition x="64" y="288"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107398">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="0" y="320"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107399">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="32" y="320"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107400">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="64" y="320"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107401">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="96" y="320"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107402">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="0" y="176"/>
+      <size height="48" width="48"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107403">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="0"/>
+      <roomPosition x="0" y="224"/>
+      <size height="16" width="48"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107405">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="0" y="144"/>
+      <size height="32" width="48"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107406">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="0" y="112"/>
+      <size height="32" width="48"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107411">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="176" y="48"/>
+      <roomPosition x="32" y="96"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107413">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="80"/>
+      <roomPosition x="48" y="80"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107415">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="80"/>
+      <roomPosition x="80" y="80"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107418">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="48" y="0"/>
+      <size height="80" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107419">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="80" y="0"/>
+      <size height="80" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107420">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="112" y="0"/>
+      <size height="80" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107421">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="144" y="0"/>
+      <size height="80" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107422">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="16" y="0"/>
+      <size height="80" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107423">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="16" y="0"/>
+      <roomPosition x="0" y="0"/>
+      <size height="80" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107424">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="0" y="80"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107425">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="32" y="80"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107426">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="0"/>
+      <roomPosition x="48" y="112"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107427">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="0"/>
+      <roomPosition x="80" y="112"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107440">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="80"/>
+      <roomPosition x="176" y="80"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107441">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="80"/>
+      <roomPosition x="208" y="80"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107442">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="80"/>
+      <roomPosition x="240" y="80"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107444">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="176" y="0"/>
+      <size height="80" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107445">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="208" y="0"/>
+      <size height="80" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107446">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="240" y="0"/>
+      <size height="80" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107447">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="272" y="0"/>
+      <size height="80" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107448">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="0"/>
+      <roomPosition x="176" y="112"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107449">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="0"/>
+      <roomPosition x="208" y="112"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107450">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="0"/>
+      <roomPosition x="240" y="112"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107456">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="80"/>
+      <roomPosition x="336" y="80"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107458">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="0"/>
+      <roomPosition x="336" y="112"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107459">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="304" y="0"/>
+      <size height="80" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107460">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="336" y="0"/>
+      <size height="80" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107464">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="128" y="80"/>
+      <roomPosition x="112" y="112"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107465">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="128" y="80"/>
+      <roomPosition x="272" y="112"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107466">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="80"/>
+      <roomPosition x="368" y="80"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107468">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="112" y="80"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107469">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="144" y="80"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107470">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="272" y="80"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107471">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="304" y="80"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107472">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="0"/>
+      <roomPosition x="128" y="144"/>
+      <size height="16" width="48"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107473">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="0"/>
+      <roomPosition x="288" y="144"/>
+      <size height="16" width="48"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107475">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="64" y="0"/>
+      <roomPosition x="272" y="144"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107480">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="368" y="0"/>
+      <size height="80" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107481">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="400" y="0"/>
+      <size height="80" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107482">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="128" y="64"/>
+      <roomPosition x="400" y="112"/>
+      <size height="32" width="48"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107487">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="0"/>
+      <roomPosition x="368" y="112"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107488">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="400" y="80"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107512">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="64" y="0"/>
+      <roomPosition x="112" y="144"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107513">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="128" y="64"/>
+      <roomPosition x="400" y="208"/>
+      <size height="48" width="48"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107515">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="64" y="0"/>
+      <roomPosition x="400" y="256"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107518">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="448" y="208"/>
+      <size height="48" width="48"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107520">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="448" y="176"/>
+      <size height="32" width="48"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107523">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="496" y="128"/>
+      <size height="48" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107524">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="528" y="128"/>
+      <size height="48" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107525">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="560" y="128"/>
+      <size height="48" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107527">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="128" y="64"/>
+      <roomPosition x="592" y="176"/>
+      <size height="48" width="48"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107528">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="640" y="176"/>
+      <size height="48" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107529">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="672" y="176"/>
+      <size height="48" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107530">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="704" y="176"/>
+      <size height="48" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107531">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="64" y="48"/>
+      <roomPosition x="544" y="288"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107533">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="64" y="48"/>
+      <roomPosition x="640" y="256"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107534">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="64" y="48"/>
+      <roomPosition x="736" y="288"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107535">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="64" y="48"/>
+      <roomPosition x="800" y="256"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107536">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="736" y="176"/>
+      <size height="48" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107537">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="768" y="176"/>
+      <size height="48" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107538">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="800" y="176"/>
+      <size height="48" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107540">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="64" y="48"/>
+      <roomPosition x="896" y="288"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107542">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="96" y="48"/>
+      <roomPosition x="864" y="288"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107544">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="128" y="64"/>
+      <roomPosition x="960" y="224"/>
+      <size height="32" width="48"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107545">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="128" y="64"/>
+      <roomPosition x="960" y="192"/>
+      <size height="32" width="48"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107546">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="160" y="64"/>
+      <roomPosition x="832" y="176"/>
+      <size height="48" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107547">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="864" y="128"/>
+      <size height="48" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107548">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="896" y="128"/>
+      <size height="48" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107549">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="928" y="128"/>
+      <size height="48" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107550">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="128" y="80"/>
+      <roomPosition x="960" y="176"/>
+      <size height="16" width="48"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107551">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="432" y="0"/>
+      <size height="80" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107552">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="464" y="0"/>
+      <size height="80" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107553">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="496" y="0"/>
+      <size height="80" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107554">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="528" y="0"/>
+      <size height="80" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107555">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="560" y="0"/>
+      <size height="80" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107556">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="592" y="0"/>
+      <size height="80" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107557">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="624" y="0"/>
+      <size height="80" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107558">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="656" y="0"/>
+      <size height="80" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107559">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="688" y="0"/>
+      <size height="80" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107560">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="720" y="0"/>
+      <size height="80" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107561">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="752" y="0"/>
+      <size height="80" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107562">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="784" y="0"/>
+      <size height="80" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107563">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="816" y="0"/>
+      <size height="80" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107564">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="848" y="0"/>
+      <size height="80" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107565">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="880" y="0"/>
+      <size height="80" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107566">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="912" y="0"/>
+      <size height="80" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107567">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="944" y="0"/>
+      <size height="80" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107568">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="976" y="0"/>
+      <size height="80" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107569">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="432" y="80"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107570">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="464" y="80"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107571">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="496" y="80"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107572">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="528" y="80"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107573">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="560" y="80"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107574">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="592" y="80"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107575">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="624" y="80"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107576">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="656" y="80"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107577">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="688" y="80"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107578">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="720" y="80"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107579">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="752" y="80"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107580">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="784" y="80"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107581">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="816" y="80"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107582">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="848" y="80"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107583">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="880" y="80"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107584">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="912" y="80"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107585">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="944" y="80"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107586">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="976" y="80"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107587">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="448" y="112"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107588">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="448" y="144"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107589">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="592" y="112"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107590">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="624" y="112"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107591">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="656" y="112"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107592">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="688" y="112"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107593">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="720" y="112"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107594">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="752" y="112"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107595">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="784" y="112"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107596">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="816" y="112"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107597">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="592" y="144"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107598">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="624" y="144"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107599">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="656" y="144"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107600">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="688" y="144"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107601">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="720" y="144"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107602">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="752" y="144"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107603">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="784" y="144"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107604">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="816" y="144"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107605">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="976" y="112"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107606">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="976" y="144"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107607">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="496" y="112"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107608">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="528" y="112"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107609">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="560" y="112"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107610">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="864" y="112"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107611">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="896" y="112"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107612">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="928" y="112"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107613">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="480" y="112"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107614">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="480" y="144"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107615">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="848" y="112"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107616">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="848" y="144"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107617">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="960" y="112"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107618">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="960" y="144"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107625">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="512" y="320"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107626">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="544" y="320"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107627">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="576" y="320"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107629">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="640" y="288"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107630">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="640" y="320"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107631">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="672" y="288"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107632">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="672" y="320"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107633">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="736" y="320"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107634">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="768" y="320"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107635">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="800" y="320"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107636">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="832" y="320"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107637">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="864" y="320"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107638">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="896" y="320"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107639">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="928" y="320"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107640">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="800" y="288"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107641">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="832" y="288"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107648">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="128" y="64"/>
+      <roomPosition x="960" y="256"/>
+      <size height="32" width="48"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107649">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="128" y="64"/>
+      <roomPosition x="960" y="288"/>
+      <size height="32" width="48"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107650">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="128" y="64"/>
+      <roomPosition x="960" y="320"/>
+      <size height="32" width="48"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107651">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="0"/>
+      <roomPosition x="496" y="176"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107652">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="0"/>
+      <roomPosition x="528" y="176"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107653">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="0"/>
+      <roomPosition x="560" y="176"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107654">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="0"/>
+      <roomPosition x="864" y="176"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107655">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="0"/>
+      <roomPosition x="896" y="176"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107656">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="0"/>
+      <roomPosition x="928" y="176"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107658">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="0"/>
+      <roomPosition x="816" y="224"/>
+      <size height="16" width="48"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107659">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="0"/>
+      <roomPosition x="784" y="224"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107660">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="0"/>
+      <roomPosition x="752" y="224"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107661">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="0"/>
+      <roomPosition x="720" y="224"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107662">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="0"/>
+      <roomPosition x="688" y="224"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107663">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="0"/>
+      <roomPosition x="656" y="224"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107664">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="0"/>
+      <roomPosition x="624" y="224"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107665">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="64" y="0"/>
+      <roomPosition x="592" y="224"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107666">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="0"/>
+      <roomPosition x="608" y="224"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107667">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="128" y="64"/>
+      <roomPosition x="416" y="176"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107669">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="128" y="64"/>
+      <roomPosition x="400" y="144"/>
+      <size height="32" width="48"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107670">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="128" y="96"/>
+      <roomPosition x="400" y="160"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107671">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="128" y="48"/>
+      <roomPosition x="416" y="160"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107672">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="176" y="48"/>
+      <roomPosition x="400" y="208"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107674">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="64" y="0"/>
+      <roomPosition x="400" y="176"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107676">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="176" y="96"/>
+      <roomPosition x="416" y="208"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107678">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="32" y="32"/>
+      <roomPosition x="0" y="272"/>
+      <size height="16" width="48"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107679">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="32" y="32"/>
+      <roomPosition x="48" y="272"/>
+      <size height="16" width="48"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107680">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="32" y="32"/>
+      <roomPosition x="512" y="272"/>
+      <size height="16" width="48"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107681">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="32" y="32"/>
+      <roomPosition x="560" y="272"/>
+      <size height="16" width="48"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107682">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="32" y="32"/>
+      <roomPosition x="640" y="240"/>
+      <size height="16" width="48"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107684">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="32" y="32"/>
+      <roomPosition x="800" y="240"/>
+      <size height="16" width="48"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107685">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="32" y="32"/>
+      <roomPosition x="864" y="272"/>
+      <size height="16" width="48"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107687">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="32" y="32"/>
+      <roomPosition x="912" y="272"/>
+      <size height="16" width="48"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107688">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="32" y="32"/>
+      <roomPosition x="848" y="240"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107690">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="32" y="32"/>
+      <roomPosition x="688" y="240"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107691">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="32" y="32"/>
+      <roomPosition x="96" y="272"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107759">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="96" y="48"/>
+      <roomPosition x="512" y="288"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107765">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="32" y="32"/>
+      <roomPosition x="704" y="272"/>
+      <size height="16" width="48"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107766">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="32" y="32"/>
+      <roomPosition x="752" y="272"/>
+      <size height="16" width="48"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107767">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="128" y="96"/>
+      <roomPosition x="416" y="256"/>
+      <size height="16" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107768">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="176" y="0"/>
+      <roomPosition x="480" y="256"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107769">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="0"/>
+      <roomPosition x="432" y="272"/>
+      <size height="16" width="48"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107770">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="64" y="0"/>
+      <roomPosition x="416" y="272"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107476">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="128" y="48"/>
+      <roomPosition x="112" y="96"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107477">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="128" y="48"/>
+      <roomPosition x="272" y="96"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107478">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="176" y="48"/>
+      <roomPosition x="160" y="96"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107479">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="176" y="48"/>
+      <roomPosition x="320" y="96"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107489">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="128" y="48"/>
+      <roomPosition x="400" y="96"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107619">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="128" y="48"/>
+      <roomPosition x="592" y="160"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107620">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="128" y="48"/>
+      <roomPosition x="960" y="160"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107621">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="176" y="48"/>
+      <roomPosition x="848" y="160"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107622">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="176" y="48"/>
+      <roomPosition x="480" y="160"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107693">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="16"/>
+      <roomPosition x="880" y="256"/>
+      <size height="32" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107694">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="16"/>
+      <roomPosition x="928" y="256"/>
+      <size height="32" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107695">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="16"/>
+      <roomPosition x="560" y="256"/>
+      <size height="32" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107696">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="16"/>
+      <roomPosition x="48" y="256"/>
+      <size height="32" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107697">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="48" y="16"/>
+      <roomPosition x="160" y="224"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107698">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="48" y="16"/>
+      <roomPosition x="272" y="224"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107699">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="48" y="16"/>
+      <roomPosition x="128" y="208"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107700">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="48" y="16"/>
+      <roomPosition x="912" y="192"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107701">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="48" y="16"/>
+      <roomPosition x="928" y="192"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107702">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="48" y="0"/>
+      <roomPosition x="880" y="208"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107703">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="48" y="0"/>
+      <roomPosition x="560" y="192"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107704">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="48" y="0"/>
+      <roomPosition x="368" y="144"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107705">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="48" y="0"/>
+      <roomPosition x="64" y="160"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107706">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="32" y="0"/>
+      <roomPosition x="240" y="176"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107707">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="32" y="0"/>
+      <roomPosition x="912" y="224"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107708">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="160" y="32"/>
+      <roomPosition x="136" y="144"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107709">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="160" y="32"/>
+      <roomPosition x="296" y="144"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107710">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="160" y="48"/>
+      <roomPosition x="192" y="128"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107711">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="160" y="48"/>
+      <roomPosition x="748" y="230"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107712">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="112" y="0"/>
+      <roomPosition x="528" y="176"/>
+      <size height="32" width="32"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107713">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="528" y="256"/>
+      <size height="32" width="32"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107714">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="768" y="256"/>
+      <size height="32" width="32"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107715">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="112" y="0"/>
+      <roomPosition x="768" y="224"/>
+      <size height="32" width="32"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107716">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="64" y="80"/>
+      <roomPosition x="448" y="272"/>
+      <size height="32" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107717">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="64" y="80"/>
+      <roomPosition x="432" y="272"/>
+      <size height="32" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107719">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="80" y="80"/>
+      <roomPosition x="432" y="304"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107720">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="80" y="80"/>
+      <roomPosition x="432" y="320"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107721">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="80" y="80"/>
+      <roomPosition x="432" y="336"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107723">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="80" y="80"/>
+      <roomPosition x="448" y="304"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107724">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="80" y="80"/>
+      <roomPosition x="448" y="320"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107725">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="80" y="80"/>
+      <roomPosition x="448" y="336"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107726">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="48"/>
+      <roomPosition x="96" y="240"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107728">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="48"/>
+      <roomPosition x="352" y="176"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107729">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="48"/>
+      <roomPosition x="256" y="160"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107730">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="48"/>
+      <roomPosition x="608" y="240"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107731">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="48"/>
+      <roomPosition x="720" y="256"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107732">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="64" y="16"/>
+      <roomPosition x="944" y="240"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107733">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="64" y="16"/>
+      <roomPosition x="496" y="208"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107734">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="64" y="16"/>
+      <roomPosition x="336" y="240"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107735">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="64" y="16"/>
+      <roomPosition x="176" y="272"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107738">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="32" y="16"/>
+      <roomPosition x="96" y="128"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107739">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="32" y="16"/>
+      <roomPosition x="896" y="240"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107740">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="208" y="192"/>
+      <size height="32" width="32"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107741">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="240" y="192"/>
+      <size height="32" width="32"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107742">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="208" y="224"/>
+      <size height="32" width="32"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107743">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="240" y="224"/>
+      <size height="32" width="32"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107744">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="176" y="192"/>
+      <size height="32" width="32"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107745">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="176" y="224"/>
+      <size height="32" width="32"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107746">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="48" y="16"/>
+      <roomPosition x="272" y="208"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107747">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="48" y="16"/>
+      <roomPosition x="272" y="192"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107748">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="48" y="16"/>
+      <roomPosition x="272" y="240"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107749">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="48" y="16"/>
+      <roomPosition x="160" y="240"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107750">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="48" y="16"/>
+      <roomPosition x="160" y="208"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107751">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="48" y="16"/>
+      <roomPosition x="160" y="192"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107752">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="32" y="0"/>
+      <roomPosition x="224" y="176"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107753">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="32" y="0"/>
+      <roomPosition x="208" y="176"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107754">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="32" y="0"/>
+      <roomPosition x="192" y="176"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107755">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="32" y="0"/>
+      <roomPosition x="176" y="256"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107758">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="32" y="0"/>
+      <roomPosition x="256" y="256"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107760">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="528" y="208"/>
+      <size height="16" width="32"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107761">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="528" y="224"/>
+      <size height="16" width="32"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107762">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="112" y="16"/>
+      <roomPosition x="528" y="240"/>
+      <size height="16" width="32"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107763">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="96" y="48"/>
+      <roomPosition x="704" y="288"/>
+      <size height="32" width="32"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107764">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="0" y="0"/>
+      <roomPosition x="704" y="320"/>
+      <size height="32" width="32"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107771">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="144" y="64"/>
+      <roomPosition x="432" y="240"/>
+      <size height="16" width="32"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107772">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="176" y="48"/>
+      <roomPosition x="464" y="240"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10107773">
+      <background>tileCCControlC</background>
+      <backgroundPosition x="128" y="48"/>
+      <roomPosition x="416" y="240"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+  </tiles>
+  <editorSettings remember="true">
+    <size height="607" width="1167"/>
+    <showGrid>false</showGrid>
+    <showObjects>false</showObjects>
+    <showTiles>true</showTiles>
+    <showBackgrounds>true</showBackgrounds>
+    <showForegrounds>true</showForegrounds>
+    <showViews>false</showViews>
+    <deleteUnderlyingObjects>true</deleteUnderlyingObjects>
+    <deleteUnderlyingTiles>true</deleteUnderlyingTiles>
+    <currentTab>0</currentTab>
+    <horizontalScrollPosition>-34</horizontalScrollPosition>
+    <verticalScrollPosition>-89</verticalScrollPosition>
+  </editorSettings>
+</room>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  if zoneType=0 //Square
+  {
+    if collision_rectangle(x,y,x+zoneWidth,y+zoneHeight,oPlayer1,0,1)
+    {
+      oPlayer1.dashEnergy=0
+      if flashTime=0
+      {
+        if innerAlpha=0.3
+          innerAlpha=0.25
+        else
+          innerAlpha=0.3
+        flashTime=3
+      }
+      else
+        flashTime-=1
+    }
+    else
+    {
+      flashTime=0
+      innerAlpha=0.3
+    }
+  }
+  else if zoneType=1 //Circle
+  {
+    if collision_circle(x,y,zoneRadius,oPlayer1,0,1)
+    {
+      oPlayer1.dashEnergy=0
+      if flashTime=0
+      {
+        if innerAlpha=0.3
+          innerAlpha=0.25
+        else
+          innerAlpha=0.3
+        flashTime=3
+      }
+      else
+        flashTime-=1
+    }
+    else
+    {
+      flashTime=0
+      innerAlpha=0.3
+    }
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

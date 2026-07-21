@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="OTHER" id="10">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">///ITEM FINDER
+if global.itemFinder=1
+{
+  treasureFind+=1
+  if treasureFind=35
+  {
+    var tCheckItem;
+    tCheckItem=0
+    if instance_exists(oHeartPiece) {tCheckItem=1}
+    if instance_exists(oMoneyChest) {tCheckItem=1}
+    if instance_exists(oArrowQuiver) {tCheckItem=1}
+    if instance_exists(oHeartEnergy) {tCheckItem=1}
+    if instance_exists(oMissilePack) {tCheckItem=1}
+    if instance_exists(oGamePower) {tCheckItem=1}
+    if instance_exists(oAirUpgrade) {tCheckItem=1}
+    if instance_exists(oWalletBoost) {tCheckItem=1}
+    if instance_exists(oAPBoost) {tCheckItem=1}
+    if instance_exists(oWeaponLevelUpgrade) {tCheckItem=1}
+    if instance_exists(oLinkBombUpgrade) {tCheckItem=1}
+    if instance_exists(oMorphBombUpgrade) {tCheckItem=1}
+    if instance_exists(oMMBoostedCharge) {tCheckItem=1}
+    if instance_exists(oMetPick_SpringBall) {tCheckItem=1}
+    
+    if tCheckItem=1
+    {
+      if global.optChaoItemWarn=1 {playSound(global.snd_Chao_Hey,0,1,20050+random(4000))}
+      showEmote(oIdentifier,0,-6,sEmTreasure)
+      heartEmote=100
+    }
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

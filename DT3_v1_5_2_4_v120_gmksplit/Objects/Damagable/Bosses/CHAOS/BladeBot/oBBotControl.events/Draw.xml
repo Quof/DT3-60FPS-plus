@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="DRAW" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if bShareHP=1
+{
+  linkFrm+=0.33
+  var tMyDist,tMyDir;
+  if instance_exists(botA) and instance_exists(botB)
+  {
+    tMyDist=point_distance(botA.x,botA.y-40,botB.x,botB.y-40)
+    tMyDir=point_direction(botA.x,botA.y-40,botB.x,botB.y-40)
+    draw_sprite_ext(sEfLinkLightning,linkFrm,botA.x,botA.y-40,0.5,tMyDist/64,tMyDir+90,c_white,0.45)
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

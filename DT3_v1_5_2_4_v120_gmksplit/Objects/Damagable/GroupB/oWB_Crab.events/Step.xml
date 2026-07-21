@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  makeEnemyActive(0)
+  if bActive=true and stunnedTime=0 and life&gt;0
+  {
+    if initDir=0
+    {
+      xVel=runAcc
+      if x&gt;oPlayer1.x
+        xVel*=-1
+      initDir=1
+    }
+    
+    //Turn around if turn timer is 0
+    turnTime-=1
+    if turnTime=0
+    {
+      xVel*=-1
+      turnTime=30+irandom(30)
+    }
+    
+    //Check if at cliff edge and turn around
+    tDrop=0
+    if aiCheckHoriz(1,1,0,8,4)
+    {
+      if aiCheckVert(0,1,8,8,4)=1
+      {
+        tDrop=1
+      }
+    }
+    if tDrop=0
+    {
+      xVel*=-1
+      turnTime=45+irandom(45)
+    }
+    
+    yVel+=0.2
+    if isCollisionBottom(1)
+      yVel=0
+    if isCollisionLeft(1)
+      xVel*=-1
+    if isCollisionRight(1)
+      xVel*=-1
+    if isCollisionSolid()
+      y-=2
+    if xVel&gt;0
+      image_xscale=1
+    else
+      image_xscale=-1
+    moveTo(xVel,yVel)
+    if y&gt;room_height+24
+    {
+      if questType&gt;0
+        enemyQuest(questType)
+      instance_destroy()
+    }
+  }
+  else if life&lt;=0
+  {
+    deathAnim+=1
+    if deathAnim=1
+    {
+      sprite_index=sWB_Crab_Die
+      yDeath=-6
+    }
+    else if deathAnim&gt;=2
+    {
+      y+=yDeath
+      if yDeath&lt;12 {yDeath+=0.3}
+      if y&gt;room_height+24 {instance_destroy()}
+    }
+  }
+  enemyStepEvent()
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

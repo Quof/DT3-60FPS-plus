@@ -1,0 +1,925 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<room id="176">
+  <caption>[Gate 3] Say goodbye to the magical wooden vines for awhile.</caption>
+  <size height="352" width="480"/>
+  <grid>
+    <isometric>false</isometric>
+    <snap x="16" y="16"/>
+  </grid>
+  <speed>30</speed>
+  <persistent>false</persistent>
+  <creationCode>locationCheck(14)
+global.mapTeleport=0
+
+abilSetRemove(0)
+if global.hasAbilToken[2]&gt;=1 and global.gameProgress&lt;=1510
+{
+  global.activeAbility[1]=0
+  global.hasAbilToken[2]=1
+}
+
+if global.gameProgress&gt;=1520
+{
+  var instrProg;
+  instrProg=string_char_at(global.eGateProg,3)
+  if instrProg!="7" and instrProg!="9"
+  {
+    var tNewString;
+    tNewString=string_delete(global.eGateProg,3,1)
+    tNewString=string_insert("0",tNewString,3)
+    global.eGateProg=tNewString
+  }
+}
+
+gameScene=instance_create(0,0,oEvCh5MainA)
+
+var tempMplay;
+tempMplay=findMusic(4)
+playMusic(tempMplay,0,0)
+
+musicUnload(3)</creationCode>
+  <backgroundColor>0080C0</backgroundColor>
+  <drawBackgroundColor>true</drawBackgroundColor>
+  <clearViewBackground>false</clearViewBackground>
+  <backgrounds>
+    <backgroundDef>
+      <visibleOnRoomStart>true</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage>backMagicalQuestB</backgroundImage>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>true</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage>backMagicalQuestA</backgroundImage>
+      <offset x="0" y="154"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>false</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+  </backgrounds>
+  <enableViews>true</enableViews>
+  <views>
+    <view>
+      <visibleOnRoomStart>true</visibleOnRoomStart>
+      <viewInRoom height="352" width="480" x="0" y="0"/>
+      <portOnScreen height="352" width="480" x="0" y="0"/>
+      <objectFollowing hBorder="240" hSpeed="-1" vBorder="176" vSpeed="-1">oPlayer1</objectFollowing>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+  </views>
+  <instances>
+    <instance id="163998">
+      <object>oExit</object>
+      <position x="24" y="224"/>
+      <creationCode>sprite_index=sNormalDoor
+bShowArrow=true
+exitType=0
+newMapX=1984
+newMapY=176
+toRoom=rMain_14</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="164030">
+      <object>oAccessGate</object>
+      <position x="192" y="176"/>
+      <creationCode>cutsceneCheck=1130
+newMapX=192
+newMapY=288
+toRoom=rBelmont3_Gate</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="197287">
+      <object>oAccessGate</object>
+      <position x="384" y="128"/>
+      <creationCode>cutsceneCheck=0
+newMapX=80
+newMapY=304
+toRoom=rExtGateC_1
+image_blend=make_color_rgb(255,60,60)
+heartRec=9
+if global.gameProgress&lt;=1510
+  instance_destroy()</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="462923">
+      <object>oBlackCrowTown</object>
+      <position x="138" y="235"/>
+      <creationCode>image_xscale=-1</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="462924">
+      <object>oBlackCrowTown</object>
+      <position x="115" y="234"/>
+      <creationCode>image_xscale=-1</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="163997">
+      <object>oPlayer1</object>
+      <position x="64" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="164031">
+      <object>oSpikeZone</object>
+      <position x="0" y="144"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="164032">
+      <object>oSpikeZone</object>
+      <position x="16" y="128"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="164033">
+      <object>oSpikeZone</object>
+      <position x="32" y="112"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="164034">
+      <object>oSpikeZone</object>
+      <position x="48" y="96"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="164035">
+      <object>oSpikeZone</object>
+      <position x="64" y="80"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="164036">
+      <object>oSpikeZone</object>
+      <position x="80" y="64"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="164037">
+      <object>oSpikeZone</object>
+      <position x="96" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="164038">
+      <object>oSpikeZone</object>
+      <position x="112" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="164039">
+      <object>oSpikeZone</object>
+      <position x="128" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="164040">
+      <object>oSpikeZone</object>
+      <position x="144" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="164041">
+      <object>oSpikeZone</object>
+      <position x="160" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="164042">
+      <object>oSpikeZone</object>
+      <position x="176" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="164043">
+      <object>oSpikeZone</object>
+      <position x="192" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="164044">
+      <object>oSpikeZone</object>
+      <position x="208" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="164045">
+      <object>oSpikeZone</object>
+      <position x="224" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="164046">
+      <object>oSpikeZone</object>
+      <position x="240" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="164047">
+      <object>oSpikeZone</object>
+      <position x="256" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="164048">
+      <object>oSpikeZone</object>
+      <position x="272" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="164049">
+      <object>oSpikeZone</object>
+      <position x="288" y="64"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="164050">
+      <object>oSpikeZone</object>
+      <position x="304" y="80"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="164051">
+      <object>oSpikeZone</object>
+      <position x="320" y="96"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="164052">
+      <object>oSpikeZone</object>
+      <position x="336" y="96"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="164053">
+      <object>oSpikeZone</object>
+      <position x="352" y="96"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="164054">
+      <object>oSpikeZone</object>
+      <position x="368" y="96"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="164055">
+      <object>oSpikeZone</object>
+      <position x="384" y="96"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="164056">
+      <object>oSpikeZone</object>
+      <position x="400" y="96"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="164057">
+      <object>oSpikeZone</object>
+      <position x="416" y="96"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="164058">
+      <object>oSpikeZone</object>
+      <position x="432" y="96"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="164059">
+      <object>oSpikeZone</object>
+      <position x="448" y="96"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="164060">
+      <object>oSpikeZone</object>
+      <position x="464" y="96"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="163996">
+      <object>oWaterVolume</object>
+      <position x="0" y="272"/>
+      <creationCode>image_xscale=room_width
+image_yscale=room_height</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="164013">
+      <object>oInvCollPH</object>
+      <position x="16" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="164014">
+      <object>oInvCollPH</object>
+      <position x="32" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="164015">
+      <object>oInvCollPH</object>
+      <position x="48" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="164016">
+      <object>oInvCollPH</object>
+      <position x="64" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="164017">
+      <object>oInvCollPH</object>
+      <position x="80" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="164018">
+      <object>oInvCollPH</object>
+      <position x="96" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="164019">
+      <object>oInvCollPH</object>
+      <position x="112" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="164020">
+      <object>oInvCollPH</object>
+      <position x="128" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="164021">
+      <object>oInvCollPH</object>
+      <position x="144" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="164022">
+      <object>oInvCollPH</object>
+      <position x="208" y="240"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="164023">
+      <object>oInvCollPH</object>
+      <position x="224" y="240"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="164024">
+      <object>oInvCollPH</object>
+      <position x="240" y="240"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="164025">
+      <object>oInvCollPH</object>
+      <position x="400" y="304"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="164026">
+      <object>oInvCollPH</object>
+      <position x="416" y="304"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="164027">
+      <object>oInvCollPH</object>
+      <position x="432" y="304"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="164028">
+      <object>oInvCollPH</object>
+      <position x="448" y="304"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="164029">
+      <object>oInvCollPH</object>
+      <position x="464" y="304"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="189852">
+      <object>oInvCollPH</object>
+      <position x="400" y="192"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="189853">
+      <object>oInvCollPH</object>
+      <position x="416" y="192"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="189854">
+      <object>oInvCollPH</object>
+      <position x="432" y="192"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="197350">
+      <object>oInvCollPH</object>
+      <position x="448" y="192"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="197351">
+      <object>oInvCollPH</object>
+      <position x="464" y="192"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="164000">
+      <object>oInvisibleSolid</object>
+      <position x="0" y="256"/>
+      <creationCode>image_xscale=10</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="164001">
+      <object>oInvisibleSolid</object>
+      <position x="192" y="240"/>
+      <creationCode>image_xscale=4</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="164002">
+      <object>oInvisibleSolid</object>
+      <position x="384" y="304"/>
+      <creationCode>image_xscale=6</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="164003">
+      <object>oInvisibleRupLowSlope</object>
+      <position x="160" y="240"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="164004">
+      <object>oInvisibleLupLowSlope</object>
+      <position x="256" y="240"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="164005">
+      <object>oInvisibleLupLowSlope</object>
+      <position x="288" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="164006">
+      <object>oInvisibleLupLowSlope</object>
+      <position x="320" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="164007">
+      <object>oInvisibleLupLowSlope</object>
+      <position x="352" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="164008">
+      <object>oInvisibleRCeilingLowSlope</object>
+      <position x="256" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="164009">
+      <object>oInvisibleRCeilingLowSlope</object>
+      <position x="288" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="164010">
+      <object>oInvisibleRCeilingLowSlope</object>
+      <position x="320" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="164011">
+      <object>oInvisibleRCeilingLowSlope</object>
+      <position x="352" y="304"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="164012">
+      <object>oInvisibleLCeilingLowSlope</object>
+      <position x="160" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="189849">
+      <object>oInvisibleRupLowSlope</object>
+      <position x="352" y="192"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="189850">
+      <object>oInvisibleLCeilingLowSlope</object>
+      <position x="352" y="208"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="189851">
+      <object>oInvisibleSolid</object>
+      <position x="384" y="192"/>
+      <creationCode>image_xscale=6</creationCode>
+      <locked>false</locked>
+    </instance>
+  </instances>
+  <tiles>
+    <tile id="10113094">
+      <background>tileMagicalQuestA</background>
+      <backgroundPosition x="96" y="144"/>
+      <roomPosition x="0" y="224"/>
+      <size height="64" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10113097">
+      <background>tileMagicalQuestA</background>
+      <backgroundPosition x="64" y="144"/>
+      <roomPosition x="64" y="224"/>
+      <size height="64" width="128"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10113098">
+      <background>tileMagicalQuestA</background>
+      <backgroundPosition x="0" y="144"/>
+      <roomPosition x="192" y="208"/>
+      <size height="64" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10113099">
+      <background>tileMagicalQuestA</background>
+      <backgroundPosition x="96" y="320"/>
+      <roomPosition x="256" y="224"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10113100">
+      <background>tileMagicalQuestA</background>
+      <backgroundPosition x="96" y="320"/>
+      <roomPosition x="288" y="240"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10113101">
+      <background>tileMagicalQuestA</background>
+      <backgroundPosition x="96" y="320"/>
+      <roomPosition x="320" y="256"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10113102">
+      <background>tileMagicalQuestA</background>
+      <backgroundPosition x="96" y="320"/>
+      <roomPosition x="352" y="272"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10113103">
+      <background>tileMagicalQuestA</background>
+      <backgroundPosition x="64" y="144"/>
+      <roomPosition x="384" y="272"/>
+      <size height="64" width="96"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10113104">
+      <background>tileMagicalQuestA</background>
+      <backgroundPosition x="48" y="96"/>
+      <roomPosition x="400" y="304"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10113105">
+      <background>tileMagicalQuestA</background>
+      <backgroundPosition x="48" y="96"/>
+      <roomPosition x="112" y="256"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10113112">
+      <background>tileMagicalQuestA</background>
+      <backgroundPosition x="48" y="208"/>
+      <roomPosition x="432" y="80"/>
+      <size height="48" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10113113">
+      <background>tileMagicalQuestA</background>
+      <backgroundPosition x="48" y="208"/>
+      <roomPosition x="400" y="80"/>
+      <size height="48" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10113114">
+      <background>tileMagicalQuestA</background>
+      <backgroundPosition x="48" y="208"/>
+      <roomPosition x="368" y="80"/>
+      <size height="48" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10113115">
+      <background>tileMagicalQuestA</background>
+      <backgroundPosition x="48" y="208"/>
+      <roomPosition x="336" y="80"/>
+      <size height="48" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10113116">
+      <background>tileMagicalQuestA</background>
+      <backgroundPosition x="96" y="208"/>
+      <roomPosition x="320" y="80"/>
+      <size height="48" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10113118">
+      <background>tileMagicalQuestA</background>
+      <backgroundPosition x="96" y="208"/>
+      <roomPosition x="304" y="64"/>
+      <size height="48" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10113119">
+      <background>tileMagicalQuestA</background>
+      <backgroundPosition x="96" y="208"/>
+      <roomPosition x="288" y="48"/>
+      <size height="48" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10113121">
+      <background>tileMagicalQuestA</background>
+      <backgroundPosition x="48" y="208"/>
+      <roomPosition x="224" y="32"/>
+      <size height="48" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10113122">
+      <background>tileMagicalQuestA</background>
+      <backgroundPosition x="48" y="208"/>
+      <roomPosition x="192" y="32"/>
+      <size height="48" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10113123">
+      <background>tileMagicalQuestA</background>
+      <backgroundPosition x="48" y="208"/>
+      <roomPosition x="160" y="32"/>
+      <size height="48" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10113124">
+      <background>tileMagicalQuestA</background>
+      <backgroundPosition x="48" y="208"/>
+      <roomPosition x="128" y="32"/>
+      <size height="48" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10113125">
+      <background>tileMagicalQuestA</background>
+      <backgroundPosition x="80" y="208"/>
+      <roomPosition x="96" y="32"/>
+      <size height="48" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10113126">
+      <background>tileMagicalQuestA</background>
+      <backgroundPosition x="80" y="208"/>
+      <roomPosition x="80" y="48"/>
+      <size height="48" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10113127">
+      <background>tileMagicalQuestA</background>
+      <backgroundPosition x="80" y="208"/>
+      <roomPosition x="64" y="64"/>
+      <size height="48" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10113128">
+      <background>tileMagicalQuestA</background>
+      <backgroundPosition x="80" y="208"/>
+      <roomPosition x="48" y="80"/>
+      <size height="48" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10113129">
+      <background>tileMagicalQuestA</background>
+      <backgroundPosition x="80" y="208"/>
+      <roomPosition x="32" y="96"/>
+      <size height="48" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10113130">
+      <background>tileMagicalQuestA</background>
+      <backgroundPosition x="80" y="208"/>
+      <roomPosition x="16" y="112"/>
+      <size height="48" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10113131">
+      <background>tileMagicalQuestA</background>
+      <backgroundPosition x="80" y="208"/>
+      <roomPosition x="0" y="128"/>
+      <size height="48" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10166759">
+      <background>tileMagicalQuestA</background>
+      <backgroundPosition x="0" y="144"/>
+      <roomPosition x="416" y="160"/>
+      <size height="64" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10166760">
+      <background>tileMagicalQuestA</background>
+      <backgroundPosition x="176" y="144"/>
+      <roomPosition x="368" y="176"/>
+      <size height="48" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10166761">
+      <background>tileMagicalQuestA</background>
+      <backgroundPosition x="32" y="400"/>
+      <roomPosition x="336" y="192"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10179544">
+      <background>tileMagicalQuestA</background>
+      <backgroundPosition x="48" y="208"/>
+      <roomPosition x="464" y="80"/>
+      <size height="48" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10179545">
+      <background>tileMagicalQuestA</background>
+      <backgroundPosition x="64" y="160"/>
+      <roomPosition x="384" y="176"/>
+      <size height="48" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+  </tiles>
+  <editorSettings remember="true">
+    <size height="609" width="977"/>
+    <showGrid>false</showGrid>
+    <showObjects>false</showObjects>
+    <showTiles>true</showTiles>
+    <showBackgrounds>true</showBackgrounds>
+    <showForegrounds>true</showForegrounds>
+    <showViews>false</showViews>
+    <deleteUnderlyingObjects>true</deleteUnderlyingObjects>
+    <deleteUnderlyingTiles>true</deleteUnderlyingTiles>
+    <currentTab>0</currentTab>
+    <horizontalScrollPosition>-91</horizontalScrollPosition>
+    <verticalScrollPosition>-91</verticalScrollPosition>
+  </editorSettings>
+</room>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  atkTime+=1
+  speed=mySpd
+  image_angle=direction
+  if atkType=0
+  {
+    if isCollisionSolid()
+    {
+      myAtk=instance_create(x,y,oTOTO_FireA)
+      myAtk.atkType=1; myAtk.mySpd=10; myAtk.atkPower=atkPower-1
+      myAtk.direction=random_range(0,10); myAtk.image_xscale=2; myAtk.image_yscale=2
+      myAtk=instance_create(x,y,oTOTO_FireA)
+      myAtk.atkType=1; myAtk.mySpd=10; myAtk.atkPower=atkPower-1
+      myAtk.direction=random_range(170,180); myAtk.image_xscale=2; myAtk.image_yscale=2
+      instance_destroy()
+    }
+  }
+  else if atkType=1
+  {
+    image_alpha-=0.04
+    if image_alpha&lt;=0.25 {bCanDealDamage=false}
+    if image_alpha&lt;=0 {instance_destroy()}
+  }
+}
+else {speed=0}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

@@ -1,0 +1,3959 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<room id="217">
+  <caption>[G3-6C] Enter: Death's big bad brother!</caption>
+  <size height="560" width="1056"/>
+  <grid>
+    <isometric>false</isometric>
+    <snap x="16" y="16"/>
+  </grid>
+  <speed>30</speed>
+  <persistent>false</persistent>
+  <creationCode>locationCheck(15)
+
+if global.gameProgress=1420 {global.gameProgress=1430}
+
+gameScene=instance_create(0,0,oEvCh6MainA)
+
+if global.bossTrack=1 //Boss Fight: Menace
+{
+  with oEnemyBase
+    instance_destroy()
+  var tempMplay,bBarrier;
+  tempMplay=findMusic(805)
+  bBarrier=instance_create(272,448,oBossBarrier)
+  oPlayer1.x=608; oPlayer1.y=384
+  storeStatus(1)
+  boss=instance_create(848,200,oMenaceMain)
+  boss.activateBoss=1
+}
+else
+{
+  var tempMplay;
+  if global.gameProgress&lt;=1430
+    tempMplay=findMusic(202)
+  else
+    tempMplay=findMusic(306)
+}
+playMusic(tempMplay,0,0)</creationCode>
+  <backgroundColor>281820</backgroundColor>
+  <drawBackgroundColor>true</drawBackgroundColor>
+  <clearViewBackground>true</clearViewBackground>
+  <backgrounds>
+    <backgroundDef>
+      <visibleOnRoomStart>true</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage>backCastlevaniaI</backgroundImage>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+  </backgrounds>
+  <enableViews>true</enableViews>
+  <views>
+    <view>
+      <visibleOnRoomStart>true</visibleOnRoomStart>
+      <viewInRoom height="352" width="480" x="0" y="0"/>
+      <portOnScreen height="352" width="480" x="0" y="0"/>
+      <objectFollowing hBorder="240" hSpeed="-1" vBorder="176" vSpeed="-1">oPlayer1</objectFollowing>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+  </views>
+  <instances>
+    <instance id="179712">
+      <object>oExit</object>
+      <position x="96" y="480"/>
+      <creationCode>sprite_index=sCVDoor
+bShowArrow=true
+exitType=0
+newMapX=2752
+newMapY=256
+toRoom=rBelmont3_6B</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="179966">
+      <object>oHealingPost</object>
+      <position x="192" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179947">
+      <object>oZeldaBreakPot</object>
+      <position x="344" y="240"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179948">
+      <object>oZeldaBreakPot</object>
+      <position x="344" y="368"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179714">
+      <object>oPlayer1</object>
+      <position x="144" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="455764">
+      <object>oSpikeZone</object>
+      <position x="256" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="455765">
+      <object>oSpikeZone</object>
+      <position x="272" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="455766">
+      <object>oSpikeZone</object>
+      <position x="288" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="455767">
+      <object>oSpikeZone</object>
+      <position x="304" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="455768">
+      <object>oSpikeZone</object>
+      <position x="320" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="455769">
+      <object>oSpikeZone</object>
+      <position x="336" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="455770">
+      <object>oSpikeZone</object>
+      <position x="352" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="455771">
+      <object>oSpikeZone</object>
+      <position x="368" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="455772">
+      <object>oSpikeZone</object>
+      <position x="384" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="455773">
+      <object>oSpikeZone</object>
+      <position x="400" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="455774">
+      <object>oSpikeZone</object>
+      <position x="416" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="455775">
+      <object>oSpikeZone</object>
+      <position x="432" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="455776">
+      <object>oSpikeZone</object>
+      <position x="448" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="455777">
+      <object>oSpikeZone</object>
+      <position x="464" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="455778">
+      <object>oSpikeZone</object>
+      <position x="480" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="455779">
+      <object>oSpikeZone</object>
+      <position x="496" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="455780">
+      <object>oSpikeZone</object>
+      <position x="512" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="455781">
+      <object>oSpikeZone</object>
+      <position x="528" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="455782">
+      <object>oSpikeZone</object>
+      <position x="544" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="455783">
+      <object>oSpikeZone</object>
+      <position x="560" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="455784">
+      <object>oSpikeZone</object>
+      <position x="576" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="455785">
+      <object>oSpikeZone</object>
+      <position x="592" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="455786">
+      <object>oSpikeZone</object>
+      <position x="608" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="455787">
+      <object>oSpikeZone</object>
+      <position x="624" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="455788">
+      <object>oSpikeZone</object>
+      <position x="640" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="455789">
+      <object>oSpikeZone</object>
+      <position x="656" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="455790">
+      <object>oSpikeZone</object>
+      <position x="672" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="455791">
+      <object>oSpikeZone</object>
+      <position x="688" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="455792">
+      <object>oSpikeZone</object>
+      <position x="704" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="455793">
+      <object>oSpikeZone</object>
+      <position x="720" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="455794">
+      <object>oSpikeZone</object>
+      <position x="736" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="455795">
+      <object>oSpikeZone</object>
+      <position x="752" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="455796">
+      <object>oSpikeZone</object>
+      <position x="768" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="455797">
+      <object>oSpikeZone</object>
+      <position x="784" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="455798">
+      <object>oSpikeZone</object>
+      <position x="800" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="455799">
+      <object>oSpikeZone</object>
+      <position x="816" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="455800">
+      <object>oSpikeZone</object>
+      <position x="832" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="455801">
+      <object>oSpikeZone</object>
+      <position x="848" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="455802">
+      <object>oSpikeZone</object>
+      <position x="864" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="455803">
+      <object>oSpikeZone</object>
+      <position x="880" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="455804">
+      <object>oSpikeZone</object>
+      <position x="896" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="455805">
+      <object>oSpikeZone</object>
+      <position x="912" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="455806">
+      <object>oSpikeZone</object>
+      <position x="928" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="455807">
+      <object>oSpikeZone</object>
+      <position x="944" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="455808">
+      <object>oSpikeZone</object>
+      <position x="960" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="455809">
+      <object>oSpikeZone</object>
+      <position x="976" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="455810">
+      <object>oSpikeZone</object>
+      <position x="992" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="455811">
+      <object>oSpikeZone</object>
+      <position x="1008" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179721">
+      <object>oInvCollPH</object>
+      <position x="16" y="384"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179722">
+      <object>oInvCollPH</object>
+      <position x="16" y="400"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179723">
+      <object>oInvCollPH</object>
+      <position x="16" y="416"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179724">
+      <object>oInvCollPH</object>
+      <position x="16" y="432"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179725">
+      <object>oInvCollPH</object>
+      <position x="16" y="448"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179726">
+      <object>oInvCollPH</object>
+      <position x="16" y="464"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179727">
+      <object>oInvCollPH</object>
+      <position x="16" y="480"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179728">
+      <object>oInvCollPH</object>
+      <position x="16" y="496"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179729">
+      <object>oInvCollPH</object>
+      <position x="224" y="400"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179730">
+      <object>oInvCollPH</object>
+      <position x="224" y="416"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179731">
+      <object>oInvCollPH</object>
+      <position x="224" y="432"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179732">
+      <object>oInvCollPH</object>
+      <position x="240" y="432"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179733">
+      <object>oInvCollPH</object>
+      <position x="240" y="416"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179734">
+      <object>oInvCollPH</object>
+      <position x="240" y="400"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179735">
+      <object>oInvCollPH</object>
+      <position x="240" y="384"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179736">
+      <object>oInvCollPH</object>
+      <position x="240" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179737">
+      <object>oInvCollPH</object>
+      <position x="240" y="64"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179738">
+      <object>oInvCollPH</object>
+      <position x="240" y="80"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179739">
+      <object>oInvCollPH</object>
+      <position x="240" y="96"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179740">
+      <object>oInvCollPH</object>
+      <position x="240" y="112"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179741">
+      <object>oInvCollPH</object>
+      <position x="240" y="128"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179742">
+      <object>oInvCollPH</object>
+      <position x="240" y="144"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179743">
+      <object>oInvCollPH</object>
+      <position x="32" y="368"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179744">
+      <object>oInvCollPH</object>
+      <position x="48" y="368"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179745">
+      <object>oInvCollPH</object>
+      <position x="64" y="368"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179746">
+      <object>oInvCollPH</object>
+      <position x="80" y="368"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179747">
+      <object>oInvCollPH</object>
+      <position x="96" y="368"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179748">
+      <object>oInvCollPH</object>
+      <position x="112" y="368"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179749">
+      <object>oInvCollPH</object>
+      <position x="128" y="368"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179750">
+      <object>oInvCollPH</object>
+      <position x="144" y="368"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179751">
+      <object>oInvCollPH</object>
+      <position x="160" y="368"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179752">
+      <object>oInvCollPH</object>
+      <position x="176" y="368"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179753">
+      <object>oInvCollPH</object>
+      <position x="192" y="368"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179754">
+      <object>oInvCollPH</object>
+      <position x="208" y="368"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179755">
+      <object>oInvCollPH</object>
+      <position x="240" y="368"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179756">
+      <object>oInvCollPH</object>
+      <position x="240" y="352"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179757">
+      <object>oInvCollPH</object>
+      <position x="240" y="336"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179758">
+      <object>oInvCollPH</object>
+      <position x="272" y="320"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179759">
+      <object>oInvCollPH</object>
+      <position x="240" y="304"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179760">
+      <object>oInvCollPH</object>
+      <position x="240" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179761">
+      <object>oInvCollPH</object>
+      <position x="240" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179762">
+      <object>oInvCollPH</object>
+      <position x="240" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179763">
+      <object>oInvCollPH</object>
+      <position x="240" y="240"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179764">
+      <object>oInvCollPH</object>
+      <position x="240" y="224"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179765">
+      <object>oInvCollPH</object>
+      <position x="240" y="160"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179766">
+      <object>oInvCollPH</object>
+      <position x="240" y="176"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179767">
+      <object>oInvCollPH</object>
+      <position x="240" y="192"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179768">
+      <object>oInvCollPH</object>
+      <position x="240" y="208"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179769">
+      <object>oInvCollPH</object>
+      <position x="1024" y="64"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179770">
+      <object>oInvCollPH</object>
+      <position x="1024" y="80"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179771">
+      <object>oInvCollPH</object>
+      <position x="1024" y="96"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179772">
+      <object>oInvCollPH</object>
+      <position x="1024" y="112"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179773">
+      <object>oInvCollPH</object>
+      <position x="1024" y="496"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179774">
+      <object>oInvCollPH</object>
+      <position x="1024" y="480"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179775">
+      <object>oInvCollPH</object>
+      <position x="1024" y="464"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179776">
+      <object>oInvCollPH</object>
+      <position x="1024" y="448"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179777">
+      <object>oInvCollPH</object>
+      <position x="1024" y="432"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179778">
+      <object>oInvCollPH</object>
+      <position x="1024" y="416"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179779">
+      <object>oInvCollPH</object>
+      <position x="1024" y="400"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179780">
+      <object>oInvCollPH</object>
+      <position x="1024" y="384"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179781">
+      <object>oInvCollPH</object>
+      <position x="1024" y="368"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179782">
+      <object>oInvCollPH</object>
+      <position x="1024" y="352"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179783">
+      <object>oInvCollPH</object>
+      <position x="1024" y="192"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179784">
+      <object>oInvCollPH</object>
+      <position x="1024" y="208"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179785">
+      <object>oInvCollPH</object>
+      <position x="1024" y="224"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179786">
+      <object>oInvCollPH</object>
+      <position x="1024" y="240"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179787">
+      <object>oInvCollPH</object>
+      <position x="1024" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179788">
+      <object>oInvCollPH</object>
+      <position x="1024" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179789">
+      <object>oInvCollPH</object>
+      <position x="1024" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179790">
+      <object>oInvCollPH</object>
+      <position x="1024" y="304"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179791">
+      <object>oInvCollPH</object>
+      <position x="1024" y="320"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179792">
+      <object>oInvCollPH</object>
+      <position x="1024" y="336"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179793">
+      <object>oInvCollPH</object>
+      <position x="1024" y="176"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179794">
+      <object>oInvCollPH</object>
+      <position x="1024" y="160"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179795">
+      <object>oInvCollPH</object>
+      <position x="1024" y="144"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179796">
+      <object>oInvCollPH</object>
+      <position x="1024" y="128"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179797">
+      <object>oInvCollPH</object>
+      <position x="256" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179798">
+      <object>oInvCollPH</object>
+      <position x="272" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179799">
+      <object>oInvCollPH</object>
+      <position x="288" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179800">
+      <object>oInvCollPH</object>
+      <position x="304" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179801">
+      <object>oInvCollPH</object>
+      <position x="320" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179802">
+      <object>oInvCollPH</object>
+      <position x="336" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179803">
+      <object>oInvCollPH</object>
+      <position x="352" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179804">
+      <object>oInvCollPH</object>
+      <position x="368" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179805">
+      <object>oInvCollPH</object>
+      <position x="384" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179806">
+      <object>oInvCollPH</object>
+      <position x="400" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179807">
+      <object>oInvCollPH</object>
+      <position x="416" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179808">
+      <object>oInvCollPH</object>
+      <position x="432" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179809">
+      <object>oInvCollPH</object>
+      <position x="448" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179810">
+      <object>oInvCollPH</object>
+      <position x="464" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179811">
+      <object>oInvCollPH</object>
+      <position x="480" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179812">
+      <object>oInvCollPH</object>
+      <position x="496" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179813">
+      <object>oInvCollPH</object>
+      <position x="512" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179814">
+      <object>oInvCollPH</object>
+      <position x="528" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179815">
+      <object>oInvCollPH</object>
+      <position x="544" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179816">
+      <object>oInvCollPH</object>
+      <position x="560" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179817">
+      <object>oInvCollPH</object>
+      <position x="1008" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179818">
+      <object>oInvCollPH</object>
+      <position x="992" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179819">
+      <object>oInvCollPH</object>
+      <position x="976" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179820">
+      <object>oInvCollPH</object>
+      <position x="960" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179821">
+      <object>oInvCollPH</object>
+      <position x="944" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179822">
+      <object>oInvCollPH</object>
+      <position x="928" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179823">
+      <object>oInvCollPH</object>
+      <position x="912" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179824">
+      <object>oInvCollPH</object>
+      <position x="896" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179825">
+      <object>oInvCollPH</object>
+      <position x="880" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179826">
+      <object>oInvCollPH</object>
+      <position x="864" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179827">
+      <object>oInvCollPH</object>
+      <position x="848" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179828">
+      <object>oInvCollPH</object>
+      <position x="832" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179829">
+      <object>oInvCollPH</object>
+      <position x="816" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179830">
+      <object>oInvCollPH</object>
+      <position x="800" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179831">
+      <object>oInvCollPH</object>
+      <position x="784" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179832">
+      <object>oInvCollPH</object>
+      <position x="768" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179833">
+      <object>oInvCollPH</object>
+      <position x="752" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179834">
+      <object>oInvCollPH</object>
+      <position x="736" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179835">
+      <object>oInvCollPH</object>
+      <position x="720" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179836">
+      <object>oInvCollPH</object>
+      <position x="704" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179837">
+      <object>oInvCollPH</object>
+      <position x="688" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179838">
+      <object>oInvCollPH</object>
+      <position x="672" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179839">
+      <object>oInvCollPH</object>
+      <position x="656" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179840">
+      <object>oInvCollPH</object>
+      <position x="640" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179841">
+      <object>oInvCollPH</object>
+      <position x="624" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179842">
+      <object>oInvCollPH</object>
+      <position x="608" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179843">
+      <object>oInvCollPH</object>
+      <position x="592" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179844">
+      <object>oInvCollPH</object>
+      <position x="576" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179845">
+      <object>oInvCollPH</object>
+      <position x="32" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179846">
+      <object>oInvCollPH</object>
+      <position x="48" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179847">
+      <object>oInvCollPH</object>
+      <position x="64" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179848">
+      <object>oInvCollPH</object>
+      <position x="80" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179849">
+      <object>oInvCollPH</object>
+      <position x="96" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179850">
+      <object>oInvCollPH</object>
+      <position x="112" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179851">
+      <object>oInvCollPH</object>
+      <position x="128" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179852">
+      <object>oInvCollPH</object>
+      <position x="144" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179853">
+      <object>oInvCollPH</object>
+      <position x="160" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179854">
+      <object>oInvCollPH</object>
+      <position x="176" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179855">
+      <object>oInvCollPH</object>
+      <position x="192" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179856">
+      <object>oInvCollPH</object>
+      <position x="208" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179857">
+      <object>oInvCollPH</object>
+      <position x="224" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179858">
+      <object>oInvCollPH</object>
+      <position x="240" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179859">
+      <object>oInvCollPH</object>
+      <position x="256" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179860">
+      <object>oInvCollPH</object>
+      <position x="272" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179861">
+      <object>oInvCollPH</object>
+      <position x="288" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179862">
+      <object>oInvCollPH</object>
+      <position x="304" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179863">
+      <object>oInvCollPH</object>
+      <position x="320" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179864">
+      <object>oInvCollPH</object>
+      <position x="336" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179865">
+      <object>oInvCollPH</object>
+      <position x="352" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179866">
+      <object>oInvCollPH</object>
+      <position x="368" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179867">
+      <object>oInvCollPH</object>
+      <position x="384" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179868">
+      <object>oInvCollPH</object>
+      <position x="400" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179869">
+      <object>oInvCollPH</object>
+      <position x="416" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179870">
+      <object>oInvCollPH</object>
+      <position x="432" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179871">
+      <object>oInvCollPH</object>
+      <position x="448" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179872">
+      <object>oInvCollPH</object>
+      <position x="464" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179873">
+      <object>oInvCollPH</object>
+      <position x="480" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179874">
+      <object>oInvCollPH</object>
+      <position x="496" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179875">
+      <object>oInvCollPH</object>
+      <position x="512" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179876">
+      <object>oInvCollPH</object>
+      <position x="528" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179877">
+      <object>oInvCollPH</object>
+      <position x="544" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179878">
+      <object>oInvCollPH</object>
+      <position x="560" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179879">
+      <object>oInvCollPH</object>
+      <position x="576" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179880">
+      <object>oInvCollPH</object>
+      <position x="592" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179881">
+      <object>oInvCollPH</object>
+      <position x="608" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179882">
+      <object>oInvCollPH</object>
+      <position x="624" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179883">
+      <object>oInvCollPH</object>
+      <position x="640" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179884">
+      <object>oInvCollPH</object>
+      <position x="656" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179885">
+      <object>oInvCollPH</object>
+      <position x="672" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179886">
+      <object>oInvCollPH</object>
+      <position x="688" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179887">
+      <object>oInvCollPH</object>
+      <position x="704" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179888">
+      <object>oInvCollPH</object>
+      <position x="720" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179889">
+      <object>oInvCollPH</object>
+      <position x="736" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179890">
+      <object>oInvCollPH</object>
+      <position x="752" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179891">
+      <object>oInvCollPH</object>
+      <position x="768" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179892">
+      <object>oInvCollPH</object>
+      <position x="784" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179893">
+      <object>oInvCollPH</object>
+      <position x="800" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179894">
+      <object>oInvCollPH</object>
+      <position x="816" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179895">
+      <object>oInvCollPH</object>
+      <position x="832" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179896">
+      <object>oInvCollPH</object>
+      <position x="848" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179897">
+      <object>oInvCollPH</object>
+      <position x="864" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179898">
+      <object>oInvCollPH</object>
+      <position x="880" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179899">
+      <object>oInvCollPH</object>
+      <position x="896" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179900">
+      <object>oInvCollPH</object>
+      <position x="912" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179901">
+      <object>oInvCollPH</object>
+      <position x="928" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179902">
+      <object>oInvCollPH</object>
+      <position x="944" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179903">
+      <object>oInvCollPH</object>
+      <position x="960" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179904">
+      <object>oInvCollPH</object>
+      <position x="976" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179905">
+      <object>oInvCollPH</object>
+      <position x="992" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179906">
+      <object>oInvCollPH</object>
+      <position x="1008" y="512"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179917">
+      <object>oInvCollPH</object>
+      <position x="336" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179918">
+      <object>oInvCollPH</object>
+      <position x="352" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179919">
+      <object>oInvCollPH</object>
+      <position x="368" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179920">
+      <object>oInvCollPH</object>
+      <position x="336" y="384"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179921">
+      <object>oInvCollPH</object>
+      <position x="352" y="384"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179922">
+      <object>oInvCollPH</object>
+      <position x="368" y="384"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179923">
+      <object>oInvCollPH</object>
+      <position x="464" y="448"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179924">
+      <object>oInvCollPH</object>
+      <position x="480" y="448"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179925">
+      <object>oInvCollPH</object>
+      <position x="496" y="448"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179926">
+      <object>oInvCollPH</object>
+      <position x="464" y="320"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179927">
+      <object>oInvCollPH</object>
+      <position x="480" y="320"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179928">
+      <object>oInvCollPH</object>
+      <position x="496" y="320"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179929">
+      <object>oInvCollPH</object>
+      <position x="464" y="192"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179930">
+      <object>oInvCollPH</object>
+      <position x="480" y="192"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179931">
+      <object>oInvCollPH</object>
+      <position x="496" y="192"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179932">
+      <object>oInvCollPH</object>
+      <position x="592" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179933">
+      <object>oInvCollPH</object>
+      <position x="608" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179934">
+      <object>oInvCollPH</object>
+      <position x="624" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179935">
+      <object>oInvCollPH</object>
+      <position x="592" y="384"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179936">
+      <object>oInvCollPH</object>
+      <position x="608" y="384"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179937">
+      <object>oInvCollPH</object>
+      <position x="624" y="384"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179938">
+      <object>oInvCollPH</object>
+      <position x="720" y="192"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179939">
+      <object>oInvCollPH</object>
+      <position x="736" y="192"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179940">
+      <object>oInvCollPH</object>
+      <position x="752" y="192"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179941">
+      <object>oInvCollPH</object>
+      <position x="720" y="320"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179942">
+      <object>oInvCollPH</object>
+      <position x="736" y="320"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179943">
+      <object>oInvCollPH</object>
+      <position x="752" y="320"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179944">
+      <object>oInvCollPH</object>
+      <position x="720" y="448"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179945">
+      <object>oInvCollPH</object>
+      <position x="736" y="448"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179946">
+      <object>oInvCollPH</object>
+      <position x="752" y="448"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="455761">
+      <object>oInvCollPH</object>
+      <position x="240" y="448"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="455762">
+      <object>oInvCollPH</object>
+      <position x="256" y="448"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="455763">
+      <object>oInvCollPH</object>
+      <position x="272" y="448"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="179715">
+      <object>oInvisibleSolid</object>
+      <position x="224" y="384"/>
+      <creationCode>image_xscale=2
+image_yscale=4</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="179716">
+      <object>oInvisibleSolid</object>
+      <position x="0" y="384"/>
+      <creationCode>image_xscale=2
+image_yscale=8</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="179717">
+      <object>oInvisibleSolid</object>
+      <position x="0" y="512"/>
+      <creationCode>image_xscale=66
+image_yscale=3</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="179718">
+      <object>oInvisibleSolid</object>
+      <position x="256" y="0"/>
+      <creationCode>image_xscale=48
+image_yscale=3</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="179719">
+      <object>oInvisibleSolid</object>
+      <position x="0" y="0"/>
+      <creationCode>image_xscale=16
+image_yscale=24</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="179720">
+      <object>oInvisibleSolid</object>
+      <position x="1024" y="48"/>
+      <creationCode>image_xscale=2
+image_yscale=29</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="179907">
+      <object>oInvisibleSolid</object>
+      <position x="320" y="384"/>
+      <creationCode>image_xscale=4</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="179908">
+      <object>oInvisibleSolid</object>
+      <position x="320" y="256"/>
+      <creationCode>image_xscale=4</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="179909">
+      <object>oInvisibleSolid</object>
+      <position x="448" y="192"/>
+      <creationCode>image_xscale=4</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="179910">
+      <object>oInvisibleSolid</object>
+      <position x="448" y="320"/>
+      <creationCode>image_xscale=4</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="179911">
+      <object>oInvisibleSolid</object>
+      <position x="448" y="448"/>
+      <creationCode>image_xscale=4</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="179912">
+      <object>oInvisibleSolid</object>
+      <position x="576" y="256"/>
+      <creationCode>image_xscale=4</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="179913">
+      <object>oInvisibleSolid</object>
+      <position x="576" y="384"/>
+      <creationCode>image_xscale=4</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="179914">
+      <object>oInvisibleSolid</object>
+      <position x="704" y="192"/>
+      <creationCode>image_xscale=4</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="179915">
+      <object>oInvisibleSolid</object>
+      <position x="704" y="320"/>
+      <creationCode>image_xscale=4</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="179916">
+      <object>oInvisibleSolid</object>
+      <position x="704" y="448"/>
+      <creationCode>image_xscale=4</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="455759">
+      <object>oInvisibleSolid</object>
+      <position x="256" y="320"/>
+      <creationCode>image_xscale=2</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="455760">
+      <object>oInvisibleSolid</object>
+      <position x="224" y="448"/>
+      <creationCode>image_xscale=4</creationCode>
+      <locked>false</locked>
+    </instance>
+  </instances>
+  <tiles>
+    <tile id="10139662">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="0" y="240"/>
+      <roomPosition x="0" y="512"/>
+      <size height="16" width="48"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139663">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="16" y="240"/>
+      <roomPosition x="48" y="512"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139664">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="16" y="240"/>
+      <roomPosition x="80" y="512"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139665">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="16" y="240"/>
+      <roomPosition x="208" y="512"/>
+      <size height="16" width="48"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139666">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="16" y="240"/>
+      <roomPosition x="112" y="512"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139667">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="64" y="224"/>
+      <roomPosition x="0" y="544"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139668">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="64" y="224"/>
+      <roomPosition x="32" y="544"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139669">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="64" y="224"/>
+      <roomPosition x="64" y="544"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139670">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="64" y="224"/>
+      <roomPosition x="96" y="544"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139671">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="64" y="224"/>
+      <roomPosition x="128" y="544"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139672">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="64" y="224"/>
+      <roomPosition x="160" y="544"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139673">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="16"/>
+      <roomPosition x="0" y="528"/>
+      <size height="16" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139674">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="16"/>
+      <roomPosition x="64" y="528"/>
+      <size height="16" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139675">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="16"/>
+      <roomPosition x="128" y="528"/>
+      <size height="16" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139695">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="96" y="0"/>
+      <roomPosition x="64" y="352"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139696">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="96" y="0"/>
+      <roomPosition x="96" y="352"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139697">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="96" y="0"/>
+      <roomPosition x="128" y="352"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139698">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="96" y="0"/>
+      <roomPosition x="160" y="352"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139699">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="96" y="0"/>
+      <roomPosition x="192" y="352"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139700">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="112" y="0"/>
+      <roomPosition x="224" y="352"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139701">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="240" y="384"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139702">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="224" y="384"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139703">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="0" y="240"/>
+      <roomPosition x="256" y="512"/>
+      <size height="16" width="48"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139704">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="16"/>
+      <roomPosition x="192" y="528"/>
+      <size height="16" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139706">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="64" y="224"/>
+      <roomPosition x="192" y="544"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139707">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="64" y="224"/>
+      <roomPosition x="224" y="544"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139708">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="64" y="224"/>
+      <roomPosition x="256" y="544"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139709">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="64" y="224"/>
+      <roomPosition x="288" y="544"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139710">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="16" y="240"/>
+      <roomPosition x="144" y="512"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139711">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="16" y="240"/>
+      <roomPosition x="176" y="512"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139713">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="16"/>
+      <roomPosition x="384" y="528"/>
+      <size height="16" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139714">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="16" y="240"/>
+      <roomPosition x="304" y="512"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139718">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="64" y="224"/>
+      <roomPosition x="320" y="544"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139719">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="64" y="224"/>
+      <roomPosition x="352" y="544"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139720">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="64" y="224"/>
+      <roomPosition x="384" y="544"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139721">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="64" y="224"/>
+      <roomPosition x="416" y="544"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139722">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="240" y="416"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139723">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="224" y="416"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139726">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="96" y="0"/>
+      <roomPosition x="32" y="352"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139727">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="96" y="0"/>
+      <roomPosition x="0" y="352"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139728">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="144" y="160"/>
+      <roomPosition x="32" y="384"/>
+      <size height="48" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139729">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="144" y="160"/>
+      <roomPosition x="128" y="384"/>
+      <size height="48" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139730">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="144" y="192"/>
+      <roomPosition x="32" y="480"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139731">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="144" y="192"/>
+      <roomPosition x="128" y="480"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139732">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="144" y="192"/>
+      <roomPosition x="32" y="432"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139733">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="144" y="192"/>
+      <roomPosition x="32" y="448"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139734">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="144" y="192"/>
+      <roomPosition x="32" y="464"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139735">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="144" y="192"/>
+      <roomPosition x="128" y="432"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139736">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="144" y="192"/>
+      <roomPosition x="128" y="448"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139737">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="144" y="192"/>
+      <roomPosition x="128" y="464"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139739">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="96" y="224"/>
+      <roomPosition x="64" y="400"/>
+      <size height="48" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139740">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="96" y="224"/>
+      <roomPosition x="64" y="448"/>
+      <size height="48" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139741">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="96" y="224"/>
+      <roomPosition x="64" y="496"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139742">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="112" y="224"/>
+      <roomPosition x="112" y="400"/>
+      <size height="48" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139743">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="112" y="224"/>
+      <roomPosition x="112" y="448"/>
+      <size height="48" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139744">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="112" y="224"/>
+      <roomPosition x="112" y="496"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139745">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="240"/>
+      <roomPosition x="112" y="384"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139746">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="64" y="240"/>
+      <roomPosition x="64" y="384"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139747">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="96" y="176"/>
+      <roomPosition x="80" y="384"/>
+      <size height="48" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139748">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="112" y="176"/>
+      <roomPosition x="80" y="432"/>
+      <size height="48" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139749">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="96" y="192"/>
+      <roomPosition x="80" y="480"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139751">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="64" y="240"/>
+      <roomPosition x="160" y="384"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139752">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="240"/>
+      <roomPosition x="208" y="384"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139753">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="96" y="224"/>
+      <roomPosition x="160" y="400"/>
+      <size height="48" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139754">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="96" y="224"/>
+      <roomPosition x="160" y="448"/>
+      <size height="48" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139755">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="96" y="224"/>
+      <roomPosition x="160" y="496"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139756">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="112" y="224"/>
+      <roomPosition x="208" y="400"/>
+      <size height="48" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139757">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="112" y="224"/>
+      <roomPosition x="208" y="448"/>
+      <size height="48" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139758">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="112" y="224"/>
+      <roomPosition x="208" y="496"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139759">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="96" y="176"/>
+      <roomPosition x="176" y="384"/>
+      <size height="48" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139760">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="112" y="176"/>
+      <roomPosition x="176" y="432"/>
+      <size height="48" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139761">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="96" y="192"/>
+      <roomPosition x="176" y="480"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139762">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="0" y="320"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139763">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="64" y="320"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139764">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="128" y="320"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139766">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="0" y="288"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139767">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="64" y="288"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139768">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="128" y="288"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139769">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="192" y="288"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139770">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="0" y="256"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139771">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="64" y="256"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139772">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="128" y="256"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139773">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="192" y="256"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139774">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="0" y="224"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139775">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="64" y="224"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139776">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="128" y="224"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139777">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="192" y="224"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139778">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="0" y="192"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139779">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="64" y="192"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139780">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="128" y="192"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139781">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="192" y="192"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139782">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="0" y="160"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139783">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="64" y="160"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139784">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="128" y="160"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139785">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="192" y="160"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139786">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="0" y="128"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139787">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="64" y="128"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139788">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="0" y="96"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139789">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="0" y="64"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139790">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="64" y="96"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139791">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="64" y="64"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139792">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="128" y="64"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139793">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="128" y="96"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139794">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="128" y="128"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139795">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="192" y="64"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139796">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="192" y="96"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139797">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="192" y="128"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139798">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="0" y="32"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139799">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="64" y="32"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139800">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="128" y="32"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139801">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="192" y="32"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139802">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="0" y="0"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139803">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="64" y="0"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139804">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="128" y="0"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139805">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="192" y="0"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139806">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="112" y="0"/>
+      <roomPosition x="0" y="384"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139807">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="112" y="0"/>
+      <roomPosition x="0" y="416"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139808">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="112" y="0"/>
+      <roomPosition x="0" y="448"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139809">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="112" y="0"/>
+      <roomPosition x="0" y="480"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139815">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="16" y="240"/>
+      <roomPosition x="336" y="512"/>
+      <size height="16" width="48"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139816">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="0" y="240"/>
+      <roomPosition x="384" y="512"/>
+      <size height="16" width="48"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139817">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="16" y="240"/>
+      <roomPosition x="464" y="512"/>
+      <size height="16" width="48"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139818">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="16" y="240"/>
+      <roomPosition x="432" y="512"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139819">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="0" y="240"/>
+      <roomPosition x="512" y="512"/>
+      <size height="16" width="48"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139820">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="16" y="240"/>
+      <roomPosition x="592" y="512"/>
+      <size height="16" width="48"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139821">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="16" y="240"/>
+      <roomPosition x="560" y="512"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139822">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="0" y="240"/>
+      <roomPosition x="640" y="512"/>
+      <size height="16" width="48"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139823">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="16" y="240"/>
+      <roomPosition x="720" y="512"/>
+      <size height="16" width="48"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139824">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="16" y="240"/>
+      <roomPosition x="688" y="512"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139827">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="16"/>
+      <roomPosition x="576" y="528"/>
+      <size height="16" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139828">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="16"/>
+      <roomPosition x="640" y="528"/>
+      <size height="16" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139830">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="64" y="224"/>
+      <roomPosition x="448" y="544"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139831">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="64" y="224"/>
+      <roomPosition x="480" y="544"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139832">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="64" y="224"/>
+      <roomPosition x="512" y="544"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139833">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="64" y="224"/>
+      <roomPosition x="544" y="544"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139834">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="64" y="224"/>
+      <roomPosition x="576" y="544"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139835">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="64" y="224"/>
+      <roomPosition x="608" y="544"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139836">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="64" y="224"/>
+      <roomPosition x="640" y="544"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139837">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="64" y="224"/>
+      <roomPosition x="672" y="544"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139838">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="64" y="224"/>
+      <roomPosition x="704" y="544"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139839">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="64" y="224"/>
+      <roomPosition x="736" y="544"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139840">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="0" y="240"/>
+      <roomPosition x="768" y="512"/>
+      <size height="16" width="48"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139841">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="16" y="240"/>
+      <roomPosition x="848" y="512"/>
+      <size height="16" width="48"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139842">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="16" y="240"/>
+      <roomPosition x="816" y="512"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139843">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="0" y="240"/>
+      <roomPosition x="896" y="512"/>
+      <size height="16" width="48"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139844">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="16" y="240"/>
+      <roomPosition x="976" y="512"/>
+      <size height="16" width="48"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139845">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="16" y="240"/>
+      <roomPosition x="944" y="512"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139846">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="1024" y="0"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139847">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="1024" y="32"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139848">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="1024" y="64"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139849">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="1024" y="96"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139850">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="1024" y="128"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139851">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="1024" y="160"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139852">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="1024" y="192"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139853">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="1024" y="224"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139854">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="1024" y="256"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139855">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="1024" y="288"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139863">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="1024" y="320"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139864">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="1024" y="352"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139865">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="1024" y="384"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139866">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="1024" y="416"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139867">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="1024" y="448"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139868">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="1024" y="480"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139869">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="256" y="0"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139870">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="320" y="0"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139871">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="384" y="0"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139872">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="448" y="0"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139873">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="512" y="0"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139874">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="576" y="0"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139875">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="640" y="0"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139876">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="704" y="0"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139877">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="768" y="0"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139878">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="832" y="0"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139879">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="896" y="0"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139880">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="960" y="0"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139881">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="256" y="32"/>
+      <size height="16" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139882">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="320" y="32"/>
+      <size height="16" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139883">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="384" y="32"/>
+      <size height="16" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139884">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="448" y="32"/>
+      <size height="16" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139885">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="512" y="32"/>
+      <size height="16" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139886">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="576" y="32"/>
+      <size height="16" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139887">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="640" y="32"/>
+      <size height="16" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139888">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="704" y="32"/>
+      <size height="16" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139889">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="768" y="32"/>
+      <size height="16" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139890">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="832" y="32"/>
+      <size height="16" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139891">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="896" y="32"/>
+      <size height="16" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139892">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="960" y="32"/>
+      <size height="16" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139894">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="1024" y="512"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139895">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="1024" y="544"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139899">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="16"/>
+      <roomPosition x="832" y="528"/>
+      <size height="16" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139902">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="64" y="224"/>
+      <roomPosition x="768" y="544"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139903">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="64" y="224"/>
+      <roomPosition x="800" y="544"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139904">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="64" y="224"/>
+      <roomPosition x="832" y="544"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139905">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="64" y="224"/>
+      <roomPosition x="864" y="544"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139906">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="64" y="224"/>
+      <roomPosition x="896" y="544"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139907">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="64" y="224"/>
+      <roomPosition x="928" y="544"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139908">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="64" y="224"/>
+      <roomPosition x="960" y="544"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139909">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="64" y="224"/>
+      <roomPosition x="992" y="544"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139910">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="32"/>
+      <roomPosition x="256" y="528"/>
+      <size height="16" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139911">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="320" y="528"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139912">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="32"/>
+      <roomPosition x="352" y="528"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139913">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="32"/>
+      <roomPosition x="896" y="528"/>
+      <size height="16" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139914">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="960" y="528"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139915">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="32"/>
+      <roomPosition x="992" y="528"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139916">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="32"/>
+      <roomPosition x="448" y="528"/>
+      <size height="16" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139917">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="32"/>
+      <roomPosition x="704" y="528"/>
+      <size height="16" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139918">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="512" y="528"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139919">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="112" y="32"/>
+      <roomPosition x="768" y="528"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139920">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="32"/>
+      <roomPosition x="544" y="528"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139921">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="32"/>
+      <roomPosition x="800" y="528"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139922">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="448" y="448"/>
+      <size height="16" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139923">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="704" y="448"/>
+      <size height="16" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139924">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="576" y="384"/>
+      <size height="16" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139925">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="448" y="320"/>
+      <size height="16" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139926">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="704" y="320"/>
+      <size height="16" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139927">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="576" y="256"/>
+      <size height="16" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139928">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="320" y="256"/>
+      <size height="16" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139929">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="320" y="384"/>
+      <size height="16" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139930">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="448" y="192"/>
+      <size height="16" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10139931">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="704" y="192"/>
+      <size height="16" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10609244">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="224" y="448"/>
+      <size height="16" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10609245">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="16"/>
+      <roomPosition x="192" y="336"/>
+      <size height="16" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10609246">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="80" y="0"/>
+      <roomPosition x="192" y="320"/>
+      <size height="16" width="48"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10609247">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="96" y="0"/>
+      <roomPosition x="240" y="320"/>
+      <size height="16" width="48"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10609248">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="144" y="160"/>
+      <roomPosition x="224" y="464"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10609249">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="144" y="160"/>
+      <roomPosition x="256" y="464"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10609250">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="144" y="208"/>
+      <roomPosition x="224" y="496"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10609251">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="144" y="208"/>
+      <roomPosition x="256" y="496"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10609252">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="144" y="80"/>
+      <roomPosition x="256" y="48"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10609253">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="144" y="80"/>
+      <roomPosition x="288" y="48"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10609254">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="144" y="80"/>
+      <roomPosition x="320" y="48"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10609255">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="144" y="80"/>
+      <roomPosition x="352" y="48"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10609256">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="144" y="80"/>
+      <roomPosition x="384" y="48"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10609257">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="144" y="80"/>
+      <roomPosition x="416" y="48"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10609258">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="144" y="80"/>
+      <roomPosition x="448" y="48"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10609259">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="144" y="80"/>
+      <roomPosition x="480" y="48"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10609260">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="144" y="80"/>
+      <roomPosition x="512" y="48"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10609261">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="144" y="80"/>
+      <roomPosition x="544" y="48"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10609262">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="144" y="80"/>
+      <roomPosition x="576" y="48"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10609263">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="144" y="80"/>
+      <roomPosition x="608" y="48"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10609264">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="144" y="80"/>
+      <roomPosition x="640" y="48"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10609265">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="144" y="80"/>
+      <roomPosition x="672" y="48"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10609266">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="144" y="80"/>
+      <roomPosition x="704" y="48"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10609267">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="144" y="80"/>
+      <roomPosition x="736" y="48"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10609268">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="144" y="80"/>
+      <roomPosition x="768" y="48"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10609269">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="144" y="80"/>
+      <roomPosition x="800" y="48"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10609270">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="144" y="80"/>
+      <roomPosition x="832" y="48"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10609271">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="144" y="80"/>
+      <roomPosition x="864" y="48"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10609272">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="144" y="80"/>
+      <roomPosition x="896" y="48"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10609273">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="144" y="80"/>
+      <roomPosition x="928" y="48"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10609274">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="144" y="80"/>
+      <roomPosition x="960" y="48"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10609275">
+      <background>tileCastlevaniaF</background>
+      <backgroundPosition x="144" y="80"/>
+      <roomPosition x="992" y="48"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+  </tiles>
+  <editorSettings remember="true">
+    <size height="717" width="1324"/>
+    <showGrid>false</showGrid>
+    <showObjects>false</showObjects>
+    <showTiles>true</showTiles>
+    <showBackgrounds>true</showBackgrounds>
+    <showForegrounds>true</showForegrounds>
+    <showViews>false</showViews>
+    <deleteUnderlyingObjects>true</deleteUnderlyingObjects>
+    <deleteUnderlyingTiles>true</deleteUnderlyingTiles>
+    <currentTab>0</currentTab>
+    <horizontalScrollPosition>-9</horizontalScrollPosition>
+    <verticalScrollPosition>-36</verticalScrollPosition>
+  </editorSettings>
+</room>

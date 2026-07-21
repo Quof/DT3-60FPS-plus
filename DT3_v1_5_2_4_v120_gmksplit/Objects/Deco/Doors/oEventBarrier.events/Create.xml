@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="CREATE" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">//Requires: progCheck
+spriteUse=0
+if variable_local_exists("spriteChange")
+{
+  spriteUse=spriteChange
+  if spriteUse=1 //Split Party
+  {
+    progCheck=9000000
+    sprite_index=sInvisibleSolidMask
+  }
+  else if spriteUse=2 //Castlevania Slide Door
+    sprite_index=sInvisibleSolidMask
+  else if spriteUse=3 //Bike Barrier
+  {
+    progCheck=9000000
+    sprite_index=sInvisibleSolidMask
+  }
+  else if spriteUse=4 //Bike Blockage
+  {
+    animTop=16
+    progCheck=9000000
+    sprite_index=sInvisibleSolidMask
+    myBikeDestroy=instance_create(x-16,y,oBikeDestroyer)
+    myBikeDestroy.image_yscale=image_yscale
+  }
+  else if spriteUse=5 //Reach Ring Barrier
+  {
+    progCheck=9000000
+    sprite_index=sInvisibleSolidMask
+  }
+  else if spriteUse=6 //Metroid Barrier
+  {
+    sprite_index=sInvisibleSolidMask
+    depth=10
+  }
+  else if spriteUse=7 //Optional Barrier
+  {
+    sprite_index=sInvisibleSolidMask
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="CREATE" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">//Requires: dropDist (multiples of 6)
+event_inherited()
+bCanDealDamage=false
+bCanTakeDamage=false
+y+=32
+image_speed=0.05
+headFrm=0
+bInfected=0
+
+//Enemy base statistics
+eName="Junk Bot"
+eLevel=30
+maxLife=290
+life=maxLife
+pointWorth=37
+atkPower=9
+resType[0]=2
+resType[3]=2
+resType[5]=4
+stunResist=3
+baseItemChance=50
+baseDropIndex=90
+pickupDropMod=5
+detectDistX=196
+
+dropped=-1
+moveWave=pi
+shotTime=15
+shotDelay=35
+
+bIsBoss=1
+chaoText="Wait, why are these robots just hanging there? They're all inactive too, well until the Virus turned them on again. These things just creep me out is all."
+devText="When it came to implementation, I was surprised how much of my original idea actually worked in practice. Not too much had to change. That said, designing this level was more difficult than I thought it would be."
+
+myInfectSpot=instance_create(x,y,oInfectMe)
+myInfectSpot.myOwner=id
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

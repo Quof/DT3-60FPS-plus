@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  timeToHit+=1
+  if timeToHit=damageTimeThres
+  {
+    if oPlayer1.y&lt;272 {y=48}
+    else {y=320}
+    timeToHit=1000
+  }
+  else if timeToHit&gt;=1001 and timeToHit&lt;=1065
+  {
+    image_alpha+=0.01
+  }
+  else if timeToHit=1066
+  {
+    bCanDealDamage=1
+    image_alpha=1
+  }
+  else if timeToHit=1068
+  {
+    bCanDealDamage=0
+    image_alpha=0
+    timeToHit=0
+  }
+  
+  if warmasterCheck=2
+  {
+    global.newMapX=312; global.newMapY=208; room_goto(rBT_HUB)
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

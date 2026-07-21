@@ -1,0 +1,616 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="DRAW" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if view_current=0
+{
+  //---------- Fade Back ----------
+  draw_set_color(make_color_rgb(0,190,0))
+  draw_set_alpha(0.25)
+  draw_rectangle(view_xview[0],view_yview[0],view_xview[0]+view_wview[0],view_yview[0]+view_hview[0],false)
+  
+  //---------- Set Positions ----------
+  mainMenuX=view_xview[0]+18
+  mainMenuY=view_yview[0]+43
+  contentMenuX=mainMenuX+114
+  contentMenuY=mainMenuY+27
+  infoMenuX=mainMenuX+0
+  infoMenuY=mainMenuY+213
+  
+  //---------- Draw Menu ----------
+  draw_sprite(sPauseM_Main,0,mainMenuX,mainMenuY)
+  if global.mapTeleport=0 or global.bBossGallery=1 {draw_sprite(sPauseM_NoTeleport,0,mainMenuX+17,mainMenuY+161)}
+  draw_sprite(sPauseM_Cursor,0,mainMenuX+mainCurX,mainMenuY+mainCurY)
+  if subMenu&gt;0
+  {
+    draw_sprite(sPauseM_AbilArrow,0,mainMenuX+mainCurX-1,mainMenuY+mainCurY-1)
+    draw_set_color(make_color_rgb(240,232,136))
+    draw_set_alpha(0.3)
+    draw_rectangle(mainMenuX+mainCurX-10,mainMenuY+mainCurY-8,mainMenuX+mainCurX+76,mainMenuY+mainCurY+8,0)
+    draw_set_alpha(1)
+    draw_rectangle(mainMenuX+mainCurX-10,mainMenuY+mainCurY-8,mainMenuX+mainCurX+76,mainMenuY+mainCurY+8,1)
+  }
+  
+  //---------- Display Current Chapter ----------
+  draw_set_font(fnt_PauseMenuText)
+  draw_set_halign(fa_left)
+  draw_set_alpha(1)
+  var tChapterName;
+  tChapterName=""
+  if global.gameProgress&lt;=29 {tChapterName="Chapter 0: You haven't even started yet..."}
+  else if global.gameProgress&gt;=30 and global.gameProgress&lt;=159 {tChapterName="Chapter 1: Everything Has a Beginning"}
+  else if global.gameProgress&gt;=160 and global.gameProgress&lt;=529 {tChapterName="Chapter 2: Jerry &amp; Claire"}
+  else if global.gameProgress&gt;=530 and global.gameProgress&lt;=629 {tChapterName="Chapter 3: Overrun"}
+  else if global.gameProgress&gt;=630 and global.gameProgress&lt;=929 {tChapterName="Chapter 4: Jerry's Adventure"}
+  else if global.gameProgress&gt;=930 and global.gameProgress&lt;=1159 {tChapterName="Chapter 5: Reclaiming What's Lost"}
+  else if global.gameProgress&gt;=1160 and global.gameProgress&lt;=1539 {tChapterName="Chapter 6: Clairvoyance"}
+  else if global.gameProgress&gt;=1540 and global.gameProgress&lt;=1769 {tChapterName="Chapter 7: Familiar Ways"}
+  else if global.gameProgress&gt;=1770 and global.gameProgress&lt;=2009 {tChapterName="Chapter 8: Mega Jerry"}
+  else if global.gameProgress&gt;=2010 and global.gameProgress&lt;=2169 {tChapterName="Chapter 9: Recollection"}
+  else if global.gameProgress&gt;=2170 and global.gameProgress&lt;=2569 {tChapterName="Chapter 10: Something Sleeps in the Darkness"}
+  else if global.gameProgress&gt;=2570 and global.gameProgress&lt;=2599 {tChapterName="Chapter 11: Intermission"}
+  else if global.gameProgress&gt;=2600 and global.gameProgress&lt;=2679 {tChapterName="Chapter 12: Barren Bewilderment"}
+  else if global.gameProgress&gt;=2680 and global.gameProgress&lt;=3089 {tChapterName="Chapter 13: Claire Fusion"}
+  else if global.gameProgress&gt;=3090 and global.gameProgress&lt;=3399 {tChapterName="Chapter 14: Truths Revealed"}
+  else if global.gameProgress&gt;=3400 and global.gameProgress&lt;=3879 {tChapterName="Chapter 15: Rapid Prototype Game"}
+  else if global.gameProgress&gt;=3880 and global.gameProgress&lt;=3939 {tChapterName="Chapter 16: On the Defensive"}
+  else if global.gameProgress&gt;=3940 and global.gameProgress&lt;=4209 {tChapterName="Chapter 17: What Lies Beneath"}
+  else if global.gameProgress&gt;=4210 and global.gameProgress&lt;=4529 {tChapterName="Chapter 18: A New Empire"}
+  else if global.gameProgress&gt;=4530 and global.gameProgress&lt;=5049 {tChapterName="Chapter 19: That Which can be Taken"}
+  else if global.gameProgress&gt;=5050 and global.gameProgress&lt;=5490 {tChapterName="Chapter 20: Trust"}
+  else if global.gameProgress&gt;=5500 {tChapterName="Chapter 21: Distorted Travesty"}
+  textDropShadow(tChapterName,contentMenuX+2,contentMenuY-23,textColorMain,textColorShadow,1)
+  
+  textDropShadow("Press the [Home] key to reset your controls to the default settings.",mainMenuX+8,mainMenuY+282,textColorMain,textColorShadow,1)
+  
+  //----- Prizes -----
+  if global.yoshiDoll&gt;=1 {draw_sprite(sPauseM_YoshiDoll,0,contentMenuX+48,contentMenuY-27)}
+  if global.yoshiDoll&gt;=2 {draw_sprite(sPauseM_YoshiDoll,1,contentMenuX+76,contentMenuY-27)}
+  if global.yoshiDoll&gt;=3 {draw_sprite(sPauseM_YoshiDoll,2,contentMenuX+104,contentMenuY-27)}
+  if global.yoshiDoll&gt;=4 {draw_sprite(sPauseM_YoshiDoll,3,contentMenuX+132,contentMenuY-27)}
+  
+  //---------- Menu Titles ----------
+  draw_set_font(fnt_PauseMenuMain)
+  draw_set_color(textColorMain)
+  if mainCurPos=1 //------------------------------ PROGRESS ------------------------------
+  {
+    draw_text(contentMenuX+8,contentMenuY,"PROGRESS")
+    var tDiffText,tExtDiffText;
+    tExtDiffText=""
+    if global.bNightmareMode=0
+    {
+      if global.difficulty=1 {tDiffText="[ASSIST MODE]"}
+      else if global.difficulty=2 {tDiffText="[STANDARD MODE]"}
+      if global.bOneHitKillMode=1 {tDiffText="[ACHILLES MODE]"}
+    }
+    else
+    {
+      if global.bOneHitKillMode=0 {tDiffText="[NIGHTMARE MODE]"}
+      else {tDiffText="[NIGHT TERROR MODE]"}
+    }
+    
+    if global.permaEasyMode=1 {tExtDiffText=" (E)"}
+    
+    draw_text(contentMenuX+106,contentMenuY,string(tDiffText) +string(tExtDiffText))
+    menuInfoText="Your overall progress and status."
+    menuProgress()
+  }
+  else if mainCurPos=2 //------------------------------ EQUIPMENT ------------------------------
+  {
+    draw_text(contentMenuX+8,contentMenuY,"EQUIPMENT")
+    menuInfoText="Change your equipment and use potions to heal."
+    menuEquipment()
+    
+    if subMenu=2
+    {
+      if mEq_CurPos=7 or mEq_CurPos=8
+      {
+        menuInfoText=""
+        if bottles[mEq_CurPos-7]="1"
+          menuInfoText="Empty Bottle#You can fill it with useful things."
+        else if bottles[mEq_CurPos-7]="2"
+          menuInfoText="Energy Drink#Restores half of your hearts."
+        else if bottles[mEq_CurPos-7]="3"
+          menuInfoText="Turbo Smoothie#This amazingly tasty drink restores all of your hearts!"
+      }
+      else
+      {
+        menuInfoText=string("Select an available equipment slot to assign an item to.#[" +string(global.ctrlActA) +string("]: Check available equipment.#[") +string(global.ctrlActB) +string("]: Unequip current slot."))
+      }
+      mSAP_FrameCount+=1
+      if mSAP_FrameCount mod 8=0
+      {
+        if mSAP_CurFrame=0 {mSAP_CurFrame=1}
+        else {mSAP_CurFrame=0}
+      }
+      //Display cursor
+      draw_sprite(sPauseM_APCursor,mSAP_CurFrame,contentMenuX+mEq_CurX,contentMenuY+mEq_CurY)
+    }
+  }
+  else if mainCurPos=3 //------------------------------ SPEND AP ------------------------------
+  {
+    draw_text(contentMenuX+8,contentMenuY,"SPEND AP")
+    menuInfoText="Spend the AP you have gained on enhancing various aspects of your characters."
+    menuSpendAP()
+  }
+  else if mainCurPos=4 //------------------------------ MAP ------------------------------
+  {
+    draw_text(contentMenuX+8,contentMenuY,"MAP")
+    menuInfoText="View your current location in the world and how many items are in an area."
+    menuMap(0)
+    if mapDetails&gt;0 {menuDetailsMap()}
+    if global.debugMenu=true
+    {
+      draw_set_color(c_white)
+      draw_text(contentMenuX+24,contentMenuY+32,mMap_CurX)
+      draw_text(contentMenuX+24,contentMenuY+44,mMap_CurY)
+    }
+  }
+  else if mainCurPos=5 //------------------------------ ABILITY SET ------------------------------
+  {
+    draw_text(contentMenuX+8,contentMenuY,"ABILITY SET")
+    menuInfoText="View your Ability Set power levels and info on how they function."
+    if subMenu=5
+    {
+      if mAS_Character="JERRY"
+      {
+        if mAS_Ability="LINK"
+        {
+          if global.hasAbilToken[1]&gt;=1
+            menuInfoText="Excels at close range combat with fast melee strikes, supplemented by powerful arrows and unlimited bombs."
+          else {menuInfoText="You have not obtained Jerry's 1st Ability Set."}
+        }
+        else if mAS_Ability="MEGA MAN"
+        {
+          if global.hasAbilToken[3]&gt;=1
+            menuInfoText="Provides multi-charge levels with the X-Buster as well as a wide range of special weapons. The only downside being the special weapon energy runs out quickly."
+          else {menuInfoText="You have not obtained Jerry's 2nd Ability Set."}
+        }
+        else if mAS_Ability="GAME"
+        {
+          if global.hasAbilToken[5]&gt;=1 or global.hasAbilToken[6]&gt;=1
+            menuInfoText="Does not seem to be linked to any specific game. Looks to be some prototype abilities in alpha stages of the program."
+          else {menuInfoText="You have not obtained this Ability Set."}
+        }
+      }
+      else if mAS_Character="CLAIRE"
+      {
+        if mAS_Ability="BELMONT"
+        {
+          if global.hasAbilToken[2]&gt;=1
+            menuInfoText="Provides decent melee range at the cost of attack speed, with exceptionally fast daggers, as well as slow but powerful bottles of holy water."
+          else {menuInfoText="You have not obtained Claire's 1st Ability Set."}
+        }
+        else if mAS_Ability="SAMUS"
+        {
+          if global.hasAbilToken[4]&gt;=1
+            menuInfoText="Provides good coverage with the Cannon, but it heats up quick and the shots aren't quite as strong as others. Luckily Missiles excel in damage output."
+          else {menuInfoText="You have not obtained Claire's 2nd Ability Set."}
+        }
+        else if mAS_Ability="GAME"
+        {
+          if global.hasAbilToken[5]&gt;=1 or global.hasAbilToken[6]&gt;=1
+            menuInfoText="Does not seem to be linked to any specific game. Looks to be some prototype abilities in alpha stages of the program."
+          else {menuInfoText="You have not obtained this Ability Set."}
+        }
+      }
+    }
+    if mAS_Ability="GAME"
+    {
+      if global.hasAbilToken[5]&gt;0 or global.hasAbilToken[6]&gt;0 {menuGate6Set()}
+    }
+    else {menuAbilitySet()}
+  }
+  else if mainCurPos=6 //------------------------------ RECORDS / RECOGNITIONS ------------------------------
+  {
+    if mR_Tab=1
+    {
+      draw_text(contentMenuX+8,contentMenuY,"RECORDS")
+      menuInfoText="View your battle records as well as other pointless records.#Press [Left] or [Right] to view Recognitions."
+    }
+    else
+    {
+      draw_text(contentMenuX+8,contentMenuY,"TOKEN RECOGNITIONS")
+      menuInfoText="Wait what? There are Achieveme... err Recognitions in this game?!#Press [Left] or [Right] to view Records, but you uh... you probably knew that.#Press [Confirm] to check Recognition info."
+    }
+    menuRecords()
+  }
+  else if mainCurPos=7 //------------------------------ OPTIONS ------------------------------
+  {
+    draw_text(contentMenuX+8,contentMenuY,"OPTIONS")
+    menuInfoText="Change various game options to your liking."
+    menuOptions()
+  }
+  else if mainCurPos=8 //------------------------------ TELEPORT ------------------------------
+  {
+    draw_text(contentMenuX+8,contentMenuY,"TELEPORT")
+    menuInfoText="Teleport out of an area."
+    
+    if global.gameProgress&gt;=510 //Explain teleport function
+    {
+      draw_set_alpha(1)
+      draw_set_halign(fa_left)
+      draw_set_font(fnt_PauseMenuText)
+      textDropShadowExt("Hey guys, Jeremy here. I'm pretty sure I can teleport you out of completed Access Gates, as well as most completed overworld dungeons.",contentMenuX+20,contentMenuY+30,textColorMain,textColorShadow,4,14,290)
+    }
+    
+    if subMenu=8
+    {
+      menuInfoText="No teleport location available."
+      if global.mapTeleport=0 //Not usable
+        menuInfoText=string("Not available.")
+      else if global.mapTeleport=1 //Gate A
+        menuInfoText=string("Teleport to - Stratum Steppe")
+      else if global.mapTeleport=2 //Gate B
+        menuInfoText=string("Teleport to - Greatest Stretch - North")
+      else if global.mapTeleport=3 //Gate C
+        menuInfoText=string("Teleport to - Magical Canopy")
+      else if global.mapTeleport=4 //Gate D
+        menuInfoText=string("Teleport to - Begonia - Floating Isles")
+      else if global.mapTeleport=5 //Gate E
+        menuInfoText=string("Teleport to - Farreaches - Vault Entrance")
+      else if global.mapTeleport=6 //Gate F
+        menuInfoText=string("Teleport to - Barrens - Oasis")
+      else if global.mapTeleport=7 //Gate G
+        menuInfoText=string("Teleport to - Burning Stretch - Land's End")
+      else if global.mapTeleport=8 //Gate H
+        menuInfoText=string("Teleport to - ?????")
+      else if global.mapTeleport=9 //Gate 3 (Megapolis)
+      {
+        if global.gameProgress&gt;=1840
+          menuInfoText=string("Teleport to - Megapolis Map")
+        else
+          menuInfoText=string("Teleport to - Gate 4 Entrance")
+      }
+      else if global.mapTeleport=14 //Vault Shift Maze
+        menuInfoText=string("Teleport to - Vault Shift Maze Entrance")
+      else if global.mapTeleport=15 //Vault (After completing Chapter 10)
+        menuInfoText=string("Teleport to - Farreaches - Vault Entrance")
+      else if global.mapTeleport=16 //Main_45
+        menuInfoText=string("Teleport to - Barrens - Lower Waste")
+      else if global.mapTeleport=17 //Gate 6 - Earth Temple
+        menuInfoText=string("Teleport to - Gate 6: Earth Temple Entrance")
+      else if global.mapTeleport=18 //Gate 6 - Fire Temple
+        menuInfoText=string("Teleport to - Gate 6: Fire Temple Entrance")
+      else if global.mapTeleport=19 //Gate 6 - Wind Temple
+        menuInfoText=string("Teleport to - Gate 6: Wind Temple Entrance")
+      else if global.mapTeleport=20 //Gate 6 - Paradise Island
+        menuInfoText=string("Teleport to - Gate 6: Paradise Island Entrance")
+      else if global.mapTeleport=21 //Gate 6 - Watery Cave
+        menuInfoText=string("Teleport to - Gate 6: Watery Cave Entrance")
+      else if global.mapTeleport=22 //Subconscious Filter
+        menuInfoText=string("Teleport to - Gate 6: Subconscious Filter Exit")
+      else if global.mapTeleport=23 //Gate 6 - Doom Castle
+        menuInfoText=string("Teleport to - Gate 6: Doom Castle Entrance")
+      else if global.mapTeleport=24 //Mountain Temple
+        menuInfoText=string("Teleport to - Mountain Temple Entrance")
+      else if global.mapTeleport=25 //Displaced Construction Site
+        menuInfoText=string("Teleport to - Displaced Construction Site Entrance")
+      else if global.mapTeleport=26 //Magical Castle
+        menuInfoText=string("Teleport to - Magical Castle Entrance")
+      else if global.mapTeleport=27 //Hidden Program Facility
+        menuInfoText=string("Teleport to - Hidden Program Facility Entrance")
+      else if global.mapTeleport=28 //Bubble Tower
+        menuInfoText=string("Teleport to - Bubble Tower Entrance")
+      else if global.mapTeleport=29 //Path to the Truth
+        menuInfoText=string("Teleport to - Path to the Truth Entrance")
+      else if global.mapTeleport=31 //Gate 1
+        menuInfoText=string("Teleport to - Gate 1: Entrance")
+      else if global.mapTeleport=32 //Gate 2
+        menuInfoText=string("Teleport to - Gate 2: Entrance")
+      else if global.mapTeleport=33 //Gate 3
+        menuInfoText=string("Teleport to - Gate 3: Entrance")
+      else if global.mapTeleport=34 //Gate 4
+        menuInfoText=string("Teleport to - Gate 4: Entrance")
+      else if global.mapTeleport=35 //Gate 5
+        menuInfoText=string("Teleport to - Gate 5: Entrance")
+      else if global.mapTeleport=36 //Gate 6
+        menuInfoText=string("Teleport to - Gate 6: Entrance")
+      else if global.mapTeleport=41 //Bubble Tower B
+        menuInfoText=string("Teleport to - Bubble Tower B HUB")
+    }
+  }
+  else if mainCurPos=9 //------------------------------ SAVE ------------------------------
+  {
+    draw_text(contentMenuX+8,contentMenuY,"SAVE")
+    menuInfoText="Save your game progress and do other stuff."
+    if subMenu=9
+    {
+      if mS_CurPos=1
+        menuInfoText="Save your progress."
+      else if mS_CurPos=2
+        menuInfoText="Force a Game Over on yourself."
+      else if mS_CurPos=3
+        menuInfoText="Revert back to last time the game was saved."
+      else if mS_CurPos=4
+        menuInfoText="Return to the title screen."
+    }
+    
+    if global.bCanSave=true
+      textDropShadow("Save Progress",contentMenuX+19,contentMenuY+24,textColorMain,textColorShadow,1)
+    else
+    {
+      textDropShadow("Save Progress",contentMenuX+19,contentMenuY+24,make_color_rgb(190,190,190),textColorShadow,1)
+      textDropShadow("[Disabled]",contentMenuX+117,contentMenuY+24,make_color_rgb(255,128,128),textColorShadow,1)
+    }
+    if global.bCanForceGO=true
+      textDropShadow("Force Game Over",contentMenuX+19,contentMenuY+50,textColorMain,textColorShadow,1)
+    else
+    {
+      textDropShadow("Force Game Over",contentMenuX+19,contentMenuY+50,make_color_rgb(190,190,190),textColorShadow,1)
+      textDropShadow("[Disabled]",contentMenuX+137,contentMenuY+50,make_color_rgb(255,128,128),textColorShadow,1)
+    }
+    textDropShadow("Load From Last Save Data",contentMenuX+19,contentMenuY+76,textColorMain,textColorShadow,1)
+    textDropShadow("Return To Title Screen",contentMenuX+19,contentMenuY+102,textColorMain,textColorShadow,1)
+    if subMenu=9 //Display cursor
+      draw_sprite(sPauseM_AbilArrow,0,contentMenuX+mS_CurX,contentMenuY+mS_CurY)
+    
+    if confirmationMenu&gt;0 //Confirmation menu
+    {
+      var tConfirmMenuX,tConfirmMenuY;
+      tConfirmMenuX=contentMenuX+90
+      tConfirmMenuY=contentMenuY+48
+      draw_sprite(sMenu_ConfirmMenu,0,tConfirmMenuX,tConfirmMenuY)
+      draw_sprite(sPauseM_AbilArrow,0,tConfirmMenuX+15,tConfirmMenuY+14+(confirmMenuPos*19))
+    }
+  }
+  
+  if subMenu=11 //------------------------------ CONTROLS ------------------------------
+  {
+    draw_sprite(sPauseM_ControlMain,0,contentMenuX+122,contentMenuY+17)
+    menuInfoText="Change the control setup. This is for keyboard controls only. It only changes gamepad controls if you're using 3rd party software to bind keys to controller inputs."
+    //Display cursor
+    draw_sprite(sPauseM_AbilArrow,0,contentMenuX+122+mCon_CurX,contentMenuY+17+mCon_CurY)
+    //Display current controls
+    draw_set_halign(fa_center)
+    textDropShadow(global.ctrlUp,contentMenuX+259,contentMenuY+33,textColorMain,textColorShadow,1)
+    textDropShadow(global.ctrlDown,contentMenuX+259,contentMenuY+45,textColorMain,textColorShadow,1)
+    textDropShadow(global.ctrlLeft,contentMenuX+259,contentMenuY+57,textColorMain,textColorShadow,1)
+    textDropShadow(global.ctrlRight,contentMenuX+259,contentMenuY+69,textColorMain,textColorShadow,1)
+    textDropShadow(global.ctrlJump,contentMenuX+259,contentMenuY+81,textColorMain,textColorShadow,1)
+    textDropShadow(global.ctrlCharSwap,contentMenuX+259,contentMenuY+93,textColorMain,textColorShadow,1)
+    textDropShadow(global.ctrlAbilSwap,contentMenuX+259,contentMenuY+105,textColorMain,textColorShadow,1)
+    textDropShadow(global.ctrlActA,contentMenuX+259,contentMenuY+117,textColorMain,textColorShadow,1)
+    textDropShadow(global.ctrlActB,contentMenuX+259,contentMenuY+129,textColorMain,textColorShadow,1)
+    textDropShadow(global.ctrlActC,contentMenuX+259,contentMenuY+141,textColorMain,textColorShadow,1)
+    textDropShadow(global.ctrlDashLeft,contentMenuX+259,contentMenuY+153,textColorMain,textColorShadow,1)
+    textDropShadow(global.ctrlDashRight,contentMenuX+259,contentMenuY+165,textColorMain,textColorShadow,1)
+  }
+  else if subMenu=12 //------------------------------ ITEM LIST ------------------------------
+  {
+    menuInfoText=""
+    var tItemMX,iItemMY;
+    iItemMX=1
+    iItemMY=2
+    draw_set_color(make_color_rgb(0,120,104))
+    draw_rectangle(contentMenuX+iItemMX,contentMenuY+iItemMY,contentMenuX+iItemMX+319,contentMenuY+iItemMY+133,0)
+    draw_set_color(make_color_rgb(224,128,40))
+    draw_rectangle(contentMenuX+iItemMX,contentMenuY+iItemMY,contentMenuX+iItemMX+319,contentMenuY+iItemMY+133,1)
+    //Display slots
+    var i,ii; for(i=0;i&lt;4;i+=1)
+    {
+      for(ii=0;ii&lt;10;ii+=1)
+      {
+        draw_sprite(sPauseM_ItemSlot,0,contentMenuX+iItemMX+7+(ii*31),contentMenuY+iItemMY+7+(i*31))
+      }
+    }
+    //Display item icons
+    draw_set_halign(fa_left)
+    draw_set_font(fnt_PauseMenuMain)
+    for(i=0;i&lt;10;i+=1)
+    {
+      if items[i]!=0
+      {
+        draw_sprite(sEquipItemIcons,items[i]-1,contentMenuX+iItemMX+20+(i*31),contentMenuY+iItemMY+20)
+        if eCheck[i]!="1"
+          textDropShadow("E",contentMenuX+iItemMX+24+(i*31),contentMenuY+iItemMY+20,textColorMain,make_color_rgb(12,16,15),4)
+      }
+      if items[i+10]!=0
+      {
+        draw_sprite(sEquipItemIcons,items[i+10]-1,contentMenuX+iItemMX+20+(i*31),contentMenuY+iItemMY+51)
+        if eCheck[i+10]!="1"
+          textDropShadow("E",contentMenuX+iItemMX+24+(i*31),contentMenuY+iItemMY+51,textColorMain,make_color_rgb(12,16,15),4)
+      }
+      if items[i+20]!=0
+      {
+        draw_sprite(sEquipItemIcons,items[i+20]-1,contentMenuX+iItemMX+20+(i*31),contentMenuY+iItemMY+82)
+        if eCheck[i+20]!="1"
+          textDropShadow("E",contentMenuX+iItemMX+24+(i*31),contentMenuY+iItemMY+82,textColorMain,make_color_rgb(12,16,15),4)
+      }
+      if items[i+30]!=0
+      {
+        draw_sprite(sEquipItemIcons,items[i+30]-1,contentMenuX+iItemMX+20+(i*31),contentMenuY+iItemMY+113)
+        if eCheck[i+30]!="1"
+          textDropShadow("E",contentMenuX+iItemMX+24+(i*31),contentMenuY+iItemMY+113,textColorMain,make_color_rgb(12,16,15),4)
+      }
+    }
+    
+    equipCheck[1]=""
+    equipCheck[3]=""
+    if mItem_CurY=1
+    {
+      if items[mItem_CurX-1]!=0
+        equipmentInit(2,mItem_CurX)
+    }
+    else if mItem_CurY=2
+    {
+      if items[mItem_CurX+9]!=0
+        equipmentInit(2,mItem_CurX+10)
+    }
+    else if mItem_CurY=3
+    {
+      if items[mItem_CurX+19]!=0
+        equipmentInit(2,mItem_CurX+20)
+    }
+    else if mItem_CurY=4
+    {
+      if items[mItem_CurX+29]!=0
+        equipmentInit(2,mItem_CurX+30)
+    }
+    
+    menuInfoText=equipCheck[3]
+    //Display item slot info
+    if equipCheck[1]!=""
+    {
+      draw_set_font(fnt_PauseMenuText)
+      draw_set_halign(fa_left)
+      draw_set_color(textColorMain)
+      draw_text(infoMenuX+87,infoMenuY+2,"&gt;&gt;" +string(equipCheck[1]))
+    }
+    
+    mSAP_FrameCount+=1
+    if mSAP_FrameCount mod 8=0
+    {
+      if mSAP_CurFrame=0 {mSAP_CurFrame=1}
+      else {mSAP_CurFrame=0}
+    }
+    //Display cursor
+    draw_sprite(sPauseM_APCursor,mSAP_CurFrame,contentMenuX+iItemMX+20+((mItem_CurX-1)*mItem_CurInc),contentMenuY+iItemMY+20+((mItem_CurY-1)*mItem_CurInc))
+  }
+  else if subMenu=13 //------------------------------ RECOGNITIONS ------------------------------
+  {
+    //Display cursor
+    draw_sprite(sPauseM_Cursor,0,contentMenuX+7,contentMenuY+9+(mR_RecCurPos*24))
+  }
+  else if subMenu=14 //------------------------------ GAMEPAD SETUP ------------------------------
+  {
+    var tGamepadMenuX,tGamepadMenuY;
+    tGamepadMenuX=contentMenuX-32
+    tGamepadMenuY=contentMenuY-20
+    draw_sprite(sPauseM_GamepadSetup,0,tGamepadMenuX,tGamepadMenuY)
+    menuInfoText="Change the gamepad control setup. This is only if you're using the built in gamepad controls. Keep in mind this is suited to the X-Box controller. Some gamepads, such as those with the face buttons as [1,2,3,4] may have a different configuration than shown."
+    
+    //Display number of gamepad profiles
+    draw_set_font(fnt_PauseMenuText)
+    draw_set_halign(fa_left)
+    draw_set_alpha(1)
+    draw_set_color(c_white)
+    draw_text(contentMenuX+146,contentMenuY-19,string(global.optGamepadSetup) +string("/") +string(mO_OptConMax))
+    
+    //Display stick dead zone
+    draw_set_halign(fa_center)
+    draw_text(tGamepadMenuX+185,tGamepadMenuY+53,string(round(global.optStickDeadZone*100)) +string("%"))
+    
+    //Display current controls
+    if global.optGamepadSetup=1 //----- 1.0 JERRY -----
+    {
+      draw_text(tGamepadMenuX+185,tGamepadMenuY+15,"1.0 JERRY")
+      draw_text(tGamepadMenuX+57,tGamepadMenuY+32,"Dash Left")
+      draw_text(tGamepadMenuX+302,tGamepadMenuY+25,"Dash Right")
+      draw_text(tGamepadMenuX+53,tGamepadMenuY+84,"Character Swap")
+      draw_text(tGamepadMenuX+315,tGamepadMenuY+53,"Ability Swap")
+      draw_text(tGamepadMenuX+317,tGamepadMenuY+101,"Action B")
+      draw_text(tGamepadMenuX+317,tGamepadMenuY+124,"Action C")
+      draw_text(tGamepadMenuX+317,tGamepadMenuY+147,"Jump")
+      draw_text(tGamepadMenuX+317,tGamepadMenuY+172,"Action A")
+    }
+    else if global.optGamepadSetup=2 //----- 1.1 JEREMY -----
+    {
+      draw_text(tGamepadMenuX+185,tGamepadMenuY+15,"1.1 JEREMY")
+      draw_text(tGamepadMenuX+57,tGamepadMenuY+32,"Character Swap")
+      draw_text(tGamepadMenuX+302,tGamepadMenuY+25,"Ability Swap")
+      draw_text(tGamepadMenuX+53,tGamepadMenuY+84,"Dash Left")
+      draw_text(tGamepadMenuX+315,tGamepadMenuY+53,"Dash Right")
+      draw_text(tGamepadMenuX+317,tGamepadMenuY+101,"Action B")
+      draw_text(tGamepadMenuX+317,tGamepadMenuY+124,"Action C")
+      draw_text(tGamepadMenuX+317,tGamepadMenuY+147,"Jump")
+      draw_text(tGamepadMenuX+317,tGamepadMenuY+172,"Action A")
+    }
+    else if global.optGamepadSetup=3 //----- 1.2 CLAIRE -----
+    {
+      draw_text(tGamepadMenuX+185,tGamepadMenuY+15,"1.2 CLAIRE")
+      draw_text(tGamepadMenuX+57,tGamepadMenuY+32,"Dash Left")
+      draw_text(tGamepadMenuX+302,tGamepadMenuY+25,"Dash Right")
+      draw_text(tGamepadMenuX+53,tGamepadMenuY+84,"Character Swap")
+      draw_text(tGamepadMenuX+315,tGamepadMenuY+53,"Ability Swap")
+      draw_text(tGamepadMenuX+317,tGamepadMenuY+101,"Action B")
+      draw_text(tGamepadMenuX+317,tGamepadMenuY+124,"Action C")
+      draw_text(tGamepadMenuX+317,tGamepadMenuY+147,"Action A")
+      draw_text(tGamepadMenuX+317,tGamepadMenuY+172,"Jump")
+    }
+    else if global.optGamepadSetup=4 //----- 1.3 CHAO -----
+    {
+      draw_text(tGamepadMenuX+185,tGamepadMenuY+15,"1.3 CHAO")
+      draw_text(tGamepadMenuX+57,tGamepadMenuY+32,"Character Swap")
+      draw_text(tGamepadMenuX+302,tGamepadMenuY+25,"Ability Swap")
+      draw_text(tGamepadMenuX+53,tGamepadMenuY+84,"Dash Left")
+      draw_text(tGamepadMenuX+315,tGamepadMenuY+53,"Dash Right")
+      draw_text(tGamepadMenuX+317,tGamepadMenuY+101,"Action B")
+      draw_text(tGamepadMenuX+317,tGamepadMenuY+124,"Action C")
+      draw_text(tGamepadMenuX+317,tGamepadMenuY+147,"Action A")
+      draw_text(tGamepadMenuX+317,tGamepadMenuY+172,"Jump")
+    }
+    else if global.optGamepadSetup=5 //----- 2.0 SWITCH PRO CONTROLLER -----
+    {
+      draw_text(tGamepadMenuX+185,tGamepadMenuY+15,"2.0 SWITCH PRO CONTROLLER")
+      draw_text(tGamepadMenuX+57,tGamepadMenuY+32,"Dash Left")
+      draw_text(tGamepadMenuX+302,tGamepadMenuY+25,"Dash Right")
+      draw_text(tGamepadMenuX+53,tGamepadMenuY+84,"Character Swap")
+      draw_text(tGamepadMenuX+315,tGamepadMenuY+53,"Ability Swap")
+      draw_text(tGamepadMenuX+317,tGamepadMenuY+101,"Action B")
+      draw_text(tGamepadMenuX+317,tGamepadMenuY+124,"Action C")
+      draw_text(tGamepadMenuX+317,tGamepadMenuY+147,"Jump")
+      draw_text(tGamepadMenuX+317,tGamepadMenuY+172,"Action A")
+    }
+    else if global.optGamepadSetup=6 //----- 2.1 HITBOX CONTROLLER -----
+    {
+      draw_text(tGamepadMenuX+185,tGamepadMenuY+15,"2.1 HITBOX CONTROLLER")
+      draw_text(tGamepadMenuX+57,tGamepadMenuY+32,"Character Swap")
+      draw_text(tGamepadMenuX+302,tGamepadMenuY+25,"Ability Swap")
+      draw_text(tGamepadMenuX+53,tGamepadMenuY+84,"Action C")
+      draw_text(tGamepadMenuX+315,tGamepadMenuY+53,"Action B")
+      draw_text(tGamepadMenuX+317,tGamepadMenuY+101,"Action A")
+      draw_text(tGamepadMenuX+317,tGamepadMenuY+124,"Dash Right")
+      draw_text(tGamepadMenuX+317,tGamepadMenuY+147,"Jump")
+      draw_text(tGamepadMenuX+317,tGamepadMenuY+172,"Dash Left")
+    }
+    else if global.optGamepadSetup=7 //----- 2.2 DS4 CONTROLLER -----
+    {
+      draw_text(tGamepadMenuX+185,tGamepadMenuY+15,"2.2 DS4 CONTROLLER")
+      draw_text(tGamepadMenuX+57,tGamepadMenuY+32,"Character Swap")
+      draw_text(tGamepadMenuX+302,tGamepadMenuY+25,"Ability Swap")
+      draw_text(tGamepadMenuX+53,tGamepadMenuY+84,"Jump")
+      draw_text(tGamepadMenuX+315,tGamepadMenuY+53,"Action B")
+      draw_text(tGamepadMenuX+317,tGamepadMenuY+101,"Action C")
+      draw_text(tGamepadMenuX+317,tGamepadMenuY+124,"Dash Left")
+      draw_text(tGamepadMenuX+317,tGamepadMenuY+147,"Action A")
+      draw_text(tGamepadMenuX+317,tGamepadMenuY+172,"Dash Right")
+    }
+  }
+  
+  //---------- Menu Info ----------
+  draw_set_alpha(1)
+  draw_set_halign(fa_left)
+  draw_set_font(fnt_PauseMenuText)
+  textDropShadowExt(menuInfoText,infoMenuX+8,infoMenuY+15,textColorMain,textColorShadow,1,12,426)
+  
+  /*
+  for(i=0;i&lt;3;i+=1)
+  {
+    textDropShadow(global.equipJerry[i],contentMenuX-96,contentMenuY-32+(i*12),textColorMain,make_color_rgb(12,16,15),4)
+    textDropShadow(global.equipClaire[i],contentMenuX-80,contentMenuY-32+(i*12),textColorMain,make_color_rgb(12,16,15),4)
+  }
+  for(i=0;i&lt;24;i+=1)
+  {
+    textDropShadow(eCheck[i],contentMenuX-64,contentMenuY-32+(i*12),textColorMain,make_color_rgb(12,16,15),4)
+    textDropShadow(items[i],contentMenuX-48,contentMenuY-32+(i*12),textColorMain,make_color_rgb(12,16,15),4)
+  }
+  textDropShadow(global.equipItems,contentMenuX-32,contentMenuY-32,textColorMain,make_color_rgb(12,16,15),4)
+  */
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

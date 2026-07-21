@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  if bActive=0 {makeEnemyActive(1)}
+  if life&gt;0
+  {
+    if bActive=true and stunnedTime=0
+    {
+      startUpTime+=1
+      if startUpTime=1 //Appear
+      {
+        visible=1
+        var tEffect;
+        tEffect=instance_create(x,y,oEffect)
+        tEffect.sprite_index=sAtkTypeShield; tEffect.followID=-1; tEffect.image_xscale=0.75; tEffect.image_yscale=0.75
+        tEffect.newBlend=1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0; tEffect.image_alpha=0.75; tEffect.image_speed=0.75
+      }
+      if startUpTime&gt;=15
+      {
+        if myTarget=-1 //Find new target
+        {
+          if type=0 //Find facility bot
+          {
+            if instance_exists(oInfectMe) //Check if a new target exists
+            {
+              var tTestTgt,tTestDist;
+              tTestTgt=instance_nearest(x,y,oInfectMe)
+              tTestDist=point_distance(x,y,tTestTgt.x,tTestTgt.y)
+              if tTestDist&lt;=416 //Make sure target is close enough
+              {
+                myTarget=instance_nearest(x,y,oInfectMe)
+              }
+            }
+          }
+          else if type=1 //Find facility console
+          {
+            if instance_exists(oHPF_ConInfect) //Check if a new target exists
+            {
+              var tTestTgt,tTestDist;
+              tTestTgt=instance_nearest(x,y,oHPF_ConInfect)
+              tTestDist=point_distance(x,y,tTestTgt.x,tTestTgt.y)
+              if tTestDist&lt;=448 //Make sure target is close enough
+              {
+                myTarget=instance_nearest(x,y,oHPF_ConInfect)
+              }
+            }
+          }
+          //Track player
+          var myDist,targetSpd;
+          targetSpd=5
+          myDist=point_distance(x,y,oPlayer1.x,oPlayer1.y-26)
+          myDist=round(myDist)
+          
+          if myDist&lt;=40 {targetSpd=2}
+          else if myDist&gt;=41 and myDist&lt;=80 {targetSpd=4}
+          else if myDist&gt;=81 and myDist&lt;=128 {targetSpd=5}
+          else if myDist&gt;=129 and myDist&lt;=192 {targetSpd=6}
+          else if myDist&gt;=193 and myDist&lt;=240 {targetSpd=7}
+          else if myDist&gt;=241 {targetSpd=8}
+          
+          maxSpeed=targetSpd
+          if x&gt;oPlayer1.x
+          {
+            if currHspd&gt;-maxSpeed {currHspd-=0.2}
+            else {currHspd+=0.2}
+          }
+          else if x&lt;oPlayer1.x
+          {
+            if currHspd&lt;maxSpeed {currHspd+=0.2}
+            else {currHspd-=0.2}
+          }
+          if y&gt;oPlayer1.y-26
+          {
+            if currVspd&gt;-maxSpeed {currVspd-=0.2}
+            else {currVspd+=0.2}
+          }
+          else if y&lt;oPlayer1.y-26
+          {
+            if currVspd&lt;maxSpeed {currVspd+=0.2}
+            else {currVspd-=0.2}
+          }
+          hspeed=currHspd; vspeed=currVspd
+        }
+        else
+        {
+          if instance_exists(myTarget) //Target exists, go toward target
+          {
+            var myDist,targetSpd;
+            targetSpd=5
+            myDist=point_distance(x,y,myTarget.x,myTarget.y)
+            myDist=round(myDist)
+            
+            if myDist&lt;=40 {targetSpd=2}
+            else if myDist&gt;=41 and myDist&lt;=80 {targetSpd=4}
+            else if myDist&gt;=81 and myDist&lt;=128 {targetSpd=5}
+            else if myDist&gt;=129 and myDist&lt;=192 {targetSpd=6}
+            else if myDist&gt;=193 and myDist&lt;=240 {targetSpd=7}
+            else if myDist&gt;=241 {targetSpd=8}
+            
+            maxSpeed=targetSpd
+            
+            if x&gt;myTarget.x
+            {
+              if currHspd&gt;-maxSpeed {currHspd-=0.2}
+              else {currHspd+=0.2}
+            }
+            else if x&lt;myTarget.x
+            {
+              if currHspd&lt;maxSpeed {currHspd+=0.2}
+              else {currHspd-=0.2}
+            }
+            if y&gt;myTarget.y
+            {
+              if currVspd&gt;-maxSpeed {currVspd-=0.2}
+              else {currVspd+=0.2}
+            }
+            else if y&lt;myTarget.y
+            {
+              if currVspd&lt;maxSpeed {currVspd+=0.2}
+              else {currVspd-=0.2}
+            }
+            hspeed=currHspd; vspeed=currVspd
+          }
+          else {myTarget=-1} //No target exists, reset to find a new target
+        }
+      }
+    }
+    else {hspeed=0; vspeed=0}
+  }
+  else if life&lt;=0
+  {
+    deathAnim+=1
+    if deathAnim=1
+    {
+      playSound(global.snd_HardHit1,0,0.9,1)
+      image_speed=0
+      hspeed=0; vspeed=0
+      baseColor=c_red; image_blend=c_red
+      tEffect=instance_create(x,y,oEffect)
+      tEffect.sprite_index=sDeathFlameA; tEffect.image_speed=0.33
+      tEffect.image_xscale=2; tEffect.image_yscale=2; tEffect.image_alpha=0.8
+      tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+    }
+    image_alpha-=0.03
+    if image_alpha&lt;0 {instance_destroy()}
+  }
+  enemyStepEvent()
+}
+else {hspeed=0; vspeed=0}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

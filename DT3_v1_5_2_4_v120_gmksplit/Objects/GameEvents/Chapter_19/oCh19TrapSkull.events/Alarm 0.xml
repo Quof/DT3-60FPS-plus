@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="ALARM" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if trapType=1 {image_blend=make_color_rgb(190,170,120)}
+else if trapType=2 //Rotating Spike Trap
+{
+  var tTrap,tDir;
+  tDir=0
+  for(i=0;i&lt;trapNum;i+=1)
+  {
+    tTrap=instance_create(x,y,oCh19RotateTrap)
+    tTrap.swingSpeed=swingSpeed
+    tTrap.chainLinks=chainLinks
+    tTrap.myDir=tDir
+    tDir+=360/trapNum
+  }
+  instance_destroy()
+}
+else if trapType=3 {image_blend=make_color_rgb(230,140,90)}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

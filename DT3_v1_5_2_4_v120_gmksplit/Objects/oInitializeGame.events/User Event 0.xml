@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="OTHER" id="10">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">ini_open(global.paraString[0])
+sectionRead="ALPHA"
+titleHour=ini_read_real(sectionRead,"101",0)
+titleMinute=ini_read_real(sectionRead,"102",0)
+titleSecond=ini_read_real(sectionRead,"103",0)
+locCheck=ini_read_real(sectionRead,"120",0)
+progressCheck=ini_read_real(sectionRead,"123",0)
+extraGateProg=ini_read_string(sectionRead,"123iX","00000000")
+titleChips=ini_read_real(sectionRead,"124",0)
+completedGame=ini_read_real(sectionRead,"144",0)
+screenCheck=ini_read_real(sectionRead,"224",1)
+
+truthCaveProg=ini_read_real(sectionRead,"123iH",0)
+
+titleBirdNum=ini_read_real(sectionRead,"107",0)
+
+global.bNightmareMode=ini_read_real(sectionRead,"137b",0)
+global.bOneHitKillMode=ini_read_real(sectionRead,"137c",0)
+global.permaEasyMode=ini_read_real(sectionRead,"146",0)
+
+global.optMusic=ini_read_real(sectionRead,"201",95)
+global.optSound=ini_read_real(sectionRead,"202",95)
+global.optGamePad=ini_read_real(sectionRead,"222",0)
+
+global.ctrlUp=ini_read_string(sectionRead,"301","W")
+global.ctrlDown=ini_read_string(sectionRead,"302","S")
+global.ctrlLeft=ini_read_string(sectionRead,"303","A")
+global.ctrlRight=ini_read_string(sectionRead,"304","D")
+global.ctrlJump=ini_read_string(sectionRead,"305","J")
+global.ctrlCharSwap=ini_read_string(sectionRead,"306","U")
+global.ctrlAbilSwap=ini_read_string(sectionRead,"307","I")
+global.ctrlActA=ini_read_string(sectionRead,"308","K")
+global.ctrlActB=ini_read_string(sectionRead,"309","L")
+global.ctrlActC=ini_read_string(sectionRead,"310","O")
+global.ctrlDashLeft=ini_read_string(sectionRead,"311","Q")
+global.ctrlDashRight=ini_read_string(sectionRead,"312","E")
+ini_close()
+
+for(i=0;i&lt;8;i+=1)
+{
+  instrProg[i]=string_char_at(extraGateProg,i+1)
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

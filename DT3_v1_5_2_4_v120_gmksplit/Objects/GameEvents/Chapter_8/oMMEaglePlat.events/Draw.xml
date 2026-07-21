@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="DRAW" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">findTargetX=point_distance(oCharacter.x,0,x,0)
+findTargetY=point_distance(0,oCharacter.y,0,y)
+if findTargetX&lt;drawRangeX and findTargetY&lt;drawRangeY
+{
+  draw_sprite_ext(sprite_index,image_index,x,y,image_xscale,image_yscale,image_angle,image_blend,image_alpha)
+  if shiftTime&lt;shiftTimeMax and shiftSeq=0 and yVel&lt;0
+  {
+    draw_sprite(sMM_SEPEffect,flameFrm,x+20,y+12)
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

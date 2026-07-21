@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="DRAW" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">draw_sprite_ext(sprite_index,image_index,x,y,image_xscale,image_yscale,image_angle,image_blend,image_alpha)
+
+if bCostDisplayed=1
+{
+  draw_set_alpha(1)
+  draw_set_color(make_color_rgb(64,40,24))
+  draw_set_font(fnt_PauseMenuText)
+  draw_set_halign(fa_center)
+  textDropShadow(string("Repair 1 Stability#&lt;") +string(oTD_HUD.recoverCost) +string("&gt;"),x,y-80,make_color_rgb(255,248,155),make_color_rgb(16,8,8),3)
+}
+
+if oTD_HUD.repairCooldown&gt;0
+{
+  draw_set_alpha(1)
+  draw_set_font(fnt_PauseMenuText)
+  draw_set_halign(fa_middle)
+  textDropShadow(string("Repair Cooldown#&lt;") +string(oTD_HUD.repairCooldown) +string("&gt;"),x,y+16,make_color_rgb(255,248,155),make_color_rgb(16,8,8),3)
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

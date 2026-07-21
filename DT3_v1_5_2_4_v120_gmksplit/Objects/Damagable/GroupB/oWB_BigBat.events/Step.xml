@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  makeEnemyActive(0)
+  if life&gt;0
+  {
+    if bActive=true and stunnedTime=0
+    {
+      chargeTime+=1
+      if chargeProg=0 //Normal behavior
+      {
+        if x&lt;oPlayer1.x
+          image_xscale=1
+        else
+          image_xscale=-1
+        
+        if point_distance(x,y,oPlayer1.x,returnPlayerYCenter())&gt;128 //Far from player
+        {
+          direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
+          speed=runAcc
+        }
+        else if point_distance(x,y,oPlayer1.x,returnPlayerYCenter())&lt;112 //Close to player
+        {
+          chargeTime+=0.5
+          direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())-180
+          speed=runAcc/1.5
+        }
+        else {chargeTime+=0.5}
+        
+        if chargeTime&gt;=chargeDelay
+        {
+          if point_distance(x,y,oPlayer1.x,returnPlayerYCenter())&lt;192
+          {
+            direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())-180
+            image_speed=0.5
+            chargeTime=0
+            chargeProg+=1
+          }
+        }
+      }
+      else if chargeProg=1 //Wait time
+      {
+        speed=runAcc/1.5
+        if chargeTime&gt;=15 //Find direction to charge
+        {
+          if random(10)&gt;9.1
+          {
+            var newMessage;
+            newMessage=instance_create(x-46,y-70,oEnemyChat)
+            newMessage.enemyMessage="Run for the hills!"
+            direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())-180
+          }
+          else {direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())}
+          chargeTime=0
+          chargeProg+=1
+        }
+      }
+      else if chargeProg=2 //Charge sting
+      {
+        speed=runAcc*7
+        if chargeTime&gt;=25
+        {
+          image_speed=0.1
+          chargeTime=0
+          chargeProg=0
+        }
+      }
+    }
+    else
+      speed=0
+  }
+  else if life&lt;=0
+  {
+    deathAnim+=1
+    if deathAnim=1
+    {
+      sprite_index=sWB_BigBat_Die
+      yDeath=-6
+    }
+    else if deathAnim&gt;=2
+    {
+      y+=yDeath
+      if yDeath&lt;12 {yDeath+=0.3}
+      if y&gt;room_height+24 {instance_destroy()}
+    }
+  }
+  enemyStepEvent()
+}
+else
+  speed=0
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

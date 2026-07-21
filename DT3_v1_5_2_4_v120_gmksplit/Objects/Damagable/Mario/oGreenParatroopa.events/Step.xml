@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  makeEnemyActive(0)
+  if bActive=true and stunnedTime=0
+  {
+    if initDir=false
+    {
+      xVel=runAcc
+      if x&gt;oPlayer1.x
+        xVel*=-1
+      initDir=true
+    }
+    yVel+=0.3
+    if isCollisionBottom(1)
+      yVel=-6
+    if isCollisionLeft(1)
+      xVel*=-1
+    if isCollisionRight(1)
+      xVel*=-1
+    if isCollisionTop(1)
+      yVel=0.1
+    
+    if xVel&gt;runAcc
+      xVel=runAcc
+    if xVel&lt;-runAcc
+      xVel=-runAcc
+    if xVel&gt;0
+      image_xscale=1
+    else
+      image_xscale=-1
+    moveTo(xVel,yVel)
+    if isCollisionSolid()
+      y-=2
+    if y&gt;room_height+24
+    {
+      if questType&gt;0
+        enemyQuest(questType)
+      instance_destroy()
+    }
+  }
+  enemyStepEvent()
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

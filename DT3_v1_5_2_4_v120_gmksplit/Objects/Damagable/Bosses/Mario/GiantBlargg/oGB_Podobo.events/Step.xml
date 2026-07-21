@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  glowScl+=0.025
+  if glowScl&gt;=1.4 {glowScl=1.1}
+  
+  if yVel&lt;0
+  {
+    var tBufScl;
+    tBufScl=abs(image_yscale)
+    image_yscale=tBufScl
+  }
+  else
+  {
+    var tBufScl;
+    tBufScl=abs(image_yscale)
+    image_yscale=-tBufScl
+  }
+  yVel+=yGrav
+  y+=yVel
+  if yVel&gt;1 and y&gt;ystart
+  {
+    var tEffect;
+    tEffect=instance_create(x+2,ystart+4,oEffectGrav)
+    tEffect.sprite_index=sEfMarioFireHit; tEffect.image_speed=0.33
+    tEffect.type=1; tEffect.decay=12 tEffect.xSpd=1; tEffect.ySpd=-2; tEffect.grav=0.3; tEffect.image_blend=image_blend
+    tEffect.newBlend=-1; tEffect.decay=45; tEffect.followID=-1; tEffect.rotation=0
+    tEffect=instance_create(x-2,ystart+4,oEffectGrav)
+    tEffect.sprite_index=sEfMarioFireHit; tEffect.image_speed=0.33; tEffect.image_xscale=-1
+    tEffect.type=1; tEffect.decay=12 tEffect.xSpd=-1; tEffect.ySpd=-2; tEffect.grav=0.3; tEffect.image_blend=image_blend
+    tEffect.newBlend=-1; tEffect.decay=45; tEffect.followID=-1; tEffect.rotation=0
+    instance_destroy()
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

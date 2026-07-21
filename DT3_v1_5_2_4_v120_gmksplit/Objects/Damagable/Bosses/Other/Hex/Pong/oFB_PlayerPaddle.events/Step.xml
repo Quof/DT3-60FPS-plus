@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=0
+{
+  if scrController(1)
+  {
+    if x&gt;leftBorder
+    {
+      x-=moveSpd
+      if x&lt;leftBorder {x=leftBorder}
+    }
+  }
+  if scrController(2)
+  {
+    if x&lt;rightBorder
+    {
+      x+=moveSpd
+      if x&gt;rightBorder {x=rightBorder}
+    }
+  }
+  if scrController(3)
+  {
+    if y&gt;topBorder
+    {
+      y-=moveSpd
+      if y&lt;topBorder {y=topBorder}
+    }
+  }
+  if scrController(4)
+  {
+    if y&lt;bottomBorder
+    {
+      y+=moveSpd
+      if y&gt;bottomBorder {y=bottomBorder}
+    }
+  }
+  
+  if dashDelay=0
+  {
+    if scrController(5) //Focus speed
+    {
+      moveSpd=focusSpd
+    }
+    else //Normal speed
+    {
+      moveSpd=normalSpd
+    }
+  }
+  else
+  {
+    if (!scrController(13) and !scrController(14)) {dashDelay=0}
+  }
+  
+  if oKeyCodes.kCodePressed[6]=1 //Attack
+  {
+    if jeremySuperEnergy&gt;=300
+    {
+      jeremySuperEnergy-=300
+      playSound(global.snd_MarioCannon,0,0.94,30000+random(3000))
+      instance_create(x+10,y,oFB_PlayerBullet)
+    }
+  }
+  
+  if moveSpd&gt;4 {moveSpd-=0.1}
+  if moveSpd&gt;6.8
+  {
+    var tAfterI;
+    tAfterI=instance_create(x,y,oEnemyAfterImage)
+    tAfterI.sprite_index=sprite_index; tAfterI.image_speed=0; tAfterI.image_blend=c_blue
+    tAfterI.depth=26; tAfterI.image_alpha=0.8; tAfterI.imageFade=0.1
+    tAfterI.xScaling=0; tAfterI.yScaling=0; tAfterI.xShift=0; tAfterI.yShift=0
+    tAfterI.bFollow=1; tAfterI.idFollow=id; tAfterI.xFollow=0; tAfterI.yFollow=0
+  }
+  
+  if dashDelay&gt;0 {dashDelay-=1}
+  
+  if (oKeyCodes.kCodePressed[13] or oKeyCodes.kCodePressed[14]) and dashEnergy&gt;=2000 and dashDelay=0 //Dash
+  {
+    dashDelay=30
+    moveSpd=8
+    dashEnergy-=2000
+  }
+  
+  if dashEnergy&lt;dashMeterMax
+  {
+    dashEnergy+=5
+    if dashEnergy&gt;dashMeterMax {dashEnergy=dashMeterMax}
+  }
+  
+  if jeremySuperEnergy&lt;jeremySuperMax
+  {
+    jeremySuperEnergy+=10
+    if jeremySuperEnergy&gt;jeremySuperMax {jeremySuperEnergy=jeremySuperMax}
+  }
+  
+  if life&lt;=0
+  {
+    if global.bCanGameOver=1
+    {
+      if !instance_exists(oGameOver)
+      {
+        stopLoopingSounds()
+        gameOver=instance_create(0,0,oGameOver)
+      }
+    }
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

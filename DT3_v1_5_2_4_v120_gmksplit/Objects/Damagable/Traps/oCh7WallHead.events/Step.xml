@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  shotTime+=1*jawSpd
+  if shotTime&gt;=shotDelay and shotTime&lt;=shotDelay+19
+  {
+    if image_xscale=1 {jawAngle-=1*jawSpd}
+    else {jawAngle+=1*jawSpd}
+  }
+  else if shotTime=shotDelay+24
+  {
+    newAttack=instance_create(x+(8*image_xscale),y+2,oTrapProjectile)
+    newAttack.sprite_index=sWolfHeadShot
+    newAttack.image_speed=0
+    newAttack.image_index=1
+    newAttack.atkPower=atkPower
+    newAttack.bulletSpeed=7
+    if image_xscale=-1 {newAttack.direction=180}
+  }
+  else if shotTime&gt;=shotDelay+30 and shotTime&lt;=shotDelay+49
+  {
+    if image_xscale=1 {jawAngle+=1*jawSpd}
+    else {jawAngle-=1*jawSpd}
+  }
+  else if shotTime&gt;=shotDelay+49 {jawAngle=0; shotTime=0}
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

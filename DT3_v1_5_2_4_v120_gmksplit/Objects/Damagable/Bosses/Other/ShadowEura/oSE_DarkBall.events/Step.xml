@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  image_angle+=20
+  if phase=0 //Bullets go out
+  {
+    speed=bulletSpeed
+    bulletTime+=1
+    if bulletTime&gt;=40
+    {
+      speed=0
+      bulletTime=0; phase+=1
+    }
+  }
+  else if phase=1 //Bullets stop
+  {
+    bulletTime+=1
+    if bulletTime&gt;=20
+    {
+      if x&gt;oPlayer1.x {xVel=-3}
+      else {xVel=3}
+      bulletTime=0; phase+=1
+    }
+  }
+  else if phase=2 //Bullets gravity toward the floor
+  {
+    yVel+=grav
+    if isCollisionTop(1) {bDestroy=1}
+    if isCollisionBottom(1) {bDestroy=1}
+    if isCollisionLeft(1) {bDestroy=1}
+    if isCollisionRight(1) {bDestroy=1}
+    moveTo(xVel,yVel)
+    
+    if bDestroy=1
+    {
+      myAtk=instance_create(x,y,oSE_DarkExplosionCon)
+      myAtk.atkPower=atkPower
+      instance_destroy()
+    }
+  }
+}
+else {speed=0}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

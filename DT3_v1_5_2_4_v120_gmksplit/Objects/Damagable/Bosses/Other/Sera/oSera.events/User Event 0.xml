@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="OTHER" id="10">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">//End attack
+sprite_index=sSeraIdle
+actTime=0
+actCheck=0
+
+atkNum+=1
+waitTime=waitDelay-12
+
+if atkNum&gt;=atkMax
+{
+  moveType+=1
+  if moveType=4 {moveType=0}
+  roundNum+=1
+  bigBlockChk+=1
+  waitTime=0; atkNum=0
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

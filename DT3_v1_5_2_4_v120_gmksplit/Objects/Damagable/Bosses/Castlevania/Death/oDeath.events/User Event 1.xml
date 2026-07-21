@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="OTHER" id="11">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">//-- ATTACK: SLASH B (LARGE ARC FORWARD) -- Intended for player to dash behind Death
+
+atkSwingTime+=1*atkSwingScale
+if atkSwingTime&lt;=2
+{
+  sprite_index=sDeathReadyB
+}
+else if atkSwingTime&gt;=30 and atkSwingTime&lt;=32 and bSwing=0
+{
+  playSound(global.snd_DeathSlash,0,0.97,25000)
+  sprite_index=sDeathSwingB
+  image_index=1
+  var newAtk,tTooFar;
+  tTooFar=1
+  if chkMove&gt;=192 and chkMove&lt;=351 {tTooFar=1.5}
+  else if chkMove&gt;=352 {tTooFar=2}
+  
+  newAtk=instance_create(x,y-24,oDeathScytheAtk)
+  newAtk.sprite_index=sDeathScytheSlashB; newAtk.atkPower=atkPower
+  newAtk.decay=round(10/atkSwingScale); newAtk.atkSpd=0.34*atkSwingScale
+  newAtk.image_xscale=(3.1*forwardSizeScale)*tTooFar*image_xscale; newAtk.image_yscale=(1.5*forwardSizeScale)*tTooFar
+  
+  newAtk=instance_create(x,y-24,oDeathScytheAtk)
+  newAtk.sprite_index=sDeathScytheSlashB; newAtk.atkPower=atkPower
+  newAtk.decay=round(10/atkSwingScale); newAtk.atkSpd=0.34*atkSwingScale
+  newAtk.image_xscale=(2.325*forwardSizeScale)*tTooFar*image_xscale; newAtk.image_yscale=(1.375*forwardSizeScale)*tTooFar
+  
+  newAtk=instance_create(x,y-24,oDeathScytheAtk)
+  newAtk.sprite_index=sDeathScytheSlashB; newAtk.atkPower=atkPower
+  newAtk.decay=round(10/atkSwingScale); newAtk.atkSpd=0.34*atkSwingScale
+  newAtk.image_xscale=(1.55*forwardSizeScale)*tTooFar*image_xscale; newAtk.image_yscale=(1.25*forwardSizeScale)*tTooFar
+  
+  newAtk=instance_create(x,y-24,oDeathScytheAtk)
+  newAtk.sprite_index=sDeathScytheSlashB; newAtk.atkPower=atkPower
+  newAtk.decay=round(10/atkSwingScale); newAtk.atkSpd=0.34*atkSwingScale
+  newAtk.image_xscale=forwardSizeScale*tTooFar*image_xscale; newAtk.image_yscale=forwardSizeScale*tTooFar
+  bSwing=1
+}
+else if atkSwingTime&gt;=39
+{
+  sprite_index=sDeathWalk
+  atkSwingTime=0
+  atkSwingType=-1
+  bSwing=0
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

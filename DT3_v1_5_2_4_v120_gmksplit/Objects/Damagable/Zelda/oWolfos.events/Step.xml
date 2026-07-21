@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  makeEnemyActive(0)
+  if bActive=true and stunnedTime=0
+  {
+    //---------- Movement ----------
+    if shotTime&lt;shotDelay //Normal
+    {
+      findTargetX=point_distance(oPlayer1.x,0,x,0)
+      if findTargetX&gt;112
+      {
+        //Check if at cliff edge and stop
+        var tStop;
+        tStop=0
+        if aiCheckSpecial(0,3,4)=1
+        {
+          tStop=1
+        }
+        
+        if tStop=0
+        {
+          sprite_index=sWolfosWalk
+          if x&lt;oPlayer1.x {xVel=runAcc}
+          else {xVel=-runAcc}
+        }
+        else
+        {
+          sprite_index=sWolfosIdle
+          xVel=0
+        }
+      }
+      else
+      {
+        if shotTime&lt;shotDelay-1 {shotTime+=1}
+        sprite_index=sWolfosIdle
+        xVel=0
+      }
+      
+      if x&lt;oPlayer1.x {image_xscale=1}
+      else {image_xscale=-1}
+    }
+    else //Slow down back-dash
+    {
+      if shotTime&gt;=shotDelay+1
+      {
+        if xVel&gt;0 {xVel-=0.5}
+        else if xVel&lt;0 {xVel+=0.5}
+      }
+    }
+    
+    //---------- Fire arrow ----------
+    shotTime+=1
+    if shotTime&gt;=shotDelay
+    {
+      if shotTime=shotDelay //change anim and step back if too close to player
+      {
+        xVel=0
+        sprite_index=sWolfosShoot
+        if findTargetX&lt;96 //player is close
+        {
+          var tDash;
+          tDash=1
+          if aiCheckHoriz(1,4,-16,-4,4)=1
+            tDash=0
+          
+          if tDash=1 //dash if able to
+          {
+            if image_xscale=1 {xVel=-7}
+            else {xVel=7}
+          }
+        }
+      }
+      else if shotTime=shotDelay+20 //Fire shot
+      {
+        var tNewAttack;
+        tNewAttack=instance_create(x+(14*image_xscale),y-31,oNormalBullet)
+        tNewAttack.sprite_index=sLinkArrow; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=7
+        if image_xscale=-1 {tNewAttack.direction=180}
+      }
+      else if shotTime=shotDelay+30 //End attack
+      {
+        shotTime=0
+        xVel=runAcc
+        if x&gt;oPlayer1.x {xVel*=-1}
+        image_speed=0.25
+      }
+    }
+    
+    yVel+=0.2
+    if isCollisionBottom(1)
+      yVel=0
+    if isCollisionLeft(1)
+      xVel=runAcc
+    if isCollisionRight(1)
+      xVel=-runAcc
+    if isCollisionSolid()
+      y-=2
+    
+    moveTo(xVel,yVel)
+    if y&gt;room_height+24
+      instance_destroy()
+  }
+  enemyStepEvent()
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

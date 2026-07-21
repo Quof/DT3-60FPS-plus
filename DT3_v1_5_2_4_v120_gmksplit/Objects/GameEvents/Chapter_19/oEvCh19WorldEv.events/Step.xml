@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  if global.gameProgress=4940
+  {
+    if global.Ch19WIn=0 or global.Ch19WIn=1 and room=rMain_34
+    {
+      eventTime+=1
+      if eventTime=150
+      {
+        msgCreate(0,0,"Jerry","Eh?",0,1,oMessagePerson,0)
+        newMessage.fadingTime=70
+        shakeTime=shakeDelay
+        bCanShake=1
+        global.Ch19WIn=1
+      }
+      else if eventTime&gt;=151 and eventTime&lt;=250 {if fadeAlpha&lt;0.2 {fadeAlpha+=0.002}}
+      
+      if sideConvoTime=0
+      {
+        if (oPlayer1.x&gt;=1968 and oPlayer1.y&gt;=1008) or (oPlayer1.x&gt;=288 and oPlayer1.x&lt;=480 and oPlayer1.y&lt;=208)
+        {
+          msgCreate(0,0,"Jerry","What's up with this barrier here?",0,1,oMessagePerson,0)
+          newMessage.fadingTime=70
+          sideConvoTime=1
+        }
+      }
+      else
+      {
+        sideConvoTime+=1
+        if sideConvoTime=70
+        {
+          msgCreate(0,0,"Claire","And that shake... what's going on?",0,1,oMessagePerson,0)
+          newMessage.fadingTime=80
+        }
+      }
+    }
+    else if global.Ch19WIn=2 and room=rMain_32
+    {
+      if eventProg=0
+      {
+        if oPlayer1.x&lt;=2224
+        {
+          msgCreate(0,0,"Jerry","Ah hell no.",0,1,oMessagePerson,0)
+          newMessage.fadingTime=80
+          eventProg=1
+        }
+      }
+    }
+    else if global.Ch19WIn=3 and room=rMain_31
+    {
+      if eventProg=0
+      {
+        if oPlayer1.x&lt;=1120
+        {
+          var tEnemy;
+          tEnemy=instance_create(1168,-32,oCHAOS_Rocketeer); tEnemy.bActive=1
+          tEnemy=instance_create(1632,-32,oCHAOS_Rocketeer); tEnemy.bActive=1
+          eventProg=1
+        }
+      }
+    }
+    else if global.Ch19WIn=4 and room=rMain_30
+    {
+      if eventProg=0
+      {
+        if oPlayer1.x&lt;=560 {eventProg=1}
+      }
+      else if eventProg=1
+      {
+        eventTime+=1
+        if eventTime=1
+        {
+          msgCreate(0,0,"Claire","These barriers are all over the place.",0,1,oMessagePerson,0)
+          newMessage.fadingTime=80
+        }
+        else if eventTime=80
+        {
+          msgCreate(0,0,"Jerry","We know who's responsible for this.",0,1,oMessagePerson,0)
+          newMessage.fadingTime=80
+        }
+      }
+    }
+    else if global.Ch19WIn=5 and room=rMain_17
+    {
+      if eventProg=0
+      {
+        eventTime+=1
+        if eventTime=40
+        {
+          msgCreate(0,0,"Jerry","This big shadow is bothersome too.",0,1,oMessagePerson,0)
+          newMessage.fadingTime=80
+        }
+        else if eventTime=120
+        {
+          msgCreate(0,0,"Claire","It's the warship hovering over the area...#It's heading north...",0,2,oMessagePerson,0)
+          newMessage.fadingTime=110
+        }
+        else if eventTime=230
+        {
+          msgCreate(0,0,"Jerry","I say we keep going to the Hidden Village.",0,1,oMessagePerson,0)
+          newMessage.fadingTime=85
+        }
+      }
+    }
+    else if global.Ch19WIn=6 and room=rMain_11
+    {
+      if eventProg=0
+      {
+        if oPlayer1.x&lt;=2624 {eventProg=1}
+      }
+      else if eventProg&gt;=1 {if fadeAlpha&lt;0.3 {fadeAlpha+=0.002}}
+    }
+    else if global.Ch19WIn=7 and room=rMain_8
+    {
+      if eventProg=0
+      {
+        if oPlayer1.x&lt;=2592
+        {
+          msgCreate(0,0,"Jerry","Even Central City has a barrier...",0,1,oMessagePerson,0)
+          newMessage.fadingTime=80
+          eventProg=1
+        }
+      }
+      else if eventProg=1
+      {
+        if oPlayer1.y&lt;=480
+        {
+          var tEnemy;
+          for(i=0;i&lt;12;i+=1)
+          {
+            tEnemy=instance_create(1888+(32*i),352,oCHAOS_AirGunner); tEnemy.bActive=1
+          }
+          eventProg=2
+        }
+      }
+    }
+    else if global.Ch19WIn=10 and room=rMain_79
+    {
+      if eventProg=0
+      {
+        if oPlayer1.x&gt;=1904 {eventProg=1}
+      }
+      else if eventProg=1
+      {
+        if oPlayer1.x&gt;=3968
+        {
+          msgCreate(0,0,"Jerry","It's way too quiet now.",0,1,oMessagePerson,0)
+          newMessage.fadingTime=80
+          eventProg=2
+        }
+      }
+      
+      if eventProg&gt;=1 {if fadeAlpha&lt;0.4 {fadeAlpha+=0.002}}
+    }
+    else if global.Ch19WIn=13 and room=rMain_84
+    {
+      if eventProg=0
+      {
+        if oPlayer1.x&gt;=3344
+        {
+          with oVarViewShaker {instance_destroy()}
+          view_object[0]=oPlayer1
+          playSound(global.snd_HardHit2,0,1,2000)
+          explodeAlpha=1
+          bCanShake=0
+          eventProg=1
+        }
+      }
+      else if eventProg=1
+      {
+        eventTime+=1
+        if eventTime&gt;=1 and eventTime&lt;=30
+        {
+          explodeRad+=24
+        }
+        else if eventTime=31
+        {
+          global.gamePaused=true
+          explodeRad=0
+          oEvCh19MainA.fadeAlpha=1
+          eventTime=0; eventProg=0
+          global.Ch19WIn=14
+        }
+      }
+    }
+    else if global.Ch19WIn=16 and room=rHiddenVillage_Destroyed
+    {
+      if eventProg=0 //The Master dies
+      {
+        if oPlayer1.x&gt;=624
+        {
+          (420665).eventProg=1
+          eventProg+=1
+        }
+      }
+      else if eventProg=1 //Malignant Ooze
+      {
+        if oPlayer1.x&gt;=1520
+        {
+          var enemyBarrier,tEnemy;
+          enemyBarrier=instance_create(1040,1120,oEnemyBarrier); enemyBarrier.image_yscale=6; enemyBarrier.image_blend=c_dkgray
+          enemyBarrier=instance_create(1872,1120,oEnemyBarrier); enemyBarrier.image_yscale=6; enemyBarrier.image_blend=c_dkgray
+          tEnemy=instance_create(1728,1216,oMalignantOoze)
+          eventProg+=1
+        }
+      }
+      else if eventProg=2
+      {
+        if !instance_exists(oMalignantOoze)
+        {
+          with oEnemyBarrier {instance_destroy()}
+          eventProg+=1
+        }
+      }
+      else if eventProg=3 //A bot dies
+      {
+        if oPlayer1.x&gt;=2048
+        {
+          playSound(global.snd_FadeAway,0,0.92,1)
+          eventProg+=1
+        }
+      }
+      else if eventProg=4 //They're killing the bots
+      {
+        eventTime+=1
+        if eventTime=60
+        {
+          msgCreate(0,0,"Jerry","What the hell?!",0,1,oMessagePerson,0)
+          newMessage.fadingTime=60
+          eventTime=0; eventProg+=1
+        }
+      }
+      else if eventProg=5 //A bot dies
+      {
+        if oPlayer1.x&gt;=2064 and oPlayer1.y&lt;=848
+        {
+          (420819).eventProg=1
+          playSound(global.snd_FadeAway,0,0.92,1)
+          eventProg+=1
+        }
+      }
+      else if eventProg=5 //A bot dies
+      {
+        if oPlayer1.x&lt;=2016 and oPlayer1.y&lt;=688
+        {
+          playSound(global.snd_FadeAway,0,0.92,1)
+          eventProg+=1
+        }
+      }
+      else if eventProg=6 //The Klonoa dies
+      {
+        if oPlayer1.x&lt;=1760 and oPlayer1.y&lt;=688
+        {
+          (420737).eventProg=1
+          eventProg+=1
+        }
+      }
+      else if eventProg=7 //The Klonoa dies
+      {
+        if oPlayer1.x&lt;=384 and oPlayer1.y&lt;=688
+        {
+          (420738).eventProg=1
+          eventProg+=1
+        }
+      }
+      else if eventProg=8 //A bot dies
+      {
+        if oPlayer1.x&lt;=448 and oPlayer1.y&lt;=512
+        {
+          playSound(global.snd_FadeAway,0,0.92,1)
+          eventProg+=1
+        }
+      }
+      else if eventProg=9 //The Battletoad dies
+      {
+        if oPlayer1.x&gt;=656 and oPlayer1.y&lt;=336
+        {
+          (420739).eventProg=1
+          eventProg+=1
+        }
+      }
+      else if eventProg=10 //The Earthworm Jim dies
+      {
+        if oPlayer1.x&gt;=1440 and oPlayer1.y&lt;=336
+        {
+          var enemyBarrier,tEnemy;
+          enemyBarrier=instance_create(1872,160,oEnemyBarrier); enemyBarrier.image_yscale=6; enemyBarrier.image_blend=c_dkgray;
+          (420740).eventProg=1
+          eventProg+=1
+        }
+      }
+      else if eventProg=11
+      {
+        eventTime+=1
+        if eventTime&gt;=120
+        {
+          if !instance_exists(oCHAOS_Rocketeer)
+          {
+            with oEnemyBarrier {instance_destroy()}
+            eventTime=0; eventProg+=1
+          }
+        }
+      }
+      else if eventProg=12
+      {
+        if oPlayer1.x&gt;=2480 and oPlayer1.y&lt;=320
+        {
+          eventProg=0
+          global.gamePaused=true
+          global.Ch19WIn=17
+        }
+      }
+    }
+    
+    if bCanShake=1 //Shake
+    {
+      shakeTime+=1
+      if shakeTime&gt;=shakeDelay
+      {
+        playSound(global.snd_HardHit2,0,0.9+random(0.05),3000+random(4000))
+        var tShake;
+        tShake=instance_create(oPlayer1.x,oPlayer1.y,oVarViewShaker)
+        tShake.shakeTime=50; tShake.turbulance=2
+        shakeTime=irandom(120)
+      }
+    }
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

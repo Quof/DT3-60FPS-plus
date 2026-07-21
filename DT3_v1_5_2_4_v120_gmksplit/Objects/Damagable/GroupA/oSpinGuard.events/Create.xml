@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="CREATE" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">event_inherited()
+makeActive()
+setCollisionBounds(-14,-14,14,14)
+bCanTakeDamage=false
+bCanDealDamage=false
+image_alpha=0
+
+//Enemy base statistics
+eName="Spin Guard"
+eLevel=11
+maxLife=390
+life=maxLife
+pointWorth=16
+atkPower=5
+resType[1]=4
+resType[2]=1
+resType[4]=4
+resType[5]=2
+stunResist=2
+baseItemChance=60
+baseDropIndex=90
+moneyWorth=5
+dieSound=0
+dieEffect=0
+runAcc=1
+inactiveDist*=1.25
+
+initSeq=0
+shotTime=50
+shotDelay=130
+
+deathAnim=0
+
+jeremyText="A troublesome bot with two shields that spin around it. They wouldn't be much of an issue, but making contact with them will hurt you. If you do decide to go close, be quick with it."
+chaoText="I think Jeremy is tired or... wait, we can't get tired in this world. Anyway, these will sometimes spin fast, which indicates they are about to fire. Something in the behavior indicates that their shot will bounce, but it isn't in this version of them. Looks like it was commented out since it wasn't finished."
+devText="Enemy types like this that are just a bit different with multiple moving parts, no matter how simple the movement may be, is something I should have done more with the earlier games. I think the reason there wasn't much variation in enemy AI was a combination of not being as skilled then and not being very confident in my own abilities."
+
+shieldDir=90
+shieldDist=240
+for(i=0;i&lt;2;i+=1)
+{
+  shieldPart[i]=instance_create(x,y,oSpinGuardShield)
+  shieldPart[i].x=x+lengthdir_x(shieldDist,shieldDir+(i*180))
+  shieldPart[i].y=y+lengthdir_y(shieldDist,shieldDir+(i*180))
+  shdVelX[i]=random_range(-2,2)
+  shdVelY[i]=-3-random(2)
+  shdVelTurn[i]=random_range(-5,5)
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

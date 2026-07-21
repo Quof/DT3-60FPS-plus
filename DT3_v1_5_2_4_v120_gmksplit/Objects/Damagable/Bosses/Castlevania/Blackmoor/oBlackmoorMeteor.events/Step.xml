@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  speed=bulletSpeed
+  image_angle+=15
+  
+  if y&gt;=oBlackmoorMain.yGround
+  {
+    playSound(global.snd_OrbThrow,0,0.88,49000)
+    myExplosion=instance_create(x,oBlackmoorMain.yGround,oBlackmoorShadowExp)
+    myExplosion.atkPower=atkPower
+    instance_destroy()
+  }
+}
+else {speed=0}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">event_inherited()
+if global.gamePaused=false
+{
+  image_angle=direction
+  speed=bulletSpeed
+  
+  if global.optWeaponTrail=1 {instance_create(x,y,oEfWeaponTrail)}
+  
+  if checkScreenArea(x,y,32)=0 {instance_destroy()}
+  
+  lifeTime-=1
+  if lifeTime&lt;=0 {instance_destroy()}
+  if isCollisionLeft(1)
+    instance_destroy()
+  if isCollisionRight(1)
+    instance_destroy()
+  if isCollisionBottom(1)
+    instance_destroy()
+  if isCollisionTop(1)
+    instance_destroy()
+}
+else {speed=0}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

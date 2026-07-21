@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  makeEnemyActive(0)
+  if bActive=true and stunnedTime=0 and life&gt;0
+  {
+    rockTime+=1
+    if rockTime&lt;rockDelay
+    {
+      if x&gt;oPlayer1.x
+      {
+        xVel=-runAcc
+        image_xscale=-1
+      }
+      else if x&lt;oPlayer1.x
+      {
+        xVel=runAcc
+        image_xscale=1
+      }
+    }
+    else if rockTime&gt;=rockDelay and rockTime&lt;=rockDelay+500
+    {
+      xVel=0
+      rockTime=1000
+    }
+    else if rockTime&gt;=1010 and rockTime mod 6=0
+    {
+      var tNewAttack;
+      tNewAttack=instance_create(x+random_range(-96,96),y-120,oGravPassBullet)
+      tNewAttack.sprite_index=sDTitanRock; tNewAttack.atkPower=atkPower
+      tNewAttack.xVel=0; tNewAttack.yVel=1
+    }
+    if rockTime&gt;=1050 {rockTime=0}
+    
+    yVel+=0.2
+    if isCollisionBottom(1)
+      yVel=0
+    if isCollisionLeft(1)
+      xVel=runAcc
+    if isCollisionRight(1)
+      xVel=-runAcc
+    if isCollisionSolid()
+      y-=2
+    
+    if rockTime&lt;rockDelay
+    {
+      if xVel&gt;0 {image_xscale=1}
+      else {image_xscale=-1}
+    }
+    
+    moveTo(xVel,yVel)
+    if y&gt;room_height+24
+    {
+      if questType&gt;0
+        enemyQuest(questType)
+      instance_destroy()
+    }
+  }
+  else if life&lt;=0
+  {
+    deathAnim+=1
+    image_speed=0
+    if deathAnim mod 2=0
+    {
+      if deathAnim mod 6=0 {playSound(global.snd_HardHit1,0,0.9,1)}
+      tEffect=instance_create(x+random_range(-14,14),y-1-random(51),oEffect)
+      tEffect.sprite_index=sDeathFlameA; tEffect.image_speed=0.33
+      tEffect.image_alpha=0.5+(image_alpha/3)
+      tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+    }
+    image_alpha-=0.04
+    if image_alpha&lt;0 {instance_destroy()}
+  }
+  enemyStepEvent()
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

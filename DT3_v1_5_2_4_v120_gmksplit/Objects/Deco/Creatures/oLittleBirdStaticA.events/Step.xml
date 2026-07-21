@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">tailwag-=1
+if tailState=0
+{
+  if tailwag&lt;=0
+  {
+    image_speed=0.33
+    tailState=1
+    tailwag=10+irandom(40)
+  }
+}
+else if tailState=1
+{
+  if tailwag&lt;=0
+  {
+    image_speed=0
+    tailState=0
+    tailwag=15+irandom(180)
+  }
+}
+
+if bSpotted=0
+{
+  if checkScreenArea(x,y,2)=1
+  {
+    global.recBirdsSeen+=1
+    bSpotted=1
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

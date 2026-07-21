@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="COLLISION" with="oHPF_ConInfect">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if life&gt;0 and type=1
+{
+  playSound(global.snd_Infect,0,0.92,44100+random(4410))
+  with other
+  {
+    if instance_exists(myOwner)
+    {
+      if myOwner.bActivate=0 {myOwner.bActivate=1}
+    }
+    var tEffect,tDir;
+    tDir=0
+    for(i=0;i&lt;16;i+=1)
+    {
+      tEffect=instance_create(x,y,oEffectB)
+      tEffect.type=3; tEffect.sprite_index=sVirusGel; tEffect.image_alpha=0.75
+      tEffect.image_speed=0.15; tEffect.direction=tDir+irandom_range(-4,4); tEffect.friction=0.01
+      tEffect.speed=random(1)+1; tEffect.fadeSpd=0.01; tEffect.image_blend=image_blend
+      tEffect.AccelX=0; tEffect.AccelY=0; tEffect.newBlend=-1; tEffect.followID=-1; tEffect.rotation=0
+      tDir+=360/16
+    }
+    instance_destroy()
+  }
+  instance_destroy()
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

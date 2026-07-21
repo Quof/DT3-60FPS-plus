@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="OTHER" id="12">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">//Phase 2 attacks
+if faceAtkTime&gt;0
+{
+  faceAtkTime+=1
+  if faceImage=0 //Border Fire
+  {
+    if faceAtkTime&lt;70
+    {
+      if faceAtkTime mod atkFollowSpc=0
+      {
+        playSound(global.snd_MarioCannon,0,0.95,15000)
+        var tNewAtk;
+        tNewAtk=instance_create(x-8,y-8,oFNBorderFollow)
+        tNewAtk.atkPower=atkPower; tNewAtk.type=0
+        tNewAtk=instance_create(x-8,y-8,oFNBorderFollow)
+        tNewAtk.atkPower=atkPower; tNewAtk.type=1
+      }
+    }
+    else {faceAtkTime=0}
+  }
+  else if faceImage=1 //Falling rocks
+  {
+    if faceAtkTime&lt;80
+    {
+      if faceAtkTime mod atkFallSpc=0
+      {
+        playSound(global.snd_Earthquake,0,0.98,70000)
+        var tNewAtk;
+        tNewAtk=instance_create((xCenter-roomSpan)+random(roomSpan*2),yGround-240,oGravPassBullet)
+        tNewAtk.sprite_index=sFNRock; tNewAtk.atkPower=atkPower
+      }
+    }
+    else {faceAtkTime=0}
+  }
+  else if faceImage=2 //Spit gravity rocks
+  {
+    if faceAtkTime&lt;90
+    {
+      if faceAtkTime mod atkGravSpc=0
+      {
+        playSound(global.snd_BombLaunch,0,0.91,37000)
+        var tNewAtk;
+        tNewAtk=instance_create(x,y-10,oGravPassBullet)
+        tNewAtk.sprite_index=sFNRock; tNewAtk.atkPower=atkPower
+        tNewAtk.xVel=random_range(-3,3); tNewAtk.yVel=-random_range(4,5)
+      }
+    }
+    else {faceAtkTime=0}
+  }
+  else if faceImage=3 //dirSeg
+  {
+    if faceAtkTime=5
+    {
+      playSound(global.snd_FireLoop,0,0.95,1)
+      var tDirSet;
+      tDirSet=random(360)
+      for(i=0;i&lt;atkSpiralAmt;i+=1)
+      {
+        var tNewAtk;
+        tNewAtk=instance_create(x,y,oFNSpiralAtk)
+        tNewAtk.atkPower=atkPower; tNewAtk.dirSeg=tDirSet
+        tDirSet+=360/atkSpiralAmt
+      }
+      faceAtkTime=0
+    }
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

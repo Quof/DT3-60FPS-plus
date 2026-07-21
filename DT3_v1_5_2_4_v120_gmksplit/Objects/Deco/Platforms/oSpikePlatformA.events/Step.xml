@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  spikeTFol.x=x-20
+  spikeTFol.y=y+28
+  
+  if atkProg=0 //Check if player is close
+  {
+    if findTargetX&lt;atkDistX and y&lt;oPlayer1.y and findTargetY&lt;(maxDrop+40)*1.2
+    {
+      yVel=atkSpeed
+      atkProg+=1
+    }
+  }
+  else if atkProg=1 //Falling
+  {
+    //Reach chain end
+    var fallDist;
+    fallDist=y-ystart
+    if fallDist&gt;=maxDrop
+    {
+      yVel=0
+      atkProg+=1
+      exit;
+    }
+    //Hit player
+    if prevY=y
+    {
+      hangTime+=1
+      if hangTime&gt;=5
+      {
+        yVel=0
+        atkProg+=1
+        exit;
+      }
+    }
+    prevY=y
+    //Hit solid
+    if isCollisionBottom(1)
+    {
+      yVel=0
+      atkProg+=1
+      exit;
+    }
+  }
+  else if atkProg=2 //Wait - Down
+  {
+    atkTime+=1
+    if atkTime=20
+    {
+      yVel=-atkSpeed/3.5
+      atkTime=0
+      y-=1
+      atkProg+=1
+    }
+  }
+  else if atkProg=3 //Return
+  {
+    if y&lt;=yCenter
+    {
+      prevY=0
+      hangTime=0
+      y=yCenter
+      yVel=0
+      atkProg+=1
+    }
+  }
+  else if atkProg=4 //Wait - Up
+  {
+    atkTime+=1
+    if atkTime=5
+    {
+      atkTime=0
+      prevY=0
+      hangTime=0
+      atkProg=0
+    }
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

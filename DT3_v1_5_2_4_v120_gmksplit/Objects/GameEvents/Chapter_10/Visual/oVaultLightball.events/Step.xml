@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">efTime+=1
+if efTime mod 3=0
+{
+  var tDir,tFFScl;
+  tDir=direction+160+random(40)
+  tFFScl=random(0.15)
+  tEffect=instance_create(x,y,oEffectB)
+  tEffect.type=3; tEffect.sprite_index=sEfFirefly; tEffect.image_alpha=0.1
+  tEffect.image_xscale=0.3+tFFScl; tEffect.image_yscale=0.3+tFFScl; tEffect.direction=tDir
+  tEffect.speed=random(0.5)+1; tEffect.fadeSpd=0.005; tEffect.image_blend=image_blend
+  tEffect.AccelX=0; tEffect.AccelY=0; tEffect.newBlend=1; tEffect.followID=-1; tEffect.rotation=0
+}
+
+timeOnScreen+=1
+if timeOnScreen&gt;=45
+{
+  if checkScreenArea(x,y,16)=0 {instance_destroy()}
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

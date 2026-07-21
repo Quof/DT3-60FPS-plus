@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="ALARM" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">xVel=xDir
+yVel=yDir
+x+=round(xDir)
+y+=round(yDir)
+shiftTimeMax=shiftChange-2
+if variable_local_exists("newRangeX")
+  drawRangeX=newRangeX
+if variable_local_exists("newRangeY")
+  drawRangeY=newRangeY
+if variable_local_exists("doNotMove")
+{
+  bCanMove=false
+  xVel=0
+  yVel=0
+}
+if variable_local_exists("newStartTime")
+  shiftTime=newStartTime
+if variable_local_exists("doNotPause")
+  bPauseOnEnd=doNotPause
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

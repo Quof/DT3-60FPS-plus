@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="COLLISION" with="oPlayer1">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if oKeyCodes.kCodePressed[3]=1 and global.gamePaused=false
+{
+  resetKeyCodes()
+  global.recPeopleTalkNum+=1
+  
+  if talker="Upset Gamer Toad" //Achievement for talking to Upset Toad in Gate 1
+  {
+    var tCheckAchieve;
+    tCheckAchieve=string_char_at(global.tokenRecognitions,20)
+    if tCheckAchieve="0"
+    {
+      var tAchievement;
+      tAchievement=instance_create(0,0,oAchievementNotice)
+      tAchievement.myAchievement="Useless Achievement"; tAchievement.checkNum=20
+    }
+  }
+  bWalking=false
+  xVel=0
+  image_speed=0; image_index=0
+  walkingTime=150
+  if x&lt;=oPlayer1.x {image_xscale=1}
+  else {image_xscale=-1}
+  npcTextBox()
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

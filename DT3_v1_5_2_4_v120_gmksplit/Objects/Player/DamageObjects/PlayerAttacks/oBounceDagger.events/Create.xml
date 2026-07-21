@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="CREATE" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">event_inherited()
+setCollisionBounds(-2,-2,2,2)
+
+damageType="PIERCE"
+weaponTag=31
+atkLv=global.stBelmont_Dagger[0]
+atkPower=65+(global.stBelmont_Dagger[0]*2)+global.skillTree[12]
+atkPower=weaponDmgMod(1,atkPower)
+stunTime=7
+
+bCollide=0
+bCanHitSwitch=0
+bulletSpeed=15
+lifeTime=35
+lingerFrame=0
+noDestroyTime=1
+
+if instance_exists(oEnemyBase)
+{
+  myTarget=instance_nearest(x,y,oEnemyBase)
+  var tTargetCenterX,tTargetCenterY;
+  tTargetCenterX=myTarget.bbox_left+(myTarget.sprite_width/2)
+  tTargetCenterY=myTarget.bbox_top+(myTarget.sprite_height/2)
+  direction=point_direction(x,y,tTargetCenterX,tTargetCenterY)
+  image_angle=direction
+}
+else
+{
+  direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
+  image_angle=direction
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  bActive=myOwner.bActive
+  x=myOwner.x
+  if myOwner.sprite_index=sMO_CleaveReady or myOwner.sprite_index=sMO_Cleaver {y=myOwner.y-37}
+  else if myOwner.sprite_index=sMO_Scream {y=myOwner.y-36}
+  else {y=myOwner.y-70}
+  if lifePercent&lt;=0.5 and enemyProg=0
+  {
+    baseColor=make_color_rgb(255,200,200)
+    resType[0]-=1
+    resType[2]-=1
+    image_blend=baseColor
+    enemyProg=1
+  }
+  enemyStepEvent()
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="DRAW" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if view_current=0
+{
+  draw_set_alpha(image_alpha)
+  draw_set_font(fnt_NES)
+  draw_set_halign(fa_center)
+  textDropShadow(currAbil,oPlayer1.x,oPlayer1.y-78,textColFill,textColBorder,3)
+  if abilCount&gt;0
+  {
+    for(i=0;i&lt;abilCount;i+=1)
+    {
+      draw_sprite_ext(sPauseM_AtkTypes,atkType[i],oPlayer1.x-xOffset+(i*24),oPlayer1.y-69,image_xscale,image_yscale,image_angle,image_blend,image_alpha)
+    }
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

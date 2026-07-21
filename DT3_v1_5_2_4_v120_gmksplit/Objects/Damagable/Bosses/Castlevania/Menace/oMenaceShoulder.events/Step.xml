@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  if deathFlail=1
+  {
+    hspeed=xVel
+    vspeed=yVel
+  }
+  else
+  {
+    if side=0 //Left (Front)
+    {
+      x=oMenaceMain.x-4
+      y=oMenaceMain.y-6
+    }
+    else if side=1 //Right (Back)
+    {
+      x=oMenaceMain.x-26
+      y=oMenaceMain.y-12
+    }
+    image_angle=neutralAngle+bendAngle
+  }
+  enemyStepEvent()
+}
+else
+{
+  hspeed=0
+  vspeed=0
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

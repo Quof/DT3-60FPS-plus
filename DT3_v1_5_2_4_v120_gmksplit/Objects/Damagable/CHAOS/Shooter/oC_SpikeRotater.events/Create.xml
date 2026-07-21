@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="CREATE" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">event_inherited()
+bActive=1
+
+//Enemy base statistics
+eName="CHAOS Spike Rotater"
+eLevel=37
+maxLife=100
+life=maxLife
+pointWorth=10
+atkPower=12
+affiliation=7
+weaponGive=101
+
+moveProg=0
+runAcc=1.25
+bulletTime=5
+if global.shooterDifficulty=1 {bulletDelay=40}
+else {bulletDelay=30}
+bulletCheck=0
+
+jeremyText="Just shoot it down."
+chaoText="Eaten Ability: SPIKE SHIELD#These deal no damage and do not take up a weapon slot. Instead, they will spin around you and absorb bullets for you."
+devText="N/A"
+
+shieldDir=90
+shieldDist=64
+for(i=0;i&lt;2;i+=1)
+{
+  shieldPart[i]=instance_create(x,y,oCW_Spike)
+  shieldPart[i].x=x+lengthdir_x(shieldDist,shieldDir+(i*180))
+  shieldPart[i].y=y+lengthdir_y(shieldDist,shieldDir+(i*180))
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

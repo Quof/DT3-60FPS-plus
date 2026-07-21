@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if eventProg=1
+{
+  eventTime+=1
+  if eventTime=1
+  {
+    for(i=0;i&lt;12;i+=1)
+    {
+      tEffect=instance_create(x,y-(i*12),oEffect)
+      tEffect.sprite_index=sMMSmokeCloud; tEffect.image_speed=0.25+random(0.25)
+      tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=random_range(-0.5,0.5); tEffect.ySpd=random_range(-0.5,0.5)
+      
+      tEffect=instance_create(x-(320*image_xscale),y-(i*12),oEffect)
+      tEffect.sprite_index=sMMSmokeCloud; tEffect.image_speed=0.25+random(0.25)
+      tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=random_range(-0.5,0.5); tEffect.ySpd=random_range(-0.5,0.5)
+    }
+  }
+  
+  if eventType=1 //Rotate down
+  {
+    image_angle+=1
+    if image_angle&gt;=20 {eventProg=2}
+  }
+  else if eventType=2 //Move down
+  {
+    yVel=2
+    if eventTime&gt;=eventEnd {yVel=0; eventProg=2}
+  }
+  else if eventType=3 //Move down and rotate
+  {
+    yVel=2
+    image_angle+=1
+    if eventTime&gt;=eventEnd {yVel=0; eventProg=2}
+  }
+  else if eventType=4 //Move down and rotate (opposite way)
+  {
+    yVel=2
+    image_angle-=1
+    if eventTime&gt;=eventEnd {yVel=0; eventProg=2}
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

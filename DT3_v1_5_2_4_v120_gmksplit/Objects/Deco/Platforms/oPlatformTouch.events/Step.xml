@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">//If the character stands on the platform, the platform will continuously move indefinately
+if global.gamePaused=false
+{
+  if isCollisionCharacterTop(1,0) and bMoving=0
+  {
+    xVel=moveSpeedX
+    yVel=moveSpeedY
+    bMoving=1
+  }
+  else
+  {
+    scrPlatformCrush()
+    
+    if x&lt;-128
+      instance_destroy()
+    else if x&gt;room_width+128
+      instance_destroy()
+    else if y&lt;-128
+      instance_destroy()
+    else if y&gt;room_height+128
+      instance_destroy()
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

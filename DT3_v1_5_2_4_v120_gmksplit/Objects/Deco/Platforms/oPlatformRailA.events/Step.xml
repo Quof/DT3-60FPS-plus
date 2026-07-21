@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  if bCanMove=true
+  {
+    offscreenDestroy-=1
+    if turnDelay=0
+    {
+      nextTurn=instance_nearest(x,y,oPlatRail) //find closest rail turn
+      if point_distance(x,y,nextTurn.x+8,nextTurn.y+8)&lt;moveSpd
+      {
+        x=nextTurn.x+8; y=nextTurn.y+8
+        var tXvel,tYvel;
+        tXvel=xVel; tYvel=yVel
+        xVel=0; yVel=0
+        if nextTurn.turnType=0 //top-left corner
+        {
+          if tYvel&lt;0 {xVel=moveSpd}
+          else if tXvel&lt;0 {yVel=moveSpd}
+          else {xVel=-tXvel; yVel=-tYvel}
+          turnDelay=8
+        }
+        else if nextTurn.turnType=1 //top-right corner
+        {
+          if tXvel&gt;0 {yVel=moveSpd}
+          else if tYvel&lt;0 {xVel=-moveSpd}
+          else {xVel=-tXvel; yVel=-tYvel}
+          turnDelay=8
+        }
+        else if nextTurn.turnType=2 //bottom-right corner
+        {
+          if tYvel&gt;0 {xVel=-moveSpd}
+          else if tXvel&gt;0 {yVel=-moveSpd}
+          else {xVel=-tXvel; yVel=-tYvel}
+          turnDelay=8
+        }
+        else if nextTurn.turnType=3 //bottom-left corner
+        {
+          if tXvel&lt;0 {yVel=-moveSpd}
+          else if tYvel&gt;0 {xVel=moveSpd}
+          else {xVel=-tXvel; yVel=-tYvel}
+          turnDelay=8
+        }
+        else if nextTurn.turnType=4 //turn around
+        {
+          xVel=-tXvel; yVel=-tYvel
+          turnDelay=8
+        }
+      }
+    }
+    else {turnDelay-=1}
+  }
+  
+  if myHP&lt;=0
+  {
+    instance_destroy()
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="OTHER" id="10">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">var tEffect,tAtk;
+tEffect=instance_create(x-(gunX*facing),y+gunY,oEffect)
+tEffect.sprite_index=sMetNightGunEffect; tEffect.image_speed=0.5
+tEffect.newBlend=1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0; tEffect.depth=6
+tEffect.followID=id; tEffect.xFollow=-gunX*facing; tEffect.yFollow=gunY
+
+tAtk=instance_create(x-(gunX*facing),y+gunY,oPassBullet)
+tAtk.sprite_index=sMetNightGunEffect; tAtk.atkPower=atkPower; tAtk.bulletSpeed=5; tAtk.decayTime=-100
+tAtk.image_xscale=0.75; tAtk.image_yscale=0.75; tAtk.image_speed=0; tAtk.depth=6
+if facing=1 {tAtk.direction=0}
+else {tAtk.direction=180}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="ALARM" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">eName=string("Lv.") +string(rpgLv) +string(" Prototype Sword Armor")
+pointWorth=50+round(rpgLv/3)
+if rpgLv&lt;=9
+{
+  expValue=10+(rpgLv*5)
+  maxLife=500+(rpgLv*10)
+}
+else if rpgLv&gt;=10 and rpgLv&lt;=24
+{
+  expValue=20+(rpgLv*7)
+  maxLife=580+(rpgLv*14)
+}
+else if rpgLv&gt;=25 and rpgLv&lt;=49
+{
+  expValue=35+round(rpgLv*8)
+  maxLife=660+round(rpgLv*16)
+}
+else if rpgLv&gt;=50 and rpgLv&lt;=59
+{
+  expValue=60+round(rpgLv*12)
+  maxLife=780+round(rpgLv*20)
+}
+else if rpgLv&gt;=60 and rpgLv&lt;=99
+{
+  expValue=80+round(rpgLv*15)
+  maxLife=920+round(rpgLv*24)
+}
+else if rpgLv&gt;=100
+{
+  expValue=100+round(rpgLv*20)
+  maxLife=1000+round(rpgLv*25)
+}
+life=maxLife
+
+if global.location=107
+{
+  eName=string("Lv.") +string(rpgLv) +string(" Betatype Sword Armor")
+  eLevel=30
+  maxLife=round(maxLife*1.1)
+  life=maxLife
+  pointWorth=round(pointWorth*1.2)
+  expValue*=10
+  atkPower=9
+  resType[1]=1
+  resType[5]=1
+  baseColor=make_color_rgb(255,190,180)
+  image_blend=baseColor
+  jeremyText+=" This upgraded version resists your secondary attacks and has slightly higher base stats."
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

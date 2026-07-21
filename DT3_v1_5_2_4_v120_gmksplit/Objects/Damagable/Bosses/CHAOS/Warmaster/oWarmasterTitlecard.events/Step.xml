@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">displayTime+=1
+if type=0 //Main
+{
+  if displayTime&gt;=1 and displayTime&lt;=50
+  {
+    image_xscale-=0.02; image_yscale-=0.02
+    image_alpha+=0.02
+    if displayTime mod 2=0
+    {
+      var tMyTitleCard;
+      tMyTitleCard=instance_create(x,y,oWarmasterTitlecard); tMyTitleCard.type=1
+      tMyTitleCard.image_xscale=image_xscale; tMyTitleCard.image_yscale=image_yscale; tMyTitleCard.image_alpha=0.2
+    }
+  }
+  else if displayTime=51
+  {
+    var tMyTitleCard;
+    tMyTitleCard=instance_create(x,y,oWarmasterTitlecard); tMyTitleCard.type=2
+    tMyTitleCard.image_xscale=image_xscale; tMyTitleCard.image_yscale=image_yscale
+    tMyTitleCard.image_blend=c_black
+  }
+  else if displayTime&gt;=90
+  {
+    image_alpha-=0.1
+    if image_alpha&lt;=0 {instance_destroy()}
+  }
+}
+else if type=1 //Sub
+{
+  if displayTime&gt;=1 and displayTime&lt;=10
+  {
+    image_xscale+=0.025; image_yscale+=0.025
+    image_alpha-=0.02
+    if image_alpha&lt;=0 {instance_destroy()}
+  }
+}
+else if type=2 //Final
+{
+  image_alpha-=0.05
+  if image_alpha&lt;=0 {instance_destroy()}
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

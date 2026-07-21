@@ -1,0 +1,676 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="OTHER" id="16">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">///PHASE 6
+
+if moveProg=0 //Move to bottom-right
+{
+  moveTime+=1
+  if moveTime=1 {bCanDealDamage=0}
+  if moveTime&gt;=10
+  {
+    direction=point_direction(x,y,976,256)
+    speed=8
+    if point_distance(x,y,976,256)&lt;=8
+    {
+      x=976; y=256
+      speed=0
+      bCanTakeDamage=1; bCanDealDamage=1
+      for(i=0;i&lt;5;i+=1) {atkTime[i]=-1}
+      for(i=0;i&lt;6;i+=1) {resType[i]=1}
+      moveTime=0; moveProg+=1
+    }
+  }
+}
+else if moveProg&gt;=1
+{
+  if phase6_phase=1 //========== PHASE 1 (Circle 1) ==========
+  {
+    if atkTime[0] mod 60=0
+    {
+      for(i=0;i&lt;4;i+=1) {var tAtk; tAtk=instance_create(688+(i*72),-2,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=270}
+    }
+    
+    if phase6_bulletCheckA=0 //Spawn bullets
+    {
+      for(i=0;i&lt;12;i+=1)
+      {
+        var tAtk;
+        if i=0 {tAtk=instance_create(x,y,oExe_FireBlue)}
+        else if i=1 or i=11 {tAtk=instance_create(x,y,oExe_FireGreen)}
+        else {tAtk=instance_create(x,y,oExe_FireRed)}
+        tAtk.type=5; tAtk.rotSpd=2.5; tAtk.curDir=30*i; tAtk.distMax=96
+        
+        var tAtk; tAtk=instance_create(x,y,oExe_FireRed); tAtk.type=5; tAtk.rotSpd=-2; tAtk.curDir=30*i; tAtk.distMax=156
+      }
+      phase6_normalRes=1; resType[0]=phase6_normalRes
+      phase6_bulletCheckA=1
+    }
+    else if phase6_bulletCheckA=1 //Check if all blue bullets gone
+    {
+      if !instance_exists(oExe_FireBlue)
+      {
+        phase6_normalRes=2; resType[0]=phase6_normalRes
+        phase6_bulletCheckA=2
+      }
+    }
+    else if phase6_bulletCheckA=2 //Fire slash
+    {
+      exVal[0]+=1
+      if exVal[0]=30
+      {
+        var tNewAtk,tChkDir;
+        if x&gt;oPlayer1.x {tChkDir=-1}
+        else {tChkDir=1}
+        tNewAtk=instance_create(x,y,oExe_FireSlash); tNewAtk.image_xscale=1; tNewAtk.myScl=1
+        tNewAtk=instance_create(x,y,oExe_FireSlash); tNewAtk.image_xscale=-1; tNewAtk.myScl=-1
+      }
+      else if exVal[0]=105
+      {
+        with oEProjectileBase
+        {
+          tEfCir=instance_create(x,y,oEfCircleBlast)
+          tEfCir.image_alpha=0.7; tEfCir.myRad=4; tEfCir.radScl=1; tEfCir.fadeSpeed=0.1
+          instance_destroy()
+        }
+      }
+      else if exVal[0]=110
+      {
+        exVal[0]=0
+        phase6_bulletCheckA=0
+        if bossProgress&gt;=1 {phase6_bulletCheckA=3}
+      }
+    }
+    else if phase6_bulletCheckA=3 //Move and go to next phase
+    {
+      exVal[0]+=1
+      if exVal[0]&gt;=1 and exVal[0]&lt;=8 {x-=1; y-=1}
+      else if exVal[0]&gt;=10
+      {
+        exVal[0]=0
+        phase6_bulletCheckA=0
+        phase6_phase+=1
+      }
+    }
+  }
+  else if phase6_phase=2 //========== PHASE 2 (Circle 2) ==========
+  {
+    if atkTime[0] mod 6=0
+    {
+      var tAtk; tAtk=instance_create(840,-2,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=270
+    }
+    
+    if phase6_bulletCheckA=0 //Spawn bullets
+    {
+      for(i=0;i&lt;12;i+=1)
+      {
+        var tAtk;
+        if i=0 {tAtk=instance_create(x,y,oExe_FireBlue)}
+        else if i=1 or i=11 {tAtk=instance_create(x,y,oExe_FireGreen)}
+        else {tAtk=instance_create(x,y,oExe_FireRed)}
+        tAtk.type=5; tAtk.rotSpd=-2.5; tAtk.curDir=30*i; tAtk.distMax=88
+        
+        if i=3 or i=9 {tAtk=instance_create(x,y,oExe_FireBlue)}
+        else if i=2 or i=4 or i=8 or i=10 {tAtk=instance_create(x,y,oExe_FireGreen)}
+        else {tAtk=instance_create(x,y,oExe_FireRed)}
+        tAtk.type=5; tAtk.rotSpd=2.5; tAtk.curDir=30*i; tAtk.distMax=156
+      }
+      phase6_normalRes=1; resType[0]=phase6_normalRes
+      phase6_bulletCheckA=1
+    }
+    else if phase6_bulletCheckA=1 //Check if all blue bullets gone
+    {
+      if !instance_exists(oExe_FireBlue)
+      {
+        phase6_normalRes=2; resType[0]=phase6_normalRes
+        phase6_bulletCheckA=2
+      }
+    }
+    else if phase6_bulletCheckA=2 //Fire slash
+    {
+      exVal[0]+=1
+      if exVal[0]=30
+      {
+        var tNewAtk,tChkDir;
+        if x&gt;oPlayer1.x {tChkDir=-1}
+        else {tChkDir=1}
+        tNewAtk=instance_create(x,y,oExe_FireSlash); tNewAtk.image_xscale=1; tNewAtk.myScl=1
+        tNewAtk=instance_create(x,y,oExe_FireSlash); tNewAtk.image_xscale=-1; tNewAtk.myScl=-1
+      }
+      else if exVal[0]=105
+      {
+        with oEProjectileBase
+        {
+          tEfCir=instance_create(x,y,oEfCircleBlast)
+          tEfCir.image_alpha=0.7; tEfCir.myRad=4; tEfCir.radScl=1; tEfCir.fadeSpeed=0.1
+          instance_destroy()
+        }
+      }
+      else if exVal[0]=110
+      {
+        exVal[0]=0
+        phase6_bulletCheckA=0
+        if bossProgress&gt;=2 {phase6_bulletCheckA=3}
+      }
+    }
+    else if phase6_bulletCheckA=3 //Move and go to next phase
+    {
+      exVal[0]+=1
+      if exVal[0]&gt;=1 and exVal[0]&lt;=8 {x-=1; y-=1}
+      else if exVal[0]&gt;=10
+      {
+        exVal[0]=0
+        phase6_bulletCheckA=0
+        phase6_phase+=1
+      }
+    }
+  }
+  else if phase6_phase=3 //========== PHASE 3 (Circle 3) ==========
+  {
+    if atkTime[0] mod 100=0
+    {
+      var tAtk; tAtk=instance_create(1120,yGround-12,oExe_FireGreen); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=180
+    }
+    if atkTime[1] mod 130=0
+    {
+      for(i=0;i&lt;3;i+=1) {var tAtk; tAtk=instance_create(700+(i*70),-2,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=270}
+    }
+    
+    if phase6_bulletCheckA=0 //Spawn bullets
+    {
+      for(i=0;i&lt;12;i+=1)
+      {
+        var tAtk;
+        if i=6 {tAtk=instance_create(x,y,oExe_FireBlue)}
+        else if i=5 or i=7 {tAtk=instance_create(x,y,oExe_FireGreen)}
+        else {tAtk=instance_create(x,y,oExe_FireRed)}
+        tAtk.type=5; tAtk.rotSpd=2.5; tAtk.curDir=30*i; tAtk.distMax=96
+        
+        if i=0 {tAtk=instance_create(x,y,oExe_FireBlue)}
+        else if i=1 or i=11 {tAtk=instance_create(x,y,oExe_FireGreen)}
+        else {tAtk=instance_create(x,y,oExe_FireRed)}
+        tAtk.type=5; tAtk.rotSpd=-2.5; tAtk.curDir=30*i; tAtk.distMax=156
+      }
+      for(i=0;i&lt;24;i+=1)
+      {
+        var tAtk; tAtk=instance_create(x,y,oExe_FireGreen); tAtk.type=5; tAtk.rotSpd=3; tAtk.curDir=15*i; tAtk.distMax=216
+      }
+      
+      phase6_normalRes=1; resType[0]=phase6_normalRes
+      phase6_bulletCheckA=1
+    }
+    else if phase6_bulletCheckA=1 //Check if all blue bullets gone
+    {
+      if !instance_exists(oExe_FireBlue)
+      {
+        phase6_normalRes=2; resType[0]=phase6_normalRes
+        phase6_bulletCheckA=2
+      }
+    }
+    else if phase6_bulletCheckA=2 //Fire slash
+    {
+      exVal[0]+=1
+      if exVal[0]=30
+      {
+        var tNewAtk,tChkDir;
+        if x&gt;oPlayer1.x {tChkDir=-1}
+        else {tChkDir=1}
+        tNewAtk=instance_create(x,y,oExe_FireSlash); tNewAtk.image_xscale=1; tNewAtk.myScl=1
+        tNewAtk=instance_create(x,y,oExe_FireSlash); tNewAtk.image_xscale=-1; tNewAtk.myScl=-1
+      }
+      else if exVal[0]=105
+      {
+        with oEProjectileBase
+        {
+          tEfCir=instance_create(x,y,oEfCircleBlast)
+          tEfCir.image_alpha=0.7; tEfCir.myRad=4; tEfCir.radScl=1; tEfCir.fadeSpeed=0.1
+          instance_destroy()
+        }
+      }
+      else if exVal[0]=110
+      {
+        exVal[0]=0
+        phase6_bulletCheckA=0
+        if bossProgress&gt;=3 {phase6_bulletCheckA=3}
+      }
+    }
+    else if phase6_bulletCheckA=3 //Move up
+    {
+      exVal[0]+=1
+      if exVal[0]&gt;=1 and exVal[0]&lt;=99
+      {
+        y-=4
+        if y&lt;=128
+        {
+          oPlayer1.x=xCenter; oPlayer1.y=yGround
+          var tFFScl,tEffect;
+          for(i=0;i&lt;64;i+=1)
+          {
+            tFFScl=random(0.1)
+            tEffect=instance_create(oPlayer1,oPlayer1-26,oEffectB)
+            tEffect.type=3; tEffect.sprite_index=sEfFirefly; tEffect.newBlend=1
+            tEffect.image_alpha=0.3; tEffect.image_xscale=0.15+tFFScl; tEffect.image_yscale=0.15+tFFScl
+            tEffect.direction=random(360); tEffect.speed=random(0.5)+0.5; tEffect.friction=random(0.01)+0.01
+            tEffect.fadeSpd=0.005; tEffect.image_blend=make_color_rgb(random(50),255,random(50))
+            tEffect.AccelX=0; tEffect.AccelY=0; tEffect.followID=-1; tEffect.rotation=0
+          }
+          y=128
+          tile_layer_show(999999)
+          leftPlatA=instance_create(736,280,oInvisibleSolid); leftPlatA.image_xscale=6; leftPlatA.image_yscale=2
+          leftPlatB=instance_create(752,248,oInvisibleSolid); leftPlatB.image_xscale=4; leftPlatB.image_yscale=2
+          rightPlatA=instance_create(896,280,oInvisibleSolid); rightPlatA.image_xscale=6; rightPlatA.image_yscale=2
+          rightPlatB=instance_create(912,248,oInvisibleSolid); rightPlatB.image_xscale=4; rightPlatB.image_yscale=2
+          exVal[0]=0
+          phase6_bulletCheckA=0
+          phase6_phase+=1
+        }
+      }
+    }
+  }
+  else if phase6_phase=4 //========== PHASE 4 (Rotating bullet lines with blue) ==========
+  {
+    if phase6_canMove=1 //Move left
+    {
+      if moveProg=1
+      {
+        x-=1.5
+        if x&lt;=xCenter-roomSpan+64 {moveProg=2}
+      }
+      else if moveProg=2 //Move right
+      {
+        x+=1.5
+        if x&gt;=xCenter+roomSpan-64 {moveProg=1}
+      }
+      else if moveProg=3 //Move down
+      {
+        y+=4
+        moveTime+=1
+        if moveTime&gt;=10 {moveTime=0; moveProg=4}
+      }
+      else if moveProg=5 //Move up
+      {
+        y-=4
+        moveTime+=1
+        if moveTime&gt;=10 {moveTime=0; moveProg=1}
+      }
+    }
+    
+    //Extra bullets
+    if bossProgress=3
+    {
+      if atkTime[0] mod 100=0
+      {
+        for(i=0;i&lt;2;i+=1) {var tAtk; tAtk=instance_create(1120,224+(i*60),oExe_FireGreen); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=180}
+      }
+    }
+    else if bossProgress=4
+    {
+      if atkTime[0] mod 100=0
+      {
+        for(i=0;i&lt;3;i+=1) {var tAtk; tAtk=instance_create(736+(i*128),-2,oExe_FireGreen); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=270}
+      }
+    }
+    
+    if phase6_bulletCheckA=0 //Spawn bullet lines
+    {
+      if bossProgress=3 //---------- First ----------
+      {
+        for(i=0;i&lt;20;i+=1)
+        {
+          for(ii=0;ii&lt;2;ii+=1)
+          {
+            var tAtk;
+            if i&gt;=6 and i&lt;=10 {tAtk=instance_create(x,y,oExe_FireBlue)}
+            else if i=5 or i=11 {tAtk=instance_create(x,y,oExe_FireGreen)}
+            else {tAtk=instance_create(x,y,oExe_FireRed)}
+            tAtk.type=5; tAtk.rotSpd=1.5; tAtk.curDir=ii*180; tAtk.distMax=80+(i*12)
+          }
+        }
+      }
+      else if bossProgress=4 //---------- Second ----------
+      {
+        for(i=0;i&lt;20;i+=1)
+        {
+          for(ii=0;ii&lt;4;ii+=1)
+          {
+            var tAtk;
+            if i&gt;=6 and i&lt;=10 {tAtk=instance_create(x,y,oExe_FireBlue)}
+            else if i=5 or i=11 {tAtk=instance_create(x,y,oExe_FireGreen)}
+            else {tAtk=instance_create(x,y,oExe_FireRed)}
+            tAtk.type=5; tAtk.rotSpd=1.5; tAtk.curDir=ii*90; tAtk.distMax=80+(i*12)
+          }
+        }
+      }
+      //------------------------------
+      phase6_normalRes=1; resType[0]=phase6_normalRes
+      phase6_bulletCheckA=1
+    }
+    else if phase6_bulletCheckA=1 //Check if all blue bullets gone
+    {
+      if !instance_exists(oExe_FireBlue)
+      {
+        moveProg=3
+        phase6_normalRes=2; resType[0]=phase6_normalRes
+        phase6_bulletCheckA=2
+      }
+    }
+    else if phase6_bulletCheckA=2 //Fire slash
+    {
+      exVal[0]+=1
+      if exVal[0]=30
+      {
+        var tNewAtk,tChkDir;
+        if x&gt;oPlayer1.x {tChkDir=-1}
+        else {tChkDir=1}
+        tNewAtk=instance_create(x,y,oExe_FireSlash); tNewAtk.image_xscale=1; tNewAtk.myScl=1
+        tNewAtk=instance_create(x,y,oExe_FireSlash); tNewAtk.image_xscale=-1; tNewAtk.myScl=-1
+      }
+      else if exVal[0]=105
+      {
+        with oEProjectileBase
+        {
+          tEfCir=instance_create(x,y,oEfCircleBlast)
+          tEfCir.image_alpha=0.7; tEfCir.myRad=4; tEfCir.radScl=1; tEfCir.fadeSpeed=0.1
+          instance_destroy()
+        }
+      }
+      else if exVal[0]=110
+      {
+        moveProg=5
+        exVal[0]=0
+        phase6_bulletCheckA=0
+        if bossProgress&gt;=5
+        {
+          moveProg=1; moveTime=0
+          resType[0]=1
+          phase6_phase=5
+        }
+      }
+    }
+  }
+  else if phase6_phase=5 //========== PHASE 5 (Rotating bullet lines, gaps only) ==========
+  {
+    moveTime+=1
+    if moveProg=1
+    {
+      if moveTime&gt;=30
+      {
+        direction=point_direction(x,y,xCenter,144)
+        speed=8
+        if point_distance(x,y,xCenter,144)&lt;=8
+        {
+          phase6_normalRes=2; resType[0]=phase6_normalRes
+          x=xCenter; y=144
+          speed=0
+          for(i=0;i&lt;5;i+=1) {atkTime[i]=-1}
+          moveTime=0; moveProg+=1
+        }
+      }
+    }
+    
+    if bossProgress=5
+    {
+      if atkTime[0] mod 100=0
+      {
+        for(i=0;i&lt;3;i+=1) {var tAtk; tAtk=instance_create(736+(i*128),-2,oExe_FireGreen); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=270}
+      }
+    }
+    
+    exVal[0]+=1
+    if exVal[0]=15
+    {
+      phase6_normalRes=2; resType[0]=phase6_normalRes
+      exVal[1]=1
+    }
+    
+    if phase6_bulletCheckA=0 and exVal[1]=1 //Spawn bullet lines
+    {
+      for(i=6;i&lt;24;i+=1)
+      {
+        for(ii=0;ii&lt;2;ii+=1)
+        {
+          tAtk=instance_create(x,y,oExe_FireRed); tAtk.type=5; tAtk.rotSpd=1.5; tAtk.curDir=i*15; tAtk.distMax=40+(ii*12)
+        }
+      }
+      for(i=0;i&lt;24;i+=1)
+      {
+        for(ii=0;ii&lt;4;ii+=1)
+        {
+          var tAtk;
+          if ii=0
+          {
+            if i&gt;=5 {tAtk=instance_create(x,y,oExe_FireRed); tAtk.type=5; tAtk.rotSpd=1.5; tAtk.curDir=ii*90; tAtk.distMax=40+(i*12)}
+          }
+          else if ii=1
+          {
+            if (i&gt;=0 and i&lt;=7) or (i&gt;=13) {tAtk=instance_create(x,y,oExe_FireRed); tAtk.type=5; tAtk.rotSpd=1.5; tAtk.curDir=ii*90; tAtk.distMax=40+(i*12)}
+          }
+          else if ii=2
+          {
+            if (i&gt;=0 and i&lt;=5) or (i&gt;=11) {tAtk=instance_create(x,y,oExe_FireRed); tAtk.type=5; tAtk.rotSpd=1.5; tAtk.curDir=ii*90; tAtk.distMax=40+(i*12)}
+          }
+          else if ii=3
+          {
+            if (i&gt;=0 and i&lt;=3) or (i&gt;=9) {tAtk=instance_create(x,y,oExe_FireRed); tAtk.type=5; tAtk.rotSpd=1.5; tAtk.curDir=ii*90; tAtk.distMax=40+(i*12)}
+          }
+          
+          /*if ii=0
+          {
+            if i&gt;=5 {tAtk=instance_create(x,y,oExe_FireRed); tAtk.type=5; tAtk.rotSpd=1.5; tAtk.curDir=ii*90; tAtk.distMax=40+(i*12)}
+          }
+          else if ii=1
+          {
+            if (i&gt;=0 and i&lt;=4) or (i&gt;=10) {tAtk=instance_create(x,y,oExe_FireRed); tAtk.type=5; tAtk.rotSpd=1.5; tAtk.curDir=ii*90; tAtk.distMax=40+(i*12)}
+          }
+          else if ii=2
+          {
+            if (i&gt;=0 and i&lt;=7) or (i&gt;=12) {tAtk=instance_create(x,y,oExe_FireRed); tAtk.type=5; tAtk.rotSpd=1.5; tAtk.curDir=ii*90; tAtk.distMax=40+(i*12)}
+          }
+          else if ii=3
+          {
+            if (i&gt;=0 and i&lt;=10) or (i&gt;=16) {tAtk=instance_create(x,y,oExe_FireRed); tAtk.type=5; tAtk.rotSpd=1.5; tAtk.curDir=ii*90; tAtk.distMax=40+(i*12)}
+          }*/
+        }
+      }
+      phase6_bulletCheckA=1
+    }
+  }
+  else if phase6_phase=6 //========== PHASE 6 (PLATFORM PHASE) ==========
+  {
+    if moveProg=1 //Move to top-right
+    {
+      moveTime+=1
+      if moveTime=1 {bCanDealDamage=0}
+      if moveTime&gt;=10
+      {
+        direction=point_direction(x,y,1024,64)
+        speed=8
+        if point_distance(x,y,1024,64)&lt;=8
+        {
+          x=1024; y=64
+          speed=0
+          bCanDealDamage=1
+          for(i=0;i&lt;5;i+=1) {atkTime[i]=-1}
+          phase6_normalRes=5; resType[0]=phase6_normalRes
+          moveTime=0; moveProg+=1
+        }
+      }
+    }
+    else if moveProg=2
+    {
+      //Bullet stream diagonal
+      if atkTime[0] mod 6=0 and atkTime[0]&lt;=42
+      {
+        var tAtk; tAtk=instance_create(736,-4,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=270
+        var tAtk; tAtk=instance_create(832,-4,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=270
+        var tAtk; tAtk=instance_create(960,-4,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=270
+        
+        var tAtk; tAtk=instance_create(858,118,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=170
+      }
+      if atkTime[0]&gt;=72 {atkTime[0]=0}
+      //Bullet stream horizontal
+      if atkTime[1] mod 9=0
+      {
+        var tAtk; tAtk=instance_create(1104,264,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=2; tAtk.direction=170
+        var tAtk; tAtk=instance_create(858,118,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=2; tAtk.direction=350
+      }
+
+      if atkTime[3]&gt;=120 //Platforms
+      {
+        if atkTime[2]&gt;=90 //Bottom blue bullet
+        {
+          var tAtk; tAtk=instance_create(1104,240,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=200
+          atkTime[2]=0
+        }
+        
+        //Bottom right platform
+        if phase6_platA=0
+        {
+          if oPlayer1.x&gt;xCenter and oPlayer1.y&gt;176
+          {
+            nspPlatA=instance_create(1024,224,oExe_TempPlat)
+            phase6_platA=1
+          }
+        }
+        else if phase6_platA=1
+        {
+          if oPlayer1.x&lt;xCenter or oPlayer1.y&lt;176
+          {
+            if instance_exists(nspPlatA) {with nspPlatA {instance_destroy()}}
+            phase6_platA=0
+          }
+        }
+        //Bottom mid platform
+        if phase6_platB=0
+        {
+          if oPlayer1.x&gt;832 and oPlayer1.y&lt;232
+          {
+            nspPlatB=instance_create(880,192,oExe_TempPlat)
+            phase6_platB=1
+          }
+        }
+        else if phase6_platB=1
+        {
+          if oPlayer1.x&lt;832 or oPlayer1.y&gt;232
+          {
+            if instance_exists(nspPlatB) {with nspPlatB {instance_destroy()}}
+            phase6_platB=0
+          }
+        }
+        //Bottom left platform
+        if phase6_platC=0
+        {
+          if oPlayer1.x&lt;912 and oPlayer1.y&lt;208
+          {
+            nspPlatC=instance_create(760,172,oExe_TempPlat)
+            phase6_platC=1
+          }
+        }
+        else if phase6_platC=1
+        {
+          if oPlayer1.x&gt;912 or oPlayer1.y&gt;208
+          {
+            if instance_exists(nspPlatC) {with nspPlatC {instance_destroy()}}
+            phase6_platC=0
+          }
+        }
+        //Top mid platform
+        if phase6_platD=0
+        {
+          if oPlayer1.y&lt;176
+          {
+            nspPlatD=instance_create(920,112,oExe_TempPlat)
+            phase6_platD=1
+          }
+        }
+        else if phase6_platD=1
+        {
+          if oPlayer1.y&gt;176
+          {
+            if instance_exists(nspPlatD) {with nspPlatD {instance_destroy()}}
+            phase6_platD=0
+          }
+        }
+      }
+    }
+  }
+  else if phase6_phase=7 //========== PHASE 7 (FINAL PHASE) ==========
+  {
+    pepsiLogo+=1
+    
+    if moveProg=1 //Move to center
+    {
+      moveTime+=1
+      if moveTime=1 {bCanDealDamage=0}
+      if moveTime&gt;=10
+      {
+        direction=point_direction(x,y,xCenter,176)
+        speed=8
+        if point_distance(x,y,xCenter,176)&lt;=8
+        {
+          x=xCenter; y=176
+          speed=0
+          bCanDealDamage=1
+          for(i=0;i&lt;5;i+=1) {atkTime[i]=-1}
+          phase6_normalRes=5; resType[0]=phase6_normalRes
+          moveTime=0; moveProg+=1
+        }
+      }
+    }
+    else if moveProg=2
+    {
+      if atkTime[0]=40 //Ring 1
+      {
+        for(i=0;i&lt;64;i+=1)
+        {
+          if (i&gt;=0 and i&lt;=51) or (i&gt;=60) {var tAtk; tAtk=instance_create(x,y,oExe_FireRed)}
+          else {var tAtk; tAtk=instance_create(x,y,oExe_FireBlue)}
+          tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=5.625*i
+        }
+      }
+      else if atkTime[0]=80 //Ring 2
+      {
+        for(i=0;i&lt;64;i+=1)
+        {
+          if (i&gt;=0 and i&lt;=37) or (i&gt;=46) {var tAtk; tAtk=instance_create(x,y,oExe_FireRed)}
+          else {var tAtk; tAtk=instance_create(x,y,oExe_FireBlue)}
+          tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=5.625*i
+        }
+      }
+      else if atkTime[0]=120 //Ring 3
+      {
+        for(i=0;i&lt;64;i+=1)
+        {
+          if (i&gt;=0 and i&lt;=44) or (i&gt;=53) {var tAtk; tAtk=instance_create(x,y,oExe_FireRed)}
+          else {var tAtk; tAtk=instance_create(x,y,oExe_FireBlue)}
+          tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=5.625*i
+        }
+      }
+      else if atkTime[0]&gt;=130 //Scatter upward
+      {
+        for(i=0;i&lt;8;i+=1)
+        {
+          var tAtk; tAtk=instance_create(x,y,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=6; tAtk.direction=irandom_range(30,150)
+        }
+        if atkTime[0]&gt;=160 {atkTime[0]=0}
+      }
+    }
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

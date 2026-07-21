@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="DRAW" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">draw_sprite_ext(sprite_index,-1,x,y,image_xscale,image_yscale,image_angle,image_blend,image_alpha)
+//draw connecting lines
+for(i=0;i&lt;swAmount;i+=1)
+{
+  draw_set_alpha(0.4)
+  draw_set_color(lineColor)
+  if i=swAmount-1
+  {
+    if swAmount&gt;2
+      draw_line(switchID[i].x+8,switchID[i].y+8,switchID[0].x+8,switchID[0].y+8)
+  }
+  else
+    draw_line(switchID[i].x+8,switchID[i].y+8,switchID[i+1].x+8,switchID[i+1].y+8)
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

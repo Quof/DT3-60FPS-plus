@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  if xSpd&lt;8 {xSpd+=0.1}
+  if ySpd&gt;-3 {ySpd-=0.2}
+  
+  x+=xSpd
+  y+=ySpd
+  
+  if x&gt;=room_width+128 {instance_destroy()}
+  
+  var tEffect,tScale;
+  for(i=0;i&lt;4;i+=1)
+  {
+    tScale=random(0.25)
+    tEffect=instance_create(x+random_range(-32,32),y+random_range(-32,32),oEffect)
+    tEffect.sprite_index=sAbom_Tentacle; tEffect.image_speed=0.33
+    tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=30; tEffect.xSpd=random_range(-2,2); tEffect.ySpd=random_range(-2,2)
+    tEffect.image_xscale=0.5+tScale; tEffect.image_yscale=0.5+tScale; tEffect.image_angle=random(360)
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

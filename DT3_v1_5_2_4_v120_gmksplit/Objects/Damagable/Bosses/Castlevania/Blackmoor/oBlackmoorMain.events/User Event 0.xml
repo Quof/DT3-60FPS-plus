@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="OTHER" id="10">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">//-- ATTACK: DOUBLE ARM SWING --
+dArmSwingProg+=1
+if dArmSwingProg&gt;=1 and dArmSwingProg&lt;=30
+{
+  image_angle-=1
+  bShoulderL.atkAngle+=0.5
+  bForearmL.atkAngle-=0.5
+}
+else if dArmSwingProg&gt;=41 and dArmSwingProg&lt;=60 //Left arm swing
+{
+  image_angle+=2
+  bShoulderL.atkAngle-=4
+}
+else if dArmSwingProg&gt;=71 and dArmSwingProg&lt;=90 //Right arm swing
+{
+  image_angle-=0.5
+  bShoulderL.atkAngle+=2
+  bForearmL.atkAngle+=0.5
+  bShoulderR.atkAngle-=4
+  bForearmR.atkAngle-=2
+}
+else if dArmSwingProg&gt;=91 and dArmSwingProg&lt;=110
+{
+  bShoulderL.atkAngle+=1.25
+  bForearmL.atkAngle+=0.25
+  bShoulderR.atkAngle+=4
+  bForearmR.atkAngle+=2
+  if dArmSwingProg=110
+  {
+    dArmSwingProg=0
+    dArmSwingTime=0
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="DRAW" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if fadeAlpha&gt;0
+{
+  draw_set_alpha(fadeAlpha)
+  draw_set_color(fadeColor)
+  draw_rectangle(view_xview[0]-1,view_yview[0]-1,view_xview[0]+view_wview[0]+1,view_yview[0]+view_hview[0]+1,0)
+}
+
+if room=rMega4_Gate
+{
+  if global.gameProgress=1760
+  {
+    if drawType=1 //Flashing rainbow effect
+    {
+      for(i=0;i&lt;4;i+=1)
+      {
+        colCh[i]+=12
+      }
+      colS[0]=make_color_rgb(colCh[0],colCh[1],colCh[2])
+      colS[1]=make_color_rgb(colCh[1],colCh[2],colCh[3])
+      colS[2]=make_color_rgb(colCh[2],colCh[3],colCh[0])
+      colS[3]=make_color_rgb(colCh[3],colCh[0],colCh[1])
+      draw_sprite_general(npcMMX.sprite_index,npcMMX.image_index,0,0,45,55,npcMMX.x+xOffset,npcMMX.y+yOffset,-1,1,0,colS[0],colS[1],colS[2],colS[3],image_alpha)
+    }
+    
+    //Tri-Flash effect
+    draw_set_alpha(triAlpha)
+    draw_set_color(c_white)
+    for(i=0;i&lt;triAmt;i+=1)
+    {
+      draw_triangle(npcMMX.x,npcMMX.y-20,npcMMX.x+lengthdir_x(triDist,(i*120)+triAng+triWidth),npcMMX.y-20+lengthdir_y(triDist,(i*120)+triAng+triWidth),npcMMX.x+lengthdir_x(triDist,(i*120)+triAng-triWidth),npcMMX.y-20+lengthdir_y(triDist,(i*120)+triAng-triWidth),0)
+    }
+    
+    //Circle
+    draw_set_alpha(circleAlpha)
+    draw_circle(npcMMX.x,npcMMX.y-20,circleSize,0)
+  }
+}
+
+if readyText=1 {draw_sprite_part(sMMReadyText,-1,0,0,readyWidth,13,view_xview[0]+221,view_yview[0]+170)}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

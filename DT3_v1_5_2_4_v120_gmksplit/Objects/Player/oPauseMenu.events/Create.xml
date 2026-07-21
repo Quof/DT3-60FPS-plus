@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="CREATE" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">global.recMenuOpenNum+=1
+image_speed=0.1
+textColorMain=make_color_rgb(240,240,240)
+textColorShadow=make_color_rgb(0,120,72)
+colorStatFill=make_color_rgb(16,96,104)
+colorLineProg=make_color_rgb(0,120,48)
+colorFillInstr=make_color_rgb(7,177,83)
+colorRecognitionBox=make_color_rgb(0,102,120)
+colorRecogTop=make_color_rgb(255,239,66)
+colorRecogBottom=make_color_rgb(216,146,4)
+colorRecogShadow=make_color_rgb(49,33,24)
+event_user(0)
+
+cursorRepeatMove=0
+subMenu=0
+if global.optKeepMenuPos&gt;0 {mainCurPos=global.optKeepMenuPos-10}
+else {mainCurPos=1}
+mainInc=20
+mainMax=9
+mainCurX=15
+mainCurY=28+((mainCurPos-1)*mainInc)
+
+sawBirdHatJ=0
+sawBirdHatC=0
+
+//---------- Submenu Variables ----------
+//Menu - Progress
+mP_Spinner=0
+mP_Page=1
+mP_PageCurInc=15
+mP_PageMax=1
+mP_PageCurX=20
+
+for(i=0;i&lt;8;i+=1)
+{
+  instrProg[i]=string_char_at(global.eGateProg,i+1)
+}
+
+//Menu - Equipment
+mEq_CurX=70
+mEq_CurY=151
+mEq_CurPos=1
+
+//Menu - Ability Set
+mAS_Character="JERRY"
+mAS_Ability="LINK"
+//-- 0: Ability Level
+//-- 1: Ability Exp
+//-- 2: Ability Next
+//-- 3: Ability Power
+//-- 4: Ability Name
+//-- 5: Ability Description
+for(i=0;i&lt;6;i+=1)
+{
+  if i&lt;=3
+  {
+    mAS_AbilA[i]=0
+    mAS_AbilB[i]=0
+    mAS_AbilC[i]=0
+    mAS_AbilType[i]=""
+    mAS_AbilIcon[i]=0
+  }
+  else if i&gt;=4
+  {
+    mAS_AbilA[i]=""
+    mAS_AbilB[i]=""
+    mAS_AbilC[i]=""
+  }
+}
+
+//Menu - Spend AP
+mSAP_FrameCount=0
+mSAP_CurFrame=0
+mSAP_CurX=11
+mSAP_CurY=10
+
+info_Name=""
+info_Index=-1
+info_Lv=0
+info_Max=0
+info_Cost=0
+
+//Menu - Map
+mMap_Submenu=1
+mMap_Max=1 //Mainland
+if global.gameProgress&gt;=725 and global.gameProgress&lt;=830 {mMap_Max=2} //Gate 2 - Forest Palace
+if global.gameProgress&gt;=840 {mMap_Max=3} //Gate 3 - Water Palace
+
+mMap_CurX=19; mMap_CurY=10
+if global.location=1 {mMap_CurX=7; mMap_CurY=8}
+else if global.location=2 {mMap_CurX=8; mMap_CurY=9}
+else if global.location=3 {mMap_CurX=10; mMap_CurY=8}
+else if global.location=4 {mMap_CurX=11; mMap_CurY=8}
+else if global.location=5 {mMap_CurX=14; mMap_CurY=8}
+else if global.location=6 {mMap_CurX=14; mMap_CurY=7}
+else if global.location=7 {mMap_CurX=13; mMap_CurY=7}
+else if global.location=8 {mMap_CurX=17; mMap_CurY=8}
+else if global.location=9 {mMap_CurX=19; mMap_CurY=10}
+else if global.location=10 {mMap_CurX=15; mMap_CurY=7}
+else if global.location=11 {mMap_CurX=21; mMap_CurY=8}
+else if global.location=12 {mMap_CurX=24; mMap_CurY=8}
+else if global.location=13 {mMap_CurX=26; mMap_CurY=7}
+else if global.location=14 {mMap_CurX=27; mMap_CurY=7}
+else if global.location=15 {mMap_CurX=29; mMap_CurY=7}
+else if global.location=16 {mMap_CurX=27; mMap_CurY=9}
+else if global.location=17 {mMap_CurX=24; mMap_CurY=9}
+else if global.location=18 {mMap_CurX=11; mMap_CurY=7}
+else if global.location=19 {mMap_CurX=13; mMap_CurY=10}
+else if global.location=20 {mMap_CurX=16; mMap_CurY=11}
+else if global.location=21 {mMap_CurX=13; mMap_CurY=11}
+else if global.location=22 {mMap_CurX=11; mMap_CurY=11}
+else if global.location=23 {mMap_CurX=9; mMap_CurY=11}
+else if global.location=24 {mMap_CurX=8; mMap_CurY=12}
+else if global.location=25 {mMap_CurX=17; mMap_CurY=13}
+else if global.location=26 {mMap_CurX=15; mMap_CurY=13}
+else if global.location=27 {mMap_CurX=13; mMap_CurY=12}
+else if global.location=28 {mMap_CurX=10; mMap_CurY=13}
+else if global.location=29 {mMap_CurX=9; mMap_CurY=13}
+else if global.location=30 {mMap_CurX=26; mMap_CurY=10}
+else if global.location=31 {mMap_CurX=27; mMap_CurY=10}
+else if global.location=32 {mMap_CurX=29; mMap_CurY=10}
+else if global.location=33 {mMap_CurX=28; mMap_CurY=11}
+else if global.location=34 {mMap_CurX=31; mMap_CurY=9}
+else if global.location=35 {mMap_CurX=32; mMap_CurY=11}
+else if global.location=36 {mMap_CurX=29; mMap_CurY=12}
+else if global.location=37 {mMap_CurX=31; mMap_CurY=11}
+else if global.location=38 {mMap_CurX=26; mMap_CurY=11}
+else if global.location=39 {mMap_CurX=25; mMap_CurY=11}
+else if global.location=40 {mMap_CurX=24; mMap_CurY=11}
+else if global.location=41 {mMap_CurX=19; mMap_CurY=11}
+else if global.location=42 {mMap_CurX=21; mMap_CurY=12}
+else if global.location=43 {mMap_CurX=22; mMap_CurY=10}
+else if global.location=44 {mMap_CurX=21; mMap_CurY=14}
+else if global.location=45 {mMap_CurX=17; mMap_CurY=14}
+else if global.location=46 {mMap_CurX=14; mMap_CurY=14}
+else if global.location=47 {mMap_CurX=14; mMap_CurY=16}
+else if global.location=48 {mMap_CurX=18; mMap_CurY=16}
+else if global.location=49 {mMap_CurX=21; mMap_CurY=17}
+else if global.location=50 {mMap_CurX=24; mMap_CurY=14}
+else if global.location=51 {mMap_CurX=27; mMap_CurY=15}
+else if global.location=52 {mMap_CurX=30; mMap_CurY=15}
+else if global.location=53 {mMap_CurX=32; mMap_CurY=14}
+else if global.location=54 {mMap_CurX=32; mMap_CurY=16}
+else if global.location=55 {mMap_CurX=34; mMap_CurY=15}
+else if global.location=56 {mMap_CurX=36; mMap_CurY=15}
+else if global.location=57 {mMap_CurX=32; mMap_CurY=15}
+else if global.location=58 {mMap_CurX=36; mMap_CurY=16}
+else if global.location=59 {mMap_CurX=4; mMap_CurY=10}
+else if global.location=60 {mMap_CurX=11; mMap_CurY=10}
+else if global.location=61 {mMap_CurX=21; mMap_CurY=6}
+else if global.location=62 {mMap_CurX=24; mMap_CurY=6}
+else if global.location=63 {mMap_CurX=26; mMap_CurY=5}
+else if global.location=64 {mMap_CurX=21; mMap_CurY=4}
+else if global.location=65 {mMap_CurX=18; mMap_CurY=4}
+else if global.location=66 {mMap_CurX=16; mMap_CurY=4}
+else if global.location=67 {mMap_CurX=13; mMap_CurY=4}
+else if global.location=68 {mMap_CurX=15; mMap_CurY=6}
+else if global.location=69 {mMap_CurX=11; mMap_CurY=4}
+else if global.location=70 {mMap_CurX=11; mMap_CurY=5}
+else if global.location=71 {mMap_CurX=24; mMap_CurY=3}
+else if global.location=72 {mMap_CurX=8; mMap_CurY=6}
+else if global.location=73 {mMap_CurX=8; mMap_CurY=8}
+else if global.location=74 {mMap_CurX=6; mMap_CurY=5}
+else if global.location=75 {mMap_CurX=23; mMap_CurY=16}
+else if global.location=76 {mMap_CurX=26; mMap_CurY=16}
+else if global.location=77 {mMap_CurX=29; mMap_CurY=8}
+else if global.location=78 {mMap_CurX=31; mMap_CurY=7}
+else if global.location=79 {mMap_CurX=26; mMap_CurY=6}
+else if global.location=80 {mMap_CurX=28; mMap_CurY=5}
+else if global.location=81 {mMap_CurX=31; mMap_CurY=5}
+else if global.location=82 {mMap_CurX=30; mMap_CurY=7}
+else if global.location=83 {mMap_CurX=29; mMap_CurY=4}
+else if global.location=84 {mMap_CurX=32; mMap_CurY=4}
+else if global.location=85 {mMap_CurX=34; mMap_CurY=4}
+else if global.location=86 {mMap_CurX=35; mMap_CurY=4}
+else if global.location=87 {mMap_CurX=11; mMap_CurY=16}
+else if global.location=88 {mMap_CurX=10; mMap_CurY=16}
+else if global.location=89 {mMap_CurX=26; mMap_CurY=13}
+else if global.location=90 {mMap_CurX=28; mMap_CurY=13}
+else if global.location=91 {mMap_CurX=4; mMap_CurY=9}
+else if global.location=92 {mMap_CurX=33; mMap_CurY=9}
+else if global.location=93 {mMap_CurX=33; mMap_CurY=7}
+else if global.location=94 {mMap_CurX=4; mMap_CurY=8}
+else if global.location=95 {mMap_CurX=24; mMap_CurY=12}
+else if global.location=96 {mMap_CurX=33; mMap_CurY=5}
+else if global.location=97 {mMap_CurX=33; mMap_CurY=11}
+else if global.location=98 {mMap_CurX=10; mMap_CurY=6}
+else if global.location=99 {mMap_CurX=3; mMap_CurY=5}
+else if global.location=101 {mMap_CurX=3; mMap_CurY=13}
+else if global.location=102 {mMap_CurX=5; mMap_CurY=13}
+else if global.location=103 {mMap_CurX=6; mMap_CurY=14}
+else if global.location=104 {mMap_CurX=6; mMap_CurY=16}
+else if global.location=105 {mMap_CurX=5; mMap_CurY=17}
+else if global.location=106 {mMap_CurX=3; mMap_CurY=17}
+else if global.location=107 {mMap_CurX=2; mMap_CurY=16}
+else if global.location=108 {mMap_CurX=2; mMap_CurY=14}
+else if global.location=109 {mMap_CurX=4; mMap_CurY=15}
+else if global.location=110 {mMap_CurX=35; mMap_CurY=10}
+
+for(i=0;i&lt;=110;i+=1)
+{
+  mapIndexCheck[i]=string_char_at(global.mapAreas,i)
+}
+for(i=0;i&lt;=12;i+=1)
+{
+  mapExtIndex2[i]=string_char_at(global.mapExt2,i)
+}
+for(i=0;i&lt;=13;i+=1)
+{
+  mapExtIndex3[i]=string_char_at(global.mapExt3,i)
+}
+
+mMap_FrameCount=0
+mMap_CurFrame=0
+mapDetails=0
+coll_HeartP=0
+coll_Chest=0
+coll_Arrow=0
+coll_HeartE=0
+coll_Missile=0
+coll_Ki=0
+coll_Air=0
+coll_Wallet=0
+max_HeartP=0
+max_Chest=0
+max_Arrow=0
+max_HeartE=0
+max_Missile=0
+max_Ki=0
+max_Air=0
+max_Wallet=0
+
+//Menu - Records / Recognitions
+mR_Page=1
+mR_CurInc=15
+mR_PageMax=7
+mR_CurX=291
+mR_CurY=30
+mR_Tab=1 //1:Records  -  2: Recognitions
+mR_RecPageMax=11
+mR_RecCurPos=1
+mR_CurRecInc=11
+
+//Menu - Options
+mO_CurPos=1
+mO_CurX=24
+mO_CurY=37+12
+mO_OptMax=8
+mO_OptSubMenu=1
+mO_OptConMax=7 //Gamepad profile num
+//1: Control
+//2: Graphics
+//3: Display
+//4: Gameplay
+//5: Unreal Guy
+//6: Audio
+maxHats=15
+
+//Menu - Save
+mS_CurPos=1
+mS_CurInc=26
+mS_CurMax=4
+mS_CurX=15
+mS_CurY=30
+
+//Menu - Controls
+mCon_CurPos=1
+mCon_CurInc=12
+mCon_CurMax=13
+mCon_CurX=16
+mCon_CurY=22
+
+//Menu - Items
+mItem_CurX=1
+mItem_CurY=1
+mItem_CurInc=31
+
+menuInfoText=""
+//---------- Input Commands ----------
+curInfo=vk_f1
+
+//---------- Extra Item Check ----------
+for(i=0;i&lt;3;i+=1)
+{
+  //bottles[i]=string_char_at(global.extraItems,i+1)
+  bottles[i]=oPlayer1.pBottles[i]
+}
+//---------- Item Check ----------
+for(i=0;i&lt;40;i+=1)
+{
+  eCheck[i]=string_char_at(global.equipItems,i+1)
+  items[i]=string_char_at(global.equipItems,i+1)
+  if items[i]!="0" {items[i]=i+1}
+  else {items[i]=0}
+}
+
+//Achievement
+global.gamePercent=checkItemPercent(0)
+if global.gamePercent=100
+{
+  var tCheckAchieve;
+  tCheckAchieve=string_char_at(global.tokenRecognitionsSetTwo,6)
+  if tCheckAchieve="0"
+  {
+    var tAchievement;
+    tAchievement=instance_create(0,0,oAchievementNoticeSS)
+    tAchievement.myAchievement="Item Collector"; tAchievement.checkNum=6
+  }
+}
+
+confirmationMenu=0
+confirmMenuPos=1 //0:Confirm, 1:Cancel
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

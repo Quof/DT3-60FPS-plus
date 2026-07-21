@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="COLLISION" with="oAttackBase">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if balloonProg=0
+{
+  playSound(global.snd_ComicHit2,0,1,1)
+  for(i=0;i&lt;8;i+=1)
+  {
+    tEffect=instance_create(x,y-8,oEffect)
+    tEffect.sprite_index=sMMchargeEffect1; tEffect.followID=-1; tEffect.xFollow=0; tEffect.yFollow=0; tEffect.image_speed=0.25
+    tEffect.newBlend=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0; tEffect.speed=3; tEffect.direction=i*45; tEffect.image_angle=i*45
+  }
+  enemyBarrier=instance_create(80,784,oEnemyBarrier); enemyBarrier.image_yscale=8
+  enemyBarrier=instance_create(864,784,oEnemyBarrier); enemyBarrier.image_yscale=8
+  oBackgroundFollow.image_blend=make_color_rgb(255,180,180)
+  var tGOMess;
+  tGOMess=instance_create(0,0,oSituationalGO_Message)
+  tGOMess.type=1
+  global.canPause=0
+  global.bCanGameOver=0
+  global.bRecordHits=0
+  showEmote(oIdentifier,0,-6,sEmEmbarrass)
+  with oExit {instance_destroy()}
+  var tempMplay;
+  tempMplay=findMusic(0)
+  playMusic(tempMplay,0,0)
+  balloonProg=1
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

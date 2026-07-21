@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  if bWarn=0
+  {
+    warnTime-=1
+    if warnTime&lt;=0
+    {
+      if type=0
+      {
+        playSound(global.snd_Bobomb,0,1,1)
+        var tFlash;
+        tFlash=instance_create(0,0,oScreenFlash)
+        tFlash.image_alpha=0.18
+        tFlash.fadeSpeed=0.03
+      }
+      depth=25
+      sprite_index=sCackLightning
+      image_xscale=1
+      image_yscale=1.75
+      bCanDealDamage=true
+      bWarn=1
+    }
+  }
+  else
+  {
+    if oGame.time mod 3=0
+    {
+      if image_blend=c_white
+        image_blend=c_blue
+      else
+        image_blend=c_white
+    }
+    
+    decay-=1
+    if decay&lt;=0
+      instance_destroy()
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

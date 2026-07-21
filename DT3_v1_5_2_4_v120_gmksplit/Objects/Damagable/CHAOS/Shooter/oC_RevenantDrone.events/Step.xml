@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  event_inherited()
+  if bActive=true and bIsSucked=0
+  {
+    if bulletTime&lt;bulletDelay or x&lt;33
+    {
+      x-=runAcc
+      moveDir+=1
+      if moveDir&gt;=1 and moveDir&lt;=35 {y+=runAcc}
+      else if moveDir&gt;=36 and moveDir&lt;=70
+      {
+        y-=runAcc
+        if moveDir=70 {moveDir=0}
+      }
+    }
+    
+    bulletTime+=1
+    if bulletTime=bulletDelay-1
+    {
+      shotDir=point_direction(x,y,oPlayer1.x,oPlayer1.y)
+    }
+    if bulletTime&gt;=bulletDelay and x&gt;32
+    {
+      if bulletTime mod 2=0
+      {
+        var tNewAttack;
+        tNewAttack=instance_create(x,y,oCW_ArcBullet)
+        tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
+        tNewAttack.decayTime=-100; tNewAttack.direction=shotDir
+        bulletCheck+=1
+        if bulletCheck&gt;=bulletMax
+        {
+          bulletCheck=0
+          bulletTime=0
+        }
+      }
+    }
+    
+    if x&lt;=-32 {instance_destroy()}
+  }
+  enemyStepEvent()
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

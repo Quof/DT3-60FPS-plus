@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">event_inherited()
+if global.gamePaused=false
+{
+  yVel+=0.2
+  if xVel&gt;2
+    xVel-=0.025
+  else if xVel&lt;-2
+    xVel+=0.025
+  
+  if isCollisionLeft(1)
+    xVel*=-1
+  if isCollisionRight(1)
+    xVel*=-1
+  if isCollisionBottom(1)
+  {
+    yVel=0
+    if xVel&gt;0
+      xVel-=0.4
+    else if xVel&lt;0
+      xVel+=0.4
+    
+    if (xVel&lt;0.5 and xVel&gt;0) or (xVel&gt;-0.5 and xVel&lt;0)
+      xVel=0
+  }
+  if isCollisionTop(1)
+    yVel=1
+  if isCollisionSolid()
+    y-=2
+  
+  moveTo(xVel,yVel)
+  
+  lifeTime-=1
+  if lifeTime&lt;30 and lifeTime&gt;0 //Flash red
+  {
+    if oGame.time mod 6=0
+    {
+      if image_blend=c_black
+        image_blend=c_red
+      else
+        image_blend=c_black
+    }
+  }
+  else if lifeTime=0 //Explode
+  {
+    if checkScreenArea(x,y,64)=1 {playSound(global.snd_BombExplode,0,0.92,1)}
+    newAttack=instance_create(x,y,oDamageExplosion)
+    newAttack.atkPower=atkPower; newAttack.sprite_index=sBombExplosion; newAttack.decayTime=-100
+    newAttack.image_blend=c_black
+    instance_destroy()
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

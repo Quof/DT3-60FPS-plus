@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  speed=moveSpd
+  if type=0 //Fired downward and shatter on ground
+  {
+    if moveSpd&lt;10 {moveSpd+=0.2}
+    if y&gt;=warTarget.yGround
+    {
+      var tAtk,tDir;
+      tDir=75
+      for(i=0;i&lt;3;i+=1)
+      {
+        tAtk=instance_create(x,y,oWMC_IceShotA)
+        tAtk.sprite_index=sWarmasterC_IceShot; tAtk.atkPower=atkPower; tAtk.moveSpd=9; tAtk.type=1
+        tAtk.decayTime=-100; tAtk.damageType="ELEMENTAL"; tAtk.direction=tDir; tAtk.image_angle=tDir
+        tAtk.image_xscale=0.75; tAtk.image_yscale=0.75; tAtk.warTarget=warTarget
+        tDir+=15
+      }
+      event_user(0)
+    }
+  }
+  else if type=1 //Broken shard (from type 0) going up and break on ceiling
+  {
+    if x&lt;=warTarget.xCenter-warTarget.roomSpan or x&gt;=warTarget.xCenter+warTarget.roomSpan
+    {
+      event_user(0)
+    }
+    
+    if y&lt;=warTarget.yGround-warTarget.roomHeight
+    {
+      var tAtk;
+      tAtk=instance_create(x,y,oWMC_IceShotA)
+      tAtk.sprite_index=sWarmasterC_IceShard; tAtk.atkPower=atkPower; tAtk.moveSpd=3; tAtk.type=2
+      tAtk.decayTime=-100; tAtk.damageType="ELEMENTAL"; tAtk.direction=270; tAtk.image_angle=270; tAtk.warTarget=warTarget
+      event_user(0)
+    }
+  }
+  else if type=2 //Drop from ceiling
+  {
+    if moveSpd&lt;6 {moveSpd+=0.1}
+    if y&gt;=warTarget.yGround
+    {
+      event_user(0)
+    }
+  }
+}
+else {speed=0}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

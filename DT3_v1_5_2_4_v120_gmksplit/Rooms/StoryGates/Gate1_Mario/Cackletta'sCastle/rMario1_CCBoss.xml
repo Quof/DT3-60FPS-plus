@@ -1,0 +1,3160 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<room id="76">
+  <caption>[G1-CCE] The first major boss fight!</caption>
+  <size height="352" width="704"/>
+  <grid>
+    <isometric>false</isometric>
+    <snap x="16" y="16"/>
+  </grid>
+  <speed>30</speed>
+  <persistent>false</persistent>
+  <creationCode>if global.gameProgress=490 {global.gameProgress=500}
+
+oMarioLava.depth=1000010
+gameScene=instance_create(0,0,oEvCh2MainA)
+sideChat=instance_create(0,0,oEvCh2SideA)
+
+if global.gameProgress=500
+  global.canCharSwap=2
+else if global.gameProgress&gt;=510 and global.bBossGallery=0
+{
+  var tHeartContainer;
+  tHeartContainer=instance_create(464,264,oHeartContainer)
+  tHeartContainer.objectNum=1
+  var newExit;
+  newExit=instance_create(608,272,oExit)
+  newExit.sprite_index=sWarpGateStand; newExit.bShowArrow=false
+  newExit.exitType=0; newExit.newMapX=48; newExit.newMapY=192; newExit.toRoom=rMario1_1
+}
+
+if global.bossTrack=1 //Boss Fight: Cackletta
+{
+  var tempMplay,viewFix;
+  tempMplay=findMusic(801)
+  global.canCharSwap=1
+  charSwitcher(1)
+  viewFix=instance_create(464,176,oMisc)
+  viewFix.type=0; viewFix.sprite_index=sNull
+  view_object[0]=viewFix
+  instance_create(272,208,oBossBarrier)
+  oPlayer1.x=400; oPlayer1.y=272
+  boss=instance_create(464,176,oCackletta)
+  boss.activateBoss=1
+}
+else
+{
+  var tempMplay;
+  tempMplay=findMusic(103)
+}
+
+playMusic(tempMplay,0,0)
+SS_SetSoundFreq(global.msc_BowserFight,21550)</creationCode>
+  <backgroundColor>0080FF</backgroundColor>
+  <drawBackgroundColor>true</drawBackgroundColor>
+  <clearViewBackground>true</clearViewBackground>
+  <backgrounds>
+    <backgroundDef>
+      <visibleOnRoomStart>true</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage>backMarioC</backgroundImage>
+      <offset x="14" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+  </backgrounds>
+  <enableViews>true</enableViews>
+  <views>
+    <view>
+      <visibleOnRoomStart>true</visibleOnRoomStart>
+      <viewInRoom height="352" width="480" x="0" y="0"/>
+      <portOnScreen height="352" width="480" x="0" y="0"/>
+      <objectFollowing hBorder="240" hSpeed="-1" vBorder="176" vSpeed="-1">oPlayer1</objectFollowing>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+  </views>
+  <instances>
+    <instance id="132293">
+      <object>oExit</object>
+      <position x="72" y="224"/>
+      <creationCode>bShowArrow=true
+exitType=0
+newMapX=1368
+newMapY=336
+toRoom=rMario1_CCd
+</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="132445">
+      <object>oLevelDecal</object>
+      <position x="408" y="88"/>
+      <creationCode>sprite_index=sMarioCastleTorch
+image_speed=0.3
+x+=8
+y+=16
+</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="132446">
+      <object>oLevelDecal</object>
+      <position x="408" y="168"/>
+      <creationCode>sprite_index=sMarioCastleTorch
+image_speed=0.3
+x+=8
+y+=16
+</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="132447">
+      <object>oLevelDecal</object>
+      <position x="504" y="88"/>
+      <creationCode>sprite_index=sMarioCastleTorch
+image_speed=0.3
+x+=8
+y+=16
+</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="132448">
+      <object>oLevelDecal</object>
+      <position x="504" y="168"/>
+      <creationCode>sprite_index=sMarioCastleTorch
+image_speed=0.3
+x+=8
+y+=16
+</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="132449">
+      <object>oSmallGlow</object>
+      <position x="408" y="88"/>
+      <creationCode>baseSize=12
+sizeInc=0.1
+modMax=1
+y+=4
+</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="132450">
+      <object>oSmallGlow</object>
+      <position x="504" y="88"/>
+      <creationCode>baseSize=12
+sizeInc=0.1
+modMax=1
+y+=4
+</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="132451">
+      <object>oSmallGlow</object>
+      <position x="504" y="168"/>
+      <creationCode>baseSize=12
+sizeInc=0.1
+modMax=1
+y+=4
+</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="132452">
+      <object>oSmallGlow</object>
+      <position x="408" y="168"/>
+      <creationCode>baseSize=12
+sizeInc=0.1
+modMax=1
+y+=4
+</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="132430">
+      <object>oPlatformAutoMove</object>
+      <position x="352" y="272"/>
+      <creationCode>sprite_index=sInvisibleSolidMask
+image_xscale=14
+image_yscale=5
+moveSpeedX=0
+moveSpeedY=0
+visible=0
+</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="132294">
+      <object>oPlayer1</object>
+      <position x="112" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132426">
+      <object>oMarioLava</object>
+      <position x="512" y="304"/>
+      <creationCode>image_xscale=4</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="132432">
+      <object>oMarioLava</object>
+      <position x="352" y="304"/>
+      <creationCode>image_xscale=4</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="132304">
+      <object>oInvCollPH</object>
+      <position x="80" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132305">
+      <object>oInvCollPH</object>
+      <position x="416" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132306">
+      <object>oInvCollPH</object>
+      <position x="416" y="304"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132309">
+      <object>oInvCollPH</object>
+      <position x="432" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132310">
+      <object>oInvCollPH</object>
+      <position x="448" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132311">
+      <object>oInvCollPH</object>
+      <position x="464" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132312">
+      <object>oInvCollPH</object>
+      <position x="480" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132313">
+      <object>oInvCollPH</object>
+      <position x="496" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132314">
+      <object>oInvCollPH</object>
+      <position x="496" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132315">
+      <object>oInvCollPH</object>
+      <position x="496" y="304"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132318">
+      <object>oInvCollPH</object>
+      <position x="128" y="192"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132319">
+      <object>oInvCollPH</object>
+      <position x="144" y="192"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132320">
+      <object>oInvCollPH</object>
+      <position x="160" y="192"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132321">
+      <object>oInvCollPH</object>
+      <position x="176" y="192"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132322">
+      <object>oInvCollPH</object>
+      <position x="192" y="192"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132323">
+      <object>oInvCollPH</object>
+      <position x="208" y="192"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132324">
+      <object>oInvCollPH</object>
+      <position x="224" y="192"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132325">
+      <object>oInvCollPH</object>
+      <position x="240" y="192"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132326">
+      <object>oInvCollPH</object>
+      <position x="256" y="192"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132327">
+      <object>oInvCollPH</object>
+      <position x="272" y="192"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132328">
+      <object>oInvCollPH</object>
+      <position x="272" y="176"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132329">
+      <object>oInvCollPH</object>
+      <position x="592" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132330">
+      <object>oInvCollPH</object>
+      <position x="608" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132331">
+      <object>oInvCollPH</object>
+      <position x="624" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132332">
+      <object>oInvCollPH</object>
+      <position x="576" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132333">
+      <object>oInvCollPH</object>
+      <position x="576" y="304"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132336">
+      <object>oInvCollPH</object>
+      <position x="48" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132337">
+      <object>oInvCollPH</object>
+      <position x="96" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132339">
+      <object>oInvCollPH</object>
+      <position x="112" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132340">
+      <object>oInvCollPH</object>
+      <position x="128" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132341">
+      <object>oInvCollPH</object>
+      <position x="144" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132342">
+      <object>oInvCollPH</object>
+      <position x="160" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132343">
+      <object>oInvCollPH</object>
+      <position x="176" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132346">
+      <object>oInvCollPH</object>
+      <position x="336" y="304"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132347">
+      <object>oInvCollPH</object>
+      <position x="336" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132348">
+      <object>oInvCollPH</object>
+      <position x="336" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132349">
+      <object>oInvCollPH</object>
+      <position x="320" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132350">
+      <object>oInvCollPH</object>
+      <position x="304" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132351">
+      <object>oInvCollPH</object>
+      <position x="288" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132352">
+      <object>oInvCollPH</object>
+      <position x="272" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132353">
+      <object>oInvCollPH</object>
+      <position x="192" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132354">
+      <object>oInvCollPH</object>
+      <position x="208" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132355">
+      <object>oInvCollPH</object>
+      <position x="224" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132356">
+      <object>oInvCollPH</object>
+      <position x="240" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132357">
+      <object>oInvCollPH</object>
+      <position x="256" y="272"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132358">
+      <object>oInvCollPH</object>
+      <position x="16" y="176"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132359">
+      <object>oInvCollPH</object>
+      <position x="16" y="192"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132360">
+      <object>oInvCollPH</object>
+      <position x="16" y="208"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132361">
+      <object>oInvCollPH</object>
+      <position x="16" y="224"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132362">
+      <object>oInvCollPH</object>
+      <position x="16" y="240"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132363">
+      <object>oInvCollPH</object>
+      <position x="16" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132364">
+      <object>oInvCollPH</object>
+      <position x="640" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132365">
+      <object>oInvCollPH</object>
+      <position x="640" y="64"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132366">
+      <object>oInvCollPH</object>
+      <position x="640" y="80"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132367">
+      <object>oInvCollPH</object>
+      <position x="640" y="96"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132368">
+      <object>oInvCollPH</object>
+      <position x="640" y="112"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132369">
+      <object>oInvCollPH</object>
+      <position x="640" y="128"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132370">
+      <object>oInvCollPH</object>
+      <position x="640" y="144"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132371">
+      <object>oInvCollPH</object>
+      <position x="640" y="160"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132372">
+      <object>oInvCollPH</object>
+      <position x="640" y="176"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132373">
+      <object>oInvCollPH</object>
+      <position x="640" y="192"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132374">
+      <object>oInvCollPH</object>
+      <position x="640" y="208"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132375">
+      <object>oInvCollPH</object>
+      <position x="640" y="224"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132376">
+      <object>oInvCollPH</object>
+      <position x="640" y="240"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132377">
+      <object>oInvCollPH</object>
+      <position x="640" y="256"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132378">
+      <object>oInvCollPH</object>
+      <position x="288" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132379">
+      <object>oInvCollPH</object>
+      <position x="304" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132380">
+      <object>oInvCollPH</object>
+      <position x="320" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132381">
+      <object>oInvCollPH</object>
+      <position x="336" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132382">
+      <object>oInvCollPH</object>
+      <position x="352" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132383">
+      <object>oInvCollPH</object>
+      <position x="368" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132384">
+      <object>oInvCollPH</object>
+      <position x="384" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132385">
+      <object>oInvCollPH</object>
+      <position x="400" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132386">
+      <object>oInvCollPH</object>
+      <position x="416" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132387">
+      <object>oInvCollPH</object>
+      <position x="432" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132388">
+      <object>oInvCollPH</object>
+      <position x="624" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132389">
+      <object>oInvCollPH</object>
+      <position x="608" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132390">
+      <object>oInvCollPH</object>
+      <position x="592" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132391">
+      <object>oInvCollPH</object>
+      <position x="576" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132392">
+      <object>oInvCollPH</object>
+      <position x="560" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132393">
+      <object>oInvCollPH</object>
+      <position x="544" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132394">
+      <object>oInvCollPH</object>
+      <position x="528" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132395">
+      <object>oInvCollPH</object>
+      <position x="512" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132396">
+      <object>oInvCollPH</object>
+      <position x="496" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132397">
+      <object>oInvCollPH</object>
+      <position x="480" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132398">
+      <object>oInvCollPH</object>
+      <position x="448" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132399">
+      <object>oInvCollPH</object>
+      <position x="464" y="32"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132400">
+      <object>oInvCollPH</object>
+      <position x="32" y="160"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132401">
+      <object>oInvCollPH</object>
+      <position x="48" y="160"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132402">
+      <object>oInvCollPH</object>
+      <position x="64" y="160"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132403">
+      <object>oInvCollPH</object>
+      <position x="80" y="160"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132404">
+      <object>oInvCollPH</object>
+      <position x="96" y="160"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132405">
+      <object>oInvCollPH</object>
+      <position x="112" y="160"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132406">
+      <object>oInvCollPH</object>
+      <position x="272" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132407">
+      <object>oInvCollPH</object>
+      <position x="272" y="64"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132408">
+      <object>oInvCollPH</object>
+      <position x="272" y="80"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132409">
+      <object>oInvCollPH</object>
+      <position x="272" y="96"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132410">
+      <object>oInvCollPH</object>
+      <position x="272" y="112"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132411">
+      <object>oInvCollPH</object>
+      <position x="272" y="128"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132412">
+      <object>oInvCollPH</object>
+      <position x="272" y="144"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132413">
+      <object>oInvCollPH</object>
+      <position x="272" y="160"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132416">
+      <object>oInvCollPH</object>
+      <position x="368" y="320"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132417">
+      <object>oInvCollPH</object>
+      <position x="384" y="320"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132418">
+      <object>oInvCollPH</object>
+      <position x="400" y="320"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132419">
+      <object>oInvCollPH</object>
+      <position x="528" y="320"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132420">
+      <object>oInvCollPH</object>
+      <position x="544" y="320"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132421">
+      <object>oInvCollPH</object>
+      <position x="560" y="320"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="132295">
+      <object>oInvisibleSolid</object>
+      <position x="64" y="256"/>
+      <creationCode>image_xscale=2
+</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="132296">
+      <object>oInvisibleSolid</object>
+      <position x="32" y="272"/>
+      <creationCode>image_xscale=20
+image_yscale=5
+</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="132297">
+      <object>oInvisibleSolid</object>
+      <position x="640" y="0"/>
+      <creationCode>image_xscale=4
+image_yscale=22
+</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="132298">
+      <object>oInvisibleSolid</object>
+      <position x="0" y="0"/>
+      <creationCode>image_xscale=2
+image_yscale=22
+</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="132299">
+      <object>oInvisibleSolid</object>
+      <position x="32" y="0"/>
+      <creationCode>image_xscale=16
+image_yscale=11
+</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="132300">
+      <object>oInvisibleSolid</object>
+      <position x="288" y="0"/>
+      <creationCode>image_xscale=22
+image_yscale=3
+</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="132301">
+      <object>oInvisibleSolid</object>
+      <position x="128" y="176"/>
+      <creationCode>image_xscale=10
+image_yscale=2
+</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="132302">
+      <object>oInvisibleSolid</object>
+      <position x="416" y="272"/>
+      <creationCode>image_xscale=6
+image_yscale=5
+</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="132303">
+      <object>oInvisibleSolid</object>
+      <position x="576" y="272"/>
+      <creationCode>image_xscale=4
+image_yscale=5
+</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="132414">
+      <object>oInvisibleSolid</object>
+      <position x="352" y="320"/>
+      <creationCode>image_xscale=4
+image_yscale=2
+</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="132415">
+      <object>oInvisibleSolid</object>
+      <position x="512" y="320"/>
+      <creationCode>image_xscale=4
+image_yscale=2
+</creationCode>
+      <locked>false</locked>
+    </instance>
+  </instances>
+  <tiles>
+    <tile id="10039794">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="96" y="160"/>
+      <roomPosition x="352" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000010</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039795">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="96" y="160"/>
+      <roomPosition x="368" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000010</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039796">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="96" y="160"/>
+      <roomPosition x="384" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000010</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039797">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="96" y="160"/>
+      <roomPosition x="400" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000010</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039798">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="96" y="160"/>
+      <roomPosition x="400" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000010</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039799">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="96" y="160"/>
+      <roomPosition x="384" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000010</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039800">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="96" y="160"/>
+      <roomPosition x="368" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000010</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039801">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="96" y="160"/>
+      <roomPosition x="352" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000010</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039802">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="96" y="160"/>
+      <roomPosition x="512" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000010</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039803">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="96" y="160"/>
+      <roomPosition x="528" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000010</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039804">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="96" y="160"/>
+      <roomPosition x="544" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000010</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039805">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="96" y="160"/>
+      <roomPosition x="560" y="320"/>
+      <size height="16" width="16"/>
+      <depth>1000010</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039806">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="96" y="160"/>
+      <roomPosition x="560" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000010</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039807">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="96" y="160"/>
+      <roomPosition x="544" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000010</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039808">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="96" y="160"/>
+      <roomPosition x="528" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000010</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039809">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="96" y="160"/>
+      <roomPosition x="512" y="336"/>
+      <size height="16" width="16"/>
+      <depth>1000010</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039347">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="176"/>
+      <roomPosition x="32" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039348">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="176"/>
+      <roomPosition x="48" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039349">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="176"/>
+      <roomPosition x="64" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039350">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="176"/>
+      <roomPosition x="80" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039351">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="192"/>
+      <roomPosition x="0" y="256"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039352">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="192"/>
+      <roomPosition x="0" y="240"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039353">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="192"/>
+      <roomPosition x="0" y="224"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039354">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="192"/>
+      <roomPosition x="0" y="208"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039355">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="192"/>
+      <roomPosition x="0" y="192"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039356">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="192"/>
+      <roomPosition x="0" y="176"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039357">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="192"/>
+      <roomPosition x="32" y="144"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039358">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="192"/>
+      <roomPosition x="48" y="144"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039359">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="192"/>
+      <roomPosition x="64" y="144"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039360">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="192"/>
+      <roomPosition x="80" y="144"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039361">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="192"/>
+      <roomPosition x="96" y="144"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039362">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="192"/>
+      <roomPosition x="112" y="144"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039363">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="176"/>
+      <roomPosition x="96" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039364">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="176"/>
+      <roomPosition x="112" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039365">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="64" y="192"/>
+      <roomPosition x="128" y="176"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039366">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="176"/>
+      <roomPosition x="128" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039367">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="176"/>
+      <roomPosition x="144" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039368">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="176"/>
+      <roomPosition x="160" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039369">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="176"/>
+      <roomPosition x="176" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039371">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="192"/>
+      <roomPosition x="160" y="176"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039372">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="192"/>
+      <roomPosition x="176" y="176"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039373">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="160"/>
+      <roomPosition x="64" y="256"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039374">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="160"/>
+      <roomPosition x="80" y="256"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039375">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="32" y="240"/>
+      <roomPosition x="72" y="224"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039376">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="0" y="272"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039389">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="0" y="16"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039390">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="0" y="48"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039391">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="0" y="80"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039392">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="0" y="112"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039393">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="0" y="144"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039398">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="128" y="16"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039399">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="128" y="48"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039400">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="128" y="80"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039401">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="128" y="112"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039402">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="128" y="144"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039404">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="160" y="16"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039405">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="160" y="48"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039406">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="160" y="80"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039407">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="160" y="112"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039408">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="160" y="144"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039409">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="32" y="16"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039410">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="32" y="48"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039411">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="32" y="80"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039412">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="32" y="112"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039413">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="64" y="16"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039414">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="64" y="48"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039415">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="64" y="80"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039416">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="64" y="112"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039417">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="96" y="16"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039418">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="96" y="48"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039419">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="96" y="80"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039420">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="96" y="112"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039427">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="112" y="208"/>
+      <roomPosition x="16" y="272"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039428">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="112" y="192"/>
+      <roomPosition x="16" y="160"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039429">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="192"/>
+      <roomPosition x="128" y="160"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039433">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="192"/>
+      <roomPosition x="192" y="176"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039434">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="192"/>
+      <roomPosition x="208" y="176"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039435">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="192"/>
+      <roomPosition x="224" y="176"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039436">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="192"/>
+      <roomPosition x="240" y="176"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039437">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="192"/>
+      <roomPosition x="256" y="176"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039438">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="64" y="192"/>
+      <roomPosition x="640" y="176"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039439">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="64" y="192"/>
+      <roomPosition x="640" y="192"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039440">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="176"/>
+      <roomPosition x="192" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039441">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="176"/>
+      <roomPosition x="208" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039442">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="176"/>
+      <roomPosition x="224" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039443">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="176"/>
+      <roomPosition x="240" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039444">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="176"/>
+      <roomPosition x="256" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039445">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="176"/>
+      <roomPosition x="272" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039446">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="176"/>
+      <roomPosition x="288" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039447">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="176"/>
+      <roomPosition x="304" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039456">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="176"/>
+      <roomPosition x="448" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039457">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="176"/>
+      <roomPosition x="464" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039466">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="176"/>
+      <roomPosition x="608" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039467">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="176"/>
+      <roomPosition x="624" y="272"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039468">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="64" y="192"/>
+      <roomPosition x="640" y="208"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039469">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="64" y="192"/>
+      <roomPosition x="640" y="224"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039470">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="64" y="192"/>
+      <roomPosition x="640" y="240"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039471">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="64" y="192"/>
+      <roomPosition x="640" y="256"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039472">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="192"/>
+      <roomPosition x="288" y="16"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039473">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="192"/>
+      <roomPosition x="304" y="16"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039474">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="192"/>
+      <roomPosition x="320" y="16"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039475">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="192"/>
+      <roomPosition x="336" y="16"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039476">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="192"/>
+      <roomPosition x="352" y="16"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039477">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="192"/>
+      <roomPosition x="368" y="16"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039478">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="192"/>
+      <roomPosition x="384" y="16"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039479">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="192"/>
+      <roomPosition x="400" y="16"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039480">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="192"/>
+      <roomPosition x="416" y="16"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039481">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="192"/>
+      <roomPosition x="432" y="16"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039482">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="192"/>
+      <roomPosition x="448" y="16"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039483">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="192"/>
+      <roomPosition x="464" y="16"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039484">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="192"/>
+      <roomPosition x="480" y="16"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039485">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="192"/>
+      <roomPosition x="496" y="16"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039486">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="192"/>
+      <roomPosition x="512" y="16"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039487">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="192"/>
+      <roomPosition x="528" y="16"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039488">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="192"/>
+      <roomPosition x="544" y="16"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039489">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="192"/>
+      <roomPosition x="560" y="16"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039490">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="192"/>
+      <roomPosition x="576" y="16"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039491">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="192"/>
+      <roomPosition x="592" y="16"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039492">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="192"/>
+      <roomPosition x="608" y="16"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039493">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="192"/>
+      <roomPosition x="624" y="16"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039494">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="64" y="192"/>
+      <roomPosition x="640" y="160"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039495">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="64" y="192"/>
+      <roomPosition x="640" y="144"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039496">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="64" y="192"/>
+      <roomPosition x="640" y="128"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039497">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="64" y="192"/>
+      <roomPosition x="640" y="112"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039498">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="64" y="192"/>
+      <roomPosition x="640" y="96"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039499">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="64" y="192"/>
+      <roomPosition x="640" y="80"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039500">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="64" y="192"/>
+      <roomPosition x="640" y="64"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039501">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="64" y="192"/>
+      <roomPosition x="640" y="48"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039502">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="192"/>
+      <roomPosition x="256" y="160"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039503">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="192"/>
+      <roomPosition x="256" y="144"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039504">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="192"/>
+      <roomPosition x="256" y="128"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039505">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="192"/>
+      <roomPosition x="256" y="112"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039506">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="192"/>
+      <roomPosition x="256" y="96"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039507">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="192"/>
+      <roomPosition x="256" y="80"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039508">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="192"/>
+      <roomPosition x="256" y="64"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039509">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="192"/>
+      <roomPosition x="256" y="48"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039510">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="0" y="304"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039511">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="32" y="304"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039512">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="64" y="304"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039513">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="96" y="304"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039514">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="128" y="304"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039515">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="160" y="304"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039516">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="192" y="304"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039517">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="224" y="304"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039518">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="256" y="304"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039519">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="288" y="304"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039524">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="448" y="304"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039529">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="608" y="304"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039530">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="640" y="272"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039531">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="640" y="304"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039532">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="640" y="16"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039533">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="672" y="16"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039534">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="672" y="48"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039535">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="672" y="80"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039536">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="672" y="112"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039537">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="672" y="144"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039538">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="672" y="176"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039539">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="672" y="208"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039540">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="672" y="240"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039541">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="672" y="272"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039542">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="672" y="304"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039543">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="192" y="16"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039544">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="224" y="16"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039545">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="256" y="16"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039546">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="192" y="48"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039547">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="192" y="80"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039548">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="192" y="112"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039549">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="192" y="144"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039550">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="224" y="48"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039551">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="224" y="80"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039552">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="224" y="112"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039553">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="224" y="144"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039561">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="0" y="0"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039562">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="32" y="0"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039563">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="64" y="0"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039564">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="96" y="0"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039565">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="128" y="0"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039566">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="160" y="0"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039567">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="192" y="0"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039568">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="224" y="0"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039569">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="256" y="0"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039570">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="288" y="0"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039571">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="320" y="0"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039572">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="352" y="0"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039573">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="384" y="0"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039574">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="416" y="0"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039575">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="448" y="0"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039576">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="480" y="0"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039577">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="512" y="0"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039578">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="544" y="0"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039579">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="576" y="0"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039580">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="608" y="0"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039581">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="640" y="0"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039582">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="672" y="0"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039583">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="0" y="336"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039584">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="32" y="336"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039585">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="64" y="336"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039586">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="96" y="336"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039587">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="128" y="336"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039588">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="160" y="336"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039589">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="192" y="336"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039590">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="224" y="336"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039591">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="256" y="336"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039592">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="288" y="336"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039597">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="448" y="336"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039602">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="608" y="336"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039603">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="640" y="336"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039604">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="672" y="336"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039605">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="112" y="192"/>
+      <roomPosition x="272" y="32"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039606">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="192"/>
+      <roomPosition x="640" y="32"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039607">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="208"/>
+      <roomPosition x="640" y="272"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039714">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="176"/>
+      <roomPosition x="320" y="272"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039715">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="176"/>
+      <roomPosition x="480" y="272"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039716">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="64" y="176"/>
+      <roomPosition x="416" y="272"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039717">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="64" y="176"/>
+      <roomPosition x="576" y="272"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039726">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="64" y="192"/>
+      <roomPosition x="416" y="304"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039727">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="64" y="192"/>
+      <roomPosition x="576" y="304"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039728">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="192"/>
+      <roomPosition x="320" y="304"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039729">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="192"/>
+      <roomPosition x="480" y="304"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039738">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="192"/>
+      <roomPosition x="320" y="320"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039739">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="192"/>
+      <roomPosition x="320" y="336"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039740">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="192"/>
+      <roomPosition x="480" y="320"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039741">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="192"/>
+      <roomPosition x="480" y="336"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039742">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="64" y="192"/>
+      <roomPosition x="416" y="320"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039743">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="64" y="192"/>
+      <roomPosition x="416" y="336"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039744">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="64" y="192"/>
+      <roomPosition x="576" y="320"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039745">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="64" y="192"/>
+      <roomPosition x="576" y="336"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039865">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="48" y="240"/>
+      <roomPosition x="408" y="184"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039866">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="48" y="240"/>
+      <roomPosition x="504" y="184"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039867">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="48" y="240"/>
+      <roomPosition x="408" y="104"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039868">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="48" y="240"/>
+      <roomPosition x="504" y="104"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039762">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="176"/>
+      <roomPosition x="336" y="272"/>
+      <size height="32" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039763">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="176"/>
+      <roomPosition x="352" y="272"/>
+      <size height="32" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039764">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="176"/>
+      <roomPosition x="368" y="272"/>
+      <size height="32" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039765">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="176"/>
+      <roomPosition x="384" y="272"/>
+      <size height="32" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039766">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="176"/>
+      <roomPosition x="400" y="272"/>
+      <size height="32" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039767">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="176"/>
+      <roomPosition x="416" y="272"/>
+      <size height="32" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039768">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="176"/>
+      <roomPosition x="432" y="272"/>
+      <size height="32" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039769">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="176"/>
+      <roomPosition x="448" y="272"/>
+      <size height="32" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039770">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="176"/>
+      <roomPosition x="464" y="272"/>
+      <size height="32" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039771">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="176"/>
+      <roomPosition x="480" y="272"/>
+      <size height="32" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039772">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="176"/>
+      <roomPosition x="496" y="272"/>
+      <size height="32" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039773">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="176"/>
+      <roomPosition x="512" y="272"/>
+      <size height="32" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039774">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="176"/>
+      <roomPosition x="528" y="272"/>
+      <size height="32" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039775">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="176"/>
+      <roomPosition x="544" y="272"/>
+      <size height="32" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039776">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="176"/>
+      <roomPosition x="560" y="272"/>
+      <size height="32" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039777">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="80" y="176"/>
+      <roomPosition x="576" y="272"/>
+      <size height="32" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039778">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="336" y="304"/>
+      <size height="32" width="32"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039779">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="368" y="304"/>
+      <size height="32" width="32"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039780">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="400" y="304"/>
+      <size height="32" width="32"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039781">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="432" y="304"/>
+      <size height="32" width="32"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039782">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="464" y="304"/>
+      <size height="32" width="32"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039783">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="496" y="304"/>
+      <size height="32" width="32"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039784">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="528" y="304"/>
+      <size height="32" width="32"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039785">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="560" y="304"/>
+      <size height="32" width="32"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039786">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="336" y="336"/>
+      <size height="16" width="32"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039787">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="368" y="336"/>
+      <size height="16" width="32"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039788">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="400" y="336"/>
+      <size height="16" width="32"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039789">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="432" y="336"/>
+      <size height="16" width="32"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039790">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="464" y="336"/>
+      <size height="16" width="32"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039791">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="496" y="336"/>
+      <size height="16" width="32"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039792">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="528" y="336"/>
+      <size height="16" width="32"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10039793">
+      <background>tileMarioWorldA</background>
+      <backgroundPosition x="128" y="0"/>
+      <roomPosition x="560" y="336"/>
+      <size height="16" width="32"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+  </tiles>
+  <editorSettings remember="true">
+    <size height="597" width="1061"/>
+    <showGrid>false</showGrid>
+    <showObjects>true</showObjects>
+    <showTiles>true</showTiles>
+    <showBackgrounds>true</showBackgrounds>
+    <showForegrounds>true</showForegrounds>
+    <showViews>false</showViews>
+    <deleteUnderlyingObjects>true</deleteUnderlyingObjects>
+    <deleteUnderlyingTiles>true</deleteUnderlyingTiles>
+    <currentTab>0</currentTab>
+    <horizontalScrollPosition>-48</horizontalScrollPosition>
+    <verticalScrollPosition>-88</verticalScrollPosition>
+  </editorSettings>
+</room>

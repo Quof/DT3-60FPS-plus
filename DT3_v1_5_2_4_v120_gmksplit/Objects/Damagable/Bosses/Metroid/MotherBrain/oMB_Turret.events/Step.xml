@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  shotTime+=1
+  if shotTime=55 //turn turret
+  {
+    if type=0 {image_angle=0}
+    else if type=1 {image_angle=180}
+  }
+  else if shotTime=70  {event_user(0)} //fire shot
+  else if shotTime=125 //turn turret
+  {
+    if type=0 {image_angle=315}
+    else if type=1 {image_angle=225}
+  }
+  else if shotTime=140  {event_user(0)} //fire shot
+  else if shotTime=195 //turn turret
+  {
+    image_angle=270
+  }
+  else if shotTime=210  {event_user(0)} //fire shot
+  else if shotTime=265 //turn turret
+  {
+    if type=0 {image_angle=315}
+    else if type=1 {image_angle=225}
+  }
+  else if shotTime&gt;=280  {event_user(0); shotTime=0} //fire shot
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

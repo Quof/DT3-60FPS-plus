@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  if bCollectedRings=0
+  {
+    if resetTime&gt;-1
+    {
+      resetTime-=1
+      if resetTime=0
+      {
+        ringColl=0
+        oReachRing.image_index=0
+        oReachRing.spinFrm=0
+        oReachRing.bRunThrough=0
+        oReachRing.image_blend=c_white
+        resetTime=-1
+      }
+    }
+    
+    if ringColl=ringMax
+    {
+      var tFlash;
+      tFlash=instance_create(0,0,oScreenFlash)
+      tFlash.image_alpha=0.5; tFlash.fadeSpeed=0.1
+      bCollectedRings=1
+    }
+  }
+  else
+  {
+    with oReachRing {instance_destroy()}
+    with doorID {instance_destroy()}
+    instance_destroy()
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  if bShift=1
+  {
+    if shiftSeq=0 //To end
+    {
+      xVel=xSpd
+      yVel=ySpd
+      if (xSpd&gt;0 and x&gt;=endX) or (xSpd&lt;0 and x&lt;=endX) or (ySpd&gt;0 and y&gt;=endY) or (ySpd&lt;0 and y&lt;=endY)
+      {
+        x=endX
+        y=endY
+        xVel=0
+        yVel=0
+        bShift=0
+      }
+    }
+    else if shiftSeq=1 //To start
+    {
+      xVel=-xSpd
+      yVel=-ySpd
+      if (xSpd&gt;0 and x&lt;=startX) or (xSpd&lt;0 and x&gt;=startX) or (ySpd&gt;0 and y&lt;=startY) or (ySpd&lt;0 and y&gt;=startY)
+      {
+        x=startX
+        y=startY
+        xVel=0
+        yVel=0
+        bShift=0
+      }
+    }
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

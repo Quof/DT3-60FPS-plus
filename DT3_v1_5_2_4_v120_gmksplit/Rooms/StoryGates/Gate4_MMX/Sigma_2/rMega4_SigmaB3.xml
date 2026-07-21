@@ -1,0 +1,2213 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<room id="310">
+  <caption>[G4-SB3] Quoted verbatim.</caption>
+  <size height="352" width="480"/>
+  <grid>
+    <isometric>false</isometric>
+    <snap x="16" y="16"/>
+  </grid>
+  <speed>30</speed>
+  <persistent>false</persistent>
+  <creationCode>locationCheck(29)
+global.mapTeleport=9
+
+gameScene=instance_create(0,0,oEvCh8MainB)
+
+if global.gameProgress&gt;=1920
+{
+  var newExit;
+  newExit=instance_create(464,256,oExit)
+  newExit.bShowArrow=true; newExit.exitType=1
+  newExit.newMapX=48; newExit.newMapY=3008; newExit.toRoom=rMega4_SigmaB4
+  tile_layer_hide(999999)
+  with (231410) {instance_destroy()}
+}
+
+if global.bossTrack=1 //Boss Fight: Bit
+{
+  var tempMplay,bBarrier;
+  tempMplay=findMusic(810)
+  bBarrier=instance_create(48,224,oBossBarrier)
+  oPlayer1.x=128; oPlayer1.y=288
+  storeStatus(1)
+  boss=instance_create(384,288,oMMBit)
+  boss.activateBoss=1
+}
+else
+{
+  var tempMplay;
+  tempMplay=findMusic(411)
+}
+playMusic(tempMplay,0,0)</creationCode>
+  <backgroundColor>202038</backgroundColor>
+  <drawBackgroundColor>true</drawBackgroundColor>
+  <clearViewBackground>true</clearViewBackground>
+  <backgrounds>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+    <backgroundDef>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <isForeground>false</isForeground>
+      <backgroundImage/>
+      <offset x="0" y="0"/>
+      <speed x="0" y="0"/>
+      <tileHorizontally>true</tileHorizontally>
+      <tileVertically>true</tileVertically>
+      <stretch>false</stretch>
+    </backgroundDef>
+  </backgrounds>
+  <enableViews>true</enableViews>
+  <views>
+    <view>
+      <visibleOnRoomStart>true</visibleOnRoomStart>
+      <viewInRoom height="352" width="480" x="0" y="0"/>
+      <portOnScreen height="352" width="480" x="0" y="0"/>
+      <objectFollowing hBorder="240" hSpeed="-1" vBorder="176" vSpeed="-1">oPlayer1</objectFollowing>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+    <view>
+      <visibleOnRoomStart>false</visibleOnRoomStart>
+      <viewInRoom height="480" width="640" x="0" y="0"/>
+      <portOnScreen height="480" width="640" x="0" y="0"/>
+      <objectFollowing hBorder="32" hSpeed="-1" vBorder="32" vSpeed="-1"/>
+    </view>
+  </views>
+  <instances>
+    <instance id="231351">
+      <object>oPlayer1</object>
+      <position x="48" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231356">
+      <object>oInvCollPH</object>
+      <position x="16" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231357">
+      <object>oInvCollPH</object>
+      <position x="32" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231358">
+      <object>oInvCollPH</object>
+      <position x="48" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231359">
+      <object>oInvCollPH</object>
+      <position x="64" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231360">
+      <object>oInvCollPH</object>
+      <position x="80" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231361">
+      <object>oInvCollPH</object>
+      <position x="96" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231362">
+      <object>oInvCollPH</object>
+      <position x="112" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231363">
+      <object>oInvCollPH</object>
+      <position x="128" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231364">
+      <object>oInvCollPH</object>
+      <position x="144" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231365">
+      <object>oInvCollPH</object>
+      <position x="400" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231366">
+      <object>oInvCollPH</object>
+      <position x="384" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231367">
+      <object>oInvCollPH</object>
+      <position x="368" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231368">
+      <object>oInvCollPH</object>
+      <position x="352" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231369">
+      <object>oInvCollPH</object>
+      <position x="336" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231370">
+      <object>oInvCollPH</object>
+      <position x="320" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231371">
+      <object>oInvCollPH</object>
+      <position x="304" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231372">
+      <object>oInvCollPH</object>
+      <position x="288" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231373">
+      <object>oInvCollPH</object>
+      <position x="272" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231374">
+      <object>oInvCollPH</object>
+      <position x="256" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231375">
+      <object>oInvCollPH</object>
+      <position x="160" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231376">
+      <object>oInvCollPH</object>
+      <position x="176" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231377">
+      <object>oInvCollPH</object>
+      <position x="192" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231378">
+      <object>oInvCollPH</object>
+      <position x="208" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231379">
+      <object>oInvCollPH</object>
+      <position x="224" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231380">
+      <object>oInvCollPH</object>
+      <position x="240" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231381">
+      <object>oInvCollPH</object>
+      <position x="48" y="64"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231382">
+      <object>oInvCollPH</object>
+      <position x="48" y="80"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231383">
+      <object>oInvCollPH</object>
+      <position x="48" y="96"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231384">
+      <object>oInvCollPH</object>
+      <position x="48" y="112"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231385">
+      <object>oInvCollPH</object>
+      <position x="48" y="128"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231386">
+      <object>oInvCollPH</object>
+      <position x="48" y="144"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231387">
+      <object>oInvCollPH</object>
+      <position x="48" y="160"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231388">
+      <object>oInvCollPH</object>
+      <position x="48" y="176"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231389">
+      <object>oInvCollPH</object>
+      <position x="48" y="192"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231390">
+      <object>oInvCollPH</object>
+      <position x="48" y="208"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231391">
+      <object>oInvCollPH</object>
+      <position x="32" y="208"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231392">
+      <object>oInvCollPH</object>
+      <position x="16" y="208"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231393">
+      <object>oInvCollPH</object>
+      <position x="0" y="208"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231394">
+      <object>oInvCollPH</object>
+      <position x="416" y="80"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231395">
+      <object>oInvCollPH</object>
+      <position x="416" y="96"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231396">
+      <object>oInvCollPH</object>
+      <position x="416" y="112"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231397">
+      <object>oInvCollPH</object>
+      <position x="416" y="128"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231398">
+      <object>oInvCollPH</object>
+      <position x="416" y="144"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231399">
+      <object>oInvCollPH</object>
+      <position x="416" y="160"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231400">
+      <object>oInvCollPH</object>
+      <position x="416" y="176"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231401">
+      <object>oInvCollPH</object>
+      <position x="416" y="192"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231402">
+      <object>oInvCollPH</object>
+      <position x="416" y="208"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231403">
+      <object>oInvCollPH</object>
+      <position x="432" y="208"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231404">
+      <object>oInvCollPH</object>
+      <position x="448" y="208"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231405">
+      <object>oInvCollPH</object>
+      <position x="464" y="208"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231406">
+      <object>oInvCollPH</object>
+      <position x="416" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231407">
+      <object>oInvCollPH</object>
+      <position x="432" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231408">
+      <object>oInvCollPH</object>
+      <position x="448" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231409">
+      <object>oInvCollPH</object>
+      <position x="464" y="288"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231412">
+      <object>oInvCollPH</object>
+      <position x="64" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231413">
+      <object>oInvCollPH</object>
+      <position x="80" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231414">
+      <object>oInvCollPH</object>
+      <position x="96" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231415">
+      <object>oInvCollPH</object>
+      <position x="112" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231416">
+      <object>oInvCollPH</object>
+      <position x="128" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231417">
+      <object>oInvCollPH</object>
+      <position x="144" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231418">
+      <object>oInvCollPH</object>
+      <position x="160" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231419">
+      <object>oInvCollPH</object>
+      <position x="176" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231420">
+      <object>oInvCollPH</object>
+      <position x="192" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231421">
+      <object>oInvCollPH</object>
+      <position x="208" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231422">
+      <object>oInvCollPH</object>
+      <position x="224" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231423">
+      <object>oInvCollPH</object>
+      <position x="240" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231424">
+      <object>oInvCollPH</object>
+      <position x="256" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231425">
+      <object>oInvCollPH</object>
+      <position x="272" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231426">
+      <object>oInvCollPH</object>
+      <position x="288" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231427">
+      <object>oInvCollPH</object>
+      <position x="304" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231428">
+      <object>oInvCollPH</object>
+      <position x="320" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231429">
+      <object>oInvCollPH</object>
+      <position x="336" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231430">
+      <object>oInvCollPH</object>
+      <position x="352" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231431">
+      <object>oInvCollPH</object>
+      <position x="368" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231432">
+      <object>oInvCollPH</object>
+      <position x="384" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231433">
+      <object>oInvCollPH</object>
+      <position x="400" y="48"/>
+      <creationCode/>
+      <locked>false</locked>
+    </instance>
+    <instance id="231352">
+      <object>oInvisibleSolid</object>
+      <position x="0" y="64"/>
+      <creationCode>image_xscale=4
+image_yscale=10</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="231353">
+      <object>oInvisibleSolid</object>
+      <position x="0" y="288"/>
+      <creationCode>image_xscale=30
+image_yscale=4</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="231354">
+      <object>oInvisibleSolid</object>
+      <position x="416" y="64"/>
+      <creationCode>image_xscale=4
+image_yscale=10</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="231355">
+      <object>oInvisibleSolid</object>
+      <position x="0" y="0"/>
+      <creationCode>image_xscale=30
+image_yscale=4</creationCode>
+      <locked>false</locked>
+    </instance>
+    <instance id="231410">
+      <object>oInvisibleSolid</object>
+      <position x="416" y="224"/>
+      <creationCode>image_xscale=4
+image_yscale=4</creationCode>
+      <locked>false</locked>
+    </instance>
+  </instances>
+  <tiles>
+    <tile id="10253367">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="112" y="104"/>
+      <roomPosition x="192" y="224"/>
+      <size height="8" width="32"/>
+      <depth>1000002</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253368">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="112" y="104"/>
+      <roomPosition x="224" y="224"/>
+      <size height="8" width="32"/>
+      <depth>1000002</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253369">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="112" y="104"/>
+      <roomPosition x="256" y="224"/>
+      <size height="8" width="32"/>
+      <depth>1000002</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253370">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="112" y="96"/>
+      <roomPosition x="192" y="208"/>
+      <size height="8" width="32"/>
+      <depth>1000002</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253371">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="112" y="96"/>
+      <roomPosition x="224" y="208"/>
+      <size height="8" width="32"/>
+      <depth>1000002</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253372">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="112" y="96"/>
+      <roomPosition x="256" y="208"/>
+      <size height="8" width="32"/>
+      <depth>1000002</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253376">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="112" y="96"/>
+      <roomPosition x="96" y="144"/>
+      <size height="8" width="32"/>
+      <depth>1000002</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253377">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="112" y="96"/>
+      <roomPosition x="64" y="144"/>
+      <size height="8" width="32"/>
+      <depth>1000002</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253378">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="112" y="96"/>
+      <roomPosition x="352" y="144"/>
+      <size height="8" width="32"/>
+      <depth>1000002</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253379">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="112" y="96"/>
+      <roomPosition x="384" y="144"/>
+      <size height="8" width="32"/>
+      <depth>1000002</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253380">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="112" y="104"/>
+      <roomPosition x="64" y="160"/>
+      <size height="8" width="32"/>
+      <depth>1000002</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253381">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="112" y="104"/>
+      <roomPosition x="96" y="160"/>
+      <size height="8" width="32"/>
+      <depth>1000002</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253382">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="112" y="104"/>
+      <roomPosition x="352" y="160"/>
+      <size height="8" width="32"/>
+      <depth>1000002</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253383">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="112" y="104"/>
+      <roomPosition x="384" y="160"/>
+      <size height="8" width="32"/>
+      <depth>1000002</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253250">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="96" y="96"/>
+      <roomPosition x="128" y="128"/>
+      <size height="32" width="8"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253251">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="96" y="96"/>
+      <roomPosition x="192" y="128"/>
+      <size height="32" width="8"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253252">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="96" y="96"/>
+      <roomPosition x="352" y="128"/>
+      <size height="32" width="8"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253253">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="96" y="96"/>
+      <roomPosition x="288" y="128"/>
+      <size height="32" width="8"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253254">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="96" y="96"/>
+      <roomPosition x="128" y="192"/>
+      <size height="32" width="8"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253255">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="96" y="96"/>
+      <roomPosition x="192" y="192"/>
+      <size height="32" width="8"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253256">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="96" y="96"/>
+      <roomPosition x="288" y="192"/>
+      <size height="32" width="8"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253257">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="96" y="96"/>
+      <roomPosition x="352" y="192"/>
+      <size height="32" width="8"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253258">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="96" y="112"/>
+      <roomPosition x="128" y="224"/>
+      <size height="32" width="8"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253259">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="96" y="112"/>
+      <roomPosition x="128" y="256"/>
+      <size height="32" width="8"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253260">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="96" y="112"/>
+      <roomPosition x="128" y="160"/>
+      <size height="32" width="8"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253263">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="96" y="112"/>
+      <roomPosition x="192" y="224"/>
+      <size height="32" width="8"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253264">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="96" y="112"/>
+      <roomPosition x="192" y="256"/>
+      <size height="32" width="8"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253265">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="96" y="112"/>
+      <roomPosition x="288" y="160"/>
+      <size height="32" width="8"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253266">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="96" y="112"/>
+      <roomPosition x="352" y="160"/>
+      <size height="32" width="8"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253267">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="96" y="112"/>
+      <roomPosition x="352" y="224"/>
+      <size height="32" width="8"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253269">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="96" y="112"/>
+      <roomPosition x="288" y="224"/>
+      <size height="32" width="8"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253270">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="96" y="112"/>
+      <roomPosition x="288" y="256"/>
+      <size height="32" width="8"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253271">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="136" y="128"/>
+      <roomPosition x="64" y="64"/>
+      <size height="16" width="48"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253272">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="136" y="128"/>
+      <roomPosition x="112" y="64"/>
+      <size height="16" width="48"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253273">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="136" y="128"/>
+      <roomPosition x="160" y="64"/>
+      <size height="16" width="48"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253274">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="136" y="128"/>
+      <roomPosition x="208" y="64"/>
+      <size height="16" width="48"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253275">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="136" y="128"/>
+      <roomPosition x="256" y="64"/>
+      <size height="16" width="48"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253276">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="136" y="128"/>
+      <roomPosition x="304" y="64"/>
+      <size height="16" width="48"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253277">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="136" y="128"/>
+      <roomPosition x="352" y="64"/>
+      <size height="16" width="48"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253278">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="144" y="128"/>
+      <roomPosition x="400" y="64"/>
+      <size height="16" width="16"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253279">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="144" y="128"/>
+      <roomPosition x="16" y="224"/>
+      <size height="16" width="48"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253280">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="144" y="128"/>
+      <roomPosition x="0" y="224"/>
+      <size height="16" width="16"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253282">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="96" y="104"/>
+      <roomPosition x="128" y="80"/>
+      <size height="24" width="8"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253283">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="96" y="104"/>
+      <roomPosition x="128" y="104"/>
+      <size height="24" width="8"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253284">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="96" y="104"/>
+      <roomPosition x="192" y="80"/>
+      <size height="24" width="8"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253285">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="96" y="104"/>
+      <roomPosition x="192" y="104"/>
+      <size height="24" width="8"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253286">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="96" y="104"/>
+      <roomPosition x="288" y="80"/>
+      <size height="24" width="8"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253287">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="96" y="104"/>
+      <roomPosition x="288" y="104"/>
+      <size height="24" width="8"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253288">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="96" y="104"/>
+      <roomPosition x="352" y="80"/>
+      <size height="24" width="8"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253289">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="96" y="104"/>
+      <roomPosition x="352" y="104"/>
+      <size height="24" width="8"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253290">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="112" y="96"/>
+      <roomPosition x="136" y="128"/>
+      <size height="8" width="32"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253291">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="112" y="96"/>
+      <roomPosition x="136" y="192"/>
+      <size height="8" width="32"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253292">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="112" y="96"/>
+      <roomPosition x="296" y="128"/>
+      <size height="8" width="32"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253293">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="112" y="96"/>
+      <roomPosition x="360" y="128"/>
+      <size height="8" width="32"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253294">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="112" y="96"/>
+      <roomPosition x="360" y="192"/>
+      <size height="8" width="32"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253295">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="112" y="96"/>
+      <roomPosition x="296" y="192"/>
+      <size height="8" width="32"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253296">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="112" y="96"/>
+      <roomPosition x="200" y="128"/>
+      <size height="8" width="32"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253297">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="112" y="96"/>
+      <roomPosition x="232" y="128"/>
+      <size height="8" width="32"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253298">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="112" y="96"/>
+      <roomPosition x="200" y="192"/>
+      <size height="8" width="32"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253299">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="112" y="96"/>
+      <roomPosition x="232" y="192"/>
+      <size height="8" width="32"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253300">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="112" y="96"/>
+      <roomPosition x="168" y="128"/>
+      <size height="8" width="24"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253301">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="112" y="96"/>
+      <roomPosition x="168" y="192"/>
+      <size height="8" width="24"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253302">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="112" y="96"/>
+      <roomPosition x="264" y="192"/>
+      <size height="8" width="24"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253303">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="112" y="96"/>
+      <roomPosition x="264" y="128"/>
+      <size height="8" width="24"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253304">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="112" y="96"/>
+      <roomPosition x="328" y="128"/>
+      <size height="8" width="24"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253305">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="112" y="96"/>
+      <roomPosition x="392" y="128"/>
+      <size height="8" width="24"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253306">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="112" y="96"/>
+      <roomPosition x="392" y="192"/>
+      <size height="8" width="24"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253307">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="112" y="96"/>
+      <roomPosition x="328" y="192"/>
+      <size height="8" width="24"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253308">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="112" y="96"/>
+      <roomPosition x="64" y="128"/>
+      <size height="8" width="32"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253309">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="112" y="96"/>
+      <roomPosition x="96" y="128"/>
+      <size height="8" width="32"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253310">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="112" y="96"/>
+      <roomPosition x="64" y="192"/>
+      <size height="8" width="32"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253311">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="112" y="96"/>
+      <roomPosition x="96" y="192"/>
+      <size height="8" width="32"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253312">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="96" y="96"/>
+      <roomPosition x="344" y="240"/>
+      <size height="48" width="8"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253313">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="96" y="96"/>
+      <roomPosition x="336" y="240"/>
+      <size height="48" width="8"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253314">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="96" y="96"/>
+      <roomPosition x="328" y="240"/>
+      <size height="48" width="8"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253315">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="96" y="96"/>
+      <roomPosition x="320" y="240"/>
+      <size height="48" width="8"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253316">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="96" y="96"/>
+      <roomPosition x="312" y="240"/>
+      <size height="48" width="8"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253317">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="96" y="96"/>
+      <roomPosition x="304" y="240"/>
+      <size height="48" width="8"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253318">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="96" y="96"/>
+      <roomPosition x="296" y="240"/>
+      <size height="48" width="8"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253319">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="96" y="96"/>
+      <roomPosition x="184" y="240"/>
+      <size height="48" width="8"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253320">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="96" y="96"/>
+      <roomPosition x="176" y="240"/>
+      <size height="48" width="8"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253321">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="96" y="96"/>
+      <roomPosition x="168" y="240"/>
+      <size height="48" width="8"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253322">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="96" y="96"/>
+      <roomPosition x="160" y="240"/>
+      <size height="48" width="8"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253323">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="96" y="96"/>
+      <roomPosition x="152" y="240"/>
+      <size height="48" width="8"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253324">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="96" y="96"/>
+      <roomPosition x="144" y="240"/>
+      <size height="48" width="8"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253325">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="96" y="96"/>
+      <roomPosition x="136" y="240"/>
+      <size height="48" width="8"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253326">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="96" y="96"/>
+      <roomPosition x="128" y="240"/>
+      <size height="8" width="8"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253327">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="96" y="96"/>
+      <roomPosition x="288" y="240"/>
+      <size height="8" width="8"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253328">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="96" y="96"/>
+      <roomPosition x="176" y="120"/>
+      <size height="8" width="8"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253329">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="96" y="96"/>
+      <roomPosition x="160" y="120"/>
+      <size height="8" width="8"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253330">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="96" y="96"/>
+      <roomPosition x="144" y="120"/>
+      <size height="8" width="8"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253331">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="96" y="96"/>
+      <roomPosition x="128" y="120"/>
+      <size height="8" width="8"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253332">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="96" y="96"/>
+      <roomPosition x="288" y="120"/>
+      <size height="8" width="8"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253333">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="96" y="96"/>
+      <roomPosition x="304" y="120"/>
+      <size height="8" width="8"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253334">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="96" y="96"/>
+      <roomPosition x="320" y="120"/>
+      <size height="8" width="8"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253335">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="96" y="96"/>
+      <roomPosition x="336" y="120"/>
+      <size height="8" width="8"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253336">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="112" y="96"/>
+      <roomPosition x="136" y="120"/>
+      <size height="8" width="8"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253337">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="112" y="96"/>
+      <roomPosition x="152" y="120"/>
+      <size height="8" width="8"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253338">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="112" y="96"/>
+      <roomPosition x="168" y="120"/>
+      <size height="8" width="8"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253339">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="112" y="96"/>
+      <roomPosition x="184" y="120"/>
+      <size height="8" width="8"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253344">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="112" y="96"/>
+      <roomPosition x="296" y="120"/>
+      <size height="8" width="8"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253345">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="112" y="96"/>
+      <roomPosition x="312" y="120"/>
+      <size height="8" width="8"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253346">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="112" y="96"/>
+      <roomPosition x="328" y="120"/>
+      <size height="8" width="8"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253347">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="112" y="96"/>
+      <roomPosition x="344" y="120"/>
+      <size height="8" width="8"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253348">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="96" y="96"/>
+      <roomPosition x="208" y="184"/>
+      <size height="8" width="16"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253349">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="96" y="96"/>
+      <roomPosition x="256" y="184"/>
+      <size height="8" width="16"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253350">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="96" y="96"/>
+      <roomPosition x="208" y="120"/>
+      <size height="8" width="16"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253351">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="96" y="96"/>
+      <roomPosition x="256" y="120"/>
+      <size height="8" width="16"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253384">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="64" y="96"/>
+      <roomPosition x="64" y="96"/>
+      <size height="32" width="32"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253385">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="80" y="96"/>
+      <roomPosition x="368" y="272"/>
+      <size height="16" width="16"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253388">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="96" y="112"/>
+      <roomPosition x="352" y="256"/>
+      <size height="32" width="8"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253391">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="96" y="96"/>
+      <roomPosition x="192" y="160"/>
+      <size height="32" width="8"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253392">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="112" y="96"/>
+      <roomPosition x="200" y="160"/>
+      <size height="8" width="32"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253393">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="112" y="96"/>
+      <roomPosition x="232" y="160"/>
+      <size height="8" width="32"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253394">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="112" y="96"/>
+      <roomPosition x="264" y="160"/>
+      <size height="8" width="24"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253395">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="64" y="96"/>
+      <roomPosition x="240" y="144"/>
+      <size height="16" width="32"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253396">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="176" y="144"/>
+      <roomPosition x="208" y="128"/>
+      <size height="16" width="16"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253399">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="64" y="128"/>
+      <roomPosition x="240" y="128"/>
+      <size height="16" width="16"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253401">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="64" y="120"/>
+      <roomPosition x="224" y="128"/>
+      <size height="32" width="16"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253402">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="64" y="96"/>
+      <roomPosition x="80" y="240"/>
+      <size height="48" width="32"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253403">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="144" y="160"/>
+      <roomPosition x="112" y="256"/>
+      <size height="16" width="16"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253404">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="64" y="96"/>
+      <roomPosition x="304" y="144"/>
+      <size height="48" width="32"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253405">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="144" y="160"/>
+      <roomPosition x="336" y="160"/>
+      <size height="16" width="16"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253423">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="128" y="128"/>
+      <roomPosition x="416" y="224"/>
+      <size height="16" width="48"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253424">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="144" y="128"/>
+      <roomPosition x="464" y="224"/>
+      <size height="16" width="16"/>
+      <depth>1000001</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253192">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="0" y="64"/>
+      <roomPosition x="0" y="288"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253193">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="0" y="64"/>
+      <roomPosition x="64" y="288"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253194">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="0" y="48"/>
+      <roomPosition x="0" y="208"/>
+      <size height="16" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253195">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="0" y="64"/>
+      <roomPosition x="128" y="288"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253196">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="0" y="64"/>
+      <roomPosition x="192" y="288"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253197">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="0" y="64"/>
+      <roomPosition x="288" y="288"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253198">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="0" y="64"/>
+      <roomPosition x="352" y="288"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253199">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="0" y="64"/>
+      <roomPosition x="416" y="288"/>
+      <size height="32" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253200">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="0" y="64"/>
+      <roomPosition x="256" y="288"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253201">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="48" y="64"/>
+      <roomPosition x="272" y="288"/>
+      <size height="32" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253204">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="32" y="96"/>
+      <roomPosition x="416" y="96"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253206">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="32" y="144"/>
+      <roomPosition x="416" y="80"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253207">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="32" y="96"/>
+      <roomPosition x="416" y="64"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253208">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="0" y="96"/>
+      <roomPosition x="32" y="64"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253209">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="0" y="96"/>
+      <roomPosition x="32" y="128"/>
+      <size height="64" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253211">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="16" y="152"/>
+      <roomPosition x="48" y="200"/>
+      <size height="8" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253212">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="16" y="96"/>
+      <roomPosition x="48" y="192"/>
+      <size height="8" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253213">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="0" y="48"/>
+      <roomPosition x="64" y="48"/>
+      <size height="16" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253214">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="0" y="48"/>
+      <roomPosition x="128" y="48"/>
+      <size height="16" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253216">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="0" y="48"/>
+      <roomPosition x="352" y="48"/>
+      <size height="16" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253217">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="0" y="48"/>
+      <roomPosition x="288" y="48"/>
+      <size height="16" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253218">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="0" y="48"/>
+      <roomPosition x="192" y="48"/>
+      <size height="16" width="48"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253219">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="16" y="48"/>
+      <roomPosition x="240" y="48"/>
+      <size height="16" width="48"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253220">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="64" y="16"/>
+      <roomPosition x="96" y="0"/>
+      <size height="48" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253222">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="64" y="16"/>
+      <roomPosition x="288" y="0"/>
+      <size height="48" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253224">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="64" y="16"/>
+      <roomPosition x="0" y="0"/>
+      <size height="48" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253225">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="64" y="16"/>
+      <roomPosition x="384" y="0"/>
+      <size height="48" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253226">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="64" y="16"/>
+      <roomPosition x="192" y="0"/>
+      <size height="48" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253227">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="32" y="0"/>
+      <roomPosition x="64" y="0"/>
+      <size height="48" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253228">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="32" y="0"/>
+      <roomPosition x="160" y="0"/>
+      <size height="48" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253229">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="32" y="0"/>
+      <roomPosition x="256" y="0"/>
+      <size height="48" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253230">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="32" y="0"/>
+      <roomPosition x="352" y="0"/>
+      <size height="48" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253231">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="32" y="0"/>
+      <roomPosition x="448" y="0"/>
+      <size height="48" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253232">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="96" y="16"/>
+      <roomPosition x="0" y="48"/>
+      <size height="48" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253233">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="96" y="16"/>
+      <roomPosition x="0" y="96"/>
+      <size height="48" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253234">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="96" y="16"/>
+      <roomPosition x="0" y="144"/>
+      <size height="48" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253235">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="96" y="16"/>
+      <roomPosition x="448" y="48"/>
+      <size height="48" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253236">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="96" y="16"/>
+      <roomPosition x="448" y="96"/>
+      <size height="48" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253237">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="96" y="16"/>
+      <roomPosition x="448" y="144"/>
+      <size height="48" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253240">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="16" y="80"/>
+      <roomPosition x="32" y="48"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253241">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="16" y="80"/>
+      <roomPosition x="416" y="48"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253242">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="16" y="80"/>
+      <roomPosition x="0" y="192"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253243">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="64" y="32"/>
+      <roomPosition x="32" y="192"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253244">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="32" y="16"/>
+      <roomPosition x="0" y="320"/>
+      <size height="32" width="96"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253245">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="32" y="16"/>
+      <roomPosition x="96" y="320"/>
+      <size height="32" width="96"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253246">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="32" y="16"/>
+      <roomPosition x="192" y="320"/>
+      <size height="32" width="96"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253247">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="32" y="16"/>
+      <roomPosition x="288" y="320"/>
+      <size height="32" width="96"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253248">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="32" y="16"/>
+      <roomPosition x="384" y="320"/>
+      <size height="32" width="96"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253389">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="64" y="112"/>
+      <roomPosition x="352" y="272"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253409">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="64" y="48"/>
+      <roomPosition x="448" y="192"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253411">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="32" y="144"/>
+      <roomPosition x="416" y="192"/>
+      <size height="16" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253412">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="32" y="96"/>
+      <roomPosition x="416" y="160"/>
+      <size height="32" width="32"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253414">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="0" y="48"/>
+      <roomPosition x="416" y="208"/>
+      <size height="16" width="64"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10256718">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="144" y="96"/>
+      <roomPosition x="224" y="160"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10256719">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="144" y="96"/>
+      <roomPosition x="384" y="192"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10256720">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="176" y="96"/>
+      <roomPosition x="96" y="160"/>
+      <size height="16" width="16"/>
+      <depth>1000000</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253249">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="64" y="16"/>
+      <roomPosition x="416" y="288"/>
+      <size height="16" width="64"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253415">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="32" y="96"/>
+      <roomPosition x="416" y="224"/>
+      <size height="64" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253416">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="32" y="128"/>
+      <roomPosition x="416" y="192"/>
+      <size height="32" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253417">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="48" y="128"/>
+      <roomPosition x="432" y="192"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253418">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="48" y="128"/>
+      <roomPosition x="432" y="256"/>
+      <size height="16" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253419">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="0" y="80"/>
+      <roomPosition x="432" y="272"/>
+      <size height="16" width="48"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253420">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="48" y="96"/>
+      <roomPosition x="432" y="224"/>
+      <size height="32" width="16"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253421">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="64" y="16"/>
+      <roomPosition x="448" y="224"/>
+      <size height="48" width="32"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+    <tile id="10253422">
+      <background>tileMM_SigmaB</background>
+      <backgroundPosition x="80" y="32"/>
+      <roomPosition x="432" y="208"/>
+      <size height="16" width="48"/>
+      <depth>999999</depth>
+      <locked>false</locked>
+    </tile>
+  </tiles>
+  <editorSettings remember="true">
+    <size height="553" width="870"/>
+    <showGrid>false</showGrid>
+    <showObjects>false</showObjects>
+    <showTiles>true</showTiles>
+    <showBackgrounds>true</showBackgrounds>
+    <showForegrounds>true</showForegrounds>
+    <showViews>false</showViews>
+    <deleteUnderlyingObjects>true</deleteUnderlyingObjects>
+    <deleteUnderlyingTiles>true</deleteUnderlyingTiles>
+    <currentTab>0</currentTab>
+    <horizontalScrollPosition>-64</horizontalScrollPosition>
+    <verticalScrollPosition>-64</verticalScrollPosition>
+  </editorSettings>
+</room>

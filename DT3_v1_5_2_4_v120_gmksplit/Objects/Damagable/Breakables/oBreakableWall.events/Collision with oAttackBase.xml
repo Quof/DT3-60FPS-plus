@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="COLLISION" with="oAttackBase">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if other.damageType="NORMAL" and other.weaponTag&lt;100
+{
+  awardAwesome(10)
+  for(i=0;i&lt;4;i+=1)
+  {
+    newEffect=instance_create(x+8,y+8,oEfMarioBlock)
+    newEffect.type=i
+  }
+  if variable_local_exists("altItem")
+  {
+    if altItem=1 //Chicken
+    {
+      var tHeart;
+      tHeart=instance_create(x+8,y+8,oHealthPickup)
+      tHeart.sprite_index=sCVChicken
+    }
+  }
+  instance_destroy()
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

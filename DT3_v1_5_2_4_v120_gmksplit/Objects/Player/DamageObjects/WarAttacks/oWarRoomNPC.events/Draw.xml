@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="DRAW" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">draw_sprite_ext(sprite_index,image_index,x,y,image_xscale,image_yscale,image_angle,image_blend,image_alpha)
+
+if type=5 and npcTime&gt;=15 //Ristar barrier
+{
+  draw_set_alpha(0.15)
+  draw_set_color(c_blue)
+  draw_line(x,y-12,oPlayer1.x,returnPlayerYCenter())
+  barrierFrm+=0.25
+  draw_sprite_ext(sWaterBarrier,barrierFrm,oPlayer1.x,returnPlayerYCenter(),1.25,1.25,0,c_white,barrierAlpha)
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

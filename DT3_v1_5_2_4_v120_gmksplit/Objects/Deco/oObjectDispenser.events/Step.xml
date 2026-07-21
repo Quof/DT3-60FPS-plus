@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  pDist=point_distance(x,y,oPlayer1.x,oPlayer1.y-22)
+  if pDist&lt;effectDist
+  {
+    spawnTime+=1
+    if spawnTime&gt;=reSpawnTime
+    {
+      newObject=instance_create(x+offsetX,y+54+offsetY,objCreate)
+      if objCreate=oPlatformTouch
+      {
+        newObject.sprite_index=newSprite
+        newObject.image_speed=frameSpeed
+        newObject.moving=true
+        newObject.xVel=newXspeed
+        newObject.yVel=newYspeed
+        newObject.image_xscale=image_xscale
+        newObject.image_yscale=image_yscale
+        if variable_local_exists("spriteChange")
+          newObject.spriteChange=spriteChange
+      }
+      if variable_local_exists("spawnChange")
+      {
+        spawnTime=spawnChange+irandom_range(-spawnRan,spawnRan)
+      }
+      else
+        spawnTime=0
+    }
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

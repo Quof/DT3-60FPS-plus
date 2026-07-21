@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/*
+Locked Door script
+objectNum relates to which flag to write to
+*/
+
+if distance_to_object(oPlayer1)&lt;12
+{
+  if global.pKeys&gt;0
+  {
+    awardAwesome(200)
+    global.pKeys-=1
+    playSound(global.snd_DoorUnlock,0,1,1)
+    
+    var tNewString;
+    tNewString=string_delete(global.lockedDoor,objectNum,1)
+    tNewString=string_insert("1",tNewString,objectNum)
+    global.lockedDoor=tNewString
+    indexCheck="1"
+  }
+}
+if indexCheck="1"
+  instance_destroy()
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

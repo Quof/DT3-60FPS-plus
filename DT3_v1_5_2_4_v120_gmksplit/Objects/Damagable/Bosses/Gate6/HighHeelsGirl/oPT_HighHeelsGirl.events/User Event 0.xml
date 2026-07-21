@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="OTHER" id="10">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">//-- ATK A: FORWARD HORIZONTAL SLASH --
+
+actTime+=1
+if actTime=1
+{
+  slowVel=1
+  instance_create(x-(20*image_xscale),y-9,oG6_CounterSpark)
+  sprite_index=sHHG_AtkA
+  image_index=0
+  if atkSpd=1 {actTime=4}
+  if atkSpd=2 {actTime=10}
+}
+else if actTime=15
+{
+  playSound(global.snd_DeathSlash,0,0.96,20000)
+  bParryOpp=1
+  image_index=1
+}
+else if actTime=19 {image_index=2}
+else if actTime=23
+{
+  image_index=0
+  bParryOpp=0
+  if atkSpd&gt;=1 {actTime=26}
+}
+else if actTime&gt;=28
+{
+  event_user(4)
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

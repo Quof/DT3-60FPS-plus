@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="OTHER" id="10">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">///END ATTACK
+if ATTACK_FORM=1 {sprite_index=sWarmasterA_Idle}
+else if ATTACK_FORM=2 {sprite_index=sWarmasterB_Idle}
+else if ATTACK_FORM=3 {sprite_index=sWarmasterC_Idle}
+else if ATTACK_FORM=4 {sprite_index=sWarmasterD_Idle}
+actTime=0
+previousAtk=currentAttack
+currentAttack=0
+
+//Check for behavior changes
+if bChangeSpeed=1
+{
+  ATTACK_SPEED+=1
+  bChangeSpeed=0
+}
+if bChangeDifficulty=1
+{
+  DIFFICULTY+=1
+  fireFreq=4 //5 -&gt; 4
+  fireDuration+=10 //170 -&gt; 190
+  bChangeDifficulty=0
+}
+if superCharge&lt;superMax {superCharge+=1}
+
+//Increment attack cycle
+atkNum+=1
+if FASTER_CHANGE=2
+{
+  if atkNum=1 {waitTime=waitDelay-9}
+  else if atkNum&gt;=2 {waitTime=waitDelay-7}
+}
+else
+{
+  if atkNum=1 {waitTime=waitDelay-8}
+  else if atkNum&gt;=2 {waitTime=waitDelay-6}
+}
+numOfAtks+=1
+
+if superChangeAtk=1 //Super change attack check
+{
+  bGravity=1; hoverMode=0
+  atkNum=0
+  waitTime=0
+}
+else if superChangeAtk&gt;=10 //End super attack
+{
+  shiftTime=prevShTime; shiftDamage=prevShDmg
+  ATTACK_FORM=previousForm
+  event_user(5)
+  superCharge=2
+  superChangeAtk=0; superAtkType=0
+  waitTime=-9
+}
+
+if atkNum&gt;=atkMax
+{
+  atkInSequence+=1
+  if atkInSequence&gt;=4 {atkInSequence=0} //0 - 3
+  waitTime=0; atkNum=0
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

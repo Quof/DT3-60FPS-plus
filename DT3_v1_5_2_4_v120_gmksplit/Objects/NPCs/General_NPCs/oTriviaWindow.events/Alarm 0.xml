@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="ALARM" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if quizType=1
+{
+  myQuestion[0]=irandom_range(1,5)
+  myQuestion[1]=irandom_range(6,10)
+  myQuestion[2]=irandom_range(11,15)
+  myQuestion[3]=irandom_range(16,20)
+  myQuestion[4]=irandom_range(21,25)
+  myQuestion[5]=irandom_range(26,30)
+  myQuestion[6]=irandom_range(31,35)
+  myQuestion[7]=irandom_range(36,40)
+  myQuestion[8]=irandom_range(41,45)
+  myQuestion[9]=irandom_range(46,49)
+}
+else if quizType=2
+{
+  maxQuestion=numInList
+  for(i=0;i&lt;numInList;i+=1)
+  {
+    myQuestion[i]=i+1
+  }
+}
+
+if global.gameProgress=3860
+{
+  myQuestion[0]=1
+  myQuestion[1]=5
+  myQuestion[2]=9
+  myQuestion[3]=14
+  myQuestion[4]=19
+  myQuestion[5]=22
+  myQuestion[6]=26
+  myQuestion[7]=31
+  myQuestion[8]=34
+  myQuestion[9]=38
+}
+
+bTriviaReady=1
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

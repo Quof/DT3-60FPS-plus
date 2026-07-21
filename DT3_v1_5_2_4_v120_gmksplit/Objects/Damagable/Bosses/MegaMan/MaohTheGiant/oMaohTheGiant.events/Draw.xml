@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="DRAW" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if life&gt;0
+{
+  chainFrm+=0.35
+  var tLeftDist,tLeftDir;
+  tLeftDist=point_distance(x-spikeOffsetX,y+spikeOffsetY,leftSpike.x,leftSpike.y)
+  tLeftDir=point_direction(x-spikeOffsetX,y+spikeOffsetY,leftSpike.x,leftSpike.y)
+  draw_sprite(sMaohGiantChain,0,x-spikeOffsetX,y+spikeOffsetY)
+  for(i=0;i&lt;4;i+=1)
+  {
+    draw_sprite(sMaohGiantChain,chainFrm,x-spikeOffsetX+lengthdir_x(tLeftDist*(0.2*(i+1)),tLeftDir),y+spikeOffsetY+lengthdir_y(tLeftDist*(0.2*(i+1)),tLeftDir))
+  }
+  
+  var tRightDist,tRightDir;
+  tRightDist=point_distance(x+spikeOffsetX,y+spikeOffsetY,rightSpike.x,rightSpike.y)
+  tRightDir=point_direction(x+spikeOffsetX,y+spikeOffsetY,rightSpike.x,rightSpike.y)
+  draw_sprite(sMaohGiantChain,0,x+spikeOffsetX,y+spikeOffsetY)
+  for(i=0;i&lt;4;i+=1)
+  {
+    draw_sprite(sMaohGiantChain,chainFrm,x+spikeOffsetX+lengthdir_x(tRightDist*(0.2*(i+1)),tRightDir),y+spikeOffsetY+lengthdir_y(tRightDist*(0.2*(i+1)),tRightDir))
+  }
+}
+else {event_inherited()}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

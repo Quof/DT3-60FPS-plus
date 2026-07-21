@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  makeEnemyActive(0)
+  if bActive=true and stunnedTime=0 and life&gt;0
+  {
+    if shotTime&lt;shotDelay+9
+    {
+      if xMove&gt;0
+        image_xscale=1
+      else
+        image_xscale=-1
+      
+      x+=xMove
+      
+      turnTime+=1
+      if turnTime&gt;=moveMax
+      {
+        xMove*=-1
+        turnTime=0
+      }
+    }
+    
+    shotTime+=1
+    if shotTime&gt;=shotDelay and shotTime&lt;=shotDelay+10
+    {
+      if checkFacing()=1
+      {
+        image_index=1
+        resType[3]=3
+        shotTime=shotDelay+20
+      }
+      else {shotTime=shotDelay-2}
+    }
+    else if shotTime=shotDelay+26 {image_index=2; resType[3]=4}
+    else if shotTime=shotDelay+42
+    {
+      playSound(global.snd_LaserA,0,0.97,25000)
+      var tNewAttack;
+      tNewAttack=instance_create(x+(10*image_xscale),y,oPassBullet)
+      tNewAttack.sprite_index=sWalkBlasterLaser
+      tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=8; tNewAttack.decayTime=-100
+      tNewAttack.direction=point_direction(x+(10*image_xscale),y,oPlayer1.x,oPlayer1.y-26)
+    }
+    else if shotTime=shotDelay+66 {image_index=1; resType[3]=3}
+    else if shotTime=shotDelay+72 {image_index=0; resType[3]=2; shotTime=0}
+  }
+  else if life&lt;=0
+  {
+    playSound(global.snd_EnemyDieMM,0,1,1)
+    tEffect=instance_create(x,y,oEffect)
+    tEffect.sprite_index=sMMExplosion
+    tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+    
+    tDir=random_range(-3,3)
+    tEffect=instance_create(x+(10*image_xscale),y-13,oEffectGrav); tEffect.sprite_index=sBarrierAttackerParts
+    tEffect.image_speed=0; tEffect.type=2
+    tEffect.xSpd=tDir; tEffect.ySpd=-4-random(1); tEffect.fadeSpd=0.04; tEffect.rotation=choose(-tDir,tDir)
+    tEffect.grav=0.2; tEffect.newBlend=-1; tEffect.decay=-100; tEffect.followID=-1
+    tDir=random_range(-3,3)
+    tEffect=instance_create(x+(8*image_xscale),y-7,oEffectGrav); tEffect.sprite_index=sBarrierAttackerParts
+    tEffect.image_speed=0; tEffect.image_index=1; tEffect.type=2
+    tEffect.xSpd=tDir; tEffect.ySpd=-3-random(1); tEffect.fadeSpd=0.04; tEffect.rotation=choose(-tDir,tDir)
+    tEffect.grav=0.2; tEffect.newBlend=-1; tEffect.decay=-100; tEffect.followID=-1
+    tDir=random_range(-3,3)
+    tEffect=instance_create(x-(5*image_xscale),y+9,oEffectGrav); tEffect.sprite_index=sBarrierAttackerParts
+    tEffect.image_speed=0; tEffect.image_index=2; tEffect.type=2
+    tEffect.xSpd=tDir; tEffect.ySpd=-3-random(1); tEffect.fadeSpd=0.04; tEffect.rotation=choose(-tDir,tDir)
+    tEffect.grav=0.2; tEffect.newBlend=-1; tEffect.decay=-100; tEffect.followID=-1
+    tDir=random_range(-3,3)
+    tEffect=instance_create(x-(4*image_xscale),y-5,oEffectGrav); tEffect.sprite_index=sBarrierAttackerParts
+    tEffect.image_speed=0; tEffect.image_index=3; tEffect.type=2
+    tEffect.xSpd=tDir; tEffect.ySpd=-3-random(1); tEffect.fadeSpd=0.04; tEffect.rotation=choose(-tDir,tDir)
+    tEffect.grav=0.2; tEffect.newBlend=-1; tEffect.decay=-100; tEffect.followID=-1
+    instance_destroy()
+  }
+  enemyStepEvent()
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

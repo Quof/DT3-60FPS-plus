@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">flagAnim+=0.25
+if global.gamePaused=false
+{
+  waveCountdown-=1
+  if scrController(4) and oPlayer1.idleTime&gt;2
+  {
+    waveCountdown-=10
+    holdDown+=1
+    if holdDown&gt;=30 {room_speed=global.gameFrameRate*2}
+  }
+  else {room_speed=global.gameFrameRate; holdDown=0}
+  
+  if waveCountdown&lt;=0 and bWaveStart=0
+  {
+    event_user(0)
+  }
+  //----- Check player distance -----
+  myDist=point_distance(x,y+32,oPlayer1.x,oPlayer1.y-16)
+  if myDist&lt;160 {oTD_HUD.bCanConstruct=0}
+}
+else {room_speed=global.gameFrameRate}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

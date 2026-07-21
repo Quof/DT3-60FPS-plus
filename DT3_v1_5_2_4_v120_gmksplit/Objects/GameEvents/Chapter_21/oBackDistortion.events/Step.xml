@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if type=0 //Veins
+{
+  x-=0.5; y-=0.5
+  
+  alphaPulse+=1
+  if alphaPulse&gt;=21 and alphaPulse&lt;=120 {image_alpha+=0.001}
+  else if alphaPulse&gt;=131 and alphaPulse&lt;=230 {image_alpha-=0.001}
+  else if alphaPulse&gt;=260 {alphaPulse=0}
+  
+  scalePulse+=1
+  if scalePulse&gt;=1 and scalePulse&lt;=80 {image_xscale+=0.0005; image_yscale+=0.0005}
+  else if scalePulse&gt;=81
+  {
+    image_xscale-=0.0005; image_yscale-=0.0005
+    if scalePulse&gt;=160 {scalePulse=0}
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

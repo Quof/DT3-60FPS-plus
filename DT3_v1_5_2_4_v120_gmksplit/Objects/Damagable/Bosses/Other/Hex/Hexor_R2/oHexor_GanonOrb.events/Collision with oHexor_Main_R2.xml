@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="COLLISION" with="oHexor_Main_R2">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if hitByPlayer=1
+{
+  if hitBackNum&gt;=hitMax
+  {
+    event_user(0)
+    oHexor_Main_R2.timesHitWithOrb+=1
+    oHexor_Main_R2.life-=165
+    instance_destroy()
+  }
+  else
+  {
+    playSound(global.snd_HitOrb,0,1,23000+(hitBackNum*2000))
+    var tEfCir;
+    tEfCir=instance_create(x,y,oEfCircleBlast)
+    tEfCir.image_alpha=0.75; tEfCir.myRad=8; tEfCir.radScl=2; tEfCir.fadeSpeed=0.08
+    
+    direction=point_direction(x,y,oPlayer1.x,oPlayer1.y-32)
+    hitByPlayer=0
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

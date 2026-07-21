@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="DRAW" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if variable_local_exists("binary")
+{
+  draw_set_color(make_color_rgb(0,255,0))
+  draw_set_alpha(1)
+  draw_set_font(fnt_ScanData)
+  draw_set_halign(fa_left)
+  if changeTime=0
+  {
+    for(a=0;a&lt;4;a+=1)
+    {
+      for(aa=0;aa&lt;5;aa+=1)
+      {
+        bin[a,aa]=round(random(1))
+      }
+    }
+    changeTime=4
+  }
+  else
+    changeTime-=1
+  for(i=0;i&lt;4;i+=1)
+  {
+    for(ii=0;ii&lt;5;ii+=1)
+    {
+      draw_text(x-xx+12,y-yy+51,bin[i,ii])
+      xx+=4
+    }
+    xx-=20
+    yy+=6
+  }
+  yy-=24
+}</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

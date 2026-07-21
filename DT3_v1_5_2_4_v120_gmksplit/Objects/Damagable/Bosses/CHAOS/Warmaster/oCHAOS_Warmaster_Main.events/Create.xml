@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="CREATE" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">/*
+USER DEFINED EVENTS
+0: End of attack
+1: Behaviors - Form A
+2: Behaviors - Form B
+3: Behaviors - Form C
+4: Behaviors - Form D
+5: Swap Forms
+6: Choose an attack
+7: Set change order
+*/
+event_inherited()
+makeActive()
+setCollisionBounds(-14,-44,14,-1)
+image_xscale=-1.25
+image_yscale=1.25
+scaleForFacing=1
+image_speed=0
+
+//Enemy base statistics
+eName="CHAOS Warmaster"
+eLevel=40
+maxLife=15600
+life=maxLife
+atkPower=10
+resType[1]=2
+resType[2]=1
+resType[3]=1
+resType[4]=2
+resType[5]=1
+stunResist=50
+affiliation=7
+bIsBoss=true
+bNoBonus=true
+dieEffect=0
+bossProgress=0
+activateBoss=0
+//--------------------
+ATTACK_FORM=1 //Which form the Warmaster is using --- A1:Main, B2:Fire, C3:Ice, D4:Wind
+ATTACK_SPEED=1 //Alters certain attack's speed
+DIFFICULTY=1 //Alter certain attack behaviors
+shiftType=0 //Alter rules on changing form
+shiftTime=0
+shiftMaxTime=750
+shiftDamage=0
+shiftDmgMax=42
+superChangeAtk=0 //If the quick change attack is performed
+superAtkType=0 //Determines which quick change sequence to use
+previousForm=0
+orderNum=1 //How far into the order change sequence
+prevShTime=0
+prevShDmg=0
+timeTillLastHit=0 //Time since the Warmaster was damaged last
+timeChangeSet=1 //Determine how much time to stay in one form during the last 30%
+timeTillChange=210
+
+bChangeSpeed=0
+bChangeDifficulty=0
+//-- Attack Data --
+atkInSequence=0 //This helps determines which behavior to use
+currentAttack=0
+previousAtk=0
+
+atkNum=0 //current attack in string
+atkMax=2 //max attacks in a string
+waitTime=30
+waitDelay=60 //idle time between attack strings
+actTime=0 //progress in an action
+
+dashEfType=0
+dashEfFrm=0
+jetEfFrm=0
+
+superCharge=0; superMax=5
+//-- Form A1 Data --
+bRope=0
+ropeX=0
+ropeYscl=0
+swdRollAng=0
+
+//-- Form B2 Data --
+fireFreq=5
+fireDuration=170
+fireType=0
+fireSide=1
+fireUse=0
+for(i=0;i&lt;3;i+=1)
+{
+  firePlacement[i]=12+(12*i)
+}
+
+//-- Form C3 Data --
+hoverMode=0 //0: No hover, 1: Follow player but stay above them, 2: Hover near mid-top of room
+currHspd=0
+currVspd=0
+orbitNum=6 //Number of orbiting ice shards to summon
+numOfAtks=0 //Number of attacks before swapping between hover/ground mode (Will spend more time in hover mode)
+
+//-- Form D4 Data --
+altUppercut=0
+
+//Movement speeds
+bGravity=1 //If gravity is in effect for the Warmaster
+
+runAcc=2
+dashAcc=8
+fastDashAcc=11
+jumpAcc=3
+dashJumpAcc=4
+fastDashJumpAcc=14
+superFireDashAcc=20
+
+jumpNum=0
+imageEffect=0
+
+//Achievment data
+bGoombaStomp=0
+goombaStompTime=0
+
+backGroundFlash=0
+//--------------------
+
+//Misc Data
+xCenter=368
+roomSpan=208
+yGround=304
+roomHeight=256
+
+orderChangeSetting=0
+event_user(7)
+
+deathAnim=0
+
+if room=rBT_WarmasterB
+{
+  xCenter=296
+  roomSpan=248
+  roomHeight=176
+  if y&lt;272 {yGround=240}
+  else {yGround=512}
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

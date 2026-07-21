@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="COLLISION" with="oPlayer1">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.difficulty&gt;=2
+{
+  if moveProg&gt;=20
+  {
+    if global.hasAbilToken[0]&gt;=2
+    {
+      playSound(global.snd_MoneyPickup,0,0.9,1)
+      
+      stopAllMusic()
+      if !SS_IsHandleValid(global.msc_Starman)
+        global.msc_Starman=SS_LoadSound(working_directory+"\Music\DT_Starman.ogg",1)
+      if !SS_IsSoundLooping(global.msc_Starman)
+        playMusic(global.msc_Starman,0,0)
+      
+      awardAwesome(250)
+      oPlayer1.starmanTime=300
+      instance_destroy()
+    }
+    else
+    {
+      if messageDelayTime=0
+      {
+        msgCreate(170,100,"","Without the Mario ability, this cannot be used.",6,1,oMessagePerson,0)
+        newMessage.fadingTime=60
+        messageDelayTime=120
+      }
+    }
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

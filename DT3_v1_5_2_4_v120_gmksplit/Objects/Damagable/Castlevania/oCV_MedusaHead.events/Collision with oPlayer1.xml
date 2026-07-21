@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="COLLISION" with="oPlayer1">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if life&gt;0
+{
+  if abilityDrain=0
+  {
+    if global.gameProgress&gt;=1210
+    {
+      global.hudBelmont_WeaponEn[0]-=10
+      if global.hudBelmont_WeaponEn[0]&lt;0 {global.hudBelmont_WeaponEn[0]=0}
+    }
+    abilityDrain=30
+  }
+  if tauntPlayer=0
+  {
+    if oPlayer1.dashInvulnerabilityTime=0 and oPlayer1.bCanTakeHit=true and random(100)&lt;60
+    {
+      var newMessage;
+      newMessage=instance_create(x-46,y-40,oEnemyChat)
+      newMessage.enemyMessage="Senpai noticed me!"
+      tauntPlayer=30
+    }
+  }
+}
+event_inherited()
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

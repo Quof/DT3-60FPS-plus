@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  pulsate+=0.5
+  wobble+=sin(pulsate)/100
+  
+  if bActive=0 {makeEnemyActive(1)}
+  if life&gt;0
+  {
+    if bActive=true and stunnedTime=0
+    {
+      image_xscale=0.5+(lifePercent/2)
+      image_yscale=0.5+(lifePercent/2)
+      
+      startUpTime+=1
+      if startUpTime=1 //Appear
+      {
+        visible=1
+        if !instance_exists(oQuickStatic)
+        {
+          var tStatic;
+          tStatic=instance_create(0,0,oQuickStatic); tStatic.staticTime=4; tStatic.image_alpha=0.5
+        }
+        var tEffect;
+        tEffect=instance_create(x,y,oEffect)
+        tEffect.sprite_index=sAtkTypeShield; tEffect.followID=-1; tEffect.image_xscale=0.75; tEffect.image_yscale=0.75
+        tEffect.newBlend=1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0; tEffect.image_alpha=0.75; tEffect.image_speed=0.75
+      }
+      if startUpTime&gt;=15
+      {
+        //Track player
+        var myDist,targetSpd;
+        targetSpd=5
+        myDist=point_distance(x,y,oPlayer1.x,oPlayer1.y-26)
+        myDist=round(myDist)
+        
+        if myDist&lt;=40 {targetSpd=4}
+        else if myDist&gt;=41 and myDist&lt;=88 {targetSpd=5}
+        else if myDist&gt;=89 and myDist&lt;=144 {targetSpd=6}
+        else if myDist&gt;=145 and myDist&lt;=216 {targetSpd=7}
+        else if myDist&gt;=217 {targetSpd=8}
+        
+        maxSpeed=targetSpd
+        if x&gt;oPlayer1.x
+        {
+          if currHspd&gt;-maxSpeed {currHspd-=0.25}
+          else {currHspd+=0.25}
+        }
+        else if x&lt;oPlayer1.x
+        {
+          if currHspd&lt;maxSpeed {currHspd+=0.25}
+          else {currHspd-=0.25}
+        }
+        if y&gt;oPlayer1.y-26
+        {
+          if currVspd&gt;-maxSpeed {currVspd-=0.25}
+          else {currVspd+=0.25}
+        }
+        else if y&lt;oPlayer1.y-26
+        {
+          if currVspd&lt;maxSpeed {currVspd+=0.25}
+          else {currVspd-=0.25}
+        }
+        hspeed=currHspd; vspeed=currVspd
+      }
+      
+      shotTime+=1
+      if shotTime=shotDelay
+      {
+        for(i=0;i&lt;16;i+=1)
+        {
+          var tEffect;
+          tEffect=instance_create(x+random_range(-16,16),y+random_range(-16,16),oEffectGrav)
+          tEffect.type=2; tEffect.sprite_index=sBV_WormDrop; tEffect.newBlend=-1; tEffect.image_speed=0.15+random(0.15)
+          tEffect.fadeSpd=0.06; tEffect.followID=-1; tEffect.rotation=0; tEffect.image_xscale=1+random(1); tEffect.image_yscale=1+random(1)
+          tEffect.xSpd=random_range(-5,5); tEffect.ySpd=-5; tEffect.grav=0.3
+        }
+      }
+      if shotTime&gt;=shotDelay+20
+      {
+        var tShotA,tShotB;
+        tShotA=point_direction(x,y,oPlayer1.x,oPlayer1.y-26)
+        tShotB=intercept_course_player(x,y,7)
+        var tNewAttack;
+        tNewAttack=instance_create(x,y,oPassBullet)
+        tNewAttack.sprite_index=sLB_Laser; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5.5
+        tNewAttack.decayTime=-100; tNewAttack.direction=tShotA; tNewAttack.image_xscale=0.5
+        var tNewAttack;
+        tNewAttack=instance_create(x,y,oPassBullet)
+        tNewAttack.sprite_index=sLB_Laser; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=7
+        tNewAttack.decayTime=-100; tNewAttack.direction=tShotB; tNewAttack.image_xscale=0.5
+        shotTime=0
+      }
+      
+      //Worm drop effect
+      wormDrop+=1
+      if wormDrop mod 30=0
+      {
+        var tEffect;
+        tEffect=instance_create(x+random_range(-12,12),y+random_range(-12,12),oEffectB)
+        tEffect.type=3; tEffect.sprite_index=sBV_WormDrop; tEffect.newBlend=-1; tEffect.image_speed=0.15+random(0.15)
+        tEffect.speed=2; tEffect.direction=270
+        tEffect.fadeSpd=0.07; tEffect.AccelX=random_range(-0.5,0.5); tEffect.AccelY=0.1; tEffect.followID=-1; tEffect.rotation=0
+      }
+      
+      //Syphon energy
+      drainRad=70+((maxLife-life)/12)
+      if point_distance(x,y,oPlayer1.x,oPlayer1.y-26)&lt;=drainRad
+      {
+        if oGame.time mod 9=0 {playSound(global.snd_Infect,0,0.9,30000)}
+        abilDrain+=1
+        bDraining=1
+        oPlayer1.attackCharge=0
+        oPlayer1.specAttackChargeA=0
+        oPlayer1.specAttackChargeB=0
+        if abilDrain mod 3=0
+        {
+          if life&lt;maxLife-10 {life+=10}
+          if global.activeCharacter=0
+          {
+            if global.activeAbility[0]=1
+            {
+              if global.hudLink_Arrows[0]&gt;0 {global.hudLink_Arrows[0]-=1}
+              if global.hudLink_BombEn[0]&gt;5 {global.hudLink_BombEn[0]-=6}
+              if oPlayer1.arrowRecharge&gt;0 {oPlayer1.arrowRecharge=0}
+              oPlayer1.arrowDelay+=1
+            }
+            else if global.activeAbility[0]=2
+            {
+              if global.hudMega_BusterEn[0]&gt;0 {global.hudMega_BusterEn[0]-=1}
+              if global.hudMega_ShotIceEn[0]&gt;0 {global.hudMega_ShotIceEn[0]-=1}
+              if global.hudMega_GravityEn[0]&gt;0 {global.hudMega_GravityEn[0]-=1}
+            }
+          }
+          else if global.activeCharacter=1
+          {
+            if global.activeAbility[1]=1
+            {
+              if global.hudBelmont_WeaponEn[0]&gt;2 {global.hudBelmont_WeaponEn[0]-=3}
+            }
+            else if global.activeAbility[1]=2
+            {
+              if global.hudSamus_CannonEn[0]&lt;global.hudSamus_CannonEn[1]-25 {global.hudSamus_CannonEn[0]+=25}
+              if global.hudSamus_Missiles[0]&gt;0 {global.hudSamus_Missiles[0]-=1}
+              if oPlayer1.missileRecharge&gt;0 {oPlayer1.missileRecharge=0}
+              oPlayer1.missileDelay+=1
+            }
+          }
+        }
+      }
+      else {bDraining=0}
+    }
+    else {hspeed=0; vspeed=0}
+  }
+  else if life&lt;=0
+  {
+    deathAnim+=1
+    if deathAnim=1
+    {
+      playSound(global.snd_HardHit1,0,0.9,1)
+      hspeed=0; vspeed=0
+      baseColor=c_red; image_blend=c_red
+    }
+    
+    if deathAnim mod 4=0
+    {
+      tEffect=instance_create(x+random_range(-14,14),y+random_range(-14,14),oEffect)
+      tEffect.sprite_index=sDeathFlameA; tEffect.image_speed=0.33
+      tEffect.image_xscale=2; tEffect.image_yscale=2; tEffect.image_alpha=0.8
+      tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+    }
+    
+    image_alpha-=0.03
+    if image_alpha&lt;0 {instance_destroy()}
+  }
+  enemyStepEvent()
+}
+else {hspeed=0; vspeed=0}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

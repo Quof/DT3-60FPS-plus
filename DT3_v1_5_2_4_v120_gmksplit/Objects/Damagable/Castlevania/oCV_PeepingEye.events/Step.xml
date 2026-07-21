@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  makeEnemyActive(0)
+  if bActive=true and stunnedTime=0 and life&gt;0
+  {
+    //----- Eye Movement -----
+    //Circle
+    x+=sin(stepCount)
+    y+=cos(stepCount)
+    //The rest
+    speed=moveSpd
+    moveTime+=1
+    if moveTime&gt;=moveDelay
+    {
+      direction=player_sprite_center()
+      moveTime=0
+    }
+    
+    //----- Attack -----
+    shotTime+=1
+    if shotTime=shotDelay
+    {
+      lightBullet=instance_create(eyeTail.x,eyeTail.y,oPeepEyeLightning)
+      lightBullet.atkPower=atkPower
+      lightBullet.ownerID=id
+    }
+    else if shotTime=shotDelay+41
+    {
+      if instance_exists(lightBullet)
+      {
+        if checkScreenArea(x,y,48)=1 {playSound(global.snd_LightballSpread,0,0.85,38000)}
+        lightBullet.atkProg=1
+        lightBullet.direction=point_direction(lightBullet.x,lightBullet.y,oPlayer1.x,oPlayer1.y-26)
+      }
+      shotTime=0
+    }
+  }
+  else if life&lt;=0
+  {
+    deathAnim+=1
+    image_angle+=25
+    if deathAnim=1
+    {
+      with lightBullet {instance_destroy()}
+      for(i=0;i&lt;5;i+=1)
+      {
+        eyePart[i].bCanDealDamage=false
+      }
+      with eyeTail
+      {
+        playSound(global.snd_BombExplode,0,0.82,1)
+        tEffect=instance_create(x,y,oEffect)
+        tEffect.sprite_index=sBombExplosion; tEffect.image_xscale=0.5; tEffect.image_yscale=0.5
+        tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+        instance_destroy()
+      }
+    }
+    else if deathAnim&gt;=2 and deathAnim&lt;=99
+    {
+      if deathAnim mod 8=0
+      {
+        with eyePart[tailDeath]
+        {
+          playSound(global.snd_BombExplode,0,0.82,1)
+          tEffect=instance_create(x,y,oEffect)
+          tEffect.sprite_index=sBombExplosion; tEffect.image_xscale=0.5; tEffect.image_yscale=0.5
+          tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+          instance_destroy()
+        }
+        tailDeath-=1
+        if tailDeath=-1 {deathAnim=100}
+      }
+    }
+    else if deathAnim&gt;=115
+    {
+      playSound(global.snd_BombExplode,0,0.85,1)
+      tEffect=instance_create(x,y,oEffect)
+      tEffect.sprite_index=sBombExplosion; tEffect.image_xscale=0.85; tEffect.image_yscale=0.85
+      tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+      instance_destroy()
+    }
+  }
+  
+  if life&gt;0
+  {
+    //----- Sync lightning attack to tail -----
+    if shotTime&gt;=shotDelay+1 and shotTime&lt;=shotDelay+40
+    {
+      lightBullet.x=eyeTail.x+lengthdir_x(9,eyeTail.image_angle-90)
+      lightBullet.y=eyeTail.y+lengthdir_y(9,eyeTail.image_angle-90)
+    }
+    //----- Hit Movement -----
+    if xSpd&gt;0{xSpd-=hitFric}
+    else if xSpd&lt;0{xSpd+=hitFric}
+    if ySpd&gt;0{ySpd-=hitFric}
+    else if ySpd&lt;0{ySpd+=hitFric}
+    
+    x+=xSpd
+    y+=ySpd
+    
+    //----- Tail Movement -----
+    eyePart[0].x=x
+    eyePart[0].y=y+19
+    for(i=1;i&lt;5;i+=1)
+    {
+      eyePart[i].x=eyePart[i-1].x+lengthdir_x(12,-90+eyePart[i-1].image_angle)
+      eyePart[i].y=eyePart[i-1].y+lengthdir_y(12,-90+eyePart[i-1].image_angle)
+      eyePart[i].image_angle=eyePart[i-1].image_angle+(segDir)
+    }
+    eyeTail.x=eyePart[i-1].x+lengthdir_x(12,-90+eyePart[i-1].image_angle)
+    eyeTail.y=eyePart[i-1].y+lengthdir_y(12,-90+eyePart[i-1].image_angle)
+    eyeTail.image_angle=eyePart[i-1].image_angle+(segDir)
+  
+    stepCount+=pi/60
+    segDir+=sin(stepCount)
+  }
+  enemyStepEvent()
+}
+else
+  speed=0
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

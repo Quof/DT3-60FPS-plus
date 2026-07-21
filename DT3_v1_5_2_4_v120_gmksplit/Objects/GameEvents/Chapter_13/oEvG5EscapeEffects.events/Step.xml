@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">//-------------------- Explosion Effect --------------------
+explosionDelay-=1
+if explosionDelay&lt;=0
+{
+  explosionX=(view_xview[0]-8)+random(view_wview[0]+16)
+  explosionY=(view_yview[0]-8)+random(view_hview[0]+16)
+  expSize=random_range(0.75,1.25)
+  
+  var tEffect;
+  tEffect=instance_create(explosionX,explosionY,oEffect)
+  tEffect.image_speed=0.5; tEffect.image_xscale=expSize; tEffect.image_yscale=expSize; tEffect.depth=4
+  tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+  expType=irandom_range(1,2)
+  if expType=1 {tEffect.sprite_index=sSamusMissileHit}
+  else if expType=2 {tEffect.sprite_index=sSamusSMissileHit}
+  explosionDelay=irandom_range(2,5)
+  
+  soundEffectTime-=1
+  if soundEffectTime&lt;=0
+  {
+    playSound(global.snd_MetroidBomb,0,0.91,1)
+    soundEffectTime=irandom_range(2,6)
+  }
+}
+//-------------------- Red Fade Effect --------------------
+redFadeTime+=1
+if redFadeTime&gt;=1 and redFadeTime&lt;=50 {redFadeAlpha+=0.002}
+else if redFadeTime&gt;=51 and redFadeTime&lt;=100
+{
+  redFadeAlpha-=0.002
+  if redFadeTime=100 {redFadeTime=0}
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

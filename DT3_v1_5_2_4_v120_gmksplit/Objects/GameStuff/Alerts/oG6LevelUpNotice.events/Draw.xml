@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="DRAW" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if view_current=0
+{
+  displayX=view_xview[0]+240
+  displayY=view_yview[0]+144
+  draw_sprite_ext(sprite_index,0,displayX,displayY,1,1,0,image_blend,image_alpha)
+  draw_set_halign(fa_center)
+  draw_set_alpha(image_alpha)
+  draw_set_color(myColor)
+  draw_set_font(fnt_GameOver)
+  draw_text(displayX,displayY-18,myLevel)
+  
+  dispTime-=1
+  if dispTime&lt;=0
+  {
+    image_alpha-=0.04
+    if image_alpha&lt;=0 {instance_destroy()}
+  }
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

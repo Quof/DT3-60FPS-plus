@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="COLLISION" with="oPlayer1">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">//Post message
+if oKeyCodes.kCodePressed[3]=1 and global.gamePaused=false
+{
+  bChecked=1
+  global.recSignsRead+=1
+  with oMessageSign {instance_destroy()}
+  var tNewMessage,tXoffset,tYoffset;
+  if signSize=0
+  {
+    tXoffset=70
+    tYoffset=80
+  }
+  else if signSize=1
+  {
+    tXoffset=100
+    tYoffset=93
+  }
+  else if signSize=2
+  {
+    tXoffset=130
+    tYoffset=106
+  }
+  else if signSize=3
+  {
+    tXoffset=160
+    tYoffset=119
+  }
+  tNewMessage=instance_create(x-tXoffset,y-tYoffset,oMessageSign)
+  tNewMessage.message=stringToShow
+  tNewMessage.fadingTime=65+(signSize*15)
+  tNewMessage.signSize=signSize
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

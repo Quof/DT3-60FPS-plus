@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="OTHER" id="10">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">//Spam Shot
+var tNewAttack,tXOff,tYOff;
+tXOff=0; tYOff=0
+bulletCycle+=1
+if bulletCycle=1 {tXOff=6; tYOff=4}
+else if bulletCycle=2 {tXOff=17; tYOff=2}
+else if bulletCycle=3 {tXOff=17; tYOff=2}
+else if bulletCycle&gt;=4 {tXOff=3; tYOff=11; bulletCycle=0}
+tNewAttack=instance_create(x+(tXOff*image_xscale),y+tYOff,oNormalBullet)
+tNewAttack.sprite_index=sC_TurretBullet; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=12
+tNewAttack.image_speed=0.33; tNewAttack.decayTime=-100; tNewAttack.direction=targetAngle
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

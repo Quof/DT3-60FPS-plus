@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="CREATE" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">event_inherited()
+setCollisionBounds(-2,-2,2,2)
+
+damageType="SHOT"
+weaponTag=20
+atkLv=global.stJGame_A[0]
+atkPower=15+(global.stJGame_C[1]*2)
+atkPower=weaponDmgMod(0,atkPower)
+global.recAtkNum+=1
+global.stJGame_A[2]+=1
+stunTime=1
+
+if global.stJGame_C[0]&gt;=4000
+{
+  bulletSpeed=15
+  lifeTime=12
+}
+else
+{
+  bulletSpeed=14
+  lifeTime=10
+}
+
+if oPlayer1.image_xscale=1
+{
+  direction=random_range(-6,6)
+}
+else
+{
+  direction=random_range(174,186)
+}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

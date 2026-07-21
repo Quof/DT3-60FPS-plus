@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">if global.gamePaused=false
+{
+  if atkProg=0
+  {
+    if initSoundPlay=0
+    {
+      playSound(global.snd_WepCharge,0,0.94,13000)
+      playSound(global.snd_Dec_ChargeUp,0,0.95,24000)
+      initSoundPlay=1
+    }
+    image_xscale+=0.02; image_yscale+=0.02
+    
+    var tEffect,tFFScl,tFFDir;
+    tFFScl=random(0.1)
+    tFFDir=random(360)
+    tEffect=instance_create(x+lengthdir_x(60,tFFDir),y+lengthdir_y(60,tFFDir),oEffectB)
+    tEffect.type=3; tEffect.sprite_index=sEfFirefly; tEffect.newBlend=1
+    tEffect.image_alpha=0.5; tEffect.image_xscale=0.1+tFFScl; tEffect.image_yscale=0.1+tFFScl
+    tEffect.direction=tFFDir-180; tEffect.speed=5.8
+    tEffect.fadeSpd=0.05; tEffect.AccelX=0; tEffect.AccelY=0; tEffect.followID=-1; tEffect.rotation=0
+    
+    if image_xscale&gt;=1
+    {
+      SS_StopSound(global.snd_WepCharge)
+      SS_StopSound(global.snd_Dec_ChargeUp)
+      playSound(global.snd_Dec_Fire,0,0.95,32000)
+      playSound(global.snd_ChargeStrike,0,0.95,32000)
+      var tEfCir;
+      tEfCir=instance_create(x,y,oEfCircleBlast)
+      tEfCir.image_alpha=0.75; tEfCir.myRad=8; tEfCir.radScl=2; tEfCir.fadeSpeed=0.08
+      direction=point_direction(x,y,oPlayer1.x,oPlayer1.y-32)
+      bCanDealDamage=1
+      bCanBeHitBack=1
+      atkProg=1
+    }
+  }
+  else if atkProg=1
+  {
+    instance_create(x,y,oGanonOrbAE)
+    speed=bulletSpeed
+  }
+}
+else {speed=0}
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>
