@@ -13,7 +13,7 @@
       <not>false</not>
       <appliesTo>.self</appliesTo>
       <arguments>
-        <argument kind="STRING">screenEfA+=1
+        <argument kind="STRING">screenEfA+=1*gDeltaTime
 if screenEfA mod 6=0
 {
   var tFFScl;
@@ -48,19 +48,19 @@ if screenEfA mod 135=0
 if bCanUseMenu=1
 {
   //-- Title flash --
-  titleCTime+=2
+  titleCTime+=2*gDeltaTime
   if titleCTime&lt;=80
-    titleRGB-=2
+    titleRGB-=2*gDeltaTime
   else if titleCTime&gt;=81
   {
-    titleRGB+=2
+    titleRGB+=2*gDeltaTime
     if titleCTime=160
       titleCTime=0
   }
   titleCl=make_color_rgb(titleRGB,255,titleRGB)
   
   //----- Title menu controls -----
-  if oKeyCodes.kCodePressed[4]=1
+  if oKeyCodesHighFPS.kCodePressed[4]=1
   {
     playSound(global.snd_MenuCursor,0,1,1)
     if fileCursorPos&lt;arraySizeMax
@@ -74,7 +74,7 @@ if bCanUseMenu=1
       fileCursorPos=1
     }
   }
-  else if oKeyCodes.kCodePressed[3]=1
+  else if oKeyCodesHighFPS.kCodePressed[3]=1
   {
     playSound(global.snd_MenuCursor,0,1,1)
     if fileCursorPos&gt;1
@@ -282,7 +282,7 @@ if bCanUseMenu=1
   }
   
   //start game
-  if oKeyCodes.kCodePressed[5]=1 or keyboard_check_pressed(vk_enter)
+  if oKeyCodesHighFPS.kCodePressed[5]=1 or keyboard_check_pressed(vk_enter)
   {
     resetKeyCodes()
     playSound(global.snd_MenuConfirm,0,0.95,1)
@@ -327,10 +327,10 @@ else
 {
   if introProg&gt;=1
   {
-    titleDelay+=1
+    titleDelay+=1*gDeltaTime
     if titleWidth&lt;432 //Title sweep
     {
-      titleWidth+=1.2
+      titleWidth+=1.2*gDeltaTime
       if titleWidth&gt;=432
       {
         titleWidth=432
@@ -343,7 +343,7 @@ else
       {
         if titleDelay&gt;=25
         {
-          subtitleAlpha+=0.02
+          subtitleAlpha+=0.02*gDeltaTime
           if subtitleAlpha&gt;=1
             titleDelay=0
         }
@@ -352,7 +352,7 @@ else
       {
         if titleDelay&gt;=4
         {
-          fileWAlpha+=0.01
+          fileWAlpha+=0.01*gDeltaTime
           if fileWAlpha&gt;=1
             bCanUseMenu=1
         }
@@ -360,7 +360,7 @@ else
     }
   }
   
-  if oKeyCodes.kCodePressed[5]=1 or keyboard_check_pressed(vk_enter)
+  if oKeyCodesHighFPS.kCodePressed[5]=1 or keyboard_check_pressed(vk_enter)
   {
     resetKeyCodes()
     playSound(global.snd_MenuConfirm,0,0.95,1)

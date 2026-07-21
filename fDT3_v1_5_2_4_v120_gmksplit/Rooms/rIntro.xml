@@ -10,6 +10,14 @@
   <persistent>false</persistent>
   <creationCode>set_application_title("DT3: Saved Game")
 
+//Initialize
+globalvar gDeltaTime, gDeltaDoTicks, gDeltaTick;
+global.modeSpeed=0
+global.gameFrameRate=120
+gDeltaTime = 30/global.gameFrameRate
+gDeltaDoTicks = 0
+gDeltaTick = 0.0
+
 global.paraString[0]="DT3data.dts"
 
 //Check if command line arguments were given
@@ -23,10 +31,6 @@ if pNum&gt;0
     global.paraString[i]=parameter_string(i+1)
   }
 }
-
-//Initialize
-global.modeSpeed=0
-global.gameFrameRate=30
 
 global.bNightmareMode=0
 global.bCanUseEsc=1
@@ -43,6 +47,10 @@ global.ctrlActC="O"
 if !instance_exists(oKeyCodes)
 {
   instance_create(0,0,oKeyCodes)
+}
+if !instance_exists(oKeyCodesHighFPS)
+{
+  instance_create(0,0,oKeyCodesHighFPS)
 }
 room_goto(rTitle)</creationCode>
   <backgroundColor>000000</backgroundColor>

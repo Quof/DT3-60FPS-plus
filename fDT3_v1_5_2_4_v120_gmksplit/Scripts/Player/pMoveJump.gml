@@ -25,9 +25,24 @@ else
 
 mechFuel=mechMaxFuel
 global.recJumped+=1
-if bombJump=0 {yAcc+=initialJumpAcc}
-else {yAcc+=initialJumpAcc*bombAcc}
+
+if (gDeltaTime==1)
+{
+    if bombJump=0 {yAcc+=initialJumpAcc}
+    else {yAcc+=initialJumpAcc*bombAcc}
+}
+else
+{
+    var ijabodge;
+    // compensate for standard-height full jumps to have the same height despite different pixel rounding
+    ijabodge = initialJumpAcc * 1.07
+    if bombJump=0 {yVel+=ijabodge}
+    else {yVel+=ijabodge*bombAcc}
+    yVel += gravityIntensity*0.5
+}
 bombJump=0
+ditherCounter=15 // make jumps deterministic
+
 //xAcc+=xVel/2
 var tEffect;
 tEffect=instance_create(x,y+2,oEffect)

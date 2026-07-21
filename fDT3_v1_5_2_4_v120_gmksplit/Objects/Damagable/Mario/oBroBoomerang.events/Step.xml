@@ -15,7 +15,7 @@
       <arguments>
         <argument kind="STRING">if global.gamePaused=false
 {
-  throwTime+=1
+  throwTime+=1*gDeltaTime
   if throwProg=0 //---------- Fly straight ----------
   {
     if throwTime&gt;=15 {throwTime=0; throwProg+=1}
@@ -24,11 +24,11 @@
   {
     if type=1 //Thrown right
     {
-      direction-=turnSpd
+      direction-=turnSpd*gDeltaTime
     }
     else if type=-1 //Thrown left
     {
-      direction+=turnSpd
+      direction+=turnSpd*gDeltaTime
     }
     if throwTime&gt;=30
     {
@@ -62,8 +62,8 @@
   {
     if !instance_exists(myThrower) {instance_destroy()}
   }
-  speed=bulletSpeed
-  image_angle-=20*type
+  speed=bulletSpeed*gDeltaTime
+  image_angle-=20*type*gDeltaTime
 }
 else {speed=0}
 </argument>

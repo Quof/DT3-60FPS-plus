@@ -13,14 +13,14 @@
       <not>false</not>
       <appliesTo>.self</appliesTo>
       <arguments>
-        <argument kind="STRING">if global.gamePaused=false
+        <argument kind="STRING">if global.gamePaused=false &amp;&amp; gDeltaDoTicks
 {
   makeEnemyActive(1)
   if bActive=true and stunnedTime=0
   {
     if initDir=0 //detected
     {
-      image_speed=0.2
+      imagespeed=0.2
       detectDistX=264
       initDir=1
     }
@@ -66,7 +66,7 @@
         if spinTime&gt;=spinDelay and findTargetX&lt;224
         {
           sprite_index=sMagicalLeafSpin
-          image_speed=0.5
+          imagespeed=0.5
           xVel=0
           y-=2
           yVel=-1.5
@@ -78,7 +78,7 @@
       {
         if spinTime&gt;=20
         {
-          image_speed=0.2
+          imagespeed=0.2
           if x&lt;oPlayer1.x
             xVel=runAcc*4
           else
@@ -145,6 +145,7 @@
       instance_destroy()
   }
   enemyStepEvent()
+  image_index += imagespeed
 }
 </argument>
       </arguments>

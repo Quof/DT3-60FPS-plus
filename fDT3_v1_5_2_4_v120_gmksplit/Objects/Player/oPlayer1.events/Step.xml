@@ -13,7 +13,9 @@
       <not>false</not>
       <appliesTo>.self</appliesTo>
       <arguments>
-        <argument kind="STRING">if global.cutscene=true
+        <argument kind="STRING">ditherCounter+=1
+
+if global.cutscene=true
 {
   if global.activeCharacter=4 {charJeremyStepEvent()}
   else if global.activeCharacter=5 {}
@@ -539,7 +541,7 @@ if global.gamePaused=false and global.bShooter=0
   //Player trail
   if global.optPlayerTrail=1 and global.location!=108 and global.gameProgress&lt;=5340 {instance_create(x,returnPlayerYCenter(),oEfPlayerTrail)}
   
-  if (oKeyCodes.kCodePressed[11]=1) //Reset map in Boss Gallery
+  if (oKeyCodesHighFPS.kCodePressed[11]=1) //Reset map in Boss Gallery
   {
     if (global.bBossGallery=1 and room!=rBossGallery) or (room=rWarshipZ_E3)
     {

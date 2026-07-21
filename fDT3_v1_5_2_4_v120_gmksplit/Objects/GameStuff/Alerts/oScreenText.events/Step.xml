@@ -16,10 +16,10 @@
         <argument kind="STRING">if textTime!=-1
 {
   if global.gamePaused=false
-    textTime-=1
+    textTime-=1*gDeltaTime
   
   if textTime&gt;=1 and textTime&lt;=25
-    image_alpha-=0.04
+    image_alpha-=0.04*gDeltaTime
   if textTime=0
     instance_destroy()
 }
@@ -27,7 +27,7 @@
 if textType=1 //Marquee
 {
   textWidth=string_width(screenText)
-  x-=2
+  x-=2*gDeltaTime
   if followType=0
   {
     if x&lt;=-(string_width(screenText)*2)-4

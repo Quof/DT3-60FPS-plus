@@ -15,7 +15,7 @@
       <arguments>
         <argument kind="STRING">if view_current=0
 {
-  vspeed+=0.38
+  vspeed+=0.38*gDeltaTime
   
   if drawType=1
   {
@@ -33,7 +33,7 @@
   draw_set_font(fnt_HUDnum)
   textDropShadow(round(damageValue),x,y,drawColor,c_black,2)
   
-  dispTime-=1
+  dispTime-=1*gDeltaTime
   if dispTime&lt;=0
   {
     image_alpha-=0.05

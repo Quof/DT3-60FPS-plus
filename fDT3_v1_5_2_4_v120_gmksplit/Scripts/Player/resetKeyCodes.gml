@@ -7,6 +7,7 @@ for(i=1;i<=12;i+=1)
 {
   //oKeyCodes.kCode[i]=1
   oKeyCodes.kCodePressed[i]=0
+  oKeyCodesHighFPS.kCodePressed[i]=0
 }
 
 /*

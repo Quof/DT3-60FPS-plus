@@ -13,8 +13,53 @@
       <not>false</not>
       <appliesTo>.self</appliesTo>
       <arguments>
-        <argument kind="STRING">if global.gamePaused=false
+        <argument kind="STRING">if keyboard_check_pressed(vk_f2)
+{
+    if global.gameFrameRate==30
+        global.gameFrameRate=60
+    else if global.gameFrameRate==60
+        global.gameFrameRate=120
+    else
+        global.gameFrameRate=30
+    room_speed=global.gameFrameRate
+    gDeltaTime = 30/global.gameFrameRate
+    gDeltaDoTicks = 0
+    gDeltaTick = 0.0
+}
+room_speed=global.gameFrameRate
+
+gDeltaDoTicks = 0
+gDeltaTick += gDeltaTime
+while (gDeltaTick &gt;= 1.0)
+{
+    gDeltaDoTicks += 1
+    gDeltaTick -= 1.0
+}
+if gDeltaTime == 1.0 { gDeltaDoTicks = 1; gDeltaTick = 0.999999 }
+
+if global.gamePaused=false
   gameStepEvent()
+
+with (all)
+{
+    if gDeltaTime == 1.0 break;
+    image_index -= image_speed
+    image_index += image_speed * gDeltaTime
+}
+with (all)
+{
+    if gDeltaTime == 1.0 break;
+    // I left friction-having objects mostly alone, because almost all of them are visual effects.
+    // Any gameplay-affecting friction-having objects should be modified to not use friction.
+    if friction != 0
+    {
+        x += hspeed * gDeltaTime
+        y += vspeed * gDeltaTime
+        x -= hspeed
+        y -= vspeed
+        speed += friction * (1.0 - gDeltaTime)
+    }
+}
 
 //game window check
 windowUpdate+=1
@@ -54,7 +99,7 @@ if global.playTimeFrameCount&gt;=30
     createScreenText(514,336,-1,fnt_Swap,fa_left,"Go to sleep, Quof! You have been playing for 24 hours! It's time to sleep... ... ... GO TO SLEEP!",3,c_white,1,1)
   }
 }
-else {global.playTimeFrameCount+=1}
+else {global.playTimeFrameCount+=1*gDeltaTime}
 
 //close the game
 if global.bCanUseEsc=1

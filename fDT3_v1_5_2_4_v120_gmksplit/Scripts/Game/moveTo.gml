@@ -15,27 +15,18 @@ more precise calculations inside of the engine.
 0: x distance to move
 1: y distance to move
 */
+
+if gDeltaTime==1 { return moveTo30(argument0, argument1); }
+
 mtXPrev=x
 mtYPrev=y
-//change the decimal arguments to integer variables with relation to time
-xVelFrac=frac(abs(argument0))
-yVelFrac=frac(abs(argument1))
-xVelInteger=0
-yVelInteger=0
-if xVelFrac!=0
-  if round(1/xVelFrac)!=0
-    xVelInteger=(oGame.time mod round(1/xVelFrac)=0)
-if yVelFrac!=0
-  if round(1/yVelFrac)!=0
-    yVelInteger=(oGame.time mod round(1/yVelFrac)=0)
-xVelInteger+=floor(abs(argument0))
-yVelInteger+=floor(abs(argument1))
-if argument0<0
-  xVelInteger*=-1
-if argument1<0
-  yVelInteger*=-1
-xVelInteger=round(xVelInteger)
-yVelInteger=round(yVelInteger)
+
+var a0mod, a1mod;
+a0mod = fptoif(argument0/gDeltaTime)*gDeltaTime
+a1mod = fptoif(argument1/gDeltaTime)*gDeltaTime
+xVelInteger=sign(a0mod) * floor(abs(a0mod) + frac(oGame.time * 0.618))
+yVelInteger=sign(a1mod) * floor(abs(a1mod) + frac(oGame.time * 0.618))
+
 //object is moving to the right
 if xVelInteger>0
   for(x=x;x<mtXPrev+xVelInteger;x+=1)

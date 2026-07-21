@@ -13,7 +13,8 @@
       <not>false</not>
       <appliesTo>.self</appliesTo>
       <arguments>
-        <argument kind="STRING">if global.gameProgress=150 and room=rMario1_1 //----- [1] Intro to Mario World - Ch.2 -----
+        <argument kind="STRING">if gDeltaDoTicks != 1 { exit; }
+if global.gameProgress=150 and room=rMario1_1 //----- [1] Intro to Mario World - Ch.2 -----
 {
   if sceneProgress=0
   {
@@ -305,7 +306,7 @@ else if global.gameProgress=160 and room=rMario1_1 //----- [2] (Unskippable unti
     writeToPlayerGlobals()
     transition_steps=40
     transition_kind=21
-    room_goto(rMario1_2)
+    room_goto_fixed(rMario1_2)
   }
 }
 else if global.gameProgress=190 and room=rMario1_3 //----- [Unskippable] Enemy Trap -----

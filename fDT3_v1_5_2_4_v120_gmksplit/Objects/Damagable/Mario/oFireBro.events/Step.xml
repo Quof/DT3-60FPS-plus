@@ -13,7 +13,8 @@
       <not>false</not>
       <appliesTo>.self</appliesTo>
       <arguments>
-        <argument kind="STRING">if global.gamePaused=false
+        <argument kind="STRING">if gDeltaDoTicks != 1 { exit; }
+if global.gamePaused=false
 {
   makeEnemyActive(0)
   if bActive=true and stunnedTime=0
@@ -54,8 +55,8 @@
       }
       else if throwTime&gt;=throwDelay+1 and throwTime&lt;=throwDelay+500
       {
-        animSpd=0.33
-        if bEnraged=1 {animSpd=0.66}
+        animSpd=0.333
+        if bEnraged=1 {animSpd=0.666}
         
         if image_index&gt;=6 //On fire frame
         {
@@ -131,7 +132,11 @@
 }
 else
   animSpd=0
-image_speed=animSpd
+
+//image_speed=animSpd
+image_speed = 0
+image_index += animSpd
+
 </argument>
       </arguments>
     </action>

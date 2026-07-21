@@ -15,7 +15,7 @@
       <arguments>
         <argument kind="STRING">if view_current=0
 {
-  vspeed+=0.38
+  vspeed+=0.38*gDeltaTime
   draw_set_halign(fa_center)
   draw_set_alpha(image_alpha)
   
@@ -42,10 +42,10 @@
     textDropShadow(round(damageValue),x,y,damageColor,c_black,2)
   }
   
-  dispTime-=1
+  dispTime-=1*gDeltaTime
   if dispTime&lt;=0
   {
-    image_alpha-=0.05
+    image_alpha-=0.05*gDeltaTime
     if image_alpha&lt;=0 {instance_destroy()}
   }
 }

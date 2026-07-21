@@ -474,8 +474,8 @@ else if global.activeCharacter=1 //---------------------------------------- Clai
   {
     if global.bNightmareMode=1 //Nightmare Mode Only - Dagger Spam (Down - Down - Forward - Forward)
     {
-      if daggerSpamCheck=0 and oKeyCodes.kCodePressed[4]=1 {daggerSpamCheck=10}
-      else if daggerSpamCheck>=1 and daggerSpamCheck<=9 and oKeyCodes.kCodePressed[4]=1 {daggerSpamCheck=20}
+      if daggerSpamCheck=0 and oKeyCodesHighFPS.kCodePressed[4]=1 {daggerSpamCheck=10}
+      else if daggerSpamCheck>=1 and daggerSpamCheck<=9 and oKeyCodesHighFPS.kCodePressed[4]=1 {daggerSpamCheck=20}
       if daggerSpamCheck=11 or daggerSpamCheck=21 or daggerSpamCheck=31 {daggerSpamCheck=0}
     }
     

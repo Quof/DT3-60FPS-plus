@@ -362,6 +362,8 @@ if state=CLIMBING and bTakingDamage=false
   if kDown {yAcc+=climbAcc}
 }
 
+xAccInputWalk = xAcc
+
 if platformCharacterIs(IN_AIR)
 {
   yAcc+=gravityIntensity
@@ -483,7 +485,8 @@ if bTakingDamage=false
               jumps=1
               flyAccTimer=5
               flyDir=facing //either LEFT or RIGHT
-              yAcc+=initialJumpAcc*0.7
+              //yAcc+=initialJumpAcc*0.7
+              yVel+=initialJumpAcc*0.7
               if canFly
               {
                 flyInitialHeight=y
@@ -531,7 +534,8 @@ if bTakingDamage=false
               jumps=1
               flyAccTimer=5
               flyDir=facing //either LEFT or RIGHT
-              yAcc+=initialJumpAcc*0.7
+              //yAcc+=initialJumpAcc*0.7
+              yVel+=initialJumpAcc*0.7
               if canFly
               {
                 flyInitialHeight=y
@@ -694,11 +698,11 @@ if airDashRecovery>0 //Continue air dash
   else if facing=LEFT {xVel=-(dashVel-1)}
 }
 
-if mobilityDisable>0 {mobilityDisable-=1} //Double jump / Air-dash disable after split party character swap
-if dashMomentumTime>0 {dashMomentumTime-=1} //Dash momentum
-if doubleJumpAnim>0 {doubleJumpAnim-=1} //Double jump animation
+if mobilityDisable>0 {mobilityDisable-=gDeltaTime} //Double jump / Air-dash disable after split party character swap
+if dashMomentumTime>0 {dashMomentumTime-=gDeltaTime} //Dash momentum
+if doubleJumpAnim>0 {doubleJumpAnim-=gDeltaTime} //Double jump animation
 
-if jumpTime<jumpTimeTotal {jumpTime+=1}
+if jumpTime<jumpTimeTotal {jumpTime+=gDeltaTime}
 //Let the character continue to jump
 if kJump=0 and kDashLeft=0 and kDashRight=0 {jumpButtonReleased=1}
 if jumpButtonReleased {jumpTime=jumpTimeTotal}
@@ -936,15 +940,15 @@ else if flySpeed<0 {flySpeed=0}
 if extForceX!=0
 {
   xVel+=extForceX
-  if extForceX>0 {extForceX-=0.2}
-  else if extForceX<0 {extForceX+=0.2}
+  if extForceX>0 {extForceX-=0.2*gDeltaTime}
+  else if extForceX<0 {extForceX+=0.2*gDeltaTime}
   if abs(extForceX)<0.4 {extForceX=0}
 }
 if extForceY!=0
 {
   yVel+=extForceY
-  if extForceY>0 {extForceY-=0.2}
-  else if extForceY<0 {extForceY+=0.2}
+  if extForceY>0 {extForceY-=0.2*gDeltaTime}
+  else if extForceY<0 {extForceY+=0.2*gDeltaTime}
   if abs(extForceY)<0.4 {extForceY=0}
 }
 
@@ -1111,74 +1115,11 @@ if grappleState=0 or grappleState=1 //Slow falling speed if facing wall when tou
     }
   }
   
-  //Limits the acceleration if it is too extreme
-  if xAcc>xAccLimit {xAcc=xAccLimit}
-  else if xAcc<-1*xAccLimit {xAcc=-1*xAccLimit}
-  if yAcc>yAccLimit {yAcc=yAccLimit}
-  else if yAcc<-1*yAccLimit {yAcc=-1*yAccLimit}
-  //applies the acceleration
-  xVel+=xAcc
-  yVel+=yAcc
-  //nullifies the acceleration
-  xAcc=0
-  yAcc=0
-  //applies the friction to the velocity, now that the velocity has been calculated
-  xVel*=xFric
-  yVel*=yFric
-  //apply the limits since the velocity may be too extreme
-  if xVel>xVelLimit {xVel=xVelLimit}
-  else if xVel<-1*xVelLimit {xVel=-1*xVelLimit}
-  if yVel>yVelLimit {yVel=yVelLimit}
-  else if yVel<-16 {yVel=-16}
-  //approximates the "active" variables
-  if approximatelyZero(xVel) {xVel=0}
-  if approximatelyZero(yVel) {yVel=0}
-  if approximatelyZero(xAcc) {xAcc=0}
-  if approximatelyZero(yAcc) {yAcc=0}
-  //prepares the character to move up a hill
-  //we need to use the "slopeYPrev" variable later to know the "true" y previous value
-  //keep this condition the same
-  if maxSlope>0 and platformCharacterIs(ON_GROUND) and xVel!=0
-  {
-    slopeYPrev=y
-    for(y=y;y>=slopeYPrev-maxSlope;y-=1)
-      if isCollisionTop(1)
-        break
-    slopeChangeInY=slopeYPrev-y
-  }
-  else {slopeChangeInY=0}
-  
-  //moves the character, and balances out the effects caused by other processes
-  //keep this condition the same
-  if maxSlope*abs(xVel)>0 and platformCharacterIs(ON_GROUND)
-  {
-    //we need to check if we should dampen out the speed as the character runs on upward slopes
-    xPrev=x
-    yPrev=slopeYPrev      //we don't want to use y, because y is too high
-    yPrevHigh=y          //we'll use the higher previous variable later
-    moveTo(xVel,yVel+slopeChangeInY)
-    dist=point_distance(xPrev,yPrev,x,y) //overall distance that has been traveled
-    //we should have only ran at xVel
-    if dist>abs(xVelInteger)
-    {
-      //show_message(string(dist)+ " "+string(abs(xVelInteger)))
-      excess=dist-abs(xVelInteger)
-      if xVelInteger<0 {excess*=-1}
-      //move back since the character moved too far
-      x=xPrev
-      y=yPrevHigh  //we need the character to be high so the character can move down
-      //this time we'll move the correct distance, but we need to shorten out the xVel a little
-      //these lines can be changed for different types of slowing down when running up hills
-      //ratio=abs(xVelInteger)/dist*0.9        //can be changed, init: 0.9
-      ratio=1.075
-      moveTo(round(xVelInteger*ratio),round(yVelInteger*ratio+slopeChangeInY))
-    }
-  }
+  if (gDeltaTime==1)
+    pMoveToWrapOrig()
   else
-  {
-    //we simply move xVel and yVel while in the air or on a ladder
-    moveTo(xVel,yVel)
-  }
+    pMoveToWrapNew()
+  
   //move the character downhill if possible
   //we need to multiply maxDownSlope by the absolute value of xVel since the character normally runs at an xVel larger than 1
   if isCollisionBottom(1)=0 and maxDownSlope>0 and xVelInteger!=0 and platformCharacterIs(ON_GROUND)
@@ -1395,7 +1336,7 @@ if chargeSoundCheck=1 //Stop charging sound if all charging buttons are released
 //---------- Flash time after taking damage ----------
 if bCanTakeHit=false
 {
-  damageTime-=1
+  damageTime-=gDeltaTime
   if sprite_index!=sJerryDamaged or sprite_index!=sClaireDamaged
   {
     if image_alpha=0.75 {image_alpha=0.25}
@@ -1677,6 +1618,8 @@ statePrevPrev=statePrev
 statePrev=state
 attackStatePrevPrev=attackStatePrev
 attackStatePrev=attackState
+
+//image_speed *= gDeltaTime
 
 //limit the image_speed to 1 so the animation always looks good
 if image_speed>1 {image_speed=1}
