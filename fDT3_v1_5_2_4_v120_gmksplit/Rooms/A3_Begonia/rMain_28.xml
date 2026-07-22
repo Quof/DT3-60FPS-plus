@@ -36,7 +36,7 @@ if global.bossTrack=101 //Encounter: Virus &amp; Twin Wasps
   newEnemy=instance_create(2288,656,oWaspBot) newEnemy.bActive=1; newEnemy.yDist=-128
   instance_create(2288,656,oMalevolentVirus)
   newBarrier=instance_create(2432,704,oBossBarrier)
-  with (213291) {instance_destroy()}
+  with (GID(213291)) {instance_destroy()}
   oPlayer1.x=1408
   oPlayer1.y=288
   storeStatus(1)
@@ -531,7 +531,8 @@ objectAmt=1000</creationCode>
     <instance id="213291">
       <object>oEnemyBarrier</object>
       <position x="1360" y="448"/>
-      <creationCode>image_yscale=8
+      <creationCode>GID_SET(213291, self.id)
+image_yscale=8
 if global.gameProgress&gt;=1730 {instance_destroy()}</creationCode>
       <locked>false</locked>
     </instance>
