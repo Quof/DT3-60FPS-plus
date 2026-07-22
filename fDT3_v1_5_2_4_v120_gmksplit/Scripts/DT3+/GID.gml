@@ -1,10 +1,9 @@
 /* !scriptId=203 */
-var id = ds_map_find_value(global.ObjectIDMap, argument0)
-if(is_undefined(id))
+if (ds_map_exists(global.objectIDMap, argument0)
 {
-    return noone;
+    return ds_map_find_value(global.objectIDMap, argument0);
 }
 else
 {
-    return id;
+    return noone;
 }
