@@ -16,7 +16,7 @@ if player=1 //========================================
       if kLeft
       {
         kLeft=scrController(1)
-        kLeftPushedSteps+=1
+        kLeftPushedSteps+=1*gDeltaTime
         kLeftPressed=0
         if (kLeft=0) {kLeftReleased=1}
       }
@@ -31,7 +31,7 @@ if player=1 //========================================
       if kRight
       {
         kRight=scrController(2)
-        kRightPushedSteps+=1
+        kRightPushedSteps+=1*gDeltaTime
         kRightPressed=0
         if kRight=0 {kRightReleased=1}
       }
@@ -47,7 +47,7 @@ if player=1 //========================================
     if kUp
     {
       kUp=scrController(3)
-      kUpPushedSteps+=1
+      kUpPushedSteps+=1*gDeltaTime
       kUpPressed=0
       if kUp=0 {kDownReleased=1}
     }
@@ -63,7 +63,7 @@ if player=1 //========================================
     if kDown
     {
       kDown=scrController(4)
-      kDownPushedSteps+=1
+      kDownPushedSteps+=1*gDeltaTime
       kDownPressed=0
       if kDown=0 {kDownReleased=1}
     }
@@ -173,7 +173,7 @@ if player=1 //========================================
 if state=CLIMBING {ladderTimer=10}
 else
 {
-  if ladderTimer>0 {ladderTimer-=1}
+  if ladderTimer>0 {ladderTimer-=1*gDeltaTime}
 }
 
 //Allows the character to run left and right
@@ -327,7 +327,7 @@ else if attackState=ACT_IN_BIKE //On bike
     
     xAcc+=8.05
     maxSlope=15; maxDownSlope=15
-    bikeBoost-=5
+    bikeBoost-=5*gDeltaTime
     if bikeBoost<0 {bikeBoost=0}
   }
   else
@@ -448,7 +448,7 @@ if bCanWallJump=1 and attackState!=ACT_MORPHBALL and attackState!=ACT_IN_BIKE an
       }
     }
   }
-  if walljumpTime>0 {walljumpTime-=1}
+  if walljumpTime>0 {walljumpTime-=1*gDeltaTime}
 }
 
 //player may jump
@@ -584,7 +584,7 @@ if bTakingDamage=false
         if jumpTime=jumpTimeTotal and kJump and mechFuel>0
         {
           bUseFuel=1
-          mechFuel-=1
+          mechFuel-=1*gDeltaTime
           yVel=0
           yAcc=-mechBoostAcc
         }
@@ -651,7 +651,7 @@ if bombJump>0 //Remove bomb boosted effect
   tEffect.sprite_index=sSamusMissileEffect; tEffect.image_alpha=0.4+random(0.4); tEffect.image_speed=0.2+random(0.2)
   tEffect.decay=-100; tEffect.xSpd=random_range(-0.5,0.5); tEffect.ySpd=1+random(2)
   tEffect.newBlend=-1; tEffect.followID=-1
-  bombJump-=1
+  bombJump-=1*gDeltaTime
 }
 
 if groundDashRecovery>0 //Continue ground dash - Jerry only
@@ -665,7 +665,7 @@ if groundDashRecovery>0 //Continue ground dash - Jerry only
     tEffect.image_speed=0.5+(groundDashRecovery/25); tEffect.ySpd=-1.8+(groundDashRecovery/8)
     tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0
   }
-  groundDashRecovery-=1
+  groundDashRecovery-=1*gDeltaTime
   if facing=RIGHT {xVel=(dashVel+1)}
   else if facing=LEFT {xVel=-(dashVel+1)}
 }
@@ -680,18 +680,18 @@ if backDashRecovery>0 //Continue ground dash - Jerry only
     tEffect.image_speed=0.5+(backDashRecovery/25); tEffect.ySpd=-1.8+(backDashRecovery/8)
     tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0
   }
-  backDashRecovery-=1
+  backDashRecovery-=1*gDeltaTime
   if facing=RIGHT {xVel=-(dashVel+1)}
   else if facing=LEFT {xVel=(dashVel+1)}
 }
 if claireBackDashRec>0 //For Claire only
 {
-  claireBackDashRec-=1
+  claireBackDashRec-=1*gDeltaTime
 }
 
 if airDashRecovery>0 //Continue air dash
 {
-  airDashRecovery-=1
+  airDashRecovery-=1*gDeltaTime
   if global.activeCharacter=0 {yVel=-2.9}
   else if global.activeCharacter=1 {yVel=-3.3}
   if facing=RIGHT {xVel=(dashVel-1)}
@@ -767,7 +767,7 @@ if bTakingDamage=false
     {
       if state=STANDING {idleTime=0}
       state=DUCKING
-      global.recTimeSpentDucking+=1
+      global.recTimeSpentDucking+=1*gDeltaTime
     }
   }
 }
@@ -811,8 +811,8 @@ if yVel>0 and platformCharacterIs(IN_AIR) {state=FALLING}
 if slowFallTime>0
 {
   if slowFallEffect<(jumpTime/jumpTimeTotal)*grav {gravityIntensity=slowFallEffect}
-  if slowFallEffect<1 {slowFallEffect+=0.008}
-  slowFallTime-=1
+  if slowFallEffect<1 {slowFallEffect+=0.008*gDeltaTime}
+  slowFallTime-=1*gDeltaTime
 }
 
 if (kUp or kDown) and isCollisionLadder() and ladderTimer=0 and bTakingDamage=false
@@ -877,7 +877,7 @@ if bTakingDamage=false
 //Set flySpeed to 100 if the flySpeedTimer is still ticking
 if flySpeedTimer>0
 {
-  flySpeedTimer-=1
+  flySpeedTimer-=1*gDeltaTime
   flySpeed=100
 }
 if flyJumpsTimer>0
@@ -885,7 +885,7 @@ if flyJumpsTimer>0
   if flyJumpWasPressed=-1 {flyJumpWasPressed=0}
   else if kJumpPressed {flyJumpWasPressed=1}
   flySpeed=100
-  flyJumpsTimer-=1
+  flyJumpsTimer-=1*gDeltaTime
   if jumps>1
   {
     gravityIntensity=0.5
@@ -915,12 +915,12 @@ if state=CLIMBING or state=DUCKING
 //Causes the actual HUGE jump
 if flyAccTimer>0
 {
-  flyAccTimer-=1
+  flyAccTimer-=1*gDeltaTime
   yAcc-=1
 }
 if flyAcc2Timer>0
 {
-  flyAcc2Timer-=1
+  flyAcc2Timer-=1*gDeltaTime
   if yVel>0 {yVel=0}
   if y<flyInitialHeight and y<flyInitialHeight+200 {yAcc+=(0.014)*(flyInitialHeight-y)-5.014}
   else if y>flyInitialHeight {yAcc-=5}
@@ -939,7 +939,7 @@ else if flySpeed<0 {flySpeed=0}
 //Exterior forces on the player
 if extForceX!=0
 {
-  xVel+=extForceX
+  xVel+=extForceX // FIXME: does this need delta time? figure it out
   if extForceX>0 {extForceX-=0.2*gDeltaTime}
   else if extForceX<0 {extForceX+=0.2*gDeltaTime}
   if abs(extForceX)<0.4 {extForceX=0}
@@ -1092,7 +1092,7 @@ if grappleState=0 or grappleState=1 //Slow falling speed if facing wall when tou
 {
   if bCanWallJump=1 and attackState!=ACT_MORPHBALL and attackState!=ACT_IN_BIKE //Wall slide
   {
-    wallGrabEffect-=1
+    wallGrabEffect-=1*gDeltaTime
     if (isCollisionLeft(3) and facing=LEFT) or (isCollisionRight(3) and facing=RIGHT) and platformCharacterIs(IN_AIR)
     {
       bWallGrab=1
@@ -1143,7 +1143,7 @@ else if grappleState=2 //Player is being pulled toward grapple point
     var tGrpDist,tGrpDir,tGrpX;
     tGrpX=7*image_xscale
     tGrpDir=point_direction(x+tGrpX,0,grappleID.x,0)
-    x+=12*cos(degtorad(tGrpDir))
+    x+=12*cos(degtorad(tGrpDir))*gDeltaTime
     
     tGrpDist=point_distance(x+tGrpX,0,grappleID.x,0)
     if tGrpDist<=7
@@ -1319,7 +1319,7 @@ if attackState!=ACT_MORPHBALL and attackState!=ACT_IN_BIKE and attackState!=ACT_
     }
   }
 }
-if charSwapRecover>0 {charSwapRecover-=1}
+if charSwapRecover>0 {charSwapRecover-=1*gDeltaTime}
 
 //---------- Ability use ----------
 if attackState!=ACT_IN_BIKE and attackState!=ACT_ON_YOSHI and bTakingDamage=false {playerTechStart()}
@@ -1357,7 +1357,7 @@ if attackState=ACT_ATK or attackState=ACT_FIRE or attackState=ACT_FIRE_UP or att
     atkAnimSpd=-1
     attackState=0
   }
-  else {castRecovering-=1}
+  else {castRecovering-=1*gDeltaTime}
 }
 
 //---------- Figure out what sprite index the character should be -----------
@@ -1411,7 +1411,7 @@ if global.activeCharacter=0 //-------------------- JERRY --------------------
   //attack state animations override action states
   if grappleState=0
   {
-    if busterAnimStay>0 {busterAnimStay-=1}
+    if busterAnimStay>0 {busterAnimStay-=1*gDeltaTime}
   }
   else if grappleState=1 or grappleState=2
   {
@@ -1493,7 +1493,7 @@ else if global.activeCharacter=1 //-------------------- CLAIRE -----------------
     
     if doubleJumpAnim>0 and yVel<4 {sprite_index=sClaireAirRoll}
   }
-  if busterAnimStay>0 {busterAnimStay-=1}
+  if busterAnimStay>0 {busterAnimStay-=1*gDeltaTime}
   //attack state animations override action states
   if bTakingDamage=false
   {
@@ -1605,7 +1605,7 @@ if attackState=ACT_IN_BIKE //Dirt effect on the ground when on bike
     tBikeEffect.image_alpha=0.75; tBikeEffect.xSpd=-2-random(2); tBikeEffect.ySpd=-2-random(2)
     tBikeEffect.newBlend=-1; tBikeEffect.followID=-1; tBikeEffect.decay=-100
   }
-  bikeAnimFrm+=0.4
+  bikeAnimFrm+=0.4*gDeltaTime
   image_speed=0
 }
 
