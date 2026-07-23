@@ -4,7 +4,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-scrGlobalKeyboardInit(1)
+scrGlobalKeyboardInit(0)
 gameCreateEvent()
 bStatRender=false
 windowUpdate=0
@@ -267,6 +267,14 @@ if global.debugMenu=true //debug commands
       writeToPlayerGlobals()
       room_goto_previous()
     }
+  }
+  else if keyboard_check_pressed(vk_numpad4)
+  {
+    scrGlobalKeyboardInit(1)
+  }
+  else if keyboard_check_pressed(vk_numpad5)
+  {
+    scrGlobalKeyboardInit(0)
   }
   else if keyboard_check_pressed(vk_numpad8)
   {
