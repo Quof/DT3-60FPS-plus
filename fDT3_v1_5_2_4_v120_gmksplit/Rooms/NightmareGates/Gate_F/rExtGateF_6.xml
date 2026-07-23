@@ -32,7 +32,7 @@ sceneParticles=instance_create(0,0,oGateF_IceParticles)
 if global.bossTrack=1 //Boss Fight: Nightmare
 {
   with oHealingPost {instance_destroy()}
-  with (344050) {instance_destroy()}
+  with (GID(344050)) {instance_destroy()}
   var tempMplay,bBarrier;
   tempMplay=findMusic(817)
   bBarrier=instance_create(48,368,oBossBarrier)
@@ -198,7 +198,8 @@ toRoom=rSacredTemple</creationCode>
     <instance id="344050">
       <object>oExit</object>
       <position x="104" y="336"/>
-      <creationCode>bShowArrow=true
+      <creationCode>GID_SET(344050, self.id)
+bShowArrow=true
 exitType=0
 newMapX=168
 newMapY=288
