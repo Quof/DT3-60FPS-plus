@@ -151,3 +151,15 @@ The following is an example of code from an event object that makes fireballs sh
         bowserFireProg+=1
       }
 
+
+
+----DELTARUNE GUIDE----
+
+I will copy/paste the guide from Deltarune's 60FPS mod which basically all applies to this project
+
+  - Scale per-frame motion, leave one-time events alone. Movement that runs every frame (x += 4) should be modified by the scale factor. A one-time nudge inside a cutscene (x += 60 when a flag is set), or a single knockback hit, must stay exactly as written. The two look almost identical in code, and confusing them is the most common way to break a scene.
+  - Velocity and acceleration scale differently. A speed divides by two. Gravity and friction divide by four, because the engine applies them each frame and then moves the object, which stacks two steps of integration. An acceleration treated like a velocity will look correct and measure wrong, and that gap hides bugs for a long time.
+  - The cutscene shortcuts skip the safety net. A handful of commands write a value straight onto an object with no frame-rate awareness at all, used for nudging markers, scheduling a delayed change, or easing a property toward a target. Anything physical that goes through them has to be scaled in the value you pass, because nothing downstream will do it for you.
+  - Not everything that repeats is a timer. A counter that wraps around a fixed number to drive an animation phase, or to loop a position around a tower, is describing a shape, not a length of time. Scale how fast you move through it and never the wrap distance itself, or the loop falls apart. Decay is its own case: a value multiplied by 0.95 every frame needs a power, not a division, to keep the same rate.
+  - Animations can land a frame short. GameMaker advances sprite frames in a 32-bit-style floating point. An animation tuned to stop exactly on its last frame at 30 FPS can stop one frame early at 60, because the smaller step accumulated over twice as many additions drifts just under the line. The safe fix is to set the final frame outright instead of trusting the count to land.
+  - A clean compile is not proof it works. UTMT will accept a call to a function that does not exist, or a built-in variable used as if it were a function, and only fall over at runtime. The only real test is the running game.
