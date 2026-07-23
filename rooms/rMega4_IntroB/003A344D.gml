@@ -1,4 +1,6 @@
 maxString=2
+idsToStringTo[0]=214737
+idsToStringTo[1]=214738
 stringTo[0]=(GID(214737))
 stringTo[1]=(GID(214738))
 offsetX=32
