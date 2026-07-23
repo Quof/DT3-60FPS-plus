@@ -1,0 +1,153 @@
+Simple Instructions for DT Code.........
+
+0) gDeltaTime
+
+The core variable that defines this entire project is gDeltaTime, which is a global variable defined as 30 divided by the framerate (so 30/30, 30/60, 30/120), etc. That results in values of 1 for 30fps, 0.5 for 60fps, and 0.25 for 120FPS. When you want something to go slower, multiply by gDeltaTime (e.g. x+=1 to x+=1*gDeltaTime). When you want something to go faster, divide. Etc.
+
+When doing current_frame stuff, mod by 1/gDeltaTime. So "if current_frame mod 1/gDeltatime == 0" would equate to "every other frame" on 60fps, and "every forth frame" on 120fps, etc. This makes the thing happen at the same rate no matter the FPS - if the game is going 4x as fast, it only happens 1/4th as often. 
+
+1) Common Patterns We Want To Modify
+
+When clicking an object, first look to see if it's a child of a more widely used parent; always try to modify the parent and leave the children alone. If there's no such parent, open the Creation first then Step code.
+
+In Creation Code, look for:
+
+runAcc
+grav
+
+In response:
+
+multiply runAcc by gDeltaTime once
+multiply grav by gDeltaTime twice
+
+In Step Code, look for:
+
+xTime+=1
+xVel=
+yVel=
+
+In response:
+
+multiply the 1 of xTime+=1 by gDeltaTime
+multiply xVel/yVel
+
+Do not touch animSpd for now.
+
+1.5) Continued Common Patterns... for the story
+
+*gDeltaTime for sceneDelay+=1
+*gDeltaTime for fadeAlpha-=x / fadeAlpha+=x
+*gDeltaTime for x.image_alpha-= / x.image_alpha+=
+*gDeltaTime for convo[0]+=1 
+
+
+2) COLLISION
+
+For enemies that bump into a wall and turn around, I've made two new scripts: isCollisionLeftEdit and isCollisionRightEdit. These will prevent them from constantly turning around in a wall. 
+
+3) SUBPIXEL MOVEMENT (Wareya/Brian are probably mostly fixing this)
+
+The base moveTo function is totally fucked and rounds/fractions enemy movement. This will slow them down like up to 20% used natively. (Because like a 1.2 acceleration is neatly 1 + 1/5, but 0.6 acceleration is never 1 + 1/x or something). For now, I'm letting this happen with the hope/expectation that the moveTo function can be replaced with something (like moveToEdit) that does not have this problem. I have some code from Claude that *does* seemingly fix this with high accuracy, but I only used a few times before deciding to put it in the backburner as a high-complexity issue. The Claude code is as follows: 
+
+---Create Event
+
+xRemainder=0
+yRemainder=0
+
+---Step event with moveTo
+
+replace the line moveTo(xVel,yVel) with:
+
+xRemainder+=xVel
+xMove=round(xRemainder)
+xRemainder-=xMove
+
+yRemainder+=yVel
+yMove=round(yRemainder)
+yRemainder-=yMove
+
+moveTo(xMove,yMove)
+
+4) EFFECTS
+
+It seems like most visual effects will have code that looks like this:
+
+  var tEffect;
+      tEffect=instance_create(x+12,bbox_bottom+2,oEffect)
+      tEffect.sprite_index=sEfThwompHit; tEffect.image_speed=0.5
+      tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=1; tEffect.ySpd=0 
+	  
+This will usually be hanbdled automatically in the parent effect, aka oEffect. Do not touch decay =-100 since that is a sentinel value.
+
+effectSize[i] or effectAlpha[i] type statements will want modification, I think.
+
+5) BOSS AI
+
+This is preliminary, but each boss should have a core timer that determines its speed like "atkTime+=1". We want to gDeltaTime this.
+
+Then elsewhere atkTime will have single-instance modifiers like "atkTime+=atkDelay" or "atkTime+=BossProgress." Those are UNTOUCHED, not modified. Modfiying the +=1 handles all of that.
+
+
+6) oGame.time mods
+Often, to make something "flip" every xth frame, there will be code like
+
+	if oGame.time mod 6=0
+
+Historically, it seems like this wants to be changed to
+
+	if current_frame mod (6/gDeltaTime)=0
+	
+oGame.time is seemingly not functional due to our changes or 8.2 or something, so we change that to current_frame, then we divide the intended frame by gDeltaTime to slow it down. Instead of checking every 6th frame it will check every 12th on 60fps and every 24th on 120FPS.
+
+current_frame is 8.2 Core exclusive, so be sure to install the 8.2 Core extension.
+
+
+7) Velocity Checks (***This may be a bit outdated, consider this only a casual reference; Wareya knows best)
+
+Most of the time, when a number is being checked, we don't want to alter the check. For example, if atkTime is being incremented by 1 a frame and it's being checked for when it hits 10, we want to make it increment 0.5 times a frame and avoid touching the 10. But for some reason, in the following code...
+
+  y+=yVel
+  if yVel<3
+  yVel+=grav
+ 
+We actually DO want to halve the "yVel" check. It's checking if it's less than 3; we want it to check if it's less than 3/2. Basically, something stuck at 1.5 velocity in 60fps is seemingly going as fast as something going 3 velocity in 30fps. So despite being a check, we do want to modify the velocity being checked for. I think. This is just what has worked so far.
+
+8) "0.5 pixels a frame"
+
+Something falling slowly is represented by oPlayer1.y+=1, for example. But I found that changing this to oPlayer1.y+=0.5 results in quite a noticeable stutter. It may be that the subpixels get all janky when trying to move half of a y position. What I found to work instead is to move 1 pixel every other frame like so. This may want to be checked on a case by case basis.
+
+	if sceneDelay mod 1 == 0 {oPlayer1.y+=1} 
+	(or)
+	if current_frame mod 1 == 0 {oPlayer1.y+=1}
+	
+9) Events
+
+This may or may not be extremely obvious to everyone else, but map events like say moving platforms spawning infinitely from offscreen, or bowser throwing fire during a platforming section, or enemy rooms... etc are all in GameEvent objects. So, for example, if I notice that during a platforming stage some fireballs are coming at me way too fast, then look at the room and see no fireball objects everywhere... I should
+
+1) Check what chapter I'm in. In this case Chapter 2
+2) Go to GameEvents in the Objects subfolder directory
+3) Go to Chapter_2
+4) Look for a likely file, e.g. oEvCh1SideA, and check the Step event
+5) look for the event there. 
+
+(or do a script search for the room you're in, like search for rMario1_4)
+
+The following is an example of code from an event object that makes fireballs shoot at you when you go to the right in a room:
+
+ else if room=rMario1_4 //Bowser fire
+  {
+    if global.gameProgress=220
+    {
+      if oPlayer1.x>=1408 and bowserFireProg=0
+      {
+        playSound(global.snd_Fireball,0,0.99,1)
+        var tNewAttack;
+        for(i=0;i<4;i+=1)
+        {
+          tNewAttack=instance_create(view_xview[0]+view_wview[0]+8,200+(i*16),oPassBullet)
+          tNewAttack.sprite_index=sBowserFire1; tNewAttack.atkPower=4
+          tNewAttack.bulletSpeed=3/FPS_SCA; tNewAttack.direction=180; tNewAttack.decayTime=-100
+        }
+        bowserFireProg+=1
+      }
+
