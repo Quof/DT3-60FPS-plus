@@ -1,0 +1,9 @@
+maxChain=20
+maxSwing=50
+swingSpeed=1.5
+newMid=oMarioSwingSpike
+newEnd=oMarioSwingSpike
+midNoRotate=0
+endNoRotate=0
+myInc=14
+mySpeed=3

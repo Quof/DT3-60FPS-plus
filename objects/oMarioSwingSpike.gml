@@ -1,0 +1,23 @@
+#define Create_0
+/*"/*'/**//* YYD ACTION
+lib_id=1
+action_id=603
+applies_to=self
+*/
+event_inherited()
+bActive=true
+
+//Enemy base statistics
+atkPower=6
+bCanTakeDamage=false
+bShowHealthBar=false
+#define Step_0
+/*"/*'/**//* YYD ACTION
+lib_id=1
+action_id=603
+applies_to=self
+*/
+if global.gamePaused=false && gDeltaDoTicks != 0
+{
+  image_angle+=swingSpeed
+}

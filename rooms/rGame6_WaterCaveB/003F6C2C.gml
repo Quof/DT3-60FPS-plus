@@ -1,0 +1,9 @@
+enemySpawn=oPT_IceSpirit
+type=0
+xSpawn=112
+ySpawn=128
+activate=1
+lvlMin=45
+lvlMax=46
+image_xscale=4
+image_yscale=3.5

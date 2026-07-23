@@ -1,0 +1,5 @@
+bShowArrow=false
+exitType=1
+newMapX=1136
+newMapY=560
+toRoom=rSamus5_Lv3_I

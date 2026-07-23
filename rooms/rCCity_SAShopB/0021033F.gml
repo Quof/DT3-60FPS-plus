@@ -1,0 +1,11 @@
+shopType=oShopWindow
+shopText="Nobody visits me very often, so I have rare items!"
+maxInv=5
+inv[0]=8
+inv[1]=19
+inv[2]=32
+inv[3]=34
+inv[4]=37
+sprite_index=sNPC_OldManShop
+image_blend=make_color_rgb(255,200,200)
+image_speed=0

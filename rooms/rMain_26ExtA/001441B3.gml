@@ -1,0 +1,1 @@
+newDetect=room_height

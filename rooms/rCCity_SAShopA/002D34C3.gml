@@ -1,0 +1,10 @@
+shopType=oShopWindow
+shopText="Just an old man that wants to help. Feel free to see what I have for sale."
+maxInv=4
+inv[0]=2
+inv[1]=13
+inv[2]=25
+inv[3]=26
+inv[4]=0
+sprite_index=sNPC_OldManShop
+image_speed=0

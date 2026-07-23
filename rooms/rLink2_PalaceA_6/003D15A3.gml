@@ -1,0 +1,1 @@
+rechargeRate=2

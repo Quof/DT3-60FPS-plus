@@ -1,0 +1,9 @@
+sprite_index=sNPC_F_Idle
+image_blend=make_color_rgb(170,255,140)
+talker="Random NPC"
+maxString=1
+myString[0]="I don't have much to say."
+myBoxSize[0]=1
+messageDelay=250
+myColor=6
+boxSize=1

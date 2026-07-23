@@ -1,0 +1,2 @@
+sprite_index=sDist_FallenPlatform
+image_angle=300

@@ -1,0 +1,9 @@
+bwBack=tileMetB
+bwLeft=96
+bwTop=32
+bwWidth=16
+bwHeight=16
+spIndex=sMetroidBlockBreak
+spImage=0
+
+if global.newMapX=48 {instance_destroy()}

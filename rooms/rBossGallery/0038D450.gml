@@ -1,0 +1,9 @@
+newMapX=800
+newMapY=312
+toRoom=rAbomD
+type=64
+bossName="The Executive"
+award[0]=540
+award[1]=420
+award[2]=343
+if global.gameExecutiveDefeated=0 or global.gameProgress<4970 {instance_destroy()}

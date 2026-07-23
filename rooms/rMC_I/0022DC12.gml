@@ -1,0 +1,1 @@
+newSpeed=8

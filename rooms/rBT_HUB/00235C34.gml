@@ -1,0 +1,1 @@
+doorNum=6

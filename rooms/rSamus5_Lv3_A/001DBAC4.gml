@@ -1,0 +1,10 @@
+shopType=oShopWindow
+shopText="<Its language is indecipherable.>"
+maxInv=4
+inv[0]=13
+inv[1]=25
+inv[2]=32
+inv[3]=37
+inv[4]=0
+sprite_index=sEtecoon
+image_xscale=-1

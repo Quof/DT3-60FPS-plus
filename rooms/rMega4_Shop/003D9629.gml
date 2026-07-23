@@ -1,0 +1,9 @@
+shopType=oShopWindow
+shopText="Thought Wily took me out? Psh, I'm Zero!"
+maxInv=4
+inv[0]=9
+inv[1]=29
+inv[2]=33
+inv[3]=35
+inv[4]=0
+sprite_index=sNPC_ZeroIdle

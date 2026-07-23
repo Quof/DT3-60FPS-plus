@@ -1,0 +1,9 @@
+shopType=oShopWindow
+shopText="Got some nifty new items here. Some boots and a dagger relic that I dug up with... a dagger!"
+maxInv=4
+inv[0]=1
+inv[1]=2
+inv[2]=25
+inv[3]=38
+inv[4]=0
+sprite_index=sWBShion

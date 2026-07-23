@@ -1,0 +1,9 @@
+enemySpawn=oPT_FireEye
+type=0
+xSpawn=1072
+ySpawn=384
+activate=1
+lvlMin=56
+lvlMax=57
+image_xscale=2
+image_yscale=3

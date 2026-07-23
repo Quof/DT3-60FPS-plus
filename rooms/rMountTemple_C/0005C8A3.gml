@@ -1,0 +1,2 @@
+shotDelay=40
+image_xscale=-1; x+=16

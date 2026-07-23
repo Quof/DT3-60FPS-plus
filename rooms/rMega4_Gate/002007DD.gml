@@ -1,0 +1,5 @@
+bShowArrow=true
+exitType=1
+newMapX=48
+newMapY=304
+toRoom=rMega4_IntroA

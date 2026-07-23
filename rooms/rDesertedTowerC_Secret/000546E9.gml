@@ -1,0 +1,4 @@
+trapType=3
+trapTime=0
+trapDelay=20
+trapDir=270

@@ -1,0 +1,9 @@
+sprite_index=sEfEnergyRip
+image_speed=0.33
+image_alpha=0.5
+bShowArrow=false
+exitType=0
+newMapX=32
+newMapY=544
+toRoom=rSF_A
+if global.gameProgress<=4960 {instance_destroy()}

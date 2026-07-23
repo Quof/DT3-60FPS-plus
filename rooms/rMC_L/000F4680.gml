@@ -1,0 +1,9 @@
+bShowArrow=true
+exitType=1
+newMapX=2896
+newMapY=64
+toRoom=rMC_K
+image_xscale=4
+newArrowPosX=24
+newArrowPosY=16
+if global.gameProgress<=5000 {instance_destroy()}

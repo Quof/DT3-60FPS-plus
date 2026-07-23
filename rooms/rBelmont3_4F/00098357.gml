@@ -1,0 +1,5 @@
+bShowArrow=true
+exitType=1
+newMapX=48
+newMapY=224
+toRoom=rBelmont3_4G

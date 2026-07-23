@@ -1,0 +1,2 @@
+sprite_index=sWarshipBrokenPieceD
+depth=1100000

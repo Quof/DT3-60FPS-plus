@@ -1,0 +1,1 @@
+rotateSpd=-3

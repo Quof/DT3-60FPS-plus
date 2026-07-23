@@ -1,0 +1,1 @@
+launchDuration=65

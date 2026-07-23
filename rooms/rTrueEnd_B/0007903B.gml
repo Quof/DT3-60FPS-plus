@@ -1,0 +1,6 @@
+sprite_index=sNPC_ImportantGuy_Idle
+image_speed=0
+image_xscale=-1
+talker="NPC"
+stringToShow=""
+boxSize=0

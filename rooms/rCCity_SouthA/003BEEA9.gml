@@ -1,0 +1,9 @@
+image_blend=make_color_rgb(170,140,255)
+talker="Dude A"
+maxString=2
+myString[0]="Did you hear about what happened?"
+myString[1]="Just BAM, in the desert, this colossal thing just appeared OUT OF NOWHERE!"
+myBoxSize[0]=1
+myBoxSize[1]=2
+messageDelay=240
+myColor=6

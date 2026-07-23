@@ -1,0 +1,1 @@
+stringToShow="Bullet Bill Hell ->"

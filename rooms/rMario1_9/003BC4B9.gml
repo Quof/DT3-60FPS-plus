@@ -1,0 +1,1 @@
+stringToShow="Trippin Trader"

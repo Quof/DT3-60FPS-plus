@@ -1,0 +1,9 @@
+bShowArrow=true
+exitType=1
+newMapX=1056
+newMapY=175
+toRoom=rExtGateH_1
+image_xscale=6
+y+=16
+newArrowPosX=40
+newArrowPosY=16

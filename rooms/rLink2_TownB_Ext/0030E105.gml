@@ -1,0 +1,10 @@
+shopType=oShopWindow
+shopText="Got some unique items here for you. It'll let you use your bombs a bit faster, or get the bow to alter your arrows."
+maxInv=3
+inv[0]=15
+inv[1]=20
+inv[2]=36
+inv[3]=0
+inv[4]=0
+sprite_index=sNPC_ZCreep
+image_speed=0

@@ -1,0 +1,9 @@
+enemySpawn=oPT_Slime
+type=0
+xSpawn=624
+ySpawn=192
+activate=1
+lvlMin=12
+lvlMax=14
+image_xscale=2
+image_yscale=3

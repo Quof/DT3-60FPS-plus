@@ -1,0 +1,6 @@
+bShowArrow=false
+exitType=2
+type=0
+newX=1008
+newY=720
+y+=24

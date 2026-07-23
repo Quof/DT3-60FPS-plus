@@ -1,0 +1,1 @@
+bCanMove=0

@@ -1,0 +1,1 @@
+stringToShow="That pipe there ->"

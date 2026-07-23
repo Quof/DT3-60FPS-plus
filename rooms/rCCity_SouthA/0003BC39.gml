@@ -1,0 +1,11 @@
+sprite_index=sNPC_F_Idle
+talker="Dude B"
+maxString=2
+myString[0]="Yeah man, that stuff is scaaaaary!"
+myString[1]="It morphed too, I totally saw it happen!"
+myBoxSize[0]=1
+myBoxSize[1]=1
+messageDelay=260
+myColor=6
+boxSize=1
+image_xscale=-1

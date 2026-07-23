@@ -1,0 +1,10 @@
+sprite_index=sNPC_F_Idle
+image_blend=make_color_rgb(255,170,140)
+talker="Random NPC"
+maxString=1
+myString[0]="You don't say..."
+myBoxSize[0]=1
+messageDelay=270
+myColor=6
+boxSize=1
+image_xscale=-1

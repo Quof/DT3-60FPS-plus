@@ -1,0 +1,7 @@
+maxChain=16
+maxSwing=55
+swingSpeed=2
+newMid=oZapTrapRed
+newSpriteMid=sBRFCrushingSpikeRed
+newEnd=oZapTrapRed
+newSpriteEnd=sBRFCrushingSpikeRed

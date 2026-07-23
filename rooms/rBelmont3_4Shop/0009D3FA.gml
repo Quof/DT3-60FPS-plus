@@ -1,0 +1,9 @@
+shopType=oShopWindow
+shopText="That vending machine is dumb. I recommend staying away from it and instead spending all your money over here."
+maxInv=5
+inv[0]=6
+inv[1]=7
+inv[2]=8
+inv[3]=28
+inv[4]=39
+sprite_index=sNPC_Librarian

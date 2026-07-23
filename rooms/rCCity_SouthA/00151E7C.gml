@@ -1,0 +1,10 @@
+sprite_index=sNPC_F_Idle
+image_blend=make_color_rgb(170,140,255)
+talker="Random NPC"
+maxString=1
+myString[0]="I went into the Cave Network, but I couldn't figure out what to do."
+myBoxSize[0]=1
+messageDelay=240
+myColor=6
+boxSize=1
+image_xscale=-1

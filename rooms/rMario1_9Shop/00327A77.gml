@@ -1,0 +1,10 @@
+shopType=oShopWindow
+shopText="I highly recommend getting the shield. Trust me, it might be more useful than you think."
+maxInv=4
+inv[0]=4
+inv[1]=6
+inv[2]=14
+inv[3]=16
+inv[4]=0
+sprite_index=sNPCToad
+image_speed=0

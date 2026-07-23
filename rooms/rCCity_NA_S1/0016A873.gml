@@ -1,0 +1,9 @@
+sprite_index=sNormalDoor
+bShowArrow=true
+exitType=0
+newMapX=112
+newMapY=288
+toRoom=rHPF_A
+colorChange=1
+depth=1000000
+if global.gameProgress<=3910 {instance_destroy()}

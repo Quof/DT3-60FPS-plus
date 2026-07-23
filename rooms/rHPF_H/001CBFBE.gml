@@ -1,0 +1,17 @@
+image_blend=make_color_rgb(200,200,255)
+type=2
+controlID=(354998)
+turMax=13
+turID[0]=(354978)
+turID[1]=(354979)
+turID[2]=(354980)
+turID[3]=(354981)
+turID[4]=(354982)
+turID[5]=(354983)
+turID[6]=(354984)
+turID[7]=(354985)
+turID[8]=(354986)
+turID[9]=(354987)
+turID[10]=(354988)
+turID[11]=(354989)
+turID[12]=(354992)

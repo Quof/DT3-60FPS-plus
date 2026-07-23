@@ -1,0 +1,10 @@
+shopType=oShopWindow
+shopText="The sword is a good and kinda cheap way to boost attack power. Try it out if things are taking too long to kill."
+maxInv=4
+inv[0]=1
+inv[1]=4
+inv[2]=5
+inv[3]=30
+inv[4]=0
+sprite_index=sNPC_ZCreep
+image_speed=0

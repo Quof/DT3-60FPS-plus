@@ -1,0 +1,3 @@
+newMapX=48
+newMapY=304
+toRoom=rLink2_SPlace_A

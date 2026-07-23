@@ -1,0 +1,9 @@
+shiftTime=0
+shiftMax=40
+moveSpd=4
+bShowLine=0
+sprite_index=sZapTrap
+image_xscale=1.5
+image_angle=270
+image_speed=random(0.25)+0.25
+direction=270

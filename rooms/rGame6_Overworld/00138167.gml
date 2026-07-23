@@ -1,0 +1,2 @@
+mylocation="HERE LIES QUOF - HE LIVED ONLY#28 HOURS : 33 MINUTES : 47 SECONDS"
+bIsLocation=0

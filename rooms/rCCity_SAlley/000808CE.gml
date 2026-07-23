@@ -1,0 +1,10 @@
+shopType=oShopWindow
+shopText="Some of these items aren't even supposed to be on the market. Heh heh."
+maxInv=5
+inv[0]=9
+inv[1]=27
+inv[2]=28
+inv[3]=29
+inv[4]=35
+sprite_index=sNPC_BanditShop
+image_speed=0

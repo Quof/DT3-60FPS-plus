@@ -1,0 +1,9 @@
+bShowArrow=true
+exitType=1
+newMapX=2224
+newMapY=1168
+toRoom=rMain_34
+colorChange=1
+image_xscale=2
+newArrowPosX=12
+newArrowPosY=44

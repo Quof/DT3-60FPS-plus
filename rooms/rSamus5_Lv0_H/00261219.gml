@@ -1,0 +1,9 @@
+shopType=oShopWindow
+shopText="<Its language is indecipherable.>"
+maxInv=5
+inv[0]=2
+inv[1]=13
+inv[2]=17
+inv[3]=19
+inv[4]=26
+sprite_index=sDachora

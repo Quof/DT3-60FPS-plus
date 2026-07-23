@@ -1,0 +1,1 @@
+bStrong=1

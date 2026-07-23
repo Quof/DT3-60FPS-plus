@@ -1,0 +1,9 @@
+shopType=oShopWindow
+shopText="I have quite a selection of unique items for sale!"
+maxInv=5
+inv[0]=21
+inv[1]=22
+inv[2]=23
+inv[3]=24
+inv[4]=31
+sprite_index=sG6ShopOwner

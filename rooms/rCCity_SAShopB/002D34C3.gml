@@ -1,0 +1,11 @@
+shopType=oShopWindow
+shopText="I really like these augmenting items! I'm also really old!"
+maxInv=5
+inv[0]=20
+inv[1]=30
+inv[2]=33
+inv[3]=36
+inv[4]=40
+sprite_index=sNPC_OldManShop
+image_blend=make_color_rgb(200,255,200)
+image_speed=0
