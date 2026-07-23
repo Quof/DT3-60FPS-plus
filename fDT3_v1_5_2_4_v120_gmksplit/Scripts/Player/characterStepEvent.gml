@@ -4,6 +4,7 @@ This script should be placed in the step event for the platform character.
 It updates the keys used by the character, moves all of the solids, moves the
 character, sets the sprite index, and sets the animation speed for the sprite.
 */
+
 if player=1 //========================================
 {
   if (attackState!=ACT_ATK or attackState!=ACT_FIRE or attackState!=ACT_FIRE_UP or attackState!=ACT_FIRE_DOWN) and attackState!=ACT_IN_CANNON and attackState!=ACT_HIDE and global.gamePaused=false
