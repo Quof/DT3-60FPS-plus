@@ -139,7 +139,7 @@ if keyboard_check_pressed(vk_f4) //and room!=rAbomF
 
 if global.debugMenu=true //debug commands
 {
-  if keyboard_check_pressed(vk_f2)
+  if keyboard_check_pressed(vk_f5)
   {
     if bStatRender=false
       bStatRender=true
