@@ -12,74 +12,74 @@ if global.optGamePad=0 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ OFF 
 {
   if tKeyCode=1 //Move left
   {
-    if keyboard_check(ord(global.ctrlLeft)) or keyboard_check(vk_left) {return 1}
+    if scrKeyboardCheck(ord(global.ctrlLeft)) or scrKeyboardCheck(vk_left) {return 1}
     else {return 0}
   }
   else if tKeyCode=2 //Move right
   {
-    if keyboard_check(ord(global.ctrlRight)) or keyboard_check(vk_right) {return 1}
+    if scrKeyboardCheck(ord(global.ctrlRight)) or scrKeyboardCheck(vk_right) {return 1}
     else {return 0}
   }
   else if tKeyCode=3 //Look up
   {
-    if keyboard_check(ord(global.ctrlUp)) or keyboard_check(vk_up) {return 1}
+    if scrKeyboardCheck(ord(global.ctrlUp)) or scrKeyboardCheck(vk_up) {return 1}
     else {return 0}
   }
   else if tKeyCode=4 //Duck
   {
-    if keyboard_check(ord(global.ctrlDown)) or keyboard_check(vk_down) {return 1}
+    if scrKeyboardCheck(ord(global.ctrlDown)) or scrKeyboardCheck(vk_down) {return 1}
     else {return 0}
   }
 
   if tKeyCode=11 //Skip
   {
-    if keyboard_check(ord("M")) {return 1}
+    if scrKeyboardCheck(ord("M")) {return 1}
     else {return 0}
   }
   else if tKeyCode=12 //Pause
   {
-    if keyboard_check(ord("P")) {return 1}
+    if scrKeyboardCheck(ord("P")) {return 1}
     else {return 0}
   }
 
   if tKeyCode=5 //Jump
   {
-    if keyboard_check(ord(global.ctrlJump)) {return 1}
+    if scrKeyboardCheck(ord(global.ctrlJump)) {return 1}
     else {return 0}
   }
   else if tKeyCode=6 //Action A
   {
-    if keyboard_check(ord(global.ctrlActA)) {return 1}
+    if scrKeyboardCheck(ord(global.ctrlActA)) {return 1}
     else {return 0}
   }
   else if tKeyCode=7 //Action B
   {
-    if keyboard_check(ord(global.ctrlActB)) {return 1}
+    if scrKeyboardCheck(ord(global.ctrlActB)) {return 1}
     else {return 0}
   }
   else if tKeyCode=8 //Action C
   {
-    if keyboard_check(ord(global.ctrlActC)) {return 1}
+    if scrKeyboardCheck(ord(global.ctrlActC)) {return 1}
     else {return 0}
   }
   else if tKeyCode=9 //Character Swap
   {
-    if keyboard_check(ord(global.ctrlCharSwap)) {return 1}
+    if scrKeyboardCheck(ord(global.ctrlCharSwap)) {return 1}
     else {return 0}
   }
   else if tKeyCode=10 //Ability Swap
   {
-    if keyboard_check(ord(global.ctrlAbilSwap)) {return 1}
+    if scrKeyboardCheck(ord(global.ctrlAbilSwap)) {return 1}
     else {return 0}
   }
   else if tKeyCode=13 //Dash left
   {
-    if keyboard_check(ord(global.ctrlDashLeft)) {return 1}
+    if scrKeyboardCheck(ord(global.ctrlDashLeft)) {return 1}
     else {return 0}
   }
   else if tKeyCode=14 //Dash right
   {
-    if keyboard_check(ord(global.ctrlDashRight)) {return 1}
+    if scrKeyboardCheck(ord(global.ctrlDashRight)) {return 1}
     else {return 0}
   }
 }
@@ -87,26 +87,26 @@ else //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ON @@@@@@@@@@@@@@@@@@@
 {
   if tKeyCode=1 //Move left
   {
-    if keyboard_check(ord(global.ctrlLeft)) or keyboard_check(vk_left) {return 1}
-    else if (joystick_xpos(0)<=-global.optStickDeadZone or joystick_pov(0)=270 or joystick_pov(0)=225 or joystick_pov(0)=315) and global.optGamePad=1 {return 1}
+    if scrKeyboardCheck(ord(global.ctrlLeft)) or scrKeyboardCheck(vk_left) {return 1}
+    else if (joystick_xpos(1)<=-global.optStickDeadZone or joystick_pov(1)=270 or joystick_pov(1)=225 or joystick_pov(1)=315) and global.optGamePad=1 {return 1}
     else {return 0}
   }
   else if tKeyCode=2 //Move right
   {
-    if keyboard_check(ord(global.ctrlRight)) or keyboard_check(vk_right) {return 1}
-    else if (joystick_xpos(0)>=global.optStickDeadZone or joystick_pov(0)=90 or joystick_pov(0)=45 or joystick_pov(0)=135) and global.optGamePad=1 {return 1}
+    if scrKeyboardCheck(ord(global.ctrlRight)) or scrKeyboardCheck(vk_right) {return 1}
+    else if (joystick_xpos(1)>=global.optStickDeadZone or joystick_pov(1)=90 or joystick_pov(1)=45 or joystick_pov(1)=135) and global.optGamePad=1 {return 1}
     else {return 0}
   }
   else if tKeyCode=3 //Look up
   {
-    if keyboard_check(ord(global.ctrlUp)) or keyboard_check(vk_up) {return 1}
-    else if (joystick_ypos(0)<=-global.optStickDeadZone or joystick_pov(0)=0 or joystick_pov(0)=45 or joystick_pov(0)=315) and global.optGamePad=1 {return 1}
+    if scrKeyboardCheck(ord(global.ctrlUp)) or scrKeyboardCheck(vk_up) {return 1}
+    else if (joystick_ypos(1)<=-global.optStickDeadZone or joystick_pov(1)=0 or joystick_pov(1)=45 or joystick_pov(1)=315) and global.optGamePad=1 {return 1}
     else {return 0}
   }
   else if tKeyCode=4 //Duck
   {
-    if keyboard_check(ord(global.ctrlDown)) or keyboard_check(vk_down) {return 1}
-    else if (joystick_ypos(0)>=global.optStickDeadZone or joystick_pov(0)=135 or joystick_pov(0)=180 or joystick_pov(0)=225) and global.optGamePad=1 {return 1}
+    if scrKeyboardCheck(ord(global.ctrlDown)) or scrKeyboardCheck(vk_down) {return 1}
+    else if (joystick_ypos(1)>=global.optStickDeadZone or joystick_pov(1)=135 or joystick_pov(1)=180 or joystick_pov(1)=225) and global.optGamePad=1 {return 1}
     else {return 0}
   }
 
@@ -114,14 +114,14 @@ else //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ON @@@@@@@@@@@@@@@@@@@
   {
     if tKeyCode=11 //Skip
     {
-      if keyboard_check(ord("M")) {return 1}
-      else if joystick_check_button(0,9) and global.optGamePad=1 {return 1}
+      if scrKeyboardCheck(ord("M")) {return 1}
+      else if joystick_check_button(1,9) and global.optGamePad=1 {return 1}
       else {return 0}
     }
     else if tKeyCode=12 //Pause
     {
-      if keyboard_check(ord("P")) {return 1}
-      else if joystick_check_button(0,10) and global.optGamePad=1 {return 1}
+      if scrKeyboardCheck(ord("P")) {return 1}
+      else if joystick_check_button(1,10) and global.optGamePad=1 {return 1}
       else {return 0}
     }
   }
@@ -129,14 +129,14 @@ else //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ON @@@@@@@@@@@@@@@@@@@
   {
     if tKeyCode=11 //Skip
     {
-      if keyboard_check(ord("M")) {return 1}
-      else if joystick_check_button(0,9) and global.optGamePad=1 {return 1}
+      if scrKeyboardCheck(ord("M")) {return 1}
+      else if joystick_check_button(1,9) and global.optGamePad=1 {return 1}
       else {return 0}
     }
     else if tKeyCode=12 //Pause
     {
-      if keyboard_check(ord("P")) {return 1}
-      else if joystick_check_button(0,10) or joystick_check_button(0,14) and global.optGamePad=1 {return 1}
+      if scrKeyboardCheck(ord("P")) {return 1}
+      else if joystick_check_button(1,10) or joystick_check_button(1,14) and global.optGamePad=1 {return 1}
       else {return 0}
     }
   }
@@ -144,14 +144,14 @@ else //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ON @@@@@@@@@@@@@@@@@@@
   {
     if tKeyCode=11 //Skip
     {
-      if keyboard_check(ord("M")) {return 1}
-      else if joystick_check_button(0,7) and global.optGamePad=1 {return 1}
+      if scrKeyboardCheck(ord("M")) {return 1}
+      else if joystick_check_button(1,7) and global.optGamePad=1 {return 1}
       else {return 0}
     }
     else if tKeyCode=12 //Pause
     {
-      if keyboard_check(ord("P")) {return 1}
-      else if joystick_check_button(0,8) and global.optGamePad=1 {return 1}
+      if scrKeyboardCheck(ord("P")) {return 1}
+      else if joystick_check_button(1,8) and global.optGamePad=1 {return 1}
       else {return 0}
     }
   }
@@ -160,50 +160,50 @@ else //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ON @@@@@@@@@@@@@@@@@@@
   {
     if tKeyCode=5 //Jump
     {
-      if keyboard_check(ord(global.ctrlJump)) {return 1}
-      else if joystick_check_button(0,1) and global.optGamePad=1 {return 1}
+      if scrKeyboardCheck(ord(global.ctrlJump)) {return 1}
+      else if joystick_check_button(1,1) and global.optGamePad=1 {return 1}
       else {return 0}
     }
     else if tKeyCode=6 //Action A
     {
-      if keyboard_check(ord(global.ctrlActA)) {return 1}
-      else if joystick_check_button(0,3) and global.optGamePad=1 {return 1}
+      if scrKeyboardCheck(ord(global.ctrlActA)) {return 1}
+      else if joystick_check_button(1,3) and global.optGamePad=1 {return 1}
       else {return 0}
     }
     else if tKeyCode=7 //Action B
     {
-      if keyboard_check(ord(global.ctrlActB)) {return 1}
-      else if joystick_check_button(0,4) and global.optGamePad=1 {return 1}
+      if scrKeyboardCheck(ord(global.ctrlActB)) {return 1}
+      else if joystick_check_button(1,4) and global.optGamePad=1 {return 1}
       else {return 0}
     }
     else if tKeyCode=8 //Action C
     {
-      if keyboard_check(ord(global.ctrlActC)) {return 1}
-      else if joystick_check_button(0,2) and global.optGamePad=1 {return 1}
+      if scrKeyboardCheck(ord(global.ctrlActC)) {return 1}
+      else if joystick_check_button(1,2) and global.optGamePad=1 {return 1}
       else {return 0}
     }
     else if tKeyCode=9 //Character Swap
     {
-      if keyboard_check(ord(global.ctrlCharSwap)) {return 1}
-      else if joystick_check_button(0,5) and global.optGamePad=1 {return 1}
+      if scrKeyboardCheck(ord(global.ctrlCharSwap)) {return 1}
+      else if joystick_check_button(1,5) and global.optGamePad=1 {return 1}
       else {return 0}
     }
     else if tKeyCode=10 //Ability Swap
     {
-      if keyboard_check(ord(global.ctrlAbilSwap)) {return 1}
-      else if joystick_check_button(0,6) and global.optGamePad=1 {return 1}
+      if scrKeyboardCheck(ord(global.ctrlAbilSwap)) {return 1}
+      else if joystick_check_button(1,6) and global.optGamePad=1 {return 1}
       else {return 0}
     }
     else if tKeyCode=13 //Dash left
     {
-      if keyboard_check(ord(global.ctrlDashLeft)) {return 1}
-      else if joystick_zpos(0)>=0.2 and global.optGamePad=1 {return 1}
+      if scrKeyboardCheck(ord(global.ctrlDashLeft)) {return 1}
+      else if joystick_zpos(1)>=0.2 and global.optGamePad=1 {return 1}
       else {return 0}
     }
     else if tKeyCode=14 //Dash right
     {
-      if keyboard_check(ord(global.ctrlDashRight)) {return 1}
-      else if joystick_zpos(0)<=-0.2 and global.optGamePad=1 {return 1}
+      if scrKeyboardCheck(ord(global.ctrlDashRight)) {return 1}
+      else if joystick_zpos(1)<=-0.2 and global.optGamePad=1 {return 1}
       else {return 0}
     }
   }
@@ -211,50 +211,50 @@ else //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ON @@@@@@@@@@@@@@@@@@@
   {
     if tKeyCode=5 //Jump
     {
-      if keyboard_check(ord(global.ctrlJump)) {return 1}
-      else if joystick_check_button(0,1) and global.optGamePad=1 {return 1}
+      if scrKeyboardCheck(ord(global.ctrlJump)) {return 1}
+      else if joystick_check_button(1,1) and global.optGamePad=1 {return 1}
       else {return 0}
     }
     else if tKeyCode=6 //Action A
     {
-      if keyboard_check(ord(global.ctrlActA)) {return 1}
-      else if joystick_check_button(0,3) and global.optGamePad=1 {return 1}
+      if scrKeyboardCheck(ord(global.ctrlActA)) {return 1}
+      else if joystick_check_button(1,3) and global.optGamePad=1 {return 1}
       else {return 0}
     }
     else if tKeyCode=7 //Action B
     {
-      if keyboard_check(ord(global.ctrlActB)) {return 1}
-      else if joystick_check_button(0,4) and global.optGamePad=1 {return 1}
+      if scrKeyboardCheck(ord(global.ctrlActB)) {return 1}
+      else if joystick_check_button(1,4) and global.optGamePad=1 {return 1}
       else {return 0}
     }
     else if tKeyCode=8 //Action C
     {
-      if keyboard_check(ord(global.ctrlActC)) {return 1}
-      else if joystick_check_button(0,2) and global.optGamePad=1 {return 1}
+      if scrKeyboardCheck(ord(global.ctrlActC)) {return 1}
+      else if joystick_check_button(1,2) and global.optGamePad=1 {return 1}
       else {return 0}
     }
     else if tKeyCode=13 //Dash left
     {
-      if keyboard_check(ord(global.ctrlCharSwap)) {return 1}
-      else if joystick_check_button(0,5) and global.optGamePad=1 {return 1}
+      if scrKeyboardCheck(ord(global.ctrlCharSwap)) {return 1}
+      else if joystick_check_button(1,5) and global.optGamePad=1 {return 1}
       else {return 0}
     }
     else if tKeyCode=14 //Dash right
     {
-      if keyboard_check(ord(global.ctrlAbilSwap)) {return 1}
-      else if joystick_check_button(0,6) and global.optGamePad=1 {return 1}
+      if scrKeyboardCheck(ord(global.ctrlAbilSwap)) {return 1}
+      else if joystick_check_button(1,6) and global.optGamePad=1 {return 1}
       else {return 0}
     }
     else if tKeyCode=9 //Character Swap
     {
-      if keyboard_check(ord(global.ctrlDashLeft)) {return 1}
-      else if joystick_zpos(0)>=0.2 and global.optGamePad=1 {return 1}
+      if scrKeyboardCheck(ord(global.ctrlDashLeft)) {return 1}
+      else if joystick_zpos(1)>=0.2 and global.optGamePad=1 {return 1}
       else {return 0}
     }
     else if tKeyCode=10 //Ability Swap
     {
-      if keyboard_check(ord(global.ctrlDashRight)) {return 1}
-      else if joystick_zpos(0)<=-0.2 and global.optGamePad=1 {return 1}
+      if scrKeyboardCheck(ord(global.ctrlDashRight)) {return 1}
+      else if joystick_zpos(1)<=-0.2 and global.optGamePad=1 {return 1}
       else {return 0}
     }
   }
@@ -262,50 +262,50 @@ else //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ON @@@@@@@@@@@@@@@@@@@
   {
     if tKeyCode=6 //Action A
     {
-      if keyboard_check(ord(global.ctrlJump)) {return 1}
-      else if joystick_check_button(0,1) and global.optGamePad=1 {return 1}
+      if scrKeyboardCheck(ord(global.ctrlJump)) {return 1}
+      else if joystick_check_button(1,1) and global.optGamePad=1 {return 1}
       else {return 0}
     }
     else if tKeyCode=5 //Jump
     {
-      if keyboard_check(ord(global.ctrlActA)) {return 1}
-      else if joystick_check_button(0,3) and global.optGamePad=1 {return 1}
+      if scrKeyboardCheck(ord(global.ctrlActA)) {return 1}
+      else if joystick_check_button(1,3) and global.optGamePad=1 {return 1}
       else {return 0}
     }
     else if tKeyCode=7 //Action B
     {
-      if keyboard_check(ord(global.ctrlActB)) {return 1}
-      else if joystick_check_button(0,4) and global.optGamePad=1 {return 1}
+      if scrKeyboardCheck(ord(global.ctrlActB)) {return 1}
+      else if joystick_check_button(1,4) and global.optGamePad=1 {return 1}
       else {return 0}
     }
     else if tKeyCode=8 //Action C
     {
-      if keyboard_check(ord(global.ctrlActC)) {return 1}
-      else if joystick_check_button(0,2) and global.optGamePad=1 {return 1}
+      if scrKeyboardCheck(ord(global.ctrlActC)) {return 1}
+      else if joystick_check_button(1,2) and global.optGamePad=1 {return 1}
       else {return 0}
     }
     else if tKeyCode=9 //Character Swap
     {
-      if keyboard_check(ord(global.ctrlCharSwap)) {return 1}
-      else if joystick_check_button(0,5) and global.optGamePad=1 {return 1}
+      if scrKeyboardCheck(ord(global.ctrlCharSwap)) {return 1}
+      else if joystick_check_button(1,5) and global.optGamePad=1 {return 1}
       else {return 0}
     }
     else if tKeyCode=10 //Ability Swap
     {
-      if keyboard_check(ord(global.ctrlAbilSwap)) {return 1}
-      else if joystick_check_button(0,6) and global.optGamePad=1 {return 1}
+      if scrKeyboardCheck(ord(global.ctrlAbilSwap)) {return 1}
+      else if joystick_check_button(1,6) and global.optGamePad=1 {return 1}
       else {return 0}
     }
     else if tKeyCode=13 //Dash left
     {
-      if keyboard_check(ord(global.ctrlDashLeft)) {return 1}
-      else if joystick_zpos(0)>=0.2 and global.optGamePad=1 {return 1}
+      if scrKeyboardCheck(ord(global.ctrlDashLeft)) {return 1}
+      else if joystick_zpos(1)>=0.2 and global.optGamePad=1 {return 1}
       else {return 0}
     }
     else if tKeyCode=14 //Dash right
     {
-      if keyboard_check(ord(global.ctrlDashRight)) {return 1}
-      else if joystick_zpos(0)<=-0.2 and global.optGamePad=1 {return 1}
+      if scrKeyboardCheck(ord(global.ctrlDashRight)) {return 1}
+      else if joystick_zpos(1)<=-0.2 and global.optGamePad=1 {return 1}
       else {return 0}
     }
   }
@@ -313,50 +313,50 @@ else //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ON @@@@@@@@@@@@@@@@@@@
   {
     if tKeyCode=6 //Action A
     {
-      if keyboard_check(ord(global.ctrlJump)) {return 1}
-      else if joystick_check_button(0,1) and global.optGamePad=1 {return 1}
+      if scrKeyboardCheck(ord(global.ctrlJump)) {return 1}
+      else if joystick_check_button(1,1) and global.optGamePad=1 {return 1}
       else {return 0}
     }
     else if tKeyCode=5 //Jump
     {
-      if keyboard_check(ord(global.ctrlActA)) {return 1}
-      else if joystick_check_button(0,3) and global.optGamePad=1 {return 1}
+      if scrKeyboardCheck(ord(global.ctrlActA)) {return 1}
+      else if joystick_check_button(1,3) and global.optGamePad=1 {return 1}
       else {return 0}
     }
     else if tKeyCode=7 //Action B
     {
-      if keyboard_check(ord(global.ctrlActB)) {return 1}
-      else if joystick_check_button(0,4) and global.optGamePad=1 {return 1}
+      if scrKeyboardCheck(ord(global.ctrlActB)) {return 1}
+      else if joystick_check_button(1,4) and global.optGamePad=1 {return 1}
       else {return 0}
     }
     else if tKeyCode=8 //Action C
     {
-      if keyboard_check(ord(global.ctrlActC)) {return 1}
-      else if joystick_check_button(0,2) and global.optGamePad=1 {return 1}
+      if scrKeyboardCheck(ord(global.ctrlActC)) {return 1}
+      else if joystick_check_button(1,2) and global.optGamePad=1 {return 1}
       else {return 0}
     }
     else if tKeyCode=13 //Dash left
     {
-      if keyboard_check(ord(global.ctrlCharSwap)) {return 1}
-      else if joystick_check_button(0,5) and global.optGamePad=1 {return 1}
+      if scrKeyboardCheck(ord(global.ctrlCharSwap)) {return 1}
+      else if joystick_check_button(1,5) and global.optGamePad=1 {return 1}
       else {return 0}
     }
     else if tKeyCode=14 //Dash right
     {
-      if keyboard_check(ord(global.ctrlAbilSwap)) {return 1}
-      else if joystick_check_button(0,6) and global.optGamePad=1 {return 1}
+      if scrKeyboardCheck(ord(global.ctrlAbilSwap)) {return 1}
+      else if joystick_check_button(1,6) and global.optGamePad=1 {return 1}
       else {return 0}
     }
     else if tKeyCode=9 //Character Swap
     {
-      if keyboard_check(ord(global.ctrlDashLeft)) {return 1}
-      else if joystick_zpos(0)>=0.2 and global.optGamePad=1 {return 1}
+      if scrKeyboardCheck(ord(global.ctrlDashLeft)) {return 1}
+      else if joystick_zpos(1)>=0.2 and global.optGamePad=1 {return 1}
       else {return 0}
     }
     else if tKeyCode=10 //Ability Swap
     {
-      if keyboard_check(ord(global.ctrlDashRight)) {return 1}
-      else if joystick_zpos(0)<=-0.2 and global.optGamePad=1 {return 1}
+      if scrKeyboardCheck(ord(global.ctrlDashRight)) {return 1}
+      else if joystick_zpos(1)<=-0.2 and global.optGamePad=1 {return 1}
       else {return 0}
     }
   }
@@ -364,50 +364,50 @@ else //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ON @@@@@@@@@@@@@@@@@@@
   {
     if tKeyCode=5 //Jump
     {
-      if keyboard_check(ord(global.ctrlJump)) {return 1}
-      else if joystick_check_button(0,1) and global.optGamePad=1 {return 1}
+      if scrKeyboardCheck(ord(global.ctrlJump)) {return 1}
+      else if joystick_check_button(1,1) and global.optGamePad=1 {return 1}
       else {return 0}
     }
     else if tKeyCode=6 //Action A
     {
-      if keyboard_check(ord(global.ctrlActA)) {return 1}
-      else if joystick_check_button(0,3) and global.optGamePad=1 {return 1}
+      if scrKeyboardCheck(ord(global.ctrlActA)) {return 1}
+      else if joystick_check_button(1,3) and global.optGamePad=1 {return 1}
       else {return 0}
     }
     else if tKeyCode=7 //Action B
     {
-      if keyboard_check(ord(global.ctrlActB)) {return 1}
-      else if joystick_check_button(0,4) and global.optGamePad=1 {return 1}
+      if scrKeyboardCheck(ord(global.ctrlActB)) {return 1}
+      else if joystick_check_button(1,4) and global.optGamePad=1 {return 1}
       else {return 0}
     }
     else if tKeyCode=8 //Action C
     {
-      if keyboard_check(ord(global.ctrlActC)) {return 1}
-      else if joystick_check_button(0,2) and global.optGamePad=1 {return 1}
+      if scrKeyboardCheck(ord(global.ctrlActC)) {return 1}
+      else if joystick_check_button(1,2) and global.optGamePad=1 {return 1}
       else {return 0}
     }
     else if tKeyCode=9 //Character Swap
     {
-      if keyboard_check(ord(global.ctrlCharSwap)) {return 1}
-      else if joystick_check_button(0,5) and global.optGamePad=1 {return 1}
+      if scrKeyboardCheck(ord(global.ctrlCharSwap)) {return 1}
+      else if joystick_check_button(1,5) and global.optGamePad=1 {return 1}
       else {return 0}
     }
     else if tKeyCode=10 //Ability Swap
     {
-      if keyboard_check(ord(global.ctrlAbilSwap)) {return 1}
-      else if joystick_check_button(0,6) and global.optGamePad=1 {return 1}
+      if scrKeyboardCheck(ord(global.ctrlAbilSwap)) {return 1}
+      else if joystick_check_button(1,6) and global.optGamePad=1 {return 1}
       else {return 0}
     }
     else if tKeyCode=13 //Dash left
     {
-      if keyboard_check(ord(global.ctrlDashLeft)) {return 1}
-      else if joystick_check_button(0,7) and global.optGamePad=1 {return 1}
+      if scrKeyboardCheck(ord(global.ctrlDashLeft)) {return 1}
+      else if joystick_check_button(1,7) and global.optGamePad=1 {return 1}
       else {return 0}
     }
     else if tKeyCode=14 //Dash right
     {
-      if keyboard_check(ord(global.ctrlDashRight)) {return 1}
-      else if joystick_check_button(0,8) and global.optGamePad=1 {return 1}
+      if scrKeyboardCheck(ord(global.ctrlDashRight)) {return 1}
+      else if joystick_check_button(1,8) and global.optGamePad=1 {return 1}
       else {return 0}
     }
   }
@@ -415,50 +415,50 @@ else //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ON @@@@@@@@@@@@@@@@@@@
   {
     if tKeyCode=5 //Jump
     {
-      if keyboard_check(ord(global.ctrlJump)) {return 1}
-      else if joystick_check_button(0,1) and global.optGamePad=1 {return 1}
+      if scrKeyboardCheck(ord(global.ctrlJump)) {return 1}
+      else if joystick_check_button(1,1) and global.optGamePad=1 {return 1}
       else {return 0}
     }
     else if tKeyCode=6 //Action A
     {
-      if keyboard_check(ord(global.ctrlActA)) {return 1}
-      else if joystick_check_button(0,4) and global.optGamePad=1 {return 1}
+      if scrKeyboardCheck(ord(global.ctrlActA)) {return 1}
+      else if joystick_check_button(1,4) and global.optGamePad=1 {return 1}
       else {return 0}
     }
     else if tKeyCode=7 //Action B
     {
-      if keyboard_check(ord(global.ctrlActB)) {return 1}
-      else if joystick_check_button(0,6) and global.optGamePad=1 {return 1}
+      if scrKeyboardCheck(ord(global.ctrlActB)) {return 1}
+      else if joystick_check_button(1,6) and global.optGamePad=1 {return 1}
       else {return 0}
     }
     else if tKeyCode=8 //Action C
     {
-      if keyboard_check(ord(global.ctrlActC)) {return 1}
-      else if joystick_check_button(0,5) and global.optGamePad=1 {return 1}
+      if scrKeyboardCheck(ord(global.ctrlActC)) {return 1}
+      else if joystick_check_button(1,5) and global.optGamePad=1 {return 1}
       else {return 0}
     }
     else if tKeyCode=9 //Character Swap
     {
-      if keyboard_check(ord(global.ctrlCharSwap)) {return 1}
-      else if joystick_check_button(0,7) and global.optGamePad=1 {return 1}
+      if scrKeyboardCheck(ord(global.ctrlCharSwap)) {return 1}
+      else if joystick_check_button(1,7) and global.optGamePad=1 {return 1}
       else {return 0}
     }
     else if tKeyCode=10 //Ability Swap
     {
-      if keyboard_check(ord(global.ctrlAbilSwap)) {return 1}
-      else if joystick_check_button(0,8) and global.optGamePad=1 {return 1}
+      if scrKeyboardCheck(ord(global.ctrlAbilSwap)) {return 1}
+      else if joystick_check_button(1,8) and global.optGamePad=1 {return 1}
       else {return 0}
     }
     else if tKeyCode=13 //Dash left
     {
-      if keyboard_check(ord(global.ctrlDashLeft)) {return 1}
-      else if joystick_check_button(0,3) and global.optGamePad=1 {return 1}
+      if scrKeyboardCheck(ord(global.ctrlDashLeft)) {return 1}
+      else if joystick_check_button(1,3) and global.optGamePad=1 {return 1}
       else {return 0}
     }
     else if tKeyCode=14 //Dash right
     {
-      if keyboard_check(ord(global.ctrlDashRight)) {return 1}
-      else if joystick_check_button(0,2) and global.optGamePad=1 {return 1}
+      if scrKeyboardCheck(ord(global.ctrlDashRight)) {return 1}
+      else if joystick_check_button(1,2) and global.optGamePad=1 {return 1}
       else {return 0}
     }
   }
@@ -466,50 +466,50 @@ else //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ON @@@@@@@@@@@@@@@@@@@
   {
     if tKeyCode=5 //Jump
     {
-      if keyboard_check(ord(global.ctrlJump)) {return 1}
-      else if joystick_check_button(0,2) and global.optGamePad=1 {return 1}
+      if scrKeyboardCheck(ord(global.ctrlJump)) {return 1}
+      else if joystick_check_button(1,2) and global.optGamePad=1 {return 1}
       else {return 0}
     }
     else if tKeyCode=6 //Action A
     {
-      if keyboard_check(ord(global.ctrlActA)) {return 1}
-      else if joystick_check_button(0,1) and global.optGamePad=1 {return 1}
+      if scrKeyboardCheck(ord(global.ctrlActA)) {return 1}
+      else if joystick_check_button(1,1) and global.optGamePad=1 {return 1}
       else {return 0}
     }
     else if tKeyCode=7 //Action B
     {
-      if keyboard_check(ord(global.ctrlActB)) {return 1}
-      else if joystick_check_button(0,4) and global.optGamePad=1 {return 1}
+      if scrKeyboardCheck(ord(global.ctrlActB)) {return 1}
+      else if joystick_check_button(1,4) and global.optGamePad=1 {return 1}
       else {return 0}
     }
     else if tKeyCode=8 //Action C
     {
-      if keyboard_check(ord(global.ctrlActC)) {return 1}
-      else if joystick_check_button(0,3) and global.optGamePad=1 {return 1}
+      if scrKeyboardCheck(ord(global.ctrlActC)) {return 1}
+      else if joystick_check_button(1,3) and global.optGamePad=1 {return 1}
       else {return 0}
     }
     else if tKeyCode=9 //Character Swap
     {
-      if keyboard_check(ord(global.ctrlCharSwap)) {return 1}
-      else if joystick_check_button(0,5) and global.optGamePad=1 {return 1}
+      if scrKeyboardCheck(ord(global.ctrlCharSwap)) {return 1}
+      else if joystick_check_button(1,5) and global.optGamePad=1 {return 1}
       else {return 0}
     }
     else if tKeyCode=10 //Ability Swap
     {
-      if keyboard_check(ord(global.ctrlAbilSwap)) {return 1}
-      else if joystick_check_button(0,6) and global.optGamePad=1 {return 1}
+      if scrKeyboardCheck(ord(global.ctrlAbilSwap)) {return 1}
+      else if joystick_check_button(1,6) and global.optGamePad=1 {return 1}
       else {return 0}
     }
     else if tKeyCode=13 //Dash left
     {
-      if keyboard_check(ord(global.ctrlDashLeft)) {return 1}
-      else if joystick_check_button(0,7) and global.optGamePad=1 {return 1}
+      if scrKeyboardCheck(ord(global.ctrlDashLeft)) {return 1}
+      else if joystick_check_button(1,7) and global.optGamePad=1 {return 1}
       else {return 0}
     }
     else if tKeyCode=14 //Dash right
     {
-      if keyboard_check(ord(global.ctrlDashRight)) {return 1}
-      else if joystick_check_button(0,8) and global.optGamePad=1 {return 1}
+      if scrKeyboardCheck(ord(global.ctrlDashRight)) {return 1}
+      else if joystick_check_button(1,8) and global.optGamePad=1 {return 1}
       else {return 0}
     }
   }

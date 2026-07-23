@@ -4,6 +4,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
+scrGlobalKeyboardInit(1)
 gameCreateEvent()
 bStatRender=false
 windowUpdate=0
@@ -304,6 +305,7 @@ action_id=603
 applies_to=self
 */
 SS_Unload()
+scrGlobalKeyboardShutdown()
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
