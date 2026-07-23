@@ -1,4 +1,7 @@
 maxString=3
+idsToStringTo[0]=181431
+idsToStringTo[1]=181432
+idsToStringTo[2]=265587
 stringTo[0]=(GID(181431))
 stringTo[1]=(GID(181432))
 stringTo[2]=(GID(265587))
