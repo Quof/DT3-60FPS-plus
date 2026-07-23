@@ -581,7 +581,7 @@ if bTakingDamage=false
       }
       else
       {
-        if jumpTime=jumpTimeTotal and kJump and mechFuel>0
+        if jumpTime>=jumpTimeTotal and kJump and mechFuel>0
         {
           bUseFuel=1
           mechFuel-=1*gDeltaTime

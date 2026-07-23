@@ -8,8 +8,22 @@ else if global.location=29 {playSound(global.snd_PlayerJump[2],0,1,1)}
 else {playSound(global.snd_PlayerJump[0],0,1,1)}
 global.recJumped+=1
 yVel=0
-if bombJump=0 {yAcc+=doubleJumpAcc}
-else {yAcc+=doubleJumpAcc*bombAcc}
+
+if (gDeltaTime==1)
+{
+    if bombJump=0 {yAcc+=doubleJumpAcc}
+    else {yAcc+=doubleJumpAcc*bombAcc}
+}
+else
+{
+    var djabodge;
+    // compensate for standard-height full jumps to have the same height despite different pixel rounding
+    djabodge = doubleJumpAcc * 0.98
+    if bombJump=0 {yVel+=djabodge}
+    else {yVel+=djabodge*bombAcc}
+    yVel += gravityIntensity*0.5
+}
+ditherCounter=15 // make jumps deterministic
 with oSmallJumper {bouncePlayerTime=0}
 with oLargeJumper {bouncePlayerTime=0}
 bombJump=0
