@@ -45,7 +45,10 @@ if initSet=1
     draw_set_alpha(0.75)
     for(i=0;i<maxString;i+=1)
     {
-      draw_line_width(x,y,stringTo[i].x+offsetX,stringTo[i].y+offsetY,2)
+	  if(stringTo[i] != noone)
+	  {
+	    draw_line_width(x,y,stringTo[i].x+offsetX,stringTo[i].y+offsetY,2)
+	  }
     }
   }
 }
