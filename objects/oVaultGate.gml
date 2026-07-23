@@ -50,7 +50,7 @@ if global.gamePaused=false
 {
   if global.gameProgress>=2170
   {
-    if oKeyCodesHighFPS.kCodePressed[3]=1
+    if oKeyCodes.kCodePressed[3]=1
     {
       resetKeyCodes()
       global.recAreaTrans+=1
@@ -61,7 +61,7 @@ if global.gamePaused=false
 
       transition_steps=20
       transition_kind=21
-      room_goto_fixed(rVault_1)
+      room_goto(rVault_1)
     }
   }
   else //First time going into the Vault

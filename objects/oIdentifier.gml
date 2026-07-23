@@ -5,7 +5,7 @@ action_id=603
 applies_to=self
 */
 //showEmote(oIdentifier,0,-6,sEmExcite)
-image_speed=0.4
+image_speed=0.4*gDeltaTime
 effectDelay=3
 effectTime=0
 
@@ -43,10 +43,6 @@ chaoEndAssisted=0 //effect of Chao assisting the player when they fall off the m
 chaoLightAssistAlpha=0
 
 alarm[0]=1
-
-xvel=0
-yvel=0
-
 
 //emote types
 /*
@@ -98,12 +94,12 @@ if global.gameOver=false and bChaoActive=1
 
     if chaoGraze>0 and global.gamePaused=0
     {
-      if degradeDelay<=0
+      if degradeDelay=0
       {
         chaoGraze-=3
         if chaoGraze<0 {chaoGraze=0}
       }
-      else {degradeDelay-=1*gDeltaTime}
+      else {degradeDelay-=1}
     }
     grazePercent=chaoGraze/chaoGrazeMax
   }
@@ -120,27 +116,19 @@ if global.gameOver=false and bChaoActive=1
           {
             dotPointer=0
             x=mouse_x; y=mouse_y
-            xvel=0; yvel=0
+            speed=0
           }
           else
           {
             dotPointer=1
-            //direction=point_direction(x,y,mouse_x,mouse_y)
-            //speed=32
-            xvel=mouse_x-x
-            yvel=mouse_y-y
-            var len;
-            len = sqrt(xvel*xvel + yvel+yvel)
-            xvel *= 32/len
-            yvel *= 32/len
+            direction=point_direction(x,y,mouse_x,mouse_y)
+            speed=32
           }
         }
         else
         {
           dotPointer=1
-          //speed=0
-          xvel = 0
-          yvel = 0
+          speed=0
         }
       }
       else
@@ -197,35 +185,35 @@ if global.gameOver=false and bChaoActive=1
     {
       if myDist<2.5 {myDist=2.5}
     }
-    maxSpeed=myDist
+    maxSpeed=(myDist)*gDeltaTime //QWH
 
     if x>followTarget.x+tgtOffsetX
     {
-      if xvel>-maxSpeed {xvel-=0.1*gDeltaTime}
-      else {xvel=-maxSpeed}
+      if hspeed>-maxSpeed {hspeed-=0.1*gDeltaTime*gDeltaTime}
+      else {hspeed=-maxSpeed}
     }
     else if x<followTarget.x+tgtOffsetX
     {
-      if xvel<maxSpeed {xvel+=0.1*gDeltaTime}
-      else {xvel=maxSpeed}
+      if hspeed<maxSpeed {hspeed+=0.1*gDeltaTime*gDeltaTime}
+      else {hspeed=maxSpeed}
     }
     if y>followTarget.y+tgtOffsetY
     {
-      if yvel>-maxSpeed {yvel-=0.1*gDeltaTime}
-      else {yvel=-maxSpeed}
+      if vspeed>-maxSpeed {vspeed-=0.1*gDeltaTime*gDeltaTime}
+      else {vspeed=-maxSpeed}
     }
     else if y<followTarget.y+tgtOffsetY
     {
-      if yvel<maxSpeed {yvel+=0.1*gDeltaTime}
-      else {yvel=maxSpeed}
+      if vspeed<maxSpeed {vspeed+=0.1*gDeltaTime*gDeltaTime}
+      else {vspeed=maxSpeed}
     }
   }
-  else {xvel=0; yvel=0}
+  else {hspeed=0; vspeed=0}
 
   if global.gamePaused=false
   {
-    effectTime+=1*gDeltaTime
-    if effectTime>=effectDelay
+    effectTime+=1
+    if effectTime=effectDelay
     {
       var tFFScl,tEffect;
       tFFScl=random(0.1)
@@ -266,9 +254,9 @@ if global.gameOver=false and bChaoActive=1
   }
   if autoMoveDelay<60 //Keep Chao from moving if the mouse is used by the player
   {
-    if room!=rAbomF {xvel=0; yvel=0}
-    if global.optChaoRoam=1 {autoMoveDelay+=1*gDeltaTime}
-    if autoMoveDelay>=60 {fairyAutoRoam=true}
+    if room!=rAbomF {hspeed=0; vspeed=0}
+    if global.optChaoRoam=1 {autoMoveDelay+=1}
+    if autoMoveDelay=60 {fairyAutoRoam=true}
   }
 
   if heartEmote<100 //When the player loses enough times in one map and then transitions to a new one
@@ -296,9 +284,6 @@ if global.gameOver=false and bChaoActive=1
     }
   }
 }
-
-x += xvel*gDeltaTime
-y += yvel*gDeltaTime
 #define Mouse_52
 /*"/*'/**//* YYD ACTION
 lib_id=1

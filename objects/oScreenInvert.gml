@@ -4,7 +4,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-invertTime-=1*gDeltaTime
+invertTime-=1
 if invertTime<=0
   instance_destroy()
 #define Draw_0

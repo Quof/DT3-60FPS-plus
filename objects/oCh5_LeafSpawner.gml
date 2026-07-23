@@ -29,7 +29,7 @@ applies_to=self
 */
 if initVars=1
 {
-  leafSpawn+=1*gDeltaTime
+  leafSpawn+=1
   if leafSpawn>=leafDelay
   {
     instance_create(4+random(room_width-8),-4,oDecFallingLeaf)

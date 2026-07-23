@@ -668,7 +668,7 @@ if global.gamePaused=false
         npc_AbomImage=instance_create(view_xview[0]+240,view_yview[0]+192,oMisc)
         npc_AbomImage.sprite_index=sAbom_Base; npc_AbomImage.image_alpha=0
         npc_AbomImage.type=1; npc_AbomImage.depth=0; npc_AbomImage.image_xscale=2; npc_AbomImage.image_yscale=2
-        with (GID(333247)) {instance_destroy()}; with (GID(333248)) {instance_destroy()}
+        with (333247) {instance_destroy()}; with (333248) {instance_destroy()}
         stopAllMusic()
         staticTime=29; sceneProgress+=1
       }

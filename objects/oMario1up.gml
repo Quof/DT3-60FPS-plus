@@ -13,20 +13,19 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if gDeltaDoTicks != 1 { exit; }
 if global.gamePaused=false
 {
-  moveProg+=1
+  moveProg+=1*gDeltaTime
   if moveProg<=32
   {
-    y-=0.5
+    y-=0.5*gDeltaTime
     if moveProg=32
     {
-      xVel=2.5
+      xVel=2.5*gDeltaTime
       if x>=oPlayer1.x
-        xVel=2.5
+        xVel=2.5*gDeltaTime
       else
-        xVel=-2.5
+        xVel=-2.5*gDeltaTime
     }
   }
   else
@@ -41,7 +40,7 @@ if global.gamePaused=false
     moveTo(xVel,yVel)
 
     if isCollisionSolid()
-      y-=2
+      y-=2*gDeltaTime
     if y>room_height+24
       instance_destroy()
   }

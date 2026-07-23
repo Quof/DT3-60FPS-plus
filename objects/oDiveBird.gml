@@ -4,8 +4,6 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-imagespeed = 0
-
 makeActive()
 setCollisionBounds(-9,-13,9,-1)
 visible=0
@@ -15,7 +13,7 @@ hopNum=0
 hopSeq=choose(0,1)
 if hopSeq=0 {hopMax=4+irandom(4)}
 else {hopMax=20+irandom(20)}
-hopSpd=6+irandom(2)
+hopSpd=(6+irandom(2))*gDeltaTime
 image_speed=0
 image_xscale=choose(-1,1)
 
@@ -50,8 +48,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-image_speed = 0
-if global.gamePaused=false && gDeltaDoTicks
+if global.gamePaused=false
 {
   if behavior=0 //Slight wait
   {
@@ -59,7 +56,7 @@ if global.gamePaused=false && gDeltaDoTicks
     if flyBackTime<=0
     {
       sprite_index=sDiveBird_Fly
-      imagespeed=0.33
+      image_speed=0.33
       visible=1
       x=choose(-48,room_width+48)
       y=ystart+random_range(-room_height/1.75,room_height/1.75)
@@ -75,7 +72,7 @@ if global.gamePaused=false && gDeltaDoTicks
   }
   else if behavior=1 //Fly to spot (0=left, 1=right)
   {
-    speed=5
+    speed=5*gDeltaTime
     direction=point_direction(x,y,xstart,ystart)
     if direction>=90 and direction<=270 {image_xscale=-1}
     else {image_xscale=1}
@@ -85,21 +82,21 @@ if global.gamePaused=false && gDeltaDoTicks
       x=xstart; y=ystart
       sprite_index=sDiveBird_Hop
       image_index=0
-      imagespeed=0
+      image_speed=0
       speed=0
       behavior+=1
     }
   }
   else if behavior=2 //Hop around
   {
-    hopTime+=1
+    hopTime+=1*gDeltaTime
     if hopSeq=0 //Hop hop hop
     {
       if hopTime mod hopSpd=0
       {
         xVel=image_xscale
-        y-=2
-        yVel=-2.5
+        y-=2*gDeltaTime
+        yVel=-2.5*gDeltaTime
         image_index=1
 
         //Check if at cliff edge and turn around
@@ -111,8 +108,8 @@ if global.gamePaused=false && gDeltaDoTicks
         }
         if tDrop=0
         {
-          xVel*=-1
-          image_xscale*=-1
+          xVel*=-1*gDeltaTime
+          image_xscale*=-1*gDeltaTime
         }
         hopNum+=1
       }
@@ -137,7 +134,7 @@ if global.gamePaused=false && gDeltaDoTicks
       }
     }
 
-    yVel+=1
+    yVel+=1*gDeltaTime
     if isCollisionBottom(1)
     {
       xVel=0
@@ -160,7 +157,7 @@ if global.gamePaused=false && gDeltaDoTicks
         var tEffect,tXspd;
         for(i=0;i<3;i+=1)
         {
-          tXspd=random_range(-1.5,1.5)
+          tXspd=random_range(-1.5,1.5)*gDeltaTime
           tEffect=instance_create(x,y-7,oEffectGrav)
           tEffect.type=2; tEffect.sprite_index=sDiveBirdFeather; tEffect.image_blend=image_blend
           tEffect.image_xscale=0.75; tEffect.image_yscale=0.75; tEffect.xSpd=tXspd; tEffect.ySpd=-1.5-random(1)
@@ -172,7 +169,7 @@ if global.gamePaused=false && gDeltaDoTicks
         else {xSpd=-5-random(2); image_xscale=-1}
         ySpd=-3.5-random(1)
         sprite_index=sDiveBird_Fly
-        imagespeed=0.33
+        image_speed=0.33
         hopTime=0
         behavior+=1
       }
@@ -180,8 +177,8 @@ if global.gamePaused=false && gDeltaDoTicks
   }
   else if behavior=3 //Flying away
   {
-    x+=xSpd
-    y+=ySpd
+    x+=xSpd*gDeltaTime
+    y+=ySpd*gDeltaTime
 
     if instance_exists(oEnemyBase)
     {
@@ -192,15 +189,15 @@ if global.gamePaused=false && gDeltaDoTicks
         direction=point_direction(x,y-7,eDistCheck.bbox_left+(eDistCheck.sprite_width/2),eDistCheck.bbox_top+(eDistCheck.sprite_height/2))-180
         if direction>=90 and direction<=270 {image_xscale=1}
         else {image_xscale=-1}
-        imagespeed=0.33
+        image_speed=0.33
         behavior+=1
       }
     }
   }
   else if behavior=4 //Ready to dive
   {
-    speed=2
-    hopTime+=1
+    speed=2*gDeltaTime
+    hopTime+=1*gDeltaTime
     if hopTime=25
     {
       if instance_exists(eDistCheck)
@@ -229,9 +226,6 @@ if bSpotted=0
     bSpotted=1
   }
 }
-
-if gDeltaDoTicks
-    image_index += imagespeed
 #define Other_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -249,12 +243,3 @@ if behavior>=2
     behavior=0
   }
 }
-#define Draw_0
-/*"/*'/**//* YYD ACTION
-lib_id=1
-action_id=603
-applies_to=self
-*/
-magicInterpDrawStart()
-draw_sprite_ext(sprite_index,image_index,x,y,image_xscale,image_yscale,image_angle,image_blend,image_alpha)
-magicInterpDrawEnd()

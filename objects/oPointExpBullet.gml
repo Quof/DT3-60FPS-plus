@@ -21,7 +21,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if global.gamePaused=false && gDeltaDoTicks != 0
+if global.gamePaused=false
 {
   speed=bulletSpeed
   if sprite_index=sSE_DarkBall {image_angle-=20}

@@ -28,8 +28,8 @@ if point_distance(x,y,questSpotX,questSpotY)<24
 {
   if questTag=1
   {
-    (GID(394948)).bStartMe=1; (GID(394949)).bStartMe=1;
-    with (GID(394928)) {instance_destroy()}
+    (394948).bStartMe=1; (394949).bStartMe=1;
+    with (394928) {instance_destroy()}
   }
   else if questTag=2
   {
@@ -51,8 +51,8 @@ if point_distance(x,y,questSpotX,questSpotY)<24
   }
   else if questTag=3
   {
-    (GID(393801)).bStartMe=1;
-    with (GID(394952)) {instance_destroy()}
+    (393801).bStartMe=1;
+    with (394952) {instance_destroy()}
   }
   var tFlash;
   tFlash=instance_create(0,0,oScreenFlash); tFlash.image_alpha=0.5 tFlash.fadeSpeed=0.05

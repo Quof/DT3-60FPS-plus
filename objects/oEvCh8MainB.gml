@@ -557,7 +557,7 @@ else if room=rMega4_SigmaB3 and global.gameProgress=1910 //----- [Unskippable] B
     if oMMBit.life<=500 and sceneProgress=0 //End Boss
     {
       tile_layer_hide(999999)
-      with (GID(231410)) {instance_destroy()}
+      with (231410) {instance_destroy()}
       var newExit;
       newExit=instance_create(464,256,oExit)
       newExit.bShowArrow=true; newExit.exitType=1
@@ -709,7 +709,7 @@ else if room=rMega4_SigmaB5 and global.gameProgress=1930 //----- [Unskippable] B
     if oMMByte.life<=500 and sceneProgress=0 //End Boss
     {
       tile_layer_hide(999999)
-      with (GID(231410)) {instance_destroy()}
+      with (231410) {instance_destroy()}
       var newExit;
       newExit=instance_create(464,256,oExit)
       newExit.bShowArrow=true; newExit.exitType=1
@@ -1490,25 +1490,25 @@ if room=rMega4_SigmaC3 //Start crush walls
 {
   if oPlayer1.y<=1776 and wallCheck=0
   {
-    (GID(233988)).moveSeq=1; (GID(233989)).moveSeq=1
-    (GID(233990)).moveSeq=1; (GID(233991)).moveSeq=1
+    (233988).moveSeq=1; (233989).moveSeq=1
+    (233990).moveSeq=1; (233991).moveSeq=1
     wallCheck+=1
   }
   else if oPlayer1.y<=1392 and wallCheck=1
   {
-    (GID(233992)).moveSeq=1
-    (GID(233993)).moveSeq=1
+    (233992).moveSeq=1
+    (233993).moveSeq=1
     wallCheck+=1
   }
   else if oPlayer1.y<=1184 and wallCheck=2
   {
-    (GID(233996)).moveSeq=1
+    (233996).moveSeq=1
     wallCheck+=1
   }
   else if oPlayer1.y<=832 and wallCheck=3
   {
-    (GID(234134)).moveSeq=1; (GID(234135)).moveSeq=1; (GID(234136)).moveSeq=1
-    (GID(234137)).moveSeq=1; (GID(234138)).moveSeq=1; (GID(234139)).moveSeq=1
+    (234134).moveSeq=1; (234135).moveSeq=1; (234136).moveSeq=1
+    (234137).moveSeq=1; (234138).moveSeq=1; (234139).moveSeq=1
     wallCheck+=1
   }
 }

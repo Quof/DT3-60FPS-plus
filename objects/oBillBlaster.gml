@@ -26,7 +26,6 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if gDeltaDoTicks != 1 { exit; }
 if global.gamePaused=false
 {
   makeEnemyActive(0)
@@ -38,15 +37,15 @@ if global.gamePaused=false
       findTargetX=point_distance(oPlayer1.x,0,x,0)
       if findTargetX>=56
       {
-        shotTime+=1
+        shotTime+=1*gDeltaTime
         if shotTime=shotDelay-10
         {
           var tEffect;
           for(i=0;i<2;i+=1)
           {
             tEffect=instance_create(x,y+8,oEffect)
-            tEffect.sprite_index=sMMSmokeCloud; tEffect.image_speed=0.5; tEffect.ySpd=-1-(i*0.5)
-            tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0
+            tEffect.sprite_index=sMMSmokeCloud; tEffect.image_speed=0.5; tEffect.ySpd=(-1-(i*0.5))*gDeltaTime
+            tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100*gDeltaTime; tEffect.xSpd=0
           }
         }
         if shotTime>=shotDelay
@@ -63,10 +62,10 @@ if global.gamePaused=false
           bBill.bVert=bVert
           if xOffset<0
           {
-            bBill.bulletSpeed=-7.5
+            bBill.bulletSpeed=-7.5*gDeltaTime
             bBill.image_xscale=-1
           }
-          else {bBill.bulletSpeed=7.5}
+          else {bBill.bulletSpeed=7.5*gDeltaTime}
           shotTime=0
         }
       }
@@ -76,14 +75,14 @@ if global.gamePaused=false
       findTargetY=point_distance(0,oPlayer1.y-26,0,y)
       if findTargetY>=56
       {
-        shotTime+=1
+        shotTime+=1*gDeltaTime
         if shotTime=shotDelay-10
         {
           var tEffect;
           for(i=0;i<2;i+=1)
           {
             tEffect=instance_create(x,y+8,oEffect)
-            tEffect.sprite_index=sMMSmokeCloud; tEffect.image_speed=0.5; tEffect.ySpd=-1-(i*0.5)
+            tEffect.sprite_index=sMMSmokeCloud; tEffect.image_speed=0.5*gDeltaTime; tEffect.ySpd=(-1-(i*0.5))*gDeltaTime
             tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0
           }
         }
@@ -97,10 +96,10 @@ if global.gamePaused=false
           bBill.bActive=true
           bBill.bVert=bVert
           bBill.image_angle=90
-          if yOffset<0 {bBill.bulletSpeed=-7.5}
+          if yOffset<0 {bBill.bulletSpeed=-7.5*gDeltaTime}
           else
           {
-            bBill.bulletSpeed=7.5
+            bBill.bulletSpeed=7.5*gDeltaTime
             bBill.image_xscale=-1
           }
           shotTime=0

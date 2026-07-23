@@ -28,11 +28,11 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if global.gamePaused=false && gDeltaDoTicks
+if global.gamePaused=false
 {
   if bWarn=0
   {
-    warnTime-=1
+    warnTime-=1*gDeltaTime
     if warnTime<=0
     {
       if type=0
@@ -41,7 +41,7 @@ if global.gamePaused=false && gDeltaDoTicks
         var tFlash;
         tFlash=instance_create(0,0,oScreenFlash)
         tFlash.image_alpha=0.18
-        tFlash.fadeSpeed=0.03
+        tFlash.fadeSpeed=0.03*gDeltaTime
       }
       depth=25
       sprite_index=sCackLightning
@@ -53,7 +53,7 @@ if global.gamePaused=false && gDeltaDoTicks
   }
   else
   {
-    if oGame.time mod 3=0
+    if current_frame mod (3/gDeltaTime)=0
     {
       if image_blend=c_white
         image_blend=c_blue
@@ -61,7 +61,7 @@ if global.gamePaused=false && gDeltaDoTicks
         image_blend=c_white
     }
 
-    decay-=1
+    decay-=1*gDeltaTime
     if decay<=0
       instance_destroy()
   }

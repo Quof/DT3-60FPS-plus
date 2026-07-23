@@ -13,14 +13,14 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-virusFrm+=0.2*gDeltaTime
+virusFrm+=0.2
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
 action_id=603
 applies_to=self
 */
-moveWave+=pi/20*gDeltaTime
+moveWave+=pi/20
 if image_xscale>1
 {
   for(i=0;i<image_xscale*2;i+=1)

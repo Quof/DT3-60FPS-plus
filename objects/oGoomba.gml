@@ -21,7 +21,9 @@ baseItemChance=50
 affiliation=1
 dieEffect=0
 initDir=0
-runAcc=1
+runAcc=1*gDeltaTime
+xRemainder=0
+yRemainder=0
 
 deathAnim=0
 
@@ -34,7 +36,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if global.gamePaused=false && gDeltaDoTicks != 0
+if global.gamePaused=false
 {
   makeEnemyActive(0)
   if bActive=true and stunnedTime=0 and life>0
@@ -46,12 +48,13 @@ if global.gamePaused=false && gDeltaDoTicks != 0
         xVel*=-1
       initDir=1
     }
-    yVel+=0.2
+    yVel+=0.2*gDeltaTime*gDeltaTime
+
     if isCollisionBottom(1)
       yVel=0
-    if isCollisionLeft(1)
+    if isCollisionLeftEdit(1)
       xVel*=-1
-    if isCollisionRight(1)
+    if isCollisionRightEdit(1)
       xVel*=-1
     if isCollisionSolid()
       y-=2
@@ -59,7 +62,20 @@ if global.gamePaused=false && gDeltaDoTicks != 0
       image_xscale=1
     else
       image_xscale=-1
+
+
+    /*xRemainder+=xVel
+    xMove=round(xRemainder)
+    xRemainder-=xMove
+
+    yRemainder+=yVel
+    yMove=round(yRemainder)
+    yRemainder-=yMove*/
+
     moveTo(xVel,yVel)
+
+
+
     if y>room_height+24
     {
       if questType>0
@@ -93,10 +109,8 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-magicInterpDrawStart()
 if life>0 {event_inherited()}
 else
 {
   if bJumpedOn=1 {draw_sprite_part(sprite_index,2,0,0,16,4,x-6,y-4)}
 }
-magicInterpDrawEnd()

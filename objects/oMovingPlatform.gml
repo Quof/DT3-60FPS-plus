@@ -108,7 +108,6 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-magicInterpDrawStart()
 findTargetX=point_distance(oPlayer1.x,0,x,0)
 findTargetY=point_distance(0,oPlayer1.y,0,y)
 if findTargetX<drawRangeX and findTargetY<drawRangeY
@@ -215,4 +214,3 @@ if findTargetX<drawRangeX and findTargetY<drawRangeY
     draw_sprite_ext(sMovingPlatform2,image_index,x+16,y,1,1,270,image_blend,image_alpha)
   }
 }
-magicInterpDrawEnd()

@@ -4,7 +4,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-image_speed=0.33
+image_speed=0.33*gDeltaTime
 decay=150
 bounceAmt=1
 alarm[0]=1
@@ -24,9 +24,9 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  speed=moveSpd
+  speed=moveSpd*gDeltaTime
 
-  decay-=1
+  decay-=1*gDeltaTime
   if decay<=0
     instance_destroy()
 }

@@ -18,7 +18,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if global.gamePaused=false && gDeltaDoTicks != 0
+if global.gamePaused=false
 {
   speed=bulletSpeed
   image_angle=direction
@@ -56,11 +56,9 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-magicInterpDrawStart()
 if sprite_index=sMB_Turret
 {
   draw_sprite_ext(sprite_index,image_index,x,y,1.5,1.5,image_angle,c_teal,0.33)
   draw_sprite_ext(sprite_index,image_index,x,y,1.25,1.25,image_angle,c_teal,0.66)
 }
 draw_self()
-magicInterpDrawEnd()

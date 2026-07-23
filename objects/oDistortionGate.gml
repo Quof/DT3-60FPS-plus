@@ -81,7 +81,7 @@ if global.gamePaused=false
 
     transition_steps=20
     transition_kind=21
-    room_goto_fixed(toRoom)
+    room_goto(toRoom)
   }
 }
 #define Draw_0

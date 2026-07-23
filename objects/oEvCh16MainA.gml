@@ -454,7 +454,7 @@ if global.gameProgress=3920 and room=rCCity_NA_S1 //----- [6] The facility below
     if global.activeCharacter=0 {oPlayer1.x=charJerry.x; oPlayer1.y=charJerry.y}
     else if global.activeCharacter=1 {oPlayer1.x=charClaire.x; oPlayer1.y=charClaire.y}
     tile_layer_delete(999999)
-    with (GID(134496)) {instance_destroy()}
+    with (134496) {instance_destroy()}
     with oMisc {instance_destroy()}
     sceneDelay=0
     sceneProgress=0

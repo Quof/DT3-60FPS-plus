@@ -10,7 +10,7 @@ image_speed=0.1
 //Enemy base statistics
 eName="Big Monster Bat"
 eLevel=14
-maxLife=270
+maxLife=300
 life=maxLife
 pointWorth=20
 atkPower=5

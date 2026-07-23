@@ -35,12 +35,12 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if global.gamePaused=false && gDeltaDoTicks
+if global.gamePaused=false
 {
   makeEnemyActive(1)
   if bActive=true
   {
-    fallingProgress+=1
+    fallingProgress+=1*gDeltaTime
     if fallingProgress=1
       x+=1
     else if fallingProgress>=2 and fallingProgress<=30
@@ -54,7 +54,7 @@ if global.gamePaused=false && gDeltaDoTicks
     else if fallingProgress=31
       x=xstart
     else if fallingProgress>=32
-      y+=fallSpeed
+      y+=fallSpeed*gDeltaTime
   }
   if y>room_height+24
     instance_destroy()

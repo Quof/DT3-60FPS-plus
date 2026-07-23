@@ -15,7 +15,6 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if gDeltaDoTicks != 1 { exit; }
 for(i=1;i<=14;i+=1)
 {
   if kCode[i]

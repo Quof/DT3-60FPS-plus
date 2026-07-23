@@ -25,7 +25,7 @@ resType[5]=4
 baseItemChance=50
 baseDropIndex=90
 affiliation=1
-runAcc=0.5
+runAcc=0.5*gDeltaTime
 
 throwTime=35
 throwDelay=65
@@ -102,7 +102,6 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if gDeltaDoTicks != 1 { exit; }
 if global.gamePaused=false
 {
   makeEnemyActive(0)
@@ -133,7 +132,7 @@ if global.gamePaused=false
     }
 
     //---------- Fire time ----------
-    throwTime+=1
+    throwTime+=1*gDeltaTime
     if throwTime>=throwDelay
     {
       if throwTime=throwDelay //Init fire
@@ -144,8 +143,8 @@ if global.gamePaused=false
       }
       else if throwTime>=throwDelay+1 and throwTime<=throwDelay+500
       {
-        animSpd=0.333
-        if bEnraged=1 {animSpd=0.666}
+        animSpd=0.33*gDeltaTime
+        if bEnraged=1 {animSpd=0.66}
 
         if image_index>=6 //On fire frame
         {
@@ -158,10 +157,10 @@ if global.gamePaused=false
           if tXshift<0
           {
             tNewAttack.image_xscale=-1
-            tNewAttack.xVel=-6.5
+            tNewAttack.xVel=-6.5*gDeltaTime
           }
           else
-            tNewAttack.xVel=6.5
+            tNewAttack.xVel=6.5*gDeltaTime
           tNewAttack.atkPower=atkPower
 
           //Fire spam
@@ -194,12 +193,12 @@ if global.gamePaused=false
       else if throwTime>=throwDelay+608 //End attack
       {
         throwTime=0
-        sprite_index=sFireBroWalk
-        animSpd=0.1
+        //sprite_index=sFireBroWalk
+        animSpd=0.1*gDeltaTime
       }
     }
 
-    yVel+=0.2
+    yVel+=0.2*gDeltaTime*gDeltaTime
     if isCollisionBottom(1)
       yVel=0
     if isCollisionLeft(1)
@@ -221,7 +220,4 @@ if global.gamePaused=false
 }
 else
   animSpd=0
-
-//image_speed=animSpd
-image_speed = 0
-image_index += animSpd
+image_speed=animSpd

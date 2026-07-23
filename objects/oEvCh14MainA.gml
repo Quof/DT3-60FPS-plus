@@ -175,7 +175,7 @@ else if global.gameProgress=3100 and room=rMain_56 //----- [3] You must find the
       global.gamePaused=true
       stopAllMusic()
       oPlayer1.x=752; oPlayer1.y=160
-      (GID(308182)).image_xscale=-1; (GID(308183)).image_xscale=-1
+      (308182).image_xscale=-1; (308183).image_xscale=-1
     }
     else if sceneDelay>=35
     {
@@ -480,8 +480,8 @@ else if global.gameProgress=3190 and room=rNGC_RB_EleA //----- [8] Elevator ride
           tEffect.newBlend=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
         }
         tile_layer_hide(999998)
-        with (GID(311614)) {instance_destroy()}
-        with (GID(311615)) {instance_destroy()}
+        with (311614) {instance_destroy()}
+        with (311615) {instance_destroy()}
         with (oExit) {instance_destroy()}
         background_vspeed[0]=-2; background_vspeed[1]=-2.25; background_vspeed[2]=-2.25
         scenePChk(oPlayer1.x,196,0,0.1,1)
@@ -553,7 +553,7 @@ else if global.gameProgress=3190 and room=rNGC_RB_EleA //----- [8] Elevator ride
       oPlayer1.life=oPlayer1.maxLife
       global.newMapX=128
       global.newMapY=288
-      room_goto_fixed(rNGC_LC_A)
+      room_goto(rNGC_LC_A)
     }
   }
 }
@@ -725,7 +725,7 @@ else if global.gameProgress=3230 and room=rNGC_LC_C //----- [Unskippable] Jeremy
     playSound(global.snd_HardHit1,0,1,1)
     playSound(global.snd_Slam,0,1,1)
     rmLight=instance_create(0,0,oSurfLightC)
-    with (GID(312590)) {instance_destroy()}
+    with (312590) {instance_destroy()}
     global.activeAbility[0]=0; global.activeAbility[1]=0
     global.hasShoes[2]=1; global.hasShoes[3]=1
     for(i=0;i<5;i+=1) {global.hasAbilToken[i]=1}
@@ -1025,8 +1025,8 @@ else if global.gameProgress=3260 and room=rNGC_LC_F //----- [12] Boss: Malevolen
       tEffect.sprite_index=sShipExplosion; tEffect.image_speed=0.25
       tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=-0.5-random(1)
       tile_layer_hide(999990)
-      with (GID(314507)) {instance_destroy()} //Destroy wall
-      with (GID(314799)) {x-=16} //Move right side exit into view
+      with (314507) {instance_destroy()} //Destroy wall
+      with (314799) {x-=16} //Move right side exit into view
       oHealingPost.y-=128
       global.gamePaused=false
       global.currentBoss=""
@@ -1247,7 +1247,7 @@ else if global.gameProgress=3290 and room=rNGC_LC_H //----- [13] Finding the Eng
     tFlash=instance_create(0,0,oScreenFlash)
     tFlash.image_alpha=0.5 tFlash.fadeSpeed=0.1
     with charClaire {instance_destroy()}
-    (GID(315034)).y+=80
+    (315034).y+=80
     sceneDelay=0; sceneProgress=0
     global.gameProgress=3300
     global.gamePaused=false
@@ -1385,7 +1385,7 @@ else if global.gameProgress=3320 and room=rNGC_Elevator //----- [] Elevator ride
       oPlayer1.life=oPlayer1.maxLife
       global.newMapX=96
       global.newMapY=224
-      room_goto_fixed(rNGC_RB_BR)
+      room_goto(rNGC_RB_BR)
     }
   }
 }
@@ -1552,7 +1552,7 @@ else if global.gameProgress=3340 and room=rNGC_BR_B //----- [Unskippable] Gettin
         oPlayer1.life=oPlayer1.maxLife
         global.newMapX=128
         global.newMapY=320
-        room_goto_fixed(rNGC_RoadRage)
+        room_goto(rNGC_RoadRage)
       }
     }
   }
@@ -1571,8 +1571,8 @@ else if global.gameProgress=3360 and room=rMain_56 //----- [16] The Engineer is 
       stopAllMusic()
       oNPC_John.image_alpha=0; oNPC_John.x=640; oNPC_John.y=208; oNPC_John.image_xscale=-1
       oPlayer1.sprite_index=sJerryLayDown; oPlayer1.image_speed=0;
-      (GID(308182)).image_xscale=-1; (GID(308182)).x=560; (GID(308182)).y=224;
-      (GID(308183)).image_xscale=-1; (GID(308183)).x=592; (GID(308183)).y=224;
+      (308182).image_xscale=-1; (308182).x=560; (308182).y=224;
+      (308183).image_xscale=-1; (308183).x=592; (308183).y=224;
     }
     else if sceneDelay>=35
     {
@@ -1604,11 +1604,11 @@ else if global.gameProgress=3360 and room=rMain_56 //----- [16] The Engineer is 
   {
     sceneDelay+=1
     if sceneDelay>=21 and sceneDelay<=30 {oNPC_John.image_alpha+=0.1}
-    else if sceneDelay=50 {(GID(308182)).image_xscale=1; (GID(308183)).image_xscale=1}
+    else if sceneDelay=50 {(308182).image_xscale=1; (308183).image_xscale=1}
     else if sceneDelay=55
     {
-      showEmote((GID(308182)).id,0,-26,sEmExcite)
-      showEmote((GID(308183)).id,0,-26,sEmExcite)
+      showEmote((308182).id,0,-26,sEmExcite)
+      showEmote((308183).id,0,-26,sEmExcite)
     }
     else if sceneDelay>=75 {sceneDelay=0; sceneProgress+=1}
   }
@@ -1625,7 +1625,7 @@ else if global.gameProgress=3360 and room=rMain_56 //----- [16] The Engineer is 
   else if sceneProgress=13
   {
     sceneDelay+=1
-    if sceneDelay=20 {(GID(308182)).image_xscale=-1; (GID(308183)).image_xscale=-1}
+    if sceneDelay=20 {(308182).image_xscale=-1; (308183).image_xscale=-1}
     else if sceneDelay>=40 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=14 and bWaitForInput=false
@@ -1760,7 +1760,7 @@ else if global.gameProgress=3390 and room=rMain_56Gate //----- [Unskippable] Acc
     stopAllMusic()
     transition_steps=1
     transition_kind=0
-    room_goto_fixed(rGame6_WhisperWoodsA)
+    room_goto(rGame6_WhisperWoodsA)
   }
 }
 

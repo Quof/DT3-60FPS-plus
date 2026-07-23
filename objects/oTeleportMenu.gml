@@ -101,7 +101,6 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if gDeltaDoTicks != 1 { exit; }
 if oKeyCodes.kCodePressed[1]=1 //Back
 {
   playSound(global.snd_MenuCursor,0,1,1)
@@ -372,7 +371,7 @@ if oKeyCodes.kCodePressed[5]=1
     writeToPlayerGlobals()
     transition_steps=15
     transition_kind=21
-    room_goto_fixed(toRoom)
+    room_goto(toRoom)
   }
 }
 else if oKeyCodes.kCodePressed[6]=1

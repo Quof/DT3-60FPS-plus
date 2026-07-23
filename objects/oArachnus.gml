@@ -326,11 +326,11 @@ if global.gamePaused=false
     if bLavaRise=2
     {
       stepCount+=pi/33
-      (GID(288153)).y+=sin(stepCount)*1.9
+      (288153).y+=sin(stepCount)*1.9
     }
     else
     {
-      if (GID(288153)).y<290 {(GID(288153)).y+=2}
+      if (288153).y<290 {(288153).y+=2}
     }
     
     //---------- Boss Difficulty Curve ----------

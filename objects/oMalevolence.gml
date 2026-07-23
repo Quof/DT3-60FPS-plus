@@ -322,8 +322,8 @@ if global.gamePaused=false
       lightningFreq-=6
       lightningLength+=9
       firePillar+=1
-      (GID(314511)).image_xscale-=0.05; (GID(314511)).image_yscale-=0.1
-      (GID(314512)).image_xscale-=0.05; (GID(314512)).image_yscale-=0.1
+      (314511).image_xscale-=0.05; (314511).image_yscale-=0.1
+      (314512).image_xscale-=0.05; (314512).image_yscale-=0.1
       bossProgress+=1
     }
     else if lifePercent<=0.6 and lifePercent>=0.51 and bossProgress=1
@@ -334,8 +334,8 @@ if global.gamePaused=false
       lightningFreq-=6
       lightningLength+=9
       firePillar+=1
-      (GID(314511)).image_xscale-=0.05; (GID(314511)).image_yscale-=0.2
-      (GID(314512)).image_xscale-=0.05; (GID(314512)).image_yscale-=0.2
+      (314511).image_xscale-=0.05; (314511).image_yscale-=0.2
+      (314512).image_xscale-=0.05; (314512).image_yscale-=0.2
       bossProgress+=1
     }
     else if lifePercent<=0.5 and lifePercent>=0.38 and bossProgress=2
@@ -355,8 +355,8 @@ if global.gamePaused=false
       lightningFreq-=6
       lightningLength+=8
       firePillar+=1
-      (GID(314511)).image_xscale-=0.1; (GID(314511)).image_yscale-=0.2
-      (GID(314512)).image_xscale-=0.1; (GID(314512)).image_yscale-=0.2
+      (314511).image_xscale-=0.1; (314511).image_yscale-=0.2
+      (314512).image_xscale-=0.1; (314512).image_yscale-=0.2
       bossProgress+=1
     }
     else if lifePercent<=0.19 and lifePercent>=0 and bossProgress=4
@@ -366,8 +366,8 @@ if global.gamePaused=false
       lightningDelay-=25
       lightningFreq-=5
       lightningLength+=8
-      (GID(314511)).image_xscale-=0.2; (GID(314511)).image_yscale-=0.3
-      (GID(314512)).image_xscale-=0.2; (GID(314512)).image_yscale-=0.3
+      (314511).image_xscale-=0.2; (314511).image_yscale-=0.3
+      (314512).image_xscale-=0.2; (314512).image_yscale-=0.3
       bossProgress+=1
     }
   }

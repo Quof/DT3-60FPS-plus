@@ -515,9 +515,9 @@ if global.gamePaused=false
   {
     if platformCheck=0
     {
-      if (GID(342292)).x>=1904
+      if (342292).x>=1904
       {
-        with (GID(342292))
+        with (342292)
         {
           if checkScreenArea(x,y,64)=1 {playSound(global.snd_BombExplode,0,0.98,1)}
           tEffect=instance_create(x+32,y+8,oEffect)

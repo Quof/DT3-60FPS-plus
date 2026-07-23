@@ -852,7 +852,7 @@ else if room=rSF_I
     }
     else if sceneProgress=11 //World Rip 10 - 11 (Key 1)
     {
-      if !instance_exists((GID(419826)))
+      if !instance_exists((419826))
       {
         for(i=0;i<2;i+=1) {instance_create(176,176+(i*64),oSF_Tile4)}
         for(i=0;i<4;i+=1) {instance_create(1520+(i*64),1056,oSF_Tile4)}
@@ -912,7 +912,7 @@ else if room=rSF_I
     }
     else if sceneProgress=16 //(Key 2)
     {
-      if !instance_exists((GID(419469)))
+      if !instance_exists((419469))
       {
         for(i=0;i<2;i+=1)
         {
@@ -982,7 +982,7 @@ else if room=rSF_I
     }
     else if sceneProgress=23 //(Key 3)
     {
-      if !instance_exists((GID(419645)))
+      if !instance_exists((419645))
       {
         var tRedSpike;
         tRedSpike=instance_create(1248,1328,oStaticSpikeRed); tRedSpike.image_xscale=3; tRedSpike.image_yscale=3

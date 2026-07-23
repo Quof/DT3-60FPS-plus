@@ -297,48 +297,48 @@ if choiceMade>=1 //After choice is made
     {
       if maverick[0]="9"
       {
-        global.newMapX=80; global.newMapY=192; room_goto_fixed(rMega4_StormA)
+        global.newMapX=80; global.newMapY=192; room_goto(rMega4_StormA)
       }
-      else {room_goto_fixed(rMega4_StageIntro)}
+      else {room_goto(rMega4_StageIntro)}
     }
     else if global.newMapX=2
     {
       if maverick[1]="9"
       {
-        global.newMapX=128; global.newMapY=160; room_goto_fixed(rMega4_OstrichA)
+        global.newMapX=128; global.newMapY=160; room_goto(rMega4_OstrichA)
       }
-      else {room_goto_fixed(rMega4_StageIntro)}
+      else {room_goto(rMega4_StageIntro)}
     }
     else if global.newMapX=3
     {
       if maverick[2]="9"
       {
-        global.newMapX=80; global.newMapY=272; room_goto_fixed(rMega4_ToxicJungleA)
+        global.newMapX=80; global.newMapY=272; room_goto(rMega4_ToxicJungleA)
       }
-      else {room_goto_fixed(rMega4_StageIntro)}
+      else {room_goto(rMega4_StageIntro)}
     }
     else if global.newMapX=4
     {
       if global.gameProgress<=1890 {global.gamePaused=true; global.tempAction[0]=4}
-      global.newMapX=80; global.newMapY=592; room_goto_fixed(rMega4_SigmaA1)
+      global.newMapX=80; global.newMapY=592; room_goto(rMega4_SigmaA1)
     }
     else if global.newMapX=5
     {
       if global.gameProgress<=1940 {global.gamePaused=true; global.tempAction[0]=5}
-      global.newMapX=80; global.newMapY=640; room_goto_fixed(rMega4_SigmaB1)
+      global.newMapX=80; global.newMapY=640; room_goto(rMega4_SigmaB1)
     }
     else if global.newMapX=6
     {
       if global.gameProgress<=1980 {global.gamePaused=true; global.tempAction[0]=6}
-      global.newMapX=96; global.newMapY=304; room_goto_fixed(rMega4_SigmaC1)
+      global.newMapX=96; global.newMapY=304; room_goto(rMega4_SigmaC1)
     }
     else if global.newMapX=7
     {
-      global.newMapX=208; global.newMapY=304; room_goto_fixed(rMega4_Gate)
+      global.newMapX=208; global.newMapY=304; room_goto(rMega4_Gate)
     }
     else if global.newMapX=8
     {
-      global.newMapX=160; global.newMapY=312; room_goto_fixed(rMega4_Shop)
+      global.newMapX=160; global.newMapY=312; room_goto(rMega4_Shop)
     }
   }
 }

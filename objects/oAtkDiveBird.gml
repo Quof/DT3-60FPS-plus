@@ -9,7 +9,7 @@ event_inherited()
 damageType="NORMAL"
 weaponTag=100
 atkPower=50
-bulletSpeed=14
+bulletSpeed=14*gDeltaTime
 stunTime=1
 bCanPierce=1
 #define Step_0

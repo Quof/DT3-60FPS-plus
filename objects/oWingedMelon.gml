@@ -30,7 +30,6 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if gDeltaDoTicks != 1 { exit; }
 if global.gamePaused=false
 {
   if bActive=0 {makeEnemyActive(0)}

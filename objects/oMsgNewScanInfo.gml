@@ -20,7 +20,7 @@ if instance_exists(myTarget)
   if image_alpha=0.8 {image_alpha=0.6}
   else {image_alpha=0.8}
 
-  decayTime-=1*gDeltaTime
+  decayTime-=1
   if decayTime<=0 {instance_destroy()}
 }
 else {instance_destroy()}

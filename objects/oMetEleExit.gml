@@ -64,5 +64,5 @@ else if moveProg=3 //Transition
   writeToPlayerGlobals()
   transition_steps=10
   transition_kind=21
-  room_goto_fixed(toRoom)
+  room_goto(toRoom)
 }

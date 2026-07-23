@@ -453,7 +453,7 @@ else if global.gameProgress=5550 and room=rAbomF //----- [3] Boss Fight: Virus P
       global.currentBoss=""
       global.bossTrack=0
       global.gameProgress=5560
-      room_goto_fixed(rAbomCutA)
+      room_goto(rAbomCutA)
     }
   }
 }
@@ -490,7 +490,7 @@ else if global.gameProgress=5560 and room=rAbomCutA //----- [4] Abomination dest
   {
     global.newMapX=176
     global.newMapY=304
-    room_goto_fixed(rCh21_WastelandA)
+    room_goto(rCh21_WastelandA)
   }
 }
 else if global.gameProgress=5560 and room=rCh21_WastelandA //----- [] The wasteland -----
@@ -992,7 +992,7 @@ else if room=rDistFinal_Round2 //----- [9] Hexor asks Jeremy how he took the shi
     global.jeremySuperEnergy=1500
     global.hasShoes[2]=1
     transition_steps=1; transition_kind=21
-    room_goto_fixed(rDistFinal_Round3)
+    room_goto(rDistFinal_Round3)
   }
 }
 else if room=rDistFinal_Round3 //----- [10] Jeremy gets bigger -----
@@ -1009,18 +1009,18 @@ else if room=rDistFinal_Round3 //----- [10] Jeremy gets bigger -----
     sceneDelay+=1
     if sceneDelay=20
     {
-      (GID(467397)).image_xscale=0;
-      (GID(467397)).image_yscale=0;
+      (467397).image_xscale=0;
+      (467397).image_yscale=0;
     }
     else if sceneDelay>=21 and sceneDelay<=70
     {
-      (GID(467397)).image_xscale+=0.02;
-      (GID(467397)).image_yscale+=0.02;
+      (467397).image_xscale+=0.02;
+      (467397).image_yscale+=0.02;
     }
     else if sceneDelay=71
     {
       oPlayer1.visible=1
-      with (GID(467397)) {instance_destroy()}
+      with (467397) {instance_destroy()}
     }
     else if sceneDelay>=90 {sceneDelay=0; sceneProgress+=1}
   }
@@ -1031,12 +1031,12 @@ else if room=rDistFinal_Round3 //----- [10] Jeremy gets bigger -----
     sceneDelay+=1
     if sceneDelay>=1
     {
-      (GID(467396)).x+=6;
+      (467396).x+=6;
     }
     
     if sceneDelay>=60
     {
-      with (GID(467396)) {instance_destroy()}
+      with (467396) {instance_destroy()}
       sceneDelay=0; sceneProgress+=1
     }
   }
@@ -1122,7 +1122,7 @@ else if room=rDistFinal_Round3 //----- [10] Jeremy gets bigger -----
     fadeAlpha+=0.1
     if fadeAlpha>=1
     {
-      room_goto_fixed(rTrueEnd_A)
+      room_goto(rTrueEnd_A)
     }
   }
 }

@@ -27,14 +27,14 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-sX-=12*gDeltaTime
-sY-=12*gDeltaTime
-sW+=24*gDeltaTime
-sH+=24*gDeltaTime
-image_alpha-=0.01*gDeltaTime
-cR-=12*gDeltaTime
-cG-=0*gDeltaTime
-cB-=0*gDeltaTime
+sX-=12
+sY-=12
+sW+=24
+sH+=24
+image_alpha-=0.01
+cR-=12
+cG-=0
+cB-=0
 if image_alpha<=0
 {
   if surface_exists(screenCap) {surface_free(screenCap)}

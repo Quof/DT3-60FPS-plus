@@ -377,25 +377,25 @@ if global.gamePaused=false
           tEffect.sprite_index=sMMSmokeCloud; tEffect.image_speed=0.25+random(0.25); tEffect.image_alpha=0.6; tEffect.depth=4
           tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=-0.25-random(2)
         }
-        with (GID(295914)) {instance_destroy()}
-        with (GID(295915)) {instance_destroy()}
+        with (295914) {instance_destroy()}
+        with (295915) {instance_destroy()}
         tile_layer_delete(11)
       }
       else if atkTime>=131 and atkTime<=999 //Change room
       {
         tile_layer_shift(9,0,2)
-        (GID(295787)).y+=2
+        (295787).y+=2
         for(i=0;i<16;i+=1)
         {
-          tEffect=instance_create((GID(295787)).x+random(576),(GID(295787)).y+random(4),oEffect)
+          tEffect=instance_create((295787).x+random(576),(295787).y+random(4),oEffect)
           tEffect.sprite_index=sMMSmokeCloud; tEffect.image_speed=0.25+random(0.25); tEffect.image_alpha=0.6; tEffect.depth=4
           tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=-0.25-random(2)
         }
-        if (GID(295787)).y>=room_height+8 {atkTime=1000}
+        if (295787).y>=room_height+8 {atkTime=1000}
       }
       else if atkTime=1001 //Hex taunts
       {
-        with (GID(295787)) {instance_destroy()}
+        with (295787) {instance_destroy()}
         tile_layer_delete(9)
         msgCreate(0,0,"Hex","You don't think I was putting everything on just that armor do you?",0,1,oMessagePerson,0)
         newMessage.fadingTime=90

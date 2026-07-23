@@ -505,7 +505,7 @@ applies_to=self
 */
 if skipGameOver=2 //Skip Game Over
 {
-  backAlpha+=0.1
+  backAlpha+=0.1*gDeltaTime
   if backAlpha>=1
   {
     if GOMenuMin=1 {event_user(3)}
@@ -572,7 +572,7 @@ else //Normal
     event_user(2)
     if confirmationMenu=0
     {
-      if oKeyCodesHighFPS.kCodePressed[4]=1 //Down
+      if oKeyCodes.kCodePressed[4]=1 //Down
       {
         playSound(global.snd_MenuCursor,0,1,1)
         if GOCursorPos=GOMenuMax
@@ -602,7 +602,7 @@ else //Normal
           GOCursorY+=GOCursorInc
         }
       }
-      if oKeyCodesHighFPS.kCodePressed[3]=1 //Up
+      if oKeyCodes.kCodePressed[3]=1 //Up
       {
         playSound(global.snd_MenuCursor,0,1,1)
         if GOCursorPos=GOMenuMin
@@ -622,7 +622,7 @@ else //Normal
           GOCursorY-=GOCursorInc
         }
       }
-      if oKeyCodesHighFPS.kCodePressed[5]=1 //Confirm
+      if oKeyCodes.kCodePressed[5]=1 //Confirm
       {
         resetKeyCodes()
         if GOCursorPos=1 //Retry Boss Fight / Encounter

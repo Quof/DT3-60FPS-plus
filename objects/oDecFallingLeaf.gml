@@ -4,9 +4,9 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-hspeed=random_range(-1,1)*gDeltaTime
-vspeed=random_range(1,2)*gDeltaTime
-image_speed=0.2*gDeltaTime+(vspeed/10)
+hspeed=random_range(-1,1)
+vspeed=random_range(1,2)
+image_speed=0.2+(vspeed/10)
 if hspeed<0
   image_xscale=-1
 #define Step_0

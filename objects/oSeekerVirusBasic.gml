@@ -42,7 +42,7 @@ if global.gamePaused=false
 {
   if bActive=true and stunnedTime=0
   {
-    speed=moveSpd
+    speed=moveSpd*gDeltaTime
   }
 
   if x<-256 or x>room_width+256 or y<-256 or y>room_height+256
@@ -63,7 +63,7 @@ if hitOneTime=0
     if oEvCh1MainA.checkMinigameHit=0 and type=9
     {
       msgCreate(64,296,"Jeremy","Jerry, even though you can't move. You CAN still duck.",0,1,oMessagePerson,0)
-      newMessage.fadingTime=130
+      newMessage.fadingTime=130/gDeltaTime
       oEvCh1MainA.checkMinigameHit=1
     }
   }

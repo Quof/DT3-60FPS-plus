@@ -27,7 +27,7 @@ affiliation=1
 bGenEnemy=1
 
 initDir=0
-runAcc=1
+runAcc=1*gDeltaTime
 
 jeremyText="Just an annoyance. Unless you have Star Power, you can't fight it. Just avoid these the best you can."
 chaoText="Aww, Spinys are cute too! I bet they're just misunderstood. They probably don't want to hurt Mario, they're just percieved that way and are unfairly thrown everywhere by Lakitus."
@@ -38,7 +38,6 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if gDeltaDoTicks != 1 { exit; }
 if global.gamePaused=false
 {
   makeEnemyActive(0)
@@ -47,9 +46,9 @@ if global.gamePaused=false
     if sprite_index=sSpinyBeetleBall
     {
       if xVel>0
-        image_angle-=8
+        image_angle-=8*gDeltaTime
       else
-        image_angle+=8
+        image_angle+=8*gDeltaTime
     }
     else
     {
@@ -63,7 +62,7 @@ if global.gamePaused=false
       }
     }
 
-    yVel+=0.2
+    yVel+=0.2*gDeltaTime*gDeltaTime
     if isCollisionBottom(1)
     {
       yVel=0
@@ -99,12 +98,3 @@ if global.gamePaused=false
     instance_destroy()
   enemyStepEvent()
 }
-#define Draw_0
-/*"/*'/**//* YYD ACTION
-lib_id=1
-action_id=603
-applies_to=self
-*/
-magicInterpDrawStart()
-event_inherited()
-magicInterpDrawEnd()

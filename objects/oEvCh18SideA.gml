@@ -72,13 +72,13 @@ if global.gamePaused=false
         convo[0]+=1
         if convo[0]=90
         {
-          (GID(363322)).sprite_index=sWarmasterA_Run;
-          (GID(363322)).image_speed=0.4; (GID(363322)).image_xscale=-1.25;
+          (363322).sprite_index=sWarmasterA_Run;
+          (363322).image_speed=0.4; (363322).image_xscale=-1.25;
         }
-        else if convo[0]>=91 and convo[0]<=106 {(GID(363322)).x-=6}
+        else if convo[0]>=91 and convo[0]<=106 {(363322).x-=6}
         else if convo[0]>=107
         {
-          (GID(363322)).sprite_index=sWarmasterA_Idle; (GID(363322)).image_speed=0.15;
+          (363322).sprite_index=sWarmasterA_Idle; (363322).image_speed=0.15;
           charDialogue[0]+=1; convo[0]=0
         }
       }
@@ -87,7 +87,7 @@ if global.gamePaused=false
         msgCreate(0,0,"Hex","One more thing, Warmaster.",0,2,oMessagePerson,0)
         newMessage.fadingTime=80; charDialogue[0]+=1
       }
-      else if charDialogue[0]=15 {convo[0]+=1;if convo[0]>=80 {(GID(363322)).image_xscale=1.25; charDialogue[0]+=1; convo[0]=0}}
+      else if charDialogue[0]=15 {convo[0]+=1;if convo[0]>=80 {(363322).image_xscale=1.25; charDialogue[0]+=1; convo[0]=0}}
       else if charDialogue[0]=16
       {
         msgCreate(0,0,"Warmaster","What is it?",6,2,oMessagePerson,0)
@@ -104,19 +104,19 @@ if global.gamePaused=false
         convo[0]+=1
         if convo[0]=80
         {
-          (GID(363322)).sprite_index=sWarmasterA_Run;
-          (GID(363322)).image_speed=0.4; (GID(363322)).image_xscale=-1.25;
+          (363322).sprite_index=sWarmasterA_Run;
+          (363322).image_speed=0.4; (363322).image_xscale=-1.25;
         }
-        else if convo[0]>=81 and convo[0]<=106 {(GID(363322)).x-=6}
+        else if convo[0]>=81 and convo[0]<=106 {(363322).x-=6}
 
         if convo[0]>=101 and convo[0]<=120
         {
-          (GID(363323)).image_alpha-=0.05
+          (363323).image_alpha-=0.05
         }
         else if convo[0]>=121
         {
-          with (GID(363322)) {instance_destroy()}
-          with (GID(363323)) {instance_destroy()}
+          with (363322) {instance_destroy()}
+          with (363323) {instance_destroy()}
           charDialogue[0]+=1; convo[0]=0
         }
       }

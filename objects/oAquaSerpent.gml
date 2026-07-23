@@ -591,11 +591,11 @@ if global.gamePaused=false
           tEffect.image_xscale=1.5; tEffect.image_yscale=1.5
           tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
         }
-        (GID(159052)).yVel=1
+        (159052).yVel=1
         floorSeq=3
       }
       tile_layer_shift(999999,0,1)
-      if !instance_exists((GID(159052)))
+      if !instance_exists((159052))
       {
         jeremyText="There we go, I've got access again! I've deciphered the extra bits of data on this thing. At this point, as you can see, it has changed its attack patterns. It still cycles through 3 though. The one you need to be cautious about are the 6 water shots from below. Especially when it doubles back with that."
         chaoText="There's more to this than what Jeremy found too. It has access to the water levels. It will most likely start messing with that when it starts to feel threatened."

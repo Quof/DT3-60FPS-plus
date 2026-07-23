@@ -47,11 +47,10 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if gDeltaDoTicks != 1 { exit; }
 if global.gamePaused=false
 {
-  yVel+=0.2
-  if yVel>yVelLimit {yVel=yVelLimit}
+  yVel+=0.2*gDeltaTime*gDeltaTime
+  if yVel>yVelLimit*gDeltaTime {yVel=yVelLimit*gDeltaTime}
 
   if sprite_index!=sMetroidHealthPickup
   {
@@ -66,7 +65,7 @@ if global.gamePaused=false
 
   if room=rWarshipQ
   {
-    decayTime-=1
+    decayTime-=1*gDeltaTime
     if decayTime>=1 and decayTime<=60
     {
       if image_alpha=0.75 {image_alpha=0.5}

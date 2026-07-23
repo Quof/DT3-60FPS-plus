@@ -188,8 +188,8 @@ if global.gamePaused=false
       }
 
       tile_layer_hide(999999)
-      with (GID(209516)) {instance_destroy()}
-      with (GID(209517)) {instance_destroy()}
+      with (209516) {instance_destroy()}
+      with (209517) {instance_destroy()}
       specialAttack=2
     }
     else if specialAttack=2

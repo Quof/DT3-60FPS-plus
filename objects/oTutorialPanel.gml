@@ -27,11 +27,11 @@ applies_to=self
 if initObj=1
 {
   tutorialTime+=1*gDeltaTime
-  if tutorialTime>=1 and tutorialTime<=9
-    image_alpha+=0.1*gDeltaTime
+  if tutorialTime>=1*gDeltaTime and tutorialTime<=9
+    image_alpha+=0.1
   else if tutorialTime>=360
   {
-    image_alpha-=0.1*gDeltaTime
+    image_alpha-=0.1
     if image_alpha=0
       instance_destroy()
   }

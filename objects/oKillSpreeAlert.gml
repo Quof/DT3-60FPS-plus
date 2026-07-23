@@ -13,8 +13,8 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-fadeTime-=1*gDeltaTime
-if fadeTime<=20 {image_alpha-=0.05*gDeltaTime}
+fadeTime-=1
+if fadeTime<=20 {image_alpha-=0.05}
 if fadeTime<=0 {instance_destroy()}
 #define Draw_0
 /*"/*'/**//* YYD ACTION

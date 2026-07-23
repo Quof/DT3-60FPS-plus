@@ -8,7 +8,6 @@ event_inherited()
 makeActive()
 setCollisionBounds(-8,-2,8,-1)
 image_speed=0
-imagespeed=0
 detectDistX=168
 
 //Enemy base statistics
@@ -42,14 +41,14 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if global.gamePaused=false && gDeltaDoTicks
+if global.gamePaused=false
 {
   makeEnemyActive(1)
   if bActive=true and stunnedTime=0
   {
     if initDir=0 //detected
     {
-      imagespeed=0.2
+      image_speed=0.2
       detectDistX=264
       initDir=1
     }
@@ -95,7 +94,7 @@ if global.gamePaused=false && gDeltaDoTicks
         if spinTime>=spinDelay and findTargetX<224
         {
           sprite_index=sMagicalLeafSpin
-          imagespeed=0.5
+          image_speed=0.5
           xVel=0
           y-=2
           yVel=-1.5
@@ -107,7 +106,7 @@ if global.gamePaused=false && gDeltaDoTicks
       {
         if spinTime>=20
         {
-          imagespeed=0.2
+          image_speed=0.2
           if x<oPlayer1.x
             xVel=runAcc*4
           else
@@ -174,5 +173,4 @@ if global.gamePaused=false && gDeltaDoTicks
       instance_destroy()
   }
   enemyStepEvent()
-  image_index += imagespeed
 }

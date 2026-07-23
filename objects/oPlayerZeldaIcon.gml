@@ -35,7 +35,7 @@ action_id=603
 applies_to=self
 */
 //----- Controls -----
-delayMove-=1*gDeltaTime
+delayMove-=1
 if delayMove<=0
 {
   if !instance_exists(oZeldaSaveMenu)
@@ -44,16 +44,16 @@ if delayMove<=0
     if bMoveStep>0
     {
       if bMoveStep=1
-        y-=4*gDeltaTime
+        y-=4
       else if bMoveStep=2
-        y+=4*gDeltaTime
+        y+=4
       else if bMoveStep=3
-        x-=4*gDeltaTime
+        x-=4
       else if bMoveStep=4
-        x+=4*gDeltaTime
+        x+=4
 
-      moveTime+=1*gDeltaTime
-      if moveTime>=4
+      moveTime+=1
+      if moveTime=4
       {
         image_speed=0
         moveTime=0
@@ -89,7 +89,7 @@ if delayMove<=0
     //----- Spawn encounters -----
     if global.gameProgress>=700
     {
-      encTime+=1*gDeltaTime
+      encTime+=1
       if encTime>=encDelay and moveTime=0
       {
         var tTileID,tTileLeft;
@@ -193,10 +193,10 @@ tTileLeft=tile_get_left(tTileID)
 transition_steps=5
 transition_kind=20
 if tTileLeft=0 or tTileLeft=64
-  room_goto_fixed(rLink2_EnRoad)
+  room_goto(rLink2_EnRoad)
 else if tTileLeft=16
-  room_goto_fixed(rLink2_EnGrass)
+  room_goto(rLink2_EnGrass)
 else if tTileLeft=32
-  room_goto_fixed(rLink2_EnDesert)
+  room_goto(rLink2_EnDesert)
 else if tTileLeft=48
-  room_goto_fixed(rLink2_EnForest)
+  room_goto(rLink2_EnForest)

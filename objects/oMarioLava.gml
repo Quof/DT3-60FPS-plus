@@ -41,7 +41,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-lavaFrm+=image_speed
+lavaFrm+=image_speed*gDeltaTime
 for(i=0;i<image_xscale;i+=1)
 {
   draw_sprite_ext(sLava,lavaFrm,x+(i*16),y,1,1,image_angle,image_blend,image_alpha)

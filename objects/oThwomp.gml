@@ -16,7 +16,7 @@ atkPower=6
 affiliation=1
 bCanTakeDamage=false
 bShowHealthBar=false
-atkSpeed=10
+atkSpeed=10*gDeltaTime
 for(i=0;i<6;i+=1)
 {
   resType[i]=1
@@ -38,7 +38,6 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if gDeltaDoTicks != 1 { exit; }
 if global.gamePaused=false
 {
   makeEnemyActive(1)
@@ -76,11 +75,11 @@ if global.gamePaused=false
         playSound(global.snd_ThwompHit,0,1,1)
         var tEffect;
         tEffect=instance_create(x+12,bbox_bottom+2,oEffect)
-        tEffect.sprite_index=sEfThwompHit; tEffect.image_speed=0.5
-        tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=1; tEffect.ySpd=0
+        tEffect.sprite_index=sEfThwompHit; tEffect.image_speed=0.5*gDeltaTime
+        tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=1*gDeltaTime; tEffect.ySpd=0
         tEffect=instance_create(x-12,bbox_bottom+2,oEffect)
-        tEffect.sprite_index=sEfThwompHit; tEffect.image_xscale=-1; tEffect.image_speed=0.5
-        tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=-1; tEffect.ySpd=0
+        tEffect.sprite_index=sEfThwompHit; tEffect.image_xscale=-1; tEffect.image_speed=0.5*gDeltaTime
+        tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=-1*gDeltaTime; tEffect.ySpd=0
         yVel=0
         y+=1
         atkProg+=1
@@ -88,7 +87,7 @@ if global.gamePaused=false
     }
     else if atkProg=2 //Wait
     {
-      atkTime+=1
+      atkTime+=1*gDeltaTime
       if atkTime=25
       {
         image_index=0

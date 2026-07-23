@@ -12,6 +12,7 @@ bShowDamage=false
 bCanTakeDamage=false
 damageType="ELEMENTAL"
 
+
 fireProg=0
 targetY=oPlayer1.y-26
 #define Step_0
@@ -20,13 +21,13 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if global.gamePaused=false && gDeltaDoTicks != 0
+if global.gamePaused=false
 {
   if fireProg=0
   {
     if y<targetY
     {
-      y+=bulletSpeed
+      y+=bulletSpeed*gDeltaTime
       if baseDir=0
         direction=315
       else
@@ -34,7 +35,7 @@ if global.gamePaused=false && gDeltaDoTicks != 0
     }
     else
     {
-      y-=bulletSpeed
+      y-=bulletSpeed*gDeltaTime
       if baseDir=0
         direction=45
       else
@@ -48,7 +49,7 @@ if global.gamePaused=false && gDeltaDoTicks != 0
     }
   }
 
-  speed=bulletSpeed
+  speed=bulletSpeed*gDeltaTime
   image_angle=direction
 }
 else

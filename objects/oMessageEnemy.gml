@@ -43,8 +43,8 @@ if instance_exists(enemyID)
 {
   if bShowInfo=true
   {
-    global.recTimeReadingScanData+=1*gDeltaTime
-    scanLineTime-=1*gDeltaTime
+    global.recTimeReadingScanData+=1
+    scanLineTime-=1
     if scanLineTime=0
     {
       newLine=instance_create(statsWindowX+11,statsWindowY+104,oScanMLine)

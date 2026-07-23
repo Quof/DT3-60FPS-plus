@@ -35,10 +35,10 @@ applies_to=self
 */
 if animPlayerExit>0 //Going down pipe
 {
-  animPlayerExit+=1
+  animPlayerExit+=1*gDeltaTime
   oPlayer1.bCanTakeDamage=true
   oPlayer1.x=x+(sprite_width/2)
-  oPlayer1.y+=2
+  oPlayer1.y+=2*gDeltaTime
   if animPlayerExit=30
   {
     global.gamePaused=false
@@ -53,13 +53,14 @@ if animPlayerExit>0 //Going down pipe
     transition_kind=21
     if variable_local_exists("newStep") {transition_steps=newStep}
     if variable_local_exists("newTrans") {transition_kind=newTrans}
-    room_goto_fixed(toRoom)
+    room_goto(toRoom)
   }
 }
 
 if sprite_index=sPillarOfLight
 {
-  if oGame.time mod 2=0
+  //if oGame.time mod 2=0 (removed by Quof)
+  if current_frame mod 2/gDeltaTime == 0
   {
     if image_alpha=0.75 {image_alpha=0.5}
     else {image_alpha=0.75}
@@ -141,7 +142,7 @@ if exitType=0 //Press Up
     transition_kind=21
     if variable_local_exists("newStep") {transition_steps=newStep}
     if variable_local_exists("newTrans") {transition_kind=newTrans}
-    room_goto_fixed(toRoom)
+    room_goto(toRoom)
   }
 }
 else if exitType=1 //No key (Player Touch)
@@ -160,7 +161,7 @@ else if exitType=1 //No key (Player Touch)
   transition_kind=21
   if variable_local_exists("newStep") {transition_steps=newStep}
   if variable_local_exists("newTrans") {transition_kind=newTrans}
-  room_goto_fixed(toRoom)
+  room_goto(toRoom)
 }
 else if exitType=2 //Press Down
 {
@@ -185,7 +186,7 @@ applies_to=self
 */
 if bShowArrow=true
 {
-  pointTime+=1
+  pointTime+=1*gDeltaTime
   if pointTime=20 {arrowY+=1}
   else if pointTime=40
   {

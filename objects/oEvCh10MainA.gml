@@ -1172,7 +1172,7 @@ else if global.gameProgress=2400 and room=rVault_11 //----- [] Chao is found ---
     else if sceneProgress=2 and bWaitForInput=false
     {
       msgCreate(0,128,"Jeremy","Chao!",0,3,oMessageCutscene,1)
-      showEmote((GID(250507)),0,-6,sEmExcite)
+      showEmote((250507),0,-6,sEmExcite)
     }
     else if sceneProgress=3 and bWaitForInput=false
       msgCreate(0,128,"Chao","Watch out! It's a trap!",0,3,oMessageCutscene,1)
@@ -1266,11 +1266,11 @@ else if global.gameProgress=2400 and room=rVault_11 //----- [] Chao is found ---
         tile_layer_hide(1000020)
         for(i=0;i<7;i+=1)
         {
-          with (GID(250492+i)) {instance_destroy()}
+          with (250492+i) {instance_destroy()}
         }
         for(i=0;i<32;i+=1)
         {
-          tEffect=instance_create((GID(250507)).x+random_range(-32,32),(GID(250507)).y+random_range(-32,32),oEffect)
+          tEffect=instance_create((250507).x+random_range(-32,32),(250507).y+random_range(-32,32),oEffect)
           tEffect.sprite_index=sMMGlassBreak; tEffect.image_speed=0.2+random(0.1); tEffect.image_angle=random(360)
           tEffect.direction=random(360); tEffect.speed=1+random(1)
           tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
@@ -1278,9 +1278,9 @@ else if global.gameProgress=2400 and room=rVault_11 //----- [] Chao is found ---
       }
       else if sceneDelay=120
       {
-        window_mouse_set((GID(250507)).x,(GID(250507)).y)
+        window_mouse_set((250507).x,(250507).y)
         oIdentifier.bCanScan=1; oIdentifier.bChaoActive=1
-        with (GID(250507)) {instance_destroy()}
+        with (250507) {instance_destroy()}
       }
       else if sceneDelay>=150 {sceneDelay=0; sceneProgress+=1}
     }
@@ -1559,7 +1559,7 @@ else if global.gameProgress=2420 and room=rVault_13 //----- [] Boss Fight: Hex -
         global.newMapX=448
         global.newMapY=1072
         global.charScan[0]=0
-        room_goto_fixed(rVault_14)
+        room_goto(rVault_14)
       }
     }
   }
@@ -2111,7 +2111,7 @@ else if room=rVault_20
   {
     if sceneProgress=0
     {
-      if (GID(258042)).bMoving=1
+      if (258042).bMoving=1
       {
         colorControl=instance_create(0,0,oColorIndControl)
         colorControl.warnDelay=240
@@ -2147,7 +2147,7 @@ else if room=rVault_21 //Create new platforms
 {
   if sceneProgress=0
   {
-    if (GID(258264)).bMoving=1
+    if (258264).bMoving=1
     {
       colorControl=instance_create(0,0,oColorIndControl)
       colorControl.warnDelay=150
@@ -2216,7 +2216,7 @@ else if global.gameProgress=2530 and room=rVault_23 //----- [] End Vault -----
     stopAllMusic()
     transition_steps=1
     transition_kind=0
-    room_goto_fixed(rMain_39Vault)
+    room_goto(rMain_39Vault)
   }
 }
 

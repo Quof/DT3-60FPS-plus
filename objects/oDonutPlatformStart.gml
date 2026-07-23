@@ -22,7 +22,6 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if gDeltaDoTicks != 1 { exit; }
 //if the character is not in the way...
 if isCollisionCharacter()=0
 {

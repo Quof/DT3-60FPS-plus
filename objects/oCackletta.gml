@@ -56,7 +56,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if global.gamePaused=false && gDeltaDoTicks
+if global.gamePaused=false
 {
   if activateBoss=1
   {
@@ -75,7 +75,7 @@ if global.gamePaused=false && gDeltaDoTicks
       if timeTillReHit=0 {bCanDealDamage=true}
     }
 
-    atkTime+=1
+    atkTime+=1*gDeltaTime
     if atkSequence=0 //---------- Attack: Lightning 1 ----------
     {
       if atkTime=25 {sprite_index=sCacklettaArmSwing}
@@ -126,7 +126,7 @@ if global.gamePaused=false && gDeltaDoTicks
           if i<3 {tFire.direction=0}
           else {tFire.direction=180}
           tFire.sprite_index=sBowserFire1; tFire.atkPower=atkPower; tFire.damageType="ELEMENTAL"
-          tFire.bulletSpeed=10+random(2); tFire.decayTime=-100
+          tFire.bulletSpeed=(10+random(2)); tFire.decayTime=-100
         }
         atkTime+=bossProgress*4
       }
@@ -147,9 +147,9 @@ if global.gamePaused=false && gDeltaDoTicks
             tFire.direction=180
           }
           tFire.sprite_index=sBowserFire1; tFire.atkPower=atkPower; tFire.damageType="ELEMENTAL"
-          tFire.bulletSpeed=1+fireAmt; tFire.decayTime=150
+          tFire.bulletSpeed=(1+fireAmt); tFire.decayTime=150
         }
-        atkTime+=bossProgress*5
+        atkTime+=bossProgress*5*gDeltaTime
       }
       else if atkTime=60
       {
@@ -188,8 +188,8 @@ if global.gamePaused=false && gDeltaDoTicks
             tAtkLight=instance_create(tExLightSpan,yGround,oCackLightning)
           }
           tAtkLight.type=i
-          tAtkLight.warnTime=lightWarn
-          tAtkLight.decay=lightDecay
+          tAtkLight.warnTime=lightWarn/2
+          tAtkLight.decay=lightDecay/2
         }
         atkTime+=bossProgress*4
       }
@@ -220,7 +220,7 @@ if global.gamePaused=false && gDeltaDoTicks
           else {tFire.direction=138-i}
           tFire.sprite_index=sBowserFire1
           tFire.atkPower=atkPower; tFire.damageType="ELEMENTAL"
-          tFire.bulletSpeed=6+random(3); tFire.decayTime=-100
+          tFire.bulletSpeed=(6+random(3)); tFire.decayTime=-100
         }
         atkTime+=bossProgress*3
       }
@@ -235,7 +235,7 @@ if global.gamePaused=false && gDeltaDoTicks
           tFire=instance_create(tRanX,-4,oPassBullet)
           tFire.direction=260+random(20); tFire.sprite_index=sBowserFire1
           tFire.atkPower=atkPower; tFire.damageType="ELEMENTAL"
-          tFire.bulletSpeed=1+(fireAmt*1.25); tFire.decayTime=150
+          tFire.bulletSpeed=(1+(fireAmt*1.25)); tFire.decayTime=150
 
           tFire=instance_create(oPlayer1.x,-4,oPassBullet)
           tFire.direction=270; tFire.sprite_index=sBowserFire1
@@ -262,15 +262,15 @@ if global.gamePaused=false && gDeltaDoTicks
         newLoc=lightTeleX[currentTele]
         currentTele+=1
         if currentTele>=5 {currentTele=0}
-        if life=1 {atkTime+=5}
+        if life=1 {atkTime+=5*gDeltaTime}
       }
       else if atkTime>=20 and atkTime<=90 //Go to new location
       {
         var tMoveSpd;
         if life=1 {tMoveSpd=16}
         else {tMoveSpd=8}
-        if x<newLoc {x+=tMoveSpd}
-        else {x-=tMoveSpd}
+        if x<newLoc {x+=tMoveSpd*gDeltaTime}
+        else {x-=tMoveSpd*gDeltaTime}
 
         var tAfterI;
         tAfterI=instance_create(x,y,oEnemyAfterImage)
@@ -339,8 +339,8 @@ if global.gamePaused=false && gDeltaDoTicks
         var tMoveSpd;
         if life=1 {tMoveSpd=16}
         else {tMoveSpd=8}
-        if x<newLoc {x+=tMoveSpd}
-        else {x-=tMoveSpd}
+        if x<newLoc {x+=tMoveSpd*gDeltaTime}
+        else {x-=tMoveSpd*gDeltaTime}
 
         var tAfterI;
         tAfterI=instance_create(x,y,oEnemyAfterImage)
@@ -437,7 +437,7 @@ if global.gamePaused=false && gDeltaDoTicks
         for(i=0;i<8;i+=1)
         {
           tBat=instance_create(x,y-(sprite_height/2),oCackBat)
-          tBat.type=0; tBat.xSpd=random_range(-2.5,2.5); tBat.ySpd=random(1)
+          tBat.type=0; tBat.xSpd=(random_range(-2.5,2.5))/4; tBat.ySpd=random(1)/4
         }
       }
       else if atkTime=60
@@ -466,11 +466,13 @@ if global.gamePaused=false && gDeltaDoTicks
           {
             tBat=instance_create(xCenter-roomSpan-68,yGround-32-random(32),oCackBat)
             tBat.xSpd=2+i
+            tBat.xSpd=tBat.xSpd*gDeltaTime
           }
           else //right
           {
             tBat=instance_create(xCenter+roomSpan+68,yGround-32-random(32),oCackBat)
             tBat.xSpd=-2-i
+            tBat.xSpd=tBat.xSpd*gDeltaTime
           }
           tBat.type=1
         }
@@ -485,6 +487,36 @@ if global.gamePaused=false && gDeltaDoTicks
     }
 
     //Floor movement
+    /*if floorSeq>=1 and floorSeq<=2
+    {
+      if floorSeq=1
+      {
+        var tEffect;
+        for(i=0;i<8;i+=1)
+        {
+          tEffect=instance_create(344,280+(i*12),oEffect)
+          tEffect.sprite_index=sMMSmokeCloud
+          tEffect.image_speed=0.15+random(0.15); tEffect.image_xscale=1.5; tEffect.image_yscale=1.5
+          tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+
+          tEffect=instance_create(584,280+(i*12),oEffect)
+          tEffect.sprite_index=sMMSmokeCloud
+          tEffect.image_speed=0.15+random(0.15); tEffect.image_xscale=1.5; tEffect.image_yscale=1.5
+          tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+        }
+        oSlavePlatform.yVel=1*gDeltaTime
+        floorSeq=2
+      }
+      tile_layer_shift(999999,0,1)
+      if !instance_exists(oSlavePlatform)
+      {
+        oMarioLava.depth=10
+        tile_layer_depth(1000010,10)
+        tile_layer_delete(999999)
+        floorSeq=3
+      }
+    }*/
+
     if floorSeq>=1 and floorSeq<=2
     {
       if floorSeq=1
@@ -515,6 +547,7 @@ if global.gamePaused=false && gDeltaDoTicks
       }
     }
 
+
     //---------- Boss Difficulty Curve ----------
     if bossProgress=0 and life=3
     {
@@ -541,7 +574,7 @@ if global.gamePaused=false && gDeltaDoTicks
   }
   else if life<=0 //Defeat animation
   {
-    atkTime+=1
+    atkTime+=1*gDeltaTime
     if atkSequence=0 //Fall to the floor
     {
       if atkTime mod 5=0
@@ -550,11 +583,11 @@ if global.gamePaused=false && gDeltaDoTicks
         for(i=0;i<6;i+=1)
         {
           tEffect=instance_create(x-12+random(24),bbox_bottom-4-random(sprite_height-8),oKillEffect)
-          tEffect.speed=5; tEffect.direction=random(360); tEffect.friction=0.1+random(0.3)
+          tEffect.speed=5*gDeltaTime; tEffect.direction=random(360); tEffect.friction=0.1+random(0.3)
           tEffect.fadeAlpha=0.04+random(0.02); tEffect.imageRot=random_range(-5,5)
         }
       }
-      if y<yGround {y+=1}
+      if current_frame mod (1/gDeltaTime)==0 and y<yGround {y+=1}
 
       if atkTime>=105 {atkTime=0; atkSequence+=1}
     }
@@ -570,13 +603,13 @@ if global.gamePaused=false && gDeltaDoTicks
         for(i=0;i<5;i+=1)
         {
           tEffect=instance_create(bbox_left+random(sprite_width),bbox_bottom+1+random(4),oKillEffect)
-          tEffect.speed=6; tEffect.direction=80+random(20)
+          tEffect.speed=6*gDeltaTime; tEffect.direction=80+random(20)
           tEffect.friction=0.2+random(0.6); tEffect.image_xscale=0.3+random(0.2); tEffect.image_yscale=0.3+random(0.2)
           tEffect.image_blend=make_color_rgb(173,73,222); tEffect.fadeAlpha=0.04+random(0.04)
           tEffect.imageRot=0
         }
       }
-      hLineEffect+=0.25
+      hLineEffect+=0.25*gDeltaTime
       if hLineEffect>=29 {atkTime=0; atkSequence+=1}
     }
     else if atkSequence=3 //Slight wait

@@ -20,7 +20,6 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if gDeltaDoTicks != 1 { exit; }
 if oKeyCodes.kCodePressed[1]=1
 {
   playSound(global.snd_MenuCursor,0,1,1)

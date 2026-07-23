@@ -46,19 +46,18 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if gDeltaDoTicks != 1 { exit; }
 if global.gamePaused=false
 {
-  atkProg+=1
+  atkProg+=1*gDeltaTime
   if atkProg>=31 and atkProg<=38
   {
-    y+=2
+    y+=2*gDeltaTime
     if atkProg=38
       image_index=0
   }
   else if atkProg>=69 and atkProg<=76
   {
-    y-=2
+    y-=2*gDeltaTime
     if atkProg=76
     {
       image_index=1

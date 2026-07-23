@@ -258,7 +258,7 @@ if global.gamePaused=false
           global.pLife=oPlayer1.life
           global.jeremySuperEnergy=oPlayer1.jeremySuperEnergy
           transition_steps=1; transition_kind=21
-          room_goto_fixed(rDistFinal_Pong)
+          room_goto(rDistFinal_Pong)
         }
 
         if atkTime=70

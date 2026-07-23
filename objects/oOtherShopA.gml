@@ -29,7 +29,6 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if gDeltaDoTicks != 1 { exit; }
 if bShopOpen=0
 {
   if x<=oPlayer1.x {image_xscale=1}

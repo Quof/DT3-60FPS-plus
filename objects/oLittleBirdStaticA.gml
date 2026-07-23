@@ -15,7 +15,6 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if !gDeltaDoTicks { exit; }
 tailwag-=1
 if tailState=0
 {

@@ -22,7 +22,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if global.gamePaused=false && gDeltaDoTicks != 0
+if global.gamePaused=false
 {
   yVel+=grav
   x+=xVel; y+=yVel

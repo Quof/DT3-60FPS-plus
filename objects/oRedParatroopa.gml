@@ -23,8 +23,11 @@ baseItemChance=50
 affiliation=1
 weight=100
 dirChange=0
-runAcc=1.5
+runAcc=1.5*gDeltaTime
 xVel=runAcc
+xRemainder=0 //QWH
+yRemainder=0
+
 if x>oPlayer1.x
   xVel*=-1
 jeremyText="These red koopas only patrol left and right... What? That's all there is to say about them."
@@ -38,19 +41,19 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if global.gamePaused=false && gDeltaDoTicks != 0
+if global.gamePaused=false
 {
   makeEnemyActive(0)
   if bActive=true and stunnedTime=0
   {
     dirChange+=1
-    if dirChange>=60
+    if dirChange>=60/gDeltaTime
     {
       if xVel>0
-        xVel-=runAcc/30
+        xVel-=runAcc/30*gDeltaTime
       else
-        xVel+=runAcc/30
-      if dirChange>=87
+        xVel+=runAcc/30*gDeltaTime
+      if dirChange>=87/gDeltaTime
       {
         if xVel>0
           xVel=-runAcc
@@ -59,16 +62,26 @@ if global.gamePaused=false && gDeltaDoTicks != 0
         dirChange=0
       }
     }
-    if isCollisionLeft(1)
+    if isCollisionLeftEdit(1)
       xVel*=-1
-    if isCollisionRight(1)
+    if isCollisionRightEdit(1)
       xVel*=-1
 
     if xVel>0
       image_xscale=1
     else
       image_xscale=-1
-    moveTo(xVel,yVel)
+
+    xRemainder+=xVel
+    xMove=round(xRemainder)
+    xRemainder-=xMove
+
+    yRemainder+=yVel
+    yMove=round(yRemainder)
+    yRemainder-=yMove
+
+    moveTo(xMove,yMove)
+
     if isCollisionSolid()
       y-=2
   }

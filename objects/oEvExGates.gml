@@ -116,8 +116,8 @@ else if room=rExtGateG_1 or room=rExtGateG_2 or room=rExtGateG_3 or room=rExtGat
   {
     if global.newMapX>=2800
     {
-      with (GID(346602)) {instance_destroy()}
-      with (GID(346605)) {instance_destroy()}
+      with (346602) {instance_destroy()}
+      with (346605) {instance_destroy()}
       sceneProgress=1
     }
     if global.newMapX>=3600 {sceneProgress=3}
@@ -293,15 +293,15 @@ if global.gamePaused=false
 
     if sceneProgress=0 //Defeat Slime
     {
-      if !instance_exists((GID(346605)))
+      if !instance_exists((346605))
       {
-        with (GID(346602)) {instance_destroy()}
+        with (346602) {instance_destroy()}
         sceneProgress+=1
       }
     }
     else if sceneProgress=1 //Check sign (Cookies)
     {
-      if (GID(346607)).bChecked=1 {sceneProgress+=1}
+      if (346607).bChecked=1 {sceneProgress+=1}
     }
     else if sceneProgress=2 //Cookies rain down
     {
@@ -530,7 +530,7 @@ if room=rExtGateA_6 //----- [A] Boss Fight: Kamek -----
     {
       awardBossAP(700)
       view_object[0]=oPlayer1
-      with (GID(344039)) {instance_destroy()}
+      with (344039) {instance_destroy()}
       with oMisc {instance_destroy()}
       with oBossBarrier {instance_destroy()}
       global.mapTeleport=0
@@ -663,7 +663,7 @@ else if room=rExtGateB_6 //----- [B] Boss Fight: Final Nightmare -----
     {
       awardBossAP(1500)
       view_object[0]=oPlayer1
-      with (GID(344042)) {instance_destroy()}
+      with (344042) {instance_destroy()}
       with oMisc {instance_destroy()}
       with oBossBarrier {instance_destroy()}
       global.mapTeleport=0
@@ -746,7 +746,7 @@ else if room=rExtGateC_5 //----- [C] Boss Fight: Blackmoor -----
     {
       awardBossAP(2700)
       view_object[0]=oPlayer1
-      with (GID(344043)) {instance_destroy()}
+      with (344043) {instance_destroy()}
       with oMisc {instance_destroy()}
       with oBossBarrier {instance_destroy()}
       global.mapTeleport=0
@@ -868,7 +868,7 @@ else if room=rExtGateD_6 //----- [D] Boss Fight: Elpizo -----
     if sceneProgress=1 //End Boss
     {
       awardBossAP(4300)
-      with (GID(344046)) {instance_destroy()}
+      with (344046) {instance_destroy()}
       with oBossBarrier {instance_destroy()}
       global.mapTeleport=0
       var tempMplay;
@@ -996,7 +996,7 @@ else if room=rExtGateE_5 //----- [E] Boss Fight: Shadow Form -----
     {
       awardBossAP(5000)
       view_object[0]=oPlayer1
-      with (GID(344047)) {instance_destroy()}
+      with (344047) {instance_destroy()}
       with oMisc {instance_destroy()}
       with oBossBarrier {instance_destroy()}
       global.mapTeleport=0
@@ -1078,7 +1078,7 @@ else if room=rExtGateF_6 //----- [F] Boss Fight: Nightmare -----
       var tempMplay,tBossTitle,bBarrier;
       tempMplay=findMusic(817)
       playMusic(tempMplay,0,0)
-      with (GID(344050)) {instance_destroy()}
+      with (344050) {instance_destroy()}
       with oHealingPost {instance_destroy()}
       with oMetNightmare {instance_destroy()}
       with oNightmareParts {instance_destroy()}
@@ -1235,7 +1235,7 @@ else if room=rExtGateG_5 //----- [G] Boss Fight: Sephiroth -----
     if sceneProgress=1 //End Boss
     {
       awardBossAP(13500)
-      with (GID(346672)) {instance_destroy()}
+      with (346672) {instance_destroy()}
       with oBossBarrier {instance_destroy()}
       view_object[0]=oPlayer1
       global.mapTeleport=0
@@ -1638,7 +1638,7 @@ else if room=rExtGateE_3 //Create new platforms and color zones
 {
   if sceneProgress=0
   {
-    if (GID(258682)).bMoving=1
+    if (258682).bMoving=1
     {
       colorControl=instance_create(0,0,oColorIndControl)
       colorControl.warnDelay=90

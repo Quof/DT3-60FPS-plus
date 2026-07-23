@@ -19,7 +19,7 @@ applies_to=self
 */
 if type=5 //Animated
 {
-  cycleTime+=1*gDeltaTime
+  cycleTime+=1
   if cycleTime mod cycleSpd=0
   {
     if backSet=SetA {backSet=SetB}
@@ -45,6 +45,6 @@ else if type=4 //stationary background - extra
 
 if view_current=0
 {
-  xx+=xScrollSpeed*gDeltaTime
-  yy+=yScrollSpeed*gDeltaTime
+  xx+=xScrollSpeed
+  yy+=yScrollSpeed
 }

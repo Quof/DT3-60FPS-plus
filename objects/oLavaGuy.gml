@@ -5,7 +5,7 @@ action_id=603
 applies_to=self
 */
 event_inherited()
-image_speed=0.2
+image_speed=0.2*gDeltaTime
 visible=false
 hoverAlpha=-1
 
@@ -36,18 +36,18 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if global.gamePaused=false && gDeltaDoTicks != 0
+if global.gamePaused=false
 {
   if bActive=0 {makeEnemyActive(1)}
   if bActive=true and rising>=0
   {
-    glowScl+=0.025
+    glowScl+=0.025*gDeltaTime
     if glowScl>=1.4 {glowScl=1.1}
 
     if rising=0
     {
       playSound(global.snd_Fireball,0,0.87,33075)
-      yVel-=10
+      yVel-=10*gDeltaTime
       visible=true
       rising=1
     }
@@ -63,9 +63,9 @@ if global.gamePaused=false && gDeltaDoTicks != 0
       tBufScl=abs(image_yscale)
       image_yscale=-tBufScl
     }
-    yVel+=0.3
+    yVel+=0.3*gDeltaTime*gDeltaTime
     y+=yVel
-    if yVel>1 and y>ystart
+    if yVel>1*gDeltaTime and y>ystart
     {
       var tEffect;
       tEffect=instance_create(x+2,ystart+4,oEffectGrav)
@@ -81,7 +81,7 @@ if global.gamePaused=false && gDeltaDoTicks != 0
       y=ystart
       bActive=false
       visible=false
-      rising=-50
+      rising=-50/gDeltaTime
     }
   }
   if rising<0 {rising+=1} //Cooldown
@@ -92,7 +92,5 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-magicInterpDrawStart()
 draw_sprite_ext(sprite_index,image_index,x,y,image_xscale*glowScl,image_yscale*glowScl,image_angle,image_blend,0.25)
 event_inherited()
-magicInterpDrawEnd()

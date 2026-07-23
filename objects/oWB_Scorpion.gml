@@ -11,7 +11,7 @@ image_speed=0.15
 
 //Enemy base statistics
 eName="Monster Scorpion"
-eLevel=15
+eLevel=14
 maxLife=400
 life=maxLife
 pointWorth=23

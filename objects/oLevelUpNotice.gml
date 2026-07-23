@@ -4,14 +4,14 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-vspeed=-4
+vspeed=-4*gDeltaTime
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
 action_id=603
 applies_to=self
 */
-vspeed+=0.2*gDeltaTime
+vspeed+=0.2*gDeltaTime*gDeltaTime
 if vspeed>=-0.25
 {
   image_alpha-=0.04*gDeltaTime

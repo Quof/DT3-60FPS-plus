@@ -32,8 +32,8 @@ if global.gamePaused=false
       instance_create(1552,144,oGH_CR_Barrier)
       myKeyText="Claire picked up the [PASSION KEY]."
       global.gateHLamps="111110111"
-      (GID(428251)).bOpened=1; (GID(428252)).bOpened=1; (GID(428256)).bOpened=0
-      (GID(428282)).y-=256
+      (428251).bOpened=1; (428252).bOpened=1; (428256).bOpened=0
+      (428282).y-=256
     }
     else if keyNum=3
     {

@@ -363,7 +363,7 @@ else if global.gameProgress=1020 and room=rCCity_NorthB //----- [5] Talk with Ma
     sceneDelay+=1
     if sceneDelay>=25
     {
-      (GID(161270)).image_xscale=1
+      (161270).image_xscale=1
       charSwitcher(0)
       scenePChk(640,288,0,0.1,-1)
       sceneDelay=0; sceneProgress+=1
@@ -425,7 +425,7 @@ else if global.gameProgress=1020 and room=rCCity_NorthB //----- [5] Talk with Ma
       newExit=instance_create(584,256,oExit)
       newExit.bShowArrow=true; newExit.exitType=0
       newExit.newMapX=48; newExit.newMapY=512; newExit.toRoom=rCCity_NB_S1a;
-      (GID(161270)).x-=48
+      (161270).x-=48
       sceneDelay=0; sceneProgress+=1
     }
   }
@@ -679,7 +679,7 @@ else if global.gameProgress=1140 and room=rMain_14Gate //----- [Unskippable] Acc
     stopAllMusic()
     transition_steps=1
     transition_kind=0
-    room_goto_fixed(rBelmont3_Gate)
+    room_goto(rBelmont3_Gate)
   }
 }
 

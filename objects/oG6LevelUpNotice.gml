@@ -35,7 +35,7 @@ if view_current=0
   draw_set_font(fnt_GameOver)
   draw_text(displayX,displayY-18,myLevel)
 
-  dispTime-=1*gDeltaTime
+  dispTime-=1
   if dispTime<=0
   {
     image_alpha-=0.04
