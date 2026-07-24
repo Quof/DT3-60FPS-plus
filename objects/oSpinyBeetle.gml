@@ -38,7 +38,6 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if gDeltaDoTicks != 1 { exit; }
 if global.gamePaused=false
 {
   makeEnemyActive(0)
@@ -47,9 +46,9 @@ if global.gamePaused=false
     if sprite_index=sSpinyBeetleBall
     {
       if xVel>0
-        image_angle-=8
+        image_angle-=8*gDeltaTime
       else
-        image_angle+=8
+        image_angle+=8*gDeltaTime
     }
     else
     {
@@ -63,7 +62,7 @@ if global.gamePaused=false
       }
     }
 
-    yVel+=0.2
+    yVel+=0.2*gDeltaTime
     if isCollisionBottom(1)
     {
       yVel=0
@@ -90,7 +89,7 @@ if global.gamePaused=false
       image_xscale=1
     else
       image_xscale=-1
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
     if y>room_height+24
       instance_destroy()
   }

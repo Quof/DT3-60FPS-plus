@@ -38,12 +38,12 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if global.gamePaused=false && gDeltaDoTicks != 0
+if global.gamePaused=false
 {
   makeEnemyActive(0)
   if bActive=true and stunnedTime=0
   {
-    dirChange+=1
+    dirChange+=1*gDeltaTime
     if dirChange>=60
     {
       if xVel>0
@@ -68,7 +68,7 @@ if global.gamePaused=false && gDeltaDoTicks != 0
       image_xscale=1
     else
       image_xscale=-1
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
     if isCollisionSolid()
       y-=2
   }

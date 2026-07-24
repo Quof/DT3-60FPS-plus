@@ -67,9 +67,9 @@ else if x>room_width
 yVel+=0.2
 if isCollisionBottom(1)
   yVel=0
-if isCollisionLeft(1)
+if isCollisionLeftEdit(1)
   xVel=runAcc
-if isCollisionRight(1)
+if isCollisionRightEdit(1)
   xVel=-runAcc
 moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
 if isCollisionSolid()
