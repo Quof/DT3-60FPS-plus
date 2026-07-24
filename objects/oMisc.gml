@@ -27,11 +27,11 @@ if type=2 //Scene Player Character
 }
 else if type=3 //Pulled into Vault
 {
-  image_alpha-=0.001
-  image_angle+=turnSpd
+  image_alpha-=0.001*gDeltaTime
+  image_angle+=turnSpd*gDeltaTime
 }
 else if type=4 //Float up and down
 {
-  moveStep+=0.05
-  y+=sin(moveStep)
+  moveStep+=0.05*gDeltaTime
+  y+=sin(moveStep)*gDeltaTime
 }

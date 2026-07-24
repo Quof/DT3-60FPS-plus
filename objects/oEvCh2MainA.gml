@@ -41,7 +41,7 @@ if global.gameProgress=150 and room=rMario1_1 //----- [1] Intro to Mario World -
     }
     else if sceneDelay>=30
     {
-      fadeAlpha-=0.02
+      fadeAlpha-=0.02*gDeltaTime
       if fadeAlpha<=0 {sceneDelay=0; sceneProgress+=1}
     }
   }
@@ -69,8 +69,8 @@ if global.gameProgress=150 and room=rMario1_1 //----- [1] Intro to Mario World -
         if i mod 2=0 {efStars[i].image_angle+=2*(i*2)}
         else {efStars[i].image_angle-=2*(i*2)}
       }
-      efCharge.image_xscale-=0.1
-      efCharge.image_yscale-=0.1
+      efCharge.image_xscale-=0.1*gDeltaTime
+      efCharge.image_yscale-=0.1*gDeltaTime
     }
     else if sceneDelay=80
     {
@@ -85,8 +85,8 @@ if global.gameProgress=150 and room=rMario1_1 //----- [1] Intro to Mario World -
     }
     else if sceneDelay>=96 and sceneDelay<134
     {
-      abilMario.image_xscale-=0.1
-      abilMario.image_yscale-=0.1
+      abilMario.image_xscale-=0.1*gDeltaTime
+      abilMario.image_yscale-=0.1*gDeltaTime
     }
     else if sceneDelay=135
     {
@@ -107,8 +107,8 @@ if global.gameProgress=150 and room=rMario1_1 //----- [1] Intro to Mario World -
     }
     else if sceneDelay>=6 and sceneDelay<44
     {
-      abilLuigi.image_xscale-=0.1
-      abilLuigi.image_yscale-=0.1
+      abilLuigi.image_xscale-=0.1*gDeltaTime
+      abilLuigi.image_yscale-=0.1*gDeltaTime
     }
     else if sceneDelay=45
     {
