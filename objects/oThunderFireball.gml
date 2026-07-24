@@ -25,17 +25,17 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  yVel+=grav
-  if xVel>0 {image_angle-=10}
-  else if xVel<0 {image_angle+=10}
+  yVel+=grav*gDeltaTime
+  if xVel>0 {image_angle-=10*gDeltaTime}
+  else if xVel<0 {image_angle+=10*gDeltaTime}
 
-  if fireType=0 {image_angle+=30}
+  if fireType=0 {image_angle+=30*gDeltaTime}
 
   if isCollisionTop(1) {bDestroy=1}
   if isCollisionBottom(1) {bDestroy=1}
   if isCollisionLeft(1) {bDestroy=1}
   if isCollisionRight(1) {bDestroy=1}
-  moveTo(xVel,yVel)
+  moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
 
   if bDestroy=1
   {

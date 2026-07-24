@@ -75,7 +75,7 @@ if windowUpdate mod 30=0
 }
 
 //play time
-if global.playTimeFrameCount>=30
+if global.playTimeFrameCount>=30/gDeltaTime
 {
   global.playTimeFrameCount=0
   global.playTimeSecond+=1
