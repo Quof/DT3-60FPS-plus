@@ -505,7 +505,7 @@ applies_to=self
 */
 if skipGameOver=2 //Skip Game Over
 {
-  backAlpha+=0.1
+  backAlpha+=0.1*gDeltaTime
   if backAlpha>=1
   {
     if GOMenuMin=1 {event_user(3)}
@@ -524,7 +524,7 @@ else //Normal
     }
     else if noStaticTime>=3 and noStaticTime<=99
     {
-      backAlpha+=0.05
+      backAlpha+=0.05*gDeltaTime
       if backAlpha>=1 {noStaticTime=100}
     }
     else if noStaticTime=101
@@ -550,7 +550,7 @@ else //Normal
     }
     else //static effect
     {
-      staticEffect+=0.04
+      staticEffect+=0.04*gDeltaTime
       if staticEffect>=1.4 {staticEffect=2}
       background_alpha[7]=staticEffect
     }
