@@ -14,10 +14,9 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if !gDeltaDoTicks { exit; }
-if image_xscale=1 {x+=moveSpdX}
-else {x-=moveSpdX}
-y+=moveSpdY
+if image_xscale=1 {x+=moveSpdX*gDeltaTime}
+else {x-=moveSpdX*gDeltaTime}
+y+=moveSpdY*gDeltaTime
 
 if image_xscale=1
 {
