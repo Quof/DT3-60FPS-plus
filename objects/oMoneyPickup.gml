@@ -29,16 +29,15 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if gDeltaDoTicks != 1 { exit; }
 if global.gamePaused=false
 {
-  yVel+=0.3
+  yVel+=0.3*gDeltaTime
 
   if isCollisionBottom(1)
     yVel=0
   if isCollisionSolid()
     y-=2
-  moveTo(xVel,yVel)
+  moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
 
   if y>room_height+24
     instance_destroy()

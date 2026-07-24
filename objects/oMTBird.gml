@@ -16,15 +16,14 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if !gDeltaDoTicks { exit; }
 if image_xscale=1
-  x+=moveSpd
+  x+=moveSpd*gDeltaTime
 else
-  x-=moveSpd
+  x-=moveSpd*gDeltaTime
 
 if type=0
 {
-  dirChange+=1
+  dirChange+=1*gDeltaTime
   if dirChange>=480
   {
     if image_xscale=1

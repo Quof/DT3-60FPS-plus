@@ -15,20 +15,19 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if gDeltaDoTicks != 1 { exit; }
 if global.gamePaused=false
 {
-  yVel+=0.3
+  yVel+=0.3*gDeltaTime
   if isCollisionBottom(1)
   {
     if checkScreenArea(x,y,48)=1 {playSound(global.snd_RupeeBounce,0,1,1)}
     yVel=-5
   }
-  if isCollisionLeft(1)
+  if isCollisionLeftEdit(1)
     xVel*=-1
-  if isCollisionRight(1)
+  if isCollisionRightEdit(1)
     xVel*=-1
-  moveTo(xVel,yVel)
+  moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
 
   if isCollisionSolid()
     y-=2

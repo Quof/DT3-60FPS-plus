@@ -13,13 +13,12 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if gDeltaDoTicks != 1 { exit; }
 if global.gamePaused=false
 {
-  moveProg+=1
+  moveProg+=1*gDeltaTime
   if moveProg<=32
   {
-    y-=0.5
+    y-=0.5*gDeltaTime
     if moveProg=32
     {
       xVel=2.5
@@ -31,14 +30,14 @@ if global.gamePaused=false
   }
   else
   {
-    yVel+=0.3
+    yVel+=0.3*gDeltaTime
     if isCollisionBottom(1)
       yVel=0
     if isCollisionLeft(1)
       xVel*=-1
     if isCollisionRight(1)
       xVel*=-1
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
 
     if isCollisionSolid()
       y-=2
