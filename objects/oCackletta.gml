@@ -56,7 +56,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if global.gamePaused=false && gDeltaDoTicks
+if global.gamePaused=false
 {
   if activateBoss=1
   {
@@ -75,7 +75,7 @@ if global.gamePaused=false && gDeltaDoTicks
       if timeTillReHit=0 {bCanDealDamage=true}
     }
 
-    atkTime+=1
+    atkTime+=1*gDeltaTime
     if atkSequence=0 //---------- Attack: Lightning 1 ----------
     {
       if atkTime=25 {sprite_index=sCacklettaArmSwing}
@@ -123,8 +123,8 @@ if global.gamePaused=false && gDeltaDoTicks
         for(i=0;i<8;i+=1)
         {
           tFire=instance_create(x,y-24-random(sprite_height-24),oPassBullet)
-          if i<3 {tFire.direction=0}
-          else {tFire.direction=180}
+          if i<3 {tFire._direction=0}
+          else {tFire._direction=180}
           tFire.sprite_index=sBowserFire1; tFire.atkPower=atkPower; tFire.damageType="ELEMENTAL"
           tFire.bulletSpeed=10+random(2); tFire.decayTime=-100
         }
@@ -139,12 +139,12 @@ if global.gamePaused=false && gDeltaDoTicks
           if i<fireAmt/2
           {
             tFire=instance_create(xCenter-roomSpan-68,yGround-8-(i*16),oPassBullet)
-            tFire.direction=0
+            tFire._direction=0
           }
           else
           {
             tFire=instance_create(xCenter+roomSpan+68,yGround-8-(i*16),oPassBullet)
-            tFire.direction=180
+            tFire._direction=180
           }
           tFire.sprite_index=sBowserFire1; tFire.atkPower=atkPower; tFire.damageType="ELEMENTAL"
           tFire.bulletSpeed=1+fireAmt; tFire.decayTime=150
@@ -216,8 +216,8 @@ if global.gamePaused=false && gDeltaDoTicks
         for(i=0;i<16;i+=1)
         {
           tFire=instance_create(x,y-24-random(sprite_height-24),oPassBullet)
-          if i mod 2=0 {tFire.direction=42+i}
-          else {tFire.direction=138-i}
+          if i mod 2=0 {tFire._direction=42+i}
+          else {tFire._direction=138-i}
           tFire.sprite_index=sBowserFire1
           tFire.atkPower=atkPower; tFire.damageType="ELEMENTAL"
           tFire.bulletSpeed=6+random(3); tFire.decayTime=-100
@@ -233,12 +233,12 @@ if global.gamePaused=false && gDeltaDoTicks
           var tFire,tRanX;
           tRanX=(xCenter-roomSpan+16)+random(roomSpan*2-32)
           tFire=instance_create(tRanX,-4,oPassBullet)
-          tFire.direction=260+random(20); tFire.sprite_index=sBowserFire1
+          tFire._direction=260+random(20); tFire.sprite_index=sBowserFire1
           tFire.atkPower=atkPower; tFire.damageType="ELEMENTAL"
           tFire.bulletSpeed=1+(fireAmt*1.25); tFire.decayTime=150
 
           tFire=instance_create(oPlayer1.x,-4,oPassBullet)
-          tFire.direction=270; tFire.sprite_index=sBowserFire1
+          tFire._direction=270; tFire.sprite_index=sBowserFire1
           tFire.atkPower=atkPower; tFire.damageType="ELEMENTAL"
           tFire.bulletSpeed=4; tFire.decayTime=150
         }
@@ -269,8 +269,8 @@ if global.gamePaused=false && gDeltaDoTicks
         var tMoveSpd;
         if life=1 {tMoveSpd=16}
         else {tMoveSpd=8}
-        if x<newLoc {x+=tMoveSpd}
-        else {x-=tMoveSpd}
+        if x<newLoc {x+=tMoveSpd*gDeltaTime}
+        else {x-=tMoveSpd*gDeltaTime}
 
         var tAfterI;
         tAfterI=instance_create(x,y,oEnemyAfterImage)
@@ -296,7 +296,7 @@ if global.gamePaused=false && gDeltaDoTicks
           {
             tFire=instance_create(xCenter+roomSpan+68,yGround-8,oPassBullet)
             tFire.sprite_index=sBowserFire1; tFire.atkPower=atkPower; tFire.damageType="ELEMENTAL"
-            tFire.bulletSpeed=5; tFire.decayTime=150; tFire.direction=180
+            tFire.bulletSpeed=5; tFire.decayTime=150; tFire._direction=180
           }
         }
       }
@@ -339,8 +339,8 @@ if global.gamePaused=false && gDeltaDoTicks
         var tMoveSpd;
         if life=1 {tMoveSpd=16}
         else {tMoveSpd=8}
-        if x<newLoc {x+=tMoveSpd}
-        else {x-=tMoveSpd}
+        if x<newLoc {x+=tMoveSpd*gDeltaTime}
+        else {x-=tMoveSpd*gDeltaTime}
 
         var tAfterI;
         tAfterI=instance_create(x,y,oEnemyAfterImage)
@@ -408,7 +408,7 @@ if global.gamePaused=false && gDeltaDoTicks
             {
               tFire=instance_create(xCenter+roomSpan+68,yGround-8-(i*20),oPassBullet)
               tFire.sprite_index=sBowserFire1; tFire.atkPower=atkPower; tFire.damageType="ELEMENTAL"
-              tFire.bulletSpeed=5; tFire.decayTime=150; tFire.direction=180
+              tFire.bulletSpeed=5; tFire.decayTime=150; tFire._direction=180
             }
           }
         }
@@ -505,7 +505,7 @@ if global.gamePaused=false && gDeltaDoTicks
         (GID(132430)).yVel=1
         floorSeq=2
       }
-      tile_layer_shift(999999,0,1)
+      if gDeltaDoTicks tile_layer_shift(999999,0,1)
       if !instance_exists((GID(132430)))
       {
         oMarioLava.depth=10
@@ -541,7 +541,7 @@ if global.gamePaused=false && gDeltaDoTicks
   }
   else if life<=0 //Defeat animation
   {
-    atkTime+=1
+    atkTime+=1*gDeltaTime
     if atkSequence=0 //Fall to the floor
     {
       if atkTime mod 5=0
@@ -554,7 +554,7 @@ if global.gamePaused=false && gDeltaDoTicks
           tEffect.fadeAlpha=0.04+random(0.02); tEffect.imageRot=random_range(-5,5)
         }
       }
-      if y<yGround {y+=1}
+      if y<yGround and gDeltaDoTicks {y+=1}
 
       if atkTime>=105 {atkTime=0; atkSequence+=1}
     }
@@ -576,7 +576,7 @@ if global.gamePaused=false && gDeltaDoTicks
           tEffect.imageRot=0
         }
       }
-      hLineEffect+=0.25
+      hLineEffect+=0.25*gDeltaTime
       if hLineEffect>=29 {atkTime=0; atkSequence+=1}
     }
     else if atkSequence=3 //Slight wait

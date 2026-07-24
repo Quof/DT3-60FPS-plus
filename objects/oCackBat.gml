@@ -25,7 +25,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if global.gamePaused=false && gDeltaDoTicks
+if global.gamePaused=false
 {
   makeEnemyActive(0)
   if bActive=true and stunnedTime=0 and life>0
@@ -34,21 +34,21 @@ if global.gamePaused=false && gDeltaDoTicks
       image_xscale=-1
     if type=0 //Summon type
     {
-      x+=xSpd
-      y-=ySpd
+      x+=xSpd*gDeltaTime
+      y-=ySpd*gDeltaTime
       if xSpd>=0 and xSpd<5
-        xSpd+=0.1
+        xSpd+=0.1*gDeltaTime
       else if xSpd<0 and xSpd>-5
-        xSpd-=0.1
+        xSpd-=0.1*gDeltaTime
       if ySpd<6
-        ySpd+=0.4
+        ySpd+=0.4*gDeltaTime
 
       if y<=-16
         instance_destroy()
     }
     else if type=1 //Attack type
     {
-      x+=xSpd
+      x+=xSpd*gDeltaTime
       if findTargetX>inactiveDist
         instance_destroy()
     }

@@ -15,11 +15,11 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  x+=xShift
-  y+=yShift
-  image_xscale+=xScaling
-  image_yscale+=yScaling
-  image_alpha-=imageFade
+  x+=xShift*gDeltaTime
+  y+=yShift*gDeltaTime
+  image_xscale+=xScaling*gDeltaTime
+  image_yscale+=yScaling*gDeltaTime
+  image_alpha-=imageFade*gDeltaTime
   followInstance()
   if image_alpha<=0 {instance_destroy()}
 }
