@@ -87,12 +87,12 @@ if global.gamePaused=false
     }
     else if atkSequence=2 //--------------- Move left ---------------
     {
-      x-=xSpd*gDeltaTime
+      if gDeltaDoTicks x-=xSpd
       if x<=leftSide {atkSequence=3}
     }
     else if atkSequence=4 //--------------- Move right ---------------
     {
-      x+=xSpd*gDeltaTime
+      if gDeltaDoTicks x+=xSpd
       if x>=rightSide {atkSequence=1}
     }
 
