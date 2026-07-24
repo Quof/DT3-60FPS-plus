@@ -41,7 +41,7 @@ if bCanPickUp=1
   if global.pHeartPieces=4
   {
     msgCreate(170,100,"","Your Max Heart Capacity increased by 1!",6,1,oMessagePerson,0)
-    newMessage.fadingTime=70/gDeltaTime
+    newMessage.fadingTime=70
 
     global.pMaxLife+=4
     global.pLife+=4
@@ -54,7 +54,7 @@ if bCanPickUp=1
     var tHeartsLeft;
     tHeartsLeft=4-global.pHeartPieces
     msgCreate(170,100,"","You found a Heart Piece!#Only " +string(tHeartsLeft) +string(" more for a full heart!"),6,1,oMessagePerson,0)
-    newMessage.fadingTime=70/gDeltaTime
+    newMessage.fadingTime=70
   }
 
   var tNewString;
@@ -69,7 +69,7 @@ if global.bNightmareMode=1
   showEmote(oIdentifier,0,-6,sEmThinking)
   playSound(global.snd_MetItemGet,0,0.98,17000)
   msgCreate(170,100,"","You found a piece of Nightmare Cheese! It does nothing.",6,1,oMessagePerson,0)
-  newMessage.fadingTime=90/gDeltaTime
+  newMessage.fadingTime=90
   awardAwesome(20000)
   var tNewString;
   tNewString=string_delete(global.heartPiece,objectNum,1)

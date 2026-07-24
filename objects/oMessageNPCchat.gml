@@ -32,7 +32,7 @@ if bFading=false
 }
 else
 {
-  image_alpha-=0.05
+  image_alpha-=0.05*gDeltaTime
   if image_alpha<=0
     instance_destroy()
 }

@@ -18,7 +18,7 @@ if textTime!=-1
 if textType=1 //Marquee
 {
   textWidth=string_width(screenText)
-  x-=2*gDeltaTime //QWH I don't know if this is right.
+  x-=2*gDeltaTime
   if followType=0
   {
     if x<=-(string_width(screenText)*2)-4

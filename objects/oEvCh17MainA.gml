@@ -291,7 +291,7 @@ else if global.gameProgress=3990 and room=rHPF_G //----- [] Deactivate security 
     {
       msgCreate(0,0,"Chao","I've opened the security door below. And no worries, the Virus can't close it again.",0,2,oMessagePerson,0)
       newMessage.fadingTime=110
-      with (352906) {instance_destroy()}
+      with (GID(352906)) {instance_destroy()}
       sceneDelay=0; sceneProgress=0
       global.gameProgress=4000
     }
@@ -399,7 +399,7 @@ else if global.gameProgress=4020 and room=rHPF_M //----- [] Floor breaks -----
       myWall=instance_create(704,224,oSolidVirusBlock)
       myWall.image_yscale=4; myWall.visible=0
       tile_layer_hide(1000002)
-      with (357361) {instance_destroy()}
+      with (GID(357361)) {instance_destroy()}
       for(i=0;i<6;i+=1)
       {
         for(ii=0;ii<2;ii+=1)
@@ -1563,7 +1563,7 @@ else if room=rCCity_NA_S1 and global.gameProgress=4190 //----- [8] Waking up Jer
       tempMplay=findMusic(0)
       playMusic(tempMplay,0,0)
       global.gamePaused=true;
-      (360811).image_xscale=1
+      (GID(360811)).image_xscale=1
       scenePChk(224,384,0,0.1,1)
       charJerry=instance_create(176,384,oMisc)
       charJerry.sprite_index=sJerryLayDown; charJerry.image_speed=0; charJerry.type=2
@@ -1764,7 +1764,7 @@ if global.gamePaused=false
   {
     if oPlayer1.x>=1704 and oPlayer1.x<=1720
     {
-      if scriptPlat=0 {(351421).progCheck=1; scriptPlat=1}
+      if scriptPlat=0 {(GID(351421)).progCheck=1; scriptPlat=1}
     }
   }
   else if room=rHPF_L //----- Virus's spawn -----
@@ -1796,7 +1796,7 @@ if global.gamePaused=false
           tNewVirus=instance_create(608,272,oInjectorVirus)
           tNewVirus.type=1
         }
-        else if virusTime=120 {with (356652) {instance_destroy()}}
+        else if virusTime=120 {with (GID(356652)) {instance_destroy()}}
       }
     }
   }

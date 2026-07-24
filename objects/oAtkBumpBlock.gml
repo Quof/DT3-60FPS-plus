@@ -20,6 +20,6 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  decay-=1*gDeltaTime
+  decay-=1
   if decay<=0 {instance_destroy()}
 }

@@ -14,6 +14,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
+if !gDeltaDoTicks { exit; }
 if direction>90 and direction<270 {image_xscale=-1}
 else {image_xscale=1}
 

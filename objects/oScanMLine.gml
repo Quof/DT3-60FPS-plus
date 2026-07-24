@@ -24,7 +24,7 @@ if bMaster=1
   draw_set_color(make_color_rgb(0,251,254))
   newLine=instance_create(x+2,y,oScanMLine)
   newLine.bMaster=0
-  x+=2
+  x+=2// FIXME: delta time?
   if x>=oMessageEnemy.statsWindowX+328
     instance_destroy()
 }

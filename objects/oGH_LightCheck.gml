@@ -26,9 +26,9 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  if myLight=4 {bOpened=(428251).bOpened}
-  else if myLight=5 {bOpened=(428252).bOpened}
-  else if myLight=6 {bOpened=(428256).bOpened}
+  if myLight=4 {bOpened=(GID(428251)).bOpened}
+  else if myLight=5 {bOpened=(GID(428252)).bOpened}
+  else if myLight=6 {bOpened=(GID(428256)).bOpened}
 }
 #define Draw_0
 /*"/*'/**//* YYD ACTION

@@ -43,9 +43,9 @@ if activated=0 and other.bCanHitSwitch=1 and other.weaponTag<100
     tNewString=string_delete(global.extraFlags,optionalFlag,1)
     tNewString=string_insert("1",tNewString,optionalFlag)
     global.extraFlags=tNewString
-    if optionalFlag=1 {with (261802) {instance_destroy()}} //Main 43
-    else if optionalFlag=2 {with (393786) {instance_destroy()}} //Main 78
-    else if optionalFlag=3 {with (395002) {instance_destroy()}} //Main 34
+    if optionalFlag=1 {with (GID(261802)) {instance_destroy()}} //Main 43
+    else if optionalFlag=2 {with (GID(393786)) {instance_destroy()}} //Main 78
+    else if optionalFlag=3 {with (GID(395002)) {instance_destroy()}} //Main 34
   }
   if variable_local_exists("sideFlag")
   {

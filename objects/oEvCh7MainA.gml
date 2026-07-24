@@ -396,7 +396,7 @@ else if global.gameProgress=1620 and room=rMountTemple_C //----- [] Blood Tyrant
       if !instance_exists(oCV_SwordKnight)
       {
         with enemyBarrierA {instance_destroy()}
-        with (205945) {instance_destroy()}
+        with (GID(205945)) {instance_destroy()}
         enTyrantA=2
       }
     }
@@ -424,7 +424,7 @@ else if global.gameProgress=1620 and room=rMountTemple_C //----- [] Blood Tyrant
       if !instance_exists(newTyrantB)
       {
         with enemyBarrierB {instance_destroy()}
-        with (205946) {instance_destroy()}
+        with (GID(205946)) {instance_destroy()}
         enTyrantB=3
       }
     }
@@ -1120,7 +1120,7 @@ else if global.gameProgress=1720 and room=rMain_28 //----- [11] Virus & Twin Was
       newEnemy=instance_create(2288,656,oWaspBot) newEnemy.bActive=1; newEnemy.yDist=-128
       instance_create(2288,656,oMalevolentVirus)
       newBarrier=instance_create(2432,704,oBossBarrier)
-      with (213291) {instance_destroy()}
+      with (GID(213291)) {instance_destroy()}
       var tempMplay;
       tempMplay=findMusic(809)
       playMusic(tempMplay,0,0)
@@ -1236,7 +1236,7 @@ else if global.gameProgress=1750 and room=rMain_28Gate //----- [Unskippable] Acc
     stopAllMusic()
     transition_steps=1
     transition_kind=0
-    room_goto(rMega4_Gate)
+    room_goto_fixed(rMega4_Gate)
   }
 }
 

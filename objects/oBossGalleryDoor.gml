@@ -42,7 +42,7 @@ if oKeyCodes.kCodePressed[3]=1 and activateTime=0 and global.gamePaused=false
   global.rmDeaths=0; global.hitsTaken=0
   transition_steps=10
   transition_kind=21
-  room_goto(toRoom)
+  room_goto_fixed(toRoom)
 }
 #define Other_10
 /*"/*'/**//* YYD ACTION

@@ -13,11 +13,11 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-yy-=0.25
-timeTillFade-=1
+yy-=0.25*gDeltaTime
+timeTillFade-=1*gDeltaTime
 if timeTillFade<=0
 {
-  image_alpha-=0.1
+  image_alpha-=0.1*gDeltaTime
   if image_alpha<=0 {instance_destroy()}
 }
 #define Draw_0

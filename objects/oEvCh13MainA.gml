@@ -246,7 +246,7 @@ else if global.gameProgress=2690 and room=rSamus5_Lv1_D and global.gamePaused=fa
       }
       else if sceneDelay=91
       {
-        with (267739) {instance_destroy()}
+        with (GID(267739)) {instance_destroy()}
         tile_layer_hide(8)
         boss=instance_create(480,-64,oRidleyFirst); boss.image_xscale=-1
       }
@@ -315,7 +315,7 @@ else if global.gameProgress=2710 and room=rSamus5_Lv1_E and global.gamePaused=fa
     }
     else if sceneDelay=41
     {
-      with (267739) {instance_destroy()}
+      with (GID(267739)) {instance_destroy()}
       tile_layer_hide(8)
     }
     else if sceneDelay=42 {boss=instance_create(368,-64,oRidleyFirst); boss.image_xscale=-1}
@@ -329,27 +329,27 @@ else if global.gameProgress=2710 and room=rSamus5_Lv1_E and global.gamePaused=fa
   }
   else if sceneProgress=1
   {
-    if !instance_exists((267938))
+    if !instance_exists((GID(267938)))
     {
-      with (267952) {instance_destroy()}
+      with (GID(267952)) {instance_destroy()}
       oRidleyFirst.atkDelay-=4
       sceneProgress+=1
     }
   }
   else if sceneProgress=2
   {
-    if !instance_exists((267939))
+    if !instance_exists((GID(267939)))
     {
-      with (267953) {instance_destroy()}
+      with (GID(267953)) {instance_destroy()}
       oRidleyFirst.atkDelay-=4
       sceneProgress+=1
     }
   }
   else if sceneProgress=3
   {
-    if !instance_exists((267940))
+    if !instance_exists((GID(267940)))
     {
-      with (267954) {instance_destroy()}
+      with (GID(267954)) {instance_destroy()}
       oRidleyFirst.atkDelay-=4
       oRidleyFirst.extendStream=7
       sceneProgress+=1
@@ -357,18 +357,18 @@ else if global.gameProgress=2710 and room=rSamus5_Lv1_E and global.gamePaused=fa
   }
   else if sceneProgress=4
   {
-    if !instance_exists((267942))
+    if !instance_exists((GID(267942)))
     {
-      with (267955) {instance_destroy()}
+      with (GID(267955)) {instance_destroy()}
       oRidleyFirst.atkDelay-=4
       sceneProgress+=1
     }
   }
   else if sceneProgress=5
   {
-    if !instance_exists((267943)) and !instance_exists((267944))
+    if !instance_exists((GID(267943))) and !instance_exists((GID(267944)))
     {
-      with (267961) {instance_destroy()}
+      with (GID(267961)) {instance_destroy()}
       oRidleyFirst.atkDelay-=4
       sceneProgress+=1
     }
@@ -401,7 +401,7 @@ else if global.gameProgress=2720 and room=rSamus5_Lv1_F and global.gamePaused=fa
     }
     else if sceneDelay=41
     {
-      with (267974)
+      with (GID(267974))
       {
         with myDoor {instance_destroy()}
         instance_destroy()
@@ -418,17 +418,17 @@ else if global.gameProgress=2720 and room=rSamus5_Lv1_F and global.gamePaused=fa
   }
   else if sceneProgress=1
   {
-    if !instance_exists((268288))
+    if !instance_exists((GID(268288)))
     {
-      with (268289) {instance_destroy()}
+      with (GID(268289)) {instance_destroy()}
       sceneProgress+=1
     }
   }
   else if sceneProgress=2
   {
-    if !instance_exists((268287)) and !instance_exists((268293))
+    if !instance_exists((GID(268287))) and !instance_exists((GID(268293)))
     {
-      with (268290) {instance_destroy()}
+      with (GID(268290)) {instance_destroy()}
       sceneProgress+=1
     }
   }
@@ -909,7 +909,7 @@ else if room=rSamus5_Lv1_R //----- [] Switch before Kraid -----
 {
   if gateKraid="0"
   {
-    if (288057).activated=1
+    if (GID(288057)).activated=1
     {
       with oEventBarrier {instance_destroy()}
       gateKraid="1"
@@ -1716,7 +1716,7 @@ else if global.gameProgress=3040 and global.gamePaused=false //----- [] Escape S
   {
     if doorTime=0 and global.forceTime<=300 //Door opens
     {
-      (297935).myDoor.type=0; (297935).myDoor.sprite_index=sMetroidDoorBlue
+      (GID(297935)).myDoor.type=0; (GID(297935)).myDoor.sprite_index=sMetroidDoorBlue
       doorTime=1
     }
     
@@ -1877,7 +1877,7 @@ else if room=rSamus5_VentShaft //----- [] Getting the Program Chip -----
       }
       if sceneDelay>=90
       {
-        (297940).myDoor.image_index=3; (297940).myDoor.visible=0
+        (GID(297940)).myDoor.image_index=3; (GID(297940)).myDoor.visible=0
         var tEffect;
         for(i=0;i<64;i+=1)
         {
@@ -2010,10 +2010,10 @@ else if room=rSamus5_VentShaft //----- [] Getting the Program Chip -----
       }
       else if sceneDelay=101 {oRidleyFinal.ridParts[0].image_index=1}
       else if sceneDelay=104 {oRidleyFinal.ridParts[0].image_index=0}
-      else if sceneDelay=105 {(297940).myDoor.visible=1}
-      else if sceneDelay=108 {(297940).myDoor.image_index=2}
-      else if sceneDelay=111 {(297940).myDoor.image_index=1}
-      else if sceneDelay=114 {(297940).myDoor.image_index=0}
+      else if sceneDelay=105 {(GID(297940)).myDoor.visible=1}
+      else if sceneDelay=108 {(GID(297940)).myDoor.image_index=2}
+      else if sceneDelay=111 {(GID(297940)).myDoor.image_index=1}
+      else if sceneDelay=114 {(GID(297940)).myDoor.image_index=0}
       else if sceneDelay>=130 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=18 and bWaitForInput=false
@@ -2110,7 +2110,7 @@ else if room=rSamus5_VentShaft //----- [] Getting the Program Chip -----
         tMoneyDrop.xVel=random_range(-5,5); tMoneyDrop.yVel=-4-random(2)
       }
       with oEnemyBase {instance_destroy()};
-      (297941).myDoor.type=0; (297941).myDoor.sprite_index=sMetroidDoorBlue
+      (GID(297941)).myDoor.type=0; (GID(297941)).myDoor.sprite_index=sMetroidDoorBlue
       awardBossAP(6000)
       var tFullHeartDrop,tempMplay;
       tFullHeartDrop=instance_create(328,96,oHealthPickup)

@@ -29,11 +29,12 @@ lib_id=1
 action_id=603
 applies_to=self
 */
+if gDeltaDoTicks != 1 { exit; }
 if global.gameProgress=150 and room=rMario1_1 //----- [1] Intro to Mario World - Ch.2 -----
 {
   if sceneProgress=0
   {
-    sceneDelay+=1*gDeltaTime
+    sceneDelay+=1
     if sceneDelay=1
     {
       charSwitcher(0)
@@ -47,7 +48,7 @@ if global.gameProgress=150 and room=rMario1_1 //----- [1] Intro to Mario World -
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1*gDeltaTime
+    sceneDelay+=1
     if sceneDelay=35
     {
       efCharge=instance_create(oPlayer1.x,oPlayer1.y-26,oMisc)
@@ -98,7 +99,7 @@ if global.gameProgress=150 and room=rMario1_1 //----- [1] Intro to Mario World -
     msgCreate(0,0,"Jerry","What now?",0,1,oMessageCutscene,1)
   else if sceneProgress=3
   {
-    sceneDelay+=1*gDeltaTime
+    sceneDelay+=1
     if sceneDelay=5
     {
       abilLuigi=instance_create(oPlayer1.x,oPlayer1.y-26,oMisc)
@@ -131,7 +132,7 @@ if global.gameProgress=150 and room=rMario1_1 //----- [1] Intro to Mario World -
   }
   else if sceneProgress=5
   {
-    sceneDelay+=1*gDeltaTime
+    sceneDelay+=1
     if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=6 and bWaitForInput=false
@@ -219,13 +220,13 @@ else if global.gameProgress=160 and room=rMario1_1 //----- [2] (Unskippable unti
       else if global.activeCharacter=1 oPlayer1.sprite_index=sClaireIdle
       oPlayer1.image_speed=0.1
     }
-    else {oPlayer1.y+=4*gDeltaTime}
-    sceneDelay+=1*gDeltaTime
+    else {oPlayer1.y+=4}
+    sceneDelay+=1
     if sceneDelay>=40 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=2
   {
-    sceneDelay+=1*gDeltaTime
+    sceneDelay+=1
     if sceneDelay=19
     {
       global.msc_MarioClear=SS_LoadSound(working_directory+"\Music\DT_MarioClear.ogg",0)
@@ -242,7 +243,7 @@ else if global.gameProgress=160 and room=rMario1_1 //----- [2] (Unskippable unti
   }
   else if sceneProgress=3
   {
-    oPlayer1.x+=7*gDeltaTime
+    oPlayer1.x+=7
     if oPlayer1.x>=5496
     {
       oPlayer1.x=5496
@@ -252,7 +253,7 @@ else if global.gameProgress=160 and room=rMario1_1 //----- [2] (Unskippable unti
   }
   else if sceneProgress=4
   {
-    sceneDelay+=1*gDeltaTime
+    sceneDelay+=1
     if sceneDelay=30
     {
       if global.difficulty>=2
@@ -279,7 +280,7 @@ else if global.gameProgress=160 and room=rMario1_1 //----- [2] (Unskippable unti
     msgCreate(0,0,"Jerry","We're used to it.",0,3,oMessageCutscene,1)
   else if sceneProgress=7
   {
-    sceneDelay+=1*gDeltaTime
+    sceneDelay+=1
     if sceneDelay>=50 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=8 and bWaitForInput=false
@@ -304,9 +305,9 @@ else if global.gameProgress=160 and room=rMario1_1 //----- [2] (Unskippable unti
     msgCreate(0,0,"Jerry","What do you mean?",0,3,oMessageCutscene,1)
   else if sceneProgress=18
   {
-    sceneDelay+=1*gDeltaTime
+    sceneDelay+=1
     if sceneDelay=1 {fadeColor=c_black}
-    else if sceneDelay>=2 and sceneDelay<=21 {fadeAlpha+=0.05*gDeltaTime}
+    else if sceneDelay>=2 and sceneDelay<=21 {fadeAlpha+=0.05}
     else if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=19 and bWaitForInput=false
@@ -321,7 +322,7 @@ else if global.gameProgress=160 and room=rMario1_1 //----- [2] (Unskippable unti
     writeToPlayerGlobals()
     transition_steps=40
     transition_kind=21
-    room_goto(rMario1_2)
+    room_goto_fixed(rMario1_2)
   }
 }
 else if global.gameProgress=190 and room=rMario1_3 //----- [Unskippable] Enemy Trap -----
@@ -344,7 +345,7 @@ else if global.gameProgress=190 and room=rMario1_3 //----- [Unskippable] Enemy T
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1*gDeltaTime
+      sceneDelay+=1
       if sceneDelay=80
       {
         delaySpawn(1800,224,oGoomba,2,1,1,0.33)
@@ -378,12 +379,12 @@ else if global.gameProgress=200 and room=rMario1_3 //----- [3] Messed up area --
 {
   if sceneProgress=0 and oPlayer1.x>=3712
   {
-    sceneDelay+=1*gDeltaTime
+    sceneDelay+=1
     if sceneDelay=1
       global.gamePaused=true
     else if sceneDelay>=2
     {
-      oPlayer1.y+=4*gDeltaTime
+      oPlayer1.y+=4
       if oPlayer1.y>=176
       {
         scenePChk(oPlayer1.x,176,0,0.1,1)
@@ -394,7 +395,7 @@ else if global.gameProgress=200 and room=rMario1_3 //----- [3] Messed up area --
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1*gDeltaTime
+    sceneDelay+=1
     if sceneDelay>=15 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=2 and bWaitForInput=false
@@ -415,7 +416,7 @@ else if global.gameProgress=210 and room=rMario1_4 //----- [Assist] About Assist
 {
   if sceneProgress=0
   {
-    sceneDelay+=1*gDeltaTime
+    sceneDelay+=1
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=15 {sceneDelay=0; sceneProgress+=1}
   }
@@ -469,7 +470,7 @@ else if global.gameProgress=230 and room=rMario1_4Boss //----- [Unskippable] Bos
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1*gDeltaTime
+      sceneDelay+=1
       if sceneDelay=15
       {
         instance_create(560,192,oBossBarrier)
@@ -483,7 +484,7 @@ else if global.gameProgress=230 and room=rMario1_4Boss //----- [Unskippable] Bos
       }
       else if sceneDelay>=16
       {
-        boss.y+=8*gDeltaTime
+        boss.y+=8
         if boss.y>=272
         {
           boss.activateBoss=1
@@ -519,7 +520,7 @@ else if global.gameProgress=250 and room=rMario1_4Story //----- [4] Cackletta ta
 {
   if sceneProgress=0 and oPlayer1.x>=208
   {
-    sceneDelay+=1*gDeltaTime
+    sceneDelay+=1
     if sceneDelay=1
     {
       global.gamePaused=true
@@ -536,13 +537,13 @@ else if global.gameProgress=250 and room=rMario1_4Story //----- [4] Cackletta ta
     }
     else if sceneDelay>=30
     {
-      fadeAlpha-=0.02*gDeltaTime
+      fadeAlpha-=0.02
       if fadeAlpha<=0 {sceneDelay=0; sceneProgress+=1}
     }
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1*gDeltaTime
+    sceneDelay+=1
     if sceneDelay>=15 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=2 and bWaitForInput=false
@@ -565,8 +566,8 @@ else if global.gameProgress=250 and room=rMario1_4Story //----- [4] Cackletta ta
     msgCreate(0,0,"Jerry","Sweet, this was easier than taking on The Darkness.",0,3,oMessageCutscene,1)
   else if sceneProgress=11
   {
-    sceneDelay+=1*gDeltaTime
-    if sceneDelay>=11 and sceneDelay<=30 and current_frame mod 2 == 0 //QWH, added current_frame check here, might get stuck
+    sceneDelay+=1
+    if sceneDelay>=11 and sceneDelay<=30
       pChip.y+=1
     else if sceneDelay=31
     {
@@ -588,7 +589,7 @@ else if global.gameProgress=250 and room=rMario1_4Story //----- [4] Cackletta ta
     msgCreate(0,0,"Jerry","Oh that is not happening!",0,3,oMessageCutscene,1)
   else if sceneProgress=15
   {
-    sceneDelay+=1*gDeltaTime
+    sceneDelay+=1
     if sceneDelay=1
     {
       charCackletta.sprite_index=sCacklettaLaugh
@@ -604,8 +605,8 @@ else if global.gameProgress=250 and room=rMario1_4Story //----- [4] Cackletta ta
     }
     else if sceneDelay>=10 and sceneDelay<=17
     {
-      charJerry.x-=1*gDeltaTime
-      charJerry.y-=7*gDeltaTime
+      charJerry.x-=1
+      charJerry.y-=7
     }
     else if sceneDelay=18
     {
@@ -618,20 +619,20 @@ else if global.gameProgress=250 and room=rMario1_4Story //----- [4] Cackletta ta
     }
     else if sceneDelay>=45
     {
-      fadeAlpha-=0.02*gDeltaTime
+      fadeAlpha-=0.02
       if fadeAlpha<=0 {sceneDelay=0; sceneProgress+=1}
     }
   }
   else if sceneProgress=16
   {
-    sceneDelay+=1*gDeltaTime
+    sceneDelay+=1
     if sceneDelay>=15 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=17 and bWaitForInput=false
     msgCreate(0,0,"Jerry","I know, I know. She got away.",0,3,oMessageCutscene,1)
   else if sceneProgress=18
   {
-    sceneDelay+=1*gDeltaTime
+    sceneDelay+=1
     if sceneDelay>=5
     {
       scenePCanim(charJerry,1,sJerryGetUp,1,0.1,3.7,sJerryIdle,0,0.1)
@@ -660,7 +661,7 @@ else if global.gameProgress=270 and room=rMario1_5 //----- [5] About AP and Skil
 {
   if sceneProgress=0
   {
-    sceneDelay+=1*gDeltaTime
+    sceneDelay+=1
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=15 {sceneDelay=0; sceneProgress+=1}
   }
@@ -709,7 +710,7 @@ else if global.gameProgress=290 and room=rMario1_5Hub //----- [6] Toad house ---
 {
   if sceneProgress=0
   {
-    sceneDelay+=1*gDeltaTime
+    sceneDelay+=1
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=15 {sceneDelay=0; sceneProgress+=1}
   }
@@ -733,9 +734,9 @@ else if global.gameProgress=330 and room=rMario1_8 //----- [7] Finding your frie
 {
   if sceneProgress=0 and oPlayer1.x>=176
   {
-    sceneDelay+=1*gDeltaTime
+    sceneDelay+=1
     if sceneDelay=1 {global.gamePaused=true}
-    oPlayer1.y+=4*gDeltaTime
+    oPlayer1.y+=4
     if oPlayer1.y>=256
     {
       scenePChk(oPlayer1.x,256,0,0.1,1)
@@ -745,7 +746,7 @@ else if global.gameProgress=330 and room=rMario1_8 //----- [7] Finding your frie
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1*gDeltaTime
+    sceneDelay+=1
     if sceneDelay>=15 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=2 and bWaitForInput=false
@@ -806,7 +807,7 @@ else if global.gameProgress=360 and room=rMario1_HFb //----- [8] Annoying room -
 {
   if sceneProgress=0
   {
-    sceneDelay+=1*gDeltaTime
+    sceneDelay+=1
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=15 {sceneDelay=0; sceneProgress+=1}
   }
@@ -846,7 +847,7 @@ else if global.gameProgress=380 and room=rMario1_HFc //----- [Unskippable] Enemy
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1*gDeltaTime
+      sceneDelay+=1
       if sceneDelay=30
       {
         delaySpawn(320,192,oBoomerBro,2,1,1,0.33)
@@ -870,7 +871,7 @@ else if global.gameProgress=380 and room=rMario1_HFc //----- [Unskippable] Enemy
     }
     else if sceneProgress=3
     {
-      sceneDelay+=1*gDeltaTime
+      sceneDelay+=1
       if sceneDelay=30
         delaySpawn(480,128,oHammerBro,2,1,1,0.33)
       else if sceneDelay=50
@@ -896,7 +897,7 @@ else if global.gameProgress=401 and room=rMario1_9Shop //----- [9] Shop & Item E
 {
   if sceneProgress=0
   {
-    sceneDelay+=1*gDeltaTime
+    sceneDelay+=1
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=15 {sceneDelay=0; sceneProgress+=1}
   }
@@ -958,7 +959,7 @@ else if global.gameProgress=420 and room=rMario1_11 //----- [10] Almost to Cackl
 {
   if sceneProgress=0
   {
-    sceneDelay+=1*gDeltaTime
+    sceneDelay+=1
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=15 {sceneDelay=0; sceneProgress+=1}
   }
@@ -990,7 +991,7 @@ else if global.gameProgress=440 and room=rMario1_CCa //----- [11] Inside Cacklet
 {
   if sceneProgress=0
   {
-    sceneDelay+=1*gDeltaTime
+    sceneDelay+=1
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=15 {sceneDelay=0; sceneProgress+=1}
   }
@@ -1016,7 +1017,7 @@ else if global.gameProgress=460 and room=rMario1_CCb //----- [12] J&C random gib
 {
   if sceneProgress=0
   {
-    sceneDelay+=1*gDeltaTime
+    sceneDelay+=1
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=15 {sceneDelay=0; sceneProgress+=1}
   }
@@ -1052,10 +1053,10 @@ else if global.gameProgress=500 and room=rMario1_CCBoss //----- [13] Boss Fight:
   {
     if sceneProgress=0 and oPlayer1.x>=400
     {
-      sceneDelay+=1*gDeltaTime
+      sceneDelay+=1
       if sceneDelay=1
         global.gamePaused=true
-      oPlayer1.y+=4*gDeltaTime
+      oPlayer1.y+=4
       if oPlayer1.y>=272
       {
         scenePChk(oPlayer1.x,272,0,0.1,1)
@@ -1065,7 +1066,7 @@ else if global.gameProgress=500 and room=rMario1_CCBoss //----- [13] Boss Fight:
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1*gDeltaTime
+      sceneDelay+=1
       if sceneDelay=10
       {
         viewFix=instance_create(400,176,oMisc)
@@ -1074,7 +1075,7 @@ else if global.gameProgress=500 and room=rMario1_CCBoss //----- [13] Boss Fight:
         view_object[0]=viewFix
       }
       else if sceneDelay>=11 and sceneDelay<=50
-        viewFix.x+=4*gDeltaTime //QWH not sure if this is good
+        viewFix.x+=4
       if sceneDelay>=70
       {
         sceneDelay=0
@@ -1085,14 +1086,14 @@ else if global.gameProgress=500 and room=rMario1_CCBoss //----- [13] Boss Fight:
       msgCreate(0,0,"Jeremy","She's here, get ready.",0,3,oMessageCutscene,1)
     else if sceneProgress=3
     {
-      sceneDelay+=1*gDeltaTime
+      sceneDelay+=1
       if sceneDelay=1
       {
         boss=instance_create(464,176,oCackletta)
         boss.image_alpha=0
       }
       else if sceneDelay>=11 and sceneDelay<=30
-        boss.image_alpha+=0.05*gDeltaTime
+        boss.image_alpha+=0.05
       else if sceneDelay>=50 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=4 and bWaitForInput=false
@@ -1166,12 +1167,12 @@ else if global.gameProgress=500 and room=rMario1_CCBoss //----- [13] Boss Fight:
   {
     if sceneProgress=0
     {
-      if fadeAlpha<1 {fadeAlpha+=0.05*gDeltaTime}
+      if fadeAlpha<1 {fadeAlpha+=0.05}
       else if fadeAlpha>=1 {sceneProgress+=1}
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1*gDeltaTime
+      sceneDelay+=1
       if sceneDelay=1
       {
         endBoss()
@@ -1189,12 +1190,12 @@ else if global.gameProgress=500 and room=rMario1_CCBoss //----- [13] Boss Fight:
     }
     else if sceneProgress=2
     {
-      if fadeAlpha>0 {fadeAlpha-=0.05*gDeltaTime}
+      if fadeAlpha>0 {fadeAlpha-=0.05}
       else if fadeAlpha<=0 {sceneProgress+=1}
     }
     else if sceneProgress=3
     {
-      sceneDelay+=1*gDeltaTime
+      sceneDelay+=1
       if sceneDelay>=25 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=4 and bWaitForInput=false
@@ -1205,7 +1206,7 @@ else if global.gameProgress=500 and room=rMario1_CCBoss //----- [13] Boss Fight:
       msgCreate(0,0,"Jeremy","Get ready for the Chip.",0,3,oMessageCutscene,1)
     else if sceneProgress=7
     {
-      sceneDelay+=1*gDeltaTime
+      sceneDelay+=1
       if sceneDelay=20
       {
         pChip=instance_create(464,160,oProgramChip)
@@ -1224,7 +1225,7 @@ else if global.gameProgress=500 and room=rMario1_CCBoss //----- [13] Boss Fight:
       msgCreate(0,0,"Jerry","This time, hopefully no one comes and snatches it away.",0,3,oMessageCutscene,1)
     else if sceneProgress=9
     {
-      sceneDelay+=1*gDeltaTime
+      sceneDelay+=1
       if sceneDelay>=21 and sceneDelay<=100 {pChip.y+=1}
       else if sceneDelay=130
       {
@@ -1468,7 +1469,7 @@ if global.gamePaused=false
   {
     oPlayer1.bKeepPlayerOnScreen=0
     if autoScroll.x<room_width-256
-      autoScroll.x+=xScrollSpd*gDeltaTime
+      autoScroll.x+=xScrollSpd
 
     if autoScroll.x-(view_wview[0]/2)-20>oPlayer1.x
       oPlayer1.life-=oPlayer1.maxLife

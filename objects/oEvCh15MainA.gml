@@ -384,7 +384,7 @@ else if global.gameProgress=3420 and room=rGame6_HeroPlainsA //----- [4] Combat 
       tEffect.newBlend=1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
       tEffect.image_xscale=1.5; tEffect.image_yscale=1.5; tEffect.image_speed=0.5
       var tFlash; tFlash=instance_create(x,y,oScreenFlash); tFlash.fadeSpeed=0.2
-      with (428761) {instance_destroy()}
+      with (GID(428761)) {instance_destroy()}
     }
     else if sceneDelay=35 {oWHB_NPC.sprite_index=sWHB_AnimStand; oWHB_NPC.image_speed=0.15}
     else if sceneDelay=50 {sceneDelay=0; sceneProgress+=1}
@@ -3135,7 +3135,7 @@ else if global.gameProgress=3851 and room=rGame6_CoD_ESC //----- [Unskippable] E
     msgCreate(0,0,"Jeremy","You guys, just do whatever you want here.",0,3,oMessageCutscene,1)
   else if sceneProgress=22
   {
-    (429501).dialogueSeq=1; (429501).bCanTakeDamage=1
+    (GID(429501)).dialogueSeq=1; (GID(429501)).bCanTakeDamage=1
     global.gamePaused=false
     sceneProgress+=1
   }
@@ -3189,7 +3189,7 @@ else if global.gameProgress=3852 and room=rGame6_CoD_ESC //----- [Unskippable] E
     msgCreate(0,0,"Jerry","Ugh, it's going to happen regardless now.",0,3,oMessageCutscene,1)
   else if sceneProgress=15
   {
-    (429502).dialogueSeq=1; (429502).bCanTakeDamage=1
+    (GID(429502)).dialogueSeq=1; (GID(429502)).bCanTakeDamage=1
     global.gamePaused=false
     sceneProgress+=1
   }
@@ -3245,7 +3245,7 @@ else if global.gameProgress=3853 and room=rGame6_CoD_ESC //----- [Unskippable] E
     msgCreate(0,0,"Evil Shadowy Councilman C","But I have something else to tell.",6,3,oMessageCutscene,1)
   else if sceneProgress=16
   {
-    (429503).dialogueSeq=1; (429503).bCanTakeDamage=1
+    (GID(429503)).dialogueSeq=1; (GID(429503)).bCanTakeDamage=1
     global.gamePaused=false
     sceneProgress+=1
   }
@@ -3876,7 +3876,7 @@ if global.gamePaused=false
   {
     if wallCheck=0
     {
-      if !instance_exists((326218))
+      if !instance_exists((GID(326218)))
       {
         tile_layer_hide(9)
         wallCheck=1
@@ -3904,7 +3904,7 @@ if global.gamePaused=false
   {
     if bEnemyCheck=0
     {
-      if !instance_exists((339042))
+      if !instance_exists((GID(339042)))
       {
         with (oEnemyBarrier) {instance_destroy()}
         bEnemyCheck=1

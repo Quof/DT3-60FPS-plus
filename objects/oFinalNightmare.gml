@@ -679,8 +679,8 @@ if global.gamePaused=false
     {
       if platformMove=1
       {
-        (196186).xVel=-1
-        (196187).xVel=1
+        (GID(196186)).xVel=-1
+        (GID(196187)).xVel=1
       }
       tile_layer_shift(1000001,-1,0)
       tile_layer_shift(1000002,1,0)
@@ -688,8 +688,8 @@ if global.gamePaused=false
       if platformMove=34
       {
         oMarioSpikeFloor.visible=1
-        (196186).xVel=0
-        (196187).xVel=0
+        (GID(196186)).xVel=0
+        (GID(196187)).xVel=0
         platformMove=100
       }
     }
@@ -721,16 +721,16 @@ if global.gamePaused=false
           tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
         }
         with oMarioSpikeFloor {instance_destroy()}
-        (196186).xVel=1
-        (196187).xVel=-1
+        (GID(196186)).xVel=1
+        (GID(196187)).xVel=-1
       }
       tile_layer_shift(1000001,1,0)
       tile_layer_shift(1000002,-1,0)
       platformMove+=1
       if platformMove=234
       {
-        (196186).xVel=0
-        (196187).xVel=0
+        (GID(196186)).xVel=0
+        (GID(196187)).xVel=0
         platformMove=300
       }
     }

@@ -262,7 +262,7 @@ if global.gamePaused=false
           tile_layer_hide(1000001)
           for(i=0;i<4;i+=1)
           {
-            with (250836+i) {y-=1000}
+            with (GID(250836+i)) {y-=1000}
           }
         }
         else if superAtkTime=110 //Hex taunt
@@ -327,7 +327,7 @@ if global.gamePaused=false
           tile_layer_show(1000001)
           for(i=0;i<4;i+=1)
           {
-            with (250836+i) {y+=1000}
+            with (GID(250836+i)) {y+=1000}
           }
           with oHex_First_Chain {for(i=0;i<6;i+=1) {resType[i]=3}}
           superAtkTime=-1
@@ -382,7 +382,7 @@ if global.gamePaused=false
           tile_layer_hide(1000001)
           for(i=0;i<4;i+=1)
           {
-            with (250836+i) {y-=1000}
+            with (GID(250836+i)) {y-=1000}
           }
         }
         else if superAtkTime=10100 //Hex taunt
@@ -431,7 +431,7 @@ if global.gamePaused=false
           tile_layer_show(1000001)
           for(i=0;i<4;i+=1)
           {
-            with (250836+i) {y+=1000}
+            with (GID(250836+i)) {y+=1000}
           }
           with oHex_First_Chain {for(i=0;i<6;i+=1) {resType[i]=3}}
           superAtkTime=-1

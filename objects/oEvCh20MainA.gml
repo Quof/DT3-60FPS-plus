@@ -597,7 +597,7 @@ else if room=rWarshipM and global.gameProgress=5220 //----- [] Fight with CHAOS 
   {
     if sceneProgress=0
     {
-      if !instance_exists((446612))
+      if !instance_exists((GID(446612)))
       {
         var enemyBarrier;
         enemyBarrier=instance_create(464,192,oEnemyBarrier); enemyBarrier.image_yscale=4
@@ -612,7 +612,7 @@ else if room=rWarshipM and global.gameProgress=5220 //----- [] Fight with CHAOS 
     }
     else if sceneProgress=2
     {
-      if !instance_exists((446613))
+      if !instance_exists((GID(446613)))
       {
         with oMovingTrapRed {instance_destroy()}
         var tRedTrap;
@@ -702,7 +702,7 @@ else if global.gameProgress=5240 and room=rWarshipP //----- [] Hex speaks -----
       var tempMplay;
       tempMplay=findMusic(0)
       playMusic(tempMplay,0,0)
-      with (447534) {instance_destroy()}
+      with (GID(447534)) {instance_destroy()}
       xView=240; yView=144
       sceneProgress+=1
     }

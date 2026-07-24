@@ -4,9 +4,9 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-image_speed=(0.15+random(0.1))
+image_speed=0.15+random(0.1)
 image_xscale=choose(-1,1)
-moveSpd=(0.25+random(0.75))*gDeltaTime
+moveSpd=0.25+random(0.75)
 dirChange=irandom(300)
 type=0
 bSpotted=0
@@ -16,6 +16,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
+if !gDeltaDoTicks { exit; }
 if image_xscale=1
   x+=moveSpd
 else
@@ -23,7 +24,7 @@ else
 
 if type=0
 {
-  dirChange+=1*gDeltaTime
+  dirChange+=1
   if dirChange>=480
   {
     if image_xscale=1

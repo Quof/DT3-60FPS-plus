@@ -33,16 +33,17 @@ lib_id=1
 action_id=603
 applies_to=self
 */
+if gDeltaDoTicks != 1 { exit; }
 if global.gamePaused=false
 {
   makeEnemyActive(0)
   if bActive=true and stunnedTime=0
   {
     //---------- Annoyance loop ----------
-    annoyTime+=1*gDeltaTime
+    annoyTime+=1
     if annoyTime<annoyDelay //Idle anim
     {
-      if current_frame mod 6/gDeltaTime==0
+      if oGame.time mod 6=0
       {
         if image_index=0
           image_index=1
@@ -68,34 +69,34 @@ if global.gamePaused=false
         tNewFire.atkPower=atkPower
         if i=0
         {
-          tNewFire.xVel=-1*gDeltaTime
-          tNewFire.yVel=-4*gDeltaTime
-          tNewFire.grav=0.1*gDeltaTime*gDeltaTime
+          tNewFire.xVel=-1
+          tNewFire.yVel=-4
+          tNewFire.grav=0.1
         }
         else if i=1
         {
-          tNewFire.xVel=1*gDeltaTime
-          tNewFire.yVel=-4*gDeltaTime
-          tNewFire.grav=0.1*gDeltaTime*gDeltaTime
+          tNewFire.xVel=1
+          tNewFire.yVel=-4
+          tNewFire.grav=0.1
         }
         else if i=2
         {
-          tNewFire.xVel=-2.5*gDeltaTime
-          tNewFire.yVel=-3*gDeltaTime
-          tNewFire.grav=0.09*gDeltaTime*gDeltaTime
+          tNewFire.xVel=-2.5
+          tNewFire.yVel=-3
+          tNewFire.grav=0.09
         }
         else if i=3
         {
-          tNewFire.xVel=2.5*gDeltaTime
-          tNewFire.yVel=-3*gDeltaTime
-          tNewFire.grav=0.09*gDeltaTime*gDeltaTime
+          tNewFire.xVel=2.5
+          tNewFire.yVel=-3
+          tNewFire.grav=0.09
         }
       }
     }
     else if annoyTime>=annoyDelay+42 //Revert to being less annoying for a bit
       annoyTime=0
 
-    yVel+=0.2*gDeltaTime*gDeltaTime
+    yVel+=0.2
     if isCollisionBottom(1)
       yVel=0
     if isCollisionSolid()

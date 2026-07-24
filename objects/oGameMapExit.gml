@@ -47,7 +47,7 @@ if oPlayerGameIcon.bOnBird=0
       transition_steps=newStep
     if variable_local_exists("newTrans")
       transition_kind=newTrans
-    room_goto(toRoom)
+    room_goto_fixed(toRoom)
   }
 }
 #define Draw_0

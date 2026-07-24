@@ -27,7 +27,7 @@ if global.gamePaused=false
   {
     if atkId[i]!=0
     {
-      atkIdTime[i]+=1
+      atkIdTime[i]+=1*gDeltaTime
       if atkIdTime[i]>=weaponRehitTime
         atkId[i]=0
     }

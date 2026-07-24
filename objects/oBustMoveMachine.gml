@@ -6,7 +6,7 @@ applies_to=self
 */
 image_angle=90
 rechargeTime=0
-rechargeTotal=15/gDeltaTime
+rechargeTotal=15
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -19,14 +19,14 @@ if global.gamePaused=false
   {
     if image_angle<145
     {
-      image_angle+=3*gDeltaTime
+      image_angle+=3
     }
   }
   else if scrController(2)
   {
     if image_angle>33
     {
-      image_angle-=3*gDeltaTime
+      image_angle-=3
     }
   }
 

@@ -23,9 +23,7 @@ baseItemChance=50
 affiliation=1
 initDir=0
 weight=100
-runAcc=1.2*gDeltaTime
-xRemainder=0
-yRemainder=0
+runAcc=1.2
 jeremyText="Bounce bounce bounce. That's all these do."
 if global.gameProgress<=6
   jeremyText+=" Until you get your jumping ability, you're gonna have to run under them or wait till they drop off a cliff."
@@ -39,7 +37,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if global.gamePaused=false
+if global.gamePaused=false && gDeltaDoTicks != 0
 {
   makeEnemyActive(0)
   if bActive=true and stunnedTime=0
@@ -51,15 +49,15 @@ if global.gamePaused=false
         xVel*=-1
       initDir=true
     }
-    yVel+=0.3*gDeltaTime*gDeltaTime
+    yVel+=0.3
     if isCollisionBottom(1)
-      yVel=-6*gDeltaTime
-    if isCollisionLeftEdit(1)
+      yVel=-6
+    if isCollisionLeft(1)
       xVel*=-1
-    if isCollisionRightEdit(1)
+    if isCollisionRight(1)
       xVel*=-1
     if isCollisionTop(1)
-      yVel=0.1*gDeltaTime
+      yVel=0.1
 
     if xVel>runAcc
       xVel=runAcc
@@ -69,17 +67,7 @@ if global.gamePaused=false
       image_xscale=1
     else
       image_xscale=-1
-
-    xRemainder+=xVel
-    xMove=round(xRemainder)
-    xRemainder-=xMove
-
-    yRemainder+=yVel
-    yMove=round(yRemainder)
-    yRemainder-=yMove
-
-    moveTo(xMove,yMove)
-
+    moveTo(xVel,yVel)
     if isCollisionSolid()
       y-=2
     if y>room_height+24
@@ -91,3 +79,12 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
+#define Draw_0
+/*"/*'/**//* YYD ACTION
+lib_id=1
+action_id=603
+applies_to=self
+*/
+magicInterpDrawStart()
+event_inherited()
+magicInterpDrawEnd()

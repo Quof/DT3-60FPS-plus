@@ -5,8 +5,8 @@ action_id=603
 applies_to=self
 */
 image_speed=0.2+random(0.2)
-moveSpdX=(3+random(5))*gDeltaTime
-moveSpdY=(random_range(-0.25,0.25))*gDeltaTime
+moveSpdX=3+random(5)
+moveSpdY=random_range(-0.25,0.25)
 bSpotted=0
 #define Step_0
 /*"/*'/**//* YYD ACTION
@@ -14,6 +14,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
+if !gDeltaDoTicks { exit; }
 if image_xscale=1 {x+=moveSpdX}
 else {x-=moveSpdX}
 y+=moveSpdY

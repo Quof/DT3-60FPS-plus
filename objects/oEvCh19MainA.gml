@@ -477,7 +477,7 @@ else if global.gameProgress=4610 and room=rDiscoD //----- [6] Hex shows up -----
   else if sceneProgress=3
   {
     sceneDelay+=1
-    if sceneDelay=20 {(399156).image_xscale=-1;}
+    if sceneDelay=20 {(GID(399156)).image_xscale=-1;}
     if sceneDelay>=40 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=4 and bWaitForInput=false
@@ -495,7 +495,7 @@ else if global.gameProgress=4610 and room=rDiscoD //----- [6] Hex shows up -----
   else if sceneProgress=10
   {
     sceneDelay+=1
-    if sceneDelay>=10 {(399156).x+=6}
+    if sceneDelay>=10 {(GID(399156)).x+=6}
     if sceneDelay>=40 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=11 and bWaitForInput=false
@@ -506,7 +506,7 @@ else if global.gameProgress=4610 and room=rDiscoD //----- [6] Hex shows up -----
     msgCreate(0,0,"Claire","We still have to try!",0,3,oMessageCutscene,1)
   else if sceneProgress=14
   {
-    with (399156) {instance_destroy()}
+    with (GID(399156)) {instance_destroy()}
     sceneDelay=0; sceneProgress=0
     global.gameProgress=4620
     global.gamePaused=false
@@ -755,13 +755,13 @@ else if room=rDiscoI //----- [] Boss Fight: Defective -----
     else if sceneProgress=1
     {
       oPlayer1.x+=4
-      if oPlayer1.x>=816 {(401983).x-=7; (401983).y+=7}
+      if oPlayer1.x>=816 {(GID(401983)).x-=7; (GID(401983)).y+=7}
       if oPlayer1.x>=832
       {
         var tempMplay;
         tempMplay=findMusic(0)
         playMusic(tempMplay,0,0)
-        (401981).sprite_index=sNPC_Kirby_Die
+        (GID(401981)).sprite_index=sNPC_Kirby_Die
         oPlayer1.image_speed=0.05
         sceneProgress+=1
       }
@@ -805,13 +805,13 @@ else if room=rDiscoI //----- [] Boss Fight: Defective -----
     }
     else if sceneProgress=5
     {
-      (401982).x+=10
+      (GID(401982)).x+=10
       sceneDelay+=1
       if sceneDelay>=30
       {
-        with (401981) {instance_destroy()}
-        with (401982) {instance_destroy()}
-        with (401983) {instance_destroy()}
+        with (GID(401981)) {instance_destroy()}
+        with (GID(401982)) {instance_destroy()}
+        with (GID(401983)) {instance_destroy()}
         charSwitcher(global.activeCharacter)
         global.newMapX=884
         global.hasShoes[1]=2
@@ -827,14 +827,14 @@ else if room=rDiscoI //----- [] Boss Fight: Defective -----
       kirbyFade+=1
       var tFFScl,tEffect;
       tFFScl=random(0.1)
-      tEffect=instance_create((401981).x+random_range(-8,8),(401981).y-1-random(14),oEffectB)
+      tEffect=instance_create((GID(401981)).x+random_range(-8,8),(GID(401981)).y-1-random(14),oEffectB)
       tEffect.type=3; tEffect.sprite_index=sEfFirefly; tEffect.newBlend=1
       tEffect.image_alpha=0.3; tEffect.image_xscale=0.15+tFFScl; tEffect.image_yscale=0.15+tFFScl
       tEffect.direction=random_range(70,110); tEffect.speed=random(1)+1; tEffect.friction=random(0.02)+0.02
       tEffect.fadeSpd=0.005; tEffect.image_blend=make_color_rgb(random(50),random(50),255)
       tEffect.AccelX=0; tEffect.AccelY=0; tEffect.followID=-1; tEffect.rotation=0
-      (401981).image_alpha-=0.02
-      (401983).image_alpha-=0.02
+      (GID(401981)).image_alpha-=0.02
+      (GID(401983)).image_alpha-=0.02
       if kirbyFade>=52 {kirbyFade=1000}
     }
   }
@@ -1010,7 +1010,7 @@ else if room=rHiddenVillage //----- [10] The next piece of the Dragoon -----
     else if sceneProgress=9
     {
       sceneDelay+=1
-      if sceneDelay=20 {(396259).image_xscale=1}
+      if sceneDelay=20 {(GID(396259)).image_xscale=1}
       else if sceneDelay>=40 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=10 and bWaitForInput=false
@@ -1018,7 +1018,7 @@ else if room=rHiddenVillage //----- [10] The next piece of the Dragoon -----
     else if sceneProgress=11
     {
       sceneDelay+=1
-      if sceneDelay=20 {(396259).image_xscale=-1}
+      if sceneDelay=20 {(GID(396259)).image_xscale=-1}
       else if sceneDelay>=40 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=12 and bWaitForInput=false
@@ -1415,8 +1415,8 @@ else if room=rMain_84 and global.gameProgress=4950 //----- [14] Reunited with Ge
   else if sceneProgress=3
   {
     sceneDelay+=1
-    if sceneDelay=1 {showEmote((420748),0,-60,sEmExcite)}
-    else if sceneDelay=20 {(420748).image_xscale=1}
+    if sceneDelay=1 {showEmote((GID(420748)),0,-60,sEmExcite)}
+    else if sceneDelay=20 {(GID(420748)).image_xscale=1}
     else if sceneDelay>=50 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=4 and bWaitForInput=false

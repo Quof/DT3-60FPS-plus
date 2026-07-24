@@ -96,7 +96,7 @@ if global.difficulty>=2
       image_index=1
 
       //----- SPECIAL MAP SCENARIOS -----
-      if room=rMain_25ExtA {(210894).spinning=1}
+      if room=rMain_25ExtA {(GID(210894)).spinning=1}
     }
     else if image_yscale=-1 //Forest Temple upside-down chest
     {
@@ -145,7 +145,7 @@ if global.bNightmareMode=1
       image_index=1
 
       //----- SPECIAL MAP SCENARIOS -----
-      if room=rMain_25ExtA {(210894).spinning=1}
+      if room=rMain_25ExtA {(GID(210894)).spinning=1}
     }
     else if image_yscale=-1 //Forest Temple upside-down chest
     {

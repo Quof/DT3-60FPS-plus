@@ -14,7 +14,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if !instance_exists(oZeldaSaveMenu)
+if !instance_exists(oZeldaSaveMenu) && gDeltaDoTicks
 {
   if bMoveStep=0 //Move decision
   {

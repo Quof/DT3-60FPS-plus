@@ -21,14 +21,14 @@ if bFading=false
     if x<0 {x=0}
     else if x+xOffset*2>room_width {x=room_width-xOffset*2}
 
-    fadingTime-=1
+    fadingTime-=1*gDeltaTime
     if fadingTime<=0 {bFading=true}
   }
   else {bFading=true}
 }
 else
 {
-  image_alpha-=0.05
+  image_alpha-=0.05*gDeltaTime
   if image_alpha<=0 {instance_destroy()}
 }
 #define Draw_0

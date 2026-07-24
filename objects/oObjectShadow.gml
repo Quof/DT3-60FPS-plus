@@ -121,10 +121,10 @@ if type=5 //Player Weapon to Normal Switch
   {
     if oGateCRoomProg.rmProg=0
     {
-      if ownerID=(197475)
+      if ownerID=(GID(197475))
       {
         playSound(global.snd_SwitchHit,0,1,1)
-        with (197561) {instance_destroy()}
+        with (GID(197561)) {instance_destroy()}
         oGateCRoomProg.rmProg+=1
       }
     }
@@ -133,28 +133,28 @@ if type=5 //Player Weapon to Normal Switch
   {
     if oGateCRoomProg.flameSwitch[0]=0
     {
-      if ownerID=(199515)
+      if ownerID=(GID(199515))
       {
         playSound(global.snd_SwitchHit,0,1,1)
-        with (199577) {instance_destroy()}
+        with (GID(199577)) {instance_destroy()}
         oGateCRoomProg.flameSwitch[0]+=1
       }
     }
     if oGateCRoomProg.flameSwitch[1]=0
     {
-      if ownerID=(199519)
+      if ownerID=(GID(199519))
       {
         playSound(global.snd_SwitchHit,0,1,1)
-        with (199579) {instance_destroy()}
+        with (GID(199579)) {instance_destroy()}
         oGateCRoomProg.flameSwitch[1]+=1
       }
     }
     if oGateCRoomProg.flameSwitch[2]=0
     {
-      if ownerID=(199527)
+      if ownerID=(GID(199527))
       {
         playSound(global.snd_SwitchHit,0,1,1)
-        with (199580) {instance_destroy()}
+        with (GID(199580)) {instance_destroy()}
         oGateCRoomProg.flameSwitch[2]+=1
       }
     }

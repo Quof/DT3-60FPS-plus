@@ -92,7 +92,7 @@ if room=rBelmont3_7C
 {
   if global.gameProgress<=1490
   {
-    (184752).y-=1024
+    (GID(184752)).y-=1024
   }
 }
 if room=rBelmont3_7G
@@ -1026,7 +1026,7 @@ else if room=rBelmont3_4C //----- [] Hit switch -----
 {
   if gameProgCheck="1"
   {
-    if (176524).activated=1
+    if (GID(176524)).activated=1
     {
       var tFlash;
       tFlash=instance_create(0,0,oScreenFlash)
@@ -1332,7 +1332,7 @@ else if room=rBelmont3_6E //----- [] Get Death's Heart -----
   {
     if sceneProgress=0
     {
-      if (181462).activated=1 and (181463).activated=1
+      if (GID(181462)).activated=1 and (GID(181463)).activated=1
       {
         instance_create(1360,112,oCV_SalemWitch)
         instance_create(1552,112,oCV_SalemWitch)
@@ -1454,8 +1454,8 @@ else if room=rBelmont3_6G //----- [] Break barrier door -----
           tEffect.sprite_index=sMMSmokeCloud; tEffect.image_xscale=tRanSize; tEffect.image_yscale=tRanSize
           tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
         }
-        (183139).y-=1
-        if (183139).y<=704 {global.gameProgress=1470}
+        (GID(183139)).y-=1
+        if (GID(183139)).y<=704 {global.gameProgress=1470}
       }
     }
   }
@@ -1483,7 +1483,7 @@ else if room=rBelmont3_7D //----- [] Hit switch / Enemy trap event -----
 {
   if global.gameProgress=1480 //Check switch
   {
-    if (184746).activated=1
+    if (GID(184746)).activated=1
     {
       instance_create(0,0,oCheckpointNotice)
       global.newMapX=736

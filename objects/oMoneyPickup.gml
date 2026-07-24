@@ -9,7 +9,7 @@ setCollisionBounds(1,0,sprite_width,sprite_height)
 image_xscale=2
 image_yscale=2
 image_speed=0.33
-yVel=-4*gDeltaTime
+yVel=-4
 alarm[0]=1
 #define Alarm_0
 /*"/*'/**//* YYD ACTION
@@ -29,9 +29,10 @@ lib_id=1
 action_id=603
 applies_to=self
 */
+if gDeltaDoTicks != 1 { exit; }
 if global.gamePaused=false
 {
-  yVel+=0.3*gDeltaTime*gDeltaTime
+  yVel+=0.3
 
   if isCollisionBottom(1)
     yVel=0
@@ -75,4 +76,6 @@ lib_id=1
 action_id=603
 applies_to=self
 */
+magicInterpDrawStart()
 draw_sprite_ext(sprite_index,image_index,x,y,1,1,image_angle,image_blend,image_alpha)
+magicInterpDrawEnd()

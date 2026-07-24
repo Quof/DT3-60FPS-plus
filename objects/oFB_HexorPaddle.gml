@@ -212,7 +212,7 @@ if global.gamePaused=0
       global.pLife=oFB_PlayerPaddle.life
       global.jeremySuperEnergy=oFB_PlayerPaddle.jeremySuperEnergy
       transition_steps=1; transition_kind=21
-      room_goto(rDistFinal_Round2)
+      room_goto_fixed(rDistFinal_Round2)
     }
   }
 

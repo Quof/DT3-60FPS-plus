@@ -14,14 +14,14 @@ bShowDamage=false
 bCanTakeDamage=false
 bDestroy=0
 weight=50
-grav=0.2*gDeltaTime*gDeltaTime
+grav=0.2
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
 action_id=603
 applies_to=self
 */
-if global.gamePaused=false
+if global.gamePaused=false && gDeltaDoTicks != 0
 {
   yVel+=grav
   if sprite_index=sHammerBHam or sprite_index=sHammerThrowerHammer or sprite_index=sFireBroFire or sprite_index=sKingWormSpike or sprite_index=sLargeSnowball
@@ -34,7 +34,6 @@ if global.gamePaused=false
   if isCollisionBottom(1) {bDestroy=1}
   if isCollisionLeft(1) {bDestroy=1}
   if isCollisionRight(1) {bDestroy=1}
-
   moveTo(xVel,yVel)
 
   if bDestroy=1
@@ -71,3 +70,12 @@ if global.gamePaused=false
   }
   if y>room_height+32 {instance_destroy()}
 }
+#define Draw_0
+/*"/*'/**//* YYD ACTION
+lib_id=1
+action_id=603
+applies_to=self
+*/
+magicInterpDrawStart()
+event_inherited()
+magicInterpDrawEnd()

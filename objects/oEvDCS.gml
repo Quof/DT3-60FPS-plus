@@ -279,13 +279,13 @@ else if room=rDCS_E and global.gameProgress=4775 //----- [3] Perplexing moment w
   else if sceneProgress=13
   {
     sceneDelay+=1
-    if sceneDelay=20 {(404466).image_xscale=1.25; (404466).sprite_index=sWarmasterA_Run; (404466).image_speed=0.33}
+    if sceneDelay=20 {(GID(404466)).image_xscale=1.25; (GID(404466)).sprite_index=sWarmasterA_Run; (GID(404466)).image_speed=0.33}
     else if sceneDelay>=21 and sceneDelay<=32
     {
-      (404466).x+=6
-      if sceneDelay=32 {(404466).sprite_index=sWarmasterA_JumpUp}
+      (GID(404466)).x+=6
+      if sceneDelay=32 {(GID(404466)).sprite_index=sWarmasterA_JumpUp}
     }
-    else if sceneDelay>=33 and sceneDelay<=60 {(404466).x+=6; (404466).y-=8}
+    else if sceneDelay>=33 and sceneDelay<=60 {(GID(404466)).x+=6; (GID(404466)).y-=8}
     else if sceneDelay>=80 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=14 and bWaitForInput=false
@@ -296,7 +296,7 @@ else if room=rDCS_E and global.gameProgress=4775 //----- [3] Perplexing moment w
     msgCreate(0,0,"Jeremy","No, he doesn't know why we're here and let's keep it that way.",0,3,oMessageCutscene,1)
   else if sceneProgress=17
   {
-    with (404466) {instance_destroy()}
+    with (GID(404466)) {instance_destroy()}
     sceneDelay=0; sceneProgress=0
     global.gameProgress=4780
     global.gamePaused=false
@@ -753,17 +753,17 @@ else if room=rDCS_V and global.gameProgress=4790 //----- [] The second Dragoon p
   if sceneProgress>=10 //Portal red flash
   {
     portalWave+=1
-    if portalWave=1 {(410850).image_blend=c_red}
-    else if portalWave=8 {(410851).image_blend=c_red}
-    else if portalWave=15 {(410852).image_blend=c_red}
-    else if portalWave=22 {(410853).image_blend=c_red}
-    else if portalWave=29 {(410854).image_blend=c_red}
+    if portalWave=1 {(GID(410850)).image_blend=c_red}
+    else if portalWave=8 {(GID(410851)).image_blend=c_red}
+    else if portalWave=15 {(GID(410852)).image_blend=c_red}
+    else if portalWave=22 {(GID(410853)).image_blend=c_red}
+    else if portalWave=29 {(GID(410854)).image_blend=c_red}
 
-    if portalWave=16 {(410850).image_blend=c_white}
-    else if portalWave=23 {(410851).image_blend=c_white}
-    else if portalWave=30 {(410852).image_blend=c_white}
-    else if portalWave=37 {(410853).image_blend=c_white}
-    else if portalWave=44 {(410854).image_blend=c_white}
+    if portalWave=16 {(GID(410850)).image_blend=c_white}
+    else if portalWave=23 {(GID(410851)).image_blend=c_white}
+    else if portalWave=30 {(GID(410852)).image_blend=c_white}
+    else if portalWave=37 {(GID(410853)).image_blend=c_white}
+    else if portalWave=44 {(GID(410854)).image_blend=c_white}
     else if portalWave>=45 {portalWave=0}
   }
 }
@@ -827,17 +827,17 @@ if global.gamePaused=false
   {
     if ghostDoors=0
     {
-      if !instance_exists(410054)
+      if !instance_exists(GID(410054))
       {
-        with (410676) {instance_destroy()}
+        with (GID(410676)) {instance_destroy()}
         ghostDoors=1
       }
     }
     else if ghostDoors=1
     {
-      if !instance_exists(410086)
+      if !instance_exists(GID(410086))
       {
-        with (410677) {instance_destroy()}
+        with (GID(410677)) {instance_destroy()}
         ghostDoors=100
       }
     }

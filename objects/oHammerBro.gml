@@ -21,7 +21,7 @@ resType[3]=2
 resType[4]=5
 baseItemChance=50
 affiliation=1
-runAcc=0.5*gDeltaTime
+runAcc=0.5
 
 throwTime=45
 throwDelay=70
@@ -98,6 +98,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
+if gDeltaDoTicks != 1 { exit; }
 if global.gamePaused=false
 {
   makeEnemyActive(0)
@@ -109,7 +110,7 @@ if global.gamePaused=false
       if x<oPlayer1.x {xVel=runAcc}
       else {xVel=-runAcc}
       sprite_index=sHammerBroWalk
-      animSpd=0.1*gDeltaTime
+      animSpd=0.1
     }
     else
     {
@@ -128,7 +129,7 @@ if global.gamePaused=false
     }
 
     //---------- Hammer time ----------
-    throwTime+=1*gDeltaTime
+    throwTime+=1
     if throwTime>=throwDelay
     {
       if throwTime=throwDelay //Init hammer throw
@@ -164,8 +165,8 @@ if global.gamePaused=false
           tNewAttack.sprite_index=sHammerBHam
           if tXThrow<0 {tNewAttack.image_xscale=-1}
           tNewAttack.atkPower=atkPower
-          tNewAttack.xVel=tXThrow*gDeltaTime
-          tNewAttack.yVel=(-6-bEnraged)*gDeltaTime
+          tNewAttack.xVel=tXThrow
+          tNewAttack.yVel=-6-bEnraged
 
           //Hammer spam
           hammerSpam+=1
@@ -197,12 +198,12 @@ if global.gamePaused=false
       else if throwTime>=throwDelay+608 //End attack
       {
         throwTime=0
-        //sprite_index=sHammerBroWalk QWH
-        animSpd=0.1*gDeltaTime
+        sprite_index=sHammerBroWalk
+        animSpd=0.1
       }
     }
 
-    yVel+=0.2*gDeltaTime*gDeltaTime
+    yVel+=0.2
     if isCollisionBottom(1)
       yVel=0
     if isCollisionLeft(1)
@@ -224,7 +225,10 @@ if global.gamePaused=false
 }
 else
   animSpd=0
-image_speed=animSpd
+
+//image_speed=animSpd
+image_speed = 0
+image_index += animSpd
 #define Other_23
 /*"/*'/**//* YYD ACTION
 lib_id=1

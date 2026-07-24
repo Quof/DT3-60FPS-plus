@@ -208,7 +208,7 @@ if splitGoalCheck=0
 {
   if room=rBT_ZeroC
   {
-    if (469266).isActive=1 and (469267).isActive=1
+    if (GID(469266)).isActive=1 and (GID(469267)).isActive=1
     {
       var tFlash;
       tFlash=instance_create(0,0,oScreenFlash)
@@ -219,7 +219,7 @@ if splitGoalCheck=0
   }
   else if room=rBT_ZeroD
   {
-    if (469269).isActive=1 and (469270).isActive=1
+    if (GID(469269)).isActive=1 and (GID(469270)).isActive=1
     {
       var tFlash;
       tFlash=instance_create(0,0,oScreenFlash)

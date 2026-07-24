@@ -16,7 +16,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if bPlayerTouch=1
+if bPlayerTouch=1 && gDeltaDoTicks == 1
 {
   doorProg+=1
   if doorProg>=1 and doorProg<=18
@@ -48,7 +48,7 @@ if bPlayerTouch=1
     global.rmDeaths=0; global.hitsTaken=0
     transition_steps=10
     transition_kind=21
-    room_goto(toRoom)
+    room_goto_fixed(toRoom)
   }
 }
 #define Collision_oPlayer1

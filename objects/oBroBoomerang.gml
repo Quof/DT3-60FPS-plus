@@ -14,7 +14,7 @@ bCanTakeDamage=false
 
 throwProg=0
 throwTime=0
-turnSpd=5*gDeltaTime
+turnSpd=5
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -32,11 +32,11 @@ if global.gamePaused=false
   {
     if type=1 //Thrown right
     {
-      direction-=turnSpd
+      direction-=turnSpd*gDeltaTime
     }
     else if type=-1 //Thrown left
     {
-      direction+=turnSpd
+      direction+=turnSpd*gDeltaTime
     }
     if throwTime>=30
     {
@@ -70,8 +70,8 @@ if global.gamePaused=false
   {
     if !instance_exists(myThrower) {instance_destroy()}
   }
-  speed=bulletSpeed
-  image_angle-=20*type
+  speed=bulletSpeed*gDeltaTime
+  image_angle-=20*type*gDeltaTime
 }
 else {speed=0}
 #define Other_0

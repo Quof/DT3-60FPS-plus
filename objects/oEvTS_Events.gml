@@ -42,7 +42,7 @@ if global.gamePaused=false
             image_blend=make_color_rgb(77,128,77)
           }
         }
-        (393771).bStartMe=1; (393790).bStartMe=1; (393791).bStartMe=1; (393792).bStartMe=1; (393793).bStartMe=1;
+        (GID(393771)).bStartMe=1; (GID(393790)).bStartMe=1; (GID(393791)).bStartMe=1; (GID(393792)).bStartMe=1; (GID(393793)).bStartMe=1;
         sceneProgress+=1
       }
     }
@@ -51,7 +51,7 @@ if global.gamePaused=false
       sceneDelay+=1
       if sceneDelay>=20
       {
-        (394935).bStartMe=1;
+        (GID(394935)).bStartMe=1;
         sceneDelay=0; sceneProgress+=1
       }
     }
@@ -78,7 +78,7 @@ if global.gamePaused=false
           }
         }
         axeSpawnA=1
-        (394918).bStartMe=1;
+        (GID(394918)).bStartMe=1;
         sceneProgress+=1
       }
     }
@@ -191,9 +191,9 @@ if global.gamePaused=false
           }
         }
       }
-      else if sceneDelay=100 {(394958).bStartMe=1;}
-      else if sceneDelay=110 {(394959).bStartMe=1;}
-      else if sceneDelay=120 {(394960).bStartMe=1;}
+      else if sceneDelay=100 {(GID(394958)).bStartMe=1;}
+      else if sceneDelay=110 {(GID(394959)).bStartMe=1;}
+      else if sceneDelay=120 {(GID(394960)).bStartMe=1;}
       else if sceneDelay=180
       {
         var tDrawing;
@@ -208,7 +208,7 @@ if global.gamePaused=false
           }
         }
       }
-      else if sceneDelay=240 {(393794).bStartMe=1;}
+      else if sceneDelay=240 {(GID(393794)).bStartMe=1;}
       else if sceneDelay=360
       {
         var tDrawing;
@@ -223,12 +223,12 @@ if global.gamePaused=false
           }
         }
       }
-      else if sceneDelay=380 {(396566).bStartMe=1;}
+      else if sceneDelay=380 {(GID(396566)).bStartMe=1;}
       else if sceneDelay=510
       {
         var tFlash;
         tFlash=instance_create(0,0,oScreenFlash); tFlash.image_alpha=0.25 tFlash.fadeSpeed=0.025
-        with (394957){instance_destroy()}
+        with (GID(394957)){instance_destroy()}
       }
     }
 

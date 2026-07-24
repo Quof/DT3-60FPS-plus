@@ -37,12 +37,12 @@ applies_to=self
 */
 if indexCheck="1"
 {
-  wA_Phase+=1*gDeltaTime
+  wA_Phase+=1
   if wA_Phase>=1 and wA_Phase<=60
-    writingAlpha-=0.01*gDeltaTime
+    writingAlpha-=0.01
   else if wA_Phase>=61 and wA_Phase<=120
   {
-    writingAlpha+=0.01*gDeltaTime
+    writingAlpha+=0.01
     if wA_Phase=120
       wA_Phase=0
   }

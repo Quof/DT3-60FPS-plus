@@ -78,7 +78,7 @@ if room=rTrueEnd_A //------------------------------ [] End A -------------------
       global.gameProgress=5650
       playSound(global.snd_Dec_Fire,0,1,15000)
       playSound(global.snd_GravityShot,0,1,15000)
-      (466949).sprite_index=sJerrySit;
+      (GID(466949)).sprite_index=sJerrySit;
       var tFlash;
       tFlash=instance_create(0,0,oScreenFlash); tFlash.fadeSpeed=0.2
       jeremyLaser=1
@@ -125,7 +125,7 @@ if room=rTrueEnd_A //------------------------------ [] End A -------------------
       if jeremyVelY<7 {jeremyVelY+=0.33}
       oPlayer1.y+=jeremyVelY
 
-      if sceneDelay=20 {(466949).sprite_index=sJerryIdle;}
+      if sceneDelay=20 {(GID(466949)).sprite_index=sJerryIdle;}
 
       if sceneDelay>20
       {

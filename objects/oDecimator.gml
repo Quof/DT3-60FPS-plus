@@ -445,7 +445,7 @@ if life<=0 //Defeat animation
     {
       if x>=544
       {
-        with (426628) {instance_destroy()}
+        with (GID(426628)) {instance_destroy()}
         tile_layer_hide(999990)
         playSound(global.snd_BombExplode,0,1,15000)
         for(i=0;i<96;i+=1)

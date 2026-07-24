@@ -22,9 +22,9 @@ if room=rMain_32
   indexCheck=string_char_at(global.apBoost,29)
   if indexCheck="1" or global.newMapY=1152
   {
-    with (239892) {instance_destroy()}
-    with (239269) {instance_destroy()}
-    with (239270) {instance_destroy()}
+    with (GID(239892)) {instance_destroy()}
+    with (GID(239269)) {instance_destroy()}
+    with (GID(239270)) {instance_destroy()}
     tile_layer_hide(999995)
   }
 }
@@ -32,9 +32,9 @@ else if room=rMain_34
 {
   if global.gameProgress>=2100
   {
-    with (241042) {instance_destroy()}
-    with (241136) {instance_destroy()}
-    with (243531) {instance_destroy()}
+    with (GID(241042)) {instance_destroy()}
+    with (GID(241136)) {instance_destroy()}
+    with (GID(243531)) {instance_destroy()}
     tile_layer_hide(999995)
   }
 }
@@ -43,7 +43,7 @@ else if room=rMain_35
   indexCheck=string_char_at(global.heartPiece,23)
   if indexCheck="1"
   {
-    with (244121) {instance_destroy()}
+    with (GID(244121)) {instance_destroy()}
     tile_layer_hide(999995)
   }
 }
@@ -52,10 +52,10 @@ else if room=rMain_36
   indexCheck=string_char_at(global.apBoost,36)
   if indexCheck="1" or global.newMapY=80
   {
-    with (244634) {instance_destroy()}
-    with (244636) {instance_destroy()}
-    with (244638) {instance_destroy()}
-    with (244640) {instance_destroy()}
+    with (GID(244634)) {instance_destroy()}
+    with (GID(244636)) {instance_destroy()}
+    with (GID(244638)) {instance_destroy()}
+    with (GID(244640)) {instance_destroy()}
     instance_create(4160,112,oLargeJumper)
     tile_layer_hide(999995)
   }
@@ -940,7 +940,7 @@ else if global.gameProgress=2160 and room=rMain_39Vault //----- [Unskippable] Th
     stopAllMusic()
     transition_steps=1
     transition_kind=0
-    room_goto(rVault_1)
+    room_goto_fixed(rVault_1)
   }
 }
 else if global.gameProgress=2540 and room=rMain_39Vault //----- [6] Got out of the Vault -----
@@ -1069,10 +1069,10 @@ if room=rMain_32 //Check if wall destroyed
 {
   if indexCheck="0"
   {
-    if !instance_exists((239892))
+    if !instance_exists((GID(239892)))
     {
-      with (239269) {instance_destroy()}
-      with (239270) {instance_destroy()}
+      with (GID(239269)) {instance_destroy()}
+      with (GID(239270)) {instance_destroy()}
       tile_layer_hide(999995)
       var tEffect;
       for(i=0;i<10;i+=1)
@@ -1099,10 +1099,10 @@ else if room=rMain_34 //Check if wall destroyed
       }
     }
 
-    if !instance_exists((243531))
+    if !instance_exists((GID(243531)))
     {
-      with (241042) {instance_destroy()}
-      with (241136) {instance_destroy()}
+      with (GID(241042)) {instance_destroy()}
+      with (GID(241136)) {instance_destroy()}
       tile_layer_hide(999995)
       var tEffect;
       for(i=0;i<40;i+=1)
@@ -1125,7 +1125,7 @@ else if room=rMain_35 //Check if wall destroyed
 {
   if indexCheck="0"
   {
-    if !instance_exists((244121))
+    if !instance_exists((GID(244121)))
     {
       tile_layer_hide(999995)
       var tEffect;
@@ -1143,11 +1143,11 @@ else if room=rMain_36 //Check if wall destroyed
 {
   if indexCheck="0"
   {
-    if !instance_exists((244640))
+    if !instance_exists((GID(244640)))
     {
-      with (244634) {instance_destroy()}
-      with (244636) {instance_destroy()}
-      with (244638) {instance_destroy()}
+      with (GID(244634)) {instance_destroy()}
+      with (GID(244636)) {instance_destroy()}
+      with (GID(244638)) {instance_destroy()}
       tile_layer_hide(999995)
       instance_create(4160,112,oLargeJumper)
       var tEffect;

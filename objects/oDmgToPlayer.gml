@@ -4,8 +4,8 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-hspeed=random_range(-2,2)*gDeltaTime
-vspeed=-random_range(4,6)*gDeltaTime
+hspeed=random_range(-2,2)
+vspeed=-random_range(4,6)
 dispTime=10
 
 drawType=0
@@ -51,7 +51,7 @@ if view_current=0
   dispTime-=1*gDeltaTime
   if dispTime<=0
   {
-    image_alpha-=0.05*gDeltaTime
+    image_alpha-=0.05
     if image_alpha<=0 {instance_destroy()}
   }
 }

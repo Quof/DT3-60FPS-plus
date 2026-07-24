@@ -82,6 +82,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
+if !gDeltaDoTicks { exit; }
 if global.gameProgress=620 and room=rLink2_HP //----- [1] Intro to Hyrule - Ch.4 -----
 {
   if sceneProgress=0
@@ -2113,7 +2114,7 @@ if room=rLink2_PalaceA_10
 {
   if gameProgCheck="0"
   {
-    if (140073).activated=1
+    if (GID(140073)).activated=1
     {
       gameProgCheck="1"
       var tNewString;

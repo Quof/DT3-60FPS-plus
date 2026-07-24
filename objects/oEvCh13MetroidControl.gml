@@ -52,9 +52,9 @@ else if room=rSamus5_Lv4_C //---------------------------------------------------
   {
     if sceneProgress=0 //Clear first 2 Metroids
     {
-      if !instance_exists(288769) and !instance_exists(288770)
+      if !instance_exists(GID(288769)) and !instance_exists(GID(288770))
       {
-        with (289416) {instance_destroy()}
+        with (GID(289416)) {instance_destroy()}
         sceneProgress+=1
       }
     }
@@ -78,9 +78,9 @@ else if room=rSamus5_Lv4_C //---------------------------------------------------
           mySpike[i].x+=0.5
         }
       }
-      if !instance_exists(288771) and !instance_exists(288773)
+      if !instance_exists(GID(288771)) and !instance_exists(GID(288773))
       {
-        with (289417) {instance_destroy()}
+        with (GID(289417)) {instance_destroy()}
         with oStaticSpikeRed {instance_destroy()}
         sceneProgress+=1
       }
@@ -156,9 +156,9 @@ else if room=rSamus5_Lv4_H //---------------------------------------------------
   {
     if sceneProgress=0
     {
-      if !instance_exists(290405) and !instance_exists(290406) and !instance_exists(290407)
+      if !instance_exists(GID(290405)) and !instance_exists(GID(290406)) and !instance_exists(GID(290407))
       {
-        with (291768) {instance_destroy()}
+        with (GID(291768)) {instance_destroy()}
         sceneProgress+=1
       }
     }

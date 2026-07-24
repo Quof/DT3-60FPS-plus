@@ -18,7 +18,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if global.gamePaused=false
+if global.gamePaused=false && gDeltaDoTicks != 0
 {
   if init=0 {init=1}
   if decayTime!=-100

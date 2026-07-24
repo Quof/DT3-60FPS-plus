@@ -37,7 +37,7 @@ if global.gamePaused=false
   }
   if AI_Action=2 //---------- AI ACTION: WALK BACK AND FORTH ----------
   {
-    cycleTime+=1
+    cycleTime+=1*gDeltaTime
     if cycleTime>=150
     {
       if storeSpd=0
@@ -47,7 +47,7 @@ if global.gamePaused=false
         image_speed=0
         xVel=0
       }
-      waitTime+=1
+      waitTime+=1*gDeltaTime
       if waitTime>=40
       {
         xVel=storeSpd
@@ -72,14 +72,14 @@ if global.gamePaused=false
   else if x>room_width+16
     x=-8
 
-  yVel+=0.2
+  yVel+=0.2*gDeltaTime
   if isCollisionBottom(1)
     yVel=0
   if isCollisionLeft(1)
     xVel=runAcc
   if isCollisionRight(1)
     xVel=-runAcc
-  moveTo(xVel,yVel)
+  moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
   if isCollisionSolid()
     y-=2
 }

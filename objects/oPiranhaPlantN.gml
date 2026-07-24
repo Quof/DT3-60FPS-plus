@@ -36,6 +36,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
+if gDeltaDoTicks != 1 { exit; }
 if global.gamePaused=false
 {
   makeEnemyActive(0)
@@ -52,15 +53,15 @@ if global.gamePaused=false
       bCanDealDamage=1
     }
 
-    if atkProg<=66 {atkProg+=1*gDeltaTime}
+    if atkProg<=66 {atkProg+=1}
     else
     {
       findTargetX=point_distance(oPlayer1.x,0,x,0)
-      if findTargetX>=36 {atkProg+=1*gDeltaTime}
+      if findTargetX>=36 {atkProg+=1}
     }
 
-    if atkProg>=11 and atkProg<=26 {y-=2*gDeltaTime}
-    else if atkProg>=51 and atkProg<=66 {y+=2*gDeltaTime}
+    if atkProg>=11 and atkProg<=26 {y-=2}
+    else if atkProg>=51 and atkProg<=66 {y+=2}
     else if atkProg=115 {atkProg=0}
   }
   enemyStepEvent()

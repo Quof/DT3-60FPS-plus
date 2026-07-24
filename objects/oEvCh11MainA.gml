@@ -156,7 +156,7 @@ else if global.gameProgress=2581 and room=rCCity_SA_S1 //----- [3] Talk with Imp
     sceneDelay+=1
     if sceneDelay>=25
     {
-      (260306).image_xscale=-1
+      (GID(260306)).image_xscale=-1
       charSwitcher(0)
       scenePChk(336,304,0,0.1,1)
       sceneDelay=0

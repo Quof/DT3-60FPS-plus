@@ -18,17 +18,17 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if global.gamePaused=false
+if global.gamePaused=false && gDeltaDoTicks != 0
 {
   if init=0 {init=1}
   if decayTime!=-100
   {
-    decayTime-=1*gDeltaTime
+    decayTime-=1
     if decayTime<=0 {instance_destroy()}
   }
 
   if place_meeting(x,y,oNightmareEffect) {speed=bulletSpeed/2}
-  else {speed=bulletSpeed*gDeltaTime}
+  else {speed=bulletSpeed}
   image_angle=direction
 }
 else {speed=0}

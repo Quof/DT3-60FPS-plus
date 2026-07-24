@@ -4,8 +4,8 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-x+=xSpd*gDeltaTime
-y+=ySpd*gDeltaTime
+x+=xSpd
+y+=ySpd
 if decay!=-100
 {
   decay-=1

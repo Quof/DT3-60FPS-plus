@@ -268,13 +268,13 @@ else if global.gameProgress=2630 and room=rMain_48 //----- [4] Meeting Bubblin &
     sceneDelay+=1
     if sceneDelay=10
     {
-      (264631).image_xscale=-1
+      (GID(264631)).image_xscale=-1
       with (oEfHeartEmitter) {instance_destroy()}
     }
     else if sceneDelay=30
     {
-      showEmote((264631),0,-24,sEmMad)
-      showEmote((264632),0,-24,sEmHappy)
+      showEmote((GID(264631)),0,-24,sEmMad)
+      showEmote((GID(264632)),0,-24,sEmHappy)
     }
     else if sceneDelay>=50 {sceneDelay=0; sceneProgress+=1}
   }
@@ -286,29 +286,29 @@ else if global.gameProgress=2630 and room=rMain_48 //----- [4] Meeting Bubblin &
     msgCreate(0,0,"Jerry","Well someone isn't happy to see us. What's up with you suddenly?",0,3,oMessageCutscene,1)
   else if sceneProgress=11 and bWaitForInput=false
   {
-    (264631).sprite_index=sBubblun_Run
+    (GID(264631)).sprite_index=sBubblun_Run
     msgCreate(0,0,"Bubblun","It's your fault the creature was set loose! I told you not to go into the Vault!",6,3,oMessageCutscene,1)
   }
   else if sceneProgress=12 and bWaitForInput=false
     msgCreate(0,0,"Lovelun","Hey now, Bubby. We talked about this.",6,3,oMessageCutscene,1)
   else if sceneProgress=13 and bWaitForInput=false
   {
-    (264631).sprite_index=sBubblun_Idle;
-    (264631).image_xscale=1
+    (GID(264631)).sprite_index=sBubblun_Idle;
+    (GID(264631)).image_xscale=1
     msgCreate(0,0,"Bubblun","I know the creature would have escaped eventually, but at least we could have been better prepared.",6,3,oMessageCutscene,1)
   }
   else if sceneProgress=14 and bWaitForInput=false
     msgCreate(0,0,"Claire","We're just trying to help.",0,3,oMessageCutscene,1)
   else if sceneProgress=15 and bWaitForInput=false
   {
-    (264631).image_xscale=-1
+    (GID(264631)).image_xscale=-1
     msgCreate(0,0,"Bubblun","Your help isn't wanted or asked for. You're just causing more problems than you're fixing at this rate.",6,3,oMessageCutscene,1)
   }
   else if sceneProgress=16 and bWaitForInput=false
     msgCreate(0,0,"Lovelun","Bubby, please calm down. That's why we came here, to relax!",6,3,oMessageCutscene,1)
   else if sceneProgress=17 and bWaitForInput=false
   {
-    (264631).image_xscale=1
+    (GID(264631)).image_xscale=1
     msgCreate(0,0,"Bubblun","I'm sorry, these humans just upset me with their curiosity. But I'll try to relax.",6,3,oMessageCutscene,1)
   }
   else if sceneProgress=18 and bWaitForInput=false
@@ -355,7 +355,7 @@ else if global.gameProgress=2660 and room=rMain_48Gate //----- [Unskippable] Acc
     stopAllMusic()
     transition_steps=1
     transition_kind=0
-    room_goto(rSamus5_Gate)
+    room_goto_fixed(rSamus5_Gate)
   }
 }
 

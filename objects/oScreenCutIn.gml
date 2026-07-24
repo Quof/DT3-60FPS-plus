@@ -14,12 +14,12 @@ applies_to=self
 */
 if type=0
 {
-  image_alpha-=0.1
+  image_alpha-=0.1*gDeltaTime
   if image_alpha<=0 {instance_destroy()}
 }
 else if type=1
 {
-  screenCut-=16
+  screenCut-=16*gDeltaTime
   if screenCut<=0 {instance_destroy()}
 }
 #define Draw_0

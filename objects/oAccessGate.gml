@@ -59,7 +59,7 @@ applies_to=self
 Access Gate script.
 This will move the player to another room.
 */
-if oKeyCodes.kCodePressed[3]=1 and global.gamePaused=false
+if oKeyCodesHighFPS.kCodePressed[3]=1 and global.gamePaused=false
 {
   if bCanUse=1
   {
@@ -82,7 +82,7 @@ if oKeyCodes.kCodePressed[3]=1 and global.gamePaused=false
       transition_kind=21
       if variable_local_exists("newStep") {transition_steps=newStep}
       if variable_local_exists("newTrans") {transition_kind=newTrans}
-      room_goto(toRoom)
+      room_goto_fixed(toRoom)
     }
   }
   else

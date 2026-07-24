@@ -11,6 +11,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
+if !gDeltaDoTicks { exit; }
 if global.gamePaused=false
 {
   spawnTime+=1

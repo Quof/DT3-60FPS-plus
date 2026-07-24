@@ -4,8 +4,8 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-hspeed=random_range(-2,2)*gDeltaTime
-vspeed=-random_range(4,6)*gDeltaTime
+hspeed=random_range(-2,2)
+vspeed=-random_range(4,6)
 dispTime=10
 
 ranChoice=0

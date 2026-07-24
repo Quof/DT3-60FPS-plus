@@ -6,7 +6,7 @@ applies_to=self
 */
 event_inherited()
 makeActive()
-image_speed=0.3*gDeltaTime
+image_speed=0.3
 
 //Enemy base statistics
 eName="Bomb Dropper"
@@ -23,7 +23,7 @@ baseItemChance=55
 dieSound=0
 dieEffect=0
 initDir=0
-runAcc=1*gDeltaTime
+runAcc=1
 weight=90
 
 turnTime=0
@@ -49,6 +49,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
+if !gDeltaDoTicks { exit; }
 if global.gamePaused=false
 {
   makeEnemyActive(0)
@@ -65,30 +66,30 @@ if global.gamePaused=false
       image_xscale=1
     else
       image_xscale=-1
-    x+=xVel*gDeltaTime
+    x+=xVel
 
     if x>oPlayer1.x and image_xscale=1
       turnTime+=1
     else if x<oPlayer1.x and image_xscale=-1
-      turnTime+=1*gDeltaTime
+      turnTime+=1
     if turnTime>=50
     {
       xVel*=-1
       turnTime=0
     }
 
-    shootTime+=1*gDeltaTime
+    shootTime+=1
     if shootTime>=shootDelay
     {
       if checkScreenArea(x,y,48)=1 {playSound(global.snd_BombLaunch,0,0.72,48000)}
       var tNewAttack,tXVel;
-      tXVel=-0.5*gDeltaTime
+      tXVel=-0.5
       for(i=0;i<3;i+=1)
       {
         tNewAttack=instance_create(x,y+2,oGravityBullet)
         tNewAttack.atkPower=atkPower; tNewAttack.sprite_index=sBDBomb; tNewAttack.damageType="EXPLOSION"
-        tNewAttack.bulletSpeed=3*gDeltaTime; tNewAttack.xVel=tXVel
-        tXVel+=0.5*gDeltaTime
+        tNewAttack.bulletSpeed=3; tNewAttack.xVel=tXVel
+        tXVel+=0.5
       }
       shootTime=0
     }

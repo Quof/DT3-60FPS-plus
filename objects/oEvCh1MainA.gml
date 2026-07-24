@@ -25,17 +25,17 @@ if global.gameProgress=0 and room=rMain_1 //----- [1] Jerry dropping down -----
 {
   if sceneProgress=0
   {
-    sceneDelay+=1*gDeltaTime
+    sceneDelay+=1
     if sceneDelay=1 {oPlayer1.visible=0}
     else if sceneDelay>=30
     {
-      fadeAlpha-=0.02*gDeltaTime
+      fadeAlpha-=0.02
       if fadeAlpha<=0 {sceneDelay=0; sceneProgress+=1}
     }
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1*gDeltaTime
+    sceneDelay+=1
     if sceneDelay=30
     {
       playSound(global.snd_Teleport,0,1,1)
@@ -69,9 +69,9 @@ if global.gameProgress=0 and room=rMain_1 //----- [1] Jerry dropping down -----
   }
   else if sceneProgress=2
   {
-    if current_frame mod (1/gDeltaTime) == 0 {oPlayer1.y+=1} //QWH
+    oPlayer1.y+=1
 
-    sceneDelay+=1*gDeltaTime
+    sceneDelay+=1
     if sceneDelay=5
     {
       msgCreate(0,0,"Jerry","Okay we've got a problem Jeremy. I can't move!",0,1,oMessagePerson,0)
@@ -155,7 +155,7 @@ if global.gameProgress=0 and room=rMain_1 //----- [1] Jerry dropping down -----
   }
   else if sceneProgress=3
   {
-    sceneDelay+=1*gDeltaTime
+    sceneDelay+=1
     if sceneDelay>=25 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=4 and bWaitForInput=false
@@ -194,7 +194,7 @@ else if global.gameProgress=1 and room=rMain_1 //----- [] Virus attacks -----
   {
     if sceneProgress=0
     {
-      sceneDelay+=1*gDeltaTime
+      sceneDelay+=1
       if sceneDelay=40
         createScreenText(80,200,160,fnt_EnemyName,fa_left,string("You can 'duck' by holding the [") +string(global.ctrlDown) +string("] or [Down Arrow] key."),3,c_white,1,0)
       else if sceneDelay=120
@@ -215,7 +215,7 @@ else if global.gameProgress=1 and room=rMain_1 //----- [] Virus attacks -----
     }
     else if sceneProgress=1 //That's not fair, but the hit doesn't count
     {
-      sceneDelay+=1*gDeltaTime
+      sceneDelay+=1
       if global.bOneHitKillMode=0
       {
         if sceneDelay=100
@@ -297,7 +297,7 @@ else if global.gameProgress=1 and room=rMain_1 //----- [] Virus attacks -----
     }
     else if sceneProgress=2 //Spawn and explain Bubble Machine
     {
-      sceneDelay+=1*gDeltaTime
+      sceneDelay+=1
       if sceneDelay=1
       {
         instance_create(224,2048,oBustMoveMachine)
@@ -355,13 +355,13 @@ else if global.gameProgress=2 and room=rMain_1 //----- [] Virus Bubble minigame 
       tYStart=1752
       tXTPlayer=224; tYTPlayer=2012
 
-      sceneDelay+=1*gDeltaTime
+      sceneDelay+=1
       if sceneDelay=1
       {
         var tTimer;
         tTimer=instance_create(204,312,oScreenTimer)
         tTimer.type=2; tTimer.mainColor=c_white; tTimer.shadowColor=c_black
-        global.forceTime=1250/gDeltaTime
+        global.forceTime=1250
       }
       else if sceneDelay=30
       {
@@ -606,7 +606,7 @@ else if global.gameProgress=60 and room=rMain_4 //----- [5] After grabbing Jump 
 {
   if sceneProgress=0 and !instance_exists(oStoryObject)
   {
-    sceneDelay+=1*gDeltaTime
+    sceneDelay+=1
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=2
     {
@@ -622,7 +622,7 @@ else if global.gameProgress=60 and room=rMain_4 //----- [5] After grabbing Jump 
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1*gDeltaTime
+    sceneDelay+=1
     if sceneDelay>=60 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=2 and bWaitForInput=false
@@ -707,7 +707,7 @@ else if global.gameProgress=80 and room=rMain_5 //----- [6] Go this way & Scanni
 {
   if sceneProgress=0
   {
-    sceneDelay+=1*gDeltaTime
+    sceneDelay+=1
     if sceneDelay=1
       global.gamePaused=true
     else if sceneDelay>=20
@@ -747,7 +747,7 @@ else if global.gameProgress=100 and room=rMain_5 //----- [7] Swap characters ---
 {
   if sceneProgress=0 and oPlayer1.x>=560 and oPlayer1.y<=480
   {
-    sceneDelay+=1*gDeltaTime
+    sceneDelay+=1
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=2
     {
@@ -763,7 +763,7 @@ else if global.gameProgress=100 and room=rMain_5 //----- [7] Swap characters ---
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1*gDeltaTime
+    sceneDelay+=1
     if sceneDelay>=15 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=2 and bWaitForInput=false
@@ -811,7 +811,7 @@ else if global.gameProgress=120 and room=rMain_5Gate //----- [8] What is that? I
 {
   if sceneProgress=0
   {
-    sceneDelay+=1*gDeltaTime
+    sceneDelay+=1
     if sceneDelay=1
     {
       global.gamePaused=true
@@ -852,11 +852,11 @@ else if global.gameProgress=140 and room=rMain_5Gate //----- [Unskippable] Acces
 {
   if sceneProgress=0
   {
-    sceneDelay+=1*gDeltaTime
+    sceneDelay+=1
     if sceneDelay>=1
     {
       if sceneDelay=1 {global.gamePaused=true}
-      fadeAlpha+=0.04*gDeltaTime
+      fadeAlpha+=0.04
       if fadeAlpha>=1 {sceneDelay=0; sceneProgress+=1}
     }
   }
@@ -870,14 +870,14 @@ else if global.gameProgress=140 and room=rMain_5Gate //----- [Unskippable] Acces
     stopAllMusic()
     transition_steps=1
     transition_kind=0
-    room_goto(rMario1_1)
+    room_goto_fixed(rMario1_1)
   }
 }
 else if global.gameProgress=510 and room=rMain_5Gate //----- [9] The Nightmare Gates -----
 {
   if sceneProgress=0
   {
-    sceneDelay+=1*gDeltaTime
+    sceneDelay+=1
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
@@ -924,7 +924,7 @@ else if global.gameProgress=511 and room=rMain_5 //----- [Unskippable] Beat the 
   {
     if sceneProgress=0
     {
-      if !instance_exists((119321)) and !instance_exists((119322))
+      if !instance_exists((GID(119321))) and !instance_exists((GID(119322)))
       {
         var enemyCounter,enemyBarrier;
         enemyCounter=instance_create(0,0,oEnemyRemain)
@@ -936,7 +936,7 @@ else if global.gameProgress=511 and room=rMain_5 //----- [Unskippable] Beat the 
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1*gDeltaTime
+      sceneDelay+=1
       if sceneDelay=30
       {
         delaySpawn(1424,928,oFireBro,2,1,1,0.33)
@@ -952,7 +952,7 @@ else if global.gameProgress=511 and room=rMain_5 //----- [Unskippable] Beat the 
     }
     else if sceneProgress=3
     {
-      sceneDelay+=1*gDeltaTime
+      sceneDelay+=1
       if sceneDelay=15
       {
         delaySpawn(1424,784,oHammerBro,2,1,1,0.33)

@@ -68,7 +68,7 @@ if bCanMoveCursor=1
       writeToPlayerGlobals()
       transition_steps=10
       transition_kind=21
-      room_goto(rDragoonMapA)
+      room_goto_fixed(rDragoonMapA)
     }
     else //To Warship
     {
@@ -78,7 +78,7 @@ if bCanMoveCursor=1
       writeToPlayerGlobals()
       transition_steps=10
       transition_kind=21
-      room_goto(rWarshipA)
+      room_goto_fixed(rWarshipA)
     }
   }
   else if oKeyCodes.kCodePressed[6]=1

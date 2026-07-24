@@ -25,9 +25,9 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-noticeTime-=1
-if noticeTime<=20 {image_alpha-=0.05}
-if whiteFade>0 {whiteFade-=0.1}
+noticeTime-=1*gDeltaTime
+if noticeTime<=20 {image_alpha-=0.05*gDeltaTime}
+if whiteFade>0 {whiteFade-=0.1*gDeltaTime}
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

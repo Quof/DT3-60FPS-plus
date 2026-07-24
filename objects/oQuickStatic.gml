@@ -19,7 +19,7 @@ action_id=603
 applies_to=self
 */
 background_alpha[6]=image_alpha
-staticTime-=1
+staticTime-=1*gDeltaTime
 if staticTime<=0
 {
   background_visible[6]=false

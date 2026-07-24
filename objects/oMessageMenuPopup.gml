@@ -6,9 +6,9 @@ applies_to=self
 */
 if fadingTime>0
 {
-  fadingTime-=1
+  fadingTime-=1*gDeltaTime
   if fadingTime<=20
-    image_alpha-=0.05
+    image_alpha-=0.05*gDeltaTime
 }
 else
   instance_destroy()

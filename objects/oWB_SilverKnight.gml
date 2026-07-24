@@ -11,7 +11,7 @@ image_speed=0.15
 
 //Enemy base statistics
 eName="Silver Knight"
-eLevel=15
+eLevel=16
 maxLife=450
 life=maxLife
 pointWorth=25

@@ -741,7 +741,7 @@ if room=rWarshipZ_EscapeB //----- Gameplay sequences -----
   {
     if oPlayer1.x<=5104
     {
-      (453270).eventProg=1
+      (GID(453270)).eventProg=1
       gameplayProg+=1
     }
   }
@@ -749,8 +749,8 @@ if room=rWarshipZ_EscapeB //----- Gameplay sequences -----
   {
     if oPlayer1.x<=4448
     {
-      (453338).eventProg=1
-      (453339).eventProg=1
+      (GID(453338)).eventProg=1
+      (GID(453339)).eventProg=1
       gameplayProg+=1
     }
   }
@@ -758,8 +758,8 @@ if room=rWarshipZ_EscapeB //----- Gameplay sequences -----
   {
     if oPlayer1.x<=4176
     {
-      (453340).eventProg=1
-      (453341).eventProg=1
+      (GID(453340)).eventProg=1
+      (GID(453341)).eventProg=1
       gameplayProg+=1
     }
   }
@@ -767,8 +767,8 @@ if room=rWarshipZ_EscapeB //----- Gameplay sequences -----
   {
     if oPlayer1.x<=2896
     {
-      (453374).eventProg=1
-      (453385).eventProg=1
+      (GID(453374)).eventProg=1
+      (GID(453385)).eventProg=1
       gameplayProg+=1
     }
   }
@@ -776,10 +776,10 @@ if room=rWarshipZ_EscapeB //----- Gameplay sequences -----
   {
     if oPlayer1.x<=2496
     {
-      (453386).eventProg=1
-      (453387).eventProg=1
-      (453388).eventProg=1
-      (453389).eventProg=1
+      (GID(453386)).eventProg=1
+      (GID(453387)).eventProg=1
+      (GID(453388)).eventProg=1
+      (GID(453389)).eventProg=1
       gameplayProg+=1
     }
   }
@@ -787,7 +787,7 @@ if room=rWarshipZ_EscapeB //----- Gameplay sequences -----
   {
     if oPlayer1.x<=1568
     {
-      (453406).eventProg=1
+      (GID(453406)).eventProg=1
       gameplayProg+=1
     }
   }
@@ -795,7 +795,7 @@ if room=rWarshipZ_EscapeB //----- Gameplay sequences -----
   {
     if oPlayer1.x<=1152
     {
-      (453407).eventProg=1
+      (GID(453407)).eventProg=1
       gameplayProg+=1
     }
   }
@@ -810,7 +810,7 @@ if room=rWarshipZ_EscapeB //----- Gameplay sequences -----
   {
     if oPlayer1.x<=592
     {
-      (453437).eventProg=1
+      (GID(453437)).eventProg=1
       gameplayProg+=1
     }
   }
@@ -821,7 +821,7 @@ if room=rWarshipZ_EscapeC //----- Gameplay sequences -----
   {
     if oPlayer1.x<=1888
     {
-      (453599).eventProg=1
+      (GID(453599)).eventProg=1
       gameplayProg+=1
     }
   }

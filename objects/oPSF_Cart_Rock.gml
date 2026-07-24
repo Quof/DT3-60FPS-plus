@@ -49,14 +49,14 @@ if global.gamePaused=false
       {
         playSound(global.snd_MarioCannon,0,0.94,31000)
         playSound(global.snd_LampOn,0,1,13000)
-        (465774).jumpProg=1;
+        (GID(465774)).jumpProg=1;
         bumpProg=1
       }
       else if bumpProg=1 and x<=192
       {
         playSound(global.snd_MarioCannon,0,0.94,31000)
         playSound(global.snd_LampOn,0,1,13000)
-        (465773).jumpProg=1;
+        (GID(465773)).jumpProg=1;
         bumpProg=2
       }
       if x<=-16

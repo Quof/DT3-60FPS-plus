@@ -35,6 +35,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
+if !gDeltaDoTicks { exit; }
 if global.gameProgress=525 and room=rMain_8 //----- [1] Chapter 3 -----
 {
   if sceneProgress=0
@@ -376,7 +377,7 @@ else if global.gameProgress=610 and room=rMain_8Gate //----- [Unskippable] Acces
     stopAllMusic()
     transition_steps=1
     transition_kind=0
-    room_goto(rLink2_HP)
+    room_goto_fixed(rLink2_HP)
   }
 }
 

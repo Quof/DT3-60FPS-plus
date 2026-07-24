@@ -17,28 +17,29 @@ lib_id=1
 action_id=603
 applies_to=self
 */
+if gDeltaDoTicks != 1 { exit; }
 if global.gamePaused=false
 {
   if messageDelayTime>0 {messageDelayTime-=1}
 
-  moveProg+=1*gDeltaTime
+  moveProg+=1
   if moveProg<=32
   {
-    y-=0.5*gDeltaTime
+    y-=0.5
     if moveProg=32
     {
-      xVel=2.5*gDeltaTime
+      xVel=2.5
       if x>=oPlayer1.x
-        xVel=2.5*gDeltaTime
+        xVel=2.5
       else
-        xVel=-2.5*gDeltaTime
+        xVel=-2.5
     }
   }
   else
   {
-    yVel+=0.3*gDeltaTime*gDeltaTime
+    yVel+=0.3
     if isCollisionBottom(1)
-      yVel=-5*gDeltaTime
+      yVel=-5
     if isCollisionLeft(1)
       xVel*=-1
     if isCollisionRight(1)
@@ -92,4 +93,6 @@ lib_id=1
 action_id=603
 applies_to=self
 */
+magicInterpDrawStart()
 draw_sprite_ext(sprite_index,image_index,x,y,1,1,image_angle,image_blend,image_alpha)
+magicInterpDrawEnd()

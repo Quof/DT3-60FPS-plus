@@ -253,7 +253,7 @@ if global.gamePaused=false
       {
         if oPlayer1.x>=624
         {
-          (420665).eventProg=1
+          (GID(420665)).eventProg=1
           eventProg+=1
         }
       }
@@ -298,7 +298,7 @@ if global.gamePaused=false
       {
         if oPlayer1.x>=2064 and oPlayer1.y<=848
         {
-          (420819).eventProg=1
+          (GID(420819)).eventProg=1
           playSound(global.snd_FadeAway,0,0.92,1)
           eventProg+=1
         }
@@ -315,7 +315,7 @@ if global.gamePaused=false
       {
         if oPlayer1.x<=1760 and oPlayer1.y<=688
         {
-          (420737).eventProg=1
+          (GID(420737)).eventProg=1
           eventProg+=1
         }
       }
@@ -323,7 +323,7 @@ if global.gamePaused=false
       {
         if oPlayer1.x<=384 and oPlayer1.y<=688
         {
-          (420738).eventProg=1
+          (GID(420738)).eventProg=1
           eventProg+=1
         }
       }
@@ -339,7 +339,7 @@ if global.gamePaused=false
       {
         if oPlayer1.x>=656 and oPlayer1.y<=336
         {
-          (420739).eventProg=1
+          (GID(420739)).eventProg=1
           eventProg+=1
         }
       }
@@ -349,7 +349,7 @@ if global.gamePaused=false
         {
           var enemyBarrier,tEnemy;
           enemyBarrier=instance_create(1872,160,oEnemyBarrier); enemyBarrier.image_yscale=6; enemyBarrier.image_blend=c_dkgray;
-          (420740).eventProg=1
+          (GID(420740)).eventProg=1
           eventProg+=1
         }
       }

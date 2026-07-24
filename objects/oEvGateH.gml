@@ -80,7 +80,7 @@ if global.gamePaused=false
     if sceneDelay=120
     {
       playSound(global.snd_DoorUnlock,0,0.95,42000)
-      (427566).type=1
+      (GID(427566)).type=1
     }
     if sceneDelay=160
     {
@@ -125,7 +125,7 @@ if global.gamePaused=false
       if sceneDelay=60
       {
         playSound(global.snd_DoorUnlock,0,0.95,42000)
-        (427572).type=1
+        (GID(427572)).type=1
       }
     }
   }
@@ -137,7 +137,7 @@ if global.gamePaused=false
       if sceneDelay=10
       {
         playSound(global.snd_DoorKnock,0,1,1)
-        (428151).y-=256
+        (GID(428151)).y-=256
         global.gateHProg=11
       }
     }
@@ -160,7 +160,7 @@ if global.gamePaused=false
         if sceneDelay=30
         {
           playSound(global.snd_DoorUnlock,0,0.95,42000)
-          (427572).type=1
+          (GID(427572)).type=1
           global.gateHProg=14
         }
       }
@@ -176,7 +176,7 @@ if global.gamePaused=false
         if sceneDelay=35
         {
           playSound(global.snd_DoorUnlock,0,0.95,42000)
-          (428007).type=1
+          (GID(428007)).type=1
           global.gateHProg=18
         }
       }

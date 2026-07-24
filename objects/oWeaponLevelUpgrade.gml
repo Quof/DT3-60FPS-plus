@@ -26,9 +26,9 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if global.gamePaused=false
+if global.gamePaused=false && gDeltaDoTicks
 {
-  if oGame.time mod 3=0 //Flash sprite
+  if oGame.time30 mod 3=0 //Flash sprite
   {
     if image_blend=c_white {image_blend=c_orange}
     else {image_blend=c_white}

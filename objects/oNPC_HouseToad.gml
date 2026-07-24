@@ -7,7 +7,7 @@ applies_to=self
 image_speed=0
 makeActive()
 setCollisionBounds(-7,-24,7,-1)
-runAcc=1*gDeltaTime
+runAcc=1
 bWalking=false
 walkingTime=round(random(60)+30)
 #define Step_0
@@ -16,6 +16,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
+if gDeltaDoTicks == 0 { exit; }
 if global.gamePaused=false
 {
   npcWalk(sNPCToad,0,round(random(60)+30),sNPCToad,0.2,round(random(60)+30))

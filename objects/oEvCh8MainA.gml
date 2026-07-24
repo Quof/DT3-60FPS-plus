@@ -1892,24 +1892,24 @@ if room=rMega4_IntroC //Start crush walls
 {
   if oPlayer1.y<=2528 and wallCheck=0
   {
-    (215040).moveSeq=1
-    (215041).moveSeq=1
-    (215042).moveSeq=1
-    (215043).moveSeq=1
-    (215059).moveSeq=1
+    (GID(215040)).moveSeq=1
+    (GID(215041)).moveSeq=1
+    (GID(215042)).moveSeq=1
+    (GID(215043)).moveSeq=1
+    (GID(215059)).moveSeq=1
     wallCheck+=1
   }
   else if oPlayer1.y<=1568 and wallCheck=1
   {
-    (215060).moveSeq=1
-    (215061).moveSeq=1
-    (215062).moveSeq=1
+    (GID(215060)).moveSeq=1
+    (GID(215061)).moveSeq=1
+    (GID(215062)).moveSeq=1
     wallCheck+=1
   }
   else if oPlayer1.y<=848 and wallCheck=2
   {
-    (215179).moveSeq=1
-    (215180).moveSeq=1
+    (GID(215179)).moveSeq=1
+    (GID(215180)).moveSeq=1
     wallCheck+=1
   }
 }

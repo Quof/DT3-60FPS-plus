@@ -20,27 +20,25 @@ lib_id=1
 action_id=603
 applies_to=self
 */
+if gDeltaDoTicks != 1 { exit; }
 if global.gamePaused=false
 {
-  glowScl+=0.033*gDeltaTime
+  glowScl+=0.033
   if glowScl>=1.6 {glowScl=1.1}
   if yVel<0 {x+=xVel}
-  else if yVel>0.4*gDeltaTime
+  else if yVel>0.4
   {
-    /*swirlProg+=1
-    if swirlProg>=1 and swirlProg<=6 {x+=1*gDeltaTime}
-    else if swirlProg>=7 and swirlProg<=12 //QWH. used to be: 1, 3, 4, 6.*/
-    swirlProg+=1*gDeltaTime
-    if swirlProg>=1 and swirlProg<=3 {x+=1*gDeltaTime}
-    else if swirlProg>=4 and swirlProg<=6 //QWH.
+    swirlProg+=1
+    if swirlProg>=1 and swirlProg<=3 {x+=1}
+    else if swirlProg>=4 and swirlProg<=6
     {
-      x-=1*gDeltaTime
-      if swirlProg=12 {swirlProg=0}
+      x-=1
+      if swirlProg=6 {swirlProg=0}
     }
   }
 
   y+=yVel
-  if yVel<3*gDeltaTime
+  if yVel<3
   yVel+=grav
   if y>room_height+16 {instance_destroy()}
 }
@@ -50,5 +48,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
+magicInterpDrawStart()
 draw_sprite_ext(sprite_index,image_index,x,y,image_xscale*glowScl,image_yscale*glowScl,image_angle,image_blend,0.25)
 event_inherited()
+magicInterpDrawEnd()

@@ -22,7 +22,7 @@ resType[5]=1
 baseItemChance=75
 affiliation=1
 dieEffect=0
-runAcc=3*gDeltaTime
+runAcc=3
 bThrown=0
 
 throwTime=60
@@ -40,13 +40,14 @@ lib_id=1
 action_id=603
 applies_to=self
 */
+if gDeltaDoTicks != 1 { exit; }
 if global.gamePaused=false
 {
   makeEnemyActive(0)
   if bActive=true and stunnedTime=0 and life>0
   {
     //---------- Movement ----------
-    runAcc=point_distance(x,0,oPlayer1.x,0)/20*gDeltaTime
+    runAcc=point_distance(x,0,oPlayer1.x,0)/20
     if runAcc>10 {runAcc=10}
     else if runAcc<0.1 {runAcc=0}
 
@@ -60,7 +61,7 @@ if global.gamePaused=false
     }
 
     //---------- Throw object ----------
-    throwTime+=1*gDeltaTime
+    throwTime+=1
     if throwTime>=throwDelay
     {
       if throwTime=throwDelay
@@ -83,14 +84,14 @@ if global.gamePaused=false
           {
             if checkScreenArea(x,y,48)=1 {playSound(global.snd_LinkBomb,0,0.95,18000)}
             var tNewSpiny,tDirX;
-            if image_xscale=1 {tDirX=6*gDeltaTime}
-            else {tDirX=-6*gDeltaTime}
+            if image_xscale=1 {tDirX=6}
+            else {tDirX=-6}
             tNewSpiny=instance_create(x+tDirX,y-6,oSpinyBeetle)
             tNewSpiny.bActive=true
             tNewSpiny.sprite_index=sSpinyBeetleBall
             if tDirX>0 {tNewSpiny.xVel=1}
             else {tNewSpiny.xVel=-1}
-            tNewSpiny.yVel=-3*gDeltaTime
+            tNewSpiny.yVel=-3
           }
           bThrown=1
         }
@@ -112,11 +113,20 @@ if global.gamePaused=false
   {
     deathAnim+=1
     if deathAnim=1 {sprite_index=sLakituFall}
-    y+=dthVelY*gDeltaTime
-    dthVelY+=0.3*gDeltaTime*gDeltaTime
+    y+=dthVelY
+    dthVelY+=0.3
     if y>room_height+16 {instance_destroy()}
   }
   enemyStepEvent()
 }
 else {animSpd=0}
 image_speed=animSpd
+#define Draw_0
+/*"/*'/**//* YYD ACTION
+lib_id=1
+action_id=603
+applies_to=self
+*/
+magicInterpDrawStart()
+event_inherited()
+magicInterpDrawEnd()

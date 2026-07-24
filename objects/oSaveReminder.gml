@@ -13,13 +13,13 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-vspeed+=0.2
+vspeed+=0.2*gDeltaTime
 draw_set_halign(fa_center)
 draw_set_alpha(image_alpha)
 draw_set_font(fnt_HUDnum)
 textDropShadow("Don't forget to save!",x,y,c_white,c_black,2)
 
-dispTime-=1
+dispTime-=1*gDeltaTime
 if dispTime<=0
 {
   image_alpha-=0.04

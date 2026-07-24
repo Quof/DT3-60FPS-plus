@@ -22,7 +22,7 @@ if waitTime=0
 }
 else if waitTime>=1 and waitTime<=99
 {
-  waitTime+=1*gDeltaTime
+  waitTime+=1
   if waitTime=25
     waitTime=100
 }
@@ -38,7 +38,7 @@ if xPos!=0
   afterImage=instance_create(view_xview[0]+256+xPos,view_yview[0]+192,oSceneAfterImage)
   afterImage.image_alpha=0.6
   afterImage.sprite_index=sprite_index
-  afterImage.imageFade=0.05*gDeltaTime
+  afterImage.imageFade=0.05
 }
 #define Draw_0
 /*"/*'/**//* YYD ACTION
