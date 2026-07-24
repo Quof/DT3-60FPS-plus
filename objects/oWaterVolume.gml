@@ -18,16 +18,16 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-waterFrame+=image_speed
+waterFrame+=image_speed*gDeltaTime
 
 if global.gamePaused=false
 {
   if bSelfControl=1
   {
     if y>targetWLevel
-      y-=2
+      y-=2*gDeltaTime
     else if y<targetWLevel
-      y+=2
+      y+=2*gDeltaTime
   }
 }
 

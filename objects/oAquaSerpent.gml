@@ -602,7 +602,7 @@ if global.gamePaused=false
         (GID(159052)).yVel=1
         floorSeq=3
       }
-      tile_layer_shift(999999,0,1)
+      if gDeltaDoTicks tile_layer_shift(999999,0,1)
       if !instance_exists((GID(159052)))
       {
         jeremyText="There we go, I've got access again! I've deciphered the extra bits of data on this thing. At this point, as you can see, it has changed its attack patterns. It still cycles through 3 though. The one you need to be cautious about are the 6 water shots from below. Especially when it doubles back with that."
