@@ -44,17 +44,56 @@ Do not touch animSpd for now.
 
 Do not change speed/hspeed/vspeed/direction with a simple gDeltaTime modification.
 
-replace speed with _speed and direction with _direction, initialize them instead of speed/direction in the create event, and then calculate x and y offsets using sin/cos and _direction manually. Here is an example of using sin/cos to calculate _direction.
+1 - Go to the create event and define _direction and _speed.
+2 - If there is no direction or speed, define as 0.
+3 - comment out the line using normal speed. 
+4 - Replace that line with:
 
 x += cos(degtorad(_direction)) * _speed
-y += sin(degtorad(_direction)) * _speed
+y += sin(degtorad(_direction)) * _speed 
+
+5 - So, for example, something like "speed=bulletSpeed" should be commented out, then replaced with 
+
+_speed=bulletSpeed
+x += cos(degtorad(_direction)) * _speed * gDeltaTime
+y += sin(degtorad(_direction)) * _speed * gDeltaTime
+
+with _direction defined as 0 in the create event, if the create event doesn't have a direction definition already. Else define _direction as the existing direction. Here is a real-life example of this:
+
+https://i.imgur.com/XeAD7RN.png
+
+And if hspeed/vspeed is used:
+
+x += _hspeed * gDeltaTime
+y += _vspeed * gDeltaTime
+
+If both are used, Brian or Wareya must be summoned to be changed to only use one of the two. 
+
+2.2) CHILDREN WITH SPEED
+
+All children of an object must be adjusted around the parent. So, once you change oPassBulet to use the proper _speed, you need to change their children to call ._speed and ._direction instead of .speed and .direction.
+The best way to find these would be doing a codebase-wide search for the name of the object AND the names of any children (i.e. places where they're passed to instance_create.)
+This is very fucky for bullets and it may be best to do gDeltaDoTicks for them. This is accomplished by putting
+
+if gDeltaDoTicks != 1 { exit; }
+
+in the first line of the step action of the parent. 
 
 
-2.5) COLLISION
+2.5) Exception for Effects
+
+An exception to this is effect objects which specify speed. These are purely visual and being in the wrong position briefly is fine, so they can be ignored.
+
+3) FRICTION
+
+Any gameplay-affecting friction-having objects should be modified to not use the friction variable. Summon Brian/Wareya.
+
+
+4) COLLISION
 
 For enemies that bump into a wall and turn around, I've made two new scripts: isCollisionLeftEdit and isCollisionRightEdit. These will prevent them from constantly turning around in a wall. 
 
-3) SUBPIXEL MOVEMENT (Wareya/Brian are probably mostly fixing this)
+5) SUBPIXEL MOVEMENT (Wareya/Brian are probably mostly fixing this)
 
 The base moveTo function is totally fucked and rounds/fractions enemy movement. This will slow them down like up to 20% used natively. (Because like a 1.2 acceleration is neatly 1 + 1/5, but 0.6 acceleration is never 1 + 1/x or something). For now, I'm letting this happen with the hope/expectation that the moveTo function can be replaced with something (like moveToEdit) that does not have this problem. I have some code from Claude that *does* seemingly fix this with high accuracy, but I only used a few times before deciding to put it in the backburner as a high-complexity issue. The Claude code is as follows: 
 
