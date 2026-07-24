@@ -70,7 +70,7 @@ and then later, exactly once per step event, at or near the end:
 
 ```c
 x += cos(degtorad(_direction)) * _speed * gDeltaTime
-y += sin(degtorad(_direction)) * _speed * gDeltaTime
+y -= sin(degtorad(_direction)) * _speed * gDeltaTime
 ```
 
 Here is a real-life example of this:
@@ -157,8 +157,6 @@ Often, to make something "flip" every xth frame, there will be code like
 Historically, it seems like this wants to be changed to
 
 	if current_frame mod (6/gDeltaTime)=0
-	
-oGame.time is seemingly not functional due to our changes or 8.2 or something, so we change that to current_frame, then we divide the intended frame by gDeltaTime to slow it down. Instead of checking every 6th frame it will check every 12th on 60fps and every 24th on 120FPS.
 
 current_frame is 8.2 Core exclusive, so be sure to install the 8.2 Core extension.
 
@@ -207,7 +205,7 @@ The following is an example of code from an event object that makes fireballs sh
         {
           tNewAttack=instance_create(view_xview[0]+view_wview[0]+8,200+(i*16),oPassBullet)
           tNewAttack.sprite_index=sBowserFire1; tNewAttack.atkPower=4
-          tNewAttack.bulletSpeed=3/FPS_SCA; tNewAttack.direction=180; tNewAttack.decayTime=-100
+          tNewAttack.bulletSpeed=3; tNewAttack.direction=180; tNewAttack.decayTime=-100
         }
         bowserFireProg+=1
       }
