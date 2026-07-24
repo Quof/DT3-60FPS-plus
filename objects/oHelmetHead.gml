@@ -58,7 +58,7 @@ if global.gamePaused=false
 
   if bActive=true and life>0
   {
-    waterFrm+=0.33
+    waterFrm+=0.33*gDeltaTime
     //---------- Movement ----------
     if moveTime<moveThres
     {
@@ -68,14 +68,14 @@ if global.gamePaused=false
         image_xscale=-1
     }
 
-    moveTime+=1
+    moveTime+=1*gDeltaTime
     if moveTime>=moveThres and moveTime<=moveThres+15
     {
       image_speed=0.2
       if image_xscale=1
-        x+=1
+        x+=1*gDeltaTime
       else
-        x-=1
+        x-=1*gDeltaTime
     }
     else if moveTime>=moveThres+16
     {
@@ -85,7 +85,7 @@ if global.gamePaused=false
       moveTime=0
     }
 
-    atkTime+=1
+    atkTime+=1*gDeltaTime
     if atkTime=atkDelay //---------- Attack: Bullet toward player ----------
     {
       var tEffect;
@@ -100,7 +100,7 @@ if global.gamePaused=false
       playSound(global.snd_HardHit3,0,1,17000)
       var tFire;
       tFire=instance_create(x,y-35,oPassBullet)
-      tFire.direction=point_direction(x,y-35,oPlayer1.x,returnPlayerYCenter()); tFire.sprite_index=sWolfHeadShot
+      tFire._direction=point_direction(x,y-35,oPlayer1.x,returnPlayerYCenter()); tFire.sprite_index=sWolfHeadShot
       tFire.atkPower=atkPower; tFire.bulletSpeed=5; tFire.decayTime=-100
       atkTime=0
     }
@@ -185,7 +185,7 @@ if global.gamePaused=false
   }
   else if life<=0 //Defeat animation
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       with oHelmetHeadHelmet {instance_destroy()}
@@ -193,7 +193,7 @@ if global.gamePaused=false
     }
     else if deathAnim>=2 and deathAnim<=55
     {
-      if oGame.time mod 5=0
+      if gDeltaDoTicks =0
       {
         var tEffect;
         tEffect=instance_create((x-sprite_width/2)+random(sprite_width),y-random(sprite_height),oEffect)

@@ -48,22 +48,22 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  waterFrm+=0.33
+  waterFrm+=0.33*gDeltaTime
   //---------- Movement ----------
   if bossProg=0 //Standard movement
   {
     if moveProg=0
     {
-      x+=xSpd
+      x+=xSpd*gDeltaTime
       if xSpd>0
-        xSpd-=0.1
-      y-=2
+        xSpd-=0.1*gDeltaTime
+      y-=2*gDeltaTime
       if y<=yGround
         moveProg=1
     }
     else if moveProg=1
     {
-      y+=sin(oGame.time/2.5)
+      y+=sin(oGame.time/2.5)*gDeltaTime
       if moveTime<moveThres
       {
         if x<oPlayer1.x
@@ -72,14 +72,14 @@ if global.gamePaused=false
           image_xscale=-1
       }
 
-      moveTime+=1
+      moveTime+=1*gDeltaTime
       if moveTime>=moveThres and moveTime<=moveThres+15
       {
         image_speed=0.2
         if image_xscale=1
-          x+=1.5
+          x+=1.5*gDeltaTime
         else
-          x-=1.5
+          x-=1.5*gDeltaTime
       }
       else if moveTime>=moveThres+16
       {
@@ -91,7 +91,7 @@ if global.gamePaused=false
     }
 
     //---------- Attack: Bullet toward player ----------
-    atkTime+=1
+    atkTime+=1*gDeltaTime
     if atkTime=atkDelay
     {
       var tEffect;
@@ -105,7 +105,7 @@ if global.gamePaused=false
       playSound(global.snd_HardHit3,0,0.97,27000)
       var tFire;
       tFire=instance_create(x,y-4,oPassBullet)
-      tFire.direction=player_sprite_center(); tFire.sprite_index=sWolfHeadShot
+      tFire._direction=player_sprite_center(); tFire.sprite_index=sWolfHeadShot
       tFire.atkPower=atkPower; tFire.bulletSpeed=5; tFire.decayTime=-100
       atkTime=0
     }
@@ -114,20 +114,20 @@ if global.gamePaused=false
   {
     if type=1
     {
-      if x<288 {x+=8; image_xscale=1}
-      else {x-=8; image_xscale=-1}
+      if x<288 {x+=8*gDeltaTime; image_xscale=1}
+      else {x-=8*gDeltaTime; image_xscale=-1}
       if point_distance(x,0,288,0)<9 {x=288; y=160; atkTime=0; bossProg=2}
     }
     else if type=2
     {
-      if x<608 {x+=8; image_xscale=1}
-      else {x-=8; image_xscale=-1}
+      if x<608 {x+=8*gDeltaTime; image_xscale=1}
+      else {x-=8*gDeltaTime; image_xscale=-1}
       if point_distance(x,0,608,0)<9 {x=608; y=160; atkTime=0; bossProg=2}
     }
   }
   else if bossProg=2 //Move to corners
   {
-    atkTime+=1
+    atkTime+=1*gDeltaTime
     if atkTime=1
     {
       var tEffect;
@@ -142,8 +142,8 @@ if global.gamePaused=false
       var tFire;
       tFire=instance_create(x,y-4,oPassBullet)
       tFire.sprite_index=sWolfHeadShot; tFire.atkPower=atkPower; tFire.bulletSpeed=5; tFire.decayTime=-100
-      if type=1 {tFire.direction=345}
-      else if type=2 {tFire.direction=195}
+      if type=1 {tFire._direction=345}
+      else if type=2 {tFire._direction=195}
     }
 
     if extraBullet=1
@@ -153,20 +153,20 @@ if global.gamePaused=false
         var tFire;
         tFire=instance_create(x,y-4,oPassBullet)
         tFire.sprite_index=sWolfHeadShot; tFire.atkPower=atkPower; tFire.bulletSpeed=5; tFire.decayTime=-100
-        if type=1 {tFire.direction=280}
-        else if type=2 {tFire.direction=260}
+        if type=1 {tFire._direction=280}
+        else if type=2 {tFire._direction=260}
       }
     }
   }
 
   if alphaUp=1
   {
-    lineAlpha+=0.01
+    lineAlpha+=0.01*gDeltaTime
     if lineAlpha>=0.6 {alphaUp=0}
   }
   else
   {
-    lineAlpha-=0.01
+    lineAlpha-=0.01*gDeltaTime
     if lineAlpha<=0.4 {alphaUp=1}
   }
 
