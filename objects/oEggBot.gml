@@ -27,7 +27,7 @@ dieSound=2
 dieEffect=2
 initDir=0
 turnTime=0
-runAcc=1.25
+runAcc=1.25 * gDeltaTime
 
 shotTime=35
 shotDelay=70
@@ -72,7 +72,7 @@ if global.gamePaused=false
     else {xVel=0}
 
     //---------- Fire gun ----------
-    shotTime+=1
+    shotTime+=1*gDeltaTime
     if shotTime>=shotDelay
     {
       if shotTime=shotDelay //Start to open gun port

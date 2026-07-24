@@ -20,7 +20,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  speed=bulletSpeed
+  speed=bulletSpeed*gDeltaTime
   image_angle=direction
   if isCollisionTop(1)
     hitWall=1
