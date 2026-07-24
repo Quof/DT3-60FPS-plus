@@ -27,7 +27,7 @@ dieSound=2
 dieEffect=2
 initDir=0
 turnTime=0
-runAcc=1.25 * gDeltaTime
+runAcc=1.25
 
 shotTime=35
 shotDelay=70
@@ -41,7 +41,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if !gDeltaDoTicks { exit; }
+//if !gDeltaDoTicks { exit; }
 if global.gamePaused=false
 {
   makeEnemyActive(0)
@@ -108,7 +108,7 @@ if global.gamePaused=false
       }
     }
 
-    yVel+=0.2
+    yVel+=0.2*gDeltaTime
     if isCollisionBottom(1)
       yVel=0
     if isCollisionLeft(1)
@@ -118,7 +118,7 @@ if global.gamePaused=false
     if isCollisionSolid()
       y-=2
 
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
     if y>room_height+24
       instance_destroy()
   }

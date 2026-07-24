@@ -46,7 +46,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if !gDeltaDoTicks { exit; }
+//if !gDeltaDoTicks { exit; }
 if global.gamePaused=false
 {
   makeEnemyActive(0)
@@ -60,9 +60,9 @@ if global.gamePaused=false
       initDir=1
     }
     if x>oCharacter.x and image_xscale=1
-      turnTime+=1
+      turnTime+=1*gDeltaTime
     else if x<oCharacter.x and image_xscale=-1
-      turnTime+=1
+      turnTime+=1*gDeltaTime
     if turnTime>=45
     {
       xVel*=-1
@@ -75,15 +75,15 @@ if global.gamePaused=false
       image_speed=0
     }
 
-    yVel+=0.31
+    yVel+=0.31*gDeltaTime
     if isCollisionBottom(1)
     {
       yVel=-7
       image_speed=0.3
     }
-    if isCollisionLeft(1)
+    if isCollisionLeftEdit(1)
       xVel*=-1
-    if isCollisionRight(1)
+    if isCollisionRightEdit(1)
       xVel*=-1
     if isCollisionTop(1)
       yVel=0.1
@@ -93,7 +93,7 @@ if global.gamePaused=false
     else
       image_xscale=-1
 
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
     if isCollisionSolid()
       y-=2
     if y>room_height+24
