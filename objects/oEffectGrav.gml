@@ -20,21 +20,26 @@ applies_to=self
 */
 hspeed=xSpd
 vspeed=ySpd
-ySpd+=grav
+ySpd+=grav*gDeltaTime
 image_angle+=rotation
 
 if type=1
 {
-  decay-=1
+  decay-=1*gDeltaTime
   if decay=0
     instance_destroy()
 }
 else if type=2
 {
-  image_alpha-=fadeSpd
+  image_alpha-=fadeSpd*gDeltaTime
   if image_alpha<=0
     instance_destroy()
 }
+
+x -= hspeed
+y -= vspeed
+x += hspeed * gDeltaTime
+y += vspeed * gDeltaTime
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

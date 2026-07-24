@@ -10,6 +10,16 @@ dispTime=10
 
 ranChoice=0
 drawColor=0
+#define Step_0
+/*"/*'/**//* YYD ACTION
+lib_id=1
+action_id=603
+applies_to=self
+*/
+  x -= hspeed
+  y -= vspeed
+  x += hspeed * gDeltaTime
+  y += vspeed * gDeltaTime
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -18,7 +28,7 @@ applies_to=self
 */
 if view_current=0
 {
-  vspeed+=0.38
+  vspeed+=0.38*gDeltaTime
 
 
   draw_set_halign(fa_center)
@@ -53,8 +63,4 @@ if view_current=0
     image_alpha-=0.05*gDeltaTime
     if image_alpha<=0 {instance_destroy()}
   }
-  x -= hspeed
-  y -= vspeed
-  x += hspeed * gDeltaTime
-  y += vspeed * gDeltaTime
 }

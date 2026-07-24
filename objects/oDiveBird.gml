@@ -24,6 +24,8 @@ behavior=-1
 bCanChirp=0
 bSpotted=0
 alarm[0]=1
+
+_direction=0
 #define Alarm_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -51,11 +53,11 @@ action_id=603
 applies_to=self
 */
 image_speed = 0
-if global.gamePaused=false && gDeltaDoTicks
+if global.gamePaused=false
 {
   if behavior=0 //Slight wait
   {
-    flyBackTime-=1
+    flyBackTime-=1*gDeltaTime
     if flyBackTime<=0
     {
       sprite_index=sDiveBird_Fly
@@ -75,9 +77,13 @@ if global.gamePaused=false && gDeltaDoTicks
   }
   else if behavior=1 //Fly to spot (0=left, 1=right)
   {
-    speed=5
-    direction=point_direction(x,y,xstart,ystart)
-    if direction>=90 and direction<=270 {image_xscale=-1}
+    //speed=5
+    _speed=5
+    x += cos(degtorad(_direction)) * _speed * gDeltaTime
+    y -= sin(degtorad(_direction)) * _speed * gDeltaTime
+    //direction=point_direction(x,y,xstart,ystart)
+    _direction=point_direction(x,y,xstart,ystart)
+    if _direction>=90 and _direction<=270 {image_xscale=-1}
     else {image_xscale=1}
     if point_distance(x,y,xstart,ystart)<6
     {
@@ -86,13 +92,14 @@ if global.gamePaused=false && gDeltaDoTicks
       sprite_index=sDiveBird_Hop
       image_index=0
       imagespeed=0
-      speed=0
+      //speed=0
+      _speed=0
       behavior+=1
     }
   }
   else if behavior=2 //Hop around
   {
-    hopTime+=1
+    hopTime+=1*gDeltaTime
     if hopSeq=0 //Hop hop hop
     {
       if hopTime mod hopSpd=0
@@ -137,7 +144,7 @@ if global.gamePaused=false && gDeltaDoTicks
       }
     }
 
-    yVel+=1
+    yVel+=1*gDeltaTime
     if isCollisionBottom(1)
     {
       xVel=0
@@ -148,7 +155,7 @@ if global.gamePaused=false && gDeltaDoTicks
     if isCollisionRight(1) {xVel=-1; image_xscale=-1}
     if isCollisionSolid() {y-=2}
 
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
     if y>room_height+24 {instance_destroy()}
 
     if global.activeCharacter=0 //Fly away if Jerry is too close
@@ -180,8 +187,8 @@ if global.gamePaused=false && gDeltaDoTicks
   }
   else if behavior=3 //Flying away
   {
-    x+=xSpd
-    y+=ySpd
+    x+=xSpd*gDeltaTime
+    y+=ySpd*gDeltaTime
 
     if instance_exists(oEnemyBase)
     {
@@ -189,8 +196,8 @@ if global.gamePaused=false && gDeltaDoTicks
       if point_distance(x,y-7,eDistCheck.bbox_left+(eDistCheck.sprite_width/2),eDistCheck.bbox_top+(eDistCheck.sprite_height/2))<112
       {
         sprite_index=sDiveBird_Hover
-        direction=point_direction(x,y-7,eDistCheck.bbox_left+(eDistCheck.sprite_width/2),eDistCheck.bbox_top+(eDistCheck.sprite_height/2))-180
-        if direction>=90 and direction<=270 {image_xscale=1}
+        _direction=point_direction(x,y-7,eDistCheck.bbox_left+(eDistCheck.sprite_width/2),eDistCheck.bbox_top+(eDistCheck.sprite_height/2))-180
+        if _direction>=90 and _direction<=270 {image_xscale=1}
         else {image_xscale=-1}
         imagespeed=0.33
         behavior+=1
@@ -199,8 +206,11 @@ if global.gamePaused=false && gDeltaDoTicks
   }
   else if behavior=4 //Ready to dive
   {
-    speed=2
-    hopTime+=1
+    //speed=2
+    _speed=2
+    x += cos(degtorad(_direction)) * _speed * gDeltaTime
+    y -= sin(degtorad(_direction)) * _speed * gDeltaTime
+    hopTime+=1*gDeltaTime
     if hopTime=25
     {
       if instance_exists(eDistCheck)
@@ -208,7 +218,7 @@ if global.gamePaused=false && gDeltaDoTicks
       else
         eDirCheck=random(360)
       diveAtk=instance_create(x,y,oAtkDiveBird)
-      diveAtk.direction=eDirCheck; diveAtk.image_angle=eDirCheck+45; diveAtk.image_blend=image_blend
+      diveAtk._direction=eDirCheck; diveAtk.image_angle=eDirCheck+45; diveAtk.image_blend=image_blend
       if bDoNotDestroy=1
       {
         visible=0
@@ -219,7 +229,7 @@ if global.gamePaused=false && gDeltaDoTicks
     }
   }
 }
-else {speed=0}
+else {speed=0; _speed=0}
 
 if bSpotted=0
 {
@@ -230,8 +240,8 @@ if bSpotted=0
   }
 }
 
-if gDeltaDoTicks
-    image_index += imagespeed
+//if gDeltaDoTicks
+    image_index += imagespeed*gDeltaTime
 #define Other_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
