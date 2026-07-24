@@ -23,6 +23,9 @@ If you want to delta-time-ify the object properly, look for the following patter
 -`somevar -= someothervar` or similar
 - - Replace with `somevar -= someothervar * gDeltaTime`
 - If there is a gravity calculation, like `yvel += grav`, change that like `yvel += grav * gDeltaTime` specifically
+- moveTo(xVel,yVel) 
+- - Replace with moveTo(xVel * gDeltaTime,yVel * gDeltaTime) 
+
 
 The general pattern is "if this is adding a specific number every frame, multiply the number being added by gDeltaTime".
 
@@ -32,6 +35,7 @@ The general pattern is "if this is adding a specific number every frame, multipl
 *gDeltaTime for fadeAlpha-=x / fadeAlpha+=x
 *gDeltaTime for x.image_alpha-= / x.image_alpha+=
 *gDeltaTime for convo[0]+=1 
+
 
 2) SPEED
 
@@ -48,7 +52,7 @@ Game Maker applies these variables automatically with its own integration, and f
 (if speed/direction)
 ```c
 x += cos(degtorad(_direction)) * _speed * gDeltaTime
-y += sin(degtorad(_direction)) * _speed  * gDeltaTime
+y += sin(degtorad(_direction)) * _speed * gDeltaTime
 ```
 (if hspeed/vspeed)
 ```c

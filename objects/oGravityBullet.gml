@@ -34,7 +34,7 @@ if global.gamePaused=false //&& gDeltaDoTicks != 0
   if isCollisionBottom(1) {bDestroy=1}
   if isCollisionLeft(1) {bDestroy=1}
   if isCollisionRight(1) {bDestroy=1}
-  moveTo(xVel,yVel)
+  moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
 
   if bDestroy=1
   {

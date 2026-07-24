@@ -23,7 +23,7 @@ baseItemChance=55
 dieSound=0
 dieEffect=0
 initDir=0
-runAcc=1*gDeltaTime
+runAcc=1
 weight=90
 
 turnTime=0
@@ -66,7 +66,7 @@ if global.gamePaused=false
       image_xscale=1
     else
       image_xscale=-1
-    x+=xVel
+    x+=xVel*gDeltaTime
 
     if x>oPlayer1.x and image_xscale=1
       turnTime+=1*gDeltaTime
@@ -89,7 +89,7 @@ if global.gamePaused=false
         tNewAttack=instance_create(x,y+2,oGravityBullet)
         tNewAttack.atkPower=atkPower; tNewAttack.sprite_index=sBDBomb; tNewAttack.damageType="EXPLOSION"
         tNewAttack.bulletSpeed=3; tNewAttack.xVel=tXVel
-        tXVel+=0.5*gDeltaTime
+        tXVel+=0.5
       }
       shootTime=0
     }
