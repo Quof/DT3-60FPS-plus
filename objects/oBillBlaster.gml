@@ -26,7 +26,6 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if gDeltaDoTicks != 1 { exit; }
 if global.gamePaused=false
 {
   makeEnemyActive(0)
@@ -38,7 +37,7 @@ if global.gamePaused=false
       findTargetX=point_distance(oPlayer1.x,0,x,0)
       if findTargetX>=56
       {
-        shotTime+=1
+        shotTime+=1*gDeltaTime
         if shotTime=shotDelay-10
         {
           var tEffect;
@@ -76,7 +75,7 @@ if global.gamePaused=false
       findTargetY=point_distance(0,oPlayer1.y-26,0,y)
       if findTargetY>=56
       {
-        shotTime+=1
+        shotTime+=1*gDeltaTime
         if shotTime=shotDelay-10
         {
           var tEffect;

@@ -42,7 +42,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if gDeltaDoTicks != 1 { exit; }
+//if gDeltaDoTicks != 1 { exit; }
 if global.gamePaused=false
 {
   makeEnemyActive(0)
@@ -50,11 +50,11 @@ if global.gamePaused=false
   {
     if bVert=0
     {
-      x+=bulletSpeed
+      x+=bulletSpeed*gDeltaTime
     }
     else
     {
-      y+=bulletSpeed
+      y+=bulletSpeed*gDeltaTime
     }
   }
   else if life<=0
