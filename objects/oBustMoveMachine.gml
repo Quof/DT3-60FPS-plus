@@ -19,14 +19,14 @@ if global.gamePaused=false
   {
     if image_angle<145
     {
-      image_angle+=3
+      image_angle+=3*gDeltaTime
     }
   }
   else if scrController(2)
   {
     if image_angle>33
     {
-      image_angle-=3
+      image_angle-=3*gDeltaTime
     }
   }
 
@@ -38,7 +38,7 @@ if global.gamePaused=false
       var tNewBubble;
       tNewBubble=instance_create(x,y-32,oBustMoveBubble)
       tNewBubble.type=0; tNewBubble.moveSpd=8
-      tNewBubble.direction=image_angle
+      tNewBubble._direction=image_angle
       rechargeTime=rechargeTotal
     }
     else if scrController(7)
@@ -47,7 +47,7 @@ if global.gamePaused=false
       var tNewBubble;
       tNewBubble=instance_create(x,y-32,oBustMoveBubble)
       tNewBubble.type=1; tNewBubble.moveSpd=8
-      tNewBubble.direction=image_angle
+      tNewBubble._direction=image_angle
       rechargeTime=rechargeTotal
     }
     else if scrController(8)
@@ -56,11 +56,11 @@ if global.gamePaused=false
       var tNewBubble;
       tNewBubble=instance_create(x,y-32,oBustMoveBubble)
       tNewBubble.type=2; tNewBubble.moveSpd=8
-      tNewBubble.direction=image_angle
+      tNewBubble._direction=image_angle
       rechargeTime=rechargeTotal
     }
   }
-  else {rechargeTime-=1}
+  else {rechargeTime-=1*gDeltaTime}
 }
 #define Draw_0
 /*"/*'/**//* YYD ACTION

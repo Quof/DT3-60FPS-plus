@@ -4,8 +4,8 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if global.gamePaused=false and global.forceTime>0
-  global.forceTime-=1*gDeltaTime
+if global.gamePaused=false and global.forceTime>0 and gDeltaDoTicks
+  global.forceTime-=1
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

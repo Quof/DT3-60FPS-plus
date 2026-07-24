@@ -17,6 +17,7 @@ bNoBonus=true
 hitOneTime=0
 
 direction=point_direction(x,y,oPlayer1.x,oPlayer1.y-26)
+_direction=point_direction(x,y,oPlayer1.x,oPlayer1.y-26)
 
 jeremyText="Just a basic Virus instance without a host. It simply tries to go in your initial direction."
 chaoText="Eww, it's all gooey like the ones we saw on the island. Wow, that seems like so long ago that we were there..."
@@ -42,14 +43,17 @@ if global.gamePaused=false
 {
   if bActive=true and stunnedTime=0
   {
-    speed=moveSpd
+    //speed=moveSpd
+    _speed=moveSpd
+    x += cos(degtorad(_direction)) * _speed * gDeltaTime
+    y -= sin(degtorad(_direction)) * _speed * gDeltaTime
   }
 
   if x<-256 or x>room_width+256 or y<-256 or y>room_height+256
     instance_destroy()
 }
 else
-  speed=0
+  {speed=0; _speed=0}
 #define Collision_oPlayer1
 /*"/*'/**//* YYD ACTION
 lib_id=1

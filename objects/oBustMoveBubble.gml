@@ -8,6 +8,7 @@ image_speed=0.33
 decay=150
 bounceAmt=1
 alarm[0]=1
+_direction = 0
 #define Alarm_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -24,14 +25,17 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  speed=moveSpd
+  //speed=moveSpd
+  _speed=moveSpd
+  x += cos(degtorad(_direction)) * _speed * gDeltaTime
+  y -= sin(degtorad(_direction)) * _speed * gDeltaTime
 
-  decay-=1
+  decay-=1*gDeltaTime
   if decay<=0
     instance_destroy()
 }
 else
-  speed=0
+  {_speed=0}
 #define Collision_oSolid
 /*"/*'/**//* YYD ACTION
 lib_id=1
