@@ -8,30 +8,23 @@ When doing current_frame stuff, mod by 1/gDeltaTime. So "if current_frame mod 1/
 
 1) Common Patterns We Want To Modify
 
-When clicking an object, first look to see if it's a child of a more widely used parent; always try to modify the parent and leave the children alone. If there's no such parent, open the Creation first then Step code.
+When clicking an object, first look to see if it's a child of a more widely used parent. You may need to modify the parent instead, or modify both. If the object is likely to be created dynamically (e.g. bullets, particles, etc), also do a code search for the object's name to see what scripts/events manually create instances with `instance_create` and then overwrite their properties after their create event runs.
 
-In Creation Code, look for:
+Now that you understand the object, look in the Create event for any variables that stand out. Reason about them, don't touch them yet.
 
-runAcc
-grav
+Now look in the Step, Begin Step, End Step, and Draw events, if they exist.
 
-In response:
+Look for specific value threshold checks, and look for weird arcs and multiplications. If the logic is too complex or spooky for you to understand, consider using `gDeltaDoTicks` (which is 1 on frames that correspond to 30fps frames, and 0 otherwise) to run the object at a lower framerate for now, until it can be rewritten properly later.
 
-multiply runAcc by gDeltaTime once
-multiply grav by gDeltaTime twice
+If you want to delta-time-ify the object properly, look for the following patterns in code branches that run EVERY FRAME (not only when specific conditions are temporarily met):
 
-In Step Code, look for:
+-`x += 1` or similar
+- - Replace with `x += gDeltaTime`
+-`somevar -= someothervar` or similar
+- - Replace with `somevar -= someothervar * gDeltaTime`
+- If there is a gravity calculation, like `yvel += grav`, change that like `yvel += grav * gDeltaTime` specifically
 
-xTime+=1
-xVel=
-yVel=
-
-In response:
-
-multiply the 1 of xTime+=1 by gDeltaTime
-multiply xVel/yVel
-
-Do not touch animSpd for now.
+The general pattern is "if this is adding a specific number every frame, multiply the number being added by gDeltaTime".
 
 1.5) Continued Common Patterns... for the story
 
@@ -44,49 +37,60 @@ Do not touch animSpd for now.
 
 Do not change speed/hspeed/vspeed/direction with a simple gDeltaTime modification.
 
-1 - Go to the create event and define _direction and _speed.
-2 - If there is no direction or speed, define as 0.
-3 - comment out the line using normal speed. 
-4 - Replace that line with:
+Game Maker applies these variables automatically with its own integration, and fighting it by undoing it and redoing it manually can cause performance problems or weird glitches, when the object in question is not purely cosmetic. Changing the contents to include delta time as a multiplier might seem to work, but if any code in OTHER objects or scripts reads or writes these variables, it will break THAT code. Game Maker is unfortunately just too inflexible to let us deal with this in the correct simple way, so we have to do it the stupid hard way:
 
-x += cos(degtorad(_direction)) * _speed
-y += sin(degtorad(_direction)) * _speed 
+1 - Go to the create event and define _direction and _speed (or, if it uses hspeed/vspeed instead, _hspeed and _vspeed).
+2 - If there is no direction or speed, define as 0.
+3 - Change existing code in the step/draw/etc events to use the _ prefixed versions of the variables instead of the originals.
+3.5 - Also look for any instances of the object, or its child objects, being spawned with `instance_create` using the code search tool, and update those locations too, to use `_speed`/`_direction`/etc instead of `speed`/`direction`/etc.
+4 - Add the following code to the end of the Step or End Step event (whichever exists):
+
+(if speed/direction)
+```c
+x += cos(degtorad(_direction)) * _speed * gDeltaTime
+y += sin(degtorad(_direction)) * _speed  * gDeltaTime
+```
+(if hspeed/vspeed)
+```c
+x += _hspeed * gDeltaTime
+y += _vspeed * gDeltaTime
+```
+
+If both speed/direction AND hspeed+vspeed are used (e.g. speed and hspeed), Brian or Wareya must be summoned to reason about what the object is doing and fix it to only use one of the two systems.
 
 5 - So, for example, something like "speed=bulletSpeed" should be commented out, then replaced with 
 
-_speed=bulletSpeed
+`_speed=bulletSpeed`
+
+and then later, exactly once per step event, at or near the end:
+
+```c
 x += cos(degtorad(_direction)) * _speed * gDeltaTime
 y += sin(degtorad(_direction)) * _speed * gDeltaTime
+```
 
-with _direction defined as 0 in the create event, if the create event doesn't have a direction definition already. Else define _direction as the existing direction. Here is a real-life example of this:
+Here is a real-life example of this:
 
 https://i.imgur.com/XeAD7RN.png
 
-And if hspeed/vspeed is used:
-
-x += _hspeed * gDeltaTime
-y += _vspeed * gDeltaTime
-
-If both are used, Brian or Wareya must be summoned to be changed to only use one of the two. 
-
 2.2) CHILDREN WITH SPEED
 
-All children of an object must be adjusted around the parent. So, once you change oPassBulet to use the proper _speed, you need to change their children to call ._speed and ._direction instead of .speed and .direction.
+All instances and children of an object must be adjusted around the parent. So, once you change oPassBulet to use the proper _speed, you need to change their children to call ._speed and ._direction instead of .speed and .direction.
 The best way to find these would be doing a codebase-wide search for the name of the object AND the names of any children (i.e. places where they're passed to instance_create.)
 This is very fucky for bullets and it may be best to do gDeltaDoTicks for them. This is accomplished by putting
 
 if gDeltaDoTicks != 1 { exit; }
 
-in the first line of the step action of the parent. 
+in the first line of the step action of the parent. Check to make sure that the speed isn't "sticky", if it is you may have to set it to 0 on dead frames. If this causes weird effects, flag the object for wareya or brian to rewrite.
 
 
 2.5) Exception for Effects
 
-An exception to this is effect objects which specify speed. These are purely visual and being in the wrong position briefly is fine, so they can be ignored.
+An exception to this is visual effect objects which specify speed. These are purely visual and being in the wrong position briefly is fine, so it's OK to ignore them for now, or use the "undo game maker's version of position integration, then do our own" pattern, because it doesn't have the negative effects it has for simulation-affecting objects.
 
 3) FRICTION
 
-Any gameplay-affecting friction-having objects should be modified to not use the friction variable. Summon Brian/Wareya.
+Any gameplay-affecting `friction`-having objects (as in, the built in game maker variable called exactly `friction`) should be modified to not use the `friction` variable. Objects doing friction manually with other variables is fine. Summon Brian/Wareya.
 
 
 4) COLLISION
@@ -137,6 +141,11 @@ Then elsewhere atkTime will have single-instance modifiers like "atkTime+=atkDel
 
 
 6) oGame.time mods
+
+`oGame.time30` contains the number of 30fps ticks that have passed. `oGame.time` contains the number of arbitrarily high-framerate ticks that have passed.
+
+(WAREYA NEEDS TO REWRITE THIS SECTION WITH BETTER ADVICE LATER, YOU CAN USE IT FOR NOW BUT TREAT IT WITH A GRAIN OF SALT, DOING THIS STUFF RIGHT IS A LITTLE COMPLICATED)
+
 Often, to make something "flip" every xth frame, there will be code like
 
 	if oGame.time mod 6=0
