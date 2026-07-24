@@ -697,7 +697,7 @@ if global.gamePaused=false
     }
     else if deathAnim>=1001 and deathAnim<=1054
     {
-      if gDeltaDoTicks
+      if oGame.time mod (2/gDeltaTime)
       {
         var tEffect;
         tEffect=instance_create((x-sprite_width/2)+random(sprite_width),(y-sprite_height/2)+random(sprite_height),oEffect)

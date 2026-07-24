@@ -40,7 +40,7 @@ if global.gamePaused=false
   }
   else
   {
-    if gDeltaDoTicks
+    if oGame.time mod (2/gDeltaTime)=0
     {
       tEffect=instance_create(x-8+random(16),y+random(8),oEffectB)
       tEffect.type=1; tEffect.sprite_index=sSamusSMissileEffect; tEffect.depth=26
