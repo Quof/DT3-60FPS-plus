@@ -23,7 +23,7 @@ baseItemChance=55
 dieSound=0
 dieEffect=0
 initDir=0
-runAcc=1
+runAcc=1*gDeltaTime
 weight=90
 
 turnTime=0
@@ -49,7 +49,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if !gDeltaDoTicks { exit; }
+//if !gDeltaDoTicks { exit; }
 if global.gamePaused=false
 {
   makeEnemyActive(0)
@@ -69,16 +69,16 @@ if global.gamePaused=false
     x+=xVel
 
     if x>oPlayer1.x and image_xscale=1
-      turnTime+=1
+      turnTime+=1*gDeltaTime
     else if x<oPlayer1.x and image_xscale=-1
-      turnTime+=1
+      turnTime+=1*gDeltaTime
     if turnTime>=50
     {
       xVel*=-1
       turnTime=0
     }
 
-    shootTime+=1
+    shootTime+=1*gDeltaTime
     if shootTime>=shootDelay
     {
       if checkScreenArea(x,y,48)=1 {playSound(global.snd_BombLaunch,0,0.72,48000)}
@@ -89,7 +89,7 @@ if global.gamePaused=false
         tNewAttack=instance_create(x,y+2,oGravityBullet)
         tNewAttack.atkPower=atkPower; tNewAttack.sprite_index=sBDBomb; tNewAttack.damageType="EXPLOSION"
         tNewAttack.bulletSpeed=3; tNewAttack.xVel=tXVel
-        tXVel+=0.5
+        tXVel+=0.5*gDeltaTime
       }
       shootTime=0
     }
@@ -114,12 +114,12 @@ if global.gamePaused=false
     }
 
     dthPropX+=dthPropVelX
-    dthPropY+=dthPropVelY; dthPropVelY+=0.2
+    dthPropY+=dthPropVelY; dthPropVelY+=0.2*gDeltaTime
     dthPropAng+=dthPropTurn
     dthBodyX+=dthBodyVelX
-    dthBodyY+=dthBodyVelY; dthBodyVelY+=0.025
+    dthBodyY+=dthBodyVelY; dthBodyVelY+=0.025*gDeltaTime
     dthBodyAng+=dthBodyTurn
-    image_alpha-=0.03
+    image_alpha-=0.03*gDeltaTime
     if image_alpha<0 {instance_destroy()}
   }
   enemyStepEvent()
