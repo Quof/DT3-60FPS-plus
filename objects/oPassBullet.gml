@@ -12,26 +12,30 @@ bShowHealthBar=false
 bShowDamage=false
 bCanTakeDamage=false
 init=0
+_direction=0
+_speed=0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
 action_id=603
 applies_to=self
 */
-if global.gamePaused=false && gDeltaDoTicks != 0
+if global.gamePaused=false ///&& gDeltaDoTicks != 0
 {
   if init=0 {init=1}
   if decayTime!=-100
   {
-    decayTime-=1
+    decayTime-=1*gDeltaTime
     if decayTime<=0 {instance_destroy()}
   }
 
   if place_meeting(x,y,oNightmareEffect) {speed=bulletSpeed/2}
-  else {speed=bulletSpeed}
-  image_angle=direction
+  else {_speed=bulletSpeed}
+  image_angle=_direction
+  x += cos(degtorad(_direction)) * _speed * gDeltaTime
+  y -= sin(degtorad(_direction)) * _speed * gDeltaTime
 }
-else {speed=0}
+else {_speed=0}
 #define Other_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

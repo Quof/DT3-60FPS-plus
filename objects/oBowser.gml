@@ -59,7 +59,7 @@ if global.gamePaused=false //&& gDeltaDoTicks != 0
       if x<oPlayer1.x {image_xscale=1}
       else {image_xscale=-1}
 
-      atkTime+=1
+      atkTime+=1*gDeltaTime
       if atkTime>=jumpDelay
       {
         if isCollisionBottom(1)
@@ -93,7 +93,7 @@ if global.gamePaused=false //&& gDeltaDoTicks != 0
       }
       else //Hop
       {
-        hopTime-=1
+        hopTime-=1*gDeltaTime
         if hopTime<=0 and yVel=0
         {
           y-=2
@@ -102,7 +102,7 @@ if global.gamePaused=false //&& gDeltaDoTicks != 0
         }
 
         //Fireball
-        fireTime+=1
+        fireTime+=1*gDeltaTime
         if fireTime>=fireDelay and y<328
         {
           if fireTime=fireDelay
@@ -154,16 +154,16 @@ if global.gamePaused=false //&& gDeltaDoTicks != 0
     }
     else if atkProg=1 //---------- Jump ----------
     {
-      if y>144 {y-=12}
+      if y>144 {y-=12*gDeltaTime}
       if x<xDropSpot
       {
         image_xscale=1
-        x+=xSpd
+        x+=xSpd*gDeltaTime
       }
       else
       {
         image_xscale=-1
-        x-=xSpd
+        x-=xSpd*gDeltaTime
       }
       if point_distance(x,0,xDropSpot,0)<12 //found spot
       {
@@ -174,19 +174,19 @@ if global.gamePaused=false //&& gDeltaDoTicks != 0
     }
     else if atkProg=2 //---------- Slight air time ----------
     {
-      atkTime+=1
+      atkTime+=1*gDeltaTime
       if atkTime>=12
       {
         atkTime=0
         atkProg+=1
       }
-      else {y-=0.5}
+      else {y-=0.5*gDeltaTime}
     }
     else if atkProg=3 //---------- Butt stomp ----------
       yVel=10
     else if atkProg=4 //---------- Break block check ----------
     {
-      atkTime+=1
+      atkTime+=1*gDeltaTime
       if atkTime>=8
       {
         jumpNum+=1
@@ -205,7 +205,7 @@ if global.gamePaused=false //&& gDeltaDoTicks != 0
     }
 
     if atkProg=0 or atkProg=4 //Gravity
-      yVel+=0.2
+      yVel+=0.2*gDeltaTime
 
     if isCollisionSolid()
       y-=2
@@ -228,7 +228,7 @@ if global.gamePaused=false //&& gDeltaDoTicks != 0
       }
     }
 
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
     if y>room_height+48 //---------- End fight ----------
     {
       with oEProjectileBase {instance_destroy()}
@@ -244,14 +244,14 @@ if global.gamePaused=false //&& gDeltaDoTicks != 0
     //----- Last block phase -----
     if bottomBlocks>=0 and bottomBlocks<=99
     {
-      bottomBlocks+=1
+      bottomBlocks+=1*gDeltaTime
       if bottomBlocks>=1 and bottomBlocks<=16 //Move bottom blocks down
       {
         var tInsCheck;
         tInsCheck=455498
         for(i=0;i<8;i+=1) //455498 - 455505
         {
-          (GID(455498+i)).y+=1
+          (GID(455498+i)).y+=1*gDeltaTime
         }
       }
       if bottomBlocks=20
@@ -282,14 +282,14 @@ if global.gamePaused=false //&& gDeltaDoTicks != 0
     }
     else if bottomBlocks>=200 and bottomBlocks<=400
     {
-      bottomBlocks+=1
+      bottomBlocks+=1*gDeltaTime
       if bottomBlocks>=281 and bottomBlocks<=296 //Move bottom blocks up
       {
         var tInsCheck;
         tInsCheck=455498
         for(i=0;i<8;i+=1) //455498 - 455505
         {
-          (GID(455498+i)).y-=1
+          (GID(455498+i)).y-=1*gDeltaTime
         }
       }
       else if bottomBlocks=300
@@ -308,13 +308,13 @@ if global.gamePaused=false //&& gDeltaDoTicks != 0
 
     if topFire>=1 //Fire from the top
     {
-      topFire+=1
+      topFire+=1*gDeltaTime
       if topFire mod 65=0
       {
         var tNewAttack;
         tNewAttack=instance_create(oPlayer1.x,0,oPassBullet)
         tNewAttack.sprite_index=sBowserFire1; tNewAttack.atkPower=3; tNewAttack.bulletSpeed=2
-        tNewAttack.direction=270; tNewAttack.decayTime=-100
+        tNewAttack._direction=270; tNewAttack.decayTime=-100
       }
     }
 
@@ -335,7 +335,7 @@ if global.gamePaused=false //&& gDeltaDoTicks != 0
         var tNewAttack;
         tNewAttack=instance_create(592+(i*64),0,oPassBullet)
         tNewAttack.sprite_index=sBowserFire1; tNewAttack.atkPower=3; tNewAttack.bulletSpeed=3
-        tNewAttack.direction=270; tNewAttack.decayTime=-100
+        tNewAttack._direction=270; tNewAttack.decayTime=-100
       }
       bossProgress+=1
     }
@@ -360,7 +360,7 @@ if global.gamePaused=false //&& gDeltaDoTicks != 0
         var tNewAttack;
         tNewAttack=instance_create(592+(i*64),0,oPassBullet)
         tNewAttack.sprite_index=sBowserFire1; tNewAttack.atkPower=3
-        tNewAttack.bulletSpeed=3; tNewAttack.direction=270; tNewAttack.decayTime=-100
+        tNewAttack.bulletSpeed=3; tNewAttack._direction=270; tNewAttack.decayTime=-100
       }
       bossProgress+=1
     }

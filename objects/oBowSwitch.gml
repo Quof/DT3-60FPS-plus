@@ -14,16 +14,16 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if global.gamePaused=false && gDeltaDoTicks != 0
+if global.gamePaused=false
 {
   if myProg=0
   {
-    image_yscale+=0.1
+    image_yscale+=0.1*gDeltaTime
     if image_yscale=1 {myProg=1}
   }
   else if myProg=2
   {
-    progTime+=1
+    progTime+=1*gDeltaTime
     if progTime=1
     {
       playSound(global.snd_RBSwitch,0,1,1)
@@ -39,7 +39,7 @@ if global.gamePaused=false && gDeltaDoTicks != 0
           var tNewAttack;
           tNewAttack=instance_create(oBowser.xCenter+(i*16),0,oPassBullet)
           tNewAttack.sprite_index=sBowserFire1; tNewAttack.atkPower=3; tNewAttack.bulletSpeed=3+(i*0.1)
-          tNewAttack.direction=270; tNewAttack.decayTime=-100; tNewAttack.damageType="ELEMENTAL"
+          tNewAttack._direction=270; tNewAttack.decayTime=-100; tNewAttack.damageType="ELEMENTAL"
         }
       }
       else
@@ -49,7 +49,7 @@ if global.gamePaused=false && gDeltaDoTicks != 0
           var tNewAttack;
           tNewAttack=instance_create(oBowser.xCenter-(i*16),0,oPassBullet)
           tNewAttack.sprite_index=sBowserFire1; tNewAttack.atkPower=3; tNewAttack.bulletSpeed=3+(i*0.1)
-          tNewAttack.direction=270; tNewAttack.decayTime=-100; tNewAttack.damageType="ELEMENTAL"
+          tNewAttack._direction=270; tNewAttack.decayTime=-100; tNewAttack.damageType="ELEMENTAL"
         }
       }
     }
