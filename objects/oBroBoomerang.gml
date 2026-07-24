@@ -14,7 +14,10 @@ bCanTakeDamage=false
 
 throwProg=0
 throwTime=0
-turnSpd=5
+turnSpd=5*gDeltaTime
+
+_speed=0
+_direction=0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

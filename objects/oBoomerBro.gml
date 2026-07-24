@@ -23,7 +23,7 @@ resType[3]=2
 baseItemChance=50
 baseDropIndex=90
 affiliation=1
-runAcc=0.5
+runAcc=0.5*gDeltaTime
 
 throwTime=35
 throwDelay=65
