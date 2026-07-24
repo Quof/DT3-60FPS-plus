@@ -53,7 +53,7 @@ if global.gamePaused=false
   }
   else
   {
-    if gDeltaDoTicks
+    if oGame.time mod (3/gDeltaTime)==0
     {
       if image_blend=c_white
         image_blend=c_blue
