@@ -42,7 +42,7 @@ if global.gamePaused=false && gDeltaDoTicks != 0
   if bActive=0 {makeEnemyActive(1)}
   if bActive=true and rising>=0
   {
-    glowScl+=0.025
+    glowScl+=0.025*gDeltaTime
     if glowScl>=1.4 {glowScl=1.1}
     if rising=0
     {
@@ -55,8 +55,8 @@ if global.gamePaused=false && gDeltaDoTicks != 0
       image_yscale=1
     else
       image_yscale=-1
-    yVel-=0.3
-    y+=yVel
+    yVel-=0.3*gDeltaTime
+    y+=yVel*gDeltaTime
     if yVel<1 and y<ystart
     {
       var tEffect;
@@ -76,7 +76,7 @@ if global.gamePaused=false && gDeltaDoTicks != 0
       rising=-50
     }
   }
-  if rising<0 {rising+=1}
+  if rising<0 {rising+=1*gDeltaTime}
 }
 #define Draw_0
 /*"/*'/**//* YYD ACTION
