@@ -22,13 +22,13 @@ if waitTime=0
 }
 else if waitTime>=1 and waitTime<=99
 {
-  waitTime+=1
+  waitTime+=1*gDeltaTime
   if waitTime=25
     waitTime=100
 }
 else if waitTime>=100
 {
-  xPos+=20
+  xPos+=20*gDeltaTime
   if xPos>=440
     instance_destroy()
 }

@@ -62,11 +62,11 @@ if global.gamePaused=false
       var tEffect;
       tEffect=instance_create(x+2,ystart-4,oEffectGrav)
       tEffect.sprite_index=sEfMarioFireHit; tEffect.image_speed=0.33; tEffect.image_yscale=-1
-      tEffect.type=1; tEffect.decay=12 tEffect.xSpd=1; tEffect.ySpd=2; tEffect.grav=-0.3; tEffect.image_blend=image_blend
+      tEffect.type=1; tEffect.xSpd=1; tEffect.ySpd=2; tEffect.grav=-0.3; tEffect.image_blend=image_blend
       tEffect.newBlend=-1; tEffect.decay=45; tEffect.followID=-1; tEffect.rotation=0
       tEffect=instance_create(x-2,ystart-4,oEffectGrav)
       tEffect.sprite_index=sEfMarioFireHit; tEffect.image_speed=0.33; tEffect.image_xscale=-1; tEffect.image_yscale=-1
-      tEffect.type=1; tEffect.decay=12 tEffect.xSpd=-1; tEffect.ySpd=2; tEffect.grav=-0.3; tEffect.image_blend=image_blend
+      tEffect.type=1; tEffect.xSpd=-1; tEffect.ySpd=2; tEffect.grav=-0.3; tEffect.image_blend=image_blend
       tEffect.newBlend=-1; tEffect.decay=45; tEffect.followID=-1; tEffect.rotation=0
 
       yVel=0

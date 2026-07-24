@@ -156,20 +156,8 @@ Often, to make something "flip" every xth frame, there will be code like
 
 Historically, it seems like this wants to be changed to
 
-	if current_frame mod (6/gDeltaTime)=0
+	if oGame.time mod (6/gDeltaTime)=0
 
-current_frame is 8.2 Core exclusive, so be sure to install the 8.2 Core extension.
-
-
-7) Velocity Checks (***This may be a bit outdated, consider this only a casual reference; Wareya knows best)
-
-Most of the time, when a number is being checked, we don't want to alter the check. For example, if atkTime is being incremented by 1 a frame and it's being checked for when it hits 10, we want to make it increment 0.5 times a frame and avoid touching the 10. But for some reason, in the following code...
-
-  y+=yVel
-  if yVel<3
-  yVel+=grav
- 
-We actually DO want to halve the "yVel" check. It's checking if it's less than 3; we want it to check if it's less than 3/2. Basically, something stuck at 1.5 velocity in 60fps is seemingly going as fast as something going 3 velocity in 30fps. So despite being a check, we do want to modify the velocity being checked for. I think. This is just what has worked so far.
 
 8) "0.5 pixels a frame"
 

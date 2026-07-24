@@ -20,26 +20,25 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if gDeltaDoTicks != 1 { exit; }
 if global.gamePaused=false
 {
-  glowScl+=0.033
+  glowScl+=0.033*gDeltaTime
   if glowScl>=1.6 {glowScl=1.1}
-  if yVel<0 {x+=xVel}
+  if yVel<0 {x+=xVel*gDeltaTime}
   else if yVel>0.4
   {
-    swirlProg+=1
-    if swirlProg>=1 and swirlProg<=3 {x+=1}
+    swirlProg+=1*gDeltaTime
+    if swirlProg>=1 and swirlProg<=3 {x+=1*gDeltaTime}
     else if swirlProg>=4 and swirlProg<=6
     {
-      x-=1
+      x-=1*gDeltaTime
       if swirlProg=6 {swirlProg=0}
     }
   }
 
-  y+=yVel
+  y+=yVel*gDeltaTime
   if yVel<3
-  yVel+=grav
+  yVel+=grav*gDeltaTime
   if y>room_height+16 {instance_destroy()}
 }
 #define Draw_0

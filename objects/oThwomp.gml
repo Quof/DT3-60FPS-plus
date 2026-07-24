@@ -38,7 +38,6 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if gDeltaDoTicks != 1 { exit; }
 if global.gamePaused=false
 {
   makeEnemyActive(1)
@@ -82,19 +81,19 @@ if global.gamePaused=false
         tEffect.sprite_index=sEfThwompHit; tEffect.image_xscale=-1; tEffect.image_speed=0.5
         tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=-1; tEffect.ySpd=0
         yVel=0
-        y+=1
+        if gDeltaDoTicks {y+=1}
         atkProg+=1
       }
     }
     else if atkProg=2 //Wait
     {
-      atkTime+=1
+      atkTime+=1*gDeltaTime
       if atkTime=25
       {
         image_index=0
         yVel=-atkSpeed/3
         atkTime=0
-        y-=1
+        if gDeltaDoTicks {y-=1}
         atkProg+=1
       }
     }
@@ -107,7 +106,7 @@ if global.gamePaused=false
         atkProg=0
       }
     }
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
   }
 }
 #define Collision_oMarioBreakBlock

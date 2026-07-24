@@ -33,17 +33,16 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if gDeltaDoTicks != 1 { exit; }
 if global.gamePaused=false
 {
   makeEnemyActive(0)
   if bActive=true and stunnedTime=0
   {
     //---------- Annoyance loop ----------
-    annoyTime+=1
+    annoyTime+=1*gDeltaTime
     if annoyTime<annoyDelay //Idle anim
     {
-      if oGame.time mod 6=0
+      if oGame.time mod (6/gDeltaTime)=0
       {
         if image_index=0
           image_index=1
@@ -96,13 +95,13 @@ if global.gamePaused=false
     else if annoyTime>=annoyDelay+42 //Revert to being less annoying for a bit
       annoyTime=0
 
-    yVel+=0.2
+    yVel+=0.2*gDeltaTime
     if isCollisionBottom(1)
       yVel=0
     if isCollisionSolid()
       y-=2
 
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
     if y>room_height+24
       instance_destroy()
   }
