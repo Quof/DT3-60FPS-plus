@@ -33,7 +33,7 @@ if bStandOnly=false
       bWalking=false
     }
     else
-      walkingTime-=1
+      walkingTime-=1*gDeltaTime
   }
   else
   {
@@ -49,7 +49,7 @@ if bStandOnly=false
       bWalking=true
     }
     else
-      walkingTime-=1
+      walkingTime-=1*gDeltaTime
   }
 }
 
@@ -71,6 +71,6 @@ if isCollisionLeft(1)
   xVel=runAcc
 if isCollisionRight(1)
   xVel=-runAcc
-moveTo(xVel,yVel)
+moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
 if isCollisionSolid()
   y-=2

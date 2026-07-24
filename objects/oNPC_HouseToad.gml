@@ -16,7 +16,6 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if gDeltaDoTicks == 0 { exit; }
 if global.gamePaused=false
 {
   npcWalk(sNPCToad,0,round(random(60)+30),sNPCToad,0.2,round(random(60)+30))
