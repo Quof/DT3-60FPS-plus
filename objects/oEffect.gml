@@ -4,11 +4,11 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-x+=xSpd
-y+=ySpd
+x+=xSpd*gDeltaTime
+y+=ySpd*gDeltaTime
 if decay!=-100
 {
-  decay-=1
+  decay-=1*gDeltaTime
   if decay=0
     instance_destroy()
 }
