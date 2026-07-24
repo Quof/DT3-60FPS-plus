@@ -37,7 +37,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if global.gamePaused=false && gDeltaDoTicks != 0
+if global.gamePaused=false
 {
   makeEnemyActive(0)
   if bActive=true and stunnedTime=0
@@ -49,7 +49,7 @@ if global.gamePaused=false && gDeltaDoTicks != 0
         xVel*=-1
       initDir=true
     }
-    yVel+=0.3
+    yVel+=0.3*gDeltaTime
     if isCollisionBottom(1)
       yVel=-6
     if isCollisionLeft(1)
@@ -67,7 +67,7 @@ if global.gamePaused=false && gDeltaDoTicks != 0
       image_xscale=1
     else
       image_xscale=-1
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
     if isCollisionSolid()
       y-=2
     if y>room_height+24
@@ -85,6 +85,4 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-magicInterpDrawStart()
 event_inherited()
-magicInterpDrawEnd()
