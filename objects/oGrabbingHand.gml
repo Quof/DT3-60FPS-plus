@@ -47,11 +47,11 @@ if global.gamePaused=false
 
     if atkSequence=0 //Rise up from the ground
     {
-      atkTime+=1
+      atkTime+=1*gDeltaTime
       if atkTime>=30
       {
         if atkTime=30 {playSound(global.snd_FireLoop,0,1,21000)}
-        if oGame.time mod 3=0
+        if oGame.time mod (3/gDeltaTime)=0
         {
           var tEffect,tXspd;
           tEffect=instance_create(x+random_range(-5,5),288+random_range(-2,3),oEffect)
@@ -59,7 +59,7 @@ if global.gamePaused=false
           tEffect.followID=-1; tEffect.newBlend=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
         }
 
-        y-=0.5
+        y-=0.5*gDeltaTime
         if y<=288
         {
           bCanDealDamage=true; bCanTakeDamage=true
@@ -72,15 +72,15 @@ if global.gamePaused=false
       if x<oPlayer1.x
       {
         image_xscale=1
-        x+=xSpd
+        x+=xSpd*gDeltaTime
       }
       else
       {
         image_xscale=-1
-        x-=xSpd
+        x-=xSpd*gDeltaTime
       }
 
-      timeout-=1
+      timeout-=1*gDeltaTime
       if timeout=120 {xSpd-=0.25}
       else if timeout<=0 {atkSequence=2; image_index=0}
     }
@@ -102,7 +102,7 @@ if global.gamePaused=false
           for(i=0;i<2;i+=1)
           {
             tFire=instance_create(x+(5*image_xscale),y-21,oPassBullet)
-            tFire.direction=tDir; tFire.sprite_index=sWolfHeadShot
+            tFire._direction=tDir; tFire.sprite_index=sWolfHeadShot
             tFire.atkPower=atkPower; tFire.bulletSpeed=4; tFire.decayTime=-100
             tDir+=180
           }

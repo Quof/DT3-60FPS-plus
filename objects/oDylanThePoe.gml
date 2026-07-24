@@ -63,17 +63,17 @@ if global.gamePaused=false
 
   if bActive=true and life>0
   {
-    flameFrm+=0.15
+    flameFrm+=0.15*gDeltaTime
     if x<oPlayer1.x {image_xscale=1}
     else {image_xscale=-1}
 
     if atkSequence=0 //--------------- Fade in ---------------
     {
-      atkTime+=1
+      atkTime+=1*gDeltaTime
       if atkTime=10 {playSound(global.snd_Error,0,1,10000)}
       else if atkTime>=11 and atkTime<=30
       {
-        image_alpha+=0.05
+        image_alpha+=0.05*gDeltaTime
       }
       else if atkTime>=35
       {
@@ -82,23 +82,23 @@ if global.gamePaused=false
     }
     else if atkSequence=1 or atkSequence=3 //--------------- Slight wait ---------------
     {
-      atkTime+=1
+      atkTime+=1*gDeltaTime
       if atkTime>=30 {atkTime=0; atkSequence+=1}
     }
     else if atkSequence=2 //--------------- Move left ---------------
     {
-      x-=xSpd
+      x-=xSpd*gDeltaTime
       if x<=leftSide {atkSequence=3}
     }
     else if atkSequence=4 //--------------- Move right ---------------
     {
-      x+=xSpd
+      x+=xSpd*gDeltaTime
       if x>=rightSide {atkSequence=1}
     }
 
     if atkSequence>0
     {
-      bulletAtkTime+=1
+      bulletAtkTime+=1*gDeltaTime
       if bulletType=0 //Bullet line attack
       {
         if bulletAtkTime>=bulletAtkDelay
@@ -112,7 +112,7 @@ if global.gamePaused=false
           for(i=0;i<5;i+=1)
           {
             tFire=instance_create(x,y-32,oPassBullet)
-            tFire.direction=tDir; tFire.sprite_index=sWolfHeadShot
+            tFire._direction=tDir; tFire.sprite_index=sWolfHeadShot
             tFire.atkPower=atkPower; tFire.bulletSpeed=i+1; tFire.decayTime=-100
           }
           flameBlend=c_green
@@ -135,10 +135,10 @@ if global.gamePaused=false
             tEffect.newBlend=1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
 
             tFire=instance_create(oDeadHand.xCenter-oDeadHand.roomSpan-48,oDeadHand.yGround-16,oPassBullet)
-            tFire.direction=0; tFire.sprite_index=sWolfHeadShot
+            tFire._direction=0; tFire.sprite_index=sWolfHeadShot
             tFire.atkPower=atkPower; tFire.bulletSpeed=6; tFire.decayTime=-100
             tFire=instance_create(oDeadHand.xCenter+oDeadHand.roomSpan+48,oDeadHand.yGround-16,oPassBullet)
-            tFire.direction=180; tFire.sprite_index=sWolfHeadShot
+            tFire._direction=180; tFire.sprite_index=sWolfHeadShot
             tFire.atkPower=atkPower; tFire.bulletSpeed=6; tFire.decayTime=-100
           }
         }
