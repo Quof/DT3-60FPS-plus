@@ -39,7 +39,7 @@ if bCanPickUp=1
   playSound(global.snd_SkillGet,0,1,1)
   if oIdentifier.bChaoActive=1 {showEmote(oIdentifier,0,-6,sEmHappy)}
   msgCreate(0,0,"","Oh snap!#You earned 1 Skill Point!",6,1,oMessagePerson,1)
-  newMessage.fadingTime=80
+  newMessage.fadingTime=80/gDeltaTime
 
   awardAwesome(2500)
   global.pAP+=1
@@ -56,7 +56,7 @@ if global.bNightmareMode=1
   showEmote(oIdentifier,0,-6,sEmThinking)
   playSound(global.snd_MetItemGet,0,0.98,17000)
   msgCreate(170,100,"","You found a piece of Nightmare Cheese! It does nothing.",6,1,oMessagePerson,0)
-  newMessage.fadingTime=90
+  newMessage.fadingTime=90/gDeltaTime
   awardAwesome(20000)
   var tNewString;
   tNewString=string_delete(global.apBoost,objectNum,1)

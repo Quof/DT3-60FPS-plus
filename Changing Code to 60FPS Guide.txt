@@ -40,8 +40,17 @@ Do not touch animSpd for now.
 *gDeltaTime for x.image_alpha-= / x.image_alpha+=
 *gDeltaTime for convo[0]+=1 
 
+2) SPEED
 
-2) COLLISION
+Do not change speed/hspeed/vspeed/direction with a simple gDeltaTime modification.
+
+replace speed with _speed and direction with _direction, initialize them instead of speed/direction in the create event, and then calculate x and y offsets using sin/cos and _direction manually. Here is an example of using sin/cos to calculate _direction.
+
+x += cos(degtorad(_direction)) * _speed
+y += sin(degtorad(_direction)) * _speed
+
+
+2.5) COLLISION
 
 For enemies that bump into a wall and turn around, I've made two new scripts: isCollisionLeftEdit and isCollisionRightEdit. These will prevent them from constantly turning around in a wall. 
 
