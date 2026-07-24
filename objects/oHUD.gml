@@ -232,7 +232,7 @@ if view_current=0
         if airDashScl>1 {airDashScl-=0.2}
         if oPlayer1.canAirDash=1 and global.hasShoes[3]=2
         {
-          airdashFrm+=0.2
+          airdashFrm+=0.2*gDeltaTime
           draw_sprite_ext(sHUD_DashIcon,airdashFrm,view_xview[0]+130,view_yview[0]+52,airDashScl,airDashScl,0,c_white,1)
         }
 
@@ -247,7 +247,7 @@ if view_current=0
       {
         if oPlayer1.canAirDash=1 and global.hasShoes[3]=2
         {
-          airdashFrm+=0.2
+          airdashFrm+=0.2*gDeltaTime
           draw_sprite(sHUD_DashIcon,airdashFrm,oPlayer1.x-11,oPlayer1.y+14)
         }
         if global.canDoubleJump=2 and oPlayer1.doubleJumpCheck=1

@@ -47,10 +47,9 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if gDeltaDoTicks != 1 { exit; }
 if global.gamePaused=false
 {
-  yVel+=0.2
+  yVel+=0.2*gDeltaTime
   if yVel>yVelLimit {yVel=yVelLimit}
 
   if sprite_index!=sMetroidHealthPickup
@@ -59,14 +58,14 @@ if global.gamePaused=false
       yVel=0
     if isCollisionSolid()
       y-=2
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
 
     if y>room_height+8 {instance_destroy()}
   }
 
   if room=rWarshipQ
   {
-    decayTime-=1
+    decayTime-=1*gDeltaTime
     if decayTime>=1 and decayTime<=60
     {
       if image_alpha=0.75 {image_alpha=0.5}
