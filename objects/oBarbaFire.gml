@@ -14,6 +14,8 @@ bShowHealthBar=false
 bShowDamage=false
 bCanTakeDamage=false
 hitWall=0
+_direction=0
+_speed=0
 #define Destroy_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -34,9 +36,9 @@ if global.gamePaused=false
 {
   speed=bulletSpeed
   if direction>=270
-    image_angle-=15
+    image_angle-=15*gDeltaTime
   else
-    image_angle+=15
+    image_angle+=15*gDeltaTime
 
   if isCollisionTop(1)
     hitWall=1
@@ -51,6 +53,11 @@ if global.gamePaused=false
   {
     instance_destroy()
   }
+  _hspeed=hspeed
+  _vspeed=vspeed
+  speed=0
+  x+=_hspeed*gDeltaTime
+  y+=_vspeed*gDeltaTime
 }
 else
   speed=0

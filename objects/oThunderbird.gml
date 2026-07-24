@@ -69,12 +69,12 @@ if global.gamePaused=false
   {
     if bFrameUp=0
     {
-      animFrame+=0.2
+      animFrame+=0.2*gDeltaTime
       if animFrame=3.4 {bFrameUp=1}
     }
     else if bFrameUp=1
     {
-      animFrame-=0.2
+      animFrame-=0.2*gDeltaTime
       if animFrame=0.6 {bFrameUp=0}
     }
 
@@ -123,11 +123,11 @@ if global.gamePaused=false
     {
       ySpd*=-1
     }
-    x+=xSpd*spdMod; y+=ySpd
+    x+=xSpd*spdMod*gDeltaTime; y+=ySpd*gDeltaTime
 
     if spdMod>1
     {
-      if oGame.time mod 5=0
+      if oGame.time mod (5/gDeltaTime)=0
       {
         playSound(global.snd_BombLaunch,0,0.82,44100)
         tNewAttack=instance_create(x,y,oThunderFireball)
@@ -137,7 +137,7 @@ if global.gamePaused=false
     }
 
     //---------- Normal Attack: Fireball ----------
-    atkTime+=1
+    atkTime+=1*gDeltaTime
     if atkTime mod atkDelay=0 //Spew fireballs
     {
       var tNewAttack,tDistCheck;
@@ -161,8 +161,8 @@ if global.gamePaused=false
 
     if spikeRise>=1 and spikeRise<=64 //Move spikes up
     {
-      spikeRise+=1
-      with oMarioSpikeFloor {y-=1}
+      spikeRise+=1*gDeltaTime
+      with oMarioSpikeFloor {y-=1*gDeltaTime}
     }
 
     //---------- Boss Difficulty Curve ----------
@@ -199,7 +199,7 @@ if global.gamePaused=false
   }
   else if life<=0 //Defeat animation
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       with oEProjectileBase {instance_destroy()}
@@ -207,7 +207,7 @@ if global.gamePaused=false
     }
     else if deathAnim>=2 and deathAnim<=55
     {
-      if oGame.time mod 2=0
+      if oGame.time mod (2/gDeltaTime)=0
       {
         var tEffect;
         tEffect=instance_create((x-sprite_width)+random(sprite_width*2),(y-20)+random(sprite_height*4),oEffect)
