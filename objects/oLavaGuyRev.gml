@@ -37,7 +37,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if global.gamePaused=false && gDeltaDoTicks != 0
+if global.gamePaused=false
 {
   if bActive=0 {makeEnemyActive(1)}
   if bActive=true and rising>=0
@@ -84,7 +84,5 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-magicInterpDrawStart()
 draw_sprite_ext(sprite_index,image_index,x,y,image_xscale*glowScl,image_yscale*glowScl,image_angle,image_blend,0.25)
 event_inherited()
-magicInterpDrawEnd()
