@@ -16,7 +16,13 @@ if global.gamePaused=false
 {
   speed=bulletSpeed
   if bulletSpeed>6
-    bulletSpeed-=0.9
+    bulletSpeed-=0.9*gDeltaTime
+
+  _hspeed=hspeed
+  _vspeed=vspeed
+  speed=0
+  x+=_hspeed*gDeltaTime
+  y+=_vspeed*gDeltaTime
 
   if hitWaterPlat>0
   {
@@ -28,13 +34,13 @@ if global.gamePaused=false
     tEffect.AccelY=0.1; tEffect.fadeSpd=0.0075
     tEffect.AccelX=0; tEffect.newBlend=-1; tEffect.followID=-1; tEffect.rotation=0
 
-    hitWaterPlat+=1
+    hitWaterPlat+=1*gDeltaTime
     if hitWaterPlat=12
       instance_destroy()
   }
   else
   {
-    if oGame.time mod 2=0
+    if gDeltaDoTicks
     {
       tEffect=instance_create(x-8+random(16),y+random(8),oEffectB)
       tEffect.type=1; tEffect.sprite_index=sSamusSMissileEffect; tEffect.depth=26

@@ -28,6 +28,8 @@ moveSide=1
 movePath=1
 moveProg=-10
 moveDir=0
+_hspeed=0
+_vspeed=0
 
 spdChg=4
 
@@ -78,7 +80,7 @@ if global.gamePaused=false
     else
       image_xscale=1
 
-    moveProg+=1
+    moveProg+=1*gDeltaTime
     if movePath=1 //----- Move Path: Arc over platform, from one end to other
     {
       if moveProg=1 //Setup, choose direction
@@ -94,9 +96,9 @@ if global.gamePaused=false
       {
         direction=moveDir; speed=moveSpd
         if moveSide=1
-          moveDir+=(0.6+(moveSpd/8))
+          moveDir+=(0.6+(moveSpd/8))*gDeltaTime
         else
-          moveDir-=(0.6+(moveSpd/8))
+          moveDir-=(0.6+(moveSpd/8))*gDeltaTime
 
         if moveProg>100 and y>room_height+32
           moveProg=1000
@@ -143,13 +145,13 @@ if global.gamePaused=false
 
         if waveMo=0 //Wave down
         {
-          tTemp+=waveSpd
+          tTemp+=waveSpd*gDeltaTime
           if tTemp>waveMax
             waveMo=1
         }
         else if waveMo=1 //Wave up
         {
-          tTemp-=waveSpd
+          tTemp-=waveSpd*gDeltaTime
           if tTemp<-waveMax
             waveMo=0
         }
@@ -180,12 +182,12 @@ if global.gamePaused=false
         speed=moveSpd; direction=moveDir
         if moveSide=1 //Left
         {
-          moveDir+=0.1
+          moveDir+=0.1*gDeltaTime
           if x<=480 {moveProg=2000}
         }
         else //Right
         {
-          moveDir-=0.1
+          moveDir-=0.1*gDeltaTime
           if x>=384 {moveProg=2000}
         }
       }
@@ -204,7 +206,7 @@ if global.gamePaused=false
         for(i=0;i<5;i+=1)
         {
           tFire=instance_create(x,y,oPassBullet)
-          tFire.direction=tDir; tFire.sprite_index=sWolfHeadShot
+          tFire._direction=tDir; tFire.sprite_index=sWolfHeadShot
           tFire.image_xscale=2.5; tFire.image_yscale=2.5
           tFire.atkPower=atkPower; tFire.bulletSpeed=5; tFire.decayTime=-100
           tDir+=20
@@ -217,12 +219,12 @@ if global.gamePaused=false
         speed=moveSpd; direction=moveDir
         if moveSide=1 //Left
         {
-          moveDir+=0.2
+          moveDir+=0.2*gDeltaTime
           if x<=304 {sprite_index=sAquaSer_HeadC; moveProg=3000}
         }
         else //Right
         {
-          moveDir-=0.2
+          moveDir-=0.2*gDeltaTime
           if x>=560 {sprite_index=sAquaSer_HeadC; moveProg=3000}
         }
       }
@@ -236,14 +238,14 @@ if global.gamePaused=false
           var tFire,tDir;
           tDir=player_sprite_center()
           tFire=instance_create(x,y,oPassBullet)
-          tFire.direction=tDir; tFire.sprite_index=sWolfHeadShot
+          tFire._direction=tDir; tFire.sprite_index=sWolfHeadShot
           tFire.image_xscale=3; tFire.image_yscale=3
           tFire.atkPower=atkPower; tFire.bulletSpeed=5; tFire.decayTime=-100
           sprite_index=sAquaSer_HeadA
         }
 
-        if moveSide=1 {moveDir+=0.2}
-        else {moveDir-=0.2}
+        if moveSide=1 {moveDir+=0.2*gDeltaTime}
+        else {moveDir-=0.2*gDeltaTime}
 
         if x>=roomBorderRight or x<=roomBorderLeft //End
         {
@@ -271,7 +273,7 @@ if global.gamePaused=false
         speed=moveSpd; direction=moveDir
         if moveSide=1 //----- Left -----
         {
-          moveDir+=0.1
+          moveDir+=0.1*gDeltaTime
           if x<=432 and tTemp=0
           {
             bodyPart[0].fireTime=bodyPart[0].fireDelay+39
@@ -294,7 +296,7 @@ if global.gamePaused=false
         }
         else //----- Right -----
         {
-          moveDir-=0.1
+          moveDir-=0.1*gDeltaTime
           if x>=432 and tTemp=0
           {
             bodyPart[0].fireTime=bodyPart[0].fireDelay+39
@@ -405,12 +407,12 @@ if global.gamePaused=false
 
         if moveSide=1 //----- From left -----
         {
-          moveDir-=3.1
+          moveDir-=3.1*gDeltaTime
           if moveDir<=5 {moveProg=2000}
         }
         else //----- From right -----
         {
-          moveDir+=3.1
+          moveDir+=3.1*gDeltaTime
           if moveDir>=180 {moveProg=2000}
         }
       }
@@ -469,7 +471,7 @@ if global.gamePaused=false
         for(i=0;i<3;i+=1)
         {
           tFire=instance_create(x,y,oPassBullet)
-          tFire.direction=tDir; tFire.sprite_index=sWolfHeadShot
+          tFire._direction=tDir; tFire.sprite_index=sWolfHeadShot
           tFire.image_xscale=2.5; tFire.image_yscale=2.5
           tFire.atkPower=atkPower; tFire.bulletSpeed=5; tFire.decayTime=-100
           tDir+=20
@@ -481,16 +483,16 @@ if global.gamePaused=false
         if moveProg>=1051 and moveProg<=1059
         {
           if moveSide=1 //Left
-            moveDir+=10
+            moveDir+=10*gDeltaTime
           else //Right
-            moveDir-=10
+            moveDir-=10*gDeltaTime
         }
         else if moveProg>=1063 and moveProg<=1071
         {
           if moveSide=1 //Left
-            moveDir-=10
+            moveDir-=10*gDeltaTime
           else //Right
-            moveDir+=10
+            moveDir+=10*gDeltaTime
         }
         else if moveProg=1081
         {
@@ -522,23 +524,23 @@ if global.gamePaused=false
           var tFire,tDir;
           tDir=player_sprite_center()
           tFire=instance_create(x,y,oPassBullet)
-          tFire.direction=tDir; tFire.sprite_index=sWolfHeadShot
+          tFire._direction=tDir; tFire.sprite_index=sWolfHeadShot
           tFire.image_xscale=3; tFire.image_yscale=3
           tFire.atkPower=atkPower; tFire.bulletSpeed=5; tFire.decayTime=-100
         }
         else if moveProg>=1083 and moveProg<=1091
         {
           if moveSide=1 //Left
-            moveDir-=10
+            moveDir-=10*gDeltaTime
           else //Right
-            moveDir+=10
+            moveDir+=10*gDeltaTime
         }
         else if moveProg>=1095 and moveProg<=1103
         {
           if moveSide=1 //Left
-            moveDir+=10
+            moveDir+=10*gDeltaTime
           else //Right
-            moveDir-=10
+            moveDir-=10*gDeltaTime
         }
         else if moveProg=1105
         {
@@ -546,7 +548,7 @@ if global.gamePaused=false
           var tFire,tDir;
           tDir=player_sprite_center()
           tFire=instance_create(x,y,oPassBullet)
-          tFire.direction=tDir; tFire.sprite_index=sWolfHeadShot
+          tFire._direction=tDir; tFire.sprite_index=sWolfHeadShot
           tFire.image_xscale=3; tFire.image_yscale=3
           tFire.atkPower=atkPower; tFire.bulletSpeed=5; tFire.decayTime=-100
         }
@@ -557,6 +559,12 @@ if global.gamePaused=false
         }
       }
     }
+
+    _hspeed=hspeed
+    _vspeed=vspeed
+    speed=0
+    x+=_hspeed*gDeltaTime
+    y+=_vspeed*gDeltaTime
 
     //Floor movement
     if floorSeq>=2 and floorSeq<=3
@@ -609,17 +617,17 @@ if global.gamePaused=false
     {
       if bWaterRise=1
       {
-        waterAltSpd+=0.1
+        waterAltSpd+=0.1*gDeltaTime
         if waterAltSpd>=1.8
           bWaterRise=0
       }
       else
       {
-        waterAltSpd-=0.1
+        waterAltSpd-=0.1*gDeltaTime
         if waterAltSpd<=-1.8
           bWaterRise=1
       }
-      oWaterVolume.y+=waterAltSpd
+      oWaterVolume.y+=waterAltSpd*gDeltaTime
     }
 
     //---------- Boss Difficulty Curve ----------
@@ -652,7 +660,7 @@ if global.gamePaused=false
     speed=0
     oAquaSer_Body.image_blend=c_white
     oAquaSer_Body.bCanDealDamage=false
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       if bBombOnly=1 //Achievement
@@ -689,7 +697,7 @@ if global.gamePaused=false
     }
     else if deathAnim>=1001 and deathAnim<=1054
     {
-      if oGame.time mod 2=0
+      if gDeltaDoTicks
       {
         var tEffect;
         tEffect=instance_create((x-sprite_width/2)+random(sprite_width),(y-sprite_height/2)+random(sprite_height),oEffect)

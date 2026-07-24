@@ -18,6 +18,9 @@ affiliation=2
 bIsBoss=true
 bNoBonus=true
 
+_hspeed=0
+_vspeed=0
+
 fireTime=0
 fireDelay=300
 
@@ -47,11 +50,11 @@ if global.gamePaused=false
     if oAquaSerpent.movePath!=2
     {
       if oAquaSerpent.movePath=1
-        fireTime+=1+oAquaSerpent.bossProgress
+        fireTime+=(1+oAquaSerpent.bossProgress)*gDeltaTime
       else if oAquaSerpent.movePath=6
-        fireTime+=0.5
+        fireTime+=0.5*gDeltaTime
       else
-        fireTime+=1
+        fireTime+=1*gDeltaTime
     }
 
     if fireTime>=fireDelay and fireTime<=fireDelay+39
@@ -64,7 +67,7 @@ if global.gamePaused=false
       var tFire,tDir;
       tDir=player_sprite_center()
       tFire=instance_create(x,y,oPassBullet)
-      tFire.sprite_index=sWolfHeadShot; tFire.direction=tDir
+      tFire.sprite_index=sWolfHeadShot; tFire._direction=tDir
       tFire.atkPower=oAquaSerpent.atkPower-1; tFire.bulletSpeed=4; tFire.decayTime=-100
 
       image_blend=c_white
@@ -109,6 +112,12 @@ if global.gamePaused=false
   }
   else
     speed=0
+
+    _hspeed=hspeed
+    _vspeed=vspeed
+    speed=0
+    x+=_hspeed*gDeltaTime
+    y+=_vspeed*gDeltaTime
 }
 else
   speed=0
