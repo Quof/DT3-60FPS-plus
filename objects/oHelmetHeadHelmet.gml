@@ -63,7 +63,7 @@ if global.gamePaused=false
     }
     else if moveProg=1
     {
-      y+=sin(oGame.time/2.5)*gDeltaTime
+      y+=sin(oGame.time*gDeltaTime/2.5)*gDeltaTime
       if moveTime<moveThres
       {
         if x<oPlayer1.x

@@ -21,10 +21,10 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if global.gamePaused=false && gDeltaDoTicks != 0
+if global.gamePaused=false
 {
-  xVel+=xGrav
-  yVel+=yGrav
+  xVel+=xGrav*gDeltaTime
+  yVel+=yGrav*gDeltaTime
   hspeed=xVel
   vspeed=yVel
   image_angle=direction
@@ -65,9 +65,15 @@ if global.gamePaused=false && gDeltaDoTicks != 0
   }
   if y>room_height+32
     instance_destroy()
+    _hspeed=hspeed
+    _vspeed=vspeed
+    speed=0
+    x+=_hspeed*gDeltaTime
+    y+=_vspeed*gDeltaTime
 }
 else
 {
   hspeed=0
   vspeed=0
+  speed=0
 }

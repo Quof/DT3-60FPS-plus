@@ -78,7 +78,7 @@ if global.gamePaused=false
 
   if bActive=true and life>0
   {
-    x+=sin(oGame.time/2.5)
+    x+=sin((oGame.time)*gDeltaTime/2.5)*gDeltaTime
     if atkCycle=0 //-------------------- Choose location --------------------
     {
       var nextSpotX;
@@ -98,12 +98,12 @@ if global.gamePaused=false
     }
     else if atkCycle=1 //-------------------- Rise up --------------------
     {
-      y-=8
+      y-=8*gDeltaTime
       for(i=0;i<11;i+=1)
       {
-        bossBody[i].y-=8
+        bossBody[i].y-=8*gDeltaTime
       }
-      atkTime+=1
+      atkTime+=1*gDeltaTime
       if atkTime=1
       {
         bCanTakeDamage=1
@@ -161,16 +161,16 @@ if global.gamePaused=false
       if x<oPlayer1.x {image_xscale=1}
       else {image_xscale=-1}
 
-      atkTime+=1
+      atkTime+=1*gDeltaTime
       if atkType=2
       {
-        if bossProgress>=3 {atkTime+=5}
-        else {atkTime+=2}
+        if bossProgress>=3 {atkTime+=5*gDeltaTime}
+        else {atkTime+=2*gDeltaTime}
       }
 
       if atkTime>=atkDelay
       {
-        animDelay+=1
+        animDelay+=1*gDeltaTime
         if animDelay=1 {image_index=1}
         else if animDelay=4 {image_index=2}
         else if animDelay=8
@@ -183,7 +183,7 @@ if global.gamePaused=false
     }
     else if atkCycle=3 //-------------------- Fire attack --------------------
     {
-      atkTime+=1
+      atkTime+=1*gDeltaTime
       if atkTime>=1 and atkTime<=18
       {
         if atkTime=1
@@ -223,7 +223,7 @@ if global.gamePaused=false
     }
     else if atkCycle=4 //-------------------- Drop down --------------------
     {
-      y+=8
+      y+=8*gDeltaTime
       if atkTime=0
       {
         playSound(global.snd_ShipMovement,0,0.93,42000)
@@ -253,13 +253,13 @@ if global.gamePaused=false
 
       for(i=0;i<11;i+=1)
       {
-        bossBody[i].y+=8
+        bossBody[i].y+=8*gDeltaTime
       }
       if y>=room_height {bCanTakeDamage=0; atkTime=0; atkCycle+=1}
     }
     else if atkCycle=5 //-------------------- Short wait --------------------
     {
-      atkTime+=1
+      atkTime+=1*gDeltaTime
       if atkTime>=20
       {
         atkTime=0
@@ -269,14 +269,16 @@ if global.gamePaused=false
 
     if fireballStorm>=1 //-------------------- ATTACK: FIREBALL STORM --------------------
     {
-      fireballStorm+=1
+      fireballStorm+=1*gDeltaTime
+
+      if oGame.time mod (1/gDeltaTime)=0{
       var tFire;
       for(i=0;i<2;i+=1)
       {
         tFire=instance_create(x+random_range(-20,20),336+random(4),oBarbaFire)
         tFire.direction=random_range(89,91); tFire.bulletSpeed=10+random(2)
       }
-
+      }
       if fireballStorm>=50 {fireballStorm=0}
     }
 
@@ -308,14 +310,14 @@ if global.gamePaused=false
   }
   else if life<=0 //Defeat animation
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       with oPassBullet {instance_destroy()}
     }
     else if deathAnim>=2 and deathAnim<=55
     {
-      if oGame.time mod 2=0
+      if oGame.time mod (2/gDeltaTime)=0
       {
         var tEffect;
         tEffect=instance_create((x-sprite_width/2)+random(sprite_width),(y-sprite_height)+random(sprite_height*8),oEffect)
