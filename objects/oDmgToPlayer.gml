@@ -22,6 +22,16 @@ else {drawNum=1}
 if round(damageValue)>99999999 {drawNum=9}
 
 drawType=1
+#define Step_0
+/*"/*'/**//* YYD ACTION
+lib_id=1
+action_id=603
+applies_to=self
+*/
+  x -= hspeed
+  y -= vspeed
+  x += hspeed * gDeltaTime
+  y += vspeed * gDeltaTime
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -51,7 +61,7 @@ if view_current=0
   dispTime-=1*gDeltaTime
   if dispTime<=0
   {
-    image_alpha-=0.05
+    image_alpha-=0.05*gDeltaTime
     if image_alpha<=0 {instance_destroy()}
   }
 }
