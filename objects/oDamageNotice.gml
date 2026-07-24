@@ -18,7 +18,9 @@ applies_to=self
 */
 if view_current=0
 {
-  vspeed+=0.38*gDeltaTime
+  vspeed+=0.38
+
+
   draw_set_halign(fa_center)
   draw_set_alpha(image_alpha)
 
@@ -51,4 +53,8 @@ if view_current=0
     image_alpha-=0.05*gDeltaTime
     if image_alpha<=0 {instance_destroy()}
   }
+  x -= hspeed
+  y -= vspeed
+  x += hspeed * gDeltaTime
+  y += vspeed * gDeltaTime
 }
