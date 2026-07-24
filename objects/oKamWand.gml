@@ -46,7 +46,7 @@ if global.gamePaused=false
   {
     if hitStateTime>0
     {
-      hitStateTime-=1
+      hitStateTime-=1*gDeltaTime
       if hitStateTime mod 2=0 {image_alpha=0.5}
       else {image_alpha=0.75}
       if hitStateTime=0
@@ -56,10 +56,10 @@ if global.gamePaused=false
         bCanTakeDamage=true
       }
     }
-    atkTime+=1
+    atkTime+=1*gDeltaTime
     if atkSequence=0 //---------- Start sequence ----------
     {
-      if atkTime>=45 {image_angle+=10}
+      if atkTime>=45 {image_angle+=10*gDeltaTime}
       if atkTime>=60
       {
         image_blend=c_white
@@ -70,10 +70,10 @@ if global.gamePaused=false
     }
     else if atkSequence=1 //---------- Wander back and forth ----------
     {
-      image_angle+=10
+      image_angle+=10*gDeltaTime
       if x>oPlayer1.x and xVel>-3 {xVel-=0.2}
       else if x<oPlayer1.x and xVel<3 {xVel+=0.2}
-      x+=xVel
+      x+=xVel*gDeltaTime
       if atkTime>=60 {atkTime=0; atkSequence+=1}
     }
     else if atkSequence=2 //---------- Attack: Wand projectile toward player ----------
@@ -90,7 +90,7 @@ if global.gamePaused=false
         for(i=0;i<tMax;i+=1)
         {
           tAtk=instance_create(x+lengthdir_x(10,image_angle),y+lengthdir_y(10,image_angle),oKamBounceBall)
-          tAtk.sprite_index=sKamekShape; tAtk.direction=tAng; tAtk.atkPower=atkPower; tAtk.projType=1; tAtk.bulletSpeed=5
+          tAtk.sprite_index=sKamekShape; tAtk._direction=tAng; tAtk.atkPower=atkPower; tAtk.projType=1; tAtk.bulletSpeed=5
           if tMax=1 {tAtk.image_index=irandom_range(0,2)}
           else {tAtk.image_index=i}
           tAng+=25
@@ -111,12 +111,12 @@ if global.gamePaused=false
       {
         if x<=oKamek.xCenter
         {
-          x-=2
+          x-=2*gDeltaTime
           if x<=oKamek.xCenter-oKamek.roomSpan {atkTime=198}
         }
         else
         {
-          x+=2
+          x+=2*gDeltaTime
           if x>=oKamek.xCenter+oKamek.roomSpan {atkTime=198}
         }
       }
@@ -146,8 +146,8 @@ if global.gamePaused=false
       }
       else if atkTime>=15 and atkTime<=199 //Swoop
       {
-        image_angle+=10
-        x+=xVel; y+=yVel
+        image_angle+=10*gDeltaTime
+        x+=xVel*gDeltaTime; y+=yVel*gDeltaTime
         if yVel>-5 {yVel-=0.1}
         if yVel<0 and y<=oKamek.yGround-158
         {

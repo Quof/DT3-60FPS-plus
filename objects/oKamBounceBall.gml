@@ -15,6 +15,8 @@ bShowDamage=false
 bCanTakeDamage=false
 hitWall=0
 atkProg=0
+_speed=0
+_direction=0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -29,11 +31,11 @@ if global.gamePaused=false
     {
       x=xOrig+lengthdir_x(16,myDir)
       y=yOrig+lengthdir_y(16,myDir)
-      myDir+=8
+      myDir+=8*gDeltaTime
 
-      atkProg+=1
+      atkProg+=1*gDeltaTime
       if atkProg=1 {playSound(global.snd_OrbThrow,0,0.9,38000)}
-      if atkProg<=48 {yOrig-=1}
+      if atkProg<=48 {yOrig-=1*gDeltaTime}
       else if atkProg>=90
       {
         if type=0 {xVel=3; yVel=3}
@@ -84,7 +86,7 @@ if global.gamePaused=false
         tEffect.newBlend=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0; tEffect.image_xscale=0.5; tEffect.image_yscale=0.5
         instance_destroy()
       }
-      moveTo(xVel,yVel)
+      moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
     }
   }
   else if projType=1 //Summoned by wand
@@ -96,7 +98,12 @@ if global.gamePaused=false
     tEffect.image_speed=0; tEffect.image_alpha=0.6; tEffect.image_angle=image_angle
 
     speed=bulletSpeed
-    image_angle+=10
+    _speed=speed
+    speed=0
+    x += cos(degtorad(_direction)) * _speed * gDeltaTime
+    y -= sin(degtorad(_direction)) * _speed * gDeltaTime
+
+    image_angle+=10*gDeltaTime
   }
 }
 else {speed=0}

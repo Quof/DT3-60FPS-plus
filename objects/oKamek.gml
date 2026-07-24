@@ -68,7 +68,7 @@ if global.gamePaused=false
   {
     if sprite_index=sKamekWalk //Walk animation
     {
-      walkFrm+=1
+      walkFrm+=1*gDeltaTime
       if walkFrm=1 {image_index=0}
       else if walkFrm=7 {image_index=1}
       else if walkFrm=13 {image_index=2}
@@ -76,7 +76,7 @@ if global.gamePaused=false
       else if walkFrm>=24 {walkFrm=0}
     }
 
-    atkTime+=1
+    atkTime+=1*gDeltaTime
     if moveType=0 //Walk to one end of the room and spawn orbs, walk to other end, spawn orbs, repeat
     {
       if atkTime=15 {sprite_index=sKamekHandsUp}
@@ -112,7 +112,7 @@ if global.gamePaused=false
       else if atkTime>=60 and atkTime<=999 //Walk to end of room
       {
         sprite_index=sKamekWalk
-        x+=moveSpd*image_xscale
+        x+=moveSpd*image_xscale*gDeltaTime
         if shockPass>=3 //Middle of the room
         {
           if point_distance(x,0,xCenter,0)<moveSpd {sprite_index=sKamekHandsUp; shockPass=1000; atkTime=1000}
@@ -127,7 +127,7 @@ if global.gamePaused=false
       {
         var tAtk;
         tAtk=instance_create(x,y-32,oPassBullet)
-        tAtk.sprite_index=sKamFlame; tAtk.direction=90; tAtk.damageType="ELEMENTAL"
+        tAtk.sprite_index=sKamFlame; tAtk._direction=90; tAtk.damageType="ELEMENTAL"
         tAtk.atkPower=atkPower; tAtk.bulletSpeed=12; tAtk.decayTime=-100
         sprite_index=sKamekIdle
         if x<oPlayer1.x {image_xscale=-1} else {image_xscale=1}
@@ -154,7 +154,7 @@ if global.gamePaused=false
       if atkTime>=1 and atkTime<=199
       {
         sprite_index=sKamekWalk; image_xscale=1
-        x+=2
+        x+=2*gDeltaTime
         if x>=xCenter+roomSpan-48
         {
           sprite_index=sKamekIdle; image_xscale=-1
@@ -166,7 +166,7 @@ if global.gamePaused=false
     {
       if atkTime=30 {sprite_index=sKamekHandsUp; bShadow=1}
       else if atkTime=50 {playSound(global.snd_DemonLaugh,0,1,10000)}
-      else if atkTime>=51 and atkTime<=110 {shadowScl+=0.05}
+      else if atkTime>=51 and atkTime<=110 {shadowScl+=0.05*gDeltaTime}
       else if atkTime>=120 {atkTime=0; moveType=3}
     }
     else if moveType=3 //Meteor shower
@@ -232,7 +232,7 @@ if global.gamePaused=false
   }
   else if life<=0 //Defeat animation
   {
-    atkTime+=1
+    atkTime+=1*gDeltaTime
     if atkTime=1
     {
       bShadow=0
@@ -249,7 +249,7 @@ if global.gamePaused=false
       }
     }
 
-    image_alpha-=0.01
+    image_alpha-=0.01*gDeltaTime
     if image_alpha<=0
     {
       if global.bBossGallery=1
@@ -408,21 +408,21 @@ else {tXX=360} //Used as a failsafe
 
 //Main
 tAtk=instance_create(tXX,2,oPassBullet)
-tAtk.sprite_index=sKamFlame; tAtk.direction=270; tAtk.damageType="ELEMENTAL"
+tAtk.sprite_index=sKamFlame; tAtk._direction=270; tAtk.damageType="ELEMENTAL"
 tAtk.atkPower=atkPower; tAtk.bulletSpeed=7; tAtk.decayTime=-100
 
 //Sides
 tAtk=instance_create(144,2,oPassBullet)
-tAtk.sprite_index=sKamFlame; tAtk.direction=270; tAtk.damageType="ELEMENTAL"
+tAtk.sprite_index=sKamFlame; tAtk._direction=270; tAtk.damageType="ELEMENTAL"
 tAtk.atkPower=atkPower; tAtk.bulletSpeed=7; tAtk.decayTime=-100
 tAtk=instance_create(400,2,oPassBullet)
-tAtk.sprite_index=sKamFlame; tAtk.direction=270; tAtk.damageType="ELEMENTAL"
+tAtk.sprite_index=sKamFlame; tAtk._direction=270; tAtk.damageType="ELEMENTAL"
 tAtk.atkPower=atkPower; tAtk.bulletSpeed=7; tAtk.decayTime=-100
 
 if meteorSeq mod 4=0
 {
   tAtk=instance_create(oPlayer1.x,2,oPassBullet)
-  tAtk.sprite_index=sKamFlame; tAtk.direction=270; tAtk.damageType="ELEMENTAL"
+  tAtk.sprite_index=sKamFlame; tAtk._direction=270; tAtk.damageType="ELEMENTAL"
   tAtk.atkPower=atkPower; tAtk.bulletSpeed=7; tAtk.decayTime=-100
 }
 #define Other_11
@@ -447,13 +447,13 @@ else {tYY=244} //Used as a failsafe
 
 //Main
 tAtk=instance_create(xCenter+roomSpan+120,tYY,oPassBullet)
-tAtk.sprite_index=sKamFlame; tAtk.direction=180; tAtk.damageType="ELEMENTAL"
+tAtk.sprite_index=sKamFlame; tAtk._direction=180; tAtk.damageType="ELEMENTAL"
 tAtk.atkPower=atkPower; tAtk.bulletSpeed=7; tAtk.decayTime=-100
 
 if meteorSeq=0 or meteorSeq=8
 {
   tAtk=instance_create(xCenter+roomSpan+120,oPlayer1.y-26,oPassBullet)
-  tAtk.sprite_index=sKamFlame; tAtk.direction=270; tAtk.damageType="ELEMENTAL"
+  tAtk.sprite_index=sKamFlame; tAtk._direction=270; tAtk.damageType="ELEMENTAL"
   tAtk.atkPower=atkPower; tAtk.bulletSpeed=7; tAtk.decayTime=-100
 }
 #define Draw_0
