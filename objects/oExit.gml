@@ -35,10 +35,10 @@ applies_to=self
 */
 if animPlayerExit>0 //Going down pipe
 {
-  animPlayerExit+=1
+  animPlayerExit+=1*gDeltaTime
   oPlayer1.bCanTakeDamage=true
   oPlayer1.x=x+(sprite_width/2)
-  oPlayer1.y+=2
+  oPlayer1.y+=2*gDeltaTime
   if animPlayerExit=30
   {
     global.gamePaused=false
@@ -59,7 +59,7 @@ if animPlayerExit>0 //Going down pipe
 
 if sprite_index=sPillarOfLight
 {
-  if oGame.time mod 2=0
+  if oGame.time mod 2*gDeltaTime=0
   {
     if image_alpha=0.75 {image_alpha=0.5}
     else {image_alpha=0.75}
@@ -185,7 +185,7 @@ applies_to=self
 */
 if bShowArrow=true
 {
-  pointTime+=1
+  pointTime+=1*gDeltaTime
   if pointTime=20 {arrowY+=1}
   else if pointTime=40
   {
