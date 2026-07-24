@@ -26,11 +26,11 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if global.gamePaused=false && gDeltaDoTicks != 0
+if global.gamePaused=false //&& gDeltaDoTicks != 0
 {
   if bClouds=1
   {
-    cloudSpawn+=1
+    cloudSpawn+=1*gDeltaTime
     if cloudSpawn=250
     {
       instance_create(view_xview[0]+view_wview[0]+4,view_yview[0]+random_range(8,96),oBkgCloud)
@@ -54,7 +54,7 @@ if global.gamePaused=false && gDeltaDoTicks != 0
   }
   if room=rMario1_2 //Automove platforms
   {
-    platformSpawn+=1
+    platformSpawn+=1*gDeltaTime
     if platformSpawn mod 80=0
     {
       var tNewPlat;
@@ -87,7 +87,7 @@ if global.gamePaused=false && gDeltaDoTicks != 0
         {
           tNewAttack=instance_create(view_xview[0]+view_wview[0]+8,200+(i*16),oPassBullet)
           tNewAttack.sprite_index=sBowserFire1; tNewAttack.atkPower=4
-          tNewAttack.bulletSpeed=3; tNewAttack.direction=180; tNewAttack.decayTime=-100
+          tNewAttack.bulletSpeed=3; tNewAttack._direction=180; tNewAttack.decayTime=-100
         }
         bowserFireProg+=1
       }
@@ -99,7 +99,7 @@ if global.gamePaused=false && gDeltaDoTicks != 0
         {
           tNewAttack=instance_create(view_xview[0]+view_wview[0]+8,168+(i*16),oPassBullet)
           tNewAttack.sprite_index=sBowserFire1; tNewAttack.atkPower=4
-          tNewAttack.bulletSpeed=3; tNewAttack.direction=180; tNewAttack.decayTime=-100
+          tNewAttack.bulletSpeed=3; tNewAttack._direction=180; tNewAttack.decayTime=-100
         }
         bowserFireProg+=1
       }
@@ -111,7 +111,7 @@ if global.gamePaused=false && gDeltaDoTicks != 0
         {
           tNewAttack=instance_create(view_xview[0]+view_wview[0]+8,168+(i*16),oPassBullet)
           tNewAttack.sprite_index=sBowserFire1; tNewAttack.atkPower=4
-          tNewAttack.bulletSpeed=3; tNewAttack.direction=180; tNewAttack.decayTime=-100
+          tNewAttack.bulletSpeed=3; tNewAttack._direction=180; tNewAttack.decayTime=-100
         }
         bowserFireProg+=1
       }
@@ -119,14 +119,14 @@ if global.gamePaused=false && gDeltaDoTicks != 0
 
     if oPlayer1.x>=2176 and oPlayer1.x<=3104
     {
-      bowserFire+=1
+      bowserFire+=1*gDeltaTime
       if bowserFire=60
       {
         playSound(global.snd_Fireball,0,0.99,1)
         var tNewAttack;
         tNewAttack=instance_create(view_xview[0]+view_wview[0]+8,random_range(176,240),oPassBullet)
         tNewAttack.sprite_index=sBowserFire1; tNewAttack.atkPower=4
-        tNewAttack.bulletSpeed=3; tNewAttack.direction=180; tNewAttack.decayTime=-100
+        tNewAttack.bulletSpeed=3; tNewAttack._direction=180; tNewAttack.decayTime=-100
         bowserFire=0
       }
     }
@@ -135,7 +135,7 @@ if global.gamePaused=false && gDeltaDoTicks != 0
   {
     if !instance_exists(oLakitu)
     {
-      lakituSpawn+=1
+      lakituSpawn+=1*gDeltaTime
       if lakituSpawn=210
       {
         var tNewEnemy;
@@ -161,7 +161,7 @@ if global.gamePaused=false && gDeltaDoTicks != 0
       msgCreate(0,0,"Jerry","Whoa, what's going on here?",0,1,oMessagePerson,0)
       newMessage.fadingTime=90; charDialogue[0]+=1
     }
-    else if charDialogue[0]=1 {convo[0]+=1;if convo[0]>=100 {charDialogue[0]+=1; convo[0]=0}}
+    else if charDialogue[0]=1 {convo[0]+=1*gDeltaTime;if convo[0]>=100 {charDialogue[0]+=1; convo[0]=0}}
     else if charDialogue[0]=2
     {
       msgCreate(0,0,"Jeremy","It's a bug, just look closely.",0,1,oMessagePerson,0)
@@ -179,7 +179,7 @@ if global.gamePaused=false && gDeltaDoTicks != 0
       }
       sceneProgress+=1
     }
-    if charDialogue[0]=0 {convo[0]+=1;if convo[0]>=30 {charDialogue[0]+=1; convo[0]=0}}
+    if charDialogue[0]=0 {convo[0]+=1*gDeltaTime;if convo[0]>=30 {charDialogue[0]+=1; convo[0]=0}}
     else if charDialogue[0]=1
     {
       msgCreate(0,0,"Jeremy","Take this slow and watch for gaps.",0,1,oMessagePerson,0)
