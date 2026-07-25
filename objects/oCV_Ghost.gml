@@ -82,22 +82,22 @@ if global.gamePaused=false
       if instance_exists(oPlayer1)
       {
         dir=player_sprite_center()
-        moveTo(runAcc*cos(degtorad(dir)),-runAcc*sin(degtorad(dir)))
+        moveTo((runAcc*cos(degtorad(dir)))*gDeltaTime,-(runAcc*sin(degtorad(dir))*gDeltaTime))
       }
     }
     else if life<=0
     {
-      deathAnim+=1
+      deathAnim+=1*gDeltaTime
       image_speed=0
-      if deathAnim mod 4=0
+      if deathAnim mod (4/gDeltaTime)=0
       {
-        if deathAnim mod 8=0 {playSound(global.snd_HardHit1,0,0.9,1)}
+        if deathAnim mod (8/gDeltaTime)=0 {playSound(global.snd_HardHit1,0,0.9,1)}
         tEffect=instance_create(x+random_range(-9,9),y+random_range(-8,8),oEffect)
         tEffect.sprite_index=sDeathFlameA; tEffect.image_speed=0.33
         tEffect.image_alpha=0.5+(image_alpha/3)
         tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
       }
-      image_alpha-=0.04
+      image_alpha-=0.04*gDeltaTime
       if image_alpha<0 {instance_destroy()}
     }
   }

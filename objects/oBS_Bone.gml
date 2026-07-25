@@ -21,16 +21,16 @@ applies_to=self
 if global.gamePaused=false
 {
   if xSpd>0
-    image_angle-=10
+    image_angle-=10*gDeltaTime
   else if xSpd<0
-    image_angle+=10
+    image_angle+=10*gDeltaTime
 
-  ySpd+=grav
+  ySpd+=grav*gDeltaTime
   if ySpd>7
     ySpd=7
 
-  x+=xSpd
-  y+=ySpd
+  x+=xSpd*gDeltaTime
+  y+=ySpd*gDeltaTime
 
   if y>room_height+32
     instance_destroy()
