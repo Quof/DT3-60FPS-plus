@@ -4,7 +4,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-scrGlobalKeyboardInit(1)
+scrGlobalKeyboardInit(0)
 gameCreateEvent()
 bStatRender=false
 windowUpdate=0
