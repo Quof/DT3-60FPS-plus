@@ -271,12 +271,15 @@ if global.gamePaused=false
         else {tMoveSpd=8}
         if x<newLoc {x+=tMoveSpd*gDeltaTime}
         else {x-=tMoveSpd*gDeltaTime}
+
         if oGame.time mod (1/gDeltaTime)=0 {
-        var tAfterI;
-        tAfterI=instance_create(x,y,oEnemyAfterImage)
-        tAfterI.sprite_index=sprite_index; tAfterI.image_index=image_index
-        tAfterI.image_xscale=image_xscale; tAfterI.xShift=0; tAfterI.yShift=0
-        tAfterI.imageFade=0.15; ; tAfterI.xScaling=0; tAfterI.yScaling=0; tAfterI.bFollow=0}
+            var tAfterI;
+            tAfterI=instance_create(x,y,oEnemyAfterImage)
+            tAfterI.sprite_index=sprite_index; tAfterI.image_index=image_index
+            tAfterI.image_xscale=image_xscale; tAfterI.xShift=0; tAfterI.yShift=0
+            tAfterI.imageFade=0.15; ; tAfterI.xScaling=0; tAfterI.yScaling=0; tAfterI.bFollow=0
+            tAfterI.depth=depth+0.1;
+        }
 
         if x=newLoc {atkTime=100}
       }
@@ -343,11 +346,13 @@ if global.gamePaused=false
         else {x-=tMoveSpd*gDeltaTime}
 
         if oGame.time mod (1/gDeltaTime)=0 {
-        var tAfterI;
-        tAfterI=instance_create(x,y,oEnemyAfterImage)
-        tAfterI.sprite_index=sprite_index; tAfterI.image_index=image_index
-        tAfterI.image_xscale=image_xscale; tAfterI.xShift=0; tAfterI.yShift=0
-        tAfterI.imageFade=0.15; ; tAfterI.xScaling=0; tAfterI.yScaling=0; tAfterI.bFollow=0}
+            var tAfterI;
+            tAfterI=instance_create(x,y,oEnemyAfterImage)
+            tAfterI.sprite_index=sprite_index; tAfterI.image_index=image_index
+            tAfterI.image_xscale=image_xscale; tAfterI.xShift=0; tAfterI.yShift=0
+            tAfterI.imageFade=0.15; ; tAfterI.xScaling=0; tAfterI.yScaling=0; tAfterI.bFollow=0
+            tAfterI.depth=depth+0.1;
+        }
 
         if x=newLoc
         {
@@ -713,3 +718,9 @@ if life>0
 }
 else
   draw_sprite_part(sprite_index,0,0,0,sprite_width,sprite_height-hLineEffect,x-(sprite_width/2),y-sprite_height+4+hLineEffect)
+
+//square was here
+if atkSequence=4 and atkTime>=20 and atkTime<=90 {
+    draw_sprite_ext(sprite_index,image_index,x,y,image_xscale,image_yscale,image_angle,
+    make_color_rgb(64,128,88),image_alpha-0.15)
+}
