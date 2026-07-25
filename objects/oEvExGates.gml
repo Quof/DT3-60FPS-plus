@@ -234,7 +234,7 @@ if global.gamePaused=false
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=30
       {
         createEnemy(2032,144,oSineFaller,2,0,1)
@@ -305,7 +305,7 @@ if global.gamePaused=false
     }
     else if sceneProgress=2 //Cookies rain down
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=40
       {
         if sceneDelay mod 5=0
@@ -336,7 +336,7 @@ if global.gamePaused=false
     }
     else if sceneProgress=4
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=30
       {
         global.tempAction[0]=64
@@ -400,7 +400,7 @@ if room=rExtGateA_6 //----- [A] Boss Fight: Kamek -----
   {
     if sceneProgress=0 and oPlayer1.x>=176
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {global.gamePaused=true}
       oPlayer1.y+=4
       if oPlayer1.y>=288
@@ -412,7 +412,7 @@ if room=rExtGateA_6 //----- [A] Boss Fight: Kamek -----
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         viewFix=instance_create(176,176,oMisc)
@@ -424,7 +424,7 @@ if room=rExtGateA_6 //----- [A] Boss Fight: Kamek -----
     }
     else if sceneProgress=2
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=21 and sceneDelay<=60
       {
         var tEffect;
@@ -444,7 +444,7 @@ if room=rExtGateA_6 //----- [A] Boss Fight: Kamek -----
       msgCreate(0,0,"Jerry","Oh it's just this guy.",0,3,oMessageCutscene,1)
     else if sceneProgress=4
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=20 {npcKamek.image_index=1}
       else if sceneDelay>=360 {sceneDelay=0; sceneProgress+=1} //End intro
 
@@ -576,7 +576,7 @@ else if room=rExtGateB_6 //----- [B] Boss Fight: Final Nightmare -----
   {
     if sceneProgress=0 and oPlayer1.x>=560
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {global.gamePaused=true}
       oPlayer1.y+=4
       if oPlayer1.y>=288
@@ -588,7 +588,7 @@ else if room=rExtGateB_6 //----- [B] Boss Fight: Final Nightmare -----
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         viewFix=instance_create(560,176,oMisc)
@@ -687,7 +687,7 @@ else if room=rExtGateC_5 //----- [C] Boss Fight: Blackmoor -----
   {
     if sceneProgress=0 and oPlayer1.x>=400
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {global.gamePaused=true}
       oPlayer1.y+=4
       if oPlayer1.y>=304
@@ -701,7 +701,7 @@ else if room=rExtGateC_5 //----- [C] Boss Fight: Blackmoor -----
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         viewFix=instance_create(400,176,oMisc)
@@ -777,7 +777,7 @@ else if room=rExtGateD_5 //----- [] Buggy collision things -----
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=120
     {
       msgCreate(0,0,"Jeremy","Yay for wonky collision issues!",0,1,oMessagePerson,0)
@@ -802,7 +802,7 @@ else if room=rExtGateD_6 //----- [D] Boss Fight: Elpizo -----
   {
     if sceneProgress=0 and oPlayer1.x>=352
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {global.gamePaused=true}
       oPlayer1.y+=4
       if oPlayer1.y>=416
@@ -816,7 +816,7 @@ else if room=rExtGateD_6 //----- [D] Boss Fight: Elpizo -----
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=2 and bWaitForInput=false
@@ -829,7 +829,7 @@ else if room=rExtGateD_6 //----- [D] Boss Fight: Elpizo -----
       msgCreate(0,0,"Jerry","By who? Hex?",0,3,oMessageCutscene,1)
     else if sceneProgress=6
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10 {npcElpizo.sprite_index=sElpizoSwordDown}
       else if sceneDelay=15 {npcElpizo.image_index=1}
       else if sceneDelay=20 {npcElpizo.sprite_index=sElpizoIdle}
@@ -891,7 +891,7 @@ else if room=rExtGateE_5 //----- [E] Boss Fight: Shadow Form -----
   {
     if sceneProgress=0 and oPlayer1.x>=272
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {global.gamePaused=true}
       oPlayer1.y+=4
       if oPlayer1.y>=304
@@ -906,7 +906,7 @@ else if room=rExtGateE_5 //----- [E] Boss Fight: Shadow Form -----
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10
       {
         viewFix=instance_create(oPlayer1.x,176,oMisc)
@@ -960,7 +960,7 @@ else if room=rExtGateE_5 //----- [E] Boss Fight: Shadow Form -----
     }
     else if sceneProgress=3
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=4 and bWaitForInput=false
@@ -1050,7 +1050,7 @@ else if room=rExtGateF_6 //----- [F] Boss Fight: Nightmare -----
   {
     if sceneProgress=0 and oPlayer1.x>=160
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {global.gamePaused=true}
       oPlayer1.y+=4
       if oPlayer1.y>=432
@@ -1062,7 +1062,7 @@ else if room=rExtGateF_6 //----- [F] Boss Fight: Nightmare -----
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=30 {boss=instance_create(320,576,oMetNightmare)}
       else if sceneDelay>=31
       {
@@ -1125,7 +1125,7 @@ else if room=rExtGateG_5 //----- [G] Boss Fight: Sephiroth -----
   {
     if sceneProgress=0 and oPlayer1.x>=320
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {global.gamePaused=true}
       oPlayer1.y+=4
       if oPlayer1.y>=288
@@ -1140,13 +1140,13 @@ else if room=rExtGateG_5 //----- [G] Boss Fight: Sephiroth -----
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=21 and sceneDelay<=52 {newCamera.x+=2}
       else if sceneDelay>=60 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=2
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=30
       {
         instance_create(480,128,oSephiroth)
@@ -1189,14 +1189,14 @@ else if room=rExtGateG_5 //----- [G] Boss Fight: Sephiroth -----
     }
     else if sceneProgress=3
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=4 and bWaitForInput=false
       msgCreate(0,0,"Jerry","This isn't going to be a dance off, is it?",0,3,oMessageCutscene,1)
     else if sceneProgress=5
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=20
       {
         oSephiroth.sprite_index=sSeph_FlipOff
@@ -1259,7 +1259,7 @@ else if room=rSacredTemple //------------------------------ Exit door spawn ----
   {
     if sceneProgress=0
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {global.gamePaused=true}
       else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
     }
@@ -1292,7 +1292,7 @@ else if room=rSacredTemple //------------------------------ Exit door spawn ----
   {
     if sceneProgress=0
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {global.gamePaused=true}
       else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
     }
@@ -1317,7 +1317,7 @@ else if room=rSacredTemple //------------------------------ Exit door spawn ----
   {
     if sceneProgress=0
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {global.gamePaused=true}
       else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
     }
@@ -1344,7 +1344,7 @@ else if room=rSacredTemple //------------------------------ Exit door spawn ----
   {
     if sceneProgress=0
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {global.gamePaused=true}
       else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
     }
@@ -1363,7 +1363,7 @@ else if room=rSacredTemple //------------------------------ Exit door spawn ----
   {
     if sceneProgress=0
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {global.gamePaused=true}
       else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
     }
@@ -1386,7 +1386,7 @@ else if room=rSacredTemple //------------------------------ Exit door spawn ----
   {
     if sceneProgress=0
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {global.gamePaused=true}
       else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
     }
@@ -1411,7 +1411,7 @@ else if room=rSacredTemple //------------------------------ Exit door spawn ----
   {
     if sceneProgress=0
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {global.gamePaused=true}
       else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
     }
@@ -1430,7 +1430,7 @@ else if room=rSacredTemple //------------------------------ Exit door spawn ----
   {
     if sceneProgress=0
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         abilSetRemove(0)

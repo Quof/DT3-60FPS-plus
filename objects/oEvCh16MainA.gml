@@ -30,7 +30,7 @@ if global.gameProgress=3870 and room=rCCity_NA_S2 //----- [1] On the defensive -
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       global.gamePaused=true
@@ -48,7 +48,7 @@ if global.gameProgress=3870 and room=rCCity_NA_S2 //----- [1] On the defensive -
     msgCreate(0,0,"","The group gave a recap to Syrus and Gene on everything up to this point. Also John was there to help explain.",6,3,oMessageCutscene,1)
   else if sceneProgress=2
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=30
     {
       fadeAlpha-=0.01
@@ -81,7 +81,7 @@ if global.gameProgress=3870 and room=rCCity_NA_S2 //----- [1] On the defensive -
     msgCreate(0,0,"Jeremy","It was still bad, I've made better things from my home PC.",0,3,oMessageCutscene,1)
   else if sceneProgress=15
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=10
     {
       npcMatt=instance_create(-32,320,oMisc)
@@ -125,7 +125,7 @@ if global.gameProgress=3870 and room=rCCity_NA_S2 //----- [1] On the defensive -
     msgCreate(0,0,"John","There are multiple structures you can use. [Action A] will... hold up, why don't we go out to the field where explaining it will make more sense. Talk to me outside this building when you're ready for this.",6,3,oMessageCutscene,1)
   else if sceneProgress=24
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=5
     {
       npcMatt.sprite_index=sNPC_Matt_Dash; npcMatt.image_xscale=-1
@@ -208,7 +208,7 @@ else if global.gameProgress=3880 and room=rCCity_NorthA //----- [2] Talk to John
     msgCreate(0,0,"John","Anyway, how about we go out to the field to meet them head on. You'll understand once you've used this ability. I have some instructions for you, which you may skip, but I recommend at least looking at the Controls and Base Info.",6,3,oMessageCutscene,1)
   else if sceneProgress=13
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=10
     {
       global.newMapX=192
@@ -225,7 +225,7 @@ else if global.gameProgress=3890 and room=rTD_Lv1 //----- [] Completed all enemy
   {
     if sceneProgress=0
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {global.gamePaused=true}
       else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
     }
@@ -233,7 +233,7 @@ else if global.gameProgress=3890 and room=rTD_Lv1 //----- [] Completed all enemy
       msgCreate(0,0,"John","Awesome, you fought them all off! Let's go back to the city.",6,3,oMessageCutscene,1)
     else if sceneProgress=2
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=20
       {
         global.activeAbility[0]=1
@@ -250,7 +250,7 @@ else if global.gameProgress=3890 and room=rCCity_NorthA //----- [3] Another enem
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {oPlayer1.image_xscale=1; oNPC_John.image_xscale=-1}
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
@@ -315,7 +315,7 @@ else if global.gameProgress=3900 and room=rCCity_NorthA //----- [4] Talk to John
     msgCreate(0,0,"Jeremy","Huh... anyway let's do this!",0,3,oMessageCutscene,1)
   else if sceneProgress=13
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=10
     {
       global.newMapX=240
@@ -332,7 +332,7 @@ else if global.gameProgress=3910 and room=rTD_Lv2 //----- [] Completed all enemy
   {
     if sceneProgress=0
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {global.gamePaused=true}
       else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
     }
@@ -340,7 +340,7 @@ else if global.gameProgress=3910 and room=rTD_Lv2 //----- [] Completed all enemy
       msgCreate(0,0,"John","They tried and failed! Looks like they have all backed off now. Let's return to the city.",6,3,oMessageCutscene,1)
     else if sceneProgress=2
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=20
       {
         global.activeAbility[0]=1
@@ -357,7 +357,7 @@ else if global.gameProgress=3910 and room=rCCity_NorthA //----- [5] CHAOS backed
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {oPlayer1.image_xscale=1; oNPC_John.image_xscale=-1}
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
@@ -381,7 +381,7 @@ if global.gameProgress=3920 and room=rCCity_NA_S1 //----- [6] The facility below
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       global.gamePaused=true
@@ -402,7 +402,7 @@ if global.gameProgress=3920 and room=rCCity_NA_S1 //----- [6] The facility below
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=30
     {
       fadeAlpha-=0.01
@@ -413,7 +413,7 @@ if global.gameProgress=3920 and room=rCCity_NA_S1 //----- [6] The facility below
     msgCreate(0,0,"Syrus","That facility is right beneath us. Check this out.",6,3,oMessageCutscene,1)
   else if sceneProgress=3
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=30
     {
       tile_layer_shift(999999,0,1)

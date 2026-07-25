@@ -31,13 +31,13 @@ if global.gamePaused=false
         msgCreate(0,0,"Jeremy","Don't go into Neo Grime City. I've put up those barriers just in case. I know how you get curious.",0,2,oMessagePerson,0)
         newMessage.fadingTime=140; charDialogue[0]+=1
       }
-      else if charDialogue[0]=1 {convo[0]+=1;if convo[0]>=145 {charDialogue[0]+=1; convo[0]=0}}
+      else if charDialogue[0]=1 {convo[0]+=1*gDeltaTime;if convo[0]>=145 {charDialogue[0]+=1; convo[0]=0}}
       else if charDialogue[0]=2
       {
         msgCreate(0,0,"Jerry","That's lame.",0,0,oMessagePerson,0)
         newMessage.fadingTime=55; charDialogue[0]+=1
       }
-      else if charDialogue[0]=3 {convo[0]+=1;if convo[0]>=60 {charDialogue[0]+=1; convo[0]=0}}
+      else if charDialogue[0]=3 {convo[0]+=1*gDeltaTime;if convo[0]>=60 {charDialogue[0]+=1; convo[0]=0}}
       else if charDialogue[0]=4
       {
         msgCreate(0,0,"Jeremy","Trust me, it's for your own safety.",0,1,oMessagePerson,0)
@@ -83,13 +83,13 @@ if global.gamePaused=false
         msgCreate(0,0,"Claire","There's something in here, Jerry. I know it... We need to stay out of the light.",0,2,oMessagePerson,0)
         newMessage.fadingTime=130; charDialogue[0]+=1
       }
-      else if charDialogue[0]=1 {convo[0]+=1;if convo[0]>=130 {charDialogue[0]+=1; convo[0]=0}}
+      else if charDialogue[0]=1 {convo[0]+=1*gDeltaTime;if convo[0]>=130 {charDialogue[0]+=1; convo[0]=0}}
       else if charDialogue[0]=2
       {
         msgCreate(0,0,"Jerry","Why?",0,0,oMessagePerson,0)
         newMessage.fadingTime=50; charDialogue[0]+=1
       }
-      else if charDialogue[0]=3 {convo[0]+=1;if convo[0]>=50 {charDialogue[0]+=1; convo[0]=0}}
+      else if charDialogue[0]=3 {convo[0]+=1*gDeltaTime;if convo[0]>=50 {charDialogue[0]+=1; convo[0]=0}}
       else if charDialogue[0]=4
       {
         msgCreate(0,0,"Claire","Trust me on this. Stay out of line of sight while in the light.",0,1,oMessagePerson,0)

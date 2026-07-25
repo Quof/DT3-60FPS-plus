@@ -55,7 +55,7 @@ if room=rEnd_WarshipA //----- [] End A -----
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=30
     {
       fadeAlpha-=0.04
@@ -73,7 +73,7 @@ if room=rEnd_WarshipA //----- [] End A -----
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=29
     {
       playSound(global.snd_BombExplode,0,1,14000)
@@ -135,7 +135,7 @@ else if room=rEnd_SceneA //----- [] End B -----
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=30
     {
       fadeAlpha-=0.02
@@ -144,7 +144,7 @@ else if room=rEnd_SceneA //----- [] End B -----
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=10 and sceneDelay<=199
     {
       oPlayer1.x-=1; oPlayer1.y+=4
@@ -160,7 +160,7 @@ else if room=rEnd_SceneA //----- [] End B -----
   }
   else if sceneProgress=2
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=11 and sceneDelay<=20 {shieldAlpha-=0.01}
     else if sceneDelay=21 {bCharacterShields=0}
     else if sceneDelay>=40 {sceneDelay=0; sceneProgress+=1}

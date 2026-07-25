@@ -18,7 +18,7 @@ applies_to=self
 */
 if sceneProgress=0
 {
-  sceneDelay+=1
+  sceneDelay+=1*gDeltaTime
   if sceneDelay=1 {oIdentifier.bChaoActive=0}
   else if sceneDelay>=60
   {
@@ -29,7 +29,7 @@ if sceneProgress=0
 }
 else if sceneProgress=1
 {
-  sceneDelay+=1
+  sceneDelay+=1*gDeltaTime
   if sceneDelay=40
   {
     createScreenText(240,32,-1,fnt_EnemyName,fa_middle,"After the creature merged with the Warship,#it turned its sights on the world.",3,c_red,1,0)
@@ -73,7 +73,7 @@ else if sceneProgress=1
 }
 else if sceneProgress=2
 {
-  sceneDelay+=1
+  sceneDelay+=1*gDeltaTime
   if sceneDelay=40
   {
     createScreenText(240,176,-1,fnt_EnemyName,fa_middle,"Jeremy was all that was left in the darkness...",3,c_red,1,0)

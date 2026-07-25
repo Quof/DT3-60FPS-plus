@@ -22,14 +22,14 @@ if room=rEnd_SceneB //----- [] Epilogue -----
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=30 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=1 and bWaitForInput=false
     msgCreate(0,0,"","One month later...",6,3,oMessageCutscene,1)
   else if sceneProgress=2
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=30
     {
       fadeAlpha-=0.02
@@ -38,7 +38,7 @@ if room=rEnd_SceneB //----- [] Epilogue -----
   }
   else if sceneProgress=3
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=4 and bWaitForInput=false
@@ -140,7 +140,7 @@ if room=rEnd_SceneB //----- [] Epilogue -----
 
   if sceneProgress=43
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=30
     {
       fadeAlpha+=0.02
@@ -155,7 +155,7 @@ if room=rEnd_SceneB //----- [] Epilogue -----
     msgCreate(0,0,"John","I only wish that was how things actually played out.",6,3,oMessageCutscene,1)
   else if sceneProgress=45
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=30 {instance_create(0,0,oTextTheEnd)}
     else if sceneDelay=210 //Save that game was completed
     {

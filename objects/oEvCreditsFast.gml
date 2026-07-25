@@ -30,7 +30,7 @@ if sceneProgress=0 //-------------------- Start music --------------------
 }
 else if sceneProgress=1 //-------------------- Game Scenario & Story --------------------
 {
-  sceneDelay+=1
+  sceneDelay+=1*gDeltaTime
   if sceneDelay=1 {myText="- Game Scenario & Story -"; event_user(0)}
   else if sceneDelay=2 {myText="Game Design:   ZephyrBurst"; event_user(2)}
   else if sceneDelay=3 {myText="Story:   ZephyrBurst"; event_user(2)}
@@ -42,7 +42,7 @@ else if sceneProgress=1 //-------------------- Game Scenario & Story -----------
 }
 else if sceneProgress=2 //-------------------- Sprites & Tiles Rips --------------------
 {
-  sceneDelay+=1
+  sceneDelay+=1*gDeltaTime
   if sceneDelay=1 {myText="- Sprites & Tiles -"; event_user(0)}
   else if sceneDelay=2 {myText="A.J. Nitro"; event_user(1); myText="Akuri"; event_user(2); myText="Apocalypse"; event_user(3)}
   else if sceneDelay=3 {myText="Arima"; event_user(1); myText="Badassbill"; event_user(2); myText="Badbatman3"; event_user(3)}
@@ -76,7 +76,7 @@ else if sceneProgress=2 //-------------------- Sprites & Tiles Rips ------------
 }
 else if sceneProgress=3 //-------------------- Music & Sound --------------------
 {
-  sceneDelay+=1
+  sceneDelay+=1*gDeltaTime
   if sceneDelay=1 {myText="- Music & Sound -"; event_user(0)}
   else if sceneDelay=2 {myText="Autumn-Collapse"; event_user(1); myText="Bad-Atom"; event_user(2); myText="bassfiddlejones"; event_user(3)}
   else if sceneDelay=3 {myText="Beartheshadows"; event_user(1); myText="Blackaux"; event_user(2); myText="blackrose96"; event_user(3)}
@@ -103,7 +103,7 @@ else if sceneProgress=3 //-------------------- Music & Sound -------------------
 }
 else if sceneProgress=4 //-------------------- Testers --------------------
 {
-  sceneDelay+=1
+  sceneDelay+=1*gDeltaTime
   if sceneDelay=1 {myText="- Testers -"; event_user(0)}
   else if sceneDelay=2 {myText="Amatsu"; event_user(1); myText="Anomaly"; event_user(3)}
   else if sceneDelay=3 {myText="NegativeZeroZ"; event_user(1); myText="Koishi The Rock"; event_user(3)}
@@ -112,7 +112,7 @@ else if sceneProgress=4 //-------------------- Testers --------------------
 }
 else if sceneProgress=5 //-------------------- Special Thanks --------------------
 {
-  sceneDelay+=1
+  sceneDelay+=1*gDeltaTime
   if sceneDelay=1 {myText="- Special Thanks -"; event_user(0)}
   else if sceneDelay=2 {myText="Alice"; event_user(1); myText="Beatrix"; event_user(3)}
   else if sceneDelay=3 {myText="Chele"; event_user(1); myText="Dave"; event_user(3)}
@@ -124,7 +124,7 @@ else if sceneProgress=5 //-------------------- Special Thanks ------------------
 }
 else if sceneProgress=6 //-------------------- End --------------------
 {
-  sceneDelay+=1
+  sceneDelay+=1*gDeltaTime
   if sceneDelay=30
   {
     endText+=1

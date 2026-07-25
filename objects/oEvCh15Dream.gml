@@ -45,7 +45,7 @@ if global.gamePaused=false
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=1 and sceneDelay<=20 {fadeAlpha+=0.025}
       else if sceneDelay=40
       {
@@ -124,7 +124,7 @@ if global.gamePaused=false
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=1 and sceneDelay<=20 {fadeAlpha+=0.025}
       else if sceneDelay=40
       {
@@ -146,7 +146,7 @@ if global.gamePaused=false
     }
     else if sceneProgress=2
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10
       {
         msgCreate(0,0,"Jeremy","Aside from the fact that we were actually 10 at the time, the program got that right... which is damn creepy.",0,2,oMessagePerson,0)
@@ -181,7 +181,7 @@ if global.gamePaused=false
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=1 and sceneDelay<=20 {fadeAlpha+=0.025}
       else if sceneDelay=40
       {
@@ -200,7 +200,7 @@ if global.gamePaused=false
     }
     else if sceneProgress=2
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10
       {
         msgCreate(0,0,"Jerry","You had that Mac for a long time.",0,1,oMessagePerson,0)
@@ -240,7 +240,7 @@ if global.gamePaused=false
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10
       {
         delaySpawn(2432,272,oPT_Skeleton,2,1,1,0.33)
@@ -253,7 +253,7 @@ if global.gamePaused=false
     }
     else if sceneProgress=2
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10
       {
         delaySpawn(2432,64,oPT_IceSpirit,2,1,1,0.33)
@@ -273,7 +273,7 @@ if global.gamePaused=false
     }
     else if sceneProgress=3
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10
       {
         delaySpawn(2496,272,oPT_Skeleton,2,1,1,0.33)
@@ -308,7 +308,7 @@ if global.gamePaused=false
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10
       {
         delaySpawn(288,240,oPT_Skeleton,2,1,1,0.33)
@@ -320,7 +320,7 @@ if global.gamePaused=false
     }
     else if sceneProgress=2
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10
       {
         delaySpawn(240,144,oPT_IceSpirit,2,1,1,0.33)
@@ -350,7 +350,7 @@ if global.gamePaused=false
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=1 and sceneDelay<=20 {fadeAlpha+=0.025}
       else if sceneDelay=40
       {
@@ -372,7 +372,7 @@ if global.gamePaused=false
     }
     else if sceneProgress=2
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10
       {
         msgCreate(0,0,"Jerry","I remember you showing me a game you made.",0,1,oMessagePerson,0)
@@ -417,7 +417,7 @@ if global.gamePaused=false
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10
       {
         delaySpawn(2096,304,oPT_Skeleton,2,1,1,0.33)
@@ -430,7 +430,7 @@ if global.gamePaused=false
     }
     else if sceneProgress=2
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10
       {
         delaySpawn(2096,128,oPT_FireEye,2,1,1,0.33)
@@ -450,7 +450,7 @@ if global.gamePaused=false
     }
     else if sceneProgress=3
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10
       {
         delaySpawn(2096,304,oPT_Skeleton,2,1,1,0.33)
@@ -489,7 +489,7 @@ if global.gamePaused=false
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=1 and sceneDelay<=20 {fadeAlpha+=0.025}
       else if sceneDelay=40
       {
@@ -505,7 +505,7 @@ if global.gamePaused=false
     }
     else if sceneProgress=2
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=10 and sceneDelay<=120
       {
         if sceneDelay mod 4=0
@@ -517,14 +517,14 @@ if global.gamePaused=false
     }
     else if sceneProgress=3
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=1 and sceneDelay<=20 {npc_A.image_alpha-=0.025; npc_B.image_alpha-=0.025}
       else if sceneDelay>=41 and sceneDelay<=60 {fadeAlpha-=0.025}
       else if sceneDelay>=70 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=4
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10
       {
         msgCreate(0,0,"Jerry","I wanted to see that one.",0,1,oMessagePerson,0)
@@ -564,7 +564,7 @@ if global.gamePaused=false
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10
       {
         delaySpawn(928,304,oPT_Skeleton,2,1,1,0.33)
@@ -578,7 +578,7 @@ if global.gamePaused=false
     }
     else if sceneProgress=2
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10
       {
         delaySpawn(944,96,oPT_IceSpirit,2,1,1,0.33)
@@ -592,7 +592,7 @@ if global.gamePaused=false
     }
     else if sceneProgress=3
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10
       {
         delaySpawn(928,304,oPT_Skeleton,2,1,1,0.33)
@@ -623,7 +623,7 @@ if global.gamePaused=false
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10
       {
         msgCreate(0,0,"Claire","What's with these?",0,1,oMessagePerson,0)
@@ -696,7 +696,7 @@ if global.gamePaused=false
     }
     else if sceneProgress=4
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=20 {staticTime=129; background_alpha[6]=0.4; PDAlpha=0.35; staticVol=0.75}
       else if sceneDelay=40 {staticTime=129; background_alpha[6]=0.5; PDAlpha=0.4; staticVol=0.8}
       else if sceneDelay=60 {staticTime=129; background_alpha[6]=0.6; PDAlpha=0.45; staticVol=0.9}

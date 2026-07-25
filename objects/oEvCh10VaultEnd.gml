@@ -35,7 +35,7 @@ if global.gameProgress=2530 and room=rVault_23 //----- [1] Start autorun -----
       msgCreate(0,0,"Jerry","Holding.",0,3,oMessageCutscene,1)
     else if sceneProgress=3
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=30
       {
         oEvCh10MainA.sceneProgress=1

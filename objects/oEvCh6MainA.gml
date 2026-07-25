@@ -112,7 +112,7 @@ if global.gameProgress=1150 and room=rBelmont3_Gate //----- [1] Intro to Transyl
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       charSwitcher(1)
@@ -126,7 +126,7 @@ if global.gameProgress=1150 and room=rBelmont3_Gate //----- [1] Intro to Transyl
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=35
     {
       efCharge=instance_create(oPlayer1.x,oPlayer1.y-26,oMisc)
@@ -187,7 +187,7 @@ if global.gameProgress=1150 and room=rBelmont3_Gate //----- [1] Intro to Transyl
   }
   else if sceneProgress=3
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=4 and bWaitForInput=false
@@ -254,7 +254,7 @@ else if global.gameProgress=1170 and room=rBelmont3_1B //----- [Unskippable] Ene
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=30
       {
         delaySpawn(1200,304,oCV_BonePillar,2,1,1,0.33)
@@ -330,7 +330,7 @@ else if global.gameProgress=1200 and room=rBelmont3_2B //----- [2] After grabbin
 {
   if sceneProgress=0 and !instance_exists(oStoryObject)
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=2
     {
@@ -344,7 +344,7 @@ else if global.gameProgress=1200 and room=rBelmont3_2B //----- [2] After grabbin
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=60 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=2 and bWaitForInput=false
@@ -403,7 +403,7 @@ else if global.gameProgress=1220 and room=rBelmont3_2D //----- [3] Meet Death - 
 {
   if sceneProgress=0 and oPlayer1.x>=2704
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       with oCV_MedusaHead {instance_destroy()}
@@ -421,7 +421,7 @@ else if global.gameProgress=1220 and room=rBelmont3_2D //----- [3] Meet Death - 
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=60 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=2 and bWaitForInput=false
@@ -430,7 +430,7 @@ else if global.gameProgress=1220 and room=rBelmont3_2D //----- [3] Meet Death - 
     msgCreate(0,0,"Claire","Who's there?",0,3,oMessageCutscene,1)
   else if sceneProgress=4
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=20
     {
       var tFlash;
@@ -449,7 +449,7 @@ else if global.gameProgress=1220 and room=rBelmont3_2D //----- [3] Meet Death - 
     msgCreate(0,0,"?????","That you should...",8,3,oMessageCutscene,1)
   else if sceneProgress=7
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=11 and sceneDelay<=61
     {
       tColor+=5
@@ -497,7 +497,7 @@ else if global.gameProgress=1220 and room=rBelmont3_2D //----- [3] Meet Death - 
     msgCreate(0,0,"Death","I will not be your opponent today. No, I have something else in store for you. Your fate lies ahead. Enjoy your last moments.",8,3,oMessageCutscene,1)
   else if sceneProgress=27
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=11 and sceneDelay<=30
     {
       if tColor>0 {tColor-=15}
@@ -529,7 +529,7 @@ else if global.gameProgress=1240 and room=rBelmont3_3A //----- [4] The inner cas
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
@@ -548,7 +548,7 @@ else if global.gameProgress=1250 and room=rBelmont3_3B //----- [5] After grabbin
 {
   if sceneProgress=0 and !instance_exists(oStoryObject)
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=2
     {
@@ -562,7 +562,7 @@ else if global.gameProgress=1250 and room=rBelmont3_3B //----- [5] After grabbin
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=60 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=2 and bWaitForInput=false
@@ -597,7 +597,7 @@ else if global.gameProgress=1280 and room=rBelmont3_3F //----- [6] Boss Fight: D
   {
     if sceneProgress=0 and oPlayer1.x>=256
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {global.gamePaused=true}
       oPlayer1.y+=4
       if oPlayer1.y>=288
@@ -610,7 +610,7 @@ else if global.gameProgress=1280 and room=rBelmont3_3F //----- [6] Boss Fight: D
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=2 and bWaitForInput=false
@@ -680,7 +680,7 @@ else if global.gameProgress=1280 and room=rBelmont3_3F //----- [6] Boss Fight: D
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         endBoss()
@@ -695,7 +695,7 @@ else if global.gameProgress=1280 and room=rBelmont3_3F //----- [6] Boss Fight: D
     }
     else if sceneProgress=3
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=25 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=4 and bWaitForInput=false
@@ -718,7 +718,7 @@ else if global.gameProgress=1280 and room=rBelmont3_3F //----- [6] Boss Fight: D
       msgCreate(0,0,"Claire","Well then, what the hell?",0,3,oMessageCutscene,1)
     else if sceneProgress=13
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10
       {
         npcDeath=instance_create(432,208,oMisc)
@@ -739,7 +739,7 @@ else if global.gameProgress=1280 and room=rBelmont3_3F //----- [6] Boss Fight: D
       msgCreate(0,0,"Death","I am far too busy...#If you want the Chip, come to my castle, but I doubt you will make it to me.",8,3,oMessageCutscene,1)
     else if sceneProgress=17
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=11 and sceneDelay<=30
       {
         npcDeath.image_xscale+=0.05; npcDeath.image_yscale+=0.05
@@ -777,7 +777,7 @@ else if global.gameProgress=1300 and room=rBelmont3_4A //----- [7] Oh great, the
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
@@ -834,7 +834,7 @@ else if room=rBelmont3_4E //----- [Unskippable] Enemy Trap -----
       }
       else if sceneProgress=1
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay=10
         {
           delaySpawn(1600,288,oCV_SwordKnight,2,1,1,0.33)
@@ -847,7 +847,7 @@ else if room=rBelmont3_4E //----- [Unskippable] Enemy Trap -----
       }
       else if sceneProgress=3
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay=10
         {
           delaySpawn(1408,288,oCV_SwordKnight,2,1,1,0.33)
@@ -947,7 +947,7 @@ else if room=rBelmont3_4I //----- [Unskippable] Enemy Trap -----
       }
       else if sceneProgress=1
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay=10
         {
           delaySpawn(576,288,oCV_SwordKnight,2,1,1,0.33)
@@ -960,7 +960,7 @@ else if room=rBelmont3_4I //----- [Unskippable] Enemy Trap -----
       }
       else if sceneProgress=3
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay=10
         {
           delaySpawn(416,288,oCV_SwordKnight,2,1,1,0.33)
@@ -973,7 +973,7 @@ else if room=rBelmont3_4I //----- [Unskippable] Enemy Trap -----
       }
       else if sceneProgress=5
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay=10
         {
           delaySpawn(416,288,oCV_AxeKnight,2,1,1,0.33)
@@ -1003,7 +1003,7 @@ else if global.gameProgress=1330 and room=rBelmont3_5A //----- [8] Continue on -
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
@@ -1057,7 +1057,7 @@ else if global.gameProgress=1360 and room=rBelmont3_4H //----- [] Break barrier 
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=30
     {
       sceneDelay=0; sceneProgress=0
@@ -1072,7 +1072,7 @@ else if global.gameProgress=1370 and room=rBelmont3_4H //----- [9] After grabbin
 {
   if sceneProgress=0 and !instance_exists(oStoryObject)
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=2
     {
@@ -1088,7 +1088,7 @@ else if global.gameProgress=1370 and room=rBelmont3_4H //----- [9] After grabbin
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=60 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=2 and bWaitForInput=false
@@ -1179,7 +1179,7 @@ else if global.gameProgress=1410 and room=rBelmont3_6A //----- [10] Death's Sky 
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
@@ -1228,7 +1228,7 @@ else if global.gameProgress=1430 and room=rBelmont3_6C //----- [] Boss Fight: Me
       }
       else if sceneProgress=1
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay>=1 and sceneDelay<=50 {fadeAlpha+=0.02}
         else if sceneDelay=90 {boss=instance_create(848,200,oMenaceMain)}
         else if sceneDelay=91
@@ -1288,7 +1288,7 @@ else if global.gameProgress=1430 and room=rBelmont3_6C //----- [] Boss Fight: Me
   {
     if sceneProgress=0
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=31 and sceneDelay<=130
         backFol.image_alpha-=0.01
       else if sceneDelay>=150
@@ -1401,7 +1401,7 @@ else if room=rBelmont3_6G //----- [] Break barrier door -----
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=30
       {
         sceneDelay=0; sceneProgress=0
@@ -1464,7 +1464,7 @@ else if global.gameProgress=1470 and room=rBelmont3_7A //----- [11] The final st
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
@@ -1495,7 +1495,7 @@ else if room=rBelmont3_7D //----- [] Hit switch / Enemy trap event -----
   {
     if sceneProgress=0
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         var enemyCounter,enemyBarrier;
@@ -1541,7 +1541,7 @@ else if global.gameProgress=1500 and room=rBelmont3_7F //----- [Unskippable] Ene
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=30
       {
         delaySpawn(448,176,oCV_PeepingEye,2,1,1,0.33)
@@ -1572,7 +1572,7 @@ else if global.gameProgress=1510 and room=rBelmont3_7G //----- [12] Boss Fight: 
   {
     if sceneProgress=0 and oPlayer1.x>=224
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {global.gamePaused=true}
       oPlayer1.y+=4
       if oPlayer1.y>=304
@@ -1586,7 +1586,7 @@ else if global.gameProgress=1510 and room=rBelmont3_7G //----- [12] Boss Fight: 
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         npcDeath=instance_create(352,240,oMisc)
@@ -1613,7 +1613,7 @@ else if global.gameProgress=1510 and room=rBelmont3_7G //----- [12] Boss Fight: 
       msgCreate(0,0,"Death","So be it.",8,3,oMessageCutscene,1)
     else if sceneProgress=8
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10
       {
         npcDeath.sprite_index=sDeathTransform
@@ -1713,7 +1713,7 @@ else if global.gameProgress=1510 and room=rBelmont3_7G //----- [12] Boss Fight: 
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         endBoss()
@@ -1728,12 +1728,12 @@ else if global.gameProgress=1510 and room=rBelmont3_7G //----- [12] Boss Fight: 
     }
     else if sceneProgress=3
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=25 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=4
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=20
       {
         pChip=instance_create(304,134,oProgramChip)
@@ -1750,7 +1750,7 @@ else if global.gameProgress=1510 and room=rBelmont3_7G //----- [12] Boss Fight: 
     }
     else if sceneProgress=5
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=21 and sceneDelay<=100
         pChip.y+=1
       else if sceneDelay=130

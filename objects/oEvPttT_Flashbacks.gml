@@ -32,7 +32,7 @@ if global.gamePaused=0
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=1 and sceneDelay<=25 {oScreenText.image_alpha+=0.04}
       else if sceneDelay=90
       {
@@ -44,7 +44,7 @@ if global.gamePaused=0
     }
     else if sceneProgress=2
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         msgCreate(0,0,"Jeremy","Wait what? What am I supposed to remember?",0,1,oMessagePerson,0)
@@ -63,7 +63,7 @@ if global.gamePaused=0
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=1 and sceneDelay<=50 {pastMessageAlpha+=0.01}
       else if sceneDelay>=201 and sceneDelay<=250 {pastMessageAlpha-=0.01}
       else if sceneDelay>=260
@@ -74,7 +74,7 @@ if global.gamePaused=0
     }
     else if sceneProgress=2
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=1 and sceneDelay<=50 {pastMessageAlpha+=0.01}
       else if sceneDelay>=201 and sceneDelay<=250 {pastMessageAlpha-=0.01}
       else if sceneDelay>=260
@@ -85,7 +85,7 @@ if global.gamePaused=0
     }
     else if sceneProgress=3
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=1 and sceneDelay<=50 {pastMessageAlpha+=0.01}
       else if sceneDelay>=201 and sceneDelay<=250 {pastMessageAlpha-=0.01}
       else if sceneDelay>=260
@@ -105,7 +105,7 @@ if global.gamePaused=0
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         msgCreate(0,0,"Chao","Jeremy, can you really do what that, uh... flashback was saying?",0,1,oMessagePerson,0)
@@ -115,7 +115,7 @@ if global.gamePaused=0
     }
     else if sceneProgress=2
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         msgCreate(0,0,"Jeremy","I had forgotten I could even do that, though the problem now is I don't know how to do that.",0,2,oMessagePerson,0)
@@ -125,7 +125,7 @@ if global.gamePaused=0
     }
     else if sceneProgress=3
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         msgCreate(0,0,"Chao","It would probably be useful sometime if we figure it out.",0,1,oMessagePerson,0)
@@ -135,7 +135,7 @@ if global.gamePaused=0
     }
     else if sceneProgress=4
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         msgCreate(0,0,"Jeremy","Considering we don't know what Hex has planned, definitely. Though I worry what such an action would do.",0,2,oMessagePerson,0)
@@ -145,7 +145,7 @@ if global.gamePaused=0
     }
     else if sceneProgress=5
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         msgCreate(0,0,"Chao","What do you mean?",0,1,oMessagePerson,0)
@@ -155,7 +155,7 @@ if global.gamePaused=0
     }
     else if sceneProgress=6
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         msgCreate(0,0,"Jeremy","How far back would an 'undo' send everything? Would that destabilize the program? Would we lose our memories? I have so many questions about what a function like that would do here.",0,3,oMessagePerson,0)
@@ -165,7 +165,7 @@ if global.gamePaused=0
     }
     else if sceneProgress=7
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         if global.gamePttT_Prog>=80
@@ -194,7 +194,7 @@ if global.gamePaused=0
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=1 and sceneDelay<=25 {oScreenText.image_alpha+=0.04}
       else if sceneDelay=90
       {
@@ -206,7 +206,7 @@ if global.gamePaused=0
     }
     else if sceneProgress=2
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         msgCreate(0,0,"Jeremy","But what needs to be undone? This is so unclear. What did we mess up?",0,1,oMessagePerson,0)
@@ -225,7 +225,7 @@ if global.gamePaused=0
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         msgCreate(0,0,"Jerry","What did we accomplish down here?",0,1,oMessagePerson,0)
@@ -235,7 +235,7 @@ if global.gamePaused=0
     }
     else if sceneProgress=2
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         msgCreate(0,0,"Jeremy","We got rid of the parasite that took control of the Abomination.",0,2,oMessagePerson,0)
@@ -245,7 +245,7 @@ if global.gamePaused=0
     }
     else if sceneProgress=3
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         msgCreate(0,0,"Jerry","Did we need to? And what was up with all that flashback stuff?",0,2,oMessagePerson,0)
@@ -255,7 +255,7 @@ if global.gamePaused=0
     }
     else if sceneProgress=4
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         msgCreate(0,0,"Chao","Something was warning us. It was telling us we need to do something.",0,2,oMessagePerson,0)
@@ -265,7 +265,7 @@ if global.gamePaused=0
     }
     else if sceneProgress=5
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         msgCreate(0,0,"Jeremy","It was telling me how I can undo something, but I'm still not sure how.",0,2,oMessagePerson,0)
@@ -275,7 +275,7 @@ if global.gamePaused=0
     }
     else if sceneProgress=6
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         msgCreate(0,0,"Chao","If we need to, we can look through the rooms and review any of that. ANYTHING in here could be a clue on what we need to do. Those words appearing, headers, everything.",0,3,oMessagePerson,0)
@@ -285,7 +285,7 @@ if global.gamePaused=0
     }
     else if sceneProgress=7
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         msgCreate(0,0,"Jerry","This is an annoying sounding puzzle.",0,1,oMessagePerson,0)
@@ -295,7 +295,7 @@ if global.gamePaused=0
     }
     else if sceneProgress=8
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         msgCreate(0,0,"Chao","Just note that all the clues are in this cave.",0,1,oMessagePerson,0)

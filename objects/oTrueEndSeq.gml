@@ -63,7 +63,7 @@ if room=rTrueEnd_A //------------------------------ [] End A -------------------
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=30
     {
       fadeAlpha-=0.05
@@ -72,7 +72,7 @@ if room=rTrueEnd_A //------------------------------ [] End A -------------------
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=90
     {
       global.gameProgress=5650
@@ -92,7 +92,7 @@ if room=rTrueEnd_A //------------------------------ [] End A -------------------
   }
   else if sceneProgress=2
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=10
     {
       playSound(global.snd_LightballSpread,0,0.95,13000)
@@ -140,7 +140,7 @@ if room=rTrueEnd_A //------------------------------ [] End A -------------------
   }
   else if sceneProgress=3
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=35 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=4 and bWaitForInput=false
@@ -151,7 +151,7 @@ if room=rTrueEnd_A //------------------------------ [] End A -------------------
     msgCreate(0,0,"Jerry","Nope, I got it. I don't want a ten message box explanation.",0,3,oMessageCutscene,1)
   else if sceneProgress=7
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=35 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=8 and bWaitForInput=false
@@ -182,7 +182,7 @@ if room=rTrueEnd_A //------------------------------ [] End A -------------------
     msgCreate(0,0,"Jeremy","Alright, fair enough.",0,3,oMessageCutscene,1)
   else if sceneProgress=21
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=30
     {
       fadeAlpha+=0.02
@@ -191,7 +191,7 @@ if room=rTrueEnd_A //------------------------------ [] End A -------------------
   }
   else if sceneProgress=22
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=10
     {
       global.newMapX=0; global.newMapY=0
@@ -203,7 +203,7 @@ else if room=rTrueEnd_B //------------------------------ [] End B --------------
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=30
     {
       view_object[0]=noone
@@ -250,7 +250,7 @@ else if room=rTrueEnd_B //------------------------------ [] End B --------------
       }
     }
 
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=20
     {
       if scrollView=1 {view_xview[0]+=1}
@@ -271,7 +271,7 @@ else if room=rTrueEnd_B //------------------------------ [] End B --------------
   }
   else if sceneProgress=2
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=10 and sceneDelay<=99
     {
       fadeAlpha+=0.05
@@ -319,7 +319,7 @@ else if room=rTrueEnd_B //------------------------------ [] End B --------------
       }
     }
 
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=20
     {
       if sceneDelay=30
@@ -367,7 +367,7 @@ else if room=rTrueEnd_B //------------------------------ [] End B --------------
   }
   else if sceneProgress=4
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=10 and sceneDelay<=99
     {
       fadeAlpha+=0.05
@@ -402,7 +402,7 @@ else if room=rTrueEnd_B //------------------------------ [] End B --------------
       }
     }
 
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=20
     {
       if scrollView=1 {view_xview[0]+=1}
@@ -416,7 +416,7 @@ else if room=rTrueEnd_B //------------------------------ [] End B --------------
   }
   else if sceneProgress=6
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=10 and sceneDelay<=99
     {
       fadeAlpha+=0.05
@@ -440,7 +440,7 @@ else if room=rTrueEnd_B //------------------------------ [] End B --------------
   }
   else if sceneProgress=7 //----- SCENE 4 -----
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=20
     {
       if sceneDelay=50
@@ -468,7 +468,7 @@ else if room=rTrueEnd_B //------------------------------ [] End B --------------
   }
   else if sceneProgress=8
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=10 and sceneDelay<=99
     {
       fadeAlpha+=0.05
@@ -514,7 +514,7 @@ else if room=rTrueEnd_B //------------------------------ [] End B --------------
       }
     }
 
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=20
     {
       if scrollView=1 {view_xview[0]+=1}
@@ -528,7 +528,7 @@ else if room=rTrueEnd_B //------------------------------ [] End B --------------
   }
   else if sceneProgress=10
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       musVolC=global.optMusic*100
@@ -550,7 +550,7 @@ else if room=rTrueEnd_B //------------------------------ [] End B --------------
   }
   else if sceneProgress=11
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=10
     {
       room_goto(rTrueEnd_C)
@@ -563,7 +563,7 @@ else if room=rTrueEnd_C //------------------------------ [] End C --------------
   {
     if sceneProgress=0
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=30
       {
         fadeAlpha-=0.05
@@ -572,7 +572,7 @@ else if room=rTrueEnd_C //------------------------------ [] End C --------------
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=45 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=2 and bWaitForInput=false
@@ -585,21 +585,21 @@ else if room=rTrueEnd_C //------------------------------ [] End C --------------
       msgCreate(0,0,"Claire","Okay then... here it goes...",0,3,oMessageCutscene,1)
     else if sceneProgress=6
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=7 and bWaitForInput=false
       msgCreate(0,0,"Claire","The moment you've been waiting for, the thought I had in the prior scene.",0,3,oMessageCutscene,1)
     else if sceneProgress=8
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=9 and bWaitForInput=false
       msgCreate(0,0,"Claire","It's about...",0,3,oMessageCutscene,1)
     else if sceneProgress=10
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         global.gameCompleted=2
@@ -624,7 +624,7 @@ else if room=rTrueEnd_C //------------------------------ [] End C --------------
   {
     if sceneProgress=0
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=30
       {
         fadeAlpha-=0.05
@@ -633,7 +633,7 @@ else if room=rTrueEnd_C //------------------------------ [] End C --------------
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=45 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=2 and bWaitForInput=false
@@ -662,7 +662,7 @@ else if room=rTrueEnd_C //------------------------------ [] End C --------------
       msgCreate(0,0,"Claire","I see some Morph Ball only places and you know what that means.",0,3,oMessageCutscene,1)
     else if sceneProgress=14
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         msgCreate(60,80,"Jerry","More trashy split mechanic traps.",0,1,oMessagePerson,0)
@@ -696,7 +696,7 @@ else if room=rTrueEnd_C //------------------------------ [] End C --------------
       msgCreate(0,0,"Claire","In your words. Yeah, I'm awesome like that.",0,3,oMessageCutscene,1)
     else if sceneProgress=26
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=40 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=27 and bWaitForInput=false
@@ -722,7 +722,7 @@ else if room=rTrueEnd_C //------------------------------ [] End C --------------
     {
       if sceneDelay>=20 {fadeAlpha+=0.02}
 
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         msgCreate(60,80,"Jerry","Exploring these places is kinda like a date!",0,1,oMessagePerson,0)
@@ -737,7 +737,7 @@ else if room=rTrueEnd_C //------------------------------ [] End C --------------
     }
     else if sceneProgress=33
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         global.gameCompleted=2
@@ -758,7 +758,7 @@ else if room=rTrueEnd_C //------------------------------ [] End C --------------
     }
     else if sceneProgress=34
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=210 {pressAnyAlpha=1}
 
       var tButtonCheck;

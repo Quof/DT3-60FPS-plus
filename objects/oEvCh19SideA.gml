@@ -82,7 +82,7 @@ if global.gamePaused=false
         msgCreate(0,0,"Jeremy","Careful, those Mario Maces deal double damage in this place. In literal data form, they deal 12 damage instead of 6.",0,2,oMessagePerson,0)
         newMessage.fadingTime=150; charDialogue[0]+=1
       }
-      else if charDialogue[0]=1 {convo[0]+=1;if convo[0]>=150 {charDialogue[0]+=1; convo[0]=0}}
+      else if charDialogue[0]=1 {convo[0]+=1*gDeltaTime;if convo[0]>=150 {charDialogue[0]+=1; convo[0]=0}}
       else if charDialogue[0]=2
       {
         msgCreate(0,0,"Jerry","Thank you, Jeremy, for that enlightening second bit.",0,1,oMessagePerson,0)
@@ -108,19 +108,19 @@ if global.gamePaused=false
         msgCreate(0,0,"Jeremy","Stand next, or on I guess, to that pillar... Someone goofed on that perspective.",0,2,oMessagePerson,0)
         newMessage.fadingTime=120; charDialogue[0]+=1
       }
-      else if charDialogue[0]=1 {convo[0]+=1;if convo[0]>=120 {charDialogue[0]+=1; convo[0]=0}}
+      else if charDialogue[0]=1 {convo[0]+=1*gDeltaTime;if convo[0]>=120 {charDialogue[0]+=1; convo[0]=0}}
       if charDialogue[0]=2 and oPlayer1.x>=2272
       {
         msgCreate(0,0,"Claire","You said CHAOS was here, but nothing is around... at all.",0,1,oMessagePerson,0)
         newMessage.fadingTime=90; charDialogue[0]+=1
       }
-      else if charDialogue[0]=3 {convo[0]+=1;if convo[0]>=90 {charDialogue[0]+=1; convo[0]=0}}
+      else if charDialogue[0]=3 {convo[0]+=1*gDeltaTime;if convo[0]>=90 {charDialogue[0]+=1; convo[0]=0}}
       else if charDialogue[0]=4
       {
         msgCreate(0,0,"Jeremy","I detected them around, they're here, we just can't see them.",0,1,oMessagePerson,0)
         newMessage.fadingTime=95; charDialogue[0]+=1
       }
-      else if charDialogue[0]=5 {convo[0]+=1;if convo[0]>=95 {charDialogue[0]+=1; convo[0]=0}}
+      else if charDialogue[0]=5 {convo[0]+=1*gDeltaTime;if convo[0]>=95 {charDialogue[0]+=1; convo[0]=0}}
     }
   }
   else if room=rHiddenVillage_Destroyed //Careful before going in

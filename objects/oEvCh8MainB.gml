@@ -48,7 +48,7 @@ if room=rMega4_SigmaA1 and global.gameProgress=1850 and global.tempAction[0]=0 /
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       global.gamePaused=true
@@ -116,7 +116,7 @@ else if global.gameProgress=1870 and room=rMega4_SigmaA2 //----- [Unskippable] E
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=30
       {
         createEnemy(944,128,oSineFaller,2,0,1)
@@ -167,7 +167,7 @@ else if global.gameProgress=1880 and room=rMega4_SigmaA4 //----- [Unskippable] E
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=30
       {
         createEnemy(2960,128,oSineFaller,2,0,1)
@@ -211,7 +211,7 @@ else if global.gameProgress=1890 and room=rMega4_SigmaA5 //----- [Unskippable] B
   {
     if sceneProgress=0
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         global.gamePaused=true
@@ -227,7 +227,7 @@ else if global.gameProgress=1890 and room=rMega4_SigmaA5 //----- [Unskippable] B
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10
       {
         tempMplay=findMusic(402)
@@ -245,13 +245,13 @@ else if global.gameProgress=1890 and room=rMega4_SigmaA5 //----- [Unskippable] B
     }
     else if sceneProgress=2
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=20 and sceneDelay<=45 {boss.legFrm+=0.33}
       if sceneDelay>=70 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=3
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=30
       {
         showBossHP=instance_create(0,0,oBossLifeDisplay)
@@ -308,7 +308,7 @@ else if global.gameProgress=1890 and room=rMega4_SigmaA5 //----- [Unskippable] B
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         endBoss()
@@ -323,7 +323,7 @@ else if global.gameProgress=1890 and room=rMega4_SigmaA5 //----- [Unskippable] B
     }
     else if sceneProgress=3
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=25 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=4 and bWaitForInput=false
@@ -332,7 +332,7 @@ else if global.gameProgress=1890 and room=rMega4_SigmaA5 //----- [Unskippable] B
       msgCreate(0,0,"Jerry","Awesome, this place was ridiculous.",0,3,oMessageCutscene,1)
     else if sceneProgress=6
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=30
       {
         var tempMplay;
@@ -361,7 +361,7 @@ else if global.gameProgress=1890 and room=rMega4_SigmaA5 //----- [Unskippable] B
     }
     else if sceneProgress=7
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=8
@@ -392,7 +392,7 @@ else if global.gameProgress=1900 and room=rMega4_SigmaB2 //----- [Unskippable] E
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=30
       {
         delaySpawn(1120,288,oHammaHammaMain,2,1,1,0.33)
@@ -427,7 +427,7 @@ else if room=rMega4_SigmaB3 and global.gameProgress=1910 //----- [Unskippable] B
   {
     if sceneProgress=0 and oPlayer1.x>=128
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {global.gamePaused=true}
       oPlayer1.y+=4
       if oPlayer1.y>=288
@@ -439,7 +439,7 @@ else if room=rMega4_SigmaB3 and global.gameProgress=1910 //----- [Unskippable] B
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=25
       {
         stopAllMusic()
@@ -464,7 +464,7 @@ else if room=rMega4_SigmaB3 and global.gameProgress=1910 //----- [Unskippable] B
     }
     else if sceneProgress=2
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=3 and bWaitForInput=false
@@ -479,7 +479,7 @@ else if room=rMega4_SigmaB3 and global.gameProgress=1910 //----- [Unskippable] B
       msgCreate(0,0,"Jeremy","What?",0,3,oMessageCutscene,1)
     else if sceneProgress=8
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {flashAmt=0}
       else if sceneDelay=15 {boss.image_index=1}
       else if sceneDelay=19 {boss.image_index=2}
@@ -515,7 +515,7 @@ else if room=rMega4_SigmaB3 and global.gameProgress=1910 //----- [Unskippable] B
       msgCreate(0,0,"Jerry","Unless you've been modified, you're really easy... no offense.",0,3,oMessageCutscene,1)
     else if sceneProgress=16
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=30
       {
         showBossHP=instance_create(0,0,oBossLifeDisplay)
@@ -584,7 +584,7 @@ else if room=rMega4_SigmaB4 and global.gameProgress=1920 //----- [2] Is Jeremy r
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       global.gamePaused=true
@@ -620,7 +620,7 @@ else if room=rMega4_SigmaB5 and global.gameProgress=1930 //----- [Unskippable] B
   {
     if sceneProgress=0 and oPlayer1.x>=128
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {global.gamePaused=true}
       oPlayer1.y+=4
       if oPlayer1.y>=288
@@ -632,7 +632,7 @@ else if room=rMega4_SigmaB5 and global.gameProgress=1930 //----- [Unskippable] B
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=25
       {
         stopAllMusic()
@@ -657,7 +657,7 @@ else if room=rMega4_SigmaB5 and global.gameProgress=1930 //----- [Unskippable] B
     }
     else if sceneProgress=2
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=3 and bWaitForInput=false
@@ -668,7 +668,7 @@ else if room=rMega4_SigmaB5 and global.gameProgress=1930 //----- [Unskippable] B
       msgCreate(0,0,"Jerry","BUT YOU'RE EVEN EASIER THAN HE WAS!",0,3,oMessageCutscene,1)
     else if sceneProgress=6
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=30
       {
         showBossHP=instance_create(0,0,oBossLifeDisplay)
@@ -738,7 +738,7 @@ else if global.gameProgress=1940 and room=rMega4_SigmaB8 //----- [Unskippable] B
   {
     if sceneProgress=0 and oPlayer1.x>=240
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {global.gamePaused=true}
       oPlayer1.y+=4
       if oPlayer1.y>=288
@@ -750,7 +750,7 @@ else if global.gameProgress=1940 and room=rMega4_SigmaB8 //----- [Unskippable] B
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         tempMplay=findMusic(402)
@@ -791,7 +791,7 @@ else if global.gameProgress=1940 and room=rMega4_SigmaB8 //----- [Unskippable] B
     }
     else if sceneProgress=2
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=3 and bWaitForInput=false
@@ -809,7 +809,7 @@ else if global.gameProgress=1940 and room=rMega4_SigmaB8 //----- [Unskippable] B
       msgCreate(0,0,"Bit","We shall see.",8,3,oMessageCutscene,1)
     else if sceneProgress=8
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=30
       {
         showBossHPA=instance_create(0,0,oBossLifeDisplay)
@@ -868,7 +868,7 @@ else if global.gameProgress=1940 and room=rMega4_SigmaB8 //----- [Unskippable] B
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         endBoss()
@@ -883,7 +883,7 @@ else if global.gameProgress=1940 and room=rMega4_SigmaB8 //----- [Unskippable] B
     }
     else if sceneProgress=3
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=25 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=4 and bWaitForInput=false
@@ -896,7 +896,7 @@ else if global.gameProgress=1940 and room=rMega4_SigmaB8 //----- [Unskippable] B
       msgCreate(0,0,"Chao","I've been assisting him with that. I'll send you back to the map and set up a drop point for the top floor.",0,3,oMessageCutscene,1)
     else if sceneProgress=8
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=30
       {
         var tempMplay;
@@ -925,7 +925,7 @@ else if global.gameProgress=1940 and room=rMega4_SigmaB8 //----- [Unskippable] B
     }
     else if sceneProgress=9
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=10
@@ -942,7 +942,7 @@ if room=rMega4_SigmaC1 and global.gameProgress=1950 and global.tempAction[0]=0 /
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       global.gamePaused=true
@@ -990,7 +990,7 @@ else if global.gameProgress=1960 and room=rMega4_SigmaC3 //----- [Unskippable] E
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=5
       {
         delaySpawn(240,896,oMegaTortoise,2,1,1,0.33)
@@ -1046,7 +1046,7 @@ else if global.gameProgress=1970 and room=rMega4_SigmaC4 //----- [Unskippable] E
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=5
       {
         var tNewEnemy;
@@ -1094,7 +1094,7 @@ else if global.gameProgress=1980 and room=rMega4_SigmaC5 //----- [Unskippable] B
   {
     if sceneProgress=0
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         global.gamePaused=true
@@ -1110,7 +1110,7 @@ else if global.gameProgress=1980 and room=rMega4_SigmaC5 //----- [Unskippable] B
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=2 and bWaitForInput=false
@@ -1161,7 +1161,7 @@ else if global.gameProgress=1980 and room=rMega4_SigmaC5 //----- [Unskippable] B
     }
     else if sceneProgress=22
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=30
       {
         showBossHP=instance_create(0,0,oBossLifeDisplay)
@@ -1206,7 +1206,7 @@ else if global.gameProgress=1980 and room=rMega4_SigmaC5 //----- [Unskippable] B
   {
     if sceneProgress=0
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         endBoss()
@@ -1223,7 +1223,7 @@ else if global.gameProgress=1980 and room=rMega4_SigmaC5 //----- [Unskippable] B
     }
     else if sceneProgress=2
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=21 and sceneDelay<=40 {boss.sigParts[2].image_angle+=1}
       if sceneDelay>=60
       {
@@ -1250,7 +1250,7 @@ else if global.gameProgress=1980 and room=rMega4_SigmaC5 //----- [Unskippable] B
       msgCreate(0,0,"Jerry","I know, but he can't reply.",0,3,oMessageCutscene,1)
     else if sceneProgress=9
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=15
       {
         playSound(global.snd_HealthPickup,0,1,1)
@@ -1298,7 +1298,7 @@ else if global.gameProgress=1980 and room=rMega4_SigmaC5 //----- [Unskippable] B
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         endBoss()
@@ -1313,7 +1313,7 @@ else if global.gameProgress=1980 and room=rMega4_SigmaC5 //----- [Unskippable] B
     }
     else if sceneProgress=3
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=25 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=4 and bWaitForInput=false
@@ -1395,7 +1395,7 @@ else if global.gameProgress=1980 and room=rMega4_SigmaC5 //----- [Unskippable] B
       msgCreate(0,0,"Jerry","The Program Chip dude, where is it?",0,3,oMessageCutscene,1)
     else if sceneProgress=41
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=20
       {
         pChip=instance_create(176,182,oProgramChip)
@@ -1412,7 +1412,7 @@ else if global.gameProgress=1980 and room=rMega4_SigmaC5 //----- [Unskippable] B
     }
     else if sceneProgress=42
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=21 and sceneDelay<=100 {pChip.y+=1}
       else if sceneDelay=130
       {

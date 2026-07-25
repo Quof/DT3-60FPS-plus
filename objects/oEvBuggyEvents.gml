@@ -26,7 +26,7 @@ if sceneProgress=0 //Start viewport rotate
 else if sceneProgress=1 //Viewport rotation
 {
   view_angle[0]+=0.5
-  sceneDelay+=1
+  sceneDelay+=1*gDeltaTime
   if sceneDelay>=100
   {
     var tempMplay;
@@ -95,7 +95,7 @@ else if sceneProgress=4 //Teleport player to dead end
 }
 else if sceneProgress=5 //wtf?
 {
-  sceneDelay+=1
+  sceneDelay+=1*gDeltaTime
   if sceneDelay=45
   {
     if global.activeCharacter=0
@@ -123,15 +123,15 @@ else if sceneProgress=7 //Viewport instant rotate
 {
   if sceneDelay=0
   {
-    if oPlayer1.x>=1728 {view_angle[0]=90; sceneDelay+=1}
+    if oPlayer1.x>=1728 {view_angle[0]=90; sceneDelay+=1*gDeltaTime}
   }
   else if sceneDelay=1
   {
-    if oPlayer1.x>=2112 {view_angle[0]=180; sceneDelay+=1}
+    if oPlayer1.x>=2112 {view_angle[0]=180; sceneDelay+=1*gDeltaTime}
   }
   else if sceneDelay=2
   {
-    if oPlayer1.x>=2432 {view_angle[0]=270; sceneDelay+=1}
+    if oPlayer1.x>=2432 {view_angle[0]=270; sceneDelay+=1*gDeltaTime}
   }
   else if sceneDelay=3
   {

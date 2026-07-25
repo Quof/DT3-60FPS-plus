@@ -73,7 +73,7 @@ if global.gamePaused=false
   {
     if sceneProgress=0 //25 seconds
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=60
       {
         instance_create(spawnX,spawnY2,oC_Spinner)
@@ -100,7 +100,7 @@ if global.gamePaused=false
     }
     else if sceneProgress=1 //27 seconds
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {oHUD.shooterLevel="1-2"}
       if sceneDelay=60
       {
@@ -131,7 +131,7 @@ if global.gamePaused=false
     }
     else if sceneProgress=2 //22 seconds
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {oHUD.shooterLevel="1-3"}
       if sceneDelay=40 {var tAst; tAst=instance_create(asteroidX,asteroidY1,oDragAsteroid); tAst.bulletSpeed=1; tAst.direction=180}
       else if sceneDelay=80 {instance_create(spawnX,spawnY6,oC_SpikeRotater)}
@@ -148,7 +148,7 @@ if global.gamePaused=false
     }
     else if sceneProgress=3 //27 seconds
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {oHUD.shooterLevel="1-4"}
       if sceneDelay=40 {var tAst; tAst=instance_create(asteroidX,asteroidY2,oDragAsteroid); tAst.bulletSpeed=1; tAst.direction=180}
       else if sceneDelay=80
@@ -198,7 +198,7 @@ if global.gamePaused=false
     }
     else if sceneProgress=4 //30 seconds
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {oHUD.shooterLevel="1-5"}
       if sceneDelay=60 {var tAst; tAst=instance_create(asteroidX,asteroidY2,oDragAsteroid); tAst.bulletSpeed=4; tAst.direction=180}
       else if sceneDelay=120 {var tAst; tAst=instance_create(asteroidX,asteroidY1,oDragAsteroid); tAst.bulletSpeed=4; tAst.direction=180}
@@ -240,7 +240,7 @@ if global.gamePaused=false
     }
     else if sceneProgress=5 //Hex Worm Boss
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {oHUD.shooterLevel="1-X"}
       if sceneDelay=50
       {
@@ -259,7 +259,7 @@ if global.gamePaused=false
     }
     else if sceneProgress=6 //23 seconds
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {oHUD.shooterLevel="2-1"}
       if sceneDelay=50
       {
@@ -286,7 +286,7 @@ if global.gamePaused=false
     }
     else if sceneProgress=7 //25 seconds
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {oHUD.shooterLevel="2-2"}
       if sceneDelay=50 {var tAst; tAst=instance_create(asteroidX+112,asteroidY2,oDragAsteroid); tAst.bulletSpeed=4; tAst.direction=180; tAst.image_xscale=1.8; tAst.image_yscale=1.8}
       else if sceneDelay=100 {var tAst; tAst=instance_create(asteroidX,asteroidY1,oDragAsteroid); tAst.bulletSpeed=3; tAst.direction=180}
@@ -326,7 +326,7 @@ if global.gamePaused=false
     }
     else if sceneProgress=8 //23 seconds
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {oHUD.shooterLevel="2-3"}
       if sceneDelay=50 {instance_create(spawnX,spawnY3,oC_RocketTurtle)}
       else if sceneDelay=100 {instance_create(spawnX,spawnY4,oC_RoboChicken)}
@@ -368,7 +368,7 @@ if global.gamePaused=false
         }
       }
 
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {oHUD.shooterLevel="2-4"}
       if sceneDelay=60 {instance_create(spawnX,spawnY2,oC_Bloominator)}
       else if sceneDelay=260
@@ -399,7 +399,7 @@ if global.gamePaused=false
     }
     else if sceneProgress=10 //MkII Ver 3.14 Boss
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {oHUD.shooterLevel="2-X"}
       if sceneDelay=50
       {
@@ -419,7 +419,7 @@ if global.gamePaused=false
     }
     else if sceneProgress=11 //29 seconds
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {oHUD.shooterLevel="3-1"}
       if sceneDelay=50 {instance_create(spawnX,spawnY4,oC_DopeyBot)}
       else if sceneDelay=100 {instance_create(spawnX,spawnY2,oC_Bloominator)}
@@ -456,7 +456,7 @@ if global.gamePaused=false
     }
     else if sceneProgress=12 //25 seconds
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {oHUD.shooterLevel="3-2"}
       if sceneDelay=30 {instance_create(spawnX,spawnY4,oC_RoboChicken)}
       else if sceneDelay=60 {instance_create(spawnX,spawnY4,oC_Butterdroid)}
@@ -481,7 +481,7 @@ if global.gamePaused=false
     }
     else if sceneProgress=13 //28 seconds
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {oHUD.shooterLevel="3-3"}
       if sceneDelay=50 {var tAst; tAst=instance_create(asteroidX,asteroidY2,oDragAsteroid); tAst.bulletSpeed=2; tAst.direction=180}
       else if sceneDelay=70 {var tAst; tAst=instance_create(asteroidX,asteroidY1,oDragAsteroid); tAst.bulletSpeed=4; tAst.direction=200; tAst.image_xscale=0.75; tAst.image_yscale=0.75}
@@ -538,7 +538,7 @@ if global.gamePaused=false
     }
     else if sceneProgress=14 //Breakable asteroid sequence
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         backFollow.xScrollSpeed=0
@@ -561,7 +561,7 @@ if global.gamePaused=false
     }
     else if sceneProgress=15 //40 seconds
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         backFollow.xScrollSpeed=-3
@@ -635,7 +635,7 @@ if global.gamePaused=false
     }
     else if sceneProgress=16 //Boss
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         backFollow.xScrollSpeed=-1
@@ -660,7 +660,7 @@ if global.gamePaused=false
     }
     else if sceneProgress=17 //End
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=150 and sceneDelay<=800 //Lasers
       {
         if sceneDelay mod 13=0

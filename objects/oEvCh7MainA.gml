@@ -56,7 +56,7 @@ if global.gameProgress=1530 and room=rCCity_NA_S2 //----- [1] X went out west --
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       global.gamePaused=true
@@ -143,7 +143,7 @@ else if global.gameProgress=1550 and room=rMain_20 //----- [2] New places to go 
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
@@ -194,7 +194,7 @@ else if global.gameProgress=1570 and room=rMain_21 //----- [Unskippable] Enemy T
       }
       else if sceneProgress=1
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay>=1 and sceneDelay<=40
         {
           oScreenColorOverlay.image_alpha+=0.005
@@ -238,7 +238,7 @@ else if global.gameProgress=1570 and room=rMain_21 //----- [Unskippable] Enemy T
       }
       else if sceneProgress=2
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay>=30
         {
           skyBeamWidth-=1
@@ -248,7 +248,7 @@ else if global.gameProgress=1570 and room=rMain_21 //----- [Unskippable] Enemy T
       }
       else if sceneProgress=3
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay=20
           {msgCreate(0,0,"Blood Tyrant","Our master has ordered your removal from the system.#Swift execution of this task begins now!",5,2,oMessagePerson,0); newMessage.fadingTime=130}
         else if sceneDelay>=160
@@ -297,7 +297,7 @@ else if global.gameProgress=1580 and room=rMain_22 //----- [3] Locked data -----
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
@@ -330,7 +330,7 @@ else if global.gameProgress=1590 and room=rMountTemple_A //----- [4] X is here -
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
@@ -355,7 +355,7 @@ else if global.gameProgress=1610 and room=rMountTemple_C //----- [5] A Blood Tyr
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
@@ -457,7 +457,7 @@ else if global.gameProgress=1640 and room=rMountTemple_D //----- [6] Get Mermaid
 {
   if sceneProgress=0 and !instance_exists(oStoryObject)
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=2
     {
@@ -472,7 +472,7 @@ else if global.gameProgress=1640 and room=rMountTemple_D //----- [6] Get Mermaid
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=60 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=2 and bWaitForInput=false
@@ -497,7 +497,7 @@ else if global.gameProgress=1650 and room=rMountTemple_G //----- [7] X is close 
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
@@ -511,7 +511,7 @@ else if global.gameProgress=1650 and room=rMountTemple_G //----- [7] X is close 
     msgCreate(0,0,"Jerry","Oh man, couldn't we have just gone around?",0,3,oMessageCutscene,1)
   else if sceneProgress=5
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       msgCreate(0,0,"Jeremy","N...",0,3,oMessagePerson,0)
@@ -548,7 +548,7 @@ else if global.gameProgress=1660 and room=rMountTemple_G //----- [] Getting Play
   }
   else if sceneProgress=1 //Jerry trapped
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       msgCreate(0,0,"Jerry","So uh... yeah, what the hell Claire?",0,3,oMessagePerson,0)
@@ -582,7 +582,7 @@ else if global.gameProgress=1660 and room=rMountTemple_G //----- [] Getting Play
   }
   else if sceneProgress=2 //Claire trapped
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       msgCreate(0,0,"Claire","Oh come on, Jerry!",0,3,oMessagePerson,0)
@@ -616,7 +616,7 @@ else if global.gameProgress=1660 and room=rMountTemple_G //----- [] Getting Play
   }
   else if sceneProgress=3 //Jeremy fixing the problem
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       msgCreate(0,0,"Jeremy","Eh, I'll fix this.",0,3,oMessagePerson,0)
@@ -688,7 +688,7 @@ else if global.gameProgress=1680 and room=rMountTemple_I //----- [8] Boss Fight:
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         virusEntity=instance_create(oEnmity.x,oEnmity.y,oMisc)
@@ -700,7 +700,7 @@ else if global.gameProgress=1680 and room=rMountTemple_I //----- [8] Boss Fight:
     }
     else if sceneProgress=2
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       virusEntity.x=oEnmity.x+lengthdir_x(virDist,virDir)
       virusEntity.y=oEnmity.y+lengthdir_y(virDist,virDir)
       virDir+=2
@@ -755,7 +755,7 @@ else if global.gameProgress=1680 and room=rMountTemple_I //----- [8] Boss Fight:
     }
     else if sceneProgress=3
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         fadeInColor=100
@@ -798,7 +798,7 @@ else if global.gameProgress=1680 and room=rMountTemple_I //----- [8] Boss Fight:
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         endBoss()
@@ -813,7 +813,7 @@ else if global.gameProgress=1680 and room=rMountTemple_I //----- [8] Boss Fight:
     }
     else if sceneProgress=3
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=25 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=4 and bWaitForInput=false
@@ -869,7 +869,7 @@ else if global.gameProgress=1690 and room=rMountTemple_J //----- [9] Get Access 
 {
   if sceneProgress=0 and oPlayer1.x>=176
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     oPlayer1.y+=4
     if oPlayer1.y>=288
@@ -881,7 +881,7 @@ else if global.gameProgress=1690 and room=rMountTemple_J //----- [9] Get Access 
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=2 and bWaitForInput=false
@@ -896,7 +896,7 @@ else if global.gameProgress=1690 and room=rMountTemple_J //----- [9] Get Access 
     msgCreate(0,0,"Jeremy","Anyway, that device there is the access code we're looking for.",0,3,oMessageCutscene,1)
   else if sceneProgress=7
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=15 {npcMMX.image_xscale=-1}
     else if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
   }
@@ -956,7 +956,7 @@ else if global.gameProgress=1690 and room=rMountTemple_J //----- [9] Get Access 
     msgCreate(0,0,"X","...",6,3,oMessageCutscene,1)
   else if sceneProgress=35
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=5
     {
       playSound(global.snd_MMBeamUp,0,1,1)
@@ -994,7 +994,7 @@ else if global.gameProgress=1700 and room=rMain_21 //----- [10] New places to go
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
@@ -1029,7 +1029,7 @@ else if global.gameProgress=1710 and room=rMain_27 //----- [] Decoding west door
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=80
       {
         delaySpawn(96,704,oWB_BigBat,0,1,1,0.33)
@@ -1040,7 +1040,7 @@ else if global.gameProgress=1710 and room=rMain_27 //----- [] Decoding west door
     }
     else if sceneProgress=2
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=25
       {
         progressBar+=1
@@ -1090,7 +1090,7 @@ else if global.gameProgress=1720 and room=rMain_28 //----- [11] Virus & Twin Was
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=2 and bWaitForInput=false
@@ -1159,7 +1159,7 @@ else if global.gameProgress=1720 and room=rMain_28 //----- [11] Virus & Twin Was
     }
     else if sceneProgress=2
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         npcMMX.sprite_index=sMegamanXIdle
@@ -1175,14 +1175,14 @@ else if global.gameProgress=1720 and room=rMain_28 //----- [11] Virus & Twin Was
     }
     else if sceneProgress=4
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=25 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=5 and bWaitForInput=false
       msgCreate(0,0,"X","I'll go on ahead.",6,3,oMessageCutscene,1)
     else if sceneProgress=6
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=5
       {
         npcMMX.sprite_index=sPlayerDiscombobulate
@@ -1218,7 +1218,7 @@ else if global.gameProgress=1750 and room=rMain_28Gate //----- [Unskippable] Acc
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=1
     {
       if sceneDelay=1 {global.gamePaused=true}

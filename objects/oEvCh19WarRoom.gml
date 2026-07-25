@@ -44,7 +44,7 @@ if global.gamePaused=false
     }
     else if sceneProgress=1 //First wave
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         var tEnemy;
@@ -93,7 +93,7 @@ if global.gamePaused=false
     }
     else if sceneProgress=2 //First big set and player gains more dash regen
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=30
       {
         if global.gameProgress=4620
@@ -174,7 +174,7 @@ if global.gamePaused=false
     }
     else if sceneProgress=3 //Second set and player gains higher jump and more dash regen
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=30
       {
         oPlayer1.initialJumpAcc=-7.7
@@ -239,7 +239,7 @@ if global.gamePaused=false
     }
     else if sceneProgress=4 //Third set and player gains infinite air-dashing and dash energy
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=30
       {
         bModPlayerAirDash=1
@@ -286,7 +286,7 @@ if global.gamePaused=false
     }
     else if sceneProgress=5 //Fourth set
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=30
       {
         bModPlayerAirDash=1
@@ -337,7 +337,7 @@ if global.gamePaused=false
     }
     else if sceneProgress=6 //Fifth set
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=30
       {
         delaySpawn(1424,224,oCHAOS_Tank,0,1,0,0.33)
@@ -377,7 +377,7 @@ if global.gamePaused=false
     }
     else if sceneProgress=7 //End
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         if global.gameProgress>=4630 {sceneDelay=235}

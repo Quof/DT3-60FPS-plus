@@ -51,7 +51,7 @@ if global.gameProgress=2670 and room=rSamus5_Gate //----- [1] Intro to Research 
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       global.activeAbility[1]=0
@@ -68,7 +68,7 @@ if global.gameProgress=2670 and room=rSamus5_Gate //----- [1] Intro to Research 
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=1 and sceneDelay<=999
     {
       npcSamus.x-=14
@@ -125,7 +125,7 @@ if global.gameProgress=2670 and room=rSamus5_Gate //----- [1] Intro to Research 
     msgCreate(0,0,"Jeremy","The hell?",0,3,oMessageCutscene,1)
   else if sceneProgress=18
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=1 and sceneDelay<=999
     {
       npcHex.image_alpha+=0.02
@@ -151,7 +151,7 @@ if global.gameProgress=2670 and room=rSamus5_Gate //----- [1] Intro to Research 
     msgCreate(0,0,"Hex","But no time for exposition here. There is work to do elsewhere. But before that... These 'Gates' are rather interesting. They seem to block outside abilities. There's something I did... I think you'll find it rather irritating.",0,3,oMessageCutscene,1)
   else if sceneProgress=27
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=1 and sceneDelay<=999
     {
       npcHex.image_alpha-=0.04
@@ -188,7 +188,7 @@ else if global.gameProgress=2680 and room=rSamus5_Lv0_Ele1 //----- [2] About che
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
   }
@@ -235,7 +235,7 @@ else if global.gameProgress=2690 and room=rSamus5_Lv1_D and global.gamePaused=fa
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=1 and sceneDelay<=90
       {
         if sceneDelay mod 4=0 {playSound(global.snd_EnemyDieMM,0,1,1)}
@@ -303,7 +303,7 @@ else if global.gameProgress=2710 and room=rSamus5_Lv1_E and global.gamePaused=fa
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {with oMetRipper {instance_destroy()}}
     if sceneDelay>=15 and sceneDelay<=40
     {
@@ -378,7 +378,7 @@ else if global.gameProgress=2720 and room=rSamus5_Lv1_F and global.gamePaused=fa
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       var tNewTutorial;
@@ -437,7 +437,7 @@ else if global.gameProgress=2730 and room=rSamus5_Lv1_G //----- [3] Ridley is go
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
   }
@@ -537,7 +537,7 @@ else if global.gameProgress=2760 and room=rSamus5_Lv2_F //----- [] Getting Dash 
   }
   else if sceneProgress=3
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=55 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=4 and bWaitForInput=false
@@ -574,7 +574,7 @@ else if global.gameProgress=2770 and room=rSamus5_Lv2_K //----- [] Enemy Trap: 2
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=35 {delaySpawn(896,304,oMetSidehopper,0,1,1,0.33)}
     else if sceneDelay>=70 {sceneDelay=0; sceneProgress+=1}
   }
@@ -676,7 +676,7 @@ else if room=rSamus5_Lv1_Y //----- [] Gravity Suit -----
       }
       else if sceneProgress=2
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay=1 {delaySpawn(240,304,oMetSidehopper,2,1,1,0.33)}
         else if sceneDelay=75
         {
@@ -866,7 +866,7 @@ else if room=rSamus5_Lv2_S //----- [] Diffusion Missile -----
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=1 and sceneDelay<=45
       {
         for(i=0;i<3;i+=1)
@@ -938,7 +938,7 @@ else if room=rSamus5_Lv1_S //----- [] Map before Kraid -----
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {delaySpawn(192,288,oMetSidehopper,2,1,1,0.33)}
       else if sceneDelay=35 {delaySpawn(320,272,oMetSidehopper,2,1,1,0.33)}
       else if sceneDelay=70 {delaySpawn(896,272,oMetSidehopper,2,1,1,0.33)}
@@ -949,7 +949,7 @@ else if room=rSamus5_Lv1_S //----- [] Map before Kraid -----
     {
       if oEnemyRemain.enemyCount<=6
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay=1 {delaySpawn(288,272,oMetCacatac,2,1,1,0.33)}
         else if sceneDelay=30 {delaySpawn(368,288,oMetCacatac,2,1,1,0.33)}
         else if sceneDelay=60 {delaySpawn(480,304,oMetCacatac,2,1,1,0.33)}
@@ -992,7 +992,7 @@ else if room=rSamus5_Lv1_Boss and global.gamePaused=false //----- [] Boss Fight:
       }
       else if sceneProgress=1
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay=15
         {
           boss=instance_create(144,room_height+96,oKraid)
@@ -1017,7 +1017,7 @@ else if room=rSamus5_Lv1_Boss and global.gamePaused=false //----- [] Boss Fight:
       }
       else if sceneProgress=3
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay=30 {sceneDelay=0; sceneProgress+=1}
       }
       else if sceneProgress=4
@@ -1074,7 +1074,7 @@ else if room=rSamus5_Lv2_U //----- [] Map before Arachnus -----
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=1 and sceneDelay<=45
       {
         for(i=0;i<3;i+=1)
@@ -1111,7 +1111,7 @@ else if room=rSamus5_Lv2_U //----- [] Map before Arachnus -----
     }
     else if sceneProgress=3
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=1 and sceneDelay<=45
       {
         for(i=0;i<3;i+=1)
@@ -1162,7 +1162,7 @@ else if room=rSamus5_Lv2_Boss and global.gamePaused=false //----- [] Boss Fight:
       }
       else if sceneProgress=1
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay=15
         {
           var tempMplay;
@@ -1173,7 +1173,7 @@ else if room=rSamus5_Lv2_Boss and global.gamePaused=false //----- [] Boss Fight:
       }
       else if sceneProgress=2
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay mod 2=0
         {
           var tEffect;
@@ -1213,7 +1213,7 @@ else if room=rSamus5_Lv2_Boss and global.gamePaused=false //----- [] Boss Fight:
       }
       else if sceneProgress=4
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay=20
         {
           playSound(global.snd_KraidRoarA,0,1,68000)
@@ -1305,7 +1305,7 @@ else if room=rSamus5_Lv3_Boss and global.gamePaused=false //----- [] Boss Fight:
       }
       else if sceneProgress=1
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay=1 {fadeColor=c_black}
         else if sceneDelay>=11 and sceneDelay<=60 {fadeAlpha+=0.02}
         else if sceneDelay=70
@@ -1364,7 +1364,7 @@ else if global.gameProgress=2860 and room=rSamus5_Lv4_A //----- [4] Intro to Tou
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
   }
@@ -1440,7 +1440,7 @@ else if global.gameProgress=2970 and room=rSamus5_Lv4_K //----- [5] Where is the
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
   }
@@ -1485,7 +1485,7 @@ else if global.gameProgress=3000 and room=rSamus5_Lv4_FinalBoss //----- [6] Boss
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=11 and sceneDelay<=99
       {
         oPlayer1.sprite_index=sClaireWalk; oPlayer1.image_speed=0.4
@@ -1499,7 +1499,7 @@ else if global.gameProgress=3000 and room=rSamus5_Lv4_FinalBoss //----- [6] Boss
     }
     else if sceneProgress=2
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {enemyBarrier=instance_create(288,64,oEnemyBarrier); enemyBarrier.image_yscale=4; enemyBarrier.image_angle=90}
       else if sceneDelay>=20
       {
@@ -1512,7 +1512,7 @@ else if global.gameProgress=3000 and room=rSamus5_Lv4_FinalBoss //----- [6] Boss
     }
     else if sceneProgress=3
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=1 and sceneDelay<=60
       {
         with oEnemyBase {image_alpha+=0.025}
@@ -1530,7 +1530,7 @@ else if global.gameProgress=3000 and room=rSamus5_Lv4_FinalBoss //----- [6] Boss
       msgCreate(0,0,"Hex","Life's terrible sometimes, isn't it?",0,3,oMessageCutscene,1)
     else if sceneProgress=8
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=30 and sceneDelay<=90
       {
         if sceneDelay=60
@@ -1553,7 +1553,7 @@ else if global.gameProgress=3000 and room=rSamus5_Lv4_FinalBoss //----- [6] Boss
       msgCreate(0,0,"Hex","Much more than that has changed. I've made sure he's completely immune to your attacks.",0,3,oMessageCutscene,1)
     else if sceneProgress=11
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=11 and sceneDelay<=70 {npcHex.image_alpha-=0.025}
       else if sceneDelay=90 {boss.ridParts[0].image_index=1}
       else if sceneDelay=94 {boss.ridParts[0].image_index=2; playSound(global.snd_RidleyScreamA,0,0.98,1)}
@@ -1585,7 +1585,7 @@ else if global.gameProgress=3000 and room=rSamus5_Lv4_FinalBoss //----- [6] Boss
   {
     if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=10 //Phase 2 starts
       {
         var tBoss;
@@ -1605,7 +1605,7 @@ else if room=rSamus5_Lv4_RidleyTunnel and global.gamePaused=false //----- [] Bos
   oPlayer1.yVelLimit=0
   oPlayer1.yAccLimit=0
   if instance_exists(oSamusBomb) {oSamusBomb.y-=12}
-  sceneDelay+=1
+  sceneDelay+=1*gDeltaTime
   if sceneDelay mod 39=0 {instance_create(0,room_height,oRidleyTunnelLights)}
   
   if sceneProgress=0
@@ -1638,7 +1638,7 @@ else if room=rSamus5_Lv4_RidleyTunnel and global.gamePaused=false //----- [] Bos
     fadeAlpha+=0.02
     if fadeAlpha>=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=15
       {
         global.currentBoss=""
@@ -1673,7 +1673,7 @@ else if global.gameProgress=3040 and global.gamePaused=false //----- [] Escape S
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=25
       {
         msgCreate(0,0,"Jeremy","Uh... well there it is.",0,1,oMessagePerson,0)
@@ -1683,7 +1683,7 @@ else if global.gameProgress=3040 and global.gamePaused=false //----- [] Escape S
     }
     else if sceneProgress=2
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=65
       {
         msgCreate(0,0,"Claire","Why did the escape thingy start the way it did?",0,1,oMessagePerson,0)
@@ -1693,7 +1693,7 @@ else if global.gameProgress=3040 and global.gamePaused=false //----- [] Escape S
     }
     else if sceneProgress=3
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=95
       {
         msgCreate(0,0,"Jeremy","My guess is Hex.",0,1,oMessagePerson,0)
@@ -1703,7 +1703,7 @@ else if global.gameProgress=3040 and global.gamePaused=false //----- [] Escape S
     }
     else if sceneProgress=4
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=60
       {
         msgCreate(0,0,"Claire","Right, I keep forgetting about him...",0,1,oMessagePerson,0)
@@ -1739,7 +1739,7 @@ else if global.gameProgress=3040 and global.gamePaused=false //----- [] Escape S
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=25
       {
         msgCreate(0,0,"Claire","Didn't I blast him away!? This is getting annoying!",0,1,oMessagePerson,0)
@@ -1749,7 +1749,7 @@ else if global.gameProgress=3040 and global.gamePaused=false //----- [] Escape S
     }
     else if sceneProgress=2
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=95
       {
         msgCreate(0,0,"Jeremy","It really is, it's just... wait a minute...",0,1,oMessagePerson,0)
@@ -1759,7 +1759,7 @@ else if global.gameProgress=3040 and global.gamePaused=false //----- [] Escape S
     }
     else if sceneProgress=3
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=90
       {
         msgCreate(0,0,"Claire","What?",0,1,oMessagePerson,0)
@@ -1769,7 +1769,7 @@ else if global.gameProgress=3040 and global.gamePaused=false //----- [] Escape S
     }
     else if sceneProgress=4
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=40
       {
         msgCreate(0,0,"Jeremy","Okay, so I know this might suck for you, but when you get to the top, I need you to not exit until a certain point.",0,2,oMessagePerson,0)
@@ -1779,7 +1779,7 @@ else if global.gameProgress=3040 and global.gamePaused=false //----- [] Escape S
     }
     else if sceneProgress=5
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=155
       {
         msgCreate(0,0,"Claire","Sigh... why?",0,1,oMessagePerson,0)
@@ -1789,7 +1789,7 @@ else if global.gameProgress=3040 and global.gamePaused=false //----- [] Escape S
     }
     else if sceneProgress=6
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=55
       {
         msgCreate(0,0,"Jeremy","Because you're going to get Ridley caught in the sequence's explosion. I'm pretty sure that will take him out.",0,2,oMessagePerson,0)
@@ -1799,7 +1799,7 @@ else if global.gameProgress=3040 and global.gamePaused=false //----- [] Escape S
     }
     else if sceneProgress=7
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=155
       {
         msgCreate(0,0,"Claire","That is... a really good idea!",0,1,oMessagePerson,0)
@@ -1809,7 +1809,7 @@ else if global.gameProgress=3040 and global.gamePaused=false //----- [] Escape S
     }
     else if sceneProgress=8
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=65
       {
         msgCreate(0,0,"Jeremy","I'll disable the door, just in case, but I need you to wait till the timer is under 10 seconds.",0,2,oMessagePerson,0)
@@ -1819,7 +1819,7 @@ else if global.gameProgress=3040 and global.gamePaused=false //----- [] Escape S
     }
     else if sceneProgress=9
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=155
       {
         msgCreate(0,0,"Claire","It isn't exactly in seconds this time.",0,1,oMessagePerson,0)
@@ -1829,7 +1829,7 @@ else if global.gameProgress=3040 and global.gamePaused=false //----- [] Escape S
     }
     else if sceneProgress=10
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=70
       {
         msgCreate(0,0,"Jeremy","Right... just wait till it's under 300 then.",0,1,oMessagePerson,0)
@@ -1854,7 +1854,7 @@ else if room=rSamus5_VentShaft //----- [] Getting the Program Chip -----
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=30
       {
         fadeAlpha-=0.05
@@ -1863,7 +1863,7 @@ else if room=rSamus5_VentShaft //----- [] Getting the Program Chip -----
     }
     else if sceneProgress=2
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=30
       {
         if sceneDelay mod 8=0 {playSound(global.snd_EnemyDieMM,0,1,1)}
@@ -1892,7 +1892,7 @@ else if room=rSamus5_VentShaft //----- [] Getting the Program Chip -----
     }
     else if sceneProgress=3
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=1 and sceneDelay<=56 {oPlayer1.x+=2}
       oPlayer1.y+=playerMoveY
       playerMoveY+=0.3
@@ -1904,7 +1904,7 @@ else if room=rSamus5_VentShaft //----- [] Getting the Program Chip -----
     }
     else if sceneProgress=4
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=5 and bWaitForInput=false
@@ -1913,7 +1913,7 @@ else if room=rSamus5_VentShaft //----- [] Getting the Program Chip -----
       msgCreate(0,0,"Jerry","Yes?",0,3,oMessageCutscene,1)
     else if sceneProgress=7
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=20
       {
         pChip=instance_create(oPlayer1.x,212,oProgramChip)
@@ -1932,7 +1932,7 @@ else if room=rSamus5_VentShaft //----- [] Getting the Program Chip -----
     }
     else if sceneProgress=8
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=21 and sceneDelay<=100
         pChip.y+=1
       else if sceneDelay=130
@@ -1964,7 +1964,7 @@ else if room=rSamus5_VentShaft //----- [] Getting the Program Chip -----
       msgCreate(0,0,"Jeremy","Yep, and only 1 more to go.",0,3,oMessageCutscene,1)
     else if sceneProgress=12
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=15
       {
         playSound(global.snd_EnemyDieMM,0,1,42000)
@@ -1989,7 +1989,7 @@ else if room=rSamus5_VentShaft //----- [] Getting the Program Chip -----
       msgCreate(0,0,"Jerry","Well...",0,3,oMessageCutscene,1)
     else if sceneProgress=17
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=5
       {
         var tEffect,tBoss;
@@ -2061,7 +2061,7 @@ else if room=rSamus5_VentShaft //----- [] Getting the Program Chip -----
   {
     if sceneProgress=1 //End Boss
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         stopAllMusic()
@@ -2129,7 +2129,7 @@ else if global.gameProgress=3070 and room=rMain_48Gate //----- [7] Where to next
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
   }

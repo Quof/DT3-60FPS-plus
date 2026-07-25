@@ -35,7 +35,7 @@ if global.gameProgress=2160 and room=rVault_1 //----- [1] Chapter 10 - Are we in
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       global.gamePaused=true
@@ -51,7 +51,7 @@ if global.gameProgress=2160 and room=rVault_1 //----- [1] Chapter 10 - Are we in
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=20 {showEmote(oIdentifier,0,-6,sEmThinking)}
     else if sceneDelay>=40 {sceneDelay=0; sceneProgress+=1}
   }
@@ -67,7 +67,7 @@ if global.gameProgress=2160 and room=rVault_1 //----- [1] Chapter 10 - Are we in
     msgCreate(0,0,"Chao","What happened to Claire and Jerry?!",0,3,oMessageCutscene,1)
   else if sceneProgress=7
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=10 {showEmote(oPlayer1,0,-12,sEmThinking)}
     else if sceneDelay=60 {oPlayer1.sprite_index=sClaireSitUp; oPlayer1.image_index=0; showEmote(oIdentifier,0,-6,sEmExcite)}
     else if sceneDelay=67 {oPlayer1.image_index=1}
@@ -88,7 +88,7 @@ if global.gameProgress=2160 and room=rVault_1 //----- [1] Chapter 10 - Are we in
     msgCreate(0,0,"Chao","He's...",0,3,oMessageCutscene,1)
   else if sceneProgress=14
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=10 {oPlayer1.sprite_index=sClaireIdle; oPlayer1.image_speed=0.1}
     else if sceneDelay=20 {oPlayer1.image_xscale=-1}
     else if sceneDelay=27 {oPlayer1.sprite_index=sClaireWalk; oPlayer1.image_speed=0.33}
@@ -102,14 +102,14 @@ if global.gameProgress=2160 and room=rVault_1 //----- [1] Chapter 10 - Are we in
     msgCreate(0,0,"Claire","Jerry!! Are you okay?!",0,3,oMessageCutscene,1)
   else if sceneProgress=16
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=17 and bWaitForInput=false
     msgCreate(0,0,"Claire","Not cool, Jerry. I'll punch you if you're messing with me...",0,3,oMessageCutscene,1)
   else if sceneProgress=18
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=19 and bWaitForInput=false
@@ -178,7 +178,7 @@ else if global.gameProgress=2170 and room=rVault_2 //----- [2] Leaving them behi
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
       global.gamePaused=true
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
@@ -216,7 +216,7 @@ else if global.gameProgress=2180 and room=rVault_2 //----- [Unskippable] Enemy T
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=30
       {
         delaySpawn(1384,240,oVaultPanther,2,1,1,0.33)
@@ -231,7 +231,7 @@ else if global.gameProgress=2180 and room=rVault_2 //----- [Unskippable] Enemy T
     }
     else if sceneProgress=3
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10
       {
         delaySpawn(1504,144,oVaultMoth,2,1,1,0.33)
@@ -245,7 +245,7 @@ else if global.gameProgress=2180 and room=rVault_2 //----- [Unskippable] Enemy T
     }
     else if sceneProgress=5
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10
       {
         delaySpawn(1392,144,oVaultShadow,2,1,1,0.33)
@@ -286,7 +286,7 @@ else if global.gameProgress=2200 and room=rVault_3 //----- [Unskippable] Enemy T
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=60
       {
         msgCreate(0,0,"Claire","Not in the mood for these guys.",0,1,oMessagePerson,0)
@@ -310,7 +310,7 @@ else if global.gameProgress=2210 and room=rVault_3 //----- [2] After grabbing Me
 {
   if sceneProgress=0 and !instance_exists(oStoryObject)
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
       global.gamePaused=true
     else if sceneDelay>=2
@@ -328,7 +328,7 @@ else if global.gameProgress=2210 and room=rVault_3 //----- [2] After grabbing Me
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=70 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=2 and bWaitForInput=false
@@ -466,7 +466,7 @@ else if global.gameProgress=2240 and room=rVault_1 //----- [3] Chao is missing -
   {
     if oPlayer1.x<=160
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         global.gamePaused=true
@@ -487,14 +487,14 @@ else if global.gameProgress=2240 and room=rVault_1 //----- [3] Chao is missing -
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=2 and bWaitForInput=false
     msgCreate(0,0,"Jeremy","Raise the megaphone.",0,3,oMessageCutscene,1)
   else if sceneProgress=3
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=20
     {
       itemMP=instance_create(oPlayer1.x,oPlayer1.y-26,oMisc)
@@ -545,7 +545,7 @@ else if global.gameProgress=2240 and room=rVault_1 //----- [3] Chao is missing -
     msgCreate(0,0,"Jeremy","Who just said that?!",0,3,oMessageCutscene,1)
   else if sceneProgress=15
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=30
     {
       npcHex=instance_create(288,192,oMisc)
@@ -565,7 +565,7 @@ else if global.gameProgress=2240 and room=rVault_1 //----- [3] Chao is missing -
     msgCreate(0,0,"Hex","I prefer this name now, I believe it suits me better.",0,3,oMessageCutscene,1)
   else if sceneProgress=18
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=10 {oPlayerIdle.sprite_index=sJerryGetUp; oPlayerIdle.image_speed=0; oPlayerIdle.image_index=2}
     else if sceneDelay=14 {oPlayerIdle.image_index=3}
     else if sceneDelay=18 {oPlayerIdle.sprite_index=sJerryIdle; oPlayerIdle.image_speed=0.1}
@@ -645,7 +645,7 @@ else if global.gameProgress=2260 and room=rVault_4 //----- [4] I can't do much -
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
@@ -697,7 +697,7 @@ else if global.gameProgress=2300 and room=rVault_6 //----- [] 3rd Abomination se
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=70 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=2
@@ -746,7 +746,7 @@ else if global.gameProgress=2320 and room=rVault_8 //----- [5] Where is Chao?! -
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
       global.gamePaused=true
     else if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
@@ -810,7 +810,7 @@ else if global.gameProgress=2330 and room=rVault_8 //----- [Unskippable] Enemy T
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=30
       {
         delaySpawn(512,48,oVaultShadow,2,1,1,0.33)
@@ -824,7 +824,7 @@ else if global.gameProgress=2330 and room=rVault_8 //----- [Unskippable] Enemy T
     }
     else if sceneProgress=3
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10
       {
         delaySpawn(384,128,oVaultMoth,2,1,1,0.33)
@@ -839,7 +839,7 @@ else if global.gameProgress=2330 and room=rVault_8 //----- [Unskippable] Enemy T
     }
     else if sceneProgress=5
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10
       {
         delaySpawn(368,176,oVaultShadow,2,1,1,0.33)
@@ -878,7 +878,7 @@ else if global.gameProgress=2340 and room=rVault_8 //----- [Unskippable] Enemy T
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         if global.activeCharacter=0
@@ -891,7 +891,7 @@ else if global.gameProgress=2340 and room=rVault_8 //----- [Unskippable] Enemy T
     }
     else if sceneProgress=2
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=30
       {
         createEnemy(800,240,oVaultOrb,2,1,1); newEnemy.colorSet=2
@@ -904,7 +904,7 @@ else if global.gameProgress=2340 and room=rVault_8 //----- [Unskippable] Enemy T
     }
     else if sceneProgress=4
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10
       {
         createEnemy(1184,240,oVaultOrb,2,1,1); newEnemy.colorSet=4
@@ -956,7 +956,7 @@ else if global.gameProgress=2350 and room=rVault_8 //----- [Unskippable] Enemy T
     }
     else if sceneProgress=2
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=30
       {
         delaySpawn(2512,224,oDragonKnight,2,1,1,0.33)
@@ -979,7 +979,7 @@ else if global.gameProgress=2360 and room=rVault_9 //----- [6] Color Zones -----
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
   }
@@ -1048,7 +1048,7 @@ else if global.gameProgress=2370 and room=rVault_9 //----- [] No dashing / Enemy
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=30
       {
         createEnemy(2688,176,oVaultOrb,2,1,1); newEnemy.colorSet=3
@@ -1073,7 +1073,7 @@ else if global.gameProgress=2380 and room=rVault_10 //----- [7] Chao is close --
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
   }
@@ -1111,7 +1111,7 @@ else if global.gameProgress=2390 and room=rVault_10 //----- [] Enemy Trap - Orbs
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=30
       {
         createEnemy(1536,80,oVaultOrb,2,1,1); newEnemy.colorSet=1
@@ -1126,7 +1126,7 @@ else if global.gameProgress=2390 and room=rVault_10 //----- [] Enemy Trap - Orbs
     }
     else if sceneProgress=3
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10
       {
         createEnemy(1696,80,oVaultOrb,2,1,1); newEnemy.colorSet=3
@@ -1166,7 +1166,7 @@ else if global.gameProgress=2400 and room=rVault_11 //----- [] Chao is found ---
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=2 and bWaitForInput=false
@@ -1178,7 +1178,7 @@ else if global.gameProgress=2400 and room=rVault_11 //----- [] Chao is found ---
       msgCreate(0,128,"Chao","Watch out! It's a trap!",0,3,oMessageCutscene,1)
     else if sceneProgress=4
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=20
       {
         createEnemy(688,304,oDragonKnight,2,0,1); oDragonKnight.image_xscale=-1
@@ -1192,7 +1192,7 @@ else if global.gameProgress=2400 and room=rVault_11 //----- [] Chao is found ---
       msgCreate(0,128,"Jerry","That's it? We've taken those things down. This is a bigger arena too.",0,3,oMessageCutscene,1)
     else if sceneProgress=6
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=20
       {
         createEnemy(384,304,oBloodTyrant,2,0,1)
@@ -1250,7 +1250,7 @@ else if global.gameProgress=2400 and room=rVault_11 //----- [] Chao is found ---
     }
     else if sceneProgress=2
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=30
       {
         oPlayer1.x=512; oPlayer1.y=304; oPlayer1.image_xscale=1
@@ -1347,7 +1347,7 @@ else if global.gameProgress=2420 and room=rVault_13 //----- [] Boss Fight: Hex -
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         musVolC=global.optMusic*100
@@ -1367,7 +1367,7 @@ else if global.gameProgress=2420 and room=rVault_13 //----- [] Boss Fight: Hex -
     }
     else if sceneProgress=2
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10
       {
         var tempMplay;
@@ -1378,7 +1378,7 @@ else if global.gameProgress=2420 and room=rVault_13 //----- [] Boss Fight: Hex -
     }
     else if sceneProgress=3
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10
       {
         var tCamera;
@@ -1425,7 +1425,7 @@ else if global.gameProgress=2420 and room=rVault_13 //----- [] Boss Fight: Hex -
       msgCreate(0,128,"Jeremy","Don't let Hex intimidate you. The program made Hex into a physical entity in the world when I moved him to the Vault. He can be beaten through normal means now.",0,3,oMessageCutscene,1)
     else if sceneProgress=20
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         musVolC=global.optMusic*100
@@ -1476,7 +1476,7 @@ else if global.gameProgress=2420 and room=rVault_13 //----- [] Boss Fight: Hex -
   {
     if sceneProgress=0
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         musVolC=global.optMusic*100
@@ -1496,7 +1496,7 @@ else if global.gameProgress=2420 and room=rVault_13 //----- [] Boss Fight: Hex -
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10
       {
         var tempMplay;
@@ -1552,7 +1552,7 @@ else if global.gameProgress=2420 and room=rVault_13 //----- [] Boss Fight: Hex -
     }
     else if sceneProgress=20
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=20
       {
         global.gameProgress=2430
@@ -1568,7 +1568,7 @@ if global.gameProgress=2430 and room=rVault_14 //----- [] Trapped and alone ----
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       global.pLife=global.pMaxLife
@@ -1588,7 +1588,7 @@ if global.gameProgress=2430 and room=rVault_14 //----- [] Trapped and alone ----
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=40 {showEmote(oPlayerIdle,0,-26,sEmThinking)}
     else if sceneDelay=90
     {
@@ -1607,7 +1607,7 @@ if global.gameProgress=2430 and room=rVault_14 //----- [] Trapped and alone ----
     msgCreate(0,0,"Claire","... Wish Jeremy and Chao were here...",0,3,oMessageCutscene,1)
   else if sceneProgress=7
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=50
     {
       sceneDelay=0; sceneProgress+=1
@@ -1641,7 +1641,7 @@ if global.gameProgress=2430 and room=rVault_14 //----- [] Trapped and alone ----
     msgCreate(0,0,"Claire","Hmm. We do have the benefit of splitting our efforts.",0,3,oMessageCutscene,1)
   else if sceneProgress=21
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=20
     {
       oPlayerIdle.sprite_index=sClaireIdle; oPlayerIdle.image_speed=0.1
@@ -1655,7 +1655,7 @@ if global.gameProgress=2430 and room=rVault_14 //----- [] Trapped and alone ----
     msgCreate(0,0,"Claire","Let's do it!",0,3,oMessageCutscene,1)
   else if sceneProgress=23
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=20 {oPlayer1.sprite_index=sJerryIdle}
     else if sceneDelay=40
     {
@@ -1700,7 +1700,7 @@ else if global.gameProgress=2440 and room=rVault_14 //----- [] Key trap -----
   }
   else if keyCheck=1 //Trapped in
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if trappedChar=0 //Jerry trapped
     {
       if sceneDelay=30
@@ -1744,7 +1744,7 @@ else if global.gameProgress=2450 and room=rVault_15 //----- [8] Jeremy & Chao re
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
       global.gamePaused=true
     else if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
@@ -1821,7 +1821,7 @@ else if global.gameProgress=2450 and room=rVault_15 //----- [8] Jeremy & Chao re
     msgCreate(0,0,"Jerry","Let's do this.",0,3,oMessageCutscene,1)
   else if sceneProgress=36
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       musVolC=global.optMusic*100
@@ -1841,7 +1841,7 @@ else if global.gameProgress=2450 and room=rVault_15 //----- [8] Jeremy & Chao re
   }
   else if sceneProgress=37
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=10
     {
       sceneDelay=0
@@ -1860,7 +1860,7 @@ else if global.gameProgress=2460 and room=rVault_16 //----- [9] About the shift 
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
   }
@@ -1906,7 +1906,7 @@ else if global.gameProgress=2480 and room=rVault_16 //----- [] Reobtaining the a
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=130
     {
       msgCreate(0,0,"Jeremy","I'll check the area.",0,1,oMessagePerson,0)
@@ -1933,7 +1933,7 @@ else if global.gameProgress=2480 and room=rVault_16 //----- [] Reobtaining the a
   else if sceneProgress=3
   {
     itemRocFeather.y+=1
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay mod 3=0
     {
       myDir=choose(-1,1)
@@ -1945,7 +1945,7 @@ else if global.gameProgress=2480 and room=rVault_16 //----- [] Reobtaining the a
   }
   else if sceneProgress=4
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=50
     {
       itemRocFeather.image_blend=c_white
@@ -1960,7 +1960,7 @@ else if global.gameProgress=2480 and room=rVault_16 //----- [] Reobtaining the a
   }
   else if sceneProgress=5
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       msgCreate(0,0,"Jerry","Is this what I think it is...?",0,1,oMessagePerson,0)
@@ -1992,7 +1992,7 @@ else if global.gameProgress=2480 and room=rVault_16 //----- [] Reobtaining the a
   {
     if !instance_exists(oStoryObject)
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {global.gamePaused=true}
       else if sceneDelay>=2
       {
@@ -2008,7 +2008,7 @@ else if global.gameProgress=2480 and room=rVault_16 //----- [] Reobtaining the a
   }
   else if sceneProgress=7
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=40 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=8 and bWaitForInput=false
@@ -2054,7 +2054,7 @@ else if global.gameProgress=2500 and room=rVault_18 //----- [] Dash Chain tutori
     }
     else if sceneProgress=2
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=30 {createEnemy(1696,64,oVaultOrb,2,1,1); newEnemy.colorSet=1}
       else if sceneDelay=150 {createEnemy(1936,64,oVaultOrb,2,1,1); newEnemy.colorSet=2}
       else if sceneDelay=270 {createEnemy(1760,112,oVaultOrb,2,1,1); newEnemy.colorSet=3}
@@ -2082,7 +2082,7 @@ else if room=rVault_20
   {
     if sceneProgress=0
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
         global.gamePaused=true
       else if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
@@ -2198,7 +2198,7 @@ else if global.gameProgress=2530 and room=rVault_23 //----- [] End Vault -----
 {
   if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=30
     {
       fadeAlpha+=0.01

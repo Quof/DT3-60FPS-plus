@@ -18,7 +18,7 @@ if explainMenu=0 //Show explain menu during first TD battle
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=10
     {
       if global.gameProgress<=3890
@@ -181,7 +181,7 @@ else if explainMenu=1 //TD sequences
       {
         if !instance_exists(oTD_EnemySpawner) and !instance_exists(oEnemyBase)
         {
-          sceneDelay+=1
+          sceneDelay+=1*gDeltaTime
           if sceneDelay=10
           {
             if global.gameProgress=3880 {global.gameProgress=3890}
@@ -333,7 +333,7 @@ else if explainMenu=1 //TD sequences
       {
         if !instance_exists(oTD_EnemySpawner) and !instance_exists(oEnemyBase)
         {
-          sceneDelay+=1
+          sceneDelay+=1*gDeltaTime
           if sceneDelay=10
           {
             if global.gameProgress=3900 {global.gameProgress=3910}
@@ -482,7 +482,7 @@ else if explainMenu=1 //TD sequences
       {
         if !instance_exists(oTD_EnemySpawner) and !instance_exists(oEnemyBase)
         {
-          sceneDelay+=1
+          sceneDelay+=1*gDeltaTime
           if sceneDelay=5 and global.gameOver=false
           {
             if global.gameOptTowerDef=3 {global.gameOptTowerDef=4}
@@ -634,7 +634,7 @@ else if explainMenu=1 //TD sequences
       {
         if !instance_exists(oTD_EnemySpawner) and !instance_exists(oEnemyBase)
         {
-          sceneDelay+=1
+          sceneDelay+=1*gDeltaTime
           if sceneDelay=5 and global.gameOver=false
           {
             if global.gameOptTowerDef=4 {global.gameOptTowerDef=5}
@@ -795,7 +795,7 @@ else if explainMenu=1 //TD sequences
       {
         if !instance_exists(oTD_EnemySpawner) and !instance_exists(oEnemyBase)
         {
-          sceneDelay+=1
+          sceneDelay+=1*gDeltaTime
           if sceneDelay=5 and global.gameOver=false
           {
             if global.gameOptTowerDef=5 {global.gameOptTowerDef=6}
@@ -810,7 +810,7 @@ else if explainMenu=2 //End during non-story battles or refights
 {
   if global.gamePaused=false
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=10
     {
       msgCreate(0,0,"Jeremy","Nice job there. I'll teleport you back to Central City.",0,2,oMessagePerson,0)

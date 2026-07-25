@@ -87,7 +87,7 @@ if global.gameProgress=620 and room=rLink2_HP //----- [1] Intro to Hyrule - Ch.4
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       charSwitcher(0)
@@ -101,7 +101,7 @@ if global.gameProgress=620 and room=rLink2_HP //----- [1] Intro to Hyrule - Ch.4
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=35
     {
       efCharge=instance_create(oPlayer1.x,oPlayer1.y-26,oMisc)
@@ -163,7 +163,7 @@ if global.gameProgress=620 and room=rLink2_HP //----- [1] Intro to Hyrule - Ch.4
   }
   else if sceneProgress=3
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=4 and bWaitForInput=false
@@ -243,7 +243,7 @@ else if global.gameProgress=640 //----- [2] Random Encounter -----
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
@@ -270,7 +270,7 @@ else if global.gameProgress=660 and room=rLink2_TownA_Ext //----- [3] Zelda Town
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
@@ -295,7 +295,7 @@ else if global.gameProgress=680 and room=rLink2_PalaceA_1 //----- [4] Desert Pal
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
@@ -318,7 +318,7 @@ else if global.gameProgress=690 and room=rLink2_PalaceA_6 //----- [5] After grab
 {
   if sceneProgress=0 and !instance_exists(oStoryObject)
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=2
     {
@@ -332,7 +332,7 @@ else if global.gameProgress=690 and room=rLink2_PalaceA_6 //----- [5] After grab
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=60 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=2 and bWaitForInput=false
@@ -431,7 +431,7 @@ else if room=rLink2_PalaceA_11 //----- [] Boss Fight: Helmethead -----
   {
     if sceneProgress=0 and oPlayer1.x>=992
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {global.gamePaused=true}
       else if sceneDelay>=2
       {
@@ -445,7 +445,7 @@ else if room=rLink2_PalaceA_11 //----- [] Boss Fight: Helmethead -----
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10
       {
         var tEffect;
@@ -474,7 +474,7 @@ else if global.gameProgress=720 and room=rLink2_PalaceF_1 //----- [6] Forest Pal
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
@@ -523,7 +523,7 @@ else if global.gameProgress=725 and room=rLink2_PalaceF_9 //----- [7] After grab
 {
   if sceneProgress=0 and !instance_exists(oStoryObject)
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=2
     {
@@ -537,7 +537,7 @@ else if global.gameProgress=725 and room=rLink2_PalaceF_9 //----- [7] After grab
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=60 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=2 and bWaitForInput=false
@@ -593,7 +593,7 @@ else if global.gameProgress=730 and room=rLink2_PalaceF_9 //----- [] Stalfos att
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=15 {delaySpawn(416,288,oStalfos,0,1,1,0.33)}
       else if sceneDelay>=120 {sceneDelay=0; sceneProgress+=1}
     }
@@ -603,7 +603,7 @@ else if global.gameProgress=730 and room=rLink2_PalaceF_9 //----- [] Stalfos att
     }
     else if sceneProgress=3
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=15 {delaySpawn(640,288,oStalfos,0,1,1,0.33)}
       else if sceneDelay>=120 {sceneDelay=0; sceneProgress+=1}
     }
@@ -613,7 +613,7 @@ else if global.gameProgress=730 and room=rLink2_PalaceF_9 //----- [] Stalfos att
     }
     else if sceneProgress=5
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=15 {delaySpawn(416,288,oStalfos,0,1,1,0.33)}
       else if sceneDelay=45 {delaySpawn(640,288,oStalfos,0,1,1,0.33)}
       else if sceneDelay>=120 {sceneDelay=0; sceneProgress+=1}
@@ -691,7 +691,7 @@ else if room=rLink2_PalaceF_12 //----- [] Boss Fight: Dead Hand -----
   {
     if sceneProgress=0 and oPlayer1.x>=928
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {global.gamePaused=true}
       else if sceneDelay>=2
       {
@@ -705,7 +705,7 @@ else if room=rLink2_PalaceF_12 //----- [] Boss Fight: Dead Hand -----
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10
       {
         var tEffect;
@@ -736,7 +736,7 @@ else if global.gameProgress=740 and room=rLink2_PalaceW_1 //----- [8] Water Pala
   {
     if sceneProgress=0
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {global.gamePaused=true}
       else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
     }
@@ -772,7 +772,7 @@ else if global.gameProgress=750 and room=rLink2_MountPass //----- [9] Mountain P
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
@@ -830,7 +830,7 @@ else if global.gameProgress=780 and room=rLink2_DeathMount_A //----- [10] Death 
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
@@ -848,7 +848,7 @@ else if global.gameProgress=780 and room=rLink2_DeathMount_A //----- [10] Death 
     msgCreate(0,0,"Chao","Really?! YES!",0,3,oMessageCutscene,1)
   else if sceneProgress=7
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=15
     {
       for(i=0;i<6;i+=1)
@@ -874,7 +874,7 @@ else if global.gameProgress=780 and room=rLink2_DeathMount_A //----- [10] Death 
     msgCreate(0,0,"Chao","An enemy's damage reactions to these can be found in their scan data.",0,3,oMessageCutscene,1)
   else if sceneProgress=11
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=15
     {
       for(i=0;i<5;i+=1)
@@ -967,7 +967,7 @@ else if global.gameProgress=800 and room=rLink2_PalaceC_1 //----- [11] Great Pal
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true; oPlayer1.sprite_index=sJerryIdle}
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
@@ -1047,7 +1047,7 @@ else if room=rLink2_PalaceC_14 //----- [] Boss Fight: Thunderbird -----
   {
     if sceneProgress=0 and oPlayer1.x>=1248
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {global.gamePaused=true}
       else if sceneDelay>=2
       {
@@ -1061,7 +1061,7 @@ else if room=rLink2_PalaceC_14 //----- [] Boss Fight: Thunderbird -----
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10
       {
         var tEffect;
@@ -1092,7 +1092,7 @@ else if global.gameProgress=815 and room=rLink2_PalaceW_1 //----- [12] Water Pal
   {
     if sceneProgress=0 and oPlayer1.x>=224
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {global.gamePaused=true}
       oPlayer1.y+=4
       if oPlayer1.y>=240
@@ -1105,7 +1105,7 @@ else if global.gameProgress=815 and room=rLink2_PalaceW_1 //----- [12] Water Pal
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=5
       {
         var tFlash;
@@ -1144,7 +1144,7 @@ else if global.gameProgress=830 and room=rLink2_PalaceW_2 //----- [13] Water Pal
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
@@ -1193,7 +1193,7 @@ else if global.gameProgress=840 and room=rLink2_PalaceW_11 //----- [Unskippable]
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=30
       {
         delaySpawn(336,400,oCyclopsBat,2,1,1,0.33)
@@ -1216,7 +1216,7 @@ else if global.gameProgress=840 and room=rLink2_PalaceW_11 //----- [Unskippable]
     }
     else if sceneProgress=3
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=30 {delaySpawn(512,432,oDoomknocker,2,1,1,0.33)}
       else if sceneDelay=110
       {
@@ -1255,7 +1255,7 @@ else if global.gameProgress=850 and room=rLink2_PalaceW_11 //----- [Unskippable]
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=30
       {
         delaySpawn(880,448,oAquaticDemon,2,1,1,0.33)
@@ -1274,7 +1274,7 @@ else if global.gameProgress=850 and room=rLink2_PalaceW_11 //----- [Unskippable]
     }
     else if sceneProgress=3
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=30
       {
         delaySpawn(832,560,oCyclopsBat,2,1,1,0.33)
@@ -1312,7 +1312,7 @@ else if global.gameProgress=870 and room=rLink2_PalaceW_10 //----- [14] Opening 
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=2
     {
@@ -1326,7 +1326,7 @@ else if global.gameProgress=870 and room=rLink2_PalaceW_10 //----- [14] Opening 
   }
   else if sceneProgress=2
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=20
     {
       masterKey=instance_create(oPlayer1.x,oPlayer1.y-26,oMisc)
@@ -1378,7 +1378,7 @@ else if global.gameProgress=880 and room=rLink2_PalaceW_12 //----- [15] Boss Fig
   {
     if sceneProgress=0 and oPlayer1.x>=432
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         global.gamePaused=true
@@ -1397,7 +1397,7 @@ else if global.gameProgress=880 and room=rLink2_PalaceW_12 //----- [15] Boss Fig
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=2 and bWaitForInput=false
@@ -1428,7 +1428,7 @@ else if global.gameProgress=880 and room=rLink2_PalaceW_12 //----- [15] Boss Fig
     {
       if oScreenText.image_alpha=0
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay>=15
         {
           with oScreenText {instance_destroy()}
@@ -1460,7 +1460,7 @@ else if global.gameProgress=880 and room=rLink2_PalaceW_12 //----- [15] Boss Fig
     {
       if oScreenText.image_alpha=0
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay>=15
         {
           with oScreenText {instance_destroy()}
@@ -1523,7 +1523,7 @@ else if global.gameProgress=880 and room=rLink2_PalaceW_12 //----- [15] Boss Fig
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         endBoss()
@@ -1542,7 +1542,7 @@ else if global.gameProgress=880 and room=rLink2_PalaceW_12 //----- [15] Boss Fig
     }
     else if sceneProgress=3
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=25 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=4 and bWaitForInput=false
@@ -1594,7 +1594,7 @@ else if global.gameProgress=890 and room=rLink2_PalaceW_13 //----- [16] Not real
 {
   if sceneProgress=0 and oPlayer1.x>=288
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     oPlayer1.y+=4
     if oPlayer1.y>=288
@@ -1607,7 +1607,7 @@ else if global.gameProgress=890 and room=rLink2_PalaceW_13 //----- [16] Not real
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=2 and bWaitForInput=false
@@ -1620,7 +1620,7 @@ else if global.gameProgress=890 and room=rLink2_PalaceW_13 //----- [16] Not real
     msgCreate(0,0,"Jerry","This better not be what I think it is.",0,3,oMessageCutscene,1)
   else if sceneProgress=6
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=5
     {
       shadowJerry=instance_create(oPlayer1.x,oPlayer1.y,oMisc)
@@ -1663,7 +1663,7 @@ else if global.gameProgress=890 and room=rLink2_PalaceW_13 //----- [16] Not real
     msgCreate(0,0,"Jeremy","Oh, there we go!",0,3,oMessageCutscene,1)
   else if sceneProgress=16
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=5
     {
       for(i=0;i<40;i+=1)
@@ -1707,7 +1707,7 @@ else if global.gameProgress=890 and room=rLink2_PalaceW_13 //----- [16] Not real
     msgCreate(0,0,"Jeremy","Speaking of that...",0,3,oMessageCutscene,1)
   else if sceneProgress=29
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=20
     {
       pChip=instance_create(288,176,oProgramChip)
@@ -1730,7 +1730,7 @@ else if global.gameProgress=890 and room=rLink2_PalaceW_13 //----- [16] Not real
     msgCreate(0,0,"Jerry","Don't remind me.",0,3,oMessageCutscene,1)
   else if sceneProgress=33
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=21 and sceneDelay<=100
       pChip.y+=1
     else if sceneDelay=130
@@ -1790,7 +1790,7 @@ else if global.gameProgress=900 and room=rLink2_HP //----- [17] Triforce/Zelda g
 
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {oPlayer1.image_xscale=1}
     else if sceneDelay>=25
     {
@@ -1800,7 +1800,7 @@ else if global.gameProgress=900 and room=rLink2_HP //----- [17] Triforce/Zelda g
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=2 and bWaitForInput=false
@@ -1809,7 +1809,7 @@ else if global.gameProgress=900 and room=rLink2_HP //----- [17] Triforce/Zelda g
     msgCreate(0,0,"Jeremy","I don't know, something is calling out though.",0,3,oMessageCutscene,1)
   else if sceneProgress=4
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=20
     {
       var tFlash;
@@ -1860,7 +1860,7 @@ else if global.gameProgress=900 and room=rLink2_HP //----- [17] Triforce/Zelda g
     msgCreate(0,0,"Chao","You'll see.",0,3,oMessageCutscene,1)
   else if sceneProgress=15
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=20
     {
       var tFlash;
@@ -1893,7 +1893,7 @@ else if global.gameProgress=900 and room=rLink2_HP //----- [17] Triforce/Zelda g
     msgCreate(0,0,"Claire","Just shut up and watch.",0,3,oMessageCutscene,1)
   else if sceneProgress=18
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=20
     {
       for(i=0;i<3;i+=1)
@@ -1951,7 +1951,7 @@ else if global.gameProgress=900 and room=rLink2_HP //----- [17] Triforce/Zelda g
     msgCreate(0,0,"Chao","Eh, fine.",0,3,oMessageCutscene,1)
   else if sceneProgress=28
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=20 and sceneDelay<=200
     {
       zeldaImage.image_alpha-=0.01
@@ -1963,7 +1963,7 @@ else if global.gameProgress=900 and room=rLink2_HP //----- [17] Triforce/Zelda g
     msgCreate(0,0,"Jerry","I will admit that was pretty cool.",0,3,oMessageCutscene,1)
   else if sceneProgress=30
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=15
     {
       var tHeartContainer,tempMplay;

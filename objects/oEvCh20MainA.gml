@@ -40,7 +40,7 @@ if global.gameProgress=5040 and room=rWarshipA //----- [] Intro to CHAOS Warship
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=20
     {
       fadeAlpha-=0.02
@@ -49,7 +49,7 @@ if global.gameProgress=5040 and room=rWarshipA //----- [] Intro to CHAOS Warship
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=1 and sceneDelay<=99
     {
       if shipJerry.x<240
@@ -156,7 +156,7 @@ else if global.gameProgress=5070 and room=rWarshipB //----- [] Fight with Hex en
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=30 {delaySpawn(1104,208,oBloodTyrant,0,1,1,0.33)}
       else if sceneDelay=50 {delaySpawn(1152,264,oWS_WarPanelTurret,0,1,1,0.66)}
       else if sceneDelay=62 {delaySpawn(1280,264,oWS_WarPanelTurret,0,1,1,0.66)}
@@ -169,7 +169,7 @@ else if global.gameProgress=5070 and room=rWarshipB //----- [] Fight with Hex en
     }
     else if sceneProgress=2
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=30 {delaySpawn(1104,208,oBloodTyrant,0,1,1,0.33)}
       else if sceneDelay=50 {delaySpawn(1520,-16,oCHAOS_Rocketeer,0,1,1,0.66); sceneDelay=180}
       else if sceneDelay=230 {delaySpawn(1328,264,oWS_WarPanelTurret,0,1,1,0.66)}
@@ -208,7 +208,7 @@ else if global.gameProgress=5080 and room=rWarshipB //----- [] Fight with Warshi
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=30 {delaySpawn(3028,268,oWS_TargetingWarTurret,2,1,1,0.33)}
       else if sceneDelay=50 {delaySpawn(3404,236,oWS_TargetingWarTurret,2,1,1,0.33)}
       else if sceneDelay>=80 {sceneDelay=0; sceneProgress+=1}
@@ -219,7 +219,7 @@ else if global.gameProgress=5080 and room=rWarshipB //----- [] Fight with Warshi
     }
     else if sceneProgress=3
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=30 {delaySpawn(3028,268,oWS_TargetingWarTurret,2,1,1,0.33)}
       else if sceneDelay=50 {delaySpawn(3212,300,oWS_TargetingWarTurret,2,1,1,0.33)}
       else if sceneDelay=70 {delaySpawn(3404,236,oWS_TargetingWarTurret,2,1,1,0.33)}
@@ -252,7 +252,7 @@ else if global.gameProgress=5100 and room=rWarshipC //----- [] Fight with Hex en
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=30 {delaySpawn(928,304,oMalignantOoze,0,1,1,0.33)}
       else if sceneDelay=100 {delaySpawn(464,48,oCHAOS_Rocketeer,0,1,1,0.33)}
       else if sceneDelay>=150 {sceneDelay=0; sceneProgress+=1}
@@ -294,7 +294,7 @@ else if global.gameProgress=5140 and room=rWarshipE //----- [] Something is wron
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=20 {oPlayer1.image_index=1}
     else if sceneDelay=24 {oPlayer1.image_index=2}
     else if sceneDelay=27 {oPlayer1.image_index=3}
@@ -352,7 +352,7 @@ else if global.gameProgress=5141 and room=rWarshipF //----- [] Fight with lots o
     }
     else if sceneProgress=2
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=15
       {
         delaySpawn(496,32,oCHAOS_Rocketeer,0,1,1,0.33)
@@ -366,7 +366,7 @@ else if global.gameProgress=5141 and room=rWarshipF //----- [] Fight with lots o
     }
     else if sceneProgress=4
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=15
       {
         delaySpawn(1376,240,oBloodTyrant,0,1,1,0.33)
@@ -407,7 +407,7 @@ else if global.gameProgress=5150 and room=rWarshipG //----- [] Fight with Rocket
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10 {delaySpawn(1600,0,oCHAOS_Rocketeer,0,1,1,0.33)}
       else if sceneDelay>=60 {sceneDelay=0; sceneProgress+=1}
     }
@@ -417,7 +417,7 @@ else if global.gameProgress=5150 and room=rWarshipG //----- [] Fight with Rocket
     }
     else if sceneProgress=3
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10 {delaySpawn(1200,0,oCHAOS_Rocketeer,0,1,1,0.33)}
       else if sceneDelay>=60 {sceneDelay=0; sceneProgress+=1}
     }
@@ -466,7 +466,7 @@ else if room=rWarshipI //----- [] Fight with anger -----
       }
       else if sceneProgress=2
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay=10 {delaySpawn(2384,-32,oCHAOS_Rocketeer,2,1,1,0.33)}
         else if sceneDelay=30 {delaySpawn(2256,80,oCHAOS_Healer,2,1,1,0.33)}
         else if sceneDelay=80 {delaySpawn(2256,256,oBloodTyrant,2,1,1,0.33)}
@@ -478,7 +478,7 @@ else if room=rWarshipI //----- [] Fight with anger -----
       }
       else if sceneProgress=4
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay=10
         {
           delaySpawn(2048,256,oZakoSoldier,2,1,1,0.33)
@@ -546,7 +546,7 @@ else if global.gameProgress=5190 and room=rWarshipK //----- [] Something is wron
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=20 {oPlayer1.image_index=1}
     else if sceneDelay=24 {oPlayer1.image_index=2}
     else if sceneDelay=27 {oPlayer1.image_index=3}
@@ -606,7 +606,7 @@ else if room=rWarshipM and global.gameProgress=5220 //----- [] Fight with CHAOS 
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10 {delaySpawn(560,64,oCHAOS_Rocketeer,0,1,1,0.33)}
       else if sceneDelay=50 {sceneProgress+=1}
     }
@@ -644,7 +644,7 @@ else if global.gameProgress=5230 and room=rWarshipN //----- [] Take the lower pa
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
@@ -709,7 +709,7 @@ else if global.gameProgress=5240 and room=rWarshipP //----- [] Hex speaks -----
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=60
     {
       var tempMplay;
@@ -723,7 +723,7 @@ else if global.gameProgress=5240 and room=rWarshipP //----- [] Hex speaks -----
   }
   else if sceneProgress=2
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       msgCreate(0,0,"Jeremy","Not exactly, but you've never bothered to truly tell us. What do you want?",0,3,oMessagePerson,0)
@@ -733,7 +733,7 @@ else if global.gameProgress=5240 and room=rWarshipP //----- [] Hex speaks -----
   }
   else if sceneProgress=3
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {createScreenText(xView,yView,100,fnt_EnemyName,fa_middle,"There's nothing at all to declare about my desires.",3,c_white,1,0)}
     else if sceneDelay=110 {createScreenText(xView,yView,100,fnt_EnemyName,fa_middle,"I'm a fabricated existence.#In a world that isn't even real.",3,c_white,1,0)}
     else if sceneDelay=220 {createScreenText(xView,yView,240,fnt_EnemyName,fa_middle,"At its roots, I want nothing at all.#Everything here, all of it.#You, me, your friends. All of this.#Everything is meaningless in the end.#I desire none of this.",3,c_white,1,0)}
@@ -741,7 +741,7 @@ else if global.gameProgress=5240 and room=rWarshipP //----- [] Hex speaks -----
   }
   else if sceneProgress=4
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       msgCreate(0,0,"Jeremy","That's a lovely speech, Hex. And maybe I'd feel for you, but you're an asshole! Things didn't have to be this way! You made all this happen!",0,3,oMessagePerson,0)
@@ -751,7 +751,7 @@ else if global.gameProgress=5240 and room=rWarshipP //----- [] Hex speaks -----
   }
   else if sceneProgress=5
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {createScreenText(xView,yView,100,fnt_EnemyName,fa_middle,"Oh yes, how did I forget? I do desire one thing.",3,c_white,1,0)}
     else if sceneDelay=110 {createScreenText(xView,yView,130,fnt_EnemyName,fa_middle,"I want to see you suffer, Jeremy.#You are the reason for my meaningless existence.",3,c_white,1,0)}
     else if sceneDelay=250 {createScreenText(xView,yView,120,fnt_EnemyName,fa_middle,"I'm going to force you to watch everything you love,#die and fade away.",3,c_white,1,0)}
@@ -792,7 +792,7 @@ else if global.gameProgress=5250 and room=rWarshipQ //----- [] Boss Fight: Hex F
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10
       {
         var tCamera;
@@ -869,7 +869,7 @@ else if global.gameProgress=5250 and room=rWarshipQ //----- [] Boss Fight: Hex F
 
     if sceneProgress=50 //Start fight
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=15
       {
         if global.gateHProg=200
@@ -963,7 +963,7 @@ else if global.gameProgress=5260 and room=rWarshipQ //----- [] Got to first powe
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=1 and bWaitForInput=false
@@ -1027,7 +1027,7 @@ else if global.gameProgress=5270 and room=rWarshipN //----- [] About your abilit
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=2 and bWaitForInput=false
@@ -1049,7 +1049,7 @@ else if global.gameProgress=5280 and room=rWarshipZ_A //----- [] The final stret
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
@@ -1146,7 +1146,7 @@ else if global.gameProgress=5305 and room=rWarshipZ_E2 //----- [Final Boss Fight
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10
       {
         var tCamera;
@@ -1160,7 +1160,7 @@ else if global.gameProgress=5305 and room=rWarshipZ_E2 //----- [Final Boss Fight
     }
     else if sceneProgress=2
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=30
       {
         musVolC=global.optMusic*100
@@ -1273,7 +1273,7 @@ else if global.gameProgress=5305 and room=rWarshipZ_E2 //----- [Final Boss Fight
       msgCreate(0,0,"Warmaster","Don't waste any more time then. I've been curious to see what you can do, personally.",6,3,oMessageCutscene,1)
     else if sceneProgress=46
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=30
       {
         musVolC=global.optMusic*100
@@ -1349,7 +1349,7 @@ else if global.gameProgress=5305 and room=rWarshipZ_E2 //----- [Final Boss Fight
     }
     else if sceneProgress=3
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=50
       {
         view_object[0]=oPlayer1
@@ -1379,7 +1379,7 @@ else if global.gameProgress=5305 and room=rWarshipZ_E2 //----- [Final Boss Fight
       msgCreate(0,0,"Jerry","Yeah, I'm not too smart most of the time.",0,3,oMessageCutscene,1)
     else if sceneProgress=12
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         msgCreate(0,0,"Warmaster","There's only one thing beyond this door. Go forth gamers, see what you've earned.",6,3,oMessagePerson,0)
@@ -1442,7 +1442,7 @@ else if global.gameProgress=5310 and room=rWarshipZ_E2 //----- [] This door ----
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=2 and bWaitForInput=false
@@ -1477,7 +1477,7 @@ else if global.gameProgress=5310 and room=rWarshipZ_E2 //----- [] This door ----
     msgCreate(0,0,"Jeremy","Okay you guys, I'm coming in!",0,3,oMessageCutscene,1)
   else if sceneProgress=17
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=30
     {
       var tEffect;
@@ -1540,7 +1540,7 @@ else if global.gameProgress=5330 and room=rWarshipZ_I //----- [] Final Warning -
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=2 and bWaitForInput=false
@@ -1571,7 +1571,7 @@ else if global.gameProgress=5340 and room=rWarshipZ_I //----- [] The last power 
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=2 and bWaitForInput=false
@@ -1582,7 +1582,7 @@ else if global.gameProgress=5340 and room=rWarshipZ_I //----- [] The last power 
     msgCreate(0,0,"Jeremy","Okay, here we go.",0,3,oMessageCutscene,1)
   else if sceneProgress=5
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=30
     {
       global.optShowScore=0

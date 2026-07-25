@@ -84,7 +84,7 @@ if global.gameProgress=4200 and room=rMain_61 //----- [1] Intro to Starry Skies 
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
@@ -132,7 +132,7 @@ else if global.gameProgress=4210 and room=rMain_61 //----- [] Ice gems -----
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         msgCreate(0,0,"Claire","Did you ever play 'Magical Quest', Jerry?",0,1,oMessagePerson,0)
@@ -160,7 +160,7 @@ else if global.gameProgress=4220 and room=rMain_62 //----- [2] CHAOS invading --
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
@@ -203,7 +203,7 @@ else if global.gameProgress=4250 and room=rWepFacA //----- [3] Intro to CHAOS We
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
@@ -230,7 +230,7 @@ else if global.gameProgress=4270 and room=rWepFacE //----- [4] Traps to keep us 
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
@@ -282,7 +282,7 @@ else if global.gameProgress=4300 and room=rWepFacH //----- [6] Seeker Bots -----
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
@@ -339,7 +339,7 @@ else if global.gameProgress=4310 and room=rWepFacK //----- [7] Boss Fight: Brain
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         boss=instance_create(288,160,oBrainMachine)
@@ -423,7 +423,7 @@ else if global.gameProgress=4320 and room=rWepFacL //----- [8] Big elevator down
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=50 {sceneDelay=0; sceneProgress+=1}
   }
@@ -455,7 +455,7 @@ else if global.gameProgress=4330 and room=rLowFacB //----- [9] Big Mechs -----
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
@@ -555,7 +555,7 @@ else if global.gameProgress=4390 and room=rLowFacG //----- [10] Boss Fight: Blad
     }
     else if sceneProgress=2
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=20 {bBotPose.sprite_index=sBBot_DrawSword}
       else if sceneDelay=24 {bBotPose.image_index=1}
       else if sceneDelay=28 {bBotPose.image_index=2}
@@ -635,7 +635,7 @@ else if global.gameProgress=4400 and room=rLowFacH //----- [] Enemy trap -----
   {
     if global.gamePaused=false
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=20
       {
         delaySpawn(880,144,oCHAOS_AirGunner,2,1,1,0.33)
@@ -697,7 +697,7 @@ else if global.gameProgress=4420 and room=rLowFacJ //----- [] Enemy Trap: Spider
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=20
     {
       tNewMessage=instance_create((GID(378907)).x-100,(GID(378907)).y-112,oMessageSign)
@@ -766,7 +766,7 @@ else if global.gameProgress=4440 and room=rLowFacO //----- [] Trapped by Warmast
   }
   else if sceneProgress=1 and global.gamePaused=false
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=20
     {
       if oPlayer1.x>=592 {sceneDelay=10}
@@ -811,7 +811,7 @@ else if global.gameProgress=4450 or global.gameProgress=4451 and room=rLowFacO /
   }
   else if sceneProgress=1 and global.gamePaused=false
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=10
     {
       var tNewEnemy;
@@ -825,7 +825,7 @@ else if global.gameProgress=4450 or global.gameProgress=4451 and room=rLowFacO /
   }
   else if sceneProgress=2 and global.gamePaused=false
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=10
     {
       if global.gameProgress=4451
@@ -854,7 +854,7 @@ else if global.gameProgress=4450 or global.gameProgress=4451 and room=rLowFacO /
   }
   else if sceneProgress=3 and global.gamePaused=false
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=10
     {
       for(i=0;i<4;i+=1)
@@ -924,7 +924,7 @@ else if global.gameProgress=4450 or global.gameProgress=4451 and room=rLowFacO /
   }
   else if sceneProgress=4 and global.gamePaused=false
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=10
     {
       for(i=0;i<6;i+=1)
@@ -1033,7 +1033,7 @@ else if global.gameProgress=4460 and room=rLowFacR //----- [] Boss Fight: Advanc
     }
     else if sceneProgress=2
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=71 and sceneDelay<=121
       {
         blendCol+=5
@@ -1134,7 +1134,7 @@ else if global.gameProgress=4470 and room=rLowFacS //----- [] Hex and the Warshi
     msgCreate(0,0,"Hex","Yeah, you humans call it that. Anyway, this isn't getting us anywhere. The ship launching should actually remove you guys. I won't even have to send the Warmaster after you.",0,3,oMessageCutscene,1)
   else if sceneProgress=10
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       global.gamePaused=false
@@ -1145,7 +1145,7 @@ else if global.gameProgress=4470 and room=rLowFacS //----- [] Hex and the Warshi
   {
     if sceneProgress=11
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=1 and sceneDelay<=35
       {
         oMisc.x+=8
@@ -1173,7 +1173,7 @@ else if global.gameProgress=4470 and room=rLowFacS //----- [] Hex and the Warshi
     }
     else if sceneProgress=13
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10
       {
         if global.activeCharacter=0
@@ -1289,7 +1289,7 @@ else if global.gameProgress=4470 and room=rLowFacCutA //----- [] CHAOS Warship t
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       SS_StopSound(global.snd_Earthquake)
@@ -1299,7 +1299,7 @@ else if global.gameProgress=4470 and room=rLowFacCutA //----- [] CHAOS Warship t
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=30
     {
       fadeAlpha-=0.02
@@ -1308,7 +1308,7 @@ else if global.gameProgress=4470 and room=rLowFacCutA //----- [] CHAOS Warship t
   }
   else if sceneProgress=2
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=29 {backSoundLoop=1}
     else if sceneDelay=211 {backSoundLoop=0}
 
@@ -1378,7 +1378,7 @@ else if global.gameProgress=4470 and room=rLowFacCutA //----- [] CHAOS Warship t
   }
   else if sceneProgress=4
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=30
     {
       global.pLife=global.pMaxLife
@@ -1542,7 +1542,7 @@ else if global.gameProgress=4510 and room=rMain_71 //----- [13] Bubblin reveals 
     msgCreate(0,0,"Bubblun","Hold on you guys!",6,3,oMessageCutscene,1)
   else if sceneProgress=2
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       npcBubblun=instance_create(160,336,oMisc)
@@ -1602,7 +1602,7 @@ else if global.gameProgress=4510 and room=rMain_71 //----- [13] Bubblin reveals 
     msgCreate(0,0,"Bubblun","I have to go now. Remember, it's east of Starry Skies - Windy Hills.",6,3,oMessageCutscene,1)
   else if sceneProgress=23
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       npcBubblun.sprite_index=sBubblun_Walk

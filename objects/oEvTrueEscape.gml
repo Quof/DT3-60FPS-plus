@@ -37,7 +37,7 @@ if global.gameProgress=5340 and room=rWarshipZ_EscapeA //----- [1] ...Hex had a 
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=30
     {
       fadeAlpha-=0.02
@@ -85,7 +85,7 @@ if global.gameProgress=5340 and room=rWarshipZ_EscapeA //----- [1] ...Hex had a 
     msgCreate(0,0,"Jerry","No, we're not doing that!",0,3,oMessageCutscene,1)
   else if sceneProgress=19
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       msgCreate(0,0,"Jeremy","GET OUT NOW!!",0,1,oMessagePerson,0)
@@ -151,13 +151,13 @@ if global.gameProgress=5340 and room=rWarshipZ_EscapeA //----- [1] ...Hex had a 
     msgCreate(0,0,"Jeremy","What I have to.",0,3,oMessageCutscene,1)
   else if sceneProgress=22
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=10 {msgCreate(0,0,"Jerry","No you don't!",0,1,oMessagePerson,0); newMessage.fadingTime=60}
     else if sceneDelay>=70 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=23
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {jerryAnim=1}
     else if sceneDelay=10 {msgCreate(0,0,"Jerry","Don't do this, Jeremy!",0,1,oMessagePerson,0); newMessage.fadingTime=70}
     else if sceneDelay=90 {msgCreate(0,0,"Jerry","Open it, Jeremy!",0,1,oMessagePerson,0); newMessage.fadingTime=60}
@@ -220,7 +220,7 @@ if global.gameProgress=5340 and room=rWarshipZ_EscapeA //----- [1] ...Hex had a 
   }
   else if sceneProgress=24
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=10 {msgCreate(0,0,"Jerry","Jeremy... Okay...",0,1,oMessagePerson,0); newMessage.fadingTime=60}
     else if sceneDelay=70 {msgCreate(0,0,"Jeremy","I love you guys. I'm not going to let you all die like this.",0,2,oMessagePerson,0); newMessage.fadingTime=120}
     else if sceneDelay=190 {msgCreate(0,0,"Jerry","Jeremy... you make it out, okay?",0,1,oMessagePerson,0); newMessage.fadingTime=90}
@@ -326,7 +326,7 @@ else if global.gameProgress=5360 and room=rWarshipZ_EscapeB //----- [3] Jerry pa
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=1 and sceneDelay<=12 {oPlayer1.x-=7}
     else if sceneDelay=13 {oPlayer1.sprite_index=sClaireIdle; oPlayer1.image_speed=0.1; oPlayer1.image_xscale=1}
     else if sceneDelay=24 {oPlayer1.sprite_index=sClaireWalk; oPlayer1.image_speed=0.33}
@@ -414,7 +414,7 @@ else if global.gameProgress=5370 and room=rWarshipZ_EscapeD //----- [4] Claire s
     msgCreate(0,0,"Chao","Hold on, I can stop it.",0,3,oMessageCutscene,1)
   else if sceneProgress=3
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=30 {oWarship_PowerSource.overloading=0}
     else if sceneDelay>=60 {sceneDelay=0; sceneProgress+=1}
   }
@@ -428,7 +428,7 @@ else if global.gameProgress=5370 and room=rWarshipZ_EscapeD //----- [4] Claire s
     msgCreate(0,0,"Chao","Now let's get you out of here.",0,3,oMessageCutscene,1)
   else if sceneProgress=8
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=30 {oWarship_PowerSource.overloading=1}
     else if sceneDelay>=60 {sceneDelay=0; sceneProgress+=1}
   }
@@ -440,7 +440,7 @@ else if global.gameProgress=5370 and room=rWarshipZ_EscapeD //----- [4] Claire s
     msgCreate(0,0,"Claire","Hold on, I want to check something!",0,3,oMessageCutscene,1)
   else if sceneProgress=12
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=30
     {
       oPlayer1.sprite_index=sClaireWalk; oPlayer1.image_speed=0.33
@@ -500,14 +500,14 @@ else if global.gameProgress=5370 and room=rWarshipZ_EscapeD //----- [4] Claire s
     msgCreate(0,0,"Claire","Go Chao! JUST GO, DAMN IT!",0,3,oMessageCutscene,1)
   else if sceneProgress=32
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=30 {chaoGoToPoint=0; sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=33 and bWaitForInput=false
     msgCreate(0,0,"Chao","Claire... I... Thank you... for being my friend.",0,3,oMessageCutscene,1)
   else if sceneProgress=34
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=30
     {
       if oIdentifier.y>1025 {oIdentifier.y-=1}
@@ -539,7 +539,7 @@ else if global.gameProgress=5380 and room=rWarshipZ_EscapeD //----- [] Claire wa
 {
   if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       oWarshipEscapeEffects.bExplosion=0
@@ -563,7 +563,7 @@ else if global.gameProgress=5380 and room=rWarshipZ_EscapeD //----- [] Claire wa
   }
   else if sceneProgress=2
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=30
     {
       if global.gamePttT_Prog=100 //Player got Jeremy to remember undo
@@ -590,7 +590,7 @@ else if global.gameProgress=5380 and room=rWarshipZ_EscapeD //----- [] Claire wa
   }
   else if sceneProgress=3 //Chapter 21 unlocked (Freeze everything in scene)
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=80
     {
       msgCreate(0,0,"Claire","What's happened?",0,1,oMessagePerson,0)
@@ -610,7 +610,7 @@ else if global.gameProgress=5380 and room=rWarshipZ_EscapeD //----- [] Claire wa
   }
   else if sceneProgress=4
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {oIdentifier.x=-16; oIdentifier.y=1024}
     else if sceneDelay=5
     {
@@ -626,7 +626,7 @@ else if global.gameProgress=5380 and room=rWarshipZ_EscapeD //----- [] Claire wa
   }
   else if sceneProgress=5
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=50
     {
       msgCreate(0,0,"Claire","Chao, what the heck is happening? Everything froze!",0,1,oMessagePerson,0)
@@ -642,7 +642,7 @@ else if global.gameProgress=5380 and room=rWarshipZ_EscapeD //----- [] Claire wa
   }
   else if sceneProgress=6
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       playSound(global.snd_Static,0,0.96,22050+irandom_range(-4000,4000))

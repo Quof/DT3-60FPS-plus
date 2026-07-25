@@ -115,7 +115,7 @@ if global.gameProgress=2000 and room=rCCity_NA_S2 //----- [1] The Vault must be 
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       global.gamePaused=true
@@ -206,7 +206,7 @@ else if global.gameProgress=2020 and room=rMain_31 //----- [2] The Vault is near
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
@@ -265,7 +265,7 @@ else if global.gameProgress=2030 and room=rMain_34 //----- [3] Bubble Tower and 
   {
     if oPlayer1.x<=1232
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {global.gamePaused=true}
       oPlayer1.y+=4
       if oPlayer1.y>=1088
@@ -278,7 +278,7 @@ else if global.gameProgress=2030 and room=rMain_34 //----- [3] Bubble Tower and 
   }
   else if sceneProgress=3
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=4 and bWaitForInput=false
@@ -313,7 +313,7 @@ else if global.gameProgress=2030 and room=rMain_34 //----- [3] Bubble Tower and 
   }
   else if sceneProgress=16
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=15 {showEmote(oSignPost.id,0,-48,sEmHappy)}
     else if sceneDelay=50 {npcBubblin.image_xscale=-1}
     else if sceneDelay=65 {showEmote(npcBubblin.id,0,-26,sEmThinking)}
@@ -325,7 +325,7 @@ else if global.gameProgress=2030 and room=rMain_34 //----- [3] Bubble Tower and 
   else if sceneProgress=18
   {
 
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=15
     {
       npcBubblin.sprite_index=sBubblun_Walk; npcBubblin.image_xscale=-1; npcBubblin.image_speed=0.15
@@ -364,7 +364,7 @@ else if global.gameProgress=2040 and room=rBubbleTowerA1 //----- [4] Going could
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
@@ -387,7 +387,7 @@ else if global.gameProgress=2080 and room=rBubbleTowerA7 //----- [5] Boss: Army 
   {
     if sceneProgress=0
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         stopAllMusic()
@@ -454,7 +454,7 @@ else if global.gameProgress=2080 and room=rBubbleTowerA7 //----- [5] Boss: Army 
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         with oMisc {instance_destroy()}
@@ -478,7 +478,7 @@ else if global.gameProgress=2080 and room=rBubbleTowerA7 //----- [5] Boss: Army 
     }
     else if sceneProgress=3
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=25 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=4 and bWaitForInput=false
@@ -503,7 +503,7 @@ else if global.gameProgress=2080 and room=rBubbleTowerA7 //----- [5] Boss: Army 
       msgCreate(0,0,"Bubblun","And I have already said that I forbid it.",6,3,oMessageCutscene,1)
     else if sceneProgress=11
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         npcLovelun=instance_create(240,320,oMisc)
@@ -530,7 +530,7 @@ else if global.gameProgress=2080 and room=rBubbleTowerA7 //----- [5] Boss: Army 
     }
     else if sceneProgress=16
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {npcLovelun.visible=1}
       else if sceneDelay=15 {showEmote(npcLovelun.id,0,-26,sEmExcite)}
       else if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
@@ -603,7 +603,7 @@ else if global.gameProgress=2080 and room=rBubbleTowerA7 //----- [5] Boss: Army 
       msgCreate(0,0,"Jerry","Awesome, let's do this.",0,3,oMessageCutscene,1)
     else if sceneProgress=42
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=15
       {
         npcBubblin.sprite_index=sBubblun_Walk; npcBubblin.image_xscale=1; npcBubblin.image_speed=0.15
@@ -617,7 +617,7 @@ else if global.gameProgress=2080 and room=rBubbleTowerA7 //----- [5] Boss: Army 
       msgCreate(0,0,"Lovelun","It's really great to meet you all! I hope we have another chance to talk!",6,3,oMessageCutscene,1)
     else if sceneProgress=44
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10 {with npcLovelun {instance_destroy()}}
       else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
     }
@@ -669,7 +669,7 @@ else if global.gameProgress=2100 and room=rMain_36 //----- [Unskippable] Enemy T
       }
       else if sceneProgress=1
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay>=1 and sceneDelay<=40
         {
           oScreenColorOverlay.image_alpha+=0.005
@@ -690,7 +690,7 @@ else if global.gameProgress=2100 and room=rMain_36 //----- [Unskippable] Enemy T
       }
       else if sceneProgress=2
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay>=1 and sceneDelay<=20 {enemyImage.y-=8}
         else if sceneDelay=21 {enemyImage.sprite_index=sDK_Fly; enemyImage.image_speed=0.15}
         if sceneDelay>=61 and sceneDelay<=132
@@ -705,7 +705,7 @@ else if global.gameProgress=2100 and room=rMain_36 //----- [Unskippable] Enemy T
       }
       else if sceneProgress=3
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay=30
         {
           msgCreate(0,0,"Dragon Knight","I will crush all who oppose my master!",5,2,oMessagePerson,0); newMessage.fadingTime=100
@@ -767,7 +767,7 @@ else if global.gameProgress=2120 and room=rMain_39 //----- [Unskippable] What is
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       oPlayer1.image_xscale=-1
@@ -789,7 +789,7 @@ else if global.gameProgress=2120 and room=rMain_39 //----- [Unskippable] What is
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=15
     {
       var tempMplay;
@@ -827,7 +827,7 @@ else if global.gameProgress=2130 and room=rMain_39 //----- [Unskippable] No turn
   {
     if oPlayer1.x<=144 and oPlayer1.y<=208
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {global.gamePaused=true}
       oPlayer1.y+=4
       if oPlayer1.y>=192
@@ -861,7 +861,7 @@ else if global.gameProgress=2140 and room=rMain_39Vault //----- [Unskippable] St
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       musVolC=global.optMusic*100
@@ -893,7 +893,7 @@ else if global.gameProgress=2140 and room=rMain_39Vault //----- [Unskippable] St
     msgCreate(0,0,"Chao","Do it quick, they really shouldn't be close to that thing. I... don't like this.",0,3,oMessageCutscene,1)
   else if sceneProgress=9
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=5
     {
       showEmote(oIdentifier,0,-6,sEmExcite)
@@ -922,7 +922,7 @@ else if global.gameProgress=2160 and room=rMain_39Vault //----- [Unskippable] Th
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=1
     {
       if sceneDelay=1 {global.gamePaused=true}
@@ -947,7 +947,7 @@ else if global.gameProgress=2540 and room=rMain_39Vault //----- [6] Got out of t
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=20
     {
@@ -957,7 +957,7 @@ else if global.gameProgress=2540 and room=rMain_39Vault //----- [6] Got out of t
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=2 and bWaitForInput=false

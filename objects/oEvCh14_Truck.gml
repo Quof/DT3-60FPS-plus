@@ -57,7 +57,7 @@ if global.gamePaused=false
         tEnemy.bActive=1
         spawnDelay=2+irandom(8)
       }
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=210
       {
         global.gamePaused=true
@@ -74,7 +74,7 @@ else
   {
     if sceneProgress=0
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {global.gamePaused=true}
       else if sceneDelay>=30
       {
@@ -118,14 +118,14 @@ else
     {
       if sceneProgress=0
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
       }
       else if sceneProgress=1 and bWaitForInput=false
         msgCreate(0,0,"Claire","Okay, hold on Jerry. We gotta go fast!",0,3,oMessageCutscene,1)
       else if sceneProgress=2
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay>=20
         {
           sceneDelay=0; sceneProgress=0
@@ -146,7 +146,7 @@ else
     }
     else if sceneProgress=11
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=30
       {
         if fadeAlpha<1 {fadeAlpha+=0.02}
