@@ -71,12 +71,14 @@ if global.gamePaused=false
       myPoint=point_direction(x,y,myTargetX,myTargetY)
     }
 
-    var tDiff;
+    /*var tDiff;
     tDiff=angle_difference(myPoint,_direction)
     if abs(tDiff)<=turnSpd
     {_direction=myPoint}
     else
-    {_direction+=sign(tDiff)*turnSpd*gDeltaTime}
+    {_direction+=sign(tDiff)*turnSpd*gDeltaTime} */
+
+    turn_toward_directionEdit(myPoint, turnSpd)
   }
 
   if throwProg>1

@@ -21,13 +21,13 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if global.gamePaused=false //&& gDeltaDoTicks != 0
+if global.gamePaused=false
 {
   yVel+=grav*gDeltaTime
   if sprite_index=sHammerBHam or sprite_index=sHammerThrowerHammer or sprite_index=sFireBroFire or sprite_index=sKingWormSpike or sprite_index=sLargeSnowball
   {
-    if xVel>0 {image_angle-=10}
-    else if xVel<0 {image_angle+=10}
+    if xVel>0 {image_angle-=10*gDeltaTime}
+    else if xVel<0 {image_angle+=10*gDeltaTime}
   }
 
   if isCollisionTop(1) {bDestroy=1}
