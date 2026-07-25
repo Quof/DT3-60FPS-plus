@@ -29,12 +29,11 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if gDeltaDoTicks != 1 { exit; }
 if global.gamePaused=false
 {
   makeEnemyActive(0)
 
-  frameProg+=1
+  frameProg+=1*gDeltaTime
   if frameProg=4 {propFrm=1}
   else if frameProg=8 {propFrm=2}
   else if frameProg=12 {propFrm=3}

@@ -64,7 +64,7 @@ if global.gamePaused=false
         {
           if !isCollisionWaterTop(-8) and oPlayer1.y<y
           {
-            y-=4
+            y-=4*gDeltaTime
             yVel=-6.5
             forceSwimUp=10
           }
@@ -72,11 +72,11 @@ if global.gamePaused=false
           if forceSwimUp=0
           {
             dir=point_direction(x,y,oPlayer1.x,oPlayer1.y-26)
-            moveTo((runAcc*1.4)*cos(degtorad(dir)),-(runAcc*1.4)*sin(degtorad(dir)))
+            moveTo(((runAcc*1.4)*cos(degtorad(dir)))*gDeltaTime,-((runAcc*1.4)*sin(degtorad(dir)))*gDeltaTime)
           }
           else
           {
-            yVel+=0.3
+            yVel+=0.3*gDeltaTime
             if isCollisionBottom(1)
               yVel=0
             if isCollisionLeft(1)
@@ -86,7 +86,7 @@ if global.gamePaused=false
             if isCollisionTop(1)
               yVel=1
 
-            moveTo(xVel,yVel)
+            moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
             if isCollisionSolid()
               y-=2
           }
@@ -110,7 +110,7 @@ if global.gamePaused=false
           {
             if aiCheckHoriz(0,2,16,16,-8)=1
             {
-              y-=4
+              y-=4*gDeltaTime
               yVel=-6.5
             }
           }
@@ -119,7 +119,7 @@ if global.gamePaused=false
         {
           if yVel=0
             xVel=0
-          shotTime+=1
+          shotTime+=1*gDeltaTime
           image_speed=0
           image_index=0
         }
@@ -135,7 +135,7 @@ if global.gamePaused=false
           xVel=0
       }
 
-      yVel+=0.3
+      yVel+=0.3*gDeltaTime
       if isCollisionBottom(1)
         yVel=0
       if isCollisionLeft(1)
@@ -145,7 +145,7 @@ if global.gamePaused=false
       if isCollisionTop(1)
         yVel=1
 
-      moveTo(xVel,yVel)
+      moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
       if isCollisionSolid()
         y-=2
 
@@ -158,10 +158,10 @@ if global.gamePaused=false
     }
 
     if forceSwimUp>0
-      forceSwimUp-=1
+      forceSwimUp-=1*gDeltaTime
     //---------- Spit Acid ----------
     if findTargetX<224 or shotTime>=shotDelay
-      shotTime+=1
+      shotTime+=1*gDeltaTime
     if shotTime>=shotDelay
     {
       if shotTime>=shotDelay and shotTime<=shotDelay+4 //change anim
@@ -188,17 +188,17 @@ if global.gamePaused=false
   }
   else if life<=0
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     image_speed=0
-    if deathAnim mod 4=0
+    if deathAnim mod (4/gDeltaTime)=0
     {
-      if deathAnim mod 8=0 {playSound(global.snd_BombExplode,0,0.8,1)}
+      if deathAnim mod (8/gDeltaTime)=0 {playSound(global.snd_BombExplode,0,0.8,1)}
       tEffect=instance_create(x+random_range(-10,10),y-1-random(42),oEffect)
       tEffect.sprite_index=sDeathFlameA; tEffect.image_speed=0.33
       tEffect.image_alpha=0.5+(image_alpha/3)
       tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
     }
-    image_alpha-=0.04
+    image_alpha-=0.04*gDeltaTime
     if image_alpha<0 {instance_destroy()}
   }
   enemyStepEvent()

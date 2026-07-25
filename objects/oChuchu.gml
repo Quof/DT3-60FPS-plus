@@ -58,8 +58,8 @@ if global.gamePaused=false
       initDir=1
     }
 
-    if x>oPlayer1.x and xVel>0 {turnTime+=1}
-    else if x<oPlayer1.x and xVel<0 {turnTime+=1}
+    if x>oPlayer1.x and xVel>0 {turnTime+=1*gDeltaTime}
+    else if x<oPlayer1.x and xVel<0 {turnTime+=1*gDeltaTime}
     if turnTime>=10
     {
       xVel*=-1
@@ -67,8 +67,8 @@ if global.gamePaused=false
     }
 
     //Electric
-    electFrm+=0.4
-    electricTime+=1
+    electFrm+=0.4*gDeltaTime
+    electricTime+=1*gDeltaTime
     if electricTime=80
     {
       if checkScreenArea(x,y,48)=1 {playSound(global.snd_Spark,0,0.89,25500)}
@@ -80,7 +80,7 @@ if global.gamePaused=false
     }
     else if electricTime>=81 and electricTime<=115
     {
-      if electricTime mod 3=0
+      if electricTime mod (3/gDeltaTime)=0
       {
         image_index+=1
         if image_index=6 {image_index=3}
@@ -100,7 +100,7 @@ if global.gamePaused=false
       if electricTime<0 {electricTime=0}
     }
 
-    yVel+=0.2
+    yVel+=0.2*gDeltaTime
     if isCollisionBottom(1)
       yVel=0
     if isCollisionLeft(1)
@@ -109,7 +109,7 @@ if global.gamePaused=false
       xVel=-runAcc
     if isCollisionSolid()
       y-=2
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
     if y>room_height+24
     {
       if questType>0

@@ -100,7 +100,6 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if gDeltaDoTicks != 1 { exit; }
 if global.gamePaused=false
 {
   makeEnemyActive(0)
@@ -132,7 +131,7 @@ if global.gamePaused=false
     }
 
     //---------- Boomerang time ----------
-    throwTime+=1
+    throwTime+=1*gDeltaTime
     if throwTime>=throwDelay
     {
       if throwTime=throwDelay //Init boomerang
@@ -171,7 +170,7 @@ if global.gamePaused=false
           }
           //Spit fire
           tNewAttack=instance_create(x+tXshift,y-12,oBroBoomerang)
-          tNewAttack.atkPower=atkPower; tNewAttack.type=image_xscale; tNewAttack.direction=tDir
+          tNewAttack.atkPower=atkPower; tNewAttack.type=image_xscale; tNewAttack._direction=tDir
           tNewAttack.bulletSpeed=tXSpd; tNewAttack.myThrower=id
 
           //Boomerang spam
@@ -209,7 +208,7 @@ if global.gamePaused=false
       }
     }
 
-    yVel+=0.2
+    yVel+=0.2*gDeltaTime
     if isCollisionBottom(1)
       yVel=0
     if isCollisionLeft(1)
@@ -223,7 +222,7 @@ if global.gamePaused=false
       image_xscale=1
     else if xVel<0
       image_xscale=-1
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
     if y>room_height+24
       instance_destroy()
   }
@@ -233,4 +232,4 @@ else
   animSpd=0
 //image_speed=animSpd
 image_speed = 0
-image_index += animSpd
+image_index += animSpd*gDeltaTime

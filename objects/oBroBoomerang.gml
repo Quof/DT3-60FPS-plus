@@ -14,8 +14,10 @@ bCanTakeDamage=false
 
 throwProg=0
 throwTime=0
-turnSpd=5*gDeltaTime
+turnSpd=5
 
+direction=0
+speed=0
 _speed=0
 _direction=0
 #define Step_0
@@ -35,11 +37,13 @@ if global.gamePaused=false
   {
     if type=1 //Thrown right
     {
-      direction-=turnSpd*gDeltaTime
+     // direction-=turnSpd*gDeltaTime
+      _direction-=turnSpd*gDeltaTime
     }
     else if type=-1 //Thrown left
     {
-      direction+=turnSpd*gDeltaTime
+      //direction+=turnSpd*gDeltaTime
+      _direction+=turnSpd*gDeltaTime
     }
     if throwTime>=30
     {
@@ -66,17 +70,28 @@ if global.gamePaused=false
     {
       myPoint=point_direction(x,y,myTargetX,myTargetY)
     }
-    turn_toward_direction(myPoint,turnSpd)
+
+    /*var tDiff;
+    tDiff=angle_difference(myPoint,_direction)
+    if abs(tDiff)<=turnSpd
+    {_direction=myPoint}
+    else
+    {_direction+=sign(tDiff)*turnSpd*gDeltaTime} */
+
+    turn_toward_directionEdit(myPoint, turnSpd)
   }
 
   if throwProg>1
   {
     if !instance_exists(myThrower) {instance_destroy()}
   }
-  speed=bulletSpeed*gDeltaTime
+  _speed=bulletSpeed
+  speed=0
+  x += cos(degtorad(_direction)) * _speed * gDeltaTime
+  y -= sin(degtorad(_direction)) * _speed * gDeltaTime
   image_angle-=20*type*gDeltaTime
 }
-else {speed=0}
+else {speed=0; _speed=0}
 #define Other_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

@@ -86,10 +86,10 @@ else if tExtraMap=3 //==================== Gate 3 - Water Palace ===============
 
 if tShowPos=1 //Draw location
 {
-  mMap_FrameCount+=1
+  mMap_FrameCount+=1*gDeltaTime
   if mMap_FrameCount mod 6=0
   {
-    mMap_CurFrame+=1
+    mMap_CurFrame+=1*gDeltaTime
     if mMap_CurFrame=4
       mMap_CurFrame=0
   }

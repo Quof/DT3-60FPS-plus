@@ -52,14 +52,14 @@ if global.gamePaused=false
   if bActive=true and stunnedTime=0
   {
 
-    bobTime+=1
+    bobTime+=1*gDeltaTime
     if bobTime>=1 and bobTime<=20
-      y+=bobAmount
+      y+=bobAmount*gDeltaTime
     else if bobTime>=25 and bobTime<=44
-      y-=bobAmount
+      y-=bobAmount*gDeltaTime
     else if bobTime>=49
       bobTime=0
-    x+=xVel
+    x+=xVel*gDeltaTime
   }
   enemyStepEvent()
 }

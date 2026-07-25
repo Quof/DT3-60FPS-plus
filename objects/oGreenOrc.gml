@@ -84,7 +84,7 @@ if global.gamePaused=false
       if tDrop=0
       {
         xVel=(runAcc*1.25)*image_xscale
-        y-=4
+        y-=4*gDeltaTime
         yVel=-6
         bJumpReady=0
       }
@@ -112,7 +112,7 @@ if global.gamePaused=false
       }
     }*/
 
-    yVel+=0.25
+    yVel+=0.25*gDeltaTime
     if isCollisionBottom(1)
     {
       yVel=0
@@ -125,7 +125,7 @@ if global.gamePaused=false
     if isCollisionSolid()
       y-=2
 
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
     if y>room_height+24
       instance_destroy()
   }

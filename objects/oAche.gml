@@ -59,11 +59,11 @@ if global.gamePaused=false
     }
     else if atkProg=1 //Swoop down
     {
-      x+=atkX
-      y+=atkY
+      x+=atkX*gDeltaTime
+      y+=atkY*gDeltaTime
 
       if atkY>-8
-        atkY-=0.35
+        atkY-=0.35*gDeltaTime
       if (isCollisionTop(1) and atkY<-7) or y<=ystart
       {
         sprite_index=sAcheIdle

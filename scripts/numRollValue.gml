@@ -17,28 +17,28 @@ tRType=argument2
 tDistVal=tTarVal-tCurVal
 if tRType=0
 {
-  if tDistVal>100000 {tCurVal+=10000}
-  if tDistVal>10000 {tCurVal+=1000}
-  if tDistVal>1000 {tCurVal+=100}
-  if tDistVal>100 {tCurVal+=10}
-  if tDistVal>10 {tCurVal+=1}
-  if tDistVal>=1 {tCurVal+=1}
+  if tDistVal>100000 {tCurVal+=10000*gDeltaTime}
+  if tDistVal>10000 {tCurVal+=1000*gDeltaTime}
+  if tDistVal>1000 {tCurVal+=100*gDeltaTime}
+  if tDistVal>100 {tCurVal+=10*gDeltaTime}
+  if tDistVal>10 {tCurVal+=1*gDeltaTime}
+  if tDistVal>=1 {tCurVal+=1*gDeltaTime}
 }
 else if tRType=1
 {
-  if tDistVal>=1 {tCurVal+=1}
-  else if tDistVal<=-1 {tCurVal-=1}
+  if tDistVal>=1 {tCurVal+=1*gDeltaTime}
+  else if tDistVal<=-1 {tCurVal-=1*gDeltaTime}
 }
 else if tRType=2
 {
   if tDistVal>=5
   {
-    tCurVal+=5
+    tCurVal+=5*gDeltaTime
     if tCurVal>tTarVal {tCurVal=tTarVal}
   }
   else if tDistVal<=-5
   {
-    tCurVal-=5
+    tCurVal-=5*gDeltaTime
     if tCurVal<tTarVal {tCurVal=tTarVal}
   }
 }
@@ -46,12 +46,12 @@ else if tRType=3
 {
   if tDistVal>=150
   {
-    tCurVal+=150
+    tCurVal+=150*gDeltaTime
     if tCurVal>tTarVal {tCurVal=tTarVal}
   }
   else if tDistVal<=-150
   {
-    tCurVal-=150
+    tCurVal-=150*gDeltaTime
     if tCurVal<tTarVal {tCurVal=tTarVal}
   }
 }

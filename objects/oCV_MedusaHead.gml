@@ -57,16 +57,16 @@ if global.gamePaused=false
   if bActive=true and stunnedTime=0 and life>0
   {
     if tauntPlayer>0 {tauntPlayer-=1}
-    bobTime+=1
-    if bobTime>=1 and bobTime<=20 {y+=bobAmount}
-    else if bobTime>=28 and bobTime<=47 {y-=bobAmount}
+    bobTime+=1*gDeltaTime
+    if bobTime>=1 and bobTime<=20 {y+=bobAmount*gDeltaTime}
+    else if bobTime>=28 and bobTime<=47 {y-=bobAmount*gDeltaTime}
     else if bobTime>=55 {bobTime=0}
-    x+=xVel
+    x+=xVel*gDeltaTime
     if abilityDrain>0 {abilityDrain-=1}
   }
   else if life<=0
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       playSound(global.snd_HardHit1,0,0.92,1)

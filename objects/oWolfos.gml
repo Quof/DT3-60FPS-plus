@@ -71,7 +71,7 @@ if global.gamePaused=false
       }
       else
       {
-        if shotTime<shotDelay-1 {shotTime+=1}
+        if shotTime<shotDelay-1 {shotTime+=1*gDeltaTime}
         sprite_index=sWolfosIdle
         xVel=0
       }
@@ -81,15 +81,15 @@ if global.gamePaused=false
     }
     else //Slow down back-dash
     {
-      if shotTime>=shotDelay+1
+      if shotTime>=shotDelay+1*gDeltaTime
       {
-        if xVel>0 {xVel-=0.5}
-        else if xVel<0 {xVel+=0.5}
+        if xVel>0 {xVel-=0.5*gDeltaTime}
+        else if xVel<0 {xVel+=0.5*gDeltaTime}
       }
     }
 
     //---------- Fire arrow ----------
-    shotTime+=1
+    shotTime+=1*gDeltaTime
     if shotTime>=shotDelay
     {
       if shotTime=shotDelay //change anim and step back if too close to player
@@ -115,7 +115,7 @@ if global.gamePaused=false
         var tNewAttack;
         tNewAttack=instance_create(x+(14*image_xscale),y-31,oNormalBullet)
         tNewAttack.sprite_index=sLinkArrow; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=7
-        if image_xscale=-1 {tNewAttack.direction=180}
+        if image_xscale=-1 {tNewAttack._direction=180}
       }
       else if shotTime=shotDelay+30 //End attack
       {
@@ -126,7 +126,7 @@ if global.gamePaused=false
       }
     }
 
-    yVel+=0.2
+    yVel+=0.2*gDeltaTime
     if isCollisionBottom(1)
       yVel=0
     if isCollisionLeft(1)
@@ -136,7 +136,7 @@ if global.gamePaused=false
     if isCollisionSolid()
       y-=2
 
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
     if y>room_height+24
       instance_destroy()
   }

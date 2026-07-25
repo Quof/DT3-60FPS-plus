@@ -18,7 +18,7 @@ if global.gamePaused=false
 {
   if activated=1
   {
-    timeLeft-=1
+    timeLeft-=1*gDeltaTime
     if timeLeft<=0
     {
       activated=0

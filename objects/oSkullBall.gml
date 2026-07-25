@@ -90,7 +90,7 @@ if global.gamePaused=false
       bBounced=1
     }
 
-    if abilityDrain>0 {abilityDrain-=1}
+    if abilityDrain>0 {abilityDrain-=1*gDeltaTime}
 
     //Attempt to stay on screen
     if bBounced=0
@@ -100,7 +100,7 @@ if global.gamePaused=false
       if x<view_xview[0] {xVel*=-1}
       if x>view_xview[0]+view_wview[0] {xVel*=-1}
     }
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
   }
   else if life<=0
   {

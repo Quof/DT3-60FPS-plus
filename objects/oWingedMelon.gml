@@ -30,7 +30,6 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if gDeltaDoTicks != 1 { exit; }
 if global.gamePaused=false
 {
   if bActive=0 {makeEnemyActive(0)}
@@ -45,7 +44,7 @@ if global.gamePaused=false
     if runAcc>0 {image_xscale=1}
     else {image_xscale=-1}
 
-    x+=runAcc
+    x+=runAcc*gDeltaTime
   }
   enemyStepEvent()
 }

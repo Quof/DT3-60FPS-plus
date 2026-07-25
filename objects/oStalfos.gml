@@ -74,14 +74,14 @@ if global.gamePaused=false
         }
         else if point_distance(x,y,oPlayer1.x,oPlayer1.y-26)<minDistToPlayer
         {
-          image_index-=animSpd
+          image_index-=animSpd*gDeltaTime
           sprite_index=sStalfosWalk
           if image_xscale=1 {xVel=-runAcc}
           else {xVel=runAcc}
         }
         else
         {
-          image_index+=animSpd
+          image_index+=animSpd*gDeltaTime
           sprite_index=sStalfosIdle
           xVel=0
         }
@@ -90,8 +90,8 @@ if global.gamePaused=false
       {
         if atkTime>=atkDelay+1
         {
-          if xVel>0 {xVel-=0.5}
-          else if xVel<0 {xVel+=0.5}
+          if xVel>0 {xVel-=0.5*gDeltaTime}
+          else if xVel<0 {xVel+=0.5*gDeltaTime}
         }
       }
 
@@ -137,10 +137,10 @@ if global.gamePaused=false
     }
     else if bBroken=1 //Time before rising again
     {
-      fixTime+=1
+      fixTime+=1*gDeltaTime
       if fixTime>=155 and fixTime<=184 //Shake
       {
-        if oGame.time mod 2=0
+        if oGame.time mod (2/gDeltaTime)=0
         {
           if xShake=1 {xShake=-1}
           else {xShake=1}
@@ -173,7 +173,7 @@ if global.gamePaused=false
         tEffect.image_alpha=0.5+(image_alpha/3)
         tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
       }
-      image_alpha-=0.04
+      image_alpha-=0.04*gDeltaTime
       if image_alpha<0
       {
         bNoBonus=false
@@ -183,7 +183,7 @@ if global.gamePaused=false
       }
     }
 
-    yVel+=0.2
+    yVel+=0.2*gDeltaTime
     if isCollisionBottom(1)
       yVel=0
     if isCollisionLeft(1) and bBroken=0
@@ -193,7 +193,7 @@ if global.gamePaused=false
     if isCollisionSolid()
       y-=2
 
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
     if y>room_height+24
       instance_destroy()
   }

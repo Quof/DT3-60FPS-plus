@@ -27,6 +27,8 @@ initDir=0
 flyTime=0
 runAcc=1
 flyAcc=8
+_speed=0
+_direction=0
 
 hopTime=0
 hopNum=0
@@ -79,13 +81,13 @@ if global.gamePaused=false
     {
       if runFromPlayer=0
       {
-        hopTime+=1
+        hopTime+=1*gDeltaTime
         if hopSeq=0 //Hop hop hop
         {
           if hopTime mod hopSpd=0
           {
             xVel=runAcc*image_xscale
-            y-=2
+            y-=2*gDeltaTime
             yVel=-2.5
             image_index=choose(2,3)
             hopNum+=1
@@ -102,7 +104,7 @@ if global.gamePaused=false
         }
         else if hopSeq=1 //Wait
         {
-          peckTime+=1
+          peckTime+=1*gDeltaTime
           if peckTime=4 {image_index=1}
           else if peckTime=8 {image_index=0}
           else if peckTime=12 {image_index=1}
@@ -127,15 +129,15 @@ if global.gamePaused=false
         else {image_xscale=1}
         xVel=(runAcc*2)*image_xscale
 
-        if runFromPlayer mod 3=0
+        if runFromPlayer mod (3/gDeltaTime)=0
         {
           if image_index=2 {image_index=3}
           else {image_index=2}
         }
-        runFromPlayer-=1
+        runFromPlayer-=1*gDeltaTime
       }
 
-      yVel+=1
+      yVel+=1*gDeltaTime
       if isCollisionBottom(1)
       {
         if runFromPlayer=0
@@ -148,25 +150,30 @@ if global.gamePaused=false
       if isCollisionLeft(1) {xVel=runAcc; image_xscale=1}
       if isCollisionRight(1) {xVel=-runAcc; image_xscale=-1}
       if isCollisionSolid() {y-=2}
-      moveTo(xVel,yVel)
+      moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
       if y>room_height+24 {instance_destroy()}
     }
     else if type=1 //Attack player
     {
-      flyTime+=1
+      flyTime+=1*gDeltaTime
       if initDir=0
       {
         myDir=player_sprite_center()
         initDir=1
       }
-      if flyTime mod 3=0
+      if flyTime mod (3/gDeltaTime)=0
       {
         if image_index=2 {image_index=3}
         else {image_index=2}
       }
-      direction=myDir
-      speed=flyAcc
-      if direction>90 and direction<270 {image_xscale=-1}
+      //direction=myDir
+      //speed=flyAcc
+      _direction=myDir
+      _speed=flyAcc
+      x += cos(degtorad(_direction)) * _speed * gDeltaTime
+      y -= sin(degtorad(_direction)) * _speed * gDeltaTime
+
+      if _direction>90 and _direction<270 {image_xscale=-1}
       else {image_xscale=1}
     }
   }
@@ -187,7 +194,7 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
-else {speed=0}
+else {speed=0; _speed=0}
 
 if bSpotted=0
 {

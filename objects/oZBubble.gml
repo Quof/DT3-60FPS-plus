@@ -20,8 +20,8 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  y-=4.5
-  x+=sin(oGame.time/1.5)
+  y-=4.5*gDeltaTime
+  x+=sin(oGame.time/1.5)*gDeltaTime
 
   if y<-8
     instance_destroy()

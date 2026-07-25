@@ -13,9 +13,9 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  decayTime-=1
-  if decayTime mod 25=0 {playSound(global.snd_Cucco1,0,1,16000+random(12000))}
-  if decayTime mod 6=0
+  decayTime-=1*gDeltaTime
+  if decayTime mod (25/gDeltaTime)=0 {playSound(global.snd_Cucco1,0,1,16000+random(12000))}
+  if decayTime mod (6/gDeltaTime)=0
   {
     var tChicken,tSpawnSide;
     tChicken=instance_create(x,y,oZChicken)

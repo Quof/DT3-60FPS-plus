@@ -54,7 +54,7 @@ if global.gamePaused=false
   makeEnemyActive(0)
   if bActive=true and stunnedTime=0
   {
-    shotTime+=1
+    shotTime+=1*gDeltaTime
     if shotTime>=shotDelay
     {
       var tNewAttack,tOffsetShotX;
@@ -68,17 +68,17 @@ if global.gamePaused=false
       tNewAttack.bulletSpeed=7
       tNewAttack.image_speed=0.33
       if image_xscale=1
-        tNewAttack.direction=0
+        tNewAttack._direction=0
       else
-        tNewAttack.direction=180
+        tNewAttack._direction=180
       shotTime=0
     }
 
     if initDir=0 //Rising
     {
-      x+=flyVel
-      y+=airVel
-      airVel+=0.3
+      x+=flyVel*gDeltaTime
+      y+=airVel*gDeltaTime
+      airVel+=0.3*gDeltaTime
       if airVel>=2
       {
         xVel=flyVel
@@ -87,7 +87,7 @@ if global.gamePaused=false
     }
     else
     {
-      yVel+=0.3
+      yVel+=0.3*gDeltaTime
       if isCollisionBottom(1)
       {
         yVel=0
@@ -111,11 +111,11 @@ if global.gamePaused=false
       else
         image_xscale=-1
 
-      moveTo(xVel,yVel)
+      moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
       if isCollisionSolid()
       {
-        if image_xscale=1 {x+=runAcc}
-        else {x-=runAcc}
+        if image_xscale=1 {x+=runAcc*gDeltaTime}
+        else {x-=runAcc*gDeltaTime}
       }
 
       if y>room_height+32

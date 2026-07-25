@@ -42,7 +42,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  biteTime+=1
+  biteTime+=1*gDeltaTime
   if biteTime=7
   {
     sprite_index=sSandCrawlerBite

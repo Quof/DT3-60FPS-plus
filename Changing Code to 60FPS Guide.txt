@@ -39,7 +39,7 @@ The general pattern is "if this is adding a specific number every frame, multipl
 
 2) SPEED
 
-Do not change speed/hspeed/vspeed/direction with a simple gDeltaTime modification.
+Absolutely do not change speed/hspeed/vspeed/direction with a simple gDeltaTime modification.
 
 Game Maker applies these variables automatically with its own integration, and fighting it by undoing it and redoing it manually can cause performance problems or weird glitches, when the object in question is not purely cosmetic. Changing the contents to include delta time as a multiplier might seem to work, but if any code in OTHER objects or scripts reads or writes these variables, it will break THAT code. Game Maker is unfortunately just too inflexible to let us deal with this in the correct simple way, so we have to do it the stupid hard way:
 
@@ -60,7 +60,7 @@ x += _hspeed * gDeltaTime
 y += _vspeed * gDeltaTime
 ```
 
-If both speed/direction AND hspeed+vspeed are used (e.g. speed and hspeed), Brian or Wareya must be summoned to reason about what the object is doing and fix it to only use one of the two systems.
+If both speed/direction AND hspeed+vspeed are used (e.g. speed and hspeed), Brian or Wareya must be summoned to reason about what the object is doing and fix it to only use one of the two systems. 
 
 5 - So, for example, something like "speed=bulletSpeed" should be commented out, then replaced with 
 

@@ -98,7 +98,6 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if gDeltaDoTicks != 1 { exit; }
 if global.gamePaused=false
 {
   makeEnemyActive(0)
@@ -129,7 +128,7 @@ if global.gamePaused=false
     }
 
     //---------- Hammer time ----------
-    throwTime+=1
+    throwTime+=1*gDeltaTime
     if throwTime>=throwDelay
     {
       if throwTime=throwDelay //Init hammer throw
@@ -203,7 +202,7 @@ if global.gamePaused=false
       }
     }
 
-    yVel+=0.2
+    yVel+=0.2*gDeltaTime
     if isCollisionBottom(1)
       yVel=0
     if isCollisionLeft(1)
@@ -217,7 +216,7 @@ if global.gamePaused=false
       image_xscale=1
     else if xVel<0
       image_xscale=-1
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
     if y>room_height+24
       instance_destroy()
   }
@@ -228,7 +227,7 @@ else
 
 //image_speed=animSpd
 image_speed = 0
-image_index += animSpd
+image_index += animSpd*gDeltaTime
 #define Other_23
 /*"/*'/**//* YYD ACTION
 lib_id=1

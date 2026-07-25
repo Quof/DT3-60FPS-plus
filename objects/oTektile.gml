@@ -61,22 +61,22 @@ if global.gamePaused=false
     //---------- Leg Movement ----------
     if legBProg=0
     {
-      legLength-=2
+      legLength-=2*gDeltaTime
       if legLength=0
         legBProg=1
     }
     else if legBProg=1
     {
-      legLength+=2
+      legLength+=2*gDeltaTime
       if legLength=16
         legBProg=0
     }
 
     //---------- Action: Jumping ----------
-    jumpTime+=1
+    jumpTime+=1*gDeltaTime
     if jumpTime>=jumpDelay
     {
-      y-=4
+      y-=4*gDeltaTime
       yVel=-8.5
       if image_xscale=1
         xVel=runAcc
@@ -88,7 +88,7 @@ if global.gamePaused=false
     }
 
     //---------- Action: Fire ----------
-    fireTime+=1
+    fireTime+=1*gDeltaTime
     if fireTime=fireDelay
     {
       var tEffect;
@@ -102,13 +102,13 @@ if global.gamePaused=false
       var tFire;
       tFire=instance_create(x+(6*image_xscale),y-7,oPassBullet)
       if image_xscale=1 {tFire.direction=0}
-      else {tFire.direction=180}
+      else {tFire._direction=180}
       tFire.sprite_index=sWolfHeadShot; tFire.atkPower=atkPower
       tFire.bulletSpeed=6.5; tFire.decayTime=-100
       fireTime=0
     }
 
-    yVel+=0.4
+    yVel+=0.4*gDeltaTime
     if isCollisionBottom(1)
     {
       xVel=0
@@ -121,7 +121,7 @@ if global.gamePaused=false
     if isCollisionTop(1)
       yVel=1
 
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
     if isCollisionSolid()
       y-=2
 

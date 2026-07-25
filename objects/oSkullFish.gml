@@ -63,12 +63,12 @@ if global.gamePaused=false
       if x>oCharacter.x and image_xscale=1
       {
         turnTime+=1
-        x+=runAcc
+        x+=runAcc*gDeltaTime
       }
       else if x<oCharacter.x and image_xscale=-1
       {
         turnTime+=1
-        x+=-runAcc
+        x+=-runAcc*gDeltaTime
       }
       else
       {
@@ -82,20 +82,20 @@ if global.gamePaused=false
             tEffect.image_speed=0.5; tEffect.image_blend=c_teal
             tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
           }
-          x+=(runAcc*1.75)*image_xscale
+          x+=(runAcc*1.75)*image_xscale*gDeltaTime
         }
         else
         {
-          x+=runAcc*image_xscale
+          x+=runAcc*image_xscale*gDeltaTime
         }
 
         if y>oPlayer1.y-26
         {
           if isCollisionWaterTop(12)
-            y-=0.5
+            y-=0.5*gDeltaTime
         }
         else if y<oPlayer1.y-26
-          y+=0.5
+          y+=0.5*gDeltaTime
       }
 
       if turnTime>=60
@@ -121,7 +121,7 @@ if global.gamePaused=false
       sprite_index=sSkullFishOnLand
       bCanDealDamage=false
 
-      yVel+=0.4
+      yVel+=0.4*gDeltaTime
       if isCollisionBottom(1)
       {
         xVel=random_range(-1.5,1.5)
@@ -134,14 +134,14 @@ if global.gamePaused=false
       if isCollisionSolid()
         y-=2
 
-      moveTo(xVel,yVel)
+      moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
       if y>room_height+24
         instance_destroy()
     }
   }
   else if life<=0
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     image_speed=0
     if deathAnim mod 4=0
     {
@@ -151,7 +151,7 @@ if global.gamePaused=false
       tEffect.image_alpha=0.5+(image_alpha/3)
       tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
     }
-    image_alpha-=0.04
+    image_alpha-=0.04*gDeltaTime
     if image_alpha<0 {instance_destroy()}
   }
   enemyStepEvent()
