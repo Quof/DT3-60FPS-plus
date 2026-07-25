@@ -1274,7 +1274,7 @@ if subMenu=3
       draw_text(infoMenuX+314,infoMenuY+2,"SP Cost: " +string(info_Cost))
   }
   //Display cursor
-  mSAP_FrameCount+=1
+  mSAP_FrameCount+=1*gDeltaTime
   if mSAP_FrameCount mod 8=0
   {
     if mSAP_CurFrame=0

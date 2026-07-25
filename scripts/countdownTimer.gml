@@ -6,7 +6,7 @@ argument1: timer color
 if argument0=1 and global.gamePaused=false
 {
   //count down time
-  global.cTimerHundred-=3.3
+  global.cTimerHundred-=3.3*gDeltaTime //QWH, not sure about this one
   if global.cTimerHundred<=0
   {
     global.cTimerSecond-=1

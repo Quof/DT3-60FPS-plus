@@ -22,7 +22,7 @@ if bWalking=true
     bWalking=false
   }
   else
-    walkingTime-=1
+    walkingTime-=1*gDeltaTime
 }
 else
 {
@@ -45,7 +45,7 @@ else
     bWalking=true
   }
   else
-    walkingTime-=1
+    walkingTime-=1*gDeltaTime
 }
 
 if x<0
@@ -59,13 +59,13 @@ else if x>room_width
   x=room_width
 }
 
-yVel+=0.2
+yVel+=0.2*gDeltaTime
 if isCollisionBottom(1)
   yVel=0
 if isCollisionLeft(1)
   xVel=runAcc
 if isCollisionRight(1)
   xVel=-runAcc
-moveTo(xVel,yVel)
+moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
 if isCollisionSolid()
   y-=2

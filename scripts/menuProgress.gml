@@ -8,7 +8,7 @@ if mP_Page=1
 {
   //----- Display program chips -----
   draw_sprite(sPauseM_ChipSlots,0,contentMenuX+15,contentMenuY+57)
-  mP_Spinner+=global.programChips
+  mP_Spinner+=global.programChips*gDeltaTime
   draw_sprite_ext(sPauseM_SlotSpin,1,contentMenuX+15,contentMenuY+57,1,1,mP_Spinner,c_white,1)
   var tPChipY; tPChipY=0
   for(i=0;i<global.programChips;i+=1)

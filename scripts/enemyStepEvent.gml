@@ -7,13 +7,13 @@ if stunnedTime>0
 {
   if stunnedTime=10
     image_blend=baseColor
-  stunnedTime-=1
+  stunnedTime-=1*gDeltaTime
 }
 
 //damage time
 if bTakingDamage=1
 {
-  damageTime-=1
+  damageTime-=1*gDeltaTime
   if damageTime<=0
   {
     if stunnedTime>30
