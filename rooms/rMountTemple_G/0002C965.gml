@@ -1,2 +1,2 @@
 maxDoor=1
-targetDoor[0]=(209034)
+targetDoor[0]=(GID(209034))

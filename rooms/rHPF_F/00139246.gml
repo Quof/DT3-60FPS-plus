@@ -1,2 +1,2 @@
 type=0
-controlID=(351775)
+controlID=(GID(351775))

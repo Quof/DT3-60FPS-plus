@@ -1,2 +1,2 @@
-targetDoor=(419646)
+targetDoor=(GID(419646))
 image_index=1

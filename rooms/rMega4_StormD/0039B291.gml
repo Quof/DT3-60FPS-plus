@@ -1,4 +1,4 @@
-idFollow=(218950)
+idFollow=(GID(218950))
 xFollow=20
 yFollow=0
 bFollow=1

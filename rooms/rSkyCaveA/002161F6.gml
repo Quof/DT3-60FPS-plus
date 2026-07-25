@@ -1,3 +1,3 @@
-mySwitch=(433316)
+mySwitch=(GID(433316))
 turnSymA=1
 turnSymB=0

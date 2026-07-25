@@ -1,2 +1,2 @@
 windMax=1
-windID[0]=(327594)
+windID[0]=(GID(327594))

@@ -1,2 +1,2 @@
-controlID=(198524)
+controlID=(GID(198524))
 image_angle=90

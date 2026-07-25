@@ -1,3 +1,3 @@
-idFollow=(199736)
+idFollow=(GID(199736))
 xFollow=16
 yFollow=64
