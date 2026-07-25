@@ -64,7 +64,7 @@ if activated=0 and other.bCanHitSwitch=1 and other.weaponTag<100
     else if sideFlag=2
     {
       tile_layer_hide(999990)
-      with (470408) {instance_destroy()}
+      with (GID(470408)) {instance_destroy()}
     }
     else if sideFlag=3
     {

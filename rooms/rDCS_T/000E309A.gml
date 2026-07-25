@@ -1,2 +1,2 @@
 image_angle=90
-switchID=(410649)
+switchID=(GID(410649))

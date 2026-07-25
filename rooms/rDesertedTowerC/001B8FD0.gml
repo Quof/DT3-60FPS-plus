@@ -1,2 +1,2 @@
-switchID=(304431)
+switchID=(GID(304431))
 image_yscale=3.5

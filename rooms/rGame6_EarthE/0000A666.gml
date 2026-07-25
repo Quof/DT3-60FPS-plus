@@ -1,2 +1,2 @@
 maxResetObj=1
-myObj[0]=(322036)
+myObj[0]=(GID(322036))

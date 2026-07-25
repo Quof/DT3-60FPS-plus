@@ -1,6 +1,6 @@
 swAmount=2
-switchID[0]=(249031)
-switchID[1]=(249032)
+switchID[0]=(GID(249031))
+switchID[1]=(GID(249032))
 
 if global.gameProgress>=2310
 {

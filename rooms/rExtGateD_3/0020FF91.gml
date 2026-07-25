@@ -1,3 +1,3 @@
 spriteChange=4
 image_yscale=8
-doorID=(236092)
+doorID=(GID(236092))

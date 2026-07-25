@@ -1,1 +1,1 @@
-targetDoor=(251470)
+targetDoor=(GID(251470))
