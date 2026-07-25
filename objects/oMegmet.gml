@@ -49,7 +49,7 @@ if global.gamePaused=false
       initDir=1
     }
 
-    yVel+=0.6
+    yVel+=0.6*gDeltaTime
     if isCollisionBottom(1)
     {
       highBounce+=1
@@ -78,7 +78,7 @@ if global.gamePaused=false
     else
       image_xscale=-1
 
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
     if isCollisionSolid()
       y-=2
 

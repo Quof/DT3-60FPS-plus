@@ -49,13 +49,13 @@ if global.gamePaused=false
   if bActive=true and stunnedTime=0
   {
     //movement
-    moveTime+=1
+    moveTime+=1*gDeltaTime
     if moveProgress=0 or moveProgress=2
     {
       if image_xscale=1
-        x+=moveSpd
+        x+=moveSpd*gDeltaTime
       else if image_xscale=-1
-        x-=moveSpd
+        x-=moveSpd*gDeltaTime
 
       if moveTime=moveSegment
       {
@@ -67,14 +67,14 @@ if global.gamePaused=false
         tNewAttack=instance_create(x+tOffsetShotX,y+4,oNormalBullet)
         tNewAttack.sprite_index=sWolfHeadShot
         tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=6
-        if image_xscale=1 {tNewAttack.direction=0}
-        else {tNewAttack.direction=180}
+        if image_xscale=1 {tNewAttack._direction=0}
+        else {tNewAttack._direction=180}
       }
     }
     else if moveProgress=1
-      y+=moveSpd
+      y+=moveSpd*gDeltaTime
     else if moveProgress=3
-      y-=moveSpd
+      y-=moveSpd*gDeltaTime
 
     if moveTime>=moveSegment
     {

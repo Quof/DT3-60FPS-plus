@@ -25,6 +25,8 @@ affiliation=2
 hitSound=global.snd_EnemyHitZelda
 dieSound=3
 dieEffect=3
+_speed=0
+_direction=0
 
 atkProg=0
 atkTime=0
@@ -41,27 +43,31 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  image_angle-=22.5
+  image_angle-=22.5*gDeltaTime
   atkTime+=1*gDeltaTime
   if atkProg=0 //Rise
   {
-    y-=1
+    if gDeltaDoTicks y-=1
     if atkTime=30 {atkTime=0; atkProg+=1}
   }
   else if atkProg=1 //Wait
   {
-    colorOther-=5
+    colorOther-=5*gDeltaTime
     image_blend=make_color_rgb(255,colorOther,colorOther)
     if atkTime=30
     {
-      direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
+      //direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
+      _direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
       bCanDealDamage=1
       atkTime=0; atkProg+=1
     }
   }
   else if atkProg=2 //Attack and collision check
   {
-    speed=6
+    //speed=6
+    _speed=6
+    x += cos(degtorad(_direction)) * _speed * gDeltaTime
+    y -= sin(degtorad(_direction)) * _speed * gDeltaTime
   }
   enemyStepEvent()
 }

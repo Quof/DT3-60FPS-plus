@@ -52,7 +52,7 @@ if global.gamePaused=false
   if bActive=true and stunnedTime=0
   {
     //---------- Movement ----------
-    moveTime+=1
+    moveTime+=1*gDeltaTime
     if moveTime>=45
     {
       xVel*=-1
@@ -68,7 +68,7 @@ if global.gamePaused=false
     }
 
     //---------- Throw hammer ----------
-    throwTime+=1
+    throwTime+=1*gDeltaTime
     if throwTime>=throwDelay
     {
       if throwTime=throwDelay //change anim
@@ -83,7 +83,7 @@ if global.gamePaused=false
         tNewAttack.atkPower=atkPower
         tNewAttack.xVel=random_range(3,4)*image_xscale
         tNewAttack.yVel=-random_range(5,6)
-        throwCycle+=1
+        throwCycle+=1*gDeltaTime
         if throwCycle=6
         {
           if random(10)>3
@@ -101,7 +101,7 @@ if global.gamePaused=false
       }
     }
 
-    yVel+=0.2
+    yVel+=0.2*gDeltaTime
     if isCollisionBottom(1)
       yVel=0
     if isCollisionLeft(1)
@@ -111,7 +111,7 @@ if global.gamePaused=false
     if isCollisionSolid()
       y-=2
 
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
     if y>room_height+24
       instance_destroy()
   }

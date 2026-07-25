@@ -44,9 +44,9 @@ if global.gamePaused=false
     if atkProg=0 //Move to player's x position
     {
       if x<oPlayer1.x
-        x+=runAcc
+        x+=runAcc*gDeltaTime
       else
-        x-=runAcc
+        x-=runAcc*gDeltaTime
       
       findTargetX=point_distance(oPlayer1.x,0,x,0)
       if findTargetX<atkDistX and y<oPlayer1.y and findTargetY<detectDistY
@@ -57,13 +57,13 @@ if global.gamePaused=false
     }
     else if atkProg=1 //Attack down from string
     {
-      y+=runAcc*2
+      y+=runAcc*2*gDeltaTime
       if y>=ystart+144
         atkProg+=1
     }
     else if atkProg=2 //Return
     {
-      y-=runAcc*2
+      y-=runAcc*2*gDeltaTime
       if y<=ystart
       {
         y=ystart

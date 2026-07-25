@@ -54,16 +54,16 @@ if global.gamePaused=false
       image_xscale=-1
 
     if x>oPlayer1.x and image_xscale=1
-      turnTime+=1
+      turnTime+=1*gDeltaTime
     else if x<oPlayer1.x and image_xscale=-1
-      turnTime+=1
+      turnTime+=1*gDeltaTime
     if turnTime>=10
     {
       xVel*=-1
       turnTime=0
     }
 
-    yVel+=0.2
+    yVel+=0.2*gDeltaTime
     if isCollisionBottom(1)
       yVel=0
     if isCollisionLeft(1)
@@ -76,7 +76,7 @@ if global.gamePaused=false
       image_xscale=1
     else
       image_xscale=-1
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
     if y>room_height+24
     {
       if questType>0

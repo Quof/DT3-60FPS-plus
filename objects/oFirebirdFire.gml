@@ -26,7 +26,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  yVel+=grav
+  yVel+=grav*gDeltaTime
   if bSlide=0
   {
     if xVel>0
@@ -37,14 +37,14 @@ if global.gamePaused=false
   else if bSlide=1
   {
     if xVel>0
-      xVel-=0.1
+      xVel-=0.1*gDeltaTime
     else if xVel<0
-      xVel+=0.1
+      xVel+=0.1*gDeltaTime
 
     if (xVel<0.3 and xVel>0) or (xVel>-0.3 and xVel<0)
       xVel=0
 
-    fizzleTime+=1
+    fizzleTime+=1*gDeltaTime
     if fizzleTime>=50 and fizzleTime<=64
     {
       if image_alpha=0.5
@@ -66,7 +66,7 @@ if global.gamePaused=false
       setCollisionBounds(-3,-4,3,0)
       sprite_index=sFirebirdFire
       image_angle=0
-      y-=2
+      y-=2*gDeltaTime
       yVel=-1
       bSlide=1
     }
@@ -75,7 +75,7 @@ if global.gamePaused=false
     xVel=1
   if isCollisionRight(1)
     xVel=-1
-  moveTo(xVel,yVel)
+  moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
 
   if y>room_height+32
     instance_destroy()

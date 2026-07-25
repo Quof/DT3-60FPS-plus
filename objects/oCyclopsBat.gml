@@ -56,24 +56,24 @@ if global.gamePaused=false
     if isCollisionWaterTop(0)
     {
       image_speed=0.1
-      x+=xVel/2
+      x+=(xVel/2)*gDeltaTime
     }
     else
     {
       image_speed=0.2
-      x+=xVel
+      x+=xVel*gDeltaTime
     }
 
     if x>oCharacter.x and image_xscale=1
-      turnTime+=1
+      turnTime+=1*gDeltaTime
     else if x<oCharacter.x and image_xscale=-1
-      turnTime+=1
+      turnTime+=1*gDeltaTime
     else
     {
       if y>oPlayer1.y-26
-        y-=0.25
+        y-=0.25*gDeltaTime
       else if y<oPlayer1.y-26
-        y+=0.25
+        y+=0.25*gDeltaTime
     }
 
     if turnTime>=60
@@ -84,21 +84,21 @@ if global.gamePaused=false
   }
   else if life<=0
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       image_speed=0; image_index=3
       deathAnim=3
     }
-    if deathAnim mod 4=0
+    if deathAnim mod (4/gDeltaTime)=0
     {
-      if deathAnim mod 8=0 {playSound(global.snd_BombExplode,0,0.8,1)}
+      if deathAnim mod (8/gDeltaTime)=0 {playSound(global.snd_BombExplode,0,0.8,1)}
       tEffect=instance_create(x+random_range(-7,7),y+random_range(-7,7),oEffect)
       tEffect.sprite_index=sDeathFlameA; tEffect.image_speed=0.33
       tEffect.image_alpha=0.5+(image_alpha/3)
       tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
     }
-    image_alpha-=0.04
+    image_alpha-=0.04*gDeltaTime
     if image_alpha<0 {instance_destroy()}
   }
   enemyStepEvent()

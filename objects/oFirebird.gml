@@ -56,7 +56,7 @@ if global.gamePaused=false
   if bActive=true and stunnedTime=0
   {
     //---------- Movement ----------
-    moveTime+=1
+    moveTime+=1*gDeltaTime
     if moveTime>=45
     {
       xVel*=-1
@@ -72,7 +72,7 @@ if global.gamePaused=false
     }
 
     //---------- Throw fire ----------
-    throwTime+=1
+    throwTime+=1*gDeltaTime
     if throwTime>=throwDelay
     {
       if throwTime=throwDelay //change anim
@@ -99,11 +99,11 @@ if global.gamePaused=false
       }
     }
 
-    yVel+=0.35
+    yVel+=0.35*gDeltaTime
     if isCollisionBottom(1)
     {
       y-=2
-      extraHeight+=1
+      extraHeight+=1*gDeltaTime
       if extraHeight mod 4=0
         yVel=-4
       else
@@ -116,7 +116,7 @@ if global.gamePaused=false
     if isCollisionSolid()
       y-=2
 
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
     if y>room_height+24
       instance_destroy()
   }

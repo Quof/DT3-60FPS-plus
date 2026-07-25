@@ -60,6 +60,6 @@ if global.gamePaused=false
   else
   {
     if (spawnDirection=1 and oPlayer1.x<room_width-(view_wview[0]/2)) or (spawnDirection=2 and oPlayer1.x>view_wview[0]/2)
-      spawnTime+=1
+      spawnTime+=1*gDeltaTime
   }
 }

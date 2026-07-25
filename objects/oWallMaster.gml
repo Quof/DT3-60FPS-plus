@@ -28,6 +28,8 @@ affiliation=2
 
 currHspd=0
 currVspd=0
+_hspeed=0
+_vspeed=0
 
 jeremyText="This unique enemy which should be in the Zelda Gates has a rather annoying attribute in that only its shadow will damage you. You can't hurt it and it can't hurt you. The hand itself will go after you, but really you need to watch out for that shadow.#This thing also cheats since it's hard to see where it's casting its shadow from."
 chaoText="The Wall Masters have always had slightly different behavior for each Zelda game, I don't think any of them have ever dealt with shadows hurting you, though the shadow is how you knew it was coming from the ceiling..."
@@ -72,28 +74,28 @@ if global.gamePaused=false
     if x>oPlayer1.x
     {
       if currHspd>-maxSpeed
-        currHspd-=0.08
+        currHspd-=0.08*gDeltaTime
       else
         currHspd=-maxSpeed
     }
     else if x<oPlayer1.x
     {
       if currHspd<maxSpeed
-        currHspd+=0.08
+        currHspd+=0.08*gDeltaTime
       else
         currHspd=maxSpeed
     }
     if y>oPlayer1.y-26
     {
       if currVspd>-maxSpeed
-        currVspd-=0.08
+        currVspd-=0.08*gDeltaTime
       else
         currVspd=-maxSpeed
     }
     else if y<oPlayer1.y-26
     {
       if currVspd<maxSpeed
-        currVspd+=0.08
+        currVspd+=0.08*gDeltaTime
       else
         currVspd=maxSpeed
     }
@@ -101,13 +103,17 @@ if global.gamePaused=false
   else
   {
     if life<1500 {life=1500}
-    if oGame.time mod 2=0 {life+=5}
+    if oGame.time mod (2/gDeltaTime)=0 {life+=5}
     if life>maxLife {life=maxLife}
     currHspd=0
     currVspd=0
   }
-  hspeed=currHspd
-  vspeed=currVspd
+  //hspeed=currHspd
+  //vspeed=currVspd
+  _hspeed=currHspd
+  _vspeed=currVspd
+  x += _hspeed * gDeltaTime
+  y += _vspeed * gDeltaTime
   enemyStepEvent()
 }
 else

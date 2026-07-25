@@ -52,7 +52,7 @@ if global.gamePaused=false
   if bActive=true and stunnedTime=0
   {
     //---------- Movement ----------
-    moveTime+=1
+    moveTime+=1*gDeltaTime
     if moveTime>=45
     {
       xVel*=-1
@@ -68,7 +68,7 @@ if global.gamePaused=false
     }
 
     //---------- Throw hammerang ----------
-    throwTime+=1
+    throwTime+=1*gDeltaTime
     if throwTime>=throwDelay
     {
       if throwTime=throwDelay //change anim
@@ -82,7 +82,7 @@ if global.gamePaused=false
         tNewAttack.bulletSpeed=5*image_xscale
         if random(10)>5
         {
-          y-=2
+          y-=2*gDeltaTime
           yVel=-2
         }
         sprite_index=sDoomknockerWalk
@@ -90,7 +90,7 @@ if global.gamePaused=false
       }
     }
 
-    yVel+=0.2
+    yVel+=0.2*gDeltaTime
     if isCollisionBottom(1)
       yVel=0
     if isCollisionLeft(1)
@@ -100,7 +100,7 @@ if global.gamePaused=false
     if isCollisionSolid()
       y-=2
 
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
     if y>room_height+24
       instance_destroy()
   }

@@ -47,11 +47,11 @@ if global.gamePaused=false
   if bActive=true and stunnedTime=0
   {
     //move
-    moveTime+=1
+    moveTime+=1*gDeltaTime
     if moveTime>=moveWait and jumpTime<jumpWait and yVel=0
     {
       image_index=1
-      y-=4
+      y-=4*gDeltaTime
       yVel=-0.2
       if x>oCharacter.x
         xVel=-2
@@ -61,11 +61,11 @@ if global.gamePaused=false
       moveTime=0
     }
     //jump
-    jumpTime+=1
+    jumpTime+=1*gDeltaTime
     if jumpTime=jumpWait and yVel=0
     {
       image_index=1
-      y-=4
+      y-=4*gDeltaTime
       yVel=-3
       if x>oCharacter.x
         xVel=-2
@@ -73,7 +73,7 @@ if global.gamePaused=false
         xVel=2
     }
 
-    yVel+=0.2
+    yVel+=0.2*gDeltaTime
     if isCollisionBottom(1)
     {
       image_index=0
@@ -89,7 +89,7 @@ if global.gamePaused=false
       xVel=runAcc
     if isCollisionRight(1)
       xVel=-runAcc
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
     if isCollisionSolid()
       y-=1
     if y>room_height+30
