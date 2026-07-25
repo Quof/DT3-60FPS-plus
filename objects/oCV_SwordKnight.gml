@@ -102,7 +102,7 @@ if global.gamePaused=false
     else {xVel=0}
 
     //----- Sword swing -----
-    swingTime+=1
+    swingTime+=1*gDeltaTime
     if swingTime>=swingDelay and swingTime<=swingDelay+99 //Begin
     {
       if point_distance(x,0,oPlayer1.x,0)<80
@@ -136,7 +136,7 @@ if global.gamePaused=false
           if checkScreenArea(x,y,48)=1 {playSound(global.snd_KnightSwordSwing,0,0.93,20500)}
           checkSound=1
         }
-        image_index+=0.5
+        image_index+=0.5*gDeltaTime
         if image_index>=7.4
         {
           image_index=7
@@ -269,7 +269,7 @@ if global.gamePaused=false
       else {swordAng=180}
     }
 
-    yVel+=0.2
+    yVel+=0.2*gDeltaTime
     if isCollisionBottom(1)
       yVel=0
     if isCollisionLeft(1)
@@ -278,7 +278,7 @@ if global.gamePaused=false
       xVel=-runAcc
     if isCollisionSolid()
       y-=2
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
 
     //----- Sword placement -----
     if sprite_index=sCV_SwordKnightWalk
@@ -297,7 +297,7 @@ if global.gamePaused=false
         xAdj=16
         yAdj=33
       }
-      else if image_index>=2 and image_index<=2.99
+      else //if image_index>=2 and image_index<=2.99
       {
         xAdj=17
         yAdj=34
@@ -325,7 +325,7 @@ if global.gamePaused=false
   }
   else if life<=0
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       mySword.bCanDealDamage=false
@@ -339,10 +339,10 @@ if global.gamePaused=false
       tEffect.image_alpha=0.5+(image_alpha/3)
       tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
     }
-    mySword.image_alpha-=0.02
-    mySword.y+=swdVelY
-    swdVelY+=0.075
-    image_alpha-=0.02
+    mySword.image_alpha-=0.02*gDeltaTime
+    mySword.y+=swdVelY*gDeltaTime
+    swdVelY+=0.075*gDeltaTime
+    image_alpha-=0.02*gDeltaTime
     if image_alpha<0 {instance_destroy()}
   }
   enemyStepEvent()

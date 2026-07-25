@@ -19,10 +19,10 @@ action_id=603
 applies_to=self
 */
 if bAfterImage=1
-{
+{ if oGame.time mod (1/gDeltaTime)= 0{
   var tAfterI;
   tAfterI=instance_create(x,y,oEnemyAfterImage)
   tAfterI.sprite_index=sprite_index; tAfterI.image_index=image_index; tAfterI.depth=27
   tAfterI.image_xscale=image_xscale; tAfterI.xShift=0; tAfterI.yShift=0; tAfterI.image_angle=image_angle
-  tAfterI.imageFade=0.15; ; tAfterI.xScaling=0; tAfterI.yScaling=0; tAfterI.bFollow=0
+  tAfterI.imageFade=0.15; tAfterI.xScaling=0; tAfterI.yScaling=0; tAfterI.bFollow=0}
 }
