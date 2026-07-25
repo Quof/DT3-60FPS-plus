@@ -22,9 +22,9 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if global.gamePaused=false && gDeltaDoTicks != 0
+if global.gamePaused=false
 {
-  yVel+=grav
-  x+=xVel; y+=yVel
+  yVel+=grav*gDeltaTime
+  x+=xVel*gDeltaTime; y+=yVel*gDeltaTime
   if y>room_height+32 {instance_destroy()}
 }

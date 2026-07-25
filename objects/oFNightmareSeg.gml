@@ -40,31 +40,31 @@ if global.gamePaused=false
     //Movement
     if moveSeq=0 //Extend arms
     {
-      armDist+=0.08
+      armDist+=0.08*gDeltaTime
       if armDist>=10 {armDist=10;moveSeq+=1}
     }
     else if moveSeq=1 //Wait time
     {
-      moveTime+=1
+      moveTime+=1*gDeltaTime
       if moveTime>=30 {moveSeq+=1}
     }
     else if moveSeq=2 //Rotate arms
     {
-      if armSide=0 {direction-=leftSpd} //Left
-      else if armSide=1 {direction+=rightSpd} //Right
+      if armSide=0 {direction-=leftSpd*gDeltaTime} //Left
+      else if armSide=1 {direction+=rightSpd*gDeltaTime} //Right
     }
 
     //Bomb Attack
     if atkTime>=1
     {
-      atkTime+=1
+      atkTime+=1*gDeltaTime
       if atkTime=30
       {
         playSound(global.snd_HardHit3,0,0.95,24000)
         var tFire;
         tFire=instance_create(x,y,oPassBullet)
         tFire.sprite_index=sFNBomb; tFire.atkPower=atkPower; tFire.bulletSpeed=6
-        tFire.direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
+        tFire._direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
         tFire.decayTime=-100
         atkTime=0
       }
@@ -75,20 +75,20 @@ if global.gamePaused=false
     //Movement
     if moveSeq=0 //Extend arms
     {
-      armDist+=0.09
+      armDist+=0.09*gDeltaTime
       if armDist>=8 {armDist=8;moveSeq+=1}
     }
     else if moveSeq=1 //Wait time
     {
-      moveTime+=1
+      moveTime+=1*gDeltaTime
       if moveTime>=30 {moveTime=0;moveSeq+=1}
     }
     else if moveSeq=2 //Rotate arms
     {
-      if armSide=0 {direction-=leftSpd} //Left
-      else if armSide=1 {direction+=rightSpd*1.1} //Right
+      if armSide=0 {direction-=leftSpd*gDeltaTime} //Left
+      else if armSide=1 {direction+=rightSpd*1.1*gDeltaTime} //Right
 
-      atkTime+=1
+      atkTime+=1*gDeltaTime
       if atkTime>200
       {
         var chkDir;
@@ -98,7 +98,7 @@ if global.gamePaused=false
     }
     else if moveSeq=3 //Wait time
     {
-      moveTime+=1
+      moveTime+=1*gDeltaTime
       var tStopTime;
       if armSide=0 {tStopTime=31}
       else if armSide=1 {tStopTime=30}
@@ -107,17 +107,17 @@ if global.gamePaused=false
     }
     else if moveSeq=4 //Extend arm (Punch)
     {
-      armDist+=2
+      armDist+=2*gDeltaTime
       if armDist>=30 {armDist=30;moveSeq+=1}
     }
     else if moveSeq=5 //Wait time
     {
-      moveTime+=1
+      moveTime+=1*gDeltaTime
       if moveTime>=15 {moveTime=0;moveSeq+=1}
     }
     else if moveSeq=6 //Retract arm
     {
-      armDist-=1
+      armDist-=1*gDeltaTime
       if armDist<=8 {armDist=8;atkTime=0;moveSeq=2}
     }
   }

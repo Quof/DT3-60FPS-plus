@@ -140,7 +140,7 @@ if global.gamePaused=false
       }
       else if armStart=1 //Check position
       {
-        dropAtk+=1
+        dropAtk+=1*gDeltaTime
         if leftArm[0].direction=180 and dropAtk>=dropMax
         {
           for(i=0;i<maxArms;i+=1)
@@ -154,20 +154,20 @@ if global.gamePaused=false
       }
       else if armStart=2 //Slight wait 1 and extend arms
       {
-        dropAtk+=1
+        dropAtk+=1*gDeltaTime
         if dropAtk>=30
         {
           for(i=0;i<maxArms;i+=1)
           {
-            leftArm[i].armDist+=2
-            rightArm[i].armDist+=2
+            leftArm[i].armDist+=2*gDeltaTime
+            rightArm[i].armDist+=2*gDeltaTime
           }
           if leftArm[0].armDist=28 {dropAtk=0;armStart+=1}
         }
       }
       else if armStart=3 //Slight wait 2
       {
-        dropAtk+=1
+        dropAtk+=1*gDeltaTime
         if dropAtk>=30
         {
           playSound(global.snd_OrbThrow,0,1,1)
@@ -178,20 +178,20 @@ if global.gamePaused=false
       {
         if y>=yGround-48
         {
-          dropAtk+=1
+          dropAtk+=1*gDeltaTime
           if dropAtk>=15 {dropAtk=0;armStart+=1}
         }
-        else {y+=4}
+        else {y+=4*gDeltaTime}
       }
       else if armStart=5 //Rise up and end
       {
-        if y>yGround-128 {y-=2}
+        if y>yGround-128 {y-=2*gDeltaTime}
         if leftArm[0].armDist!=10
         {
           for(i=0;i<maxArms;i+=1)
           {
-            leftArm[i].armDist-=1
-            rightArm[i].armDist-=1
+            leftArm[i].armDist-=1*gDeltaTime
+            rightArm[i].armDist-=1*gDeltaTime
           }
         }
 
@@ -207,7 +207,7 @@ if global.gamePaused=false
       }
 
       //---------- ATTACK: ARM BOMB ----------
-      bombTime+=1
+      bombTime+=1*gDeltaTime
       if bombTime>=bombDelay
       {
         leftArm[maxArms-1].atkTime=1
@@ -216,7 +216,7 @@ if global.gamePaused=false
       }
 
       //---------- ATTACK: SPREAD BOMB ----------
-      spreadTime+=1
+      spreadTime+=1*gDeltaTime
       if spreadTime>=spreadDelay
       {
         if spreadTime<=spreadDelay+100 //Check updates
@@ -237,7 +237,7 @@ if global.gamePaused=false
             {
               tFire=instance_create(x,y,oPassBullet)
               tFire.sprite_index=sFNBomb; tFire.atkPower=atkPower
-              tFire.bulletSpeed=6; tFire.direction=tSprDir; tFire.decayTime=-100
+              tFire.bulletSpeed=6; tFire._direction=tSprDir; tFire.decayTime=-100
               tSprDir+=360/8
             }
           }
@@ -254,14 +254,14 @@ if global.gamePaused=false
       }
 
       //---------- MOVEMENT ----------
-      moveTime+=1
+      moveTime+=1*gDeltaTime
       if moveSeq=0 //Wait
       {
         if moveTime>=stopTime {bCanTakeDamage=0; moveTime=0; moveSeq+=1}
       }
       else if moveSeq=1 //Move left to left
       {
-        x-=moveSpd
+        x-=moveSpd*gDeltaTime
         if x<=464 {x=464; event_user(1); bCanTakeDamage=1; moveTime=0; moveSeq+=1}
       }
       else if moveSeq=2 //Wait
@@ -270,7 +270,7 @@ if global.gamePaused=false
       }
       else if moveSeq=3 //Move right to middle
       {
-        x+=moveSpd
+        x+=moveSpd*gDeltaTime
         if x>=560 {x=560; event_user(1); bCanTakeDamage=1; moveTime=0; moveSeq+=1}
       }
       else if moveSeq=4 //Wait
@@ -279,7 +279,7 @@ if global.gamePaused=false
       }
       else if moveSeq=5 //Move right to right
       {
-        x+=moveSpd
+        x+=moveSpd*gDeltaTime
         if x>=656 {x=656; event_user(1); bCanTakeDamage=1; moveTime=0; moveSeq+=1}
       }
       else if moveSeq=6 //Wait
@@ -288,7 +288,7 @@ if global.gamePaused=false
       }
       else if moveSeq=7 //Move left to middle
       {
-        x-=moveSpd
+        x-=moveSpd*gDeltaTime
         if x<=560 {x=560; event_user(1); bCanTakeDamage=1; moveTime=0; moveSeq=0}
       }
       //Rotate face
@@ -328,7 +328,7 @@ if global.gamePaused=false
       }
 
       //---------- EYE CONTROL ----------
-      eyeTime+=1
+      eyeTime+=1*gDeltaTime
       if eyeState=0 {if eyeTime=70 {eyeTime=0;eyeState=1}}
       else if eyeState=1
       {
@@ -343,12 +343,12 @@ if global.gamePaused=false
       }
 
       //---------- MOVEMENT ----------
-      if x<oPlayer1.x {if moveSpd<2 {moveSpd+=0.1}}
-      else if x>oPlayer1.x {if moveSpd>-2 {moveSpd-=0.1}}
-      x+=moveSpd
+      if x<oPlayer1.x {if moveSpd<2 {moveSpd+=0.1*gDeltaTime}}
+      else if x>oPlayer1.x {if moveSpd>-2 {moveSpd-=0.1*gDeltaTime}}
+      x+=moveSpd*gDeltaTime
 
       //---------- ATTACK: TWIN BOMB ----------
-      bombTime+=1
+      bombTime+=1*gDeltaTime
       if bombTime>=bombDelay
       {
         if bombTime<=bombDelay+100 //Check updates
@@ -374,7 +374,7 @@ if global.gamePaused=false
       }
 
       //---------- ATTACK: ROCK LASER ----------
-      spreadTime+=1
+      spreadTime+=1*gDeltaTime
       if spreadTime>=spreadDelay
       {
         if spreadTime<=spreadDelay+100 //Check updates
@@ -385,22 +385,23 @@ if global.gamePaused=false
         }
         if spreadTime>=10121 and spreadTime<=10150
         {
+        if oGame.time mod (1/gDeltaTime)=0{
           var tFire;
           tFire=instance_create(x,y,oPassBullet)
           tFire.sprite_index=sFNRock; tFire.atkPower=atkPower
-          tFire.bulletSpeed=12; tFire.direction=270; tFire.decayTime=-100
+          tFire.bulletSpeed=12; tFire._direction=270; tFire.decayTime=-100}
         }
         else if spreadTime>=10162 {spreadTime=0}
       }
     }
     else if transform=7 //-------------------- PHASE 4 --------------------
     {
-      faceImage+=0.1
-      colSeq+=1
-      if colSeq>=1 and colSeq<=50 {colorPhase+=1}
+      faceImage+=0.1*gDeltaTime
+      colSeq+=1*gDeltaTime
+      if colSeq>=1 and colSeq<=50 {colorPhase+=1*gDeltaTime}
       else if colSeq>=51 and colSeq<=100
       {
-        colorPhase-=1
+        colorPhase-=1*gDeltaTime
         if colSeq=100 {colSeq=0}
       }
       baseColor=make_color_rgb(colorPhase,colorPhase,colorPhase)
@@ -413,39 +414,39 @@ if global.gamePaused=false
       {
         if moveSpd>=0
         {
-          moveSpd-=pDistX/5
+          moveSpd-=pDistX/5*gDeltaTime
           if pDistOrigX<16 and moveSpd<3 {moveSpd=0}
         }
-        else {moveSpd-=pDistX/10}
+        else {moveSpd-=pDistX/10*gDeltaTime}
       }
       else //go right
       {
         if moveSpd<=0
         {
-          moveSpd+=pDistX/5
+          moveSpd+=pDistX/5*gDeltaTime
           if pDistOrigX<16 and moveSpd>-3 {moveSpd=0}
         }
-        else {moveSpd+=pDistX/10}
+        else {moveSpd+=pDistX/10*gDeltaTime}
       }
 
       if moveSpd>maxSpd {moveSpd=maxSpd}
       else if moveSpd<-maxSpd {moveSpd=-maxSpd}
-      x+=moveSpd
+      x+=moveSpd*gDeltaTime
 
-      if y>oPlayer1.y+16 {y-=1}
-      if y<oPlayer1.y-maxYDist {y+=1}
+      if y>oPlayer1.y+16 {y-=1*gDeltaTime}
+      if y<oPlayer1.y-maxYDist {y+=1*gDeltaTime}
 
       //Bob up and down
-      sLordMoveTime+=1
-      if sLordMoveTime>=1 and sLordMoveTime<=21 {sLordMove+=0.04}
-      else if sLordMoveTime>=22 and sLordMoveTime<=42 {sLordMove-=0.04}
-      else if sLordMoveTime>=52 and sLordMoveTime<=72 {sLordMove-=0.04}
-      else if sLordMoveTime>=73 and sLordMoveTime<=93 {sLordMove+=0.04}
+      sLordMoveTime+=1*gDeltaTime
+      if sLordMoveTime>=1 and sLordMoveTime<=21 {sLordMove+=0.04*gDeltaTime}
+      else if sLordMoveTime>=22 and sLordMoveTime<=42 {sLordMove-=0.04*gDeltaTime}
+      else if sLordMoveTime>=52 and sLordMoveTime<=72 {sLordMove-=0.04*gDeltaTime}
+      else if sLordMoveTime>=73 and sLordMoveTime<=93 {sLordMove+=0.04*gDeltaTime}
       else if sLordMoveTime>=103 {sLordMoveTime=0}
-      y+=sLordMove
+      y+=sLordMove*gDeltaTime
 
       //---------- ATTACK: SKY LASER ----------
-      spreadTime+=1
+      spreadTime+=1*gDeltaTime
       if spreadTime>=spreadDelay and laserXOffset<140
       {
         newLaser=instance_create(xCenter-roomSpan+laserXOffset,yGround,oFNSkyLaser)
@@ -457,7 +458,7 @@ if global.gamePaused=false
       }
 
       //---------- ATTACK: TARGET LASER ----------
-      targetLaserTime+=1
+      targetLaserTime+=1*gDeltaTime
       if targetLaserTime>=targetLaserDelay
       {
         newLaser=instance_create(oPlayer1.x,yGround,oFNSkyLaser)
@@ -468,7 +469,7 @@ if global.gamePaused=false
       //---------- ATTACK: HAND LASER ----------
       if life<maxLife
       {
-        handLaserTime+=1
+        handLaserTime+=1*gDeltaTime
         if handLaserTime>=handLaserDelay
         {
           if handLaserTime<=handLaserDelay+100 //Check updates
@@ -490,6 +491,7 @@ if global.gamePaused=false
             handLaserL.x=x+100; handLaserL.y=y-36
             handLaserR.x=x-100; handLaserR.y=y-36
 
+            if oGame.time mod (1/gDeltaTime)=0{
             var tEffect,i;
             for(i=0;i<2;i+=1)
             {
@@ -506,7 +508,7 @@ if global.gamePaused=false
               tEffect.direction=random(360); tEffect.speed=random(0.5)+0.5
               tEffect.friction=random(0.01)+0.01; tEffect.fadeSpd=0.035
               tEffect.AccelX=0; tEffect.AccelY=0; tEffect.newBlend=-1; tEffect.followID=-1; tEffect.rotation=0
-            }
+            }}
           }
         }
       }
@@ -533,7 +535,7 @@ if global.gamePaused=false
     {
       if leftArm[0].armDist=0
       {
-        tranSeq+=1
+        tranSeq+=1*gDeltaTime
         if tranSeq=15
         {
           depth=9
@@ -551,7 +553,7 @@ if global.gamePaused=false
         }
         else if tranSeq>=16
         {
-          tranSize-=2
+          tranSize-=2*gDeltaTime
           if tranSize<=4
           {
             with oFNightmareSeg {instance_destroy()}
@@ -563,21 +565,21 @@ if global.gamePaused=false
       }
       else
       {
-        tranSize+=0.5
+        tranSize+=0.5*gDeltaTime
         for(i=0;i<maxArms;i+=1)
         {
-          leftArm[i].armDist-=0.25
-          rightArm[i].armDist-=0.25
+          leftArm[i].armDist-=0.25*gDeltaTime
+          rightArm[i].armDist-=0.25*gDeltaTime
         }
       }
     }
     else if transform=4 //To phase 3
     {
-      tranSeq+=1
+      tranSeq+=1*gDeltaTime
       if tranSeq>=1 and tranSeq<=100
       {
         if tranSeq=1 {resType[4]=1; bCanTakeDamage=0}
-        if tranSeq<=60 {tranSize+=0.5}
+        if tranSeq<=60 {tranSize+=0.5*gDeltaTime}
       }
       else if tranSeq=101
       {
@@ -588,7 +590,7 @@ if global.gamePaused=false
       }
       else if tranSeq>=102
       {
-        tranSize-=2
+        tranSize-=2*gDeltaTime
         if tranSize<=4
         {
           depth=25
@@ -609,13 +611,13 @@ if global.gamePaused=false
     }
     else if transform=6 //To phase 4
     {
-      tranSeq+=1
+      tranSeq+=1*gDeltaTime
       if tranSeq>=1 and tranSeq<=30
       {
         for(i=0;i<maxArms;i+=1) //Bring arms in
         {
-          leftArm[i].armDist-=1
-          rightArm[i].armDist-=1
+          leftArm[i].armDist-=1*gDeltaTime
+          rightArm[i].armDist-=1*gDeltaTime
         }
         if leftArm[0].armDist<=1
         {
@@ -631,11 +633,11 @@ if global.gamePaused=false
       }
       else if tranSeq>=31 and tranSeq<=210
       {
-        if tranSeq<=210 {tranSize+=1}
+        if tranSeq<=210 {tranSize+=1*gDeltaTime}
 
-        if x<xCenter {x+=1}
-        else if x>xCenter {x-=1}
-        if y<192 {y+=1}
+        if x<xCenter {x+=1*gDeltaTime}
+        else if x>xCenter {x-=1*gDeltaTime}
+        if y<192 {y+=1*gDeltaTime}
       }
       else if tranSeq=261 //Change sprite to Shroud Lord
       {
@@ -647,7 +649,7 @@ if global.gamePaused=false
       }
       else if tranSeq>=262 and tranSeq<=999 //Bring black circle back in
       {
-        tranSize-=3
+        tranSize-=3*gDeltaTime
         if tranSize<=3 {tranSeq=1000}
       }
       else if tranSeq=1001
@@ -682,9 +684,10 @@ if global.gamePaused=false
         (GID(196186)).xVel=-1
         (GID(196187)).xVel=1
       }
+      if oGame.time mod (1/gDeltaTime)=0{
       tile_layer_shift(1000001,-1,0)
-      tile_layer_shift(1000002,1,0)
-      platformMove+=1
+      tile_layer_shift(1000002,1,0)}
+      platformMove+=1*gDeltaTime
       if platformMove=34
       {
         oMarioSpikeFloor.visible=1
@@ -697,7 +700,7 @@ if global.gamePaused=false
     {
       for(i=0;i<4;i+=1)
       {
-        spikeAnnoy[i].y-=1
+        spikeAnnoy[i].y-=1*gDeltaTime
         if platformMove mod 3=0 //Spike smoke effect
         {
           var tEffect;
@@ -706,7 +709,7 @@ if global.gamePaused=false
           tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
         }
       }
-      platformMove+=1
+      platformMove+=1*gDeltaTime
       if platformMove=96 {platformMove=200}
     }
     else if platformMove>=201 and platformMove<300 //Move platforms back in
@@ -724,9 +727,10 @@ if global.gamePaused=false
         (GID(196186)).xVel=1
         (GID(196187)).xVel=-1
       }
+      if oGame.time mod (1/gDeltaTime)=0{
       tile_layer_shift(1000001,1,0)
-      tile_layer_shift(1000002,-1,0)
-      platformMove+=1
+      tile_layer_shift(1000002,-1,0)}
+      platformMove+=1*gDeltaTime
       if platformMove=234
       {
         (GID(196186)).xVel=0
@@ -737,7 +741,7 @@ if global.gamePaused=false
 
     if lifeRefill=1 //Recharge life one time
     {
-      life+=15
+      life+=15*gDeltaTime
       if life>=maxLife
       {
         resType[0]=3; resType[1]=2; resType[4]=3
@@ -811,7 +815,7 @@ if global.gamePaused=false
   }
   else if life<=0 //Defeat animation
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       speed=0
@@ -819,7 +823,7 @@ if global.gamePaused=false
     }
     else if deathAnim>=2 and deathAnim<=55
     {
-      if oGame.time mod 2=0
+      if oGame.time mod (2/gDeltaTime)=0
       {
         var tEffect;
         tEffect=instance_create((x-sprite_width/2)+random(sprite_width),(y-sprite_height/2)+random(sprite_height),oEffect)
@@ -854,7 +858,7 @@ applies_to=self
 //Phase 2 spin face image (spin duration)
 if moveSeq mod 2!=0
 {
-  faceRotate+=1
+  faceRotate+=1*gDeltaTime
   if faceRotate mod 5=0
   {
     if image_index=4
@@ -886,7 +890,7 @@ applies_to=self
 //Phase 2 attacks
 if faceAtkTime>0
 {
-  faceAtkTime+=1
+  faceAtkTime+=1*gDeltaTime
   if faceImage=0 //Border Fire
   {
     if faceAtkTime<70

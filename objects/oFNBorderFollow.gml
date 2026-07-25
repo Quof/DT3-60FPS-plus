@@ -32,11 +32,11 @@ if global.gamePaused=false
 {
   if atkProg=0
   {
-    y-=runAcc/2
-    atkTime+=1
+    y-=runAcc/2*gDeltaTime
+    atkTime+=1*gDeltaTime
     if atkTime>=8
     {
-      if place_meeting(x,y-runAcc,oSolid)
+      if place_meeting(x,y-runAcc*gDeltaTime,oSolid)
       {
         if type=0 {bClockWise=1; currentDir=RIGHT}
         else {bClockWise=0; currentDir=LEFT}
@@ -48,7 +48,7 @@ if global.gamePaused=false
   else if atkProg=1
   {
     enemyFollowBorder()
-    atkTime+=1
+    atkTime+=1*gDeltaTime
     if atkTime=150 {instance_destroy()}
   }
 }
