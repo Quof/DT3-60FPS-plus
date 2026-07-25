@@ -22,7 +22,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  atkTime+=1
+  atkTime+=1*gDeltaTime
   if type=0 or type=1
   {
     if atkTime=2 {image_index=1}

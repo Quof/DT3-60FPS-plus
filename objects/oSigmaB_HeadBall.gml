@@ -25,7 +25,7 @@ if global.gamePaused=false
   speed=bulletSpeed
   if oGame.time mod 8=0 {image_angle=random(360)}
 
-  atkTime+=1
+  atkTime+=1*gDeltaTime
   if atkTime>=15
   {
     if isCollisionTop(1) {hitWall=1}

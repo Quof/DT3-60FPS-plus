@@ -83,7 +83,7 @@ if global.gamePaused=false
 {
   if life>0
   {
-    atkTime+=1
+    atkTime+=1*gDeltaTime
     if atkProg=0 //Fade in
     {
       if atkTime mod 4=0 //Flash color

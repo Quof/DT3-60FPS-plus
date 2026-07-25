@@ -36,7 +36,7 @@ if global.gamePaused=false
   {
     image_angle+=random_range(-3,3)
     speed=moveSpd
-    atkTime+=1
+    atkTime+=1*gDeltaTime
   }
   else if type=2 //Aim at player
   {
@@ -47,7 +47,7 @@ if global.gamePaused=false
     }
     image_angle+=random_range(-3,3)
     speed=moveSpd
-    atkTime+=1
+    atkTime+=1*gDeltaTime
   }
   else if type=3 //Aim and wait
   {

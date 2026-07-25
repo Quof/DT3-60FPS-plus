@@ -86,7 +86,7 @@ if global.gamePaused=false
     }
     else if atkSequence=2 //Explode
     {
-      atkTime+=1
+      atkTime+=1*gDeltaTime
       if atkTime mod 2=0
       {
         if image_blend=c_orange {image_blend=c_white}

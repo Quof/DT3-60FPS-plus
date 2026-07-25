@@ -92,7 +92,7 @@ if global.gamePaused=false
 
     if bNormalAtk=1 //Normal attack toward player
     {
-      atkTime+=1
+      atkTime+=1*gDeltaTime
       if atkTime=atkDelay //---------- Attack: Bullet toward player ----------
       {
         var tEffect;

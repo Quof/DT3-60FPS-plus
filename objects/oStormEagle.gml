@@ -81,7 +81,7 @@ if global.gamePaused=false
           image_xscale=-1
       }
 
-      if currentAtk<1 {atkTime+=1}
+      if currentAtk<1 {atkTime+=1*gDeltaTime}
       if atkTime>=atkDelay and currentAtk<1 and actionState<2 //Choose attack
       {
         atkProg=0; atkTime=0

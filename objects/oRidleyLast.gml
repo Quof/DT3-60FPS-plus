@@ -112,7 +112,7 @@ if global.gamePaused=false
       }
     }
 
-    atkTime+=1
+    atkTime+=1*gDeltaTime
     if atkProg=0 //-------------------- Rise up from lava and spray lava balls around --------------------
     {
       if atkTime=1

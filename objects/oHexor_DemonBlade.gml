@@ -51,7 +51,7 @@ if global.gamePaused=false
     }
     else if atkProg=1
     {
-      atkTime+=1
+      atkTime+=1*gDeltaTime
       if atkTime>=20 {atkTime=0; atkProg=2}
     }
     else if atkProg=2
@@ -63,7 +63,7 @@ if global.gamePaused=false
   else if type=1 //Straight line
   {
     speed=moveSpd
-    atkTime+=1
+    atkTime+=1*gDeltaTime
   }
 }
 else {speed=0}

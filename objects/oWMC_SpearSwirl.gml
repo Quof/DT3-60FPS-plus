@@ -45,7 +45,7 @@ if global.gamePaused=false
   }
   else if atkProg=1
   {
-    atkTime+=1
+    atkTime+=1*gDeltaTime
     if atkTime=1
     {
       direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())

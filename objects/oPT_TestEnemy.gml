@@ -116,7 +116,7 @@ if global.gamePaused=false
       else {speed=0}
 
       //---------- Fire bullet at player ----------
-      atkTime+=1
+      atkTime+=1*gDeltaTime
       if atkTime>=atkDelay
       {
         if atkTime>=atkDelay and atkTime<=atkDelay+14

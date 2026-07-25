@@ -95,7 +95,7 @@ if global.gamePaused=0
   }
 
   //---------- Attack Pattern ----------
-  atkTime+=1
+  atkTime+=1*gDeltaTime
   if atkProg=1
   {
     if atkTime=40 {var tAtk; tAtk=instance_create(16,bulTop,oFB_PongBullet); tAtk.direction=270; tAtk.moveSpd=2}

@@ -116,7 +116,7 @@ if global.gamePaused=false
       }
     }
 
-    atkTime+=1
+    atkTime+=1*gDeltaTime
     if atkProg=0 //-------------------- Shoot fireball stream at a high rate --------------------
     {
       if atkTime>=atkDelay and atkTime<=atkDelay+100 {atkTime=1000}

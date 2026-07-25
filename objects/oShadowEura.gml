@@ -126,7 +126,7 @@ if global.gamePaused=false
     }
     else if rockProg=1 //========== Break out of rock ==========
     {
-      atkTime+=1
+      atkTime+=1*gDeltaTime
       if atkTime>=15 and atkTime<=49
       {
         if atkTime mod 2=0 {x-=1}
@@ -401,7 +401,7 @@ if global.gamePaused=false
     }
     else if rockProg=10 //========== Mist away ==========
     {
-      atkTime+=1
+      atkTime+=1*gDeltaTime
       if atkTime=1 //Set immune
       {
         playSound(global.snd_BoxBreak,0,1,11025)
@@ -434,7 +434,7 @@ if global.gamePaused=false
     }
     else if rockProg=11 //========== Slight wait ==========
     {
-      atkTime+=1
+      atkTime+=1*gDeltaTime
       if atkTime>=30
       {
         image_xscale=0.8; image_yscale=0.8; image_alpha=1
@@ -445,7 +445,7 @@ if global.gamePaused=false
     }
     else if rockProg=12 //========== Send rocks down ==========
     {
-      atkTime+=1
+      atkTime+=1*gDeltaTime
       if atkTime=1
       {
         y=-36

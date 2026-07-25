@@ -51,7 +51,7 @@ if global.gamePaused=false
     else if shieldProg=1
     {
       //Attack
-      atkTime+=1
+      atkTime+=1*gDeltaTime
       if atkTime=atkDelay
       {
         var tEffect,tDir;

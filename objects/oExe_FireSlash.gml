@@ -48,7 +48,7 @@ if global.gamePaused=false
   }
   else if atkProg=1
   {
-    atkTime+=1
+    atkTime+=1*gDeltaTime
     if atkTime=2 {image_index=1}
     else if atkTime=3 {image_index=2}
     else if atkTime=4 {image_index=3}

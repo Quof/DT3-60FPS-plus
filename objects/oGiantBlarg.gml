@@ -78,7 +78,7 @@ if global.gamePaused=false
     {
       if image_index>=2 {resType[2]=3} //Can take damage from ELEMENTAL if mouth is open
       else {resType[2]=1}
-      atkTime+=1
+      atkTime+=1*gDeltaTime
       if moveType=0 //---------- Rise ----------
       {
         y-=2
@@ -216,7 +216,7 @@ if global.gamePaused=false
   }
   else if life<=0 //Defeat animation
   {
-    atkTime+=1
+    atkTime+=1*gDeltaTime
     if atkTime=1
     {
       with oEProjectileBase {instance_destroy()}

@@ -71,7 +71,7 @@ if global.gamePaused=false
   bottomFrm+=0.2
   if bActive=true and life>0
   {
-    atkTime+=1
+    atkTime+=1*gDeltaTime
     if atkSequence=0 //Set weakness
     {
       if atkTime=10

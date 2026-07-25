@@ -33,7 +33,7 @@ if global.gamePaused=false
   y=warTarget.y-26+lengthdir_y(myDist,myDir)
   image_angle=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
 
-  atkTime+=1
+  atkTime+=1*gDeltaTime
   if atkTime>=28
   {
     var tEffect,tAtk;

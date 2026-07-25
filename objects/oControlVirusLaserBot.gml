@@ -30,7 +30,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  atkTime+=1
+  atkTime+=1*gDeltaTime
   if atkTime>=atkDelay //---------- Attack: Bullet down ----------
   {
     playSound(global.snd_CShotB,0,0.9,44100)

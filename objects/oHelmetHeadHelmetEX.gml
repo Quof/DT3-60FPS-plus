@@ -160,7 +160,7 @@ if global.gamePaused=false
     if x<oPlayer1.x {image_xscale=1}
     else {image_xscale=-1}
 
-    atkTime+=1
+    atkTime+=1*gDeltaTime
     if atkTime=1
     {
       var tEffect;
@@ -259,7 +259,7 @@ if global.gamePaused=false
   }
   else if bossProg=5 //Keep player from jumping
   {
-    atkTime+=1
+    atkTime+=1*gDeltaTime
     if atkTime=30
     {
       var tEffect;

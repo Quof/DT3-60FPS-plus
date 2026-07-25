@@ -135,7 +135,7 @@ if global.gamePaused=false
       }
     }
 
-    atkTime+=1
+    atkTime+=1*gDeltaTime
     if atkProg=0 //-------------------- Fly up under player, go left and right, use fireball --------------------
     {
       if atkTime=1 //Choose spot

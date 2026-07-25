@@ -138,7 +138,7 @@ if global.gamePaused=false
     }
 
     //---------- Swing sword ----------
-    atkTime+=1
+    atkTime+=1*gDeltaTime
     if atkTime>=atkDelay
     {
       if atkTime=atkDelay //Change anim

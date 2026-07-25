@@ -27,7 +27,7 @@ if global.gamePaused=false
   {
     image_angle+=11
     speed=bulletSpeed
-    atkTime+=1
+    atkTime+=1*gDeltaTime
     if atkTime>=atkDelay
     {
       instance_destroy()

@@ -59,7 +59,7 @@ if global.gamePaused=false
   {
     if atkProg=0 //Wait time
     {
-      atkTime+=1
+      atkTime+=1*gDeltaTime
       if atkTime=atkDelay-20
       {
         var tEffect;
@@ -149,7 +149,7 @@ if global.gamePaused=false
     }
     else if atkProg=3 //Shoot fire from side
     {
-      atkTime+=1
+      atkTime+=1*gDeltaTime
       if atkTime=1 {direction=270}
       if atkTime>=15
       {

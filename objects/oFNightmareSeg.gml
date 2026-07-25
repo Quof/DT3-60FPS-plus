@@ -57,7 +57,7 @@ if global.gamePaused=false
     //Bomb Attack
     if atkTime>=1
     {
-      atkTime+=1
+      atkTime+=1*gDeltaTime
       if atkTime=30
       {
         playSound(global.snd_HardHit3,0,0.95,24000)
@@ -88,7 +88,7 @@ if global.gamePaused=false
       if armSide=0 {direction-=leftSpd} //Left
       else if armSide=1 {direction+=rightSpd*1.1} //Right
 
-      atkTime+=1
+      atkTime+=1*gDeltaTime
       if atkTime>200
       {
         var chkDir;

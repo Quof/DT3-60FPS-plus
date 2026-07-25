@@ -119,7 +119,7 @@ if global.gamePaused=false
 
     if bNormalAtk=1 //Normal attack toward player
     {
-      atkTime+=1
+      atkTime+=1*gDeltaTime
       if atkTime=atkDelay //---------- Attack: Bullet toward player ----------
       {
         var tEffect;
@@ -142,7 +142,7 @@ if global.gamePaused=false
 
     if bossProgress=5 //Move to side
     {
-      atkTime+=1
+      atkTime+=1*gDeltaTime
       if atkTime=15
       {
         instance_create(oPlayer1.x,oPlayer1.y,oHelmetShield)
@@ -172,7 +172,7 @@ if global.gamePaused=false
     }
     else if bossProgress=6 //Fire a pattern of bullets that player blocks with new shield - Part 1
     {
-      atkTime+=1
+      atkTime+=1*gDeltaTime
       if atkTime=20
       {
         myBeam=instance_create(x+(6*image_xscale),y-7,oHelmetSwordBeam)
@@ -197,7 +197,7 @@ if global.gamePaused=false
     }
     else if bossProgress=7 //Fire a pattern of bullets that player blocks with new shield - Part 2
     {
-      atkTime+=1
+      atkTime+=1*gDeltaTime
       if atkTime=40
       {
         myBeam=instance_create(x+(6*image_xscale),y-7,oHelmetSwordBeam)
@@ -282,7 +282,7 @@ if global.gamePaused=false
     }
     else if bossProgress=9 //Get ready for final phase
     {
-      atkTime+=1
+      atkTime+=1*gDeltaTime
       if atkTime>=70
       {
         with oHelmetFloorFire {instance_destroy()}
@@ -311,7 +311,7 @@ if global.gamePaused=false
     }
     else if bossProgress=10 or bossProgress=11 //Bullet stream
     {
-      atkTime+=1
+      atkTime+=1*gDeltaTime
       if atkTime=200
       {
         catfaceDist=120
@@ -360,7 +360,7 @@ if global.gamePaused=false
     }
     else if bossProgress=12 //Final desperation
     {
-      atkTime+=1
+      atkTime+=1*gDeltaTime
       if atkTime=20
       {
         catfaceDist=120
@@ -395,7 +395,7 @@ if global.gamePaused=false
     }
     else if bossProgress>=13 //Last attack
     {
-      atkTime+=1
+      atkTime+=1*gDeltaTime
       if atkTime=20
       {
         catfaceDist=120
