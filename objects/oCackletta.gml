@@ -262,7 +262,7 @@ if global.gamePaused=false
         newLoc=lightTeleX[currentTele]
         currentTele+=1
         if currentTele>=5 {currentTele=0}
-        if life=1 {atkTime+=5}
+        if life=1 {atkTime+=5*gDeltaTime}
       }
       else if atkTime>=20 and atkTime<=90 //Go to new location
       {
@@ -271,12 +271,12 @@ if global.gamePaused=false
         else {tMoveSpd=8}
         if x<newLoc {x+=tMoveSpd*gDeltaTime}
         else {x-=tMoveSpd*gDeltaTime}
-
+        if oGame.time mod (1/gDeltaTime)=0 {
         var tAfterI;
         tAfterI=instance_create(x,y,oEnemyAfterImage)
         tAfterI.sprite_index=sprite_index; tAfterI.image_index=image_index
         tAfterI.image_xscale=image_xscale; tAfterI.xShift=0; tAfterI.yShift=0
-        tAfterI.imageFade=0.15; ; tAfterI.xScaling=0; tAfterI.yScaling=0; tAfterI.bFollow=0
+        tAfterI.imageFade=0.15; ; tAfterI.xScaling=0; tAfterI.yScaling=0; tAfterI.bFollow=0}
 
         if x=newLoc {atkTime=100}
       }
@@ -342,11 +342,12 @@ if global.gamePaused=false
         if x<newLoc {x+=tMoveSpd*gDeltaTime}
         else {x-=tMoveSpd*gDeltaTime}
 
+        if oGame.time mod (1/gDeltaTime)=0 {
         var tAfterI;
         tAfterI=instance_create(x,y,oEnemyAfterImage)
         tAfterI.sprite_index=sprite_index; tAfterI.image_index=image_index
         tAfterI.image_xscale=image_xscale; tAfterI.xShift=0; tAfterI.yShift=0
-        tAfterI.imageFade=0.15; ; tAfterI.xScaling=0; tAfterI.yScaling=0; tAfterI.bFollow=0
+        tAfterI.imageFade=0.15; ; tAfterI.xScaling=0; tAfterI.yScaling=0; tAfterI.bFollow=0}
 
         if x=newLoc
         {
