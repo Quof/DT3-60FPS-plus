@@ -37,7 +37,7 @@ if global.gamePaused=false
 {
   if !instance_exists(newObject)
   {
-    spawnTime+=1
+    spawnTime+=1*gDeltaTime
     if spawnTime>=spawnDelay
     {
       newObject=instance_create(x,y,objCreate)

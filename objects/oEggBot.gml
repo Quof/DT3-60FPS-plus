@@ -92,7 +92,7 @@ if global.gamePaused=false
         else {tXshift=-14}
         tNewAttack=instance_create(x+tXshift,y-9,oNormalBullet)
         tNewAttack.sprite_index=sEBShot; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=6
-        if image_xscale=-1 {tNewAttack.direction=180}
+        if image_xscale=-1 {tNewAttack._direction=180}
       }
       else if shotTime=shotDelay+30 {gunFrame=3}
       else if shotTime=shotDelay+33 {gunFrame=2}
