@@ -71,16 +71,16 @@ if global.gamePaused=false
         image_xscale=-1
       initDir=true
     }
-    bobTime+=1
+    bobTime+=1*gDeltaTime
     if bobTime>=1 and bobTime<=20
-      y+=0.7
+      y+=0.7*gDeltaTime
     else if bobTime>=21 and bobTime<=40
     {
-      y-=0.7
+      y-=0.7*gDeltaTime
       if bobTime=40
         bobTime=0
     }
-    x+=xVel
+    x+=xVel*gDeltaTime
     if findTargetX>inactiveDist/2
     {
       if questType>0
@@ -90,17 +90,17 @@ if global.gamePaused=false
   }
   else if life<=0
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     image_speed=0
-    if deathAnim mod 4=0
+    if deathAnim mod (4/gDeltaTime)=0
     {
-      if deathAnim mod 8=0 {playSound(global.snd_HardHit1,0,0.9,1)}
+      if deathAnim mod (8/gDeltaTime)=0 {playSound(global.snd_HardHit1,0,0.9,1)}
       tEffect=instance_create(x+random_range(-6,6),y+random_range(-12,12),oEffect)
       tEffect.sprite_index=sDeathFlameA; tEffect.image_speed=0.33
       tEffect.image_alpha=0.5+(image_alpha/3)
       tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
     }
-    image_alpha-=0.04
+    image_alpha-=0.04*gDeltaTime
     if image_alpha<0 {instance_destroy()}
   }
   enemyStepEvent()

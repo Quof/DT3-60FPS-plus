@@ -60,7 +60,7 @@ if global.gamePaused=false
   {
     if shotTime>=shotDelay-20 and shotCount=0
     {
-      if oGame.time mod 3=0
+      if oGame.time mod (3/gDeltaTime)=0
       {
         colorFlash+=1
         if colorFlash mod 2=0
@@ -106,7 +106,7 @@ if global.gamePaused=false
 
       tNewAttack=instance_create(x+offsetShotX,y+offsetShotY,oNormalBullet)
       tNewAttack.sprite_index=sSkelefire; tNewAttack.atkPower=atkPower; tNewAttack.damageType="ELEMENTAL"
-      tNewAttack.bulletSpeed=6; tNewAttack.image_speed=0.5; tNewAttack.direction=shotDir+image_angle
+      tNewAttack.bulletSpeed=6; tNewAttack.image_speed=0.5; tNewAttack._direction=shotDir+image_angle
 
       shotCount+=1
       if shotCount=1
@@ -118,11 +118,11 @@ if global.gamePaused=false
       }
     }
     else
-      shotTime+=1
+      shotTime+=1*gDeltaTime
   }
   else if life<=0
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       playSound(global.snd_BombExplode,0,0.9,1)
@@ -130,9 +130,9 @@ if global.gamePaused=false
       tEffect.sprite_index=sRobotExplosion
       tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
     }
-    if deathAnim mod 4=0
+    if deathAnim mod (4/gDeltaTime)=0
     {
-      if deathAnim mod 8=0 {playSound(global.snd_HardHit1,0,0.9,1)}
+      if deathAnim mod (8/gDeltaTime)=0 {playSound(global.snd_HardHit1,0,0.9,1)}
       tEffect=instance_create(x-14+dthTopX+random(14),y-45+dthTopY+random(14),oEffect)
       tEffect.sprite_index=sDeathFlameA; tEffect.image_speed=0.33
       tEffect.image_alpha=0.5+(image_alpha/3)
@@ -143,13 +143,13 @@ if global.gamePaused=false
       tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
     }
 
-    dthTopX+=dthTopVelX
-    dthTopY+=dthTopVelY; dthTopVelY+=0.2
-    dthTopAng+=dthTopTurn
-    dthBottomX+=dthBottomVelX
-    dthBottomY+=dthBottomVelY; dthBottomVelY+=0.1
-    dthBottomAng+=dthBottomTurn
-    image_alpha-=0.025
+    dthTopX+=dthTopVelX*gDeltaTime
+    dthTopY+=dthTopVelY*gDeltaTime; dthTopVelY+=0.2*gDeltaTime
+    dthTopAng+=dthTopTurn*gDeltaTime
+    dthBottomX+=dthBottomVelX*gDeltaTime
+    dthBottomY+=dthBottomVelY*gDeltaTime; dthBottomVelY+=0.1*gDeltaTime
+    dthBottomAng+=dthBottomTurn*gDeltaTime
+    image_alpha-=0.025*gDeltaTime
     if image_alpha<0 {instance_destroy()}
   }
   enemyStepEvent()
