@@ -49,12 +49,12 @@ if global.gamePaused=false
     if room=rLowFacR {image_blend=make_color_rgb(160+random(50),160+random(50),160+random(50))}
     else {image_blend=make_color_rgb(25+random(50),25+random(50),25+random(50))}
 
-    if decayTime<5000 {decayTime+=1}
+    if decayTime<5000 {decayTime+=1*gDeltaTime}
     if decayTime>=idleTime {instance_destroy()}
   }
   else
   {
-    warnTime-=1
+    warnTime-=1*gDeltaTime
     if warnTime=0
     {
       playSound(global.snd_Shock,0,0.9,1)
