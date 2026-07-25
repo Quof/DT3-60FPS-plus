@@ -24,7 +24,7 @@ xCenter=464
 yGround=272
 roomSpan=176
 
-atkSequence=0
+atkSequence=4
 atkTime=0
 lightAmt=1
 lightWarn=35
@@ -720,7 +720,7 @@ else
   draw_sprite_part(sprite_index,0,0,0,sprite_width,sprite_height-hLineEffect,x-(sprite_width/2),y-sprite_height+4+hLineEffect)
 
 //square was here
-if atkSequence=4 and atkTime>=20 and atkTime<=90 {
+if atkSequence=4 and (atkTime>=20 and atkTime<=90) or (atkTime>=120 and atkTime<=190) {
     draw_sprite_ext(sprite_index,image_index,x,y,image_xscale,image_yscale,image_angle,
     make_color_rgb(64,128,88),image_alpha-0.15)
 }
