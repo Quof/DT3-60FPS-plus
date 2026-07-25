@@ -25,7 +25,7 @@ if global.gamePaused=false
 {
   if sequence=1
   {
-    timer-=1
+    timer-=1*gDeltaTime
     if timer<=0 //Game Over
     {
       oPlayer1.life-=oPlayer1.maxLife
@@ -55,9 +55,9 @@ else if sequence=1
 {
   draw_text(xPos+2,yPos+2,">COUNTDOWN TO CITY#CONTROL LOCKDOWN")
   draw_set_font(fnt_Timer)
-  draw_text(xPos+2,yPos+32,timer)
+  draw_text(xPos+2,yPos+32,round(timer))
 }
 else if sequence=2
 {
-  draw_text(xPos+2,yPos+2,string(">YOU BEASTED#THAT THING!!#>Time Remaining: ") +string(timer))
+  draw_text(xPos+2,yPos+2,string(">YOU BEASTED#THAT THING!!#>Time Remaining: ") +string(round(timer)))
 }

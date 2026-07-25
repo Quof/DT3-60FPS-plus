@@ -47,7 +47,7 @@ if global.gamePaused=false
     for(i=0;i<3;i+=1)
     {
       tFire=instance_create(x,y-4,oPassBullet)
-      tFire.direction=tDir; tFire.sprite_index=sWolfHeadShot
+      tFire._direction=tDir; tFire.sprite_index=sWolfHeadShot
       tFire.atkPower=atkPower; tFire.bulletSpeed=5; tFire.decayTime=-100
       tDir+=20
     }

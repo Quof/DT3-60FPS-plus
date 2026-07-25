@@ -69,7 +69,7 @@ if global.gamePaused=false
     {
       if !instance_exists(atkTurret[i])
       {
-        turretSummon[i]+=1
+        turretSummon[i]+=1*gDeltaTime
         if turretSummon[i]=turretDelay
         {
           var tNX,tNY,tEffect;
@@ -109,7 +109,7 @@ if global.gamePaused=false
     }
 
     //---------- Create laser bots ----------
-    laserSummon+=1
+    laserSummon+=1*gDeltaTime
     if laserSummon=laserDelay {playSound(global.snd_Alert,0,0.96,8000)}
     if laserSummon>=1020
     {
@@ -131,7 +131,7 @@ if global.gamePaused=false
 
     if !instance_exists(oWrenchBlock) //---------- Create wrench blocks ----------
     {
-      wrenchSummon+=1
+      wrenchSummon+=1*gDeltaTime
       if bossProgress!=3
       {
         if wrenchSummon=wrenchDelay
@@ -142,7 +142,7 @@ if global.gamePaused=false
           tEffect.sprite_index=sEfEnemyAppear; tEffect.image_speed=0.34
           tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
         }
-        else if wrenchSummon>=wrenchDelay+30
+        else if wrenchSummon>=wrenchDelay+(30)
         {
           instance_create(384,256,oWrenchBlock)
           var tEffect;
@@ -210,7 +210,7 @@ if global.gamePaused=false
   }
   else if life<=0 //Defeat animation
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       with oControlVirusTurret {instance_destroy()}
@@ -232,7 +232,7 @@ if global.gamePaused=false
       }
       oCh5CC_CompScr.sequence=2
     }
-    if deathAnim mod 5=0
+    if deathAnim mod (5/gDeltaTime)=0
     {
       var tEffect;
       tEffect=instance_create(x-16+random(32),y-16+random(32),oEffect)
@@ -262,10 +262,10 @@ event_inherited()
 if laserSummon>=laserDelay
 {
   if lineA_Length<96
-    lineA_Length+=4
+    lineA_Length+=4*gDeltaTime
   else
   {
-    lineB_Length+=8
+    lineB_Length+=8*gDeltaTime
     if lineB_Length>=368
     {
       if laserSummon<1000
