@@ -46,6 +46,7 @@ lightTeleX[1]=496
 lightTeleX[2]=432
 lightTeleX[3]=608
 lightTeleX[4]=xCenter
+newLoc=x
 
 jeremyText="I guess this is all you Claire, since Jerry is being a little bitch about fighting her. The most notable attack she has is her Lightning Spam. There's an indicator on where the lightning will strike which has about one second of a delay before actually striking. Her secondary attack is a fireball. These aren't as threatening as the lightning, but do take care if she decides to mix the two."
 chaoText="That was a lame cheapshot. She started attacking before her title card went away."
@@ -720,7 +721,7 @@ else
   draw_sprite_part(sprite_index,0,0,0,sprite_width,sprite_height-hLineEffect,x-(sprite_width/2),y-sprite_height+4+hLineEffect)
 
 //square was here
-if atkSequence=4 and (atkTime>=20 and atkTime<=90) or (atkTime>=120 and atkTime<=190) {
+if atkSequence==4 && ((atkTime>=20 && atkTime<=90) || (atkTime>=120 && atkTime<=190)) {
     draw_sprite_ext(sprite_index,image_index,x,y,image_xscale,image_yscale,image_angle,
     make_color_rgb(64,128,88),image_alpha-0.15)
 }
