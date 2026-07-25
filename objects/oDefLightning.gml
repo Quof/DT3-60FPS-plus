@@ -25,7 +25,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  atkTime+=1
+  atkTime+=1*gDeltaTime
   if atkProg=0 //Warn player
   {
     var tEffect;

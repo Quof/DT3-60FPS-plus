@@ -28,7 +28,7 @@ if global.gamePaused=false
   if room=rWarshipZ_E3 {image_xscale+=0.12; image_yscale+=0.12} //EX MODE
   else {image_xscale+=0.11; image_yscale+=0.11}
 
-  atkTime+=1
+  atkTime+=1*gDeltaTime
   if atkTime>=12
   {
     image_alpha-=0.05

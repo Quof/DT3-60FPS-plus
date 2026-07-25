@@ -102,7 +102,7 @@ if global.gamePaused=false
 
     if atkProg=-1 //---------- Battle start delay ----------
     {
-      atkTime+=1
+      atkTime+=1*gDeltaTime
       if atkTime>=25-(bossProgress*2) {atkTime=0; atkProg=0}
     }
     else if atkProg=0 //---------- Coming down ----------
@@ -121,7 +121,7 @@ if global.gamePaused=false
     }
     else if atkProg=1 //---------- Throw spiderlings? ----------
     {
-      atkTime+=1
+      atkTime+=1*gDeltaTime
       if atkTime=1
       {
         spiderThrow+=1
@@ -148,7 +148,7 @@ if global.gamePaused=false
     }
     else if atkProg=2 //---------- Place webbing ---------- 171,219,267,315 - 69,85,187
     {
-      atkTime+=1
+      atkTime+=1*gDeltaTime
       if atkTime=5
       {
         if numOfDescents=0 //First descent
@@ -242,7 +242,7 @@ if global.gamePaused=false
     }
     else if atkProg=5 //---------- Stop at bottom ----------
     {
-      atkTime+=1
+      atkTime+=1*gDeltaTime
       if atkTime=3 {eyeFrm=1}
       else if atkTime=5 {eyeFrm=2}
       else if atkTime>=atkDelay

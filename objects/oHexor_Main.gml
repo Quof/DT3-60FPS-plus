@@ -216,7 +216,7 @@ if global.gamePaused=false
     }
 
     //==================== ATTACKS ====================
-    atkTime+=1
+    atkTime+=1*gDeltaTime
     if atkPhase=0
     {
       if atkProg=0 //----- Orbs and heads -----
@@ -824,7 +824,7 @@ if global.gamePaused=false
     }
     else if atkProg=21 //Short prep
     {
-      atkTime+=1
+      atkTime+=1*gDeltaTime
       if atkTime=60
       {
         msgCreate(60,80,"Hexor","Jeremy...",0,0,oMessagePerson,0)
@@ -843,7 +843,7 @@ if global.gamePaused=false
     }
     else if atkProg=22 //Attack until player HP is 0
     {
-      atkTime+=1
+      atkTime+=1*gDeltaTime
       if atkTime mod 17=0
       {
         rockProg+=1
@@ -884,7 +884,7 @@ if global.gamePaused=false
     }
     else if atkProg=31 //Rocks
     {
-      atkTime+=1
+      atkTime+=1*gDeltaTime
       if atkTime mod 7=0
       {
         tBigRock=instance_create(random_range(-16,room_width+16),-64,oHexor_Rock)
@@ -894,7 +894,7 @@ if global.gamePaused=false
     }
     else if atkProg=32 //Hexor speaks
     {
-      atkTime+=1
+      atkTime+=1*gDeltaTime
       if atkTime=90
       {
         oEvCh21MainA.fadeColor=c_black
@@ -919,7 +919,7 @@ if global.gamePaused=false
     }
     else if atkProg=33 //Jeremy retaliates
     {
-      atkTime+=1
+      atkTime+=1*gDeltaTime
       if atkTime=1
       {
         msgCreate(60,80,"Jeremy","That's why I'm here.",0,1,oMessagePerson,0)

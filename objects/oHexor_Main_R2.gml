@@ -100,7 +100,7 @@ if global.gamePaused=false
   if bActive=true and life>0
   {
     //==================== SEQUENCE ====================
-    atkTime+=1
+    atkTime+=1*gDeltaTime
     if atkPhase=0
     {
       if atkProg=0 //Intro dialogue

@@ -163,7 +163,7 @@ if global.gamePaused=false
       }
 
       //---------- Throw Fireball ----------
-      atkTime+=1
+      atkTime+=1*gDeltaTime
       if atkTime>=atkDelay
       {
         if atkTime=atkDelay //Change anim

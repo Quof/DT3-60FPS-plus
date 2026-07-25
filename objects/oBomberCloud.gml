@@ -49,7 +49,7 @@ if global.gamePaused=false
       turnTime=0
     }
 
-    atkTime+=1
+    atkTime+=1*gDeltaTime
     if atkTime>=64/moveSpd
     {
       newAttack=instance_create(x,y,oDamageExplosion)

@@ -35,7 +35,7 @@ if global.gamePaused=false
 
   if atkProg=0
   {
-    atkTime+=1
+    atkTime+=1*gDeltaTime
     if atkTime<=11 {warnArea+=1}
     else if atkTime>=30
     {
@@ -45,7 +45,7 @@ if global.gamePaused=false
   }
   else if atkProg=1
   {
-    atkTime+=1
+    atkTime+=1*gDeltaTime
     if atkTime>=30
     {
       instance_destroy()

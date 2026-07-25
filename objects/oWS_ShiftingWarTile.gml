@@ -45,7 +45,7 @@ if global.gamePaused=false
   if bActive=true and life>0
   {
     image_angle+=15
-    atkTime+=1
+    atkTime+=1*gDeltaTime
     if atkProg=0 //Rise
     {
       y-=1

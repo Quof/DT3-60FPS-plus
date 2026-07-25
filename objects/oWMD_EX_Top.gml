@@ -44,7 +44,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  atkTime+=1
+  atkTime+=1*gDeltaTime
   if atkTime<=99
   {
     y+=4

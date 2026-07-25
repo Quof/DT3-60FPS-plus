@@ -33,7 +33,7 @@ if global.gamePaused=false
   if atkProg=0
   {
     image_angle+=8
-    atkTime+=1
+    atkTime+=1*gDeltaTime
     if atkTime>=atkDelay
     {
       if type=0
@@ -52,7 +52,7 @@ if global.gamePaused=false
   }
   else if atkProg=1
   {
-    atkTime+=1
+    atkTime+=1*gDeltaTime
     if atkTime>=15 {atkTime=0; atkProg=2}
   }
   else if atkProg=2

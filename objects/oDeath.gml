@@ -255,7 +255,7 @@ if global.gamePaused=false
       //---------- ATTACK: COMBO SWING ----------
       if atkProg=0 //3 Strike Combo
       {
-        atkTime+=1
+        atkTime+=1*gDeltaTime
         if atkTime>=atkDelay
         {
           if atkTime<=atkDelay+100 //Check updates

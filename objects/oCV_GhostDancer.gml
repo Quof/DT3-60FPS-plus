@@ -74,7 +74,7 @@ if global.gamePaused=false
     }
 
     //---------- Flying Hug ----------
-    atkTime+=1
+    atkTime+=1*gDeltaTime
     if atkTime=atkDelay
     {
       if point_distance(x,0,oPlayer1.x,0)<192

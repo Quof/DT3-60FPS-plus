@@ -150,7 +150,7 @@ if global.gamePaused=false
         }
 
         //---------- Shoot Fireballs ----------
-        atkTime+=1
+        atkTime+=1*gDeltaTime
         if atkTime>=atkDelay
         {
           if atkTime>=atkDelay and atkTime<=atkDelay+14

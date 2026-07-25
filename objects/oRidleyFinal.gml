@@ -104,7 +104,7 @@ if global.gamePaused=false
       }
     }
 
-    atkTime+=1
+    atkTime+=1*gDeltaTime
     if atkProg=0 //-------------------- Fly up over player --------------------
     {
       if atkTime=1 {bWave=0; oRidleyParts.tailType=2}

@@ -40,7 +40,7 @@ if global.gamePaused=false
   else if atkProg=1 //Fire laser
   {
     if circleWarnRad>0 {circleWarnRad-=1}
-    atkTime+=1
+    atkTime+=1*gDeltaTime
     if atkTime=30
     {
       playSound(global.snd_Dec_Fire,0,0.92,32000+random(3000))
@@ -51,7 +51,7 @@ if global.gamePaused=false
   }
   else if atkProg=2 //Laser time
   {
-    atkTime+=1
+    atkTime+=1*gDeltaTime
     if atkTime>=atkDelay
     {
       with myLaser {instance_destroy()}

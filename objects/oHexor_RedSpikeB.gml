@@ -33,7 +33,7 @@ if global.gamePaused=false
 
   if atkProg=0
   {
-    atkTime+=1
+    atkTime+=1*gDeltaTime
     if atkTime>=atkDelay
     {
       image_blend=c_white
@@ -43,7 +43,7 @@ if global.gamePaused=false
   }
   else if atkProg=1
   {
-    atkTime+=1
+    atkTime+=1*gDeltaTime
     if atkTime>=atkLinger
     {
       tEfCir=instance_create(x,y,oEfCircleBlast)

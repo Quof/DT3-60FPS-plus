@@ -38,7 +38,7 @@ if global.gamePaused=false
 {
   if bActive=1 and oEnmity.specialAttack=0 and life>0
   {
-    atkTime+=1
+    atkTime+=1*gDeltaTime
     if atkTime=atkDelay //---------- Ready missiles ----------
     {
       if multiShot=0

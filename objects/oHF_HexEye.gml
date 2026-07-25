@@ -47,7 +47,7 @@ if global.gamePaused=false
     {
       x-=1.25
     }
-    atkTime+=1
+    atkTime+=1*gDeltaTime
     if atkTime>=80 {atkTime=95; atkProg+=1}
   }
   else if atkProg=1 //Main behavior
@@ -58,7 +58,7 @@ if global.gamePaused=false
     turn_toward_direction(player_sprite_center(),turnSpd)
     image_angle=direction
     //Attack
-    atkTime+=1
+    atkTime+=1*gDeltaTime
     if atkTime=atkDelay
     {
       image_blend=c_red

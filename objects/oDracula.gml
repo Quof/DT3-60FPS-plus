@@ -170,7 +170,7 @@ if global.gamePaused=false
     }
     else if atkProg=3 //-------------------- Attack --------------------
     {
-      atkTime+=1
+      atkTime+=1*gDeltaTime
       if atkTime=1 //Choose Anim
       {
         if atkAnim=0 {bBody.sprite_index=sDraculaRightArm}
@@ -316,7 +316,7 @@ if global.gamePaused=false
     }
     else if atkProg=10 //-------------------- Super Attack: Wine Glass Throw --------------------
     {
-      atkTime+=1
+      atkTime+=1*gDeltaTime
       if atkTime=1 //Change Anim
       {
         bBody.sprite_index=sDraculaLeftArm
@@ -357,7 +357,7 @@ if global.gamePaused=false
     }
     else if atkProg=20 //-------------------- Super Attack: Fireball Swirl (Indefinite) --------------------
     {
-      atkTime+=1
+      atkTime+=1*gDeltaTime
       if atkTime=1 //Change Anim
       {
         bBody.sprite_index=sDraculaBothArms

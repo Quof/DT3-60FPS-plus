@@ -83,7 +83,7 @@ if global.gamePaused=false
   }
   else if atkProg=2 //Wait - Down
   {
-    atkTime+=1
+    atkTime+=1*gDeltaTime
     if atkTime=20
     {
       yVel=-atkSpeed/3.5
@@ -105,7 +105,7 @@ if global.gamePaused=false
   }
   else if atkProg=4 //Wait - Up
   {
-    atkTime+=1
+    atkTime+=1*gDeltaTime
     if atkTime=5
     {
       atkTime=0

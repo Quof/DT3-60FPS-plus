@@ -50,7 +50,7 @@ if global.gamePaused=false
   if bActive=true and stunnedTime=0 and life>0
   {
     //---------- Flying Hug ----------
-    atkTime+=1
+    atkTime+=1*gDeltaTime
     if atkProg=0 //Wait for player to get close
     {
       if atkTime=atkDelay

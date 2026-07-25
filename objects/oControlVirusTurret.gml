@@ -29,7 +29,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  atkTime+=1
+  atkTime+=1*gDeltaTime
   if atkTime=atkDelay //---------- Attack: 3 Bullets toward player ----------
   {
     var tEffect;

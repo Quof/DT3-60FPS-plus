@@ -42,7 +42,7 @@ applies_to=self
 if global.gamePaused=false
 {
   image_angle-=22.5
-  atkTime+=1
+  atkTime+=1*gDeltaTime
   if atkProg=0 //Rise
   {
     y-=1

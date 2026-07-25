@@ -24,7 +24,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  atkTime+=1
+  atkTime+=1*gDeltaTime
   if atkProg=0 //Fist charge up
   {
     if atkTime mod 2=0

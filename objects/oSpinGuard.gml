@@ -71,20 +71,20 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if global.gamePaused=false && gDeltaDoTicks
+if global.gamePaused=false
 {
   makeEnemyActive(0)
   if bActive=true and stunnedTime=0 and life>0
   {
-    initSeq+=1
+    initSeq+=1*gDeltaTime
     if initSeq>=1 and initSeq<=99
     {
-      image_alpha+=0.025
+      image_alpha+=0.025*gDeltaTime
       for(i=0;i<2;i+=1)
       {
-        shieldPart[i].image_alpha+=0.025
+        shieldPart[i].image_alpha+=0.025*gDeltaTime
       }
-      shieldDist-=8
+      shieldDist-=8*gDeltaTime
       if shieldDist<=40
       {
         var tEffect;
@@ -109,9 +109,9 @@ if global.gamePaused=false && gDeltaDoTicks
     }
     else if initSeq>=110
     {
-      shieldDir-=6
+      shieldDir-=6*gDeltaTime
       mDir=player_sprite_center()
-      moveTo((runAcc)*cos(degtorad(mDir)),-(runAcc)*sin(degtorad(mDir)))
+      moveTo((runAcc*gDeltaTime)*cos(degtorad(mDir)),-(runAcc*gDeltaTime)*sin(degtorad(mDir)))
     }
 
     for(i=0;i<2;i+=1)
@@ -125,19 +125,19 @@ if global.gamePaused=false && gDeltaDoTicks
     }
 
     //---------- ATTACK: Shot ----------
-    shotTime+=1
+    shotTime+=1*gDeltaTime
     if shotTime>=shotDelay
     {
       if shotTime>=shotDelay and shotTime<=shotDelay+29 //spin
       {
-        image_angle-=20
+        image_angle-=20*gDeltaTime
       }
       else if shotTime=shotDelay+30 //Fire shot
       {
         var tNewAttack;
         tNewAttack=instance_create(x,y,oPassBullet)
         tNewAttack.sprite_index=sEBShot; tNewAttack.atkPower=atkPower
-        tNewAttack.bulletSpeed=6; tNewAttack.decayTime=-100; tNewAttack.direction=mDir
+        tNewAttack.bulletSpeed=6; tNewAttack.decayTime=-100; tNewAttack._direction=mDir
         image_angle=0
         shotTime=0
       }
@@ -145,7 +145,7 @@ if global.gamePaused=false && gDeltaDoTicks
   }
   else if life<=0
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       for(i=0;i<2;i+=1)
@@ -158,23 +158,23 @@ if global.gamePaused=false && gDeltaDoTicks
       tEffect.sprite_index=sRobotExplosion
       tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
     }
-    if deathAnim mod 4=0
+    if deathAnim mod (4/gDeltaTime)=0
     {
-      if deathAnim mod 8=0 {playSound(global.snd_BombExplode,0,0.8,1)}
+      if deathAnim mod (8/gDeltaTime)=0 {playSound(global.snd_BombExplode,0,0.8,1)}
       tEffect=instance_create(x+random_range(-12,12),y+random_range(-12,12),oEffect)
       tEffect.sprite_index=sRobotExplosion
       tEffect.image_xscale=0.4; tEffect.image_yscale=0.4; tEffect.image_alpha=0.5+(image_alpha/3)
       tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
     }
-    y+=0.5
+    y+=0.5*gDeltaTime
     for(i=0;i<2;i+=1)
     {
       if instance_exists(shieldPart[i])
       {
         shieldPart[i].x+=shdVelX[i]
         shieldPart[i].y+=shdVelY[i]
-        shdVelY[i]+=0.3
-        shieldPart[i].image_angle+=shdVelTurn[i]
+        shdVelY[i]+=0.3*gDeltaTime
+        shieldPart[i].image_angle+=shdVelTurn[i]*gDeltaTime
       }
     }
     image_alpha-=0.03

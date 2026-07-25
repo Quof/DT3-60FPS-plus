@@ -29,7 +29,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  atkTime+=1
+  atkTime+=1*gDeltaTime
   //Orbit
   if moveSpd>0 {myDir-=3}
   else {myDir+=3}

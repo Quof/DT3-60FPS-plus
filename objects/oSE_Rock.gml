@@ -174,7 +174,7 @@ if global.gamePaused=false
   }
 
   //---------- ATTACK: STANDARD ----------
-  atkTime+=1
+  atkTime+=1*gDeltaTime
   if atkTime=atkProg or atkTime=atkProg+15 or atkTime=atkProg+30
   {
     var tEfCir;

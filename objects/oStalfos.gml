@@ -96,7 +96,7 @@ if global.gamePaused=false
       }
 
       //---------- ATTACK: Sliding Sword Strike ----------
-      atkTime+=1
+      atkTime+=1*gDeltaTime
       if atkTime>=atkDelay
       {
         if atkTime=atkDelay //change anim and step back if too close to player

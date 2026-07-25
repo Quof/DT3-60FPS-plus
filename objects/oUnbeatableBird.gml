@@ -75,7 +75,7 @@ if global.gamePaused=false
     if x<oPlayer1.x {image_xscale=1}
     else {image_xscale=-1}
 
-    atkTime+=1
+    atkTime+=1*gDeltaTime
     if atkTime mod 14=0
     {
       var tFeather,tDir;

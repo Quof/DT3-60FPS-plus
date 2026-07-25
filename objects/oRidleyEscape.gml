@@ -99,7 +99,7 @@ if global.gamePaused=false
       }
     }
 
-    atkTime+=1
+    atkTime+=1*gDeltaTime
     if atkProg=0 //-------------------- Stay under player, fly left and right, shoot fireballs --------------------
     {
       //Movement

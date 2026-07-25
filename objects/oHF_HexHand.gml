@@ -50,7 +50,7 @@ if global.gamePaused=false
     }
     else if atkProg=1 //Open hand
     {
-      atkTime+=1
+      atkTime+=1*gDeltaTime
       if atkTime=15 {image_index=1}
       else if atkTime=20 {image_index=2}
       else if atkTime=25
@@ -61,7 +61,7 @@ if global.gamePaused=false
     }
     else if atkProg=2 //Attack
     {
-      atkTime+=1
+      atkTime+=1*gDeltaTime
       if atkTime=atkDelay
       {
         var tAtk,tDir;
@@ -87,7 +87,7 @@ if global.gamePaused=false
     }
     else if atkProg=3 //Close hand
     {
-      atkTime+=1
+      atkTime+=1*gDeltaTime
       if atkTime=15 {image_index=2}
       else if atkTime=20 {image_index=1}
       else if atkTime=25
@@ -98,7 +98,7 @@ if global.gamePaused=false
     }
     else if atkProg=4 //Linger a bit
     {
-      atkTime+=1
+      atkTime+=1*gDeltaTime
       if atkTime>=20 {atkTime=0 atkProg+=1}
     }
     else if atkProg=5 //Drop down

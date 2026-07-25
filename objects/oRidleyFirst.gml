@@ -90,7 +90,7 @@ if global.gamePaused=false
 
     if room=rSamus5_Lv1_D
     {
-      atkTime+=1
+      atkTime+=1*gDeltaTime
       if atkProg=0 //Fire breath
       {
         if atkTime>=atkDelay and atkTime<=atkDelay+100 {atkTime=1000}
@@ -218,7 +218,7 @@ if global.gamePaused=false
         x+=moveSpd
       }
 
-      atkTime+=1
+      atkTime+=1*gDeltaTime
       if atkTime>=atkDelay and atkTime<=atkDelay+100 {atkTime=1000}
       else if atkTime=1001 {ridParts[0].image_index=1}
       else if atkTime=1004 {ridParts[0].image_index=2}

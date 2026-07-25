@@ -57,7 +57,7 @@ if global.gamePaused=false
     }
     else if atkProg=1 //On ground
     {
-      atkTime+=1
+      atkTime+=1*gDeltaTime
       if atkTime=12
       {
         image_index=1
@@ -107,7 +107,7 @@ if global.gamePaused=false
     }
     else if atkProg=2 //Run up wall
     {
-      atkTime+=1
+      atkTime+=1*gDeltaTime
       if atkTime mod abs(yVel)=0
       {
         if image_index=1 {image_index=2}

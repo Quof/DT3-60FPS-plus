@@ -169,7 +169,7 @@ if global.gamePaused=false
     }
 
     //==================== SEQUENCE ====================
-    atkTime+=1
+    atkTime+=1*gDeltaTime
     if atkPhase=0
     {
       if atkProg=0

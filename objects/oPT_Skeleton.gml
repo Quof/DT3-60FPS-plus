@@ -196,7 +196,7 @@ if global.gamePaused=false
       }
 
       //---------- Swing sword ----------
-      if sprite_index!=sPT_Skeleton_Block {atkTime+=1}
+      if sprite_index!=sPT_Skeleton_Block {atkTime+=1*gDeltaTime}
       if atkTime>=atkDelay and bJumpReady=1
       {
         if atkTime=atkDelay //Change anim

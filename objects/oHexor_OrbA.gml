@@ -33,7 +33,7 @@ if global.gamePaused=false
 
     orbDir+=3
 
-    atkTime+=1
+    atkTime+=1*gDeltaTime
     if atkTime>=135
     {
       if type=0
@@ -60,12 +60,12 @@ if global.gamePaused=false
   else if atkProg=12 //Attack 1B - To point
   {
     speed=bulletSpeed
-    atkTime+=1
+    atkTime+=1*gDeltaTime
     if atkTime>=150 {instance_destroy()}
   }
   else if atkProg=21 //-------------------- Attack 2A - Delay --------------------
   {
-    atkTime+=1
+    atkTime+=1*gDeltaTime
     if atkTime>=20 {atkTime=0; atkProg+=1}
   }
   else if atkProg=22 //Attack 2B - Move outward
@@ -87,7 +87,7 @@ if global.gamePaused=false
   else if atkProg=24 //Attack 2D - To point
   {
     speed=bulletSpeed
-    atkTime+=1
+    atkTime+=1*gDeltaTime
     if atkTime>=150 {instance_destroy()}
   }
 

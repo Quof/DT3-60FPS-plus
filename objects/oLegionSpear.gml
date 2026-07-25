@@ -44,7 +44,7 @@ if global.gamePaused=false
   }
   else if atkProg=2
   {
-    atkTime+=1
+    atkTime+=1*gDeltaTime
     if atkTime>=45 and atkTime<=54 {myDist+=5}
     else if atkTime>=85 and atkTime<=94 {myDist-=5}
     else if atkTime>=95 {atkTime=0;atkProg=1}
