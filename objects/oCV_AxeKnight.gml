@@ -139,9 +139,9 @@ if global.gamePaused=false
       image_index=2
       image_speed=0
     }
-    if deathAnim mod (3/gDeltaTime)=0
+    if deathAnim mod 3=0
     {
-      if deathAnim mod (6/gDeltaTime)=0 {playSound(global.snd_HardHit1,0,0.9,1)}
+      if deathAnim mod 6=0 {playSound(global.snd_HardHit1,0,0.9,1)}
       tEffect=instance_create(x+random_range(-15,15),y-1-random(52),oEffect)
       tEffect.sprite_index=sDeathFlameA; tEffect.image_speed=0.33
       tEffect.image_alpha=0.5+(image_alpha/3)
