@@ -174,7 +174,7 @@ if global.gamePaused=false
         }
         sceneProgress+=1
       }
-      if charDialogue[0]=0 and instance_exists(oPT_LavaBeast) {convo[0]+=1;if convo[0]>=20 {charDialogue[0]+=1; convo[0]=0}}
+      if charDialogue[0]=0 and instance_exists(oPT_LavaBeast) {convo[0]+=1*gDeltaTime;if convo[0]>=20 {charDialogue[0]+=1; convo[0]=0}}
       else if charDialogue[0]=1
       {
         msgCreate(0,0,"Jerry","Now that just makes no sense at all.",0,1,oMessagePerson,0)
@@ -195,19 +195,19 @@ if global.gamePaused=false
         }
         sceneProgress+=1
       }
-      if charDialogue[0]=0 and oPlayer1.x>=192 {convo[0]+=1;if convo[0]>=20 {charDialogue[0]+=1; convo[0]=0}}
+      if charDialogue[0]=0 and oPlayer1.x>=192 {convo[0]+=1*gDeltaTime;if convo[0]>=20 {charDialogue[0]+=1; convo[0]=0}}
       else if charDialogue[0]=1
       {
         msgCreate(0,0,"Jerry","This looks confusing. Did someone just throw down some tiles and call it a day?",0,2,oMessagePerson,0)
         newMessage.fadingTime=130; charDialogue[0]+=1
       }
-      else if charDialogue[0]=2 {convo[0]+=1;if convo[0]>=130 {charDialogue[0]+=1; convo[0]=0}}
+      else if charDialogue[0]=2 {convo[0]+=1*gDeltaTime;if convo[0]>=130 {charDialogue[0]+=1; convo[0]=0}}
       else if charDialogue[0]=3
       {
         msgCreate(0,0,"Claire","It does look really bad.",0,0,oMessagePerson,0)
         newMessage.fadingTime=70; charDialogue[0]+=1
       }
-      else if charDialogue[0]=4 {convo[0]+=1;if convo[0]>=60 {charDialogue[0]+=1; convo[0]=0}}
+      else if charDialogue[0]=4 {convo[0]+=1*gDeltaTime;if convo[0]>=60 {charDialogue[0]+=1; convo[0]=0}}
       else if charDialogue[0]=5 and oPlayer1.x>=1120
       {
         msgCreate(0,0,"Jerry","The enemies are lame too.",0,0,oMessagePerson,0)
@@ -228,13 +228,13 @@ if global.gamePaused=false
         }
         sceneProgress+=1
       }
-      if charDialogue[0]=0 and instance_exists(oRollingBoulder) {convo[0]+=1;if convo[0]>=20 {charDialogue[0]+=1; convo[0]=0}}
+      if charDialogue[0]=0 and instance_exists(oRollingBoulder) {convo[0]+=1*gDeltaTime;if convo[0]>=20 {charDialogue[0]+=1; convo[0]=0}}
       else if charDialogue[0]=1
       {
         msgCreate(0,0,"Jerry","Now we have those annoying boulders too.",0,1,oMessagePerson,0)
         newMessage.fadingTime=80; charDialogue[0]+=1
       }
-      else if charDialogue[0]=2 {convo[0]+=1;if convo[0]>=80 {charDialogue[0]+=1; convo[0]=0}}
+      else if charDialogue[0]=2 {convo[0]+=1*gDeltaTime;if convo[0]>=80 {charDialogue[0]+=1; convo[0]=0}}
       else if charDialogue[0]=3 and oPlayer1.x>=512
       {
         msgCreate(0,0,"Jerry","And bad looking platforms!",0,1,oMessagePerson,0)
@@ -255,13 +255,13 @@ if global.gamePaused=false
         }
         sceneProgress+=1
       }
-      if charDialogue[0]=0 {convo[0]+=1;if convo[0]>=40 {charDialogue[0]+=1; convo[0]=0}}
+      if charDialogue[0]=0 {convo[0]+=1*gDeltaTime;if convo[0]>=40 {charDialogue[0]+=1; convo[0]=0}}
       else if charDialogue[0]=1
       {
         msgCreate(0,0,"Jerry","Eww, what? I just hate this place completely. The tiling sucks!",0,1,oMessagePerson,0)
         newMessage.fadingTime=130; charDialogue[0]+=1
       }
-      else if charDialogue[0]=2 {convo[0]+=1;if convo[0]>=130 {charDialogue[0]+=1; convo[0]=0}}
+      else if charDialogue[0]=2 {convo[0]+=1*gDeltaTime;if convo[0]>=130 {charDialogue[0]+=1; convo[0]=0}}
       else if charDialogue[0]=3
       {
         msgCreate(0,0,"Claire","Looks like it's another work in progress.",0,1,oMessagePerson,0)

@@ -95,25 +95,25 @@ if global.gamePaused=false
         sceneProgress+=1
       }
     }
-    if charDialogue[0]=1 {convo[0]+=1;if convo[0]>=350 {charDialogue[0]+=1; convo[0]=0}}
+    if charDialogue[0]=1 {convo[0]+=1*gDeltaTime;if convo[0]>=350 {charDialogue[0]+=1; convo[0]=0}}
     else if charDialogue[0]=2
     {
       msgCreate(0,0,"Dylan, the Poe","Why are you still here?",6,3,oMessagePerson,0)
       newMessage.fadingTime=60; charDialogue[0]+=1
     }
-    else if charDialogue[0]=3 {convo[0]+=1;if convo[0]>=120 {charDialogue[0]+=1; convo[0]=0}}
+    else if charDialogue[0]=3 {convo[0]+=1*gDeltaTime;if convo[0]>=120 {charDialogue[0]+=1; convo[0]=0}}
     else if charDialogue[0]=4
     {
       msgCreate(0,0,"Dylan, the Poe","Please go away and stop staring at me.",6,3,oMessagePerson,0)
       newMessage.fadingTime=80; charDialogue[0]+=1
     }
-    else if charDialogue[0]=5 {convo[0]+=1;if convo[0]>=120 {charDialogue[0]+=1; convo[0]=0}}
+    else if charDialogue[0]=5 {convo[0]+=1*gDeltaTime;if convo[0]>=120 {charDialogue[0]+=1; convo[0]=0}}
     else if charDialogue[0]=6
     {
       msgCreate(0,0,"Dylan, the Poe","...Wow, humans are annoying. No really, just go away. You already won and got what you wanted!",6,3,oMessagePerson,0)
       newMessage.fadingTime=130; charDialogue[0]+=1
     }
-    else if charDialogue[0]=7 {convo[0]+=1;if convo[0]>=180 {charDialogue[0]+=1; convo[0]=0}}
+    else if charDialogue[0]=7 {convo[0]+=1*gDeltaTime;if convo[0]>=180 {charDialogue[0]+=1; convo[0]=0}}
     else if charDialogue[0]=8
     {
       msgCreate(0,0,"Dylan, the Poe","Whatever, I'll go away then.",6,3,oMessagePerson,0)
@@ -121,7 +121,7 @@ if global.gamePaused=false
     }
     else if charDialogue[0]=9
     {
-      convo[0]+=1
+      convo[0]+=1*gDeltaTime
       if convo[0]>=70
       {
         oMisc.image_alpha-=0.05
@@ -158,19 +158,19 @@ if global.gamePaused=false
         sceneProgress+=1
       }
     }
-    if charDialogue[0]=1 {convo[0]+=1;if convo[0]>=130 {charDialogue[0]+=1; convo[0]=0}}
+    if charDialogue[0]=1 {convo[0]+=1*gDeltaTime;if convo[0]>=130 {charDialogue[0]+=1; convo[0]=0}}
     else if charDialogue[0]=2
     {
       msgCreate(0,0,"Dylan, the Poe","Get to the top of the Palace, where a powerful weapon lies, without shifting any rooms. If you shift any room, return here, so that I may taunt you and we can start again.",6,3,oMessagePerson,0)
       newMessage.fadingTime=250; charDialogue[0]+=1
     }
-    else if charDialogue[0]=3 {convo[0]+=1;if convo[0]>=250 {charDialogue[0]+=1; convo[0]=0}}
+    else if charDialogue[0]=3 {convo[0]+=1*gDeltaTime;if convo[0]>=250 {charDialogue[0]+=1; convo[0]=0}}
     else if charDialogue[0]=4
     {
       msgCreate(0,0,"Dylan, the Poe","And just in case you're confused. You can not shift any rooms from this point on. If you have to, you fail and will have to return to me to try again. And just in case you're somehow still confused, any rooms you've flipped already don't count.",6,3,oMessagePerson,0)
       newMessage.fadingTime=240; charDialogue[0]+=1
     }
-    else if charDialogue[0]=5 {convo[0]+=1;if convo[0]>=240 {charDialogue[0]+=1; convo[0]=0}}
+    else if charDialogue[0]=5 {convo[0]+=1*gDeltaTime;if convo[0]>=240 {charDialogue[0]+=1; convo[0]=0}}
     else if charDialogue[0]=6
     {
       msgCreate(0,0,"Jeremy","Heads up, Jerry. If you do have to return here, all you need to do to trigger this sequence is start his dialogue. No need to wait for it to end... His behavior is set, so that was an easy look up. Also he was talking about the bombs.",0,3,oMessagePerson,0)
