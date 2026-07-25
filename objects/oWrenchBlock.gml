@@ -20,7 +20,7 @@ if global.gamePaused=false
 {
   if isCollisionCharacterLeft(2,oPincherBot) or isCollisionCharacterRight(2,oPincherBot)
   {
-    drillTime-=1.5
+    drillTime-=1.5*gDeltaTime
     if drillTime<=0
     {
       awardAwesome(400)
@@ -35,11 +35,11 @@ if global.gamePaused=false
   else
   {
     if drillTime<255
-      drillTime+=1.5
+      drillTime+=1.5*gDeltaTime
   }
   image_blend=make_color_rgb(255,drillTime,drillTime)
 
-  yVel+=0.2
+  yVel+=0.2*gDeltaTime
   if isCollisionBottom(1)
     yVel=0
   if yVel>12
