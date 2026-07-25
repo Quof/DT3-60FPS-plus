@@ -24,7 +24,7 @@ xCenter=464
 yGround=272
 roomSpan=176
 
-atkSequence=4
+atkSequence=0
 atkTime=0
 lightAmt=1
 lightWarn=35
