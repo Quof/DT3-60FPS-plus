@@ -24,7 +24,7 @@ if global.gameProgress=2590 and room=rMain_42 //----- [1] Intro to Barrens -----
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
   }
@@ -62,7 +62,7 @@ else if global.gameProgress=2600 and room=rMain_46 //----- [2] Got past the Twin
   {
     if sceneProgress=0
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {global.gamePaused=true}
       else if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
     }
@@ -108,7 +108,7 @@ else if global.gameProgress=2620 and room=rMain_47 //----- [3] Boss Fight: Vault
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         musVolC=global.optMusic*100
@@ -128,7 +128,7 @@ else if global.gameProgress=2620 and room=rMain_47 //----- [3] Boss Fight: Vault
     }
     else if sceneProgress=2
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10
       {
         var tCamera;
@@ -148,7 +148,7 @@ else if global.gameProgress=2620 and room=rMain_47 //----- [3] Boss Fight: Vault
     }
     else if sceneProgress=3
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10
       {
         npcVD=instance_create(2288,288,oMisc)
@@ -247,7 +247,7 @@ else if global.gameProgress=2630 and room=rMain_48 //----- [4] Meeting Bubblin &
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=2 and bWaitForInput=false
@@ -265,7 +265,7 @@ else if global.gameProgress=2630 and room=rMain_48 //----- [4] Meeting Bubblin &
   }
   else if sceneProgress=7
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=10
     {
       (GID(264631)).image_xscale=-1
@@ -333,7 +333,7 @@ else if global.gameProgress=2660 and room=rMain_48Gate //----- [Unskippable] Acc
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=1
     {
       if sceneDelay=1 {global.gamePaused=true}

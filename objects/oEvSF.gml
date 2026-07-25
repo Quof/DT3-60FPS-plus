@@ -65,7 +65,7 @@ if room=rSF_A
   {
     if sceneProgress=0
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {oCh19_WM_NPC.image_xscale=-1.25; global.gamePaused=true}
       else if sceneDelay>=31 and sceneDelay<=70 {fadeAlpha-=0.025}
       if sceneDelay>=90 {sceneDelay=0; sceneProgress+=1}
@@ -82,7 +82,7 @@ if room=rSF_A
       msgCreate(0,0,"Jerry","I doubt he knew there was a portal to... whatever this place is. So what is it?#Oh wait, Jeremy, what is this place?",0,3,oMessageCutscene,1)
     else if sceneProgress=6
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=50 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=7 and bWaitForInput=false
@@ -140,7 +140,7 @@ if room=rSF_A
     else if sceneProgress=1
     {
       if instance_exists(oBombermanExplode) {bombCheck=1}
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=40 {xSpawn=2464; ySpawn=352; objSpawn=oBomberBat; moveSpd=2; turnDelay=64; turnAmt=90; myDir=0; event_user(0)}
       else if sceneDelay=65 {xSpawn=2720; ySpawn=480; objSpawn=oBomberBat; moveSpd=2; turnDelay=64; turnAmt=-90; myDir=180; event_user(0)}
       else if sceneDelay=90 {xSpawn=2464; ySpawn=608; objSpawn=oBomberBat; moveSpd=4; turnDelay=64; turnAmt=90; myDir=0; event_user(0)}
@@ -160,7 +160,7 @@ if room=rSF_A
     }
     else if sceneProgress=2
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=20
       {
         xSpawn=2464; ySpawn=352; objSpawn=oBomberBat; moveSpd=2; turnDelay=64; turnAmt=90; myDir=0; event_user(0)
@@ -199,7 +199,7 @@ else if room=rSF_B
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10
       {
         dreamFigureA_Sprite=sClaireIdle
@@ -254,7 +254,7 @@ else if room=rSF_C
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10
       {
         dreamFigureA_Sprite=sJerrySit; dreamFigureA_X=208
@@ -291,7 +291,7 @@ else if room=rSF_C
     }
     else if sceneProgress=2
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10
       {
         msgCreate(0,0,"Jerry","I'm really sorry about that. It's embarrassing seeing how I treated you sometimes.",0,2,oMessagePerson,0)
@@ -332,7 +332,7 @@ else if room=rSF_D
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=40
       {
         msgCreate(0,0,"Claire","Jerry, were you thinking about a death wall?!",0,1,oMessagePerson,0)
@@ -400,7 +400,7 @@ else if room=rSF_E
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=40
       {
         msgCreate(0,0,"Claire","Oh geez, again.",0,1,oMessagePerson,0)
@@ -420,7 +420,7 @@ else if room=rSF_F
   {
     if sceneProgress=0
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {oCh19_WM_NPC.sprite_index=sWarmasterA_Idle; oCh19_WM_NPC.image_speed=0.15; oCh19_WM_NPC.image_xscale=-1.25; global.gamePaused=true}
       if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
     }
@@ -440,7 +440,7 @@ else if room=rSF_F
       msgCreate(0,0,"Warmaster","If you'd just stop...",6,3,oMessageCutscene,1)
     else if sceneProgress=8
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10
       {
         var tEffect;
@@ -508,7 +508,7 @@ else if room=rSF_G
   {
     if sceneProgress=0
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {oCh19_WM_NPC.sprite_index=sWarmasterA_Idle; oCh19_WM_NPC.image_speed=0.15; oCh19_WM_NPC.image_xscale=-1.25; global.gamePaused=true}
       if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
     }
@@ -548,7 +548,7 @@ else if room=rSF_G
     }
     else if sceneProgress=2
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         global.gamePaused=true
@@ -583,7 +583,7 @@ else if room=rSF_G
       msgCreate(0,0,"Warmaster","Keep going, you'll see it soon.",6,3,oMessageCutscene,1)
     else if sceneProgress=14
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10
       {
         var tEffect;
@@ -613,7 +613,7 @@ else if room=rSF_H
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10
       {
         dreamFigureA_Sprite=sWarmasterA_Idle
@@ -638,7 +638,7 @@ else if room=rSF_H
     }
     else if sceneProgress=2
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10
       {
         dreamFigureA_Sprite=sWarmasterA_Idle
@@ -672,7 +672,7 @@ else if room=rSF_I
   {
     if sceneProgress=0
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {oCh19_WM_NPC.sprite_index=sWarmasterA_Idle; oCh19_WM_NPC.image_speed=0.15; oCh19_WM_NPC.image_xscale=-1.25; global.gamePaused=true}
       if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
     }
@@ -692,7 +692,7 @@ else if room=rSF_I
       msgCreate(0,0,"Warmaster","Precisely. Now, I'll be going first. I do hope you will reconsider.",6,3,oMessageCutscene,1)
     else if sceneProgress=8
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10
       {
         var tEffect;
@@ -743,7 +743,7 @@ else if room=rSF_I
     }
     else if sceneProgress=2
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=20
       {
         var tempMplay;
@@ -864,7 +864,7 @@ else if room=rSF_I
     }
     else if sceneProgress=12 //World Rip 12
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=15
       {
         msgCreate(0,0,"Jerry","What the hell? Platforms appearing too?",0,1,oMessagePerson,0)

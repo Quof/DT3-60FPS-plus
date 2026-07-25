@@ -67,7 +67,7 @@ if room=rDCS_A
   {
     if sceneProgress=0
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {global.gamePaused=true}
       if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
     }
@@ -128,7 +128,7 @@ else if room=rDCS_B //Introduce CHAOS Healer
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=50 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=2
@@ -144,7 +144,7 @@ else if room=rDCS_B //Introduce CHAOS Healer
   {
     if sceneProgress=10
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=20
       {
         msgCreate(0,0,"Jeremy","What the heck was up with that...?",0,1,oMessagePerson,0)
@@ -172,7 +172,7 @@ else if room=rDCS_D and global.gameProgress=4760 //----- [2] Cramped places ----
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
@@ -251,7 +251,7 @@ else if room=rDCS_E and global.gameProgress=4775 //----- [3] Perplexing moment w
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=2 and bWaitForInput=false
@@ -278,7 +278,7 @@ else if room=rDCS_E and global.gameProgress=4775 //----- [3] Perplexing moment w
     msgCreate(0,0,"Warmaster","With the warship operational, crushing you is easy. I'd simply like to do it without too much collateral damage.",6,3,oMessageCutscene,1)
   else if sceneProgress=13
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=20 {(GID(404466)).image_xscale=1.25; (GID(404466)).sprite_index=sWarmasterA_Run; (GID(404466)).image_speed=0.33}
     else if sceneDelay>=21 and sceneDelay<=32
     {
@@ -469,7 +469,7 @@ else if room=rDCS_U and global.gameProgress=4780 //----- [] Boss Fight: Shadow E
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=50
       {
         with oMisc {instance_destroy()}
@@ -484,13 +484,13 @@ else if room=rDCS_U and global.gameProgress=4780 //----- [] Boss Fight: Shadow E
     }
     else if sceneProgress=2
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=130 {hexFlash=1; hexX=352; hexY=160}
       else if sceneDelay>=180 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=3
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=50
       {
         myRockA=instance_create(256,-36,oSE_Rock); myRockA.type=2; myRockA.atkTime=-1000000; myRockA.bCanTakeDamage=0
@@ -624,7 +624,7 @@ else if room=rDCS_V and global.gameProgress=4790 //----- [] The second Dragoon p
   {
     if !instance_exists(oStoryObject)
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {global.gamePaused=true}
       else if sceneDelay>=2
       {
@@ -640,7 +640,7 @@ else if room=rDCS_V and global.gameProgress=4790 //----- [] The second Dragoon p
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=80 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=2 and bWaitForInput=false
@@ -653,7 +653,7 @@ else if room=rDCS_V and global.gameProgress=4790 //----- [] The second Dragoon p
     msgCreate(0,0,"Warmaster","You're not going anywhere.",6,3,oMessageCutscene,1)
   else if sceneProgress=6
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=15 {oPlayer1.image_xscale=-1}
     else if sceneDelay=30
     {
@@ -694,7 +694,7 @@ else if room=rDCS_V and global.gameProgress=4790 //----- [] The second Dragoon p
     msgCreate(0,0,"Jerry","Wait what? That thing is functional?!",0,3,oMessageCutscene,1)
   else if sceneProgress=17
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=10
     {
       var tFlash;
@@ -712,7 +712,7 @@ else if room=rDCS_V and global.gameProgress=4790 //----- [] The second Dragoon p
   }
   else if sceneProgress=18
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=30 {myNPC.sprite_index=sWarmasterA_Kneel; pullSpeed=1}
     else if sceneDelay=70 {pullSpeed=2}
     else if sceneDelay=110 {pullSpeed=3}

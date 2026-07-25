@@ -31,7 +31,7 @@ applies_to=self
 */
 if sceneProgress=0
 {
-  sceneDelay+=1
+  sceneDelay+=1*gDeltaTime
   if sceneDelay>=30
   {
     fadeAlpha-=0.02
@@ -58,7 +58,7 @@ else if sceneProgress=7 and bWaitForInput=false
   msgCreate(0,0,"Jeremy","We're lucky I'm still able to use this teleport function at all. I'm sure the Virus will lock it down after I use it.#Anyway, here we go...",0,3,oMessageCutscene,1)
 else if sceneProgress=8
 {
-  sceneDelay+=1
+  sceneDelay+=1*gDeltaTime
   if sceneDelay=1
   {
     playSound(global.snd_MMBeamUp,0,1,1)

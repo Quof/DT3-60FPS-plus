@@ -47,7 +47,7 @@ if global.gameProgress=3930 and room=rHPF_A //----- [1] The facility below -----
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
@@ -131,7 +131,7 @@ else if global.gameProgress=3970 and room=rHPF_B //----- [] Boss Fight: Antipath
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=45
       {
         msgCreate(0,0,"Jeremy","Back off from that!",0,2,oMessagePerson,0)
@@ -165,7 +165,7 @@ else if global.gameProgress=3970 and room=rHPF_B //----- [] Boss Fight: Antipath
     }
     else if sceneProgress=3
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         var enemyBarrier;
@@ -208,7 +208,7 @@ else if global.gameProgress=3970 and room=rHPF_B //----- [] Boss Fight: Antipath
     }
     else if sceneProgress=4
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=30 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=5
@@ -266,7 +266,7 @@ else if global.gameProgress=3980 and room=rHPF_C //----- [3] The virus is here -
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
@@ -305,7 +305,7 @@ else if global.gameProgress=4000 and room=rHPF_G //----- [] Virus speaks A -----
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       var tStatic; tStatic=instance_create(0,0,oQuickStatic); tStatic.staticTime=15; tStatic.image_alpha=0.28
@@ -320,7 +320,7 @@ else if global.gameProgress=4000 and room=rHPF_G //----- [] Virus speaks A -----
   }
   else if sceneProgress=3
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       var tStatic; tStatic=instance_create(0,0,oQuickStatic); tStatic.staticTime=15; tStatic.image_alpha=0.28
@@ -335,7 +335,7 @@ else if global.gameProgress=4000 and room=rHPF_G //----- [] Virus speaks A -----
   }
   else if sceneProgress=5
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       var tStatic; tStatic=instance_create(0,0,oQuickStatic); tStatic.staticTime=15; tStatic.image_alpha=0.28
@@ -357,7 +357,7 @@ else if global.gameProgress=4010 and room=rHPF_L //----- [] Virus speaks B -----
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       var tStatic; tStatic=instance_create(0,0,oQuickStatic); tStatic.staticTime=15; tStatic.image_alpha=0.28
@@ -372,7 +372,7 @@ else if global.gameProgress=4010 and room=rHPF_L //----- [] Virus speaks B -----
   }
   else if sceneProgress=3
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       var tStatic; tStatic=instance_create(0,0,oQuickStatic); tStatic.staticTime=15; tStatic.image_alpha=0.28
@@ -417,7 +417,7 @@ else if global.gameProgress=4020 and room=rHPF_N //----- [4] Virus attacks -----
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       global.pLife=global.pMaxLife
@@ -497,7 +497,7 @@ else if global.gameProgress=4030 and room=rHPF_N //----- [] Red overlay and Bloo
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=1 and sceneDelay<=40
     {
       oScreenColorOverlay.image_alpha+=0.0025
@@ -527,7 +527,7 @@ else if global.gameProgress=4030 and room=rHPF_N //----- [] Red overlay and Bloo
   }
   else if sceneProgress=3
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       var enemyBarrier;
@@ -572,7 +572,7 @@ else if global.gameProgress=4040 and room=rHPF_O //----- [] Red overlay -----
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=1 and sceneDelay<=40
     {
       oScreenColorOverlay.image_alpha+=0.0025
@@ -594,7 +594,7 @@ else if global.gameProgress=4050 and room=rHPF_P //----- [] Virus door -----
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=1 and sceneDelay<=40
     {
       oScreenColorOverlay.image_alpha+=0.0025
@@ -626,7 +626,7 @@ else if global.gameProgress=4060 and room=rHPF_R //----- [] Blood Virus trap ---
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=30
     {
       var tNewEnemy;
@@ -642,7 +642,7 @@ else if global.gameProgress=4060 and room=rHPF_R //----- [] Blood Virus trap ---
   }
   else if sceneProgress=2
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=30
     {
       var tNewEnemy;
@@ -659,7 +659,7 @@ else if global.gameProgress=4060 and room=rHPF_R //----- [] Blood Virus trap ---
   }
   else if sceneProgress=3
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=30
     {
       var tNewEnemy;
@@ -695,7 +695,7 @@ else if global.gameProgress=4070 and room=rHPF_T //----- [5] Almost there -----
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
@@ -735,7 +735,7 @@ else if global.gameProgress=4080 and room=rHPF_U //----- [6] Sera's Intro -----
     msgCreate(0,0,"????","Halt!",6,3,oMessageCutscene,1)
   else if sceneProgress=2
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=20
     {
       stopAllMusic(); global.currentMusic=0
@@ -764,7 +764,7 @@ else if global.gameProgress=4080 and room=rHPF_U //----- [6] Sera's Intro -----
     msgCreate(0,0,"Sera","Most bots have heard of them, even down here, I have heard news of it. Can you prove you are those humans?",6,3,oMessageCutscene,1)
   else if sceneProgress=9
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=10
     {
       var tFlash;
@@ -785,7 +785,7 @@ else if global.gameProgress=4080 and room=rHPF_U //----- [6] Sera's Intro -----
     msgCreate(0,0,"Sera","These are the objects needed for the Virus's removal and indeed proves who you are. You may proceed to the next room. However, a warning. You may only use this system to remove the Virus.",6,3,oMessageCutscene,1)
   else if sceneProgress=12
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=10
     {
       var tFlash;
@@ -828,7 +828,7 @@ else if global.gameProgress=4090 and room=rHPF_U //----- [Unskippable] Boss Figh
       }
       else if sceneProgress=1
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay=100
         {
           msgCreate(0,0,"Sera","It's trying to infect me.#HUMANS, we join together to keep the Virus away!",6,2,oMessagePerson,0)
@@ -859,7 +859,7 @@ else if global.gameProgress=4090 and room=rHPF_U //----- [Unskippable] Boss Figh
       }
       else if sceneProgress=2
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay mod 3=0
         {
           if oNPC_Sera.image_blend=c_white {oNPC_Sera.image_blend=c_green}
@@ -886,7 +886,7 @@ else if global.gameProgress=4090 and room=rHPF_U //----- [Unskippable] Boss Figh
       }
       else if sceneProgress=3
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay>=1 and sceneDelay<=32 {oNPC_Sera.y+=2}
         else if sceneDelay=33
         {
@@ -985,7 +985,7 @@ else if global.gameProgress=4100 and room=rHPF_V //----- [7] Shutting down the V
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=2 and bWaitForInput=false
@@ -1050,7 +1050,7 @@ else if global.gameProgress=4100 and room=rHPF_V //----- [7] Shutting down the V
     msgCreate(0,0,"Jeremy","Hold onto your butts!",0,3,oMessageCutscene,1)
   else if sceneProgress=32
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=10
     {
       var tFlash;
@@ -1120,7 +1120,7 @@ else if global.gameProgress=4100 and room=rHPF_V //----- [7] Shutting down the V
     msgCreate(0,0,"Jeremy","It did... IT WORKED! The damn Virus is actually gone!",0,3,oMessageCutscene,1)
   else if sceneProgress=37
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       var tempMplay;
@@ -1147,7 +1147,7 @@ else if global.gameProgress=4100 and room=rHPF_V //----- [7] Shutting down the V
     msgCreate(0,0,"Claire","Different times...",0,3,oMessageCutscene,1)
   else if sceneProgress=46
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {showEmote(charClaire,0,-56,sEmExcite)}
     else if sceneDelay=5
     {
@@ -1192,7 +1192,7 @@ else if global.gameProgress=4100 and room=rHPF_V //----- [7] Shutting down the V
     msgCreate(0,0,"Claire","Jerry! Are you okay?!",0,3,oMessageCutscene,1)
   else if sceneProgress=49
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {charClaire.sprite_index=sClaireWalk; charClaire.image_speed=0.33}
     else if sceneDelay>=2 and sceneDelay<=11 {charClaire.x+=7}
     if sceneDelay=8
@@ -1254,7 +1254,7 @@ else if global.gameProgress=4110 and room=rHPF_V //----- [] Jerry is trapped ---
   {
     if sceneProgress=0
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         with oMisc {instance_destroy()}
@@ -1348,7 +1348,7 @@ else if global.gameProgress=4110 and room=rHPF_V //----- [] Jerry is trapped ---
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         msgCreate(0,0,"Claire","JERRY!!",0,1,oMessagePerson,0)
@@ -1382,7 +1382,7 @@ else if global.gameProgress=4110 and room=rHPF_V //----- [] Jerry is trapped ---
     }
     else if sceneProgress=2
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=60
       {
         msgCreate(0,0,"Claire","Is Jerry going to be okay? What did he do?",0,1,oMessagePerson,0)
@@ -1443,7 +1443,7 @@ else if global.gameProgress=4120 and room=rHPF_U //----- [Unskippable] Enemy Tra
       }
       else if sceneProgress=1
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay=10
         {
           eImageDrop=instance_create(368,288,oMisc)
@@ -1468,7 +1468,7 @@ else if global.gameProgress=4120 and room=rHPF_U //----- [Unskippable] Enemy Tra
       }
       else if sceneProgress=2
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay=20
           {msgCreate(0,0,"Malignant Ooze","Die, Claire.",5,1,oMessagePerson,0); newMessage.fadingTime=80}
         else if sceneDelay>=110
@@ -1556,7 +1556,7 @@ else if room=rCCity_NA_S1 and global.gameProgress=4190 //----- [8] Waking up Jer
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       var tempMplay;
@@ -1576,7 +1576,7 @@ else if room=rCCity_NA_S1 and global.gameProgress=4190 //----- [8] Waking up Jer
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=2 and bWaitForInput=false
@@ -1616,7 +1616,7 @@ else if room=rCCity_NA_S1 and global.gameProgress=4190 //----- [8] Waking up Jer
     msgCreate(0,0,"Lovelun","Of course!",6,3,oMessageCutscene,1)
   else if sceneProgress=18
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=20 and sceneDelay<=90
     {
       var tEfJS,tDir;

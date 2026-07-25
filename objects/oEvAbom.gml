@@ -33,7 +33,7 @@ if global.gateHProg=100 and room=rMain_76 //----- [1] How do we beat this thing?
   {
     if sceneProgress=0 and oPlayer1.x>=160
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {global.gamePaused=true}
       else if sceneDelay>=2
       {
@@ -49,7 +49,7 @@ if global.gateHProg=100 and room=rMain_76 //----- [1] How do we beat this thing?
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=2 and bWaitForInput=false
@@ -214,7 +214,7 @@ else //-------------------- Normal fight --------------------
   }
   else if instrumentProg=4 //Abomination defeated
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneProgress=0
     {
       if sceneDelay=80 {msgCreate(0,0,"Jerry","We... we did it!",0,3,oMessagePerson,0); newMessage.fadingTime=60}

@@ -64,7 +64,7 @@ if global.gameProgress=910 and room=rCCity_CCA //----- [1] Enemy clear -----
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=25 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=2 and bWaitForInput=false
@@ -102,7 +102,7 @@ else if global.gameProgress=940 and room=rCCity_CCB //----- [2] To the control c
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
       global.gamePaused=true
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
@@ -142,7 +142,7 @@ else if global.gameProgress=980 and room=rCCity_CCE //----- [3] Boss Fight: Cont
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=2 and bWaitForInput=false
@@ -155,7 +155,7 @@ else if global.gameProgress=980 and room=rCCity_CCE //----- [3] Boss Fight: Cont
       msgCreate(0,0,"Jerry","Gotcha.",0,3,oMessageCutscene,1)
     else if sceneProgress=6
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=20 {oCh5CC_CompScr.sequence=1}
       else if sceneDelay>=40 {sceneDelay=0; sceneProgress+=1}
     }
@@ -210,7 +210,7 @@ else if global.gameProgress=980 and room=rCCity_CCE //----- [3] Boss Fight: Cont
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         with oSolidVirusBlock {instance_destroy()}
@@ -226,7 +226,7 @@ else if global.gameProgress=980 and room=rCCity_CCE //----- [3] Boss Fight: Cont
     }
     else if sceneProgress=3
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=25 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=4 and bWaitForInput=false
@@ -292,7 +292,7 @@ else if global.gameProgress=1000 and room=rCCity_NA_S2 //----- [4] Back to Syrus
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       global.gamePaused=true
@@ -360,7 +360,7 @@ else if global.gameProgress=1020 and room=rCCity_NorthB //----- [5] Talk with Ma
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=25
     {
       (GID(161270)).image_xscale=1
@@ -376,7 +376,7 @@ else if global.gameProgress=1020 and room=rCCity_NorthB //----- [5] Talk with Ma
   }
   else if sceneProgress=3
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=25 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=4 and bWaitForInput=false
@@ -418,7 +418,7 @@ else if global.gameProgress=1020 and room=rCCity_NorthB //----- [5] Talk with Ma
   }
   else if sceneProgress=21
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=25
     {
       var newExit;
@@ -445,7 +445,7 @@ else if global.gameProgress=1040 and room=rCCity_NB_S1a //----- [6] Explain part
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
@@ -476,7 +476,7 @@ else if global.gameProgress=1070 and room=rCCity_NB_S1b //----- [7] Reunion with
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       global.gamePaused=true
@@ -494,7 +494,7 @@ else if global.gameProgress=1070 and room=rCCity_NB_S1b //----- [7] Reunion with
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=25 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=2 and bWaitForInput=false
@@ -556,7 +556,7 @@ else if global.gameProgress=1090 and room=rMain_11 //----- [8] In the Magical Fo
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
@@ -592,7 +592,7 @@ else if global.gameProgress=1100 and room=rMain_11 //----- [] Decoding east door
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=80
       {
         delaySpawn(2544,320,oMagicalBee,0,1,1,0.33)
@@ -603,7 +603,7 @@ else if global.gameProgress=1100 and room=rMain_11 //----- [] Decoding east door
     }
     else if sceneProgress=2
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=25
       {
         progressBar+=1
@@ -632,7 +632,7 @@ else if global.gameProgress=1120 and room=rMain_13 //----- [9] Gate is close by 
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
@@ -661,7 +661,7 @@ else if global.gameProgress=1140 and room=rMain_14Gate //----- [Unskippable] Acc
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=1
     {
       if sceneDelay=1 {global.gamePaused=true}

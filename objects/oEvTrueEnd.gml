@@ -38,7 +38,7 @@ if room=rEnd_PartA //----- [] End A -----
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       instance_create(496,176,oChao_End)
@@ -51,14 +51,14 @@ if room=rEnd_PartA //----- [] End A -----
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=5 {explosionsBehind=1}
     oChao_End.x-=8
     if oChao_End.x<=240 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=2
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=35 {explosionsBehind=2; soundVol=0.95}
 
     if sceneDelay>=80
@@ -69,7 +69,7 @@ if room=rEnd_PartA //----- [] End A -----
   }
   else if sceneProgress=3
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=50
     {
       fadeAlpha+=0.04
@@ -107,7 +107,7 @@ else if room=rEnd_PartB //----- [] End B -----
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=30
     {
       fadeAlpha-=0.04
@@ -116,7 +116,7 @@ else if room=rEnd_PartB //----- [] End B -----
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=29
     {
       playSound(global.snd_BombExplode,0,1,14000)

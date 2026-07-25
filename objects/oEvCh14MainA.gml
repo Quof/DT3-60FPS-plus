@@ -100,7 +100,7 @@ if global.gameProgress=3080 and room=rMain_50 //----- [1] Head east to reach Gat
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
   }
@@ -128,7 +128,7 @@ else if global.gameProgress=3090 and room=rMain_51 //----- [2] Burning Stretch a
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
   }
@@ -169,7 +169,7 @@ else if global.gameProgress=3100 and room=rMain_56 //----- [3] You must find the
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       global.gamePaused=true
@@ -185,7 +185,7 @@ else if global.gameProgress=3100 and room=rMain_56 //----- [3] You must find the
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=2 and bWaitForInput=false
@@ -253,7 +253,7 @@ else if global.gameProgress=3110 and room=rNGC_A //----- [4] Welp, screw sneakin
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
   }
@@ -292,7 +292,7 @@ else if global.gameProgress=3120 and room=rNGC_A //----- [] Enemy trap -----
   {
     if global.gamePaused=false
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=60
       {
         delaySpawn(1984,96,oFlyingGMWonderbird,2,1,1,0.33)
@@ -315,7 +315,7 @@ else if global.gameProgress=3130 and room=rNGC_B //----- [5] Remember those B2 B
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
   }
@@ -354,7 +354,7 @@ else if global.gameProgress=3140 and room=rNGC_B //----- [] Enemy trap -----
   {
     if global.gamePaused=false
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=20
       {
         delaySpawn(2592,112,oZakoCannonfodder,2,1,1,0.33)
@@ -415,7 +415,7 @@ else if global.gameProgress=3150 and room=rNGC_RB_A //----- [6] Blowing up out-o
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
   }
@@ -446,7 +446,7 @@ else if global.gameProgress=3180 and room=rNGC_RB_EleA //----- [7] Remember thos
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
   }
@@ -492,7 +492,7 @@ else if global.gameProgress=3190 and room=rNGC_RB_EleA //----- [8] Elevator ride
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=2 and bWaitForInput=false
@@ -509,7 +509,7 @@ else if global.gameProgress=3190 and room=rNGC_RB_EleA //----- [8] Elevator ride
     msgCreate(0,0,"Hex","Unfinished business with you. I mean look what I can do here.",0,3,oMessageCutscene,1)
   else if sceneProgress=8
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=20
     {
       background_vspeed[0]=-8; background_vspeed[1]=-9; background_vspeed[2]=-9
@@ -528,7 +528,7 @@ else if global.gameProgress=3190 and room=rNGC_RB_EleA //----- [8] Elevator ride
     msgCreate(0,0,"Hex","You just passed your floor. I'll be seeing you soon.",0,3,oMessageCutscene,1)
   else if sceneProgress=14
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=10 {background_vspeed[0]=-12; background_vspeed[1]=-13.5; background_vspeed[2]=-13.5}
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
@@ -538,7 +538,7 @@ else if global.gameProgress=3190 and room=rNGC_RB_EleA //----- [8] Elevator ride
     msgCreate(0,0,"Jeremy","I'm trying!",0,3,oMessageCutscene,1)
   else if sceneProgress=17
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=20
     {
       stopAllMusic()
@@ -561,7 +561,7 @@ else if global.gameProgress=3190 and room=rNGC_LC_A //----- [9] We're stuck down
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       if global.activeCharacter=0 {oPlayer1.sprite_index=sJerryLayDown}
@@ -575,7 +575,7 @@ else if global.gameProgress=3190 and room=rNGC_LC_A //----- [9] We're stuck down
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=20
     {
       if global.activeCharacter=0 {oPlayer1.sprite_index=sJerryGetUp}
@@ -616,7 +616,7 @@ else if global.gameProgress=3210 and room=rNGC_LC_B //----- [10] Hex knows who m
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
   }
@@ -659,7 +659,7 @@ else if global.gameProgress=3230 and room=rNGC_LC_C //----- [Unskippable] Jeremy
   
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
   }
@@ -701,7 +701,7 @@ else if global.gameProgress=3230 and room=rNGC_LC_C //----- [Unskippable] Jeremy
     msgCreate(0,0,"Jeremy","Look you guys... Yes, I did do it, but I can explain...",0,3,oMessageCutscene,1)
   else if sceneProgress=19
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       stopAllMusic()
@@ -738,7 +738,7 @@ else if global.gameProgress=3230 and room=rNGC_LC_C //----- [Unskippable] Jeremy
   }
   else if sceneProgress=21
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=45 {sceneDelay=0; sceneProgress+=1}
   }
@@ -767,7 +767,7 @@ else if global.gameProgress=3250 and room=rNGC_LC_E //----- [11] Onward -----
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
   }
@@ -818,7 +818,7 @@ else if global.gameProgress=3260 and room=rNGC_LC_F //----- [12] Boss: Malevolen
       }
       else if sceneProgress=1
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay=45
         {
           var tempMplay;
@@ -847,7 +847,7 @@ else if global.gameProgress=3260 and room=rNGC_LC_F //----- [12] Boss: Malevolen
       }
       else if sceneProgress=2
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay>=40 {sceneDelay=0; sceneProgress+=1}
       }
       else if sceneProgress=3
@@ -876,7 +876,7 @@ else if global.gameProgress=3260 and room=rNGC_LC_F //----- [12] Boss: Malevolen
     {
       if sceneProgress=0
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay=300
         {
           createScreenText(70,48,130,fnt_ScreenText,fa_left,"Hold out just a little longer,#I've almost gotten through.",3,c_white,1,0)
@@ -930,7 +930,7 @@ else if global.gameProgress=3260 and room=rNGC_LC_F //----- [12] Boss: Malevolen
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         endBoss()
@@ -949,7 +949,7 @@ else if global.gameProgress=3260 and room=rNGC_LC_F //----- [12] Boss: Malevolen
     }
     else if sceneProgress=3
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=25
       {
         sceneDelay=0
@@ -1054,7 +1054,7 @@ else if global.gameProgress=3270 and room=rNGC_LC_G //----- [] Enemy Trap -----
   {
     if global.gamePaused=false
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=30 {delaySpawn(880,224,oBloodTyrant,0,1,1,0.33)}
       else if sceneDelay=270 {delaySpawn(1168,224,oBloodTyrant,0,1,1,0.33)}
       else if sceneDelay=360 {sceneDelay=0; sceneProgress+=1}
@@ -1093,7 +1093,7 @@ else if global.gameProgress=3280 and room=rNGC_LC_H //----- [] Enemy Trap -----
   {
     if global.gamePaused=false
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=30 {delaySpawn(624,288,oBloodTyrant,0,1,1,0.33)}
       else if sceneDelay=120 {sceneDelay=0; sceneProgress+=1}
     }
@@ -1106,7 +1106,7 @@ else if global.gameProgress=3280 and room=rNGC_LC_H //----- [] Enemy Trap -----
   {
     if global.gamePaused=false
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {delaySpawn(464,288,oBloodTyrant,0,1,1,0.33)}
       else if sceneDelay=90 {sceneDelay=0; sceneProgress+=1}
     }
@@ -1149,7 +1149,7 @@ else if global.gameProgress=3290 and room=rNGC_LC_H //----- [13] Finding the Eng
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=2 and bWaitForInput=false
@@ -1206,7 +1206,7 @@ else if global.gameProgress=3290 and room=rNGC_LC_H //----- [13] Finding the Eng
     msgCreate(0,0,"Jeremy","Yeah, give me a second.",0,3,oMessageCutscene,1)
   else if sceneProgress=28
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=35
     {
       var tFlash;
@@ -1232,7 +1232,7 @@ else if global.gameProgress=3290 and room=rNGC_LC_H //----- [13] Finding the Eng
     msgCreate(0,0,"John","I suppose I can work with that.",6,3,oMessageCutscene,1)
   else if sceneProgress=36
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=16 and sceneDelay<=25
     {
       oNPC_John.image_alpha-=0.1
@@ -1266,7 +1266,7 @@ else if global.gameProgress=3310 and room=rNGC_LC_EleA //----- [14] Start the el
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=2 and bWaitForInput=false
@@ -1286,7 +1286,7 @@ else if global.gameProgress=3320 and room=rNGC_Elevator //----- [] Elevator ride
   {
     if global.gamePaused=false
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=45
       {
         delaySpawn(80,228,oZakoCannonfodder,0,1,1,0.33)
@@ -1378,7 +1378,7 @@ else if global.gameProgress=3320 and room=rNGC_Elevator //----- [] Elevator ride
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=45
     {
       global.pLife=global.pMaxLife
@@ -1405,7 +1405,7 @@ else if global.gameProgress=3320 and room=rNGC_BR_A //----- [] Enemy Trap -----
   {
     if global.gamePaused=false
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=30
       {
         createEnemy(3552,320,oCHAOS_Tank,0,1,1)
@@ -1436,7 +1436,7 @@ else if global.gameProgress=3330 and room=rNGC_BR_B //----- [15] Before the truc
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=2 and bWaitForInput=false
@@ -1475,14 +1475,14 @@ else if global.gameProgress=3340 and room=rNGC_BR_B //----- [Unskippable] Gettin
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=2 and bWaitForInput=false
     msgCreate(0,0,"Claire","I'm driving.",0,3,oMessageCutscene,1)
   else if sceneProgress=3
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=5 {charClaire.sprite_index=sClaireWalk; charClaire.image_speed=0.5}
     else if sceneDelay>=6 and sceneDelay<=14 {charClaire.x+=6}
     else if sceneDelay>=15
@@ -1495,7 +1495,7 @@ else if global.gameProgress=3340 and room=rNGC_BR_B //----- [Unskippable] Gettin
     msgCreate(0,0,"Jerry","Really?",0,3,oMessageCutscene,1)
   else if sceneProgress=5
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=25 {charClaire.image_xscale=-1}
     else if sceneDelay>=40 {sceneDelay=0; sceneProgress+=1}
   }
@@ -1539,7 +1539,7 @@ else if global.gameProgress=3340 and room=rNGC_BR_B //----- [Unskippable] Gettin
   }
   else if sceneProgress=9
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=30
     {
       if truckSpd<8 {truckSpd+=0.5}
@@ -1561,7 +1561,7 @@ else if global.gameProgress=3360 and room=rMain_56 //----- [16] The Engineer is 
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       playSound(global.snd_BombExplode,0,0.97,1)
@@ -1582,7 +1582,7 @@ else if global.gameProgress=3360 and room=rMain_56 //----- [16] The Engineer is 
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=55 {oPlayer1.sprite_index=sJerryGetUp}
     else if sceneDelay=60 {oPlayer1.image_index=1}
     else if sceneDelay=65 {oPlayer1.image_index=2}
@@ -1602,7 +1602,7 @@ else if global.gameProgress=3360 and room=rMain_56 //----- [16] The Engineer is 
     msgCreate(0,0,"Jeremy","Hold up, I can answer that.",0,3,oMessageCutscene,1)
   else if sceneProgress=7
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=21 and sceneDelay<=30 {oNPC_John.image_alpha+=0.1}
     else if sceneDelay=50 {(GID(308182)).image_xscale=1; (GID(308183)).image_xscale=1}
     else if sceneDelay=55
@@ -1624,7 +1624,7 @@ else if global.gameProgress=3360 and room=rMain_56 //----- [16] The Engineer is 
     msgCreate(0,0,"John","I'll tell you all about what I was doing, but first...",6,3,oMessageCutscene,1)
   else if sceneProgress=13
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=20 {(GID(308182)).image_xscale=-1; (GID(308183)).image_xscale=-1}
     else if sceneDelay>=40 {sceneDelay=0; sceneProgress+=1}
   }
@@ -1715,7 +1715,7 @@ else if global.gameProgress=3370 and room=rMain_56Gate //----- [17] The Final Ga
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=35 {sceneDelay=0; sceneProgress+=1}
   }
@@ -1738,7 +1738,7 @@ else if global.gameProgress=3390 and room=rMain_56Gate //----- [Unskippable] Acc
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=1
     {
       if sceneDelay=1 {global.gamePaused=true}
@@ -1786,12 +1786,12 @@ if global.gameOptDT=2 and room=rDesertedTowerD //----- [EX1] Boss: Sand Crawler 
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=2
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=1 and sceneDelay<=40
       {
         var tEffect;

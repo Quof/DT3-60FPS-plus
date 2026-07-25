@@ -16,7 +16,7 @@ applies_to=self
 */
 if sceneProgress=0 //-------------------- Fake credits --------------------
 {
-  sceneDelay+=1
+  sceneDelay+=1*gDeltaTime
   if sceneDelay=1
   {
     var tempMplay;

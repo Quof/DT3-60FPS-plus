@@ -26,7 +26,7 @@ if sceneProgress=0
 }
 else if sceneProgress=1
 {
-  sceneDelay+=1
+  sceneDelay+=1*gDeltaTime
   if sceneDelay=70
   {
     msgCreate(32,128,"Jerry","Nothing! We're just looking for something.",0,1,oMessagePerson,0)
@@ -50,7 +50,7 @@ else if sceneProgress=2
 }
 else if sceneProgress=3
 {
-  sceneDelay+=1
+  sceneDelay+=1*gDeltaTime
   if sceneDelay=70
   {
     msgCreate(32,128,"Jerry","I bet it is. They probably hid it in here.",0,1,oMessagePerson,0)
@@ -69,7 +69,7 @@ else if sceneProgress=4
 }
 else if sceneProgress=5
 {
-  sceneDelay+=1
+  sceneDelay+=1*gDeltaTime
   if sceneDelay=70
   {
     msgCreate(32,128,"Jeremy","Just keep going forward.",0,1,oMessagePerson,0)
@@ -88,7 +88,7 @@ else if sceneProgress=6
 }
 else if sceneProgress=7
 {
-  sceneDelay+=1
+  sceneDelay+=1*gDeltaTime
   if sceneDelay=70
   {
     msgCreate(32,128,"Jeremy","Excitement you guys!",0,1,oMessagePerson,0)
@@ -126,7 +126,7 @@ else if sceneProgress=10
 }
 else if sceneProgress=11
 {
-  sceneDelay+=1
+  sceneDelay+=1*gDeltaTime
   if sceneDelay=60
   {
     msgCreate(32,128,"Jerry","We finally found it after all this time!",0,1,oMessagePerson,0)
@@ -177,7 +177,7 @@ else if sceneProgress=11
 }
 else if sceneProgress=12
 {
-  sceneDelay+=1
+  sceneDelay+=1*gDeltaTime
   if sceneDelay=90
   {
     msgCreate(32,128,"Jerry","What does this actually mean for us?",0,1,oMessagePerson,0)

@@ -37,7 +37,7 @@ if sceneProgress=0
 }
 else if sceneProgress=1
 {
-  sceneDelay+=1
+  sceneDelay+=1*gDeltaTime
   if sceneDelay>=5
   {
     myDrone=instance_create(1184,-32,oLevelDecal)
@@ -47,7 +47,7 @@ else if sceneProgress=1
 }
 else if sceneProgress=2
 {
-  sceneDelay+=1
+  sceneDelay+=1*gDeltaTime
   if sceneDelay>=1
   {
     myDrone.y+=16

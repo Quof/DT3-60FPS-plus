@@ -288,7 +288,7 @@ if global.gamePaused=false
       }
       else if sceneProgress=1
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay=10
         {
           global.tempAction[1]=0
@@ -302,7 +302,7 @@ if global.gamePaused=false
       }
       else if sceneProgress=2
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay=10
         {
           global.tempAction[1]=1
@@ -322,7 +322,7 @@ if global.gamePaused=false
       }
       else if sceneProgress=3
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay=10
         {
           global.tempAction[1]=3
@@ -341,7 +341,7 @@ if global.gamePaused=false
       }
       else if sceneProgress=4
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay=10
         {
           global.tempAction[1]=5
@@ -396,7 +396,7 @@ if global.gamePaused=false
       }
       else if sceneProgress=1
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay=10
         {
           delaySpawn(1424,160,oPT_FireEye,2,1,1,0.33)
@@ -446,12 +446,12 @@ if global.gamePaused=false
       else if sceneProgress=1
       {
         oWaterVolume.y-=4
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay>=40 {sceneDelay=0; sceneProgress+=1}
       }
       else if sceneProgress=2
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay=10
         {
           delaySpawn(352,304,oPT_Skeleton,2,1,1,0.33)
@@ -467,7 +467,7 @@ if global.gamePaused=false
       }
       else if sceneProgress=3
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay=10
         {
           delaySpawn(368,176,oPT_IceSpirit,2,1,1,0.33)
@@ -484,7 +484,7 @@ if global.gamePaused=false
       else if sceneProgress=4
       {
         oWaterVolume.y+=4
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay>=40
         {
           with oEnemyBarrier {instance_destroy()}

@@ -60,7 +60,7 @@ if global.gameProgress=5500 and room=rCh21_WarshipSkies //----- [1] Chapter 21 -
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=2
     {
       fadeAlpha=0
@@ -69,7 +69,7 @@ if global.gameProgress=5500 and room=rCh21_WarshipSkies //----- [1] Chapter 21 -
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=40
     {
       var tCheckAchieve;
@@ -95,7 +95,7 @@ if global.gameProgress=5500 and room=rCh21_WarshipSkies //----- [1] Chapter 21 -
   }
   else if sceneProgress=2 //Display chapter title
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       var tNewChapter;
@@ -106,7 +106,7 @@ if global.gameProgress=5500 and room=rCh21_WarshipSkies //----- [1] Chapter 21 -
   }
   else if sceneProgress=3
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=10
     {
       playSound(global.snd_Static,0,1,1)
@@ -131,7 +131,7 @@ else if global.gameProgress=5510 //----- [] What happened -----
   {
     if sceneProgress=0
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=60
       {
         msgCreate(0,0,"Claire","NOW WHAT'S HAPPENING?!",0,1,oMessagePerson,0)
@@ -206,7 +206,7 @@ else if global.gameProgress=5520 //Falling minigame
   {
     if sceneProgress=0 //28 seconds
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=30
       {
         newMet=instance_create(16,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=3; newMet.direction=90
@@ -233,7 +233,7 @@ else if global.gameProgress=5520 //Falling minigame
     }
     else if sceneProgress=1 //17 seconds
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=30 {setLocation=0; event_user(0)}
       else if sceneDelay=50 {setLocation=0; event_user(0)}
       else if sceneDelay=70 {setLocation=0; event_user(0)}
@@ -257,7 +257,7 @@ else if global.gameProgress=5520 //Falling minigame
     }
     else if sceneProgress=2 //22 seconds
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=30 {metSpd=3; setLocation=5; event_user(0)}
       else if sceneDelay=130 {setLocation=4; event_user(0)}
       else if sceneDelay=230 {setLocation=5; event_user(0)} //Blues and aimed meteors start
@@ -277,7 +277,7 @@ else if global.gameProgress=5520 //Falling minigame
     }
     else if sceneProgress=3 //16 seconds
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=30 {metSpd=5; setLocation=10; event_user(0)}
       else if sceneDelay=60 {setLocation=11; event_user(0)}
       else if sceneDelay=90 {setLocation=10; event_user(0)}
@@ -319,7 +319,7 @@ else if global.gameProgress=5520 //Falling minigame
     }
     else if sceneProgress=4 //29
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=30 {metSpd=3; setLocation=13; event_user(0)}
       else if sceneDelay=120
       {
@@ -375,7 +375,7 @@ else if global.gameProgress=5520 //Falling minigame
     }
     else if sceneProgress=5 //Checkpoint 1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         backCloud=instance_create(0,0,oBackgroundFollow)
@@ -398,7 +398,7 @@ else if global.gameProgress=5520 //Falling minigame
     }
     else if sceneProgress=6 //35 seconds
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {metSpd=5; metAlternateC=40}
       else if sceneDelay=200 {metAlternateC=30}
       else if sceneDelay=400 {metAlternateC=25}
@@ -451,7 +451,7 @@ else if global.gameProgress=5520 //Falling minigame
     }
     else if sceneProgress=7 //39 seconds
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=30
       {
         newMet=instance_create(208,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=2; newMet.direction=90
@@ -547,7 +547,7 @@ else if global.gameProgress=5520 //Falling minigame
     }
     else if sceneProgress=8 //Checkpoint 2
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=60
       {
         oPlayer1.life=oPlayer1.maxLife
@@ -559,7 +559,7 @@ else if global.gameProgress=5520 //Falling minigame
     }
     else if sceneProgress=9 //14 seconds
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=35
       {
         msgCreate(0,0,"Claire","Of course!",0,0,oMessagePerson,0)
@@ -599,7 +599,7 @@ else if global.gameProgress=5520 //Falling minigame
     }
     else if sceneProgress=10 //Checkpoint 3
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=60
       {
         instance_create(0,0,oCheckpointNotice)
@@ -609,7 +609,7 @@ else if global.gameProgress=5520 //Falling minigame
     }
     else if sceneProgress=11 //Boss intro
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=30
       {
         musVolC=global.optMusic*100
@@ -666,7 +666,7 @@ else if global.gameProgress=5520 //Falling minigame
     }
     else if sceneProgress=13
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=90
       {
         msgCreate(0,0,"Claire","How much farther till we hit the ground?",0,1,oMessagePerson,0)
@@ -686,7 +686,7 @@ else if global.gameProgress=5520 //Falling minigame
     }
     else if sceneProgress=15
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=20
       {
         stopAllMusic()

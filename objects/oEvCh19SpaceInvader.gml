@@ -32,7 +32,7 @@ if global.gamePaused=false
     }
     else if sceneProgress=1 //Spawn Space Invaders
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=20
       {
         var tEnemy;

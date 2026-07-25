@@ -202,7 +202,7 @@ else if room=rSamus5_Lv4_J //---------------------------------------------------
     }
     else if sceneProgress=1 //First wave
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {delaySpawn(240,96,oMetMetroid,0,1,1,0.33)}
       else if sceneDelay>=90 {sceneDelay=0; sceneProgress+=1}
     }
@@ -212,7 +212,7 @@ else if room=rSamus5_Lv4_J //---------------------------------------------------
     }
     else if sceneProgress=3 //Second wave
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         delaySpawn(144,144,oMetMetroid,0,1,1,0.33)
@@ -226,7 +226,7 @@ else if room=rSamus5_Lv4_J //---------------------------------------------------
     }
     else if sceneProgress=5 //Third wave
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         delaySpawn(240,96,oMetMetroid,0,1,1,0.33)
@@ -276,7 +276,7 @@ else if room=rSamus5_Lv4_M //---------------------------------------------------
     }
     else if sceneProgress=1 //First wave
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         delaySpawn(192,224,oMetMetroid,0,1,1,0.33)
@@ -291,7 +291,7 @@ else if room=rSamus5_Lv4_M //---------------------------------------------------
     }
     else if sceneProgress=3 //Second wave
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         delaySpawn(128,352,oMetMetroid,0,1,1,0.33)

@@ -115,7 +115,7 @@ if global.gameProgress=1760 and room=rMega4_Gate //----- [Unskippable] Intro to 
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       global.activeAbility[0]=0
@@ -154,7 +154,7 @@ if global.gameProgress=1760 and room=rMega4_Gate //----- [Unskippable] Intro to 
     msgCreate(0,0,"X","I will be there with you just as all the others have been.",6,3,oMessageCutscene,1)
   else if sceneProgress=11
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 //Start music
     {
       var tempMplay;
@@ -183,7 +183,7 @@ if global.gameProgress=1760 and room=rMega4_Gate //----- [Unskippable] Intro to 
   else if sceneProgress=12
   {
     triAng+=2
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=31 and sceneDelay<=350 //X floats up
     {
       if sceneDelay>=95 and sceneDelay mod 11=0 //Flash Tri-Flash
@@ -456,7 +456,7 @@ else if global.gameProgress=1780 and room=rMega4_IntroA //----- [1] About red ou
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
       global.gamePaused=true
     else if sceneDelay>=20
@@ -524,7 +524,7 @@ else if global.gameProgress=1830 and room=rMega4_IntroE //----- [Unskippable] Bo
   {
     if sceneProgress=0 and oPlayer1.x>=336
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {global.gamePaused=true}
       oPlayer1.y+=4
       if oPlayer1.y>=240
@@ -538,7 +538,7 @@ else if global.gameProgress=1830 and room=rMega4_IntroE //----- [Unskippable] Bo
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         tempMplay=findMusic(402)
@@ -557,7 +557,7 @@ else if global.gameProgress=1830 and room=rMega4_IntroE //----- [Unskippable] Bo
     }
     else if sceneProgress=2
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=50
       {
         showBossHP=instance_create(0,0,oBossLifeDisplay)
@@ -618,7 +618,7 @@ else if global.gameProgress=1830 and room=rMega4_IntroE //----- [Unskippable] Bo
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         endBoss()
@@ -637,7 +637,7 @@ else if global.gameProgress=1830 and room=rMega4_IntroE //----- [Unskippable] Bo
     }
     else if sceneProgress=3
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=25
       {
         sceneDelay=0
@@ -664,7 +664,7 @@ else if global.gameProgress=1830 and room=rMega4_IntroE //----- [Unskippable] Bo
       msgCreate(0,0,"Jeremy","Anyway, time to beam you up!",0,3,oMessageCutscene,1)
     else if sceneProgress=13
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=30
       {
         var tempMplay;
@@ -697,7 +697,7 @@ else if global.gameProgress=1830 and room=rMega4_IntroE //----- [Unskippable] Bo
     }
     else if sceneProgress=14
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=30
       {
         sceneDelay=0
@@ -735,7 +735,7 @@ else if room=rMega4_StormC //----- [Unskippable] Bit appears and destroys canist
   {
     if sceneProgress=0 and oPlayer1.x>=208
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {global.gamePaused=true}
       oPlayer1.y+=4
       if oPlayer1.y>=288
@@ -748,7 +748,7 @@ else if room=rMega4_StormC //----- [Unskippable] Bit appears and destroys canist
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=25
       {
         npcBitA=instance_create(92,288,oMisc)
@@ -780,7 +780,7 @@ else if room=rMega4_StormC //----- [Unskippable] Bit appears and destroys canist
     }
     else if sceneProgress=5
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=5 {npcBitA.image_index=1}
       else if sceneDelay=10 {npcBitA.image_index=2}
       else if sceneDelay=20
@@ -860,7 +860,7 @@ else if room=rMega4_StormE //----- [Unskippable] Boss Fight: Storm Eagle -----
     {
       if sceneProgress=0
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay=1
         {
           global.gamePaused=true
@@ -879,7 +879,7 @@ else if room=rMega4_StormE //----- [Unskippable] Boss Fight: Storm Eagle -----
       }
       else if sceneProgress=1
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         oPlayer1.y+=6
         if oPlayer1.y>=272
         {
@@ -892,7 +892,7 @@ else if room=rMega4_StormE //----- [Unskippable] Boss Fight: Storm Eagle -----
       }
       else if sceneProgress=2
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay>=20
         {
           oPlayer1.sprite_index=sJerryWalk; oPlayer1.image_speed=0.5
@@ -902,7 +902,7 @@ else if room=rMega4_StormE //----- [Unskippable] Boss Fight: Storm Eagle -----
       }
       else if sceneProgress=3
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         oPlayer1.x+=6.68
         if oPlayer1.x>=432
         {
@@ -914,7 +914,7 @@ else if room=rMega4_StormE //----- [Unskippable] Boss Fight: Storm Eagle -----
       }
       else if sceneProgress=4
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay=1
         {
           tempMplay=findMusic(402)
@@ -939,7 +939,7 @@ else if room=rMega4_StormE //----- [Unskippable] Boss Fight: Storm Eagle -----
       }
       else if sceneProgress=5
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay=50 {boss.sprite_index=sStormE_StandFlap}
         else if sceneDelay=58 {boss.image_index=2}
         else if sceneDelay=64 {boss.sprite_index=sStormE_Pose; boss.image_speed=0.2; boss.image_index=0}
@@ -965,7 +965,7 @@ else if room=rMega4_StormE //----- [Unskippable] Boss Fight: Storm Eagle -----
         msgCreate(0,0,"Jerry","Dang, you're right.",0,3,oMessageCutscene,1)
       else if sceneProgress=13
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay=30
         {
           showBossHP=instance_create(0,0,oBossLifeDisplay)
@@ -1024,7 +1024,7 @@ else if room=rMega4_StormE //----- [Unskippable] Boss Fight: Storm Eagle -----
       }
       else if sceneProgress=1
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay=1
         {
           endBoss()
@@ -1043,7 +1043,7 @@ else if room=rMega4_StormE //----- [Unskippable] Boss Fight: Storm Eagle -----
       }
       else if sceneProgress=3
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay>=25
         {
           sceneDelay=0
@@ -1058,7 +1058,7 @@ else if room=rMega4_StormE //----- [Unskippable] Boss Fight: Storm Eagle -----
         msgCreate(0,0,"Jeremy","Yes, it's time to beam you up.",0,3,oMessageCutscene,1)
       else if sceneProgress=7
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay=30
         {
           var tempMplay;
@@ -1091,7 +1091,7 @@ else if room=rMega4_StormE //----- [Unskippable] Boss Fight: Storm Eagle -----
       }
       else if sceneProgress=8
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay>=30
         {
           sceneDelay=0
@@ -1121,7 +1121,7 @@ else if global.gameProgress=1842 and global.tempAction[0]=0 //----- [2] Weapon s
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       oPlayer1.sprite_index=sJerryIdle
@@ -1157,7 +1157,7 @@ else if room=rMega4_OstrichB //----- [3] Introduce Motorbike -----
   {
     if sceneProgress=0
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {global.gamePaused=true}
       else if sceneDelay>=20
       {
@@ -1200,7 +1200,7 @@ else if room=rMega4_OstrichE //----- [Unskippable] Boss Fight: Overdrive Ostrich
     {
       if sceneProgress=0
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay=1
         {
           global.gamePaused=true
@@ -1219,7 +1219,7 @@ else if room=rMega4_OstrichE //----- [Unskippable] Boss Fight: Overdrive Ostrich
       }
       else if sceneProgress=1
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         oPlayer1.y+=6
         if oPlayer1.y>=288
         {
@@ -1232,7 +1232,7 @@ else if room=rMega4_OstrichE //----- [Unskippable] Boss Fight: Overdrive Ostrich
       }
       else if sceneProgress=2
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay=1
         {
           tempMplay=findMusic(402)
@@ -1295,7 +1295,7 @@ else if room=rMega4_OstrichE //----- [Unskippable] Boss Fight: Overdrive Ostrich
       }
       else if sceneProgress=4
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay=20 {boss.sprite_index=sOOstrich_Ready}
         else if sceneDelay=25 {boss.image_index=1}
         else if sceneDelay>=45
@@ -1318,7 +1318,7 @@ else if room=rMega4_OstrichE //----- [Unskippable] Boss Fight: Overdrive Ostrich
         msgCreate(0,0,"Jerry","Great, blind devotion. Well let's do this.",0,3,oMessageCutscene,1)
       else if sceneProgress=11
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay=30
         {
           showBossHP=instance_create(0,0,oBossLifeDisplay)
@@ -1377,7 +1377,7 @@ else if room=rMega4_OstrichE //----- [Unskippable] Boss Fight: Overdrive Ostrich
       }
       else if sceneProgress=1
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay=1
         {
           endBoss()
@@ -1398,7 +1398,7 @@ else if room=rMega4_OstrichE //----- [Unskippable] Boss Fight: Overdrive Ostrich
       }
       else if sceneProgress=3
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay>=25
         {
           sceneDelay=0
@@ -1413,7 +1413,7 @@ else if room=rMega4_OstrichE //----- [Unskippable] Boss Fight: Overdrive Ostrich
         msgCreate(0,0,"Jeremy","Alrighty, getting you out of there.",0,3,oMessageCutscene,1)
       else if sceneProgress=7
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay=30
         {
           var tempMplay;
@@ -1446,7 +1446,7 @@ else if room=rMega4_OstrichE //----- [Unskippable] Boss Fight: Overdrive Ostrich
       }
       else if sceneProgress=8
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay>=30
         {
           sceneDelay=0
@@ -1480,7 +1480,7 @@ else if room=rMega4_ToxicJungleE //----- [Unskippable] Boss Fight: Gravity Beetl
     {
       if sceneProgress=0
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay=1
         {
           global.gamePaused=true
@@ -1500,7 +1500,7 @@ else if room=rMega4_ToxicJungleE //----- [Unskippable] Boss Fight: Gravity Beetl
       }
       else if sceneProgress=1
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay=10
         {
           tempMplay=findMusic(402)
@@ -1523,7 +1523,7 @@ else if room=rMega4_ToxicJungleE //----- [Unskippable] Boss Fight: Gravity Beetl
       }
       else if sceneProgress=2
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay>=30
         {
           sceneDelay=0
@@ -1532,7 +1532,7 @@ else if room=rMega4_ToxicJungleE //----- [Unskippable] Boss Fight: Gravity Beetl
       }
       else if sceneProgress=3
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay=30
         {
           showBossHP=instance_create(0,0,oBossLifeDisplay)
@@ -1555,7 +1555,7 @@ else if room=rMega4_ToxicJungleE //----- [Unskippable] Boss Fight: Gravity Beetl
       }
       else if sceneProgress=4
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay>=31
         {
           if newGravEf.image_xscale<1
@@ -1598,7 +1598,7 @@ else if room=rMega4_ToxicJungleE //----- [Unskippable] Boss Fight: Gravity Beetl
       }
       else if sceneProgress=5
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay>=15 and sceneDelay<=60
         {
           for(i=0;i<3;i+=1)
@@ -1642,7 +1642,7 @@ else if room=rMega4_ToxicJungleE //----- [Unskippable] Boss Fight: Gravity Beetl
         msgCreate(0,0,"Jeremy","The generator is part of him. His back stabbing ways just give you even more reason to blast him away.",0,3,oMessageCutscene,1)
       else if sceneProgress=8
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay=30
         {
           showBossHP=instance_create(0,0,oBossLifeDisplay)
@@ -1701,7 +1701,7 @@ else if room=rMega4_ToxicJungleE //----- [Unskippable] Boss Fight: Gravity Beetl
       }
       else if sceneProgress=1
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay=1
         {
           endBoss()
@@ -1720,7 +1720,7 @@ else if room=rMega4_ToxicJungleE //----- [Unskippable] Boss Fight: Gravity Beetl
       }
       else if sceneProgress=3
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay>=25
         {
           sceneDelay=0
@@ -1731,7 +1731,7 @@ else if room=rMega4_ToxicJungleE //----- [Unskippable] Boss Fight: Gravity Beetl
         msgCreate(0,0,"Jeremy","Good job, the generator is down, time to bring you back to base.",0,3,oMessageCutscene,1)
       else if sceneProgress=5
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay=30
         {
           var tempMplay;
@@ -1764,7 +1764,7 @@ else if room=rMega4_ToxicJungleE //----- [Unskippable] Boss Fight: Gravity Beetl
       }
       else if sceneProgress=6
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay>=30
         {
           sceneDelay=0
@@ -1794,7 +1794,7 @@ else if room=rMega4_Shop and global.gameProgress=1845 //----- [4] All Mavericks 
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       global.gamePaused=true
@@ -1814,7 +1814,7 @@ else if room=rMega4_Shop and global.gameProgress=1845 //----- [4] All Mavericks 
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=30
     {
       sceneDelay=0

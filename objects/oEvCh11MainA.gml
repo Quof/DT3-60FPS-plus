@@ -26,7 +26,7 @@ if global.gameProgress=2560 and room=rCCity_NA_S2 //----- [1] Another talk with 
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       global.gamePaused=true
@@ -51,7 +51,7 @@ if global.gameProgress=2560 and room=rCCity_NA_S2 //----- [1] Another talk with 
     msgCreate(0,0,"","The team informed everyone about what had been found in the Vault.",0,3,oMessageCutscene,1)
   else if sceneProgress=2
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=20
     {
       fadeAlpha-=0.01
@@ -124,7 +124,7 @@ else if global.gameProgress=2570 and room=rCCity_SouthA //----- [2] Wow it's lou
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
   }
@@ -153,7 +153,7 @@ else if global.gameProgress=2581 and room=rCCity_SA_S1 //----- [3] Talk with Imp
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=25
     {
       (GID(260306)).image_xscale=-1
@@ -172,7 +172,7 @@ else if global.gameProgress=2581 and room=rCCity_SA_S1 //----- [3] Talk with Imp
   }
   else if sceneProgress=3
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=25
     {
       sceneDelay=0

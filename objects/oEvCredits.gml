@@ -25,7 +25,7 @@ if sceneProgress=0 //Fade in
 {
   if global.gameProgress>=5350 //True end
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=1 //75
     {
       fadeAlpha-=0.01
@@ -39,7 +39,7 @@ if sceneProgress=0 //Fade in
 }
 else if sceneProgress=1 //-------------------- Start music --------------------
 {
-  sceneDelay+=1
+  sceneDelay+=1*gDeltaTime
   if sceneDelay=5 //Other end
   {
     if global.gameProgress<=5310
@@ -64,7 +64,7 @@ else if sceneProgress=1 //-------------------- Start music --------------------
 }
 else if sceneProgress=2 //-------------------- Game Scenario & Story --------------------
 {
-  sceneDelay+=1
+  sceneDelay+=1*gDeltaTime
   if sceneDelay=30 {myText="- Game Scenario & Story -"; event_user(0)}
   else if sceneDelay=90 {myText="Game Design:   ZephyrBurst"; event_user(2)}
   else if sceneDelay=130 {myText="Story:   ZephyrBurst"; event_user(2)}
@@ -76,7 +76,7 @@ else if sceneProgress=2 //-------------------- Game Scenario & Story -----------
 }
 else if sceneProgress=3 //-------------------- Sprites & Tiles Rips --------------------
 {
-  sceneDelay+=1
+  sceneDelay+=1*gDeltaTime
   if sceneDelay=30 {myText="- Sprites & Tiles -"; event_user(0)}
   else if sceneDelay=90 {myText="A.J. Nitro"; event_user(1); myText="Akuri"; event_user(2); myText="Apocalypse"; event_user(3)}
   else if sceneDelay=130 {myText="Arima"; event_user(1); myText="Badassbill"; event_user(2); myText="Badbatman3"; event_user(3)}
@@ -124,7 +124,7 @@ else if sceneProgress=3 //-------------------- Sprites & Tiles Rips ------------
 }
 else if sceneProgress=4 //-------------------- Music & Sound --------------------
 {
-  sceneDelay+=1
+  sceneDelay+=1*gDeltaTime
   if sceneDelay=30 {myText="- Music & Sound -"; event_user(0)}
   else if sceneDelay=90 {myText="Autumn-Collapse"; event_user(1); myText="Bad-Atom"; event_user(2); myText="bassfiddlejones"; event_user(3)}
   else if sceneDelay=130 {myText="Beartheshadows"; event_user(1); myText="Blackaux"; event_user(2); myText="blackrose96"; event_user(3)}
@@ -151,7 +151,7 @@ else if sceneProgress=4 //-------------------- Music & Sound -------------------
 }
 else if sceneProgress=5 //-------------------- Testers --------------------
 {
-  sceneDelay+=1
+  sceneDelay+=1*gDeltaTime
   if sceneDelay=30 {myText="- Testers -"; event_user(0)}
   else if sceneDelay=90 {myText="Amatsu"; event_user(1); myText="Anomaly"; event_user(3)}
   else if sceneDelay=130 {myText="NegativeZeroZ"; event_user(1); myText="Koishi The Rock"; event_user(3)}
@@ -160,7 +160,7 @@ else if sceneProgress=5 //-------------------- Testers --------------------
 }
 else if sceneProgress=6 //-------------------- Special Thanks --------------------
 {
-  sceneDelay+=1
+  sceneDelay+=1*gDeltaTime
   if sceneDelay=30 {myText="- Special Thanks -"; event_user(0)}
   else if sceneDelay=90 {myText="Alice"; event_user(1); myText="Beatrix"; event_user(3)}
   else if sceneDelay=130 {myText="Chele"; event_user(1); myText="Dave"; event_user(3)}
@@ -181,7 +181,7 @@ else if sceneProgress=6 //-------------------- Special Thanks ------------------
 }
 else if sceneProgress=7 //-------------------- Fade out --------------------
 {
-  sceneDelay+=1
+  sceneDelay+=1*gDeltaTime
   if sceneDelay>=600
   {
     if global.gameProgress>=5350 //True end
@@ -216,7 +216,7 @@ else if sceneProgress=7 //-------------------- Fade out --------------------
 }
 else if sceneProgress=8 //-------------------- End --------------------
 {
-  sceneDelay+=1
+  sceneDelay+=1*gDeltaTime
   if global.gameProgress>=5350 //True end?
   {
     if sceneDelay>=60 //Save that game was completed

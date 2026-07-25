@@ -76,7 +76,7 @@ if global.gamePaused=false
   }
   else if global.gateHProg=1 //============================== Music starts ==============================
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=120
     {
       playSound(global.snd_DoorUnlock,0,0.95,42000)
@@ -121,7 +121,7 @@ if global.gamePaused=false
   {
     if room=rExtGateH_2
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=60
       {
         playSound(global.snd_DoorUnlock,0,0.95,42000)
@@ -133,7 +133,7 @@ if global.gamePaused=false
   {
     if room=rExtGateH_5
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10
       {
         playSound(global.snd_DoorKnock,0,1,1)
@@ -156,7 +156,7 @@ if global.gamePaused=false
       }
       else if sceneProgress=1
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay=30
         {
           playSound(global.snd_DoorUnlock,0,0.95,42000)
@@ -172,7 +172,7 @@ if global.gamePaused=false
     {
       if sceneProgress=0
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay=35
         {
           playSound(global.snd_DoorUnlock,0,0.95,42000)

@@ -119,7 +119,7 @@ if global.gameProgress=3390 and room=rGame6_WhisperWoodsA //----- [1] Chapter 15
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       abilSetRemove(1)
@@ -137,7 +137,7 @@ if global.gameProgress=3390 and room=rGame6_WhisperWoodsA //----- [1] Chapter 15
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {showEmote(oIdentifier,0,-6,sEmThinking)}
     else if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
   }
@@ -145,7 +145,7 @@ if global.gameProgress=3390 and room=rGame6_WhisperWoodsA //----- [1] Chapter 15
     msgCreate(0,0,"Chao","You okay, Claire?",0,3,oMessageCutscene,1)
   else if sceneProgress=3
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=25 {oPlayer1.sprite_index=sClaireSitUp}
     else if sceneDelay=30 {oPlayer1.image_index=1}
     else if sceneDelay>=50 {sceneDelay=0; sceneProgress+=1}
@@ -156,7 +156,7 @@ if global.gameProgress=3390 and room=rGame6_WhisperWoodsA //----- [1] Chapter 15
     msgCreate(0,0,"Chao","I guess that's good!",0,3,oMessageCutscene,1)
   else if sceneProgress=6
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=15 {oPlayer1.image_index=2}
     else if sceneDelay=20 {oPlayer1.sprite_index=sClaireIdle; oPlayer1.image_speed=0.1}
     else if sceneDelay>=40 {sceneDelay=0; sceneProgress+=1}
@@ -281,7 +281,7 @@ else if global.gameProgress=3410 and room=rGame6_HeroPlainsA //----- [3] Unfinis
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
   }
@@ -372,7 +372,7 @@ else if global.gameProgress=3420 and room=rGame6_HeroPlainsA //----- [4] Combat 
     msgCreate(0,0,"'The Chosen One'","Nonsense, it is part of my destiny to bring you safely through here! And now for this slime!",6,3,oMessageCutscene,1)
   else if sceneProgress=13
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=10 {oWHB_NPC.sprite_index=sWHB_Walk; oWHB_NPC.image_speed=0}
     else if sceneDelay=11
     {
@@ -414,7 +414,7 @@ else if global.gameProgress=3421 and room=rGame6_HeroPlainsB //----- [5] 'The Ch
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
   }
@@ -465,7 +465,7 @@ else if global.gameProgress=3422 and room=rGame6_HeroPlainsD //----- [6] Spring 
     msgCreate(0,0,"Claire","Riiight. Now that we're here, we can gather the spring water.",0,3,oMessageCutscene,1)
   else if sceneProgress=5
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       npcChosen=instance_create(1472,240,oMisc)
@@ -511,7 +511,7 @@ else if global.gameProgress=3422 and room=rGame6_HeroPlainsD //----- [6] Spring 
     msgCreate(0,0,"The Prophecy","Then take the Spring Water and help your friend. You will fulfill the destiny.",6,3,oMessageCutscene,1)
   else if sceneProgress=20
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=1 and sceneDelay<=7
     {
       npcChosen.image_alpha-=0.1
@@ -528,7 +528,7 @@ else if global.gameProgress=3422 and room=rGame6_HeroPlainsD //----- [6] Spring 
     msgCreate(0,0,"Claire","Oh whatever. Though I still need a weapon.",0,3,oMessageCutscene,1)
   else if sceneProgress=23
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       enemySkele=instance_create(1408,0,oMisc)
@@ -570,7 +570,7 @@ else if global.gameProgress=3422 and room=rGame6_HeroPlainsD //----- [6] Spring 
     msgCreate(0,0,"Claire","Ugh...",0,3,oMessageCutscene,1)
   else if sceneProgress=28
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=1 and sceneDelay<=99
     {
       oPlayer1.x-=7
@@ -658,7 +658,7 @@ else if global.gameProgress=3430 and room=rGame6_HeroPlainsD //----- [] Fight th
   }
   else if sceneProgress=2
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=3 and bWaitForInput=false
@@ -673,7 +673,7 @@ else if global.gameProgress=3430 and room=rGame6_HeroPlainsD //----- [] Fight th
     msgCreate(0,0,"'The Chosen One'","Well then, since we're done here, I should go! I must find where my destiny brings me next!",6,3,oMessageCutscene,1)
   else if sceneProgress=8
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {oWHB_NPC.sprite_index=sWHB_Walk; oWHB_NPC.image_speed=0.2; oWHB_NPC.image_xscale=-1; WHB_Yvel=0}
     else if sceneDelay>=2 and sceneDelay<=99
     {
@@ -727,7 +727,7 @@ else if global.gameProgress=3440 and room=rGame6_HeroPlainsF //----- [] Enemy tr
   {
     if global.gamePaused=false
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10
       {
         delaySpawn(256,240,oPT_Skeleton,0,1,1,0.33)
@@ -743,7 +743,7 @@ else if global.gameProgress=3440 and room=rGame6_HeroPlainsF //----- [] Enemy tr
   {
     if global.gamePaused=false
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10
       {
         delaySpawn(560,240,oPT_Skeleton,0,1,1,0.33)
@@ -759,7 +759,7 @@ else if global.gameProgress=3440 and room=rGame6_HeroPlainsF //----- [] Enemy tr
   {
     if global.gamePaused=false
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10
       {
         delaySpawn(256,240,oPT_Skeleton,0,1,1,0.33)
@@ -799,7 +799,7 @@ else if global.gameProgress=3440 and room=rGame6_Hometown //----- [8] Recover Je
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=15 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=2 and bWaitForInput=false
@@ -808,7 +808,7 @@ else if global.gameProgress=3440 and room=rGame6_Hometown //----- [8] Recover Je
     msgCreate(0,0,"NPC A","I will apply it for you. Hand it to me.",6,3,oMessageCutscene,1)
   else if sceneProgress=4
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=11 and sceneDelay<=20 {fadeAlpha+=0.1}
     else if sceneDelay>=40 {sceneDelay=0; sceneProgress+=1}
   }
@@ -816,7 +816,7 @@ else if global.gameProgress=3440 and room=rGame6_Hometown //----- [8] Recover Je
     msgCreate(0,0,"","One moment later...#[Animation omitted due to time and budget constraints]",0,3,oMessageCutscene,1)
   else if sceneProgress=6
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=11 and sceneDelay<=20 {fadeAlpha-=0.1}
     else if sceneDelay>=40 {sceneDelay=0; sceneProgress+=1}
   }
@@ -840,7 +840,7 @@ else if global.gameProgress=3440 and room=rGame6_Hometown //----- [8] Recover Je
     msgCreate(0,0,"Jeremy","Tell us about this Evil Overlord that we heard about from the prophecy.",0,3,oMessageCutscene,1)
   else if sceneProgress=16
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=25 {showEmote(oNPC_GeneralC,0,-56,sEmThinking)}
     if sceneDelay>=45 {sceneDelay=0; sceneProgress+=1}
   }
@@ -893,7 +893,7 @@ else if global.gameProgress=3450 and room=rGame6_EarthA //----- [9] Earth Temple
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
   }
@@ -931,7 +931,7 @@ else if global.gameProgress=3460 and room=rGame6_EarthG //----- [] Enemy trap ev
   {
     if global.gamePaused=false
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10
       {
         global.tempAction[0]=11
@@ -949,7 +949,7 @@ else if global.gameProgress=3460 and room=rGame6_EarthG //----- [] Enemy trap ev
   {
     if global.gamePaused=false
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10
       {
         global.tempAction[0]=12
@@ -982,7 +982,7 @@ else if global.gameProgress=3460 and room=rGame6_EarthG //----- [] Enemy trap ev
   {
     if global.gamePaused=false
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10
       {
         global.tempAction[0]=11
@@ -1000,7 +1000,7 @@ else if global.gameProgress=3460 and room=rGame6_EarthG //----- [] Enemy trap ev
   {
     if global.gamePaused=false
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10
       {
         global.tempAction[0]=12
@@ -1040,7 +1040,7 @@ else if global.gameProgress=3470 and room=rGame6_EarthJ //----- [] Boss Fight: T
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=30
       {
         var tempMplay;
@@ -1077,7 +1077,7 @@ else if global.gameProgress=3470 and room=rGame6_EarthJ //----- [] Boss Fight: T
     }
     else if sceneProgress=2
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=40 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=3
@@ -1149,14 +1149,14 @@ else if global.gameProgress=3480 and room=rGame6_EarthK //----- [] Obtain Earth 
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=15 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=2 and bWaitForInput=false
     msgCreate(0,0,"Jeremy","There it is. The first of the four.",0,3,oMessageCutscene,1)
   else if sceneProgress=3
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=11 and sceneDelay<=46 {oLevelDecal.y+=1}
     else if sceneDelay>=61 and sceneDelay<=70 {oLevelDecal.image_alpha-=0.1}
     else if sceneDelay>=90 {sceneDelay=0; sceneProgress+=1}
@@ -1185,7 +1185,7 @@ else if global.gameProgress=3480 and room=rGame6_JDream //----- [10] Jerry's dre
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=30
     {
       fadeAlpha-=0.04
@@ -1246,7 +1246,7 @@ else if global.gameProgress=3490 and room=rGame6_JDream //----- [11] Jerry's des
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       npcChosen=instance_create(720,208,oMisc)
@@ -1284,7 +1284,7 @@ else if global.gameProgress=3490 and room=rGame6_JDream //----- [11] Jerry's des
     msgCreate(0,0,"Jerry","Oh really now? GIVE IT TO ME!!",0,3,oMessageCutscene,1)
   else if sceneProgress=16
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=35
     {
       efCharge=instance_create(oPlayer1.x,oPlayer1.y-26,oMisc)
@@ -1390,7 +1390,7 @@ else if global.gameProgress=3503 and room=rGame6_FireE //----- [12] Meeting the 
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {showEmote(oMisc,0,-56,sEmExcite)}
     else if sceneDelay=10 {sceneDelay=0; sceneProgress+=1}
   }
@@ -1424,7 +1424,7 @@ else if global.gameProgress=3503 and room=rGame6_FireE //----- [12] Meeting the 
     msgCreate(0,0,"High Heels Girl","I'm getting out of here. Now you've got imaginary friends and that's just weird.",6,3,oMessageCutscene,1)
   else if sceneProgress=16
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       for(i=0;i<8;i+=1)
@@ -1537,7 +1537,7 @@ else if global.gameProgress=3520 and room=rGame6_FireE //----- [] Short moment o
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=10 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=2 and bWaitForInput=false
@@ -1570,12 +1570,12 @@ else if global.gameProgress=3530 and room=rGame6_FireF //----- [13] Obtain Fire 
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=15 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=2
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=11 and sceneDelay<=46 {oLevelDecal.y+=1}
     else if sceneDelay>=61 and sceneDelay<=70 {oLevelDecal.image_alpha-=0.1}
     else if sceneDelay>=90 {sceneDelay=0; sceneProgress+=1}
@@ -1619,7 +1619,7 @@ else if global.gameProgress=3540 and room=rGame6_ESC_Scene //----- [14] The Evil
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=30
     {
       fadeAlpha-=0.04
@@ -1674,7 +1674,7 @@ else if global.gameProgress=3540 and room=rGame6_Gate //----- [15] The team is b
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=30
     {
       fadeAlpha-=0.02
@@ -1853,7 +1853,7 @@ else if global.gameProgress=3550 and room=rGame6_WaterB //----- [] Boss Fight: H
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         endBoss()
@@ -1870,7 +1870,7 @@ else if global.gameProgress=3550 and room=rGame6_WaterB //----- [] Boss Fight: H
     }
     else if sceneProgress=3
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=25 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=4 and bWaitForInput=false
@@ -1881,7 +1881,7 @@ else if global.gameProgress=3550 and room=rGame6_WaterB //----- [] Boss Fight: H
       msgCreate(0,0,"High Heels Girl","I'll get you back for this! YOU'LL SEE!",6,3,oMessageCutscene,1)
     else if sceneProgress=7
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         for(i=0;i<8;i+=1)
@@ -1940,12 +1940,12 @@ else if global.gameProgress=3570 and room=rGame6_WaterA //----- [17] Obtain Wate
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=15 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=2
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=11 and sceneDelay<=46 {oLevelDecal.y+=1}
     else if sceneDelay>=61 and sceneDelay<=70 {oLevelDecal.image_alpha-=0.1}
     else if sceneDelay>=90 {sceneDelay=0; sceneProgress+=1}
@@ -1975,7 +1975,7 @@ else if global.gameProgress=3590 and room=rGame6_CoMB //----- [18] Getting Doubl
 {
   if sceneProgress=0 and !instance_exists(oStoryObject)
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=2
     {
@@ -1989,7 +1989,7 @@ else if global.gameProgress=3590 and room=rGame6_CoMB //----- [18] Getting Doubl
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=70 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=2 and bWaitForInput=false
@@ -2036,7 +2036,7 @@ else if global.gameProgress=3600 and room=rGame6_WindC //----- [] Enemy trap eve
   {
     if global.gamePaused=false
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10
       {
         global.tempAction[0]=24
@@ -2054,7 +2054,7 @@ else if global.gameProgress=3600 and room=rGame6_WindC //----- [] Enemy trap eve
   {
     if global.gamePaused=false
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10
       {
         delaySpawn(176,112,oPT_IceSpirit,2,1,1,0.33)
@@ -2074,7 +2074,7 @@ else if global.gameProgress=3600 and room=rGame6_WindC //----- [] Enemy trap eve
   {
     if global.gamePaused=false
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10
       {
         delaySpawn(208,288,oPT_Skeleton,2,1,1,0.33)
@@ -2124,7 +2124,7 @@ else if global.gameProgress=3610 and room=rGame6_WindF //----- [] Enemy trap eve
   {
     if global.gamePaused=false
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10
       {
         global.tempAction[0]=28
@@ -2145,7 +2145,7 @@ else if global.gameProgress=3610 and room=rGame6_WindF //----- [] Enemy trap eve
   {
     if global.gamePaused=false
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10
       {
         delaySpawn(336,192,oPT_FireEye,2,1,1,0.33)
@@ -2165,7 +2165,7 @@ else if global.gameProgress=3610 and room=rGame6_WindF //----- [] Enemy trap eve
   {
     if global.gamePaused=false
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10
       {
         global.tempAction[0]=29
@@ -2183,7 +2183,7 @@ else if global.gameProgress=3610 and room=rGame6_WindF //----- [] Enemy trap eve
   {
     if global.gamePaused=false
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10
       {
         global.tempAction[0]=50
@@ -2227,7 +2227,7 @@ else if global.gameProgress=3620 and room=rGame6_WindI //----- [] Boss Fight: Th
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=20
       {
         musicFade-=30
@@ -2242,7 +2242,7 @@ else if global.gameProgress=3620 and room=rGame6_WindI //----- [] Boss Fight: Th
     }
     else if sceneProgress=2
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=20
       {
         var tempMplay;
@@ -2257,7 +2257,7 @@ else if global.gameProgress=3620 and room=rGame6_WindI //----- [] Boss Fight: Th
     }
     else if sceneProgress=3
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=4 and bWaitForInput=false
@@ -2327,12 +2327,12 @@ else if global.gameProgress=3630 and room=rGame6_WindJ //----- [19] Obtain Wind 
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=15 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=2
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=11 and sceneDelay<=46 {oLevelDecal.y+=1}
     else if sceneDelay>=61 and sceneDelay<=70 {oLevelDecal.image_alpha-=0.1}
     else if sceneDelay>=90 {sceneDelay=0; sceneProgress+=1}
@@ -2406,7 +2406,7 @@ else if global.gameProgress=3640 and room=rGame6_Hometown //----- [20] Presentin
     msgCreate(0,0,"Claire","Let's just do this.",0,3,oMessageCutscene,1)
   else if sceneProgress=10
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=20
     {
       var tFlash;
@@ -2445,7 +2445,7 @@ else if global.gameProgress=3640 and room=rGame6_Hometown //----- [20] Presentin
   }
   else if sceneProgress=14
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       playSound(global.snd_PotShatter,0,1,12000)
@@ -2522,7 +2522,7 @@ else if global.gameProgress=3640 and room=rGame6_Hometown //----- [20] Presentin
     msgCreate(0,0,"Jerry","I don't even understand this dude anymore! It's time to kick his ass!",0,3,oMessageCutscene,1)
   else if sceneProgress=29
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=15
     {
       tEffect=instance_create(oNPC_GeneralC.x,oNPC_GeneralC.y-80,oEffectB)
@@ -2536,7 +2536,7 @@ else if global.gameProgress=3640 and room=rGame6_Hometown //----- [20] Presentin
     msgCreate(0,0,"The Overlord","I can see that you have no interest in what I will present, therefore you must be removed!",6,3,oMessageCutscene,1)
   else if sceneProgress=31
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=5 {fadeColor=c_white}
     else if sceneDelay>=6 and sceneDelay<=10 {fadeAlpha+=0.1}
     else if sceneDelay>=11 {sceneDelay=0; sceneProgress+=1}
@@ -2553,7 +2553,7 @@ else if global.gameProgress=3640 and room=rGame6_DreamWoodsA //----- [21] The Dr
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=51 and sceneDelay<=150 {fadeAlpha-=0.01}
     else if sceneDelay>=160 {sceneDelay=0; sceneProgress+=1}
   }
@@ -2601,7 +2601,7 @@ else if global.gameProgress=3760 and room=rGame6_DreamWoodsF //----- [22] Jerry/
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
@@ -2646,13 +2646,13 @@ else if global.gameProgress=3770 and room=rGame6_DreamWoodsF //----- [Unskippabl
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=21 and sceneDelay<=70 {oPlayer1.image_alpha+=0.02}
     else if sceneDelay>=71 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=2
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=35
     {
       efCharge=instance_create(oPlayer1.x,oPlayer1.y-26,oMisc)
@@ -2694,7 +2694,7 @@ else if global.gameProgress=3770 and room=rGame6_DreamWoodsF //----- [Unskippabl
     msgCreate(112,128,"","Jerry gained [Bird Swarm]!#Claire gained [Chainblade Storm]!",6,2,oMessageCutscene,1)
   else if sceneProgress=4
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=31 and sceneDelay<=80 {fadeAlpha-=0.02}
     else if sceneDelay=81 {oPlayer1.depth=20}
     else if sceneDelay>=100
@@ -2820,7 +2820,7 @@ else if global.gameProgress=3800 and room=rGame6_WhisperWoodsA //----- [24] Find
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=2 and bWaitForInput=false
@@ -2835,7 +2835,7 @@ else if global.gameProgress=3800 and room=rGame6_WhisperWoodsA //----- [24] Find
     msgCreate(0,0,"Claire","That's it? Just ask?",0,3,oMessageCutscene,1)
   else if sceneProgress=7
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=20
     {
       oMisc.y-=3
@@ -2872,7 +2872,7 @@ else if global.gameProgress=3810 and room=rGame6_CoDB //----- [25] Intro to Cast
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
@@ -2913,7 +2913,7 @@ else if global.gameProgress=3820 and room=rGame6_CoDP //----- [26] Boss Fight: T
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=2 and bWaitForInput=false
@@ -2930,7 +2930,7 @@ else if global.gameProgress=3820 and room=rGame6_CoDP //----- [26] Boss Fight: T
       msgCreate(0,0,"Claire","That's the purpose. Now just move along so we can pass.",0,3,oMessageCutscene,1)
     else if sceneProgress=8
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         stopAllMusic()
@@ -2955,7 +2955,7 @@ else if global.gameProgress=3820 and room=rGame6_CoDP //----- [26] Boss Fight: T
       msgCreate(0,0,"Claire","Oh no, whatever will we do?!",0,3,oMessageCutscene,1)
     else if sceneProgress=12
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=15
       {
         if sceneDelay mod 3=0
@@ -2974,7 +2974,7 @@ else if global.gameProgress=3820 and room=rGame6_CoDP //----- [26] Boss Fight: T
     }
     else if sceneProgress=13
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         with npcBishonen {instance_destroy()}
@@ -3048,7 +3048,7 @@ else if global.gameProgress=3830 and room=rGame6_CoDQ //----- [27] Regain Dash a
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
@@ -3090,7 +3090,7 @@ else if global.gameProgress=3851 and room=rGame6_CoD_ESC //----- [Unskippable] E
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=2 and bWaitForInput=false
@@ -3158,7 +3158,7 @@ else if global.gameProgress=3852 and room=rGame6_CoD_ESC //----- [Unskippable] E
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=2 and bWaitForInput=false
@@ -3212,7 +3212,7 @@ else if global.gameProgress=3853 and room=rGame6_CoD_ESC //----- [Unskippable] E
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=2 and bWaitForInput=false
@@ -3254,7 +3254,7 @@ else if global.gameProgress=3854 and room=rGame6_CoDT //----- [28] Prepare for t
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
@@ -3311,7 +3311,7 @@ else if global.gameProgress=3860 and room=rGame6_CoDU //----- [Unskippable] Intr
   
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       oPlayer1.x=144; oPlayer1.y=816
@@ -3333,7 +3333,7 @@ else if global.gameProgress=3860 and room=rGame6_CoDU //----- [Unskippable] Intr
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 //Load voice sound files
     {
       voice01=SS_LoadSound(working_directory+"\Sound\DT_VO01.wav",0)
@@ -3363,7 +3363,7 @@ else if global.gameProgress=3860 and room=rGame6_CoDU //----- [Unskippable] Intr
   }
   else if sceneProgress=2
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=1 and sceneDelay<=699
     {
       if sceneDelay=240 {lightningTime=0}
@@ -3379,7 +3379,7 @@ else if global.gameProgress=3860 and room=rGame6_CoDU //----- [Unskippable] Intr
   }
   else if sceneProgress=3 //VOICE WORK GOES HERE
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=10
     {
       createScreenText(50,286,-1,fnt_Location,fa_left,"<Laughter>",3,c_white,1,0)
@@ -3516,7 +3516,7 @@ else if global.gameProgress=3860 and room=rGame6_CoDU //----- [Unskippable] Intr
     msgCreate(0,0,"Trivia Lord","I am pleased by this response! NOW WE MOVE ON TO THE QUESTIONS!! QUIZ TIME EVERYBODY!!",6,3,oMessageCutscene,1)
   else if sceneProgress=35
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=15
     {
       myTrivia=instance_create(0,0,oTriviaWindow)
@@ -3526,7 +3526,7 @@ else if global.gameProgress=3860 and room=rGame6_CoDU //----- [Unskippable] Intr
   }
   else if sceneProgress=50
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=25 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=51 and bWaitForInput=false
@@ -3543,7 +3543,7 @@ else if global.gameProgress=3860 and room=rGame6_CoDU //----- [Unskippable] Intr
     msgCreate(0,0,"Trivia Lord","Yes! You may have the McGuff... err, the Program thingie-ma-bob you were looking for.",6,3,oMessageCutscene,1)
   else if sceneProgress=57
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=20
     {
       pChip=instance_create(oPlayer1.x,708,oProgramChip)
@@ -3559,7 +3559,7 @@ else if global.gameProgress=3860 and room=rGame6_CoDU //----- [Unskippable] Intr
   }
   else if sceneProgress=58
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=21 and sceneDelay<=100 {pChip.y+=1}
     else if sceneDelay=130
     {

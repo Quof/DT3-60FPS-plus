@@ -69,7 +69,7 @@ if global.gameProgress=5520 and room=rCh21_Main_75 //----- [1] Jeremy said you'd
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {stopAllMusic()}
     if sceneDelay>=30
     {
@@ -201,7 +201,7 @@ else if global.gameProgress=5530 and room=rAbomA //----- [2] The plan -----
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=2 and bWaitForInput=false
@@ -251,12 +251,12 @@ else if global.gameProgress=5540 and room=rAbomD //----- [] Chao attack tutorial
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=40 {sceneDelay=120; sceneProgress+=1}
   }
   else if sceneProgress=2
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=130
     {
       tNewAtkSpot=instance_create(752,112,oVP_AtkSpot); tNewAtkSpot.image_blend=c_green
@@ -278,7 +278,7 @@ else if global.gameProgress=5550 and room=rAbomF //----- [3] Boss Fight: Virus P
   {
     if sceneProgress=0
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {stopAllMusic()}
       if sceneDelay>=30
       {
@@ -288,7 +288,7 @@ else if global.gameProgress=5550 and room=rAbomF //----- [3] Boss Fight: Virus P
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=2 and bWaitForInput=false
@@ -311,7 +311,7 @@ else if global.gameProgress=5550 and room=rAbomF //----- [3] Boss Fight: Virus P
       msgCreate(0,0,"Jeremy","Alright, you've got this! But before that...",0,3,oMessageCutscene,1)
     else if sceneProgress=11
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=20
       {
         playSound(global.snd_Magic,0,1,8000)
@@ -391,14 +391,14 @@ else if global.gameProgress=5550 and room=rAbomF //----- [3] Boss Fight: Virus P
     }
     else if sceneProgress=2
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=60 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=3 and bWaitForInput=false
       msgCreate(0,0,"Chao","I... I did it!",0,3,oMessageCutscene,1)
     else if sceneProgress=4
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=5 and bWaitForInput=false
@@ -407,7 +407,7 @@ else if global.gameProgress=5550 and room=rAbomF //----- [3] Boss Fight: Virus P
       msgCreate(0,0,"Jeremy","We're here. Just... focusing. I want to make sure nothing goes wrong.",0,3,oMessageCutscene,1)
     else if sceneProgress=7
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=21 and sceneDelay<=70 {fadeAlpha+=0.02}
       if sceneDelay=40
       {
@@ -420,7 +420,7 @@ else if global.gameProgress=5550 and room=rAbomF //----- [3] Boss Fight: Virus P
       msgCreate(0,0,"Chao","... Anyone?",0,3,oMessageCutscene,1)
     else if sceneProgress=9
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=10 and bWaitForInput=false
@@ -461,7 +461,7 @@ else if global.gameProgress=5560 and room=rAbomCutA //----- [4] Abomination dest
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=30
     {
       fadeAlpha-=0.02
@@ -470,7 +470,7 @@ else if global.gameProgress=5560 and room=rAbomCutA //----- [4] Abomination dest
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=20
     {
       theAbomination.y-=1
@@ -483,7 +483,7 @@ else if global.gameProgress=5560 and room=rAbomCutA //----- [4] Abomination dest
   }
   else if sceneProgress=2
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=3
@@ -497,7 +497,7 @@ else if global.gameProgress=5560 and room=rCh21_WastelandA //----- [] The wastel
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=30
     {
       fadeAlpha-=0.02
@@ -506,7 +506,7 @@ else if global.gameProgress=5560 and room=rCh21_WastelandA //----- [] The wastel
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=2
@@ -546,7 +546,7 @@ else if global.gameProgress=5570 and room=rCh21_WastelandA //----- [5] Meeting w
     }
     else if sceneDelay>=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=30
       {
         fadeAlpha-=0.02
@@ -606,7 +606,7 @@ else if global.gameProgress=5570 and room=rCh21_WastelandA //----- [5] Meeting w
     msgCreate(0,0,"Warmaster","I'm pretty sure it was Claire that did most of it.",6,3,oMessageCutscene,1)
   else if sceneProgress=27
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=5
     {
       warmasterEnd.sprite_index=sPlayerDiscombobulate
@@ -649,7 +649,7 @@ else if global.gameProgress=5570 and room=rCh21_WastelandA //----- [5] Meeting w
     msgCreate(0,0,"Jeremy","Yeah.",0,3,oMessageCutscene,1)
   else if sceneProgress=42
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=30
     {
       var tEffect;
@@ -723,7 +723,7 @@ else if global.gameProgress=5580 and room=rCh21_WastelandB //----- [6] Jerry tal
   }
   else if sceneProgress=2
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       oPlayer1.image_xscale=-1
@@ -790,7 +790,7 @@ else if global.gameProgress=5590 and room=rDistortionA //----- [7] Jeremy goes f
   if sceneProgress=0 {sceneProgress+=1} //So players can skip the fade-in
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       oPlayer1.sprite_index=sJeremyMechIdle
@@ -804,7 +804,7 @@ else if global.gameProgress=5590 and room=rDistortionA //----- [7] Jeremy goes f
   }
   else if sceneProgress=2
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=3 and bWaitForInput=false
@@ -841,7 +841,7 @@ else if global.gameProgress=5640 and room=rDistortionF //----- [8] Final Boss Fi
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=2 and bWaitForInput=false
@@ -866,7 +866,7 @@ else if global.gameProgress=5640 and room=rDistortionF //----- [8] Final Boss Fi
       msgCreate(0,0,"Hex","Please Jeremy, it's Hexor.",0,3,oMessageCutscene,1)
     else if sceneProgress=12
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=20 {oHexor_Main.bShowTentacles=1}
       else if sceneDelay>=21 and sceneDelay<=70 {oHexor_Main.tentacleScale+=0.02}
       else if sceneDelay>=90 {sceneDelay=0; sceneProgress+=1}
@@ -905,7 +905,7 @@ else if room=rDistFinal_Round2 //----- [9] Hexor asks Jeremy how he took the shi
   }
   else if sceneProgress=2
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       var tempMplay;
@@ -927,7 +927,7 @@ else if room=rDistFinal_Round2 //----- [9] Hexor asks Jeremy how he took the shi
   }
   else if sceneProgress=4
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=5 and bWaitForInput=false
@@ -972,7 +972,7 @@ else if room=rDistFinal_Round2 //----- [9] Hexor asks Jeremy how he took the shi
     msgCreate(0,0,"Hexor","Go ahead and try, Jeremy.",0,3,oMessageCutscene,1)
   else if sceneProgress=25
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=20
     {
       oHexor_Main_R2.image_xscale-=0.2; oHexor_Main_R2.image_yscale+=0.2
@@ -999,14 +999,14 @@ else if room=rDistFinal_Round3 //----- [10] Jeremy gets bigger -----
 {
   if sceneProgress=0 //Before punch
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=1 and bWaitForInput=false
     msgCreate(0,0,"Hexor","I've won, Jeremy.",0,3,oMessageCutscene,1)
   else if sceneProgress=2
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=20
     {
       (GID(467397)).image_xscale=0;
@@ -1028,7 +1028,7 @@ else if room=rDistFinal_Round3 //----- [10] Jeremy gets bigger -----
     msgCreate(0,0,"Hexor","Expected.",0,3,oMessageCutscene,1)
   else if sceneProgress=4
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=1
     {
       (GID(467396)).x+=6;
@@ -1053,7 +1053,7 @@ else if room=rDistFinal_Round3 //----- [10] Jeremy gets bigger -----
   
   if sceneProgress=11 //After punch
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       SS_StopSound(global.snd_WindBlow)
@@ -1088,7 +1088,7 @@ else if room=rDistFinal_Round3 //----- [10] Jeremy gets bigger -----
   
   if sceneProgress=30 //After combo
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=1
     {
       if jeremyVelY<0 {oPlayer1.sprite_index=sJF_Jump}
@@ -1109,7 +1109,7 @@ else if room=rDistFinal_Round3 //----- [10] Jeremy gets bigger -----
   }
   else if sceneProgress=31
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=15 {oPlayer1.sprite_index=sJF_FinalAttack}
     else if sceneDelay=25
     {

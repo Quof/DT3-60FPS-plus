@@ -45,7 +45,7 @@ if room=rAbomB //----- [] Gate 6 abilities only -----
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=20
     {
       msgCreate(0,0,"Jerry","Ah yeah, RPG abilities, GO!",0,1,oMessagePerson,0)
@@ -68,7 +68,7 @@ else if room=rAbomC //----- [] Something cool -----
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=50
       {
         msgCreate(32,128,"Claire","I think we broke something.",0,1,oMessagePerson,0)
@@ -153,7 +153,7 @@ else if room=rAbomD
       }
       else if sceneProgress=1 //Move camera to x=864
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay=10
         {
           viewFix=instance_create(oPlayer1.x,176,oMisc)
@@ -240,7 +240,7 @@ else if room=rAbomD
         msgCreate(0,0,"Hex","Okay, shut the hell up you guys. You guys STILL went off script, regardless of any other nonsense. I need you all to hurry out of here before the player notices.",0,3,oMessageCutscene,1)
       else if sceneProgress=38
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay=1
         {
           msgCreate(32,64,"Jerry","LOL!",0,1,oMessagePerson,0)
@@ -289,7 +289,7 @@ else if room=rAbomD
       }
       else if sceneProgress=54
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay=1
         {
           myFireball=instance_create(1136,96,oLevelDecal)
@@ -401,7 +401,7 @@ else if room=rAbomD
       }
       else if sceneProgress=3
       {
-        sceneDelay+=1
+        sceneDelay+=1*gDeltaTime
         if sceneDelay=1
         {
           ini_open(global.paraString[0])
@@ -463,7 +463,7 @@ else if room=rAbomD
     }
     else if sceneProgress=2
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=3

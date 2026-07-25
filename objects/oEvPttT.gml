@@ -42,7 +42,7 @@ if global.gamePttT_Prog=0 and room=rPttT_01 //----- [1] Here we go -----
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
   }
@@ -114,7 +114,7 @@ else if global.gamePttT_Prog=70 and room=rPttT_07 //----- [] Boss Fight: Parasit
   {
     if sceneProgress=0 and global.gamePaused=0
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=120
       {
         var tempMplay,tBossTitle;
@@ -138,7 +138,7 @@ else if global.gamePttT_Prog=70 and room=rPttT_07 //----- [] Boss Fight: Parasit
   {
     if sceneProgress=0
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 or sceneDelay mod 3=0
       {
         playSound(global.snd_BombExplode,0,1,1)
@@ -200,7 +200,7 @@ else if global.gamePttT_Prog=80 and room=rPttT_07 //----- [] Boss fight end ----
   {
     if sceneProgress=0
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=31 and sceneDelay<=55
       {
         fadeAlpha+=0.04

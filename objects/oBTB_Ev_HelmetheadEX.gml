@@ -56,7 +56,7 @@ if room=rBT_HelmetheadEX //----- [] Boss Fight: Helmethead EX ----- [1]
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=45
       {
         var tempMplay;
@@ -68,7 +68,7 @@ if room=rBT_HelmetheadEX //----- [] Boss Fight: Helmethead EX ----- [1]
     }
     else if sceneProgress=2
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=50
       {
         msgCreate(0,0,"?????","Oh how I have waited for this moment.",8,1,oMessagePerson,0)

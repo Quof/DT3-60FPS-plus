@@ -164,7 +164,7 @@ if global.gameProgress=4520 and room=rMain_79 //----- [1] Intro to Highlands ---
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
@@ -253,7 +253,7 @@ else if global.gameProgress=4550 and room=rTS_A //----- [] Intro to Tranquil Ser
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=50
     {
       if fadeAlpha>0.5 {fadeAlpha-=0.005}
@@ -263,7 +263,7 @@ else if global.gameProgress=4550 and room=rTS_A //----- [] Intro to Tranquil Ser
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=30
     {
       var tempMplay;
@@ -279,7 +279,7 @@ else if global.gameProgress=4560 and room=rHiddenVillage //----- [3] Intro to Hi
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     if sceneDelay>=20
     {
@@ -338,7 +338,7 @@ else if global.gameProgress=4570 and room=rHiddenVillage //----- [4] What to do 
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=2 and bWaitForInput=false
@@ -418,7 +418,7 @@ else if global.gameProgress=4580 and room=rDiscoA //----- [5] Intro to The Disco
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=31 and sceneDelay<=70 {fadeAlpha-=0.025}
     if sceneDelay>=80 {sceneDelay=0; sceneProgress+=1}
@@ -463,7 +463,7 @@ else if global.gameProgress=4610 and room=rDiscoD //----- [6] Hex shows up -----
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=10
     {
       var tempMplay;
@@ -476,7 +476,7 @@ else if global.gameProgress=4610 and room=rDiscoD //----- [6] Hex shows up -----
     msgCreate(0,0,"Jerry","What the hell? Really?",0,3,oMessageCutscene,1)
   else if sceneProgress=3
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=20 {(GID(399156)).image_xscale=-1;}
     if sceneDelay>=40 {sceneDelay=0; sceneProgress+=1}
   }
@@ -494,7 +494,7 @@ else if global.gameProgress=4610 and room=rDiscoD //----- [6] Hex shows up -----
     msgCreate(0,0,"Hex","I do not, and I don't care to hear it. My CHAOS army will find Kirby before you do, I can ensure you of that!",0,3,oMessageCutscene,1)
   else if sceneProgress=10
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=10 {(GID(399156)).x+=6}
     if sceneDelay>=40 {sceneDelay=0; sceneProgress+=1}
   }
@@ -518,7 +518,7 @@ else if room=rDiscoE //----- [] Message boxes help us through -----
   {
     if sceneProgress=0
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=70 {msgCreate(192,1472,"Jeremy","Huh, is this a dead end? Hmm... you can go up, but how...?",0,1,oMessageCollision,0)}
       else if sceneDelay=160 {msgCreate(240,1512,"Jerry","Can you like... make platforms appear or something?",0,1,oMessageCollision,0)}
       else if sceneDelay=250 {msgCreate(192,1552,"Jeremy","Maybe, I'll see what I can do and... why the hell aren't these disappearing?",0,2,oMessageCollision,0)}
@@ -529,7 +529,7 @@ else if room=rDiscoE //----- [] Message boxes help us through -----
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=30 {msgCreate(272,1328,"Jeremy","Oh, well look at that...",0,0,oMessageCollision,0)}
       if sceneDelay=110 {msgCreate(448,1264,"Jerry","That's pretty awesome.",0,0,oMessageCollision,0)}
       else if sceneDelay>=111
@@ -539,7 +539,7 @@ else if room=rDiscoE //----- [] Message boxes help us through -----
     }
     else if sceneProgress=2
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=30 {msgCreate(224,1200,"Jeremy","I'm not even sure how this works.",0,1,oMessageCollision,0)}
       if sceneDelay=120 {msgCreate(48,1136,"Jerry","Just keep talking!",0,1,oMessageCollision,0)}
       if sceneDelay=190 {msgCreate(304,1072,"Jeremy","...",0,0,oMessageCollision,0)}
@@ -551,7 +551,7 @@ else if room=rDiscoE //----- [] Message boxes help us through -----
     }
     else if sceneProgress=3
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=80 {msgCreate(400,864,"Jerry","Jeremy, why aren't you saying anything?",0,1,oMessageCollision,0)}
       else if sceneDelay=170 {msgCreate(240,784,"Jeremy","You could always talk.",0,0,oMessageCollision,0)}
       else if sceneDelay=250 {msgCreate(112,720,"Jerry","I'd rather you do it.",0,0,oMessageCollision,0)}
@@ -563,7 +563,7 @@ else if room=rDiscoE //----- [] Message boxes help us through -----
     }
     else if sceneProgress=4
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10
       {
         msgCreate(1,368,"Chao","Bunnies!!",0,0,oMessageCollision,0)
@@ -617,7 +617,7 @@ else if room=rDiscoE //----- [] Message boxes help us through -----
     }
     else if sceneProgress=5
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=20 {msgCreate(352,496,"Jerry","Wow Claire, way to use a bigger message box than needed.",0,1,oMessageCollision,0)}
       else if sceneDelay>=21
       {
@@ -626,7 +626,7 @@ else if room=rDiscoE //----- [] Message boxes help us through -----
     }
     else if sceneProgress=6
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=30 {msgCreate(96,416,"Claire","...",0,0,oMessageCollision,0)}
       else if sceneDelay>=31
       {
@@ -635,7 +635,7 @@ else if room=rDiscoE //----- [] Message boxes help us through -----
     }
     else if sceneProgress=7
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=20 {msgCreate(188,288,"Jerry","See, all you need to do.",0,3,oMessageCollision,0)}
       else if sceneDelay=90 {msgCreate(240,320,"Jerry","Oh what?",0,0,oMessageCollision,0)}
       else if sceneDelay=140 {msgCreate(80,208,"Claire","Thanks, Jeremy.",0,0,oMessageCollision,0)}
@@ -647,7 +647,7 @@ else if global.gameProgress=4635 and room=rDiscoF //----- [7] We need to hurry -
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
@@ -672,7 +672,7 @@ else if room=rDiscoH //----- [8] No more buffs / Time till Hex finds Kirby -----
   {
     if sceneProgress=0
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {global.gamePaused=true}
       if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
     }
@@ -787,7 +787,7 @@ else if room=rDiscoI //----- [] Boss Fight: Defective -----
     }
     else if sceneProgress=4
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=60
       {
         if global.activeCharacter=0
@@ -806,7 +806,7 @@ else if room=rDiscoI //----- [] Boss Fight: Defective -----
     else if sceneProgress=5
     {
       (GID(401982)).x+=10
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=30
       {
         with (GID(401981)) {instance_destroy()}
@@ -846,7 +846,7 @@ else if room=rDiscoI //----- [] Boss Fight: Defective -----
       {
         if sceneProgress=0
         {
-          sceneDelay+=1
+          sceneDelay+=1*gDeltaTime
           if sceneDelay=1
           {
             var enemyBarrier;
@@ -926,7 +926,7 @@ else if room=rDiscoI //----- [] Boss Fight: Defective -----
     }
     else if sceneProgress=2
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=3 and bWaitForInput=false
@@ -969,7 +969,7 @@ else if room=rHiddenVillage //----- [10] The next piece of the Dragoon -----
   {
     if sceneProgress=0
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         var tempMplay;
@@ -991,7 +991,7 @@ else if room=rHiddenVillage //----- [10] The next piece of the Dragoon -----
       msgCreate(0,0,"","Bubblun and Lovelun were informed of what took place within the Discombobulated.",6,3,oMessageCutscene,1)
     else if sceneProgress=2
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=31 and sceneDelay<=55 {fadeAlpha-=0.04}
       else if sceneDelay>=80 {sceneDelay=0; sceneProgress+=1}
     }
@@ -1009,7 +1009,7 @@ else if room=rHiddenVillage //----- [10] The next piece of the Dragoon -----
       msgCreate(0,0,"Bubblun","I know Love, but what happened to Kirby will happen to others if we don't do something.",6,3,oMessageCutscene,1)
     else if sceneProgress=9
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=20 {(GID(396259)).image_xscale=1}
       else if sceneDelay>=40 {sceneDelay=0; sceneProgress+=1}
     }
@@ -1017,7 +1017,7 @@ else if room=rHiddenVillage //----- [10] The next piece of the Dragoon -----
       msgCreate(0,0,"Bubblun","I'm not happy about this either, Love, but I don't want to lose any other friends.",6,3,oMessageCutscene,1)
     else if sceneProgress=11
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=20 {(GID(396259)).image_xscale=-1}
       else if sceneDelay>=40 {sceneDelay=0; sceneProgress+=1}
     }
@@ -1070,7 +1070,7 @@ else if room=rMain_92 //----- [11] Back to the Hidden Village -----
   {
     if sceneProgress=0
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         var tempMplay;
@@ -1090,7 +1090,7 @@ else if room=rMain_92 //----- [11] Back to the Hidden Village -----
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=1 and sceneDelay<=50 {fadeAlpha-=0.02}
       else if sceneDelay>=70 {sceneDelay=0; sceneProgress+=1}
     }
@@ -1102,7 +1102,7 @@ else if room=rMain_92 //----- [11] Back to the Hidden Village -----
       msgCreate(0,0,"Jerry","That's a win there! So Jeremy, should we head to the Hidden Village to see where that last piece is?",0,3,oMessageCutscene,1)
     else if sceneProgress=5
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=25 {showEmote(charJerry,0,-32,sEmQuestion)}
       else if sceneDelay>=50 {sceneDelay=0; sceneProgress+=1}
     }
@@ -1151,7 +1151,7 @@ else if room=rMain_84 and global.gameProgress=4940 //----- [12] Did that hit the
   {
     if sceneProgress=0
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         oPlayer1.x=3072; oPlayer1.y=256
@@ -1196,7 +1196,7 @@ else if room=rHiddenVillage_Destroyed and global.gameProgress=4940 //----- [13] 
   {
     if sceneProgress=0
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=41 and sceneDelay<=90 {fadeAlpha-=0.02}
       else if sceneDelay>=120 {eventTime=0; sceneProgress+=1}
     }
@@ -1271,7 +1271,7 @@ else if room=rHiddenVillage_Destroyed and global.gameProgress=4940 //----- [13] 
       msgCreate(0,0,"Jerry","Okay, we can still save you guys.",0,3,oMessageCutscene,1)
     else if sceneProgress=20
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
         var tShield;
@@ -1407,14 +1407,14 @@ else if room=rMain_84 and global.gameProgress=4950 //----- [14] Reunited with Ge
   }
   else if sceneProgress=1
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=2 and bWaitForInput=false
     msgCreate(0,0,"Jerry","Whoa!!",0,3,oMessageCutscene,1)
   else if sceneProgress=3
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {showEmote((GID(420748)),0,-60,sEmExcite)}
     else if sceneDelay=20 {(GID(420748)).image_xscale=1}
     else if sceneDelay>=50 {sceneDelay=0; sceneProgress+=1}
@@ -1427,7 +1427,7 @@ else if room=rMain_84 and global.gameProgress=4950 //----- [14] Reunited with Ge
     msgCreate(0,0,"Syrus","Yes, just a moment ago. So what happened here?",6,3,oMessageCutscene,1)
   else if sceneProgress=7
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=1 and sceneDelay<=20 {fadeAlpha+=0.05}
     else if sceneDelay>=61 and sceneDelay<=80 {fadeAlpha-=0.05}
     else if sceneDelay>=100 {sceneDelay=0; sceneProgress+=1}
@@ -1485,7 +1485,7 @@ else if room=rMC_A
   {
     if sceneProgress=0
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {global.gamePaused=true}
       if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
     }
@@ -1550,7 +1550,7 @@ else if room=rMC_L //----- [] Pete appears -----
   {
     if sceneProgress=0
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {global.canPause=0}
       else if sceneDelay>=20
       {
@@ -1560,7 +1560,7 @@ else if room=rMC_L //----- [] Pete appears -----
     }
     else if sceneProgress=2
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=40 {awardBossAP(1000)}
       else if sceneDelay=90
       {
@@ -1577,7 +1577,7 @@ else if room=rMC_L //----- [] Pete appears -----
     }
     else if sceneProgress=3
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=10
       {
         msgCreate(0,0,"Jerry","Eh... what just happened?",0,1,oMessagePerson,0)
@@ -1657,7 +1657,7 @@ else if room=rMC_N and global.gameProgress=5010 //----- [] Boss Fight: Decimator
     }
     else if sceneProgress=3
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=50
       {
         with oJohnMech {instance_destroy()}
@@ -1740,7 +1740,7 @@ else if room=rMC_N and global.gameProgress=5030 //----- [16] The 3 Dragoon Piece
     msgCreate(0,0,"Jeremy","Yes, because that makes all the sense, but hey let's do it.",0,3,oMessageCutscene,1)
   else if sceneProgress=8
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=10
     {
       var tFlash;
@@ -1810,7 +1810,7 @@ else if room=rMC_N and global.gameProgress=5030 //----- [16] The 3 Dragoon Piece
   }
   else if sceneProgress=9
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=10 and bWaitForInput=false

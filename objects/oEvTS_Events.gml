@@ -48,7 +48,7 @@ if global.gamePaused=false
     }
     else if sceneProgress=1 //A bit more grass
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay>=20
       {
         (GID(394935)).bStartMe=1;
@@ -146,7 +146,7 @@ if global.gamePaused=false
     }
     else if sceneProgress=6 //Lots more things to draw
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=20
       {
         tDrawing=instance_create(2912,304,oTS_DrawingA)

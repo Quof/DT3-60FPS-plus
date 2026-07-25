@@ -40,7 +40,7 @@ if global.gameProgress=525 and room=rMain_8 //----- [1] Chapter 3 -----
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
@@ -95,7 +95,7 @@ else if global.gameProgress=530 and room=rMain_8 //----- [] Enemy Trap (Player m
     }
     else if sceneProgress=1
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=30
       {
         delaySpawn(544,1344,oSprongySpring,2,1,1,0.33)
@@ -116,7 +116,7 @@ else if global.gameProgress=530 and room=rMain_8 //----- [] Enemy Trap (Player m
     }
     else if sceneProgress=2
     {
-      sceneDelay+=1
+      sceneDelay+=1*gDeltaTime
       if sceneDelay=210 and global.activeCharacter=1
       {
         msgCreate(0,0,"Jeremy","So yeah, the birds only respond to Jerry for some reason.",0,1,oMessagePerson,0)
@@ -137,7 +137,7 @@ else if global.gameProgress=550 and room=rCCity_NorthA //----- [2] Central City 
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
@@ -188,7 +188,7 @@ else if global.gameProgress=570 and room=rCCity_NA_S2 //----- [3] Reunion -----
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
@@ -196,7 +196,7 @@ else if global.gameProgress=570 and room=rCCity_NA_S2 //----- [3] Reunion -----
     msgCreate(0,0,"Jerry","Dude, you DID make it out!",0,3,oMessageCutscene,1)
   else if sceneProgress=2
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=30
     {
       fadeAlpha-=0.02
@@ -237,7 +237,7 @@ else if global.gameProgress=570 and room=rCCity_NA_S2 //----- [3] Reunion -----
     msgCreate(0,0,"?????","Sounds good to me.",6,3,oMessageCutscene,1)
   else if sceneProgress=19
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=31 and sceneDelay<=81
     {
       cBlend+=5
@@ -334,7 +334,7 @@ else if global.gameProgress=590 and room=rMain_8Gate //----- [4] The next Access
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
       global.gamePaused=true
@@ -359,7 +359,7 @@ else if global.gameProgress=610 and room=rMain_8Gate //----- [Unskippable] Acces
 {
   if sceneProgress=0
   {
-    sceneDelay+=1
+    sceneDelay+=1*gDeltaTime
     if sceneDelay>=1
     {
       if sceneDelay=1 {global.gamePaused=true}

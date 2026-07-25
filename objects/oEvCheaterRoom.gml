@@ -30,7 +30,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-sceneDelay+=1
+sceneDelay+=1*gDeltaTime
 if sceneProgress=0 //---------------------------------------- Intro (screen white) ----------------------------------------
 {
   if sceneDelay=60
