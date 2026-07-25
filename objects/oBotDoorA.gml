@@ -26,7 +26,7 @@ if global.gamePaused=false
 {
   if bFunctional=1
   {
-    spawnTime-=1
+    spawnTime-=1*gDeltaTime
     findTargetX=point_distance(oPlayer1.x,0,x,0)
     findTargetY=point_distance(0,oPlayer1.y-26,0,y)
     if findTargetX<=detectDistX and findTargetY<=detectDistY and opening=0
@@ -38,7 +38,7 @@ if global.gamePaused=false
     //Open and spawn enemy
     if opening>=1
     {
-      opening+=1
+      opening+=1*gDeltaTime
       if opening=2
         image_index=1
       else if opening=8

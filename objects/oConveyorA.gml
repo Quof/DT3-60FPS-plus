@@ -45,7 +45,7 @@ if global.gamePaused=false
     if isCollisionCharacterTop(1,0)
     {
       with oPlayer1
-        moveTo(oGame.collisionTempId.pushPower,0)
+        moveTo(oGame.collisionTempId.pushPower*gDeltaTime,0)
     }
   }
 }
@@ -65,7 +65,7 @@ if global.gamePaused=false
     if isCollisionCharacterTop(1,other)
     {
       with other
-        moveTo(oGame.collisionTempId.pushPower,0)
+        moveTo(oGame.collisionTempId.pushPower*gDeltaTime,0)
     }
   }
 }
@@ -86,7 +86,7 @@ if global.gamePaused=false
       if isCollisionCharacterTop(1,other)
       {
         with other
-          moveTo(oGame.collisionTempId.pushPower,0)
+          moveTo(oGame.collisionTempId.pushPower*gDeltaTime,0)
       }
     }
   }
@@ -102,7 +102,7 @@ if global.gamePaused=false
   if isCollisionCharacterTop(1,other)
   {
     with other
-      moveTo(oGame.collisionTempId.pushPower,0)
+      moveTo(oGame.collisionTempId.pushPower*gDeltaTime,0)
   }
 }
 #define Collision_oMoneyPickup
@@ -120,7 +120,7 @@ if global.gamePaused=false
     if isCollisionCharacterTop(1,other)
     {
       with other
-        moveTo(oGame.collisionTempId.pushPower,0)
+        moveTo(oGame.collisionTempId.pushPower*gDeltaTime,0)
     }
   }
 }
@@ -141,7 +141,7 @@ if global.gamePaused=false
       if isCollisionCharacterTop(1,other)
       {
         with other
-          moveTo(oGame.collisionTempId.pushPower,0)
+          moveTo(oGame.collisionTempId.pushPower*gDeltaTime,0)
       }
     }
   }
