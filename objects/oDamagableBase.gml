@@ -5,6 +5,12 @@ action_id=603
 applies_to=self
 */
 bPlayable=false
+
+_speed=0
+_direction=0
+_hspeed=0
+_vspeed=0
+
 charEnemyCreateEvent()
 #define Collision_oPlayer1
 /*"/*'/**//* YYD ACTION
