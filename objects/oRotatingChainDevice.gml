@@ -19,7 +19,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  armsRotation+=rotateSpd
+  armsRotation+=rotateSpd*gDeltaTime
   for(i=0;i<4;i+=1)
   {
     myGrapplePoints[i].x=x+lengthdir_x(75,(i*90)+armsRotation)

@@ -28,7 +28,7 @@ if global.gamePaused=false
   //Break delay after player stands on it
   if breakDelay>0
   {
-    breakDelay-=1
+    breakDelay-=1*gDeltaTime
     if breakDelay=0
     {
       tEffect=instance_create(x+4,y+4,oEffect)
@@ -50,7 +50,7 @@ if global.gamePaused=false
   //Reassemble block after time
   if breakTime>0
   {
-    breakTime-=1
+    breakTime-=1*gDeltaTime
     if breakTime=0 {sprite_index=sMetroidBlockDisappear}
   }
 }

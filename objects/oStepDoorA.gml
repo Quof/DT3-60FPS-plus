@@ -30,7 +30,7 @@ if global.gamePaused=false
 
   if yVel!=0
   {
-    if oGame.time mod 2=0
+    if oGame.time mod (2/gDeltaTime)=0
     {
       var tEffect,efRanScl;
       efRanScl=random(0.3)

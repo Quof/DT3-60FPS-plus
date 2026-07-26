@@ -60,7 +60,7 @@ if global.gamePaused=false
         flashTime=3
       }
       else
-        flashTime-=1
+        flashTime-=1*gDeltaTime
     }
     else
     {
@@ -82,7 +82,7 @@ if global.gamePaused=false
         flashTime=3
       }
       else
-        flashTime-=1
+        flashTime-=1*gDeltaTime
     }
     else
     {

@@ -26,7 +26,7 @@ if global.gamePaused=false
   }
   else
   {
-    standTime-=1
+    standTime-=1*gDeltaTime
     if standTime<=0
     {
       if y>baseY {yVel=-0.5}

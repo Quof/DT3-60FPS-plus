@@ -15,7 +15,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  yVel+=0.2
+  yVel+=0.2*gDeltaTime
   if yVel>12
     yVel=12
 

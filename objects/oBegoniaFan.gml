@@ -24,11 +24,11 @@ if global.gamePaused=false
 {
   if spinning=1
   {
-    if image_speed<0.3 {image_speed+=0.005}
+    if image_speed<0.3 {image_speed+=0.005*gDeltaTime}
   }
   else
   {
-    if image_speed>0 {image_speed-=0.005}
+    if image_speed>0 {image_speed-=0.005*gDeltaTime}
   }
 
   if image_speed>=0.2
@@ -72,7 +72,7 @@ if global.gamePaused=false
 
   if point_distance(x,y,oPlayer1.x,oPlayer1.y)<640 and image_speed>=0.2
   {
-    if oGame.time mod 6=0
+    if oGame.time mod (6/gDeltaTime)=0
     {
       var tEffect;
       if image_angle=0

@@ -19,15 +19,15 @@ if global.gamePaused=false
 {
   if fullSize=0
   {
-    image_xscale+=0.05
-    image_yscale+=0.05
+    image_xscale+=0.05*gDeltaTime
+    image_yscale+=0.05*gDeltaTime
     if image_xscale=1 {fullSize=1}
   }
   else
   {
-    fullSize+=1
-    x+=sin(0.05)
-    y-=ranSpeed
+    fullSize+=1*gDeltaTime
+    x+=sin(0.05)*gDeltaTime
+    y-=ranSpeed*gDeltaTime
 
     if isCollisionSolid() and fullSize>=64 {instance_destroy()}
     if y<-8 or y<view_yview[0]-96 or !isCollisionWaterTop(12) {instance_destroy()}

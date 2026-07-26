@@ -71,9 +71,9 @@ if global.gamePaused=false
         }
       }
     }
-    else {turnDelay-=1}
-    x+=xVel
-    y+=yVel
+    else {turnDelay-=1*gDeltaTime}
+    x+=xVel*gDeltaTime
+    y+=yVel*gDeltaTime
   }
   else
   {

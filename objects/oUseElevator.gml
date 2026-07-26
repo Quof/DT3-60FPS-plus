@@ -62,7 +62,7 @@ if global.gamePaused=false
         //sound_play(snd_ElevatorUse)
         soundDelay=4
       }
-      else {soundDelay-=1}
+      else {soundDelay-=1*gDeltaTime}
     }
   }
   else {yVel=0}

@@ -4,13 +4,15 @@ lib_id=1
 action_id=603
 applies_to=self
 */
+if oGame.time mod (1/gDeltaTime)=0{
+
 tEffect=instance_create(x-12+random(24),y-random(12),oEffect)
 if random(4)>2 {tEffect.sprite_index=sMMshotgunIceEffect}
 else {tEffect.sprite_index=sBelmontWepEffect}
 tEffect.image_speed=0.2+random(0.1); tEffect.ySpd=-1.5-random(3)
-tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0
+tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0}
 
-if oGame.time mod 2=0
+if oGame.time mod (2/gDeltaTime)=0
 {
   if image_alpha=0.3
     image_alpha=0.15
@@ -24,7 +26,7 @@ action_id=603
 applies_to=self
 */
 //Requires: rechargeRate
-if global.gamePaused=false and oGame.time mod rechargeRate=0
+if global.gamePaused=false and oGame.time mod (rechargeRate/gDeltaTime)=0
 {
   if global.activeCharacter=0
   {

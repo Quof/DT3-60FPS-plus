@@ -30,7 +30,7 @@ if global.gamePaused=false
   if isCollisionWaterBottom(-16)
   {
     bSubmerged=1
-    bubbleTime+=1
+    bubbleTime+=1*gDeltaTime
     if bubbleTime>=bubbleDelay
     {
       bubbleSeq+=1

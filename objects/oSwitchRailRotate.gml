@@ -14,7 +14,7 @@ applies_to=self
 */
 if reHitTime>0
 {
-  reHitTime-=1
+  reHitTime-=1*gDeltaTime
   if reHitTime=0
     image_blend=c_white
 }
@@ -43,7 +43,7 @@ applies_to=self
 */
 draw_sprite_ext(sprite_index,image_index,x,y,image_xscale,image_yscale,image_angle,image_blend,image_alpha)
 
-linkFrm+=0.33
+linkFrm+=0.33*gDeltaTime
 myDir=point_direction(x+8,y+8,mySwitch.x+8,mySwitch.y+8)
 myDist=point_distance(x+8,y+8,mySwitch.x+8,mySwitch.y+8)
 draw_sprite_ext(sZapTrap,linkFrm,x+8,y+8,myDist/32,0.5,myDir,c_blue,0.25)

@@ -13,7 +13,6 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if gDeltaDoTicks != 1 { exit; }
 if global.gamePaused=false
 {
   if bCannonInUse=1
@@ -53,7 +52,7 @@ if global.gamePaused=false
     }
     else if cannonProg=1 //FIRE PLAYER FROM CANNON
     {
-      cannonTime+=1
+      cannonTime+=1*gDeltaTime
       awardAwesome(150)
       oPlayer1.xVel=16
       oPlayer1.yVel=-16
