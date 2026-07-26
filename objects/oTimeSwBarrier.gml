@@ -17,17 +17,26 @@ applies_to=self
 if image_alpha=0.75 {image_alpha=0.25}
 else {image_alpha=0.75}
 
+for(i=0;i<swAmount;i+=1)
+{
+  switchInstances[i] = (GID(switchCount[i]))
+}
+
 //set in the instance creation code
 switchCount=swAmount
 for(i=0;i<swAmount;i+=1)
 {
-  if switchID[i].activated=1
-    switchCount-=1
+  if (switchInstances[i] != noone)
+    if switchInstances[i].activated=1
+      switchCount-=1
 }
 if switchCount<=0
 {
   for(i=0;i<swAmount;i+=1)
-    switchID[i].activated=2
+  {
+    if(switchInstances[i] != noone)
+      switchInstances[i].activated=2
+  }
   instance_destroy()
 }
 #define Draw_0
