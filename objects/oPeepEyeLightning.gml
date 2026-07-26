@@ -13,6 +13,10 @@ bShowDamage=false
 bCanTakeDamage=false
 atkProg=0
 bulletSpeed=5
+_hspeed=0
+_vspeed=0
+_speed=0
+_direction=0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -27,8 +31,11 @@ if global.gamePaused=false
   }
   else if atkProg>=1
   {
-    speed=bulletSpeed
-    atkProg+=1
+    //speed=bulletSpeed
+    _speed=BulletSpeed
+    x += cos(degtorad(_direction)) * _speed * gDeltaTime
+    y -= sin(degtorad(_direction)) * _speed * gDeltaTime
+    atkProg+=1*gDeltaTime
     if atkProg>=45
     {
       if checkScreenArea(x,y,48)=1 {playSound(global.snd_LightballSpread,0,0.94,1)}
@@ -39,8 +46,8 @@ if global.gamePaused=false
         tNewAttack.sprite_index=sprite_index
         tNewAttack.image_xscale=0.5; tNewAttack.image_yscale=0.5; tNewAttack.image_speed=0.5
         tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=4; tNewAttack.decayTime=12
-        tNewAttack.direction=tDir
-        tDir+=360/8
+        tNewAttack._direction=tDir
+        tDir+=(360/8)*gDeltaTime
       }
       instance_destroy()
     }

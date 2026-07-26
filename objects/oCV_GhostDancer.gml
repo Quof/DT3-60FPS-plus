@@ -28,6 +28,11 @@ runAcc=3.25
 atkTime=20
 atkDelay=40
 
+_hspeed=0
+_vspeed=0
+_speed=0
+_direction=0
+
 deathAnim=0
 
 jeremyText="Oh man, these things are hilarious. That flying leap hug attack thing just cracks me up every time."
@@ -93,7 +98,7 @@ if global.gamePaused=false
         xVel=7.5
       else
         xVel=-7.5
-      y-=4
+      y-=4*gDeltaTime
       yVel=-8
     }
 
@@ -102,31 +107,31 @@ if global.gamePaused=false
       if image_xscale=1
       {
         if image_angle>-60
-          image_angle-=3
+          image_angle-=3*gDeltaTime
       }
       else if image_xscale=-1
       {
         if image_angle<60
-          image_angle+=3
+          image_angle+=3*gDeltaTime
       }
 
       if xVel>1 and oPlayer1.x<x
       {
         if point_distance(x,0,oPlayer1.x,0)<48
-          xVel-=1
+          xVel-=1*gDeltaTime
         else
-          xVel-=0.25
+          xVel-=0.25*gDeltaTime
       }
       else if xVel<-1 and oPlayer1.x>x
       {
         if point_distance(x,0,oPlayer1.x,0)<48
-          xVel+=1
+          xVel+=1*gDeltaTime
         else
-          xVel+=0.25
+          xVel+=0.25*gDeltaTime
       }
     }
 
-    yVel+=0.4
+    yVel+=0.4*gDeltaTime
     if isCollisionBottom(1)
     {
       yVel=0
@@ -144,7 +149,7 @@ if global.gamePaused=false
       xVel=-runAcc
     if isCollisionSolid()
       y-=2
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
 
     if y>room_height+24
     {
@@ -155,7 +160,7 @@ if global.gamePaused=false
   }
   else if life<=0
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     image_speed=0
     if deathAnim mod 4=0
     {
@@ -165,7 +170,7 @@ if global.gamePaused=false
       tEffect.image_alpha=0.5+(image_alpha/3)
       tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
     }
-    image_alpha-=0.04
+    image_alpha-=0.04*gDeltaTime
     if image_alpha<0 {instance_destroy()}
   }
   enemyStepEvent()

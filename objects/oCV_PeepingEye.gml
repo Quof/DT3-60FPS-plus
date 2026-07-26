@@ -28,6 +28,11 @@ moveTime=35
 moveDelay=35
 moveSpd=2
 
+_hspeed=0
+_vspeed=0
+_speed=0
+_direction=0
+
 shotTime=45
 shotDelay=60
 lightBullet=-1
@@ -92,11 +97,15 @@ if global.gamePaused=false
   {
     //----- Eye Movement -----
     //Circle
-    x+=sin(stepCount)
-    y+=cos(stepCount)
+    x+=sin(stepCount)*gDeltaTime
+    y+=cos(stepCount)*gDeltaTime
     //The rest
-    speed=moveSpd
-    moveTime+=1
+    //speed=moveSpd
+    speed=0
+    _speed=moveSpd
+    x += cos(degtorad(_direction)) * _speed * gDeltaTime
+    y -= sin(degtorad(_direction)) * _speed * gDeltaTime
+    moveTime+=1*gDeltaTime
     if moveTime>=moveDelay
     {
       direction=player_sprite_center()
@@ -124,8 +133,8 @@ if global.gamePaused=false
   }
   else if life<=0
   {
-    deathAnim+=1
-    image_angle+=25
+    deathAnim+=1*gDeltaTime
+    image_angle+=25*gDeltaTime
     if deathAnim=1
     {
       with lightBullet {instance_destroy()}
@@ -154,7 +163,7 @@ if global.gamePaused=false
           tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
           instance_destroy()
         }
-        tailDeath-=1
+        tailDeath-=1*gDeltaTime
         if tailDeath=-1 {deathAnim=100}
       }
     }
@@ -177,13 +186,13 @@ if global.gamePaused=false
       lightBullet.y=eyeTail.y+lengthdir_y(9,eyeTail.image_angle-90)
     }
     //----- Hit Movement -----
-    if xSpd>0{xSpd-=hitFric}
-    else if xSpd<0{xSpd+=hitFric}
-    if ySpd>0{ySpd-=hitFric}
-    else if ySpd<0{ySpd+=hitFric}
+    if xSpd>0{xSpd-=hitFric*gDeltaTime}
+    else if xSpd<0{xSpd+=hitFric*gDeltaTime}
+    if ySpd>0{ySpd-=hitFric*gDeltaTime}
+    else if ySpd<0{ySpd+=hitFric*gDeltaTime}
 
-    x+=xSpd
-    y+=ySpd
+    x+=xSpd*gDeltaTime
+    y+=ySpd*gDeltaTime
 
     //----- Tail Movement -----
     eyePart[0].x=x
@@ -198,8 +207,8 @@ if global.gamePaused=false
     eyeTail.y=eyePart[i-1].y+lengthdir_y(12,-90+eyePart[i-1].image_angle)
     eyeTail.image_angle=eyePart[i-1].image_angle+(segDir)
 
-    stepCount+=pi/60
-    segDir+=sin(stepCount)
+    stepCount+=(pi/60)*gDeltaTime
+    segDir+=sin(stepCount)*gDeltaTime
   }
   enemyStepEvent()
 }

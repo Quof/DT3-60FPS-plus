@@ -16,6 +16,10 @@ maxLife=380
 life=maxLife
 pointWorth=20
 atkPower=5
+_hspeed=0
+_vspeed=0
+_speed=0
+_direction=0
 
 jeremyText="It's just the tail of the Peeping Eye. It sends energy to the end of it and when it builds up enough, it fires the energy toward you. Said energy will break apart after awhile."
 chaoText="Eww, so gross! The way it just... ugh."

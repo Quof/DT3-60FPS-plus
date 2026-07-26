@@ -9,6 +9,9 @@ image_yscale=0.65
 atkProg=0
 bulletSpeed=7.5
 decayTime=120
+
+_speed=0
+_direction=0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

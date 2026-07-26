@@ -27,6 +27,12 @@ inactiveDist*=2
 
 currHspd=0
 currVspd=0
+hspeed=0
+vspeed=0
+_hspeed=0
+_vspeed=0
+_speed=0
+_direction=0
 
 deathAnim=0
 
@@ -57,27 +63,31 @@ if global.gamePaused=false
 
       if x>oPlayer1.x
       {
-        if currHspd>-maxSpeed {currHspd-=0.1}
-        else {currHspd=-maxSpeed}
+        if currHspd>-maxSpeed {currHspd-=0.1*gDeltaTime}
+        else {currHspd=-maxSpeed*gDeltaTime}
       }
       else if x<oPlayer1.x
       {
-        if currHspd<maxSpeed {currHspd+=0.1}
-        else {currHspd=maxSpeed}
+        if currHspd<maxSpeed {currHspd+=0.1*gDeltaTime}
+        else {currHspd=maxSpeed*gDeltaTime}
       }
       if y>oPlayer1.y-26
       {
-        if currVspd>-maxSpeed {currVspd-=0.1}
-        else {currVspd=-maxSpeed}
+        if currVspd>-maxSpeed {currVspd-=0.1*gDeltaTime}
+        else {currVspd=-maxSpeed*gDeltaTime}
       }
       else if y<oPlayer1.y-26
       {
-        if currVspd<maxSpeed {currVspd+=0.1}
-        else {currVspd=maxSpeed}
+        if currVspd<maxSpeed {currVspd+=0.1*gDeltaTime}
+        else {currVspd=maxSpeed*gDeltaTime}
       }
-      hspeed=currHspd; vspeed=currVspd
+      //hspeed=currHspd; vspeed=currVspd
+      _hspeed=currHspd
+      _vspeed=currVspd
+      x += _hspeed * gDeltaTime
+      y += _vspeed * gDeltaTime
     }
-    else {hspeed=0; vspeed=0}
+    else {hspeed=0; vspeed=0; _vspeed=0; _hspeed=0}
   }
   else if life<=0
   {
@@ -92,7 +102,7 @@ if global.gamePaused=false
       tEffect.sprite_index=sDeathFlameA; tEffect.image_speed=0.33; tEffect.image_xscale=2; tEffect.image_yscale=2; tEffect.image_alpha=0.8
       tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
     }
-    image_alpha-=0.03
+    image_alpha-=0.03*gDeltaTime
     if image_alpha<0 {instance_destroy()}
   }
   enemyStepEvent()

@@ -58,7 +58,7 @@ if global.gamePaused=false
       if x>oPlayer1.x {image_xscale=-1}
       else {image_xscale=1}
 
-      if sprite_index=sCV_SalemWitchIdle {moveTime+=1*gDelaTime}
+      if sprite_index=sCV_SalemWitchIdle {moveTime+=1*gDeltaTime}
       myDistToPlayer=point_distance(x,y,oPlayer1.x,returnPlayerYCenter())
       if moveTime>=70 and myDistToPlayer<=124 //Player is close
       {

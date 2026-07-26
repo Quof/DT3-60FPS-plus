@@ -29,6 +29,11 @@ moneyWorth=10
 affiliation=3
 dieSound=2
 dieEffect=0
+_hspeed=0
+_vspeed=0
+_speed=0
+_direction=0
+
 
 atkSpd=5
 atkProg=0
@@ -63,7 +68,7 @@ if global.gamePaused=false
     }
     else if atkProg=1 //Open Anim / Attack
     {
-      image_index+=0.25
+      image_index+=0.25*gDeltaTime
       if image_index>=1.7
       {
         sprite_index=sCV_Mimic_Bite
@@ -77,12 +82,12 @@ if global.gamePaused=false
           image_xscale=-1
           xVel=-6
         }
-        y-=4
+        y-=4*gDeltaTime
         yVel=-5
       }
     }
 
-    yVel+=0.4
+    yVel+=0.4*gDeltaTime
     if isCollisionBottom(1)
     {
       yVel=0
@@ -107,7 +112,7 @@ if global.gamePaused=false
     }
     if isCollisionSolid()
       y-=2
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
 
     if y>room_height+24
     {
