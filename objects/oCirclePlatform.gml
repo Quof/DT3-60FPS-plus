@@ -31,9 +31,9 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if global.gamePaused=false && gDeltaDoTicks
+if global.gamePaused=false
 {
-  dir+=dirChangeRate
+  dir+=dirChangeRate*gDeltaTime
   xVel=mSpeed*cos(degtorad(dir))
   yVel=mSpeed*sin(degtorad(dir))
 }

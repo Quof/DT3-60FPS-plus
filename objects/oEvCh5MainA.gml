@@ -606,7 +606,7 @@ else if global.gameProgress=1100 and room=rMain_11 //----- [] Decoding east door
       sceneDelay+=1*gDeltaTime
       if sceneDelay>=25
       {
-        progressBar+=1
+        progressBar+=1*gDeltaTime
         if progressBar>=400
         {
           sceneDelay=0
