@@ -15,17 +15,21 @@ explodePointX=oPlayer1.x
 explodePointY=returnPlayerYCenter()
 pointFrm=0
 size=2
+speed=0
+direction=0
+_speed=0
+_direction=0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
 action_id=603
 applies_to=self
 */
-if global.gamePaused=false && gDeltaDoTicks != 0
+if global.gamePaused=false
 {
-  speed=bulletSpeed
-  if sprite_index=sSE_DarkBall {image_angle-=20}
-  else {image_angle=direction}
+  _speed=bulletSpeed
+  if sprite_index=sSE_DarkBall {image_angle-=20*gDeltaTime}
+  else {image_angle=_direction}
 
   if point_distance(x,y,explodePointX,explodePointY)<bulletSpeed
   {
@@ -36,8 +40,11 @@ if global.gamePaused=false && gDeltaDoTicks != 0
     if sprite_index=sSE_DarkBall {newAttack.image_blend=c_purple}
     instance_destroy()
   }
+  speed=0
+  x += cos(degtorad(_direction)) * _speed * gDeltaTime
+  y -= sin(degtorad(_direction)) * _speed * gDeltaTime
 }
-else {speed=0}
+else {speed=0; _speed=0}
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

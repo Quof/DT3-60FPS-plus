@@ -26,20 +26,24 @@ hitWall=0
 atkProg=0
 diff=100
 decay=210
+speed=0
+direction=0
+_speed=0
+_direction=0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
 action_id=603
 applies_to=self
 */
-if global.gamePaused=false && gDeltaDoTicks != 0
+if global.gamePaused=false
 {
-  speed=bulletSpeed
-  image_angle=direction
-  atkProg+=1
+  _speed=bulletSpeed
+  image_angle=_direction
+  atkProg+=1*gDeltaTime
   if atkProg>=targetTime
   {
-    if oGame.time mod 3=0
+    if oGame.time mod (3*gDeltaTime)=0
     {
       var tEffect;
       tEffect=instance_create(x,y,oEffect)
@@ -50,17 +54,17 @@ if global.gamePaused=false && gDeltaDoTicks != 0
     diff=angle_difference(image_angle,player_sprite_center())
     if diff<seekThres and diff>-seekThres
     {
-      if bulletSpeed<maxSpd {bulletSpeed+=accel}
+      if bulletSpeed<maxSpd {bulletSpeed+=accel*gDeltaTime}
     }
     else
     {
-      if bulletSpeed>minSpd {bulletSpeed-=accel}
+      if bulletSpeed>minSpd {bulletSpeed-=accel*gDeltaTime}
     }
 
-    turn_toward_direction(player_sprite_center(),turnSpd)
+    turn_toward_directionEdit(player_sprite_center(),turnSpd)
   }
 
-  decay-=1
+  decay-=1*gDeltaTime
   if decay<=0 {hitWall=2}
   if isCollisionTop(1) {hitWall=1}
   if isCollisionBottom(1) {hitWall=1}
@@ -82,8 +86,12 @@ if global.gamePaused=false && gDeltaDoTicks != 0
     tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
     instance_destroy()
   }
+  speed=0
+  x += cos(degtorad(_direction)) * _speed * gDeltaTime
+  y -= sin(degtorad(_direction)) * _speed * gDeltaTime
+
 }
-else {speed=0}
+else {speed=0; _speed=0}
 #define Collision_oPlayer1
 /*"/*'/**//* YYD ACTION
 lib_id=1

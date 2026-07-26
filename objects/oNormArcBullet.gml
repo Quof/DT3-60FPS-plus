@@ -12,24 +12,28 @@ bShowHealthBar=false
 bShowDamage=false
 bCanTakeDamage=false
 hitWall=0
+_speed=0
+_direction=0
+speed=0
+direction=0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
 action_id=603
 applies_to=self
 */
-if global.gamePaused=false && gDeltaDoTicks != 0
+if global.gamePaused=false
 {
-  speed=bulletSpeed
-  direction+=arcAmt
-  image_angle=direction
+  _speed=bulletSpeed
+  _direction+=arcAmt
+  image_angle=_direction
 
   if arcAmt!=0
   {
     if falloff>0
-      arcAmt-=falloff
+      arcAmt-=falloff*gDeltaTime
     else
-      arcAmt+=falloff
+      arcAmt+=falloff*gDeltaTime
   }
   if arcAmt<0.2 and arcAmt>-0.2
     arcAmt=0
@@ -57,9 +61,12 @@ if global.gamePaused=false && gDeltaDoTicks != 0
     }
     instance_destroy()
   }
+  speed=0
+  x += cos(degtorad(_direction)) * _speed * gDeltaTime
+  y -= sin(degtorad(_direction)) * _speed * gDeltaTime
 }
 else
-  speed=0
+  {speed=0;_speed=0}
 #define Other_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
