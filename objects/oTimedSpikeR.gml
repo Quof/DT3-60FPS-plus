@@ -31,7 +31,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  switchTime+=1
+  switchTime+=1*gDeltaTime
   if switchTime>=switchDelay
   {
     if bCanDealDamage=0

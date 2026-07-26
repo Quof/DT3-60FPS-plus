@@ -99,7 +99,7 @@ if global.gamePaused=false && gDeltaDoTicks != 0
   if endNoRotate=0
     ball.image_angle=(dir+(i*g))*1.5
 
-  e+=swingSpeed
+  e+=swingSpeed*gDeltaTime
   dir=lengthdir_x(maxSwing,e)
   g=lengthdir_x(1,e)
 }

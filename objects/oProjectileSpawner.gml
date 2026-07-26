@@ -23,6 +23,7 @@ spriteUse=0
 dir=0
 bulletSpeed=0
 alarm[0]=1
+_direction=0
 #define Alarm_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -59,12 +60,12 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  shootTime+=1
+  shootTime+=1*gDeltaTime
   if shootTime>=shootDelay
   {
     newAttack=instance_create(x+8,y+8,objectUse)
     newAttack.sprite_index=spriteUse; newAttack.atkPower=atkPower
-    newAttack.bulletSpeed=bulletSpeed; newAttack.direction=dir
+    newAttack.bulletSpeed=bulletSpeed; newAttack._direction=dir
     if spriteUse=sSkelefire {newAttack.damageType="ELEMENTAL"}
     shootTime=0
   }

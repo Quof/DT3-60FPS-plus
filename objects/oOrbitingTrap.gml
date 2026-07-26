@@ -31,7 +31,7 @@ if global.gamePaused=false
 {
   if sprite_index=sZapTrap or sprite_index=sZapTrapRed {image_angle=dir+95}
 
-  dir+=swingSpeed
+  dir+=swingSpeed*gDeltaTime
   x=sX+lengthdir_x(orbitDist,dir)
   y=sY+lengthdir_y(orbitDist,dir)
 }

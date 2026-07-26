@@ -54,7 +54,7 @@ if global.gamePaused=false
   }
   if seekTime>0
   {
-    seekTime-=1
+    seekTime-=1*gDeltaTime
     if isCollisionBottom(1)
     {
       bReturning=true
@@ -66,12 +66,12 @@ if global.gamePaused=false
       yVel=0
     }
   }
-  if bReturning=false {moveTo(xVel,yVel)}
+  if bReturning=false {moveTo(xVel*gDeltaTime,yVel*gDeltaTime)}
 
   //Return to original position
   if bReturning=true
   {
-    y-=seekSpeed/3
+    y-=(seekSpeed/3)*gDeltaTime
     if y<=ystart
     {
       y=ystart

@@ -20,8 +20,11 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  speed=9
-  decayTime-=1
+  _speed=9
+  speed=0
+  x += cos(degtorad(_direction)) * _speed * gDeltaTime
+  y -= sin(degtorad(_direction)) * _speed * gDeltaTime
+  decayTime-=1*gDeltaTime
   if decayTime<=0 {instance_destroy()}
 }
-else {speed=0}
+else {speed=0;_speed=0}

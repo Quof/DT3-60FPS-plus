@@ -31,7 +31,7 @@ applies_to=self
 */
 if bWave=0
 {
-  waveTime+=1
+  waveTime+=1*gDeltaTime
   if waveTime>=210
   {
     bWave=1
@@ -41,7 +41,7 @@ if bWave=0
   }
 }
 
-lightFlash+=1
+lightFlash+=1*gDeltaTime
 if lightFlash=60
 {
   image_blend=c_yellow

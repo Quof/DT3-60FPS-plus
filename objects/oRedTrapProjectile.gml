@@ -12,6 +12,9 @@ bShowHealthBar=false
 bCanTakeDamage=false
 bBlownUp=false
 size=1
+
+_speed=0
+_direction=0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -20,8 +23,8 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  image_angle=direction
-  speed=bulletSpeed
+  image_angle=_direction
+  _speed=bulletSpeed
   dist=point_distance(x,y,xstart,ystart)
   if dist>32
   {
@@ -37,9 +40,11 @@ if global.gamePaused=false
     if bBlownUp=true
       instance_destroy()
   }
+  x += cos(degtorad(_direction)) * _speed * gDeltaTime
+  y -= sin(degtorad(_direction)) * _speed * gDeltaTime
 }
 else
-  speed=0
+  {speed=0; _speed=0}
 #define Collision_oPlayer1
 /*"/*'/**//* YYD ACTION
 lib_id=1

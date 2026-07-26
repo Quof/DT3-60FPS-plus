@@ -39,17 +39,17 @@ if global.gamePaused=false
       else {xVel=moveSpeed}
       bTargetFound=true
     }
-    image_xscale+=0.025; image_yscale+=0.025
+    image_xscale+=0.025*gDeltaTime; image_yscale+=0.025*gDeltaTime
 
     setCollisionBounds(-15*image_xscale,-15*image_yscale,15*image_xscale,15*image_yscale)
 
-    if yVel<3 {yVel+=0.2}
+    if yVel<3 {yVel+=0.2*gDeltaTime}
     if xVel<0
-      image_angle+=5
+      image_angle+=5*gDeltaTime
     else
-      image_angle-=5
+      image_angle-=5*gDeltaTime
 
-    decayTime-=1
+    decayTime-=1*gDeltaTime
     if decayTime<=0
     {
       for(i=0;i<20;i+=1)

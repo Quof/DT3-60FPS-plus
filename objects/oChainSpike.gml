@@ -19,17 +19,17 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  image_angle+=swingSpeed
+  image_angle+=swingSpeed*gDeltaTime
 
   if image_angle>360
   {
-    swingSpeed-=0.05
+    swingSpeed-=0.05*gDeltaTime
     if swingSpeed<-4
       swingSpeed=-4
   }
   else
   {
-    swingSpeed+=0.05
+    swingSpeed+=0.05*gDeltaTime
     if swingSpeed>4
       swingSpeed=4
   }

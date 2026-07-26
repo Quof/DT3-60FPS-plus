@@ -12,6 +12,7 @@ setCollisionBounds(-2,-2,2,2)
 bShowHealthBar=false
 bCanTakeDamage=false
 size=1
+_direction=0
 
 weight=50
 grav=0.2
@@ -23,7 +24,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  image_angle=direction
+  image_angle=_direction
   dist=point_distance(x,y,xstart,ystart)
   if dist>24
   {
@@ -38,8 +39,8 @@ if global.gamePaused=false
     if isCollisionSolid()
       instance_destroy()
   }
-  yVel+=grav
-  moveTo(xVel,yVel)
+  yVel+=grav*gDeltaTime
+  moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
 
   if y>room_height+32
     instance_destroy()

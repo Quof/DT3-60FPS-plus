@@ -28,7 +28,7 @@ if global.gamePaused=false
   }
   else if mineProg=1
   {
-    mineTime+=1
+    mineTime+=1*gDeltaTime
     if mineTime mod 5=0
     {
       if image_blend=c_white {image_blend=c_navy}

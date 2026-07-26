@@ -62,7 +62,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-xx+=1
+xx+=1*gDeltaTime
 if xx=16 {xx=0}
 for(i=0;i<image_xscale;i+=1)
 {

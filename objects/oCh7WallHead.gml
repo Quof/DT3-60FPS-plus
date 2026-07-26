@@ -26,11 +26,11 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  shotTime+=1*jawSpd
+  shotTime+=1*jawSpd*gDeltaTime
   if shotTime>=shotDelay and shotTime<=shotDelay+19
   {
-    if image_xscale=1 {jawAngle-=1*jawSpd}
-    else {jawAngle+=1*jawSpd}
+    if image_xscale=1 {jawAngle-=1*jawSpd*gDeltaTime}
+    else {jawAngle+=1*jawSpd*gDeltaTime}
   }
   else if shotTime=shotDelay+24
   {
@@ -40,12 +40,12 @@ if global.gamePaused=false
     newAttack.image_index=1
     newAttack.atkPower=atkPower
     newAttack.bulletSpeed=7
-    if image_xscale=-1 {newAttack.direction=180}
+    if image_xscale=-1 {newAttack._direction=180}
   }
   else if shotTime>=shotDelay+30 and shotTime<=shotDelay+49
   {
-    if image_xscale=1 {jawAngle+=1*jawSpd}
-    else {jawAngle-=1*jawSpd}
+    if image_xscale=1 {jawAngle+=1*jawSpd*gDeltaTime}
+    else {jawAngle-=1*jawSpd*gDeltaTime}
   }
   else if shotTime>=shotDelay+49 {jawAngle=0; shotTime=0}
 }

@@ -44,7 +44,7 @@ if findTargetX<drawRangeX and findTargetY<drawRangeY
     }
   }
 
-  if oGame.time mod 3=0 //Sparkle effect
+  if oGame.time mod (3/gDeltaTime)=0 //Sparkle effect
   {
     var tEffect;
     //top

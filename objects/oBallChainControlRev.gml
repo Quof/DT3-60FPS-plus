@@ -51,7 +51,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if global.gamePaused=false && gDeltaDoTicks != 0
+if global.gamePaused=false
 {
   followInstance()
   for(i=1;i<=maxChain;i+=1)
@@ -66,7 +66,7 @@ if global.gamePaused=false && gDeltaDoTicks != 0
   if endNoRotate=0
     ball.image_angle=dir*1.5
 
-  e+=swingSpeed
+  e+=swingSpeed*gDeltaTime
   dir=lengthdir_x(maxSwing,e)
   g=lengthdir_x(1,e)
 }

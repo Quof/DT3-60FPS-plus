@@ -18,8 +18,8 @@ if global.gamePaused=false
 {
   if bGrav=1
   {
-    yVel+=0.3
-    moveTo(xVel,yVel)
+    yVel+=0.3*gDeltaTime
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
 
     if isCollisionSolid() {y-=2}
     if y>room_height+24 {instance_destroy()}

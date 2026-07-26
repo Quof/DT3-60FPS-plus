@@ -18,7 +18,7 @@ applies_to=self
 //Advance death wall
 if global.gamePaused=false
 {
-  x+=xSpd
+  x+=xSpd*gDeltaTime
   if x+xThres>=oPlayer1.x
     oPlayer1.life-=oPlayer1.maxLife
 }
@@ -38,7 +38,7 @@ if type=0 //Castlevania - C - Spike Wall
 }
 else if type=1 //Mega Man - Toxic Jungle - Fire Wall
 {
-  flameFrm+=0.15
+  flameFrm+=0.15*gDeltaTime
   for(i=0;i<7;i+=1)
   {
     for(ii=0;ii<8;ii+=1)
