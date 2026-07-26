@@ -73,9 +73,9 @@ if global.gamePaused=false
 
   if oPlayer1.hitCombo>0 //Hit Combo fade
   {
-    hitComboFadeTime-=1
+    hitComboFadeTime-=1*gDeltaTime
     if hitComboFadeTime<=25
-      hitComboAlpha-=0.04
+      hitComboAlpha-=0.04*gDeltaTime
     if hitComboFadeTime<=0
     {
       if oPlayer1.hitCombo>=3
@@ -110,9 +110,9 @@ if global.gamePaused=false
   }
   if oPlayer1.killChain>0 //Kill Chain fade
   {
-    killChainFadeTime-=1
+    killChainFadeTime-=1*gDeltaTime
     if killChainFadeTime<=25
-      killChainAlpha-=0.04
+      killChainAlpha-=0.04*gDeltaTime
     if killChainFadeTime<=0
       oPlayer1.killChain=0
   }
