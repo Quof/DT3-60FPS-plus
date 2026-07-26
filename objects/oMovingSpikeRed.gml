@@ -38,14 +38,14 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  x+=moveSpd*cos(degtorad(direction))
-  y+=-moveSpd*sin(degtorad(direction))
+  x+=moveSpd*cos(degtorad(direction))*gDeltaTime
+  y+=-moveSpd*sin(degtorad(direction))*gDeltaTime
   if shiftTime>=shiftMax
   {
     shiftTime=0
     direction+=180
   }
-  else {shiftTime+=1}
+  else {shiftTime+=1*gDeltaTime}
 }
 #define Collision_oPlayer1
 /*"/*'/**//* YYD ACTION

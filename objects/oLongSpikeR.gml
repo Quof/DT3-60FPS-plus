@@ -65,8 +65,8 @@ if global.gamePaused=false
     seekTime-=1
     if seekTime>0 //Extend spike
     {
-      extendDist-=seekSpeed
-      xCheck-=seekSpeed
+      extendDist-=seekSpeed*gDeltaTime
+      xCheck-=seekSpeed*gDeltaTime
     }
     else if seekTime<-waitTime
     {
@@ -80,8 +80,8 @@ if global.gamePaused=false
       }
       else //Retract spike
       {
-        extendDist+=seekSpeed
-        xCheck+=seekSpeed
+        extendDist+=seekSpeed*gDeltaTime
+        xCheck+=seekSpeed*gDeltaTime
       }
     }
     image_yscale=8-extendDist

@@ -59,11 +59,11 @@ if global.gamePaused=false
       bTargetFound=true
       seekTime=seekMax
     }
-    seekTime-=1
+    seekTime-=1*gDeltaTime
     if seekTime>0 //Extend spike
     {
-      extendDist+=seekSpeed
-      yCheck+=seekSpeed
+      extendDist+=seekSpeed*gDeltaTime
+      yCheck+=seekSpeed*gDeltaTime
     }
     else if seekTime<-waitTime
     {
@@ -77,8 +77,8 @@ if global.gamePaused=false
       }
       else //Retract spike
       {
-        extendDist-=seekSpeed
-        yCheck-=seekSpeed
+        extendDist-=seekSpeed*gDeltaTime
+        yCheck-=seekSpeed*gDeltaTime
       }
     }
     image_yscale=8+extendDist

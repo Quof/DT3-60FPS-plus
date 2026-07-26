@@ -41,7 +41,7 @@ if global.gamePaused=false
     }
     else
     {
-      if oGame.time mod 2=0 and checkScreenArea(x,y,224)=1
+      if oGame.time mod (2/gDeltaTime)=0 and checkScreenArea(x,y,224)=1
       {
         var tEffect;
         tEffect=instance_create(x+lengthdir_x(8*i,image_angle)+random_range(-2,2),y+lengthdir_y(8*i,image_angle)+random_range(-2,2),oEffect)
@@ -56,20 +56,20 @@ if global.gamePaused=false
   //Color change
   if colPhase=0
   {
-    colTime-=5
+    colTime-=5*gDeltaTime
     if colTime<=135 {colPhase=1}
   }
   else if colPhase=1
   {
-    colTime+=5
+    colTime+=5*gDeltaTime
     if colTime>=255 {colPhase=0}
   }
 
   //Rotate
-  rotTime+=1
+  rotTime+=1*gDeltaTime
   if rotatePhase=0
   {
-    image_angle+=rotSpd
+    image_angle+=rotSpd*gDeltaTime
     if rotTime>=rotMax
     {
       myDir=image_angle
@@ -86,7 +86,7 @@ if global.gamePaused=false
   }
   else if rotatePhase=2
   {
-    image_angle-=rotSpd
+    image_angle-=rotSpd*gDeltaTime
     if rotTime>=rotMax
     {
       myDir=image_angle

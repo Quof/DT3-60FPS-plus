@@ -25,6 +25,10 @@ bCanTakeDamage=false
 bCauseKnockback=true
 bShowHealthBar=false
 changeTime=0
+speed=0
+direction=0
+_speed=0
+_direction=0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -33,16 +37,18 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  image_angle+=spinSpd
-  speed=moveSpd
-  changeTime+=1
+  image_angle+=spinSpd*gDeltaTime
+  _speed=moveSpd
+  changeTime+=1*gDeltaTime
   if changeTime>=changeDelay
   {
-    direction+=180
+    _direction+=180
     changeTime=0
   }
+  x += cos(degtorad(_direction)) * _speed * gDeltaTime
+  y -= sin(degtorad(_direction)) * _speed * gDeltaTime
 }
-else {speed=0}
+else {speed=0; _speed=0}
 #define Collision_oPlayer1
 /*"/*'/**//* YYD ACTION
 lib_id=1
