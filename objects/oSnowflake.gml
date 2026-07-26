@@ -7,6 +7,8 @@ applies_to=self
 image_speed=0
 image_alpha=0.4+random(0.1)
 alarm[0]=1
+_hspeed=0
+_vspeed=0
 #define Alarm_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

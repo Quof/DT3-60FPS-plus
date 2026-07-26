@@ -59,7 +59,7 @@ if animPlayerExit>0 //Going down pipe
 
 if sprite_index=sPillarOfLight
 {
-  if oGame.time mod 2*gDeltaTime=0
+  if oGame.time mod (2/gDeltaTime)=0
   {
     if image_alpha=0.75 {image_alpha=0.5}
     else {image_alpha=0.75}
@@ -70,11 +70,11 @@ if sprite_index=sWS_MetalDoor
 {
   if point_distance(x,y+24,oPlayer1.x,oPlayer1.y-26)<96
   {
-    if lockFrm<5 {lockFrm+=0.5}
+    if lockFrm<5 {lockFrm+=0.5*gDeltaTime}
   }
   else
   {
-    if lockFrm>0 {lockFrm-=0.5}
+    if lockFrm>0 {lockFrm-=0.5*gDeltaTime}
   }
 }
 
@@ -225,8 +225,8 @@ if sprite_index=sKirbyDoorway
 else if sprite_index=sExit {image_alpha=0}
 else if sprite_index=sWarpGateStand
 {
-  draw_sprite_ext(sWarpGatePortal,image_index,x,y-35,image_xscale,image_yscale,oGame.time*10,image_blend,0.33)
-  draw_sprite_ext(sWarpGatePortal,image_index,x,y-35,image_xscale,image_yscale,-oGame.time*8,image_blend,0.33)
+  draw_sprite_ext(sWarpGatePortal,image_index,x,y-35,image_xscale,image_yscale,oGame.time*(10*gDeltaTime),image_blend,0.33)
+  draw_sprite_ext(sWarpGatePortal,image_index,x,y-35,image_xscale,image_yscale,-oGame.time*(8*gDeltaTime),image_blend,0.33)
   draw_sprite(sprite_index,image_index,x,y)
 }
 else if sprite_index=sWS_MetalDoor
