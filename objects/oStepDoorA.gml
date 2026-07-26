@@ -17,7 +17,15 @@ applies_to=self
 //if the character is standing on the switch
 if global.gamePaused=false
 {
-  if (ownerID1.y=ownerID1.baseY+16) or (ownerID2.y=ownerID2.baseY+16)
+  if (ownerID1 == noone)
+  {
+    ownerID1 = GID(ownerRawID1)
+  }
+  if (ownerID2 = noone)
+  {
+    ownerID2 = GID(ownerRawID2)
+  }
+  if (ownerID1 != noone and ownerID1.y=ownerID1.baseY+16) or (ownerID2 != noone and ownerID2.y=ownerID2.baseY+16)
   {
     if y>baseY-64 {yVel=-1}
     else {yVel=0}
