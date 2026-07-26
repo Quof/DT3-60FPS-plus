@@ -17,4 +17,8 @@ if image_alpha=0.9 {image_alpha=0.8}
 else {image_alpha=0.9}
 
 //set in the instance creation code
-if switchID.activated=1 {instance_destroy()}
+switchInstance = GID(switchID)
+if (switchInstance != noone)
+{
+  if switchInstance.activated=1 {instance_destroy()}
+}
