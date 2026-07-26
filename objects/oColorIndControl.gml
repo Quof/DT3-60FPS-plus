@@ -42,7 +42,7 @@ if global.gamePaused=false
 {
   if bWillDamagePlayer>0
     bWillDamagePlayer-=1
-  warnTime-=1
+  if gDeltaDoTicks warnTime-=1
   if warnTime>=1 and warnTime<=90
   {
     if bWarnStart=0 and warnTime<=90
@@ -66,7 +66,7 @@ if global.gamePaused=false
       warnScale=4
       bWarnStart=3
     }
-    warnRotate-=10
+    warnRotate-=10*gDeltaTime
   }
   if warnTime<=0
   {

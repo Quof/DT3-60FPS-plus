@@ -16,6 +16,8 @@ flashTime=0
 innerAlpha=0.5
 sprite_index=sScaledCollision
 moveTime=0
+_speed=0
+_direction=0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -42,7 +44,7 @@ if global.gamePaused=false
       flashTime=3
     }
     else
-      flashTime-=1
+      flashTime-=1*gDeltaTime
   }
   else
   {
@@ -52,16 +54,19 @@ if global.gamePaused=false
 
   if moveSpd>0
   {
-    speed=moveSpd
-    moveTime+=1
+    _speed=moveSpd
+    speed=0
+    moveTime+=1*gDeltaTime
     if moveTime>=moveDelay
     {
       moveTime=0
-      direction+=180
+      _direction+=180
     }
+    x += cos(degtorad(_direction)) * _speed * gDeltaTime
+    y -= sin(degtorad(_direction)) * _speed * gDeltaTime
   }
 }
-else {speed=0}
+else {speed=0; _speed=0}
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
