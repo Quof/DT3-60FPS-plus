@@ -28,6 +28,8 @@ xSpd=0; ySpd=0
 moveSpd=0
 moveTime=20
 moveDir=0
+_direction=0
+_speed=0
 
 shotTime=60
 shotDelay=100
@@ -56,7 +58,7 @@ if global.gamePaused=false
       if x>oPlayer1.x {image_xscale=-1}
       else {image_xscale=1}
 
-      if sprite_index=sCV_SalemWitchIdle {moveTime+=1}
+      if sprite_index=sCV_SalemWitchIdle {moveTime+=1*gDelaTime}
       myDistToPlayer=point_distance(x,y,oPlayer1.x,returnPlayerYCenter())
       if moveTime>=70 and myDistToPlayer<=124 //Player is close
       {
@@ -72,14 +74,18 @@ if global.gamePaused=false
       }
       if moveSpd>0
       {
-        moveSpd-=0.2
+        moveSpd-=0.2*gDeltaTime
         if moveSpd<=0.25 {moveSpd=0}
       }
-      direction=moveDir
-      speed=moveSpd
+      //direction=moveDir
+      //speed=moveSpd
+      _direction=moveDir
+      _speed=moveSpd
+      x += cos(degtorad(_direction)) * _speed * gDeltaTime
+      y -= sin(degtorad(_direction)) * _speed * gDeltaTime
 
       //----- Attack -----
-      shotTime+=1
+      shotTime+=1*gDeltaTime
       if shotTime=shotDelay {sprite_index=sCV_SalemWitchCast}
       else if shotTime=shotDelay+10
       {
@@ -89,7 +95,7 @@ if global.gamePaused=false
         {
           myFire[i]=instance_create(x,y,oSalemWitchFire)
           myFire[i].atkPower=atkPower
-          myFire[i].direction=tDir+90+(i*180)
+          myFire[i]._direction=tDir+90+(i*180)
         }
       }
       else if shotTime=shotDelay+50
@@ -98,14 +104,14 @@ if global.gamePaused=false
         shotTime=0
       }
     }
-    else {speed=0}
+    else {speed=0; _speed=0}
   }
   else if life<=0
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
-      speed=0
+      speed=0; _speed=0
       sprite_index=sCV_SalemWitchDie
       for(i=0;i<2;i+=1)
       {
@@ -120,17 +126,17 @@ if global.gamePaused=false
       tEffect.image_alpha=0.5+(image_alpha/3)
       tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
     }
-    image_alpha-=0.02
+    image_alpha-=0.02*gDeltaTime
     if image_alpha<0 {instance_destroy()}
   }
 
   //----- Hit Movement -----
-  if xSpd>0{xSpd-=hitFric}
-  else if xSpd<0{xSpd+=hitFric}
-  if ySpd>0{ySpd-=hitFric}
-  else if ySpd<0{ySpd+=hitFric}
+  if xSpd>0{xSpd-=hitFric*gDeltaTime}
+  else if xSpd<0{xSpd+=hitFric*gDeltaTime}
+  if ySpd>0{ySpd-=hitFric*gDeltaTime}
+  else if ySpd<0{ySpd+=hitFric*gDeltaTime}
 
-  x+=xSpd; y+=ySpd
+  x+=xSpd*gDeltaTime; y+=ySpd*gDeltaTime
 
   enemyStepEvent()
 }
