@@ -17,15 +17,15 @@ if global.gamePaused=false
 {
   if atkProg>=1 and atkProg<=5
   {
-    atkProg+=1
-    image_xscale+=0.1
-    image_yscale+=0.1
+    atkProg+=1*gDeltaTime
+    image_xscale+=0.1*gDeltaTime
+    image_yscale+=0.1*gDeltaTime
   }
   else if atkProg>=10
   {
-    image_xscale-=0.19
-    image_yscale-=0.19
-    image_alpha-=0.1
+    image_xscale-=0.19*gDeltaTime
+    image_yscale-=0.19*gDeltaTime
+    image_alpha-=0.1*gDeltaTime
     if image_alpha<=0.5 {instance_destroy()}
   }
 }

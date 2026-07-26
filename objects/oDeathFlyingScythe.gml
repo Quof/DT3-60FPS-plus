@@ -16,13 +16,15 @@ circleRad=20
 spinSpd=-15
 decayTime=240
 alarm[0]=1
+_speed=0
+_direction=0
 #define Alarm_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
 action_id=603
 applies_to=self
 */
-if direction>90 and direction<270
+if _direction>90 and _direction<270
 {
   spinSpd*=-1
   image_xscale=-1
@@ -37,7 +39,7 @@ if global.gamePaused=false
 {
   if atkProg=0
   {
-    circleRad-=1
+    circleRad-=1*gDeltaTime
     if circleRad<=0
     {
       bCanDealDamage=true
@@ -46,13 +48,16 @@ if global.gamePaused=false
   }
   else if atkProg=1
   {
-    speed=bulletSpeed
-    image_angle+=spinSpd
-    decayTime-=1
+    speed=0
+    _speed=bulletSpeed
+    x += cos(degtorad(_direction)) * _speed * gDeltaTime
+    y -= sin(degtorad(_direction)) * _speed * gDeltaTime
+    image_angle+=spinSpd*gDeltaTime
+    decayTime-=1*gDeltaTime
     if decayTime<=0 {instance_destroy()}
   }
 }
-else {speed=0}
+else {speed=0; _speed=0}
 #define Other_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

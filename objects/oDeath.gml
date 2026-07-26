@@ -146,8 +146,8 @@ if global.gamePaused=false
       }
 
       //Jumping
-      jumpTime+=1
-      if chkMove>208 {jumpTime+=1}
+      jumpTime+=1*gDeltaTime
+      if chkMove>208 {jumpTime+=1*gDeltaTime}
       if jumpTime>=jumpDelay
       {
         if jumpTime<=jumpDelay+100
@@ -190,8 +190,8 @@ if global.gamePaused=false
         if jumpTime>=11001 //Spin
         {
           if oGame.time mod 5=0 {playSound(global.snd_DeathSlash,0,0.95,38000)}
-          if xVel>0 {image_angle-=30}
-          else {image_angle+=30}
+          if xVel>0 {image_angle-=30*gDeltaTime}
+          else {image_angle+=30*gDeltaTime}
         }
       }
 
@@ -232,7 +232,7 @@ if global.gamePaused=false
       }
       else if shielding>=2
       {
-        shielding+=1
+        shielding+=1*gDeltaTime
         if shielding>=30
         {
           sprite_index=sDeathWalk
@@ -314,7 +314,7 @@ if global.gamePaused=false
       }
 
       //---------- ATTACK: FLYING SCYTHE ----------
-      flyScyTime+=1
+      flyScyTime+=1*gDeltaTime
       if flyScyTime>=flyScyDelay
       {
         var tAtkScythe,tScyY;
@@ -322,14 +322,14 @@ if global.gamePaused=false
         tAtkScythe=instance_create(scythePos,tScyY,oDeathFlyingScythe)
         tAtkScythe.atkPower=atkPower
         tAtkScythe.bulletSpeed=2.5
-        tAtkScythe.direction=point_direction(scythePos,tScyY,oPlayer1.x,returnPlayerYCenter())
+        tAtkScythe._direction=point_direction(scythePos,tScyY,oPlayer1.x,returnPlayerYCenter())
         scythePos+=scytheSpacing
         if scythePos=96+(scytheSpacing*7) {scythePos=96}
         flyScyTime=0
       }
 
       //---------- ATTACK: SPECIAL SCYTHE SPAWN ----------
-      specFSaTime+=1
+      specFSaTime+=1*gDeltaTime
       if specFSaTime>=specFSaDelay
       {
         if specFSaTime<=specFSaDelay+100 //Check updates
@@ -362,7 +362,7 @@ if global.gamePaused=false
       }
       if specSpawnProg>=1 //Spawn special attack scythes
       {
-        specSpawnProg+=1
+        specSpawnProg+=1*gDeltaTime
         if specSpawnProg=2
         {
           if random(10)>6
@@ -395,7 +395,7 @@ if global.gamePaused=false
             tAtkScythe=instance_create(scyPX,scyPY,oDeathFlyingScythe)
             tAtkScythe.atkPower=atkPower
             tAtkScythe.bulletSpeed=2.5
-            tAtkScythe.direction=point_direction(scyPX,scyPY,oPlayer1.x,returnPlayerYCenter())
+            tAtkScythe._direction=point_direction(scyPX,scyPY,oPlayer1.x,returnPlayerYCenter())
             scyPY+=48
             specSpawnSeq+=1
           }
@@ -409,7 +409,7 @@ if global.gamePaused=false
             tAtkScythe=instance_create(scyPX,scyPY,oDeathFlyingScythe)
             tAtkScythe.atkPower=atkPower
             tAtkScythe.bulletSpeed=2.5
-            tAtkScythe.direction=point_direction(scyPX,scyPY,oPlayer1.x,returnPlayerYCenter())
+            tAtkScythe._direction=point_direction(scyPX,scyPY,oPlayer1.x,returnPlayerYCenter())
             scyPY+=48
             specSpawnSeq+=1
           }
@@ -422,7 +422,7 @@ if global.gamePaused=false
             var tAtkScythe;
             tAtkScythe=instance_create(scyPX,100,oDeathFlyingScythe)
             tAtkScythe.atkPower=atkPower; tAtkScythe.bulletSpeed=2.5
-            tAtkScythe.direction=point_direction(scyPX,100,oPlayer1.x,returnPlayerYCenter())
+            tAtkScythe._direction=point_direction(scyPX,100,oPlayer1.x,returnPlayerYCenter())
             scyPX+=scytheSpacing
             specSpawnSeq+=1
           }
@@ -449,8 +449,8 @@ if global.gamePaused=false
     }
     else if superProg=2 //Fly up
     {
-      y-=8
-      if y<=-8
+      y-=8*gDeltaTime
+      if y<=-8*gDeltaTime
       {
         x=304; y=-8
         sprite_index=sDeathStandBack
@@ -462,16 +462,16 @@ if global.gamePaused=false
     }
     else if superProg=3 //Wait and fly down
     {
-      superTime+=1
+      superTime+=1*gDeltaTime
       if superTime>=15
       {
-        y+=4
+        y+=4*gDeltaTime
         if y>=224 {superTime=0; superProg+=1}
       }
     }
     else if superProg=4
     {
-      superTime+=1
+      superTime+=1*gDeltaTime
       if superTime mod superScyTime=0 and superTime>=1
       {
         playSound(global.snd_OrbThrow,0,0.95,40000)
@@ -479,7 +479,7 @@ if global.gamePaused=false
         tAtkScythe=instance_create(x,y,oDeathFlyingScythe)
         tAtkScythe.x=x+lengthdir_x(superScyDist,superScyDir); tAtkScythe.y=y+lengthdir_y(superScyDist,superScyDir)
         tAtkScythe.atkPower=atkPower; tAtkScythe.bulletSpeed=superScySpd
-        tAtkScythe.direction=point_direction(x+lengthdir_x(superScyDist,superScyDir),y+lengthdir_y(superScyDist,superScyDir),oPlayer1.x,oPlayer1.y-26)
+        tAtkScythe._direction=point_direction(x+lengthdir_x(superScyDist,superScyDir),y+lengthdir_y(superScyDist,superScyDir),oPlayer1.x,oPlayer1.y-26)
         superScyDir+=superScySpac
       }
       
@@ -524,7 +524,7 @@ if global.gamePaused=false
     }
     else if superProg=5 //End super attack
     {
-      y-=8
+      y-=8*gDeltaTime
       if y<=-64
       {
         sprite_index=sDeathRoll
@@ -537,7 +537,7 @@ if global.gamePaused=false
     }
     
     if superProg<=1
-      yVel+=0.2
+      yVel+=0.2*gDeltaTime
     
     if isCollisionBottom(1)
     {
@@ -562,7 +562,7 @@ if global.gamePaused=false
     }
     if isCollisionSolid()
       y-=2
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
     
     //---------- Boss Difficulty Curve ----------
     if myHS.lifePercent<=0.89 and myHS.lifePercent>=0.78 and bossProgress=0
@@ -622,7 +622,7 @@ if global.gamePaused=false
   }
   else if myHS.life<=0 //Defeat animation
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       depth=26
@@ -634,7 +634,7 @@ if global.gamePaused=false
     }
     else if deathAnim>=2 and deathAnim<=55
     {
-      if oGame.time mod 2=0
+      if oGame.time mod (2/gDeltaTime)=0
       {
         var tEffect;
         tEffect=instance_create((x-sprite_width/2)+random(sprite_width),(y-sprite_height)+random(sprite_height),oEffect)
@@ -653,11 +653,11 @@ if global.gamePaused=false
     }
     else if deathAnim>=57 and deathAnim<=999
     {
-      if x<xCenter {x+=2}
-      else {x-=2}
+      if x<xCenter {x+=2*gDeltaTime}
+      else {x-=2*gDeltaTime}
       
-      if y-22<yGround-128 {y+=2}
-      else {y-=2}
+      if y-22<yGround-128 {y+=2*gDeltaTime}
+      else {y-=2*gDeltaTime}
       
       if blendCol>0 {blendCol-=3}
       myHS.image_blend=make_color_rgb(blendCol,blendCol,blendCol)
@@ -740,7 +740,7 @@ applies_to=self
 */
 //-- ATTACK: SLASH A (SPIN) -- Intended for player to jump
 
-atkSwingTime+=1*atkSwingScale
+atkSwingTime+=1*atkSwingScale*gDeltaTime
 if atkSwingTime<=2
 {
   sprite_index=sDeathReadyA
@@ -778,7 +778,7 @@ applies_to=self
 */
 //-- ATTACK: SLASH B (LARGE ARC FORWARD) -- Intended for player to dash behind Death
 
-atkSwingTime+=1*atkSwingScale
+atkSwingTime+=1*atkSwingScale*gDeltaTime
 if atkSwingTime<=2
 {
   sprite_index=sDeathReadyB
@@ -829,7 +829,7 @@ applies_to=self
 */
 //-- ATTACK: SLASH C (LARGE ARC CURVED UP) -- Intended for player to duck
 
-atkSwingTime+=1*atkSwingScale
+atkSwingTime+=1*atkSwingScale*gDeltaTime
 if atkSwingTime<=2
 {
   sprite_index=sDeathReadyC
