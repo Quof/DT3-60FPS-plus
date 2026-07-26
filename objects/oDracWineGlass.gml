@@ -23,7 +23,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  yVel+=grav
+  yVel+=grav*gDeltaTime
 
   if xVel>0
     image_angle-=2
@@ -38,7 +38,7 @@ if global.gamePaused=false
     bDestroy=1
   if isCollisionRight(1)
     bDestroy=1
-  moveTo(xVel,yVel)
+  moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
 
   if bDestroy=1
   {

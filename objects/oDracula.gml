@@ -84,7 +84,7 @@ if global.gamePaused=false
   {
     if atkProg=0 //-------------------- Slight wait time --------------------
     {
-      idleTime+=1
+      idleTime+=1*gDeltaTime
       if idleTime>=5
       {
         idleTime=0
@@ -93,10 +93,10 @@ if global.gamePaused=false
     }
     else if atkProg=1 //-------------------- Teleport --------------------
     {
-      teleTime+=1*teleMod
+      teleTime+=1*teleMod*gDeltaTime
       if teleTime<=20 //Wave out
       {
-        teleOut+=1*teleMod
+        teleOut+=1*teleMod*gDeltaTime
         if teleTime=4
         {
           playSound(global.snd_Beam,0,0.94,16000)
@@ -134,7 +134,7 @@ if global.gamePaused=false
       }
       else if teleTime>=52 and teleTime<=72 //Wave in
       {
-        teleOut-=1*teleMod
+        teleOut-=1*teleMod*gDeltaTime
         if teleTime=52 {playSound(global.snd_Beam,0,0.94,16000)}
         else if teleTime=60
         {
@@ -161,7 +161,7 @@ if global.gamePaused=false
     }
     else if atkProg=2 //-------------------- Wait time --------------------
     {
-      idleTime+=1
+      idleTime+=1*gDeltaTime
       if idleTime>=idleDelay
       {
         idleTime=0
@@ -179,7 +179,7 @@ if global.gamePaused=false
       }
       else if atkTime>=2 and atkTime<=99 //End Anim
       {
-        bBody.image_index+=0.15
+        bBody.image_index+=0.15*gDeltaTime
         if bBody.image_index>=bBody.image_number-0.5
         {
           bBody.image_index=bBody.image_number-0.5
@@ -205,7 +205,7 @@ if global.gamePaused=false
           {
             tFire=instance_create(x+(6*(image_xscale*-1)),y+32,oPassBullet)
             tFire.sprite_index=sDraculaFireball; tFire.atkPower=atkPower; tFire.bulletSpeed=7
-            tFire.image_speed=0.75; tFire.direction=tDir; tFire.decayTime=-100; tFire.damageType="ELEMENTAL"
+            tFire.image_speed=0.75; tFire._direction=tDir; tFire.decayTime=-100; tFire.damageType="ELEMENTAL"
             tDir+=10
           }
         }
@@ -235,7 +235,7 @@ if global.gamePaused=false
           playSound(global.snd_Flame1,0,0.95,9600)
           tFire=instance_create(x+(6*(image_xscale*-1)),y+26+bigFireY,oDracBigFire)
           tFire.atkPower=atkPower; tFire.bulletSpeed=0.5; tFire.bulletAcc=0.25
-          tFire.bulletMax=6; tFire.direction=tDir; tFire.rotSpd=10
+          tFire.bulletMax=6; tFire._direction=tDir; tFire.rotSpd=10
 
           if bigFireY=0 {bigFireY=32}
           else {bigFireY=0}
@@ -255,7 +255,7 @@ if global.gamePaused=false
             {
               tFire=instance_create(x+(6*(image_xscale*-1)),y+32,oPassBullet)
               tFire.sprite_index=sDraculaFireball; tFire.atkPower=atkPower; tFire.bulletSpeed=11
-              tFire.image_speed=0.75; tFire.direction=tDir; tFire.decayTime=-100; tFire.damageType="ELEMENTAL"
+              tFire.image_speed=0.75; tFire._direction=tDir; tFire.decayTime=-100; tFire.damageType="ELEMENTAL"
               tDir+=10
             }
             atkSeq+=1
@@ -271,13 +271,13 @@ if global.gamePaused=false
         {
           tFire=instance_create(tPosX,-8,oPassBullet)
           tFire.sprite_index=sDraculaFireball; tFire.atkPower=atkPower; tFire.bulletSpeed=8.75
-          tFire.image_speed=0.75; tFire.direction=270; tFire.decayTime=-100; tFire.damageType="ELEMENTAL"
+          tFire.image_speed=0.75; tFire._direction=270; tFire.decayTime=-100; tFire.damageType="ELEMENTAL"
 
           if bossProgress>=2
           {
             tFire=instance_create(tPosX,-8,oPassBullet)
             tFire.sprite_index=sDraculaFireball; tFire.atkPower=atkPower; tFire.bulletSpeed=1.25
-            tFire.image_speed=0.75; tFire.direction=270; tFire.decayTime=-100; tFire.damageType="ELEMENTAL"
+            tFire.image_speed=0.75; tFire._direction=270; tFire.decayTime=-100; tFire.damageType="ELEMENTAL"
           }
           tPosX+=71
         }
@@ -292,12 +292,12 @@ if global.gamePaused=false
           else {tDir=180}
           tFire=instance_create(x+(6*(image_xscale*-1)),y+40,oDracBigFire)
           tFire.atkPower=atkPower+1; tFire.bulletSpeed=0.2; tFire.bulletAcc=0.2; tFire.bulletMax=4
-          tFire.image_xscale=2; tFire.image_yscale=2; tFire.direction=tDir; tFire.rotSpd=5
+          tFire.image_xscale=2; tFire.image_yscale=2; tFire._direction=tDir; tFire.rotSpd=5
         }
       }
       else if atkTime>=150 and atkTime<=209 //Reverse Anim
       {
-        bBody.image_index-=0.15
+        bBody.image_index-=0.15*gDeltaTime
         if bBody.image_index<=0.4
         {
           bBody.sprite_index=sDraculaIdle
@@ -325,7 +325,7 @@ if global.gamePaused=false
       }
       else if atkTime>=2 and atkTime<=99 //End Anim
       {
-        bBody.image_index+=0.15
+        bBody.image_index+=0.15*gDeltaTime
         if bBody.image_index>=1.5
         {
           bBody.image_index=1.5
@@ -364,7 +364,7 @@ if global.gamePaused=false
       }
       else if atkTime>=2 and atkTime<=99 //End Anim
       {
-        bBody.image_index+=0.15
+        bBody.image_index+=0.15*gDeltaTime
         if bBody.image_index>=3.5
         {
           bBody.image_index=3.5
@@ -376,7 +376,7 @@ if global.gamePaused=false
         if x>oPlayer1.x {image_xscale=-1}
         else {image_xscale=1}
 
-        fpTime+=1
+        fpTime+=1*gDeltaTime
         if fpTime>=270
         {
           playSound(global.snd_Flame1,0,1,9600)
@@ -394,7 +394,7 @@ if global.gamePaused=false
           for(i=0;i<superFireAmt;i+=1)
           {
             tFire=instance_create(x+(6*(image_xscale*-1)),y+40,oPassArcBullet)
-            tFire.sprite_index=sDraculaMeteor; tFire.direction=tArc+tRanDir
+            tFire.sprite_index=sDraculaMeteor; tFire._direction=tArc+tRanDir
             tFire.atkPower=atkPower; tFire.bulletSpeed=3; tFire.damageType="EXPLOSION"
             if superDir=0 {tFire.arcAmt=4}
             else {tFire.arcAmt=-4}
@@ -410,8 +410,8 @@ if global.gamePaused=false
 
     if lifeRefill>=100 and lifeRefill<=999 //Recharge life one time
     {
-      life+=10
-      lifeRefill+=1
+      life+=10*gDeltaTime
+      lifeRefill+=1*gDeltaTime
       if lifeRefill>=180 {lifeRefill=1000}
     }
 
@@ -463,7 +463,7 @@ if global.gamePaused=false
   }
   else if life<=0 //Defeat animation
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       with oEProjectileBase {instance_destroy()}
@@ -471,7 +471,7 @@ if global.gamePaused=false
     }
     else if deathAnim>=2 and deathAnim<=55
     {
-      if oGame.time mod 2=0
+      if oGame.time mod (2/gDeltaTime)=0
       {
         var tEffect;
         tEffect=instance_create((x-sprite_width)+random(sprite_width*2),(y-sprite_height/2)+random(sprite_height*8),oEffect)

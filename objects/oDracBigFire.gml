@@ -11,6 +11,8 @@ bShowHealthBar=false
 bShowDamage=false
 bCanTakeDamage=false
 damageType="EXPLOSION"
+_speed=0
+_direction=0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -26,17 +28,20 @@ if global.gamePaused=false
   tEffect.image_alpha=0.4+random(0.2); tEffect.image_speed=0.4+random(0.3)
   tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
 
-  speed=bulletSpeed
+  _speed=bulletSpeed
   if bulletSpeed<bulletMax
-    bulletSpeed+=bulletAcc
+    bulletSpeed+=bulletAcc*gDeltaTime
 
-  if direction>=90 and direction<=270
-    image_angle+=rotSpd
+  if _direction>=90 and _direction<=270
+    image_angle+=rotSpd*gDeltaTime
   else
-    image_angle-=rotSpd
+    image_angle-=rotSpd*gDeltaTime
+    speed=0
+    x += cos(degtorad(_direction)) * _speed * gDeltaTime
+    y -= sin(degtorad(_direction)) * _speed * gDeltaTime
 }
 else
-  speed=0
+  {speed=0; _speed=0}
 #define Other_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

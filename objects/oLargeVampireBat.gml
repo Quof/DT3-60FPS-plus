@@ -23,6 +23,8 @@ bNoBonus=true
 dieEffect=0
 bossProgress=0
 activateBoss=0
+_direction=0
+_speed=0
 
 atkProg=0
 atkTime=5
@@ -82,7 +84,7 @@ if global.gamePaused=false
         {
           tFire=instance_create(x,y,oPassBullet)
           tFire.sprite_index=sBowserFire1; tFire.atkPower=atkPower; tFire.bulletSpeed=4
-          tFire.direction=tFireDir; tFire.decayTime=-100; tFire.damageType="ELEMENTAL"
+          tFire._direction=tFireDir; tFire.decayTime=-100; tFire.damageType="ELEMENTAL"
           tFireDir+=25
         }
       }
@@ -98,7 +100,7 @@ if global.gamePaused=false
           {
             tFire=instance_create(x,y,oPassBullet)
             tFire.sprite_index=sBowserFire1; tFire.atkPower=atkPower; tFire.bulletSpeed=4
-            tFire.direction=tFireDir; tFire.decayTime=-100; tFire.damageType="ELEMENTAL"
+            tFire._direction=tFireDir; tFire.decayTime=-100; tFire.damageType="ELEMENTAL"
             tFireDir+=26
           }
         }
@@ -110,8 +112,8 @@ if global.gamePaused=false
     }
     else if atkProg=1 //Attack
     {
-      speed=moveSpd
-      direction=moveDir
+      _speed=moveSpd
+      _direction=moveDir
       if point_distance(x,y,targetSpotX,targetSpotY)<12
       {
         atkNum+=1
@@ -138,11 +140,11 @@ if global.gamePaused=false
     }
     else if atkProg=2 //Return
     {
-      speed=moveSpd
-      direction=moveDir
+      _speed=moveSpd
+      _direction=moveDir
       if point_distance(x,y,targetSpotX,targetSpotY)<12
       {
-        speed=0
+        _speed=0
         if atkNum mod 3=0 {atkProg=3}
         else {atkProg=0}
       }
@@ -150,12 +152,12 @@ if global.gamePaused=false
     else if atkProg=3 //Shoot fire from side
     {
       atkTime+=1*gDeltaTime
-      if atkTime=1 {direction=270}
+      if atkTime=1 {_direction=270}
       if atkTime>=15
       {
-        speed=5
-        if y>=304 {direction=90}
-        else if y<=112 {direction=270}
+        _speed=5
+        if y>=304 {_direction=90}
+        else if y<=112 {_direction=270}
       }
 
       if atkTime mod atkFreq=0
@@ -163,7 +165,7 @@ if global.gamePaused=false
         playSound(global.snd_Fireball,0,0.95,32000)
         tFire=instance_create(x,y,oPassBullet)
         tFire.sprite_index=sBowserFire1; tFire.atkPower=atkPower; tFire.bulletSpeed=4
-        tFire.direction=180; tFire.decayTime=-100; tFire.damageType="ELEMENTAL"
+        tFire._direction=180; tFire.decayTime=-100; tFire.damageType="ELEMENTAL"
       }
 
       if atkTime mod atkFreq*2=0
@@ -172,12 +174,12 @@ if global.gamePaused=false
         tFireDir=player_sprite_center()
         tFire=instance_create(x,y,oPassBullet)
         tFire.sprite_index=sBowserFire1; tFire.atkPower=atkPower; tFire.bulletSpeed=4
-        tFire.direction=tFireDir; tFire.decayTime=-100; tFire.damageType="ELEMENTAL"
+        tFire._direction=tFireDir; tFire.decayTime=-100; tFire.damageType="ELEMENTAL"
       }
 
       if atkTime>=120
       {
-        direction=90
+        _direction=90
         atkTime=0; atkProg=0
       }
     }
@@ -205,10 +207,13 @@ if global.gamePaused=false
       atkFreq-=1
       bossProgress+=1
     }
+    speed=0
+    x += cos(degtorad(_direction)) * _speed * gDeltaTime
+    y -= sin(degtorad(_direction)) * _speed * gDeltaTime
   }
   else if life<=0 //Defeat animation
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       speed=0
@@ -217,7 +222,7 @@ if global.gamePaused=false
     }
     else if deathAnim>=2 and deathAnim<=55
     {
-      if oGame.time mod 2=0
+      if oGame.time mod (2/gDeltaTime)=0
       {
         var tEffect;
         tEffect=instance_create((x-sprite_width/2)+random(sprite_width),(y-sprite_height/2)+random(sprite_height),oEffect)

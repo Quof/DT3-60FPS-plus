@@ -15,8 +15,8 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  image_index+=animSpeed
-  arrowY+=0.4
+  image_index+=animSpeed*gDeltaTime
+  arrowY+=0.4*gDeltaTime
 }
 #define Other_7
 /*"/*'/**//* YYD ACTION
