@@ -24,12 +24,12 @@ if findTargetX<drawRangeX and findTargetY<drawRangeY
   draw_set_alpha(0.4)
   if bSizeUp=false
   {
-    sizeMod-=sizeInc
+    sizeMod-=sizeInc*gDeltaTime
     if sizeMod<=-modMax {bSizeUp=true}
   }
   else
   {
-    sizeMod+=sizeInc
+    sizeMod+=sizeInc*gDeltaTime
     if sizeMod>=modMax {bSizeUp=false}
   }
   draw_set_blend_mode(bm_add)

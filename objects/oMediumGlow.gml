@@ -15,12 +15,12 @@ applies_to=self
 draw_set_alpha(0.25)
 if bSizeUp=false
 {
-  sizeMod-=0.05
+  sizeMod-=0.05*gDeltaTime
   if sizeMod<=-1 {bSizeUp=true}
 }
 else
 {
-  sizeMod+=0.05
+  sizeMod+=0.05*gDeltaTime
   if sizeMod>=3 {bSizeUp=false}
 }
 draw_set_blend_mode(bm_add)

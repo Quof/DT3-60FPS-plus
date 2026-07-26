@@ -7,6 +7,8 @@ applies_to=self
 image_speed=0.3
 moveProg=0
 effectDelay=0
+_speed=0
+_direction=0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -14,23 +16,23 @@ action_id=603
 applies_to=self
 */
 //----- Movement -----
-moveProg+=1
+moveProg+=1*gDeltaTime
 if moveProg=30
 {
-  direction=175
-  speed=3.5
+  _direction=175
+  _speed=3.5
 }
 else if moveProg>=111 and moveProg<=190
 {
-  direction-=0.5
-  speed-=0.015
+  _direction-=0.5
+  _speed-=0.015
 }
 else if moveProg=320
 {
   x=-16
   y=40
-  direction=0
-  speed=1.2
+  _direction=0
+  _speed=1.2
 }
 else if moveProg>=321 and moveProg<=900
 {
@@ -53,14 +55,17 @@ else if moveProg>=1000 and moveProg<=9000
 
   if x>=452
   {
-    speed=2
-    direction=65
+    _speed=2
+    _direction=65
     moveProg=10000
   }
 }
+speed=0
+x += cos(degtorad(_direction)) * _speed * gDeltaTime
+y -= sin(degtorad(_direction)) * _speed * gDeltaTime
 
 //----- Effect -----
-effectDelay+=1
+effectDelay+=1*gDeltaTime
 if effectDelay mod 6=0
 {
   var tFFScl;
