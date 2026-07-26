@@ -13,14 +13,13 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if gDeltaDoTicks != 1 { exit; }
-if emoteScale<1 {emoteScale+=0.1}
+if emoteScale<1 {emoteScale+=0.1*gDeltaTime}
 else
 {
-  decayTime+=1
+  decayTime+=1*gDeltaTime
   if decayTime>=50
   {
-    image_alpha-=0.1
+    image_alpha-=0.1*gDeltaTime
     if image_alpha<=0 {instance_destroy()}
   }
 }

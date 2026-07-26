@@ -13,7 +13,7 @@ applies_to=self
 */
 if global.gamePaused=false //Requires: warnTime
 {
-  warnTime+=1
+  warnTime+=1*gDeltaTime
   if warnTime>=warnMax
   {
     instance_destroy()

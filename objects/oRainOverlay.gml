@@ -12,8 +12,8 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-x-=rainSpd
-y+=rainSpd
+x-=rainSpd*gDeltaTime
+y+=rainSpd*gDeltaTime
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

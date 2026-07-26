@@ -38,7 +38,7 @@ if global.gamePaused=false
   else if growSeq=1 //Grow
   {
     yVel=-2
-    growTime+=1
+    growTime+=1*gDeltatime
     if growTime>=24
     {
       yVel=0
@@ -48,7 +48,7 @@ if global.gamePaused=false
   }
   else if growSeq=2 //Slight wait
   {
-    growTime+=1
+    growTime+=1*gDeltatime
     if growTime>=10
     {
       if type=1 //Make NPC appear

@@ -16,7 +16,6 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if gDeltaDoTicks != 1 { exit; }
 if global.gamePaused=false
 {
   if shakeTime mod 2=0 {shakeAmt=-4}
@@ -25,7 +24,7 @@ if global.gamePaused=false
   else if oPlayer1.x>room_width-240 {x=room_width-240+shakeAmt}
   else {x=oPlayer1.x+shakeAmt}
   y=oPlayer1.y
-  shakeTime-=1
+  shakeTime-=1*gDeltaTime
   if shakeTime=0
   {
     view_object[0]=oPlayer1

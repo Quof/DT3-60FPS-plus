@@ -14,6 +14,6 @@ action_id=603
 applies_to=self
 */
 image_angle=direction
-image_alpha-=fadeSpd
+image_alpha-=fadeSpd*gDeltaTime
 if image_alpha<=0
   instance_destroy()

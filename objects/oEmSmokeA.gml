@@ -32,10 +32,10 @@ findTargetX=point_distance(oPlayer1.x,0,x,0)
 findTargetY=point_distance(0,oPlayer1.y,0,y)
 if findTargetX<drawRangeX and findTargetY<drawRangeY
 {
-  dirChangeTime-=1
+  dirChangeTime-=1*gDeltaTime
   if dirChangeTime=0 {dirRangeA=myRangeA; dirRangeB=myRangeB}
 
-  efDelay+=1
+  efDelay+=1*gDeltaTime
   if efDelay mod 5=0
   {
     var tFFScl,tEffect;
