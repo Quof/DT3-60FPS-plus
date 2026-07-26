@@ -1,2 +1,3 @@
 targetDoor=(GID(242910))
+idForTargetDoor=242910
 image_index=1

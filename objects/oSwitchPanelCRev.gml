@@ -24,15 +24,28 @@ if bColliding=1
 {
   for(i=0;i<maxDoor;i+=1)
   {
-    targetDoor[i].mask_index=sBarrierCRev
-    targetDoor[i].image_alpha=1
+    if(targetDoor[i] == noone)
+    {
+      targetDoor[i] = (GID(idsForTargetDoors[i]))
+    }
+  }
+  for(i=0;i<maxDoor;i+=1)
+  {
+    if(targetDoor[i] != noone)
+    {
+      targetDoor[i].mask_index=sBarrierCRev
+      targetDoor[i].image_alpha=1
+    }
   }
 }
 else
 {
   for(i=0;i<maxDoor;i+=1)
   {
-    targetDoor[i].mask_index=sNull
-    targetDoor[i].image_alpha=0.25
+    if(targetDoor[i] != noone)
+    {
+      targetDoor[i].mask_index=sNull
+      targetDoor[i].image_alpha=0.25
+    }
   }
 }
