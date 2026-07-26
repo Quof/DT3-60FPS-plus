@@ -29,34 +29,37 @@ chargeDelay=100
 jeremyText="Basically it's just a really annoying tracking enemy. When you see it stop and aim its stinger at you, it's going to charge toward that point, stinger ready, at high speeds."
 chaoText="This is from Mickey's Magical Quest. I like all the pretty colors in that game. Sooo colorful!"
 devText="There are several large maps that circle around Central City that are set up as a huge connecting field that then branch off to their respective areas."
+
+_speed = 0
+_direction = 0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
 action_id=603
 applies_to=self
 */
-if global.gamePaused=false && gDeltaDoTicks
+if global.gamePaused=false
 {
   makeEnemyActive(0)
   if bActive=true and stunnedTime=0
   {
-    chargeTime+=1
+    chargeTime+=1*gDeltaTime
     if chargeProg=0 //Normal behavior
     {
       if x<oPlayer1.x {image_xscale=1}
       else {image_xscale=-1}
 
-      direction=player_sprite_center()
-      speed=runAcc
+      _direction=player_sprite_center()
+      _speed=runAcc
 
       if chargeTime>=chargeDelay
       {
         findTargetX=point_distance(x,y,oPlayer1.x,oPlayer1.y-26)
         if findTargetX<160
         {
-          speed=0
+          _speed=0
           image_xscale=1
-          image_angle=direction-225
+          image_angle=_direction-225
           chargeTime=0
           chargeProg+=1
         }
@@ -72,7 +75,7 @@ if global.gamePaused=false && gDeltaDoTicks
     }
     else if chargeProg=2 //Charge sting
     {
-      speed=runAcc*7.5
+      _speed=runAcc*7.5
       if chargeTime>=25
       {
         image_angle=0
@@ -83,5 +86,7 @@ if global.gamePaused=false && gDeltaDoTicks
   }
   else {speed=0}
   enemyStepEvent()
+  x += cos(degtorad(_direction)) * _speed * gDeltaTime
+  y -= sin(degtorad(_direction)) * _speed * gDeltaTime
 }
-else {speed=0}
+else {_speed=0}

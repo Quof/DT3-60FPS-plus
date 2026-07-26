@@ -42,7 +42,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if global.gamePaused=false && gDeltaDoTicks
+if global.gamePaused=false
 {
   makeEnemyActive(1)
   if bActive=true and stunnedTime=0
@@ -80,16 +80,16 @@ if global.gamePaused=false && gDeltaDoTicks
         image_xscale=-1
 
       if x>oPlayer1.x and image_xscale=1
-        turnTime+=1
+        turnTime+=1*gDeltaTime
       else if x<oPlayer1.x and image_xscale=-1
-        turnTime+=1
+        turnTime+=1*gDeltaTime
       if turnTime>=20
       {
         xVel*=-1
         turnTime=0
       }
 
-      spinTime+=1
+      spinTime+=1*gDeltaTime
       if spinProg=0 //start spin
       {
         if spinTime>=spinDelay and findTargetX<224
@@ -127,7 +127,7 @@ if global.gamePaused=false && gDeltaDoTicks
 
     if sprite_index=sMagicalLeafSpin //spin
     {
-      spinTime+=1
+      spinTime+=1*gDeltaTime
       if spinTime>=35
       {
         if xVel>0
@@ -142,11 +142,11 @@ if global.gamePaused=false && gDeltaDoTicks
     }
 
     if sprite_index!=sMagicalLeafSpin
-      yVel+=0.2
+      yVel+=0.2*gDeltaTime
 
     if isCollisionBottom(1)
       yVel=0
-    if isCollisionLeft(1)
+    if isCollisionLeftEdit(1)
     {
       xVel=runAcc
       if initDir=3
@@ -156,7 +156,7 @@ if global.gamePaused=false && gDeltaDoTicks
         initDir=2
       }
     }
-    if isCollisionRight(1)
+    if isCollisionRightEdit(1)
     {
       xVel=-runAcc
       if initDir=3
@@ -166,13 +166,13 @@ if global.gamePaused=false && gDeltaDoTicks
         initDir=2
       }
     }
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
     if isCollisionSolid()
-      y-=2
+      y-=2*gDeltaTime
 
     if y>room_height+30
       instance_destroy()
   }
   enemyStepEvent()
-  image_index += imagespeed
+  image_index += imagespeed*gDeltaTime
 }

@@ -131,7 +131,7 @@ else if global.gameProgress=980 and room=rCCity_CCE //----- [3] Boss Fight: Cont
     if sceneProgress=0 and oPlayer1.x>=224
     {
       global.gamePaused=true
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=288
       {
         oPlayer1.y=288
