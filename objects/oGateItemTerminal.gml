@@ -12,7 +12,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-consoleAnim+=0.15
+consoleAnim+=0.15*gDeltaTime
 
 if bConsoleOn=1
 {

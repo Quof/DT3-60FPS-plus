@@ -56,13 +56,13 @@ draw_sprite_ext(sHealingPost,-1,x,y,image_xscale,image_yscale,image_angle,image_
 draw_set_alpha(0.45)
 if bSizeUp=false
 {
-  sizeMod-=0.08
+  sizeMod-=0.08*gDeltaTime
   if sizeMod<=-2
     bSizeUp=true
 }
 else
 {
-  sizeMod+=0.08
+  sizeMod+=0.08*gDeltaTime
   if sizeMod>=6
     bSizeUp=false
 }
@@ -91,5 +91,5 @@ if global.gamePaused=false
     effectDelay=10+round(random(10))
   }
   else
-    effectDelay-=1
+    effectDelay-=1*gDeltaTime
 }
