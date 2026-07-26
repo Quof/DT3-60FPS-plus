@@ -26,7 +26,7 @@ else
     var i;
     for(i=189167;i<189170;i+=1)
     {
-      with (i) {instance_destroy()}
+      with (GID(i)) {instance_destroy()}
     }
   }
 }

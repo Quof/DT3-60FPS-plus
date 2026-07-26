@@ -189,7 +189,7 @@ if global.gamePaused=false
         }
         if jumpTime>=11001 //Spin
         {
-          if oGame.time mod 5=0 {playSound(global.snd_DeathSlash,0,0.95,38000)}
+          if oGame.time mod (5/gDeltaTime)=0 {playSound(global.snd_DeathSlash,0,0.95,38000)}
           if xVel>0 {image_angle-=30*gDeltaTime}
           else {image_angle+=30*gDeltaTime}
         }
@@ -620,7 +620,7 @@ if global.gamePaused=false
       bossProgress+=1
     }
   }
-  else if myHS.life<=0 //Defeat animation
+  else if myHS.life<=0 //Defeat ation
   {
     deathAnim+=1*gDeltaTime
     if deathAnim=1
@@ -728,7 +728,7 @@ if global.gamePaused=false
   
   if sprite_index=sDeathWalk
   {
-    if xVel!=0 {image_index+=0.06+(moveSpd/25)}
+    if xVel!=0 {image_index+=(0.06+(moveSpd/25))*gDeltaTime}
   }
   enemyStepEvent()
 }
