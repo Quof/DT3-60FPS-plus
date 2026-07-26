@@ -14,11 +14,11 @@ applies_to=self
 */
 if animProg=0
 {
-  image_index+=0.07
+  image_index+=0.07*gDeltaTime
   if image_index>=2.5 {animProg=1}
 }
 else if animProg=1
 {
-  image_index-=0.07
+  image_index-=0.07*gDeltaTime
   if image_index<=0.5 {animProg=0}
 }

@@ -28,13 +28,13 @@ if global.gamePaused=false
   {
     if rotateProg=0 //Rotate
     {
-      image_angle+=rotationRate; rotateCurr+=rotationRate
+      image_angle+=rotationRate*gDeltaTime; rotateCurr+=rotationRate*gDeltaTime
       if rotateCurr>=rotateMax {rotateProg=1}
       else if rotateCurr<=rotateMin {rotateProg=1}
     }
     else if rotateProg>=1 //Stop at end
     {
-      rotateProg+=1
+      rotateProg+=1*gDeltaTime
       if rotateProg>=30 {rotationRate*=-1; rotateProg=0}
     }
   }

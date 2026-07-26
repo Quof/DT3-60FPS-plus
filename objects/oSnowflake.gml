@@ -15,8 +15,8 @@ applies_to=self
 */
 if type=1
 {
-  hspeed=random_range(-1,1)
-  vspeed=random_range(1,2)
+  _hspeed=random_range(-1,1)
+  _vspeed=random_range(1,2)
   var tRanScl;
   tRanScl=0.3+random(0.7)
   image_xscale=tRanScl
@@ -28,8 +28,11 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if hspeed>=0 {image_angle-=2}
-else {image_angle+=2}
+if hspeed>=0 {image_angle-=2*gDeltaTime}
+else {image_angle+=2*gDeltaTime}
+
+x += _hspeed * gDeltaTime
+y += _vspeed * gDeltaTime
 
 if x<-16
   instance_destroy()
