@@ -1557,7 +1557,7 @@ if mMap_Submenu=1
   }
 
   //---------------------------------------- Display location ----------------------------------------
-  mMap_FrameCount+=1
+  mMap_FrameCount+=1*gDeltaTime
   if mMap_FrameCount mod 6=0
   {
     mMap_CurFrame+=1
@@ -1715,7 +1715,7 @@ if mMap_Submenu=1
   if subMenu=4
   {
     //-------------------- Display cursor --------------------
-    mSAP_FrameCount+=1
+    mSAP_FrameCount+=1*gDeltaTime
     if mSAP_FrameCount mod 8=0
     {
       if mSAP_CurFrame=0 {mSAP_CurFrame=1}
