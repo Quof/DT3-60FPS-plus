@@ -49,7 +49,7 @@ if initSet=1
       {
         stringTo[i] = (GID(idsToStringTo[i]))
       }
-
+      
       if(stringTo[i] != noone)
       {
         draw_line_width(x,y,stringTo[i].x+offsetX,stringTo[i].y+offsetY,2)

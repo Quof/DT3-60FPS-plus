@@ -18,11 +18,11 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if global.gamePaused=false
+if global.gamePaused=false && gDeltaDoTicks != 0
 {
   if decayTime!=-100
   {
-    decayTime-=1*gDeltaTime
+    decayTime-=1
     if decayTime<=0
       instance_destroy()
   }
