@@ -15,6 +15,10 @@ if oEvKeyControl.keyCheck[image_index]=1
 {
   playSound(global.snd_DoorUnlock,0,1,1)
   oEvKeyControl.keyCheck[image_index]=2
+  if(targetDoor == noone)
+  {
+    targetDoor = (GID(idForTargetDoor))
+  }
   with targetDoor
     instance_destroy()
 }
