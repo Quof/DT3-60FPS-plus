@@ -52,42 +52,48 @@ if global.gamePaused=false
     if x>oPlayer1.x
     {
       if currHspd>-maxSpeed
-        currHspd-=0.1
+        currHspd-=0.1*gDeltaTime
       else
         currHspd=-maxSpeed
     }
     else if x<oPlayer1.x
     {
       if currHspd<maxSpeed
-        currHspd+=0.1
+        currHspd+=0.1*gDeltaTime
       else
         currHspd=maxSpeed
     }
     if y>oPlayer1.y-26
     {
       if currVspd>-maxSpeed
-        currVspd-=0.1
+        currVspd-=0.1*gDeltaTime
       else
         currVspd=-maxSpeed
     }
     else if y<oPlayer1.y-26
     {
       if currVspd<maxSpeed
-        currVspd+=0.1
+        currVspd+=0.1*gDeltaTime
       else
         currVspd=maxSpeed
     }
-    hspeed=currHspd
-    vspeed=currVspd
+    hspeed=0
+    vspeed=0
+    _hspeed=currHspd
+    _vspeed=currVspd
+    x += _hspeed * gDeltaTime
+    y += _vspeed * gDeltaTime
   }
   else
   {
     hspeed=0
     vspeed=0
+    _hspeed=0
+    _vspeed=0
   }
   enemyStepEvent()
 
-  lifeTime-=1
+  lifeTime-=1*gDeltaTime
   if lifeTime=0
   {
     var tExplode;
@@ -100,4 +106,6 @@ else
 {
   hspeed=0
   vspeed=0
+    _hspeed=0
+    _vspeed=0
 }

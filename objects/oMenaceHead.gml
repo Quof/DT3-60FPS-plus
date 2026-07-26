@@ -37,8 +37,12 @@ if global.gamePaused=false
 {
   if deathFlail=1
   {
-    hspeed=xVel
-    vspeed=yVel
+    hspeed=0
+    vspeed=0
+    _hspeed=xVel
+    _vspeed=yVel
+    x += _hspeed * gDeltaTime
+    y += _vspeed * gDeltaTime
   }
   else
   {
@@ -48,9 +52,9 @@ if global.gamePaused=false
 
     if laserWarn>0
     {
-      laserWarn+=1
-      circleAlpha-=0.06
-      cirRad-=1
+      laserWarn+=1*gDeltaTime
+      circleAlpha-=0.06*gDeltaTime
+      cirRad-=1*gDeltaTime
       if laserWarn>=15
       {
         laserWarn=0

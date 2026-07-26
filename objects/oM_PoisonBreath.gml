@@ -11,6 +11,8 @@ bShowHealthBar=false
 bShowDamage=false
 bCanTakeDamage=false
 damageType="EXPLOSION"
+_speed=0
+_direction=0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -19,10 +21,14 @@ applies_to=self
 */
 if global.gamePaused=false //24
 {
-  image_alpha-=0.035
+  image_alpha-=0.035*gDeltaTime
   if image_alpha<=0.25 {bCanDealDamage=false}
   image_speed=animSpeed
-  speed=bulletSpeed
+  speed=0
+  _speed=bulletSpeed
+  x += cos(degtorad(_direction)) * _speed * gDeltaTime
+  y -= sin(degtorad(_direction)) * _speed * gDeltaTime
+
 }
 else
 {

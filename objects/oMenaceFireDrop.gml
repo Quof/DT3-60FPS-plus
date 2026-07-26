@@ -17,7 +17,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  y+=3
+  y+=3*gDeltaTime
   if y>=512
   {
     for(i=0;i<22;i+=1)

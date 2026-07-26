@@ -141,7 +141,7 @@ if global.gamePaused=false
   if bActive=true and bHS.life>0
   {
     //-------------------- LEG MOVEMENT --------------------
-    stepTime+=1
+    stepTime+=1*gDeltaTime
     if stepTime>=stepDelay
     {
       if stepTime=stepDelay //Setup
@@ -186,7 +186,7 @@ if global.gamePaused=false
     if armSpinTime<1000
     {
       //-------------------- LEFT ARM MOVEMENT --------------------
-      armAtkTimeL+=1
+      armAtkTimeL+=1*gDeltaTime
       if armAtkTimeL=armAtkDelayL //Check distance to player
       {
         if point_distance(x,y,oPlayer1.x,oPlayer1.y)<208
@@ -200,7 +200,7 @@ if global.gamePaused=false
       }
 
       //-------------------- RIGHT ARM MOVEMENT --------------------
-      armAtkTimeR+=1
+      armAtkTimeR+=1*gDeltaTime
       if armAtkTimeR=armAtkDelayR //Check distance to player
       {
         if point_distance(x,y,oPlayer1.x,oPlayer1.y)<176
@@ -215,7 +215,7 @@ if global.gamePaused=false
     }
 
     //-------------------- SPINNING ARM ATTACK -------------------- 18 frames to make a full 360 swing
-    armSpinTime+=1
+    armSpinTime+=1*gDeltaTime
     if armSpinTime>=armSpinDelay and armSpinTime<=999
     {
       if armAtkTimeL<armAtkDelayL and armAtkTimeR<armAtkDelayR //Check if arms are already in motion
@@ -240,8 +240,8 @@ if global.gamePaused=false
         else {stepScale=4}
       }
 
-      bShoulderL.bendAngle+=20; bShoulderR.bendAngle-=20
-      bForearmL.bendAngle+=20; bForearmR.bendAngle-=20
+      bShoulderL.bendAngle+=20*gDeltaTime; bShoulderR.bendAngle-=20*gDeltaTime
+      bForearmL.bendAngle+=20*gDeltaTime; bForearmR.bendAngle-=20*gDeltaTime
     }
     else if armSpinTime>=1211 //End flail
     {
@@ -251,7 +251,7 @@ if global.gamePaused=false
     }
 
     //-------------------- HEAD POISON ATTACK --------------------
-    headPoisonTime+=1
+    headPoisonTime+=1*gDeltaTime
     if headPoisonTime>=headPoisonDelay
     {
       if headPoisonTime<=headPoisonDelay+100 //Check if laser is being used
@@ -264,33 +264,33 @@ if global.gamePaused=false
       {
         var tPHeadAng;
         tPHeadAng=point_direction(bHead.x,bHead.y,oPlayer1.x,oPlayer1.y)
-        if bHead.image_angle+235<tPHeadAng {bHead.bendAngle+=0.25}
-        else {bHead.bendAngle-=0.25}
+        if bHead.image_angle+235<tPHeadAng {bHead.bendAngle+=0.25*gDeltaTime}
+        else {bHead.bendAngle-=0.25*gDeltaTime}
       }
 
       if headPoisonTime>=10001 and headPoisonTime<=10012 //Open jaw
-        bJaw.bendAngle+=1
+        bJaw.bendAngle+=1*gDeltaTime
       else if headPoisonTime=10040 {playSound(global.snd_Beam,0,0.92,14000)} //Play breath sound
       else if headPoisonTime>=10041 and headPoisonTime<=10070 //Breath poison
       {
         var tPoison;
         tPoison=instance_create(bHead.x,bHead.y,oM_PoisonBreath)
         tPoison.atkPower=atkPower; tPoison.bulletSpeed=7+random(3)
-        tPoison.animSpeed=0.25; tPoison.direction=(bHead.image_angle+235)+random_range(-12,12)
+        tPoison.animSpeed=0.25; tPoison._direction=(bHead.image_angle+235)+random_range(-12,12)
       }
       else if headPoisonTime>=10075 //Close jaw
       {
-        if bJaw.bendAngle>0 {bJaw.bendAngle-=0.25}
+        if bJaw.bendAngle>0 {bJaw.bendAngle-=0.25*gDeltaTime}
 
-        if bHead.bendAngle>0 {bHead.bendAngle-=0.25}
-        else {bHead.bendAngle+=0.25}
+        if bHead.bendAngle>0 {bHead.bendAngle-=0.25*gDeltaTime}
+        else {bHead.bendAngle+=0.25*gDeltaTime}
 
         if bJaw.bendAngle=0 and bHead.bendAngle=0 {headPoisonTime=0}
       }
     }
 
     //-------------------- HEAD LASER ATTACK --------------------
-    headLaserTime+=1
+    headLaserTime+=1*gDeltaTime
     if headLaserTime>=headLaserDelay
     {
       if headLaserTime<=headLaserDelay+100 //Check if poison is being used
@@ -308,11 +308,11 @@ if global.gamePaused=false
       if headLaserTime>=10001 and headLaserTime<=10026 //Tilt head
       {
         if headLaserTime=10001 {bHead.laserWarn=1}
-        bHead.bendAngle-=3
+        bHead.bendAngle-=3*gDeltaTime
       }
 
       if headLaserTime>=10001 and headLaserTime<=10008 //Open jaw
-        bJaw.bendAngle+=1
+        bJaw.bendAngle+=1*gDeltaTime
       else if headLaserTime>=10041 and headLaserTime<=10066
       {
         if headLaserTime=10041
@@ -322,7 +322,7 @@ if global.gamePaused=false
           tLaser=instance_create(bHead.x,bHead.y,oM_LaserBreath)
           tLaser.atkPower=atkPower+1
         }
-        bHead.bendAngle+=4
+        bHead.bendAngle+=4*gDeltaTime
       }
       else if headLaserTime>=10070
       {
@@ -333,14 +333,15 @@ if global.gamePaused=false
           with oM_LaserBreath {instance_destroy()}
         }
 
-        if bJaw.bendAngle>0 {bJaw.bendAngle-=0.5}
-        bHead.bendAngle-=2
-        if bHead.bendAngle=0 {headLaserTime=0}
+        if bJaw.bendAngle>0 {bJaw.bendAngle-=0.5*gDeltaTime}
+        if bJaw.bendAngle<0 {bJaw.bendAngle=0}
+        bHead.bendAngle-=2*gDeltaTime
+        if bHead.bendAngle<=0 {bHead.bendAngle=0; headLaserTime=0}
       }
     }
 
     //-------------------- SPAWN MINION --------------------
-    spawnTime+=1
+    spawnTime+=1*gDeltaTime
     if spawnTime>=spawnDelay
     {
       instance_create(x,y,oMenaceSpawn)
@@ -357,7 +358,7 @@ if global.gamePaused=false
     //-------------------- FIRE PILLAR --------------------
     if firePillarTime>=0
     {
-      firePillarTime+=1
+      firePillarTime+=1*gDeltaTime
       if firePillarTime>=firePillarDelay
       {
         if firePillarTime<=firePillarDelay+100 //Check updates
@@ -449,7 +450,7 @@ if global.gamePaused=false
   }
   else if bHS.life<=0 //Defeat animation
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       bHS.visible=false
@@ -469,8 +470,8 @@ if global.gamePaused=false
     {
       with oEnemyBase
       {
-        yVel+=0.4
-        image_angle+=spinSpd
+        yVel+=0.4*gDeltaTime
+        image_angle+=spinSpd*gDeltaTime
       }
     }
     else if deathAnim>=121
@@ -507,38 +508,38 @@ action_id=603
 applies_to=self
 */
 //-- ANIMATION: LEFT LEG (FRONT) --
-animProg+=1*stepScale
+animProg+=1*stepScale*gDeltaTime
 if animProg>=1 and animProg<=40 //Rotate leg to lift foot up
 {
   if stepForward=0 //Forward
   {
-    bLegL.x-=1*stepScale
-    x-=0.5*stepScale
+    bLegL.x-=1*stepScale*gDeltaTime
+    x-=0.5*stepScale*gDeltaTime
   }
   else if stepForward=1 //Back
   {
-    bLegL.x+=1*stepScale
-    x+=0.5*stepScale
+    bLegL.x+=1*stepScale*gDeltaTime
+    x+=0.5*stepScale*gDeltaTime
   }
-  bLegL.bendAngle-=1*stepScale
-  bLegL.y-=0.25*stepScale
-  y-=0.25*stepScale
+  bLegL.bendAngle-=1*stepScale*gDeltaTime
+  bLegL.y-=0.25*stepScale*gDeltaTime
+  y-=0.25*stepScale*gDeltaTime
 }
 else if animProg>=41 and animProg<=80 //Rotate leg to bring foot back down
 {
   if stepForward=0 //Forward
   {
-    bLegL.x-=1*stepScale
-    x-=0.5*stepScale
+    bLegL.x-=1*stepScale*gDeltaTime
+    x-=0.5*stepScale*gDeltaTime
   }
   else if stepForward=1 //Back
   {
-    bLegL.x+=1*stepScale
-    x+=0.5*stepScale
+    bLegL.x+=1*stepScale*gDeltaTime
+    x+=0.5*stepScale*gDeltaTime
   }
-  bLegL.bendAngle+=1*stepScale
-  bLegL.y+=0.25*stepScale
-  y+=0.25*stepScale
+  bLegL.bendAngle+=1*stepScale*gDeltaTime
+  bLegL.y+=0.25*stepScale*gDeltaTime
+  y+=0.25*stepScale*gDeltaTime
   if animProg=80 //End
   {
     playSound(global.snd_HardHit1,0,1,7000)
@@ -565,38 +566,38 @@ action_id=603
 applies_to=self
 */
 //-- ANIMATION: RIGHT LEG (BACK) --
-animProg+=1*stepScale
+animProg+=1*stepScale*gDeltaTime
 if animProg>=1 and animProg<=40 //Rotate leg to lift foot up
 {
   if stepForward=0 //Forward
   {
-    bLegR.x-=1*stepScale
-    x-=0.5*stepScale
+    bLegR.x-=1*stepScale*gDeltaTime
+    x-=0.5*stepScale*gDeltaTime
   }
   else if stepForward=1 //Back
   {
-    bLegR.x+=1*stepScale
-    x+=0.5*stepScale
+    bLegR.x+=1*stepScale*gDeltaTime
+    x+=0.5*stepScale*gDeltaTime
   }
-  bLegR.bendAngle-=1*stepScale
-  bLegR.y-=0.25*stepScale
-  y-=0.25*stepScale
+  bLegR.bendAngle-=1*stepScale*gDeltaTime
+  bLegR.y-=0.25*stepScale*gDeltaTime
+  y-=0.25*stepScale*gDeltaTime
 }
 else if animProg>=41 and animProg<=80 //Rotate leg to bring foot back down
 {
   if stepForward=0 //Forward
   {
-    bLegR.x-=1*stepScale
-    x-=0.5*stepScale
+    bLegR.x-=1*stepScale*gDeltaTime
+    x-=0.5*stepScale*gDeltaTime
   }
   else if stepForward=1 //Back
   {
-    bLegR.x+=1*stepScale
-    x+=0.5*stepScale
+    bLegR.x+=1*stepScale*gDeltaTime
+    x+=0.5*stepScale*gDeltaTime
   }
-  bLegR.bendAngle+=1*stepScale
-  bLegR.y+=0.25*stepScale
-  y+=0.25*stepScale
+  bLegR.bendAngle+=1*stepScale*gDeltaTime
+  bLegR.y+=0.25*stepScale*gDeltaTime
+  y+=0.25*stepScale*gDeltaTime
   if animProg=80 //End
   {
     playSound(global.snd_HardHit1,0,1,5000)
@@ -625,22 +626,22 @@ action_id=603
 applies_to=self
 */
 //-- ANIMATION: LEFT ARM (FRONT) --
-armAnimProgL+=1*armScale
+armAnimProgL+=1*armScale*gDeltaTime
 if armAnimProgL>=1 and armAnimProgL<=40
 {
-  bShoulderL.bendAngle+=1*armScale
-  bForearmL.bendAngle-=0.25*armScale
+  bShoulderL.bendAngle+=1*armScale*gDeltaTime
+  bForearmL.bendAngle-=0.25*armScale*gDeltaTime
 }
 else if armAnimProgL>=61 and armAnimProgL<=76
 {
   if armAnimProgL=61 {playSound(global.snd_PlayerAtk[1],0,1,5512)}
-  bShoulderL.bendAngle-=8*armScale
-  bForearmL.bendAngle-=1*armScale
+  bShoulderL.bendAngle-=8*armScale*gDeltaTime
+  bForearmL.bendAngle-=1*armScale*gDeltaTime
 }
 else if armAnimProgL>=84 and armAnimProgL<=96 //End
 {
-  bShoulderL.bendAngle+=7.3*armScale
-  bForearmL.bendAngle+=2.1*armScale
+  bShoulderL.bendAngle+=7.3*armScale*gDeltaTime
+  bForearmL.bendAngle+=2.1*armScale*gDeltaTime
   if armAnimProgL=96
   {
     bShoulderL.bendAngle=0
@@ -656,22 +657,22 @@ action_id=603
 applies_to=self
 */
 //-- ANIMATION: RIGHT ARM (BACK) --
-armAnimProgR+=1*armScale
+armAnimProgR+=1*armScale*gDeltaTime
 if armAnimProgR>=1 and armAnimProgR<=32
 {
-  bShoulderR.bendAngle+=1*armScale
-  bForearmR.bendAngle-=0.25*armScale
+  bShoulderR.bendAngle+=1*armScale*gDeltaTime
+  bForearmR.bendAngle-=0.25*armScale*gDeltaTime
 }
 else if armAnimProgR>=60 and armAnimProgR<=68
 {
   if armAnimProgR=60 {playSound(global.snd_PlayerAtk[0],0,1,5512)}
-  bShoulderR.bendAngle-=8*armScale
-  bForearmR.bendAngle-=1*armScale
+  bShoulderR.bendAngle-=8*armScale*gDeltaTime
+  bForearmR.bendAngle-=1*armScale*gDeltaTime
 }
 else if armAnimProgR>=80 and armAnimProgR<=92 //End
 {
-  bShoulderR.bendAngle+=2.6*armScale
-  bForearmR.bendAngle+=1.3*armScale
+  bShoulderR.bendAngle+=2.6*armScale*gDeltaTime
+  bForearmR.bendAngle+=1.3*armScale*gDeltaTime
   if armAnimProgR=92
   {
     bShoulderR.bendAngle=0

@@ -35,8 +35,12 @@ if global.gamePaused=false
 {
   if deathFlail=1
   {
-    hspeed=xVel
-    vspeed=yVel
+    hspeed=0
+    vspeed=0
+    _hspeed=xVel
+    _vspeed=yVel
+    x += _hspeed * gDeltaTime
+    y += _vspeed * gDeltaTime
   }
   else
   {
