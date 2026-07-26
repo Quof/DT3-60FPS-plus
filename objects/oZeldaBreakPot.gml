@@ -38,11 +38,11 @@ applies_to=self
 */
 if sprite_index=sVaultBreakPot
 {
-  pulsate+=1
-  if pulsate>=1 and pulsate<=30 {image_alpha-=0.015}
+  pulsate+=1*gDeltaTime
+  if pulsate>=1 and pulsate<=30 {image_alpha-=0.015*gDeltaTime}
   else if pulsate>=31 and pulsate<=60
   {
-    image_alpha+=0.015
+    image_alpha+=0.015*gDeltaTime
     if pulsate=60 {pulsate=0}
   }
 }

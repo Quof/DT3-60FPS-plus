@@ -11,7 +11,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if global.gamePaused=false && gDeltaDoTicks != 0
+if global.gamePaused=false
 {
   if global.gameProgress=30 and room=rMain_2 //Key tutorial
   {

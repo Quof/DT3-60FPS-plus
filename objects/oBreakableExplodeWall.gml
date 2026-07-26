@@ -29,7 +29,7 @@ if global.gamePaused=false
 {
   if explodeDelay>0
   {
-    explodeDelay+=1
+    explodeDelay+=1*gDeltaTime
     if explodeDelay>=3
     {
       awardAwesome(10)

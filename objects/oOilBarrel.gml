@@ -39,7 +39,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  yVel+=0.3
+  yVel+=0.3*gDeltaTime
   if isCollisionBottom(1)
   {
     if yVel>7
@@ -50,7 +50,7 @@ if global.gamePaused=false
     y-=2
   if y>room_height+24
     instance_destroy()
-  moveTo(xVel,yVel)
+  moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
 }
 #define Draw_0
 /*"/*'/**//* YYD ACTION

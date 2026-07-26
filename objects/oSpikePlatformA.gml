@@ -64,13 +64,14 @@ if global.gamePaused=false
     //Hit player
     if prevY=y
     {
-      hangTime+=1
+      hangTime+=1*gDeltaTime
       if hangTime>=5
       {
         yVel=0
         atkProg+=1
         exit;
       }
+      else hangTime=0
     }
     prevY=y
     //Hit solid

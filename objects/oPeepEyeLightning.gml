@@ -32,7 +32,7 @@ if global.gamePaused=false
   else if atkProg>=1
   {
     //speed=bulletSpeed
-    _speed=BulletSpeed
+    _speed=bulletSpeed
     x += cos(degtorad(_direction)) * _speed * gDeltaTime
     y -= sin(degtorad(_direction)) * _speed * gDeltaTime
     atkProg+=1*gDeltaTime
