@@ -29,7 +29,7 @@ if global.gamePaused=false
     if decayTime<=0 {instance_destroy()}
   }
 
-  if place_meeting(x,y,oNightmareEffect) {speed=bulletSpeed/2}
+  if place_meeting(x,y,oNightmareEffect) {_speed=bulletSpeed/2}
   else {_speed=bulletSpeed}
   image_angle=_direction
   x += cos(degtorad(_direction)) * _speed * gDeltaTime
