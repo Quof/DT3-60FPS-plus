@@ -29,7 +29,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  fanTime+=1
+  fanTime+=1*gDeltaTime
   if fanTime=fanDelay
   {
     if fanID[currFan].spinning=1 {fanID[currFan].spinning=0}

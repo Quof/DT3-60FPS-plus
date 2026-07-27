@@ -27,7 +27,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  timeToRock+=1
+  timeToRock+=1*gDeltaTime
   if room=rMain_22
   {
     if timeToRock mod 75=0

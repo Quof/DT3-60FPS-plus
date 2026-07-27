@@ -21,7 +21,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  spawnTime+=1
+  spawnTime+=1*gDeltaTime
   if spawnTime>=spawnDelay
   {
     var newObject;

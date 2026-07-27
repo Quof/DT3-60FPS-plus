@@ -205,8 +205,8 @@ else if global.gameProgress=1570 and room=rMain_21 //----- [Unskippable] Enemy T
         {
           if sceneDelay<=70
           {
-            skyBeamAlpha+=0.01
-            skyBeamWidth+=1
+            skyBeamAlpha+=0.01*gDeltaTime
+            skyBeamWidth+=1*gDeltaTime
           }
         }
         else if sceneDelay=111
@@ -241,8 +241,8 @@ else if global.gameProgress=1570 and room=rMain_21 //----- [Unskippable] Enemy T
         sceneDelay+=1*gDeltaTime
         if sceneDelay>=30
         {
-          skyBeamWidth-=1
-          skyBeamAlpha-=0.02
+          skyBeamWidth-=1*gDeltaTime
+          skyBeamAlpha-=0.02*gDeltaTime
           if skyBeamAlpha<=0 {sceneDelay=0; sceneProgress+=1}
         }
       }
@@ -703,7 +703,7 @@ else if global.gameProgress=1680 and room=rMountTemple_I //----- [8] Boss Fight:
       sceneDelay+=1*gDeltaTime
       virusEntity.x=oEnmity.x+lengthdir_x(virDist,virDir)
       virusEntity.y=oEnmity.y+lengthdir_y(virDist,virDir)
-      virDir+=2
+      virDir+=2*gDeltaTime
 
       if sceneDelay>=20 and virusEntity.image_alpha<1
       {
@@ -729,7 +729,7 @@ else if global.gameProgress=1680 and room=rMountTemple_I //----- [8] Boss Fight:
 
       if sceneDelay>=80
       {
-        virDist-=1
+        virDist-=1*gDeltaTime
         if virDist<=1
         {
           for(i=0;i<40;i+=1)
@@ -762,7 +762,7 @@ else if global.gameProgress=1680 and room=rMountTemple_I //----- [8] Boss Fight:
       }
       else if sceneDelay>=2 and sceneDelay<=499
       {
-        fadeInColor+=1
+        fadeInColor+=1*gDeltaTime
         oEnemyBase.image_blend=make_color_rgb(fadeInColor,fadeInColor,fadeInColor)
         if fadeInColor=255 {sceneDelay=500}
       }
@@ -963,7 +963,7 @@ else if global.gameProgress=1690 and room=rMountTemple_J //----- [9] Get Access 
       npcMMX.sprite_index=sPlayerDiscombobulate
       npcMMX.image_index=0; npcMMX.image_speed=0
     }
-    else if sceneDelay>=6 and sceneDelay<=35 {npcMMX.y-=14}
+    else if sceneDelay>=6 and sceneDelay<=35 {npcMMX.y-=14*gDeltaTime}
     else if sceneDelay>=40 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=36 and bWaitForInput=false
@@ -1188,7 +1188,7 @@ else if global.gameProgress=1720 and room=rMain_28 //----- [11] Virus & Twin Was
         npcMMX.sprite_index=sPlayerDiscombobulate
         npcMMX.image_index=0; npcMMX.image_speed=0
       }
-      else if sceneDelay>=6 and sceneDelay<=35 {npcMMX.y-=14}
+      else if sceneDelay>=6 and sceneDelay<=35 {npcMMX.y-=14*gDeltaTime}
       else if sceneDelay>=40
       {
         with npcMMX {instance_destroy()}
