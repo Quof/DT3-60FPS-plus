@@ -4,7 +4,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-image_alpha-=fadeSpd
+image_alpha-=fadeSpd*gDeltaTime
 if image_alpha<=0 {instance_destroy()}
 #define Draw_0
 /*"/*'/**//* YYD ACTION

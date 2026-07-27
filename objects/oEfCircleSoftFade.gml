@@ -5,8 +5,8 @@ action_id=603
 applies_to=self
 */
 //Requires: myRad, radScl, fadeSpeed
-myRad+=radScl
-image_alpha-=fadeSpeed
+myRad+=radScl*gDeltaTime
+image_alpha-=fadeSpeed*gDeltaTime
 if image_alpha<=0 {instance_destroy()}
 #define Draw_0
 /*"/*'/**//* YYD ACTION

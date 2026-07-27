@@ -38,6 +38,6 @@ if global.gamePaused=false
     else if moveSpd<-1 {moveSpd+=0.15}
   }
 
-  image_alpha-=fadeSpd
+  image_alpha-=fadeSpd*gDeltaTime
   if image_alpha<=0.5 {instance_destroy()}
 }
