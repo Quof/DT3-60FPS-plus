@@ -46,12 +46,12 @@ if global.gamePaused=false
   if bActive=true and stunnedTime=0 and life>0
   {
     //Look at player
-    if x>oPlayer1.x and xVel>-3 {xVel-=0.2}
-    else if x<oPlayer1.x and xVel<3 {xVel+=0.2}
-    x+=xVel
+    if x>oPlayer1.x and xVel>-3 {xVel-=0.2*gDeltaTime}
+    else if x<oPlayer1.x and xVel<3 {xVel+=0.2*gDeltaTime}
+    x+=xVel*gDeltaTime
 
     //Fire at player
-    gunShot+=1
+    gunShot+=1*gDeltaTime
     if gunShot>=70
     {
       var tNewAttack;
@@ -61,10 +61,10 @@ if global.gamePaused=false
         {
           tNewAttack=instance_create(x-80,y-3,oPassBullet)
           tNewAttack.sprite_index=sWolfHeadShot; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
-          tNewAttack.decayTime=-100; tNewAttack.direction=225+(55*i)
+          tNewAttack.decayTime=-100; tNewAttack._direction=225+(55*i)
           tNewAttack=instance_create(x+80,y-3,oPassBullet)
           tNewAttack.sprite_index=sWolfHeadShot; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
-          tNewAttack.decayTime=-100; tNewAttack.direction=225+(55*i)
+          tNewAttack.decayTime=-100; tNewAttack._direction=225+(55*i)
         }
       }
     }
@@ -74,14 +74,14 @@ if global.gamePaused=false
       {
         tNewAttack=instance_create(x,y+18,oPassBullet)
         tNewAttack.sprite_index=sWolfHeadShot; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
-        tNewAttack.decayTime=-100; tNewAttack.direction=210+(20*i)
+        tNewAttack.decayTime=-100; tNewAttack._direction=210+(20*i)
       }
       gunShot=0
     }
   }
   else if life<=0
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     if deathAnim mod 2=0
     {
       if deathAnim mod 8=0 {playSound(global.snd_HardHit1,0,0.9,1)}

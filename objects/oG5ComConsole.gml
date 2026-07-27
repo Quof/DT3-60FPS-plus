@@ -35,7 +35,7 @@ else if compScrFade=1
   if image_alpha>=1 {compScrFade=0}
 }
 
-if oGame.time mod 3=0
+if oGame.time mod (3/gDeltaTime)=0
 {
   if consoleAlpha=0.6 {consoleAlpha=0.65}
   else {consoleAlpha=0.6}

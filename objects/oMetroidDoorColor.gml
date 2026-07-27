@@ -16,11 +16,11 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  if hitDelay>0 {hitDelay-=1}
+  if hitDelay>0 {hitDelay-=1*gDeltaTime}
 
   if flashTime>0 //Flash when hit with a missile
   {
-    flashTime-=1
+    flashTime-=1*gDeltaTime
     if flashTime mod 2=0
     {
       if image_blend=c_red {image_blend=c_white}
@@ -32,7 +32,7 @@ if global.gamePaused=false
 
   if hitTime>=5
   {
-    hitTime+=1
+    hitTime+=1*gDeltaTime
     if hitTime=6
     {
       playSound(global.snd_MetDoorOpen,0,1,1)

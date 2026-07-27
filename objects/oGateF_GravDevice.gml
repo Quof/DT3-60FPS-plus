@@ -22,7 +22,7 @@ if global.gamePaused=false
   else
   {
     //Animate
-    animate+=1
+    animate+=1*gDeltaTime
     if animate>=1 and animate<=10 {image_index=1}
     else if animate>=11 and animate<=20 {image_index=2}
     if animate>=21

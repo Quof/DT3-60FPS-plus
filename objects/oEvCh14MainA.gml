@@ -653,7 +653,7 @@ else if global.gameProgress=3230 and room=rNGC_LC_C //----- [Unskippable] Jeremy
 {
   if musicFade>0 and sceneProgress>=9 and sceneProgress<=18 //Fade music
   {
-    musicFade-=8
+    musicFade-=8*gDeltaTime
     fadeVolume(global.msc_NGCLowerChamber,8)
   }
   
@@ -836,7 +836,7 @@ else if global.gameProgress=3260 and room=rNGC_LC_F //----- [12] Boss: Malevolen
             tEffect.sprite_index=sMMSmokeCloud; tEffect.image_speed=0.1+random(0.1); tEffect.image_alpha=0.6; tEffect.depth=9
             tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=-0.5-random(1)
           }
-          boss.y-=2
+          boss.y-=2*gDeltaTime
           boss.image_alpha+=0.01*gDeltaTime
           if boss.y<=1264
           {

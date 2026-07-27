@@ -11,7 +11,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-efTimer+=1
+efTimer+=1*gDeltaTime
 if efTimer mod 2=0
 {
   var tEffect;

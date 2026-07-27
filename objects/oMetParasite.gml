@@ -50,12 +50,12 @@ applies_to=self
 */
 if scaleUp=1 //Shell scale
 {
-  shellScale+=0.005
+  shellScale+=0.005*gDeltaTime
   if shellScale>=1.1 {scaleUp=0}
 }
 else if scaleUp=0
 {
-  shellScale-=0.005
+  shellScale-=0.005*gDeltaTime
   if shellScale<=0.9 {scaleUp=1}
 }
 
@@ -72,7 +72,7 @@ if global.gamePaused=false
     }
 
     //Update grid
-    updateCheck+=1
+    updateCheck+=1*gDeltaTime
     if updateCheck>=4
     {
       mp_grid_clear_all(myGrid)
@@ -83,8 +83,8 @@ if global.gamePaused=false
     if place_meeting(x,y,oDummyPlat) //Check if door closed on Parasite
     {
       path_end()
-      if x>oPlayer1.x {x-=4}
-      else if x<oPlayer1.x {x+=4}
+      if x>oPlayer1.x {x-=4*gDeltaTime}
+      else if x<oPlayer1.x {x+=4*gDeltaTime}
     }
     else //Update path
     {
@@ -98,7 +98,7 @@ if global.gamePaused=false
   else
   {
     path_end()
-    stopTime-=1
+    stopTime-=1*gDeltaTime
   }
 }
 else {path_end()}

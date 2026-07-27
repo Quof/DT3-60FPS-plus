@@ -21,7 +21,7 @@ if global.gamePaused=false
   {
     if lowGravTime>0
     {
-      lowGravTime-=1
+      lowGravTime-=1*gDeltaTime
       if lowGravTime=0
       {
         oPlayer1.grav=1.2
@@ -44,12 +44,12 @@ if lowGravOn=1
   draw_set_alpha(0.25)
   if colorUp=0
   {
-    lowGravColor-=5
+    lowGravColor-=5*gDeltaTime
     if lowGravColor<=160 {colorUp=1}
   }
   else
   {
-    lowGravColor+=5
+    lowGravColor+=5*gDeltaTime
     if lowGravColor>=255 {colorUp=0}
   }
   draw_set_color(make_color_rgb(0,lowGravColor,lowGravColor))

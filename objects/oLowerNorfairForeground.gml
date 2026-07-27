@@ -13,8 +13,8 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-xx+=0.25
-yy-=0.6
+xx+=0.25*gDeltaTime
+yy-=0.6*gDeltaTime
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

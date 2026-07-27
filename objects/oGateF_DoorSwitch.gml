@@ -37,7 +37,7 @@ if global.gamePaused=false
 
   if flashColor>=1 and flashColor<=8 //Flash light
   {
-    flashColor+=1
+    flashColor+=1*gDeltaTime
     if flashColor mod 2=0
     {
       if image_blend=c_white {image_blend=c_green}

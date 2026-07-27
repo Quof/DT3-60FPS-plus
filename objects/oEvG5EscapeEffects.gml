@@ -20,7 +20,7 @@ action_id=603
 applies_to=self
 */
 //-------------------- Explosion Effect --------------------
-explosionDelay-=1
+explosionDelay-=1*gDeltaTime
 if explosionDelay<=0
 {
   explosionX=(view_xview[0]-8)+random(view_wview[0]+16)
@@ -36,7 +36,7 @@ if explosionDelay<=0
   else if expType=2 {tEffect.sprite_index=sSamusSMissileHit}
   explosionDelay=irandom_range(2,5)
 
-  soundEffectTime-=1
+  soundEffectTime-=1*gDeltaTime
   if soundEffectTime<=0
   {
     playSound(global.snd_MetroidBomb,0,0.91,1)
@@ -44,7 +44,7 @@ if explosionDelay<=0
   }
 }
 //-------------------- Red Fade Effect --------------------
-redFadeTime+=1
+redFadeTime+=1*gDeltaTime
 if redFadeTime>=1 and redFadeTime<=50 {redFadeAlpha+=0.002*gDeltaTime}
 else if redFadeTime>=51 and redFadeTime<=100
 {

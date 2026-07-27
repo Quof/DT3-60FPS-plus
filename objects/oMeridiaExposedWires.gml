@@ -14,7 +14,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  sparkTime+=1
+  sparkTime+=1*gDeltaTime
   if sparkTime>=30
   {
     var tSpark;

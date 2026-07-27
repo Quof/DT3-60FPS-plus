@@ -14,7 +14,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-eleFlash+=1
+eleFlash+=1*gDeltaTime
 if eleFlash mod 2=0 //Flash sprite
 {
   if image_alpha=1 {image_alpha=0.6}
@@ -46,12 +46,12 @@ else if moveProg=2 //Move elevator and player
 {
   if type=0 //Down
   {
-    y+=2; oPlayer1.y+=2
+    y+=2*gDeltaTime; oPlayer1.y+=2*gDeltaTime
     if oPlayer1.y>=room_height+56 {moveProg=3}
   }
   else if type=1 //Up
   {
-    y-=2; oPlayer1.y-=2
+    y-=2*gDeltaTime; oPlayer1.y-=2*gDeltaTime
     if oPlayer1.y<=4 {moveProg=3}
   }
 }
