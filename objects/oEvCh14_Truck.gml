@@ -35,10 +35,11 @@ applies_to=self
 */
 if global.gamePaused=false
 {
+  timeline_speed=gDeltaTime
   timeline_running=1
   if global.gameProgress=3360 //----- [] Road rage -----
   {
-    with oZakoCannonfodder {x-=12}
+    with oZakoCannonfodder {x-=12*gDeltaTime}
     if sceneProgress=0
     {
       oPlayer1.bCanTakeDamage=false
@@ -48,7 +49,7 @@ if global.gamePaused=false
     }
     else if sceneProgress=1
     {
-      spawnTime+=1
+      spawnTime+=1*gDeltaTime
       if spawnTime>=spawnDelay and sceneDelay<=150
       {
         spawnTime=0
@@ -141,7 +142,7 @@ else
   {
     if sceneProgress=10
     {
-      oTeamTruck.x+=12
+      oTeamTruck.x+=12*gDeltaTime
       if oTeamTruck.x>=560 {sceneProgress+=1}
     }
     else if sceneProgress=11

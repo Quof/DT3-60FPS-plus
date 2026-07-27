@@ -28,39 +28,39 @@ if global.gamePaused=false
   //Truck control
   if scrController(1)
   {
-    if x>32 {x-=moveSpd}
+    if x>32 {x-=moveSpd*gDeltaTime}
   }
   else if scrController(2)
   {
-    if x<384 {x+=moveSpd}
+    if x<384 {x+=moveSpd*gDeltaTime}
   }
 
   //Turret control
   if scrController(3)
   {
-    if gunAngle<maxAngle {gunAngle+=gunSpd}
+    if gunAngle<maxAngle {gunAngle+=gunSpd*gDeltaTime}
   }
   else if scrController(4)
   {
-    if gunAngle>minAngle {gunAngle-=gunSpd}
+    if gunAngle>minAngle {gunAngle-=gunSpd*gDeltaTime}
   }
 
   //Fire
   if scrController(5)
   {
-    if oGame.time mod fireRate=0
+    if oGame.time mod (fireRate/gDeltaTime)=0
     {
       playSound(global.snd_MMBuster[1],0,0.85,31000)
       var tNewAtk,tDir,tOffset;
       tOffset=gunAngle+random_range(-5,5)
       tDir=gunAngle+random_range(-gunSpread,gunSpread)
       tNewAtk=instance_create(x+11+lengthdir_x(40,tOffset),y-66+lengthdir_y(40,tOffset),oTruckShot)
-      tNewAtk.direction=tDir; tNewAtk.image_angle=tDir
+      tNewAtk._direction=tDir; tNewAtk.image_angle=tDir
     }
   }
 
   //Bomb
-  if bombTime>0 {bombTime-=1}
+  if bombTime>0 {bombTime-=1*gDeltaTime}
   if scrController(6)
   {
     if bombTime=0

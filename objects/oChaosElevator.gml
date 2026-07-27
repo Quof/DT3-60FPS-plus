@@ -88,9 +88,9 @@ if global.gamePaused=false
       //sound_play(snd_ElevatorUse)
       soundDelay=4
     }
-    else {soundDelay-=1}
+    else {soundDelay-=1*gDeltaTime}
 
-    floorMove+=abs(yVel)
+    floorMove+=abs(yVel)*gDeltaTime
     if floorMove>=floorSpc
     {
       yVel=0; myCeiling.yVel=0
@@ -100,5 +100,5 @@ if global.gamePaused=false
       bCanControl=1
     }
   }
-  scrPlatformCrush()
+  if gDeltaDoTicks scrPlatformCrush()
 }

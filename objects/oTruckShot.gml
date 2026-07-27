@@ -12,6 +12,8 @@ weaponTag=103
 atkPower=10
 bulletSpeed=16
 stunTime=1
+
+_direction=0
 #define Destroy_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

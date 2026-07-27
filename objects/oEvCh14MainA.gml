@@ -1505,26 +1505,26 @@ else if global.gameProgress=3340 and room=rNGC_BR_B //----- [Unskippable] Gettin
     msgCreate(0,0,"Jerry","Wow... You're right! We totally played like that! Let's do this!",0,3,oMessageCutscene,1)
   else if sceneProgress=8
   {
-    jerryTime+=1
+    jerryTime+=1*gDeltaTime
     if jerryTime=5 {charJerry.sprite_index=sJerryWalk; charJerry.image_speed=0.5}
-    else if jerryTime>=6 and jerryTime<=20 {charJerry.x+=6}
+    else if jerryTime>=6 and jerryTime<=20 {charJerry.x+=6*gDeltaTime}
     else if jerryTime=21 {charJerry.sprite_index=sJerryJump}
     else if jerryTime>=22 and jerryTime<=99
     {
-      charJerry.y+=jerryY
-      jerryY+=0.33
+      charJerry.y+=jerryY*gDeltaTime
+      jerryY+=0.33*gDeltaTime
       if jerryY>=4.5 {jerryTime=100}
     }
     else if jerryTime=101 {charJerry.y=290; charJerry.sprite_index=sJerryOnTruck; charJerry.depth=101}
     
-    claireTime+=1
+    claireTime+=1*gDeltaTime
     if claireTime=5 {charClaire.sprite_index=sClaireWalk; charClaire.image_xscale=1; charClaire.image_speed=0.5}
-    else if claireTime>=6 and claireTime<=12 {charClaire.x+=6}
+    else if claireTime>=6 and claireTime<=12 {charClaire.x+=6*gDeltaTime}
     else if claireTime=13 {charClaire.sprite_index=sClaireJump}
     else if claireTime>=14 and claireTime<=99
     {
-      charClaire.y+=claireY
-      claireY+=0.33
+      charClaire.y+=claireY*gDeltaTime
+      claireY+=0.33*gDeltaTime
       if claireY>=4.5 {claireTime=100}
     }
     else if claireTime=101 {charClaire.y=290; charClaire.sprite_index=sClaireCasting; charClaire.image_speed=0; charClaire.depth=101}
@@ -1542,10 +1542,10 @@ else if global.gameProgress=3340 and room=rNGC_BR_B //----- [Unskippable] Gettin
     sceneDelay+=1*gDeltaTime
     if sceneDelay>=30
     {
-      if truckSpd<8 {truckSpd+=0.5}
-      oLevelDecal.x+=truckSpd
-      charJerry.x+=truckSpd
-      charClaire.x+=truckSpd
+      if truckSpd<8 {truckSpd+=0.5*gDeltaTime}
+      oLevelDecal.x+=truckSpd*gDeltaTime
+      charJerry.x+=truckSpd*gDeltaTime
+      charClaire.x+=truckSpd*gDeltaTime
       if oLevelDecal.x>=576
       {
         global.pLife=global.pMaxLife
@@ -1774,7 +1774,7 @@ if global.gameOptDT=2 and room=rDesertedTowerD //----- [EX1] Boss: Sand Crawler 
       {
         scenePChk(oPlayer1.x,oPlayer1.y,1,0.1,1)
         global.gamePaused=true
-        oPlayer1.y+=12
+        oPlayer1.y+=12*gDeltaTime
         if oPlayer1.y>=784
         {
           scenePChk(oPlayer1.x,784,0,0.1,1)
@@ -2014,7 +2014,7 @@ if global.gamePaused=false
 {
   if room=rDesertedTowerB
   {
-    platformSpawn+=1
+    platformSpawn+=1*gDeltaTime
     if platformSpawn>=300
     {
       var tNewPlat;
@@ -2029,7 +2029,7 @@ if global.gamePaused=false
   }
   else if room=rDesertedTowerC
   {
-    platformSpawn+=1
+    platformSpawn+=1*gDeltaTime
     if platformSpawn>=300
     {
       var tNewPlat;
