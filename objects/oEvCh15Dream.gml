@@ -726,7 +726,7 @@ if global.gamePaused=false
 
     if sceneProgress>=1 //Static
     {
-      staticTime+=1
+      staticTime+=1*gDeltaTime
       if staticTime=30
       {
         playSound(global.snd_Static,0,0.8,1)
@@ -750,7 +750,7 @@ if global.gamePaused=false
         staticTime=irandom(15)
       }
 
-      abomTime+=1
+      abomTime+=1*gDeltaTime
       if abomTime=50
       {
         npc_AbomImage.image_alpha=abomAlpha
@@ -762,7 +762,7 @@ if global.gamePaused=false
         abomTime=irandom(15)
       }
 
-      PDTime+=1
+      PDTime+=1*gDeltaTime
       if PDTime=70
       {
         npc_PDImageB.image_alpha=0.35

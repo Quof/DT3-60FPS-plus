@@ -363,7 +363,7 @@ if global.gamePaused=false
   else if room=rGame6_WaterCaveA
   {
     //Water level
-    waterTime+=1
+    waterTime+=1*gDeltaTime
     if waterTime>=60
     {
       if bWaterRise=1
@@ -377,7 +377,7 @@ if global.gamePaused=false
         if oWaterVolume.y<=128 {waterTime=0; waterAltSpd=0; bWaterRise=1}
       }
     }
-    oWaterVolume.y+=waterAltSpd
+    oWaterVolume.y+=waterAltSpd*gDeltaTime
     
     if indexCheck="0"
     {
@@ -445,7 +445,7 @@ if global.gamePaused=false
       }
       else if sceneProgress=1
       {
-        oWaterVolume.y-=4
+        oWaterVolume.y-=4*gDeltaTime
         sceneDelay+=1*gDeltaTime
         if sceneDelay>=40 {sceneDelay=0; sceneProgress+=1}
       }
@@ -483,7 +483,7 @@ if global.gamePaused=false
       }
       else if sceneProgress=4
       {
-        oWaterVolume.y+=4
+        oWaterVolume.y+=4*gDeltaTime
         sceneDelay+=1*gDeltaTime
         if sceneDelay>=40
         {
@@ -496,7 +496,7 @@ if global.gamePaused=false
   }
   else if room=rGame6_MonsterIsle
   {
-    spawnTime+=1
+    spawnTime+=1*gDeltaTime
     if spawnTime>=spawnDelay
     {
       global.tempAction[0]=91+irandom(8)

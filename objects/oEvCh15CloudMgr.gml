@@ -17,7 +17,7 @@ applies_to=self
 */
 if !instance_exists(oZeldaSaveMenu)
 {
-  cloudTime+=1
+  cloudTime+=1*gDeltaTime
   if cloudTime>=40
   {
     if random(10)>5

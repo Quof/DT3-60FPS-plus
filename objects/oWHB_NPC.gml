@@ -29,7 +29,7 @@ if global.gamePaused=false
 
   if slightWaitAfterTele>0
   {
-    slightWaitAfterTele-=1
+    slightWaitAfterTele-=1*gDeltaTime
     if slightWaitAfterTele=1 {xVel=runAcc}
   }
 
@@ -45,7 +45,7 @@ if global.gamePaused=false
   }
 
   //Movement Physics
-  if yVel<12 {yVel+=0.3}
+  if yVel<12 {yVel+=0.3*gDeltaTime}
   if isCollisionBottom(1)
     yVel=0
   if isCollisionLeft(1)
@@ -56,8 +56,8 @@ if global.gamePaused=false
     y-=2
 
   if yVel>8 {yVel=8}
-  if yVel=0 {moveTo(xVel,yVel)}
-  else {moveTo(xVel*0.75,yVel)}
+  if yVel=0 {moveTo(xVel*gDeltaTime,yVel*gDeltaTime)}
+  else {moveTo(xVel*0.75*gDeltaTime,yVel*gDeltaTime)}
 
   //---------- Animation ----------
   if type<100
@@ -85,7 +85,7 @@ if other.type=0 //Stop
 }
 else if other.type=1 //Jump
 {
-  y-=2
+  y-=2*gDeltaTime
   jumpAcc=other.jumpAcc
   yVel=jumpAcc
 }

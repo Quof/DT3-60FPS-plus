@@ -121,7 +121,7 @@ if global.gamePaused=false
           }
           else if dialogueSeq=2
           {
-            msgCreate(0,0,"Evil Shadowy Councilman C","The Overlord showed it to me. If the creature is not saved, it will bring about a catastrope greater than anyone is able to contain.",6,3,oMessagePerson,0)
+            msgCreate(0,0,"Evil Shadowy Councilman C","The Overlord showed it to me. If the creature is not saved, it will bring about a catastrophe greater than anyone is able to contain.",6,3,oMessagePerson,0)
             newMessage.fadingTime=140; dialogueDelay=140
           }
           else if dialogueSeq=3
@@ -143,7 +143,7 @@ if global.gamePaused=false
       }
       else
       {
-        dialogueDelay-=1
+        dialogueDelay-=1*gDeltaTime
         if dialogueDelay=0 //Increment dialogue sequence up by 1
         {
           dialogueSeq+=1
@@ -156,7 +156,7 @@ if global.gamePaused=false
   }
   else if life<=0
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     image_speed=0
     if deathAnim mod 4=0
     {

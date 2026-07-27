@@ -13,7 +13,7 @@ applies_to=self
 */
 if !instance_exists(oZeldaSaveMenu)
 {
-  x-=1
-  y+=1
+  x-=1*gDeltaTime
+  y+=1*gDeltaTime
   if x<=-48 or y>=room_height+48 {instance_destroy()}
 }

@@ -12,10 +12,10 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-topDraw-=2
+topDraw-=2*gDeltaTime
 if topDraw<=0 {topDraw=16}
 
-splashDelay+=1
+splashDelay+=1*gDeltaTime
 if splashDelay mod 9=0
 {
   var tEffect;

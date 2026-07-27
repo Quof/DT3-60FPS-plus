@@ -85,7 +85,7 @@ if global.gamePaused=false
       {
         prevX=x
         prevY=y
-        shiftTime+=1
+        shiftTime+=1*gDeltaTime
       }
     }
   }

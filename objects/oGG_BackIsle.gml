@@ -16,7 +16,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-y-=mySpd
+y-=mySpd*gDeltaTime
 if y<=-40
 {
   instance_destroy()

@@ -24,7 +24,7 @@ if lightningProg=0
 }
 else if lightningProg=1
 {
-  lightningTime+=1
+  lightningTime+=1*gDeltaTime
   if lightningTime>=30
   {
     lightningProg+=1
@@ -36,7 +36,7 @@ else if lightningProg=2
   if image_alpha<=0 {instance_destroy()}
 }
 
-if backAlpha>0 {backAlpha-=0.02}
+if backAlpha>0 {backAlpha-=0.02*gDeltaTime}
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

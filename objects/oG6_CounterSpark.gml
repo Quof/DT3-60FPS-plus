@@ -14,8 +14,8 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  image_angle+=10*image_xscale
-  image_index+=1
-  frameCount+=1
+  image_angle+=10*image_xscale*gDeltaTime
+  image_index+=1*gDeltaTime
+  frameCount+=1*gDeltaTime
   if frameCount>=maxFrame {instance_destroy()}
 }
