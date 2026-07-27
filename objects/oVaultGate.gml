@@ -15,9 +15,9 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-phase+=0.02
+phase+=0.02*gDeltaTime
 
-efLightDelay+=1
+efLightDelay+=1*gDeltaTime
 if efLightDelay=30
 {
   var tEffect,tTempAmt,tTempDir,tTempDist;

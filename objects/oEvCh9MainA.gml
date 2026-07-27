@@ -608,7 +608,7 @@ else if global.gameProgress=2080 and room=rBubbleTowerA7 //----- [5] Boss: Army 
       {
         npcBubblin.sprite_index=sBubblun_Walk; npcBubblin.image_xscale=1; npcBubblin.image_speed=0.15
       }
-      else if sceneDelay>=16 and sceneDelay<=48 {npcBubblin.x+=1}
+      else if sceneDelay>=16 and sceneDelay<=48 {npcBubblin.x+=1*gDeltaTime}
       else if sceneDelay=49 {npcBubblin.sprite_index=sBubblun_Idle; npcBubblin.image_speed=0.05}
       else if sceneDelay=60 {with npcBubblin {instance_destroy()}}
       else if sceneDelay>=75 {sceneDelay=0; sceneProgress+=1}
@@ -695,7 +695,7 @@ else if global.gameProgress=2100 and room=rMain_36 //----- [Unskippable] Enemy T
         else if sceneDelay=21 {enemyImage.sprite_index=sDK_Fly; enemyImage.image_speed=0.15}
         if sceneDelay>=61 and sceneDelay<=132
         {
-          enemyImage.y+=2
+          enemyImage.y+=2*gDeltaTime
           if sceneDelay=132
           {
             enemyImage.sprite_index=sDK_Idle
@@ -1165,7 +1165,7 @@ else if room=rMain_39Vault
 {
   if pullIn=1
   {
-    particleTime-=1
+    particleTime-=1*gDeltaTime
     if particleTime<=0
     {
       var tNewObj,tYY,tSize;
@@ -1198,7 +1198,7 @@ else if room=rMain_39Vault
 
     if global.gamePaused=false
     {
-      pullTime+=1
+      pullTime+=1*gDeltaTime
       if pullTime=60 {pullPwr+=1}
       else if pullTime=120 {pullPwr+=1}
       else if pullTime=180 {pullPwr+=1}

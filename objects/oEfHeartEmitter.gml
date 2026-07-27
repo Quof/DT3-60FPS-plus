@@ -11,7 +11,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-efTime+=1
+efTime+=1*gDeltaTime
 if efTime>=efDelay
 {
   var tEffect;

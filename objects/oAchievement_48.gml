@@ -12,7 +12,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if oGame.time mod 5=0
+if oGame.time mod (5/gDeltaTime)=0
 {
   var tCheckAchieve;
   tCheckAchieve=string_char_at(global.tokenRecognitions,48)

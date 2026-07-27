@@ -32,7 +32,7 @@ if global.gamePaused=false
   {
     if resetTime>-1
     {
-      resetTime-=1
+      resetTime-=1*gDeltaTime
       if resetTime=0
       {
         ringColl=0

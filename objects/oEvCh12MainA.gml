@@ -136,11 +136,11 @@ else if global.gameProgress=2620 and room=rMain_47 //----- [3] Boss Fight: Vault
       }
       else if sceneDelay>=11 and sceneDelay<=999
       {
-        oGameCamera.x+=1
+        if gDeltaDoTicks oGameCamera.x+=1
         if oGameCamera.y!=304
         {
-          if oGameCamera.y>304 {oGameCamera.y-=1}
-          else if oGameCamera<304 {oGameCamera.y+=1}
+          if oGameCamera.y>304 and gDeltaDoTicks {oGameCamera.y-=1}
+          else if oGameCamera<304 and gDeltaDoTicks {oGameCamera.y+=1}
         }
         if oGameCamera.x>=2208 {oGameCamera.x=2208; sceneDelay=1000}
       }
@@ -407,7 +407,7 @@ if global.gamePaused=false
   }
   else if exCharTalkAProg>=1 and exCharTalkAProg<=99
   {
-    exCharTalkATime+=1
+    exCharTalkATime+=1*gDeltaTime
     if exCharTalkAProg=1
     {
       msgCreate(0,0,"Claire","So you guys, any idea what's up with this place and why it's all messed up?",0,2,oMessagePerson,0)
@@ -443,7 +443,7 @@ if global.gamePaused=false
       if exCharTalkATime>=100
       {
         exCharTalkATime=0
-        if global.gameOptDT<=2 {exCharTalkAProg+=1} //Sand Crawler not defeated
+        if global.gameOptDT<=2 {exCharTalkAProg+=1*gDeltaTime} //Sand Crawler not defeated
         else {exCharTalkAProg=99}
       }
     }

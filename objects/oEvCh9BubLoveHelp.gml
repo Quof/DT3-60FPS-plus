@@ -53,18 +53,18 @@ if global.gamePaused=false
     else if npcBubblin.sprite_index=sBubblun_Walk
     {
       npcBubblin.image_speed=0.15
-      if npcBubblin.image_xscale=1 {npcBubblin.x+=2}
-      else {npcBubblin.x-=2}
+      if npcBubblin.image_xscale=1 {npcBubblin.x+=2*gDeltaTime}
+      else {npcBubblin.x-=2*gDeltaTime}
     }
     else if npcBubblin.sprite_index=sBubblun_BubbleBlow
     {
-      bubbBubble+=1
+      bubbBubble+=1*gDeltaTime
       if bubbBubble=5 {npcBubblin.sprite_index=sBubblun_Idle; bubbBubble=0}
     }
-    else if npcBubblin.sprite_index=sBubblun_Jump {npcBubblin.y-=6}
-    else if npcBubblin.sprite_index=sBubblun_Fall {npcBubblin.y+=4}
+    else if npcBubblin.sprite_index=sBubblun_Jump {npcBubblin.y-=6*gDeltaTime}
+    else if npcBubblin.sprite_index=sBubblun_Fall {npcBubblin.y+=4*gDeltaTime}
 
-    if bubbProg!=100 {bubbTime+=1}
+    if bubbProg!=100 {bubbTime+=1*gDeltaTime}
     if bubbProg=0 //---------- First Bubble ----------
     {
       if bubbTime=10
@@ -77,15 +77,15 @@ if global.gamePaused=false
       else if bubbTime=53 {event_user(0); npcBubblin.sprite_index=sBubblun_Jump; npcBubblin.image_xscale=1}
       else if bubbTime>=59 and bubbTime<=64
       {
-        npcBubblin.x+=4
+        npcBubblin.x+=4*gDeltaTime
         if bubbTime=62 {npcBubblin.sprite_index=sBubblun_Fall}
         if bubbTime=64 {npcBubblin.sprite_index=sBubblun_Idle}
       }
       else if bubbTime=71 {event_user(0); npcBubblin.sprite_index=sBubblun_Jump}
-      else if bubbTime>=85 and bubbTime<=88 {npcBubblin.x+=4}
+      else if bubbTime>=85 and bubbTime<=88 {npcBubblin.x+=4*gDeltaTime}
       else if bubbTime>=89 and bubbTime<=92
       {
-        npcBubblin.x+=4
+        npcBubblin.x+=4*gDeltaTime
         if bubbTime=89 {npcBubblin.sprite_index=sBubblun_Fall}
         if bubbTime=92 {npcBubblin.sprite_index=sBubblun_Idle}
       }
@@ -104,20 +104,20 @@ if global.gamePaused=false
       else if bubbTime=74 {event_user(0); npcBubblin.sprite_index=sBubblun_Jump}
       else if bubbTime>=94 and bubbTime<=98
       {
-        npcBubblin.x-=4
+        npcBubblin.x-=4*gDeltaTime
         if bubbTime=95 {npcBubblin.sprite_index=sBubblun_Fall}
         if bubbTime=98 {npcBubblin.sprite_index=sBubblun_Idle}
       }
       else if bubbTime>=107 and bubbTime<=123
       {
-        npcBubblin.x-=4
+        npcBubblin.x-=4*gDeltaTime
         if bubbTime=107 {event_user(0); npcBubblin.sprite_index=sBubblun_Jump}
         if bubbTime=120 {npcBubblin.sprite_index=sBubblun_Fall}
         if bubbTime=123 {npcBubblin.sprite_index=sBubblun_Idle}
       }
       else if bubbTime>=132 and bubbTime<=147
       {
-        npcBubblin.x+=4
+        npcBubblin.x+=4*gDeltaTime
         if bubbTime=132 {event_user(0); npcBubblin.sprite_index=sBubblun_Jump; npcBubblin.image_xscale=1}
         if bubbTime=144 {npcBubblin.sprite_index=sBubblun_Fall}
         if bubbTime=147 {npcBubblin.sprite_index=sBubblun_Idle}
@@ -140,7 +140,7 @@ if global.gamePaused=false
         bubbleBub.image_xscale=0.1; bubbleBub.image_yscale=0.1
       }
       else if bubbTime>=71 and bubbTime<=82 {bubbleBub.image_xscale+=0.1*gDeltaTime; bubbleBub.image_yscale+=0.1*gDeltaTime}
-      else if bubbTime>=83 and bubbTime<=122 {bubbleBub.y-=4; npcBubblin.y-=4}
+      else if bubbTime>=83 and bubbTime<=122 {bubbleBub.y-=4*gDeltaTime; npcBubblin.y-=4*gDeltaTime}
       else if bubbTime=123
       {
         var tFFScl,tEffect;
@@ -173,7 +173,7 @@ if global.gamePaused=false
         bubbleBub.image_xscale=0.1; bubbleBub.image_yscale=0.1
       }
       else if bubbTime>=61 and bubbTime<=72 {bubbleBub.image_xscale+=0.1*gDeltaTime; bubbleBub.image_yscale+=0.1*gDeltaTime}
-      else if bubbTime>=73 and bubbTime<=148 {bubbleBub.y-=4; npcBubblin.y-=4}
+      else if bubbTime>=73 and bubbTime<=148 {bubbleBub.y-=4*gDeltaTime; npcBubblin.y-=4*gDeltaTime}
       else if bubbTime=149
       {
         var tFFScl,tEffect;
@@ -195,40 +195,40 @@ if global.gamePaused=false
       if bubbTime=10 {npcBubblin.sprite_index=sBubblun_Walk}
       else if bubbTime>=45 and bubbTime<=50
       {
-        npcBubblin.x+=4
+        npcBubblin.x+=4*gDeltaTime
         if bubbTime=45 {event_user(0); npcBubblin.sprite_index=sBubblun_Jump}
         if bubbTime=49 {npcBubblin.sprite_index=sBubblun_Fall}
-        if bubbTime=50 {npcBubblin.sprite_index=sBubblun_Idle; npcBubblin.y+=4}
+        if bubbTime=50 {npcBubblin.sprite_index=sBubblun_Idle; npcBubblin.y+=4*gDeltaTime}
       }
       else if bubbTime=51 {npcBubblin.sprite_index=sBubblun_Walk}
       else if bubbTime>=66 and bubbTime<=71
       {
-        npcBubblin.x+=4
+        npcBubblin.x+=4*gDeltaTime
         if bubbTime=66 {event_user(0); npcBubblin.sprite_index=sBubblun_Jump}
         if bubbTime=70 {npcBubblin.sprite_index=sBubblun_Fall}
-        if bubbTime=71 {npcBubblin.sprite_index=sBubblun_Idle; npcBubblin.y+=4}
+        if bubbTime=71 {npcBubblin.sprite_index=sBubblun_Idle; npcBubblin.y+=4*gDeltaTime}
       }
       else if bubbTime=72 {npcBubblin.sprite_index=sBubblun_Walk}
       else if bubbTime>=130 and bubbTime<=148
       {
-        npcBubblin.x+=4
+        npcBubblin.x+=4*gDeltaTime
         if bubbTime=130 {event_user(0); npcBubblin.sprite_index=sBubblun_Jump}
         if bubbTime=138 {npcBubblin.sprite_index=sBubblun_Fall}
-        if bubbTime=148 {npcBubblin.sprite_index=sBubblun_Idle; npcBubblin.y+=4}
+        if bubbTime=148 {npcBubblin.sprite_index=sBubblun_Idle; npcBubblin.y+=4*gDeltaTime}
       }
       else if bubbTime=149 {npcBubblin.sprite_index=sBubblun_Walk}
-      else if bubbTime>=150 and bubbTime<=162 {npcBubblin.y-=1}
-      else if bubbTime>=178 and bubbTime<=192 {npcBubblin.y+=1}
+      else if bubbTime>=150 and bubbTime<=162 and gDeltaDoTicks {npcBubblin.y-=1}
+      else if bubbTime>=178 and bubbTime<=192 and gDeltaDoTicks {npcBubblin.y+=1}
       else if bubbTime>=195 and bubbTime<=215
       {
-        npcBubblin.x+=4
+        npcBubblin.x+=4*gDeltaTime
         if bubbTime=195 {event_user(0); npcBubblin.sprite_index=sBubblun_Jump}
         if bubbTime=203 {npcBubblin.sprite_index=sBubblun_Fall}
-        if bubbTime=215 {npcBubblin.sprite_index=sBubblun_Idle; npcBubblin.y+=4}
+        if bubbTime=215 {npcBubblin.sprite_index=sBubblun_Idle; npcBubblin.y+=4*gDeltaTime}
       }
       else if bubbTime=216 {npcBubblin.sprite_index=sBubblun_Walk}
-      else if bubbTime>=220 and bubbTime<=235 {npcBubblin.y-=1}
-      else if bubbTime>=239 and bubbTime<=253 {npcBubblin.y+=1}
+      else if bubbTime>=220 and bubbTime<=235 and gDeltaDoTicks {npcBubblin.y-=1}
+      else if bubbTime>=239 and bubbTime<=253 and gDeltaDoTicks {npcBubblin.y+=1}
       else if bubbTime=269 {npcBubblin.sprite_index=sBubblun_Idle; npcBubblin.image_xscale=-1; bubbProg=1000}
     }
 
@@ -237,18 +237,18 @@ if global.gamePaused=false
     else if npcLovelun.sprite_index=sLovelun_Walk
     {
       npcLovelun.image_speed=0.15
-      if npcLovelun.image_xscale=1 {npcLovelun.x+=2}
-      else {npcLovelun.x-=2}
+      if npcLovelun.image_xscale=1 {npcLovelun.x+=2*gDeltaTime}
+      else {npcLovelun.x-=2*gDeltaTime}
     }
     else if npcLovelun.sprite_index=sLovelun_BubbleBlow
     {
-      bubbBubble+=1
+      bubbBubble+=1*gDeltaTime
       if bubbBubble=5 {npcLovelun.sprite_index=sLovelun_Idle; bubbBubble=0}
     }
-    else if npcLovelun.sprite_index=sLovelun_Jump {npcLovelun.y-=6}
-    else if npcLovelun.sprite_index=sLovelun_Fall {npcLovelun.y+=4}
+    else if npcLovelun.sprite_index=sLovelun_Jump {npcLovelun.y-=6*gDeltaTime}
+    else if npcLovelun.sprite_index=sLovelun_Fall {npcLovelun.y+=4*gDeltaTime}
 
-    if loveProg!=100 {loveTime+=1}
+    if loveProg!=100 {loveTime+=1*gDeltaTime}
     if loveProg=0 //---------- First Bubble ----------
     {
       if loveTime=60
@@ -263,13 +263,13 @@ if global.gamePaused=false
       else if loveTime=96 {event_user(1); npcLovelun.sprite_index=sLovelun_Jump}
       else if loveTime>=111 and loveTime<=114
       {
-        npcLovelun.x-=4
+        npcLovelun.x-=4*gDeltaTime
         if loveTime=111 {npcLovelun.sprite_index=sLovelun_Fall}
         if loveTime=114 {npcLovelun.sprite_index=sLovelun_Idle; npcLovelun.image_xscale=1}
       }
       else if loveTime>=118 and loveTime<=134
       {
-        npcLovelun.x+=4
+        npcLovelun.x+=4*gDeltaTime
         if loveTime=118 {event_user(1); npcLovelun.sprite_index=sLovelun_Jump}
         if loveTime=134 {npcLovelun.sprite_index=sLovelun_Idle}
       }
@@ -287,7 +287,7 @@ if global.gamePaused=false
       else if loveTime=85 {npcLovelun.sprite_index=sLovelun_Idle}
       else if loveTime>=87 and loveTime<=97
       {
-        npcLovelun.x-=4
+        npcLovelun.x-=4*gDeltaTime
         if loveTime=87 {event_user(1); npcLovelun.sprite_index=sLovelun_Jump}
         if loveTime=94 {npcLovelun.sprite_index=sLovelun_Fall}
         if loveTime=97 {npcLovelun.sprite_index=sLovelun_Idle}
@@ -295,7 +295,7 @@ if global.gamePaused=false
       else if loveTime=101 {event_user(1); npcLovelun.sprite_index=sLovelun_Jump; npcLovelun.image_xscale=1}
       else if loveTime>=102 and loveTime<=117
       {
-        npcLovelun.x+=3
+        npcLovelun.x+=3*gDeltaTime
         if loveTime=102 {event_user(1); npcLovelun.sprite_index=sLovelun_Jump}
         if loveTime=114 {npcLovelun.sprite_index=sLovelun_Fall}
         if loveTime=117 {npcLovelun.sprite_index=sLovelun_Idle}
@@ -318,7 +318,7 @@ if global.gamePaused=false
         bubbleLove.image_xscale=0.1; bubbleLove.image_yscale=0.1
       }
       else if loveTime>=43 and loveTime<=54 {bubbleLove.image_xscale+=0.1*gDeltaTime; bubbleLove.image_yscale+=0.1*gDeltaTime}
-      else if loveTime>=55 and loveTime<=90 {bubbleLove.y-=4; npcLovelun.y-=4}
+      else if loveTime>=55 and loveTime<=90 {bubbleLove.y-=4*gDeltaTime; npcLovelun.y-=4*gDeltaTime}
       else if loveTime=91
       {
         var tFFScl,tEffect;
@@ -350,7 +350,7 @@ if global.gamePaused=false
         bubbleLove.image_xscale=0.1; bubbleLove.image_yscale=0.1
       }
       else if loveTime>=83 and loveTime<=94 {bubbleLove.image_xscale+=0.1*gDeltaTime; bubbleLove.image_yscale+=0.1*gDeltaTime}
-      else if loveTime>=95 and loveTime<=134 {bubbleLove.y-=4; npcLovelun.y-=4}
+      else if loveTime>=95 and loveTime<=134 {bubbleLove.y-=4; npcLovelun.y-=4*gDeltaTime}
       else if loveTime=135
       {
         var tFFScl,tEffect;
@@ -382,7 +382,7 @@ if global.gamePaused=false
         bubbleLove.image_xscale=0.1; bubbleLove.image_yscale=0.1
       }
       else if loveTime>=93 and loveTime<=104 {bubbleLove.image_xscale+=0.1*gDeltaTime; bubbleLove.image_yscale+=0.1*gDeltaTime}
-      else if loveTime>=105 and loveTime<=160 {bubbleLove.y-=4; npcLovelun.y-=4}
+      else if loveTime>=105 and loveTime<=160 {bubbleLove.y-=4*gDeltaTime; npcLovelun.y-=4*gDeltaTime}
       else if loveTime=161
       {
         var tFFScl,tEffect;
@@ -404,40 +404,40 @@ if global.gamePaused=false
       if loveTime=10 {npcLovelun.sprite_index=sLovelun_Walk}
       else if loveTime>=45 and loveTime<=50
       {
-        npcLovelun.x+=4
+        npcLovelun.x+=4*gDeltaTime
         if loveTime=45 {event_user(1); npcLovelun.sprite_index=sLovelun_Jump}
         if loveTime=49 {npcLovelun.sprite_index=sLovelun_Fall}
-        if loveTime=50 {npcLovelun.sprite_index=sLovelun_Idle; npcLovelun.y+=4}
+        if loveTime=50 {npcLovelun.sprite_index=sLovelun_Idle; npcLovelun.y+=4*gDeltaTime}
       }
       else if loveTime=51 {npcLovelun.sprite_index=sLovelun_Walk}
       else if loveTime>=66 and loveTime<=71
       {
-        npcLovelun.x+=4
+        npcLovelun.x+=4*gDeltaTime
         if loveTime=66 {event_user(1); npcLovelun.sprite_index=sLovelun_Jump}
         if loveTime=70 {npcLovelun.sprite_index=sLovelun_Fall}
-        if loveTime=71 {npcLovelun.sprite_index=sLovelun_Idle; npcLovelun.y+=4}
+        if loveTime=71 {npcLovelun.sprite_index=sLovelun_Idle; npcLovelun.y+=4*gDeltaTime}
       }
       else if loveTime=72 {npcLovelun.sprite_index=sLovelun_Walk}
       else if loveTime>=130 and loveTime<=148
       {
-        npcLovelun.x+=4
+        npcLovelun.x+=4*gDeltaTime
         if loveTime=130 {event_user(1); npcLovelun.sprite_index=sLovelun_Jump}
         if loveTime=138 {npcLovelun.sprite_index=sLovelun_Fall}
-        if loveTime=148 {npcLovelun.sprite_index=sLovelun_Idle; npcLovelun.y+=4}
+        if loveTime=148 {npcLovelun.sprite_index=sLovelun_Idle; npcLovelun.y+=4*gDeltaTime}
       }
       else if loveTime=149 {npcLovelun.sprite_index=sLovelun_Walk}
-      else if loveTime>=150 and loveTime<=162 {npcLovelun.y-=1}
-      else if loveTime>=178 and loveTime<=192 {npcLovelun.y+=1}
+      else if loveTime>=150 and loveTime<=162 and gDeltaDoTicks {npcLovelun.y-=1}
+      else if loveTime>=178 and loveTime<=192 and gDeltaDoTicks {npcLovelun.y+=1}
       else if loveTime>=195 and loveTime<=215
       {
-        npcLovelun.x+=4
+        npcLovelun.x+=4*gDeltaTime
         if loveTime=195 {event_user(1); npcLovelun.sprite_index=sLovelun_Jump}
         if loveTime=203 {npcLovelun.sprite_index=sLovelun_Fall}
-        if loveTime=215 {npcLovelun.sprite_index=sLovelun_Idle; npcLovelun.y+=4}
+        if loveTime=215 {npcLovelun.sprite_index=sLovelun_Idle; npcLovelun.y+=4*gDeltaTime}
       }
       else if loveTime=216 {npcLovelun.sprite_index=sLovelun_Walk}
-      else if loveTime>=220 and loveTime<=235 {npcLovelun.y-=1}
-      else if loveTime>=239 and loveTime<=253 {npcLovelun.y+=1}
+      else if loveTime>=220 and loveTime<=235  and gDeltaDoTicks {npcLovelun.y-=1}
+      else if loveTime>=239 and loveTime<=253  and gDeltaDoTicks {npcLovelun.y+=1}
       else if loveTime=260 {npcLovelun.sprite_index=sLovelun_Idle; loveProg=1000}
     }
 
@@ -468,7 +468,7 @@ if global.gamePaused=false
 
     if bubbProg=100 and loveProg=100
     {
-      bubbTime+=1
+      bubbTime+=1*gDeltaTime
       if bubbTime=30
       {
         npcBubblin.visible=0; npcLovelun.visible=0
