@@ -675,7 +675,7 @@ else if global.gameProgress=1280 and room=rBelmont3_3F //----- [6] Boss Fight: D
   {
     if sceneProgress=0
     {
-      if fadeAlpha<1 {fadeAlpha+=0.05}
+      if fadeAlpha<1 {fadeAlpha+=0.05*gDeltaTime}
       else if fadeAlpha>=1 {sceneProgress+=1}
     }
     else if sceneProgress=1
@@ -690,7 +690,7 @@ else if global.gameProgress=1280 and room=rBelmont3_3F //----- [6] Boss Fight: D
     }
     else if sceneProgress=2
     {
-      if fadeAlpha>0 {fadeAlpha-=0.05}
+      if fadeAlpha>0 {fadeAlpha-=0.05*gDeltaTime}
       else if fadeAlpha<=0 {sceneProgress+=1}
     }
     else if sceneProgress=3
@@ -1229,7 +1229,7 @@ else if global.gameProgress=1430 and room=rBelmont3_6C //----- [] Boss Fight: Me
       else if sceneProgress=1
       {
         sceneDelay+=1*gDeltaTime
-        if sceneDelay>=1 and sceneDelay<=50 {fadeAlpha+=0.02}
+        if sceneDelay>=1 and sceneDelay<=50 {fadeAlpha+=0.02*gDeltaTime}
         else if sceneDelay=90 {boss=instance_create(848,200,oMenaceMain)}
         else if sceneDelay=91
         {
@@ -1242,7 +1242,7 @@ else if global.gameProgress=1430 and room=rBelmont3_6C //----- [] Boss Fight: Me
           backGBlend=1
           with oEnemyBase {image_blend=c_black}
         }
-        else if sceneDelay>=101 and sceneDelay<=200 {fadeAlpha-=0.005}
+        else if sceneDelay>=101 and sceneDelay<=200 {fadeAlpha-=0.005*gDeltaTime}
         else if sceneDelay>=201 and sceneDelay<=250 {fadeAlpha-=0.01}
         else if sceneDelay=260
         {
@@ -1708,7 +1708,7 @@ else if global.gameProgress=1510 and room=rBelmont3_7G //----- [12] Boss Fight: 
   {
     if sceneProgress=0
     {
-      if fadeAlpha<1 {fadeAlpha+=0.05}
+      if fadeAlpha<1 {fadeAlpha+=0.05*gDeltaTime}
       else if fadeAlpha>=1 {sceneProgress+=1}
     }
     else if sceneProgress=1
@@ -1723,7 +1723,7 @@ else if global.gameProgress=1510 and room=rBelmont3_7G //----- [12] Boss Fight: 
     }
     else if sceneProgress=2
     {
-      if fadeAlpha>0 {fadeAlpha-=0.05}
+      if fadeAlpha>0 {fadeAlpha-=0.05*gDeltaTime}
       else if fadeAlpha<=0 {sceneProgress+=1}
     }
     else if sceneProgress=3

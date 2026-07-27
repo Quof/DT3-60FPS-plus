@@ -45,7 +45,7 @@ if room=rEnd_PartA //----- [] End A -----
     }
     else if sceneDelay>=30
     {
-      fadeAlpha-=0.05
+      fadeAlpha-=0.05*gDeltaTime
       if fadeAlpha<=0 {fadeColor=c_black; sceneDelay=0; sceneProgress+=1}
     }
   }

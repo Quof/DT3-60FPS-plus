@@ -1190,7 +1190,7 @@ else if global.gameProgress=500 and room=rMario1_CCBoss //----- [13] Boss Fight:
     }
     else if sceneProgress=2
     {
-      if fadeAlpha>0 {fadeAlpha-=0.05*gDeltaTime}
+      if fadeAlpha>0 {fadeAlpha-=0.05*gDeltaTime*gDeltaTime}
       else if fadeAlpha<=0 {sceneProgress+=1}
     }
     else if sceneProgress=3

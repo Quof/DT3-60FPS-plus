@@ -281,7 +281,7 @@ if global.gamePaused=false
     }
     else if exitState=1 //Fade to white
     {
-      fadeAlpha+=0.02
+      fadeAlpha+=0.02*gDeltaTime
       if fadeAlpha>=1 {exitState=2}
     }
     else if exitState>=2 //Take player to the Hidden Village

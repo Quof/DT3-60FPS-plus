@@ -1086,7 +1086,7 @@ if global.gamePaused=false
     if pullInSequence>=220
     {
       oPlayer1.bCanTakeDamage=0
-      oEvAbom.fadeAlpha+=0.02
+      oEvAbom.fadeAlpha+=0.02*gDeltaTime
       if oEvAbom.fadeAlpha>=1 //Warp inside Abom
       {
         if global.gateHProg<100 //Before finishing Instrument quest

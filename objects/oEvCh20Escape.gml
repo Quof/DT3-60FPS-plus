@@ -516,7 +516,7 @@ else if global.gameProgress=5380 and room=rWarshipZ_EscapeD //----- [] Claire wa
     if sceneDelay>=15 //Fade out and end
     {
       oWarshipEscapeEffects.redFadeAlpha-=0.01
-      fadeAlpha+=0.015
+      fadeAlpha+=0.015*gDeltaTime
       if fadeAlpha>=1 {sceneDelay=0; sceneProgress+=1}
     }
   }

@@ -460,7 +460,7 @@ if global.gamePaused=false
 
       if deathAnim>=61 and deathAnim<=110
       {
-        fadeAlpha+=0.02
+        fadeAlpha+=0.02*gDeltaTime
         blendCol-=5.1
         image_blend=make_color_rgb(blendCol,blendCol,blendCol)
       }

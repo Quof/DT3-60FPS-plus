@@ -903,7 +903,7 @@ if global.gamePaused=false
       }
       else if atkTime>=121 and atkTime<=170
       {
-        oEvCh21MainA.fadeAlpha+=0.02
+        oEvCh21MainA.fadeAlpha+=0.02*gDeltaTime
       }
       else if atkTime=180
       {

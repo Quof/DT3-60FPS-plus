@@ -303,7 +303,7 @@ else if global.gameProgress=1890 and room=rMega4_SigmaA5 //----- [Unskippable] B
   {
     if sceneProgress=0
     {
-      if fadeAlpha<1 {fadeAlpha+=0.05}
+      if fadeAlpha<1 {fadeAlpha+=0.05*gDeltaTime}
       else if fadeAlpha>=1 {sceneProgress+=1}
     }
     else if sceneProgress=1
@@ -318,7 +318,7 @@ else if global.gameProgress=1890 and room=rMega4_SigmaA5 //----- [Unskippable] B
     }
     else if sceneProgress=2
     {
-      if fadeAlpha>0 {fadeAlpha-=0.05}
+      if fadeAlpha>0 {fadeAlpha-=0.05*gDeltaTime}
       else if fadeAlpha<=0 {sceneProgress+=1}
     }
     else if sceneProgress=3
@@ -863,7 +863,7 @@ else if global.gameProgress=1940 and room=rMega4_SigmaB8 //----- [Unskippable] B
   {
     if sceneProgress=0
     {
-      if fadeAlpha<1 {fadeAlpha+=0.05}
+      if fadeAlpha<1 {fadeAlpha+=0.05*gDeltaTime}
       else if fadeAlpha>=1 {sceneProgress+=1}
     }
     else if sceneProgress=1
@@ -878,7 +878,7 @@ else if global.gameProgress=1940 and room=rMega4_SigmaB8 //----- [Unskippable] B
     }
     else if sceneProgress=2
     {
-      if fadeAlpha>0 {fadeAlpha-=0.05}
+      if fadeAlpha>0 {fadeAlpha-=0.05*gDeltaTime}
       else if fadeAlpha<=0 {sceneProgress+=1}
     }
     else if sceneProgress=3
@@ -1293,7 +1293,7 @@ else if global.gameProgress=1980 and room=rMega4_SigmaC5 //----- [Unskippable] B
   {
     if sceneProgress=0
     {
-      if fadeAlpha<1 {fadeAlpha+=0.05}
+      if fadeAlpha<1 {fadeAlpha+=0.05*gDeltaTime}
       else if fadeAlpha>=1 {sceneProgress+=1}
     }
     else if sceneProgress=1
@@ -1308,7 +1308,7 @@ else if global.gameProgress=1980 and room=rMega4_SigmaC5 //----- [Unskippable] B
     }
     else if sceneProgress=2
     {
-      if fadeAlpha>0 {fadeAlpha-=0.05}
+      if fadeAlpha>0 {fadeAlpha-=0.05*gDeltaTime}
       else if fadeAlpha<=0 {sceneProgress+=1}
     }
     else if sceneProgress=3

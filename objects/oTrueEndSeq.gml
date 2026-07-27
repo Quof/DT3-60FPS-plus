@@ -66,7 +66,7 @@ if room=rTrueEnd_A //------------------------------ [] End A -------------------
     sceneDelay+=1*gDeltaTime
     if sceneDelay>=30
     {
-      fadeAlpha-=0.05
+      fadeAlpha-=0.05*gDeltaTime
       if fadeAlpha<=0 {fadeColor=c_black; sceneDelay=0; sceneProgress+=1}
     }
   }
@@ -185,7 +185,7 @@ if room=rTrueEnd_A //------------------------------ [] End A -------------------
     sceneDelay+=1*gDeltaTime
     if sceneDelay>=30
     {
-      fadeAlpha+=0.02
+      fadeAlpha+=0.02*gDeltaTime
       if fadeAlpha>=1 {sceneDelay=0; sceneProgress+=1}
     }
   }
@@ -215,7 +215,7 @@ else if room=rTrueEnd_B //------------------------------ [] End B --------------
     }
     if sceneDelay>=30
     {
-      fadeAlpha-=0.05
+      fadeAlpha-=0.05*gDeltaTime
       if fadeAlpha<=0 {sceneDelay=0; sceneProgress+=1}
     }
   }
@@ -274,7 +274,7 @@ else if room=rTrueEnd_B //------------------------------ [] End B --------------
     sceneDelay+=1*gDeltaTime
     if sceneDelay>=10 and sceneDelay<=99
     {
-      fadeAlpha+=0.05
+      fadeAlpha+=0.05*gDeltaTime
       if fadeAlpha>=1 {sceneDelay=100}
     }
     else if sceneDelay=105
@@ -288,7 +288,7 @@ else if room=rTrueEnd_B //------------------------------ [] End B --------------
     }
     else if sceneDelay>=110
     {
-      fadeAlpha-=0.05
+      fadeAlpha-=0.05*gDeltaTime
       if fadeAlpha<=0 {sceneDelay=0; sceneProgress+=1}
     }
   }
@@ -370,7 +370,7 @@ else if room=rTrueEnd_B //------------------------------ [] End B --------------
     sceneDelay+=1*gDeltaTime
     if sceneDelay>=10 and sceneDelay<=99
     {
-      fadeAlpha+=0.05
+      fadeAlpha+=0.05*gDeltaTime
       if fadeAlpha>=1 {sceneDelay=100}
     }
     else if sceneDelay=105
@@ -383,7 +383,7 @@ else if room=rTrueEnd_B //------------------------------ [] End B --------------
     }
     else if sceneDelay>=110
     {
-      fadeAlpha-=0.05
+      fadeAlpha-=0.05*gDeltaTime
       if fadeAlpha<=0 {sceneDelay=0; sceneProgress+=1}
     }
   }
@@ -419,7 +419,7 @@ else if room=rTrueEnd_B //------------------------------ [] End B --------------
     sceneDelay+=1*gDeltaTime
     if sceneDelay>=10 and sceneDelay<=99
     {
-      fadeAlpha+=0.05
+      fadeAlpha+=0.05*gDeltaTime
       if fadeAlpha>=1 {sceneDelay=100}
     }
     else if sceneDelay=105
@@ -434,7 +434,7 @@ else if room=rTrueEnd_B //------------------------------ [] End B --------------
     }
     else if sceneDelay>=110
     {
-      fadeAlpha-=0.05
+      fadeAlpha-=0.05*gDeltaTime
       if fadeAlpha<=0 {sceneDelay=0; sceneProgress+=1}
     }
   }
@@ -471,7 +471,7 @@ else if room=rTrueEnd_B //------------------------------ [] End B --------------
     sceneDelay+=1*gDeltaTime
     if sceneDelay>=10 and sceneDelay<=99
     {
-      fadeAlpha+=0.05
+      fadeAlpha+=0.05*gDeltaTime
       if fadeAlpha>=1 {sceneDelay=100}
     }
     else if sceneDelay=105
@@ -487,7 +487,7 @@ else if room=rTrueEnd_B //------------------------------ [] End B --------------
     }
     else if sceneDelay>=110
     {
-      fadeAlpha-=0.05
+      fadeAlpha-=0.05*gDeltaTime
       if fadeAlpha<=0 {sceneDelay=0; sceneProgress+=1}
     }
   }
@@ -536,7 +536,7 @@ else if room=rTrueEnd_B //------------------------------ [] End B --------------
     }
     if sceneDelay>=10 and sceneDelay<=99
     {
-      fadeAlpha+=0.05
+      fadeAlpha+=0.05*gDeltaTime
 
       if musVolC>=7500 {musVolC-=50}
       else {musVolC-=400}
@@ -566,7 +566,7 @@ else if room=rTrueEnd_C //------------------------------ [] End C --------------
       sceneDelay+=1*gDeltaTime
       if sceneDelay>=30
       {
-        fadeAlpha-=0.05
+        fadeAlpha-=0.05*gDeltaTime
         if fadeAlpha<=0 {sceneDelay=0; sceneProgress+=1}
       }
     }
@@ -627,7 +627,7 @@ else if room=rTrueEnd_C //------------------------------ [] End C --------------
       sceneDelay+=1*gDeltaTime
       if sceneDelay>=30
       {
-        fadeAlpha-=0.05
+        fadeAlpha-=0.05*gDeltaTime
         if fadeAlpha<=0 {sceneDelay=0; sceneProgress+=1}
       }
     }
@@ -720,7 +720,7 @@ else if room=rTrueEnd_C //------------------------------ [] End C --------------
       msgCreate(0,0,"Claire","What is it?",0,3,oMessageCutscene,1)
     else if sceneProgress=32
     {
-      if sceneDelay>=20 {fadeAlpha+=0.02}
+      if sceneDelay>=20 {fadeAlpha+=0.02*gDeltaTime}
 
       sceneDelay+=1*gDeltaTime
       if sceneDelay=1

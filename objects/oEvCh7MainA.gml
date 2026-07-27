@@ -793,7 +793,7 @@ else if global.gameProgress=1680 and room=rMountTemple_I //----- [8] Boss Fight:
   {
     if sceneProgress=0
     {
-      if fadeAlpha<1 {fadeAlpha+=0.05}
+      if fadeAlpha<1 {fadeAlpha+=0.05*gDeltaTime}
       else if fadeAlpha>=1 {sceneProgress+=1}
     }
     else if sceneProgress=1
@@ -808,7 +808,7 @@ else if global.gameProgress=1680 and room=rMountTemple_I //----- [8] Boss Fight:
     }
     else if sceneProgress=2
     {
-      if fadeAlpha>0 {fadeAlpha-=0.05}
+      if fadeAlpha>0 {fadeAlpha-=0.05*gDeltaTime}
       else if fadeAlpha<=0 {sceneProgress+=1}
     }
     else if sceneProgress=3
@@ -1154,7 +1154,7 @@ else if global.gameProgress=1720 and room=rMain_28 //----- [11] Virus & Twin Was
     }
     else if sceneProgress=1
     {
-      if fadeAlpha<1 {fadeAlpha+=0.05}
+      if fadeAlpha<1 {fadeAlpha+=0.05*gDeltaTime}
       else if fadeAlpha>=1 {sceneProgress+=1}
     }
     else if sceneProgress=2
@@ -1170,7 +1170,7 @@ else if global.gameProgress=1720 and room=rMain_28 //----- [11] Virus & Twin Was
     }
     else if sceneProgress=3
     {
-      if fadeAlpha>0 {fadeAlpha-=0.05}
+      if fadeAlpha>0 {fadeAlpha-=0.05*gDeltaTime}
       else if fadeAlpha<=0 {sceneProgress+=1}
     }
     else if sceneProgress=4

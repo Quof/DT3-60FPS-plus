@@ -45,10 +45,10 @@ if explosionDelay<=0
 }
 //-------------------- Red Fade Effect --------------------
 redFadeTime+=1
-if redFadeTime>=1 and redFadeTime<=50 {redFadeAlpha+=0.002}
+if redFadeTime>=1 and redFadeTime<=50 {redFadeAlpha+=0.002*gDeltaTime}
 else if redFadeTime>=51 and redFadeTime<=100
 {
-  redFadeAlpha-=0.002
+  redFadeAlpha-=0.002*gDeltaTime
   if redFadeTime=100 {redFadeTime=0}
 }
 #define Draw_0

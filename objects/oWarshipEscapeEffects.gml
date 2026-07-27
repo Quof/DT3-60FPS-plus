@@ -72,10 +72,10 @@ if bExplosion=1
 if bRedFade=1
 {
   redFadeTime+=1
-  if redFadeTime>=1 and redFadeTime<=50 {redFadeAlpha+=0.003}
+  if redFadeTime>=1 and redFadeTime<=50 {redFadeAlpha+=0.003*gDeltaTime}
   else if redFadeTime>=51 and redFadeTime<=100
   {
-    redFadeAlpha-=0.003
+    redFadeAlpha-=0.003*gDeltaTime
     if redFadeTime=100 {redFadeTime=0}
   }
 }

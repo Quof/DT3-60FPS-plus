@@ -56,7 +56,7 @@ else if sceneProgress=1
   }
   else if sceneDelay>=761 and sceneDelay<=810
   {
-    fadeAlpha+=0.02
+    fadeAlpha+=0.02*gDeltaTime
   }
   else if sceneDelay=860 //Show credits
   {

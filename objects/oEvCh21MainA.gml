@@ -408,7 +408,7 @@ else if global.gameProgress=5550 and room=rAbomF //----- [3] Boss Fight: Virus P
     else if sceneProgress=7
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay>=21 and sceneDelay<=70 {fadeAlpha+=0.02}
+      if sceneDelay>=21 and sceneDelay<=70 {fadeAlpha+=0.02*gDeltaTime}
       if sceneDelay=40
       {
         msgCreate(0,0,"Chao","Guys? What's going on?",0,1,oMessagePerson,0)
@@ -477,7 +477,7 @@ else if global.gameProgress=5560 and room=rAbomCutA //----- [4] Abomination dest
     }
     if sceneDelay>=80
     {
-      fadeAlpha+=0.02
+      fadeAlpha+=0.02*gDeltaTime
       if fadeAlpha>=1 {sceneDelay=0; sceneProgress+=1}
     }
   }
@@ -900,7 +900,7 @@ else if room=rDistFinal_Round2 //----- [9] Hexor asks Jeremy how he took the shi
 {
   if sceneProgress=1
   {
-    if fadeAlpha<1 {fadeAlpha+=0.05}
+    if fadeAlpha<1 {fadeAlpha+=0.05*gDeltaTime}
     else if fadeAlpha>=1 {sceneProgress+=1}
   }
   else if sceneProgress=2
@@ -922,7 +922,7 @@ else if room=rDistFinal_Round2 //----- [9] Hexor asks Jeremy how he took the shi
   }
   else if sceneProgress=3
   {
-    if fadeAlpha>0 {fadeAlpha-=0.05}
+    if fadeAlpha>0 {fadeAlpha-=0.05*gDeltaTime}
     else if fadeAlpha<=0 {sceneProgress+=1}
   }
   else if sceneProgress=4

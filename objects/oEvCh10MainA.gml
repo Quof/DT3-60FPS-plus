@@ -1546,7 +1546,7 @@ else if global.gameProgress=2420 and room=rVault_13 //----- [] Boss Fight: Hex -
     }
     else if sceneProgress=19
     {
-      fadeAlpha+=0.02
+      fadeAlpha+=0.02*gDeltaTime
       if fadeAlpha>=1
         sceneProgress+=1
     }
@@ -1954,7 +1954,7 @@ else if global.gameProgress=2480 and room=rVault_16 //----- [] Reobtaining the a
       tEffect.newBlend=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0; tEffect.image_speed=0.4
       tEffect.image_xscale=2.5; tEffect.image_yscale=2.5
     }
-    else if sceneDelay>=51 and sceneDelay<=60 {fadeAlpha+=0.025}
+    else if sceneDelay>=51 and sceneDelay<=60 {fadeAlpha+=0.025*gDeltaTime}
     else if sceneDelay>=91 and sceneDelay<=110 {fadeAlpha-=0.0125}
     else if sceneDelay>=130 {sceneDelay=0; sceneProgress+=1}
   }

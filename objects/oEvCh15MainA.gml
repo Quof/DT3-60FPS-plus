@@ -1165,7 +1165,7 @@ else if global.gameProgress=3480 and room=rGame6_EarthK //----- [] Obtain Earth 
     msgCreate(0,0,"Claire","I'm worried about Jerry...",0,3,oMessageCutscene,1)
   else if sceneProgress=5
   {
-    fadeAlpha+=0.02
+    fadeAlpha+=0.02*gDeltaTime
     if fadeAlpha>=1
     {
       var tempMplay;
@@ -1598,7 +1598,7 @@ else if global.gameProgress=3530 and room=rGame6_FireF //----- [13] Obtain Fire 
     msgCreate(0,0,"Jerry","Ah, sure.",0,3,oMessageCutscene,1)
   else if sceneProgress=11
   {
-    fadeAlpha+=0.02
+    fadeAlpha+=0.02*gDeltaTime
     if fadeAlpha>=1
     {
       var tempMplay;
@@ -1848,7 +1848,7 @@ else if global.gameProgress=3550 and room=rGame6_WaterB //----- [] Boss Fight: H
   {
     if sceneProgress=0
     {
-      if fadeAlpha<1 {fadeAlpha+=0.05}
+      if fadeAlpha<1 {fadeAlpha+=0.05*gDeltaTime}
       else if fadeAlpha>=1 {sceneProgress+=1}
     }
     else if sceneProgress=1
@@ -1865,7 +1865,7 @@ else if global.gameProgress=3550 and room=rGame6_WaterB //----- [] Boss Fight: H
     }
     else if sceneProgress=2
     {
-      if fadeAlpha>0 {fadeAlpha-=0.05}
+      if fadeAlpha>0 {fadeAlpha-=0.05*gDeltaTime}
       else if fadeAlpha<=0 {sceneProgress+=1}
     }
     else if sceneProgress=3
@@ -2465,7 +2465,7 @@ else if global.gameProgress=3640 and room=rGame6_Hometown //----- [20] Presentin
       }
       with oLevelDecal {instance_destroy()}
     }
-    else if sceneDelay=71 and sceneDelay<=80 {fadeAlpha+=0.05}
+    else if sceneDelay=71 and sceneDelay<=80 {fadeAlpha+=0.05*gDeltaTime}
     else if sceneDelay=95
     {
       tEffect=instance_create(oNPC_GeneralC.x,oNPC_GeneralC.y-25,oEffectB)
@@ -2943,7 +2943,7 @@ else if global.gameProgress=3820 and room=rGame6_CoDP //----- [26] Boss Fight: T
       if sceneDelay>=11 and sceneDelay<=110
       {
         fadeColor=c_black
-        fadeAlpha+=0.005
+        fadeAlpha+=0.005*gDeltaTime
       }
       else if sceneDelay>=111 {sceneDelay=0; sceneProgress+=1}
     }

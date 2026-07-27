@@ -205,7 +205,7 @@ else if global.gameProgress=980 and room=rCCity_CCE //----- [3] Boss Fight: Cont
   {
     if sceneProgress=0
     {
-      if fadeAlpha<1 {fadeAlpha+=0.05}
+      if fadeAlpha<1 {fadeAlpha+=0.05*gDeltaTime}
       else if fadeAlpha>=1 {sceneProgress+=1}
     }
     else if sceneProgress=1
@@ -221,7 +221,7 @@ else if global.gameProgress=980 and room=rCCity_CCE //----- [3] Boss Fight: Cont
     }
     else if sceneProgress=2
     {
-      if fadeAlpha>0 {fadeAlpha-=0.05}
+      if fadeAlpha>0 {fadeAlpha-=0.05*gDeltaTime}
       else if fadeAlpha<=0 {sceneProgress+=1}
     }
     else if sceneProgress=3
@@ -355,7 +355,7 @@ else if global.gameProgress=1020 and room=rCCity_NorthB //----- [5] Talk with Ma
   {
     global.gamePaused=true
     fadeColor=c_black
-    if fadeAlpha<1 {fadeAlpha+=0.05}
+    if fadeAlpha<1 {fadeAlpha+=0.05*gDeltaTime}
     else if fadeAlpha>=1 {sceneProgress+=1}
   }
   else if sceneProgress=1
@@ -371,7 +371,7 @@ else if global.gameProgress=1020 and room=rCCity_NorthB //----- [5] Talk with Ma
   }
   else if sceneProgress=2
   {
-    if fadeAlpha>0 {fadeAlpha-=0.05}
+    if fadeAlpha>0 {fadeAlpha-=0.05*gDeltaTime}
     else if fadeAlpha<=0 {sceneProgress+=1}
   }
   else if sceneProgress=3
@@ -413,7 +413,7 @@ else if global.gameProgress=1020 and room=rCCity_NorthB //----- [5] Talk with Ma
     msgCreate(0,0,"Matt","That's gotta suck. I'll let you tell me about it later though. The guy is in here.",6,3,oMessageCutscene,1)
   else if sceneProgress=20
   {
-    if fadeAlpha<1 {fadeAlpha+=0.05}
+    if fadeAlpha<1 {fadeAlpha+=0.05*gDeltaTime}
     else if fadeAlpha>=1 {sceneProgress+=1}
   }
   else if sceneProgress=21
@@ -431,7 +431,7 @@ else if global.gameProgress=1020 and room=rCCity_NorthB //----- [5] Talk with Ma
   }
   else if sceneProgress=22
   {
-    if fadeAlpha>0 {fadeAlpha-=0.05}
+    if fadeAlpha>0 {fadeAlpha-=0.05*gDeltaTime}
     else if fadeAlpha<=0 {sceneProgress+=1}
   }
   else if sceneProgress=23

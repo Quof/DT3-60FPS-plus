@@ -149,7 +149,7 @@ else
       sceneDelay+=1*gDeltaTime
       if sceneDelay>=30
       {
-        if fadeAlpha<1 {fadeAlpha+=0.02}
+        if fadeAlpha<1 {fadeAlpha+=0.02*gDeltaTime}
         else if fadeAlpha=1
         {
           global.activeCharacter=0

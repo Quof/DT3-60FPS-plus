@@ -1537,7 +1537,7 @@ else if global.gameProgress=880 and room=rLink2_PalaceW_12 //----- [15] Boss Fig
     }
     else if sceneProgress=2
     {
-      if fadeAlpha>0 {fadeAlpha-=0.05*gDeltaTime}
+      if fadeAlpha>0 {fadeAlpha-=0.05*gDeltaTime*gDeltaTime}
       else if fadeAlpha<=0 {sceneProgress+=1}
     }
     else if sceneProgress=3

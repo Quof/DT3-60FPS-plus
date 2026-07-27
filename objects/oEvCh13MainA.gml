@@ -1307,7 +1307,7 @@ else if room=rSamus5_Lv3_Boss and global.gamePaused=false //----- [] Boss Fight:
       {
         sceneDelay+=1*gDeltaTime
         if sceneDelay=1 {fadeColor=c_black}
-        else if sceneDelay>=11 and sceneDelay<=60 {fadeAlpha+=0.02}
+        else if sceneDelay>=11 and sceneDelay<=60 {fadeAlpha+=0.02*gDeltaTime}
         else if sceneDelay=70
         {
           boss=instance_create(240,0,oKingWorm)
@@ -1623,7 +1623,7 @@ else if room=rSamus5_Lv4_RidleyTunnel and global.gamePaused=false //----- [] Bos
       tEffect.sprite_index=sShipExplosion; tEffect.image_speed=0.25+random(0.25); tEffect.depth=4
       tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
     }
-    fadeAlpha-=0.05
+    fadeAlpha-=0.05*gDeltaTime
     if fadeAlpha=0 {sceneProgress+=1}
   }
   else if sceneProgress=2
@@ -1635,7 +1635,7 @@ else if room=rSamus5_Lv4_RidleyTunnel and global.gamePaused=false //----- [] Bos
   }
   else if sceneProgress=4
   {
-    fadeAlpha+=0.02
+    fadeAlpha+=0.02*gDeltaTime
     if fadeAlpha>=1
     {
       sceneDelay+=1*gDeltaTime
@@ -1857,7 +1857,7 @@ else if room=rSamus5_VentShaft //----- [] Getting the Program Chip -----
       sceneDelay+=1*gDeltaTime
       if sceneDelay>=30
       {
-        fadeAlpha-=0.05
+        fadeAlpha-=0.05*gDeltaTime
         if fadeAlpha=0 {sceneProgress+=1}
       }
     }

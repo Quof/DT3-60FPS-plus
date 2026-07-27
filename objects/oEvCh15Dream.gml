@@ -46,7 +46,7 @@ if global.gamePaused=false
     else if sceneProgress=1
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay>=1 and sceneDelay<=20 {fadeAlpha+=0.025}
+      if sceneDelay>=1 and sceneDelay<=20 {fadeAlpha+=0.025*gDeltaTime}
       else if sceneDelay=40
       {
         npc_A=instance_create(xView-48,yView+64,oMisc)
@@ -125,7 +125,7 @@ if global.gamePaused=false
     else if sceneProgress=1
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay>=1 and sceneDelay<=20 {fadeAlpha+=0.025}
+      if sceneDelay>=1 and sceneDelay<=20 {fadeAlpha+=0.025*gDeltaTime}
       else if sceneDelay=40
       {
         npc_A=instance_create(xView-32,yView+64,oMisc)
@@ -182,7 +182,7 @@ if global.gamePaused=false
     else if sceneProgress=1
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay>=1 and sceneDelay<=20 {fadeAlpha+=0.025}
+      if sceneDelay>=1 and sceneDelay<=20 {fadeAlpha+=0.025*gDeltaTime}
       else if sceneDelay=40
       {
         npc_A=instance_create(xView-32,yView+64,oMisc)
@@ -351,7 +351,7 @@ if global.gamePaused=false
     else if sceneProgress=1
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay>=1 and sceneDelay<=20 {fadeAlpha+=0.025}
+      if sceneDelay>=1 and sceneDelay<=20 {fadeAlpha+=0.025*gDeltaTime}
       else if sceneDelay=40
       {
         npc_A=instance_create(xView-32,yView+64,oMisc)
@@ -490,7 +490,7 @@ if global.gamePaused=false
     else if sceneProgress=1
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay>=1 and sceneDelay<=20 {fadeAlpha+=0.025}
+      if sceneDelay>=1 and sceneDelay<=20 {fadeAlpha+=0.025*gDeltaTime}
       else if sceneDelay=40
       {
         npc_A=instance_create(xView-32,yView+64,oMisc)

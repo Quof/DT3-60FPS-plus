@@ -454,7 +454,7 @@ else if room=rAbomD
     }
     else if sceneProgress=1
     {
-      fadeAlpha+=0.025
+      fadeAlpha+=0.025*gDeltaTime
       if fadeAlpha>=1
       {
         global.gamePaused=1

@@ -71,7 +71,7 @@ else if sceneProgress=8
 }
 else if sceneProgress=9
 {
-  fadeAlpha+=0.02
+  fadeAlpha+=0.02*gDeltaTime
   if fadeAlpha>=1 {sceneProgress+=1}
 }
 else if sceneProgress=10 {room_goto(rMain_1)}

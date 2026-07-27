@@ -340,7 +340,7 @@ if global.gamePaused=false
             tongueAttack=200
           }
         }
-        else if tongueAttack>=211 and tongueAttack<=250 {oEvDCS.fadeAlpha+=0.005} //Red fade - 0.2
+        else if tongueAttack>=211 and tongueAttack<=250 {oEvDCS.fadeAlpha+=0.005*gDeltaTime} //Red fade - 0.2
         else if tongueAttack>=271 and tongueAttack<=330 //Open jaw
         {
           image_angle-=0.5

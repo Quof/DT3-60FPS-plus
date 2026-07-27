@@ -138,7 +138,7 @@ if global.gameProgress=2000 and room=rCCity_NA_S2 //----- [1] The Vault must be 
     msgCreate(0,0,"Syrus","Do tell.",6,3,oMessageCutscene,1)
   else if sceneProgress=3
   {
-    fadeAlpha+=0.02
+    fadeAlpha+=0.02*gDeltaTime
     if fadeAlpha>=1 {sceneProgress+=1}
   }
   else if sceneProgress=4 and bWaitForInput=false
@@ -449,7 +449,7 @@ else if global.gameProgress=2080 and room=rBubbleTowerA7 //----- [5] Boss: Army 
   {
     if sceneProgress=0
     {
-      if fadeAlpha<1 {fadeAlpha+=0.05}
+      if fadeAlpha<1 {fadeAlpha+=0.05*gDeltaTime}
       else if fadeAlpha>=1 {sceneProgress+=1}
     }
     else if sceneProgress=1
@@ -472,7 +472,7 @@ else if global.gameProgress=2080 and room=rBubbleTowerA7 //----- [5] Boss: Army 
     else if sceneProgress=2
     {
       if fadeAlpha>0
-        fadeAlpha-=0.05
+        fadeAlpha-=0.05*gDeltaTime
       else if fadeAlpha<=0
         sceneProgress+=1
     }

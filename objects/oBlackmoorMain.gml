@@ -491,7 +491,7 @@ if despProg=1 //Be sure arm attacks are not in progress
 }
 else if despProg=2 //Back away to the right and dim room lights
 {
-  if oEvExGates.fadeAlpha<0.2 {oEvExGates.fadeAlpha+=0.005; image_alpha-=0.005}
+  if oEvExGates.fadeAlpha<0.2 {oEvExGates.fadeAlpha+=0.005*gDeltaTime; image_alpha-=0.005}
   if x<688 {x+=2}
   if x>=688 and oEvExGates.fadeAlpha>=0.2 {despProg+=1}
 }
@@ -529,7 +529,7 @@ else if despProg=4 //End
   despTime+=1
   if despTime>=45
   {
-    if oEvExGates.fadeAlpha>0 {oEvExGates.fadeAlpha-=0.005; image_alpha+=0.005}
+    if oEvExGates.fadeAlpha>0 {oEvExGates.fadeAlpha-=0.005*gDeltaTime; image_alpha+=0.005}
     speed=2
     direction=point_direction(x,y,576,256)
 

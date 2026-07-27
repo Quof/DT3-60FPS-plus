@@ -147,7 +147,7 @@ else if global.gameProgress=2581 and room=rCCity_SA_S1 //----- [3] Talk with Imp
     global.gamePaused=true
     fadeColor=c_black
     if fadeAlpha<1
-      fadeAlpha+=0.05
+      fadeAlpha+=0.05*gDeltaTime
     else if fadeAlpha>=1
       sceneProgress+=1
   }
@@ -166,7 +166,7 @@ else if global.gameProgress=2581 and room=rCCity_SA_S1 //----- [3] Talk with Imp
   else if sceneProgress=2
   {
     if fadeAlpha>0
-      fadeAlpha-=0.05
+      fadeAlpha-=0.05*gDeltaTime
     else if fadeAlpha<=0
       sceneProgress+=1
   }

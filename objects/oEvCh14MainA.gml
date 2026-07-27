@@ -925,7 +925,7 @@ else if global.gameProgress=3260 and room=rNGC_LC_F //----- [12] Boss: Malevolen
   {
     if sceneProgress=0
     {
-      if fadeAlpha<1 {fadeAlpha+=0.05}
+      if fadeAlpha<1 {fadeAlpha+=0.05*gDeltaTime}
       else if fadeAlpha>=1 {sceneProgress+=1}
     }
     else if sceneProgress=1
@@ -944,7 +944,7 @@ else if global.gameProgress=3260 and room=rNGC_LC_F //----- [12] Boss: Malevolen
     }
     else if sceneProgress=2
     {
-      if fadeAlpha>0 {fadeAlpha-=0.05}
+      if fadeAlpha>0 {fadeAlpha-=0.05*gDeltaTime}
       else if fadeAlpha<=0 {sceneProgress+=1}
     }
     else if sceneProgress=3

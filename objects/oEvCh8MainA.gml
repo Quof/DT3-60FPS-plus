@@ -613,7 +613,7 @@ else if global.gameProgress=1830 and room=rMega4_IntroE //----- [Unskippable] Bo
   {
     if sceneProgress=0
     {
-      if fadeAlpha<1 {fadeAlpha+=0.05}
+      if fadeAlpha<1 {fadeAlpha+=0.05*gDeltaTime}
       else if fadeAlpha>=1 {sceneProgress+=1}
     }
     else if sceneProgress=1
@@ -632,7 +632,7 @@ else if global.gameProgress=1830 and room=rMega4_IntroE //----- [Unskippable] Bo
     }
     else if sceneProgress=2
     {
-      if fadeAlpha>0 {fadeAlpha-=0.05}
+      if fadeAlpha>0 {fadeAlpha-=0.05*gDeltaTime}
       else if fadeAlpha<=0 {sceneProgress+=1}
     }
     else if sceneProgress=3
@@ -1019,7 +1019,7 @@ else if room=rMega4_StormE //----- [Unskippable] Boss Fight: Storm Eagle -----
     {
       if sceneProgress=0
       {
-        if fadeAlpha<1 {fadeAlpha+=0.05}
+        if fadeAlpha<1 {fadeAlpha+=0.05*gDeltaTime}
         else if fadeAlpha>=1 {sceneProgress+=1}
       }
       else if sceneProgress=1
@@ -1038,7 +1038,7 @@ else if room=rMega4_StormE //----- [Unskippable] Boss Fight: Storm Eagle -----
       }
       else if sceneProgress=2
       {
-        if fadeAlpha>0 {fadeAlpha-=0.05}
+        if fadeAlpha>0 {fadeAlpha-=0.05*gDeltaTime}
         else if fadeAlpha<=0 {sceneProgress+=1}
       }
       else if sceneProgress=3
@@ -1372,7 +1372,7 @@ else if room=rMega4_OstrichE //----- [Unskippable] Boss Fight: Overdrive Ostrich
     {
       if sceneProgress=0
       {
-        if fadeAlpha<1 {fadeAlpha+=0.05}
+        if fadeAlpha<1 {fadeAlpha+=0.05*gDeltaTime}
         else if fadeAlpha>=1 {sceneProgress+=1}
       }
       else if sceneProgress=1
@@ -1392,7 +1392,7 @@ else if room=rMega4_OstrichE //----- [Unskippable] Boss Fight: Overdrive Ostrich
       else if sceneProgress=2
       {
         if fadeAlpha>0
-          fadeAlpha-=0.05
+          fadeAlpha-=0.05*gDeltaTime
         else if fadeAlpha<=0
           sceneProgress+=1
       }
@@ -1696,7 +1696,7 @@ else if room=rMega4_ToxicJungleE //----- [Unskippable] Boss Fight: Gravity Beetl
     {
       if sceneProgress=0
       {
-        if fadeAlpha<1 {fadeAlpha+=0.05}
+        if fadeAlpha<1 {fadeAlpha+=0.05*gDeltaTime}
         else if fadeAlpha>=1 {sceneProgress+=1}
       }
       else if sceneProgress=1
@@ -1715,7 +1715,7 @@ else if room=rMega4_ToxicJungleE //----- [Unskippable] Boss Fight: Gravity Beetl
       }
       else if sceneProgress=2
       {
-        if fadeAlpha>0 {fadeAlpha-=0.05}
+        if fadeAlpha>0 {fadeAlpha-=0.05*gDeltaTime}
         else if fadeAlpha<=0 {sceneProgress+=1}
       }
       else if sceneProgress=3

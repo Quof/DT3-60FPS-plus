@@ -307,7 +307,7 @@ if global.gamePaused=false
         abomImageY-=4
         if abomImageY<=448
         {
-          oEvCh20MainA.fadeAlpha+=0.025
+          oEvCh20MainA.fadeAlpha+=0.025*gDeltaTime
           if oEvCh20MainA.fadeAlpha>=1
           {
             stopAllMusic()

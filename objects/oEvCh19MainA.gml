@@ -256,7 +256,7 @@ else if global.gameProgress=4550 and room=rTS_A //----- [] Intro to Tranquil Ser
     sceneDelay+=1*gDeltaTime
     if sceneDelay>=50
     {
-      if fadeAlpha>0.5 {fadeAlpha-=0.005}
+      if fadeAlpha>0.5 {fadeAlpha-=0.005*gDeltaTime}
       else {fadeAlpha-=0.01}
       if fadeAlpha<=0 {sceneDelay=0; sceneProgress+=1}
     }
@@ -1428,8 +1428,8 @@ else if room=rMain_84 and global.gameProgress=4950 //----- [14] Reunited with Ge
   else if sceneProgress=7
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay>=1 and sceneDelay<=20 {fadeAlpha+=0.05}
-    else if sceneDelay>=61 and sceneDelay<=80 {fadeAlpha-=0.05}
+    if sceneDelay>=1 and sceneDelay<=20 {fadeAlpha+=0.05*gDeltaTime}
+    else if sceneDelay>=61 and sceneDelay<=80 {fadeAlpha-=0.05*gDeltaTime}
     else if sceneDelay>=100 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=8 and bWaitForInput=false
