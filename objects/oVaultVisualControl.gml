@@ -17,7 +17,7 @@ applies_to=self
 */
 if !instance_exists(oVaultLightball)
 {
-  lightballTime+=1
+  lightballTime+=1*gDeltaTime
   if lightballTime>=240
   {
     var tNewBall,tXPos,tYPos,tPosYSet;
@@ -42,7 +42,7 @@ if !instance_exists(oVaultLightball)
 
 if instance_number(oVaultBackBinary)<2
 {
-  binaryTime+=1
+  binaryTime+=1*gDeltaTime
   if binaryTime>=600
   {
     var tNewBinary;

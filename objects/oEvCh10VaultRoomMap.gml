@@ -53,8 +53,8 @@ if global.gamePaused=false
   }
 
   //Shift time
-  if oPlayer1.state=oPlayer1.LOOKING_UP {global.tempAction[1]-=12}
-  else {global.tempAction[1]-=1}
+  if oPlayer1.state=oPlayer1.LOOKING_UP {global.tempAction[1]-=12*gDeltaTime}
+  else {global.tempAction[1]-=1*gDeltaTime}
   if global.tempAction[1]<=0 //Shift rooms
   {
     playSound(global.snd_HardHit1,0,0.98,7000)

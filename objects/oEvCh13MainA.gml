@@ -71,7 +71,7 @@ if global.gameProgress=2670 and room=rSamus5_Gate //----- [1] Intro to Research 
     sceneDelay+=1*gDeltaTime
     if sceneDelay>=1 and sceneDelay<=999
     {
-      npcSamus.x-=14
+      npcSamus.x-=14*gDeltaTime
       if npcSamus.x<=oPlayer1.x
       {
         with npcSamus {instance_destroy()}
@@ -80,13 +80,13 @@ if global.gameProgress=2670 and room=rSamus5_Gate //----- [1] Intro to Research 
     }
     else if sceneDelay>=1000 and sceneDelay<=1099
     {
-      circleSize+=3
+      circleSize+=3*gDeltaTime
       if circleSize>=48 {sceneDelay=1100}
     }
     else if sceneDelay>=1130 and sceneDelay<=1999
     {
-      circleSize-=0.65
-      circleAlpha-=0.02
+      circleSize-=0.65*gDeltaTime
+      circleAlpha-=0.02*gDeltaTime
       if circleAlpha<=0 {sceneDelay=2000}
     }
     else if sceneDelay>=2030 {sceneDelay=0; sceneProgress+=1}
@@ -250,7 +250,7 @@ else if global.gameProgress=2690 and room=rSamus5_Lv1_D and global.gamePaused=fa
         tile_layer_hide(8)
         boss=instance_create(480,-64,oRidleyFirst); boss.image_xscale=-1
       }
-      else if sceneDelay>=92 and sceneDelay<=115 {oRidleyFirstParts.image_xscale=-1; boss.y+=8}
+      else if sceneDelay>=92 and sceneDelay<=115 {oRidleyFirstParts.image_xscale=-1; boss.y+=8*gDeltaTime}
       else if sceneDelay=121 {boss.ridParts[0].image_index=1; playSound(global.snd_RidleyScreamA,0,0.98,1)}
       else if sceneDelay=124 {boss.ridParts[0].image_index=2}
       else if sceneDelay=144 {boss.ridParts[0].image_index=1}
@@ -319,7 +319,7 @@ else if global.gameProgress=2710 and room=rSamus5_Lv1_E and global.gamePaused=fa
       tile_layer_hide(8)
     }
     else if sceneDelay=42 {boss=instance_create(368,-64,oRidleyFirst); boss.image_xscale=-1}
-    else if sceneDelay>=43 and sceneDelay<=66 {oRidleyFirstParts.image_xscale=-1; boss.y+=8}
+    else if sceneDelay>=43 and sceneDelay<=66 {oRidleyFirstParts.image_xscale=-1; boss.y+=8*gDeltaTime}
     else if sceneDelay>=67
     {
       with oRidDoorBeacon {bActive=1}
@@ -408,7 +408,7 @@ else if global.gameProgress=2720 and room=rSamus5_Lv1_F and global.gamePaused=fa
       }
     }
     else if sceneDelay=42 {boss=instance_create(-48,64,oRidleyFirst)}
-    else if sceneDelay>=43 and sceneDelay<=66 { boss.x+=8}
+    else if sceneDelay>=43 and sceneDelay<=66 { boss.x+=8*gDeltaTime}
     else if sceneDelay>=67
     {
       with oRidDoorBeacon {bActive=1}
@@ -631,7 +631,7 @@ else if global.gameProgress=2800 and room=rSamus5_Lv3_F //----- [] Water rising 
     }
     else if sceneProgress=1
     {
-      if oWater.y>64 {oWater.y-=2}
+      if oWater.y>64 {oWater.y-=2*gDeltaTime}
     }
   }
 }
@@ -1196,7 +1196,7 @@ else if room=rSamus5_Lv2_Boss and global.gamePaused=false //----- [] Boss Fight:
       }
       else if sceneProgress=3
       {
-        boss.y+=8
+        boss.y+=8*gDeltaTime
         if boss.y>=256
         {
           boss.sprite_index=sArachnusIdle
@@ -1316,7 +1316,7 @@ else if room=rSamus5_Lv3_Boss and global.gamePaused=false //----- [] Boss Fight:
         else if sceneDelay>=81 and sceneDelay<=130 {fadeAlpha-=0.02*gDeltaTime}
         else if sceneDelay>=170
         {
-          boss.y+=4
+          boss.y+=4*gDeltaTime
           if boss.y>=128 {sceneDelay=0; sceneProgress+=1}
         }
       }
@@ -1474,7 +1474,7 @@ else if global.gameProgress=3000 and room=rSamus5_Lv4_FinalBoss //----- [6] Boss
       if oPlayer1.x>=368
       {
         global.gamePaused=true
-        oPlayer1.y+=8
+        oPlayer1.y+=8*gDeltaTime
         if oPlayer1.y>=336
         {
           scenePChk(368,336,0,0.1,1)
@@ -1489,7 +1489,7 @@ else if global.gameProgress=3000 and room=rSamus5_Lv4_FinalBoss //----- [6] Boss
       if sceneDelay>=11 and sceneDelay<=99
       {
         oPlayer1.sprite_index=sClaireWalk; oPlayer1.image_speed=0.4
-        oPlayer1.x+=7
+        oPlayer1.x+=7*gDeltaTime
         if oPlayer1.x>=432
         {
           scenePChk(432,336,0,0.1,1)
@@ -1893,9 +1893,9 @@ else if room=rSamus5_VentShaft //----- [] Getting the Program Chip -----
     else if sceneProgress=3
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay>=1 and sceneDelay<=56 {oPlayer1.x+=2}
-      oPlayer1.y+=playerMoveY
-      playerMoveY+=0.3
+      if sceneDelay>=1 and sceneDelay<=56 {oPlayer1.x+=2*gDeltaTime}
+      oPlayer1.y+=playerMoveY*gDeltaTime
+      playerMoveY+=0.3*gDeltaTime
       if oPlayer1.y>=320 and playerMoveY>0
       {
         scenePChk(oPlayer1.x,320,0,0.1,1)
@@ -1922,7 +1922,7 @@ else if room=rSamus5_VentShaft //----- [] Getting the Program Chip -----
       }
       else if sceneDelay>=21 and sceneDelay<=35
       {
-        circleRad+=2
+        circleRad+=2*gDeltaTime
         if sceneDelay=25
           pChip.visible=1
       }
@@ -1933,7 +1933,7 @@ else if room=rSamus5_VentShaft //----- [] Getting the Program Chip -----
     else if sceneProgress=8
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay>=21 and sceneDelay<=100
+      if sceneDelay>=21 and sceneDelay<=100 and gDeltaDoTicks
         pChip.y+=1
       else if sceneDelay=130
       {
@@ -2005,7 +2005,7 @@ else if room=rSamus5_VentShaft //----- [] Getting the Program Chip -----
       else if sceneDelay=6 {oRidleyFinal.ridParts[0].image_index=2}
       else if sceneDelay>=7 and sceneDelay<=99
       {
-        oRidleyFinal.y-=3
+        oRidleyFinal.y-=3*gDeltaTime
         if oRidleyFinal.y<=224 {sceneDelay=100}
       }
       else if sceneDelay=101 {oRidleyFinal.ridParts[0].image_index=1}

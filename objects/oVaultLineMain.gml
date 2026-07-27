@@ -18,14 +18,14 @@ tNewTrail=instance_create(x,y,oVaultLineTail)
 tNewTrail.type=1; tNewTrail.size=size; tNewTrail.fadeSpd=fadeSpd;
 tNewTrail.image_alpha=0.75; tNewTrail.image_blend=image_blend
 
-dirChangeTime+=1
+dirChangeTime+=1*gDeltatime
 if dirChangeTime=40
 {
   dirChangeTime=irandom(30)
   direction=choose(0,90,180,270)
 }
 
-timeTillExp-=1
+timeTillExp-=1*gDeltatime
 if timeTillExp<=0
 {
   var tDir;

@@ -27,10 +27,10 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  x+=sin(oGame.time/2.5+waveOffset)
+  x+=sin(oGame.time/2.5+waveOffset)*gDeltatime
   if room=rVault_5
   {
-    if oVAbom_P1_Main.sequence=5 {y+=2}
+    if oVAbom_P1_Main.sequence=5 {y+=2*gDeltatime}
   }
   enemyStepEvent()
 }

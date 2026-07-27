@@ -24,7 +24,7 @@ if global.gamePaused=false
 {
   if sequence=0 //Fade in / start music
   {
-    if phaseIn>=1 {phaseIn+=1}
+    if phaseIn>=1 {phaseIn+=1*gDeltatime}
     if phaseIn>=2 and phaseIn<=7 {image_alpha+=0.05*gDeltaTime}
     else if phaseIn>=9 and phaseIn<=14 {image_alpha-=0.05*gDeltaTime}
     else if phaseIn>=40 {phaseIn=0}
@@ -70,7 +70,7 @@ if global.gamePaused=false
       bossArmL[i].y-=0.25+(i*0.25)
       bossArmR[i].y-=0.25+(i*0.25)
     }
-    seqTime+=1
+    seqTime+=1*gDeltatime
     if seqTime>=90
     {
       image_alpha=1
@@ -85,7 +85,7 @@ if global.gamePaused=false
   }
   else if sequence=3 //Wait time
   {
-    shotTime+=1
+    shotTime+=1*gDeltatime
     if shotTime>=45
     {
       shotTime=0
@@ -95,13 +95,13 @@ if global.gamePaused=false
   }
   else if sequence=4 //Damage threshold 2
   {
-    shotTime+=1
+    shotTime+=1*gDeltatime
     if shotTime>=44
     {
       var tNewAttack;
       tNewAtk=instance_create(oPlayer1.x,room_height+16,oPassBullet)
       tNewAtk.sprite_index=sAbomProjectileA; tNewAtk.atkPower=9; tNewAtk.bulletSpeed=2.75
-      tNewAtk.decayTime=-100; tNewAtk.image_xscale=2; tNewAtk.image_yscale=2; tNewAtk.direction=90
+      tNewAtk.decayTime=-100; tNewAtk.image_xscale=2; tNewAtk.image_yscale=2; tNewAtk._direction=90
       shotTime=0
     }
 

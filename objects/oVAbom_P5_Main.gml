@@ -62,7 +62,7 @@ if global.gamePaused=false
       tEffect.direction=random_range(1,179); tEffect.speed=random(1)+1; tEffect.fadeSpd=0.03;
       tEffect.AccelX=0; tEffect.AccelY=0; tEffect.newBlend=-1; tEffect.followID=-1; tEffect.rotation=0
     }
-    seqTime+=1
+    seqTime+=1*gDeltatime
     if seqTime=1
     {
       x=oPlayer1.x; y=room_height+352; visible=1
@@ -97,7 +97,7 @@ if global.gamePaused=false
   }
   else if sequence=2 //----- Rotate and fall to ground -----
   {
-    yVel+=0.6
+    yVel+=0.6*gDeltatime
     if yVel<0
     {
       var tEffect;
@@ -112,8 +112,8 @@ if global.gamePaused=false
     {
       if seqTime<90
       {
-        image_angle-=2.3*dirArcMod
-        seqTime+=2.3
+        image_angle-=2.3*dirArcMod*gDeltatime
+        seqTime+=2.3*gDeltatime
       }
       else
       {
@@ -142,7 +142,7 @@ if global.gamePaused=false
   }
   else if sequence=3 //----- Slight wait (Start move) -----
   {
-    seqTime+=1
+    seqTime+=1*gDeltatime
     if bossProgress=0 //First pass
     {
       if seqTime=20
@@ -174,7 +174,7 @@ if global.gamePaused=false
   }
   else if sequence=4 //----- Attack -----
   {
-    seqTime+=1
+    seqTime+=1*gDeltatime
     if bossProgress=0 //First pass
     {
       if seqTime=170
@@ -194,7 +194,7 @@ if global.gamePaused=false
     }
     else if bossProgress>=1 //-- Normal attack phase --
     {
-      shotTime+=1
+      shotTime+=1*gDeltatime
       if (image_angle=270 and oPlayer1.x<x) or (image_angle=90 and oPlayer1.x>x)
       {
         if shotTime>=shotDelay
@@ -206,7 +206,7 @@ if global.gamePaused=false
 
           tNewAtk=instance_create(x+tX,y+tY,oPassBullet)
           tNewAtk.sprite_index=sBTFireball; tNewAtk.atkPower=9; tNewAtk.bulletSpeed=4; tNewAtk.image_speed=0.33
-          tNewAtk.decayTime=-100; tNewAtk.image_xscale=1.5; tNewAtk.image_yscale=1.5; tNewAtk.direction=tDir
+          tNewAtk.decayTime=-100; tNewAtk.image_xscale=1.5; tNewAtk.image_yscale=1.5; tNewAtk._direction=tDir
           shotTime=0
         }
       }
@@ -226,9 +226,9 @@ if global.gamePaused=false
       tEffect.AccelX=0; tEffect.AccelY=0; tEffect.newBlend=-1; tEffect.followID=-1; tEffect.rotation=0
     }
 
-    yVel+=0.2
-    if xVel>0 {image_angle-=1.75}
-    else {image_angle+=1.75}
+    yVel+=0.2*gDeltatime
+    if xVel>0 {image_angle-=1.75*gDeltatime}
+    else {image_angle+=1.75*gDeltatime}
     if y>=room_height+240
     {
       if damageTakenSession>=450
@@ -244,7 +244,7 @@ if global.gamePaused=false
   }
   else if sequence=6 //Slight wait
   {
-    seqTime+=1
+    seqTime+=1*gDeltatime
     if seqTime>=30
     {
       if damageTakenTotal>=900 and damageTakenTotal<=1799 {shotDelay=36}
@@ -285,13 +285,13 @@ if global.gamePaused=false
   }
   else if sequence=11 //----- Rise up slowly -----
   {
-    seqTime+=1
+    seqTime+=1*gDeltatime
     if seqTime=10 {yVel=-1}
     if y<=room_height {yVel=0; seqTime=0; sequence+=1}
   }
   else if sequence=12 //----- Grow new head -----
   {
-    seqTime+=1
+    seqTime+=1*gDeltatime
     if seqTime=1
     {
       wallBehindHead=instance_create(880,0,oInvisibleSolid)
@@ -303,7 +303,7 @@ if global.gamePaused=false
       oVAbomP5_Head.image_xscale+=0.025*gDeltaTime
       oVAbomP5_Head.image_yscale+=0.025*gDeltaTime
     }
-    else if seqTime>=101 and seqTime<=115 {oVAbomP5_Head.jawAngle+=1}
+    else if seqTime>=101 and seqTime<=115 {oVAbomP5_Head.jawAngle+=1*gDeltatime}
     else if seqTime=130
     {
       view_visible[1]=0
@@ -315,7 +315,7 @@ if global.gamePaused=false
       tHexFlash=instance_create(488,96,oVaultHexFlash); tHexFlash.image_xscale=-1
       oPlayer1.x=480; oPlayer1.y=249
     }
-    else if seqTime>=161 and seqTime<=175 {oVAbomP5_Head.jawAngle-=1}
+    else if seqTime>=161 and seqTime<=175 {oVAbomP5_Head.jawAngle-=1*gDeltatime}
 
     if seqTime=150
     {
@@ -326,7 +326,7 @@ if global.gamePaused=false
   }
   else if sequence=13 //----- Attack phase -----
   {
-    seqTime+=1
+    seqTime+=1*gDeltatime
     if oVAbomP5_Head.jawAngle>0 {oVAbomP5_Head.bCanTakeDamage=true}
     else {oVAbomP5_Head.bCanTakeDamage=false}
 
@@ -343,7 +343,7 @@ if global.gamePaused=false
           {
             tNewAtk=instance_create(x-12,y-282,oPassBullet)
             tNewAtk.sprite_index=sBTFireball; tNewAtk.atkPower=9; tNewAtk.bulletSpeed=6+random(2.5); tNewAtk.image_speed=0.33
-            tNewAtk.decayTime=-100; tNewAtk.image_xscale=1.33; tNewAtk.image_yscale=1.33; tNewAtk.direction=laserDir+random_range(-8,8)
+            tNewAtk.decayTime=-100; tNewAtk.image_xscale=1.33; tNewAtk.image_yscale=1.33; tNewAtk._direction=laserDir+random_range(-8,8)
           }
         }
       }
@@ -361,13 +361,13 @@ if global.gamePaused=false
         {
           tNewAtk=instance_create(x-12,y-282,oPassBullet)
           tNewAtk.sprite_index=sBTFireball; tNewAtk.atkPower=9; tNewAtk.bulletSpeed=5; tNewAtk.image_speed=0.33
-          tNewAtk.decayTime=-100; tNewAtk.image_xscale=1.25; tNewAtk.image_yscale=1.25; tNewAtk.direction=tDir
+          tNewAtk.decayTime=-100; tNewAtk.image_xscale=1.25; tNewAtk.image_yscale=1.25; tNewAtk._direction=tDir
           tDir+=30
         }
       }
     }
-    else if seqTime>=131 and seqTime<=145 {oVAbomP5_Head.jawAngle-=1}
-    else if seqTime>=160 {shotTime+=1; seqTime=0}
+    else if seqTime>=131 and seqTime<=145 {oVAbomP5_Head.jawAngle-=1*gDeltatime}
+    else if seqTime>=160 {shotTime+=1*gDeltatime; seqTime=0}
 
     if damageTakenTotal>=700 and shotDelay=0
     {
@@ -417,7 +417,7 @@ if global.gamePaused=false
   {
     oVAbomP5_Head.image_xscale-=0.025*gDeltaTime
     oVAbomP5_Head.image_yscale-=0.025*gDeltaTime
-    oVAbomP5_Head.y+=1
+    if gDeltaDoTicks oVAbomP5_Head.y+=1
     if oVAbomP5_Head.image_xscale<=0.3
     {
       with oVAbomP5_Head {instance_destroy()}
@@ -426,7 +426,7 @@ if global.gamePaused=false
   }
   else if sequence=15 //----- Hex talks -----
   {
-    seqTime+=1
+    seqTime+=1*gDeltatime
     if seqTime=10
     {
       msgCreate(0,0,"Hex","We've stalled enough, it's time for the Abomination to escape!",0,1,oMessagePerson,0)
@@ -482,7 +482,7 @@ if global.gamePaused=false
     myCollision.xVel=xVel
     myCollision.yVel=yVel
   }
-  x+=xVel; y+=yVel
+  x+=xVel*gDeltatime; y+=yVel*gDeltatime
   if xVel!=0 //Move effect
   {
     var tEffect;
@@ -497,9 +497,9 @@ if global.gamePaused=false
   //Laser warn delay
   if laserWarn>0
   {
-    laserWarn+=1
-    circleAlpha-=0.06
-    cirRad-=1
+    laserWarn+=1*gDeltatime
+    circleAlpha-=0.06*gDeltatime
+    cirRad-=1*gDeltatime
     if laserWarn>=15
     {
       laserWarn=0

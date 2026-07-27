@@ -46,7 +46,7 @@ if global.gamePaused=false
     tEffect.image_blend=make_color_rgb(180,180+random(75),180)
 
     oPlayer1.yVel=-20
-    seqTime+=1
+    seqTime+=1*gDeltatime
     if seqTime>=82
     {
       yVel=0
@@ -66,7 +66,7 @@ if global.gamePaused=false
   }
   else if sequence=3 //Eat player
   {
-    jawAng+=6
+    jawAng+=6*gDeltatime
     if jawAng>=90
     {
       oPlayer1.life-=oPlayer1.maxLife

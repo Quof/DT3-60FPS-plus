@@ -42,13 +42,13 @@ if global.gamePaused=false
       {
         if oPlayer1.x>=2056
         {
-          if oGame.time mod 5=0
+          if oGame.time mod (5/gDeltaTime)=0
           {
             var tNewAttack,tDir;
             tDir=point_direction(x,y,oPlayer1.x,oPlayer1.y-26)
             tNewAtk=instance_create(x,y,oPassBullet)
             tNewAtk.sprite_index=sBTFireball; tNewAtk.atkPower=9; tNewAtk.bulletSpeed=4; tNewAtk.image_speed=0.33
-            tNewAtk.decayTime=-100; tNewAtk.image_xscale=1.25; tNewAtk.image_yscale=1.25; tNewAtk.direction=tDir
+            tNewAtk.decayTime=-100; tNewAtk.image_xscale=1.25; tNewAtk.image_yscale=1.25; tNewAtk._direction=tDir
           }
         }
       }
@@ -71,7 +71,7 @@ if global.gamePaused=false
       {
         tNewAtk=instance_create(x+lengthdir_x(138,22+image_angle),y+lengthdir_y(138,22+image_angle),oPassBullet)
         tNewAtk.sprite_index=sBTFireball; tNewAtk.atkPower=9; tNewAtk.bulletSpeed=3; tNewAtk.image_speed=0.33
-        tNewAtk.decayTime=-100; tNewAtk.image_xscale=1.5; tNewAtk.image_yscale=1.5; tNewAtk.direction=tDir
+        tNewAtk.decayTime=-100; tNewAtk.image_xscale=1.5; tNewAtk.image_yscale=1.5; tNewAtk._direction=tDir
         tDir+=20
       }
     }
@@ -80,7 +80,7 @@ if global.gamePaused=false
       var tNewAttack;
       tNewAtk=instance_create(x+lengthdir_x(110,22+image_angle),y+lengthdir_y(110,22+image_angle),oPassBullet)
       tNewAtk.sprite_index=sBTFireball; tNewAtk.atkPower=9; tNewAtk.bulletSpeed=3; tNewAtk.image_speed=0.33
-      tNewAtk.decayTime=-100; tNewAtk.image_xscale=1.2; tNewAtk.image_yscale=1.2; tNewAtk.direction=image_angle
+      tNewAtk.decayTime=-100; tNewAtk.image_xscale=1.2; tNewAtk.image_yscale=1.2; tNewAtk._direction=image_angle
     }
     fireTime=0
   }

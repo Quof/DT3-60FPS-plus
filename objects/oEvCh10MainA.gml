@@ -92,7 +92,7 @@ if global.gameProgress=2160 and room=rVault_1 //----- [1] Chapter 10 - Are we in
     if sceneDelay=10 {oPlayer1.sprite_index=sClaireIdle; oPlayer1.image_speed=0.1}
     else if sceneDelay=20 {oPlayer1.image_xscale=-1}
     else if sceneDelay=27 {oPlayer1.sprite_index=sClaireWalk; oPlayer1.image_speed=0.33}
-    else if sceneDelay>=28 and sceneDelay<=32 {oPlayer1.x-=5}
+    else if sceneDelay>=28 and sceneDelay<=32 {oPlayer1.x-=5*gDeltaTime}
     else if sceneDelay=33 {oPlayer1.sprite_index=sClaireIdle; oPlayer1.image_speed=0.1}
     else if sceneDelay=38 {oPlayer1.sprite_index=sClaireKneel; oPlayer1.image_index=0; oPlayer1.image_speed=0}
     else if sceneDelay=42 {oPlayer1.image_index=1}
@@ -1355,8 +1355,8 @@ else if global.gameProgress=2420 and room=rVault_13 //----- [] Boss Fight: Hex -
       }
       else if sceneDelay>=2
       {
-        if musVolC>=7500 {musVolC-=30}
-        else {musVolC-=350}
+        if musVolC>=7500 {musVolC-=30*gDeltaTime}
+        else {musVolC-=350*gDeltaTime}
         SS_SetSoundVol(musFileP,musVolC)
         if musVolC<=1000
         {
@@ -1386,7 +1386,7 @@ else if global.gameProgress=2420 and room=rVault_13 //----- [] Boss Fight: Hex -
       }
       else if sceneDelay>=11 and sceneDelay<=999
       {
-        oGameCamera.x+=1
+        if gDeltaDoTicks {oGameCamera.x+=1}
         if oGameCamera.x>=448 {oGameCamera.x=448; sceneDelay=1000}
       }
       else if sceneDelay=1020 {sceneDelay=0; sceneProgress+=1}
@@ -1433,8 +1433,8 @@ else if global.gameProgress=2420 and room=rVault_13 //----- [] Boss Fight: Hex -
       }
       else if sceneDelay>=2
       {
-        if musVolC>=7500 {musVolC-=30}
-        else {musVolC-=350}
+        if musVolC>=7500 {musVolC-=30*gDeltaTime}
+        else {musVolC-=350*gDeltaTime}
         SS_SetSoundVol(musFileP,musVolC)
         if musVolC<=1000
         {
@@ -1484,8 +1484,8 @@ else if global.gameProgress=2420 and room=rVault_13 //----- [] Boss Fight: Hex -
       }
       else if sceneDelay>=2
       {
-        if musVolC>=7500 {musVolC-=30}
-        else {musVolC-=350}
+        if musVolC>=7500 {musVolC-=30*gDeltaTime}
+        else {musVolC-=350*gDeltaTime}
         SS_SetSoundVol(musFileP,musVolC)
         if musVolC<=1000
         {
@@ -1829,8 +1829,8 @@ else if global.gameProgress=2450 and room=rVault_15 //----- [8] Jeremy & Chao re
     }
     else if sceneDelay>=2
     {
-      if musVolC>=7500 {musVolC-=30}
-      else {musVolC-=350}
+      if musVolC>=7500 {musVolC-=30*gDeltaTime}
+      else {musVolC-=350*gDeltaTime}
       SS_SetSoundVol(musFileP,musVolC)
       if musVolC<=1000
       {
@@ -1922,7 +1922,7 @@ else if global.gameProgress=2480 and room=rVault_16 //----- [] Reobtaining the a
   }
   else if sceneProgress=2
   {
-    lightBeamWave+=0.25
+    lightBeamWave+=0.25*gDeltaTime
     if lightBeamWave>=32
     {
       itemRocFeather=instance_create(1072,0,oMisc)
@@ -1932,7 +1932,7 @@ else if global.gameProgress=2480 and room=rVault_16 //----- [] Reobtaining the a
   }
   else if sceneProgress=3
   {
-    itemRocFeather.y+=1
+    if gDeltaDoTicks {itemRocFeather.y+=1}
     sceneDelay+=1*gDeltaTime
     if sceneDelay mod 3=0
     {
