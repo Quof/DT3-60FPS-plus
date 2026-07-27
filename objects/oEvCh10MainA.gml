@@ -315,7 +315,7 @@ else if global.gameProgress=2210 and room=rVault_3 //----- [2] After grabbing Me
       global.gamePaused=true
     else if sceneDelay>=2
     {
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=176
       {
         oPlayer1.y=176
@@ -476,7 +476,7 @@ else if global.gameProgress=2240 and room=rVault_1 //----- [3] Chao is missing -
         oPlayerShieldBubble.visible=0
         with oEnemyBase {instance_destroy()}
       }
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=288
       {
         scenePChk(160,288,0,0.1,-1)
@@ -1155,7 +1155,7 @@ else if global.gameProgress=2400 and room=rVault_11 //----- [] Chao is found ---
       if oPlayer1.x>=528
       {
         global.gamePaused=true
-        oPlayer1.y+=4
+        oPlayer1.y+=4*gDeltaTime
         if oPlayer1.y>=304
         {
           scenePChk(528,304,0,0.1,1)
@@ -1240,7 +1240,7 @@ else if global.gameProgress=2400 and room=rVault_11 //----- [] Chao is found ---
     }
     else if sceneProgress=1
     {
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=304
       {
         scenePChk(oPlayer1.x,304,0,0.1,oPlayer1.image_xscale)
@@ -1336,7 +1336,7 @@ else if global.gameProgress=2420 and room=rVault_13 //----- [] Boss Fight: Hex -
       if oPlayer1.x>=384
       {
         global.gamePaused=true
-        oPlayer1.y+=4
+        oPlayer1.y+=4*gDeltaTime
         if oPlayer1.y>=304
         {
           scenePChk(384,304,0,0.1,1)
@@ -1996,7 +1996,7 @@ else if global.gameProgress=2480 and room=rVault_16 //----- [] Reobtaining the a
       if sceneDelay=1 {global.gamePaused=true}
       else if sceneDelay>=2
       {
-        oPlayer1.y+=4
+        oPlayer1.y+=4*gDeltaTime
         if oPlayer1.y>=272
         {
           scenePChk(oPlayer1.x,272,0,0.1,1)

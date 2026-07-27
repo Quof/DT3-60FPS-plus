@@ -89,7 +89,7 @@ else if global.gameProgress=3965 and room=rHPF_A //----- [2] Deactivate security
     if oPlayer1.x<=1552
     {
       global.gamePaused=true
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=176
       {
         scenePChk(oPlayer1.x,176,0,0.1,-1)
@@ -722,7 +722,7 @@ else if global.gameProgress=4080 and room=rHPF_U //----- [6] Sera's Intro -----
     if oPlayer1.x>=320
     {
       global.gamePaused=true
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=288
       {
         scenePChk(320,288,0,0.1,1)
@@ -966,7 +966,7 @@ else if global.gameProgress=4100 and room=rHPF_V //----- [7] Shutting down the V
     if oPlayer1.x>=224
     {
       global.gamePaused=true
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=288
       {
         var tFlash;

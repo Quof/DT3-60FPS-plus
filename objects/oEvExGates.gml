@@ -402,7 +402,7 @@ if room=rExtGateA_6 //----- [A] Boss Fight: Kamek -----
     {
       sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {global.gamePaused=true}
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=288
       {
         scenePChk(176,288,0,0.1,1)
@@ -578,7 +578,7 @@ else if room=rExtGateB_6 //----- [B] Boss Fight: Final Nightmare -----
     {
       sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {global.gamePaused=true}
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=288
       {
         oPlayer1.y=288; oPlayer1.sprite_index=sJerryIdle; oPlayer1.image_xscale=1
@@ -689,7 +689,7 @@ else if room=rExtGateC_5 //----- [C] Boss Fight: Blackmoor -----
     {
       sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {global.gamePaused=true}
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=304
       {
         oPlayer1.y=304
@@ -804,7 +804,7 @@ else if room=rExtGateD_6 //----- [D] Boss Fight: Elpizo -----
     {
       sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {global.gamePaused=true}
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=416
       {
         oPlayer1.x=352; oPlayer1.y=416
@@ -893,7 +893,7 @@ else if room=rExtGateE_5 //----- [E] Boss Fight: Shadow Form -----
     {
       sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {global.gamePaused=true}
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=304
       {
         scenePChk(272,304,0,0.1,1)
@@ -1052,7 +1052,7 @@ else if room=rExtGateF_6 //----- [F] Boss Fight: Nightmare -----
     {
       sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {global.gamePaused=true}
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=432
       {
         scenePChk(160,432,0,0.1,1)
@@ -1127,7 +1127,7 @@ else if room=rExtGateG_5 //----- [G] Boss Fight: Sephiroth -----
     {
       sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {global.gamePaused=true}
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=288
       {
         newCamera=instance_create(320,176,oMisc)

@@ -429,7 +429,7 @@ else if room=rMega4_SigmaB3 and global.gameProgress=1910 //----- [Unskippable] B
     {
       sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {global.gamePaused=true}
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=288
       {
         scenePChk(128,288,0,0.1,1)
@@ -622,7 +622,7 @@ else if room=rMega4_SigmaB5 and global.gameProgress=1930 //----- [Unskippable] B
     {
       sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {global.gamePaused=true}
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=288
       {
         scenePChk(128,288,0,0.1,1)
@@ -740,7 +740,7 @@ else if global.gameProgress=1940 and room=rMega4_SigmaB8 //----- [Unskippable] B
     {
       sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {global.gamePaused=true}
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=288
       {
         scenePChk(240,288,0,0.1,1)

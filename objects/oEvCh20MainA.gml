@@ -282,7 +282,7 @@ else if global.gameProgress=5140 and room=rWarshipE //----- [] Something is wron
     if oPlayer1.x>=1016
     {
       global.gamePaused=true
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=192
       {
         scenePChk(oPlayer1.x,192,0,0.1,1)
@@ -521,7 +521,7 @@ else if global.gameProgress=5190 and room=rWarshipK //----- [] Something is wron
     {
       if (oPlayer1.y>=496 and oPlayer1.y<=592) or (oPlayer1.y>=1040 and oPlayer1.y<=1184)
       global.gamePaused=true
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y<640
       {
         if oPlayer1.y>=576
@@ -778,7 +778,7 @@ else if global.gameProgress=5250 and room=rWarshipQ //----- [] Boss Fight: Hex F
       if oPlayer1.x>=352
       {
         global.gamePaused=true
-        oPlayer1.y+=4
+        oPlayer1.y+=4*gDeltaTime
         if oPlayer1.y>=288
         {
           scenePChk(352,288,0,0.1,1)
@@ -949,7 +949,7 @@ else if global.gameProgress=5260 and room=rWarshipQ //----- [] Got to first powe
         sceneDelay=1
       }
       global.gamePaused=true
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=288
       {
         scenePChk(1248,288,0,0.1,1)
@@ -1016,7 +1016,7 @@ else if global.gameProgress=5270 and room=rWarshipN //----- [] About your abilit
     if oPlayer1.x<=704
     {
       global.gamePaused=true
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=1120
       {
         scenePChk(704,1120,0,0.1,-1)
@@ -1135,7 +1135,7 @@ else if global.gameProgress=5305 and room=rWarshipZ_E2 //----- [Final Boss Fight
       if oPlayer1.x>=288
       {
         global.gamePaused=true
-        oPlayer1.y+=4
+        oPlayer1.y+=4*gDeltaTime
         if oPlayer1.y>=304
         {
           scenePChk(288,304,0,0.1,1)
@@ -1431,7 +1431,7 @@ else if global.gameProgress=5310 and room=rWarshipZ_E2 //----- [] This door ----
     if oPlayer1.x>=512
     {
       global.gamePaused=true
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=304
       {
         scenePChk(512,304,0,0.1,1)
@@ -1528,7 +1528,7 @@ else if global.gameProgress=5330 and room=rWarshipZ_I //----- [] Final Warning -
     if oPlayer1.x>=112
     {
       global.gamePaused=true
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=208
       {
         scenePChk(112,208,0,0.1,1)
@@ -1559,7 +1559,7 @@ else if global.gameProgress=5340 and room=rWarshipZ_I //----- [] The last power 
     if oPlayer1.x>=640
     {
       global.gamePaused=true
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=256
       {
         scenePChk(640,256,0,0.1,1)

@@ -206,7 +206,7 @@ else if global.gameProgress=3400 and room=rGame6_Hometown //----- [2] Found Jerr
     if oPlayer1.x>=668
     {
       global.gamePaused=true
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=296
       {
         scenePChk(oPlayer1.x,296,0,0.1,1)
@@ -337,7 +337,7 @@ else if global.gameProgress=3420 and room=rGame6_HeroPlainsA //----- [4] Combat 
     if oPlayer1.x>=840
     {
       global.gamePaused=true
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=208
       {
         scenePChk(oPlayer1.x,208,0,0.1,1)
@@ -446,7 +446,7 @@ else if global.gameProgress=3422 and room=rGame6_HeroPlainsD //----- [6] Spring 
     if oPlayer1.x>=1264
     {
       global.gamePaused=true
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=208
       {
         scenePChk(oPlayer1.x,208,0,0.1,1)
@@ -788,7 +788,7 @@ else if global.gameProgress=3440 and room=rGame6_Hometown //----- [8] Recover Je
     {
       fadeColor=c_black
       global.gamePaused=true
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=296
       {
         scenePChk(oPlayer1.x,296,0,0.1,1)
@@ -1029,7 +1029,7 @@ else if global.gameProgress=3470 and room=rGame6_EarthJ //----- [] Boss Fight: T
       if oPlayer1.x>=352
       {
         global.gamePaused=true
-        oPlayer1.y+=4
+        oPlayer1.y+=4*gDeltaTime
         if oPlayer1.y>=288
         {
           scenePChk(352,288,0,0.1,1)
@@ -1137,7 +1137,7 @@ else if global.gameProgress=3480 and room=rGame6_EarthK //----- [] Obtain Earth 
     if oPlayer1.x>=240
     {
       global.gamePaused=true
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=224
       {
         scenePChk(oPlayer1.x,224,0,0.1,1)
@@ -1235,7 +1235,7 @@ else if global.gameProgress=3490 and room=rGame6_JDream //----- [11] Jerry's des
     if oPlayer1.x>=640
     {
       global.gamePaused=true
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=272
       {
         scenePChk(oPlayer1.x,272,0,0.1,1)
@@ -1379,7 +1379,7 @@ else if global.gameProgress=3503 and room=rGame6_FireE //----- [12] Meeting the 
     if oPlayer1.x>=656
     {
       global.gamePaused=true
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=304
       {
         scenePChk(oPlayer1.x,304,0,0.1,1)
@@ -1526,7 +1526,7 @@ else if global.gameProgress=3520 and room=rGame6_FireE //----- [] Short moment o
     if oPlayer1.x>=1152
     {
       global.gamePaused=true
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=240
       {
         scenePChk(oPlayer1.x,240,0,0.1,1)
@@ -1559,7 +1559,7 @@ else if global.gameProgress=3530 and room=rGame6_FireF //----- [13] Obtain Fire 
     {
       fadeColor=c_black
       global.gamePaused=true
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=256
       {
         scenePChk(oPlayer1.x,256,0,0.1,1)
@@ -1728,7 +1728,7 @@ else if global.gameProgress=3545 and room=rGame6_Hometown //----- [16] Ask old m
     if oPlayer1.x>=668
     {
       global.gamePaused=true
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=296
       {
         scenePChk(oPlayer1.x,296,0,0.1,1)
@@ -1782,7 +1782,7 @@ else if global.gameProgress=3550 and room=rGame6_WaterB //----- [] Boss Fight: H
       if oPlayer1.x>=256
       {
         global.gamePaused=true
-        oPlayer1.y+=4
+        oPlayer1.y+=4*gDeltaTime
         if oPlayer1.y>=288
         {
           scenePChk(oPlayer1.x,288,0,0.1,1)
@@ -1929,7 +1929,7 @@ else if global.gameProgress=3570 and room=rGame6_WaterA //----- [17] Obtain Wate
     {
       fadeColor=c_black
       global.gamePaused=true
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=208
       {
         scenePChk(oPlayer1.x,208,0,0.1,oPlayer1.image_xscale)
@@ -1979,7 +1979,7 @@ else if global.gameProgress=3590 and room=rGame6_CoMB //----- [18] Getting Doubl
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=2
     {
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=240
       {
         scenePChk(oPlayer1.x,240,0,0.1,1)
@@ -2212,7 +2212,7 @@ else if global.gameProgress=3620 and room=rGame6_WindI //----- [] Boss Fight: Th
       if oPlayer1.x>=368
       {
         global.gamePaused=true
-        oPlayer1.y+=4
+        oPlayer1.y+=4*gDeltaTime
         if oPlayer1.y>=208
         {
           scenePChk(368,208,0,0.1,1)
@@ -2316,7 +2316,7 @@ else if global.gameProgress=3630 and room=rGame6_WindJ //----- [19] Obtain Wind 
     if oPlayer1.x>=240
     {
       global.gamePaused=true
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=208
       {
         scenePChk(oPlayer1.x,208,0,0.1,1)
@@ -2376,7 +2376,7 @@ else if global.gameProgress=3640 and room=rGame6_Hometown //----- [20] Presentin
     if oPlayer1.x>=668
     {
       global.gamePaused=true
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=296
       {
         fadeColor=c_black
@@ -2774,7 +2774,7 @@ else if global.gameProgress=3780 and room=rGame6_Hometown //----- [23] Going bac
     if oPlayer1.x<=128 or oPlayer1.x>=832
     {
       global.gamePaused=true
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=296
       {
         scenePChk(oPlayer1.x,296,0,0.1,oPlayer1.image_xscale)
@@ -2808,7 +2808,7 @@ else if global.gameProgress=3800 and room=rGame6_WhisperWoodsA //----- [24] Find
     if oPlayer1.x>=272
     {
       global.gamePaused=true
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=256
       {
         global.recBirdsSeen+=1
@@ -2902,7 +2902,7 @@ else if global.gameProgress=3820 and room=rGame6_CoDP //----- [26] Boss Fight: T
       if oPlayer1.x>=1056
       {
         global.gamePaused=true
-        oPlayer1.y+=4
+        oPlayer1.y+=4*gDeltaTime
         if oPlayer1.y>=352
         {
           scenePChk(1056,352,0,0.1,1)
@@ -3079,7 +3079,7 @@ else if global.gameProgress=3851 and room=rGame6_CoD_ESC //----- [Unskippable] E
     if oPlayer1.x>=224
     {
       global.gamePaused=true
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=272
       {
         scenePChk(oPlayer1.x,272,0,0.1,1)
@@ -3147,7 +3147,7 @@ else if global.gameProgress=3852 and room=rGame6_CoD_ESC //----- [Unskippable] E
     if oPlayer1.x>=896
     {
       global.gamePaused=true
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=272
       {
         scenePChk(oPlayer1.x,272,0,0.1,1)
@@ -3201,7 +3201,7 @@ else if global.gameProgress=3853 and room=rGame6_CoD_ESC //----- [Unskippable] E
     if oPlayer1.x>=1456
     {
       global.gamePaused=true
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=272
       {
         scenePChk(oPlayer1.x,272,0,0.1,1)

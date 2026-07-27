@@ -37,7 +37,7 @@ if global.gateHProg=100 and room=rMain_76 //----- [1] How do we beat this thing?
       if sceneDelay=1 {global.gamePaused=true}
       else if sceneDelay>=2
       {
-        oPlayer1.y+=4
+        oPlayer1.y+=4*gDeltaTime
         if oPlayer1.y>=160
         {
           scenePChk(oPlayer1.x,160,0,0.1,1)

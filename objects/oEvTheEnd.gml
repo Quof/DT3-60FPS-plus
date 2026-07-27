@@ -147,8 +147,8 @@ else if room=rEnd_SceneA //----- [] End B -----
     sceneDelay+=1*gDeltaTime
     if sceneDelay>=10 and sceneDelay<=199
     {
-      oPlayer1.x-=1; oPlayer1.y+=4
-      oIdentifier.x-=1; oIdentifier.y+=4
+      if gDeltaDoTicks {oPlayer1.x-=1}; oPlayer1.y+=4*gDeltaTime
+      if gDeltaDoTicks {oIdentifier.x-=1}; oIdentifier.y+=4*gDeltaTime
       if oPlayer1.y>=272
       {
         scenePChk(oPlayer1.x,272,0,0.1,1)

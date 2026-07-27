@@ -175,7 +175,7 @@ else if global.gameProgress=3880 and room=rCCity_NorthA //----- [2] Talk to John
   }
   else if sceneProgress=1
   {
-    oPlayer1.y+=4
+    oPlayer1.y+=4*gDeltaTime
     if oPlayer1.y>=288
     {
       scenePChk(1200,288,0,0.1,1)
@@ -282,7 +282,7 @@ else if global.gameProgress=3900 and room=rCCity_NorthA //----- [4] Talk to John
   }
   else if sceneProgress=1
   {
-    oPlayer1.y+=4
+    oPlayer1.y+=4*gDeltaTime
     if oPlayer1.y>=288
     {
       scenePChk(1200,288,0,0.1,1)

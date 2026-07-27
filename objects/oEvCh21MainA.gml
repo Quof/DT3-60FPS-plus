@@ -190,7 +190,7 @@ else if global.gameProgress=5530 and room=rAbomA //----- [2] The plan -----
     if oPlayer1.x>=304
     {
       global.gamePaused=1
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=248
       {
         scenePChk(oPlayer1.x,248,0,0.1,1)
@@ -703,7 +703,7 @@ else if global.gameProgress=5580 and room=rCh21_WastelandB //----- [6] Jerry tal
     if oPlayer1.x>=736
     {
       global.gamePaused=true
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=304
       {
         with oAttackBase {instance_destroy()}
@@ -828,7 +828,7 @@ else if global.gameProgress=5640 and room=rDistortionF //----- [8] Final Boss Fi
       if oPlayer1.x>=160
       {
         global.gamePaused=true
-        oPlayer1.y+=4
+        oPlayer1.y+=4*gDeltaTime
         if oPlayer1.y>=288
         {
           with oAttackBase {instance_destroy()}

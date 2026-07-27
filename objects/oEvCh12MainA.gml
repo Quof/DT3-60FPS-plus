@@ -97,7 +97,7 @@ else if global.gameProgress=2620 and room=rMain_47 //----- [3] Boss Fight: Vault
       if oPlayer1.x>=2128
       {
         global.gamePaused=true
-        oPlayer1.y+=4
+        oPlayer1.y+=4*gDeltaTime
         if oPlayer1.y>=352
         {
           scenePChk(2128,352,0,0.1,1)
@@ -236,7 +236,7 @@ else if global.gameProgress=2630 and room=rMain_48 //----- [4] Meeting Bubblin &
     if oPlayer1.x>=1408 and oPlayer1.x<=1504
     {
       global.gamePaused=true
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=320
       {
         scenePChk(1408,320,0,0.1,1)

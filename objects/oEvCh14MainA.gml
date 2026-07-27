@@ -469,7 +469,7 @@ else if global.gameProgress=3190 and room=rNGC_RB_EleA //----- [8] Elevator ride
     {
       scenePChk(oPlayer1.x,oPlayer1.y,1,0.1,1)
       global.gamePaused=true
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=196
       {
         playSound(global.snd_BombExplode,0,0.95,1)
@@ -1132,7 +1132,7 @@ else if global.gameProgress=3290 and room=rNGC_LC_H //----- [13] Finding the Eng
     if oPlayer1.x>=1136
     {
       global.gamePaused=true
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=288
       {
         var tFlash;
@@ -1260,7 +1260,7 @@ else if global.gameProgress=3310 and room=rNGC_LC_EleA //----- [14] Start the el
     if oPlayer1.x>=432
     {
       global.gamePaused=true
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=244 {scenePChk(432,244,0,0.1,1); sceneProgress+=1}
     }
   }
@@ -1430,7 +1430,7 @@ else if global.gameProgress=3330 and room=rNGC_BR_B //----- [15] Before the truc
     if oPlayer1.x>=80
     {
       global.gamePaused=true
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=320 {scenePChk(80,320,0,0.1,1); sceneProgress+=1}
     }
   }

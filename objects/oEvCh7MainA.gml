@@ -461,7 +461,7 @@ else if global.gameProgress=1640 and room=rMountTemple_D //----- [6] Get Mermaid
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=2
     {
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=208
       {
         scenePChk(oPlayer1.x,208,0,0.1,1)
@@ -871,7 +871,7 @@ else if global.gameProgress=1690 and room=rMountTemple_J //----- [9] Get Access 
   {
     sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
-    oPlayer1.y+=4
+    oPlayer1.y+=4*gDeltaTime
     if oPlayer1.y>=288
     {
       scenePChk(176,288,0,0.1,1)
@@ -1078,7 +1078,7 @@ else if global.gameProgress=1720 and room=rMain_28 //----- [11] Virus & Twin Was
     {
       if oPlayer1.x<=1408 and oPlayer1.y<=304
       {
-        oPlayer1.y+=4
+        oPlayer1.y+=4*gDeltaTime
         if oPlayer1.y>=288
         {
           scenePChk(1408,288,0,0.1,-1)

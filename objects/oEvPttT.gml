@@ -72,7 +72,7 @@ else if global.gamePttT_Prog=60 and room=rPttT_06 //----- [2] The Parasite is cl
     if oPlayer1.x>=192
     {
       global.gamePaused=true
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=208
       {
         scenePChk(oPlayer1.x,208,0,0.1,1)
@@ -219,7 +219,7 @@ else if global.gamePttT_Prog=80 and room=rPttT_08 //----- [3] If only we could g
     if oPlayer1.x>=288
     {
       global.gamePaused=true
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=256
       {
         scenePChk(oPlayer1.x,256,0,0.1,1)

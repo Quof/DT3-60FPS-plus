@@ -322,7 +322,7 @@ else if global.gameProgress=690 and room=rLink2_PalaceA_6 //----- [5] After grab
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=2
     {
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=272
       {
         scenePChk(oPlayer1.x,272,0,0.1,1)

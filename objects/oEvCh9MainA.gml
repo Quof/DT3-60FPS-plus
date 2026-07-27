@@ -267,7 +267,7 @@ else if global.gameProgress=2030 and room=rMain_34 //----- [3] Bubble Tower and 
     {
       sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {global.gamePaused=true}
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=1088
       {
         scenePChk(1232,1088,0,0.1,-1)
@@ -829,7 +829,7 @@ else if global.gameProgress=2130 and room=rMain_39 //----- [Unskippable] No turn
     {
       sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {global.gamePaused=true}
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=192
       {
         scenePChk(144,192,0,0.1,-1)

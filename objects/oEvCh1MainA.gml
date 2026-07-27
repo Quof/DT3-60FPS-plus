@@ -610,7 +610,7 @@ else if global.gameProgress=60 and room=rMain_4 //----- [5] After grabbing Jump 
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=2
     {
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=416
       {
         oPlayer1.y=416
@@ -751,7 +751,7 @@ else if global.gameProgress=100 and room=rMain_5 //----- [7] Swap characters ---
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=2
     {
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=464
       {
         oPlayer1.y=464

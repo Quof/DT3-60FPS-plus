@@ -209,7 +209,7 @@ else if global.gameProgress=4540 and room=rMain_84 //----- [2] Lovelun in front 
     if oPlayer1.x>=3664 and oPlayer1.y>=320
     {
       global.gamePaused=true
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=480
       {
         scenePChk(oPlayer1.x,480,0,0.1,1)
@@ -320,7 +320,7 @@ else if global.gameProgress=4570 and room=rHiddenVillage //----- [4] What to do 
     if oPlayer1.x>=2528 and oPlayer1.y<=312
     {
       global.gamePaused=true
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=304
       {
         var tFlash;
@@ -452,7 +452,7 @@ else if global.gameProgress=4610 and room=rDiscoD //----- [6] Hex shows up -----
     if oPlayer1.x>=288
     {
       global.gamePaused=true
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=288
       {
         scenePChk(oPlayer1.x,288,0,0.1,1)
@@ -915,7 +915,7 @@ else if room=rDiscoI //----- [] Boss Fight: Defective -----
       if oPlayer1.x>=1632
       {
         global.gamePaused=true
-        oPlayer1.y+=4
+        oPlayer1.y+=4*gDeltaTime
         if oPlayer1.y>=256
         {
           scenePChk(oPlayer1.x,256,0,0.1,1)
@@ -1217,7 +1217,7 @@ else if room=rHiddenVillage_Destroyed and global.gameProgress=4940 //----- [13] 
   {
     if sceneProgress=0
     {
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=304
       {
         scenePChk(oPlayer1.x,304,0,0.1,1)
@@ -1395,7 +1395,7 @@ else if room=rMain_84 and global.gameProgress=4950 //----- [14] Reunited with Ge
     if oPlayer1.x<=3120
     {
       global.gamePaused=true
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=256
       {
         scenePChk(oPlayer1.x,256,0,0.1,-1)
@@ -1712,7 +1712,7 @@ else if room=rMC_N and global.gameProgress=5030 //----- [16] The 3 Dragoon Piece
     if oPlayer1.x>=592 and oPlayer1.y<=336
     {
       global.gamePaused=true
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=320
       {
         scenePChk(oPlayer1.x,320,0,0.1,1)

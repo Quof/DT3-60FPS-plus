@@ -401,7 +401,7 @@ if global.gameProgress=1760 and room=rMega4_Gate //----- [Unskippable] Intro to 
   }
   else if sceneProgress=13
   {
-    oPlayer1.y+=4
+    oPlayer1.y+=4*gDeltaTime
     if oPlayer1.y>=304
     {
       scenePChk(oPlayer1.x,304,0,0.1,1)
@@ -526,7 +526,7 @@ else if global.gameProgress=1830 and room=rMega4_IntroE //----- [Unskippable] Bo
     {
       sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {global.gamePaused=true}
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=240
       {
         oPlayer1.y=240
@@ -737,7 +737,7 @@ else if room=rMega4_StormC //----- [Unskippable] Bit appears and destroys canist
     {
       sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {global.gamePaused=true}
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=288
       {
         scenePChk(208,288,0,0.1,1)

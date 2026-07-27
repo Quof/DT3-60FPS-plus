@@ -252,7 +252,7 @@ else if global.gameProgress=4290 and room=rWepFacF //----- [5] The elevator down
     if oPlayer1.x<=512
     {
       global.gamePaused=true
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=304
       {
         scenePChk(oPlayer1.x,304,0,0.1,-1)
@@ -328,7 +328,7 @@ else if global.gameProgress=4310 and room=rWepFacK //----- [7] Boss Fight: Brain
       if oPlayer1.x<=416
       {
         global.gamePaused=true
-        oPlayer1.y+=4
+        oPlayer1.y+=4*gDeltaTime
         if oPlayer1.y>=288
         {
           scenePChk(oPlayer1.x,288,0,0.1,-1)
@@ -949,7 +949,7 @@ else if global.gameProgress=4451 and room=rLowFacP //----- [11] Info from Bubblu
     if oPlayer1.x>=288
     {
       global.gamePaused=true
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=256
       {
         scenePChk(oPlayer1.x,256,0,0.1,1)
@@ -1102,7 +1102,7 @@ else if global.gameProgress=4470 and room=rLowFacS //----- [] Hex and the Warshi
     if oPlayer1.x>=672
     {
       global.gamePaused=true
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=384
       {
         var tempMplay;
@@ -1394,7 +1394,7 @@ else if global.gameProgress=4470 and room=rLC_LowerPassage //----- [12] The Lowe
     if oPlayer1.x>=353
     {
       global.gamePaused=true
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=384
       {
         scenePChk(353,384,0,0.1,1)
@@ -1529,7 +1529,7 @@ else if global.gameProgress=4510 and room=rMain_71 //----- [13] Bubblin reveals 
     if oPlayer1.x<=80 and oPlayer1.y>=480
     {
       global.gamePaused=true
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=560
       {
         scenePChk(oPlayer1.x,560,0,0.1,-1)

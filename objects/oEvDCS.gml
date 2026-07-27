@@ -240,7 +240,7 @@ else if room=rDCS_E and global.gameProgress=4775 //----- [3] Perplexing moment w
     if oPlayer1.x>=272
     {
       global.gamePaused=true
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=400
       {
         scenePChk(oPlayer1.x,400,0,0.1,1)
@@ -628,7 +628,7 @@ else if room=rDCS_V and global.gameProgress=4790 //----- [] The second Dragoon p
       if sceneDelay=1 {global.gamePaused=true}
       else if sceneDelay>=2
       {
-        oPlayer1.y+=4
+        oPlayer1.y+=4*gDeltaTime
         if oPlayer1.y>=288
         {
           scenePChk(oPlayer1.x,288,0,0.1,1)

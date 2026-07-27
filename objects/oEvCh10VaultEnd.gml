@@ -20,7 +20,7 @@ if global.gameProgress=2530 and room=rVault_23 //----- [1] Start autorun -----
       if oPlayer1.x>=384
       {
         global.gamePaused=true
-        oPlayer1.y+=4
+        oPlayer1.y+=4*gDeltaTime
         if oPlayer1.y>=208
         {
           scenePChk(384,208,0,0.1,1)
