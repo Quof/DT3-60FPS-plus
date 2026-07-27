@@ -16,11 +16,11 @@ applies_to=self
 */
 if viewProg=0
 {
-  if viewOffsetX<112 {viewOffsetX+=4}
+  if viewOffsetX<112 {viewOffsetX+=4*gDeltaTime}
 }
 else if viewProg=1
 {
-  viewOffsetX-=4
+  viewOffsetX-=4*gDeltaTime
   if viewOffsetX<=0
   {
     view_object[0]=oPlayer1

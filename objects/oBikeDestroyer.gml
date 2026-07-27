@@ -16,7 +16,7 @@ applies_to=self
 */
 if bBlownUp=1
 {
-  soundDelay+=1
+  soundDelay+=1*gDeltaTime
   if soundDelay mod 2=0
   {
     if soundDelay mod 8=0 {playSound(global.snd_BombExplode,0,0.95,1)}

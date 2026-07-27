@@ -51,7 +51,7 @@ if global.gamePaused=false
   }
   else if moveSeq=1
   {
-    moveTime-=1
+    moveTime-=1*gDeltaTime
     if moveTime=0
     {
       yVel=0

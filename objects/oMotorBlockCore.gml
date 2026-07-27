@@ -26,7 +26,7 @@ applies_to=self
 if global.gamePaused=false
 {
   makeEnemyActive(0)
-  flashFrm+=0.33
+  flashFrm+=0.33*gDeltaTime
   if life<=0
   {
     playSound(global.snd_EnemyDieMM,0,1,1)

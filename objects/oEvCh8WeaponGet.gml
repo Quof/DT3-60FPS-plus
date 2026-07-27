@@ -71,8 +71,8 @@ for(i=0;i<22;i+=1)
   if gridLineY[i]<0 {gridLineY[i]=room_height}
 }
 
-wepProg+=1
-if wepProg>=1 and wepProg<=10 {fadeOut-=0.1}
+wepProg+=1*gDeltaTime
+if wepProg>=1 and wepProg<=10 {fadeOut-=0.1*gDeltaTime}
 
 if wepProg=5 //----- Play music -----
 {
@@ -82,19 +82,19 @@ if wepProg=5 //----- Play music -----
 }
 else if wepProg>=31 and wepProg<=199 //----- Grow weapon area -----
 {
-  wepAreaScl+=8
+  wepAreaScl+=8*gDeltaTime
   if wepAreaScl>=480
   {
     wepAreaScl=480
     wepProg=200
   }
 
-  if bottomOverlayY<57 {bottomOverlayY+=1}
+  if bottomOverlayY<57 {bottomOverlayY+=1*gDeltaTime}
 }
 else if wepProg=371 {playSound(global.snd_MMBeamDown,0,1,1)}
 else if wepProg>=372 and wepProg<=399 //----- Beam player down -----
 {
-  playerY+=16
+  playerY+=16*gDeltaTime
   if playerY>=284
   {
     playerY=284
@@ -156,7 +156,7 @@ else if global.newMapX=3 //Show Strike Chain
   else if wepProg=540 {playerSprite=sJerryIdle}
 }
 
-if wepProg>=641 and wepProg<=650 {fadeOut+=0.1}
+if wepProg>=641 and wepProg<=650 {fadeOut+=0.1*gDeltaTime}
 else if wepProg=660 //End sequence
 {
   global.hasAbilToken[3]=2+global.newMapX
@@ -189,7 +189,7 @@ textDropShadow("YOU GOT A NEW WEAPON!",136,16,clGrid,c_black,4)
 
 //Flavor text
 draw_set_font(fnt_StatRender)
-if wepProg>=31 and wepProg<=40 {wepTAlpha+=0.1}
+if wepProg>=31 and wepProg<=40 {wepTAlpha+=0.1*gDeltaTime}
 if wepProg>=50
 {
   if wepTPos[0]<string_length(wepTFull[0])

@@ -14,7 +14,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  if oGame.time mod 5=0
+  if oGame.time mod (5/gDeltaTime)=0
   {
     if image_alpha=1 {image_alpha=0}
     else {image_alpha=1}

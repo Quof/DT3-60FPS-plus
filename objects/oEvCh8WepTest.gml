@@ -62,7 +62,7 @@ else if type=11 //Gravity Well
   if gravityProg=0
   {
     speed=4
-    lifeTime-=1
+    lifeTime-=1*gDeltaTime
     if lifeTime=0 {gravityProg=1}
   }
   else if gravityProg=1
@@ -76,21 +76,21 @@ else if type=11 //Gravity Well
   else if gravityProg=2
   {
     if lifeTime mod 3=0 {image_angle=random(360)}
-    lifeTime-=1
+    lifeTime-=1*gDeltaTime
     if lifeTime=0 {instance_destroy()}
   }
 }
 else if type=21 //Strike Chain
 {
-  bodyFrm+=0.33
+  bodyFrm+=0.33*gDeltaTime
   if bRetract=0
   {
-    extend+=8
+    extend+=8*gDeltaTime
     if extend>=64 {bRetract=1}
   }
   else
   {
-    extend-=8
+    extend-=8*gDeltaTime
     if extend<=0 {instance_destroy()}
   }
   x=108+extend

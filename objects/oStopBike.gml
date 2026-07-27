@@ -15,13 +15,13 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-animTop-=1
+animTop-=1*gDeltaTime
 if animTop=0 {animTop=16}
 
 if bJumpedOut=1
 {
-  x+=12
-  veloAdd+=1
+  x+=12*gDeltaTime
+  veloAdd+=1*gDeltaTime
   if veloAdd<8 {oPlayer1.xVel=10}
 
   if x>=room_width+32

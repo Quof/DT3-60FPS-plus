@@ -58,7 +58,7 @@ if global.gamePaused=false
           shiftSeq=1000
       }
       else if shiftSeq>=1 and shiftSeq<=20
-        shiftSeq+=1
+        shiftSeq+=1*gDeltaTime
       else if shiftSeq=21
       {
         flameFrm=0
@@ -76,10 +76,10 @@ if global.gamePaused=false
     {
       if prevX!=x or prevY!=y
       {
-        flameFrm+=0.5
+        flameFrm+=0.5*gDeltaTime
         prevX=x
         prevY=y
-        shiftTime+=1
+        shiftTime+=1*gDeltaTime
       }
     }
   }

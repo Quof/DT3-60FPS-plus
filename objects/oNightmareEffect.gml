@@ -17,10 +17,10 @@ if global.gamePaused=false
 {
   if bShifting=1
   {
-    x+=xSpd
-    y+=ySpd
+    x+=xSpd*gDeltaTime
+    y+=ySpd*gDeltaTime
 
-    shiftTime+=1
+    shiftTime+=1*gDeltaTime
     if shiftTime>=shiftMax
     {
       xSpd*=-1

@@ -47,7 +47,7 @@ if global.gamePaused=false
   }
   else if moveSeq=2
   {
-    moveTime+=1
+    moveTime+=1*gDeltaTime
     if moveTime>=moveMax {xVel=0; moveSeq=3}
 
     scrPlatformCrush()
