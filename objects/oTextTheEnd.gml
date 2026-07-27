@@ -15,7 +15,7 @@ applies_to=self
 */
 if textProg=0 //50+60+50=160
 {
-  image_alpha+=0.02
+  image_alpha+=0.02*gDeltaTime
   if image_alpha>=1 {textProg=1}
 }
 else if textProg=1
@@ -23,7 +23,7 @@ else if textProg=1
   textTime+=1
   if textTime>=60
   {
-    image_alpha-=0.02
+    image_alpha-=0.02*gDeltaTime
   }
 }
 #define Draw_0

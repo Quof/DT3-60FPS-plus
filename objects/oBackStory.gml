@@ -43,7 +43,7 @@ else if oKeyCodes.kCodePressed[7]=1
   room_goto(rTitle)
 }
 
-if image_alpha<1 {image_alpha+=0.025}
+if image_alpha<1 {image_alpha+=0.025*gDeltaTime}
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

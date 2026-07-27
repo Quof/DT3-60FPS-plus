@@ -32,7 +32,7 @@ else if lightningProg=1
 }
 else if lightningProg=2
 {
-  image_alpha-=0.2
+  image_alpha-=0.2*gDeltaTime
   if image_alpha<=0 {instance_destroy()}
 }
 

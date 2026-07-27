@@ -16,14 +16,14 @@ applies_to=self
 */
 if textProg=0
 {
-  image_alpha+=0.0075
+  image_alpha+=0.0075*gDeltaTime
   if image_alpha>=1 {textProg=1}
 }
 else if textProg=1
 {
   if y<=64
   {
-    image_alpha-=0.0075
+    image_alpha-=0.0075*gDeltaTime
   }
 }
 

@@ -44,7 +44,7 @@ if global.gamePaused=false
   }
   else if atkType=1
   {
-    image_alpha-=0.04
+    image_alpha-=0.04*gDeltaTime
     if image_alpha<=0.25 {bCanDealDamage=false}
     if image_alpha<=0 {instance_destroy()}
   }

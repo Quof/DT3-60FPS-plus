@@ -331,7 +331,7 @@ if global.gamePaused=false
           myHS.bCanTakeDamage=false
           bCanDealDamage=false
         }
-        else if attackDelay>=13 and attackDelay<=22 {image_alpha-=0.1}
+        else if attackDelay>=13 and attackDelay<=22 {image_alpha-=0.1*gDeltaTime}
         else if attackDelay=23 //Choose teleport spot
         {
           var tNextLoc;
@@ -340,7 +340,7 @@ if global.gamePaused=false
           else if tNextLoc=2 {x=256; y=256}
           else if tNextLoc=3 {x=640; y=256}
         }
-        else if attackDelay>=28 and attackDelay<=37 {image_alpha+=0.1}
+        else if attackDelay>=28 and attackDelay<=37 {image_alpha+=0.1*gDeltaTime}
         else if attackDelay=38
         {
           myHS.bCanTakeDamage=true

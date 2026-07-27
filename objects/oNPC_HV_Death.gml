@@ -25,7 +25,7 @@ if eventProg=1
   else if eventTime=10 {playSound(global.snd_FadeAway,0,0.92,1)}
   else if eventTime>=11
   {
-    image_alpha-=0.05
+    image_alpha-=0.05*gDeltaTime
     var tFFScl,tEffect;
     for(i=0;i<3;i+=1)
     {

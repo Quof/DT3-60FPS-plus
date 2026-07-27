@@ -383,9 +383,9 @@ else if global.gameProgress=5520 //Falling minigame
         backCloud.image_xscale=1.38; backCloud.image_yscale=1.38; backCloud.image_alpha=0
         backCloud.depth=1400000; backCloud.xScrollSpeed=-8
       }
-      if sceneDelay>=1 and sceneDelay<=20 {backCloud.image_alpha+=0.05}
+      if sceneDelay>=1 and sceneDelay<=20 {backCloud.image_alpha+=0.05*gDeltaTime}
       else if sceneDelay=21 {background_visible[5]=1; with oWarshipCloudBack {instance_destroy()}}
-      else if sceneDelay>=41 and sceneDelay<=60 {backCloud.image_alpha-=0.05}
+      else if sceneDelay>=41 and sceneDelay<=60 {backCloud.image_alpha-=0.05*gDeltaTime}
       else if sceneDelay>=61
       {
         with backCloud {instance_destroy()}

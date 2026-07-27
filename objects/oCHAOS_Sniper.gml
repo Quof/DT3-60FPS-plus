@@ -99,7 +99,7 @@ if global.gamePaused=false
       tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
       tEffect.image_xscale=0.75; tEffect.image_yscale=0.75
     }
-    image_alpha-=0.025
+    image_alpha-=0.025*gDeltaTime
     if image_alpha<0.5
     {
       playSound(global.snd_BombExplode,0,0.92,1)

@@ -18,8 +18,8 @@ if type=0 //Veins
   x-=0.5; y-=0.5
 
   alphaPulse+=1
-  if alphaPulse>=21 and alphaPulse<=120 {image_alpha+=0.001}
-  else if alphaPulse>=131 and alphaPulse<=230 {image_alpha-=0.001}
+  if alphaPulse>=21 and alphaPulse<=120 {image_alpha+=0.001*gDeltaTime}
+  else if alphaPulse>=131 and alphaPulse<=230 {image_alpha-=0.001*gDeltaTime}
   else if alphaPulse>=260 {alphaPulse=0}
 
   scalePulse+=1

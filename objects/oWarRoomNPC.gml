@@ -40,11 +40,11 @@ if global.gamePaused=false
       tAttack=instance_create(x,-16,oArthurLightning)
       tAttack.type=0; tAttack.ownerID=id
     }
-    else if npcTime>=2 and npcTime<=11 {image_alpha+=0.1}
+    else if npcTime>=2 and npcTime<=11 {image_alpha+=0.1*gDeltaTime}
     else if npcTime=1010 {sprite_index=sNPC_Arthur_Idle; image_speed=0.12}
     else if npcTime>=1035
     {
-      image_alpha-=0.05
+      image_alpha-=0.05*gDeltaTime
       if image_alpha<=0 {instance_destroy()}
     }
   }
@@ -106,7 +106,7 @@ if global.gamePaused=false
     }
     else if npcTime>=1025
     {
-      image_alpha-=0.05
+      image_alpha-=0.05*gDeltaTime
       if image_alpha<=0 {instance_destroy()}
     }
   }
@@ -142,7 +142,7 @@ if global.gamePaused=false
       if fireAmt>=4 {npcTime=55}
       else {npcTime=35}
     }
-    else if npcTime>=61 and npcTime<=70 {image_alpha-=0.1}
+    else if npcTime>=61 and npcTime<=70 {image_alpha-=0.1*gDeltaTime}
     else if npcTime>=71 {instance_destroy()}
   }
   else if type=4 //------------------------------ Goemon ------------------------------
@@ -224,7 +224,7 @@ if global.gamePaused=false
     else if npcTime>=301 and npcTime<=320
     {
       if npcTime=301 {oPlayer1.bCanTakeDamage=true}
-      image_alpha-=0.05
+      image_alpha-=0.05*gDeltaTime
     }
     else if npcTime>=321 {instance_destroy()}
   }
@@ -248,7 +248,7 @@ if global.gamePaused=false
       tEffect.speed=random(1)+1; tEffect.friction=random(0.0125)+0.0125; tEffect.image_speed=0.2
       tEffect.fadeSpd=0.05; tEffect.AccelX=0; tEffect.AccelY=0; tEffect.followID=-1; tEffect.rotation=0
       tEffect.direction=random_range(178,182)
-      if npcTime>=91 and npcTime<=100 {image_alpha-=0.1}
+      if npcTime>=91 and npcTime<=100 {image_alpha-=0.1*gDeltaTime}
       else if npcTime>=101 {instance_destroy()}
     }
   }
@@ -297,7 +297,7 @@ if global.gamePaused=false
       tNewAtk=instance_create(x+(33*image_xscale),y-65,oTheMasterLightning)
       tNewAtk.moveSpd=3; tNewAtk.direction=dirCheck
     }
-    else if npcTime>=136 and npcTime<=145 {image_alpha-=0.1}
+    else if npcTime>=136 and npcTime<=145 {image_alpha-=0.1*gDeltaTime}
     else if npcTime>=146 {instance_destroy()}
   }
 }

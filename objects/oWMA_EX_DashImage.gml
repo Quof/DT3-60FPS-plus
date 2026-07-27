@@ -17,7 +17,7 @@ if global.gamePaused=false
   progTime+=1
   if progTime>=4
   {
-    image_alpha-=0.25
+    image_alpha-=0.25*gDeltaTime
     if image_alpha<=0 {instance_destroy()}
   }
 }

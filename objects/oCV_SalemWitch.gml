@@ -81,8 +81,8 @@ if global.gamePaused=false
       //speed=moveSpd
       _direction=moveDir
       _speed=moveSpd
-      x += cos(degtorad(_direction)) * _speed * gDeltaTime
-      y -= sin(degtorad(_direction)) * _speed * gDeltaTime
+      x += cos(degtorad(_direction)) * _speed *gDeltaTime
+      y -= sin(degtorad(_direction)) * _speed *gDeltaTime
 
       //----- Attack -----
       shotTime+=1*gDeltaTime

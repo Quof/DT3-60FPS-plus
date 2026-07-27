@@ -49,7 +49,7 @@ if global.gamePaused=false
     }
     else if laserProg=1
     {
-      image_alpha-=0.1
+      image_alpha-=0.1*gDeltaTime
       if image_alpha<=0.5 {bCanDealDamage=0}
       if image_alpha<=0 {instance_destroy()}
     }

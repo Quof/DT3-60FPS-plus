@@ -197,7 +197,7 @@ else if global.gameProgress=1570 and room=rMain_21 //----- [Unskippable] Enemy T
         sceneDelay+=1*gDeltaTime
         if sceneDelay>=1 and sceneDelay<=40
         {
-          oScreenColorOverlay.image_alpha+=0.005
+          oScreenColorOverlay.image_alpha+=0.005*gDeltaTime
           if sceneDelay=30
             {msgCreate(0,0,"Jerry","Eh, what's this?",0,1,oMessagePerson,0); newMessage.fadingTime=60}
         }
@@ -277,7 +277,7 @@ else if global.gameProgress=1570 and room=rMain_21 //----- [Unskippable] Enemy T
       }
       else if sceneProgress=1
       {
-        oScreenColorOverlay.image_alpha-=0.01
+        oScreenColorOverlay.image_alpha-=0.01*gDeltaTime
         if oScreenColorOverlay.image_alpha<=0
         {
           with oScreenColorOverlay {instance_destroy()}
@@ -707,7 +707,7 @@ else if global.gameProgress=1680 and room=rMountTemple_I //----- [8] Boss Fight:
 
       if sceneDelay>=20 and virusEntity.image_alpha<1
       {
-        virusEntity.image_alpha+=0.01
+        virusEntity.image_alpha+=0.01*gDeltaTime
         tDir=0
       }
 

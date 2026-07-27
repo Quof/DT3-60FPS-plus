@@ -502,7 +502,7 @@ else if global.gameProgress=1220 and room=rBelmont3_2D //----- [3] Meet Death - 
     {
       if tColor>0 {tColor-=15}
       npcDeath.image_blend=make_color_rgb(tColor,tColor,tColor)
-      npcDeath.image_xscale+=0.1; npcDeath.image_yscale+=0.1; npcDeath.image_alpha-=0.05
+      npcDeath.image_xscale+=0.1; npcDeath.image_yscale+=0.1; npcDeath.image_alpha-=0.05*gDeltaTime
     }
     else if sceneDelay=31
     {
@@ -727,7 +727,7 @@ else if global.gameProgress=1280 and room=rBelmont3_3F //----- [6] Boss Fight: D
       }
       else if sceneDelay>=11 and sceneDelay<=30
       {
-        npcDeath.image_alpha+=0.05
+        npcDeath.image_alpha+=0.05*gDeltaTime
       }
       else if sceneDelay>=65 {sceneDelay=0; sceneProgress+=1}
     }
@@ -743,7 +743,7 @@ else if global.gameProgress=1280 and room=rBelmont3_3F //----- [6] Boss Fight: D
       if sceneDelay>=11 and sceneDelay<=30
       {
         npcDeath.image_xscale+=0.05; npcDeath.image_yscale+=0.05
-        npcDeath.image_alpha-=0.05
+        npcDeath.image_alpha-=0.05*gDeltaTime
       }
       else if sceneDelay=31
       {
@@ -1257,7 +1257,7 @@ else if global.gameProgress=1430 and room=rBelmont3_6C //----- [] Boss Fight: Me
         }
         else if sceneDelay>=261 and sceneDelay<=400
         {
-          npcDeath.image_alpha-=0.02
+          npcDeath.image_alpha-=0.02*gDeltaTime
           fadeInCol+=3
           with oEnemyBase
             image_blend=make_color_rgb(oEvCh6MainA.fadeInCol,oEvCh6MainA.fadeInCol,oEvCh6MainA.fadeInCol)
@@ -1290,7 +1290,7 @@ else if global.gameProgress=1430 and room=rBelmont3_6C //----- [] Boss Fight: Me
     {
       sceneDelay+=1*gDeltaTime
       if sceneDelay>=31 and sceneDelay<=130
-        backFol.image_alpha-=0.01
+        backFol.image_alpha-=0.01*gDeltaTime
       else if sceneDelay>=150
       {
         msgCreate(0,0,"Chao","Something appeared on the right side of the room.",0,1,oMessagePerson,0); newMessage.fadingTime=110
@@ -1596,7 +1596,7 @@ else if global.gameProgress=1510 and room=rBelmont3_7G //----- [12] Boss Fight: 
         npcDeath.type=2
       }
       else if sceneDelay>=21 and sceneDelay<=70
-        npcDeath.image_alpha+=0.02
+        npcDeath.image_alpha+=0.02*gDeltaTime
       else if sceneDelay>=90 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=2 and bWaitForInput=false

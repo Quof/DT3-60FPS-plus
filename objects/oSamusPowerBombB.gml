@@ -35,7 +35,7 @@ if global.gamePaused=0
   if colorChange<255 {colorChange+=3}
   image_blend=make_color_rgb(colorChange,colorChange,colorChange)
 
-  if image_xscale>=0.6 {image_alpha-=0.05}
+  if image_xscale>=0.6 {image_alpha-=0.05*gDeltaTime}
 
   if image_xscale>=1.4 {instance_destroy()}
 }

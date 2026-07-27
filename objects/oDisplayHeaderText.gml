@@ -18,7 +18,7 @@ if instance_exists(oLocationDisplay) {drawY=306}
 else {drawY=326}
 
 decayTime-=1
-if decayTime<=20 {image_alpha-=0.05}
+if decayTime<=20 {image_alpha-=0.05*gDeltaTime}
 if decayTime<=0 {instance_destroy()}
 #define Draw_0
 /*"/*'/**//* YYD ACTION

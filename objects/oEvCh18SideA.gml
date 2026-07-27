@@ -111,7 +111,7 @@ if global.gamePaused=false
 
         if convo[0]>=101 and convo[0]<=120
         {
-          (GID(363323)).image_alpha-=0.05
+          (GID(363323)).image_alpha-=0.05*gDeltaTime
         }
         else if convo[0]>=121
         {

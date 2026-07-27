@@ -25,7 +25,7 @@ if global.gamePaused=false
   speed=moveSpd
   if warTarget.DIFFICULTY=1 {moveSpd-=0.1}
   else {moveSpd-=0.2}
-  image_alpha-=0.075
+  image_alpha-=0.075*gDeltaTime
   if image_alpha<=0.3 {bCanDealDamage=0}
   if image_alpha<=0 {instance_destroy()}
 }

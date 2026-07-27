@@ -27,7 +27,7 @@ action_id=603
 applies_to=self
 */
 if global.gamePaused=false
-  image_alpha-=0.1
+  image_alpha-=0.1*gDeltaTime
 if image_alpha<=0
   instance_destroy()
 #define Collision_oDamagableBase

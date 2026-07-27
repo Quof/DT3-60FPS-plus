@@ -25,8 +25,8 @@ if global.gamePaused=false
   if sequence=0 //Fade in / start music
   {
     if phaseIn>=1 {phaseIn+=1}
-    if phaseIn>=2 and phaseIn<=7 {image_alpha+=0.05}
-    else if phaseIn>=9 and phaseIn<=14 {image_alpha-=0.05}
+    if phaseIn>=2 and phaseIn<=7 {image_alpha+=0.05*gDeltaTime}
+    else if phaseIn>=9 and phaseIn<=14 {image_alpha-=0.05*gDeltaTime}
     else if phaseIn>=40 {phaseIn=0}
 
     if oPlayer1.x>=912
@@ -62,8 +62,8 @@ if global.gamePaused=false
   {
     if image_alpha<=1
     {
-      image_alpha+=0.025
-      for(i=0;i<4;i+=1) {bossArmL[i].image_alpha+=0.025; bossArmR[i].image_alpha+=0.025}
+      image_alpha+=0.025*gDeltaTime
+      for(i=0;i<4;i+=1) {bossArmL[i].image_alpha+=0.025*gDeltaTime; bossArmR[i].image_alpha+=0.025*gDeltaTime}
     }
     for(i=0;i<4;i+=1)
     {

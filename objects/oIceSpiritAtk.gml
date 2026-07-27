@@ -32,7 +32,7 @@ if global.gamePaused=false
 
   if formTime>=1 and formTime<=5
   {
-    image_alpha+=0.2
+    image_alpha+=0.2*gDeltaTime
   }
   else if formTime=15
   {

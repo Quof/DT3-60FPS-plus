@@ -87,8 +87,8 @@ if global.gamePaused=false
     instance_destroy()
   }
   speed=0
-  x += cos(degtorad(_direction)) * _speed * gDeltaTime
-  y -= sin(degtorad(_direction)) * _speed * gDeltaTime
+  x += cos(degtorad(_direction)) * _speed *gDeltaTime
+  y -= sin(degtorad(_direction)) * _speed *gDeltaTime
 
 }
 else {speed=0; _speed=0}

@@ -56,7 +56,7 @@ if global.gamePaused=false
     myCol-=4
     image_blend=make_color_rgb(255,myCol,myCol)
     image_angle-=1
-    image_alpha-=0.04
+    image_alpha-=0.04*gDeltaTime
     if image_alpha<=0 {instance_destroy()}
   }
   else if myProg=2 //Explode

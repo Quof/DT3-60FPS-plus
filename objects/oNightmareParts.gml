@@ -55,7 +55,7 @@ if global.gamePaused=false
   {
     if anim=0
     {
-      if image_alpha<1 {image_alpha+=0.02}
+      if image_alpha<1 {image_alpha+=0.02*gDeltaTime}
       else
       {
         bCanTakeDamage=true

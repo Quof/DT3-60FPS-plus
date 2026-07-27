@@ -33,8 +33,8 @@ if global.gamePaused=false
   {
     //speed=bulletSpeed
     _speed=bulletSpeed
-    x += cos(degtorad(_direction)) * _speed * gDeltaTime
-    y -= sin(degtorad(_direction)) * _speed * gDeltaTime
+    x += cos(degtorad(_direction)) * _speed *gDeltaTime
+    y -= sin(degtorad(_direction)) * _speed *gDeltaTime
     atkProg+=1*gDeltaTime
     if atkProg>=45
     {

@@ -14,12 +14,12 @@ applies_to=self
 */
 if bRise=1
 {
-  image_alpha+=0.0025
+  image_alpha+=0.0025*gDeltaTime
   if image_alpha>=0.2 {bRise=0}
 }
 else
 {
-  image_alpha-=0.0025
+  image_alpha-=0.0025*gDeltaTime
   if image_alpha<=0.02 {bRise=1}
 }
 #define Draw_0

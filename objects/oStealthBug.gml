@@ -59,7 +59,7 @@ if global.gamePaused=false
 
         sprite_index=sStealthBugFly
         y-=2
-        image_alpha-=0.02
+        image_alpha-=0.02*gDeltaTime
         riseTime+=1
         if riseTime>=45 {eProg=2}
       }
@@ -68,7 +68,7 @@ if global.gamePaused=false
         chargeTime+=1
         if chargeProg=0 //Normal
         {
-          if image_alpha>0.06 {image_alpha-=0.02}
+          if image_alpha>0.06 {image_alpha-=0.02*gDeltaTime}
 
           if x<oPlayer1.x {image_xscale=1}
           else {image_xscale=-1}
@@ -96,7 +96,7 @@ if global.gamePaused=false
         else if chargeProg=1 //Wait time
         {
           speed=runAcc/1.5
-          image_alpha+=0.02
+          image_alpha+=0.02*gDeltaTime
           if chargeTime>=12 //Find direction to charge
           {
             direction=player_sprite_center()

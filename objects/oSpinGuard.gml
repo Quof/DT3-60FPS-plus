@@ -177,7 +177,7 @@ if global.gamePaused=false
         shieldPart[i].image_angle+=shdVelTurn[i]*gDeltaTime
       }
     }
-    image_alpha-=0.03
+    image_alpha-=0.03*gDeltaTime
     if image_alpha<0 {instance_destroy()}
   }
   enemyStepEvent()

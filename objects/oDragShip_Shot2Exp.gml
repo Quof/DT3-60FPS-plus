@@ -20,7 +20,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  image_alpha-=0.02
+  image_alpha-=0.02*gDeltaTime
   image_index+=0.2
   if image_index>=4.5
   {

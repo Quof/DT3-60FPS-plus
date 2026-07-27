@@ -223,9 +223,9 @@ if global.gamePaused=false
           {
             sprite_index=sSeph_Teleport
             bCanTakeDamage=false
-            image_alpha-=0.25
+            image_alpha-=0.25*gDeltaTime
           }
-          else if actTime>=2 and actTime<=4 {image_alpha-=0.25}
+          else if actTime>=2 and actTime<=4 {image_alpha-=0.25*gDeltaTime}
           else if actTime=8
           {
             if altAtk<=1 {x=oPlayer1.x+(48*-oPlayer1.image_xscale)}
@@ -235,10 +235,10 @@ if global.gamePaused=false
             if x>xCenter+roomSpan-24 {x=xCenter+roomSpan-24}
             if x<xCenter-roomSpan+24 {x=xCenter-roomSpan+24}
           }
-          else if actTime>=9 and actTime<=11 {image_alpha+=0.25}
+          else if actTime>=9 and actTime<=11 {image_alpha+=0.25*gDeltaTime}
           else if actTime=12
           {
-            image_alpha+=0.25
+            image_alpha+=0.25*gDeltaTime
             sprite_index=sSeph_Idle
             bCanTakeDamage=true
             if bFaster=1 {actTime=13}
@@ -268,16 +268,16 @@ if global.gamePaused=false
         image_index=0
         yVel=0
         bCanTakeDamage=false
-        image_alpha-=0.25
+        image_alpha-=0.25*gDeltaTime
       }
-      else if actTime>=2 and actTime<=4 {image_alpha-=0.25}
+      else if actTime>=2 and actTime<=4 {image_alpha-=0.25*gDeltaTime}
       else if actTime=6
       {
         xSpot=x
         x=xCenter
         y=yGround-160
       }
-      else if actTime>=7 and actTime<=10 {image_alpha+=0.25}
+      else if actTime>=7 and actTime<=10 {image_alpha+=0.25*gDeltaTime}
       else if actTime=12 {bCanTakeDamage=true; image_index=1}
       else if actTime=14 {image_index=2}
       else if actTime=16 {image_index=3}
@@ -290,17 +290,17 @@ if global.gamePaused=false
         newMeteor=instance_create(0,0,oSephMetControl)
         newMeteor.meteorFreq=meteorFreq; newMeteor.meteorTime=meteorTime
       }
-      else if actTime>=67 and actTime<=70 {bCanTakeDamage=false; image_index=0; image_alpha-=0.25}
+      else if actTime>=67 and actTime<=70 {bCanTakeDamage=false; image_index=0; image_alpha-=0.25*gDeltaTime}
       else if actTime=74
       {
         x=xSpot
         y=yGround
       }
-      else if actTime>=75 and actTime<=77 {image_alpha+=0.25}
+      else if actTime>=75 and actTime<=77 {image_alpha+=0.25*gDeltaTime}
       else if actTime=78
       {
         bCanTakeDamage=true
-        image_alpha+=0.25
+        image_alpha+=0.25*gDeltaTime
       }
       else if actTime>=82
       {

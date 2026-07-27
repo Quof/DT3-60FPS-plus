@@ -22,6 +22,6 @@ textDropShadow("Don't forget to save!",x,y,c_white,c_black,2)
 dispTime-=1*gDeltaTime
 if dispTime<=0
 {
-  image_alpha-=0.04
+  image_alpha-=0.04*gDeltaTime
   if image_alpha<=0 {instance_destroy()}
 }

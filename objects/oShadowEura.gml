@@ -410,7 +410,7 @@ if global.gamePaused=false
         deflectorTime=0; deflectorHits=0
         currHspd=4*image_xscale; currVspd=2
       }
-      if atkTime>=1 and atkTime<=10 {image_alpha-=0.1}
+      if atkTime>=1 and atkTime<=10 {image_alpha-=0.1*gDeltaTime}
 
       if currHspd>1 {currHspd-=0.1}
       else if currHspd<-1 {currHspd+=0.1}

@@ -128,7 +128,7 @@ if global.gamePaused=false
     dthSprX+=dthSprVelX
     dthSprY+=dthSprVelY; dthSprVelY+=0.2
     dthSprAng+=dthSprTurn
-    image_alpha-=0.03
+    image_alpha-=0.03*gDeltaTime
     if image_alpha<0 {instance_destroy()}
   }
   enemyStepEvent()

@@ -16,7 +16,7 @@ if global.gamePaused=false
   fadeTime-=1
   if fadeTime<=0
   {
-    image_alpha-=0.02
+    image_alpha-=0.02*gDeltaTime
     if image_alpha<=0 {instance_destroy()}
   }
 }

@@ -50,7 +50,7 @@ if global.gamePaused=false
   {
     if enemyProg=0
     {
-      image_alpha+=0.05
+      image_alpha+=0.05*gDeltaTime
       if image_alpha>=1
       {
         bCanTakeDamage=1
@@ -125,7 +125,7 @@ if global.gamePaused=false
       tEffect.sprite_index=sDeathFlameA; tEffect.image_speed=0.33; tEffect.image_alpha=0.5+(image_alpha/3)
       tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
     }
-    image_alpha-=0.04
+    image_alpha-=0.04*gDeltaTime
     if image_alpha<0 {instance_destroy()}
   }
   enemyStepEvent()

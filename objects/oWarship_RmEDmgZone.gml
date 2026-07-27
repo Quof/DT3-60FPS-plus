@@ -37,7 +37,7 @@ if global.gamePaused=false
   }
   else if timeToHit>=1001 and timeToHit<=1065
   {
-    image_alpha+=0.01
+    image_alpha+=0.01*gDeltaTime
   }
   else if timeToHit=1066
   {

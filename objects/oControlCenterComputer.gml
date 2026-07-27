@@ -13,12 +13,12 @@ applies_to=self
 */
 if compScrFade=0
 {
-  image_alpha-=0.01
+  image_alpha-=0.01*gDeltaTime
   if image_alpha<=0.6 {compScrFade=1}
 }
 else if compScrFade=1
 {
-  image_alpha+=0.01
+  image_alpha+=0.01*gDeltaTime
   if image_alpha>=1 {compScrFade=0}
 }
 #define Draw_0

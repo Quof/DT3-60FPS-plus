@@ -112,7 +112,7 @@ if global.gamePaused=false
   if life<=0
   {
     image_blend=c_red
-    image_alpha-=0.04
+    image_alpha-=0.04*gDeltaTime
     if image_alpha<=0
     {
       if oPlayer1.life<oPlayer1.maxLife

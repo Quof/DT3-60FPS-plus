@@ -26,8 +26,8 @@ if global.gamePaused=false
   speed=moveSpd
   moveSpd-=0.175
 
-  if image_alpha<=0.3 {image_alpha-=0.075}
-  else {image_alpha-=0.04}
+  if image_alpha<=0.3 {image_alpha-=0.075*gDeltaTime}
+  else {image_alpha-=0.04*gDeltaTime}
 
   if image_alpha<=0.3 {bCanDealDamage=0}
   if image_alpha<=0 {instance_destroy()}

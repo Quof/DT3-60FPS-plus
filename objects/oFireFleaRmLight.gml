@@ -14,8 +14,8 @@ action_id=603
 applies_to=self
 */
 phase+=1
-if phase>=1 and phase<=20 {image_alpha+=0.0025}
-else if phase>=22 and phase<=41 {image_alpha-=0.0025}
+if phase>=1 and phase<=20 {image_alpha+=0.0025*gDeltaTime}
+else if phase>=22 and phase<=41 {image_alpha-=0.0025*gDeltaTime}
 else if phase>=42 {phase=0}
 #define Draw_0
 /*"/*'/**//* YYD ACTION

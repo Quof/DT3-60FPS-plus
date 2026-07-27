@@ -25,7 +25,7 @@ if global.gamePaused=false
 {
   if fireProg=0
   {
-    image_alpha+=0.01
+    image_alpha+=0.01*gDeltaTime
     if image_alpha=0.5 {bCanDealDamage=true}
     else if image_alpha=1 {fireProg=1}
   }

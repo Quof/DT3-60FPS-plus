@@ -38,7 +38,7 @@ if global.gamePaused=false
   //Flash flash in and out
   if flashProg=1
   {
-    image_alpha+=0.02
+    image_alpha+=0.02*gDeltaTime
     if image_alpha>=1
     {
       flashProg+=1
@@ -46,7 +46,7 @@ if global.gamePaused=false
   }
   else if flashProg=11
   {
-    image_alpha-=0.02
+    image_alpha-=0.02*gDeltaTime
     if flashProg<=0
     {
       flashProg+=1

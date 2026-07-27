@@ -960,7 +960,7 @@ if global.gamePaused=false
     }
     else if deathAnim>=2 and deathAnim<=60
     {
-      image_alpha-=0.02
+      image_alpha-=0.02*gDeltaTime
     }
     else if deathAnim>71
     {

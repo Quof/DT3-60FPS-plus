@@ -186,9 +186,9 @@ if global.gamePaused=false
           backCloud.image_xscale=1.38; backCloud.image_yscale=1.38; backCloud.image_alpha=0
           backCloud.depth=1400000; backCloud.xScrollSpeed=-8
         }
-        if changeBackground>=1 and changeBackground<=20 {backCloud.image_alpha+=0.05}
+        if changeBackground>=1 and changeBackground<=20 {backCloud.image_alpha+=0.05*gDeltaTime}
         else if changeBackground=21 {backFollow.backSet=backShooterB}
-        else if changeBackground>=41 and changeBackground<=60 {backCloud.image_alpha-=0.05}
+        else if changeBackground>=41 and changeBackground<=60 {backCloud.image_alpha-=0.05*gDeltaTime}
         else if changeBackground>=61
         {
           with backCloud {instance_destroy()}
@@ -314,9 +314,9 @@ if global.gamePaused=false
           backCloud.image_xscale=1.38; backCloud.image_yscale=1.38; backCloud.image_alpha=0
           backCloud.depth=1400000; backCloud.xScrollSpeed=-8
         }
-        if changeBackground>=1 and changeBackground<=20 {backCloud.image_alpha+=0.05}
+        if changeBackground>=1 and changeBackground<=20 {backCloud.image_alpha+=0.05*gDeltaTime}
         else if changeBackground=21 {backFollow.backSet=backShooterC; backFollow.image_xscale=1.58; backFollow.image_yscale=1.58}
-        else if changeBackground>=41 and changeBackground<=60 {backCloud.image_alpha-=0.05}
+        else if changeBackground>=41 and changeBackground<=60 {backCloud.image_alpha-=0.05*gDeltaTime}
         else if changeBackground>=61
         {
           with backCloud {instance_destroy()}
@@ -444,9 +444,9 @@ if global.gamePaused=false
           backCloud.image_xscale=1.38; backCloud.image_yscale=1.38; backCloud.image_alpha=0
           backCloud.depth=1400000; backCloud.xScrollSpeed=-8
         }
-        if changeBackground>=1 and changeBackground<=20 {backCloud.image_alpha+=0.05}
+        if changeBackground>=1 and changeBackground<=20 {backCloud.image_alpha+=0.05*gDeltaTime}
         else if changeBackground=21 {backFollow.backSet=backShooterD; backFollow.image_xscale=1; backFollow.image_yscale=1}
-        else if changeBackground>=41 and changeBackground<=60 {backCloud.image_alpha-=0.05}
+        else if changeBackground>=41 and changeBackground<=60 {backCloud.image_alpha-=0.05*gDeltaTime}
         else if changeBackground>=61
         {
           with backCloud {instance_destroy()}

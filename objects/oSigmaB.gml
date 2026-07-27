@@ -367,8 +367,8 @@ if global.gamePaused=false
           for(i=0;i<6;i+=1) {sigParts[i].image_blend=c_white}
         }
       }
-      image_alpha-=0.04 //Fade out
-      for(i=0;i<6;i+=1) {sigParts[i].image_alpha-=0.04}
+      image_alpha-=0.04*gDeltaTime //Fade out
+      for(i=0;i<6;i+=1) {sigParts[i].image_alpha-=0.04*gDeltaTime}
       if image_alpha<=0
       {
         x+=512
@@ -394,8 +394,8 @@ if global.gamePaused=false
           for(i=0;i<6;i+=1) {sigParts[i].image_blend=c_white}
         }
       }
-      image_alpha+=0.04 //Fade in
-      for(i=0;i<6;i+=1) {sigParts[i].image_alpha+=0.04}
+      image_alpha+=0.04*gDeltaTime //Fade in
+      for(i=0;i<6;i+=1) {sigParts[i].image_alpha+=0.04*gDeltaTime}
       if image_alpha>=1
       {
         bCanTakeDamage=true

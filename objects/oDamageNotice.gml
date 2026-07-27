@@ -18,8 +18,8 @@ applies_to=self
 */
   x -= hspeed
   y -= vspeed
-  x += hspeed * gDeltaTime
-  y += vspeed * gDeltaTime
+  x += hspeed *gDeltaTime
+  y += vspeed *gDeltaTime
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

@@ -103,8 +103,8 @@ if global.gamePaused=false
     //speed=moveSpd
     speed=0
     _speed=moveSpd
-    x += cos(degtorad(_direction)) * _speed * gDeltaTime
-    y -= sin(degtorad(_direction)) * _speed * gDeltaTime
+    x += cos(degtorad(_direction)) * _speed *gDeltaTime
+    y -= sin(degtorad(_direction)) * _speed *gDeltaTime
     moveTime+=1*gDeltaTime
     if moveTime>=moveDelay
     {

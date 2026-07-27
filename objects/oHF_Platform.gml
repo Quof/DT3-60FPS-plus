@@ -26,7 +26,7 @@ if global.gamePaused=false
   {
     if platProg=0
     {
-      if image_alpha<1 {image_alpha+=0.04}
+      if image_alpha<1 {image_alpha+=0.04*gDeltaTime}
 
       myColor+=3
       image_blend=make_color_rgb(myColor,myColor,myColor)
@@ -51,7 +51,7 @@ if global.gamePaused=false
   {
     if platProg=0
     {
-      if image_alpha<1 {image_alpha+=0.04}
+      if image_alpha<1 {image_alpha+=0.04*gDeltaTime}
 
       myColor+=3
       image_blend=make_color_rgb(myColor,myColor,myColor)

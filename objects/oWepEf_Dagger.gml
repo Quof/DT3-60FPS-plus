@@ -23,6 +23,6 @@ else
 }
 
 vspeed+=0.3
-image_alpha-=0.06
+image_alpha-=0.06*gDeltaTime
 if image_alpha<=0
   instance_destroy()

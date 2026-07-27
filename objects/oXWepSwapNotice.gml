@@ -16,7 +16,7 @@ applies_to=self
 lifeTime-=1
 if lifeTime<=20
 {
-  image_alpha-=0.05
+  image_alpha-=0.05*gDeltaTime
   if lifeTime=0
     instance_destroy()
 }

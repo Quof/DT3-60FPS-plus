@@ -29,7 +29,7 @@ applies_to=self
 //decayTime-=1
 //if decayTime<=0
 //{
-  image_alpha-=0.05
+  image_alpha-=0.05*gDeltaTime
   if image_alpha<=0 {instance_destroy()}
 //}
 #define Draw_0

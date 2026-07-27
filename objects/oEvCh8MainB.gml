@@ -450,8 +450,8 @@ else if room=rMega4_SigmaB3 and global.gameProgress=1910 //----- [Unskippable] B
       }
       else if sceneDelay>=26 and sceneDelay<=45
       {
-        npcBitA.x+=1; npcBitA.image_alpha+=0.05
-        npcBitB.x-=1; npcBitB.image_alpha+=0.05
+        npcBitA.x+=1; npcBitA.image_alpha+=0.05*gDeltaTime
+        npcBitB.x-=1; npcBitB.image_alpha+=0.05*gDeltaTime
       }
       else if sceneDelay>=70
       {
@@ -643,8 +643,8 @@ else if room=rMega4_SigmaB5 and global.gameProgress=1930 //----- [Unskippable] B
       }
       else if sceneDelay>=26 and sceneDelay<=45
       {
-        npcByteA.x+=1; npcByteA.image_alpha+=0.05
-        npcByteB.x-=1; npcByteB.image_alpha+=0.05
+        npcByteA.x+=1; npcByteA.image_alpha+=0.05*gDeltaTime
+        npcByteB.x-=1; npcByteB.image_alpha+=0.05*gDeltaTime
       }
       else if sceneDelay>=70
       {
@@ -770,11 +770,11 @@ else if global.gameProgress=1940 and room=rMega4_SigmaB8 //----- [Unskippable] B
       }
       else if sceneDelay>=26 and sceneDelay<=45
       {
-        npcBitA.x+=1; npcBitA.image_alpha+=0.05
-        npcBitB.x-=1; npcBitB.image_alpha+=0.05
+        npcBitA.x+=1; npcBitA.image_alpha+=0.05*gDeltaTime
+        npcBitB.x-=1; npcBitB.image_alpha+=0.05*gDeltaTime
 
-        npcByteA.x+=1; npcByteA.image_alpha+=0.05
-        npcByteB.x-=1; npcByteB.image_alpha+=0.05
+        npcByteA.x+=1; npcByteA.image_alpha+=0.05*gDeltaTime
+        npcByteB.x-=1; npcByteB.image_alpha+=0.05*gDeltaTime
       }
       else if sceneDelay>=70
       {

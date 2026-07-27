@@ -14,7 +14,7 @@ applies_to=self
 textTime+=1
 if textTime>=60
 {
-  image_alpha-=0.04
+  image_alpha-=0.04*gDeltaTime
   if image_alpha<=0 {instance_destroy()}
 }
 #define Draw_0

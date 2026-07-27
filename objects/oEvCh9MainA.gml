@@ -672,7 +672,7 @@ else if global.gameProgress=2100 and room=rMain_36 //----- [Unskippable] Enemy T
         sceneDelay+=1*gDeltaTime
         if sceneDelay>=1 and sceneDelay<=40
         {
-          oScreenColorOverlay.image_alpha+=0.005
+          oScreenColorOverlay.image_alpha+=0.005*gDeltaTime
           if sceneDelay=30
             {msgCreate(0,0,"Jerry","One of these guys again?",0,1,oMessagePerson,0); newMessage.fadingTime=60}
         }
@@ -747,7 +747,7 @@ else if global.gameProgress=2100 and room=rMain_36 //----- [Unskippable] Enemy T
       }
       else if sceneProgress=1
       {
-        oScreenColorOverlay.image_alpha-=0.01
+        oScreenColorOverlay.image_alpha-=0.01*gDeltaTime
         if oScreenColorOverlay.image_alpha<=0
         {
           with oScreenColorOverlay {instance_destroy()}

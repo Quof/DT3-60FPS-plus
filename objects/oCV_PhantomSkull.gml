@@ -84,8 +84,8 @@ if global.gamePaused=false
       //hspeed=currHspd; vspeed=currVspd
       _hspeed=currHspd
       _vspeed=currVspd
-      x += _hspeed * gDeltaTime
-      y += _vspeed * gDeltaTime
+      x += _hspeed *gDeltaTime
+      y += _vspeed *gDeltaTime
     }
     else {hspeed=0; vspeed=0; _vspeed=0; _hspeed=0}
   }

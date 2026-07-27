@@ -66,8 +66,8 @@ if global.gamePaused=false
   {
     //speed=6
     _speed=6
-    x += cos(degtorad(_direction)) * _speed * gDeltaTime
-    y -= sin(degtorad(_direction)) * _speed * gDeltaTime
+    x += cos(degtorad(_direction)) * _speed *gDeltaTime
+    y -= sin(degtorad(_direction)) * _speed *gDeltaTime
   }
   enemyStepEvent()
 }

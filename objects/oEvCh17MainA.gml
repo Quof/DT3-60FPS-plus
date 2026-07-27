@@ -500,7 +500,7 @@ else if global.gameProgress=4030 and room=rHPF_N //----- [] Red overlay and Bloo
     sceneDelay+=1*gDeltaTime
     if sceneDelay>=1 and sceneDelay<=40
     {
-      oScreenColorOverlay.image_alpha+=0.0025
+      oScreenColorOverlay.image_alpha+=0.0025*gDeltaTime
     }
     else if sceneDelay>=45 {sceneDelay=0; sceneProgress+=1}
   }
@@ -535,7 +535,7 @@ else if global.gameProgress=4030 and room=rHPF_N //----- [] Red overlay and Bloo
     }
     else if sceneDelay>=2 and sceneDelay<=41
     {
-      oScreenColorOverlay.image_alpha+=0.0025
+      oScreenColorOverlay.image_alpha+=0.0025*gDeltaTime
     }
     else if sceneDelay>=45 {sceneDelay=0; sceneProgress+=1}
   }
@@ -575,7 +575,7 @@ else if global.gameProgress=4040 and room=rHPF_O //----- [] Red overlay -----
     sceneDelay+=1*gDeltaTime
     if sceneDelay>=1 and sceneDelay<=40
     {
-      oScreenColorOverlay.image_alpha+=0.0025
+      oScreenColorOverlay.image_alpha+=0.0025*gDeltaTime
     }
     else if sceneDelay>=45 {sceneDelay=0; sceneProgress+=1}
   }
@@ -597,7 +597,7 @@ else if global.gameProgress=4050 and room=rHPF_P //----- [] Virus door -----
     sceneDelay+=1*gDeltaTime
     if sceneDelay>=1 and sceneDelay<=40
     {
-      oScreenColorOverlay.image_alpha+=0.0025
+      oScreenColorOverlay.image_alpha+=0.0025*gDeltaTime
     }
     else if sceneDelay>=45 {sceneDelay=0; sceneProgress+=1}
   }
@@ -742,10 +742,10 @@ else if global.gameProgress=4080 and room=rHPF_U //----- [6] Sera's Intro -----
       npcSera=instance_create(416,174,oNPC_Sera)
       npcSera.image_xscale=-1; npcSera.image_alpha=0
     }
-    else if sceneDelay>=21 and sceneDelay<=70 {npcSera.image_alpha+=0.005}
+    else if sceneDelay>=21 and sceneDelay<=70 {npcSera.image_alpha+=0.005*gDeltaTime}
     else if sceneDelay>=71 and sceneDelay<=120
     {
-      npcSera.image_alpha+=0.1
+      npcSera.image_alpha+=0.1*gDeltaTime
       npcSera.y+=1
     }
     else if sceneDelay>=130 {npcSera.image_alpha=1; sceneDelay=0; sceneProgress+=1}
@@ -1410,7 +1410,7 @@ else if global.gameProgress=4110 and room=rHPF_V //----- [] Jerry is trapped ---
       }
       else if sceneDelay>=531 and sceneDelay<=570
       {
-        charJerry.image_alpha-=0.025
+        charJerry.image_alpha-=0.025*gDeltaTime
       }
       else if sceneDelay=640
       {

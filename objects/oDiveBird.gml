@@ -79,8 +79,8 @@ if global.gamePaused=false
   {
     //speed=5
     _speed=5
-    x += cos(degtorad(_direction)) * _speed * gDeltaTime
-    y -= sin(degtorad(_direction)) * _speed * gDeltaTime
+    x += cos(degtorad(_direction)) * _speed *gDeltaTime
+    y -= sin(degtorad(_direction)) * _speed *gDeltaTime
     //direction=point_direction(x,y,xstart,ystart)
     _direction=point_direction(x,y,xstart,ystart)
     if _direction>=90 and _direction<=270 {image_xscale=-1}
@@ -208,8 +208,8 @@ if global.gamePaused=false
   {
     //speed=2
     _speed=2
-    x += cos(degtorad(_direction)) * _speed * gDeltaTime
-    y -= sin(degtorad(_direction)) * _speed * gDeltaTime
+    x += cos(degtorad(_direction)) * _speed *gDeltaTime
+    y -= sin(degtorad(_direction)) * _speed *gDeltaTime
     hopTime+=1*gDeltaTime
     if hopTime=25
     {

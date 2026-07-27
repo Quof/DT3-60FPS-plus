@@ -27,7 +27,7 @@ if global.gamePaused=false
   atkTime+=1*gDeltaTime
   if atkProg=0
   {
-    image_alpha+=0.1
+    image_alpha+=0.1*gDeltaTime
     image_angle+=15
     if atkTime>=45
     {

@@ -362,7 +362,7 @@ if global.gameProgress=1760 and room=rMega4_Gate //----- [Unskippable] Intro to 
       msgCreate(0,0,"X","AND SAVE IT!",6,3,oMessagePerson,0)
       newMessage.fadingTime=60
     }
-    else if sceneDelay>=1911 and sceneDelay<=1920 {npcMMX.image_alpha-=0.1} //MMX fade out
+    else if sceneDelay>=1911 and sceneDelay<=1920 {npcMMX.image_alpha-=0.1*gDeltaTime} //MMX fade out
 
     if sceneDelay=1911 //Normal ability notice
     {
@@ -758,8 +758,8 @@ else if room=rMega4_StormC //----- [Unskippable] Bit appears and destroys canist
       }
       else if sceneDelay>=26 and sceneDelay<=45
       {
-        npcBitA.x+=1; npcBitA.image_alpha+=0.05
-        npcBitB.x-=1; npcBitB.image_alpha+=0.05
+        npcBitA.x+=1; npcBitA.image_alpha+=0.05*gDeltaTime
+        npcBitB.x-=1; npcBitB.image_alpha+=0.05*gDeltaTime
       }
       else if sceneDelay>=70
       {
@@ -1587,7 +1587,7 @@ else if room=rMega4_ToxicJungleE //----- [Unskippable] Boss Fight: Gravity Beetl
         }
         else if sceneDelay>=105
         {
-          newGravEf.image_alpha-=0.1
+          newGravEf.image_alpha-=0.1*gDeltaTime
           if newGravEf.image_alpha<=0
           {
             with newGravEf {instance_destroy()}

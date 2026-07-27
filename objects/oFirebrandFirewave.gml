@@ -24,8 +24,8 @@ event_inherited()
 if global.gamePaused=false
 {
   image_xscale+=0.02; image_yscale+=0.02
-  image_alpha-=0.005
+  image_alpha-=0.005*gDeltaTime
   lifeTime-=1
-  if lifeTime>=10 and lifeTime<=1 {image_alpha-=0.05}
+  if lifeTime>=10 and lifeTime<=1 {image_alpha-=0.05*gDeltaTime}
   if lifeTime<=0 {instance_destroy()}
 }

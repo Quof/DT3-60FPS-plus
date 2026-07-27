@@ -51,17 +51,17 @@ if global.gamePaused=false
 
     if x>oPlayer1.x
     {
-      if currHspd>-maxSpeed {currHspd-=0.1* gDeltaTime}
+      if currHspd>-maxSpeed {currHspd-=0.1*gDeltaTime}
       else {currHspd=-maxSpeed}
     }
     else if x<oPlayer1.x
     {
-      if currHspd<maxSpeed {currHspd+=0.1* gDeltaTime}
+      if currHspd<maxSpeed {currHspd+=0.1*gDeltaTime}
       else {currHspd=maxSpeed}
     }
-    x+=currHspd* gDeltaTime
+    x+=currHspd*gDeltaTime
 
-    shootTime+=1* gDeltaTime
+    shootTime+=1*gDeltaTime
     if shootTime>=shootDelay
     {
       var tNewAttack;
@@ -79,7 +79,7 @@ if global.gamePaused=false
   }
   else if life<=0
   {
-    deathAnim+=1* gDeltaTime
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       playSound(global.snd_BombExplode,0,0.9,1)
@@ -94,7 +94,7 @@ if global.gamePaused=false
       tEffect.sprite_index=sRobotExplosion; tEffect.image_xscale=0.4; tEffect.image_yscale=0.4; tEffect.image_alpha=0.5+(image_alpha/3)
       tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
     }
-    image_alpha-=0.03* gDeltaTime
+    image_alpha-=0.03*gDeltaTime
     if image_alpha<0 {instance_destroy()}
   }
   enemyStepEvent()

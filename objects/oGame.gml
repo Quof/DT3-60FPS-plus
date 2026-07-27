@@ -45,7 +45,7 @@ with (all)
 {
     if gDeltaTime == 1.0 break;
     image_index -= image_speed
-    image_index += image_speed * gDeltaTime
+    image_index += image_speed *gDeltaTime
 }
 with (all)
 {
@@ -54,8 +54,8 @@ with (all)
     // Any gameplay-affecting friction-having objects should be modified to not use friction.
     if friction != 0
     {
-        x += hspeed * gDeltaTime
-        y += vspeed * gDeltaTime
+        x += hspeed *gDeltaTime
+        y += vspeed *gDeltaTime
         x -= hspeed
         y -= vspeed
         speed += friction * (1.0 - gDeltaTime)

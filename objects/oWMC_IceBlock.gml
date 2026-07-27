@@ -40,7 +40,7 @@ if global.gamePaused=false
 {
   if moveProg=0 //Fade in
   {
-    image_alpha+=0.1
+    image_alpha+=0.1*gDeltaTime
     if image_alpha>=1 {moveProg=1}
   }
   else if moveProg=1 //Slight wait

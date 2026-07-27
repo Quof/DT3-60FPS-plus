@@ -346,7 +346,7 @@ else if global.gameProgress=4310 and room=rWepFacK //----- [7] Boss Fight: Brain
         boss.image_alpha=0
         with oStrikeChainPoint {instance_destroy()}
       }
-      else if sceneDelay>=21 and sceneDelay<=70 {boss.image_alpha+=0.02}
+      else if sceneDelay>=21 and sceneDelay<=70 {boss.image_alpha+=0.02*gDeltaTime}
       else if sceneDelay>=95 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=2 and bWaitForInput=false
@@ -710,7 +710,7 @@ else if global.gameProgress=4420 and room=rLowFacJ //----- [] Enemy Trap: Spider
     }
     else if sceneDelay>=231 and sceneDelay<=240
     {
-      (GID(378907)).image_alpha-=0.1;
+      (GID(378907)).image_alpha-=0.1*gDeltaTime;
     }
     else if sceneDelay>=250
     {

@@ -38,7 +38,7 @@ if view_current=0
   dispTime-=1*gDeltaTime
   if dispTime<=0
   {
-    image_alpha-=0.04
+    image_alpha-=0.04*gDeltaTime
     if image_alpha<=0 {instance_destroy()}
   }
 }

@@ -247,7 +247,7 @@ if global.gamePaused=false
 
     if backFadeInTime>0 //Fade in red tint
     {
-      redBack.image_alpha+=0.01
+      redBack.image_alpha+=0.01*gDeltaTime
       backFadeInTime-=1
     }
 
@@ -331,7 +331,7 @@ if global.gamePaused=false
         tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
       }
 
-      if redBack.image_alpha>0 {redBack.image_alpha-=0.01}
+      if redBack.image_alpha>0 {redBack.image_alpha-=0.01*gDeltaTime}
       segBody.y+=1
       if segBody.y>=room_height+96
       {

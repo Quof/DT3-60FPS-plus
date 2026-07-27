@@ -14,10 +14,10 @@ action_id=603
 applies_to=self
 */
 pulse+=1
-if pulse>=1 and pulse<=40 {image_alpha+=0.0005}
+if pulse>=1 and pulse<=40 {image_alpha+=0.0005*gDeltaTime}
 else if pulse>=41 and pulse<=80
 {
-  image_alpha-=0.0005
+  image_alpha-=0.0005*gDeltaTime
   if pulse=80 {pulse=0}
 }
 #define Draw_0

@@ -91,7 +91,7 @@ if global.gamePaused=false
         if image_blend=baseColor {image_blend=greenFlash}
         else {image_blend=baseColor}
       }
-      image_alpha+=0.04
+      image_alpha+=0.04*gDeltaTime
       if image_alpha>=1
       {
         if oPlayer1.x>=x-26 and oPlayer1.x<=x+26 and oPlayer1.y>=y-16 and oPlayer1.y<=y+48 //Player is inside head
@@ -246,7 +246,7 @@ if global.gamePaused=false
         if image_blend=c_white {image_blend=c_green}
         else {image_blend=c_white}
       }
-      image_alpha-=0.04
+      image_alpha-=0.04*gDeltaTime
       if image_alpha<=0 {instance_destroy()}
     }
 

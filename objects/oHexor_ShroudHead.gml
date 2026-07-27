@@ -30,7 +30,7 @@ if global.gamePaused=false
 {
   if atkProg=0 //Fade in
   {
-    image_alpha+=0.05
+    image_alpha+=0.05*gDeltaTime
     if image_alpha>=1
     {
       bCanDealDamage=true
@@ -61,7 +61,7 @@ if global.gamePaused=false
   }
   else if atkProg=3 //Fade out
   {
-    image_alpha-=0.05
+    image_alpha-=0.05*gDeltaTime
     if image_alpha>=1
     {
       instance_destroy()

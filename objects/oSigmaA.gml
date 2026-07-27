@@ -284,7 +284,7 @@ if global.gamePaused=false
       if atkProg>=1 and atkProg<=20
       {
         blendCol-=12.75
-        image_alpha-=0.05
+        image_alpha-=0.05*gDeltaTime
         image_blend=make_color_rgb(blendCol,blendCol,blendCol)
       }
       else if atkProg=25
@@ -305,7 +305,7 @@ if global.gamePaused=false
       else if atkProg>=31 and atkProg<=50
       {
         blendCol+=12.75
-        image_alpha+=0.05
+        image_alpha+=0.05*gDeltaTime
         image_blend=make_color_rgb(blendCol,blendCol,blendCol)
       }
       else if atkProg=51

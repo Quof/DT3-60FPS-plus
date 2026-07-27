@@ -29,7 +29,7 @@ if global.gamePaused=false
   atkTime+=1*gDeltaTime
   if atkTime>=1 and atkTime<=8
   {
-    image_alpha+=0.1
+    image_alpha+=0.1*gDeltaTime
     if atkTime=8 {bCanDealDamage=1}
   }
   else if atkTime>=9
@@ -67,7 +67,7 @@ if global.gamePaused=false
       if atkTime>=190
       {
         bCanDealDamage=0
-        image_alpha-=0.1
+        image_alpha-=0.1*gDeltaTime
       }
       if atkTime>=200 {instance_destroy()}
     }
@@ -76,7 +76,7 @@ if global.gamePaused=false
       if atkTime>=175
       {
         bCanDealDamage=0
-        image_alpha-=0.1
+        image_alpha-=0.1*gDeltaTime
       }
       if atkTime>=185 {instance_destroy()}
     }

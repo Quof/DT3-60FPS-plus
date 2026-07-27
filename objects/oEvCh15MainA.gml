@@ -514,7 +514,7 @@ else if global.gameProgress=3422 and room=rGame6_HeroPlainsD //----- [6] Spring 
     sceneDelay+=1*gDeltaTime
     if sceneDelay>=1 and sceneDelay<=7
     {
-      npcChosen.image_alpha-=0.1
+      npcChosen.image_alpha-=0.1*gDeltaTime
     }
     else if sceneDelay=20
     {
@@ -1158,7 +1158,7 @@ else if global.gameProgress=3480 and room=rGame6_EarthK //----- [] Obtain Earth 
   {
     sceneDelay+=1*gDeltaTime
     if sceneDelay>=11 and sceneDelay<=46 {oLevelDecal.y+=1}
-    else if sceneDelay>=61 and sceneDelay<=70 {oLevelDecal.image_alpha-=0.1}
+    else if sceneDelay>=61 and sceneDelay<=70 {oLevelDecal.image_alpha-=0.1*gDeltaTime}
     else if sceneDelay>=90 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=4 and bWaitForInput=false
@@ -1577,7 +1577,7 @@ else if global.gameProgress=3530 and room=rGame6_FireF //----- [13] Obtain Fire 
   {
     sceneDelay+=1*gDeltaTime
     if sceneDelay>=11 and sceneDelay<=46 {oLevelDecal.y+=1}
-    else if sceneDelay>=61 and sceneDelay<=70 {oLevelDecal.image_alpha-=0.1}
+    else if sceneDelay>=61 and sceneDelay<=70 {oLevelDecal.image_alpha-=0.1*gDeltaTime}
     else if sceneDelay>=90 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=3 and bWaitForInput=false
@@ -1947,7 +1947,7 @@ else if global.gameProgress=3570 and room=rGame6_WaterA //----- [17] Obtain Wate
   {
     sceneDelay+=1*gDeltaTime
     if sceneDelay>=11 and sceneDelay<=46 {oLevelDecal.y+=1}
-    else if sceneDelay>=61 and sceneDelay<=70 {oLevelDecal.image_alpha-=0.1}
+    else if sceneDelay>=61 and sceneDelay<=70 {oLevelDecal.image_alpha-=0.1*gDeltaTime}
     else if sceneDelay>=90 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=3 and bWaitForInput=false
@@ -2334,7 +2334,7 @@ else if global.gameProgress=3630 and room=rGame6_WindJ //----- [19] Obtain Wind 
   {
     sceneDelay+=1*gDeltaTime
     if sceneDelay>=11 and sceneDelay<=46 {oLevelDecal.y+=1}
-    else if sceneDelay>=61 and sceneDelay<=70 {oLevelDecal.image_alpha-=0.1}
+    else if sceneDelay>=61 and sceneDelay<=70 {oLevelDecal.image_alpha-=0.1*gDeltaTime}
     else if sceneDelay>=90 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=3 and bWaitForInput=false
@@ -2647,7 +2647,7 @@ else if global.gameProgress=3770 and room=rGame6_DreamWoodsF //----- [Unskippabl
   else if sceneProgress=1
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay>=21 and sceneDelay<=70 {oPlayer1.image_alpha+=0.02}
+    if sceneDelay>=21 and sceneDelay<=70 {oPlayer1.image_alpha+=0.02*gDeltaTime}
     else if sceneDelay>=71 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=2

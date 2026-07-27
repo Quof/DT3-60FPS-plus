@@ -316,9 +316,9 @@ if phasingBack>0 //----- Background phasing -----
         background_assign(backSeedEscapeCaveA_Normal,originalBack)
         backSwap=0
       }
-      if backFollow01.image_alpha<1 {backFollow01.image_alpha+=0.002}
-      if backGrid01.image_alpha>0 {backGrid01.image_alpha-=0.002}
-      if backGrid02.image_alpha>0 {backGrid02.image_alpha-=0.002}
+      if backFollow01.image_alpha<1 {backFollow01.image_alpha+=0.002*gDeltaTime}
+      if backGrid01.image_alpha>0 {backGrid01.image_alpha-=0.002*gDeltaTime}
+      if backGrid02.image_alpha>0 {backGrid02.image_alpha-=0.002*gDeltaTime}
     }
     else //To glitch
     {
@@ -330,9 +330,9 @@ if phasingBack>0 //----- Background phasing -----
         background_assign(backSeedEscapeCaveA_Normal,backSeedEscapeCaveA_Glitch)
         backSwap=1
       }
-      if backFollow01.image_alpha>0.9 {backFollow01.image_alpha-=0.002}
-      if backGrid01.image_alpha<0.05 {backGrid01.image_alpha+=0.002}
-      if backGrid02.image_alpha<0.05 {backGrid02.image_alpha+=0.002}
+      if backFollow01.image_alpha>0.9 {backFollow01.image_alpha-=0.002*gDeltaTime}
+      if backGrid01.image_alpha<0.05 {backGrid01.image_alpha+=0.002*gDeltaTime}
+      if backGrid02.image_alpha<0.05 {backGrid02.image_alpha+=0.002*gDeltaTime}
     }
   }
 }

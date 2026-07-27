@@ -233,7 +233,7 @@ if global.gamePaused=false
       }
     }
 
-    image_alpha-=0.01
+    image_alpha-=0.01*gDeltaTime
     if image_alpha<=0
     {
       if global.bBossGallery=1

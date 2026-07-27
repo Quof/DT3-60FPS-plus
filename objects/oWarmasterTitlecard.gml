@@ -17,7 +17,7 @@ if type=0 //Main
   if displayTime>=1 and displayTime<=50
   {
     image_xscale-=0.02; image_yscale-=0.02
-    image_alpha+=0.02
+    image_alpha+=0.02*gDeltaTime
     if displayTime mod 2=0
     {
       var tMyTitleCard;
@@ -34,7 +34,7 @@ if type=0 //Main
   }
   else if displayTime>=90
   {
-    image_alpha-=0.1
+    image_alpha-=0.1*gDeltaTime
     if image_alpha<=0 {instance_destroy()}
   }
 }
@@ -43,12 +43,12 @@ else if type=1 //Sub
   if displayTime>=1 and displayTime<=10
   {
     image_xscale+=0.025; image_yscale+=0.025
-    image_alpha-=0.02
+    image_alpha-=0.02*gDeltaTime
     if image_alpha<=0 {instance_destroy()}
   }
 }
 else if type=2 //Final
 {
-  image_alpha-=0.05
+  image_alpha-=0.05*gDeltaTime
   if image_alpha<=0 {instance_destroy()}
 }

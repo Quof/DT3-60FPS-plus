@@ -85,7 +85,7 @@ if global.gamePaused=false
       if circleRad=224 {bDrawMe=0}
       else if circleRad>=304
       {
-        image_alpha-=0.05
+        image_alpha-=0.05*gDeltaTime
         if image_alpha<=0
         {
           oEvCh19MainA.sceneProgress=2

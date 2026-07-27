@@ -551,7 +551,7 @@ else if global.gameProgress=2240 and room=rVault_1 //----- [3] Chao is missing -
       npcHex=instance_create(288,192,oMisc)
       npcHex.sprite_index=sHex_A_Idle; npcHex.image_xscale=-1; npcHex.image_alpha=0 npcHex.type=4; npcHex.moveStep=pi/2
     }
-    else if sceneDelay>=31 and sceneDelay<=65 {npcHex.image_alpha+=0.02}
+    else if sceneDelay>=31 and sceneDelay<=65 {npcHex.image_alpha+=0.02*gDeltaTime}
     else if sceneDelay>=70 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=16 and bWaitForInput=false
@@ -609,7 +609,7 @@ else if global.gameProgress=2240 and room=rVault_1 //----- [3] Chao is missing -
     msgCreate(0,0,"Hex","Come find me, I dare you.",0,3,oMessageCutscene,1)
   else if sceneProgress=37
   {
-    npcHex.image_alpha-=0.02
+    npcHex.image_alpha-=0.02*gDeltaTime
     if npcHex.image_alpha<=0 {sceneProgress+=1}
   }
   else if sceneProgress=38 and bWaitForInput=false

@@ -50,8 +50,8 @@ if global.gamePaused=false
   {
     speed=0
     _speed=bulletSpeed
-    x += cos(degtorad(_direction)) * _speed * gDeltaTime
-    y -= sin(degtorad(_direction)) * _speed * gDeltaTime
+    x += cos(degtorad(_direction)) * _speed *gDeltaTime
+    y -= sin(degtorad(_direction)) * _speed *gDeltaTime
     image_angle+=spinSpd*gDeltaTime
     decayTime-=1*gDeltaTime
     if decayTime<=0 {instance_destroy()}

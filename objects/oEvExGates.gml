@@ -475,7 +475,7 @@ if room=rExtGateA_6 //----- [A] Boss Fight: Kamek -----
         }
         else if sceneDelay>=111 and sceneDelay<=299 //Shadow
         {
-          if kamShadow.image_alpha<0.6 {kamShadow.image_alpha+=0.02}
+          if kamShadow.image_alpha<0.6 {kamShadow.image_alpha+=0.02*gDeltaTime}
           kamShadow.image_xscale+=0.025; kamShadow.image_yscale-=0.04
           if kamShadow.image_yscale<=1
           {
@@ -598,7 +598,7 @@ else if room=rExtGateB_6 //----- [B] Boss Fight: Final Nightmare -----
         boss.image_alpha=0
       }
       else if sceneDelay>=21 and sceneDelay<=70
-        boss.image_alpha+=0.02
+        boss.image_alpha+=0.02*gDeltaTime
       else if sceneDelay>=90
       {
         sceneDelay=0

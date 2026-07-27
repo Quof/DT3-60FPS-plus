@@ -155,7 +155,7 @@ if global.gamePaused=false
     }
     x+=flyX; y+=flyY
     flyY+=0.33
-    image_alpha-=0.035
+    image_alpha-=0.035*gDeltaTime
     if image_alpha<0
     {
       playSound(global.snd_HardHit1,0,0.98,1)

@@ -52,7 +52,7 @@ if global.gamePaused=false
       x=oPlayerIdle.x; y=oPlayerIdle.y-26
       image_angle+=30
       image_xscale-=0.075; image_yscale-=0.075
-      image_alpha+=0.04
+      image_alpha+=0.04*gDeltaTime
       if image_alpha>=1
       {
         bCanDealDamage=1; bCanTakeDamage=1
@@ -94,7 +94,7 @@ if global.gamePaused=false
     with oHex_Sapper {instance_destroy()}
     bCanDealDamage=0; bCanTakeDamage=0
     image_xscale+=0.05; image_yscale+=0.05
-    image_alpha-=0.05
+    image_alpha-=0.05*gDeltaTime
     if image_alpha<=0 {instance_destroy()}
   }
   enemyStepEvent()

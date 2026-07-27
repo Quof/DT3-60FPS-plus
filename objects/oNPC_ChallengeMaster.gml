@@ -29,7 +29,7 @@ if global.gamePaused=false
   if trailStarted=1 //Fade out Challenge Master and slight wait
   {
     trialTime+=1
-    if trialTime>=1 and trialTime<=10 {image_alpha-=0.1}
+    if trialTime>=1 and trialTime<=10 {image_alpha-=0.1*gDeltaTime}
     else if trialTime>=55 {trialTime=0; trailStarted=2}
   }
   else if trailStarted=2 //The trial
@@ -629,7 +629,7 @@ if global.gamePaused=false
       trialCheck="1"
     }
 
-    if trialTime>=1 and trialTime<=10 {image_alpha+=0.1}
+    if trialTime>=1 and trialTime<=10 {image_alpha+=0.1*gDeltaTime}
     else if trialTime>=20
     {
       if global.challengeRoom=1

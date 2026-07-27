@@ -735,7 +735,7 @@ else if room=rDCS_V and global.gameProgress=4790 //----- [] The second Dragoon p
       myNPC.x+=2; myNPC.y-=2
       if myNPC.x>=320 {sceneDelay=300}
     }
-    else if sceneDelay>=301 and sceneDelay<=320 {myNPC.image_alpha-=0.05}
+    else if sceneDelay>=301 and sceneDelay<=320 {myNPC.image_alpha-=0.05*gDeltaTime}
 
     if pullSpeed>0 //Pull player
     {

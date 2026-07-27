@@ -30,7 +30,7 @@ if global.gamePaused=false
   fireFrm+=0.33
   if fireProg=0
   {
-    image_alpha+=0.04
+    image_alpha+=0.04*gDeltaTime
     if image_alpha>=1 {fireProg+=1}
   }
   else if fireProg=1
@@ -43,7 +43,7 @@ if global.gamePaused=false
     fireTime+=1
     if fireTime>=100
     {
-      image_alpha-=0.05
+      image_alpha-=0.05*gDeltaTime
       if image_alpha<=0.5 {instance_destroy()}
     }
   }

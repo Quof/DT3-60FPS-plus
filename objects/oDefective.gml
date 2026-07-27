@@ -256,7 +256,7 @@ if life<=0 //Defeat animation
   else if deathAnim>=2
   {
     y+=1
-    image_alpha-=0.02
+    image_alpha-=0.02*gDeltaTime
     if image_alpha<=0
     {
       if global.bBossGallery=1

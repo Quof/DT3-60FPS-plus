@@ -837,7 +837,7 @@ else if global.gameProgress=3260 and room=rNGC_LC_F //----- [12] Boss: Malevolen
             tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=-0.5-random(1)
           }
           boss.y-=2
-          boss.image_alpha+=0.01
+          boss.image_alpha+=0.01*gDeltaTime
           if boss.y<=1264
           {
             boss.y=1264
@@ -1235,7 +1235,7 @@ else if global.gameProgress=3290 and room=rNGC_LC_H //----- [13] Finding the Eng
     sceneDelay+=1*gDeltaTime
     if sceneDelay>=16 and sceneDelay<=25
     {
-      oNPC_John.image_alpha-=0.1
+      oNPC_John.image_alpha-=0.1*gDeltaTime
     }
     else if sceneDelay>=40 {sceneDelay=0; sceneProgress+=1}
   }
@@ -1603,7 +1603,7 @@ else if global.gameProgress=3360 and room=rMain_56 //----- [16] The Engineer is 
   else if sceneProgress=7
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay>=21 and sceneDelay<=30 {oNPC_John.image_alpha+=0.1}
+    if sceneDelay>=21 and sceneDelay<=30 {oNPC_John.image_alpha+=0.1*gDeltaTime}
     else if sceneDelay=50 {(GID(308182)).image_xscale=1; (GID(308183)).image_xscale=1}
     else if sceneDelay=55
     {

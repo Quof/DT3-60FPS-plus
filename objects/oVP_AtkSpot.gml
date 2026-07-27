@@ -31,7 +31,7 @@ if global.gamePaused=0
   decayTime-=1
   if decayTime<=0
   {
-    image_alpha-=0.1
+    image_alpha-=0.1*gDeltaTime
     if image_alpha<=0 {instance_destroy()}
   }
 }

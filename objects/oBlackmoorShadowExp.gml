@@ -23,7 +23,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  image_alpha-=0.075
+  image_alpha-=0.075*gDeltaTime
   image_xscale+=0.1
   image_yscale+=0.1
   if image_xscale>=1.1 {instance_destroy()}

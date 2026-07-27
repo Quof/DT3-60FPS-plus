@@ -173,7 +173,7 @@ if global.gamePaused=false
       tEffect.sprite_index=sRobotExplosion; tEffect.image_alpha=0.5+(image_alpha/3)
       tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
     }
-    image_alpha-=0.05
+    image_alpha-=0.05*gDeltaTime
     if image_alpha<0.5
     {
       playSound(global.snd_BombExplode,0,0.92,1)

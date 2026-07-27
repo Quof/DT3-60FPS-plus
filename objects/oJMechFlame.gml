@@ -26,7 +26,7 @@ if global.gamePaused=false
 {
   if lingerFrame=0
   {
-    image_alpha-=0.06
+    image_alpha-=0.06*gDeltaTime
     image_angle=direction
     speed=10.5
 

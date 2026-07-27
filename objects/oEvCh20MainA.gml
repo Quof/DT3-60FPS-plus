@@ -1400,7 +1400,7 @@ else if global.gameProgress=5305 and room=rWarshipZ_E2 //----- [Final Boss Fight
           tEffect.AccelX=0; tEffect.AccelY=0; tEffect.followID=-1; tEffect.rotation=0
         }
       }
-      else if sceneDelay>=121 and sceneDelay<=140 {oMisc.image_alpha-=0.05}
+      else if sceneDelay>=121 and sceneDelay<=140 {oMisc.image_alpha-=0.05*gDeltaTime}
       else if sceneDelay=141 {with oMisc {instance_destroy()}}
       else if sceneDelay>=200 {sceneDelay=0; sceneProgress+=1}
     }

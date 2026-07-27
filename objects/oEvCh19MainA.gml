@@ -833,8 +833,8 @@ else if room=rDiscoI //----- [] Boss Fight: Defective -----
       tEffect.direction=random_range(70,110); tEffect.speed=random(1)+1; tEffect.friction=random(0.02)+0.02
       tEffect.fadeSpd=0.005; tEffect.image_blend=make_color_rgb(random(50),random(50),255)
       tEffect.AccelX=0; tEffect.AccelY=0; tEffect.followID=-1; tEffect.rotation=0
-      (GID(401981)).image_alpha-=0.02
-      (GID(401983)).image_alpha-=0.02
+      (GID(401981)).image_alpha-=0.02*gDeltaTime
+      (GID(401983)).image_alpha-=0.02*gDeltaTime
       if kirbyFade>=52 {kirbyFade=1000}
     }
   }
@@ -858,7 +858,7 @@ else if room=rDiscoI //----- [] Boss Fight: Defective -----
             boss=instance_create(992,128,oDefective)
             boss.image_alpha=0; boss.bCanDealDamage=0; boss.bCanTakeDamage=0
           }
-          else if sceneDelay>=91 and sceneDelay<=110 {boss.image_alpha+=0.05}
+          else if sceneDelay>=91 and sceneDelay<=110 {boss.image_alpha+=0.05*gDeltaTime}
           else if sceneDelay=140
           {
             boss.bCanDealDamage=1; boss.bCanTakeDamage=1; boss.activateBoss=1

@@ -31,7 +31,7 @@ if global.gamePaused=false
   atkTime+=1*gDeltaTime
   if atkTime>=12
   {
-    image_alpha-=0.05
+    image_alpha-=0.05*gDeltaTime
     if image_alpha<=0.5 {instance_destroy()}
   }
 }

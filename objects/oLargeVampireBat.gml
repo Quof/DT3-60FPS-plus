@@ -208,8 +208,8 @@ if global.gamePaused=false
       bossProgress+=1
     }
     speed=0
-    x += cos(degtorad(_direction)) * _speed * gDeltaTime
-    y -= sin(degtorad(_direction)) * _speed * gDeltaTime
+    x += cos(degtorad(_direction)) * _speed *gDeltaTime
+    y -= sin(degtorad(_direction)) * _speed *gDeltaTime
   }
   else if life<=0 //Defeat animation
   {

@@ -40,6 +40,6 @@ if partProg=1
 else if partProg=2
 {
   image_xscale-=0.01; image_xscale-=0.01
-  image_alpha-=0.3
+  image_alpha-=0.3*gDeltaTime
   if image_alpha<=0 {instance_destroy()}
 }

@@ -8,15 +8,15 @@ if global.gamePaused=false
 {
   if collision_rectangle(x,y,x+(image_xscale*16),y+(image_yscale*16),oPlayer1,0,1)
   {
-    if image_alpha>0 {image_alpha-=0.1}
+    if image_alpha>0 {image_alpha-=0.1*gDeltaTime}
   }
   else if collision_rectangle(x,y,x+(image_xscale*16),y+(image_yscale*16),oGH_DummyDoor,0,1)
   {
-    if image_alpha>0 {image_alpha-=0.1}
+    if image_alpha>0 {image_alpha-=0.1*gDeltaTime}
   }
   else
   {
-    if image_alpha<1 {image_alpha+=0.1}
+    if image_alpha<1 {image_alpha+=0.1*gDeltaTime}
   }
 }
 #define Draw_0

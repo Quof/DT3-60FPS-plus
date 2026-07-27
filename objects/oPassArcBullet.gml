@@ -43,8 +43,8 @@ if global.gamePaused=false
     if decayTime<=0 {instance_destroy()}
   }
   speed=0
-  x += cos(degtorad(_direction)) * _speed * gDeltaTime
-  y -= sin(degtorad(_direction)) * _speed * gDeltaTime
+  x += cos(degtorad(_direction)) * _speed *gDeltaTime
+  y -= sin(degtorad(_direction)) * _speed *gDeltaTime
 
 }
 else {speed=0}

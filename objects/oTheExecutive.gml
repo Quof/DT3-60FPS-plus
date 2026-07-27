@@ -520,7 +520,7 @@ if moveProg=1 //----- Teleport -----
     x=xCenter; y=80; sprite_index=sPT_EX_Outline
     playSound(global.snd_Teleport,0,0.92,44100)
   }
-  else if moveTime>=51 and moveTime<=70 {image_alpha+=0.05}
+  else if moveTime>=51 and moveTime<=70 {image_alpha+=0.05*gDeltaTime}
   else if moveTime=71
   {
     sprite_index=sPT_FE_ArmsOut; bCanTakeDamage=1; bCanDealDamage=1; phase1_circle=2

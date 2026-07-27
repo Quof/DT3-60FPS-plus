@@ -67,7 +67,7 @@ else if sceneProgress=1
   {
     with oScreenText
     {
-      image_alpha-=0.05
+      image_alpha-=0.05*gDeltaTime
     }
   }
 }
@@ -82,7 +82,7 @@ else if sceneProgress=2
   {
     with oScreenText
     {
-      image_alpha-=0.01
+      image_alpha-=0.01*gDeltaTime
     }
   }
   else if sceneDelay=270

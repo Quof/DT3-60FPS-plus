@@ -26,7 +26,7 @@ if global.gamePaused=false
 {
   if instrProg=0
   {
-    image_alpha+=0.02
+    image_alpha+=0.02*gDeltaTime
     if image_alpha=1
     {
       activeTime=500+(image_index*180)

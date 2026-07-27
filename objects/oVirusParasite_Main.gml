@@ -471,7 +471,7 @@ if global.gamePaused=false
       {
         for(i=0;i<8;i+=1)
         {
-          flames[i].image_alpha-=0.05
+          flames[i].image_alpha-=0.05*gDeltaTime
         }
       }
       else if flameAct>=125 {flameAct=0}
@@ -483,7 +483,7 @@ if global.gamePaused=false
       {
         for(i=0;i<8;i+=1)
         {
-          flames[i].image_alpha+=0.05
+          flames[i].image_alpha+=0.05*gDeltaTime
         }
       }
       else if flameAct>=225 {flameAct=0}

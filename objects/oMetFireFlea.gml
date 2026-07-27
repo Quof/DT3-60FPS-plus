@@ -46,7 +46,7 @@ if bTouched=1
 if oFireFleaRmLight.darkNum<7
 {
   oFireFleaRmLight.darkNum+=1
-  oFireFleaRmLight.image_alpha+=0.13
+  oFireFleaRmLight.image_alpha+=0.13*gDeltaTime
 }
 #define Step_0
 /*"/*'/**//* YYD ACTION

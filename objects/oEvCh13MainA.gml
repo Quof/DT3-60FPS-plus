@@ -128,7 +128,7 @@ if global.gameProgress=2670 and room=rSamus5_Gate //----- [1] Intro to Research 
     sceneDelay+=1*gDeltaTime
     if sceneDelay>=1 and sceneDelay<=999
     {
-      npcHex.image_alpha+=0.02
+      npcHex.image_alpha+=0.02*gDeltaTime
       if npcHex.image_alpha>=1 {sceneDelay=1000}
     }
     else if sceneDelay>=1020 {sceneDelay=0; sceneProgress+=1}
@@ -154,7 +154,7 @@ if global.gameProgress=2670 and room=rSamus5_Gate //----- [1] Intro to Research 
     sceneDelay+=1*gDeltaTime
     if sceneDelay>=1 and sceneDelay<=999
     {
-      npcHex.image_alpha-=0.04
+      npcHex.image_alpha-=0.04*gDeltaTime
       if npcHex.image_alpha<=0 {sceneDelay=1000}
     }
     else if sceneDelay>=1020 {sceneDelay=0; sceneProgress+=1}
@@ -1515,8 +1515,8 @@ else if global.gameProgress=3000 and room=rSamus5_Lv4_FinalBoss //----- [6] Boss
       sceneDelay+=1*gDeltaTime
       if sceneDelay>=1 and sceneDelay<=60
       {
-        with oEnemyBase {image_alpha+=0.025}
-        npcHex.image_alpha+=0.025
+        with oEnemyBase {image_alpha+=0.025*gDeltaTime}
+        npcHex.image_alpha+=0.025*gDeltaTime
       }
       else if sceneDelay>=80 {sceneDelay=0; sceneProgress+=1}
     }
@@ -1554,7 +1554,7 @@ else if global.gameProgress=3000 and room=rSamus5_Lv4_FinalBoss //----- [6] Boss
     else if sceneProgress=11
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay>=11 and sceneDelay<=70 {npcHex.image_alpha-=0.025}
+      if sceneDelay>=11 and sceneDelay<=70 {npcHex.image_alpha-=0.025*gDeltaTime}
       else if sceneDelay=90 {boss.ridParts[0].image_index=1}
       else if sceneDelay=94 {boss.ridParts[0].image_index=2; playSound(global.snd_RidleyScreamA,0,0.98,1)}
       else if sceneDelay=134 {boss.ridParts[0].image_index=1}

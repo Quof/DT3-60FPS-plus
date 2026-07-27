@@ -31,7 +31,7 @@ if bMaster=1
 else
 {
   draw_set_color(make_color_rgb(0,255,0))
-  image_alpha-=0.01
+  image_alpha-=0.01*gDeltaTime
   if image_alpha<=0
     instance_destroy()
 }
