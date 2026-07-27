@@ -12,8 +12,8 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-topRepeat+=0.003
-bottomRepeat+=0.0025
+topRepeat+=0.003*gDeltaTime
+bottomRepeat+=0.0025*gDeltaTime
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

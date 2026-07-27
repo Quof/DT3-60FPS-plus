@@ -798,7 +798,7 @@ else if global.gameProgress=5590 and room=rDistortionA //----- [7] Jeremy goes f
     }
     if sceneDelay>=30
     {
-      fadeAlpha-=0.01
+      fadeAlpha-=0.01*gDeltaTime
       if fadeAlpha<=0 {sceneDelay=0; sceneProgress+=1}
     }
   }

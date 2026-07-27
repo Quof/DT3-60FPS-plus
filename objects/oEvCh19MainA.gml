@@ -257,7 +257,7 @@ else if global.gameProgress=4550 and room=rTS_A //----- [] Intro to Tranquil Ser
     if sceneDelay>=50
     {
       if fadeAlpha>0.5 {fadeAlpha-=0.005*gDeltaTime}
-      else {fadeAlpha-=0.01}
+      else {fadeAlpha-=0.01*gDeltaTime}
       if fadeAlpha<=0 {sceneDelay=0; sceneProgress+=1}
     }
   }

@@ -357,7 +357,7 @@ if global.gamePaused=false
         }
         else if tongueAttack>=461 and tongueAttack<=490 //Remove red fade and close jaw
         {
-          if oEvDCS.fadeAlpha>0 {oEvDCS.fadeAlpha-=0.01}
+          if oEvDCS.fadeAlpha>0 {oEvDCS.fadeAlpha-=0.01*gDeltaTime}
           if tongueXscale>0 {tongueXscale-=0.1}
           image_angle+=1
           jawAngle+=1

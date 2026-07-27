@@ -569,7 +569,7 @@ else if global.gameProgress=3190 and room=rNGC_LC_A //----- [9] We're stuck down
     }
     else if sceneDelay>=50
     {
-      fadeAlpha-=0.01
+      fadeAlpha-=0.01*gDeltaTime
       if fadeAlpha<=0.3 {sceneDelay=0; sceneProgress+=1}
     }
   }

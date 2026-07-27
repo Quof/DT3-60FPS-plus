@@ -50,7 +50,7 @@ if room=rBT_HelmetheadEX //----- [] Boss Fight: Helmethead EX ----- [1]
     {
       if sceneDelay>=50
       {
-        fadeAlpha-=0.01
+        fadeAlpha-=0.01*gDeltaTime
         if fadeAlpha<=0 {sceneDelay=0; sceneProgress+=1}
       }
     }

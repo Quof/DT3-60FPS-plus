@@ -2554,7 +2554,7 @@ else if global.gameProgress=3640 and room=rGame6_DreamWoodsA //----- [21] The Dr
   if sceneProgress=0
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay>=51 and sceneDelay<=150 {fadeAlpha-=0.01}
+    if sceneDelay>=51 and sceneDelay<=150 {fadeAlpha-=0.01*gDeltaTime}
     else if sceneDelay>=160 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=1 and bWaitForInput=false
@@ -3357,7 +3357,7 @@ else if global.gameProgress=3860 and room=rGame6_CoDU //----- [Unskippable] Intr
     else if sceneDelay>=31 and sceneDelay<=130
     {
       if sceneDelay=80 {lightningTime=50}
-      fadeAlpha-=0.01
+      fadeAlpha-=0.01*gDeltaTime
     }
     else if sceneDelay>=180 {sceneDelay=0; sceneProgress+=1}
   }

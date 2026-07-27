@@ -51,7 +51,7 @@ if global.gameProgress=3870 and room=rCCity_NA_S2 //----- [1] On the defensive -
     sceneDelay+=1*gDeltaTime
     if sceneDelay>=30
     {
-      fadeAlpha-=0.01
+      fadeAlpha-=0.01*gDeltaTime
       if fadeAlpha<=0 {sceneDelay=0; sceneProgress+=1}
     }
   }
@@ -405,7 +405,7 @@ if global.gameProgress=3920 and room=rCCity_NA_S1 //----- [6] The facility below
     sceneDelay+=1*gDeltaTime
     if sceneDelay>=30
     {
-      fadeAlpha-=0.01
+      fadeAlpha-=0.01*gDeltaTime
       if fadeAlpha<=0 {sceneDelay=0; sceneProgress+=1}
     }
   }

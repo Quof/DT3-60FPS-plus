@@ -45,7 +45,7 @@ if global.gameProgress=2160 and room=rVault_1 //----- [1] Chapter 10 - Are we in
     }
     else if sceneDelay>=30
     {
-      fadeAlpha-=0.01
+      fadeAlpha-=0.01*gDeltaTime
       if fadeAlpha<=0 {sceneDelay=0; sceneProgress+=1}
     }
   }
@@ -1582,7 +1582,7 @@ if global.gameProgress=2430 and room=rVault_14 //----- [] Trapped and alone ----
     }
     else if sceneDelay>=80
     {
-      fadeAlpha-=0.01
+      fadeAlpha-=0.01*gDeltaTime
       if fadeAlpha<=0 {sceneDelay=0; sceneProgress+=1}
     }
   }
@@ -1955,7 +1955,7 @@ else if global.gameProgress=2480 and room=rVault_16 //----- [] Reobtaining the a
       tEffect.image_xscale=2.5; tEffect.image_yscale=2.5
     }
     else if sceneDelay>=51 and sceneDelay<=60 {fadeAlpha+=0.025*gDeltaTime}
-    else if sceneDelay>=91 and sceneDelay<=110 {fadeAlpha-=0.0125}
+    else if sceneDelay>=91 and sceneDelay<=110 {fadeAlpha-=0.0125*gDeltaTime}
     else if sceneDelay>=130 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=5
@@ -2201,7 +2201,7 @@ else if global.gameProgress=2530 and room=rVault_23 //----- [] End Vault -----
     sceneDelay+=1*gDeltaTime
     if sceneDelay>=30
     {
-      fadeAlpha+=0.01
+      fadeAlpha+=0.01*gDeltaTime
       if fadeAlpha>=1 {sceneDelay=0; sceneProgress+=1}
     }
   }

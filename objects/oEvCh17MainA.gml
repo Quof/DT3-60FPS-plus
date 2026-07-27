@@ -428,7 +428,7 @@ else if global.gameProgress=4020 and room=rHPF_N //----- [4] Virus attacks -----
     }
     if sceneDelay>=40
     {
-      fadeAlpha-=0.01
+      fadeAlpha-=0.01*gDeltaTime
       if fadeAlpha<=0 {sceneDelay=0; sceneProgress+=1}
     }
   }

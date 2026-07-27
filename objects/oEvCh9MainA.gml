@@ -128,7 +128,7 @@ if global.gameProgress=2000 and room=rCCity_NA_S2 //----- [1] The Vault must be 
     }
     else if sceneDelay>=30
     {
-      fadeAlpha-=0.01
+      fadeAlpha-=0.01*gDeltaTime
       if fadeAlpha<=0 {sceneDelay=0; sceneProgress+=1}
     }
   }
@@ -397,7 +397,7 @@ else if global.gameProgress=2080 and room=rBubbleTowerA7 //----- [5] Boss: Army 
       }
       else if sceneDelay>=30
       {
-        fadeAlpha-=0.01
+        fadeAlpha-=0.01*gDeltaTime
         if fadeAlpha<=0 {sceneDelay=0; sceneProgress+=1}
       }
     }
@@ -871,7 +871,7 @@ else if global.gameProgress=2140 and room=rMain_39Vault //----- [Unskippable] St
     }
     else if sceneDelay>=30
     {
-      fadeAlpha-=0.01
+      fadeAlpha-=0.01*gDeltaTime
       if fadeAlpha<=0 {sceneDelay=0; sceneProgress+=1}
     }
   }
@@ -951,7 +951,7 @@ else if global.gameProgress=2540 and room=rMain_39Vault //----- [6] Got out of t
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=20
     {
-      fadeAlpha-=0.01
+      fadeAlpha-=0.01*gDeltaTime
       if fadeAlpha<=0 {sceneDelay=0; sceneProgress+=1}
     }
   }

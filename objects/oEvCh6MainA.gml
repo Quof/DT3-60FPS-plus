@@ -334,7 +334,7 @@ else if global.gameProgress=1200 and room=rBelmont3_2B //----- [2] After grabbin
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=2
     {
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=288
       {
         scenePChk(oPlayer1.x,288,0,0.1,1)
@@ -411,7 +411,7 @@ else if global.gameProgress=1220 and room=rBelmont3_2D //----- [3] Meet Death - 
     }
     else if sceneDelay>=2
     {
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=224
       {
         scenePChk(oPlayer1.x,224,0,0.1,1)
@@ -552,7 +552,7 @@ else if global.gameProgress=1250 and room=rBelmont3_3B //----- [5] After grabbin
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=2
     {
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=1408
       {
         scenePChk(oPlayer1.x,1408,0,0.1,1)
@@ -599,7 +599,7 @@ else if global.gameProgress=1280 and room=rBelmont3_3F //----- [6] Boss Fight: D
     {
       sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {global.gamePaused=true}
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=288
       {
         oPlayer1.y=288
@@ -1076,7 +1076,7 @@ else if global.gameProgress=1370 and room=rBelmont3_4H //----- [9] After grabbin
     if sceneDelay=1 {global.gamePaused=true}
     else if sceneDelay>=2
     {
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=240
       {
         oPlayer1.y=240
@@ -1243,7 +1243,7 @@ else if global.gameProgress=1430 and room=rBelmont3_6C //----- [] Boss Fight: Me
           with oEnemyBase {image_blend=c_black}
         }
         else if sceneDelay>=101 and sceneDelay<=200 {fadeAlpha-=0.005*gDeltaTime}
-        else if sceneDelay>=201 and sceneDelay<=250 {fadeAlpha-=0.01}
+        else if sceneDelay>=201 and sceneDelay<=250 {fadeAlpha-=0.01*gDeltaTime}
         else if sceneDelay=260
         {
           fadeInCol=0
@@ -1258,7 +1258,7 @@ else if global.gameProgress=1430 and room=rBelmont3_6C //----- [] Boss Fight: Me
         else if sceneDelay>=261 and sceneDelay<=400
         {
           npcDeath.image_alpha-=0.02*gDeltaTime
-          fadeInCol+=3
+          fadeInCol+=3*gDeltaTime
           with oEnemyBase
             image_blend=make_color_rgb(oEvCh6MainA.fadeInCol,oEvCh6MainA.fadeInCol,oEvCh6MainA.fadeInCol)
           if fadeInCol=255 {sceneDelay=500}
@@ -1574,7 +1574,7 @@ else if global.gameProgress=1510 and room=rBelmont3_7G //----- [12] Boss Fight: 
     {
       sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {global.gamePaused=true}
-      oPlayer1.y+=4
+      oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=304
       {
         oPlayer1.y=304
@@ -1621,8 +1621,8 @@ else if global.gameProgress=1510 and room=rBelmont3_7G //----- [12] Boss Fight: 
       }
       else if sceneDelay>=31 and sceneDelay<=55
       {
-        transWidth+=1.5
-        transAlpha+=0.02
+        transWidth+=1.5*gDeltaTime
+        transAlpha+=0.02*gDeltaTime
       }
       else if sceneDelay=120
       {
@@ -1741,17 +1741,17 @@ else if global.gameProgress=1510 and room=rBelmont3_7G //----- [12] Boss Fight: 
       }
       else if sceneDelay>=21 and sceneDelay<=35
       {
-        circleRad+=2
+        circleRad+=2*gDeltaTime
         if sceneDelay=25 {pChip.visible=1}
       }
       else if sceneDelay>=36 and sceneDelay<=50
-        circleRad-=2
+        circleRad-=2*gDeltaTime
       else if sceneDelay>=75 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=5
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay>=21 and sceneDelay<=100
+      if sceneDelay>=21 and sceneDelay<=100 and gDeltaDoTicks
         pChip.y+=1
       else if sceneDelay=130
       {
@@ -1953,12 +1953,12 @@ if oKeyCodes.kCodePressed[11]=1 and global.gamePaused=true and sceneProgress>=1 
 
 if backGBlend=1
 {
-  backCTime+=1
+  backCTime+=1*gDeltaTime
   if backCTime>=1 and backCTime<=150
-    backCChg-=1.25
+    backCChg-=1.25*gDeltaTime
   else if backCTime>=151 and backCTime<=300
   {
-    backCChg+=1.25
+    backCChg+=1.25*gDeltaTime
     if backCTime=300
       backCTime=0
   }

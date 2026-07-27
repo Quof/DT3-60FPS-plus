@@ -47,12 +47,12 @@ if global.gamePaused=false
   {
     if moveProg=0
     {
-      x+=moveSpd
+      x+=moveSpd*gDeltaTime
       if x>rightEnd {moveProg=1}
     }
     else if moveProg=1
     {
-      x-=moveSpd
+      x-=moveSpd*gDeltaTime
       if x<leftEnd {moveProg=0}
     }
   }
@@ -60,12 +60,12 @@ if global.gamePaused=false
   {
     if moveProg=0
     {
-      y+=moveSpd
+      y+=moveSpd*gDeltaTime
       if y>rightEnd {moveProg=1}
     }
     else if moveProg=1
     {
-      y-=moveSpd
+      y-=moveSpd*gDeltaTime
       if y<leftEnd {moveProg=0}
     }
   }

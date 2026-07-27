@@ -28,7 +28,7 @@ if sceneProgress=0 //Fade in
     sceneDelay+=1*gDeltaTime
     if sceneDelay>=1 //75
     {
-      fadeAlpha-=0.01
+      fadeAlpha-=0.01*gDeltaTime
       if fadeAlpha<=0 {sceneDelay=0; sceneProgress+=1}
     }
   }
@@ -210,7 +210,7 @@ else if sceneProgress=7 //-------------------- Fade out --------------------
   }
   if sceneDelay>=610
   {
-    fadeAlpha+=0.01
+    fadeAlpha+=0.01*gDeltaTime
     if fadeAlpha>=1 {global.gamePaused=1; sceneDelay=0; sceneProgress+=1}
   }
 }

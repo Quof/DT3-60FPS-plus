@@ -1104,7 +1104,7 @@ else if global.gameProgress=1980 and room=rMega4_SigmaC5 //----- [Unskippable] B
       }
       else if sceneDelay>=35
       {
-        fadeAlpha-=0.01
+        fadeAlpha-=0.01*gDeltaTime
         if fadeAlpha<=0 {sceneDelay=0; sceneProgress+=1}
       }
     }

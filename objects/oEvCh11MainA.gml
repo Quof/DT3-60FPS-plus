@@ -54,7 +54,7 @@ if global.gameProgress=2560 and room=rCCity_NA_S2 //----- [1] Another talk with 
     sceneDelay+=1*gDeltaTime
     if sceneDelay>=20
     {
-      fadeAlpha-=0.01
+      fadeAlpha-=0.01*gDeltaTime
       if fadeAlpha<=0
       {
         sceneDelay=0
