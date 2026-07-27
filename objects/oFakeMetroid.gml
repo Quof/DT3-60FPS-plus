@@ -33,7 +33,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if global.gamePaused=false && gDeltaDoTicks
+if global.gamePaused=false
 {
   makeEnemyActive(0)
   if life>0
@@ -48,27 +48,29 @@ if global.gamePaused=false && gDeltaDoTicks
 
       if x>oPlayer1.x
       {
-        if currHspd>-maxSpeed {currHspd-=0.2}
+        if currHspd>-maxSpeed {currHspd-=0.2* gDeltaTime}
         else {currHspd=-maxSpeed}
       }
       else if x<oPlayer1.x
       {
-        if currHspd<maxSpeed {currHspd+=0.2}
+        if currHspd<maxSpeed {currHspd+=0.2* gDeltaTime}
         else {currHspd=maxSpeed}
       }
       if y>oPlayer1.y-26
       {
-        if currVspd>-maxSpeed {currVspd-=0.2}
+        if currVspd>-maxSpeed {currVspd-=0.2* gDeltaTime}
         else {currVspd=-maxSpeed}
       }
       else if y<oPlayer1.y-26
       {
-        if currVspd<maxSpeed {currVspd+=0.2}
+        if currVspd<maxSpeed {currVspd+=0.2* gDeltaTime}
         else {currVspd=maxSpeed}
       }
-      hspeed=currHspd; vspeed=currVspd
+      _hspeed=currHspd; _vspeed=currVspd
+      x += _hspeed * gDeltaTime
+      y += _vspeed * gDeltaTime
     }
-    else {hspeed=0; vspeed=0}
+    else {_hspeed=0; _vspeed=0}
   }
   else if life<=0
   {
@@ -77,16 +79,16 @@ if global.gamePaused=false && gDeltaDoTicks
     {
       playSound(global.snd_HardHit1,0,0.9,1)
       image_speed=0
-      hspeed=0; vspeed=0
+      _hspeed=0; _vspeed=0
       baseColor=c_red; image_blend=c_red
       tEffect=instance_create(x,y,oEffect)
       tEffect.sprite_index=sDeathFlameA; tEffect.image_speed=0.33; tEffect.image_xscale=2; tEffect.image_yscale=2; tEffect.image_alpha=0.8
       tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
       tEfCir=instance_create(x,y,oEfCircleBlast); tEfCir.image_alpha=0.75; tEfCir.myRad=4; tEfCir.radScl=2; tEfCir.fadeSpeed=0.1
     }
-    image_alpha-=0.1
+    image_alpha-=0.1* gDeltaTime
     if image_alpha<0 {instance_destroy()}
   }
   enemyStepEvent()
 }
-else {hspeed=0; vspeed=0}
+else {_hspeed=0; _vspeed=0}
