@@ -28,8 +28,8 @@ applies_to=self
 */
 if global.gamePaused=0
 {
-  image_xscale+=0.04
-  image_yscale+=0.04
+  image_xscale+=0.04*gDeltaTime
+  image_yscale+=0.04*gDeltaTime
 
   if image_xscale=0.72 {colorChange=210}
   if colorChange<255 {colorChange+=3}

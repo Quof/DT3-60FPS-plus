@@ -49,7 +49,7 @@ if global.gamePaused=false
       shotDir+=17
     }
 
-    image_xscale-=0.0075; image_yscale-=0.0075
+    image_xscale-=0.0075*gDeltaTime; image_yscale-=0.0075*gDeltaTime
     y+=0.45
     if y>=oSera.y
     {

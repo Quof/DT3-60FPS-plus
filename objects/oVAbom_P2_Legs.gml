@@ -31,7 +31,7 @@ if global.gamePaused=false
 {
   if image_xscale<1.5
   {
-    image_xscale+=0.02; image_yscale+=0.02
+    image_xscale+=0.02*gDeltaTime; image_yscale+=0.02*gDeltaTime
   }
   if bMove=1 {image_angle+=sin(oGame.time/2.5+waveOffset)}
   enemyStepEvent()

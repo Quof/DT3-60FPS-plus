@@ -47,7 +47,7 @@ if global.gamePaused=false
   else
   {
     initTime+=1
-    if initTime>=1 and initTime<=9 {image_xscale+=0.1; image_yscale+=0.1}
+    if initTime>=1 and initTime<=9 {image_xscale+=0.1*gDeltaTime; image_yscale+=0.1*gDeltaTime}
     if initTime>=20
     {
       direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())

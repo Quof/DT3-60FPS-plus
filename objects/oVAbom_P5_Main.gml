@@ -300,8 +300,8 @@ if global.gamePaused=false
     if seqTime=11 {instance_create(x+152,y-140,oVAbomP5_Head)}
     else if seqTime>=11 and seqTime<=90
     {
-      oVAbomP5_Head.image_xscale+=0.025
-      oVAbomP5_Head.image_yscale+=0.025
+      oVAbomP5_Head.image_xscale+=0.025*gDeltaTime
+      oVAbomP5_Head.image_yscale+=0.025*gDeltaTime
     }
     else if seqTime>=101 and seqTime<=115 {oVAbomP5_Head.jawAngle+=1}
     else if seqTime=130
@@ -415,8 +415,8 @@ if global.gamePaused=false
   }
   else if sequence=14 //----- Shrink back -----
   {
-    oVAbomP5_Head.image_xscale-=0.025
-    oVAbomP5_Head.image_yscale-=0.025
+    oVAbomP5_Head.image_xscale-=0.025*gDeltaTime
+    oVAbomP5_Head.image_yscale-=0.025*gDeltaTime
     oVAbomP5_Head.y+=1
     if oVAbomP5_Head.image_xscale<=0.3
     {

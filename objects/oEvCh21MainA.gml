@@ -975,7 +975,7 @@ else if room=rDistFinal_Round2 //----- [9] Hexor asks Jeremy how he took the shi
     sceneDelay+=1*gDeltaTime
     if sceneDelay>=20
     {
-      oHexor_Main_R2.image_xscale-=0.2; oHexor_Main_R2.image_yscale+=0.2
+      oHexor_Main_R2.image_xscale-=0.2*gDeltaTime; oHexor_Main_R2.image_yscale+=0.2*gDeltaTime
       if hexorFadeBlack>0
       {
         hexorFadeBlack-=5
@@ -1014,8 +1014,8 @@ else if room=rDistFinal_Round3 //----- [10] Jeremy gets bigger -----
     }
     else if sceneDelay>=21 and sceneDelay<=70
     {
-      (GID(467397)).image_xscale+=0.02;
-      (GID(467397)).image_yscale+=0.02;
+      (GID(467397)).image_xscale+=0.02*gDeltaTime;
+      (GID(467397)).image_yscale+=0.02*gDeltaTime;
     }
     else if sceneDelay=71
     {

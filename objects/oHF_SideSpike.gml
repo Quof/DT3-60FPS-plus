@@ -46,12 +46,12 @@ if global.gamePaused=false
     {
       if sizeUp=1
       {
-        image_xscale+=0.004; image_yscale+=0.004
+        image_xscale+=0.004*gDeltaTime; image_yscale+=0.004*gDeltaTime
         if image_xscale>=1.2 {sizeUp=0}
       }
       else
       {
-        image_xscale-=0.004; image_yscale-=0.004
+        image_xscale-=0.004*gDeltaTime; image_yscale-=0.004*gDeltaTime
         if image_xscale<=1 {sizeUp=1}
       }
     }
@@ -59,12 +59,12 @@ if global.gamePaused=false
     {
       if sizeUp=1
       {
-        image_xscale-=0.004; image_yscale+=0.004
+        image_xscale-=0.004*gDeltaTime; image_yscale+=0.004*gDeltaTime
         if image_xscale<=-1.2 {sizeUp=0}
       }
       else
       {
-        image_xscale+=0.004; image_yscale-=0.004
+        image_xscale+=0.004*gDeltaTime; image_yscale-=0.004*gDeltaTime
         if image_xscale>=-1 {sizeUp=1}
       }
     }

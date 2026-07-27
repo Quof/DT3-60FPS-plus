@@ -23,11 +23,11 @@ if global.gamePaused=false
   chainProg+=1
   if chainProg>=1 and chainProg<=16
   {
-    image_xscale+=(0.5*ownerID.image_xscale)
+    image_xscale+=(0.5*ownerID.image_xscale)*gDeltaTime
   }
   else if chainProg>=19 and chainProg<=34
   {
-    image_xscale-=(0.5*ownerID.image_xscale)
+    image_xscale-=(0.5*ownerID.image_xscale)*gDeltaTime
   }
   else if chainProg>=35
   {

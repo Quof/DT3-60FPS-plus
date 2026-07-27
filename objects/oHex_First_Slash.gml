@@ -24,7 +24,7 @@ applies_to=self
 if global.gamePaused=false
 {
   timeToHit+=1
-  if timeToHit<10 {image_xscale+=67} //Grow
+  if timeToHit<10 {image_xscale+=67*gDeltaTime} //Grow
 
   if timeToHit=35 {lineColor=c_red}
   if timeToHit>=35 and timeToHit<=44 {lineWidth+=0.5} //Damage warn

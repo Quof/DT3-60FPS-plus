@@ -23,10 +23,10 @@ if type=0 //Veins
   else if alphaPulse>=260 {alphaPulse=0}
 
   scalePulse+=1
-  if scalePulse>=1 and scalePulse<=80 {image_xscale+=0.0005; image_yscale+=0.0005}
+  if scalePulse>=1 and scalePulse<=80 {image_xscale+=0.0005*gDeltaTime; image_yscale+=0.0005*gDeltaTime}
   else if scalePulse>=81
   {
-    image_xscale-=0.0005; image_yscale-=0.0005
+    image_xscale-=0.0005*gDeltaTime; image_yscale-=0.0005*gDeltaTime
     if scalePulse>=160 {scalePulse=0}
   }
 }

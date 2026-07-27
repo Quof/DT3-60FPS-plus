@@ -23,7 +23,7 @@ applies_to=self
 event_inherited()
 if global.gamePaused=false
 {
-  image_xscale+=0.02; image_yscale+=0.02
+  image_xscale+=0.02*gDeltaTime; image_yscale+=0.02*gDeltaTime
   image_alpha-=0.005*gDeltaTime
   lifeTime-=1
   if lifeTime>=10 and lifeTime<=1 {image_alpha-=0.05*gDeltaTime}

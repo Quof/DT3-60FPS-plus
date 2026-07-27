@@ -20,7 +20,7 @@ applies_to=self
 //Move the platform continuously in one direction
 if global.gamePaused=false
 {
-  if image_xscale<1 {image_xscale+=0.2; image_yscale+=0.2}
+  if image_xscale<1 {image_xscale+=0.2*gDeltaTime; image_yscale+=0.2*gDeltaTime}
   distToGo-=1
   if distToGo<=30 {myColor-=7}
   if distToGo<=0 {instance_destroy()}

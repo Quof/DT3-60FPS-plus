@@ -1071,7 +1071,7 @@ else if global.gameProgress=3470 and room=rGame6_EarthJ //----- [] Boss Fight: T
         tEffect.type=2; tEffect.grav=0.8; tEffect.rotation=tXSpd*2; tEffect.newBlend=-1; tEffect.followID=-1
         tEffect.image_xscale=0.25; tEffect.image_yscale=0.25
 
-        npcBoss.image_yscale+=0.01
+        npcBoss.image_yscale+=0.01*gDeltaTime
         if npcBoss.image_yscale>=1 {sceneDelay=0; sceneProgress+=1}
       }
     }
@@ -1306,7 +1306,7 @@ else if global.gameProgress=3490 and room=rGame6_JDream //----- [11] Jerry's des
         if i mod 2=0 {efStars[i].image_angle+=2*(i*2)}
         else {efStars[i].image_angle-=2*(i*2)}
       }
-      efCharge.image_xscale-=0.1; efCharge.image_yscale-=0.1
+      efCharge.image_xscale-=0.1*gDeltaTime; efCharge.image_yscale-=0.1*gDeltaTime
     }
     else if sceneDelay=80
     {
@@ -2674,7 +2674,7 @@ else if global.gameProgress=3770 and room=rGame6_DreamWoodsF //----- [Unskippabl
         if i mod 2=0 {efStars[i].image_angle+=2*(i*2)}
         else {efStars[i].image_angle-=2*(i*2)}
       }
-      efCharge.image_xscale-=0.1; efCharge.image_yscale-=0.1
+      efCharge.image_xscale-=0.1*gDeltaTime; efCharge.image_yscale-=0.1*gDeltaTime
     }
     else if sceneDelay=80
     {

@@ -25,8 +25,8 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  if room=rWarshipZ_E3 {image_xscale+=0.12; image_yscale+=0.12} //EX MODE
-  else {image_xscale+=0.11; image_yscale+=0.11}
+  if room=rWarshipZ_E3 {image_xscale+=0.12*gDeltaTime; image_yscale+=0.12*gDeltaTime} //EX MODE
+  else {image_xscale+=0.11*gDeltaTime; image_yscale+=0.11*gDeltaTime}
 
   atkTime+=1*gDeltaTime
   if atkTime>=12

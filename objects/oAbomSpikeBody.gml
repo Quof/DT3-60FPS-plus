@@ -36,7 +36,7 @@ if global.gamePaused=false
 {
   if sequence=0
   {
-    image_xscale+=0.02; image_yscale+=0.02
+    image_xscale+=0.02*gDeltaTime; image_yscale+=0.02*gDeltaTime
     if image_xscale>=1.5
     {
       image_xscale=1.5; image_yscale=1.5

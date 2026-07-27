@@ -63,8 +63,8 @@ if global.gamePaused=false
   }
   else if pullProg=2 //Shrink to nothingness
   {
-    image_xscale-=0.075
-    image_yscale-=0.075
+    image_xscale-=0.075*gDeltaTime
+    image_yscale-=0.075*gDeltaTime
     if image_xscale<=0.075
     {
       instance_destroy()

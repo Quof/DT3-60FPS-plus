@@ -24,7 +24,7 @@ if global.gamePaused=false
 
   if myProg=0
   {
-    image_xscale+=0.01; image_yscale+=0.01
+    image_xscale+=0.01*gDeltaTime; image_yscale+=0.01*gDeltaTime
     if image_xscale=maxScale
     {
       myProg=1

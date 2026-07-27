@@ -40,7 +40,7 @@ if global.gamePaused=false
       playSound(global.snd_Dec_ChargeUp,0,0.95,24000)
       initSoundPlay=1
     }
-    image_xscale+=0.02; image_yscale+=0.02
+    image_xscale+=0.02*gDeltaTime; image_yscale+=0.02*gDeltaTime
 
     var tEffect,tFFScl,tFFDir;
     tFFScl=random(0.1)

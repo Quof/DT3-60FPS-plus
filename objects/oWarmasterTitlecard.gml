@@ -16,7 +16,7 @@ if type=0 //Main
 {
   if displayTime>=1 and displayTime<=50
   {
-    image_xscale-=0.02; image_yscale-=0.02
+    image_xscale-=0.02*gDeltaTime; image_yscale-=0.02*gDeltaTime
     image_alpha+=0.02*gDeltaTime
     if displayTime mod 2=0
     {
@@ -42,7 +42,7 @@ else if type=1 //Sub
 {
   if displayTime>=1 and displayTime<=10
   {
-    image_xscale+=0.025; image_yscale+=0.025
+    image_xscale+=0.025*gDeltaTime; image_yscale+=0.025*gDeltaTime
     image_alpha-=0.02*gDeltaTime
     if image_alpha<=0 {instance_destroy()}
   }

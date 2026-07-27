@@ -24,8 +24,8 @@ if global.gamePaused=false
 {
   if atkProg=0 //Grow
   {
-    image_xscale+=0.1
-    image_yscale+=0.1
+    image_xscale+=0.1*gDeltaTime
+    image_yscale+=0.1*gDeltaTime
     if image_xscale=1 {atkProg=1}
   }
   else if atkProg=1 //Move along room

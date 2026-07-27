@@ -18,8 +18,8 @@ applies_to=self
 */
 if lightningProg=0
 {
-  image_xscale+=0.2
-  image_yscale+=0.2
+  image_xscale+=0.2*gDeltaTime
+  image_yscale+=0.2*gDeltaTime
   if image_xscale>=1 {lightningProg+=1}
 }
 else if lightningProg=1

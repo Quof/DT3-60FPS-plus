@@ -30,7 +30,7 @@ if global.gamePaused=false
   {
     if atkTime>=30
     {
-      image_xscale+=0.05; image_yscale+=0.05
+      image_xscale+=0.05*gDeltaTime; image_yscale+=0.05*gDeltaTime
       if atkTime mod 2=0
       {
         if image_blend=c_white {image_blend=c_red}

@@ -1462,7 +1462,7 @@ else if global.gameProgress=4120 and room=rHPF_U //----- [Unskippable] Enemy Tra
             tEffect.fadeSpd=0.05; tEffect.newBlend=-1; tEffect.image_xscale=0.75; tEffect.image_yscale=0.75
             tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=random_range(-2,2); tEffect.ySpd=-5-random(2); tEffect.type=1
           }
-          eImageDrop.image_yscale+=0.01
+          eImageDrop.image_yscale+=0.01*gDeltaTime
         }
         else if sceneDelay>=120 {sceneDelay=0; sceneProgress+=1}
       }

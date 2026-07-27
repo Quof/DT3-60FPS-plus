@@ -30,7 +30,7 @@ if partProg=0
 }
 if partProg=1
 {
-  image_xscale+=0.02; image_xscale+=0.02
+  image_xscale+=0.02*gDeltaTime; image_xscale+=0.02*gDeltaTime
   partTime+=1
   if partTime>=10
   {
@@ -39,7 +39,7 @@ if partProg=1
 }
 else if partProg=2
 {
-  image_xscale-=0.01; image_xscale-=0.01
+  image_xscale-=0.01*gDeltaTime; image_xscale-=0.01*gDeltaTime
   image_alpha-=0.3*gDeltaTime
   if image_alpha<=0 {instance_destroy()}
 }

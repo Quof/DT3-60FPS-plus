@@ -16,11 +16,11 @@ if global.gamePaused=false
 {
   if bUsed=2
   {
-    image_xscale-=0.2
+    image_xscale-=0.2*gDeltaTime
     if image_xscale<=0 {instance_destroy()}
   }
   else
   {
-    if image_xscale<1 {image_xscale+=0.2}
+    if image_xscale<1 {image_xscale+=0.2*gDeltaTime}
   }
 }

@@ -15,8 +15,8 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-image_xscale+=0.15
-image_yscale+=0.15
+image_xscale+=0.15*gDeltaTime
+image_yscale+=0.15*gDeltaTime
 #define Collision_oPlayer1
 /*"/*'/**//* YYD ACTION
 lib_id=1

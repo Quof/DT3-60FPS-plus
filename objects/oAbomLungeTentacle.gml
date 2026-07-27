@@ -42,7 +42,7 @@ if global.gamePaused=false
     else
     {
       visible=1
-      image_xscale+=0.04; image_yscale+=0.04
+      image_xscale+=0.04*gDeltaTime; image_yscale+=0.04*gDeltaTime
       if image_xscale>=1
       {
         bCanDealDamage=1

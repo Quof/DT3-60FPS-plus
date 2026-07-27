@@ -221,7 +221,7 @@ if global.gameProgress=1760 and room=rMega4_Gate //----- [Unskippable] Intro to 
     if sceneDelay>=171 and sceneDelay<=379 //Charge effect scale down
     {
       efCharge.x=npcMMX.x; efCharge.y=npcMMX.y-20
-      efCharge.image_xscale-=0.019; efCharge.image_yscale-=0.019
+      efCharge.image_xscale-=0.019*gDeltaTime; efCharge.image_yscale-=0.019*gDeltaTime
     }
     if sceneDelay<=379 {if triAlpha>0 {triAlpha-=0.1}} //Fade Tri-Flash effect
     if sceneDelay>=421 and sceneDelay<=480 and sceneDelay mod 3=0 //Back image effect
@@ -374,8 +374,8 @@ if global.gameProgress=1760 and room=rMega4_Gate //----- [Unskippable] Intro to 
     }
     else if sceneDelay>=1912 and sceneDelay<=1951
     {
-      abilNotice.image_xscale-=0.1
-      abilNotice.image_yscale-=0.1
+      abilNotice.image_xscale-=0.1*gDeltaTime
+      abilNotice.image_yscale-=0.1*gDeltaTime
     }
     else if sceneDelay=1952
     {
@@ -1276,8 +1276,8 @@ else if room=rMega4_OstrichE //----- [Unskippable] Boss Fight: Overdrive Ostrich
         }
         if boss.image_xscale<1
         {
-          boss.image_xscale+=0.02
-          boss.image_yscale+=0.02
+          boss.image_xscale+=0.02*gDeltaTime
+          boss.image_yscale+=0.02*gDeltaTime
         }
         if yVel<8
         {
@@ -1560,8 +1560,8 @@ else if room=rMega4_ToxicJungleE //----- [Unskippable] Boss Fight: Gravity Beetl
         {
           if newGravEf.image_xscale<1
           {
-            newGravEf.image_xscale+=0.05
-            newGravEf.image_yscale+=0.05
+            newGravEf.image_xscale+=0.05*gDeltaTime
+            newGravEf.image_yscale+=0.05*gDeltaTime
           }
           if sceneDelay mod 4=0 {newGravEf.image_angle=random(360)}
         }

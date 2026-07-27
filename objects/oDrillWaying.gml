@@ -53,7 +53,7 @@ if global.gamePaused=false
     if drillProg=0 //Start drill
     {
       colDrill.yVel=-4
-      colDrill.image_yscale+=0.25
+      colDrill.image_yscale+=0.25*gDeltaTime
       y-=4
       image_speed=0.3
       if colDrill.image_yscale=drillMax {image_index=0; drillProg=1}

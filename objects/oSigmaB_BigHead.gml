@@ -267,8 +267,8 @@ if global.gamePaused=false
         }
         else if spikeSeq>=12 and spikeSeq<=20
         {
-          mySpikeA.image_xscale-=0.1
-          mySpikeB.image_xscale+=0.1
+          mySpikeA.image_xscale-=0.1*gDeltaTime
+          mySpikeB.image_xscale+=0.1*gDeltaTime
         }
       }
       else if spikeType=2 //Top
@@ -280,7 +280,7 @@ if global.gamePaused=false
           mySpikeA.sprite_index=sSigmaB_HeadSpike; mySpikeA.image_xscale=-0.1; mySpikeA.image_angle=90
           mySpikeA.bFollow=1; mySpikeA.idFollow=id; mySpikeA.xFollow=11; mySpikeA.yFollow=-40
         }
-        else if spikeSeq>=12 and spikeSeq<=20 {mySpikeA.image_xscale-=0.1}
+        else if spikeSeq>=12 and spikeSeq<=20 {mySpikeA.image_xscale-=0.1*gDeltaTime}
       }
     }
   }

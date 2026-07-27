@@ -476,7 +476,7 @@ if room=rExtGateA_6 //----- [A] Boss Fight: Kamek -----
         else if sceneDelay>=111 and sceneDelay<=299 //Shadow
         {
           if kamShadow.image_alpha<0.6 {kamShadow.image_alpha+=0.02*gDeltaTime}
-          kamShadow.image_xscale+=0.025; kamShadow.image_yscale-=0.04
+          kamShadow.image_xscale+=0.025*gDeltaTime; kamShadow.image_yscale-=0.04*gDeltaTime
           if kamShadow.image_yscale<=1
           {
             with kamShadow {instance_destroy()}
@@ -956,7 +956,7 @@ else if room=rExtGateE_5 //----- [E] Boss Fight: Shadow Form -----
         npcShadow.image_yscale=1
         sceneProgress+=1
       }
-      else {npcShadow.image_yscale+=0.0018}
+      else {npcShadow.image_yscale+=0.0018*gDeltaTime}
     }
     else if sceneProgress=3
     {

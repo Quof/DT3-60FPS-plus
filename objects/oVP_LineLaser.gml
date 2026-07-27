@@ -43,11 +43,11 @@ if global.gamePaused=false
 
   if laserProg=0
   {
-    if image_xscale<maxLength {image_xscale+=2}
+    if image_xscale<maxLength {image_xscale+=2*gDeltaTime}
   }
   else if laserProg=1
   {
-    image_xscale-=4
+    image_xscale-=4*gDeltaTime
     if image_xscale<=4 {instance_destroy()}
   }
   image_angle-=spinSpd

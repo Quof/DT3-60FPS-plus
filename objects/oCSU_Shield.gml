@@ -24,7 +24,7 @@ if global.gamePaused=false
 {
   if atkProg=0 //Grow shield
   {
-    image_xscale+=0.1; image_yscale+=0.1
+    image_xscale+=0.1*gDeltaTime; image_yscale+=0.1*gDeltaTime
     if image_xscale=1.3 {atkProg=1}
   }
   if !instance_exists(ownerID) {instance_destroy()}

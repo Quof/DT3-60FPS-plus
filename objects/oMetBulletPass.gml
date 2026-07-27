@@ -30,7 +30,7 @@ if global.gamePaused=false
   speed=bulletSpeed
   if sprite_index=sRidleyFireball
   {
-    image_xscale+=0.01; image_yscale+=0.01
+    image_xscale+=0.01*gDeltaTime; image_yscale+=0.01*gDeltaTime
     image_angle-=15
   }
 }

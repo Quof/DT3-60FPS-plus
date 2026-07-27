@@ -36,7 +36,7 @@ else if changeProg=3
   changeTime+=1
   if changeTime>=5
   {
-    image_xscale+=0.02; image_yscale+=0.02
+    image_xscale+=0.02*gDeltaTime; image_yscale+=0.02*gDeltaTime
     if image_xscale>=1 {changeTime=0; changeProg+=1}
   }
 }

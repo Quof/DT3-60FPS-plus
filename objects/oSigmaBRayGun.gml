@@ -34,7 +34,7 @@ if global.gamePaused=false
   image_angle=oSigmaB.sigParts[2].image_angle-180
   if atkProg=0 //Grow x scale
   {
-    image_xscale+=0.2
+    image_xscale+=0.2*gDeltaTime
     if image_xscale>=2
     {
       image_xscale=2
@@ -43,7 +43,7 @@ if global.gamePaused=false
   }
   else if atkProg=1 //Grow y scale
   {
-    image_yscale+=0.2
+    image_yscale+=0.2*gDeltaTime
     if image_yscale>=2
     {
       image_yscale=2
@@ -52,8 +52,8 @@ if global.gamePaused=false
   }
   else if atkProg=3 //Shrink down
   {
-    image_xscale-=0.2
-    image_yscale-=0.2
+    image_xscale-=0.2*gDeltaTime
+    image_yscale-=0.2*gDeltaTime
     if image_xscale<=0.2 {instance_destroy()}
   }
 }

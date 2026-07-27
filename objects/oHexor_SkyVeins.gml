@@ -14,13 +14,13 @@ applies_to=self
 */
 if scaleUp=1
 {
-  image_xscale+=0.002
-  image_yscale+=0.002
+  image_xscale+=0.002*gDeltaTime
+  image_yscale+=0.002*gDeltaTime
 }
 else
 {
-  image_xscale-=0.002
-  image_yscale-=0.002
+  image_xscale-=0.002*gDeltaTime
+  image_yscale-=0.002*gDeltaTime
 }
 
 scaleTime+=1

@@ -23,10 +23,10 @@ applies_to=self
 if global.gamePaused=false
 {
   pulsate+=1
-  if pulsate>=1 and pulsate<=9 {image_yscale+=0.02}
+  if pulsate>=1 and pulsate<=9 {image_yscale+=0.02*gDeltaTime}
   if pulsate>=10 and pulsate<=18
   {
-    image_yscale-=0.02
+    image_yscale-=0.02*gDeltaTime
     pulsate=0
   }
 }

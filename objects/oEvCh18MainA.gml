@@ -1332,13 +1332,13 @@ else if global.gameProgress=4470 and room=rLowFacCutA //----- [] CHAOS Warship t
       theWarship.y-=0.1
       if theWarship.image_xscale<0.15
       {
-        theWarship.image_xscale+=0.0005; theWarship.image_yscale+=0.0005
+        theWarship.image_xscale+=0.0005*gDeltaTime; theWarship.image_yscale+=0.0005*gDeltaTime
       }
     }
     else if sceneDelay>=340 and sceneDelay<=490 //Ship flies right
     {
       theWarship.x+=2
-      theWarship.image_xscale+=0.0005; theWarship.image_yscale+=0.0005
+      theWarship.image_xscale+=0.0005*gDeltaTime; theWarship.image_yscale+=0.0005*gDeltaTime
       var tEffect;
       tEffect=instance_create(theWarship.x-14,theWarship.y+random_range(-8,8),oEffect)
       tEffect.sprite_index=sShipExplosion; tEffect.followID=-1; tEffect.xFollow=0; tEffect.yFollow=0

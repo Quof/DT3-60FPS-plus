@@ -35,8 +35,8 @@ if global.gamePaused=false
   speed=moveSpd
   if type=2
   {
-    if room=rWarshipZ_E3 {image_xscale+=0.021; image_yscale+=0.021} //EX MODE
-    else {image_xscale+=0.02; image_yscale+=0.02}
+    if room=rWarshipZ_E3 {image_xscale+=0.021*gDeltaTime; image_yscale+=0.021*gDeltaTime} //EX MODE
+    else {image_xscale+=0.02*gDeltaTime; image_yscale+=0.02*gDeltaTime}
   }
 }
 else {speed=0}

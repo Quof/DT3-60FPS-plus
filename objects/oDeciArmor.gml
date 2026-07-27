@@ -48,7 +48,7 @@ if global.gamePaused=false
     if myProg=0
     {
       if image_alpha<1 {image_alpha+=0.05*gDeltaTime}
-      if image_xscale>1 {image_xscale-=0.05; image_yscale-=0.05}
+      if image_xscale>1 {image_xscale-=0.05*gDeltaTime; image_yscale-=0.05*gDeltaTime}
       progTime+=1
       if progTime=25
       {

@@ -60,7 +60,7 @@ if global.gamePaused=false
 
     if AIprog=0
     {
-      image_xscale+=0.1; image_yscale+=0.1
+      image_xscale+=0.1*gDeltaTime; image_yscale+=0.1*gDeltaTime
       if image_xscale>=1
       {
         bCanTakeDamage=1

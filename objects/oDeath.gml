@@ -704,8 +704,8 @@ if global.gamePaused=false
       
       if boss.image_xscale<1.5
       {
-        boss.image_xscale+=0.01
-        boss.image_yscale+=0.01
+        boss.image_xscale+=0.01*gDeltaTime
+        boss.image_yscale+=0.01*gDeltaTime
       }
       
       if deathAnim>=1135

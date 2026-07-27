@@ -30,7 +30,7 @@ if global.gamePaused=false
   else if type=1 //Fast shot
   {
     speed=bulletSpeed
-    image_xscale+=0.05; image_yscale+=0.05
+    image_xscale+=0.05*gDeltaTime; image_yscale+=0.05*gDeltaTime
 
     explodeTime-=1
     if explodeTime<=0

@@ -39,7 +39,7 @@ if global.gamePaused=false
     }
     else if atkProg=1 //Grow
     {
-      image_yscale+=0.3
+      image_yscale+=0.3*gDeltaTime
       if image_yscale>=3 {atkProg=2}
     }
     else if atkProg=2 //Fire

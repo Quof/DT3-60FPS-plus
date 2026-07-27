@@ -123,8 +123,8 @@ if global.gameProgress=620 and room=rLink2_HP //----- [1] Intro to Hyrule - Ch.4
         if i mod 2=0 {efStars[i].image_angle+=2*(i*2)}
         else {efStars[i].image_angle-=2*(i*2)}
       }
-      efCharge.image_xscale-=0.1
-      efCharge.image_yscale-=0.1
+      efCharge.image_xscale-=0.1*gDeltaTime
+      efCharge.image_yscale-=0.1*gDeltaTime
     }
     else if sceneDelay=80
     {

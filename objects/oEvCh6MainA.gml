@@ -148,7 +148,7 @@ if global.gameProgress=1150 and room=rBelmont3_Gate //----- [1] Intro to Transyl
         if i mod 2=0 {efStars[i].image_angle+=2*(i*2)}
         else {efStars[i].image_angle-=2*(i*2)}
       }
-      efCharge.image_xscale-=0.1; efCharge.image_yscale-=0.1
+      efCharge.image_xscale-=0.1*gDeltaTime; efCharge.image_yscale-=0.1*gDeltaTime
     }
     else if sceneDelay=80
     {
@@ -162,7 +162,7 @@ if global.gameProgress=1150 and room=rBelmont3_Gate //----- [1] Intro to Transyl
     }
     else if sceneDelay>=96 and sceneDelay<134
     {
-      abilNotice.image_xscale-=0.1; abilNotice.image_yscale-=0.1
+      abilNotice.image_xscale-=0.1*gDeltaTime; abilNotice.image_yscale-=0.1*gDeltaTime
     }
     else if sceneDelay=135
     {
@@ -502,7 +502,7 @@ else if global.gameProgress=1220 and room=rBelmont3_2D //----- [3] Meet Death - 
     {
       if tColor>0 {tColor-=15}
       npcDeath.image_blend=make_color_rgb(tColor,tColor,tColor)
-      npcDeath.image_xscale+=0.1; npcDeath.image_yscale+=0.1; npcDeath.image_alpha-=0.05*gDeltaTime
+      npcDeath.image_xscale+=0.1*gDeltaTime; npcDeath.image_yscale+=0.1*gDeltaTime; npcDeath.image_alpha-=0.05*gDeltaTime
     }
     else if sceneDelay=31
     {
@@ -742,7 +742,7 @@ else if global.gameProgress=1280 and room=rBelmont3_3F //----- [6] Boss Fight: D
       sceneDelay+=1*gDeltaTime
       if sceneDelay>=11 and sceneDelay<=30
       {
-        npcDeath.image_xscale+=0.05; npcDeath.image_yscale+=0.05
+        npcDeath.image_xscale+=0.05*gDeltaTime; npcDeath.image_yscale+=0.05*gDeltaTime
         npcDeath.image_alpha-=0.05*gDeltaTime
       }
       else if sceneDelay=31

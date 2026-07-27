@@ -23,7 +23,7 @@ if atkProg=0
     playSound(global.snd_WepCharge,0,0.95,11000)
     initSoundPlay=1
   }
-  image_xscale+=0.01; image_yscale+=0.01
+  image_xscale+=0.01*gDeltaTime; image_yscale+=0.01*gDeltaTime
 
   var tEffect,tFFScl,tFFDir;
   tFFScl=random(0.1)

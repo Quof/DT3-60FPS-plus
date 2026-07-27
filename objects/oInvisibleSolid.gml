@@ -13,7 +13,7 @@ applies_to=self
 */
 if y<=0
 {
-  image_yscale+=16
+  image_yscale+=16*gDeltaTime
   y-=256
 }
 
@@ -21,5 +21,5 @@ var yLimit;
 yLimit=y+(image_yscale*16)
 if yLimit>=room_height
 {
-  image_yscale+=8
+  image_yscale+=8*gDeltaTime
 }

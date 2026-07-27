@@ -509,7 +509,7 @@ if global.gamePaused=false
       else if nightmareZoneA>=2
       {
         nZone1.x-=1; nZone1.y-=1
-        nZone1.image_xscale+=2; nZone1.image_yscale+=2
+        nZone1.image_xscale+=2*gDeltaTime; nZone1.image_yscale+=2*gDeltaTime
         if nZone1.image_xscale>=64 {nightmareZoneA=-1}
       }
     }
@@ -526,9 +526,9 @@ if global.gamePaused=false
       else if nightmareZoneB>=2
       {
         nZone2.x-=1; nZone2.y-=1
-        nZone2.image_xscale+=2; nZone2.image_yscale+=2
+        nZone2.image_xscale+=2*gDeltaTime; nZone2.image_yscale+=2*gDeltaTime
         nZone3.x-=1; nZone3.y-=1
-        nZone3.image_xscale+=2; nZone3.image_yscale+=2
+        nZone3.image_xscale+=2*gDeltaTime; nZone3.image_yscale+=2*gDeltaTime
         if nZone2.image_xscale>=64 {nightmareZoneB=-1}
       }
     }
@@ -545,9 +545,9 @@ if global.gamePaused=false
       else if nightmareZoneC>=2
       {
         nZone4.x-=1; nZone4.y-=1
-        nZone4.image_xscale+=2; nZone4.image_yscale+=2
+        nZone4.image_xscale+=2*gDeltaTime; nZone4.image_yscale+=2*gDeltaTime
         nZone5.x-=1; nZone5.y-=1
-        nZone5.image_xscale+=2; nZone5.image_yscale+=2
+        nZone5.image_xscale+=2*gDeltaTime; nZone5.image_yscale+=2*gDeltaTime
         if nZone4.image_xscale>=64 {nightmareZoneC=-1}
       }
     }
@@ -562,7 +562,7 @@ if global.gamePaused=false
       else if nightmareZoneD>=2
       {
         nZoneFind.x-=1; nZoneFind.y-=1
-        nZoneFind.image_xscale+=2; nZoneFind.image_yscale+=2
+        nZoneFind.image_xscale+=2*gDeltaTime; nZoneFind.image_yscale+=2*gDeltaTime
         if nZoneFind.image_xscale>=64 {nZoneFind.bSeeking=1; nightmareZoneD=-1}
       }
     }

@@ -460,8 +460,8 @@ if global.gamePaused=false
     }
     else if seqTime>=261 and seqTime<=280
     {
-      myCollisionLegLeft[0].image_xscale+=0.05; myCollisionLegLeft[0].image_yscale+=0.05
-      myCollisionLegRight[0].image_xscale+=0.05; myCollisionLegRight[0].image_yscale+=0.05
+      myCollisionLegLeft[0].image_xscale+=0.05*gDeltaTime; myCollisionLegLeft[0].image_yscale+=0.05*gDeltaTime
+      myCollisionLegRight[0].image_xscale+=0.05*gDeltaTime; myCollisionLegRight[0].image_yscale+=0.05*gDeltaTime
     }
     else if seqTime=290
     {
@@ -472,8 +472,8 @@ if global.gamePaused=false
     }
     else if seqTime>=291 and seqTime<=310
     {
-      myCollisionLegLeft[1].image_xscale+=0.05; myCollisionLegLeft[1].image_yscale+=0.05
-      myCollisionLegRight[1].image_xscale+=0.05; myCollisionLegRight[1].image_yscale+=0.05
+      myCollisionLegLeft[1].image_xscale+=0.05*gDeltaTime; myCollisionLegLeft[1].image_yscale+=0.05*gDeltaTime
+      myCollisionLegRight[1].image_xscale+=0.05*gDeltaTime; myCollisionLegRight[1].image_yscale+=0.05*gDeltaTime
     }
     else if seqTime=320
     {

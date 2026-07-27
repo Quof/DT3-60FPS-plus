@@ -60,7 +60,7 @@ if global.gamePaused=false
         tAfterI.imageFade=0.05; tAfterI.xScaling=-0.2; tAfterI.yScaling=-0.2; tAfterI.bFollow=0
       }
 
-      image_xscale+=0.04; image_yscale+=0.04
+      image_xscale+=0.04*gDeltaTime; image_yscale+=0.04*gDeltaTime
       if image_xscale>=1
       {
 

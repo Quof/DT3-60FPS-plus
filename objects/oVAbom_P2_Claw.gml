@@ -33,7 +33,7 @@ if global.gamePaused=false
   if life<100000 {life=1000000}
   if room=rVault_5
   {
-    if image_xscale<1.5 {image_xscale+=0.04; image_yscale+=0.04}
+    if image_xscale<1.5 {image_xscale+=0.04*gDeltaTime; image_yscale+=0.04*gDeltaTime}
     image_angle=point_direction(x+lengthdir_x(138,22),y+lengthdir_y(138,22),oPlayer1.x,oPlayer1.y-26)
 
     if oVAbom_P2_Main.sequence=5
@@ -56,7 +56,7 @@ if global.gamePaused=false
   }
   else if room=rVault_6
   {
-    if image_xscale<1.2 {image_xscale+=0.02; image_yscale+=0.02}
+    if image_xscale<1.2 {image_xscale+=0.02*gDeltaTime; image_yscale+=0.02*gDeltaTime}
     image_angle=point_direction(x,y,oPlayer1.x,oPlayer1.y-26)
   }
 

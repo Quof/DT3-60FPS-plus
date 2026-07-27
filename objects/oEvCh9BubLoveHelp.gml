@@ -139,7 +139,7 @@ if global.gamePaused=false
         bubbleBub.image_speed=0; bubbleBub.type=1; bubbleBub.image_alpha=0.6; bubbleBub.depth=39
         bubbleBub.image_xscale=0.1; bubbleBub.image_yscale=0.1
       }
-      else if bubbTime>=71 and bubbTime<=82 {bubbleBub.image_xscale+=0.1; bubbleBub.image_yscale+=0.1}
+      else if bubbTime>=71 and bubbTime<=82 {bubbleBub.image_xscale+=0.1*gDeltaTime; bubbleBub.image_yscale+=0.1*gDeltaTime}
       else if bubbTime>=83 and bubbTime<=122 {bubbleBub.y-=4; npcBubblin.y-=4}
       else if bubbTime=123
       {
@@ -172,7 +172,7 @@ if global.gamePaused=false
         bubbleBub.image_speed=0; bubbleBub.type=1; bubbleBub.image_alpha=0.6; bubbleBub.depth=39
         bubbleBub.image_xscale=0.1; bubbleBub.image_yscale=0.1
       }
-      else if bubbTime>=61 and bubbTime<=72 {bubbleBub.image_xscale+=0.1; bubbleBub.image_yscale+=0.1}
+      else if bubbTime>=61 and bubbTime<=72 {bubbleBub.image_xscale+=0.1*gDeltaTime; bubbleBub.image_yscale+=0.1*gDeltaTime}
       else if bubbTime>=73 and bubbTime<=148 {bubbleBub.y-=4; npcBubblin.y-=4}
       else if bubbTime=149
       {
@@ -317,7 +317,7 @@ if global.gamePaused=false
         bubbleLove.image_speed=0; bubbleLove.type=1; bubbleLove.image_alpha=0.6; bubbleLove.depth=39
         bubbleLove.image_xscale=0.1; bubbleLove.image_yscale=0.1
       }
-      else if loveTime>=43 and loveTime<=54 {bubbleLove.image_xscale+=0.1; bubbleLove.image_yscale+=0.1}
+      else if loveTime>=43 and loveTime<=54 {bubbleLove.image_xscale+=0.1*gDeltaTime; bubbleLove.image_yscale+=0.1*gDeltaTime}
       else if loveTime>=55 and loveTime<=90 {bubbleLove.y-=4; npcLovelun.y-=4}
       else if loveTime=91
       {
@@ -349,7 +349,7 @@ if global.gamePaused=false
         bubbleLove.image_speed=0; bubbleLove.type=1; bubbleLove.image_alpha=0.6; bubbleLove.depth=39
         bubbleLove.image_xscale=0.1; bubbleLove.image_yscale=0.1
       }
-      else if loveTime>=83 and loveTime<=94 {bubbleLove.image_xscale+=0.1; bubbleLove.image_yscale+=0.1}
+      else if loveTime>=83 and loveTime<=94 {bubbleLove.image_xscale+=0.1*gDeltaTime; bubbleLove.image_yscale+=0.1*gDeltaTime}
       else if loveTime>=95 and loveTime<=134 {bubbleLove.y-=4; npcLovelun.y-=4}
       else if loveTime=135
       {
@@ -381,7 +381,7 @@ if global.gamePaused=false
         bubbleLove.image_speed=0; bubbleLove.type=1; bubbleLove.image_alpha=0.6; bubbleLove.depth=39
         bubbleLove.image_xscale=0.1; bubbleLove.image_yscale=0.1
       }
-      else if loveTime>=93 and loveTime<=104 {bubbleLove.image_xscale+=0.1; bubbleLove.image_yscale+=0.1}
+      else if loveTime>=93 and loveTime<=104 {bubbleLove.image_xscale+=0.1*gDeltaTime; bubbleLove.image_yscale+=0.1*gDeltaTime}
       else if loveTime>=105 and loveTime<=160 {bubbleLove.y-=4; npcLovelun.y-=4}
       else if loveTime=161
       {

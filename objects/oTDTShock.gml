@@ -23,7 +23,7 @@ applies_to=self
 event_inherited()
 if global.gamePaused=false
 {
-  image_xscale+=0.2*global.speedMod; image_yscale+=0.2*global.speedMod
+  image_xscale+=0.2*gDeltaTime*global.speedMod; image_yscale+=0.2*gDeltaTime*global.speedMod
   if image_xscale>=maxSize {instance_destroy()}
 }
 #define Draw_0
