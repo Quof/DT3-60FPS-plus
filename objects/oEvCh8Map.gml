@@ -39,7 +39,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if choiceMade=0
+if choiceMade=0 and gDeltaDoTicks
 {
   if oKeyCodes.kCodePressed[3]=1
   {
@@ -290,7 +290,7 @@ if choiceMade>=1 //After choice is made
     playSound(global.snd_MMVictoryShine,0,0.95,1)
     flashWhite=1
   }
-  choiceMade+=1
+  choiceMade+=1*gDeltaTime
   if choiceMade=45
   {
     if global.newMapX=1

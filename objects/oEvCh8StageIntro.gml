@@ -46,7 +46,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-introProg+=1
+introProg+=1*gDeltaTime
 if introProg=20 //----- Play music -----
 {
   var tempMplay;
@@ -136,11 +136,11 @@ else if introProg=118 //White flash
 }
 else if introProg>=132 and introProg<=190 //Logo scroll
 {
-  triangleY+=logoSpd
-  redLineY-=logoSpd
+  triangleY+=logoSpd*gDeltaTime
+  redLineY-=logoSpd*gDeltaTime
   if introProg>=160
   {
-    if logoSpd>-9 {logoSpd-=0.6}
+    if logoSpd>-9 {logoSpd-=0.6*gDeltaTime}
   }
 }
 else if introProg=191 {bShowBossName=1}

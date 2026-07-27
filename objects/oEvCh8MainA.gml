@@ -205,7 +205,7 @@ if global.gameProgress=1760 and room=rMega4_Gate //----- [Unskippable] Intro to 
         efCharge.image_yscale=4
       }
 
-      npcMMX.y-=0.25
+      npcMMX.y-=0.25*gDeltaTime
     }
     else if sceneDelay=380 //Complete float up
     {
@@ -223,10 +223,10 @@ if global.gameProgress=1760 and room=rMega4_Gate //----- [Unskippable] Intro to 
       efCharge.x=npcMMX.x; efCharge.y=npcMMX.y-20
       efCharge.image_xscale-=0.019*gDeltaTime; efCharge.image_yscale-=0.019*gDeltaTime
     }
-    if sceneDelay<=379 {if triAlpha>0 {triAlpha-=0.1}} //Fade Tri-Flash effect
+    if sceneDelay<=379 {if triAlpha>0 {triAlpha-=0.1*gDeltaTime}} //Fade Tri-Flash effect
     if sceneDelay>=421 and sceneDelay<=480 and sceneDelay mod 3=0 //Back image effect
     {
-      scaleX+=0.1
+      scaleX+=0.1*gDeltaTime
       imageGrow[imageGrowMax]=instance_create(npcMMX.x,npcMMX.y,oMisc)
       imageGrow[imageGrowMax].sprite_index=npcMMX.sprite_index
       imageGrow[imageGrowMax].image_xscale=scaleX*-1; imageGrow[imageGrowMax].image_yscale=scaleX
@@ -262,8 +262,8 @@ if global.gameProgress=1760 and room=rMega4_Gate //----- [Unskippable] Intro to 
 
     if sceneDelay>=601 and sceneDelay<=680 //Fade in Tri-Flash Spin
     {
-      if triAlpha<0.8 {triAlpha+=0.02}
-      if triWidth<15 {triWidth+=0.25}
+      if triAlpha<0.8 {triAlpha+=0.02*gDeltaTime*gDeltaTime}
+      if triWidth<15 {triWidth+=0.25*gDeltaTime}
     }
     else if sceneDelay=690
     {
@@ -303,13 +303,13 @@ if global.gameProgress=1760 and room=rMega4_Gate //----- [Unskippable] Intro to 
 
     if sceneDelay>=1281 and sceneDelay<=1510 //Circle size increase (Slow)
     {
-      if circleAlpha<1 {circleAlpha+=0.05}
-      if circleSize<80 {circleSize+=0.25}
+      if circleAlpha<1 {circleAlpha+=0.05*gDeltaTime}
+      if circleSize<80 {circleSize+=0.25*gDeltaTime}
     }
     else if sceneDelay>=1511 and sceneDelay<=1630 //Circle size increase (Fast)
     {
-      circleSize+=3.5
-      triDist+=1
+      circleSize+=3.5*gDeltaTime
+      triDist+=1*gDeltaTime
     }
 
     if sceneDelay=1370
@@ -331,7 +331,7 @@ if global.gameProgress=1760 and room=rMega4_Gate //----- [Unskippable] Intro to 
     }
     else if sceneDelay>=1631 and sceneDelay<=1660 //Circle fade (screen white)
     {
-      if circleAlpha>0 {circleAlpha-=0.04}
+      if circleAlpha>0 {circleAlpha-=0.04*gDeltaTime}
     }
     else if sceneDelay>=1681 and sceneDelay<=1760 //Bring Tri-Flash in
     {
@@ -340,9 +340,9 @@ if global.gameProgress=1760 and room=rMega4_Gate //----- [Unskippable] Intro to 
         npcMMX.sprite_index=sMegamanXPowerA; npcMMX.image_index=2
         xOffset=14; yOffset=-39
       }
-      if triDist>0 {triDist-=2}
-      if triWidth>3 {triWidth-=0.05}
-      if triAlpha>0.1 {triAlpha-=0.01}
+      if triDist>0 {triDist-=2*gDeltaTime}
+      if triWidth>3 {triWidth-=0.05*gDeltaTime}
+      if triAlpha>0.1 {triAlpha-=0.01*gDeltaTime}
 
       if sceneDelay=1760 {triAlpha=0}
     }
@@ -547,7 +547,7 @@ else if global.gameProgress=1830 and room=rMega4_IntroE //----- [Unskippable] Bo
       else if sceneDelay=50 {boss=instance_create(336,334,oMaohTheGiant)}
       else if sceneDelay>=51 and sceneDelay<=300
       {
-        boss.y-=1
+        if gDeltaDoTicks {boss.y-=1}
         if boss.y<=176
         {
           sceneDelay=0
@@ -687,7 +687,7 @@ else if global.gameProgress=1830 and room=rMega4_IntroE //----- [Unskippable] Bo
       else if sceneDelay=243 {oPlayer1.image_index=0}
       else if sceneDelay>=244
       {
-        oPlayer1.y-=16
+        oPlayer1.y-=16*gDeltaTime
         if oPlayer1.y<=-16
         {
           sceneDelay=0
@@ -880,7 +880,7 @@ else if room=rMega4_StormE //----- [Unskippable] Boss Fight: Storm Eagle -----
       else if sceneProgress=1
       {
         sceneDelay+=1*gDeltaTime
-        oPlayer1.y+=6
+        oPlayer1.y+=6*gDeltaTime
         if oPlayer1.y>=272
         {
           oPlayer1.sprite_index=sJerryIdle
@@ -903,7 +903,7 @@ else if room=rMega4_StormE //----- [Unskippable] Boss Fight: Storm Eagle -----
       else if sceneProgress=3
       {
         sceneDelay+=1*gDeltaTime
-        oPlayer1.x+=6.68
+        oPlayer1.x+=6.68*gDeltaTime
         if oPlayer1.x>=432
         {
           scenePChk(432,272,0,0.1,1)
@@ -927,7 +927,7 @@ else if room=rMega4_StormE //----- [Unskippable] Boss Fight: Storm Eagle -----
         }
         else if sceneDelay>=31 and sceneDelay<=300
         {
-          boss.y+=3
+          boss.y+=3*gDeltaTime
           if boss.y>=272
           {
             boss.sprite_index=sStormE_Idle; boss.image_speed=0; boss.image_index=0
@@ -1081,7 +1081,7 @@ else if room=rMega4_StormE //----- [Unskippable] Boss Fight: Storm Eagle -----
         else if sceneDelay=243 {oPlayer1.image_index=0}
         else if sceneDelay>=244
         {
-          oPlayer1.y-=16
+          oPlayer1.y-=16*gDeltaTime
           if oPlayer1.y<=-16
           {
             sceneDelay=0
@@ -1220,7 +1220,7 @@ else if room=rMega4_OstrichE //----- [Unskippable] Boss Fight: Overdrive Ostrich
       else if sceneProgress=1
       {
         sceneDelay+=1*gDeltaTime
-        oPlayer1.y+=6
+        oPlayer1.y+=6*gDeltaTime
         if oPlayer1.y>=288
         {
           oPlayer1.sprite_index=sJerryIdle
@@ -1256,7 +1256,7 @@ else if room=rMega4_OstrichE //----- [Unskippable] Boss Fight: Overdrive Ostrich
             tSkidEffect.newBlend=-1; tSkidEffect.followID=-1; tSkidEffect.decay=-100
           }
 
-          boss.x+=4
+          boss.x+=4*gDeltaTime
           if boss.x>=592
           {
             boss.sprite_index=sOOstrich_Jumping; boss.image_speed=0; boss.image_index=0
@@ -1268,10 +1268,10 @@ else if room=rMega4_OstrichE //----- [Unskippable] Boss Fight: Overdrive Ostrich
       }
       else if sceneProgress=3
       {
-        if boss.x<624 {x+=1}
+        if boss.x<624 {x+=1*gDeltaTime}
         if blendCl<255
         {
-          blendCl+=5
+          blendCl+=5*gDeltaTime
           boss.image_blend=make_color_rgb(blendCl,blendCl,blendCl)
         }
         if boss.image_xscale<1
@@ -1281,10 +1281,10 @@ else if room=rMega4_OstrichE //----- [Unskippable] Boss Fight: Overdrive Ostrich
         }
         if yVel<8
         {
-          yVel+=0.25
+          yVel+=0.25*gDeltaTime
           if yVel>0 {boss.sprite_index=sOOstrich_Falling}
         }
-        boss.y+=yVel
+        boss.y+=yVel*gDeltaTime
         if boss.y>=272
         {
           boss.y=272
@@ -1436,7 +1436,7 @@ else if room=rMega4_OstrichE //----- [Unskippable] Boss Fight: Overdrive Ostrich
         else if sceneDelay=243 {oPlayer1.image_index=0}
         else if sceneDelay>=244
         {
-          oPlayer1.y-=16
+          oPlayer1.y-=16*gDeltaTime
           if oPlayer1.y<=-16
           {
             sceneDelay=0
@@ -1513,7 +1513,7 @@ else if room=rMega4_ToxicJungleE //----- [Unskippable] Boss Fight: Gravity Beetl
         }
         else if sceneDelay>=61
         {
-          boss.y+=8
+          boss.y+=8*gDeltaTime
           if boss.y>=288
           {
             sceneDelay=0
@@ -1621,8 +1621,8 @@ else if room=rMega4_ToxicJungleE //----- [Unskippable] Boss Fight: Gravity Beetl
         }
         else if sceneDelay>=62 and sceneDelay<=299
         {
-          boss.y+=yVel
-          yVel+=0.25
+          boss.y+=yVel*gDeltaTime
+          yVel+=0.25*gDeltaTime
           if boss.y>=288
           {
             boss.sprite_index=sGBeetle_Idle
@@ -1754,7 +1754,7 @@ else if room=rMega4_ToxicJungleE //----- [Unskippable] Boss Fight: Gravity Beetl
         else if sceneDelay=243 {oPlayer1.image_index=0}
         else if sceneDelay>=244
         {
-          oPlayer1.y-=16
+          oPlayer1.y-=16*gDeltaTime
           if oPlayer1.y<=-16
           {
             sceneDelay=0
@@ -2014,7 +2014,7 @@ else if room=rMega4_ToxicJungleC //----- [Unskippable] Advancing fire wall of do
 //Beam down at the start of stages
 if global.tempAction[0]>=1
 {
-  beamDownProg+=1
+  beamDownProg+=1*gDeltaTime
   if beamDownProg=1
   {
     viewFix=instance_create(oPlayer1.x,playerSpotY,oMisc)
@@ -2038,7 +2038,7 @@ if global.tempAction[0]>=1
   else if beamDownProg=135 {playSound(global.snd_MMBeamDown,0,1,1)}
   else if beamDownProg>=136 and beamDownProg<=199
   {
-    oPlayer1.y+=16
+    oPlayer1.y+=16*gDeltaTime
     if oPlayer1.y>=playerSpotY {oPlayer1.y=playerSpotY; oPlayer1.image_index=1; beamDownProg=200}
   }
   else if beamDownProg>=203

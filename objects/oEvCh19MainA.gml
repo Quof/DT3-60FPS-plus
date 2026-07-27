@@ -833,8 +833,8 @@ else if room=rDiscoI //----- [] Boss Fight: Defective -----
       tEffect.direction=random_range(70,110); tEffect.speed=random(1)+1; tEffect.friction=random(0.02)+0.02
       tEffect.fadeSpd=0.005; tEffect.image_blend=make_color_rgb(random(50),random(50),255)
       tEffect.AccelX=0; tEffect.AccelY=0; tEffect.followID=-1; tEffect.rotation=0
-      (GID(401981)).image_alpha-=0.02*gDeltaTime
-      (GID(401983)).image_alpha-=0.02*gDeltaTime
+      (GID(401981)).image_alpha-=0.02*gDeltaTime;
+      (GID(401983)).image_alpha-=0.02*gDeltaTime;
       if kirbyFade>=52 {kirbyFade=1000}
     }
   }

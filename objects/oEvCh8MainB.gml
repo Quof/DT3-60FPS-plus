@@ -239,14 +239,14 @@ else if global.gameProgress=1890 and room=rMega4_SigmaA5 //----- [Unskippable] B
       }
       else if sceneDelay>=71
       {
-        boss.y+=8
+        boss.y+=8*gDeltaTime
         if boss.y>=12 {sceneDelay=0; sceneProgress+=1}
       }
     }
     else if sceneProgress=2
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay>=20 and sceneDelay<=45 {boss.legFrm+=0.33}
+      if sceneDelay>=20 and sceneDelay<=45 {boss.legFrm+=0.33*gDeltaTime}
       if sceneDelay>=70 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=3
@@ -268,7 +268,7 @@ else if global.gameProgress=1890 and room=rMega4_SigmaA5 //----- [Unskippable] B
       }
       else if sceneDelay>=505
       {
-        boss.y-=8
+        boss.y-=8*gDeltaTime
         if boss.y<=-44 {sceneDelay=0; sceneProgress+=1}
       }
     }
@@ -450,8 +450,8 @@ else if room=rMega4_SigmaB3 and global.gameProgress=1910 //----- [Unskippable] B
       }
       else if sceneDelay>=26 and sceneDelay<=45
       {
-        npcBitA.x+=1; npcBitA.image_alpha+=0.05*gDeltaTime
-        npcBitB.x-=1; npcBitB.image_alpha+=0.05*gDeltaTime
+        npcBitA.x+=1*gDeltaTime; npcBitA.image_alpha+=0.05*gDeltaTime
+        npcBitB.x-=1*gDeltaTime; npcBitB.image_alpha+=0.05*gDeltaTime
       }
       else if sceneDelay>=70
       {
@@ -643,13 +643,13 @@ else if room=rMega4_SigmaB5 and global.gameProgress=1930 //----- [Unskippable] B
       }
       else if sceneDelay>=26 and sceneDelay<=45
       {
-        npcByteA.x+=1; npcByteA.image_alpha+=0.05*gDeltaTime
-        npcByteB.x-=1; npcByteB.image_alpha+=0.05*gDeltaTime
+        npcByteA.x+=1*gDeltaTime; npcByteA.image_alpha+=0.05*gDeltaTime
+        npcByteB.x-=1*gDeltaTime; npcByteB.image_alpha+=0.05*gDeltaTime
       }
       else if sceneDelay>=70
       {
         boss=instance_create(384,288,oMMByte)
-        boss.image_xscale=-1
+        boss.image_xscale=-1*gDeltaTime
         with npcByteA {instance_destroy()}
         with npcByteB {instance_destroy()}
         sceneDelay=0; sceneProgress+=1
@@ -770,11 +770,11 @@ else if global.gameProgress=1940 and room=rMega4_SigmaB8 //----- [Unskippable] B
       }
       else if sceneDelay>=26 and sceneDelay<=45
       {
-        npcBitA.x+=1; npcBitA.image_alpha+=0.05*gDeltaTime
-        npcBitB.x-=1; npcBitB.image_alpha+=0.05*gDeltaTime
+        npcBitA.x+=1*gDeltaTime; npcBitA.image_alpha+=0.05*gDeltaTime
+        npcBitB.x-=1*gDeltaTime; npcBitB.image_alpha+=0.05*gDeltaTime
 
-        npcByteA.x+=1; npcByteA.image_alpha+=0.05*gDeltaTime
-        npcByteB.x-=1; npcByteB.image_alpha+=0.05*gDeltaTime
+        npcByteA.x+=1*gDeltaTime; npcByteA.image_alpha+=0.05*gDeltaTime
+        npcByteB.x-=1*gDeltaTime; npcByteB.image_alpha+=0.05*gDeltaTime
       }
       else if sceneDelay>=70
       {
@@ -919,7 +919,7 @@ else if global.gameProgress=1940 and room=rMega4_SigmaB8 //----- [Unskippable] B
       else if sceneDelay=243 {oPlayer1.image_index=0}
       else if sceneDelay>=244
       {
-        oPlayer1.y-=16
+        oPlayer1.y-=16*gDeltaTime
         if oPlayer1.y<=-16 {sceneDelay=0; sceneProgress+=1}
       }
     }
@@ -1224,7 +1224,7 @@ else if global.gameProgress=1980 and room=rMega4_SigmaC5 //----- [Unskippable] B
     else if sceneProgress=2
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay>=21 and sceneDelay<=40 {boss.sigParts[2].image_angle+=1}
+      if sceneDelay>=21 and sceneDelay<=40 {boss.sigParts[2].image_angle+=1*gDeltaTime} //QWH, not sure about this one
       if sceneDelay>=60
       {
         var tempMplay;
@@ -1403,17 +1403,17 @@ else if global.gameProgress=1980 and room=rMega4_SigmaC5 //----- [Unskippable] B
       }
       else if sceneDelay>=21 and sceneDelay<=35
       {
-        circleRad+=2
+        circleRad+=2*gDeltaTime
         if sceneDelay=25 {pChip.visible=1}
       }
       else if sceneDelay>=36 and sceneDelay<=50
-        circleRad-=2
+        circleRad-=2*gDeltaTime
       else if sceneDelay>=75 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=42
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay>=21 and sceneDelay<=100 {pChip.y+=1}
+      if sceneDelay>=21 and sceneDelay<=100 and gDeltaDoTicks {pChip.y+=1}
       else if sceneDelay=130
       {
         var tEffect;
@@ -1530,7 +1530,7 @@ else if room=rMega4_SigmaC5
 //Beam down at the start of stages
 if global.tempAction[0]>=1
 {
-  beamDownProg+=1
+  beamDownProg+=1*gDeltaTime
   if beamDownProg=1
   {
     viewFix=instance_create(oPlayer1.x,playerSpotY,oMisc)
@@ -1539,11 +1539,11 @@ if global.tempAction[0]>=1
     view_object[0]=viewFix
     if global.tempAction[0]=4 {oPlayer1.y=340}
     else if global.tempAction[0]=5 {oPlayer1.y=340}
-    else if global.tempAction[0]=6 {oPlayer1.y=-8}
+    else if global.tempAction[0]=6 {oPlayer1.y=-8*gDeltaTime} //QWH also not sure about this
     oPlayer1.sprite_index=sPlayerDiscombobulate; oPlayer1.image_speed=0
   }
   else if beamDownProg=30 {readyText=1}
-  else if beamDownProg>=31 and beamDownProg<=69 {readyWidth+=1}
+  else if beamDownProg>=31 and beamDownProg<=69 {readyWidth+=1*gDeltaTime}
   else if beamDownProg>=80 and beamDownProg<=119
   {
     if beamDownProg mod 8=0
@@ -1556,7 +1556,7 @@ if global.tempAction[0]>=1
   else if beamDownProg=135 {playSound(global.snd_MMBeamDown,0,1,1)}
   else if beamDownProg>=136 and beamDownProg<=199
   {
-    oPlayer1.y+=16
+    oPlayer1.y+=16*gDeltaTime
     if oPlayer1.y>=playerSpotY {oPlayer1.y=playerSpotY; oPlayer1.image_index=1; beamDownProg=200}
   }
   else if beamDownProg>=203

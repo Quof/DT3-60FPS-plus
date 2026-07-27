@@ -29,7 +29,6 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-//if gDeltaDoTicks != 1 { exit; }
 if global.gameProgress=150 and room=rMario1_1 //----- [1] Intro to Mario World - Ch.2 -----
 {
   if sceneProgress=0
