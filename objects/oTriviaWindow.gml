@@ -234,7 +234,7 @@ if bTriviaReady=1
   //Set next question
   if newQuestionDelay<=60
   {
-    newQuestionDelay-=1
+    newQuestionDelay-=1*gDeltaTime
     if newQuestionDelay<=0
     {
       if bDoNotIncrement=0 {currentQuestion+=1}
@@ -249,7 +249,7 @@ if bTriviaReady=1
   //Trivia finished
   if newQuestionDelay>=200 //Tally up score
   {
-    newQuestionDelay+=1
+    newQuestionDelay+=1*gDeltaTime
     if newQuestionDelay=230 {bTriviaComplete=1}
     else if newQuestionDelay=280
     {

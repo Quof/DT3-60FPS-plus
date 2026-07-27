@@ -473,7 +473,7 @@ else if global.gameProgress=3422 and room=rGame6_HeroPlainsD //----- [6] Spring 
     }
     else if sceneDelay>=2 and sceneDelay<=299
     {
-      npcChosen.y-=1
+      if gDeltaDoTicks npcChosen.y-=1
       if npcChosen.y<=144 {sceneDelay=300}
     }
     else if sceneDelay=330 {sceneDelay=0; sceneProgress+=1}
@@ -536,7 +536,7 @@ else if global.gameProgress=3422 and room=rGame6_HeroPlainsD //----- [6] Spring 
     }
     else if sceneDelay>=2 and sceneDelay<=99
     {
-      enemySkele.x-=1; enemySkele.y+=6
+      if gDeltaDoTicks {enemySkele.x-=1} enemySkele.y+=6*gDeltaTime
       if enemySkele.y>=208
       {
         playSound(global.snd_ChargeStrike,0,0.95,1)
@@ -548,8 +548,8 @@ else if global.gameProgress=3422 and room=rGame6_HeroPlainsD //----- [6] Spring 
     }
     else if sceneDelay>=101 and sceneDelay<=199
     {
-      oWHB_NPC.x-=7.5; oWHB_NPC.y+=WHB_Yvel
-      if WHB_Yvel<8 {WHB_Yvel+=0.3}
+      oWHB_NPC.x-=7.5*gDeltaTime; oWHB_NPC.y+=WHB_Yvel*gDeltaTime
+      if WHB_Yvel<8 {WHB_Yvel+=0.3*gDeltaTime}
 
       if oWHB_NPC.x<=1200 {oPlayer1.image_xscale=-1}
       if oWHB_NPC.y>=272
@@ -573,12 +573,12 @@ else if global.gameProgress=3422 and room=rGame6_HeroPlainsD //----- [6] Spring 
     sceneDelay+=1*gDeltaTime
     if sceneDelay>=1 and sceneDelay<=99
     {
-      oPlayer1.x-=7
+      oPlayer1.x-=7*gDeltaTime
       if oPlayer1.x<=1200
       {
         oPlayer1.sprite_index=sClaireJump
-        WHB_Yvel+=0.3
-        oPlayer1.y+=WHB_Yvel
+        WHB_Yvel+=0.3*gDeltaTime
+        oPlayer1.y+=WHB_Yvel*gDeltaTime
         if oPlayer1.y>=272
         {
           oPlayer1.sprite_index=sClaireWalk; oPlayer1.y=272
@@ -589,7 +589,7 @@ else if global.gameProgress=3422 and room=rGame6_HeroPlainsD //----- [6] Spring 
     }
     else if sceneDelay>=101 and sceneDelay<=199
     {
-      oPlayer1.x-=7; oPlayer1.image_index=0.5
+      oPlayer1.x-=7*gDeltaTime; oPlayer1.image_index=0.5
       if oPlayer1.x<=oWHB_NPC.x+20
       {
         oPlayer1.sprite_index=sClaireIdle; oPlayer1.image_index=0.1
@@ -677,10 +677,10 @@ else if global.gameProgress=3430 and room=rGame6_HeroPlainsD //----- [] Fight th
     if sceneDelay=1 {oWHB_NPC.sprite_index=sWHB_Walk; oWHB_NPC.image_speed=0.2; oWHB_NPC.image_xscale=-1; WHB_Yvel=0}
     else if sceneDelay>=2 and sceneDelay<=99
     {
-      oWHB_NPC.x-=6
-      oWHB_NPC.y+=WHB_Yvel
-      if sceneDelay=6 {WHB_Yvel=-6; oWHB_NPC.sprite_index=sWHB_Jump}
-      else if sceneDelay>=7 {WHB_Yvel+=0.3}
+      oWHB_NPC.x-=6*gDeltaTime
+      oWHB_NPC.y+=WHB_Yvel*gDeltaTime
+      if sceneDelay=6 {WHB_Yvel=-6*gDeltaTime; oWHB_NPC.sprite_index=sWHB_Jump}
+      else if sceneDelay>=7 {WHB_Yvel+=0.3*gDeltaTime}
 
       if oWHB_NPC.x<=688 {sceneDelay=100}
     }
@@ -1157,9 +1157,9 @@ else if global.gameProgress=3480 and room=rGame6_EarthK //----- [] Obtain Earth 
   else if sceneProgress=3
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay>=11 and sceneDelay<=46 {oLevelDecal.y+=1}
+    if sceneDelay>=11 and sceneDelay<=46 {oLevelDecal.y+=1*gDeltaTime}
     else if sceneDelay>=61 and sceneDelay<=70 {oLevelDecal.image_alpha-=0.1*gDeltaTime}
-    else if sceneDelay>=90 {sceneDelay=0; sceneProgress+=1}
+    else if sceneDelay>=90 {sceneDelay=0; sceneProgress+=1*gDeltaTime}
   }
   else if sceneProgress=4 and bWaitForInput=false
     msgCreate(0,0,"Claire","I'm worried about Jerry...",0,3,oMessageCutscene,1)
@@ -1576,7 +1576,7 @@ else if global.gameProgress=3530 and room=rGame6_FireF //----- [13] Obtain Fire 
   else if sceneProgress=2
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay>=11 and sceneDelay<=46 {oLevelDecal.y+=1}
+    if sceneDelay>=11 and sceneDelay<=46 and gDeltaDoTicks {oLevelDecal.y+=1}
     else if sceneDelay>=61 and sceneDelay<=70 {oLevelDecal.image_alpha-=0.1*gDeltaTime}
     else if sceneDelay>=90 {sceneDelay=0; sceneProgress+=1}
   }
@@ -1946,7 +1946,7 @@ else if global.gameProgress=3570 and room=rGame6_WaterA //----- [17] Obtain Wate
   else if sceneProgress=2
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay>=11 and sceneDelay<=46 {oLevelDecal.y+=1}
+    if sceneDelay>=11 and sceneDelay<=46 and gDeltaDoTicks {oLevelDecal.y+=1}
     else if sceneDelay>=61 and sceneDelay<=70 {oLevelDecal.image_alpha-=0.1*gDeltaTime}
     else if sceneDelay>=90 {sceneDelay=0; sceneProgress+=1}
   }
@@ -2251,7 +2251,7 @@ else if global.gameProgress=3620 and room=rGame6_WindI //----- [] Boss Fight: Th
       }
       else if sceneDelay>=21
       {
-        bossUnforgotten.x-=1
+        if gDeltaDoTicks {bossUnforgotten.x-=1}
         if bossUnforgotten.x<=560 {sceneDelay=0; sceneProgress+=1}
       }
     }
@@ -2333,7 +2333,7 @@ else if global.gameProgress=3630 and room=rGame6_WindJ //----- [19] Obtain Wind 
   else if sceneProgress=2
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay>=11 and sceneDelay<=46 {oLevelDecal.y+=1}
+    if sceneDelay>=11 and sceneDelay<=46 and gDeltaDoTicks {oLevelDecal.y+=1}
     else if sceneDelay>=61 and sceneDelay<=70 {oLevelDecal.image_alpha-=0.1*gDeltaTime}
     else if sceneDelay>=90 {sceneDelay=0; sceneProgress+=1}
   }
@@ -2425,12 +2425,12 @@ else if global.gameProgress=3640 and room=rGame6_Hometown //----- [20] Presentin
     {
       for(i=0;i<4;i+=1)
       {
-        myCrystal[i].y-=1
+        myCrystal[i].y-=1*gDeltaTime
       }
-      myCrystal[0].x-=1.1
-      myCrystal[1].x-=0.45
-      myCrystal[2].x+=0.45
-      myCrystal[3].x+=1.1
+      myCrystal[0].x-=1.1*gDeltaTime
+      myCrystal[1].x-=0.45*gDeltaTime
+      myCrystal[2].x+=0.45*gDeltaTime
+      myCrystal[3].x+=1.1*gDeltaTime
     }
     else if sceneDelay>=105 {sceneDelay=0; sceneProgress+=1}
   }
@@ -2538,7 +2538,7 @@ else if global.gameProgress=3640 and room=rGame6_Hometown //----- [20] Presentin
   {
     sceneDelay+=1*gDeltaTime
     if sceneDelay=5 {fadeColor=c_white}
-    else if sceneDelay>=6 and sceneDelay<=10 {fadeAlpha+=0.1}
+    else if sceneDelay>=6 and sceneDelay<=10 {fadeAlpha+=0.1*gDeltaTime}
     else if sceneDelay>=11 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=32
@@ -2671,8 +2671,8 @@ else if global.gameProgress=3770 and room=rGame6_DreamWoodsF //----- [Unskippabl
     {
       for(i=0;i<4;i+=1)
       {
-        if i mod 2=0 {efStars[i].image_angle+=2*(i*2)}
-        else {efStars[i].image_angle-=2*(i*2)}
+        if i mod 2=0 {efStars[i].image_angle+=(2*(i*2))*gDeltaTime}
+        else {efStars[i].image_angle-=(2*(i*2))*gDeltaTime}
       }
       efCharge.image_xscale-=0.1*gDeltaTime; efCharge.image_yscale-=0.1*gDeltaTime
     }
@@ -2699,7 +2699,7 @@ else if global.gameProgress=3770 and room=rGame6_DreamWoodsF //----- [Unskippabl
     else if sceneDelay=81 {oPlayer1.depth=20}
     else if sceneDelay>=100
     {
-      oPlayer1.y+=1
+      if gDeltaDoTicks oPlayer1.y+=1
       if oPlayer1.y>=272
       {
         scenePChk(oPlayer1.x,272,0,0.1,1)
@@ -2838,7 +2838,7 @@ else if global.gameProgress=3800 and room=rGame6_WhisperWoodsA //----- [24] Find
     sceneDelay+=1*gDeltaTime
     if sceneDelay>=20
     {
-      oMisc.y-=3
+      oMisc.y-=3*gDeltaTime
       if oMisc.y<=-80 {sceneDelay=0; sceneProgress+=1}
     }
   }
@@ -2968,7 +2968,7 @@ else if global.gameProgress=3820 and room=rGame6_CoDP //----- [26] Boss Fight: T
           tEffect.speed=random(0.5)+0.5; tEffect.friction=random(0.01)+0.01; tEffect.fadeSpd=0.02
           tEffect.image_blend=c_black; tEffect.AccelX=0; tEffect.AccelY=0; tEffect.followID=-1; tEffect.rotation=0
         }
-        npcBishonen.y+=1
+        if gDeltaDotTime {npcBishonen.y+=1}
         if npcBishonen.y>=room_height+56 {sceneDelay=0; sceneProgress+=1}
       }
     }
@@ -2982,7 +2982,7 @@ else if global.gameProgress=3820 and room=rGame6_CoDP //----- [26] Boss Fight: T
       }
       else if sceneDelay>=2
       {
-        bossTOTO.y-=2
+        bossTOTO.y-=2*gDeltaTime
         if bossTOTO.y<=224 {sceneDelay=0; sceneProgress+=1}
       }
     }
@@ -3299,7 +3299,7 @@ else if global.gameProgress=3860 and room=rGame6_CoDU //----- [Unskippable] Intr
 {
   if lightningTime>=1
   {
-    lightningTime+=1
+    lightningTime+=1*gDeltaTime
     if lightningTime>=45
     {
       var tRoomLightning;
@@ -3367,7 +3367,7 @@ else if global.gameProgress=3860 and room=rGame6_CoDU //----- [Unskippable] Intr
     if sceneDelay>=1 and sceneDelay<=699
     {
       if sceneDelay=240 {lightningTime=0}
-      cameraFollow.y+=1
+      if gDeltaDoTicks {cameraFollow.y+=1}
       if cameraFollow.y>=room_height-144 {sceneDelay=700}
     }
     else if sceneDelay>=720
@@ -3551,16 +3551,16 @@ else if global.gameProgress=3860 and room=rGame6_CoDU //----- [Unskippable] Intr
     }
     else if sceneDelay>=21 and sceneDelay<=35
     {
-      circleRad+=2
+      circleRad+=2*gDeltaTime
       if sceneDelay=25 {pChip.visible=1}
     }
-    else if sceneDelay>=36 and sceneDelay<=50 {circleRad-=2}
+    else if sceneDelay>=36 and sceneDelay<=50 {circleRad-=2*gDeltaTime}
     else if sceneDelay>=75 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=58
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay>=21 and sceneDelay<=100 {pChip.y+=1}
+    if sceneDelay>=21 and sceneDelay<=100 and gDeltaDoTicks {pChip.y+=1}
     else if sceneDelay=130
     {
       var tEffect;
