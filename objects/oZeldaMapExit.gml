@@ -16,7 +16,7 @@ Zelda world map exit script.
 This will move the player to another room.
 */
 oPlayerZeldaIcon.bCanMove=0
-animPlayerExit+=1
+animPlayerExit+=1*gDeltaTime
 if animPlayerExit>=5
 {
   global.recAreaTrans+=1

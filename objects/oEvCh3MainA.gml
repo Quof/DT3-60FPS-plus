@@ -199,7 +199,7 @@ else if global.gameProgress=570 and room=rCCity_NA_S2 //----- [3] Reunion -----
     sceneDelay+=1*gDeltaTime
     if sceneDelay>=30
     {
-      fadeAlpha-=0.02
+      fadeAlpha-=0.02*gDeltaTime
       if fadeAlpha<=0 {sceneDelay=0; sceneProgress+=1}
     }
   }
@@ -240,7 +240,7 @@ else if global.gameProgress=570 and room=rCCity_NA_S2 //----- [3] Reunion -----
     sceneDelay+=1*gDeltaTime
     if sceneDelay>=31 and sceneDelay<=81
     {
-      cBlend+=5
+      cBlend+=5*gDeltaTime
       oNPC_Gene.image_blend=make_color_rgb(cBlend,cBlend,cBlend)
     }
     else if sceneDelay>=110 {sceneDelay=0; sceneProgress+=1}
@@ -363,7 +363,7 @@ else if global.gameProgress=610 and room=rMain_8Gate //----- [Unskippable] Acces
     if sceneDelay>=1
     {
       if sceneDelay=1 {global.gamePaused=true}
-      fadeAlpha+=0.04
+      fadeAlpha+=0.04*gDeltaTime
       if fadeAlpha>=1 {sceneDelay=0; sceneProgress+=1}
     }
   }

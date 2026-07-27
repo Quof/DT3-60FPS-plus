@@ -61,7 +61,7 @@ if global.gameProgress=2670 and room=rSamus5_Gate //----- [1] Intro to Research 
     }
     else if sceneDelay>=30 and sceneDelay<=999
     {
-      fadeAlpha-=0.02
+      fadeAlpha-=0.02*gDeltaTime
       if fadeAlpha<=0 {sceneDelay=1000}
     }
     else if sceneDelay>=1030 {sceneDelay=0; sceneProgress+=1}
@@ -1313,7 +1313,7 @@ else if room=rSamus5_Lv3_Boss and global.gamePaused=false //----- [] Boss Fight:
           boss=instance_create(240,0,oKingWorm)
           with oEnemyBase {bCanDealDamage=false}
         }
-        else if sceneDelay>=81 and sceneDelay<=130 {fadeAlpha-=0.02}
+        else if sceneDelay>=81 and sceneDelay<=130 {fadeAlpha-=0.02*gDeltaTime}
         else if sceneDelay>=170
         {
           boss.y+=4

@@ -203,7 +203,7 @@ else if global.gamePttT_Prog=80 and room=rPttT_07 //----- [] Boss fight end ----
       sceneDelay+=1*gDeltaTime
       if sceneDelay>=31 and sceneDelay<=55
       {
-        fadeAlpha+=0.04
+        fadeAlpha+=0.04*gDeltaTime
       }
       else if sceneDelay>=60
       {

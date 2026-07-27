@@ -67,7 +67,7 @@ if room=rSF_A
     {
       sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {oCh19_WM_NPC.image_xscale=-1.25; global.gamePaused=true}
-      else if sceneDelay>=31 and sceneDelay<=70 {fadeAlpha-=0.025}
+      else if sceneDelay>=31 and sceneDelay<=70 {fadeAlpha-=0.025*gDeltaTime}
       if sceneDelay>=90 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=1 and bWaitForInput=false

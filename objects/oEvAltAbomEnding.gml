@@ -316,7 +316,7 @@ else if room=rAbomD
         }
         else if sceneDelay>=170
         {
-          fadeAlpha-=0.02
+          fadeAlpha-=0.02*gDeltaTime
           if fadeAlpha<=0 {sceneDelay=0; sceneProgress+=1}
         }
       }

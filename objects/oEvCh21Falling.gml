@@ -681,7 +681,7 @@ else if global.gameProgress=5520 //Falling minigame
     }
     else if sceneProgress=14
     {
-      fadeAlpha+=0.04
+      fadeAlpha+=0.04*gDeltaTime
       if fadeAlpha>=1 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=15

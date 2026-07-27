@@ -124,7 +124,7 @@ if global.gamePaused=false
       convo[0]+=1*gDeltaTime
       if convo[0]>=70
       {
-        oMisc.image_alpha-=0.05
+        oMisc.image_alpha-=0.05*gDeltaTime
         if oMisc.image_alpha<=0
         {
           msgCreate(0,0,"Dylan, the Poe","HAHAHAHAHAHA!!!! TAKE THAT!!!!",6,3,oMessagePerson,0)

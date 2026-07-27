@@ -120,7 +120,7 @@ if global.gameProgress=1150 and room=rBelmont3_Gate //----- [1] Intro to Transyl
     }
     else if sceneDelay>=30
     {
-      fadeAlpha-=0.02
+      fadeAlpha-=0.02*gDeltaTime
       if fadeAlpha<=0 {sceneDelay=0; sceneProgress+=1}
     }
   }

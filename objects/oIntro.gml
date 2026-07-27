@@ -34,7 +34,7 @@ if sceneProgress=0
   sceneDelay+=1*gDeltaTime
   if sceneDelay>=30
   {
-    fadeAlpha-=0.02
+    fadeAlpha-=0.02*gDeltaTime
     if fadeAlpha<=0
     {
       sceneDelay=0

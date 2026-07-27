@@ -72,7 +72,7 @@ if room=rEnd_PartA //----- [] End A -----
     sceneDelay+=1*gDeltaTime
     if sceneDelay>=50
     {
-      fadeAlpha+=0.04
+      fadeAlpha+=0.04*gDeltaTime
       if fadeAlpha>=1 {room_goto(rEnd_PartB)}
     }
   }
@@ -110,7 +110,7 @@ else if room=rEnd_PartB //----- [] End B -----
     sceneDelay+=1*gDeltaTime
     if sceneDelay>=30
     {
-      fadeAlpha-=0.04
+      fadeAlpha-=0.04*gDeltaTime
       if fadeAlpha<=0 {sceneDelay=0; sceneProgress+=1}
     }
   }
@@ -139,7 +139,7 @@ else if room=rEnd_PartB //----- [] End B -----
   }
   else if sceneProgress=2
   {
-    fadeAlpha+=0.04
+    fadeAlpha+=0.04*gDeltaTime
     if fadeAlpha>=1
     {
       room_goto(rEnd_PartC)

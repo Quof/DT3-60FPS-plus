@@ -84,18 +84,18 @@ if global.gamePaused=false
     //---------- MOVEMENT ----------
     if moveCycle=0 //Right
     {
-      x+=moveSpd
+      x+=moveSpd*gDeltaTime
       if x>=(xCenter+roomSpan)-(sprite_width/2)-16 {moveCycle=1}
     }
     else if moveCycle=1 //Left
     {
-      x-=moveSpd
+      x-=moveSpd*gDeltaTime
       if x<=(xCenter-roomSpan)+(sprite_width/2)+16 {moveCycle=0}
     }
     stepCount+=pi/60
     y+=sin(stepCount)
 
-    efFlyTime+=1
+    efFlyTime+=1*gDeltaTime
     if efFlyTime mod 3=0
     {
       var tEffect,tEfDist,tEfDir;
@@ -109,7 +109,7 @@ if global.gamePaused=false
     }
 
     //---------- ATTACK: SCYTHE CIRCLE ----------
-    scytheCircleTime+=1
+    scytheCircleTime+=1*gDeltaTime
     if scytheCircleTime>=scytheCircleDelay
     {
       playSound(global.snd_OrbThrow,0,0.97,20000)

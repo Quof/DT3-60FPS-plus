@@ -43,7 +43,7 @@ if global.gameProgress=5040 and room=rWarshipA //----- [] Intro to CHAOS Warship
     sceneDelay+=1*gDeltaTime
     if sceneDelay>=20
     {
-      fadeAlpha-=0.02
+      fadeAlpha-=0.02*gDeltaTime
       if fadeAlpha<=0 {sceneDelay=0; sceneProgress+=1}
     }
   }

@@ -23,7 +23,7 @@ if sceneProgress=0
   else if sceneDelay>=60
   {
     redOverlay+=0.005
-    fadeAlpha-=0.02
+    fadeAlpha-=0.02*gDeltaTime
     if fadeAlpha<=0 {sceneDelay=0; sceneProgress+=1}
   }
 }

@@ -28,20 +28,20 @@ if !instance_exists(oZeldaSaveMenu)
   {
     if bOnBird=0
     {
-      if bMoveStep=1 {y-=4}
-      else if bMoveStep=2 {y+=4}
-      else if bMoveStep=3 {x-=4}
-      else if bMoveStep=4 {x+=4}
+      if bMoveStep=1 {y-=4*gDeltaTime}
+      else if bMoveStep=2 {y+=4*gDeltaTime}
+      else if bMoveStep=3 {x-=4*gDeltaTime}
+      else if bMoveStep=4 {x+=4*gDeltaTime}
     }
     else if bOnBird=1
     {
-      if bMoveStep=1 {y-=8}
-      else if bMoveStep=2 {y+=8}
-      else if bMoveStep=3 {x-=8}
-      else if bMoveStep=4 {x+=8}
+      if bMoveStep=1 {y-=8*gDeltaTime}
+      else if bMoveStep=2 {y+=8*gDeltaTime}
+      else if bMoveStep=3 {x-=8*gDeltaTime}
+      else if bMoveStep=4 {x+=8*gDeltaTime}
     }
 
-    moveTime+=1
+    moveTime+=1*gDeltaTime
     if moveTime=4 and bOnBird=0
     {
       moveTime=0

@@ -28,7 +28,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if fadeAlpha>0 {fadeAlpha-=0.02}
+if fadeAlpha>0 {fadeAlpha-=0.02*gDeltaTime}
 if global.gamePaused=false
 {
   if bDisplayResults=1

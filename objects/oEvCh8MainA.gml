@@ -124,7 +124,7 @@ if global.gameProgress=1760 and room=rMega4_Gate //----- [Unskippable] Intro to 
     }
     else if sceneDelay>=30
     {
-      fadeAlpha-=0.02
+      fadeAlpha-=0.02*gDeltaTime
       if fadeAlpha<=0
       {
         sceneDelay=0
@@ -869,7 +869,7 @@ else if room=rMega4_StormE //----- [Unskippable] Boss Fight: Storm Eagle -----
         else if sceneDelay>=30
         {
           oPlayer1.sprite_index=sJerryJump
-          fadeAlpha-=0.02
+          fadeAlpha-=0.02*gDeltaTime
           if fadeAlpha<=0
           {
             sceneDelay=0
@@ -1209,7 +1209,7 @@ else if room=rMega4_OstrichE //----- [Unskippable] Boss Fight: Overdrive Ostrich
         else if sceneDelay>=30
         {
           oPlayer1.sprite_index=sJerryJump
-          fadeAlpha-=0.02
+          fadeAlpha-=0.02*gDeltaTime
           if fadeAlpha<=0
           {
             sceneDelay=0
@@ -1490,7 +1490,7 @@ else if room=rMega4_ToxicJungleE //----- [Unskippable] Boss Fight: Gravity Beetl
         }
         else if sceneDelay>=30
         {
-          fadeAlpha-=0.02
+          fadeAlpha-=0.02*gDeltaTime
           if fadeAlpha<=0
           {
             sceneDelay=0
@@ -1804,7 +1804,7 @@ else if room=rMega4_Shop and global.gameProgress=1845 //----- [4] All Mavericks 
     }
     else if sceneDelay>=30
     {
-      fadeAlpha-=0.02
+      fadeAlpha-=0.02*gDeltaTime
       if fadeAlpha<=0
       {
         sceneDelay=0

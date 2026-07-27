@@ -29,7 +29,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  if hitTime>0 {hitTime-=1}
+  if hitTime>0 {hitTime-=1*gDeltaTime}
 }
 #define Collision_oAttackBase
 /*"/*'/**//* YYD ACTION

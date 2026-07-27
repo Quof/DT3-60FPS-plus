@@ -11,10 +11,9 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if !gDeltaDoTicks { exit; }
 if global.gamePaused=false
 {
-  spawnTime+=1
+  spawnTime+=1*gDeltaTime
   if spawnTime mod spawnDelay=0
   {
     var tNewBubble;

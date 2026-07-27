@@ -298,7 +298,7 @@ if global.gamePaused=false
 
   if serenityEntry<100 //Entry after first visit
   {
-    fadeAlpha-=0.04
+    fadeAlpha+=0.04*gDeltaTime
     if fadeAlpha<=0 {serenityEntry=100}
   }
 }

@@ -1177,7 +1177,7 @@ else if global.gameProgress=4100 and room=rHPF_V //----- [7] Shutting down the V
         sceneDelay=100
       }
     }
-    else if sceneDelay>=141 and sceneDelay<=190 {fadeAlpha-=0.02}
+    else if sceneDelay>=141 and sceneDelay<=190 {fadeAlpha-=0.02*gDeltaTime}
     else if sceneDelay>=210
     {
       var tempMplay;
@@ -1570,7 +1570,7 @@ else if room=rCCity_NA_S1 and global.gameProgress=4190 //----- [8] Waking up Jer
     }
     if sceneDelay>=40
     {
-      fadeAlpha-=0.025
+      fadeAlpha-=0.025*gDeltaTime
       if fadeAlpha<=0 {sceneDelay=0; sceneProgress+=1}
     }
   }

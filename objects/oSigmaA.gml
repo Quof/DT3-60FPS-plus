@@ -474,7 +474,7 @@ if global.gamePaused=false
         else
         {
           oEvCh8MainB.fadeColor=c_white
-          oEvCh8MainB.fadeAlpha+=0.04
+          oEvCh8MainB.fadeAlpha+=0.04*gDeltaTime
           if oEvCh8MainB.fadeAlpha>=1 {instance_destroy()}
         }
       }

@@ -283,7 +283,7 @@ else if global.gameProgress=4560 and room=rHiddenVillage //----- [3] Intro to Hi
     if sceneDelay=1 {global.gamePaused=true}
     if sceneDelay>=20
     {
-      fadeAlpha-=0.025
+      fadeAlpha-=0.025*gDeltaTime
       if fadeAlpha<=0 {sceneDelay=0; sceneProgress+=1}
     }
   }
@@ -420,7 +420,7 @@ else if global.gameProgress=4580 and room=rDiscoA //----- [5] Intro to The Disco
   {
     sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {global.gamePaused=true}
-    else if sceneDelay>=31 and sceneDelay<=70 {fadeAlpha-=0.025}
+    else if sceneDelay>=31 and sceneDelay<=70 {fadeAlpha-=0.025*gDeltaTime}
     if sceneDelay>=80 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=1 and bWaitForInput=false
@@ -992,7 +992,7 @@ else if room=rHiddenVillage //----- [10] The next piece of the Dragoon -----
     else if sceneProgress=2
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay>=31 and sceneDelay<=55 {fadeAlpha-=0.04}
+      if sceneDelay>=31 and sceneDelay<=55 {fadeAlpha-=0.04*gDeltaTime}
       else if sceneDelay>=80 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=3 and bWaitForInput=false
@@ -1091,7 +1091,7 @@ else if room=rMain_92 //----- [11] Back to the Hidden Village -----
     else if sceneProgress=1
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay>=1 and sceneDelay<=50 {fadeAlpha-=0.02}
+      if sceneDelay>=1 and sceneDelay<=50 {fadeAlpha-=0.02*gDeltaTime}
       else if sceneDelay>=70 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=2 and bWaitForInput=false
@@ -1162,7 +1162,7 @@ else if room=rMain_84 and global.gameProgress=4940 //----- [12] Did that hit the
         charClaire=instance_create(3136,256,oMisc)
         charClaire.sprite_index=sClaireSitUp; charClaire.image_speed=0; charClaire.image_index=2; charClaire.type=2
       }
-      else if sceneDelay>=31 and sceneDelay<=70 {fadeAlpha-=0.025}
+      else if sceneDelay>=31 and sceneDelay<=70 {fadeAlpha-=0.025*gDeltaTime}
       else if sceneDelay=130 {charClaire.sprite_index=sClaireIdle; charClaire.image_speed=0.1}
       else if sceneDelay>=140 {eventTime=0; sceneProgress+=1}
     }
@@ -1197,7 +1197,7 @@ else if room=rHiddenVillage_Destroyed and global.gameProgress=4940 //----- [13] 
     if sceneProgress=0
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay>=41 and sceneDelay<=90 {fadeAlpha-=0.02}
+      if sceneDelay>=41 and sceneDelay<=90 {fadeAlpha-=0.02*gDeltaTime}
       else if sceneDelay>=120 {eventTime=0; sceneProgress+=1}
     }
     else if sceneProgress=1 and bWaitForInput=false
@@ -2026,7 +2026,7 @@ if global.gamePaused=false
   {
     if serenityEntry<100
     {
-      fadeAlpha-=0.04
+      fadeAlpha-=0.04*gDeltaTime
       if fadeAlpha<=0 {serenityEntry=100}
     }
   }

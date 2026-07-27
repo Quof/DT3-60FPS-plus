@@ -14,7 +14,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if !instance_exists(oZeldaSaveMenu) && gDeltaDoTicks
+if !instance_exists(oZeldaSaveMenu)
 {
   if bMoveStep=0 //Move decision
   {
@@ -42,22 +42,22 @@ if !instance_exists(oZeldaSaveMenu) && gDeltaDoTicks
     }
   }
   else if bMoveStep=1
-    y-=4
+    y-=4*gDeltaTime
   else if bMoveStep=2
-    y+=4
+    y+=4*gDeltaTime
   else if bMoveStep=3
-    x-=4
+    x-=4*gDeltaTime
   else if bMoveStep=4
-    x+=4
+    x+=4*gDeltaTime
 
-  moveTime+=1
+  moveTime+=1*gDeltaTime
   if moveTime=4
   {
     bMoveStep=0
     moveTime=0
   }
 
-  decayTime+=1
+  decayTime+=1*gDeltaTime
   if decayTime>=90
     instance_destroy()
 }

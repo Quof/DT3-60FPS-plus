@@ -179,7 +179,7 @@ else if global.gameProgress=3100 and room=rMain_56 //----- [3] You must find the
     }
     else if sceneDelay>=35
     {
-      if fadeAlpha>0 {fadeAlpha-=0.02}
+      if fadeAlpha>0 {fadeAlpha-=0.02*gDeltaTime}
       else if fadeAlpha<=0 {sceneDelay=0; sceneProgress+=1}
     }
   }
@@ -1576,7 +1576,7 @@ else if global.gameProgress=3360 and room=rMain_56 //----- [16] The Engineer is 
     }
     else if sceneDelay>=35
     {
-      if fadeAlpha>0 {fadeAlpha-=0.02}
+      if fadeAlpha>0 {fadeAlpha-=0.02*gDeltaTime}
       else if fadeAlpha<=0 {sceneDelay=0; sceneProgress+=1}
     }
   }
@@ -1742,7 +1742,7 @@ else if global.gameProgress=3390 and room=rMain_56Gate //----- [Unskippable] Acc
     if sceneDelay>=1
     {
       if sceneDelay=1 {global.gamePaused=true}
-      fadeAlpha+=0.04
+      fadeAlpha+=0.04*gDeltaTime
       if fadeAlpha>=1
       {
         sceneDelay=0

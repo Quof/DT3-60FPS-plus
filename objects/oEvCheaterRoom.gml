@@ -79,7 +79,7 @@ if sceneProgress=0 //---------------------------------------- Intro (screen whit
   else if sceneDelay>=740
   {
     global.gamePaused=0
-    fadeAlpha-=0.02
+    fadeAlpha-=0.02*gDeltaTime
     if fadeAlpha<=0 {sceneDelay=0; sceneProgress+=1}
   }
 }

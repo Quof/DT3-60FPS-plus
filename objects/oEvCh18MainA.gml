@@ -1302,7 +1302,7 @@ else if global.gameProgress=4470 and room=rLowFacCutA //----- [] CHAOS Warship t
     sceneDelay+=1*gDeltaTime
     if sceneDelay>=30
     {
-      fadeAlpha-=0.02
+      fadeAlpha-=0.02*gDeltaTime
       if fadeAlpha<=0 {sceneDelay=0; sceneProgress+=1}
     }
   }

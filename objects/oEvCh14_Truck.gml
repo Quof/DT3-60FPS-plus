@@ -78,7 +78,7 @@ else
       if sceneDelay=1 {global.gamePaused=true}
       else if sceneDelay>=30
       {
-        if fadeAlpha>0 {fadeAlpha-=0.02}
+        if fadeAlpha>0 {fadeAlpha-=0.02*gDeltaTime}
         else if fadeAlpha<=0 {sceneDelay=0; sceneProgress+=1}
       }
     }

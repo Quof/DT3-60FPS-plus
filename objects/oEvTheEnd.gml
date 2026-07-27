@@ -58,7 +58,7 @@ if room=rEnd_WarshipA //----- [] End A -----
     sceneDelay+=1*gDeltaTime
     if sceneDelay>=30
     {
-      fadeAlpha-=0.04
+      fadeAlpha-=0.04*gDeltaTime
       if fadeAlpha<=0
       {
         bubbleClaire=instance_create(350,64,oMisc)
@@ -104,7 +104,7 @@ if room=rEnd_WarshipA //----- [] End A -----
   }
   else if sceneProgress=2
   {
-    fadeAlpha+=0.04
+    fadeAlpha+=0.04*gDeltaTime
     if fadeAlpha>=1
     {
       global.newMapX=112; global.newMapY=272
@@ -138,7 +138,7 @@ else if room=rEnd_SceneA //----- [] End B -----
     sceneDelay+=1*gDeltaTime
     if sceneDelay>=30
     {
-      fadeAlpha-=0.02
+      fadeAlpha-=0.02*gDeltaTime
       if fadeAlpha<=0 {sceneDelay=0; sceneProgress+=1}
     }
   }

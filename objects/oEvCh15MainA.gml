@@ -130,7 +130,7 @@ if global.gameProgress=3390 and room=rGame6_WhisperWoodsA //----- [1] Chapter 15
     }
     else if sceneDelay>=30 and sceneDelay<=999
     {
-      fadeAlpha-=0.02
+      fadeAlpha-=0.02*gDeltaTime
       if fadeAlpha<=0 {sceneDelay=1000}
     }
     else if sceneDelay>=1060 {sceneDelay=0; sceneProgress+=1}
@@ -1188,7 +1188,7 @@ else if global.gameProgress=3480 and room=rGame6_JDream //----- [10] Jerry's dre
     sceneDelay+=1*gDeltaTime
     if sceneDelay>=30
     {
-      fadeAlpha-=0.04
+      fadeAlpha-=0.04*gDeltaTime
       if fadeAlpha<=0 {sceneDelay=0; sceneProgress+=1}
     }
   }
@@ -1622,7 +1622,7 @@ else if global.gameProgress=3540 and room=rGame6_ESC_Scene //----- [14] The Evil
     sceneDelay+=1*gDeltaTime
     if sceneDelay>=30
     {
-      fadeAlpha-=0.04
+      fadeAlpha-=0.04*gDeltaTime
       if fadeAlpha<=0 {sceneDelay=0; sceneProgress+=1}
     }
   }
@@ -1677,7 +1677,7 @@ else if global.gameProgress=3540 and room=rGame6_Gate //----- [15] The team is b
     sceneDelay+=1*gDeltaTime
     if sceneDelay>=30
     {
-      fadeAlpha-=0.02
+      fadeAlpha-=0.02*gDeltaTime
       if fadeAlpha<=0 {sceneDelay=0; sceneProgress+=1}
     }
   }
@@ -2695,7 +2695,7 @@ else if global.gameProgress=3770 and room=rGame6_DreamWoodsF //----- [Unskippabl
   else if sceneProgress=4
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay>=31 and sceneDelay<=80 {fadeAlpha-=0.02}
+    if sceneDelay>=31 and sceneDelay<=80 {fadeAlpha-=0.02*gDeltaTime}
     else if sceneDelay=81 {oPlayer1.depth=20}
     else if sceneDelay>=100
     {

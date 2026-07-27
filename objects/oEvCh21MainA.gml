@@ -73,7 +73,7 @@ if global.gameProgress=5520 and room=rCh21_Main_75 //----- [1] Jeremy said you'd
     if sceneDelay=1 {stopAllMusic()}
     if sceneDelay>=30
     {
-      fadeAlpha-=0.02
+      fadeAlpha-=0.02*gDeltaTime
       if fadeAlpha<=0 {sceneDelay=0; sceneProgress+=1}
     }
   }
@@ -282,7 +282,7 @@ else if global.gameProgress=5550 and room=rAbomF //----- [3] Boss Fight: Virus P
       if sceneDelay=1 {stopAllMusic()}
       if sceneDelay>=30
       {
-        fadeAlpha-=0.02
+        fadeAlpha-=0.02*gDeltaTime
         if fadeAlpha<=0 {sceneDelay=0; sceneProgress+=1}
       }
     }
@@ -464,7 +464,7 @@ else if global.gameProgress=5560 and room=rAbomCutA //----- [4] Abomination dest
     sceneDelay+=1*gDeltaTime
     if sceneDelay>=30
     {
-      fadeAlpha-=0.02
+      fadeAlpha-=0.02*gDeltaTime
       if fadeAlpha<=0 {sceneDelay=0; sceneProgress+=1}
     }
   }
@@ -500,7 +500,7 @@ else if global.gameProgress=5560 and room=rCh21_WastelandA //----- [] The wastel
     sceneDelay+=1*gDeltaTime
     if sceneDelay>=30
     {
-      fadeAlpha-=0.02
+      fadeAlpha-=0.02*gDeltaTime
       if fadeAlpha<=0 {sceneDelay=0; sceneProgress+=1}
     }
   }
@@ -549,7 +549,7 @@ else if global.gameProgress=5570 and room=rCh21_WastelandA //----- [5] Meeting w
       sceneDelay+=1*gDeltaTime
       if sceneDelay>=30
       {
-        fadeAlpha-=0.02
+        fadeAlpha-=0.02*gDeltaTime
         if fadeAlpha<=0 {sceneDelay=0; sceneProgress+=1}
       }
     }

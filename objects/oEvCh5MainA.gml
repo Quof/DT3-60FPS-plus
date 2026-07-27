@@ -300,7 +300,7 @@ else if global.gameProgress=1000 and room=rCCity_NA_S2 //----- [4] Back to Syrus
     }
     else if sceneDelay>=30
     {
-      fadeAlpha-=0.02
+      fadeAlpha-=0.02*gDeltaTime
       if fadeAlpha<=0 {sceneDelay=0; sceneProgress+=1}
     }
   }
@@ -488,7 +488,7 @@ else if global.gameProgress=1070 and room=rCCity_NB_S1b //----- [7] Reunion with
     }
     else if sceneDelay>=30
     {
-      fadeAlpha-=0.02
+      fadeAlpha-=0.02*gDeltaTime
       if fadeAlpha<=0 {sceneDelay=0; sceneProgress+=1}
     }
   }
@@ -665,7 +665,7 @@ else if global.gameProgress=1140 and room=rMain_14Gate //----- [Unskippable] Acc
     if sceneDelay>=1
     {
       if sceneDelay=1 {global.gamePaused=true}
-      fadeAlpha+=0.04
+      fadeAlpha+=0.04*gDeltaTime
       if fadeAlpha>=1 {sceneDelay=0; sceneProgress+=1}
     }
   }

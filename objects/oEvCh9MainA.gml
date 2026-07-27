@@ -145,7 +145,7 @@ if global.gameProgress=2000 and room=rCCity_NA_S2 //----- [1] The Vault must be 
     msgCreate(0,0,"","The group informed Syrus and Gene on what they had found out from Sigma.",6,3,oMessageCutscene,1)
   else if sceneProgress=5
   {
-    fadeAlpha-=0.02
+    fadeAlpha-=0.02*gDeltaTime
     if fadeAlpha<=0 {sceneProgress+=1}
   }
   else if sceneProgress=6 and bWaitForInput=false
@@ -926,7 +926,7 @@ else if global.gameProgress=2160 and room=rMain_39Vault //----- [Unskippable] Th
     if sceneDelay>=1
     {
       if sceneDelay=1 {global.gamePaused=true}
-      fadeAlpha+=0.04
+      fadeAlpha+=0.04*gDeltaTime
       if fadeAlpha>=1 {sceneDelay=0; sceneProgress+=1}
     }
   }
