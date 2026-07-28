@@ -11,9 +11,19 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-idAttach.x=x+xAdjust
+/*idAttach.x=x+xAdjust
 idAttach.y=y+yAdjust
-idAttach.yVel=0
+idAttach.yVel=0*/
+
+if !instance_exists(idAttach)
+  idAttach=GID(attachCache)
+
+if instance_exists(idAttach)
+{
+  idAttach.x=x+xAdjust
+  idAttach.y=y+yAdjust
+  idAttach.yVel=0
+}
 #define Collision_oBelmontDagger
 /*"/*'/**//* YYD ACTION
 lib_id=1

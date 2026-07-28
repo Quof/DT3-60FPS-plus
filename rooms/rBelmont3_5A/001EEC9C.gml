@@ -1,5 +1,6 @@
 progUpdate=1350
 idAttach=(GID(174980))
+attachCache=174980
 image_yscale=12
 xAdjust=-11
 yAdjust=(image_yscale-1)*4
