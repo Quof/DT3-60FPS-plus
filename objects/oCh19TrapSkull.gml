@@ -43,7 +43,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  trapTime+=1
+  trapTime+=1*gDeltaTime
   if trapTime=trapDelay
   {
     var tEfCir;

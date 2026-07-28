@@ -50,7 +50,7 @@ else if sceneProgress=2
   sceneDelay+=1*gDeltaTime
   if sceneDelay>=1
   {
-    myDrone.y+=16
+    myDrone.y+=16*gDeltaTime
     if myDrone.y>=252
     {
       with myDrone {instance_destroy()}
@@ -79,9 +79,9 @@ else if sceneProgress=3
   {
     if drone_LegA.y<=264
     {
-      drone_LegA.x-=1; drone_LegA.image_angle+=1
-      drone_LegA.y+=drone_LegA.ySpd
-      if drone_LegA.ySpd<6 {drone_LegA.ySpd+=0.2}
+      drone_LegA.x-=1*gDeltaTime; drone_LegA.image_angle+=1*gDeltaTime
+      drone_LegA.y+=drone_LegA.ySpd*gDeltaTime
+      if drone_LegA.ySpd<6 {drone_LegA.ySpd+=0.2*gDeltaTime}
     }
     else
     {
@@ -101,9 +101,9 @@ else if sceneProgress=3
   {
     if drone_LegB.y<=264
     {
-      drone_LegB.x-=0.5; drone_LegB.image_angle+=2
-      drone_LegB.y+=drone_LegB.ySpd
-      if drone_LegB.ySpd<6 {drone_LegB.ySpd+=0.2}
+      drone_LegB.x-=0.5*gDeltaTime; drone_LegB.image_angle+=2*gDeltaTime
+      drone_LegB.y+=drone_LegB.ySpd*gDeltaTime
+      if drone_LegB.ySpd<6 {drone_LegB.ySpd+=0.2*gDeltaTime}
     }
     else
     {
@@ -123,9 +123,9 @@ else if sceneProgress=3
   {
     if drone_LegC.y<=264
     {
-      drone_LegC.x+=1; drone_LegC.image_angle-=3
-      drone_LegC.y+=drone_LegC.ySpd
-      if drone_LegC.ySpd<6 {drone_LegC.ySpd+=0.2}
+      drone_LegC.x+=1*gDeltaTime; drone_LegC.image_angle-=3*gDeltaTime
+      drone_LegC.y+=drone_LegC.ySpd*gDeltaTime
+      if drone_LegC.ySpd<6 {drone_LegC.ySpd+=0.2*gDeltaTime}
     }
     else
     {
@@ -145,9 +145,9 @@ else if sceneProgress=3
   {
     if drone_LegD.y<=264
     {
-      drone_LegD.x+=1.5; drone_LegD.image_angle-=4
-      drone_LegD.y+=drone_LegD.ySpd
-      if drone_LegD.ySpd<6 {drone_LegD.ySpd+=0.2}
+      drone_LegD.x+=1.5*gDeltaTime; drone_LegD.image_angle-=4*gDeltaTime
+      drone_LegD.y+=drone_LegD.ySpd*gDeltaTime
+      if drone_LegD.ySpd<6 {drone_LegD.ySpd+=0.2*gDeltaTime}
     }
     else
     {

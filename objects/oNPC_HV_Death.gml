@@ -16,11 +16,11 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-paraAngle+=10
+paraAngle+=10*gDeltaTime
 
 if eventProg=1
 {
-  eventTime+=1
+  eventTime+=1*gDeltaTime
   if eventTime=1 {bShowPara=0}
   else if eventTime=10 {playSound(global.snd_FadeAway,0,0.92,1)}
   else if eventTime>=11

@@ -68,7 +68,7 @@ if global.gamePaused=false
   {
     if global.Ch19WIn=0 or global.Ch19WIn=1 and room=rMain_34
     {
-      eventTime+=1
+      eventTime+=1*gDeltaTime
       if eventTime=150
       {
         msgCreate(0,0,"Jerry","Eh?",0,1,oMessagePerson,0)
@@ -77,7 +77,7 @@ if global.gamePaused=false
         bCanShake=1
         global.Ch19WIn=1
       }
-      else if eventTime>=151 and eventTime<=250 {if fadeAlpha<0.2 {fadeAlpha+=0.002}}
+      else if eventTime>=151 and eventTime<=250 {if fadeAlpha<0.2 {fadeAlpha+=0.002*gDeltaTime}}
 
       if sideConvoTime=0
       {
@@ -131,7 +131,7 @@ if global.gamePaused=false
       }
       else if eventProg=1
       {
-        eventTime+=1
+        eventTime+=1*gDeltaTime
         if eventTime=1
         {
           msgCreate(0,0,"Claire","These barriers are all over the place.",0,1,oMessagePerson,0)
@@ -148,7 +148,7 @@ if global.gamePaused=false
     {
       if eventProg=0
       {
-        eventTime+=1
+        eventTime+=1*gDeltaTime
         if eventTime=40
         {
           msgCreate(0,0,"Jerry","This big shadow is bothersome too.",0,1,oMessagePerson,0)
@@ -172,7 +172,7 @@ if global.gamePaused=false
       {
         if oPlayer1.x<=2624 {eventProg=1}
       }
-      else if eventProg>=1 {if fadeAlpha<0.3 {fadeAlpha+=0.002}}
+      else if eventProg>=1 {if fadeAlpha<0.3 {fadeAlpha+=0.002*gDeltaTime}}
     }
     else if global.Ch19WIn=7 and room=rMain_8
     {
@@ -214,7 +214,7 @@ if global.gamePaused=false
         }
       }
 
-      if eventProg>=1 {if fadeAlpha<0.4 {fadeAlpha+=0.002}}
+      if eventProg>=1 {if fadeAlpha<0.4 {fadeAlpha+=0.002*gDeltaTime}}
     }
     else if global.Ch19WIn=13 and room=rMain_84
     {
@@ -232,10 +232,10 @@ if global.gamePaused=false
       }
       else if eventProg=1
       {
-        eventTime+=1
+        eventTime+=1*gDeltaTime
         if eventTime>=1 and eventTime<=30
         {
-          explodeRad+=24
+          explodeRad+=24*gDeltaTime
         }
         else if eventTime=31
         {
@@ -286,7 +286,7 @@ if global.gamePaused=false
       }
       else if eventProg=4 //They're killing the bots
       {
-        eventTime+=1
+        eventTime+=1*gDeltaTime
         if eventTime=60
         {
           msgCreate(0,0,"Jerry","What the hell?!",0,1,oMessagePerson,0)
@@ -355,7 +355,7 @@ if global.gamePaused=false
       }
       else if eventProg=11
       {
-        eventTime+=1
+        eventTime+=1*gDeltaTime
         if eventTime>=120
         {
           if !instance_exists(oCHAOS_Rocketeer)
@@ -378,7 +378,7 @@ if global.gamePaused=false
     
     if bCanShake=1 //Shake
     {
-      shakeTime+=1
+      shakeTime+=1*gDeltaTime
       if shakeTime>=shakeDelay
       {
         playSound(global.snd_HardHit2,0,0.9+random(0.05),3000+random(4000))

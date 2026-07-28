@@ -25,14 +25,14 @@ if global.gamePaused=false
       var tNewAttack;
       tNewAttack=instance_create(x+(16*image_xscale),y+11,oPassBullet)
       tNewAttack.sprite_index=sJunkCarMissile; tNewAttack.atkPower=9; tNewAttack.bulletSpeed=12; tNewAttack.decayTime=6
-      tNewAttack.direction=point_direction(x+(16*image_xscale),y+11,myKill.x,myKill.y-(myKill.sprite_height/2))
+      tNewAttack._direction=point_direction(x+(16*image_xscale),y+11,myKill.x,myKill.y-(myKill.sprite_height/2))
       eventProg=2
     }
     else {eventProg=3}
   }
   else if eventProg=2
   {
-    eventTime+=1
+    eventTime+=1*gDeltaTime
     if eventTime=8
     {
       myKill.eventProg=1
@@ -53,9 +53,9 @@ if global.gamePaused=false
   }
   else if eventProg=3
   {
-    if x<oPlayer1.x {x+=2}
-    else {x-=2}
-    y-=6
+    if x<oPlayer1.x {x+=2*gDeltaTime}
+    else {x-=2*gDeltaTime}
+    y-=6*gDeltaTime
     if y<=-8 {instance_destroy()}
   }
 }

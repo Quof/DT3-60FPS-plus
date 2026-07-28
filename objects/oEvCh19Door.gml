@@ -16,12 +16,12 @@ applies_to=self
 */
 if fadeDown=1
 {
-  flashCol-=3
+  flashCol-=3*gDeltaTime
   if flashCol<=195 {fadeDown=0}
 }
 else
 {
-  flashCol+=3
+  flashCol+=3*gDeltaTime
   if flashCol>=255 {fadeDown=1}
 }
 image_blend=make_color_rgb(flashCol,flashCol,flashCol)
