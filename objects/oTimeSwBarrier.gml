@@ -19,7 +19,7 @@ else {image_alpha=0.75}
 
 for(i=0;i<swAmount;i+=1)
 {
-  switchInstances[i] = (GID(switchCount[i]))
+  switchInstances[i] = (GID(switchID[i]))
 }
 
 //set in the instance creation code

@@ -13,6 +13,12 @@ action_id=603
 applies_to=self
 */
 for(i=0;i<maxResetObj;i+=1)
+  {
+    if !instance_exists(myObj[i])
+        myObj[i]=(GID(objCache[i]))
+  }
+
+for(i=0;i<maxResetObj;i+=1)
 {
   myOX[i]=myObj[i].xstart
   myOY[i]=myObj[i].ystart
