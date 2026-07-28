@@ -15,7 +15,7 @@ applies_to=self
 */
 if checkScreenArea(x,y,48)
 {
-  smokeTime+=1
+  smokeTime+=1*gDeltaTime
   if smokeTime>=3
   {
     var tFFScl,tEffect;

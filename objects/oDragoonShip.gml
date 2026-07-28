@@ -70,22 +70,22 @@ if global.gamePaused=false
     //Left
     if scrController(1) and x>16
     {
-      x-=moveSpd
+      x-=moveSpd*gDeltaTime
     }
     //Right
     if scrController(2) and x<room_width-22
     {
-      x+=moveSpd
+      x+=moveSpd*gDeltaTime
     }
     //Up
     if scrController(3) and y>66
     {
-      y-=moveSpd
+      y-=moveSpd*gDeltaTime
     }
     //Down
     if scrController(4) and y<room_height-20
     {
-      y+=moveSpd
+      y+=moveSpd*gDeltaTime
     }
   }
 
@@ -107,10 +107,10 @@ if global.gamePaused=false
       swapDelay=5
     }
   }
-  else {swapDelay-=1}
+  else {swapDelay-=1*gDeltaTime}
 
   //Suck in
-  if suckTime<suckMax {suckTime+=1}
+  if suckTime<suckMax {suckTime+=1*gDeltaTime}
   if scrController(7) and suckTime=suckMax and bCanSuck=1
   {
     if checkSuckSound=0
@@ -121,7 +121,7 @@ if global.gamePaused=false
     if checkSuckSound>0 {checkSuckSound-=1}
     oDragKirby.visible=1
     bSucking=1
-    if oGame.time mod 2=0
+    if oGame.time mod (2/gDeltaTime)=0
     {
       var tEffect,tDir;
       tDir=random_range(-19,19)
@@ -147,7 +147,7 @@ if global.gamePaused=false
       event_user(0)
     }
   }
-  if shotDelay>0 {shotDelay-=1}
+  if shotDelay>0 {shotDelay-=1*gDeltaTime}
 
   //Assists
   if multiple>0
@@ -166,7 +166,7 @@ if global.gamePaused=false
   //Damage time
   if damageTime>0
   {
-    damageTime-=1
+    damageTime-=1*gDeltaTime
     if image_alpha=0.75 {image_alpha=0.25}
     else {image_alpha=0.75}
     if damageTime=0

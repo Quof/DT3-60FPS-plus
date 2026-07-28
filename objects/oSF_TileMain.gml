@@ -45,9 +45,9 @@ if global.gamePaused=false
 
   if bPulled=1
   {
-    if xVel>0 {image_angle-=5}
-    else {image_angle+=5}
-    if yVel<6 {yVel+=0.1}
+    if xVel>0 {image_angle-=5*gDeltaTime}
+    else {image_angle+=5*gDeltaTime}
+    if yVel<6 {yVel+=0.1*gDeltaTime}
     if y>=room_height+sprite_height {instance_destroy()}
 
     if bEaten=1

@@ -285,7 +285,7 @@ else if room=rDCS_E and global.gameProgress=4775 //----- [3] Perplexing moment w
       (GID(404466)).x+=6
       if sceneDelay=32 {(GID(404466)).sprite_index=sWarmasterA_JumpUp}
     }
-    else if sceneDelay>=33 and sceneDelay<=60 {(GID(404466)).x+=6; (GID(404466)).y-=8}
+    else if sceneDelay>=33 and sceneDelay<=60 {(GID(404466)).x+=6*gDeltaTime; (GID(404466)).y-=8*gDeltaTime}
     else if sceneDelay>=80 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=14 and bWaitForInput=false
@@ -510,7 +510,7 @@ else if room=rDCS_U and global.gameProgress=4780 //----- [] Boss Fight: Shadow E
             tEffect.AccelX=0; tEffect.AccelY=0; tEffect.followID=-1; tEffect.rotation=0
           }
         }
-        myRockA.y+=0.25; myRockB.y+=0.25; myRockC.y+=0.25
+        if gDeltaDoTicks {myRockA.y+=0.25; myRockB.y+=0.25; myRockC.y+=0.25}
         if myRockA.y>=76 {sceneDelay=1000}
       }
       else if sceneDelay=1040
@@ -578,7 +578,7 @@ else if room=rDCS_U and global.gameProgress=4780 //----- [] Boss Fight: Shadow E
         tEfCir=instance_create(hexX,hexY,oEfCircleSoftFade)
         tEfCir.image_alpha=0.5; tEfCir.myRad=36; tEfCir.radScl=1.5; tEfCir.fadeSpeed=0.0125
       }
-      hexTime+=1
+      hexTime+=1*gDeltaTime
       if hexTime=1
       {
         myHex=instance_create(hexX,hexY,oMisc)
@@ -663,7 +663,7 @@ else if room=rDCS_V and global.gameProgress=4790 //----- [] The second Dragoon p
     }
     else if sceneDelay>=31 and sceneDelay<=99
     {
-      myNPC.x+=6
+      myNPC.x+=6*gDeltaTime
       if myNPC.x>=208
       {
         myNPC.sprite_index=sWarmasterA_Idle; myNPC.image_speed=0.15
@@ -728,31 +728,31 @@ else if room=rDCS_V and global.gameProgress=4790 //----- [] The second Dragoon p
     else if sceneDelay=220 {pullSpeed=12}
 
     //Pull Warmaster
-    if sceneDelay>=140 and sceneDelay<=200 {myNPC.x+=0.5}
-    else if sceneDelay>=201 and sceneDelay<=220 {myNPC.x+=1}
+    if sceneDelay>=140 and sceneDelay<=200 and gDeltaDoTicks {myNPC.x+=0.5}
+    else if sceneDelay>=201 and sceneDelay<=220 and gDeltaDoTicks {myNPC.x+=1}
     if sceneDelay>=221 and sceneDelay<=299
     {
-      myNPC.x+=2; myNPC.y-=2
+      myNPC.x+=2*gDeltaTime; myNPC.y-=2*gDeltaTime
       if myNPC.x>=320 {sceneDelay=300}
     }
     else if sceneDelay>=301 and sceneDelay<=320 {myNPC.image_alpha-=0.05*gDeltaTime}
 
     if pullSpeed>0 //Pull player
     {
-      if oPlayer1.x<320 {oPlayer1.xVel+=pullSpeed}
-      else {oPlayer1.xVel-=pullSpeed}
+      if oPlayer1.x<320 {oPlayer1.xVel+=pullSpeed*gDeltaTime}
+      else {oPlayer1.xVel-=pullSpeed*gDeltaTime}
 
       if sceneDelay>=231
       {
-        if oPlayer1.y<176 {oPlayer1.yVel+=pullSpeed/2}
-        else {oPlayer1.yVel-=pullSpeed/2}
+        if oPlayer1.y<176 {oPlayer1.yVel+=(pullSpeed/2)*gDeltaTime}
+        else {oPlayer1.yVel-=(pullSpeed/2)*gDeltaTime}
       }
     }
   }
 
   if sceneProgress>=10 //Portal red flash
   {
-    portalWave+=1
+    portalWave+=1*gDeltaTime
     if portalWave=1 {(GID(410850)).image_blend=c_red}
     else if portalWave=8 {(GID(410851)).image_blend=c_red}
     else if portalWave=15 {(GID(410852)).image_blend=c_red}

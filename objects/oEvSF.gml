@@ -280,7 +280,7 @@ else if room=rSF_C
         tStatic=instance_create(0,0,oQuickStatic); tStatic.staticTime=10; tStatic.image_alpha=0.66
       }
       else if sceneDelay=530 {dreamFigureB_Sprite=sClaireWalk; dreamFigureB_Facing=1}
-      else if sceneDelay>=531 and sceneDelay<=539 {dreamFigureB_X+=6; dreamFigureB_Frame+=0.34}
+      else if sceneDelay>=531 and sceneDelay<=539 {dreamFigureB_X+=6*gDeltaTime; dreamFigureB_Frame+=0.34*gDeltaTime}
       else if sceneDelay>=540
       {
         var tStatic;
@@ -481,21 +481,21 @@ else if room=rSF_F
       if view_xview[0]>=3072 {xScrollSpd=3}
 
       if autoScroll.x<room_width-240
-        autoScroll.x+=xScrollSpd
+        autoScroll.x+=xScrollSpd*gDeltaTime
 
       if yBobDown=0
       {
-        yScrollSpd+=0.018
+        yScrollSpd+=0.018*gDeltaTime
         if yScrollSpd>=1
           yBobDown=1
       }
       else
       {
-        yScrollSpd-=0.018
+        yScrollSpd-=0.018*gDeltaTime
         if yScrollSpd<=-1
           yBobDown=0
       }
-      autoScroll.y+=yScrollSpd
+      autoScroll.y+=yScrollSpd*gDeltaTime
 
       if autoScroll.x-(view_wview[0]/2)-20>oPlayer1.x
         oPlayer1.life-=oPlayer1.maxLife
@@ -619,7 +619,7 @@ else if room=rSF_H
         dreamFigureA_Sprite=sWarmasterA_Idle
         dreamFigureB_Sprite=sHex_A_Idle
       }
-      else if sceneDelay>=11 and sceneDelay<=20 {dreamFigureA_Alpha+=0.02; dreamFigureB_Alpha+=0.02}
+      else if sceneDelay>=11 and sceneDelay<=20 {dreamFigureA_Alpha+=0.02*gDeltaTime; dreamFigureB_Alpha+=0.02*gDeltaTime}
       else if sceneDelay=30 {createScreenText(xView,yView,120,fnt_EnemyName,fa_middle,"-Warmaster-#Who are you? You never explained yourself.",3,c_white,1,0)}
       else if sceneDelay=150 {createScreenText(xView,yView,150,fnt_EnemyName,fa_middle,"-Hex-#An ally. We can benefit greatly from one another if you'll agree to my terms.",3,c_white,1,0)}
       else if sceneDelay=300 {createScreenText(xView,yView,80,fnt_EnemyName,fa_middle,"-Warmaster-#What can you offer me?",3,c_white,1,0)}
@@ -644,7 +644,7 @@ else if room=rSF_H
         dreamFigureA_Sprite=sWarmasterA_Idle
         dreamFigureB_Sprite=sHex_A_Idle
       }
-      else if sceneDelay>=11 and sceneDelay<=20 {dreamFigureA_Alpha+=0.02; dreamFigureB_Alpha+=0.02}
+      else if sceneDelay>=11 and sceneDelay<=20 {dreamFigureA_Alpha+=0.02*gDeltaTime; dreamFigureB_Alpha+=0.02*gDeltaTime}
       else if sceneDelay=30 {createScreenText(xView,yView,80,fnt_EnemyName,fa_middle,"-Warmaster-#Everything is set to go.",3,c_white,1,0)}
       else if sceneDelay=110 {createScreenText(xView,yView,180,fnt_EnemyName,fa_middle,"-Hex-#Perfect. Now all we need to do is wait for them#to remove the Virus and its locks will be lifted.",3,c_white,1,0)}
       else if sceneDelay=290 {createScreenText(xView,yView,180,fnt_EnemyName,fa_middle,"-Warmaster-#Remember that once the Virus is removed,#that the program will not resume control. We are all free.",3,c_white,1,0)}

@@ -20,7 +20,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  x-=20
+  x-=20*gDeltaTime
   if type=1 and bHit=0
   {
     if x<=oPlayer1.x+8

@@ -18,5 +18,5 @@ with other
   tEfCir.myRad=2; tEfCir.radScl=1; tEfCir.fadeSpeed=0.1
   instance_destroy()
 }
-life-=1
+life-=1*gDeltaTime
 if life<=0 {instance_destroy()}

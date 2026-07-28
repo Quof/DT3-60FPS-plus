@@ -21,11 +21,11 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  x+=moveSpd
+  x+=moveSpd*gDeltaTime
 
   //Arm angle
-  moveWave+=pi/60
-  armAngle+=sin(moveWave)/2
+  moveWave+=(pi/60)*gDeltaTime
+  armAngle+=(sin(moveWave)/2)*gDeltaTime
 }
 #define Draw_0
 /*"/*'/**//* YYD ACTION

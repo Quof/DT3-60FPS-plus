@@ -22,7 +22,7 @@ if global.gamePaused=false
   {
     sprite_index=sDrag_Assist2
     image_xscale=1; image_yscale=1
-    shotDelay+=1
+    shotDelay+=1*gDeltaTime
     if shotDelay>=25 and scrController(5) and oDragoonShip.bSucking=0
     {
       var tNewBullet;

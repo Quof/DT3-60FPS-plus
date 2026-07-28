@@ -235,7 +235,7 @@ if global.gamePaused=false
   //****************************** Spawn Claire's mother ******************************
   if global.tempAction[0]=1 //Slight delay
   {
-    motherTime+=1
+    motherTime+=1*gDeltaTime
     if motherTime=10
     {
       if global.gateHProg<30 {playSound(global.snd_VO_GH_01,0,1,1)}
@@ -302,7 +302,7 @@ if global.gamePaused=false
 
 if room=rExtGateH_6 //Clock ticking
 {
-  tickMod+=1
+  tickMod+=1*gDeltaTime
   if tickMod mod 70=0
   {
     playSound(global.snd_ClockTick,0,0.95,1)

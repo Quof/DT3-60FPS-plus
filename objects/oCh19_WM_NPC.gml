@@ -28,7 +28,7 @@ if global.gamePaused=false
   {
     if actProg=0
     {
-      actTime+=1
+      actTime+=1*gDeltaTime
       if actTime>=10 {actTime=0; actProg+=1}
     }
     else if actProg=1 {xVel=runAcc; actProg+=1}
@@ -58,7 +58,7 @@ if global.gamePaused=false
     }
     else if actProg=5
     {
-      actTime+=1
+      actTime+=1*gDeltaTime
       if actTime=30
       {
         msgCreate(0,0,"Jerry","What the hell?",0,1,oMessagePerson,0)
@@ -92,7 +92,7 @@ if global.gamePaused=false
     }
     else if actProg=1
     {
-      actTime+=1
+      actTime+=1*gDeltaTime
       if actTime=10
       {
         msgCreate(0,0,"Warmaster","Still following me.",6,1,oMessagePerson,0)
@@ -174,7 +174,7 @@ if global.gamePaused=false
     }
     else if actProg=1
     {
-      actTime+=1
+      actTime+=1*gDeltaTime
       if actTime=10
       {
         msgCreate(0,0,"Warmaster","I will create a utopia for bots.",6,1,oMessagePerson,0)
@@ -326,7 +326,7 @@ if global.gamePaused=false
 
   //Movement Physics
   wallCling=0
-  if yVel<12 {yVel+=0.3}
+  if yVel<12 {yVel+=0.3*gDeltaTime}
   if isCollisionBottom(1)
     yVel=0
   if isCollisionLeft(1)
@@ -345,13 +345,13 @@ if global.gamePaused=false
   if wallJumpTime>=100 //Wall jump
   {
     wallJumpTime+=1
-    if wallJumpTime=105 {image_xscale=myScale; x+=2; xVel=runAcc; yVel=jumpAcc}
+    if wallJumpTime=105 {image_xscale=myScale; x+=2*gDeltaTime; xVel=runAcc; yVel=jumpAcc}
     else if wallJumpTime=107 {wallJumpTime=-100}
-    if wallJumpTime=205 {image_xscale=-myScale; x-=2; xVel=-runAcc; yVel=jumpAcc; wallJumpTime=-100}
+    if wallJumpTime=205 {image_xscale=-myScale; x-=2*gDeltaTime; xVel=-runAcc; yVel=jumpAcc; wallJumpTime=-100}
     else if wallJumpTime=207 {wallJumpTime=-100}
   }
 
-  moveTo(xVel,yVel)
+  moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
 
   //---------- Animation ----------
   if wallCling=0

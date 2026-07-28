@@ -31,8 +31,8 @@ if global.gamePaused=false
 {
   if pullProg=0 //Delay before pulling
   {
-    circleRad-=10
-    circleAlpha+=0.08
+    circleRad-=10*gDeltaTime
+    circleAlpha+=0.08*gDeltaTime
     if circleRad<=0
     {
       var tEffect;

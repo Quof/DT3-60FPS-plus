@@ -48,7 +48,7 @@ if global.gamePaused=false
 
   if bTargetFound=true
   {
-    yVel+=0.3
+    yVel+=0.3*gDeltaTime
     if initDir=1
     {
       if xVel<0
@@ -78,7 +78,7 @@ if global.gamePaused=false
     bDestroy=1
   if isCollisionRight(1) and xVel>0
     bDestroy=1
-  moveTo(xVel,yVel)
+  moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
 
   if bDestroy=1
   {

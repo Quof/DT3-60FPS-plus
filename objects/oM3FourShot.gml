@@ -24,7 +24,7 @@ if global.gamePaused=false
   makeEnemyActive(0)
   if findTargetX<=detectDistX
   {
-    shotTime+=1
+    shotTime+=1*gDeltaTime
     if shotTime=round(shotDelay/2)-10
     {
       playSound(global.snd_MarioCannon,0,0.86,1)
@@ -59,6 +59,6 @@ else {draw_background_part(tileSF_A,160,144,32,32,x,y)}
 
 if shotTime>=shotDelay-10
 {
-  warnFrm+=1
+  warnFrm+=1*gDeltaTime
   draw_sprite_ext(sMMcharging,warnFrm,x+16,y+16,1,1,0,c_white,1)
 }

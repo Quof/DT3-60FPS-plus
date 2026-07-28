@@ -23,12 +23,12 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-fanAnim+=0.33
+fanAnim+=0.33*gDeltaTime
 if global.gamePaused=false
 {
   if eventProg=0 //Slight wait
   {
-    eventTime+=1
+    eventTime+=1*gDeltaTime
     if eventTime=110
     {
       var tempMplay;
@@ -40,7 +40,7 @@ if global.gamePaused=false
   }
   else if eventProg=1 //Fly down
   {
-    y+=0.5
+    y+=0.5*gDeltaTime
     if y>=80 {eventProg+=1}
   }
   else if eventProg=2 //Pete appears
@@ -48,12 +48,12 @@ if global.gamePaused=false
     eventTime+=1
     if eventTime=50 {playSound(global.snd_Dec_ChargeUp,0,1,1)}
     else if eventTime=70 {bPete=1}
-    else if eventTime>=71 and eventTime<=77 {peteYOffset-=6}
+    else if eventTime>=71 and eventTime<=77 {peteYOffset-=6*gDeltaTime}
     else if eventTime>=120 {eventTime=0; eventProg+=1}
   }
   else if eventProg=3 //Pete is shot down
   {
-    eventTime+=1
+    eventTime+=1*gDeltaTime
     if eventTime=1
     {
       playSound(global.snd_Dec_Fire,0,1,1)
@@ -63,12 +63,12 @@ if global.gamePaused=false
     {
       if laserUp=1
       {
-        laserScl+=0.01
+        laserScl+=0.01*gDeltaTime
         if laserScl>=0.15 {laserUp=0}
       }
       else
       {
-        laserScl-=0.01
+        laserScl-=0.01*gDeltaTime
         if laserScl<=0 {laserUp=1}
       }
     }
@@ -81,7 +81,7 @@ if global.gamePaused=false
     }
     if eventTime>=60
     {
-      circleRad+=8
+      circleRad+=8*gDeltaTime
       if circleRad=224 {bDrawMe=0}
       else if circleRad>=304
       {

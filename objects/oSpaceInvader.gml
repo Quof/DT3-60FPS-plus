@@ -43,22 +43,22 @@ if global.gamePaused=false
   if life>0
   {
     //Movement
-    if rowCheck<10 {moveTime+=1}
-    else {moveTime+=5}
+    if rowCheck<10 {moveTime+=1*gDeltaTime}
+    else {moveTime+=5*gDeltaTime}
     if moveTime>=moveProg
     {
       image_index+=1
-      moveNum+=1
+      moveNum+=1*gDeltaTime
       if moveNum<11
       {
-        if rowCheck mod 2=0 {x+=8}
-        else {x-=8}
+        if rowCheck mod 2=0 {x+=8*gDeltaTime}
+        else {x-=8*gDeltaTime}
       }
       else
       {
         moveNum=0
-        rowCheck+=1
-        y+=8
+        rowCheck+=1*gDeltaTime
+        y+=8*gDeltaTime
       }
       moveTime=0
 
@@ -66,15 +66,15 @@ if global.gamePaused=false
     }
 
     //Weapon
-    shotTime+=1
+    shotTime+=1*gDeltaTime
     if shotTime>=shotDelay
     {
       var tNewAttack;
       tNewAttack=instance_create(x,y,oPassBulletRed)
       tNewAttack.sprite_index=sSpaceInvaderLaser
       tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=6; tNewAttack.decayTime=-100
-      if rowCheck<10 {tNewAttack.direction=270}
-      else {tNewAttack.direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())}
+      if rowCheck<10 {tNewAttack._direction=270}
+      else {tNewAttack._direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())}
       shotTime=0
     }
   }

@@ -38,17 +38,17 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  myDir+=swingSpeed
+  myDir+=swingSpeed*gDeltaTime
   if type=0 //Down (225,315)
   {
     if myDir>270
     {
-      swingSpeed-=0.05
+      swingSpeed-=0.05*gDeltaTime
       if swingSpeed<-4 {swingSpeed=-4}
     }
     else
     {
-      swingSpeed+=0.05
+      swingSpeed+=0.05*gDeltaTime
       if swingSpeed>4 {swingSpeed=4}
     }
   }
@@ -56,12 +56,12 @@ if global.gamePaused=false
   {
     if myDir>90
     {
-      swingSpeed-=0.05
+      swingSpeed-=0.05*gDeltaTime
       if swingSpeed<-4 {swingSpeed=-4}
     }
     else
     {
-      swingSpeed+=0.05
+      swingSpeed+=0.05*gDeltaTime
       if swingSpeed>4 {swingSpeed=4}
     }
   }

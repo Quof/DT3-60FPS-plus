@@ -65,14 +65,14 @@ if global.gamePaused=false
         bWalking=1
         image_speed=0.5
         image_xscale=imageScaling
-        x+=moveSpd
+        x+=moveSpd*gDeltaTime
       }
       else if x>oPlayer1.x+40 //Right of player
       {
         bWalking=1
         image_speed=0.5
         image_xscale=-imageScaling
-        x-=moveSpd
+        x-=moveSpd*gDeltaTime
       }
       else
       {
@@ -88,12 +88,12 @@ if global.gamePaused=false
       if x<oPlayer1.x //Left of player
       {
         image_xscale=imageScaling
-        x+=moveSpd
+        x+=moveSpd*gDeltaTime
       }
       else if x>oPlayer1.x //Right of player
       {
         image_xscale=-imageScaling
-        x-=moveSpd
+        x-=moveSpd*gDeltaTime
       }
     }
   }
@@ -106,14 +106,14 @@ if global.gamePaused=false
     else if x>=room_width-64 {image_xscale=-imageScaling}
     
     //Continue straight
-    if image_xscale>0 {x+=moveSpd}
-    else {x-=moveSpd}
+    if image_xscale>0 {x+=moveSpd*gDeltaTime}
+    else {x-=moveSpd*gDeltaTime}
   }
   
   //Foot step sound
   if bWalking=1
   {
-    stepMod+=1
+    stepMod+=1*gDeltaTime
     if stepMod mod 50=0
     {
       playSound(global.snd_FootSteps,0,1,1)
@@ -130,7 +130,7 @@ if global.gamePaused=false
     warnAlpha=0.6-(myDist/1200)
     if warnAlpha<0.2 {warnAlpha=0.2}
   }
-  else {warnAlpha+=0.01}
+  else {warnAlpha+=0.01*gDeltaTime}
   
   //Arm angle
   if bSightToPlayer=1 and bWalking=1
@@ -163,10 +163,10 @@ if global.gamePaused=false
   }
   
   //Talk to Claire
-  if oPlayer1.attackState=oPlayer1.ACT_HIDE {talkToClaire+=1}
+  if oPlayer1.attackState=oPlayer1.ACT_HIDE {talkToClaire+=1*gDeltaTime}
   else
   {
-    if talkToClaire<690 {talkToClaire+=1}
+    if talkToClaire<690 {talkToClaire+=1*gDeltaTime}
     else {talkToClaire=690}
   }
   if talkToClaire>=750
@@ -180,24 +180,24 @@ if global.gamePaused=false
   {
     if bSightToPlayer=1
     {
-      if oPlayer1.runAcc>=2 {oPlayer1.runAcc-=0.01}
+      if oPlayer1.runAcc>=2 {oPlayer1.runAcc-=0.01*gDeltaTime}
     }
     else
     {
-      if oPlayer1.runAcc<=4 {oPlayer1.runAcc+=0.01}
+      if oPlayer1.runAcc<=4 {oPlayer1.runAcc+=0.01*gDeltaTime}
     }
     
-    if x>=1328 and myDist<=64 and moveSpd>2 {moveSpd-=0.0275}
+    if x>=1328 and myDist<=64 and moveSpd>2 {moveSpd-=0.0275*gDeltaTime}
   }
   else //House
   {
     if bSightToPlayer=1
     {
-      if oPlayer1.runAcc>=2 {oPlayer1.runAcc-=0.005}
+      if oPlayer1.runAcc>=2 {oPlayer1.runAcc-=0.005*gDeltaTime}
     }
     else
     {
-      if oPlayer1.runAcc<=4 {oPlayer1.runAcc+=0.02}
+      if oPlayer1.runAcc<=4 {oPlayer1.runAcc+=0.02*gDeltaTime}
     }
   }
 }
@@ -205,9 +205,9 @@ else
 {
   if bCatchPlayer=1 //Player is caught
   {
-    catchSequence+=1
+    catchSequence+=1*gDeltaTime
     if catchSequence=1 {image_speed=0}
-    if catchSequence>=1 and catchSequence<=50 {redWarn+=0.02}
+    if catchSequence>=1 and catchSequence<=50 {redWarn+=0.02*gDeltaTime}
     if catchSequence>=51
     {
       //Reset progress

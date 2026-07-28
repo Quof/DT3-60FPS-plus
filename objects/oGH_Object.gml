@@ -32,11 +32,11 @@ if global.gamePaused=false
   }
   else if sprite_index=sHHouse_Chandelier
   {
-    moveWave+=pi/60
-    image_angle+=sin(moveWave)/2
+    moveWave+=(pi/60)*gDeltaTime
+    image_angle+=(sin(moveWave)/2)*gDeltaTime
 
     //Chandelier swing sound
-    soundDelay-=1
+    soundDelay-=1*gDeltaTime
     if swingSound=0 //Swing right
     {
       if image_angle>-1 and soundDelay<=0

@@ -33,12 +33,12 @@ if global.gamePaused=false
   {
     if bGoDown=1
     {
-      y+=2
+      y+=2*gDeltaTime
       if y>=-78 {bGoDown=0} //216-286
     }
     else
     {
-      y-=2
+      y-=2*gDeltaTime
       if y<=-276 {bGoDown=1} //12-286
     }
   }
@@ -46,11 +46,11 @@ if global.gamePaused=false
   {
     if myMaster.bGoDown=1
     {
-      y+=2
+      y+=2*gDeltaTime
     }
     else
     {
-      y-=2
+      y-=2*gDeltaTime
     }
   }
 }

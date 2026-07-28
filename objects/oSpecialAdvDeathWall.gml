@@ -20,7 +20,7 @@ if global.gamePaused=false
   else if x>=view_xview[0]-240 and x<=view_xview[0]-97 {xSpd=8}
   else {xSpd=10}
 
-  x+=xSpd
+  x+=xSpd*gDeltaTime
   if x+32>=oPlayer1.x
     oPlayer1.life-=oPlayer1.maxLife
 }

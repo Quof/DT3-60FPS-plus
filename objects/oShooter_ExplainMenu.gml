@@ -19,6 +19,8 @@ lib_id=1
 action_id=603
 applies_to=self
 */
+if gDeltaDoTicks != 1 { exit; }
+
 if bCanMoveCursor=1
 {
   if oKeyCodes.kCodePressed[3]=1

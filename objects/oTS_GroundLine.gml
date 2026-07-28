@@ -16,7 +16,7 @@ if global.gamePaused=false
   if myLength<room_width
   {
     if myLength<oPlayer1.x {myLength=oPlayer1.x}
-    myLength+=2
+    myLength+=2*gDeltaTime
   }
 }
 #define Draw_0

@@ -11,7 +11,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-phase+=0.02
+phase+=0.02*gDeltaTime
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

@@ -177,7 +177,7 @@ if global.gamePaused=false
       else if sceneDelay=660 {instance_create(spawnX,spawnY5,oC_Butterdroid)}
       else if sceneDelay>=810
       {
-        changeBackground+=1
+        changeBackground+=1*gDeltaTime
         if changeBackground=1
         {
           backCloud=instance_create(0,0,oBackgroundFollow)
@@ -305,7 +305,7 @@ if global.gamePaused=false
       else if sceneDelay=580 {instance_create(spawnX,spawnY5,oC_RocketTurtle)}
       else if sceneDelay>=750
       {
-        changeBackground+=1
+        changeBackground+=1*gDeltaTime
         if changeBackground=1
         {
           backCloud=instance_create(0,0,oBackgroundFollow)
@@ -435,7 +435,7 @@ if global.gamePaused=false
       else if sceneDelay=760 {instance_create(spawnX,spawnY1,oC_Sparker)}
       else if sceneDelay>=870
       {
-        changeBackground+=1
+        changeBackground+=1*gDeltaTime
         if changeBackground=1
         {
           backCloud=instance_create(0,0,oBackgroundFollow)
@@ -703,7 +703,7 @@ if global.gamePaused=false
         {
           tEndLaser=instance_create(room_width+32,oPlayer1.y+tYY,oEndShooterLaser)
           tEndLaser.type=1
-          tYY+=8
+          tYY+=8*gDeltaTime
         }
       }
       else if sceneDelay=540
@@ -743,7 +743,7 @@ if global.gamePaused=false
       }
       else if sceneDelay>=850
       {
-        shipJerry.x+=16; shipClaire.x+=16
+        shipJerry.x+=16*gDeltaTime; shipClaire.x+=16*gDeltaTime
         if shipJerry.x>=room_width+40
         {
           if global.shooterProgress<8 {global.shooterProgress=8}

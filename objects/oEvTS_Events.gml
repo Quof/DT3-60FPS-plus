@@ -234,7 +234,7 @@ if global.gamePaused=false
 
     if axeSpawnA>0
     {
-      axeSpawnA+=1
+      axeSpawnA+=1*gDeltaTime
       if axeSpawnA=400
       {
         var tDrawing;
@@ -265,7 +265,7 @@ if global.gamePaused=false
     }
     if axeSpawnB>0
     {
-      axeSpawnB+=1
+      axeSpawnB+=1*gDeltaTime
       if axeSpawnB=270
       {
         var tClickItem;
@@ -286,7 +286,7 @@ if global.gamePaused=false
     }
     else if exitState>=2 //Take player to the Hidden Village
     {
-      exitState+=1
+      exitState+=1*gDeltaTime
       if exitState>=15
       {
         stopAllMusic()

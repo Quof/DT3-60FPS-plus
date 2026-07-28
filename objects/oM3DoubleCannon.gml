@@ -25,7 +25,7 @@ if global.gamePaused=false
   makeEnemyActive(0)
   if findTargetX<=detectDistX
   {
-    shotTime+=1
+    shotTime+=1*gDeltaTime
     if shotTime=shotDelay-10 {bReadyToFire=1}
     else if shotTime>=shotDelay
     {
@@ -60,7 +60,7 @@ if global.gamePaused=false
         yAdj=8
       }
       bBill=instance_create(x+xAdj,y+yAdj,oM3Shot)
-      bBill.sprite_index=sSFShotSmall; bBill.direction=shotDir
+      bBill.sprite_index=sSFShotSmall; bBill._direction=shotDir
       bBill.atkPower=atkPower; bBill.bulletSpeed=4
       shotTime=0; bReadyToFire=0
     }
@@ -74,6 +74,6 @@ applies_to=self
 */
 if shotTime>=shotDelay-10
 {
-  warnFrm+=1
+  warnFrm+=1*gDeltaTime
   draw_sprite_ext(sMMcharging,warnFrm,x,y,1,1,0,c_white,1)
 }

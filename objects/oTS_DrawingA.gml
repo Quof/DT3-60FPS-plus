@@ -74,7 +74,7 @@ if bInit=1
         }
         if drawTime>-1
         {
-          drawTime-=1
+          drawTime-=1*gDeltaTime
           if drawTime<=0
           {
             currentAction=1

@@ -26,7 +26,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  myDir+=swingSpeed
+  myDir+=swingSpeed*gDeltaTime
   x=initX+lengthdir_x(chainLinks*16,myDir)
   y=initY+lengthdir_y(chainLinks*16,myDir)
 }

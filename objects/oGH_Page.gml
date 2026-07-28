@@ -117,10 +117,10 @@ else
 
 if showPage=1
 {
-  if pageAlpha<1 {pageAlpha+=0.05}
+  if pageAlpha<1 {pageAlpha+=0.05*gDeltaTime}
   else
   {
-    if textAlpha<1 {textAlpha+=0.04}
+    if textAlpha<1 {textAlpha+=0.04*gDeltaTime}
   }
 }
 else
