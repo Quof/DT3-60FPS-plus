@@ -19,6 +19,14 @@ if room=rBT_ZeroD
   minAlpha=0.25
   maxAlpha=0.6
 }
+#define Alarm_0
+/*"/*'/**//* YYD ACTION
+lib_id=1
+action_id=603
+applies_to=self
+*/
+if !instance_exists(myWeight)
+    myWeight=GID(weightCache)
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -69,7 +77,7 @@ if global.gamePaused=false
   }
   else if type=1
   {
-    scrPlatformCrush()
+    if gDeltaDoTicks scrPlatformCrush()
   }
 }
 #define Draw_0
@@ -80,8 +88,14 @@ applies_to=self
 */
 draw_set_alpha(eLineAlpha)
 draw_set_color(c_black)
+
+
+
 if type=0
 {
+  if !instance_exists(myWeight)
+    myWeight=GID(weightCache)
+
   draw_line_width(x,ystart,x,ystart+distMax+16,2)
   draw_line_width(x,y,myWeight.x,myWeight.y,2)
 }
