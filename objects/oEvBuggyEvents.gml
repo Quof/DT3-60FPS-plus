@@ -25,7 +25,7 @@ if sceneProgress=0 //Start viewport rotate
 }
 else if sceneProgress=1 //Viewport rotation
 {
-  view_angle[0]+=0.5
+  view_angle[0]+=0.5*gDeltaTime
   sceneDelay+=1*gDeltaTime
   if sceneDelay>=100
   {

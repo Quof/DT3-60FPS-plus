@@ -30,7 +30,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if hspeed>=0 {image_angle-=2*gDeltaTime}
+if _hspeed>=0 {image_angle-=2*gDeltaTime}
 else {image_angle+=2*gDeltaTime}
 
 x += _hspeed *gDeltaTime

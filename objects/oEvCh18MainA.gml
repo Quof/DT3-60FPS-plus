@@ -544,7 +544,7 @@ else if global.gameProgress=4390 and room=rLowFacG //----- [10] Boss Fight: Blad
       if oPlayer1.x>=576
       {
         global.gamePaused=true
-        oPlayer1.y+=8
+        oPlayer1.y+=8*gDeltaTime
         if oPlayer1.y>=352
         {
           scenePChk(oPlayer1.x,352,0,0.1,1)
@@ -773,7 +773,7 @@ else if global.gameProgress=4440 and room=rLowFacO //----- [] Trapped by Warmast
     }
     if sceneDelay=30
     {
-      msgCreate(0,0,"Warmaster","I finally get to meet you guys! You've no idea how hard its been to track you down with Hex's sight ability gone.",6,2,oMessagePerson,0)
+      msgCreate(0,0,"Warmaster","I finally get to meet you guys! You've no idea how hard it's been to track you down with Hex's sight ability gone.",6,2,oMessagePerson,0)
       newMessage.fadingTime=160
     }
     else if sceneDelay=190
@@ -1036,7 +1036,7 @@ else if global.gameProgress=4460 and room=rLowFacR //----- [] Boss Fight: Advanc
       sceneDelay+=1*gDeltaTime
       if sceneDelay>=71 and sceneDelay<=121
       {
-        blendCol+=5
+        blendCol+=5*gDeltaTime
         boss.image_blend=make_color_rgb(blendCol,blendCol,blendCol)
       }
       else if sceneDelay=130
@@ -1058,7 +1058,7 @@ else if global.gameProgress=4460 and room=rLowFacR //----- [] Boss Fight: Advanc
 
     if bMusicFade=1
     {
-      musicFade-=40
+      musicFade-=40*gDeltaTime
       fadeVolume(global.msc_WeaponFacility,40)
       if musicFade<=6000
       {
@@ -1148,7 +1148,7 @@ else if global.gameProgress=4470 and room=rLowFacS //----- [] Hex and the Warshi
       sceneDelay+=1*gDeltaTime
       if sceneDelay>=1 and sceneDelay<=35
       {
-        oMisc.x+=8
+        oMisc.x+=8*gDeltaTime
         var tAfterI;
         tAfterI=instance_create(oMisc.x,oMisc.y,oEnemyAfterImage)
         tAfterI.sprite_index=oMisc.sprite_index; tAfterI.image_index=image_index; tAfterI.image_blend=c_green
@@ -1260,14 +1260,14 @@ else if global.gameProgress=4470 and room=rLowFacS //----- [] Hex and the Warshi
     }
     if backSoundLoop>0
     {
-      backSoundLoop+=1
+      backSoundLoop+=1*gDeltaTime
       if backSoundLoop=2 {playSound(global.snd_Earthquake,0,0.95,1)}
       else if backSoundLoop>=60 {backSoundLoop=1}
     }
     if warshipProg>0 and global.gamePaused=false
     {
       oPlayer1.extForceX=-1
-      warshipProg+=1
+      warshipProg+=1*gDeltaTime
       var tEffect;
       tEffect=instance_create(1072,256+random(128),oEffect)
       tEffect.sprite_index=sMMSmokeCloud; tEffect.followID=-1; tEffect.xFollow=0; tEffect.yFollow=0
@@ -1329,7 +1329,7 @@ else if global.gameProgress=4470 and room=rLowFacCutA //----- [] CHAOS Warship t
     }
     else if sceneDelay>=81 and sceneDelay<=290 //Ship flies up
     {
-      theWarship.y-=0.1
+      theWarship.y-=0.1*gDeltaTime
       if theWarship.image_xscale<0.15
       {
         theWarship.image_xscale+=0.0005*gDeltaTime; theWarship.image_yscale+=0.0005*gDeltaTime
@@ -1337,7 +1337,7 @@ else if global.gameProgress=4470 and room=rLowFacCutA //----- [] CHAOS Warship t
     }
     else if sceneDelay>=340 and sceneDelay<=490 //Ship flies right
     {
-      theWarship.x+=2
+      theWarship.x+=2*gDeltaTime
       theWarship.image_xscale+=0.0005*gDeltaTime; theWarship.image_yscale+=0.0005*gDeltaTime
       var tEffect;
       tEffect=instance_create(theWarship.x-14,theWarship.y+random_range(-8,8),oEffect)
@@ -1552,7 +1552,7 @@ else if global.gameProgress=4510 and room=rMain_71 //----- [13] Bubblin reveals 
     else if sceneDelay>=2 and sceneDelay<=99
     {
       if sceneDelay=15 {oPlayer1.image_xscale=1}
-      npcBubblun.y+=8
+      npcBubblun.y+=8*gDeltaTime
       if npcBubblun.y>=560
       {
         sceneDelay=100
@@ -1783,7 +1783,7 @@ if global.gamePaused=false
       tEffect.image_blend=make_color_rgb(180,180+random(75),180)
       oPlayer1.yVel=-20
 
-      geyserTime+=1
+      geyserTime+=1*gDeltaTime
       if geyserTime>=20 {geyserTime=0; geyserProg=10}
     }
   }

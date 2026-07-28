@@ -15,9 +15,9 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-lavaFrm+=0.3
-moveWave+=pi/60
-glowY+=sin(moveWave)
+lavaFrm+=0.3*gDeltaTime
+moveWave+=(pi/60)*gDeltaTime
+glowY+=sin(moveWave)*gDeltaTime
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

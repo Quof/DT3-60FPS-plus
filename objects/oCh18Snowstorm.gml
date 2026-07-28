@@ -17,7 +17,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  stormTime+=1
+  stormTime+=1*gDeltaTime
   if bStorming=0
   {
     if stormTime>=stormDelay

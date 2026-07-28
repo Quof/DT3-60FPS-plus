@@ -14,7 +14,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  y+=yVel
+  y+=yVel*gDeltaTime
 }
 #define Draw_0
 /*"/*'/**//* YYD ACTION

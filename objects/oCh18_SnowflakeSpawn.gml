@@ -19,7 +19,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-snowSpawn+=1
+snowSpawn+=1*gDeltaTime
 if snowSpawn>=snowDelay
 {
   var tSnow;

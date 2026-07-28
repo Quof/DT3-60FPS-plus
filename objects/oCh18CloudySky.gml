@@ -12,7 +12,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-scrollX-=2
+scrollX-=2*gDeltaTime
 if scrollX<=-64 {scrollX=0}
 #define Draw_0
 /*"/*'/**//* YYD ACTION

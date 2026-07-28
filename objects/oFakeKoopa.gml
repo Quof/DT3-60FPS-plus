@@ -26,7 +26,7 @@ if global.gamePaused=false
       xVel*=-1
     initDir=true
   }
-  yVel+=0.3
+  yVel+=0.3*gDeltaTime
   if isCollisionBottom(1)
     yVel=-6
   if isCollisionLeft(1)
@@ -44,7 +44,7 @@ if global.gamePaused=false
     image_xscale=1
   else
     image_xscale=-1
-  moveTo(xVel,yVel)
+  moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
   if isCollisionSolid()
     y-=2
 }

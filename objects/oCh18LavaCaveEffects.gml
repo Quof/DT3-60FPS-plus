@@ -11,7 +11,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-moltenAshEfDelay+=1
+moltenAshEfDelay+=1*gDeltaTime
 if moltenAshEfDelay mod 3=0 //General ash particles
 {
   var tFFScl,tEffect,tXX,tYY;

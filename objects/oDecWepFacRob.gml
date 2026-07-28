@@ -29,7 +29,7 @@ if global.gamePaused=false
 {
   if flashTime>=100 and oPlayer1.x>=x-16
   {
-    flashTime+=1
+    flashTime+=1*gDeltaTime
     if flashTime=101 {image_blend=c_maroon}
     else if flashTime=105 {image_blend=c_gray}
   }

@@ -23,11 +23,11 @@ if global.gamePaused=false
 {
   if bMoving=1
   {
-    wheelRotate+=rotateSpd
-    x+=2
-    y+=2
+    wheelRotate+=rotateSpd*gDeltaTime
+    x+=2*gDeltaTime
+    y+=2*gDeltaTime
 
-    if oGame.time mod 1=0
+    if oGame.time mod (1/gDeltaTime)=0
     {
       var tEffect;
       tEffect=instance_create(x,y-10,oEffectSpark)
