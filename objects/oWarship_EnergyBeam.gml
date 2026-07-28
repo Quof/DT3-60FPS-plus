@@ -12,7 +12,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-lightFlash+=1
+lightFlash+=1*gDeltaTime
 if lightFlash=80
 {
   image_blend=c_green

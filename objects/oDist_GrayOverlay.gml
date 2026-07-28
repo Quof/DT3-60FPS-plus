@@ -13,7 +13,7 @@ applies_to=self
 */
 if global.gamePaused=0
 {
-  wallX+=1
+  wallX+=1*gDeltaTime
   if wallX>=room_width/2
   {
     instance_destroy()

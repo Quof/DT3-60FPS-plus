@@ -20,7 +20,7 @@ applies_to=self
 */
 if eventProg=1
 {
-  eventTime+=1
+  eventTime+=1*gDeltaTime
   if eventTime=1
   {
     for(i=0;i<12;i+=1)

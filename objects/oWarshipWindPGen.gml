@@ -12,7 +12,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-windTime+=1
+windTime+=1*gDeltaTime
 if windTime mod 5=0
 {
   var tWindLine;

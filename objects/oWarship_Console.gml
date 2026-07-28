@@ -11,7 +11,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-scrollConsole+=1
+scrollConsole+=1*gDeltaTime
 if scrollConsole>=18 {scrollConsole=0}
 #define Collision_oPlayer1
 /*"/*'/**//* YYD ACTION

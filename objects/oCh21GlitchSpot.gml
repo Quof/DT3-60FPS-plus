@@ -15,7 +15,7 @@ if global.gamePaused=false
   }
 }
 
-if oGame.time mod 3=0
+if oGame.time mod (3/gDeltaTime)=0
 {
   var tEffect;
   tEffect=instance_create(x+random(image_xscale*32),y+random(image_yscale*32),oEffect)

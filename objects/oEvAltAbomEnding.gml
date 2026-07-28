@@ -142,7 +142,7 @@ else if room=rAbomD
         if oPlayer1.x>=800
         {
           global.gamePaused=1
-          oPlayer1.y+=8
+          oPlayer1.y+=8*gDeltaTime
           if oPlayer1.y>=312
           {
             scenePChk(800,312,0,0.1,1)
@@ -161,7 +161,7 @@ else if room=rAbomD
         }
         else if sceneDelay>=11 and sceneDelay<=99
         {
-          viewFix.x+=4
+          viewFix.x+=4*gDeltaTime
           if viewFix.x>=864 {viewFix.x=864; sceneDelay=100}
         }
         else if sceneDelay>=130 {sceneDelay=0; sceneProgress+=1}
@@ -388,7 +388,7 @@ else if room=rAbomD
       }
       else if sceneProgress=2
       {
-        fadeAlpha+=0.1
+        fadeAlpha+=0.1*gDeltaTime
         if fadeAlpha>=1
         {
           scenePChk(800,312,0,0.1,1)
@@ -411,7 +411,7 @@ else if room=rAbomD
         }
         if sceneDelay>=30
         {
-          fadeAlpha-=0.1
+          fadeAlpha-=0.1*gDeltaTime
           if fadeAlpha<=0 {sceneDelay=0; sceneProgress+=1}
         }
       }

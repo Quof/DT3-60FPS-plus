@@ -87,7 +87,7 @@ if room=rEnd_WarshipA //----- [] End A -----
     }
     if sceneDelay>=30
     {
-      shipWhite+=4
+      shipWhite+=4*gDeltaTime
       if shipWhite>20
       {
         shipExplode=0
@@ -98,7 +98,7 @@ if room=rEnd_WarshipA //----- [] End A -----
         }
       }
       if shipWhite=136 {with theWarship {instance_destroy()}}
-      else if shipWhite>=137 {whiteAlpha-=0.02}
+      else if shipWhite>=137 {whiteAlpha-=0.02*gDeltaTime}
     }
     if sceneDelay>=170 {fadeColor=c_black; sceneDelay=0; sceneProgress+=1}
   }
@@ -114,8 +114,8 @@ if room=rEnd_WarshipA //----- [] End A -----
 
   if charactersEscape=1
   {
-    bubbleClaire.x-=1; bubbleClaire.y+=3
-    bubbleChao.x-=1; bubbleChao.y+=3
+    if gDeltaDoTicks {bubbleClaire.x-=1}; bubbleClaire.y+=3*gDeltaTime
+    if gDeltaDoTicks {bubbleChao.x-=1}; bubbleChao.y+=3
   }
 
   if shipExplode=1
@@ -161,7 +161,7 @@ else if room=rEnd_SceneA //----- [] End B -----
   else if sceneProgress=2
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay>=11 and sceneDelay<=20 {shieldAlpha-=0.01}
+    if sceneDelay>=11 and sceneDelay<=20 {shieldAlpha-=0.01*gDeltaTime}
     else if sceneDelay=21 {bCharacterShields=0}
     else if sceneDelay>=40 {sceneDelay=0; sceneProgress+=1}
   }

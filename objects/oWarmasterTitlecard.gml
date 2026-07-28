@@ -11,7 +11,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-displayTime+=1
+displayTime+=1*gDeltaTime
 if type=0 //Main
 {
   if displayTime>=1 and displayTime<=50

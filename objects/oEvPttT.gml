@@ -298,7 +298,7 @@ if phasingBack>0 //----- Background phasing -----
   {
     if changeToGlitch>0
     {
-      changeToGlitch-=1
+      changeToGlitch-=1*gDeltaTime
       phasingBack=2
     }
     else

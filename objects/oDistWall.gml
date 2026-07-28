@@ -11,8 +11,8 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-efSwirlTime+=1
-if efSwirlTime mod 3=0
+efSwirlTime+=1*gDeltaTime
+if efSwirlTime mod (3/gDeltaTime)=0
 {
   for(i=0;i<image_yscale;i+=1)
   {

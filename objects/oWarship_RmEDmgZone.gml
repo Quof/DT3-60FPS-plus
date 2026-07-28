@@ -28,7 +28,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  timeToHit+=1
+  timeToHit+=1*gDeltaTime
   if timeToHit=damageTimeThres
   {
     if oPlayer1.y<256 {y=16}

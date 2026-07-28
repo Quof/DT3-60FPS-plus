@@ -53,7 +53,7 @@ if room=rEnd_PartA //----- [] End A -----
   {
     sceneDelay+=1*gDeltaTime
     if sceneDelay=5 {explosionsBehind=1}
-    oChao_End.x-=8
+    oChao_End.x-=8*gDeltaTime
     if oChao_End.x<=240 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=2
@@ -63,7 +63,7 @@ if room=rEnd_PartA //----- [] End A -----
 
     if sceneDelay>=80
     {
-      oChao_End.x-=8
+      oChao_End.x-=8*gDeltaTime
       if oChao_End.x<=-16 {soundVol=1; explosionsBehind=100; sceneDelay=0; sceneProgress+=1}
     }
   }
@@ -87,7 +87,7 @@ if room=rEnd_PartA //----- [] End A -----
       tEffect.sprite_index=sBombExplosion
     }
 
-    expSoundTime+=1
+    expSoundTime+=1*gDeltaTime
     if expSoundTime mod 6=0 {playSound(global.snd_MetroidBomb,0,soundVol,1)}
   }
   else if explosionsBehind=100
@@ -99,7 +99,7 @@ if room=rEnd_PartA //----- [] End A -----
       tEffect.image_speed=0.33+random(0.33); tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
       tEffect.sprite_index=sBombExplosion
     }
-    expSoundTime+=1
+    expSoundTime+=1*gDeltaTime
     if expSoundTime mod 6=0 {playSound(global.snd_MetroidBomb,0,soundVol,1)}
   }
 }
@@ -130,7 +130,7 @@ else if room=rEnd_PartB //----- [] End B -----
     }
     if sceneDelay>=30
     {
-      shipWhite+=4
+      shipWhite+=4*gDeltaTime
       if shipWhite>20 {shipExplode=0}
       if shipWhite=136 {with oMisc {instance_destroy()}}
       else if shipWhite>=137 {whiteAlpha-=0.02}

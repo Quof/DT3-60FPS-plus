@@ -4,7 +4,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-x-=12
+x-=12*gDeltaTime
 if x<=view_xview[0]-96 {instance_destroy()}
 #define Draw_0
 /*"/*'/**//* YYD ACTION

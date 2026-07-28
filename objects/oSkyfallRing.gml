@@ -18,7 +18,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  spinFrm+=1
+  spinFrm+=1*gDeltaTime
   if spinFrm=3 {image_index=1}
   else if spinFrm=6 {image_index=2}
   else if spinFrm=9 {image_index=3}
@@ -28,7 +28,7 @@ if global.gamePaused=false
   else if spinFrm=21 {image_index=1}
   else if spinFrm=24 {image_index=0; spinFrm=0}
 
-  y-=moveSpd
+  y-=moveSpd*gDeltaTime
   if y<=-32 {instance_destroy()}
 }
 #define Collision_oPlayer1

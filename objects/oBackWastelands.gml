@@ -13,13 +13,13 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-rainY+=6.27
+rainY+=6.27*gDeltaTime
 if type=3 //Raindrops
 {
   if room=rCh21_WastelandA
   {
     var tEffect;
-    if oGame.time mod 2=0
+    if oGame.time mod (2/gDeltaTime)=0
     {
       tEffect=instance_create(random_range(752,784),280,oEffect)
       tEffect.sprite_index=sRaindropSplash; tEffect.image_alpha=0.33; tEffect.image_speed=0.33
@@ -42,7 +42,7 @@ if type=3 //Raindrops
   else if room=rCh21_WastelandB
   {
     var tEffect;
-    if oGame.time mod 2=0
+    if oGame.time mod (2/gDeltaTime)=0
     {
       tEffect=instance_create(random_range(224,256),280,oEffect)
       tEffect.sprite_index=sRaindropSplash; tEffect.image_alpha=0.33; tEffect.image_speed=0.33

@@ -27,7 +27,7 @@ applies_to=self
 //-------------------- Explosion Effect --------------------
 if bExplosion=1
 {
-  explosionDelay-=1
+  explosionDelay-=1*gDeltaTime
   if explosionDelay<=0
   {
     var tEffect;
@@ -42,7 +42,7 @@ if bExplosion=1
     else if expType=2 {tEffect.sprite_index=sSamusSMissileHit}
     explosionDelay=irandom_range(4,10)
 
-    soundEffectTime-=1
+    soundEffectTime-=1*gDeltaTime
     if soundEffectTime<=0
     {
       playSound(global.snd_MetroidBomb,0,0.91,1)
@@ -65,13 +65,13 @@ if bExplosion=1
       if expType=1 {tEffect.sprite_index=sSamusMissileHit}
       else if expType=2 {tEffect.sprite_index=sSamusSMissileHit}
     }
-    if oGame.time mod 4=0 {playSound(global.snd_MetroidBomb,0,0.91,1)}
+    if oGame.time mod (4/gDeltaTime)=0 {playSound(global.snd_MetroidBomb,0,0.91,1)}
   }
 }
 //-------------------- Red Fade Effect --------------------
 if bRedFade=1
 {
-  redFadeTime+=1
+  redFadeTime+=1*gDeltaTime
   if redFadeTime>=1 and redFadeTime<=50 {redFadeAlpha+=0.003*gDeltaTime}
   else if redFadeTime>=51 and redFadeTime<=100
   {

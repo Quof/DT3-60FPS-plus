@@ -332,8 +332,8 @@ else if global.gameProgress=5550 and room=rAbomF //----- [3] Boss Fight: Virus P
           myInstr[i].x=240+lengthdir_x(instrDist,instrAng+(i*45))
           myInstr[i].y=176+lengthdir_y(instrDist,instrAng+(i*45))
         }
-        instrAng-=3
-        instrDist-=8
+        instrAng-=3*gDeltaTime
+        instrDist-=8*gDeltaTime
         if instrDist<=64 {sceneDelay=200}
       }
       else if sceneDelay>=201 and sceneDelay<=399
@@ -343,10 +343,10 @@ else if global.gameProgress=5550 and room=rAbomF //----- [3] Boss Fight: Virus P
           myInstr[i].x=240+lengthdir_x(instrDist,instrAng+(i*45))
           myInstr[i].y=176+lengthdir_y(instrDist,instrAng+(i*45))
         }
-        instrAng-=3
+        instrAng-=3*gDeltaTime
         if sceneDelay>=260
         {
-          instrDist-=2
+          instrDist-=2*gDeltaTime
           if instrDist<=4
           {
             playSound(global.snd_Magic,0,1,41000)
@@ -473,7 +473,7 @@ else if global.gameProgress=5560 and room=rAbomCutA //----- [4] Abomination dest
     sceneDelay+=1*gDeltaTime
     if sceneDelay>=20
     {
-      theAbomination.y-=1
+      if gDeltaDoTicks {theAbomination.y-=1}
     }
     if sceneDelay>=80
     {
@@ -612,7 +612,7 @@ else if global.gameProgress=5570 and room=rCh21_WastelandA //----- [5] Meeting w
       warmasterEnd.sprite_index=sPlayerDiscombobulate
       warmasterEnd.image_index=0; warmasterEnd.image_speed=0
     }
-    else if sceneDelay>=6 and sceneDelay<=35 {warmasterEnd.y-=14}
+    else if sceneDelay>=6 and sceneDelay<=35 {warmasterEnd.y-=14*gDeltaTime}
     else if sceneDelay>=40
     {
       with warmasterEnd {instance_destroy()}
@@ -730,7 +730,7 @@ else if global.gameProgress=5580 and room=rCh21_WastelandB //----- [6] Jerry tal
       oPlayer1.facing=oPlayer1.RIGHT
     }
     
-    charJerry.x+=6
+    charJerry.x+=6*gDeltaTime
     if charJerry.x>=688
     {
       charJerry.x=688
@@ -868,7 +868,7 @@ else if global.gameProgress=5640 and room=rDistortionF //----- [8] Final Boss Fi
     {
       sceneDelay+=1*gDeltaTime
       if sceneDelay=20 {oHexor_Main.bShowTentacles=1}
-      else if sceneDelay>=21 and sceneDelay<=70 {oHexor_Main.tentacleScale+=0.02}
+      else if sceneDelay>=21 and sceneDelay<=70 {oHexor_Main.tentacleScale+=0.02*gDeltaTime}
       else if sceneDelay>=90 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=13 and bWaitForInput=false
@@ -978,7 +978,7 @@ else if room=rDistFinal_Round2 //----- [9] Hexor asks Jeremy how he took the shi
       oHexor_Main_R2.image_xscale-=0.2*gDeltaTime; oHexor_Main_R2.image_yscale+=0.2*gDeltaTime
       if hexorFadeBlack>0
       {
-        hexorFadeBlack-=5
+        hexorFadeBlack-=5*gDeltaTime
         oHexor_Main_R2.image_blend=make_color_rgb(hexorFadeBlack,hexorFadeBlack,hexorFadeBlack)
       }
     }
@@ -1031,7 +1031,7 @@ else if room=rDistFinal_Round3 //----- [10] Jeremy gets bigger -----
     sceneDelay+=1*gDeltaTime
     if sceneDelay>=1
     {
-      (GID(467396)).x+=6;
+      (GID(467396)).x+=6*gDeltaTime;
     }
     
     if sceneDelay>=60
@@ -1082,7 +1082,7 @@ else if room=rDistFinal_Round3 //----- [10] Jeremy gets bigger -----
   {
     with oAttackBase {instance_destroy()}
     instance_create(oPlayer1.x-7,oPlayer1.y-29,oHexor_MashButtons)
-    jeremyVelY=-2
+    jeremyVelY=-2*gDeltaTime
     sceneDelay=0; sceneProgress+=1
   }
   
@@ -1093,9 +1093,9 @@ else if room=rDistFinal_Round3 //----- [10] Jeremy gets bigger -----
     {
       if jeremyVelY<0 {oPlayer1.sprite_index=sJF_Jump}
       else {oPlayer1.sprite_index=sJF_Fall}
-      oPlayer1.x-=3
-      oPlayer1.y+=jeremyVelY
-      jeremyVelY+=0.33
+      oPlayer1.x-=3*gDeltaTime
+      oPlayer1.y+=jeremyVelY*gDeltaTime
+      jeremyVelY+=0.33*gDeltaTime
       if sceneDelay>=5
       {
         if oPlayer1.y>=304
@@ -1119,7 +1119,7 @@ else if room=rDistFinal_Round3 //----- [10] Jeremy gets bigger -----
   
   if sceneProgress=40 //After finisher
   {
-    fadeAlpha+=0.1
+    fadeAlpha+=0.1*gDeltaTime
     if fadeAlpha>=1
     {
       room_goto_fixed(rTrueEnd_A)

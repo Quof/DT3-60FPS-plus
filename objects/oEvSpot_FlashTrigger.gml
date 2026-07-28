@@ -31,34 +31,34 @@ applies_to=self
 //----- Red -----
 if cR_Seq=0
 {
-  colR-=2
+  colR-=2*gDeltaTime
   if colR<=2 {cR_Seq=1}
 }
 else
 {
-  colR+=2
+  colR+=2*gDeltaTime
   if colR>=253 {cR_Seq=0}
 }
 //----- Green -----
 if cG_Seq=0
 {
-  colG-=4
+  colG-=4*gDeltaTime
   if colG<=4 {cG_Seq=1}
 }
 else
 {
-  colG+=4
+  colG+=4*gDeltaTime
   if colG>=251 {cG_Seq=0}
 }
 //----- Blue -----
 if cB_Seq=0
 {
-  colB-=7
+  colB-=7*gDeltaTime
   if colB<=7 {cB_Seq=1}
 }
 else
 {
-  colB+=7
+  colB+=7*gDeltaTime
   if colB>=248 {cB_Seq=0}
 }
 barColor=make_color_rgb(colR,colG,colB)

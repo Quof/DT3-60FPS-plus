@@ -106,7 +106,7 @@ else if sceneProgress=8
 }
 else if sceneProgress=9
 {
-  fadeAlpha+=0.1
+  fadeAlpha+=0.1*gDeltaTime
   if fadeAlpha>=1
   {
     sceneProgress+=1

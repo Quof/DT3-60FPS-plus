@@ -54,7 +54,7 @@ if global.gameProgress=5040 and room=rWarshipA //----- [] Intro to CHAOS Warship
     {
       if shipJerry.x<240
       {
-        shipJerry.x+=16; shipClaire.x+=16
+        shipJerry.x+=16*gDeltaTime; shipClaire.x+=16*gDeltaTime
         oPlayer1.x=shipJerry.x; oPlayer1.y=shipJerry.y //Keep player object on Jerry
       }
       else {sceneDelay=100}
@@ -75,15 +75,15 @@ if global.gameProgress=5040 and room=rWarshipA //----- [] Intro to CHAOS Warship
     else if sceneDelay>=201
     {
       //Move Jerry and Claire to the right
-      if shipJerry.y<416 {shipJerry.x+=12}
-      if shipClaire.y<416 {shipClaire.x+=12}
+      if shipJerry.y<416 {shipJerry.x+=12*gDeltaTime}
+      if shipClaire.y<416 {shipClaire.x+=12*gDeltaTime}
       if animCheck=1 //Move Jerry and Claire down and land
       {
-        if charYSpd<8 {charYSpd+=0.5}
-        if shipJerry.y<416 {shipJerry.y+=charYSpd}
+        if charYSpd<8 {charYSpd+=0.5*gDeltaTime}
+        if shipJerry.y<416 {shipJerry.y+=charYSpd*gDeltaTime}
         else {shipJerry.y=417; shipJerry.sprite_index=sJerryIdle; shipJerry.image_speed=0.1}
 
-        if shipClaire.y<416 {shipClaire.y+=charYSpd}
+        if shipClaire.y<416 {shipClaire.y+=charYSpd*gDeltaTime}
         else {shipClaire.y=417; shipClaire.sprite_index=sClaireIdle; shipClaire.image_speed=0.1}
       }
       oPlayer1.x=shipJerry.x; oPlayer1.y=shipJerry.y //Keep player object on Jerry
@@ -800,7 +800,7 @@ else if global.gameProgress=5250 and room=rWarshipQ //----- [] Boss Fight: Hex F
       }
       else if sceneDelay>=11 and sceneDelay<=999
       {
-        oGameCamera.x+=1
+        if gDeltaDoTicks {oGameCamera.x+=1}
         if oGameCamera.x>=448 {oGameCamera.x=448; sceneDelay=1000}
       }
       else if sceneDelay=1020 {sceneDelay=0; sceneProgress+=1}
@@ -1154,7 +1154,7 @@ else if global.gameProgress=5305 and room=rWarshipZ_E2 //----- [Final Boss Fight
       }
       else if sceneDelay>=11
       {
-        oGameCamera.x+=2
+        oGameCamera.x+=2*gDeltaTime
         if oGameCamera.x>=368 {oGameCamera.x=368; sceneDelay=0; sceneProgress+=1}
       }
     }
@@ -1168,8 +1168,8 @@ else if global.gameProgress=5305 and room=rWarshipZ_E2 //----- [Final Boss Fight
       }
       else if sceneDelay>=31 and sceneDelay<=499
       {
-        if musVolC>=7500 {musVolC-=50}
-        else {musVolC-=400}
+        if musVolC>=7500 {musVolC-=50*gDeltaTime}
+        else {musVolC-=400*gDeltaTime}
         SS_SetSoundVol(musFileP,musVolC)
         if musVolC<=1500
         {
@@ -1281,8 +1281,8 @@ else if global.gameProgress=5305 and room=rWarshipZ_E2 //----- [Final Boss Fight
       }
       else if sceneDelay>=31 and sceneDelay<=499
       {
-        if musVolC>=7500 {musVolC-=50}
-        else {musVolC-=400}
+        if musVolC>=7500 {musVolC-=50*gDeltaTime}
+        else {musVolC-=400*gDeltaTime}
         SS_SetSoundVol(musFileP,musVolC)
         if musVolC<=1500
         {
@@ -1333,7 +1333,7 @@ else if global.gameProgress=5305 and room=rWarshipZ_E2 //----- [Final Boss Fight
     }
     else if sceneProgress=2
     {
-      fadeAlpha+=0.1
+      fadeAlpha+=0.1*gDeltaTime
       if fadeAlpha>=1
       {
         warmasterEnd=instance_create(432,304,oMisc)

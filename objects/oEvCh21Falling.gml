@@ -617,8 +617,8 @@ else if global.gameProgress=5520 //Falling minigame
       }
       else if sceneDelay>=31 and sceneDelay<=499
       {
-        if musVolC>=7500 {musVolC-=50}
-        else {musVolC-=400}
+        if musVolC>=7500 {musVolC-=50*gDeltaTime}
+        else {musVolC-=400*gDeltaTime}
         SS_SetSoundVol(musFileP,musVolC)
         if musVolC<=1500
         {

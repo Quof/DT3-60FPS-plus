@@ -236,7 +236,7 @@ else if sceneProgress=8 //-------------------- End --------------------
   }
 }
 
-if skipConfirm>0 {skipConfirm-=0.02}
+if skipConfirm>0 {skipConfirm-=0.02*gDeltaTime}
 
 if oKeyCodes.kCodePressed[11]=1 and sceneProgress<8 //Cutscene skip
 {

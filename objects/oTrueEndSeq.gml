@@ -122,8 +122,8 @@ if room=rTrueEnd_A //------------------------------ [] End A -------------------
     }
     else if sceneDelay>=11
     {
-      if jeremyVelY<7 {jeremyVelY+=0.33}
-      oPlayer1.y+=jeremyVelY
+      if jeremyVelY<7 {jeremyVelY+=0.33*gDeltaTime}
+      oPlayer1.y+=jeremyVelY*gDeltaTime
 
       if sceneDelay=20 {(GID(466949)).sprite_index=sJerryIdle;}
 
@@ -223,7 +223,7 @@ else if room=rTrueEnd_B //------------------------------ [] End B --------------
   {
     if global.modeDark=1
     {
-      darkModeText+=1
+      darkModeText+=1*gDeltaTime
       if darkModeText=60
       {
         msgCreate(60,280,"Jerry","Oh cool, an ending sequence we can't even see.",0,2,oMessagePerson,0); newMessage.fadingTime=120
@@ -356,7 +356,7 @@ else if room=rTrueEnd_B //------------------------------ [] End B --------------
         scrollView=1
       }
 
-      if scrollView=1 {view_xview[0]+=1}
+      if scrollView=1 and gDeltaDoTicks {view_xview[0]+=1}
       if view_xview[0]>=1452
       {
         view_xview[0]=1452
@@ -391,7 +391,7 @@ else if room=rTrueEnd_B //------------------------------ [] End B --------------
   {
     if global.modeDark=1
     {
-      darkModeText+=1
+      darkModeText+=1*gDeltaTime
       if darkModeText=10
       {
         msgCreate(60,280,"Claire","And you finally had a good one, that's slightly impressive.",0,2,oMessagePerson,0); newMessage.fadingTime=130
@@ -405,7 +405,7 @@ else if room=rTrueEnd_B //------------------------------ [] End B --------------
     sceneDelay+=1*gDeltaTime
     if sceneDelay>=20
     {
-      if scrollView=1 {view_xview[0]+=1}
+      if scrollView=1 and gDeltaDoTicks {view_xview[0]+=1}
       if view_xview[0]>=2188
       {
         view_xview[0]=2188
@@ -458,7 +458,7 @@ else if room=rTrueEnd_B //------------------------------ [] End B --------------
         tNewMessage.signSize=1
       }
 
-      if scrollView=1 {view_xview[0]+=1}
+      if scrollView=1 and gDeltaDoTicks {view_xview[0]+=1}
       if view_xview[0]>=3340
       {
         view_xview[0]=3340
@@ -517,7 +517,7 @@ else if room=rTrueEnd_B //------------------------------ [] End B --------------
     sceneDelay+=1*gDeltaTime
     if sceneDelay>=20
     {
-      if scrollView=1 {view_xview[0]+=1}
+      if scrollView=1 and gDeltaDoText {view_xview[0]+=1}
       if view_xview[0]>=4364
       {
         view_xview[0]=4364
@@ -538,8 +538,8 @@ else if room=rTrueEnd_B //------------------------------ [] End B --------------
     {
       fadeAlpha+=0.05*gDeltaTime
 
-      if musVolC>=7500 {musVolC-=50}
-      else {musVolC-=400}
+      if musVolC>=7500 {musVolC-=50*gDeltaTime}
+      else {musVolC-=400*gDeltaTime}
       SS_SetSoundVol(musFileP,musVolC)
       if musVolC<=1500
       {
@@ -748,11 +748,11 @@ else if room=rTrueEnd_C //------------------------------ [] End C --------------
       }
       else if sceneDelay>=31 and sceneDelay<=80
       {
-        dtAlpha+=0.02
+        dtAlpha+=0.02*gDeltaTime
       }
       else if sceneDelay>=111 and sceneDelay<=130
       {
-        thanksAlpha+=0.05
+        thanksAlpha+=0.05*gDeltaTime
       }
       else if sceneDelay>=135 {sceneDelay=0; sceneProgress+=1}
     }

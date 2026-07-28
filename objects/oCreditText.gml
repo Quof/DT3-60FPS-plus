@@ -27,7 +27,7 @@ else if textProg=1
   }
 }
 
-y-=mySpd
+y-=mySpd*gDeltaTime
 if y<-32 {instance_destroy()}
 #define Draw_0
 /*"/*'/**//* YYD ACTION

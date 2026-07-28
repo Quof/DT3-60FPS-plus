@@ -18,8 +18,8 @@ applies_to=self
 */
 if moveType=1
 {
-  moveTime+=1
-  if moveTime=320 {xScrollSpeed=-1; yScrollSpeed=0}
+  moveTime+=1*gDeltaTime
+  if moveTime=320 {xScrollSpeed=-1*gDeltaTime; yScrollSpeed=0}
   else if moveTime=640
   {
     xScrollSpeed=0; yScrollSpeed=1

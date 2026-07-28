@@ -14,7 +14,7 @@ applies_to=self
 //Requires: xMove,xSize
 if global.gamePaused=false
 {
-  cirSize+=1
+  cirSize+=1*gDeltaTime
   if cirSize>=205 {instance_destroy()}
 }
 #define Draw_0

@@ -20,9 +20,9 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-phase+=0.02
+phase+=0.02*gDeltaTime
 
-changeScale+=1
+changeScale+=1*gDeltaTime
 if changeScale mod 4=0
 {
   for(i=0;i<16;i+=1)
@@ -39,7 +39,7 @@ if changeScale mod 9=0
   tEffect.fadeSpd=0.01; tEffect.AccelX=0; tEffect.AccelY=0; tEffect.followID=-1; tEffect.rotation=0
 }
 
-efLightDelay+=1
+efLightDelay+=1*gDeltaTime
 if efLightDelay=30
 {
   var tEffect,tTempAmt,tTempDir,tTempDist;

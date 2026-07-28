@@ -27,12 +27,12 @@ applies_to=self
 */
 if type=0 //CHAOS Shock Troop carrying wooden plank
 {
-  x+=2*image_xscale
+  x+=2*image_xscale*gDeltaTime
 
   if image_index>=0 and image_index<=0.99 {plankX=0}
   else if image_index>=1 and image_index<=1.99 {plankX=1}
   else if image_index>=2 and image_index<=2.99 {plankX=2}
-  else if image_index>=3 and image_index<=3.99 {plankX=1}
+  else /* image_index>=3 and image_index<=3.99*/ {plankX=1}
 }
 else if type=1 //CHAOS Rocketeer smoke effect
 {
@@ -47,7 +47,7 @@ else if type=1 //CHAOS Rocketeer smoke effect
 }
 else if type=2 //NPC walking
 {
-  x+=2*image_xscale
+  x+=2*image_xscale*gDeltaTime
 }
 #define Draw_0
 /*"/*'/**//* YYD ACTION

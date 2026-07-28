@@ -110,7 +110,7 @@ if global.gameProgress=5340 and room=rWarshipZ_EscapeA //----- [1] ...Hex had a 
     }
     else if sceneDelay>=6 and sceneDelay<=99
     {
-      oPlayer1.x-=8
+      oPlayer1.x-=8*gDeltaTime
       if oPlayer1.x<=1408
       {
         oPlayer1.sprite_index=sJerryDuck
@@ -136,7 +136,7 @@ if global.gameProgress=5340 and room=rWarshipZ_EscapeA //----- [1] ...Hex had a 
     else if sceneDelay=125 {oPlayer1.sprite_index=sJerryWalk; oPlayer1.image_speed=0.33}
     else if sceneDelay>=126 and sceneDelay<=199
     {
-      oPlayer1.x+=6
+      oPlayer1.x+=6*gDeltaTime
       if oPlayer1.x>=1436
       {
         oPlayer1.sprite_index=sJerryIdle; oPlayer1.image_speed=0.1
@@ -189,7 +189,7 @@ if global.gameProgress=5340 and room=rWarshipZ_EscapeA //----- [1] ...Hex had a 
 
     if jerryAnim>=1 //Jerry hits wall
     {
-      jerryAnim+=1
+      jerryAnim+=1*gDeltaTime
       if jerryAnim=5 {oPlayer1.sprite_index=sJerryClawForward; oPlayer1.image_speed=0; oPlayer1.image_index=0}
       else if jerryAnim=20 {oPlayer1.image_index=1}
       else if jerryAnim=23 {oPlayer1.image_index=2}
@@ -269,7 +269,7 @@ else if global.gameProgress=5350 and room=rWarshipZ_EscapeB //----- [2] Claire r
     if oPlayer1.x<=3520
     {
       global.gamePaused=true
-      oPlayer1.y+=8
+      oPlayer1.y+=8*gDeltaTime
       if oPlayer1.y>=288
       {
         scenePChk(3520,288,0,0.1,-1)
@@ -308,7 +308,7 @@ else if global.gameProgress=5360 and room=rWarshipZ_EscapeB //----- [3] Jerry pa
     if oPlayer1.x<=1840
     {
       global.gamePaused=true
-      oPlayer1.y+=8
+      oPlayer1.y+=8*gDeltaTime
       if oPlayer1.y>=240
       {
         global.canCharSwap=1
@@ -327,10 +327,10 @@ else if global.gameProgress=5360 and room=rWarshipZ_EscapeB //----- [3] Jerry pa
   else if sceneProgress=1
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay>=1 and sceneDelay<=12 {oPlayer1.x-=7}
+    if sceneDelay>=1 and sceneDelay<=12 {oPlayer1.x-=7*gDeltaTime}
     else if sceneDelay=13 {oPlayer1.sprite_index=sClaireIdle; oPlayer1.image_speed=0.1; oPlayer1.image_xscale=1}
     else if sceneDelay=24 {oPlayer1.sprite_index=sClaireWalk; oPlayer1.image_speed=0.33}
-    else if sceneDelay>=25 and sceneDelay<=28 {oPlayer1.x+=7}
+    else if sceneDelay>=25 and sceneDelay<=28 {oPlayer1.x+=7*gDeltaTime}
     else if sceneDelay=29 {oPlayer1.sprite_index=sClaireIdle; oPlayer1.image_speed=0.1; oPlayer1.image_xscale=1}
 
     if sceneDelay=10 {jerryChar.image_index=1}
@@ -380,11 +380,11 @@ else if global.gameProgress=5370 and room=rWarshipZ_EscapeD //----- [4] Claire s
 {
   if chaoGoToPoint=1
   {
-    if oIdentifier.x<412 {oIdentifier.x+=4}
-    else if oIdentifier.x>420 {oIdentifier.x-=4}
+    if oIdentifier.x<412 {oIdentifier.x+=4*gDeltaTime}
+    else if oIdentifier.x>420 {oIdentifier.x-=4*gDeltaTime}
 
-    if oIdentifier.y<1036 {oIdentifier.y+=4}
-    else if oIdentifier.y>1044 {oIdentifier.y-=4}
+    if oIdentifier.y<1036 {oIdentifier.y+=4*gDeltaTime}
+    else if oIdentifier.y>1044 {oIdentifier.y-=4*gDeltaTime}
   }
 
   if sceneProgress=0
@@ -392,7 +392,7 @@ else if global.gameProgress=5370 and room=rWarshipZ_EscapeD //----- [4] Claire s
     if oPlayer1.y>=1040
     {
       global.gamePaused=true
-      oPlayer1.y+=12
+      oPlayer1.y+=12*gDeltaTime
       if oPlayer1.y>=1088
       {
         chaoGoToPoint=1
@@ -449,12 +449,12 @@ else if global.gameProgress=5370 and room=rWarshipZ_EscapeD //----- [4] Claire s
     }
     else if sceneDelay>=101 and sceneDelay<=199
     {
-      oPlayer1.x+=7
+      oPlayer1.x+=7*gDeltaTime
       if oPlayer1.x>=384 {oPlayer1.sprite_index=sClaireIdle; oPlayer1.image_speed=0.1; sceneDelay=500}
     }
     else if sceneDelay>=201 and sceneDelay<=299
     {
-      oPlayer1.x-=7
+      oPlayer1.x-=7*gDeltaTime
       if oPlayer1.x<=448 {oPlayer1.sprite_index=sClaireIdle; oPlayer1.image_speed=0.1; sceneDelay=500}
     }
     if sceneDelay=540 {oWarship_PowerSource.overloading=0}
@@ -510,10 +510,10 @@ else if global.gameProgress=5370 and room=rWarshipZ_EscapeD //----- [4] Claire s
     sceneDelay+=1*gDeltaTime
     if sceneDelay>=30
     {
-      if oIdentifier.y>1025 {oIdentifier.y-=1}
-      else if oIdentifier.y<1023 {oIdentifier.y+=1}
+      if oIdentifier.y>1025 and gDeltaDoTicks {oIdentifier.y-=1}
+      else if oIdentifier.y<1023 and gDeltaDoTicks {oIdentifier.y+=1}
 
-      oIdentifier.x-=4
+      oIdentifier.x-=4*gDeltaTime
       if oIdentifier.x<=96
       {
         oIdentifier.x=-128; oIdentifier.y=-128
@@ -548,8 +548,8 @@ else if global.gameProgress=5380 and room=rWarshipZ_EscapeD //----- [] Claire wa
     }
     else if sceneDelay>=2
     {
-      if musVolC>=7500 {musVolC-=50}
-      else {musVolC-=400}
+      if musVolC>=7500 {musVolC-=50*gDeltaTime}
+      else {musVolC-=400*gDeltaTime}
       SS_SetSoundVol(musFileP,musVolC)
       if musVolC<=1500 {musFileP=findMusic(0)}
     }
@@ -620,7 +620,7 @@ else if global.gameProgress=5380 and room=rWarshipZ_EscapeD //----- [] Claire wa
 
     if sceneDelay>=2
     {
-      oIdentifier.x+=6
+      oIdentifier.x+=6*gDeltaTime
       if oIdentifier.x>=368 {sceneDelay=0; sceneProgress+=1}
     }
   }

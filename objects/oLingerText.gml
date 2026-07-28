@@ -11,7 +11,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-textTime+=1
+textTime+=1*gDeltaTime
 if textTime>=60
 {
   image_alpha-=0.04*gDeltaTime
