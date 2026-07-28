@@ -89,7 +89,7 @@ if global.gamePaused=false
       }
     }
   }
-  scrPlatformCrush()
+  if gDeltaDoTicks scrPlatformCrush()
 }
 #define Draw_0
 /*"/*'/**//* YYD ACTION

@@ -17,7 +17,7 @@ applies_to=self
 //Automatically goes through text strings without player activation
 if global.gamePaused=false
 {
-  messageTime+=1
+  messageTime+=1*gDeltaTime
   if messageTime>=messageDelay
   {
     stringToShow=myString[currentString]

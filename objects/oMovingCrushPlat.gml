@@ -75,7 +75,7 @@ if global.gamePaused=false
       shiftTime+=1*gDeltaTime
     }
   }
-  scrPlatformCrush()
+  if gDeltaDoTicks scrPlatformCrush()
 }
 #define Draw_0
 /*"/*'/**//* YYD ACTION

@@ -32,7 +32,7 @@ if global.gamePaused=false
       progCheck=2
     }
   }
-  scrPlatformCrush()
+  if gDeltaDoTicks scrPlatformCrush()
 }
 #define Draw_0
 /*"/*'/**//* YYD ACTION

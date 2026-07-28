@@ -50,7 +50,7 @@ if global.gamePaused=false
     moveTime+=1*gDeltaTime
     if moveTime>=moveMax {xVel=0; moveSeq=3}
 
-    scrPlatformCrush()
+    if gDeltaDoTicks scrPlatformCrush()
   }
 }
 #define Draw_0

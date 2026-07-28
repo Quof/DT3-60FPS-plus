@@ -63,6 +63,8 @@ if global.gamePaused=false
           tEffect.AccelX=0; tEffect.AccelY=0; tEffect.newBlend=-1; tEffect.followID=-1; tEffect.rotation=0
           tDir+=360/16
         }
+        if !instance_exists(targetNPC)
+            targetNPC=GID(targetCache)
 
         targetNPC.visible=1
         targetNPC.x=x+16

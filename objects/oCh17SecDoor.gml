@@ -27,5 +27,5 @@ if global.gamePaused=false
     }
   }
 
-  scrPlatformCrush()
+  if gDeltaDoTicks scrPlatformCrush()
 }
