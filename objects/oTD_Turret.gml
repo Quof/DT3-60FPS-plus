@@ -22,7 +22,7 @@ if global.gamePaused=false
   myDistIdle=point_distance(x,bbox_top+(sprite_height/2),oPlayerIdle.x,oPlayerIdle.y-26)
   if myDist<144 or myDistIdle<144 {bBoosted=1}
   else {bBoosted=0}
-  if bBoosted=1 and oGame.time mod 3=0 //Effect if being boosted
+  if bBoosted=1 and oGame.time mod (3/gDeltaTime)=0 //Effect if being boosted
   {
     var tEffect;
     tEffect=instance_create(bbox_left+random(abs(sprite_width)),bbox_top+random(sprite_height),oEffectB)
@@ -119,7 +119,7 @@ if global.gamePaused=false
   tChkFR=turFireRate
   if bBoosted=1 {tChkFR*=1.15} //+15% fire rate if boosted by player proximity
 
-  if fireCheck<34 {fireCheck+=tChkFR}
+  if fireCheck<34 {fireCheck+=tChkFR*gDeltaTime}
   if fireCheck>=30 and bCanFire=1
   {
     fireCheck-=30

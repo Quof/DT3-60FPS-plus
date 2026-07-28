@@ -14,14 +14,14 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-flagAnim+=0.25
+flagAnim+=0.25*gDeltaTime
 if global.gamePaused=false
 {
-  waveCountdown-=1
+  waveCountdown-=1*gDeltaTime
   if scrController(4) and oPlayer1.idleTime>2
   {
-    waveCountdown-=10
-    holdDown+=1
+    waveCountdown-=10*gDeltaTime
+    holdDown+=1*gDeltaTime
     if holdDown>=30 {room_speed=global.gameFrameRate*2}
   }
   else {room_speed=global.gameFrameRate; holdDown=0}

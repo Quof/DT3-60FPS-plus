@@ -53,7 +53,7 @@ if global.gamePaused=false
       shiftSeq=1
     }
     else if shiftSeq>=1 and shiftSeq<=20
-      shiftSeq+=1
+      shiftSeq+=1*gDeltaTime
     else if shiftSeq>=21
     {
       shiftTime=0
@@ -72,7 +72,7 @@ if global.gamePaused=false
     {
       prevX=x
       prevY=y
-      shiftTime+=1
+      shiftTime+=1*gDeltaTime
     }
   }
   scrPlatformCrush()

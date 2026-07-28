@@ -20,7 +20,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  screenFrm+=0.25
+  screenFrm+=0.25*gDeltaTime
   if bActivate=1
   {
     if type=0 //Energy bridge

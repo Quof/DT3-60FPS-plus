@@ -23,7 +23,7 @@ if global.gamePaused=false
 {
   if myProg=1 //Fall
   {
-    y+=8
+    y+=8*gDeltaTime
     var tEffect;
     tEffect=instance_create(x-32,bbox_top+random(4),oEffect)
     tEffect.sprite_index=sMMSmokeCloud; tEffect.image_speed=0.5; tEffect.xSpd=0; tEffect.ySpd=0
@@ -47,8 +47,8 @@ if global.gamePaused=false
   }
   else if myProg=2 //Rotate
   {
-    image_angle-=2
-    mySeq+=1
+    image_angle-=2*gDeltaTime
+    mySeq+=1*gDeltaTime
     if mySeq>=22
     {
       playSound(global.snd_Slam,0,0.9,21000)

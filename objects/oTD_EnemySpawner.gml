@@ -46,7 +46,7 @@ if global.gamePaused=false
 {
   if bCanSpawn=1
   {
-    spawnTime+=1
+    spawnTime+=1*gDeltaTime
     if spawnTime>=spawnFreq
     {
       var newSpawn;

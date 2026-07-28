@@ -178,7 +178,7 @@ else if global.gameProgress=3970 and room=rHPF_B //----- [] Boss Fight: Antipath
       }
       else if sceneDelay>=2
       {
-        npcVirusA.y+=6; npcVirusB.y+=6
+        npcVirusA.y+=6*gDeltaTime; npcVirusB.y+=6*gDeltaTime
         if npcVirusA.y>=248
         {
           with oMisc {instance_destroy()}
@@ -746,7 +746,7 @@ else if global.gameProgress=4080 and room=rHPF_U //----- [6] Sera's Intro -----
     else if sceneDelay>=71 and sceneDelay<=120
     {
       npcSera.image_alpha+=0.1*gDeltaTime
-      npcSera.y+=1
+      if gDeltaDoTicks {npcSera.y+=1}
     }
     else if sceneDelay>=130 {npcSera.image_alpha=1; sceneDelay=0; sceneProgress+=1}
   }
@@ -907,8 +907,8 @@ else if global.gameProgress=4090 and room=rHPF_U //----- [Unskippable] Boss Figh
         }
         else if sceneDelay>=181 and sceneDelay<=436
         {
-          oNPC_Sera.y-=0.25
-          if blendCol<255 {blendCol+=1}
+          if gDeltaDoTicks {oNPC_Sera.y-=0.25}
+          if blendCol<255 {blendCol+=1*gDeltaTime}
           oNPC_Sera.image_blend=make_color_rgb(blendCol,blendCol,blendCol)
         }
         else if sceneDelay=480 {sceneDelay=0; sceneProgress+=1}
@@ -1072,8 +1072,8 @@ else if global.gameProgress=4100 and room=rHPF_V //----- [7] Shutting down the V
         pChip[i].x=oPlayer1.x+lengthdir_x(chipDist,chipDir+(i*60))
         pChip[i].y=oPlayer1.y-96+lengthdir_y(chipDist,chipDir+(i*60))
       }
-      chipDir+=17
-      chipDist+=2
+      chipDir+=17*gDeltaTime
+      chipDist+=2*gDeltaTime
     }
     else if sceneDelay=81
     {
@@ -1194,7 +1194,7 @@ else if global.gameProgress=4100 and room=rHPF_V //----- [7] Shutting down the V
   {
     sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {charClaire.sprite_index=sClaireWalk; charClaire.image_speed=0.33}
-    else if sceneDelay>=2 and sceneDelay<=11 {charClaire.x+=7}
+    else if sceneDelay>=2 and sceneDelay<=11 {charClaire.x+=7*gDeltaTime}
     if sceneDelay=8
     {
       enemyBarrier=instance_create(48,224,oEnemyBarrier); enemyBarrier.image_yscale=4
@@ -1285,7 +1285,7 @@ else if global.gameProgress=4110 and room=rHPF_V //----- [] Jerry is trapped ---
         jerrySoul.image_alpha=0.6; jerrySoul.image_xscale=0.2; jerrySoul.image_yscale=0.2
         jerrySoul.fadeSpd=0; jerrySoul.AccelX=0; jerrySoul.AccelY=0; jerrySoul.followID=-1; jerrySoul.rotation=15
       }
-      else if sceneDelay>=331 and sceneDelay<=394 {jerrySoul.y-=0.5}
+      else if sceneDelay>=331 and sceneDelay<=394 and gDeltaDoTicks {jerrySoul.y-=0.5}
       else if sceneDelay=420
       {
         var tEfJS;
@@ -1303,8 +1303,8 @@ else if global.gameProgress=4110 and room=rHPF_V //----- [] Jerry is trapped ---
       else if sceneDelay=450 {charJerry.sprite_index=sJerryFall; fallSpd=0}
       else if sceneDelay>=451 and sceneDelay<=599
       {
-        fallSpd+=0.2
-        charJerry.y+=fallSpd
+        fallSpd+=0.2*gDeltaTime
+        charJerry.y+=fallSpd*gDeltaTime
         if charJerry.y>=288
         {
           tEffect=instance_create(charJerry.x,charJerry.y,oEffect)
@@ -1318,8 +1318,8 @@ else if global.gameProgress=4110 and room=rHPF_V //----- [] Jerry is trapped ---
       }
       else if sceneDelay>=601 and sceneDelay<=699
       {
-        fallSpd+=0.2
-        charJerry.y+=fallSpd
+        fallSpd+=0.2*gDeltaTime
+        charJerry.y+=fallSpd*gDeltaTime
         if charJerry.y>=288
         {
           charJerry.sprite_index=sJerryLayDown
@@ -1777,7 +1777,7 @@ if global.gamePaused=false
       }
       else if virusTime>=1
       {
-        virusTime+=1
+        virusTime+=1*gDeltaTime
         if virusTime=10
         {
           var tNewVirus;

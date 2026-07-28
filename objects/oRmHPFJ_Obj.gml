@@ -51,11 +51,11 @@ if global.gamePaused=false
   }
   else if myProg=1 //Fall and Rotate
   {
-    y+=yVel
-    if yVel<7 {yVel+=0.15}
-    myCol-=4
+    y+=yVel*gDeltaTime
+    if yVel<7 {yVel+=0.15*gDeltaTime}
+    myCol-=4*gDeltaTime
     image_blend=make_color_rgb(255,myCol,myCol)
-    image_angle-=1
+    image_angle-=1*gDeltaTime
     image_alpha-=0.04*gDeltaTime
     if image_alpha<=0 {instance_destroy()}
   }

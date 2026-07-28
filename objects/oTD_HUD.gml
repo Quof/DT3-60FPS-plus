@@ -43,8 +43,8 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  if repairCooldown>0 {repairCooldown-=1}
-  if statDisplayTime>0 {statDisplayTime-=1}
+  if repairCooldown>0 {repairCooldown-=1*gDeltaTime}
+  if statDisplayTime>0 {statDisplayTime-=1*gDeltaTime}
   bCanUpgrade=0
   bCanDeconstruct=0
   bCanConstruct=1

@@ -23,7 +23,7 @@ applies_to=self
 if eventProg=1 and global.gamePaused=false
 {
   //---------- Defend self ----------
-  shotTime+=1
+  shotTime+=1*gDeltaTime
   if shotTime=8 {sprite_index=sSeraIdle}
   if shotTime>=shotDelay
   {
@@ -87,7 +87,7 @@ if eventProg=1 and global.gamePaused=false
     }
   }
   //---------- Virus Invasion Sequence ----------
-  eventTime+=1
+  eventTime+=1*gDeltaTime
   if eventTime mod setSpawnRate=0 //Set spawn
   {
     newVirus=instance_create(x+lengthdir_x(208,setSpawnDir),y-20+lengthdir_y(208,setSpawnDir),oSeraInjector)
