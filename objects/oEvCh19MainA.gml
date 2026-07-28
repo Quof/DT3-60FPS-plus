@@ -495,7 +495,7 @@ else if global.gameProgress=4610 and room=rDiscoD //----- [6] Hex shows up -----
   else if sceneProgress=10
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay>=10 {(GID(399156)).x+=6}
+    if sceneDelay>=10 {(GID(399156)).x+=6*gDeltaTime}
     if sceneDelay>=40 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=11 and bWaitForInput=false
@@ -754,8 +754,8 @@ else if room=rDiscoI //----- [] Boss Fight: Defective -----
     }
     else if sceneProgress=1
     {
-      oPlayer1.x+=4
-      if oPlayer1.x>=816 {(GID(401983)).x-=7; (GID(401983)).y+=7}
+      oPlayer1.x+=4*gDeltaTime
+      if oPlayer1.x>=816 {(GID(401983)).x-=7*gDeltaTime; (GID(401983)).y+=7*gDeltaTime}
       if oPlayer1.x>=832
       {
         var tempMplay;
@@ -768,7 +768,7 @@ else if room=rDiscoI //----- [] Boss Fight: Defective -----
     }
     else if sceneProgress=2
     {
-      oPlayer1.x+=0.5
+      if gDeltaDoTicks {oPlayer1.x+=0.5}
       if oPlayer1.x>=856
       {
         playSound(global.snd_FadeAway,0,0.92,1)
@@ -777,7 +777,7 @@ else if room=rDiscoI //----- [] Boss Fight: Defective -----
     }
     else if sceneProgress=3
     {
-      oPlayer1.x+=0.5
+      if gDeltaDoTicks {oPlayer1.x+=0.5}
       if oPlayer1.x>=884
       {
         if global.activeCharacter=0 {oPlayer1.sprite_index=sJerryDuck}
@@ -805,7 +805,7 @@ else if room=rDiscoI //----- [] Boss Fight: Defective -----
     }
     else if sceneProgress=5
     {
-      (GID(401982)).x+=10
+      (GID(401982)).x+=10*gDeltaTime
       sceneDelay+=1*gDeltaTime
       if sceneDelay>=30
       {
@@ -824,7 +824,7 @@ else if room=rDiscoI //----- [] Boss Fight: Defective -----
 
     if kirbyFade>0 and kirbyFade<100 //Fade Kirby away
     {
-      kirbyFade+=1
+      kirbyFade+=1*gDeltaTime
       var tFFScl,tEffect;
       tFFScl=random(0.1)
       tEffect=instance_create((GID(401981)).x+random_range(-8,8),(GID(401981)).y-1-random(14),oEffectB)
@@ -1293,7 +1293,7 @@ else if room=rHiddenVillage_Destroyed and global.gameProgress=4940 //----- [13] 
           playSound(global.snd_HardHit2,0,1,2000)
           oEvCh19WorldEv.explodeAlpha=1
         }
-        oEvCh19WorldEv.explodeRad+=24
+        oEvCh19WorldEv.explodeRad+=24*gDeltaTime
       }
       else if sceneDelay=33
       {
@@ -1646,7 +1646,7 @@ else if room=rMC_N and global.gameProgress=5010 //----- [] Boss Fight: Decimator
     }
     else if sceneProgress=2
     {
-      fadeAlpha+=0.1
+      fadeAlpha+=0.1*gDeltaTime
       if fadeAlpha>=1
       {
         oJohnMech.sprite_index=sNPC_John_Idle; oJohnMech.x=688
@@ -1762,10 +1762,10 @@ else if room=rMC_N and global.gameProgress=5030 //----- [16] The 3 Dragoon Piece
         pChip[i].x=chipX+lengthdir_x(chipDist,chipDir+(i*120))
         pChip[i].y=chipY+lengthdir_y(chipDist,chipDir+(i*120))
       }
-      chipDir+=chipSpd
-      if chipDist<64 {chipDist+=1}
+      chipDir+=chipSpd*gDeltaTime
+      if chipDist<64 {chipDist+=1*gDeltaTime}
 
-      chipY-=1
+      if gDeltaDoTicks {chipY-=1}
       if chipY<=240
       {
         chipY=240
@@ -1779,10 +1779,10 @@ else if room=rMC_N and global.gameProgress=5030 //----- [16] The 3 Dragoon Piece
         pChip[i].x=chipX+lengthdir_x(chipDist,chipDir+(i*120))
         pChip[i].y=chipY+lengthdir_y(chipDist,chipDir+(i*120))
       }
-      if chipSpd<20 {chipSpd+=0.25}
-      chipDir+=chipSpd
-      if sceneDelay>=501 and sceneDelay<=560 {chipDist+=1} //Pieces out
-      else if sceneDelay>=591 {chipDist-=2} //Pieces in
+      if chipSpd<20 {chipSpd+=0.25*gDeltaTime}
+      chipDir+=chipSpd*gDeltaTime
+      if sceneDelay>=501 and sceneDelay<=560 {chipDist+=1*gDeltaTime} //Pieces out
+      else if sceneDelay>=591 {chipDist-=2*gDeltaTime} //Pieces in
 
       if chipDist<=0
       {
@@ -1800,7 +1800,7 @@ else if room=rMC_N and global.gameProgress=5030 //----- [16] The 3 Dragoon Piece
     }
     else if sceneDelay>=1060
     {
-      theDragoon.x+=8
+      theDragoon.x+=8*gDeltaTime
       if theDragoon.x>=912
       {
         theDragoon.x=912; theDragoon.y=240
@@ -2032,7 +2032,7 @@ if global.gamePaused=false
   }
   else if room=rDiscoA or room=rDiscoB or room=rDiscoC
   {
-    invertTime+=1
+    invertTime+=1*gDeltaTime
     if invertTime>=104
     {
       var tInverter;
@@ -2044,7 +2044,7 @@ if global.gamePaused=false
   else if room=rDiscoF or room=rDiscoG {oPlayer1.runAcc=12; oPlayer1.xAccLimit=12}
   else if room=rDiscoH and global.gameProgress<=4660
   {
-    if global.forceTime mod 30=0
+    if global.forceTime mod (30/gDeltaTime)=0
     {
       background_x[0]-=16
     }
@@ -2064,8 +2064,8 @@ if global.gamePaused=false
   {
     if jumpProg=0
     {
-      if jumpTime<=7 {oPlayer1.yVel=-20}
-      jumpTime+=1
+      if jumpTime<=7 {oPlayer1.yVel=-20*gDeltaTime}
+      jumpTime+=1*gDeltaTime
       if jumpTime>=15
       {
         stopAllMusic()

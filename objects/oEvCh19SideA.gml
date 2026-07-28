@@ -49,7 +49,7 @@ if global.gamePaused=false
   }
   else if room=rMain_80 //Automove platforms
   {
-    platformSpawn+=1
+    platformSpawn+=1*gDeltaTime
     if platformSpawn mod 120=0
     {
       var tNewPlat;
