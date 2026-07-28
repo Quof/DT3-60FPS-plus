@@ -53,7 +53,7 @@ if global.gamePaused=false
       shiftSeq=1
     }
     else if shiftSeq>=1 and shiftSeq<=20
-      shiftSeq+=1*gDeltaTime
+      shiftSeq+=1
     else if shiftSeq>=21
     {
       shiftTime=0
