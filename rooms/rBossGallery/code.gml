@@ -34,6 +34,9 @@ global.bCanSave=1
 global.currentBoss=""
 global.bossTrack=0
 
+background_hspeed[0]=1*gDeltaTime
+background_vspeed[0]=1*gDeltaTime
+
 var tempMplay;
 tempMplay=findMusic(1023)
 playMusic(tempMplay,0,0)
