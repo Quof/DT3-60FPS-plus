@@ -262,6 +262,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
+if gDeltaDoticks
 if oKeyCodes.kCodePressed[1]=1 or oKeyCodes.kCodePressed[3]=1 //Left/Up
 {
   playSound(global.snd_MenuCursor,0,1,1)

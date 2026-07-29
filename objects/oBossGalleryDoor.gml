@@ -525,7 +525,7 @@ if point_distance(x+8,y+16,oPlayer1.x,returnPlayerYCenter())<=480
 {
   if activateTime=0
   {
-    pointTime+=1
+    pointTime+=1*gDeltaTime
     if pointTime=20 {arrowY+=1}
     else if pointTime=40
     {
@@ -553,7 +553,7 @@ if point_distance(x+8,y+16,oPlayer1.x,returnPlayerYCenter())<=480
       if global.bossGalleryTime[type-1]<=award[i] {draw_sprite(sBossGalleryMedals,i,x-22+(i*30),y+64)}
     }
 
-    /*if variable_local_exists("hasPlat")
+    if variable_local_exists("hasPlat")
     {
       if global.bossGalleryTime[type-1]<=award[3]
       {
@@ -561,6 +561,6 @@ if point_distance(x+8,y+16,oPlayer1.x,returnPlayerYCenter())<=480
         draw_set_color(c_white)
         draw_text(x+8,y+120,award[3])
       }
-    }*/
+    }
   }
 }
