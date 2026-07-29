@@ -426,7 +426,7 @@ if global.gamePaused=false and global.bShooter=0
         tArrowPercent=round(global.hudLink_Arrows[0]/global.hudLink_Arrows[1])*100
         if tArrowPercent>95 {tArrowPercent=95}
         else if tArrowPercent<40 {tArrowPercent=40}
-        arrowRecharge+=1
+        arrowRecharge+=1*gDeltaTime
         if arrowRecharge>=tArrowPercent+arrowDelay
         {
           arrowRecharge=0
@@ -440,7 +440,7 @@ if global.gamePaused=false and global.bShooter=0
       }
 
       if global.hudLink_BombEn[0]<120-round(global.skillTree[1]*7.5)-equipValA
-        global.hudLink_BombEn[0]+=1
+        global.hudLink_BombEn[0]+=1*gDeltaTime
       else if global.hudLink_BombEn[0]>120-round(global.skillTree[1]*7.5)-equipValA
         global.hudLink_BombEn[0]=120-round(global.skillTree[1]*7.5)-equipValA
     }
@@ -450,17 +450,17 @@ if global.gamePaused=false and global.bShooter=0
       if global.hudMega_BusterEn[0]<32
       {
         if oGame.time mod 15-global.skillTree[28]=0
-          global.hudMega_BusterEn[0]+=1
+          global.hudMega_BusterEn[0]+=1*gDeltaTime
       }
       if global.hudMega_ShotIceEn[0]<32
       {
         if oGame.time mod 36-round(global.skillTree[28]*1.67)=0
-          global.hudMega_ShotIceEn[0]+=1
+          global.hudMega_ShotIceEn[0]+=1*gDeltaTime
       }
       if global.hudMega_GravityEn[0]<32
       {
         if oGame.time mod 40-(global.skillTree[28]*2)=0
-          global.hudMega_GravityEn[0]+=1
+          global.hudMega_GravityEn[0]+=1*gDeltaTime
       }
     }
     else if global.activeAbility[0]=3 //Game Set ----------
@@ -471,30 +471,30 @@ if global.gamePaused=false and global.bShooter=0
         if attackState=ACT_BLOCK {tWeaponRegen=5}
         else if global.stJGame_C[0]<0 {tWeaponRegen=4}
         else {tWeaponRegen=3}
-        if oGame.time mod tWeaponRegen=0 {global.hudGame_WeaponEn[0]+=1}
+        if oGame.time mod (tWeaponRegen/gDeltaTime)=0 {global.hudGame_WeaponEn[0]+=1}
       }
       else if global.hudGame_WeaponEn[0]>global.hudGame_WeaponEn[1]
         global.hudGame_WeaponEn[0]=global.hudGame_WeaponEn[1]
 
-      lastGuardTime+=1
+      lastGuardTime+=1*gDeltaTime
       if global.stJGame_C[0]>2000 //super mode
       {
-        global.stJGame_C[0]-=20
+        global.stJGame_C[0]-=20*gDeltaTime
         if global.stJGame_C[0]<=4000 {global.stJGame_C[0]=1000}
       }
       if attackState!=ACT_BLOCK //shield
       {
         if global.stJGame_C[0]>0 and global.stJGame_C[0]<1000 //normal
         {
-          if global.location=76 {global.stJGame_C[0]+=6+(global.skillTree[9]*0.25)}
-          else {global.stJGame_C[0]+=5+(global.skillTree[9]*0.25)}
+          if global.location=76 {global.stJGame_C[0]+=(6+(global.skillTree[9]*0.25))*gDeltaTime}
+          else {global.stJGame_C[0]+=(5+(global.skillTree[9]*0.25))*gDeltaTime}
           if global.stJGame_C[0]>1000 {global.stJGame_C[0]=1000}
         }
-        else if global.stJGame_C[0]<0{global.stJGame_C[0]+=5.25} //broken
+        else if global.stJGame_C[0]<0{global.stJGame_C[0]+=5.25*gDeltaTime} //broken
       }
       if global.stJGame_C[0]>-200 and global.stJGame_C[0]<=0 //Overload shield
       {
-        global.recShieldBroken+=1
+        global.recShieldBroken+=1*gDeltaTime
         global.stJGame_C[0]=-2000
       }
       else if global.stJGame_C[0]>-1000 and global.stJGame_C[0]<-800 {global.stJGame_C[0]=1000} //Recover shield
@@ -519,12 +519,12 @@ if global.gamePaused=false and global.bShooter=0
         if global.bNightmareMode=0
         {
           if oGame.time mod (21-(global.skillTree[2]*3)-equipValA)=0
-            global.hudBelmont_WeaponEn[0]+=1
+            global.hudBelmont_WeaponEn[0]+=1*gDeltaTime
         }
         else
         {
           if oGame.time mod 15=0
-            global.hudBelmont_WeaponEn[0]+=1
+            global.hudBelmont_WeaponEn[0]+=1*gDeltaTime
         }
       }
     }
@@ -535,11 +535,11 @@ if global.gamePaused=false and global.bShooter=0
       {
         var tCannonChargeMod;
         if busterLastShotTime>=0 and busterLastShotTime<=20 {tCannonChargeMod=6}
-        else if busterLastShotTime>=21 and busterLastShotTime<=50 {tCannonChargeMod=5}
-        else if busterLastShotTime>=51 and busterLastShotTime<=80 {tCannonChargeMod=4}
-        else if busterLastShotTime>=81 {tCannonChargeMod=2}
+        else if busterLastShotTime>20 and busterLastShotTime<=50 {tCannonChargeMod=5}
+        else if busterLastShotTime>50 and busterLastShotTime<=80 {tCannonChargeMod=4}
+        else if busterLastShotTime>80 {tCannonChargeMod=2}
 
-        if oGame.time mod tCannonChargeMod=0 {global.hudSamus_CannonEn[0]-=10}
+        if oGame.time mod tCannonChargeMod=0 {global.hudSamus_CannonEn[0]-=10*gDeltaTime}
       }
 
       if global.hudSamus_Missiles[0]<global.hudSamus_Missiles[1]
@@ -548,7 +548,7 @@ if global.gamePaused=false and global.bShooter=0
         tMissilePercent=round(global.hudSamus_Missiles[0]/global.hudSamus_Missiles[1])*100
         if tMissilePercent>95 {tMissilePercent=95}
         else if tMissilePercent<40 {tMissilePercent=40}
-        missileRecharge+=1
+        missileRecharge+=1*gDeltaTime
         if missileRecharge>=tMissilePercent+missileDelay
         {
           missileRecharge=0
@@ -569,30 +569,30 @@ if global.gamePaused=false and global.bShooter=0
         if attackState=ACT_BLOCK {tWeaponRegen=5}
         else if global.stJGame_C[0]<0 {tWeaponRegen=4}
         else {tWeaponRegen=3}
-        if oGame.time mod tWeaponRegen=0 {global.hudGame_WeaponEn[0]+=1}
+        if oGame.time mod (tWeaponRegen/gDeltaTime)=0 {global.hudGame_WeaponEn[0]+=1}
       }
       else if global.hudGame_WeaponEn[0]>global.hudGame_WeaponEn[1]
         global.hudGame_WeaponEn[0]=global.hudGame_WeaponEn[1]
 
-      lastGuardTime+=1
+      lastGuardTime+=1*gDeltaTime
       if global.stJGame_C[0]>2000 //super mode
       {
-        global.stJGame_C[0]-=62
+        global.stJGame_C[0]-=62*gDeltaTime
         if global.stJGame_C[0]<=4000 {global.stJGame_C[0]=1000}
       }
       if attackState!=ACT_BLOCK //shield
       {
         if global.stJGame_C[0]>0 and global.stJGame_C[0]<1000 //normal
         {
-          if global.location=76 {global.stJGame_C[0]+=6+(global.skillTree[9]*0.25)}
-          else {global.stJGame_C[0]+=5+(global.skillTree[9]*0.25)}
+          if global.location=76 {global.stJGame_C[0]+=(6+(global.skillTree[9]*0.25))*gDeltaTime}
+          else {global.stJGame_C[0]+=(5+(global.skillTree[9]*0.25))*gDeltaTime}
           if global.stJGame_C[0]>1000 {global.stJGame_C[0]=1000}
         }
-        else if global.stJGame_C[0]<0 {global.stJGame_C[0]+=5.25} //broken
+        else if global.stJGame_C[0]<0 {global.stJGame_C[0]+=5.25*gDeltaTime} //broken
       }
       if global.stJGame_C[0]>-200 and global.stJGame_C[0]<=0 //Overload shield
       {
-        global.recShieldBroken+=1
+        global.recShieldBroken+=1*gDeltaTime
         global.stJGame_C[0]=-2000
       }
       else if global.stJGame_C[0]>-1000 and global.stJGame_C[0]<-800 {global.stJGame_C[0]=1000} //Recover shield
@@ -688,14 +688,14 @@ if global.gamePaused=false and global.bShooter=0
       if bubbleCount>global.recMaxBubbles {global.recMaxBubbles=bubbleCount}
     }
     
-    waterTime+=1
+    waterTime+=1*gDeltaTime
     if waterTime>=30 //Water time track
     {
       global.recTimeUnderWater+=1
       waterTime=0
     }
     
-    global.pCurrBreath-=1
+    global.pCurrBreath-=1*gDeltaTime
     if global.pCurrBreath<=0
     {
       global.recDrowned+=1
@@ -704,7 +704,7 @@ if global.gamePaused=false and global.bShooter=0
   }
   else
   {
-    global.pCurrBreath+=8
+    global.pCurrBreath+=8*gDeltaTime
     if global.pCurrBreath>global.pBreathMax {global.pCurrBreath=global.pBreathMax}
   }
   
@@ -725,7 +725,7 @@ if global.gamePaused=false and global.bShooter=0
     }
     tEfAI=instance_create(x,y,oPlayerAfterImage)
     tEfAI.imageColor=image_blend
-    starmanTime-=1
+    starmanTime-=1*gDeltaTime
     if starmanTime>=1 and starmanTime<=40
     {
       var tEfStar;
@@ -754,7 +754,7 @@ if global.gamePaused=false and global.bShooter=0
   if dashInvulnerabilityTime>0
   {
     instance_create(x,y,oPlayerAfterImage)
-    dashInvulnerabilityTime-=1
+    dashInvulnerabilityTime-=1*gDeltaTime
     
     if dashInvulnerabilityTime>=40 //Achievement
     {
@@ -774,10 +774,10 @@ if global.gamePaused=false and global.bShooter=0
   {
     if dashRecHalt=0
     {
-      if global.challengeRoom>0 {dashEnergy+=round(dashRecovery/2)}
-      else {dashEnergy+=dashRecovery+modDashRecharge}
+      if global.challengeRoom>0 {dashEnergy+=round(dashRecovery/2)*gDeltaTime}
+      else {dashEnergy+=(dashRecovery+modDashRecharge)*gDeltaTime}
     }
-    else {dashRecHalt-=1}
+    else {dashRecHalt-=1*gDeltaTime}
     
     if global.optDashWarn=1 and (global.hasShoes[2]=2 or global.hasShoes[3]=2) //Low dash warning
     {
@@ -804,26 +804,26 @@ if global.gamePaused=false and global.bShooter=0
   else {dashEnergy=dashMeterMax}
   
   //---------- X-Buster/Weapon last shot time ----------
-  busterLastShotTime+=1
-  specialLastShotTime+=1
+  busterLastShotTime+=1*gDeltaTime
+  specialLastShotTime+=1*gDeltaTime
   
   //---------- Nightmare mode only ability checks ----------
   if swordWaveCheck>0
   {
-    swordWaveCheck-=1
+    swordWaveCheck-=1*gDeltaTime
     if swordWaveCheck=55 {swordWaveCheck=0}
   }
   if daggerSpamCheck>0
   {
-    daggerSpamCheck-=1
+    daggerSpamCheck-=1*gDeltaTime
     if daggerSpamCheck=60 {daggerSpamCheck=0}
   }
-  if powerBombCheck>0 {powerBombCheck-=1}
+  if powerBombCheck>0 {powerBombCheck-=1*gDeltaTime}
   
   //---------- Idle time ----------
   if xVel=0 and yVel=0
   {
-    idleTime+=1
+    idleTime+=1*gDeltaTime
     if idleTime=9000 and global.location!=108
     {
       var tCheckAchieve;
@@ -846,8 +846,8 @@ if global.gamePaused=false and global.bShooter=0
       {
         if oElpizo.specTime<oElpizo.specMax
         {
-          if oElpizo.timeMod=1 {oElpizo.specTime+=5}
-          else {oElpizo.specTime+=10}
+          if oElpizo.timeMod=1 {oElpizo.specTime+=5*gDeltaTime}
+          else {oElpizo.specTime+=10*gDeltaTime}
         }
       }
     }
@@ -856,7 +856,7 @@ if global.gamePaused=false and global.bShooter=0
   //---------- Death convos ----------
   if deathConvoType>0
   {
-    deathConvoTime+=1
+    deathConvoTime+=1*gDeltaTime
     if deathConvoType=1 //Map: G4 - Ostrich D
     {
       if deathConvoTime=120
@@ -949,7 +949,7 @@ if swapCheck=1 //wait 1 frame before moving objects around in split party maps
 if mechFireRate>0 {mechFireRate-=1} //Reset Jeremy's Mech firerate
 if mechShieldUses<2
 {
-  mechShieldRecover+=1
+  mechShieldRecover+=1*gDeltaTime
   if mechShieldRecover>=160
   {
     mechShieldUses+=1
@@ -958,14 +958,14 @@ if mechShieldUses<2
 }
 if mechMissileUses<2
 {
-  mechMissileRecover+=1
+  mechMissileRecover+=1*gDeltaTime
   if mechMissileRecover>=80
   {
     mechMissileUses+=1
     mechMissileRecover=0
   }
 }
-if mechLaserEnergy<mechLaserMax {mechLaserEnergy+=1}
+if mechLaserEnergy<mechLaserMax {mechLaserEnergy+=1*gDeltaTime}
 #define Mouse_50
 /*"/*'/**//* YYD ACTION
 lib_id=1

@@ -51,7 +51,7 @@ if global.gamePaused=false
     moveTo(xVel,yVel)
   }
 
-  lifeTime-=1
+  lifeTime-=1*gDeltaTime
   if lifeTime=0
   {
     playSound(global.snd_MetroidBomb,0,0.95,1)
