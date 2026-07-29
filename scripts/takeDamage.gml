@@ -429,7 +429,12 @@ if bCanTakeDamage=true
                     oPlayer1.yVel=-2
                     if global.activeCharacter=0 {scrSlowFall(3,0.5,0)}
                     else {scrSlowFall(5,0.5,0)}
-                    oPlayer1.yAcc=-3
+                    if gDeltaTime == 1.0
+                        oPlayer1.yAcc=-3
+                    else {
+                        oPlayer1.yVel-=3
+                        oPlayer1.yVel += gravityIntensity*0.5
+                    }
                   }
                 }
               }

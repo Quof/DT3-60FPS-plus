@@ -753,7 +753,7 @@ if global.gamePaused=false and global.bShooter=0
   //---------- Dash invulnerability time ----------
   if dashInvulnerabilityTime>0
   {
-    instance_create(x,y,oPlayerAfterImage)
+    if gDeltaDoTicks instance_create(x,y,oPlayerAfterImage)
     dashInvulnerabilityTime-=1*gDeltaTime
     
     if dashInvulnerabilityTime>=40 //Achievement
