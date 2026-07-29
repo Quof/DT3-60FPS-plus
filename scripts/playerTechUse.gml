@@ -5,6 +5,16 @@ argument0: Which ability is used
 */
 var tSkillUse; tSkillUse=argument0
 
+if !variable_local_exists("atkBufferTime") {atkBufferTime=0; atkBufferSkill=-1}
+if attackState!=0 and attackState!=ACT_MORPHBALL and attackState!=ACT_BLOCK
+{
+  atkBufferSkill=tSkillUse
+  atkBufferTime=0
+  exit
+}
+atkBufferTime=0
+atkBufferSkill=-1
+
 if tSkillUse=0 and attackState=0 // -------------------- LINK - SWORD --------------------
 {
   var tSoundPlay; tSoundPlay=irandom(1)

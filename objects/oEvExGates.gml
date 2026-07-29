@@ -1626,7 +1626,7 @@ if room=rExtGateE_1 //Slightly faster Dash Energy recovery
 else if room=rExtGateB_6 //Subtle background color change
 {
   bgSeq+=1*gDeltaTime
-  if bgSeq>=1 and bgSeq<=60 {bgCol+=0.1}
+  if bgSeq>=1 and bgSeq<=60 {bgCol+=0.1*gDeltaTime}
   else if bgSeq>=61 and bgSeq<=120
   {
     bgCol-=0.1*gDeltaTime
