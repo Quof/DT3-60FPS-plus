@@ -20,7 +20,7 @@ if hitTime>0 and hitTime<=9
   if hitTime>=3
     instance_destroy()
 }
-else if hitTime>=101 and hitTime<=104
+else if hitTime>=100 and hitTime<=104
 {
   hitTime+=1*gDeltaTime
   if hitTime=102
