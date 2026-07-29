@@ -734,7 +734,7 @@ else if global.gameProgress=330 and room=rMario1_8 //----- [7] Finding your frie
   if sceneProgress=0 and oPlayer1.x>=176
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay=1 {global.gamePaused=true}
+    if sceneDelay=1*gDeltaTime {global.gamePaused=true}
     oPlayer1.y+=4*gDeltaTime
     if oPlayer1.y>=256
     {
