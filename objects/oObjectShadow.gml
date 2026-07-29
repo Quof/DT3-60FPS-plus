@@ -7,6 +7,15 @@ applies_to=self
 image_blend=c_black
 image_alpha=0.6
 image_yscale=1.4
+if !variable_local_exists("ownerCache")
+    ownerCache=0
+#define Alarm_0
+/*"/*'/**//* YYD ACTION
+lib_id=1
+action_id=603
+applies_to=self
+*/
+ownerID=(GID(ownerCache))
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -28,6 +37,9 @@ if global.gamePaused=false
     }
   }
 }
+
+if !instance_exists(ownerID)
+    ownerID=GID(ownerCache)
 
 if instance_exists(ownerID)
 {

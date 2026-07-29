@@ -108,7 +108,7 @@ if global.gamePaused=false
     moveTime+=1*gDeltaTime
     if moveTime>=moveDelay
     {
-      direction=player_sprite_center()
+      _direction=player_sprite_center()
       moveTime=0
     }
 
@@ -126,7 +126,7 @@ if global.gamePaused=false
       {
         if checkScreenArea(x,y,48)=1 {playSound(global.snd_LightballSpread,0,0.85,38000)}
         lightBullet.atkProg=1
-        lightBullet.direction=point_direction(lightBullet.x,lightBullet.y,oPlayer1.x,oPlayer1.y-26)
+        lightBullet._direction=point_direction(lightBullet.x,lightBullet.y,oPlayer1.x,oPlayer1.y-26)
       }
       shotTime=0
     }

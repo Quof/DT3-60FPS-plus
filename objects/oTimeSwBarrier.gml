@@ -8,6 +8,16 @@ applies_to=self
 image_alpha=0.75
 switchCount=0
 lineColor=c_white
+#define Alarm_0
+/*"/*'/**//* YYD ACTION
+lib_id=1
+action_id=603
+applies_to=self
+*/
+for(i=0;i<swAmount;i+=1)
+{
+  switchID[i] = (GID(switchCache[i]))
+}
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -19,7 +29,7 @@ else {image_alpha=0.75}
 
 for(i=0;i<swAmount;i+=1)
 {
-  switchInstances[i] = (GID(switchID[i]))
+  switchInstances[i] = switchID[i]
 }
 
 //set in the instance creation code
