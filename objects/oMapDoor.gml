@@ -44,9 +44,9 @@ if type=1
 
 if animPlayerExit>0
 {
-  animPlayerExit+=1
+  animPlayerExit+=1*gDeltaTime
   oPlayer1.x=x+(sprite_width/2)
-  oPlayer1.y+=2
+  oPlayer1.y+=2*gDeltaTime
   if animPlayerExit=30
   {
     global.gamePaused=false
@@ -105,7 +105,7 @@ else if exitType=2
     oPlayer1.depth=1100000
     oPlayer1.bCanTakeDamage=false
     oPlayer1.bCanTakeHit=false
-    animPlayerExit=1
+    animPlayerExit=1*gDeltaTime
   }
 }
 #define Draw_0
