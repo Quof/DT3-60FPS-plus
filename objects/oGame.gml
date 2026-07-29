@@ -5,6 +5,7 @@ action_id=603
 applies_to=self
 */
 scrGlobalKeyboardInit(0)
+global.booleanImprovements=true
 gameCreateEvent()
 bStatRender=false
 windowUpdate=0

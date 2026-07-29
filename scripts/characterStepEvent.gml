@@ -1349,16 +1349,45 @@ if bCanTakeHit=false
     bTakingDamage=false
   }
 }
-
-if attackState=ACT_ATK or attackState=ACT_FIRE or attackState=ACT_FIRE_UP or attackState=ACT_FIRE_DOWN or attackState=ACT_BIRD_CALL
-{
-  if castRecovering<=0
-  {
-    atkAnimSpd=-1
-    attackState=0
-  }
-  else {castRecovering-=1*gDeltaTime}
+if global.booleanImprovements = true //input buffer
+    { 
+    if atkBufferTime>0 {atkBufferTime-=1*gDeltaTime}
+    
+    if attackState=ACT_ATK or attackState=ACT_FIRE or attackState=ACT_FIRE_UP or attackState=ACT_FIRE_DOWN or attackState=ACT_BIRD_CALL
+        {
+        if castRecovering<=0
+        {
+        atkAnimSpd=-1
+        attackState=0
+        
+        if !variable_local_exists("atkBufferTime") {atkBufferTime=0; atkBufferSkill=-1}  
+        
+        if atkBufferTime>0                                                               
+        {                                                                                 
+        var tBufSkill; tBufSkill=atkBufferSkill                                         
+        atkBufferTime=0; atkBufferSkill=-1                                              
+        playerTechUse(tBufSkill)                                                        
+        }                                                                                    
+    }
+        else {castRecovering-=1*gDeltaTime}
 }
+}
+else if global.booleanImprovements = false //old no input buffer 
+    {
+    if attackState=ACT_ATK or attackState=ACT_FIRE or attackState=ACT_FIRE_UP or attackState=ACT_FIRE_DOWN or attackState=ACT_BIRD_CALL
+        {
+        if castRecovering<=0
+        {
+        atkAnimSpd=-1
+        attackState=0
+        }
+  else {castRecovering-=1*gDeltaTime}
+    }
+}
+
+
+
+
 
 //---------- Figure out what sprite index the character should be -----------
 if global.activeCharacter=0 //-------------------- JERRY --------------------

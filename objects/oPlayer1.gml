@@ -41,6 +41,8 @@ equipValA=0
 equipValB=0
 if global.activeCharacter=1 {sprite_index=sClaireIdle}
 if x>room_width/2 {image_xscale=-1; facing=LEFT}
+atkBufferTime=0 //attack buffer experiment
+atkBufferSkill=-1
 
 //variables pertaining to the character's status and inventory
 maxLife=global.pMaxLife
