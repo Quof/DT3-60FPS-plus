@@ -18,6 +18,6 @@ if global.gamePaused=false
 {
   //x=oPlayer1.x
   //y=oPlayer1.y-26
-  myTime-=1
+  myTime-=1*gDeltaTime
   if myTime<=0 {instance_destroy()}
 }

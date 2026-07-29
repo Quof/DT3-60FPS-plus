@@ -35,6 +35,8 @@ else
   bDir=1
 
 bulletSpeed=0
+_speed=0
+_direction=0
 bCollide=0
 lingerFrame=0
 alarm[0]=1
@@ -56,24 +58,27 @@ if global.gamePaused=false
 {
   if lingerFrame=0
   {
-    speed=bulletSpeed
-    image_angle=direction
+    _speed=bulletSpeed
+    image_angle=_direction
     if bDir=0
     {
       if arrowProg=0
       {
-        direction-=2
-        if direction>180 {arrowProg=1}
+        _direction-=2*gDeltaTime
+        if _direction>180 {arrowProg=1}
       }
       else if arrowProg=1
       {
-        if direction>300 {direction-=2}
+        if _direction>300 {_direction-=2*gDeltaTime}
       }
     }
     else
     {
-      if direction<240 {direction+=2}
+      if _direction<240 {_direction+=2*gDeltaTime}
     }
+
+    x += cos(degtorad(_direction)) * _speed * gDeltaTime
+    y -= sin(degtorad(_direction)) * _speed * gDeltaTime
 
     if checkScreenArea(x,y,48)=0 {instance_destroy()}
 

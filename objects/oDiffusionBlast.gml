@@ -17,6 +17,11 @@ stunTime=12
 weaponRehitTime=30
 bCanPierce=1
 blastDamage=0
+
+_speed=0
+_direction=0
+_hspeed=0
+_vspeed=0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -44,12 +49,12 @@ if global.gamePaused=false
     sprite_index=sSamusDiffusionBlast; depth=9
     image_index=0; image_speed=0
     image_xscale=2; image_yscale=2
-    speed=0
+    _speed=0
     blastDamage=10
   }
   else if blastDamage>=10 //Diffusion blast
   {
-    blastDamage+=1
+    blastDamage+=1*gDeltaTime
     if blastDamage=13 {image_index=1}
     else if blastDamage=16 {image_index=2}
     else if blastDamage=19 {image_index=3}

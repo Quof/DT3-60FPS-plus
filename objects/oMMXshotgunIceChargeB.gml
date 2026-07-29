@@ -14,6 +14,8 @@ atkPower=round((50+round(global.stMega_ShotIce[0]*1.5)+global.skillTree[10])*0.7
 atkPower=weaponDmgMod(0,atkPower)
 stunTime=3
 
+_speed=0
+_direction=0
 bulletSpeed=9
 lifeTime=30
 bShatter=0
@@ -31,7 +33,9 @@ if global.gamePaused=false
   {
     if place_meeting(x,y,oNightmareEffect) {bulletSpeed=4.5}
     else {bulletSpeed=9}
-    speed=bulletSpeed
+    _speed=bulletSpeed
+    x += cos(degtorad(_direction)) * _speed * gDeltaTime
+    y -= sin(degtorad(_direction)) * _speed * gDeltaTime
 
     if global.optWeaponTrail=1 {instance_create(x,y,oEfWeaponTrail)}
 
@@ -39,7 +43,7 @@ if global.gamePaused=false
     if isCollisionRight(1) {bShatter=1}
     if isCollisionBottom(1) {bShatter=1}
     if isCollisionTop(1) {bShatter=1}
-    lifeTime-=1
+    lifeTime-=1*gDeltaTime
     if lifeTime=0 {bShatter=1}
 
     if bShatter=1
@@ -52,4 +56,4 @@ if global.gamePaused=false
   }
   else if lingerFrame=1 {instance_destroy()}
 }
-else {speed=0}
+else {_speed=0}

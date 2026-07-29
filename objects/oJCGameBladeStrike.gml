@@ -16,6 +16,11 @@ global.recAtkNum+=1
 global.stCGame_A[2]+=1
 image_xscale=1.1
 image_yscale=0.7
+
+_speed=0
+_direction=0
+_hspeed=0
+_vspeed=0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

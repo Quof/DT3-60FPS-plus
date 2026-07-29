@@ -20,6 +20,11 @@ bulletSpeed=3
 lifeTime=55
 lingerFrame=0
 alarm[0]=1
+
+_speed=0
+_direction=0
+_hspeed=0
+_vspeed=0
 #define Destroy_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -61,16 +66,16 @@ if global.gamePaused=false
 {
   if lingerFrame=0
   {
-    if oGame.time mod 3=0
+    if oGame.time mod (3/gDeltaTime)=0
     {
       var tExpLight;
       tExpLight=instance_create(x,y,oWepEf_Light); tExpLight.image_xscale=0.5; tExpLight.image_yscale=0.5
     }
 
-    image_angle=direction
+    image_angle=_direction
     if sprite_index=sSamusMissile
     {
-      if oGame.time mod 3=0
+      if oGame.time mod (3/gDeltaTime)=0
       {
         var tEffect,tXOffset;
         tXOffset=0
@@ -82,7 +87,7 @@ if global.gamePaused=false
     }
     else if sprite_index=sSamusSuperMissile
     {
-      if oGame.time mod 3=0
+      if oGame.time mod (3/gDeltaTime)=0
       {
         var tEffect,tXOffset;
         tXOffset=0
@@ -93,8 +98,10 @@ if global.gamePaused=false
       }
     }
 
-    if bulletSpeed<12 {bulletSpeed+=0.4}
-    speed=bulletSpeed
+    if bulletSpeed<12 {bulletSpeed+=0.4*gDeltaTime}
+    _speed=bulletSpeed
+    x += cos(degtorad(_direction)) * _speed * gDeltaTime
+    y -= sin(degtorad(_direction)) * _speed * gDeltaTime
 
     if checkScreenArea(x,y,48)=0 {instance_destroy()}
 
@@ -102,9 +109,9 @@ if global.gamePaused=false
     if isCollisionRight(1) {lingerFrame=1; speed=0; visible=0}
     if isCollisionBottom(1) {lingerFrame=1; speed=0; visible=0}
     if isCollisionTop(1) {lingerFrame=1; speed=0; visible=0}
-    lifeTime-=1
+    lifeTime-=1*gDeltaTime
     if lifeTime=0 {instance_destroy()}
   }
   else if lingerFrame=1 {instance_destroy()}
 }
-else {speed=0}
+else {_speed=0}

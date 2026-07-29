@@ -21,6 +21,12 @@ bCanHitSwitch=0
 xVel=random_range(-2,2)
 yVel=-6.5-random(3)
 timeTillDamage=0
+
+
+_speed=0
+_direction=0
+_hspeed=0
+_vspeed=0
 #define Destroy_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -39,15 +45,15 @@ applies_to=self
 event_inherited()
 if global.gamePaused=false
 {
-  timeTillDamage+=1
+  timeTillDamage+=1*gDeltaTime
   if timeTillDamage=4 {bCanDealDamage=true}
 
-  if yVel<16 {yVel+=0.3}
+  if yVel<16 {yVel+=0.3*gDeltaTime}
 
-  hspeed=xVel; vspeed=yVel
-  image_angle=direction
-  hspeed=0; vspeed=0
-  if oGame.time mod 8=0
+  _hspeed=xVel; _vspeed=yVel
+  image_angle=_direction
+  _hspeed=0; _vspeed=0
+  if oGame.time mod (8/gDeltaTime)=0
   {
     var tEffect;
     tEffect=instance_create(x,y,oEffect)
@@ -55,7 +61,7 @@ if global.gamePaused=false
     tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
   }
 
-  moveTo(xVel,yVel)
+  moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
 
   if isCollisionLeft(1)
     instance_destroy()

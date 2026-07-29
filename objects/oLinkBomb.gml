@@ -36,11 +36,11 @@ applies_to=self
 event_inherited()
 if global.gamePaused=false
 {
-  yVel+=0.2
+  yVel+=0.2*gDeltaTime
   if xVel>2
-    xVel-=0.025
+    xVel-=0.025*gDeltaTime
   else if xVel<-2
-    xVel+=0.025
+    xVel+=0.025*gDeltaTime
 
   if isCollisionLeft(1)
     xVel*=-1
@@ -62,7 +62,7 @@ if global.gamePaused=false
   if isCollisionSolid()
   {
     y-=2
-    inColTime+=1
+    inColTime+=1*gDeltaTime
     if inColTime=5
     {
       tEffect=instance_create(x,y,oEffect)
@@ -72,11 +72,11 @@ if global.gamePaused=false
     }
   }
 
-  moveTo(xVel,yVel)
+  moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
 
   if global.optWeaponTrail=1 {instance_create(x,y,oEfWeaponTrail)}
 
-  lifeTime-=1
+  if gDeltaDoTicks {lifeTime-=1}
   if lifeTime<88 and lifeTime>31
   {
     if room!=rExtGateB_6
@@ -86,7 +86,7 @@ if global.gamePaused=false
   }
   else if lifeTime<30 and lifeTime>0 //flash red
   {
-    if oGame.time mod 6=0
+    if oGame.time mod (6/gDeltaTime)=0
     {
       if image_blend=c_white {image_blend=c_red}
       else {image_blend=c_white}

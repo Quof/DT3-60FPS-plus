@@ -9,6 +9,10 @@ setCollisionBounds(-15,-4,15,-1)
 global.recAtkNum+=1
 
 lifeTime=75
+
+
+_speed=0
+_direction=0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -18,14 +22,14 @@ applies_to=self
 event_inherited()
 if global.gamePaused=false
 {
-  yVel+=0.2
+  yVel+=0.2*DeltaTime
 
   if isCollisionBottom(1) {yVel=0}
   if isCollisionSolid() {y-=2}
 
-  moveTo(xVel,yVel)
+  moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
 
-  lifeTime-=1
+  lifeTime-=1*gDeltaTime
   if lifeTime mod 3=0
   {
     instance_create(x+random_range(-2,2),y-18,oJCGameSBomb)

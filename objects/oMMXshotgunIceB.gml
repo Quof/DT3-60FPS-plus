@@ -19,6 +19,9 @@ lifeTime=35
 bShatter=0
 lingerFrame=0
 alarm[0]=1
+
+_speed=0
+_direction=0
 #define Alarm_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -40,10 +43,13 @@ if global.gamePaused=false
     if place_meeting(x,y,oNightmareEffect) {bulletSpeed=5.5}
     else {bulletSpeed=11}
 
-    speed=bulletSpeed
+    _speed=bulletSpeed
 
-    if direction<90 {image_angle-=10}
-    else {image_angle+=10}
+    if _direction<90 {image_angle-=10*gDeltaTime}
+    else {image_angle+=10*gDeltaTime}
+
+    x += cos(degtorad(_direction)) * _speed * gDeltaTime
+    y -= sin(degtorad(_direction)) * _speed * gDeltaTime
 
     if checkScreenArea(x,y,48)=0 {instance_destroy()}
 
@@ -53,7 +59,7 @@ if global.gamePaused=false
     if isCollisionRight(1) {bShatter=1}
     if isCollisionBottom(1) {bShatter=1}
     if isCollisionTop(1) {bShatter=1}
-    lifeTime-=1
+    lifeTime-=1*gDeltaTime
     if lifeTime=0 {bShatter=1}
 
     if bShatter=1
@@ -66,4 +72,4 @@ if global.gamePaused=false
   }
   else if lingerFrame=1 {instance_destroy()}
 }
-else {speed=0}
+else {speed=0; _speed=0}

@@ -11,6 +11,11 @@ global.recAtkNum+=1
 global.stSamus_Bomb[2]+=1
 
 lifeTime=30
+
+_speed=0
+_direction=0
+_hspeed=0
+_vspeed=0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -24,13 +29,13 @@ if global.gamePaused=false
   {
     if bombType=0 //Float up
     {
-      y-=0.8
+      y-=0.8*gDeltaTime
     }
   }
 
   if bombType=1
   {
-    yVel+=0.2
+    yVel+=0.2*gDeltaTime
     if isCollisionLeft(1)
       xVel*=-1
     if isCollisionRight(1)
@@ -48,7 +53,7 @@ if global.gamePaused=false
     }
     if isCollisionTop(1)
       yVel=1
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
   }
 
   lifeTime-=1*gDeltaTime

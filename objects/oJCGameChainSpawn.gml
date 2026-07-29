@@ -19,6 +19,11 @@ else
   xSpawn=16
 }
 xSpacing=24
+
+_speed=0
+_direction=0
+_hspeed=0
+_vspeed=0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -28,7 +33,7 @@ applies_to=self
 event_inherited()
 if global.gamePaused=false
 {
-  lifeTime-=1
+  lifeTime-=1*gDeltaTime
   if lifeTime mod 4=0
   {
     var tChainsword;

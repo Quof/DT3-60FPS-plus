@@ -16,6 +16,11 @@ bCanPierce=1
 bCanBoost=1
 image_xscale=1+(global.metBombUpgrade*0.07)
 image_yscale=1+(global.metBombUpgrade*0.07)
+
+_speed=0
+_direction=0
+_hspeed=0
+_vspeed=0
 #define Collision_oPlayer1
 /*"/*'/**//* YYD ACTION
 lib_id=1

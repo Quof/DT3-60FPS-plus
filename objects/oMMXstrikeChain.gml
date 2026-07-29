@@ -11,6 +11,10 @@ extend=0
 bRetract=0
 
 bCheckMiss=0
+
+
+_speed=0
+_direction=0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -19,7 +23,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  bodyFrm+=0.33
+  bodyFrm+=0.33*gDeltaTime
   if oPlayer1.grappleState=1
   {
     if bCheckMiss=0 //Check if the chain ever comes close to a latch point
@@ -36,12 +40,12 @@ if global.gamePaused=false
 
     if bRetract=0
     {
-      extend+=12
+      extend+=12*gDeltaTime
       if extend>=84 {bRetract=1}
     }
     else
     {
-      extend-=12
+      extend-=12*gDeltaTime
       if extend<=0 {bCollide=1}
     }
 

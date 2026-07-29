@@ -32,6 +32,12 @@ else
 yVel=-3
 
 bShatter=0
+
+
+_speed=0
+_direction=0
+_hspeed=0
+_vspeed=0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -41,7 +47,7 @@ applies_to=self
 event_inherited()
 if global.gamePaused=false
 {
-  yVel+=0.4
+  yVel+=0.4*gDeltaTime
 
   if checkScreenArea(x,y,48)=0 {instance_destroy()}
   if isCollisionLeft(1)
@@ -53,7 +59,7 @@ if global.gamePaused=false
   if isCollisionTop(1)
     bShatter=1
 
-  moveTo(xVel,yVel)
+  moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
 
   if global.optWeaponTrail=1 {instance_create(x,y,oEfWeaponTrail)}
 

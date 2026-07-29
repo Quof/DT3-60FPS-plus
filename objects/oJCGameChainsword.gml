@@ -19,6 +19,11 @@ flySpd=13
 decayTime=75
 
 alarm[0]=1
+
+_speed=0
+_direction=0
+_hspeed=0
+_vspeed=0
 #define Alarm_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -29,12 +34,12 @@ visible=1
 if type=1
 {
   image_angle=315
-  direction=315
+  _direction=315
 }
 else
 {
   image_angle=225
-  direction=225
+  _direction=225
 }
 #define Step_0
 /*"/*'/**//* YYD ACTION
@@ -45,9 +50,12 @@ applies_to=self
 event_inherited()
 if global.gamePaused=false
 {
-  speed=flySpd
+  _speed=flySpd
+  x += cos(degtorad(_direction)) * _speed * gDeltaTime
+  y -= sin(degtorad(_direction)) * _speed * gDeltaTime
 
-  decayTime-=1
+
+  decayTime-=1*gDeltaTime
   if decayTime<=0 {instance_destroy()}
 }
-else {speed=0}
+else {_speed=0}

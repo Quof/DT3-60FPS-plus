@@ -17,6 +17,11 @@ stunTime=6
 bCanPierce=1
 bCanBoost=1
 decayTime=10
+
+_speed=0
+_direction=0
+_hspeed=0
+_vspeed=0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -25,7 +30,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  decayTime-=1
+  decayTime-=1*gDeltaTime
   if decayTime<=0
   {
     instance_destroy()

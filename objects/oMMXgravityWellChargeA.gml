@@ -12,6 +12,8 @@ global.stMega_Gravity[2]+=1
 
 atkProg=0
 lifeTime=10
+_speed=0
+_direction=0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -21,11 +23,11 @@ applies_to=self
 event_inherited()
 if global.gamePaused=false
 {
-  lifeTime-=1
+  lifeTime-=1*gDeltaTime
   if atkProg=0
   {
-    if place_meeting(x,y,oNightmareEffect) {y-=6}
-    else {y-=12}
+    if place_meeting(x,y,oNightmareEffect) {y-=6*gDeltaTime}
+    else {y-=12*gDeltaTime}
     if lifeTime=0
     {
       lifeTime=45
@@ -36,7 +38,7 @@ if global.gamePaused=false
   {
     if bAiming=1
     {
-      image_angle+=15
+      image_angle+=15*gDeltaTime
       if lifeTime mod 4=0
       {
         if instance_exists(oEnemyBase)
@@ -45,27 +47,27 @@ if global.gamePaused=false
           var tTargetCenterX,tTargetCenterY;
           tTargetCenterX=myTarget.bbox_left+(sprite_width/2)
           tTargetCenterY=myTarget.bbox_top+(sprite_height/2)
-          direction=point_direction(x,y,tTargetCenterX,tTargetCenterY)
+          _direction=point_direction(x,y,tTargetCenterX,tTargetCenterY)
         }
         else
         {
-          direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
+          _direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
         }
         var myAtk;
-        myAtk=instance_create(x+lengthdir_x(6,direction),y+lengthdir_y(6,direction),oMMXgravityWellChargeB)
-        myAtk.direction=direction
+        myAtk=instance_create(x+lengthdir_x(6,_direction),y+lengthdir_y(6,_direction),oMMXgravityWellChargeB)
+        myAtk._direction=_direction
       }
     }
     else
     {
-      image_angle+=5
+      image_angle+=5*gDeltaTime
       if lifeTime mod 4=0
       {
         var myAtk;
         for(i=0;i<2;i+=1)
         {
           myAtk=instance_create(x+lengthdir_x(6,image_angle+(i*180)),y+lengthdir_y(6,image_angle+(i*180)),oMMXgravityWellChargeB)
-          myAtk.direction=image_angle+(i*180)
+          myAtk._direction=image_angle+(i*180)
         }
       }
     }

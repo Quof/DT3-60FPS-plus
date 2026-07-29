@@ -20,6 +20,11 @@ image_yscale=0.04
 image_alpha=0.5
 
 colorChange=255
+
+_speed=0
+_direction=0
+_hspeed=0
+_vspeed=0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -32,7 +37,7 @@ if global.gamePaused=0
   image_yscale+=0.04*gDeltaTime
 
   if image_xscale=0.72 {colorChange=210}
-  if colorChange<255 {colorChange+=3}
+  if colorChange<255 {colorChange+=3*gDeltaTime}
   image_blend=make_color_rgb(colorChange,colorChange,colorChange)
 
   if image_xscale>=0.6 {image_alpha-=0.05*gDeltaTime}

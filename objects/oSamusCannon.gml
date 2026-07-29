@@ -22,6 +22,11 @@ bulletSpeed=11.5
 lifeTime=50
 lingerFrame=0
 alarm[0]=1
+
+_speed=0
+_direction=0
+_hspeed=0
+_vspeed=0
 #define Destroy_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -67,12 +72,12 @@ if global.gamePaused=false
 {
   if lingerFrame=0
   {
-    image_angle=direction
-    if image_alpha=1 {image_alpha=0.5}
+    image_angle=_direction
+    if gDeltaDoTicks and image_alpha=1 {image_alpha=0.5}
     else {image_alpha=1}
     if sprite_index=sMMXbuster3
     {
-      if oGame.time mod 4=0
+      if oGame.time mod (4/gDeltaTime)=0
       {
         var tEffect;
         tEffect=instance_create(x-(sprite_width/2-3)+random(sprite_width-6),y-(sprite_height/2-3)+random(sprite_height-6),oEffect)
@@ -81,16 +86,19 @@ if global.gamePaused=false
       }
     }
 
-    speed=bulletSpeed
+    _speed=bulletSpeed
+    x += cos(degtorad(_direction)) * _speed * gDeltaTime
+    y -= sin(degtorad(_direction)) * _speed * gDeltaTime
+
     if checkScreenArea(x,y,48)=0 {instance_destroy()}
 
     if isCollisionLeft(1) {lingerFrame=1; speed=0; visible=0}
     if isCollisionRight(1) {lingerFrame=1; speed=0; visible=0}
     if isCollisionBottom(1) {lingerFrame=1; speed=0; visible=0}
     if isCollisionTop(1) {lingerFrame=1; speed=0; visible=0}
-    lifeTime-=1
+    lifeTime-=1*gDeltaTime
     if lifeTime=0 {instance_destroy()}
   }
   else if lingerFrame=1 {instance_destroy()}
 }
-else {speed=0}
+else {_speed=0}

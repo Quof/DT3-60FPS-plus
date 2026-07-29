@@ -22,6 +22,9 @@ if oPlayer1.bWallGrab=1 {initFireDir*=-1}
 bulletSpeed=4
 lifeTime=50
 gravityProg=0
+
+_speed=0
+_direction=0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -36,19 +39,22 @@ if global.gamePaused=false
     if place_meeting(x,y,oNightmareEffect) {bulletSpeed=2}
     else {bulletSpeed=4}
 
-    speed=bulletSpeed
+    _speed=bulletSpeed
+    x += cos(degtorad(_direction)) * _speed * gDeltaTime
+    y -= sin(degtorad(_direction)) * _speed * gDeltaTime
+
     if checkScreenArea(x,y,48)=0 {instance_destroy()}
 
     if isCollisionLeft(1) {gravityProg=1}
     if isCollisionRight(1) {gravityProg=1}
     if isCollisionBottom(1) {gravityProg=1}
     if isCollisionTop(1) {gravityProg=1}
-    lifeTime-=1
+    lifeTime-=1*gDeltaTime
     if lifeTime=0 {gravityProg=1}
   }
   else if gravityProg=1
   {
-    speed=0
+    _speed=0
     sprite_index=sMMXgravityWell3
     image_alpha=0.75
     lifeTime=30
@@ -56,12 +62,12 @@ if global.gamePaused=false
   }
   else if gravityProg=2
   {
-    if oGame.time mod 3=0 {image_angle=random(360)}
-    lifeTime-=1
+    if oGame.time mod (3/gDeltaTime)=0 {image_angle=random(360)}
+    lifeTime-=1*gDeltaTime
     if lifeTime=0 {instance_destroy()}
   }
 }
-else {speed=0}
+else {_speed=0}
 #define Collision_oEnemyBase
 /*"/*'/**//* YYD ACTION
 lib_id=1

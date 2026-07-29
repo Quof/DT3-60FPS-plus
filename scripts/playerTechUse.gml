@@ -58,7 +58,7 @@ else if tSkillUse=1 and attackState=0 // -------------------- LINK - ARROW -----
   }
 
   playerAttack=instance_create(x+tOffsetX,y-30+tOffsetY,oLinkArrow)
-  playerAttack.direction=tAtkDir
+  playerAttack._direction=tAtkDir
   if specAttackChargeA>=15
   {
     if specAttackChargeA>=30 {specAttackChargeA=30}
@@ -152,7 +152,7 @@ else if tSkillUse=10 and attackState=0 // -------------------- MEGA MAN - X BUST
         if busterPCheck=1
         {
           playerAttack=instance_create(x+tOffsetX,y-tYadjust,oMMXbuster) //Level 1
-          playerAttack.direction=tBustDir
+          playerAttack._direction=tBustDir
           if tBustDir=180 {playerAttack.image_xscale=-1}
           busterLastShotTime=0
           global.hudMega_BusterEn[0]-=1
@@ -163,7 +163,7 @@ else if tSkillUse=10 and attackState=0 // -------------------- MEGA MAN - X BUST
       else if attackCharge>=chargeMax*0.34 and attackCharge<=chargeMax*0.99
       {
         playerAttack=instance_create(x+tOffsetX,y-tYadjust,oMMXbuster) //Level 2
-        playerAttack.direction=tBustDir
+        playerAttack._direction=tBustDir
         if tBustDir=180 {playerAttack.image_xscale=-1}
         busterLastShotTime=0
         global.hudMega_BusterEn[0]-=2
@@ -175,7 +175,7 @@ else if tSkillUse=10 and attackState=0 // -------------------- MEGA MAN - X BUST
         if global.hudMega_BusterEn[0]>=3
         {
           playerAttack=instance_create(x+tOffsetX,y-tYadjust,oMMXbuster) //Level 3
-          playerAttack.direction=tBustDir
+          playerAttack._direction=tBustDir
           if tBustDir=180 {playerAttack.image_xscale=-1}
           busterLastShotTime=0
           global.hudMega_BusterEn[0]-=4
@@ -185,7 +185,7 @@ else if tSkillUse=10 and attackState=0 // -------------------- MEGA MAN - X BUST
         else
         {
           playerAttack=instance_create(x+tOffsetX,y-tYadjust,oMMXbuster) //Level 2
-          playerAttack.direction=tBustDir
+          playerAttack._direction=tBustDir
           if tBustDir=180 {playerAttack.image_xscale=-1}
           busterLastShotTime=0
           global.hudMega_BusterEn[0]-=2
@@ -211,7 +211,7 @@ else if tSkillUse=10 and attackState=0 // -------------------- MEGA MAN - X BUST
         if busterPCheck=1
         {
           playerAttack=instance_create(x+tOffsetX,y-tYadjust,oMMXbuster) //Level 1
-          playerAttack.direction=tBustDir
+          playerAttack._direction=tBustDir
           if tBustDir=180 {playerAttack.image_xscale=-1}
           busterLastShotTime=0
           global.hudMega_BusterEn[0]-=1
@@ -258,7 +258,7 @@ else if tSkillUse=10 and attackState=0 // -------------------- MEGA MAN - X BUST
       else if attackCharge>=15-(nightmareOrb-3) and attackCharge<=39-nightmareOrb
       {
         playerAttack=instance_create(x+tOffsetX,y-tYadjust,oMMXbuster) //Level 2
-        playerAttack.direction=tBustDir
+        playerAttack._direction=tBustDir
         if tBustDir=180 {playerAttack.image_xscale=-1}
         busterLastShotTime=0
         global.hudMega_BusterEn[0]-=2
@@ -270,7 +270,7 @@ else if tSkillUse=10 and attackState=0 // -------------------- MEGA MAN - X BUST
         if global.hudMega_BusterEn[0]>=3
         {
           playerAttack=instance_create(x+tOffsetX,y-tYadjust,oMMXbuster) //Level 3
-          playerAttack.direction=tBustDir
+          playerAttack._direction=tBustDir
           if tBustDir=180 {playerAttack.image_xscale=-1}
           busterLastShotTime=0
           global.hudMega_BusterEn[0]-=4
@@ -280,7 +280,7 @@ else if tSkillUse=10 and attackState=0 // -------------------- MEGA MAN - X BUST
         else
         {
           playerAttack=instance_create(x+tOffsetX,y-tYadjust,oMMXbuster) //Level 2
-          playerAttack.direction=tBustDir
+          playerAttack._direction=tBustDir
           if tBustDir=180 {playerAttack.image_xscale=-1}
           busterLastShotTime=0
           global.hudMega_BusterEn[0]-=2
@@ -328,7 +328,7 @@ else if tSkillUse=10 and attackState=0 // -------------------- MEGA MAN - X BUST
   else //If Energy Gem is on
   {
     playerAttack=instance_create(x+tOffsetX,y-tYadjust,oMMXbuster) //Level 2
-    playerAttack.direction=tBustDir
+    playerAttack._direction=tBustDir
     if tBustDir=180 {playerAttack.image_xscale=-1}
     busterLastShotTime=0
     global.hudMega_BusterEn[0]-=3
@@ -378,7 +378,7 @@ else if tSkillUse=11 and attackState=0 // -------------------- MEGA MAN - SHOTGU
     busterLastShotTime=0
     global.hudMega_ShotIceEn[0]-=2
     playerAttack=instance_create(x+tOffsetX,y-tYadjust,oMMXshotgunIceA)
-    playerAttack.direction=tIceDir
+    playerAttack._direction=tIceDir
     if tIceDir=180 {playerAttack.image_xscale=-1}
   }
   else if specAttackChargeA>=55-(global.skillTree[6]*5)-equipValA
@@ -396,7 +396,7 @@ else if tSkillUse=11 and attackState=0 // -------------------- MEGA MAN - SHOTGU
       busterLastShotTime=0
       global.hudMega_ShotIceEn[0]-=2
       playerAttack=instance_create(x+tOffsetX,y-tYadjust,oMMXshotgunIceA)
-      playerAttack.direction=tIceDir
+      playerAttack._direction=tIceDir
       if tIceDir=180 {playerAttack.image_xscale=-1}
     }
   }
@@ -451,7 +451,7 @@ else if tSkillUse=12 and attackState=0 // -------------------- MEGA MAN - GRAVIT
     busterLastShotTime=0
     global.hudMega_GravityEn[0]-=3
     playerAttack=instance_create(x+tOffsetX,y-tYadjust,oMMXgravityWell)
-    playerAttack.direction=tGrDir
+    playerAttack._direction=tGrDir
     if tGrDir=180 {playerAttack.image_xscale=-1}
   }
   else if specAttackChargeB>=55-(global.skillTree[6]*5)-equipValA
@@ -462,7 +462,7 @@ else if tSkillUse=12 and attackState=0 // -------------------- MEGA MAN - GRAVIT
       busterLastShotTime=0
       global.hudMega_GravityEn[0]-=round(tButtShit*tGravityDisp)
       playerAttack=instance_create(x+tOffsetX,y-tYadjust,oMMXgravityWellChargeA)
-      playerAttack.direction=140; playerAttack.type=1
+      playerAttack._direction=140; playerAttack.type=1
       playerAttack.xOffset=-50; playerAttack.yOffset=-60
       if tGravityDisp=1.25 {playerAttack.bAiming=1}
       else {playerAttack.bAiming=0}
@@ -473,7 +473,7 @@ else if tSkillUse=12 and attackState=0 // -------------------- MEGA MAN - GRAVIT
       busterLastShotTime=0
       global.hudMega_GravityEn[0]-=3
       playerAttack=instance_create(x+tOffsetX,y-tYadjust,oMMXgravityWell)
-      playerAttack.direction=tGrDir
+      playerAttack._direction=tGrDir
       if tGrDir=180 {playerAttack.image_xscale=-1}
     }
   }
@@ -663,7 +663,7 @@ else if tSkillUse=40 and attackState=0 // -------------------- SAMUS - CANNON --
     if busterPCheck=0
     {
       playerAttack=instance_create(x+(tXadjust*image_xscale),y-tYadjust,oSamusCannon)
-      playerAttack.direction=tDir; playerAttack.exPwr=1
+      playerAttack._direction=tDir; playerAttack.exPwr=1
       if global.hasAbilToken[4]>=6
       {
         playSound(global.snd_MetShotB,0,1,1)
@@ -689,7 +689,7 @@ else if tSkillUse=40 and attackState=0 // -------------------- SAMUS - CANNON --
       playSound(global.snd_MetShotA,0,1,1)
       playerAttack.sprite_index=sSamusChargeCannon
     }
-    playerAttack.direction=tDir; playerAttack.exPwr=0.65; playerAttack.bCanPierce=1
+    playerAttack._direction=tDir; playerAttack.exPwr=0.65; playerAttack.bCanPierce=1
     busterAnimStay=15
     busterLastShotTime=0
     global.hudSamus_CannonEn[0]+=round(90-(global.skillTree[29]*12))*tPlasma
@@ -777,7 +777,7 @@ else if tSkillUse=41 and attackState=0 // -------------------- SAMUS - MISSILE -
     if busterLastShotTime<40 {missileDelay+=2}
     busterLastShotTime=0
     playerAttack=instance_create(x+(tXadjust*image_xscale),y-tYadjust,oSamusMissile)
-    playerAttack.direction=tDir
+    playerAttack._direction=tDir
     if specAttackChargeA>=55-(global.skillTree[7]*6)-equipValA and global.hudSamus_Missiles[0]>=3
     {
       playSound(global.snd_MetMissile,0,1,1)
@@ -805,7 +805,7 @@ else if tSkillUse=41 and attackState=0 // -------------------- SAMUS - MISSILE -
       missileDelay+=3
       global.hudSamus_Missiles[0]-=5
       playerAttack=instance_create(x+(tXadjust*image_xscale),y-tYadjust,oSamusMissile)
-      playerAttack.direction=tDir
+      playerAttack._direction=tDir
       playerAttack.sprite_index=sSamusSuperMissile; playerAttack.exPwr=2
     }
   }

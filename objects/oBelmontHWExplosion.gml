@@ -16,6 +16,12 @@ atkPower=weaponDmgMod(1,atkPower)
 stunTime=15
 bCanPierce=1
 trailSpd=4
+
+
+_speed=0
+_direction=0
+_hspeed=0
+_vspeed=0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -26,10 +32,10 @@ if global.gamePaused=false
 {
   if bTrail=1
   {
-    x+=trailSpd*myDir
+    x+=trailSpd*myDir*gDeltaTime
   }
 
-  image_index+=0.5
+  image_index+=0.5*gDeltaTime
   if image_index>=image_number-0.1
   {
     instance_destroy()

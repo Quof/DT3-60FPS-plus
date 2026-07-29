@@ -10,6 +10,11 @@ image_speed=0.4
 global.recAtkNum+=1
 
 lifeTime=30
+
+_speed=0
+_direction=0
+_hspeed=0
+_vspeed=0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -19,7 +24,7 @@ applies_to=self
 event_inherited()
 if global.gamePaused=false
 {
-  lifeTime-=1
+  lifeTime-=1*gDeltaTime
   if lifeTime=0
   {
     playSound(global.snd_MetroidBomb,0,1,11025)

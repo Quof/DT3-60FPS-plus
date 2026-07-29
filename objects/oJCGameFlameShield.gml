@@ -17,6 +17,11 @@ bCanHitSwitch=0
 decayTime=900
 shieldDist=16
 bSplit=0
+
+_speed=0
+_direction=0
+_hspeed=0
+_vspeed=0
 #define Destroy_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -40,29 +45,31 @@ if global.gamePaused=false
   {
     if global.activeCharacter=0 {bSplit=1}
     image_angle=shieldDir-90
-    if shieldDist<48 {shieldDist+=1}
+    if shieldDist<48 {shieldDist+=1*gDeltaTime}
     if abs(oPlayer1.xVel)<=3
     {
-      if shieldDist>48 {shieldDist-=1}
+      if shieldDist>48 {shieldDist-=1*gDeltaTime}
     }
     else
     {
-      if shieldDist<64 {shieldDist+=1}
+      if shieldDist<64 {shieldDist+=1*gDeltaTime}
     }
 
-    shieldDir-=5
+    shieldDir-=5*gDeltaTime
     x=oPlayer1.x+lengthdir_x(shieldDist,shieldDir)
     y=oPlayer1.y-26+lengthdir_y(shieldDist,shieldDir)
   }
   else
   {
-    direction=image_angle
-    speed=13
+    _direction=image_angle
+    _speed=13
+    x += cos(degtorad(_direction)) * _speed * gDeltaTime
+    y -= sin(degtorad(_direction)) * _speed * gDeltaTime
   }
 
   if checkScreenArea(x,y,48)=0 {instance_destroy()}
 
-  decayTime-=1
+  decayTime-=1*gDeltaTime
   if decayTime<=0 {instance_destroy()}
 }
-else {speed=0}
+else {_speed=0}

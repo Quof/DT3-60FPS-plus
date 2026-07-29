@@ -8,6 +8,11 @@ global.recAtkNum+=1
 global.stJGame_B[2]+=1
 lifeTime=50
 
+_speed=0
+_direction=0
+_hspeed=0
+_vspeed=0
+
 newBird=instance_create(oPlayer1.x,oPlayer1.y-26,oJCGameBird); newBird.pointX=-28; newBird.pointY=-164; newBird.initSpd=11; newBird.myDir=-1
 newBird=instance_create(oPlayer1.x,oPlayer1.y-26,oJCGameBird); newBird.pointX=28; newBird.pointY=-164; newBird.initSpd=11; newBird.myDir=1
 newBird=instance_create(oPlayer1.x,oPlayer1.y-26,oJCGameBird); newBird.pointX=-62; newBird.pointY=-124; newBird.initSpd=10.5; newBird.myDir=-1
@@ -26,6 +31,6 @@ applies_to=self
 event_inherited()
 if global.gamePaused=false
 {
-  lifeTime-=1
+  lifeTime-=1*gDeltaTime
   if lifeTime=0 {instance_destroy()}
 }

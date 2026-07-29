@@ -29,7 +29,7 @@ event_inherited()
 if global.gamePaused=false
 {
   image_blend=make_color_rgb(random(255),random(255),random(255))
-  x+=9*image_xscale
-  decayTime-=1
+  x+=9*image_xscale*gDeltaTime
+  decayTime-=1*gDeltaTime
   if decayTime<=0 {instance_destroy()}
 }
