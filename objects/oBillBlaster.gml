@@ -116,6 +116,6 @@ applies_to=self
 */
 if shotTime>=shotDelay-10
 {
-  warnFrm+=1
+  warnFrm+=1*gDeltaTime
   draw_sprite_ext(sMMcharging,warnFrm,x,y+8,1,1,0,c_white,1)
 }
