@@ -13,8 +13,11 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if image_alpha=0.9 {image_alpha=0.8}
-else {image_alpha=0.9}
+if gDeltaDoTicks
+{
+  if image_alpha=0.9 {image_alpha=0.8}
+  else {image_alpha=0.9}
+}
 
 //set in the instance creation code
 switchInstance = GID(switchCache)
