@@ -361,7 +361,7 @@ if view_current=0
           draw_set_font(fnt_HUDnum)
           draw_set_halign(fa_middle)
           draw_set_color(make_color_rgb(255,248,155))
-          draw_text(view_xview[0]+179,view_yview[0]+5,global.hudBelmont_WeaponEn[0])
+          draw_text(view_xview[0]+179,view_yview[0]+5,floor(global.hudBelmont_WeaponEn[0]))
 
           if global.bNightmareMode=1 //Nightmare Mode - Display Dagger Spam meter
           {

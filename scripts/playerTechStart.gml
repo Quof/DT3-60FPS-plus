@@ -120,7 +120,7 @@ if global.activeCharacter=0 //---------------------------------------- Jerry ---
 
               if attackCharge<60
               {
-                attackCharge+=1
+                attackCharge+=1*gDeltaTime
                 if attackCharge=5 and chargeSoundCheck=0 //Charging sound
                 {
                   playSound(global.snd_WepCharge,0,1,1)
@@ -152,7 +152,7 @@ if global.activeCharacter=0 //---------------------------------------- Jerry ---
                   }
                 }
 
-                attackCharge+=1
+                attackCharge+=1*gDeltaTime
                 if attackCharge=5 and chargeSoundCheck=0 //Charging sound
                 {
                   playSound(global.snd_WepCharge,0,1,33075)
@@ -253,7 +253,7 @@ if global.activeCharacter=0 //---------------------------------------- Jerry ---
         {
           if specAttackChargeA<60
           {
-            specAttackChargeA+=1
+            specAttackChargeA+=1*gDeltaTime
             if specAttackChargeA=5 and chargeSoundCheck=0 //Charging sound
             {
               playSound(global.snd_WepCharge,0,1,1)
@@ -329,7 +329,7 @@ if global.activeCharacter=0 //---------------------------------------- Jerry ---
         {
           if specAttackChargeB<60
           {
-            specAttackChargeB+=1
+            specAttackChargeB+=1*gDeltaTime
             if specAttackChargeB=5 and chargeSoundCheck=0 //Charging sound
             {
               playSound(global.snd_WepCharge,0,1,1)
@@ -449,15 +449,15 @@ if global.activeCharacter=0 //---------------------------------------- Jerry ---
             else {global.stJGame_C[0]-=120}
             lastGuardTime=0
           }
-          global.stJGame_C[0]-=5
+          global.stJGame_C[0]-=5*gDeltaTime
           attackState=ACT_BLOCK
         }
         else if kActBPressed=0 and attackState=ACT_BLOCK {attackState=0}
       }
       else
       {
-        blockForceTime-=1
-        global.stJGame_C[0]-=5
+        blockForceTime-=1*gDeltaTime
+        global.stJGame_C[0]-=5*gDeltaTime
         attackState=ACT_BLOCK
       }
     }
@@ -537,7 +537,7 @@ else if global.activeCharacter=1 //---------------------------------------- Clai
           {
             if specAttackChargeB<55 and powerBombCheck=0
             {
-              specAttackChargeB+=1
+              specAttackChargeB+=1*gDeltaTime
               if specAttackChargeB=5 //Charging sound
               {
                 playSound(global.snd_WepCharge,0,1,1)
@@ -595,7 +595,7 @@ else if global.activeCharacter=1 //---------------------------------------- Clai
 
           if attackCharge<55 and global.hasAbilToken[4]>=4
           {
-            attackCharge+=1
+            attackCharge+=1*gDeltaTime
             if attackCharge=5 and chargeSoundCheck=0 //Charging sound
             {
               playSound(global.snd_WepCharge,0,1,1)
@@ -714,7 +714,7 @@ else if global.activeCharacter=1 //---------------------------------------- Clai
           {
             if specAttackChargeA<60
             {
-              specAttackChargeA+=1
+              specAttackChargeA+=1*gDeltaTime
               if specAttackChargeA=5 and chargeSoundCheck=0 //Charging sound
               {
                 playSound(global.snd_WepCharge,0,1,1)
@@ -951,15 +951,15 @@ else if global.activeCharacter=1 //---------------------------------------- Clai
             else {global.stJGame_C[0]-=120}
             lastGuardTime=0
           }
-          global.stJGame_C[0]-=5
+          global.stJGame_C[0]-=5*gDeltaTime
           attackState=ACT_BLOCK
         }
         else if kActBPressed=0 and attackState=ACT_BLOCK {attackState=0}
       }
       else
       {
-        blockForceTime-=1
-        global.stJGame_C[0]-=5
+        blockForceTime-=1*gDeltaTime
+        global.stJGame_C[0]-=5*gDeltaTime
         attackState=ACT_BLOCK
       }
     }
