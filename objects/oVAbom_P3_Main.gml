@@ -52,7 +52,7 @@ if global.gamePaused=false
   }
   else if sequence=2 //Grow spikes
   {
-    seqTime+=1*gDeltatime
+    seqTime+=1*gDeltaTime
     if seqTime=10
     {
       var tCharActive;
@@ -111,8 +111,8 @@ if global.gamePaused=false
 
     if sequence<6
     {
-      if distToPlayer<400 {yVel=-1*gDeltatime}
-      else {yVel=-2*gDeltatime}
+      if distToPlayer<400 {yVel=-1*gDeltaTime}
+      else {yVel=-2*gDeltaTime}
     }
   }
   if oGame.time mod (2/gDeltaTime)=0 //Dust effect
@@ -143,7 +143,7 @@ if global.gamePaused=false
     myClawL.x=x-124; myClawL.y=y-192
     myClawR.x=x+124; myClawR.y=y-192
   }
-  spawnTime+=1*gDeltatime
+  spawnTime+=1*gDeltaTime
   if spawnTime>=spawnDelay and instance_number(oAbomSpawn)<2
   {
     instance_create(x,y-96,oAbomSpawn)
@@ -154,7 +154,7 @@ if global.gamePaused=false
   {
     if mstYPrev=y and yVel!=0
     {
-      deathCheck+=1*gDeltatime
+      deathCheck+=1*gDeltaTime
       if deathCheck>=3 {oPlayer1.life-=oPlayer1.maxLife}
     }
     else {deathCheck=0}

@@ -27,7 +27,7 @@ applies_to=self
 if global.gamePaused=false
 {
   if life<100000 {life=1000000}
-  y+=sin(oGame.time/2.5+waveOffset)*gDeltatime
+  y+=sin(oGame.time/2.5+waveOffset)*gDeltaTime
   enemyStepEvent()
 }
 #define Collision_oAttackBase

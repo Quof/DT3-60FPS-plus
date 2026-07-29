@@ -1,7 +1,7 @@
 image_yscale=1.75
 swAmount=2
-switchID[0]=(GID(448184))
-switchID[1]=(GID(448185))
+switchID[0]=(GID(448184)); switchCache[0]=448184
+switchID[1]=(GID(448185)); switchCache[1]=448185
 
 if global.gameProgress>=5060
 {

@@ -1,7 +1,7 @@
 image_yscale=2
 swAmount=2
-switchID[0]=(GID(404616))
-switchID[1]=(GID(404617))
+switchID[0]=(GID(404616)); switchCache[0]=404616
+switchID[1]=(GID(404617)); switchCache[1]=404617
 
 if global.newMapX>=512
 {

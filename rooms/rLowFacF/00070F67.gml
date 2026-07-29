@@ -1,7 +1,7 @@
 swAmount=3
-switchID[0]=(GID(377505))
-switchID[1]=(GID(377506))
-switchID[2]=(GID(377507))
+switchID[0]=(GID(377505)); switchCache[0]=377505
+switchID[1]=(GID(377506)); switchCache[1]=377506
+switchID[2]=(GID(377507)); switchCache[2]=377507
 
 if global.gameProgress>=4390
 {

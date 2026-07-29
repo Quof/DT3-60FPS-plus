@@ -38,7 +38,7 @@ if global.gamePaused=false
   }
   else if sequence=1 //Rise up
   {
-    yVel=-16*gDeltatime
+    yVel=-16*gDeltaTime
     var tEffect;
     tEffect=instance_create(x+random_range(-168,168),room_height-2,oEffectB)
     tEffect.type=3; tEffect.image_speed=0; tEffect.image_index=choose(0,1); tEffect.sprite_index=sPauseM_SkillLv
@@ -56,7 +56,7 @@ if global.gamePaused=false
   }
   else if sequence=2 //Rotate and fall to ground
   {
-    yVel+=0.6*gDeltatime
+    yVel+=0.6*gDeltaTime
     if yVel<0
     {
       var tEffect;
@@ -71,8 +71,8 @@ if global.gamePaused=false
     {
       if seqTime<90
       {
-        image_angle-=2.3*gDeltatime
-        seqTime+=2.3*gDeltatime
+        image_angle-=2.3*gDeltaTime
+        seqTime+=2.3*gDeltaTime
       }
       else {image_angle=270}
     }
@@ -96,7 +96,7 @@ if global.gamePaused=false
   }
   else if sequence=3 //Slight wait (Destroy the killbox)
   {
-    seqTime+=1*gDeltatime
+    seqTime+=1*gDeltaTime
     if seqTime=1 //Shake screen
     {
       playSound(global.snd_BombExplode,0,0.98,13000)
@@ -113,7 +113,7 @@ if global.gamePaused=false
   }
   else if sequence=4 //Spawn arm
   {
-    seqTime+=1*gDeltatime
+    seqTime+=1*gDeltaTime
     if seqTime=10
     {
       msgCreate(0,0,"Hex","Meet the greatest creation left behind.",0,1,oMessagePerson,0)
@@ -148,7 +148,7 @@ if global.gamePaused=false
   }
   else if sequence=5 //Survive
   {
-    seqTime+=1*gDeltatime
+    seqTime+=1*gDeltaTime
     if seqTime=90
     {
       msgCreate(0,0,"Jeremy","What is that thing? All data is locked on it.",0,1,oMessagePerson,0)
@@ -212,7 +212,7 @@ if global.gamePaused=false
   }
   else if sequence=6 //Chase
   {
-    seqTime+=1*gDeltatime
+    seqTime+=1*gDeltaTime
     if seqTime=1
     {
       for(i=0;i<4;i+=1)
@@ -268,7 +268,7 @@ if global.gamePaused=false
         sprite_index=sInvisibleSolidMask; visible=0; image_xscale=4; image_yscale=2; xVel=2
       }
       if oPlayer1.x<=1794 {oPlayer1.x=1800}
-      if oPlayer1.x<=1894 and oPlayer1.y>=243 {oPlayer1.y-=32*gDeltatime}
+      if oPlayer1.x<=1894 and oPlayer1.y>=243 {oPlayer1.y-=32*gDeltaTime}
       flashSprite=1
     }
     else if seqTime=240
@@ -371,9 +371,9 @@ if global.gamePaused=false
     tEffect=instance_create(x+random_range(-10,320),304+random(32),oEffect)
     tEffect.sprite_index=sZeldaEnemyDie; tEffect.followID=-1; tEffect.image_speed=0.3+random(0.1)
     tEffect.newBlend=-1; tEffect.decay=-100; tEffect.xSpd=-0.5-random(1); tEffect.ySpd=-1-random(1)
-    oGameCamera.x+=2*gDeltatime
+    oGameCamera.x+=2*gDeltaTime
     xVel=2
-    myClaw.x+=2*gDeltatime
+    myClaw.x+=2*gDeltaTime
     for(i=0;i<4;i+=1)
     {
       bossLeg[i].x+=2
@@ -382,7 +382,7 @@ if global.gamePaused=false
   }
   if flashSprite>0 //Flash sprite
   {
-    flashSprite+=1*gDeltatime
+    flashSprite+=1*gDeltaTime
     if flashSprite>=2 and flashSprite<=11 {image_blend=make_color_rgb(255-(flashSprite*10),255-(flashSprite*10),255-(flashSprite*10))}
     else if flashSprite>=12 and flashSprite<=21 {image_blend=make_color_rgb(205+(flashSprite*5),205+(flashSprite*5),205+(flashSprite*5))}
     else if flashSprite=22 {image_blend=c_white; flashSprite=0}

@@ -13,7 +13,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-pulse+=1*gDeltatime
+pulse+=1*gDeltaTime
 if pulse>=1 and pulse<=40 {image_alpha+=0.0005*gDeltaTime}
 else if pulse>=41 and pulse<=80
 {

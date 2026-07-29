@@ -15,7 +15,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-efTime+=1*gDeltatime
+efTime+=1*gDeltaTime
 if efTime mod 3=0
 {
   var tDir,tFFScl;
@@ -28,7 +28,7 @@ if efTime mod 3=0
   tEffect.AccelX=0; tEffect.AccelY=0; tEffect.newBlend=1; tEffect.followID=-1; tEffect.rotation=0
 }
 
-timeOnScreen+=1*gDeltatime
+timeOnScreen+=1*gDeltaTime
 if timeOnScreen>=45
 {
   if checkScreenArea(x,y,16)=0 {instance_destroy()}

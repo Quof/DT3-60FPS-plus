@@ -11,7 +11,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-trailTime+=1*gDeltatime
+trailTime+=1*gDeltaTime
 if trailTime>=15
 {
   var tTrailNum;

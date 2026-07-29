@@ -11,6 +11,8 @@ lib_id=1
 action_id=603
 applies_to=self
 */
+controlID=(GID(controlCache))
+
 if global.gamePaused=false
 {
   if image_angle=0

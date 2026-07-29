@@ -12,8 +12,8 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-pulsate+=0.05*gDeltatime
-fadeDist+=sin(pulsate)*gDeltatime
+pulsate+=0.05*gDeltaTime
+fadeDist+=sin(pulsate)*gDeltaTime
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
