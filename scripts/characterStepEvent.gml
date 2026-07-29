@@ -939,14 +939,14 @@ else if flySpeed<0 {flySpeed=0}
 //Exterior forces on the player
 if extForceX!=0
 {
-  xVel+=extForceX // FIXME: does this need delta time? figure it out
+  xVel+=extForceX*gDeltaTime // FIXME: does this need delta time? figure it out
   if extForceX>0 {extForceX-=0.2*gDeltaTime}
   else if extForceX<0 {extForceX+=0.2*gDeltaTime}
   if abs(extForceX)<0.4 {extForceX=0}
 }
 if extForceY!=0
 {
-  yVel+=extForceY
+  yVel+=extForceY*gDeltaTime
   if extForceY>0 {extForceY-=0.2*gDeltaTime}
   else if extForceY<0 {extForceY+=0.2*gDeltaTime}
   if abs(extForceY)<0.4 {extForceY=0}
