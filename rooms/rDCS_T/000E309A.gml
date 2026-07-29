@@ -1,2 +1,2 @@
 image_angle=90
-switchID=(GID(410649))
+switchID=(GID(410649)); switchCache=410649

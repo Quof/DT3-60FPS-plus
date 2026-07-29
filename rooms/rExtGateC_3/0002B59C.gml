@@ -1,2 +1,2 @@
-switchID=(GID(199527))
+switchID=(GID(199527)); switchCache=199527
 image_yscale=3
