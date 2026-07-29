@@ -24,8 +24,11 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if image_alpha=0.75 {image_alpha=0.25}
-else {image_alpha=0.75}
+if gDeltaDoTicks
+{
+  if image_alpha=0.75 {image_alpha=0.25}
+  else {image_alpha=0.75}
+}
 
 for(i=0;i<swAmount;i+=1)
 {
