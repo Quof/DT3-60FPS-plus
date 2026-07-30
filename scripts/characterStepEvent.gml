@@ -640,7 +640,7 @@ if bTakingDamage=false
                         //yAcc=initialJumpAcc
                         var bodged;
                         // fine tune this 1.00 as needed
-                        bodged = (initialJumpAcc-0.05) * 1.40
+                        bodged = (initialJumpAcc) * 1.43
                         yVel = bodged
                         // compensation for fixed gravity integration
                         yVel += gravityIntensity*0.5
@@ -650,7 +650,7 @@ if bTakingDamage=false
             //yAcc=initialJumpAcc*bombAcc
             var bodged;
             // fine tune this 1.00 as needed
-            bodged = (initialJumpAcc-0.05) * 1.40 * bBombAcc
+            bodged = (initialJumpAcc) * 1.43 * bBombAcc
             yVel = bodged
             // compensation for fixed gravity integration
             yVel += gravityIntensity*0.5
