@@ -21,10 +21,10 @@ if global.gamePaused=false
     {
       if oElpizo.specProg=0
       {
-        if x+32<oPlayer1.x {x+=moveSpd}
-        else if x+32>oPlayer1.x {x-=moveSpd}
-        if y+32<returnPlayerYCenter() {y+=moveSpd}
-        else if y+32>returnPlayerYCenter() {y-=moveSpd}
+        if x+32<oPlayer1.x {x+=moveSpd*gDeltaTime}
+        else if x+32>oPlayer1.x {x-=moveSpd*gDeltaTime}
+        if y+32<returnPlayerYCenter() {y+=moveSpd*gDeltaTime}
+        else if y+32>returnPlayerYCenter() {y-=moveSpd*gDeltaTime}
       }
     }
   }

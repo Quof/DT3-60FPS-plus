@@ -30,6 +30,8 @@ activateBoss=0
 //-- Movement Data --
 moveSpd=9
 chargeArc=3
+_speed=0
+_direction=0
 
 //-- Neutral Data --
 currentAction=0
@@ -376,7 +378,7 @@ if global.gamePaused=false
           tDir=point_direction(x+(19*image_xscale),y-23,oPlayer1.x,oPlayer1.y-26)
           tNewAtk=instance_create(x+(19*image_xscale),y-23,oPassBullet)
           tNewAtk.sprite_index=sE_DarkNeedle; tNewAtk.image_speed=0.5
-          tNewAtk.atkPower=atkPower; tNewAtk.bulletSpeed=15; tNewAtk.decayTime=-100; tNewAtk.direction=tDir
+          tNewAtk.atkPower=atkPower; tNewAtk.bulletSpeed=15; tNewAtk.decayTime=-100; tNewAtk._direction=tDir
           if bossProgress=2 or bossProgress=3
           {
             tDir-=15
@@ -384,7 +386,7 @@ if global.gamePaused=false
             {
               tNewAtk=instance_create(x+(19*image_xscale),y-23,oPassBullet)
               tNewAtk.sprite_index=sE_DarkNeedle; tNewAtk.image_speed=0.5
-              tNewAtk.atkPower=atkPower; tNewAtk.bulletSpeed=15; tNewAtk.decayTime=-100; tNewAtk.direction=tDir
+              tNewAtk.atkPower=atkPower; tNewAtk.bulletSpeed=15; tNewAtk.decayTime=-100; tNewAtk._direction=tDir
               tDir+=30
             }
           }
@@ -395,7 +397,7 @@ if global.gamePaused=false
             {
               tNewAtk=instance_create(x+(19*image_xscale),y-23,oPassBullet)
               tNewAtk.sprite_index=sE_DarkNeedle; tNewAtk.image_speed=0.5
-              tNewAtk.atkPower=atkPower; tNewAtk.bulletSpeed=15; tNewAtk.decayTime=-100; tNewAtk.direction=tDir
+              tNewAtk.atkPower=atkPower; tNewAtk.bulletSpeed=15; tNewAtk.decayTime=-100; tNewAtk._direction=tDir
               tDir+=17
             }
           }
@@ -405,7 +407,7 @@ if global.gamePaused=false
     }
     else //---------- Desperation attack ----------
     {
-      specProg+=1
+      specProg+=1*gDeltaTime
       if specProg=2 //Init attack
       {
         playSound(global.snd_Transition,0,1,18000)
@@ -417,8 +419,8 @@ if global.gamePaused=false
       }
       else if specProg>=15 and specProg<=69 //Shake
       {
-        if specProg mod 2=0 {x-=1}
-        else {x+=1}
+        if floor(specProg) mod 2=0 {x-=1*gDeltaTime}
+        else {x+=1*gDeltaTime}
       }
       else if specProg=70
       {
@@ -441,9 +443,9 @@ if global.gamePaused=false
       {
         if myHS.life<myHS.maxLife
         {
-          if oGame.time mod 2=0 {myHS.life+=1}
+          if oGame.time mod (2/gDeltaTime)=0 {myHS.life+=1}
         }
-        specDir+=3
+        specDir+=3*gDeltaTime
         for(i=0;i<4;i+=1)
         {
           mySpecBall[i].x=x+lengthdir_x(80,specDir+(i*90))
@@ -456,25 +458,27 @@ if global.gamePaused=false
 
         if x>xPoint
         {
-          if currHspd>-maxSpeed {currHspd-=0.05}
-          else {currHspd+=0.05}
+          if currHspd>-maxSpeed {currHspd-=0.05*gDeltaTime}
+          else {currHspd+=0.05*gDeltaTime}
         }
         else if x<xPoint
         {
-          if currHspd<maxSpeed {currHspd+=0.05}
-          else {currHspd-=0.05}
+          if currHspd<maxSpeed {currHspd+=0.05*gDeltaTime}
+          else {currHspd-=0.05*gDeltaTime}
         }
         if y>yPoint
         {
-          if currVspd>-maxSpeed {currVspd-=0.05}
-          else {currVspd+=0.05}
+          if currVspd>-maxSpeed {currVspd-=0.05*gDeltaTime}
+          else {currVspd+=0.05*gDeltaTime}
         }
         else if y<yPoint
         {
-          if currVspd<maxSpeed {currVspd+=0.05}
-          else {currVspd-=0.05}
+          if currVspd<maxSpeed {currVspd+=0.05*gDeltaTime}
+          else {currVspd-=0.05*gDeltaTime}
         }
-        hspeed=currHspd; vspeed=currVspd
+        _hspeed=currHspd; _vspeed=currVspd
+        x += _hspeed * gDeltaTime
+        y += _vspeed * gDeltaTime
 
         if specHP<=0 //End desperation attack
         {
@@ -508,7 +512,7 @@ if global.gamePaused=false
       }
       else if nightmareZoneA>=2
       {
-        nZone1.x-=1; nZone1.y-=1
+        nZone1.x-=1*gDeltaTime; nZone1.y-=1*gDeltaTime
         nZone1.image_xscale+=2*gDeltaTime; nZone1.image_yscale+=2*gDeltaTime
         if nZone1.image_xscale>=64 {nightmareZoneA=-1}
       }
@@ -525,9 +529,9 @@ if global.gamePaused=false
       }
       else if nightmareZoneB>=2
       {
-        nZone2.x-=1; nZone2.y-=1
+        nZone2.x-=1*gDeltaTime; nZone2.y-=1*gDeltaTime
         nZone2.image_xscale+=2*gDeltaTime; nZone2.image_yscale+=2*gDeltaTime
-        nZone3.x-=1; nZone3.y-=1
+        nZone3.x-=1*gDeltaTime; nZone3.y-=1*gDeltaTime
         nZone3.image_xscale+=2*gDeltaTime; nZone3.image_yscale+=2*gDeltaTime
         if nZone2.image_xscale>=64 {nightmareZoneB=-1}
       }
@@ -544,9 +548,9 @@ if global.gamePaused=false
       }
       else if nightmareZoneC>=2
       {
-        nZone4.x-=1; nZone4.y-=1
+        nZone4.x-=1*gDeltaTime; nZone4.y-=1*gDeltaTime
         nZone4.image_xscale+=2*gDeltaTime; nZone4.image_yscale+=2*gDeltaTime
-        nZone5.x-=1; nZone5.y-=1
+        nZone5.x-=1*gDeltaTime; nZone5.y-=1*gDeltaTime
         nZone5.image_xscale+=2*gDeltaTime; nZone5.image_yscale+=2*gDeltaTime
         if nZone4.image_xscale>=64 {nightmareZoneC=-1}
       }
@@ -561,7 +565,7 @@ if global.gamePaused=false
       }
       else if nightmareZoneD>=2
       {
-        nZoneFind.x-=1; nZoneFind.y-=1
+        nZoneFind.x-=1*gDeltaTime; nZoneFind.y-=1*gDeltaTime
         nZoneFind.image_xscale+=2*gDeltaTime; nZoneFind.image_yscale+=2*gDeltaTime
         if nZoneFind.image_xscale>=64 {nZoneFind.bSeeking=1; nightmareZoneD=-1}
       }
@@ -569,7 +573,7 @@ if global.gamePaused=false
 
     if specProg=0
     {
-      yVel+=0.4
+      yVel+=0.4*gDeltaTime
 
       if isCollisionBottom(1)
       {
@@ -617,7 +621,7 @@ if global.gamePaused=false
         if y<240 {y+=2}
         else {y-=2}
       }
-      moveTo(xVel,yVel)
+      moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
     }
 
     //---------- Boss Difficulty Curve ----------
@@ -694,7 +698,7 @@ if global.gamePaused=false
   }
   else if myHS.life<=0 //Defeat animation
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       sprite_index=sElpizoDefeated
@@ -707,7 +711,7 @@ if global.gamePaused=false
     else if deathAnim>=2 and deathAnim<=90
     {
       if deathAnim mod 9=0 {playSound(global.snd_EnemyDieMM,0,1,1)}
-      if oGame.time mod 3=0
+      if oGame.time mod (3/gDeltaTime)=0
       {
         var tEffect;
         tEffect=instance_create(bbox_left+random(abs(sprite_width)),bbox_top+random(abs(sprite_height)),oEffect)
@@ -732,7 +736,7 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
-else {hspeed=0; vspeed=0}
+else {_hspeed=0; _vspeed=0}
 #define Other_10
 /*"/*'/**//* YYD ACTION
 lib_id=1

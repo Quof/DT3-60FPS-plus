@@ -22,6 +22,6 @@ if global.gamePaused=false
 {
   x=oElpizo.x+(21*image_xscale)
   y=oElpizo.y-yOffset
-  decay-=1
+  decay-=1*gDeltaTime
   if decay<=0 {instance_destroy()}
 }
