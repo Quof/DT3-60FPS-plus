@@ -28,7 +28,7 @@ if global.gamePaused=false
      x += cos(degtorad(_direction)) * _speed *gDeltaTime
      y += sin(degtorad(_direction)) * _speed *gDeltaTime   }
 else
-  speed=0
+  {speed=0; _speed=0}
 #define Other_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

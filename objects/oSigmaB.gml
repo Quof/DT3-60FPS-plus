@@ -169,7 +169,7 @@ if global.gamePaused=false
       else if atkProg>=104 and atkProg<=199
       {
         var tNewExplode;
-        if gDeltaDoTicks for(i=0;i<2;i+=1)
+        if oGame.time mod 2 == false for(i=0;i<2;i+=1) //do NOT change this mod check, it is adjusted for the framerate - quof
         {
           tNewExplode=instance_create(groundGunX+(i*16),yGround,oDamageExplosion); tNewExplode.image_yscale=0.9
           tNewExplode.atkPower=atkPower-1; tNewExplode.sprite_index=sBTFirePillar; tNewExplode.decayTime=-100

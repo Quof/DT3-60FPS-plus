@@ -5,7 +5,7 @@ action_id=603
 applies_to=self
 */
 loadImage=false
-versionTag="1.5.2.4 - [The Saved Edition]"
+versionTag="1.5.2.4 - [The Saved Edition] - 60FPS"
 //Load external files
 if !variable_global_exists("gamePriority")
 {

@@ -121,7 +121,7 @@ if global.gamePaused=false
         if x<=oPlayer1.x {image_xscale=1}
         else {image_xscale=-1}
 
-        attackDelay+=1
+        attackDelay+=1*gDeltaTime
         if attackDelay>=waitTime
         {
           if instance_number(oElpizoPortal)=0 //Chance to use portal if none are active
@@ -183,7 +183,7 @@ if global.gamePaused=false
       }
       else if currentAction>=10 and currentAction<=19 //--------------- Attack: Dark Needles ---------------
       {
-        attackDelay+=1
+        attackDelay+=1*gDeltaTime
         if attackDelay=1 {sprite_index=sElpizoNeedleLaunch} //Raise sword up
         else if attackDelay=5 {image_index=1}
         else if attackDelay=9 {image_index=2}
@@ -219,12 +219,12 @@ if global.gamePaused=false
             var tNewAtk;
             tNewAtk=instance_create(x-(3*image_xscale),y-93,oPassBullet)
             tNewAtk.sprite_index=sE_DarkNeedle; tNewAtk.image_speed=0.5
-            tNewAtk.atkPower=atkPower; tNewAtk.bulletSpeed=13; tNewAtk.decayTime=-100; tNewAtk.direction=needleDirA
+            tNewAtk.atkPower=atkPower; tNewAtk.bulletSpeed=13; tNewAtk.decayTime=-100; tNewAtk._direction=needleDirA
             if bossProgress>=2
             {
               tNewAtk=instance_create(x-(3*image_xscale),y-93,oPassBullet)
               tNewAtk.sprite_index=sE_DarkNeedle; tNewAtk.image_speed=0.5
-              tNewAtk.atkPower=atkPower; tNewAtk.bulletSpeed=13; tNewAtk.decayTime=-100; tNewAtk.direction=needleDirB
+              tNewAtk.atkPower=atkPower; tNewAtk.bulletSpeed=13; tNewAtk.decayTime=-100; tNewAtk._direction=needleDirB
             }
             needleDirA+=needleArc; needleDirB-=needleArc
           }
@@ -247,7 +247,7 @@ if global.gamePaused=false
       }
       else if currentAction>=20 and currentAction<=29 //--------------- Attack: Fast Slashes ---------------
       {
-        attackDelay+=1
+        attackDelay+=1*gDeltaTime
         if attackDelay=1 {sprite_index=sElpizoFastSlashesA} //Raise sword up
         else if attackDelay=4 {image_index=1}
         else if attackDelay=7 {image_index=2}
@@ -255,7 +255,7 @@ if global.gamePaused=false
         else if attackDelay=13 {sprite_index=sElpizoFastSlashesB; image_index=0}
         else if attackDelay>=16 and attackDelay<=61
         {
-          image_index+=0.2
+          image_index+=0.2*gDeltaTime
           xVel=moveSpd*image_xscale
           if attackDelay mod 5=0
           {
@@ -283,7 +283,7 @@ if global.gamePaused=false
       }
       else if currentAction>=30 and currentAction<=39 //--------------- Attack: Bubble Launch ---------------
       {
-        attackDelay+=1
+        attackDelay+=1*gDeltaTime
         if attackDelay=1 {sprite_index=sElpizoBubbleLaunch}
         else if attackDelay=10 {playSound(global.snd_OrbThrow,0,1,1)}
         else if attackDelay=25
@@ -299,7 +299,7 @@ if global.gamePaused=false
       }
       else if currentAction>=40 and currentAction<=49 //--------------- Attack: Portal ---------------
       {
-        attackDelay+=1
+        attackDelay+=1*gDeltaTime
         if attackDelay=1 {sprite_index=sElpizoPortalLaunch} //Bring arm out
         else if attackDelay=5 {image_index=1}
         else if attackDelay=9 {image_index=2}
@@ -322,7 +322,7 @@ if global.gamePaused=false
       }
       else if currentAction>=50 and currentAction<=59 //--------------- Action: Teleport ---------------
       {
-        attackDelay+=1
+        attackDelay+=1*gDeltaTime
         if attackDelay=1 {xVel=0; yVel=0; sprite_index=sElpizoTeleport}
         else if attackDelay=5 {image_index=1}
         else if attackDelay=12
@@ -356,7 +356,7 @@ if global.gamePaused=false
       }
       else if currentAction>=60 and currentAction<=69 //--------------- Attack: Jump back and throw dark needles ---------------
       {
-        attackDelay+=1
+        attackDelay+=1*gDeltaTime
         if attackDelay=1 {sprite_index=sElpizoPortalLaunch} //Bring arm out
         else if attackDelay=5 {image_index=1}
         else if attackDelay=9 {image_index=2}
