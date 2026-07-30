@@ -25,7 +25,7 @@ if global.gameProgress=2590 and room=rMain_42 //----- [1] Intro to Barrens -----
   if sceneProgress=0
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay=1 {global.gamePaused=true}
+    if sceneDelay=1*gDeltaTime {global.gamePaused=true}
     else if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=1 and bWaitForInput=false
@@ -63,7 +63,7 @@ else if global.gameProgress=2600 and room=rMain_46 //----- [2] Got past the Twin
     if sceneProgress=0
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay=1 {global.gamePaused=true}
+      if sceneDelay=1*gDeltaTime {global.gamePaused=true}
       else if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=1 and bWaitForInput=false
@@ -336,7 +336,7 @@ else if global.gameProgress=2660 and room=rMain_48Gate //----- [Unskippable] Acc
     sceneDelay+=1*gDeltaTime
     if sceneDelay>=1
     {
-      if sceneDelay=1 {global.gamePaused=true}
+      if sceneDelay=1*gDeltaTime {global.gamePaused=true}
       fadeAlpha+=0.04*gDeltaTime
       if fadeAlpha>=1
       {

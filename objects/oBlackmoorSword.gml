@@ -28,7 +28,7 @@ if global.gamePaused=false
   if atkProg=0
   {
     image_alpha+=0.1*gDeltaTime
-    image_angle+=15
+    image_angle+=15*gDeltaTime
     if atkTime>=45
     {
       image_angle=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
@@ -39,13 +39,13 @@ if global.gamePaused=false
   {
     if atkTime>=30
     {
-      direction=image_angle
+      _direction=image_angle
       atkTime=0; atkProg+=1
     }
   }
   else if atkProg=2
   {
-    if bulletSpeed<8 {bulletSpeed+=0.1}
+    if bulletSpeed<8 {bulletSpeed+=0.1*gDeltaTime}
     speed=bulletSpeed
   }
 }

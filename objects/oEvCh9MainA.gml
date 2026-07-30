@@ -207,7 +207,7 @@ else if global.gameProgress=2020 and room=rMain_31 //----- [2] The Vault is near
   if sceneProgress=0
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay=1 {global.gamePaused=true}
+    if sceneDelay=1*gDeltaTime {global.gamePaused=true}
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=1 and bWaitForInput=false
@@ -266,7 +266,7 @@ else if global.gameProgress=2030 and room=rMain_34 //----- [3] Bubble Tower and 
     if oPlayer1.x<=1232
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay=1 {global.gamePaused=true}
+      if sceneDelay=1*gDeltaTime {global.gamePaused=true}
       oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=1088
       {
@@ -365,7 +365,7 @@ else if global.gameProgress=2040 and room=rBubbleTowerA1 //----- [4] Going could
   if sceneProgress=0
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay=1 {global.gamePaused=true}
+    if sceneDelay=1*gDeltaTime {global.gamePaused=true}
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=1 and bWaitForInput=false
@@ -828,7 +828,7 @@ else if global.gameProgress=2130 and room=rMain_39 //----- [Unskippable] No turn
     if oPlayer1.x<=144 and oPlayer1.y<=208
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay=1 {global.gamePaused=true}
+      if sceneDelay=1*gDeltaTime {global.gamePaused=true}
       oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=192
       {
@@ -925,7 +925,7 @@ else if global.gameProgress=2160 and room=rMain_39Vault //----- [Unskippable] Th
     sceneDelay+=1*gDeltaTime
     if sceneDelay>=1
     {
-      if sceneDelay=1 {global.gamePaused=true}
+      if sceneDelay=1*gDeltaTime {global.gamePaused=true}
       fadeAlpha+=0.04*gDeltaTime
       if fadeAlpha>=1 {sceneDelay=0; sceneProgress+=1}
     }
@@ -948,7 +948,7 @@ else if global.gameProgress=2540 and room=rMain_39Vault //----- [6] Got out of t
   if sceneProgress=0
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay=1 {global.gamePaused=true}
+    if sceneDelay=1*gDeltaTime {global.gamePaused=true}
     else if sceneDelay>=20
     {
       fadeAlpha-=0.01*gDeltaTime

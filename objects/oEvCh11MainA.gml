@@ -125,7 +125,7 @@ else if global.gameProgress=2570 and room=rCCity_SouthA //----- [2] Wow it's lou
   if sceneProgress=0
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay=1 {global.gamePaused=true}
+    if sceneDelay=1*gDeltaTime {global.gamePaused=true}
     else if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=1 and bWaitForInput=false

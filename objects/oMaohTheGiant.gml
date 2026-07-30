@@ -82,13 +82,13 @@ if global.gamePaused=false
 
   if bActive=true and life>0
   {
-    stepCount+=pi/60
-    y+=sin(stepCount)
+    stepCount+=(pi/60)*gDeltaTime
+    y+=(sin(stepCount))*gDeltaTime
 
     if specialAttack=0
     {
       //-------------------- LEFT ARM ATTACK --------------------
-      spikeLeftTime+=1
+      spikeLeftTime+=1*gDeltaTime
       if spikeLeftSeq=0 //Wait time
       {
         if spikeLeftTime>=armSpikeDelay
@@ -118,8 +118,8 @@ if global.gamePaused=false
       }
       else if spikeLeftSeq=2 //Attack
       {
-        leftSpike.x+=armSpd*cos(degtorad(findLeftDir))
-        leftSpike.y+=-armSpd*sin(degtorad(findLeftDir))
+        leftSpike.x+=armSpd*cos(degtorad(findLeftDir))*gDeltaTime
+        leftSpike.y+=-armSpd*sin(degtorad(findLeftDir))*gDeltaTime
       }
       else if spikeLeftSeq>=3 and spikeLeftSeq<=4 //Slight wait before pull back
       {
@@ -128,8 +128,8 @@ if global.gamePaused=false
       else if spikeLeftSeq=5 //Pull back
       {
         findLeftDir=point_direction(leftSpike.x,leftSpike.y,x-spikeOffsetX,y+spikeOffsetY)
-        leftSpike.x+=armSpd*cos(degtorad(findLeftDir))
-        leftSpike.y+=-armSpd*sin(degtorad(findLeftDir))
+        leftSpike.x+=armSpd*cos(degtorad(findLeftDir))*gDeltaTime
+        leftSpike.y+=-armSpd*sin(degtorad(findLeftDir))*gDeltaTime
 
         if point_distance(leftSpike.x,leftSpike.y,x-spikeOffsetX,y+spikeOffsetY)<6
         {
@@ -140,7 +140,7 @@ if global.gamePaused=false
       }
 
       //-------------------- RIGHT ARM ATTACK --------------------
-      spikeRightTime+=1
+      spikeRightTime+=1*gDeltaTime
       if spikeRightSeq=0 //Wait time
       {
         if spikeRightTime>=armSpikeDelay
@@ -170,8 +170,8 @@ if global.gamePaused=false
       }
       else if spikeRightSeq=2 //Attack
       {
-        rightSpike.x+=armSpd*cos(degtorad(findRightDir))
-        rightSpike.y+=-armSpd*sin(degtorad(findRightDir))
+        rightSpike.x+=armSpd*cos(degtorad(findRightDir))*gDeltaTime
+        rightSpike.y+=-armSpd*sin(degtorad(findRightDir))*gDeltaTime
       }
       else if spikeRightSeq>=3 and spikeRightSeq<=4 //Slight wait before pull back
       {
@@ -180,8 +180,8 @@ if global.gamePaused=false
       else if spikeRightSeq=5 //Pull back
       {
         findRightDir=point_direction(rightSpike.x,rightSpike.y,x+spikeOffsetX,y+spikeOffsetY)
-        rightSpike.x+=armSpd*cos(degtorad(findRightDir))
-        rightSpike.y+=-armSpd*sin(degtorad(findRightDir))
+        rightSpike.x+=armSpd*cos(degtorad(findRightDir))*gDeltaTime
+        rightSpike.y+=-armSpd*sin(degtorad(findRightDir))*gDeltaTime
 
         if point_distance(rightSpike.x,rightSpike.y,x+spikeOffsetX,y+spikeOffsetY)<6
         {
@@ -192,7 +192,7 @@ if global.gamePaused=false
       }
 
       //-------------------- ATTACK: SYNC BOMB SPAM --------------------
-      bombSpamTime+=1
+      bombSpamTime+=1*gDeltaTime
       if bombSpamTime>=bombSpamDelay and bombSpamTime<=bombSpamDelay+100 //Wait
       {
         bombSpamTime=10000
@@ -220,11 +220,11 @@ if global.gamePaused=false
           lBomb[i]=instance_create(x-76,y-58,oPassBullet)
           lBomb[i].sprite_index=sEnmityBomb; lBomb[i].atkPower=atkPower; lBomb[i].bulletSpeed=7
           lBomb[i].image_speed=0.33; lBomb[i].decayTime=-100; lBomb[i].damageType="EXPLOSION"
-          lBomb[i].direction=95+(i*20)
+          lBomb[i]._direction=95+(i*20)
           rBomb[i]=instance_create(x+76,y-58,oPassBullet)
           rBomb[i].sprite_index=sEnmityBomb; rBomb[i].atkPower=atkPower; rBomb[i].bulletSpeed=7
           rBomb[i].image_speed=0.33; rBomb[i].decayTime=-100; rBomb[i].damageType="EXPLOSION"
-          rBomb[i].direction=85-(i*20)
+          rBomb[i]._direction=85-(i*20)
         }
       }
       else if bombSpamTime=10048 //Stop bombs
@@ -246,9 +246,9 @@ if global.gamePaused=false
         if bombSpamTime mod 7=0
         {
           lBomb[bombCheck].bulletSpeed=7
-          lBomb[bombCheck].direction=310-(bombCheck*10)
+          lBomb[bombCheck]._direction=310-(bombCheck*10)
           rBomb[bombCheck].bulletSpeed=7
-          rBomb[bombCheck].direction=230+(bombCheck*10)
+          rBomb[bombCheck]._direction=230+(bombCheck*10)
           bombCheck+=1
           if bombCheck=5 {bombSpamTime=0}
         }
@@ -258,9 +258,9 @@ if global.gamePaused=false
         if bombSpamTime mod 7=0
         {
           lBomb[bombCheck].bulletSpeed=7
-          lBomb[bombCheck].direction=280-(bombCheck*15)
+          lBomb[bombCheck]._direction=280-(bombCheck*15)
           rBomb[bombCheck].bulletSpeed=7
-          rBomb[bombCheck].direction=260+(bombCheck*15)
+          rBomb[bombCheck]._direction=260+(bombCheck*15)
           bombCheck+=1
           if bombCheck=5 {bombSpamTime=0}
         }
@@ -270,7 +270,7 @@ if global.gamePaused=false
     //-------------------- UTILITY: WALL SPIKES --------------------
     if wallSpikes>=1 and wallSpikes<=120
     {
-      wallSpikes+=1
+      wallSpikes+=1*gDeltaTime
       if wallSpikes=70
       {
         var tEffect;
@@ -287,8 +287,8 @@ if global.gamePaused=false
       {
         for(i=0;i<16;i+=1)
         {
-          leftSpikes[i].x+=1
-          rightSpikes[i].x-=1
+          leftSpikes[i].x+=1*gDeltaTime
+          rightSpikes[i].x-=1*gDeltaTime
 
           if wallSpikes mod 3=0 //Spike smoke effect
           {
@@ -338,7 +338,7 @@ if global.gamePaused=false
   }
   else if life<=0 //Defeat animation
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       sprite_index=sMaohGiantBody
@@ -350,7 +350,7 @@ if global.gamePaused=false
     else if deathAnim>=2 and deathAnim<=90
     {
       if deathAnim mod 6=0 {playSound(global.snd_BombExplode,0,0.92,1)}
-      if oGame.time mod 3=0
+      if oGame.time mod (3/gDeltaTime)=0
       {
         var tEffect;
         tEffect=instance_create((x-sprite_width/2)+random(sprite_width),(y-sprite_height/2)+random(sprite_height),oEffect)
@@ -382,7 +382,7 @@ applies_to=self
 */
 if life>0
 {
-  chainFrm+=0.35
+  chainFrm+=0.35*gDeltaTime
   var tLeftDist,tLeftDir;
   tLeftDist=point_distance(x-spikeOffsetX,y+spikeOffsetY,leftSpike.x,leftSpike.y)
   tLeftDir=point_direction(x-spikeOffsetX,y+spikeOffsetY,leftSpike.x,leftSpike.y)

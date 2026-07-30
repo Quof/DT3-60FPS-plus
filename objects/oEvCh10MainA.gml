@@ -646,7 +646,7 @@ else if global.gameProgress=2260 and room=rVault_4 //----- [4] I can't do much -
   if sceneProgress=0
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay=1 {global.gamePaused=true}
+    if sceneDelay=1*gDeltaTime {global.gamePaused=true}
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=1 and bWaitForInput=false
@@ -980,7 +980,7 @@ else if global.gameProgress=2360 and room=rVault_9 //----- [6] Color Zones -----
   if sceneProgress=0
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay=1 {global.gamePaused=true}
+    if sceneDelay=1*gDeltaTime {global.gamePaused=true}
     else if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=1 and bWaitForInput=false
@@ -1074,7 +1074,7 @@ else if global.gameProgress=2380 and room=rVault_10 //----- [7] Chao is close --
   if sceneProgress=0
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay=1 {global.gamePaused=true}
+    if sceneDelay=1*gDeltaTime {global.gamePaused=true}
     else if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=1 and bWaitForInput=false
@@ -1861,7 +1861,7 @@ else if global.gameProgress=2460 and room=rVault_16 //----- [9] About the shift 
   if sceneProgress=0
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay=1 {global.gamePaused=true}
+    if sceneDelay=1*gDeltaTime {global.gamePaused=true}
     else if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=1 and bWaitForInput=false
@@ -1993,7 +1993,7 @@ else if global.gameProgress=2480 and room=rVault_16 //----- [] Reobtaining the a
     if !instance_exists(oStoryObject)
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay=1 {global.gamePaused=true}
+      if sceneDelay=1*gDeltaTime {global.gamePaused=true}
       else if sceneDelay>=2
       {
         oPlayer1.y+=4*gDeltaTime

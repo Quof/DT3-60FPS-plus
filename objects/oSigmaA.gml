@@ -74,7 +74,7 @@ if global.gamePaused=false
 
   if bActive=true and life>0
   {
-    armFrm+=0.05
+    armFrm+=0.05*gDeltaTime
 
     if sprite_index=sSigmaA_Walk and armSpr=sSigmaA_Arm1
     {

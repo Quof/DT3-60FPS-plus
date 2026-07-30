@@ -48,7 +48,7 @@ if global.gameProgress=3930 and room=rHPF_A //----- [1] The facility below -----
   if sceneProgress=0
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay=1 {global.gamePaused=true}
+    if sceneDelay=1*gDeltaTime {global.gamePaused=true}
     if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=1 and bWaitForInput=false
@@ -267,7 +267,7 @@ else if global.gameProgress=3980 and room=rHPF_C //----- [3] The virus is here -
   if sceneProgress=0
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay=1 {global.gamePaused=true}
+    if sceneDelay=1*gDeltaTime {global.gamePaused=true}
     if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=1 and bWaitForInput=false
@@ -696,7 +696,7 @@ else if global.gameProgress=4070 and room=rHPF_T //----- [5] Almost there -----
   if sceneProgress=0
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay=1 {global.gamePaused=true}
+    if sceneDelay=1*gDeltaTime {global.gamePaused=true}
     if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=1 and bWaitForInput=false

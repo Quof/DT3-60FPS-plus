@@ -44,11 +44,11 @@ if global.gamePaused=false
       {
         if y<oPlayer1.y-30 //Go down
         {
-          y+=moveSpd
+          y+=moveSpd*gDeltaTime
         }
         else if y>oPlayer1.y-22 //Go up
         {
-          y-=moveSpd
+          y-=moveSpd*gDeltaTime
         }
 
         if atkTime>=atkDelay-45 and atkTime<=atkDelay {image_index=1}
@@ -76,15 +76,15 @@ if global.gamePaused=false
         {
           if atkTime=41 {playSound(global.snd_ChargeStrike,0,0.94,1)}
           if atkTime mod 4=0 {playSound(global.snd_Bobomb,0,0.9,1)}
-          var tEffect;
+          if gDeltaDoTicks {var tEffect;
           tEffect=instance_create(x-((8+random(8))*image_xscale),y-18+random(36),oEffect)
           tEffect.sprite_index=sSamusSMissileHit
           tEffect.image_speed=0.5
           tEffect.image_xscale=0.7; tEffect.image_yscale=0.7
-          tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+          tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0}
 
-          if image_xscale=1 {x-=12}
-          else {x+=12}
+          if image_xscale=1 {x-=12*gDeltaTime}
+          else {x+=12*gDeltaTime}
         }
         else if atkTime>=90 {atkProg+=1; atkTime=0}
       }
@@ -97,12 +97,12 @@ if global.gamePaused=false
       {
         if image_xscale=1
         {
-          x+=4
+          x+=4*gDeltaTime
           if x>=oEnmity.x+oEnmity.roomSpan {x=oEnmity.x+oEnmity.roomSpan; atkTime=400}
         }
         else
         {
-          x-=4
+          x-=4*gDeltaTime
           if x<=oEnmity.x-oEnmity.roomSpan {x=oEnmity.x-oEnmity.roomSpan; atkTime=400}
         }
       }
@@ -120,7 +120,7 @@ if global.gamePaused=false
     {
       if atkProg=0 //Go up wall
       {
-        y-=moveSpd*2
+        y-=moveSpd*2*gDeltaTime
         if y<=32
         {
           y=32
@@ -134,11 +134,11 @@ if global.gamePaused=false
       {
         if x<oPlayer1.x-4 //Go right
         {
-          x+=4
+          x+=4*gDeltaTime
         }
         else if x>oPlayer1.x+4 //Go left
         {
-          x-=4
+          x-=4*gDeltaTime
         }
 
         if atkTime>=45 and point_distance(x,0,oPlayer1.x,0)<12
@@ -166,7 +166,7 @@ if global.gamePaused=false
           tEffect.image_speed=0.5; tEffect.image_xscale=0.7; tEffect.image_yscale=0.7
           tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
 
-          y+=16
+          y+=16*gDeltaTime
           if y>=288
           {
             y=288
@@ -182,7 +182,7 @@ if global.gamePaused=false
       if atkTime=1 {sprite_index=sEnmityHandA}
       else if atkTime>=2 and atkTime<=100
       {
-        y-=8
+        y-=8*gDeltaTime
         if y<=32
         {
           y=32
@@ -204,12 +204,12 @@ if global.gamePaused=false
       {
         if image_xscale=1
         {
-          x+=4
+          x+=4*gDeltaTime
           if x>=oEnmity.x+oEnmity.roomSpan {x=oEnmity.x+oEnmity.roomSpan; atkTime=400}
         }
         else
         {
-          x-=4
+          x-=4*gDeltaTime
           if x<=oEnmity.x-oEnmity.roomSpan {x=oEnmity.x-oEnmity.roomSpan; atkTime=400}
         }
       }

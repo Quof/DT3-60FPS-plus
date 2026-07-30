@@ -144,7 +144,7 @@ else if global.gameProgress=1550 and room=rMain_20 //----- [2] New places to go 
   if sceneProgress=0
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay=1 {global.gamePaused=true}
+    if sceneDelay=1*gDeltaTime {global.gamePaused=true}
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=1 and bWaitForInput=false
@@ -298,7 +298,7 @@ else if global.gameProgress=1580 and room=rMain_22 //----- [3] Locked data -----
   if sceneProgress=0
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay=1 {global.gamePaused=true}
+    if sceneDelay=1*gDeltaTime {global.gamePaused=true}
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=1 and bWaitForInput=false
@@ -331,7 +331,7 @@ else if global.gameProgress=1590 and room=rMountTemple_A //----- [4] X is here -
   if sceneProgress=0
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay=1 {global.gamePaused=true}
+    if sceneDelay=1*gDeltaTime {global.gamePaused=true}
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=1 and bWaitForInput=false
@@ -356,7 +356,7 @@ else if global.gameProgress=1610 and room=rMountTemple_C //----- [5] A Blood Tyr
   if sceneProgress=0
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay=1 {global.gamePaused=true}
+    if sceneDelay=1*gDeltaTime {global.gamePaused=true}
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=1 and bWaitForInput=false
@@ -458,7 +458,7 @@ else if global.gameProgress=1640 and room=rMountTemple_D //----- [6] Get Mermaid
   if sceneProgress=0 and !instance_exists(oStoryObject)
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay=1 {global.gamePaused=true}
+    if sceneDelay=1*gDeltaTime {global.gamePaused=true}
     else if sceneDelay>=2
     {
       oPlayer1.y+=4*gDeltaTime
@@ -498,7 +498,7 @@ else if global.gameProgress=1650 and room=rMountTemple_G //----- [7] X is close 
   if sceneProgress=0
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay=1 {global.gamePaused=true}
+    if sceneDelay=1*gDeltaTime {global.gamePaused=true}
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=1 and bWaitForInput=false
@@ -870,7 +870,7 @@ else if global.gameProgress=1690 and room=rMountTemple_J //----- [9] Get Access 
   if sceneProgress=0 and oPlayer1.x>=176
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay=1 {global.gamePaused=true}
+    if sceneDelay=1*gDeltaTime {global.gamePaused=true}
     oPlayer1.y+=4*gDeltaTime
     if oPlayer1.y>=288
     {
@@ -995,7 +995,7 @@ else if global.gameProgress=1700 and room=rMain_21 //----- [10] New places to go
   if sceneProgress=0
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay=1 {global.gamePaused=true}
+    if sceneDelay=1*gDeltaTime {global.gamePaused=true}
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=1 and bWaitForInput=false
@@ -1221,7 +1221,7 @@ else if global.gameProgress=1750 and room=rMain_28Gate //----- [Unskippable] Acc
     sceneDelay+=1*gDeltaTime
     if sceneDelay>=1
     {
-      if sceneDelay=1 {global.gamePaused=true}
+      if sceneDelay=1*gDeltaTime {global.gamePaused=true}
       fadeAlpha+=0.04*gDeltaTime
       if fadeAlpha>=1 {sceneDelay=0; sceneProgress+=1}
     }

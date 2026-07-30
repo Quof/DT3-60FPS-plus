@@ -564,7 +564,7 @@ else if global.gameProgress=20 and room=rMain_2 //----- [3] Chapter 1 -----
   if sceneProgress=0
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay=1 {global.gamePaused=true}
+    if sceneDelay=1*gDeltaTime {global.gamePaused=true}
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=1 and bWaitForInput=false
@@ -588,7 +588,7 @@ else if global.gameProgress=50 and room=rMain_4 //----- [4] Jump Boots in this m
   if sceneProgress=0
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay=1 {global.gamePaused=true}
+    if sceneDelay=1*gDeltaTime {global.gamePaused=true}
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=1 and bWaitForInput=false
@@ -607,7 +607,7 @@ else if global.gameProgress=60 and room=rMain_4 //----- [5] After grabbing Jump 
   if sceneProgress=0 and !instance_exists(oStoryObject)
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay=1 {global.gamePaused=true}
+    if sceneDelay=1*gDeltaTime {global.gamePaused=true}
     else if sceneDelay>=2
     {
       oPlayer1.y+=4*gDeltaTime
@@ -748,7 +748,7 @@ else if global.gameProgress=100 and room=rMain_5 //----- [7] Swap characters ---
   if sceneProgress=0 and oPlayer1.x>=560 and oPlayer1.y<=480
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay=1 {global.gamePaused=true}
+    if sceneDelay=1*gDeltaTime {global.gamePaused=true}
     else if sceneDelay>=2
     {
       oPlayer1.y+=4*gDeltaTime
@@ -855,7 +855,7 @@ else if global.gameProgress=140 and room=rMain_5Gate //----- [Unskippable] Acces
     sceneDelay+=1*gDeltaTime
     if sceneDelay>=1
     {
-      if sceneDelay=1 {global.gamePaused=true}
+      if sceneDelay=1*gDeltaTime {global.gamePaused=true}
       fadeAlpha+=0.04*gDeltaTime
       if fadeAlpha>=1 {sceneDelay=0; sceneProgress+=1}
     }
@@ -878,7 +878,7 @@ else if global.gameProgress=510 and room=rMain_5Gate //----- [9] The Nightmare G
   if sceneProgress=0
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay=1 {global.gamePaused=true}
+    if sceneDelay=1*gDeltaTime {global.gamePaused=true}
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=1 and bWaitForInput=false

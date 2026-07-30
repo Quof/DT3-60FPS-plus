@@ -68,7 +68,7 @@ if room=rDCS_A
     if sceneProgress=0
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay=1 {global.gamePaused=true}
+      if sceneDelay=1*gDeltaTime {global.gamePaused=true}
       if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=1 and bWaitForInput=false
@@ -173,7 +173,7 @@ else if room=rDCS_D and global.gameProgress=4760 //----- [2] Cramped places ----
   if sceneProgress=0
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay=1 {global.gamePaused=true}
+    if sceneDelay=1*gDeltaTime {global.gamePaused=true}
     if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=1 and bWaitForInput=false
@@ -625,7 +625,7 @@ else if room=rDCS_V and global.gameProgress=4790 //----- [] The second Dragoon p
     if !instance_exists(oStoryObject)
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay=1 {global.gamePaused=true}
+      if sceneDelay=1*gDeltaTime {global.gamePaused=true}
       else if sceneDelay>=2
       {
         oPlayer1.y+=4*gDeltaTime

@@ -226,7 +226,7 @@ else if global.gameProgress=3890 and room=rTD_Lv1 //----- [] Completed all enemy
     if sceneProgress=0
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay=1 {global.gamePaused=true}
+      if sceneDelay=1*gDeltaTime {global.gamePaused=true}
       else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=1 and bWaitForInput=false
@@ -333,7 +333,7 @@ else if global.gameProgress=3910 and room=rTD_Lv2 //----- [] Completed all enemy
     if sceneProgress=0
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay=1 {global.gamePaused=true}
+      if sceneDelay=1*gDeltaTime {global.gamePaused=true}
       else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=1 and bWaitForInput=false

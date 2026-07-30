@@ -34,7 +34,7 @@ if global.gateHProg=100 and room=rMain_76 //----- [1] How do we beat this thing?
     if sceneProgress=0 and oPlayer1.x>=160
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay=1 {global.gamePaused=true}
+      if sceneDelay=1*gDeltaTime {global.gamePaused=true}
       else if sceneDelay>=2
       {
         oPlayer1.y+=4*gDeltaTime

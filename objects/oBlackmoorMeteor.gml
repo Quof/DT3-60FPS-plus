@@ -12,6 +12,8 @@ bShowHealthBar=false
 bShowDamage=false
 bCanTakeDamage=false
 damageType="EXPLOSION"
+
+_direction=0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -21,7 +23,7 @@ applies_to=self
 if global.gamePaused=false
 {
   speed=bulletSpeed
-  image_angle+=15
+  image_angle+=15*gDeltaTime
 
   if y>=oBlackmoorMain.yGround
   {

@@ -331,7 +331,7 @@ else if global.gameProgress=1200 and room=rBelmont3_2B //----- [2] After grabbin
   if sceneProgress=0 and !instance_exists(oStoryObject)
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay=1 {global.gamePaused=true}
+    if sceneDelay=1*gDeltaTime {global.gamePaused=true}
     else if sceneDelay>=2
     {
       oPlayer1.y+=4*gDeltaTime
@@ -530,7 +530,7 @@ else if global.gameProgress=1240 and room=rBelmont3_3A //----- [4] The inner cas
   if sceneProgress=0
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay=1 {global.gamePaused=true}
+    if sceneDelay=1*gDeltaTime {global.gamePaused=true}
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=1 and bWaitForInput=false
@@ -549,7 +549,7 @@ else if global.gameProgress=1250 and room=rBelmont3_3B //----- [5] After grabbin
   if sceneProgress=0 and !instance_exists(oStoryObject)
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay=1 {global.gamePaused=true}
+    if sceneDelay=1*gDeltaTime {global.gamePaused=true}
     else if sceneDelay>=2
     {
       oPlayer1.y+=4*gDeltaTime
@@ -598,7 +598,7 @@ else if global.gameProgress=1280 and room=rBelmont3_3F //----- [6] Boss Fight: D
     if sceneProgress=0 and oPlayer1.x>=256
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay=1 {global.gamePaused=true}
+      if sceneDelay=1*gDeltaTime {global.gamePaused=true}
       oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=288
       {
@@ -778,7 +778,7 @@ else if global.gameProgress=1300 and room=rBelmont3_4A //----- [7] Oh great, the
   if sceneProgress=0
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay=1 {global.gamePaused=true}
+    if sceneDelay=1*gDeltaTime {global.gamePaused=true}
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=1 and bWaitForInput=false
@@ -1004,7 +1004,7 @@ else if global.gameProgress=1330 and room=rBelmont3_5A //----- [8] Continue on -
   if sceneProgress=0
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay=1 {global.gamePaused=true}
+    if sceneDelay=1*gDeltaTime {global.gamePaused=true}
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=1 and bWaitForInput=false
@@ -1073,7 +1073,7 @@ else if global.gameProgress=1370 and room=rBelmont3_4H //----- [9] After grabbin
   if sceneProgress=0 and !instance_exists(oStoryObject)
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay=1 {global.gamePaused=true}
+    if sceneDelay=1*gDeltaTime {global.gamePaused=true}
     else if sceneDelay>=2
     {
       oPlayer1.y+=4*gDeltaTime
@@ -1180,7 +1180,7 @@ else if global.gameProgress=1410 and room=rBelmont3_6A //----- [10] Death's Sky 
   if sceneProgress=0
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay=1 {global.gamePaused=true}
+    if sceneDelay=1*gDeltaTime {global.gamePaused=true}
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=1 and bWaitForInput=false
@@ -1465,7 +1465,7 @@ else if global.gameProgress=1470 and room=rBelmont3_7A //----- [11] The final st
   if sceneProgress=0
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay=1 {global.gamePaused=true}
+    if sceneDelay=1*gDeltaTime {global.gamePaused=true}
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=1 and bWaitForInput=false
@@ -1573,7 +1573,7 @@ else if global.gameProgress=1510 and room=rBelmont3_7G //----- [12] Boss Fight: 
     if sceneProgress=0 and oPlayer1.x>=224
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay=1 {global.gamePaused=true}
+      if sceneDelay=1*gDeltaTime {global.gamePaused=true}
       oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=304
       {

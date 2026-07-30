@@ -165,7 +165,7 @@ if global.gameProgress=4520 and room=rMain_79 //----- [1] Intro to Highlands ---
   if sceneProgress=0
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay=1 {global.gamePaused=true}
+    if sceneDelay=1*gDeltaTime {global.gamePaused=true}
     if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=1 and bWaitForInput=false
@@ -280,7 +280,7 @@ else if global.gameProgress=4560 and room=rHiddenVillage //----- [3] Intro to Hi
   if sceneProgress=0
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay=1 {global.gamePaused=true}
+    if sceneDelay=1*gDeltaTime {global.gamePaused=true}
     if sceneDelay>=20
     {
       fadeAlpha-=0.025*gDeltaTime
@@ -419,7 +419,7 @@ else if global.gameProgress=4580 and room=rDiscoA //----- [5] Intro to The Disco
   if sceneProgress=0
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay=1 {global.gamePaused=true}
+    if sceneDelay=1*gDeltaTime {global.gamePaused=true}
     else if sceneDelay>=31 and sceneDelay<=70 {fadeAlpha-=0.025*gDeltaTime}
     if sceneDelay>=80 {sceneDelay=0; sceneProgress+=1}
   }
@@ -648,7 +648,7 @@ else if global.gameProgress=4635 and room=rDiscoF //----- [7] We need to hurry -
   if sceneProgress=0
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay=1 {global.gamePaused=true}
+    if sceneDelay=1*gDeltaTime {global.gamePaused=true}
     if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=1 and bWaitForInput=false
@@ -673,7 +673,7 @@ else if room=rDiscoH //----- [8] No more buffs / Time till Hex finds Kirby -----
     if sceneProgress=0
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay=1 {global.gamePaused=true}
+      if sceneDelay=1*gDeltaTime {global.gamePaused=true}
       if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=1 and bWaitForInput=false
@@ -1486,7 +1486,7 @@ else if room=rMC_A
     if sceneProgress=0
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay=1 {global.gamePaused=true}
+      if sceneDelay=1*gDeltaTime {global.gamePaused=true}
       if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=1 and bWaitForInput=false
@@ -1551,7 +1551,7 @@ else if room=rMC_L //----- [] Pete appears -----
     if sceneProgress=0
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay=1 {global.canPause=0}
+      if sceneDelay=1*gDeltaTime {global.canPause=0}
       else if sceneDelay>=20
       {
         instance_create(400,-70,oBowserMachine)

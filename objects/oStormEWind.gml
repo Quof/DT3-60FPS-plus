@@ -7,7 +7,7 @@ applies_to=self
 if global.gamePaused=false
 {
   oPlayer1.xVel=windPower*oStormEagle.image_xscale
-  if oGame.time mod 3=0
+  if oGame.time mod (3/gDeltaTime)=0
   {
     var tEffect;
     tEffect=instance_create(oStormEagle.x+(random(256)*oStormEagle.image_xscale),266-random(12),oEffect)

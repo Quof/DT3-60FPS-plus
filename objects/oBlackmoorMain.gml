@@ -145,31 +145,31 @@ if global.gamePaused=false
     {
       if bendProg=0
       {
-        bendSpd-=0.05
+        bendSpd-=0.05*gDeltaTime
         if bendSpd<=-0.5 {bendProg=1}
       }
       else if bendProg=1
       {
-        bendSpd+=0.05
+        bendSpd+=0.05*gDeltaTime
         if bendSpd>=0.5 {bendProg=0}
       }
-      image_angle+=bendSpd
-      bodyMove+=1
+      image_angle+=bendSpd*gDeltaTime
+      bodyMove+=1*gDeltaTime
     }
     for(i=0;i<2;i+=1) {fingerMove[i]+=0.8+(i*0.2)}
 
     if despProg<=1
     {
       //-------------------- NORMAL MOVEMENT PATTERN --------------------
-      moveTime+=1
+      moveTime+=1*gDeltaTime
       if moveCycle=0 //Stationary, then V-shape
       {
-        if moveTime>=241 and moveTime<=300 {y-=0.25}
-        else if moveTime>=301 and moveTime<=330 {x+=0.25; y+=0.25}
+        if moveTime>=241 and moveTime<=300 {y-=0.25*gDeltaTime}
+        else if moveTime>=301 and moveTime<=330 {x+=0.25*gDeltaTime; y+=0.25*gDeltaTime}
         else if moveTime>=331 and moveTime<=360
         {
-          x-=0.25; y+=0.25
-          if moveTime=360 {moveTime=0; moveCycle+=1}
+          x-=0.25*gDeltaTime; y+=0.25*gDeltaTime
+          if moveTime=360 {moveTime=0; moveCycle+=1*gDeltaTime}
         }
       }
       else if moveCycle=1 //Go to back of room, then back to mid
@@ -186,7 +186,7 @@ if global.gamePaused=false
             tEffect.sprite_index=sGroundBlast; tEffect.image_angle=90; tEffect.image_blend=c_black; tEffect.image_speed=0.5
             tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
           }
-          x+=4
+          x+=4*gDeltaTime
         }
         else if moveTime=401 {warnCircle=80}
         else if moveTime>=431 and moveTime<=450
@@ -199,7 +199,7 @@ if global.gamePaused=false
             tEffect.sprite_index=sGroundBlast; tEffect.image_angle=270; tEffect.image_blend=c_black; tEffect.image_speed=0.5
             tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
           }
-          x-=4
+          x-=4*gDeltaTime
           if moveTime=450 {moveTime=0; moveCycle+=1}
         }
       }
@@ -209,13 +209,13 @@ if global.gamePaused=false
         {
           speed=0.25
           direction=moveDir
-          moveDir+=2
+          moveDir+=2*gDeltaTime
           if moveDir=180 {speed=0; moveDir=0; moveTime=0; moveCycle=0}
         }
       }
 
       //-------------------- ATTACK: DOUBLE ARM SWING --------------------
-      dArmSwingTime+=1
+      dArmSwingTime+=1*gDeltaTime
       if dArmSwingTime>=dArmSwingDelay and dArmSwingTime<=dArmSwingDelay+100 //Check distance to player
       {
         if point_distance(x,y,oPlayer1.x,oPlayer1.y)<208 and armMeteorTime<armMeteorDelay {dArmSwingTime=10000}
@@ -227,7 +227,7 @@ if global.gamePaused=false
       }
 
       //-------------------- ATTACK: METEOR SUMMON (With arms) --------------------
-      armMeteorTime+=1
+      armMeteorTime+=1*gDeltaTime
       if armMeteorTime>=armMeteorDelay and armMeteorTime<=armMeteorDelay+100
       {
         if dArmSwingTime<dArmSwingDelay-45 {armMeteorTime=10000}
@@ -251,7 +251,7 @@ if global.gamePaused=false
         for(i=0;i<7;i+=1)
         {
           newMeteor=instance_create((xCenter-roomSpan)+(i*72),-24-(i*48),oBlackmoorMeteor)
-          newMeteor.atkPower=atkPower; newMeteor.bulletSpeed=8+(i/10); newMeteor.direction=270
+          newMeteor.atkPower=atkPower; newMeteor.bulletSpeed=8+(i/10); newMeteor._direction=270
         }
       }
       else if fallMeteorTime=10061
@@ -260,7 +260,7 @@ if global.gamePaused=false
         for(i=0;i<7;i+=1)
         {
           newMeteor=instance_create((xCenter+roomSpan)-(i*72),-24-(i*48),oBlackmoorMeteor)
-          newMeteor.atkPower=atkPower; newMeteor.bulletSpeed=8+(i/10); newMeteor.direction=270
+          newMeteor.atkPower=atkPower; newMeteor.bulletSpeed=8+(i/10); newMeteor._direction=270
         }
       }
       else if fallMeteorTime=10080 {fallMeteorTime=0}
@@ -269,8 +269,8 @@ if global.gamePaused=false
     if posCheck=0 and y<216 {posCheck=32}
     if posCheck>0
     {
-      y+=1
-      posCheck-=1
+      if gDeltaDoTicks y+=1
+      posCheck-=1*gDeltaTime
     }
 
     //Desperation Attack
@@ -279,17 +279,17 @@ if global.gamePaused=false
     //-------------------- UTILITY: FLAME MOVE --------------------
     if flameProg=1
     {
-      oGateCFlame.x+=0.25
-      flameMove+=1
+      if gDeltaDoTicks oGateCFlame.x+=0.25
+      flameMove+=1*gDeltaTime
       if flameMove=32 {flameMove=0; flameProg=0}
     }
 
     //-------------------- UTILITY: ADVANCING WALL --------------------
     if advancingWall>=1 and advancingWall<9000
     {
-      advancingWall+=1
-      if advancingWall=2 {instance_create(256,112,oBlackmoorDeathWall)}
-      oBlackmoorDeathWall.x+=1
+      advancingWall+=1*gDeltaTime
+      if advancingWall>1 {instance_create(256,112,oBlackmoorDeathWall)}
+      oBlackmoorDeathWall.x+=1*gDeltaTime
       if oBlackmoorDeathWall.x>=352 {advancingWall=10000}
     }
 
@@ -343,7 +343,7 @@ if global.gamePaused=false
   }
   else if life<=0 //Defeat animation
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       speed=0
@@ -357,7 +357,7 @@ if global.gamePaused=false
     }
     else if deathAnim>=2 and deathAnim<=55
     {
-      if oGame.time mod 2=0
+      if oGame.time mod (2/gDeltaTime)=0
       {
         var tEffect;
         tEffect=instance_create((x-sprite_width/2)+random(sprite_width),(y-sprite_height/2)+random(sprite_height),oEffect)
@@ -390,32 +390,32 @@ action_id=603
 applies_to=self
 */
 //-- ATTACK: DOUBLE ARM SWING --
-dArmSwingProg+=1
+dArmSwingProg+=1*gDeltaTime
 if dArmSwingProg>=1 and dArmSwingProg<=30
 {
-  image_angle-=1
-  bShoulderL.atkAngle+=0.5
-  bForearmL.atkAngle-=0.5
+  image_angle-=1*gDeltaTime
+  bShoulderL.atkAngle+=0.5*gDeltaTime
+  bForearmL.atkAngle-=0.5*gDeltaTime
 }
 else if dArmSwingProg>=41 and dArmSwingProg<=60 //Left arm swing
 {
-  image_angle+=2
-  bShoulderL.atkAngle-=4
+  image_angle+=2*gDeltaTime
+  bShoulderL.atkAngle-=4*gDeltaTime
 }
 else if dArmSwingProg>=71 and dArmSwingProg<=90 //Right arm swing
 {
-  image_angle-=0.5
-  bShoulderL.atkAngle+=2
-  bForearmL.atkAngle+=0.5
-  bShoulderR.atkAngle-=4
-  bForearmR.atkAngle-=2
+  image_angle-=0.5*gDeltaTime
+  bShoulderL.atkAngle+=2*gDeltaTime
+  bForearmL.atkAngle+=0.5*gDeltaTime
+  bShoulderR.atkAngle-=4*gDeltaTime
+  bForearmR.atkAngle-=2*gDeltaTime
 }
 else if dArmSwingProg>=91 and dArmSwingProg<=110
 {
-  bShoulderL.atkAngle+=1.25
-  bForearmL.atkAngle+=0.25
-  bShoulderR.atkAngle+=4
-  bForearmR.atkAngle+=2
+  bShoulderL.atkAngle+=1.25*gDeltaTime
+  bForearmL.atkAngle+=0.25*gDeltaTime
+  bShoulderR.atkAngle+=4*gDeltaTime
+  bForearmR.atkAngle+=2*gDeltaTime
   if dArmSwingProg=110
   {
     dArmSwingProg=0
@@ -429,23 +429,23 @@ action_id=603
 applies_to=self
 */
 //-- ATTACK: METEOR SUMMON (With arms) --
-armMeteorProg+=1
+armMeteorProg+=1*gDeltaTime
 if armMeteorProg>=1 and armMeteorProg<=30
 {
   if armMeteorProg=1 {playSound(global.snd_DemonLaugh,0,0.92,12000)}
-  image_angle-=0.5
-  bShoulderL.atkAngle-=1
-  bForearmL.atkAngle-=0.25
-  bShoulderR.atkAngle+=1
-  bForearmR.atkAngle+=0.25
+  image_angle-=0.5*gDeltaTime
+  bShoulderL.atkAngle-=1*gDeltaTime
+  bForearmL.atkAngle-=0.25*gDeltaTime
+  bShoulderR.atkAngle+=1*gDeltaTime
+  bForearmR.atkAngle+=0.25*gDeltaTime
 }
 else if armMeteorProg>=51 and armMeteorProg<=70
 {
-  image_angle+=1
-  bShoulderL.atkAngle+=2
-  bForearmL.atkAngle+=0.5
-  bShoulderR.atkAngle-=2
-  bForearmR.atkAngle-=0.5
+  image_angle+=1*gDeltaTime
+  bShoulderL.atkAngle+=2*gDeltaTime
+  bForearmL.atkAngle+=0.5*gDeltaTime
+  bShoulderR.atkAngle-=2*gDeltaTime
+  bForearmR.atkAngle-=0.5*gDeltaTime
   if armMeteorProg=51
   {
     var newMeteor;
@@ -454,17 +454,17 @@ else if armMeteorProg>=51 and armMeteorProg<=70
       newMeteor=instance_create(x-(i*40),-24,oBlackmoorMeteor)
       newMeteor.atkPower=atkPower
       newMeteor.bulletSpeed=6+(i/2)-(meteorAmt/3)
-      newMeteor.direction=260-((i*6))
+      newMeteor._direction=260-((i*6))
     }
   }
 }
 else if armMeteorProg>=71 and armMeteorProg<=80
 {
-  image_angle-=0.5
-  bShoulderL.atkAngle-=1
-  bForearmL.atkAngle-=0.25
-  bShoulderR.atkAngle+=1
-  bForearmR.atkAngle+=0.25
+  image_angle-=0.5*gDeltaTime
+  bShoulderL.atkAngle-=1*gDeltaTime
+  bForearmL.atkAngle-=0.25*gDeltaTime
+  bShoulderR.atkAngle+=1*gDeltaTime
+  bForearmR.atkAngle+=0.25*gDeltaTime
   if armMeteorProg=80
   {
     armMeteorProg=0
@@ -492,12 +492,12 @@ if despProg=1 //Be sure arm attacks are not in progress
 else if despProg=2 //Back away to the right and dim room lights
 {
   if oEvExGates.fadeAlpha<0.2 {oEvExGates.fadeAlpha+=0.005*gDeltaTime; image_alpha-=0.005*gDeltaTime}
-  if x<688 {x+=2}
-  if x>=688 and oEvExGates.fadeAlpha>=0.2 {despProg+=1}
+  if x<688 {x+=2*gDeltaTime}
+  if x>=688 and oEvExGates.fadeAlpha>=0.2 {despProg+=1*gDeltaTime}
 }
 else if despProg=3 //Attack
 {
-  despTime+=1
+  despTime+=1*gDeltaTime
   if despTime=10 {instance_create(x,despY1,oBlackmoorSword)} //Set 1
   else if despTime=25 {instance_create(x,despY2,oBlackmoorSword)}
   else if despTime=40 {instance_create(x,despY3,oBlackmoorSword)}
@@ -526,7 +526,7 @@ else if despProg=3 //Attack
 }
 else if despProg=4 //End
 {
-  despTime+=1
+  despTime+=1*gDeltaTime
   if despTime>=45
   {
     if oEvExGates.fadeAlpha>0 {oEvExGates.fadeAlpha-=0.005*gDeltaTime; image_alpha+=0.005*gDeltaTime}

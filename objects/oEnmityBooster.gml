@@ -55,8 +55,8 @@ if global.gamePaused=false
       var tMissile;
       tMissile=instance_create(x-(14*image_xscale),y-38,oEnmityMissile)
       tMissile.atkPower=atkPower; tMissile.targetTime=15
-      if image_xscale=1 {tMissile.direction=130-shotDir}
-      else {tMissile.direction=50+shotDir}
+      if image_xscale=1 {tMissile._direction=130-shotDir}
+      else {tMissile._direction=50+shotDir}
 
       shotDir+=10
       multiShot+=1
@@ -87,7 +87,7 @@ if global.gamePaused=false
   }
   else if life<=0
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     if deathAnim mod 3=0
     {
       if deathAnim mod 3=0 {playSound(global.snd_BombExplode,0,0.92,1)}

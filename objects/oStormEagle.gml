@@ -112,7 +112,7 @@ if global.gamePaused=false
         }
       }
 
-      if currentAtk>0 {atkProg+=1}
+      if currentAtk>0 {atkProg+=1*gDeltaTime}
       if actionState<2
       {
         if currentAtk=1 //-------------------- ATTACK: WING FLAP (Ground) --------------------
@@ -132,7 +132,7 @@ if global.gamePaused=false
               var tMissile;
               tMissile=instance_create(x,y-40,oEnmityMissile)
               tMissile.atkPower=atkPower; tMissile.targetTime=50
-              tMissile.direction=90
+              tMissile._direction=90
             }
           }
           else if atkProg>=wingAttackTime
@@ -172,7 +172,7 @@ if global.gamePaused=false
           }
           else if atkProg>=2 and atkProg<=199
           {
-            y-=3
+            y-=3*gDeltaTime
             if y<=-8 {currentDive=0; atkProg=200}
           }
           else if atkProg=215
@@ -195,21 +195,21 @@ if global.gamePaused=false
                 tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=9; tNewAttack.decayTime=-100
                 if image_xscale=1
                 {
-                  if i=0 {tNewAttack.direction=45}
-                  else {tNewAttack.direction=225}
+                  if i=0 {tNewAttack._direction=45}
+                  else {tNewAttack._direction=225}
                 }
                 else
                 {
-                  if i=0 {tNewAttack.direction=135}
-                  else {tNewAttack.direction=315}
+                  if i=0 {tNewAttack._direction=135}
+                  else {tNewAttack._direction=315}
                 }
               }
             }
 
-            x+=13*image_xscale; y+=13
+            x+=13*image_xscale*gDeltaTime; y+=13*gDeltaTime
             if y>=room_height+80
             {
-              currentDive+=1
+              currentDive+=1*gDeltaTime
               if currentDive>=maxDive
               {
                 atkProg=500
@@ -225,7 +225,7 @@ if global.gamePaused=false
           }
           else if atkProg>=500
           {
-            y+=3
+            y+=3*gDeltaTime
             if y>=144
             {
               y=144
@@ -239,7 +239,7 @@ if global.gamePaused=false
         if atkProg=1 {sprite_index=sStormE_Fly}
         else if atkProg>=2
         {
-          y-=3
+          y-=3*gDeltaTime
           if y<=144
           {
             y=144
@@ -253,7 +253,7 @@ if global.gamePaused=false
         if atkProg=1 {sprite_index=sStormE_Fly}
         else if atkProg>=2
         {
-          y+=3
+          y+=3*gDeltaTime
           if y>=yGround
           {
             sprite_index=sStormE_Idle
@@ -277,7 +277,7 @@ if global.gamePaused=false
       }
       else if specProg>=2 and specProg<=199 //Fly up
       {
-        y-=5
+        y-=5*gDeltaTime
         if y<=-8 {currentDive=0; specProg=200}
       }
       else if specProg=210
@@ -297,18 +297,18 @@ if global.gamePaused=false
             tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=9; tNewAttack.decayTime=-100
             if image_yscale=1
             {
-              if i=0 {tNewAttack.direction=135}
-              else {tNewAttack.direction=315}
+              if i=0 {tNewAttack._direction=135}
+              else {tNewAttack._direction=315}
             }
             else
             {
-              if i=0 {tNewAttack.direction=45}
-              else {tNewAttack.direction=225}
+              if i=0 {tNewAttack._direction=45}
+              else {tNewAttack._direction=225}
             }
           }
         }
 
-        x-=xSpecSpd; y+=ySpecSpd
+        x-=xSpecSpd*gDeltaTime; y+=ySpecSpd*gDeltaTime
         if ySpecSpd>0
         {
           if y>=144 {playSound(global.snd_WindBlow,0,0.92,50000); ySpecSpd*=-1; image_yscale=-1}
@@ -337,18 +337,18 @@ if global.gamePaused=false
             tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=9; tNewAttack.decayTime=-100
             if image_yscale=1
             {
-              if i=0 {tNewAttack.direction=45}
-              else {tNewAttack.direction=225}
+              if i=0 {tNewAttack._direction=45}
+              else {tNewAttack._direction=225}
             }
             else
             {
-              if i=0 {tNewAttack.direction=135}
-              else {tNewAttack.direction=315}
+              if i=0 {tNewAttack._direction=135}
+              else {tNewAttack._direction=315}
             }
           }
         }
 
-        x+=xSpecSpd; y+=ySpecSpd
+        x+=xSpecSpd*gDeltaTime; y+=ySpecSpd*gDeltaTime
         if ySpecSpd>0
         {
           if y>=336 {playSound(global.snd_WindBlow,0,0.92,50000); ySpecSpd*=-1; image_yscale=-1}
@@ -367,7 +367,7 @@ if global.gamePaused=false
       }
       else if specProg>=710
       {
-        y+=5
+        y+=5*gDeltaTime
         if y>=144
         {
           y=144
@@ -433,7 +433,7 @@ if global.gamePaused=false
   }
   else if life<=0 //Defeat animation
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       sprite_index=sStormE_Spit
@@ -444,7 +444,7 @@ if global.gamePaused=false
     else if deathAnim>=2 and deathAnim<=90
     {
       if deathAnim mod 9=0 {playSound(global.snd_EnemyDieMM,0,1,1)}
-      if oGame.time mod 3=0
+      if oGame.time mod (3/gDeltaTime)=0
       {
         var tEffect;
         tEffect=instance_create(bbox_left+random(abs(sprite_width)),bbox_top+random(abs(sprite_height)),oEffect)

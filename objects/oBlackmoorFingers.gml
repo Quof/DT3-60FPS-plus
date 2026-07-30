@@ -66,14 +66,14 @@ if global.gamePaused=false
     x=oBlackmoorMain.bHandL.x+lengthdir_x(13,oBlackmoorMain.bHandL.image_angle+fingerOffset+270)
     y=oBlackmoorMain.bHandL.y+lengthdir_y(13,oBlackmoorMain.bHandL.image_angle+fingerOffset+270)
     image_angle=oBlackmoorMain.bHandL.image_angle+neutralAngle+bendAngle
-    bendAngle+=sin(oBlackmoorMain.fingerMove[0]/2+(type*2))
+    bendAngle+=sin(oBlackmoorMain.fingerMove[0]/2+(type*2))*gDeltaTime
   }
   else if side=1 //Right (Back)
   {
     x=oBlackmoorMain.bHandR.x+lengthdir_x(13,oBlackmoorMain.bHandR.image_angle+fingerOffset+270)
     y=oBlackmoorMain.bHandR.y+lengthdir_y(13,oBlackmoorMain.bHandR.image_angle+fingerOffset+270)
     image_angle=oBlackmoorMain.bHandR.image_angle+neutralAngle+bendAngle
-    bendAngle+=sin(oBlackmoorMain.fingerMove[1]/2+(type*2))
+    bendAngle+=sin(oBlackmoorMain.fingerMove[1]/2+(type*2))*gDeltaTime
   }
   enemyStepEvent()
 }

@@ -416,7 +416,7 @@ else if global.gameProgress=210 and room=rMario1_4 //----- [Assist] About Assist
   if sceneProgress=0
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay=1 {global.gamePaused=true}
+    if sceneDelay=1*gDeltaTime {global.gamePaused=true}
     else if sceneDelay>=15 {sceneDelay=0; sceneProgress+=1}
   }
 
@@ -661,7 +661,7 @@ else if global.gameProgress=270 and room=rMario1_5 //----- [5] About AP and Skil
   if sceneProgress=0
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay=1 {global.gamePaused=true}
+    if sceneDelay=1*gDeltaTime {global.gamePaused=true}
     else if sceneDelay>=15 {sceneDelay=0; sceneProgress+=1}
   }
 
@@ -710,7 +710,7 @@ else if global.gameProgress=290 and room=rMario1_5Hub //----- [6] Toad house ---
   if sceneProgress=0
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay=1 {global.gamePaused=true}
+    if sceneDelay=1*gDeltaTime {global.gamePaused=true}
     else if sceneDelay>=15 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=1 and bWaitForInput=false
@@ -897,7 +897,7 @@ else if global.gameProgress=401 and room=rMario1_9Shop //----- [9] Shop & Item E
   if sceneProgress=0
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay=1 {global.gamePaused=true}
+    if sceneDelay=1*gDeltaTime {global.gamePaused=true}
     else if sceneDelay>=15 {sceneDelay=0; sceneProgress+=1}
   }
 
@@ -959,7 +959,7 @@ else if global.gameProgress=420 and room=rMario1_11 //----- [10] Almost to Cackl
   if sceneProgress=0
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay=1 {global.gamePaused=true}
+    if sceneDelay=1*gDeltaTime {global.gamePaused=true}
     else if sceneDelay>=15 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=1 and bWaitForInput=false
@@ -991,7 +991,7 @@ else if global.gameProgress=440 and room=rMario1_CCa //----- [11] Inside Cacklet
   if sceneProgress=0
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay=1 {global.gamePaused=true}
+    if sceneDelay=1*gDeltaTime {global.gamePaused=true}
     else if sceneDelay>=15 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=1 and bWaitForInput=false
@@ -1017,7 +1017,7 @@ else if global.gameProgress=460 and room=rMario1_CCb //----- [12] J&C random gib
   if sceneProgress=0
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay=1 {global.gamePaused=true}
+    if sceneDelay=1*gDeltaTime {global.gamePaused=true}
     else if sceneDelay>=15 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=1 and bWaitForInput=false

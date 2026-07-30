@@ -401,7 +401,7 @@ if room=rExtGateA_6 //----- [A] Boss Fight: Kamek -----
     if sceneProgress=0 and oPlayer1.x>=176
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay=1 {global.gamePaused=true}
+      if sceneDelay=1*gDeltaTime {global.gamePaused=true}
       oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=288
       {
@@ -577,7 +577,7 @@ else if room=rExtGateB_6 //----- [B] Boss Fight: Final Nightmare -----
     if sceneProgress=0 and oPlayer1.x>=560
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay=1 {global.gamePaused=true}
+      if sceneDelay=1*gDeltaTime {global.gamePaused=true}
       oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=288
       {
@@ -688,7 +688,7 @@ else if room=rExtGateC_5 //----- [C] Boss Fight: Blackmoor -----
     if sceneProgress=0 and oPlayer1.x>=400
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay=1 {global.gamePaused=true}
+      if sceneDelay=1*gDeltaTime {global.gamePaused=true}
       oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=304
       {
@@ -803,7 +803,7 @@ else if room=rExtGateD_6 //----- [D] Boss Fight: Elpizo -----
     if sceneProgress=0 and oPlayer1.x>=352
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay=1 {global.gamePaused=true}
+      if sceneDelay=1*gDeltaTime {global.gamePaused=true}
       oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=416
       {
@@ -892,7 +892,7 @@ else if room=rExtGateE_5 //----- [E] Boss Fight: Shadow Form -----
     if sceneProgress=0 and oPlayer1.x>=272
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay=1 {global.gamePaused=true}
+      if sceneDelay=1*gDeltaTime {global.gamePaused=true}
       oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=304
       {
@@ -1051,7 +1051,7 @@ else if room=rExtGateF_6 //----- [F] Boss Fight: Nightmare -----
     if sceneProgress=0 and oPlayer1.x>=160
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay=1 {global.gamePaused=true}
+      if sceneDelay=1*gDeltaTime {global.gamePaused=true}
       oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=432
       {
@@ -1126,7 +1126,7 @@ else if room=rExtGateG_5 //----- [G] Boss Fight: Sephiroth -----
     if sceneProgress=0 and oPlayer1.x>=320
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay=1 {global.gamePaused=true}
+      if sceneDelay=1*gDeltaTime {global.gamePaused=true}
       oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=288
       {
@@ -1260,7 +1260,7 @@ else if room=rSacredTemple //------------------------------ Exit door spawn ----
     if sceneProgress=0
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay=1 {global.gamePaused=true}
+      if sceneDelay=1*gDeltaTime {global.gamePaused=true}
       else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=1 and bWaitForInput=false
@@ -1293,7 +1293,7 @@ else if room=rSacredTemple //------------------------------ Exit door spawn ----
     if sceneProgress=0
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay=1 {global.gamePaused=true}
+      if sceneDelay=1*gDeltaTime {global.gamePaused=true}
       else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=1 and bWaitForInput=false
@@ -1318,7 +1318,7 @@ else if room=rSacredTemple //------------------------------ Exit door spawn ----
     if sceneProgress=0
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay=1 {global.gamePaused=true}
+      if sceneDelay=1*gDeltaTime {global.gamePaused=true}
       else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=1 and bWaitForInput=false
@@ -1345,7 +1345,7 @@ else if room=rSacredTemple //------------------------------ Exit door spawn ----
     if sceneProgress=0
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay=1 {global.gamePaused=true}
+      if sceneDelay=1*gDeltaTime {global.gamePaused=true}
       else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=1 and bWaitForInput=false
@@ -1364,7 +1364,7 @@ else if room=rSacredTemple //------------------------------ Exit door spawn ----
     if sceneProgress=0
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay=1 {global.gamePaused=true}
+      if sceneDelay=1*gDeltaTime {global.gamePaused=true}
       else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=1 and bWaitForInput=false
@@ -1387,7 +1387,7 @@ else if room=rSacredTemple //------------------------------ Exit door spawn ----
     if sceneProgress=0
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay=1 {global.gamePaused=true}
+      if sceneDelay=1*gDeltaTime {global.gamePaused=true}
       else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=1 and bWaitForInput=false
@@ -1412,7 +1412,7 @@ else if room=rSacredTemple //------------------------------ Exit door spawn ----
     if sceneProgress=0
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay=1 {global.gamePaused=true}
+      if sceneDelay=1*gDeltaTime {global.gamePaused=true}
       else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=1 and bWaitForInput=false

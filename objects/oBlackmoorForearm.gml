@@ -57,15 +57,15 @@ if global.gamePaused=false
   {
     if bendProg=0
     {
-      bendSpd-=0.5
+      bendSpd-=0.5*gDeltaTime
       if bendSpd<=-4 {bendProg=1}
     }
     else if bendProg=1
     {
-      bendSpd+=0.5
+      bendSpd+=0.5*gDeltaTime
       if bendSpd>=4 {bendProg=0}
     }
-    bendAngle+=bendSpd
+    bendAngle+=bendSpd*gDeltaTime
   }
   enemyStepEvent()
 }

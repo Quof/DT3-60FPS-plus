@@ -1,4 +1,4 @@
-set_application_title("DT3: Saved Game")
+set_application_title("DT3: Saved Game Remastered (60FPS)")
 
 //Initialize
 globalvar gDeltaTime, gDeltaDoTicks, gDeltaTick;

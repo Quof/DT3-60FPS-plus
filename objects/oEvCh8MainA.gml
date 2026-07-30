@@ -525,7 +525,7 @@ else if global.gameProgress=1830 and room=rMega4_IntroE //----- [Unskippable] Bo
     if sceneProgress=0 and oPlayer1.x>=336
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay=1 {global.gamePaused=true}
+      if sceneDelay=1*gDeltaTime {global.gamePaused=true}
       oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=240
       {
@@ -736,7 +736,7 @@ else if room=rMega4_StormC //----- [Unskippable] Bit appears and destroys canist
     if sceneProgress=0 and oPlayer1.x>=208
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay=1 {global.gamePaused=true}
+      if sceneDelay=1*gDeltaTime {global.gamePaused=true}
       oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=288
       {
@@ -1158,7 +1158,7 @@ else if room=rMega4_OstrichB //----- [3] Introduce Motorbike -----
     if sceneProgress=0
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay=1 {global.gamePaused=true}
+      if sceneDelay=1*gDeltaTime {global.gamePaused=true}
       else if sceneDelay>=20
       {
         sceneDelay=0

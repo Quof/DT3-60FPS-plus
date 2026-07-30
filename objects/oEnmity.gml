@@ -84,7 +84,7 @@ if global.gamePaused=false
     if specialAttack=0
     {
       //-------------------- ATTACK: BOMB SPAM --------------------
-      bombSpamTime+=1
+      bombSpamTime+=1*gDeltaTime
       if bombSpamTime>=bombSpamDelay and bombSpamTime<=bombSpamDelay+100
       {
         xSpam=-3-random(0.5)
@@ -103,12 +103,12 @@ if global.gamePaused=false
 
           if bombSpamTime>=10001 and bombSpamTime<=10100
           {
-            xSpam+=1.3+random(0.2)
+            xSpam+=(1.3+random(0.2))
             if xSpam>=4 {bombSpamTime=10100}
           }
           else if bombSpamTime>=10101 and bombSpamTime<=10200
           {
-            xSpam-=1.3-random(0.2)
+            xSpam-=(1.3-random(0.2))
             if xSpam<=-4 {bombSpamTime=0}
           }
         }
@@ -117,7 +117,7 @@ if global.gamePaused=false
       //-------------------- UTILITY: BOOSTER REGENERATION --------------------
       if instance_exists(rightBooster) or instance_exists(leftBooster)
       {
-        if oGame.time mod 2=0
+        if oGame.time mod (2/gDeltaTime)=0
         {
           if life<maxLife {life+=1}
         }
@@ -125,7 +125,7 @@ if global.gamePaused=false
 
       if !instance_exists(rightBooster)
       {
-        rightRegen+=1
+        rightRegen+=1*gDeltaTime
         if rightRegen>=2000
         {
           rightRegen=0
@@ -142,7 +142,7 @@ if global.gamePaused=false
       }
       if !instance_exists(leftBooster)
       {
-        leftRegen+=1
+        leftRegen+=1*gDeltaTime
         if leftRegen>=2000
         {
           leftRegen=0
@@ -194,16 +194,16 @@ if global.gamePaused=false
     }
     else if specialAttack=2
     {
-      specTime+=1
+      specTime+=1*gDeltaTime
       if specTime=60
       {
         var tMissile;
         tMissile=instance_create(x+36,y-12,oEnmityMissile)
         tMissile.atkPower=atkPower; tMissile.targetTime=20
-        tMissile.direction=30+specDir
+        tMissile._direction=30+specDir
         tMissile=instance_create(x-36,y-12,oEnmityMissile)
         tMissile.atkPower=atkPower; tMissile.targetTime=20
-        tMissile.direction=150-specDir
+        tMissile._direction=150-specDir
         specDir+=20
         specProg+=1
         if specProg<5 {specTime-=10}
@@ -221,10 +221,10 @@ if global.gamePaused=false
           var tMissile;
           tMissile=instance_create(x+36,y-12,oEnmityMissile)
           tMissile.atkPower=atkPower; tMissile.targetTime=20
-          tMissile.direction=i*120
+          tMissile._direction=i*120
           tMissile=instance_create(x-36,y-12,oEnmityMissile)
           tMissile.atkPower=atkPower; tMissile.targetTime=20
-          tMissile.direction=i*120+60
+          tMissile._direction=i*120+60
         }
         specProg+=1
         if specProg<2 {specTime-=100}
@@ -244,7 +244,7 @@ if global.gamePaused=false
           var tMissile;
           tMissile=instance_create(x,y,oEnmityMissile)
           tMissile.atkPower=atkPower; tMissile.targetTime=10
-          tMissile.direction=tMissDir
+          tMissile._direction=tMissDir
           tMissDir+=360/12
         }
       }
@@ -273,7 +273,7 @@ if global.gamePaused=false
 
     if secondResistChange>=1 and secondResistChange<=99
     {
-      secondResistChange+=1
+      secondResistChange+=1*gDeltaTime
       if secondResistChange=40
       {
         var tAtkShield;
@@ -331,7 +331,7 @@ if global.gamePaused=false
 
 if life<=0 //Defeat animation
 {
-  deathAnim+=1
+  deathAnim+=1*gDeltaTime
   if deathAnim=1
   {
     if global.bBossGallery=1
@@ -391,7 +391,7 @@ if life<=0 //Defeat animation
   else if deathAnim>=151 and deathAnim<=210
   {
     if deathAnim mod 3=0 {playSound(global.snd_BombExplode,0,0.92,1)}
-    if oGame.time mod 2=0
+    if oGame.time mod (2/gDeltaTime)=0
     {
       var tEffect;
       tEffect=instance_create((x-sprite_width/2)+random(sprite_width),(y-sprite_height/2)+random(sprite_height),oEffect)

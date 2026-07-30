@@ -23,7 +23,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  yVel+=grav
+  yVel+=grav*gDeltaTime
   if yVel>13 {yVel=13}
 
   if isCollisionTop(1)
@@ -34,7 +34,7 @@ if global.gamePaused=false
     bDestroy=1
   if isCollisionRight(1)
     bDestroy=1
-  moveTo(xVel,yVel)
+  moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
 
   if bDestroy=1
   {
@@ -42,7 +42,7 @@ if global.gamePaused=false
     for(i=0;i<4;i+=1)
     {
       newBird=instance_create(x,y,oStormBird)
-      newBird.direction=45+(i*90)
+      newBird._direction=45+(i*90)
     }
     instance_destroy()
   }

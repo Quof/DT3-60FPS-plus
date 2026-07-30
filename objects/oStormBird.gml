@@ -24,6 +24,7 @@ dieEffect=0
 runAcc=1.4
 atkProg=0
 bSpotted=0
+_direction=0
 
 jeremyText="All it does is fly outword for a moment and then straight for you."
 chaoText="Have you noticed that there are a lot of birds lately? I wonder what's up with that..."
@@ -39,12 +40,12 @@ if global.gamePaused=false
   makeEnemyActive(0)
   if life>0
   {
-    if direction>=91 and direction<=269 {image_xscale=-1}
+    if _direction>=91 and _direction<=269 {image_xscale=-1}
     else {image_xscale=1}
 
     speed=9
-    atkProg+=1
-    if atkProg=9 {direction=player_sprite_center()}
+    atkProg+=1*gDeltaTime
+    if atkProg=9 {_direction=player_sprite_center()}
   }
   else
   {

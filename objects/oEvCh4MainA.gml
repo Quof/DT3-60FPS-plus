@@ -244,7 +244,7 @@ else if global.gameProgress=640 //----- [2] Random Encounter -----
   if sceneProgress=0
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay=1 {global.gamePaused=true}
+    if sceneDelay=1*gDeltaTime {global.gamePaused=true}
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=1 and bWaitForInput=false
@@ -271,7 +271,7 @@ else if global.gameProgress=660 and room=rLink2_TownA_Ext //----- [3] Zelda Town
   if sceneProgress=0
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay=1 {global.gamePaused=true}
+    if sceneDelay=1*gDeltaTime {global.gamePaused=true}
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=1 and bWaitForInput=false
@@ -296,7 +296,7 @@ else if global.gameProgress=680 and room=rLink2_PalaceA_1 //----- [4] Desert Pal
   if sceneProgress=0
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay=1 {global.gamePaused=true}
+    if sceneDelay=1*gDeltaTime {global.gamePaused=true}
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=1 and bWaitForInput=false
@@ -319,7 +319,7 @@ else if global.gameProgress=690 and room=rLink2_PalaceA_6 //----- [5] After grab
   if sceneProgress=0 and !instance_exists(oStoryObject)
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay=1 {global.gamePaused=true}
+    if sceneDelay=1*gDeltaTime {global.gamePaused=true}
     else if sceneDelay>=2
     {
       oPlayer1.y+=4*gDeltaTime
@@ -432,7 +432,7 @@ else if room=rLink2_PalaceA_11 //----- [] Boss Fight: Helmethead -----
     if sceneProgress=0 and oPlayer1.x>=992
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay=1 {global.gamePaused=true}
+      if sceneDelay=1*gDeltaTime {global.gamePaused=true}
       else if sceneDelay>=2
       {
         oPlayer1.y+=4*gDeltaTime
@@ -475,7 +475,7 @@ else if global.gameProgress=720 and room=rLink2_PalaceF_1 //----- [6] Forest Pal
   if sceneProgress=0
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay=1 {global.gamePaused=true}
+    if sceneDelay=1*gDeltaTime {global.gamePaused=true}
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=1 and bWaitForInput=false
@@ -524,7 +524,7 @@ else if global.gameProgress=725 and room=rLink2_PalaceF_9 //----- [7] After grab
   if sceneProgress=0 and !instance_exists(oStoryObject)
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay=1 {global.gamePaused=true}
+    if sceneDelay=1*gDeltaTime {global.gamePaused=true}
     else if sceneDelay>=2
     {
       oPlayer1.y+=4*gDeltaTime
@@ -692,7 +692,7 @@ else if room=rLink2_PalaceF_12 //----- [] Boss Fight: Dead Hand -----
     if sceneProgress=0 and oPlayer1.x>=928
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay=1 {global.gamePaused=true}
+      if sceneDelay=1*gDeltaTime {global.gamePaused=true}
       else if sceneDelay>=2
       {
         oPlayer1.y+=4*gDeltaTime
@@ -737,7 +737,7 @@ else if global.gameProgress=740 and room=rLink2_PalaceW_1 //----- [8] Water Pala
     if sceneProgress=0
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay=1 {global.gamePaused=true}
+      if sceneDelay=1*gDeltaTime {global.gamePaused=true}
       else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=1 and bWaitForInput=false
@@ -773,7 +773,7 @@ else if global.gameProgress=750 and room=rLink2_MountPass //----- [9] Mountain P
   if sceneProgress=0
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay=1 {global.gamePaused=true}
+    if sceneDelay=1*gDeltaTime {global.gamePaused=true}
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=1 and bWaitForInput=false
@@ -831,7 +831,7 @@ else if global.gameProgress=780 and room=rLink2_DeathMount_A //----- [10] Death 
   if sceneProgress=0
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay=1 {global.gamePaused=true}
+    if sceneDelay=1*gDeltaTime {global.gamePaused=true}
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=1 and bWaitForInput=false
@@ -968,7 +968,7 @@ else if global.gameProgress=800 and room=rLink2_PalaceC_1 //----- [11] Great Pal
   if sceneProgress=0
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay=1 {global.gamePaused=true; oPlayer1.sprite_index=sJerryIdle}
+    if sceneDelay=1*gDeltaTime {global.gamePaused=true; oPlayer1.sprite_index=sJerryIdle}
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=1 and bWaitForInput=false
@@ -1048,7 +1048,7 @@ else if room=rLink2_PalaceC_14 //----- [] Boss Fight: Thunderbird -----
     if sceneProgress=0 and oPlayer1.x>=1248
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay=1 {global.gamePaused=true}
+      if sceneDelay=1*gDeltaTime {global.gamePaused=true}
       else if sceneDelay>=2
       {
         oPlayer1.y+=4*gDeltaTime
@@ -1093,7 +1093,7 @@ else if global.gameProgress=815 and room=rLink2_PalaceW_1 //----- [12] Water Pal
     if sceneProgress=0 and oPlayer1.x>=224
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay=1 {global.gamePaused=true}
+      if sceneDelay=1*gDeltaTime {global.gamePaused=true}
       oPlayer1.y+=4*gDeltaTime
       if oPlayer1.y>=240
       {
@@ -1145,7 +1145,7 @@ else if global.gameProgress=830 and room=rLink2_PalaceW_2 //----- [13] Water Pal
   if sceneProgress=0
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay=1 {global.gamePaused=true}
+    if sceneDelay=1*gDeltaTime {global.gamePaused=true}
     else if sceneDelay>=20 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=1 and bWaitForInput=false
@@ -1313,7 +1313,7 @@ else if global.gameProgress=870 and room=rLink2_PalaceW_10 //----- [14] Opening 
   else if sceneProgress=1
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay=1 {global.gamePaused=true}
+    if sceneDelay=1*gDeltaTime {global.gamePaused=true}
     else if sceneDelay>=2
     {
       oPlayer1.y+=4*gDeltaTime
@@ -1595,7 +1595,7 @@ else if global.gameProgress=890 and room=rLink2_PalaceW_13 //----- [16] Not real
   if sceneProgress=0 and oPlayer1.x>=288
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay=1 {global.gamePaused=true}
+    if sceneDelay=1*gDeltaTime {global.gamePaused=true}
     oPlayer1.y+=4*gDeltaTime
     if oPlayer1.y>=288
     {
