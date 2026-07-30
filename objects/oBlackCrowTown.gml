@@ -15,8 +15,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if !gDeltaDoTicks { exit; }
-animTime+=1
+animTime+=1*gDeltaTime
 if animToPlay=0
 {
   if animTime=animDelay {animTime=0; animToPlay=1}

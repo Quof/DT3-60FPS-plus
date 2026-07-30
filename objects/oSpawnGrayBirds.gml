@@ -11,8 +11,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if !gDeltaDoTicks { exit; }
-spawnTime-=1
+spawnTime-=1*gDeltaTime
 if spawnTime<=0
 {
   var tBirdSpawn,tXSpawn;

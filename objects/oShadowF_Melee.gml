@@ -25,7 +25,7 @@ if global.gamePaused=false
   x=oShadowForm.x
   y=oShadowForm.y
   image_xscale=oShadowForm.image_xscale
-  image_index+=atkSpd
+  image_index+=atkSpd*gDeltaTime
 
   if image_index>=image_number
   {

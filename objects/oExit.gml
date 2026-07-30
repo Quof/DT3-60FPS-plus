@@ -78,7 +78,7 @@ if sprite_index=sWS_MetalDoor
   }
 }
 
-if drawType=1 //Extra gate early exit
+if drawType=1 and gDeltaDoTicks //Extra gate early exit
 {
   var tFFScl,tEffect;
   tFFScl=random(0.1)

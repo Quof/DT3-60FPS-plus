@@ -95,12 +95,12 @@ if global.gamePaused=false
       if x>oPlayer1.x and image_xscale=1
       {
         onOtherSide=1
-        turnTime+=1
+        turnTime+=1*gDeltaTime
       }
       else if x<oPlayer1.x and image_xscale=-1
       {
         onOtherSide=1
-        turnTime+=1
+        turnTime+=1*gDeltaTime
       }
       else
       {
@@ -115,8 +115,8 @@ if global.gamePaused=false
       }
 
       //Change form
-      if charForm=global.activeCharacter {changeTime+=1}
-      else {changeTime+=2}
+      if charForm=global.activeCharacter {changeTime+=1*gDeltaTime}
+      else {changeTime+=2*gDeltaTime}
       if changeTime>=changeDelay
       {
         if charForm=0 {charForm=1; sprite_index=sClaireIdle}
@@ -145,7 +145,7 @@ if global.gamePaused=false
         else {xVel=-moveSpd}
       }
 
-      if xVel!=0 //Move effect
+      if xVel!=0 and gDeltaDoTicks //Move effect
       {
         var tFFScl;
         for(i=0;i<4;i+=1)
@@ -162,7 +162,7 @@ if global.gamePaused=false
       if image_speed<0.1 {image_speed=0.1}
 
       //---------- ACTION DECISION MAKING ----------
-      attackDelay+=1
+      attackDelay+=1*gDeltaTime
       if attackDelay>=waitTime
       {
         var tDistToPlayer;
@@ -197,7 +197,7 @@ if global.gamePaused=false
     }
     else if currentAction>=10 and currentAction<=19 //---------- Attack: Standard Melee ----------
     {
-      attackDelay+=1
+      attackDelay+=1*gDeltaTime
       if attackDelay=1 {if charForm=0 {sprite_index=sJerrySword} else {sprite_index=sClaireHairWhip}}
       else if attackDelay=8-spdChange //Attack
       {
@@ -213,7 +213,7 @@ if global.gamePaused=false
     }
     else if currentAction>=20 and currentAction<=29 //---------- Attack: Roll Jump and Dive ----------
     {
-      attackDelay+=1
+      attackDelay+=1*gDeltaTime
       if attackDelay=1 //Dash check
       {
         if charForm=0 {sprite_index=sJerryKneel} else {sprite_index=sClaireDuck}
@@ -266,7 +266,7 @@ if global.gamePaused=false
     }
     else if currentAction>=30 and currentAction<=39 //---------- Attack: Projectile ----------
     {
-      attackDelay+=1
+      attackDelay+=1*gDeltaTime
       if attackDelay=1 {if charForm=0 {sprite_index=sJerryFire1} else {sprite_index=sClaireThrow}}
       else if attackDelay=8-spdChange //Attack
       {
@@ -275,7 +275,7 @@ if global.gamePaused=false
         tNewAttack=instance_create(x+(20*image_xscale),y-33,oPassBullet)
         if charForm=0 {tNewAttack.sprite_index=sLinkArrow} else {tNewAttack.sprite_index=sBelmontDagger}
         tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=12; tNewAttack.decayTime=-100; tNewAttack.image_blend=c_black
-        if image_xscale=-1 {tNewAttack.direction=180}
+        if image_xscale=-1 {tNewAttack._direction=180}
       }
       else if attackDelay=10-spdChange //Attack end
       {
@@ -286,7 +286,7 @@ if global.gamePaused=false
     }
     else if currentAction>=40 and currentAction<=49 //---------- Attack: Special (Bomb/Holy Water) ----------
     {
-      attackDelay+=1
+      attackDelay+=1*gDeltaTime
       if attackDelay=1 {if charForm=0 {sprite_index=sJerryCasting} else {sprite_index=sClaireCasting}}
       else if attackDelay=10-spdChange //Use attack
       {
@@ -323,7 +323,7 @@ if global.gamePaused=false
       }
     }
 
-    yVel+=0.4
+    yVel+=0.4*gDeltaTime
 
     if isCollisionBottom(1)
     {
@@ -339,7 +339,7 @@ if global.gamePaused=false
     }
     if isCollisionSolid()
       y-=2
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
 
     //---------- Boss Difficulty Curve ----------
     if lifePercent<=0.88 and lifePercent>=0.77 and bossProgress=0 //[0]
@@ -407,7 +407,7 @@ if global.gamePaused=false
   }
   else if life<=0 //Defeat animation
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       sprite_index=sJerryDamaged
@@ -416,7 +416,7 @@ if global.gamePaused=false
     else if deathAnim>=2 and deathAnim<=90
     {
       if deathAnim mod 9=0 {playSound(global.snd_EnemyDieMM,0,1,1)}
-      if oGame.time mod 3=0
+      if oGame.time mod (3/gDeltaTime)=0
       {
         var tEffect;
         tEffect=instance_create(bbox_left+random(abs(sprite_width)),bbox_top+random(abs(sprite_height)),oEffect)

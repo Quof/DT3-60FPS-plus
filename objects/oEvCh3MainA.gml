@@ -35,7 +35,6 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if !gDeltaDoTicks { exit; }
 if global.gameProgress=525 and room=rMain_8 //----- [1] Chapter 3 -----
 {
   if sceneProgress=0

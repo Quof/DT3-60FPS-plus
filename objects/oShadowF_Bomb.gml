@@ -19,7 +19,7 @@ applies_to=self
 event_inherited()
 if global.gamePaused=false
 {
-  yVel+=0.2
+  yVel+=0.2*gDeltaTime
   if xVel>2
     xVel-=0.025
   else if xVel<-2
@@ -45,12 +45,12 @@ if global.gamePaused=false
   if isCollisionSolid()
     y-=2
 
-  moveTo(xVel,yVel)
+  moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
 
-  lifeTime-=1
+  lifeTime-=1*gDeltaTime
   if lifeTime<30 and lifeTime>0 //Flash red
   {
-    if oGame.time mod 6=0
+    if oGame.time mod (6/gDeltaTime)=0
     {
       if image_blend=c_black
         image_blend=c_red
