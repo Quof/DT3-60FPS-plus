@@ -50,6 +50,8 @@ largeWaveHP=350
 xCenter=240
 yGround=288
 roomSpan=208
+specialAttack=0
+specProg=0
 
 deathAnim=0
 #define Step_0
@@ -76,6 +78,8 @@ if global.gamePaused=false
   {
     armFrm+=0.05*gDeltaTime
 
+    if specialAttack!=2
+    {
     if sprite_index=sSigmaA_Walk and armSpr=sSigmaA_Arm1
     {
       if bossProgress>=4 {resType[2]=1}
@@ -94,11 +98,17 @@ if global.gamePaused=false
       else {resType[5]=3}
     }
 
+
     atkProg+=1*gDeltaTime
     if actionState=0 //--------- Walk forward ---------
     {
-      if atkProg>=11 and atkProg<=walkMax
+     if atkProg=1 and global.booleanImprovements = true
+        {
+          if specialAttack=1 {specialAttack=2}
+        }
+      else if atkProg>=11 and atkProg<=walkMax
       {
+
         image_index+=0.08*gDeltaTime
         if roomSide=0 {x+=runAcc*gDeltaTime}
         else {x-=runAcc*gDeltaTime}
@@ -338,6 +348,122 @@ if global.gamePaused=false
         }
       }
     }
+    }
+        else //-------------------- DESPERATION ATTACK: WALL SPAM --------------------
+    {
+      specProg+=1*gDeltaTime
+      image_blend=make_color_rgb(random(255),random(255),random(255))
+      if specProg=1
+      {
+        resType[2]=1
+        resType[3]=1
+        resType[5]=1
+        wallSpPosX1=40; wallSpPosX2=424
+        if instance_exists(oStaticSpike) {wallSpikes=199}
+        spWall=0
+        spDmgW=0
+      }
+      else if specProg>=2 and specProg<=21 {image_alpha-=0.05*gDeltaTime}
+      else if specProg=22
+      {
+        x=400
+        roomSide=1
+        image_xscale=-1
+      }
+      else if specProg>=41 and specProg<=50 {image_alpha+=0.05*gDeltaTime}
+      else if specProg=55 {wallSpikes=1}
+      else if specProg=70
+      {
+        spWall=instance_create(wallSpPosX2,64,oSigmaPushWall); spWall.image_yscale=2; spWall.xMove=-4
+        spWall=instance_create(wallSpPosX2,256,oSigmaPushWall); spWall.image_yscale=2; spWall.xMove=-4
+      }
+      else if specProg=80
+      {
+        spWall=instance_create(wallSpPosX2,96,oSigmaPushWall); spWall.image_yscale=2; spWall.xMove=-4
+        spWall=instance_create(wallSpPosX2,224,oSigmaPushWall); spWall.image_yscale=2; spWall.xMove=-4
+      }
+      else if specProg=90
+      {
+        spWall=instance_create(wallSpPosX2,128,oSigmaPushWall); spWall.image_yscale=2; spWall.xMove=-4
+        spWall=instance_create(wallSpPosX2,192,oSigmaPushWall); spWall.image_yscale=2; spWall.xMove=-4
+      }
+      else if specProg=100
+      {
+        spWall=instance_create(wallSpPosX2,160,oSigmaPushWall); spWall.image_yscale=2; spWall.xMove=-4
+        spDmgW=instance_create(wallSpPosX2,64,oSigmaTrapWall); spDmgW.image_yscale=5; spDmgW.xMove=-4
+        spDmgW=instance_create(wallSpPosX2,208,oSigmaTrapWall); spDmgW.image_yscale=5; spDmgW.xMove=-4
+      }
+      else if specProg=110
+      {
+        spWall=instance_create(wallSpPosX2,128,oSigmaPushWall); spWall.image_yscale=2; spWall.xMove=-4
+        spWall=instance_create(wallSpPosX2,192,oSigmaPushWall); spWall.image_yscale=2; spWall.xMove=-4
+      }
+      else if specProg=120
+      {
+        spWall=instance_create(wallSpPosX2,96,oSigmaPushWall); spWall.image_yscale=2; spWall.xMove=-4
+        spWall=instance_create(wallSpPosX2,224,oSigmaPushWall); spWall.image_yscale=2; spWall.xMove=-4
+      }
+      else if specProg=130
+      {
+        spWall=instance_create(wallSpPosX2,64,oSigmaPushWall); spWall.image_yscale=2; spWall.xMove=-4
+        spWall=instance_create(wallSpPosX2,256,oSigmaPushWall); spWall.image_yscale=2; spWall.xMove=-4
+      }
+      else if specProg=150
+      {
+        spDmgW=instance_create(wallSpPosX1,64,oSigmaTrapWall); spDmgW.image_yscale=14; spDmgW.xMove=1
+        spDmgW=instance_create(wallSpPosX2,64,oSigmaTrapWall); spDmgW.image_yscale=14; spDmgW.xMove=-1
+      }
+      else if specProg=160
+      {
+        spWall=instance_create(wallSpPosX2,64,oSigmaPushWall); spWall.image_yscale=4; spWall.xMove=-6
+        spWall=instance_create(wallSpPosX2,224,oSigmaPushWall); spWall.image_yscale=4; spWall.xMove=-6
+      }
+      else if specProg=185
+      {
+        spWall=instance_create(wallSpPosX2,128,oSigmaPushWall); spWall.image_yscale=6; spWall.xMove=-8
+        spDmgW=instance_create(wallSpPosX2-16,128,oSigmaTrapWall); spDmgW.image_yscale=6; spDmgW.xMove=-8
+      }
+      else if specProg=195
+      {
+        spDmgW=instance_create(wallSpPosX1,192,oSigmaTrapWall); spDmgW.image_yscale=6; spDmgW.xMove=6
+        spDmgW=instance_create(wallSpPosX2,192,oSigmaTrapWall); spDmgW.image_yscale=6; spDmgW.xMove=-6
+      }
+      else if specProg=235
+      {
+        spDmgW=instance_create(wallSpPosX1,64,oSigmaTrapWall); spDmgW.image_yscale=12; spDmgW.xMove=8
+        spDmgW=instance_create(wallSpPosX2,64,oSigmaTrapWall); spDmgW.image_yscale=12; spDmgW.xMove=-8
+      }
+      else if specProg=250 {spWall=instance_create(wallSpPosX1,224,oSigmaPushWall); spWall.image_yscale=4; spWall.xMove=4}
+      else if specProg=265 {spWall=instance_create(wallSpPosX1,160,oSigmaPushWall); spWall.image_yscale=4; spWall.xMove=4}
+      else if specProg=280 {spWall=instance_create(wallSpPosX1,160,oSigmaPushWall); spWall.image_yscale=4; spWall.xMove=4}
+      else if specProg=295 {spWall=instance_create(wallSpPosX1,160,oSigmaPushWall); spWall.image_yscale=4; spWall.xMove=4}
+      else if specProg=320 {spDmgW=instance_create(wallSpPosX2,64,oSigmaTrapWall); spDmgW.image_yscale=14; spDmgW.xMove=-1}
+      else if specProg=380 {spWall=instance_create(wallSpPosX2,224,oSigmaPushWall); spWall.image_xscale=4; spWall.image_yscale=4; spWall.xMove=-4}
+      else if specProg=396 {spDmgW=instance_create(wallSpPosX2,160,oSigmaTrapWall); spDmgW.image_xscale=4; spDmgW.image_yscale=4; spDmgW.xMove=-4}
+      else if specProg=412 {spWall=instance_create(wallSpPosX2,224,oSigmaPushWall); spWall.image_xscale=4; spWall.image_yscale=4; spWall.xMove=-4}
+      else if specProg=428 {spDmgW=instance_create(wallSpPosX2,160,oSigmaTrapWall); spDmgW.image_xscale=4; spDmgW.image_yscale=4; spDmgW.xMove=-4}
+      else if specProg=444 {spWall=instance_create(wallSpPosX2,224,oSigmaPushWall); spWall.image_xscale=4; spWall.image_yscale=4; spWall.xMove=-4}
+      else if specProg=460 {spWall=instance_create(wallSpPosX2,160,oSigmaPushWall); spWall.image_yscale=8; spWall.xMove=-2}
+      else if specProg=530 {spDmgW=instance_create(wallSpPosX2,64,oSigmaTrapWall); spDmgW.image_yscale=14; spDmgW.xMove=-4}
+      else if specProg=550 {spWall=instance_create(wallSpPosX2,160,oSigmaPushWall); spWall.image_yscale=8; spWall.xMove=-4}
+      else if specProg>=631 and specProg<=640 {image_alpha+=0.05*gDeltaTime}
+      else if specProg>=650
+      {
+        wallSpikes=199
+        image_blend=c_white
+        atkProg=0
+        specialAttack=3
+      }
+
+      if specProg>=256 and specProg<=328
+      {
+        if specProg mod 8=0 {spDmgW=instance_create(wallSpPosX1,256,oSigmaTrapWall); spDmgW.image_yscale=2; spDmgW.xMove=4}
+      }
+      else if specProg>=448 and specProg<=576
+      {
+        if specProg mod 8=0 {spDmgW=instance_create(wallSpPosX2,256,oSigmaTrapWall); spDmgW.image_yscale=2; spDmgW.xMove=-4}
+      }
+    }
 
     //-------------------- UTILITY: WALL SPIKES --------------------
     if wallSpikes>=1 and wallSpikes<=26
@@ -407,6 +533,7 @@ if global.gamePaused=false
     else if lifePercent<=0.5 and lifePercent>=0.41 and bossProgress=2
     {
       var tAtkShield;
+      specialAttack=1
       tAtkShield=instance_create(x,y,oAtkTypeShield); tAtkShield.ownerID=id
       tAtkShield.xOffset=0; tAtkShield.yOffset=0; tAtkShield.atkType=5; tAtkShield.atkUp=1
       resType[5]-=1
