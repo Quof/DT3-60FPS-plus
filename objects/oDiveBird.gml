@@ -196,7 +196,7 @@ if global.gamePaused=false
       if point_distance(x,y-7,eDistCheck.bbox_left+(eDistCheck.sprite_width/2),eDistCheck.bbox_top+(eDistCheck.sprite_height/2))<112
       {
         sprite_index=sDiveBird_Hover
-        _direction=point_direction(x,y-7,eDistCheck.bbox_left+(eDistCheck.sprite_width/2),eDistCheck.bbox_top+(eDistCheck.sprite_height/2))-180
+        _direction=point_direction(x,y-7,eDistCheck.bbox_left+(eDistCheck.sprite_width/2),eDistCheck.bbox_top+(eDistCheck.sprite_height/2)) mod 360
         if _direction>=90 and _direction<=270 {image_xscale=1}
         else {image_xscale=-1}
         imagespeed=0.33

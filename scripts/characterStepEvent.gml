@@ -626,6 +626,7 @@ if bTakingDamage=false
       if kDown
       {
         //yAcc=2
+        yVel=2
         var bodged;
         // fine tune this 1.00 as needed
          // compensation for fixed gravity integration
