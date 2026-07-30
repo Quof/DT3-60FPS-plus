@@ -6,8 +6,8 @@ applies_to=self
 */
 image_blend=make_color_rgb(130,130,255)
 image_alpha=0.08
-speed=2
-direction=180
+_speed=2
+_direction=180
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -15,6 +15,8 @@ action_id=603
 applies_to=self
 */
 if checkScreenArea(x,y,32+string_width(binaryString)*2.5)=0 {instance_destroy()}
+x += cos(degtorad(_direction)) * _speed * gDeltaTime
+y -= sin(degtorad(_direction)) * _speed * gDeltaTime
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

@@ -81,7 +81,7 @@ if global.gamePaused=false
     //----- Movement -----
     if x<oPlayer1.x {image_xscale=1} else {image_xscale=-1}
 
-    moveTime+=1
+    moveTime+=1*gDeltaTime
     if moveTime>=moveDelay
     {
       x=round(x); y=round(y)
@@ -94,16 +94,16 @@ if global.gamePaused=false
 
     if moveType=0 //Glide to player x
     {
-      if y>moveYcenter {y-=1}
-      else if y<moveYcenter {y+=1}
+      if gDeltaDoTicks and y>moveYcenter {y-=1}
+      else if gDeltaDoTicks and  y<moveYcenter {y+=1}
 
-      if x>oPlayer1.x {if moveSpd>-3 {moveSpd-=0.15}}
-      else if x<oPlayer1.x {if moveSpd<3 {moveSpd+=0.15}}
-      x+=moveSpd
+      if x>oPlayer1.x {if moveSpd>-3 {moveSpd-=0.15*gDeltaTime}}
+      else if x<oPlayer1.x {if moveSpd<3 {moveSpd+=0.15*gDeltaTime}}
+      x+=moveSpd*gDeltaTime
     }
     else if moveType=1 //Move down in player's way
     {
-      if y<moveYcenter+80 {y+=1}
+      if gDeltaDoTicks and y<moveYcenter+80 {y+=1}
     }
     else if moveType=2 //Move to top corner
     {
@@ -129,13 +129,13 @@ if global.gamePaused=false
         xPrev=x; yPrev=y
         if x>=xCenter
         {
-          if x<xCenter+roomSpan {x+=6}
+          if x<xCenter+roomSpan {x+=6*gDeltaTime}
         }
         else if x<xCenter
         {
-          if x>xCenter-roomSpan {x-=6}
+          if x>xCenter-roomSpan {x-=6*gDeltaTime}
         }
-        if y>moveYcenter-64 {y-=6}
+        if y>moveYcenter-64 {y-=6*gDeltaTime}
       }
     }
     else if moveType=3 //Move under platform
@@ -147,15 +147,16 @@ if global.gamePaused=false
         tAfterI.sprite_index=sprite_index; tAfterI.image_index=image_index; tAfterI.image_blend=c_green
         tAfterI.image_alpha=0.5; tAfterI.image_xscale=image_xscale*1.5; tAfterI.image_yscale=1.5; tAfterI.xShift=0; tAfterI.yShift=0
         tAfterI.imageFade=0.05; tAfterI.xScaling=-0.1; tAfterI.yScaling=-0.1; tAfterI.bFollow=0
+        moveTime+=(1-gDeltaTime) //QWH, I added this line to make it connect to the 21
       }
       else if moveTime>=21
       {
-        if y<yGround+96 {y+=4}
+        if y<yGround+96 {y+=4*gDeltaTime}
       }
     }
     
     //-------------------- ATTACK: TRACKING FIREBALLS --------------------
-    trackFireTime+=1
+    trackFireTime+=1*gDeltaTime
     if trackFireTime>=trackFireDelay and trackFireTime<=trackFireDelay+100
     {
       resType[3]=4
@@ -177,25 +178,25 @@ if global.gamePaused=false
     }
     
     //-------------------- ATTACK: MOVE SHIFT ATTACK --------------------
-    shiftAtk+=1
+    shiftAtk+=1*gDeltaTime
     if moveType=0 //----- Rain fireball slowly on sides -----
     {
       if shiftAtk=10
       {
         var tAtk;
         tAtk=instance_create(xCenter-roomSpan+32,112,oPassBullet)
-        tAtk.sprite_index=sDraculaMeteor; tAtk.direction=270; tAtk.image_xscale=2; tAtk.image_yscale=2
+        tAtk.sprite_index=sDraculaMeteor; tAtk._direction=270; tAtk.image_xscale=2; tAtk.image_yscale=2
         tAtk.atkPower=atkPower; tAtk.bulletSpeed=2; tAtk.decayTime=-100
         tAtk=instance_create(xCenter+roomSpan-32,112,oPassBullet)
-        tAtk.sprite_index=sDraculaMeteor; tAtk.direction=270; tAtk.image_xscale=2; tAtk.image_yscale=2
+        tAtk.sprite_index=sDraculaMeteor; tAtk._direction=270; tAtk.image_xscale=2; tAtk.image_yscale=2
         tAtk.atkPower=atkPower; tAtk.bulletSpeed=2; tAtk.decayTime=-100
         if bossProgress>=3
         {
           tAtk=instance_create(xCenter-roomSpan+32,48,oPassBullet)
-          tAtk.sprite_index=sDraculaMeteor; tAtk.direction=270; tAtk.image_xscale=2; tAtk.image_yscale=2
+          tAtk.sprite_index=sDraculaMeteor; tAtk._direction=270; tAtk.image_xscale=2; tAtk.image_yscale=2
           tAtk.atkPower=atkPower; tAtk.bulletSpeed=2; tAtk.decayTime=-100
           tAtk=instance_create(xCenter+roomSpan-32,48,oPassBullet)
-          tAtk.sprite_index=sDraculaMeteor; tAtk.direction=270; tAtk.image_xscale=2; tAtk.image_yscale=2
+          tAtk.sprite_index=sDraculaMeteor; tAtk._direction=270; tAtk.image_xscale=2; tAtk.image_yscale=2
           tAtk.atkPower=atkPower; tAtk.bulletSpeed=2; tAtk.decayTime=-100
         }
       }
@@ -269,7 +270,7 @@ if global.gamePaused=false
           tAtk=instance_create(x+(21*image_xscale),y-52,oPassBullet)
           tAtk.sprite_index=sDraculaLightning
           tAtk.atkPower=atkPower; tAtk.bulletSpeed=4.5; tAtk.decayTime=-100
-          tAtk.direction=tAtkDir
+          tAtk._direction=tAtkDir
           tAtkDir+=10
         }
       }
@@ -286,13 +287,13 @@ if global.gamePaused=false
         var tAtk,tAtkDir;
         if x<xCenter {tAtkDir=0} else {tAtkDir=180}
         tAtk=instance_create(x+(21*image_xscale),y-52,oPassBullet)
-        tAtk.sprite_index=sDraculaMeteor; tAtk.direction=tAtkDir; tAtk.image_xscale=0.5; tAtk.image_yscale=0.5
+        tAtk.sprite_index=sDraculaMeteor; tAtk._direction=tAtkDir; tAtk.image_xscale=0.5; tAtk.image_yscale=0.5
         tAtk.atkPower=atkPower; tAtk.bulletSpeed=4.5; tAtk.decayTime=-100
       }
     }
     
     //-------------------- UTILITY: LAVABALL --------------------
-    if !instance_exists (oVaultLavaball) {lavaballTime+=1}
+    if !instance_exists (oVaultLavaball) {lavaballTime+=1*gDeltaTime}
     if lavaballTime>=lavaballDelay and lavaballTime<=lavaballDelay+100 {lavaballTime=10000}
     else if lavaballTime>=10001
     {
@@ -346,7 +347,7 @@ if global.gamePaused=false
 
 if life<=0 //Defeat animation
 {
-  deathAnim+=1
+  deathAnim+=1*gDeltaTime
   if deathAnim=1
   {
     if global.bBossGallery=1
@@ -412,7 +413,7 @@ if life<=0 //Defeat animation
   else if deathAnim>=196 and deathAnim<=255
   {
     if deathAnim mod 3=0 {playSound(global.snd_BombExplode,0,0.92,1)}
-    if oGame.time mod 2=0
+    if oGame.time mod (2/gDeltaTime)=0
     {
       var tEffect;
       tEffect=instance_create((x-sprite_width/2)+random(sprite_width),(y-sprite_height/2)+random(sprite_height),oEffect)

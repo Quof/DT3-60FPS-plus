@@ -9,6 +9,7 @@ if global.gameProgress=700
   var tNewBarrier;
   tNewBarrier=instance_create(640,240,oSwitchBarrier)
   tNewBarrier.switchID=140072
+  tNewBarrier.switchCache=140072
 }
 
 var tempMplay;

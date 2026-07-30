@@ -24,23 +24,25 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  tRanSize=random(0.2)
+
+  if gDeltaDoTicks
+  { tRanSize=random(0.2)
   tEffect=instance_create(x-(16*image_xscale)+random(32*image_xscale),y-(16*image_yscale)+random(32*image_yscale),oEffect)
   tEffect.sprite_index=choose(sSamusCannonHit,sSamusMissileHit)
   tEffect.image_xscale=0.3+tRanSize; tEffect.image_yscale=0.3+tRanSize
   tEffect.image_alpha=0.4+random(0.2); tEffect.image_speed=0.4+random(0.3)
   tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
-  tEffect.image_blend=make_color_rgb(16,98,240)
+  tEffect.image_blend=make_color_rgb(16,98,240)}
 
-  trackTime-=1
+  trackTime-=1*gDeltaTime
   if fireProg=0 //Track player x
   {
-    if y>oVaultDemon.moveYcenter-96 {y-=2}
+    if y>oVaultDemon.moveYcenter-96 {y-=2*gDeltaTime}
 
-    if x>oPlayer1.x {if moveSpd>-5.5 {moveSpd-=0.5}}
-    else if x<oPlayer1.x {if moveSpd<5.5 {moveSpd+=0.5}}
-    x+=moveSpd
-    image_angle+=-moveSpd*2
+    if x>oPlayer1.x {if moveSpd>-5.5 {moveSpd-=0.5*gDeltaTime}}
+    else if x<oPlayer1.x {if moveSpd<5.5 {moveSpd+=0.5*gDeltaTime}}
+    x+=moveSpd*gDeltaTime
+    image_angle+=-moveSpd*2*gDeltaTime
     if trackTime<=0 {trackTime=20; fireProg+=1}
   }
   else if fireProg=1 //Slight wait
@@ -49,8 +51,8 @@ if global.gamePaused=false
   }
   else if fireProg=2 //Fall to ground and explode
   {
-    if yVel<16 {yVel+=0.4}
-    moveTo(xVel,yVel)
+    if yVel<16 {yVel+=0.4*gDeltaTime}
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
     if isCollisionBottom(1)
     {
       newAttack=instance_create(x,bbox_bottom,oDamageExplosion)

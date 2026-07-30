@@ -50,7 +50,7 @@ if global.gamePaused=false
   {
     if myProg=0 //Spawn in
     {
-      progTime+=1
+      progTime+=1*gDeltaTime
       if progTime mod 3=0
       {
         var tAfterI;
@@ -70,7 +70,7 @@ if global.gamePaused=false
     }
     else if myProg=1 //Slight wait
     {
-      progTime+=1
+      progTime+=1*gDeltaTime
       if progTime>=40
       {
         var tEffect;
@@ -93,14 +93,14 @@ if global.gamePaused=false
     {
       if x>=oVaultDemon.xCenter+oVaultDemon.roomSpan {xVel=-2}
       else if x<=oVaultDemon.xCenter-oVaultDemon.roomSpan {xVel=2}
-      x+=xVel
-      moveTick+=0.5
-      y+=sin(moveTick/4)
+      x+=xVel*gDeltaTime
+      moveTick+=0.5*gDeltaTime
+      y+=sin(moveTick/4)*gDeltaTime
     }
   }
   else if life<=0
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     image_speed=0
     if deathAnim mod 4=0
     {
