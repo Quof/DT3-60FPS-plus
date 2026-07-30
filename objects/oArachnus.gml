@@ -108,7 +108,7 @@ if global.gamePaused=false
       myShell.bCanDealDamage=false
     }
 
-    progTime+=1
+    progTime+=1*gDeltaTime
     if behavior=0 //Roar and create energy wave
     {
       if progTime=20
@@ -130,8 +130,8 @@ if global.gamePaused=false
         var tAtk;
         tAtk=instance_create(x+(4*image_xscale),y-24,oPassBullet)
         tAtk.sprite_index=sArachnusEnergyWave; tAtk.atkPower=atkPower; tAtk.bulletSpeed=12; tAtk.decayTime=-100
-        if image_xscale=1 {tAtk.direction=0}
-        else {tAtk.direction=180}
+        if image_xscale=1 {tAtk._direction=0}
+        else {tAtk._direction=180}
         progTime=0; behavior+=1
       }
     }
@@ -158,7 +158,7 @@ if global.gamePaused=false
     {
       if rollDir=0 //Left
       {
-        x-=rollSpd
+        x-=rollSpd*gDeltaTime
         if x<=xCenter-roomSpan+16
         {
           x=xCenter-roomSpan+16
@@ -169,7 +169,7 @@ if global.gamePaused=false
       }
       else if rollDir=1 //Up
       {
-        y-=rollSpd
+        y-=rollSpd*gDeltaTime
         if y<=yGround-176
         {
           y=yGround-176
@@ -180,7 +180,7 @@ if global.gamePaused=false
       }
       else if rollDir=2 //Right
       {
-        x+=rollSpd
+        x+=rollSpd*gDeltaTime
         if x>=xCenter+roomSpan-16
         {
           x=xCenter+roomSpan-16
@@ -191,7 +191,7 @@ if global.gamePaused=false
       }
       else if rollDir=3 //Down
       {
-        y+=rollSpd
+        y+=rollSpd*gDeltaTime
         if y>=yGround
         {
           y=yGround
@@ -210,7 +210,7 @@ if global.gamePaused=false
           tAtk=instance_create(x,y-16,oPassBullet)
           tAtk.sprite_index=sArachnusEnergyWave; tAtk.atkPower=atkPower; tAtk.bulletSpeed=8; tAtk.decayTime=-100
           tAtk.image_xscale=0.3; tAtk.image_yscale=0.3
-          tAtk.direction=point_direction(x,y-16,oPlayer1.x,oPlayer1.y-26)
+          tAtk._direction=point_direction(x,y-16,oPlayer1.x,oPlayer1.y-26)
         }
         else if bossProgress=3 or bossProgress=4 or bossProgress=5
         {
@@ -218,11 +218,11 @@ if global.gamePaused=false
           tAtk=instance_create(x,y-16,oPassBullet)
           tAtk.sprite_index=sArachnusEnergyWave; tAtk.atkPower=atkPower; tAtk.bulletSpeed=8; tAtk.decayTime=-100
           tAtk.image_xscale=0.3; tAtk.image_yscale=0.3
-          tAtk.direction=point_direction(x,y-16,oPlayer1.x,oPlayer1.y-26)-10
+          tAtk._direction=point_direction(x,y-16,oPlayer1.x,oPlayer1.y-26)-10
           tAtk=instance_create(x,y-16,oPassBullet)
           tAtk.sprite_index=sArachnusEnergyWave; tAtk.atkPower=atkPower; tAtk.bulletSpeed=8; tAtk.decayTime=-100
           tAtk.image_xscale=0.3; tAtk.image_yscale=0.3
-          tAtk.direction=point_direction(x,y-16,oPlayer1.x,oPlayer1.y-26)+10
+          tAtk._direction=point_direction(x,y-16,oPlayer1.x,oPlayer1.y-26)+10
         }
         else if bossProgress=1 or bossProgress=2 or bossProgress=6 or bossProgress=7
         {
@@ -230,21 +230,21 @@ if global.gamePaused=false
           tAtk=instance_create(x,y-16,oPassBullet)
           tAtk.sprite_index=sArachnusEnergyWave; tAtk.atkPower=atkPower; tAtk.bulletSpeed=8; tAtk.decayTime=-100
           tAtk.image_xscale=0.3; tAtk.image_yscale=0.3
-          tAtk.direction=point_direction(x,y-16,oPlayer1.x,oPlayer1.y-26)
+          tAtk._direction=point_direction(x,y-16,oPlayer1.x,oPlayer1.y-26)
           tAtk=instance_create(x,y-16,oPassBullet)
           tAtk.sprite_index=sArachnusEnergyWave; tAtk.atkPower=atkPower; tAtk.bulletSpeed=8; tAtk.decayTime=-100
           tAtk.image_xscale=0.3; tAtk.image_yscale=0.3
-          tAtk.direction=point_direction(x,y-16,oPlayer1.x,oPlayer1.y-26)-10
+          tAtk._direction=point_direction(x,y-16,oPlayer1.x,oPlayer1.y-26)-10
           tAtk=instance_create(x,y-16,oPassBullet)
           tAtk.sprite_index=sArachnusEnergyWave; tAtk.atkPower=atkPower; tAtk.bulletSpeed=8; tAtk.decayTime=-100
           tAtk.image_xscale=0.3; tAtk.image_yscale=0.3
-          tAtk.direction=point_direction(x,y-16,oPlayer1.x,oPlayer1.y-26)+10
+          tAtk._direction=point_direction(x,y-16,oPlayer1.x,oPlayer1.y-26)+10
         }
       }
       
       if turnCur>=8 and turnMax=100 //Turn red
       {
-        if otherColor>100 {otherColor-=2}
+        if otherColor>100 {otherColor-=2*gDeltaTime}
         if otherColor<200
         {
           tEffect=instance_create(x+random_range(-16,16),y+random(32),oEffect)
@@ -276,7 +276,7 @@ if global.gamePaused=false
     }
     else if behavior=3 //Walk around
     {
-      if y<yGround {y+=2}
+      if y<yGround {y+=2*gDeltaTime}
       
       if progTime=25
       {
@@ -286,7 +286,7 @@ if global.gamePaused=false
       else if progTime>=26 and progTime<=60 //Walk forward
       {
         image_speed=runSpd/4
-        x+=runSpd*image_xscale
+        x+=runSpd*image_xscale*gDeltaTime
       }
       else if progTime=61
       {
@@ -296,7 +296,7 @@ if global.gamePaused=false
       else if progTime>=80 and progTime<=110 //Run forward
       {
         image_speed=runSpd/2
-        x+=(runSpd*2)*image_xscale
+        x+=(runSpd*2)*image_xscale*gDeltaTime
       }
       else if progTime=111
       {
@@ -307,8 +307,8 @@ if global.gamePaused=false
       else if progTime>=130 and progTime<=195 //Walk backward
       {
         image_speed=0
-        image_index-=runSpd/4
-        x+=runSpd*-image_xscale
+        image_index-=(runSpd/4)*gDeltaTime
+        x+=runSpd*-image_xscale*gDeltaTime
       }
       else if progTime=196
       {
@@ -325,12 +325,12 @@ if global.gamePaused=false
     //Lava control
     if bLavaRise=2
     {
-      stepCount+=pi/33
-      (GID(288153)).y+=sin(stepCount)*1.9
+      stepCount+=((pi/33)*gDeltaTime)
+      (GID(288153)).y+=sin(stepCount)*1.9*gDeltaTime
     }
     else
     {
-      if (GID(288153)).y<290 {(GID(288153)).y+=2}
+      if (GID(288153)).y<290 {(GID(288153)).y+=2*gDeltaTime}
     }
     
     //---------- Boss Difficulty Curve ----------
@@ -384,7 +384,7 @@ if global.gamePaused=false
   }
   else if life<=0 //Defeat animation
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       bCanDealDamage=false
@@ -395,7 +395,7 @@ if global.gamePaused=false
     else if deathAnim>=2 and deathAnim<=90
     {
       if deathAnim mod 6=0 {playSound(global.snd_EnemyDieMM,0,1,1)}
-      if oGame.time mod 2=0
+      if oGame.time mod (2/gDeltaTime)=0
       {
         var tEffect;
         tEffect=instance_create(x-24+random(48),y-random(48),oEffect)

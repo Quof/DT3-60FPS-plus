@@ -36,17 +36,17 @@ if global.gamePaused=false
   {
     if anim=0
     {
-      image_index+=animSpeed
+      image_index+=animSpeed*gDeltaTime
       if image_index>=image_number-0.6 {anim=1}
     }
     else if anim=1
     {
-      image_index-=animSpeed
+      image_index-=animSpeed*gDeltaTime
       if image_index<=0.6 {anim=2}
     }
     else if anim>=2
     {
-      anim+=1
+      anim+=1*gDeltaTime
       if anim=9 {anim=0}
     }
   }

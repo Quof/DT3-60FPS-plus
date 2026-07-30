@@ -77,13 +77,13 @@ if global.gamePaused=false
       {
         if point_distance(x,y,oPlayer1.x,oPlayer1.y-26)>minDistToPlayer+(minDistToPlayer/5) //Toward player
         {
-          image_index+=animSpd
+          image_index+=animSpd*gDeltaTime
           if x<oPlayer1.x {xVel=runAcc}
           else {xVel=-runAcc}
         }
         else if point_distance(x,y,oPlayer1.x,oPlayer1.y-26)<minDistToPlayer //Away from player
         {
-          image_index-=animSpd
+          image_index-=animSpd*gDeltaTime
           if x<oPlayer1.x {xVel=-runAcc}
           else {xVel=runAcc}
         }

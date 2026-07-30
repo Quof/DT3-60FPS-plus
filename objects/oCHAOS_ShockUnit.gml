@@ -74,7 +74,7 @@ if global.gamePaused=false
 
         if point_distance(x,y,oPlayer1.x,oPlayer1.y-26)>minDistToPlayer+(minDistToPlayer/5)
         {
-          image_index+=animSpd
+          image_index+=animSpd*gDeltaTime
           if instance_exists(myRocket) {sprite_index=sCHAOS_ShockUnitWalkB}
           else {sprite_index=sCHAOS_ShockUnitWalkA}
           if image_xscale=1 {xVel=runAcc}
@@ -82,7 +82,7 @@ if global.gamePaused=false
         }
         else if point_distance(x,y,oPlayer1.x,oPlayer1.y-26)<minDistToPlayer
         {
-          image_index-=animSpd
+          image_index-=animSpd*gDeltaTime
           if instance_exists(myRocket) {sprite_index=sCHAOS_ShockUnitWalkB}
           else {sprite_index=sCHAOS_ShockUnitWalkA}
           if image_xscale=1 {xVel=-runAcc}
@@ -92,7 +92,7 @@ if global.gamePaused=false
         {
           if sprite_index!=sCHAOS_ShockUnitWalkB
           {
-            image_index+=animSpd
+            image_index+=animSpd*gDeltaTime
             sprite_index=sCHAOS_ShockUnitIdle
           }
           xVel=0
