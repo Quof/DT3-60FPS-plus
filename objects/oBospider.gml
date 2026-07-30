@@ -72,7 +72,7 @@ if global.gamePaused=false
 
   if bActive=true and life>0
   {
-    imageEffect+=1
+    imageEffect+=1*gDeltaTime
     if imageEffect mod 8=0
     {
       var tAfterI;
@@ -116,7 +116,7 @@ if global.gamePaused=false
         else if webUsed=4 {x=312}
         atkTime=1
       }
-      y+=8
+      y+=8*gDeltaTime
       if y>=16 {atkTime=0; atkProg=1}
     }
     else if atkProg=1 //---------- Throw spiderlings? ----------
@@ -188,11 +188,11 @@ if global.gamePaused=false
     }
     else if atkProg=3 //---------- Move down ----------
     {
-      legFrm+=0.2+(moveSpd/30)
+      legFrm+=(0.2+(moveSpd/30))*gDeltaTime
       var tClosestWeb,tDistToWebX,tDistToWebY;
       for(i=0;i<moveSpd;i+=1)
       {
-        y+=1
+        if gDeltaDoTicks y+=1
         tClosestWeb=instance_position(x,y,oBospiderWeb)
         if tClosestWeb!=noone
         {
@@ -218,12 +218,12 @@ if global.gamePaused=false
     }
     else if atkProg=4 //---------- Move along cross web ----------
     {
-      legFrm+=0.25
+      legFrm+=0.25*gDeltaTime
       if dirMove=1 //Move left
       {
         for(i=0;i<moveSpd;i+=1)
         {
-          x-=1
+          x-=1*gDeltaTime
           if webUsed=2 and x<=169 {x=168; webUsed-=1; atkProg=3; break;}
           else if webUsed=3 and x<=217 {x=216; webUsed-=1; atkProg=3; break;}
           else if webUsed=4 and x<=265 {x=264; webUsed-=1; atkProg=3; break;}
@@ -233,7 +233,7 @@ if global.gamePaused=false
       {
         for(i=0;i<moveSpd;i+=1)
         {
-          x+=1
+          x+=1*gDeltaTime
           if webUsed=1 and x>=215 {x=216; webUsed+=1; atkProg=3; break;}
           else if webUsed=2 and x>=263 {x=264; webUsed+=1; atkProg=3; break;}
           else if webUsed=3 and x>=311 {x=312; webUsed+=1; atkProg=3; break;}
@@ -255,8 +255,8 @@ if global.gamePaused=false
     }
     else if atkProg=6 //---------- Climb back up ----------
     {
-      legFrm+=0.2+(moveSpd/30)
-      y-=moveSpd
+      legFrm+=(0.2+(moveSpd/30))*gDeltaTime
+      y-=moveSpd*gDeltaTime
       if y<=-44
       {
         numOfDescents+=1
@@ -302,7 +302,7 @@ if global.gamePaused=false
   }
   else if life<=0 //Defeat animation
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       sprite_index=sBospiderMain
@@ -314,7 +314,7 @@ if global.gamePaused=false
     else if deathAnim>=2 and deathAnim<=90
     {
       if deathAnim mod 9=0 {playSound(global.snd_EnemyDieMM,0,1,1)}
-      if oGame.time mod 3=0
+      if oGame.time mod (3/gDeltaTime)=0
       {
         var tEffect;
         tEffect=instance_create(bbox_left+random(abs(sprite_width)),bbox_top+random(abs(sprite_height)),oEffect)

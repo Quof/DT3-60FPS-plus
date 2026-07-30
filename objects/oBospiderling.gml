@@ -43,7 +43,7 @@ if global.gamePaused=false
   {
     if atkProg=0 //Falling
     {
-      yVel+=0.4
+      yVel+=0.4*gDeltaTime
       if yVel>12 {yVel=12}
       if isCollisionBottom(1)
       {
@@ -53,7 +53,7 @@ if global.gamePaused=false
       }
       if isCollisionLeft(1) {xVel=0}
       if isCollisionRight(1) {xVel=0}
-      moveTo(xVel,yVel)
+      moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
     }
     else if atkProg=1 //On ground
     {
@@ -103,7 +103,7 @@ if global.gamePaused=false
         else if moveDir=4 {yVel=3}
         atkProg=2
       }
-      if atkTime<1000 {moveTo(xVel,yVel)}
+      if atkTime<1000 {moveTo(xVel*gDeltaTime,yVel*gDeltaTime)}
     }
     else if atkProg=2 //Run up wall
     {
@@ -113,7 +113,7 @@ if global.gamePaused=false
         if image_index=1 {image_index=2}
         else {image_index=1}
       }
-      y-=yVel
+      y-=yVel*gDeltaTime
       if y<=-16 {instance_destroy()}
     }
   }

@@ -14,9 +14,21 @@ kLeftReleased=1
 playSound(global.snd_PlayerJump[2],0,1,1)
 
 xAcc=xVel/4
-yAcc+=initialJumpAcc
+if (gDeltaTime==1)
+{
+    yAcc+=initialJumpAcc
+    yVel=-0.05
+}
+else
+{
+    var bodged;
+    // fine tune this 1.00 as needed
+    bodged = (initialJumpAcc-0.05) * 1.00
+    yVel = bodged
+    // compensation for fixed gravity integration
+    yVel += gravityIntensity*0.5
+}
 
-yVel=-0.05
 walljumpTime=3
 scrSlowFall(5,0.5,1)
 canAirDash=1
