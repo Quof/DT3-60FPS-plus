@@ -361,6 +361,7 @@ else if global.gameProgress=690 and room=rLink2_PalaceA_6 //----- [5] After grab
     tNewTutorial.scrAreaY=0
     tNewBarrier=instance_create(640,240,oSwitchBarrier)
     tNewBarrier.switchID=140072
+    tNewBarrier.switchCache=140072
     sceneDelay=0; sceneProgress=0
     global.newMapX=144
     global.newMapY=272
