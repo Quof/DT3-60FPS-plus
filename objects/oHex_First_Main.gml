@@ -159,7 +159,7 @@ if global.gamePaused=false
       //-------------------- ATTACK: ARC SHOT --------------------
       if superAtkTime=-1
       {
-        if arcShotTime<10000 or arcShotTime>19999 {arcShotTime+=1}
+        if arcShotTime<10000 or arcShotTime>19999 {arcShotTime+=1*gDeltaTime}
         if arcShotTime>=arcShotDelay and arcShotTime<=arcShotDelay+100 //Spawn 8 shots
         {
           arcShotTime=10000
@@ -545,8 +545,8 @@ if wingFrm>=0
 event_inherited()
 if arcShotTime>=20001
 {
-  warnFrm+=1
-  warnScl-=0.04
+  warnFrm+=1*gDeltaTime
+  warnScl-=0.04*gDeltaTime
   draw_sprite_ext(sMMcharging,warnFrm,x,y,warnScl,warnScl,0,c_white,1)
 }
 
