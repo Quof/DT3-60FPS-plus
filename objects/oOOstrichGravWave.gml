@@ -14,6 +14,7 @@ bShowDamage=false
 bCanTakeDamage=false
 weight=50
 grav=0.2
+_direction=0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -22,13 +23,13 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  yVel+=grav
+  yVel+=grav*gDeltaTime
   if yVel<0 {image_angle=90}
   else if yVel>0 {image_angle=270}
 
   if isCollisionBottom(1)
     instance_destroy()
-  moveTo(xVel,yVel)
+  moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
 
   if y>room_height+32
     instance_destroy()

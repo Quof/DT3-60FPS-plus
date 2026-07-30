@@ -81,7 +81,7 @@ if global.gamePaused=false
         else {image_xscale=-1}
       }
 
-      atkProg+=1
+      atkProg+=1*gDeltaTime
       if actionState=0 //----- Jump and shoot downward wave attack -----
       {
         if atkProg=1
@@ -122,7 +122,7 @@ if global.gamePaused=false
             var tNewAttack;
             tNewAttack=instance_create(x,y-50,oPassBullet)
             tNewAttack.sprite_index=sOOstrichDownWave; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=11
-            tNewAttack.decayTime=-100; tNewAttack.direction=tWaveDir
+            tNewAttack.decayTime=-100; tNewAttack._direction=tWaveDir
             tWaveDir+=10
           }
           xAtkDrop=x
@@ -142,7 +142,7 @@ if global.gamePaused=false
           {
             var tNewAttack;
             tNewAttack=instance_create(tAtkSpc,0,oPassBullet)
-            tNewAttack.sprite_index=sOOstrichDownWave; tNewAttack.direction=270
+            tNewAttack.sprite_index=sOOstrichDownWave; tNewAttack._direction=270
             tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=11; tNewAttack.decayTime=-100
             tAtkSpc+=72-downWaveAmt
           }
@@ -178,7 +178,7 @@ if global.gamePaused=false
         }
         else if atkProg>=13
         {
-          if checkFacing()=0 {turnTime+=1}
+          if checkFacing()=0 {turnTime+=1*gDeltaTime}
           if x<=-16 or x>=room_width+16 {xVel=1*image_xscale; turnTime=turnMax}
 
           if turnTime>=turnMax
@@ -186,14 +186,14 @@ if global.gamePaused=false
             sprite_index=sOOstrich_Idle
             image_speed=0
 
-            var tSkidEffect;
+            if gDeltaDoTicks{var tSkidEffect;
             tSkidEffect=instance_create(x,y-3+random(4),oEffect)
             tSkidEffect.sprite_index=sMMSmokeCloud; tSkidEffect.image_blend=make_color_rgb(248,240,144)
             tSkidEffect.image_alpha=0.75; tSkidEffect.xSpd=(2+random(2))*-image_xscale; tSkidEffect.ySpd=-2-random(2)
-            tSkidEffect.newBlend=-1; tSkidEffect.followID=-1; tSkidEffect.decay=-100
+            tSkidEffect.newBlend=-1; tSkidEffect.followID=-1; tSkidEffect.decay=-100}
 
-            if xVel>0 {xVel-=0.5}
-            else if xVel<0 {xVel+=0.5}
+            if xVel>0 {xVel-=0.5*gDeltaTime}
+            else if xVel<0 {xVel+=0.5*gDeltaTime}
             if abs(xVel)<0.6
             {
               if x<oPlayer1.x {image_xscale=1}
@@ -237,7 +237,7 @@ if global.gamePaused=false
             {
               var tNewAttack;
               tNewAttack=instance_create(x,y-50,oPassArcBullet)
-              tNewAttack.sprite_index=sOOstrichForwardWave; tNewAttack.direction=tArcDir
+              tNewAttack.sprite_index=sOOstrichForwardWave; tNewAttack._direction=tArcDir
               tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=11; tNewAttack.decayTime=90
               tNewAttack.falloff=0.35+(forwardWaveAmt/20); tNewAttack.arcAmt=-7.75-(forwardWaveAmt/10)
               tArcDir-=10
@@ -248,7 +248,7 @@ if global.gamePaused=false
             {
               var tNewAttack;
               tNewAttack=instance_create(x,y-50,oPassArcBullet)
-              tNewAttack.sprite_index=sOOstrichForwardWave; tNewAttack.direction=tArcDir
+              tNewAttack.sprite_index=sOOstrichForwardWave; tNewAttack._direction=tArcDir
               tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=11; tNewAttack.decayTime=90
               tNewAttack.falloff=0.35+(forwardWaveAmt/20); tNewAttack.arcAmt=7.75+(forwardWaveAmt/10)
               tNewAttack.image_xscale=-1
@@ -265,7 +265,7 @@ if global.gamePaused=false
             {
               var tNewAttack;
               tNewAttack=instance_create(x,y-50,oPassArcBullet)
-              tNewAttack.sprite_index=sOOstrichForwardWave; tNewAttack.direction=tArcDir
+              tNewAttack.sprite_index=sOOstrichForwardWave; tNewAttack._direction=tArcDir
               tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=11; tNewAttack.decayTime=90
               tNewAttack.falloff=0.35+(forwardWaveAmt/20); tNewAttack.image_xscale=image_xscale
               if image_xscale=1
@@ -367,7 +367,7 @@ if global.gamePaused=false
     else //Special attack
     {
       image_blend=make_color_rgb(random(255),random(255),random(255))
-      specProg+=1
+      specProg+=1*gDeltaTime
       if specProg=1 //Start
       {
         xVel=0
@@ -398,13 +398,13 @@ if global.gamePaused=false
       }
       else if specProg>=501 and specProg<=599 //Slow down
       {
-        var tSkidEffect;
+        if gDeltaDoTicks{var tSkidEffect;
         tSkidEffect=instance_create(x,y-3+random(4),oEffect)
         tSkidEffect.sprite_index=sMMSmokeCloud; tSkidEffect.image_blend=make_color_rgb(248,240,144)
         tSkidEffect.image_alpha=0.75; tSkidEffect.xSpd=(2+random(2))*-image_xscale; tSkidEffect.ySpd=-2-random(2)
-        tSkidEffect.newBlend=-1; tSkidEffect.followID=-1; tSkidEffect.decay=-100
+        tSkidEffect.newBlend=-1; tSkidEffect.followID=-1; tSkidEffect.decay=-100}
 
-        xVel-=0.5
+        xVel-=0.5*gDeltaTime
         if xVel<=0.6 {xVel=0; image_xscale=-1; specProg=600}
       }
       else if specProg=610 {sprite_index=sOOstrich_Ready}
@@ -429,13 +429,13 @@ if global.gamePaused=false
       }
       else if specProg>=901 and specProg<=999 //Slow down last time
       {
-        var tSkidEffect;
+        if gDeltaDoTicks {var tSkidEffect;
         tSkidEffect=instance_create(x,y-3+random(4),oEffect)
         tSkidEffect.sprite_index=sMMSmokeCloud; tSkidEffect.image_blend=make_color_rgb(248,240,144)
         tSkidEffect.image_alpha=0.75; tSkidEffect.xSpd=(2+random(2))*-image_xscale; tSkidEffect.ySpd=-2-random(2)
-        tSkidEffect.newBlend=-1; tSkidEffect.followID=-1; tSkidEffect.decay=-100
+        tSkidEffect.newBlend=-1; tSkidEffect.followID=-1; tSkidEffect.decay=-100}
 
-        xVel+=0.5
+        xVel+=0.5*gDeltaTime
         if xVel>=-0.6 {xVel=0; specProg=1000}
       }
       else if specProg>=1010
@@ -462,7 +462,7 @@ if global.gamePaused=false
     }
 
     if !isCollisionBottom(1) and bHover=0
-      yVel+=0.3
+      yVel+=0.3*gDeltaTime
     if isCollisionSolid()
       y-=2
 
@@ -516,7 +516,7 @@ if global.gamePaused=false
   }
   else if life<=0 //Defeat animation
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       sprite_index=sOOstrich_Defeat
@@ -526,7 +526,7 @@ if global.gamePaused=false
     else if deathAnim>=2 and deathAnim<=90
     {
       if deathAnim mod 9=0 {playSound(global.snd_EnemyDieMM,0,1,1)}
-      if oGame.time mod 3=0
+      if oGame.time mod (3/gDeltaTime)=0
       {
         var tEffect;
         tEffect=instance_create(bbox_left+random(abs(sprite_width)),bbox_top+random(abs(sprite_height)),oEffect)

@@ -75,7 +75,7 @@ if global.gamePaused=false
           image_xscale=-1
       }
 
-      atkProg+=1
+      atkProg+=1*gDeltaTime
       if actionState=0 //----- Throw orb left or right -----
       {
         if atkProg=1 //Check for special
@@ -146,7 +146,7 @@ if global.gamePaused=false
               {
                 var tNewAttack;
                 tNewAttack=instance_create(x,yGround-8,oPassBullet)
-                tNewAttack.sprite_index=sZapTrap; tNewAttack.direction=i*180
+                tNewAttack.sprite_index=sZapTrap; tNewAttack._direction=i*180
                 tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=12; tNewAttack.decayTime=-100
               }
             }
@@ -215,8 +215,8 @@ if global.gamePaused=false
     }
     else //Special attack
     {
-      specProg+=1
-      if specProg=1 //Start
+      specProg+=1*gDeltaTime
+      if specProg=1*gDeltaTime //Start
       {
         notDashable=1
         throwType=0
@@ -294,7 +294,7 @@ if global.gamePaused=false
 
     if notDashable=1 {image_blend=make_color_rgb(random(255),random(255),random(255))}
 
-    yVel+=0.5
+    yVel+=0.5*gDeltaTime
     if isCollisionBottom(1)
       yVel=0
     if isCollisionLeft(1) and xVel<0
@@ -336,7 +336,7 @@ if global.gamePaused=false
     if isCollisionSolid()
       y-=2
 
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
 
     //---------- Boss Difficulty Curve ----------
     if lifePercent<=0.84 and lifePercent>=0.69 and bossProgress=0
@@ -373,7 +373,7 @@ if global.gamePaused=false
   }
   else if life<=0 //Defeat animation
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       sprite_index=sGBeetle_Defeat
@@ -384,7 +384,7 @@ if global.gamePaused=false
     else if deathAnim>=2 and deathAnim<=90
     {
       if deathAnim mod 9=0 {playSound(global.snd_EnemyDieMM,0,1,1)}
-      if oGame.time mod 3=0
+      if oGame.time mod (3/gDeltaTime)=0
       {
         var tEffect;
         tEffect=instance_create(bbox_left+random(abs(sprite_width)),bbox_top+random(abs(sprite_height)),oEffect)

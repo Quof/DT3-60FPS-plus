@@ -21,13 +21,13 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  if oGame.time mod 4=0 {image_angle=random(360)}
+  if oGame.time mod (4/gDeltaTime)=0 {image_angle=random(360)}
 
   if hitProg=0
   {
-    if isCollisionLeft(1) {xVel=moveSpd; yVel=-moveSpd; hitProg=1}
-    if isCollisionRight(1) {xVel=-moveSpd; yVel=-moveSpd; hitProg=1}
-    if isCollisionTop(1)
+    if gDeltaDoTicks and isCollisionLeft(1) {xVel=moveSpd; yVel=-moveSpd; hitProg=1}
+    if gDeltaDoTicks and  isCollisionRight(1) {xVel=-moveSpd; yVel=-moveSpd; hitProg=1}
+    if gDeltaDoTicks and  isCollisionTop(1)
     {
       if type=0 {xVel=-moveSpd}
       else {xVel=moveSpd}
@@ -37,11 +37,11 @@ if global.gamePaused=false
   }
   else if hitProg=1
   {
-    if isCollisionBottom(1) {yVel*=-1; hitWall+=1}
-    if isCollisionLeft(1) {xVel*=-1; hitWall+=1}
-    if isCollisionRight(1) {xVel*=-1; hitWall+=1}
-    if isCollisionTop(1) {yVel*=-1; hitWall+=1}
+    if gDeltaDoTicks and  isCollisionBottom(1) {yVel*=-1; hitWall+=1}
+    if gDeltaDoTicks and  isCollisionLeft(1) {xVel*=-1; hitWall+=1}
+    if gDeltaDoTicks and  isCollisionRight(1) {xVel*=-1; hitWall+=1}
+    if gDeltaDoTicks and  isCollisionTop(1) {yVel*=-1; hitWall+=1}
     if hitWall>=bounceMax {instance_destroy()}
   }
-  moveTo(xVel,yVel)
+  moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
 }
