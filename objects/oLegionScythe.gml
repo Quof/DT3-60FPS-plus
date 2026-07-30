@@ -33,8 +33,8 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  image_angle+=20
-  atkProg+=1
+  image_angle+=20*gDeltaTime
+  atkProg+=1*gDeltaTime
   if atkProg>=60 {speed=6}
 }
 else

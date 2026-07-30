@@ -27,6 +27,7 @@ activateBoss=0
 moveSpd=0.5
 moveCycle=0
 stepCount=pi/2
+_direction=0
 
 //-- Attack Data --
 scytheCircleTime=0
@@ -92,8 +93,8 @@ if global.gamePaused=false
       x-=moveSpd*gDeltaTime
       if x<=(xCenter-roomSpan)+(sprite_width/2)+16 {moveCycle=0}
     }
-    stepCount+=pi/60
-    y+=sin(stepCount)
+    stepCount+=(pi/60)/gDeltaTime
+    y+=sin(stepCount)/gDeltaTime
 
     efFlyTime+=1*gDeltaTime
     if efFlyTime mod 3=0
@@ -127,7 +128,7 @@ if global.gamePaused=false
     }
 
     //---------- ATTACK: BIG SCYTHE ----------
-    bigScytheTime+=1
+    bigScytheTime+=1*gDeltaTime
     if bigScytheTime>=bigScytheDelay
     {
       playSound(global.snd_DeathSlash,0,0.97,14000)
@@ -135,28 +136,28 @@ if global.gamePaused=false
       if bigScytheProg<3
       {
         tAtkScythe=instance_create(160+(144*bigScytheProg),48,oLegionScythe)
-        tAtkScythe.atkPower=atkPower; tAtkScythe.direction=270
+        tAtkScythe.atkPower=atkPower; tAtkScythe._direction=270
       }
       else if bigScytheProg=3
       {
         tAtkScythe=instance_create(232,48,oLegionScythe)
-        tAtkScythe.atkPower=atkPower; tAtkScythe.direction=270
+        tAtkScythe.atkPower=atkPower; tAtkScythe._direction=270
         tAtkScythe=instance_create(376,48,oLegionScythe)
-        tAtkScythe.atkPower=atkPower; tAtkScythe.direction=270
+        tAtkScythe.atkPower=atkPower; tAtkScythe._direction=270
       }
       else if bigScytheProg=4
       {
         tAtkScythe=instance_create(32,48,oLegionScythe)
-        tAtkScythe.atkPower=atkPower; tAtkScythe.direction=270
+        tAtkScythe.atkPower=atkPower; tAtkScythe._direction=270
         tAtkScythe=instance_create(96,48,oLegionScythe)
-        tAtkScythe.atkPower=atkPower; tAtkScythe.direction=270
+        tAtkScythe.atkPower=atkPower; tAtkScythe._direction=270
         tAtkScythe=instance_create(512,48,oLegionScythe)
-        tAtkScythe.atkPower=atkPower; tAtkScythe.direction=270
+        tAtkScythe.atkPower=atkPower; tAtkScythe._direction=270
         tAtkScythe=instance_create(576,48,oLegionScythe)
-        tAtkScythe.atkPower=atkPower; tAtkScythe.direction=270
+        tAtkScythe.atkPower=atkPower; tAtkScythe._direction=270
       }
 
-      bigScytheProg+=1
+      bigScytheProg+=1*gDeltaTime
       if bigScytheProg=5 {bigScytheProg=0}
       bigScytheTime=0
     }
@@ -189,9 +190,9 @@ if global.gamePaused=false
     image_xscale=0.5+lifePercent
     image_yscale=0.5+lifePercent
   }
-  else if life<=0 //Defeat animation
+  else if life<=0 //Defeat animations
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       with oEProjectileBase {instance_destroy()}
@@ -199,7 +200,7 @@ if global.gamePaused=false
     }
     else if deathAnim>=2 and deathAnim<=55
     {
-      if oGame.time mod 2=0
+      if oGame.time mod (2/gDeltaTime)=0
       {
         var tEffect;
         tEffect=instance_create((x-sprite_width/2)+random(sprite_width),(y-sprite_height/2)+random(sprite_height),oEffect)
