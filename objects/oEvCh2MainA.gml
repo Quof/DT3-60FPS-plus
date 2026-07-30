@@ -1225,7 +1225,7 @@ else if global.gameProgress=500 and room=rMario1_CCBoss //----- [13] Boss Fight:
     else if sceneProgress=9
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay>=21 and sceneDelay<=100 {pChip.y+=1}
+      if sceneDelay>=21 and sceneDelay<=100 and gDeltaDoTicks {pChip.y+=1}
       else if sceneDelay=130
       {
         var tEffect;
