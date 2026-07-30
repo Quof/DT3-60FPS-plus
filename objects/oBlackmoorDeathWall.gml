@@ -29,8 +29,8 @@ draw_set_alpha(1)
 draw_set_color(c_black)
 draw_rectangle(0,y,x+1,y+192,0)
 
-if gDeltaDoTicks
-    for(i=0;i<23;i+=1)
+
+for(i=0;i<23;i+=1)
 {
   fingerBend[i]+=(0.3+(i*0.015))
   fingerWave[i]+=sin(fingerBend[i]/4)

@@ -156,7 +156,7 @@ if global.gamePaused=false
       image_angle+=bendSpd*gDeltaTime
       bodyMove+=1*gDeltaTime
     }
-    for(i=0;i<2;i+=1) {fingerMove[i]+=0.8+(i*0.2)}
+    for(i=0;i<2;i+=1) {fingerMove[i]+=0.8+(i*0.2)*gDeltaTime}
 
     if despProg<=1
     {
@@ -169,7 +169,7 @@ if global.gamePaused=false
         else if moveTime>=331 and moveTime<=360
         {
           x-=0.25*gDeltaTime; y+=0.25*gDeltaTime
-          if moveTime=360 {moveTime=0; moveCycle+=1*gDeltaTime}
+          if moveTime=360 {moveTime=0; moveCycle+=1}
         }
       }
       else if moveCycle=1 //Go to back of room, then back to mid
@@ -239,7 +239,7 @@ if global.gamePaused=false
       }
 
       //-------------------- ATTACK: METEOR SUMMON FALL --------------------
-      fallMeteorTime+=1
+      fallMeteorTime+=1*gDeltaTime
       if fallMeteorTime>=fallMeteorDelay and fallMeteorTime<=fallMeteorDelay+100
       {
         if armMeteorTime<armMeteorDelay-20 {fallMeteorTime=10000}
@@ -287,8 +287,8 @@ if global.gamePaused=false
     //-------------------- UTILITY: ADVANCING WALL --------------------
     if advancingWall>=1 and advancingWall<9000
     {
-      advancingWall+=1*gDeltaTime
-      if advancingWall>1 {instance_create(256,112,oBlackmoorDeathWall)}
+      advancingWall+=1
+      if advancingWall=2 {instance_create(256,112,oBlackmoorDeathWall)}
       oBlackmoorDeathWall.x+=1*gDeltaTime
       if oBlackmoorDeathWall.x>=352 {advancingWall=10000}
     }
