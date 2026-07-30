@@ -419,7 +419,7 @@ if room=rExtGateA_6 //----- [A] Boss Fight: Kamek -----
         viewFix.type=0; viewFix.sprite_index=sNull
         view_object[0]=viewFix
       }
-      else if sceneDelay>=21 and sceneDelay<=44 {viewFix.x+=4}
+      else if sceneDelay>=21 and sceneDelay<45 {viewFix.x+=4*gDeltaTime}
       else if sceneDelay>=60 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=2
@@ -427,10 +427,13 @@ if room=rExtGateA_6 //----- [A] Boss Fight: Kamek -----
       sceneDelay+=1*gDeltaTime
       if sceneDelay>=21 and sceneDelay<=60
       {
-        var tEffect;
-        tEffect=instance_create(368+random_range(-18,18),288-random(38),oEffect)
-        tEffect.sprite_index=sMMSmokeCloud; tEffect.image_speed=0.1+random(0.2); tEffect.image_alpha=0.9; tEffect.depth=9
-        tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=-0.25-random(0.25)
+        if gDeltaDoTicks
+        {
+          var tEffect;
+          tEffect=instance_create(368+random_range(-18,18),288-random(38),oEffect)
+          tEffect.sprite_index=sMMSmokeCloud; tEffect.image_speed=0.1+random(0.2); tEffect.image_alpha=0.9; tEffect.depth=9
+          tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=-0.25-random(0.25)
+        }
         if sceneDelay=40
         {
           npcKamek=instance_create(368,288,oMisc)
@@ -448,7 +451,7 @@ if room=rExtGateA_6 //----- [A] Boss Fight: Kamek -----
       if sceneDelay=20 {npcKamek.image_index=1}
       else if sceneDelay>=360 {sceneDelay=0; sceneProgress+=1} //End intro
 
-      if sceneDelay>=30 and sceneDelay<=75 //Wand sparkles
+      if sceneDelay>=30 and sceneDelay<=75 and gDeltaDoTicks //Wand sparkles
       {
         var tEffect;
         tEffect=instance_create(npcKamek.x-7,npcKamek.y-47,oEffect)
@@ -484,10 +487,13 @@ if room=rExtGateA_6 //----- [A] Boss Fight: Kamek -----
           }
         }
         //Blue fire explosions
-        var tEffect;
-        tEffect=instance_create(npcKamek.x+random_range(-23,23),npcKamek.y-random(43),oEffect)
-        tEffect.sprite_index=sWitchFire; tEffect.image_speed=0.3+random(0.1); tEffect.depth=9
-        tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+        if gDeltaDoTicks
+        {
+          var tEffect;
+          tEffect=instance_create(npcKamek.x+random_range(-23,23),npcKamek.y-random(43),oEffect)
+          tEffect.sprite_index=sWitchFire; tEffect.image_speed=0.3+random(0.1); tEffect.depth=9
+          tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+        }
       }
     }
     else if sceneProgress=5 and bWaitForInput=false
