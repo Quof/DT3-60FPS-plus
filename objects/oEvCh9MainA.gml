@@ -777,8 +777,8 @@ else if global.gameProgress=2120 and room=rMain_39 //----- [Unskippable] What is
     }
     else if sceneDelay>=10
     {
-      if musVolC>=7500 {musVolC-=30}
-      else {musVolC-=350}
+      if musVolC>=7500 {musVolC-=30*gDeltaTime}
+      else {musVolC-=350*gDeltaTime}
       SS_SetSoundVol(musFileP,musVolC)
       if musVolC<=1000
       {
@@ -925,7 +925,7 @@ else if global.gameProgress=2160 and room=rMain_39Vault //----- [Unskippable] Th
     sceneDelay+=1*gDeltaTime
     if sceneDelay>=1
     {
-      if sceneDelay=1*gDeltaTime {global.gamePaused=true}
+      if sceneDelay=1 {global.gamePaused=true}
       fadeAlpha+=0.04*gDeltaTime
       if fadeAlpha>=1 {sceneDelay=0; sceneProgress+=1}
     }

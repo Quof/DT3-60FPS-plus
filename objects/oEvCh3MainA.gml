@@ -362,7 +362,7 @@ else if global.gameProgress=610 and room=rMain_8Gate //----- [Unskippable] Acces
     sceneDelay+=1*gDeltaTime
     if sceneDelay>=1
     {
-      if sceneDelay=1*gDeltaTime {global.gamePaused=true}
+      if sceneDelay=1 {global.gamePaused=true}
       fadeAlpha+=0.04*gDeltaTime
       if fadeAlpha>=1 {sceneDelay=0; sceneProgress+=1}
     }
