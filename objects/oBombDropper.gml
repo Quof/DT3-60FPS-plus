@@ -96,8 +96,8 @@ if global.gamePaused=false
   }
   else if life<=0
   {
-    deathAnim+=1
-    if deathAnim=1
+    deathAnim+=1*gDeltaTime
+    if deathAnim=1*gDeltaTime
     {
       playSound(global.snd_BombExplode,0,0.9,1)
       tEffect=instance_create(x,y,oEffect)
@@ -113,12 +113,12 @@ if global.gamePaused=false
       tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
     }
 
-    dthPropX+=dthPropVelX
-    dthPropY+=dthPropVelY; dthPropVelY+=0.2*gDeltaTime
-    dthPropAng+=dthPropTurn
-    dthBodyX+=dthBodyVelX
-    dthBodyY+=dthBodyVelY; dthBodyVelY+=0.025*gDeltaTime
-    dthBodyAng+=dthBodyTurn
+    dthPropX+=dthPropVelX*gDeltaTime
+    dthPropY+=dthPropVelY*gDeltaTime; dthPropVelY+=0.2*gDeltaTime*gDeltaTime
+    dthPropAng+=dthPropTurn*gDeltaTime
+    dthBodyX+=dthBodyVelX*gDeltaTime
+    dthBodyY+=dthBodyVelY*gDeltaTime; dthBodyVelY+=0.025*gDeltaTime
+    dthBodyAng+=dthBodyTurn*gDeltaTime
     image_alpha-=0.03*gDeltaTime
     if image_alpha<0 {instance_destroy()}
   }
