@@ -25,7 +25,7 @@ if global.gamePaused=false
     image_angle+=5*image_xscale
     if isCollisionLeft(1) {atkProg=1}
     if isCollisionRight(1) {atkProg=1}
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
   }
   else if atkProg=1 //Stick to wall
   {

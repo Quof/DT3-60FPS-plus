@@ -66,7 +66,7 @@ if global.gamePaused=false
 
   if bActive=true and life>0
   {
-    atkProg+=1
+    atkProg+=1*gDeltaTime
     if actionState=0 //----- Throw Ring -----
     {
       if atkProg=1
@@ -187,7 +187,7 @@ if global.gamePaused=false
       }
     }
 
-    if sprite_index!=sBit_Dash {yVel+=0.5}
+    if sprite_index!=sBit_Dash {yVel+=0.5*gDeltaTime}
 
     if isCollisionBottom(1)
       yVel=0
@@ -202,7 +202,7 @@ if global.gamePaused=false
     if isCollisionSolid()
       y-=2
 
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
 
     //---------- Boss Difficulty Curve ----------
     if lifePercent<=0.84 and lifePercent>=0.69 and bossProgress=0
@@ -242,7 +242,7 @@ if global.gamePaused=false
   }
   else if life<=0 //Defeat animation
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       sprite_index=sBit_ArmUp
@@ -253,7 +253,7 @@ if global.gamePaused=false
     else if deathAnim>=2 and deathAnim<=90
     {
       if deathAnim mod 9=0 {playSound(global.snd_EnemyDieMM,0,1,1)}
-      if oGame.time mod 3=0
+      if oGame.time mod (3/gDeltaTime)=0
       {
         var tEffect;
         tEffect=instance_create(bbox_left+random(abs(sprite_width)),bbox_top+random(abs(sprite_height)),oEffect)

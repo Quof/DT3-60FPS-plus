@@ -12,7 +12,8 @@ bShowDamage=false
 bCanTakeDamage=false
 atkProg=0
 bulletSpeed=0
-direction=point_direction(x,y,oPlayer1.x,oPlayer1.y-26)
+_speed=0
+_direction=point_direction(x,y,oPlayer1.x,oPlayer1.y-26)
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -21,7 +22,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  if oGame.time mod 2=0
+  if oGame.time mod (2/gDeltaTime)=0
   {
     var tEffect;
     tEffect=instance_create(x,y,oEffectB)
@@ -29,20 +30,25 @@ if global.gamePaused=false
     tEffect.AccelX=0; tEffect.AccelY=0; tEffect.newBlend=-1; tEffect.followID=-1; tEffect.rotation=0
   }
 
-  speed=bulletSpeed
-  diff=angle_difference(direction,point_direction(x,y,oPlayer1.x,returnPlayerYCenter()))
+  _speed=bulletSpeed
+  x += cos(degtorad(_direction)) * _speed * gDeltaTime
+  y -= sin(degtorad(_direction)) * _speed * gDeltaTime
+
+  diff=angle_difference(_direction,point_direction(x,y,oPlayer1.x,returnPlayerYCenter()))
   if diff<20 and diff>-20
   {
-    if bulletSpeed<6 {bulletSpeed+=0.25}
+    if bulletSpeed<6 {bulletSpeed+=0.25*gDeltaTime}
   }
   else
   {
-    if bulletSpeed>2 {bulletSpeed-=0.25}
+    if bulletSpeed>2 {bulletSpeed-=0.25*gDeltaTime}
   }
-  turn_toward_direction(point_direction(x,y,oPlayer1.x,returnPlayerYCenter()),3)
+  turn_toward_directionEdit(point_direction(x,y,oPlayer1.x,returnPlayerYCenter()),3)
 
-  atkProg+=1
+
+
+  atkProg+=1*gDeltaTime
   if atkProg>=decayTime {instance_destroy()}
 }
 else
-  speed=0
+  {speed=0; _speed=0}

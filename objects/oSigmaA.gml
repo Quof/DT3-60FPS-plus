@@ -94,14 +94,14 @@ if global.gamePaused=false
       else {resType[5]=3}
     }
 
-    atkProg+=1
+    atkProg+=1*gDeltaTime
     if actionState=0 //--------- Walk forward ---------
     {
       if atkProg>=11 and atkProg<=walkMax
       {
-        image_index+=0.08
-        if roomSide=0 {x+=runAcc}
-        else {x-=runAcc}
+        image_index+=0.08*gDeltaTime
+        if roomSide=0 {x+=runAcc*gDeltaTime}
+        else {x-=runAcc*gDeltaTime}
         if atkProg=40 and attackSequence=4
         {
           bCanTakeDamage=false
@@ -138,7 +138,7 @@ if global.gamePaused=false
           tNewAttack=instance_create(x+(20*image_xscale),y-40,oPassBullet)
           tNewAttack.sprite_index=sMMXbuster1
           tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=16; tNewAttack.decayTime=-100
-          tNewAttack.direction=tAtkDir
+          tNewAttack._direction=tAtkDir
         }
       }
       else if atkProg=65
@@ -283,7 +283,7 @@ if global.gamePaused=false
 
       if atkProg>=1 and atkProg<=20
       {
-        blendCol-=12.75
+        blendCol-=12.75*gDeltaTime
         image_alpha-=0.05*gDeltaTime
         image_blend=make_color_rgb(blendCol,blendCol,blendCol)
       }
@@ -304,7 +304,7 @@ if global.gamePaused=false
       }
       else if atkProg>=31 and atkProg<=50
       {
-        blendCol+=12.75
+        blendCol+=12.75*gDeltaTime
         image_alpha+=0.05*gDeltaTime
         image_blend=make_color_rgb(blendCol,blendCol,blendCol)
       }
@@ -321,7 +321,7 @@ if global.gamePaused=false
     {
       if image_xscale=1 and oPlayer1.x<x+16
       {
-        if oGame.time mod 3=0
+        if oGame.time mod (3/gDeltaTime)=0
         {
           var tSkyLaser;
           tSkyLaser=instance_create(oPlayer1.x,yGround,oFNSkyLaser)
@@ -330,7 +330,7 @@ if global.gamePaused=false
       }
       else if image_xscale=-1 and oPlayer1.x>x-16
       {
-        if oGame.time mod 3=0
+        if oGame.time mod (3/gDeltaTime)=0
         {
           var tSkyLaser;
           tSkyLaser=instance_create(oPlayer1.x,yGround,oFNSkyLaser)
@@ -342,7 +342,7 @@ if global.gamePaused=false
     //-------------------- UTILITY: WALL SPIKES --------------------
     if wallSpikes>=1 and wallSpikes<=26
     {
-      wallSpikes+=1
+      wallSpikes+=1*gDeltaTime
       if wallSpikes=2
       {
         for(i=0;i<14;i+=1)
@@ -355,8 +355,8 @@ if global.gamePaused=false
       {
         for(i=0;i<14;i+=1)
         {
-          leftSpikes[i].x+=2
-          rightSpikes[i].x-=2
+          leftSpikes[i].x+=2*gDeltaTime
+          rightSpikes[i].x-=2*gDeltaTime
 
           if wallSpikes mod 3=0 //Spike smoke effect
           {
@@ -373,7 +373,7 @@ if global.gamePaused=false
     }
     else if wallSpikes>=100
     {
-      wallSpikes+=1
+      wallSpikes+=1*gDeltaTime
       if wallSpikes>=200
       {
         for(i=0;i<14;i+=1)
@@ -436,7 +436,7 @@ if global.gamePaused=false
   }
   else if life<=0 //Defeat animation
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       depth=19
@@ -450,7 +450,7 @@ if global.gamePaused=false
     else if deathAnim>=2
     {
       if deathAnim mod 10=0 {playSound(global.snd_EnemyDieMM,0,1,1)}
-      if oGame.time mod 5=0
+      if oGame.time mod (5/gDeltaTime)=0
       {
         var tEffect;
         tEffect=instance_create(bbox_left+random(abs(sprite_width)),bbox_top+random(abs(sprite_height)),oEffect)
@@ -461,7 +461,7 @@ if global.gamePaused=false
       if deathAnim>=61 and deathAnim<=110
       {
         fadeAlpha+=0.02*gDeltaTime
-        blendCol-=5.1
+        blendCol-=5.1*gDeltaTime
         image_blend=make_color_rgb(blendCol,blendCol,blendCol)
       }
       else if deathAnim>=130

@@ -19,10 +19,10 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  moveTime+=1
+  moveTime+=1*gDeltaTime
   if moveProg=0 //Size increase
   {
-    if scaling<1 {scaling+=0.1}
+    if scaling<1 {scaling+=0.1*gDeltaTime}
     if moveTime=25
     {
       xVel=xMove

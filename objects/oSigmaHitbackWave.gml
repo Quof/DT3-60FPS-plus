@@ -34,7 +34,7 @@ if global.gamePaused=false
   {
     if atkProg=0 //Go up
     {
-      y-=8
+      y-=8*gDeltaTime
       if y<=176 {atkProg=1}
     }
     else if atkProg=1 //Grow
@@ -44,9 +44,9 @@ if global.gamePaused=false
     }
     else if atkProg=2 //Fire
     {
-      x+=moveSpd
-      if image_xscale=1 and moveSpd<7 {moveSpd+=0.2}
-      if image_xscale=-1 and moveSpd>-7 {moveSpd-=0.2}
+      x+=moveSpd*gDeltaTime
+      if image_xscale=1 and moveSpd<7 {moveSpd+=0.2*gDeltaTime}
+      if image_xscale=-1 and moveSpd>-7 {moveSpd-=0.2*gDeltaTime}
     }
   }
   else if life<=0

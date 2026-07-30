@@ -20,8 +20,8 @@ applies_to=self
 */
 hspeed=xSpd
 vspeed=ySpd
-ySpd+=grav*gDeltaTime
-image_angle+=rotation
+ySpd+=grav*gDeltaTime*gDeltaTime
+image_angle+=rotation*gDeltaTime
 
 if type=1
 {

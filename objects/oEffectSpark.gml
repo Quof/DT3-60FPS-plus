@@ -14,13 +14,13 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  if oGame.time mod 2=0
+  if oGame.time mod (2/gDeltaTime)=0
   {
     if sparkColor=c_white {sparkColor=c_gray}
     else {sparkColor=c_white}
   }
-  speed=moveSpd
-  image_alpha-=fadeSpd
+  speed=moveSpd*gDeltaTime
+  image_alpha-=fadeSpd*gDeltaTime
   if image_alpha<=0.75 {instance_destroy()}
 }
 else {speed=0}

@@ -32,30 +32,30 @@ if global.gamePaused=false
   {
     if type=-1
     {
-      x-=moveSpd
+      x-=moveSpd*gDeltaTime
       if x<=oMMBit.xCenter-oMMBit.roomSpan+16 {atkProg=2}
     }
     else if type=1
     {
-      x+=moveSpd
+      x+=moveSpd*gDeltaTime
       if x>=oMMBit.xCenter+oMMBit.roomSpan-16 {atkProg=2}
     }
   }
   else if atkProg=2 //Move down
   {
-    y+=atkProg
+    y+=atkProg*gDeltaTime
     if y>=oMMBit.yGround-16 {atkProg=3}
   }
   else if atkProg=3 //Move along room
   {
     if type=-1
     {
-      x+=moveSpd
+      x+=moveSpd*gDeltaTime
       if x>=oMMBit.xCenter+oMMBit.roomSpan-16 {instance_destroy()}
     }
     if type=1
     {
-      x-=moveSpd
+      x-=moveSpd*gDeltaTime
       if x<=oMMBit.xCenter-oMMBit.roomSpan+16 {instance_destroy()}
     }
   }
