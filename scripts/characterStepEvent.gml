@@ -594,7 +594,7 @@ if bTakingDamage=false
   }
   else if grappleState=3
   {
-    if kJumpPressed
+    if kJumpPressed and gDeltaTime == 1.00
     {
       if kDown
       {
@@ -606,6 +606,56 @@ if bTakingDamage=false
         global.recJumped+=1
         if bombJump=0 {yAcc=initialJumpAcc}
         else {yAcc=initialJumpAcc*bombAcc}
+        bombJump=0
+        //xAcc+=xVel/2
+        var tEffect;
+        tEffect=instance_create(oPlayer1.x,oPlayer1.y+2,oEffect)
+        tEffect.sprite_index=sSpellCast; tEffect.image_xscale=0.6; tEffect.image_yscale=0.6
+        tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+      }
+      grappleID.reuseTime=20
+      idleTime=0
+      busterAnimStay=0
+      state=FALLING
+      jumpButtonReleased=0
+      jumpTime=0
+      grappleState=0
+    }
+    else if kJumpPressed
+    {
+      if kDown
+      {
+        //yAcc=2
+        var bodged;
+        // fine tune this 1.00 as needed
+         // compensation for fixed gravity integration
+        yVel += gravityIntensity*0.5
+      }
+      else
+      {
+        playSound(global.snd_PlayerJump[2],0,1,1)
+        global.recJumped+=1
+        if bombJump=0
+                    {
+                        //yAcc=initialJumpAcc
+                        var bodged;
+                        // fine tune this 1.00 as needed
+                        bodged = (initialJumpAcc) * 1.43
+                        yVel = bodged
+                        // compensation for fixed gravity integration
+                        yVel += gravityIntensity*0.5
+                    }
+        else
+            {
+            //yAcc=initialJumpAcc*bombAcc
+            var bodged;
+            // fine tune this 1.00 as needed
+            bodged = (initialJumpAcc) * 1.43 * bBombAcc
+            yVel = bodged
+            // compensation for fixed gravity integration
+            yVel += gravityIntensity*0.5
+            }
+
         bombJump=0
         //xAcc+=xVel/2
         var tEffect;

@@ -24,17 +24,17 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  moveTime+=1
+  moveTime+=1*gDeltaTime
   if moveProg=0 //Size increase
   {
-    if scaling<1 {scaling+=0.1}
+    if scaling<1 {scaling+=0.1*gDeltaTime}
     if moveTime=25
     {
       moveTime=0
       moveProg=1
     }
   }
-  else if moveProg=1 {x+=xMove}
+  else if moveProg=1 {x+=xMove*gDeltaTime}
 }
 #define Other_0
 /*"/*'/**//* YYD ACTION

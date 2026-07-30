@@ -90,7 +90,7 @@ if global.gamePaused=false
   if bActive=true and life>0
   {
     //------------------ MAIN BEHAVIOR ------------------
-    atkProg+=1
+    atkProg+=1*gDeltaTime
     if attackSequence=0 //Main - Ray Gun
     {
       if atkProg=1 {rayGunTime=0}
@@ -148,7 +148,7 @@ if global.gamePaused=false
       }
       else if atkProg>=7 and atkProg<=30
       {
-        if sigParts[2].image_angle<20 {sigParts[2].image_angle+=2}
+        if sigParts[2].image_angle<20 {sigParts[2].image_angle+=2*gDeltaTime}
       }
       else if atkProg=31
       {
@@ -157,7 +157,7 @@ if global.gamePaused=false
       }
       else if atkProg>=32 and atkProg<=99
       {
-        groundGunX+=32
+        groundGunX+=32*gDeltaTime
         if groundGunX>=xCenter+roomSpan
         {
           groundGunX=40
@@ -169,12 +169,12 @@ if global.gamePaused=false
       else if atkProg>=104 and atkProg<=199
       {
         var tNewExplode;
-        for(i=0;i<2;i+=1)
+        if gDeltaDoTicks for(i=0;i<2;i+=1)
         {
           tNewExplode=instance_create(groundGunX+(i*16),yGround,oDamageExplosion); tNewExplode.image_yscale=0.9
           tNewExplode.atkPower=atkPower-1; tNewExplode.sprite_index=sBTFirePillar; tNewExplode.decayTime=-100
         }
-        groundGunX+=32
+        groundGunX+=32*gDeltaTime
         if groundGunX>=xCenter+roomSpan-8 {atkProg=200}
       }
       else if atkProg>=140
@@ -239,7 +239,7 @@ if global.gamePaused=false
         else if tLaserPlacement=3 {gridLaserX=176; gridLaserY=208}
         else if tLaserPlacement=4 {gridLaserX=112; gridLaserY=208}
       }
-      else if atkProg>=21 and atkProg<=50 {gridLaserAlpha+=0.03}
+      else if atkProg>=21 and atkProg<=50 {gridLaserAlpha+=0.03*gDeltaTime}
       else if atkProg=90-checkGLDelay
       {
         playSound(global.snd_HardHit3,0,0.92,1)
@@ -299,7 +299,7 @@ if global.gamePaused=false
     }
 
     //------------------ NORMAL ATTACK: Ray Gun ------------------
-    if rayGunTime>=0 {rayGunTime+=1}
+    if rayGunTime>=0 {rayGunTime+=1*gDeltaTime}
     if rayGunTime>=rayGunDelay
     {
       if rayGunTime>=rayGunDelay and rayGunTime<=rayGunDelay+100
@@ -312,16 +312,16 @@ if global.gamePaused=false
       {
         if rayGunTemp=0
         {
-          if sigParts[2].image_angle>-10 {sigParts[2].image_angle-=2}
+          if sigParts[2].image_angle>-10 {sigParts[2].image_angle-=2*gDeltaTime}
         }
         else if rayGunTemp=1
         {
-          if sigParts[2].image_angle<20 {sigParts[2].image_angle+=2}
+          if sigParts[2].image_angle<20 {sigParts[2].image_angle+=2*gDeltaTime}
         }
       }
       else if rayGunTime>=10021 and rayGunTime<=10040
       {
-        rayGunBlend-=8
+        rayGunBlend-=8*gDeltaTime
         sigParts[2].image_blend=make_color_rgb(255,rayGunBlend,rayGunBlend)
       }
       else if rayGunTime=10045
@@ -333,19 +333,19 @@ if global.gamePaused=false
       }
       else if rayGunTime>=10051 and rayGunTime<=10070
       {
-        rayGunBlend+=8
+        rayGunBlend+=8*gDeltaTime
         sigParts[2].image_blend=make_color_rgb(255,rayGunBlend,rayGunBlend)
       }
       else if rayGunTime>=10045+rayGunLength
       {
         oSigmaBRayGun.atkProg=3
-        rayGunTime=-1
+        rayGunTime=-1*gDeltaTime
         atkProg=10000
       }
     }
 
     //------------------ UTILITY: DISAPPEAR ------------------
-    if fadeSeq>=0 {fadeSeq+=1}
+    if fadeSeq>=0 {fadeSeq+=1*gDeltaTime}
     if fadeSeq>=1 and fadeSeq<=9999
     {
       if fadeSeq=1 //Turn off damage flags
@@ -447,7 +447,7 @@ if global.gamePaused=false
   }
   else if life<=0 //Defeat animation
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       for(i=0;i<6;i+=1) {sigParts[i].bCanDealDamage=false}
@@ -460,7 +460,7 @@ if global.gamePaused=false
     else if deathAnim>=2 and deathAnim<=90
     {
       if deathAnim mod 10=0 {playSound(global.snd_EnemyDieMM,0,1,1)}
-      if oGame.time mod 5=0
+      if oGame.time mod (5/gDeltaTime)=0
       {
         var tEffect;
         tEffect=instance_create(bbox_left+random(abs(sprite_width)),bbox_top+random(abs(sprite_height)),oEffect)
