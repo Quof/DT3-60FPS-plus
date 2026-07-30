@@ -11,7 +11,7 @@ bShowHealthBar=false
 bShowDamage=false
 bCanTakeDamage=false
 size=2
-direction=point_direction(oArmyEye.x,oArmyEye.y-16,oPlayer1.x,oPlayer1.y-26)
+_direction=point_direction(oArmyEye.x,oArmyEye.y-16,oPlayer1.x,oPlayer1.y-26)
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -20,10 +20,10 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  turn_toward_direction(point_direction(oArmyEye.x,oArmyEye.y-16,oPlayer1.x,oPlayer1.y-26),1.9)
-  image_angle=direction
-  x=oArmyEye.x+lengthdir_x(shieldDist,direction)
-  y=oArmyEye.y-16+lengthdir_y(shieldDist,direction)
+  turn_toward_directionEdit(point_direction(oArmyEye.x,oArmyEye.y-16,oPlayer1.x,oPlayer1.y-26),1.9)
+  image_angle=_direction
+  x=oArmyEye.x+lengthdir_x(shieldDist,_direction)
+  y=oArmyEye.y-16+lengthdir_y(shieldDist,_direction)
 }
 #define Collision_oAttackBase
 /*"/*'/**//* YYD ACTION

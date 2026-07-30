@@ -29,15 +29,17 @@ if global.gamePaused=false
 {
   _speed=bulletSpeed
   image_angle=_direction
-  atkProg+=1
+  atkProg+=1*gDeltaTime
   if atkProg>=targetTime
   {
-    if room=rBubbleTowerA7
+    if room=rBubbleTowerA7 and gDeltaDoTicks
     {
       var tEffect;
       tEffect=instance_create(x,y,oEffect)
-      tEffect.sprite_index=sSamusMissileEffect; tEffect.image_speed=0.25; tEffect.speed=1; tEffect.direction=direction-180
-      tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+      tEffect.sprite_index=sSamusMissileEffect; tEffect.image_speed=0.25;
+      tEffect.xSpd=cos(degtorad(_direction)); tEffect.ySpd=-sin(degtorad(_direction));
+      tEffect._direction=(_direction mod 360)
+      tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100;
     }
     else
     {
@@ -45,8 +47,10 @@ if global.gamePaused=false
       {
         var tEffect;
         tEffect=instance_create(x,y,oEffect)
-        tEffect.sprite_index=sSamusMissileEffect; tEffect.image_speed=0.5; tEffect.speed=1; tEffect.direction=direction-180
-        tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+        tEffect.sprite_index=sSamusMissileEffect; tEffect.image_speed=0.5;
+        tEffect.xSpd=cos(degtorad(_direction)); tEffect.ySpd=-sin(degtorad(_direction))
+        tEffect._direction=(_direction mod 360)
+        tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100;
       }
     }
 
@@ -60,9 +64,6 @@ if global.gamePaused=false
       if bulletSpeed>2 {bulletSpeed-=0.25*gDeltaTime}
     }
 
-    x += cos(degtorad(_direction)) * _speed * gDeltaTime
-    y -= sin(degtorad(_direction)) * _speed * gDeltaTime
-    turn_toward_directionEdit(player_sprite_center(),3)
   }
 
   decay-=1*gDeltaTime
@@ -89,7 +90,13 @@ if global.gamePaused=false
   }
 }
 else
-  speed=0
+  _speed=0
+
+
+
+x += cos(degtorad(_direction)) * _speed * gDeltaTime
+y -= sin(degtorad(_direction)) * _speed * gDeltaTime
+/*if gDeltaDoTicks*/ turn_toward_directionEdit(player_sprite_center(),3)
 #define Collision_oPlayer1
 /*"/*'/**//* YYD ACTION
 lib_id=1

@@ -167,14 +167,14 @@ if global.gamePaused=false
           for(i=0;i<8;i+=1)
           {
             tArcShot=instance_create(x+lengthdir_x(336,180+i*45),y+lengthdir_y(336,180+i*45),oHex_First_ArcB)
-            tArcShot.type=0; tArcShot.bulletSpeed=1; tArcShot.direction=i*45; tArcShot.atkPower=atkPower
+            tArcShot.type=0; tArcShot.bulletSpeed=1; tArcShot._direction=i*45; tArcShot.atkPower=atkPower
           }
         }
         else if arcShotTime=10000 //Speed up shots
         {
           if point_distance(x,y,oHex_First_ArcB.x,oHex_First_ArcB.y)<272
           {
-            with oHex_First_ArcB {bulletSpeed+=1}
+            with oHex_First_ArcB {bulletSpeed+=1*gDeltaTime}
             arcShotTime+=1
           }
         }
@@ -182,7 +182,7 @@ if global.gamePaused=false
         {
           if point_distance(x,y,oHex_First_ArcB.x,oHex_First_ArcB.y)<192
           {
-            with oHex_First_ArcB {bulletSpeed+=1}
+            with oHex_First_ArcB {bulletSpeed+=1*gDeltaTime}
             arcShotTime+=1
           }
         }
@@ -198,14 +198,14 @@ if global.gamePaused=false
         {
           var tArcShot;
           tArcShot=instance_create(x,y,oHex_First_ArcB)
-          tArcShot.type=1; tArcShot.bulletSpeed=12; tArcShot.direction=point_direction(x,y,oPlayer1.x,oPlayer1.y-26)
+          tArcShot.type=1; tArcShot.bulletSpeed=12; tArcShot._direction=point_direction(x,y,oPlayer1.x,oPlayer1.y-26)
           tArcShot.atkPower=atkPower
           warnFrm=0; warnScl=2
           arcShotTime=0
         }
 
         //-------------------- ATTACK: SCREEN SLICE --------------------
-        sliceTime+=1
+        sliceTime+=1*gDeltaTime
         if sliceTime>=sliceDelay and sliceTime mod 7=0
         {
           var tRanX,tRanY,tMyLineAng,tSrnSlice;
@@ -233,7 +233,7 @@ if global.gamePaused=false
         }
 
         //-------------------- ATTACK: PULL SHOT --------------------
-        pullShotTime+=1
+        pullShotTime+=1*gDeltaTime
         if pullShotTime>=pullShotDelay
         {
           var tPullShot,tInitDir;
@@ -243,7 +243,7 @@ if global.gamePaused=false
             tPullShot=instance_create(x+lengthdir_x(352,(tInitDir+180)+(i*60)),y+lengthdir_y(352,(tInitDir+180)+(i*60)),oPassBullet)
             tPullShot.sprite_index=sEfEnergyRip; tPullShot.image_index=1; tPullShot.image_speed=0
             tPullShot.image_xscale=0.15; tPullShot.image_yscale=0.15
-            tPullShot.decayTime=352; tPullShot.bulletSpeed=1; tPullShot.direction=tInitDir+(i*60); tPullShot.atkPower=atkPower
+            tPullShot.decayTime=352; tPullShot.bulletSpeed=1; tPullShot._direction=tInitDir+(i*60); tPullShot.atkPower=atkPower
           }
           pullShotTime=0
         }
@@ -252,7 +252,7 @@ if global.gamePaused=false
       //-------------------- SPECIAL ATTACK: FAKE OUT --------------------
       if superAtkTime>=0 and superAtkTime<=9999
       {
-        superAtkTime+=1
+        superAtkTime+=1*gDeltaTime
         if superAtkTime=1 //Start attack
         {
           arcShotTime=0
@@ -373,7 +373,7 @@ if global.gamePaused=false
       //-------------------- SPECIAL ATTACK: HEX CIRCLE SPAM --------------------
       if superAtkTime>=10000
       {
-        superAtkTime+=1
+        superAtkTime+=1*gDeltaTime
         if superAtkTime=10001 //Start attack
         {
           arcShotTime=0
@@ -440,7 +440,7 @@ if global.gamePaused=false
     }
     else if chains=0 //Last phase
     {
-      lastPhaseTime+=1
+      lastPhaseTime+=1*gDeltaTime
       if lastPhaseTime=1
       {
         arcShotTime=0
@@ -453,10 +453,10 @@ if global.gamePaused=false
         }
       }
       else if lastPhaseTime=30 {image_index=1}
-      else if lastPhaseTime>=61 and lastPhaseTime<=124 {y+=1} //Float down
+      else if lastPhaseTime>=61 and lastPhaseTime<=124 and gDeltaDoTicks {y+=1} //Float down
       else if lastPhaseTime>=161 and lastPhaseTime<=200
       {
-        if lastPhaseTime mod 2=0 {x+=1} else {x-=1}
+        if lastPhaseTime mod 2=0 {if gDeltaDoTicks x+=1} else {if gDeltaDoTicks x-=1}
       }
       else if lastPhaseTime=201 //Wing spread
       {
@@ -512,7 +512,7 @@ if global.gamePaused=false
           {
             tFeatherAtk=instance_create(x,y,oPassBullet)
             tFeatherAtk.sprite_index=sHex_A_FeatherAtk; tFeatherAtk.atkPower=atkPower
-            tFeatherAtk.decayTime=-100; tFeatherAtk.bulletSpeed=8; tFeatherAtk.direction=featherDir+tInitDir
+            tFeatherAtk.decayTime=-100; tFeatherAtk.bulletSpeed=8; tFeatherAtk._direction=featherDir+tInitDir
             tInitDir+=360/20
           }
           featherDir+=5

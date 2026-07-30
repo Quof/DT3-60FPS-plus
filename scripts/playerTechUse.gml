@@ -9,7 +9,7 @@ if !variable_local_exists("atkBufferTime") {atkBufferTime=0; atkBufferSkill=-1}
 if attackState!=0 and attackState!=ACT_MORPHBALL and attackState!=ACT_BLOCK
 {
   atkBufferSkill=tSkillUse
-  atkBufferTime=0
+  atkBufferTime=0 //set this to change input buffer
   exit
 }
 atkBufferTime=0

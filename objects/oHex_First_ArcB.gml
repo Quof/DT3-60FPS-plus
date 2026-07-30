@@ -15,6 +15,8 @@ bShowHealthBar=false
 bShowDamage=false
 bCanTakeDamage=false
 explodeTime=22
+_speed=0
+_direction=0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -25,14 +27,18 @@ if global.gamePaused=false
 {
   if type=0 //Arc shot
   {
-    speed=bulletSpeed
+    _speed=bulletSpeed
+    x += cos(degtorad(_direction)) * _speed * gDeltaTime
+    y -= sin(degtorad(_direction)) * _speed * gDeltaTime
   }
   else if type=1 //Fast shot
   {
-    speed=bulletSpeed
+    _speed=bulletSpeed
+    x += cos(degtorad(_direction)) * _speed * gDeltaTime
+    y -= sin(degtorad(_direction)) * _speed * gDeltaTime
     image_xscale+=0.05*gDeltaTime; image_yscale+=0.05*gDeltaTime
 
-    explodeTime-=1
+    explodeTime-=1*gDeltaTime
     if explodeTime<=0
     {
       newAttack=instance_create(x,y,oDamageExplosion)
@@ -45,4 +51,4 @@ if global.gamePaused=false
     }
   }
 }
-else {speed=0}
+else {_speed=0}

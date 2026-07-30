@@ -31,12 +31,12 @@ if global.gamePaused=false
 {
   if bCanDealDamage=true
   {
-    image_index+=0.5
+    image_index+=0.5*gDeltaTime
     if image_index>=6.6 {instance_destroy()}
   }
   else
   {
-    warnTime-=1
+    warnTime-=1*gDeltaTime
     if warnTime=0
     {
       playSound(global.snd_BombExplode,0,1,1)

@@ -28,6 +28,7 @@ atkSequence=0
 atkTime=0
 currentWeakness=0
 dmgCount=0
+_direction=0
 HPThresA=1000; HPThresB=800
 
 groundBlastTime=0
@@ -68,7 +69,7 @@ if global.gamePaused=false
     activateBoss=2
   }
 
-  bottomFrm+=0.2
+  bottomFrm+=0.2*gDeltaTime
   if bActive=true and life>0
   {
     atkTime+=1*gDeltaTime
@@ -187,7 +188,7 @@ if global.gamePaused=false
     }
 
     //-------------------- ATTACK: GROUND BLAST --------------------
-    groundBlastTime+=1
+    groundBlastTime+=1*gDeltaTime
     if groundBlastTime>=groundBlastDelay and groundBlastTime<=groundBlastDelay+100
     {
       groundBlastTime=10000
@@ -210,7 +211,7 @@ if global.gamePaused=false
     }
 
     //-------------------- ATTACK: SECTION CLEAR --------------------
-    sectionClearTime+=1
+    sectionClearTime+=1*gDeltaTime
     if sectionClearTime>=sectionClearDelay
     {
       var tXStart,tYStart,tTarget,tSecClear;
@@ -230,20 +231,20 @@ if global.gamePaused=false
     }
 
     //-------------------- ATTACK: MISSILE SPAM --------------------
-    missileSpamTime+=1
+    missileSpamTime+=1*gDeltaTime
     if missileSpamTime>=missileSpamDelay
     {
-      var tMissile;
+      if gDeltaDoTicks {var tMissile;
       tMissile=instance_create(x,y-16,oEnmityMissile)
       tMissile.atkPower=atkPower; tMissile.targetTime=18
-      tMissile.direction=missileDir; tMissile.bulletSpeed=4
+      tMissile._direction=missileDir; tMissile.bulletSpeed=4
       missileDir-=15
       if missileDir<=15
       {
         playSound(global.snd_BombLaunch,0,0.88,1)
         missileDir=165
         missileSpamTime=0
-      }
+      }}
     }
   }
   enemyStepEvent()
@@ -251,7 +252,7 @@ if global.gamePaused=false
 
 if life<=0 //Defeat animation
 {
-  deathAnim+=1
+  deathAnim+=1*gDeltaTime
   if deathAnim=1
   {
     if global.bBossGallery=1
@@ -308,7 +309,7 @@ if life<=0 //Defeat animation
   else if deathAnim>=176 and deathAnim<=235
   {
     if deathAnim mod 3=0 {playSound(global.snd_BombExplode,0,0.92,1)}
-    if oGame.time mod 2=0
+    if oGame.time mod (2/gDeltaTime)=0
     {
       var tEffect;
       tEffect=instance_create((x-sprite_width/2)+random(sprite_width),(y-sprite_height/2)+random(sprite_height),oEffect)

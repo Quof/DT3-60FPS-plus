@@ -23,11 +23,11 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  timeToHit+=1
+  timeToHit+=1*gDeltaTime
   if timeToHit<10 {image_xscale+=67*gDeltaTime} //Grow
 
   if timeToHit=35 {lineColor=c_red}
-  if timeToHit>=35 and timeToHit<=44 {lineWidth+=0.5} //Damage warn
+  if timeToHit>=35 and timeToHit<=44 {lineWidth+=0.5*gDeltaTime} //Damage warn
   if timeToHit=45 //Damage check / Effect
   {
     bCanDealDamage=true

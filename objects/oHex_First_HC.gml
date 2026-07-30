@@ -22,7 +22,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  image_angle+=spinSpd
+  image_angle+=spinSpd*gDeltaTime
 
   image_xscale-=0.025*gDeltaTime
   image_yscale-=0.025*gDeltaTime
