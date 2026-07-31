@@ -76,7 +76,7 @@ if global.gamePaused=false
 
     if sprite_index=sAntiAlpha_Charge //After-image
     {
-      imageEffect+=1
+      imageEffect+=1*gDeltaTime
       if imageEffect mod 2=0
       {
         var tAfterI;
@@ -87,7 +87,7 @@ if global.gamePaused=false
       }
     }
 
-    waitTime+=1
+    waitTime+=1*gDeltaTimelep
     if waitTime>=waitDelay
     {
       if actCheck=0 //---------- Choose an action ----------
@@ -145,7 +145,7 @@ if global.gamePaused=false
       }
       else if actCheck=1 //---------- ATTACK: ROBOT BREATH ----------
       {
-        actTime+=1
+        actTime+=1*gDeltaTime
         if actTime=1 {sprite_index=sAntiAlpha_Breath}
         else if actTime=20
         {
@@ -160,8 +160,8 @@ if global.gamePaused=false
             tPoison=instance_create(x+(14*image_xscale),y-22,oM_PoisonBreath)
             tPoison.atkPower=atkPower; tPoison.bulletSpeed=5+random(2); tPoison.animSpeed=0.25
             tPoison.image_xscale=0.8; tPoison.image_yscale=0.8; tPoison.depth=24
-            if image_xscale=1 {tPoison.direction=random_range(-5,5)}
-            else tPoison.direction=random_range(175,185)
+            if image_xscale=1 {tPoison._direction=random_range(-5,5)}
+            else tPoison._direction=random_range(175,185)
           }
         }
         else if actTime>=70

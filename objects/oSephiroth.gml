@@ -88,7 +88,7 @@ if global.gamePaused=false
     {
       if x>oPlayer1.x {image_xscale=-1}
       else {image_xscale=1}
-      image_index+=0.2
+      image_index+=0.2*gDeltaTime
     }
 
     if meteor<metStormFreq
@@ -184,7 +184,7 @@ if global.gamePaused=false
         else if actCheck=1 //---------- Jump ----------
         {
           actTime+=1*gDeltaTime
-          if actTime=1*gDeltaTime
+          if actTime=1
           {
             xVel=3*image_xscale
             y-=2
@@ -202,7 +202,7 @@ if global.gamePaused=false
         else if actCheck=2 //---------- Dash back ----------
         {
           actTime+=1*gDeltaTime
-          if actTime=1*gDeltaTime
+          if actTime=1
           {
             xVel=4*-image_xscale
             sprite_index=sSeph_DashBack
@@ -219,7 +219,7 @@ if global.gamePaused=false
         else if actCheck=3 //---------- Teleport ----------
         {
           actTime+=1*gDeltaTime
-          if actTime=1*gDeltaTime
+          if actTime=1
           {
             sprite_index=sSeph_Teleport
             bCanTakeDamage=false
@@ -431,7 +431,7 @@ applies_to=self
 //-- ATK A: FORWARD VERTICAL SLASH --
 //Attack is faster after a back dash or teleport
 actTime+=1*gDeltaTime
-if actTime=1
+if actTime=1*gDeltaTime
 {
   xVel=0
   instance_create(x-(36*image_xscale),y-122,oG6_CounterSpark)
@@ -470,8 +470,8 @@ applies_to=self
 */
 //-- ATK B: FORWARD HORIZONTAL SLASH (Charge Forward) --
 
-actTime+=1
-if actTime=1
+actTime+=1*gDeltaTime
+if actTime=1*gDeltaTime
 {
   xVel=0
   instance_create(x-(73*image_xscale),y-19,oG6_CounterSpark)
@@ -512,8 +512,8 @@ applies_to=self
 */
 //-- ATK C: LOW JUMP FORWARD TO GROUND SLASH --
 
-actTime+=1
-if actTime=1
+actTime+=1*gDeltaTime
+if actTime=1*gDeltaTime
 {
   xVel=0
   instance_create(x-(20*image_xscale),y+7,oG6_CounterSpark)
@@ -566,8 +566,8 @@ applies_to=self
 */
 //-- ATK D: GROUND POUND SLASH (Used after jump animation) --
 
-actTime+=1
-if actTime=1
+actTime+=1*gDeltaTime
+if actTime=1*gDeltaTime
 {
   playSound(global.snd_DeathSlash,0,1,13000)
   sprite_index=sSeph_AtkD
