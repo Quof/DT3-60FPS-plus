@@ -414,7 +414,7 @@ if global.gameProgress=3920 and room=rCCity_NA_S1 //----- [6] The facility below
   else if sceneProgress=3
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay>=30
+    if sceneDelay>=30 and gDeltaDoTicks
     {
       tile_layer_shift(999999,0,1)
       var tEffect;

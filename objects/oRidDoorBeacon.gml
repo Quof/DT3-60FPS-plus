@@ -38,7 +38,7 @@ if global.gamePaused=false
 {
   if life>0 and bActive=1
   {
-    anim+=1
+    anim+=1*gDeltaTime
     if anim=4 {image_index=1}
     else if anim=8 {image_index=2}
     else if anim=12 {image_index=3}
@@ -50,7 +50,7 @@ if global.gamePaused=false
     {
       if checkScreenArea(x,y,32)=1
       {
-        shotTime+=1
+        shotTime+=1*gDeltaTime
         if shotTime=75
         {
           var tEffect;
@@ -67,7 +67,7 @@ if global.gamePaused=false
           {
             tNewAttack=instance_create(x+8,y+8,oPassBullet)
             tNewAttack.sprite_index=sWolfHeadShot; tNewAttack.atkPower=8; tNewAttack.bulletSpeed=3
-            tNewAttack.direction=tDir; tNewAttack.image_speed=0.33; tNewAttack.decayTime=-100; tNewAttack.depth=7
+            tNewAttack._direction=tDir; tNewAttack.image_speed=0.33; tNewAttack.decayTime=-100; tNewAttack.depth=7
             tDir+=20
           }
           shotTime=0

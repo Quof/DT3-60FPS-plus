@@ -36,7 +36,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-myAnim+=animSpd
+myAnim+=animSpd*gDeltaTime
 if type=0 //----- Head -----
 {
   x=myOwner.x+(1*image_xscale)
@@ -76,7 +76,7 @@ else if type=3 //----- Tail -----
   else if tailType=1 //Normal wave
   {
     x=myOwner.x-(43*image_xscale)-((tailSeg*8)*image_xscale)
-    tailWave+=0.25
+    tailWave+=0.25*gDeltaTime
     y=myOwner.y+29+(tailSeg*2)+sin(tailWave+(tailSeg*5))
     if sprite_index=sRidleyTailEnd {image_angle=180}
   }
@@ -92,7 +92,7 @@ else if type=3 //----- Tail -----
   }
   else if tailType=3 //Spin
   {
-    tailAngle+=25
+    tailAngle+=25*gDeltaTime
     x=myOwner.x-(43*image_xscale)+lengthdir_x(tailSeg*9,tailAngle)
     y=myOwner.y+29+lengthdir_y(tailSeg*9,tailAngle)
     if sprite_index=sRidleyTailEnd
@@ -108,7 +108,7 @@ else if type=3 //----- Tail -----
     if sprite_index=sRidleyTailEnd
     {
       if myOwner.image_xscale=1 {image_angle=tailAngle}
-      else {image_angle=tailAngle+180}
+      else {image_angle=tailAngle mod 360} //was -180
     }
   }
 }

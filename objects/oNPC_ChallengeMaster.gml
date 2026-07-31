@@ -156,7 +156,7 @@ if global.gamePaused=false
       }
       else if trialProg=3
       {
-        if trialTime>=1 and trialTime<=48
+        if trialTime>=1 and trialTime<=48 and gDeltaDoTicks
         {
           tile_layer_shift(999998,0,-1)
           oScaledTrapZone.y-=1

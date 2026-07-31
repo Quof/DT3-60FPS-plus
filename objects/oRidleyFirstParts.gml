@@ -35,7 +35,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-myAnim+=animSpd
+myAnim+=animSpd*gDeltaTime
 if type=0 //----- Head -----
 {
   x=myOwner.x+(1*image_xscale)
@@ -87,7 +87,7 @@ else if type=3 //----- Tail -----
   }
   else if tailType=3 //Spin
   {
-    tailAngle+=25
+    tailAngle+=25*gDeltaTime
     x=myOwner.x-(43*image_xscale)+lengthdir_x(((tailSeg*9)*image_xscale),tailAngle)
     y=myOwner.y+29+lengthdir_y(tailSeg*9,tailAngle)
     if sprite_index=sRidleyTailEnd {image_angle=tailAngle}

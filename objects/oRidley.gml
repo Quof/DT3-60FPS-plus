@@ -97,8 +97,8 @@ if global.gamePaused=false
   {
     if bWave=1 //Idle wave motion
     {
-      moveWaveY+=0.2
-      y+=sin(moveWaveY)
+      moveWaveY+=0.2*gDeltaTime
+      y+=sin(moveWaveY)*gDeltaTime
       if x+16<oPlayer1.x {image_xscale=1}
       else if x-16>oPlayer1.x {image_xscale=-1}
     }
@@ -112,7 +112,7 @@ if global.gamePaused=false
         tNewAttack=instance_create(x+(9*image_xscale),y-4,oMetBulletPass)
         tNewAttack.sprite_index=sRidleyFireball; tNewAttack.damageType="ELEMENTAL"; tNewAttack.depth=7
         tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=8; tNewAttack.decayTime=-100
-        tNewAttack.direction=point_direction(x+(9*image_xscale),y-4,oPlayer1.x,returnPlayerYCenter())+random_range(-5,5)
+        tNewAttack._direction=point_direction(x+(9*image_xscale),y-4,oPlayer1.x,returnPlayerYCenter())+random_range(-5,5)
       }
     }
 
@@ -137,16 +137,18 @@ if global.gamePaused=false
       if atkTime>=30
       {
         bWave=0
-        y-=8
+        y-=8*gDeltaTime
         if y<=-96 {atkTime=0; atkProg=2}
       }
     }
     else if atkProg=2 //-------------------- Swoop down in a U shape, shooting fireballs at a slow rate --------------------
     {
-      speed=moveSpd
+      _speed=moveSpd
+      x += cos(degtorad(_direction)) * _speed * gDeltaTime
+      y -= sin(degtorad(_direction)) * _speed * gDeltaTime
       if atkTime=1
       {
-        direction=270
+        _direction=270
         if oPlayer1.x<xCenter {myDirType=0}
         else {myDirType=1}
         if myDirType=0 {x=144; image_xscale=1}
@@ -167,9 +169,9 @@ if global.gamePaused=false
       }
       else if atkTime>=100 and atkTime<=999 //Arc around
       {
-        if myDirType=0 {direction+=1.33}
-        else {direction-=1.33}
-        if direction>=89 and direction<=91 {direction=90; atkTime=1000}
+        if myDirType=0 {_direction+=1.33*gDeltaTime}
+        else {_direction-=1.33*gDeltaTime}
+        if _direction>=89 and _direction<=91 {_direction=90; atkTime=1000}
       }
       else if atkTime>=1000 and atkTime<=1999 //Fly up
       {
@@ -181,7 +183,9 @@ if global.gamePaused=false
     }
     else if atkProg=3 //-------------------- Zigzag across room while spinning tail and shooting fireballs at a very slow rate --------------------
     {
-      speed=moveSpd
+      _speed=moveSpd
+      x += cos(degtorad(_direction)) * _speed * gDeltaTime
+      y -= sin(degtorad(_direction)) * _speed * gDeltaTime
       if atkTime=1
       {
         ridParts[0].image_index=2
@@ -190,12 +194,12 @@ if global.gamePaused=false
         if myDirType=0 //Right
         {
           x=-48; image_xscale=1
-          direction=choose(40+random(20),300+random(20))
+          _direction=choose(40+random(20),300+random(20))
         }
         else //Left
         {
           x=room_width+48; image_xscale=-1
-          direction=choose(120+random(20),220+random(20))
+          _direction=choose(120+random(20),220+random(20))
         }
         y=128+random(144)
       }
@@ -211,21 +215,21 @@ if global.gamePaused=false
       {
         if myDirType=0 //Right
         {
-          if y<=112 {y+=4; direction=300+random(20)}
-          else if y>=288 {y-=4; direction=40+random(20)}
+          if y<=112 {y+=4*gDeltaTime; _direction=300+random(20)}
+          else if y>=288 {y-=4*gDeltaTime; _direction=40+random(20)}
           if x>=room_width+96 {atkTime=1000}
         }
         else //Left
         {
-          if y<=112 {y+=4; direction=220+random(20)}
-          else if y>=288 {y-=4; direction=120+random(20)}
+          if y<=112 {y+=4*gDeltaTime; _direction=220+random(20)}
+          else if y>=288 {y-=4*gDeltaTime; _direction=120+random(20)}
           if x<=-96 {atkTime=1000}
         }
       }
       else if atkTime>=1000
       {
         ridParts[0].image_index=0
-        speed=0; moveSpd=0; fireballRate=0
+        _speed=0; moveSpd=0; fireballRate=0
         atkTime=0; atkProg=4
       }
     }
@@ -238,18 +242,18 @@ if global.gamePaused=false
         if myDirType=0 //Right
         {
           x=-48; image_xscale=1
-          direction=choose(40+random(20),300+random(20))
+          _direction=choose(40+random(20),300+random(20))
         }
         else //Left
         {
           x=room_width+48; image_xscale=-1
-          direction=choose(120+random(20),220+random(20))
+          _direction=choose(120+random(20),220+random(20))
         }
         y=128+random(144)
       }
       else if atkTime>=30 and atkTime<=99 //Fly in
       {
-        x+=6*image_xscale
+        x+=6*image_xscale*gDeltaTime
         if myDirType=0 and x>=80 {atkTime=100}
         else if myDirType=1 and x<=560 {atkTime=100}
       }
@@ -262,7 +266,7 @@ if global.gamePaused=false
       else if atkTime>=190 //Fly up
       {
         bWave=0
-        y-=8
+        y-=8*gDeltaTime
         if y<=-96
         {
           atkTime=0
@@ -276,7 +280,7 @@ if global.gamePaused=false
       if atkTime=1 {x=128+random(384)}
       else if atkTime>=30
       {
-        y+=8
+        y+=8*gDeltaTime
         if y>=208 {bWave=1; atkTime=0; atkProg=0}
       }
     }
@@ -300,13 +304,13 @@ if global.gamePaused=false
       }
       else if atkTime>=36 and atkTime<=99 //Hit ground
       {
-        var tAfterI;
+        if gDeltaDoTicks {var tAfterI;
         tAfterI=instance_create(x,y,oEnemyAfterImage)
         tAfterI.sprite_index=sprite_index; tAfterI.image_index=image_index; tAfterI.image_blend=c_red
         tAfterI.image_alpha=0.6; tAfterI.image_xscale=image_xscale; tAfterI.depth=8; tAfterI.imageFade=0.03
-        tAfterI.xScaling=0; tAfterI.yScaling=0; tAfterI.xShift=0; tAfterI.yShift=0; tAfterI.bFollow=-1
+        tAfterI.xScaling=0; tAfterI.yScaling=0; tAfterI.xShift=0; tAfterI.yShift=0; tAfterI.bFollow=-1}
 
-        y+=20
+        y+=20*gDeltaTime
         if y>=yGround-64
         {
           playSound(global.snd_HardHit1,0,1,1)
@@ -327,20 +331,20 @@ if global.gamePaused=false
       else if atkTime=154 {ridParts[0].image_index=0}
       else if atkTime>=165 and atkTime<=499 //Slide across floor
       {
-        var tAfterI;
+        if gDeltaDoTicks{var tAfterI;
         tAfterI=instance_create(x,y,oEnemyAfterImage)
         tAfterI.sprite_index=sprite_index; tAfterI.image_index=image_index; tAfterI.image_blend=c_red
         tAfterI.image_alpha=0.6; tAfterI.image_xscale=image_xscale; tAfterI.depth=8; tAfterI.imageFade=0.03
-        tAfterI.xScaling=0; tAfterI.yScaling=0; tAfterI.xShift=0; tAfterI.yShift=0; tAfterI.bFollow=-1
+        tAfterI.xScaling=0; tAfterI.yScaling=0; tAfterI.xShift=0; tAfterI.yShift=0; tAfterI.bFollow=-1}
 
         if myDirType=0 //Right
         {
-          x+=groundMoveSpd
+          x+=groundMoveSpd*gDeltaTime
           if x>=room_width+96 {atkTime=1000}
         }
         else //Left
         {
-          x-=groundMoveSpd
+          x-=groundMoveSpd*gDeltaTime
           if x<=-96 {atkTime=1000}
         }
 
@@ -362,7 +366,7 @@ if global.gamePaused=false
     {
       if atkTime>=1 and atkTime<=99
       {
-        y-=8
+        y-=8*gDeltaTime
         if y<=-96 {atkTime=100}
       }
       else if atkTime=130
@@ -383,8 +387,8 @@ if global.gamePaused=false
       }
       else if atkTime>=131 and atkTime<=999 //Change room
       {
-        tile_layer_shift(9,0,2)
-        (GID(295787)).y+=2
+        tile_layer_shift(9,0,2*gDeltaTime)
+        (GID(295787)).y+=2*gDeltaTime
         for(i=0;i<16;i+=1)
         {
           tEffect=instance_create((GID(295787)).x+random(576),(GID(295787)).y+random(4),oEffect)
@@ -404,7 +408,7 @@ if global.gamePaused=false
       {
         if life<maxLife
         {
-          life+=75
+          life+=75*gDeltaTime
           if life>maxLife {life=maxLife}
         }
       }
@@ -431,7 +435,7 @@ if global.gamePaused=false
       baseColor=c_white; image_blend=baseColor
       armorBreak=2
     }
-    else if armorBreak>=2 and armorBreak<=59 {armorBreak+=1}
+    else if armorBreak>=2 and armorBreak<=59 {armorBreak+=1*gDeltaTime}
     else if armorBreak=60
     {
       msgCreate(0,0,"Jeremy","That's it! You broke his armor!#Take him down!",0,1,oMessagePerson,0)
@@ -503,7 +507,7 @@ if global.gamePaused=false
   oRidleyParts.image_xscale=image_xscale
   enemyStepEvent()
 }
-else {speed=0}
+else {_speed=0}
 #define Collision_oPlayer1
 /*"/*'/**//* YYD ACTION
 lib_id=1
