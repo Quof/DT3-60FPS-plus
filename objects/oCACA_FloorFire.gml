@@ -23,6 +23,6 @@ applies_to=self
 if global.gamePaused=false
 {
   x=oCACA_Main.x+xOffset
-  if oCACA_Main.bFloorFlame=0 {y=-16}
+  if oCACA_Main.bFloorFlame=0 {y=-16*gDeltaTime}
   else {y=oCACA_Main.yGround}
 }

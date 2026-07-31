@@ -13,8 +13,8 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  x+=5*image_xscale
-  podTime+=1
+  x+=5*image_xscale*gDeltaTime
+  podTime+=1*gDeltaTime
   if podTime>=4
   {
     var myPodobo;

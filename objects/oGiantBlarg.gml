@@ -81,7 +81,7 @@ if global.gamePaused=false
       atkTime+=1*gDeltaTime
       if moveType=0 //---------- Rise ----------
       {
-        y-=2
+        if gDeltaDoTicks y-=2
         if y<=room_height+112 and bPodWave=1 //Spawn Podobo wave
         {
           var tPodSpawn;
@@ -154,15 +154,15 @@ if global.gamePaused=false
       {
         if image_xscale=1 //Right
         {
-          x+=4
+          x+=4*gDeltaTime
           if x>=rightSide {atkTime=0; moveType+=1}
         }
         else //Left
         {
-          x-=4
+          x-=4*gDeltaTime
           if x<=leftSide {atkTime=0; moveType+=1}
         }
-        if y<room_height+160 {y+=2}
+        if gDeltaDoTicks and y<room_height+160 {y+=2}
       }
       else if moveType=5 //---------- Check side ----------
       {
@@ -174,7 +174,7 @@ if global.gamePaused=false
     else if hitState=1 //Can take a hit
     {
       resType[2]=1
-      frozenTime+=1
+      frozenTime+=1*gDeltaTime
       if frozenTime>=150
       {
         frozenTime=0
@@ -189,7 +189,7 @@ if global.gamePaused=false
     else if hitState=2 //Hit state recovery
     {
       resType[2]=1
-      frozenTime+=1
+      frozenTime+=1*gDeltaTime
       if frozenTime>=50
       {
         frozenTime=0
@@ -257,6 +257,8 @@ lib_id=1
 action_id=603
 applies_to=self
 */
+if gDeltaDoTicks { exit; }
+
 if hitState=1
 {
   yAdjust=0
@@ -402,8 +404,8 @@ if hitState<2
 }
 else
 {
-  eyeAngleA-=20
-  eyeAngleB+=20
+  eyeAngleA-=20*gDeltaTime
+  eyeAngleB+=20*gDeltaTime
 }
 
 draw_sprite_ext(sGB_Eye,0,x+(eyeOffsetAX*image_xscale),y+eyeOffsetAY,1,1,eyeAngleA,image_blend,image_alpha)

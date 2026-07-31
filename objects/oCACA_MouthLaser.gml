@@ -33,13 +33,13 @@ if global.gamePaused=false
   if bCanDealDamage=true
   {
     image_blend=make_color_rgb(150+random(50),150+random(50),150+random(50))
-    decayTime+=1
+    decayTime+=1*gDeltaTime
     if decayTime>=idleTime {instance_destroy()}
   }
   else
   {
-    warnTime-=1
-    lineAlpha+=0.015
+    warnTime-=1*gDeltaTime
+    lineAlpha+=0.015*gDeltaTime
     if warnTime=0
     {
       playSound(global.snd_CShotA,0,1,13000)

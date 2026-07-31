@@ -16,6 +16,8 @@ bulletSpeed=3
 pointFrm=0
 missProg=0
 straightTime=20
+_direction=0
+_speed=0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -26,18 +28,18 @@ if global.gamePaused=false
 {
   if missProg=0
   {
-    speed=bulletSpeed
-    image_angle=direction
+    _speed=bulletSpeed
+    image_angle=_direction
     straightTime-=1
     if straightTime<=0 {missProg=1}
   }
   else if missProg=1
   {
-    image_angle+=5
-    timeTillLaunch-=1
+    image_angle+=5*gDeltaTime
+    timeTillLaunch-=1*gDeltaTime
     if timeTillLaunch=10
     {
-      direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
+      _direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
       explodePointX=oPlayer1.x
       explodePointY=returnPlayerYCenter()
     }
@@ -50,8 +52,8 @@ if global.gamePaused=false
   }
   else if missProg=2
   {
-    speed=bulletSpeed
-    image_angle=direction
+    _speed=bulletSpeed
+    image_angle=_direction
 
     if point_distance(x,y,explodePointX,explodePointY)<bulletSpeed
     {
@@ -62,7 +64,10 @@ if global.gamePaused=false
     }
   }
 }
-else {speed=0}
+else {_speed=0}
+
+x += cos(degtorad(_direction)) * _speed * gDeltaTime
+y -= sin(degtorad(_direction)) * _speed * gDeltaTime
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

@@ -59,6 +59,7 @@ hitsDuringLaser=0
 bombSpacingA=75
 bombSpacingB=100
 bombType=0
+_direction=0
 //--------------------
 
 //Misc Data
@@ -99,7 +100,7 @@ if global.gamePaused=false
 
   if bActive=true and life>0
   {
-    fingerFrm+=animSpd
+    fingerFrm+=animSpd*gDeltaTime
 
     //Resistance changes
     if instance_exists(oCACA_MouthLaser) {resType[3]=4}
@@ -107,12 +108,12 @@ if global.gamePaused=false
     if laserEyeTime>=laserEyeDelay {resType[5]=4}
     else {resType[5]=3}
 
-    phaseTime+=1
+    phaseTime+=1*gDeltaTime
     if bossPhase=1 //---------- MOVEMENT: CIRCLE - Right side ----------
     {
-      direction+=3
-      x+=moveSpd*cos(degtorad(direction))
-      y+=moveSpd*sin(degtorad(direction))
+      _direction+=3*gDeltaTime
+      x+=moveSpd*cos(degtorad(_direction))*gDeltaTime
+      y+=moveSpd*sin(degtorad(_direction))*gDeltaTime
       if phaseTime>=490
       {
         phaseTime=0
@@ -124,7 +125,7 @@ if global.gamePaused=false
       if phaseTime>=40
       {
         if laserMouthTime>=laserMouthDelay {laserMouthTime=laserMouthDelay-5}
-        x-=8
+        x-=8*gDeltaTime
         if x<=432
         {
           image_xscale=1
@@ -135,9 +136,9 @@ if global.gamePaused=false
     }
     else if bossPhase=3 //---------- MOVEMENT: CIRCLE - Left side ----------
     {
-      direction-=3
-      x+=moveSpd*cos(degtorad(direction))
-      y+=moveSpd*sin(degtorad(direction))
+      _direction-=3*gDeltaTime
+      x+=moveSpd*cos(degtorad(_direction))*gDeltaTime
+      y+=moveSpd*sin(degtorad(_direction))*gDeltaTime
       if phaseTime>=490
       {
         if laserMouthTime>laserMouthDelay {laserMouthTime=laserMouthDelay-5}
@@ -155,7 +156,7 @@ if global.gamePaused=false
     {
       if phaseTime>=10 and phaseTime<=90
       {
-        x-=8
+        x-=8*gDeltaTime
         if x<=280
         {
           x=280
@@ -180,7 +181,7 @@ if global.gamePaused=false
       }
       else if phaseTime>=111 and phaseTime<=150
       {
-        y+=8
+        y+=8*gDeltaTime
         if y>=696
         {
           y=696
@@ -193,7 +194,7 @@ if global.gamePaused=false
     {
       if phaseTime>=10
       {
-        y-=8
+        y-=8*gDeltaTime
         if y<=544
         {
           y=544
@@ -208,7 +209,7 @@ if global.gamePaused=false
       if phaseTime>=40
       {
         if laserMouthTime>=laserMouthDelay {laserMouthTime=laserMouthDelay-5}
-        x+=8
+        x+=8*gDeltaTime
         if x>=816
         {
           image_xscale=-1
@@ -221,7 +222,7 @@ if global.gamePaused=false
     if bossPhase!=4 and bossPhase!=5
     {
       //-------------------- ATTACK: MULTI EXPLODE MISSILE --------------------
-      explodeMissileTime+=1
+      explodeMissileTime+=1*gDeltaTime
       if explodeMissileTime>=explodeMissileDelay and explodeMissileTime<=explodeMissileDelay+100 //Trigger attack
       {
         explodeMissileTime=10000
@@ -233,14 +234,14 @@ if global.gamePaused=false
         for(i=0;i<explodeMissileNum;i+=1)
         {
           tNewAttack=instance_create(x-(106*image_xscale),y-95,oCACA_ExpMissile)
-          tNewAttack.atkPower=atkPower; tNewAttack.direction=tDir; tNewAttack.timeTillLaunch=15+(10*i)
+          tNewAttack.atkPower=atkPower; tNewAttack._direction=tDir; tNewAttack.timeTillLaunch=15+(10*i)
           tDir+=10
         }
         explodeMissileTime=0
       }
 
       //-------------------- ATTACK: MOUTH LASER (Big) --------------------
-      laserMouthTime+=1
+      laserMouthTime+=1*gDeltaTime
       if laserMouthTime>=laserMouthDelay and laserMouthTime<=laserMouthDelay+100 //Trigger attack
       {
         laserMouthTime=10000
@@ -262,7 +263,7 @@ if global.gamePaused=false
 
       if bossProgress>=1 //-------------------- ATTACK: EYE LASER --------------------
       {
-        laserEyeTime+=1
+        laserEyeTime+=1*gDeltaTime
         if laserEyeTime>=laserEyeDelay and laserEyeTime<=laserEyeDelay+100 //Trigger attack
         {
           cirRad=45
@@ -272,8 +273,8 @@ if global.gamePaused=false
         }
         else if laserEyeTime>=10001 and laserEyeTime<=10020
         {
-          cirRad-=2
-          circleAlpha-=0.045
+          cirRad-=2*gDeltaTime
+          circleAlpha-=0.045*gDeltaTime
           if laserMouthTime=10015 {laserWarn=0}
         }
         else if laserEyeTime>=10031 and laserEyeTime<=10080
@@ -285,7 +286,7 @@ if global.gamePaused=false
             tNewAttack=instance_create(x+(13*image_xscale),y-90,oPassBullet)
             tNewAttack.sprite_index=sLB_Laser; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=11
             tNewAttack.image_speed=0.33; tNewAttack.decayTime=-100
-            tNewAttack.direction=point_direction(x+(13*image_xscale),y-90,oPlayer1.x,returnPlayerYCenter())
+            tNewAttack._direction=point_direction(x+(13*image_xscale),y-90,oPlayer1.x,returnPlayerYCenter())
           }
         }
         else if laserEyeTime>=10081
@@ -318,7 +319,7 @@ if global.gamePaused=false
       //-------------------- ATTACK: FLOOR FIRE SPREAD --------------------
       if bAtkFloorFire=1
       {
-        atkFloorFireTime+=1
+        atkFloorFireTime+=1*gDeltaTime
         if atkFloorFireTime>=atkFloorFireDelay and atkFloorFireTime<=atkFloorFireDelay+100
         {
           var tEffect,tScaling;
@@ -349,21 +350,21 @@ if global.gamePaused=false
       //-------------------- ATTACK: BACK EXPLODE MISSILE --------------------
       if (bossPhase=1 and oPlayer1.x>=x) or (bossPhase=3 and oPlayer1.x<=x)
       {
-        backMissile+=1
+        backMissile+=1*gDeltaTime
         if backMissile>=12
         {
           playSound(global.snd_CShotB,0,0.92,1)
           var tNewAttack;
           tNewAttack=instance_create(x-(90*image_xscale),y-16,oPointExpBullet)
           tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=8
-          tNewAttack.direction=point_direction(x-(90*image_xscale),y-16,oPlayer1.x,returnPlayerYCenter())
+          tNewAttack._direction=point_direction(x-(90*image_xscale),y-16,oPlayer1.x,returnPlayerYCenter())
           backMissile=0
         }
       }
     }
     else if bossPhase=5 //----- CHEST LASER PHASE -----
     {
-      chestLaserTime+=1
+      chestLaserTime+=1*gDeltaTime
       if chestLaserTime>=9 and chestLaserTime<=54
       {
         playSound(global.snd_KirbySuck,0,0.95,8000)
@@ -510,7 +511,7 @@ if global.gamePaused=false
 
 if life<=0 //Defeat animation
 {
-  deathAnim+=1
+  deathAnim+=1*gDeltaTime
   if deathAnim=1
   {
     with oDummyPlat {sprite_index=sGWPlatform}
@@ -521,7 +522,7 @@ if life<=0 //Defeat animation
   else if deathAnim>=2 and deathAnim<=79
   {
     if deathAnim mod 3=0 {playSound(global.snd_BombExplode,0,0.92,1)}
-    if oGame.time mod 2=0
+    if oGame.time mod (2/gDeltaTime)=0
     {
       var tEffect;
       tEffect=instance_create(x+random_range(-sprite_width,sprite_width),y+random_range(-sprite_height,sprite_height),oEffect)

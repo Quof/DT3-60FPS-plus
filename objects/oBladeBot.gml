@@ -329,7 +329,7 @@ if global.gamePaused=false
       if myBotNum=1
       {
         if syncTime=1 {image_xscale=1}
-        else if syncTime>=30 {x+=2*gDeltaTime}
+        else if gDeltaDoTicks and syncTime>=30 {x+=2}
 
         if x>=xCenter+roomSpan-40
         {
@@ -341,7 +341,7 @@ if global.gamePaused=false
       else if myBotNum=2
       {
         if syncTime=1 {image_xscale=-1}
-        else if syncTime>=30 {x-=2*gDeltaTime}
+        else if  gDeltaDoTicks and syncTime>=30 {x-=2}
 
         if x<=xCenter-roomSpan+40
         {
@@ -541,5 +541,5 @@ applies_to=self
 event_inherited()
 if bSpark=1
 {
-  draw_sprite(sSigmaB_ElectricBall,oGame.time/3,x+(104*image_xscale),y-63)
+  draw_sprite(sSigmaB_ElectricBall,(oGame.time/3)*gDeltaTime,x+(104*image_xscale),y-63)
 }

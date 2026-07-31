@@ -25,7 +25,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  glowScl+=0.025
+  glowScl+=0.025*gDeltaTime
   if glowScl>=1.4 {glowScl=1.1}
 
   if yVel<0
@@ -40,8 +40,8 @@ if global.gamePaused=false
     tBufScl=abs(image_yscale)
     image_yscale=-tBufScl
   }
-  yVel+=yGrav
-  y+=yVel
+  yVel+=yGrav*gDeltaTime
+  y+=yVel*gDeltaTime
   if yVel>1 and y>ystart
   {
     var tEffect;

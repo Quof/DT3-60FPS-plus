@@ -24,11 +24,14 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  xVel+=xGrav
-  yVel+=yGrav
-  hspeed=xVel
-  vspeed=yVel
-  image_angle=direction
+  xVel+=xGrav*gDeltaTime
+  yVel+=yGrav*gDeltaTime
+  _hspeed=xVel
+  _vspeed=yVel
+  x += _hspeed * gDeltaTime
+  y += _vspeed * gDeltaTime
+  //image_angle=direction
+  image_angle=point_direction(0,0,xVel,yVel)
 
   if isCollisionTop(1)
     bDestroy=1
@@ -48,8 +51,8 @@ if global.gamePaused=false
 }
 else
 {
-  hspeed=0
-  vspeed=0
+  _hspeed=0
+  _vspeed=0
 }
 #define Collision_oAttackBase
 /*"/*'/**//* YYD ACTION
