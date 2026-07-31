@@ -193,6 +193,7 @@ ini_write_real(sectionWrite,"244",global.optUnrealPitch)
 ini_write_real(sectionWrite,"245",global.optNoBounce)
 ini_write_real(sectionWrite,"246",global.optDashWarn)
 ini_write_real(sectionWrite,"247",global.optChaoItemWarn)
+ini_write_real(sectionWrite,"247s",global.optMLoop) //music loop
 ini_write_real(sectionWrite,"248",global.optMorphControls)
 ini_write_real(sectionWrite,"249",global.optSwapType)
 ini_write_real(sectionWrite,"250",global.optStickDeadZone)

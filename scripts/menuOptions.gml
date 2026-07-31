@@ -359,6 +359,7 @@ else if mO_OptSubMenu=6 //------------------------- AUDIO ----------------------
   textDropShadow("Message Plink",contentMenuX+28,contentMenuY+67,textColorMain,textColorShadow,1)
   textDropShadow("Low Dash Warn",contentMenuX+28,contentMenuY+79,textColorMain,textColorShadow,1)
   textDropShadow("Chao Item Warn",contentMenuX+28,contentMenuY+91,textColorMain,textColorShadow,1)
+  textDropShadow("Restart Music on Death",contentMenuX+28,contentMenuY+103,textColorMain,textColorShadow,1) // music loop
 
   textDropShadow(global.optMusic,contentMenuX+164,contentMenuY+43,textColorMain,textColorShadow,1)
   textDropShadow(global.optSound,contentMenuX+164,contentMenuY+55,textColorMain,textColorShadow,1)
@@ -368,12 +369,15 @@ else if mO_OptSubMenu=6 //------------------------- AUDIO ----------------------
   else if global.optDashWarn=1 {textDropShadow("On",contentMenuX+164,contentMenuY+79,textColorMain,textColorShadow,1)}
   if global.optChaoItemWarn=0 {textDropShadow("Off",contentMenuX+164,contentMenuY+91,textColorMain,textColorShadow,1)}
   else if global.optChaoItemWarn=1 {textDropShadow("On",contentMenuX+164,contentMenuY+91,textColorMain,textColorShadow,1)}
+  if global.optMLoop=0 {textDropShadow("On",contentMenuX+164,contentMenuY+103,textColorMain,textColorShadow,1)} // music loop
+  else if global.optMLoop=1 {textDropShadow("Off",contentMenuX+164,contentMenuY+103,textColorMain,textColorShadow,1)} // music loop
 
   if mO_CurPos=1 {menuInfoText="Press left or right to change the music volume or press the confirm key to mute or max out the volume.#0 to mute, max = 100."}
   else if mO_CurPos=2 {menuInfoText="Press left or right to change the sound volume or press the confirm key to mute or max out the volume.#0 to mute, max = 100."}
   else if mO_CurPos=3 {menuInfoText="Play a sound when new text boxes appear.#Now you'll never miss a thing again!"}
   else if mO_CurPos=4 {menuInfoText="Play a sound when no dashes remain.#Also play a sound when a dash is available."}
   else if mO_CurPos=5 {menuInfoText="When a certain item is obtained, Chao will alert you that a collectible is in the map you enter."}
+  else if mO_CurPos=6 {menuInfoText="Set to 'Off' to let music continue through the game over screen."} // music loop
 }
 
 if subMenu=7

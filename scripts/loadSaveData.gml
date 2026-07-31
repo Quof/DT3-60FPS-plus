@@ -177,6 +177,7 @@ global.optUnrealPitch=ini_read_real(sectionRead,"244",1)
 global.optNoBounce=ini_read_real(sectionRead,"245",0)
 global.optDashWarn=ini_read_real(sectionRead,"246",0)
 global.optChaoItemWarn=ini_read_real(sectionRead,"247",1)
+global.optMLoop=ini_read_real(sectionRead,"247s",0) // music loop
 global.optMorphControls=ini_read_real(sectionRead,"248",1)
 global.optSwapType=ini_read_real(sectionRead,"249",0)
 global.optStickDeadZone=ini_read_real(sectionRead,"250",0.4)

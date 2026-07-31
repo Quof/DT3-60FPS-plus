@@ -497,6 +497,7 @@ global.optSound=95
 global.optMessagePlink=0
 global.optDashWarn=0
 global.optChaoItemWarn=1
+global.optMLoop=0 //music loop
 
 //-- Hidden modes --
 global.modeDark=0        //All maps are dark rooms
