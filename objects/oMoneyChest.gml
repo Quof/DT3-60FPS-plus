@@ -30,7 +30,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if specialChest=1
+if specialChest=1 and gDeltaDoTicks
 {
   tEffect=instance_create(x-9+random(18),y-random(6),oEffect)
   if random(4)>2 {tEffect.sprite_index=sMMshotgunIceEffect}
