@@ -16,6 +16,8 @@ hitWall=0
 diff=100
 bulletSpeed=2
 decay=300
+_speed=0
+_direction=0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -24,9 +26,9 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  speed=bulletSpeed
-  image_angle=direction
-  if oGame.time mod 3=0
+  _speed=bulletSpeed
+  image_angle=_direction
+  if oGame.time mod (3/gDeltaTime)=0
   {
     var tEffect;
     tEffect=instance_create(x,y,oEffect)
@@ -37,16 +39,16 @@ if global.gamePaused=false
   diff=angle_difference(image_angle,player_sprite_center())
   if diff<18 and diff>-18
   {
-    if bulletSpeed<3 {bulletSpeed+=0.1}
+    if bulletSpeed<3 {bulletSpeed+=0.1*gDeltaTime}
   }
   else
   {
-    if bulletSpeed>2 {bulletSpeed-=0.1}
+    if bulletSpeed>2 {bulletSpeed-=0.1*gDeltaTime}
   }
 
-  turn_toward_direction(player_sprite_center(),5)
+  turn_toward_directionEdit(player_sprite_center(),5)
 
-  decay-=1
+  decay-=1*gDeltaTime*gDeltaTime
   if decay<=0 {hitWall=1}
   if hitWall=1
   {
@@ -57,7 +59,10 @@ if global.gamePaused=false
     instance_destroy()
   }
 }
-else {speed=0}
+else {_speed=0}
+
+x += cos(degtorad(_direction)) * _speed * gDeltaTime
+y -= sin(degtorad(_direction)) * _speed * gDeltaTime
 #define Collision_oPlayer1
 /*"/*'/**//* YYD ACTION
 lib_id=1

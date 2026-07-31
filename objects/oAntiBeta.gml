@@ -80,7 +80,7 @@ if global.gamePaused=false
 
     if sprite_index=sAntiBeta_Charge or sprite_index=sAntiBeta_Dive //After-image
     {
-      imageEffect+=1
+      imageEffect+=1*gDeltaTime
       if imageEffect mod 2=0
       {
         var tAfterI;
@@ -91,7 +91,7 @@ if global.gamePaused=false
       }
     }
 
-    waitTime+=1
+    waitTime+=1*gDeltaTime
     if waitTime>=waitDelay
     {
       if actCheck=0 //---------- Choose an action ----------
@@ -149,7 +149,7 @@ if global.gamePaused=false
       }
       else if actCheck=1 //---------- ATTACK: SWORD SWING ----------
       {
-        actTime+=1
+        actTime+=1*gDeltaTime
         if actTime=1 {sprite_index=sAntiBeta_SReady}
         else if actTime=12 {sprite_index=sAntiBeta_Swing; image_index=0}
         else if actTime=16
@@ -163,7 +163,7 @@ if global.gamePaused=false
           {
             tNewAttack=instance_create(x+(23*image_xscale),y-26,oPassBullet)
             tNewAttack.sprite_index=sAntiSwordWave; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
-            tNewAttack.decayTime=-100; tNewAttack.direction=tDir
+            tNewAttack.decayTime=-100; tNewAttack._direction=tDir
             tDir+=15
           }
         }
@@ -174,7 +174,7 @@ if global.gamePaused=false
       }
       else if actCheck=2 //---------- ATTACK: SHOCKWAVE ----------
       {
-        actTime+=1
+        actTime+=1*gDeltaTime
         if actTime=1 {sprite_index=sAntiBeta_ShockHit; image_index=0}
         else if actTime=14
         {
@@ -199,7 +199,7 @@ if global.gamePaused=false
       }
       else if actCheck=3 //---------- ATTACK: JUMP CHARGE ----------
       {
-        actTime+=1
+        actTime+=1*gDeltaTime
         if actTime=1 {sprite_index=sAntiBeta_CReady}
         else if actTime=15
         {
@@ -225,7 +225,7 @@ if global.gamePaused=false
 
     if shockTime>=1 //Shockwave attack
     {
-      shockTime+=1
+      shockTime+=1*gDeltaTime
       if shockTime mod 7=0
       {
         var tNewAttack;
@@ -246,17 +246,17 @@ if global.gamePaused=false
     {
       if xVel>0
       {
-        xVel-=0.5
+        xVel-=0.5*gDeltaTime
         if xVel<=0.51 {xVel=0}
       }
       else if xVel<0
       {
-        xVel+=0.5
+        xVel+=0.5*gDeltaTime
         if xVel>=-0.51 {xVel=0}
       }
     }
 
-    yVel+=0.4
+    yVel+=0.4*gDeltaTime
     if isCollisionBottom(1)
     {
       if actCheck=3 and yVel>1
@@ -293,7 +293,7 @@ if global.gamePaused=false
     if isCollisionSolid()
       y-=2
 
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
   }
   enemyStepEvent()
 }

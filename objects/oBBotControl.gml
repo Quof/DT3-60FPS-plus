@@ -29,7 +29,7 @@ if global.gamePaused=false
   {
     if botA.lifePercent<=0.55
     {
-      progTime+=1
+      progTime+=1*gDeltaTime
       if progTime>=1 and progTime<=80
       {
         var tEffect;
@@ -37,7 +37,7 @@ if global.gamePaused=false
         tEffect.sprite_index=sMMSmokeCloud; tEffect.followID=-1; tEffect.xFollow=0; tEffect.yFollow=0
         tEffect.newBlend=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0; tEffect.image_alpha=0.9
 
-        if oGame.time mod 2=0
+        if oGame.time mod (2/gDeltaTime)=0
         {
           tEffect=instance_create(560+random(96),random(56),oEffectB)
           tEffect.type=3; tEffect.sprite_index=sPushRock; tEffect.newBlend=-1
@@ -68,7 +68,7 @@ if global.gamePaused=false
   }
   else if bossProg=2 //Slight wait
   {
-    progTime+=1
+    progTime+=1*gDeltaTime
     if progTime>=45 {progTime=0; bossProg=3}
   }
   else if bossProg=3 //Equalize HP values if they are too far apart
@@ -142,7 +142,7 @@ applies_to=self
 */
 if bShareHP=1
 {
-  linkFrm+=0.33
+  linkFrm+=0.33*gDeltaTime
   var tMyDist,tMyDir;
   if instance_exists(botA) and instance_exists(botB)
   {

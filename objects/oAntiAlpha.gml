@@ -87,7 +87,7 @@ if global.gamePaused=false
       }
     }
 
-    waitTime+=1*gDeltaTimelep
+    waitTime+=1*gDeltaTime
     if waitTime>=waitDelay
     {
       if actCheck=0 //---------- Choose an action ----------
@@ -171,7 +171,7 @@ if global.gamePaused=false
       }
       else if actCheck=2 //---------- ATTACK: CHARGE ----------
       {
-        actTime+=1
+        actTime+=1*gDeltaTime
         if actTime=1 {sprite_index=sAntiAlpha_Charge}
         else if actTime=15 {playSound(global.snd_ChargeStrike,0,0.95,14000)}
         else if actTime>=16 and actTime<=45
@@ -192,7 +192,7 @@ if global.gamePaused=false
       }
       else if actCheck=3 //---------- ATTACK: HOP ACROSS PART OF ROOM ----------
       {
-        actTime+=1
+        actTime+=1*gDeltaTime
         if actTime=5
         {
           playSound(global.snd_ComicHit1,0,0.94,16000)
@@ -203,7 +203,7 @@ if global.gamePaused=false
       }
     }
 
-    yVel+=0.4
+    yVel+=0.4*gDeltaTime
     if isCollisionBottom(1)
     {
       if actCheck=3 and yVel>1
@@ -234,14 +234,14 @@ if global.gamePaused=false
     if isCollisionSolid()
       y-=2
 
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
   }
   enemyStepEvent()
 }
 
 if life<=0 //Defeat animation
 {
-  deathAnim+=1
+  deathAnim+=1*gDeltaTime
   if deathAnim=1
   {
     with oEProjectileBase {instance_destroy()}
@@ -287,7 +287,7 @@ if life<=0 //Defeat animation
   else if deathAnim>=151 and deathAnim<=210
   {
     if deathAnim mod 3=0 {playSound(global.snd_BombExplode,0,0.92,1)}
-    if oGame.time mod 2=0
+    if oGame.time mod (2/gDeltaTime)=0
     {
       var tEffect;
       tEffect=instance_create(x+random_range(-20,20),y-random(40),oEffect)
