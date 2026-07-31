@@ -365,8 +365,9 @@ if global.gamePaused=false
     else if bossPhase=5 //----- CHEST LASER PHASE -----
     {
       chestLaserTime+=1*gDeltaTime
-      if chestLaserTime>=9 and chestLaserTime<=54
+      if chestLaserTime>=9 and chestLaserTime<=54 and gDeltaDoTicks
       {
+
         playSound(global.snd_KirbySuck,0,0.95,8000)
         var tEffect,tDir;
         tDir=random_range(-35,35)
