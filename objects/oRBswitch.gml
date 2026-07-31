@@ -14,7 +14,7 @@ applies_to=self
 if global.gamePaused=false
 {
   if reHitTime>0
-    reHitTime-=1
+    reHitTime-=1*gDeltaTime
 }
 #define Collision_oAttackBase
 /*"/*'/**//* YYD ACTION

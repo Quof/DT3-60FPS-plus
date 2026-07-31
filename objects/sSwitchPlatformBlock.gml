@@ -13,7 +13,7 @@ applies_to=self
 */
 if reHitTime>0
 {
-  reHitTime-=1
+  reHitTime-=1*gDeltaTime
   if reHitTime=0
     image_blend=c_white
 }

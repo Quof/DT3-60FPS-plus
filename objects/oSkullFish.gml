@@ -74,7 +74,7 @@ if global.gamePaused=false
       {
         if point_distance(0,oPlayer1.y-26,0,y)<24 //In line with player, speed forward
         {
-          if oGame.time mod 8=0
+          if oGame.time mod (8/gDeltaTime)=0
           {
             var tEffect;
             tEffect=instance_create(x+(8*(image_xscale*-1)),y,oEffect)
