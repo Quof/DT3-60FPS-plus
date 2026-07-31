@@ -102,8 +102,8 @@ if global.gamePaused=false
   {
     if bWave=1 //Idle wave motion
     {
-      moveWaveY+=0.2
-      y+=sin(moveWaveY)
+      moveWaveY+=0.2*gDeltaTime
+      y+=sin(moveWaveY)*gDeltaTime
       if x+16<oPlayer1.x {image_xscale=1}
       else if x-16>oPlayer1.x {image_xscale=-1}
     }
@@ -119,18 +119,18 @@ if global.gamePaused=false
           tNewAttack=instance_create(x+(13*image_xscale),y-4,oMetBulletPass)
           tNewAttack.sprite_index=sRidleyFireball; tNewAttack.damageType="ELEMENTAL"; tNewAttack.depth=4
           tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=8; tNewAttack.decayTime=-100
-          tNewAttack.direction=point_direction(x+(9*image_xscale),y-4,oPlayer1.x,returnPlayerYCenter())+random_range(-5,5)
+          tNewAttack._direction=point_direction(x+(9*image_xscale),y-4,oPlayer1.x,returnPlayerYCenter())+random_range(-5,5)
         }
         else if fireType=1
         {
           tNewAttack=instance_create(x+(13*image_xscale),y-4,oMetBulletPass)
           tNewAttack.sprite_index=sRidleyFireball; tNewAttack.damageType="ELEMENTAL"; tNewAttack.depth=4
           tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=8; tNewAttack.decayTime=-100
-          tNewAttack.direction=20
+          tNewAttack._direction=20
           tNewAttack=instance_create(x+(13*image_xscale),y-4,oMetBulletPass)
           tNewAttack.sprite_index=sRidleyFireball; tNewAttack.damageType="ELEMENTAL"; tNewAttack.depth=4
           tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=8; tNewAttack.decayTime=-100
-          tNewAttack.direction=160
+          tNewAttack._direction=160
         }
       }
     }
@@ -150,19 +150,19 @@ if global.gamePaused=false
       }
       else if atkTime>=2 and atkTime<=99
       {
-        y-=6
+        y-=6*gDeltaTime
         if y<=304 {bWave=1; atkTime=100}
       }
       else if atkTime>=101 and atkTime<=220
       {
         if myDirType=0 //Left
         {
-          x-=5
+          x-=5*gDeltaTime
           if x<=144 {myDirType=1}
         }
         else if myDirType=1 //Right
         {
-          x+=5
+          x+=5*gDeltaTime
           if x>=336 {myDirType=0}
         }
       }
@@ -184,8 +184,8 @@ if global.gamePaused=false
       else if atkTime=254 {ridParts[0].image_index=0; bWave=0}
       else if atkTime>=265
       {
-        event_user(0)
-        y-=20
+        if gDeltaDoTicks event_user(0)
+        y-=20*gDeltaTime
         if y<=-96 {atkTime=0; atkProg=1}
       }
     }
@@ -208,7 +208,7 @@ if global.gamePaused=false
       }
       else if atkTime>=40 and atkTime<=99
       {
-        var tEffect,tXadj;
+        if gDeltaDoTicks {var tEffect,tXadj;
         for(i=0;i<5;i+=1)
         {
           if image_xscale=1 {tXadj=-64+random(90)}
@@ -217,9 +217,9 @@ if global.gamePaused=false
           tEffect.sprite_index=sRidleyFireball; tEffect.image_alpha=0.8; tEffect.image_xscale=0.4+random(0.3); tEffect.image_yscale=0.4+random(0.3)
           tEffect.newBlend=-1; tEffect.followID=-1; tEffect.type=2; tEffect.fadeSpd=0.02; tEffect.rotation=3
           tEffect.xSpd=random_range(-0.5,0.5); tEffect.ySpd=random_range(-0.5,0.5); tEffect.grav=0; tEffect.depth=4
-        }
-        event_user(0)
-        y+=20
+        }}
+        if gDeltaDoTicks event_user(0)
+        y+=20*gDeltaTime
         if bossProgress>=0 and bossProgress<=1 {fireballRate=3}
         else if bossProgress>=2 and bossProgress<=3 {fireballRate=2}
         else if bossProgress>=4 {fireballRate=1}
@@ -231,7 +231,7 @@ if global.gamePaused=false
       }
       else if atkTime>=140 and atkTime<=199
       {
-        var tEffect,tXadj;
+        if gDeltaDoTicks {var tEffect,tXadj;
         for(i=0;i<5;i+=1)
         {
           if image_xscale=1 {tXadj=-64+random(90)}
@@ -240,9 +240,9 @@ if global.gamePaused=false
           tEffect.sprite_index=sRidleyFireball; tEffect.image_alpha=0.8; tEffect.image_xscale=0.4+random(0.3); tEffect.image_yscale=0.4+random(0.3)
           tEffect.newBlend=-1; tEffect.followID=-1; tEffect.type=2; tEffect.fadeSpd=0.02; tEffect.rotation=3
           tEffect.xSpd=random_range(-0.5,0.5); tEffect.ySpd=random_range(-0.5,0.5); tEffect.grav=0; tEffect.depth=4
-        }
-        event_user(0)
-        y-=20
+        }}
+        if gDeltaDoTicks event_user(0)
+        y-=20*gDeltaTime
         if bossProgress>=0 and bossProgress<=1 {fireballRate=3}
         else if bossProgress>=2 and bossProgress<=3 {fireballRate=2}
         else if bossProgress>=4 {fireballRate=1}
@@ -262,7 +262,7 @@ if global.gamePaused=false
       }
       else if atkTime>=30 and atkTime<=99 //Fly down
       {
-        y+=4
+        y+=4*gDeltaTime
         if y>=32 {bWave=1; atkTime=100}
       }
       else if atkTime=105 {ridParts[0].image_index=1}
@@ -286,12 +286,12 @@ if global.gamePaused=false
         var tChkMove;
         tChkMove=point_distance(x,0,oPlayer1.x,0)
         distMax=64
-        if tChkMove<distMax-(distMax/6)
+        if tChkMove<distMax-(distMax/6) and gDeltaDoTicks
         {
           if image_xscale=1 {x-=moveSpd/2}
           else {x+=moveSpd/2}
         }
-        else if tChkMove>distMax
+        else if tChkMove>distMax and gDeltaDoTicks
         {
           if image_xscale=1 {x+=moveSpd}
           else {x-=moveSpd}
@@ -304,20 +304,20 @@ if global.gamePaused=false
         oRidleyParts.tailType=4; oRidleyParts.tailAngle=tChkDir
         playSound(global.snd_PlayerJump[0],0,1,8000)
       }
-      else if atkTime>=51 and atkTime<=60 {oRidleyParts.tailSep+=3} //Extend tail
-      else if atkTime>=61 and atkTime<=70 {oRidleyParts.tailSep-=3} //Detract tail
+      else if atkTime>=51 and atkTime<=60 {oRidleyParts.tailSep+=3*gDeltaTime} //Extend tail
+      else if atkTime>=61 and atkTime<=70 {oRidleyParts.tailSep-=3*gDeltaTime} //Detract tail
       else if atkTime=71 {oRidleyParts.tailType=1}
       else if atkTime>=75 and atkTime<=118 //Track player and use fire
       {
         var tChkMove;
         tChkMove=point_distance(x,0,oPlayer1.x,0)
         distMax=64
-        if tChkMove<distMax-(distMax/6)
+        if tChkMove<distMax-(distMax/6) and gDeltaDoTicks
         {
           if image_xscale=1 {x-=moveSpd/2}
           else {x+=moveSpd/2}
         }
-        else if tChkMove>distMax
+        else if tChkMove>distMax and gDeltaDoTicks
         {
           if image_xscale=1 {x+=moveSpd}
           else {x-=moveSpd}
@@ -350,7 +350,7 @@ if global.gamePaused=false
       }
       else if atkTime>=1040 and atkTime<=1999 //Fly down
       {
-        y+=6
+        y+=6*gDeltaTime
         if y>=room_height+64 {atkTime=2000}
       }
       else if atkTime=2001
@@ -388,7 +388,7 @@ if global.gamePaused=false
   }
   else
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       if global.bBossGallery=1
@@ -418,7 +418,7 @@ if global.gamePaused=false
       {
         playSound(global.snd_RidleyScreamA,0,0.98,56000+random(12000))
       }
-      y-=2
+      y-=2*gDeltaTime
       if y<=-96
       {
         deathAnim=1000

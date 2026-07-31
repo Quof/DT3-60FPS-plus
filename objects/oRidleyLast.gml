@@ -30,6 +30,7 @@ moveWaveY=pi/2
 
 atkProg=0
 atkTime=0
+atkFireAlter=0
 fireballRate=0
 fireCircleAmt=24
 groundMoveSpd=24
@@ -113,6 +114,7 @@ if global.gamePaused=false
     }
 
     atkTime+=1*gDeltaTime
+
     if atkProg=0 //-------------------- Rise up from lava and spray lava balls around --------------------
     {
       if atkTime=1
@@ -242,8 +244,9 @@ if global.gamePaused=false
       else if atkTime=109 {ridParts[0].image_index=2; playSound(global.snd_RidleyScreamA,0,0.98,32000)}
       else if atkTime=136 {ridParts[0].image_index=1}
       else if atkTime=139 {ridParts[0].image_index=0}
-      else if atkTime>=149 and atkTime<=499 //Slide across floor
+      else if atkTime>=149 and atkTime<=499  //Slide across floor
       {
+
         if gDeltaDoTicks {var tAfterI;
         tAfterI=instance_create(x,y,oEnemyAfterImage)
         tAfterI.sprite_index=sprite_index; tAfterI.image_index=image_index; tAfterI.image_blend=c_red
@@ -261,7 +264,7 @@ if global.gamePaused=false
           if x<=-96 {x-=groundCycle*30; atkTime=1000}
         }
 
-        if atkTime mod groundFireFreq=0 and x>=160 and x<=480 //Fire pillars from ground slide
+        if atkTime mod groundFireFreq=0 and x>=160 and x<=480  //Fire pillars from ground slide. 160 / 480
         {
           playSound(global.snd_Flame1,0,1,9600)
           var tFirePillar;

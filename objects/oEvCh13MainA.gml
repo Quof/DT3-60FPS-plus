@@ -1616,13 +1616,13 @@ else if room=rSamus5_Lv4_RidleyTunnel and global.gamePaused=false //----- [] Bos
   }
   else if sceneProgress=1
   {
-    var tEffect;
+    if gDeltaDoTicks {var tEffect;
     for(i=0;i<8;i+=1)
     {
       tEffect=instance_create(96+random(288),random(64),oEffect)
       tEffect.sprite_index=sShipExplosion; tEffect.image_speed=0.25+random(0.25); tEffect.depth=4
       tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
-    }
+    }}
     fadeAlpha-=0.05*gDeltaTime
     if fadeAlpha=0 {sceneProgress+=1}
   }
