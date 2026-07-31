@@ -7,7 +7,7 @@ applies_to=self
 event_inherited()
 makeActive()
 setCollisionBounds(-19,-52,19,-1)
-animSpd=0.33
+animSpd=0.33*gDeltaTime
 image_speed=0
 
 //Enemy base statistics
@@ -88,7 +88,7 @@ if global.gamePaused=false
   makeEnemyActive(0)
   if bActive=true and stunnedTime=0 and life>0
   {
-    imageEffect+=1
+    imageEffect+=1*gDeltaTime
     if imageEffect mod 8=0
     {
       var tAfterI;
@@ -112,7 +112,7 @@ if global.gamePaused=false
 
     if resElemTime>0 //Elemental resist goes back to 1x after 1 second from shield use
     {
-      resElemTime-=1
+      resElemTime-=1*gDeltaTime
       if resElemTime=0
       {
         resType[2]=3
@@ -131,21 +131,21 @@ if global.gamePaused=false
 
         if point_distance(x,y,oPlayer1.x,oPlayer1.y-26)>minDistToPlayer+(minDistToPlayer/5)
         {
-          atkChargeTime+=1
+          atkChargeTime+=1*gDeltaTime
           sprite_index=sBT_Walk
           if image_xscale=1 {xVel=runAcc}
           else {xVel=-runAcc}
         }
         else if point_distance(x,y,oPlayer1.x,oPlayer1.y-26)<minDistToPlayer
         {
-          atkCloseTime+=2
+          atkCloseTime+=2*gDeltaTime
           sprite_index=sBT_Walk
           if image_xscale=1 {xVel=-runAcc}
           else {xVel=runAcc}
         }
         else
         {
-          atkCloseTime+=1
+          atkCloseTime+=1*gDeltaTime
           sprite_index=sBT_Idle
           xVel=0
         }
@@ -201,7 +201,7 @@ if global.gamePaused=false
     }
     else if shielding>=2 and shielding<=9
     {
-      shielding+=1
+      shielding+=1*gDeltaTime
       if shielding>=8
       {
         sprite_index=sBT_Idle
@@ -246,7 +246,7 @@ if global.gamePaused=false
     }
     else if shieldPower>=3
     {
-      shieldPower+=1
+      shieldPower+=1*gDeltaTime
       image_blend=make_color_rgb(random(255),random(255),random(255))
 
       if shieldPower=30 //Fire shield energy blasts
@@ -257,7 +257,7 @@ if global.gamePaused=false
         for(i=0;i<5;i+=1)
         {
           tFire=instance_create(x+(8*image_xscale),y-20,oPassBullet)
-          tFire.sprite_index=sBTFireball; tFire.direction=tFDir; tFire.atkPower=atkPower
+          tFire.sprite_index=sBTFireball; tFire._direction=tFDir; tFire.atkPower=atkPower
           tFire.bulletSpeed=7; tFire.decayTime=120
           tFDir+=15
         }
@@ -270,7 +270,7 @@ if global.gamePaused=false
         for(i=0;i<4;i+=1)
         {
           tFire=instance_create(x+(8*image_xscale),y-20,oPassBullet)
-          tFire.sprite_index=sBTFireball; tFire.direction=tFDir; tFire.atkPower=atkPower
+          tFire.sprite_index=sBTFireball; tFire._direction=tFDir; tFire.atkPower=atkPower
           tFire.bulletSpeed=7; tFire.decayTime=120
           tFDir+=20
         }
@@ -325,7 +325,7 @@ if global.gamePaused=false
     }
 
     //---------- Attack close range ----------
-    atkCloseTime+=1
+    atkCloseTime+=1*gDeltaTime
     if atkCloseTime>=atkCloseDelay and atkCloseTime<=atkCloseDelay+100
     {
       if point_distance(x,y,oPlayer1.x,oPlayer1.y-26)<minDistToPlayer+(minDistToPlayer/5)+1 and atkChargeTime<atkChargeDelay and sprite_index!=sBT_Shield and bJumpReady=1
@@ -350,8 +350,8 @@ if global.gamePaused=false
       else if atkCloseTime>=1016 and atkCloseTime<=9999
       {
         image_index+=animSpd*1.25
-        if image_xscale=1 {xVel-=0.075}
-        else {xVel+=0.075}
+        if image_xscale=1 {xVel-=0.075*gDeltaTime}
+        else {xVel+=0.075*gDeltaTime}
 
         if image_index>=5.5
         {
@@ -386,7 +386,7 @@ if global.gamePaused=false
 
     if earthPillar>=1
     {
-      earthPillar+=1
+      earthPillar+=1*gDeltaTime
       if earthPillar mod 5=0
       {
         var tFire;
@@ -400,7 +400,7 @@ if global.gamePaused=false
     }
 
     //---------- Charge if player is too far ----------
-    atkChargeTime+=1
+    atkChargeTime+=1*gDeltaTime
     if atkChargeTime>=atkChargeDelay and atkChargeTime<=atkChargeDelay+100
     {
       if point_distance(x,y,oPlayer1.x,oPlayer1.y-26)>minDistToPlayer+(minDistToPlayer/2) and atkCloseTime<atkCloseDelay and sprite_index!=sBT_Shield and bJumpReady=1
@@ -435,7 +435,7 @@ if global.gamePaused=false
     }
 
     //---------- Jump and attack player ----------
-    atkJumpTime+=1
+    atkJumpTime+=1*gDeltaTime
     if atkJumpTime>=atkJumpDelay and atkJumpTime<=atkJumpDelay+100
     {
       if point_distance(x,y,oPlayer1.x,oPlayer1.y-26)<minDistToPlayer+(minDistToPlayer/2) and atkCloseTime<atkCloseDelay and sprite_index!=sBT_Shield and bJumpReady=1
@@ -450,8 +450,8 @@ if global.gamePaused=false
     }
     else if atkJumpTime>=1001 and atkJumpTime<=1010 //Dash back
     {
-      if image_xscale=1 {xVel+=0.075}
-      else {xVel-=0.075}
+      if image_xscale=1 {xVel+=0.075*gDeltaTime}
+      else {xVel-=0.075*gDeltaTime}
     }
     else if atkJumpTime=1011 //Jump
     {
@@ -471,7 +471,7 @@ if global.gamePaused=false
       for(i=0;i<3;i+=1)
       {
         tFire=instance_create(x+(8*image_xscale),y-20,oPassBullet)
-        tFire.sprite_index=sBTFireball; tFire.direction=tFDir
+        tFire.sprite_index=sBTFireball; tFire._direction=tFDir
         tFire.atkPower=atkPower; tFire.bulletSpeed=7; tFire.decayTime=120
         tFDir+=20
       }
@@ -485,7 +485,7 @@ if global.gamePaused=false
       }
     }
 
-    yVel+=0.3
+    yVel+=0.3*gDeltaTime
     if isCollisionBottom(1)
     {
       yVel=0
@@ -498,14 +498,14 @@ if global.gamePaused=false
     if isCollisionSolid()
       y-=2
 
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
 
     if y>room_height+24 {instance_destroy()}
   }
   else if life<=0
   {
-    deathAnim+=1
-    if deathAnim=1
+    deathAnim+=1*gDeltaTime
+    if deathAnim=1*gDeltaTime
     {
       image_speed=0
       playSound(global.snd_HardHit1,0,1,1)

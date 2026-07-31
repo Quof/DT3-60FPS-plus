@@ -59,7 +59,7 @@ if global.gamePaused=false
     {
       if (x>oPlayer1.x and image_xscale=-1) or (x<oPlayer1.x and image_xscale=1)
       {
-        turnTime-=1
+        turnTime-=1*gDeltaTime
         if turnTime=0
         {
           xVel*=-1
@@ -84,7 +84,7 @@ if global.gamePaused=false
     }
 
     //Kick up sand balls
-    scuttleBallTime+=1
+    scuttleBallTime+=1*gDeltaTime
     if scuttleBallTime mod 9=0
     {
       var tNewAttack;
@@ -96,7 +96,7 @@ if global.gamePaused=false
       tNewAttack.yVel=-1.5-random(1.5)
     }
 
-    yVel+=0.2
+    yVel+=0.2*gDeltaTime
     if isCollisionBottom(1)
       yVel=0
     if isCollisionLeft(1)
@@ -109,7 +109,7 @@ if global.gamePaused=false
       image_xscale=1
     else
       image_xscale=-1
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
     if y>room_height+24
     {
       if questType>0
@@ -127,8 +127,8 @@ if global.gamePaused=false
     }
     else if deathAnim>=2
     {
-      y+=yDeath
-      if yDeath<12 {yDeath+=0.3}
+      y+=yDeath*gDeltaTime
+      if yDeath<12 {yDeath+=0.3*gDeltaTime}
       if y>room_height+24 {instance_destroy()}
     }
   }

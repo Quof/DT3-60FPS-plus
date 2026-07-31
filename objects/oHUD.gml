@@ -184,15 +184,15 @@ if view_current=0
           var tNumImg;
           if global.pCurrBreath>=151 and global.pCurrBreath<=180
             tNumImg=5
-          else if global.pCurrBreath>=121 and global.pCurrBreath<=150
+          else if global.pCurrBreath>=121 and global.pCurrBreath<151
             tNumImg=4
-          else if global.pCurrBreath>=91 and global.pCurrBreath<=120
+          else if global.pCurrBreath>=91 and global.pCurrBreath<121
             tNumImg=3
-          else if global.pCurrBreath>=61 and global.pCurrBreath<=90
+          else if global.pCurrBreath>=61 and global.pCurrBreath<91
             tNumImg=2
-          else if global.pCurrBreath>=31 and global.pCurrBreath<=60
+          else if global.pCurrBreath>=31 and global.pCurrBreath<61
             tNumImg=1
-          else if global.pCurrBreath>=0 and global.pCurrBreath<=30
+          else if global.pCurrBreath>=0 and global.pCurrBreath<31
             tNumImg=0
           draw_sprite(sDrownCountdown,tNumImg,oPlayer1.x,oPlayer1.y-72)
         }

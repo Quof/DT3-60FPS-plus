@@ -65,7 +65,7 @@ if global.gamePaused=false
     {
       if (x<oPlayer1.x and image_xscale=-1) or (x>oPlayer1.x and image_xscale=1)
       {
-        turnTime-=1
+        turnTime-=1*gDeltaTime
         if turnTime=0
         {
           xVel*=-1
@@ -88,7 +88,7 @@ if global.gamePaused=false
     }
 
     //---------- Swing sword (wave) ----------
-    shotTime+=1
+    shotTime+=1*gDeltaTime
     if shotTime>=shotDelay
     {
       if shotTime=shotDelay //Change anim and step back if too close to player
@@ -128,7 +128,7 @@ if global.gamePaused=false
         tNewAttack.bulletSpeed=7
         tNewAttack.decayTime=-100
         if image_xscale=-1
-          tNewAttack.direction=180
+          tNewAttack._direction=180
       }
       else if shotTime=shotDelay+30 //End attack
       {
@@ -147,7 +147,7 @@ if global.gamePaused=false
     myShield.x=x+18*image_xscale
     myShield.y=y-18
 
-    yVel+=0.2
+    yVel+=0.2*gDeltaTime
     if isCollisionBottom(1)
       yVel=0
     if isCollisionLeft(1)
@@ -169,13 +169,13 @@ if global.gamePaused=false
       if shotTime>=shotDelay+1
       {
         if xVel>0
-          xVel-=0.4
+          xVel-=0.4*gDeltaTime
         else if xVel<0
-          xVel+=0.4
+          xVel+=0.4*gDeltaTime
       }
     }
 
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
     if y>room_height+24
     {
       if questType>0
@@ -195,8 +195,8 @@ if global.gamePaused=false
     else if deathAnim>=2
     {
       if oGame.time mod 3=0 {image_xscale*=-1}
-      y+=yDeath
-      if yDeath<12 {yDeath+=0.3}
+      y+=yDeath*gDeltaTime
+      if yDeath<12 {yDeath+=0.3*gDeltaTime}
       if y>room_height+24 {instance_destroy()}
     }
   }

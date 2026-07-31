@@ -80,7 +80,7 @@ if global.gamePaused=false
     }
 
     //---------- Coconut throw ----------
-    throwTime+=1
+    throwTime+=1*gDeltaTime
     if throwTime>=throwDelay
     {
       if throwTime=throwDelay //Init coconut throw
@@ -133,7 +133,7 @@ if global.gamePaused=false
       }
     }
 
-    yVel+=0.2
+    yVel+=0.2*gDeltaTime
     if isCollisionBottom(1)
     {
       if bJumpReady=0
@@ -154,7 +154,7 @@ if global.gamePaused=false
       image_xscale=1
     else if xVel<0
       image_xscale=-1
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
     if y>room_height+24
       instance_destroy()
   }
@@ -168,8 +168,8 @@ if global.gamePaused=false
     }
     else if deathAnim>=2
     {
-      y+=yDeath
-      if yDeath<12 {yDeath+=0.3}
+      y+=yDeath*gDeltaTime
+      if yDeath<12 {yDeath+=0.3*gDeltaTime}
       if y>room_height+24 {instance_destroy()}
     }
   }
