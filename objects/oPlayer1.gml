@@ -1407,19 +1407,19 @@ if (global.wearingHatJ>0 or global.wearingHatC>0) and global.charScan[0]=1 and g
 
 if attackCharge>5
 {
-  if oGame.time mod 2=0
+  if oGame.time mod (2/gDeltaTime)=0
     chargeFrame+=1
   draw_sprite_ext(sMMcharging,chargeFrame,x,y-24,1+(attackCharge/100),1+(attackCharge/100),0,c_white,image_alpha)
 }
 if specAttackChargeA>5
 {
-  if oGame.time mod 2=0
+  if oGame.time mod (2/gDeltaTime)=0
     chargeFrame+=1
   draw_sprite_ext(sMMcharging,chargeFrame,x,y-24,1+(specAttackChargeA/100),1+(specAttackChargeA/100),0,c_teal,image_alpha)
 }
 if specAttackChargeB>5
 {
-  if oGame.time mod 2=0
+  if oGame.time mod (2/gDeltaTime)=0
     chargeFrame+=1
   draw_sprite_ext(sMMcharging,chargeFrame,x,y-24,1+(specAttackChargeB/100),1+(specAttackChargeB/100),0,c_teal,image_alpha)
 }

@@ -458,7 +458,7 @@ else
 }
 
 stopLoopingSounds()
-stopAllMusic()
+if global.optMLoop=0 {stopAllMusic()} // music loop
 if global.quickGameOver=0 {playSound(global.snd_GameOver,0,1,1)}
 
 if skipGameOver!=2

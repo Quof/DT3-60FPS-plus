@@ -14,9 +14,9 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if moveAnim>=1 and moveAnim<=4
+if moveAnim>0 and moveAnim<=4
 {
-  moveAnim+=1
+  moveAnim+=1*gDeltaTime
   if moveAnim=2
     y-=2
   else if moveAnim=4
@@ -91,7 +91,7 @@ if isCollisionCharacterBottom(1,0) and bHit=false
     }
   }
   awardAwesome(20)
-  moveAnim=1
+  moveAnim=1*gDeltaTime
   sprite_index=sMarioBlockHit
   bHit=true
 }

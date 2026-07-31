@@ -16,13 +16,13 @@ applies_to=self
 */
 if hitTime>0 and hitTime<=9
 {
-  hitTime+=1
+  hitTime+=1*gDeltaTime
   if hitTime>=3
     instance_destroy()
 }
-else if hitTime>=101 and hitTime<=104
+else if hitTime>=100 and hitTime<=104
 {
-  hitTime+=1
+  hitTime+=1*gDeltaTime
   if hitTime=102
     y-=2
   else if hitTime=104
@@ -62,7 +62,7 @@ if isCollisionCharacterBottom(1,0) and hitTime=0
       tMoneyDrop.moneyType=1; tMoneyDrop.moneyWorth=moneyWorth
     }
     sprite_index=sMarioBlockHit
-    hitTime=101
+    hitTime=100+1*gDeltaTime
   }
   else
   {
@@ -72,7 +72,7 @@ if isCollisionCharacterBottom(1,0) and hitTime=0
       newEffect=instance_create(x+8,y+8,oEfMarioBlock)
       newEffect.type=i
     }
-    hitTime=1
+    hitTime=1*gDeltaTime
   }
 }
 

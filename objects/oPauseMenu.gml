@@ -929,7 +929,7 @@ else if subMenu=7 //---------- OPTIONS ----------
   else if mO_OptSubMenu=3 {mO_OptMax=9} //Display
   else if mO_OptSubMenu=4 {mO_OptMax=10} //Gameplay
   else if mO_OptSubMenu=5 {mO_OptMax=7} //Unreal Guy
-  else if mO_OptSubMenu=6 {mO_OptMax=5} //Audio
+  else if mO_OptSubMenu=6 {mO_OptMax=6} //Audio // music loop
 
   if scrController(1) and cursorRepeatMove mod 2=0 //----- Left -----
   {
@@ -1419,6 +1419,11 @@ else if subMenu=7 //---------- OPTIONS ----------
       {
         if global.optChaoItemWarn=1 {global.optChaoItemWarn=0}
         else {global.optChaoItemWarn=1}
+      }
+      else if mO_CurPos=6 // music loop
+      {
+        if global.optMLoop=1 {global.optMLoop=0}
+        else {global.optMLoop=1}
       }
     }
   }
