@@ -491,24 +491,26 @@ if global.gamePaused=false
             handLaserL.x=x+100; handLaserL.y=y-36
             handLaserR.x=x-100; handLaserR.y=y-36
 
-            if oGame.time mod (1/gDeltaTime)=0{
-            var tEffect,i;
-            for(i=0;i<2;i+=1)
+            if oGame.time mod (1/gDeltaTime)=0
             {
-              tEffect=instance_create(x-100+(-8+random(16)),y-36+(-8+random(16)),oEffectB)
-              tEffect.type=3; tEffect.sprite_index=sBelmontWepEffect; tEffect.image_speed=0.33
-              tEffect.direction=random(360); tEffect.speed=random(0.5)+0.5
-              tEffect.friction=random(0.01)+0.01; tEffect.fadeSpd=0.035
-              tEffect.AccelX=0; tEffect.AccelY=0; tEffect.newBlend=-1; tEffect.followID=-1; tEffect.rotation=0
+              var tEffect,i;
+              for(i=0;i<2;i+=1)
+              {
+                tEffect=instance_create(x-100+(-8+random(16)),y-36+(-8+random(16)),oEffectB)
+                tEffect.type=3; tEffect.sprite_index=sBelmontWepEffect; tEffect.image_speed=0.33
+                tEffect.direction=random(360); tEffect.speed=random(0.5)+0.5
+                tEffect.friction=random(0.01)+0.01; tEffect.fadeSpd=0.035
+                tEffect.AccelX=0; tEffect.AccelY=0; tEffect.newBlend=-1; tEffect.followID=-1; tEffect.rotation=0
+              }
+              for(i=0;i<2;i+=1)
+              {
+                tEffect=instance_create(x+100+(-8+random(16)),y-36+(-8+random(16)),oEffectB)
+                tEffect.type=3; tEffect.sprite_index=sBelmontWepEffect; tEffect.image_speed=0.33
+                tEffect.direction=random(360); tEffect.speed=random(0.5)+0.5
+                tEffect.friction=random(0.01)+0.01; tEffect.fadeSpd=0.035
+                tEffect.AccelX=0; tEffect.AccelY=0; tEffect.newBlend=-1; tEffect.followID=-1; tEffect.rotation=0
+              }
             }
-            for(i=0;i<2;i+=1)
-            {
-              tEffect=instance_create(x+100+(-8+random(16)),y-36+(-8+random(16)),oEffectB)
-              tEffect.type=3; tEffect.sprite_index=sBelmontWepEffect; tEffect.image_speed=0.33
-              tEffect.direction=random(360); tEffect.speed=random(0.5)+0.5
-              tEffect.friction=random(0.01)+0.01; tEffect.fadeSpd=0.035
-              tEffect.AccelX=0; tEffect.AccelY=0; tEffect.newBlend=-1; tEffect.followID=-1; tEffect.rotation=0
-            }}
           }
         }
       }
