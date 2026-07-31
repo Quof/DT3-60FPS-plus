@@ -537,4 +537,5 @@ for(i=0;i<65;i+=1)
 
 //Debug flags
 global.debugInvincible=false
+global.debugAlwaysMaxHP=false
 global.debugMouseMove=true

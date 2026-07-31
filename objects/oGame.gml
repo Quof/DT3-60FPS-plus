@@ -299,6 +299,13 @@ if global.debugMenu=true //debug commands
     else
       global.debugInvincible=false
   }
+  else if keyboard_check_pressed(ord("V"))
+  {
+    if global.debugAlwaysMaxHP=false
+      global.debugAlwaysMaxHP=true
+    else
+      global.debugAlwaysMaxHP=false
+  }
 }
 else
 {
@@ -407,6 +414,8 @@ if view_current=0
   //Display debug states
   if global.debugInvincible=true
     textDropShadow("<INVINCIBILITY ON>",view_xview[0]+4,view_yview[0]+322,c_white,c_black,1)
+  if global.debugAlwaysMaxHP=true
+    textDropShadow("<ALWAYS MAX HP>",view_xview[0]+4,view_yview[0]+306,c_white,c_black,1)
   if global.debugMenu=true
     textDropShadow("<DEBUG MODE ON>",view_xview[0]+4,view_yview[0]+338,c_white,c_black,1)
 }
