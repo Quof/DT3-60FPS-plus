@@ -91,7 +91,7 @@ if global.gamePaused=false
     {
       event_user(1)
       //-------------------- ATTACK: Arm Laser --------------------
-      armLaserTime+=1
+      armLaserTime+=1*gDeltaTime
       if armLaserTime>=armLaserDelay and armLaserTime<=armLaserDelay+100 //Glow chosen arms
       {
         for(i=0;i<armMax;i+=1)
@@ -135,7 +135,7 @@ if global.gamePaused=false
     {
       event_user(1)
       //-------------------- ATTACK: Mid Laser --------------------
-      midLaserTime+=1
+      midLaserTime+=1*gDeltaTime
       if midLaserTime>=midLaserDelay and shotTime<shotDelay-5
       {
         var tMidLaser;
@@ -145,7 +145,7 @@ if global.gamePaused=false
       }
 
       //-------------------- ATTACK: Arm Laser (Permanent) --------------------
-      armLaserTime+=1
+      armLaserTime+=1*gDeltaTime
       if armLaserTime=60 //Glow arms
       {
         armBlend[0]=c_red
@@ -176,24 +176,24 @@ if global.gamePaused=false
       //----- Movement -----
       if moveDir=1 //Right
       {
-        x+=xSpd
-        if xSpd<1 {xSpd+=0.04}
+        x+=xSpd*gDeltaTime
+        if xSpd<1 {xSpd+=0.04*gDeltaTime}
         if x>=xCenter+(roomSpan/2)-32 {moveDir=2}
       }
       else if moveDir=2 //Left
       {
-        x+=xSpd
-        if xSpd>-1 {xSpd-=0.04}
+        x+=xSpd*gDeltaTime
+        if xSpd>-1 {xSpd-=0.04*gDeltaTime}
         if x<=xCenter-(roomSpan/2)+32 {moveDir=1}
       }
 
       //----- Barrier Switch -----
-      if oGame.time mod 4=0
+      if oGame.time mod (4/gDeltaTime)=0
       {
         if circleRad=0 {circleRad=1}
         else {circleRad=0}
       }
-      barrierTime+=1
+      barrierTime+=1*gDeltaTime
       if barrierTime>=180
       {
         barrierSet+=1
@@ -230,7 +230,7 @@ if global.gamePaused=false
       }
 
       //-------------------- ATTACK: Mid Laser --------------------
-      midLaserTime+=1
+      midLaserTime+=1*gDeltaTime
       if midLaserTime>=midLaserDelay
       {
         var tMidLaser;
@@ -240,7 +240,7 @@ if global.gamePaused=false
       }
 
       //-------------------- ATTACK: Arm Laser --------------------
-      armLaserTime+=1
+      armLaserTime+=1*gDeltaTime
       if armLaserTime>=armLaserDelay and armLaserTime<=armLaserDelay+100 //Glow chosen arms
       {
         if laserType=0
@@ -311,7 +311,7 @@ if global.gamePaused=false
       event_user(0)
     }
 
-    armsRotation+=rotateSpd
+    armsRotation+=rotateSpd*gDeltaTime
     for(i=0;i<4;i+=1)
     {
       myGrapplePoints[i].x=x+lengthdir_x(75,(i*90)+armsRotation)
@@ -409,7 +409,7 @@ if global.gamePaused=false
 
 if life<=0 //Defeat animation
 {
-  deathAnim+=1
+  deathAnim+=1*gDeltaTime
   if deathAnim=1
   {
     if global.bBossGallery=1
@@ -461,7 +461,7 @@ if life<=0 //Defeat animation
   else if deathAnim>=151 and deathAnim<=210
   {
     if deathAnim mod 3=0 {playSound(global.snd_BombExplode,0,0.92,1)}
-    if oGame.time mod 2=0
+    if oGame.time mod (2/gDeltaTime)=0
     {
       var tEffect;
       tEffect=instance_create(x+random_range(-sprite_width,sprite_width),y+random_range(-sprite_height,sprite_height),oEffect)
@@ -482,7 +482,7 @@ action_id=603
 applies_to=self
 */
 //-------------------- ATTACK: Floor Trap --------------------
-floorTrapTime+=1
+floorTrapTime+=1*gDeltaDoTicks
 if floorTrapTime>=floorTrapDelay and floorTrapTime<=floorTrapDelay+100
 {
   for(i=0;i<7;i+=1)
@@ -494,12 +494,12 @@ if floorTrapTime>=floorTrapDelay and floorTrapTime<=floorTrapDelay+100
 }
 else if floorTrapTime>=1001 and floorTrapTime<=1999
 {
-  oZapTrap.y-=1
+  oZapTrap.y-=1*gDeltaDoTicks
   if oZapTrap.y<=282 {floorTrapTime=2000}
 }
 else if floorTrapTime>=2000+floorTrapDuration and bossPhase!=3
 {
-  oZapTrap.y+=4
+  oZapTrap.y+=4*gDeltaDoTicks
   if oZapTrap.y>=room_height+8
   {
     with oZapTrap {instance_destroy()}
@@ -513,7 +513,7 @@ action_id=603
 applies_to=self
 */
 //-------------------- ATTACK: Energy Wave Circle --------------------
-shotTime+=1
+shotTime+=1*gDeltaDoTicks
 if shotTime>=shotDelay and shotTime<=shotDelay+100 and midLaserTime<midLaserDelay-5
 {
   var tEffect;
@@ -538,7 +538,7 @@ else if shotTime=10045
     {
       tNewAttack=instance_create(x,y,oPassBullet)
       tNewAttack.sprite_index=sShieldMenaceBeam; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=4
-      tNewAttack.decayTime=-100; tNewAttack.image_xscale=0.75; tNewAttack.image_yscale=0.9 tNewAttack.direction=tDir
+      tNewAttack.decayTime=-100; tNewAttack.image_xscale=0.75; tNewAttack.image_yscale=0.9 tNewAttack._direction=tDir
       tDir+=360/bulletNum
     }
   }
@@ -551,7 +551,7 @@ else if shotTime=10045
     {
       tNewAttack=instance_create(x,y,oPassBullet)
       tNewAttack.sprite_index=sShieldMenaceBeam; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=4
-      tNewAttack.decayTime=-100; tNewAttack.image_xscale=0.75; tNewAttack.image_yscale=0.9 tNewAttack.direction=tDir
+      tNewAttack.decayTime=-100; tNewAttack.image_xscale=0.75; tNewAttack.image_yscale=0.9 tNewAttack._direction=tDir
       tDir+=360/bulletNum
     }
   }

@@ -88,7 +88,7 @@ if global.gamePaused=false
       xVel=0
     }
 
-    waitTime+=1
+    waitTime+=1*gDeltaTime
     if waitTime>=waitDelay
     {
       if actCheck=0 //---------- Choose an action ----------
@@ -188,7 +188,7 @@ if global.gamePaused=false
       }
       if actCheck=1 //---------- ATTACK: CHARGE ATTACK A ----------
       {
-        actTime+=1
+        actTime+=1*gDeltaTime
         if actTime=1 {sprite_index=sBBot_SwingA; image_index=0}
         else if actTime=5 {image_index=1}
         else if actTime=9 {image_index=2}
@@ -224,7 +224,7 @@ if global.gamePaused=false
       }
       else if actCheck=2 //---------- ATTACK: CHARGE ATTACK B ----------
       {
-        actTime+=1
+        actTime+=1*gDeltaTime
         if actTime=1 {sprite_index=sBBot_SwingB; image_index=0}
         else if actTime=4 {image_index=1}
         else if actTime=7 {image_index=2}
@@ -260,7 +260,7 @@ if global.gamePaused=false
       }
       else if actCheck=3 //---------- ATTACK: JUMP ATTACK A ----------
       {
-        actTime+=1
+        actTime+=1*gDeltaTime
         if actTime=1 {sprite_index=sBBot_SwingB; image_index=0}
         else if actTime=3 {image_index=1}
         else if actTime=9 {image_index=2}
@@ -281,7 +281,7 @@ if global.gamePaused=false
       }
       else if actCheck=4 //---------- ATTACK: ELECTRIC BALL ----------
       {
-        actTime+=1
+        actTime+=1*gDeltaTime
         if actTime=1 {sprite_index=sBBot_SparkSword}
         else if actTime=7 {bSpark=1}
         else if actTime=25
@@ -292,7 +292,7 @@ if global.gamePaused=false
           tNewAttack=instance_create(x+(104*image_xscale),y-63,oPassBullet)
           tNewAttack.sprite_index=sSigmaB_ElectricBall; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=2
           tNewAttack.image_speed=0.33; tNewAttack.decayTime=-100
-          tNewAttack.direction=point_direction(x+(104*image_xscale),y-63,oPlayer1.x,returnPlayerYCenter())
+          tNewAttack._direction=point_direction(x+(104*image_xscale),y-63,oPlayer1.x,returnPlayerYCenter())
         }
         else if actTime>=30
         {
@@ -301,7 +301,7 @@ if global.gamePaused=false
       }
       else if actCheck=9 //---------- ATTACK: FLOOR FLAME ----------
       {
-        actTime+=1
+        actTime+=1*gDeltaTime
         if actTime=1 {sprite_index=sBBot_LoadFlame}
         else if actTime=16
         {
@@ -325,11 +325,11 @@ if global.gamePaused=false
     //---------- Super Team Attack ----------
     if syncAtk=2 //Get into position
     {
-      syncTime+=1
+      syncTime+=1*gDeltaTime
       if myBotNum=1
       {
         if syncTime=1 {image_xscale=1}
-        else if syncTime>=30 {x+=2}
+        else if syncTime>=30 {x+=2*gDeltaTime}
 
         if x>=xCenter+roomSpan-40
         {
@@ -341,7 +341,7 @@ if global.gamePaused=false
       else if myBotNum=2
       {
         if syncTime=1 {image_xscale=-1}
-        else if syncTime>=30 {x-=2}
+        else if syncTime>=30 {x-=2*gDeltaTime}
 
         if x<=xCenter-roomSpan+40
         {
@@ -353,7 +353,7 @@ if global.gamePaused=false
     }
     else if syncAtk=4 //Begin attack
     {
-      syncTime+=1
+      syncTime+=1*gDeltaTime
       if syncTime=1 or syncTime mod 100=0
       {
         if myBotNum=1
@@ -377,7 +377,7 @@ if global.gamePaused=false
         tNewAttack=instance_create(x+(104*image_xscale),y-63,oPassBullet)
         tNewAttack.sprite_index=sSigmaB_ElectricBall; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=3.25
         tNewAttack.image_speed=0.33; tNewAttack.decayTime=-100
-        tNewAttack.direction=point_direction(x+(104*image_xscale),y-63,oPlayer1.x,returnPlayerYCenter())
+        tNewAttack._direction=point_direction(x+(104*image_xscale),y-63,oPlayer1.x,returnPlayerYCenter())
       }
       if syncTime mod syncFire=0 //Fire Pillar
       {
@@ -395,7 +395,7 @@ if global.gamePaused=false
     }
     else if syncAtk=5//End attack
     {
-      syncTime+=1
+      syncTime+=1*gDeltaTime
       if syncTime>=30
       {
         sprite_index=sBBot_Stand
@@ -404,7 +404,7 @@ if global.gamePaused=false
       }
     }
 
-    yVel+=0.4
+    yVel+=0.4*gDeltaTime
     if isCollisionBottom(1)
     {
       if actCheck=3 and yVel>1
@@ -440,7 +440,7 @@ if global.gamePaused=false
     if isCollisionSolid()
       y-=2
 
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
   }
 
   //---------- Boss Difficulty Curve ----------
@@ -483,7 +483,7 @@ if global.gamePaused=false
 
 if life<=0 //Defeat animation
 {
-  deathAnim+=1
+  deathAnim+=1*gDeltaTime
   if deathAnim>=1 and deathAnim<=60
   {
     if deathAnim mod 3=0 {playSound(global.snd_BombExplode,0,0.92,1)}

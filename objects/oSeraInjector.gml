@@ -42,7 +42,7 @@ if global.gamePaused=false
   {
     if bActive=true and stunnedTime=0
     {
-      startUpTime+=1
+      startUpTime+=1*gDeltaTime
       if startUpTime=1 //Appear
       {
         visible=1
@@ -53,7 +53,7 @@ if global.gamePaused=false
       }
       if startUpTime>=15
       {
-        speed=moveSpeed
+        _speed=moveSpeed
       }
     }
   }
@@ -72,4 +72,7 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
-else {speed=0}
+else {_speed=0}
+
+x += cos(degtorad(_direction)) * _speed * gDeltaTime
+y -= sin(degtorad(_direction)) * _speed * gDeltaTime

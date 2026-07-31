@@ -19,15 +19,15 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  x+=xVel
+  x+=xVel*gDeltaTime
   if xVel>0
   {
-    image_angle-=3
+    image_angle-=3*gDeltaTime
     if x>=room_width+32 {instance_destroy()}
   }
   else
   {
-    image_angle+=3
+    image_angle+=3*gDeltaTime
     if x<=-32 {instance_destroy()}
   }
 }

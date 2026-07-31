@@ -23,7 +23,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  atkProg+=1
+  atkProg+=1*gDeltaTime
   if atkProg=1
   {
     playSound(global.snd_WindBlow,0,0.9,26000)

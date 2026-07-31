@@ -187,33 +187,33 @@ if global.gamePaused=false
       //---------- Dampen speed ----------
       if xVel>=0.4
       {
-        xVel-=0.2
+        xVel-=0.2*gDeltaTime
         if xVel<=1.2 {if sprite_index=sSeraDashForward or sprite_index=sSeraDashBack {sprite_index=sSeraIdle}}
         if xVel<=0.5 {xVel=0}
       }
       else if xVel<=-0.4
       {
-        xVel+=0.2
+        xVel+=0.2*gDeltaTime
         if xVel>=-1.2 {if sprite_index=sSeraDashForward or sprite_index=sSeraDashBack {sprite_index=sSeraIdle}}
         if xVel>=-0.5 {xVel=0}
       }
 
       if yVel>=0.3
       {
-        yVel-=0.15
+        yVel-=0.15*gDeltaTime
         if yVel<=0.3 {yVel=0}
       }
       else if yVel<=-0.3
       {
-        yVel+=0.15
+        yVel+=0.15*gDeltaTime
         if yVel<=-0.3 {yVel=0}
       }
 
-      x+=xVel; y+=yVel
+      x+=xVel*gDeltaTime; y+=yVel*gDeltaTime
 
       if sprite_index=sSeraDashForward or sprite_index=sSeraDashBack //---------- After-image ----------
       {
-        imageEffect+=1
+        imageEffect+=1*gDeltaTime
         if imageEffect mod 2=0
         {
           var tAfterI;
@@ -224,7 +224,7 @@ if global.gamePaused=false
         }
       }
 
-      waitTime+=1
+      waitTime+=1*gDeltaTime
       if waitTime>=waitDelay
       {
         if actCheck=0 //---------- Choose an action ----------
@@ -289,7 +289,7 @@ if global.gamePaused=false
         }
         else if actCheck=1 //---------- ATTACK: SPEARHEAD RAIN ----------
         {
-          actTime+=1
+          actTime+=1*gDeltaTime
           if actTime=1
           {
             sprite_index=sSeraSpearStabB; image_index=0
@@ -311,8 +311,8 @@ if global.gamePaused=false
               tNewAttack=instance_create(x+(21*image_xscale),y-42,oPassBullet)
               tNewAttack.sprite_index=sSeraSpearhead; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=18
               tNewAttack.decayTime=-100; tNewAttack.image_speed=0.33
-              if image_xscale=1 {tNewAttack.direction=45}
-              else {tNewAttack.direction=135}
+              if image_xscale=1 {tNewAttack._direction=45}
+              else {tNewAttack._direction=135}
             }
           }
           else if actTime=31
@@ -328,7 +328,7 @@ if global.gamePaused=false
         }
         else if actCheck=2 //---------- ATTACK: SHATTERING ICE BLAST ----------
         {
-          actTime+=1
+          actTime+=1*gDeltaTime
           if actTime=1
           {
             sprite_index=sSeraSpearStabC; image_index=0
@@ -348,7 +348,7 @@ if global.gamePaused=false
             tDir=point_direction(x+(21*image_xscale),y-6,oPlayer1.x,282)
             tNewAttack=instance_create(x+(21*image_xscale),y-6,oSeraIceShot)
             tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=10; tNewAttack.type=0
-            tNewAttack.direction=tDir; tNewAttack.image_angle=tDir
+            tNewAttack._direction=tDir; tNewAttack.image_angle=tDir
           }
           else if actTime>=17
           {
@@ -357,7 +357,7 @@ if global.gamePaused=false
         }
         else if actCheck=3 //---------- ATTACK: BIG ICE ----------
         {
-          actTime+=1
+          actTime+=1*gDeltaTime
           if actTime=1
           {
             sprite_index=sSeraSpearStabA; image_index=0
@@ -388,7 +388,7 @@ if global.gamePaused=false
         }
         else if actCheck=4 //---------- ATTACK: DRAGON HEAD ----------
         {
-          actTime+=1
+          actTime+=1*gDeltaTime
           if actTime=1
           {
             playSound(global.snd_Magic,0,0.95,1)
@@ -414,8 +414,8 @@ if global.gamePaused=false
             var tNewAttack;
             tNewAttack=instance_create(x+(25*image_xscale),y-26,oSeraDragon)
             tNewAttack.atkPower=atkPower
-            if image_xscale=1 {tNewAttack.direction=0}
-            else {tNewAttack.direction=180}
+            if image_xscale=1 {tNewAttack._direction=0}
+            else {tNewAttack._direction=180}
           }
           else if actTime>=35
           {
@@ -424,7 +424,7 @@ if global.gamePaused=false
         }
         else if actCheck=5 //---------- ATTACK: SPEAR TWIRLING ICE SHATTER ----------
         {
-          actTime+=1
+          actTime+=1*gDeltaTime
           if actTime=1
           {
             sprite_index=sSeraSpearStabB; image_index=0
@@ -443,8 +443,8 @@ if global.gamePaused=false
             var tNewAttack;
             tNewAttack=instance_create(x-(16*image_xscale),y-44,oSeraShatteringIceBlock)
             tNewAttack.atkPower=atkPower
-            if image_xscale=1 {tNewAttack.direction=0}
-            else {tNewAttack.direction=180}
+            if image_xscale=1 {tNewAttack._direction=0}
+            else {tNewAttack._direction=180}
           }
           else if actTime=25
           {
@@ -463,7 +463,7 @@ if global.gamePaused=false
         }
         else if actCheck=6 //---------- ATTACK: CEILING SHATTER SHOT ----------
         {
-          actTime+=1
+          actTime+=1*gDeltaTime
           if actTime=1
           {
             sprite_index=sSeraSpearStabB; image_index=0
@@ -483,7 +483,7 @@ if global.gamePaused=false
             tDir=point_direction(x+(21*image_xscale),y-42,oPlayer1.x,70)
             tNewAttack=instance_create(x+(21*image_xscale),y-42,oSeraIceShot)
             tNewAttack.sprite_index=sSeraAtkIceA; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=12
-            tNewAttack.type=1; tNewAttack.direction=tDir
+            tNewAttack.type=1; tNewAttack._direction=tDir
           }
           else if actTime>=17
           {
@@ -492,7 +492,7 @@ if global.gamePaused=false
         }
         else if actCheck=7 //---------- ATTACK: FLOOR ICE ----------
         {
-          actTime+=1
+          actTime+=1*gDeltaTime
           if actTime=1
           {
             sprite_index=sSeraSpearStabC; image_index=0
@@ -561,7 +561,7 @@ if global.gamePaused=false
 
 if life<=0 //Defeat animation
 {
-  deathAnim+=1
+  deathAnim+=1*gDeltaTime
   if deathAnim=1
   {
     with oEProjectileBase {instance_destroy()}
@@ -572,7 +572,7 @@ if life<=0 //Defeat animation
   else if deathAnim>=2 and deathAnim<=60
   {
     if deathAnim mod 3=0 {playSound(global.snd_BombExplode,0,0.92,1)}
-    if oGame.time mod 2=0
+    if oGame.time mod (2/gDeltaTime)=0
     {
       var tEffect;
       tEffect=instance_create(x+random_range(-20,20),y-random(40),oEffect)
