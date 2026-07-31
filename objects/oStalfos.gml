@@ -165,8 +165,8 @@ if global.gamePaused=false
     else if bBroken=2
     {
       deathAnim+=1
-      if deathAnim mod 8=0 {playSound(global.snd_BombExplode,0,0.8,1)}
-      if deathAnim mod 3=0
+      if deathAnim mod (8/gDeltaTime)=0 {playSound(global.snd_BombExplode,0,0.8,1)}
+      if deathAnim mod (3/gDeltaTime)=0
       {
         tEffect=instance_create(x+random_range(-13,13),y+random(-32),oEffect)
         tEffect.sprite_index=sDeathFlameA; tEffect.image_speed=0.33
