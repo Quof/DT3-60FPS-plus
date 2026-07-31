@@ -47,10 +47,10 @@ if global.gamePaused=false
       tEffect.direction=random(360); tEffect.speed=random(0.5)+0.5
       tEffect.friction=random(0.01)+0.01; tEffect.fadeSpd=0.035
       tEffect.AccelX=0; tEffect.AccelY=0; tEffect.newBlend=-1; tEffect.followID=-1; tEffect.rotation=0
-    }
 
-    if room=rLowFacR {image_blend=make_color_rgb(160+random(50),160+random(50),160+random(50))}
-    else {image_blend=make_color_rgb(25+random(50),25+random(50),25+random(50))}
+      if room=rLowFacR {image_blend=make_color_rgb(160+random(50),160+random(50),160+random(50))}
+      else {image_blend=make_color_rgb(25+random(50),25+random(50),25+random(50))}
+    }
 
     if decayTime<5000 {decayTime+=1*gDeltaTime}
     if decayTime>=idleTime {instance_destroy()}
