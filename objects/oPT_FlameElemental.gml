@@ -66,20 +66,22 @@ if global.gamePaused=false
     if firstSpawn=0
     {
       if y>=232 {firstSpawn=1}
-      else {y+=8}
+      else {y+=8*gDeltaTime}
     }
     else
     {
-      speed=1.5
-      direction+=2
+      _speed=1.5
+      _direction+=2*gDeltaTime
+      x += cos(degtorad(_direction)) * _speed * gDeltaTime
+      y -= sin(degtorad(_direction)) * _speed * gDeltaTime
 
-      if oGame.time mod 3=0
+      if oGame.time mod (3/gDeltaTime)=0
       {
         if image_xscale=1 {image_xscale=-1}
         else {image_xscale=1}
       }
 
-      waitTime+=1
+      waitTime+=1*gDeltaTime
       if waitTime>=40
       {
         playSound(global.snd_Flame1,0,0.9,29000)
@@ -93,7 +95,7 @@ if global.gamePaused=false
             tNewAttack=instance_create(x,y,oPassBullet)
             tNewAttack.sprite_index=sPT_FE_BigFire; tNewAttack.atkPower=atkPower+1; tNewAttack.decayTime=-100
             tNewAttack.bCanBeBlocked=1; tNewAttack.blockCost=350; tNewAttack.bParryOpp=1; tNewAttack.damageType="ELEMENTAL"
-            tNewAttack.direction=myDir+tDir; tNewAttack.depth=9; tNewAttack.bulletSpeed=4; tNewAttack.image_speed=0.33
+            tNewAttack._direction=myDir+tDir; tNewAttack.depth=9; tNewAttack.bulletSpeed=4; tNewAttack.image_speed=0.33
             tDir+=360/atkAmt
           }
           atkCycle=0
@@ -113,11 +115,11 @@ if global.gamePaused=false
             tNewAttack=instance_create(x,y,oPassBullet)
             tNewAttack.sprite_index=sPT_FE_Fireball; tNewAttack.atkPower=atkPower; tNewAttack.decayTime=-100
             tNewAttack.bCanBeBlocked=1; tNewAttack.blockCost=300; tNewAttack.bParryOpp=1; tNewAttack.damageType="ELEMENTAL"
-            tNewAttack.direction=myDir+tDir; tNewAttack.depth=9; tNewAttack.bulletSpeed=6; tNewAttack.image_speed=0.33
+            tNewAttack._direction=myDir+tDir; tNewAttack.depth=9; tNewAttack.bulletSpeed=6; tNewAttack.image_speed=0.33
             tDir+=360/tAtkSet
           }
         }
-        myDir+=9
+        myDir+=9*gDeltaTime
         waitTime=0
       }
     }
@@ -138,12 +140,12 @@ if global.gamePaused=false
   }
   else if life<=0
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     if deathAnim mod 8=0 {playSound(global.snd_HardHit1,0,0.9,1)}
-    tEffect=instance_create(x+random_range(-14,14),y+random_range(-28,28),oEffect)
+    if gDeltaDoTicks {tEffect=instance_create(x+random_range(-14,14),y+random_range(-28,28),oEffect)
     tEffect.sprite_index=sDeathFlameA; tEffect.image_speed=0.33
     tEffect.image_alpha=0.5+(image_alpha/3)
-    tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+    tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0}
     image_alpha-=0.02*gDeltaTime
     if image_alpha<=0
     {

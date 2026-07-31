@@ -12,7 +12,7 @@ if instrProg!="8" and instrProg!="9"
 }
 
 oPlayer1.initialJumpAcc=-9.4; oPlayer1.jumpTimeTotal=35
-oPlayer1.runAcc=0.8; oPlayer1.frictionRunningX=0.9
+//oPlayer1.runAcc=0.8; oPlayer1.frictionRunningX=0.9
 global.hasShoes[2]=2; global.hasShoes[3]=2
 
 gameScene=instance_create(0,0,oEvExGates)

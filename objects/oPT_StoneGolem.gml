@@ -73,7 +73,7 @@ if global.gamePaused=false
     }
 
     //---------- Hammer Slam ----------
-    hammerTime+=1
+    hammerTime+=1*gDeltaTime
     if hammerTime>=hammerDelay
     {
       if hammerTime=hammerDelay //Change anim
@@ -138,7 +138,7 @@ if global.gamePaused=false
 
     if rockFall>0
     {
-      rockFall+=1
+      rockFall+=1*gDeltaTime
       if rockFall mod 6=0
       {
         var tEffect,tNewAttack,tXX;
@@ -163,7 +163,7 @@ if global.gamePaused=false
       if rockFall>=rockDuration {rockFall=0}
     }
 
-    yVel+=0.5
+    yVel+=0.5*gDeltaTime
     if isCollisionBottom(1)
     {
       yVel=0
@@ -200,7 +200,7 @@ if global.gamePaused=false
     }
     if isCollisionSolid()
       y-=2
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
     if y>room_height+24
     {
       if questType>0 {enemyQuest(questType)}
@@ -223,7 +223,7 @@ if global.gamePaused=false
   }
   else if life<=0
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       with oEProjectileBase {instance_destroy()}

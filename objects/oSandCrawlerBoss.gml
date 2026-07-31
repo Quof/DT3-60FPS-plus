@@ -67,9 +67,9 @@ if global.gamePaused=false
     {
       if biteTime=-1
       {
-        if x>oPlayer1.x and xVel>-5.5 {xVel-=0.33}
-        else if x<oPlayer1.x and xVel<5.5 {xVel+=0.33}
-        x+=xVel
+        if x>oPlayer1.x and xVel>-5.5 {xVel-=0.33*gDeltaTime}
+        else if x<oPlayer1.x and xVel<5.5 {xVel+=0.33*gDeltaTime}
+        x+=xVel*gDeltaTime
 
         var tEffect;
         if x<=208 or x>=432 {tEffect=instance_create(x+random_range(-32,32),896+random(32),oEffect)}
@@ -77,7 +77,7 @@ if global.gamePaused=false
         tEffect.sprite_index=sMMSmokeCloud; tEffect.image_speed=0.1+random(0.2); tEffect.image_alpha=0.6; tEffect.depth=9
         tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=-0.5-random(1); tEffect.image_blend=c_orange
 
-        if oGame.time mod 18=0 and bossProgress=2
+        if oGame.time mod (18/gDeltaTime)=0 and bossProgress=2
         {
           var tAtk,tYY;
           if x<=208 or x>=432 {tYY=928}
@@ -86,7 +86,7 @@ if global.gamePaused=false
           tAtk.sprite_index=sRobotExplosion; tAtk.image_index=1; tAtk.image_speed=0; tAtk.image_blend=c_orange
           tAtk.yVel=-9; tAtk.atkPower=8
         }
-        else if oGame.time mod 24=0 and bossProgress=3
+        else if oGame.time mod (24/gDeltaTime)=0 and bossProgress=3
         {
           var tAtk,tYY;
           if x<=208 or x>=432 {tYY=928}
@@ -110,7 +110,7 @@ if global.gamePaused=false
         visible=1
       }
 
-      biteTime+=1
+      biteTime+=1*gDeltaTime
       if biteTime=8
       {
         sprite_index=sSandCrawlerBite
@@ -175,7 +175,7 @@ if global.gamePaused=false
     else if deathAnim>=2 and deathAnim<=90
     {
       if deathAnim mod 6=0 {playSound(global.snd_EnemyDieMM,0,1,1)}
-      if oGame.time mod 2=0
+      if oGame.time mod (2/gDeltaTime)=0
       {
         var tEffect;
         tEffect=instance_create(x-50+random(100),y-random(64),oEffect)

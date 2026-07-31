@@ -31,12 +31,12 @@ if global.gamePaused=false
 {
   atkTime+=1*gDeltaTime
   //Orbit
-  if moveSpd>0 {myDir-=3}
-  else {myDir+=3}
+  if moveSpd>0 {myDir-=3*gDeltaTime}
+  else {myDir+=3*gDeltaTime}
   //Spread
-  if myDist<104 {myDist+=2}
+  if myDist<104 {myDist+=2*gDeltaTime}
   //Movement
-  myX+=moveSpd
+  myX+=moveSpd*gDeltaTime
   x=myX+lengthdir_x(myDist,myDir)
   y=myY+lengthdir_y(myDist,myDir)
 }

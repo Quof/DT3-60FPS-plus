@@ -94,11 +94,11 @@ if global.gamePaused=false
   {
     if bWave=1
     {
-      moveWaveY+=0.05
-      y+=sin(moveWaveY)
+      moveWaveY+=0.05*gDeltaTime
+      y+=sin(moveWaveY)*gDeltaTime
     }
 
-    moveTime+=1
+    moveTime+=1*gDeltaTime
     if moveBehavior=0 //idle
     {
       if moveTime>=360
@@ -121,21 +121,21 @@ if global.gamePaused=false
     {
       if x>oPlayer1.x
       {
-        if xSpd>-maxSpd {xSpd-=0.2}
+        if xSpd>-maxSpd {xSpd-=0.2*gDeltaTime}
       }
       else if x<oPlayer1.x
       {
-        if xSpd<maxSpd {xSpd+=0.2}
+        if xSpd<maxSpd {xSpd+=0.2*gDeltaTime}
       }
       if y>oPlayer1.y-26
       {
-        if ySpd>-maxSpd {ySpd-=0.2}
+        if ySpd>-maxSpd {ySpd-=0.2*gDeltaTime}
       }
       else if y<oPlayer1.y-26
       {
-        if ySpd<maxSpd {ySpd+=0.2}
+        if ySpd<maxSpd {ySpd+=0.2*gDeltaTime}
       }
-      x+=xSpd; y+=ySpd
+      x+=xSpd*gDeltaTime; y+=ySpd*gDeltaTime
 
       if moveTime>=360
       {
@@ -153,11 +153,14 @@ if global.gamePaused=false
       }
       else if moveTime>=25
       {
-        direction=point_direction(x,y,xSpd,ySpd)
-        speed=4
+        _direction=point_direction(x,y,xSpd,ySpd)
+        _speed=4
+        x += cos(degtorad(_direction)) * _speed * gDeltaTime
+        y -= sin(degtorad(_direction)) * _speed * gDeltaTime
+
         if point_distance(x,y,xSpd,ySpd)<5
         {
-          speed=0
+          _speed=0
           xSpd=0; ySpd=0
           moveBehavior=0
           bWave=1
@@ -168,7 +171,7 @@ if global.gamePaused=false
     }
 
     //-------------------- ATTACK: LINEAR GUN SHOT --------------------
-    if moveBehavior=0 {gunShotTime+=1}
+    if moveBehavior=0 {gunShotTime+=1*gDeltaTime}
     if gunShotTime>=gunShotDelay and gunShotTime<=gunShotDelay+100
     {
       gunShotTime=10000
@@ -179,7 +182,7 @@ if global.gamePaused=false
     else if gunShotTime>=10010 {gunShotTime=0} //end attack
 
     //-------------------- ATTACK: SPAM GUN --------------------
-    spamGunTime+=1
+    spamGunTime+=1*gDeltaTime
     if spamGunTime>=spamGunDelay and spamGunTime<=spamGunDelay+100
     {
       spamEffA=instance_create(x-(51*facing),y+23,oEffect)
@@ -206,12 +209,12 @@ if global.gamePaused=false
         tAtk=instance_create(x-(51*facing),y+23+tRanY,oPassBullet)
         tAtk.sprite_index=sMetNightGunEffect; tAtk.atkPower=atkPower; tAtk.bulletSpeed=5; tAtk.decayTime=-100
         tAtk.image_xscale=0.75; tAtk.image_yscale=0.75; tAtk.image_speed=0; tAtk.depth=6; tAtk.image_xscale=2; tAtk.image_yscale=0.5
-        tAtk.direction=point_direction(x-(51*facing),y+23+tRanY,oPlayer1.x,oPlayer1.y-26)
+        tAtk._direction=point_direction(x-(51*facing),y+23+tRanY,oPlayer1.x,oPlayer1.y-26)
         tRanY=random_range(-9,9)
         tAtk=instance_create(x-(18*facing),y+37+tRanY,oPassBullet)
         tAtk.sprite_index=sMetNightGunEffect; tAtk.atkPower=atkPower; tAtk.bulletSpeed=5; tAtk.decayTime=-100
         tAtk.image_xscale=0.75; tAtk.image_yscale=0.75; tAtk.image_speed=0; tAtk.depth=6; tAtk.image_xscale=2; tAtk.image_yscale=0.5
-        tAtk.direction=point_direction(x-(18*facing),y+37+tRanY,oPlayer1.x,oPlayer1.y-26)
+        tAtk._direction=point_direction(x-(18*facing),y+37+tRanY,oPlayer1.x,oPlayer1.y-26)
       }
     }
     else if spamGunTime>=10031+spamGunDuration //end attack
@@ -222,7 +225,7 @@ if global.gamePaused=false
     //-------------------- UTILITY: CREATE GRAVITY DEVICE --------------------
     if bGravExist=0
     {
-      gravTime+=1
+      gravTime+=1*gDeltaTime
       if gravTime>=gravDelay
       {
         myGravDev=instance_create(x,y,oNightmareParts)
@@ -296,7 +299,7 @@ if global.gamePaused=false
   }
   else if life<=0 //Defeat animation
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       bCanDealDamage=false
@@ -307,7 +310,7 @@ if global.gamePaused=false
     else if deathAnim>=2 and deathAnim<=90
     {
       if deathAnim mod 6=0 {playSound(global.snd_EnemyDieMM,0,1,1)}
-      if oGame.time mod 2=0
+      if oGame.time mod (2/gDeltaTime)=0
       {
         var tEffect;
         tEffect=instance_create(x-24+random(48),y-random(48),oEffect)
@@ -331,7 +334,7 @@ if global.gamePaused=false
     }
   }
 }
-else {speed=0}
+else {_speed=0}
 
 myBody.x=x+(4*facing); myBody.y=y-27; myBody.image_xscale=facing; myBody.image_blend=image_blend
 myRightArm.x=x+(22*facing); myRightArm.y=y+5; myRightArm.image_xscale=facing; myRightArm.image_blend=image_blend
@@ -361,8 +364,8 @@ tEffect.followID=id; tEffect.xFollow=-gunX*facing; tEffect.yFollow=gunY
 tAtk=instance_create(x-(gunX*facing),y+gunY,oPassBullet)
 tAtk.sprite_index=sMetNightGunEffect; tAtk.atkPower=atkPower; tAtk.bulletSpeed=5; tAtk.decayTime=-100
 tAtk.image_xscale=0.75; tAtk.image_yscale=0.75; tAtk.image_speed=0; tAtk.depth=6
-if facing=1 {tAtk.direction=0}
-else {tAtk.direction=180}
+if facing=1 {tAtk._direction=0}
+else {tAtk._direction=180}
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

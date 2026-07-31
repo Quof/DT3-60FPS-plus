@@ -91,17 +91,17 @@ if global.gamePaused=false
         {
           if x<oPlayer1.x
           {
-            if x>xCenter-(roomSpan-104) {x-=1}
+            if gDeltaDoTicks and x>xCenter-(roomSpan-104) {x-=1}
           }
           else if x>oPlayer1.x
           {
-            if x<xCenter+(roomSpan-104) {x+=1}
+            if gDeltaDoTicks and x<xCenter+(roomSpan-104) {x+=1}
           }
         }
       }
 
       //-------------------- ATTACK: MOUTH FLAME --------------------
-      mouthFlameTime+=1
+      mouthFlameTime+=1*gDeltaTime
       if mouthFlameTime>=mouthFlameDelay and mouthFlameTime<=mouthFlameDelay+100 //Trigger attack
       {
         mouthOpen=1
@@ -112,24 +112,24 @@ if global.gamePaused=false
       {
         if sideStart=1
         {
-          x-=6
+          x-=6*gDeltaTime
           if x<xCenter-(roomSpan-56) {mouthFlameTime=10100}
         }
         else if sideStart=2
         {
-          x+=6
+          x+=6*gDeltaTime
           if x>xCenter+(roomSpan-56) {mouthFlameTime=10100}
         }
 
         if specialAttack=0
         {
-          if y>yCenter-32 {y-=4}
-          else {y+=4}
+          if y>yCenter-32 {y-=4*gDeltaTime}
+          else {y+=4*gDeltaTime}
         }
         else if specialAttack=2
         {
-          if y>yCenter-64 {y-=4}
-          else {y+=4}
+          if y>yCenter-64 {y-=4*gDeltaTime}
+          else {y+=4*gDeltaTime}
         }
       }
       else if mouthFlameTime>=10120 and mouthFlameTime<=10299 //Glide across room
@@ -138,35 +138,35 @@ if global.gamePaused=false
         var tPoison;
         tPoison=instance_create(x+random_range(-3,3),y+random_range(-3,3),oM_PoisonBreath)
         tPoison.atkPower=atkPower; tPoison.bulletSpeed=5+random(2); tPoison.depth=24
-        tPoison.animSpeed=0.25; tPoison.direction=270+random_range(-5,5); tPoison.image_blend=c_maroon
+        tPoison.animSpeed=0.25; tPoison._direction=270+random_range(-5,5); tPoison.image_blend=c_maroon
 
         if sideStart=1
         {
-          x+=3
+          x+=3*gDeltaTime
           if x>xCenter+(roomSpan-56) {mouthFlameTime=10300}
         }
         else if sideStart=2
         {
-          x-=3
+          x-=3*gDeltaTime
           if x<xCenter-(roomSpan-56) {mouthFlameTime=10300}
         }
       }
       else if mouthFlameTime=10301 {mouthOpen=0}
       else if mouthFlameTime>=10302 //Reset head position and end attack
       {
-        if x<xCenter {x+=4}
-        else {x-=4}
+        if x<xCenter {x+=4*gDeltaTime}
+        else {x-=4*gDeltaTime}
         if specialAttack=0
         {
-          if y<yCenter {y+=4}
-          else {y-=4}
+          if y<yCenter {y+=4*gDeltaTime}
+          else {y-=4*gDeltaTime}
           var tCentDist;
           tCentDist=point_distance(x,y,xCenter,yCenter)
         }
         else if specialAttack=2
         {
-          if y<yCenter-80 {y+=4}
-          else {y-=4}
+          if y<yCenter-80 {y+=4*gDeltaTime}
+          else {y-=4*gDeltaTime}
           var tCentDist;
           tCentDist=point_distance(x,y,xCenter,yCenter-80)
         }
@@ -181,7 +181,7 @@ if global.gamePaused=false
       }
 
       //-------------------- ATTACK: EYE LASER --------------------
-      eyeLaserTime+=1
+      eyeLaserTime+=1*gDeltaTime
       if eyeLaserTime>=eyeLaserDelay and eyeLaserTime<=eyeLaserDelay+100 //Trigger attack
       {
         var tEffect;
@@ -202,17 +202,17 @@ if global.gamePaused=false
         var tNewAttack;
         tNewAttack=instance_create(x+14,y-26,oPassBullet)
         tNewAttack.sprite_index=sLB_Laser; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
-        tNewAttack.decayTime=-100; tNewAttack.direction=point_direction(x+14,y-26,oPlayer1.x,oPlayer1.y-26)
+        tNewAttack.decayTime=-100; tNewAttack._direction=point_direction(x+14,y-26,oPlayer1.x,oPlayer1.y-26)
         tNewAttack.image_angle=point_direction(x+14,y-26,oPlayer1.x,oPlayer1.y-26)
         tNewAttack=instance_create(x-14,y-26,oPassBullet)
         tNewAttack.sprite_index=sLB_Laser; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
-        tNewAttack.decayTime=-100; tNewAttack.direction=point_direction(x+14,y-26,oPlayer1.x,oPlayer1.y-26)
+        tNewAttack.decayTime=-100; tNewAttack._direction=point_direction(x+14,y-26,oPlayer1.x,oPlayer1.y-26)
         tNewAttack.image_angle=point_direction(x+14,y-26,oPlayer1.x,oPlayer1.y-26)
         eyeLaserTime=0
       }
 
       //-------------------- ATTACK: LIGHTNING --------------------
-      lightningTime+=1
+      lightningTime+=1*gDeltaTime
       if lightningTime>=lightningDelay and lightningTime<=lightningDelay+100 //Trigger attack
       {
         var tEffect;
@@ -234,7 +234,7 @@ if global.gamePaused=false
           var tNewAttack;
           tNewAttack=instance_create(choose(112,176,240,304,368),1040,oPassBullet)
           tNewAttack.sprite_index=sMalevLightning; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=4.5
-          tNewAttack.decayTime=300; tNewAttack.direction=270
+          tNewAttack.decayTime=300; tNewAttack._direction=270
         }
       }
       else if lightningTime>=10031+lightningLength //End attack
@@ -244,7 +244,7 @@ if global.gamePaused=false
 
       if firePillar=1 or firePillar=3 or firePillar=5 or firePillar=7
       {
-        firePTime+=1
+        firePTime+=1*gDeltaTime
         if firePTime=1
         {
           var tWarnSign;
@@ -276,7 +276,7 @@ if global.gamePaused=false
     }
     else if specialAttack=1 //Special Attack
     {
-      specTime+=1
+      specTime+=1*gDeltaTime
       if specTime=1 //Init
       {
         eyeFrm=-1
@@ -286,10 +286,10 @@ if global.gamePaused=false
       }
       else if specTime>=2 and specTime<=99 //Go to center -112,176,240,304,368
       {
-        if x<xCenter {x+=4}
-        else {x-=4}
-        if y<yCenter-64 {y+=4}
-        else {y-=4}
+        if x<xCenter {x+=4*gDeltaTime}
+        else {x-=4*gDeltaTime}
+        if y<yCenter-64 {y+=4*gDeltaTime}
+        else {y-=4*gDeltaTime}
         var tCentDist;
         tCentDist=point_distance(x,y,xCenter,yCenter-64)
         if tCentDist<=2
@@ -376,7 +376,7 @@ if global.gamePaused=false
 
 if life<=0 //Defeat animation
 {
-  deathAnim+=1
+  deathAnim+=1*gDeltaTime
   if deathAnim=1
   {
     with oEProjectileBase {instance_destroy()}
@@ -385,7 +385,7 @@ if life<=0 //Defeat animation
   else if deathAnim>=2 and deathAnim<=90
   {
     if deathAnim mod 3=0 {playSound(global.snd_BombExplode,0,0.92,1)}
-    if oGame.time mod 2=0
+    if oGame.time mod (2/gDeltaTime)=0
     {
       var tEffect;
       tEffect=instance_create((x-sprite_width/2)+random(sprite_width),(y-sprite_height/2)+random(sprite_height),oEffect)
@@ -413,7 +413,7 @@ playSound(global.snd_OrbThrow,0,0.95,1)
 var tNewAttack;
 tNewAttack=instance_create(specX,1040,oPassBullet)
 tNewAttack.sprite_index=sMalevLightning; tNewAttack.atkPower=atkPower
-tNewAttack.bulletSpeed=4; tNewAttack.decayTime=300; tNewAttack.direction=270
+tNewAttack.bulletSpeed=4; tNewAttack.decayTime=300; tNewAttack._direction=270
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

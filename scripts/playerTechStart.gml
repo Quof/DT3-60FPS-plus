@@ -806,7 +806,7 @@ else if global.activeCharacter=1 //---------------------------------------- Clai
 
         playerAttack=instance_create(x,y-8,oSamusBomb)
         playerAttack.bombType=1; playerAttack.bounces=2
-        playerAttack.xVel=1; playerAttack.yVel=4
+        playerAttack.xVel=1*2; playerAttack.yVel=4
 
         playerAttack=instance_create(x,y-8,oSamusBomb)
         playerAttack.bombType=1; playerAttack.bounces=2

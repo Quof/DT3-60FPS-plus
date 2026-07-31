@@ -93,7 +93,7 @@ if global.gamePaused=false
 
     if meteor<metStormFreq
     {
-      waitTime+=1
+      waitTime+=1*gDeltaTime
       if waitTime>=waitDelay
       {
         if actCheck=0 //---------- Choose an action ----------
@@ -183,8 +183,8 @@ if global.gamePaused=false
         }
         else if actCheck=1 //---------- Jump ----------
         {
-          actTime+=1
-          if actTime=1
+          actTime+=1*gDeltaTime
+          if actTime=1*gDeltaTime
           {
             xVel=3*image_xscale
             y-=2
@@ -201,8 +201,8 @@ if global.gamePaused=false
         }
         else if actCheck=2 //---------- Dash back ----------
         {
-          actTime+=1
-          if actTime=1
+          actTime+=1*gDeltaTime
+          if actTime=1*gDeltaTime
           {
             xVel=4*-image_xscale
             sprite_index=sSeph_DashBack
@@ -218,8 +218,8 @@ if global.gamePaused=false
         }
         else if actCheck=3 //---------- Teleport ----------
         {
-          actTime+=1
-          if actTime=1
+          actTime+=1*gDeltaTime
+          if actTime=1*gDeltaTime
           {
             sprite_index=sSeph_Teleport
             bCanTakeDamage=false
@@ -261,7 +261,7 @@ if global.gamePaused=false
     }
     else //---------- Meteor attack ----------
     {
-      actTime+=1
+      actTime+=1*gDeltaTime
       if actTime=1
       {
         sprite_index=sSeph_Summon
@@ -310,7 +310,7 @@ if global.gamePaused=false
       }
     }
 
-    if meteor<metStormFreq {yVel+=0.4}
+    if meteor<metStormFreq {yVel+=0.4*gDeltaTime}
     if isCollisionBottom(1)
     {
       if currentAtk=3 and yVel>6 {xVel=0; actTime=100}
@@ -327,7 +327,7 @@ if global.gamePaused=false
     if isCollisionSolid()
       y-=2
 
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
 
     //---------- Boss Difficulty Curve ----------
     if lifePercent<=0.83 and lifePercent>=0.66 and bossProgress=0
@@ -377,7 +377,7 @@ if global.gamePaused=false
   }
   else if life<=0 //Defeat animation
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       with oSephAtk {instance_destroy()}
@@ -397,7 +397,7 @@ if global.gamePaused=false
     }
     else if deathAnim>=2 and deathAnim<=75
     {
-      if oGame.time mod 2=0
+      if oGame.time mod (2/gDeltaTime)=0
       {
         var tEffect;
         tEffect=instance_create((x-sprite_width/2)+random(sprite_width),(y-sprite_height)+random(sprite_height),oEffect)
@@ -430,7 +430,7 @@ applies_to=self
 */
 //-- ATK A: FORWARD VERTICAL SLASH --
 //Attack is faster after a back dash or teleport
-actTime+=1
+actTime+=1*gDeltaTime
 if actTime=1
 {
   xVel=0

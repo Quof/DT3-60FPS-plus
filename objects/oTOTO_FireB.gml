@@ -28,8 +28,10 @@ applies_to=self
 if global.gamePaused=false
 {
   atkTime+=1*gDeltaTime
-  speed=mySpd
-  image_angle=direction
+  _speed=mySpd
+  image_angle=_direction
+  x += cos(degtorad(_direction)) * _speed * gDeltaTime
+  y -= sin(degtorad(_direction)) * _speed * gDeltaTime
   if isCollisionSolid()
   {
     myAtk=instance_create(x,y,oDamageExplosion)
@@ -39,7 +41,7 @@ if global.gamePaused=false
     instance_destroy()
   }
 }
-else {speed=0}
+else {_speed=0}
 #define Other_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

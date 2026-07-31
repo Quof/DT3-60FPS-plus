@@ -31,6 +31,8 @@ jeremyText="These seek you out very similar to the homing missiles you've come a
 chaoText="These are also from 'Beyond Oasis'."
 devText="While this wasn't in the screenshot with the Unforgotten way back in the day. What idea I did have, it involved spawning minions to do most of the work for it. Maybe 'A Forgotten Spawn' isn't the most appropriate name..."
 alarm[0]=1
+
+_direction=0
 #define Alarm_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -70,37 +72,41 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  speed=moveSpd
-  image_angle=direction
+  _speed=moveSpd
+  image_angle=_direction
+
   if bActive=true and life>0
   {
     diff=angle_difference(image_angle,player_sprite_center())
     if diff<18 and diff>-18
     {
-      if moveSpd<2 {moveSpd+=0.1}
-      else if moveSpd>2 {moveSpd-=0.1}
+      if moveSpd<2 {moveSpd+=0.1*gDeltaTime}
+      else if moveSpd>2 {moveSpd-=0.1*gDeltaTime}
     }
     else
     {
-      if moveSpd>1 {moveSpd-=0.1}
+      if moveSpd>1 {moveSpd-=0.1*gDeltaTime}
     }
-    turn_toward_direction(player_sprite_center(),3)
+    turn_toward_directionEdit(player_sprite_center(),3)
   }
   else if life<=0
   {
-    deathAnim+=1
-    speed=0
+    deathAnim+=1*gDeltaTime
+    _speed=0
     if deathAnim mod 4=0
     {
       if deathAnim mod 8=0 {playSound(global.snd_HardHit1,0,0.9,1)}
-      tEffect=instance_create(x+random_range(-13,13),y+random_range(-13,13),oEffect)
+      if gDeltaDoTicks {tEffect=instance_create(x+random_range(-13,13),y+random_range(-13,13),oEffect)
       tEffect.sprite_index=sDeathFlameA; tEffect.image_speed=0.33
       tEffect.image_alpha=0.5+(image_alpha/3)
-      tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+      tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0}
     }
     image_alpha-=0.04*gDeltaTime
     if image_alpha<0 {instance_destroy()}
   }
   enemyStepEvent()
 }
-else {speed=0}
+else {_speed=0}
+
+x += cos(degtorad(_direction)) * _speed * gDeltaTime
+y -= sin(degtorad(_direction)) * _speed * gDeltaTime

@@ -70,7 +70,7 @@ if global.gamePaused=false
 
   if bActive=true and life>0
   {
-    waitTime+=1
+    waitTime+=1*gDeltaTime
     if waitTime>=5 and flythrough<=1
     {
       event_user(0) //Movement cycles
@@ -78,18 +78,18 @@ if global.gamePaused=false
     }
     else if flythrough>=2 //Fly through arena
     {
-      flythrough+=1
+      flythrough+=1*gDeltaTime
       if flythrough>=6 and flythrough<=30
       {
-        if flythrough mod 2=0 {y+=2} else {y-=2}
+        if flythrough mod (2*gDeltaTime)=0 {y+=2} else {y-=2}
       }
       else if flythrough>=31 and flythrough<=200
       {
-        if moveCycle=1 {x-=12}
-        else if moveCycle=2 {x+=12; y-=9.6}
-        else if moveCycle=3 {x-=12; y-=9.6}
-        else if moveCycle=4 {x+=12}
-        else if moveCycle=5 {y+=12}
+        if moveCycle=1 {x-=12*gDeltaTime}
+        else if moveCycle=2 {x+=12*gDeltaTime; y-=9.6*gDeltaTime}
+        else if moveCycle=3 {x-=12*gDeltaTime; y-=9.6*gDeltaTime}
+        else if moveCycle=4 {x+=12*gDeltaTime}
+        else if moveCycle=5 {y+=12*gDeltaTime}
         if x<=-312 or x>=room_width+312 or y<=-312 or y>=room_height+312 {flythrough=200}
       }
       else if flythrough>=205
@@ -130,10 +130,10 @@ if global.gamePaused=false
     }
 
     if deathAnim mod 8=0 {playSound(global.snd_HardHit1,0,0.9,1)}
-    tEffect=instance_create(x+random_range(-300,100),y+random_range(-72,72),oEffect)
+    if gDeltaDoTicks {tEffect=instance_create(x+random_range(-300,100),y+random_range(-72,72),oEffect)
     tEffect.sprite_index=sDeathFlameA; tEffect.image_speed=0.33
     tEffect.image_alpha=0.5+(image_alpha/3)
-    tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+    tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0}
     image_alpha-=0.02*gDeltaTime
     if image_alpha<=0
     {
@@ -170,7 +170,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-moveTime+=1
+moveTime+=1*gDeltaTime
 if moveCycle=1 //-------------------- Upper right --------------------
 {
   if moveTime=1
@@ -180,13 +180,13 @@ if moveCycle=1 //-------------------- Upper right --------------------
   }
   else if moveTime>=2 and moveTime<=99
   {
-    x-=moveSpd
+    x-=moveSpd*gDeltaTime
     if x<=560 {moveTime=100}
   }
   else if moveTime=110 {attackTime=1}
   else if moveTime>=1011
   {
-    x+=moveSpd
+    x+=moveSpd*gDeltaTime
     if x>=736
     {
       moveCycle=2
@@ -205,13 +205,13 @@ else if moveCycle=2 //-------------------- Lower left --------------------
   }
   else if moveTime>=2 and moveTime<=99
   {
-    x+=moveSpd; y-=moveSpd*0.8
+    x+=moveSpd*gDeltaTime; y-=moveSpd*0.8*gDeltaTime
     if x>=176 {moveTime=100}
   }
   else if moveTime=110 {attackTime=1}
   else if moveTime>=1011
   {
-    x-=moveSpd; y+=moveSpd*0.8
+    x-=moveSpd*gDeltaTime; y+=moveSpd*0.8*gDeltaTime
     if x<=0
     {
       image_angle=0
@@ -231,13 +231,13 @@ else if moveCycle=3 //-------------------- Lower right --------------------
   }
   else if moveTime>=2 and moveTime<=99
   {
-    x-=moveSpd; y-=moveSpd*0.8
+    x-=moveSpd*gDeltaTime; y-=moveSpd*0.8*gDeltaTime
     if x<=560 {moveTime=100}
   }
   else if moveTime=110 {attackTime=1}
   else if moveTime>=1011
   {
-    x+=moveSpd; y+=moveSpd*0.8
+    x+=moveSpd*gDeltaTime; y+=moveSpd*0.8*gDeltaTime
     if x>=736
     {
       image_angle=0
@@ -256,13 +256,13 @@ else if moveCycle=4 //-------------------- Upper left --------------------
   }
   else if moveTime>=2 and moveTime<=99
   {
-    x+=moveSpd
+    x+=moveSpd*gDeltaTime
     if x>=176 {moveTime=100}
   }
   else if moveTime=110 {attackTime=1}
   else if moveTime>=1011
   {
-    x-=moveSpd
+    x-=moveSpd*gDeltaTime
     if x<=0
     {
       moveCycle=5
@@ -281,18 +281,18 @@ else if moveCycle=5 //-------------------- Top --------------------
   }
   else if moveTime>=2 and moveTime<=99
   {
-    y+=moveSpd
+    y+=moveSpd*gDeltaTime
     if y>=20 {moveTime=100}
   }
   else if moveTime>=105 and moveTime<=145
   {
-    if x+8<oPlayer1.x {x+=moveSpd}
-    else if x-8>oPlayer1.x {x-=moveSpd}
+    if x+8<oPlayer1.x {x+=moveSpd*gDeltaTime}
+    else if x-8>oPlayer1.x {x-=moveSpd*gDeltaTime}
   }
   else if moveTime=155 {attackTime=1}
   else if moveTime>=1011
   {
-    y-=moveSpd
+    y-=moveSpd*gDeltaTime
     if y<=-128
     {
       image_angle=0
@@ -308,12 +308,12 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if attackTime>0{attackTime+=1}
+if attackTime>0{attackTime+=1*gDeltaTime}
 if attackCycle=1 //-------------------- [RED] Lunge Attack --------------------
 {
   if attackTime>=1 and attackTime<=10
   {
-    colG-=15; colB-=15
+    colG-=15*gDeltaTime; colB-=15*gDeltaTime
     baseColor=make_color_rgb(colR,colG,colB)
     image_blend=baseColor
   }
@@ -326,23 +326,23 @@ if attackCycle=1 //-------------------- [RED] Lunge Attack --------------------
     }
     else if attackTime=40 {bParryOpp=0}
 
-    if moveCycle=1 {x-=12}
-    else if moveCycle=2 {x+=12; y-=9.6}
-    else if moveCycle=3 {x-=12; y-=9.6}
-    else if moveCycle=4 {x+=12}
-    else if moveCycle=5 {y+=12}
+    if moveCycle=1 {x-=12*gDeltaTime}
+    else if moveCycle=2 {x+=12*gDeltaTime; y-=9.6*gDeltaTime}
+    else if moveCycle=3 {x-=12*gDeltaTime; y-=9.6*gDeltaTime}
+    else if moveCycle=4 {x+=12*gDeltaTime}
+    else if moveCycle=5 {y+=12*gDeltaTime}
   }
   else if attackTime>=41 and attackTime<=50 //Pull back
   {
-    if moveCycle=1 {x+=12}
-    else if moveCycle=2 {x-=12; y+=9.6}
-    else if moveCycle=3 {x+=12; y+=9.6}
-    else if moveCycle=4 {x-=12}
-    else if moveCycle=5 {y-=12}
+    if moveCycle=1 {x+=12*gDeltaTime}
+    else if moveCycle=2 {x-=12*gDeltaTime; y+=9.6*gDeltaTime}
+    else if moveCycle=3 {x+=12*gDeltaTime; y+=9.6*gDeltaTime}
+    else if moveCycle=4 {x-=12*gDeltaTime}
+    else if moveCycle=5 {y-=12*gDeltaTime}
   }
   else if attackTime>=51 and attackTime<=60
   {
-    colG+=15; colB+=15
+    colG+=15*gDeltaTime; colB+=15*gDeltaTime
     if attackTime=60 {colR=255; colG=255; colB=255}
     baseColor=make_color_rgb(colR,colG,colB)
     image_blend=baseColor
@@ -359,7 +359,7 @@ else if attackCycle=2 //-------------------- [BLUE] Projectile Spam ------------
 {
   if attackTime>=1 and attackTime<=10
   {
-    colR-=15; colG-=15
+    colR-=15*gDeltaTime; colG-=15*gDeltaTime
     baseColor=make_color_rgb(colR,colG,colB)
     image_blend=baseColor
   }
@@ -375,12 +375,12 @@ else if attackCycle=2 //-------------------- [BLUE] Projectile Spam ------------
       tNewAttack=instance_create(x,y,oPassBullet)
       tNewAttack.sprite_index=sFireEyeFire; tNewAttack.atkPower=atkPower; tNewAttack.decayTime=-100
       tNewAttack.bCanBeBlocked=1; tNewAttack.blockCost=300; tNewAttack.bParryOpp=1; tNewAttack.damageType="ELEMENTAL"
-      tNewAttack.direction=tDir; tNewAttack.bulletSpeed=7; tNewAttack.depth=26
+      tNewAttack._direction=tDir; tNewAttack.bulletSpeed=7; tNewAttack.depth=26
     }
   }
   else if attackTime>=91 and attackTime<=100
   {
-    colR+=15; colG+=15
+    colR+=15*gDeltaTime; colG+=15*gDeltaTime
     if attackTime=100 {colR=255; colG=255; colB=255}
     baseColor=make_color_rgb(colR,colG,colB)
     image_blend=baseColor
@@ -398,7 +398,7 @@ else if attackCycle=3 //-------------------- [GREEN] Summon 'Forgotten Spawns' -
 {
   if attackTime>=1 and attackTime<=10
   {
-    colR-=15; colB-=15
+    colR-=15*gDeltaTime; colB-=15*gDeltaTime
     baseColor=make_color_rgb(colR,colG,colB)
     image_blend=baseColor
   }
@@ -419,7 +419,7 @@ else if attackCycle=3 //-------------------- [GREEN] Summon 'Forgotten Spawns' -
   }
   else if attackTime>=201 and attackTime<=210
   {
-    colR+=15; colB+=15
+    colR+=15*gDeltaTime; colB+=15*gDeltaTime
     if attackTime=210 {colR=255; colG=255; colB=255}
     baseColor=make_color_rgb(colR,colG,colB)
     image_blend=baseColor

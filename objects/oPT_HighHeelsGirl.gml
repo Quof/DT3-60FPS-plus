@@ -86,10 +86,10 @@ if global.gamePaused=false
     {
       if x>oPlayer1.x {image_xscale=-1}
       else {image_xscale=1}
-      image_index+=0.2
+      image_index+=0.2*gDeltaTime
     }
 
-    waitTime+=1
+    waitTime+=1*gDeltaTime
     if waitTime>=waitDelay
     {
       if actCheck=0 //---------- Choose an action ----------
@@ -150,7 +150,7 @@ if global.gamePaused=false
       }
       else if actCheck=1 //---------- Jump ----------
       {
-        actTime+=1
+        actTime+=1*gDeltaTime
         if actTime=1
         {
           xVel=3*image_xscale
@@ -168,7 +168,7 @@ if global.gamePaused=false
       }
       else if actCheck=2 //---------- Dash back ----------
       {
-        actTime+=1
+        actTime+=1*gDeltaTime
         if actTime=1
         {
           xVel=3.5*-image_xscale
@@ -189,7 +189,7 @@ if global.gamePaused=false
       }
       else if actCheck=3 //---------- Dash forward ----------
       {
-        actTime+=1
+        actTime+=1*gDeltaTime
         if actTime=1
         {
           xVel=6*image_xscale
@@ -213,12 +213,12 @@ if global.gamePaused=false
 
     if slowVel=1 //Slow down a dash
     {
-      if xVel>1 {xVel-=0.33}
-      else if xVel<-1 {xVel+=0.33}
+      if xVel>1 {xVel-=0.33*gDeltaTime}
+      else if xVel<-1 {xVel+=0.33*gDeltaTime}
       else {xVel=0; slowVel=0}
     }
 
-    yVel+=0.4
+    yVel+=0.4*gDeltaTime
     if isCollisionBottom(1)
     {
       yVel=0
@@ -234,7 +234,7 @@ if global.gamePaused=false
     if isCollisionSolid()
       y-=2
 
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
 
     //---------- Boss Difficulty Curve ----------
     if lifePercent<=0.83 and lifePercent>=0.66 and bossProgress=0
@@ -261,7 +261,7 @@ if global.gamePaused=false
   }
   else if life<=0 //Defeat animation
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       with oEProjectileBase {instance_destroy()}
@@ -270,7 +270,7 @@ if global.gamePaused=false
     }
     else if deathAnim>=2 and deathAnim<=49
     {
-      if oGame.time mod 2=0
+      if oGame.time mod (2/gDeltaTime)=0
       {
         var tEffect;
         tEffect=instance_create((x-sprite_width/2)+random(sprite_width),(y-sprite_height)+random(sprite_height),oEffect)
@@ -303,7 +303,7 @@ applies_to=self
 */
 //-- ATK A: FORWARD HORIZONTAL SLASH --
 
-actTime+=1
+actTime+=1*gDeltaTime
 if actTime=1
 {
   slowVel=1
@@ -343,7 +343,7 @@ if actTime>=15 and actTime<=28 and actTime mod 3=0
   playSound(global.snd_DeathSlash,0,0.96,41000)
 }
 
-actTime+=1
+actTime+=1*gDeltaTime
 if actTime=1
 {
   slowVel=1
