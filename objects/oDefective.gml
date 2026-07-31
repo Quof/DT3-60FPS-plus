@@ -81,27 +81,27 @@ if global.gamePaused=false
     //-------------------- MOVEMENT --------------------
     if goDown=0 //Up
     {
-      if ySpd>-0.4 {ySpd-=0.01}
+      if ySpd>-0.4 {ySpd-=0.01*gDeltaTime}
       if y<=96 {goDown=1}
     }
     else //Down
     {
-      if ySpd<0.4 {ySpd+=0.01}
+      if ySpd<0.4 {ySpd+=0.01*gDeltaTime}
       if y>=192 {goDown=0}
     }
     if x>oPlayer1.x
     {
-      if xSpd>-1.5 {xSpd-=0.01}
+      if xSpd>-1.5 {xSpd-=0.01*gDeltaTime}
     }
     else
     {
-      if xSpd<1.5 {xSpd+=0.01}
+      if xSpd<1.5 {xSpd+=0.01*gDeltaTime}
     }
 
-    x+=xSpd; y+=ySpd
+    x+=xSpd*gDeltaTime; y+=ySpd*gDeltaTime
 
     //-------------------- ATTACK: RING BULLETS --------------------
-    ringBulletTime+=1
+    ringBulletTime+=1*gDeltaTime
     if ringBulletTime>=ringBulletDelay
     {
       var tAtk,tDir,tType;
@@ -111,7 +111,7 @@ if global.gamePaused=false
       for(i=0;i<20;i+=1)
       {
         tAtk=instance_create(x,y,oDefProjA)
-        tAtk.direction=tDir; tAtk.type=tType
+        tAtk._direction=tDir; tAtk.type=tType
         tDir+=360/20
       }
       ringBulletAmt+=1
@@ -133,7 +133,7 @@ if global.gamePaused=false
     }
 
     //-------------------- ATTACK: SKY LIGHTNING --------------------
-    lightningTime+=1
+    lightningTime+=1*gDeltaTime
     if lightningTime>=lightningDelay
     {
       var tAtk,;
@@ -155,7 +155,7 @@ if global.gamePaused=false
     }
 
     //-------------------- INSULTS --------------------
-    insultTime+=1
+    insultTime+=1*gDeltaTime
     if insultTime>=insultDelay and insultTime<=insultDelay+100
     {
       image_speed=0; insultTime=10000
@@ -246,7 +246,7 @@ if global.gamePaused=false
 
 if life<=0 //Defeat animation
 {
-  deathAnim+=1
+  deathAnim+=1*gDeltaTime
   if deathAnim=1
   {
     with oEProjectileBase {instance_destroy()}
@@ -255,7 +255,7 @@ if life<=0 //Defeat animation
   }
   else if deathAnim>=2
   {
-    y+=1
+    y+=1*gDeltaTime
     image_alpha-=0.02*gDeltaTime
     if image_alpha<=0
     {
@@ -278,17 +278,17 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-armRotA+=2
+armRotA+=2*gDeltaTime
 for(i=0;i<12;i+=1)
 {
   draw_sprite_ext(sDefective_ArmA,image_index,x+lengthdir_x(50,armRotA+(30*i)),y+lengthdir_y(50,armRotA+(30*i)),1,1,armRotA+(30*i),image_blend,image_alpha)
 }
 
-armRotB-=3
+armRotB-=3*gDeltaTime
 for(i=0;i<12;i+=1)
 {
   draw_sprite_ext(sDefective_ArmB,image_index,x+lengthdir_x(50,armRotB+(30*i)),y+lengthdir_y(50,armRotB+(30*i)),1,1,armRotB+(30*i),image_blend,image_alpha)
 }
 
-phase+=0.02
+phase+=0.02*gDeltaTime
 draw_sprite_wave(sprite_index,image_index,x,y,1,12,1,phase)

@@ -47,8 +47,8 @@ if global.gamePaused=false
     if movement>0
     {
       mySolid.xVel=image_xscale
-      x+=image_xscale
-      movement-=1
+      x+=image_xscale*gDeltaTime
+      movement-=1*gDeltaTime
       if movement=0
       {
         mySolid.xVel=0
