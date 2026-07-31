@@ -1379,7 +1379,7 @@ else if global.gameProgress=880 and room=rLink2_PalaceW_12 //----- [15] Boss Fig
     if sceneProgress=0 and oPlayer1.x>=432
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay=1
+      if sceneDelay=1*gDeltaTime
       {
         global.gamePaused=true
         viewFix=instance_create(432,176,oMisc)
