@@ -52,7 +52,7 @@ if global.gamePaused=false
     }
 
     //Turn around if turn timer is 0
-    turnTime-=1
+    turnTime-=1*gDeltaTime
     if turnTime=0
     {
       xVel*=-1
@@ -74,7 +74,7 @@ if global.gamePaused=false
       turnTime=45+irandom(45)
     }
 
-    yVel+=0.2
+    yVel+=0.2*gDeltaTime
     if isCollisionBottom(1)
       yVel=0
     if isCollisionLeft(1)
@@ -87,7 +87,7 @@ if global.gamePaused=false
       image_xscale=1
     else
       image_xscale=-1
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
     if y>room_height+24
     {
       if questType>0
@@ -105,8 +105,8 @@ if global.gamePaused=false
     }
     else if deathAnim>=2
     {
-      y+=yDeath
-      if yDeath<12 {yDeath+=0.3}
+      y+=yDeath*gDeltaTime
+      if yDeath<12 {yDeath+=0.3*gDeltaTime}
       if y>room_height+24 {instance_destroy()}
     }
   }

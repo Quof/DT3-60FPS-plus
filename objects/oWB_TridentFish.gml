@@ -54,12 +54,12 @@ if global.gamePaused=false
     if isCollisionWaterTop(-11) //-------------------- In Water --------------------
     {
       dir=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
-      moveTo((runAcc)*cos(degtorad(dir)),-(runAcc)*sin(degtorad(dir)))
+      moveTo((runAcc*gDeltaTime)*cos(degtorad(dir)),-(runAcc*gDeltaTime)*sin(degtorad(dir)))
     }
     else //-------------------- On Land --------------------
     {
       xVel=0
-      yVel+=0.3
+      yVel+=0.3*gDeltaTime
       if isCollisionBottom(1)
         yVel=0
       if isCollisionLeft(1)
@@ -69,7 +69,7 @@ if global.gamePaused=false
       if isCollisionTop(1)
         yVel=1
 
-      moveTo(xVel,yVel)
+      moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
       if isCollisionSolid()
         y-=2
 
@@ -83,7 +83,7 @@ if global.gamePaused=false
 
     //---------- Throw Spear ----------
     if findTargetX<224 or shotTime>=shotDelay
-      shotTime+=1
+      shotTime+=1*gDeltaTime
     if shotTime>=shotDelay
     {
       if shotTime>=shotDelay and shotTime<=shotDelay+4 //change anim
@@ -118,8 +118,8 @@ if global.gamePaused=false
     }
     else if deathAnim>=2
     {
-      y+=yDeath
-      if yDeath<12 {yDeath+=0.3}
+      y+=yDeath*gDeltaTime
+      if yDeath<12 {yDeath+=0.3*gDeltaTime}
       if y>room_height+24 {instance_destroy()}
     }
   }

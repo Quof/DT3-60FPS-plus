@@ -232,7 +232,7 @@ else if global.gameProgress=1570 and room=rMain_21 //----- [Unskippable] Enemy T
           else if sceneDelay=630
             {msgCreate(0,0,"Jerry","I don't like this...",0,1,oMessagePerson,0); newMessage.fadingTime=60}
 
-          eImageDrop.y+=0.5
+          eImageDrop.y+=0.5*gDeltaTime
           if eImageDrop.y>=288 {sceneDelay=0; sceneProgress+=1}
         }
       }
