@@ -37,7 +37,7 @@ if global.activeCharacter=0 //---------------------------------------- Jerry ---
         if specAttackChargeA<60
         {
           specAttackChargeA+=1*gDeltaTime
-          if specAttackChargeA>=30
+          if specAttackChargeA=30
           {
             var tEffect;
             tEffect=instance_create(oPlayer1.x,oPlayer1.y-26,oEffect)
