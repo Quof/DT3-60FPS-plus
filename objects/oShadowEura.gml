@@ -96,7 +96,7 @@ if global.gamePaused=false
     if rockProg>=2 and rockProg<=9 and (tongueAttack<60 or tongueAttack>1000)
     {
       if x<oPlayer1.x {image_xscale=1} else {image_xscale=-1}
-      imageEffect+=1
+      imageEffect+=1*gDeltaTime
       if imageEffect mod 4=0 //Afterimage
       {
         var tAfterI;
@@ -121,7 +121,7 @@ if global.gamePaused=false
       {
         x=myRock.x+8
         y=myRock.y+10
-        if life<maxLife {life+=1}
+        if life<maxLife {life+=1*gDeltaTime}
       }
     }
     else if rockProg=1 //========== Break out of rock ==========
@@ -129,8 +129,8 @@ if global.gamePaused=false
       atkTime+=1*gDeltaTime
       if atkTime>=15 and atkTime<=49
       {
-        if atkTime mod 2=0 {x-=1}
-        else {x+=1}
+        if atkTime*gDeltaTime mod 2=0 and gDeltaDoTicks {x-=1}
+        else if gDeltaDoTicks {x+=1}
       }
       if atkTime=50
       {
@@ -141,7 +141,7 @@ if global.gamePaused=false
         for(i=0;i<rockWaveNum;i+=1)
         {
           tAtk=instance_create(x,y,oPassBulletRed)
-          tAtk.sprite_index=sSE_ShotA; tAtk.bulletSpeed=5; tAtk.decayTime=-100; tAtk.direction=tDir; tAtk.atkPower=atkPower
+          tAtk.sprite_index=sSE_ShotA; tAtk.bulletSpeed=5; tAtk.decayTime=-100; tAtk._direction=tDir; tAtk.atkPower=atkPower
           tDir+=360/rockWaveNum
         }
         for(i=0;i<6;i+=1)
@@ -158,7 +158,7 @@ if global.gamePaused=false
     }
     else if rockProg=2 //========== Rise up to middle of the room ==========
     {
-      y-=2
+      if gDeltaDoTicks {y-=2}
       if y<=152
       {
         if oPlayer1.x<xCenter {mySide=2}
@@ -177,7 +177,7 @@ if global.gamePaused=false
         {
           if oPlayer1.x>xCenter
           {
-            sideSwap+=1
+            sideSwap+=1*gDeltaTime
             if sideSwap=15 {sideSwap=0; mySide=1}
           }
           else {sideSwap=0}
@@ -190,7 +190,7 @@ if global.gamePaused=false
         {
           if oPlayer1.x<xCenter
           {
-            sideSwap+=1
+            sideSwap+=1*gDeltaTime
             if sideSwap=15 {sideSwap=0; mySide=2}
           }
           else {sideSwap=0}
@@ -206,28 +206,28 @@ if global.gamePaused=false
 
         if x>xPoint
         {
-          if currHspd>-maxSpeed {currHspd-=0.4}
-          else {currHspd+=0.4}
+          if currHspd>-maxSpeed {currHspd-=0.4*gDeltaTime}
+          else {currHspd+=0.4*gDeltaTime}
         }
         else if x<xPoint
         {
-          if currHspd<maxSpeed {currHspd+=0.4}
-          else {currHspd-=0.4}
+          if currHspd<maxSpeed {currHspd+=0.4*gDeltaTime}
+          else {currHspd-=0.4*gDeltaTime}
         }
         if y>yPoint
         {
-          if currVspd>-maxSpeed {currVspd-=0.4}
-          else {currVspd+=0.4}
+          if currVspd>-maxSpeed {currVspd-=0.4*gDeltaTime}
+          else {currVspd+=0.4*gDeltaTime}
         }
         else if y<yPoint
         {
-          if currVspd<maxSpeed {currVspd+=0.4}
-          else {currVspd-=0.4}
+          if currVspd<maxSpeed {currVspd+=0.4*gDeltaTime}
+          else {currVspd-=0.4*gDeltaTime}
         }
-        hspeed=currHspd; vspeed=currVspd
+        _hspeed=currHspd; _vspeed=currVspd
 
         //---------- ATTACK: DARK BALL ----------
-        darkBallTime+=1
+        darkBallTime+=1*gDeltaTime
         if darkBallTime>=darkBallDelay and darkBallTime<=darkBallDelay+19
         {
           if darkBallTime mod 5=0 or darkBallTime=darkBallDelay
@@ -248,19 +248,19 @@ if global.gamePaused=false
             myAtk=instance_create(x,y,oSE_DarkBall)
             myAtk.atkPower=atkPower
             myAtk.bulletSpeed=1.5+(i*1.5)
-            if x<xCenter {myAtk.direction=5-(i*5)}
-            else {myAtk.direction=185-(i*5)}
+            if x<xCenter {myAtk._direction=5-(i*5)}
+            else {myAtk._direction=185-(i*5)}
           }
           darkBallTime=0
         }
 
         //---------- ATTACK: MOUTH BALL ----------
-        mouthBallTime+=1
+        mouthBallTime+=1*gDeltaTime
         if mouthBallTime>=mouthBallDelay and mouthBallTime<=mouthBallDelay+100
         {
           mouthBallTime=10000
         }
-        else if mouthBallTime>=10001 and mouthBallTime<=10030 {jawAngle-=1}
+        else if mouthBallTime>=10001 and mouthBallTime<=10030 {jawAngle-=1*gDeltaTime}
         else if mouthBallTime=10050
         {
           playSound(global.snd_RidleyFire,0,0.95,36000)
@@ -270,7 +270,7 @@ if global.gamePaused=false
           tNewAttack=instance_create(x+lengthdir_x(13,tDirOff+image_angle),y+lengthdir_y(13,tDirOff+image_angle),oPassBullet)
           tNewAttack.sprite_index=sSE_ShotB; tNewAttack.atkPower=atkPower
           tNewAttack.bulletSpeed=6+(mouthBallNum/2); tNewAttack.decayTime=-100; tNewAttack.depth=30
-          tNewAttack.direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
+          tNewAttack._direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
           mouthBallNum+=1
           if mouthBallNum>=4
           {
@@ -285,15 +285,15 @@ if global.gamePaused=false
           var tNewAttack;
           tNewAttack=instance_create(x,y,oPointExpBullet)
           tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=10; tNewAttack.sprite_index=sSE_DarkBall
-          tNewAttack.direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
+          tNewAttack._direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
         }
-        else if mouthBallTime>=10101 and mouthBallTime<=10130 {jawAngle+=1}
+        else if mouthBallTime>=10101 and mouthBallTime<=10130 {jawAngle+=1*gDeltaTime}
         else if mouthBallTime>=10131 {mouthBallTime=0}
 
         //---------- ATTACK: FIRE PILLAR ----------
         if bossProgress>=2
         {
-          firePillarTime+=1
+          firePillarTime+=1*gDeltaTime
           if firePillarTime=firePillarDelay
           {
             var tEffect;
@@ -311,44 +311,46 @@ if global.gamePaused=false
         //---------- UTILITY: DEFLECTOR ----------
         if bossProgress>=1
         {
-          if deflectorTime<deflectorDelay {deflectorTime+=1}
+          if deflectorTime<deflectorDelay {deflectorTime+=1*gDeltaTime}
         }
       }
 
       //---------- DESPERATION ATTACK: BLOODY TONGUE ----------
       if bossProgress>=2
       {
-        if oGame.time mod 2=0 {tongueAngle=1}
+        if oGame.time mod (2/gDeltaTime)=0 {tongueAngle=1}
         else {tongueAngle=0}
 
-        tongueAttack+=1
+        tongueAttack+=1*gDeltaTime
         if tongueAttack=60 //Immune and stop
         {
           playSound(global.snd_DemonTalk,0,1,13000)
           bCanTakeDamage=0
           oEvDCS.fadeColor=c_red
-          hspeed=0; vspeed=0
+          _hspeed=0; _vspeed=0
         }
         else if tongueAttack>=80 and tongueAttack<=199 //Go to point
         {
           image_xscale=-1
-          direction=point_direction(x,y,448,160)
-          speed=3
+          _direction=point_direction(x,y,448,160)
+          _speed=3
+          x += cos(degtorad(_direction)) * _speed * gDeltaTime
+          y -= sin(degtorad(_direction)) * _speed * gDeltaTime
           if point_distance(x,y,448,160)<5
           {
-            speed=0
+            _speed=0
             tongueAttack=200
           }
         }
         else if tongueAttack>=211 and tongueAttack<=250 {oEvDCS.fadeAlpha+=0.005*gDeltaTime} //Red fade - 0.2
         else if tongueAttack>=271 and tongueAttack<=330 //Open jaw
         {
-          image_angle-=0.5
-          jawAngle-=0.5
+          image_angle-=0.5*gDeltaTime
+          jawAngle-=0.5*gDeltaTime
         }
         else if tongueAttack=340 {playSound(global.snd_DemonLaugh,0,1,13000)}
-        else if tongueAttack>=341 and tongueAttack<=360 {tongueXscale+=0.05} //Extend tongue
-        else if tongueAttack>=370 and tongueAttack<=460 //Blood from mouth
+        else if tongueAttack>=341 and tongueAttack<=360 {tongueXscale+=0.05*gDeltaTime} //Extend tongue
+        else if tongueAttack>=370 and tongueAttack<=460 and gDeltaDoTicks //Blood from mouth
         {
           var tNewAtk;
           tNewAtk=instance_create(x,y+10,oGravPassBullet)
@@ -358,9 +360,9 @@ if global.gamePaused=false
         else if tongueAttack>=461 and tongueAttack<=490 //Remove red fade and close jaw
         {
           if oEvDCS.fadeAlpha>0 {oEvDCS.fadeAlpha-=0.01*gDeltaTime}
-          if tongueXscale>0 {tongueXscale-=0.1}
-          image_angle+=1
-          jawAngle+=1
+          if tongueXscale>0 {tongueXscale-=0.1*gDeltaTime}
+          image_angle+=1*gDeltaTime
+          jawAngle+=1*gDeltaTime
         }
         else if tongueAttack=500 //End attack
         {
@@ -376,7 +378,7 @@ if global.gamePaused=false
           for(i=0;i<70;i+=1)
           {
             tAtk=instance_create(x,y,oPassBullet)
-            tAtk.sprite_index=sSE_ShotB; tAtk.bulletSpeed=4; tAtk.decayTime=-100; tAtk.direction=tDir; tAtk.atkPower=atkPower
+            tAtk.sprite_index=sSE_ShotB; tAtk.bulletSpeed=4; tAtk.decayTime=-100; tAtk._direction=tDir; tAtk.atkPower=atkPower
             tAtk.image_xscale=0.75; tAtk.image_yscale=0.75
             tDir+=360/70
           }
@@ -385,9 +387,9 @@ if global.gamePaused=false
           for(i=0;i<16;i+=1)
           {
             tAtk=instance_create(x,y,oPassBulletRed)
-            tAtk.sprite_index=sSE_ShotA; tAtk.bulletSpeed=4; tAtk.decayTime=-100; tAtk.direction=tDir; tAtk.atkPower=atkPower
+            tAtk.sprite_index=sSE_ShotA; tAtk.bulletSpeed=4; tAtk.decayTime=-100; tAtk._direction=tDir; tAtk.atkPower=atkPower
             tAtk=instance_create(x,y,oPassBulletRed)
-            tAtk.sprite_index=sSE_ShotA; tAtk.bulletSpeed=4; tAtk.decayTime=-100; tAtk.direction=tDir+3; tAtk.atkPower=atkPower
+            tAtk.sprite_index=sSE_ShotA; tAtk.bulletSpeed=4; tAtk.decayTime=-100; tAtk._direction=tDir+3; tAtk.atkPower=atkPower
             tDir+=360/16
           }
         }
@@ -412,12 +414,15 @@ if global.gamePaused=false
       }
       if atkTime>=1 and atkTime<=10 {image_alpha-=0.1*gDeltaTime}
 
-      if currHspd>1 {currHspd-=0.1}
-      else if currHspd<-1 {currHspd+=0.1}
-      if currVspd>-4 {currVspd-=0.2}
-      hspeed=currHspd; vspeed=currVspd
+      if currHspd>1 {currHspd-=0.1*gDeltaTime}
+      else if currHspd<-1 {currHspd+=0.1*gDeltaTime}
+      if currVspd>-4 {currVspd-=0.2*gDeltaTime}
+      _hspeed=currHspd; _vspeed=currVspd
+      //x += _hspeed * gDeltaTime
+      //y += _vspeed * gDeltaTime
 
-      for(i=0;i<8;i+=1) //Mist particles
+
+      if gDeltaDoTicks for(i=0;i<8;i+=1) //Mist particles
       {
         tEffect=instance_create(x+random_range(-24,24),y+random_range(-24,24),oEffectB)
         tEffect.type=3; tEffect.sprite_index=sMMSmokeCloud; tEffect.newBlend=-1; tEffect.depth=23; tEffect.image_blend=c_purple
@@ -427,7 +432,7 @@ if global.gamePaused=false
 
       if y<=-80
       {
-        hspeed=0; vspeed=0
+        _hspeed=0; _vspeed=0
         atkTime=0
         rockProg=11
       }
@@ -494,7 +499,7 @@ if global.gamePaused=false
       else if atkTime>=2 and atkTime<=999
       {
         var tEffect;
-        for(i=0;i<3;i+=1)
+        if gDeltaDoTicks for(i=0;i<3;i+=1)
         {
           for(ii=0;ii<8;ii+=1)
           {
@@ -504,7 +509,7 @@ if global.gamePaused=false
             tEffect.AccelX=0; tEffect.AccelY=0; tEffect.followID=-1; tEffect.rotation=0
           }
         }
-        myRock.y+=1; myRockA.y+=1; myRockB.y+=1
+        if gDeltaDoTicks {myRock.y+=1; myRockA.y+=1; myRockB.y+=1}
         if myRock.y>=76 {atkTime=1000}
       }
       else if atkTime>=1010
@@ -543,11 +548,11 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
-else {hspeed=0; vspeed=0}
+else {_hspeed=0; _vspeed=0}
 
 if life<=0 //Defeat animation
 {
-  deathAnim+=1
+  deathAnim+=1*gDeltaTime
   if deathAnim=1
   {
     if global.bBossGallery=1
@@ -606,7 +611,7 @@ if life<=0 //Defeat animation
   else if deathAnim>=166 and deathAnim<=225
   {
     if deathAnim mod 3=0 {playSound(global.snd_BombExplode,0,0.92,1)}
-    if oGame.time mod 2=0
+    if oGame.time mod (2/gDeltaTime)=0
     {
       var tEffect;
       tEffect=instance_create((x-sprite_width/2)+random(sprite_width),(y-sprite_height/2)+random(sprite_height),oEffect)
@@ -620,6 +625,9 @@ if life<=0 //Defeat animation
     instance_destroy()
   }
 }
+
+x += _hspeed * gDeltaTime
+y += _vspeed * gDeltaTime
 #define Other_24
 /*"/*'/**//* YYD ACTION
 lib_id=1

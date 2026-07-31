@@ -15,7 +15,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  explodeDelay+=1
+  explodeDelay+=1*gDeltaTime
   if explodeDelay>=7
   {
     explodeNum-=1

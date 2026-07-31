@@ -17,6 +17,8 @@ weight=100
 grav=0.2
 phase=0
 bulletTime=0
+_direction=0
+_speed=0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -25,20 +27,22 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  image_angle+=20
+  image_angle+=20*gDeltaTime
   if phase=0 //Bullets go out
   {
-    speed=bulletSpeed
-    bulletTime+=1
+    _speed=bulletSpeed
+    bulletTime+=1*gDeltaTime
+    x += cos(degtorad(_direction)) * _speed * gDeltaTime
+    y -= sin(degtorad(_direction)) * _speed * gDeltaTime
     if bulletTime>=40
     {
-      speed=0
+      _speed=0
       bulletTime=0; phase+=1
     }
   }
   else if phase=1 //Bullets stop
   {
-    bulletTime+=1
+    bulletTime+=1*gDeltaTime
     if bulletTime>=20
     {
       if x>oPlayer1.x {xVel=-3}
@@ -48,12 +52,12 @@ if global.gamePaused=false
   }
   else if phase=2 //Bullets gravity toward the floor
   {
-    yVel+=grav
+    yVel+=grav*gDeltaTime
     if isCollisionTop(1) {bDestroy=1}
     if isCollisionBottom(1) {bDestroy=1}
     if isCollisionLeft(1) {bDestroy=1}
     if isCollisionRight(1) {bDestroy=1}
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
 
     if bDestroy=1
     {
@@ -63,4 +67,4 @@ if global.gamePaused=false
     }
   }
 }
-else {speed=0}
+else {_speed=0}

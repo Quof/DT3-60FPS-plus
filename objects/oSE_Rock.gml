@@ -61,8 +61,8 @@ if global.gamePaused=false
     }
     else if rockSequence=1 //Fall with string
     {
-      y+=yVel
-      if yVel<3 {yVel+=0.2}
+      y+=yVel*gDeltaTime
+      if yVel<3 {yVel+=0.2*gDeltaTime}
       if y>=176
       {
         y=176
@@ -76,7 +76,7 @@ if global.gamePaused=false
       {
         if oShadowEura.bossProgress>=1 //Shielding the rope
         {
-          if oBelmontDagger.y<y-28 {daggerTime+=1}
+          if oBelmontDagger.y<y-28 {daggerTime+=1*gDeltaTime}
         }
 
         if daggerTime<7
@@ -129,8 +129,8 @@ if global.gamePaused=false
     }
     else if rockSequence=3 //Fall to ground
     {
-      y+=yVel
-      if yVel<3 {yVel+=0.2}
+      y+=yVel*gDeltaTime
+      if yVel<3 {yVel+=0.2*gDeltaTime}
       var tYCheck;
       if x=256 or 448 {tYCheck=256}
       else {tYCheck=288}
@@ -190,7 +190,7 @@ if global.gamePaused=false
       for(i=0;i<oShadowEura.rockWaveNum;i+=1)
       {
         tAtk=instance_create(x,y,oPassBulletRed)
-        tAtk.sprite_index=sSE_ShotA; tAtk.bulletSpeed=5; tAtk.decayTime=-100; tAtk.direction=tDir; tAtk.atkPower=atkPower
+        tAtk.sprite_index=sSE_ShotA; tAtk.bulletSpeed=5; tAtk.decayTime=-100; tAtk._direction=tDir; tAtk.atkPower=atkPower
         tDir+=360/oShadowEura.rockWaveNum
       }
     }
@@ -200,7 +200,7 @@ if global.gamePaused=false
       for(i=0;i<5;i+=1)
       {
         tAtk=instance_create(x,y,oPassBulletRed)
-        tAtk.sprite_index=sSE_ShotA; tAtk.bulletSpeed=3+(i*1.5); tAtk.decayTime=-100; tAtk.direction=tDir; tAtk.atkPower=atkPower
+        tAtk.sprite_index=sSE_ShotA; tAtk.bulletSpeed=3+(i*1.5); tAtk.decayTime=-100; tAtk._direction=tDir; tAtk.atkPower=atkPower
       }
     }
     atkTime=0
@@ -253,7 +253,7 @@ if global.bossTrack>0
         var tLineDir,tDotAmt;
         tLineDir=point_direction(x,y,oShadowEura.myRockA.x,oShadowEura.myRockA.y)
         tDotAmt=ceil(point_distance(x,y,oShadowEura.myRockA.x,oShadowEura.myRockA.y)/11)
-        laserCrawl-=1
+        laserCrawl-=1*gDeltaTime
         if laserCrawl<-12 {laserCrawl=0}
         for(i=0;i<tDotAmt;i+=1)
         {
