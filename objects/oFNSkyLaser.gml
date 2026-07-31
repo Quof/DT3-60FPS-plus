@@ -40,14 +40,17 @@ if global.gamePaused=false
 {
   if bCanDealDamage=true and gDeltaDoTicks
   {
-    tEffect=instance_create(x+(-8+random(16)),y+(-8+random(16)),oEffectB)
-    tEffect.type=3; tEffect.sprite_index=sBelmontWepEffect; tEffect.image_speed=0.33
-    tEffect.direction=random(360); tEffect.speed=random(0.5)+0.5
-    tEffect.friction=random(0.01)+0.01; tEffect.fadeSpd=0.035
-    tEffect.AccelX=0; tEffect.AccelY=0; tEffect.newBlend=-1; tEffect.followID=-1; tEffect.rotation=0
+    if gDeltaDoTicks
+    {
+      tEffect=instance_create(x+(-8+random(16)),y+(-8+random(16)),oEffectB)
+      tEffect.type=3; tEffect.sprite_index=sBelmontWepEffect; tEffect.image_speed=0.33
+      tEffect.direction=random(360); tEffect.speed=random(0.5)+0.5
+      tEffect.friction=random(0.01)+0.01; tEffect.fadeSpd=0.035
+      tEffect.AccelX=0; tEffect.AccelY=0; tEffect.newBlend=-1; tEffect.followID=-1; tEffect.rotation=0
 
-    if room=rLowFacR {image_blend=make_color_rgb(160+random(50),160+random(50),160+random(50))}
-    else {image_blend=make_color_rgb(25+random(50),25+random(50),25+random(50))}
+      if room=rLowFacR {image_blend=make_color_rgb(160+random(50),160+random(50),160+random(50))}
+      else {image_blend=make_color_rgb(25+random(50),25+random(50),25+random(50))}
+    }
 
     if decayTime<5000 {decayTime+=1}
     if decayTime>=idleTime {instance_destroy()}
@@ -74,7 +77,7 @@ event_inherited()
 if warnTime>0
 {
   draw_sprite_ext(sWarningSymbol,-1,x,warnToPlayer,0.6,0.6,0,c_white,warnAlpha)
-  alphaChange+=1
+  alphaChange+=1*gDeltaTime
   if alphaChange=8
   {
     if warnAlpha=1 {warnAlpha=0}
