@@ -69,15 +69,18 @@ if global.gamePaused=false
     {
       if collision_point(x-12,y-10,oWrenchBlock,1,1)
       {
-        if oGame.time mod 5=0 {if checkScreenArea(x,y,48)=1 {playSound(global.snd_Spark,0,0.91,62000)}}
+        if oGame.time mod (5/gDeltaTime)=0 {if checkScreenArea(x,y,48)=1 {playSound(global.snd_Spark,0,0.91,62000)}}
         xVel=0
-        var tEffect,tDir;
-        tDir=random(360)
-        tEffect=instance_create(x-12,y-10,oEffectB)
-        tEffect.type=3; tEffect.sprite_index=sMMchargeEffect1; tEffect.newBlend=1
-        tEffect.image_alpha=1; tEffect.image_xscale=1.5+random(0.5); tEffect.image_yscale=0.66; tEffect.fadeSpd=0.1
-        tEffect.direction=tDir; tEffect.image_angle=tDir; tEffect.speed=2+random(4); tEffect.friction=0.2+random(0.2)
-        tEffect.AccelX=0; tEffect.AccelY=0; tEffect.followID=-1; tEffect.rotation=0
+        if gDeltaDoTicks
+        {
+          var tEffect,tDir;
+          tDir=random(360)
+          tEffect=instance_create(x-12,y-10,oEffectB)
+          tEffect.type=3; tEffect.sprite_index=sMMchargeEffect1; tEffect.newBlend=1
+          tEffect.image_alpha=1; tEffect.image_xscale=1.5+random(0.5); tEffect.image_yscale=0.66; tEffect.fadeSpd=0.1
+          tEffect.direction=tDir; tEffect.image_angle=tDir; tEffect.speed=2+random(4); tEffect.friction=0.2+random(0.2)
+          tEffect.AccelX=0; tEffect.AccelY=0; tEffect.followID=-1; tEffect.rotation=0
+        }
         returnToMovement=1
       }
       else {xVel=runAcc}
@@ -91,15 +94,18 @@ if global.gamePaused=false
     {
       if collision_point(x+12,y-10,oWrenchBlock,1,1)
       {
-        if oGame.time mod 5=0 {if checkScreenArea(x,y,48)=1 {playSound(global.snd_Spark,0,0.91,62000)}}
+        if oGame.time mod (5/gDeltaTime)=0 {if checkScreenArea(x,y,48)=1 {playSound(global.snd_Spark,0,0.91,62000)}}
         xVel=0
-        var tEffect,tDir;
-        tDir=random(360)
-        tEffect=instance_create(x+12,y-10,oEffectB)
-        tEffect.type=3; tEffect.sprite_index=sMMchargeEffect1; tEffect.newBlend=1
-        tEffect.image_alpha=1; tEffect.image_xscale=1.5+random(0.5); tEffect.image_yscale=0.66; tEffect.fadeSpd=0.1
-        tEffect.direction=tDir; tEffect.image_angle=tDir; tEffect.speed=2+random(4); tEffect.friction=0.2+random(0.2)
-        tEffect.AccelX=0; tEffect.AccelY=0; tEffect.followID=-1; tEffect.rotation=0
+        if gDeltaDoTicks
+        {
+          var tEffect,tDir;
+          tDir=random(360)
+          tEffect=instance_create(x+12,y-10,oEffectB)
+          tEffect.type=3; tEffect.sprite_index=sMMchargeEffect1; tEffect.newBlend=1
+          tEffect.image_alpha=1; tEffect.image_xscale=1.5+random(0.5); tEffect.image_yscale=0.66; tEffect.fadeSpd=0.1
+          tEffect.direction=tDir; tEffect.image_angle=tDir; tEffect.speed=2+random(4); tEffect.friction=0.2+random(0.2)
+          tEffect.AccelX=0; tEffect.AccelY=0; tEffect.followID=-1; tEffect.rotation=0
+        }
         returnToMovement=2
       }
       else {xVel=-runAcc}
