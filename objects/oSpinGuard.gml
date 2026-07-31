@@ -146,7 +146,7 @@ if global.gamePaused=false
   else if life<=0
   {
     deathAnim+=1*gDeltaTime
-    if deathAnim=1
+    if deathAnim=1*gDeltaTime
     {
       for(i=0;i<2;i+=1)
       {
@@ -171,8 +171,8 @@ if global.gamePaused=false
     {
       if instance_exists(shieldPart[i])
       {
-        shieldPart[i].x+=shdVelX[i]
-        shieldPart[i].y+=shdVelY[i]
+        shieldPart[i].x+=shdVelX[i]*gDeltaTime
+        shieldPart[i].y+=shdVelY[i]*gDeltaTime
         shdVelY[i]+=0.3*gDeltaTime
         shieldPart[i].image_angle+=shdVelTurn[i]*gDeltaTime
       }

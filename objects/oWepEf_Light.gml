@@ -13,7 +13,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  fadeTime-=1
+  fadeTime-=1*gDeltaTime
   if fadeTime<=0
   {
     image_alpha-=0.02*gDeltaTime

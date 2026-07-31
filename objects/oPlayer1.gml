@@ -380,6 +380,8 @@ lifePercent=life/maxLife
 if life>maxLife
   life=maxLife
 
+if global.debugAlwaysMaxHP=true
+  life=maxLife
 //---------- Death ----------
 if life<=0
 {
