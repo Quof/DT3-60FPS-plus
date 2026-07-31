@@ -12,6 +12,8 @@ bShowDamage=false
 bCanTakeDamage=false
 lifeTime=0
 seekTime=0
+_speed=0
+_direction=0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -20,18 +22,20 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  lifeTime+=1
-  seekTime+=1
+  lifeTime+=1*gDeltaTime
+  seekTime+=1*gDeltaTime
   if seekTime>=60
   {
     turn_toward_direction(point_direction(x,y,oPlayer1.x,returnPlayerYCenter()),2)
     if seekTime>=90 {seekTime=0}
   }
 
-  speed=bulletSpeed
-  image_angle-=15
+  _speed=bulletSpeed
+  x += cos(degtorad(_direction)) * _speed * gDeltaTime
+  y -= sin(degtorad(_direction)) * _speed * gDeltaTime
+  image_angle-=15*gDeltaTime
 }
-else {speed=0}
+else {_speed=0}
 #define Collision_oAttackBase
 /*"/*'/**//* YYD ACTION
 lib_id=1

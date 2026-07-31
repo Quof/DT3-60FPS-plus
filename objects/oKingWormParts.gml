@@ -49,14 +49,14 @@ if global.gamePaused=false
   {
     if type=10 or type=20
     {
-      moveTick+=0.5
-      x+=cos(moveTick/5)
+      moveTick+=0.5*gDeltaTime
+      x+=cos(moveTick/5)*gDeltaTime
 
       if oKingWorm.life>0 and mySeg>2
       {
         if oKingWorm.bSpraySpikes=1
         {
-          sprayTime+=1
+          sprayTime+=1*gDeltaTime
           if sprayTime>=oKingWorm.sprayDelay
           {
             var tAtk;

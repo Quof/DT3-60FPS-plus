@@ -1064,7 +1064,7 @@ else
   {
     if isCollisionWaterBottom(-12)
     {
-      if yVel>8 //Water splash effect
+      if yVel>8 and gDeltaDoTicks //Water splash effect
       {
         var tEffect,tWaterTarget;
         tWaterTarget=instance_position(x,y,oWater)
@@ -1099,7 +1099,7 @@ else
   {
     if isCollisionWaterBottom(-12)
     {
-      if yVel>8 //Water splash effect
+      if yVel>8 and gDeltaDoTicks //Water splash effect
       {
         playSound(global.snd_Splash,0,0.95,1)
         var tEffect;
@@ -1125,7 +1125,7 @@ else
 
   if isCollisionWaterBottom(-8) //Water walk splash effect
   {
-    if !isCollisionWaterTop(-4) and abs(xVel)>2
+    if !isCollisionWaterTop(-4) and abs(xVel)>2 and gDeltaDoTicks
     {
       var tEffect,tWaterTarget;
       tWaterTarget=instance_position(x,y,oWater)

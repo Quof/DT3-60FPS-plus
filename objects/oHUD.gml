@@ -399,9 +399,9 @@ if view_current=0
           }
           if oPlayer1.attackCharge>=equipValC or oPlayer1.specAttackChargeA>=equipValC or oPlayer1.specAttackChargeB>=equipValC
           {
-            draw_sprite(sSamusBomb,oGame.time,view_xview[0]+169,view_yview[0]+40)
-            draw_sprite(sSamusBomb,oGame.time+1,view_xview[0]+178,view_yview[0]+40)
-            draw_sprite(sSamusBomb,oGame.time+2,view_xview[0]+187,view_yview[0]+40)
+            draw_sprite(sSamusBomb,oGame.time*gDeltaTime,view_xview[0]+169,view_yview[0]+40)
+            draw_sprite(sSamusBomb,(oGame.time*gDeltaTime)+1,view_xview[0]+178,view_yview[0]+40)
+            draw_sprite(sSamusBomb,(oGame.time*gDeltaTime)+2,view_xview[0]+187,view_yview[0]+40)
           }
           var tCannonEn;
           tCannonEn=(global.hudSamus_CannonEn[0]/global.hudSamus_CannonEn[1])*33

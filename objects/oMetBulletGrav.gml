@@ -23,7 +23,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  yVel+=grav
+  yVel+=grav*gDeltaTime
   if sprite_index=sKingWormSpike
   {
     if xVel>0 {image_angle-=10}
@@ -34,11 +34,11 @@ if global.gamePaused=false
   if isCollisionBottom(1) {bDestroy=1}
   if isCollisionLeft(1) {bDestroy=1}
   if isCollisionRight(1) {bDestroy=1}
-  moveTo(xVel,yVel)
+  moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
 
   if bDestroy=1 {instance_destroy()}
 }
-else {speed=0}
+else {_speed=0}
 #define Collision_oAttackBase
 /*"/*'/**//* YYD ACTION
 lib_id=1

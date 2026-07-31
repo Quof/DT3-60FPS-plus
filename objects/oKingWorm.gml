@@ -113,7 +113,7 @@ if global.gamePaused=false
       if oPlayer1.x<x {xEye=-2} else {xEye=2}
     }
 
-    progTime+=1
+    progTime+=1*gDeltaTime
     if behavior=0 //---------- Dive down ----------
     {
       if progTime=15 {fangAnimate=1}
@@ -121,14 +121,14 @@ if global.gamePaused=false
       else if progTime=50 {leftFang.image_index=1; rightFang.image_index=1}
       else if progTime>=51 and progTime<=999 //track player and dive (player must be in morph ball to dodge)
       {
-        if x<oPlayer1.x-5 {x+=8} else if x>oPlayer1.x+5 {x-=8}
-        y+=4
+        if x<oPlayer1.x-5 {x+=8*gDeltaTime} else if x>oPlayer1.x+5 {x-=8*gDeltaTime}
+        y+=4*gDeltaTime
         if y>=yGround-40 {y=yGround-40; progTime=1000}
       }
       else if progTime=1001 {leftFang.image_index=0; rightFang.image_index=0}
       else if progTime>=1035
       {
-        y-=4
+        y-=4*gDeltaTime
         if y<=neutralY //end behavior
         {
           y=neutralY
@@ -142,14 +142,14 @@ if global.gamePaused=false
       if progTime=1 {bSpraySpikes=1}
       else if progTime>=11 and progTime<=175
       {
-        x+=xSpd
+        x+=xSpd*gDeltaTime
         if x<oPlayer1.x
         {
-          if xSpd<5 {xSpd+=0.25}
+          if xSpd<5 {xSpd+=0.25*gDeltaTime}
         }
         else if x>oPlayer1.x
         {
-          if xSpd>-5 {xSpd-=0.25}
+          if xSpd>-5 {xSpd-=0.25*gDeltaTime}
         }
         if progTime=155 {fangAnimate=1}
         else if progTime=167 {eyeAnimate=10}
@@ -157,13 +157,13 @@ if global.gamePaused=false
       }
       else if progTime>=192 and progTime<=999
       {
-        y+=4
+        y+=4*gDeltaTime
         if y>=yGround-36 {y=yGround-36; progTime=1000}
       }
       else if progTime=1001 {leftFang.image_index=0; rightFang.image_index=0}
       else if progTime>=1035
       {
-        y-=4
+        y-=4*gDeltaTime
         if y<=neutralY
         {
           y=neutralY
@@ -189,7 +189,7 @@ if global.gamePaused=false
           tEffect.sprite_index=sMMSmokeCloud; tEffect.image_speed=0.25+random(0.25); tEffect.image_alpha=0.6
           tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0; tEffect.depth=8
         }
-        y-=8
+        y-=8*gDeltaTime
         if y<=8 {progTime=100}
       }
       else if progTime=101 {bSpraySpikes=1; leftFang.image_index=1; rightFang.image_index=1}
@@ -209,12 +209,12 @@ if global.gamePaused=false
         if progTime=190 {y=room_height; bFromGround=1} //set position to bottom of map
         else if progTime>=191 and progTime<=299 //push up
         {
-          y-=8
+          y-=8*gDeltaTime
           if y<=176 {progTime=300}
         }
         else if progTime>=345 //go back down
         {
-          y+=8
+          y+=8*gDeltaTime
           if y>=room_height {progTime=400}
         }
       }
@@ -236,7 +236,7 @@ if global.gamePaused=false
       }
       else if progTime>=451 //come back to neutral position from ceiling
       {
-        y+=8
+        y+=8*gDeltaTime
         if y>=neutralY //end behavior
         {
           y=neutralY
@@ -248,7 +248,7 @@ if global.gamePaused=false
     //Animate fangs
     if fangAnimate>0
     {
-      fangAnimate+=1
+      fangAnimate+=1*gDeltaTime
       if fangAnimate=3 {leftFang.image_index=1; rightFang.image_index=1}
       else if fangAnimate=6 {leftFang.image_index=2; rightFang.image_index=2}
       else if fangAnimate=9 {leftFang.image_index=1; rightFang.image_index=1}
@@ -261,15 +261,16 @@ if global.gamePaused=false
     //Animate eye
     if eyeAnimate>0
     {
-      eyeAnimate+=1
+      eyeAnimate+=1*gDeltaTime
       if eyeAnimate=14 or eyeAnimate=24 {eyelidFrame=1}
 
       if eyeAnimate=18 {eyelidFrame=0; eyeAnimate=0}
       else if eyeAnimate=28 {eyelidFrame=2; eyeAnimate=0}
     }
     //Change water level
-    if oWaterVolume.y<currWaterLevel {oWaterVolume.y+=1}
-    else if oWaterVolume.y>currWaterLevel {oWaterVolume.y-=1}
+    /*if oWaterVolume.y<currWaterLevel {oWaterVolume.y+=1*gDeltaTime}
+    else if oWaterVolume.y>currWaterLevel {oWaterVolume.y-=1*gDeltaTime}*/
+    oWaterVolume.targetWLevel=currWaterLevel
 
     //---------- Boss Difficulty Curve ----------
     if lifePercent<=0.8 and lifePercent>=0.61 and bossProgress=0
@@ -301,7 +302,7 @@ if global.gamePaused=false
       }
       bossProgress+=1
     }
-    else if lifePercent<=0.3 and lifePercent>=21 and bossProgress=3
+    else if lifePercent<=0.3 and lifePercent>=0.21 and bossProgress=3
     {
       var tAtkShield;
       tAtkShield=instance_create(x,y,oAtkTypeShield); tAtkShield.ownerID=id
@@ -321,7 +322,7 @@ if global.gamePaused=false
   }
   else if life<=0 //Defeat animation
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       with oEnemyBase {bCanDealDamage=false}
@@ -331,7 +332,7 @@ if global.gamePaused=false
     else if deathAnim>=2 and deathAnim<=90
     {
       if deathAnim mod 6=0 {playSound(global.snd_EnemyDieMM,0,1,1)}
-      if oGame.time mod 2=0
+      if oGame.time mod (2/gDeltaTime)=0
       {
         var tEffect;
         tEffect=instance_create(x-32+random(160),y-64+random(288),oEffect)

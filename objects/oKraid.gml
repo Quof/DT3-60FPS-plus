@@ -76,7 +76,7 @@ if global.gamePaused=false
     showBossHP=instance_create(0,0,oBossLifeDisplay); showBossHP.bossID=id; showBossHP.type=0
     jeremyText="I don't think you'll have too much trouble with this, at least at first. Kraid uses all his normal tricks, with the flying nails and stomach spikes. Watch the ceiling for signs of falling rocks, those are new."
     chaoText="In a Metroid manga, it's mentioned that Kraid is Ridley's comrade. Its been said that he's a high ranking officer among the Space Pirates."
-    devText="Kraid had been changed sometime during Gate 5 development to compensate for players possibly not having the Super High Jump Boots, but all of the changes made Kraid worse. He was reverted back to his original conception and closed off to the player till they had the approapriate item."
+    devText="Kraid had been changed sometime during Gate 5 development to compensate for players possibly not having the Super High Jump Boots, but all of the changes made Kraid worse. He was reverted back to his original conception and closed off to the player till they had the appropriate item."
     with oKraidParts
     {
       jeremyText=oKraid.jeremyText
@@ -104,7 +104,7 @@ if global.gamePaused=false
     }
     else if mouthProg>=1
     {
-      mouthProg+=1
+      mouthProg+=1*gDeltaTime
       if mouthProg=2 {image_blend=baseColor}
       else if mouthProg=31
       {
@@ -130,7 +130,7 @@ if global.gamePaused=false
     //----- Movement -----
     if moveUpTime=0
     {
-      moveTime+=1
+      moveTime+=1*gDeltaTime
       if moveTime>=moveDelay and moveTime<=999
       {
         if myPosition=0 {moveChoice=1}
@@ -148,7 +148,7 @@ if global.gamePaused=false
       {
         if moveChoice=0 //Left
         {
-          segBody.x-=4
+          segBody.x-=4*gDeltaTime
           if moveTime=1001 {segFoot.image_index=0}
           else if moveTime=1005 {segFoot.image_index=1}
           else if moveTime=1009 {segFoot.image_index=2}
@@ -156,7 +156,7 @@ if global.gamePaused=false
         }
         else if moveChoice=1 //Right
         {
-          segBody.x+=4
+          segBody.x+=4*gDeltaTime
           if moveTime=1001 {segFoot.image_index=2}
           else if moveTime=1005 {segFoot.image_index=1}
           else if moveTime=1009 {segFoot.image_index=0}
@@ -173,26 +173,26 @@ if global.gamePaused=false
     }
 
     //----- Normal Attack: Flying Nail -----
-    nailTime+=1
+    nailTime+=1*gDeltaTime
     if nailTime>=nailDelay
     {
       var tAtk,tXPos,tYPos;
       tXPos=64
       tYPos=random_range(80,192)
       tAtk=instance_create(tXPos,tYPos,oKraidNail)
-      tAtk.direction=point_direction(tXPos,tYPos,oPlayer1.x,oPlayer1.y-26)
+      tAtk._direction=point_direction(tXPos,tYPos,oPlayer1.x,oPlayer1.y-26)
       tAtk.atkPower=atkPower; tAtk.bulletSpeed=1.5
 
       tXPos=144
       tYPos=random_range(256,368)
       tAtk=instance_create(tXPos,tYPos,oKraidNail)
-      tAtk.direction=point_direction(tXPos,tYPos,oPlayer1.x,oPlayer1.y-26)
+      tAtk._direction=point_direction(tXPos,tYPos,oPlayer1.x,oPlayer1.y-26)
       tAtk.atkPower=atkPower; tAtk.bulletSpeed=1.5
       nailTime=0
     }
 
     //----- Normal Attack: Stomach Spike -----
-    spikeTime+=1
+    spikeTime+=1*gDeltaTime
     if spikeTime>=spikeDelay
     {
       var tAtk,tXPos,tYPos;
@@ -206,7 +206,7 @@ if global.gamePaused=false
       spikeTime=0
     }
     //----- Normal Attack: Ceiling Rock -----
-    rockTime+=1
+    rockTime+=1*gDeltaTime
     if rockTime>=rockDelay and rockTime<10000
     {
       rockX=oPlayer1.x
@@ -235,8 +235,8 @@ if global.gamePaused=false
     {
       if moveTime<moveDelay-20
       {
-        moveUpTime+=1
-        segBody.x+=1.5
+        moveUpTime+=1*gDeltaTime
+        segBody.x+=1.5*gDeltaTime
         if moveUpTime=1 {segFoot.image_index=2}
         else if moveUpTime=5 {segFoot.image_index=1}
         else if moveUpTime=9 {segFoot.image_index=0}
@@ -248,7 +248,7 @@ if global.gamePaused=false
     if backFadeInTime>0 //Fade in red tint
     {
       redBack.image_alpha+=0.01*gDeltaTime
-      backFadeInTime-=1
+      backFadeInTime-=1*gDeltaTime
     }
 
     //---------- Boss Difficulty Curve ----------
@@ -307,7 +307,7 @@ if global.gamePaused=false
   }
   else if life<=0 //Defeat animation
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       with oEnemyBase {bCanDealDamage=false}
@@ -323,7 +323,7 @@ if global.gamePaused=false
     {
       if deathAnim mod 6=0 {playSound(global.snd_EnemyDieMM,0,1,1)}
       if deathAnim mod 30=0 {playSound(global.snd_KraidRoarA,0,1,30000+random(30000))}
-      if oGame.time mod 2=0
+      if oGame.time mod (2/gDeltaTime)=0
       {
         var tEffect;
         tEffect=instance_create(x-32+random(160),y-64+random(288),oEffect)
@@ -332,7 +332,7 @@ if global.gamePaused=false
       }
 
       if redBack.image_alpha>0 {redBack.image_alpha-=0.01*gDeltaTime}
-      segBody.y+=1
+      segBody.y+=1*gDeltaTime
       if segBody.y>=room_height+96
       {
         oEvCh13MainA.sceneProgress=1
