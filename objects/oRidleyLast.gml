@@ -30,6 +30,7 @@ moveWaveY=pi/2
 
 atkProg=0
 atkTime=0
+atkFireAlter=0
 fireballRate=0
 fireCircleAmt=24
 groundMoveSpd=24
@@ -113,6 +114,7 @@ if global.gamePaused=false
     }
 
     atkTime+=1*gDeltaTime
+
     if atkProg=0 //-------------------- Rise up from lava and spray lava balls around --------------------
     {
       if atkTime=1
@@ -132,7 +134,7 @@ if global.gamePaused=false
         if atkTime=64 {ridParts[0].image_index=1}
         else if atkTime=68 {ridParts[0].image_index=0}
         y-=5*gDeltaTime
-        if y>=304 and y<=464 //Lava effects
+        if y>=304 and y<=464 and gDeltaDoTicks //Lava effects
         {
           var tEffect,tXadj;
           for(i=0;i<6;i+=1)
@@ -145,7 +147,7 @@ if global.gamePaused=false
             tEffect.xSpd=random_range(-0.2,0.2); tEffect.ySpd=-6-random(3); tEffect.grav=0.33; tEffect.depth=4
           }
         }
-        if y>=288 and y<=320 //Lava balls
+        if y>=288 and y<=320 and gDeltaDoTicks //Lava balls
         {
           var tNewAttack,tXarea;
           if myDirType=0 {tXarea=64} else {tXarea=512}
@@ -242,8 +244,9 @@ if global.gamePaused=false
       else if atkTime=109 {ridParts[0].image_index=2; playSound(global.snd_RidleyScreamA,0,0.98,32000)}
       else if atkTime=136 {ridParts[0].image_index=1}
       else if atkTime=139 {ridParts[0].image_index=0}
-      else if atkTime>=149 and atkTime<=499 //Slide across floor
+      else if atkTime>=149 and atkTime<=499  //Slide across floor
       {
+
         if gDeltaDoTicks {var tAfterI;
         tAfterI=instance_create(x,y,oEnemyAfterImage)
         tAfterI.sprite_index=sprite_index; tAfterI.image_index=image_index; tAfterI.image_blend=c_red
@@ -261,7 +264,7 @@ if global.gamePaused=false
           if x<=-96 {x-=groundCycle*30; atkTime=1000}
         }
 
-        if atkTime mod groundFireFreq=0 and x>=160 and x<=480 //Fire pillars from ground slide
+        if atkTime mod groundFireFreq=0 and x>=160 and x<=480  //Fire pillars from ground slide. 160 / 480
         {
           playSound(global.snd_Flame1,0,1,9600)
           var tFirePillar;
@@ -334,8 +337,8 @@ if global.gamePaused=false
         oRidleyParts.tailType=4; oRidleyParts.tailAngle=tChkDir
         playSound(global.snd_PlayerJump[0],0,1,8000)
       }
-      else if atkTime>=151 and atkTime<=160 {oRidleyParts.tailSep+=3} //Extend tail
-      else if atkTime>=161 and atkTime<=170 {oRidleyParts.tailSep-=3} //Detract tail
+      else if atkTime>=151 and atkTime<=160 {oRidleyParts.tailSep+=3*gDeltaTime} //Extend tail
+      else if atkTime>=161 and atkTime<=170 {oRidleyParts.tailSep-=3*gDeltaTime} //Detract tail
       else if atkTime=171 {oRidleyParts.tailType=1}
       else if atkTime>=175 and atkTime<=218 //Track player and use fire
       {
@@ -344,8 +347,8 @@ if global.gamePaused=false
         distMax=96
         if tChkMove<distMax-(distMax/6)
         {
-          if image_xscale=1 {x-=moveSpd}
-          else {x+=moveSpd}
+          if image_xscale=1 {x-=moveSpd*gDeltaTime}
+          else {x+=moveSpd*gDeltaTime}
         }
         else if tChkMove>distMax
         {
@@ -395,19 +398,19 @@ if global.gamePaused=false
       {
         if myDirType=0
         {
-          x-=6
+          x-=6*gDeltaTime
           if x<=96 {image_xscale=1; atkTime=1000}
         }
         else
         {
-          x+=6
+          x+=6*gDeltaTime
           if x>=544 {image_xscale=-1; atkTime=1000}
         }
       }
       else if atkTime>=1001 and atkTime<=1999 //Go down
       {
-        if y<368 {y+=3}
-        else {y+=6}
+        if y<368 {y+=3*gDeltaTime}
+        else {y+=6*gDeltaTime}
         if atkTime=1005 {ridParts[0].image_index=1}
         else if atkTime=1008 {ridParts[0].image_index=2}
         else if atkTime=1011
@@ -430,7 +433,7 @@ if global.gamePaused=false
     {
       if atkTime>=1 and atkTime<=99
       {
-        y-=8
+        y-=8*gDeltaTime
         if y<=-96
         {
           x=xCenter
@@ -445,13 +448,13 @@ if global.gamePaused=false
       }
       else if atkTime>=150
       {
-        var tAfterI;
+        if gDeltaDoTicks {var tAfterI;
         tAfterI=instance_create(x,y,oEnemyAfterImage)
         tAfterI.sprite_index=sprite_index; tAfterI.image_index=image_index; tAfterI.image_blend=c_red
         tAfterI.image_alpha=0.6; tAfterI.image_xscale=image_xscale; tAfterI.depth=8; tAfterI.imageFade=0.03
-        tAfterI.xScaling=0; tAfterI.yScaling=0; tAfterI.xShift=0; tAfterI.yShift=0; tAfterI.bFollow=-1
+        tAfterI.xScaling=0; tAfterI.yScaling=0; tAfterI.xShift=0; tAfterI.yShift=0; tAfterI.bFollow=-1}
 
-        y+=20
+        y+=20*gDeltaTime
         if y>=yGround-64
         {
           var tEffect;

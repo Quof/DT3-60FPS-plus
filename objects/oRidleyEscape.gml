@@ -80,7 +80,7 @@ if global.gamePaused=false
   {
     if bWave=1 //Idle wave motion
     {
-      moveWaveY+=0.2
+      moveWaveY+=0.2*gDeltaTime
       y+=sin(moveWaveY)
       if x+16<oPlayer1.x {image_xscale=1}
       else if x-16>oPlayer1.x {image_xscale=-1}
@@ -95,7 +95,7 @@ if global.gamePaused=false
         tNewAttack=instance_create(x+(13*image_xscale),y-4,oMetBulletPass)
         tNewAttack.sprite_index=sRidleyFireball; tNewAttack.damageType="ELEMENTAL"; tNewAttack.depth=4
         tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=8; tNewAttack.decayTime=-100
-        tNewAttack.direction=point_direction(x+(9*image_xscale),y-4,oPlayer1.x,returnPlayerYCenter())+random_range(-5,5)
+        tNewAttack._direction=point_direction(x+(9*image_xscale),y-4,oPlayer1.x,returnPlayerYCenter())+random_range(-5,5)
       }
     }
 
@@ -105,22 +105,22 @@ if global.gamePaused=false
       //Movement
       if x>oPlayer1.x
       {
-        if moveSpdX>-4 {moveSpdX-=0.5}
+        if moveSpdX>-4 {moveSpdX-=0.5*gDeltaTime}
       }
       else
       {
-        if moveSpdX<4 {moveSpdX+=0.5}
+        if moveSpdX<4 {moveSpdX+=0.5*gDeltaTime}
       }
 
       if y>view_yview[0]+view_hview[0]-48
       {
-        if moveSpdY>-4 {moveSpdY-=0.5}
+        if moveSpdY>-4 {moveSpdY-=0.5*gDeltaTime}
       }
       else
       {
-        if moveSpdY<4 {moveSpdY+=0.5}
+        if moveSpdY<4 {moveSpdY+=0.5*gDeltaTime}
       }
-      x+=moveSpdX; y+=moveSpdY
+      x+=moveSpdX*gDeltaTime; y+=moveSpdY*gDeltaTime
 
       if atkTime=40 {ridParts[0].image_index=1}
       else if atkTime=44 {ridParts[0].image_index=2}
