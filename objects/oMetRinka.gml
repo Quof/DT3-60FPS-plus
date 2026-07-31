@@ -26,6 +26,8 @@ bGenEnemy=1
 hitSound=global.snd_MetEnemyHitA
 dieSound=4
 dieEffect=4
+_speed=0
+_direction=0
 
 initTime=0
 
@@ -42,22 +44,24 @@ if global.gamePaused=false
 {
   if bActive=true
   {
-    speed=3
+    _speed=3
+    x += cos(degtorad(_direction)) * _speed * gDeltaTime
+    y -= sin(degtorad(_direction)) * _speed * gDeltaTime
   }
   else
   {
-    initTime+=1
+    initTime+=1*gDeltaTime
     if initTime>=1 and initTime<=9 {image_xscale+=0.1*gDeltaTime; image_yscale+=0.1*gDeltaTime}
     if initTime>=20
     {
-      direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
+      _direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
       bCanDealDamage=1; bCanTakeDamage=1
       bActive=true
     }
   }
   enemyStepEvent()
 }
-else {speed=0}
+else {_speed=0}
 #define Collision_oPlayer1
 /*"/*'/**//* YYD ACTION
 lib_id=1

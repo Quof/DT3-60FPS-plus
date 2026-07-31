@@ -52,7 +52,7 @@ if global.gamePaused=false
   {
     if life<maxLife
     {
-      life+=2
+      life+=2*gDelatime
       if life>maxLife {life=maxLife}
     }
   }

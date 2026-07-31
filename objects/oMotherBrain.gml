@@ -60,14 +60,14 @@ if global.gamePaused=false
   if bActive=true and life>0
   {
     //Brain animation
-    brainFrm+=1
+    brainFrm+=1*gDeltaTime
     if brainFrm=10 {image_index=1}
     else if brainFrm=20 {image_index=2}
     else if brainFrm=30 {image_index=1}
     else if brainFrm=40 {image_index=0; brainFrm=0}
 
     //Eye animation
-    eyeAnim+=1
+    eyeAnim+=1*gDeltaTime
     if eyeAnim<eyeOpen
     {
       if eyeAnim mod 8=0
@@ -89,7 +89,7 @@ if global.gamePaused=false
       image_blend=c_white; myGun.image_blend=c_white
       var tAtk;
       tAtk=instance_create(x+86,y+57,oPassBullet)
-      tAtk.sprite_index=sMB_BrainWave; tAtk.direction=0; tAtk.depth=9
+      tAtk.sprite_index=sMB_BrainWave; tAtk._direction=0; tAtk.depth=9
       tAtk.atkPower=atkPower; tAtk.bulletSpeed=6; tAtk.decayTime=-100
       eyeFrm=2
     }
@@ -168,7 +168,7 @@ if global.gamePaused=false
   }
   else if life<=0 //Defeat animation
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       with oEProjectileBase {instance_destroy()}
@@ -177,7 +177,7 @@ if global.gamePaused=false
     else if deathAnim>=2 and deathAnim<=90
     {
       if deathAnim mod 6=0 {playSound(global.snd_EnemyDieMM,0,1,1)}
-      if oGame.time mod 2=0
+      if oGame.time mod (2/gDeltaTime)=0
       {
         var tEffect;
         tEffect=instance_create(x+random(80),y+random(63),oEffect)
