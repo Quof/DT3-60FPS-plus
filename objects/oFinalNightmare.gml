@@ -484,7 +484,7 @@ if global.gamePaused=false
             handLaserR=instance_create(x-100,y-36,oFNHandLaser)
             handLaserR.atkPower=floor(atkPower/2); handLaserR.image_angle=270; handLaserR.image_yscale=5
           }
-          else if handLaserTime>=10041 //Update lasers (Forever)
+          else if handLaserTime>10040 //Update lasers (Forever)
           {
             if bossProgress=8 {handLaserTime=10050}
 
