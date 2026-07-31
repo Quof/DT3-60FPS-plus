@@ -82,8 +82,8 @@ if global.gamePaused=false
   {
     if bWave=1
     {
-      moveWaveY+=0.2
-      y+=sin(moveWaveY)
+      moveWaveY+=0.2*gDeltaTime
+      y+=sin(moveWaveY)*gDeltaTime
       if x+16<oPlayer1.x {image_xscale=1}
       else if x-16>oPlayer1.x {image_xscale=-1}
     }
@@ -126,8 +126,10 @@ if global.gamePaused=false
         else if atkTime>=55 and atkTime<=150
         {
           if atkTime<=90 {strikeDir+=moveArc}
-          direction=strikeDir
-          speed=6.5
+          _direction=strikeDir
+          _speed=6.5
+          x += cos(degtorad(_direction)) * _speed * gDeltaTime
+          y -= sin(degtorad(_direction)) * _speed * gDeltaTime
           if x>=room_width+96 or x<=-96 or y<=-96 {atkTime=150}
         }
         else if atkTime=151 {speed=0; atkTime=0; atkProg+=1}
@@ -145,7 +147,7 @@ if global.gamePaused=false
         }
         else if atkTime>=2 and atkTime<=999
         {
-          x+=strikeDir
+          x+=strikeDir*gDeltaTime
           if atkTime mod 13=0
           {
             playSound(global.snd_RidleyFire,0,0.98,1)
@@ -177,7 +179,7 @@ if global.gamePaused=false
         }
         else if atkTime>=2
         {
-          y+=7
+          y+=7*gDeltaTime
           if y>=128
           {
             y=128
@@ -192,16 +194,16 @@ if global.gamePaused=false
     {
       if room=rSamus5_Lv1_E
       {
-        moveWaveX+=0.05
-        x+=sin(moveWaveX)
+        moveWaveX+=0.05*gDeltaTime
+        x+=sin(moveWaveX)*gDeltaTime
 
         if y<oPlayer1.y-26 //Above player
         {
-          if moveSpd<4 {moveSpd+=0.3}
+          if moveSpd<4 {moveSpd+=0.3*gDeltaTime}
         }
         else if y>oPlayer1.y-26 //Below player
         {
-          if moveSpd>-4 {moveSpd-=0.3}
+          if moveSpd>-4 {moveSpd-=0.3*gDeltaTime}
         }
         y+=moveSpd
       }
@@ -215,7 +217,7 @@ if global.gamePaused=false
         {
           if moveSpd>-4 {moveSpd-=0.3}
         }
-        x+=moveSpd
+        x+=moveSpd*gDeltaTime
       }
 
       atkTime+=1*gDeltaTime
@@ -231,7 +233,7 @@ if global.gamePaused=false
           tNewAttack=instance_create(x+(9*image_xscale),y-4,oMetBulletPass)
           tNewAttack.sprite_index=sRidleyFireball; tNewAttack.damageType="ELEMENTAL"; tNewAttack.depth=7
           tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=8; tNewAttack.decayTime=-100
-          tNewAttack.direction=point_direction(x+(9*image_xscale),y-4,oPlayer1.x,returnPlayerYCenter())+random_range(-5,5)
+          tNewAttack._direction=point_direction(x+(9*image_xscale),y-4,oPlayer1.x,returnPlayerYCenter())+random_range(-5,5)
         }
       }
       else if atkTime=1038 {ridParts[0].image_index=1}
@@ -267,7 +269,7 @@ if global.gamePaused=false
   oRidleyFirstParts.image_xscale=image_xscale
   enemyStepEvent()
 }
-else {speed=0}
+else {_speed=0}
 #define Collision_oPlayer1
 /*"/*'/**//* YYD ACTION
 lib_id=1

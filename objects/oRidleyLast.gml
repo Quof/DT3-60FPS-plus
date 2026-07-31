@@ -93,8 +93,8 @@ if global.gamePaused=false
   {
     if bWave=1 //Idle wave motion
     {
-      moveWaveY+=0.2
-      y+=sin(moveWaveY)
+      moveWaveY+=0.2*gDeltaTime
+      y+=sin(moveWaveY)*gDeltaTime
       if x<oPlayer1.x {image_xscale=1}
       else {image_xscale=-1}
     }
@@ -108,7 +108,7 @@ if global.gamePaused=false
         tNewAttack=instance_create(x+(13*image_xscale),y-4,oMetBulletPass)
         tNewAttack.sprite_index=sRidleyFireball; tNewAttack.damageType="ELEMENTAL"; tNewAttack.depth=4
         tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=8; tNewAttack.decayTime=-100
-        tNewAttack.direction=point_direction(x+(9*image_xscale),y-4,oPlayer1.x,returnPlayerYCenter())+random_range(-5,5)
+        tNewAttack._direction=point_direction(x+(9*image_xscale),y-4,oPlayer1.x,returnPlayerYCenter())+random_range(-5,5)
       }
     }
 
@@ -131,7 +131,7 @@ if global.gamePaused=false
       {
         if atkTime=64 {ridParts[0].image_index=1}
         else if atkTime=68 {ridParts[0].image_index=0}
-        y-=5
+        y-=5*gDeltaTime
         if y>=304 and y<=464 //Lava effects
         {
           var tEffect,tXadj;
@@ -168,10 +168,10 @@ if global.gamePaused=false
           {
             tNewAttack=instance_create(x-(30*image_xscale),y+31,oMetBulletPass)
             tNewAttack.sprite_index=sRidleyFireball; tNewAttack.damageType="ELEMENTAL"; tNewAttack.depth=4
-            tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=4; tNewAttack.decayTime=-100; tNewAttack.direction=tDir
+            tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=4; tNewAttack.decayTime=-100; tNewAttack._direction=tDir
             tNewAttack=instance_create(x-(30*image_xscale),y+31,oMetBulletPass)
             tNewAttack.sprite_index=sRidleyFireball; tNewAttack.damageType="ELEMENTAL"; tNewAttack.depth=4
-            tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=7; tNewAttack.decayTime=-100; tNewAttack.direction=tDir+((360/fireCircleAmt)/2)
+            tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=7; tNewAttack.decayTime=-100; tNewAttack._direction=tDir+((360/fireCircleAmt)/2)
             tDir+=360/fireCircleAmt
           }
 
@@ -198,7 +198,7 @@ if global.gamePaused=false
       else if atkTime>=116 //Fly up
       {
         bWave=0
-        y-=8
+        y-=8*gDeltaTime
         if y<=-96
         {
           atkTime=0; atkProg=2
@@ -217,13 +217,13 @@ if global.gamePaused=false
       }
       else if atkTime>=36 and atkTime<=99 //Hit ground
       {
-        var tAfterI;
+        if gDeltaDoTicks {var tAfterI;
         tAfterI=instance_create(x,y,oEnemyAfterImage)
         tAfterI.sprite_index=sprite_index; tAfterI.image_index=image_index; tAfterI.image_blend=c_red
         tAfterI.image_alpha=0.6; tAfterI.image_xscale=image_xscale; tAfterI.depth=8; tAfterI.imageFade=0.03
-        tAfterI.xScaling=0; tAfterI.yScaling=0; tAfterI.xShift=0; tAfterI.yShift=0; tAfterI.bFollow=-1
+        tAfterI.xScaling=0; tAfterI.yScaling=0; tAfterI.xShift=0; tAfterI.yShift=0; tAfterI.bFollow=-1}
 
-        y+=20
+        y+=20*gDeltaTime
         if y>=yGround-64
         {
           if x<oPlayer1.x {image_xscale=1} else {image_xscale=-1}
@@ -244,20 +244,20 @@ if global.gamePaused=false
       else if atkTime=139 {ridParts[0].image_index=0}
       else if atkTime>=149 and atkTime<=499 //Slide across floor
       {
-        var tAfterI;
+        if gDeltaDoTicks {var tAfterI;
         tAfterI=instance_create(x,y,oEnemyAfterImage)
         tAfterI.sprite_index=sprite_index; tAfterI.image_index=image_index; tAfterI.image_blend=c_red
         tAfterI.image_alpha=0.6; tAfterI.image_xscale=image_xscale; tAfterI.depth=8; tAfterI.imageFade=0.03
-        tAfterI.xScaling=0; tAfterI.yScaling=0; tAfterI.xShift=0; tAfterI.yShift=0; tAfterI.bFollow=-1
+        tAfterI.xScaling=0; tAfterI.yScaling=0; tAfterI.xShift=0; tAfterI.yShift=0; tAfterI.bFollow=-1}
 
         if image_xscale=1 //Right
         {
-          x+=groundMoveSpd
+          x+=groundMoveSpd*gDeltaTime
           if x>=room_width+96 {x+=groundCycle*30; atkTime=1000}
         }
         else //Left
         {
-          x-=groundMoveSpd
+          x-=groundMoveSpd*gDeltaTime
           if x<=-96 {x-=groundCycle*30; atkTime=1000}
         }
 
@@ -301,7 +301,7 @@ if global.gamePaused=false
       }
       else if atkTime>=11 and atkTime<=99 //Fly down
       {
-        y+=8
+        y+=8*gDeltaTime
         if y>=192
         {
           bWave=1
@@ -318,13 +318,13 @@ if global.gamePaused=false
         distMax=96
         if tChkMove<distMax-(distMax/6)
         {
-          if image_xscale=1 {x-=moveSpd}
-          else {x+=moveSpd}
+          if image_xscale=1 {x-=moveSpd*gDeltaTime}
+          else {x+=moveSpd*gDeltaTime}
         }
         else if tChkMove>distMax
         {
-          if image_xscale=1 {x+=moveSpd}
-          else {x-=moveSpd}
+          if image_xscale=1 {x+=moveSpd*gDeltaTime}
+          else {x-=moveSpd*gDeltaTime}
         }
       }
       else if atkTime=150 //Find player for tail stab

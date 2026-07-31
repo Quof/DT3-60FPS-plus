@@ -11,6 +11,8 @@ bShowHealthBar=false
 bShowDamage=false
 bCanTakeDamage=false
 init=0
+_speed=0
+_direction=0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -23,18 +25,20 @@ if global.gamePaused=false
     init=1
   if decayTime!=-100
   {
-    decayTime-=1
+    decayTime-=1*gDeltaTime
     if decayTime<=0 {instance_destroy()}
   }
 
-  speed=bulletSpeed
+  _speed=bulletSpeed
+  x += cos(degtorad(_direction)) * _speed * gDeltaTime
+  y -= sin(degtorad(_direction)) * _speed * gDeltaTime
   if sprite_index=sRidleyFireball
   {
     image_xscale+=0.01*gDeltaTime; image_yscale+=0.01*gDeltaTime
-    image_angle-=15
+    image_angle-=15*gDeltaTime
   }
 }
-else {speed=0}
+else {_speed=0}
 #define Collision_oAttackBase
 /*"/*'/**//* YYD ACTION
 lib_id=1

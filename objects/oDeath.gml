@@ -698,7 +698,7 @@ if global.gamePaused=false
       else if deathAnim>=1062 and deathAnim<=1121
       {
         oMovingSolid.yVel=-1
-        tile_layer_shift(999998,0,-1)
+        if gDeltaDoTicks tile_layer_shift(999998,0,-1)
       }
       else if deathAnim=1122 {oMovingSolid.yVel=0}
       
