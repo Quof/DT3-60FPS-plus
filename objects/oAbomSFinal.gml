@@ -94,8 +94,8 @@ if global.gamePaused=false
     {
       playSound(global.snd_HardHit1,0,0.9,1)
       image_speed=0
-      hspeed=0
-      vspeed=0
+      _hspeed=0
+      _vspeed=0
       baseColor=c_red; image_blend=c_red
       tEffect=instance_create(x,y,oEffect)
       tEffect.sprite_index=sDeathFlameA; tEffect.image_speed=0.33
