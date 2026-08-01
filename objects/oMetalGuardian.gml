@@ -76,17 +76,17 @@ if global.gamePaused=false
     }
 
     if x>oPlayer1.x and image_xscale=1
-      turnTime+=1
+      turnTime+=1*gDeltaTime
     else if x<oPlayer1.x and image_xscale=-1
-      turnTime+=1
+      turnTime+=1*gDeltaTime
     if turnTime>=30
     {
       image_xscale*=-1
       turnTime=0
     }
-    x+=runAcc*image_xscale
+    x+=runAcc*image_xscale*gDeltaTime
 
-    shotTime+=1
+    shotTime+=1*gDeltaTime
     if shotTime=shotDelay {image_index=1}
     else if shotTime=shotDelay+6 {image_index=2}
     else if shotTime=shotDelay+30
@@ -99,7 +99,7 @@ if global.gamePaused=false
       {
         tNewAtk=instance_create(x,y,oPassBullet)
         tNewAtk.sprite_index=sLB_Laser; tNewAtk.atkPower=atkPower; tNewAtk.bulletSpeed=6; tNewAtk.image_yscale=2
-        tNewAtk.decayTime=-100; tNewAtk.direction=tDir; tNewAtk.image_angle=tDir
+        tNewAtk.decayTime=-100; tNewAtk._direction=tDir; tNewAtk.image_angle=tDir
         tDir+=10
       }
     }
@@ -112,7 +112,11 @@ if global.gamePaused=false
   }
   else if life<=0
   {
-    deathAnim+=1
+    if (deathAnim == 0)
+    {
+      deathAnim = 1-gDeltaTime
+    }
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       playSound(global.snd_BombExplode,0,0.9,1)
@@ -129,7 +133,7 @@ if global.gamePaused=false
       tEffect.image_xscale=0.4; tEffect.image_yscale=0.4; tEffect.image_alpha=0.5+(image_alpha/3)
       tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
     }
-    y+=1
+    y+=1*gDeltaTime
     image_alpha-=0.02*gDeltaTime
     if image_alpha<0 {instance_destroy()}
   }

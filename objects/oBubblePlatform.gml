@@ -21,7 +21,7 @@ applies_to=self
 if global.gamePaused=false
 {
   //Animation
-  bubbleFrm+=1
+  bubbleFrm+=1*gDeltaTime
   if bubbleFrm=5 {image_index=1}
   else if bubbleFrm=10 {image_index=0}
   else if bubbleFrm=15 {image_index=2}
@@ -31,7 +31,7 @@ if global.gamePaused=false
   if shiftSeq=0 //Blown out (right)
   {
     xVel=2
-    shiftTime+=1
+    shiftTime+=1*gDeltaTime
     if shiftTime>=shiftMax
     {
       xVel=0
@@ -42,7 +42,7 @@ if global.gamePaused=false
   else if shiftSeq=1 //Rise up
   {
     yVel=-0.5
-    shiftTime+=1
+    shiftTime+=1*gDeltaTime
     if shiftTime>=120 and shiftTime mod 5=0
     {
       if image_blend=c_white {image_blend=c_red}

@@ -55,7 +55,7 @@ if global.gamePaused=false
   if bActive=true and stunnedTime=0 and life>0
   {
     mDir=point_direction(x+8,y+8,oPlayer1.x,returnPlayerYCenter())
-    moveTo((runAcc)*cos(degtorad(mDir)),-(runAcc)*sin(degtorad(mDir)))
+    moveTo((runAcc*gDeltaTime)*cos(degtorad(mDir)),-(runAcc*gDeltaTime)*sin(degtorad(mDir)))
 
     //---------- ATTACK: Shot ----------
     /*shotTime+=1
