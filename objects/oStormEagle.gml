@@ -267,7 +267,7 @@ if global.gamePaused=false
     else //Special attack
     {
       image_blend=make_color_rgb(random(255),random(255),random(255))
-      specProg+=1
+      specProg+=1*gDeltaTime
       if specProg=1 //Start
       {
         sprite_index=sStormE_Fly

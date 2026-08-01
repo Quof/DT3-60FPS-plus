@@ -43,7 +43,7 @@ if global.gamePaused=false
     if _direction>=91 and _direction<=269 {image_xscale=-1}
     else {image_xscale=1}
 
-    speed=9
+    _speed=9
     atkProg+=1*gDeltaTime
     if atkProg=9 {_direction=player_sprite_center()}
   }
@@ -57,7 +57,7 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
-else {speed=0}
+else {_speed=0}
 
 if bSpotted=0
 {
@@ -67,3 +67,6 @@ if bSpotted=0
     bSpotted=1
   }
 }
+
+x += cos(degtorad(_direction)) * _speed * gDeltaTime
+y -= sin(degtorad(_direction)) * _speed * gDeltaTime

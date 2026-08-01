@@ -93,8 +93,8 @@ if global.gamePaused=false
       x-=moveSpd*gDeltaTime
       if x<=(xCenter-roomSpan)+(sprite_width/2)+16 {moveCycle=0}
     }
-    stepCount+=(pi/60)/gDeltaTime
-    y+=sin(stepCount)/gDeltaTime
+    stepCount+=(pi/60)*gDeltaTime
+    y+=sin(stepCount)*gDeltaTime
 
     efFlyTime+=1*gDeltaTime
     if efFlyTime mod 3=0
@@ -121,7 +121,7 @@ if global.gamePaused=false
       {
         tAtkScythe=instance_create(x,y,oDeathFlyingScythe)
         tAtkScythe.x=x+lengthdir_x(80,tAtkSpawnDir); tAtkScythe.y=y+lengthdir_y(80,tAtkSpawnDir)
-        tAtkScythe.atkPower=atkPower; tAtkScythe.bulletSpeed=5; tAtkScythe.direction=tAtkDir
+        tAtkScythe.atkPower=atkPower; tAtkScythe.bulletSpeed=5; tAtkScythe._direction=tAtkDir
         tAtkSpawnDir+=360/16
       }
       scytheCircleTime=0

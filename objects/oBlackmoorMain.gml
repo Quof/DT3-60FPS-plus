@@ -156,7 +156,7 @@ if global.gamePaused=false
       image_angle+=bendSpd*gDeltaTime
       bodyMove+=1*gDeltaTime
     }
-    for(i=0;i<2;i+=1) {fingerMove[i]+=0.8+(i*0.2)*gDeltaTime}
+    for(i=0;i<2;i+=1) {fingerMove[i]+=(0.8+(i*0.2))*gDeltaTime}
 
     if despProg<=1
     {
@@ -207,10 +207,10 @@ if global.gamePaused=false
       {
         if moveTime>=201
         {
-          speed=0.25
-          direction=moveDir
+          _speed=0.25
+          _direction=moveDir
           moveDir+=2*gDeltaTime
-          if moveDir=180 {speed=0; moveDir=0; moveTime=0; moveCycle=0}
+          if moveDir=180 {_speed=0; moveDir=0; moveTime=0; moveCycle=0}
         }
       }
 
@@ -346,7 +346,7 @@ if global.gamePaused=false
     deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
-      speed=0
+      _speed=0
       with oObjectShadow {instance_destroy()}
       with oBlackmoorMeteor {instance_destroy()}
       with oBlackmoorShadowExp {instance_destroy()}
@@ -382,7 +382,10 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
-else {speed=0}
+else {_speed=0}
+
+x += cos(degtorad(_direction)) * _speed * gDeltaTime
+y -= sin(degtorad(_direction)) * _speed * gDeltaTime
 #define Other_10
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -521,7 +524,7 @@ else if despProg=3 //Attack
   {
     var newMeteor;
     newMeteor=instance_create(oPlayer1.x,-24,oBlackmoorMeteor)
-    newMeteor.atkPower=atkPower; newMeteor.bulletSpeed=8+(i/10); newMeteor.direction=270
+    newMeteor.atkPower=atkPower; newMeteor.bulletSpeed=8+(i/10); newMeteor._direction=270
   }
 }
 else if despProg=4 //End
@@ -530,13 +533,15 @@ else if despProg=4 //End
   if despTime>=45
   {
     if oEvExGates.fadeAlpha>0 {oEvExGates.fadeAlpha-=0.005*gDeltaTime; image_alpha+=0.005*gDeltaTime}
-    speed=2
-    direction=point_direction(x,y,576,256)
+    _speed=2
+    _direction=point_direction(x,y,576,256)
+    x += cos(degtorad(_direction)) * _speed * gDeltaTime
+    y -= sin(degtorad(_direction)) * _speed * gDeltaTime
 
     if point_distance(x,y,576,256)<4 and oEvExGates.fadeAlpha=0
     {
       bCanTakeDamage=1
-      speed=0
+      _speed=0
       x=576; y=256
       despProg=0
     }

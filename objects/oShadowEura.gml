@@ -129,8 +129,11 @@ if global.gamePaused=false
       atkTime+=1*gDeltaTime
       if atkTime>=15 and atkTime<=49
       {
-        if atkTime*gDeltaTime mod 2=0 and gDeltaDoTicks {x-=1}
-        else if gDeltaDoTicks {x+=1}
+        /*if atkTime*gDeltaTime mod 2=0 and gDeltaDoTicks {x-=1}
+        else if gDeltaDoTicks {x+=1}*/
+
+        if floor(atkTime) mod 2*gDeltaTime=0 {x-=1}
+        else {x+=1}
       }
       if atkTime=50
       {
@@ -565,6 +568,7 @@ if life<=0 //Defeat animation
       with oEnemyAfterImage {instance_destroy()}
       with oEProjectileBase {instance_destroy()}
       with oAttackBase {instance_destroy()}
+      _hspeed=0;_vspeed=0;
 
       deflectorTime=0
       global.gamePaused=true
@@ -646,7 +650,7 @@ if deflectorTime>=deflectorDelay
     tNewAttack=instance_create(x,y,oPassBullet)
     tNewAttack.sprite_index=other.sprite_index; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=7
     tNewAttack.decayTime=-100
-    tNewAttack.direction=point_direction(x+(16*image_xscale),y+16,oPlayer1.x,returnPlayerYCenter())
+    tNewAttack._direction=point_direction(x+(16*image_xscale),y+16,oPlayer1.x,returnPlayerYCenter())
     correctResType=1
   }
 }

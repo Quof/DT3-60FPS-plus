@@ -6,7 +6,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  oPlayer1.xVel=windPower*oStormEagle.image_xscale
+  oPlayer1.xVel=windPower*oStormEagle.image_xscale*gDeltaTime
   if oGame.time mod (3/gDeltaTime)=0
   {
     var tEffect;

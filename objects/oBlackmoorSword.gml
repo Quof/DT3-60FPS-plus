@@ -46,10 +46,12 @@ if global.gamePaused=false
   else if atkProg=2
   {
     if bulletSpeed<8 {bulletSpeed+=0.1*gDeltaTime}
-    speed=bulletSpeed
+    _speed=bulletSpeed
+    x += cos(degtorad(_direction)) * _speed * gDeltaTime
+    y -= sin(degtorad(_direction)) * _speed * gDeltaTime
   }
 }
-else {speed=0}
+else {_speed=0}
 #define Other_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
