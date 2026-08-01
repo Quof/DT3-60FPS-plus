@@ -25,7 +25,7 @@ if global.gamePaused=false
   {
     if image_xscale=1
     {
-      x+=1
+      if gDeltaDoTicks x+=1
       if x>=oHex_Final_Main.xCenter-oHex_Final_Main.roomSpan
       {
         spikeProg=1
@@ -33,7 +33,7 @@ if global.gamePaused=false
     }
     else
     {
-      x-=1
+      if gDeltaDoTicks x-=1
       if x<=oHex_Final_Main.xCenter+oHex_Final_Main.roomSpan
       {
         spikeProg=1

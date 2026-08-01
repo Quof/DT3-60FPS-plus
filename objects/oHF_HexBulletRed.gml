@@ -24,14 +24,17 @@ if global.gamePaused=false
   if init=0 {init=1}
   if decayTime!=-100
   {
-    decayTime-=1
+    decayTime-=1*gDeltaTime
     if decayTime<=0 {instance_destroy()}
   }
 
-  speed=bulletSpeed
-  image_angle=direction
+  _speed=bulletSpeed
+  image_angle=_direction
 }
-else {speed=0}
+else {_speed=0}
+
+x += cos(degtorad(_direction)) * _speed * gDeltaTime
+y -= sin(degtorad(_direction)) * _speed * gDeltaTime
 #define Collision_oPlayer1
 /*"/*'/**//* YYD ACTION
 lib_id=1

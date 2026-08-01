@@ -37,7 +37,7 @@ if global.gamePaused=false
 {
   if life>0
   {
-    path_speed=moveSpeed
+    path_speed=moveSpeed*gDeltaTime
     image_angle=direction
   }
   else if life<=0

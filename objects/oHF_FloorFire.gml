@@ -27,7 +27,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  fireFrm+=0.33
+  fireFrm+=0.33*gDeltaTime
   if fireProg=0
   {
     image_alpha+=0.04*gDeltaTime
@@ -35,12 +35,12 @@ if global.gamePaused=false
   }
   else if fireProg=1
   {
-    y-=2
+    y-=2*gDeltaTime
     if y<=272 {fireProg+=1}
   }
   else if fireProg=2
   {
-    fireTime+=1
+    fireTime+=1*gDeltaTime
     if fireTime>=100
     {
       image_alpha-=0.05*gDeltaTime

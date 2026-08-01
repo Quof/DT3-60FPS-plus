@@ -28,7 +28,7 @@ if global.gamePaused=false
 {
   x=oPlayer1.x
   y=returnPlayerYCenter()
-  lifeDrain+=1
+  lifeDrain+=1*gDeltaTime
   if global.difficulty=1
   {
     if lifeDrain mod 60=0 {bCanDealDamage=true}

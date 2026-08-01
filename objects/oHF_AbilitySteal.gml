@@ -20,6 +20,9 @@ for(i=0;i<64;i+=1)
   tEffect.speed=4; tEffect.image_angle=tDir-90
   tDir+=360/64
 }
+
+_speed=0
+_direction=0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -28,11 +31,11 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  image_angle-=15
-  direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
-  speed=mySpeed
+  image_angle-=15*gDeltaTime
+  _direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
+  _speed=mySpeed
 
-  timeThatIHaveBeenActive+=1
+  timeThatIHaveBeenActive+=1*gDeltaTime
   if timeThatIHaveBeenActive=40 {mySpeed+=1}
   else if timeThatIHaveBeenActive=80 {mySpeed+=1}
   else if timeThatIHaveBeenActive=120 {mySpeed+=1}
@@ -44,7 +47,10 @@ if global.gamePaused=false
   else if timeThatIHaveBeenActive=460 {mySpeed+=1}
   else if timeThatIHaveBeenActive=400 {mySpeed+=1}
 }
-else {speed=0}
+else {_speed=0}
+
+x += cos(degtorad(_direction)) * _speed * gDeltaTime
+y -= sin(degtorad(_direction)) * _speed * gDeltaTime
 #define Collision_oPlayer1
 /*"/*'/**//* YYD ACTION
 lib_id=1
