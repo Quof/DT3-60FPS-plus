@@ -49,7 +49,7 @@ if global.gamePaused=false
     {
       if image_alpha<1 {image_alpha+=0.05*gDeltaTime}
       if image_xscale>1 {image_xscale-=0.05*gDeltaTime; image_yscale-=0.05*gDeltaTime}
-      progTime+=1
+      progTime+=1*gDeltaTime
       if progTime=25
       {
         var tEffect;
@@ -68,20 +68,20 @@ if global.gamePaused=false
     else if myProg=1
     {
       followInstance()
-      shotTime+=1
+      shotTime+=1*gDeltaTime
       if shotTime=shotDelay {shotDir=0; warnRad=96; shotTime=1000}
-      else if shotTime>=1001 and shotTime<=1048 {warnRad-=2}
-      else if shotTime>=1050 and shotTime<=1120
+      else if shotTime>=1001 and shotTime<=1048 {warnRad-=2*gDeltaTime}
+      else if shotTime>=1050 and shotTime<=1120 and gDeltaDoTicks
       {
         playSound(global.snd_CShotB,0,0.9,60000)
         var tNewAttack;
-        shotDir+=8
+        shotDir+=8*gDeltaTime
         tNewAttack=instance_create(x,y,oPassBullet)
         tNewAttack.sprite_index=sDeci_SmallLaser; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
-        tNewAttack.decayTime=-100; tNewAttack.direction=shotDir
+        tNewAttack.decayTime=-100; tNewAttack._direction=shotDir
         tNewAttack=instance_create(x,y,oPassBulletRed)
         tNewAttack.sprite_index=sDeci_SmallLaserRed; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
-        tNewAttack.decayTime=-100; tNewAttack.direction=shotDir+180
+        tNewAttack.decayTime=-100; tNewAttack._direction=shotDir+180
       }
       else if shotTime>=1121 {shotTime=0}
     }
@@ -97,7 +97,7 @@ if global.gamePaused=false
   }
   else if life<=0
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     if deathAnim mod 4=0
     {
       if deathAnim mod 8=0 {playSound(global.snd_HardHit1,0,0.9,1)}

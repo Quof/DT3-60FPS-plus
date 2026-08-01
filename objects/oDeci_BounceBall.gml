@@ -24,10 +24,10 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  if yVel<10 {yVel+=grav}
+  if yVel<10 {yVel+=grav*gDeltaTime}
 
-  if xVel>0.75 {xVel-=xFalloff}
-  else if xVel<-0.75 {xVel+=xFalloff}
+  if xVel>0.75 {xVel-=xFalloff*gDeltaTime}
+  else if xVel<-0.75 {xVel+=xFalloff*gDeltaTime}
 
   if xVel>-1 and xVel<1
   {
@@ -54,7 +54,7 @@ if global.gamePaused=false
     tBufX=abs(xVel)
     xVel=-tBufX
   }
-  moveTo(xVel,yVel)
+  moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
 
 
   if y>room_height+32

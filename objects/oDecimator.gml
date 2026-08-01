@@ -77,13 +77,13 @@ if global.gamePaused=false
   {
     if bWave=1
     {
-      moveWave+=pi/60
-      y+=sin(moveWave)
+      moveWave+=(pi/60)*gDeltaTime
+      y+=sin(moveWave)*gDeltaTime
     }
 
     if bossPhase=0 //Starting movement
     {
-      x+=2
+      if gDeltaDoTicks x+=2
       if x>=192
       {
         xx=x; yy=y
@@ -93,8 +93,8 @@ if global.gamePaused=false
     }
     else if bossPhase=1 //Fly across room and drop Bounce Balls
     {
-      x+=4
-      bounceTime+=1
+      x+=4*gDeltaTime
+      bounceTime+=1*gDeltaTime
       if bounceTime mod bounceMod=0
       {
         tNewAttack=instance_create(x,y+24,oDeci_BounceBall)
@@ -110,20 +110,20 @@ if global.gamePaused=false
     }
     else if bossPhase=2 //Idle
     {
-      bounceTime+=1
+      bounceTime+=1*gDeltaTime
       if bounceTime>=40 {bounceTime=10; bossPhase=3}
     }
     else if bossPhase=3 //Fly toward middle of room, launching Missiles
     {
-      x-=3
-      bounceTime+=1
+      x-=3*gDeltaTime
+      bounceTime+=1*gDeltaTime
       if bounceTime mod bounceMod+2=0
       {
         var tMissile;
         tMissile=instance_create(x,y-16,oHomingMissile)
         tMissile.atkPower=atkPower; tMissile.targetTime=20; tMissile.sprite_index=sDeci_Missile
         tMissile.bulletSpeed=4; tMissile.seekThres=20; tMissile.minSpd=3; tMissile.maxSpd=8
-        tMissile.turnSpd=4; tMissile.accel=0.2; tMissile.direction=90
+        tMissile.turnSpd=4; tMissile.accel=0.2; tMissile._direction=90
       }
 
       if x<=xCenter
@@ -133,7 +133,7 @@ if global.gamePaused=false
     }
     else if bossPhase=4 //Idle
     {
-      bounceTime+=1
+      bounceTime+=1*gDeltaTime
       if bounceTime>=40
       {
         xSpd=0; ySpd=0
@@ -143,12 +143,12 @@ if global.gamePaused=false
     }
     else if bossPhase=5 //Execute special ability
     {
-      if oGame.time mod lifeGainMod=0 //HP Regen
+      if oGame.time mod (lifeGainMod/gDeltaTime)=0 //HP Regen
       {
         life+=2
         if life>maxLife {life=maxLife}
       }
-      specTime+=1
+      specTime+=1*gDeltaTime
       if specialAbility=1 //---------- Laser Pads ----------
       {
         if specTime=1
@@ -180,8 +180,8 @@ if global.gamePaused=false
 
         if specTime>=45 //Wave left and right
         {
-          laserPadMoveWave+=pi/100
-          x+=cos(laserPadMoveWave)*3
+          laserPadMoveWave+=(pi/100)*gDeltaTime
+          x+=cos(laserPadMoveWave)*3*gDeltaTime
 
           if specTime mod 5=0 //If player is above Decimator
           {
@@ -190,7 +190,7 @@ if global.gamePaused=false
               var tNewAttack;
               tNewAttack=instance_create(x,y,oPassBullet)
               tNewAttack.sprite_index=sDeci_SmallLaser; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=10
-              tNewAttack.decayTime=-100; tNewAttack.direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
+              tNewAttack.decayTime=-100; tNewAttack._direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
             }
           }
         }
@@ -222,9 +222,9 @@ if global.gamePaused=false
 
         if specTime>=45 //Follow player x
         {
-          if x<oPlayer1.x {if xSpd<3 {xSpd+=0.075}}
-          else {if xSpd>-3 {xSpd-=0.075}}
-          x+=xSpd
+          if x<oPlayer1.x {if xSpd<3 {xSpd+=0.075*gDeltaTime}}
+          else {if xSpd>-3 {xSpd-=0.075*gDeltaTime}}
+          x+=xSpd*gDeltaTime
         }
       }
       else if specialAbility=3 //---------- Protectors ----------
@@ -253,13 +253,13 @@ if global.gamePaused=false
 
         if specTime>=45 //Follow player
         {
-          if x<oPlayer1.x {if xSpd<1.5 {xSpd+=0.04}}
-          else {if xSpd>-1.5 {xSpd-=0.04}}
-          x+=xSpd
+          if x<oPlayer1.x {if xSpd<1.5 {xSpd+=0.04*gDeltaTime}}
+          else {if xSpd>-1.5 {xSpd-=0.04*gDeltaTime}}
+          x+=xSpd*gDeltaTime
 
-          if y<returnPlayerYCenter() {if ySpd<1.5 {ySpd+=0.4}}
-          else {if ySpd>-1.5 {ySpd-=0.04}}
-          y+=ySpd
+          if y<returnPlayerYCenter() {if ySpd<1.5 {ySpd+=0.4*gDeltaTime}}
+          else {if ySpd>-1.5 {ySpd-=0.04*gDeltaTime}}
+          y+=ySpd*gDeltaTime
 
           if xSpd>0 {image_xscale=1}
           else {image_xscale=-1}
@@ -267,7 +267,7 @@ if global.gamePaused=false
       }
 
       //Missiles from the skies
-      otherShot+=1
+      otherShot+=1*gDeltaTime
       if otherShot>=otherDelay and otherShot<=otherDelay+100
       {
         var tEffect;
@@ -294,13 +294,13 @@ if global.gamePaused=false
           var tNewAttack;
           tNewAttack=instance_create(oPlayer1.x,4,oPassBullet)
           tNewAttack.sprite_index=sDeci_Missile; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=10
-          tNewAttack.decayTime=-100; tNewAttack.direction=270
+          tNewAttack.decayTime=-100; tNewAttack._direction=270
           tNewAttack=instance_create(oPlayer1.x+56,4,oPassBullet)
           tNewAttack.sprite_index=sDeci_Missile; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=9
-          tNewAttack.decayTime=-100; tNewAttack.direction=267
+          tNewAttack.decayTime=-100; tNewAttack._direction=267
           tNewAttack=instance_create(oPlayer1.x-56,4,oPassBullet)
           tNewAttack.sprite_index=sDeci_Missile; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=9
-          tNewAttack.decayTime=-100; tNewAttack.direction=273
+          tNewAttack.decayTime=-100; tNewAttack._direction=273
         }
       }
       else if otherShot>=1151 {otherShot=0}
@@ -320,11 +320,11 @@ if global.gamePaused=false
         bounceTime=1
       }
 
-      if x>xx+2 {x-=2; image_xscale=-1}
-      else if x<xx-2 {x+=2; image_xscale=1}
+      if x>xx+2 {x-=2*gDeltaTime; image_xscale=-1}
+      else if x<xx-2 {x+=2*gDeltaTime; image_xscale=1}
 
-      if y>yy+2 {y-=2}
-      else if y<yy-2 {y+=2}
+      if y>yy+2 {y-=2*gDeltaTime}
+      else if y<yy-2 {y+=2*gDeltaTime}
 
       if point_distance(x,y,xx,yy)<3
       {
@@ -338,7 +338,7 @@ if global.gamePaused=false
     }
     else if bossPhase=7 //Idle
     {
-      bounceTime+=1
+      bounceTime+=1*gDeltaTime
       if bounceTime>=40 {bounceTime=0; bossPhase=1}
     }
 
@@ -355,7 +355,7 @@ if global.gamePaused=false
         var tNewAttack;
         tNewAttack=instance_create(x+18,y+6,oPassBullet)
         tNewAttack.sprite_index=sDeci_SmallLaser; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
-        tNewAttack.decayTime=-100; tNewAttack.direction=gunAngleA
+        tNewAttack.decayTime=-100; tNewAttack._direction=gunAngleA
       }
       else if gunShotTime=(gunShotDelay*2)-20 {gunB_Blend=c_maroon}
       else if gunShotTime>=gunShotDelay*2
@@ -365,7 +365,7 @@ if global.gamePaused=false
         var tNewAttack;
         tNewAttack=instance_create(x-18,y+6,oPassBullet)
         tNewAttack.sprite_index=sDeci_SmallLaser; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
-        tNewAttack.decayTime=-100; tNewAttack.direction=gunAngleB
+        tNewAttack.decayTime=-100; tNewAttack._direction=gunAngleB
         gunShotTime=0
       }
     }
@@ -384,7 +384,7 @@ if global.gamePaused=false
 
 if life<=0 //Defeat animation
 {
-  deathAnim+=1
+  deathAnim+=1*gDeltaTime
   if deathAnim=1
   {
     if global.bBossGallery=1

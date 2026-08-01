@@ -75,9 +75,9 @@ if global.gamePaused=false
     if myProg=0
     {
       if image_alpha<1 {image_alpha+=0.05*gDeltaTime}
-      if x<oDecimator.x {x+=2}
-      else if x>oDecimator.x {x-=2}
-      progTime+=1
+      if x<oDecimator.x and gDeltaDoTicks {x+=2}
+      else if x>oDecimator.x and gDeltaDoTicks  {x-=2}
+      progTime+=1*gDeltaTime
       if progTime=32
       {
         var tEffect;
@@ -95,7 +95,7 @@ if global.gamePaused=false
     else if myProg=1
     {
       followInstance()
-      image_index+=turnSpd
+      image_index+=turnSpd*gDeltaTime
       if bShotReady=1
       {
         if image_index<1
@@ -104,10 +104,10 @@ if global.gamePaused=false
           var tNewAttack;
           tNewAttack=instance_create(x+34,y,oPassBullet)
           tNewAttack.sprite_index=sDeci_Laser; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=9
-          tNewAttack.decayTime=-100; tNewAttack.direction=0
+          tNewAttack.decayTime=-100; tNewAttack._direction=0
           tNewAttack=instance_create(x-34,y,oPassBullet)
           tNewAttack.sprite_index=sDeci_Laser; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=9
-          tNewAttack.decayTime=-100; tNewAttack.direction=180
+          tNewAttack.decayTime=-100; tNewAttack._direction=180
           bShotReady=0
         }
       }
@@ -136,7 +136,7 @@ if global.gamePaused=false
   }
   else if life<=0
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     image_speed=0
     if deathAnim mod 4=0
     {

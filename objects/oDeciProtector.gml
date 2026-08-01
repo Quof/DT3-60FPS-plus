@@ -72,7 +72,7 @@ if global.gamePaused=false
     if myProg=0
     {
       if image_alpha<1 {image_alpha+=0.05*gDeltaTime}
-      progTime+=1
+      progTime+=1*gDeltaTime
       if progTime=25
       {
         var tEffect;
@@ -88,8 +88,8 @@ if global.gamePaused=false
     }
     else if myProg=1
     {
-      spin+=2
-      shotTime+=1
+      spin+=2*gDeltaTime
+      shotTime+=1*gDeltaTime
       if shotTime>=shotDelay and shotTime<=shotDelay+100
       {
         var tEffect;
@@ -108,7 +108,7 @@ if global.gamePaused=false
           tMissile=instance_create(x,y-16,oHomingMissile)
           tMissile.atkPower=atkPower; tMissile.targetTime=20; tMissile.sprite_index=sDeci_Missile
           tMissile.bulletSpeed=4; tMissile.seekThres=15; tMissile.minSpd=3; tMissile.maxSpd=7
-          tMissile.turnSpd=4; tMissile.accel=0.2; tMissile.direction=45+(i*90)
+          tMissile.turnSpd=4; tMissile.accel=0.2; tMissile._direction=45+(i*90)
         }
         shotTime=0
       }
@@ -119,7 +119,7 @@ if global.gamePaused=false
         {
           tNewAttack=instance_create(x,y,oPassBullet)
           tNewAttack.sprite_index=sMMFlamerFlame; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=10; tNewAttack.image_alpha=0.75
-          tNewAttack.decayTime=17; tNewAttack.direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())+random_range(-5,5)
+          tNewAttack.decayTime=17; tNewAttack._direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())+random_range(-5,5)
           tNewAttack.damageType="ELEMENTAL"
         }
         if shotTime>=2070 {shotTime=0}
@@ -132,7 +132,7 @@ if global.gamePaused=false
         {
           tNewAttack=instance_create(x,y,oPassBullet)
           tNewAttack.sprite_index=sDeci_SmallLaser; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
-          tNewAttack.decayTime=-100; tNewAttack.direction=tDir
+          tNewAttack.decayTime=-100; tNewAttack._direction=tDir
           tDir+=360/12
         }
         shotTime=0
@@ -144,7 +144,7 @@ if global.gamePaused=false
         {
           tNewAttack=instance_create(x,y,oPassBullet)
           tNewAttack.sprite_index=sDeci_SmallLaser; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=7; tNewAttack.image_blend=make_color_rgb(150,255,150)
-          tNewAttack.decayTime=-100; tNewAttack.direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
+          tNewAttack.decayTime=-100; tNewAttack._direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
         }
         if shotTime>=4070 {shotTime=0}
       }
