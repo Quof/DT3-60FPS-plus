@@ -47,7 +47,7 @@ if global.gamePaused=false
 
   if bMoving=true
   {
-    if oGame.time mod 3=0
+    if oGame.time mod (3/gDeltaTime)=0
     {
       var tEffect;
       tEffect=instance_create(x-6+random(2),y+7+random(3),oEffectB); tEffect.image_speed=0.33
@@ -59,7 +59,7 @@ if global.gamePaused=false
     if place_meeting(x,y,oNightmareEffect) {xVel=1}
     else {xVel=2}
 
-    timeLeft-=1
+    timeLeft-=1*gDeltaTime
     if timeLeft<=0
     {
       playSound(global.snd_EnemyDieMM,0,0.98,1)

@@ -80,7 +80,7 @@ if global.gamePaused=false
   makeEnemyActive(0)
   if bActive=true and stunnedTime=0 and life>0
   {
-    imageEffect+=1
+    imageEffect+=1*gDeltaTime
     if imageEffect mod 8=0
     {
       var tAfterI;
@@ -124,7 +124,7 @@ if global.gamePaused=false
     if currentAction=0 //---------- No action: Ready ----------
     {
       image_speed=0
-      image_index+=animSpd
+      image_index+=animSpd*gDeltaTime
 
       if x<oPlayer1.x {image_xscale=1}
       else {image_xscale=-1}
@@ -147,7 +147,7 @@ if global.gamePaused=false
         xVel=0
       }
 
-      attackDelay+=1
+      attackDelay+=1*gDeltaTime
       if attackDelay>=waitTime //Decide action
       {
         if sprite_index=sDK_Fly
@@ -188,14 +188,14 @@ if global.gamePaused=false
     }
     else if currentAction>=10 and currentAction<=19 //---------- Attack: Chain Sword ----------
     {
-      attackDelay+=1
+      attackDelay+=1*gDeltaTime
       if attackDelay=1 //Ready sword
       {
         sprite_index=sDK_Swing; image_index=0
       }
       else if attackDelay>=7 and attackDelay<=99 //Swing
       {
-        image_index+=atkSpd
+        image_index+=atkSpd*gDeltaTime
         if image_index>=3.3 {attackDelay=100; image_index=3}
       }
       else if attackDelay=104 //Spawn Chain Sword
@@ -216,7 +216,7 @@ if global.gamePaused=false
     }
     else if currentAction>=20 and currentAction<=29 //---------- Action: Jump and Fly Up ----------
     {
-      attackDelay+=1
+      attackDelay+=1*gDeltaTime
       if attackDelay=1 //Jump up
       {
         sprite_index=sDK_Fly; image_index=0; image_speed=animSpd
@@ -230,7 +230,7 @@ if global.gamePaused=false
     }
     else if currentAction>=30 and currentAction<=39 //---------- Attack: Dive and flip back ----------
     {
-      attackDelay+=1
+      attackDelay+=1*gDeltaTime
       if attackDelay=1 {sprite_index=sDK_DiveReady}
       else if attackDelay=14 //Dive down
       {
@@ -256,7 +256,7 @@ if global.gamePaused=false
     }
     else if currentAction>=40 and currentAction<=49 //---------- Action: Shielding ----------
     {
-      attackDelay+=1
+      attackDelay+=1*gDeltaTime
       if attackDelay=1 {sprite_index=sDK_ShieldReady}
       else if attackDelay=12
       {
@@ -317,7 +317,7 @@ if global.gamePaused=false
 
     event_user(0) //Sword placement
 
-    if sprite_index!=sDK_Fly and sprite_index!=sDK_DiveReady {yVel+=0.3}
+    if sprite_index!=sDK_Fly and sprite_index!=sDK_DiveReady {yVel+=0.3*gDeltaTime}
 
     if isCollisionBottom(1)
     {
@@ -349,7 +349,7 @@ if global.gamePaused=false
     if isCollisionSolid()
       y-=2
 
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
 
     if y>room_height+24
     {
@@ -363,7 +363,11 @@ if global.gamePaused=false
   }
   else if life<=0
   {
-    deathAnim+=1
+    if deathAnim == 0
+    {
+      deathAnim = 1-gDeltaTime
+    }
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       image_speed=0

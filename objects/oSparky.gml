@@ -61,7 +61,7 @@ if global.gamePaused=false
     else if xVel<0 {xVel+=0.05}
 
     //Spark attack sequence
-    sparkTime+=1
+    sparkTime+=1*gDeltaTime
     if sparkTime=sparkDelay-15 {image_speed=0.33}
     else if sparkTime=sparkDelay
     {
@@ -82,7 +82,7 @@ if global.gamePaused=false
           tNewAtk=instance_create(x,y-8,oPassBullet)
           tNewAtk.sprite_index=sSparkyLightning; tNewAtk.image_speed=0.5
           tNewAtk.atkPower=atkPower; tNewAtk.bulletSpeed=7; tNewAtk.decayTime=-100
-          tNewAtk.direction=altBullets+(i*90)
+          tNewAtk._direction=altBullets+(i*90)
         }
         if altBullets=0 {altBullets=45}
         else {altBullets=0}
@@ -96,7 +96,7 @@ if global.gamePaused=false
       sparkTime=0
     }
 
-    yVel+=0.4
+    yVel+=0.4*gDeltaTime
     if sprite_index!=sSparkySparking //Animation control
     {
       if yVel>=0 {sprite_index=sSparkyDown}
@@ -106,7 +106,7 @@ if global.gamePaused=false
     if isCollisionBottom(1)
     {
       yVel=0
-      jumpTime+=1
+      jumpTime+=1*gDeltaTime
       if jumpTime>=jumpDelay
       {
         jumpTime=0
@@ -122,7 +122,7 @@ if global.gamePaused=false
       xVel*=-1
     if isCollisionSolid()
       y-=2
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
     if y>room_height+24
     {
       if questType>0
