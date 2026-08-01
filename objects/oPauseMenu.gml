@@ -2232,7 +2232,7 @@ if view_current=0
       {
         menuInfoText=string("Select an available equipment slot to assign an item to.#[" +string(global.ctrlActA) +string("]: Check available equipment.#[") +string(global.ctrlActB) +string("]: Unequip current slot."))
       }
-      mSAP_FrameCount+=1
+      mSAP_FrameCount+=1*gDeltaTime
       if mSAP_FrameCount mod 8=0
       {
         if mSAP_CurFrame=0 {mSAP_CurFrame=1}

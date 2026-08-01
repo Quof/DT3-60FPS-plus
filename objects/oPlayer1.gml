@@ -976,7 +976,7 @@ if mechLaserEnergy<mechLaserMax {mechLaserEnergy+=1*gDeltaTime}
 
 
 
-if (oKeyCodesHighFPS.kCode[10]=1 and oKeyCodesHighFPS.kCodePressed[14]=1 and global.gamePaused=true) or (oKeyCodesHighFPS.kCodePressed[10]=1 and oKeyCodesHighFPS.kCode[14]=1 and global.gamePaused=true)  //DT4 style reset, don't sue me
+if (oKeyCodesHighFPS.kCode[9]=1 and oKeyCodesHighFPS.kCodePressed[14]=1 and global.gamePaused=true) or (oKeyCodesHighFPS.kCodePressed[10]=1 and oKeyCodesHighFPS.kCode[14]=1 and global.gamePaused=true)  //DT4 style reset, don't sue me
     {
     if global.currentBoss=""
           {

@@ -33,10 +33,10 @@ if global.gamePaused=false
     if moveTime>=16 and moveTime<=999
     {
       _direction+=turnDir*gDeltaTime
+     //if _direction>=270 and _direction<=290 {moveTime=1000}
       turnAmt+=abs(turnDir)*gDeltaTime //QWH addition; direction not looping properly was breaking this
       if turnAmt>=180 and turnAmt <=200 {moveTime=1000}
       else if turnAmt>=160 and turnAmt<=180 {moveTime=1000}
-     // if _direction>=270 and _direction<=290 {moveTime=1000}
     }
 
     if y>=room_height+32 {instance_destroy()}
