@@ -47,7 +47,7 @@ if global.gamePaused=false
         tNewAttack.image_xscale=0.5; tNewAttack.image_yscale=0.5; tNewAttack.image_speed=0.5
         tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=4; tNewAttack.decayTime=12
         tNewAttack._direction=tDir
-        tDir+=(360/8)*gDeltaTime
+        tDir+=(360/8)
       }
       instance_destroy()
     }

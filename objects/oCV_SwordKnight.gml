@@ -326,7 +326,7 @@ if global.gamePaused=false
   else if life<=0
   {
     deathAnim+=1*gDeltaTime
-    if deathAnim=1
+    if deathAnim=1*gDeltaTime
     {
       mySword.bCanDealDamage=false
       mySword.bCanTakeDamage=false

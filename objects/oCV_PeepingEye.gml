@@ -113,7 +113,7 @@ if global.gamePaused=false
     }
 
     //----- Attack -----
-    shotTime+=1
+    shotTime+=1*gDeltaTime
     if shotTime=shotDelay
     {
       lightBullet=instance_create(eyeTail.x,eyeTail.y,oPeepEyeLightning)
@@ -135,7 +135,7 @@ if global.gamePaused=false
   {
     deathAnim+=1*gDeltaTime
     image_angle+=25*gDeltaTime
-    if deathAnim=1
+    if deathAnim=1*gDeltaTime
     {
       with lightBullet {instance_destroy()}
       for(i=0;i<5;i+=1)
@@ -151,7 +151,7 @@ if global.gamePaused=false
         instance_destroy()
       }
     }
-    else if deathAnim>=2 and deathAnim<=99
+    else if deathAnim>=2*gDeltaTime and deathAnim<=99
     {
       if deathAnim mod 8=0
       {
@@ -163,7 +163,7 @@ if global.gamePaused=false
           tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
           instance_destroy()
         }
-        tailDeath-=1*gDeltaTime
+        tailDeath-=1
         if tailDeath=-1 {deathAnim=100}
       }
     }
