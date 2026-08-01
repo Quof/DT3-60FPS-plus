@@ -73,7 +73,7 @@ if global.gamePaused=false
       else {image_xscale=-1}
     }
 
-    flameTime+=1
+    flameTime+=1*gDeltaTime
     if flameTime>=flameDelay and flameTime<=flameDelay+100
     {
       image_speed=0.33

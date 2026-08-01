@@ -77,7 +77,7 @@ if global.gamePaused=false
     }
 
     //---------- Arm (Spike) Extend ----------
-    armSeq+=1
+    armSeq+=1*gDeltaTime
     if armSeq=50
     {
       var tEffect;
@@ -88,13 +88,13 @@ if global.gamePaused=false
     else if armSeq=60 {findLeftDir=point_direction(leftBall.x,leftBall.y,oPlayer1.x,returnPlayerYCenter())}
     else if armSeq>=61 and armSeq<=80 //Extend left arm
     {
-      leftBall.x+=armSpd*cos(degtorad(findLeftDir))
-      leftBall.y+=-armSpd*sin(degtorad(findLeftDir))
+      leftBall.x+=armSpd*cos(degtorad(findLeftDir))*gDeltaTime
+      leftBall.y+=-armSpd*sin(degtorad(findLeftDir))*gDeltaTime
     }
     else if armSeq>=141 and armSeq<=160 //Retract left arm
     {
-      leftBall.x+=armSpd*cos(degtorad(findLeftDir-180))
-      leftBall.y+=-armSpd*sin(degtorad(findLeftDir-180))
+      leftBall.x+=armSpd*cos(degtorad(findLeftDir-180))*gDeltaTime
+      leftBall.y+=-armSpd*sin(degtorad(findLeftDir-180))*gDeltaTime
     }
 
     if armSeq=80
@@ -107,23 +107,23 @@ if global.gamePaused=false
     else if armSeq=90 {findRightDir=point_direction(rightBall.x,rightBall.y,oPlayer1.x,returnPlayerYCenter())}
     else if armSeq>=91 and armSeq<=110 //Extend right arm
     {
-      rightBall.x+=armSpd*cos(degtorad(findRightDir))
-      rightBall.y+=-armSpd*sin(degtorad(findRightDir))
+      rightBall.x+=armSpd*cos(degtorad(findRightDir))*gDeltaTime
+      rightBall.y+=-armSpd*sin(degtorad(findRightDir))*gDeltaTime
     }
     else if armSeq>=171 and armSeq<=190 //Retract right arm
     {
-      rightBall.x+=armSpd*cos(degtorad(findRightDir-180))
-      rightBall.y+=-armSpd*sin(degtorad(findRightDir-180))
+      rightBall.x+=armSpd*cos(degtorad(findRightDir-180))*gDeltaTime
+      rightBall.y+=-armSpd*sin(degtorad(findRightDir-180))*gDeltaTime
       if armSeq=190 {armSeq=0}
     }
 
-    yVel+=0.2
+    yVel+=0.2*gDeltaTime
     if isCollisionBottom(1)
       yVel=0
     if isCollisionSolid()
       y-=2
 
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
     if y>room_height+24
     {
       if questType>0

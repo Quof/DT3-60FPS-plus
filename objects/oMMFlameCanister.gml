@@ -9,6 +9,7 @@ makeActive()
 setCollisionBounds(1,0,sprite_width,sprite_height)
 maxLife=150
 life=maxLife
+delayFrame = 2.25//why the heck
 #define Collision_oAttackBase
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -27,18 +28,25 @@ if global.gamePaused=false
     }
     if life<=0
     {
-      awardAwesome(20)
-      if checkScreenArea(x,y,64)=1 {playSound(global.snd_BombExplode,0,0.9,1)}
-      newAttack=instance_create(x+8,y+32,oFieldBlast)
-      newAttack.image_xscale=0.66; newAttack.image_yscale=1.6; newAttack.animSpd=0.9; newAttack.visible=0
+      if (delayFrame > 0)//andrew addition, the attack spawned has to be delayed a certain amount to match with 30FPS original
+      {
+        delayFrame -= gDeltaTime
+      }
+      else
+      {
+        awardAwesome(20)
+        if checkScreenArea(x,y,64)=1 {playSound(global.snd_BombExplode,0,0.9,1)}
+        newAttack=instance_create(x+8,y+32,oFieldBlast)
+        newAttack.image_xscale=0.66; newAttack.image_yscale=1.6; newAttack.animSpd=0.9; newAttack.visible=0
 
-      tEffect=instance_create(x+8,y+12,oEffect); tEffect.sprite_index=sMMExplosion
-      tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
-      tEffect=instance_create(x+8,y+32,oEffect); tEffect.sprite_index=sMMExplosion
-      tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
-      tEffect=instance_create(x+8,y+52,oEffect); tEffect.sprite_index=sMMExplosion
-      tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
-      instance_destroy()
+        tEffect=instance_create(x+8,y+12,oEffect); tEffect.sprite_index=sMMExplosion
+        tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+        tEffect=instance_create(x+8,y+32,oEffect); tEffect.sprite_index=sMMExplosion
+        tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+        tEffect=instance_create(x+8,y+52,oEffect); tEffect.sprite_index=sMMExplosion
+        tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+        instance_destroy()
+      }
     }
   }
 }

@@ -93,7 +93,7 @@ if global.gamePaused=false
         xVel*=-1
       }
 
-      yVel+=0.2
+      yVel+=0.2*gDeltaTime
       if isCollisionBottom(1)
         yVel=0
       if isCollisionLeft(1) and xVel<0
@@ -108,7 +108,7 @@ if global.gamePaused=false
       else
         image_xscale=-xScaleStore
 
-      moveTo(xVel,yVel)
+      moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
       myLegs.x=x; myLegs.y=y; myLegs.image_xscale=image_xscale
       if y>room_height+24
       {

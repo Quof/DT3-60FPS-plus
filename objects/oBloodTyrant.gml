@@ -7,7 +7,7 @@ applies_to=self
 event_inherited()
 makeActive()
 setCollisionBounds(-19,-52,19,-1)
-animSpd=0.33*gDeltaTime
+animSpd=0.33
 image_speed=0
 
 //Enemy base statistics
@@ -123,7 +123,7 @@ if global.gamePaused=false
     //---------- Movement ----------
     if sprite_index!=sBT_Attack and sprite_index!=sBT_EarthStab and sprite_index!=sBT_ChargeA and sprite_index!=sBT_ChargeB and sprite_index!=sBT_DashBack and sprite_index!=sBT_Shield
     {
-      image_index+=animSpd
+      image_index+=animSpd*gDeltaTime
       if yVel=0 and bJumpReady=1
       {
         if x<oPlayer1.x {image_xscale=1}
@@ -159,7 +159,7 @@ if global.gamePaused=false
         }
       }
     }
-    else if sprite_index=sBT_Shield {image_index+=animSpd}
+    else if sprite_index=sBT_Shield {image_index+=animSpd*gDeltaTime}
 
     //---------- ENERGY SHIELD ----------
     if shielding=0 and (sprite_index=sBT_Idle or sprite_index=sBT_Walk) //Check updates
@@ -349,7 +349,7 @@ if global.gamePaused=false
       }
       else if atkCloseTime>=1016 and atkCloseTime<=9999
       {
-        image_index+=animSpd*1.25
+        image_index+=animSpd*1.25*gDeltaTime
         if image_xscale=1 {xVel-=0.075*gDeltaTime}
         else {xVel+=0.075*gDeltaTime}
 
@@ -373,7 +373,7 @@ if global.gamePaused=false
           earthPilScl=0.3
           earthPillar=1
         }
-        image_index+=animSpd
+        image_index+=animSpd*gDeltaTime
         if image_index>=4.5 {atkCloseTime=10009}
       }
     }

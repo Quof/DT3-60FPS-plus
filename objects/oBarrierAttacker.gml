@@ -56,9 +56,9 @@ if global.gamePaused=false
       else
         image_xscale=-1
 
-      x+=xMove
+      x+=xMove*gDeltaTime
 
-      turnTime+=1
+      turnTime+=1*gDeltaTime
       if turnTime>=moveMax
       {
         xMove*=-1
@@ -66,7 +66,7 @@ if global.gamePaused=false
       }
     }
 
-    shotTime+=1
+    shotTime+=1*gDeltaTime
     if shotTime>=shotDelay and shotTime<=shotDelay+10
     {
       if checkFacing()=1
@@ -85,7 +85,7 @@ if global.gamePaused=false
       tNewAttack=instance_create(x+(10*image_xscale),y,oPassBullet)
       tNewAttack.sprite_index=sWalkBlasterLaser
       tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=8; tNewAttack.decayTime=-100
-      tNewAttack.direction=point_direction(x+(10*image_xscale),y,oPlayer1.x,oPlayer1.y-26)
+      tNewAttack._direction=point_direction(x+(10*image_xscale),y,oPlayer1.x,oPlayer1.y-26)
     }
     else if shotTime=shotDelay+66 {image_index=1; resType[3]=3}
     else if shotTime=shotDelay+72 {image_index=0; resType[3]=2; shotTime=0}

@@ -59,7 +59,7 @@ if global.gamePaused=false
   makeEnemyActive(0)
   if bActive=true and stunnedTime=0 and life>0
   {
-    stepTime+=1
+    stepTime+=1*gDeltaTime
     if stepTime=1
     {
       if y>oPlayer1.y-26 {yVel=-runAcc; image_yscale=-1}
@@ -67,7 +67,7 @@ if global.gamePaused=false
     }
     else if stepTime>=2 and stepTime<=99
     {
-      image_index+=0.15
+      image_index+=0.15*gDeltaTime
       if image_index>3.8
       {
         image_index=0
@@ -89,7 +89,7 @@ if global.gamePaused=false
     }
 
     //---------- Shoot ----------
-    shotTime+=1
+    shotTime+=1*gDeltaTime
     if shotTime>=shotDelay+20
     {
       var tNewAttack;
@@ -105,7 +105,7 @@ if global.gamePaused=false
     if isCollisionBottom(1)
       yVel*=-1
 
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
   }
   else if life<=0
   {

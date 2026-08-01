@@ -26,7 +26,7 @@ if global.gamePaused=false
   if isCollisionLeft(1) {xVel*=-1; hitWall+=1}
   if isCollisionRight(1) {xVel*=-1; hitWall+=1}
   if isCollisionTop(1) {yVel*=-1; hitWall+=1}
-  moveTo(xVel,yVel)
+  moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
 
   if hitWall>=3 {instance_destroy()}
 }

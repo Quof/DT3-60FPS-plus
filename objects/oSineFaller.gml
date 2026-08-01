@@ -59,7 +59,7 @@ if global.gamePaused=false
           visible=true
           y-=352
         }
-        y+=12
+        y+=12*gDeltaTime
         if y>=flyPicY
         {
           bCanDealDamage=true
@@ -71,7 +71,7 @@ if global.gamePaused=false
         if instance_exists(oPlayer1)
         {
           dir=player_sprite_center()
-          moveTo(runAcc*cos(degtorad(dir)),-runAcc*sin(degtorad(dir)))
+          moveTo(runAcc*gDeltaTime*cos(degtorad(dir)),-runAcc*gDeltaTime*sin(degtorad(dir)))
         }
       }
     }

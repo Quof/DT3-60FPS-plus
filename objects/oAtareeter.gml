@@ -55,7 +55,7 @@ if global.gamePaused=false
       initDir=1
     }
 
-    spikeDrop+=1
+    spikeDrop+=1*gDeltaTime
     if startUp=0
     {
       if spikeDrop=8 {image_index=1}
@@ -85,7 +85,7 @@ if global.gamePaused=false
       }
     }
 
-    yVel+=0.2
+    yVel+=0.2*gDeltaTime
     if isCollisionBottom(1)
       yVel=0
     if isCollisionLeft(1)
@@ -95,7 +95,7 @@ if global.gamePaused=false
     if isCollisionSolid()
       y-=2
 
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
     if y>room_height+24
     {
       if questType>0
