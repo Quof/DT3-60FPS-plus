@@ -83,7 +83,7 @@ if global.gamePaused=false
 
     if bossPhase=0 //Starting movement
     {
-      if gDeltaDoTicks x+=2
+      x+=2*gDeltaTime
       if x>=192
       {
         xx=x; yy=y
@@ -284,7 +284,7 @@ if global.gamePaused=false
           var tNewAttack;
           tNewAttack=instance_create(x+random_range(-6,6),y-6,oPassBullet)
           tNewAttack.sprite_index=sDeci_Missile; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=12
-          tNewAttack.decayTime=-100; tNewAttack.direction=88+random(4)
+          tNewAttack.decayTime=-100; tNewAttack._direction=88+random(4)
         }
       }
       else if otherShot>=1080 and otherShot<=1140
@@ -346,7 +346,7 @@ if global.gamePaused=false
     {
       gunAngleA=point_direction(x+18,y+6,oPlayer1.x,returnPlayerYCenter())
       gunAngleB=point_direction(x-18,y+6,oPlayer1.x,returnPlayerYCenter())
-      gunShotTime+=1
+      gunShotTime+=1*gDeltaTime
       if gunShotTime=gunShotDelay-20 {gunA_Blend=c_maroon}
       else if gunShotTime=gunShotDelay
       {

@@ -75,7 +75,7 @@ if global.gamePaused=false
       {
         playSound(global.snd_CShotB,0,0.9,60000)
         var tNewAttack;
-        shotDir+=8*gDeltaTime
+        shotDir+=8
         tNewAttack=instance_create(x,y,oPassBullet)
         tNewAttack.sprite_index=sDeci_SmallLaser; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
         tNewAttack.decayTime=-100; tNewAttack._direction=shotDir

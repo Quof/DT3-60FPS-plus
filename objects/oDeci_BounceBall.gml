@@ -22,12 +22,12 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if global.gamePaused=false
+if global.gamePaused=false and gDeltaDoTicks
 {
-  if yVel<10 {yVel+=grav*gDeltaTime}
+  if yVel<10 {yVel+=grav}
 
-  if xVel>0.75 {xVel-=xFalloff*gDeltaTime}
-  else if xVel<-0.75 {xVel+=xFalloff*gDeltaTime}
+  if xVel>0.75 {xVel-=xFalloff}
+  else if xVel<-0.75 {xVel+=xFalloff}
 
   if xVel>-1 and xVel<1
   {
@@ -54,7 +54,7 @@ if global.gamePaused=false
     tBufX=abs(xVel)
     xVel=-tBufX
   }
-  moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
+  moveTo(xVel,yVel)
 
 
   if y>room_height+32

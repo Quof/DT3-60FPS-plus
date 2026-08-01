@@ -112,7 +112,7 @@ if global.gamePaused=false
         }
         shotTime=0
       }
-      else if shotTime>=2031 and shotTime<=2100 //Orange
+      else if shotTime>=2031 and shotTime<=2100 and gDeltaDoTicks //Orange
       {
         var tNewAttack;
         for(i=0;i<2;i+=1)
