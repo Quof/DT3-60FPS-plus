@@ -21,12 +21,15 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  tRanSize=random(0.2)
-  tEffect=instance_create(x-(16*image_xscale)+random(32*image_xscale),y-(16*image_yscale)+random(32*image_yscale),oEffect)
-  tEffect.sprite_index=choose(sSamusCannonHit,sSamusMissileHit)
-  tEffect.image_xscale=0.3+tRanSize; tEffect.image_yscale=0.3+tRanSize
-  tEffect.image_alpha=0.4+random(0.2); tEffect.image_speed=0.4+random(0.3)
-  tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+  if gDeltaDoTicks
+  {
+    tRanSize=random(0.2)
+    tEffect=instance_create(x-(16*image_xscale)+random(32*image_xscale),y-(16*image_yscale)+random(32*image_yscale),oEffect)
+    tEffect.sprite_index=choose(sSamusCannonHit,sSamusMissileHit)
+    tEffect.image_xscale=0.3+tRanSize; tEffect.image_yscale=0.3+tRanSize
+    tEffect.image_alpha=0.4+random(0.2); tEffect.image_speed=0.4+random(0.3)
+    tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+  }
 
   _speed=bulletSpeed
   if bulletSpeed<bulletMax
