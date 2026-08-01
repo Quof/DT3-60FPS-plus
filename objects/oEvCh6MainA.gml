@@ -1424,12 +1424,12 @@ else if room=rBelmont3_6G //----- [] Break barrier door -----
     {
       if musVolC>6000
       {
-        musVolC-=40
+        musVolC-=40*gDeltaTime
         SS_SetSoundVol(musFileP,musVolC)
       }
       else if musVolC>1000 and musVolC<=6000
       {
-        musVolC-=100
+        musVolC-=100*gDeltaTime
         SS_SetSoundVol(musFileP,musVolC)
       }
       else if musVolC<=1000
@@ -1446,7 +1446,7 @@ else if room=rBelmont3_6G //----- [] Break barrier door -----
     {
       if global.gamePaused=false
       {
-        if oGame.time mod 2=0
+        if oGame.time mod (2/gDeltaTime)=0
         {
           var tEffect,tRanSize;
           tRanSize=random_range(0.75,1)
@@ -1454,7 +1454,7 @@ else if room=rBelmont3_6G //----- [] Break barrier door -----
           tEffect.sprite_index=sMMSmokeCloud; tEffect.image_xscale=tRanSize; tEffect.image_yscale=tRanSize
           tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
         }
-        (GID(183139)).y-=1
+        if gDeltaDoTicks {(GID(183139)).y-=1}
         if (GID(183139)).y<=704 {global.gameProgress=1470}
       }
     }
