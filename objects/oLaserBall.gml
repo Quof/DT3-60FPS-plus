@@ -50,17 +50,17 @@ if global.gamePaused=false
     }
 
     if x>oPlayer1.x and image_xscale=1
-      turnTime+=1
+      turnTime+=1*gDeltaTime
     else if x<oPlayer1.x and image_xscale=-1
-      turnTime+=1
+      turnTime+=1*gDeltaTime
     if turnTime>=30
     {
       image_xscale*=-1
       turnTime=0
     }
-    x+=runAcc*image_xscale
+    x+=runAcc*image_xscale*gDeltaTime
 
-    shotTime+=1
+    shotTime+=1*gDeltaTime
     if shotTime=shotDelay
     {
       image_speed=0.5
@@ -71,7 +71,7 @@ if global.gamePaused=false
       var tNewAttack;
       tNewAttack=instance_create(x,y,oPassBullet)
       tNewAttack.sprite_index=sLB_Laser; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=4
-      tNewAttack.decayTime=-100; tNewAttack.direction=player_sprite_center()
+      tNewAttack.decayTime=-100; tNewAttack._direction=player_sprite_center()
       tNewAttack.image_angle=player_sprite_center()
 
       shotTime=0

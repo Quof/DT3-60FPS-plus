@@ -20,7 +20,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  chainProg+=1
+  chainProg+=1*gDeltaTime
   if chainProg>=1 and chainProg<=16
   {
     image_xscale+=(0.5*ownerID.image_xscale)*gDeltaTime

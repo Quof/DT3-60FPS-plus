@@ -682,16 +682,18 @@ else if global.gameProgress=2100 and room=rMain_36 //----- [Unskippable] Enemy T
           enemyImage.sprite_index=sDK_Roll; enemyImage.image_speed=0.3; enemyImage.type=1
           sceneDelay=0; sceneProgress+=1
         }
-
-        tEffect=instance_create(3792+random(64),264+random(32),oEffect)
-        tEffect.sprite_index=sBombExplosion
-        tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+        if gDeltaDoTicks
+        {
+          tEffect=instance_create(3792+random(64),264+random(32),oEffect)
+          tEffect.sprite_index=sBombExplosion
+          tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+        }
         if sceneDelay mod 5=0 {playSound(global.snd_BombExplode,0,0.95,1)}
       }
       else if sceneProgress=2
       {
         sceneDelay+=1*gDeltaTime
-        if sceneDelay>=1 and sceneDelay<=20 {enemyImage.y-=8}
+        if sceneDelay>=1 and sceneDelay<=20 {enemyImage.y-=8*gDeltaTime}
         else if sceneDelay=21 {enemyImage.sprite_index=sDK_Fly; enemyImage.image_speed=0.15}
         if sceneDelay>=61 and sceneDelay<=132
         {
