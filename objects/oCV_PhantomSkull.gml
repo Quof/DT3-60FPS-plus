@@ -64,22 +64,22 @@ if global.gamePaused=false
       if x>oPlayer1.x
       {
         if currHspd>-maxSpeed {currHspd-=0.1*gDeltaTime}
-        else {currHspd=-maxSpeed*gDeltaTime}
+        else {currHspd=-maxSpeed}
       }
       else if x<oPlayer1.x
       {
         if currHspd<maxSpeed {currHspd+=0.1*gDeltaTime}
-        else {currHspd=maxSpeed*gDeltaTime}
+        else {currHspd=maxSpeed}
       }
       if y>oPlayer1.y-26
       {
         if currVspd>-maxSpeed {currVspd-=0.1*gDeltaTime}
-        else {currVspd=-maxSpeed*gDeltaTime}
+        else {currVspd=-maxSpeed}
       }
       else if y<oPlayer1.y-26
       {
         if currVspd<maxSpeed {currVspd+=0.1*gDeltaTime}
-        else {currVspd=maxSpeed*gDeltaTime}
+        else {currVspd=maxSpeed}
       }
       //hspeed=currHspd; vspeed=currVspd
       _hspeed=currHspd
