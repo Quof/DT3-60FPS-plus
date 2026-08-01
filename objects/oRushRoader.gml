@@ -61,15 +61,15 @@ if global.gamePaused=false
     if turnTime<=30
     {
       if x>oPlayer1.x and image_xscale=1
-        turnTime+=1
+        turnTime+=1*gDeltaTime
       else if x<oPlayer1.x and image_xscale=-1
-        turnTime+=1
+        turnTime+=1*gDeltaTime
 
       if !isCollisionBottom(1) and turnTime=31 {turnTime=29}
     }
     else
     {
-      turnTime+=1
+      turnTime+=1*gDeltaTime
       if turnTime=32 {sprite_index=sRushRoaderTurn}
       else if turnTime>=41
       {
@@ -80,7 +80,7 @@ if global.gamePaused=false
     }
 
     if !isCollisionBottom(1)
-      yVel+=0.2
+      yVel+=0.2*gDeltaTime
     if isCollisionSolid()
       y-=2
 

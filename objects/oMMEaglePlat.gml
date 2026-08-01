@@ -57,9 +57,9 @@ if global.gamePaused=false
         else
           shiftSeq=1000
       }
-      else if shiftSeq>=1 and shiftSeq<=20
+      else if shiftSeq>=1 and shiftSeq<24//was 20
         shiftSeq+=1*gDeltaTime
-      else if shiftSeq=21
+      else if shiftSeq=24//was 21
       {
         flameFrm=0
         shiftTime=0
@@ -79,7 +79,7 @@ if global.gamePaused=false
         flameFrm+=0.5*gDeltaTime
         prevX=x
         prevY=y
-        shiftTime+=1*gDeltaTime
+        shiftTime+=1
       }
     }
   }
@@ -100,3 +100,4 @@ if findTargetX<drawRangeX and findTargetY<drawRangeY
     draw_sprite(sMM_SEPEffect,flameFrm,x+20,y+12)
   }
 }
+draw_text(x,y-40,string(shiftSeq))

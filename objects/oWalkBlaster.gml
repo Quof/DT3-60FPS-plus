@@ -67,18 +67,18 @@ if global.gamePaused=false
     }
 
     //---------- Shoot ----------
-    shotTime+=1
+    shotTime+=1*gDeltaTime
     if shotTime>=shotDelay
     {
       var tNewAttack;
       tNewAttack=instance_create(x+(20*image_xscale),y-28,oPassBullet)
       tNewAttack.sprite_index=sWalkBlasterLaser
       tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=7; tNewAttack.decayTime=-100
-      if image_xscale=-1 {tNewAttack.direction=180}
+      if image_xscale=-1 {tNewAttack._direction=180}
       shotTime=0
     }
 
-    yVel+=0.2
+    yVel+=0.2*gDeltaTime
     if isCollisionBottom(1)
       yVel=0
     if isCollisionLeft(1) and xVel<0
@@ -93,7 +93,7 @@ if global.gamePaused=false
     else
       image_xscale=-1
 
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
     if y>room_height+24
     {
       if questType>0

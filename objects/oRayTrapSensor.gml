@@ -16,7 +16,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  sensorTime+=1
+  sensorTime+=1*gDeltaTime
   if bSensorActive=0
   {
     if sensorTime>=timeToON {sensorTime=0; bSensorActive=1}

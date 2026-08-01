@@ -54,13 +54,13 @@ if global.gamePaused=false
     {
       colDrill.yVel=-4
       colDrill.image_yscale+=0.25*gDeltaTime
-      y-=4
+      y-=4*gDeltaTime
       image_speed=0.3
       if colDrill.image_yscale=drillMax {image_index=0; drillProg=1}
     }
     else if drillProg=1 //Slight wait
     {
-      waitTime+=1
+      waitTime+=1*gDeltaTime
       if waitTime=1
       {
         colDrill.yVel=0
@@ -70,7 +70,7 @@ if global.gamePaused=false
     }
     else if drillProg=2 //Slowly spin down
     {
-      y+=1
+      y+=1*gDeltaTime
       if y=ystart {image_speed=0; image_index=0; drillProg=3}
     }
   }

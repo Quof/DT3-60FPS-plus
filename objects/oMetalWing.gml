@@ -68,7 +68,7 @@ if global.gamePaused=false
       }
       initDir=true
     }
-    x+=xVel
+    x+=xVel*gDeltaTime
   }
   else if life<=0
   {

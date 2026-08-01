@@ -24,7 +24,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  if yVel<4.7 {yVel+=0.3}
+  if yVel<4.7 {yVel+=0.3*gDeltaTime}
 
   if bombProg=0 //Fly out and search for player
   {
@@ -63,7 +63,7 @@ if global.gamePaused=false
     bDestroy=1
   if isCollisionRight(1)
     bDestroy=1
-  moveTo(xVel,yVel)
+  moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
 
   if bDestroy=1
   {

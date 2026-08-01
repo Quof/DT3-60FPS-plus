@@ -70,7 +70,7 @@ if global.gamePaused=false
     }
 
     //Movement
-    atkProg+=1
+    atkProg+=1*gDeltaTime
     if atkProg=25 //Hop
     {
       if x<oPlayer1.x {image_xscale=1}
@@ -116,7 +116,7 @@ if global.gamePaused=false
       }
     }
 
-    yVel+=0.5
+    yVel+=0.5*gDeltaTime
     if isCollisionBottom(1)
     {
       if bReadyToFire=0
@@ -132,7 +132,7 @@ if global.gamePaused=false
     if isCollisionSolid()
       y-=2
 
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
     if y>room_height+24
     {
       if questType>0

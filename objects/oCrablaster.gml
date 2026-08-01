@@ -49,15 +49,15 @@ if global.gamePaused=false
   makeEnemyActive(0)
   if bActive=true and stunnedTime=0 and life>0
   {
-    stepTime+=1
-    if stepTime=1
+    stepTime+=1*gDeltaTime
+    if stepTime=1*gDeltaTime
     {
       if x>oPlayer1.x {xVel=-runAcc; image_xscale=-1}
       else {xVel=runAcc; image_xscale=1}
     }
     else if stepTime>=2 and stepTime<=99
     {
-      image_index+=0.15
+      image_index+=0.15*gDeltaTime
       if image_index>7.8
       {
         image_index=0
@@ -81,20 +81,20 @@ if global.gamePaused=false
     }
 
     //---------- Shoot ----------
-    shotTime+=1
+    shotTime+=1*gDeltaTime
     if shotTime>=shotDelay+20
     {
       var tNewAttack;
       tNewAttack=instance_create(x+13,y+23,oPassBullet)
       tNewAttack.sprite_index=sCrablasterShot
       tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=6
-      tNewAttack.decayTime=-100; tNewAttack.direction=315
+      tNewAttack.decayTime=-100; tNewAttack._direction=315
       tNewAttack.damageType="ELEMENTAL"
 
       tNewAttack=instance_create(x-13,y+23,oPassBullet)
       tNewAttack.sprite_index=sCrablasterShot
       tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=6
-      tNewAttack.decayTime=-100; tNewAttack.direction=225
+      tNewAttack.decayTime=-100; tNewAttack._direction=225
       tNewAttack.damageType="ELEMENTAL"
       shotTime=0
     }
@@ -104,7 +104,7 @@ if global.gamePaused=false
     if isCollisionRight(1)
       xVel*=-1
 
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
   }
   else if life<=0
   {
