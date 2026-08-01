@@ -11,6 +11,7 @@ bShowHealthBar=false
 bShowDamage=false
 atkPower=12
 lifeTime=0
+_direction=0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -19,9 +20,9 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  image_angle=direction
-  lifeTime+=1
-  if lifeTime>=1 and lifeTime<=35
+  image_angle=_direction
+  lifeTime+=1*gDeltaTime
+  if lifeTime>=1 and lifeTime<=35 and gDeltaDoTicks
   {
     var tEffect,tScale;
     tScale=random(0.17)
@@ -32,14 +33,17 @@ if global.gamePaused=false
   }
   if lifeTime=50
   {
-    direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
+    _direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
   }
 
-  if lifeTime>=1 and lifeTime<=35 {speed=5.5}
-  else if lifeTime>=50 {speed=10}
-  else {speed=0}
+  if lifeTime>=1 and lifeTime<=35 {_speed=5.5}
+  else if lifeTime>=50 {_speed=10}
+  else {_speed=0}
 }
-else {speed=0}
+else {_speed=0}
+
+x += cos(degtorad(_direction)) * _speed * gDeltaTime
+y -= sin(degtorad(_direction)) * _speed * gDeltaTime
 #define Other_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

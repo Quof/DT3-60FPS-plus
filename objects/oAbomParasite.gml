@@ -43,7 +43,7 @@ if global.gamePaused=false
     if oEvAbom.instrumentActNum=8 {bCanTakeDamage=1}
     else {bCanTakeDamage=0}
 
-    seqTime+=1
+    seqTime+=1*gDeltaTime
     if seqTime=220
     {
       var tAttack,tDir;
@@ -51,7 +51,7 @@ if global.gamePaused=false
       for(i=0;i<16;i+=1)
       {
         tAttack=instance_create(x,y,oAbomParaShot)
-        tAttack.direction=tDir
+        tAttack._direction=tDir
         tDir+=360/16
       }
       seqTime=0
@@ -61,7 +61,7 @@ if global.gamePaused=false
 
   if life<=0
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       with oEnemyBase {bCanDealDamage=0}
@@ -78,7 +78,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-scaleWaveA+=pi/60
+scaleWaveA+=(pi/60)*gDeltaTime
 for(i=0;i<8;i+=1)
 {
   draw_sprite_ext(sAbomBodyConnectorA,0,x+lengthdir_x(20+(18*i),30),y+lengthdir_y(20+(18*i),30),1.25+(sin(scaleWaveA+i)/2),1.25+(sin(scaleWaveA+i)/2),i*20,c_white,image_alpha)
@@ -89,12 +89,12 @@ for(i=0;i<8;i+=1)
 
 if waveBUp=1
 {
-  scaleWaveB+=0.004
+  scaleWaveB+=0.004*gDeltaTime
   if scaleWaveB>=1.05 {waveBUp=0}
 }
 else
 {
-  scaleWaveB-=0.004
+  scaleWaveB-=0.004*gDeltaTime
   if scaleWaveB<=0.95 {waveBUp=1}
 }
 image_xscale=1+scaleWaveB

@@ -44,11 +44,11 @@ if global.gamePaused=false
   makeEnemyActive(0)
   if bActive=true and life>0
   {
-    x+=sin(oGame.time/2.5+waveOffset)
+    x+=sin((oGame.time*gDeltaTime)/2.5+waveOffset)*gDeltaTime
   }
   else if life<=0
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     image_speed=0
     if deathAnim mod 4=0
     {

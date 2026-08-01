@@ -36,13 +36,13 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  moveWave+=pi/50
-  x+=cos(moveWave)/4
+  moveWave+=(pi/50)*gDeltaTime
+  x+=(cos(moveWave)/4)*gDeltaTime
 
   if myProg=0
   {
     image_xscale+=0.01*gDeltaTime; image_yscale+=0.01*gDeltaTime
-    if image_xscale=0.8
+    if image_xscale>=0.8
     {
       bCanDealDamage=1
       myProg=1
@@ -50,7 +50,7 @@ if global.gamePaused=false
   }
   else if myProg=1
   {
-    scaleWave+=pi/60
+    scaleWave+=(pi/60)*gDeltaTime
     image_xscale=0.5+(sin(scaleWave+i)/8)
     image_yscale=0.5+(sin(scaleWave+i)/8)
   }

@@ -19,8 +19,8 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  moveWave+=pi/50
-  x+=cos(moveWave)/4
+  moveWave+=(pi/50)*gDeltaTime
+  x+=(cos(moveWave)/4)*gDeltaTime
 
   if myProg=0
   {
@@ -32,7 +32,7 @@ if global.gamePaused=false
   }
   else if myProg=1
   {
-    scaleWave+=pi/60
+    scaleWave+=(pi/60)*gDeltaTime
     image_xscale=0.65+(sin(scaleWave)/8)
     image_yscale=0.65+(sin(scaleWave)/8)
   }

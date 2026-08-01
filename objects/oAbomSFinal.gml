@@ -53,43 +53,43 @@ if global.gamePaused=false
       if x>oPlayer1.x
       {
         if currHspd>-maxSpeed
-          currHspd-=0.25
+          currHspd-=0.25*gDeltaTime
         else
           currHspd=-maxSpeed
       }
       else if x<oPlayer1.x
       {
         if currHspd<maxSpeed
-          currHspd+=0.25
+          currHspd+=0.25*gDeltaTime
         else
           currHspd=maxSpeed
       }
       if y>oPlayer1.y-26
       {
         if currVspd>-maxSpeed
-          currVspd-=0.25
+          currVspd-=0.25*gDeltaTime
         else
           currVspd=-maxSpeed
       }
       else if y<oPlayer1.y-26
       {
         if currVspd<maxSpeed
-          currVspd+=0.25
+          currVspd+=0.25*gDeltaTime
         else
           currVspd=maxSpeed
       }
-      hspeed=currHspd
-      vspeed=currVspd
+      _hspeed=currHspd
+      _vspeed=currVspd
     }
     else
     {
-      hspeed=0
-      vspeed=0
+      _hspeed=0
+      _vspeed=0
     }
   }
   else if life<=0
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       playSound(global.snd_HardHit1,0,0.9,1)
@@ -109,6 +109,9 @@ if global.gamePaused=false
 }
 else
 {
-  hspeed=0
-  vspeed=0
+  _hspeed=0
+  _vspeed=0
 }
+
+x += _hspeed * gDeltaTime
+y += _vspeed * gDeltaTime

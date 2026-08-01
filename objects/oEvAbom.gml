@@ -155,15 +155,15 @@ if room=rCh21_Main_76 //-------------------- Chapter 21 --------------------
       myInstrument[i+4].y=408+lengthdir_y(instrDist,instrAng+45+(i*90))
     }
 
-    instrAng-=3
+    instrAng-=3*gDeltaTime
     if instrMoveProg=0
     {
-      instrDist+=0.5
+      instrDist+=0.5*gDeltaTime
       if instrDist>=35 {instrMoveProg=1}
     }
     else
     {
-      instrDist-=0.5
+      instrDist-=0.5*gDeltaTime
       if instrDist<=20 {instrMoveProg=0}
     }
   }

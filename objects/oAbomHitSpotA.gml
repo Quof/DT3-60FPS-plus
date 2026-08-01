@@ -21,6 +21,7 @@ affiliation=9
 bIsBoss=true
 bNoBonus=true
 dieEffect=0
+_direction=0
 
 scaleWave=pi/2
 
@@ -60,13 +61,13 @@ if global.gamePaused=false
   {
     if oEvAbom.instrumentActNum>=6 {bCanTakeDamage=1}
     else {bCanTakeDamage=0}
-    animFrm+=image_speed
+    animFrm+=image_speed*gDeltaTime
   }
   enemyStepEvent()
 
   if life<=0 //Defeat animation
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       playSound(global.snd_Slam,0,1,1)
@@ -79,9 +80,9 @@ if global.gamePaused=false
     if deathAnim>=1
     {
       if deathAnim mod 8=0 {playSound(global.snd_HardHit1,0,0.9,1)}
-      tEffect=instance_create(x+random_range(-16,16),y+random_range(-16,16),oEffect)
+      if gDeltaDoTicks {tEffect=instance_create(x+random_range(-16,16),y+random_range(-16,16),oEffect)
       tEffect.sprite_index=sDeathFlameA; tEffect.image_speed=0.33; tEffect.image_alpha=0.75
-      tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+      tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0}
 
       image_alpha-=0.02*gDeltaTime
       if image_alpha<=0
@@ -98,10 +99,10 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if bCanTakeDamage=0 and life>0 {scaleWave+=pi/60}
+if bCanTakeDamage=0 and life>0 {scaleWave+=(pi/60)*gDeltaTime}
 for(i=0;i<5;i+=1)
 {
-  draw_sprite_ext(sAbomBodyConnectorA,0,x+lengthdir_x(20+(18*i),direction),y+lengthdir_y(20+(18*i),direction),1.25+(sin(scaleWave+i)/2),1.25+(sin(scaleWave+i)/2),i*20,c_white,image_alpha)
+  draw_sprite_ext(sAbomBodyConnectorA,0,x+lengthdir_x(20+(18*i),_direction),y+lengthdir_y(20+(18*i),_direction),1.25+(sin(scaleWave+i)/2),1.25+(sin(scaleWave+i)/2),i*20,c_white,image_alpha)
 }
 
 draw_sprite_ext(sAbomHitSpotA,animFrm,x,y,image_xscale,image_yscale,0,image_blend,image_alpha)

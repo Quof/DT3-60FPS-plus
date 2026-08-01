@@ -13,7 +13,7 @@ applies_to=self
 */
 if global.gamePaused=0
 {
-  if hitDelay>0 {hitDelay-=1}
+  if hitDelay>0 {hitDelay-=1*gDeltaTime}
 }
 #define Collision_oAttackBase
 /*"/*'/**//* YYD ACTION
