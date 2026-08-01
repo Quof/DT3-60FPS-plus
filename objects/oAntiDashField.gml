@@ -107,13 +107,13 @@ if zoneType=0 //Square
   {
     if clDown[i]=0
     {
-      clF[i]+=3
+      clF[i]+=3*gDeltaTime
       if clF[i]=255
         clDown[i]=1
     }
     else if clDown[i]=1
     {
-      clF[i]-=3
+      clF[i]-=3*gDeltaTime
       if clF[i]=0
         clDown[i]=0
     }
