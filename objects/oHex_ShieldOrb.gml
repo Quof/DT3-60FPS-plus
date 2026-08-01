@@ -42,10 +42,10 @@ if global.gamePaused=false
 {
   if life>0
   {
-    chainFrm+=0.33
+    chainFrm+=0.33*gDeltaTime
     if shieldProg=0
     {
-      myDist+=2
+      myDist+=2*gDeltaTime
       if myDist>=80 {shieldProg=1}
     }
     else if shieldProg=1
@@ -72,22 +72,22 @@ if global.gamePaused=false
         {
           tAtk=instance_create(x,y,oPassBullet)
           tAtk.sprite_index=sHexShieldConnector; tAtk.atkPower=atkPower; tAtk.image_xscale=2; tAtk.image_yscale=0.5
-          tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk.image_speed=0.33; tAtk.direction=tDir
+          tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk.image_speed=0.33; tAtk._direction=tDir
           tDir+=50
         }
         atkTime=0
       }
 
       //Orbit around Hex
-      myDir+=2
+      myDir+=2*gDeltaTime
       if extendOut=1
       {
-        myDist+=1
+        myDist+=1*gDeltaTime
         if myDist>=112 {extendOut=0}
       }
       else
       {
-        myDist-=1
+        myDist-=1*gDeltaTime
         if myDist<=72 {extendOut=1}
       }
     }

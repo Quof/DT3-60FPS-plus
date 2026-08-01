@@ -28,6 +28,8 @@ for(i=0;i<8;i+=1)
   connectorUp[i]=1
   connectorSize[i]=0.2+(i*0.15)
 }
+
+_direction=0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -38,14 +40,14 @@ if global.gamePaused=false
 {
   if atkProg=0 //Extend out
   {
-    y-=0.75
+    y-=0.75*gDeltaTime
     if type=0
     {
-      x+=1.25
+      x+=1.25*gDeltaTime
     }
     else
     {
-      x-=1.25
+      x-=1.25*gDeltaTime
     }
     atkTime+=1*gDeltaTime
     if atkTime>=80 {atkTime=95; atkProg+=1}
@@ -55,8 +57,8 @@ if global.gamePaused=false
     //Movement
 
     //Rotate toward player
-    turn_toward_direction(player_sprite_center(),turnSpd)
-    image_angle=direction
+    turn_toward_directionEdit(player_sprite_center(),turnSpd)
+    image_angle=_direction
     //Attack
     atkTime+=1*gDeltaTime
     if atkTime=atkDelay
@@ -68,21 +70,21 @@ if global.gamePaused=false
       var tAtk;
       tAtk=instance_create(x+lengthdir_x(12,image_angle),y+lengthdir_y(12,image_angle),oPassBullet)
       tAtk.sprite_index=sHexShieldConnector; tAtk.atkPower=atkPower; tAtk.image_xscale=2; tAtk.image_yscale=0.5
-      tAtk.bulletSpeed=6; tAtk.decayTime=-100; tAtk.image_speed=0.33; tAtk.direction=image_angle
+      tAtk.bulletSpeed=6; tAtk.decayTime=-100; tAtk.image_speed=0.33; tAtk._direction=image_angle
     }
     else if atkTime=atkDelay+40
     {
       var tAtk;
       tAtk=instance_create(x+lengthdir_x(12,image_angle),y+lengthdir_y(12,image_angle),oHF_HexBulletRed)
       tAtk.sprite_index=sHFight_HandZap; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3
-      tAtk.image_speed=0.33; tAtk.decayTime=-100; tAtk.direction=image_angle
+      tAtk.image_speed=0.33; tAtk.decayTime=-100; tAtk._direction=image_angle
     }
     else if atkTime=atkDelay+50
     {
       var tAtk;
       tAtk=instance_create(x+lengthdir_x(12,image_angle),y+lengthdir_y(12,image_angle),oPassBullet)
       tAtk.sprite_index=sHexShieldConnector; tAtk.atkPower=atkPower; tAtk.image_xscale=2; tAtk.image_yscale=0.5
-      tAtk.bulletSpeed=6; tAtk.decayTime=-100; tAtk.image_speed=0.33; tAtk.direction=image_angle
+      tAtk.bulletSpeed=6; tAtk.decayTime=-100; tAtk.image_speed=0.33; tAtk._direction=image_angle
     }
     else if atkTime=atkDelay+55
     {
@@ -114,12 +116,12 @@ for(i=0;i<8;i+=1)
 {
   if connectorUp[i]=1
   {
-    connectorSize[i]+=0.02
+    connectorSize[i]+=0.02*gDeltaTime
     if connectorSize[i]>=1.3 {connectorUp[i]=0}
   }
   else
   {
-    connectorSize[i]-=0.02
+    connectorSize[i]-=0.02*gDeltaTime
     if connectorSize[i]<=0.2 {connectorUp[i]=1}
   }
   myDir=point_direction(x,y,oHex_Final_Main.x,oHex_Final_Main.y)

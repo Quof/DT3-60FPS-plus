@@ -45,7 +45,7 @@ if global.gamePaused=false
   {
     if atkProg=0 //Rise up
     {
-      y-=2
+      if gDeltaDoTicks y-=2
       if y<=288 {atkProg+=1}
     }
     else if atkProg=1 //Open hand
@@ -68,7 +68,7 @@ if global.gamePaused=false
         tDir=point_direction(x-(40*image_xscale),y-119,oPlayer1.x,returnPlayerYCenter())
         tAtk=instance_create(x-(40*image_xscale),y-119,oPassBullet)
         tAtk.sprite_index=sHexShieldConnector; tAtk.atkPower=atkPower; tAtk.image_xscale=2; tAtk.image_yscale=0.5
-        tAtk.bulletSpeed=4; tAtk.decayTime=-100; tAtk.image_speed=0.33; tAtk.direction=tDir
+        tAtk.bulletSpeed=4; tAtk.decayTime=-100; tAtk.image_speed=0.33; tAtk._direction=tDir
       }
       else if atkTime=atkDelay+12
       {
@@ -76,7 +76,7 @@ if global.gamePaused=false
         tDir=point_direction(x-(40*image_xscale),y-97,oPlayer1.x,returnPlayerYCenter())
         tAtk=instance_create(x-(40*image_xscale),y-97,oHF_HexBulletRed)
         tAtk.sprite_index=sHFight_HandZap; tAtk.atkPower=atkPower; tAtk.bulletSpeed=7
-        tAtk.image_speed=0.33; tAtk.decayTime=-100; tAtk.direction=tDir
+        tAtk.image_speed=0.33; tAtk.decayTime=-100; tAtk._direction=tDir
       }
       else if atkTime=atkDelay+15
       {
@@ -103,7 +103,7 @@ if global.gamePaused=false
     }
     else if atkProg=5 //Drop down
     {
-      y+=4
+      y+=4*gDeltaTime
       if y>=560 {instance_destroy()}
     }
     enemyStepEvent()

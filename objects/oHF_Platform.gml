@@ -20,13 +20,13 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if global.gamePaused=false
+if global.gamePaused=false && gDeltaDoTicks != 0
 {
   if type=0 //From bottom
   {
     if platProg=0
     {
-      if image_alpha<1 {image_alpha+=0.04*gDeltaTime}
+      if image_alpha<1 {image_alpha+=0.04}
 
       myColor+=3
       image_blend=make_color_rgb(myColor,myColor,myColor)
@@ -51,7 +51,7 @@ if global.gamePaused=false
   {
     if platProg=0
     {
-      if image_alpha<1 {image_alpha+=0.04*gDeltaTime}
+      if image_alpha<1 {image_alpha+=0.04}
 
       myColor+=3
       image_blend=make_color_rgb(myColor,myColor,myColor)

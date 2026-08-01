@@ -16,16 +16,16 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  if xSpd<8 {xSpd+=0.1}
-  if ySpd>-3 {ySpd-=0.2}
+  if xSpd<8 {xSpd+=0.1*gDeltaTime}
+  if ySpd>-3 {ySpd-=0.2*gDeltaTime}
 
-  x+=xSpd
-  y+=ySpd
+  x+=xSpd*gDeltaTime
+  y+=ySpd*gDeltaTime
 
   if x>=room_width+128 {instance_destroy()}
 
   var tEffect,tScale;
-  for(i=0;i<4;i+=1)
+  if gDeltaDoTicks for(i=0;i<4;i+=1)
   {
     tScale=random(0.25)
     tEffect=instance_create(x+random_range(-32,32),y+random_range(-32,32),oEffect)

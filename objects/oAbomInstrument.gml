@@ -27,7 +27,7 @@ if global.gamePaused=false
   if instrProg=0
   {
     image_alpha+=0.02*gDeltaTime
-    if image_alpha=1
+    if image_alpha>=1
     {
       activeTime=500+(image_index*180)
       instrProg+=1
@@ -37,7 +37,7 @@ if global.gamePaused=false
   {
     if bCanTakeDamage=0
     {
-      activeTime-=1
+      activeTime-=1*gDeltaTime
       if activeTime<=0 {bCanTakeDamage=1}
     }
   }
@@ -72,8 +72,8 @@ if bCanTakeDamage=0
     {
       if effectSize[i]<1.75
       {
-        effectSize[i]+=0.01
-        effectAlpha[i]-=0.01
+        effectSize[i]+=0.01*gDeltaTime
+        effectAlpha[i]-=0.01*gDeltaTime
       }
       else
       {

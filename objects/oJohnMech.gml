@@ -6,7 +6,7 @@ applies_to=self
 */
 progress=0
 progTime=0
-direction=-12
+_direction=-12
 keyPadAlpha=0.4
 shotTime=0
 shotMod=30
@@ -25,7 +25,7 @@ if global.gamePaused=false
 {
   if progress=0 //Fall and land
   {
-    y+=8
+    y+=8*gDeltaTime
     if y>=320
     {
       y=320
@@ -46,7 +46,7 @@ if global.gamePaused=false
   }
   else if progress=1 //Chat for a moment
   {
-    progTime+=1
+    progTime+=1*gDeltaTime
     if progTime=1
     {
       msgCreate(0,0,"John","Hey there!!",6,1,oMessagePerson,0)
@@ -87,17 +87,17 @@ if global.gamePaused=false
   }
   else if progress=2 //Shoot at Decimator with Mech
   {
-    turn_toward_direction(point_direction(x-9,y-54,oDecimatorV2.x,oDecimatorV2.y),2)
-    shotTime+=1
+    turn_toward_directionEdit(point_direction(x-9,y-54,oDecimatorV2.x,oDecimatorV2.y),2)
+    shotTime+=1*gDeltaTime
     if shotTime mod shotMod=0
     {
       playSound(global.snd_Fireball,0,0.95,30000)
       tNewAtk=instance_create(x-9,y-54,oJohnMechFire)
-      tNewAtk.moveSpd=6; tNewAtk.direction=direction
+      tNewAtk.moveSpd=6; tNewAtk._direction=_direction
     }
 
-    rapidFire+=1
-    if rapidFire>=190 and rapidFire<=220
+    rapidFire+=1*gDeltaTime
+    if rapidFire>=190 and rapidFire<=220 and gDeltaDoTicks
     {
       if gunBlend=c_white {gunBlend=c_red}
       else {gunBlend=c_white}
@@ -107,8 +107,8 @@ if global.gamePaused=false
   }
   else if progress=3 //Blown out of Mech
   {
-    if ySpd<8 {ySpd+=0.3}
-    y+=ySpd
+    if ySpd<8 {ySpd+=0.3*gDeltaTime}
+    y+=ySpd*gDeltaTime
     if y>=320
     {
       y=320
@@ -120,7 +120,7 @@ if global.gamePaused=false
   }
   else if progress=4 //Landing animation
   {
-    progTime+=1
+    progTime+=1*gDeltaTime
     if progTime=4 {image_index=1}
     else if progTime=8 {image_index=2}
     else if progTime=12 {sprite_index=sNPC_John_Idle}
@@ -160,7 +160,7 @@ if global.gamePaused=false
   }
   else if progress=5 //Gun is ready
   {
-    progTime+=1
+    progTime+=1*gDeltaTime
     if progTime=50
     {
       msgCreate(0,0,"John","It's on to me now, you guys. Keep that energy projectile away from me.",6,1,oMessagePerson,0)
@@ -185,22 +185,22 @@ if global.gamePaused=false
   }
   else if progress=6 //Shoot at Decimator with Bazooka
   {
-    turn_toward_direction(point_direction(x+12,y-32,oDecimatorV2.x,oDecimatorV2.y),2)
-    shotTime+=1
+    turn_toward_directionEdit(point_direction(x+12,y-32,oDecimatorV2.x,oDecimatorV2.y),2)
+    shotTime+=1*gDeltaTime
     if shotTime mod shotMod=0
     {
       playSound(global.snd_MetMissile,0,1,14000)
       tNewAtk=instance_create(x+12,y-32,oJohnMissile)
-      tNewAtk.moveSpd=3; tNewAtk.direction=direction
+      tNewAtk.moveSpd=3; tNewAtk._direction=_direction
     }
 
-    rapidFire+=1
+    rapidFire+=1*gDeltaTime
     if rapidFire=240 {gunBlend=c_white; shotMod=20}
     else if rapidFire=280 {shotMod=70; rapidFire=0}
   }
 
-  if keyPadAlpha=0.4 {keyPadAlpha=0.5}
-  else {keyPadAlpha=0.4}
+  if gDeltaDoTicks and keyPadAlpha=0.4 {keyPadAlpha=0.5}
+  else if gDeltaDoTicks {keyPadAlpha=0.4}
 }
 #define Collision_oPassBullet
 /*"/*'/**//* YYD ACTION
@@ -245,7 +245,7 @@ if progress<=2
   draw_sprite_ext(sprite_index,image_index,x,y,image_xscale,image_yscale,image_angle,image_blend,image_alpha)
   draw_sprite_ext(sNPC_John_Control,image_index,x-11,y-52,image_xscale,image_yscale,image_angle,image_blend,image_alpha)
   draw_sprite_ext(sJohnMechKeypad,image_index,x+14,y-95,image_xscale,image_yscale,image_angle,image_blend,keyPadAlpha)
-  draw_sprite_ext(sJohnMechGun,image_index,x-9,y-54,image_xscale,image_yscale,direction+12,gunBlend,image_alpha)
+  draw_sprite_ext(sJohnMechGun,image_index,x-9,y-54,image_xscale,image_yscale,_direction+12,gunBlend,image_alpha)
 }
 else if progress>=3 and progress<=4
 {
@@ -254,7 +254,7 @@ else if progress>=3 and progress<=4
 else if progress>=5
 {
   draw_sprite_ext(sprite_index,image_index,x,y,image_xscale,image_yscale,image_angle,image_blend,image_alpha)
-  draw_sprite_ext(sNPC_JohnBattle_Top,image_index,x,y-25,image_xscale,image_yscale,direction,image_blend,image_alpha)
+  draw_sprite_ext(sNPC_JohnBattle_Top,image_index,x,y-25,image_xscale,image_yscale,_direction,image_blend,image_alpha)
 }
 
 if bShowJohnHP=1

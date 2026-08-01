@@ -148,12 +148,12 @@ if global.gamePaused=false
     //-------------------- Manage Background Change --------------------
     if backChange=0 //Wait for change
     {
-      backTime+=1
+      backTime+=1*gDeltaTime
       if backTime>=60 {backTime=0; backChange+=1}
     }
     else if backChange=1 //Fade in skull background
     {
-      background_alpha[1]+=0.01
+      background_alpha[1]+=0.01*gDeltaTime
       if background_alpha[1]>=1 {backChange+=1}
     }
 
@@ -164,7 +164,7 @@ if global.gamePaused=false
       {
         if oPlayer1.x>xCenter
         {
-          sideSwap+=1
+          sideSwap+=1*gDeltaTime
           if sideSwap=15 {sideSwap=0; mySide=1}
         }
         else {sideSwap=0}
@@ -177,7 +177,7 @@ if global.gamePaused=false
       {
         if oPlayer1.x<xCenter
         {
-          sideSwap+=1
+          sideSwap+=1*gDeltaTime
           if sideSwap=15 {sideSwap=0; mySide=2}
         }
         else {sideSwap=0}
@@ -193,38 +193,40 @@ if global.gamePaused=false
 
       if x>xPoint
       {
-        if currHspd>-maxSpeed {currHspd-=0.4}
-        else {currHspd+=0.4}
+        if currHspd>-maxSpeed {currHspd-=0.4*gDeltaTime}
+        else {currHspd+=0.4*gDeltaTime}
       }
       else if x<xPoint
       {
-        if currHspd<maxSpeed {currHspd+=0.4}
-        else {currHspd-=0.4}
+        if currHspd<maxSpeed {currHspd+=0.4*gDeltaTime}
+        else {currHspd-=0.4*gDeltaTime}
       }
       if y>yPoint
       {
-        if currVspd>-maxSpeed {currVspd-=0.4}
-        else {currVspd+=0.4}
+        if currVspd>-maxSpeed {currVspd-=0.4*gDeltaTime}
+        else {currVspd+=0.4*gDeltaTime}
       }
       else if y<yPoint
       {
-        if currVspd<maxSpeed {currVspd+=0.4}
-        else {currVspd-=0.4}
+        if currVspd<maxSpeed {currVspd+=0.4*gDeltaTime}
+        else {currVspd-=0.4*gDeltaTime}
       }
-      hspeed=currHspd; vspeed=currVspd
+      _hspeed=currHspd; _vspeed=currVspd
+      x += _hspeed * gDeltaTime
+      y += _vspeed * gDeltaTime
 
       //Speed away
       if bRunAway=1
       {
         if point_distance(x,y,oPlayer1.x,returnPlayerYCenter())<96
         {
-          closeTime+=1
+          closeTime+=1*gDeltaTime
           if closeTime>=13 and closeTime<=99 {dashSpeed=9; closeTime=100}
         }
 
         if closeTime>=100
         {
-          closeTime+=1
+          closeTime+=1*gDeltaTime
           var tAfterI;
           tAfterI=instance_create(x,y,oEnemyAfterImage)
           tAfterI.sprite_index=sprite_index; tAfterI.image_index=image_index; tAfterI.image_blend=c_green
@@ -232,13 +234,15 @@ if global.gamePaused=false
           tAfterI.xScaling=0; tAfterI.yScaling=0; tAfterI.xShift=0; tAfterI.yShift=0
           tAfterI.bFollow=0; tAfterI.idFollow=-1; tAfterI.xFollow=0; tAfterI.yFollow=0
 
-          direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())-180
-          if oPlayer1.x<xCenter and x<xCenter {direction=0}
-          else if oPlayer1.x>xCenter and x>xCenter {direction=180}
-          speed=dashSpeed
-          if dashSpeed>6 {dashSpeed-=0.33}
+          _direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())-180
+          if oPlayer1.x<xCenter and x<xCenter {_direction=0}
+          else if oPlayer1.x>xCenter and x>xCenter {_direction=180}
+          _speed=dashSpeed
+          if dashSpeed>6 {dashSpeed-=0.33*gDeltaTime}
 
           if closeTime>=121 {closeTime=0}
+          x += cos(degtorad(_direction)) * _speed * gDeltaTime
+          y -= sin(degtorad(_direction)) * _speed * gDeltaTime
         }
       }
     }
@@ -246,11 +250,11 @@ if global.gamePaused=false
     //----- Recenter Hex -----
     if centerMyself=1
     {
-      speed=0
-      if x<447 {x+=2}
-      else if x>449 {x-=2}
-      if y<159 {y+=2}
-      else if y>161 {y-=2}
+      _speed=0
+      if x<447 {x+=2*gDeltaTime}
+      else if x>449 {x-=2*gDeltaTime}
+      if y<159 {y+=2*gDeltaTime}
+      else if y>161 {y-=2*gDeltaTime}
 
       if point_distance(x,y,448,160)<4
       {
@@ -264,7 +268,7 @@ if global.gamePaused=false
     //-------------------- Hex Shield Orb --------------------
     if shieldProg=-1 //Retract wings
     {
-      shieldTime+=1
+      shieldTime+=1*gDeltaTime
       if shieldTime=5 {wingFrm=1}
       else if shieldTime=10 {wingFrm=0}
       else if shieldTime=15 {wingFrm=-1}
@@ -272,7 +276,7 @@ if global.gamePaused=false
     }
     else if shieldProg=0 //Spawn orbs
     {
-      shieldTime+=1
+      shieldTime+=1*gDeltaTime
       if shieldTime>=20
       {
         if bossProgress=0
@@ -334,12 +338,12 @@ if global.gamePaused=false
     }
     else if shieldProg=3 //Hex animation
     {
-      shieldTime+=1
+      shieldTime+=1*gDeltaTime
       if shieldTime=10 {image_index=2}
       else if shieldTime>=11 and shieldTime<=26
       {
-        if xJitter=1 {xJitter=-1}
-        else {xJitter=1}
+        if gDeltaDoTicks {if xJitter=1 {xJitter=-1}
+        else {xJitter=1}}
       }
       else if shieldTime=27
       {
@@ -364,7 +368,7 @@ if global.gamePaused=false
     }
     else if shieldProg=4 //Spawn eyes
     {
-      shieldTime+=1
+      shieldTime+=1*gDeltaTime
       if shieldTime>=65
       {
         var tMyEye;
@@ -377,7 +381,7 @@ if global.gamePaused=false
     //-------------------- ATTACK: SCREEN SLICE --------------------
     if bSliceAtk=1
     {
-      sliceTime+=1
+      sliceTime+=1*gDeltaTime
       if sliceTime>=sliceDelay
       {
         var tSrnSlice,tXX1,tYY1,tXX2,tYY2;
@@ -396,7 +400,7 @@ if global.gamePaused=false
     {
       if !instance_exists(oHex_SwapDeterrent)
       {
-        swapDeterTime+=1
+        swapDeterTime+=1*gDeltaTime
         if swapDeterTime>=swapDeterDelay
         {
           instance_create(oPlayerIdle.x,oPlayerIdle.y-26,oHex_SwapDeterrent)
@@ -408,7 +412,7 @@ if global.gamePaused=false
     //-------------------- ATTACK: HEX HAND --------------------
     if bHexHands=1
     {
-      hexHandTime+=1
+      hexHandTime+=1*gDeltaTime
       if hexHandTime>=hexHandDelay and hexHandTime<=hexHandDelay+100
       {
         playSound(global.snd_HardHit2,0,1,6000)
@@ -426,7 +430,7 @@ if global.gamePaused=false
     //-------------------- ATTACK: FALLING DOOM --------------------
     if bCeilingAtk=1
     {
-      ceilingAtkTime+=1
+      ceilingAtkTime+=1*gDeltaTime
       if ceilingAtkTime>=ceilingAtkDelay
       {
         playSound(global.snd_Infect,0,1,12000)
@@ -434,7 +438,7 @@ if global.gamePaused=false
         for(i=0;i<8;i+=1)
         {
           tAtk=instance_create(224+(i*64),-16,oHF_FallingDoom)
-          tAtk.atkPower=atkPower; tAtk.bulletSpeed=0.75; tAtk.image_speed=0.33; tAtk.direction=270
+          tAtk.atkPower=atkPower; tAtk.bulletSpeed=0.75; tAtk.image_speed=0.33; tAtk._direction=270
         }
         ceilingAtkTime=0
       }
@@ -443,7 +447,7 @@ if global.gamePaused=false
     //-------------------- ATTACK: FLOOR FIRE --------------------
     if bFloorFire=1
     {
-      floorFireTime+=1
+      floorFireTime+=1*gDeltaTime
       if floorFireTime>=floorFireDelay and floorFireTime<=floorFireDelay+100
       {
         var tFloorFire;
@@ -459,7 +463,7 @@ if global.gamePaused=false
     //-------------------- ATTACK: RAIN LIGHTNING --------------------
     if bRainLightning=1
     {
-      lightRainTime+=1
+      lightRainTime+=1*gDeltaTime
       if lightRainTime=lightRainDelay
       {
         playSound(global.snd_LightballSpread,0,1,12000)
@@ -483,7 +487,7 @@ if global.gamePaused=false
           tDir=point_direction(lightRainX,8,oPlayer1.x,returnPlayerYCenter())
           tAtk=instance_create(lightRainX,8,oHF_HexBulletRed)
           tAtk.sprite_index=sHFight_HandZap; tAtk.atkPower=atkPower; tAtk.bulletSpeed=6
-          tAtk.image_speed=0.33; tAtk.decayTime=-100; tAtk.direction=tDir
+          tAtk.image_speed=0.33; tAtk.decayTime=-100; tAtk._direction=tDir
           lightRainX+=32
           if lightRainX>=688 {lightRainTime=0}
         }
@@ -493,7 +497,7 @@ if global.gamePaused=false
     //-------------------- ATTACK: SUMMON MOVING EYE --------------------
     if bEyeSummon=1
     {
-      eyeSumTime+=1
+      eyeSumTime+=1*gDeltaTime
       if eyeSumTime>=eyeSumDelay
       {
         var tEyeSummon;
@@ -507,7 +511,7 @@ if global.gamePaused=false
     //-------------------- Control how Jerry is weakened --------------------
     if jerryWeakened>0
     {
-      jerryWeakened+=1
+      jerryWeakened+=1*gDeltaTime
       if jerryWeakened=80
       {
         msgCreate(0,0,"Jerry","Crap, you guys, that poison is doing its thing again!",0,2,oMessagePerson,0)
@@ -523,7 +527,7 @@ if global.gamePaused=false
     //-------------------- Create platforms --------------------
     if platformSpawn>0 and platformSpawn<=300
     {
-      platformSpawn+=1
+      platformSpawn+=1*gDeltaTime
       if platformSpawn=55
       {
         bMoveOpposite=1
@@ -545,7 +549,7 @@ if global.gamePaused=false
     }
     else if platformSpawn>=500 and platformSpawn<=550
     {
-      platformSpawn+=1
+      platformSpawn+=1*gDeltaTime
       if platformSpawn>=511 and platformSpawn<=900
       {
         platformA.yVel=1; platformB.yVel=1
@@ -561,7 +565,7 @@ if global.gamePaused=false
     //-------------------- Mid fight shield --------------------
     if midFightShield>=1
     {
-      midFightShield+=1
+      midFightShield+=1*gDeltaTime
       if midFightShield<=145
       {
         if midFightShield mod 11=0
@@ -590,7 +594,7 @@ if global.gamePaused=false
     //-------------------- Move Hex up near the end of the fight --------------------
     if bMoveHexUp=1
     {
-      y-=1
+      y-=1*gDeltaTime
       if y<=116
       {
         bHexChains=1
@@ -604,7 +608,7 @@ if global.gamePaused=false
     //-------------------- Remove Ability: Megaman --------------------
     if phaseTimeShiftA>0 and phaseTimeShiftA<=100
     {
-      phaseTimeShiftA+=1
+      phaseTimeShiftA+=1*gDeltaTime
       if phaseTimeShiftA=40
       {
         var tRemoveAbility;
@@ -614,7 +618,7 @@ if global.gamePaused=false
     }
     else if phaseTimeShiftA>=500
     {
-      phaseTimeShiftA+=1
+      phaseTimeShiftA+=1*gDeltaTime
       if phaseTimeShiftA=540
       {
         msgCreate(0,0,"Jerry","Oooh damn. Hex just removed my Mega Man abilities.",0,1,oMessagePerson,0); newMessage.fadingTime=100
@@ -628,7 +632,7 @@ if global.gamePaused=false
     //-------------------- Remove Ability: Samus --------------------
     if phaseTimeShiftB>0 and phaseTimeShiftB<=200
     {
-      phaseTimeShiftB+=1
+      phaseTimeShiftB+=1*gDeltaTime
       if phaseTimeShiftB=2
       {
         msgCreate(0,0,"Jeremy","I fixed those resist values back, Hex.",0,1,oMessagePerson,0); newMessage.fadingTime=90
@@ -648,7 +652,7 @@ if global.gamePaused=false
     //-------------------- Remove Ability: Dashing --------------------
     if phaseTimeShiftC>0 and phaseTimeShiftC<=100
     {
-      phaseTimeShiftC+=1
+      phaseTimeShiftC+=1*gDeltaTime
       if phaseTimeShiftC=40
       {
         var tRemoveAbility;
@@ -658,7 +662,7 @@ if global.gamePaused=false
     }
     else if phaseTimeShiftC>=200
     {
-      phaseTimeShiftC+=1
+      phaseTimeShiftC+=1*gDeltaTime
       if phaseTimeShiftC=240
       {
         msgCreate(0,0,"Hex","Ah, that's the one I was looking for. No more dashing!",0,1,oMessagePerson,0); newMessage.fadingTime=100
@@ -676,7 +680,7 @@ if global.gamePaused=false
     //-------------------- Remove Ability: Link --------------------
     if phaseTimeShiftD>0
     {
-      phaseTimeShiftD+=1
+      phaseTimeShiftD+=1*gDeltaTime
       if phaseTimeShiftD=30
       {
         if swapDeterTime>150 {swapDeterTime-=150}
@@ -693,7 +697,7 @@ if global.gamePaused=false
     //-------------------- Remove Ability: Belmont --------------------
     if phaseTimeShiftE>0 and phaseTimeShiftE<=100
     {
-      phaseTimeShiftE+=1
+      phaseTimeShiftE+=1*gDeltaTime
       if phaseTimeShiftE=10
       {
         msgCreate(0,0,"Hex","This is it!",0,1,oMessagePerson,0); newMessage.fadingTime=70
@@ -707,7 +711,7 @@ if global.gamePaused=false
     }
     else if phaseTimeShiftE>=200 //Set up final phase
     {
-      phaseTimeShiftE+=1
+      phaseTimeShiftE+=1*gDeltaTime
       if phaseTimeShiftE=230
       {
         msgCreate(0,0,"Hex","Oh this is too good. You were so close yet so far away.",0,1,oMessagePerson,0); newMessage.fadingTime=100
@@ -950,8 +954,8 @@ if global.gamePaused=false
   
   if life<=0 //Defeat animation
   {
-    deathAnim+=1
-    if deathAnim=1
+    deathAnim+=1*gDeltaTime
+    if deathAnim=1*gDeltaTime
     {
       with oTrapBase {instance_destroy()}
       with oEProjectileBase {instance_destroy()}
@@ -971,12 +975,12 @@ if global.gamePaused=false
 }
 else
 {
-  hspeed=0; vspeed=0
+  _hspeed=0; _vspeed=0
   
   if bJumpedOn=1
   {
-    finalMomentTime+=1
-    if finalMomentTime=1
+    finalMomentTime+=1*gDeltaTime
+    if finalMomentTime=1*gDeltaTime
     {
       if global.bBossGallery=1
       {
@@ -1074,7 +1078,7 @@ applies_to=self
 
 if desperationProg=1 //--------------------------------------------------
 {
-  y-=1
+  if gDeltaDoTicks y-=1
   if y<=96
   {
     desperationProg+=1
@@ -1082,7 +1086,7 @@ if desperationProg=1 //--------------------------------------------------
 }
 else if desperationProg=2 //--------------------------------------------------
 {
-  desperationTime+=1
+  desperationTime+=1*gDeltaTime
   if desperationTime=45
   {
     var tScnFlash,tZapTrap;
@@ -1098,16 +1102,16 @@ else if desperationProg=2 //--------------------------------------------------
   if desperationTime<=1030
   {
     //Top loop
-    despTopLoop+=1
+    despTopLoop+=1*gDeltaTime
     if despTopLoop=50
     {
       var tAtk;
       for(i=0;i<5;i+=1)
       {
         tAtk=instance_create(despX2+(16*i),32,oHF_HexBulletRed)
-        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk.direction=270
+        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk._direction=270
         tAtk=instance_create(despX4+(16*i),32,oHF_HexBulletRed)
-        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk.direction=270
+        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk._direction=270
       }
     }
     else if despTopLoop=100
@@ -1116,11 +1120,11 @@ else if desperationProg=2 //--------------------------------------------------
       for(i=0;i<5;i+=1)
       {
         tAtk=instance_create(despX1+(16*i),32,oHF_HexBulletRed)
-        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk.direction=270
+        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk._direction=270
         tAtk=instance_create(despX3+(16*i),32,oHF_HexBulletRed)
-        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk.direction=270
+        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk._direction=270
         tAtk=instance_create(despX5+(16*i),32,oHF_HexBulletRed)
-        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk.direction=270
+        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk._direction=270
       }
     }
     else if despTopLoop=150
@@ -1129,11 +1133,11 @@ else if desperationProg=2 //--------------------------------------------------
       for(i=0;i<5;i+=1)
       {
         tAtk=instance_create(despX1+(16*i),32,oHF_HexBulletRed)
-        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=4; tAtk.decayTime=-100; tAtk.direction=270
+        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=4; tAtk.decayTime=-100; tAtk._direction=270
         tAtk=instance_create(despX2+(16*i),32,oHF_HexBulletRed)
-        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk.direction=270
+        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk._direction=270
         tAtk=instance_create(despX5+(16*i),32,oHF_HexBulletRed)
-        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk.direction=270
+        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk._direction=270
       }
     }
     else if despTopLoop=200
@@ -1142,11 +1146,11 @@ else if desperationProg=2 //--------------------------------------------------
       for(i=0;i<5;i+=1)
       {
         tAtk=instance_create(despX1+(16*i),32,oHF_HexBulletRed)
-        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk.direction=270
+        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk._direction=270
         tAtk=instance_create(despX4+(16*i),32,oHF_HexBulletRed)
-        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk.direction=270
+        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk._direction=270
         tAtk=instance_create(despX5+(16*i),32,oHF_HexBulletRed)
-        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=4; tAtk.decayTime=-100; tAtk.direction=270
+        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=4; tAtk.decayTime=-100; tAtk._direction=270
       }
     }
     else if despTopLoop=250
@@ -1155,11 +1159,11 @@ else if desperationProg=2 //--------------------------------------------------
       for(i=0;i<5;i+=1)
       {
         tAtk=instance_create(despX2+(16*i),32,oHF_HexBulletRed)
-        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk.direction=270
+        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk._direction=270
         tAtk=instance_create(despX3+(16*i),32,oHF_HexBulletRed)
-        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=4; tAtk.decayTime=-100; tAtk.direction=270
+        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=4; tAtk.decayTime=-100; tAtk._direction=270
         tAtk=instance_create(despX4+(16*i),32,oHF_HexBulletRed)
-        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk.direction=270
+        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk._direction=270
       }
     }
     else if despTopLoop=300
@@ -1168,11 +1172,11 @@ else if desperationProg=2 //--------------------------------------------------
       for(i=0;i<5;i+=1)
       {
         tAtk=instance_create(despX1+(16*i),32,oHF_HexBulletRed)
-        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk.direction=270
+        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk._direction=270
         tAtk=instance_create(despX3+(16*i),32,oHF_HexBulletRed)
-        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk.direction=270
+        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk._direction=270
         tAtk=instance_create(despX5+(16*i),32,oHF_HexBulletRed)
-        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk.direction=270
+        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk._direction=270
       }
       despTopLoop=0
     }
@@ -1185,7 +1189,7 @@ else if desperationProg=2 //--------------------------------------------------
     for(i=0;i<4;i+=1)
     {
       tAtk=instance_create(xCenter+roomSpan+8,yGround-8-(16*i),oHF_HexBulletRed)
-      tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=2; tAtk.decayTime=-100; tAtk.direction=180
+      tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=2; tAtk.decayTime=-100; tAtk._direction=180
     }
   }
   else if desperationTime=180
@@ -1203,7 +1207,7 @@ else if desperationProg=2 //--------------------------------------------------
     for(i=0;i<12;i+=1)
     {
       tAtk=instance_create(xCenter+roomSpan+8,yGround-8-(16*i),oHF_HexBulletRed)
-      tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=1; tAtk.decayTime=-100; tAtk.direction=180
+      tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=1; tAtk.decayTime=-100; tAtk._direction=180
     }
   }
   else if desperationTime=660
@@ -1213,7 +1217,7 @@ else if desperationProg=2 //--------------------------------------------------
     {
       tAtk=instance_create(40+(16*i),32,oPassBullet)
       tAtk.sprite_index=sHFight_DespBulletA; tAtk.atkPower=atkPower
-      tAtk.bulletSpeed=1; tAtk.decayTime=-100; tAtk.image_speed=0.33; tAtk.direction=270
+      tAtk.bulletSpeed=1; tAtk.decayTime=-100; tAtk.image_speed=0.33; tAtk._direction=270
     }
   }
   else if desperationTime=1030 {instance_create(xCenter-roomSpan+24,yGround-24,oTempWarningSymbol)}
@@ -1231,7 +1235,7 @@ else if desperationProg=2 //--------------------------------------------------
 }
 else if desperationProg=3 //--------------------------------------------------
 {
-  desperationTime+=1
+  desperationTime+=1*gDeltaTime
   if desperationTime<=480
   {
     if desperationTime mod 8=0 //Bullet line
@@ -1250,7 +1254,7 @@ else if desperationProg=3 //--------------------------------------------------
         for(i=0;i<15;i+=1)
         {
           tAtk=instance_create(x,y,oHF_HexBulletRed)
-          tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk.direction=tDir+despSpin
+          tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk._direction=tDir+despSpin
           tDir+=360/15
         }
         despSpin+=5
@@ -1265,33 +1269,33 @@ else if desperationProg=3 //--------------------------------------------------
         for(i=0;i<4;i+=1)
         {
           tAtk=instance_create(304+(96*i),32,oHF_HexBulletRed)
-          tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk.direction=270
+          tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk._direction=270
           tAtk.image_xscale=0.8; tAtk.image_yscale=0.8; tAtk.image_blend=make_color_rgb(200,200,255)
         }
       }
     }
 
     //Seeking bullets
-    despTopLoop+=1
+    despTopLoop+=1*gDeltaTime
     if despTopLoop=50
     {
       tAtk=instance_create(x,y-96,oHF_HexBulletRed)
       tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=2; tAtk.decayTime=-100
-      tAtk.image_xscale=1.5; tAtk.image_yscale=1.5; tAtk.direction=point_direction(x,y-96,oPlayer1.x,returnPlayerYCenter())
+      tAtk.image_xscale=1.5; tAtk.image_yscale=1.5; tAtk._direction=point_direction(x,y-96,oPlayer1.x,returnPlayerYCenter())
       tAtk.image_blend=make_color_rgb(200,255,200)
     }
     else if despTopLoop=100
     {
       tAtk=instance_create(x-128,y-96,oHF_HexBulletRed)
       tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=2; tAtk.decayTime=-100
-      tAtk.image_xscale=1.5; tAtk.image_yscale=1.5; tAtk.direction=point_direction(x-128,y-96,oPlayer1.x,returnPlayerYCenter())
+      tAtk.image_xscale=1.5; tAtk.image_yscale=1.5; tAtk._direction=point_direction(x-128,y-96,oPlayer1.x,returnPlayerYCenter())
       tAtk.image_blend=make_color_rgb(200,255,200)
     }
     else if despTopLoop=150
     {
       tAtk=instance_create(x+128,y-96,oHF_HexBulletRed)
       tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=2; tAtk.decayTime=-100
-      tAtk.image_xscale=1.5; tAtk.image_yscale=1.5; tAtk.direction=point_direction(x+128,y-96,oPlayer1.x,returnPlayerYCenter())
+      tAtk.image_xscale=1.5; tAtk.image_yscale=1.5; tAtk._direction=point_direction(x+128,y-96,oPlayer1.x,returnPlayerYCenter())
       tAtk.image_blend=make_color_rgb(200,255,200)
       despTopLoop=0
     }
@@ -1299,7 +1303,7 @@ else if desperationProg=3 //--------------------------------------------------
 
   if desperationTime>=480 //End desperation attack
   {
-    y+=1
+    if gDeltaDoTicks y+=1
     if y>=160
     {
       var tHeartDrop;
@@ -1325,7 +1329,7 @@ applies_to=self
 //----- Top Background Fire -----
 if topFireAmt>1
 {
-  topFireFrm+=0.25
+  topFireFrm+=0.25*gDeltaTime
   for(i=0;i<topFireAmt;i+=1)
   {
     draw_sprite_ext(sHFight_FloorFire,topFireFrm,xCenter-176+(22*i),196,1,1,0,c_white,0.2)
@@ -1345,13 +1349,13 @@ if bHexChains=1
 //----- Swap Deterrent warning -----
 if swapDeterTime>=swapDeterDelay-60 and swapDeterTime<=swapDeterDelay
 {
-  preSwapWarnAngle-=10
+  preSwapWarnAngle-=10*gDeltaTime
   draw_sprite_ext(sHFight_SwapDeterrent,0,oPlayerIdle.x,oPlayerIdle.y-26,1.25,1.25,preSwapWarnAngle,c_red,0.3)
 }
 //----- Jerry Paralysis warning -----
 if jerryWeakWarn>0
 {
-  jerryWeakWarn+=6
+  jerryWeakWarn+=6*gDeltaTime
   var tPXX,tPYY;
   if global.activeCharacter=0 {tPXX=oPlayer1.x; tPYY=returnPlayerYCenter()}
   else {tPXX=oPlayerIdle.x; tPYY=oPlayerIdle.y-26}
@@ -1365,20 +1369,20 @@ if bHexCircleBack=1
 {
   if hexCBackAlphaUp=1
   {
-    hexCircleBack_Alpha+=0.0004
+    hexCircleBack_Alpha+=0.0004*gDeltaTime
     if hexCircleBack_Alpha>=0.09 {hexCBackAlphaUp=0}
   }
   else
   {
-    hexCircleBack_Alpha-=0.0004
+    hexCircleBack_Alpha-=0.0004*gDeltaTime
     if hexCircleBack_Alpha<=0.05 {hexCBackAlphaUp=1}
   }
-  hexCircleBack_Angle-=0.5
+  hexCircleBack_Angle-=0.5*gDeltaTime
   draw_sprite_ext(sHexBackCircle,0,448,160,1,1,hexCircleBack_Angle,c_white,hexCircleBack_Alpha)
 }
 //----- Fadeout AF -----
-fadeoutHexAF_Scale+=0.05
-fadeoutHexAF_Alpha-=0.008
+fadeoutHexAF_Scale+=0.05*gDeltaTime
+fadeoutHexAF_Alpha-=0.008*gDeltaTime
 if fadeoutHexAF_Scale>=2
 {
   fadeoutHexAF_Scale=1
@@ -1402,13 +1406,13 @@ if wingFrm>=0
 //----- Hex Flame -----
 if bHexFlame=1
 {
-  hexFlameFrm+=0.33
+  hexFlameFrm+=0.33*gDeltaTime
   draw_sprite_ext(sHexFireRing,hexFlameFrm,x,y,image_xscale,image_yscale,image_angle,image_blend,0.3)
 }
 //----- Hex Bubble Shield -----
 if despBubbleShield=1
 {
-  draw_sprite_ext(sWaterBarrier,oGame.time/4,x,y,0.75,0.75,image_angle,image_blend,0.3)
+  draw_sprite_ext(sWaterBarrier,(oGame.time*gDeltaTime)/4,x,y,0.75,0.75,image_angle,image_blend,0.3)
 }
 //----- Hex Desperation Lightning Warn -----
 if desperationTime>=1 and desperationTime<=45 and desperationProg=2

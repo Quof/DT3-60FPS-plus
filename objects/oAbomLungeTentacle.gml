@@ -38,7 +38,7 @@ if global.gamePaused=false
 {
   if myProg=0
   {
-    if delayTime>0 {delayTime-=1}
+    if delayTime>0 {delayTime-=1*gDeltaTime}
     else
     {
       visible=1
@@ -53,7 +53,7 @@ if global.gamePaused=false
   }
   else if myProg=1
   {
-    scaleWave+=pi/50
+    scaleWave+=(pi/50)*gDeltaTime
     image_xscale=0.85+(sin(scaleWave)/4)
     image_yscale=0.85+(sin(scaleWave)/4)
   }

@@ -84,13 +84,13 @@ if global.gamePaused=false
   if bActive=true and life>0
   {
     //HP Regen
-    life+=regenRate
+    life+=regenRate*gDeltaTime
     if life>maxLife {life=maxLife}
 
     if bWave=1
     {
-      moveWave+=pi/50
-      y+=sin(moveWave)/2
+      moveWave+=(pi/50)*gDeltaTime
+      y+=(sin(moveWave)/2)*gDeltaTime
     }
 
     if bossProgress=0 //---------- Wait till player approaches ----------
@@ -109,33 +109,33 @@ if global.gamePaused=false
     }
     else if bossProgress=1 //---------- Before John shows up ----------
     {
-      laserSpamTime+=1
-      if laserSpamTime>=laserSpamDelay
+      laserSpamTime+=1*gDeltaTime
+      if laserSpamTime>=laserSpamDelay and gDeltaDoTicks
       {
         playSound(global.snd_CShotB,0,0.9,60000)
         var tNewAttack;
         shotDir+=8
         tNewAttack=instance_create(x,y,oPassBullet)
         tNewAttack.sprite_index=sDeci_SmallLaser; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
-        tNewAttack.decayTime=-100; tNewAttack.direction=shotDir
+        tNewAttack.decayTime=-100; tNewAttack._direction=shotDir
         tNewAttack=instance_create(x,y,oPassBulletRed)
         tNewAttack.sprite_index=sDeci_SmallLaserRed; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
-        tNewAttack.decayTime=-100; tNewAttack.direction=shotDir+180
+        tNewAttack.decayTime=-100; tNewAttack._direction=shotDir+180
         if laserSpamTime>=laserSpamDelay+90 {shotDir=0; laserSpamTime=0}
       }
 
-      missileTime+=1
+      missileTime+=1*gDeltaTime
       if missileTime>=missileDelay
       {
         var tMissile;
         tMissile=instance_create(x,y-16,oHomingMissile)
         tMissile.atkPower=atkPower; tMissile.targetTime=20; tMissile.sprite_index=sDeci_Missile
         tMissile.bulletSpeed=4; tMissile.seekThres=20; tMissile.minSpd=3; tMissile.maxSpd=7
-        tMissile.turnSpd=3; tMissile.accel=0.3; tMissile.direction=90
+        tMissile.turnSpd=3; tMissile.accel=0.3; tMissile._direction=90
         missileTime=0
       }
 
-      firstPhaseTime+=1
+      firstPhaseTime+=1*gDeltaTime
       if firstPhaseTime=840
       {
         msgCreate(0,0,"Claire","We're not getting anywhere with this thing.",0,1,oMessagePerson,0)
@@ -166,14 +166,14 @@ if global.gamePaused=false
       //Follow player y
       if laserCannonTime<=laserCannonDelay+69
       {
-        if y>oPlayer1.y-26 {if ySpd>-4 {ySpd-=0.4}}
-        else if y<oPlayer1.y-26 {if ySpd<4 {ySpd+=0.4}}
-        y+=ySpd
+        if y>oPlayer1.y-26 {if ySpd>-4 {ySpd-=0.4*gDeltaTime}}
+        else if y<oPlayer1.y-26 {if ySpd<4 {ySpd+=0.4*gDeltaTime}}
+        y+=ySpd*gDeltaTime
       }
     }
     else if bossProgress=4 //---------- Shoot at John's mech ----------
     {
-      progTime+=1
+      progTime+=1*gDeltaTime
       if progTime=20
       {
         bAimAtJohn=1
@@ -194,10 +194,10 @@ if global.gamePaused=false
           var tNewAttack;
           tNewAttack=instance_create(x+18,y+6,oPassBullet)
           tNewAttack.sprite_index=sDeci_SmallLaser; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
-          tNewAttack.decayTime=-100; tNewAttack.direction=gunAngleA+random_range(-2,2)
+          tNewAttack.decayTime=-100; tNewAttack._direction=gunAngleA+random_range(-2,2)
           tNewAttack=instance_create(x-18,y+6,oPassBullet)
           tNewAttack.sprite_index=sDeci_SmallLaser; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
-          tNewAttack.decayTime=-100; tNewAttack.direction=gunAngleB+random_range(-2,2)
+          tNewAttack.decayTime=-100; tNewAttack._direction=gunAngleB+random_range(-2,2)
         }
       }
 
@@ -212,22 +212,22 @@ if global.gamePaused=false
       //Follow player y
       if laserCannonTime<=laserCannonDelay+69
       {
-        if y>oPlayer1.y-26 {if ySpd>-4 {ySpd-=0.4}}
-        else if y<oPlayer1.y-26 {if ySpd<4 {ySpd+=0.4}}
-        y+=ySpd
+        if y>oPlayer1.y-26 {if ySpd>-4 {ySpd-=0.4*gDeltaTime}}
+        else if y<oPlayer1.y-26 {if ySpd<4 {ySpd+=0.4*gDeltaTime}}
+        y+=ySpd*gDeltaTime
       }
 
-      energyBallTime+=1
+      energyBallTime+=1*gDeltaTime
       if energyBallTime mod energyBallMod=0
       {
         playSound(global.snd_CShotA,0,0.9,18000)
         var tNewAttack;
         tNewAttack=instance_create(x,y,oDeci_EnergyBall)
         tNewAttack.bulletSpeed=5
-        tNewAttack.direction=point_direction(x,y,oJohnMech.x,oJohnMech.y-32)
+        tNewAttack._direction=point_direction(x,y,oJohnMech.x,oJohnMech.y-32)
       }
 
-      rapidFire+=1
+      rapidFire+=1*gDeltaTime
       if rapidFire=180
       {
         if bossProgress=6 {energyBallMod=10}
@@ -245,7 +245,7 @@ if global.gamePaused=false
     {
       gunAngleA=point_direction(x+18,y+6,oPlayer1.x,returnPlayerYCenter())
       gunAngleB=point_direction(x-18,y+6,oPlayer1.x,returnPlayerYCenter())
-      gunShotTime+=1
+      gunShotTime+=1*gDeltaTime
       if gunShotTime=gunShotDelay-20 {gunA_Blend=c_maroon}
       else if gunShotTime=gunShotDelay
       {
@@ -254,7 +254,7 @@ if global.gamePaused=false
         var tNewAttack;
         tNewAttack=instance_create(x+18,y+6,oPassBullet)
         tNewAttack.sprite_index=sDeci_SmallLaser; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
-        tNewAttack.decayTime=-100; tNewAttack.direction=gunAngleA
+        tNewAttack.decayTime=-100; tNewAttack._direction=gunAngleA
       }
       else if gunShotTime=(gunShotDelay*2)-20 {gunB_Blend=c_maroon}
       else if gunShotTime>=gunShotDelay*2
@@ -264,14 +264,14 @@ if global.gamePaused=false
         var tNewAttack;
         tNewAttack=instance_create(x-18,y+6,oPassBullet)
         tNewAttack.sprite_index=sDeci_SmallLaser; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
-        tNewAttack.decayTime=-100; tNewAttack.direction=gunAngleB
+        tNewAttack.decayTime=-100; tNewAttack._direction=gunAngleB
         gunShotTime=0
       }
     }
 
     if bMissiles=1 //Missile Spray
     {
-      missileTime+=1
+      missileTime+=1*gDeltaTime
       if missileTime>=missileDelay
       {
         var tMissile;
@@ -280,7 +280,7 @@ if global.gamePaused=false
           tMissile=instance_create(x,y-16,oHomingMissile)
           tMissile.atkPower=atkPower; tMissile.targetTime=35+(i+3); tMissile.sprite_index=sDeci_Missile
           tMissile.bulletSpeed=1.5; tMissile.seekThres=20; tMissile.minSpd=3; tMissile.maxSpd=7
-          tMissile.turnSpd=3; tMissile.accel=0.3; tMissile.direction=25-(12.5*i)
+          tMissile.turnSpd=3; tMissile.accel=0.3; tMissile._direction=25-(12.5*i)
         }
         missileTime=0
       }
@@ -288,10 +288,10 @@ if global.gamePaused=false
 
     if bCanUseCannon=1 //Big Laser Cannon
     {
-      laserCannonTime+=1
+      laserCannonTime+=1*gDeltaTime
       if laserCannonTime>=laserCannonDelay
       {
-        if oGame.time mod 2=0
+        if oGame.time mod (2/gDeltaTime)=0
         {
           if cannonBlend=c_white {cannonBlend=c_red}
           else {cannonBlend=c_white}
@@ -338,7 +338,7 @@ if global.gamePaused=false
 
 if life<=0 //Defeat animation
 {
-  deathAnim+=1
+  deathAnim+=1*gDeltaTime
   if deathAnim=1
   {
     with oEProjectileBase {instance_destroy()}
@@ -347,7 +347,7 @@ if life<=0 //Defeat animation
   else if deathAnim>=2 and deathAnim<=60
   {
     if deathAnim mod 3=0 {playSound(global.snd_BombExplode,0,0.92,1)}
-    if oGame.time mod 2=0
+    if oGame.time mod (2/gDeltaTime)=0
     {
       var tEffect;
       tEffect=instance_create(x+random_range(-sprite_width,sprite_width),y+random_range(-sprite_height,sprite_height),oEffect)

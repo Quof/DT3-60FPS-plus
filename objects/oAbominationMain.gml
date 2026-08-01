@@ -115,7 +115,7 @@ if global.gamePaused=false
     }
     else if dialogueSeq=1
     {
-      dialogueTime+=1
+      dialogueTime+=1*gDeltaTime
       if dialogueTime=1 {
         msgCreate(0,0,"Jeremy","There it is!",0,3,oMessagePerson,0); newMessage.fadingTime=60
       }
@@ -159,7 +159,7 @@ if global.gamePaused=false
   }
   else if sequence=1 //-------------------- Turn background red --------------------
   {
-    seqTime+=1
+    seqTime+=1*gDeltaTime
     if room=rMain_76 and global.abomAttempts>0 //Player has lost at least once
     {
       seqTime=0
@@ -171,11 +171,11 @@ if global.gamePaused=false
       {
         for(i=0;i<4;i+=1)
         {
-          bossBarrierL[i].y-=0.25+(i*0.5)
-          bossBarrierR[i].y-=0.25+(i*0.5)
+          bossBarrierL[i].y-=(0.25+(i*0.5))*gDeltaTime
+          bossBarrierR[i].y-=(0.25+(i*0.5))*gDeltaTime
         }
       }
-      backBlend-=1
+      backBlend-=1*gDeltaTime
       oBackgroundFollow.image_blend=make_color_rgb(255,backBlend,backBlend)
       if backBlend<=125
       {
@@ -193,7 +193,7 @@ if global.gamePaused=false
   }
   else if sequence=2 //-------------------- Player does not have the instruments (Unbeatable sequence) --------------------
   {
-    seqTime+=1
+    seqTime+=1*gDeltaTime
     if seqTime=1 {bContinuousAttackA=1}
     else if seqTime=20 {instance_create(504,264,oAbomFieldSegA); instance_create(760,280,oAbomFieldSegA)}
     else if seqTime=40 {instance_create(504,244,oAbomFieldSegA); instance_create(760,260,oAbomFieldSegA)}
@@ -269,7 +269,7 @@ if global.gamePaused=false
   }
   else if sequence=10 //-------------------- Player has all instruments (Start instrument song) --------------------
   {
-    seqTime+=1
+    seqTime+=1*gDeltaTime
     if seqTime=25
     {
       oEvAbom.instrumentProg=1
@@ -330,7 +330,7 @@ if global.gamePaused=false
   }
   else if sequence=11 //-------------------- Spawn first arms --------------------
   {
-    seqTime+=1
+    seqTime+=1*gDeltaTime
     if seqTime=1
     {
       global.levelTimeSecond=0
@@ -372,7 +372,7 @@ if global.gamePaused=false
   }
   else if sequence=12 //-------------------- Spawn second weak spots and rain from the top --------------------
   {
-    seqTime+=1
+    seqTime+=1*gDeltaTime
     if seqTime=35
     {
       formWeakSpotX=528; formWeakSpotY=400; formWeakSpotDir=290; formWeakSpotHeartOffsetX=4; event_user(0)
@@ -405,7 +405,7 @@ if global.gamePaused=false
   }
   else if sequence=13 //-------------------- Spikes grow on Abomination and third weak spots --------------------
   {
-    seqTime+=1
+    seqTime+=1*gDeltaTime
     if seqTime=30
     {
       with oAbomFieldSegA
@@ -509,7 +509,7 @@ if global.gamePaused=false
   }
   else if sequence=14 //-------------------- Pieces fall off --------------------
   {
-    seqTime+=1
+    seqTime+=1*gDeltaTime
     if seqTime=1 {bContinuousAttackA=1; bContinuousAttackB=1}
     else if seqTime>=40 and seqTime<=429
     {
@@ -521,7 +521,7 @@ if global.gamePaused=false
         tEffect.sprite_index=sAbom_Tentacle; tEffect.image_speed=0.33; tEffect.image_alpha=0.75
         tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=21; tEffect.xSpd=random_range(-2,2); tEffect.ySpd=random_range(-2,0)
         tEffect.image_xscale=0.33+tScale; tEffect.image_yscale=0.33+tScale; tEffect.image_angle=random(360)
-        y+=2
+        y+=2*gDeltaTime
       }
     }
     else if seqTime>=430
@@ -538,7 +538,7 @@ if global.gamePaused=false
   }
   else if sequence=15 //-------------------- Parasite reveals itself --------------------
   {
-    seqTime+=1
+    seqTime+=1*gDeltaTime
     if seqTime=10
     {
       playSound(global.snd_Slam,0,1,1)
@@ -587,7 +587,7 @@ if global.gamePaused=false
   }
   else if sequence=16 //-------------------- Parasite is defeated --------------------
   {
-    seqTime+=1
+    seqTime+=1*gDeltaTime
     if seqTime=1
     {
       with oEProjectileBase {instance_destroy()}
@@ -662,7 +662,7 @@ if global.gamePaused=false
   //-------------------- Background segments --------------------
   if bkgPartSeq=1
   {
-    bkgPartTime+=1
+    bkgPartTime+=1*gDeltaTime
     if bkgPartTime=1 {bkgX=312; bkgY=624; bkgPartNum=59}
     else if bkgPartTime=20
     {
@@ -696,7 +696,7 @@ if global.gamePaused=false
   }
   else if bkgPartSeq=3
   {
-    bkgPartTime+=1
+    bkgPartTime+=1*gDeltaTime
     if bkgPartTime=1 {bkgX=624; bkgY=400; bkgPartNum=35}
     else if bkgPartTime=20
     {
@@ -720,7 +720,7 @@ if global.gamePaused=false
   }
   else if bkgPartSeq=5
   {
-    bkgPartTime+=1
+    bkgPartTime+=1*gDeltaTime
     if bkgPartTime=1 {bkgX=944; bkgY=624; bkgPartNum=43}
     else if bkgPartTime=20
     {
@@ -744,7 +744,7 @@ if global.gamePaused=false
   }
   else if bkgPartSeq=7
   {
-    bkgPartTime+=1
+    bkgPartTime+=1*gDeltaTime
     if bkgPartTime=1 {bkgX=176; bkgY=304; bkgPartNum=45}
     else if bkgPartTime=20
     {
@@ -759,7 +759,7 @@ if global.gamePaused=false
 
   if bMinionSpawn=1 //Minion Spawn
   {
-    minionTime+=1
+    minionTime+=1*gDeltaTime
     if minionTime=minionDelay-10 {playSound(global.snd_DemonLaugh,0,1,1)}
     else if minionTime>=minionDelay
     {
@@ -772,28 +772,28 @@ if global.gamePaused=false
 
   if bContinuousAttackA=1 //Attack from bottom
   {
-    conAtkTimeA+=1
+    conAtkTimeA+=1*gDeltaTime
     if conAtkTimeA>=conAtkDelayA
     {
       var tNewAttack;
       tNewAtk=instance_create(oPlayer1.x,room_height+16,oPassBullet)
       tNewAtk.sprite_index=sAbomProjectileA; tNewAtk.atkPower=12; tNewAtk.bulletSpeed=2.75; tNewAtk.depth=-1
-      tNewAtk.decayTime=-100; tNewAtk.image_xscale=2; tNewAtk.image_yscale=2; tNewAtk.direction=90
+      tNewAtk.decayTime=-100; tNewAtk.image_xscale=2; tNewAtk.image_yscale=2; tNewAtk._direction=90
       conAtkTimeA=0
     }
   }
 
   if bContinuousAttackB=1 //Rain attack from top (First)
   {
-    conAtkTimeB+=1
+    conAtkTimeB+=1*gDeltaTime
     if conAtkTimeB=conAtkDelayB-1 {event_user(1)}
     if conAtkTimeB>=conAtkDelayB and conAtkTimeB<=conAtkDelayB+60 //Rise up
     {
       if conAtkTimeB mod 3=0 {playSound(global.snd_BombLaunch,0,0.75,75000)}
-      var tRainUp;
+      if gDeltaDoTicks {var tRainUp;
       tRainUp=instance_create(x+random_range(-96,96),y+random_range(-8,8),oPassBullet)
       tRainUp.sprite_index=sAbomRainAtkA; tRainUp.atkPower=12; tRainUp.bulletSpeed=9; tRainUp.depth=30; tRainUp.image_speed=0.33; tRainUp.image_blend=c_gray
-      tRainUp.decayTime=-100; tRainUp.image_xscale=0.5; tRainUp.image_yscale=0.5; tRainUp.direction=90+random_range(-7,7); tRainUp.bCanDealDamage=0
+      tRainUp.decayTime=-100; tRainUp.image_xscale=0.5; tRainUp.image_yscale=0.5; tRainUp._direction=90+random_range(-7,7); tRainUp.bCanDealDamage=0}
     }
     else if conAtkTimeB>=conAtkDelayB+90 //Rain down from top
     {
@@ -804,7 +804,7 @@ if global.gamePaused=false
         else {tXDrop=rainAtkX[rainAInc]+rainOffset}
         tRainDown=instance_create(tXDrop,0,oPassBullet)
         tRainDown.sprite_index=sAbomRainAtkA; tRainDown.atkPower=12; tRainDown.bulletSpeed=4; tRainDown.image_speed=0.33
-        tRainDown.decayTime=-100; tRainDown.direction=270
+        tRainDown.decayTime=-100; tRainDown._direction=270
         rainAInc+=1
         if rainAInc=10 {rainOffset+=32; rainAInc=0}
       }
@@ -818,15 +818,15 @@ if global.gamePaused=false
   }
   if bContinuousAttackC=1 //Rain attack from top (Second) [Diagonal]
   {
-    conAtkTimeC+=1
+    conAtkTimeC+=1*gDeltaTime
     if conAtkTimeC=conAtkDelayC-1 {event_user(1)}
     if conAtkTimeC>=conAtkDelayC and conAtkTimeC<=conAtkDelayC+60 //Rise up
     {
       if conAtkTimeC mod 3=0 {playSound(global.snd_BombLaunch,0,0.75,75000)}
-      var tRainUp;
+      if gDeltaDoTicks {var tRainUp;
       tRainUp=instance_create(x+random_range(-96,96),y+random_range(-8,8),oPassBullet)
       tRainUp.sprite_index=sAbomRainAtkA; tRainUp.atkPower=12; tRainUp.bulletSpeed=9; tRainUp.depth=30; tRainUp.image_speed=0.33; tRainUp.image_blend=c_gray
-      tRainUp.decayTime=-100; tRainUp.image_xscale=0.5; tRainUp.image_yscale=0.5; tRainUp.direction=90+random_range(-45,45); tRainUp.bCanDealDamage=0
+      tRainUp.decayTime=-100; tRainUp.image_xscale=0.5; tRainUp.image_yscale=0.5; tRainUp._direction=90+random_range(-45,45); tRainUp.bCanDealDamage=0}
     }
     else if conAtkTimeC>=conAtkDelayC+90 //Rain down
     {
@@ -835,8 +835,8 @@ if global.gamePaused=false
       {
         tRainDown=instance_create(rainAtkX[rainAInc],0,oPassBullet)
         tRainDown.sprite_index=sAbomRainAtkA; tRainDown.atkPower=12; tRainDown.bulletSpeed=4; tRainDown.image_speed=0.33; tRainDown.decayTime=-100
-        if conAtkTimeC mod 2=0 {tRainDown.direction=310}
-        else {tRainDown.direction=230}
+        if conAtkTimeC mod 2=0 {tRainDown._direction=310}
+        else {tRainDown._direction=230}
         rainAInc+=1
         if rainAInc=10 {rainOffset+=32; rainAInc=0}
       }
@@ -850,7 +850,7 @@ if global.gamePaused=false
   }
   if bContinuousAttackD=1 //Rain attack from top (Third) [Explode]
   {
-    conAtkTimeD+=1
+    conAtkTimeD+=1*gDeltaTime
     if conAtkTimeD=1 {event_user(1)}
 
     if conAtkTimeD mod 5=0
@@ -858,7 +858,7 @@ if global.gamePaused=false
       var tRainUp;
       tRainUp=instance_create(x+random_range(-96,96),y+random_range(-8,8),oPassBullet)
       tRainUp.sprite_index=sAbomRainAtkA; tRainUp.atkPower=12; tRainUp.bulletSpeed=9; tRainUp.depth=30; tRainUp.image_speed=0.33; tRainUp.image_blend=c_gray
-      tRainUp.decayTime=-100; tRainUp.image_xscale=0.5; tRainUp.image_yscale=0.5; tRainUp.direction=90+random_range(-45,45); tRainUp.bCanDealDamage=0
+      tRainUp.decayTime=-100; tRainUp.image_xscale=0.5; tRainUp.image_yscale=0.5; tRainUp._direction=90+random_range(-45,45); tRainUp.bCanDealDamage=0
     }
 
     if conAtkTimeD>=conAtkDelayD and conAtkTimeD<=conAtkDelayD+60 //Attack
@@ -898,7 +898,7 @@ if global.gamePaused=false
   //Lunge Tentacles
   if lungeATent>=1
   {
-    lungeATent+=1
+    lungeATent+=1*gDeltaTime
     if lungeATent=2
     {
       for(i=0;i<5;i+=1)
@@ -914,9 +914,9 @@ if global.gamePaused=false
         {
           for(i=0;i<5;i+=1)
           {
-            myTentacleA[i].x-=0.25*i
+            myTentacleA[i].x-=0.25*i*gDeltaTime
           }
-          lungeAPullCurr-=1
+          lungeAPullCurr-=1*gDeltaTime
         }
       }
       else if myTentacleA[0].x+16<oPlayer1.x //Player on right
@@ -925,9 +925,9 @@ if global.gamePaused=false
         {
           for(i=0;i<5;i+=1)
           {
-            myTentacleA[i].x+=0.25*i
+            myTentacleA[i].x+=0.25*i*gDeltaTime
           }
-          lungeAPullCurr+=1
+          lungeAPullCurr+=1*gDeltaTime
         }
       }
     }
@@ -935,7 +935,7 @@ if global.gamePaused=false
 
   if lungeBTent>=1
   {
-    lungeBTent+=1
+    lungeBTent+=1*gDeltaTime
     if lungeBTent=2
     {
       for(i=0;i<5;i+=1)
@@ -951,9 +951,9 @@ if global.gamePaused=false
         {
           for(i=0;i<5;i+=1)
           {
-            myTentacleB[i].x-=0.25*i
+            myTentacleB[i].x-=0.25*i*gDeltaTime
           }
-          lungeBPullCurr-=1
+          lungeBPullCurr-=1*gDeltaTime
         }
       }
       else if myTentacleB[0].x+16<oPlayer1.x //Player on right
@@ -962,16 +962,16 @@ if global.gamePaused=false
         {
           for(i=0;i<5;i+=1)
           {
-            myTentacleB[i].x+=0.25*i
+            myTentacleB[i].x+=0.25*i*gDeltaTime
           }
-          lungeBPullCurr+=1
+          lungeBPullCurr+=1*gDeltaTime
         }
       }
     }
   }
   if lungeCTent>=1
   {
-    lungeCTent+=1
+    lungeCTent+=1*gDeltaTime
     if lungeCTent=2
     {
       for(i=0;i<5;i+=1)
@@ -987,9 +987,9 @@ if global.gamePaused=false
         {
           for(i=0;i<5;i+=1)
           {
-            myTentacleC[i].x-=0.25*i
+            myTentacleC[i].x-=0.25*i*gDeltaTime
           }
-          lungeCPullCurr-=1
+          lungeCPullCurr-=1*gDeltaTime
         }
       }
       else if myTentacleC[0].x+16<oPlayer1.x //Player on right
@@ -998,16 +998,16 @@ if global.gamePaused=false
         {
           for(i=0;i<5;i+=1)
           {
-            myTentacleC[i].x+=0.25*i
+            myTentacleC[i].x+=0.25*i*gDeltaTime
           }
-          lungeCPullCurr+=1
+          lungeCPullCurr+=1*gDeltaTime
         }
       }
     }
   }
   if lungeDTent>=1
   {
-    lungeDTent+=1
+    lungeDTent+=1*gDeltaTime
     if lungeDTent=2
     {
       for(i=0;i<5;i+=1)
@@ -1023,9 +1023,9 @@ if global.gamePaused=false
         {
           for(i=0;i<5;i+=1)
           {
-            myTentacleD[i].x-=0.25*i
+            myTentacleD[i].x-=0.25*i*gDeltaTime
           }
-          lungeDPullCurr-=1
+          lungeDPullCurr-=1*gDeltaTime
         }
       }
       else if myTentacleD[0].x+16<oPlayer1.x //Player on right
@@ -1034,17 +1034,17 @@ if global.gamePaused=false
         {
           for(i=0;i<5;i+=1)
           {
-            myTentacleD[i].x+=0.25*i
+            myTentacleD[i].x+=0.25*i*gDeltaTime
           }
-          lungeDPullCurr+=1
+          lungeDPullCurr+=1*gDeltaTime
         }
       }
     }
   }
 
   //Hidden end checks
-  if leftWeakTimer>0 {leftWeakTimer-=1}
-  if rightWeakTimer>0 {rightWeakTimer-=1}
+  if leftWeakTimer>0 {leftWeakTimer-=1*gDeltaTime}
+  if rightWeakTimer>0 {rightWeakTimer-=1*gDeltaTime}
   if leftWeakTimer>0 and rightWeakTimer>0
   {
     leftWeakTimer=0; rightWeakTimer=0
@@ -1068,7 +1068,7 @@ if global.gamePaused=false
   //Start pull in sequence
   if pullInSequence>=1
   {
-    pullInSequence+=1
+    pullInSequence+=1*gDeltaTime
     if pullInSequence>=2
     {
       var tNewObj,tSize,tDir;
@@ -1081,7 +1081,7 @@ if global.gamePaused=false
     if pullInSequence>=120
     {
       if hiddenTentacles=0 {hiddenTentacles=16}
-      if hiddenTentacles<112 {hiddenTentacles+=0.5}
+      if hiddenTentacles<112 {hiddenTentacles+=0.5*gDeltaTime}
     }
     if pullInSequence>=220
     {
@@ -1106,7 +1106,7 @@ if global.gamePaused=false
   //Hidden end fail
   if hiddenEndFail>=1 and hiddenEndFail<=999
   {
-    hiddenEndFail+=1
+    hiddenEndFail+=1*gDeltaTime
     if hiddenEndFail>=120
     {
       newGameOver=instance_create(0,0,oSituationalGO_Message); newGameOver.type=2
@@ -1139,7 +1139,7 @@ applies_to=self
 ///Form weak spot
 var myWeakSpot;
 myWeakSpot=instance_create(formWeakSpotX,formWeakSpotY,oAbomHitSpotA)
-myWeakSpot.direction=formWeakSpotDir
+myWeakSpot._direction=formWeakSpotDir
 myWeakSpot.heartOffsetX=formWeakSpotHeartOffsetX
 myWeakSpot.HPSet=myHitSpotHP[myHitCounter]
 myHitCounter+=1
@@ -1180,7 +1180,7 @@ draw_self()
 
 if spikeScale>0
 {
-  if spikeScale<2 {spikeScale+=0.05}
+  if spikeScale<2 {spikeScale+=0.05*gDeltaTime}
   draw_sprite_ext(sAbom_Spike,0,x-156,y-54,spikeScale,spikeScale,image_angle+155,image_blend,image_alpha)
   draw_sprite_ext(sAbom_Spike,0,x-144,y-139,spikeScale,spikeScale,image_angle+135,image_blend,image_alpha)
   draw_sprite_ext(sAbom_Spike,0,x-142,y-214,spikeScale,spikeScale,image_angle+130,image_blend,image_alpha)

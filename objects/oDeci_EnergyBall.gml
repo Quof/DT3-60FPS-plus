@@ -20,13 +20,16 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  decayTime-=1
+  decayTime-=1*gDeltaTime
   if decayTime<=0 {instance_destroy()}
 
-  image_angle-=10
-  speed=bulletSpeed
+  image_angle-=10*gDeltaTime
+  _speed=bulletSpeed
 }
-else {speed=0}
+else {_speed=0}
+
+x += cos(degtorad(_direction)) * _speed * gDeltaTime
+y -= sin(degtorad(_direction)) * _speed * gDeltaTime
 #define Collision_oAttackBase
 /*"/*'/**//* YYD ACTION
 lib_id=1
