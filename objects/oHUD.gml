@@ -208,7 +208,7 @@ if view_current=0
         if dashTrack>=31 {dashMeterFrm=0} //Flash meter when low
         else
         {
-          if oGame.time mod 4=0
+          if oGame.time mod (4/gDeltaTime)=0
           {
             if dashMeterFrm=0 {dashMeterFrm=1}
             else {dashMeterFrm=0}
