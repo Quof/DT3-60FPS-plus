@@ -32,7 +32,17 @@ else if global.activeCharacter=1 //----- Claire -----
     if global.equipClaire[i]=13 {tDashAdj=2; break;}
   }
   dashMomentumTime=25
-  yAcc+=initialJumpAcc/2
+  if (gDeltaTime==1)
+  {
+    yAcc+=initialJumpAcc/2
+  }
+  else
+  {
+    var bodged;
+    bodged = (initialJumpAcc/2) * 1.2 //fine tune this as needed
+    yVel = bodged
+    yVel += gravityIntensity*0.5
+  }
   //the "state" gets changed to JUMPING later on in the code
   state=FALLING
 }
@@ -41,7 +51,16 @@ dashInvulnerabilityTime+=dashInvulnerability+tDashAdj
 dashRecHalt+=9
 dashEnergy-=2000
 
-xAcc+=xVel
+if  (gDeltaTime==1)
+{xAcc+=xVel}
+else
+{
+    var bodged;
+    bodged = xVel
+    xVel = bodged
+}
+
+
 if facing=RIGHT
 {
   xVel=dashVel

@@ -30,7 +30,20 @@ else if global.activeCharacter=1 //----- Claire -----
   playSound(global.snd_PlayerJump[0],0,1,1)
   dashMomentumTime=25
   claireBackDashRec=8
-  yAcc+=initialJumpAcc/2
+//yAcc+=initialJumpAcc/2
+  if (gDeltaTime==1)
+  {
+    yAcc+=initialJumpAcc/2
+  }
+  else
+  {
+    var bodged;
+    bodged = (initialJumpAcc/2) * 1.2 //fine tune this as needed
+    yVel = bodged
+    yVel += gravityIntensity*0.5
+  }
+
+
   for(i=0;i<3;i+=1)
   {
     if global.equipClaire[i]=13 {tDashAdj=2; break;}
