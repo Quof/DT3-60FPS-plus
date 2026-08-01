@@ -19,9 +19,11 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  speed=12
+  _speed=12
+  x += cos(degtorad(_direction)) * _speed * gDeltaTime
+  y -= sin(degtorad(_direction)) * _speed * gDeltaTime
 }
-else {speed=0}
+else {_speed=0}
 #define Other_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

@@ -41,6 +41,8 @@ bulletModD=26 //Attack 4
 
 hitCheckArrow=0
 hitCheckMissile=0
+_direction=0
+_speed=0
 
 zigzagTop=112
 zigzagBottom=304
@@ -93,14 +95,14 @@ if global.gamePaused=false
     }
     else if introProg=1 //Go right till off-screen
     {
-      x+=xSpd
+      x+=xSpd*gDeltaTime
       if x>=mapRight {introProg=10}
     }
     else if introProg=10 //Boss fight sequence
     {
       if seqProg=0 //---------- Decide which action to choose ----------
       {
-        seqTime+=1
+        seqTime+=1*gDeltaTime
         if seqTime>=15
         {
           if currentSide=0 {x=mapLeft}
@@ -122,10 +124,10 @@ if global.gamePaused=false
         }
         else if attackProg=1 //Attack cycle
         {
-          x+=xSpd
+          x+=xSpd*gDeltaTime
           if (xSpd>0 and x>mapRight) or (xSpd<0 and x<mapLeft) {attackProg+=1}
 
-          attackTime+=1
+          attackTime+=1*gDeltaTime
           if attackTime mod bulletModA=0
           {
             var tNewAttack,tDir;
@@ -133,7 +135,7 @@ if global.gamePaused=false
             else {tDir=270; bulletType=0}
             tNewAtk=instance_create(x,y,oPassBullet)
             tNewAtk.sprite_index=sAbom_ParaShot; tNewAtk.atkPower=atkPower; tNewAtk.bulletSpeed=6; tNewAtk.image_speed=0.33
-            tNewAtk.decayTime=-100; tNewAtk.direction=tDir
+            tNewAtk.decayTime=-100; tNewAtk._direction=tDir
           }
         }
         else if attackProg=2
@@ -154,18 +156,18 @@ if global.gamePaused=false
         }
         else if attackProg=1 //Fly in
         {
-          x+=xSpd
-          attackTime+=1
+          x+=xSpd*gDeltaTime
+          attackTime+=1*gDeltaTime
           if attackTime>=12 {attackTime=0; attackProg+=1}
         }
         else if attackProg=2 //Slight wait
         {
-          attackTime+=1
+          attackTime+=1*gDeltaTime
           if attackTime>=15 {attackTime=0; attackProg+=1}
         }
         else if attackProg=3 //Attack cycle
         {
-          attackTime+=1
+          attackTime+=1*gDeltaTime
           if attackTime mod bulletModB=0
           {
             var tNewAtk,tDir;
@@ -174,7 +176,7 @@ if global.gamePaused=false
             {
               tNewAtk=instance_create(x,y,oPassBullet)
               tNewAtk.sprite_index=sAbom_ParaShot; tNewAtk.atkPower=atkPower; tNewAtk.image_speed=0.33
-              tNewAtk.decayTime=-100; tNewAtk.direction=tDir
+              tNewAtk.decayTime=-100; tNewAtk._direction=tDir
               tDir+=9
               if i=1 {tNewAtk.bulletSpeed=6}
               else {tNewAtk.bulletSpeed=3}
@@ -184,7 +186,7 @@ if global.gamePaused=false
         }
         else if attackProg=4 //Fly off
         {
-          x-=xSpd
+          x-=xSpd*gDeltaTime
           if (xSpd<0 and x>mapRight) or (xSpd>0 and x<mapLeft) {attackProg+=1}
         }
         else if attackProg=5
@@ -203,16 +205,16 @@ if global.gamePaused=false
         }
         else if attackProg=1 //Fly in
         {
-          x+=xSpd
-          attackTime+=1
+          x+=xSpd*gDeltaTime
+          attackTime+=1*gDeltaTime
           if attackTime>=20 {attackTime=0; attackProg+=1}
         }
         else if attackProg=2 //Slight wait
         {
-          attackTime+=1
+          attackTime+=1*gDeltaTime
           if attackTime>=10
           {
-            direction=player_sprite_center()
+            _direction=player_sprite_center()
             targetX=oPlayer1.x
             targetY=oPlayer1.bbox_top+abs(oPlayer1.sprite_height/2)-abs(oPlayer1.sprite_height/4)
             attackTime=0; attackProg+=1
@@ -220,7 +222,7 @@ if global.gamePaused=false
         }
         else if attackProg=3 //Attack cycle
         {
-          attackTime+=1
+          attackTime+=1*gDeltaTime
           if attackTime=1
           {
             var tNewAtk;
@@ -230,25 +232,27 @@ if global.gamePaused=false
               {
                 tNewAtk=instance_create(x+random_range(-28,28),y+random_range(-28,28),oPassBullet)
                 tNewAtk.sprite_index=sAbom_ParaShot; tNewAtk.atkPower=atkPower; tNewAtk.image_speed=0.33
-                tNewAtk.decayTime=-100; tNewAtk.direction=direction; tNewAtk.bulletSpeed=2+i
+                tNewAtk.decayTime=-100; tNewAtk._direction=_direction; tNewAtk.bulletSpeed=2+i
               }
             }
           }
-          speed=abs(xSpd)
+          _speed=abs(xSpd)
+          x += cos(degtorad(_direction)) * _speed * gDeltaTime
+          y -= sin(degtorad(_direction)) * _speed * gDeltaTime
           if point_distance(x,y,targetX,targetY)<=16
           {
-            speed=0
+            _speed=0
             attackTime=0; attackProg+=1
           }
         }
         else if attackProg=4 //Slight wait
         {
-          attackTime+=1
+          attackTime+=1*gDeltaTime
           if attackTime>=15
           {
             if currentSide=0 {checkSide=mapRight}
             else {checkSide=mapLeft}
-            direction=point_direction(x,y,checkSide,ySpawn)
+            _direction=point_direction(x,y,checkSide,ySpawn)
             attackTime=0; attackProg+=1
           }
         }
@@ -264,14 +268,16 @@ if global.gamePaused=false
               {
                 tNewAtk=instance_create(x+random_range(-20,20),y+random_range(-20,20),oPassBullet)
                 tNewAtk.sprite_index=sAbom_ParaShot; tNewAtk.atkPower=atkPower; tNewAtk.image_speed=0.33
-                tNewAtk.decayTime=-100; tNewAtk.direction=direction; tNewAtk.bulletSpeed=2+i
+                tNewAtk.decayTime=-100; tNewAtk._direction=direction; tNewAtk.bulletSpeed=2+i
               }
             }
           }
-          speed=abs(xSpd)
+          _speed=abs(xSpd)
+          x += cos(degtorad(_direction)) * _speed * gDeltaTime
+          y -= sin(degtorad(_direction)) * _speed * gDeltaTime
           if point_distance(x,y,checkSide,ySpawn)<=16
           {
-            speed=0
+            _speed=0
             if currentSide=0 {currentSide=1}
             else {currentSide=0}
             largeLaserCheck+=1
@@ -291,7 +297,7 @@ if global.gamePaused=false
         else if attackProg=1
         {
           if ySpd>0 and y>zigzagBottom {ySpd=-8}
-          if ySpd<0 and y<zigzagTop
+          if ySpd<0 and y<zigzagTop and gDeltaDoTicks
           {
             playSound(global.snd_LightballSpread,0,0.95,34000)
             var tNewAtk,tDir;
@@ -300,7 +306,7 @@ if global.gamePaused=false
             {
               tNewAtk=instance_create(x,y,oPassBullet)
               tNewAtk.sprite_index=sAbom_ParaShot; tNewAtk.atkPower=atkPower; tNewAtk.image_speed=0.33
-              tNewAtk.decayTime=-100; tNewAtk.direction=tDir
+              tNewAtk.decayTime=-100; tNewAtk._direction=tDir
               if i mod 2=0 {tNewAtk.bulletSpeed=4}
               else {tNewAtk.bulletSpeed=3}
               tDir+=360/bulletModD
@@ -308,8 +314,8 @@ if global.gamePaused=false
             ySpd=8
           }
 
-          x+=xSpd
-          y+=ySpd
+          x+=xSpd*gDeltaTime
+          y+=ySpd*gDeltaTime
 
           if (xSpd>0 and x>mapRight) or (xSpd<0 and x<mapLeft) {attackProg+=1}
         }
@@ -323,7 +329,7 @@ if global.gamePaused=false
       }
 
       //---------- Armor ----------
-      armorAngle-=1
+      armorAngle-=1*gDeltaTime
       if armorCheck=1 //Set up
       {
         armorDist=120
@@ -331,13 +337,13 @@ if global.gamePaused=false
       }
       else if armorCheck=2 //Fade in
       {
-        armorDist-=2
-        armorAlpha+=0.025
+        armorDist-=2*gDeltaTime
+        armorAlpha+=0.025*gDeltaTime
         if armorAlpha>=1 {armorCheck+=1}
       }
       else if armorCheck=4 //Fade out
       {
-        armorAlpha-=0.1
+        armorAlpha-=0.1*gDeltaTime
         if armorAlpha<=0 {armorCheck+=1}
       }
 
@@ -351,7 +357,7 @@ if global.gamePaused=false
       }
 
       //---------- Rail rock ----------
-      railRockTime+=1
+      railRockTime+=1*gDeltaTime
       if railRockTime>=railRockDelay
       {
         instance_create(mapRight,320,oPSF_Cart_Rock)
@@ -429,7 +435,8 @@ if global.gamePaused=false
 
   if life<=0
   {
-    deathAnim+=1
+    if deathAnim == 0 {deathAnim = 1-gDeltaTime}
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       with oEProjectileBase {instance_destroy()}
@@ -457,7 +464,7 @@ if global.gamePaused=false
     }
   }
 }
-else {speed=0}
+else {_speed=0}
 #define Other_25
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -491,12 +498,12 @@ applies_to=self
 */
 if waveAUp=1
 {
-  scaleWaveA+=0.004
+  scaleWaveA+=0.004*gDeltaTime
   if scaleWaveA>=0.55 {waveAUp=0}
 }
 else
 {
-  scaleWaveA-=0.004
+  scaleWaveA-=0.004*gDeltaTime
   if scaleWaveA<=0.45 {waveAUp=1}
 }
 image_xscale=0.5+scaleWaveA

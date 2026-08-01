@@ -198,7 +198,30 @@ The following is an example of code from an event object that makes fireballs sh
         bowserFireProg+=1
       }
 
+10) The 3 Frame Gap
 
+Often, there will be an unintended 3 frame gap if an increment is scaled with no boost at the start
+
+atkTime+=1
+if atkTime==1...
+
+is supposed to happen on the same frame. But
+
+atkTime+=1*gDeltaTime
+if atkTime==1....
+
+has a 3 frame gap before atkTime is 1. to solve this, we just want to start atkTime at 0.75, and only when it is 0 to prevent it from being repeatedly re-assigned. The code is as follows:
+
+if deathAnim == 0 {deathAnim = 1-gDeltaTime};
+deathAnim+=1*gDeltaTime
+if deathAnim=-1...
+
+11) background speed
+
+Just look at the speed in the room editor and scale it in room creation code
+
+background_hspeed[0]=0
+background_vspeed[0]=0
 
 ----DELTARUNE GUIDE----
 

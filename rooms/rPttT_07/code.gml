@@ -1,4 +1,6 @@
 locationCheck(76)
+background_hspeed[0]=-10*gDeltaTime
+background_vspeed[0]=0
 global.mapTeleport=0
 
 gameScene=instance_create(0,0,oEvPttT)

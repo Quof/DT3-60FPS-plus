@@ -32,12 +32,12 @@ if global.gamePaused=false
   //Color change
   if colPhase=0
   {
-    colTime-=5
+    colTime-=5*gDeltaTime
     if colTime<=135 {colPhase=1}
   }
   else if colPhase=1
   {
-    colTime+=5
+    colTime+=5*gDeltaTime
     if colTime>=255 {colPhase=0}
   }
 
@@ -50,7 +50,7 @@ if global.gamePaused=false
     image_xscale-=4*gDeltaTime
     if image_xscale<=4 {instance_destroy()}
   }
-  image_angle-=spinSpd
+  image_angle-=spinSpd*gDeltaTime
 }
 #define Collision_oIdentifier
 /*"/*'/**//* YYD ACTION

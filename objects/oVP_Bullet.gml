@@ -20,10 +20,10 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  speed=bulletSpeed
+  _speed=bulletSpeed
   if bCanGraze=1
   {
-    if point_distance(x,y,oIdentifier.x,oIdentifier.y)<21
+    if point_distance(x,y,oIdentifier.x,oIdentifier.y)<21 and gDeltaDoTicks
     {
       playSound(global.snd_Bite,0,0.95,70000)
       var tEffect;
@@ -40,7 +40,10 @@ if global.gamePaused=false
     }
   }
 }
-else {speed=0}
+else {_speed=0}
+
+x += cos(degtorad(_direction)) * _speed * gDeltaTime
+y -= sin(degtorad(_direction)) * _speed * gDeltaTime
 #define Collision_oIdentifier
 /*"/*'/**//* YYD ACTION
 lib_id=1

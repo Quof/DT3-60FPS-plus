@@ -24,14 +24,14 @@ if global.gamePaused=false
 {
   if rockProg=0
   {
-    symbolBeep+=1
-    if symbolBeep mod 4=0
+    symbolBeep+=1*gDeltaTime
+    if symbolBeep mod 4 = 0
     {
       if warnSymbol=0 {warnSymbol=1}
       else {warnSymbol=0}
     }
 
-    warnTime-=1
+    warnTime-=1*gDeltaTime
     if warnTime=0
     {
       warnSymbol=0
@@ -40,10 +40,10 @@ if global.gamePaused=false
   }
   else if rockProg=1
   {
-    warnTime+=1
+    warnTime+=1*gDeltaTime
     if warnTime>=5
     {
-      x-=rockSpd
+      x-=rockSpd*gDeltaTime
 
       if bumpProg=0 and x<=384
       {

@@ -30,7 +30,8 @@ if global.gamePaused=false
 {
   if laserProg=0
   {
-    laserTime+=1
+    if laserTime == 0 {laserTime = 1 - gDeltaTime}
+    laserTime+=1*gDeltaTime
     if laserTime=1
     {
       var tFFScl,tEffect;
@@ -55,9 +56,9 @@ if global.gamePaused=false
   }
   else if laserProg=1
   {
-    edgeFrame+=0.33
-    lifeTime+=1
-    if lifeTime>=1 and lifeTime<=34
+    edgeFrame+=0.33*gDeltaTime
+    lifeTime+=1*gDeltaTime
+    if lifeTime>=1 and lifeTime<=34 and gDeltaDoTicks
     {
       var tFFScl,tEffect;
       tFFScl=random(0.1)
@@ -68,7 +69,7 @@ if global.gamePaused=false
       tEffect.fadeSpd=0.04; tEffect.image_blend=fairyLightColor
       tEffect.AccelX=0; tEffect.AccelY=0; tEffect.followID=-1; tEffect.rotation=0
     }
-    if lifeTime>=35
+    if lifeTime>=35 and gDeltaDoTicks
     {
       var tFFScl,tEffect;
       for(i=0;i<24;i+=1)

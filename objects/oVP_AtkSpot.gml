@@ -26,9 +26,9 @@ applies_to=self
 */
 if global.gamePaused=0
 {
-  if shotDelay>0 {shotDelay-=1}
+  if shotDelay>0 {shotDelay-=1*gDeltaTime}
 
-  decayTime-=1
+  decayTime-=1*gDeltaTime
   if decayTime<=0
   {
     image_alpha-=0.1*gDeltaTime
@@ -43,7 +43,7 @@ applies_to=self
 */
 if decayTime>0 and shotDelay=0
 {
-  decayTime-=5
+  decayTime-=5*gDeltaTime
   shotDelay=3
   var tNewAttack,tDir,tFindClosest;
   if room=rAbomF {tFindClosest=oVirusParasite_Main}
@@ -54,5 +54,5 @@ if decayTime>0 and shotDelay=0
   }
   tDir=point_direction(oIdentifier.x,oIdentifier.y,tFindClosest.x,tFindClosest.y)
   tNewAttack=instance_create(oIdentifier.x,oIdentifier.y,oVP_ChaoBullet)
-  tNewAttack.direction=tDir; tNewAttack.image_angle=tDir
+  tNewAttack._direction=tDir; tNewAttack.image_angle=tDir
 }

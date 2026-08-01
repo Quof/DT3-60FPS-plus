@@ -41,7 +41,7 @@ if global.gamePaused=false
   }
   else if jumpProg=2 //Fall
   {
-    if yVel<4 {yVel+=0.2}
+    if yVel<4 {yVel+=0.2*gDeltaTime}
 
     if y>=railingY //Hit rails
     {

@@ -117,13 +117,13 @@ if global.gamePaused=false
   {
     if fightSeq=0 //---------- Fight intro ----------
     {
-      fightTime+=1
+      fightTime+=1*gDeltaTime
       if fightTime=60 {bAimedShotSpread=1}
       else if fightTime=80 {bAtkSpot=1}
     }
     else if fightSeq=1 //Open pod
     {
-      fightTime+=1
+      fightTime+=1*gDeltaTime
       if fightTime=40 {image_index=1}
       else if fightTime=44 {image_index=2}
       else if fightTime=48 {image_index=3}
@@ -144,7 +144,7 @@ if global.gamePaused=false
     }
     else if fightSeq=2 //---------- First line laser ----------
     {
-      fightTime+=1
+      fightTime+=1*gDeltaTime
       if fightTime=30 {bAtkSpot=1}
       else if fightTime=60 {bLineLaser=1}
       else if fightTime=110
@@ -166,7 +166,7 @@ if global.gamePaused=false
     }
     else if fightSeq=3 //---------- Dense aimed circle ----------
     {
-      fightTime+=1
+      fightTime+=1*gDeltaTime
       if fightTime=40
       {
         bAimedCircle=1
@@ -178,7 +178,7 @@ if global.gamePaused=false
     }
     else if fightSeq=4 //---------- Chao must go off-screen ----------
     {
-      fightTime+=1
+      fightTime+=1*gDeltaTime
       if fightTime=10 {bAimedShotSpread=0}
       else if fightTime=50
       {
@@ -217,7 +217,7 @@ if global.gamePaused=false
     }
     else if fightSeq=5 //---------- Final ----------
     {
-      fightTime+=1
+      fightTime+=1*gDeltaTime
       if fightTime=1 {with oVP_Explosion {instance_destroy()}}
       else if fightTime=50 {bBulletSwirl=0}
       else if fightTime=70
@@ -298,7 +298,7 @@ if global.gamePaused=false
     //========== ATK SPOT ==========
     if bAtkSpot=1
     {
-      atkSpotTime+=1
+      atkSpotTime+=1*gDeltaTime
       if atkSpotTime=190
       {
         var tNewAtkSpot;
@@ -336,7 +336,7 @@ if global.gamePaused=false
     //========== ATTACK LIST ==========
     if bBulletSwirlInc=1
     {
-      bulletSwirlIncTime+=1
+      bulletSwirlIncTime+=1*gDeltaTime
       if bulletSwirlIncTime mod 10=0
       {
         if bBulletSwirl=0 {bBulletSwirl=1}
@@ -346,27 +346,27 @@ if global.gamePaused=false
 
     if bBulletSwirl=1 //----- ATTACK: BULLET SWIRL -----
     {
-      bulletSwirlTime+=bulletSwirlPush
+      bulletSwirlTime+=bulletSwirlPush*gDeltaTime
       if bulletSwirlTime mod bulletSwirlModA=0
       {
         var tNewAtk;
         for(i=0;i<bulletSwirlAmt;i+=1)
         {
           tNewAtk=instance_create(x,y,oVP_Bullet)
-          tNewAtk.bulletSpeed=3; tNewAtk.direction=(bulletSwirlTime*3)+(i*(360/bulletSwirlAmt)); tNewAtk.depth=29
+          tNewAtk.bulletSpeed=3; tNewAtk._direction=(bulletSwirlTime*3)+(i*(360/bulletSwirlAmt)); tNewAtk.depth=29
         }
       }
       if bulletSwirlTime mod bulletSwirlModB=0
       {
         var tNewAtk;
         tNewAtk=instance_create(x,y,oVP_Bullet)
-        tNewAtk.bulletSpeed=4; tNewAtk.direction=find_chao_dir(); tNewAtk.depth=27
+        tNewAtk.bulletSpeed=4; tNewAtk._direction=find_chao_dir(); tNewAtk.depth=27
         tNewAtk.image_blend=make_color_rgb(255,160,160)
       }
     }
     if bExplosionLine=1 //----- ATTACK: EXPLOSION LINE -----
     {
-      explosionLineTime+=1
+      explosionLineTime+=1*gDeltaTime
       if explosionLineTime=explosionLineDelay
       {
         for(i=0;i<room_width;i+=32)
@@ -393,9 +393,9 @@ if global.gamePaused=false
     }
     if bAimedShotSpread=1 //----- ATTACK: AIMED SHOT SPREAD -----
     {
-      aimedShotSpreadTime+=1
+      aimedShotSpreadTime+=1*gDeltaTime
       if aimedShotSpreadTime=aimedShotSpreadDelay {aimedShotWarn=48}
-      else if aimedShotSpreadTime>=aimedShotSpreadDelay+1 and aimedShotSpreadTime<=aimedShotSpreadDelay+24 {aimedShotWarn-=2}
+      else if aimedShotSpreadTime>=aimedShotSpreadDelay+1 and aimedShotSpreadTime<=aimedShotSpreadDelay+24 {aimedShotWarn-=2*gDeltaTime}
       else if aimedShotSpreadTime=aimedShotSpreadDelay+25 {playerDir=find_chao_dir()}
       else if aimedShotSpreadTime>=aimedShotSpreadDelay+26 and aimedShotSpreadTime<=aimedShotSpreadDelay+46 and aimedShotSpreadTime mod 4=0
       {
@@ -404,7 +404,7 @@ if global.gamePaused=false
         for(i=0;i<3;i+=1)
         {
           tNewAtk=instance_create(x,y,oVP_Bullet)
-          tNewAtk.bulletSpeed=4; tNewAtk.direction=tDir
+          tNewAtk.bulletSpeed=4; tNewAtk._direction=tDir
           tNewAtk.image_blend=make_color_rgb(160,255,160)
           tDir+=15
         }
@@ -413,7 +413,7 @@ if global.gamePaused=false
     }
     if bLineLaser=1 //----- ATTACK: LINE LASER (Turns itself off) -----
     {
-      lineLaserTime+=1
+      lineLaserTime+=1*gDeltaTime
       if lineLaserTime=1
       {
         var tNewAtk;
@@ -431,7 +431,7 @@ if global.gamePaused=false
     }
     if bAimedCircle=1 //----- ATTACK: AIMED CIRCLE -----
     {
-      aimedCircleTime+=1
+      aimedCircleTime+=1*gDeltaTime
       if aimedCircleTime>=aimedCircleDelay
       {
         var tNewAtk,tDir;
@@ -439,7 +439,7 @@ if global.gamePaused=false
         for(i=0;i<aimedCircleAmt;i+=1)
         {
           tNewAtk=instance_create(x,y,oVP_Bullet)
-          tNewAtk.bulletSpeed=2; tNewAtk.direction=tDir
+          tNewAtk.bulletSpeed=2; tNewAtk._direction=tDir
           tNewAtk.image_blend=make_color_rgb(150,255,255); tNewAtk.depth=28
           tDir+=360/aimedCircleAmt
         }
@@ -450,8 +450,8 @@ if global.gamePaused=false
     //----- ATTACK: BIG LASER -----
     if bBigLaser=1
     {
-      bigLaserTime+=1
-      if bigLaserTime>=1 and bigLaserTime<=15 {bigLaserWarn+=0.04}
+      bigLaserTime+=1*gDeltaTime
+      if bigLaserTime>=1 and bigLaserTime<=15 {bigLaserWarn+=0.04*gDeltaTime}
       if bigLaserTime=40
       {
         bigLaserWarn=0
@@ -466,7 +466,7 @@ if global.gamePaused=false
     //----- Flame actions -----
     if flameAct>=100 and flameAct<=199 //Fade out
     {
-      flameAct+=1
+      flameAct+=1*gDeltaTime
       if flameAct>=101 and flameAct<=120
       {
         for(i=0;i<8;i+=1)
@@ -478,7 +478,7 @@ if global.gamePaused=false
     }
     else if flameAct>=200 and flameAct<=299 //Fade in
     {
-      flameAct+=1
+      flameAct+=1*gDeltaTime
       if flameAct>=201 and flameAct<=220
       {
         for(i=0;i<8;i+=1)
@@ -556,7 +556,8 @@ if global.gamePaused=false
 
   if life<=0
   {
-    deathAnim+=1
+    if deathAnim == 0 {deathAnim = 1-gDeltaTime};
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       with oEProjectileBase {instance_destroy()}

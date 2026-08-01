@@ -27,7 +27,7 @@ if global.gamePaused=false
 {
   if explodeProg=0
   {
-    circleWarnRad-=0.33
+    circleWarnRad-=0.33*gDeltaTime
     if circleWarnRad<=0
     {
       bCanDealDamage=1
@@ -36,7 +36,7 @@ if global.gamePaused=false
   }
   else if explodeProg=1
   {
-    image_index+=0.5
+    image_index+=0.5*gDeltaTime
     if image_index>=image_number-0.5 {instance_destroy()}
   }
 }

@@ -27,21 +27,21 @@ if global.gamePaused=false
 {
   if laserUp=1
   {
-    laserScl+=0.01
+    laserScl+=0.01*gDeltaTime
     if laserScl>=0.15 {laserUp=0}
   }
   else
   {
-    laserScl-=0.01
+    laserScl-=0.01*gDeltaTime
     if laserScl<=0 {laserUp=1}
   }
 
-  moveDelay-=1
+  moveDelay-=1*gDeltaTime
   if moveDelay<=0
   {
     if laserProg=0
     {
-      y+=moveSpd
+      y+=moveSpd*gDeltaTime
       if y>=288
       {
         laserProg=1
