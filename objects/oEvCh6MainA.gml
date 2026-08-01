@@ -70,7 +70,7 @@ if room=rBelmont3_4C or room=rBelmont3_4I or room=rBelmont3_6A or room=rBelmont3
     var i;
     for(i=182816;i<182826;i+=1)
     {
-      (i).y-=1024
+      (GID(i)).y-=1024
     }
   }
 }
@@ -1379,7 +1379,7 @@ else if room=rBelmont3_6F //----- [] Get Death's Eye -----
       var i;
       for(i=182816;i<182826;i+=1)
       {
-        (i).y+=1024
+        (GID(i)).y+=1024
       }
       sceneProgress+=1
     }
