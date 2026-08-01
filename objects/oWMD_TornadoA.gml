@@ -25,17 +25,17 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  x+=moveSpd
+  x+=moveSpd*gDeltaTime
 
   if room=rWarshipZ_E3 //EX MODE
   {
-    if moveSpd>1 {moveSpd-=0.13}
-    else if moveSpd<-1 {moveSpd+=0.13}
+    if moveSpd>1 {moveSpd-=0.13*gDeltaTime}
+    else if moveSpd<-1 {moveSpd+=0.13*gDeltaTime}
   }
   else
   {
-    if moveSpd>1 {moveSpd-=0.15}
-    else if moveSpd<-1 {moveSpd+=0.15}
+    if moveSpd>1 {moveSpd-=0.15*gDeltaTime}
+    else if moveSpd<-1 {moveSpd+=0.15*gDeltaTime}
   }
 
   image_alpha-=fadeSpd*gDeltaTime

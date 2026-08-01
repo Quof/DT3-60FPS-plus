@@ -42,25 +42,25 @@ if global.gamePaused=false
 
     if x>oPlayer1.x
     {
-      if currHspd>-maxSpeed {currHspd-=0.25}
+      if currHspd>-maxSpeed {currHspd-=0.25*gDeltaTime}
       else {currHspd=-maxSpeed}
     }
     else if x<oPlayer1.x
     {
-      if currHspd<maxSpeed {currHspd+=0.25}
+      if currHspd<maxSpeed {currHspd+=0.25*gDeltaTime}
       else {currHspd=maxSpeed}
     }
     if y>returnPlayerYCenter()
     {
-      if currVspd>-maxSpeed {currVspd-=0.25}
+      if currVspd>-maxSpeed {currVspd-=0.25*gDeltaTime}
       else {currVspd=-maxSpeed}
     }
     else if y<returnPlayerYCenter()
     {
-      if currVspd<maxSpeed {currVspd+=0.25}
+      if currVspd<maxSpeed {currVspd+=0.25*gDeltaTime}
       else {currVspd=maxSpeed}
     }
-    hspeed=currHspd; vspeed=currVspd
+    _hspeed=currHspd; _vspeed=currVspd
 
     if rWarshipZ_E3 //EX MODE
     {
@@ -82,7 +82,10 @@ if global.gamePaused=false
     }
   }
 }
-else {hspeed=0; vspeed=0}
+else {_hspeed=0; _vspeed=0}
+
+x += _hspeed * gDeltaTime
+y += _vspeed * gDeltaTime
 #define Collision_oAttackBase
 /*"/*'/**//* YYD ACTION
 lib_id=1

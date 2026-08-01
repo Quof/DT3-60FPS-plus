@@ -25,5 +25,5 @@ if global.gamePaused=false
 {
   x=warTarget.x
   y=warTarget.y
-  image_angle-=45*warTarget.scaleForFacing
+  image_angle-=45*warTarget.scaleForFacing*gDeltaTime
 }

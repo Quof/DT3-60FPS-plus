@@ -14,12 +14,12 @@ applies_to=self
 */
 if glowProg=0
 {
-  colorBlend-=1
+  colorBlend-=1*gDeltaTime
   if colorBlend<=190 {glowProg=1}
 }
 else if glowProg=1
 {
-  colorBlend+=1
+  colorBlend+=1*gDeltaTime
   if colorBlend>=255 {glowProg=0}
 }
 

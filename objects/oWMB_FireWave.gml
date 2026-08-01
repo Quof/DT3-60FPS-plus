@@ -53,7 +53,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  x+=moveSpd*image_xscale
+  x+=moveSpd*image_xscale*gDeltaTime
   atkTime+=1*gDeltaTime
   if atkTime=3 {image_index=1}
   else if atkTime=6 {image_index=2}

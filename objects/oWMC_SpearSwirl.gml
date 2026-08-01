@@ -37,7 +37,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  image_angle+=30
+  image_angle+=30*gDeltaTime
   if atkProg=0
   {
     x=warTarget.x
@@ -48,12 +48,15 @@ if global.gamePaused=false
     atkTime+=1*gDeltaTime
     if atkTime=1
     {
-      direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
+    _direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
     }
-    else {speed=5}
+    else {_speed=5}
   }
 }
-else {speed=0}
+else {_speed=0}
+
+x += cos(degtorad(_direction)) * _speed * gDeltaTime
+y -= sin(degtorad(_direction)) * _speed * gDeltaTime
 #define Collision_oAttackBase
 /*"/*'/**//* YYD ACTION
 lib_id=1

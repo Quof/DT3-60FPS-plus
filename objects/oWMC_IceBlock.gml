@@ -20,6 +20,9 @@ moveTime=0
 ySpd=0
 
 alarm[0]=1
+
+_speed=0
+_direction=0
 #define Alarm_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -29,7 +32,7 @@ applies_to=self
 ranDir=irandom_range(45,135)
 x=xPlace+lengthdir_x(64,ranDir)
 y=yPlace+lengthdir_y(64,ranDir)
-direction=ranDir+180
+_direction=ranDir+180
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -45,29 +48,29 @@ if global.gamePaused=false
   }
   else if moveProg=1 //Slight wait
   {
-    moveTime+=1
+    moveTime+=1*gDeltaTime
     if moveTime>=10 {moveTime=0; moveProg=2}
   }
   else if moveProg=2 //Move to place
   {
-    speed=4
+    _speed=4
     if point_distance(x,y,xPlace,yPlace)<=4
     {
       x=xPlace; y=yPlace
-      speed=0
+      _speed=0
       moveProg=3
     }
   }
   else if moveProg=3 //Slight wait
   {
-    moveTime+=1
-    if warTarget.DIFFICULTY>=2 {moveTime+=0.5}
+    moveTime+=1*gDeltaTime
+    if warTarget.DIFFICULTY>=2 {moveTime+=0.5*gDeltaTime}
     if moveTime>=15 {moveTime=0; moveProg=4}
   }
   else if moveProg=4 //Fall
   {
-    y+=ySpd
-    if ySpd<8 {ySpd+=0.15}
+    y+=ySpd*gDeltaTime
+    if ySpd<8 {ySpd+=0.15*gDeltaTime}
     if y>=warTarget.yGround
     {
       var tEffect;
@@ -83,4 +86,7 @@ if global.gamePaused=false
     }
   }
 }
-else {speed=0}
+else {_speed=0}
+
+x += cos(degtorad(_direction)) * _speed * gDeltaTime
+y -= sin(degtorad(_direction)) * _speed * gDeltaTime

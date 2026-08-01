@@ -15,6 +15,10 @@ bCanTakeDamage=false
 damageType="EXPLOSION"
 
 moveTime=0
+
+_direction=0
+_speed=0
+turnAmt=0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -25,11 +29,13 @@ if global.gamePaused=false
 {
   if type=0 //Curve
   {
-    moveTime+=1
+    moveTime+=1*gDeltaTime
     if moveTime>=16 and moveTime<=999
     {
-      direction+=turnDir
-      if direction>=270 and direction<=290 {moveTime=1000}
+      _direction+=turnDir*gDeltaTime
+      turnAmt+=abs(turnDir)*gDeltaTime //QWH addition; direction not looping properly was breaking this
+      if turnAmt>=270 and turntAmt<=290 {moveTime=1000}
+     // if _direction>=270 and _direction<=290 {moveTime=1000}
     }
 
     if y>=room_height+32 {instance_destroy()}
@@ -42,10 +48,10 @@ if global.gamePaused=false
     }
     else if moveTime>=1
     {
-      moveTime+=1
+      moveTime+=1*gDeltaTime
       if moveTime=25
       {
-        direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
+        _direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
         bulletSpeed=6
       }
       else if moveTime>=120 {instance_destroy()}
@@ -60,12 +66,12 @@ if global.gamePaused=false
         var tAtk;
         tAtk=instance_create(warTarget.xCenter-warTarget.roomSpan+16,0,oPassBullet)
         tAtk.sprite_index=sWarmasterB_AtkFireballA; tAtk.atkPower=atkPower; tAtk.bulletSpeed=12; tAtk.image_blend=image_blend
-        tAtk.decayTime=-100; tAtk.damageType="EXPLOSION"; tAtk.image_speed=0.33; tAtk.direction=270; tAtk.image_angle=270
+        tAtk.decayTime=-100; tAtk.damageType="EXPLOSION"; tAtk.image_speed=0.33; tAtk._direction=270; tAtk.image_angle=270
         tAtk=instance_create(warTarget.xCenter+warTarget.roomSpan-16,0,oPassBullet)
         tAtk.sprite_index=sWarmasterB_AtkFireballA; tAtk.atkPower=atkPower; tAtk.bulletSpeed=12; tAtk.image_blend=image_blend
-        tAtk.decayTime=-100; tAtk.damageType="EXPLOSION"; tAtk.image_speed=0.33; tAtk.direction=270; tAtk.image_angle=270
+        tAtk.decayTime=-100; tAtk.damageType="EXPLOSION"; tAtk.image_speed=0.33; tAtk._direction=270; tAtk.image_angle=270
         x=xFall
-        direction=270
+        _direction=270
         bulletSpeed=12
         moveTime=1
       }
@@ -76,10 +82,13 @@ if global.gamePaused=false
     }
   }
 
-  speed=bulletSpeed
-  image_angle=direction
+  _speed=bulletSpeed
+  image_angle=_direction
 }
-else {speed=0}
+else {_speed=0}
+
+x += cos(degtorad(_direction)) * _speed * gDeltaTime
+y -= sin(degtorad(_direction)) * _speed * gDeltaTime
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

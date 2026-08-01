@@ -179,11 +179,11 @@ if global.gamePaused=false
   {
     if bGoombaStomp=1 and ATTACK_FORM!=3 //Limited time on achievement after Warmaster swaps
     {
-      goombaStompTime-=1
+      goombaStompTime-=1*gDeltaTime
       if goombaStompTime<=0 {bGoombaStomp=0}
     }
 
-    timeTillLastHit+=1
+    timeTillLastHit+=1*gDeltaTime
     //-------------------- Manage form change --------------------
     if superChangeAtk=0
     {
@@ -193,7 +193,7 @@ if global.gamePaused=false
         {
           if shiftDamage>=4
           {
-            shiftTime+=1
+            shiftTime+=1*gDeltaTime
             if shiftTime>=shiftMaxTime or shiftDamage>=shiftDmgMax and currentAttack=0 and atkNum=0
             {
               if orderChangeSetting=0
@@ -211,7 +211,7 @@ if global.gamePaused=false
         }
         else
         {
-          shiftTime+=1
+          shiftTime+=1*gDeltaTime
           if shiftTime>=timeTillChange and currentAttack=0
           {
             ATTACK_FORM=orderSet[orderNum]
@@ -241,11 +241,11 @@ if global.gamePaused=false
     else {scaleForFacing=-1}
 
     //-------------------- Idle animation speed --------------------
-    if sprite_index=sWarmasterA_Idle {image_index+=0.25}
-    else if sprite_index=sWarmasterA_JumpUp or sprite_index=sWarmasterA_JumpDown {image_index+=0.25}
-    else if sprite_index=sWarmasterB_Idle or sprite_index=sWarmasterC_Idle or sprite_index=sWarmasterD_Idle {image_index+=0.15}
+    if sprite_index=sWarmasterA_Idle {image_index+=0.25*gDeltaTime}
+    else if sprite_index=sWarmasterA_JumpUp or sprite_index=sWarmasterA_JumpDown {image_index+=0.25*gDeltaTime}
+    else if sprite_index=sWarmasterB_Idle or sprite_index=sWarmasterC_Idle or sprite_index=sWarmasterD_Idle {image_index+=0.15*gDeltaTime}
 
-    if sprite_index=sWarmasterA_SwordRoll {swdRollAng-=45*scaleForFacing}
+    if sprite_index=sWarmasterA_SwordRoll {swdRollAng-=45*scaleForFacing*gDeltaTime}
 
     if sprite_index=sWarmasterA_GrappleRopeB //Keep in place when grappled to the rope
     {
@@ -256,15 +256,15 @@ if global.gamePaused=false
     //-------------------- Effect timer --------------------
     if dashEfType>0
     {
-      dashEfFrm+=0.33
+      dashEfFrm+=0.33*gDeltaTime
       if dashEfFrm>=2.6 {dashEfType=0}
     }
 
     if sprite_index=sWarmasterB_Dashing //Super dash trail and fire pillars
     {
-      var tAfterI;
+      if gDeltaDoTicks {var tAfterI;
       tAfterI=instance_create(x,y,oWMB_DashImage)
-      tAfterI.image_xscale=image_xscale; tAfterI.image_yscale=image_yscale
+      tAfterI.image_xscale=image_xscale; tAfterI.image_yscale=image_yscale}
 
       if actTime mod 3=0 and currentAttack=5
       {
@@ -287,22 +287,22 @@ if global.gamePaused=false
         //Seek player
         if x>oPlayer1.x
         {
-          if currHspd>-maxSpeed {currHspd-=0.15}
+          if currHspd>-maxSpeed {currHspd-=0.15*gDeltaTime}
           else {currHspd=-maxSpeed}
         }
         else if x<oPlayer1.x
         {
-          if currHspd<maxSpeed {currHspd+=0.15}
+          if currHspd<maxSpeed {currHspd+=0.15*gDeltaTime}
           else {currHspd=maxSpeed}
         }
         if y>returnPlayerYCenter()-64
         {
-          if currVspd>-maxSpeed {currVspd-=0.15}
+          if currVspd>-maxSpeed {currVspd-=0.15*gDeltaTime}
           else {currVspd=-maxSpeed}
         }
         else if y<returnPlayerYCenter()-64
         {
-          if currVspd<maxSpeed {currVspd+=0.15}
+          if currVspd<maxSpeed {currVspd+=0.15*gDeltaTime}
           else {currVspd=maxSpeed}
         }
         //Keep within room
@@ -311,9 +311,9 @@ if global.gamePaused=false
         if y-50<yGround-roomHeight {currVspd=3}
         else if y>yGround-2 {currVspd=-3}
 
-        if sprite_index=sWarmasterC_JetB {x+=xVel/1.5} //Atk 2
+        if sprite_index=sWarmasterC_JetB {x+=(xVel/1.5)*gDeltaTime} //Atk 2
 
-        x+=currHspd; y+=currVspd
+        x+=currHspd*gDeltaTime; y+=currVspd*gDeltaTime
 
         if waitTime<waitDelay
         {
@@ -328,7 +328,7 @@ if global.gamePaused=false
     {
       if superChangeAtk<10
       {
-        waitTime+=1
+        waitTime+=1*gDeltaTime
         if superChangeAtk=0 //Standard action
         {
           if waitTime>=waitDelay
@@ -356,15 +356,15 @@ if global.gamePaused=false
       }
       else if superChangeAtk>=10 and superChangeAtk<=99 //Charge super attack
       {
-        superChangeAtk+=1
+        superChangeAtk+=1*gDeltaTime
         if superChangeAtk>=11 and superChangeAtk<=20
         {
-          var tAfterI;
+          if gDeltaDoTicks {var tAfterI;
           tAfterI=instance_create(x,y,oEnemyAfterImage)
           tAfterI.sprite_index=sprite_index; tAfterI.image_index=image_index; tAfterI.image_blend=c_white
           tAfterI.image_xscale=image_xscale*scaleForFacing; tAfterI.image_yscale=image_yscale; tAfterI.depth=24; tAfterI.imageFade=0.1
           tAfterI.xScaling=0.125; tAfterI.yScaling=0.125; tAfterI.xShift=0; tAfterI.yShift=0
-          tAfterI.bFollow=1; tAfterI.idFollow=id; tAfterI.xFollow=0; tAfterI.yFollow=0
+          tAfterI.bFollow=1; tAfterI.idFollow=id; tAfterI.xFollow=0; tAfterI.yFollow=0}
 
           var tFFScl,tEffect;
           for(i=0;i<2;i+=1)
@@ -399,14 +399,14 @@ if global.gamePaused=false
     }
     else //-------------------- Executing attack --------------------
     {
-      actTime+=1
+      actTime+=1*gDeltaTime
       event_user(ATTACK_FORM)
     }
 
     //-------------------- Collision --------------------
     if bGravity=1
     {
-      yVel+=0.5
+      yVel+=0.5*gDeltaTime
       if yVel>10 {yVel=10}
     }
     if hoverMode=0
@@ -573,12 +573,12 @@ if global.gamePaused=false
         }
       }
       if isCollisionSolid() {y-=2}
-      moveTo(xVel,yVel)
+      moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
     }
 
     if backGroundFlash>=1 and backGroundFlash<=99 //Normal background flash
     {
-      backGroundFlash+=1
+      backGroundFlash+=1*gDeltaTime
       if backGroundFlash>=2 and backGroundFlash<=24
       {
         if backGroundFlash mod 3=0 {background_blend[0]=make_color_rgb(255,128,128)}
@@ -597,7 +597,7 @@ if global.gamePaused=false
     }
     if backGroundFlash>=101 and backGroundFlash<=199 //Gray background flash
     {
-      backGroundFlash+=1
+      backGroundFlash+=1*gDeltaTime
       if backGroundFlash>=102 and backGroundFlash<=124
       {
         if backGroundFlash mod 3=0 {background_blend[0]=make_color_rgb(120,120,120)}
@@ -697,10 +697,10 @@ if global.gamePaused=false
 
 if life<=0 //-------------------- Defeat animation --------------------
 {
-  deathAnim+=1
+  deathAnim+=1*gDeltaTime
   if room!=rBT_WarmasterB
   {
-    if deathAnim=1
+    if deathAnim=1*gDeltaTime
     {
       if global.bBossGallery=1
       {
@@ -844,7 +844,7 @@ if currentAttack=1 //==================== ATK A: SWORD SWING 1 - (Leads into Atk
 
     tAtk=instance_create(x+(12*scaleForFacing),y-30,oWMA_SwordWave)
     tAtk.atkPower=atkPower; tAtk.warTarget=id
-    if image_xscale<0 {tAtk.direction=180; tAtk.image_angle=180}
+    if image_xscale<0 {tAtk._direction=180; tAtk.image_angle=180}
     if DIFFICULTY=1 {tAtk.moveSpd=5} else {tAtk.moveSpd=10}
     if ATTACK_SPEED>=2 {actTime=14}
   }
@@ -897,7 +897,7 @@ else if currentAttack=2 //==================== ATK B: SWORD SWING 2 ============
     }
 
     tAtk=instance_create(x+(12*scaleForFacing),y-30,oWMA_SwordWave)
-    tAtk.atkPower=atkPower; tAtk.direction=tWaveDir; tAtk.image_angle=tWaveDir; tAtk.warTarget=id
+    tAtk.atkPower=atkPower; tAtk._direction=tWaveDir; tAtk.image_angle=tWaveDir; tAtk.warTarget=id
     if DIFFICULTY=1 {tAtk.moveSpd=5} else {tAtk.moveSpd=10}
     if ATTACK_SPEED>=2 {actTime=11}
   }
@@ -1003,8 +1003,8 @@ else if currentAttack=4 //==================== ATK D: ROPE AND BOMB (Goes into A
 
   if actTime>=11 and actTime<=20
   {
-    if ATTACK_SPEED>=3 {ropeYscl+=0.2}
-    else {ropeYscl+=0.1}
+    if ATTACK_SPEED>=3 {ropeYscl+=0.2*gDeltaTime}
+    else {ropeYscl+=0.1*gDeltaTime}
   }
 }
 else if currentAttack=5 //==================== ATK E: SWORD ROLL ====================
@@ -1046,7 +1046,7 @@ else if currentAttack=5 //==================== ATK E: SWORD ROLL ===============
     else {event_user(0)}
   }
 
-  if ropeYscl>0 {ropeYscl-=0.1}
+  if ropeYscl>0 {ropeYscl-=0.1*gDeltaTime}
 }
 else if currentAttack=6 //==================== ATK F: BIG LEAP TOWARD WALL + LEAP OFF WALL (Needs charge) ====================
 {
@@ -1085,7 +1085,7 @@ else if currentAttack=6 //==================== ATK F: BIG LEAP TOWARD WALL + LEA
     {
       tNewAttack=instance_create(x-(28*image_xscale),y-20,oPassBullet)
       tNewAttack.sprite_index=sWarmasterA_ShotA; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=11
-      tNewAttack.image_speed=0.33; tNewAttack.decayTime=-100; tNewAttack.direction=tShotDir; tNewAttack.image_angle=tShotDir
+      tNewAttack.image_speed=0.33; tNewAttack.decayTime=-100; tNewAttack._direction=tShotDir; tNewAttack.image_angle=tShotDir
     }
     else
     {
@@ -1094,7 +1094,7 @@ else if currentAttack=6 //==================== ATK F: BIG LEAP TOWARD WALL + LEA
       {
         tNewAttack=instance_create(x-(28*image_xscale),y-20,oPassBullet)
         tNewAttack.sprite_index=sWarmasterA_ShotA; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=11
-        tNewAttack.image_speed=0.33; tNewAttack.decayTime=-100; tNewAttack.direction=tShotDir; tNewAttack.image_angle=tShotDir
+        tNewAttack.image_speed=0.33; tNewAttack.decayTime=-100; tNewAttack._direction=tShotDir; tNewAttack.image_angle=tShotDir
         tShotDir+=10
       }
     }
@@ -1128,20 +1128,20 @@ else if currentAttack=6 //==================== ATK F: BIG LEAP TOWARD WALL + LEA
     {
       tNewAttack=instance_create(200+(48*i),0,oPassBullet)
       tNewAttack.sprite_index=sWarmasterA_ShotB; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=12
-      tNewAttack.decayTime=-100; tNewAttack.image_speed=0.33; tNewAttack.direction=270; tNewAttack.image_angle=270
+      tNewAttack.decayTime=-100; tNewAttack.image_speed=0.33; tNewAttack._direction=270; tNewAttack.image_angle=270
     }
     tNewAttack=instance_create(168,0,oPassBullet)
     tNewAttack.sprite_index=sWarmasterA_ShotB; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=12
-    tNewAttack.decayTime=-100; tNewAttack.image_speed=0.33; tNewAttack.direction=270; tNewAttack.image_angle=270
+    tNewAttack.decayTime=-100; tNewAttack.image_speed=0.33; tNewAttack._direction=270; tNewAttack.image_angle=270
     tNewAttack=instance_create(568,0,oPassBullet)
     tNewAttack.sprite_index=sWarmasterA_ShotB; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=12
-    tNewAttack.decayTime=-100; tNewAttack.image_speed=0.33; tNewAttack.direction=270; tNewAttack.image_angle=270
+    tNewAttack.decayTime=-100; tNewAttack.image_speed=0.33; tNewAttack._direction=270; tNewAttack.image_angle=270
 
     tNewAttack=instance_create(oPlayer1.x,0,oPassBullet)
     with tNewAttack
     {
       sprite_index=sWarmasterA_ShotB; atkPower=oCHAOS_Warmaster_Main.atkPower; bulletSpeed=12
-      decayTime=-100; image_speed=0.33; direction=270; tNewAttack.image_angle=270
+      decayTime=-100; image_speed=0.33; _direction=270; tNewAttack.image_angle=270
       move_snap(8,1)
     }
     if ATTACK_SPEED=2 {actTime=139}
@@ -1228,7 +1228,7 @@ else if currentAttack=2 //==================== ATK B: FIRE SPAM (Needs charge) =
   else if actTime=11 {sprite_index=sWarmasterB_Dashing}
   else if actTime>=12 and actTime<=99 //Dash to center
   {
-    x+=8*scaleForFacing
+    x+=8*scaleForFacing*gDeltaTime
     var tXcenterCheck;
     tXcenterCheck=point_distance(x,0,xCenter,0)
     if tXcenterCheck<=32 {actTime=100}
@@ -1266,14 +1266,14 @@ else if currentAttack=2 //==================== ATK B: FIRE SPAM (Needs charge) =
     tAtk.atkPower=atkPower; tAtk.type=fireType; tAtk.warTarget=id
     if fireType=0 //Curve
     {
-      tAtk.bulletSpeed=3.5; tAtk.direction=90; tAtk.image_angle=90
+      tAtk.bulletSpeed=3.5; tAtk._direction=90; tAtk.image_angle=90
       tAtk.turnDir=(firePlacement[fireUse]/7)*fireSide
       fireType=1
     }
     else if fireType=1 //Stop then aim
     {
       tAtk.image_blend=c_yellow; tAtk.bulletSpeed=5
-      tAtk.direction=90+(firePlacement[fireUse]*fireSide); tAtk.image_angle=90+(firePlacement[fireUse]*fireSide)
+      tAtk._direction=90+(firePlacement[fireUse]*fireSide); tAtk.image_angle=90+(firePlacement[fireUse]*fireSide)
       tAtk.stopY=yGround-160-(fireUse*10)
       fireUse+=1
       if fireUse=3 {fireUse=0}
@@ -1282,7 +1282,7 @@ else if currentAttack=2 //==================== ATK B: FIRE SPAM (Needs charge) =
     else if fireType=2 //Up then down
     {
       tAtk.image_blend=c_orange; tAtk.bulletSpeed=12
-      tAtk.direction=90+(3*fireSide); tAtk.image_angle=90+(3*fireSide)
+      tAtk._direction=90+(3*fireSide); tAtk.image_angle=90+(3*fireSide)
       tAtk.xFall=x+(32*fireSide)
       fireType=0
     }
@@ -1308,12 +1308,12 @@ else if currentAttack=3 //==================== ATK C: FIREBALL =================
     else {tFireDir=180}
     tAtk=instance_create(x+(30*scaleForFacing),y-32,oPassBullet)
     tAtk.sprite_index=sWarmasterB_AtkFireballA; tAtk.atkPower=atkPower; tAtk.bulletSpeed=9
-    tAtk.decayTime=-100; tAtk.damageType="EXPLOSION"; tAtk.image_speed=0.33; tAtk.direction=tFireDir; tAtk.image_angle=tFireDir
+    tAtk.decayTime=-100; tAtk.damageType="EXPLOSION"; tAtk.image_speed=0.33; tAtk._direction=tFireDir; tAtk.image_angle=tFireDir
     if DIFFICULTY>=2
     {
       tAtk=instance_create(x+(30*scaleForFacing),y-32,oPassBullet)
       tAtk.sprite_index=sWarmasterB_AtkFireballA; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3
-      tAtk.decayTime=-100; tAtk.damageType="EXPLOSION"; tAtk.image_speed=0.33; tAtk.direction=tFireDir; tAtk.image_angle=tFireDir
+      tAtk.decayTime=-100; tAtk.damageType="EXPLOSION"; tAtk.image_speed=0.33; tAtk._direction=tFireDir; tAtk.image_angle=tFireDir
     }
   }
   else if actTime=13 {image_index=1}
@@ -1421,12 +1421,12 @@ else if currentAttack=6 //==================== ATK F: SHORT HOP + AIMED FIREBALL
     tFireDir=point_direction(x+(21*image_xscale),y-(24*image_yscale),oPlayer1.x,returnPlayerYCenter())
     tAtk=instance_create(x+(21*image_xscale),y-(24*image_yscale),oPassBullet)
     tAtk.sprite_index=sWarmasterB_AtkFireballA; tAtk.atkPower=atkPower; tAtk.bulletSpeed=10
-    tAtk.decayTime=-100; tAtk.damageType="EXPLOSION"; tAtk.image_speed=0.33; tAtk.direction=tFireDir; tAtk.image_angle=tFireDir
+    tAtk.decayTime=-100; tAtk.damageType="EXPLOSION"; tAtk.image_speed=0.33; tAtk._direction=tFireDir; tAtk.image_angle=tFireDir
     if DIFFICULTY>=2
     {
       tAtk=instance_create(x+(21*image_xscale),y-(24*image_yscale),oPassBullet)
       tAtk.sprite_index=sWarmasterB_AtkFireballA; tAtk.atkPower=atkPower; tAtk.bulletSpeed=2
-      tAtk.decayTime=-100; tAtk.damageType="EXPLOSION"; tAtk.image_speed=0.33; tAtk.direction=tFireDir; tAtk.image_angle=tFireDir
+      tAtk.decayTime=-100; tAtk.damageType="EXPLOSION"; tAtk.image_speed=0.33; tAtk._direction=tFireDir; tAtk.image_angle=tFireDir
     }
     if ATTACK_SPEED>=2 {yVel=1}
   }
@@ -1508,7 +1508,7 @@ else if currentAttack=2 //==================== ATK B: DASH ACROSS ROOM AND SHOOT
       var tAtk;
       tAtk=instance_create(x,y,oWMC_IceShotA)
       tAtk.sprite_index=sWarmasterC_IceShot; tAtk.atkPower=atkPower; tAtk.moveSpd=6; tAtk.type=0; tAtk.warTarget=id
-      tAtk.decayTime=-100; tAtk.damageType="ELEMENTAL"; tAtk.direction=270; tAtk.image_angle=270
+      tAtk.decayTime=-100; tAtk.damageType="ELEMENTAL"; tAtk._direction=270; tAtk.image_angle=270
     }
 
     if (xVel>0 and x>=xCenter+roomSpan-20) or (xVel<0 and x<=xCenter-roomSpan+20)
@@ -1590,10 +1590,10 @@ else if currentAttack=5 //==================== ATK E: SPEAR SWIRL ==============
     {
       tAtk=instance_create(x,y-27,oPassArcBullet)
       tAtk.sprite_index=sSeraAtkIceC; tAtk.image_xscale=0.75; tAtk.image_yscale=0.75; tAtk.decayTime=-100; tAtk.atkPower=atkPower
-      tAtk.bulletSpeed=5; tAtk.arcAmt=7; tAtk.falloff=0.125; tAtk.direction=tIceDir; tAtk.image_angle=tIceDir; tAtk.damageType="ELEMENTAL"
+      tAtk.bulletSpeed=5; tAtk.arcAmt=7; tAtk.falloff=0.125; tAtk._direction=tIceDir; tAtk.image_angle=tIceDir; tAtk.damageType="ELEMENTAL"
       tAtk=instance_create(x,y-27,oPassArcBullet)
       tAtk.sprite_index=sSeraAtkIceC; tAtk.image_xscale=0.75; tAtk.image_yscale=0.75; tAtk.decayTime=-100; tAtk.atkPower=atkPower
-      tAtk.bulletSpeed=5; tAtk.arcAmt=-7; tAtk.falloff=0.125; tAtk.direction=tIceDir; tAtk.image_angle=tIceDir; tAtk.damageType="ELEMENTAL"
+      tAtk.bulletSpeed=5; tAtk.arcAmt=-7; tAtk.falloff=0.125; tAtk._direction=tIceDir; tAtk.image_angle=tIceDir; tAtk.damageType="ELEMENTAL"
       tIceDir+=360/orbitNum
     }
   }
@@ -1625,7 +1625,7 @@ else if currentAttack=6 //==================== ATK F: ICE SHOT TO PLAYER =======
     {
       tAtk=instance_create(x+(17*image_xscale),y-(28*image_yscale),oPassBullet)
       tAtk.sprite_index=sWarmasterC_IceShard; tAtk.atkPower=atkPower; tAtk.bulletSpeed=9
-      tAtk.decayTime=-100; tAtk.damageType="ELEMENTAL"; tAtk.direction=tIceDir; tAtk.image_angle=tIceDir
+      tAtk.decayTime=-100; tAtk.damageType="ELEMENTAL"; tAtk._direction=tIceDir; tAtk.image_angle=tIceDir
     }
     else
     {
@@ -1634,7 +1634,7 @@ else if currentAttack=6 //==================== ATK F: ICE SHOT TO PLAYER =======
       {
         tAtk=instance_create(x+(17*image_xscale),y-(28*image_yscale),oPassBullet)
         tAtk.sprite_index=sWarmasterC_IceShard; tAtk.atkPower=atkPower; tAtk.bulletSpeed=9
-        tAtk.decayTime=-100; tAtk.damageType="ELEMENTAL"; tAtk.direction=tIceDir; tAtk.image_angle=tIceDir
+        tAtk.decayTime=-100; tAtk.damageType="ELEMENTAL"; tAtk._direction=tIceDir; tAtk.image_angle=tIceDir
         tIceDir+=4
       }
     }
@@ -1693,7 +1693,7 @@ else if currentAttack=8 //==================== ATK H: JUMP UP + SPREAD ATTACK (G
     {
       tAtk=instance_create(x,y-29,oPassBullet)
       tAtk.sprite_index=sWarmasterC_IceShard; tAtk.atkPower=atkPower; tAtk.bulletSpeed=7
-      tAtk.decayTime=-100; tAtk.damageType="ELEMENTAL"; tAtk.direction=tIceDir; tAtk.image_angle=tIceDir
+      tAtk.decayTime=-100; tAtk.damageType="ELEMENTAL"; tAtk._direction=tIceDir; tAtk.image_angle=tIceDir
       tIceDir+=360/10
     }
     if ATTACK_SPEED>=2 {actTime=22}
@@ -1725,7 +1725,7 @@ else if currentAttack=9 //==================== ATK I: ICE SHOT TO CEILING AND BR
     var tAtk;
     tAtk=instance_create(x+(17*image_xscale),y-(27*image_yscale),oWMC_IceShotB)
     tAtk.atkPower=atkPower; tAtk.bulletSpeed=11; tAtk.warTarget=id
-    tAtk.type=1; tAtk.direction=90
+    tAtk.type=1; tAtk._direction=90
     if ATTACK_SPEED>=3 {actTime=18}
   }
   else if actTime>=23
@@ -1906,7 +1906,7 @@ else if currentAttack=4 //==================== ATK D: SHOOT WIND SHOT ==========
     {
       tAtk=instance_create(x+(17*image_xscale),y-(27*image_yscale),oPassBullet)
       tAtk.sprite_index=sWarmasterD_AtkWindA; tAtk.atkPower=atkPower; tAtk.bulletSpeed=6
-      tAtk.decayTime=-100; tAtk.damageType="ELEMENTAL"; tAtk.direction=tWindDir; tAtk.image_angle=tWindDir
+      tAtk.decayTime=-100; tAtk.damageType="ELEMENTAL"; tAtk._direction=tWindDir; tAtk.image_angle=tWindDir
     }
     else
     {
@@ -1915,7 +1915,7 @@ else if currentAttack=4 //==================== ATK D: SHOOT WIND SHOT ==========
       {
         tAtk=instance_create(x+(17*image_xscale),y-(27*image_yscale),oPassBullet)
         tAtk.sprite_index=sWarmasterD_AtkWindA; tAtk.atkPower=atkPower; tAtk.bulletSpeed=6
-        tAtk.decayTime=-100; tAtk.damageType="ELEMENTAL"; tAtk.direction=tWindDir; tAtk.image_angle=tWindDir
+        tAtk.decayTime=-100; tAtk.damageType="ELEMENTAL"; tAtk._direction=tWindDir; tAtk.image_angle=tWindDir
         tWindDir+=3
       }
     }
@@ -1980,7 +1980,7 @@ else if currentAttack=6 //==================== ATK F: SWORD SWING 1 - (Leads int
 
     tAtk=instance_create(x+(12*scaleForFacing),y-30,oWMD_SwordWave)
     tAtk.atkPower=atkPower; tAtk.type=0
-    if image_xscale<0 {tAtk.direction=180; tAtk.image_angle=180}
+    if image_xscale<0 {tAtk._direction=180; tAtk.image_angle=180}
     if ATTACK_SPEED>=2 {actTime=13}
   }
   else if actTime=19
@@ -2020,7 +2020,7 @@ else if currentAttack=7 //==================== ATK G: SWORD SWING 2 - (Leads int
     tAtk.atkPower=atkPower; tAtk.image_xscale=image_xscale; tAtk.image_yscale=image_yscale; tAtk.sprite_index=sWarmasterD_AtkB; tAtk.type=1
 
     tAtk=instance_create(x+(12*scaleForFacing),y-30,oWMD_SwordWave)
-    tAtk.atkPower=atkPower; tAtk.direction=tWaveDir; tAtk.image_angle=tWaveDir; tAtk.sprite_index=sWarmasterD_AtkWindB; tAtk.type=1
+    tAtk.atkPower=atkPower; tAtk._direction=tWaveDir; tAtk.image_angle=tWaveDir; tAtk.sprite_index=sWarmasterD_AtkWindB; tAtk.type=1
     if ATTACK_SPEED>=2 {actTime=11}
   }
   else if actTime=18
@@ -2060,7 +2060,7 @@ else if currentAttack=8 //==================== ATK H: SWORD SWING 3 ============
     tAtk.atkPower=atkPower; tAtk.image_xscale=image_xscale; tAtk.image_yscale=image_yscale; tAtk.sprite_index=sWarmasterD_AtkC; tAtk.type=2
 
     tAtk=instance_create(x+(12*scaleForFacing),y-30,oWMD_SwordWave)
-    tAtk.atkPower=atkPower; tAtk.direction=tWaveDir; tAtk.image_angle=tWaveDir; tAtk.sprite_index=sWarmasterD_AtkWindC; tAtk.type=2
+    tAtk.atkPower=atkPower; tAtk._direction=tWaveDir; tAtk.image_angle=tWaveDir; tAtk.sprite_index=sWarmasterD_AtkWindC; tAtk.type=2
     if ATTACK_SPEED>=2 {actTime=12}
   }
   else if actTime=19
@@ -2756,12 +2756,12 @@ else if dashEfType=2
 }
 if sprite_index=sWarmasterC_JetB
 {
-  jetEfFrm+=0.33
+  jetEfFrm+=0.33*gDeltaTime
   draw_sprite_ext(sWarmasterC_JetEfA,jetEfFrm,x-(7*image_xscale),y-46,image_xscale,image_yscale,image_angle,c_white,0.9)
 }
 else if sprite_index=sWarmasterD_Hover
 {
-  jetEfFrm+=0.33
+  jetEfFrm+=0.33*gDeltaTime
   draw_sprite_ext(sWarmasterD_HoverEfA,jetEfFrm,x-(3*image_xscale),y-24,image_xscale,image_yscale,image_angle,c_white,0.9)
 }
 
