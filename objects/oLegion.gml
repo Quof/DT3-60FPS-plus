@@ -157,7 +157,7 @@ if global.gamePaused=false
         tAtkScythe.atkPower=atkPower; tAtkScythe._direction=270
       }
 
-      bigScytheProg+=1*gDeltaTime
+      bigScytheProg+=1
       if bigScytheProg=5 {bigScytheProg=0}
       bigScytheTime=0
     }
@@ -192,7 +192,7 @@ if global.gamePaused=false
   }
   else if life<=0 //Defeat animations
   {
-    deathAnim+=1*gDeltaTime
+    if deathAnim == 0 {deathAnim = 1-gDeltaTime}; deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       with oEProjectileBase {instance_destroy()}

@@ -342,7 +342,7 @@ if global.gamePaused=false
           }
           else {specFSaTime=specFSaDelay-5}
         }
-        else if specFSaTime>=10001 and specFSaTime<=10024
+        else if specFSaTime>=10001 and specFSaTime<=10024 and gDeltaDoTicks
         {
           for(i=0;i<8;i+=1)
           {
@@ -622,7 +622,7 @@ if global.gamePaused=false
   }
   else if myHS.life<=0 //Defeat ation
   {
-    deathAnim+=1*gDeltaTime
+    if deathAnim == 0 {deathAnim = 1-gDeltaTime}; deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       depth=26
@@ -710,7 +710,7 @@ if global.gamePaused=false
       
       if deathAnim>=1135
       {
-        if blendCol<255 {blendCol+=3}
+        if blendCol<255 {blendCol+=3*gDeltaTime}
         else {deathAnim=1300}
         boss.image_blend=make_color_rgb(blendCol,blendCol,blendCol)
       }
