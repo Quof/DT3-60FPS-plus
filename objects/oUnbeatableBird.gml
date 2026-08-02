@@ -82,7 +82,7 @@ if global.gamePaused=false
       tDir=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
       for(i=0;i<8;i+=1)
       {
-        tFeather=instance_create(x,y,oUnbeatableFeather); tFeather.bulletSpeed=6; tFeather.image_blend=c_red; tFeather.direction=tDir
+        tFeather=instance_create(x,y,oUnbeatableFeather); tFeather.bulletSpeed=6; tFeather.image_blend=c_red; tFeather._direction=tDir
         tDir+=45
       }
     }
@@ -92,7 +92,7 @@ if global.gamePaused=false
       tDir=point_direction(x,y,oPlayer1.x,returnPlayerYCenter()); tDir-=4
       for(i=0;i<3;i+=1)
       {
-        tFeather=instance_create(x,y,oUnbeatableFeather); tFeather.bulletSpeed=13; tFeather.image_blend=c_red; tFeather.direction=tDir
+        tFeather=instance_create(x,y,oUnbeatableFeather); tFeather.bulletSpeed=13; tFeather.image_blend=c_red; tFeather._direction=tDir
         tDir+=4
       }
     }
@@ -102,7 +102,7 @@ if global.gamePaused=false
       tDir=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
       for(i=0;i<64;i+=1)
       {
-        tFeather=instance_create(x,y,oUnbeatableFeather); tFeather.bulletSpeed=2; tFeather.image_blend=c_red; tFeather.direction=tDir
+        tFeather=instance_create(x,y,oUnbeatableFeather); tFeather.bulletSpeed=2; tFeather.image_blend=c_red; tFeather._direction=tDir
         tDir+=5.625
       }
     }
@@ -112,7 +112,7 @@ if global.gamePaused=false
       tDir=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
       for(i=0;i<32;i+=1)
       {
-        tFeather=instance_create(x,y,oUnbeatableFeather); tFeather.bulletSpeed=7; tFeather.image_blend=c_red; tFeather.direction=tDir
+        tFeather=instance_create(x,y,oUnbeatableFeather); tFeather.bulletSpeed=7; tFeather.image_blend=c_red; tFeather._direction=tDir
         tDir+=11.25
       }
     }
@@ -122,7 +122,7 @@ if global.gamePaused=false
       tDir=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
       for(i=0;i<32;i+=1)
       {
-        tFeather=instance_create(x,y,oUnbeatableFeather); tFeather.bulletSpeed=7; tFeather.direction=tDir
+        tFeather=instance_create(x,y,oUnbeatableFeather); tFeather.bulletSpeed=7; tFeather._direction=tDir
         tFeather.bCanBeBlocked=1; tFeather.blockCost=300; tFeather.bParryOpp=1
         tDir+=11.25
       }
