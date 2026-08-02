@@ -46,7 +46,7 @@ if global.gamePaused=false
     if bulletSpeed>2 {bulletSpeed-=0.1*gDeltaTime}
   }
 
-  turn_toward_directionEdit(player_sprite_center(),5)
+  turn_toward_directionUnderscore(player_sprite_center(),5)
 
   decay-=1*gDeltaTime*gDeltaTime
   if decay<=0 {hitWall=1}

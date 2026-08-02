@@ -57,7 +57,7 @@ if global.gamePaused=false
     //Movement
 
     //Rotate toward player
-    turn_toward_directionEdit(player_sprite_center(),turnSpd)
+    turn_toward_directionUnderscore(player_sprite_center(),turnSpd)
     image_angle=_direction
     //Attack
     atkTime+=1*gDeltaTime

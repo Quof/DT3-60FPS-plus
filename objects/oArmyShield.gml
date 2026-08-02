@@ -20,7 +20,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  turn_toward_directionEdit(point_direction(oArmyEye.x,oArmyEye.y-16,oPlayer1.x,oPlayer1.y-26),1.9)
+  turn_toward_directionUnderscore(point_direction(oArmyEye.x,oArmyEye.y-16,oPlayer1.x,oPlayer1.y-26),1.9)
   image_angle=_direction
   x=oArmyEye.x+lengthdir_x(shieldDist,_direction)
   y=oArmyEye.y-16+lengthdir_y(shieldDist,_direction)

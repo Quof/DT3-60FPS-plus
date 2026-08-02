@@ -29,7 +29,7 @@ if global.gamePaused=false
   _speed=bulletSpeed
   x += cos(degtorad(_direction)) * _speed * gDeltaTime
   y -= sin(degtorad(_direction)) * _speed * gDeltaTime
-  turn_toward_directionEdit(point_direction(x,y,oPlayer1.x,oPlayer1.y-26),4.5)
+  turn_toward_directionUnderscore(point_direction(x,y,oPlayer1.x,oPlayer1.y-26),4.5)
   for(i=0;i<3;i+=1)
   {
     myBubble[i].x=x+lengthdir_x(12,(i*120)+bubbleDir)

@@ -63,7 +63,7 @@ if global.gamePaused=false
     {
       if bulletSpeed>2 {bulletSpeed-=0.25*gDeltaTime}
     }
-
+    turn_toward_directionUnderscore(player_sprite_center(),3)
   }
 
   decay-=1*gDeltaTime
@@ -96,7 +96,7 @@ else
 
 x += cos(degtorad(_direction)) * _speed * gDeltaTime
 y -= sin(degtorad(_direction)) * _speed * gDeltaTime
-/*if gDeltaDoTicks*/ turn_toward_directionEdit(player_sprite_center(),3)
+/*if gDeltaDoTicks*/
 #define Collision_oPlayer1
 /*"/*'/**//* YYD ACTION
 lib_id=1

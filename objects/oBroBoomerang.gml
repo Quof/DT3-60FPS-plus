@@ -78,7 +78,7 @@ if global.gamePaused=false
     else
     {_direction+=sign(tDiff)*turnSpd*gDeltaTime} */
 
-    turn_toward_directionEdit(myPoint, turnSpd)
+    turn_toward_directionUnderscore(myPoint, turnSpd)
   }
 
   if throwProg>1

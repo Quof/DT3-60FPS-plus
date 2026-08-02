@@ -87,7 +87,7 @@ if global.gamePaused=false
   }
   else if progress=2 //Shoot at Decimator with Mech
   {
-    turn_toward_directionEdit(point_direction(x-9,y-54,oDecimatorV2.x,oDecimatorV2.y),2)
+    turn_toward_directionUnderscore(point_direction(x-9,y-54,oDecimatorV2.x,oDecimatorV2.y),2)
     shotTime+=1*gDeltaTime
     if shotTime mod shotMod=0
     {
@@ -185,7 +185,7 @@ if global.gamePaused=false
   }
   else if progress=6 //Shoot at Decimator with Bazooka
   {
-    turn_toward_directionEdit(point_direction(x+12,y-32,oDecimatorV2.x,oDecimatorV2.y),2)
+    turn_toward_directionUnderscore(point_direction(x+12,y-32,oDecimatorV2.x,oDecimatorV2.y),2)
     shotTime+=1*gDeltaTime
     if shotTime mod shotMod=0
     {

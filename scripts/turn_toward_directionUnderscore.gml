@@ -12,10 +12,14 @@
 **
 **  GMLscripts.com
 */
-
+//if !gDeltaDoTicks {exit}
 var wdir, tempdir, turnspeed;
 wdir=argument0
 turnspeed=argument1
+turnspeed=turnspeed*gDeltaTime
+_direction=_direction mod 360
+if _direction<0 {_direction+=360}
+
 if abs(wdir-_direction) > 180
 {
   if wdir>180

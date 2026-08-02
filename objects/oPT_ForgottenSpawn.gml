@@ -87,7 +87,7 @@ if global.gamePaused=false
     {
       if moveSpd>1 {moveSpd-=0.1*gDeltaTime}
     }
-    turn_toward_directionEdit(player_sprite_center(),3)
+    turn_toward_directionUnderscore(player_sprite_center(),3)
   }
   else if life<=0
   {

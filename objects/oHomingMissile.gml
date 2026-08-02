@@ -61,7 +61,7 @@ if global.gamePaused=false
       if bulletSpeed>minSpd {bulletSpeed-=accel*gDeltaTime}
     }
 
-    turn_toward_directionEdit(player_sprite_center(),turnSpd)
+    turn_toward_directionUnderscore(player_sprite_center(),turnSpd)
   }
 
   decay-=1*gDeltaTime

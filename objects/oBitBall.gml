@@ -43,7 +43,7 @@ if global.gamePaused=false
   {
     if bulletSpeed>2 {bulletSpeed-=0.25*gDeltaTime}
   }
-  turn_toward_directionEdit(point_direction(x,y,oPlayer1.x,returnPlayerYCenter()),3)
+  turn_toward_directionUnderscore(point_direction(x,y,oPlayer1.x,returnPlayerYCenter()),3)
 
 
 

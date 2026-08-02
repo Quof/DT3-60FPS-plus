@@ -33,7 +33,7 @@ if global.gamePaused=false
   _speed=moveSpd
   x += cos(degtorad(_direction)) * _speed * gDeltaTime
   y -= sin(degtorad(_direction)) * _speed * gDeltaTime
-  turn_toward_directionEdit(point_direction(x,y,oPlayer1.x,oPlayer1.y-26),turnSpd)
+  turn_toward_directionUnderscore(point_direction(x,y,oPlayer1.x,oPlayer1.y-26),turnSpd)
   image_angle=_direction
 }
 else {_speed=0}
