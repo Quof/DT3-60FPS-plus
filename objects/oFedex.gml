@@ -265,7 +265,7 @@ if global.gamePaused=false
     else if sprite_index=sWarmasterA_JumpUp or sprite_index=sWarmasterA_JumpDown {image_index+=0.25*gDeltaTime}
     else if sprite_index=sWarmasterB_Idle or sprite_index=sWarmasterC_Idle or sprite_index=sWarmasterD_Idle {image_index+=0.15*gDeltaTime}
 
-    if sprite_index=sWarmasterA_SwordRoll {swdRollAng-=45*scaleForFacing}
+    if sprite_index=sWarmasterA_SwordRoll {swdRollAng-=45*scaleForFacing*gDeltaTime}
 
     if sprite_index=sWarmasterA_GrappleRopeB //Keep in place when grappled to the rope
     {
@@ -339,7 +339,7 @@ if global.gamePaused=false
 
         if sprite_index=sWarmasterC_JetB {x+=(xVel/1.5)*gDeltaTime} //Atk 2
 
-        x+=currHspd; y+=currVspd
+        x+=currHspd*gDeltaTime; y+=currVspd*gDeltaTime
 
         if waitTime<waitDelay
         {
@@ -385,8 +385,8 @@ if global.gamePaused=false
         superChangeAtk+=1*gDeltaTime
         if superChangeAtk>=11 and superChangeAtk<=20
         {
-          var tAfterI;
-          if gDeltaDoTicks {tAfterI=instance_create(x,y,oEnemyAfterImage)
+          if gDeltaDoTicks {var tAfterI;
+          tAfterI=instance_create(x,y,oEnemyAfterImage)
           tAfterI.sprite_index=sprite_index; tAfterI.image_index=image_index; tAfterI.image_blend=c_white
           tAfterI.image_xscale=image_xscale*scaleForFacing; tAfterI.image_yscale=image_yscale; tAfterI.depth=24; tAfterI.imageFade=0.1
           tAfterI.xScaling=0.125; tAfterI.yScaling=0.125; tAfterI.xShift=0; tAfterI.yShift=0
@@ -1888,7 +1888,7 @@ else if currentAttack=7 //==================== ATK G: ZIP AND STRIKE ===========
     fireAng=210
     fireInc=0
   }
-  else if actTime>=105 and actTime<=153 and gDeltaDoTicks //Spray fire
+  else if actTime>=105 and actTime<=153 //Spray fire
   {
     if actTime mod 2=0
     {
@@ -1904,7 +1904,7 @@ else if currentAttack=7 //==================== ATK G: ZIP AND STRIKE ===========
     if image_index=0 {image_index=1}
     else {image_index=0}
 
-    var tAtk;
+    if gDeltaDoTicks {var tAtk;
     tAtk=instance_create(x+(8*scaleForFacing),y+3,oPassBullet)
     tAtk.sprite_index=sWarmasterB_AtkFireballA; tAtk.atkPower=atkPower; tAtk.bulletSpeed=8
     tAtk.decayTime=-100; tAtk.damageType="EXPLOSION"; tAtk.image_speed=0.33; tAtk._direction=fireAng; tAtk.image_angle=fireAng
@@ -1918,7 +1918,7 @@ else if currentAttack=7 //==================== ATK G: ZIP AND STRIKE ===========
     {
       fireAng-=5
       if fireAng<=210 {fireInc=0}
-    }
+    }}
   }
   else if actTime=155
   {
@@ -3528,12 +3528,12 @@ else if dashEfType=2
 }
 if sprite_index=sWarmasterC_JetB
 {
-  jetEfFrm+=0.33
+  jetEfFrm+=0.33*gDeltaTime
   draw_sprite_ext(sWarmasterC_JetEfA,jetEfFrm,x-(7*image_xscale),y-46,image_xscale,image_yscale,image_angle,c_white,0.9)
 }
 else if sprite_index=sWarmasterD_Hover
 {
-  jetEfFrm+=0.33
+  jetEfFrm+=0.33*gDeltaTime
   draw_sprite_ext(sWarmasterD_HoverEfA,jetEfFrm,x-(3*image_xscale),y-24,image_xscale,image_yscale,image_angle,c_white,0.9)
 }
 

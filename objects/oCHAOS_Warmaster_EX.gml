@@ -1887,12 +1887,12 @@ else if currentAttack=7 //==================== ATK G: ZIP AND STRIKE ===========
     fireAng=210
     fireInc=0
   }
-  else if actTime>=105 and actTime<=153 and gDeltaDoTicks //Spray fire
+  else if actTime>=105 and actTime<=153 //Spray fire
   {
     if actTime mod 2=0
     {
       playSound(global.snd_Fireball,0,0.98,24000)
-      tAtk=instance_create(xCenter-roomSpan+12,2,oPassBullet)
+      tAtk=instance_create(xCenter-roomSpan+24,2,oPassBullet)
       tAtk.sprite_index=sWarmasterB_AtkFireballA; tAtk.atkPower=atkPower; tAtk.bulletSpeed=16; tAtk.image_blend=c_orange
       tAtk.decayTime=-100; tAtk.damageType="EXPLOSION"; tAtk.image_speed=0.33; tAtk._direction=270; tAtk.image_angle=270
       tAtk=instance_create(xCenter+roomSpan-12,2,oPassBullet)
@@ -1903,7 +1903,7 @@ else if currentAttack=7 //==================== ATK G: ZIP AND STRIKE ===========
     if image_index=0 {image_index=1}
     else {image_index=0}
 
-    var tAtk;
+    if gDeltaDoTicks {var tAtk;
     tAtk=instance_create(x+(8*scaleForFacing),y+3,oPassBullet)
     tAtk.sprite_index=sWarmasterB_AtkFireballA; tAtk.atkPower=atkPower; tAtk.bulletSpeed=8
     tAtk.decayTime=-100; tAtk.damageType="EXPLOSION"; tAtk.image_speed=0.33; tAtk._direction=fireAng; tAtk.image_angle=fireAng
@@ -1917,7 +1917,7 @@ else if currentAttack=7 //==================== ATK G: ZIP AND STRIKE ===========
     {
       fireAng-=5
       if fireAng<=210 {fireInc=0}
-    }
+    }}
   }
   else if actTime=155
   {
@@ -3537,12 +3537,12 @@ else if dashEfType=2
 }
 if sprite_index=sWarmasterC_JetB
 {
-  jetEfFrm+=0.33
+  jetEfFrm+=0.33*gDeltaTime
   draw_sprite_ext(sWarmasterC_JetEfA,jetEfFrm,x-(7*image_xscale),y-46,image_xscale,image_yscale,image_angle,c_white,0.9)
 }
 else if sprite_index=sWarmasterD_Hover
 {
-  jetEfFrm+=0.33
+  jetEfFrm+=0.33*gDeltaTime
   draw_sprite_ext(sWarmasterD_HoverEfA,jetEfFrm,x-(3*image_xscale),y-24,image_xscale,image_yscale,image_angle,c_white,0.9)
 }
 
