@@ -74,13 +74,13 @@ if global.gamePaused=false
     }
     else if diving>=1 and diving<=9 //Ready to dive
     {
-      diving+=1
+      diving+=1*gDeltaTime
       if diving>=5
       {
         playSound(global.snd_MetEnemyMove,0,1,1)
         sprite_index=sMetSkreeDive
         image_speed=0.33
-        y+=2
+        y+=2*gDeltaTime
         var tDist;
         tDist=point_distance(0,y,0,oPlayer1.y-26)
         tDist/=16
@@ -107,13 +107,13 @@ if global.gamePaused=false
       if isCollisionLeft(1) {xVel=1}
       if isCollisionRight(1) {xVel=-1}
 
-      moveTo(xVel,yVel)
+      moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
       if y>room_height+24 {instance_destroy()}
     }
     else if diving>=20 //Go into ground
     {
-      y+=1
-      diving+=1
+      y+=1*gDeltaTime
+      diving+=1*gDeltaTime
 
       if diving mod 2=0
       {

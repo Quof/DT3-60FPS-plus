@@ -57,7 +57,7 @@ if global.gamePaused=false
   makeEnemyActive(0)
   if bActive=true and stunnedTime=0
   {
-    spikeTime+=1
+    spikeTime+=1*gDeltaTime
     if spikeTime=1 //Walk to player
     {
       image_speed=0.16
@@ -82,13 +82,13 @@ if global.gamePaused=false
       {
         tNewAttack=instance_create(x,y-12,oNormalBullet)
         tNewAttack.sprite_index=sCacatacNeedle; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=6
-        tNewAttack.direction=tDir; tNewAttack.image_blend=baseColor
+        tNewAttack._direction=tDir; tNewAttack.image_blend=baseColor
         tDir+=45
       }
       spikeTime=0
     }
 
-    yVel+=0.3
+    yVel+=0.3*gDeltaTime
     if isCollisionBottom(1)
       yVel=0
     if isCollisionLeft(1)
@@ -98,7 +98,7 @@ if global.gamePaused=false
     if isCollisionTop(1)
       yVel=0.1
 
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
     if isCollisionSolid() {y-=2}
     if y>room_height+24
     {

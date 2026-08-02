@@ -58,14 +58,14 @@ if global.gamePaused=false
         else {image_xscale=-1}
 
         sprite_index=sStealthBugFly
-        y-=2
+        y-=2*gDeltaTime
         image_alpha-=0.02*gDeltaTime
-        riseTime+=1
+        riseTime+=1*gDeltaTime
         if riseTime>=45 {eProg=2}
       }
       else if eProg=2 //Normal behavior
       {
-        chargeTime+=1
+        chargeTime+=1*gDeltaTime
         if chargeProg=0 //Normal
         {
           if image_alpha>0.06 {image_alpha-=0.02*gDeltaTime}

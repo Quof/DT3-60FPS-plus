@@ -68,19 +68,19 @@ if global.gamePaused=false
       image_angle=0
       if x>oCharacter.x and image_xscale=1
       {
-        turnTime+=1
+        turnTime+=1*gDeltaTime
         x+=runAcc
       }
       else if x<oCharacter.x and image_xscale=-1
       {
-        turnTime+=1
+        turnTime+=1*gDeltaTime
         x+=-runAcc
       }
       else
       {
         if point_distance(0,oPlayer1.y-18,0,y)<24 //In line with player, speed forward
         {
-          if oGame.time mod 8=0
+          if oGame.time mod (8/gDeltaTime)=0
           {
             var tEffect;
             tEffect=instance_create(x+(8*(image_xscale*-1)),y,oEffect)
@@ -88,10 +88,10 @@ if global.gamePaused=false
             tEffect.image_speed=0.5; tEffect.image_blend=c_teal
             tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
           }
-          x+=(runAcc*1.75)*image_xscale
+          x+=(runAcc*1.75)*image_xscale*gDeltaTime
         }
         else
-          x+=runAcc*image_xscale
+          x+=runAcc*image_xscale*gDeltaTime
 
         if y>oPlayer1.y-18
         {
@@ -121,7 +121,7 @@ if global.gamePaused=false
     }
     else //Flop around out of water
     {
-      yVel+=0.4
+      yVel+=0.4*gDeltaTime
       if isCollisionBottom(1)
       {
         image_angle=random(360)
@@ -135,14 +135,14 @@ if global.gamePaused=false
       if isCollisionSolid()
         y-=2
 
-      moveTo(xVel,yVel)
+      moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
       if y>room_height+24
         instance_destroy()
     }
   }
   else if life<=0
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     if deathAnim mod 4=0
     {
       if deathAnim mod 8=0 {playSound(global.snd_BombExplode,0,0.8,1)}

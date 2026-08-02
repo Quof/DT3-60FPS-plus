@@ -55,7 +55,7 @@ if global.gamePaused=false
 
     if rising=0
     {
-      yVel-=12
+      yVel-=12*gDeltaTime
       visible=true
       image_yscale=1
       rising=1
@@ -64,7 +64,7 @@ if global.gamePaused=false
       image_yscale=1
     else
       image_yscale=-1
-    yVel+=0.5
+    yVel+=0.5*gDeltaTime
     y+=yVel
     if yVel>1 and y>ystart
     {

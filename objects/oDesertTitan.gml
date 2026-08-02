@@ -46,7 +46,7 @@ if global.gamePaused=false
   makeEnemyActive(0)
   if bActive=true and stunnedTime=0 and life>0
   {
-    rockTime+=1
+    rockTime+=1*gDeltaTime
     if rockTime<rockDelay
     {
       if x>oPlayer1.x
@@ -74,7 +74,7 @@ if global.gamePaused=false
     }
     if rockTime>=1050 {rockTime=0}
 
-    yVel+=0.2
+    yVel+=0.2*gDeltaTime
     if isCollisionBottom(1)
       yVel=0
     if isCollisionLeft(1)
@@ -90,7 +90,7 @@ if global.gamePaused=false
       else {image_xscale=-1}
     }
 
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
     if y>room_height+24
     {
       if questType>0
@@ -100,7 +100,7 @@ if global.gamePaused=false
   }
   else if life<=0
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     image_speed=0
     if deathAnim mod 2=0
     {

@@ -47,7 +47,7 @@ if global.gamePaused=false
   {
     if bActive=true and stunnedTime=0
     {
-      chargeTime+=1
+      chargeTime+=1*gDeltaTime
       if chargeProg=0 //Normal
       {
         if x<oPlayer1.x {image_xscale=1}

@@ -96,7 +96,7 @@ if global.gamePaused=false
     if xVel>0 {image_xscale=1}
     else {image_xscale=-1}
 
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
     myGrapplePoint.x=x
     myGrapplePoint.y=y
     if myGrapplePoint.bGrappled=0

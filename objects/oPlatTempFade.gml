@@ -25,13 +25,13 @@ applies_to=self
 //requires: timeCurr, timeTillOn, timeTillOff
 if global.gamePaused=false
 {
-  if oGame.time mod 2=0
+  if oGame.time mod (2*gDeltaTime)=0
   {
     if image_alpha=1 {image_alpha=0.5}
     else {image_alpha=1}
   }
 
-  timeCurr+=1
+  timeCurr+=1*gDeltaTime
   if mask_index=sNull
   {
     if timeCurr>=timeTillOn

@@ -15,7 +15,7 @@ if global.gamePaused=false
 {
   if point_distance(x,0,oPlayer1.x,0)<=192
   {
-    spawnTime+=1
+    spawnTime+=1*gDeltaTime
     if spawnTime>=spawnSpeed
     {
       mGamet=instance_create(x,y,oMetGamet)

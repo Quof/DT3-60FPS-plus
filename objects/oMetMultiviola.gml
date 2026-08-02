@@ -81,7 +81,7 @@ if global.gamePaused=false
     if isCollisionTop(1)
       yVel*=-1
 
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
   }
   enemyStepEvent()
 }
