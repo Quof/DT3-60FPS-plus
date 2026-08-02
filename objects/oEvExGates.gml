@@ -714,7 +714,7 @@ else if room=rExtGateC_5 //----- [C] Boss Fight: Blackmoor -----
         viewFix.type=0; viewFix.sprite_index=sNull
         view_object[0]=viewFix
       }
-      else if sceneDelay>=21 and sceneDelay<=56 {viewFix.x+=4}
+      else if sceneDelay>=21 and sceneDelay<=56 {viewFix.x+=4*gDeltaTime}
       else if sceneDelay>=70 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=2 and bWaitForInput=false
@@ -921,7 +921,7 @@ else if room=rExtGateE_5 //----- [E] Boss Fight: Shadow Form -----
       }
       else if sceneDelay>=11 and sceneDelay<=999
       {
-        viewFix.x+=1
+        viewFix.x+=1*gDeltaTime
         if viewFix.x>=328
         {
           viewFix.x=328
@@ -1072,7 +1072,7 @@ else if room=rExtGateF_6 //----- [F] Boss Fight: Nightmare -----
       if sceneDelay=30 {boss=instance_create(320,576,oMetNightmare)}
       else if sceneDelay>=31
       {
-        boss.y-=2
+        boss.y-=2*gDeltaTime
         if boss.y<=336 {sceneDelay=0; sceneProgress+=1}
       }
     }
@@ -1147,7 +1147,7 @@ else if room=rExtGateG_5 //----- [G] Boss Fight: Sephiroth -----
     else if sceneProgress=1
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay>=21 and sceneDelay<=52 {newCamera.x+=2}
+      if sceneDelay>=21 and sceneDelay<=52 {newCamera.x+=2*gDeltaTime}
       else if sceneDelay>=60 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=2
@@ -1173,7 +1173,7 @@ else if room=rExtGateG_5 //----- [G] Boss Fight: Sephiroth -----
       }
       else if sceneDelay>=92 and sceneDelay<=499
       {
-        sephCol+=3
+        sephCol+=3*gDeltaTime
         oSephiroth.image_blend=make_color_rgb(sephCol,sephCol,sephCol)
         if sephCol>=255 {sceneDelay=500}
       }
@@ -1189,7 +1189,7 @@ else if room=rExtGateG_5 //----- [G] Boss Fight: Sephiroth -----
       }
       else if sceneDelay>=570
       {
-        oSephiroth.y+=1
+        if gDeltaDoTicks {oSephiroth.y+=1}
         if oSephiroth.y>=288 {sceneDelay=0; sceneProgress+=1}
       }
     }
