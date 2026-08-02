@@ -27,8 +27,8 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  if myDist<64 {myDist+=16}
-  myDir+=8
+  if myDist<64 {myDist+=16*gDeltaTime}
+  myDir+=8*gDeltaTime
   x=warTarget.x+lengthdir_x(myDist,myDir)
   y=warTarget.y-26+lengthdir_y(myDist,myDir)
   image_angle=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
@@ -43,7 +43,7 @@ if global.gamePaused=false
 
     tAtk=instance_create(x,y+7,oPassBullet)
     tAtk.sprite_index=sWarmasterD_EX_Ball; tAtk.atkPower=atkPower; tAtk.bulletSpeed=6
-    tAtk.decayTime=-100; tAtk.damageType="ELEMENTAL"; tAtk.image_speed=0.33; tAtk.direction=image_angle
+    tAtk.decayTime=-100; tAtk.damageType="ELEMENTAL"; tAtk.image_speed=0.33; tAtk._direction=image_angle
     instance_destroy()
   }
 }

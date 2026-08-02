@@ -14,7 +14,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  progTime+=1
+  progTime+=1*gDeltaTime
   if progTime>=4
   {
     image_alpha-=0.25*gDeltaTime

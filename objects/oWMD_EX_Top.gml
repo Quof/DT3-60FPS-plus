@@ -47,7 +47,7 @@ if global.gamePaused=false
   atkTime+=1*gDeltaTime
   if atkTime<=99
   {
-    y+=4
+    y+=4*gDeltaTime
     if y>=96
     {
       atkTime=130
@@ -59,11 +59,11 @@ if global.gamePaused=false
     var tAtk;
     tAtk=instance_create(x,y+7,oPassBullet)
     tAtk.sprite_index=sWarmasterD_EX_Ball; tAtk.atkPower=atkPower; tAtk.bulletSpeed=6
-    tAtk.decayTime=-100; tAtk.damageType="ELEMENTAL"; tAtk.image_speed=0.33; tAtk.direction=image_angle
+    tAtk.decayTime=-100; tAtk.damageType="ELEMENTAL"; tAtk.image_speed=0.33; tAtk._direction=image_angle
   }
   enemyStepEvent()
 
-  decay-=1
+  decay-=1*gDeltaTime
   if decay<=0 {life=0}
 
   if life<=0

@@ -21,18 +21,21 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  speed=bulletSpeed
-  direction=point_direction(x,y,posX,posY)
+  _speed=bulletSpeed
+  _direction=point_direction(x,y,posX,posY)
   if point_distance(x,y,posX,posY)<=bulletSpeed
   {
     for(i=0;i<13;i+=1)
     {
       tAtk=instance_create(posX,posY,oPassBullet)
       tAtk.sprite_index=sWarmasterC_IceShard; tAtk.atkPower=atkPower; tAtk.bulletSpeed=9
-      tAtk.decayTime=-100; tAtk.damageType="ELEMENTAL"; tAtk.direction=spreadDir; tAtk.image_angle=spreadDir
+      tAtk.decayTime=-100; tAtk.damageType="ELEMENTAL"; tAtk._direction=spreadDir; tAtk.image_angle=spreadDir
       spreadDir-=7.5
     }
     instance_destroy()
   }
 }
-else {speed=0} //spreadStart
+else {_speed=0} //spreadStart
+
+x += cos(degtorad(_direction)) * _speed * gDeltaTime
+y -= sin(degtorad(_direction)) * _speed * gDeltaTime
