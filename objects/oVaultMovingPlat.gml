@@ -55,7 +55,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if global.gamePaused=false
+if global.gamePaused=false and gDeltaDoTicks
 {
   if bCanMove=true
   {
@@ -73,7 +73,7 @@ if global.gamePaused=false
           shiftSeq=1000
       }
       else if shiftSeq>=1 and shiftSeq<=20
-        shiftSeq+=1*gDeltaTime
+        shiftSeq+=1
       else if shiftSeq>=21
       {
         shiftTime=0

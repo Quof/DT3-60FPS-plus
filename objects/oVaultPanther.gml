@@ -63,14 +63,14 @@ if global.gamePaused=false
       }
 
       if x>oPlayer1.x and image_xscale=1
-        turnTime+=1
+        turnTime+=1*gDeltaTime
       else if x<oPlayer1.x and image_xscale=-1
-        turnTime+=1
+        turnTime+=1*gDeltaTime
       if turnTime>=25
       {
         sprite_index=sVaultPantherLookBack
-        if xVel>0 {xVel-=0.33}
-        else if xVel<0 {xVel+=0.33}
+        if xVel>0 {xVel-=0.33*gDeltaTime}
+        else if xVel<0 {xVel+=0.33*gDeltaTime}
 
         if xVel>=-1 and xVel<=1
         {
@@ -81,7 +81,7 @@ if global.gamePaused=false
         }
       }
 
-      yVel+=0.3
+      yVel+=0.3*gDeltaTime
       if isCollisionBottom(1)
         yVel=0
       if isCollisionLeft(1)
@@ -94,7 +94,7 @@ if global.gamePaused=false
         image_xscale=1
       else
         image_xscale=-1
-      moveTo(xVel,yVel)
+      moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
       if y>room_height+24
       {
         if questType>0
@@ -114,13 +114,13 @@ if global.gamePaused=false
       }
       else if introAnim=1
       {
-        phase+=0.025
-        amplitude-=2
+        phase+=0.025*gDeltaTime
+        amplitude-=2*gDeltaTime
         if amplitude<=1 {introAnim=10}
       }
       else if introAnim>=10
       {
-        introAnim+=1
+        introAnim+=1*gDeltaTime
         if introAnim>=20
         {
           image_speed=0.45
