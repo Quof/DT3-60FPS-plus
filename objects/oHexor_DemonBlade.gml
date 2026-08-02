@@ -16,6 +16,8 @@ atkPower=oHexor_Main.atkPower
 
 atkProg=0
 atkTime=0
+_speed=0
+_direction=0
 
 playSound(global.snd_HardHit3,0,0.88,32000+random(2000))
 playSound(global.snd_KnightSwordSwing,0,0.9,11025+random(1000))
@@ -31,9 +33,11 @@ if global.gamePaused=false
   {
     if atkProg=0
     {
-      image_angle+=31
-      speed=moveSpd
-      moveTime-=1
+      image_angle+=31*gDeltaTime
+      _speed=moveSpd
+      moveTime-=1*gDeltaTime
+      x += cos(degtorad(_direction)) * _speed * gDeltaTime
+      y -= sin(degtorad(_direction)) * _speed * gDeltaTime
       if moveTime=0
       {
         var tHexPart,tPartDir;
@@ -44,8 +48,8 @@ if global.gamePaused=false
           tHexPart.partDelay=0
           tPartDir+=30
         }
-        image_angle=270; direction=270
-        speed=0
+        image_angle=270; _direction=270
+        _speed=0
         atkProg=1
       }
     }
@@ -56,17 +60,21 @@ if global.gamePaused=false
     }
     else if atkProg=2
     {
-      speed=moveSpd
+      _speed=moveSpd
+      x += cos(degtorad(_direction)) * _speed * gDeltaTime
+      y -= sin(degtorad(_direction)) * _speed * gDeltaTime
       if y>=room_height+80 {instance_destroy()}
     }
   }
   else if type=1 //Straight line
   {
-    speed=moveSpd
+    _speed=moveSpd
     atkTime+=1*gDeltaTime
+    x += cos(degtorad(_direction)) * _speed * gDeltaTime
+    y -= sin(degtorad(_direction)) * _speed * gDeltaTime
   }
 }
-else {speed=0}
+else {_speed=0}
 #define Other_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

@@ -20,7 +20,7 @@ applies_to=self
 */
 if partProg=0
 {
-  partTime+=1
+  partTime+=1*gDeltaTime
   if partTime>=partDelay
   {
     visible=1
@@ -31,7 +31,7 @@ if partProg=0
 if partProg=1
 {
   image_xscale+=0.02*gDeltaTime; image_xscale+=0.02*gDeltaTime
-  partTime+=1
+  partTime+=1*gDeltaTime
   if partTime>=10
   {
     partProg=2

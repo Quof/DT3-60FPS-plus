@@ -381,7 +381,7 @@ if global.gameOver=false and bChaoActive=1
 {
   if currentColor>0
   {
-    currentColor-=1
+    currentColor-=1*gDeltaTime
     if currentColor=5 {with oEfChaoDraw {instance_destroy()}}
   }
 }
@@ -394,7 +394,7 @@ applies_to=self
 if global.gameOver=false and bChaoActive=1
 {
   if currentColor<6
-    currentColor+=1
+    currentColor+=1*gDeltaTime
 }
 #define Other_10
 /*"/*'/**//* YYD ACTION
@@ -405,7 +405,7 @@ applies_to=self
 ///ITEM FINDER
 if global.itemFinder=1
 {
-  treasureFind+=1
+  treasureFind+=1*gDeltaTime
   if treasureFind=35
   {
     var tCheckItem;
@@ -443,7 +443,7 @@ if global.gameOver=false and bChaoActive=1
 {
   if bTargetActive=1
   {
-    chaoTargetFrm+=0.2
+    chaoTargetFrm+=0.2*gDeltaTime
     draw_sprite(sChaoTarget,chaoTargetFrm,chaoTargetX,chaoTargetY)
   }
 

@@ -223,6 +223,26 @@ Just look at the speed in the room editor and scale it in room creation code
 background_hspeed[0]=0
 background_vspeed[0]=0
 
+12) Effect Overspawning
+
+There are situations where an effect is created every frame; this can be subtle and it's worth double-checking every time you seen an effect. This will just be an example.
+
+`
+dashDuration-=1
+if dashDuration>0 and dashDuration<100
+    {
+      var tAfterI;
+      tAfterI=instance_create(x,y,oEnemyAfterImage)
+      tAfterI.sprite_index=sH_AfterImage; tAfterI.image_index=image_index; tAfterI.image_blend=c_white
+      tAfterI.image_xscale=image_xscale; tAfterI.depth=26; tAfterI.imageFade=0.06
+      tAfterI.xScaling=0; tAfterI.yScaling=0; tAfterI.xShift=0; tAfterI.yShift=0
+      tAfterI.bFollow=1; tAfterI.idFollow=id; tAfterI.xFollow=0; tAfterI.yFollow=0
+      
+	}`
+	
+At first glance you may think to just gate the dashDuration increment, and you're good. But if you look closely you will notice that the if statement is firing 400 more times: instead of 1, 2, 3, etc for 100 applications, it's applying 0.25, 0.5, 0.75... etc for 400 applications. So scaling the increment isn't enough, and the whole thing should be wrapped in gDeltaDoTicks. In some situations, you may want to exclusively wrap the effect in a DoTicks while leaving the rest of the stuff within the condition alone.
+
+
 ----DELTARUNE GUIDE----
 
 I will copy/paste the guide from Deltarune's 60FPS mod which basically all applies to this project

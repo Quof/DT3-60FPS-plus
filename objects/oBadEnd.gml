@@ -22,7 +22,7 @@ if sceneProgress=0
   if sceneDelay=1 {oIdentifier.bChaoActive=0}
   else if sceneDelay>=60
   {
-    redOverlay+=0.005
+    redOverlay+=0.005*gDeltaTime
     fadeAlpha-=0.02*gDeltaTime
     if fadeAlpha<=0 {sceneDelay=0; sceneProgress+=1}
   }

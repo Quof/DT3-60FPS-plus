@@ -31,12 +31,12 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  phase+=0.02
+  phase+=0.02*gDeltaTime
 
   if atkProg=0
   {
     atkTime+=1*gDeltaTime
-    if atkTime<=11 {warnArea+=1}
+    if atkTime<=11 {warnArea+=1*gDeltaTime}
     else if atkTime>=30
     {
       bCanDealDamage=true

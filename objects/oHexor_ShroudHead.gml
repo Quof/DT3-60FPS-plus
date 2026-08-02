@@ -39,7 +39,7 @@ if global.gamePaused=false
   }
   else if atkProg=1 //Fire laser
   {
-    if circleWarnRad>0 {circleWarnRad-=1}
+    if circleWarnRad>0 {circleWarnRad-=1*gDeltaTime}
     atkTime+=1*gDeltaTime
     if atkTime=30
     {
@@ -62,7 +62,7 @@ if global.gamePaused=false
   else if atkProg=3 //Fade out
   {
     image_alpha-=0.05*gDeltaTime
-    if image_alpha>=1
+    if image_alpha<=1
     {
       instance_destroy()
     }

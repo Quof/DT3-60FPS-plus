@@ -87,10 +87,10 @@ if global.gamePaused=false
     if desperationProg=0
     {
       //-------------------- Bring out wings --------------------
-      jitterMoment+=1
+      jitterMoment+=1*gDeltaTime
       if jitterMoment=5 {image_index=1}
       else if jitterMoment=10 {image_index=2}
-      else if jitterMoment>=11 and jitterMoment<=26
+      else if jitterMoment>=11 and jitterMoment<=26 and gDeltaDoTicks
       {
         if xJitter=1 {xJitter=-1}
         else {xJitter=1}
@@ -113,7 +113,7 @@ if global.gamePaused=false
       else if jitterMoment=35 {wingFrm=2}
 
       //-------------------- ATTACK: FEATHER SEEK --------------------
-      featherAtkTime+=1
+      featherAtkTime+=1*gDeltaTime
       if featherAtkTime=featherAtkDelay {featherAtkDir=20}
       else if featherAtkTime=featherAtkDelay+10
       {
@@ -121,10 +121,10 @@ if global.gamePaused=false
         var tFeatherAtk;
         tFeatherAtk=instance_create(x,y,oHF_BE_FeatherSeek)
         tFeatherAtk.atkPower=atkPower
-        tFeatherAtk.decayTime=-100; tFeatherAtk.direction=featherAtkDir
+        tFeatherAtk.decayTime=-100; tFeatherAtk._direction=featherAtkDir
         tFeatherAtk=instance_create(x,y,oHF_BE_FeatherSeek)
         tFeatherAtk.atkPower=atkPower
-        tFeatherAtk.decayTime=-100; tFeatherAtk.direction=featherAtkDir-180
+        tFeatherAtk.decayTime=-100; tFeatherAtk._direction=featherAtkDir-180
 
         featherAtkDir-=20
         if featherAtkDir=-40 {featherAtkTime=0}
@@ -132,7 +132,7 @@ if global.gamePaused=false
       }
 
       //-------------------- ATTACK: SCREEN SLICE --------------------
-      sliceTime+=1
+      sliceTime+=1*gDeltaTime
       if sliceTime>=sliceDelay and sliceTime mod 7=0
       {
         var tRanX,tRanY,tMyLineAng,tSrnSlice;
@@ -160,22 +160,22 @@ if global.gamePaused=false
       }
 
       //-------------------- ATTACK: ENERGY CREATOR --------------------
-      energyCreatorTime+=1
+      energyCreatorTime+=1*gDeltaTime
       if energyCreatorTime>=energyCreatorDelay
       {
         playSound(global.snd_RidleyFire,0,0.95,12000)
         var tEnCreate;
         tEnCreate=instance_create(x,y,oHF_BE_EnergyCreator)
-        tEnCreate.direction=45; tEnCreate.bulletSpd=4; tEnCreate.atkPower=atkPower
+        tEnCreate._direction=45; tEnCreate.bulletSpd=4; tEnCreate.atkPower=atkPower
         tEnCreate=instance_create(x,y,oHF_BE_EnergyCreator)
-        tEnCreate.direction=135; tEnCreate.bulletSpd=4; tEnCreate.atkPower=atkPower
+        tEnCreate._direction=135; tEnCreate.bulletSpd=4; tEnCreate.atkPower=atkPower
         if bossProgress>=2
         {
           var tEnCreate;
           tEnCreate=instance_create(x,y,oHF_BE_EnergyCreator)
-          tEnCreate.direction=30; tEnCreate.bulletSpd=5
+          tEnCreate._direction=30; tEnCreate.bulletSpd=5
           tEnCreate=instance_create(x,y,oHF_BE_EnergyCreator)
-          tEnCreate.direction=150; tEnCreate.bulletSpd=5
+          tEnCreate._direction=150; tEnCreate.bulletSpd=5
         }
         energyCreatorTime=0
       }
@@ -200,7 +200,7 @@ if global.gamePaused=false
     }
 
     //-------------------- Dialogue --------------------
-    dialogueTime+=1
+    dialogueTime+=1*gDeltaTime
     if dialogueProg=1
     {
       if dialogueTime=1
@@ -370,7 +370,7 @@ applies_to=self
 
 if desperationProg=1 //--------------------------------------------------
 {
-  y-=1
+  y-=1*gDeltaTime
   if y<=96
   {
     desperationProg+=1
@@ -378,7 +378,7 @@ if desperationProg=1 //--------------------------------------------------
 }
 else if desperationProg=2 //--------------------------------------------------
 {
-  desperationTime+=1
+  desperationTime+=1*gDeltaTime
   if desperationTime=45
   {
     var tScnFlash,tZapTrap;
@@ -394,16 +394,16 @@ else if desperationProg=2 //--------------------------------------------------
   if desperationTime<=1030
   {
     //Top loop
-    despTopLoop+=1
+    despTopLoop+=1*gDeltaTime
     if despTopLoop=50
     {
       var tAtk;
       for(i=0;i<5;i+=1)
       {
         tAtk=instance_create(despX2+(16*i),32,oHF_HexBulletRed)
-        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk.direction=270
+        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk._direction=270
         tAtk=instance_create(despX4+(16*i),32,oHF_HexBulletRed)
-        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk.direction=270
+        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk._direction=270
       }
     }
     else if despTopLoop=100
@@ -412,11 +412,11 @@ else if desperationProg=2 //--------------------------------------------------
       for(i=0;i<5;i+=1)
       {
         tAtk=instance_create(despX1+(16*i),32,oHF_HexBulletRed)
-        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk.direction=270
+        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk._direction=270
         tAtk=instance_create(despX3+(16*i),32,oHF_HexBulletRed)
-        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk.direction=270
+        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk._direction=270
         tAtk=instance_create(despX5+(16*i),32,oHF_HexBulletRed)
-        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk.direction=270
+        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk._direction=270
       }
     }
     else if despTopLoop=150
@@ -425,11 +425,11 @@ else if desperationProg=2 //--------------------------------------------------
       for(i=0;i<5;i+=1)
       {
         tAtk=instance_create(despX1+(16*i),32,oHF_HexBulletRed)
-        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=4; tAtk.decayTime=-100; tAtk.direction=270
+        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=4; tAtk.decayTime=-100; tAtk._direction=270
         tAtk=instance_create(despX2+(16*i),32,oHF_HexBulletRed)
-        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk.direction=270
+        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk._direction=270
         tAtk=instance_create(despX5+(16*i),32,oHF_HexBulletRed)
-        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk.direction=270
+        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk._direction=270
       }
     }
     else if despTopLoop=200
@@ -438,11 +438,11 @@ else if desperationProg=2 //--------------------------------------------------
       for(i=0;i<5;i+=1)
       {
         tAtk=instance_create(despX1+(16*i),32,oHF_HexBulletRed)
-        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk.direction=270
+        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk._direction=270
         tAtk=instance_create(despX4+(16*i),32,oHF_HexBulletRed)
-        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk.direction=270
+        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk._direction=270
         tAtk=instance_create(despX5+(16*i),32,oHF_HexBulletRed)
-        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=4; tAtk.decayTime=-100; tAtk.direction=270
+        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=4; tAtk.decayTime=-100; tAtk._direction=270
       }
     }
     else if despTopLoop=250
@@ -451,11 +451,11 @@ else if desperationProg=2 //--------------------------------------------------
       for(i=0;i<5;i+=1)
       {
         tAtk=instance_create(despX2+(16*i),32,oHF_HexBulletRed)
-        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk.direction=270
+        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk._direction=270
         tAtk=instance_create(despX3+(16*i),32,oHF_HexBulletRed)
-        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=4; tAtk.decayTime=-100; tAtk.direction=270
+        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=4; tAtk.decayTime=-100; tAtk._direction=270
         tAtk=instance_create(despX4+(16*i),32,oHF_HexBulletRed)
-        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk.direction=270
+        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk._direction=270
       }
     }
     else if despTopLoop=300
@@ -464,11 +464,11 @@ else if desperationProg=2 //--------------------------------------------------
       for(i=0;i<5;i+=1)
       {
         tAtk=instance_create(despX1+(16*i),32,oHF_HexBulletRed)
-        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk.direction=270
+        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk._direction=270
         tAtk=instance_create(despX3+(16*i),32,oHF_HexBulletRed)
-        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk.direction=270
+        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk._direction=270
         tAtk=instance_create(despX5+(16*i),32,oHF_HexBulletRed)
-        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk.direction=270
+        tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk._direction=270
       }
       despTopLoop=0
     }
@@ -481,7 +481,7 @@ else if desperationProg=2 //--------------------------------------------------
     for(i=0;i<4;i+=1)
     {
       tAtk=instance_create(xCenter+roomSpan+8,yGround-8-(16*i),oHF_HexBulletRed)
-      tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=2; tAtk.decayTime=-100; tAtk.direction=180
+      tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=2; tAtk.decayTime=-100; tAtk._direction=180
     }
   }
   else if desperationTime=180
@@ -499,7 +499,7 @@ else if desperationProg=2 //--------------------------------------------------
     for(i=0;i<12;i+=1)
     {
       tAtk=instance_create(xCenter+roomSpan+8,yGround-8-(16*i),oHF_HexBulletRed)
-      tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=1; tAtk.decayTime=-100; tAtk.direction=180
+      tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=1; tAtk.decayTime=-100; tAtk._direction=180
     }
   }
   else if desperationTime=660
@@ -509,7 +509,7 @@ else if desperationProg=2 //--------------------------------------------------
     {
       tAtk=instance_create(40+(16*i),32,oPassBullet)
       tAtk.sprite_index=sHFight_DespBulletA; tAtk.atkPower=atkPower
-      tAtk.bulletSpeed=1; tAtk.decayTime=-100; tAtk.image_speed=0.33; tAtk.direction=270
+      tAtk.bulletSpeed=1; tAtk.decayTime=-100; tAtk.image_speed=0.33; tAtk._direction=270
     }
   }
   else if desperationTime=1030 {instance_create(xCenter-roomSpan+24,yGround-24,oTempWarningSymbol)}
@@ -527,7 +527,7 @@ else if desperationProg=2 //--------------------------------------------------
 }
 else if desperationProg=3 //--------------------------------------------------
 {
-  desperationTime+=1
+  desperationTime+=1*gDeltaTime
   if desperationTime<=480
   {
     if desperationTime mod 8=0 //Bullet line
@@ -546,7 +546,7 @@ else if desperationProg=3 //--------------------------------------------------
         for(i=0;i<15;i+=1)
         {
           tAtk=instance_create(x,y,oHF_HexBulletRed)
-          tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk.direction=tDir+despSpin
+          tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk._direction=tDir+despSpin
           tDir+=360/15
         }
         despSpin+=5
@@ -561,33 +561,33 @@ else if desperationProg=3 //--------------------------------------------------
         for(i=0;i<4;i+=1)
         {
           tAtk=instance_create(304+(96*i),32,oHF_HexBulletRed)
-          tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk.direction=270
+          tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk._direction=270
           tAtk.image_xscale=0.8; tAtk.image_yscale=0.8; tAtk.image_blend=make_color_rgb(200,200,255)
         }
       }
     }
 
     //Seeking bullets
-    despTopLoop+=1
+    despTopLoop+=1*gDeltaTime
     if despTopLoop=50
     {
       tAtk=instance_create(x,y-96,oHF_HexBulletRed)
       tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=2; tAtk.decayTime=-100
-      tAtk.image_xscale=1.5; tAtk.image_yscale=1.5; tAtk.direction=point_direction(x,y-96,oPlayer1.x,returnPlayerYCenter())
+      tAtk.image_xscale=1.5; tAtk.image_yscale=1.5; tAtk._direction=point_direction(x,y-96,oPlayer1.x,returnPlayerYCenter())
       tAtk.image_blend=make_color_rgb(200,255,200)
     }
     else if despTopLoop=100
     {
       tAtk=instance_create(x-128,y-96,oHF_HexBulletRed)
       tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=2; tAtk.decayTime=-100
-      tAtk.image_xscale=1.5; tAtk.image_yscale=1.5; tAtk.direction=point_direction(x-128,y-96,oPlayer1.x,returnPlayerYCenter())
+      tAtk.image_xscale=1.5; tAtk.image_yscale=1.5; tAtk._direction=point_direction(x-128,y-96,oPlayer1.x,returnPlayerYCenter())
       tAtk.image_blend=make_color_rgb(200,255,200)
     }
     else if despTopLoop=150
     {
       tAtk=instance_create(x+128,y-96,oHF_HexBulletRed)
       tAtk.sprite_index=sHFight_DespBulletB; tAtk.atkPower=atkPower; tAtk.bulletSpeed=2; tAtk.decayTime=-100
-      tAtk.image_xscale=1.5; tAtk.image_yscale=1.5; tAtk.direction=point_direction(x+128,y-96,oPlayer1.x,returnPlayerYCenter())
+      tAtk.image_xscale=1.5; tAtk.image_yscale=1.5; tAtk._direction=point_direction(x+128,y-96,oPlayer1.x,returnPlayerYCenter())
       tAtk.image_blend=make_color_rgb(200,255,200)
       despTopLoop=0
     }
@@ -595,7 +595,7 @@ else if desperationProg=3 //--------------------------------------------------
 
   if desperationTime>=480 //End desperation attack
   {
-    y+=1
+    y+=1*gDeltaTime
     if y>=160
     {
       bCanTakeDamage=true

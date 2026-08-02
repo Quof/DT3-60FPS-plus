@@ -42,37 +42,37 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if posY<24 {posY+=1}
-if superPosY>room_height-12 {superPosY-=1}
+if posY<24 {posY+=1*gDeltaTime}
+if superPosY>room_height-12 {superPosY-=1*gDeltaTime}
 
 if colorUpR=0 //Charge Bar - Red
 {
-  chargeBarR-=1
+  chargeBarR-=1*gDeltaTime
   if chargeBarR<=145 {colorUpR=1}
 }
 else
 {
-  chargeBarR+=1
+  chargeBarR+=1*gDeltaTime
   if chargeBarR>=255 {colorUpR=0}
 }
 if colorUpG=0 //Charge Bar - Green
 {
-  chargeBarG-=2
+  chargeBarG-=2*gDeltaTime
   if chargeBarG<=123 {colorUpG=1}
 }
 else
 {
-  chargeBarG+=2
+  chargeBarG+=2*gDeltaTime
   if chargeBarG>=255 {colorUpG=0}
 }
 if colorUpB=0 //Charge Bar - Blue
 {
-  chargeBarB-=1
+  chargeBarB-=1*gDeltaTime
   if chargeBarB<=102 {colorUpB=1}
 }
 else
 {
-  chargeBarB+=1
+  chargeBarB+=1*gDeltaTime
   if chargeBarB>=255 {colorUpB=0}
 }
 #define Draw_0

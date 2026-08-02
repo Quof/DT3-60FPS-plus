@@ -19,15 +19,18 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  image_angle=direction
-  lifeTime+=1
-  if lifeTime>=15 and lifeTime<=34 {speed=0}
-  else if lifeTime=35 {direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())}
+  image_angle=_direction
+  lifeTime+=1*gDeltaTime
+  if lifeTime>=15 and lifeTime<=34 {_speed=0}
+  else if lifeTime=35 {_direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())}
 
-  if lifeTime>=1 and lifeTime<=14 {speed=6}
-  else if lifeTime>=35 {speed=13}
+  if lifeTime>=1 and lifeTime<=14 {_speed=6}
+  else if lifeTime>=35 {_speed=13}
 }
-else {speed=0}
+else {_speed=0}
+
+x += cos(degtorad(_direction)) * _speed * gDeltaTime
+y -= sin(degtorad(_direction)) * _speed * gDeltaTime
 #define Other_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

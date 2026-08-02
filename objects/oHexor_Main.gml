@@ -131,9 +131,9 @@ if global.gamePaused=false
         image_xscale=-1
       }
     }
-    else {lookDelay-=1}
+    else {lookDelay-=1*gDeltaTime}
 
-    twitchTime+=1
+    twitchTime+=1*gDeltaTime
     if twitchTime=410 {bTwitching=1}
     else if twitchTime>=425
     {
@@ -147,7 +147,7 @@ if global.gamePaused=false
       twitchRanY=irandom_range(-3,3)
     }
 
-    moveTime+=1
+    moveTime+=1*gDeltaTime
     if movePhase=0 //First move phase
     {
       if moveTime>=120
@@ -164,23 +164,27 @@ if global.gamePaused=false
 
       if bMoving=1
       {
-        direction=point_direction(x,y,toPointX,toPointY)
-        speed=4
+        _direction=point_direction(x,y,toPointX,toPointY)
+        _speed=4
+        x += cos(degtorad(_direction)) * _speed * gDeltaTime
+        y -= sin(degtorad(_direction)) * _speed * gDeltaTime
         if point_distance(x,y,toPointX,toPointY)<=8
         {
           x=toPointX; y=toPointY
-          speed=0; bMoving=0
+          _speed=0; bMoving=0
         }
       }
     }
     else if movePhase=1 //To center
     {
-      direction=point_direction(x,y,toPointX,toPointY)
-      speed=4
+      _direction=point_direction(x,y,toPointX,toPointY)
+      _speed=4
+      x += cos(degtorad(_direction)) * _speed * gDeltaTime
+      y -= sin(degtorad(_direction)) * _speed * gDeltaTime
       if point_distance(x,y,toPointX,toPointY)<=8
       {
         x=toPointX; y=toPointY
-        speed=0; bMoving=0
+        _speed=0; bMoving=0
         movePhase=2
       }
     }
@@ -194,12 +198,14 @@ if global.gamePaused=false
 
       if bMoving=1
       {
-        direction=point_direction(x,y,toPointX,toPointY)
-        speed=4
+        _direction=point_direction(x,y,toPointX,toPointY)
+        _speed=4
+        x += cos(degtorad(_direction)) * _speed * gDeltaTime
+        y -= sin(degtorad(_direction)) * _speed * gDeltaTime
         if point_distance(x,y,toPointX,toPointY)<=8
         {
           x=toPointX; y=toPointY
-          speed=0; bMoving=0
+          _speed=0; bMoving=0
           movePhase=4
         }
       }
@@ -207,10 +213,10 @@ if global.gamePaused=false
 
     if bShowHellDogParts=1
     {
-      hellLF_Angle+=sin(atkTime*0.75)+armAngleShift
-      hellRF_Angle-=sin(atkTime*.9)+0.5+armAngleShift
+      hellLF_Angle+=(sin(atkTime*0.75)+armAngleShift)*gDeltaTime
+      hellRF_Angle-=(sin(atkTime*.9)+0.5+armAngleShift)*gDeltaTime
 
-      armTwitchTime+=1
+      armTwitchTime+=1*gDeltaTime
       if armTwitchTime=92 {armAngleShift=13}
       else if armTwitchTime>=94 {armAngleShift=irandom(10); armTwitchTime=0}
     }
@@ -429,9 +435,9 @@ if global.gamePaused=false
         {
           chainLineColor=c_red; chainLineWidth=3
           toPointX=xCenter; toPointY=headSpawnY[0]
-          speed=0; bMoving=1; movePhase=1; moveTime=0
+          _speed=0; bMoving=1; movePhase=1; moveTime=0
         }
-        else if atkTime>=90 and atkTime<=135
+        else if atkTime>=90 and atkTime<=135 and gDeltaDoTicks
         {
           if chainLineWidth=3 {chainLineWidth=5}
           else {chainLineWidth=3}
@@ -443,7 +449,7 @@ if global.gamePaused=false
           var tNewAtk,tEffect;
           for(i=0;i<72;i+=1)
           {
-            tNewAtk=instance_create(x,y,oHexor_ShotA); tNewAtk.direction=i*5; tNewAtk.atkDelay=120; tNewAtk.bulletSpeed=4
+            tNewAtk=instance_create(x,y,oHexor_ShotA); tNewAtk._direction=i*5; tNewAtk.atkDelay=120; tNewAtk.bulletSpeed=4
           }
           tEffect=instance_create(x,y,oEffect)
           tEffect.sprite_index=sEfEnergyRip; tEffect.image_xscale=1.5; tEffect.image_yscale=1.5; tEffect.image_alpha=0.4
@@ -490,7 +496,7 @@ if global.gamePaused=false
           var tNewAtk,tEffect;
           for(i=0;i<72;i+=1)
           {
-            tNewAtk=instance_create(x,y,oHexor_ShotA); tNewAtk.direction=i*5; tNewAtk.atkDelay=120; tNewAtk.bulletSpeed=4
+            tNewAtk=instance_create(x,y,oHexor_ShotA); tNewAtk._direction=i*5; tNewAtk.atkDelay=120; tNewAtk.bulletSpeed=4
           }
           tEffect=instance_create(x,y,oEffect)
           tEffect.sprite_index=sEfEnergyRip; tEffect.image_xscale=1.5; tEffect.image_yscale=1.5; tEffect.image_alpha=0.4
@@ -559,12 +565,12 @@ if global.gamePaused=false
           for(i=0;i<7;i+=1)
           {
             tDemonBlade=instance_create(x,y-16,oHexor_DemonBlade)
-            tDemonBlade.type=0; tDemonBlade.moveTime=i*8; tDemonBlade.moveSpd=8; tDemonBlade.direction=180
+            tDemonBlade.type=0; tDemonBlade.moveTime=i*8; tDemonBlade.moveSpd=8; tDemonBlade._direction=180
           }
         }
         else if atkTime>=83 and atkTime<=120 //Go down
         {
-          y+=8
+          y+=8*gDeltaTime
           if y>=headSpawnY[2]
           {
             y=headSpawnY[2]
@@ -575,7 +581,7 @@ if global.gamePaused=false
         {
           var tDemonBlade;
           tDemonBlade=instance_create(x+32,y,oHexor_DemonBlade)
-          tDemonBlade.type=1; tDemonBlade.moveSpd=7; tDemonBlade.direction=180; tDemonBlade.image_angle=180
+          tDemonBlade.type=1; tDemonBlade.moveSpd=7; tDemonBlade._direction=180; tDemonBlade.image_angle=180
         }
         else if atkTime=181
         {
@@ -603,7 +609,7 @@ if global.gamePaused=false
         }
         else if atkTime>=203 and atkTime<=240 //Go down
         {
-          y+=8
+          y+=8*gDeltaTime
           if y>=headSpawnY[2]
           {
             y=headSpawnY[2]
@@ -709,7 +715,7 @@ if global.gamePaused=false
           var tDemonBlade,tBladeDir;
           tBladeDir=point_direction(x,y-16,oPlayer1.x,oPlayer1.y-28)
           tDemonBlade=instance_create(x,y-16,oHexor_DemonBlade)
-          tDemonBlade.type=1; tDemonBlade.moveSpd=4; tDemonBlade.direction=tBladeDir; tDemonBlade.image_angle=tBladeDir
+          tDemonBlade.type=1; tDemonBlade.moveSpd=4; tDemonBlade._direction=tBladeDir; tDemonBlade.image_angle=tBladeDir
         }
         
         if atkTime>=80 and atkTime mod 170=0
@@ -738,8 +744,8 @@ if global.gamePaused=false
         }
         else if atkTime>=24 and atkTime<=99
         {
-          swordDist+=4
-          swordAlpha-=0.03
+          swordDist+=4*gDeltaTime
+          swordAlpha-=0.03*gDeltaTime
           if swordAlpha<=0
           {
             atkTime=100
@@ -770,7 +776,7 @@ if global.gamePaused=false
             y=headSpawnY[1]
             var tBigRock;
             tBigRock=instance_create(room_width+64,headSpawnY[2]-32,oHexor_Rock)
-            tBigRock.type=1; tBigRock.moveSpd=4; tBigRock.direction=180
+            tBigRock.type=1; tBigRock.moveSpd=4; tBigRock._direction=180
             atkTime=100
           }
         }
@@ -798,7 +804,7 @@ if global.gamePaused=false
             if rockProg=0
             {
               tBigRock=instance_create(room_width+64,headSpawnY[2]-32,oHexor_Rock)
-              tBigRock.type=1; tBigRock.moveSpd=4; tBigRock.direction=180
+              tBigRock.type=1; tBigRock.moveSpd=4; tBigRock._direction=180
             }
           }
         }
@@ -935,7 +941,7 @@ if global.gamePaused=false
         msgCreate(60,80,"Jeremy","I promised I would return. I don't intend to break that promise.",0,2,oMessagePerson,0)
         newMessage.fadingTime=120
       }
-      else if atkTime>=200 and atkTime<=240
+      else if atkTime>=200 and atkTime<=240 and gDeltaDoTicks
       {
         var tEffect;
         for(i=0;i<2;i+=1)
@@ -985,7 +991,7 @@ if global.gamePaused=false
   }
   else if shieldProg>=1 and shieldProg<=499
   {
-    shieldProg+=1
+    shieldProg+=1*gDeltaTime
     if shieldProg>=200
     {
       for(i=0;i<6;i+=1)
@@ -1020,7 +1026,7 @@ if global.gamePaused=false
 }
 else
 {
-  speed=0
+  _speed=0
 }
 #define Draw_0
 /*"/*'/**//* YYD ACTION
@@ -1044,7 +1050,7 @@ if bShowChainLines=1
 
 if bShowTentacles=1
 {
-  tentacleFrm+=0.07
+  tentacleFrm+=0.07*gDeltaTime
   draw_sprite_ext(sHexor_TentaclesA,tentacleFrm,x+twitchRanX-image_xscale,y+twitchRanY,tentacleScale*image_xscale,tentacleScale,image_angle,c_purple,image_alpha)
 }
 
@@ -1065,9 +1071,9 @@ if bShowHellDogParts=1
 //Draw Swords
 if bShowSwords=1
 {
-  swordWave+=0.2
-  swordDist+=sin(swordWave)
-  swordDir+=5.7
+  swordWave+=0.2*gDeltaTime
+  swordDist+=sin(swordWave)*gDeltaTime
+  swordDir+=5.7*gDeltaTime
   for(i=0;i<8;i+=1)
   {
     draw_sprite_ext(sHexor_DemonBlade,0,x+lengthdir_x(52+swordDist,swordDir+random_range(-9,9)+(i*45)),y+lengthdir_y(52+swordDist,swordDir+random_range(-9,9)+(i*45)),image_xscale,image_yscale,swordDir-90+(i*45),c_white,swordAlpha)
@@ -1077,6 +1083,6 @@ if bShowSwords=1
 //Draw Shield
 if (shieldProg>=1 and shieldProg<=499) or (shieldProg=600)
 {
-  phase+=0.2
+  phase+=0.2*gDeltaTime
   draw_sprite_wave_fixed(sHexor_Shield,0,x,y,1,12,3,phase)
 }

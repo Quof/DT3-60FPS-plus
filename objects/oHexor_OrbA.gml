@@ -17,6 +17,8 @@ bulletSpeed=8
 atkProg=0
 atkTime=0
 orbDist=4
+_speed=0
+_direction=0
 
 colorShift=255
 #define Step_0
@@ -31,7 +33,7 @@ if global.gamePaused=false
   {
     if orbDist<48 {orbDist+=1}
 
-    orbDir+=3
+    orbDir+=3*gDeltaTime
 
     atkTime+=1*gDeltaTime
     if atkTime>=135
@@ -48,18 +50,20 @@ if global.gamePaused=false
   }
   else if atkProg=11 //-------------------- Attack 1A - Delay and Aim --------------------
   {
-    atkDelay-=1
-    if atkDelay<=22 {colorShift-=5; image_blend=make_color_rgb(255,colorShift,colorShift)}
+    atkDelay-=1*gDeltaTime
+    if atkDelay<=22 {colorShift-=5*gDeltaTime; image_blend=make_color_rgb(255,colorShift,colorShift)}
     if atkDelay<=0
     {
       playSound(global.snd_Fireball,0,0.92,22050+random(22050))
-      direction=point_direction(x,y,oPlayer1.x,oPlayer1.y-32)
+      _direction=point_direction(x,y,oPlayer1.x,oPlayer1.y-32)
       atkProg+=1
     }
   }
   else if atkProg=12 //Attack 1B - To point
   {
-    speed=bulletSpeed
+    _speed=bulletSpeed
+    x += cos(degtorad(_direction)) * _speed * gDeltaTime
+    y -= sin(degtorad(_direction)) * _speed * gDeltaTime
     atkTime+=1*gDeltaTime
     if atkTime>=150 {instance_destroy()}
   }
@@ -70,24 +74,26 @@ if global.gamePaused=false
   }
   else if atkProg=22 //Attack 2B - Move outward
   {
-    orbDist+=2
+    orbDist+=2*gDeltaTime
     if orbDist>=88 {atkTime=0; atkProg+=1}
   }
   else if atkProg=23 //Attack 2C - Delay and Aim
   {
-    atkDelay-=1
-    if atkDelay<=22 {colorShift-=5; image_blend=make_color_rgb(255,colorShift,colorShift)}
+    atkDelay-=1*gDeltaTime
+    if atkDelay<=22 {colorShift-=5*gDeltaTime; image_blend=make_color_rgb(255,colorShift,colorShift)}
     if atkDelay<=0
     {
       playSound(global.snd_Fireball,0,0.92,22050+random(22050))
-      direction=point_direction(x,y,oPlayer1.x,oPlayer1.y-32)
+      _direction=point_direction(x,y,oPlayer1.x,oPlayer1.y-32)
       atkProg+=1
     }
   }
   else if atkProg=24 //Attack 2D - To point
   {
-    speed=bulletSpeed
+    _speed=bulletSpeed
     atkTime+=1*gDeltaTime
+    x += cos(degtorad(_direction)) * _speed * gDeltaTime
+    y -= sin(degtorad(_direction)) * _speed * gDeltaTime
     if atkTime>=150 {instance_destroy()}
   }
 
@@ -97,4 +103,4 @@ if global.gamePaused=false
     y=oHexor_Main.y+lengthdir_y(orbDist,orbDir)
   }
 }
-else {speed=0}
+else {_speed=0}

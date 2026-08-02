@@ -39,6 +39,8 @@ moveCycles=0
 moveSpd=0
 xSpd=0
 ySpd=0
+_hspeed=0
+_vspeed=0
 
 atkChoice=0
 atk_FallingSpikesTime=0
@@ -101,7 +103,7 @@ if global.gamePaused=false
   if bActive=true and life>0
   {
     //==================== MOVEMENT ====================
-    if dashDuration>0
+    if dashDuration>0 and gDeltaDoTicks
     {
       var tAfterI;
       tAfterI=instance_create(x,y,oEnemyAfterImage)
@@ -115,12 +117,12 @@ if global.gamePaused=false
     {
       if dashEnergy<dashMeterMax
       {
-        dashEnergy+=dashRecovery
+        dashEnergy+=dashRecovery*gDeltaTime
         if dashEnergy>dashMeterMax {dashEnergy=dashMeterMax}
       }
     }
 
-    moveTime+=1
+    moveTime+=1*gDeltaTime
     if movePhase=0 //Selective positioning
     {
       if moveTime>=120
@@ -142,29 +144,32 @@ if global.gamePaused=false
 
       if x>centralPointX
       {
-        if hspeed>-maxSpeed {hspeed-=0.4}
-        else {hspeed=-maxSpeed}
+        if _hspeed>-maxSpeed {_hspeed-=0.4*gDeltaTime}
+        else {_hspeed=-maxSpeed}
       }
       else if x<centralPointX
       {
-        if hspeed<maxSpeed {hspeed+=0.4}
-        else {hspeed=maxSpeed}
+        if _hspeed<maxSpeed {_hspeed+=0.4*gDeltaTime}
+        else {_hspeed=maxSpeed}
       }
       if y>centralPointY
       {
-        if vspeed>-maxSpeed {vspeed-=0.4}
-        else {vspeed=-maxSpeed}
+        if _vspeed>-maxSpeed {_vspeed-=0.4*gDeltaTime}
+        else {_vspeed=-maxSpeed}
       }
       else if y<centralPointY
       {
-        if vspeed<maxSpeed {vspeed+=0.4}
-        else {vspeed=maxSpeed}
+        if _vspeed<maxSpeed {_vspeed+=0.4*gDeltaTime}
+        else {_vspeed=maxSpeed}
       }
+
+      x += _hspeed * gDeltaTime
+      y += _vspeed * gDeltaTime
 
       if point_distance(x,y,centralPointX,centralPointY)<=6.5 and dashDuration=0 //Find point and stop
       {
         x=centralPointX; y=centralPointY
-        hspeed=0; vspeed=0; xSpd=0; ySpd=0
+        _hspeed=0; _vspeed=0; xSpd=0; ySpd=0
       }
     }
 
@@ -282,7 +287,7 @@ if global.gamePaused=false
     }
     else if convoSequence=1
     {
-      convoTime+=1
+      convoTime+=1*gDeltaTime
       if convoTime=60
       {
         msgCreate(60,80,"Hexor","Might as well.",0,1,oMessagePerson,0)
@@ -356,8 +361,8 @@ if global.gamePaused=false
 }
 else
 {
-  hspeed=0; vspeed=0
-  speed=0
+  _hspeed=0; _vspeed=0
+  _speed=0
 }
 
 /*
@@ -376,9 +381,9 @@ if dashDuration=0 and bCanTakeDamage=true
   {
     if movePhase=0 //Stationary
     {
-      if hspeed=0 and vspeed=0 and dashEnergy>=2000
+      if _hspeed=0 and _vspeed=0 and dashEnergy>=2000
       {
-        hspeed=choose(-6,-4,4,6); vspeed=choose(-6-4,4,6)
+        _hspeed=choose(-6,-4,4,6); _vspeed=choose(-6-4,4,6)
         dashEnergy-=2000
         dashDuration=10
       }
@@ -439,7 +444,7 @@ applies_to=self
 //==================== LINGERING ATTACKS ====================
 if atk_FallingSpikesActive=1 //---------- Falling Spikes ----------
 {
-  atk_FallingSpikesTime+=1
+  atk_FallingSpikesTime+=1*gDeltaTime
   if atk_FallingSpikesTime mod 5=0
   {
     var tNewAtk;
