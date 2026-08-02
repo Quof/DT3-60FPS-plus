@@ -25,7 +25,7 @@ if x>=oBlackmoorMain.x
 {
   visible=1
   bCanDealDamage=1
-  if random(50)>=49
+  if random(50)>=49 and gDeltaDoTicks
   {
     var tEffect,tFFScl;
     tFFScl=random(0.25)
