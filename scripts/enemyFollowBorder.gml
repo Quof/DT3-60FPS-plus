@@ -11,79 +11,79 @@ LEFT=2
 RIGHT=3
 currentDir=LEFT
 */
-
+if gDeltaDoTicks {
 if bClockWise=false //******************** COUNTER-CLOCK-WISE ********************
 {
   if currentDir=UP
   {
-    if !place_meeting(x,y-runAcc*gDeltaTime,oSolid) //check up first
+    if !place_meeting(x,y-runAcc,oSolid) //check up first
     {
-      if place_meeting(x-runAcc*gDeltaTime,y,oSolid) //check left
-        y-=runAcc*gDeltaTime //continue up
+      if place_meeting(x-runAcc,y,oSolid) //check left
+        y-=runAcc //continue up
       else
       {
         currentDir=LEFT
-        x-=runAcc*gDeltaTime //move left once
+        x-=runAcc //move left once
       }
     }
     else
     {
       currentDir=RIGHT
-      x+=runAcc*gDeltaTime
+      x+=runAcc
     }
   }
   else if currentDir=DOWN
   {
-    if !place_meeting(x,y+runAcc*gDeltaTime,oSolid) //check down first
+    if !place_meeting(x,y+runAcc,oSolid) //check down first
     {
-      if place_meeting(x+runAcc*gDeltaTime,y,oSolid) //check right
-        y+=runAcc*gDeltaTime //continue down
+      if place_meeting(x+runAcc,y,oSolid) //check right
+        y+=runAcc //continue down
       else
       {
         currentDir=RIGHT
-        x+=runAcc*gDeltaTime //move right once
+        x+=runAcc //move right once
       }
     }
     else
     {
       currentDir=LEFT
-      x-=runAcc*gDeltaTime
+      x-=runAcc
     }
   }
   else if currentDir=LEFT
   {
-    if !place_meeting(x-runAcc*gDeltaTime,y,oSolid) //check left first
+    if !place_meeting(x-runAcc,y,oSolid) //check left first
     {
-      if place_meeting(x,y+runAcc*gDeltaTime,oSolid) //check down
-        x-=runAcc*gDeltaTime //continue left
+      if place_meeting(x,y+runAcc,oSolid) //check down
+        x-=runAcc //continue left
       else
       {
         currentDir=DOWN
-        y+=runAcc*gDeltaTime //move down once
+        y+=runAcc //move down once
       }
     }
     else
     {
       currentDir=UP
-      y-=runAcc*gDeltaTime
+      y-=runAcc
     }
   }
   else if currentDir=RIGHT
   {
-    if !place_meeting(x+runAcc*gDeltaTime,y,oSolid) //check right first
+    if !place_meeting(x+runAcc,y,oSolid) //check right first
     {
-      if place_meeting(x,y-runAcc*gDeltaTime,oSolid) //check up
-        x+=runAcc*gDeltaTime //continue right
+      if place_meeting(x,y-runAcc,oSolid) //check up
+        x+=runAcc //continue right
       else
       {
         currentDir=UP
-        y-=runAcc*gDeltaTime //move up once
+        y-=runAcc //move up once
       }
     }
     else
     {
       currentDir=DOWN
-      y+=runAcc*gDeltaTime
+      y+=runAcc
     }
   }
 }
@@ -91,74 +91,74 @@ else //******************** CLOCK-WISE ********************
 {
   if currentDir=UP
   {
-    if !place_meeting(x,y-runAcc*gDeltaTime,oSolid) //check up first
+    if !place_meeting(x,y-runAcc,oSolid) //check up first
     {
-      if place_meeting(x+runAcc*gDeltaTime,y,oSolid) //check right
-        y-=runAcc*gDeltaTime //continue up
+      if place_meeting(x+runAcc,y,oSolid) //check right
+        y-=runAcc //continue up
       else
       {
         currentDir=RIGHT
-        x+=runAcc*gDeltaTime //move right once
+        x+=runAcc //move right once
       }
     }
     else
     {
       currentDir=LEFT
-      x-=runAcc*gDeltaTime
+      x-=runAcc
     }
   }
   else if currentDir=DOWN
   {
-    if !place_meeting(x,y+runAcc*gDeltaTime,oSolid) //check down first
+    if !place_meeting(x,y+runAcc,oSolid) //check down first
     {
-      if place_meeting(x-runAcc*gDeltaTime,y,oSolid) //check left
-        y+=runAcc*gDeltaTime //continue down
+      if place_meeting(x-runAcc,y,oSolid) //check left
+        y+=runAcc //continue down
       else
       {
         currentDir=LEFT
-        x-=runAcc*gDeltaTime //move left once
+        x-=runAcc //move left once
       }
     }
     else
     {
       currentDir=RIGHT
-      x+=runAcc*gDeltaTime
+      x+=runAcc
     }
   }
   else if currentDir=LEFT
   {
-    if !place_meeting(x-runAcc*gDeltaTime,y,oSolid) //check left first
+    if !place_meeting(x-runAcc,y,oSolid) //check left first
     {
-      if place_meeting(x,y-runAcc*gDeltaTime,oSolid) //check up
-        x-=runAcc*gDeltaTime //continue left
+      if place_meeting(x,y-runAcc,oSolid) //check up
+        x-=runAcc //continue left
       else
       {
         currentDir=UP
-        y-=runAcc*gDeltaTime //move up once
+        y-=runAcc //move up once
       }
     }
     else
     {
       currentDir=DOWN
-      y+=runAcc*gDeltaTime
+      y+=runAcc
     }
   }
   else if currentDir=RIGHT
   {
-    if !place_meeting(x+runAcc*gDeltaTime,y,oSolid) //check right first
+    if !place_meeting(x+runAcc,y,oSolid) //check right first
     {
-      if place_meeting(x,y+runAcc*gDeltaTime,oSolid) //check down
-        x+=runAcc*gDeltaTime //continue right
+      if place_meeting(x,y+runAcc,oSolid) //check down
+        x+=runAcc //continue right
       else
       {
         currentDir=DOWN
-        y+=runAcc*gDeltaTime //move down once
+        y+=runAcc //move down once
       }
     }
     else
     {
       currentDir=UP
-      y-=runAcc*gDeltaTime
+      y-=runAcc
     }
   }
-}
+}}
