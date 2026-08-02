@@ -23,7 +23,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  lifeTime+=1
+  lifeTime+=1*gDeltaTime
   if lifeTime>=1 and lifeTime<=10
   {
     var tEffect;

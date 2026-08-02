@@ -88,7 +88,7 @@ if global.gamePaused=false
         xDist=point_distance(x,0,oPlayer1.x,0)
         if xDist<=104
         {
-          if oGame.time mod 8=0
+          if oGame.time mod (8/gDeltaTime)=0
           {
             var tNewAttack;
             tNewAttack=instance_create(x,y,oGravPassBullet)
@@ -110,8 +110,8 @@ if global.gamePaused=false
         }
         else if introAnim=1
         {
-          phase+=0.025
-          amplitude-=2
+          phase+=0.025*gDeltaTime
+          amplitude-=2*gDeltaTime
           if amplitude<=1 {introAnim=10}
         }
         else if introAnim>=10

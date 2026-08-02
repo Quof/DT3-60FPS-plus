@@ -73,7 +73,7 @@ if global.gamePaused=false
 
         if laserTime>=101 {speed=0}
         //Fire laser
-        laserTime+=1
+        laserTime+=1*gDeltaTime
         if laserTime=100
         {
           for(i=0;i<2;i+=1)
@@ -97,8 +97,8 @@ if global.gamePaused=false
         }
         else if introAnim=1
         {
-          phase+=0.025
-          amplitude-=2
+          phase+=0.025*gDeltaTime
+          amplitude-=2*gDeltaTime
           if amplitude<=1 {introAnim=10}
         }
         else if introAnim>=10
@@ -116,7 +116,7 @@ if global.gamePaused=false
     }
     else
     {
-      if laserTime>=101 {laserTime+=1}
+      if laserTime>=101 {laserTime+=1*gDeltaTime}
       speed=0
     }
   }
