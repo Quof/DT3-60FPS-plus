@@ -46,7 +46,7 @@ if bTouched=1
 if oFireFleaRmLight.darkNum<7
 {
   oFireFleaRmLight.darkNum+=1
-  oFireFleaRmLight.image_alpha+=0.13*gDeltaTime
+  oFireFleaRmLight.image_alpha+=0.13
 }
 #define Step_0
 /*"/*'/**//* YYD ACTION
@@ -59,11 +59,11 @@ if global.gamePaused=false
   makeEnemyActive(0)
   if bActive=true and stunnedTime=0
   {
-    lightFrm+=0.15
+    lightFrm+=0.15*gDeltaTime
 
     x+=moveSpd*gDeltaTime*cos(degtorad(direction))
     y-=moveSpd*gDeltaTime*sin(degtorad(direction))
-    direction-=moveArc
+    direction-=moveArc*gDeltaTime
   }
   enemyStepEvent()
 }

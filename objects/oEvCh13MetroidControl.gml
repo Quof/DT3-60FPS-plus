@@ -75,7 +75,7 @@ else if room=rSamus5_Lv4_C //---------------------------------------------------
       {
         for(i=0;i<7;i+=1)
         {
-          mySpike[i].x+=0.5
+          mySpike[i].x+=0.5*gDeltaTime
         }
       }
       if !instance_exists(GID(288771)) and !instance_exists(GID(288773))

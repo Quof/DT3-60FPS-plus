@@ -55,7 +55,7 @@ if global.gamePaused=false
 
     if rising=0
     {
-      yVel-=12*gDeltaTime
+      yVel-=12
       visible=true
       image_yscale=1
       rising=1
@@ -65,7 +65,7 @@ if global.gamePaused=false
     else
       image_yscale=-1
     yVel+=0.5*gDeltaTime
-    y+=yVel
+    y+=yVel*gDeltaTime
     if yVel>1 and y>ystart
     {
       var tEffect;
@@ -86,7 +86,7 @@ if global.gamePaused=false
     }
   }
   if rising<0
-    rising+=1
+    rising+=1*gDeltaTime
   enemyStepEvent()
 }
 #define Collision_oPlayer1

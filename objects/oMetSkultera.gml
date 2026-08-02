@@ -69,12 +69,12 @@ if global.gamePaused=false
       if x>oCharacter.x and image_xscale=1
       {
         turnTime+=1*gDeltaTime
-        x+=runAcc
+        x+=runAcc*gDeltaTime
       }
       else if x<oCharacter.x and image_xscale=-1
       {
         turnTime+=1*gDeltaTime
-        x+=-runAcc
+        x+=-runAcc*gDeltaTime
       }
       else
       {
@@ -96,10 +96,10 @@ if global.gamePaused=false
         if y>oPlayer1.y-18
         {
           if isCollisionWaterTop(12)
-            y-=1
+            y-=1*gDeltaTime
         }
         else if y<oPlayer1.y-18
-          y+=1
+          y+=1*gDeltaTime
       }
 
       if turnTime>=60

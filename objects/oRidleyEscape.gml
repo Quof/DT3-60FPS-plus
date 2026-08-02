@@ -81,7 +81,7 @@ if global.gamePaused=false
     if bWave=1 //Idle wave motion
     {
       moveWaveY+=0.2*gDeltaTime
-      y+=sin(moveWaveY)
+      y+=sin(moveWaveY)*gDeltaTime
       if x+16<oPlayer1.x {image_xscale=1}
       else if x-16>oPlayer1.x {image_xscale=-1}
     }

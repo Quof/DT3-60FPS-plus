@@ -779,7 +779,7 @@ else if global.gameProgress=2850 and room=rSamus5_Lv2_N //----- [] Lava rises & 
 {
   if global.gamePaused=false
   {
-    if oMetLava.y>=208 {oMetLava.y-=lavaRiseSpd}
+    if oMetLava.y>=208 {oMetLava.y-=lavaRiseSpd*gDeltaTime}
   }
   
   if sceneProgress=0
@@ -806,7 +806,7 @@ else if global.gameProgress=2855 and room=rSamus5_Lv2_R //----- [] Lava rises & 
 {
   if global.gamePaused=false
   {
-    if oMetLava.y>=336 {oMetLava.y-=lavaRiseSpd}
+    if oMetLava.y>=336 {oMetLava.y-=lavaRiseSpd*gDeltaTime}
   }
   
   if sceneProgress=0
@@ -1012,7 +1012,7 @@ else if room=rSamus5_Lv1_Boss and global.gamePaused=false //----- [] Boss Fight:
         tEffect=instance_create(112+random(160),400+random(4),oEffect)
         tEffect.sprite_index=sMMSmokeCloud; tEffect.image_speed=0.5; tEffect.image_alpha=0.6
         tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
-        boss.segBody.y-=1
+        boss.segBody.y-=1*gDeltaTime
         if boss.y<=133 {sceneProgress+=1}
       }
       else if sceneProgress=3
