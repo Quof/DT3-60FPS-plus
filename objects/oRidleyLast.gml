@@ -352,8 +352,8 @@ if global.gamePaused=false
         }
         else if tChkMove>distMax
         {
-          if image_xscale=1 {x+=moveSpd}
-          else {x-=moveSpd}
+          if image_xscale=1 {x+=moveSpd*gDeltaTime}
+          else {x-=moveSpd*gDeltaTime}
         }
 
         if atkTime=176 {ridParts[0].image_index=1}

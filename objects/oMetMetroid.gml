@@ -78,10 +78,10 @@ if global.gamePaused=false
       if latching=0 //Normal movement
       {
         lifeDrain=0
-        if x>oPlayer1.x and xVel>-5.5 {xVel-=0.33}
-        else if x<oPlayer1.x and xVel<5.5 {xVel+=0.33}
-        if y>oPlayer1.y and yVel>-5.5 {yVel-=0.33}
-        else if y<oPlayer1.y and yVel<5.5 {yVel+=0.33}
+        if x>oPlayer1.x and xVel>-5.5 {xVel-=0.33*gDeltaTime}
+        else if x<oPlayer1.x and xVel<5.5 {xVel+=0.33*gDeltaTime}
+        if y>oPlayer1.y and yVel>-5.5 {yVel-=0.33*gDeltaTime}
+        else if y<oPlayer1.y and yVel<5.5 {yVel+=0.33*gDeltaTime}
         if isCollisionTop(1) {yVel=1}
         if isCollisionBottom(1) {yVel=-1}
         if isCollisionLeft(1) {xVel=1}
@@ -121,9 +121,13 @@ if global.gamePaused=false
         }
       }
     }
-    else if frozen>=1 and frozen<=15 //Delay frozen damage state to prevent a super missile from killing the metroid if it is the killing shot
+    else if frozen>=1 and frozen<16 //Delay frozen damage state to prevent a super missile from killing the metroid if it is the killing shot
     {
       frozen+=1*gDeltaTime
+      if (frozen > 16) //failsafe in case it gets a decimal for some reason, this has to be whole.
+      {
+        frozen = 16
+      }
     }
     else if frozen>=16 and frozen<=20 //Frozen state
     {
@@ -132,7 +136,7 @@ if global.gamePaused=false
       bCanTakeDamage=true
       life=maxLife
       unlatchTime=0
-      frozenTime+=1
+      frozenTime+=1*gDeltaTime
       if frozenTime>=180 and frozenTime mod 2=0
       {
         if image_blend=baseColor {image_blend=c_red}
