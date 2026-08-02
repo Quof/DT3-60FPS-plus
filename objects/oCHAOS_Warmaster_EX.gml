@@ -592,7 +592,7 @@ if global.gamePaused=false
             if currentAttack=8 //Form 1, Atk 8 (ATK H)
             {
               xVel=0
-              actTime=100
+              if actTime<100 {actTime=100}
             }
           }
           else if sprite_index=sWarmasterD_Dashing or sprite_index=sWarmasterD_FastDash {xVel=fastDashJumpAcc}
@@ -625,7 +625,7 @@ if global.gamePaused=false
             if currentAttack=8 //Form 1, Atk 8 (ATK H)
             {
               xVel=0
-              actTime=100
+              if actTime<100 {actTime=100}
             }
           }
           else if sprite_index=sWarmasterD_Dashing or sprite_index=sWarmasterD_FastDash {xVel=-fastDashJumpAcc}
