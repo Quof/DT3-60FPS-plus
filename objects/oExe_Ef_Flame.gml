@@ -6,7 +6,7 @@ applies_to=self
 */
 if global.gamePaused=0
 {
-  image_angle-=15
+  image_angle-=15*gDeltaTime
   image_alpha-=0.05*gDeltaTime
   if image_alpha<=0 {instance_destroy()}
 }

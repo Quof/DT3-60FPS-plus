@@ -99,7 +99,7 @@ if global.gamePaused=false
 
   if bActive=true and life>0
   {
-    if oGame.time mod 3=0
+    if oGame.time mod (3/gDeltaTime)=0
     {
       if image_xscale=1 {image_xscale=-1}
       else {image_xscale=1}
@@ -107,10 +107,10 @@ if global.gamePaused=false
 
     for(i=0;i<5;i+=1)
     {
-      atkTime[i]+=1
+      atkTime[i]+=1*gDeltaTime
     }
 
-    if heartGrab>0 {heartGrab-=1}
+    if heartGrab>0 {heartGrab-=1*gDeltaTime}
 
     //ATTACK PHASES
     event_user(atkPhase)
@@ -366,7 +366,8 @@ if global.gamePaused=false
   }
   else if life<=0
   {
-    deathAnim+=1
+    if deathAnim == 0 {deathAnim = 1-gDeltaTime};
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       with oEProjectileBase {instance_destroy()}
@@ -390,12 +391,12 @@ if global.gamePaused=false
       ini_close()
     }
 
-    if image_blend=c_white {image_blend=c_red}
-    else {image_blend=c_white}
+    if gDeltaDoTicks {if image_blend=c_white {image_blend=c_red}
+    else {image_blend=c_white}}
 
     if deathAnim mod 8=0 {playSound(global.snd_HardHit1,0,0.9,1)}
-    tEffect=instance_create(x+random_range(-17,17),y+random_range(-34,34),oEffect); tEffect.sprite_index=sShipExplosion
-    tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0; tEffect.image_speed=0.5+random(0.5)
+    if gDeltaDoTicks {tEffect=instance_create(x+random_range(-17,17),y+random_range(-34,34),oEffect); tEffect.sprite_index=sShipExplosion
+    tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0; tEffect.image_speed=0.5+random(0.5)}
 
     if deathAnim>=60
     {
@@ -419,7 +420,7 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
-else {speed=0}
+else {_speed=0}
 #define Collision_oAttackBase
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -491,17 +492,17 @@ applies_to=self
 //Dick bullet pattern
 for(i=0;i<20;i+=1)
 {
-  var tAtk; tAtk=instance_create(800+lengthdir_x(640,18*i),256+lengthdir_y(640,18*i),oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=2.5; tAtk.direction=(18*i)+180
-  var tAtk; tAtk=instance_create(928+lengthdir_x(640,18*i),256+lengthdir_y(640,18*i),oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=2.5; tAtk.direction=(18*i)+180
+  var tAtk; tAtk=instance_create(800+lengthdir_x(640,18*i),256+lengthdir_y(640,18*i),oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=2.5; tAtk._direction=(18*i)+180
+  var tAtk; tAtk=instance_create(928+lengthdir_x(640,18*i),256+lengthdir_y(640,18*i),oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=2.5; tAtk._direction=(18*i)+180
 }
 for(i=0;i<10;i+=1)
 {
-  var tAtk; tAtk=instance_create(864+lengthdir_x(640,9+(18*i)),112+lengthdir_y(640,9+(18*i)),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=2.5; tAtk.direction=(18*i)+189
+  var tAtk; tAtk=instance_create(864+lengthdir_x(640,9+(18*i)),112+lengthdir_y(640,9+(18*i)),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=2.5; tAtk._direction=(18*i)+189
 }
 for(i=0;i<8;i+=1)
 {
-  var tAtk; tAtk=instance_create(224,128+(i*16),oExe_FireGreen); tAtk.type=0; tAtk.bulSpd=2.5; tAtk.direction=0
-  var tAtk; tAtk=instance_create(1504,128+(i*16),oExe_FireGreen); tAtk.type=0; tAtk.bulSpd=2.5; tAtk.direction=180
+  var tAtk; tAtk=instance_create(224,128+(i*16),oExe_FireGreen); tAtk.type=0; tAtk.bulSpd=2.5; tAtk._direction=0
+  var tAtk; tAtk=instance_create(1504,128+(i*16),oExe_FireGreen); tAtk.type=0; tAtk.bulSpd=2.5; tAtk._direction=180
 }
 #define Other_11
 /*"/*'/**//* YYD ACTION
@@ -512,7 +513,7 @@ applies_to=self
 ///PHASE 1
 if moveProg=1 //----- Teleport -----
 {
-  moveTime+=1
+  moveTime+=1*gDeltaTime
   if moveTime=15
   {
     instance_create(x,y,oExe_Ef_Flame)
@@ -526,9 +527,9 @@ if moveProg=1 //----- Teleport -----
     sprite_index=sPT_FE_ArmsOut; bCanTakeDamage=1; bCanDealDamage=1; phase1_circle=2
     for(i=0;i<48;i+=1)
     {
-      if exVal[0]=0 {var tAtk; tAtk=instance_create(x,y,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=4; tAtk.direction=7.5*i; exVal[0]+=1}
-      else if exVal[0]=1 {var tAtk; tAtk=instance_create(x,y,oExe_FireGreen); tAtk.type=0; tAtk.bulSpd=4; tAtk.direction=7.5*i; exVal[0]+=1}
-      else if exVal[0]=2 {var tAtk; tAtk=instance_create(x,y,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=4; tAtk.direction=7.5*i; exVal[0]=0}
+      if exVal[0]=0 {var tAtk; tAtk=instance_create(x,y,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=4; tAtk._direction=7.5*i; exVal[0]+=1}
+      else if exVal[0]=1 {var tAtk; tAtk=instance_create(x,y,oExe_FireGreen); tAtk.type=0; tAtk.bulSpd=4; tAtk._direction=7.5*i; exVal[0]+=1}
+      else if exVal[0]=2 {var tAtk; tAtk=instance_create(x,y,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=4; tAtk._direction=7.5*i; exVal[0]=0}
     }
     moveProg=2; moveTime=0
   }
@@ -538,20 +539,20 @@ if atkTime[0] mod 12=0 //----- Vertical lines -----
 {
   if atkTime[0]>=12 and atkTime[0]<=96
   {
-    var tAtk; tAtk=instance_create(xCenter-72,2,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=2; tAtk.direction=270
+    var tAtk; tAtk=instance_create(xCenter-72,2,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=2; tAtk._direction=270
   }
   else if atkTime[0]>=108 and atkTime[0]<=144
   {
-    var tAtk; tAtk=instance_create(xCenter-72,2,oExe_FireGreen); tAtk.type=0; tAtk.bulSpd=2; tAtk.direction=270
+    var tAtk; tAtk=instance_create(xCenter-72,2,oExe_FireGreen); tAtk.type=0; tAtk.bulSpd=2; tAtk._direction=270
   }
 
   if atkTime[0]>=24 and atkTime[0]<=60
   {
-    var tAtk; tAtk=instance_create(xCenter+72,2,oExe_FireGreen); tAtk.type=0; tAtk.bulSpd=2; tAtk.direction=270
+    var tAtk; tAtk=instance_create(xCenter+72,2,oExe_FireGreen); tAtk.type=0; tAtk.bulSpd=2; tAtk._direction=270
   }
   else if atkTime[0]=12 or (atkTime[0]>=60 and atkTime[0]<=144)
   {
-    var tAtk; tAtk=instance_create(xCenter+72,2,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=2; tAtk.direction=270
+    var tAtk; tAtk=instance_create(xCenter+72,2,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=2; tAtk._direction=270
   }
   if atkTime[0]=144 {atkTime[0]=0}
 
@@ -559,15 +560,15 @@ if atkTime[0] mod 12=0 //----- Vertical lines -----
   {
     for(i=0;i<7;i+=1)
     {
-      var tAtk; tAtk=instance_create(xCenter-56+(18*i),2,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=2; tAtk.direction=270
+      var tAtk; tAtk=instance_create(xCenter-56+(18*i),2,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=2; tAtk._direction=270
     }
   }
   else if atkTime[3]=216
   {
     for(i=0;i<6;i+=1)
     {
-      var tAtk; tAtk=instance_create(xCenter-180+(18*i),2,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=2; tAtk.direction=270
-      var tAtk; tAtk=instance_create(xCenter+88+(18*i),2,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=2; tAtk.direction=270
+      var tAtk; tAtk=instance_create(xCenter-180+(18*i),2,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=2; tAtk._direction=270
+      var tAtk; tAtk=instance_create(xCenter+88+(18*i),2,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=2; tAtk._direction=270
     }
   }
   else if atkTime[3]=288 {atkTime[3]=0}
@@ -575,42 +576,42 @@ if atkTime[0] mod 12=0 //----- Vertical lines -----
 
 if phase1_circle=1 //----- Circle straight -----
 {
-  atkTime[2]+=1
+  atkTime[2]+=1*gDeltaTime
   if atkTime[2]>=100
   {
     for(i=0;i<16;i+=1)
     {
-      var tAtk; tAtk=instance_create(x,y,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=22.5*i
+      var tAtk; tAtk=instance_create(x,y,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=22.5*i
     }
     atkTime[2]=0
   }
 }
 else if phase1_circle=2 //----- Circle line curve -----
 {
-  atkTime[2]+=1
+  atkTime[2]+=1*gDeltaTime
   if atkTime[2]>=150 and atkTime[2] mod 5=0
   {
     for(i=0;i<16;i+=1)
     {
-      var tAtk; tAtk=instance_create(x,y,oExe_FireBlue); tAtk.type=1; tAtk.bulSpd=3; tAtk.curveAmt=2; tAtk.curveTime=50; tAtk.direction=22.5*i
+      var tAtk; tAtk=instance_create(x,y,oExe_FireBlue); tAtk.type=1; tAtk.bulSpd=3; tAtk.curveAmt=2; tAtk.curveTime=50; tAtk._direction=22.5*i
     }
   }
   if atkTime[2]>=180 {atkTime[2]=0}
 }
 
-atkTime[4]+=1
+atkTime[4]+=1*gDeltaTime
 if atkTime[4]=220 //----- Diagonal lines -----
 {
   for(i=0;i<16;i+=1)
   {
-    var tAtk; tAtk=instance_create(xCenter+110+(i*12),-16+(i*10),oExe_FireGreen); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=225
+    var tAtk; tAtk=instance_create(xCenter+110+(i*12),-16+(i*10),oExe_FireGreen); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=225
   }
 }
 else if atkTime[4]=440
 {
   for(i=0;i<16;i+=1)
   {
-    var tAtk; tAtk=instance_create(xCenter-110-(i*12),-16+(i*10),oExe_FireGreen); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=315
+    var tAtk; tAtk=instance_create(xCenter-110-(i*12),-16+(i*10),oExe_FireGreen); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=315
   }
   atkTime[4]=0
 }
@@ -623,17 +624,19 @@ applies_to=self
 ///PHASE 2
 if moveProg=0 //----- Move into place -----
 {
-  moveTime+=1
+  moveTime+=1*gDeltaTime
   if moveTime=1 {bCanDealDamage=0}
   if moveTime>=10
   {
-    direction=point_direction(x,y,xCenter-144,208)
-    speed=4
+    _direction=point_direction(x,y,xCenter-144,208)
+    _speed=4
+    x += cos(degtorad(_direction)) * _speed * gDeltaTime
+    y -= sin(degtorad(_direction)) * _speed * gDeltaTime
     if point_distance(x,y,xCenter-144,208)<=4
     {
       x=xCenter-144; y=208
       atkTime[2]=15
-      speed=0
+      _speed=0
       bCanTakeDamage=1; bCanDealDamage=1
       moveTime=0; moveProg=1
     }
@@ -644,17 +647,17 @@ else if moveProg=1 //----- Targeted swirly bullet line -----
   if atkTime[2]=76 {exVal[0]=point_direction(x,y,oPlayer1.x,oPlayer1.y-26)}
   if atkTime[2]>=77 and atkTime[2] mod 7=0
   {
-    var tAtk; tAtk=instance_create(x,y,oExe_FireGreen); tAtk.type=2; tAtk.bulSpd=1.5; tAtk.curveAmt=30; tAtk.direction=exVal[0]
+    var tAtk; tAtk=instance_create(x,y,oExe_FireGreen); tAtk.type=2; tAtk.bulSpd=1.5; tAtk.curveAmt=30; tAtk._direction=exVal[0]
   }
   if atkTime[2]>=77+(phase2_lineLength*7) {atkTime[2]=0}
 
   if atkTime[1]>=490 and atkTime[2]<=41 {atkTime[2]=15}
 }
 
-if oGame.time mod 8=0 //----- Side red vertical lines -----
+if oGame.time mod (8/gDeltaTime)=0 //----- Side red vertical lines -----
 {
-  var tAtk; tAtk=instance_create(xCenter-176,-4,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=4; tAtk.direction=270
-  var tAtk; tAtk=instance_create(xCenter+176,-4,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=4; tAtk.direction=270
+  var tAtk; tAtk=instance_create(xCenter-176,-4,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=4; tAtk._direction=270
+  var tAtk; tAtk=instance_create(xCenter+176,-4,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=4; tAtk._direction=270
 }
 
 if atkTime[0]=55 //----- Vertical lines -----
@@ -663,7 +666,7 @@ if atkTime[0]=55 //----- Vertical lines -----
   {
     for(ii=0;ii<6;ii+=1)
     {
-      var tAtk; tAtk=instance_create(xCenter-160+(ii*64),-4-(i*20),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=4; tAtk.direction=270
+      var tAtk; tAtk=instance_create(xCenter-160+(ii*64),-4-(i*20),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=4; tAtk._direction=270
     }
   }
 }
@@ -673,7 +676,7 @@ else if atkTime[0]=110
   {
     for(ii=0;ii<5;ii+=1)
     {
-      var tAtk; tAtk=instance_create(xCenter-128+(ii*64),-4-(i*20),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=4; tAtk.direction=270
+      var tAtk; tAtk=instance_create(xCenter-128+(ii*64),-4-(i*20),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=4; tAtk._direction=270
     }
   }
   atkTime[0]=0
@@ -681,19 +684,19 @@ else if atkTime[0]=110
 
 if atkTime[1]=70 //Blue bullet
 {
-  var tAtk; tAtk=instance_create(x,y,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=2.5; tAtk.direction=point_direction(x,y,oPlayer1.x,oPlayer1.y-26)
+  var tAtk; tAtk=instance_create(x,y,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=2.5; tAtk._direction=point_direction(x,y,oPlayer1.x,oPlayer1.y-26)
 }
 else if atkTime[1]=140
 {
-  var tAtk; tAtk=instance_create(x,y,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=2.5; tAtk.direction=point_direction(x,y,oPlayer1.x,oPlayer1.y-26)
+  var tAtk; tAtk=instance_create(x,y,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=2.5; tAtk._direction=point_direction(x,y,oPlayer1.x,oPlayer1.y-26)
 }
 else if atkTime[1]=210
 {
-  var tAtk; tAtk=instance_create(x,y,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=2.5; tAtk.direction=point_direction(x,y,oPlayer1.x,oPlayer1.y-26)
+  var tAtk; tAtk=instance_create(x,y,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=2.5; tAtk._direction=point_direction(x,y,oPlayer1.x,oPlayer1.y-26)
 }
 else if atkTime[1]=410
 {
-  var tAtk; tAtk=instance_create(x,y,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=2.5; tAtk.direction=point_direction(x,y,oPlayer1.x,oPlayer1.y-26)
+  var tAtk; tAtk=instance_create(x,y,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=2.5; tAtk._direction=point_direction(x,y,oPlayer1.x,oPlayer1.y-26)
 }
 
 if atkTime[1]=250 //----- 2 green lines -----
@@ -702,7 +705,7 @@ if atkTime[1]=250 //----- 2 green lines -----
   {
     for(ii=0;ii<23;ii+=1)
     {
-      var tAtk; tAtk=instance_create(xCenter-160+(ii*16),-4-(i*16),oExe_FireGreen); tAtk.type=0; tAtk.bulSpd=2; tAtk.direction=270
+      var tAtk; tAtk=instance_create(xCenter-160+(ii*16),-4-(i*16),oExe_FireGreen); tAtk.type=0; tAtk.bulSpd=2; tAtk._direction=270
     }
   }
 }
@@ -710,7 +713,7 @@ else if atkTime[1]=420 //----- Red line -----
 {
   for(i=0;i<23;i+=1)
   {
-    var tAtk; tAtk=instance_create(xCenter-160+(i*16),-4,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=1; tAtk.direction=270
+    var tAtk; tAtk=instance_create(xCenter-160+(i*16),-4,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=1; tAtk._direction=270
   }
 }
 else if atkTime[1]=530 //----- Teleport to top -----
@@ -724,13 +727,13 @@ else if atkTime[1]=535
 {
   if phase2_cycle=0
   {
-    var tAtk; tAtk=instance_create(x,y,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=2; tAtk.direction=300
-    var tAtk; tAtk=instance_create(x,y,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=2; tAtk.direction=315
+    var tAtk; tAtk=instance_create(x,y,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=2; tAtk._direction=300
+    var tAtk; tAtk=instance_create(x,y,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=2; tAtk._direction=315
   }
   else
   {
-    var tAtk; tAtk=instance_create(x,y,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=2; tAtk.direction=240
-    var tAtk; tAtk=instance_create(x,y,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=2; tAtk.direction=225
+    var tAtk; tAtk=instance_create(x,y,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=2; tAtk._direction=240
+    var tAtk; tAtk=instance_create(x,y,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=2; tAtk._direction=225
   }
 }
 else if atkTime[1]=540
@@ -741,8 +744,8 @@ else if atkTime[1]=540
 }
 else if atkTime[1]=545
 {
-  var tAtk; tAtk=instance_create(x,y,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=2; tAtk.direction=285
-  var tAtk; tAtk=instance_create(x,y,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=2; tAtk.direction=255
+  var tAtk; tAtk=instance_create(x,y,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=2; tAtk._direction=285
+  var tAtk; tAtk=instance_create(x,y,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=2; tAtk._direction=255
 }
 else if atkTime[1]=550
 {
@@ -755,18 +758,18 @@ else if atkTime[1]=555
 {
   if phase2_cycle=0
   {
-    var tAtk; tAtk=instance_create(x,y,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=2; tAtk.direction=240
-    var tAtk; tAtk=instance_create(x,y,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=2; tAtk.direction=225
+    var tAtk; tAtk=instance_create(x,y,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=2; tAtk._direction=240
+    var tAtk; tAtk=instance_create(x,y,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=2; tAtk._direction=225
   }
   else
   {
-    var tAtk; tAtk=instance_create(x,y,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=2; tAtk.direction=300
-    var tAtk; tAtk=instance_create(x,y,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=2; tAtk.direction=315
+    var tAtk; tAtk=instance_create(x,y,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=2; tAtk._direction=300
+    var tAtk; tAtk=instance_create(x,y,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=2; tAtk._direction=315
   }
 }
 else if atkTime[1]>=590 //----- Move down -----
 {
-  y+=2
+  if gDeltaDoTicks y+=2
   if y>=208
   {
     phase2_cycle=!phase2_cycle
@@ -783,7 +786,7 @@ if phase2_shootUnder=1 //----- Shoot under -----
     {
       for(i=0;i<3;i+=1)
       {
-        var tAtk; tAtk=instance_create(x-24+(i*24),y+24,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=5; tAtk.direction=270
+        var tAtk; tAtk=instance_create(x-24+(i*24),y+24,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=5; tAtk._direction=270
       }
     }
   }
@@ -798,7 +801,7 @@ if phase2_extraLine=1 //----- Extra bullet line -----
   }
   if atkTime[3]=290
   {
-    var tAtk; tAtk=instance_create(exVal[1],-4,oExe_FireGreen); tAtk.type=0; tAtk.bulSpd=2.5; tAtk.direction=270
+    var tAtk; tAtk=instance_create(exVal[1],-4,oExe_FireGreen); tAtk.type=0; tAtk.bulSpd=2.5; tAtk._direction=270
     if exVal[2]=0 {exVal[1]+=32}
     else {exVal[1]-=32}
 
@@ -819,7 +822,7 @@ applies_to=self
 ///PHASE 3
 if moveProg=0 //Move to corner
 {
-  moveTime+=1
+  moveTime+=1*gDeltaTime
   if moveTime=1
   {
     oPlayer1.jumpTimeTotal=37
@@ -827,12 +830,14 @@ if moveProg=0 //Move to corner
   }
   if moveTime>=10
   {
-    direction=point_direction(x,y,688,64)
-    speed=4
+    _direction=point_direction(x,y,688,64)
+    _speed=4
+    x += cos(degtorad(_direction)) * _speed * gDeltaTime
+    y -= sin(degtorad(_direction)) * _speed * gDeltaTime
     if point_distance(x,y,688,64)<=4
     {
       x=688; y=64
-      speed=0
+      _speed=0
       bCanTakeDamage=1; bCanDealDamage=1
       moveTime=0; moveProg+=1
     }
@@ -840,8 +845,10 @@ if moveProg=0 //Move to corner
 }
 else if moveProg=1 //Move to bottom-left
 {
-  direction=point_direction(x,y,688,288)
-  speed=2
+  _direction=point_direction(x,y,688,288)
+  _speed=2
+  x += cos(degtorad(_direction)) * _speed * gDeltaTime
+  y -= sin(degtorad(_direction)) * _speed * gDeltaTime
   if point_distance(x,y,688,288)<=2
   {
     x=688; y=288
@@ -850,8 +857,10 @@ else if moveProg=1 //Move to bottom-left
 }
 else if moveProg=2 //Move to bottom-right
 {
-  direction=point_direction(x,y,1024,288)
-  speed=2
+  _direction=point_direction(x,y,1024,288)
+  _speed=2
+  x += cos(degtorad(_direction)) * _speed * gDeltaTime
+  y -= sin(degtorad(_direction)) * _speed * gDeltaTime
   if point_distance(x,y,1024,288)<=2
   {
     x=1024; y=288
@@ -860,8 +869,10 @@ else if moveProg=2 //Move to bottom-right
 }
 else if moveProg=3 //Move to top-right
 {
-  direction=point_direction(x,y,1024,64)
-  speed=2
+  _direction=point_direction(x,y,1024,64)
+  _speed=2
+  x += cos(degtorad(_direction)) * _speed * gDeltaTime
+  y -= sin(degtorad(_direction)) * _speed * gDeltaTime
   if point_distance(x,y,1024,64)<=2
   {
     x=1024; y=64
@@ -870,8 +881,10 @@ else if moveProg=3 //Move to top-right
 }
 else if moveProg=4 //Move to top-left
 {
-  direction=point_direction(x,y,688,64)
-  speed=2
+  _direction=point_direction(x,y,688,64)
+  _speed=2
+  x += cos(degtorad(_direction)) * _speed * gDeltaTime
+  y -= sin(degtorad(_direction)) * _speed * gDeltaTime
   if point_distance(x,y,688,64)<=2
   {
     x=688; y=64
@@ -894,8 +907,8 @@ if moveProg>=1
 {
   if atkTime[0] mod phase3_aimedBullets=0 //----- Continuous aimed bullets -----
   {
-    if exVal[0]=0 {var tAtk; tAtk=instance_create(x,y,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=point_direction(x,y,oPlayer1.x,oPlayer1.y-26)}
-    else {var tAtk; tAtk=instance_create(x,y,oExe_FireGreen); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=point_direction(x,y,oPlayer1.x,oPlayer1.y-26)}
+    if exVal[0]=0 {var tAtk; tAtk=instance_create(x,y,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=point_direction(x,y,oPlayer1.x,oPlayer1.y-26)}
+    else {var tAtk; tAtk=instance_create(x,y,oExe_FireGreen); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=point_direction(x,y,oPlayer1.x,oPlayer1.y-26)}
     exVal[0]=!exVal[0]
   }
 
@@ -911,51 +924,51 @@ if moveProg>=1
 
     for(i=0;i<18;i+=1)
     {
-      var tAtk; tAtk=instance_create(tLocX+lengthdir_x(44,tCirY2+(15*i)),tCirY1+lengthdir_y(44,tCirY2+(15*i)),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=1.75; tAtk.direction=tCirDir
+      var tAtk; tAtk=instance_create(tLocX+lengthdir_x(44,tCirY2+(15*i)),tCirY1+lengthdir_y(44,tCirY2+(15*i)),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=1.75; tAtk._direction=tCirDir
     }
-    var tAtk; tAtk=instance_create(tLocX,tBlueY,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=2; tAtk.direction=tCirDir+180; tAtk.image_xscale=phase3_bulletScaleA; tAtk.image_yscale=phase3_bulletScaleA
+    var tAtk; tAtk=instance_create(tLocX,tBlueY,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=2; tAtk._direction=tCirDir+180; tAtk.image_xscale=phase3_bulletScaleA; tAtk.image_yscale=phase3_bulletScaleA
   }
 
   if atkTime[1]=400 //Bottom-right opening
   {
-    for(i=0;i<12;i+=1) {var tAtk; tAtk=instance_create(1120,48+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=1.5; tAtk.direction=180}
+    for(i=0;i<12;i+=1) {var tAtk; tAtk=instance_create(1120,48+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=1.5; tAtk._direction=180}
     for(i=0;i<5;i+=1)
     {
-      var tAtk; tAtk=instance_create(1120,240+(i*16),oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=1.5; tAtk.direction=180; tAtk.image_xscale=phase3_bulletScaleA; tAtk.image_yscale=phase3_bulletScaleA
-      var tAtk; tAtk=instance_create(1144,240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=1.5; tAtk.direction=180; tAtk.image_xscale=phase3_bulletScaleB; tAtk.image_yscale=phase3_bulletScaleB
-      var tAtk; tAtk=instance_create(1096,240+(i*16),oExe_FireGreen); tAtk.type=0; tAtk.bulSpd=1.5; tAtk.direction=180; tAtk.image_xscale=phase3_bulletScaleB; tAtk.image_yscale=phase3_bulletScaleB
+      var tAtk; tAtk=instance_create(1120,240+(i*16),oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=1.5; tAtk._direction=180; tAtk.image_xscale=phase3_bulletScaleA; tAtk.image_yscale=phase3_bulletScaleA
+      var tAtk; tAtk=instance_create(1144,240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=1.5; tAtk._direction=180; tAtk.image_xscale=phase3_bulletScaleB; tAtk.image_yscale=phase3_bulletScaleB
+      var tAtk; tAtk=instance_create(1096,240+(i*16),oExe_FireGreen); tAtk.type=0; tAtk.bulSpd=1.5; tAtk._direction=180; tAtk.image_xscale=phase3_bulletScaleB; tAtk.image_yscale=phase3_bulletScaleB
     }
   }
   else if atkTime[1]=800 //Top-left opening
   {
-    for(i=0;i<3;i+=1) {var tAtk; tAtk=instance_create(608,48+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=1.5; tAtk.direction=0}
+    for(i=0;i<3;i+=1) {var tAtk; tAtk=instance_create(608,48+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=1.5; tAtk._direction=0}
     for(i=0;i<5;i+=1)
     {
-      var tAtk; tAtk=instance_create(608,96+(i*16),oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=1.5; tAtk.direction=0; tAtk.image_xscale=phase3_bulletScaleA; tAtk.image_yscale=phase3_bulletScaleA
-      var tAtk; tAtk=instance_create(584,96+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=1.5; tAtk.direction=0; tAtk.image_xscale=phase3_bulletScaleB; tAtk.image_yscale=phase3_bulletScaleB
-      var tAtk; tAtk=instance_create(632,96+(i*16),oExe_FireGreen); tAtk.type=0; tAtk.bulSpd=1.5; tAtk.direction=0; tAtk.image_xscale=phase3_bulletScaleB; tAtk.image_yscale=phase3_bulletScaleB
+      var tAtk; tAtk=instance_create(608,96+(i*16),oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=1.5; tAtk._direction=0; tAtk.image_xscale=phase3_bulletScaleA; tAtk.image_yscale=phase3_bulletScaleA
+      var tAtk; tAtk=instance_create(584,96+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=1.5; tAtk._direction=0; tAtk.image_xscale=phase3_bulletScaleB; tAtk.image_yscale=phase3_bulletScaleB
+      var tAtk; tAtk=instance_create(632,96+(i*16),oExe_FireGreen); tAtk.type=0; tAtk.bulSpd=1.5; tAtk._direction=0; tAtk.image_xscale=phase3_bulletScaleB; tAtk.image_yscale=phase3_bulletScaleB
     }
-    for(i=0;i<9;i+=1) {var tAtk; tAtk=instance_create(608,176+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=1.5; tAtk.direction=0}
+    for(i=0;i<9;i+=1) {var tAtk; tAtk=instance_create(608,176+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=1.5; tAtk._direction=0}
   }
   else if atkTime[1]=1200 //Top-right opening
   {
-    for(i=0;i<3;i+=1) {var tAtk; tAtk=instance_create(1120,48+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=1.5; tAtk.direction=180}
+    for(i=0;i<3;i+=1) {var tAtk; tAtk=instance_create(1120,48+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=1.5; tAtk._direction=180}
     for(i=0;i<5;i+=1)
     {
-      var tAtk; tAtk=instance_create(1120,96+(i*16),oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=1.5; tAtk.direction=180; tAtk.image_xscale=phase3_bulletScaleA; tAtk.image_yscale=phase3_bulletScaleA
-      var tAtk; tAtk=instance_create(1144,96+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=1.5; tAtk.direction=180; tAtk.image_xscale=phase3_bulletScaleB; tAtk.image_yscale=phase3_bulletScaleB
-      var tAtk; tAtk=instance_create(1096,96+(i*16),oExe_FireGreen); tAtk.type=0; tAtk.bulSpd=1.5; tAtk.direction=180; tAtk.image_xscale=phase3_bulletScaleB; tAtk.image_yscale=phase3_bulletScaleB
+      var tAtk; tAtk=instance_create(1120,96+(i*16),oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=1.5; tAtk._direction=180; tAtk.image_xscale=phase3_bulletScaleA; tAtk.image_yscale=phase3_bulletScaleA
+      var tAtk; tAtk=instance_create(1144,96+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=1.5; tAtk._direction=180; tAtk.image_xscale=phase3_bulletScaleB; tAtk.image_yscale=phase3_bulletScaleB
+      var tAtk; tAtk=instance_create(1096,96+(i*16),oExe_FireGreen); tAtk.type=0; tAtk.bulSpd=1.5; tAtk._direction=180; tAtk.image_xscale=phase3_bulletScaleB; tAtk.image_yscale=phase3_bulletScaleB
     }
-    for(i=0;i<9;i+=1) {var tAtk; tAtk=instance_create(1120,176+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=1.5; tAtk.direction=180}
+    for(i=0;i<9;i+=1) {var tAtk; tAtk=instance_create(1120,176+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=1.5; tAtk._direction=180}
   }
   else if atkTime[1]=1600 //Bottom-left opening
   {
-    for(i=0;i<12;i+=1) {var tAtk; tAtk=instance_create(608,48+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=1.5; tAtk.direction=0}
+    for(i=0;i<12;i+=1) {var tAtk; tAtk=instance_create(608,48+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=1.5; tAtk._direction=0}
     for(i=0;i<5;i+=1)
     {
-      var tAtk; tAtk=instance_create(608,240+(i*16),oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=1.5; tAtk.direction=0; tAtk.image_xscale=phase3_bulletScaleA; tAtk.image_yscale=phase3_bulletScaleA
-      var tAtk; tAtk=instance_create(584,240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=1.5; tAtk.direction=0; tAtk.image_xscale=phase3_bulletScaleB; tAtk.image_yscale=phase3_bulletScaleB
-      var tAtk; tAtk=instance_create(632,240+(i*16),oExe_FireGreen); tAtk.type=0; tAtk.bulSpd=1.5; tAtk.direction=0; tAtk.image_xscale=phase3_bulletScaleB; tAtk.image_yscale=phase3_bulletScaleB
+      var tAtk; tAtk=instance_create(608,240+(i*16),oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=1.5; tAtk._direction=0; tAtk.image_xscale=phase3_bulletScaleA; tAtk.image_yscale=phase3_bulletScaleA
+      var tAtk; tAtk=instance_create(584,240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=1.5; tAtk._direction=0; tAtk.image_xscale=phase3_bulletScaleB; tAtk.image_yscale=phase3_bulletScaleB
+      var tAtk; tAtk=instance_create(632,240+(i*16),oExe_FireGreen); tAtk.type=0; tAtk.bulSpd=1.5; tAtk._direction=0; tAtk.image_xscale=phase3_bulletScaleB; tAtk.image_yscale=phase3_bulletScaleB
     }
     atkTime[1]=0
   }
@@ -969,7 +982,7 @@ applies_to=self
 ///PHASE 4
 if moveProg=0 //Move to bottom-center
 {
-  moveTime+=1
+  moveTime+=1*gDeltaTime
   if moveTime=1
   {
     oPlayer1.jumpTimeTotal=21
@@ -977,12 +990,14 @@ if moveProg=0 //Move to bottom-center
   }
   if moveTime>=10
   {
-    direction=point_direction(x,y,xCenter,272)
-    speed=4
+    _direction=point_direction(x,y,xCenter,272)
+    _speed=4
+    x += cos(degtorad(_direction)) * _speed * gDeltaTime
+    y -= sin(degtorad(_direction)) * _speed * gDeltaTime
     if point_distance(x,y,xCenter,272)<=4
     {
       x=xCenter; y=272
-      speed=0
+      _speed=0
       bCanTakeDamage=1; bCanDealDamage=1
       resType[0]=2; resType[3]=2
       moveTime=0; moveProg+=1
@@ -991,8 +1006,8 @@ if moveProg=0 //Move to bottom-center
 }
 else if moveProg=1 //Move slowly toward player
 {
-  if x>oPlayer1.x+4 {x-=1}
-  else if x<oPlayer1.x-4 {x+=1}
+  if x>oPlayer1.x+4 and gDeltaDoTicks {x-=1}
+  else if x<oPlayer1.x-4 and gDeltaDoTicks {x+=1}
 }
 else if moveProg=2 //Wait till slash ends
 {
@@ -1004,7 +1019,7 @@ else if moveProg=2 //Wait till slash ends
 }
 else if moveProg=10 //Slight wait (Between attack phase)
 {
-  moveTime+=1
+  moveTime+=1*gDeltaTime
   if moveTime>=30
   {
     moveTime=0; moveProg+=1
@@ -1014,30 +1029,30 @@ else if moveProg=11 //Track player x
 {
   if x>oPlayer1.x
   {
-    if currHspd>-maxSpeed {currHspd-=0.2}
-    else {currHspd+=0.2}
+    if currHspd>-maxSpeed {currHspd-=0.2*gDeltaTime}
+    else {currHspd+=0.2*gDeltaTime}
   }
   else if x<oPlayer1.x
   {
-    if currHspd<maxSpeed {currHspd+=0.2}
-    else {currHspd-=0.2}
+    if currHspd<maxSpeed {currHspd+=0.2*gDeltaTime}
+    else {currHspd-=0.2*gDeltaTime}
   }
 
   if x<=704 {x=705; currHspd*=-1}
   else if x>=1024 {x=1023; currHspd*=-1}
 
-  hspeed=currHspd
+  _hspeed=currHspd
 
-  moveTime+=1
+  moveTime+=1*gDeltaTime
   if moveTime=60 //End track period before attack
   {
-    hspeed=0
+    _hspeed=0
     moveTime=0; moveProg=12
   }
 }
 else if moveProg=12 //Slight wait
 {
-  moveTime+=1
+  moveTime+=1*gDeltaTime
   if moveTime=25
   {
     var tNewAtk,tChkDir;
@@ -1058,25 +1073,25 @@ else if moveProg=13
   {
     if exVal[1]=0
     {
-      var tAtk; tAtk=instance_create(608,144,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=2; tAtk.direction=0
+      var tAtk; tAtk=instance_create(608,144,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=2; tAtk._direction=0
       exVal[1]=1
     }
     else if exVal[1]=1
     {
-      var tAtk; tAtk=instance_create(608,96,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=2; tAtk.direction=0
-      var tAtk; tAtk=instance_create(608,192,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=2; tAtk.direction=0
+      var tAtk; tAtk=instance_create(608,96,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=2; tAtk._direction=0
+      var tAtk; tAtk=instance_create(608,192,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=2; tAtk._direction=0
       exVal[1]=0
     }
     exVal[0]=1
   }
 
-  currVspd+=0.25
-  vspeed=currVspd
+  currVspd+=0.25*gDeltaTime
+  _vspeed=currVspd
 
   if currVspd>=1 and y>=272
   {
     y=272
-    currVspd=0; vspeed=0
+    currVspd=0; _vspeed=0
     exVal[0]=0
     moveProg=11
   }
@@ -1096,19 +1111,19 @@ if moveProg>=1 and moveProg<=9
 
   if atkTime[1]=100 //Bullet pillars from the side
   {
-    for(i=0;i<phase4_pillarHeight;i+=1) {var tAtk; tAtk=instance_create(608,304-(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=0}
+    for(i=0;i<phase4_pillarHeight;i+=1) {var tAtk; tAtk=instance_create(608,304-(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=0}
   }
   else if atkTime[1]=200
   {
-    for(i=0;i<phase4_pillarHeight+1;i+=1) {var tAtk; tAtk=instance_create(608,304-(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=0}
+    for(i=0;i<phase4_pillarHeight+1;i+=1) {var tAtk; tAtk=instance_create(608,304-(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=0}
   }
   else if atkTime[1]=300
   {
-    for(i=0;i<phase4_pillarHeight;i+=1) {var tAtk; tAtk=instance_create(1120,304-(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=180}
+    for(i=0;i<phase4_pillarHeight;i+=1) {var tAtk; tAtk=instance_create(1120,304-(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=180}
   }
   else if atkTime[1]=400
   {
-    for(i=0;i<phase4_pillarHeight+1;i+=1) {var tAtk; tAtk=instance_create(1120,304-(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=180}
+    for(i=0;i<phase4_pillarHeight+1;i+=1) {var tAtk; tAtk=instance_create(1120,304-(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=180}
     atkTime[1]=0
   }
 
@@ -1119,7 +1134,7 @@ if moveProg>=1 and moveProg<=9
     {
       if i=9 {var tAtk; tAtk=instance_create(768+lengthdir_x(40,15*i),112+lengthdir_y(40,15*i),oExe_FireBlue)}
       else {var tAtk; tAtk=instance_create(768+lengthdir_x(40,15*i),112+lengthdir_y(40,15*i),oExe_FireGreen)}
-      tAtk.type=3; tAtk.bulSpd=1; tAtk.newSpd=6; tAtk.spdTime=40; tAtk.direction=(15*i)+180
+      tAtk.type=3; tAtk.bulSpd=1; tAtk.newSpd=6; tAtk.spdTime=40; tAtk._direction=(15*i)+180
     }
   }
   else if atkTime[2]=280 //Right
@@ -1128,7 +1143,7 @@ if moveProg>=1 and moveProg<=9
     {
       if i=3 {var tAtk; tAtk=instance_create(960+lengthdir_x(40,15*i),112+lengthdir_y(40,15*i),oExe_FireBlue)}
       else {var tAtk; tAtk=instance_create(960+lengthdir_x(40,15*i),112+lengthdir_y(40,15*i),oExe_FireGreen)}
-      tAtk.type=3; tAtk.bulSpd=1; tAtk.newSpd=6; tAtk.spdTime=40; tAtk.direction=(15*i)+180
+      tAtk.type=3; tAtk.bulSpd=1; tAtk.newSpd=6; tAtk.spdTime=40; tAtk._direction=(15*i)+180
     }
   }
   else if atkTime[2]=420 //Mid
@@ -1138,14 +1153,14 @@ if moveProg>=1 and moveProg<=9
       var tAtk;
       if i mod 2=0 {tAtk=instance_create(xCenter+lengthdir_x(56,7.5*i),80+lengthdir_y(56,7.5*i),oExe_FireGreen)}
       else {tAtk=instance_create(xCenter+lengthdir_x(56,7.5*i),80+lengthdir_y(56,7.5*i),oExe_FireBlue)}
-      tAtk.type=3; tAtk.bulSpd=1; tAtk.newSpd=7; tAtk.spdTime=56; tAtk.direction=(7.5*i)+180
+      tAtk.type=3; tAtk.bulSpd=1; tAtk.newSpd=7; tAtk.spdTime=56; tAtk._direction=(7.5*i)+180
     }
   }
   else if atkTime[2]=480 {atkTime[2]=0}
 }
 else if moveProg>=10
 {
-  if oGame.time mod 3=0 //Improved Game Power recovery
+  if oGame.time mod (3/gDeltaTime)=0 //Improved Game Power recovery
   {
     global.hudGame_WeaponEn[0]+=1
     if global.hudGame_WeaponEn[0]>global.hudGame_WeaponEn[1] {global.hudGame_WeaponEn[0]=global.hudGame_WeaponEn[1]}
@@ -1153,8 +1168,8 @@ else if moveProg>=10
 
   if atkTime[0]>=35 and atkTime[0] mod 20=0 //Continuous bullets on bottom
   {
-    var tAtk; tAtk=instance_create(608,240,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=0
-    var tAtk; tAtk=instance_create(1120,288,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=180
+    var tAtk; tAtk=instance_create(608,240,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=0
+    var tAtk; tAtk=instance_create(1120,288,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=180
   }
 
   if phase4_bulletLines=1
@@ -1163,16 +1178,19 @@ else if moveProg>=10
     {
       if exVal[2]=0
       {
-        for(i=0;i<7;i+=1) {var tAtk; tAtk=instance_create(608,48+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=2; tAtk.direction=0}
+        for(i=0;i<7;i+=1) {var tAtk; tAtk=instance_create(608,48+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=2; tAtk._direction=0}
       }
       else
       {
-        for(i=0;i<7;i+=1) {var tAtk; tAtk=instance_create(608,224-(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=2; tAtk.direction=0}
+        for(i=0;i<7;i+=1) {var tAtk; tAtk=instance_create(608,224-(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=2; tAtk._direction=0}
       }
       exVal[2]=!exVal[2]
     }
   }
 }
+
+x += _hspeed * gDeltaTime
+y += _vspeed * gDeltaTime
 #define Other_15
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -1182,15 +1200,17 @@ applies_to=self
 ///PHASE 5
 if moveProg=0 //Move to top-center
 {
-  moveTime+=1
+  moveTime+=1*gDeltaTime
   if moveTime>=10
   {
-    direction=point_direction(x,y,xCenter,96)
-    speed=4
+    _direction=point_direction(x,y,xCenter,96)
+    _speed=4
+    x += cos(degtorad(_direction)) * _speed * gDeltaTime
+    y -= sin(degtorad(_direction)) * _speed * gDeltaTime
     if point_distance(x,y,xCenter,96)<=4
     {
       x=xCenter; y=96
-      speed=0
+      _speed=0
       for(i=0;i<5;i+=1) {atkTime[i]=0}
       moveTime=0; moveProg+=1
     }
@@ -1199,200 +1219,200 @@ if moveProg=0 //Move to top-center
 
 if moveProg>=1 //Normal sequence
 {
-  life-=8
+  life-=8*gDeltaTime
 
   if atkTime[0] mod 10=0 and phase5_continuousCycle=1
   {
-    var tAtk; tAtk=instance_create(1120,212,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=180
+    var tAtk; tAtk=instance_create(1120,212,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=180
   }
 
   if atkProg=0
   {
-    if atkTime[1]=10 {for(i=0;i<7;i+=1) {var tAtk; tAtk=instance_create(1120,180+(i*20),oExe_FireOther); tAtk.type=0; tAtk.bulSpd=6; tAtk.direction=180}}
-    else if atkTime[1]=40 {for(i=0;i<7;i+=1) {var tAtk; tAtk=instance_create(1120,180+(i*20),oExe_FireOther); tAtk.type=0; tAtk.bulSpd=6; tAtk.direction=180}}
-    else if atkTime[1]=50 {for(i=0;i<2;i+=1) {var tAtk; tAtk=instance_create(1120,288+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=180}}
-    else if atkTime[1]=75 {for(i=0;i<3;i+=1) {var tAtk; tAtk=instance_create(1120,240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=180}}
-    else if atkTime[1]=100 {for(i=0;i<2;i+=1) {var tAtk; tAtk=instance_create(1120,288+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=180}}
-    else if atkTime[1]=125 {for(i=0;i<2;i+=1) {var tAtk; tAtk=instance_create(1120,288+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=180}}
+    if atkTime[1]=10 {for(i=0;i<7;i+=1) {var tAtk; tAtk=instance_create(1120,180+(i*20),oExe_FireOther); tAtk.type=0; tAtk.bulSpd=6; tAtk._direction=180}}
+    else if atkTime[1]=40 {for(i=0;i<7;i+=1) {var tAtk; tAtk=instance_create(1120,180+(i*20),oExe_FireOther); tAtk.type=0; tAtk.bulSpd=6; tAtk._direction=180}}
+    else if atkTime[1]=50 {for(i=0;i<2;i+=1) {var tAtk; tAtk=instance_create(1120,288+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=180}}
+    else if atkTime[1]=75 {for(i=0;i<3;i+=1) {var tAtk; tAtk=instance_create(1120,240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=180}}
+    else if atkTime[1]=100 {for(i=0;i<2;i+=1) {var tAtk; tAtk=instance_create(1120,288+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=180}}
+    else if atkTime[1]=125 {for(i=0;i<2;i+=1) {var tAtk; tAtk=instance_create(1120,288+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=180}}
     else if atkTime[1]=160
     {
-      var tAtk; tAtk=instance_create(1104,256,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=180
-      for(i=0;i<5;i+=1) {for(ii=0;ii<2;ii+=1) {var tAtk; tAtk=instance_create(1120+(ii*16),240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=180}}
+      var tAtk; tAtk=instance_create(1104,256,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=180
+      for(i=0;i<5;i+=1) {for(ii=0;ii<2;ii+=1) {var tAtk; tAtk=instance_create(1120+(ii*16),240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=180}}
     }
     else if atkTime[1]=200
     {
-      var tAtk; tAtk=instance_create(1104,288,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=180
-      for(i=0;i<5;i+=1) {for(ii=0;ii<2;ii+=1) {var tAtk; tAtk=instance_create(1120+(ii*16),240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=180}}
+      var tAtk; tAtk=instance_create(1104,288,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=180
+      for(i=0;i<5;i+=1) {for(ii=0;ii<2;ii+=1) {var tAtk; tAtk=instance_create(1120+(ii*16),240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=180}}
     }
     else if atkTime[1]=210 //Green vertical line
     {
-      for(i=0;i<5;i+=1) {var tAtk; tAtk=instance_create(1120,240+(i*16),oExe_FireGreen); tAtk.type=0; tAtk.bulSpd=1.5; tAtk.direction=180}
+      for(i=0;i<5;i+=1) {var tAtk; tAtk=instance_create(1120,240+(i*16),oExe_FireGreen); tAtk.type=0; tAtk.bulSpd=1.5; tAtk._direction=180}
     }
-    else if atkTime[1]=220 {for(i=0;i<2;i+=1) {var tAtk; tAtk=instance_create(608,288+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=0}}
-    else if atkTime[1]=240 {for(i=0;i<2;i+=1) {var tAtk; tAtk=instance_create(608,288+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=0}}
-    else if atkTime[1]=270 {for(i=0;i<2;i+=1) {var tAtk; tAtk=instance_create(608,288+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=4; tAtk.direction=0}}
-    else if atkTime[1]=280 {for(i=0;i<2;i+=1) {var tAtk; tAtk=instance_create(1120,288+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=180}}
-    else if atkTime[1]=305 {for(i=0;i<3;i+=1) {var tAtk; tAtk=instance_create(1120,240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=180}}
-    else if atkTime[1]=320 {for(i=0;i<2;i+=1) {var tAtk; tAtk=instance_create(1120,288+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=4; tAtk.direction=180}}
-    else if atkTime[1]=340 {for(i=0;i<3;i+=1) {var tAtk; tAtk=instance_create(1120,240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=4; tAtk.direction=180}}
+    else if atkTime[1]=220 {for(i=0;i<2;i+=1) {var tAtk; tAtk=instance_create(608,288+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=0}}
+    else if atkTime[1]=240 {for(i=0;i<2;i+=1) {var tAtk; tAtk=instance_create(608,288+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=0}}
+    else if atkTime[1]=270 {for(i=0;i<2;i+=1) {var tAtk; tAtk=instance_create(608,288+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=4; tAtk._direction=0}}
+    else if atkTime[1]=280 {for(i=0;i<2;i+=1) {var tAtk; tAtk=instance_create(1120,288+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=180}}
+    else if atkTime[1]=305 {for(i=0;i<3;i+=1) {var tAtk; tAtk=instance_create(1120,240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=180}}
+    else if atkTime[1]=320 {for(i=0;i<2;i+=1) {var tAtk; tAtk=instance_create(1120,288+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=4; tAtk._direction=180}}
+    else if atkTime[1]=340 {for(i=0;i<3;i+=1) {var tAtk; tAtk=instance_create(1120,240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=4; tAtk._direction=180}}
 
     if atkTime[1]=210 //Force player to the left-
     {
-      for(i=0;i<19;i+=1) {var tAtk; tAtk=instance_create(752+(i*16),-4,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=1; tAtk.direction=270}
+      for(i=0;i<19;i+=1) {var tAtk; tAtk=instance_create(752+(i*16),-4,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=1; tAtk._direction=270}
     }
     else if atkTime[1]=340 //-then to the right
     {
-      for(i=0;i<19;i+=1) {var tAtk; tAtk=instance_create(688+(i*16),-4,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=1; tAtk.direction=270}
+      for(i=0;i<19;i+=1) {var tAtk; tAtk=instance_create(688+(i*16),-4,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=1; tAtk._direction=270}
     }
     //Down on left
-    if atkTime[1]=300 {for(i=0;i<3;i+=1) {var tAtk; tAtk=instance_create(688,-4,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=2; tAtk.direction=270}}
-    else if atkTime[1]=330 {for(i=0;i<3;i+=1) {var tAtk; tAtk=instance_create(736,-4,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=2; tAtk.direction=270}}
-    else if atkTime[1]=360 {for(i=0;i<3;i+=1) {var tAtk; tAtk=instance_create(704,-4,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=2; tAtk.direction=270}}
+    if atkTime[1]=300 {for(i=0;i<3;i+=1) {var tAtk; tAtk=instance_create(688,-4,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=2; tAtk._direction=270}}
+    else if atkTime[1]=330 {for(i=0;i<3;i+=1) {var tAtk; tAtk=instance_create(736,-4,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=2; tAtk._direction=270}}
+    else if atkTime[1]=360 {for(i=0;i<3;i+=1) {var tAtk; tAtk=instance_create(704,-4,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=2; tAtk._direction=270}}
 
-    if atkTime[1]=330 {for(i=0;i<2;i+=1) {var tAtk; tAtk=instance_create(1120,288+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=2; tAtk.direction=180}}
-    else if atkTime[1]=365 {for(i=0;i<2;i+=1) {var tAtk; tAtk=instance_create(1120,288+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=2; tAtk.direction=180}}
-    else if atkTime[1]=390 {for(i=0;i<3;i+=1) {var tAtk; tAtk=instance_create(1120,240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=2; tAtk.direction=180}} //Last
-    else if atkTime[1]=413 {for(i=0;i<2;i+=1) {var tAtk; tAtk=instance_create(1120,288+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=2; tAtk.direction=180}} //Last
-    else if atkTime[1]=436 {for(i=0;i<3;i+=1) {var tAtk; tAtk=instance_create(1120,240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=2; tAtk.direction=180}} //Last
+    if atkTime[1]=330 {for(i=0;i<2;i+=1) {var tAtk; tAtk=instance_create(1120,288+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=2; tAtk._direction=180}}
+    else if atkTime[1]=365 {for(i=0;i<2;i+=1) {var tAtk; tAtk=instance_create(1120,288+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=2; tAtk._direction=180}}
+    else if atkTime[1]=390 {for(i=0;i<3;i+=1) {var tAtk; tAtk=instance_create(1120,240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=2; tAtk._direction=180}} //Last
+    else if atkTime[1]=413 {for(i=0;i<2;i+=1) {var tAtk; tAtk=instance_create(1120,288+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=2; tAtk._direction=180}} //Last
+    else if atkTime[1]=436 {for(i=0;i<3;i+=1) {var tAtk; tAtk=instance_create(1120,240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=2; tAtk._direction=180}} //Last
     //Horizontal streams from left
-    if atkTime[1]=535 {for(i=0;i<12;i+=1) {var tAtk; tAtk=instance_create(608-(i*16),288,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=0}}
-    else if atkTime[1]=613 {for(i=0;i<12;i+=1) {var tAtk; tAtk=instance_create(608-(i*16),288,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=0}}
-    else if atkTime[1]=702 {for(i=0;i<12;i+=1) {var tAtk; tAtk=instance_create(608-(i*16),288,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=0}}
-    else if atkTime[1]=780 {for(i=0;i<12;i+=1) {var tAtk; tAtk=instance_create(608-(i*16),288,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=0}}
+    if atkTime[1]=535 {for(i=0;i<12;i+=1) {var tAtk; tAtk=instance_create(608-(i*16),288,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=0}}
+    else if atkTime[1]=613 {for(i=0;i<12;i+=1) {var tAtk; tAtk=instance_create(608-(i*16),288,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=0}}
+    else if atkTime[1]=702 {for(i=0;i<12;i+=1) {var tAtk; tAtk=instance_create(608-(i*16),288,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=0}}
+    else if atkTime[1]=780 {for(i=0;i<12;i+=1) {var tAtk; tAtk=instance_create(608-(i*16),288,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=0}}
 
     if atkTime[1]=700
     {
-      var tAtk; tAtk=instance_create(1120,288,oExe_FireOther); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=180
-      for(i=0;i<3;i+=1) {var tAtk; tAtk=instance_create(1120,240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=180}
+      var tAtk; tAtk=instance_create(1120,288,oExe_FireOther); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=180
+      for(i=0;i<3;i+=1) {var tAtk; tAtk=instance_create(1120,240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=180}
     }
 
-    if atkTime[1]=840 {for(i=0;i<2;i+=1) {var tAtk; tAtk=instance_create(1120,288+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=5; tAtk.direction=180}}
-    else if atkTime[1]=870 {var tAtk; tAtk=instance_create(1120,240,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=4; tAtk.direction=180}
+    if atkTime[1]=840 {for(i=0;i<2;i+=1) {var tAtk; tAtk=instance_create(1120,288+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=5; tAtk._direction=180}}
+    else if atkTime[1]=870 {var tAtk; tAtk=instance_create(1120,240,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=4; tAtk._direction=180}
     else if atkTime[1]=900
     {
       for(i=0;i<5;i+=1)
       {
-        for(ii=0;ii<2;ii+=1) {var tAtk; tAtk=instance_create(1120+(ii*16),240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=4; tAtk.direction=180}
+        for(ii=0;ii<2;ii+=1) {var tAtk; tAtk=instance_create(1120+(ii*16),240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=4; tAtk._direction=180}
       }
     }
-    else if atkTime[1]=920 {var tAtk; tAtk=instance_create(1120,184,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=4; tAtk.direction=180} //Over line
-    else if atkTime[1]=960 {for(i=0;i<3;i+=1) {var tAtk; tAtk=instance_create(1120,272+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=4; tAtk.direction=180}}
+    else if atkTime[1]=920 {var tAtk; tAtk=instance_create(1120,184,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=4; tAtk._direction=180} //Over line
+    else if atkTime[1]=960 {for(i=0;i<3;i+=1) {var tAtk; tAtk=instance_create(1120,272+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=4; tAtk._direction=180}}
     else if atkTime[1]=985
     {
-      var tAtk; tAtk=instance_create(1120,240,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=4; tAtk.direction=180
-      for(i=0;i<2;i+=1) {var tAtk; tAtk=instance_create(1120,288+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=4; tAtk.direction=180}
+      var tAtk; tAtk=instance_create(1120,240,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=4; tAtk._direction=180
+      for(i=0;i<2;i+=1) {var tAtk; tAtk=instance_create(1120,288+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=4; tAtk._direction=180}
     }
     else if atkTime[1]=1005
     {
-      var tAtk; tAtk=instance_create(1120,240,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=4; tAtk.direction=180
-      for(i=0;i<2;i+=1) {var tAtk; tAtk=instance_create(1120,288+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=4; tAtk.direction=180}
+      var tAtk; tAtk=instance_create(1120,240,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=4; tAtk._direction=180
+      for(i=0;i<2;i+=1) {var tAtk; tAtk=instance_create(1120,288+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=4; tAtk._direction=180}
     }
     else if atkTime[1]=1025
     {
-      var tAtk; tAtk=instance_create(1120,240,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=4; tAtk.direction=180
-      for(i=0;i<2;i+=1) {var tAtk; tAtk=instance_create(1120,288+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=4; tAtk.direction=180}
+      var tAtk; tAtk=instance_create(1120,240,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=4; tAtk._direction=180
+      for(i=0;i<2;i+=1) {var tAtk; tAtk=instance_create(1120,288+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=4; tAtk._direction=180}
     }
     else if atkTime[1]=1120 //Fast parry walls
     {
-      var tAtk; tAtk=instance_create(1104,256,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=6; tAtk.direction=180
-      for(i=0;i<5;i+=1) {for(ii=0;ii<2;ii+=1) {var tAtk; tAtk=instance_create(1120+(ii*16),240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=6; tAtk.direction=180}}
+      var tAtk; tAtk=instance_create(1104,256,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=6; tAtk._direction=180
+      for(i=0;i<5;i+=1) {for(ii=0;ii<2;ii+=1) {var tAtk; tAtk=instance_create(1120+(ii*16),240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=6; tAtk._direction=180}}
     }
     else if atkTime[1]=1145
     {
-      var tAtk; tAtk=instance_create(624,288,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=6; tAtk.direction=0
-      for(i=0;i<5;i+=1) {for(ii=0;ii<2;ii+=1) {var tAtk; tAtk=instance_create(608-(ii*16),240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=6; tAtk.direction=0}}
+      var tAtk; tAtk=instance_create(624,288,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=6; tAtk._direction=0
+      for(i=0;i<5;i+=1) {for(ii=0;ii<2;ii+=1) {var tAtk; tAtk=instance_create(608-(ii*16),240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=6; tAtk._direction=0}}
     }
     else if atkTime[1]=1170
     {
-      var tAtk; tAtk=instance_create(624,256,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=6; tAtk.direction=0
-      for(i=0;i<5;i+=1) {for(ii=0;ii<2;ii+=1) {var tAtk; tAtk=instance_create(608-(ii*16),240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=6; tAtk.direction=0}}
+      var tAtk; tAtk=instance_create(624,256,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=6; tAtk._direction=0
+      for(i=0;i<5;i+=1) {for(ii=0;ii<2;ii+=1) {var tAtk; tAtk=instance_create(608-(ii*16),240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=6; tAtk._direction=0}}
     }
     else if atkTime[1]=1195
     {
-      var tAtk; tAtk=instance_create(1104,288,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=6; tAtk.direction=180
-      for(i=0;i<5;i+=1) {for(ii=0;ii<2;ii+=1) {var tAtk; tAtk=instance_create(1120+(ii*16),240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=6; tAtk.direction=180}}
+      var tAtk; tAtk=instance_create(1104,288,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=6; tAtk._direction=180
+      for(i=0;i<5;i+=1) {for(ii=0;ii<2;ii+=1) {var tAtk; tAtk=instance_create(1120+(ii*16),240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=6; tAtk._direction=180}}
     }
     else if atkTime[1]=1215
     {
-      var tAtk; tAtk=instance_create(624,256,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=6; tAtk.direction=0
-      for(i=0;i<5;i+=1) {for(ii=0;ii<2;ii+=1) {var tAtk; tAtk=instance_create(608-(ii*16),240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=6; tAtk.direction=0}}
+      var tAtk; tAtk=instance_create(624,256,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=6; tAtk._direction=0
+      for(i=0;i<5;i+=1) {for(ii=0;ii<2;ii+=1) {var tAtk; tAtk=instance_create(608-(ii*16),240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=6; tAtk._direction=0}}
     }
     else if atkTime[1]=1235
     {
-      var tAtk; tAtk=instance_create(1104,288,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=6; tAtk.direction=180
-      for(i=0;i<5;i+=1) {for(ii=0;ii<2;ii+=1) {var tAtk; tAtk=instance_create(1120+(ii*16),240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=6; tAtk.direction=180}}
+      var tAtk; tAtk=instance_create(1104,288,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=6; tAtk._direction=180
+      for(i=0;i<5;i+=1) {for(ii=0;ii<2;ii+=1) {var tAtk; tAtk=instance_create(1120+(ii*16),240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=6; tAtk._direction=180}}
     }
     else if atkTime[1]=1250
     {
-      var tAtk; tAtk=instance_create(1104,288,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=6; tAtk.direction=180
-      for(i=0;i<5;i+=1) {for(ii=0;ii<2;ii+=1) {var tAtk; tAtk=instance_create(1120+(ii*16),240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=6; tAtk.direction=180}}
+      var tAtk; tAtk=instance_create(1104,288,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=6; tAtk._direction=180
+      for(i=0;i<5;i+=1) {for(ii=0;ii<2;ii+=1) {var tAtk; tAtk=instance_create(1120+(ii*16),240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=6; tAtk._direction=180}}
     }
     else if atkTime[1]=1265
     {
-      var tAtk; tAtk=instance_create(624,256,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=6; tAtk.direction=0
-      for(i=0;i<5;i+=1) {for(ii=0;ii<2;ii+=1) {var tAtk; tAtk=instance_create(608-(ii*16),240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=6; tAtk.direction=0}}
+      var tAtk; tAtk=instance_create(624,256,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=6; tAtk._direction=0
+      for(i=0;i<5;i+=1) {for(ii=0;ii<2;ii+=1) {var tAtk; tAtk=instance_create(608-(ii*16),240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=6; tAtk._direction=0}}
     }
     else if atkTime[1]=1278
     {
-      var tAtk; tAtk=instance_create(1104,288,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=6; tAtk.direction=180
-      for(i=0;i<5;i+=1) {for(ii=0;ii<2;ii+=1) {var tAtk; tAtk=instance_create(1120+(ii*16),240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=6; tAtk.direction=180}}
+      var tAtk; tAtk=instance_create(1104,288,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=6; tAtk._direction=180
+      for(i=0;i<5;i+=1) {for(ii=0;ii<2;ii+=1) {var tAtk; tAtk=instance_create(1120+(ii*16),240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=6; tAtk._direction=180}}
     }
     else if atkTime[1]=1292
     {
-      var tAtk; tAtk=instance_create(1104,256,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=6; tAtk.direction=180
-      for(i=0;i<5;i+=1) {for(ii=0;ii<2;ii+=1) {var tAtk; tAtk=instance_create(1120+(ii*16),240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=6; tAtk.direction=180}}
+      var tAtk; tAtk=instance_create(1104,256,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=6; tAtk._direction=180
+      for(i=0;i<5;i+=1) {for(ii=0;ii<2;ii+=1) {var tAtk; tAtk=instance_create(1120+(ii*16),240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=6; tAtk._direction=180}}
     }
     else if atkTime[1]=1307
     {
-      var tAtk; tAtk=instance_create(624,288,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=6; tAtk.direction=0
-      for(i=0;i<5;i+=1) {for(ii=0;ii<2;ii+=1) {var tAtk; tAtk=instance_create(608-(ii*16),240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=6; tAtk.direction=0}}
+      var tAtk; tAtk=instance_create(624,288,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=6; tAtk._direction=0
+      for(i=0;i<5;i+=1) {for(ii=0;ii<2;ii+=1) {var tAtk; tAtk=instance_create(608-(ii*16),240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=6; tAtk._direction=0}}
     }
     else if atkTime[1]=1320
     {
       for(i=0;i<5;i+=1)
       {
-        for(ii=0;ii<2;ii+=1) {var tAtk; tAtk=instance_create(1120+(ii*16),240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=4; tAtk.direction=180}
+        for(ii=0;ii<2;ii+=1) {var tAtk; tAtk=instance_create(1120+(ii*16),240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=4; tAtk._direction=180}
       }
     }
-    else if atkTime[1]=1325 {var tAtk; tAtk=instance_create(1120,184,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=4; tAtk.direction=180} //Over line
+    else if atkTime[1]=1325 {var tAtk; tAtk=instance_create(1120,184,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=4; tAtk._direction=180} //Over line
     else if atkTime[1]=1350
     {
-      var tAtk; tAtk=instance_create(1120,288,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=180
-      var tAtk; tAtk=instance_create(1136,272,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=180
-      var tAtk; tAtk=instance_create(1152,256,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=180
-      var tAtk; tAtk=instance_create(1168,272,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=180
-      var tAtk; tAtk=instance_create(1184,288,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=180
+      var tAtk; tAtk=instance_create(1120,288,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=180
+      var tAtk; tAtk=instance_create(1136,272,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=180
+      var tAtk; tAtk=instance_create(1152,256,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=180
+      var tAtk; tAtk=instance_create(1168,272,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=180
+      var tAtk; tAtk=instance_create(1184,288,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=180
 
-      var tAtk; tAtk=instance_create(1208,224,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=180
-      var tAtk; tAtk=instance_create(1224,240,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=180
-      var tAtk; tAtk=instance_create(1240,256,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=180
-      var tAtk; tAtk=instance_create(1256,240,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=180
-      var tAtk; tAtk=instance_create(1272,224,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=180
+      var tAtk; tAtk=instance_create(1208,224,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=180
+      var tAtk; tAtk=instance_create(1224,240,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=180
+      var tAtk; tAtk=instance_create(1240,256,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=180
+      var tAtk; tAtk=instance_create(1256,240,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=180
+      var tAtk; tAtk=instance_create(1272,224,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=180
 
-      var tAtk; tAtk=instance_create(1296,288,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=180
-      var tAtk; tAtk=instance_create(1312,272,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=180
-      var tAtk; tAtk=instance_create(1328,256,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=180
-      var tAtk; tAtk=instance_create(1344,272,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=180
-      var tAtk; tAtk=instance_create(1360,288,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=180
+      var tAtk; tAtk=instance_create(1296,288,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=180
+      var tAtk; tAtk=instance_create(1312,272,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=180
+      var tAtk; tAtk=instance_create(1328,256,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=180
+      var tAtk; tAtk=instance_create(1344,272,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=180
+      var tAtk; tAtk=instance_create(1360,288,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=180
     }
-    else if atkTime[1]=1380 {var tAtk; tAtk=instance_create(1120,288,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=1; tAtk.direction=180}
+    else if atkTime[1]=1380 {var tAtk; tAtk=instance_create(1120,288,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=1; tAtk._direction=180}
     else if atkTime[1]=1420
     {
       for(i=0;i<5;i+=1)
       {
-        for(ii=0;ii<2;ii+=1) {var tAtk; tAtk=instance_create(608-(ii*16),240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=1; tAtk.direction=0}
+        for(ii=0;ii<2;ii+=1) {var tAtk; tAtk=instance_create(608-(ii*16),240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=1; tAtk._direction=0}
       }
     }
     else if atkTime[1]=1460
     {
-      var tAtk; tAtk=instance_create(1104,288,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=2; tAtk.direction=180
-      for(i=0;i<5;i+=1) {for(ii=0;ii<2;ii+=1) {var tAtk; tAtk=instance_create(1120+(ii*16),240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=2; tAtk.direction=180}}
+      var tAtk; tAtk=instance_create(1104,288,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=2; tAtk._direction=180
+      for(i=0;i<5;i+=1) {for(ii=0;ii<2;ii+=1) {var tAtk; tAtk=instance_create(1120+(ii*16),240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=2; tAtk._direction=180}}
     }
     else if atkTime[1]=1480
     {
       for(i=0;i<5;i+=1)
       {
-        for(ii=0;ii<2;ii+=1) {var tAtk; tAtk=instance_create(608-(ii*16),240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=1; tAtk.direction=0}
+        for(ii=0;ii<2;ii+=1) {var tAtk; tAtk=instance_create(608-(ii*16),240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=1; tAtk._direction=0}
       }
     }
     else if atkTime[1]=1750 //Line of bullets that stop (and move later)
@@ -1401,101 +1421,101 @@ if moveProg>=1 //Normal sequence
       {
         for(ii=0;ii<2;ii+=1)
         {
-          var tAtk; tAtk=instance_create(784+(ii*16),356+(i*16),oExe_FireRed) tAtk.type=4; tAtk.bulSpd=2; tAtk.newSpdA=0; tAtk.spdTimeA=60; tAtk.newSpdB=8; tAtk.spdTimeB=226; tAtk.direction=90
-          var tAtk; tAtk=instance_create(944-(ii*16),356+(i*16),oExe_FireRed) tAtk.type=4; tAtk.bulSpd=2; tAtk.newSpdA=0; tAtk.spdTimeA=60; tAtk.newSpdB=8; tAtk.spdTimeB=226; tAtk.direction=90
+          var tAtk; tAtk=instance_create(784+(ii*16),356+(i*16),oExe_FireRed) tAtk.type=4; tAtk.bulSpd=2; tAtk.newSpdA=0; tAtk.spdTimeA=60; tAtk.newSpdB=8; tAtk.spdTimeB=226; tAtk._direction=90
+          var tAtk; tAtk=instance_create(944-(ii*16),356+(i*16),oExe_FireRed) tAtk.type=4; tAtk.bulSpd=2; tAtk.newSpdA=0; tAtk.spdTimeA=60; tAtk.newSpdB=8; tAtk.spdTimeB=226; tAtk._direction=90
         }
       }
       for(i=0;i<6;i+=1)
       {
-        var tAtk; tAtk=instance_create(688+(i*16),356,oExe_FireRed) tAtk.type=4; tAtk.bulSpd=2; tAtk.newSpdA=0; tAtk.spdTimeA=36; tAtk.newSpdB=8; tAtk.spdTimeB=250; tAtk.direction=90
-        var tAtk; tAtk=instance_create(1040-(i*16),356,oExe_FireRed) tAtk.type=4; tAtk.bulSpd=2; tAtk.newSpdA=0; tAtk.spdTimeA=36; tAtk.newSpdB=8; tAtk.spdTimeB=250; tAtk.direction=90
+        var tAtk; tAtk=instance_create(688+(i*16),356,oExe_FireRed) tAtk.type=4; tAtk.bulSpd=2; tAtk.newSpdA=0; tAtk.spdTimeA=36; tAtk.newSpdB=8; tAtk.spdTimeB=250; tAtk._direction=90
+        var tAtk; tAtk=instance_create(1040-(i*16),356,oExe_FireRed) tAtk.type=4; tAtk.bulSpd=2; tAtk.newSpdA=0; tAtk.spdTimeA=36; tAtk.newSpdB=8; tAtk.spdTimeB=250; tAtk._direction=90
       }
     }
-    else if atkTime[1]=1770 {var tAtk; tAtk=instance_create(1120,300,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=4; tAtk.direction=180}
-    else if atkTime[1]=1840 {var tAtk; tAtk=instance_create(624,300,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=4; tAtk.direction=0}
+    else if atkTime[1]=1770 {var tAtk; tAtk=instance_create(1120,300,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=4; tAtk._direction=180}
+    else if atkTime[1]=1840 {var tAtk; tAtk=instance_create(624,300,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=4; tAtk._direction=0}
 
     if atkTime[1]=1700 //Spiral bullet set
     {
       for(i=0;i<16;i+=1)
       {
-        var tAtk; tAtk=instance_create(x,y,oExe_FireRed); tAtk.type=1; tAtk.bulSpd=3; tAtk.curveAmt=4; tAtk.curveTime=40; tAtk.direction=22.5*i
+        var tAtk; tAtk=instance_create(x,y,oExe_FireRed); tAtk.type=1; tAtk.bulSpd=3; tAtk.curveAmt=4; tAtk.curveTime=40; tAtk._direction=22.5*i
       }
     }
     else if atkTime[1]=1720
     {
       for(i=0;i<16;i+=1)
       {
-        var tAtk; tAtk=instance_create(x,y,oExe_FireRed); tAtk.type=1; tAtk.bulSpd=3; tAtk.curveAmt=-4; tAtk.curveTime=40; tAtk.direction=22.5*i
+        var tAtk; tAtk=instance_create(x,y,oExe_FireRed); tAtk.type=1; tAtk.bulSpd=3; tAtk.curveAmt=-4; tAtk.curveTime=40; tAtk._direction=22.5*i
       }
     }
     else if atkTime[1]=1740
     {
       for(i=0;i<16;i+=1)
       {
-        var tAtk; tAtk=instance_create(x,y,oExe_FireRed); tAtk.type=1; tAtk.bulSpd=3; tAtk.curveAmt=4; tAtk.curveTime=40; tAtk.direction=7+(22.5*i)
+        var tAtk; tAtk=instance_create(x,y,oExe_FireRed); tAtk.type=1; tAtk.bulSpd=3; tAtk.curveAmt=4; tAtk.curveTime=40; tAtk._direction=7+(22.5*i)
       }
     }
     else if atkTime[1]=1760
     {
       for(i=0;i<16;i+=1)
       {
-        var tAtk; tAtk=instance_create(x,y,oExe_FireRed); tAtk.type=1; tAtk.bulSpd=3; tAtk.curveAmt=-4; tAtk.curveTime=40; tAtk.direction=7+(22.5*i)
+        var tAtk; tAtk=instance_create(x,y,oExe_FireRed); tAtk.type=1; tAtk.bulSpd=3; tAtk.curveAmt=-4; tAtk.curveTime=40; tAtk._direction=7+(22.5*i)
       }
     }
     else if atkTime[1]=1780
     {
       for(i=0;i<16;i+=1)
       {
-        var tAtk; tAtk=instance_create(x,y,oExe_FireRed); tAtk.type=1; tAtk.bulSpd=3; tAtk.curveAmt=4; tAtk.curveTime=40; tAtk.direction=14+(22.5*i)
+        var tAtk; tAtk=instance_create(x,y,oExe_FireRed); tAtk.type=1; tAtk.bulSpd=3; tAtk.curveAmt=4; tAtk.curveTime=40; tAtk._direction=14+(22.5*i)
       }
     }
     else if atkTime[1]=1800
     {
       for(i=0;i<16;i+=1)
       {
-        var tAtk; tAtk=instance_create(x,y,oExe_FireRed); tAtk.type=1; tAtk.bulSpd=3; tAtk.curveAmt=-4; tAtk.curveTime=40; tAtk.direction=14+(22.5*i)
+        var tAtk; tAtk=instance_create(x,y,oExe_FireRed); tAtk.type=1; tAtk.bulSpd=3; tAtk.curveAmt=-4; tAtk.curveTime=40; tAtk._direction=14+(22.5*i)
       }
     }
     else if atkTime[1]=1820
     {
       for(i=0;i<24;i+=1)
       {
-        var tAtk; tAtk=instance_create(x,y,oExe_FireRed); tAtk.type=1; tAtk.bulSpd=3; tAtk.curveAmt=4; tAtk.curveTime=40; tAtk.direction=15*i
+        var tAtk; tAtk=instance_create(x,y,oExe_FireRed); tAtk.type=1; tAtk.bulSpd=3; tAtk.curveAmt=4; tAtk.curveTime=40; tAtk._direction=15*i
       }
     }
     else if atkTime[1]=1840
     {
       for(i=0;i<24;i+=1)
       {
-        var tAtk; tAtk=instance_create(x,y,oExe_FireRed); tAtk.type=1; tAtk.bulSpd=3; tAtk.curveAmt=-4; tAtk.curveTime=40; tAtk.direction=15*i
+        var tAtk; tAtk=instance_create(x,y,oExe_FireRed); tAtk.type=1; tAtk.bulSpd=3; tAtk.curveAmt=-4; tAtk.curveTime=40; tAtk._direction=15*i
       }
     }
     else if atkTime[1]=1860
     {
       for(i=0;i<24;i+=1)
       {
-        var tAtk; tAtk=instance_create(x,y,oExe_FireRed); tAtk.type=1; tAtk.bulSpd=3; tAtk.curveAmt=4; tAtk.curveTime=40; tAtk.direction=6+(15*i)
+        var tAtk; tAtk=instance_create(x,y,oExe_FireRed); tAtk.type=1; tAtk.bulSpd=3; tAtk.curveAmt=4; tAtk.curveTime=40; tAtk._direction=6+(15*i)
       }
     }
     else if atkTime[1]=1880
     {
       for(i=0;i<24;i+=1)
       {
-        var tAtk; tAtk=instance_create(x,y,oExe_FireRed); tAtk.type=1; tAtk.bulSpd=3; tAtk.curveAmt=-4; tAtk.curveTime=40; tAtk.direction=6+(15*i)
+        var tAtk; tAtk=instance_create(x,y,oExe_FireRed); tAtk.type=1; tAtk.bulSpd=3; tAtk.curveAmt=-4; tAtk.curveTime=40; tAtk._direction=6+(15*i)
       }
     }
     else if atkTime[1]=1900
     {
       for(i=0;i<24;i+=1)
       {
-        var tAtk; tAtk=instance_create(x,y,oExe_FireRed); tAtk.type=1; tAtk.bulSpd=3; tAtk.curveAmt=4; tAtk.curveTime=40; tAtk.direction=12+(15*i)
+        var tAtk; tAtk=instance_create(x,y,oExe_FireRed); tAtk.type=1; tAtk.bulSpd=3; tAtk.curveAmt=4; tAtk.curveTime=40; tAtk._direction=12+(15*i)
       }
     }
     else if atkTime[1]=1920
     {
       for(i=0;i<24;i+=1)
       {
-        var tAtk; tAtk=instance_create(x,y,oExe_FireRed); tAtk.type=1; tAtk.bulSpd=3; tAtk.curveAmt=-4; tAtk.curveTime=40; tAtk.direction=12+(15*i)
+        var tAtk; tAtk=instance_create(x,y,oExe_FireRed); tAtk.type=1; tAtk.bulSpd=3; tAtk.curveAmt=-4; tAtk.curveTime=40; tAtk._direction=12+(15*i)
       }
     }
 
@@ -1504,84 +1524,84 @@ if moveProg>=1 //Normal sequence
     {
       for(i=0;i<10;i+=1)
       {
-        var tAtk; tAtk=instance_create(x,y,oExe_FireRed); tAtk.type=1; tAtk.bulSpd=3; tAtk.curveAmt=-4; tAtk.curveTime=40; tAtk.direction=36*i
+        var tAtk; tAtk=instance_create(x,y,oExe_FireRed); tAtk.type=1; tAtk.bulSpd=3; tAtk.curveAmt=-4; tAtk.curveTime=40; tAtk._direction=36*i
       }
     }
     else if atkTime[1]=2170
     {
       for(i=0;i<10;i+=1)
       {
-        var tAtk; tAtk=instance_create(x,y,oExe_FireRed); tAtk.type=1; tAtk.bulSpd=3; tAtk.curveAmt=4; tAtk.curveTime=40; tAtk.direction=36*i
+        var tAtk; tAtk=instance_create(x,y,oExe_FireRed); tAtk.type=1; tAtk.bulSpd=3; tAtk.curveAmt=4; tAtk.curveTime=40; tAtk._direction=36*i
       }
     }
     else if atkTime[1]=2240
     {
       for(i=0;i<10;i+=1)
       {
-        var tAtk; tAtk=instance_create(x,y,oExe_FireRed); tAtk.type=1; tAtk.bulSpd=3; tAtk.curveAmt=-4; tAtk.curveTime=40; tAtk.direction=36*i
+        var tAtk; tAtk=instance_create(x,y,oExe_FireRed); tAtk.type=1; tAtk.bulSpd=3; tAtk.curveAmt=-4; tAtk.curveTime=40; tAtk._direction=36*i
       }
     }
     else if atkTime[1]=2310
     {
       for(i=0;i<10;i+=1)
       {
-        var tAtk; tAtk=instance_create(x,y,oExe_FireRed); tAtk.type=1; tAtk.bulSpd=3; tAtk.curveAmt=4; tAtk.curveTime=40; tAtk.direction=36*i
+        var tAtk; tAtk=instance_create(x,y,oExe_FireRed); tAtk.type=1; tAtk.bulSpd=3; tAtk.curveAmt=4; tAtk.curveTime=40; tAtk._direction=36*i
       }
     }
     else if atkTime[1]=2380
     {
       for(i=0;i<10;i+=1)
       {
-        var tAtk; tAtk=instance_create(x,y,oExe_FireRed); tAtk.type=1; tAtk.bulSpd=3; tAtk.curveAmt=-4; tAtk.curveTime=40; tAtk.direction=36*i
+        var tAtk; tAtk=instance_create(x,y,oExe_FireRed); tAtk.type=1; tAtk.bulSpd=3; tAtk.curveAmt=-4; tAtk.curveTime=40; tAtk._direction=36*i
       }
     }
 
     //From top
-    if atkTime[1]=2080 {for(i=0;i<8;i+=1) {var tAtk; tAtk=instance_create(680+(i*16),-4,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=270}}
-    else if atkTime[1]=2140 {for(i=0;i<8;i+=1) {var tAtk; tAtk=instance_create(936+(i*16),-4,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=270}}
-    else if atkTime[1]=2200 {for(i=0;i<8;i+=1) {var tAtk; tAtk=instance_create(808+(i*16),-4,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=270}}
+    if atkTime[1]=2080 {for(i=0;i<8;i+=1) {var tAtk; tAtk=instance_create(680+(i*16),-4,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=270}}
+    else if atkTime[1]=2140 {for(i=0;i<8;i+=1) {var tAtk; tAtk=instance_create(936+(i*16),-4,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=270}}
+    else if atkTime[1]=2200 {for(i=0;i<8;i+=1) {var tAtk; tAtk=instance_create(808+(i*16),-4,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=270}}
     else if atkTime[1]=2260
     {
-      for(i=0;i<8;i+=1) {var tAtk; tAtk=instance_create(680+(i*16),-4,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=270}
-      for(i=0;i<8;i+=1) {var tAtk; tAtk=instance_create(936+(i*16),-4,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=270}
+      for(i=0;i<8;i+=1) {var tAtk; tAtk=instance_create(680+(i*16),-4,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=270}
+      for(i=0;i<8;i+=1) {var tAtk; tAtk=instance_create(936+(i*16),-4,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=270}
     }
     else if atkTime[1]=2310
     {
-      for(i=0;i<8;i+=1) {var tAtk; tAtk=instance_create(808+(i*16),-4,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=270}
-      for(i=0;i<8;i+=1) {var tAtk; tAtk=instance_create(936+(i*16),-4,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=270}
+      for(i=0;i<8;i+=1) {var tAtk; tAtk=instance_create(808+(i*16),-4,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=270}
+      for(i=0;i<8;i+=1) {var tAtk; tAtk=instance_create(936+(i*16),-4,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=270}
     }
     else if atkTime[1]=2360
     {
-      for(i=0;i<8;i+=1) {var tAtk; tAtk=instance_create(680+(i*16),-4,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=270}
-      for(i=0;i<8;i+=1) {var tAtk; tAtk=instance_create(808+(i*16),-4,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=270}
+      for(i=0;i<8;i+=1) {var tAtk; tAtk=instance_create(680+(i*16),-4,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=270}
+      for(i=0;i<8;i+=1) {var tAtk; tAtk=instance_create(808+(i*16),-4,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=270}
     }
     else if atkTime[1]=2410
     {
-      for(i=0;i<8;i+=1) {var tAtk; tAtk=instance_create(680+(i*16),-4,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=270}
-      for(i=0;i<8;i+=1) {var tAtk; tAtk=instance_create(936+(i*16),-4,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=270}
+      for(i=0;i<8;i+=1) {var tAtk; tAtk=instance_create(680+(i*16),-4,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=270}
+      for(i=0;i<8;i+=1) {var tAtk; tAtk=instance_create(936+(i*16),-4,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=270}
     }
 
     //From sides
-    if atkTime[1]=2090 {for(i=0;i<2;i+=1) {var tAtk; tAtk=instance_create(1120,288+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=5; tAtk.direction=180}}
-    else if atkTime[1]=2110 {for(i=0;i<3;i+=1) {var tAtk; tAtk=instance_create(1120,240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=5; tAtk.direction=180}}
-    else if atkTime[1]=2130 {for(i=0;i<2;i+=1) {var tAtk; tAtk=instance_create(1120,288+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=5; tAtk.direction=180}}
-    else if atkTime[1]=2150 {for(i=0;i<2;i+=1) {var tAtk; tAtk=instance_create(1120,288+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=5; tAtk.direction=180}}
-    else if atkTime[1]=2170 {for(i=0;i<3;i+=1) {var tAtk; tAtk=instance_create(1120,240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=5; tAtk.direction=180}}
-    else if atkTime[1]=2190 {for(i=0;i<2;i+=1) {var tAtk; tAtk=instance_create(1120,288+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=5; tAtk.direction=180}}
-    else if atkTime[1]=2210 {for(i=0;i<3;i+=1) {var tAtk; tAtk=instance_create(1120,240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=5; tAtk.direction=180}}
-    else if atkTime[1]=2230 {for(i=0;i<3;i+=1) {var tAtk; tAtk=instance_create(1120,240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=5; tAtk.direction=180}}
-    else if atkTime[1]=2250 {for(i=0;i<2;i+=1) {var tAtk; tAtk=instance_create(1120,288+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=5; tAtk.direction=180}}
-    else if atkTime[1]=2270 {for(i=0;i<3;i+=1) {var tAtk; tAtk=instance_create(1120,240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=5; tAtk.direction=180}}
-    else if atkTime[1]=2290 {for(i=0;i<2;i+=1) {var tAtk; tAtk=instance_create(1120,288+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=5; tAtk.direction=180}}
-    else if atkTime[1]=2310 {for(i=0;i<3;i+=1) {var tAtk; tAtk=instance_create(1120,240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=5; tAtk.direction=180}}
-    else if atkTime[1]=2330 {for(i=0;i<2;i+=1) {var tAtk; tAtk=instance_create(1120,288+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=5; tAtk.direction=180}}
-    else if atkTime[1]=2350 {for(i=0;i<2;i+=1) {var tAtk; tAtk=instance_create(1120,288+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=5; tAtk.direction=180}}
-    else if atkTime[1]=2370 {for(i=0;i<3;i+=1) {var tAtk; tAtk=instance_create(1120,240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=5; tAtk.direction=180}}
-    else if atkTime[1]=2390 {for(i=0;i<3;i+=1) {var tAtk; tAtk=instance_create(1120,240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=5; tAtk.direction=180}}
-    else if atkTime[1]=2410 {for(i=0;i<2;i+=1) {var tAtk; tAtk=instance_create(1120,288+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=5; tAtk.direction=180}}
-    else if atkTime[1]=2430 {for(i=0;i<2;i+=1) {var tAtk; tAtk=instance_create(1120,288+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=5; tAtk.direction=180}}
-    else if atkTime[1]=2450 {for(i=0;i<3;i+=1) {var tAtk; tAtk=instance_create(1120,240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=5; tAtk.direction=180}}
-    else if atkTime[1]=2470 {for(i=0;i<3;i+=1) {var tAtk; tAtk=instance_create(1120,240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=5; tAtk.direction=180}}
+    if atkTime[1]=2090 {for(i=0;i<2;i+=1) {var tAtk; tAtk=instance_create(1120,288+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=5; tAtk._direction=180}}
+    else if atkTime[1]=2110 {for(i=0;i<3;i+=1) {var tAtk; tAtk=instance_create(1120,240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=5; tAtk._direction=180}}
+    else if atkTime[1]=2130 {for(i=0;i<2;i+=1) {var tAtk; tAtk=instance_create(1120,288+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=5; tAtk._direction=180}}
+    else if atkTime[1]=2150 {for(i=0;i<2;i+=1) {var tAtk; tAtk=instance_create(1120,288+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=5; tAtk._direction=180}}
+    else if atkTime[1]=2170 {for(i=0;i<3;i+=1) {var tAtk; tAtk=instance_create(1120,240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=5; tAtk._direction=180}}
+    else if atkTime[1]=2190 {for(i=0;i<2;i+=1) {var tAtk; tAtk=instance_create(1120,288+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=5; tAtk._direction=180}}
+    else if atkTime[1]=2210 {for(i=0;i<3;i+=1) {var tAtk; tAtk=instance_create(1120,240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=5; tAtk._direction=180}}
+    else if atkTime[1]=2230 {for(i=0;i<3;i+=1) {var tAtk; tAtk=instance_create(1120,240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=5; tAtk._direction=180}}
+    else if atkTime[1]=2250 {for(i=0;i<2;i+=1) {var tAtk; tAtk=instance_create(1120,288+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=5; tAtk._direction=180}}
+    else if atkTime[1]=2270 {for(i=0;i<3;i+=1) {var tAtk; tAtk=instance_create(1120,240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=5; tAtk._direction=180}}
+    else if atkTime[1]=2290 {for(i=0;i<2;i+=1) {var tAtk; tAtk=instance_create(1120,288+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=5; tAtk._direction=180}}
+    else if atkTime[1]=2310 {for(i=0;i<3;i+=1) {var tAtk; tAtk=instance_create(1120,240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=5; tAtk._direction=180}}
+    else if atkTime[1]=2330 {for(i=0;i<2;i+=1) {var tAtk; tAtk=instance_create(1120,288+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=5; tAtk._direction=180}}
+    else if atkTime[1]=2350 {for(i=0;i<2;i+=1) {var tAtk; tAtk=instance_create(1120,288+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=5; tAtk._direction=180}}
+    else if atkTime[1]=2370 {for(i=0;i<3;i+=1) {var tAtk; tAtk=instance_create(1120,240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=5; tAtk._direction=180}}
+    else if atkTime[1]=2390 {for(i=0;i<3;i+=1) {var tAtk; tAtk=instance_create(1120,240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=5; tAtk._direction=180}}
+    else if atkTime[1]=2410 {for(i=0;i<2;i+=1) {var tAtk; tAtk=instance_create(1120,288+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=5; tAtk._direction=180}}
+    else if atkTime[1]=2430 {for(i=0;i<2;i+=1) {var tAtk; tAtk=instance_create(1120,288+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=5; tAtk._direction=180}}
+    else if atkTime[1]=2450 {for(i=0;i<3;i+=1) {var tAtk; tAtk=instance_create(1120,240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=5; tAtk._direction=180}}
+    else if atkTime[1]=2470 {for(i=0;i<3;i+=1) {var tAtk; tAtk=instance_create(1120,240+(i*16),oExe_FireRed); tAtk.type=0; tAtk.bulSpd=5; tAtk._direction=180}}
   }
 }
 #define Other_16
@@ -1594,16 +1614,18 @@ applies_to=self
 
 if moveProg=0 //Move to bottom-right
 {
-  moveTime+=1
+  moveTime+=1*gDeltaTime
   if moveTime=1 {bCanDealDamage=0}
   if moveTime>=10
   {
-    direction=point_direction(x,y,976,256)
-    speed=8
+    _direction=point_direction(x,y,976,256)
+    _speed=8
+    x += cos(degtorad(_direction)) * _speed * gDeltaTime
+    y -= sin(degtorad(_direction)) * _speed * gDeltaTime
     if point_distance(x,y,976,256)<=8
     {
       x=976; y=256
-      speed=0
+      _speed=0
       bCanTakeDamage=1; bCanDealDamage=1
       for(i=0;i<5;i+=1) {atkTime[i]=-1}
       for(i=0;i<6;i+=1) {resType[i]=1}
@@ -1617,7 +1639,7 @@ else if moveProg>=1
   {
     if atkTime[0] mod 60=0
     {
-      for(i=0;i<4;i+=1) {var tAtk; tAtk=instance_create(688+(i*72),-2,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=270}
+      for(i=0;i<4;i+=1) {var tAtk; tAtk=instance_create(688+(i*72),-2,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=270}
     }
 
     if phase6_bulletCheckA=0 //Spawn bullets
@@ -1645,7 +1667,7 @@ else if moveProg>=1
     }
     else if phase6_bulletCheckA=2 //Fire slash
     {
-      exVal[0]+=1
+      exVal[0]+=1*gDeltaTime
       if exVal[0]=30
       {
         var tNewAtk,tChkDir;
@@ -1672,8 +1694,8 @@ else if moveProg>=1
     }
     else if phase6_bulletCheckA=3 //Move and go to next phase
     {
-      exVal[0]+=1
-      if exVal[0]>=1 and exVal[0]<=8 {x-=1; y-=1}
+      exVal[0]+=1*gDeltaTime
+      if exVal[0]>=1 and exVal[0]<=8 and gDeltaDoTicks {x-=1; y-=1}
       else if exVal[0]>=10
       {
         exVal[0]=0
@@ -1686,7 +1708,7 @@ else if moveProg>=1
   {
     if atkTime[0] mod 6=0
     {
-      var tAtk; tAtk=instance_create(840,-2,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=270
+      var tAtk; tAtk=instance_create(840,-2,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=270
     }
 
     if phase6_bulletCheckA=0 //Spawn bullets
@@ -1717,7 +1739,7 @@ else if moveProg>=1
     }
     else if phase6_bulletCheckA=2 //Fire slash
     {
-      exVal[0]+=1
+      exVal[0]+=1*gDeltaTime
       if exVal[0]=30
       {
         var tNewAtk,tChkDir;
@@ -1744,8 +1766,8 @@ else if moveProg>=1
     }
     else if phase6_bulletCheckA=3 //Move and go to next phase
     {
-      exVal[0]+=1
-      if exVal[0]>=1 and exVal[0]<=8 {x-=1; y-=1}
+      exVal[0]+=1*gDeltaTime
+      if exVal[0]>=1 and exVal[0]<=8 and gDeltaDoTicks {x-=1; y-=1}
       else if exVal[0]>=10
       {
         exVal[0]=0
@@ -1758,11 +1780,11 @@ else if moveProg>=1
   {
     if atkTime[0] mod 100=0
     {
-      var tAtk; tAtk=instance_create(1120,yGround-12,oExe_FireGreen); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=180
+      var tAtk; tAtk=instance_create(1120,yGround-12,oExe_FireGreen); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=180
     }
     if atkTime[1] mod 130=0
     {
-      for(i=0;i<3;i+=1) {var tAtk; tAtk=instance_create(700+(i*70),-2,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=270}
+      for(i=0;i<3;i+=1) {var tAtk; tAtk=instance_create(700+(i*70),-2,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=270}
     }
 
     if phase6_bulletCheckA=0 //Spawn bullets
@@ -1798,7 +1820,7 @@ else if moveProg>=1
     }
     else if phase6_bulletCheckA=2 //Fire slash
     {
-      exVal[0]+=1
+      exVal[0]+=1*gDeltaTime
       if exVal[0]=30
       {
         var tNewAtk,tChkDir;
@@ -1825,10 +1847,10 @@ else if moveProg>=1
     }
     else if phase6_bulletCheckA=3 //Move up
     {
-      exVal[0]+=1
+      exVal[0]+=1*gDeltaTime
       if exVal[0]>=1 and exVal[0]<=99
       {
-        y-=4
+        y-=4*gDeltaTime
         if y<=128
         {
           oPlayer1.x=xCenter; oPlayer1.y=yGround
@@ -1860,26 +1882,26 @@ else if moveProg>=1
   {
     if phase6_canMove=1 //Move left
     {
-      if moveProg=1
+      if moveProg=1 and gDeltaDoTicks
       {
         x-=1.5
         if x<=xCenter-roomSpan+64 {moveProg=2}
       }
-      else if moveProg=2 //Move right
+      else if moveProg=2 and gDeltaDoTicks //Move right
       {
         x+=1.5
         if x>=xCenter+roomSpan-64 {moveProg=1}
       }
       else if moveProg=3 //Move down
       {
-        y+=4
-        moveTime+=1
+        y+=4*gDeltaTime
+        moveTime+=1*gDeltaTime
         if moveTime>=10 {moveTime=0; moveProg=4}
       }
       else if moveProg=5 //Move up
       {
-        y-=4
-        moveTime+=1
+        y-=4*gDeltaTime
+        moveTime+=1*gDeltaTime
         if moveTime>=10 {moveTime=0; moveProg=1}
       }
     }
@@ -1889,14 +1911,14 @@ else if moveProg>=1
     {
       if atkTime[0] mod 100=0
       {
-        for(i=0;i<2;i+=1) {var tAtk; tAtk=instance_create(1120,224+(i*60),oExe_FireGreen); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=180}
+        for(i=0;i<2;i+=1) {var tAtk; tAtk=instance_create(1120,224+(i*60),oExe_FireGreen); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=180}
       }
     }
     else if bossProgress=4
     {
       if atkTime[0] mod 100=0
       {
-        for(i=0;i<3;i+=1) {var tAtk; tAtk=instance_create(736+(i*128),-2,oExe_FireGreen); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=270}
+        for(i=0;i<3;i+=1) {var tAtk; tAtk=instance_create(736+(i*128),-2,oExe_FireGreen); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=270}
       }
     }
 
@@ -1945,7 +1967,7 @@ else if moveProg>=1
     }
     else if phase6_bulletCheckA=2 //Fire slash
     {
-      exVal[0]+=1
+      exVal[0]+=1*gDeltaTime
       if exVal[0]=30
       {
         var tNewAtk,tChkDir;
@@ -1979,18 +2001,20 @@ else if moveProg>=1
   }
   else if phase6_phase=5 //========== PHASE 5 (Rotating bullet lines, gaps only) ==========
   {
-    moveTime+=1
+    moveTime+=1*gDeltaTime
     if moveProg=1
     {
       if moveTime>=30
       {
-        direction=point_direction(x,y,xCenter,144)
-        speed=8
+        _direction=point_direction(x,y,xCenter,144)
+        _speed=8
+        x += cos(degtorad(_direction)) * _speed * gDeltaTime
+        y -= sin(degtorad(_direction)) * _speed * gDeltaTime
         if point_distance(x,y,xCenter,144)<=8
         {
           phase6_normalRes=2; resType[0]=phase6_normalRes
           x=xCenter; y=144
-          speed=0
+          _speed=0
           for(i=0;i<5;i+=1) {atkTime[i]=-1}
           moveTime=0; moveProg+=1
         }
@@ -2001,11 +2025,11 @@ else if moveProg>=1
     {
       if atkTime[0] mod 100=0
       {
-        for(i=0;i<3;i+=1) {var tAtk; tAtk=instance_create(736+(i*128),-2,oExe_FireGreen); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=270}
+        for(i=0;i<3;i+=1) {var tAtk; tAtk=instance_create(736+(i*128),-2,oExe_FireGreen); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=270}
       }
     }
 
-    exVal[0]+=1
+    exVal[0]+=1*gDeltaTime
     if exVal[0]=15
     {
       phase6_normalRes=2; resType[0]=phase6_normalRes
@@ -2072,12 +2096,14 @@ else if moveProg>=1
       if moveTime=1 {bCanDealDamage=0}
       if moveTime>=10
       {
-        direction=point_direction(x,y,1024,64)
-        speed=8
+        _direction=point_direction(x,y,1024,64)
+        _speed=8
+        x += cos(degtorad(_direction)) * _speed * gDeltaTime
+        y -= sin(degtorad(_direction)) * _speed * gDeltaTime
         if point_distance(x,y,1024,64)<=8
         {
           x=1024; y=64
-          speed=0
+          _speed=0
           bCanDealDamage=1
           for(i=0;i<5;i+=1) {atkTime[i]=-1}
           phase6_normalRes=5; resType[0]=phase6_normalRes
@@ -2090,25 +2116,25 @@ else if moveProg>=1
       //Bullet stream diagonal
       if atkTime[0] mod 6=0 and atkTime[0]<=42
       {
-        var tAtk; tAtk=instance_create(736,-4,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=270
-        var tAtk; tAtk=instance_create(832,-4,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=270
-        var tAtk; tAtk=instance_create(960,-4,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=270
+        var tAtk; tAtk=instance_create(736,-4,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=270
+        var tAtk; tAtk=instance_create(832,-4,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=270
+        var tAtk; tAtk=instance_create(960,-4,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=270
 
-        var tAtk; tAtk=instance_create(858,118,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=170
+        var tAtk; tAtk=instance_create(858,118,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=170
       }
       if atkTime[0]>=72 {atkTime[0]=0}
       //Bullet stream horizontal
       if atkTime[1] mod 9=0
       {
-        var tAtk; tAtk=instance_create(1104,264,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=2; tAtk.direction=170
-        var tAtk; tAtk=instance_create(858,118,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=2; tAtk.direction=350
+        var tAtk; tAtk=instance_create(1104,264,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=2; tAtk._direction=170
+        var tAtk; tAtk=instance_create(858,118,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=2; tAtk._direction=350
       }
 
       if atkTime[3]>=120 //Platforms
       {
         if atkTime[2]>=90 //Bottom blue bullet
         {
-          var tAtk; tAtk=instance_create(1104,240,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=200
+          var tAtk; tAtk=instance_create(1104,240,oExe_FireBlue); tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=200
           atkTime[2]=0
         }
 
@@ -2185,20 +2211,22 @@ else if moveProg>=1
   }
   else if phase6_phase=7 //========== PHASE 7 (FINAL PHASE) ==========
   {
-    pepsiLogo+=1
+    pepsiLogo+=1*gDeltaTime
 
     if moveProg=1 //Move to center
     {
-      moveTime+=1
+      moveTime+=1*gDeltaTime
       if moveTime=1 {bCanDealDamage=0}
       if moveTime>=10
       {
-        direction=point_direction(x,y,xCenter,176)
-        speed=8
+        _direction=point_direction(x,y,xCenter,176)
+        _speed=8
+        x += cos(degtorad(_direction)) * _speed * gDeltaTime
+        y -= sin(degtorad(_direction)) * _speed * gDeltaTime
         if point_distance(x,y,xCenter,176)<=8
         {
           x=xCenter; y=176
-          speed=0
+          _speed=0
           bCanDealDamage=1
           for(i=0;i<5;i+=1) {atkTime[i]=-1}
           phase6_normalRes=5; resType[0]=phase6_normalRes
@@ -2214,7 +2242,7 @@ else if moveProg>=1
         {
           if (i>=0 and i<=51) or (i>=60) {var tAtk; tAtk=instance_create(x,y,oExe_FireRed)}
           else {var tAtk; tAtk=instance_create(x,y,oExe_FireBlue)}
-          tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=5.625*i
+          tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=5.625*i
         }
       }
       else if atkTime[0]=80 //Ring 2
@@ -2223,7 +2251,7 @@ else if moveProg>=1
         {
           if (i>=0 and i<=37) or (i>=46) {var tAtk; tAtk=instance_create(x,y,oExe_FireRed)}
           else {var tAtk; tAtk=instance_create(x,y,oExe_FireBlue)}
-          tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=5.625*i
+          tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=5.625*i
         }
       }
       else if atkTime[0]=120 //Ring 3
@@ -2232,14 +2260,14 @@ else if moveProg>=1
         {
           if (i>=0 and i<=44) or (i>=53) {var tAtk; tAtk=instance_create(x,y,oExe_FireRed)}
           else {var tAtk; tAtk=instance_create(x,y,oExe_FireBlue)}
-          tAtk.type=0; tAtk.bulSpd=3; tAtk.direction=5.625*i
+          tAtk.type=0; tAtk.bulSpd=3; tAtk._direction=5.625*i
         }
       }
       else if atkTime[0]>=130 //Scatter upward
       {
         for(i=0;i<8;i+=1)
         {
-          var tAtk; tAtk=instance_create(x,y,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=6; tAtk.direction=irandom_range(30,150)
+          var tAtk; tAtk=instance_create(x,y,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=6; tAtk._direction=irandom_range(30,150)
         }
         if atkTime[0]>=160 {atkTime[0]=0}
       }

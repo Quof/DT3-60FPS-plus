@@ -37,7 +37,7 @@ if global.gamePaused=false
 
   if atkProg=0
   {
-    myRad-=1
+    myRad-=1*gDeltaTime
     if myRad<=0
     {
       playSound(global.snd_DeathSlash,0,1,1)

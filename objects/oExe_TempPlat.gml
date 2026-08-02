@@ -16,7 +16,7 @@ applies_to=self
 */
 for(i=0;i<4;i+=1)
 {
-  colCorner[i]+=3
+  colCorner[i]+=3*gDeltaTime
   if colCorner[i]>=255 {colCorner[i]-=255}
 }
 #define Draw_0
