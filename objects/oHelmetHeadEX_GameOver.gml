@@ -60,7 +60,7 @@ applies_to=self
 */
 if staticEffect>=2 //fade to black
 {
-  staticEffect+=1
+  staticEffect+=1*gDeltaTime
   if staticEffect=3
   {
     background_alpha[7]=0
@@ -74,7 +74,7 @@ if staticEffect>=2 //fade to black
 }
 else //static effect
 {
-  staticEffect+=0.04
+  staticEffect+=0.04*gDeltaTime
   if staticEffect>=1.4 {staticEffect=2}
   background_alpha[7]=staticEffect
 }
@@ -164,8 +164,8 @@ if useCommands=true
   }
   else if gameOverProg=1 //Final fade out
   {
-    gameOverTime+=1
-    if gameOverTime>=1 and gameOverTime<=100 {confirmFadeOut+=0.01}
+    gameOverTime+=1*gDeltaTime
+    if gameOverTime>=1 and gameOverTime<=100 {confirmFadeOut+=0.01*gDeltaTime}
     else if gameOverTime>=110
     {
       global.gamePaused=false; global.gameOver=false

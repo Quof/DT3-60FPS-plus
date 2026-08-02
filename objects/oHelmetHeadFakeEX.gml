@@ -74,12 +74,12 @@ if global.gamePaused=false
 
     if bMoveNormally=1 //Normal walk toward player
     {
-      moveTime+=1
+      moveTime+=1*gDeltaTime
       if moveTime>=moveThres and moveTime<=moveThres+15
       {
         image_speed=0.2
-        if image_xscale=1 {x+=1}
-        else {x-=1}
+        if image_xscale=1 and gDeltaDoTicks {x+=1}
+        else if gDeltaDoTicks {x-=1}
       }
       else if moveTime>=moveThres+16
       {
@@ -111,14 +111,14 @@ if global.gamePaused=false
           playSound(global.snd_HardHit3,0,1,17000)
           var tFire;
           tFire=instance_create(x,y-35,oPassBullet)
-          tFire.direction=myDir; tFire.sprite_index=sWolfHeadShot
+          tFire._direction=myDir; tFire.sprite_index=sWolfHeadShot
           tFire.atkPower=atkPower; tFire.bulletSpeed=1; tFire.decayTime=-100
           myDir+=360/24
         }
       }
     }
 
-    finalAtkTime+=1
+    finalAtkTime+=1*gDeltaTime
     if finalAtkTime>=305
     {
       global.mapTeleport=0

@@ -47,7 +47,7 @@ if global.gamePaused=false
   else if flashProg=11
   {
     image_alpha-=0.02*gDeltaTime
-    if flashProg<=0
+    if image_alpha<=0
     {
       flashProg+=1
     }
@@ -56,7 +56,7 @@ if global.gamePaused=false
   //Alternate flash
   if alternateFlash=1
   {
-    flashTime+=1
+    flashTime+=1*gDeltaTime
     if flashTime=15 {image_alpha=1}
     else if flashTime>=30
     {
@@ -68,19 +68,19 @@ if global.gamePaused=false
   //Bullet
   if bulletProg=1
   {
-    bulletTime+=timeAdj
+    bulletTime+=timeAdj*gDeltaTime
     if bulletTime>=20 and bulletTime<=30 and catfaceDist<=5
     {
       catfaceDist=120
       catfaceAngle=0
     }
-    catfaceDist-=timeAdj
+    catfaceDist-=timeAdj*gDeltaTime
 
     if bulletTime>=141
     {
       var tFire;
       tFire=instance_create(x,y,oPassBullet)
-      tFire.direction=point_direction(x,y-35,oPlayer1.x,returnPlayerYCenter()); tFire.sprite_index=sWolfHeadShot
+      tFire._direction=point_direction(x,y-35,oPlayer1.x,returnPlayerYCenter()); tFire.sprite_index=sWolfHeadShot
       tFire.atkPower=100; tFire.bulletSpeed=4; tFire.decayTime=-100
       if timeAdj<10 {timeAdj+=1}
       bulletTime=0

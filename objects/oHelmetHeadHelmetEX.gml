@@ -77,18 +77,18 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  waterFrm+=0.33
+  waterFrm+=0.33*gDeltaTime
   //---------- Movement ----------
   if bossProg=0 //Standard movement
   {
     if moveProg=0
     {
-      x+=xSpd
+      x+=xSpd*gDeltaTime
       if xSpd>0
-        xSpd-=0.1
+        xSpd-=0.1*gDeltaTime
       if xSpd<0
-        xSpd+=0.1
-      y-=3
+        xSpd+=0.1*gDeltaTime
+      y-=3*gDeltaTime
       if y<=yGround
       {
         y=yGround
@@ -98,15 +98,15 @@ if global.gamePaused=false
     }
     else if moveProg=1
     {
-      y+=sin(oGame.time/2.5)
+      y+=sin((oGame.time*gDeltaTime)/2.5)*gDeltaTime
       if moveTime<moveThres
       {
         if x<oPlayer1.x {image_xscale=1}
         else {image_xscale=-1}
       }
 
-      moveTime+=1
-      if moveTime>=moveThres and moveTime<=moveThres+15
+      moveTime+=1*gDeltaTime
+      if moveTime>=moveThres and moveTime<=moveThres+15 and gDeltaDoTicks
       {
         image_speed=0.2
         if image_xscale=1
@@ -130,9 +130,9 @@ if global.gamePaused=false
 
     if type=1
     {
-      if x<128 {x+=8; image_xscale=1}
-      else {x-=8; image_xscale=-1}
-      if point_distance(x,0,128,0)<9
+      if x<128 {x+=8*gDeltaTime; image_xscale=1}
+      else {x-=8*gDeltaTime; image_xscale=-1}
+      if point_distance(x,0,128,0)<9 and gDeltaDoTicks
       {
         var tEffect;
         tEffect=instance_create(x,y-4,oEffect)
@@ -143,9 +143,9 @@ if global.gamePaused=false
     }
     else if type=2
     {
-      if x<352 {x+=8; image_xscale=1}
-      else {x-=8; image_xscale=-1}
-      if point_distance(x,0,352,0)<9
+      if x<352 {x+=8*gDeltaTime; image_xscale=1}
+      else {x-=8*gDeltaTime; image_xscale=-1}
+      if point_distance(x,0,352,0)<9 and gDeltaDoTicks
       {
         var tEffect;
         tEffect=instance_create(x,y-4,oEffect)
@@ -175,17 +175,17 @@ if global.gamePaused=false
       var tFire;
       tFire=instance_create(x,y-4,oPassBullet)
       tFire.sprite_index=sWolfHeadShot; tFire.atkPower=atkPower; tFire.bulletSpeed=8; tFire.decayTime=-100
-      tFire.direction=shotDir
+      tFire._direction=shotDir
     }
 
     //Shot sequence
-    shotTime+=1
+    shotTime+=1*gDeltaTime
     if shotTime=30 {aimedShotTime=0; bAimedShot=1}
     else if shotTime>=61 and shotTime<=80
     {
-      shotDir+=dirChange
+      shotDir+=dirChange*gDeltaTime
     }
-    if circleRad>0 {circleRad-=1}
+    if circleRad>0 {circleRad-=1*gDeltaTime}
 
     if type=1 //Left
     {
@@ -213,28 +213,28 @@ if global.gamePaused=false
         var tFire;
         tFire=instance_create(x,y-4,oPassBullet)
         tFire.sprite_index=sWolfHeadShot; tFire.atkPower=atkPower; tFire.bulletSpeed=8; tFire.decayTime=-100
-        tFire.direction=extraShotAngle
+        tFire._direction=extraShotAngle
       }
       if bArcExtraBullet=1
       {
-        if type=1 {extraShotAngle-=1}
-        else if type=2 {extraShotAngle+=1}
+        if type=1 {extraShotAngle-=1*gDeltaTime}
+        else if type=2 {extraShotAngle+=1*gDeltaTime}
       }
     }
 
     if tinyArcDown>=100 and tinyArcDown<=110
     {
-      tinyArcDown+=1
-      shotDir+=dirChange
+      tinyArcDown+=1*gDeltaTime
+      shotDir+=dirChange*gDeltaTime
     }
   }
   else if bossProg=4 //Move to lower sides
   {
     if type=1
     {
-      if x<48 {x+=4; image_xscale=1}
-      else {x-=4; image_xscale=-1}
-      if point_distance(x,0,128,0)<5
+      if x<48 {x+=4*gDeltaTime; image_xscale=1}
+      else {x-=4*gDeltaTime; image_xscale=-1}
+      if point_distance(x,0,128,0)<5 and gDeltaDoTicks
       {
         var tEffect;
         tEffect=instance_create(x,y-4,oEffect)
@@ -245,9 +245,9 @@ if global.gamePaused=false
     }
     else if type=2
     {
-      if x<424 {x+=4; image_xscale=1}
-      else {x-=4; image_xscale=-1}
-      if point_distance(x,0,352,0)<5
+      if x<424 {x+=4*gDeltaTime; image_xscale=1}
+      else {x-=4*gDeltaTime; image_xscale=-1}
+      if point_distance(x,0,352,0)<5 and gDeltaDoTicks
       {
         var tEffect;
         tEffect=instance_create(x,y-4,oEffect)
@@ -274,14 +274,14 @@ if global.gamePaused=false
       var tFire;
       tFire=instance_create(x,y-4,oPassBullet)
       tFire.sprite_index=sWolfHeadShot; tFire.atkPower=atkPower; tFire.bulletSpeed=8; tFire.decayTime=-100
-      tFire.direction=shotDir
+      tFire._direction=shotDir
     }
   }
   else if bossProg=6 //Move to final position
   {
     if type=1 //Bottom
     {
-      if y>154 {y-=2}
+      if y>154 and gDeltaDoTicks {y-=2}
       if point_distance(0,y,0,154)<3
       {
         y=154
@@ -290,8 +290,8 @@ if global.gamePaused=false
     }
     else if type=2 //Top
     {
-      if x>240 {x-=2}
-      if y>108 {y-=2}
+      if x>240 and gDeltaDoTicks  {x-=2}
+      if y>108 and gDeltaDoTicks  {y-=2}
       if point_distance(x,y,240,108)<3
       {
         x=240; y=108
@@ -303,7 +303,7 @@ if global.gamePaused=false
   {
     if type=1 //Bottom
     {
-      if moveDir=0
+      if moveDir=0 and gDeltaDoTicks
       {
         x+=1
         if x>348
@@ -312,7 +312,7 @@ if global.gamePaused=false
           moveDir=1
         }
       }
-      else if moveDir=1
+      else if moveDir=1 and gDeltaDoTicks
       {
         x-=1
         if x<136
@@ -322,7 +322,7 @@ if global.gamePaused=false
         }
       }
 
-      aimedShotTime+=1
+      aimedShotTime+=1*gDeltaTime
       if aimedShotTime>=aimedAtkDelay
       {
         if aimedShotAmt=0
@@ -335,7 +335,7 @@ if global.gamePaused=false
         {
           var tFire;
           tFire=instance_create(aimedShotX,aimedShotY-4,oPassBullet)
-          tFire.direction=270; tFire.sprite_index=sWolfHeadShot
+          tFire._direction=270; tFire.sprite_index=sWolfHeadShot
           tFire.atkPower=atkPower; tFire.bulletSpeed=3; tFire.decayTime=-100
 
           aimedShotAmt+=1
@@ -349,7 +349,7 @@ if global.gamePaused=false
     }
     else if type=2 //Top
     {
-      aimedShotTime+=1
+      aimedShotTime+=1*gDeltaTime
       if aimedShotTime>=aimedAtkDelay
       {
         if aimedShotAmt=0
@@ -361,7 +361,7 @@ if global.gamePaused=false
         {
           var tFire;
           tFire=instance_create(x,y-4,oPassBullet)
-          tFire.direction=aimedShotAngle; tFire.sprite_index=sWolfHeadShot
+          tFire._direction=aimedShotAngle; tFire.sprite_index=sWolfHeadShot
           tFire.atkPower=atkPower; tFire.bulletSpeed=3; tFire.decayTime=-100
 
           aimedShotAmt+=1
@@ -378,7 +378,7 @@ if global.gamePaused=false
   {
     if type=1 //Bottom
     {
-      if y<208 {y+=2}
+      if y<208 and gDeltaDoTicks {y+=2}
       if point_distance(0,y,0,208)<3
       {
         y=208
@@ -402,7 +402,7 @@ if global.gamePaused=false
   {
     if type=1 //Bottom
     {
-      if moveDir=0
+      if moveDir=0 and gDeltaDoTicks
       {
         x+=1
         if x>348
@@ -411,7 +411,7 @@ if global.gamePaused=false
           moveDir=1
         }
       }
-      else if moveDir=1
+      else if moveDir=1 and gDeltaDoTicks
       {
         x-=1
         if x<136
@@ -426,21 +426,21 @@ if global.gamePaused=false
   {
     if type=1 //Bottom
     {
-      aimedShotTime+=1
+      aimedShotTime+=1*gDeltaTime
       if aimedShotTime mod 3=0
       {
         var tFire;
         for(i=0;i<2;i+=1)
         {
           tFire=instance_create(x,y-4,oPassBullet)
-          tFire.direction=i*180; tFire.sprite_index=sWolfHeadShot
+          tFire._direction=i*180; tFire.sprite_index=sWolfHeadShot
           tFire.atkPower=atkPower; tFire.bulletSpeed=5; tFire.decayTime=-100
         }
       }
     }
     else if type=2 //Top
     {
-      aimedShotTime+=1
+      aimedShotTime+=1*gDeltaTime
       if aimedShotTime>=aimedAtkDelay
       {
         if aimedShotAmt=0
@@ -452,7 +452,7 @@ if global.gamePaused=false
         {
           var tFire;
           tFire=instance_create(x,y-4,oPassBullet)
-          tFire.direction=aimedShotAngle; tFire.sprite_index=sWolfHeadShot
+          tFire._direction=aimedShotAngle; tFire.sprite_index=sWolfHeadShot
           tFire.atkPower=atkPower; tFire.bulletSpeed=3; tFire.decayTime=-100
 
           aimedShotAmt+=1
@@ -468,7 +468,7 @@ if global.gamePaused=false
 
   if bAimedShot=1 //---------- Attack: Bullet toward player ----------
   {
-    aimedShotTime+=1
+    aimedShotTime+=1*gDeltaTime
     if aimedShotTime=aimedAtkDelay
     {
       var tEffect;
@@ -482,7 +482,7 @@ if global.gamePaused=false
       playSound(global.snd_HardHit3,0,0.97,27000)
       var tFire;
       tFire=instance_create(x,y-4,oPassBullet)
-      tFire.direction=player_sprite_center(); tFire.sprite_index=sWolfHeadShot
+      tFire._direction=player_sprite_center(); tFire.sprite_index=sWolfHeadShot
       tFire.atkPower=atkPower; tFire.bulletSpeed=5; tFire.decayTime=-100
       aimedShotTime=0
     }
@@ -490,12 +490,12 @@ if global.gamePaused=false
 
   if alphaUp=1
   {
-    lineAlpha+=0.01
+    lineAlpha+=0.01*gDeltaTime
     if lineAlpha>=0.6 {alphaUp=0}
   }
   else
   {
-    lineAlpha-=0.01
+    lineAlpha-=0.01*gDeltaTime
     if lineAlpha<=0.4 {alphaUp=1}
   }
 
