@@ -317,7 +317,7 @@ if global.gamePaused=false
         catfaceDist=120
         catfaceAngle=0
       }
-      else if atkTime>=201 and atkTime<=320
+      else if atkTime>200 and atkTime<=320
       {
         catfaceAngle+=2*gDeltaTime
         catfaceDist-=1*gDeltaTime
@@ -366,7 +366,7 @@ if global.gamePaused=false
         catfaceDist=120
         catfaceAngle=0
       }
-      else if atkTime>=21 and atkTime<=60
+      else if atkTime>20 and atkTime<=60
       {
         catfaceAngle+=6*gDeltaTime
         catfaceDist-=3*gDeltaTime
@@ -401,7 +401,7 @@ if global.gamePaused=false
         catfaceDist=120
         catfaceAngle=0
       }
-      else if atkTime>=21 and atkTime<=80
+      else if atkTime>20 and atkTime<=80
       {
         catfaceAngle+=4*gDeltaTime
         catfaceDist-=2*gDeltaTime
