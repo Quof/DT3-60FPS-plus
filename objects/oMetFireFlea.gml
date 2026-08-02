@@ -61,8 +61,8 @@ if global.gamePaused=false
   {
     lightFrm+=0.15
 
-    x+=moveSpd*cos(degtorad(direction))
-    y-=moveSpd*sin(degtorad(direction))
+    x+=moveSpd*gDeltaTime*cos(degtorad(direction))
+    y-=moveSpd*gDeltaTime*sin(degtorad(direction))
     direction-=moveArc
   }
   enemyStepEvent()

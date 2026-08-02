@@ -47,7 +47,7 @@ if global.gamePaused=false
   makeEnemyActive(0)
   if bActive=true and stunnedTime=0
   {
-    jumpTime+=1
+    jumpTime+=1*gDeltaTime
     if jumpTime=18 {image_index=1}
     else if jumpTime=25
     {
@@ -70,7 +70,7 @@ if global.gamePaused=false
       }
     }
 
-    yVel+=0.4
+    yVel+=0.4*gDeltaTime
     if isCollisionBottom(1)
     {
       if jumpTime>26 {jumpTime=0}
@@ -84,7 +84,7 @@ if global.gamePaused=false
     if isCollisionTop(1)
       yVel=0.1
 
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
     if isCollisionSolid() {y-=2}
     if y>room_height+24
     {

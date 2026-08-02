@@ -97,7 +97,7 @@ if global.gamePaused=false
     }
 
     //Multishot
-    if shotTime<900 or shotTime>=1000 {shotTime+=1}
+    if shotTime<900 or shotTime>=1000 {shotTime+=1*gDeltaTime}
     if shotTime>=85 and shotTime<=900 and shotReady>=25
     {
       for(i=0;i<6;i+=1)
@@ -134,7 +134,7 @@ if global.gamePaused=false
     }
     if bJumpReady=0 {shotReady+=1}
 
-    if shotTime<=999 {yVel+=0.25}
+    if shotTime<=999 {yVel+=0.25*gDeltaTime}
     if isCollisionBottom(1)
     {
       yVel=0
@@ -148,7 +148,7 @@ if global.gamePaused=false
     if isCollisionSolid()
       y-=2
 
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
     if y<0 or y>room_height+24
       instance_destroy()
   }

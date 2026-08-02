@@ -52,11 +52,11 @@ if global.gamePaused=false
     if x<oPlayer1.x {image_xscale=1}
     else {image_xscale=-1}
 
-    moveWave+=pi/60
-    y+=sin(moveWave)*4
+    moveWave+=pi/60*gDeltaTime
+    y+=sin(moveWave)*4*gDeltaTime
 
     //Attack
-    fireTime+=1
+    fireTime+=1*gDeltaTime
     if fireTime>=fireDelay
     {
       var tNewAttack;
@@ -68,7 +68,7 @@ if global.gamePaused=false
   }
   else if life<=0
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     image_speed=0
     if deathAnim mod 8=0 {playSound(global.snd_BombExplode,0,0.8,1)}
     if deathAnim mod 3=0

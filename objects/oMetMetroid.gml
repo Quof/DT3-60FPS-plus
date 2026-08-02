@@ -68,8 +68,8 @@ if global.gamePaused=false
 
     if frozen=0
     {
-      frmBrain+=0.2
-      animFang+=1
+      frmBrain+=0.2*gDeltaTime
+      animFang+=1*gDeltaTime
       if animFang=6 {frmFang=1}
       else if animFang=12 {frmFang=2}
       else if animFang=18 {frmFang=1}
@@ -86,13 +86,13 @@ if global.gamePaused=false
         if isCollisionBottom(1) {yVel=-1}
         if isCollisionLeft(1) {xVel=1}
         if isCollisionRight(1) {xVel=-1}
-        moveTo(xVel,yVel)
+        moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
       }
       else if latching=1 //Latched onto player
       {
         x=oPlayer1.x
         y=oPlayer1.bbox_top-6
-        lifeDrain+=1
+        lifeDrain+=1*gDeltaTime
         if global.difficulty=1 and global.bNightmareMode=0
         {
           if lifeDrain mod 16=0 {bCanDealDamage=true}
@@ -104,8 +104,8 @@ if global.gamePaused=false
       }
       else if latching=2 //Blast away from the player after being hit with explosive type damage
       {
-        blastSpd-=0.5
-        moveTo(blastSpd*cos(degtorad(blastDir)),-blastSpd*sin(degtorad(blastDir)))
+        blastSpd-=0.5*gDeltaTime
+        moveTo(blastSpd*gDeltaTime*cos(degtorad(blastDir)),-blastSpd*gDeltaTime*sin(degtorad(blastDir)))
         if blastSpd<=5
         {
           xVel=0; yVel=0
@@ -114,7 +114,7 @@ if global.gamePaused=false
       }
       else if latching=3 //Slight wait before seeking player
       {
-        unlatchTime-=1
+        unlatchTime-=1*gDeltaTime
         if unlatchTime<=0
         {
           latching=0
@@ -123,7 +123,7 @@ if global.gamePaused=false
     }
     else if frozen>=1 and frozen<=15 //Delay frozen damage state to prevent a super missile from killing the metroid if it is the killing shot
     {
-      frozen+=1
+      frozen+=1*gDeltaTime
     }
     else if frozen>=16 and frozen<=20 //Frozen state
     {
@@ -156,7 +156,11 @@ if global.gamePaused=false
     }
     else if frozen>=21
     {
-      deathAnim+=1
+      if (deathAnim == 0)
+      {
+        deathAnim = 1-gDeltaTime
+      }
+      deathAnim+=1*gDeltaTime
       if deathAnim=1 //Destroy solid from frozen state
       {
         with mySolid {instance_destroy()}

@@ -63,18 +63,18 @@ if global.gamePaused=false
     {
       if x>=oPlayer1.x {image_xscale=-1}
       else {image_xscale=1}
-      y-=3
+      y-=3*gDeltaTime
 
-      moveMin+=1
+      moveMin+=1*gDeltaTime
       if moveMin>=7 {if y<=oPlayer1.y-26 {eProg=1}}
     }
-    else if eProg>=1 and eProg<=15
+    else if eProg>=1 and eProg<=16
     {
-      eProg+=1
+      eProg+=1*gDeltaTime
       if x>=oPlayer1.x {image_xscale=-1}
       else {image_xscale=1}
     }
-    else if eProg>=16 {x+=5*image_xscale}
+    else if eProg>=16 {x+=5*gDeltaTime*image_xscale}
   }
   enemyStepEvent()
 }

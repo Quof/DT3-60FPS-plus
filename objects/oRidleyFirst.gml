@@ -203,17 +203,17 @@ if global.gamePaused=false
         {
           if moveSpd>-4 {moveSpd-=0.3}
         }
-        y+=moveSpd
+        y+=moveSpd*gDeltaTime
       }
       else if room=rSamus5_Lv1_F
       {
         if x<oPlayer1.x
         {
-          if moveSpd<4 {moveSpd+=0.3}
+          if moveSpd<4 {moveSpd+=0.3*gDeltaTime}
         }
         else if x>oPlayer1.x
         {
-          if moveSpd>-4 {moveSpd-=0.3}
+          if moveSpd>-4 {moveSpd-=0.3*gDeltaTime}
         }
         x+=moveSpd
       }
