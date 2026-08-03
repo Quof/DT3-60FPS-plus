@@ -85,7 +85,7 @@ if global.gamePaused=false
         speed=runAcc
       }
       //Attack
-      gunShot+=1
+      gunShot+=1*gDeltaTime
       if gunShot=gunDelay-8 //Fire warning
       {
         var tEffect,tXadj,tYadj;
@@ -105,14 +105,18 @@ if global.gamePaused=false
         else if image_index=2 {tXadj=13; tYadj=7}
         tNewAttack=instance_create(x+(tXadj*image_xscale),y-tYadj,oPassBullet)
         tNewAttack.sprite_index=sWolfHeadShot; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
-        tNewAttack.decayTime=-100; tNewAttack.direction=point_direction(x+(tXadj*image_xscale),y-tYadj,oPlayer1.x,returnPlayerYCenter())
+        tNewAttack.decayTime=-100; tNewAttack._direction=point_direction(x+(tXadj*image_xscale),y-tYadj,oPlayer1.x,returnPlayerYCenter())
         gunShot=0
       }
     }
   }
   else if life<=0
   {
-    deathAnim+=1
+    if (deathAnim == 0)
+    {
+      deathAnim = 1-gDeltaTime
+    }
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       if global.CHAOS_Upgrade=0 {sprite_index=sCHAOS_AirDie}
@@ -120,8 +124,8 @@ if global.gamePaused=false
       if random(100)<=4 {global.recHeardWilhelm+=1; playSound(global.snd_Wilhelm,0,0.95,1)}
       flyX=1.5*-image_xscale
     }
-    x+=flyX; y+=0.5
-    image_angle+=2*-image_xscale
+    x+=flyX*gDeltaTime; y+=0.5*gDeltaTime
+    image_angle+=2*-image_xscale*gDeltaTime
     image_alpha-=0.035*gDeltaTime
     if image_alpha<0
     {

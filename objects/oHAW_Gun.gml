@@ -36,13 +36,13 @@ if global.gamePaused=false
   if bActive=true and stunnedTime=0 and life>0
   {
     //Fire at player
-    gunShot+=1
+    gunShot+=1*gDeltaTime
     if gunShot>=gunDelay
     {
       var tNewAttack;
       tNewAttack=instance_create(x-18,y,oPassBullet)
       tNewAttack.sprite_index=sWolfHeadShot; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
-      tNewAttack.decayTime=-100; tNewAttack.direction=point_direction(x-18,y,oPlayer1.x,returnPlayerYCenter())
+      tNewAttack.decayTime=-100; tNewAttack._direction=point_direction(x-18,y,oPlayer1.x,returnPlayerYCenter())
       gunShot=0
     }
   }

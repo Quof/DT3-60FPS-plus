@@ -66,9 +66,9 @@ if global.gamePaused=false
     if turnTime<=20
     {
       if x>oPlayer1.x and image_xscale=1
-        turnTime+=1
+        turnTime+=1*gDeltaTime
       else if x<oPlayer1.x and image_xscale=-1
-        turnTime+=1
+        turnTime+=1*gDeltaTime
 
       if !isCollisionBottom(1) and turnTime=20 {turnTime=10}
     }
@@ -86,12 +86,12 @@ if global.gamePaused=false
       var tNewAttack;
       tNewAttack=instance_create((x-(14*image_xscale))+lengthdir_x(20,direction),y-31+lengthdir_y(20,direction),oPassBullet)
       tNewAttack.sprite_index=sWolfHeadShot; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5; tNewAttack.depth=9
-      tNewAttack.decayTime=-100; tNewAttack.direction=direction
+      tNewAttack.decayTime=-100; tNewAttack._direction=direction
       gunShot=0
     }
 
     //Smoke effect
-    if oGame.time mod 6=0
+    if oGame.time mod (6/gDeltaTime)=0
     {
       var tEffect;
       tEffect=instance_create(x-(24*image_xscale),y,oEffect)
@@ -101,7 +101,7 @@ if global.gamePaused=false
     }
 
     if !isCollisionBottom(1)
-      yVel+=0.2
+      yVel+=0.2*gDeltaTime
     if isCollisionSolid()
       y-=2
 
@@ -121,7 +121,11 @@ if global.gamePaused=false
   }
   else if life<=0
   {
-    deathAnim+=1
+    if (deathAnim == 0)
+    {
+      deathAnim = 1-gDeltaTime
+    }
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       playSound(global.snd_EnemyDieMM,0,1,1)
@@ -136,9 +140,9 @@ if global.gamePaused=false
       flyX=5*image_xscale; flyY=-5
       image_angle=180
     }
-    x+=flyX; y+=flyY
-    flyY+=0.33
-    image_angle+=2*-image_xscale
+    x+=flyX*gDeltaTime; y+=flyY*gDeltaTime
+    flyY+=0.33*gDeltaTime
+    image_angle+=2*-image_xscale*gDeltaTime
     image_alpha-=0.035*gDeltaTime
     if image_alpha<0
     {

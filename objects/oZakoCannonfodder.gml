@@ -122,7 +122,7 @@ if global.gamePaused=false
       }
     }
 
-    yVel+=0.3
+    yVel+=0.3*gDeltaTime
     if isCollisionBottom(1)
     {
       yVel=0
@@ -145,7 +145,11 @@ if global.gamePaused=false
   }
   else if life<=0
   {
-    deathAnim+=1
+    if (deathAnim == 0)
+    {
+      deathAnim = 1-gDeltaTime
+    }
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       if global.CHAOS_Upgrade=0 {sprite_index=sZakoSoldierDie}
@@ -153,8 +157,8 @@ if global.gamePaused=false
       if random(100)<=4 {global.recHeardWilhelm+=1; playSound(global.snd_Wilhelm,0,0.95,1)}
       flyX=2*-image_xscale; flyY=-4
     }
-    x+=flyX; y+=flyY
-    flyY+=0.33
+    x+=flyX*gDeltaTime; y+=flyY*gDeltaTime
+    flyY+=0.33*gDeltaTime
     image_alpha-=0.035*gDeltaTime
     if image_alpha<0
     {
