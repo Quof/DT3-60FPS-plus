@@ -48,7 +48,7 @@ if global.gamePaused=false
   {
     if bActive=true and stunnedTime=0
     {
-      chargeTime+=1
+      chargeTime+=1*gDeltaTime
       if chargeProg=0 //Normal behavior
       {
         if x<oPlayer1.x
@@ -63,11 +63,11 @@ if global.gamePaused=false
         }
         else if point_distance(x,y,oPlayer1.x,returnPlayerYCenter())<112 //Close to player
         {
-          chargeTime+=0.5
+          chargeTime+=0.5*gDeltaTime
           _direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())-180
           _speed=runAcc/1.5
         }
-        else {chargeTime+=0.5}
+        else {chargeTime+=0.5*gDeltaTime}
 
         if chargeTime>=chargeDelay
         {
@@ -113,16 +113,16 @@ if global.gamePaused=false
   }
   else if life<=0
   {
-    deathAnim+=1
+    if deathAnim == 0 {deathAnim = 1-gDeltaTime}; deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       sprite_index=sWB_BigBat_Die
-      yDeath=-6
+      yDeath=-(6 + (0.3/2) * ((1/gDeltaTime) - 1) )
     }
-    else if deathAnim>=2
+    else if deathAnim>1
     {
-      y+=yDeath
-      if yDeath<12 {yDeath+=0.3}
+      y+=yDeath*gDeltaTime
+      if yDeath<12 {yDeath+=0.3*gDeltaTime}
       if y>room_height+24 {instance_destroy()}
     }
   }
