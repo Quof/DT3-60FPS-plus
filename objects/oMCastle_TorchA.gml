@@ -11,7 +11,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-flameFrm+=0.25
+flameFrm+=0.25*gDeltaTime
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

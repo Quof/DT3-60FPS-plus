@@ -37,7 +37,7 @@ if global.gamePaused=false
 {
   if bCanMove=true
   {
-    offscreenDestroy-=1
+    offscreenDestroy-=1*gDeltaTime
     if turnDelay=0
     {
       nextTurn=instance_nearest(x,y,oPlatRail) //find closest rail turn

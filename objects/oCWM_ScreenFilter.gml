@@ -20,12 +20,12 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if keyboard_check(ord("1")) {valueHue-=1}
-if keyboard_check(ord("2")) {valueHue+=1}
-if keyboard_check(ord("3")) {valueSaturation-=1}
-if keyboard_check(ord("4")) {valueSaturation+=1}
-if keyboard_check(ord("5")) {valueValue-=1}
-if keyboard_check(ord("6")) {valueValue+=1}
+if keyboard_check(ord("1")) {valueHue-=1*gDeltaTime}
+if keyboard_check(ord("2")) {valueHue+=1*gDeltaTime}
+if keyboard_check(ord("3")) {valueSaturation-=1*gDeltaTime}
+if keyboard_check(ord("4")) {valueSaturation+=1*gDeltaTime}
+if keyboard_check(ord("5")) {valueValue-=1*gDeltaTime}
+if keyboard_check(ord("6")) {valueValue+=1*gDeltaTime}
 #define Step_2
 /*"/*'/**//* YYD ACTION
 lib_id=1

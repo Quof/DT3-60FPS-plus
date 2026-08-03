@@ -26,12 +26,12 @@ if global.gamePaused=false
   if isCollisionCharacterTop(2)
   {
     if standTime>0
-      standTime-=1
+      standTime-=1*gDeltaTime
   }
   else
   {
     if standTime<standTimeMax
-      standTime+=returnTime
+      standTime+=returnTime*gDeltaTime
   }
   if isCollisionCharacterTop(1,oEarthShift)
   {

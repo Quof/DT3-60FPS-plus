@@ -25,7 +25,7 @@ if global.gamePaused=false
   else if mapProg=1
   {
     SS_SetSoundFreq(global.msc_MarioWorld,mySoundFreq)
-    mySoundFreq-=100
+    mySoundFreq-=100*gDeltaTime
     if mySoundFreq<=1500
     {
       SS_SetSoundFreq(global.msc_MarioWorld,22050)

@@ -13,7 +13,7 @@ applies_to=self
 */
 if global.gamePaused=0
 {
-  if touchTime>0 {touchTime-=1}
+  if touchTime>0 {touchTime-=1*gDeltaTime}
 }
 #define Collision_oPlayer1
 /*"/*'/**//* YYD ACTION

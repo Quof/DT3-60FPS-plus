@@ -16,7 +16,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if bIsSucked>0 {bIsSucked-=1}
+if bIsSucked>0 {bIsSucked-=1*gDeltaTime}
 
 if lifePercent<=suckThres and suckReady=0 and bCanBeSucked=1
 {
