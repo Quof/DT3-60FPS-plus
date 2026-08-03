@@ -38,9 +38,9 @@ if global.gamePaused=false
   {
     if moveProg=0
     {
-      moveWave+=pi/60
-      y+=sin(moveWave)*2
-      x-=runAcc
+      moveWave+=(pi/60)*gDeltaTime
+      y+=(sin(moveWave)*2)*gDeltaTime
+      x-=runAcc*gDeltaTime
     }
     if x<=-32 {instance_destroy()}
   }

@@ -45,12 +45,12 @@ if global.gamePaused=false
   {
     if moveDelay=0
     {
-      image_angle=direction
+      image_angle=_direction
       if oHexWorm.moveBehavior=1 //Follow a path
       {
         if myMoveCheck=0
         {
-          fireTime+=1
+          fireTime+=1*gDeltaTime
           if fireTime>=fireDelay
           {
             playSound(global.snd_LaserA,0,0.9,32000)
@@ -60,15 +60,15 @@ if global.gamePaused=false
               tDir=point_direction(x,y,oPlayer1.x,oPlayer1.y)
               tNewAttack=instance_create(x,y,oPassBullet)
               tNewAttack.sprite_index=sHexWormLaser; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=6
-              tNewAttack.decayTime=-100; tNewAttack.direction=tDir
+              tNewAttack.decayTime=-100; tNewAttack._direction=tDir
               if oHexWorm.partNum<=17
               {
                 tNewAttack=instance_create(x,y,oPassBullet)
                 tNewAttack.sprite_index=sHexWormLaser; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
-                tNewAttack.decayTime=-100; tNewAttack.direction=tDir-5
+                tNewAttack.decayTime=-100; tNewAttack._direction=tDir-5
                 tNewAttack=instance_create(x,y,oPassBullet)
                 tNewAttack.sprite_index=sHexWormLaser; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
-                tNewAttack.decayTime=-100; tNewAttack.direction=tDir+5
+                tNewAttack.decayTime=-100; tNewAttack._direction=tDir+5
               }
             }
             else
@@ -79,14 +79,14 @@ if global.gamePaused=false
               {
                 tNewAttack=instance_create(x,y,oPassBullet)
                 tNewAttack.sprite_index=sHexWormLaser; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=4
-                tNewAttack.decayTime=-100; tNewAttack.direction=tDir
+                tNewAttack.decayTime=-100; tNewAttack._direction=tDir
                 tDir+=360/8
               }
             }
             fireTime=0
           }
 
-          path_speed=oHexWorm.moveSpd
+          path_speed=oHexWorm.moveSpd*gDeltaTime
           if path_position>=0.99
           {
             bCanTakeDamage=false
@@ -96,7 +96,7 @@ if global.gamePaused=false
         }
       }
     }
-    else {path_speed=0; moveDelay-=1}
+    else {path_speed=0; moveDelay-=1*gDeltaTime}
 
     if lifePercent<=0.4 and lifePercent>=0 and bossProgress=0
     {
@@ -127,6 +127,6 @@ draw_self()
 if fireTime>=fireDelay-20
 {
   if oGame.time mod 2=0
-    chargeFrame+=1
+    chargeFrame+=1*gDeltaTime
   draw_sprite_ext(sMMcharging,chargeFrame,x,y,1,1,0,c_white,image_alpha)
 }

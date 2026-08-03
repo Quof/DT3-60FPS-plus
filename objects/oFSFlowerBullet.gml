@@ -24,19 +24,19 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  direction+=4
-  speed=bulletSpeed
+  _direction+=4*gDeltaTime
+  _speed=bulletSpeed
 
-  bulletCreate+=1
+  bulletCreate+=1*gDeltaTime
   if bulletCreate mod bulletCMod=0
   {
     myBullet[bulletNum]=instance_create(x,y,oCW_MarkShot)
     myBullet[bulletNum].sprite_index=sFSSmallBullet; myBullet[bulletNum].image_speed=0.2; myBullet[bulletNum].atkPower=atkPower
-    myBullet[bulletNum].bulletSpeed=4; myBullet[bulletNum].direction=direction; myBullet[bulletNum].image_blend=bulletBlend
+    myBullet[bulletNum].bulletSpeed=4; myBullet[bulletNum]._direction=direction; myBullet[bulletNum].image_blend=bulletBlend
     bulletNum+=1
   }
 
-  decayTime-=1
+  decayTime-=1*gDeltaTime
   if decayTime<=0
   {
     for(i=0;i<bulletNum;i+=1)
@@ -46,4 +46,7 @@ if global.gamePaused=false
     instance_destroy()
   }
 }
-else {speed=0}
+else {_speed=0}
+
+x += cos(degtorad(_direction)) * _speed * gDeltaTime
+y -= sin(degtorad(_direction)) * _speed * gDeltaTime

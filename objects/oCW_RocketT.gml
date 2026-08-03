@@ -21,7 +21,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  if oGame.time mod 3=0
+  if oGame.time mod (3/gDeltaDoTicks)=0
   {
     var tEffect;
     tEffect=instance_create(x+23,y+24,oEffect)
@@ -29,7 +29,7 @@ if global.gamePaused=false
     tEffect.newBlend=-1; tEffect.decay=-100; tEffect.xSpd=0.5+random(1.5); tEffect.ySpd=random_range(-0.25,0.25); tEffect.image_alpha=0.5
     tEffect.image_xscale=0.5; tEffect.image_yscale=0.5; tEffect.image_speed=0.2
   }
-  x-=runAcc
+  x-=runAcc*gDeltaTime
   if x<=-48 {instance_destroy()}
 }
 #define Collision_oAttackBase

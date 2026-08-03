@@ -45,53 +45,53 @@ if global.gamePaused=false
   {
     if moveProg=0 //Fly in
     {
-      x-=runAcc
+      x-=runAcc*gDeltaTime
       if x<=432 {moveProg+=1}
     }
     else if moveProg=1 //Slight wait
     {
-      bulletTime+=1
+      bulletTime+=1*gDeltaTime
       if bulletTime>=15 {bulletTime=0; moveProg+=1}
     }
     else if moveProg=2 //Angle up
     {
-      image_angle-=3
+      image_angle-=3*gDeltaTime
       if image_angle<=155 {moveProg+=1}
     }
     else if moveProg=3 //Fire (go down)
     {
-      image_angle+=2
-      bulletTime+=1
+      image_angle+=2*gDeltaTime
+      bulletTime+=1*gDeltaTime
       if bulletTime mod bulletMod=0
       {
         var tNewAttack;
         tNewAttack=instance_create(x+lengthdir_x(19,45+image_angle),y+lengthdir_y(19,45+image_angle),oPassBullet)
         tNewAttack.sprite_index=sC_BloomShot; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=8
-        tNewAttack.decayTime=-100; tNewAttack.direction=image_angle
+        tNewAttack.decayTime=-100; tNewAttack._direction=image_angle
         tNewAttack=instance_create(x+lengthdir_x(19,-45+image_angle),y+lengthdir_y(19,-45+image_angle),oPassBullet)
         tNewAttack.sprite_index=sC_BloomShot; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=8
-        tNewAttack.decayTime=-100; tNewAttack.direction=image_angle
+        tNewAttack.decayTime=-100; tNewAttack._direction=image_angle
       }
       if image_angle>=205 {moveProg+=1}
     }
     else if moveProg=4 //Slight wait
     {
-      bulletTime+=1
+      bulletTime+=1*gDeltaTime
       if bulletTime>=15 {bulletTime=0; moveProg+=1}
     }
     else if moveProg=5 //Fire (go up)
     {
-      image_angle-=2
-      bulletTime+=1
+      image_angle-=2*gDeltaTime
+      bulletTime+=1*gDeltaTime
       if bulletTime mod bulletMod=0
       {
         var tNewAttack;
         tNewAttack=instance_create(x+lengthdir_x(19,45+image_angle),y+lengthdir_y(19,45+image_angle),oPassBullet)
         tNewAttack.sprite_index=sC_BloomShot; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=8
-        tNewAttack.decayTime=-100; tNewAttack.direction=image_angle
+        tNewAttack.decayTime=-100; tNewAttack._direction=image_angle
         tNewAttack=instance_create(x+lengthdir_x(19,-45+image_angle),y+lengthdir_y(19,-45+image_angle),oPassBullet)
         tNewAttack.sprite_index=sC_BloomShot; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=8
-        tNewAttack.decayTime=-100; tNewAttack.direction=image_angle
+        tNewAttack.decayTime=-100; tNewAttack._direction=image_angle
       }
       if image_angle<=155
       {
@@ -102,22 +102,22 @@ if global.gamePaused=false
     }
     else if moveProg=6 //Longer wait (Go to 3)
     {
-      bulletTime+=1
+      bulletTime+=1*gDeltaTime
       if bulletTime>=40 {bulletTime=0; moveProg=3}
     }
     else if moveProg=7 //Angle down (stop at mid)
     {
-      image_angle+=3
+      image_angle+=3*gDeltaTime
       if image_angle>=180 {image_angle=180; moveProg+=1}
     }
     else if moveProg=8 //Slight wait
     {
-      bulletTime+=1
+      bulletTime+=1*gDeltaTime
       if bulletTime>=15 {bulletTime=0; moveProg+=1}
     }
     else if moveProg=9
     {
-      x-=runAcc
+      x-=runAcc*gDeltaTime
     }
 
     if x<=-32 {instance_destroy()}

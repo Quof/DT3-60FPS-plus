@@ -37,11 +37,11 @@ if global.gamePaused=false
   event_inherited()
   if bActive=true and bIsSucked=0
   {
-    moveWave+=pi/60
-    y+=sin(moveWave)
-    x-=runAcc
+    moveWave+=(pi/60)*gDeltaTime
+    y+=sin(moveWave)*gDeltaTime
+    x-=runAcc*gDeltaTime
 
-    missileTime+=1
+    missileTime+=1*gDeltaTime
     if missileTime>=missileDelay and x>32
     {
       var tAtk;

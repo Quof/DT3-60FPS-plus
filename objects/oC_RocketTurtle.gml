@@ -42,11 +42,11 @@ if global.gamePaused=false
   event_inherited()
   if bActive=true and bIsSucked=0
   {
-    x-=runAcc
+    x-=runAcc*gDeltaTime
 
     if instance_exists(myTurtle)
     {
-      bulletTime+=1
+      bulletTime+=1*gDeltaTime
       if bulletTime>=60 and x>96
       {
         if bulletTime mod 12=0
@@ -71,10 +71,10 @@ if global.gamePaused=false
           {
             tNewAttack=instance_create(myTurtle.x-22,myTurtle.y+23,oPassBullet)
             tNewAttack.sprite_index=sWolfHeadShot; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
-            tNewAttack.image_speed=0.33; tNewAttack.decayTime=-100; tNewAttack.direction=tDir
+            tNewAttack.image_speed=0.33; tNewAttack.decayTime=-100; tNewAttack._direction=tDir
             tDir+=30
           }
-          bulletCheck+=1
+          bulletCheck+=1*gDeltaTime
           if bulletCheck>=bulletMax
           {
             bulletCheck=0

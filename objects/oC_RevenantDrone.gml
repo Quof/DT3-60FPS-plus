@@ -45,17 +45,17 @@ if global.gamePaused=false
   {
     if bulletTime<bulletDelay or x<33
     {
-      x-=runAcc
-      moveDir+=1
-      if moveDir>=1 and moveDir<=35 {y+=runAcc}
+      x-=runAcc*gDeltaTime
+      moveDir+=1*gDeltaTime
+      if moveDir>=1 and moveDir<=35 {y+=runAcc*gDeltaTime}
       else if moveDir>=36 and moveDir<=70
       {
-        y-=runAcc
+        y-=runAcc*gDeltaTime
         if moveDir=70 {moveDir=0}
       }
     }
 
-    bulletTime+=1
+    bulletTime+=1*gDeltaTime
     if bulletTime=bulletDelay-1
     {
       shotDir=point_direction(x,y,oPlayer1.x,oPlayer1.y)
@@ -67,7 +67,7 @@ if global.gamePaused=false
         var tNewAttack;
         tNewAttack=instance_create(x,y,oCW_ArcBullet)
         tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
-        tNewAttack.decayTime=-100; tNewAttack.direction=shotDir
+        tNewAttack.decayTime=-100; tNewAttack._direction=shotDir
         bulletCheck+=1
         if bulletCheck>=bulletMax
         {

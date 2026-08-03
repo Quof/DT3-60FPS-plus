@@ -13,6 +13,8 @@ bShowDamage=false
 bCanTakeDamage=false
 atkPower=20
 size=2
+_direction=0
+_speed=0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -21,11 +23,14 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  speed=bulletSpeed
-  image_angle+=1
+  _speed=bulletSpeed
+  image_angle+=1*gDeltaTime
   if x<=-256 {instance_destroy()}
 }
-else {speed=0}
+else {_speed=0}
+
+x += cos(degtorad(_direction)) * _speed * gDeltaTime
+y -= sin(degtorad(_direction)) * _speed * gDeltaTime
 #define Collision_oAttackBase
 /*"/*'/**//* YYD ACTION
 lib_id=1
