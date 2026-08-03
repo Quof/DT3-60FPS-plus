@@ -18,7 +18,7 @@ drawRangeY=384
 moveSpd=2
 startFrm=0
 endFrm=0
-animSpd=0.33
+animSpd=0.33*gDeltaTime
 deathCheck=0
 
 alarm[0]=1
@@ -132,8 +132,48 @@ if global.gamePaused=false
       }
     }
     else {xVel=0; yVel=0}
+    if global.fixMMGravPlatforms=true //check limits again in case it was missed due to a GW-ball being closer
+    {
+      if type=0 or type=2
+      {
+        if x<startPos or x>startPos+maxDist {xVel=0}
+      }
+      else if type=1 or type=3
+      {
+        if y<startPos or y>startPos+maxDist {yVel=0}
+      }
+    }
   }
   else {xVel=0; yVel=0}
+}
+if global.gamePaused=false and global.fixMMGravPlatforms=true //explode ALL GW-balls hitting a "grav point"
+{
+  with oMMXgravityWell
+  {
+    if sprite_index=sMMXgravityWell1
+    {
+      if other.type=0 //Horizontal
+      {
+        if point_distance(other.startPos,other.y+8,x,y)<=16 {gravityProg=1}
+        if point_distance(other.startPos+other.maxDist+64,other.y+8,x,y)<=16 {gravityProg=1}
+      }
+      else if other.type=1 //Vertical
+      {
+        if point_distance(other.x+32,other.startPos,x,y)<=16 {gravityProg=1}
+        if point_distance(other.x+32,other.startPos+other.maxDist+16,x,y)<=16 {gravityProg=1}
+      }
+      else if other.type=2 //Horizontal - 90 degrees
+      {
+        if point_distance(other.startPos,other.y+32,x,y)<=16 {gravityProg=1}
+        if point_distance(other.startPos+other.maxDist+16,other.y+32,x,y)<=16 {gravityProg=1}
+      }
+      else if other.type=3 //Vertical - 90 degrees
+      {
+        if point_distance(other.x+8,other.startPos,x,y)<=16 {gravityProg=1}
+        if point_distance(other.x+8,other.startPos+other.maxDist+64,x,y)<=16 {gravityProg=1}
+      }
+    }
+  }
 }
 #define Draw_0
 /*"/*'/**//* YYD ACTION
