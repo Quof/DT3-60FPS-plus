@@ -59,7 +59,7 @@ if global.gamePaused=false
       atkProg=1
     }
     image_angle+=random_range(-3,3)*gDeltaTime
-    if atkProg<3 {_speed=moveSpd
+    if atkProg<3 {_speed=moveSpd}
     if atkProg=2
     {
       atkTime-=1*gDeltaTime
@@ -74,7 +74,6 @@ if global.gamePaused=false
 else {_speed=0}
 
 correctSpeedDirection(self)
-
 #define Collision_oPlayer1
 /*"/*'/**//* YYD ACTION
 lib_id=1

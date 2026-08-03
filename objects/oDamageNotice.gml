@@ -4,20 +4,12 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-_hspeed=random_range(-2,2)
-_vspeed=-random_range(4,6)
+hspeed=random_range(-2,2)*gDeltaTime
+vspeed=-random_range(4,6)*gDeltaTime
 dispTime=10
 
 ranChoice=0
 drawColor=0
-#define Step_0
-/*"/*'/**//* YYD ACTION
-lib_id=1
-action_id=603
-applies_to=self
-
-correctHSpeedVSpeed(self)
-
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -26,9 +18,7 @@ applies_to=self
 */
 if view_current=0
 {
-  _vspeed+=0.38*gDeltaTime
-
-
+  vspeed+=0.38*gDeltaTime
   draw_set_halign(fa_center)
   draw_set_alpha(image_alpha)
 
