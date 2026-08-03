@@ -61,7 +61,7 @@ if global.gamePaused=false
     yVel=1
   if isCollisionSolid()
   {
-    y-=2
+    y-=2*gDeltaTime
     inColTime+=1*gDeltaTime
     if inColTime=5
     {
