@@ -5,6 +5,7 @@ action_id=603
 applies_to=self
 */
 _vspeed=-4
+_hspeed=0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
