@@ -29,6 +29,8 @@ targetTime=0
 hoverNoTgt=1
 tgtToUse=0
 circlePlayer=0
+_speed=0
+_direction=0
 
 deathAnim=0
 
@@ -52,7 +54,7 @@ if global.gamePaused=false
       {
         targetTime=0
         event_user(0)
-        speed=0
+        _speed=0
       }
       if waitTime>0 {waitTime-=1}
 
@@ -61,8 +63,8 @@ if global.gamePaused=false
         //Keep target between self and player
         tgtToUse=myTarget
         event_user(1)
-        if targetDist>4 {speed=4}
-        else {speed=0}
+        if targetDist>4 {_speed=4}
+        else {_speed=0}
 
         if targetDist<160 //Check distance to target
         {
@@ -75,12 +77,12 @@ if global.gamePaused=false
         {
           if myTarget.life<myTarget.maxLife
           {
-            if myTarget.life>0 {myTarget.life+=3}
+            if myTarget.life>0 {myTarget.life+=3*gDeltaTime}
             if myTarget.life>myTarget.maxLife {myTarget.life=myTarget.maxLife}
           }
         }
         if myTarget.lifePercent>=1 {myTarget=noone} //Check for new target if current target has full HP
-        targetTime+=1
+        targetTime+=1*gDeltaTime
         if targetTime>=150 {myTarget=noone} //Check for new target after short time
       }
       else //---------- No healing target ----------
@@ -105,8 +107,8 @@ if global.gamePaused=false
         {
           tgtToUse=chkClosest
           event_user(1)
-          if targetDist>3 {speed=3}
-          else {speed=0}
+          if targetDist>3 {_speed=3}
+          else {_speed=0}
         }
         else //---------- Hover around player with no target ----------
         {
@@ -114,22 +116,23 @@ if global.gamePaused=false
           var tDirToPlayer;
           tDirToPlayer=point_direction(x,y,oPlayer1.x+lengthdir_x(100,circlePlayer),returnPlayerYCenter()+lengthdir_y(100,circlePlayer))
           circlePlayer+=2
-          direction=tDirToPlayer
-          speed=3.5
+          _direction=tDirToPlayer
+          _speed=3.5
         }
       }
 
-      if life<maxLife and oGame.time mod 5=0 {life+=1} //Auto-recover HP
+      if life<maxLife and oGame.time mod (5/gDeltaTime)=0 {life+=1*gDeltaTime} //Auto-recover HP
     }
-    else {speed=0}
+    else {_speed=0}
   }
   else if life<=0
   {
-    deathAnim+=1
+    if deathAnim==0 {deathAnim=1-gDeltaTime}
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       playSound(global.snd_HardHit1,0,0.9,1)
-      speed=0
+      _speed=0
       baseColor=c_red; image_blend=c_red
     }
 
@@ -146,7 +149,10 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
-else {speed=0}
+else {_speed=0}
+
+x += cos(degtorad(_direction)) * _speed * gDeltaTime
+y -= sin(degtorad(_direction)) * _speed * gDeltaTime
 #define Other_10
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -235,7 +241,7 @@ if tarDistToPlayer<56 {tarDistToPlayer=56} //Min dist
 myPointX=tgtToUse.x+lengthdir_x(tarDistToPlayer,tarDirToPlayer)
 myPointY=tgtToUse.y+lengthdir_y(tarDistToPlayer,tarDirToPlayer)
 //Go to point
-direction=point_direction(x,y,myPointX,myPointY)
+_direction=point_direction(x,y,myPointX,myPointY)
 targetDist=point_distance(x,y,myPointX,myPointY)
 #define Draw_0
 /*"/*'/**//* YYD ACTION

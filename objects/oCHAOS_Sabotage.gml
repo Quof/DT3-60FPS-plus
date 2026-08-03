@@ -62,8 +62,8 @@ if global.gamePaused=false
   if bActive=true and stunnedTime=0 and life>0
   {
     //Hanging wave
-    moveWave+=pi/40
-    x+=cos(moveWave)/1.75
+    moveWave+=(pi/40)*gDeltaTime
+    x+=(cos(moveWave)/1.75)*gDeltaTime
 
     if x<oPlayer1.x {image_xscale=1}
     else {image_xscale=-1}
@@ -93,14 +93,14 @@ if global.gamePaused=false
 
     if dropType=1 //Down
     {
-      y+=5
+      y+=5*gDeltaTime
     }
     else if dropType=2 //Up
     {
-      if y>ystart+12 {y-=3}
+      if y>ystart+12 {y-=3*gDeltaTime}
     }
 
-    shotTime+=1
+    shotTime+=1*gDeltaTime
     if shotTime=shotDelay //Shot warning
     {
       var tEffect;
@@ -119,7 +119,7 @@ if global.gamePaused=false
           tNewAttack=instance_create(x+(16*image_xscale),y+31,oPassBullet)
           tNewAttack.sprite_index=sWolfHeadShot; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
           tNewAttack.image_speed=0.33; tNewAttack.decayTime=-100
-          tNewAttack.direction=point_direction(x+(16*image_xscale),y+16,oPlayer1.x,returnPlayerYCenter())
+          tNewAttack._direction=point_direction(x+(16*image_xscale),y+16,oPlayer1.x,returnPlayerYCenter())
         }
       }
       if shotTime>=shotDelay+40
@@ -141,14 +141,14 @@ if global.gamePaused=false
           {
             tNewAttack=instance_create(x+(16*image_xscale),y+31,oPassBulletRed)
             tNewAttack.sprite_index=sCamBullet; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
-            tNewAttack.image_speed=0.33; tNewAttack.decayTime=-100; tNewAttack.direction=tDir
+            tNewAttack.image_speed=0.33; tNewAttack.decayTime=-100; tNewAttack._direction=tDir
           }
           else
           {
 
             tNewAttack=instance_create(x+(16*image_xscale),y+31,oPassBullet)
             tNewAttack.sprite_index=sWolfHeadShot; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
-            tNewAttack.image_speed=0.33; tNewAttack.decayTime=-100; tNewAttack.direction=tDir
+            tNewAttack.image_speed=0.33; tNewAttack.decayTime=-100; tNewAttack._direction=tDir
           }
           tDir+=11
         }
@@ -165,7 +165,7 @@ if global.gamePaused=false
       findAlly=instance_nearest(x,y,oCHAOS_AdvancedTurret)
       if point_distance(x,y+28,findAlly.x,findAlly.y)<208 //Sabotage must be close enough
       {
-        linkFrm+=0.33
+        linkFrm+=0.33*gDeltaTime
         resType[1]=3
         bAssisted=1
       }
@@ -175,7 +175,8 @@ if global.gamePaused=false
   }
   else if life<=0
   {
-    deathAnim+=1
+    if deathAnim==0 {deathAnim=1-gDeltaTime}
+    deathAnim+=1*gDeltaTime
     if deathAnim mod 2=0
     {
       if deathAnim mod 4=0 {playSound(global.snd_BombExplode,0,0.85,1)}

@@ -11,6 +11,8 @@ event_inherited()
 bShowHealthBar=false
 bShowDamage=false
 bCanTakeDamage=false
+_direction=0
+_speed=0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -19,13 +21,13 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  decayTime-=1
+  decayTime-=1*gDeltaTime
   if decayTime<=0 {instance_destroy()}
 
-  speed=bulletSpeed
-  image_angle+=15
+  _speed=bulletSpeed
+  image_angle+=15*gDeltaTime
 }
-else {speed=0}
+else {_speed=0}
 #define Other_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

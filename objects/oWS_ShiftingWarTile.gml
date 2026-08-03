@@ -23,6 +23,8 @@ baseItemChance=10
 affiliation=7
 detectDistX=156
 detectDistY=112
+_direction=0
+_speed=0
 
 atkProg=0
 atkTime=0
@@ -44,26 +46,27 @@ if global.gamePaused=false
 
   if bActive=true and life>0
   {
-    image_angle+=15
+    image_angle+=15*gDeltaTime
     atkTime+=1*gDeltaTime
     if atkProg=0 //Rise
     {
-      y-=1
+      if gDeltaDoTicks y-=1
       if atkTime=32 {atkTime=0; atkProg+=1}
     }
     else if atkProg=1 //Wait
     {
       if atkTime=16
       {
-        direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
+        _direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
         atkTime=0; atkProg+=1
       }
     }
-    else if atkProg=2 {speed=9}
+    else if atkProg=2 {_speed=9}
   }
   else if life<=0
   {
-    deathAnim+=1
+    if deathAnim = 0 {deathAnim=1-gDeltaTime}
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       for(i=0;i<3;i+=1)
@@ -77,4 +80,7 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
-else {speed=0}
+else {_speed=0}
+
+x += cos(degtorad(_direction)) * _speed * gDeltaTime
+y -= sin(degtorad(_direction)) * _speed * gDeltaTime

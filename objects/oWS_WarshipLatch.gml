@@ -35,7 +35,8 @@ if global.gamePaused=false
 {
   if life<=0
   {
-    deathAnim+=1
+    if deathAnim==0 {deathAnim=1-gDeltaTime}
+    deathAnim+=1*gDeltaTimes
     if deathAnim=1
     {
       for(i=0;i<3;i+=1)

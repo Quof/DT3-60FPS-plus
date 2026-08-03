@@ -74,7 +74,7 @@ if global.gamePaused=false
 
         if point_distance(x,y,oPlayer1.x,oPlayer1.y-26)>minDistToPlayer+(minDistToPlayer/5)
         {
-          image_index+=animSpd*gDeltaTime
+          image_index+=animSpd*gDeltaTime*gDeltaTime
           if instance_exists(myRocket) {sprite_index=sCHAOS_ShockUnitWalkB}
           else {sprite_index=sCHAOS_ShockUnitWalkA}
           if image_xscale=1 {xVel=runAcc}
@@ -82,7 +82,7 @@ if global.gamePaused=false
         }
         else if point_distance(x,y,oPlayer1.x,oPlayer1.y-26)<minDistToPlayer
         {
-          image_index-=animSpd*gDeltaTime
+          image_index-=animSpd*gDeltaTime*gDeltaTime
           if instance_exists(myRocket) {sprite_index=sCHAOS_ShockUnitWalkB}
           else {sprite_index=sCHAOS_ShockUnitWalkA}
           if image_xscale=1 {xVel=-runAcc}
@@ -105,7 +105,7 @@ if global.gamePaused=false
       //---------- Check if wall and jump up ----------
       if aiCheckHoriz(0,3,16,16,-8)=1
       {
-        y-=4
+        y-=4*gDeltaTime
         yVel=-6.5
       }
 
@@ -120,7 +120,7 @@ if global.gamePaused=false
       if tDrop=0
       {
         sprite_index=sCHAOS_ShockUnitIdle
-        y-=4
+        y-=4*gDeltaTime
         yVel=-6
         bJumpReady=0
       }
@@ -143,7 +143,7 @@ if global.gamePaused=false
         }
       }
 
-      shotTime+=1
+      shotTime+=1*gDeltaTime
       if shotTime=shotDelay //Bring out rocket fist
       {
         if yVel=0
@@ -199,7 +199,7 @@ if global.gamePaused=false
       findAlly=instance_nearest(x,y,oCHAOS_Sabotage)
       if point_distance(x,y-19,findAlly.x,findAlly.y+27)<208 //Sabotage must be close enough
       {
-        linkFrm+=0.33
+        linkFrm+=0.33*gDeltaTime
         if instance_exists(myShield) {resType[0]=1}
         else {resType[0]=2}
         if knifeHit=1 {resType[1]=2}
@@ -224,7 +224,7 @@ if global.gamePaused=false
       bAssisted=0
     }
 
-    yVel+=0.3
+    yVel+=0.3*gDeltaTime
     if isCollisionBottom(1)
     {
       if yVel>0 {bJumpReady=1}
@@ -237,7 +237,7 @@ if global.gamePaused=false
     if isCollisionTop(1)
       yVel=0.1
 
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
     if isCollisionSolid() {y-=2}
     if y>room_height+24
     {
@@ -247,7 +247,8 @@ if global.gamePaused=false
   }
   else if life<=0
   {
-    deathAnim+=1
+    if deathAnim==0 {deathAnim=1-gDeltaTime}
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       sprite_index=sCHAOS_ShockUnitDefeat

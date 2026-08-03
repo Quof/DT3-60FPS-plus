@@ -17,6 +17,6 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  x+=moveSpd
+  x+=moveSpd*gDeltaTime
   if x>=room_width+abs(sprite_width) {instance_destroy()}
 }

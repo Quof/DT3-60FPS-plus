@@ -35,6 +35,9 @@ boostResist=0
 
 deathAnim=0
 
+_speed=0
+_direction=0
+
 jeremyText="A few things to note. If you damage it or get caught on just the edge of its sight, it'll go into a warning mode and seek out the position you are at the moment the event occurred. If it does see you, it goes into an alert mode and will seek out your current position for about 5 seconds. That timer, however, will reset anytime you're within its sights. Keep in mind it cannot see through walls."
 chaoText="You can tell what mode it's in by the sight color.#Blue: Patrol mode - It's calm.#Yellow: Warn mode - It thinks something is out there.#Red: Alert mode - It knows where its target is and will hunt them down.#Note that every time you deal damage to one, its warn mode speed increases. This sprite is from 'Phantasy Star 4' on the Sega Genesis."
 devText="I had always planned to have a semi-stealth level in DT3, but it was cut during development. It was later re-added to the plans, but was once again cut. Looks like it made its way in though."
@@ -69,23 +72,23 @@ if global.gamePaused=false
 
       if moveType=0 //Move in a set path (stop for a moment before turning around)
       {
-        turnTime+=1
-        if turnTime<turnDelay {speed=moveSpd}
-        else {speed=0}
+        turnTime+=1*gDeltaTime
+        if turnTime<turnDelay {_speed=moveSpd}
+        else {_speed=0}
         if turnTime>=turnDelay+10
         {
-          direction+=turnDegree
+          _direction+=turnDegree
           turnTime=0
         }
       }
       else if moveType=1 //Spin in circle
       {
-        direction+=turnDegree
+        _direction+=turnDegree
       }
       else if moveType=2 //Scan(rotate) to set range
       {
-        if turnTime<turnDelay {direction+=scanDegree}
-        turnTime+=1
+        if turnTime<turnDelay {_direction+=scanDegree*gDeltaTime}
+        turnTime+=1*gDeltaTime
         if turnTime>=turnDelay+20
         {
           scanDegree*=-1
@@ -112,7 +115,7 @@ if global.gamePaused=false
           alertMode=2
         }
       }
-      else {movePause-=1}
+      else {movePause-=1*gDeltaTime}
     }
     else if alertMode=2 //Go back to position
     {
@@ -128,15 +131,15 @@ if global.gamePaused=false
         path_start(myPath,spdChk,2,1)
         if point_distance(x,y,xstart,ystart)<moveSpd*1.25
         {
-          speed=0
-          direction=initDir
+          _speed=0
+          _direction=initDir
           scanDegree=turnDegree
           path_end()
           turnTime=0
           alertMode=0
         }
       }
-      else {movePause-=1}
+      else {movePause-=1*gDeltaTime}
     }
     else if alertMode=3 //Search for player
     {
@@ -144,7 +147,7 @@ if global.gamePaused=false
       for(i=0;i<6;i+=1) {resType[i]=2}; resType[4]=1; resType[5]=1
       if boostResist=1 {resType[1]=1; resType[3]=1}
 
-      alertTime-=1
+      alertTime-=1*gDeltaTime
       if alertTime<=120
       {
         mp_grid_path(oCS_Grid.myGrid,myPath,x,y,oPlayer1.x,returnPlayerYCenter(),1)
@@ -155,11 +158,11 @@ if global.gamePaused=false
 
         if oGame.time mod 10=0
         {
-          if !collision_line(x+lengthdir_x(21,direction),y+lengthdir_y(21,direction),oPlayer1.x,returnPlayerYCenter(),oSolid,1,1)
+          if !collision_line(x+lengthdir_x(21,_direction),y+lengthdir_y(21,_direction),oPlayer1.x,returnPlayerYCenter(),oSolid,1,1)
           {
-            tNewAttack=instance_create(x+lengthdir_x(21,direction),y+lengthdir_y(21,direction),oNormalBullet)
+            tNewAttack=instance_create(x+lengthdir_x(21,_direction),y+lengthdir_y(21,_direction),oNormalBullet)
             tNewAttack.sprite_index=sEBShot; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=8
-            tNewAttack.direction=image_angle
+            tNewAttack._direction=image_angle
           }
         }
       }
@@ -177,14 +180,15 @@ if global.gamePaused=false
       }
     }
 
-    image_angle=direction
-    myRange.x=x+lengthdir_x(21,direction)
-    myRange.y=y+lengthdir_y(21,direction)
-    myRange.image_angle=direction
+    image_angle=_direction
+    myRange.x=x+lengthdir_x(21,_direction)
+    myRange.y=y+lengthdir_y(21,_direction)
+    myRange.image_angle=_direction
   }
   else if life<=0
   {
-    deathAnim+=1
+    if deathAnim==0 {deathAnim=1-gDeltaTime}
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       with myRange {instance_destroy()}
@@ -206,9 +210,12 @@ if global.gamePaused=false
 }
 else
 {
-  speed=0
+  _speed=0
   path_end()
 }
+
+x += cos(degtorad(_direction)) * _speed * gDeltaTime
+y -= sin(degtorad(_direction)) * _speed * gDeltaTime
 #define Collision_oPlayer1
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -222,7 +229,7 @@ if alertMode=0
   alertNotice=1
   alertNScale=0
   alertMode=1
-  speed=0
+  _speed=0
   pointX=oPlayer1.x
   pointY=returnPlayerYCenter()
 }
@@ -260,12 +267,12 @@ if alertNotice>0 //Alert Icon
 
   if alertNotice=1
   {
-    alertNScale+=0.2
+    alertNScale+=0.2*gDeltaTime
     if alertNScale=1 {alertNotice=2}
   }
   else if alertNotice>=2
   {
-    alertNotice+=1
+    alertNotice+=1*gDeltaTime
     if alertNotice>=15 {alertNotice=0}
   }
 }

@@ -27,6 +27,9 @@ affiliation=7
 dieEffect=0
 detectDistX=156
 detectDistY=112
+_direction=0
+_speed=0
+
 
 AIprog=0
 shotTime=20
@@ -66,7 +69,7 @@ if global.gamePaused=false
     }
     else if AIprog=1
     {
-      image_index+=0.15
+      image_index+=0.15*gDeltaTime
       if image_index>=3
       {
         bCanTakeDamage=1
@@ -80,7 +83,7 @@ if global.gamePaused=false
     else if AIprog=2
     {
       if laserAmt=0 {turn_toward_directionUnderscore(player_sprite_center(),5)}
-      shotTime+=1
+      shotTime+=1*gDeltaTime
       if shotTime=shotDelay-10 //Warning
       {
         var tEffect;
@@ -89,13 +92,13 @@ if global.gamePaused=false
         tEffect.newBlend=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0; tEffect.image_alpha=0.9
         tEffect.image_xscale=0.85; tEffect.image_yscale=0.85
       }
-      else if shotTime>=shotDelay //Shoot laser
+      else if shotTime>=shotDelay and gDeltaDoTicks //Shoot laser
       {
         playSound(global.snd_Wave,0,0.92,42000)
         var tNewAttack;
         tNewAttack=instance_create(x,y,oPassBullet)
         tNewAttack.sprite_index=sLB_Laser; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=bulletSpd
-        tNewAttack.decayTime=-100; tNewAttack.direction=direction; tNewAttack.image_angle=direction; tNewAttack.image_xscale=0.35
+        tNewAttack.decayTime=-100; tNewAttack._direction=direction; tNewAttack.image_angle=_direction; tNewAttack.image_xscale=0.35
         laserAmt+=1
         if laserAmt>=5
         {
@@ -108,7 +111,8 @@ if global.gamePaused=false
   }
   else if life<=0
   {
-    deathAnim+=1
+    if deathAnim = 0 {deathAnim = 1-gDeltaTime}
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       for(i=0;i<3;i+=1)

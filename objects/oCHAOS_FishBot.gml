@@ -35,20 +35,20 @@ if global.gamePaused=false
 {
   if bActive=true
   {
-    x+=runAcc*image_xscale
+    x+=runAcc*image_xscale*gDeltaTime
 
     if x<room_width+16
     {
-      if y<yThres {y+=0.5}
+      if y<yThres and gDeltaDoTicks {y+=0.5}
     }
 
-    moveProg+=1
+    moveProg+=1*gDeltaTime
     if moveProg mod 80=0 and y<240
     {
       var tNewAttack;
       tNewAttack=instance_create(x+(24*image_xscale),y,oPassBullet)
       tNewAttack.sprite_index=sWolfHeadShot; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=4
-      tNewAttack.decayTime=-100; tNewAttack.direction=point_direction(x+(24*image_xscale),y,oPlayer1.x,oPlayer1.y-26)
+      tNewAttack.decayTime=-100; tNewAttack._direction=point_direction(x+(24*image_xscale),y,oPlayer1.x,oPlayer1.y-26)
       tNewAttack.image_xscale=1.1; tNewAttack.image_yscale=1.1
     }
 
