@@ -23,6 +23,8 @@ for(i=0;i<6;i+=1)
 }
 resType[4]=3
 stunResist=50
+_direction=0
+_speed=0
 
 turnTime=0
 turnNum=0

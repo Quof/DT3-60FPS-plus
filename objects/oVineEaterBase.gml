@@ -15,6 +15,8 @@ bSetParts=0
 eName="Vine Eater"
 eLevel=34
 atkPower=9
+_direction=0
+_speed=0
 
 maxSwing=50
 dir=0

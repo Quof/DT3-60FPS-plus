@@ -23,6 +23,9 @@ resType[4]=3
 stunResist=50
 baseItemChance=90
 moneyWorth=5
+_direction=0
+_speed=0
+
 
 turnTime=0
 atkTime=0

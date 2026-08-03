@@ -21,6 +21,10 @@ stunResist=6
 baseItemChance=70
 moneyWorth=10
 dieEffect=0
+_direction=0
+_speed=0
+_hspeed=0
+_vspeed=0
 
 currHspd=0; currVspd=0
 xPoint=0

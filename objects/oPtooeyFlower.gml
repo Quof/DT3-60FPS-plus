@@ -24,6 +24,8 @@ resType[5]=2
 stunResist=10
 baseItemChance=60
 moneyWorth=5
+_direction=0
+_speed=0
 
 enemyProg=0
 if x>oPlayer1.x {throwDir=-1}

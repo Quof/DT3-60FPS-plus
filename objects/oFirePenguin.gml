@@ -24,6 +24,8 @@ stunResist=5
 baseItemChance=45
 moneyWorth=5
 
+_direction=0
+_speed=0
 runAcc=4
 launchTime=10
 enemyProg=0

@@ -17,6 +17,8 @@ atkProg=0
 turnSpd=1.5
 decay=150
 bTouchSpikeCeiling=0
+_direction=0
+_speed=0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

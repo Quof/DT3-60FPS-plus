@@ -11,6 +11,8 @@ bShowHealthBar=false
 bShowDamage=false
 bCanTakeDamage=false
 init=0
+_direction=0
+_speed=0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
