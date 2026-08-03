@@ -182,7 +182,7 @@ if global.gameProgress=1760 and room=rMega4_Gate //----- [Unskippable] Intro to 
   }
   else if sceneProgress=12
   {
-    triAng+=2
+    triAng+=2*gDeltaTime
     sceneDelay+=1*gDeltaTime
     if sceneDelay>=31 and sceneDelay<=350 //X floats up
     {
@@ -226,7 +226,7 @@ if global.gameProgress=1760 and room=rMega4_Gate //----- [Unskippable] Intro to 
     if sceneDelay<=379 {if triAlpha>0 {triAlpha-=0.1*gDeltaTime}} //Fade Tri-Flash effect
     if sceneDelay>=421 and sceneDelay<=480 and sceneDelay mod 3=0 //Back image effect
     {
-      scaleX+=0.1*gDeltaTime
+      scaleX+=0.1
       imageGrow[imageGrowMax]=instance_create(npcMMX.x,npcMMX.y,oMisc)
       imageGrow[imageGrowMax].sprite_index=npcMMX.sprite_index
       imageGrow[imageGrowMax].image_xscale=scaleX*-1; imageGrow[imageGrowMax].image_yscale=scaleX
@@ -2089,7 +2089,7 @@ if room=rMega4_Gate
     {
       for(i=0;i<4;i+=1)
       {
-        colCh[i]+=12
+        colCh[i]+=12*gDeltaTime
       }
       colS[0]=make_color_rgb(colCh[0],colCh[1],colCh[2])
       colS[1]=make_color_rgb(colCh[1],colCh[2],colCh[3])
