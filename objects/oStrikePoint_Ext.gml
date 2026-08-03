@@ -29,17 +29,18 @@ if global.gamePaused=false
     {
       if mySpd>10
       {
-        speed=mySpd
+        _speed=mySpd
       }
       else
       {
         if currSpd<8 {currSpd+=0.1}
-        speed=currSpd
+        _speed=currSpd
       }
     }
   }
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)
 #define Collision_oMovingTrap
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -77,8 +78,8 @@ if touchFrames>=1
     tEfPlayer.image_speed=0.33; tEfPlayer.type=1
     tEfPlayer.ySpd=-5-random(1); tEfPlayer.grav=0.4
     tEfPlayer.newBlend=-1; tEfPlayer.decay=-100; tEfPlayer.followID=-1; tEfPlayer.rotation=0
-    if direction=0 {tEfPlayer.xSpd=6; tEfPlayer.image_xscale=-1}
-    else if direction=180 {tEfPlayer.xSpd=-6; tEfPlayer.image_xscale=1}
+    if _direction=0 {tEfPlayer.xSpd=6; tEfPlayer.image_xscale=-1}
+    else if _direction=180 {tEfPlayer.xSpd=-6; tEfPlayer.image_xscale=1}
 
     oPlayer1.visible=0
     oPlayer1.life-=oPlayer1.maxLife

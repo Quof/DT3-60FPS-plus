@@ -53,8 +53,8 @@ if global.gamePaused=false
     {
       launchTime+=1
       image_angle+=angleChange
-      direction=image_angle
-      speed=7
+      _direction=image_angle
+      _speed=7
       if oGame.time mod 2=0
       {
         var tEffect;
@@ -69,7 +69,8 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)
 #define Collision_oSolid
 /*"/*'/**//* YYD ACTION
 lib_id=1

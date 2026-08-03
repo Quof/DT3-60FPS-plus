@@ -164,23 +164,23 @@ if global.gamePaused=false
 
       if bMoving=1
       {
-        direction=point_direction(x,y,toPointX,toPointY)
-        speed=4
+        _direction=point_direction(x,y,toPointX,toPointY)
+        _speed=4
         if point_distance(x,y,toPointX,toPointY)<=8
         {
           x=toPointX; y=toPointY
-          speed=0; bMoving=0
+          _speed=0; bMoving=0
         }
       }
     }
     else if movePhase=1 //To center
     {
-      direction=point_direction(x,y,toPointX,toPointY)
-      speed=4
+      _direction=point_direction(x,y,toPointX,toPointY)
+      _speed=4
       if point_distance(x,y,toPointX,toPointY)<=8
       {
         x=toPointX; y=toPointY
-        speed=0; bMoving=0
+        _speed=0; bMoving=0
         movePhase=2
       }
     }
@@ -194,12 +194,12 @@ if global.gamePaused=false
 
       if bMoving=1
       {
-        direction=point_direction(x,y,toPointX,toPointY)
-        speed=4
+        _direction=point_direction(x,y,toPointX,toPointY)
+        _speed=4
         if point_distance(x,y,toPointX,toPointY)<=8
         {
           x=toPointX; y=toPointY
-          speed=0; bMoving=0
+          _speed=0; bMoving=0
           movePhase=4
         }
       }
@@ -429,7 +429,7 @@ if global.gamePaused=false
         {
           chainLineColor=c_red; chainLineWidth=3
           toPointX=xCenter; toPointY=headSpawnY[0]
-          speed=0; bMoving=1; movePhase=1; moveTime=0
+          _speed=0; bMoving=1; movePhase=1; moveTime=0
         }
         else if atkTime>=90 and atkTime<=135
         {
@@ -443,7 +443,7 @@ if global.gamePaused=false
           var tNewAtk,tEffect;
           for(i=0;i<72;i+=1)
           {
-            tNewAtk=instance_create(x,y,oHexor_ShotA); tNewAtk.direction=i*5; tNewAtk.atkDelay=120; tNewAtk.bulletSpeed=4
+            tNewAtk=instance_create(x,y,oHexor_ShotA); tNewAtk._direction=i*5; tNewAtk.atkDelay=120; tNewAtk.bulletSpeed=4
           }
           tEffect=instance_create(x,y,oEffect)
           tEffect.sprite_index=sEfEnergyRip; tEffect.image_xscale=1.5; tEffect.image_yscale=1.5; tEffect.image_alpha=0.4
@@ -490,7 +490,7 @@ if global.gamePaused=false
           var tNewAtk,tEffect;
           for(i=0;i<72;i+=1)
           {
-            tNewAtk=instance_create(x,y,oHexor_ShotA); tNewAtk.direction=i*5; tNewAtk.atkDelay=120; tNewAtk.bulletSpeed=4
+            tNewAtk=instance_create(x,y,oHexor_ShotA); tNewAtk._direction=i*5; tNewAtk.atkDelay=120; tNewAtk.bulletSpeed=4
           }
           tEffect=instance_create(x,y,oEffect)
           tEffect.sprite_index=sEfEnergyRip; tEffect.image_xscale=1.5; tEffect.image_yscale=1.5; tEffect.image_alpha=0.4
@@ -559,7 +559,7 @@ if global.gamePaused=false
           for(i=0;i<7;i+=1)
           {
             tDemonBlade=instance_create(x,y-16,oHexor_DemonBlade)
-            tDemonBlade.type=0; tDemonBlade.moveTime=i*8; tDemonBlade.moveSpd=8; tDemonBlade.direction=180
+            tDemonBlade.type=0; tDemonBlade.moveTime=i*8; tDemonBlade.moveSpd=8; tDemonBlade._direction=180
           }
         }
         else if atkTime>=83 and atkTime<=120 //Go down
@@ -575,7 +575,7 @@ if global.gamePaused=false
         {
           var tDemonBlade;
           tDemonBlade=instance_create(x+32,y,oHexor_DemonBlade)
-          tDemonBlade.type=1; tDemonBlade.moveSpd=7; tDemonBlade.direction=180; tDemonBlade.image_angle=180
+          tDemonBlade.type=1; tDemonBlade.moveSpd=7; tDemonBlade._direction=180; tDemonBlade.image_angle=180
         }
         else if atkTime=181
         {
@@ -709,7 +709,7 @@ if global.gamePaused=false
           var tDemonBlade,tBladeDir;
           tBladeDir=point_direction(x,y-16,oPlayer1.x,oPlayer1.y-28)
           tDemonBlade=instance_create(x,y-16,oHexor_DemonBlade)
-          tDemonBlade.type=1; tDemonBlade.moveSpd=4; tDemonBlade.direction=tBladeDir; tDemonBlade.image_angle=tBladeDir
+          tDemonBlade.type=1; tDemonBlade.moveSpd=4; tDemonBlade._direction=tBladeDir; tDemonBlade.image_angle=tBladeDir
         }
         
         if atkTime>=80 and atkTime mod 170=0
@@ -770,7 +770,7 @@ if global.gamePaused=false
             y=headSpawnY[1]
             var tBigRock;
             tBigRock=instance_create(room_width+64,headSpawnY[2]-32,oHexor_Rock)
-            tBigRock.type=1; tBigRock.moveSpd=4; tBigRock.direction=180
+            tBigRock.type=1; tBigRock.moveSpd=4; tBigRock._direction=180
             atkTime=100
           }
         }
@@ -798,7 +798,7 @@ if global.gamePaused=false
             if rockProg=0
             {
               tBigRock=instance_create(room_width+64,headSpawnY[2]-32,oHexor_Rock)
-              tBigRock.type=1; tBigRock.moveSpd=4; tBigRock.direction=180
+              tBigRock.type=1; tBigRock.moveSpd=4; tBigRock._direction=180
             }
           }
         }
@@ -1020,8 +1020,9 @@ if global.gamePaused=false
 }
 else
 {
-  speed=0
+  _speed=0
 }
+correctSpeedDirection(self)
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

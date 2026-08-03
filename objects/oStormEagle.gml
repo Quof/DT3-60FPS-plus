@@ -132,7 +132,7 @@ if global.gamePaused=false
               var tMissile;
               tMissile=instance_create(x,y-40,oEnmityMissile)
               tMissile.atkPower=atkPower; tMissile.targetTime=50
-              tMissile.direction=90
+              tMissile._direction=90
             }
           }
           else if atkProg>=wingAttackTime
@@ -195,13 +195,13 @@ if global.gamePaused=false
                 tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=9; tNewAttack.decayTime=-100
                 if image_xscale=1
                 {
-                  if i=0 {tNewAttack.direction=45}
-                  else {tNewAttack.direction=225}
+                  if i=0 {tNewAttack._direction=45}
+                  else {tNewAttack._direction=225}
                 }
                 else
                 {
-                  if i=0 {tNewAttack.direction=135}
-                  else {tNewAttack.direction=315}
+                  if i=0 {tNewAttack._direction=135}
+                  else {tNewAttack._direction=315}
                 }
               }
             }
@@ -297,13 +297,13 @@ if global.gamePaused=false
             tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=9; tNewAttack.decayTime=-100
             if image_yscale=1
             {
-              if i=0 {tNewAttack.direction=135}
-              else {tNewAttack.direction=315}
+              if i=0 {tNewAttack._direction=135}
+              else {tNewAttack._direction=315}
             }
             else
             {
-              if i=0 {tNewAttack.direction=45}
-              else {tNewAttack.direction=225}
+              if i=0 {tNewAttack._direction=45}
+              else {tNewAttack._direction=225}
             }
           }
         }
@@ -337,13 +337,13 @@ if global.gamePaused=false
             tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=9; tNewAttack.decayTime=-100
             if image_yscale=1
             {
-              if i=0 {tNewAttack.direction=45}
-              else {tNewAttack.direction=225}
+              if i=0 {tNewAttack._direction=45}
+              else {tNewAttack._direction=225}
             }
             else
             {
-              if i=0 {tNewAttack.direction=135}
-              else {tNewAttack.direction=315}
+              if i=0 {tNewAttack._direction=135}
+              else {tNewAttack._direction=315}
             }
           }
         }

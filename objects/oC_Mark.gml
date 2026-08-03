@@ -83,7 +83,7 @@ if global.gamePaused=false
             var tNewAttack;
             tNewAttack=instance_create(x,y,oCW_ArcBullet)
             tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=8
-            tNewAttack.decayTime=-100; tNewAttack.direction=point_direction(x,y,oPlayer1.x,oPlayer1.y)
+            tNewAttack.decayTime=-100; tNewAttack._direction=point_direction(x,y,oPlayer1.x,oPlayer1.y)
           }
         }
         else if moveProg>=41 and moveProg<=60
@@ -96,7 +96,7 @@ if global.gamePaused=false
             {
               tNewAttack=instance_create(x,y,oCW_ArcBullet)
               tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
-              tNewAttack.decayTime=-100; tNewAttack.direction=tDir
+              tNewAttack.decayTime=-100; tNewAttack._direction=tDir
               tDir+=360/arcNum
             }
           }
@@ -121,14 +121,14 @@ if global.gamePaused=false
           {
             tAtk=instance_create(x,y,oPassBullet)
             tAtk.sprite_index=sC_RevShot; tAtk.atkPower=atkPower; tAtk.bulletSpeed=8
-            tAtk.decayTime=-100; tAtk.direction=tDir
+            tAtk.decayTime=-100; tAtk._direction=tDir
             tDir+=5
           }
           tDir=0
           for(i=0;i<missileNum;i+=1)
           {
             tAtk=instance_create(x,y,oCW_SpinMissile)
-            tAtk.sprite_index=sC_MarkBullet; tAtk.atkPower=atkPower; tAtk.turnDir=4; tAtk.direction=tDir
+            tAtk.sprite_index=sC_MarkBullet; tAtk.atkPower=atkPower; tAtk.turnDir=4; tAtk._direction=tDir
             tDir+=360/missileNum
           }
         }
@@ -140,14 +140,14 @@ if global.gamePaused=false
           {
             tAtk=instance_create(x,y,oPassBullet)
             tAtk.sprite_index=sC_RevShot; tAtk.atkPower=atkPower; tAtk.bulletSpeed=8
-            tAtk.decayTime=-100; tAtk.direction=tDir
+            tAtk.decayTime=-100; tAtk._direction=tDir
             tDir+=5
           }
           tDir=0
           for(i=0;i<missileNum;i+=1)
           {
             tAtk=instance_create(x,y,oCW_SpinMissile)
-            tAtk.sprite_index=sC_MarkBullet; tAtk.atkPower=atkPower; tAtk.turnDir=-4; tAtk.direction=tDir
+            tAtk.sprite_index=sC_MarkBullet; tAtk.atkPower=atkPower; tAtk.turnDir=-4; tAtk._direction=tDir
             tDir+=360/missileNum
           }
         }
@@ -170,7 +170,7 @@ if global.gamePaused=false
             for(i=0;i<5;i+=1)
             {
               tAtk=instance_create(x,y,oCW_MarkShot)
-              tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.direction=bulletCheck+tDir
+              tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk._direction=bulletCheck+tDir
               tAtk.image_blend=make_color_rgb(255-(i*20),255,255-(i*20))
               tDir+=360/5
             }
@@ -201,7 +201,7 @@ if global.gamePaused=false
         {
           tAtk=instance_create(x,y,oPassBullet)
           tAtk.sprite_index=sC_MarkBullet; tAtk.atkPower=atkPower; tAtk.bulletSpeed=5
-          tAtk.decayTime=-100; tAtk.direction=point_direction(x,y,oPlayer1.x,oPlayer1.y)
+          tAtk.decayTime=-100; tAtk._direction=point_direction(x,y,oPlayer1.x,oPlayer1.y)
         }
 
         if moveProg=1
@@ -248,7 +248,8 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
-else {path_speed=0; speed=0}
+else {path_speed=0; _speed=0}
+correctSpeedDirection(self)
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

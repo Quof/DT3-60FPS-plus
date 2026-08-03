@@ -55,7 +55,7 @@ if global.gamePaused=false
       tOffset=gunAngle+random_range(-5,5)
       tDir=gunAngle+random_range(-gunSpread,gunSpread)
       tNewAtk=instance_create(x+11+lengthdir_x(40,tOffset),y-66+lengthdir_y(40,tOffset),oTruckShot)
-      tNewAtk.direction=tDir; tNewAtk.image_angle=tDir
+      tNewAtk._direction=tDir; tNewAtk.image_angle=tDir
     }
   }
 

@@ -200,10 +200,10 @@ if global.gamePaused=false
         var tMissile;
         tMissile=instance_create(x+36,y-12,oEnmityMissile)
         tMissile.atkPower=atkPower; tMissile.targetTime=20
-        tMissile.direction=30+specDir
+        tMissile._direction=30+specDir
         tMissile=instance_create(x-36,y-12,oEnmityMissile)
         tMissile.atkPower=atkPower; tMissile.targetTime=20
-        tMissile.direction=150-specDir
+        tMissile._direction=150-specDir
         specDir+=20
         specProg+=1
         if specProg<5 {specTime-=10}
@@ -221,10 +221,10 @@ if global.gamePaused=false
           var tMissile;
           tMissile=instance_create(x+36,y-12,oEnmityMissile)
           tMissile.atkPower=atkPower; tMissile.targetTime=20
-          tMissile.direction=i*120
+          tMissile._direction=i*120
           tMissile=instance_create(x-36,y-12,oEnmityMissile)
           tMissile.atkPower=atkPower; tMissile.targetTime=20
-          tMissile.direction=i*120+60
+          tMissile._direction=i*120+60
         }
         specProg+=1
         if specProg<2 {specTime-=100}
@@ -244,7 +244,7 @@ if global.gamePaused=false
           var tMissile;
           tMissile=instance_create(x,y,oEnmityMissile)
           tMissile.atkPower=atkPower; tMissile.targetTime=10
-          tMissile.direction=tMissDir
+          tMissile._direction=tMissDir
           tMissDir+=360/12
         }
       }

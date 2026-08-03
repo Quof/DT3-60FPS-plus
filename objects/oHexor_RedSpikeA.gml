@@ -57,17 +57,18 @@ if global.gamePaused=false
     {
       image_blend=c_white
       bCanDealDamage=true
-      if x>240 {direction=180}
-      else {direction=0}
+      if x>240 {_direction=180}
+      else {_direction=0}
       atkTime=0; atkProg=2
     }
   }
   else if atkProg=2
   {
-    speed=bulletSpeed
+    _speed=bulletSpeed
   }
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)
 #define Collision_oPlayer1
 /*"/*'/**//* YYD ACTION
 lib_id=1

@@ -24,7 +24,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  speed=bulletSpeed
+  _speed=bulletSpeed
   if y<=48 //Shatter
   {
     playSound(global.snd_LightballSpread,0,0.92,28000)
@@ -42,10 +42,11 @@ if global.gamePaused=false
     {
       tNewAttack=instance_create(x,y,oPassBullet)
       tNewAttack.sprite_index=sSeraAtkIceB; tNewAttack.atkPower=atkPower-1; tNewAttack.bulletSpeed=7
-      tNewAttack.decayTime=-100; tNewAttack.image_speed=0.25; tNewAttack.direction=tDir; tNewAttack.damageType="ELEMENTAL"
+      tNewAttack.decayTime=-100; tNewAttack.image_speed=0.25; tNewAttack._direction=tDir; tNewAttack.damageType="ELEMENTAL"
       tDir+=iceSpread
     }
     instance_destroy()
   }
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)

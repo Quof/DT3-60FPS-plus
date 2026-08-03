@@ -24,13 +24,14 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  speed=moveSpd
+  _speed=moveSpd
   if moveSpd<8 {moveSpd+=0.2}
 
   moveTime+=1
   if moveTime>=210 {instance_destroy()}
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

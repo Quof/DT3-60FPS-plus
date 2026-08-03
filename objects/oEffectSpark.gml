@@ -19,11 +19,12 @@ if global.gamePaused=false
     if sparkColor=c_white {sparkColor=c_gray}
     else {sparkColor=c_white}
   }
-  speed=moveSpd
+  _speed=moveSpd
   image_alpha-=fadeSpd
   if image_alpha<=0.75 {instance_destroy()}
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

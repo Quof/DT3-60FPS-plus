@@ -182,13 +182,13 @@ if global.gamePaused=false
           tNewAttack.bCanBeBlocked=1; tNewAttack.blockCost=300; tNewAttack.bParryOpp=1; tNewAttack.damageType="ELEMENTAL"
           if aimAtk=1
           {
-            if image_xscale=1 {tNewAttack.direction=0}
-            else {tNewAttack.direction=180}
+            if image_xscale=1 {tNewAttack._direction=0}
+            else {tNewAttack._direction=180}
             tNewAttack.bulletSpeed=13
           }
           else
           {
-            tNewAttack.direction=point_direction(x+(18*image_xscale),y-31,oPlayer1.x,oPlayer1.y-26)
+            tNewAttack._direction=point_direction(x+(18*image_xscale),y-31,oPlayer1.x,oPlayer1.y-26)
             tNewAttack.bulletSpeed=12
           }
         }
@@ -224,7 +224,7 @@ if global.gamePaused=false
   else if life<=0
   {
     deathAnim+=1
-    speed=0
+    _speed=0
     if deathAnim mod 4=0
     {
       if deathAnim mod 8=0 {playSound(global.snd_HardHit1,0,0.9,1)}
@@ -238,3 +238,4 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
+correctSpeedDirection(self)

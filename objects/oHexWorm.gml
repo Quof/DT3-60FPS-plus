@@ -59,7 +59,7 @@ if global.gamePaused=false
   event_inherited()
   if bActive=true and life>0
   {
-    image_angle=direction
+    image_angle=_direction
     if moveBehavior=0 //Decide on a move type
     {
       if movePath=1
@@ -105,15 +105,15 @@ if global.gamePaused=false
     }
     else if moveBehavior=2 //Go to position
     {
-      direction=point_direction(x,y,384,176)
-      speed=4
-      if point_distance(x,y,384,176)<=speed
+      _direction=point_direction(x,y,384,176)
+      _speed=4
+      if point_distance(x,y,384,176)<=_speed
       {
         for(i=0;i<6;i+=1)
         {
           resType[i]=3
         }
-        speed=0
+        _speed=0
         movePath=30
         partCheck=0
         moveBehavior=3
@@ -121,7 +121,7 @@ if global.gamePaused=false
     }
     else if moveBehavior=3 //Shoot bullets
     {
-      direction=point_direction(x,y,oPlayer1.x,oPlayer1.y)
+      _direction=point_direction(x,y,oPlayer1.x,oPlayer1.y)
       movePath+=1
       if movePath>=60
       {
@@ -134,7 +134,7 @@ if global.gamePaused=false
           {
             tNewAttack=instance_create(x,y,oPassBullet)
             tNewAttack.sprite_index=sHexWormLaser; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=4
-            tNewAttack.decayTime=-100; tNewAttack.direction=partCheck+tDir
+            tNewAttack.decayTime=-100; tNewAttack._direction=partCheck+tDir
             tDir+=360/14
           }
           partCheck+=8
@@ -182,4 +182,5 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
-else {path_speed=0; speed=0}
+else {path_speed=0; _speed=0}
+correctSpeedDirection(self)

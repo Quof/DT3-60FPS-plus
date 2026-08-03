@@ -67,13 +67,13 @@ if global.gamePaused=false
       tNewAttack.decayTime=-100;
       if !collision_line(x+(31*image_xscale),y-22,oPlayer1.x,returnPlayerYCenter(),oSolid,1,1)
       {
-        tNewAttack.direction=tDir
+        tNewAttack._direction=tDir
         tNewAttack.seekProg=2
       }
       else
       {
-        if image_xscale=1 {tNewAttack.direction=0}
-        else {tNewAttack.direction=180}
+        if image_xscale=1 {tNewAttack._direction=0}
+        else {tNewAttack._direction=180}
         tNewAttack.seekProg=0
       }
       gunShot=0

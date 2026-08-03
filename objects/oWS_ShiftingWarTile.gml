@@ -55,11 +55,11 @@ if global.gamePaused=false
     {
       if atkTime=16
       {
-        direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
+        _direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
         atkTime=0; atkProg+=1
       }
     }
-    else if atkProg=2 {speed=9}
+    else if atkProg=2 {_speed=9}
   }
   else if life<=0
   {
@@ -77,4 +77,5 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)

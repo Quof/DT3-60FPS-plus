@@ -35,41 +35,42 @@ if global.gamePaused=false
   else if type=1 //Across room
   {
     image_angle+=random_range(-3,3)
-    speed=moveSpd
+    _speed=moveSpd
     atkTime+=1*gDeltaTime
   }
   else if type=2 //Aim at player
   {
     if atkProg=0
     {
-      direction=point_direction(x,y,oPlayer1.x,oPlayer1.y-32)
+      _direction=point_direction(x,y,oPlayer1.x,oPlayer1.y-32)
       atkProg=1
     }
     image_angle+=random_range(-3,3)
-    speed=moveSpd
+    _speed=moveSpd
     atkTime+=1*gDeltaTime
   }
   else if type=3 //Aim and wait
   {
     if atkProg=0
     {
-      direction=point_direction(x,y,oPlayer1.x,oPlayer1.y-32)
+      _direction=point_direction(x,y,oPlayer1.x,oPlayer1.y-32)
       atkProg=1
     }
     image_angle+=random_range(-3,3)
-    if atkProg<3 {speed=moveSpd}
+    if atkProg<3 {_speed=moveSpd}
     if atkProg=2
     {
       atkTime-=1
       if atkTime<=0
       {
-        speed=0
+        _speed=0
         atkProg=3
       }
     }
   }
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)
 #define Collision_oPlayer1
 /*"/*'/**//* YYD ACTION
 lib_id=1

@@ -27,14 +27,15 @@ if global.gamePaused=false
     if decayTime<=0 {instance_destroy()}
   }
 
-  speed=bulletSpeed
+  _speed=bulletSpeed
   if sprite_index=sRidleyFireball
   {
     image_xscale+=0.01; image_yscale+=0.01
     image_angle-=15
   }
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)
 #define Collision_oAttackBase
 /*"/*'/**//* YYD ACTION
 lib_id=1

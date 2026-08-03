@@ -4,19 +4,20 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-vspeed=-4
+_vspeed=-4
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
 action_id=603
 applies_to=self
 */
-vspeed+=0.2*gDeltaTime
-if vspeed>=-0.25
+_vspeed+=0.2*gDeltaTime
+if _vspeed>=-0.25
 {
   image_alpha-=0.04*gDeltaTime
   if image_alpha<=0 {instance_destroy()}
 }
+correctHSpeedVSpeed(self)
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

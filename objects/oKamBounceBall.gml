@@ -97,16 +97,17 @@ if global.gamePaused=false
     tEffect.AccelX=0; tEffect.AccelY=0; tEffect.followID=-1; tEffect.rotation=0; tEffect.newBlend=-1; tEffect.fadeSpd=0.1
     tEffect.image_speed=0; tEffect.image_alpha=0.6; tEffect.image_angle=image_angle
 
-    speed=bulletSpeed
-    _speed=speed
-    speed=0
+    _speed=bulletSpeed
+    _speed=_speed
+    _speed=0
     x += cos(degtorad(_direction)) * _speed * gDeltaTime
     y -= sin(degtorad(_direction)) * _speed * gDeltaTime
 
     image_angle+=10*gDeltaTime
   }
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)
 #define Other_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

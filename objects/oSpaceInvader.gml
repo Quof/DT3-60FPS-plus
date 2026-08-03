@@ -73,8 +73,8 @@ if global.gamePaused=false
       tNewAttack=instance_create(x,y,oPassBulletRed)
       tNewAttack.sprite_index=sSpaceInvaderLaser
       tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=6; tNewAttack.decayTime=-100
-      if rowCheck<10 {tNewAttack.direction=270}
-      else {tNewAttack.direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())}
+      if rowCheck<10 {tNewAttack._direction=270}
+      else {tNewAttack._direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())}
       shotTime=0
     }
   }

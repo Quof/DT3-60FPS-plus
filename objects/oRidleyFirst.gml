@@ -105,7 +105,7 @@ if global.gamePaused=false
             tNewAttack=instance_create(x+(9*image_xscale),y-4,oMetBulletPass)
             tNewAttack.sprite_index=sRidleyFireball; tNewAttack.damageType="ELEMENTAL"; tNewAttack.depth=7
             tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=8; tNewAttack.decayTime=-100
-            tNewAttack.direction=point_direction(x+(9*image_xscale),y-4,oPlayer1.x,oPlayer1.y-26)+random_range(-5,5)
+            tNewAttack._direction=point_direction(x+(9*image_xscale),y-4,oPlayer1.x,oPlayer1.y-26)+random_range(-5,5)
           }
         }
         else if atkTime=1038 {ridParts[0].image_index=1}
@@ -126,11 +126,11 @@ if global.gamePaused=false
         else if atkTime>=55 and atkTime<=150
         {
           if atkTime<=90 {strikeDir+=moveArc}
-          direction=strikeDir
-          speed=6.5
+          _direction=strikeDir
+          _speed=6.5
           if x>=room_width+96 or x<=-96 or y<=-96 {atkTime=150}
         }
-        else if atkTime=151 {speed=0; atkTime=0; atkProg+=1}
+        else if atkTime=151 {_speed=0; atkTime=0; atkProg+=1}
       }
       else if atkProg=2 //Fly across upper screen region, use fire breath
       {
@@ -153,7 +153,7 @@ if global.gamePaused=false
             tNewAttack=instance_create(x+(9*image_xscale),y-4,oMetBulletPass)
             tNewAttack.sprite_index=sRidleyFireball; tNewAttack.damageType="ELEMENTAL"; tNewAttack.depth=7
             tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=8; tNewAttack.decayTime=-100
-            tNewAttack.direction=point_direction(x+(9*image_xscale),y-4,oPlayer1.x,returnPlayerYCenter())+random_range(-5,5)
+            tNewAttack._direction=point_direction(x+(9*image_xscale),y-4,oPlayer1.x,returnPlayerYCenter())+random_range(-5,5)
           }
 
           if (image_xscale=1 and x>=room_width+96) or (x<=-96) {atkTime=1000}
@@ -231,7 +231,7 @@ if global.gamePaused=false
           tNewAttack=instance_create(x+(9*image_xscale),y-4,oMetBulletPass)
           tNewAttack.sprite_index=sRidleyFireball; tNewAttack.damageType="ELEMENTAL"; tNewAttack.depth=7
           tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=8; tNewAttack.decayTime=-100
-          tNewAttack.direction=point_direction(x+(9*image_xscale),y-4,oPlayer1.x,returnPlayerYCenter())+random_range(-5,5)
+          tNewAttack._direction=point_direction(x+(9*image_xscale),y-4,oPlayer1.x,returnPlayerYCenter())+random_range(-5,5)
         }
       }
       else if atkTime=1038 {ridParts[0].image_index=1}
@@ -267,7 +267,8 @@ if global.gamePaused=false
   oRidleyFirstParts.image_xscale=image_xscale
   enemyStepEvent()
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)
 #define Collision_oPlayer1
 /*"/*'/**//* YYD ACTION
 lib_id=1

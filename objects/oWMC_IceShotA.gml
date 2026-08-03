@@ -24,7 +24,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  speed=moveSpd
+  _speed=moveSpd
   if type=0 //Fired downward and shatter on ground
   {
     if moveSpd<10 {moveSpd+=0.2}
@@ -36,7 +36,7 @@ if global.gamePaused=false
       {
         tAtk=instance_create(x,y,oWMC_IceShotA)
         tAtk.sprite_index=sWarmasterC_IceShot; tAtk.atkPower=atkPower; tAtk.moveSpd=9; tAtk.type=1
-        tAtk.decayTime=-100; tAtk.damageType="ELEMENTAL"; tAtk.direction=tDir; tAtk.image_angle=tDir
+        tAtk.decayTime=-100; tAtk.damageType="ELEMENTAL"; tAtk._direction=tDir; tAtk.image_angle=tDir
         tAtk.image_xscale=0.75; tAtk.image_yscale=0.75; tAtk.warTarget=warTarget
         tDir+=15
       }
@@ -55,7 +55,7 @@ if global.gamePaused=false
       var tAtk;
       tAtk=instance_create(x,y,oWMC_IceShotA)
       tAtk.sprite_index=sWarmasterC_IceShard; tAtk.atkPower=atkPower; tAtk.moveSpd=3; tAtk.type=2
-      tAtk.decayTime=-100; tAtk.damageType="ELEMENTAL"; tAtk.direction=270; tAtk.image_angle=270; tAtk.warTarget=warTarget
+      tAtk.decayTime=-100; tAtk.damageType="ELEMENTAL"; tAtk._direction=270; tAtk.image_angle=270; tAtk.warTarget=warTarget
       event_user(0)
     }
   }
@@ -68,7 +68,8 @@ if global.gamePaused=false
     }
   }
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)
 #define Other_10
 /*"/*'/**//* YYD ACTION
 lib_id=1

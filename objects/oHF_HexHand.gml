@@ -68,7 +68,7 @@ if global.gamePaused=false
         tDir=point_direction(x-(40*image_xscale),y-119,oPlayer1.x,returnPlayerYCenter())
         tAtk=instance_create(x-(40*image_xscale),y-119,oPassBullet)
         tAtk.sprite_index=sHexShieldConnector; tAtk.atkPower=atkPower; tAtk.image_xscale=2; tAtk.image_yscale=0.5
-        tAtk.bulletSpeed=4; tAtk.decayTime=-100; tAtk.image_speed=0.33; tAtk.direction=tDir
+        tAtk.bulletSpeed=4; tAtk.decayTime=-100; tAtk.image_speed=0.33; tAtk._direction=tDir
       }
       else if atkTime=atkDelay+12
       {
@@ -76,7 +76,7 @@ if global.gamePaused=false
         tDir=point_direction(x-(40*image_xscale),y-97,oPlayer1.x,returnPlayerYCenter())
         tAtk=instance_create(x-(40*image_xscale),y-97,oHF_HexBulletRed)
         tAtk.sprite_index=sHFight_HandZap; tAtk.atkPower=atkPower; tAtk.bulletSpeed=7
-        tAtk.image_speed=0.33; tAtk.decayTime=-100; tAtk.direction=tDir
+        tAtk.image_speed=0.33; tAtk.decayTime=-100; tAtk._direction=tDir
       }
       else if atkTime=atkDelay+15
       {

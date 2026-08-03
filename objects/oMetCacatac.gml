@@ -82,7 +82,7 @@ if global.gamePaused=false
       {
         tNewAttack=instance_create(x,y-12,oNormalBullet)
         tNewAttack.sprite_index=sCacatacNeedle; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=6
-        tNewAttack.direction=tDir; tNewAttack.image_blend=baseColor
+        tNewAttack._direction=tDir; tNewAttack.image_blend=baseColor
         tDir+=45
       }
       spikeTime=0

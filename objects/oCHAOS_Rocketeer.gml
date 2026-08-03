@@ -102,7 +102,7 @@ if global.gamePaused=false
       if currVspd<maxSpeed {currVspd+=0.5}
       else {currVspd-=0.5}
     }
-    hspeed=currHspd; vspeed=currVspd
+    _hspeed=currHspd; _vspeed=currVspd
 
     //Smoke
     var tEffect;
@@ -131,7 +131,7 @@ if global.gamePaused=false
         var tNewAttack;
         tNewAttack=instance_create(x+(xOffset*image_xscale),y+yOffset,oPointExpBullet)
         tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=8
-        tNewAttack.direction=point_direction(x+(xOffset*image_xscale),y+yOffset,oPlayer1.x,returnPlayerYCenter())
+        tNewAttack._direction=point_direction(x+(xOffset*image_xscale),y+yOffset,oPlayer1.x,returnPlayerYCenter())
         shotType=1
         shotTime=0
       }
@@ -192,7 +192,8 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
-else {hspeed=0; vspeed=0}
+else {_hspeed=0; _vspeed=0}
+correctHSpeedVSpeed(self)
 #define Other_10
 /*"/*'/**//* YYD ACTION
 lib_id=1

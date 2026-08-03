@@ -76,7 +76,7 @@ if global.gamePaused=false
         for(i=0;i<6;i+=1)
         {
           tNewAttack=instance_create(x,y,oPassBullet)
-          tNewAttack.sprite_index=sHexWormLaser; tNewAttack.atkPower=atkPower; tNewAttack.direction=tDir
+          tNewAttack.sprite_index=sHexWormLaser; tNewAttack.atkPower=atkPower; tNewAttack._direction=tDir
           tDir+=360/6
           if i=0 {tNewAttack.bulletSpeed=7; tNewAttack.decayTime=90}
           else {tNewAttack.bulletSpeed=4; tNewAttack.decayTime=120}

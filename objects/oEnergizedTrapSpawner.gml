@@ -45,23 +45,23 @@ if variable_local_exists("bulletSpeedN")
 if shootDelay<2
   shootDelay=2
 
-if direction=0
+if _direction=0
 {
   offsetX=8; offsetY=0
 }
-else if direction=90
+else if _direction=90
 {
   offsetX=0; offsetY=-8
 }
-else if direction=180
+else if _direction=180
 {
   offsetX=-8; offsetY=0
 }
-else if direction=270
+else if _direction=270
 {
   offsetX=0; offsetY=8
 }
-image_angle=direction
+image_angle=_direction
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -75,7 +75,7 @@ if global.gamePaused=false
   {
     newAttack=instance_create(x+offsetX,y+offsetY,objectUse)
     newAttack.sprite_index=spriteUse; newAttack.atkPower=atkPower
-    newAttack.bulletSpeed=bulletSpeed; newAttack.direction=direction
+    newAttack.bulletSpeed=bulletSpeed; newAttack.direction=_direction
     shootTime=0
   }
 
@@ -88,6 +88,7 @@ if global.gamePaused=false
     instance_destroy()
   }
 }
+correctSpeedDirection(self)
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

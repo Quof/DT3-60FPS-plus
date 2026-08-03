@@ -111,7 +111,7 @@ if global.gamePaused=false
       for(i=0;i<20;i+=1)
       {
         tAtk=instance_create(x,y,oDefProjA)
-        tAtk.direction=tDir; tAtk.type=tType
+        tAtk._direction=tDir; tAtk.type=tType
         tDir+=360/20
       }
       ringBulletAmt+=1

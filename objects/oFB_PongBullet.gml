@@ -15,10 +15,11 @@ applies_to=self
 */
 if global.gamePaused=0
 {
-  speed=moveSpd
+  _speed=moveSpd
   lifeTime+=1
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)
 #define Collision_oFB_PlayerPaddle
 /*"/*'/**//* YYD ACTION
 lib_id=1

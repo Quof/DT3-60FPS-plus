@@ -4,8 +4,8 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-hspeed=random_range(-2,2)
-vspeed=-random_range(4,6)
+_hspeed=random_range(-2,2)
+_vspeed=-random_range(4,6)
 dispTime=10
 
 ranChoice=0
@@ -16,10 +16,11 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-  x -= hspeed
-  y -= vspeed
-  x += hspeed * gDeltaTime
-  y += vspeed * gDeltaTime
+  x -= _hspeed
+  y -= _vspeed
+  x += _hspeed * gDeltaTime
+  y += _vspeed * gDeltaTime
+correctHSpeedVSpeed(self)
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -28,7 +29,7 @@ applies_to=self
 */
 if view_current=0
 {
-  vspeed+=0.38*gDeltaTime
+  _vspeed+=0.38*gDeltaTime
 
 
   draw_set_halign(fa_center)

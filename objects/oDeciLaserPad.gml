@@ -104,10 +104,10 @@ if global.gamePaused=false
           var tNewAttack;
           tNewAttack=instance_create(x+34,y,oPassBullet)
           tNewAttack.sprite_index=sDeci_Laser; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=9
-          tNewAttack.decayTime=-100; tNewAttack.direction=0
+          tNewAttack.decayTime=-100; tNewAttack._direction=0
           tNewAttack=instance_create(x-34,y,oPassBullet)
           tNewAttack.sprite_index=sDeci_Laser; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=9
-          tNewAttack.decayTime=-100; tNewAttack.direction=180
+          tNewAttack.decayTime=-100; tNewAttack._direction=180
           bShotReady=0
         }
       }

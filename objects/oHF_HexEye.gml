@@ -7,7 +7,7 @@ applies_to=self
 event_inherited()
 image_speed=0
 image_angle=270
-direction=270
+_direction=270
 
 //Enemy base statistics
 bShowHealthBar=false
@@ -56,7 +56,7 @@ if global.gamePaused=false
 
     //Rotate toward player
     turn_toward_direction(player_sprite_center(),turnSpd)
-    image_angle=direction
+    image_angle=_direction
     //Attack
     atkTime+=1*gDeltaTime
     if atkTime=atkDelay
@@ -68,21 +68,21 @@ if global.gamePaused=false
       var tAtk;
       tAtk=instance_create(x+lengthdir_x(12,image_angle),y+lengthdir_y(12,image_angle),oPassBullet)
       tAtk.sprite_index=sHexShieldConnector; tAtk.atkPower=atkPower; tAtk.image_xscale=2; tAtk.image_yscale=0.5
-      tAtk.bulletSpeed=6; tAtk.decayTime=-100; tAtk.image_speed=0.33; tAtk.direction=image_angle
+      tAtk.bulletSpeed=6; tAtk.decayTime=-100; tAtk.image_speed=0.33; tAtk._direction=image_angle
     }
     else if atkTime=atkDelay+40
     {
       var tAtk;
       tAtk=instance_create(x+lengthdir_x(12,image_angle),y+lengthdir_y(12,image_angle),oHF_HexBulletRed)
       tAtk.sprite_index=sHFight_HandZap; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3
-      tAtk.image_speed=0.33; tAtk.decayTime=-100; tAtk.direction=image_angle
+      tAtk.image_speed=0.33; tAtk.decayTime=-100; tAtk._direction=image_angle
     }
     else if atkTime=atkDelay+50
     {
       var tAtk;
       tAtk=instance_create(x+lengthdir_x(12,image_angle),y+lengthdir_y(12,image_angle),oPassBullet)
       tAtk.sprite_index=sHexShieldConnector; tAtk.atkPower=atkPower; tAtk.image_xscale=2; tAtk.image_yscale=0.5
-      tAtk.bulletSpeed=6; tAtk.decayTime=-100; tAtk.image_speed=0.33; tAtk.direction=image_angle
+      tAtk.bulletSpeed=6; tAtk.decayTime=-100; tAtk.image_speed=0.33; tAtk._direction=image_angle
     }
     else if atkTime=atkDelay+55
     {
@@ -104,6 +104,7 @@ if global.gamePaused=false
     }
   }
 }
+correctSpeedDirection(self)
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

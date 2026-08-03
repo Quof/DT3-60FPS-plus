@@ -80,7 +80,7 @@ if global.gamePaused=false
     {
       var tFire;
       tFire=instance_create(x,y,oPassBullet)
-      tFire.direction=point_direction(x,y-35,oPlayer1.x,returnPlayerYCenter()); tFire.sprite_index=sWolfHeadShot
+      tFire._direction=point_direction(x,y-35,oPlayer1.x,returnPlayerYCenter()); tFire.sprite_index=sWolfHeadShot
       tFire.atkPower=100; tFire.bulletSpeed=4; tFire.decayTime=-100
       if timeAdj<10 {timeAdj+=1}
       bulletTime=0

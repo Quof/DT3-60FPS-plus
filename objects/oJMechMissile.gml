@@ -38,7 +38,7 @@ if global.gamePaused=false
   if lingerFrame=0
   {
     homingTrack+=1
-    if homingTrack>=1 and homingTrack<=12 {speed=8}
+    if homingTrack>=1 and homingTrack<=12 {_speed=8}
     else if homingTrack>=13
     {
       if instance_exists(oEnemyBase)
@@ -47,19 +47,20 @@ if global.gamePaused=false
         var tTargetCenterX,tTargetCenterY;
         tTargetCenterX=myTarget.bbox_left+(sprite_width/2)
         tTargetCenterY=myTarget.bbox_top+(sprite_height/2)
-        direction=point_direction(x,y,tTargetCenterX,tTargetCenterY)
+        _direction=point_direction(x,y,tTargetCenterX,tTargetCenterY)
       }
-      image_angle=direction
-      speed=8
+      image_angle=_direction
+      _speed=8
       decayTime-=1
       if decayTime<=0 {instance_destroy()}
     }
 
-    if isCollisionLeft(1) {lingerFrame=1; speed=0; visible=0}
-    if isCollisionRight(1) {lingerFrame=1; speed=0; visible=0}
-    if isCollisionBottom(1) {lingerFrame=1; speed=0; visible=0}
-    if isCollisionTop(1) {lingerFrame=1; speed=0; visible=0}
+    if isCollisionLeft(1) {lingerFrame=1; _speed=0; visible=0}
+    if isCollisionRight(1) {lingerFrame=1; _speed=0; visible=0}
+    if isCollisionBottom(1) {lingerFrame=1; _speed=0; visible=0}
+    if isCollisionTop(1) {lingerFrame=1; _speed=0; visible=0}
   }
   else if lingerFrame=1 {instance_destroy()}
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)

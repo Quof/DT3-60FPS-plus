@@ -134,7 +134,7 @@ if global.gamePaused=false
         playSound(global.snd_HardHit3,0,1,17000)
         var tFire;
         tFire=instance_create(x,y-35,oPassBullet)
-        tFire.direction=point_direction(x,y-35,oPlayer1.x,returnPlayerYCenter()); tFire.sprite_index=sWolfHeadShot
+        tFire._direction=point_direction(x,y-35,oPlayer1.x,returnPlayerYCenter()); tFire.sprite_index=sWolfHeadShot
         tFire.atkPower=atkPower; tFire.bulletSpeed=5; tFire.decayTime=-100
         atkTime=0
       }
@@ -176,12 +176,12 @@ if global.gamePaused=false
       if atkTime=20
       {
         myBeam=instance_create(x+(6*image_xscale),y-7,oHelmetSwordBeam)
-        myBeam.atkPower=atkPower; myBeam.bulletSpeed=5; myBeam.direction=180
+        myBeam.atkPower=atkPower; myBeam.bulletSpeed=5; myBeam._direction=180
       }
       else if atkTime=40
       {
         myBeam=instance_create(x+(6*image_xscale),y-26,oHelmetSwordBeam)
-        myBeam.atkPower=atkPower; myBeam.bulletSpeed=5; myBeam.direction=180
+        myBeam.atkPower=atkPower; myBeam.bulletSpeed=5; myBeam._direction=180
       }
       else if atkTime=70
       {
@@ -201,48 +201,48 @@ if global.gamePaused=false
       if atkTime=40
       {
         myBeam=instance_create(x+(6*image_xscale),y-7,oHelmetSwordBeam)
-        myBeam.atkPower=atkPower; myBeam.bulletSpeed=5; myBeam.direction=180
+        myBeam.atkPower=atkPower; myBeam.bulletSpeed=5; myBeam._direction=180
         myBeam=instance_create(shadowX+(6*-image_xscale),y-26,oHelmetSwordBeam)
         myBeam.atkPower=atkPower; myBeam.bulletSpeed=5
       }
       else if atkTime=70
       {
         myBeam=instance_create(x+(6*image_xscale),y-26,oHelmetSwordBeam)
-        myBeam.atkPower=atkPower; myBeam.bulletSpeed=5; myBeam.direction=180
+        myBeam.atkPower=atkPower; myBeam.bulletSpeed=5; myBeam._direction=180
         myBeam=instance_create(shadowX+(6*-image_xscale),y-7,oHelmetSwordBeam)
         myBeam.atkPower=atkPower; myBeam.bulletSpeed=5
       }
       else if atkTime=100
       {
         myBeam=instance_create(x+(6*image_xscale),y-7,oHelmetSwordBeam)
-        myBeam.atkPower=atkPower; myBeam.bulletSpeed=5; myBeam.direction=180
+        myBeam.atkPower=atkPower; myBeam.bulletSpeed=5; myBeam._direction=180
       }
       else if atkTime=110
       {
         myBeam=instance_create(x+(6*image_xscale),y-26,oHelmetSwordBeam)
-        myBeam.atkPower=atkPower; myBeam.bulletSpeed=5; myBeam.direction=180
+        myBeam.atkPower=atkPower; myBeam.bulletSpeed=5; myBeam._direction=180
       }
       else if atkTime=120
       {
         myBeam=instance_create(x+(6*image_xscale),y-7,oHelmetSwordBeam)
-        myBeam.atkPower=atkPower; myBeam.bulletSpeed=5; myBeam.direction=180
+        myBeam.atkPower=atkPower; myBeam.bulletSpeed=5; myBeam._direction=180
       }
       else if atkTime=130
       {
         myBeam=instance_create(x+(6*image_xscale),y-26,oHelmetSwordBeam)
-        myBeam.atkPower=atkPower; myBeam.bulletSpeed=5; myBeam.direction=180
+        myBeam.atkPower=atkPower; myBeam.bulletSpeed=5; myBeam._direction=180
       }
       else if atkTime=170
       {
         myBeam=instance_create(x+(6*image_xscale),y-7,oHelmetSwordBeam)
-        myBeam.atkPower=atkPower; myBeam.bulletSpeed=5; myBeam.direction=180
+        myBeam.atkPower=atkPower; myBeam.bulletSpeed=5; myBeam._direction=180
         myBeam=instance_create(shadowX+(6*-image_xscale),y-7,oHelmetSwordBeam)
         myBeam.atkPower=atkPower; myBeam.bulletSpeed=5
       }
       else if atkTime=190
       {
         myBeam=instance_create(x+(6*image_xscale),y-26,oHelmetSwordBeam)
-        myBeam.atkPower=atkPower; myBeam.bulletSpeed=5; myBeam.direction=180
+        myBeam.atkPower=atkPower; myBeam.bulletSpeed=5; myBeam._direction=180
         myBeam=instance_create(shadowX+(6*-image_xscale),y-26,oHelmetSwordBeam)
         myBeam.atkPower=atkPower; myBeam.bulletSpeed=5
         atkTime=0
@@ -251,22 +251,22 @@ if global.gamePaused=false
     else if bossProgress=8 //Desperation shield block sequence
     {
       atkTime+=swordBeamSpd
-      if atkTime>=40 and swordProg=0 {myBeam=instance_create(x+(6*image_xscale),y-7,oHelmetSwordBeam); myBeam.atkPower=atkPower; myBeam.bulletSpeed=5; myBeam.direction=180; swordProg+=1}
-      else if atkTime>=48 and swordProg=1 {myBeam=instance_create(x+(6*image_xscale),y-26,oHelmetSwordBeam); myBeam.atkPower=atkPower; myBeam.bulletSpeed=5; myBeam.direction=180; swordProg+=1}
-      else if atkTime>=56 and swordProg=2 {myBeam=instance_create(x+(6*image_xscale),y-26,oHelmetSwordBeam); myBeam.atkPower=atkPower; myBeam.bulletSpeed=5; myBeam.direction=180; swordProg+=1}
-      else if atkTime>=64 and swordProg=3 {myBeam=instance_create(x+(6*image_xscale),y-7,oHelmetSwordBeam); myBeam.atkPower=atkPower; myBeam.bulletSpeed=5; myBeam.direction=180; swordProg+=1}
-      else if atkTime>=72 and swordProg=4 {myBeam=instance_create(x+(6*image_xscale),y-7,oHelmetSwordBeam); myBeam.atkPower=atkPower; myBeam.bulletSpeed=5; myBeam.direction=180; swordProg+=1}
-      else if atkTime>=80 and swordProg=5 {myBeam=instance_create(x+(6*image_xscale),y-26,oHelmetSwordBeam); myBeam.atkPower=atkPower; myBeam.bulletSpeed=5; myBeam.direction=180; swordProg+=1}
-      else if atkTime>=88 and swordProg=6 {myBeam=instance_create(x+(6*image_xscale),y-7,oHelmetSwordBeam); myBeam.atkPower=atkPower; myBeam.bulletSpeed=5; myBeam.direction=180; swordProg+=1}
-      else if atkTime>=96 and swordProg=7 {myBeam=instance_create(x+(6*image_xscale),y-26,oHelmetSwordBeam); myBeam.atkPower=atkPower; myBeam.bulletSpeed=5; myBeam.direction=180; swordProg+=1}
-      else if atkTime>=104 and swordProg=8 {myBeam=instance_create(x+(6*image_xscale),y-7,oHelmetSwordBeam); myBeam.atkPower=atkPower; myBeam.bulletSpeed=5; myBeam.direction=180; swordProg+=1}
-      else if atkTime>=112 and swordProg=9 {myBeam=instance_create(x+(6*image_xscale),y-7,oHelmetSwordBeam); myBeam.atkPower=atkPower; myBeam.bulletSpeed=5; myBeam.direction=180; swordProg+=1}
-      else if atkTime>=120 and swordProg=10 {myBeam=instance_create(x+(6*image_xscale),y-26,oHelmetSwordBeam); myBeam.atkPower=atkPower; myBeam.bulletSpeed=5; myBeam.direction=180; swordProg+=1}
-      else if atkTime>=128 and swordProg=11 {myBeam=instance_create(x+(6*image_xscale),y-26,oHelmetSwordBeam); myBeam.atkPower=atkPower; myBeam.bulletSpeed=5; myBeam.direction=180; swordProg+=1}
-      else if atkTime>=136 and swordProg=12 {myBeam=instance_create(x+(6*image_xscale),y-7,oHelmetSwordBeam); myBeam.atkPower=atkPower; myBeam.bulletSpeed=5; myBeam.direction=180; swordProg+=1}
+      if atkTime>=40 and swordProg=0 {myBeam=instance_create(x+(6*image_xscale),y-7,oHelmetSwordBeam); myBeam.atkPower=atkPower; myBeam.bulletSpeed=5; myBeam._direction=180; swordProg+=1}
+      else if atkTime>=48 and swordProg=1 {myBeam=instance_create(x+(6*image_xscale),y-26,oHelmetSwordBeam); myBeam.atkPower=atkPower; myBeam.bulletSpeed=5; myBeam._direction=180; swordProg+=1}
+      else if atkTime>=56 and swordProg=2 {myBeam=instance_create(x+(6*image_xscale),y-26,oHelmetSwordBeam); myBeam.atkPower=atkPower; myBeam.bulletSpeed=5; myBeam._direction=180; swordProg+=1}
+      else if atkTime>=64 and swordProg=3 {myBeam=instance_create(x+(6*image_xscale),y-7,oHelmetSwordBeam); myBeam.atkPower=atkPower; myBeam.bulletSpeed=5; myBeam._direction=180; swordProg+=1}
+      else if atkTime>=72 and swordProg=4 {myBeam=instance_create(x+(6*image_xscale),y-7,oHelmetSwordBeam); myBeam.atkPower=atkPower; myBeam.bulletSpeed=5; myBeam._direction=180; swordProg+=1}
+      else if atkTime>=80 and swordProg=5 {myBeam=instance_create(x+(6*image_xscale),y-26,oHelmetSwordBeam); myBeam.atkPower=atkPower; myBeam.bulletSpeed=5; myBeam._direction=180; swordProg+=1}
+      else if atkTime>=88 and swordProg=6 {myBeam=instance_create(x+(6*image_xscale),y-7,oHelmetSwordBeam); myBeam.atkPower=atkPower; myBeam.bulletSpeed=5; myBeam._direction=180; swordProg+=1}
+      else if atkTime>=96 and swordProg=7 {myBeam=instance_create(x+(6*image_xscale),y-26,oHelmetSwordBeam); myBeam.atkPower=atkPower; myBeam.bulletSpeed=5; myBeam._direction=180; swordProg+=1}
+      else if atkTime>=104 and swordProg=8 {myBeam=instance_create(x+(6*image_xscale),y-7,oHelmetSwordBeam); myBeam.atkPower=atkPower; myBeam.bulletSpeed=5; myBeam._direction=180; swordProg+=1}
+      else if atkTime>=112 and swordProg=9 {myBeam=instance_create(x+(6*image_xscale),y-7,oHelmetSwordBeam); myBeam.atkPower=atkPower; myBeam.bulletSpeed=5; myBeam._direction=180; swordProg+=1}
+      else if atkTime>=120 and swordProg=10 {myBeam=instance_create(x+(6*image_xscale),y-26,oHelmetSwordBeam); myBeam.atkPower=atkPower; myBeam.bulletSpeed=5; myBeam._direction=180; swordProg+=1}
+      else if atkTime>=128 and swordProg=11 {myBeam=instance_create(x+(6*image_xscale),y-26,oHelmetSwordBeam); myBeam.atkPower=atkPower; myBeam.bulletSpeed=5; myBeam._direction=180; swordProg+=1}
+      else if atkTime>=136 and swordProg=12 {myBeam=instance_create(x+(6*image_xscale),y-7,oHelmetSwordBeam); myBeam.atkPower=atkPower; myBeam.bulletSpeed=5; myBeam._direction=180; swordProg+=1}
       else if atkTime>=144 and swordProg=13
       {
-        myBeam=instance_create(x+(6*image_xscale),y-26,oHelmetSwordBeam); myBeam.atkPower=atkPower; myBeam.bulletSpeed=5; myBeam.direction=180
+        myBeam=instance_create(x+(6*image_xscale),y-26,oHelmetSwordBeam); myBeam.atkPower=atkPower; myBeam.bulletSpeed=5; myBeam._direction=180
         atkTime=32
         swordProg=0
         swordBeamSpd+=0.25
@@ -330,13 +330,13 @@ if global.gamePaused=false
           playSound(global.snd_HardHit3,0,1,17000)
           var tFire;
           tFire=instance_create(x,y-35,oPassBullet)
-          tFire.direction=180; tFire.sprite_index=sWolfHeadShot
+          tFire._direction=180; tFire.sprite_index=sWolfHeadShot
           tFire.atkPower=atkPower; tFire.bulletSpeed=5; tFire.decayTime=-100
           if numOfStreams mod 2=0
           {
             var tFire;
             tFire=instance_create(x,y-17,oPassBullet)
-            tFire.direction=180; tFire.sprite_index=sWolfHeadShot
+            tFire._direction=180; tFire.sprite_index=sWolfHeadShot
             tFire.atkPower=atkPower; tFire.bulletSpeed=5; tFire.decayTime=-100
           }
           bulletStream+=1
@@ -379,10 +379,10 @@ if global.gamePaused=false
           playSound(global.snd_HardHit3,0,1,17000)
           var tFire;
           tFire=instance_create(x,y-35,oPassBullet)
-          tFire.direction=180; tFire.sprite_index=sWolfHeadShot
+          tFire._direction=180; tFire.sprite_index=sWolfHeadShot
           tFire.atkPower=atkPower; tFire.bulletSpeed=6; tFire.decayTime=-100
           tFire=instance_create(x,y-17,oPassBullet)
-          tFire.direction=180; tFire.sprite_index=sWolfHeadShot
+          tFire._direction=180; tFire.sprite_index=sWolfHeadShot
           tFire.atkPower=atkPower; tFire.bulletSpeed=6; tFire.decayTime=-100
           bulletStream+=1
         }
@@ -427,23 +427,23 @@ if global.gamePaused=false
           playSound(global.snd_HardHit3,0,1,17000)
           var tFire;
           tFire=instance_create(x,y-35,oPassBullet)
-          tFire.direction=180; tFire.sprite_index=sWolfHeadShot
+          tFire._direction=180; tFire.sprite_index=sWolfHeadShot
           tFire.atkPower=atkPower; tFire.bulletSpeed=5; tFire.decayTime=-100
           if numOfStreams mod 2=0
           {
             var tFire;
             tFire=instance_create(x,y-17,oPassBullet)
-            tFire.direction=180; tFire.sprite_index=sWolfHeadShot
+            tFire._direction=180; tFire.sprite_index=sWolfHeadShot
             tFire.atkPower=atkPower; tFire.bulletSpeed=5; tFire.decayTime=-100
           }
           else
           {
             var tFire;
             tFire=instance_create(x,y-53,oPassBullet)
-            tFire.direction=180; tFire.sprite_index=sWolfHeadShot
+            tFire._direction=180; tFire.sprite_index=sWolfHeadShot
             tFire.atkPower=atkPower; tFire.bulletSpeed=5; tFire.decayTime=-100
             tFire=instance_create(x,y-71,oPassBullet)
-            tFire.direction=180; tFire.sprite_index=sWolfHeadShot
+            tFire._direction=180; tFire.sprite_index=sWolfHeadShot
             tFire.atkPower=atkPower; tFire.bulletSpeed=5; tFire.decayTime=-100
           }
           bulletStream+=1
@@ -597,22 +597,22 @@ if global.gamePaused=false
         //Left
         var tFire;
         tFire=instance_create(helmetShadowX1,helmetShadowY1-4,oPassBullet)
-        tFire.direction=270; tFire.sprite_index=sWolfHeadShot; tFire.atkPower=atkPower; tFire.bulletSpeed=5; tFire.decayTime=-100
+        tFire._direction=270; tFire.sprite_index=sWolfHeadShot; tFire.atkPower=atkPower; tFire.bulletSpeed=5; tFire.decayTime=-100
         tFire=instance_create(helmetShadowX1,helmetShadowY1-4,oPassBullet)
-        tFire.direction=265; tFire.sprite_index=sWolfHeadShot; tFire.atkPower=atkPower; tFire.bulletSpeed=5; tFire.decayTime=-100
+        tFire._direction=265; tFire.sprite_index=sWolfHeadShot; tFire.atkPower=atkPower; tFire.bulletSpeed=5; tFire.decayTime=-100
         tFire=instance_create(helmetShadowX1,helmetShadowY1-4,oPassBullet)
-        tFire.direction=285; tFire.sprite_index=sWolfHeadShot; tFire.atkPower=atkPower; tFire.bulletSpeed=5; tFire.decayTime=-100
+        tFire._direction=285; tFire.sprite_index=sWolfHeadShot; tFire.atkPower=atkPower; tFire.bulletSpeed=5; tFire.decayTime=-100
         tFire=instance_create(helmetShadowX1,helmetShadowY1-4,oPassBullet)
-        tFire.direction=350; tFire.sprite_index=sWolfHeadShot; tFire.atkPower=atkPower; tFire.bulletSpeed=5; tFire.decayTime=-100
+        tFire._direction=350; tFire.sprite_index=sWolfHeadShot; tFire.atkPower=atkPower; tFire.bulletSpeed=5; tFire.decayTime=-100
         //Right
         tFire=instance_create(helmetShadowX2,helmetShadowY2-4,oPassBullet)
-        tFire.direction=270; tFire.sprite_index=sWolfHeadShot; tFire.atkPower=atkPower; tFire.bulletSpeed=5; tFire.decayTime=-100
+        tFire._direction=270; tFire.sprite_index=sWolfHeadShot; tFire.atkPower=atkPower; tFire.bulletSpeed=5; tFire.decayTime=-100
         tFire=instance_create(helmetShadowX2,helmetShadowY2-4,oPassBullet)
-        tFire.direction=275; tFire.sprite_index=sWolfHeadShot; tFire.atkPower=atkPower; tFire.bulletSpeed=5; tFire.decayTime=-100
+        tFire._direction=275; tFire.sprite_index=sWolfHeadShot; tFire.atkPower=atkPower; tFire.bulletSpeed=5; tFire.decayTime=-100
         tFire=instance_create(helmetShadowX2,helmetShadowY2-4,oPassBullet)
-        tFire.direction=255; tFire.sprite_index=sWolfHeadShot; tFire.atkPower=atkPower; tFire.bulletSpeed=5; tFire.decayTime=-100
+        tFire._direction=255; tFire.sprite_index=sWolfHeadShot; tFire.atkPower=atkPower; tFire.bulletSpeed=5; tFire.decayTime=-100
         tFire=instance_create(helmetShadowX2,helmetShadowY2-4,oPassBullet)
-        tFire.direction=190; tFire.sprite_index=sWolfHeadShot; tFire.atkPower=atkPower; tFire.bulletSpeed=5; tFire.decayTime=-100
+        tFire._direction=190; tFire.sprite_index=sWolfHeadShot; tFire.atkPower=atkPower; tFire.bulletSpeed=5; tFire.decayTime=-100
       }
     }
 

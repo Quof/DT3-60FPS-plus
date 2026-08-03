@@ -20,7 +20,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  speed=bulletSpeed
+  _speed=bulletSpeed
   image_angle+=15
 
   if y>=oBlackmoorMain.yGround
@@ -31,4 +31,5 @@ if global.gamePaused=false
     instance_destroy()
   }
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)

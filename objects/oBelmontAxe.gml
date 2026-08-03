@@ -18,13 +18,13 @@ stunTime=6
 if oPlayer1.image_xscale=1
 {
   x+=12
-  direction=80
+  _direction=80
 }
 else
 {
   image_xscale=-1
   x-=12
-  direction=100
+  _direction=100
 }
 
 if oPlayer1.yVel>0
@@ -44,7 +44,7 @@ applies_to=self
 event_inherited()
 if global.gamePaused=false
 {
-  speed=bulletSpeed
+  _speed=bulletSpeed
 
   if arcTime>0
   {
@@ -52,16 +52,16 @@ if global.gamePaused=false
     if arcTime>20
     {
       if image_xscale=1
-        direction-=3
+        _direction-=3
       else
-        direction+=3
+        _direction+=3
     }
     else
     {
       if image_xscale=1
-        direction-=6
+        _direction-=6
       else
-        direction+=6
+        _direction+=6
     }
   }
   if image_xscale=1
@@ -82,4 +82,5 @@ if global.gamePaused=false
     instance_destroy()
 }
 else
-  speed=0
+  _speed=0
+correctSpeedDirection(self)

@@ -70,8 +70,8 @@ if global.gamePaused=false
     }
     else
     {
-      speed=1.5
-      direction+=2
+      _speed=1.5
+      _direction+=2
 
       if oGame.time mod 3=0
       {
@@ -93,7 +93,7 @@ if global.gamePaused=false
             tNewAttack=instance_create(x,y,oPassBullet)
             tNewAttack.sprite_index=sPT_FE_BigFire; tNewAttack.atkPower=atkPower+1; tNewAttack.decayTime=-100
             tNewAttack.bCanBeBlocked=1; tNewAttack.blockCost=350; tNewAttack.bParryOpp=1; tNewAttack.damageType="ELEMENTAL"
-            tNewAttack.direction=myDir+tDir; tNewAttack.depth=9; tNewAttack.bulletSpeed=4; tNewAttack.image_speed=0.33
+            tNewAttack._direction=myDir+tDir; tNewAttack.depth=9; tNewAttack.bulletSpeed=4; tNewAttack.image_speed=0.33
             tDir+=360/atkAmt
           }
           atkCycle=0
@@ -113,7 +113,7 @@ if global.gamePaused=false
             tNewAttack=instance_create(x,y,oPassBullet)
             tNewAttack.sprite_index=sPT_FE_Fireball; tNewAttack.atkPower=atkPower; tNewAttack.decayTime=-100
             tNewAttack.bCanBeBlocked=1; tNewAttack.blockCost=300; tNewAttack.bParryOpp=1; tNewAttack.damageType="ELEMENTAL"
-            tNewAttack.direction=myDir+tDir; tNewAttack.depth=9; tNewAttack.bulletSpeed=6; tNewAttack.image_speed=0.33
+            tNewAttack._direction=myDir+tDir; tNewAttack.depth=9; tNewAttack.bulletSpeed=6; tNewAttack.image_speed=0.33
             tDir+=360/tAtkSet
           }
         }
@@ -161,4 +161,5 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)

@@ -219,12 +219,12 @@ if global.gamePaused=false
             var tNewAtk;
             tNewAtk=instance_create(x-(3*image_xscale),y-93,oPassBullet)
             tNewAtk.sprite_index=sE_DarkNeedle; tNewAtk.image_speed=0.5
-            tNewAtk.atkPower=atkPower; tNewAtk.bulletSpeed=13; tNewAtk.decayTime=-100; tNewAtk.direction=needleDirA
+            tNewAtk.atkPower=atkPower; tNewAtk.bulletSpeed=13; tNewAtk.decayTime=-100; tNewAtk._direction=needleDirA
             if bossProgress>=2
             {
               tNewAtk=instance_create(x-(3*image_xscale),y-93,oPassBullet)
               tNewAtk.sprite_index=sE_DarkNeedle; tNewAtk.image_speed=0.5
-              tNewAtk.atkPower=atkPower; tNewAtk.bulletSpeed=13; tNewAtk.decayTime=-100; tNewAtk.direction=needleDirB
+              tNewAtk.atkPower=atkPower; tNewAtk.bulletSpeed=13; tNewAtk.decayTime=-100; tNewAtk._direction=needleDirB
             }
             needleDirA+=needleArc; needleDirB-=needleArc
           }
@@ -376,7 +376,7 @@ if global.gamePaused=false
           tDir=point_direction(x+(19*image_xscale),y-23,oPlayer1.x,oPlayer1.y-26)
           tNewAtk=instance_create(x+(19*image_xscale),y-23,oPassBullet)
           tNewAtk.sprite_index=sE_DarkNeedle; tNewAtk.image_speed=0.5
-          tNewAtk.atkPower=atkPower; tNewAtk.bulletSpeed=15; tNewAtk.decayTime=-100; tNewAtk.direction=tDir
+          tNewAtk.atkPower=atkPower; tNewAtk.bulletSpeed=15; tNewAtk.decayTime=-100; tNewAtk._direction=tDir
           if bossProgress=2 or bossProgress=3
           {
             tDir-=15
@@ -384,7 +384,7 @@ if global.gamePaused=false
             {
               tNewAtk=instance_create(x+(19*image_xscale),y-23,oPassBullet)
               tNewAtk.sprite_index=sE_DarkNeedle; tNewAtk.image_speed=0.5
-              tNewAtk.atkPower=atkPower; tNewAtk.bulletSpeed=15; tNewAtk.decayTime=-100; tNewAtk.direction=tDir
+              tNewAtk.atkPower=atkPower; tNewAtk.bulletSpeed=15; tNewAtk.decayTime=-100; tNewAtk._direction=tDir
               tDir+=30
             }
           }
@@ -395,7 +395,7 @@ if global.gamePaused=false
             {
               tNewAtk=instance_create(x+(19*image_xscale),y-23,oPassBullet)
               tNewAtk.sprite_index=sE_DarkNeedle; tNewAtk.image_speed=0.5
-              tNewAtk.atkPower=atkPower; tNewAtk.bulletSpeed=15; tNewAtk.decayTime=-100; tNewAtk.direction=tDir
+              tNewAtk.atkPower=atkPower; tNewAtk.bulletSpeed=15; tNewAtk.decayTime=-100; tNewAtk._direction=tDir
               tDir+=17
             }
           }
@@ -474,11 +474,11 @@ if global.gamePaused=false
           if currVspd<maxSpeed {currVspd+=0.05}
           else {currVspd-=0.05}
         }
-        hspeed=currHspd; vspeed=currVspd
+        _hspeed=currHspd; _vspeed=currVspd
 
         if specHP<=0 //End desperation attack
         {
-          hspeed=0; vspeed=0
+          _hspeed=0; _vspeed=0
           xVel=0
           with oElpizoSpecBall {instance_destroy()}
           with oAuraSnake {instance_destroy()}
@@ -732,7 +732,8 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
-else {hspeed=0; vspeed=0}
+else {_hspeed=0; _vspeed=0}
+correctHSpeedVSpeed(self)
 #define Other_10
 /*"/*'/**//* YYD ACTION
 lib_id=1

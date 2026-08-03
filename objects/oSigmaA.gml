@@ -138,7 +138,7 @@ if global.gamePaused=false
           tNewAttack=instance_create(x+(20*image_xscale),y-40,oPassBullet)
           tNewAttack.sprite_index=sMMXbuster1
           tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=16; tNewAttack.decayTime=-100
-          tNewAttack.direction=tAtkDir
+          tNewAttack._direction=tAtkDir
         }
       }
       else if atkProg=65

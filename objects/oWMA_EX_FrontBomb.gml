@@ -32,7 +32,7 @@ if global.gamePaused=false
     {
       tNewAttack=instance_create(x,y,oPassBullet)
       tNewAttack.sprite_index=sWarmasterA_ShotA; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=9
-      tNewAttack.image_speed=0.33; tNewAttack.decayTime=-100; tNewAttack.direction=tDir; tNewAttack.image_angle=tDir
+      tNewAttack.image_speed=0.33; tNewAttack.decayTime=-100; tNewAttack._direction=tDir; tNewAttack.image_angle=tDir
       tDir+=7.5
     }
     instance_destroy()

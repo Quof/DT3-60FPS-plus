@@ -207,10 +207,10 @@ if global.gamePaused=false
       {
         if moveTime>=201
         {
-          speed=0.25
-          direction=moveDir
+          _speed=0.25
+          _direction=moveDir
           moveDir+=2
-          if moveDir=180 {speed=0; moveDir=0; moveTime=0; moveCycle=0}
+          if moveDir=180 {_speed=0; moveDir=0; moveTime=0; moveCycle=0}
         }
       }
 
@@ -251,7 +251,7 @@ if global.gamePaused=false
         for(i=0;i<7;i+=1)
         {
           newMeteor=instance_create((xCenter-roomSpan)+(i*72),-24-(i*48),oBlackmoorMeteor)
-          newMeteor.atkPower=atkPower; newMeteor.bulletSpeed=8+(i/10); newMeteor.direction=270
+          newMeteor.atkPower=atkPower; newMeteor.bulletSpeed=8+(i/10); newMeteor._direction=270
         }
       }
       else if fallMeteorTime=10061
@@ -260,7 +260,7 @@ if global.gamePaused=false
         for(i=0;i<7;i+=1)
         {
           newMeteor=instance_create((xCenter+roomSpan)-(i*72),-24-(i*48),oBlackmoorMeteor)
-          newMeteor.atkPower=atkPower; newMeteor.bulletSpeed=8+(i/10); newMeteor.direction=270
+          newMeteor.atkPower=atkPower; newMeteor.bulletSpeed=8+(i/10); newMeteor._direction=270
         }
       }
       else if fallMeteorTime=10080 {fallMeteorTime=0}
@@ -346,7 +346,7 @@ if global.gamePaused=false
     deathAnim+=1
     if deathAnim=1
     {
-      speed=0
+      _speed=0
       with oObjectShadow {instance_destroy()}
       with oBlackmoorMeteor {instance_destroy()}
       with oBlackmoorShadowExp {instance_destroy()}
@@ -382,7 +382,8 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)
 #define Other_10
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -454,7 +455,7 @@ else if armMeteorProg>=51 and armMeteorProg<=70
       newMeteor=instance_create(x-(i*40),-24,oBlackmoorMeteor)
       newMeteor.atkPower=atkPower
       newMeteor.bulletSpeed=6+(i/2)-(meteorAmt/3)
-      newMeteor.direction=260-((i*6))
+      newMeteor._direction=260-((i*6))
     }
   }
 }
@@ -521,7 +522,7 @@ else if despProg=3 //Attack
   {
     var newMeteor;
     newMeteor=instance_create(oPlayer1.x,-24,oBlackmoorMeteor)
-    newMeteor.atkPower=atkPower; newMeteor.bulletSpeed=8+(i/10); newMeteor.direction=270
+    newMeteor.atkPower=atkPower; newMeteor.bulletSpeed=8+(i/10); newMeteor._direction=270
   }
 }
 else if despProg=4 //End
@@ -530,13 +531,13 @@ else if despProg=4 //End
   if despTime>=45
   {
     if oEvExGates.fadeAlpha>0 {oEvExGates.fadeAlpha-=0.005; image_alpha+=0.005}
-    speed=2
-    direction=point_direction(x,y,576,256)
+    _speed=2
+    _direction=point_direction(x,y,576,256)
 
     if point_distance(x,y,576,256)<4 and oEvExGates.fadeAlpha=0
     {
       bCanTakeDamage=1
-      speed=0
+      _speed=0
       x=576; y=256
       despProg=0
     }

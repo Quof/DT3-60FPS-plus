@@ -70,8 +70,8 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  speed=moveSpd
-  image_angle=direction
+  _speed=moveSpd
+  image_angle=_direction
   if bActive=true and life>0
   {
     diff=angle_difference(image_angle,player_sprite_center())
@@ -89,7 +89,7 @@ if global.gamePaused=false
   else if life<=0
   {
     deathAnim+=1
-    speed=0
+    _speed=0
     if deathAnim mod 4=0
     {
       if deathAnim mod 8=0 {playSound(global.snd_HardHit1,0,0.9,1)}
@@ -103,4 +103,5 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)

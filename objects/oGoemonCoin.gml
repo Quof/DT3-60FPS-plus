@@ -21,9 +21,10 @@ applies_to=self
 event_inherited()
 if global.gamePaused=false
 {
-  image_angle=direction
-  speed=moveSpd
+  image_angle=_direction
+  _speed=moveSpd
   lifeTime-=1
   if lifeTime<=0 {instance_destroy()}
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)

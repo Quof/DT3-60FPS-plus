@@ -69,7 +69,7 @@ if global.gamePaused=false
   else if myProg=2
   {
     turn_toward_direction(point_direction(x+lengthdir_x(44,22+image_angle),y+lengthdir_y(44,22+image_angle),oPlayer1.x,returnPlayerYCenter()),1)
-    image_angle=direction
+    image_angle=_direction
     fireTime+=1
     if fireTime=fireDelay-20 //Attack warning
     {
@@ -87,7 +87,7 @@ if global.gamePaused=false
       {
         tNewAtk=instance_create(x+lengthdir_x(44,22+image_angle),y+lengthdir_y(44,22+image_angle),oPassBullet)
         tNewAtk.sprite_index=sBTFireball; tNewAtk.atkPower=atkPower; tNewAtk.bulletSpeed=3; tNewAtk.image_speed=0.33
-        tNewAtk.decayTime=-100; tNewAtk.direction=tDir
+        tNewAtk.decayTime=-100; tNewAtk._direction=tDir
         tDir+=25
       }
       fireTime=0
@@ -95,6 +95,7 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
+correctSpeedDirection(self)
 #define Other_25
 /*"/*'/**//* YYD ACTION
 lib_id=1

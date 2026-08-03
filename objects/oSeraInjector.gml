@@ -53,7 +53,7 @@ if global.gamePaused=false
       }
       if startUpTime>=15
       {
-        speed=moveSpeed
+        _speed=moveSpeed
       }
     }
   }
@@ -72,4 +72,5 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)

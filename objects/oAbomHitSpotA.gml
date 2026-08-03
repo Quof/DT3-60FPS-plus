@@ -92,6 +92,7 @@ if global.gamePaused=false
     }
   }
 }
+correctSpeedDirection(self)
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -101,7 +102,7 @@ applies_to=self
 if bCanTakeDamage=0 and life>0 {scaleWave+=pi/60}
 for(i=0;i<5;i+=1)
 {
-  draw_sprite_ext(sAbomBodyConnectorA,0,x+lengthdir_x(20+(18*i),direction),y+lengthdir_y(20+(18*i),direction),1.25+(sin(scaleWave+i)/2),1.25+(sin(scaleWave+i)/2),i*20,c_white,image_alpha)
+  draw_sprite_ext(sAbomBodyConnectorA,0,x+lengthdir_x(20+(18*i),_direction),y+lengthdir_y(20+(18*i),_direction),1.25+(sin(scaleWave+i)/2),1.25+(sin(scaleWave+i)/2),i*20,c_white,image_alpha)
 }
 
 draw_sprite_ext(sAbomHitSpotA,animFrm,x,y,image_xscale,image_yscale,0,image_blend,image_alpha)

@@ -130,8 +130,8 @@ if global.gamePaused=false
         var tAtk;
         tAtk=instance_create(x+(4*image_xscale),y-24,oPassBullet)
         tAtk.sprite_index=sArachnusEnergyWave; tAtk.atkPower=atkPower; tAtk.bulletSpeed=12; tAtk.decayTime=-100
-        if image_xscale=1 {tAtk.direction=0}
-        else {tAtk.direction=180}
+        if image_xscale=1 {tAtk._direction=0}
+        else {tAtk._direction=180}
         progTime=0; behavior+=1
       }
     }
@@ -210,7 +210,7 @@ if global.gamePaused=false
           tAtk=instance_create(x,y-16,oPassBullet)
           tAtk.sprite_index=sArachnusEnergyWave; tAtk.atkPower=atkPower; tAtk.bulletSpeed=8; tAtk.decayTime=-100
           tAtk.image_xscale=0.3; tAtk.image_yscale=0.3
-          tAtk.direction=point_direction(x,y-16,oPlayer1.x,oPlayer1.y-26)
+          tAtk._direction=point_direction(x,y-16,oPlayer1.x,oPlayer1.y-26)
         }
         else if bossProgress=3 or bossProgress=4 or bossProgress=5
         {
@@ -218,11 +218,11 @@ if global.gamePaused=false
           tAtk=instance_create(x,y-16,oPassBullet)
           tAtk.sprite_index=sArachnusEnergyWave; tAtk.atkPower=atkPower; tAtk.bulletSpeed=8; tAtk.decayTime=-100
           tAtk.image_xscale=0.3; tAtk.image_yscale=0.3
-          tAtk.direction=point_direction(x,y-16,oPlayer1.x,oPlayer1.y-26)-10
+          tAtk._direction=point_direction(x,y-16,oPlayer1.x,oPlayer1.y-26)-10
           tAtk=instance_create(x,y-16,oPassBullet)
           tAtk.sprite_index=sArachnusEnergyWave; tAtk.atkPower=atkPower; tAtk.bulletSpeed=8; tAtk.decayTime=-100
           tAtk.image_xscale=0.3; tAtk.image_yscale=0.3
-          tAtk.direction=point_direction(x,y-16,oPlayer1.x,oPlayer1.y-26)+10
+          tAtk._direction=point_direction(x,y-16,oPlayer1.x,oPlayer1.y-26)+10
         }
         else if bossProgress=1 or bossProgress=2 or bossProgress=6 or bossProgress=7
         {
@@ -230,15 +230,15 @@ if global.gamePaused=false
           tAtk=instance_create(x,y-16,oPassBullet)
           tAtk.sprite_index=sArachnusEnergyWave; tAtk.atkPower=atkPower; tAtk.bulletSpeed=8; tAtk.decayTime=-100
           tAtk.image_xscale=0.3; tAtk.image_yscale=0.3
-          tAtk.direction=point_direction(x,y-16,oPlayer1.x,oPlayer1.y-26)
+          tAtk._direction=point_direction(x,y-16,oPlayer1.x,oPlayer1.y-26)
           tAtk=instance_create(x,y-16,oPassBullet)
           tAtk.sprite_index=sArachnusEnergyWave; tAtk.atkPower=atkPower; tAtk.bulletSpeed=8; tAtk.decayTime=-100
           tAtk.image_xscale=0.3; tAtk.image_yscale=0.3
-          tAtk.direction=point_direction(x,y-16,oPlayer1.x,oPlayer1.y-26)-10
+          tAtk._direction=point_direction(x,y-16,oPlayer1.x,oPlayer1.y-26)-10
           tAtk=instance_create(x,y-16,oPassBullet)
           tAtk.sprite_index=sArachnusEnergyWave; tAtk.atkPower=atkPower; tAtk.bulletSpeed=8; tAtk.decayTime=-100
           tAtk.image_xscale=0.3; tAtk.image_yscale=0.3
-          tAtk.direction=point_direction(x,y-16,oPlayer1.x,oPlayer1.y-26)+10
+          tAtk._direction=point_direction(x,y-16,oPlayer1.x,oPlayer1.y-26)+10
         }
       }
       

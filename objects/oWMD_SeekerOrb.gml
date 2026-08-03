@@ -60,7 +60,7 @@ if global.gamePaused=false
       if currVspd<maxSpeed {currVspd+=0.25}
       else {currVspd=maxSpeed}
     }
-    hspeed=currHspd; vspeed=currVspd
+    _hspeed=currHspd; _vspeed=currVspd
 
     if rWarshipZ_E3 //EX MODE
     {
@@ -82,7 +82,8 @@ if global.gamePaused=false
     }
   }
 }
-else {hspeed=0; vspeed=0}
+else {_hspeed=0; _vspeed=0}
+correctHSpeedVSpeed(self)
 #define Collision_oAttackBase
 /*"/*'/**//* YYD ACTION
 lib_id=1

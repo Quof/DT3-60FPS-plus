@@ -119,7 +119,7 @@ if global.gamePaused=false
           tNewAttack=instance_create(x+(16*image_xscale),y+31,oPassBullet)
           tNewAttack.sprite_index=sWolfHeadShot; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
           tNewAttack.image_speed=0.33; tNewAttack.decayTime=-100
-          tNewAttack.direction=point_direction(x+(16*image_xscale),y+16,oPlayer1.x,returnPlayerYCenter())
+          tNewAttack._direction=point_direction(x+(16*image_xscale),y+16,oPlayer1.x,returnPlayerYCenter())
         }
       }
       if shotTime>=shotDelay+40
@@ -141,14 +141,14 @@ if global.gamePaused=false
           {
             tNewAttack=instance_create(x+(16*image_xscale),y+31,oPassBulletRed)
             tNewAttack.sprite_index=sCamBullet; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
-            tNewAttack.image_speed=0.33; tNewAttack.decayTime=-100; tNewAttack.direction=tDir
+            tNewAttack.image_speed=0.33; tNewAttack.decayTime=-100; tNewAttack._direction=tDir
           }
           else
           {
 
             tNewAttack=instance_create(x+(16*image_xscale),y+31,oPassBullet)
             tNewAttack.sprite_index=sWolfHeadShot; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
-            tNewAttack.image_speed=0.33; tNewAttack.decayTime=-100; tNewAttack.direction=tDir
+            tNewAttack.image_speed=0.33; tNewAttack.decayTime=-100; tNewAttack._direction=tDir
           }
           tDir+=11
         }

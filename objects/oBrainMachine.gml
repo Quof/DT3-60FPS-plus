@@ -538,7 +538,7 @@ else if shotTime=10045
     {
       tNewAttack=instance_create(x,y,oPassBullet)
       tNewAttack.sprite_index=sShieldMenaceBeam; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=4
-      tNewAttack.decayTime=-100; tNewAttack.image_xscale=0.75; tNewAttack.image_yscale=0.9 tNewAttack.direction=tDir
+      tNewAttack.decayTime=-100; tNewAttack.image_xscale=0.75; tNewAttack.image_yscale=0.9 tNewAttack._direction=tDir
       tDir+=360/bulletNum
     }
   }
@@ -551,7 +551,7 @@ else if shotTime=10045
     {
       tNewAttack=instance_create(x,y,oPassBullet)
       tNewAttack.sprite_index=sShieldMenaceBeam; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=4
-      tNewAttack.decayTime=-100; tNewAttack.image_xscale=0.75; tNewAttack.image_yscale=0.9 tNewAttack.direction=tDir
+      tNewAttack.decayTime=-100; tNewAttack.image_xscale=0.75; tNewAttack.image_yscale=0.9 tNewAttack._direction=tDir
       tDir+=360/bulletNum
     }
   }

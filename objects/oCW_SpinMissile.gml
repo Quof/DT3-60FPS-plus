@@ -23,7 +23,7 @@ if global.gamePaused=false
   timeTillIAbortMyself+=1
   if timeTillIAbortMyself>=1 and timeTillIAbortMyself<=30
   {
-    direction+=turnDir
+    _direction+=turnDir
     if sprite_index=sC_MarkBullet
     {
       var tEffect;
@@ -34,21 +34,22 @@ if global.gamePaused=false
   }
   else if timeTillIAbortMyself=31
   {
-    direction=point_direction(x,y,oPlayer1.x,oPlayer1.y)
+    _direction=point_direction(x,y,oPlayer1.x,oPlayer1.y)
   }
 
-  image_angle=direction
+  image_angle=_direction
   if sprite_index=sC_MarkBullet
   {
-    if timeTillIAbortMyself>=1 and timeTillIAbortMyself<=25 {speed=3}
-    else if timeTillIAbortMyself>=31 {speed=8}
+    if timeTillIAbortMyself>=1 and timeTillIAbortMyself<=25 {_speed=3}
+    else if timeTillIAbortMyself>=31 {_speed=8}
   }
   else
   {
-    if timeTillIAbortMyself>=1 and timeTillIAbortMyself<=10 {speed=2.75}
-    else if timeTillIAbortMyself>=31 {speed=8}
+    if timeTillIAbortMyself>=1 and timeTillIAbortMyself<=10 {_speed=2.75}
+    else if timeTillIAbortMyself>=31 {_speed=8}
   }
 
   if timeTillIAbortMyself>=100 {instance_destroy()}
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)

@@ -20,10 +20,11 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  speed=bulletSpeed
-  image_angle=direction
+  _speed=bulletSpeed
+  image_angle=_direction
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)
 #define Other_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

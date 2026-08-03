@@ -47,7 +47,7 @@ if global.gamePaused=false
     else if animTime=30 {image_index=1}
     else if animTime=40 {image_index=0; animTime=0}
 
-    speed=moveSpd
+    _speed=moveSpd
     turnTime+=1
     if turnTime>=turnDelay
     {
@@ -59,17 +59,18 @@ if global.gamePaused=false
         {
           tNewAttack=instance_create(x,y,oNormalBullet)
           tNewAttack.sprite_index=sEBShot; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=2
-          tNewAttack.direction=90*i; tNewAttack.image_xscale=5.25; tNewAttack.image_yscale=5.25; tNewAttack.image_alpha=0.8
+          tNewAttack._direction=90*i; tNewAttack.image_xscale=5.25; tNewAttack.image_yscale=5.25; tNewAttack.image_alpha=0.8
         }
         turnNum=0
       }
-      direction+=turnAmt
+      _direction+=turnAmt
       turnTime=0
     }
   }
   enemyStepEvent()
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

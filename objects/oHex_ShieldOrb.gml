@@ -72,7 +72,7 @@ if global.gamePaused=false
         {
           tAtk=instance_create(x,y,oPassBullet)
           tAtk.sprite_index=sHexShieldConnector; tAtk.atkPower=atkPower; tAtk.image_xscale=2; tAtk.image_yscale=0.5
-          tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk.image_speed=0.33; tAtk.direction=tDir
+          tAtk.bulletSpeed=3; tAtk.decayTime=-100; tAtk.image_speed=0.33; tAtk._direction=tDir
           tDir+=50
         }
         atkTime=0

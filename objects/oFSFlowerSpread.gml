@@ -24,20 +24,20 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  speed=bulletSpeed
+  _speed=bulletSpeed
 
   bulletCreate+=1
   if bulletCreate mod bulletCMod=0
   {
     myBulletA[bulletNum]=instance_create(x,y,oCW_MarkShot)
     myBulletA[bulletNum].sprite_index=sFSSmallBullet; myBulletA[bulletNum].image_speed=0.2; myBulletA[bulletNum].atkPower=atkPower
-    myBulletA[bulletNum].bulletSpeed=1; myBulletA[bulletNum].direction=startDir; myBulletA[bulletNum].image_blend=bulletBlend
+    myBulletA[bulletNum].bulletSpeed=1; myBulletA[bulletNum]._direction=startDir; myBulletA[bulletNum].image_blend=bulletBlend
     myBulletB[bulletNum]=instance_create(x,y,oCW_MarkShot)
     myBulletB[bulletNum].sprite_index=sFSSmallBullet; myBulletB[bulletNum].image_speed=0.2; myBulletB[bulletNum].atkPower=atkPower
-    myBulletB[bulletNum].bulletSpeed=1; myBulletB[bulletNum].direction=startDir+120; myBulletB[bulletNum].image_blend=bulletBlend
+    myBulletB[bulletNum].bulletSpeed=1; myBulletB[bulletNum]._direction=startDir+120; myBulletB[bulletNum].image_blend=bulletBlend
     myBulletC[bulletNum]=instance_create(x,y,oCW_MarkShot)
     myBulletC[bulletNum].sprite_index=sFSSmallBullet; myBulletC[bulletNum].image_speed=0.2; myBulletC[bulletNum].atkPower=atkPower
-    myBulletC[bulletNum].bulletSpeed=1; myBulletC[bulletNum].direction=startDir+240; myBulletC[bulletNum].image_blend=bulletBlend
+    myBulletC[bulletNum].bulletSpeed=1; myBulletC[bulletNum]._direction=startDir+240; myBulletC[bulletNum].image_blend=bulletBlend
     startDir+=10
     bulletNum+=1
   }
@@ -54,4 +54,5 @@ if global.gamePaused=false
     instance_destroy()
   }
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)

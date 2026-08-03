@@ -39,12 +39,12 @@ if global.gamePaused=false
   makeEnemyActive(0)
   if life>0
   {
-    if direction>=91 and direction<=269 {image_xscale=-1}
+    if _direction>=91 and _direction<=269 {image_xscale=-1}
     else {image_xscale=1}
 
-    speed=9
+    _speed=9
     atkProg+=1
-    if atkProg=9 {direction=player_sprite_center()}
+    if atkProg=9 {_direction=player_sprite_center()}
   }
   else
   {
@@ -56,7 +56,7 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
-else {speed=0}
+else {_speed=0}
 
 if bSpotted=0
 {
@@ -66,3 +66,4 @@ if bSpotted=0
     bSpotted=1
   }
 }
+correctSpeedDirection(self)

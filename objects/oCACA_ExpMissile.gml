@@ -26,8 +26,8 @@ if global.gamePaused=false
 {
   if missProg=0
   {
-    speed=bulletSpeed
-    image_angle=direction
+    _speed=bulletSpeed
+    image_angle=_direction
     straightTime-=1
     if straightTime<=0 {missProg=1}
   }
@@ -37,7 +37,7 @@ if global.gamePaused=false
     timeTillLaunch-=1
     if timeTillLaunch=10
     {
-      direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
+      _direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
       explodePointX=oPlayer1.x
       explodePointY=returnPlayerYCenter()
     }
@@ -50,8 +50,8 @@ if global.gamePaused=false
   }
   else if missProg=2
   {
-    speed=bulletSpeed
-    image_angle=direction
+    _speed=bulletSpeed
+    image_angle=_direction
 
     if point_distance(x,y,explodePointX,explodePointY)<bulletSpeed
     {
@@ -62,7 +62,8 @@ if global.gamePaused=false
     }
   }
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

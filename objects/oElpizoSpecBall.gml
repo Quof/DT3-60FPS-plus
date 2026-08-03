@@ -44,7 +44,7 @@ if global.gamePaused=false
     {
       tNewAtk=instance_create(x,y,oPassBullet)
       tNewAtk.sprite_index=sE_Bubble; tNewAtk.image_speed=0.5; tNewAtk.image_blend=c_orange
-      tNewAtk.atkPower=atkPower; tNewAtk.decayTime=-100; tNewAtk.direction=tDir
+      tNewAtk.atkPower=atkPower; tNewAtk.decayTime=-100; tNewAtk._direction=tDir
       if i=0 {tNewAtk.bulletSpeed=6}
       else {tNewAtk.bulletSpeed=1}
       tDir+=120

@@ -138,7 +138,7 @@ if global.gamePaused=false
         var tPoison;
         tPoison=instance_create(x+random_range(-3,3),y+random_range(-3,3),oM_PoisonBreath)
         tPoison.atkPower=atkPower; tPoison.bulletSpeed=5+random(2); tPoison.depth=24
-        tPoison.animSpeed=0.25; tPoison.direction=270+random_range(-5,5); tPoison.image_blend=c_maroon
+        tPoison.animSpeed=0.25; tPoison._direction=270+random_range(-5,5); tPoison.image_blend=c_maroon
 
         if sideStart=1
         {
@@ -202,11 +202,11 @@ if global.gamePaused=false
         var tNewAttack;
         tNewAttack=instance_create(x+14,y-26,oPassBullet)
         tNewAttack.sprite_index=sLB_Laser; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
-        tNewAttack.decayTime=-100; tNewAttack.direction=point_direction(x+14,y-26,oPlayer1.x,oPlayer1.y-26)
+        tNewAttack.decayTime=-100; tNewAttack._direction=point_direction(x+14,y-26,oPlayer1.x,oPlayer1.y-26)
         tNewAttack.image_angle=point_direction(x+14,y-26,oPlayer1.x,oPlayer1.y-26)
         tNewAttack=instance_create(x-14,y-26,oPassBullet)
         tNewAttack.sprite_index=sLB_Laser; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
-        tNewAttack.decayTime=-100; tNewAttack.direction=point_direction(x+14,y-26,oPlayer1.x,oPlayer1.y-26)
+        tNewAttack.decayTime=-100; tNewAttack._direction=point_direction(x+14,y-26,oPlayer1.x,oPlayer1.y-26)
         tNewAttack.image_angle=point_direction(x+14,y-26,oPlayer1.x,oPlayer1.y-26)
         eyeLaserTime=0
       }
@@ -234,7 +234,7 @@ if global.gamePaused=false
           var tNewAttack;
           tNewAttack=instance_create(choose(112,176,240,304,368),1040,oPassBullet)
           tNewAttack.sprite_index=sMalevLightning; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=4.5
-          tNewAttack.decayTime=300; tNewAttack.direction=270
+          tNewAttack.decayTime=300; tNewAttack._direction=270
         }
       }
       else if lightningTime>=10031+lightningLength //End attack
@@ -413,7 +413,7 @@ playSound(global.snd_OrbThrow,0,0.95,1)
 var tNewAttack;
 tNewAttack=instance_create(specX,1040,oPassBullet)
 tNewAttack.sprite_index=sMalevLightning; tNewAttack.atkPower=atkPower
-tNewAttack.bulletSpeed=4; tNewAttack.decayTime=300; tNewAttack.direction=270
+tNewAttack.bulletSpeed=4; tNewAttack.decayTime=300; tNewAttack._direction=270
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

@@ -175,7 +175,7 @@ if global.gamePaused=false
       var tFire;
       tFire=instance_create(x,y-4,oPassBullet)
       tFire.sprite_index=sWolfHeadShot; tFire.atkPower=atkPower; tFire.bulletSpeed=8; tFire.decayTime=-100
-      tFire.direction=shotDir
+      tFire._direction=shotDir
     }
 
     //Shot sequence
@@ -213,7 +213,7 @@ if global.gamePaused=false
         var tFire;
         tFire=instance_create(x,y-4,oPassBullet)
         tFire.sprite_index=sWolfHeadShot; tFire.atkPower=atkPower; tFire.bulletSpeed=8; tFire.decayTime=-100
-        tFire.direction=extraShotAngle
+        tFire._direction=extraShotAngle
       }
       if bArcExtraBullet=1
       {
@@ -274,7 +274,7 @@ if global.gamePaused=false
       var tFire;
       tFire=instance_create(x,y-4,oPassBullet)
       tFire.sprite_index=sWolfHeadShot; tFire.atkPower=atkPower; tFire.bulletSpeed=8; tFire.decayTime=-100
-      tFire.direction=shotDir
+      tFire._direction=shotDir
     }
   }
   else if bossProg=6 //Move to final position
@@ -335,7 +335,7 @@ if global.gamePaused=false
         {
           var tFire;
           tFire=instance_create(aimedShotX,aimedShotY-4,oPassBullet)
-          tFire.direction=270; tFire.sprite_index=sWolfHeadShot
+          tFire._direction=270; tFire.sprite_index=sWolfHeadShot
           tFire.atkPower=atkPower; tFire.bulletSpeed=3; tFire.decayTime=-100
 
           aimedShotAmt+=1
@@ -361,7 +361,7 @@ if global.gamePaused=false
         {
           var tFire;
           tFire=instance_create(x,y-4,oPassBullet)
-          tFire.direction=aimedShotAngle; tFire.sprite_index=sWolfHeadShot
+          tFire._direction=aimedShotAngle; tFire.sprite_index=sWolfHeadShot
           tFire.atkPower=atkPower; tFire.bulletSpeed=3; tFire.decayTime=-100
 
           aimedShotAmt+=1
@@ -433,7 +433,7 @@ if global.gamePaused=false
         for(i=0;i<2;i+=1)
         {
           tFire=instance_create(x,y-4,oPassBullet)
-          tFire.direction=i*180; tFire.sprite_index=sWolfHeadShot
+          tFire._direction=i*180; tFire.sprite_index=sWolfHeadShot
           tFire.atkPower=atkPower; tFire.bulletSpeed=5; tFire.decayTime=-100
         }
       }
@@ -452,7 +452,7 @@ if global.gamePaused=false
         {
           var tFire;
           tFire=instance_create(x,y-4,oPassBullet)
-          tFire.direction=aimedShotAngle; tFire.sprite_index=sWolfHeadShot
+          tFire._direction=aimedShotAngle; tFire.sprite_index=sWolfHeadShot
           tFire.atkPower=atkPower; tFire.bulletSpeed=3; tFire.decayTime=-100
 
           aimedShotAmt+=1
@@ -482,7 +482,7 @@ if global.gamePaused=false
       playSound(global.snd_HardHit3,0,0.97,27000)
       var tFire;
       tFire=instance_create(x,y-4,oPassBullet)
-      tFire.direction=player_sprite_center(); tFire.sprite_index=sWolfHeadShot
+      tFire._direction=player_sprite_center(); tFire.sprite_index=sWolfHeadShot
       tFire.atkPower=atkPower; tFire.bulletSpeed=5; tFire.decayTime=-100
       aimedShotTime=0
     }

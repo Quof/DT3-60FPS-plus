@@ -6,13 +6,14 @@ applies_to=self
 */
 //Requires: rotation,moveArc,fadeSpd,scaleSpd
 image_angle+=rotation
-direction+=moveArc
+_direction+=moveArc
 
 image_alpha-=fadeSpd
 if image_alpha<=0 {instance_destroy()}
 
 image_xscale-=scaleSpd; image_yscale-=scaleSpd
 if image_xscale<=0 {instance_destroy()}
+correctSpeedDirection(self)
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

@@ -198,7 +198,7 @@ if global.gamePaused=false
         if currVspd<maxSpeedY {currVspd+=0.6}
         else {currVspd-=0.15}
       }
-      hspeed=currHspd; vspeed=currVspd
+      _hspeed=currHspd; _vspeed=currVspd
 
       //ATTACK: Bombing run
       bombTime+=1
@@ -208,7 +208,7 @@ if global.gamePaused=false
         {
           var tNewAttack;
           tNewAttack=instance_create(x,y,oGravityBullet)
-          tNewAttack.atkPower=atkPower; tNewAttack.direction=270; tNewAttack.bulletSpeed=3; tNewAttack.damageType="EXPLOSION"
+          tNewAttack.atkPower=atkPower; tNewAttack._direction=270; tNewAttack.bulletSpeed=3; tNewAttack.damageType="EXPLOSION"
           if bombType=0 {tNewAttack.sprite_index=sC_TurretBombA; bombType=1}
           else if bombType=1 {tNewAttack.sprite_index=sC_TurretBombB; bombType=0}
         }
@@ -267,7 +267,7 @@ if global.gamePaused=false
           if currVspd<maxSpeedY {currVspd+=0.4}
           else {currVspd-=0.4}
         }
-        hspeed=currHspd; vspeed=currVspd
+        _hspeed=currHspd; _vspeed=currVspd
 
         if point_distance(x,y,xPoint,yPoint)<34
         {
@@ -338,7 +338,8 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
-else {hspeed=0; vspeed=0}
+else {_hspeed=0; _vspeed=0}
+correctHSpeedVSpeed(self)
 #define Other_10
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -355,7 +356,7 @@ else if bulletCycle=3 {tXOff=17; tYOff=2}
 else if bulletCycle>=4 {tXOff=3; tYOff=11; bulletCycle=0}
 tNewAttack=instance_create(x+(tXOff*image_xscale),y+tYOff,oNormalBullet)
 tNewAttack.sprite_index=sC_TurretBullet; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=12
-tNewAttack.image_speed=0.33; tNewAttack.decayTime=-100; tNewAttack.direction=targetAngle
+tNewAttack.image_speed=0.33; tNewAttack.decayTime=-100; tNewAttack._direction=targetAngle
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

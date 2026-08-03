@@ -23,3 +23,4 @@ applies_to=self
 */
 event_inherited()
 image_angle-=15
+correctSpeedDirection(self)

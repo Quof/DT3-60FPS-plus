@@ -53,13 +53,13 @@ if global.gamePaused=false
     if atkDelay<=0
     {
       playSound(global.snd_Fireball,0,0.92,22050+random(22050))
-      direction=point_direction(x,y,oPlayer1.x,oPlayer1.y-32)
+      _direction=point_direction(x,y,oPlayer1.x,oPlayer1.y-32)
       atkProg+=1
     }
   }
   else if atkProg=12 //Attack 1B - To point
   {
-    speed=bulletSpeed
+    _speed=bulletSpeed
     atkTime+=1*gDeltaTime
     if atkTime>=150 {instance_destroy()}
   }
@@ -80,13 +80,13 @@ if global.gamePaused=false
     if atkDelay<=0
     {
       playSound(global.snd_Fireball,0,0.92,22050+random(22050))
-      direction=point_direction(x,y,oPlayer1.x,oPlayer1.y-32)
+      _direction=point_direction(x,y,oPlayer1.x,oPlayer1.y-32)
       atkProg+=1
     }
   }
   else if atkProg=24 //Attack 2D - To point
   {
-    speed=bulletSpeed
+    _speed=bulletSpeed
     atkTime+=1*gDeltaTime
     if atkTime>=150 {instance_destroy()}
   }
@@ -97,4 +97,5 @@ if global.gamePaused=false
     y=oHexor_Main.y+lengthdir_y(orbDist,orbDir)
   }
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)

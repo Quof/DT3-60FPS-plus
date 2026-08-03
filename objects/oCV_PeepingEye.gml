@@ -101,14 +101,14 @@ if global.gamePaused=false
     y+=cos(stepCount)*gDeltaTime
     //The rest
     //speed=moveSpd
-    speed=0
+    _speed=0
     _speed=moveSpd
     x += cos(degtorad(_direction)) * _speed * gDeltaTime
     y -= sin(degtorad(_direction)) * _speed * gDeltaTime
     moveTime+=1*gDeltaTime
     if moveTime>=moveDelay
     {
-      direction=player_sprite_center()
+      _direction=player_sprite_center()
       moveTime=0
     }
 
@@ -126,7 +126,7 @@ if global.gamePaused=false
       {
         if checkScreenArea(x,y,48)=1 {playSound(global.snd_LightballSpread,0,0.85,38000)}
         lightBullet.atkProg=1
-        lightBullet.direction=point_direction(lightBullet.x,lightBullet.y,oPlayer1.x,oPlayer1.y-26)
+        lightBullet._direction=point_direction(lightBullet.x,lightBullet.y,oPlayer1.x,oPlayer1.y-26)
       }
       shotTime=0
     }
@@ -213,14 +213,15 @@ if global.gamePaused=false
   enemyStepEvent()
 }
 else
-  speed=0
+  _speed=0
+correctSpeedDirection(self)
 #define Other_25
 /*"/*'/**//* YYD ACTION
 lib_id=1
 action_id=603
 applies_to=self
 */
-speed=0
+_speed=0
 if x>oPlayer1.x
   xSpd=3
 else

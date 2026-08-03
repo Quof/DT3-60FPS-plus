@@ -26,7 +26,7 @@ if global.gamePaused=false
   if atkProg=0 //Spin outward
   {
     image_angle+=11
-    speed=bulletSpeed
+    _speed=bulletSpeed
     atkTime+=1*gDeltaTime
     if atkTime>=atkDelay
     {
@@ -34,4 +34,5 @@ if global.gamePaused=false
     }
   }
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)

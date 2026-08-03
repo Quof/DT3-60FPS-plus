@@ -119,18 +119,18 @@ if global.gamePaused=false
           tNewAttack=instance_create(x+(13*image_xscale),y-4,oMetBulletPass)
           tNewAttack.sprite_index=sRidleyFireball; tNewAttack.damageType="ELEMENTAL"; tNewAttack.depth=4
           tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=8; tNewAttack.decayTime=-100
-          tNewAttack.direction=point_direction(x+(9*image_xscale),y-4,oPlayer1.x,returnPlayerYCenter())+random_range(-5,5)
+          tNewAttack._direction=point_direction(x+(9*image_xscale),y-4,oPlayer1.x,returnPlayerYCenter())+random_range(-5,5)
         }
         else if fireType=1
         {
           tNewAttack=instance_create(x+(13*image_xscale),y-4,oMetBulletPass)
           tNewAttack.sprite_index=sRidleyFireball; tNewAttack.damageType="ELEMENTAL"; tNewAttack.depth=4
           tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=8; tNewAttack.decayTime=-100
-          tNewAttack.direction=20
+          tNewAttack._direction=20
           tNewAttack=instance_create(x+(13*image_xscale),y-4,oMetBulletPass)
           tNewAttack.sprite_index=sRidleyFireball; tNewAttack.damageType="ELEMENTAL"; tNewAttack.depth=4
           tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=8; tNewAttack.decayTime=-100
-          tNewAttack.direction=160
+          tNewAttack._direction=160
         }
       }
     }
@@ -430,7 +430,8 @@ if global.gamePaused=false
   oRidleyParts.image_xscale=image_xscale
   enemyStepEvent()
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)
 #define Collision_oPlayer1
 /*"/*'/**//* YYD ACTION
 lib_id=1

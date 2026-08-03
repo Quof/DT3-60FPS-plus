@@ -22,9 +22,10 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  speed=moveSpd
-  if direction>90 and direction<270 {image_angle+=5}
+  _speed=moveSpd
+  if _direction>90 and _direction<270 {image_angle+=5}
   else {image_angle-=5}
   if y>=room_height+32 {instance_destroy()}
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)

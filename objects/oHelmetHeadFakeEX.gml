@@ -111,7 +111,7 @@ if global.gamePaused=false
           playSound(global.snd_HardHit3,0,1,17000)
           var tFire;
           tFire=instance_create(x,y-35,oPassBullet)
-          tFire.direction=myDir; tFire.sprite_index=sWolfHeadShot
+          tFire._direction=myDir; tFire.sprite_index=sWolfHeadShot
           tFire.atkPower=atkPower; tFire.bulletSpeed=1; tFire.decayTime=-100
           myDir+=360/24
         }

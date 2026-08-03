@@ -86,7 +86,7 @@ if global.gamePaused=false
           {
             if point_distance(x,y,oPlayer1.x,returnPlayerYCenter())<192
             {
-              direction=player_sprite_center()-180
+              _direction=player_sprite_center()-180
               image_speed=0.5
               chargeTime=0
               chargeProg+=1
@@ -95,21 +95,21 @@ if global.gamePaused=false
         }
         else if chargeProg=1 //Wait time
         {
-          speed=runAcc/1.5
+          _speed=runAcc/1.5
           image_alpha+=0.02
           if chargeTime>=12 //Find direction to charge
           {
-            direction=player_sprite_center()
+            _direction=player_sprite_center()
             chargeTime=0
             chargeProg+=1
           }
         }
         else if chargeProg=2 //Charge sting
         {
-          speed=runAcc*7
+          _speed=runAcc*7
           if chargeTime>=21
           {
-            speed=0
+            _speed=0
             image_speed=0.2
             chargeTime=0
             chargeProg=0
@@ -117,8 +117,9 @@ if global.gamePaused=false
         }
       }
     }
-    else {speed=0}
+    else {_speed=0}
   }
   enemyStepEvent()
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)

@@ -67,7 +67,7 @@ if global.gamePaused=false
 {
   if lingerFrame=0
   {
-    image_angle=direction
+    image_angle=_direction
     if image_alpha=1 {image_alpha=0.5}
     else {image_alpha=1}
     if sprite_index=sMMXbuster3
@@ -81,16 +81,17 @@ if global.gamePaused=false
       }
     }
 
-    speed=bulletSpeed
+    _speed=bulletSpeed
     if checkScreenArea(x,y,48)=0 {instance_destroy()}
 
-    if isCollisionLeft(1) {lingerFrame=1; speed=0; visible=0}
-    if isCollisionRight(1) {lingerFrame=1; speed=0; visible=0}
-    if isCollisionBottom(1) {lingerFrame=1; speed=0; visible=0}
-    if isCollisionTop(1) {lingerFrame=1; speed=0; visible=0}
+    if isCollisionLeft(1) {lingerFrame=1; _speed=0; visible=0}
+    if isCollisionRight(1) {lingerFrame=1; _speed=0; visible=0}
+    if isCollisionBottom(1) {lingerFrame=1; _speed=0; visible=0}
+    if isCollisionTop(1) {lingerFrame=1; _speed=0; visible=0}
     lifeTime-=1
     if lifeTime=0 {instance_destroy()}
   }
   else if lingerFrame=1 {instance_destroy()}
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)

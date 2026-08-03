@@ -133,7 +133,7 @@ if global.gamePaused=false
             if currVspd<maxSpeed {currVspd+=0.2}
             else {currVspd-=0.2}
           }
-          hspeed=currHspd; vspeed=currVspd
+          _hspeed=currHspd; _vspeed=currVspd
         }
         else
         {
@@ -173,13 +173,13 @@ if global.gamePaused=false
               if currVspd<maxSpeed {currVspd+=0.2}
               else {currVspd-=0.2}
             }
-            hspeed=currHspd; vspeed=currVspd
+            _hspeed=currHspd; _vspeed=currVspd
           }
           else {myTarget=-1} //No target exists, reset to find a new target
         }
       }
     }
-    else {hspeed=0; vspeed=0}
+    else {_hspeed=0; _vspeed=0}
   }
   else if life<=0
   {
@@ -188,7 +188,7 @@ if global.gamePaused=false
     {
       playSound(global.snd_HardHit1,0,0.9,1)
       image_speed=0
-      hspeed=0; vspeed=0
+      _hspeed=0; _vspeed=0
       baseColor=c_red; image_blend=c_red
       tEffect=instance_create(x,y,oEffect)
       tEffect.sprite_index=sDeathFlameA; tEffect.image_speed=0.33
@@ -200,7 +200,8 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
-else {hspeed=0; vspeed=0}
+else {_hspeed=0; _vspeed=0}
+correctHSpeedVSpeed(self)
 #define Collision_oInfectMe
 /*"/*'/**//* YYD ACTION
 lib_id=1

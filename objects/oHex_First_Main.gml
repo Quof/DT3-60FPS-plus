@@ -167,7 +167,7 @@ if global.gamePaused=false
           for(i=0;i<8;i+=1)
           {
             tArcShot=instance_create(x+lengthdir_x(336,180+i*45),y+lengthdir_y(336,180+i*45),oHex_First_ArcB)
-            tArcShot.type=0; tArcShot.bulletSpeed=1; tArcShot.direction=i*45; tArcShot.atkPower=atkPower
+            tArcShot.type=0; tArcShot.bulletSpeed=1; tArcShot._direction=i*45; tArcShot.atkPower=atkPower
           }
         }
         else if arcShotTime=10000 //Speed up shots
@@ -198,7 +198,7 @@ if global.gamePaused=false
         {
           var tArcShot;
           tArcShot=instance_create(x,y,oHex_First_ArcB)
-          tArcShot.type=1; tArcShot.bulletSpeed=12; tArcShot.direction=point_direction(x,y,oPlayer1.x,oPlayer1.y-26)
+          tArcShot.type=1; tArcShot.bulletSpeed=12; tArcShot._direction=point_direction(x,y,oPlayer1.x,oPlayer1.y-26)
           tArcShot.atkPower=atkPower
           warnFrm=0; warnScl=2
           arcShotTime=0
@@ -243,7 +243,7 @@ if global.gamePaused=false
             tPullShot=instance_create(x+lengthdir_x(352,(tInitDir+180)+(i*60)),y+lengthdir_y(352,(tInitDir+180)+(i*60)),oPassBullet)
             tPullShot.sprite_index=sEfEnergyRip; tPullShot.image_index=1; tPullShot.image_speed=0
             tPullShot.image_xscale=0.15; tPullShot.image_yscale=0.15
-            tPullShot.decayTime=352; tPullShot.bulletSpeed=1; tPullShot.direction=tInitDir+(i*60); tPullShot.atkPower=atkPower
+            tPullShot.decayTime=352; tPullShot.bulletSpeed=1; tPullShot._direction=tInitDir+(i*60); tPullShot.atkPower=atkPower
           }
           pullShotTime=0
         }
@@ -512,7 +512,7 @@ if global.gamePaused=false
           {
             tFeatherAtk=instance_create(x,y,oPassBullet)
             tFeatherAtk.sprite_index=sHex_A_FeatherAtk; tFeatherAtk.atkPower=atkPower
-            tFeatherAtk.decayTime=-100; tFeatherAtk.bulletSpeed=8; tFeatherAtk.direction=featherDir+tInitDir
+            tFeatherAtk.decayTime=-100; tFeatherAtk.bulletSpeed=8; tFeatherAtk._direction=featherDir+tInitDir
             tInitDir+=360/20
           }
           featherDir+=5

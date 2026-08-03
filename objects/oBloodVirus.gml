@@ -121,7 +121,7 @@ if global.gamePaused=false
           if currVspd<maxSpeed {currVspd+=0.25}
           else {currVspd-=0.25}
         }
-        hspeed=currHspd; vspeed=currVspd
+        _hspeed=currHspd; _vspeed=currVspd
       }
 
       shotTime+=1
@@ -144,11 +144,11 @@ if global.gamePaused=false
         var tNewAttack;
         tNewAttack=instance_create(x,y,oPassBullet)
         tNewAttack.sprite_index=sLB_Laser; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5.5
-        tNewAttack.decayTime=-100; tNewAttack.direction=tShotA; tNewAttack.image_xscale=0.5
+        tNewAttack.decayTime=-100; tNewAttack._direction=tShotA; tNewAttack.image_xscale=0.5
         var tNewAttack;
         tNewAttack=instance_create(x,y,oPassBullet)
         tNewAttack.sprite_index=sLB_Laser; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=7
-        tNewAttack.decayTime=-100; tNewAttack.direction=tShotB; tNewAttack.image_xscale=0.5
+        tNewAttack.decayTime=-100; tNewAttack._direction=tShotB; tNewAttack.image_xscale=0.5
         shotTime=0
       }
 
@@ -210,7 +210,7 @@ if global.gamePaused=false
       }
       else {bDraining=0}
     }
-    else {hspeed=0; vspeed=0}
+    else {_hspeed=0; _vspeed=0}
   }
   else if life<=0
   {
@@ -218,7 +218,7 @@ if global.gamePaused=false
     if deathAnim=1
     {
       playSound(global.snd_HardHit1,0,0.9,1)
-      hspeed=0; vspeed=0
+      _hspeed=0; _vspeed=0
       baseColor=c_red; image_blend=c_red
     }
 
@@ -235,7 +235,8 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
-else {hspeed=0; vspeed=0}
+else {_hspeed=0; _vspeed=0}
+correctHSpeedVSpeed(self)
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

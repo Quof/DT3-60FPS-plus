@@ -20,8 +20,8 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  speed=bulletSpeed
-  image_angle=direction
+  _speed=bulletSpeed
+  image_angle=_direction
   image_blend=make_color_rgb(155+random(100),155+random(100),155+random(100))
   if oGame.time mod 2=0
   {
@@ -33,4 +33,5 @@ if global.gamePaused=false
   decayTime-=1
   if decayTime<=0 {instance_destroy()}
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)

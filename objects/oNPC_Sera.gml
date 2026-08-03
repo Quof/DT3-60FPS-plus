@@ -54,7 +54,7 @@ if eventProg=1 and global.gamePaused=false
         //Fire spear projectile
         var mySpear;
         mySpear=instance_create(x+(xx*image_xscale),y-yy,oSeraSpearShot)
-        mySpear.direction=point_direction(x+(xx*image_xscale),y-yy,myTarget.x,myTarget.y)
+        mySpear._direction=point_direction(x+(xx*image_xscale),y-yy,myTarget.x,myTarget.y)
         if sprite_index=sSeraSpearStabA
         {
           var tEffect;
@@ -91,7 +91,7 @@ if eventProg=1 and global.gamePaused=false
   if eventTime mod setSpawnRate=0 //Set spawn
   {
     newVirus=instance_create(x+lengthdir_x(208,setSpawnDir),y-20+lengthdir_y(208,setSpawnDir),oSeraInjector)
-    with newVirus {moveSpeed=2; direction=point_direction(x,y,oNPC_Sera.x,oNPC_Sera.y-26)}
+    with newVirus {moveSpeed=2; _direction=point_direction(x,y,oNPC_Sera.x,oNPC_Sera.y-26)}
     setSpawnDir+=10
   }
 
@@ -101,7 +101,7 @@ if eventProg=1 and global.gamePaused=false
     for(i=0;i<3;i+=1)
     {
       newVirus=instance_create(x+lengthdir_x(208,global.tempAction[0]),y-20+lengthdir_y(208,global.tempAction[0]),oSeraInjector)
-      with newVirus {moveSpeed=2; direction=point_direction(x,y,oNPC_Sera.x,oNPC_Sera.y-26)}
+      with newVirus {moveSpeed=2; _direction=point_direction(x,y,oNPC_Sera.x,oNPC_Sera.y-26)}
       global.tempAction[0]+=35
     }
   }
@@ -111,7 +111,7 @@ if eventProg=1 and global.gamePaused=false
     for(i=0;i<3;i+=1)
     {
       newVirus=instance_create(x+lengthdir_x(208,global.tempAction[0]),y-20+lengthdir_y(208,global.tempAction[0]),oSeraInjector)
-      with newVirus {moveSpeed=2; direction=point_direction(x,y,oNPC_Sera.x,oNPC_Sera.y-26)}
+      with newVirus {moveSpeed=2; _direction=point_direction(x,y,oNPC_Sera.x,oNPC_Sera.y-26)}
       global.tempAction[0]+=35
     }
   }
@@ -121,7 +121,7 @@ if eventProg=1 and global.gamePaused=false
     for(i=0;i<3;i+=1)
     {
       newVirus=instance_create(x+lengthdir_x(208,global.tempAction[0]),y-20+lengthdir_y(208,global.tempAction[0]),oSeraInjector)
-      with newVirus {moveSpeed=2; direction=point_direction(x,y,oNPC_Sera.x,oNPC_Sera.y-26)}
+      with newVirus {moveSpeed=2; _direction=point_direction(x,y,oNPC_Sera.x,oNPC_Sera.y-26)}
       global.tempAction[0]+=35
     }
   }
@@ -131,7 +131,7 @@ if eventProg=1 and global.gamePaused=false
     for(i=0;i<3;i+=1)
     {
       newVirus=instance_create(x+lengthdir_x(208,global.tempAction[0]),y-20+lengthdir_y(208,global.tempAction[0]),oSeraInjector)
-      with newVirus {moveSpeed=2; direction=point_direction(x,y,oNPC_Sera.x,oNPC_Sera.y-26)}
+      with newVirus {moveSpeed=2; _direction=point_direction(x,y,oNPC_Sera.x,oNPC_Sera.y-26)}
       global.tempAction[0]+=35
     }
   }
@@ -141,7 +141,7 @@ if eventProg=1 and global.gamePaused=false
     for(i=0;i<4;i+=1)
     {
       newVirus=instance_create(x+lengthdir_x(208,global.tempAction[0]),y-20+lengthdir_y(208,global.tempAction[0]),oSeraInjector)
-      with newVirus {moveSpeed=2; direction=point_direction(x,y,oNPC_Sera.x,oNPC_Sera.y-26)}
+      with newVirus {moveSpeed=2; _direction=point_direction(x,y,oNPC_Sera.x,oNPC_Sera.y-26)}
       global.tempAction[0]+=90
     }
   }
@@ -151,7 +151,7 @@ if eventProg=1 and global.gamePaused=false
     for(i=0;i<4;i+=1)
     {
       newVirus=instance_create(x+lengthdir_x(208,global.tempAction[0]),y-20+lengthdir_y(208,global.tempAction[0]),oSeraInjector)
-      with newVirus {moveSpeed=2; direction=point_direction(x,y,oNPC_Sera.x,oNPC_Sera.y-26)}
+      with newVirus {moveSpeed=2; _direction=point_direction(x,y,oNPC_Sera.x,oNPC_Sera.y-26)}
       global.tempAction[0]+=90
     }
   }
@@ -169,7 +169,7 @@ if eventProg=1 and global.gamePaused=false
     for(i=0;i<8;i+=1)
     {
       newVirus=instance_create(x+lengthdir_x(208,global.tempAction[0]),y-20+lengthdir_y(208,global.tempAction[0]),oSeraInjector)
-      with newVirus {moveSpeed=1; direction=point_direction(x,y,oNPC_Sera.x,oNPC_Sera.y-26)}
+      with newVirus {moveSpeed=1; _direction=point_direction(x,y,oNPC_Sera.x,oNPC_Sera.y-26)}
       global.tempAction[0]+=45
     }
   }
@@ -179,7 +179,7 @@ if eventProg=1 and global.gamePaused=false
     for(i=0;i<8;i+=1)
     {
       newVirus=instance_create(x+lengthdir_x(208,global.tempAction[0]),y-20+lengthdir_y(208,global.tempAction[0]),oSeraInjector)
-      with newVirus {moveSpeed=1; direction=point_direction(x,y,oNPC_Sera.x,oNPC_Sera.y-26)}
+      with newVirus {moveSpeed=1; _direction=point_direction(x,y,oNPC_Sera.x,oNPC_Sera.y-26)}
       global.tempAction[0]+=45
     }
   }
@@ -189,7 +189,7 @@ if eventProg=1 and global.gamePaused=false
     for(i=0;i<4;i+=1)
     {
       newVirus=instance_create(x+lengthdir_x(208,global.tempAction[0]),y-20+lengthdir_y(208,global.tempAction[0]),oSeraInjector)
-      with newVirus {moveSpeed=2; direction=point_direction(x,y,oNPC_Sera.x,oNPC_Sera.y-26)}
+      with newVirus {moveSpeed=2; _direction=point_direction(x,y,oNPC_Sera.x,oNPC_Sera.y-26)}
       global.tempAction[0]+=90
     }
   }
@@ -199,7 +199,7 @@ if eventProg=1 and global.gamePaused=false
     for(i=0;i<4;i+=1)
     {
       newVirus=instance_create(x+lengthdir_x(208,global.tempAction[0]),y-20+lengthdir_y(208,global.tempAction[0]),oSeraInjector)
-      with newVirus {moveSpeed=2; direction=point_direction(x,y,oNPC_Sera.x,oNPC_Sera.y-26)}
+      with newVirus {moveSpeed=2; _direction=point_direction(x,y,oNPC_Sera.x,oNPC_Sera.y-26)}
       global.tempAction[0]+=90
     }
   }
@@ -217,7 +217,7 @@ if eventProg=1 and global.gamePaused=false
     for(i=0;i<8;i+=1)
     {
       newVirus=instance_create(x+lengthdir_x(208,global.tempAction[0]),y-20+lengthdir_y(208,global.tempAction[0]),oSeraInjector)
-      with newVirus {moveSpeed=1.5; direction=point_direction(x,y,oNPC_Sera.x,oNPC_Sera.y-26)}
+      with newVirus {moveSpeed=1.5; _direction=point_direction(x,y,oNPC_Sera.x,oNPC_Sera.y-26)}
       global.tempAction[0]+=45
     }
   }
@@ -227,7 +227,7 @@ if eventProg=1 and global.gamePaused=false
     for(i=0;i<3;i+=1)
     {
       newVirus=instance_create(x+lengthdir_x(208,global.tempAction[0]),y-20+lengthdir_y(208,global.tempAction[0]),oSeraInjector)
-      with newVirus {moveSpeed=2; direction=point_direction(x,y,oNPC_Sera.x,oNPC_Sera.y-26)}
+      with newVirus {moveSpeed=2; _direction=point_direction(x,y,oNPC_Sera.x,oNPC_Sera.y-26)}
       global.tempAction[0]+=35
     }
   }
@@ -237,7 +237,7 @@ if eventProg=1 and global.gamePaused=false
     for(i=0;i<3;i+=1)
     {
       newVirus=instance_create(x+lengthdir_x(208,global.tempAction[0]),y-20+lengthdir_y(208,global.tempAction[0]),oSeraInjector)
-      with newVirus {moveSpeed=2; direction=point_direction(x,y,oNPC_Sera.x,oNPC_Sera.y-26)}
+      with newVirus {moveSpeed=2; _direction=point_direction(x,y,oNPC_Sera.x,oNPC_Sera.y-26)}
       global.tempAction[0]+=35
     }
   }
@@ -247,7 +247,7 @@ if eventProg=1 and global.gamePaused=false
     for(i=0;i<4;i+=1)
     {
       newVirus=instance_create(x+lengthdir_x(208,global.tempAction[0]),y-20+lengthdir_y(208,global.tempAction[0]),oSeraInjector)
-      with newVirus {moveSpeed=2; direction=point_direction(x,y,oNPC_Sera.x,oNPC_Sera.y-26)}
+      with newVirus {moveSpeed=2; _direction=point_direction(x,y,oNPC_Sera.x,oNPC_Sera.y-26)}
       global.tempAction[0]+=90
     }
   }
@@ -257,7 +257,7 @@ if eventProg=1 and global.gamePaused=false
     for(i=0;i<4;i+=1)
     {
       newVirus=instance_create(x+lengthdir_x(208,global.tempAction[0]),y-20+lengthdir_y(208,global.tempAction[0]),oSeraInjector)
-      with newVirus {moveSpeed=2; direction=point_direction(x,y,oNPC_Sera.x,oNPC_Sera.y-26)}
+      with newVirus {moveSpeed=2; _direction=point_direction(x,y,oNPC_Sera.x,oNPC_Sera.y-26)}
       global.tempAction[0]+=90
     }
   }
@@ -293,3 +293,4 @@ if eventProg=1 and global.gamePaused=false
     }
   }
 }
+correctSpeedDirection(self)

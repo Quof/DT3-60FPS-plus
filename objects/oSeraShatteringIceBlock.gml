@@ -41,11 +41,11 @@ if global.gamePaused=false
       tNewAttack=instance_create(x,y,oPassBullet)
       tNewAttack.sprite_index=sSeraAtkIceC; tNewAttack.atkPower=atkPower-1; tNewAttack.bulletSpeed=3
       tNewAttack.decayTime=-100; tNewAttack.image_xscale=0.65; tNewAttack.image_yscale=0.65
-      tNewAttack.direction=shotDir; tNewAttack.damageType="ELEMENTAL"
+      tNewAttack._direction=shotDir; tNewAttack.damageType="ELEMENTAL"
       tNewAttack=instance_create(x,y,oPassBullet)
       tNewAttack.sprite_index=sSeraAtkIceC; tNewAttack.atkPower=atkPower-1; tNewAttack.bulletSpeed=6
       tNewAttack.decayTime=-100; tNewAttack.image_xscale=0.65; tNewAttack.image_yscale=0.65
-      tNewAttack.direction=shotDir-180; tNewAttack.damageType="ELEMENTAL"
+      tNewAttack._direction=shotDir-180; tNewAttack.damageType="ELEMENTAL"
       shotDir+=17
     }
 
@@ -58,3 +58,4 @@ if global.gamePaused=false
     }
   }
 }
+correctSpeedDirection(self)

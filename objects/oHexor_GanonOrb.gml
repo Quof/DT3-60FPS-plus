@@ -60,7 +60,7 @@ if global.gamePaused=false
       var tEfCir;
       tEfCir=instance_create(x,y,oEfCircleBlast)
       tEfCir.image_alpha=0.75; tEfCir.myRad=8; tEfCir.radScl=2; tEfCir.fadeSpeed=0.08
-      direction=point_direction(x,y,oPlayer1.x,oPlayer1.y-32)
+      _direction=point_direction(x,y,oPlayer1.x,oPlayer1.y-32)
       bCanDealDamage=1
       bCanBeHitBack=1
       atkProg=1
@@ -69,10 +69,11 @@ if global.gamePaused=false
   else if atkProg=1
   {
     instance_create(x,y,oGanonOrbAE)
-    speed=bulletSpeed
+    _speed=bulletSpeed
   }
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)
 #define Collision_oPlayer1
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -97,7 +98,7 @@ if bCanBeHitBack=1 and hitByPlayer=0
   hitBackNum+=1
   hitByPlayer=1
   playSound(global.snd_HitOrb,0,1,22000+(hitBackNum*2000))
-  direction=point_direction(x,y,oHexor_Main_R2.x,oHexor_Main_R2.y)
+  _direction=point_direction(x,y,oHexor_Main_R2.x,oHexor_Main_R2.y)
 }
 #define Collision_oHexor_Main_R2
 /*"/*'/**//* YYD ACTION
@@ -121,7 +122,7 @@ if hitByPlayer=1
     tEfCir=instance_create(x,y,oEfCircleBlast)
     tEfCir.image_alpha=0.75; tEfCir.myRad=8; tEfCir.radScl=2; tEfCir.fadeSpeed=0.08
 
-    direction=point_direction(x,y,oPlayer1.x,oPlayer1.y-32)
+    _direction=point_direction(x,y,oPlayer1.x,oPlayer1.y-32)
     hitByPlayer=0
   }
 }

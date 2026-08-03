@@ -778,7 +778,7 @@ if global.gamePaused=false
       var tNewAttack;
       tNewAtk=instance_create(oPlayer1.x,room_height+16,oPassBullet)
       tNewAtk.sprite_index=sAbomProjectileA; tNewAtk.atkPower=12; tNewAtk.bulletSpeed=2.75; tNewAtk.depth=-1
-      tNewAtk.decayTime=-100; tNewAtk.image_xscale=2; tNewAtk.image_yscale=2; tNewAtk.direction=90
+      tNewAtk.decayTime=-100; tNewAtk.image_xscale=2; tNewAtk.image_yscale=2; tNewAtk._direction=90
       conAtkTimeA=0
     }
   }
@@ -793,7 +793,7 @@ if global.gamePaused=false
       var tRainUp;
       tRainUp=instance_create(x+random_range(-96,96),y+random_range(-8,8),oPassBullet)
       tRainUp.sprite_index=sAbomRainAtkA; tRainUp.atkPower=12; tRainUp.bulletSpeed=9; tRainUp.depth=30; tRainUp.image_speed=0.33; tRainUp.image_blend=c_gray
-      tRainUp.decayTime=-100; tRainUp.image_xscale=0.5; tRainUp.image_yscale=0.5; tRainUp.direction=90+random_range(-7,7); tRainUp.bCanDealDamage=0
+      tRainUp.decayTime=-100; tRainUp.image_xscale=0.5; tRainUp.image_yscale=0.5; tRainUp._direction=90+random_range(-7,7); tRainUp.bCanDealDamage=0
     }
     else if conAtkTimeB>=conAtkDelayB+90 //Rain down from top
     {
@@ -804,7 +804,7 @@ if global.gamePaused=false
         else {tXDrop=rainAtkX[rainAInc]+rainOffset}
         tRainDown=instance_create(tXDrop,0,oPassBullet)
         tRainDown.sprite_index=sAbomRainAtkA; tRainDown.atkPower=12; tRainDown.bulletSpeed=4; tRainDown.image_speed=0.33
-        tRainDown.decayTime=-100; tRainDown.direction=270
+        tRainDown.decayTime=-100; tRainDown._direction=270
         rainAInc+=1
         if rainAInc=10 {rainOffset+=32; rainAInc=0}
       }
@@ -826,7 +826,7 @@ if global.gamePaused=false
       var tRainUp;
       tRainUp=instance_create(x+random_range(-96,96),y+random_range(-8,8),oPassBullet)
       tRainUp.sprite_index=sAbomRainAtkA; tRainUp.atkPower=12; tRainUp.bulletSpeed=9; tRainUp.depth=30; tRainUp.image_speed=0.33; tRainUp.image_blend=c_gray
-      tRainUp.decayTime=-100; tRainUp.image_xscale=0.5; tRainUp.image_yscale=0.5; tRainUp.direction=90+random_range(-45,45); tRainUp.bCanDealDamage=0
+      tRainUp.decayTime=-100; tRainUp.image_xscale=0.5; tRainUp.image_yscale=0.5; tRainUp._direction=90+random_range(-45,45); tRainUp.bCanDealDamage=0
     }
     else if conAtkTimeC>=conAtkDelayC+90 //Rain down
     {
@@ -835,8 +835,8 @@ if global.gamePaused=false
       {
         tRainDown=instance_create(rainAtkX[rainAInc],0,oPassBullet)
         tRainDown.sprite_index=sAbomRainAtkA; tRainDown.atkPower=12; tRainDown.bulletSpeed=4; tRainDown.image_speed=0.33; tRainDown.decayTime=-100
-        if conAtkTimeC mod 2=0 {tRainDown.direction=310}
-        else {tRainDown.direction=230}
+        if conAtkTimeC mod 2=0 {tRainDown._direction=310}
+        else {tRainDown._direction=230}
         rainAInc+=1
         if rainAInc=10 {rainOffset+=32; rainAInc=0}
       }
@@ -858,7 +858,7 @@ if global.gamePaused=false
       var tRainUp;
       tRainUp=instance_create(x+random_range(-96,96),y+random_range(-8,8),oPassBullet)
       tRainUp.sprite_index=sAbomRainAtkA; tRainUp.atkPower=12; tRainUp.bulletSpeed=9; tRainUp.depth=30; tRainUp.image_speed=0.33; tRainUp.image_blend=c_gray
-      tRainUp.decayTime=-100; tRainUp.image_xscale=0.5; tRainUp.image_yscale=0.5; tRainUp.direction=90+random_range(-45,45); tRainUp.bCanDealDamage=0
+      tRainUp.decayTime=-100; tRainUp.image_xscale=0.5; tRainUp.image_yscale=0.5; tRainUp._direction=90+random_range(-45,45); tRainUp.bCanDealDamage=0
     }
 
     if conAtkTimeD>=conAtkDelayD and conAtkTimeD<=conAtkDelayD+60 //Attack
@@ -1139,7 +1139,7 @@ applies_to=self
 ///Form weak spot
 var myWeakSpot;
 myWeakSpot=instance_create(formWeakSpotX,formWeakSpotY,oAbomHitSpotA)
-myWeakSpot.direction=formWeakSpotDir
+myWeakSpot._direction=formWeakSpotDir
 myWeakSpot.heartOffsetX=formWeakSpotHeartOffsetX
 myWeakSpot.HPSet=myHitSpotHP[myHitCounter]
 myHitCounter+=1

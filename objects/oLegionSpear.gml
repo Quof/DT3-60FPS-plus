@@ -33,7 +33,7 @@ if global.gamePaused=false
   }
   else if atkProg=1
   {
-    direction+=spinSpd
+    _direction+=spinSpd
 
     stabTime+=1
     if stabTime>=stabDelay
@@ -62,7 +62,8 @@ if global.gamePaused=false
   }
 
   image_blend=make_color_rgb(blendCol,255,blendCol)
-  x=oLegion.x+lengthdir_x(myDist*oLegion.image_xscale,baseDir+direction)
-  y=oLegion.y+lengthdir_y(myDist*oLegion.image_yscale,baseDir+direction)
-  image_angle=baseDir+direction
+  x=oLegion.x+lengthdir_x(myDist*oLegion.image_xscale,baseDir+_direction)
+  y=oLegion.y+lengthdir_y(myDist*oLegion.image_yscale,baseDir+_direction)
+  image_angle=baseDir+_direction
 }
+correctSpeedDirection(self)

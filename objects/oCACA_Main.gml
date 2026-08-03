@@ -110,9 +110,9 @@ if global.gamePaused=false
     phaseTime+=1
     if bossPhase=1 //---------- MOVEMENT: CIRCLE - Right side ----------
     {
-      direction+=3
-      x+=moveSpd*cos(degtorad(direction))
-      y+=moveSpd*sin(degtorad(direction))
+      _direction+=3
+      x+=moveSpd*cos(degtorad(_direction))
+      y+=moveSpd*sin(degtorad(_direction))
       if phaseTime>=490
       {
         phaseTime=0
@@ -135,9 +135,9 @@ if global.gamePaused=false
     }
     else if bossPhase=3 //---------- MOVEMENT: CIRCLE - Left side ----------
     {
-      direction-=3
-      x+=moveSpd*cos(degtorad(direction))
-      y+=moveSpd*sin(degtorad(direction))
+      _direction-=3
+      x+=moveSpd*cos(degtorad(_direction))
+      y+=moveSpd*sin(degtorad(_direction))
       if phaseTime>=490
       {
         if laserMouthTime>laserMouthDelay {laserMouthTime=laserMouthDelay-5}
@@ -233,7 +233,7 @@ if global.gamePaused=false
         for(i=0;i<explodeMissileNum;i+=1)
         {
           tNewAttack=instance_create(x-(106*image_xscale),y-95,oCACA_ExpMissile)
-          tNewAttack.atkPower=atkPower; tNewAttack.direction=tDir; tNewAttack.timeTillLaunch=15+(10*i)
+          tNewAttack.atkPower=atkPower; tNewAttack._direction=tDir; tNewAttack.timeTillLaunch=15+(10*i)
           tDir+=10
         }
         explodeMissileTime=0
@@ -285,7 +285,7 @@ if global.gamePaused=false
             tNewAttack=instance_create(x+(13*image_xscale),y-90,oPassBullet)
             tNewAttack.sprite_index=sLB_Laser; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=11
             tNewAttack.image_speed=0.33; tNewAttack.decayTime=-100
-            tNewAttack.direction=point_direction(x+(13*image_xscale),y-90,oPlayer1.x,returnPlayerYCenter())
+            tNewAttack._direction=point_direction(x+(13*image_xscale),y-90,oPlayer1.x,returnPlayerYCenter())
           }
         }
         else if laserEyeTime>=10081
@@ -356,7 +356,7 @@ if global.gamePaused=false
           var tNewAttack;
           tNewAttack=instance_create(x-(90*image_xscale),y-16,oPointExpBullet)
           tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=8
-          tNewAttack.direction=point_direction(x-(90*image_xscale),y-16,oPlayer1.x,returnPlayerYCenter())
+          tNewAttack._direction=point_direction(x-(90*image_xscale),y-16,oPlayer1.x,returnPlayerYCenter())
           backMissile=0
         }
       }
@@ -392,7 +392,7 @@ if global.gamePaused=false
         {
           var tNewAttack;
           tNewAttack=instance_create(oPlayer1.x,yGround-208,oGravityBullet)
-          tNewAttack.atkPower=atkPower; tNewAttack.direction=270; tNewAttack.bulletSpeed=5; tNewAttack.damageType="EXPLOSION"
+          tNewAttack.atkPower=atkPower; tNewAttack._direction=270; tNewAttack.bulletSpeed=5; tNewAttack.damageType="EXPLOSION"
           tNewAttack.sprite_index=sC_TurretBombB
         }
       }
@@ -408,7 +408,7 @@ if global.gamePaused=false
           {
             var tNewAttack;
             tNewAttack=instance_create(288+(bombSpacingA*i),yGround-208,oGravityBullet)
-            tNewAttack.atkPower=atkPower; tNewAttack.direction=270; tNewAttack.bulletSpeed=5; tNewAttack.damageType="EXPLOSION"
+            tNewAttack.atkPower=atkPower; tNewAttack._direction=270; tNewAttack.bulletSpeed=5; tNewAttack.damageType="EXPLOSION"
             tNewAttack.sprite_index=sC_TurretBombA
           }
         }
@@ -418,7 +418,7 @@ if global.gamePaused=false
           {
             var tNewAttack;
             tNewAttack=instance_create(288+(bombSpacingB*i),yGround-208,oGravityBullet)
-            tNewAttack.atkPower=atkPower; tNewAttack.direction=270; tNewAttack.bulletSpeed=5; tNewAttack.damageType="EXPLOSION"
+            tNewAttack.atkPower=atkPower; tNewAttack._direction=270; tNewAttack.bulletSpeed=5; tNewAttack.damageType="EXPLOSION"
             tNewAttack.sprite_index=sC_TurretBombB
           }
         }
@@ -543,6 +543,7 @@ if life<=0 //Defeat animation
     }
   }
 }
+correctSpeedDirection(self)
 #define Other_25
 /*"/*'/**//* YYD ACTION
 lib_id=1

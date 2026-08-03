@@ -68,7 +68,7 @@ if global.gamePaused=false
             var tNewAttack;
             tNewAttack=instance_create(x,y,oPassBullet)
             tNewAttack.sprite_index=sC_ButterSpark; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=8
-            tNewAttack.decayTime=-100; tNewAttack.direction=point_direction(x,y,oPlayer1.x,oPlayer1.y)
+            tNewAttack.decayTime=-100; tNewAttack._direction=point_direction(x,y,oPlayer1.x,oPlayer1.y)
             bulletCheck+=1
             if bulletCheck>=bulletMax
             {
@@ -93,10 +93,10 @@ if global.gamePaused=false
           var tNewAttack;
           tNewAttack=instance_create(x,y,oPassBullet)
           tNewAttack.sprite_index=sC_ButterSpark; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=6
-          tNewAttack.decayTime=-100; tNewAttack.direction=90
+          tNewAttack.decayTime=-100; tNewAttack._direction=90
           tNewAttack=instance_create(x,y,oPassBullet)
           tNewAttack.sprite_index=sC_ButterSpark; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=6
-          tNewAttack.decayTime=-100; tNewAttack.direction=270
+          tNewAttack.decayTime=-100; tNewAttack._direction=270
         }
       }
     }

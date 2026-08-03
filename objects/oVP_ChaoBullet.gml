@@ -19,9 +19,10 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  speed=12
+  _speed=12
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)
 #define Other_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

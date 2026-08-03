@@ -60,7 +60,7 @@ if global.gamePaused=false
         yAdj=8
       }
       bBill=instance_create(x+xAdj,y+yAdj,oM3Shot)
-      bBill.sprite_index=sSFShotSmall; bBill.direction=shotDir
+      bBill.sprite_index=sSFShotSmall; bBill._direction=shotDir
       bBill.atkPower=atkPower; bBill.bulletSpeed=4
       shotTime=0; bReadyToFire=0
     }

@@ -122,7 +122,7 @@ if global.gamePaused=false
             var tNewAttack;
             tNewAttack=instance_create(x,y-50,oPassBullet)
             tNewAttack.sprite_index=sOOstrichDownWave; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=11
-            tNewAttack.decayTime=-100; tNewAttack.direction=tWaveDir
+            tNewAttack.decayTime=-100; tNewAttack._direction=tWaveDir
             tWaveDir+=10
           }
           xAtkDrop=x
@@ -142,7 +142,7 @@ if global.gamePaused=false
           {
             var tNewAttack;
             tNewAttack=instance_create(tAtkSpc,0,oPassBullet)
-            tNewAttack.sprite_index=sOOstrichDownWave; tNewAttack.direction=270
+            tNewAttack.sprite_index=sOOstrichDownWave; tNewAttack._direction=270
             tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=11; tNewAttack.decayTime=-100
             tAtkSpc+=72-downWaveAmt
           }
@@ -237,7 +237,7 @@ if global.gamePaused=false
             {
               var tNewAttack;
               tNewAttack=instance_create(x,y-50,oPassArcBullet)
-              tNewAttack.sprite_index=sOOstrichForwardWave; tNewAttack.direction=tArcDir
+              tNewAttack.sprite_index=sOOstrichForwardWave; tNewAttack._direction=tArcDir
               tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=11; tNewAttack.decayTime=90
               tNewAttack.falloff=0.35+(forwardWaveAmt/20); tNewAttack.arcAmt=-7.75-(forwardWaveAmt/10)
               tArcDir-=10
@@ -248,7 +248,7 @@ if global.gamePaused=false
             {
               var tNewAttack;
               tNewAttack=instance_create(x,y-50,oPassArcBullet)
-              tNewAttack.sprite_index=sOOstrichForwardWave; tNewAttack.direction=tArcDir
+              tNewAttack.sprite_index=sOOstrichForwardWave; tNewAttack._direction=tArcDir
               tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=11; tNewAttack.decayTime=90
               tNewAttack.falloff=0.35+(forwardWaveAmt/20); tNewAttack.arcAmt=7.75+(forwardWaveAmt/10)
               tNewAttack.image_xscale=-1
@@ -265,7 +265,7 @@ if global.gamePaused=false
             {
               var tNewAttack;
               tNewAttack=instance_create(x,y-50,oPassArcBullet)
-              tNewAttack.sprite_index=sOOstrichForwardWave; tNewAttack.direction=tArcDir
+              tNewAttack.sprite_index=sOOstrichForwardWave; tNewAttack._direction=tArcDir
               tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=11; tNewAttack.decayTime=90
               tNewAttack.falloff=0.35+(forwardWaveAmt/20); tNewAttack.image_xscale=image_xscale
               if image_xscale=1

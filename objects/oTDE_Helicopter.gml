@@ -58,17 +58,17 @@ if global.gamePaused=false
 {
   if bActive=true and stunnedTime=0 and life>0
   {
-    if direction>=90 and direction<270 {image_xscale=-1}
+    if _direction>=90 and _direction<270 {image_xscale=-1}
     else {image_xscale=1}
 
     if bSlowed=1
     {
-      speed=runAcc/1.5
+      _speed=runAcc/1.5
       slowTime-=1
       if slowTime<=0 {bSlowed=0}
     }
-    else {speed=runAcc}
-    speed=speed
+    else {_speed=runAcc}
+    _speed=_speed
   }
   else if life<=0
   {
@@ -83,7 +83,8 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

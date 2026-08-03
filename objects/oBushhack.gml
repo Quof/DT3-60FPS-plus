@@ -65,7 +65,7 @@ if global.gamePaused=false
           tNewAttack=instance_create(x,y-11,oPassBullet)
           tNewAttack.sprite_index=sShieldMenaceBeam; tNewAttack.atkPower=atkPower
           tNewAttack.bulletSpeed=4.25; tNewAttack.decayTime=90; tNewAttack.image_yscale=0.75
-          tNewAttack.direction=i*45
+          tNewAttack._direction=i*45
         }
         enemyProg=1
       }
@@ -89,7 +89,7 @@ if global.gamePaused=false
         tNewAttack=instance_create(x+(12*image_xscale),y-11,oPassBullet)
         tNewAttack.sprite_index=sShieldMenaceBeam; tNewAttack.atkPower=atkPower
         tNewAttack.bulletSpeed=8.25; tNewAttack.decayTime=-100; tNewAttack.image_yscale=0.75
-        tNewAttack.direction=point_direction(x,y-10,oPlayer1.x,returnPlayerYCenter())
+        tNewAttack._direction=point_direction(x,y-10,oPlayer1.x,returnPlayerYCenter())
       }
       else if throwTime=25 {image_index=2}
       else if throwTime>=30

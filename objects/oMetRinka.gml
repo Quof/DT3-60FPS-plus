@@ -42,7 +42,7 @@ if global.gamePaused=false
 {
   if bActive=true
   {
-    speed=3
+    _speed=3
   }
   else
   {
@@ -50,14 +50,15 @@ if global.gamePaused=false
     if initTime>=1 and initTime<=9 {image_xscale+=0.1; image_yscale+=0.1}
     if initTime>=20
     {
-      direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
+      _direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
       bCanDealDamage=1; bCanTakeDamage=1
       bActive=true
     }
   }
   enemyStepEvent()
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)
 #define Collision_oPlayer1
 /*"/*'/**//* YYD ACTION
 lib_id=1

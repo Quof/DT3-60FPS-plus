@@ -8,7 +8,7 @@ bubbleDir=0
 decayTime=oElpizo.bubbleDecay
 atkPower=oElpizo.atkPower
 bulletSpeed=2
-direction=point_direction(x,y,oPlayer1.x,oPlayer1.y-26)
+_direction=point_direction(x,y,oPlayer1.x,oPlayer1.y-26)
 
 for(i=0;i<3;i+=1)
 {
@@ -26,7 +26,7 @@ applies_to=self
 if global.gamePaused=false
 {
   if bulletSpeed<8 {bulletSpeed+=0.33}
-  speed=bulletSpeed
+  _speed=bulletSpeed
   turn_toward_direction(point_direction(x,y,oPlayer1.x,oPlayer1.y-26),4.5)
   for(i=0;i<3;i+=1)
   {
@@ -48,4 +48,5 @@ if global.gamePaused=false
     instance_destroy()
   }
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)

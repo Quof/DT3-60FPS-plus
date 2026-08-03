@@ -43,7 +43,7 @@ if global.gamePaused=false
 
     tAtk=instance_create(x,y+7,oPassBullet)
     tAtk.sprite_index=sWarmasterD_EX_Ball; tAtk.atkPower=atkPower; tAtk.bulletSpeed=6
-    tAtk.decayTime=-100; tAtk.damageType="ELEMENTAL"; tAtk.image_speed=0.33; tAtk.direction=image_angle
+    tAtk.decayTime=-100; tAtk.damageType="ELEMENTAL"; tAtk.image_speed=0.33; tAtk._direction=image_angle
     instance_destroy()
   }
 }

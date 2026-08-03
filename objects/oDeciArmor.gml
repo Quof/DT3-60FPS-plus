@@ -78,10 +78,10 @@ if global.gamePaused=false
         shotDir+=8
         tNewAttack=instance_create(x,y,oPassBullet)
         tNewAttack.sprite_index=sDeci_SmallLaser; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
-        tNewAttack.decayTime=-100; tNewAttack.direction=shotDir
+        tNewAttack.decayTime=-100; tNewAttack._direction=shotDir
         tNewAttack=instance_create(x,y,oPassBulletRed)
         tNewAttack.sprite_index=sDeci_SmallLaserRed; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
-        tNewAttack.decayTime=-100; tNewAttack.direction=shotDir+180
+        tNewAttack.decayTime=-100; tNewAttack._direction=shotDir+180
       }
       else if shotTime>=1121 {shotTime=0}
     }

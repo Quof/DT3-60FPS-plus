@@ -22,7 +22,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  speed=bulletSpeed
+  _speed=bulletSpeed
   if oGame.time mod 8=0 {image_angle=random(360)}
 
   atkTime+=1*gDeltaTime
@@ -44,10 +44,11 @@ if global.gamePaused=false
       var tNewAttack;
       tNewAttack=instance_create(x,y,oPassBullet)
       tNewAttack.sprite_index=sZapTrap; tNewAttack.atkPower=atkPower-1
-      tNewAttack.bulletSpeed=9; tNewAttack.decayTime=-100; tNewAttack.direction=startDir
+      tNewAttack.bulletSpeed=9; tNewAttack.decayTime=-100; tNewAttack._direction=startDir
       startDir+=180
     }
     instance_destroy()
   }
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)

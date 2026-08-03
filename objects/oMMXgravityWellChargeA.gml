@@ -45,15 +45,15 @@ if global.gamePaused=false
           var tTargetCenterX,tTargetCenterY;
           tTargetCenterX=myTarget.bbox_left+(sprite_width/2)
           tTargetCenterY=myTarget.bbox_top+(sprite_height/2)
-          direction=point_direction(x,y,tTargetCenterX,tTargetCenterY)
+          _direction=point_direction(x,y,tTargetCenterX,tTargetCenterY)
         }
         else
         {
-          direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
+          _direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
         }
         var myAtk;
-        myAtk=instance_create(x+lengthdir_x(6,direction),y+lengthdir_y(6,direction),oMMXgravityWellChargeB)
-        myAtk.direction=direction
+        myAtk=instance_create(x+lengthdir_x(6,_direction),y+lengthdir_y(6,_direction),oMMXgravityWellChargeB)
+        myAtk._direction=_direction
       }
     }
     else
@@ -65,13 +65,14 @@ if global.gamePaused=false
         for(i=0;i<2;i+=1)
         {
           myAtk=instance_create(x+lengthdir_x(6,image_angle+(i*180)),y+lengthdir_y(6,image_angle+(i*180)),oMMXgravityWellChargeB)
-          myAtk.direction=image_angle+(i*180)
+          myAtk._direction=image_angle+(i*180)
         }
       }
     }
     if lifeTime=0 {instance_destroy()}
   }
 }
+correctSpeedDirection(self)
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

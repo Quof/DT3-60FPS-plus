@@ -24,22 +24,22 @@ if global.gamePaused=false
 {
   if type=0 //Straight - (bulSpd)
   {
-    speed=bulSpd
+    _speed=bulSpd
   }
   else if type=1 //Spiral - (bulSpd,curveAmt,curveTime)
   {
-    speed=bulSpd
+    _speed=bulSpd
     if curveTime>0
     {
       curveTime-=1
-      direction+=curveAmt
+      _direction+=curveAmt
     }
   }
   else if type=2 //Swirve - (bulSpd,curveAmt)
   {
-    speed=bulSpd
+    _speed=bulSpd
     moveWave+=pi/curveAmt
-    direction+=sin(moveWave)
+    _direction+=sin(moveWave)
   }
   else if type=3 //Speed Change A - (bulSpd,newSpd,spdTime)
   {
@@ -48,7 +48,7 @@ if global.gamePaused=false
       spdTime-=1
       if spdTime<=0 {bulSpd=newSpd}
     }
-    speed=bulSpd
+    _speed=bulSpd
   }
   else if type=4 //Speed Change B [2 changes] - (bulSpd,newSpdA,spdTimeA,newSpdB,spdTimeB)
   {
@@ -70,7 +70,7 @@ if global.gamePaused=false
         bulProg=2
       }
     }
-    speed=bulSpd
+    _speed=bulSpd
   }
   else if type=5 //Orbit around boss - (rotSpd,curDir,distMax)
   {
@@ -80,13 +80,14 @@ if global.gamePaused=false
     y=oTheExecutive.y+lengthdir_y(curDist,curDir)
   }
 
-  if sprite_index!=sPT_FE_BigFire {image_angle=direction}
+  if sprite_index!=sPT_FE_BigFire {image_angle=_direction}
   if type!=5
   {
     if checkScreenArea(x,y,0)=1 {lifeTime+=1}
   }
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)
 #define Collision_oPlayer1
 /*"/*'/**//* YYD ACTION
 lib_id=1

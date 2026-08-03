@@ -236,7 +236,7 @@ if global.gamePaused=false
       var tMissile;
       tMissile=instance_create(x,y-16,oEnmityMissile)
       tMissile.atkPower=atkPower; tMissile.targetTime=18
-      tMissile.direction=missileDir; tMissile.bulletSpeed=4
+      tMissile._direction=missileDir; tMissile.bulletSpeed=4
       missileDir-=15
       if missileDir<=15
       {

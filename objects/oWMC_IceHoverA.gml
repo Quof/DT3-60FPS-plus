@@ -44,14 +44,14 @@ if global.gamePaused=false
   {
     if EX_MODE=0
     {
-      direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
-      image_angle=direction
+      _direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
+      image_angle=_direction
       moveTime+=1
       if moveTime>=fireDelay
       {
         var tAtk;
         tAtk=instance_create(x,y,oWMC_IceHoverB)
-        tAtk.atkPower=atkPower; tAtk.direction=direction; tAtk.image_angle=direction
+        tAtk.atkPower=atkPower; tAtk._direction=_direction; tAtk.image_angle=_direction
         instance_destroy()
       }
     }
@@ -59,8 +59,8 @@ if global.gamePaused=false
     {
       if EX_MODE=1
       {
-        direction=point_direction(warTarget.x,warTarget.y-26,oPlayer1.x,returnPlayerYCenter())
-        image_angle=direction
+        _direction=point_direction(warTarget.x,warTarget.y-26,oPlayer1.x,returnPlayerYCenter())
+        image_angle=_direction
         EX_MODE=2
       }
       moveTime+=1
@@ -68,7 +68,7 @@ if global.gamePaused=false
       {
         var tAtk;
         tAtk=instance_create(x,y,oWMC_IceHoverB)
-        tAtk.atkPower=atkPower; tAtk.direction=direction; tAtk.image_angle=direction
+        tAtk.atkPower=atkPower; tAtk._direction=_direction; tAtk.image_angle=_direction
         instance_destroy()
       }
     }
@@ -82,6 +82,7 @@ if global.gamePaused=false
     image_angle=myDir
   }
 }
+correctSpeedDirection(self)
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

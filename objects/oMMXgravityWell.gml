@@ -36,7 +36,7 @@ if global.gamePaused=false
     if place_meeting(x,y,oNightmareEffect) {bulletSpeed=2}
     else {bulletSpeed=4}
 
-    speed=bulletSpeed
+    _speed=bulletSpeed
     if checkScreenArea(x,y,48)=0 {instance_destroy()}
 
     if isCollisionLeft(1) {gravityProg=1}
@@ -48,7 +48,7 @@ if global.gamePaused=false
   }
   else if gravityProg=1
   {
-    speed=0
+    _speed=0
     sprite_index=sMMXgravityWell3
     image_alpha=0.75
     lifeTime=30
@@ -61,7 +61,8 @@ if global.gamePaused=false
     if lifeTime=0 {instance_destroy()}
   }
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)
 #define Collision_oEnemyBase
 /*"/*'/**//* YYD ACTION
 lib_id=1

@@ -117,10 +117,10 @@ if global.gamePaused=false
         shotDir+=8
         tNewAttack=instance_create(x,y,oPassBullet)
         tNewAttack.sprite_index=sDeci_SmallLaser; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
-        tNewAttack.decayTime=-100; tNewAttack.direction=shotDir
+        tNewAttack.decayTime=-100; tNewAttack._direction=shotDir
         tNewAttack=instance_create(x,y,oPassBulletRed)
         tNewAttack.sprite_index=sDeci_SmallLaserRed; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
-        tNewAttack.decayTime=-100; tNewAttack.direction=shotDir+180
+        tNewAttack.decayTime=-100; tNewAttack._direction=shotDir+180
         if laserSpamTime>=laserSpamDelay+90 {shotDir=0; laserSpamTime=0}
       }
 
@@ -131,7 +131,7 @@ if global.gamePaused=false
         tMissile=instance_create(x,y-16,oHomingMissile)
         tMissile.atkPower=atkPower; tMissile.targetTime=20; tMissile.sprite_index=sDeci_Missile
         tMissile.bulletSpeed=4; tMissile.seekThres=20; tMissile.minSpd=3; tMissile.maxSpd=7
-        tMissile.turnSpd=3; tMissile.accel=0.3; tMissile.direction=90
+        tMissile.turnSpd=3; tMissile.accel=0.3; tMissile._direction=90
         missileTime=0
       }
 
@@ -194,10 +194,10 @@ if global.gamePaused=false
           var tNewAttack;
           tNewAttack=instance_create(x+18,y+6,oPassBullet)
           tNewAttack.sprite_index=sDeci_SmallLaser; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
-          tNewAttack.decayTime=-100; tNewAttack.direction=gunAngleA+random_range(-2,2)
+          tNewAttack.decayTime=-100; tNewAttack._direction=gunAngleA+random_range(-2,2)
           tNewAttack=instance_create(x-18,y+6,oPassBullet)
           tNewAttack.sprite_index=sDeci_SmallLaser; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
-          tNewAttack.decayTime=-100; tNewAttack.direction=gunAngleB+random_range(-2,2)
+          tNewAttack.decayTime=-100; tNewAttack._direction=gunAngleB+random_range(-2,2)
         }
       }
 
@@ -224,7 +224,7 @@ if global.gamePaused=false
         var tNewAttack;
         tNewAttack=instance_create(x,y,oDeci_EnergyBall)
         tNewAttack.bulletSpeed=5
-        tNewAttack.direction=point_direction(x,y,oJohnMech.x,oJohnMech.y-32)
+        tNewAttack._direction=point_direction(x,y,oJohnMech.x,oJohnMech.y-32)
       }
 
       rapidFire+=1
@@ -254,7 +254,7 @@ if global.gamePaused=false
         var tNewAttack;
         tNewAttack=instance_create(x+18,y+6,oPassBullet)
         tNewAttack.sprite_index=sDeci_SmallLaser; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
-        tNewAttack.decayTime=-100; tNewAttack.direction=gunAngleA
+        tNewAttack.decayTime=-100; tNewAttack._direction=gunAngleA
       }
       else if gunShotTime=(gunShotDelay*2)-20 {gunB_Blend=c_maroon}
       else if gunShotTime>=gunShotDelay*2
@@ -264,7 +264,7 @@ if global.gamePaused=false
         var tNewAttack;
         tNewAttack=instance_create(x-18,y+6,oPassBullet)
         tNewAttack.sprite_index=sDeci_SmallLaser; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
-        tNewAttack.decayTime=-100; tNewAttack.direction=gunAngleB
+        tNewAttack.decayTime=-100; tNewAttack._direction=gunAngleB
         gunShotTime=0
       }
     }
@@ -280,7 +280,7 @@ if global.gamePaused=false
           tMissile=instance_create(x,y-16,oHomingMissile)
           tMissile.atkPower=atkPower; tMissile.targetTime=35+(i+3); tMissile.sprite_index=sDeci_Missile
           tMissile.bulletSpeed=1.5; tMissile.seekThres=20; tMissile.minSpd=3; tMissile.maxSpd=7
-          tMissile.turnSpd=3; tMissile.accel=0.3; tMissile.direction=25-(12.5*i)
+          tMissile.turnSpd=3; tMissile.accel=0.3; tMissile._direction=25-(12.5*i)
         }
         missileTime=0
       }

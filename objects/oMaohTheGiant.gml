@@ -220,11 +220,11 @@ if global.gamePaused=false
           lBomb[i]=instance_create(x-76,y-58,oPassBullet)
           lBomb[i].sprite_index=sEnmityBomb; lBomb[i].atkPower=atkPower; lBomb[i].bulletSpeed=7
           lBomb[i].image_speed=0.33; lBomb[i].decayTime=-100; lBomb[i].damageType="EXPLOSION"
-          lBomb[i].direction=95+(i*20)
+          lBomb[i]._direction=95+(i*20)
           rBomb[i]=instance_create(x+76,y-58,oPassBullet)
           rBomb[i].sprite_index=sEnmityBomb; rBomb[i].atkPower=atkPower; rBomb[i].bulletSpeed=7
           rBomb[i].image_speed=0.33; rBomb[i].decayTime=-100; rBomb[i].damageType="EXPLOSION"
-          rBomb[i].direction=85-(i*20)
+          rBomb[i]._direction=85-(i*20)
         }
       }
       else if bombSpamTime=10048 //Stop bombs
@@ -246,9 +246,9 @@ if global.gamePaused=false
         if bombSpamTime mod 7=0
         {
           lBomb[bombCheck].bulletSpeed=7
-          lBomb[bombCheck].direction=310-(bombCheck*10)
+          lBomb[bombCheck]._direction=310-(bombCheck*10)
           rBomb[bombCheck].bulletSpeed=7
-          rBomb[bombCheck].direction=230+(bombCheck*10)
+          rBomb[bombCheck]._direction=230+(bombCheck*10)
           bombCheck+=1
           if bombCheck=5 {bombSpamTime=0}
         }
@@ -258,9 +258,9 @@ if global.gamePaused=false
         if bombSpamTime mod 7=0
         {
           lBomb[bombCheck].bulletSpeed=7
-          lBomb[bombCheck].direction=280-(bombCheck*15)
+          lBomb[bombCheck]._direction=280-(bombCheck*15)
           rBomb[bombCheck].bulletSpeed=7
-          rBomb[bombCheck].direction=260+(bombCheck*15)
+          rBomb[bombCheck]._direction=260+(bombCheck*15)
           bombCheck+=1
           if bombCheck=5 {bombSpamTime=0}
         }

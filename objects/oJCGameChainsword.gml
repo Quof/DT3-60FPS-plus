@@ -29,12 +29,12 @@ visible=1
 if type=1
 {
   image_angle=315
-  direction=315
+  _direction=315
 }
 else
 {
   image_angle=225
-  direction=225
+  _direction=225
 }
 #define Step_0
 /*"/*'/**//* YYD ACTION
@@ -45,9 +45,10 @@ applies_to=self
 event_inherited()
 if global.gamePaused=false
 {
-  speed=flySpd
+  _speed=flySpd
 
   decayTime-=1
   if decayTime<=0 {instance_destroy()}
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)

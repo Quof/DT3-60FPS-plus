@@ -28,10 +28,11 @@ if global.gamePaused=false
     if seekTime>=90 {seekTime=0}
   }
 
-  speed=bulletSpeed
+  _speed=bulletSpeed
   image_angle-=15
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)
 #define Collision_oAttackBase
 /*"/*'/**//* YYD ACTION
 lib_id=1

@@ -311,8 +311,8 @@ if global.gamePaused=false
               tNewAttack=instance_create(x+(21*image_xscale),y-42,oPassBullet)
               tNewAttack.sprite_index=sSeraSpearhead; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=18
               tNewAttack.decayTime=-100; tNewAttack.image_speed=0.33
-              if image_xscale=1 {tNewAttack.direction=45}
-              else {tNewAttack.direction=135}
+              if image_xscale=1 {tNewAttack._direction=45}
+              else {tNewAttack._direction=135}
             }
           }
           else if actTime=31
@@ -348,7 +348,7 @@ if global.gamePaused=false
             tDir=point_direction(x+(21*image_xscale),y-6,oPlayer1.x,282)
             tNewAttack=instance_create(x+(21*image_xscale),y-6,oSeraIceShot)
             tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=10; tNewAttack.type=0
-            tNewAttack.direction=tDir; tNewAttack.image_angle=tDir
+            tNewAttack._direction=tDir; tNewAttack.image_angle=tDir
           }
           else if actTime>=17
           {
@@ -414,8 +414,8 @@ if global.gamePaused=false
             var tNewAttack;
             tNewAttack=instance_create(x+(25*image_xscale),y-26,oSeraDragon)
             tNewAttack.atkPower=atkPower
-            if image_xscale=1 {tNewAttack.direction=0}
-            else {tNewAttack.direction=180}
+            if image_xscale=1 {tNewAttack._direction=0}
+            else {tNewAttack._direction=180}
           }
           else if actTime>=35
           {
@@ -443,8 +443,8 @@ if global.gamePaused=false
             var tNewAttack;
             tNewAttack=instance_create(x-(16*image_xscale),y-44,oSeraShatteringIceBlock)
             tNewAttack.atkPower=atkPower
-            if image_xscale=1 {tNewAttack.direction=0}
-            else {tNewAttack.direction=180}
+            if image_xscale=1 {tNewAttack._direction=0}
+            else {tNewAttack._direction=180}
           }
           else if actTime=25
           {
@@ -483,7 +483,7 @@ if global.gamePaused=false
             tDir=point_direction(x+(21*image_xscale),y-42,oPlayer1.x,70)
             tNewAttack=instance_create(x+(21*image_xscale),y-42,oSeraIceShot)
             tNewAttack.sprite_index=sSeraAtkIceA; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=12
-            tNewAttack.type=1; tNewAttack.direction=tDir
+            tNewAttack.type=1; tNewAttack._direction=tDir
           }
           else if actTime>=17
           {

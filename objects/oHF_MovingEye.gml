@@ -38,7 +38,7 @@ if global.gamePaused=false
   if life>0
   {
     path_speed=moveSpeed
-    image_angle=direction
+    image_angle=_direction
   }
   else if life<=0
   {
@@ -49,3 +49,4 @@ if global.gamePaused=false
   enemyStepEvent()
 }
 else {path_speed=0}
+correctSpeedDirection(self)

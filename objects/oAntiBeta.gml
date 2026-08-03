@@ -163,7 +163,7 @@ if global.gamePaused=false
           {
             tNewAttack=instance_create(x+(23*image_xscale),y-26,oPassBullet)
             tNewAttack.sprite_index=sAntiSwordWave; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
-            tNewAttack.decayTime=-100; tNewAttack.direction=tDir
+            tNewAttack.decayTime=-100; tNewAttack._direction=tDir
             tDir+=15
           }
         }

@@ -129,7 +129,7 @@ if global.gamePaused=false
           var tNewAtk;
           tNewAtk=instance_create(x,y+16,oSigmaB_HeadBall)
           tNewAtk.atkPower=atkPower; tNewAtk.bulletSpeed=10
-          tNewAtk.direction=point_direction(x,y+16,oPlayer1.x,returnPlayerYCenter())
+          tNewAtk._direction=point_direction(x,y+16,oPlayer1.x,returnPlayerYCenter())
         }
       }
       else if type=1 //---------- RED ----------
@@ -149,15 +149,15 @@ if global.gamePaused=false
               tNewAtk=instance_create(x-16+(i*32),y-24,oPassBullet)
               tNewAtk.sprite_index=sMMFireWall; tNewAtk.image_speed=0.5
               tNewAtk.atkPower=atkPower; tNewAtk.bulletSpeed=12; tNewAtk.decayTime=-100
-              tNewAtk.direction=90
+              tNewAtk._direction=90
               tNewAtk=instance_create(x-16+(i*32),y+24,oPassBullet)
               tNewAtk.sprite_index=sMMFireWall; tNewAtk.image_speed=0.5
               tNewAtk.atkPower=atkPower; tNewAtk.bulletSpeed=12; tNewAtk.decayTime=-100
-              tNewAtk.direction=270
+              tNewAtk._direction=270
               tNewAtk=instance_create(x+16+lengthdir_x(16,tAtkDir+90+(i*180)),y+lengthdir_y(16,tAtkDir+90+(i*180)),oPassBullet)
               tNewAtk.sprite_index=sMMFireWall; tNewAtk.image_speed=0.5
               tNewAtk.atkPower=atkPower; tNewAtk.bulletSpeed=12; tNewAtk.decayTime=-100
-              tNewAtk.direction=tAtkDir
+              tNewAtk._direction=tAtkDir
             }
           }
         }
@@ -174,7 +174,7 @@ if global.gamePaused=false
           var tIceBreath;
           tIceBreath=instance_create(x-22,y+17,oM_PoisonBreath)
           tIceBreath.atkPower=atkPower; tIceBreath.bulletSpeed=6+random(3); tIceBreath.image_blend=c_teal
-          tIceBreath.animSpeed=0.25; tIceBreath.direction=235+random_range(-12,12)
+          tIceBreath.animSpeed=0.25; tIceBreath._direction=235+random_range(-12,12)
         }
       }
       else if type=3 //---------- YELLOW 2 ----------
@@ -190,7 +190,7 @@ if global.gamePaused=false
             var tNewAtk;
             tNewAtk=instance_create(x-22,y+16,oPassBullet)
             tNewAtk.sprite_index=sSigmaB_ElectricBall; tNewAtk.atkPower=atkPower; tNewAtk.bulletSpeed=9
-            tNewAtk.decayTime=-100; tNewAtk.direction=point_direction(x,y+16,oPlayer1.x,returnPlayerYCenter())
+            tNewAtk.decayTime=-100; tNewAtk._direction=point_direction(x,y+16,oPlayer1.x,returnPlayerYCenter())
             tNewAtk.image_xscale=0.75; tNewAtk.image_yscale=0.75
           }
         }
@@ -208,7 +208,7 @@ if global.gamePaused=false
             var tNewAtk;
             tNewAtk=instance_create(x+22,y+16,oPassBullet)
             tNewAtk.sprite_index=sSigmaB_ElectricBall; tNewAtk.atkPower=atkPower; tNewAtk.bulletSpeed=6
-            tNewAtk.decayTime=-100; tNewAtk.direction=point_direction(x,y+16,oPlayer1.x,returnPlayerYCenter())
+            tNewAtk.decayTime=-100; tNewAtk._direction=point_direction(x,y+16,oPlayer1.x,returnPlayerYCenter())
             tNewAtk.image_xscale=0.75; tNewAtk.image_yscale=0.75
           }
         }
@@ -226,7 +226,7 @@ if global.gamePaused=false
             var tNewAtk;
             tNewAtk=instance_create(x-22,y+16,oPassBullet)
             tNewAtk.sprite_index=sSigmaB_ElectricBall; tNewAtk.atkPower=atkPower; tNewAtk.bulletSpeed=6
-            tNewAtk.decayTime=-100; tNewAtk.direction=point_direction(x,y+16,oPlayer1.x,returnPlayerYCenter())
+            tNewAtk.decayTime=-100; tNewAtk._direction=point_direction(x,y+16,oPlayer1.x,returnPlayerYCenter())
             tNewAtk.image_xscale=0.75; tNewAtk.image_yscale=0.75
           }
         }

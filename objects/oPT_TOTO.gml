@@ -234,7 +234,7 @@ else if attackTime>=71 and attackTime<=120 //Use fireballs
     playSound(global.snd_Fireball,0,0.9,28000)
     myAtk=instance_create(x,y,oTOTO_FireA)
     myAtk.atkType=0; myAtk.atkPower=atkPower
-    myAtk.mySpd=8; myAtk.direction=myFireDir+random_range(-6,6)
+    myAtk.mySpd=8; myAtk._direction=myFireDir+random_range(-6,6)
   }
 }
 else if attackTime>=121 //End
@@ -272,7 +272,7 @@ else if attackTime>=35 and attackTime<=90 //Use fireballs
     playSound(global.snd_Fireball,0,0.9,32000)
     myAtk=instance_create(x,y,oTOTO_FireB)
     myAtk.atkType=0; myAtk.atkPower=atkPower
-    myAtk.mySpd=8; myAtk.direction=myFireDir+random_range(-6,6)
+    myAtk.mySpd=8; myAtk._direction=myFireDir+random_range(-6,6)
   }
 }
 else if attackTime>=91 //End
@@ -317,7 +317,7 @@ else if attackTime>=101 and attackTime<=399 //Fly across map, use fireballs down
       playSound(global.snd_Flame1,0,0.9,47000)
       myAtk=instance_create(x,y,oTOTO_FireB)
       myAtk.atkType=0; myAtk.atkPower=atkPower
-      myAtk.mySpd=8; myAtk.direction=270
+      myAtk.mySpd=8; myAtk._direction=270
     }
   }
 

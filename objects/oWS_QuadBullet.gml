@@ -22,10 +22,11 @@ if global.gamePaused=false
   decayTime-=1
   if decayTime<=0 {instance_destroy()}
 
-  speed=bulletSpeed
+  _speed=bulletSpeed
   image_angle+=15
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)
 #define Other_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

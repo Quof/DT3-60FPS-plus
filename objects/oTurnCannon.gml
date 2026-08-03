@@ -74,10 +74,10 @@ if global.gamePaused=false
       tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
 
       newAttack=instance_create(x+xOffset,y+yOffset,oPassBullet)
-      newAttack.sprite_index=sTCShot; newAttack.direction=dir1; newAttack.decayTime=-100
+      newAttack.sprite_index=sTCShot; newAttack._direction=dir1; newAttack.decayTime=-100
       newAttack.image_speed=0; newAttack.atkPower=atkPower; newAttack.bulletSpeed=5
       newAttack=instance_create(x-xOffset,y+yOffset,oPassBullet)
-      newAttack.sprite_index=sTCShot; newAttack.direction=dir2; newAttack.decayTime=-100
+      newAttack.sprite_index=sTCShot; newAttack._direction=dir2; newAttack.decayTime=-100
       newAttack.image_speed=0; newAttack.atkPower=atkPower; newAttack.bulletSpeed=5
     }
     else if shotProg=42
@@ -109,10 +109,10 @@ if global.gamePaused=false
       tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
 
       newAttack=instance_create(x+xOffset,y+yOffset,oPassBullet)
-      newAttack.sprite_index=sTCShot; newAttack.direction=dir1; newAttack.decayTime=-100
+      newAttack.sprite_index=sTCShot; newAttack._direction=dir1; newAttack.decayTime=-100
       newAttack.image_speed=0; newAttack.atkPower=atkPower; newAttack.bulletSpeed=5
       newAttack=instance_create(x-xOffset,y+yOffset,oPassBullet)
-      newAttack.sprite_index=sTCShot; newAttack.direction=dir2; newAttack.decayTime=-100
+      newAttack.sprite_index=sTCShot; newAttack._direction=dir2; newAttack.decayTime=-100
       newAttack.image_speed=0; newAttack.atkPower=atkPower; newAttack.bulletSpeed=5
 
       shotProg=-10

@@ -59,8 +59,8 @@ if global.gamePaused=false
     }
     else if enemyProg=1
     {
-      speed=runAcc
-      direction=point_direction(x,y,oPlayer1.x,oPlayer1.y-32)
+      _speed=runAcc
+      _direction=point_direction(x,y,oPlayer1.x,oPlayer1.y-32)
 
       if point_distance(x,0,oPlayer1.x,0)>=16
       {
@@ -72,7 +72,7 @@ if global.gamePaused=false
       {
         life+=2000
         resType[1]=1; resType[5]=1
-        speed=0; bCanTakeDamage=0
+        _speed=0; bCanTakeDamage=0
         centerX=x; centerY=y
         angleDiff=point_direction(x,y,oPlayer1.x,oPlayer1.y-32)+75
         enemyProg=2
@@ -82,13 +82,13 @@ if global.gamePaused=false
     {
       centerX=x+lengthdir_x(splittingDist,angleDiff-180)
       centerY=y+lengthdir_y(splittingDist,angleDiff-180)
-      speed=4
-      direction=angleDiff
+      _speed=4
+      _direction=angleDiff
       splittingDist+=4
       if splittingDist>=96
       {
         bCanTakeDamage=1
-        speed=0
+        _speed=0
         enemyProg=3
       }
     }
@@ -97,8 +97,8 @@ if global.gamePaused=false
       centerX=x+lengthdir_x(splittingDist,angleDiff-180)
       centerY=y+lengthdir_y(splittingDist,angleDiff-180)
 
-      speed=runAcc
-      direction=point_direction(x,y,oPlayer1.x,oPlayer1.y-32)
+      _speed=runAcc
+      _direction=point_direction(x,y,oPlayer1.x,oPlayer1.y-32)
 
       if point_distance(x,0,oPlayer1.x,0)>=16
       {
@@ -132,8 +132,9 @@ if global.gamePaused=false
 }
 else
 {
-  speed=0
+  _speed=0
 }
+correctSpeedDirection(self)
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

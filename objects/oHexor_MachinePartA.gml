@@ -44,7 +44,7 @@ if global.gamePaused=false
       {
         image_angle=myDir
       }
-      direction=image_angle
+      _direction=image_angle
       image_blend=c_white
       bCanDealDamage=true
       atkTime=0; atkProg=1
@@ -59,10 +59,11 @@ if global.gamePaused=false
   {
     if bulletSpeed<2 {bulletSpeed+=0.1}
     else if bulletSpeed>=2 and bulletSpeed<=15 {bulletSpeed+=1}
-    speed=bulletSpeed
+    _speed=bulletSpeed
   }
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)
 #define Collision_oPlayer1
 /*"/*'/**//* YYD ACTION
 lib_id=1

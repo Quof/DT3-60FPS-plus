@@ -29,7 +29,7 @@ applies_to=self
 ranDir=irandom_range(45,135)
 x=xPlace+lengthdir_x(64,ranDir)
 y=yPlace+lengthdir_y(64,ranDir)
-direction=ranDir+180
+_direction=ranDir+180
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -50,11 +50,11 @@ if global.gamePaused=false
   }
   else if moveProg=2 //Move to place
   {
-    speed=4
+    _speed=4
     if point_distance(x,y,xPlace,yPlace)<=4
     {
       x=xPlace; y=yPlace
-      speed=0
+      _speed=0
       moveProg=3
     }
   }
@@ -83,4 +83,5 @@ if global.gamePaused=false
     }
   }
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)

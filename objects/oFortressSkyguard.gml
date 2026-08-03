@@ -78,7 +78,7 @@ if global.gamePaused=false
           for(i=0;i<8;i+=1)
           {
             tAtk=instance_create(x,y,oFSFlowerBullet)
-            tAtk.atkPower=atkPower; tAtk.decayTime=89; tAtk.bulletSpeed=4; tAtk.bulletCMod=3; tAtk.direction=atkDirA+tDir
+            tAtk.atkPower=atkPower; tAtk.decayTime=89; tAtk.bulletSpeed=4; tAtk.bulletCMod=3; tAtk._direction=atkDirA+tDir
             if i=0 {tAtk.bulletBlend=c_white}
             else if i=1 {tAtk.bulletBlend=make_color_rgb(190,255,255)}
             else if i=2 {tAtk.bulletBlend=make_color_rgb(255,190,255)}
@@ -101,7 +101,7 @@ if global.gamePaused=false
           {
             tAtk=instance_create(x,y,oPassBullet)
             tAtk.sprite_index=sFSSmallBullet; tAtk.atkPower=atkPower; tAtk.bulletSpeed=2
-            tAtk.decayTime=-100; tAtk.direction=atkDirB+tDir
+            tAtk.decayTime=-100; tAtk._direction=atkDirB+tDir
             tDir+=360/atkExtB
           }
           atkDirB+=12
@@ -115,10 +115,10 @@ if global.gamePaused=false
           var tAtk;
           tAtk=instance_create(x+14,y-90,oPassBullet)
           tAtk.sprite_index=sFSPlasmaShot; tAtk.atkPower=atkPower; tAtk.bulletSpeed=4
-          tAtk.decayTime=-100; tAtk.direction=atkDirA; tAtk.image_angle=atkDirA; tAtk.image_speed=0.33
+          tAtk.decayTime=-100; tAtk._direction=atkDirA; tAtk.image_angle=atkDirA; tAtk.image_speed=0.33
           tAtk=instance_create(x+14,y+108,oPassBullet)
           tAtk.sprite_index=sFSPlasmaShot; tAtk.atkPower=atkPower; tAtk.bulletSpeed=4
-          tAtk.decayTime=-100; tAtk.direction=atkDirA; tAtk.image_angle=atkDirA; tAtk.image_speed=0.33
+          tAtk.decayTime=-100; tAtk._direction=atkDirA; tAtk.image_angle=atkDirA; tAtk.image_speed=0.33
 
           if atkExtA=0
           {
@@ -138,10 +138,10 @@ if global.gamePaused=false
           var tAtk;
           tAtk=instance_create(x+7,y-49,oFSMissile)
           tAtk.atkPower=atkPower; tAtk.bulletSpeed=8; tAtk.decayTime=50; tAtk.bulletBlend=make_color_rgb(140,255,255)
-          tAtk.direction=170; tAtk.image_angle=170; tAtk.bulletCMod=4
+          tAtk._direction=170; tAtk.image_angle=170; tAtk.bulletCMod=4
           tAtk=instance_create(x+7,y+49,oFSMissile)
           tAtk.atkPower=atkPower; tAtk.bulletSpeed=8; tAtk.decayTime=50; tAtk.bulletBlend=make_color_rgb(255,255,140)
-          tAtk.direction=190; tAtk.image_angle=190; tAtk.bulletCMod=4
+          tAtk._direction=190; tAtk.image_angle=190; tAtk.bulletCMod=4
         }
 
         atkTimeC+=1
@@ -154,7 +154,7 @@ if global.gamePaused=false
           {
             tAtk=instance_create(x,y,oPassBullet)
             tAtk.sprite_index=sFSSmallBullet; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3
-            tAtk.decayTime=-100; tAtk.direction=tDir
+            tAtk.decayTime=-100; tAtk._direction=tDir
             tDir+=10
           }
         }
@@ -169,7 +169,7 @@ if global.gamePaused=false
           for(i=0;i<8;i+=1)
           {
             tAtk=instance_create(x,y,oFSFlowerBullet)
-            tAtk.atkPower=atkPower; tAtk.decayTime=55; tAtk.bulletSpeed=8; tAtk.bulletCMod=2; tAtk.direction=atkDirA+tDir
+            tAtk.atkPower=atkPower; tAtk.decayTime=55; tAtk.bulletSpeed=8; tAtk.bulletCMod=2; tAtk._direction=atkDirA+tDir
             if i=0 {tAtk.bulletBlend=c_white}
             else if i=1 {tAtk.bulletBlend=make_color_rgb(190,255,255)}
             else if i=2 {tAtk.bulletBlend=make_color_rgb(255,190,255)}
@@ -190,7 +190,7 @@ if global.gamePaused=false
           for(i=0;i<8;i+=1)
           {
             tAtk=instance_create(x-39,y,oFSFlowerCurve)
-            tAtk.atkPower=atkPower; tAtk.decayTime=88; tAtk.bulletSpeed=4; tAtk.bulletCMod=2; tAtk.direction=atkDirB+(i*45)
+            tAtk.atkPower=atkPower; tAtk.decayTime=88; tAtk.bulletSpeed=4; tAtk.bulletCMod=2; tAtk._direction=atkDirB+(i*45)
             tAtk.decayTime=90; tAtk.bulletTurn=4; tAtk.bulletBlend=make_color_rgb(150,160,170)
           }
           atkDirB+=10
@@ -205,10 +205,10 @@ if global.gamePaused=false
           tDir=point_direction(x-39,y,oPlayer1.x,oPlayer1.y)
           tAtk=instance_create(x-79,y-32,oPassBullet)
           tAtk.sprite_index=sFSPlasmaShot; tAtk.atkPower=atkPower; tAtk.bulletSpeed=4
-          tAtk.decayTime=-100; tAtk.direction=tDir; tAtk.image_angle=tDir; tAtk.image_speed=0.33
+          tAtk.decayTime=-100; tAtk._direction=tDir; tAtk.image_angle=tDir; tAtk.image_speed=0.33
           tAtk=instance_create(x-79,y+32,oPassBullet)
           tAtk.sprite_index=sFSPlasmaShot; tAtk.atkPower=atkPower; tAtk.bulletSpeed=4
-          tAtk.decayTime=-100; tAtk.direction=tDir; tAtk.image_angle=tDir; tAtk.image_speed=0.33
+          tAtk.decayTime=-100; tAtk._direction=tDir; tAtk.image_angle=tDir; tAtk.image_speed=0.33
         }
 
         atkTimeB+=1
@@ -230,14 +230,14 @@ if global.gamePaused=false
             tDir=point_direction(x+6,y-99,oPlayer1.x,oPlayer1.y)
             tAtk=instance_create(x+6,y-99,oFSFlowerSpread)
             tAtk.atkPower=atkPower; tAtk.bulletSpeed=4; tAtk.startDir=tDir; tAtk.bulletCMod=5; tAtk.image_speed=0.33
-            tAtk.decayTime=105; tAtk.direction=165+(i*15); tAtk.image_angle=165+(i*15)
+            tAtk.decayTime=105; tAtk._direction=165+(i*15); tAtk.image_angle=165+(i*15)
             if i=0 {tAtk.bulletBlend=make_color_rgb(190,255,255)}
             else if i=1 {tAtk.bulletBlend=make_color_rgb(255,190,255)}
             else if i=2 {tAtk.bulletBlend=make_color_rgb(255,255,190)}
             tDir=point_direction(x+6,y+99,oPlayer1.x,oPlayer1.y)
             tAtk=instance_create(x+6,y+99,oFSFlowerSpread)
             tAtk.atkPower=atkPower; tAtk.bulletSpeed=4; tAtk.startDir=tDir; tAtk.bulletCMod=5; tAtk.image_speed=0.33
-            tAtk.decayTime=105; tAtk.direction=165+(i*15); tAtk.image_angle=165+(i*15); tAtk.bulletBlend=c_white
+            tAtk.decayTime=105; tAtk._direction=165+(i*15); tAtk.image_angle=165+(i*15); tAtk.bulletBlend=c_white
             if i=0 {tAtk.bulletBlend=make_color_rgb(190,190,255)}
             else if i=1 {tAtk.bulletBlend=make_color_rgb(255,190,190)}
             else if i=2 {tAtk.bulletBlend=make_color_rgb(190,255,190)}
@@ -402,7 +402,8 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
-else {path_speed=0; speed=0}
+else {path_speed=0; _speed=0}
+correctSpeedDirection(self)
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

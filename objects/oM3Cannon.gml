@@ -32,7 +32,7 @@ if global.gamePaused=false
       playSound(global.snd_MarioCannon,0,0.9,1)
       var bBill;
       bBill=instance_create(x+8,y+8,oM3Shot)
-      bBill.sprite_index=sSFShotSmall; bBill.direction=shotDir
+      bBill.sprite_index=sSFShotSmall; bBill._direction=shotDir
       bBill.atkPower=atkPower; bBill.bulletSpeed=4
       shotTime=0; bReadyToFire=0
     }

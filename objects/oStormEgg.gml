@@ -42,7 +42,7 @@ if global.gamePaused=false
     for(i=0;i<4;i+=1)
     {
       newBird=instance_create(x,y,oStormBird)
-      newBird.direction=45+(i*90)
+      newBird._direction=45+(i*90)
     }
     instance_destroy()
   }

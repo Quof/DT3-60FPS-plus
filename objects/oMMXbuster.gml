@@ -62,7 +62,7 @@ if global.gamePaused=false
       if oGame.time mod 3=0
       {
         tEffect=instance_create(x-(abs(sprite_width)/2-3)+random(abs(sprite_width)-6),y-(sprite_height/2-3)+random(sprite_height-6),oEffectB)
-        tEffect.sprite_index=sMMchargeEffect1; tEffect.image_speed=0.25; tEffect.direction=direction
+        tEffect.sprite_index=sMMchargeEffect1; tEffect.image_speed=0.25; tEffect.direction=_direction
         tEffect.type=4; tEffect.speed=bulletSpeed-2; tEffect.AccelX=-0.65
         tEffect.AccelY=0; tEffect.newBlend=-1; tEffect.followID=-1; tEffect.rotation=0
       }
@@ -70,16 +70,17 @@ if global.gamePaused=false
 
     if place_meeting(x,y,oNightmareEffect) {bulletSpeed=6}
     else {bulletSpeed=12}
-    speed=bulletSpeed
+    _speed=bulletSpeed
     if checkScreenArea(x,y,48)=0 {instance_destroy()}
 
-    if isCollisionLeft(1) {lingerFrame=1; speed=0; visible=0}
-    if isCollisionRight(1) {lingerFrame=1; speed=0; visible=0}
-    if isCollisionBottom(1) {lingerFrame=1; speed=0; visible=0}
-    if isCollisionTop(1) {lingerFrame=1; speed=0; visible=0}
+    if isCollisionLeft(1) {lingerFrame=1; _speed=0; visible=0}
+    if isCollisionRight(1) {lingerFrame=1; _speed=0; visible=0}
+    if isCollisionBottom(1) {lingerFrame=1; _speed=0; visible=0}
+    if isCollisionTop(1) {lingerFrame=1; _speed=0; visible=0}
     lifeTime-=1
     if lifeTime=0 {instance_destroy()}
   }
   else if lingerFrame=1 {instance_destroy()}
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)

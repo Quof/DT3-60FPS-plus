@@ -25,11 +25,11 @@ if global.gamePaused=false
 {
   if bulletProg=0 //Bullets go out
   {
-    speed=2
+    _speed=2
     bulletTime+=1
     if bulletTime>=35
     {
-      speed=0
+      _speed=0
       bulletTime=0; bulletProg+=1
     }
   }
@@ -38,14 +38,14 @@ if global.gamePaused=false
     bulletTime+=1
     if bulletTime>=20
     {
-      if type=0 {direction=point_direction(xstart,ystart,oPlayer1.x,returnPlayerYCenter())}
-      else {direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())}
+      if type=0 {_direction=point_direction(xstart,ystart,oPlayer1.x,returnPlayerYCenter())}
+      else {_direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())}
       bulletTime=0; bulletProg+=1
     }
   }
   else if bulletProg=2 //Destroy bullets after set time
   {
-    speed=4
+    _speed=4
     bulletTime+=1
     if bulletTime>=180
     {
@@ -53,7 +53,8 @@ if global.gamePaused=false
     }
   }
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

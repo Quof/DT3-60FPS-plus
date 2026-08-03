@@ -54,5 +54,5 @@ if decayTime>0 and shotDelay=0
   }
   tDir=point_direction(oIdentifier.x,oIdentifier.y,tFindClosest.x,tFindClosest.y)
   tNewAttack=instance_create(oIdentifier.x,oIdentifier.y,oVP_ChaoBullet)
-  tNewAttack.direction=tDir; tNewAttack.image_angle=tDir
+  tNewAttack._direction=tDir; tNewAttack.image_angle=tDir
 }

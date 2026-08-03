@@ -128,19 +128,19 @@ if global.gamePaused=false
     {
       myBullet=instance_create(x+(18*image_xscale),y-23,oTDTBullet)
       myBullet.atkPower=turPower; myBullet.bulletSpeed=12; myBullet.myLevel=turLevel
-      if image_xscale=1 {myBullet.direction=0}
-      else {myBullet.direction=180}
+      if image_xscale=1 {myBullet._direction=0}
+      else {myBullet._direction=180}
     }
     else if type="FLOAT"
     {
       myBullet=instance_create(x+lengthdir_x(11,image_angle),y+lengthdir_y(11,image_angle),oTDTBullet)
-      myBullet.atkPower=turPower; myBullet.direction=image_angle; myBullet.myLevel=turLevel
+      myBullet.atkPower=turPower; myBullet._direction=image_angle; myBullet.myLevel=turLevel
       myBullet.sprite_index=sTurBul_Float; myBullet.bulletSpeed=18
     }
     else if type="AIR"
     {
       myBullet=instance_create(x+lengthdir_x(18,image_angle),y+lengthdir_y(18,image_angle),oTDTAir)
-      myBullet.atkPower=turPower; myBullet.direction=image_angle; myBullet.bulletSpeed=23; myBullet.myLevel=turLevel
+      myBullet.atkPower=turPower; myBullet._direction=image_angle; myBullet.bulletSpeed=23; myBullet.myLevel=turLevel
     }
     else if type="SHOCK"
     {

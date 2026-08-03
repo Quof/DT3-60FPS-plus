@@ -32,7 +32,7 @@ if global.gamePaused=false
     if atkProg=0
     {
       image_angle+=31
-      speed=moveSpd
+      _speed=moveSpd
       moveTime-=1
       if moveTime=0
       {
@@ -44,8 +44,8 @@ if global.gamePaused=false
           tHexPart.partDelay=0
           tPartDir+=30
         }
-        image_angle=270; direction=270
-        speed=0
+        image_angle=270; _direction=270
+        _speed=0
         atkProg=1
       }
     }
@@ -56,17 +56,18 @@ if global.gamePaused=false
     }
     else if atkProg=2
     {
-      speed=moveSpd
+      _speed=moveSpd
       if y>=room_height+80 {instance_destroy()}
     }
   }
   else if type=1 //Straight line
   {
-    speed=moveSpd
+    _speed=moveSpd
     atkTime+=1*gDeltaTime
   }
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)
 #define Other_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

@@ -51,15 +51,15 @@ if global.gamePaused=false
   timeOnScreen+=1
   if timeOnScreen=1
   {
-    direction=point_direction(xstart,ystart,xstart+pointX,ystart+pointY)
-    speed=initSpd
+    _direction=point_direction(xstart,ystart,xstart+pointX,ystart+pointY)
+    _speed=initSpd
   }
   else if timeOnScreen>=2 and timeOnScreen<=30
   {
-    speed=initSpd
+    _speed=initSpd
     if point_distance(x,y,xstart+pointX,ystart+pointY)<=initSpd
     {
-      speed=0
+      _speed=0
       x=xstart+pointX; y=ystart+pointY
       timeOnScreen=31
     }
@@ -71,19 +71,20 @@ if global.gamePaused=false
       var myTarget,myDist;
       myTarget=instance_nearest(x,y,oEnemyBase)
       myDist=point_distance(x,y,myTarget.x,myTarget.y)
-      if myDist<=480 {direction=point_direction(x,y,myTarget.x,myTarget.y)} //if target is found and close enough
-      else {direction=random(360)} //no enemies close enough
+      if myDist<=480 {_direction=point_direction(x,y,myTarget.x,myTarget.y)} //if target is found and close enough
+      else {_direction=random(360)} //no enemies close enough
     }
-    else {direction=random(360)} //no enemies on map
+    else {_direction=random(360)} //no enemies on map
   }
   else if timeOnScreen>=41
   {
     if global.optWeaponTrail=1 {instance_create(x,y,oEfWeaponTrail)}
-    speed=flySpd
+    _speed=flySpd
     if timeOnScreen>=35
     {
       if checkScreenArea(x,y,48)=0 {instance_destroy()}
     }
   }
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)

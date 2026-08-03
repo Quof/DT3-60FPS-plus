@@ -57,7 +57,7 @@ if global.gamePaused=false
           {
             tNewAttack=instance_create(x,y,oPassBullet)
             tNewAttack.sprite_index=sC_SparkNeedle; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=6
-            tNewAttack.decayTime=-100; tNewAttack.direction=bulletDir+tDir
+            tNewAttack.decayTime=-100; tNewAttack._direction=bulletDir+tDir
             tDir+=360/bulletNum
           }
           bulletDir+=12

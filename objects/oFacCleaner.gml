@@ -80,7 +80,7 @@ if global.gamePaused=false
           for(i=0;i<8;i+=1)
           {
             tNewAtk=instance_create(x+lengthdir_x(192,tDir),y+lengthdir_y(192,tDir),oCleanBotRock)
-            tNewAtk.atkPower=atkPower; tNewAtk.myOwner=id; tNewAtk.direction=tDir-180
+            tNewAtk.atkPower=atkPower; tNewAtk.myOwner=id; tNewAtk._direction=tDir-180
             tDir+=45
           }
         }
@@ -95,7 +95,7 @@ if global.gamePaused=false
             var tNewAttack;
             tNewAttack=instance_create(x,y,oPassBulletRed)
             tNewAttack.sprite_index=sCleanBotRock; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=10
-            tNewAttack.decayTime=-100; tNewAttack.direction=player_sprite_center()
+            tNewAttack.decayTime=-100; tNewAttack._direction=player_sprite_center()
           }
         }
         if shotTime>=shotDelay+36

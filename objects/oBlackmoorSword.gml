@@ -39,17 +39,18 @@ if global.gamePaused=false
   {
     if atkTime>=30
     {
-      direction=image_angle
+      _direction=image_angle
       atkTime=0; atkProg+=1
     }
   }
   else if atkProg=2
   {
     if bulletSpeed<8 {bulletSpeed+=0.1}
-    speed=bulletSpeed
+    _speed=bulletSpeed
   }
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)
 #define Other_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

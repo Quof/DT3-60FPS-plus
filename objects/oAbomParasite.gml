@@ -51,7 +51,7 @@ if global.gamePaused=false
       for(i=0;i<16;i+=1)
       {
         tAttack=instance_create(x,y,oAbomParaShot)
-        tAttack.direction=tDir
+        tAttack._direction=tDir
         tDir+=360/16
       }
       seqTime=0

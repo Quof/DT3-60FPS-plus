@@ -36,7 +36,7 @@ if sceneProgress=0 //-------------------- Fake credits --------------------
     {
       type=2
       moveSpd=4+random(3)
-      direction=random(360)
+      _direction=random(360)
     }
     stopAllMusic()
     oEvCh21MainA.fadeAlpha=0
@@ -45,6 +45,7 @@ if sceneProgress=0 //-------------------- Fake credits --------------------
     instance_destroy()
   }
 }
+correctSpeedDirection(self)
 #define Other_10
 /*"/*'/**//* YYD ACTION
 lib_id=1

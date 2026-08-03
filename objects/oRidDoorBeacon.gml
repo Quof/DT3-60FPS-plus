@@ -67,7 +67,7 @@ if global.gamePaused=false
           {
             tNewAttack=instance_create(x+8,y+8,oPassBullet)
             tNewAttack.sprite_index=sWolfHeadShot; tNewAttack.atkPower=8; tNewAttack.bulletSpeed=3
-            tNewAttack.direction=tDir; tNewAttack.image_speed=0.33; tNewAttack.decayTime=-100; tNewAttack.depth=7
+            tNewAttack._direction=tDir; tNewAttack.image_speed=0.33; tNewAttack.decayTime=-100; tNewAttack.depth=7
             tDir+=20
           }
           shotTime=0

@@ -62,7 +62,7 @@ if global.gamePaused=false
       tNewAttack=instance_create(x,y,oPassBullet)
       tNewAttack.sprite_index=sWalkBlasterLaser
       tNewAttack.atkPower=atkPower+3; tNewAttack.bulletSpeed=20; tNewAttack.decayTime=-100
-      tNewAttack.direction=player_sprite_center()
+      tNewAttack._direction=player_sprite_center()
       tNewAttack.image_xscale=1.5
     }
   }

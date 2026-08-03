@@ -61,10 +61,10 @@ if global.gamePaused=false
         {
           tNewAttack=instance_create(x-80,y-3,oPassBullet)
           tNewAttack.sprite_index=sWolfHeadShot; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
-          tNewAttack.decayTime=-100; tNewAttack.direction=225+(55*i)
+          tNewAttack.decayTime=-100; tNewAttack._direction=225+(55*i)
           tNewAttack=instance_create(x+80,y-3,oPassBullet)
           tNewAttack.sprite_index=sWolfHeadShot; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
-          tNewAttack.decayTime=-100; tNewAttack.direction=225+(55*i)
+          tNewAttack.decayTime=-100; tNewAttack._direction=225+(55*i)
         }
       }
     }
@@ -74,7 +74,7 @@ if global.gamePaused=false
       {
         tNewAttack=instance_create(x,y+18,oPassBullet)
         tNewAttack.sprite_index=sWolfHeadShot; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
-        tNewAttack.decayTime=-100; tNewAttack.direction=210+(20*i)
+        tNewAttack.decayTime=-100; tNewAttack._direction=210+(20*i)
       }
       gunShot=0
     }

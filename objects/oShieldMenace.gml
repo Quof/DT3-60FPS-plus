@@ -109,7 +109,7 @@ if global.gamePaused=false
         tNewAttack=instance_create(x+(12*image_xscale),y-28,oPassBullet)
         tNewAttack.sprite_index=sShieldMenaceBeam; tNewAttack.atkPower=atkPower
         tNewAttack.bulletSpeed=8.25; tNewAttack.decayTime=-100
-        if image_xscale=-1 {tNewAttack.direction=180}
+        if image_xscale=-1 {tNewAttack._direction=180}
       }
       else if shotTime=shotDelay+21 //End attack
       {

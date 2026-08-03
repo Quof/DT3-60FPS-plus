@@ -97,15 +97,15 @@ if global.gamePaused=false
         teleTime+=1
         if teleProg=0 //Normal behavior
         {
-          direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
+          _direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
 
           findTargetX=point_distance(x,y,oPlayer1.x,returnPlayerYCenter())
-          if findTargetX<160 {speed=runAcc}
-          else {speed=runAcc*1.2}
+          if findTargetX<160 {_speed=runAcc}
+          else {_speed=runAcc*1.2}
 
           if teleTime>=50
           {
-            speed=0
+            _speed=0
             teleTime=0; teleProg+=1
           }
         }
@@ -125,16 +125,16 @@ if global.gamePaused=false
           else if teleTime=21 {image_blend=baseColor} //Reset color
           else if teleTime>=25 //Teleport
           {
-            direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
+            _direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
             for(i=0;i<10;i+=1)
             {
-              tEffect=instance_create(x+lengthdir_x(i*8,direction),y+lengthdir_y(i*8,direction),oEffect)
+              tEffect=instance_create(x+lengthdir_x(i*8,_direction),y+lengthdir_y(i*8,_direction),oEffect)
               tEffect.sprite_index=sMMchargeComplete; tEffect.image_speed=1-(i*0.09)
               tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
               tEffect.image_xscale=0.5; tEffect.image_yscale=0.5
             }
-            x+=lengthdir_x(80,direction)
-            y+=lengthdir_y(80,direction)
+            x+=lengthdir_x(80,_direction)
+            y+=lengthdir_y(80,_direction)
             teleTime=0; teleProg+=1
           }
         }
@@ -144,7 +144,7 @@ if global.gamePaused=false
         }
       }
     }
-    else {speed=0}
+    else {_speed=0}
   }
   else if life<=0
   {
@@ -159,7 +159,8 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)
 #define Collision_oColorZone
 /*"/*'/**//* YYD ACTION
 lib_id=1

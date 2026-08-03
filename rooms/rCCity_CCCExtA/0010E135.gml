@@ -1,4 +1,4 @@
-direction=270
+_direction=270
 objectUseN=oNormalBullet
 spriteUseN=sSkelefire
 shootDelayN=50

@@ -64,7 +64,7 @@ if global.gamePaused=false
       var tNewAttack;
       tNewAttack=instance_create(x+(10*image_xscale),y,oPassBullet)
       tNewAttack.sprite_index=sWolfHeadShot; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=4
-      tNewAttack.decayTime=-100; tNewAttack.direction=point_direction(x+(10*image_xscale),y,oPlayer1.x,oPlayer1.y-26)
+      tNewAttack.decayTime=-100; tNewAttack._direction=point_direction(x+(10*image_xscale),y,oPlayer1.x,oPlayer1.y-26)
       tNewAttack.image_xscale=1.1; tNewAttack.image_yscale=1.1
     }
     else if moveProg>=1002 and moveProg<=1031

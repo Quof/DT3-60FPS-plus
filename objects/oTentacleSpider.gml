@@ -120,7 +120,7 @@ if global.gamePaused=false
       {
         tNewAttack=instance_create(x,y,oNormalBullet)
         tNewAttack.sprite_index=sWolfHeadShot; tNewAttack.atkPower=atkPower
-        tNewAttack.bulletSpeed=6; tNewAttack.direction=tDir
+        tNewAttack.bulletSpeed=6; tNewAttack._direction=tDir
         tDir+=360/16
       }
       image_blend=baseColor

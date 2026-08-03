@@ -257,7 +257,7 @@ if global.gamePaused=false
         for(i=0;i<5;i+=1)
         {
           tFire=instance_create(x+(8*image_xscale),y-20,oPassBullet)
-          tFire.sprite_index=sBTFireball; tFire.direction=tFDir; tFire.atkPower=atkPower
+          tFire.sprite_index=sBTFireball; tFire._direction=tFDir; tFire.atkPower=atkPower
           tFire.bulletSpeed=7; tFire.decayTime=120
           tFDir+=15
         }
@@ -270,7 +270,7 @@ if global.gamePaused=false
         for(i=0;i<4;i+=1)
         {
           tFire=instance_create(x+(8*image_xscale),y-20,oPassBullet)
-          tFire.sprite_index=sBTFireball; tFire.direction=tFDir; tFire.atkPower=atkPower
+          tFire.sprite_index=sBTFireball; tFire._direction=tFDir; tFire.atkPower=atkPower
           tFire.bulletSpeed=7; tFire.decayTime=120
           tFDir+=20
         }
@@ -471,7 +471,7 @@ if global.gamePaused=false
       for(i=0;i<3;i+=1)
       {
         tFire=instance_create(x+(8*image_xscale),y-20,oPassBullet)
-        tFire.sprite_index=sBTFireball; tFire.direction=tFDir
+        tFire.sprite_index=sBTFireball; tFire._direction=tFDir
         tFire.atkPower=atkPower; tFire.bulletSpeed=7; tFire.decayTime=120
         tFDir+=20
       }

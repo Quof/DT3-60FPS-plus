@@ -57,7 +57,7 @@ if global.gamePaused=false
       playSound(global.snd_CShotB,0,0.9,35000)
       tNewAttack=instance_create(x+lengthdir_x(6,image_angle),y+lengthdir_y(6,image_angle),oPassBullet)
       tNewAttack.sprite_index=sWarmasterA_ShotA; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
-      tNewAttack.image_speed=0.33; tNewAttack.decayTime=-100; tNewAttack.direction=myAngle; tNewAttack.image_angle=myAngle
+      tNewAttack.image_speed=0.33; tNewAttack.decayTime=-100; tNewAttack._direction=myAngle; tNewAttack.image_angle=myAngle
       moveTime=0
     }
   }

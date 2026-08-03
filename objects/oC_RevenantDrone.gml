@@ -67,7 +67,7 @@ if global.gamePaused=false
         var tNewAttack;
         tNewAttack=instance_create(x,y,oCW_ArcBullet)
         tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
-        tNewAttack.decayTime=-100; tNewAttack.direction=shotDir
+        tNewAttack.decayTime=-100; tNewAttack._direction=shotDir
         bulletCheck+=1
         if bulletCheck>=bulletMax
         {

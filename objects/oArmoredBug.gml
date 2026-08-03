@@ -54,18 +54,18 @@ if global.gamePaused=false
         else {image_xscale=-1}
         if point_distance(x,y,oPlayer1.x,oPlayer1.y-26)<96
         {
-          direction=player_sprite_center()-180
-          speed=runAcc/1.2
+          _direction=player_sprite_center()-180
+          _speed=runAcc/1.2
         }
         else
         {
-          direction=player_sprite_center()
-          speed=runAcc
+          _direction=player_sprite_center()
+          _speed=runAcc
         }
 
         if chargeTime>=chargeDelay
         {
-          speed=0
+          _speed=0
           image_speed=0.5
           chargeTime=0
           chargeProg+=1
@@ -83,9 +83,9 @@ if global.gamePaused=false
       {
         if chargeTime>=1 and chargeTime<=25 //Charge 1
         {
-          speed=runAcc*6
-          if chargeTime=1 {direction=player_sprite_center()}
-          else if chargeTime=25 {speed=0}
+          _speed=runAcc*6
+          if chargeTime=1 {_direction=player_sprite_center()}
+          else if chargeTime=25 {_speed=0}
         }
         else if chargeTime>=26 and chargeTime<=40 //Look toward player
         {
@@ -94,8 +94,8 @@ if global.gamePaused=false
         }
         else if chargeTime>=41 and chargeTime<=65 //Charge 1
         {
-          speed=runAcc*6
-          if chargeTime=41 {direction=player_sprite_center()}
+          _speed=runAcc*6
+          if chargeTime=41 {_direction=player_sprite_center()}
         }
         else if chargeTime>=66 //End
         {
@@ -105,11 +105,12 @@ if global.gamePaused=false
         }
       }
     }
-    else {speed=0}
+    else {_speed=0}
   }
   enemyStepEvent()
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)
 #define Other_25
 /*"/*'/**//* YYD ACTION
 lib_id=1

@@ -80,7 +80,7 @@ if global.gamePaused=false
       if currVspd<maxSpeed {currVspd+=0.4}
       else {currVspd-=0.4}
     }
-    hspeed=currHspd; vspeed=currVspd
+    _hspeed=currHspd; _vspeed=currVspd
 
     //Fire shots
     shotTime+=1
@@ -121,7 +121,8 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
-else {hspeed=0; vspeed=0}
+else {_hspeed=0; _vspeed=0}
+correctHSpeedVSpeed(self)
 #define Collision_oAttackBase
 /*"/*'/**//* YYD ACTION
 lib_id=1

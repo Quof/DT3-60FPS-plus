@@ -18,8 +18,8 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-hspeed=xSpd
-vspeed=ySpd
+_hspeed=xSpd
+_vspeed=ySpd
 ySpd+=grav*gDeltaTime
 image_angle+=rotation
 
@@ -36,10 +36,11 @@ else if type=2
     instance_destroy()
 }
 
-x -= hspeed
-y -= vspeed
-x += hspeed * gDeltaTime
-y += vspeed * gDeltaTime
+x -= _hspeed
+y -= _vspeed
+x += _hspeed * gDeltaTime
+y += _vspeed * gDeltaTime
+correctHSpeedVSpeed(self)
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

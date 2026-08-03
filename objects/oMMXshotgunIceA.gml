@@ -41,8 +41,8 @@ if global.gamePaused=false
     if place_meeting(x,y,oNightmareEffect) {bulletSpeed=5.5}
     else {bulletSpeed=11}
 
-    speed=bulletSpeed
-    if direction=0 {image_angle-=10}
+    _speed=bulletSpeed
+    if _direction=0 {image_angle-=10}
     else {image_angle+=10}
 
     if checkScreenArea(x,y,48)=0 {instance_destroy()}
@@ -67,7 +67,7 @@ if global.gamePaused=false
         for(i=0;i<3;i+=1)
         {
           playerAttack=instance_create(x+9+lengthdir_x(3,tIceDir),y+lengthdir_y(3,tIceDir),oMMXshotgunIceB)
-          playerAttack.direction=tIceDir
+          playerAttack._direction=tIceDir
           tIceDir-=45
         }
       }
@@ -78,12 +78,12 @@ if global.gamePaused=false
         for(i=0;i<5;i+=1)
         {
           playerAttack=instance_create(x+9+lengthdir_x(3,tIceDir),y+lengthdir_y(3,tIceDir),oMMXshotgunIceB)
-          playerAttack.direction=tIceDir
+          playerAttack._direction=tIceDir
           tIceDir-=22.5
         }
       }
       playSound(global.snd_IceGunSplit,0,0.95,1)
-      lingerFrame=1; speed=0; visible=0
+      lingerFrame=1; _speed=0; visible=0
     }
     if isCollisionRight(1)
     {
@@ -105,7 +105,7 @@ if global.gamePaused=false
         for(i=0;i<3;i+=1)
         {
           playerAttack=instance_create(x-9+lengthdir_x(3,tIceDir),y+lengthdir_y(3,tIceDir),oMMXshotgunIceB)
-          playerAttack.direction=tIceDir; playerAttack.image_xscale=-1
+          playerAttack._direction=tIceDir; playerAttack.image_xscale=-1
           tIceDir+=45
         }
       }
@@ -116,16 +116,17 @@ if global.gamePaused=false
         for(i=0;i<5;i+=1)
         {
           playerAttack=instance_create(x-9+lengthdir_x(3,tIceDir),y+lengthdir_y(3,tIceDir),oMMXshotgunIceB)
-          playerAttack.direction=tIceDir; playerAttack.image_xscale=-1
+          playerAttack._direction=tIceDir; playerAttack.image_xscale=-1
           tIceDir+=22.5
         }
       }
       playSound(global.snd_IceGunSplit,0,0.95,1)
-      lingerFrame=1; speed=0; visible=0
+      lingerFrame=1; _speed=0; visible=0
     }
     lifeTime-=1
     if lifeTime=0 {instance_destroy()}
   }
   else if lingerFrame=1 {instance_destroy()}
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)

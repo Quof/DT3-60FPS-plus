@@ -109,17 +109,17 @@ if global.gamePaused=false
         myDist=point_distance(x,y,oPlayer1.x,oPlayer1.y-26)
         if myDist<=108
         {
-          direction=myDir+180
-          speed=runAcc*0.75
+          _direction=myDir+180
+          _speed=runAcc*0.75
         }
         else if myDist>=136
         {
-          direction=myDir
-          speed=runAcc
+          _direction=myDir
+          _speed=runAcc
         }
-        else {speed=0}
+        else {_speed=0}
       }
-      else {speed=0}
+      else {_speed=0}
 
       //Effect
       if oGame.time mod 6=0
@@ -146,7 +146,7 @@ if global.gamePaused=false
           for(i=0;i<triAtk;i+=1)
           {
             tNewAttack=instance_create(x-(11*image_xscale),y-45,oIceSpiritAtk)
-            tNewAttack.atkPower=atkPower; tNewAttack.decayTime=-100; tNewAttack.direction=tDir
+            tNewAttack.atkPower=atkPower; tNewAttack.decayTime=-100; tNewAttack._direction=tDir
             if triAtk=1 {tNewAttack.bulletSpeed=16}
             else if triAtk=3 {tNewAttack.bulletSpeed=12}
             tDir+=20
@@ -164,12 +164,12 @@ if global.gamePaused=false
         }
       }
     }
-    else {speed=0}
+    else {_speed=0}
   }
   else if life<=0
   {
     deathAnim+=1
-    speed=0
+    _speed=0
     if deathAnim mod 4=0
     {
       if deathAnim mod 8=0 {playSound(global.snd_HardHit1,0,0.9,1)}
@@ -183,4 +183,5 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)

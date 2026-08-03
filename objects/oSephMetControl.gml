@@ -20,9 +20,9 @@ if global.gamePaused=false
   {
     var tNewAttack;
     tNewAttack=instance_create(XXA,-38,oSephMeteor)
-    tNewAttack.atkPower=oSephiroth.atkPower; tNewAttack.moveSpd=8; tNewAttack.direction=315
+    tNewAttack.atkPower=oSephiroth.atkPower; tNewAttack.moveSpd=8; tNewAttack._direction=315
     tNewAttack=instance_create(XXB,-38,oSephMeteor)
-    tNewAttack.atkPower=oSephiroth.atkPower; tNewAttack.moveSpd=8; tNewAttack.direction=225
+    tNewAttack.atkPower=oSephiroth.atkPower; tNewAttack.moveSpd=8; tNewAttack._direction=225
 
     XXA+=24
     XXB-=24

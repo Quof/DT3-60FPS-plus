@@ -184,18 +184,18 @@ if global.gamePaused=false
       {
         var tAtk;
         tAtk=instance_create(xCenter-roomSpan+32,112,oPassBullet)
-        tAtk.sprite_index=sDraculaMeteor; tAtk.direction=270; tAtk.image_xscale=2; tAtk.image_yscale=2
+        tAtk.sprite_index=sDraculaMeteor; tAtk._direction=270; tAtk.image_xscale=2; tAtk.image_yscale=2
         tAtk.atkPower=atkPower; tAtk.bulletSpeed=2; tAtk.decayTime=-100
         tAtk=instance_create(xCenter+roomSpan-32,112,oPassBullet)
-        tAtk.sprite_index=sDraculaMeteor; tAtk.direction=270; tAtk.image_xscale=2; tAtk.image_yscale=2
+        tAtk.sprite_index=sDraculaMeteor; tAtk._direction=270; tAtk.image_xscale=2; tAtk.image_yscale=2
         tAtk.atkPower=atkPower; tAtk.bulletSpeed=2; tAtk.decayTime=-100
         if bossProgress>=3
         {
           tAtk=instance_create(xCenter-roomSpan+32,48,oPassBullet)
-          tAtk.sprite_index=sDraculaMeteor; tAtk.direction=270; tAtk.image_xscale=2; tAtk.image_yscale=2
+          tAtk.sprite_index=sDraculaMeteor; tAtk._direction=270; tAtk.image_xscale=2; tAtk.image_yscale=2
           tAtk.atkPower=atkPower; tAtk.bulletSpeed=2; tAtk.decayTime=-100
           tAtk=instance_create(xCenter+roomSpan-32,48,oPassBullet)
-          tAtk.sprite_index=sDraculaMeteor; tAtk.direction=270; tAtk.image_xscale=2; tAtk.image_yscale=2
+          tAtk.sprite_index=sDraculaMeteor; tAtk._direction=270; tAtk.image_xscale=2; tAtk.image_yscale=2
           tAtk.atkPower=atkPower; tAtk.bulletSpeed=2; tAtk.decayTime=-100
         }
       }
@@ -269,7 +269,7 @@ if global.gamePaused=false
           tAtk=instance_create(x+(21*image_xscale),y-52,oPassBullet)
           tAtk.sprite_index=sDraculaLightning
           tAtk.atkPower=atkPower; tAtk.bulletSpeed=4.5; tAtk.decayTime=-100
-          tAtk.direction=tAtkDir
+          tAtk._direction=tAtkDir
           tAtkDir+=10
         }
       }
@@ -286,7 +286,7 @@ if global.gamePaused=false
         var tAtk,tAtkDir;
         if x<xCenter {tAtkDir=0} else {tAtkDir=180}
         tAtk=instance_create(x+(21*image_xscale),y-52,oPassBullet)
-        tAtk.sprite_index=sDraculaMeteor; tAtk.direction=tAtkDir; tAtk.image_xscale=0.5; tAtk.image_yscale=0.5
+        tAtk.sprite_index=sDraculaMeteor; tAtk._direction=tAtkDir; tAtk.image_xscale=0.5; tAtk.image_yscale=0.5
         tAtk.atkPower=atkPower; tAtk.bulletSpeed=4.5; tAtk.decayTime=-100
       }
     }

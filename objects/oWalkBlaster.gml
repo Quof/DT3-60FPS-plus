@@ -74,7 +74,7 @@ if global.gamePaused=false
       tNewAttack=instance_create(x+(20*image_xscale),y-28,oPassBullet)
       tNewAttack.sprite_index=sWalkBlasterLaser
       tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=7; tNewAttack.decayTime=-100
-      if image_xscale=-1 {tNewAttack.direction=180}
+      if image_xscale=-1 {tNewAttack._direction=180}
       shotTime=0
     }
 

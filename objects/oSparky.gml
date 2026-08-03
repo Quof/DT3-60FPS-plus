@@ -82,7 +82,7 @@ if global.gamePaused=false
           tNewAtk=instance_create(x,y-8,oPassBullet)
           tNewAtk.sprite_index=sSparkyLightning; tNewAtk.image_speed=0.5
           tNewAtk.atkPower=atkPower; tNewAtk.bulletSpeed=7; tNewAtk.decayTime=-100
-          tNewAtk.direction=altBullets+(i*90)
+          tNewAtk._direction=altBullets+(i*90)
         }
         if altBullets=0 {altBullets=45}
         else {altBullets=0}

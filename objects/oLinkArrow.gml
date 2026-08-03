@@ -56,23 +56,23 @@ if global.gamePaused=false
 {
   if lingerFrame=0
   {
-    speed=bulletSpeed
-    image_angle=direction
+    _speed=bulletSpeed
+    image_angle=_direction
     if bDir=0
     {
       if arrowProg=0
       {
-        direction-=2
-        if direction>180 {arrowProg=1}
+        _direction-=2
+        if _direction>180 {arrowProg=1}
       }
       else if arrowProg=1
       {
-        if direction>300 {direction-=2}
+        if _direction>300 {_direction-=2}
       }
     }
     else
     {
-      if direction<240 {direction+=2}
+      if _direction<240 {_direction+=2}
     }
 
     if checkScreenArea(x,y,48)=0 {instance_destroy()}
@@ -105,9 +105,10 @@ if global.gamePaused=false
         tEffect.speed=random(1)+0.5; tEffect.friction=random(0.03)+0.02; tEffect.fadeSpd=0.03; tEffect.image_blend=c_silver
         tEffect.AccelX=0; tEffect.AccelY=0; tEffect.followID=-1; tEffect.rotation=0
       }
-      lingerFrame=1; speed=0; visible=0
+      lingerFrame=1; _speed=0; visible=0
     }
   }
   else if lingerFrame=1 {instance_destroy()}
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)

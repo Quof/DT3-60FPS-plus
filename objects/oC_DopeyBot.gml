@@ -68,7 +68,7 @@ if global.gamePaused=false
             {
               tNewAttack=instance_create(x,y,oPassBullet)
               tNewAttack.sprite_index=sC_SparkNeedle; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=6
-              tNewAttack.decayTime=-100; tNewAttack.direction=tDir
+              tNewAttack.decayTime=-100; tNewAttack._direction=tDir
               tDir+=7
             }
           }
@@ -81,8 +81,8 @@ if global.gamePaused=false
         if moveTime>=50
         {
           image_xscale=1
-          direction=point_direction(x,y,oPlayer1.x,oPlayer1.y)
-          image_angle=direction-90
+          _direction=point_direction(x,y,oPlayer1.x,oPlayer1.y)
+          image_angle=_direction-90
           moveTime=0; moveProg+=1
         }
       }
@@ -93,14 +93,15 @@ if global.gamePaused=false
       }
       else if moveProg=3
       {
-        speed=8
+        _speed=8
       }
     }
-    else {speed=0}
+    else {_speed=0}
   }
   enemyStepEvent()
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)
 #define Other_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

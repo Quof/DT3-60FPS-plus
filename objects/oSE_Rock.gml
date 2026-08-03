@@ -190,7 +190,7 @@ if global.gamePaused=false
       for(i=0;i<oShadowEura.rockWaveNum;i+=1)
       {
         tAtk=instance_create(x,y,oPassBulletRed)
-        tAtk.sprite_index=sSE_ShotA; tAtk.bulletSpeed=5; tAtk.decayTime=-100; tAtk.direction=tDir; tAtk.atkPower=atkPower
+        tAtk.sprite_index=sSE_ShotA; tAtk.bulletSpeed=5; tAtk.decayTime=-100; tAtk._direction=tDir; tAtk.atkPower=atkPower
         tDir+=360/oShadowEura.rockWaveNum
       }
     }
@@ -200,7 +200,7 @@ if global.gamePaused=false
       for(i=0;i<5;i+=1)
       {
         tAtk=instance_create(x,y,oPassBulletRed)
-        tAtk.sprite_index=sSE_ShotA; tAtk.bulletSpeed=3+(i*1.5); tAtk.decayTime=-100; tAtk.direction=tDir; tAtk.atkPower=atkPower
+        tAtk.sprite_index=sSE_ShotA; tAtk.bulletSpeed=3+(i*1.5); tAtk.decayTime=-100; tAtk._direction=tDir; tAtk.atkPower=atkPower
       }
     }
     atkTime=0

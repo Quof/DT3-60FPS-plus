@@ -121,13 +121,13 @@ if global.gamePaused=false
         myDist=point_distance(x,y,oPlayer1.x,oPlayer1.y-26)
         if moveToward=1
         {
-          direction=myDir
-          speed=runAcc
+          _direction=myDir
+          _speed=runAcc
         }
         else
         {
-          direction=myDir+180
-          speed=runAcc
+          _direction=myDir+180
+          _speed=runAcc
         }
 
         if runAcc<2.5 {runAcc+=0.05}
@@ -172,7 +172,7 @@ if global.gamePaused=false
               tNewAttack=instance_create(x,y,oPassBullet)
               tNewAttack.sprite_index=sFireEyeFire; tNewAttack.atkPower=atkPower; tNewAttack.decayTime=-100
               tNewAttack.bCanBeBlocked=1; tNewAttack.blockCost=300; tNewAttack.bParryOpp=1; tNewAttack.damageType="ELEMENTAL"
-              tNewAttack.direction=tDir; tNewAttack.depth=9
+              tNewAttack._direction=tDir; tNewAttack.depth=9
               if octoAtk=4 {tDir+=90; tNewAttack.bulletSpeed=8}
               else {tDir+=45; tNewAttack.bulletSpeed=5}
             }
@@ -186,12 +186,12 @@ if global.gamePaused=false
         }
       }
     }
-    else {speed=0}
+    else {_speed=0}
   }
   else if life<=0
   {
     deathAnim+=1
-    speed=0
+    _speed=0
     if deathAnim mod 4=0
     {
       if deathAnim mod 8=0 {playSound(global.snd_HardHit1,0,0.9,1)}
@@ -205,4 +205,5 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)

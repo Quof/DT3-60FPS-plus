@@ -27,13 +27,14 @@ if global.gamePaused=false
     turn_toward_direction(point_direction(x,y,myTarget.x,myTarget.y),turnSpd)
   }
 
-  image_angle=direction
-  speed=bulletSpeed
+  image_angle=_direction
+  _speed=bulletSpeed
 
   lifeTime-=1
   if lifeTime<=0 {instance_destroy()}
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)
 #define Other_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

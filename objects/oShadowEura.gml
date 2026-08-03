@@ -141,7 +141,7 @@ if global.gamePaused=false
         for(i=0;i<rockWaveNum;i+=1)
         {
           tAtk=instance_create(x,y,oPassBulletRed)
-          tAtk.sprite_index=sSE_ShotA; tAtk.bulletSpeed=5; tAtk.decayTime=-100; tAtk.direction=tDir; tAtk.atkPower=atkPower
+          tAtk.sprite_index=sSE_ShotA; tAtk.bulletSpeed=5; tAtk.decayTime=-100; tAtk._direction=tDir; tAtk.atkPower=atkPower
           tDir+=360/rockWaveNum
         }
         for(i=0;i<6;i+=1)
@@ -248,8 +248,8 @@ if global.gamePaused=false
             myAtk=instance_create(x,y,oSE_DarkBall)
             myAtk.atkPower=atkPower
             myAtk.bulletSpeed=1.5+(i*1.5)
-            if x<xCenter {myAtk.direction=5-(i*5)}
-            else {myAtk.direction=185-(i*5)}
+            if x<xCenter {myAtk._direction=5-(i*5)}
+            else {myAtk._direction=185-(i*5)}
           }
           darkBallTime=0
         }
@@ -270,7 +270,7 @@ if global.gamePaused=false
           tNewAttack=instance_create(x+lengthdir_x(13,tDirOff+image_angle),y+lengthdir_y(13,tDirOff+image_angle),oPassBullet)
           tNewAttack.sprite_index=sSE_ShotB; tNewAttack.atkPower=atkPower
           tNewAttack.bulletSpeed=6+(mouthBallNum/2); tNewAttack.decayTime=-100; tNewAttack.depth=30
-          tNewAttack.direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
+          tNewAttack._direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
           mouthBallNum+=1
           if mouthBallNum>=4
           {
@@ -285,7 +285,7 @@ if global.gamePaused=false
           var tNewAttack;
           tNewAttack=instance_create(x,y,oPointExpBullet)
           tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=10; tNewAttack.sprite_index=sSE_DarkBall
-          tNewAttack.direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
+          tNewAttack._direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
         }
         else if mouthBallTime>=10101 and mouthBallTime<=10130 {jawAngle+=1}
         else if mouthBallTime>=10131 {mouthBallTime=0}
@@ -376,7 +376,7 @@ if global.gamePaused=false
           for(i=0;i<70;i+=1)
           {
             tAtk=instance_create(x,y,oPassBullet)
-            tAtk.sprite_index=sSE_ShotB; tAtk.bulletSpeed=4; tAtk.decayTime=-100; tAtk.direction=tDir; tAtk.atkPower=atkPower
+            tAtk.sprite_index=sSE_ShotB; tAtk.bulletSpeed=4; tAtk.decayTime=-100; tAtk._direction=tDir; tAtk.atkPower=atkPower
             tAtk.image_xscale=0.75; tAtk.image_yscale=0.75
             tDir+=360/70
           }
@@ -385,9 +385,9 @@ if global.gamePaused=false
           for(i=0;i<16;i+=1)
           {
             tAtk=instance_create(x,y,oPassBulletRed)
-            tAtk.sprite_index=sSE_ShotA; tAtk.bulletSpeed=4; tAtk.decayTime=-100; tAtk.direction=tDir; tAtk.atkPower=atkPower
+            tAtk.sprite_index=sSE_ShotA; tAtk.bulletSpeed=4; tAtk.decayTime=-100; tAtk._direction=tDir; tAtk.atkPower=atkPower
             tAtk=instance_create(x,y,oPassBulletRed)
-            tAtk.sprite_index=sSE_ShotA; tAtk.bulletSpeed=4; tAtk.decayTime=-100; tAtk.direction=tDir+3; tAtk.atkPower=atkPower
+            tAtk.sprite_index=sSE_ShotA; tAtk.bulletSpeed=4; tAtk.decayTime=-100; tAtk._direction=tDir+3; tAtk.atkPower=atkPower
             tDir+=360/16
           }
         }
@@ -638,7 +638,7 @@ if deflectorTime>=deflectorDelay
     tNewAttack=instance_create(x,y,oPassBullet)
     tNewAttack.sprite_index=other.sprite_index; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=7
     tNewAttack.decayTime=-100
-    tNewAttack.direction=point_direction(x+(16*image_xscale),y+16,oPlayer1.x,returnPlayerYCenter())
+    tNewAttack._direction=point_direction(x+(16*image_xscale),y+16,oPlayer1.x,returnPlayerYCenter())
     correctResType=1
   }
 }

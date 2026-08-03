@@ -25,11 +25,11 @@ if global.gamePaused=false
 {
   if type=0 //Arc shot
   {
-    speed=bulletSpeed
+    _speed=bulletSpeed
   }
   else if type=1 //Fast shot
   {
-    speed=bulletSpeed
+    _speed=bulletSpeed
     image_xscale+=0.05; image_yscale+=0.05
 
     explodeTime-=1
@@ -45,4 +45,5 @@ if global.gamePaused=false
     }
   }
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)

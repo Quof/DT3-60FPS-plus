@@ -99,7 +99,7 @@ if global.gamePaused=false
       {
         tNewAtk=instance_create(x,y,oPassBullet)
         tNewAtk.sprite_index=sLB_Laser; tNewAtk.atkPower=atkPower; tNewAtk.bulletSpeed=6; tNewAtk.image_yscale=2
-        tNewAtk.decayTime=-100; tNewAtk.direction=tDir; tNewAtk.image_angle=tDir
+        tNewAtk.decayTime=-100; tNewAtk._direction=tDir; tNewAtk.image_angle=tDir
         tDir+=10
       }
     }

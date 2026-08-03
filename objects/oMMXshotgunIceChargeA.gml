@@ -17,7 +17,7 @@ global.stMega_ShotIce[2]+=1
 stunTime=3
 bCanPierce=1
 
-direction=90
+_direction=90
 bulletSpeed=3
 lifeTime=40
 bShatter=0
@@ -43,7 +43,7 @@ if global.gamePaused=false
     if place_meeting(x,y,oNightmareEffect) {bulletSpeed=1.5}
     else {bulletSpeed=3}
 
-    speed=bulletSpeed
+    _speed=bulletSpeed
 
     if isCollisionLeft(1) {bShatter=1}
     if isCollisionRight(1) {bShatter=1}
@@ -69,12 +69,13 @@ if global.gamePaused=false
       for(i=0;i<tFreezerCore;i+=1)
       {
         playerAttack=instance_create(x+lengthdir_x(6,tIceDir),y+lengthdir_y(6,tIceDir),oMMXshotgunIceChargeB)
-        playerAttack.direction=tIceDir; playerAttack.image_angle=tIceDir
+        playerAttack._direction=tIceDir; playerAttack.image_angle=tIceDir
         tIceDir+=360/tFreezerCore
       }
-      lingerFrame=1; speed=0; visible=0
+      lingerFrame=1; _speed=0; visible=0
     }
   }
   else if lingerFrame=1 {instance_destroy()}
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)

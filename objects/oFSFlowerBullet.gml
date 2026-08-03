@@ -24,15 +24,15 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  direction+=4
-  speed=bulletSpeed
+  _direction+=4
+  _speed=bulletSpeed
 
   bulletCreate+=1
   if bulletCreate mod bulletCMod=0
   {
     myBullet[bulletNum]=instance_create(x,y,oCW_MarkShot)
     myBullet[bulletNum].sprite_index=sFSSmallBullet; myBullet[bulletNum].image_speed=0.2; myBullet[bulletNum].atkPower=atkPower
-    myBullet[bulletNum].bulletSpeed=4; myBullet[bulletNum].direction=direction; myBullet[bulletNum].image_blend=bulletBlend
+    myBullet[bulletNum].bulletSpeed=4; myBullet[bulletNum]._direction=_direction; myBullet[bulletNum].image_blend=bulletBlend
     bulletNum+=1
   }
 
@@ -46,4 +46,5 @@ if global.gamePaused=false
     instance_destroy()
   }
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)

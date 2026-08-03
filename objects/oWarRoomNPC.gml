@@ -132,7 +132,7 @@ if global.gamePaused=false
         if x<enemyCheck.x {image_xscale=1; dirCheck=0}
         else {image_xscale=-1; dirCheck=180}
         tNewAtk=instance_create(x+(11*image_xscale),y-27,oFirebrandDemonFire)
-        tNewAtk.moveSpd=7; tNewAtk.direction=dirCheck; tNewAtk.image_xscale=image_xscale
+        tNewAtk.moveSpd=7; tNewAtk._direction=dirCheck; tNewAtk.image_xscale=image_xscale
       }
     }
     else if npcTime=50
@@ -182,7 +182,7 @@ if global.gamePaused=false
           else {dirCheck=180}
         }
         tNewAtk=instance_create(x+(10*image_xscale),y-16,oGoemonCoin)
-        tNewAtk.moveSpd=9; tNewAtk.direction=dirCheck
+        tNewAtk.moveSpd=9; tNewAtk._direction=dirCheck
       }
     }
     else if npcTime=92 {sprite_index=sNPC_Goemon_Idle}
@@ -295,7 +295,7 @@ if global.gamePaused=false
         else {dirCheck=180}
       }
       tNewAtk=instance_create(x+(33*image_xscale),y-65,oTheMasterLightning)
-      tNewAtk.moveSpd=3; tNewAtk.direction=dirCheck
+      tNewAtk.moveSpd=3; tNewAtk._direction=dirCheck
     }
     else if npcTime>=136 and npcTime<=145 {image_alpha-=0.1}
     else if npcTime>=146 {instance_destroy()}

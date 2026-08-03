@@ -27,18 +27,18 @@ applies_to=self
 if global.gamePaused=false
 {
   atkTime+=1*gDeltaTime
-  speed=mySpd
-  image_angle=direction
+  _speed=mySpd
+  image_angle=_direction
   if atkType=0
   {
     if isCollisionSolid()
     {
       myAtk=instance_create(x,y,oTOTO_FireA)
       myAtk.atkType=1; myAtk.mySpd=10; myAtk.atkPower=atkPower-1
-      myAtk.direction=random_range(0,10); myAtk.image_xscale=2; myAtk.image_yscale=2
+      myAtk._direction=random_range(0,10); myAtk.image_xscale=2; myAtk.image_yscale=2
       myAtk=instance_create(x,y,oTOTO_FireA)
       myAtk.atkType=1; myAtk.mySpd=10; myAtk.atkPower=atkPower-1
-      myAtk.direction=random_range(170,180); myAtk.image_xscale=2; myAtk.image_yscale=2
+      myAtk._direction=random_range(170,180); myAtk.image_xscale=2; myAtk.image_yscale=2
       instance_destroy()
     }
   }
@@ -49,7 +49,8 @@ if global.gamePaused=false
     if image_alpha<=0 {instance_destroy()}
   }
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)
 #define Other_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

@@ -101,7 +101,7 @@ if global.gamePaused=false
       var tNewAttack;
       tNewAtk=instance_create(oPlayer1.x,room_height+16,oPassBullet)
       tNewAtk.sprite_index=sAbomProjectileA; tNewAtk.atkPower=9; tNewAtk.bulletSpeed=2.75
-      tNewAtk.decayTime=-100; tNewAtk.image_xscale=2; tNewAtk.image_yscale=2; tNewAtk.direction=90
+      tNewAtk.decayTime=-100; tNewAtk.image_xscale=2; tNewAtk.image_yscale=2; tNewAtk._direction=90
       shotTime=0
     }
 

@@ -180,7 +180,7 @@ if global.gamePaused=false
           var tNewAttack;
           tNewAttack=instance_create(x+(14*image_xscale),y-38,oPassBullet)
           tNewAttack.sprite_index=sMOFire; tNewAttack.atkPower=atkPower; tNewAttack.image_speed=0.25
-          tNewAttack.bulletSpeed=7; tNewAttack.decayTime=-100; tNewAttack.direction=mDir
+          tNewAttack.bulletSpeed=7; tNewAttack.decayTime=-100; tNewAttack._direction=mDir
         }
       }
       else if scream>=31

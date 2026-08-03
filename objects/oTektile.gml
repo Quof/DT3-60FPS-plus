@@ -101,7 +101,7 @@ if global.gamePaused=false
     {
       var tFire;
       tFire=instance_create(x+(6*image_xscale),y-7,oPassBullet)
-      if image_xscale=1 {tFire.direction=0}
+      if image_xscale=1 {tFire._direction=0}
       else {tFire._direction=180}
       tFire.sprite_index=sWolfHeadShot; tFire.atkPower=atkPower
       tFire.bulletSpeed=6.5; tFire.decayTime=-100

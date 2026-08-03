@@ -209,10 +209,10 @@ else if global.gameProgress=5520 //Falling minigame
       sceneDelay+=1*gDeltaTime
       if sceneDelay=30
       {
-        newMet=instance_create(16,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=3; newMet.direction=90
-        newMet=instance_create(208,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=3; newMet.direction=90
-        newMet=instance_create(272,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=3; newMet.direction=90
-        newMet=instance_create(464,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=3; newMet.direction=90
+        newMet=instance_create(16,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=3; newMet._direction=90
+        newMet=instance_create(208,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=3; newMet._direction=90
+        newMet=instance_create(272,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=3; newMet._direction=90
+        newMet=instance_create(464,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=3; newMet._direction=90
       }
       else if sceneDelay=110 {setLocation=2; event_user(0)}
       else if sceneDelay=190 {setLocation=3; event_user(0)}
@@ -228,7 +228,7 @@ else if global.gameProgress=5520 //Falling minigame
         setLocation=3; metSpd=3; event_user(0)
       }
       else if sceneDelay=750 {setLocation=4; event_user(0)}
-      else if sceneDelay=790 {newMet=instance_create(16,metSpawnY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=3; newMet.direction=point_direction(16,metSpawnY,oPlayer1.x,oPlayer1.y-26)}
+      else if sceneDelay=790 {newMet=instance_create(16,metSpawnY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=3; newMet._direction=point_direction(16,metSpawnY,oPlayer1.x,oPlayer1.y-26)}
       else if sceneDelay>=850 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=1 //17 seconds
@@ -266,14 +266,14 @@ else if global.gameProgress=5520 //Falling minigame
       else if sceneDelay=530 {setLocation=4; event_user(0)}
       else if sceneDelay>=670 {sceneDelay=0; sceneProgress+=1}
 
-      if sceneDelay=220 {newMet=instance_create(16,metSpawnY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=3; newMet.direction=90}
-      else if sceneDelay=320 {newMet=instance_create(464,metSpawnY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=3; newMet.direction=90}
-      else if sceneDelay=420 {newMet=instance_create(16,metSpawnY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=3; newMet.direction=90}
-      else if sceneDelay=520 {newMet=instance_create(464,metSpawnY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=3; newMet.direction=90}
+      if sceneDelay=220 {newMet=instance_create(16,metSpawnY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=3; newMet._direction=90}
+      else if sceneDelay=320 {newMet=instance_create(464,metSpawnY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=3; newMet._direction=90}
+      else if sceneDelay=420 {newMet=instance_create(16,metSpawnY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=3; newMet._direction=90}
+      else if sceneDelay=520 {newMet=instance_create(464,metSpawnY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=3; newMet._direction=90}
 
-      if sceneDelay>=190 and sceneDelay<=620 and sceneDelay mod 23=0 {newMet=instance_create(240,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=3; newMet.direction=90}
+      if sceneDelay>=190 and sceneDelay<=620 and sceneDelay mod 23=0 {newMet=instance_create(240,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=3; newMet._direction=90}
 
-      if sceneDelay>=190 and sceneDelay<=620 and sceneDelay mod 50=0 {newMet=instance_create(240,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=6; newMet.direction=point_direction(240,metSpawnY,oPlayer1.x,oPlayer1.y-26)}
+      if sceneDelay>=190 and sceneDelay<=620 and sceneDelay mod 50=0 {newMet=instance_create(240,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=6; newMet._direction=point_direction(240,metSpawnY,oPlayer1.x,oPlayer1.y-26)}
     }
     else if sceneProgress=3 //16 seconds
     {
@@ -296,23 +296,23 @@ else if global.gameProgress=5520 //Falling minigame
       {
         if metAlternateA=0
         {
-          newMet=instance_create(16,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=6; newMet.direction=point_direction(16,metSpawnY,oPlayer1.x,oPlayer1.y-26)
+          newMet=instance_create(16,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=6; newMet._direction=point_direction(16,metSpawnY,oPlayer1.x,oPlayer1.y-26)
           metAlternateA=1
         }
         else if metAlternateA=1
         {
-          newMet=instance_create(240,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=6; newMet.direction=point_direction(240,metSpawnY,oPlayer1.x,oPlayer1.y-26)
+          newMet=instance_create(240,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=6; newMet._direction=point_direction(240,metSpawnY,oPlayer1.x,oPlayer1.y-26)
           metAlternateA=2
         }
         else if metAlternateA=2
         {
-          newMet=instance_create(464,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=6; newMet.direction=point_direction(464,metSpawnY,oPlayer1.x,oPlayer1.y-26)
+          newMet=instance_create(464,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=6; newMet._direction=point_direction(464,metSpawnY,oPlayer1.x,oPlayer1.y-26)
           metAlternateA=3
         }
         else if metAlternateA=3
         {
-          newMet=instance_create(100,metSpawnY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=7; newMet.direction=90
-          newMet=instance_create(380,metSpawnY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=7; newMet.direction=90
+          newMet=instance_create(100,metSpawnY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=7; newMet._direction=90
+          newMet=instance_create(380,metSpawnY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=7; newMet._direction=90
           metAlternateA=0
         }
       }
@@ -323,54 +323,54 @@ else if global.gameProgress=5520 //Falling minigame
       if sceneDelay=30 {metSpd=3; setLocation=13; event_user(0)}
       else if sceneDelay=120
       {
-        newMet=instance_create(208,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=3; newMet.direction=90
-        newMet=instance_create(272,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=3; newMet.direction=90
+        newMet=instance_create(208,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=3; newMet._direction=90
+        newMet=instance_create(272,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=3; newMet._direction=90
       }
       else if sceneDelay=150
       {
-        newMet=instance_create(144,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=6; newMet.direction=90
-        newMet=instance_create(336,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=6; newMet.direction=90
+        newMet=instance_create(144,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=6; newMet._direction=90
+        newMet=instance_create(336,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=6; newMet._direction=90
       }
       else if sceneDelay=220 {metSpd=4; setLocation=14; event_user(0)}
-      else if sceneDelay=300 {newMet=instance_create(272,metSpawnY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=4; newMet.direction=90}
+      else if sceneDelay=300 {newMet=instance_create(272,metSpawnY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=4; newMet._direction=90}
       else if sceneDelay=316 {metSpd=4; setLocation=15; event_user(0)}
       //Start narrower path
-      if sceneDelay=410 {newMet=instance_create(208,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=4; newMet.direction=90}
-      else if sceneDelay=445 {newMet=instance_create(272,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=4; newMet.direction=90}
-      else if sceneDelay=480 {newMet=instance_create(208,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=4; newMet.direction=90}
-      else if sceneDelay=515 {newMet=instance_create(272,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=4; newMet.direction=90}
-      else if sceneDelay=560 {newMet=instance_create(208,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=5; newMet.direction=90}
-      else if sceneDelay=580 {newMet=instance_create(272,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=5; newMet.direction=90}
-      else if sceneDelay=600 {newMet=instance_create(208,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=5; newMet.direction=90}
-      else if sceneDelay=620 {newMet=instance_create(272,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=5; newMet.direction=90}
-      else if sceneDelay=650 {newMet=instance_create(208,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=6; newMet.direction=90}
-      else if sceneDelay=665 {newMet=instance_create(272,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=6; newMet.direction=90}
-      else if sceneDelay=680 {newMet=instance_create(208,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=6; newMet.direction=90}
-      else if sceneDelay=695 {newMet=instance_create(272,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=6; newMet.direction=90}
+      if sceneDelay=410 {newMet=instance_create(208,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=4; newMet._direction=90}
+      else if sceneDelay=445 {newMet=instance_create(272,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=4; newMet._direction=90}
+      else if sceneDelay=480 {newMet=instance_create(208,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=4; newMet._direction=90}
+      else if sceneDelay=515 {newMet=instance_create(272,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=4; newMet._direction=90}
+      else if sceneDelay=560 {newMet=instance_create(208,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=5; newMet._direction=90}
+      else if sceneDelay=580 {newMet=instance_create(272,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=5; newMet._direction=90}
+      else if sceneDelay=600 {newMet=instance_create(208,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=5; newMet._direction=90}
+      else if sceneDelay=620 {newMet=instance_create(272,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=5; newMet._direction=90}
+      else if sceneDelay=650 {newMet=instance_create(208,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=6; newMet._direction=90}
+      else if sceneDelay=665 {newMet=instance_create(272,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=6; newMet._direction=90}
+      else if sceneDelay=680 {newMet=instance_create(208,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=6; newMet._direction=90}
+      else if sceneDelay=695 {newMet=instance_create(272,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=6; newMet._direction=90}
 
-      if sceneDelay=720 {newMet=instance_create(208,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=4; newMet.direction=90}
-      else if sceneDelay=735 {newMet=instance_create(272,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=4; newMet.direction=90}
-      else if sceneDelay=750 {newMet=instance_create(208,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=4; newMet.direction=90}
-      else if sceneDelay=765 {newMet=instance_create(272,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=4; newMet.direction=90}
-      else if sceneDelay=780 {newMet=instance_create(208,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=4; newMet.direction=90}
-      else if sceneDelay=795 {newMet=instance_create(272,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=4; newMet.direction=90}
+      if sceneDelay=720 {newMet=instance_create(208,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=4; newMet._direction=90}
+      else if sceneDelay=735 {newMet=instance_create(272,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=4; newMet._direction=90}
+      else if sceneDelay=750 {newMet=instance_create(208,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=4; newMet._direction=90}
+      else if sceneDelay=765 {newMet=instance_create(272,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=4; newMet._direction=90}
+      else if sceneDelay=780 {newMet=instance_create(208,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=4; newMet._direction=90}
+      else if sceneDelay=795 {newMet=instance_create(272,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=4; newMet._direction=90}
       else if sceneDelay>=870 {sceneDelay=0; sceneProgress+=1}
 
       if sceneDelay>=50 and sceneDelay<=400 and sceneDelay mod 10=0
       {
-        newMet=instance_create(16,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=6; newMet.direction=90
-        newMet=instance_create(80,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=6; newMet.direction=90
-        newMet=instance_create(400,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=6; newMet.direction=90
-        newMet=instance_create(464,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=6; newMet.direction=90
+        newMet=instance_create(16,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=6; newMet._direction=90
+        newMet=instance_create(80,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=6; newMet._direction=90
+        newMet=instance_create(400,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=6; newMet._direction=90
+        newMet=instance_create(464,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=6; newMet._direction=90
       }
       else if sceneDelay>=410 and sceneDelay<=840 and sceneDelay mod 10=0
       {
-        newMet=instance_create(16,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=6; newMet.direction=90
-        newMet=instance_create(80,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=6; newMet.direction=90
-        newMet=instance_create(144,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=6; newMet.direction=90
-        newMet=instance_create(336,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=6; newMet.direction=90
-        newMet=instance_create(400,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=6; newMet.direction=90
-        newMet=instance_create(464,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=6; newMet.direction=90
+        newMet=instance_create(16,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=6; newMet._direction=90
+        newMet=instance_create(80,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=6; newMet._direction=90
+        newMet=instance_create(144,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=6; newMet._direction=90
+        newMet=instance_create(336,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=6; newMet._direction=90
+        newMet=instance_create(400,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=6; newMet._direction=90
+        newMet=instance_create(464,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=6; newMet._direction=90
       }
     }
     else if sceneProgress=5 //Checkpoint 1
@@ -421,30 +421,30 @@ else if global.gameProgress=5520 //Falling minigame
       }
       if sceneDelay>=50 and sceneDelay<=1000 and sceneDelay mod 180=0 //Blue line
       {
-        newMet=instance_create(16,metSpawnY+160,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=metSpd; newMet.direction=metDir
-        newMet=instance_create(80,metSpawnY+160,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=metSpd; newMet.direction=metDir
-        newMet=instance_create(144,metSpawnY+160,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=metSpd; newMet.direction=metDir
-        newMet=instance_create(208,metSpawnY+160,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=metSpd; newMet.direction=metDir
-        newMet=instance_create(272,metSpawnY+160,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=metSpd; newMet.direction=metDir
-        newMet=instance_create(336,metSpawnY+160,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=metSpd; newMet.direction=metDir
-        newMet=instance_create(400,metSpawnY+160,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=metSpd; newMet.direction=metDir
-        newMet=instance_create(464,metSpawnY+160,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=metSpd; newMet.direction=metDir
+        newMet=instance_create(16,metSpawnY+160,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=metSpd; newMet._direction=metDir
+        newMet=instance_create(80,metSpawnY+160,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=metSpd; newMet._direction=metDir
+        newMet=instance_create(144,metSpawnY+160,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=metSpd; newMet._direction=metDir
+        newMet=instance_create(208,metSpawnY+160,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=metSpd; newMet._direction=metDir
+        newMet=instance_create(272,metSpawnY+160,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=metSpd; newMet._direction=metDir
+        newMet=instance_create(336,metSpawnY+160,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=metSpd; newMet._direction=metDir
+        newMet=instance_create(400,metSpawnY+160,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=metSpd; newMet._direction=metDir
+        newMet=instance_create(464,metSpawnY+160,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=metSpd; newMet._direction=metDir
       }
       if sceneDelay>=50 and sceneDelay<=1000 and sceneDelay mod metAlternateC=0 //Alternating red
       {
         if metAlternateB=0
         {
-          newMet=instance_create(16,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=8; newMet.direction=point_direction(16,metSpawnY,oPlayer1.x,oPlayer1.y-26)
+          newMet=instance_create(16,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=8; newMet._direction=point_direction(16,metSpawnY,oPlayer1.x,oPlayer1.y-26)
           metAlternateB=1
         }
         else if metAlternateB=1
         {
-          newMet=instance_create(240,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=8; newMet.direction=point_direction(240,metSpawnY,oPlayer1.x,oPlayer1.y-26)
+          newMet=instance_create(240,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=8; newMet._direction=point_direction(240,metSpawnY,oPlayer1.x,oPlayer1.y-26)
           metAlternateB=2
         }
         else if metAlternateB=2
         {
-          newMet=instance_create(464,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=8; newMet.direction=point_direction(464,metSpawnY,oPlayer1.x,oPlayer1.y-26)
+          newMet=instance_create(464,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=8; newMet._direction=point_direction(464,metSpawnY,oPlayer1.x,oPlayer1.y-26)
           metAlternateB=0
         }
       }
@@ -454,62 +454,62 @@ else if global.gameProgress=5520 //Falling minigame
       sceneDelay+=1*gDeltaTime
       if sceneDelay=30
       {
-        newMet=instance_create(208,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=2; newMet.direction=90
-        newMet=instance_create(336,metSpawnY+128,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=2; newMet.direction=90
+        newMet=instance_create(208,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=2; newMet._direction=90
+        newMet=instance_create(336,metSpawnY+128,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=2; newMet._direction=90
         for(i=0;i<3;i+=1)
         {
-          newMet=instance_create(16,metSpawnY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=3.5+(i*0.5); newMet.direction=32+(i*12)
+          newMet=instance_create(16,metSpawnY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=3.5+(i*0.5); newMet._direction=32+(i*12)
         }
       }
       else if sceneDelay=190
       {
-        newMet=instance_create(144,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=2; newMet.direction=90
-        newMet=instance_create(272,metSpawnY+128,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=2; newMet.direction=90
+        newMet=instance_create(144,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=2; newMet._direction=90
+        newMet=instance_create(272,metSpawnY+128,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=2; newMet._direction=90
         for(i=0;i<3;i+=1)
         {
-          newMet=instance_create(464,metSpawnY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=3.5+(i*0.5); newMet.direction=158-(i*12)
+          newMet=instance_create(464,metSpawnY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=3.5+(i*0.5); newMet._direction=158-(i*12)
         }
       }
       else if sceneDelay=350
       {
-        newMet=instance_create(208,metSpawnY+128,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=2; newMet.direction=90
-        newMet=instance_create(336,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=2; newMet.direction=90
+        newMet=instance_create(208,metSpawnY+128,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=2; newMet._direction=90
+        newMet=instance_create(336,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=2; newMet._direction=90
         for(i=0;i<3;i+=1)
         {
-          newMet=instance_create(16,metSpawnY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=3.5+(i*0.5); newMet.direction=32+(i*12)
+          newMet=instance_create(16,metSpawnY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=3.5+(i*0.5); newMet._direction=32+(i*12)
         }
       }
       else if sceneDelay=510
       {
-        newMet=instance_create(144,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=2; newMet.direction=90
-        newMet=instance_create(272,metSpawnY+128,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=2; newMet.direction=90
+        newMet=instance_create(144,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=2; newMet._direction=90
+        newMet=instance_create(272,metSpawnY+128,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=2; newMet._direction=90
       }
       else if sceneDelay=530
       {
         for(i=0;i<3;i+=1)
         {
-          newMet=instance_create(464,metSpawnY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=1.5+(i*0.5); newMet.direction=158-(i*12)
+          newMet=instance_create(464,metSpawnY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=1.5+(i*0.5); newMet._direction=158-(i*12)
         }
       }
       else if sceneDelay=670
       {
-        newMet=instance_create(208,metSpawnY+128,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=2; newMet.direction=90
-        newMet=instance_create(336,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=2; newMet.direction=90
+        newMet=instance_create(208,metSpawnY+128,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=2; newMet._direction=90
+        newMet=instance_create(336,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=2; newMet._direction=90
         for(i=0;i<3;i+=1)
         {
-          //newMet=instance_create(16,metSpawnY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=3.5+(i*0.5); newMet.direction=32+(i*12)
+          //newMet=instance_create(16,metSpawnY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=3.5+(i*0.5); newMet._direction=32+(i*12)
         }
       }
       else if sceneDelay=830
       {
-        newMet=instance_create(144,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=2; newMet.direction=90
-        newMet=instance_create(272,metSpawnY+128,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=2; newMet.direction=90
+        newMet=instance_create(144,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=2; newMet._direction=90
+        newMet=instance_create(272,metSpawnY+128,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=2; newMet._direction=90
       }
       else if sceneDelay=850
       {
         for(i=0;i<3;i+=1)
         {
-          newMet=instance_create(464,metSpawnY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=3.5+(i*0.5); newMet.direction=158-(i*12)
+          newMet=instance_create(464,metSpawnY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=3.5+(i*0.5); newMet._direction=158-(i*12)
         }
       }
       else if sceneDelay=1170 {sceneDelay=0; sceneProgress+=1}
@@ -517,10 +517,10 @@ else if global.gameProgress=5520 //Falling minigame
       if (sceneDelay=1) or (sceneDelay>=30 and sceneDelay<=1000 and sceneDelay mod 30=0) //Sides
       {
         metSpd=2
-        newMet=instance_create(16,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=2; newMet.direction=90
-        newMet=instance_create(80,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=2; newMet.direction=90
-        newMet=instance_create(400,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=2; newMet.direction=90
-        newMet=instance_create(464,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=2; newMet.direction=90
+        newMet=instance_create(16,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=2; newMet._direction=90
+        newMet=instance_create(80,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=2; newMet._direction=90
+        newMet=instance_create(400,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=2; newMet._direction=90
+        newMet=instance_create(464,metSpawnY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=2; newMet._direction=90
       }
 
       if (sceneDelay=1) or (sceneDelay>=20 and sceneDelay<=1000 and sceneDelay mod 160=0) //Mid lines
@@ -529,8 +529,8 @@ else if global.gameProgress=5520 //Falling minigame
         {
           for(i=0;i<5;i+=1)
           {
-            newMet=instance_create(144,metSpawnY+(i*64),oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=2; newMet.direction=90
-            newMet=instance_create(272,metSpawnY+(i*64),oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=2; newMet.direction=90
+            newMet=instance_create(144,metSpawnY+(i*64),oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=2; newMet._direction=90
+            newMet=instance_create(272,metSpawnY+(i*64),oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=2; newMet._direction=90
           }
           metAlternateA=1
         }
@@ -538,8 +538,8 @@ else if global.gameProgress=5520 //Falling minigame
         {
           for(i=0;i<5;i+=1)
           {
-            newMet=instance_create(208,metSpawnY+(i*64),oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=2; newMet.direction=90
-            newMet=instance_create(336,metSpawnY+(i*64),oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=2; newMet.direction=90
+            newMet=instance_create(208,metSpawnY+(i*64),oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=2; newMet._direction=90
+            newMet=instance_create(336,metSpawnY+(i*64),oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=2; newMet._direction=90
           }
           metAlternateA=0
         }
@@ -727,151 +727,151 @@ applies_to=self
 //Predefined spawn locations
 if setLocation=0 //BBBBBBBB
 {
-  newMet=instance_create(16,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(80,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(144,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(208,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(272,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(336,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(400,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(464,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=metSpd; newMet.direction=metDir
+  newMet=instance_create(16,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(80,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(144,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(208,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(272,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(336,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(400,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(464,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=metSpd; newMet._direction=metDir
 }
 else if setLocation=1 //RBRRRRBR
 {
-  newMet=instance_create(16,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(80,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(144,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(208,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(272,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(336,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(400,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(464,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet.direction=metDir
+  newMet=instance_create(16,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(80,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(144,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(208,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(272,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(336,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(400,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(464,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet._direction=metDir
 }
 else if setLocation=2 //RRRRRXXX
 {
-  newMet=instance_create(16,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(80,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(144,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(208,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(272,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet.direction=metDir
+  newMet=instance_create(16,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(80,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(144,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(208,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(272,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet._direction=metDir
 }
 else if setLocation=3 //XXXRRRRR
 {
-  newMet=instance_create(208,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(272,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(336,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(400,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(464,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet.direction=metDir
+  newMet=instance_create(208,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(272,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(336,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(400,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(464,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet._direction=metDir
 }
 else if setLocation=4 //RRRRRRXX - XXRRRRRR (Offset step /)
 {
-  newMet=instance_create(16,metSpawnY+metOffsetY+100,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(80,metSpawnY+metOffsetY+80,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(144,metSpawnY+metOffsetY+60,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(208,metSpawnY+metOffsetY+40,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(272,metSpawnY+metOffsetY+20,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(336,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet.direction=metDir
+  newMet=instance_create(16,metSpawnY+metOffsetY+100,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(80,metSpawnY+metOffsetY+80,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(144,metSpawnY+metOffsetY+60,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(208,metSpawnY+metOffsetY+40,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(272,metSpawnY+metOffsetY+20,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(336,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet._direction=metDir
 
-  newMet=instance_create(144,metSpawnY+metOffsetY+240,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(208,metSpawnY+metOffsetY+220,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(272,metSpawnY+metOffsetY+200,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(336,metSpawnY+metOffsetY+180,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(400,metSpawnY+metOffsetY+160,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(464,metSpawnY+metOffsetY+140,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet.direction=metDir
+  newMet=instance_create(144,metSpawnY+metOffsetY+240,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(208,metSpawnY+metOffsetY+220,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(272,metSpawnY+metOffsetY+200,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(336,metSpawnY+metOffsetY+180,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(400,metSpawnY+metOffsetY+160,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(464,metSpawnY+metOffsetY+140,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet._direction=metDir
 }
 else if setLocation=5 //XXRRRRRR - RRRRRRXX (Offset step \)
 {
-  newMet=instance_create(16,metSpawnY+metOffsetY+140,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(80,metSpawnY+metOffsetY+160,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(144,metSpawnY+metOffsetY+180,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(208,metSpawnY+metOffsetY+200,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(272,metSpawnY+metOffsetY+220,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(336,metSpawnY+metOffsetY+240,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet.direction=metDir
+  newMet=instance_create(16,metSpawnY+metOffsetY+140,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(80,metSpawnY+metOffsetY+160,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(144,metSpawnY+metOffsetY+180,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(208,metSpawnY+metOffsetY+200,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(272,metSpawnY+metOffsetY+220,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(336,metSpawnY+metOffsetY+240,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet._direction=metDir
 
-  newMet=instance_create(144,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(208,metSpawnY+metOffsetY+20,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(272,metSpawnY+metOffsetY+40,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(336,metSpawnY+metOffsetY+60,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(400,metSpawnY+metOffsetY+80,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(464,metSpawnY+metOffsetY+100,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet.direction=metDir
+  newMet=instance_create(144,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(208,metSpawnY+metOffsetY+20,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(272,metSpawnY+metOffsetY+40,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(336,metSpawnY+metOffsetY+60,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(400,metSpawnY+metOffsetY+80,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(464,metSpawnY+metOffsetY+100,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet._direction=metDir
 }
 else if setLocation=6 //RXRXRXRX
 {
-  newMet=instance_create(16,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(144,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(272,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(400,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet.direction=metDir
+  newMet=instance_create(16,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(144,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(272,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(400,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet._direction=metDir
 }
 else if setLocation=7 //XRXRXRXR
 {
-  newMet=instance_create(80,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(208,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(336,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(464,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet.direction=metDir
+  newMet=instance_create(80,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(208,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(336,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(464,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet._direction=metDir
 }
 else if setLocation=8 //BXBXBXBX
 {
-  newMet=instance_create(16,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(144,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(272,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(400,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=metSpd; newMet.direction=metDir
+  newMet=instance_create(16,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(144,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(272,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(400,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=metSpd; newMet._direction=metDir
 }
 else if setLocation=9 //XBXBXBXB
 {
-  newMet=instance_create(80,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(208,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(336,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(464,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=metSpd; newMet.direction=metDir
+  newMet=instance_create(80,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(208,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(336,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(464,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=metSpd; newMet._direction=metDir
 }
 else if setLocation=10 //RRXXRRXX
 {
-  newMet=instance_create(16,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(80,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(272,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(336,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet.direction=metDir
+  newMet=instance_create(16,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(80,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(272,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(336,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet._direction=metDir
 }
 else if setLocation=11 //XXRRXXRR
 {
-  newMet=instance_create(144,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(208,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(400,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(464,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet.direction=metDir
+  newMet=instance_create(144,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(208,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(400,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(464,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet._direction=metDir
 }
 else if setLocation=12 //XXRRRRXX
 {
-  newMet=instance_create(144,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(208,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(272,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(336,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet.direction=metDir
+  newMet=instance_create(144,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(208,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(272,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(336,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=metSpd; newMet._direction=metDir
 }
 else if setLocation=13 //XXBBBBXX
 {
-  newMet=instance_create(144,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(208,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(272,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=metSpd; newMet.direction=metDir
-  newMet=instance_create(336,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=metSpd; newMet.direction=metDir
+  newMet=instance_create(144,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(208,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(272,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=metSpd; newMet._direction=metDir
+  newMet=instance_create(336,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=1; newMet.moveSpd=metSpd; newMet._direction=metDir
 }
 else if setLocation=14 //L shape
 {
-  newMet=instance_create(144,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=4; newMet.direction=90
-  newMet=instance_create(208,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=4; newMet.direction=90
-  newMet=instance_create(208,metSpawnY+metOffsetY+64,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=4; newMet.direction=90
-  newMet=instance_create(208,metSpawnY+metOffsetY+128,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=4; newMet.direction=90
-  newMet=instance_create(208,metSpawnY+metOffsetY+192,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=4; newMet.direction=90
-  newMet=instance_create(208,metSpawnY+metOffsetY+256,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=4; newMet.direction=90
-  newMet=instance_create(272,metSpawnY+metOffsetY+256,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=4; newMet.direction=90
-  newMet=instance_create(336,metSpawnY+metOffsetY+256,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=4; newMet.direction=90
+  newMet=instance_create(144,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=4; newMet._direction=90
+  newMet=instance_create(208,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=4; newMet._direction=90
+  newMet=instance_create(208,metSpawnY+metOffsetY+64,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=4; newMet._direction=90
+  newMet=instance_create(208,metSpawnY+metOffsetY+128,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=4; newMet._direction=90
+  newMet=instance_create(208,metSpawnY+metOffsetY+192,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=4; newMet._direction=90
+  newMet=instance_create(208,metSpawnY+metOffsetY+256,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=4; newMet._direction=90
+  newMet=instance_create(272,metSpawnY+metOffsetY+256,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=4; newMet._direction=90
+  newMet=instance_create(336,metSpawnY+metOffsetY+256,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=4; newMet._direction=90
 }
 else if setLocation=15 //Back-L shape
 {
-  newMet=instance_create(208,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=4; newMet.direction=90
-  newMet=instance_create(272,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=4; newMet.direction=90
-  newMet=instance_create(336,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=4; newMet.direction=90
-  newMet=instance_create(208,metSpawnY+metOffsetY+64,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=4; newMet.direction=90
-  newMet=instance_create(208,metSpawnY+metOffsetY+128,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=4; newMet.direction=90
-  newMet=instance_create(208,metSpawnY+metOffsetY+192,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=4; newMet.direction=90
-  newMet=instance_create(144,metSpawnY+metOffsetY+256,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=4; newMet.direction=90
-  newMet=instance_create(208,metSpawnY+metOffsetY+256,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=4; newMet.direction=90
+  newMet=instance_create(208,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=4; newMet._direction=90
+  newMet=instance_create(272,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=4; newMet._direction=90
+  newMet=instance_create(336,metSpawnY+metOffsetY,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=4; newMet._direction=90
+  newMet=instance_create(208,metSpawnY+metOffsetY+64,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=4; newMet._direction=90
+  newMet=instance_create(208,metSpawnY+metOffsetY+128,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=4; newMet._direction=90
+  newMet=instance_create(208,metSpawnY+metOffsetY+192,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=4; newMet._direction=90
+  newMet=instance_create(144,metSpawnY+metOffsetY+256,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=4; newMet._direction=90
+  newMet=instance_create(208,metSpawnY+metOffsetY+256,oSkyfallMeteor); newMet.bBlue=0; newMet.moveSpd=4; newMet._direction=90
 }
 #define Draw_0
 /*"/*'/**//* YYD ACTION

@@ -24,7 +24,7 @@ if global.gamePaused=false //24
   image_alpha-=0.035*gDeltaTime
   if image_alpha<=0.25 {bCanDealDamage=false}
   image_speed=animSpeed
-  speed=0
+  _speed=0
   _speed=bulletSpeed
   x += cos(degtorad(_direction)) * _speed * gDeltaTime
   y -= sin(degtorad(_direction)) * _speed * gDeltaTime
@@ -33,8 +33,9 @@ if global.gamePaused=false //24
 else
 {
   image_speed=0
-  speed=0
+  _speed=0
 }
+correctSpeedDirection(self)
 #define Other_7
 /*"/*'/**//* YYD ACTION
 lib_id=1

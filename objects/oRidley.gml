@@ -112,7 +112,7 @@ if global.gamePaused=false
         tNewAttack=instance_create(x+(9*image_xscale),y-4,oMetBulletPass)
         tNewAttack.sprite_index=sRidleyFireball; tNewAttack.damageType="ELEMENTAL"; tNewAttack.depth=7
         tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=8; tNewAttack.decayTime=-100
-        tNewAttack.direction=point_direction(x+(9*image_xscale),y-4,oPlayer1.x,returnPlayerYCenter())+random_range(-5,5)
+        tNewAttack._direction=point_direction(x+(9*image_xscale),y-4,oPlayer1.x,returnPlayerYCenter())+random_range(-5,5)
       }
     }
 
@@ -143,10 +143,10 @@ if global.gamePaused=false
     }
     else if atkProg=2 //-------------------- Swoop down in a U shape, shooting fireballs at a slow rate --------------------
     {
-      speed=moveSpd
+      _speed=moveSpd
       if atkTime=1
       {
-        direction=270
+        _direction=270
         if oPlayer1.x<xCenter {myDirType=0}
         else {myDirType=1}
         if myDirType=0 {x=144; image_xscale=1}
@@ -167,9 +167,9 @@ if global.gamePaused=false
       }
       else if atkTime>=100 and atkTime<=999 //Arc around
       {
-        if myDirType=0 {direction+=1.33}
-        else {direction-=1.33}
-        if direction>=89 and direction<=91 {direction=90; atkTime=1000}
+        if myDirType=0 {_direction+=1.33}
+        else {_direction-=1.33}
+        if _direction>=89 and _direction<=91 {_direction=90; atkTime=1000}
       }
       else if atkTime>=1000 and atkTime<=1999 //Fly up
       {
@@ -181,7 +181,7 @@ if global.gamePaused=false
     }
     else if atkProg=3 //-------------------- Zigzag across room while spinning tail and shooting fireballs at a very slow rate --------------------
     {
-      speed=moveSpd
+      _speed=moveSpd
       if atkTime=1
       {
         ridParts[0].image_index=2
@@ -190,12 +190,12 @@ if global.gamePaused=false
         if myDirType=0 //Right
         {
           x=-48; image_xscale=1
-          direction=choose(40+random(20),300+random(20))
+          _direction=choose(40+random(20),300+random(20))
         }
         else //Left
         {
           x=room_width+48; image_xscale=-1
-          direction=choose(120+random(20),220+random(20))
+          _direction=choose(120+random(20),220+random(20))
         }
         y=128+random(144)
       }
@@ -211,21 +211,21 @@ if global.gamePaused=false
       {
         if myDirType=0 //Right
         {
-          if y<=112 {y+=4; direction=300+random(20)}
-          else if y>=288 {y-=4; direction=40+random(20)}
+          if y<=112 {y+=4; _direction=300+random(20)}
+          else if y>=288 {y-=4; _direction=40+random(20)}
           if x>=room_width+96 {atkTime=1000}
         }
         else //Left
         {
-          if y<=112 {y+=4; direction=220+random(20)}
-          else if y>=288 {y-=4; direction=120+random(20)}
+          if y<=112 {y+=4; _direction=220+random(20)}
+          else if y>=288 {y-=4; _direction=120+random(20)}
           if x<=-96 {atkTime=1000}
         }
       }
       else if atkTime>=1000
       {
         ridParts[0].image_index=0
-        speed=0; moveSpd=0; fireballRate=0
+        _speed=0; moveSpd=0; fireballRate=0
         atkTime=0; atkProg=4
       }
     }
@@ -238,12 +238,12 @@ if global.gamePaused=false
         if myDirType=0 //Right
         {
           x=-48; image_xscale=1
-          direction=choose(40+random(20),300+random(20))
+          _direction=choose(40+random(20),300+random(20))
         }
         else //Left
         {
           x=room_width+48; image_xscale=-1
-          direction=choose(120+random(20),220+random(20))
+          _direction=choose(120+random(20),220+random(20))
         }
         y=128+random(144)
       }
@@ -503,7 +503,8 @@ if global.gamePaused=false
   oRidleyParts.image_xscale=image_xscale
   enemyStepEvent()
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)
 #define Collision_oPlayer1
 /*"/*'/**//* YYD ACTION
 lib_id=1

@@ -56,8 +56,8 @@ if global.gamePaused=false
   }
   else
   {
-    direction=image_angle
-    speed=13
+    _direction=image_angle
+    _speed=13
   }
 
   if checkScreenArea(x,y,48)=0 {instance_destroy()}
@@ -65,4 +65,5 @@ if global.gamePaused=false
   decayTime-=1
   if decayTime<=0 {instance_destroy()}
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)

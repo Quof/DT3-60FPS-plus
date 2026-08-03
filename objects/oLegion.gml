@@ -120,7 +120,7 @@ if global.gamePaused=false
       {
         tAtkScythe=instance_create(x,y,oDeathFlyingScythe)
         tAtkScythe.x=x+lengthdir_x(80,tAtkSpawnDir); tAtkScythe.y=y+lengthdir_y(80,tAtkSpawnDir)
-        tAtkScythe.atkPower=atkPower; tAtkScythe.bulletSpeed=5; tAtkScythe.direction=tAtkDir
+        tAtkScythe.atkPower=atkPower; tAtkScythe.bulletSpeed=5; tAtkScythe._direction=tAtkDir
         tAtkSpawnDir+=360/16
       }
       scytheCircleTime=0
@@ -135,25 +135,25 @@ if global.gamePaused=false
       if bigScytheProg<3
       {
         tAtkScythe=instance_create(160+(144*bigScytheProg),48,oLegionScythe)
-        tAtkScythe.atkPower=atkPower; tAtkScythe.direction=270
+        tAtkScythe.atkPower=atkPower; tAtkScythe._direction=270
       }
       else if bigScytheProg=3
       {
         tAtkScythe=instance_create(232,48,oLegionScythe)
-        tAtkScythe.atkPower=atkPower; tAtkScythe.direction=270
+        tAtkScythe.atkPower=atkPower; tAtkScythe._direction=270
         tAtkScythe=instance_create(376,48,oLegionScythe)
-        tAtkScythe.atkPower=atkPower; tAtkScythe.direction=270
+        tAtkScythe.atkPower=atkPower; tAtkScythe._direction=270
       }
       else if bigScytheProg=4
       {
         tAtkScythe=instance_create(32,48,oLegionScythe)
-        tAtkScythe.atkPower=atkPower; tAtkScythe.direction=270
+        tAtkScythe.atkPower=atkPower; tAtkScythe._direction=270
         tAtkScythe=instance_create(96,48,oLegionScythe)
-        tAtkScythe.atkPower=atkPower; tAtkScythe.direction=270
+        tAtkScythe.atkPower=atkPower; tAtkScythe._direction=270
         tAtkScythe=instance_create(512,48,oLegionScythe)
-        tAtkScythe.atkPower=atkPower; tAtkScythe.direction=270
+        tAtkScythe.atkPower=atkPower; tAtkScythe._direction=270
         tAtkScythe=instance_create(576,48,oLegionScythe)
-        tAtkScythe.atkPower=atkPower; tAtkScythe.direction=270
+        tAtkScythe.atkPower=atkPower; tAtkScythe._direction=270
       }
 
       bigScytheProg+=1

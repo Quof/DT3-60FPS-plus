@@ -15,8 +15,8 @@ explodePointX=oPlayer1.x
 explodePointY=returnPlayerYCenter()
 pointFrm=0
 size=2
-speed=0
-direction=0
+_speed=0
+_direction=0
 _speed=0
 _direction=0
 #define Step_0
@@ -40,11 +40,12 @@ if global.gamePaused=false
     if sprite_index=sSE_DarkBall {newAttack.image_blend=c_purple}
     instance_destroy()
   }
-  speed=0
+  _speed=0
   x += cos(degtorad(_direction)) * _speed * gDeltaTime
   y -= sin(degtorad(_direction)) * _speed * gDeltaTime
 }
-else {speed=0; _speed=0}
+else {_speed=0; _speed=0}
+correctSpeedDirection(self)
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

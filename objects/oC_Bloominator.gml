@@ -67,10 +67,10 @@ if global.gamePaused=false
         var tNewAttack;
         tNewAttack=instance_create(x+lengthdir_x(19,45+image_angle),y+lengthdir_y(19,45+image_angle),oPassBullet)
         tNewAttack.sprite_index=sC_BloomShot; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=8
-        tNewAttack.decayTime=-100; tNewAttack.direction=image_angle
+        tNewAttack.decayTime=-100; tNewAttack._direction=image_angle
         tNewAttack=instance_create(x+lengthdir_x(19,-45+image_angle),y+lengthdir_y(19,-45+image_angle),oPassBullet)
         tNewAttack.sprite_index=sC_BloomShot; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=8
-        tNewAttack.decayTime=-100; tNewAttack.direction=image_angle
+        tNewAttack.decayTime=-100; tNewAttack._direction=image_angle
       }
       if image_angle>=205 {moveProg+=1}
     }
@@ -88,10 +88,10 @@ if global.gamePaused=false
         var tNewAttack;
         tNewAttack=instance_create(x+lengthdir_x(19,45+image_angle),y+lengthdir_y(19,45+image_angle),oPassBullet)
         tNewAttack.sprite_index=sC_BloomShot; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=8
-        tNewAttack.decayTime=-100; tNewAttack.direction=image_angle
+        tNewAttack.decayTime=-100; tNewAttack._direction=image_angle
         tNewAttack=instance_create(x+lengthdir_x(19,-45+image_angle),y+lengthdir_y(19,-45+image_angle),oPassBullet)
         tNewAttack.sprite_index=sC_BloomShot; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=8
-        tNewAttack.decayTime=-100; tNewAttack.direction=image_angle
+        tNewAttack.decayTime=-100; tNewAttack._direction=image_angle
       }
       if image_angle<=155
       {

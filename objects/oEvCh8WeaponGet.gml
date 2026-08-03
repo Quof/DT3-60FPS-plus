@@ -110,14 +110,14 @@ if global.newMapX=1 //Show Shotgun Ice
   {
     playerSprite=sJerryBusterStand
     playerAttack=instance_create(100,252,oEvCh8WepTest)
-    playerAttack.direction=0; playerAttack.type=1
+    playerAttack._direction=0; playerAttack.type=1
   }
   else if wepProg=490 {playerSprite=sJerryIdle}
   else if wepProg=520
   {
     playerSprite=sJerryBusterStand
     playerAttack=instance_create(100,252,oEvCh8WepTest)
-    playerAttack.direction=0; playerAttack.type=1
+    playerAttack._direction=0; playerAttack.type=1
   }
   else if wepProg=540 {playerSprite=sJerryIdle}
 }
@@ -127,14 +127,14 @@ else if global.newMapX=2 //Show Gravity Well
   {
     playerSprite=sJerryBusterStand
     playerAttack=instance_create(100,252,oEvCh8WepTest)
-    playerAttack.direction=0; playerAttack.type=11
+    playerAttack._direction=0; playerAttack.type=11
   }
   else if wepProg=490 {playerSprite=sJerryIdle}
   else if wepProg=520
   {
     playerSprite=sJerryBusterStand
     playerAttack=instance_create(100,252,oEvCh8WepTest)
-    playerAttack.direction=0; playerAttack.type=11;
+    playerAttack._direction=0; playerAttack.type=11;
   }
   else if wepProg=540 {playerSprite=sJerryIdle}
 }
@@ -144,14 +144,14 @@ else if global.newMapX=3 //Show Strike Chain
   {
     playerSprite=sJerryBusterStand
     playerAttack=instance_create(100,252,oEvCh8WepTest)
-    playerAttack.direction=0; playerAttack.type=21
+    playerAttack._direction=0; playerAttack.type=21
   }
   else if wepProg=490 {playerSprite=sJerryIdle}
   else if wepProg=520
   {
     playerSprite=sJerryBusterStand
     playerAttack=instance_create(100,252,oEvCh8WepTest)
-    playerAttack.direction=0; playerAttack.type=21;
+    playerAttack._direction=0; playerAttack.type=21;
   }
   else if wepProg=540 {playerSprite=sJerryIdle}
 }

@@ -65,7 +65,7 @@ if global.gamePaused=false
         var tNewAttack;
         tNewAttack=instance_create(x,y,oPassBullet)
         tNewAttack.sprite_index=sLB_Laser; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=bulletSpd
-        tNewAttack.decayTime=-100; tNewAttack.direction=gunAngle; tNewAttack.image_xscale=0.5
+        tNewAttack.decayTime=-100; tNewAttack._direction=gunAngle; tNewAttack.image_xscale=0.5
         shotTime=0
       }
     }

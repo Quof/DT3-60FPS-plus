@@ -49,4 +49,4 @@ applies_to=self
 var tNewAttack;
 tNewAttack=instance_create(x+lengthdir_x(16,image_angle),y+lengthdir_y(16,image_angle),oNormalBullet)
 tNewAttack.sprite_index=sprite_index; tNewAttack.atkPower=6; tNewAttack.bulletSpeed=5; tNewAttack.image_angle=image_angle
-tNewAttack.direction=image_angle; tNewAttack.image_blend=c_orange
+tNewAttack._direction=image_angle; tNewAttack.image_blend=c_orange

@@ -25,18 +25,19 @@ if global.gamePaused=false
   if init=0 {init=1}
 
   arcTime+=1
-  if arcTime>=1 and arcTime<=10 {direction+=4}
-  else if arcTime>=11 and arcTime<=30 {direction-=4}
+  if arcTime>=1 and arcTime<=10 {_direction+=4}
+  else if arcTime>=11 and arcTime<=30 {_direction-=4}
   else
   {
-    direction+=4
+    _direction+=4
     if arcTime>=40 {arcTime=0}
   }
 
-  speed=bulletSpeed
-  image_angle=direction
+  _speed=bulletSpeed
+  image_angle=_direction
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)
 #define Other_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

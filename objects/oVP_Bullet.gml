@@ -20,7 +20,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  speed=bulletSpeed
+  _speed=bulletSpeed
   if bCanGraze=1
   {
     if point_distance(x,y,oIdentifier.x,oIdentifier.y)<21
@@ -40,7 +40,8 @@ if global.gamePaused=false
     }
   }
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)
 #define Collision_oIdentifier
 /*"/*'/**//* YYD ACTION
 lib_id=1

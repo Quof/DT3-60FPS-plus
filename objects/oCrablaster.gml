@@ -88,13 +88,13 @@ if global.gamePaused=false
       tNewAttack=instance_create(x+13,y+23,oPassBullet)
       tNewAttack.sprite_index=sCrablasterShot
       tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=6
-      tNewAttack.decayTime=-100; tNewAttack.direction=315
+      tNewAttack.decayTime=-100; tNewAttack._direction=315
       tNewAttack.damageType="ELEMENTAL"
 
       tNewAttack=instance_create(x-13,y+23,oPassBullet)
       tNewAttack.sprite_index=sCrablasterShot
       tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=6
-      tNewAttack.decayTime=-100; tNewAttack.direction=225
+      tNewAttack.decayTime=-100; tNewAttack._direction=225
       tNewAttack.damageType="ELEMENTAL"
       shotTime=0
     }

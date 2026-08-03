@@ -35,10 +35,11 @@ if global.gamePaused=false
 {
   image_angle+=20
   atkProg+=1
-  if atkProg>=60 {speed=6}
+  if atkProg>=60 {_speed=6}
 }
 else
-  speed=0
+  _speed=0
+correctSpeedDirection(self)
 #define Other_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

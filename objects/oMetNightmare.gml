@@ -153,11 +153,11 @@ if global.gamePaused=false
       }
       else if moveTime>=25
       {
-        direction=point_direction(x,y,xSpd,ySpd)
-        speed=4
+        _direction=point_direction(x,y,xSpd,ySpd)
+        _speed=4
         if point_distance(x,y,xSpd,ySpd)<5
         {
-          speed=0
+          _speed=0
           xSpd=0; ySpd=0
           moveBehavior=0
           bWave=1
@@ -206,12 +206,12 @@ if global.gamePaused=false
         tAtk=instance_create(x-(51*facing),y+23+tRanY,oPassBullet)
         tAtk.sprite_index=sMetNightGunEffect; tAtk.atkPower=atkPower; tAtk.bulletSpeed=5; tAtk.decayTime=-100
         tAtk.image_xscale=0.75; tAtk.image_yscale=0.75; tAtk.image_speed=0; tAtk.depth=6; tAtk.image_xscale=2; tAtk.image_yscale=0.5
-        tAtk.direction=point_direction(x-(51*facing),y+23+tRanY,oPlayer1.x,oPlayer1.y-26)
+        tAtk._direction=point_direction(x-(51*facing),y+23+tRanY,oPlayer1.x,oPlayer1.y-26)
         tRanY=random_range(-9,9)
         tAtk=instance_create(x-(18*facing),y+37+tRanY,oPassBullet)
         tAtk.sprite_index=sMetNightGunEffect; tAtk.atkPower=atkPower; tAtk.bulletSpeed=5; tAtk.decayTime=-100
         tAtk.image_xscale=0.75; tAtk.image_yscale=0.75; tAtk.image_speed=0; tAtk.depth=6; tAtk.image_xscale=2; tAtk.image_yscale=0.5
-        tAtk.direction=point_direction(x-(18*facing),y+37+tRanY,oPlayer1.x,oPlayer1.y-26)
+        tAtk._direction=point_direction(x-(18*facing),y+37+tRanY,oPlayer1.x,oPlayer1.y-26)
       }
     }
     else if spamGunTime>=10031+spamGunDuration //end attack
@@ -331,7 +331,7 @@ if global.gamePaused=false
     }
   }
 }
-else {speed=0}
+else {_speed=0}
 
 myBody.x=x+(4*facing); myBody.y=y-27; myBody.image_xscale=facing; myBody.image_blend=image_blend
 myRightArm.x=x+(22*facing); myRightArm.y=y+5; myRightArm.image_xscale=facing; myRightArm.image_blend=image_blend
@@ -339,6 +339,7 @@ myLeftArm.x=x-(38*facing); myLeftArm.y=y-29; myLeftArm.image_xscale=facing; myLe
 if bGravExist=1 {myGravDev.x=x-(42*facing); myGravDev.y=y+13; myGravDev.image_xscale=facing}
 
 if global.gamePaused=false {enemyStepEvent()}
+correctSpeedDirection(self)
 #define Collision_oPlayer1
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -361,8 +362,8 @@ tEffect.followID=id; tEffect.xFollow=-gunX*facing; tEffect.yFollow=gunY
 tAtk=instance_create(x-(gunX*facing),y+gunY,oPassBullet)
 tAtk.sprite_index=sMetNightGunEffect; tAtk.atkPower=atkPower; tAtk.bulletSpeed=5; tAtk.decayTime=-100
 tAtk.image_xscale=0.75; tAtk.image_yscale=0.75; tAtk.image_speed=0; tAtk.depth=6
-if facing=1 {tAtk.direction=0}
-else {tAtk.direction=180}
+if facing=1 {tAtk._direction=0}
+else {tAtk._direction=180}
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

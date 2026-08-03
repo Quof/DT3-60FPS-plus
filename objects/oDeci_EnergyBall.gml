@@ -24,9 +24,10 @@ if global.gamePaused=false
   if decayTime<=0 {instance_destroy()}
 
   image_angle-=10
-  speed=bulletSpeed
+  _speed=bulletSpeed
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)
 #define Collision_oAttackBase
 /*"/*'/**//* YYD ACTION
 lib_id=1

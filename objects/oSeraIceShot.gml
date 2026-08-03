@@ -19,7 +19,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  speed=bulletSpeed
+  _speed=bulletSpeed
   if type=0 //Ground
   {
     if y>=282 //Shatter
@@ -40,7 +40,7 @@ if global.gamePaused=false
 
       tNewAttack=instance_create(x,y,oPassBullet)
       tNewAttack.sprite_index=sSeraAtkIceB; tNewAttack.atkPower=atkPower-1; tNewAttack.bulletSpeed=6
-      tNewAttack.decayTime=-100; tNewAttack.image_speed=0.25; tNewAttack.direction=90; tNewAttack.damageType="ELEMENTAL"
+      tNewAttack.decayTime=-100; tNewAttack.image_speed=0.25; tNewAttack._direction=90; tNewAttack.damageType="ELEMENTAL"
       instance_destroy()
     }
   }
@@ -56,14 +56,15 @@ if global.gamePaused=false
       {
         tNewAttack=instance_create(x,y,oPassBullet)
         tNewAttack.sprite_index=sSeraAtkIceB; tNewAttack.atkPower=atkPower-1; tNewAttack.bulletSpeed=8
-        tNewAttack.decayTime=-100; tNewAttack.image_speed=0.25; tNewAttack.direction=tDir; tNewAttack.damageType="ELEMENTAL"
+        tNewAttack.decayTime=-100; tNewAttack.image_speed=0.25; tNewAttack._direction=tDir; tNewAttack.damageType="ELEMENTAL"
         tDir+=12
       }
       instance_destroy()
     }
   }
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)
 #define Other_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

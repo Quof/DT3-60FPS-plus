@@ -104,14 +104,14 @@ if global.gamePaused=false
         shotTime=0
       }
     }
-    else {speed=0; _speed=0}
+    else {_speed=0; _speed=0}
   }
   else if life<=0
   {
     deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
-      speed=0; _speed=0
+      _speed=0; _speed=0
       sprite_index=sCV_SalemWitchDie
       for(i=0;i<2;i+=1)
       {
@@ -140,7 +140,8 @@ if global.gamePaused=false
 
   enemyStepEvent()
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)
 #define Other_25
 /*"/*'/**//* YYD ACTION
 lib_id=1

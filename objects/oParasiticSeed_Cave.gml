@@ -133,7 +133,7 @@ if global.gamePaused=false
             else {tDir=270; bulletType=0}
             tNewAtk=instance_create(x,y,oPassBullet)
             tNewAtk.sprite_index=sAbom_ParaShot; tNewAtk.atkPower=atkPower; tNewAtk.bulletSpeed=6; tNewAtk.image_speed=0.33
-            tNewAtk.decayTime=-100; tNewAtk.direction=tDir
+            tNewAtk.decayTime=-100; tNewAtk._direction=tDir
           }
         }
         else if attackProg=2
@@ -174,7 +174,7 @@ if global.gamePaused=false
             {
               tNewAtk=instance_create(x,y,oPassBullet)
               tNewAtk.sprite_index=sAbom_ParaShot; tNewAtk.atkPower=atkPower; tNewAtk.image_speed=0.33
-              tNewAtk.decayTime=-100; tNewAtk.direction=tDir
+              tNewAtk.decayTime=-100; tNewAtk._direction=tDir
               tDir+=9
               if i=1 {tNewAtk.bulletSpeed=6}
               else {tNewAtk.bulletSpeed=3}
@@ -212,7 +212,7 @@ if global.gamePaused=false
           attackTime+=1
           if attackTime>=10
           {
-            direction=player_sprite_center()
+            _direction=player_sprite_center()
             targetX=oPlayer1.x
             targetY=oPlayer1.bbox_top+abs(oPlayer1.sprite_height/2)-abs(oPlayer1.sprite_height/4)
             attackTime=0; attackProg+=1
@@ -230,14 +230,14 @@ if global.gamePaused=false
               {
                 tNewAtk=instance_create(x+random_range(-28,28),y+random_range(-28,28),oPassBullet)
                 tNewAtk.sprite_index=sAbom_ParaShot; tNewAtk.atkPower=atkPower; tNewAtk.image_speed=0.33
-                tNewAtk.decayTime=-100; tNewAtk.direction=direction; tNewAtk.bulletSpeed=2+i
+                tNewAtk.decayTime=-100; tNewAtk._direction=_direction; tNewAtk.bulletSpeed=2+i
               }
             }
           }
-          speed=abs(xSpd)
+          _speed=abs(xSpd)
           if point_distance(x,y,targetX,targetY)<=16
           {
-            speed=0
+            _speed=0
             attackTime=0; attackProg+=1
           }
         }
@@ -248,7 +248,7 @@ if global.gamePaused=false
           {
             if currentSide=0 {checkSide=mapRight}
             else {checkSide=mapLeft}
-            direction=point_direction(x,y,checkSide,ySpawn)
+            _direction=point_direction(x,y,checkSide,ySpawn)
             attackTime=0; attackProg+=1
           }
         }
@@ -264,14 +264,14 @@ if global.gamePaused=false
               {
                 tNewAtk=instance_create(x+random_range(-20,20),y+random_range(-20,20),oPassBullet)
                 tNewAtk.sprite_index=sAbom_ParaShot; tNewAtk.atkPower=atkPower; tNewAtk.image_speed=0.33
-                tNewAtk.decayTime=-100; tNewAtk.direction=direction; tNewAtk.bulletSpeed=2+i
+                tNewAtk.decayTime=-100; tNewAtk._direction=_direction; tNewAtk.bulletSpeed=2+i
               }
             }
           }
-          speed=abs(xSpd)
+          _speed=abs(xSpd)
           if point_distance(x,y,checkSide,ySpawn)<=16
           {
-            speed=0
+            _speed=0
             if currentSide=0 {currentSide=1}
             else {currentSide=0}
             largeLaserCheck+=1
@@ -300,7 +300,7 @@ if global.gamePaused=false
             {
               tNewAtk=instance_create(x,y,oPassBullet)
               tNewAtk.sprite_index=sAbom_ParaShot; tNewAtk.atkPower=atkPower; tNewAtk.image_speed=0.33
-              tNewAtk.decayTime=-100; tNewAtk.direction=tDir
+              tNewAtk.decayTime=-100; tNewAtk._direction=tDir
               if i mod 2=0 {tNewAtk.bulletSpeed=4}
               else {tNewAtk.bulletSpeed=3}
               tDir+=360/bulletModD
@@ -457,7 +457,8 @@ if global.gamePaused=false
     }
   }
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)
 #define Other_25
 /*"/*'/**//* YYD ACTION
 lib_id=1

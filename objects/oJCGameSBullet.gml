@@ -29,11 +29,11 @@ else
 
 if oPlayer1.image_xscale=1
 {
-  direction=random_range(-6,6)
+  _direction=random_range(-6,6)
 }
 else
 {
-  direction=random_range(174,186)
+  _direction=random_range(174,186)
 }
 #define Destroy_0
 /*"/*'/**//* YYD ACTION
@@ -53,8 +53,8 @@ applies_to=self
 event_inherited()
 if global.gamePaused=false
 {
-  image_angle=direction
-  speed=bulletSpeed
+  image_angle=_direction
+  _speed=bulletSpeed
 
   if global.optWeaponTrail=1 {instance_create(x,y,oEfWeaponTrail)}
 
@@ -71,4 +71,5 @@ if global.gamePaused=false
   if isCollisionTop(1)
     instance_destroy()
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)

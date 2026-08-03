@@ -61,13 +61,14 @@ if global.gamePaused=false
   {
     lightFrm+=0.15
 
-    x+=moveSpd*cos(degtorad(direction))
-    y-=moveSpd*sin(degtorad(direction))
-    direction-=moveArc
+    x+=moveSpd*cos(degtorad(_direction))
+    y-=moveSpd*sin(degtorad(_direction))
+    _direction-=moveArc
   }
   enemyStepEvent()
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)
 #define Collision_oPlayer1
 /*"/*'/**//* YYD ACTION
 lib_id=1

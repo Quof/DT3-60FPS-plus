@@ -71,7 +71,7 @@ if global.gamePaused=false
       var tNewAttack;
       tNewAttack=instance_create(x,y,oPassBullet)
       tNewAttack.sprite_index=sLB_Laser; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=4
-      tNewAttack.decayTime=-100; tNewAttack.direction=player_sprite_center()
+      tNewAttack.decayTime=-100; tNewAttack._direction=player_sprite_center()
       tNewAttack.image_angle=player_sprite_center()
 
       shotTime=0

@@ -621,20 +621,20 @@ else if room=rWarshipM and global.gameProgress=5220 //----- [] Fight with CHAOS 
         tRedTrap=instance_create(480,352,oMovingTrapRed)
         tRedTrap.image_xscale=4.5; tRedTrap.image_angle=270; tRedTrap.shiftTime=0; tRedTrap.shiftMax=236; tRedTrap.moveSpd=4; tRedTrap.bShowLine=0
         tRedTrap=instance_create(1424,192,oMovingTrapRed)
-        tRedTrap.image_xscale=4.5; tRedTrap.image_angle=270; tRedTrap.shiftTime=0; tRedTrap.shiftMax=236; tRedTrap.moveSpd=4; tRedTrap.bShowLine=0; tRedTrap.direction=180
+        tRedTrap.image_xscale=4.5; tRedTrap.image_angle=270; tRedTrap.shiftTime=0; tRedTrap.shiftMax=236; tRedTrap.moveSpd=4; tRedTrap.bShowLine=0; tRedTrap._direction=180
 
         tRedTrap=instance_create(488,32,oMovingTrapRed)
-        tRedTrap.image_xscale=4; tRedTrap.shiftTime=0; tRedTrap.shiftMax=185; tRedTrap.moveSpd=2.5; tRedTrap.bShowLine=0; tRedTrap.direction=270
+        tRedTrap.image_xscale=4; tRedTrap.shiftTime=0; tRedTrap.shiftMax=185; tRedTrap.moveSpd=2.5; tRedTrap.bShowLine=0; tRedTrap._direction=270
         tRedTrap=instance_create(808,32,oMovingTrapRed)
-        tRedTrap.image_xscale=4; tRedTrap.shiftTime=0; tRedTrap.shiftMax=185; tRedTrap.moveSpd=2.5; tRedTrap.bShowLine=0; tRedTrap.direction=270
+        tRedTrap.image_xscale=4; tRedTrap.shiftTime=0; tRedTrap.shiftMax=185; tRedTrap.moveSpd=2.5; tRedTrap.bShowLine=0; tRedTrap._direction=270
         tRedTrap=instance_create(1128,32,oMovingTrapRed)
-        tRedTrap.image_xscale=4; tRedTrap.shiftTime=0; tRedTrap.shiftMax=185; tRedTrap.moveSpd=2.5; tRedTrap.bShowLine=0; tRedTrap.direction=270
+        tRedTrap.image_xscale=4; tRedTrap.shiftTime=0; tRedTrap.shiftMax=185; tRedTrap.moveSpd=2.5; tRedTrap.bShowLine=0; tRedTrap._direction=270
         tRedTrap=instance_create(648,496,oMovingTrapRed)
-        tRedTrap.image_xscale=4; tRedTrap.shiftTime=0; tRedTrap.shiftMax=185; tRedTrap.moveSpd=2.5; tRedTrap.bShowLine=0; tRedTrap.direction=90
+        tRedTrap.image_xscale=4; tRedTrap.shiftTime=0; tRedTrap.shiftMax=185; tRedTrap.moveSpd=2.5; tRedTrap.bShowLine=0; tRedTrap._direction=90
         tRedTrap=instance_create(968,496,oMovingTrapRed)
-        tRedTrap.image_xscale=4; tRedTrap.shiftTime=0; tRedTrap.shiftMax=185; tRedTrap.moveSpd=2.5; tRedTrap.bShowLine=0; tRedTrap.direction=90
+        tRedTrap.image_xscale=4; tRedTrap.shiftTime=0; tRedTrap.shiftMax=185; tRedTrap.moveSpd=2.5; tRedTrap.bShowLine=0; tRedTrap._direction=90
         tRedTrap=instance_create(1288,496,oMovingTrapRed)
-        tRedTrap.image_xscale=4; tRedTrap.shiftTime=0; tRedTrap.shiftMax=185; tRedTrap.moveSpd=2.5; tRedTrap.bShowLine=0; tRedTrap.direction=90
+        tRedTrap.image_xscale=4; tRedTrap.shiftTime=0; tRedTrap.shiftMax=185; tRedTrap.moveSpd=2.5; tRedTrap.bShowLine=0; tRedTrap._direction=90
         sceneProgress+=1
       }
     }

@@ -28,11 +28,11 @@ if global.gamePaused=false
   image_angle+=20
   if phase=0 //Bullets go out
   {
-    speed=bulletSpeed
+    _speed=bulletSpeed
     bulletTime+=1
     if bulletTime>=40
     {
-      speed=0
+      _speed=0
       bulletTime=0; phase+=1
     }
   }
@@ -63,4 +63,5 @@ if global.gamePaused=false
     }
   }
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)

@@ -72,10 +72,10 @@ if global.gamePaused=false
       var tNewAttack;
       tNewAttack=instance_create(x+(44*image_xscale),y+8,oScrewTurretShot)
       tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=9
-      if image_xscale=-1 {tNewAttack.direction=180}
+      if image_xscale=-1 {tNewAttack._direction=180}
       tNewAttack=instance_create(x+(44*image_xscale),y+8,oPassBullet)
       tNewAttack.sprite_index=sWolfHeadShot; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
-      tNewAttack.decayTime=-100; tNewAttack.direction=point_direction(x+(44*image_xscale),y+8,oPlayer1.x,returnPlayerYCenter())
+      tNewAttack.decayTime=-100; tNewAttack._direction=point_direction(x+(44*image_xscale),y+8,oPlayer1.x,returnPlayerYCenter())
       shotTime=0
     }
   }

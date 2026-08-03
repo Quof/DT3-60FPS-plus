@@ -45,7 +45,7 @@ if global.gamePaused=false
   {
     if moveDelay=0
     {
-      image_angle=direction
+      image_angle=_direction
       if oHexWorm.moveBehavior=1 //Follow a path
       {
         if myMoveCheck=0
@@ -60,15 +60,15 @@ if global.gamePaused=false
               tDir=point_direction(x,y,oPlayer1.x,oPlayer1.y)
               tNewAttack=instance_create(x,y,oPassBullet)
               tNewAttack.sprite_index=sHexWormLaser; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=6
-              tNewAttack.decayTime=-100; tNewAttack.direction=tDir
+              tNewAttack.decayTime=-100; tNewAttack._direction=tDir
               if oHexWorm.partNum<=17
               {
                 tNewAttack=instance_create(x,y,oPassBullet)
                 tNewAttack.sprite_index=sHexWormLaser; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
-                tNewAttack.decayTime=-100; tNewAttack.direction=tDir-5
+                tNewAttack.decayTime=-100; tNewAttack._direction=tDir-5
                 tNewAttack=instance_create(x,y,oPassBullet)
                 tNewAttack.sprite_index=sHexWormLaser; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
-                tNewAttack.decayTime=-100; tNewAttack.direction=tDir+5
+                tNewAttack.decayTime=-100; tNewAttack._direction=tDir+5
               }
             }
             else
@@ -79,7 +79,7 @@ if global.gamePaused=false
               {
                 tNewAttack=instance_create(x,y,oPassBullet)
                 tNewAttack.sprite_index=sHexWormLaser; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=4
-                tNewAttack.decayTime=-100; tNewAttack.direction=tDir
+                tNewAttack.decayTime=-100; tNewAttack._direction=tDir
                 tDir+=360/8
               }
             }
@@ -117,6 +117,7 @@ if global.gamePaused=false
   enemyStepEvent()
 }
 else {path_speed=0}
+correctSpeedDirection(self)
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

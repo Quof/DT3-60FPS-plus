@@ -770,6 +770,7 @@ if life<=0 //-------------------- Defeat animation --------------------
     global.newMapX=2920; global.newMapY=224; room_goto(rBossGallery)
   }
 }
+correctSpeedDirection(self)
 #define Collision_oPlayer1
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -895,7 +896,7 @@ if currentAttack=1 //==================== ATK A: SWORD SWING 1 - (Leads into Atk
 
       tAtk=instance_create(x+(12*scaleForFacing),y-30,oWMA_SwordWave)
       tAtk.atkPower=atkPower; tAtk.warTarget=id
-      if image_xscale<0 {tAtk.direction=180; tAtk.image_angle=180}
+      if image_xscale<0 {tAtk._direction=180; tAtk.image_angle=180}
       if DIFFICULTY=1 {tAtk.moveSpd=5} else {tAtk.moveSpd=10}
       actTime=14
     }
@@ -971,7 +972,7 @@ if currentAttack=1 //==================== ATK A: SWORD SWING 1 - (Leads into Atk
       {
         tAtk=instance_create(x+(12*scaleForFacing),y-30-(30*i),oWMA_EX_SwordWave)
         tAtk.atkPower=atkPower
-        if image_xscale<0 {tAtk.direction=180; tAtk.image_angle=180}
+        if image_xscale<0 {tAtk._direction=180; tAtk.image_angle=180}
       }
     }
     else if actTime=47 {image_index=1}
@@ -1060,7 +1061,7 @@ else if currentAttack=2 //==================== ATK B: SWORD SWING 2 ============
     }
 
     tAtk=instance_create(x+(12*scaleForFacing),y-30,oWMA_SwordWave)
-    tAtk.atkPower=atkPower; tAtk.direction=tWaveDir; tAtk.image_angle=tWaveDir; tAtk.warTarget=id
+    tAtk.atkPower=atkPower; tAtk._direction=tWaveDir; tAtk.image_angle=tWaveDir; tAtk.warTarget=id
     if DIFFICULTY=1 {tAtk.moveSpd=5} else {tAtk.moveSpd=10}
     actTime=11
   }
@@ -1268,7 +1269,7 @@ else if currentAttack=6 //==================== ATK F: BIG LEAP TOWARD WALL + LEA
     {
       tNewAttack=instance_create(x-(28*image_xscale),y-20,oPassBullet)
       tNewAttack.sprite_index=sWarmasterA_ShotA; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=11
-      tNewAttack.image_speed=0.33; tNewAttack.decayTime=-100; tNewAttack.direction=tShotDir; tNewAttack.image_angle=tShotDir
+      tNewAttack.image_speed=0.33; tNewAttack.decayTime=-100; tNewAttack._direction=tShotDir; tNewAttack.image_angle=tShotDir
       tShotDir+=6
     }
     if FASTER_CHANGE=3 {actTime=109}
@@ -1304,20 +1305,20 @@ else if currentAttack=6 //==================== ATK F: BIG LEAP TOWARD WALL + LEA
     {
       tNewAttack=instance_create(200+(48*i),0,oPassBullet)
       tNewAttack.sprite_index=sWarmasterA_ShotB; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=12
-      tNewAttack.decayTime=-100; tNewAttack.image_speed=0.33; tNewAttack.direction=270; tNewAttack.image_angle=270
+      tNewAttack.decayTime=-100; tNewAttack.image_speed=0.33; tNewAttack._direction=270; tNewAttack.image_angle=270
     }
     tNewAttack=instance_create(168,0,oPassBullet)
     tNewAttack.sprite_index=sWarmasterA_ShotB; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=12
-    tNewAttack.decayTime=-100; tNewAttack.image_speed=0.33; tNewAttack.direction=270; tNewAttack.image_angle=270
+    tNewAttack.decayTime=-100; tNewAttack.image_speed=0.33; tNewAttack._direction=270; tNewAttack.image_angle=270
     tNewAttack=instance_create(568,0,oPassBullet)
     tNewAttack.sprite_index=sWarmasterA_ShotB; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=12
-    tNewAttack.decayTime=-100; tNewAttack.image_speed=0.33; tNewAttack.direction=270; tNewAttack.image_angle=270
+    tNewAttack.decayTime=-100; tNewAttack.image_speed=0.33; tNewAttack._direction=270; tNewAttack.image_angle=270
 
     tNewAttack=instance_create(oPlayer1.x,0,oPassBullet)
     with tNewAttack
     {
       sprite_index=sWarmasterA_ShotB; atkPower=oCHAOS_Warmaster_EX.atkPower; bulletSpeed=12
-      decayTime=-100; image_speed=0.33; direction=270; tNewAttack.image_angle=270
+      decayTime=-100; image_speed=0.33; _direction=270; tNewAttack.image_angle=270
       move_snap(8,1)
     }
   }
@@ -1380,7 +1381,7 @@ else if currentAttack=7 //==================== ATK G: GUN WALL (Super only) ====
     {
       tNewAttack=instance_create(x-(28*image_xscale),y-20,oPassBullet)
       tNewAttack.sprite_index=sWarmasterA_ShotA; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=11
-      tNewAttack.image_speed=0.33; tNewAttack.decayTime=-100; tNewAttack.direction=tShotDir; tNewAttack.image_angle=tShotDir
+      tNewAttack.image_speed=0.33; tNewAttack.decayTime=-100; tNewAttack._direction=tShotDir; tNewAttack.image_angle=tShotDir
       tShotDir+=6
     }
   }
@@ -1413,7 +1414,7 @@ else if currentAttack=7 //==================== ATK G: GUN WALL (Super only) ====
     {
       tNewAttack=instance_create(x-(28*image_xscale),y-20,oPassBullet)
       tNewAttack.sprite_index=sWarmasterA_ShotA; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=11
-      tNewAttack.image_speed=0.33; tNewAttack.decayTime=-100; tNewAttack.direction=tShotDir; tNewAttack.image_angle=tShotDir
+      tNewAttack.image_speed=0.33; tNewAttack.decayTime=-100; tNewAttack._direction=tShotDir; tNewAttack.image_angle=tShotDir
       tShotDir+=6
     }
   }
@@ -1652,14 +1653,14 @@ else if currentAttack=2 //==================== ATK B: FIRE SPAM (Needs charge) =
     tAtk.atkPower=atkPower; tAtk.type=fireType; tAtk.warTarget=id
     if fireType=0 //Curve
     {
-      tAtk.bulletSpeed=3.5; tAtk.direction=90; tAtk.image_angle=90
+      tAtk.bulletSpeed=3.5; tAtk._direction=90; tAtk.image_angle=90
       tAtk.turnDir=(firePlacement[fireUse]/7)*fireSide
       fireType=1
     }
     else if fireType=1 //Stop then aim
     {
       tAtk.image_blend=c_yellow; tAtk.bulletSpeed=5
-      tAtk.direction=90+(firePlacement[fireUse]*fireSide); tAtk.image_angle=90+(firePlacement[fireUse]*fireSide)
+      tAtk._direction=90+(firePlacement[fireUse]*fireSide); tAtk.image_angle=90+(firePlacement[fireUse]*fireSide)
       tAtk.stopY=yGround-160-(fireUse*10)
       fireUse+=1
       if fireUse=3 {fireUse=0}
@@ -1668,7 +1669,7 @@ else if currentAttack=2 //==================== ATK B: FIRE SPAM (Needs charge) =
     else if fireType=2 //Up then down
     {
       tAtk.image_blend=c_orange; tAtk.bulletSpeed=12
-      tAtk.direction=90+(3*fireSide); tAtk.image_angle=90+(3*fireSide)
+      tAtk._direction=90+(3*fireSide); tAtk.image_angle=90+(3*fireSide)
       tAtk.xFall=x+(32*fireSide)
       fireType=0
     }
@@ -1695,11 +1696,11 @@ else if currentAttack=3 //==================== ATK C: FIREBALL =================
       else {tFireDir=180}
       tAtk=instance_create(x+(30*scaleForFacing),y-32,oPassBullet)
       tAtk.sprite_index=sWarmasterB_AtkFireballA; tAtk.atkPower=atkPower; tAtk.bulletSpeed=9
-      tAtk.decayTime=-100; tAtk.damageType="EXPLOSION"; tAtk.image_speed=0.33; tAtk.direction=tFireDir; tAtk.image_angle=tFireDir
+      tAtk.decayTime=-100; tAtk.damageType="EXPLOSION"; tAtk.image_speed=0.33; tAtk._direction=tFireDir; tAtk.image_angle=tFireDir
 
       tAtk=instance_create(x+(30*scaleForFacing),y-32,oPassBullet)
       tAtk.sprite_index=sWarmasterB_AtkFireballA; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3
-      tAtk.decayTime=-100; tAtk.damageType="EXPLOSION"; tAtk.image_speed=0.33; tAtk.direction=tFireDir; tAtk.image_angle=tFireDir
+      tAtk.decayTime=-100; tAtk.damageType="EXPLOSION"; tAtk.image_speed=0.33; tAtk._direction=tFireDir; tAtk.image_angle=tFireDir
       if FASTER_CHANGE>=2 {actTime=11}
     }
     else if actTime=12 {image_index=1}
@@ -1730,11 +1731,11 @@ else if currentAttack=3 //==================== ATK C: FIREBALL =================
       else {tFireDir=180}
       tAtk=instance_create(x+(30*scaleForFacing),y-32,oPassBullet)
       tAtk.sprite_index=sWarmasterB_AtkFireballA; tAtk.atkPower=atkPower; tAtk.bulletSpeed=9
-      tAtk.decayTime=-100; tAtk.damageType="EXPLOSION"; tAtk.image_speed=0.33; tAtk.direction=tFireDir; tAtk.image_angle=tFireDir
+      tAtk.decayTime=-100; tAtk.damageType="EXPLOSION"; tAtk.image_speed=0.33; tAtk._direction=tFireDir; tAtk.image_angle=tFireDir
 
       tAtk=instance_create(x+(30*scaleForFacing),y-32,oPassBullet)
       tAtk.sprite_index=sWarmasterB_AtkFireballA; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3
-      tAtk.decayTime=-100; tAtk.damageType="EXPLOSION"; tAtk.image_speed=0.33; tAtk.direction=tFireDir; tAtk.image_angle=tFireDir
+      tAtk.decayTime=-100; tAtk.damageType="EXPLOSION"; tAtk.image_speed=0.33; tAtk._direction=tFireDir; tAtk.image_angle=tFireDir
     }
     else if actTime=15 {image_index=1}
     else if actTime=17 {image_index=2}
@@ -1847,11 +1848,11 @@ else if currentAttack=6 //==================== ATK F: SHORT HOP + AIMED FIREBALL
     tFireDir=point_direction(x+(21*image_xscale),y-(24*image_yscale),oPlayer1.x,returnPlayerYCenter())
     tAtk=instance_create(x+(21*image_xscale),y-(24*image_yscale),oPassBullet)
     tAtk.sprite_index=sWarmasterB_AtkFireballA; tAtk.atkPower=atkPower; tAtk.bulletSpeed=10
-    tAtk.decayTime=-100; tAtk.damageType="EXPLOSION"; tAtk.image_speed=0.33; tAtk.direction=tFireDir; tAtk.image_angle=tFireDir
+    tAtk.decayTime=-100; tAtk.damageType="EXPLOSION"; tAtk.image_speed=0.33; tAtk._direction=tFireDir; tAtk.image_angle=tFireDir
 
     tAtk=instance_create(x+(21*image_xscale),y-(24*image_yscale),oPassBullet)
     tAtk.sprite_index=sWarmasterB_AtkFireballA; tAtk.atkPower=atkPower; tAtk.bulletSpeed=2
-    tAtk.decayTime=-100; tAtk.damageType="EXPLOSION"; tAtk.image_speed=0.33; tAtk.direction=tFireDir; tAtk.image_angle=tFireDir
+    tAtk.decayTime=-100; tAtk.damageType="EXPLOSION"; tAtk.image_speed=0.33; tAtk._direction=tFireDir; tAtk.image_angle=tFireDir
     yVel=1
   }
   else if actTime=18 {image_index=1}
@@ -1894,10 +1895,10 @@ else if currentAttack=7 //==================== ATK G: ZIP AND STRIKE ===========
       playSound(global.snd_Fireball,0,0.98,24000)
       tAtk=instance_create(xCenter-roomSpan+12,2,oPassBullet)
       tAtk.sprite_index=sWarmasterB_AtkFireballA; tAtk.atkPower=atkPower; tAtk.bulletSpeed=16; tAtk.image_blend=c_orange
-      tAtk.decayTime=-100; tAtk.damageType="EXPLOSION"; tAtk.image_speed=0.33; tAtk.direction=270; tAtk.image_angle=270
+      tAtk.decayTime=-100; tAtk.damageType="EXPLOSION"; tAtk.image_speed=0.33; tAtk._direction=270; tAtk.image_angle=270
       tAtk=instance_create(xCenter+roomSpan-12,2,oPassBullet)
       tAtk.sprite_index=sWarmasterB_AtkFireballA; tAtk.atkPower=atkPower; tAtk.bulletSpeed=16; tAtk.image_blend=c_orange
-      tAtk.decayTime=-100; tAtk.damageType="EXPLOSION"; tAtk.image_speed=0.33; tAtk.direction=270; tAtk.image_angle=270
+      tAtk.decayTime=-100; tAtk.damageType="EXPLOSION"; tAtk.image_speed=0.33; tAtk._direction=270; tAtk.image_angle=270
     }
 
     if image_index=0 {image_index=1}
@@ -1906,7 +1907,7 @@ else if currentAttack=7 //==================== ATK G: ZIP AND STRIKE ===========
     var tAtk;
     tAtk=instance_create(x+(8*scaleForFacing),y+3,oPassBullet)
     tAtk.sprite_index=sWarmasterB_AtkFireballA; tAtk.atkPower=atkPower; tAtk.bulletSpeed=8
-    tAtk.decayTime=-100; tAtk.damageType="EXPLOSION"; tAtk.image_speed=0.33; tAtk.direction=fireAng; tAtk.image_angle=fireAng
+    tAtk.decayTime=-100; tAtk.damageType="EXPLOSION"; tAtk.image_speed=0.33; tAtk._direction=fireAng; tAtk.image_angle=fireAng
 
     if fireInc=0
     {
@@ -1966,11 +1967,11 @@ else if currentAttack=7 //==================== ATK G: ZIP AND STRIKE ===========
     else {tFireDir=180}
     tAtk=instance_create(x+(30*scaleForFacing),y-32,oPassBullet)
     tAtk.sprite_index=sWarmasterB_AtkFireballA; tAtk.atkPower=atkPower; tAtk.bulletSpeed=9
-    tAtk.decayTime=-100; tAtk.damageType="EXPLOSION"; tAtk.image_speed=0.33; tAtk.direction=tFireDir; tAtk.image_angle=tFireDir
+    tAtk.decayTime=-100; tAtk.damageType="EXPLOSION"; tAtk.image_speed=0.33; tAtk._direction=tFireDir; tAtk.image_angle=tFireDir
 
     tAtk=instance_create(x+(30*scaleForFacing),y-32,oPassBullet)
     tAtk.sprite_index=sWarmasterB_AtkFireballA; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3
-    tAtk.decayTime=-100; tAtk.damageType="EXPLOSION"; tAtk.image_speed=0.33; tAtk.direction=tFireDir; tAtk.image_angle=tFireDir
+    tAtk.decayTime=-100; tAtk.damageType="EXPLOSION"; tAtk.image_speed=0.33; tAtk._direction=tFireDir; tAtk.image_angle=tFireDir
   }
   else if actTime=220 {image_index=1}
   else if actTime=222 {image_index=2}
@@ -2059,7 +2060,7 @@ else if currentAttack=2 //==================== ATK B: DASH ACROSS ROOM AND SHOOT
       var tAtk;
       tAtk=instance_create(x,y,oWMC_IceShotA)
       tAtk.sprite_index=sWarmasterC_IceShot; tAtk.atkPower=atkPower; tAtk.moveSpd=6; tAtk.type=0; tAtk.warTarget=id
-      tAtk.decayTime=-100; tAtk.damageType="ELEMENTAL"; tAtk.direction=270; tAtk.image_angle=270
+      tAtk.decayTime=-100; tAtk.damageType="ELEMENTAL"; tAtk._direction=270; tAtk.image_angle=270
     }
 
     if (xVel>0 and x>=xCenter+roomSpan-20) or (xVel<0 and x<=xCenter-roomSpan+20)
@@ -2141,10 +2142,10 @@ else if currentAttack=5 //==================== ATK E: SPEAR SWIRL ==============
     {
       tAtk=instance_create(x,y-27,oPassArcBullet)
       tAtk.sprite_index=sSeraAtkIceC; tAtk.image_xscale=0.75; tAtk.image_yscale=0.75; tAtk.decayTime=-100; tAtk.atkPower=atkPower
-      tAtk.bulletSpeed=5; tAtk.arcAmt=7; tAtk.falloff=0.125; tAtk.direction=tIceDir; tAtk.image_angle=tIceDir; tAtk.damageType="ELEMENTAL"
+      tAtk.bulletSpeed=5; tAtk.arcAmt=7; tAtk.falloff=0.125; tAtk._direction=tIceDir; tAtk.image_angle=tIceDir; tAtk.damageType="ELEMENTAL"
       tAtk=instance_create(x,y-27,oPassArcBullet)
       tAtk.sprite_index=sSeraAtkIceC; tAtk.image_xscale=0.75; tAtk.image_yscale=0.75; tAtk.decayTime=-100; tAtk.atkPower=atkPower
-      tAtk.bulletSpeed=5; tAtk.arcAmt=-7; tAtk.falloff=0.125; tAtk.direction=tIceDir; tAtk.image_angle=tIceDir; tAtk.damageType="ELEMENTAL"
+      tAtk.bulletSpeed=5; tAtk.arcAmt=-7; tAtk.falloff=0.125; tAtk._direction=tIceDir; tAtk.image_angle=tIceDir; tAtk.damageType="ELEMENTAL"
       tIceDir+=360/orbitNum
     }
   }
@@ -2187,7 +2188,7 @@ else if currentAttack=6 //==================== ATK F: ICE SHOT TO PLAYER =======
       {
         tAtk=instance_create(x+(17*image_xscale),y-(28*image_yscale),oPassBullet)
         tAtk.sprite_index=sWarmasterC_IceShard; tAtk.atkPower=atkPower; tAtk.bulletSpeed=9
-        tAtk.decayTime=-100; tAtk.damageType="ELEMENTAL"; tAtk.direction=tIceDir; tAtk.image_angle=tIceDir
+        tAtk.decayTime=-100; tAtk.damageType="ELEMENTAL"; tAtk._direction=tIceDir; tAtk.image_angle=tIceDir
         tIceDir+=3
       }
     }
@@ -2200,7 +2201,7 @@ else if currentAttack=6 //==================== ATK F: ICE SHOT TO PLAYER =======
       else {tIcePosX=xCenter+roomSpan-8; tIceSpreadStart=180}
       tIceDir=point_direction(x+(17*image_xscale),y-(28*image_yscale),tIcePosX,tIcePosY)
       tAtk=instance_create(x+(17*image_xscale),y-(28*image_yscale),oWMC_EX_SpreadShot)
-      tAtk.atkPower=atkPower; tAtk.bulletSpeed=7 tAtk.posX=tIcePosX; tAtk.posY=tIcePosY; tAtk.spreadDir=tIceSpreadStart; tAtk.direction=tIceDir
+      tAtk.atkPower=atkPower; tAtk.bulletSpeed=7 tAtk.posX=tIcePosX; tAtk.posY=tIcePosY; tAtk.spreadDir=tIceSpreadStart; tAtk._direction=tIceDir
     }
   }
   else if actTime>=20
@@ -2267,7 +2268,7 @@ else if currentAttack=8 //==================== ATK H: JUMP UP + SPREAD ATTACK (G
     {
       tAtk=instance_create(x,y-29,oPassBullet)
       tAtk.sprite_index=sWarmasterC_IceShard; tAtk.atkPower=atkPower; tAtk.bulletSpeed=7
-      tAtk.decayTime=-100; tAtk.damageType="ELEMENTAL"; tAtk.direction=tIceDir; tAtk.image_angle=tIceDir
+      tAtk.decayTime=-100; tAtk.damageType="ELEMENTAL"; tAtk._direction=tIceDir; tAtk.image_angle=tIceDir
       tIceDir+=360/16
     }
     if FASTER_CHANGE>=2 {actTime=25}
@@ -2303,7 +2304,7 @@ else if currentAttack=9 //==================== ATK I: ICE SHOT TO CEILING AND BR
     var tAtk;
     tAtk=instance_create(x+(17*image_xscale),y-(27*image_yscale),oWMC_IceShotB)
     tAtk.atkPower=atkPower; tAtk.bulletSpeed=11; tAtk.warTarget=id
-    tAtk.type=1; tAtk.direction=90
+    tAtk.type=1; tAtk._direction=90
     actTime=18
   }
   else if actTime>=24
@@ -2336,7 +2337,7 @@ else if currentAttack=10 //==================== ATK I: ICE SHOT TO CEILING AND B
     tIcePosX=xCenter-roomSpan+8; tIceSpreadStart=90
     tIceDir=point_direction(x+(17*image_xscale),y-(28*image_yscale),tIcePosX,tIcePosY)
     tAtk=instance_create(x+(17*image_xscale),y-(28*image_yscale),oWMC_EX_SpreadShot)
-    tAtk.atkPower=atkPower; tAtk.bulletSpeed=7 tAtk.posX=tIcePosX; tAtk.posY=tIcePosY; tAtk.spreadDir=tIceSpreadStart; tAtk.direction=tIceDir
+    tAtk.atkPower=atkPower; tAtk.bulletSpeed=7 tAtk.posX=tIcePosX; tAtk.posY=tIcePosY; tAtk.spreadDir=tIceSpreadStart; tAtk._direction=tIceDir
   }
   else if actTime=16
   {
@@ -2346,7 +2347,7 @@ else if currentAttack=10 //==================== ATK I: ICE SHOT TO CEILING AND B
     tIcePosX=xCenter+roomSpan-8; tIceSpreadStart=180
     tIceDir=point_direction(x+(17*image_xscale),y-(28*image_yscale),tIcePosX,tIcePosY)
     tAtk=instance_create(x+(17*image_xscale),y-(28*image_yscale),oWMC_EX_SpreadShot)
-    tAtk.atkPower=atkPower; tAtk.bulletSpeed=7 tAtk.posX=tIcePosX; tAtk.posY=tIcePosY; tAtk.spreadDir=tIceSpreadStart; tAtk.direction=tIceDir
+    tAtk.atkPower=atkPower; tAtk.bulletSpeed=7 tAtk.posX=tIcePosX; tAtk.posY=tIcePosY; tAtk.spreadDir=tIceSpreadStart; tAtk._direction=tIceDir
   }
   else if actTime=18
   {
@@ -2356,7 +2357,7 @@ else if currentAttack=10 //==================== ATK I: ICE SHOT TO CEILING AND B
     tIcePosX=xCenter-roomSpan+8; tIceSpreadStart=90
     tIceDir=point_direction(x+(17*image_xscale),y-(28*image_yscale),tIcePosX,tIcePosY)
     tAtk=instance_create(x+(17*image_xscale),y-(28*image_yscale),oWMC_EX_SpreadShot)
-    tAtk.atkPower=atkPower; tAtk.bulletSpeed=7 tAtk.posX=tIcePosX; tAtk.posY=tIcePosY; tAtk.spreadDir=tIceSpreadStart; tAtk.direction=tIceDir
+    tAtk.atkPower=atkPower; tAtk.bulletSpeed=7 tAtk.posX=tIcePosX; tAtk.posY=tIcePosY; tAtk.spreadDir=tIceSpreadStart; tAtk._direction=tIceDir
   }
   else if actTime=19
   {
@@ -2366,7 +2367,7 @@ else if currentAttack=10 //==================== ATK I: ICE SHOT TO CEILING AND B
     tIcePosX=xCenter+roomSpan-8; tIceSpreadStart=180
     tIceDir=point_direction(x+(17*image_xscale),y-(28*image_yscale),tIcePosX,tIcePosY)
     tAtk=instance_create(x+(17*image_xscale),y-(28*image_yscale),oWMC_EX_SpreadShot)
-    tAtk.atkPower=atkPower; tAtk.bulletSpeed=7 tAtk.posX=tIcePosX; tAtk.posY=tIcePosY; tAtk.spreadDir=tIceSpreadStart; tAtk.direction=tIceDir
+    tAtk.atkPower=atkPower; tAtk.bulletSpeed=7 tAtk.posX=tIcePosX; tAtk.posY=tIcePosY; tAtk.spreadDir=tIceSpreadStart; tAtk._direction=tIceDir
   }
   else if actTime>=24
   {
@@ -2587,7 +2588,7 @@ else if currentAttack=4 //==================== ATK D: SHOOT WIND SHOT ==========
         else {tAltSpd=0}
         tAtk=instance_create(x+(17*image_xscale),y-(27*image_yscale),oPassBullet)
         tAtk.sprite_index=sWarmasterD_AtkWindA; tAtk.atkPower=atkPower; tAtk.bulletSpeed=6+tAltSpd
-        tAtk.decayTime=-100; tAtk.damageType="ELEMENTAL"; tAtk.direction=tWindDir; tAtk.image_angle=tWindDir
+        tAtk.decayTime=-100; tAtk.damageType="ELEMENTAL"; tAtk._direction=tWindDir; tAtk.image_angle=tWindDir
         tWindDir+=18
       }
     }
@@ -2619,7 +2620,7 @@ else if currentAttack=4 //==================== ATK D: SHOOT WIND SHOT ==========
       {
         tAtk=instance_create(x+(17*image_xscale),y-(27*image_yscale),oPassBullet)
         tAtk.sprite_index=sWarmasterD_AtkWindA; tAtk.atkPower=atkPower; tAtk.bulletSpeed=6
-        tAtk.decayTime=-100; tAtk.damageType="ELEMENTAL"; tAtk.direction=tWindDir; tAtk.image_angle=tWindDir
+        tAtk.decayTime=-100; tAtk.damageType="ELEMENTAL"; tAtk._direction=tWindDir; tAtk.image_angle=tWindDir
         tWindDir+=4
       }
       actTime=12
@@ -2683,7 +2684,7 @@ else if currentAttack=6 //==================== ATK F: SWORD SWING 1 - (Leads int
 
       tAtk=instance_create(x+(12*scaleForFacing),y-30,oWMD_SwordWave)
       tAtk.atkPower=atkPower; tAtk.type=0
-      if image_xscale<0 {tAtk.direction=180; tAtk.image_angle=180}
+      if image_xscale<0 {tAtk._direction=180; tAtk.image_angle=180}
       if FASTER_CHANGE>=2 {actTime=11}
     }
     else if actTime=14
@@ -2763,7 +2764,7 @@ else if currentAttack=7 //==================== ATK G: SWORD SWING 2 - (Leads int
     tAtk.atkPower=atkPower; tAtk.image_xscale=image_xscale; tAtk.image_yscale=image_yscale; tAtk.sprite_index=sWarmasterD_AtkB; tAtk.type=1
 
     tAtk=instance_create(x+(12*scaleForFacing),y-30,oWMD_SwordWave)
-    tAtk.atkPower=atkPower; tAtk.direction=tWaveDir; tAtk.image_angle=tWaveDir; tAtk.sprite_index=sWarmasterD_AtkWindB; tAtk.type=1
+    tAtk.atkPower=atkPower; tAtk._direction=tWaveDir; tAtk.image_angle=tWaveDir; tAtk.sprite_index=sWarmasterD_AtkWindB; tAtk.type=1
     if FASTER_CHANGE>=2 {actTime=10}
   }
   else if actTime=12
@@ -2798,7 +2799,7 @@ else if currentAttack=8 //==================== ATK H: SWORD SWING 3 ============
     tAtk.atkPower=atkPower; tAtk.image_xscale=image_xscale; tAtk.image_yscale=image_yscale; tAtk.sprite_index=sWarmasterD_AtkC; tAtk.type=2
 
     tAtk=instance_create(x+(12*scaleForFacing),y-30,oWMD_SwordWave)
-    tAtk.atkPower=atkPower; tAtk.direction=tWaveDir; tAtk.image_angle=tWaveDir; tAtk.sprite_index=sWarmasterD_AtkWindC; tAtk.type=2
+    tAtk.atkPower=atkPower; tAtk._direction=tWaveDir; tAtk.image_angle=tWaveDir; tAtk.sprite_index=sWarmasterD_AtkWindC; tAtk.type=2
     if FASTER_CHANGE>=2 {actTime=9}
   }
   else if actTime=11

@@ -375,7 +375,7 @@ else if attackCycle=2 //-------------------- [BLUE] Projectile Spam ------------
       tNewAttack=instance_create(x,y,oPassBullet)
       tNewAttack.sprite_index=sFireEyeFire; tNewAttack.atkPower=atkPower; tNewAttack.decayTime=-100
       tNewAttack.bCanBeBlocked=1; tNewAttack.blockCost=300; tNewAttack.bParryOpp=1; tNewAttack.damageType="ELEMENTAL"
-      tNewAttack.direction=tDir; tNewAttack.bulletSpeed=7; tNewAttack.depth=26
+      tNewAttack._direction=tDir; tNewAttack.bulletSpeed=7; tNewAttack.depth=26
     }
   }
   else if attackTime>=91 and attackTime<=100

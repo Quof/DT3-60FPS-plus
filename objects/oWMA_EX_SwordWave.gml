@@ -23,7 +23,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  speed=moveSpd
+  _speed=moveSpd
   moveSpd-=0.175
 
   if image_alpha<=0.3 {image_alpha-=0.075}
@@ -32,4 +32,5 @@ if global.gamePaused=false
   if image_alpha<=0.3 {bCanDealDamage=0}
   if image_alpha<=0 {instance_destroy()}
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)

@@ -293,8 +293,8 @@ else if room=rAbomD
         if sceneDelay=1
         {
           myFireball=instance_create(1136,96,oLevelDecal)
-          myFireball.sprite_index=sPT_FE_BigFire; myFireball.speed=8
-          myFireball.direction=point_direction(1136,96,npcHex.x,npcHex.y)
+          myFireball.sprite_index=sPT_FE_BigFire; myFireball._speed=8
+          myFireball._direction=point_direction(1136,96,npcHex.x,npcHex.y)
         }
         else if sceneDelay>=2 and sceneDelay<=99
         {

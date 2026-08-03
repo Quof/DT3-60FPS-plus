@@ -55,7 +55,7 @@ if global.gamePaused=false
       tMissile.atkPower=atkPower; tMissile.targetTime=20; tMissile.sprite_index=sJunkCarMissile
       tMissile.bulletSpeed=7; tMissile.seekThres=20; tMissile.minSpd=3; tMissile.maxSpd=8
       tMissile.turnSpd=4; tMissile.accel=0.2
-      if image_xscale=1 {tMissile.direction=0} else {tMissile.direction=180}
+      if image_xscale=1 {tMissile._direction=0} else {tMissile._direction=180}
     }
     else if gunShot=80 {hoodFrame=0}
     else if gunShot=85 {hoodFrame=-1; gunShot=0}
@@ -82,6 +82,7 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
+correctSpeedDirection(self)
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -89,4 +90,4 @@ action_id=603
 applies_to=self
 */
 event_inherited()
-if hoodFrame>-1 {draw_sprite_ext(sJunkCarHood,hoodFrame,x,y,image_xscale,image_yscale,direction,image_blend,image_alpha)}
+if hoodFrame>-1 {draw_sprite_ext(sJunkCarHood,hoodFrame,x,y,image_xscale,image_yscale,_direction,image_blend,image_alpha)}

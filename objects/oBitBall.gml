@@ -12,7 +12,7 @@ bShowDamage=false
 bCanTakeDamage=false
 atkProg=0
 bulletSpeed=0
-direction=point_direction(x,y,oPlayer1.x,oPlayer1.y-26)
+_direction=point_direction(x,y,oPlayer1.x,oPlayer1.y-26)
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -29,8 +29,8 @@ if global.gamePaused=false
     tEffect.AccelX=0; tEffect.AccelY=0; tEffect.newBlend=-1; tEffect.followID=-1; tEffect.rotation=0
   }
 
-  speed=bulletSpeed
-  diff=angle_difference(direction,point_direction(x,y,oPlayer1.x,returnPlayerYCenter()))
+  _speed=bulletSpeed
+  diff=angle_difference(_direction,point_direction(x,y,oPlayer1.x,returnPlayerYCenter()))
   if diff<20 and diff>-20
   {
     if bulletSpeed<6 {bulletSpeed+=0.25}
@@ -45,4 +45,5 @@ if global.gamePaused=false
   if atkProg>=decayTime {instance_destroy()}
 }
 else
-  speed=0
+  _speed=0
+correctSpeedDirection(self)

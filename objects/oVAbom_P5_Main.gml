@@ -206,7 +206,7 @@ if global.gamePaused=false
 
           tNewAtk=instance_create(x+tX,y+tY,oPassBullet)
           tNewAtk.sprite_index=sBTFireball; tNewAtk.atkPower=9; tNewAtk.bulletSpeed=4; tNewAtk.image_speed=0.33
-          tNewAtk.decayTime=-100; tNewAtk.image_xscale=1.5; tNewAtk.image_yscale=1.5; tNewAtk.direction=tDir
+          tNewAtk.decayTime=-100; tNewAtk.image_xscale=1.5; tNewAtk.image_yscale=1.5; tNewAtk._direction=tDir
           shotTime=0
         }
       }
@@ -343,7 +343,7 @@ if global.gamePaused=false
           {
             tNewAtk=instance_create(x-12,y-282,oPassBullet)
             tNewAtk.sprite_index=sBTFireball; tNewAtk.atkPower=9; tNewAtk.bulletSpeed=6+random(2.5); tNewAtk.image_speed=0.33
-            tNewAtk.decayTime=-100; tNewAtk.image_xscale=1.33; tNewAtk.image_yscale=1.33; tNewAtk.direction=laserDir+random_range(-8,8)
+            tNewAtk.decayTime=-100; tNewAtk.image_xscale=1.33; tNewAtk.image_yscale=1.33; tNewAtk._direction=laserDir+random_range(-8,8)
           }
         }
       }
@@ -361,7 +361,7 @@ if global.gamePaused=false
         {
           tNewAtk=instance_create(x-12,y-282,oPassBullet)
           tNewAtk.sprite_index=sBTFireball; tNewAtk.atkPower=9; tNewAtk.bulletSpeed=5; tNewAtk.image_speed=0.33
-          tNewAtk.decayTime=-100; tNewAtk.image_xscale=1.25; tNewAtk.image_yscale=1.25; tNewAtk.direction=tDir
+          tNewAtk.decayTime=-100; tNewAtk.image_xscale=1.25; tNewAtk.image_yscale=1.25; tNewAtk._direction=tDir
           tDir+=30
         }
       }

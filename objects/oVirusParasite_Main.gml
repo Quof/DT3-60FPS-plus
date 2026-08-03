@@ -353,14 +353,14 @@ if global.gamePaused=false
         for(i=0;i<bulletSwirlAmt;i+=1)
         {
           tNewAtk=instance_create(x,y,oVP_Bullet)
-          tNewAtk.bulletSpeed=3; tNewAtk.direction=(bulletSwirlTime*3)+(i*(360/bulletSwirlAmt)); tNewAtk.depth=29
+          tNewAtk.bulletSpeed=3; tNewAtk._direction=(bulletSwirlTime*3)+(i*(360/bulletSwirlAmt)); tNewAtk.depth=29
         }
       }
       if bulletSwirlTime mod bulletSwirlModB=0
       {
         var tNewAtk;
         tNewAtk=instance_create(x,y,oVP_Bullet)
-        tNewAtk.bulletSpeed=4; tNewAtk.direction=find_chao_dir(); tNewAtk.depth=27
+        tNewAtk.bulletSpeed=4; tNewAtk._direction=find_chao_dir(); tNewAtk.depth=27
         tNewAtk.image_blend=make_color_rgb(255,160,160)
       }
     }
@@ -404,7 +404,7 @@ if global.gamePaused=false
         for(i=0;i<3;i+=1)
         {
           tNewAtk=instance_create(x,y,oVP_Bullet)
-          tNewAtk.bulletSpeed=4; tNewAtk.direction=tDir
+          tNewAtk.bulletSpeed=4; tNewAtk._direction=tDir
           tNewAtk.image_blend=make_color_rgb(160,255,160)
           tDir+=15
         }
@@ -439,7 +439,7 @@ if global.gamePaused=false
         for(i=0;i<aimedCircleAmt;i+=1)
         {
           tNewAtk=instance_create(x,y,oVP_Bullet)
-          tNewAtk.bulletSpeed=2; tNewAtk.direction=tDir
+          tNewAtk.bulletSpeed=2; tNewAtk._direction=tDir
           tNewAtk.image_blend=make_color_rgb(150,255,255); tNewAtk.depth=28
           tDir+=360/aimedCircleAmt
         }

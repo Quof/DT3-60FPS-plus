@@ -25,17 +25,17 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  speed=bulletSpeed
-  if direction>270
+  _speed=bulletSpeed
+  if _direction>270
   {
-    if direction>290 {direction-=2}
+    if _direction>290 {_direction-=2}
   }
   else
   {
-    if direction<250 {direction+=2}
+    if _direction<250 {_direction+=2}
   }
   y+=grav
-  image_angle=direction
+  image_angle=_direction
   if isCollisionTop(1) {bBlownUp=true}
   if isCollisionBottom(1) {bBlownUp=true}
   if isCollisionLeft(1) {bBlownUp=true}
@@ -53,7 +53,8 @@ if global.gamePaused=false
   if y>room_height+32
     instance_destroy()
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)
 #define Collision_oPlayer1
 /*"/*'/**//* YYD ACTION
 lib_id=1

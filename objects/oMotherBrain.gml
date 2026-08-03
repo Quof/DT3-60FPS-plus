@@ -89,7 +89,7 @@ if global.gamePaused=false
       image_blend=c_white; myGun.image_blend=c_white
       var tAtk;
       tAtk=instance_create(x+86,y+57,oPassBullet)
-      tAtk.sprite_index=sMB_BrainWave; tAtk.direction=0; tAtk.depth=9
+      tAtk.sprite_index=sMB_BrainWave; tAtk._direction=0; tAtk.depth=9
       tAtk.atkPower=atkPower; tAtk.bulletSpeed=6; tAtk.decayTime=-100
       eyeFrm=2
     }

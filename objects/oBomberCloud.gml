@@ -41,11 +41,11 @@ if global.gamePaused=false
   if bActive=0 {makeEnemyActive(0)}
   if bActive=true
   {
-    speed=moveSpd
+    _speed=moveSpd
     turnTime+=1
     if turnTime>=turnDelay
     {
-      direction+=turnAmt
+      _direction+=turnAmt
       turnTime=0
     }
 
@@ -60,4 +60,5 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)

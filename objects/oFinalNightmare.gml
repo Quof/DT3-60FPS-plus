@@ -123,11 +123,11 @@ if global.gamePaused=false
         {
           leftArm[i]=instance_create(x,y,oFNightmareSeg)
           leftArm[i].armSide=0; leftArm[i].segment=i
-          leftArm[i].direction=190; leftArm[i].circleRad=10-(i/2)
+          leftArm[i]._direction=190; leftArm[i].circleRad=10-(i/2)
           leftArm[i].type=0; leftArm[i].bEnd=0
           rightArm[i]=instance_create(x,y,oFNightmareSeg)
           rightArm[i].armSide=1; rightArm[i].segment=i
-          rightArm[i].direction=350; rightArm[i].circleRad=10-(i/2)
+          rightArm[i]._direction=350; rightArm[i].circleRad=10-(i/2)
           rightArm[i].type=0; rightArm[i].bEnd=0
 
           if i=maxArms-1
@@ -141,7 +141,7 @@ if global.gamePaused=false
       else if armStart=1 //Check position
       {
         dropAtk+=1*gDeltaTime
-        if leftArm[0].direction=180 and dropAtk>=dropMax
+        if leftArm[0]._direction=180 and dropAtk>=dropMax
         {
           for(i=0;i<maxArms;i+=1)
           {
@@ -311,11 +311,11 @@ if global.gamePaused=false
         {
           leftArm[i]=instance_create(x,y,oFNightmareSeg)
           leftArm[i].armSide=0; leftArm[i].segment=i
-          leftArm[i].direction=190; leftArm[i].circleRad=11-(i/2)
+          leftArm[i]._direction=190; leftArm[i].circleRad=11-(i/2)
           leftArm[i].type=1; leftArm[i].bEnd=0
           rightArm[i]=instance_create(x,y,oFNightmareSeg)
           rightArm[i].armSide=1; rightArm[i].segment=i
-          rightArm[i].direction=350; rightArm[i].circleRad=11-(i/2)
+          rightArm[i]._direction=350; rightArm[i].circleRad=11-(i/2)
           rightArm[i].type=1; rightArm[i].bEnd=0
 
           if i=maxArms-1
@@ -818,7 +818,7 @@ if global.gamePaused=false
     deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
-      speed=0
+      _speed=0
       with oEProjectileBase {instance_destroy()}
     }
     else if deathAnim>=2 and deathAnim<=55
@@ -848,7 +848,8 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)
 #define Other_10
 /*"/*'/**//* YYD ACTION
 lib_id=1

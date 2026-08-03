@@ -275,7 +275,7 @@ if global.gamePaused=false
         tNewAttack=instance_create(x+(20*image_xscale),y-33,oPassBullet)
         if charForm=0 {tNewAttack.sprite_index=sLinkArrow} else {tNewAttack.sprite_index=sBelmontDagger}
         tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=12; tNewAttack.decayTime=-100; tNewAttack.image_blend=c_black
-        if image_xscale=-1 {tNewAttack.direction=180}
+        if image_xscale=-1 {tNewAttack._direction=180}
       }
       else if attackDelay=10-spdChange //Attack end
       {

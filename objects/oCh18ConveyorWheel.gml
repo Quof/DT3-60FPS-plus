@@ -31,13 +31,13 @@ if global.gamePaused=false
     {
       var tEffect;
       tEffect=instance_create(x,y-10,oEffectSpark)
-      tEffect.depth=26; tEffect.fadeSpd=0.04; tEffect.moveSpd=2+random(2); tEffect.direction=random_range(160,290)
+      tEffect.depth=26; tEffect.fadeSpd=0.04; tEffect.moveSpd=2+random(2); tEffect._direction=random_range(160,290)
       tEffect=instance_create(x+107,y+97,oEffectSpark)
-      tEffect.depth=26; tEffect.fadeSpd=0.04; tEffect.moveSpd=2+random(2); tEffect.direction=random_range(160,290)
+      tEffect.depth=26; tEffect.fadeSpd=0.04; tEffect.moveSpd=2+random(2); tEffect._direction=random_range(160,290)
       tEffect=instance_create(x+107,y+334,oEffectSpark)
-      tEffect.depth=26; tEffect.fadeSpd=0.04; tEffect.moveSpd=2+random(2); tEffect.direction=random_range(-20,110)
+      tEffect.depth=26; tEffect.fadeSpd=0.04; tEffect.moveSpd=2+random(2); tEffect._direction=random_range(-20,110)
       tEffect=instance_create(x,y+227,oEffectSpark)
-      tEffect.depth=26; tEffect.fadeSpd=0.04; tEffect.moveSpd=2+random(2); tEffect.direction=random_range(-20,110)
+      tEffect.depth=26; tEffect.fadeSpd=0.04; tEffect.moveSpd=2+random(2); tEffect._direction=random_range(-20,110)
     }
     if x>=2144 {bMoving=0}
   }

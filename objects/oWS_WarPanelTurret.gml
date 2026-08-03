@@ -70,7 +70,7 @@ if global.gamePaused=false
       if image_index>=3
       {
         bCanTakeDamage=1
-        direction=player_sprite_center()
+        _direction=player_sprite_center()
         sprite_index=sWS_TurretPTurret
         detectDistX=264
         detectDistY=200
@@ -95,7 +95,7 @@ if global.gamePaused=false
         var tNewAttack;
         tNewAttack=instance_create(x,y,oPassBullet)
         tNewAttack.sprite_index=sLB_Laser; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=bulletSpd
-        tNewAttack.decayTime=-100; tNewAttack.direction=direction; tNewAttack.image_angle=direction; tNewAttack.image_xscale=0.35
+        tNewAttack.decayTime=-100; tNewAttack._direction=_direction; tNewAttack.image_angle=_direction; tNewAttack.image_xscale=0.35
         laserAmt+=1
         if laserAmt>=5
         {
@@ -123,6 +123,7 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
+correctSpeedDirection(self)
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -133,5 +134,5 @@ if AIprog=0 or AIprog=1 {event_inherited()}
 else if AIprog=2
 {
   draw_sprite(sWS_TurretPanel,3,x,y)
-  draw_sprite_ext(sprite_index,image_index,x,y,image_xscale,image_yscale,direction,image_blend,image_alpha)
+  draw_sprite_ext(sprite_index,image_index,x,y,image_xscale,image_yscale,_direction,image_blend,image_alpha)
 }
