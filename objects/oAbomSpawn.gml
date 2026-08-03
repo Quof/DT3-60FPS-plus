@@ -116,4 +116,3 @@ else
   _vspeed=0
 }
 correctHSpeedVSpeed(self)
-

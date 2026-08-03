@@ -152,7 +152,6 @@ if global.gamePaused=false
 else {_speed=0}
 
 correctSpeedDirection(self)
-
 #define Other_10
 /*"/*'/**//* YYD ACTION
 lib_id=1

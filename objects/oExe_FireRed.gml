@@ -13,6 +13,13 @@ bShowDamage=false
 bCanTakeDamage=false
 
 damageType="ELEMENTAL"
+#define Step_0
+/*"/*'/**//* YYD ACTION
+lib_id=1
+action_id=603
+applies_to=self
+*/
+correctSpeedDirection(self)
 #define Collision_oPlayer1
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -40,10 +47,3 @@ if oPlayer1.extraBulletCheck=0
     }
   }
 }
-#define Step_0
-/*"/*'/**//* YYD ACTION
-lib_id=1
-action_id=603
-applies_to=self
-*/
-correctSpeedDirection(self)

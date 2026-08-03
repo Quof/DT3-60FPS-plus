@@ -100,8 +100,6 @@ if global.gamePaused=false
       hspeed=0; currHspd=0
       atkTime=0; atkProg+=1
     }
-    x += _hspeed * gDeltaTime
-    y += _vspeed * gDeltaTime
   }
   else if atkProg=4 //Slam down
   {
@@ -153,8 +151,6 @@ if global.gamePaused=false
         instance_destroy()
       }
     }
-    x += cos(degtorad(_direction)) * _speed * gDeltaTime
-    y -= sin(degtorad(_direction)) * _speed * gDeltaTime
   }
 
   if !instance_exists(ownerID) {instance_destroy()}

@@ -92,7 +92,6 @@ else {_speed=0}
 
 
 correctSpeedDirection(self)
-
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

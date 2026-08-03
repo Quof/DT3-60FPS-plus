@@ -14,6 +14,13 @@ bShowDamage=false
 bCanTakeDamage=false
 
 damageType="ELEMENTAL"
+#define Step_0
+/*"/*'/**//* YYD ACTION
+lib_id=1
+action_id=603
+applies_to=self
+*/
+correctSpeedDirection(self)
 #define Collision_oAttackBase
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -27,10 +34,3 @@ if other.weaponTag=21 or other.weaponTag=51
   tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
   instance_destroy()
 }
-#define Step_0
-/*"/*'/**//* YYD ACTION
-lib_id=1
-action_id=603
-applies_to=self
-*/
-correctSpeedDirection(self)

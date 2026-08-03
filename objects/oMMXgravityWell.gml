@@ -67,7 +67,6 @@ if global.gamePaused=false
 else {_speed=0}
 
 correctSpeedDirection(self)
-
 #define Collision_oEnemyBase
 /*"/*'/**//* YYD ACTION
 lib_id=1

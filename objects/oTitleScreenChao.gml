@@ -61,8 +61,6 @@ else if moveProg>=1000 and moveProg<=9000
   }
 }
 _speed=0
-x += cos(degtorad(_direction)) * _speed * gDeltaTime
-y -= sin(degtorad(_direction)) * _speed * gDeltaTime
 
 //----- Effect -----
 effectDelay+=1*gDeltaTime

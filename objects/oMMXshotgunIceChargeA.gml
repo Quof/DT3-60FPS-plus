@@ -79,4 +79,3 @@ if global.gamePaused=false
 else {_speed=0}
 
 correctSpeedDirection(self)
-

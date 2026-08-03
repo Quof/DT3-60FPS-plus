@@ -44,4 +44,3 @@ else {escape-=1*gDeltaTime}
 
 _speed=0
 correctSpeedDirection(self)
-

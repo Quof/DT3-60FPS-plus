@@ -74,7 +74,6 @@ if global.gamePaused=false
 else {_speed=0}
 
 correctSpeedDirection(self)
-
 #define Collision_oSolid
 /*"/*'/**//* YYD ACTION
 lib_id=1

@@ -28,7 +28,6 @@ if global.gamePaused=false
 }
 
 correctSpeedDirection(self)
-
 #define Collision_oAttackBase
 /*"/*'/**//* YYD ACTION
 lib_id=1

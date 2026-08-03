@@ -30,7 +30,6 @@ applies_to=self
 */
 
 correctHSpeedVSpeed(self)
-
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

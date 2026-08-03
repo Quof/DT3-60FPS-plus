@@ -241,8 +241,6 @@ if global.gamePaused=false
           if dashSpeed>6 {dashSpeed-=0.33*gDeltaTime}
 
           if closeTime>=121 {closeTime=0}
-          x += cos(degtorad(_direction)) * _speed * gDeltaTime
-          y -= sin(degtorad(_direction)) * _speed * gDeltaTime
         }
       }
     }

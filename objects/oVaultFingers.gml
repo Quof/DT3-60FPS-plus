@@ -20,6 +20,13 @@ for(i=0;i<fingerAmt;i+=1)
   fingerSize[i]=random(0.5)
 }
 setupVars=1
+#define Step_0
+/*"/*'/**//* YYD ACTION
+lib_id=1
+action_id=603
+applies_to=self
+*/
+correctSpeedDirection(self)
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -50,10 +57,3 @@ if setupVars=1
     }
   }
 }
-#define Step_0
-/*"/*'/**//* YYD ACTION
-lib_id=1
-action_id=603
-applies_to=self
-*/
-correctSpeedDirection(self)

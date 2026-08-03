@@ -26,4 +26,3 @@ event_inherited()
 image_angle-=15*gDeltaTime
 
 correctSpeedDirection(self)
-

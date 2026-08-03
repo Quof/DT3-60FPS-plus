@@ -405,7 +405,6 @@ if global.gamePaused=false
 else {path_speed=0; _speed=0}
 
 correctSpeedDirection(self)
-
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

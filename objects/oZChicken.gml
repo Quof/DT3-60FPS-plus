@@ -170,8 +170,6 @@ if global.gamePaused=false
       //speed=flyAcc
       _direction=myDir
       _speed=flyAcc
-      x += cos(degtorad(_direction)) * _speed *gDeltaTime
-      y -= sin(degtorad(_direction)) * _speed *gDeltaTime
 
       if _direction>90 and _direction<270 {image_xscale=-1}
       else {image_xscale=1}

@@ -24,13 +24,10 @@ event_inherited()
 if global.gamePaused=false
   {
     //_speed=bulletSpeed
-    _speed=bulletSpeed
-     x += cos(degtorad(_direction)) * _speed *gDeltaTime
-     y -= sin(degtorad(_direction)) * _speed *gDeltaTime   }
+    _speed=bulletSpeed  }
 else
   _speed=0
 correctSpeedDirection(self)
-
 #define Other_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

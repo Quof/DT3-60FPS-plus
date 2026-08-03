@@ -36,4 +36,3 @@ else {_speed=0}
 
 
 correctSpeedDirection(self)
-

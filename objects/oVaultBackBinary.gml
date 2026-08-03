@@ -17,7 +17,6 @@ applies_to=self
 if checkScreenArea(x,y,32+string_width(binaryString)*2.5)=0 {instance_destroy()}
 
 correctSpeedDirection(self)
-
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

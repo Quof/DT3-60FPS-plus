@@ -57,8 +57,6 @@ if global.gamePaused=false
 
   //_speed=bulletSpeed
   _speed=bulletSpeed*gDeltaTime
-  x += cos(degtorad(_direction)) * _speed
-  y -= sin(degtorad(_direction)) * _speed
 
   //image_angle=direction
   image_angle=_direction

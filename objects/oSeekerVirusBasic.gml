@@ -45,8 +45,6 @@ if global.gamePaused=false
   {
     //speed=moveSpd
     _speed=moveSpd
-    x += cos(degtorad(_direction)) * _speed *gDeltaTime
-    y -= sin(degtorad(_direction)) * _speed *gDeltaTime
   }
 
   if x<-256 or x>room_width+256 or y<-256 or y>room_height+256

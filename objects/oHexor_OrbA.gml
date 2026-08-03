@@ -90,8 +90,6 @@ if global.gamePaused=false
   {
     _speed=bulletSpeed
     atkTime+=1*gDeltaTime
-    x += cos(degtorad(_direction)) * _speed * gDeltaTime
-    y -= sin(degtorad(_direction)) * _speed * gDeltaTime
     if atkTime>=150 {instance_destroy()}
   }
 

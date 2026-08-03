@@ -27,8 +27,6 @@ if global.gamePaused=false
 {
   //speed=moveSpd
   _speed=moveSpd
-  x += cos(degtorad(_direction)) * _speed *gDeltaTime
-  y -= sin(degtorad(_direction)) * _speed *gDeltaTime
 
   decay-=1*gDeltaTime
   if decay<=0

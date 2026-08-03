@@ -37,8 +37,6 @@ else if type=2
 }
 
 correctHSpeedVSpeed(self)
-
-
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

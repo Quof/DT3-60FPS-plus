@@ -25,13 +25,6 @@ else {atkPower=10}
 damageType="ELEMENTAL"
 bCanTakeDamage=false
 bShowHealthBar=false
-#define Collision_oPlayer1
-/*"/*'/**//* YYD ACTION
-lib_id=1
-action_id=603
-applies_to=self
-*/
-redDmgHit(0)
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -39,3 +32,10 @@ action_id=603
 applies_to=self
 */
 correctSpeedDirection(self)
+#define Collision_oPlayer1
+/*"/*'/**//* YYD ACTION
+lib_id=1
+action_id=603
+applies_to=self
+*/
+redDmgHit(0)

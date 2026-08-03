@@ -26,8 +26,6 @@ if global.gamePaused=false //24
   image_speed=animSpeed
   _speed=0
   _speed=bulletSpeed
-  x += cos(degtorad(_direction)) * _speed *gDeltaTime
-  y -= sin(degtorad(_direction)) * _speed *gDeltaTime
 
 }
 else

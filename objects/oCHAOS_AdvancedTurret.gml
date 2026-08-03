@@ -344,7 +344,6 @@ if global.gamePaused=false
 else {_hspeed=0; _vspeed=0}
 
 correctHSpeedVSpeed(self)
-
 #define Other_10
 /*"/*'/**//* YYD ACTION
 lib_id=1
