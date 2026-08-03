@@ -36,16 +36,16 @@ if global.gamePaused=false
 {
   if bActive=true
   {
-    if oGame.time mod 8=0
+    if oGame.time mod (8/gDeltaTime)=0
     {
       if rocketEfScl=0.5 {rocketEfScl=0.75}
       else {rocketEfScl=0.5}
     }
 
-    moveProg+=1
+    moveProg+=1*gDeltaTime
     if moveProg>=1 and moveProg<=99
     {
-      x-=runAcc
+      x-=runAcc*gDeltaTime
       if moveProg>=stopTime {moveProg=100}
     }
     else if moveProg=130
@@ -53,7 +53,7 @@ if global.gamePaused=false
       var tNewAttack;
       tNewAttack=instance_create(x+(28*image_xscale),y,oPassBullet)
       tNewAttack.sprite_index=sWolfHeadShot; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=3
-      tNewAttack.decayTime=-100; tNewAttack.direction=point_direction(x+(28*image_xscale),y,oPlayer1.x,oPlayer1.y-26)
+      tNewAttack.decayTime=-100; tNewAttack._direction=point_direction(x+(28*image_xscale),y,oPlayer1.x,oPlayer1.y-26)
       tNewAttack.image_xscale=1.5; tNewAttack.image_yscale=1.5
     }
     else if moveProg=190
@@ -61,12 +61,12 @@ if global.gamePaused=false
       var tNewAttack;
       tNewAttack=instance_create(x+(28*image_xscale),y,oPassBullet)
       tNewAttack.sprite_index=sWolfHeadShot; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=3
-      tNewAttack.decayTime=-100; tNewAttack.direction=point_direction(x+(28*image_xscale),y,oPlayer1.x,oPlayer1.y-26)
+      tNewAttack.decayTime=-100; tNewAttack._direction=point_direction(x+(28*image_xscale),y,oPlayer1.x,oPlayer1.y-26)
       tNewAttack.image_xscale=1.5; tNewAttack.image_yscale=1.5
     }
     else if moveProg>=250
     {
-      x-=runAcc
+      x-=runAcc*gDeltaTime
       if x<=-16 {instance_destroy()}
     }
   }

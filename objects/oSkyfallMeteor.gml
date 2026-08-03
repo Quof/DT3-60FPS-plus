@@ -48,8 +48,8 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  image_angle+=2
-  if oGame.time mod 2=0
+  image_angle+=2*gDeltaTime
+  if oGame.time mod (2/gDeltaTime)=0
   {
     var tEffect;
     tEffect=instance_create(x,y,oEffectB)
@@ -58,8 +58,10 @@ if global.gamePaused=false
     tEffect.direction=image_angle-180
   }
 
-  speed=moveSpd
+  _speed=moveSpd
   if y<=-48 {instance_destroy()}
   enemyStepEvent()
 }
-else {speed=0}
+else {_speed=0}
+
+correctSpeedDirection(self)

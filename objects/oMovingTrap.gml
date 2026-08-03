@@ -24,7 +24,7 @@ if global.location=99
 else {atkPower=10}
 bCanTakeDamage=false
 bShowHealthBar=false
-initDir=direction
+initDir=_direction
 alarm[0]=1
 #define Alarm_0
 /*"/*'/**//* YYD ACTION
@@ -32,7 +32,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-initDir=direction
+initDir=_direction
 if global.location=58 or global.location=107 {sprite_index=sG6MovingSpike}
 if room=rBT_ZeroA or room=rBT_ZeroB or room=rBT_ZeroC or room=rBT_ZeroD {sprite_index=sG6MovingSpike}
 #define Step_0
@@ -44,15 +44,16 @@ applies_to=self
 if global.gamePaused=false
 {
   if sprite_index=sG6MovingSpike {image_angle+=15}
-  x+=moveSpd*cos(degtorad(direction))*gDeltaTime
-  y+=-moveSpd*sin(degtorad(direction))*gDeltaTime
+  x+=moveSpd*cos(degtorad(_direction))*gDeltaTime
+  y+=-moveSpd*sin(degtorad(_direction))*gDeltaTime
   if shiftTime>=shiftMax
   {
     shiftTime=0
-    direction+=180
+    _direction+=180
   }
   else {shiftTime+=1*gDeltaTime}
 }
+correctSpeedDirection(self)
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

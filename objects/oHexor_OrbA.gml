@@ -62,8 +62,6 @@ if global.gamePaused=false
   else if atkProg=12 //Attack 1B - To point
   {
     _speed=bulletSpeed
-    x += cos(degtorad(_direction)) * _speed * gDeltaTime
-    y -= sin(degtorad(_direction)) * _speed * gDeltaTime
     atkTime+=1*gDeltaTime
     if atkTime>=150 {instance_destroy()}
   }
@@ -92,8 +90,6 @@ if global.gamePaused=false
   {
     _speed=bulletSpeed
     atkTime+=1*gDeltaTime
-    x += cos(degtorad(_direction)) * _speed * gDeltaTime
-    y -= sin(degtorad(_direction)) * _speed * gDeltaTime
     if atkTime>=150 {instance_destroy()}
   }
 
@@ -104,3 +100,5 @@ if global.gamePaused=false
   }
 }
 else {_speed=0}
+
+correctSpeedDirection(self)

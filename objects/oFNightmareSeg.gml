@@ -50,8 +50,8 @@ if global.gamePaused=false
     }
     else if moveSeq=2 //Rotate arms
     {
-      if armSide=0 {direction-=leftSpd*gDeltaTime} //Left
-      else if armSide=1 {direction+=rightSpd*gDeltaTime} //Right
+      if armSide=0 {_direction-=leftSpd*gDeltaTime} //Left
+      else if armSide=1 {_direction+=rightSpd*gDeltaTime} //Right
     }
 
     //Bomb Attack
@@ -85,15 +85,15 @@ if global.gamePaused=false
     }
     else if moveSeq=2 //Rotate arms
     {
-      if armSide=0 {direction-=leftSpd*gDeltaTime} //Left
-      else if armSide=1 {direction+=rightSpd*1.1*gDeltaTime} //Right
+      if armSide=0 {_direction-=leftSpd*gDeltaTime} //Left
+      else if armSide=1 {_direction+=rightSpd*1.1*gDeltaTime} //Right
 
       atkTime+=1*gDeltaTime
       if atkTime>200
       {
         var chkDir;
         chkDir=point_direction(oFinalNightmare.x,oFinalNightmare.y,oPlayer1.x,returnPlayerYCenter())
-        if direction>chkDir-2 and direction<chkDir+2 {moveSeq+=1}
+        if _direction>chkDir-2 and _direction<chkDir+2 {moveSeq+=1}
       }
     }
     else if moveSeq=3 //Wait time
@@ -121,8 +121,8 @@ if global.gamePaused=false
       if armDist<=8 {armDist=8;atkTime=0;moveSeq=2}
     }
   }
-  x=oFinalNightmare.x+lengthdir_x(3+(armDist*segment),direction)
-  y=oFinalNightmare.y+lengthdir_y(3+(armDist*segment),direction)
+  x=oFinalNightmare.x+lengthdir_x(3+(armDist*segment),_direction)
+  y=oFinalNightmare.y+lengthdir_y(3+(armDist*segment),_direction)
 
   //----- Damage to player -----
   if bEnd=0
@@ -137,6 +137,7 @@ if global.gamePaused=false
     }
   }
 }
+correctSpeedDirection(self)
 #define Collision_oPlayer1
 /*"/*'/**//* YYD ACTION
 lib_id=1

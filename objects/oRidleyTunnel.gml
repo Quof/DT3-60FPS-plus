@@ -430,7 +430,8 @@ if global.gamePaused=false
   oRidleyParts.image_xscale=image_xscale
   enemyStepEvent()
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)
 #define Collision_oPlayer1
 /*"/*'/**//* YYD ACTION
 lib_id=1

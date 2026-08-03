@@ -14,7 +14,7 @@ applies_to=self
 */
 if resetTime>0
 {
-  resetTime-=1
+  resetTime-=1*gDeltaTime
   if resetTime=0 {buttonProg=0}
 }
 #define Collision_oPlayer1

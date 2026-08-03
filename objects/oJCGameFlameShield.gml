@@ -63,8 +63,6 @@ if global.gamePaused=false
   {
     _direction=image_angle
     _speed=13
-    x += cos(degtorad(_direction)) * _speed * gDeltaTime
-    y -= sin(degtorad(_direction)) * _speed * gDeltaTime
   }
 
   if checkScreenArea(x,y,48)=0 {instance_destroy()}
@@ -73,3 +71,5 @@ if global.gamePaused=false
   if decayTime<=0 {instance_destroy()}
 }
 else {_speed=0}
+
+correctSpeedDirection(self)

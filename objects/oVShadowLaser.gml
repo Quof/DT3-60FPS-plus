@@ -33,7 +33,7 @@ if global.gamePaused=false
   }
   else if lifeTime>=11 and lifeTime<=34
   {
-    speed=0
+    _speed=0
     var tEffect;
     tEffect=instance_create(x,y,oEffect)
     tEffect.sprite_index=sBelmontWepEffect; tEffect.image_speed=0.6+random(0.1)
@@ -43,13 +43,14 @@ if global.gamePaused=false
   if lifeTime=35
   {
     bCanDealDamage=true
-    direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
+    _direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
   }
 
-  if lifeTime>=1 and lifeTime<=10 {speed=8}
-  else if lifeTime>=35 {speed=17}
+  if lifeTime>=1 and lifeTime<=10 {_speed=8}
+  else if lifeTime>=35 {_speed=17}
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)
 #define Other_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -66,7 +67,7 @@ applies_to=self
 if lifeTime>36 //Trail
 {
   draw_set_blend_mode(bm_add)
-  draw_line_width_color(x,y,x+lengthdir_x(80,direction-180),y+lengthdir_y(80,direction-180),2,c_teal,c_black)
+  draw_line_width_color(x,y,x+lengthdir_x(80,_direction-180),y+lengthdir_y(80,_direction-180),2,c_teal,c_black)
   draw_set_blend_mode(bm_normal)
 }
 draw_sprite_ext(sprite_index,image_index,x,y,image_xscale,image_yscale,image_angle,image_blend,image_alpha)

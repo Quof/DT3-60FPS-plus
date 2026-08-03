@@ -16,8 +16,8 @@ throwProg=0
 throwTime=0
 turnSpd=5
 
-direction=0
-speed=0
+_direction=0
+_speed=0
 _speed=0
 _direction=0
 #define Step_0
@@ -78,7 +78,7 @@ if global.gamePaused=false
     else
     {_direction+=sign(tDiff)*turnSpd*gDeltaTime} */
 
-    turn_toward_directionEdit(myPoint, turnSpd)
+    turn_toward_directionUnderscore(myPoint, turnSpd)
   }
 
   if throwProg>1
@@ -86,12 +86,11 @@ if global.gamePaused=false
     if !instance_exists(myThrower) {instance_destroy()}
   }
   _speed=bulletSpeed
-  speed=0
-  x += cos(degtorad(_direction)) * _speed *gDeltaTime
-  y -= sin(degtorad(_direction)) * _speed *gDeltaTime
+  _speed=0
   image_angle-=20*type*gDeltaTime
 }
-else {speed=0; _speed=0}
+else {_speed=0; _speed=0}
+correctSpeedDirection(self)
 #define Other_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

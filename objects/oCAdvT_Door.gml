@@ -15,11 +15,11 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  if xDraw<16 {xDraw+=0.2}
+  if xDraw<16 {xDraw+=0.2*gDeltaTime}
 
   if myProg=0
   {
-    if oGame.time mod 2=0
+    if oGame.time mod (2/gDeltaTime)=0
     {
       if image_alpha=1 {image_alpha=0.5}
       else {image_alpha=1}

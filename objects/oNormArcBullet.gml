@@ -14,8 +14,8 @@ bCanTakeDamage=false
 hitWall=0
 _speed=0
 _direction=0
-speed=0
-direction=0
+_speed=0
+_direction=0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -61,12 +61,11 @@ if global.gamePaused=false
     }
     instance_destroy()
   }
-  speed=0
-  x += cos(degtorad(_direction)) * _speed *gDeltaTime
-  y -= sin(degtorad(_direction)) * _speed *gDeltaTime
+  _speed=0
 }
 else
-  {speed=0;_speed=0}
+  {_speed=0;_speed=0}
+correctSpeedDirection(self)
 #define Other_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

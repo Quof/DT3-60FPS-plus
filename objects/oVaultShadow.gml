@@ -61,17 +61,17 @@ if global.gamePaused=false
         myDist=point_distance(x,y,oPlayer1.x,oPlayer1.y-26)
         if myDist<=92
         {
-          direction=myDir+180
-          speed=2
+          _direction=myDir+180
+          _speed=2
         }
         else if myDist>=122
         {
-          direction=myDir
-          speed=2
+          _direction=myDir
+          _speed=2
         }
-        else {speed=0}
+        else {_speed=0}
 
-        if laserTime>=101 {speed=0}
+        if laserTime>=101 {_speed=0}
         //Fire laser
         laserTime+=1*gDeltaTime
         if laserTime=100
@@ -80,7 +80,7 @@ if global.gamePaused=false
           {
             myFire[i]=instance_create(x,y,oVShadowLaser)
             myFire[i].atkPower=atkPower
-            myFire[i].direction=myDir+90+(i*180)
+            myFire[i]._direction=myDir+90+(i*180)
           }
         }
         else if laserTime>=125 {laserTime=0}
@@ -117,7 +117,7 @@ if global.gamePaused=false
     else
     {
       if laserTime>=101 {laserTime+=1*gDeltaTime}
-      speed=0
+      _speed=0
     }
   }
   else if life<=0
@@ -133,7 +133,8 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)
 #define Other_10
 /*"/*'/**//* YYD ACTION
 lib_id=1

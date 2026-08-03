@@ -47,7 +47,7 @@ if global.gamePaused=false
 
   if bActive=true and life>0
   {
-    if bossPhase=0
+    if bossPhase=0 and gDeltaDoTicks
     {
       y-=2
       if y<=room_height
@@ -62,7 +62,7 @@ if global.gamePaused=false
 
 if life<=0 //Defeat animation
 {
-  deathAnim+=1
+  deathAnim+=1*gDeltaTime
   if deathAnim>=1 and deathAnim<=60
   {
     if deathAnim mod 3=0 {playSound(global.snd_BombExplode,0,0.92,1)}

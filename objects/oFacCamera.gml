@@ -65,7 +65,7 @@ if global.gamePaused=false
 
     if bInfected=1
     {
-      shotTime+=1
+      shotTime+=1*gDeltaTime
       if shotTime>=shotDelay
       {
         tEffect=instance_create(x,y+60,oEffect)
@@ -83,7 +83,7 @@ if global.gamePaused=false
         {
           tNewAttack=instance_create(x,y+60,oPassBulletRed)
           tNewAttack.sprite_index=sCamBullet; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
-          tNewAttack.decayTime=-100; tNewAttack.direction=tDir
+          tNewAttack.decayTime=-100; tNewAttack._direction=tDir
           tDir+=15
         }
         if triShot=1 {triShot=3}
@@ -94,7 +94,7 @@ if global.gamePaused=false
   }
   else if life<=0
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       with controlID {instance_destroy()}

@@ -31,6 +31,8 @@ triAtk=1
 inactiveDist*=1.25
 
 deathAnim=0
+_speed=0
+_direction=0
 
 jeremyText="This enemy tries to stay at a certain distance from you and shoot off ice spears at you. It alternates between one spear and three. When it's firing only one, the spear is much faster."
 chaoText="This is from 'Demon Hunter Legend 3'."
@@ -109,25 +111,25 @@ if global.gamePaused=false
         myDist=point_distance(x,y,oPlayer1.x,oPlayer1.y-26)
         if myDist<=108
         {
-          direction=myDir+180
-          speed=runAcc*0.75
+          _direction=myDir+180
+          _speed=runAcc*0.75
         }
         else if myDist>=136
         {
-          direction=myDir
-          speed=runAcc
+          _direction=myDir
+          _speed=runAcc
         }
-        else {speed=0}
+        else {_speed=0}
       }
-      else {speed=0}
+      else {_speed=0}
 
       //Effect
-      if oGame.time mod 6=0
+      if oGame.time mod (6/gDeltaTime)=0
       {
         var tEffect;
         tEffect=instance_create(x+random_range(-8,8),y+random_range(-14,22),oEffectB)
         tEffect.type=3; tEffect.sprite_index=sEfDiffusionParticle; tEffect.newBlend=-1; tEffect.image_alpha=0.75
-        tEffect.direction=random(360); tEffect.speed=random(1)+1; tEffect.friction=random(0.01)+0.01
+        tEffect._direction=random(360); tEffect.speed=random(1)+1; tEffect.friction=random(0.01)+0.01
         tEffect.fadeSpd=0.025; tEffect.AccelX=0; tEffect.AccelY=0; tEffect.followID=-1; tEffect.rotation=random_range(-3,3)
       }
 
@@ -146,7 +148,7 @@ if global.gamePaused=false
           for(i=0;i<triAtk;i+=1)
           {
             tNewAttack=instance_create(x-(11*image_xscale),y-45,oIceSpiritAtk)
-            tNewAttack.atkPower=atkPower; tNewAttack.decayTime=-100; tNewAttack.direction=tDir
+            tNewAttack.atkPower=atkPower; tNewAttack.decayTime=-100; tNewAttack._direction=tDir
             if triAtk=1 {tNewAttack.bulletSpeed=16}
             else if triAtk=3 {tNewAttack.bulletSpeed=12}
             tDir+=20
@@ -164,12 +166,12 @@ if global.gamePaused=false
         }
       }
     }
-    else {speed=0}
+    else {_speed=0}
   }
   else if life<=0
   {
-    deathAnim+=1
-    speed=0
+    deathAnim+=1*gDeltaTime
+    _speed=0
     if deathAnim mod 4=0
     {
       if deathAnim mod 8=0 {playSound(global.snd_HardHit1,0,0.9,1)}
@@ -183,4 +185,6 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
-else {speed=0}
+else {_speed=0}
+
+correctSpeedDirection(self)

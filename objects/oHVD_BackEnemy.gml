@@ -48,9 +48,10 @@ if global.gamePaused=false
     if currVspd<maxSpeed {currVspd+=0.2+random(0.2); if speedBoost=1 {currVspd+=2.5}}
     else {currVspd-=0.25; if speedBoost=1 {currVspd-=2.5}}
   }
-  hspeed=currHspd; vspeed=currVspd
+  _hspeed=currHspd; _vspeed=currVspd
 
-  if hspeed>0 {image_xscale=0.4}
+  if _hspeed>0 {image_xscale=0.4}
   else {image_xscale=-0.4}
 }
-else {hspeed=0; vspeed=0}
+else {_hspeed=0; _vspeed=0}
+correctHSpeedVSpeed(self)

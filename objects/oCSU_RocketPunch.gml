@@ -16,6 +16,10 @@ atkTime=0
 currHspd=0
 slamNum=0
 maxSpeedX=5
+_direction=0
+_speed=0
+_hspeed=0
+_vspeed=0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -51,7 +55,7 @@ if global.gamePaused=false
   }
   else if atkProg=1 //First fist strike
   {
-    x+=10*image_xscale
+    x+=10*image_xscale*gDeltaTime
     if atkTime mod 2=0
     {
       var tEffect;
@@ -59,8 +63,8 @@ if global.gamePaused=false
       tEffect.type=3; tEffect.sprite_index=sSamusMissileEffect; tEffect.newBlend=-1; tEffect.depth=26
       tEffect.speed=random(0.5)+0.5; tEffect.image_speed=0.33
       tEffect.fadeSpd=0.075; tEffect.AccelX=0; tEffect.AccelY=0; tEffect.followID=-1; tEffect.rotation=0
-      if image_xscale=1 {direction=180}
-      else {direction=0}
+      if image_xscale=1 {_direction=180}
+      else {_direction=0}
     }
     if atkTime>=24
     {
@@ -69,7 +73,7 @@ if global.gamePaused=false
   }
   else if atkProg=2 //Rise
   {
-    y-=4
+    y-=4*gDeltaTime
     if atkTime>=32
     {
       image_xscale=1
@@ -81,15 +85,15 @@ if global.gamePaused=false
   {
     if x>oPlayer1.x
     {
-      if currHspd>-maxSpeedX {currHspd-=0.3}
-      else {currHspd+=0.3}
+      if currHspd>-maxSpeedX {currHspd-=0.3*gDeltaTime}
+      else {currHspd+=0.3*gDeltaTime}
     }
     else if x<oPlayer1.x
     {
-      if currHspd<maxSpeedX {currHspd+=0.3}
-      else {currHspd-=0.3}
+      if currHspd<maxSpeedX {currHspd+=0.3*gDeltaTime}
+      else {currHspd-=0.3*gDeltaTime}
     }
-    hspeed=currHspd
+    _hspeed=currHspd
 
     if point_distance(x,0,oPlayer1.x,0)<maxSpeedX and y<oPlayer1.y
     {
@@ -109,7 +113,7 @@ if global.gamePaused=false
     }
     else if atkTime>=11 and atkTime<=30
     {
-      y+=8
+      y+=8*gDeltaTime
       if atkTime mod 2=0
       {
         newAttack=instance_create(x,y,oDamageExplosion)
@@ -120,7 +124,7 @@ if global.gamePaused=false
     }
     else if atkTime>=40
     {
-      y-=4
+      y-=4*gDeltaTime
       if y<=currY
       {
         atkTime=0
@@ -132,11 +136,11 @@ if global.gamePaused=false
   }
   else if atkProg=5 //Return to owner
   {
-    speed=4
+    _speed=4
     if instance_exists(ownerID)
     {
-      direction=point_direction(x,y,ownerID.x,ownerID.y-18)
-      image_angle=direction
+      _direction=point_direction(x,y,ownerID.x,ownerID.y-18)
+      image_angle=_direction
       if point_distance(x,y,ownerID.x,ownerID.y-18)<6
       {
         var tEffect;
@@ -151,4 +155,4 @@ if global.gamePaused=false
 
   if !instance_exists(ownerID) {instance_destroy()}
 }
-else {speed=0; hspeed=0}
+else {_speed=0; _hspeed=0}

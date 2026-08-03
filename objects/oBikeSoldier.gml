@@ -57,7 +57,7 @@ if global.gamePaused=false
       if x>oPlayer1.x
       {
         xVel*=-1
-        direction=180
+        _direction=180
       }
       initDir=1
     }
@@ -66,9 +66,9 @@ if global.gamePaused=false
     if turnTime<=20
     {
       if x>oPlayer1.x and image_xscale=1
-        turnTime+=1
+        turnTime+=1*gDeltaTime
       else if x<oPlayer1.x and image_xscale=-1
-        turnTime+=1
+        turnTime+=1*gDeltaTime
 
       if !isCollisionBottom(1) and turnTime=20 {turnTime=10}
     }
@@ -79,19 +79,20 @@ if global.gamePaused=false
     }
 
     //Turn arm toward player
-    turn_toward_direction(point_direction((x-(14*image_xscale))+lengthdir_x(20,direction),y-31+lengthdir_y(20,direction),oPlayer1.x,returnPlayerYCenter()),6)
-    gunShot+=1
+    turn_toward_directionUnderscore(point_direction((x-(14*image_xscale))+lengthdir_x(20,_direction),y-31+lengthdir_y(20,_direction),oPlayer1.x,returnPlayerYCenter()),6)
+
+    gunShot+=1*gDeltaTime
     if gunShot>=gunDelay
     {
       var tNewAttack;
-      tNewAttack=instance_create((x-(14*image_xscale))+lengthdir_x(20,direction),y-31+lengthdir_y(20,direction),oPassBullet)
+      tNewAttack=instance_create((x-(14*image_xscale))+lengthdir_x(20,_direction),y-31+lengthdir_y(20,_direction),oPassBullet)
       tNewAttack.sprite_index=sWolfHeadShot; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5; tNewAttack.depth=9
-      tNewAttack.decayTime=-100; tNewAttack.direction=direction
+      tNewAttack.decayTime=-100; tNewAttack._direction=_direction
       gunShot=0
     }
 
     //Smoke effect
-    if oGame.time mod 6=0
+    if oGame.time mod (6/gDeltaTime)=0
     {
       var tEffect;
       tEffect=instance_create(x-(24*image_xscale),y,oEffect)
@@ -101,7 +102,7 @@ if global.gamePaused=false
     }
 
     if !isCollisionBottom(1)
-      yVel+=0.2
+      yVel+=0.2*gDeltaTime
     if isCollisionSolid()
       y-=2
 
@@ -121,7 +122,11 @@ if global.gamePaused=false
   }
   else if life<=0
   {
-    deathAnim+=1
+    if (deathAnim == 0)
+    {
+      deathAnim = 1-gDeltaTime
+    }
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       playSound(global.snd_EnemyDieMM,0,1,1)
@@ -136,9 +141,9 @@ if global.gamePaused=false
       flyX=5*image_xscale; flyY=-5
       image_angle=180
     }
-    x+=flyX; y+=flyY
-    flyY+=0.33
-    image_angle+=2*-image_xscale
+    x+=flyX*gDeltaTime; y+=flyY*gDeltaTime
+    flyY+=0.33*gDeltaTime
+    image_angle+=2*-image_xscale*gDeltaTime
     image_alpha-=0.035*gDeltaTime
     if image_alpha<0
     {
@@ -151,6 +156,7 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
+correctSpeedDirection(self)
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -158,4 +164,4 @@ action_id=603
 applies_to=self
 */
 event_inherited()
-if life>0 {draw_sprite_ext(sBikeSArm,0,x-(14*image_xscale),y-31,1,1,direction,image_blend,image_alpha)}
+if life>0 {draw_sprite_ext(sBikeSArm,0,x-(14*image_xscale),y-31,1,1,_direction,image_blend,image_alpha)}

@@ -52,10 +52,9 @@ if global.gamePaused=false
   //speed=bulletSpeed
   _speed=bulletSpeed
   image_angle+=15*gDeltaTime
-  x += cos(degtorad(_direction)) * _speed *gDeltaTime
-  y -= sin(degtorad(_direction)) * _speed *gDeltaTime
 
   decayTime-=1*gDeltaTime
   if decayTime<=0 {instance_destroy()}
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)

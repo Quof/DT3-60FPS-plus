@@ -23,6 +23,9 @@ resType[4]=3
 stunResist=50
 baseItemChance=90
 moneyWorth=5
+_direction=0
+_speed=0
+
 
 turnTime=0
 atkTime=0
@@ -41,11 +44,12 @@ if global.gamePaused=false
   if bActive=0 {makeEnemyActive(0)}
   if bActive=true
   {
-    speed=moveSpd
-    turnTime+=1
+    _speed=moveSpd
+
+    turnTime+=1*gDeltaTime
     if turnTime>=turnDelay
     {
-      direction+=turnAmt
+      _direction+=turnAmt*gDeltaTime
       turnTime=0
     }
 
@@ -60,4 +64,7 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
-else {speed=0}
+else {_speed=0}
+
+
+correctSpeedDirection(self)

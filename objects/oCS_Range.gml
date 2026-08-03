@@ -7,6 +7,8 @@ applies_to=self
 image_alpha=0.7
 image_blend=c_blue
 alarm[0]=1
+_speed=0
+_direction=0
 #define Alarm_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

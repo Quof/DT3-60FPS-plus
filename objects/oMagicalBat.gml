@@ -36,7 +36,7 @@ if global.gamePaused=false
     if room=rMC_K_Secret
     {
       inactiveDist=10000
-      x+=4
+      x+=4*gDeltaTime
     }
     else
     {
@@ -52,7 +52,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if bCanTakeDamage=true
+if bCanTakeDamage=true and gDeltaDoTicks
 {
   yAdjust=0
   with oPlayer1
@@ -135,7 +135,7 @@ if bCanTakeDamage=true
     }
   }
 }
-else
+else if gDeltaDoTicks
 {
   if bCanDealDamage=true
   {

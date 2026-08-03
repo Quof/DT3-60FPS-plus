@@ -57,22 +57,22 @@ if global.gamePaused=false
     }
 
     if x>oPlayer1.x and image_xscale=1
-      turnTime+=1
+      turnTime+=1*gDeltaTime
     else if x<oPlayer1.x and image_xscale=-1
-      turnTime+=1
+      turnTime+=1*gDeltaTime
     if turnTime>=30
     {
       image_xscale*=-1
       turnTime=0
     }
-    if shotTime<shotDelay {x+=runAcc*image_xscale}
+    if shotTime<shotDelay {x+=runAcc*image_xscale*gDeltaTime}
 
     if bInfected=1
     {
-      shotTime+=1
+      shotTime+=1*gDeltaTime
       if bRockForm=0
       {
-        if shotTime>=shotDelay and shotTime<=shotDelay+9 {lineAlpha+=0.1}
+        if shotTime>=shotDelay and shotTime<=shotDelay+9 {lineAlpha+=0.1*gDeltaTime}
         else if shotTime=shotDelay+12
         {
           var tNewAtk,tDir;
@@ -80,7 +80,7 @@ if global.gamePaused=false
           for(i=0;i<8;i+=1)
           {
             tNewAtk=instance_create(x+lengthdir_x(192,tDir),y+lengthdir_y(192,tDir),oCleanBotRock)
-            tNewAtk.atkPower=atkPower; tNewAtk.myOwner=id; tNewAtk.direction=tDir-180
+            tNewAtk.atkPower=atkPower; tNewAtk.myOwner=id; tNewAtk._direction=tDir-180
             tDir+=45
           }
         }
@@ -95,7 +95,7 @@ if global.gamePaused=false
             var tNewAttack;
             tNewAttack=instance_create(x,y,oPassBulletRed)
             tNewAttack.sprite_index=sCleanBotRock; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=10
-            tNewAttack.decayTime=-100; tNewAttack.direction=player_sprite_center()
+            tNewAttack.decayTime=-100; tNewAttack._direction=player_sprite_center()
           }
         }
         if shotTime>=shotDelay+36
@@ -158,7 +158,7 @@ if bActive=true
 event_inherited()
 if shotTime>=shotDelay
 {
-  elecFrm+=0.4
+  elecFrm+=0.4*gDeltaTime
   draw_sprite_ext(sEfCleanBotElec,elecFrm,x,y,1,1,0,c_white,1)
   draw_sprite_ext(sEfCleanBotElec,elecFrm,x,y,1,1,90,c_white,1)
   draw_sprite_ext(sEfCleanBotElec,elecFrm,x,y,1,1,180,c_white,1)

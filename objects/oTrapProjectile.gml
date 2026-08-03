@@ -24,7 +24,7 @@ if global.gamePaused=false
 {
   image_angle=_direction
   _speed=bulletSpeed
-  speed=0
+  _speed=0
   dist=point_distance(x,y,xstart,ystart)
   if dist>32
   {
@@ -40,12 +40,11 @@ if global.gamePaused=false
     if bBlownUp=true
       instance_destroy()
   }
-  x += cos(degtorad(_direction)) * _speed *gDeltaTime
-  y -= sin(degtorad(_direction)) * _speed *gDeltaTime
 
 }
 else
-  {speed=0; _speed=0}
+  {_speed=0; _speed=0}
+correctSpeedDirection(self)
 #define Other_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

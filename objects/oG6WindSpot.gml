@@ -47,19 +47,19 @@ if global.gamePaused=false
   {
     if collision_rectangle(x,y,x+image_xscale,y+image_yscale,oPlayer1,1,1)
     {
-      if direction=0
+      if _direction=0
       {
         oPlayer1.extForceX=1.85
       }
-      else if direction=90
+      else if _direction=90
       {
         oPlayer1.extForceY=-1.25
       }
-      else if direction=180
+      else if _direction=180
       {
         oPlayer1.extForceX=-1.85
       }
-      else if direction=270
+      else if _direction=270
       {
         oPlayer1.extForceY=1.25
       }
@@ -70,31 +70,32 @@ if global.gamePaused=false
       if oGame.time mod effectMod=0
       {
         var tEffect;
-        if direction=0
+        if _direction=0
         {
           tEffect=instance_create(x+random(image_xscale/1.1),y+random(image_yscale),oG6WindEffect)
           tEffect.xSpd=3+random(1); tEffect.ySpd=0
         }
-        else if direction=90
+        else if _direction=90
         {
           tEffect=instance_create(x+random(image_xscale),y+image_yscale-random(image_yscale/1.1),oG6WindEffect)
           tEffect.xSpd=0; tEffect.ySpd=-3-random(1)
         }
-        else if direction=180
+        else if _direction=180
         {
           tEffect=instance_create(x+image_xscale-random(image_xscale/1.1),y+random(image_yscale),oG6WindEffect)
           tEffect.xSpd=-3-random(1); tEffect.ySpd=0
         }
-        else if direction=270
+        else if _direction=270
         {
           tEffect=instance_create(x+random(image_xscale),y+random(image_yscale/1.1),oG6WindEffect)
           tEffect.xSpd=0; tEffect.ySpd=3+random(1)
         }
-        tEffect.image_angle=direction
+        tEffect.image_angle=_direction
       }
     }
   }
 }
+correctSpeedDirection(self)
 #define Collision_oPushRock
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -108,10 +109,10 @@ if bWindWorks=1
   {
     pushBlockX=0
     pushBlockY=0
-    if direction=0 {pushBlockX=2}
-    else if direction=90 {pushBlockY=-5}
-    else if direction=180 {pushBlockX=-2}
-    else if direction=270 {pushBlockY=1}
+    if _direction=0 {pushBlockX=2}
+    else if _direction=90 {pushBlockY=-5}
+    else if _direction=180 {pushBlockX=-2}
+    else if _direction=270 {pushBlockY=1}
 
     with other
     {

@@ -155,9 +155,6 @@ if global.gamePaused=false
       {
         _direction=point_direction(x,y,xSpd,ySpd)
         _speed=4
-        x += cos(degtorad(_direction)) * _speed * gDeltaTime
-        y -= sin(degtorad(_direction)) * _speed * gDeltaTime
-
         if point_distance(x,y,xSpd,ySpd)<5
         {
           _speed=0
@@ -342,6 +339,7 @@ myLeftArm.x=x-(38*facing); myLeftArm.y=y-29; myLeftArm.image_xscale=facing; myLe
 if bGravExist=1 {myGravDev.x=x-(42*facing); myGravDev.y=y+13; myGravDev.image_xscale=facing}
 
 if global.gamePaused=false {enemyStepEvent()}
+correctSpeedDirection(self)
 #define Collision_oPlayer1
 /*"/*'/**//* YYD ACTION
 lib_id=1

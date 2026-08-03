@@ -26,16 +26,16 @@ if global.gamePaused=false
   seekTime+=1*gDeltaTime
   if seekTime>=60
   {
-    turn_toward_direction(point_direction(x,y,oPlayer1.x,returnPlayerYCenter()),2)
+    turn_toward_directionUnderscore(point_direction(x,y,oPlayer1.x,returnPlayerYCenter()),2)
     if seekTime>=90 {seekTime=0}
   }
 
   _speed=bulletSpeed
-  x += cos(degtorad(_direction)) * _speed * gDeltaTime
-  y -= sin(degtorad(_direction)) * _speed * gDeltaTime
   image_angle-=15*gDeltaTime
 }
 else {_speed=0}
+
+correctSpeedDirection(self)
 #define Collision_oAttackBase
 /*"/*'/**//* YYD ACTION
 lib_id=1

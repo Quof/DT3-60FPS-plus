@@ -13,6 +13,8 @@ bShowDamage=false
 bCanTakeDamage=false
 init=0
 bulletProg=0
+_direction=0
+_speed=0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -21,13 +23,15 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  image_angle=direction
+  image_angle=_direction
   if bulletProg=1
   {
-    speed=bulletSpeed
+    _speed=bulletSpeed
   }
 }
-else {speed=0}
+else {_speed=0}
+
+correctSpeedDirection(self)
 #define Other_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

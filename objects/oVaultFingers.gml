@@ -20,6 +20,13 @@ for(i=0;i<fingerAmt;i+=1)
   fingerSize[i]=random(0.5)
 }
 setupVars=1
+#define Step_0
+/*"/*'/**//* YYD ACTION
+lib_id=1
+action_id=603
+applies_to=self
+*/
+correctSpeedDirection(self)
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -43,9 +50,9 @@ if setupVars=1
       else if i=3 or i=7 or i=11 or i=15 or i=19
         fingerSprite=sBlackmoorFingerD
 
-      if direction=0
+      if _direction=0
         draw_sprite_ext(fingerSprite,0,x+(i*fingerSpc),y,image_xscale+fingerSize[i],image_yscale+fingerSize[i],image_angle+fingerWave[i],c_black,image_alpha)
-      else if direction=90
+      else if _direction=90
         draw_sprite_ext(fingerSprite,0,x,y+(i*fingerSpc),image_xscale+fingerSize[i],image_yscale+fingerSize[i],image_angle+fingerWave[i],c_black,image_alpha)
     }
   }

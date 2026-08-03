@@ -59,15 +59,15 @@ if global.gamePaused=false
     else if dropped<dropDist {dropped+=6; y+=6}
 
     //Hanging wave
-    moveWave+=pi/40
-    x+=cos(moveWave)/1.75
+    moveWave+=(pi/40)*gDeltaTime
+    x+=(cos(moveWave)/1.75)*gDeltaTime
 
     if bInfected=1
     {
       if x<oPlayer1.x {image_xscale=1}
       else {image_xscale=-1}
 
-      shotTime+=1
+      shotTime+=1*gDeltaTime
       if shotTime=shotDelay {headFrm=2}
       else if shotTime>=shotDelay+10
       {
@@ -77,7 +77,7 @@ if global.gamePaused=false
           tNewAttack=instance_create(x,y,oPassBullet)
           tNewAttack.sprite_index=sWolfHeadShot; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=4
           tNewAttack.image_speed=0.33; tNewAttack.decayTime=-100
-          tNewAttack.direction=point_direction(x,y,oPlayer1.x,oPlayer1.y-26)
+          tNewAttack._direction=point_direction(x,y,oPlayer1.x,oPlayer1.y-26)
         }
       }
       if shotTime>=shotDelay+40

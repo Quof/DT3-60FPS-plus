@@ -144,8 +144,6 @@ if global.gamePaused=false
     else if atkProg=2 //-------------------- Swoop down in a U shape, shooting fireballs at a slow rate --------------------
     {
       _speed=moveSpd
-      x += cos(degtorad(_direction)) * _speed * gDeltaTime
-      y -= sin(degtorad(_direction)) * _speed * gDeltaTime
       if atkTime=1
       {
         _direction=270
@@ -184,8 +182,6 @@ if global.gamePaused=false
     else if atkProg=3 //-------------------- Zigzag across room while spinning tail and shooting fireballs at a very slow rate --------------------
     {
       _speed=moveSpd
-      x += cos(degtorad(_direction)) * _speed * gDeltaTime
-      y -= sin(degtorad(_direction)) * _speed * gDeltaTime
       if atkTime=1
       {
         ridParts[0].image_index=2
@@ -508,6 +504,8 @@ if global.gamePaused=false
   enemyStepEvent()
 }
 else {_speed=0}
+
+correctSpeedDirection(self)
 #define Collision_oPlayer1
 /*"/*'/**//* YYD ACTION
 lib_id=1

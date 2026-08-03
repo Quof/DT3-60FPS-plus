@@ -58,3 +58,4 @@ if global.gamePaused=false
     }
   }
 }
+correctSpeedDirection(self)

@@ -5,14 +5,17 @@ action_id=603
 applies_to=self
 */
 //Requires: rotation,moveArc,fadeSpd,scaleSpd
+
 image_angle+=rotation*gDeltaTime
-direction+=moveArc*gDeltaTime
+_direction+=moveArc*gDeltaTime
 
 image_alpha-=fadeSpd*gDeltaTime
 if image_alpha<=0 {instance_destroy()}
 
 image_xscale-=scaleSpd*gDeltaTime; image_yscale-=scaleSpd*gDeltaTime
 if image_xscale<=0 {instance_destroy()}
+
+correctSpeedDirection(self)
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

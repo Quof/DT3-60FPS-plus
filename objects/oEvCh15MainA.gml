@@ -93,7 +93,7 @@ else if room=rGame6_CoDS
   {
     tTrap=instance_create(800,160,oMovingTrap)
     tTrap.shiftTime=0; tTrap.shiftMax=60; tTrap.moveSpd=3; tTrap.bShowLine=1
-    tTrap.direction=tDir
+    tTrap._direction=tDir
     tDir+=360/24
   }
 }

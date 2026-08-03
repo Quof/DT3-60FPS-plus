@@ -70,7 +70,7 @@ if global.gamePaused=false
     else if AIprog=1
     {
       gunAngle=intercept_course_player(x,y,bulletSpd)
-      shotTime+=1
+      shotTime+=1*gDeltaTime
       if shotTime=shotDelay-10 //Warning
       {
         var tEffect;
@@ -85,14 +85,15 @@ if global.gamePaused=false
         var tNewAttack;
         tNewAttack=instance_create(x,y,oPassBullet)
         tNewAttack.sprite_index=sLB_Laser; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=bulletSpd
-        tNewAttack.decayTime=-100; tNewAttack.direction=gunAngle; tNewAttack.image_angle=gunAngle
+        tNewAttack.decayTime=-100; tNewAttack._direction=gunAngle; tNewAttack.image_angle=gunAngle
         shotTime=0
       }
     }
   }
   else if life<=0
   {
-    deathAnim+=1
+    if deathAnim==0 {deathAnim=1-gDeltaTime}
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       for(i=0;i<3;i+=1)

@@ -397,9 +397,9 @@ else if global.gameProgress=2220 and room=rVault_3 //----- [Unskippable] Hex Obs
       tZapTrap=instance_create(1112,16,oZapTrap); tZapTrap.image_angle=270; tZapTrap.image_xscale=5
       tZapTrap=instance_create(1192,16,oZapTrap); tZapTrap.image_angle=270; tZapTrap.image_xscale=5
       tZapTrap=instance_create(1112,16,oMovingTrapRed); tZapTrap.image_angle=270; tZapTrap.image_xscale=2.5
-      tZapTrap.shiftTime=0; tZapTrap.shiftMax=40; tZapTrap.moveSpd=2; tZapTrap.bShowLine=0; tZapTrap.direction=270
+      tZapTrap.shiftTime=0; tZapTrap.shiftMax=40; tZapTrap.moveSpd=2; tZapTrap.bShowLine=0; tZapTrap._direction=270
       tZapTrap=instance_create(1192,96,oMovingTrapRed); tZapTrap.image_angle=270; tZapTrap.image_xscale=2.5
-      tZapTrap.shiftTime=0; tZapTrap.shiftMax=40; tZapTrap.moveSpd=2; tZapTrap.bShowLine=0; tZapTrap.direction=90
+      tZapTrap.shiftTime=0; tZapTrap.shiftMax=40; tZapTrap.moveSpd=2; tZapTrap.bShowLine=0; tZapTrap._direction=90
       sceneProgress+=1
     }
   }

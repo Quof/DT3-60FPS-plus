@@ -111,9 +111,9 @@ if global.gamePaused=false
     phaseTime+=1*gDeltaTime
     if bossPhase=1 //---------- MOVEMENT: CIRCLE - Right side ----------
     {
+
       _direction+=3*gDeltaTime
-      x+=moveSpd*cos(degtorad(_direction))*gDeltaTime
-      y+=moveSpd*sin(degtorad(_direction))*gDeltaTime
+
       if phaseTime>=490
       {
         phaseTime=0
@@ -136,9 +136,9 @@ if global.gamePaused=false
     }
     else if bossPhase=3 //---------- MOVEMENT: CIRCLE - Left side ----------
     {
+
       _direction-=3*gDeltaTime
-      x+=moveSpd*cos(degtorad(_direction))*gDeltaTime
-      y+=moveSpd*sin(degtorad(_direction))*gDeltaTime
+
       if phaseTime>=490
       {
         if laserMouthTime>laserMouthDelay {laserMouthTime=laserMouthDelay-5}
@@ -394,7 +394,7 @@ if global.gamePaused=false
         {
           var tNewAttack;
           tNewAttack=instance_create(oPlayer1.x,yGround-208,oGravityBullet)
-          tNewAttack.atkPower=atkPower; tNewAttack.direction=270; tNewAttack.bulletSpeed=5; tNewAttack.damageType="EXPLOSION"
+          tNewAttack.atkPower=atkPower; tNewAttack._direction=270; tNewAttack.bulletSpeed=5; tNewAttack.damageType="EXPLOSION"
           tNewAttack.sprite_index=sC_TurretBombB
         }
       }
@@ -410,7 +410,7 @@ if global.gamePaused=false
           {
             var tNewAttack;
             tNewAttack=instance_create(288+(bombSpacingA*i),yGround-208,oGravityBullet)
-            tNewAttack.atkPower=atkPower; tNewAttack.direction=270; tNewAttack.bulletSpeed=5; tNewAttack.damageType="EXPLOSION"
+            tNewAttack.atkPower=atkPower; tNewAttack._direction=270; tNewAttack.bulletSpeed=5; tNewAttack.damageType="EXPLOSION"
             tNewAttack.sprite_index=sC_TurretBombA
           }
         }
@@ -420,7 +420,7 @@ if global.gamePaused=false
           {
             var tNewAttack;
             tNewAttack=instance_create(288+(bombSpacingB*i),yGround-208,oGravityBullet)
-            tNewAttack.atkPower=atkPower; tNewAttack.direction=270; tNewAttack.bulletSpeed=5; tNewAttack.damageType="EXPLOSION"
+            tNewAttack.atkPower=atkPower; tNewAttack._direction=270; tNewAttack.bulletSpeed=5; tNewAttack.damageType="EXPLOSION"
             tNewAttack.sprite_index=sC_TurretBombB
           }
         }
@@ -545,6 +545,7 @@ if life<=0 //Defeat animation
     }
   }
 }
+correctSpeedDirection(self)
 #define Other_25
 /*"/*'/**//* YYD ACTION
 lib_id=1

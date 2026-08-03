@@ -89,7 +89,7 @@ if global.gamePaused=false
           }
           with oMovingTrap
           {
-            direction=initDir
+            _direction=initDir
             shiftTime=0
             x=xstart
             y=ystart
@@ -108,6 +108,7 @@ if global.gamePaused=false
   myGrapplePoints[3].x=x; myGrapplePoints[3].y=y-64
   myGrapplePoints[4].x=x; myGrapplePoints[4].y=y
 }
+correctSpeedDirection(self)
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

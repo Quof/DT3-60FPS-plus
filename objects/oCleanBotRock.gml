@@ -20,7 +20,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  myProg+=1
+  myProg+=1*gDeltaTime
   if myProg=1
   {
     var tEffect;
@@ -29,12 +29,14 @@ if global.gamePaused=false
     tEffect.newBlend=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
   }
   else if myProg=29 {bCanDealDamage=true}
-  else if myProg>=30 {speed=12}
+  else if myProg>=30 {_speed=12}
 
   if myProg>=50 {instance_destroy()}
   if !instance_exists(myOwner) {instance_destroy()}
 }
-else {speed=0}
+else {_speed=0}
+
+correctSpeedDirection(self)
 #define Collision_oPlayer1
 /*"/*'/**//* YYD ACTION
 lib_id=1

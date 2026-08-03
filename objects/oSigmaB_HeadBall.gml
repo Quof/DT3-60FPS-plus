@@ -23,10 +23,7 @@ applies_to=self
 if global.gamePaused=false
 {
   _speed=bulletSpeed
-  x += cos(degtorad(_direction)) * _speed * gDeltaTime
-  y -= sin(degtorad(_direction)) * _speed * gDeltaTime
   if oGame.time mod (8/gDeltaTime)=0 {image_angle=random(360)}
-
   atkTime+=1*gDeltaTime
   if atkTime>=15
   {
@@ -52,4 +49,5 @@ if global.gamePaused=false
     instance_destroy()
   }
 }
-else {speed=0; _speed=0}
+else {_speed=0}
+correctSpeedDirection(self)

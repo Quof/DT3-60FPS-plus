@@ -53,6 +53,7 @@ if global.gamePaused=false
   direction+=0.33*gDeltaTime
   x=1248+lengthdir_x(xDist,direction)
   y=288+lengthdir_y(yDist,direction)
+
   if xDist<=12
   {
     oPlayer1.life-=oPlayer1.maxLife
@@ -60,6 +61,7 @@ if global.gamePaused=false
 
   enemyStepEvent()
 }
+correctSpeedDirection(self)
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

@@ -46,8 +46,6 @@ if global.gamePaused=false
   if lingerFrame=0
   {
     _speed=bulletSpeed
-    x += cos(degtorad(_direction)) * _speed * gDeltaTime
-    y -= sin(degtorad(_direction)) * _speed * gDeltaTime
 
     if checkScreenArea(x,y,48)=0 {instance_destroy()}
 
@@ -92,6 +90,9 @@ if global.gamePaused=false
   else if lingerFrame=1 {instance_destroy()}
 }
 else {_speed=0}
+
+
+correctSpeedDirection(self)
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

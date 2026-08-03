@@ -5,7 +5,7 @@ action_id=603
 applies_to=self
 */
 dirChangeTime=irandom(30)
-direction=choose(0,90,180,270)
+_direction=choose(0,90,180,270)
 timeTillExp=60+irandom(150)
 #define Step_0
 /*"/*'/**//* YYD ACTION
@@ -22,7 +22,7 @@ dirChangeTime+=1*gDeltaTime
 if dirChangeTime=40
 {
   dirChangeTime=irandom(30)
-  direction=choose(0,90,180,270)
+  _direction=choose(0,90,180,270)
 }
 
 timeTillExp-=1*gDeltaTime
@@ -45,6 +45,7 @@ if timeTillExp<=0
 }
 
 if checkScreenArea(x,y,16)=0 {instance_destroy()}
+correctSpeedDirection(self)
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

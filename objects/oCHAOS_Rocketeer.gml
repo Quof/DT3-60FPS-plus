@@ -40,6 +40,8 @@ circleRad=2
 circleCol=c_white
 myLaser=0
 bNormalResist=0
+_hspeed=0
+_vspeed=0
 
 deathAnim=0
 
@@ -84,25 +86,25 @@ if global.gamePaused=false
 
     if x>xPoint
     {
-      if currHspd>-maxSpeed {currHspd-=0.5}
-      else {currHspd+=0.5}
+      if currHspd>-maxSpeed {currHspd-=0.5*gDeltaTime}
+      else {currHspd+=0.5*gDeltaTime}
     }
     else if x<xPoint
     {
-      if currHspd<maxSpeed {currHspd+=0.5}
-      else {currHspd-=0.5}
+      if currHspd<maxSpeed {currHspd+=0.5*gDeltaTime}
+      else {currHspd-=0.5*gDeltaTime}
     }
     if y>yPoint
     {
-      if currVspd>-maxSpeed {currVspd-=0.5}
-      else {currVspd+=0.5}
+      if currVspd>-maxSpeed {currVspd-=0.5*gDeltaTime}
+      else {currVspd+=0.5*gDeltaTime}
     }
     else if y<yPoint
     {
-      if currVspd<maxSpeed {currVspd+=0.5}
-      else {currVspd-=0.5}
+      if currVspd<maxSpeed {currVspd+=0.5*gDeltaTime}
+      else {currVspd-=0.5*gDeltaTime}
     }
-    hspeed=currHspd; vspeed=currVspd
+    _hspeed=currHspd; _vspeed=currVspd
 
     //Smoke
     var tEffect;
@@ -114,7 +116,7 @@ if global.gamePaused=false
     if image_xscale=1 {tEffect.direction=random_range(255,265)}
     else {tEffect.direction=random_range(275,285)}
 
-    shotTime+=1
+    shotTime+=1*gDeltaTime
     if shotType=0 //Point explosion missile
     {
       if shotTime=shotDelay-5
@@ -131,7 +133,7 @@ if global.gamePaused=false
         var tNewAttack;
         tNewAttack=instance_create(x+(xOffset*image_xscale),y+yOffset,oPointExpBullet)
         tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=8
-        tNewAttack.direction=point_direction(x+(xOffset*image_xscale),y+yOffset,oPlayer1.x,returnPlayerYCenter())
+        tNewAttack._direction=point_direction(x+(xOffset*image_xscale),y+yOffset,oPlayer1.x,returnPlayerYCenter())
         shotType=1
         shotTime=0
       }
@@ -165,7 +167,8 @@ if global.gamePaused=false
   }
   else if life<=0
   {
-    deathAnim+=1
+    if deathAnim==0 {deathAnim=1-gDeltaTime}
+    deathAnim+=1*gDeltaTime
     if deathAnim mod 2=0
     {
       if deathAnim mod 4=0 {playSound(global.snd_BombExplode,0,0.85,1)}
@@ -192,7 +195,9 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
-else {hspeed=0; vspeed=0}
+else {_hspeed=0; _vspeed=0}
+
+correctHSpeedVSpeed(self)
 #define Other_10
 /*"/*'/**//* YYD ACTION
 lib_id=1

@@ -12,7 +12,7 @@ missileProg=0
 decayTime=0
 myTarget=-1
 image_angle=90
-direction=90
+_direction=90
 #define Destroy_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -38,7 +38,7 @@ if global.gamePaused=false
     if decayTime>=35
     {
       if instance_exists(oEnemyBase) {myTarget=instance_nearest(x,y,oEnemyBase)}
-      else {direction=90}
+      else {_direction=90}
       decayTime=150
       missileProg=1
     }
@@ -48,20 +48,21 @@ if global.gamePaused=false
     if instance_exists(myTarget)
     {
       mydir=point_direction(x,y,myTarget.x,myTarget.y)
-      turn_toward_direction(mydir,6*global.speedMod)
+      turn_toward_directionUnderscore(mydir,6*global.speedMod)
     }
     else
     {
       if instance_exists(oEnemyBase) {myTarget=instance_nearest(x,y,oEnemyBase)}
     }
-    image_angle=direction
-    speed=bulletSpeed*global.speedMod
+    image_angle=_direction
+    _speed=bulletSpeed*global.speedMod
 
     decayTime-=1*global.speedMod
     if decayTime<=0 {instance_destroy()}
   }
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)
 #define Collision_oEnemyBase
 /*"/*'/**//* YYD ACTION
 lib_id=1

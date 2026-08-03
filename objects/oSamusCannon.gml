@@ -87,18 +87,16 @@ if global.gamePaused=false
     }
 
     _speed=bulletSpeed
-    x += cos(degtorad(_direction)) * _speed * gDeltaTime
-    y -= sin(degtorad(_direction)) * _speed * gDeltaTime
-
     if checkScreenArea(x,y,48)=0 {instance_destroy()}
-
-    if isCollisionLeft(1) {lingerFrame=1; speed=0; visible=0}
-    if isCollisionRight(1) {lingerFrame=1; speed=0; visible=0}
-    if isCollisionBottom(1) {lingerFrame=1; speed=0; visible=0}
-    if isCollisionTop(1) {lingerFrame=1; speed=0; visible=0}
+    if isCollisionLeft(1) {lingerFrame=1; _speed=0; visible=0}
+    if isCollisionRight(1) {lingerFrame=1; _speed=0; visible=0}
+    if isCollisionBottom(1) {lingerFrame=1; _speed=0; visible=0}
+    if isCollisionTop(1) {lingerFrame=1; _speed=0; visible=0}
     lifeTime-=1*gDeltaTime
     if lifeTime=0 {instance_destroy()}
   }
   else if lingerFrame=1 {instance_destroy()}
 }
 else {_speed=0}
+
+correctSpeedDirection(self)

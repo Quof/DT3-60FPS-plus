@@ -64,7 +64,7 @@ if global.gamePaused=false
     else if trapType=1 //Spear
     {
       myTrap=instance_create(x,y,oCh19Spear)
-      myTrap.direction=myDir; myTrap.image_angle=myDir
+      myTrap._direction=myDir; myTrap.image_angle=myDir
     }
     else if trapType=3 //Big Red Boulder
     {

@@ -1,2 +1,2 @@
-direction=180
+_direction=180
 mySpd=0

@@ -62,9 +62,9 @@ if global.gamePaused=false
   {
     if bIsSucked=0
     {
-      x-=runAcc
+      x-=runAcc*gDeltaTime
 
-      bulletTime+=1
+      bulletTime+=1*gDeltaTime
       if bulletTime=bulletDelay-1
       {
         shotDir=point_direction(x,y,oPlayer1.x,oPlayer1.y)
@@ -76,7 +76,7 @@ if global.gamePaused=false
           var tNewAttack;
           tNewAttack=instance_create(x,y,oPassBullet)
           tNewAttack.sprite_index=sC_SparkNeedle; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=6
-          tNewAttack.decayTime=-100; tNewAttack.direction=shotDir
+          tNewAttack.decayTime=-100; tNewAttack._direction=shotDir
           bulletCheck+=1
           if bulletCheck>=5
           {
@@ -87,7 +87,7 @@ if global.gamePaused=false
       }
     }
 
-    shieldDir+=4
+    shieldDir+=4*gDeltaTime
     for(i=0;i<2;i+=1)
     {
       if instance_exists(shieldPart[i])

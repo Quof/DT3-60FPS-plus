@@ -35,7 +35,7 @@ if global.gamePaused=false
       {
         bBill=instance_create(x+16,y+16,oM3Shot)
         bBill.x=x+16+lengthdir_x(14,shotDir); bBill.y=y+16+lengthdir_y(14,shotDir)
-        bBill.sprite_index=sSFShotSmall; bBill.direction=shotDir
+        bBill.sprite_index=sSFShotSmall; bBill._direction=shotDir
         bBill.atkPower=atkPower; bBill.bulletSpeed=4
         shotDir+=90
       }

@@ -21,6 +21,10 @@ stunResist=6
 baseItemChance=70
 moneyWorth=10
 dieEffect=0
+_direction=0
+_speed=0
+_hspeed=0
+_vspeed=0
 
 currHspd=0; currVspd=0
 xPoint=0
@@ -62,28 +66,28 @@ if global.gamePaused=false
 
     if x>xPoint
     {
-      if currHspd>-maxSpeed {currHspd-=0.4}
-      else {currHspd+=0.4}
+      if currHspd>-maxSpeed {currHspd-=0.4*gDeltaTime}
+      else {currHspd+=0.4*gDeltaTime}
     }
     else if x<xPoint
     {
-      if currHspd<maxSpeed {currHspd+=0.4}
-      else {currHspd-=0.4}
+      if currHspd<maxSpeed {currHspd+=0.4*gDeltaTime}
+      else {currHspd-=0.4*gDeltaTime}
     }
     if y>yPoint
     {
-      if currVspd>-maxSpeed {currVspd-=0.4}
-      else {currVspd+=0.4}
+      if currVspd>-maxSpeed {currVspd-=0.4*gDeltaTime}
+      else {currVspd+=0.4*gDeltaTime}
     }
     else if y<yPoint
     {
-      if currVspd<maxSpeed {currVspd+=0.4}
-      else {currVspd-=0.4}
+      if currVspd<maxSpeed {currVspd+=0.4*gDeltaTime}
+      else {currVspd-=0.4*gDeltaTime}
     }
-    hspeed=currHspd; vspeed=currVspd
+    _hspeed=currHspd; _vspeed=currVspd
 
     //Fire shots
-    shotTime+=1
+    shotTime+=1*gDeltaTime
     if shotTime=shotDelay {sprite_index=sTempleGhost_HandUp}
     else if shotTime=shotDelay+10
     {
@@ -121,7 +125,9 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
-else {hspeed=0; vspeed=0}
+else {_hspeed=0; _vspeed=0}
+
+correctHSpeedVSpeed(self)
 #define Collision_oAttackBase
 /*"/*'/**//* YYD ACTION
 lib_id=1

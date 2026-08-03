@@ -98,14 +98,14 @@ if global.gamePaused=0
   atkTime+=1*gDeltaTime
   if atkProg=1
   {
-    if atkTime=40 {var tAtk; tAtk=instance_create(16,bulTop,oFB_PongBullet); tAtk.direction=270; tAtk.moveSpd=2}
-    else if atkTime=80 {var tAtk; tAtk=instance_create(48,bulBot,oFB_PongBullet); tAtk.direction=90; tAtk.moveSpd=2}
-    else if atkTime=120 {var tAtk; tAtk=instance_create(32,bulTop,oFB_PongBullet); tAtk.direction=270; tAtk.moveSpd=2}
-    else if atkTime=160 {var tAtk; tAtk=instance_create(16,bulBot,oFB_PongBullet); tAtk.direction=90; tAtk.moveSpd=2}
-    else if atkTime=200 {var tAtk; tAtk=instance_create(48,bulTop,oFB_PongBullet); tAtk.direction=270; tAtk.moveSpd=2}
+    if atkTime=40 {var tAtk; tAtk=instance_create(16,bulTop,oFB_PongBullet); tAtk._direction=270; tAtk.moveSpd=2}
+    else if atkTime=80 {var tAtk; tAtk=instance_create(48,bulBot,oFB_PongBullet); tAtk._direction=90; tAtk.moveSpd=2}
+    else if atkTime=120 {var tAtk; tAtk=instance_create(32,bulTop,oFB_PongBullet); tAtk._direction=270; tAtk.moveSpd=2}
+    else if atkTime=160 {var tAtk; tAtk=instance_create(16,bulBot,oFB_PongBullet); tAtk._direction=90; tAtk.moveSpd=2}
+    else if atkTime=200 {var tAtk; tAtk=instance_create(48,bulTop,oFB_PongBullet); tAtk._direction=270; tAtk.moveSpd=2}
     else if atkTime=240
     {
-      var tAtk; tAtk=instance_create(32,bulBot,oFB_PongBullet); tAtk.direction=90; tAtk.moveSpd=2
+      var tAtk; tAtk=instance_create(32,bulBot,oFB_PongBullet); tAtk._direction=90; tAtk.moveSpd=2
       atkCycle+=1
       if atkCycle<2 {atkTime=0}
     }
@@ -115,13 +115,13 @@ if global.gamePaused=0
   {
     if atkTime=40
     {
-      var tAtk; tAtk=instance_create(16,bulTop,oFB_PongBullet); tAtk.direction=270; tAtk.moveSpd=2
-      tAtk=instance_create(32,bulTop,oFB_PongBullet); tAtk.direction=270; tAtk.moveSpd=2
+      var tAtk; tAtk=instance_create(16,bulTop,oFB_PongBullet); tAtk._direction=270; tAtk.moveSpd=2
+      tAtk=instance_create(32,bulTop,oFB_PongBullet); tAtk._direction=270; tAtk.moveSpd=2
     }
     else if atkTime=80
     {
-      var tAtk; tAtk=instance_create(32,bulTop,oFB_PongBullet); tAtk.direction=270; tAtk.moveSpd=2
-      tAtk=instance_create(48,bulTop,oFB_PongBullet); tAtk.direction=270; tAtk.moveSpd=2
+      var tAtk; tAtk=instance_create(32,bulTop,oFB_PongBullet); tAtk._direction=270; tAtk.moveSpd=2
+      tAtk=instance_create(48,bulTop,oFB_PongBullet); tAtk._direction=270; tAtk.moveSpd=2
       atkCycle+=1
       if atkCycle<8 {atkTime=0}
     }
@@ -131,12 +131,12 @@ if global.gamePaused=0
   {
     if atkTime=40
     {
-      var tAtk; tAtk=instance_create(16,bulBot,oFB_PongBullet); tAtk.direction=90; tAtk.moveSpd=2
-      tAtk=instance_create(48,bulBot,oFB_PongBullet); tAtk.direction=90; tAtk.moveSpd=2
+      var tAtk; tAtk=instance_create(16,bulBot,oFB_PongBullet); tAtk._direction=90; tAtk.moveSpd=2
+      tAtk=instance_create(48,bulBot,oFB_PongBullet); tAtk._direction=90; tAtk.moveSpd=2
     }
     else if atkTime=80
     {
-      var tAtk; tAtk=instance_create(32,bulBot,oFB_PongBullet); tAtk.direction=90; tAtk.moveSpd=2
+      var tAtk; tAtk=instance_create(32,bulBot,oFB_PongBullet); tAtk._direction=90; tAtk.moveSpd=2
       atkCycle+=1
       if atkCycle<8 {atkTime=0}
     }
@@ -147,7 +147,7 @@ if global.gamePaused=0
   if aimedBulletTime>=aimedBulletDelay
   {
     var tAtk; tAtk=instance_create(x-10,y,oFB_PongBullet)
-    tAtk.direction=point_direction(x-10,y,oFB_PlayerPaddle.x,oFB_PlayerPaddle.y); tAtk.moveSpd=2
+    tAtk._direction=point_direction(x-10,y,oFB_PlayerPaddle.x,oFB_PlayerPaddle.y); tAtk.moveSpd=2
     aimedBulletTime=0
   }
 
@@ -155,7 +155,7 @@ if global.gamePaused=0
   if superAimTime>=900 and superAimTime mod 2=0
   {
     var tAtk; tAtk=instance_create(x-10,y,oFB_PongBullet)
-    tAtk.direction=point_direction(x-10,y,oFB_PlayerPaddle.x,oFB_PlayerPaddle.y); tAtk.moveSpd=2
+    tAtk._direction=point_direction(x-10,y,oFB_PlayerPaddle.x,oFB_PlayerPaddle.y); tAtk.moveSpd=2
   }
   if superAimTime>=920 {superAimTime=0}
 
@@ -194,7 +194,7 @@ if global.gamePaused=0
       for(i=0;i<5;i+=1)
       {
         tAtk=instance_create(x-10,y,oFB_PongBullet)
-        tAtk.direction=tDir+(i*13); tAtk.moveSpd=2
+        tAtk._direction=tDir+(i*13); tAtk.moveSpd=2
       }
     }
 

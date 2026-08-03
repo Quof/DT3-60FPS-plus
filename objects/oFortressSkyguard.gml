@@ -63,14 +63,14 @@ if global.gamePaused=false
   {
     if moveBehavior=0
     {
-      x-=4
+      x-=4*gDeltaTime
       if x<=384 {moveBehavior=2}
     }
     else if moveBehavior=2
     {
       if myLives=1 //======================================== PHASE 1 ========================================
       {
-        atkTimeA+=1
+        atkTimeA+=1*gDeltaTime
         if atkTimeA mod 130=0 //Flower bullet
         {
           var tAtk,tDir;
@@ -78,7 +78,7 @@ if global.gamePaused=false
           for(i=0;i<8;i+=1)
           {
             tAtk=instance_create(x,y,oFSFlowerBullet)
-            tAtk.atkPower=atkPower; tAtk.decayTime=89; tAtk.bulletSpeed=4; tAtk.bulletCMod=3; tAtk.direction=atkDirA+tDir
+            tAtk.atkPower=atkPower; tAtk.decayTime=89; tAtk.bulletSpeed=4; tAtk.bulletCMod=3; tAtk._direction=atkDirA+tDir
             if i=0 {tAtk.bulletBlend=c_white}
             else if i=1 {tAtk.bulletBlend=make_color_rgb(190,255,255)}
             else if i=2 {tAtk.bulletBlend=make_color_rgb(255,190,255)}
@@ -92,7 +92,7 @@ if global.gamePaused=false
           atkDirA+=10
         }
 
-        atkTimeB+=1
+        atkTimeB+=1*gDeltaTime
         if atkTimeB mod 30=0 //Standard bullet
         {
           var tAtk,tDir;
@@ -101,7 +101,7 @@ if global.gamePaused=false
           {
             tAtk=instance_create(x,y,oPassBullet)
             tAtk.sprite_index=sFSSmallBullet; tAtk.atkPower=atkPower; tAtk.bulletSpeed=2
-            tAtk.decayTime=-100; tAtk.direction=atkDirB+tDir
+            tAtk.decayTime=-100; tAtk._direction=atkDirB+tDir
             tDir+=360/atkExtB
           }
           atkDirB+=12
@@ -109,16 +109,16 @@ if global.gamePaused=false
       }
       else if myLives=2 //======================================== PHASE 2 ========================================
       {
-        atkTimeA+=1
+        atkTimeA+=1*gDeltaTime
         if atkTimeA mod atkStuffA=0 //Plasma bullet
         {
           var tAtk;
           tAtk=instance_create(x+14,y-90,oPassBullet)
           tAtk.sprite_index=sFSPlasmaShot; tAtk.atkPower=atkPower; tAtk.bulletSpeed=4
-          tAtk.decayTime=-100; tAtk.direction=atkDirA; tAtk.image_angle=atkDirA; tAtk.image_speed=0.33
+          tAtk.decayTime=-100; tAtk._direction=atkDirA; tAtk.image_angle=atkDirA; tAtk.image_speed=0.33
           tAtk=instance_create(x+14,y+108,oPassBullet)
           tAtk.sprite_index=sFSPlasmaShot; tAtk.atkPower=atkPower; tAtk.bulletSpeed=4
-          tAtk.decayTime=-100; tAtk.direction=atkDirA; tAtk.image_angle=atkDirA; tAtk.image_speed=0.33
+          tAtk.decayTime=-100; tAtk._direction=atkDirA; tAtk.image_angle=atkDirA; tAtk.image_speed=0.33
 
           if atkExtA=0
           {
@@ -132,19 +132,19 @@ if global.gamePaused=false
           }
         }
 
-        atkTimeB+=1
+        atkTimeB+=1*gDeltaTime
         if atkTimeB mod 90=0 //Missile
         {
           var tAtk;
           tAtk=instance_create(x+7,y-49,oFSMissile)
           tAtk.atkPower=atkPower; tAtk.bulletSpeed=8; tAtk.decayTime=50; tAtk.bulletBlend=make_color_rgb(140,255,255)
-          tAtk.direction=170; tAtk.image_angle=170; tAtk.bulletCMod=4
+          tAtk._direction=170; tAtk.image_angle=170; tAtk.bulletCMod=4
           tAtk=instance_create(x+7,y+49,oFSMissile)
           tAtk.atkPower=atkPower; tAtk.bulletSpeed=8; tAtk.decayTime=50; tAtk.bulletBlend=make_color_rgb(255,255,140)
-          tAtk.direction=190; tAtk.image_angle=190; tAtk.bulletCMod=4
+          tAtk._direction=190; tAtk.image_angle=190; tAtk.bulletCMod=4
         }
 
-        atkTimeC+=1
+        atkTimeC+=1*gDeltaTime
         if atkTimeC mod atkExtC=0 //Standard bullet
         {
           var tAtk,tDir;
@@ -154,14 +154,14 @@ if global.gamePaused=false
           {
             tAtk=instance_create(x,y,oPassBullet)
             tAtk.sprite_index=sFSSmallBullet; tAtk.atkPower=atkPower; tAtk.bulletSpeed=3
-            tAtk.decayTime=-100; tAtk.direction=tDir
+            tAtk.decayTime=-100; tAtk._direction=tDir
             tDir+=10
           }
         }
       }
       else if myLives=3 //======================================== PHASE 3 ========================================
       {
-        atkTimeA+=1
+        atkTimeA+=1*gDeltaTime
         if atkTimeA mod 140=0 //Flower bullet
         {
           var tAtk,tDir;
@@ -169,7 +169,7 @@ if global.gamePaused=false
           for(i=0;i<8;i+=1)
           {
             tAtk=instance_create(x,y,oFSFlowerBullet)
-            tAtk.atkPower=atkPower; tAtk.decayTime=55; tAtk.bulletSpeed=8; tAtk.bulletCMod=2; tAtk.direction=atkDirA+tDir
+            tAtk.atkPower=atkPower; tAtk.decayTime=55; tAtk.bulletSpeed=8; tAtk.bulletCMod=2; tAtk._direction=atkDirA+tDir
             if i=0 {tAtk.bulletBlend=c_white}
             else if i=1 {tAtk.bulletBlend=make_color_rgb(190,255,255)}
             else if i=2 {tAtk.bulletBlend=make_color_rgb(255,190,255)}
@@ -183,14 +183,14 @@ if global.gamePaused=false
           atkDirA+=10
         }
 
-        atkTimeB+=1
+        atkTimeB+=1*gDeltaTime
         if atkTimeB mod atkExtB=0 //Flower curve bullet
         {
           var tAtk;
           for(i=0;i<8;i+=1)
           {
             tAtk=instance_create(x-39,y,oFSFlowerCurve)
-            tAtk.atkPower=atkPower; tAtk.decayTime=88; tAtk.bulletSpeed=4; tAtk.bulletCMod=2; tAtk.direction=atkDirB+(i*45)
+            tAtk.atkPower=atkPower; tAtk.decayTime=88; tAtk.bulletSpeed=4; tAtk.bulletCMod=2; tAtk._direction=atkDirB+(i*45)
             tAtk.decayTime=90; tAtk.bulletTurn=4; tAtk.bulletBlend=make_color_rgb(150,160,170)
           }
           atkDirB+=10
@@ -205,10 +205,10 @@ if global.gamePaused=false
           tDir=point_direction(x-39,y,oPlayer1.x,oPlayer1.y)
           tAtk=instance_create(x-79,y-32,oPassBullet)
           tAtk.sprite_index=sFSPlasmaShot; tAtk.atkPower=atkPower; tAtk.bulletSpeed=4
-          tAtk.decayTime=-100; tAtk.direction=tDir; tAtk.image_angle=tDir; tAtk.image_speed=0.33
+          tAtk.decayTime=-100; tAtk._direction=tDir; tAtk.image_angle=tDir; tAtk.image_speed=0.33
           tAtk=instance_create(x-79,y+32,oPassBullet)
           tAtk.sprite_index=sFSPlasmaShot; tAtk.atkPower=atkPower; tAtk.bulletSpeed=4
-          tAtk.decayTime=-100; tAtk.direction=tDir; tAtk.image_angle=tDir; tAtk.image_speed=0.33
+          tAtk.decayTime=-100; tAtk._direction=tDir; tAtk.image_angle=tDir; tAtk.image_speed=0.33
         }
 
         atkTimeB+=1
@@ -221,7 +221,7 @@ if global.gamePaused=false
           tAtk.sprite_index=sFSSpinMissile; tAtk.image_speed=0.33; tAtk.atkPower=atkPower; tAtk.turnDir=-5
         }*/
 
-        atkTimeC+=1
+        atkTimeC+=1*gDeltaTime
         if atkTimeC mod atkExtC=0 //Flower Spread bullet
         {
           var tAtk,tDir;
@@ -230,14 +230,14 @@ if global.gamePaused=false
             tDir=point_direction(x+6,y-99,oPlayer1.x,oPlayer1.y)
             tAtk=instance_create(x+6,y-99,oFSFlowerSpread)
             tAtk.atkPower=atkPower; tAtk.bulletSpeed=4; tAtk.startDir=tDir; tAtk.bulletCMod=5; tAtk.image_speed=0.33
-            tAtk.decayTime=105; tAtk.direction=165+(i*15); tAtk.image_angle=165+(i*15)
+            tAtk.decayTime=105; tAtk._direction=165+(i*15); tAtk.image_angle=165+(i*15)
             if i=0 {tAtk.bulletBlend=make_color_rgb(190,255,255)}
             else if i=1 {tAtk.bulletBlend=make_color_rgb(255,190,255)}
             else if i=2 {tAtk.bulletBlend=make_color_rgb(255,255,190)}
             tDir=point_direction(x+6,y+99,oPlayer1.x,oPlayer1.y)
             tAtk=instance_create(x+6,y+99,oFSFlowerSpread)
             tAtk.atkPower=atkPower; tAtk.bulletSpeed=4; tAtk.startDir=tDir; tAtk.bulletCMod=5; tAtk.image_speed=0.33
-            tAtk.decayTime=105; tAtk.direction=165+(i*15); tAtk.image_angle=165+(i*15); tAtk.bulletBlend=c_white
+            tAtk.decayTime=105; tAtk._direction=165+(i*15); tAtk.image_angle=165+(i*15); tAtk.bulletBlend=c_white
             if i=0 {tAtk.bulletBlend=make_color_rgb(190,190,255)}
             else if i=1 {tAtk.bulletBlend=make_color_rgb(255,190,190)}
             else if i=2 {tAtk.bulletBlend=make_color_rgb(190,255,190)}
@@ -253,7 +253,7 @@ if global.gamePaused=false
     }
     else if segmentProg=1
     {
-      segSideGunY+=1
+      segSideGunY+=1*gDeltaTime
       if segSideGunY>=47  {bCanTakeDamage=1; moveBehavior=2; segmentProg+=1}
     }
     else if segmentProg=2
@@ -262,8 +262,8 @@ if global.gamePaused=false
     }
     else if segmentProg=3
     {
-      if segFrontGuardX<27 {segFrontGuardX+=1}
-      if segFrontGuardY<15 {segFrontGuardY+=1}
+      if segFrontGuardX<27 {segFrontGuardX+=1*gDeltaTime}
+      if segFrontGuardY<15 {segFrontGuardY+=1*gDeltaTime}
 
       if segFrontGuardX>=27 {segmentProg+=1}
     }
@@ -278,14 +278,14 @@ if global.gamePaused=false
     }
     else if segmentProg=6
     {
-      segWingsX+=1
+      segWingsX+=1*gDeltaTime
       if segWingsY<26 {segWingsY+=1}
 
       if segWingsX>=40 {segmentProg+=1}
     }
     else if segmentProg=7
     {
-      segWingsAngle+=1
+      segWingsAngle+=1*gDeltaTime
       if segWingsAngle>=28 {bCanTakeDamage=1; moveBehavior=2; segmentProg+=1}
     }
 
@@ -402,7 +402,9 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
-else {path_speed=0; speed=0}
+else {path_speed=0; _speed=0}
+
+correctSpeedDirection(self)
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

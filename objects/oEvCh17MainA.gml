@@ -1162,7 +1162,7 @@ else if global.gameProgress=4100 and room=rHPF_V //----- [7] Shutting down the V
       with hexMeteor
       {
         sprite_index=sDraculaMeteor; type=1
-        speed=18; direction=point_direction(x,y,oEvCh17MainA.charJerry.x,oEvCh17MainA.charJerry.y)
+        _speed=18; _direction=point_direction(x,y,oEvCh17MainA.charJerry.x,oEvCh17MainA.charJerry.y)
       }
     }
     else if sceneDelay>=11 and sceneDelay<=99

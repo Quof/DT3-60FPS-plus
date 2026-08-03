@@ -5,4 +5,4 @@ bShowLine=0
 sprite_index=sZapTrap
 image_angle=270
 image_speed=random(0.25)+0.25
-direction=180
+_direction=180

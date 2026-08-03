@@ -36,6 +36,8 @@ detectDistY=144
 rising=0
 aimAtk=1
 
+_speed=0
+_direction=0
 deathAnim=0
 
 jeremyText="As you've just seen, these hide in lava most of the time. When they sense you close by, they jump out and start throwing fireballs toward you. They cycle through a faster straight launch, then aim at you with a slower one on the next throw."
@@ -105,7 +107,7 @@ if global.gamePaused=false
     makeEnemyActive(1)
     if rising>=0 and rising<=99
     {
-      rising+=1
+      rising+=1*gDeltaTime
       if rising=1
       {
         var tEffect;
@@ -121,7 +123,7 @@ if global.gamePaused=false
         visible=1
       }
 
-      if yVel<12 {yVel+=0.5}
+      if yVel<12 {yVel+=0.5*gDeltaTime}
       if yVel>5
       {
         if isCollisionBottom(1)
@@ -134,11 +136,11 @@ if global.gamePaused=false
           bCanTakeDamage=true
           rising=100
         }
-        moveTo(xVel,yVel)
+        moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
       }
       else
       {
-        y+=yVel
+        y+=yVel*gDeltaTime
       }
     }
     else if rising>=100
@@ -182,13 +184,13 @@ if global.gamePaused=false
           tNewAttack.bCanBeBlocked=1; tNewAttack.blockCost=300; tNewAttack.bParryOpp=1; tNewAttack.damageType="ELEMENTAL"
           if aimAtk=1
           {
-            if image_xscale=1 {tNewAttack.direction=0}
-            else {tNewAttack.direction=180}
+            if image_xscale=1 {tNewAttack._direction=0}
+            else {tNewAttack._direction=180}
             tNewAttack.bulletSpeed=13
           }
           else
           {
-            tNewAttack.direction=point_direction(x+(18*image_xscale),y-31,oPlayer1.x,oPlayer1.y-26)
+            tNewAttack._direction=point_direction(x+(18*image_xscale),y-31,oPlayer1.x,oPlayer1.y-26)
             tNewAttack.bulletSpeed=12
           }
         }
@@ -203,7 +205,7 @@ if global.gamePaused=false
         }
       }
 
-      yVel+=0.3
+      yVel+=0.3*gDeltaTime
       if isCollisionBottom(1)
         yVel=0
       if isCollisionLeft(1)
@@ -213,7 +215,7 @@ if global.gamePaused=false
       if isCollisionSolid()
         y-=2
 
-      moveTo(xVel,yVel)
+      moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
       if y>room_height+24
       {
         if questType>0 {enemyQuest(questType)}
@@ -224,7 +226,7 @@ if global.gamePaused=false
   else if life<=0
   {
     deathAnim+=1
-    speed=0
+    _speed=0
     if deathAnim mod 4=0
     {
       if deathAnim mod 8=0 {playSound(global.snd_HardHit1,0,0.9,1)}
@@ -238,3 +240,4 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
+correctSpeedDirection(self)

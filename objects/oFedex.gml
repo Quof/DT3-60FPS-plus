@@ -770,6 +770,7 @@ if life<=0 //-------------------- Defeat animation --------------------
     global.newMapX=888; global.newMapY=448; room_goto(rBT_HUB)
   }
 }
+correctSpeedDirection(self)
 #define Collision_oPlayer1
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -1318,7 +1319,7 @@ else if currentAttack=6 //==================== ATK F: BIG LEAP TOWARD WALL + LEA
     with tNewAttack
     {
       sprite_index=sWarmasterA_ShotB; atkPower=oFedex.atkPower; bulletSpeed=12
-      decayTime=-100; image_speed=0.33; direction=270; tNewAttack.image_angle=270
+      decayTime=-100; image_speed=0.33; _direction=270; tNewAttack.image_angle=270
       move_snap(8,1)
     }
   }

@@ -17,6 +17,8 @@ atkProg=0
 turnSpd=1.5
 decay=150
 bTouchSpikeCeiling=0
+_direction=0
+_speed=0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -34,20 +36,22 @@ if global.gamePaused=false
   }
   else if atkProg=1
   {
-    direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
+    _direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
     atkProg+=1
   }
   else if atkProg=2
   {
-    speed=8
-    image_angle+=5
-    turn_toward_direction(player_sprite_center(),turnSpd)
+    _speed=8
+    image_angle+=5*gDeltaTime
+    turn_toward_directionUnderscore(player_sprite_center(),turnSpd)
   }
 
-  decay-=1
+  decay-=1*gDeltaTime
   if decay<=0 {instance_destroy()}
 }
-else {speed=0}
+else {_speed=0}
+
+correctSpeedDirection(self)
 #define Collision_oAttackBase
 /*"/*'/**//* YYD ACTION
 lib_id=1

@@ -42,11 +42,11 @@ if global.gamePaused=false
   {
     if moveProg=0
     {
-      moveWave+=pi/60
-      y+=sin(moveWave)*2
-      x-=runAcc
+      moveWave+=(pi/60)*gDeltaTime
+      y+=(sin(moveWave)*2)*gDeltaTime
+      x-=runAcc*gDeltaTime
 
-      bulletTime+=1
+      bulletTime+=1*gDeltaTime
       if bulletTime>=80 and x>32
       {
         if bulletTime mod 14=0
@@ -57,7 +57,7 @@ if global.gamePaused=false
           {
             tNewAttack=instance_create(x,y,oPassBullet)
             tNewAttack.sprite_index=sC_SparkNeedle; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=6
-            tNewAttack.decayTime=-100; tNewAttack.direction=bulletDir+tDir
+            tNewAttack.decayTime=-100; tNewAttack._direction=bulletDir+tDir
             tDir+=360/bulletNum
           }
           bulletDir+=12
@@ -73,7 +73,7 @@ if global.gamePaused=false
     }
     else if moveProg=1
     {
-      x-=runAcc*3
+      x-=runAcc*3*gDeltaTime
     }
 
     if x<=-32 {instance_destroy()}

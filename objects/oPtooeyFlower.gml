@@ -24,6 +24,8 @@ resType[5]=2
 stunResist=10
 baseItemChance=60
 moneyWorth=5
+_direction=0
+_speed=0
 
 enemyProg=0
 if x>oPlayer1.x {throwDir=-1}
@@ -51,7 +53,7 @@ if global.gamePaused=false
     else {image_xscale=-1}
 
     //Fire at player
-    image_index+=animSpd
+    image_index+=animSpd*gDeltaTime
     if image_index>=1 and bThrow=0
     {
       var tThrowPwr;
@@ -77,12 +79,12 @@ if global.gamePaused=false
       bThrow=0
     }
 
-    yVel+=0.2
+    yVel+=0.2*gDeltaTime
     if isCollisionBottom(1)
     {
       yVel=0
     }
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
   }
   if lifePercent<=0.5 and enemyProg=0
   {
@@ -101,4 +103,4 @@ var tNewAttack;
 tNewAttack=instance_create(x,y-15,oPassBullet)
 tNewAttack.sprite_index=sPtooeySeed; tNewAttack.atkPower=atkPower
 tNewAttack.bulletSpeed=4; tNewAttack.decayTime=90
-tNewAttack.direction=point_direction(x,y-15,oPlayer1.x,returnPlayerYCenter())
+tNewAttack._direction=point_direction(x,y-15,oPlayer1.x,returnPlayerYCenter())

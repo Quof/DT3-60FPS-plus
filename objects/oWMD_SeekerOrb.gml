@@ -84,8 +84,7 @@ if global.gamePaused=false
 }
 else {_hspeed=0; _vspeed=0}
 
-x += _hspeed * gDeltaTime
-y += _vspeed * gDeltaTime
+correctHSpeedVSpeed(self)
 #define Collision_oAttackBase
 /*"/*'/**//* YYD ACTION
 lib_id=1

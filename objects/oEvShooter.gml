@@ -133,12 +133,12 @@ if global.gamePaused=false
     {
       sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {oHUD.shooterLevel="1-3"}
-      if sceneDelay=40 {var tAst; tAst=instance_create(asteroidX,asteroidY1,oDragAsteroid); tAst.bulletSpeed=1; tAst.direction=180}
+      if sceneDelay=40 {var tAst; tAst=instance_create(asteroidX,asteroidY1,oDragAsteroid); tAst.bulletSpeed=1; tAst._direction=180}
       else if sceneDelay=80 {instance_create(spawnX,spawnY6,oC_SpikeRotater)}
       else if sceneDelay=220 {instance_create(spawnX,spawnY6,oC_Butterdroid)}
       else if sceneDelay=240 {instance_create(spawnX,spawnY5,oC_Butterdroid)}
       else if sceneDelay=260 {instance_create(spawnX,spawnY7,oC_Butterdroid)}
-      else if sceneDelay=350 { var tAst; tAst=instance_create(asteroidX,asteroidY3,oDragAsteroid); tAst.bulletSpeed=1; tAst.direction=180}
+      else if sceneDelay=350 { var tAst; tAst=instance_create(asteroidX,asteroidY3,oDragAsteroid); tAst.bulletSpeed=1; tAst._direction=180}
       else if sceneDelay=390 {instance_create(spawnX,spawnY2,oC_SpikeRotater)}
       else if sceneDelay=450 {instance_create(spawnX,spawnY2,oC_RocketTurtle)}
       else if sceneDelay=530 {instance_create(spawnX,spawnY1,oC_Butterdroid)}
@@ -150,7 +150,7 @@ if global.gamePaused=false
     {
       sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {oHUD.shooterLevel="1-4"}
-      if sceneDelay=40 {var tAst; tAst=instance_create(asteroidX,asteroidY2,oDragAsteroid); tAst.bulletSpeed=1; tAst.direction=180}
+      if sceneDelay=40 {var tAst; tAst=instance_create(asteroidX,asteroidY2,oDragAsteroid); tAst.bulletSpeed=1; tAst._direction=180}
       else if sceneDelay=80
       {
         instance_create(spawnX,spawnY2,oC_RevenantDrone)
@@ -168,8 +168,8 @@ if global.gamePaused=false
       }
       else if sceneDelay=420
       {
-        var tAst; tAst=instance_create(asteroidX,asteroidY1,oDragAsteroid); tAst.bulletSpeed=1; tAst.direction=180
-        tAst=instance_create(asteroidX,asteroidY3,oDragAsteroid); tAst.bulletSpeed=1; tAst.direction=180
+        var tAst; tAst=instance_create(asteroidX,asteroidY1,oDragAsteroid); tAst.bulletSpeed=1; tAst._direction=180
+        tAst=instance_create(asteroidX,asteroidY3,oDragAsteroid); tAst.bulletSpeed=1; tAst._direction=180
       }
       else if sceneDelay=470 {instance_create(spawnX,spawnY4,oC_SpikeRotater)}
       else if sceneDelay=590 {instance_create(spawnX,spawnY2,oC_Spinner)}
@@ -200,36 +200,36 @@ if global.gamePaused=false
     {
       sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {oHUD.shooterLevel="1-5"}
-      if sceneDelay=60 {var tAst; tAst=instance_create(asteroidX,asteroidY2,oDragAsteroid); tAst.bulletSpeed=4; tAst.direction=180}
-      else if sceneDelay=120 {var tAst; tAst=instance_create(asteroidX,asteroidY1,oDragAsteroid); tAst.bulletSpeed=4; tAst.direction=180}
-      else if sceneDelay=170 {var tAst; tAst=instance_create(asteroidX,asteroidY3,oDragAsteroid); tAst.bulletSpeed=4; tAst.direction=180}
-      else if sceneDelay=200 {var tAst; tAst=instance_create(asteroidX,asteroidY2-24,oDragAsteroid); tAst.bulletSpeed=6; tAst.direction=180; tAst.image_xscale=0.5; tAst.image_yscale=0.5}
+      if sceneDelay=60 {var tAst; tAst=instance_create(asteroidX,asteroidY2,oDragAsteroid); tAst.bulletSpeed=4; tAst._direction=180}
+      else if sceneDelay=120 {var tAst; tAst=instance_create(asteroidX,asteroidY1,oDragAsteroid); tAst.bulletSpeed=4; tAst._direction=180}
+      else if sceneDelay=170 {var tAst; tAst=instance_create(asteroidX,asteroidY3,oDragAsteroid); tAst.bulletSpeed=4; tAst._direction=180}
+      else if sceneDelay=200 {var tAst; tAst=instance_create(asteroidX,asteroidY2-24,oDragAsteroid); tAst.bulletSpeed=6; tAst._direction=180; tAst.image_xscale=0.5; tAst.image_yscale=0.5}
       else if sceneDelay=220
       {
-        var tAst; tAst=instance_create(asteroidX,asteroidY1,oDragAsteroid); tAst.bulletSpeed=4; tAst.direction=180
-        tAst=instance_create(asteroidX,asteroidY3,oDragAsteroid); tAst.bulletSpeed=4; tAst.direction=180
+        var tAst; tAst=instance_create(asteroidX,asteroidY1,oDragAsteroid); tAst.bulletSpeed=4; tAst._direction=180
+        tAst=instance_create(asteroidX,asteroidY3,oDragAsteroid); tAst.bulletSpeed=4; tAst._direction=180
       }
-      else if sceneDelay=280 {var tAst; tAst=instance_create(asteroidX,asteroidY2,oDragAsteroid); tAst.bulletSpeed=6; tAst.direction=180}
-      else if sceneDelay=310 {var tAst; tAst=instance_create(asteroidX,asteroidY1,oDragAsteroid); tAst.bulletSpeed=6; tAst.direction=180}
+      else if sceneDelay=280 {var tAst; tAst=instance_create(asteroidX,asteroidY2,oDragAsteroid); tAst.bulletSpeed=6; tAst._direction=180}
+      else if sceneDelay=310 {var tAst; tAst=instance_create(asteroidX,asteroidY1,oDragAsteroid); tAst.bulletSpeed=6; tAst._direction=180}
       else if sceneDelay=325
       {
-        var tAst; tAst=instance_create(asteroidX,asteroidY2,oDragAsteroid); tAst.bulletSpeed=8; tAst.direction=180; tAst.image_xscale=0.5; tAst.image_yscale=0.5
-        tAst=instance_create(asteroidX+48,asteroidY2-48,oDragAsteroid); tAst.bulletSpeed=8; tAst.direction=180; tAst.image_xscale=0.5; tAst.image_yscale=0.5
-        tAst=instance_create(asteroidX+80,asteroidY2+48,oDragAsteroid); tAst.bulletSpeed=8; tAst.direction=180; tAst.image_xscale=0.5; tAst.image_yscale=0.5
+        var tAst; tAst=instance_create(asteroidX,asteroidY2,oDragAsteroid); tAst.bulletSpeed=8; tAst._direction=180; tAst.image_xscale=0.5; tAst.image_yscale=0.5
+        tAst=instance_create(asteroidX+48,asteroidY2-48,oDragAsteroid); tAst.bulletSpeed=8; tAst._direction=180; tAst.image_xscale=0.5; tAst.image_yscale=0.5
+        tAst=instance_create(asteroidX+80,asteroidY2+48,oDragAsteroid); tAst.bulletSpeed=8; tAst._direction=180; tAst.image_xscale=0.5; tAst.image_yscale=0.5
       }
-      else if sceneDelay=340 {var tAst; tAst=instance_create(asteroidX,asteroidY3,oDragAsteroid); tAst.bulletSpeed=6; tAst.direction=180}
-      else if sceneDelay=360 {var tAst; tAst=instance_create(asteroidX,asteroidY1,oDragAsteroid); tAst.bulletSpeed=6; tAst.direction=180}
-      else if sceneDelay=380 {var tAst; tAst=instance_create(asteroidX,asteroidY2,oDragAsteroid); tAst.bulletSpeed=6; tAst.direction=180} //Tight squeeze
-      else if sceneDelay=400 {var tAst; tAst=instance_create(asteroidX,asteroidY3,oDragAsteroid); tAst.bulletSpeed=6; tAst.direction=180}
-      else if sceneDelay=440 {var tAst; tAst=instance_create(asteroidX+48,asteroidY1+24,oDragAsteroid); tAst.bulletSpeed=2; tAst.direction=180; tAst.image_xscale=1.5; tAst.image_yscale=1.5}
-      else if sceneDelay=500 {var tAst; tAst=instance_create(asteroidX,asteroidY2,oDragAsteroid); tAst.bulletSpeed=5; tAst.direction=180; tAst.image_xscale=0.5; tAst.image_yscale=0.5}
-      else if sceneDelay=520 {var tAst; tAst=instance_create(asteroidX+48,asteroidY3-24,oDragAsteroid); tAst.bulletSpeed=2; tAst.direction=180; tAst.image_xscale=1.5; tAst.image_yscale=1.5}
+      else if sceneDelay=340 {var tAst; tAst=instance_create(asteroidX,asteroidY3,oDragAsteroid); tAst.bulletSpeed=6; tAst._direction=180}
+      else if sceneDelay=360 {var tAst; tAst=instance_create(asteroidX,asteroidY1,oDragAsteroid); tAst.bulletSpeed=6; tAst._direction=180}
+      else if sceneDelay=380 {var tAst; tAst=instance_create(asteroidX,asteroidY2,oDragAsteroid); tAst.bulletSpeed=6; tAst._direction=180} //Tight squeeze
+      else if sceneDelay=400 {var tAst; tAst=instance_create(asteroidX,asteroidY3,oDragAsteroid); tAst.bulletSpeed=6; tAst._direction=180}
+      else if sceneDelay=440 {var tAst; tAst=instance_create(asteroidX+48,asteroidY1+24,oDragAsteroid); tAst.bulletSpeed=2; tAst._direction=180; tAst.image_xscale=1.5; tAst.image_yscale=1.5}
+      else if sceneDelay=500 {var tAst; tAst=instance_create(asteroidX,asteroidY2,oDragAsteroid); tAst.bulletSpeed=5; tAst._direction=180; tAst.image_xscale=0.5; tAst.image_yscale=0.5}
+      else if sceneDelay=520 {var tAst; tAst=instance_create(asteroidX+48,asteroidY3-24,oDragAsteroid); tAst.bulletSpeed=2; tAst._direction=180; tAst.image_xscale=1.5; tAst.image_yscale=1.5}
       else if sceneDelay=580
       {
-        var tAst; tAst=instance_create(asteroidX,asteroidY1,oDragAsteroid); tAst.bulletSpeed=5; tAst.direction=180; tAst.image_xscale=0.5; tAst.image_yscale=0.5
-        tAst=instance_create(asteroidX+48,asteroidY1+48,oDragAsteroid); tAst.bulletSpeed=5; tAst.direction=180; tAst.image_xscale=0.5; tAst.image_yscale=0.5
+        var tAst; tAst=instance_create(asteroidX,asteroidY1,oDragAsteroid); tAst.bulletSpeed=5; tAst._direction=180; tAst.image_xscale=0.5; tAst.image_yscale=0.5
+        tAst=instance_create(asteroidX+48,asteroidY1+48,oDragAsteroid); tAst.bulletSpeed=5; tAst._direction=180; tAst.image_xscale=0.5; tAst.image_yscale=0.5
       }
-      else if sceneDelay=600 {var tAst; tAst=instance_create(asteroidX+48,asteroidY1+24,oDragAsteroid); tAst.bulletSpeed=2; tAst.direction=180; tAst.image_xscale=1.5; tAst.image_yscale=1.5}
+      else if sceneDelay=600 {var tAst; tAst=instance_create(asteroidX+48,asteroidY1+24,oDragAsteroid); tAst.bulletSpeed=2; tAst._direction=180; tAst.image_xscale=1.5; tAst.image_yscale=1.5}
       else if sceneDelay=900
       {
         instance_create(0,0,oCheckpointNotice)
@@ -263,10 +263,10 @@ if global.gamePaused=false
       if sceneDelay=1 {oHUD.shooterLevel="2-1"}
       if sceneDelay=50
       {
-        var tAst; tAst=instance_create(asteroidX,asteroidY1,oDragAsteroid); tAst.bulletSpeed=2; tAst.direction=180
-        tAst=instance_create(asteroidX+256,asteroidY2,oDragAsteroid); tAst.bulletSpeed=2; tAst.direction=180
-        tAst=instance_create(asteroidX+512,asteroidY3,oDragAsteroid); tAst.bulletSpeed=2; tAst.direction=180
-        tAst=instance_create(asteroidX+768,asteroidY2,oDragAsteroid); tAst.bulletSpeed=2; tAst.direction=180
+        var tAst; tAst=instance_create(asteroidX,asteroidY1,oDragAsteroid); tAst.bulletSpeed=2; tAst._direction=180
+        tAst=instance_create(asteroidX+256,asteroidY2,oDragAsteroid); tAst.bulletSpeed=2; tAst._direction=180
+        tAst=instance_create(asteroidX+512,asteroidY3,oDragAsteroid); tAst.bulletSpeed=2; tAst._direction=180
+        tAst=instance_create(asteroidX+768,asteroidY2,oDragAsteroid); tAst.bulletSpeed=2; tAst._direction=180
       }
       else if sceneDelay=60 {instance_create(spawnX,spawnY5,oC_Spinner)}
       else if sceneDelay=90 {instance_create(spawnX,spawnY7,oC_DopeyBot)}
@@ -288,9 +288,9 @@ if global.gamePaused=false
     {
       sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {oHUD.shooterLevel="2-2"}
-      if sceneDelay=50 {var tAst; tAst=instance_create(asteroidX+112,asteroidY2,oDragAsteroid); tAst.bulletSpeed=4; tAst.direction=180; tAst.image_xscale=1.8; tAst.image_yscale=1.8}
-      else if sceneDelay=100 {var tAst; tAst=instance_create(asteroidX,asteroidY1,oDragAsteroid); tAst.bulletSpeed=3; tAst.direction=180}
-      else if sceneDelay=120 {var tAst; tAst=instance_create(asteroidX,asteroidY3,oDragAsteroid); tAst.bulletSpeed=3; tAst.direction=180}
+      if sceneDelay=50 {var tAst; tAst=instance_create(asteroidX+112,asteroidY2,oDragAsteroid); tAst.bulletSpeed=4; tAst._direction=180; tAst.image_xscale=1.8; tAst.image_yscale=1.8}
+      else if sceneDelay=100 {var tAst; tAst=instance_create(asteroidX,asteroidY1,oDragAsteroid); tAst.bulletSpeed=3; tAst._direction=180}
+      else if sceneDelay=120 {var tAst; tAst=instance_create(asteroidX,asteroidY3,oDragAsteroid); tAst.bulletSpeed=3; tAst._direction=180}
       else if sceneDelay=150 {instance_create(spawnX,spawnY2,oC_Bloominator)}
       else if sceneDelay=180 {instance_create(spawnX,spawnY6,oC_Bloominator)}
       else if sceneDelay=260 {instance_create(spawnX,spawnY3,oC_SpikeRotater)}
@@ -335,12 +335,12 @@ if global.gamePaused=false
       else if sceneDelay=290 {instance_create(spawnX,spawnY5,oC_Bloominator)}
       else if sceneDelay=320
       {
-        var tAst; tAst=instance_create(asteroidX,asteroidY1-56,oDragAsteroid); tAst.bulletSpeed=4; tAst.direction=180; tAst.image_xscale=0.75; tAst.image_yscale=0.75
-        tAst=instance_create(asteroidX,asteroidY1,oDragAsteroid); tAst.bulletSpeed=4; tAst.direction=180; tAst.image_xscale=0.75; tAst.image_yscale=0.75
-        tAst=instance_create(asteroidX,asteroidY1+56,oDragAsteroid); tAst.bulletSpeed=4; tAst.direction=180; tAst.image_xscale=0.75; tAst.image_yscale=0.75
-        tAst=instance_create(asteroidX+256,asteroidY3-56,oDragAsteroid); tAst.bulletSpeed=4; tAst.direction=180; tAst.image_xscale=0.75; tAst.image_yscale=0.75
-        tAst=instance_create(asteroidX+256,asteroidY3,oDragAsteroid); tAst.bulletSpeed=4; tAst.direction=180; tAst.image_xscale=0.75; tAst.image_yscale=0.75
-        tAst=instance_create(asteroidX+256,asteroidY3+56,oDragAsteroid); tAst.bulletSpeed=4; tAst.direction=180; tAst.image_xscale=0.75; tAst.image_yscale=0.75
+        var tAst; tAst=instance_create(asteroidX,asteroidY1-56,oDragAsteroid); tAst.bulletSpeed=4; tAst._direction=180; tAst.image_xscale=0.75; tAst.image_yscale=0.75
+        tAst=instance_create(asteroidX,asteroidY1,oDragAsteroid); tAst.bulletSpeed=4; tAst._direction=180; tAst.image_xscale=0.75; tAst.image_yscale=0.75
+        tAst=instance_create(asteroidX,asteroidY1+56,oDragAsteroid); tAst.bulletSpeed=4; tAst._direction=180; tAst.image_xscale=0.75; tAst.image_yscale=0.75
+        tAst=instance_create(asteroidX+256,asteroidY3-56,oDragAsteroid); tAst.bulletSpeed=4; tAst._direction=180; tAst.image_xscale=0.75; tAst.image_yscale=0.75
+        tAst=instance_create(asteroidX+256,asteroidY3,oDragAsteroid); tAst.bulletSpeed=4; tAst._direction=180; tAst.image_xscale=0.75; tAst.image_yscale=0.75
+        tAst=instance_create(asteroidX+256,asteroidY3+56,oDragAsteroid); tAst.bulletSpeed=4; tAst._direction=180; tAst.image_xscale=0.75; tAst.image_yscale=0.75
       }
       else if sceneDelay=410 {instance_create(spawnX,spawnY4,oC_SpikeRotater)}
       else if sceneDelay=460 {instance_create(spawnX,spawnY1,oC_SpikeRotater)}
@@ -355,15 +355,15 @@ if global.gamePaused=false
         otherTimeA+=1
         if otherTimeA=90
         {
-          var tAst; tAst=instance_create(asteroidX,asteroidY1-56,oDragAsteroid); tAst.bulletSpeed=5; tAst.direction=180; tAst.image_xscale=0.75; tAst.image_yscale=0.75
-          tAst=instance_create(asteroidX,asteroidY1,oDragAsteroid); tAst.bulletSpeed=5; tAst.direction=180; tAst.image_xscale=0.75; tAst.image_yscale=0.75
-          tAst=instance_create(asteroidX,asteroidY1+56,oDragAsteroid); tAst.bulletSpeed=5; tAst.direction=180; tAst.image_xscale=0.75; tAst.image_yscale=0.75
+          var tAst; tAst=instance_create(asteroidX,asteroidY1-56,oDragAsteroid); tAst.bulletSpeed=5; tAst._direction=180; tAst.image_xscale=0.75; tAst.image_yscale=0.75
+          tAst=instance_create(asteroidX,asteroidY1,oDragAsteroid); tAst.bulletSpeed=5; tAst._direction=180; tAst.image_xscale=0.75; tAst.image_yscale=0.75
+          tAst=instance_create(asteroidX,asteroidY1+56,oDragAsteroid); tAst.bulletSpeed=5; tAst._direction=180; tAst.image_xscale=0.75; tAst.image_yscale=0.75
         }
         else if otherTimeA=180
         {
-          var tAst; tAst=instance_create(asteroidX,asteroidY3-56,oDragAsteroid); tAst.bulletSpeed=5; tAst.direction=180; tAst.image_xscale=0.75; tAst.image_yscale=0.75
-          tAst=instance_create(asteroidX,asteroidY3,oDragAsteroid); tAst.bulletSpeed=5; tAst.direction=180; tAst.image_xscale=0.75; tAst.image_yscale=0.75
-          tAst=instance_create(asteroidX,asteroidY3+56,oDragAsteroid); tAst.bulletSpeed=5; tAst.direction=180; tAst.image_xscale=0.75; tAst.image_yscale=0.75
+          var tAst; tAst=instance_create(asteroidX,asteroidY3-56,oDragAsteroid); tAst.bulletSpeed=5; tAst._direction=180; tAst.image_xscale=0.75; tAst.image_yscale=0.75
+          tAst=instance_create(asteroidX,asteroidY3,oDragAsteroid); tAst.bulletSpeed=5; tAst._direction=180; tAst.image_xscale=0.75; tAst.image_yscale=0.75
+          tAst=instance_create(asteroidX,asteroidY3+56,oDragAsteroid); tAst.bulletSpeed=5; tAst._direction=180; tAst.image_xscale=0.75; tAst.image_yscale=0.75
           otherTimeA=0
         }
       }
@@ -470,9 +470,9 @@ if global.gamePaused=false
         instance_create(spawnX,spawnY1,oC_Sparker)
         instance_create(spawnX,spawnY7,oC_Spinner)
       }
-      else if sceneDelay=270 {var tAst; tAst=instance_create(asteroidX,asteroidY1,oDragAsteroid); tAst.bulletSpeed=2; tAst.direction=200}
+      else if sceneDelay=270 {var tAst; tAst=instance_create(asteroidX,asteroidY1,oDragAsteroid); tAst.bulletSpeed=2; tAst._direction=200}
       else if sceneDelay=300 {instance_create(spawnX,spawnY4,oC_Bloominator)}
-      else if sceneDelay=320 {var tAst; tAst=instance_create(asteroidX,asteroidY3,oDragAsteroid); tAst.bulletSpeed=2; tAst.direction=160}
+      else if sceneDelay=320 {var tAst; tAst=instance_create(asteroidX,asteroidY3,oDragAsteroid); tAst.bulletSpeed=2; tAst._direction=160}
       else if sceneDelay=390 {instance_create(spawnX,spawnY2,oC_RocketTurtle)}
       else if sceneDelay=530 {instance_create(spawnX,spawnY3,oC_RevenantDrone)}
       else if sceneDelay=580 {instance_create(spawnX,spawnY2,oC_Butterdroid)}
@@ -483,40 +483,40 @@ if global.gamePaused=false
     {
       sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {oHUD.shooterLevel="3-3"}
-      if sceneDelay=50 {var tAst; tAst=instance_create(asteroidX,asteroidY2,oDragAsteroid); tAst.bulletSpeed=2; tAst.direction=180}
-      else if sceneDelay=70 {var tAst; tAst=instance_create(asteroidX,asteroidY1,oDragAsteroid); tAst.bulletSpeed=4; tAst.direction=200; tAst.image_xscale=0.75; tAst.image_yscale=0.75}
-      else if sceneDelay=80 {var tAst; tAst=instance_create(asteroidX,asteroidY2,oDragAsteroid); tAst.bulletSpeed=4; tAst.direction=190; tAst.image_xscale=0.75; tAst.image_yscale=0.75}
-      else if sceneDelay=90 {var tAst; tAst=instance_create(asteroidX,asteroidY2,oDragAsteroid); tAst.bulletSpeed=4; tAst.direction=170; tAst.image_xscale=0.75; tAst.image_yscale=0.75}
-      else if sceneDelay=100 {var tAst; tAst=instance_create(asteroidX,asteroidY3,oDragAsteroid); tAst.bulletSpeed=4; tAst.direction=180; tAst.image_xscale=0.75; tAst.image_yscale=0.75}
-      else if sceneDelay=120 {var tAst; tAst=instance_create(asteroidX,asteroidY3,oDragAsteroid); tAst.bulletSpeed=2; tAst.direction=180}
-      else if sceneDelay=140 {var tAst; tAst=instance_create(asteroidX,asteroidY1+56,oDragAsteroid); tAst.bulletSpeed=4; tAst.direction=200; tAst.image_xscale=0.75; tAst.image_yscale=0.75}
-      else if sceneDelay=160 {var tAst; tAst=instance_create(asteroidX,asteroidY2+56,oDragAsteroid); tAst.bulletSpeed=4; tAst.direction=170; tAst.image_xscale=0.75; tAst.image_yscale=0.75}
-      else if sceneDelay=170 {var tAst; tAst=instance_create(asteroidX,asteroidY3-56,oDragAsteroid); tAst.bulletSpeed=4; tAst.direction=160; tAst.image_xscale=0.75; tAst.image_yscale=0.75}
-      else if sceneDelay=190 {var tAst; tAst=instance_create(asteroidX,asteroidY1,oDragAsteroid); tAst.bulletSpeed=2; tAst.direction=180}
-      else if sceneDelay=210 {var tAst; tAst=instance_create(asteroidX,asteroidY1,oDragAsteroid); tAst.bulletSpeed=4; tAst.direction=200}
+      if sceneDelay=50 {var tAst; tAst=instance_create(asteroidX,asteroidY2,oDragAsteroid); tAst.bulletSpeed=2; tAst._direction=180}
+      else if sceneDelay=70 {var tAst; tAst=instance_create(asteroidX,asteroidY1,oDragAsteroid); tAst.bulletSpeed=4; tAst._direction=200; tAst.image_xscale=0.75; tAst.image_yscale=0.75}
+      else if sceneDelay=80 {var tAst; tAst=instance_create(asteroidX,asteroidY2,oDragAsteroid); tAst.bulletSpeed=4; tAst._direction=190; tAst.image_xscale=0.75; tAst.image_yscale=0.75}
+      else if sceneDelay=90 {var tAst; tAst=instance_create(asteroidX,asteroidY2,oDragAsteroid); tAst.bulletSpeed=4; tAst._direction=170; tAst.image_xscale=0.75; tAst.image_yscale=0.75}
+      else if sceneDelay=100 {var tAst; tAst=instance_create(asteroidX,asteroidY3,oDragAsteroid); tAst.bulletSpeed=4; tAst._direction=180; tAst.image_xscale=0.75; tAst.image_yscale=0.75}
+      else if sceneDelay=120 {var tAst; tAst=instance_create(asteroidX,asteroidY3,oDragAsteroid); tAst.bulletSpeed=2; tAst._direction=180}
+      else if sceneDelay=140 {var tAst; tAst=instance_create(asteroidX,asteroidY1+56,oDragAsteroid); tAst.bulletSpeed=4; tAst._direction=200; tAst.image_xscale=0.75; tAst.image_yscale=0.75}
+      else if sceneDelay=160 {var tAst; tAst=instance_create(asteroidX,asteroidY2+56,oDragAsteroid); tAst.bulletSpeed=4; tAst._direction=170; tAst.image_xscale=0.75; tAst.image_yscale=0.75}
+      else if sceneDelay=170 {var tAst; tAst=instance_create(asteroidX,asteroidY3-56,oDragAsteroid); tAst.bulletSpeed=4; tAst._direction=160; tAst.image_xscale=0.75; tAst.image_yscale=0.75}
+      else if sceneDelay=190 {var tAst; tAst=instance_create(asteroidX,asteroidY1,oDragAsteroid); tAst.bulletSpeed=2; tAst._direction=180}
+      else if sceneDelay=210 {var tAst; tAst=instance_create(asteroidX,asteroidY1,oDragAsteroid); tAst.bulletSpeed=4; tAst._direction=200}
       else if sceneDelay=240
       {
-        var tAst; tAst=instance_create(asteroidX,asteroidY3,oDragAsteroid); tAst.bulletSpeed=4; tAst.direction=165
-        tAst=instance_create(asteroidX,asteroidY3-48,oDragAsteroid); tAst.bulletSpeed=4; tAst.direction=165
-        tAst=instance_create(asteroidX,asteroidY3-96,oDragAsteroid); tAst.bulletSpeed=4; tAst.direction=165
+        var tAst; tAst=instance_create(asteroidX,asteroidY3,oDragAsteroid); tAst.bulletSpeed=4; tAst._direction=165
+        tAst=instance_create(asteroidX,asteroidY3-48,oDragAsteroid); tAst.bulletSpeed=4; tAst._direction=165
+        tAst=instance_create(asteroidX,asteroidY3-96,oDragAsteroid); tAst.bulletSpeed=4; tAst._direction=165
       }
       else if sceneDelay=280
       {
-        var tAst; tAst=instance_create(asteroidX,asteroidY1,oDragAsteroid); tAst.bulletSpeed=4; tAst.direction=195
-        tAst=instance_create(asteroidX,asteroidY1+48,oDragAsteroid); tAst.bulletSpeed=4; tAst.direction=195
-        tAst=instance_create(asteroidX,asteroidY1+96,oDragAsteroid); tAst.bulletSpeed=4; tAst.direction=195
+        var tAst; tAst=instance_create(asteroidX,asteroidY1,oDragAsteroid); tAst.bulletSpeed=4; tAst._direction=195
+        tAst=instance_create(asteroidX,asteroidY1+48,oDragAsteroid); tAst.bulletSpeed=4; tAst._direction=195
+        tAst=instance_create(asteroidX,asteroidY1+96,oDragAsteroid); tAst.bulletSpeed=4; tAst._direction=195
       }
-      else if sceneDelay=300 {var tAst; tAst=instance_create(asteroidX,asteroidY2,oDragAsteroid); tAst.bulletSpeed=2; tAst.direction=180}
-      else if sceneDelay=320 {var tAst; tAst=instance_create(asteroidX,asteroidY1,oDragAsteroid); tAst.bulletSpeed=4; tAst.direction=200; tAst.image_xscale=0.75; tAst.image_yscale=0.75}
-      else if sceneDelay=330 {var tAst; tAst=instance_create(asteroidX,asteroidY2,oDragAsteroid); tAst.bulletSpeed=4; tAst.direction=190; tAst.image_xscale=0.75; tAst.image_yscale=0.75}
-      else if sceneDelay=340 {var tAst; tAst=instance_create(asteroidX,asteroidY2,oDragAsteroid); tAst.bulletSpeed=4; tAst.direction=170; tAst.image_xscale=0.75; tAst.image_yscale=0.75}
-      else if sceneDelay=500 {var tAst; tAst=instance_create(asteroidX,asteroidY3,oDragAsteroid); tAst.bulletSpeed=4; tAst.direction=180; tAst.image_xscale=0.75; tAst.image_yscale=0.75}
-      else if sceneDelay=520 {var tAst; tAst=instance_create(asteroidX,asteroidY3,oDragAsteroid); tAst.bulletSpeed=2; tAst.direction=180}
-      else if sceneDelay=540 {var tAst; tAst=instance_create(asteroidX,asteroidY1+56,oDragAsteroid); tAst.bulletSpeed=4; tAst.direction=200; tAst.image_xscale=0.75; tAst.image_yscale=0.75}
-      else if sceneDelay=560 {var tAst; tAst=instance_create(asteroidX,asteroidY2+56,oDragAsteroid); tAst.bulletSpeed=4; tAst.direction=170; tAst.image_xscale=0.75; tAst.image_yscale=0.75}
-      else if sceneDelay=590 {var tAst; tAst=instance_create(asteroidX,asteroidY1,oDragAsteroid); tAst.bulletSpeed=2; tAst.direction=180}
-      else if sceneDelay=610 {var tAst; tAst=instance_create(asteroidX,asteroidY1,oDragAsteroid); tAst.bulletSpeed=4; tAst.direction=200}
-      else if sceneDelay=650 {var tAst; tAst=instance_create(asteroidX,asteroidY1,oDragAsteroid); tAst.bulletSpeed=4; tAst.direction=195}
+      else if sceneDelay=300 {var tAst; tAst=instance_create(asteroidX,asteroidY2,oDragAsteroid); tAst.bulletSpeed=2; tAst._direction=180}
+      else if sceneDelay=320 {var tAst; tAst=instance_create(asteroidX,asteroidY1,oDragAsteroid); tAst.bulletSpeed=4; tAst._direction=200; tAst.image_xscale=0.75; tAst.image_yscale=0.75}
+      else if sceneDelay=330 {var tAst; tAst=instance_create(asteroidX,asteroidY2,oDragAsteroid); tAst.bulletSpeed=4; tAst._direction=190; tAst.image_xscale=0.75; tAst.image_yscale=0.75}
+      else if sceneDelay=340 {var tAst; tAst=instance_create(asteroidX,asteroidY2,oDragAsteroid); tAst.bulletSpeed=4; tAst._direction=170; tAst.image_xscale=0.75; tAst.image_yscale=0.75}
+      else if sceneDelay=500 {var tAst; tAst=instance_create(asteroidX,asteroidY3,oDragAsteroid); tAst.bulletSpeed=4; tAst._direction=180; tAst.image_xscale=0.75; tAst.image_yscale=0.75}
+      else if sceneDelay=520 {var tAst; tAst=instance_create(asteroidX,asteroidY3,oDragAsteroid); tAst.bulletSpeed=2; tAst._direction=180}
+      else if sceneDelay=540 {var tAst; tAst=instance_create(asteroidX,asteroidY1+56,oDragAsteroid); tAst.bulletSpeed=4; tAst._direction=200; tAst.image_xscale=0.75; tAst.image_yscale=0.75}
+      else if sceneDelay=560 {var tAst; tAst=instance_create(asteroidX,asteroidY2+56,oDragAsteroid); tAst.bulletSpeed=4; tAst._direction=170; tAst.image_xscale=0.75; tAst.image_yscale=0.75}
+      else if sceneDelay=590 {var tAst; tAst=instance_create(asteroidX,asteroidY1,oDragAsteroid); tAst.bulletSpeed=2; tAst._direction=180}
+      else if sceneDelay=610 {var tAst; tAst=instance_create(asteroidX,asteroidY1,oDragAsteroid); tAst.bulletSpeed=4; tAst._direction=200}
+      else if sceneDelay=650 {var tAst; tAst=instance_create(asteroidX,asteroidY1,oDragAsteroid); tAst.bulletSpeed=4; tAst._direction=195}
       else if sceneDelay=860
       {
         instance_create(0,0,oCheckpointNotice)
@@ -530,9 +530,9 @@ if global.gamePaused=false
         if sceneDelay mod 25=0
         {
           astProg+=1
-          if astProg=1 {var tAst; tAst=instance_create(asteroidX,asteroidY1,oDragAsteroid); tAst.bulletSpeed=6; tAst.direction=point_direction(asteroidX,asteroidY1,oPlayer1.x,oPlayer1.y)}
-          else if astProg=2 {var tAst; tAst=instance_create(asteroidX,asteroidY2,oDragAsteroid); tAst.bulletSpeed=6; tAst.direction=point_direction(asteroidX,asteroidY2,oPlayer1.x,oPlayer1.y)}
-          else if astProg=3 {var tAst; tAst=instance_create(asteroidX,asteroidY3,oDragAsteroid); tAst.bulletSpeed=6; tAst.direction=point_direction(asteroidX,asteroidY3,oPlayer1.x,oPlayer1.y); astProg=0}
+          if astProg=1 {var tAst; tAst=instance_create(asteroidX,asteroidY1,oDragAsteroid); tAst.bulletSpeed=6; tAst._direction=point_direction(asteroidX,asteroidY1,oPlayer1.x,oPlayer1.y)}
+          else if astProg=2 {var tAst; tAst=instance_create(asteroidX,asteroidY2,oDragAsteroid); tAst.bulletSpeed=6; tAst._direction=point_direction(asteroidX,asteroidY2,oPlayer1.x,oPlayer1.y)}
+          else if astProg=3 {var tAst; tAst=instance_create(asteroidX,asteroidY3,oDragAsteroid); tAst.bulletSpeed=6; tAst._direction=point_direction(asteroidX,asteroidY3,oPlayer1.x,oPlayer1.y); astProg=0}
         }
       }
     }
@@ -544,9 +544,9 @@ if global.gamePaused=false
         backFollow.xScrollSpeed=0
         oHUD.shooterLevel="3-4"
       }
-      else if sceneDelay=50 {var tAst; tAst=instance_create(asteroidX,asteroidY1,oBreakableAsteroid); tAst.type=1 ;tAst.direction=150}
-      else if sceneDelay=200 {var tAst; tAst=instance_create(asteroidX,asteroidY1,oBreakableAsteroid); tAst.type=1; tAst.direction=175}
-      else if sceneDelay=350 {var tAst; tAst=instance_create(asteroidX,asteroidY1,oBreakableAsteroid); tAst.type=1; tAst.direction=200}
+      else if sceneDelay=50 {var tAst; tAst=instance_create(asteroidX,asteroidY1,oBreakableAsteroid); tAst.type=1 ;tAst._direction=150}
+      else if sceneDelay=200 {var tAst; tAst=instance_create(asteroidX,asteroidY1,oBreakableAsteroid); tAst.type=1; tAst._direction=175}
+      else if sceneDelay=350 {var tAst; tAst=instance_create(asteroidX,asteroidY1,oBreakableAsteroid); tAst.type=1; tAst._direction=200}
       else if sceneDelay>=360
       {
         if !instance_exists(oBreakableAsteroid)
@@ -627,9 +627,9 @@ if global.gamePaused=false
         if sceneDelay mod 70=0
         {
           astProg+=1
-          if astProg=1 {var tAst; tAst=instance_create(asteroidX,asteroidY1,oDragAsteroid); tAst.bulletSpeed=5; tAst.direction=180; tAst.image_xscale=0.5; tAst.image_yscale=0.5}
-          else if astProg=2 {var tAst; tAst=instance_create(asteroidX,asteroidY2,oDragAsteroid); tAst.bulletSpeed=5; tAst.direction=180; tAst.image_xscale=0.5; tAst.image_yscale=0.5}
-          else if astProg=3 {var tAst; tAst=instance_create(asteroidX,asteroidY3,oDragAsteroid); tAst.bulletSpeed=5; tAst.direction=180; tAst.image_xscale=0.5; tAst.image_yscale=0.5}
+          if astProg=1 {var tAst; tAst=instance_create(asteroidX,asteroidY1,oDragAsteroid); tAst.bulletSpeed=5; tAst._direction=180; tAst.image_xscale=0.5; tAst.image_yscale=0.5}
+          else if astProg=2 {var tAst; tAst=instance_create(asteroidX,asteroidY2,oDragAsteroid); tAst.bulletSpeed=5; tAst._direction=180; tAst.image_xscale=0.5; tAst.image_yscale=0.5}
+          else if astProg=3 {var tAst; tAst=instance_create(asteroidX,asteroidY3,oDragAsteroid); tAst.bulletSpeed=5; tAst._direction=180; tAst.image_xscale=0.5; tAst.image_yscale=0.5}
         }
       }
     }
@@ -703,7 +703,7 @@ if global.gamePaused=false
         {
           tEndLaser=instance_create(room_width+32,oPlayer1.y+tYY,oEndShooterLaser)
           tEndLaser.type=1
-          tYY+=8*gDeltaTime
+          tYY+=8
         }
       }
       else if sceneDelay=540

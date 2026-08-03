@@ -16,12 +16,13 @@ applies_to=self
 event_inherited()
 if global.gamePaused=false
 {
-  speed=moveSpd
+  _speed=moveSpd
   moveTime+=1
   if moveTime>=moveDelay
   {
-    direction+=180
+    _direction+=180
     moveTime=0
   }
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)

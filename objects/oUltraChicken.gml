@@ -63,14 +63,12 @@ if global.gamePaused=false
     //speed=flyAcc
     _direction=myDir
     _speed=flyAcc
-    x += cos(degtorad(_direction)) * _speed *gDeltaTime
-    y -= sin(degtorad(_direction)) * _speed *gDeltaTime
     if _direction>90 and _direction<270 {image_xscale=-4}
     else {image_xscale=4}
   }
   enemyStepEvent()
 }
-else {speed=0; _speed=0}
+else {_speed=0; _speed=0}
 
 if bSpotted=0
 {
@@ -80,6 +78,7 @@ if bSpotted=0
     bSpotted=1
   }
 }
+correctSpeedDirection(self)
 #define Other_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

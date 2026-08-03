@@ -60,9 +60,7 @@ else if moveProg>=1000 and moveProg<=9000
     moveProg=10000
   }
 }
-speed=0
-x += cos(degtorad(_direction)) * _speed *gDeltaTime
-y -= sin(degtorad(_direction)) * _speed *gDeltaTime
+_speed=0
 
 //----- Effect -----
 effectDelay+=1*gDeltaTime
@@ -77,3 +75,4 @@ if effectDelay mod 6=0
   tEffect.image_blend=make_color_rgb(random(50),255,random(50))
   tEffect.AccelX=0; tEffect.AccelY=0; tEffect.newBlend=1; tEffect.followID=-1; tEffect.rotation=0
 }
+correctSpeedDirection(self)

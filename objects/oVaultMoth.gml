@@ -82,7 +82,7 @@ if global.gamePaused=false
           if currVspd<maxSpeed {currVspd+=0.1}
           else {currVspd=maxSpeed}
         }
-        hspeed=currHspd; vspeed=currVspd
+        _hspeed=currHspd; _vspeed=currVspd
 
         //Sprinkle bullets
         xDist=point_distance(x,0,oPlayer1.x,0)
@@ -129,8 +129,8 @@ if global.gamePaused=false
     }
     else
     {
-      hspeed=0
-      vspeed=0
+      _hspeed=0
+      _vspeed=0
     }
   }
   else if life<=0
@@ -148,9 +148,10 @@ if global.gamePaused=false
 }
 else
 {
-  hspeed=0
-  vspeed=0
+  _hspeed=0
+  _vspeed=0
 }
+correctHSpeedVSpeed(self)
 #define Other_10
 /*"/*'/**//* YYD ACTION
 lib_id=1

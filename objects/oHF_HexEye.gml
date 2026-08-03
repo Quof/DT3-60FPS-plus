@@ -7,7 +7,7 @@ applies_to=self
 event_inherited()
 image_speed=0
 image_angle=270
-direction=270
+_direction=270
 
 //Enemy base statistics
 bShowHealthBar=false
@@ -57,7 +57,7 @@ if global.gamePaused=false
     //Movement
 
     //Rotate toward player
-    turn_toward_directionEdit(player_sprite_center(),turnSpd)
+    turn_toward_directionUnderscore(player_sprite_center(),turnSpd)
     image_angle=_direction
     //Attack
     atkTime+=1*gDeltaTime
@@ -106,6 +106,7 @@ if global.gamePaused=false
     }
   }
 }
+correctSpeedDirection(self)
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

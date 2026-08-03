@@ -32,7 +32,7 @@ if global.gamePaused=false
   {
     var tEffect;
     tEffect=instance_create(x,y,oEffect)
-    tEffect.sprite_index=sMMshotgunIceEffect; tEffect.image_speed=0.5; tEffect.speed=1; tEffect.direction=direction-180
+    tEffect.sprite_index=sMMshotgunIceEffect; tEffect.image_speed=0.5; tEffect.speed=1; tEffect.direction=_direction-180
     tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
   }
 
@@ -46,7 +46,7 @@ if global.gamePaused=false
     if bulletSpeed>2 {bulletSpeed-=0.1*gDeltaTime}
   }
 
-  turn_toward_directionEdit(player_sprite_center(),5)
+  turn_toward_directionUnderscore(player_sprite_center(),5)
 
   decay-=1*gDeltaTime*gDeltaTime
   if decay<=0 {hitWall=1}
@@ -61,8 +61,7 @@ if global.gamePaused=false
 }
 else {_speed=0}
 
-x += cos(degtorad(_direction)) * _speed * gDeltaTime
-y -= sin(degtorad(_direction)) * _speed * gDeltaTime
+correctSpeedDirection(self)
 #define Collision_oPlayer1
 /*"/*'/**//* YYD ACTION
 lib_id=1

@@ -35,13 +35,14 @@ if global.gamePaused=false
       var tTargetCenterX,tTargetCenterY;
       tTargetCenterX=myTarget.bbox_left+round(sprite_width/2)
       tTargetCenterY=myTarget.bbox_top+round(sprite_height/2)
-      direction=point_direction(x,y,tTargetCenterX,tTargetCenterY)+random_range(-8,8)
+      _direction=point_direction(x,y,tTargetCenterX,tTargetCenterY)+random_range(-8,8)
     }
   }
-  image_angle=direction
-  speed=14
+  image_angle=_direction
+  _speed=14
 
   decayTime-=1
   if decayTime<=0 {instance_destroy()}
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)

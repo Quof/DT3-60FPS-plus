@@ -16,8 +16,6 @@ global.recAtkNum+=1
 global.stMega_ShotIce[2]+=1
 stunTime=3
 bCanPierce=1
-
-_speed=0
 _direction=90
 bulletSpeed=3
 lifeTime=40
@@ -45,8 +43,6 @@ if global.gamePaused=false
     else {bulletSpeed=3}
 
     _speed=bulletSpeed
-    x += cos(degtorad(_direction)) * _speed * gDeltaTime
-    y -= sin(degtorad(_direction)) * _speed * gDeltaTime
 
     if isCollisionLeft(1) {bShatter=1}
     if isCollisionRight(1) {bShatter=1}
@@ -81,3 +77,5 @@ if global.gamePaused=false
   else if lingerFrame=1 {instance_destroy()}
 }
 else {_speed=0}
+
+correctSpeedDirection(self)

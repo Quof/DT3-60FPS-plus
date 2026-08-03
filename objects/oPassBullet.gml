@@ -32,10 +32,9 @@ if global.gamePaused=false
   if place_meeting(x,y,oNightmareEffect) {_speed=bulletSpeed/2}
   else {_speed=bulletSpeed}
   image_angle=_direction
-  x += cos(degtorad(_direction)) * _speed *gDeltaTime
-  y -= sin(degtorad(_direction)) * _speed *gDeltaTime
 }
 else {_speed=0}
+correctSpeedDirection(self)
 #define Other_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

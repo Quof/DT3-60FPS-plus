@@ -45,8 +45,6 @@ if global.gamePaused=false
     if _direction=0 {image_angle-=10*gDeltaTime}
     else {image_angle+=10*gDeltaTime}
 
-    x += cos(degtorad(_direction)) * _speed * gDeltaTime
-    y -= sin(degtorad(_direction)) * _speed * gDeltaTime
 
     if checkScreenArea(x,y,48)=0 {instance_destroy()}
 
@@ -124,11 +122,12 @@ if global.gamePaused=false
         }
       }
       playSound(global.snd_IceGunSplit,0,0.95,1)
-      lingerFrame=1; speed=0; visible=0
+      lingerFrame=1; _speed=0; visible=0
     }
     lifeTime-=1*gDeltaTime
     if lifeTime=0 {instance_destroy()}
   }
   else if lingerFrame=1 {instance_destroy()}
 }
-else {speed=0; _speed=0}
+else {_speed=0}
+correctSpeedDirection(self)

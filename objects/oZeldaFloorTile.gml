@@ -66,12 +66,11 @@ if global.gamePaused=false
   {
     //speed=6
     _speed=6
-    x += cos(degtorad(_direction)) * _speed *gDeltaTime
-    y -= sin(degtorad(_direction)) * _speed *gDeltaTime
   }
   enemyStepEvent()
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)
 #define Collision_oSolid
 /*"/*'/**//* YYD ACTION
 lib_id=1

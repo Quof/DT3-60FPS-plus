@@ -10,6 +10,8 @@ event_inherited()
 bShowHealthBar=false
 bShowDamage=false
 bCanTakeDamage=false
+_direction=0
+_speed=0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -18,9 +20,11 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  speed=bulletSpeed
+  _speed=bulletSpeed
 }
-else {speed=0}
+else {_speed=0}
+
+correctSpeedDirection(self)
 #define Collision_oAttackBase
 /*"/*'/**//* YYD ACTION
 lib_id=1

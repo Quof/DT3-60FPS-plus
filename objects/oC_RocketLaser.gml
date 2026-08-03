@@ -22,7 +22,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  effectDelay+=1
+  effectDelay+=1*gDeltaTime
   if effectDelay mod 10=0
   {
     var tFFScl,tEffect;
@@ -44,7 +44,7 @@ if global.gamePaused=false
   tEffect.fadeSpd=0.1; tEffect.image_blend=c_teal
   tEffect.AccelX=0; tEffect.AccelY=0; tEffect.followID=-1; tEffect.rotation=0
 
-  laserProg+=1
+  laserProg+=1*gDeltaTime
   if laserProg>=10
   {
     instance_destroy()

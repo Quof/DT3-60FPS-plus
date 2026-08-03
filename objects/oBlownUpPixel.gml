@@ -70,7 +70,7 @@ if global.gamePaused=false
         var tNewAttack;
         tNewAttack=instance_create(x,y,oPassBullet)
         tNewAttack.sprite_index=sEBShot; tNewAttack.atkPower=atkPower
-        tNewAttack.bulletSpeed=6; tNewAttack.decayTime=-100; tNewAttack.direction=mDir
+        tNewAttack.bulletSpeed=6; tNewAttack.decayTime=-100; tNewAttack._direction=mDir
         image_angle=0
         shotTime=0
       }

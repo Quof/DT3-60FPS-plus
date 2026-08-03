@@ -33,6 +33,9 @@ moveBehavior=0
 movePath=1
 moveProg=0
 moveSpd=4
+_speed=0
+_direction=0
+
 
 deathAnim=0
 
@@ -59,7 +62,7 @@ if global.gamePaused=false
   event_inherited()
   if bActive=true and life>0
   {
-    image_angle=direction
+    image_angle=_direction
     if moveBehavior=0 //Decide on a move type
     {
       if movePath=1
@@ -87,7 +90,7 @@ if global.gamePaused=false
     }
     else if moveBehavior=1 //Follow a path
     {
-      path_speed=moveSpd
+      path_speed=moveSpd*gDeltaTime
       if partCheck>=partNum //Iterate to new path
       {
         if bossProgress=0 and partNum<=18 {moveSpd=5; bossProgress+=1}
@@ -105,24 +108,27 @@ if global.gamePaused=false
     }
     else if moveBehavior=2 //Go to position
     {
-      direction=point_direction(x,y,384,176)
-      speed=4
-      if point_distance(x,y,384,176)<=speed
+      _direction=point_direction(x,y,384,176)
+      _speed=4
+      if point_distance(x,y,384,176)<=_speed*gDeltaTime
       {
         for(i=0;i<6;i+=1)
         {
           resType[i]=3
         }
-        speed=0
+        _speed=0
         movePath=30
         partCheck=0
         moveBehavior=3
       }
+
     }
     else if moveBehavior=3 //Shoot bullets
     {
-      direction=point_direction(x,y,oPlayer1.x,oPlayer1.y)
-      movePath+=1
+      _direction=point_direction(x,y,oPlayer1.x,oPlayer1.y)
+
+      movePath+=1*gDeltaTime
+
       if movePath>=60
       {
         if movePath mod 8=0
@@ -134,7 +140,7 @@ if global.gamePaused=false
           {
             tNewAttack=instance_create(x,y,oPassBullet)
             tNewAttack.sprite_index=sHexWormLaser; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=4
-            tNewAttack.decayTime=-100; tNewAttack.direction=partCheck+tDir
+            tNewAttack.decayTime=-100; tNewAttack._direction=partCheck+tDir
             tDir+=360/14
           }
           partCheck+=8
@@ -182,4 +188,6 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
-else {path_speed=0; speed=0}
+else {path_speed=0; _speed=0}
+
+correctSpeedDirection(self)

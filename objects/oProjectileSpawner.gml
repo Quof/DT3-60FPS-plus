@@ -11,7 +11,7 @@ spriteUseN - Sprite to use
 shootTimeN - Start time
 shootDelayN - Shoot delay
 atkPowerN - Attack power
-dirN - Attack direction
+dirN - Attack _direction
 bulletSpeedN - Bullet speed
 */
 
@@ -23,7 +23,11 @@ spriteUse=0
 dir=0
 bulletSpeed=0
 alarm[0]=1
+
 _direction=0
+_speed=0
+_hspeed=0
+_vspeed=0
 #define Alarm_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -70,3 +74,4 @@ if global.gamePaused=false
     shootTime=0
   }
 }
+correctSpeedDirection(self)

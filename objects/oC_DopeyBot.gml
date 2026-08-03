@@ -24,6 +24,9 @@ runAcc=2
 moveProg=0
 moveTime=0
 
+_direction=0
+_speed=0
+
 jeremyText="Just shoot it down."
 chaoText="Eaten Ability: DRILL SHOT#Power: 30 (DPS: 100)#Fire Rate: 3.3/sec#It starts slow, but then gains some decent speed. It doesn't have all that much going for it other than raw power, but that's not too bad in some situations. It also fires through rocks!"
 devText="N/A"
@@ -38,7 +41,7 @@ if global.gamePaused=false
   event_inherited()
   if bActive=true
   {
-    animate+=1
+    animate+=1*gDeltaTime
     if moveProg=0
     {
       if animate=6 {image_index=1}
@@ -55,7 +58,7 @@ if global.gamePaused=false
     {
       if moveProg=0
       {
-        x-=runAcc
+        x-=runAcc*gDeltaTime
         if x<=400
         {
           animate=0; image_index=3
@@ -68,7 +71,7 @@ if global.gamePaused=false
             {
               tNewAttack=instance_create(x,y,oPassBullet)
               tNewAttack.sprite_index=sC_SparkNeedle; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=6
-              tNewAttack.decayTime=-100; tNewAttack.direction=tDir
+              tNewAttack.decayTime=-100; tNewAttack._direction=tDir
               tDir+=7
             }
           }
@@ -77,30 +80,32 @@ if global.gamePaused=false
       }
       else if moveProg=1
       {
-        moveTime+=1
+        moveTime+=1*gDeltaTime
         if moveTime>=50
         {
           image_xscale=1
-          direction=point_direction(x,y,oPlayer1.x,oPlayer1.y)
-          image_angle=direction-90
+          _direction=point_direction(x,y,oPlayer1.x,oPlayer1.y)
+          image_angle=_direction-90
           moveTime=0; moveProg+=1
         }
       }
       else if moveProg=2
       {
-        moveTime+=1
+        moveTime+=1*gDeltaTime
         if moveTime>=15 {moveProg+=1}
       }
       else if moveProg=3
       {
-        speed=8
+        _speed=8
       }
     }
-    else {speed=0}
+    else {_speed=0}
   }
   enemyStepEvent()
 }
-else {speed=0}
+else {_speed=0}
+
+correctSpeedDirection(self)
 #define Other_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

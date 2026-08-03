@@ -34,9 +34,9 @@ if global.gamePaused=false
 {
   if bActive=true
   {
-    x+=runAcc*image_xscale
+    x+=runAcc*image_xscale*gDeltaTime
 
-    if oGame.time mod 10=0
+    if oGame.time mod (10/gDeltaTime)=0
     {
       var tEffect;
       tEffect=instance_create(x-(11*image_xscale),y-3,oEffectB)
@@ -47,7 +47,7 @@ if global.gamePaused=false
       else {tEffect.direction=random_range(280,295)}
     }
 
-    moveProg+=1
+    moveProg+=1*gDeltaTime
     if moveProg>=1 and moveProg<=999
     {
       if image_xscale=1
@@ -64,14 +64,14 @@ if global.gamePaused=false
       var tNewAttack;
       tNewAttack=instance_create(x+(10*image_xscale),y,oPassBullet)
       tNewAttack.sprite_index=sWolfHeadShot; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=4
-      tNewAttack.decayTime=-100; tNewAttack.direction=point_direction(x+(10*image_xscale),y,oPlayer1.x,oPlayer1.y-26)
+      tNewAttack.decayTime=-100; tNewAttack._direction=point_direction(x+(10*image_xscale),y,oPlayer1.x,oPlayer1.y-26)
       tNewAttack.image_xscale=1.1; tNewAttack.image_yscale=1.1
     }
-    else if moveProg>=1002 and moveProg<=1031
+    else if moveProg>=1002 and moveProg<=1031 and gDeltaDoTicks
     {
       y+=1
     }
-    else if moveProg>=1092 and moveProg<=1121
+    else if moveProg>=1092 and moveProg<=1121 and gDeltaDoTicks
     {
       y-=1
     }

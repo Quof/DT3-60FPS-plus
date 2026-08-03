@@ -15,6 +15,8 @@ bSetParts=0
 eName="Vine Eater"
 eLevel=34
 atkPower=9
+_direction=0
+_speed=0
 
 maxSwing=50
 dir=0
@@ -62,11 +64,11 @@ if global.gamePaused=false and bSetParts=1
     {
       if oPlayer1.x<ball.x //Player on left
       {
-        if e<90+maxBend {e+=seekSpd}
+        if e<90+maxBend {e+=seekSpd*gDeltaTime}
       }
       else //Player on right
       {
-        if e>90-maxBend {e-=seekSpd}
+        if e>90-maxBend {e-=seekSpd*gDeltaTime}
       }
     }
   }

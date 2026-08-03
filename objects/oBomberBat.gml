@@ -23,6 +23,8 @@ for(i=0;i<6;i+=1)
 }
 resType[4]=3
 stunResist=50
+_direction=0
+_speed=0
 
 turnTime=0
 turnNum=0
@@ -41,14 +43,15 @@ if global.gamePaused=false
   if bActive=0 {makeEnemyActive(0)}
   if bActive=true
   {
-    animTime+=1
+    animTime+=1*gDeltaTime
     if animTime=10 {image_index=1}
     else if animTime=20 {image_index=2}
     else if animTime=30 {image_index=1}
     else if animTime=40 {image_index=0; animTime=0}
 
-    speed=moveSpd
-    turnTime+=1
+    _speed=moveSpd
+    turnTime+=1*gDeltaTime
+
     if turnTime>=turnDelay
     {
       turnNum+=1
@@ -59,17 +62,20 @@ if global.gamePaused=false
         {
           tNewAttack=instance_create(x,y,oNormalBullet)
           tNewAttack.sprite_index=sEBShot; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=2
-          tNewAttack.direction=90*i; tNewAttack.image_xscale=5.25; tNewAttack.image_yscale=5.25; tNewAttack.image_alpha=0.8
+          tNewAttack._direction=90*i; tNewAttack.image_xscale=5.25; tNewAttack.image_yscale=5.25; tNewAttack.image_alpha=0.8
         }
         turnNum=0
       }
-      direction+=turnAmt
+      _direction+=turnAmt
       turnTime=0
     }
   }
   enemyStepEvent()
 }
-else {speed=0}
+else {_speed=0}
+
+
+correctSpeedDirection(self)
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -80,6 +86,6 @@ event_inherited()
 
 if turnNum=2
 {
-  warnFrm+=1
+  warnFrm+=1*gDeltaTime
   draw_sprite_ext(sMMcharging,warnFrm,x,y,1,1,0,c_white,1)
 }

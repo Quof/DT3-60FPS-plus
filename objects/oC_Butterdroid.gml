@@ -42,7 +42,7 @@ if global.gamePaused=false
   event_inherited()
   if bActive=true
   {
-    animate+=1
+    animate+=1*gDeltaTime
     if animate=3 {image_index=1}
     else if animate=6 {image_index=2}
     else if animate=9 {image_index=3}
@@ -55,12 +55,12 @@ if global.gamePaused=false
     {
       if moveProg=0
       {
-        x-=runAcc
+        x-=runAcc*gDeltaTime
         if x<=400 {moveProg+=1}
       }
       else if moveProg>=1 and moveProg<=2
       {
-        bulletTime+=1
+        bulletTime+=1*gDeltaTime
         if bulletTime>=bulletDelay
         {
           if bulletTime mod 7=0
@@ -68,7 +68,7 @@ if global.gamePaused=false
             var tNewAttack;
             tNewAttack=instance_create(x,y,oPassBullet)
             tNewAttack.sprite_index=sC_ButterSpark; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=8
-            tNewAttack.decayTime=-100; tNewAttack.direction=point_direction(x,y,oPlayer1.x,oPlayer1.y)
+            tNewAttack.decayTime=-100; tNewAttack._direction=point_direction(x,y,oPlayer1.x,oPlayer1.y)
             bulletCheck+=1
             if bulletCheck>=bulletMax
             {
@@ -81,22 +81,22 @@ if global.gamePaused=false
       }
       else if moveProg=3
       {
-        bulletTime+=1
+        bulletTime+=1*gDeltaTime
         if bulletTime>=15 {bulletTime=0; moveProg+=1}
       }
       else if moveProg=4
       {
-        x-=runAcc
-        bulletTime+=1
+        x-=runAcc*gDeltaTime
+        bulletTime+=1*gDeltaTime
         if bulletTime mod bulletMod=0
         {
           var tNewAttack;
           tNewAttack=instance_create(x,y,oPassBullet)
           tNewAttack.sprite_index=sC_ButterSpark; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=6
-          tNewAttack.decayTime=-100; tNewAttack.direction=90
+          tNewAttack.decayTime=-100; tNewAttack._direction=90
           tNewAttack=instance_create(x,y,oPassBullet)
           tNewAttack.sprite_index=sC_ButterSpark; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=6
-          tNewAttack.decayTime=-100; tNewAttack.direction=270
+          tNewAttack.decayTime=-100; tNewAttack._direction=270
         }
       }
     }

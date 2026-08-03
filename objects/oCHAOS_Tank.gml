@@ -57,7 +57,7 @@ if global.gamePaused=false
   {
     if armorBreak>0 //Restore armor
     {
-      armorBreak+=1
+      armorBreak+=1*gDeltaTime
       if armorBreak>=300
       {
         for(i=0;i<6;i+=1)
@@ -71,7 +71,7 @@ if global.gamePaused=false
     }
     else
     {
-      if life<maxLife {life+=1}
+      if life<maxLife {life+=1*gDeltaTime}
     }
 
     //Facing direction
@@ -91,7 +91,7 @@ if global.gamePaused=false
     }
 
     //Fire at player
-    gunShot+=1
+    gunShot+=1*gDeltaTime
     if gunShot>=gunDelay
     {
       //Check distance to player
@@ -116,8 +116,8 @@ if global.gamePaused=false
         tMissile.atkPower=atkPower; tMissile.targetTime=20; tMissile.sprite_index=sJunkCarMissile
         tMissile.bulletSpeed=7; tMissile.seekThres=20; tMissile.minSpd=3; tMissile.maxSpd=8
         tMissile.turnSpd=4; tMissile.accel=0.2
-        if image_xscale=1 {tMissile.direction=135}
-        else {tMissile.direction=45}
+        if image_xscale=1 {tMissile._direction=135}
+        else {tMissile._direction=45}
         multiShot=0
         gunShot=0
       }
@@ -138,11 +138,11 @@ if global.gamePaused=false
     if isCollisionSolid()
       y-=2
 
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
   }
   else if life<=0
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     if deathAnim>=1 and deathAnim<=39
     {
       if deathAnim mod 5=0 {playSound(global.snd_HardHit1,0,0.97,1)}

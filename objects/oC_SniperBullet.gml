@@ -35,8 +35,8 @@ if global.gamePaused=false
     {
       if !collision_line(x,y,x,returnPlayerYCenter(),oSolid,1,1)
       {
-        if y>returnPlayerYCenter() {direction=90}
-        else {direction=270}
+        if y>returnPlayerYCenter() {_direction=90}
+        else {_direction=270}
         bulletSpeed+=1
         seekProg=1
       }
@@ -44,23 +44,23 @@ if global.gamePaused=false
   }
   else if seekProg=1 //Second seek
   {
-    speed=bulletSpeed
-    image_angle=direction
+    _speed=bulletSpeed
+    image_angle=_direction
 
     if point_distance(0,y,0,returnPlayerYCenter())<bulletSpeed*1.25
     {
       if !collision_line(x,y,oPlayer1.x,y,oSolid,1,1)
       {
-        if x>oPlayer1.x {direction=180}
-        else {direction=0}
+        if x>oPlayer1.x {_direction=180}
+        else {_direction=0}
         bulletSpeed+=1
         seekProg=10
       }
     }
   }
 
-  speed=bulletSpeed
-  image_angle=direction
+  _speed=bulletSpeed
+  image_angle=_direction
 
   if breakFix=0
   {
@@ -82,7 +82,7 @@ if global.gamePaused=false
     tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
     if seekProg<=9
     {
-      direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
+      _direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
       hitWall=0
       breakFix=1
       bulletSpeed+=1
@@ -92,7 +92,9 @@ if global.gamePaused=false
     else {instance_destroy()}
   }
 }
-else {speed=0}
+else {_speed=0}
+
+correctSpeedDirection(self)
 #define Other_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

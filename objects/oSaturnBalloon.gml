@@ -79,7 +79,7 @@ else if balloonProg=4 //-------------------- Smash player with traps -----------
     playSound(global.snd_CShotA,0,0.9,20000+random(5000))
     setSpawnDir=random(360)
     newSatSpike=instance_create(oPlayer1.x+lengthdir_x(96,setSpawnDir),oPlayer1.y-26+lengthdir_y(96,setSpawnDir),oSaturnSpike)
-    newSatSpike.direction=point_direction(oPlayer1.x+lengthdir_x(96,setSpawnDir),oPlayer1.y-26+lengthdir_y(96,setSpawnDir),oPlayer1.x,oPlayer1.y-26)
+    newSatSpike._direction=point_direction(oPlayer1.x+lengthdir_x(96,setSpawnDir),oPlayer1.y-26+lengthdir_y(96,setSpawnDir),oPlayer1.x,oPlayer1.y-26)
   }
   if balloonTime>=120 {balloonTime=0; balloonProg+=1}
 }

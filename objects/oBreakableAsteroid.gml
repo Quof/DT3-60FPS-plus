@@ -19,6 +19,8 @@ atkPower=16
 dieEffect=0
 moveSpd=2
 spinSpd=1
+_direction=0
+_speed=0
 
 jeremyText="These are like asteroids you may have seen in other video games."
 chaoText="You can't eat asteroids."
@@ -63,8 +65,8 @@ if global.gamePaused=false
   event_inherited()
   if bActive=true and life>0
   {
-    image_angle+=spinSpd
-    speed=moveSpd
+    image_angle+=spinSpd*gDeltaTime
+    _speed=moveSpd
   }
   else if life<=0
   {
@@ -74,7 +76,7 @@ if global.gamePaused=false
       var tAst;
       for(i=0;i<4;i+=1)
       {
-        tAst=instance_create(x,y,oBreakableAsteroid); tAst.type=type+1; tAst.direction=30+(i*90)
+        tAst=instance_create(x,y,oBreakableAsteroid); tAst.type=type+1; tAst._direction=30+(i*90)
         instance_destroy()
       }
     }
@@ -89,7 +91,10 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
-else {speed=0}
+else {_speed=0}
+
+
+correctSpeedDirection(self)
 #define Other_1
 /*"/*'/**//* YYD ACTION
 lib_id=1

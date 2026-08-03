@@ -101,10 +101,8 @@ if global.gamePaused=false
     y+=cos(stepCount)*gDeltaTime
     //The rest
     //speed=moveSpd
-    speed=0
+    _speed=0
     _speed=moveSpd
-    x += cos(degtorad(_direction)) * _speed *gDeltaTime
-    y -= sin(degtorad(_direction)) * _speed *gDeltaTime
     moveTime+=1*gDeltaTime
     if moveTime>=moveDelay
     {
@@ -213,14 +211,15 @@ if global.gamePaused=false
   enemyStepEvent()
 }
 else
-  speed=0
+  _speed=0
+correctSpeedDirection(self)
 #define Other_25
 /*"/*'/**//* YYD ACTION
 lib_id=1
 action_id=603
 applies_to=self
 */
-speed=0
+_speed=0
 if x>oPlayer1.x
   xSpd=3
 else

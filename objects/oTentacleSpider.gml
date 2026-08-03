@@ -53,10 +53,10 @@ if global.gamePaused=false
     }
     else {sprite_index=sTentacleSpiderJump}
 
-    if yVel=0 and bJumpReady=1 {jumpTime+=1} //Jump at set times
+    if yVel=0 and bJumpReady=1 {jumpTime+=1*gDeltaTime} //Jump at set times
     if jumpTime>=jumpDelay
     {
-      if shotTime<500 {shotTime+=10}
+      if shotTime<500 {shotTime+=10*gDeltaTime}
       xVel=(runAcc*1.125)*image_xscale
       y-=4
       yVel=-4
@@ -120,7 +120,7 @@ if global.gamePaused=false
       {
         tNewAttack=instance_create(x,y,oNormalBullet)
         tNewAttack.sprite_index=sWolfHeadShot; tNewAttack.atkPower=atkPower
-        tNewAttack.bulletSpeed=6; tNewAttack.direction=tDir
+        tNewAttack.bulletSpeed=6; tNewAttack._direction=tDir
         tDir+=360/16
       }
       image_blend=baseColor
@@ -132,7 +132,7 @@ if global.gamePaused=false
       xVel=runAcc*image_xscale
       shotTime=0; shotReady=0
     }
-    if bJumpReady=0 {shotReady+=1}
+    if bJumpReady=0 {shotReady+=1*gDeltaTime}
 
     if shotTime<=999 {yVel+=0.25*gDeltaTime}
     if isCollisionBottom(1)

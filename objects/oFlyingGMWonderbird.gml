@@ -81,6 +81,10 @@ if global.gamePaused=false
   }
   else if life<=0
   {
+    if (deathAnim == 0)
+    {
+      deathAnim = 1-gDeltaTime
+    }
     deathAnim+=1*gDeltaTime
     if deathAnim mod 2=0
     {

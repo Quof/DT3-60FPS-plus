@@ -24,7 +24,7 @@ behavior=-1
 bCanChirp=0
 bSpotted=0
 alarm[0]=1
-
+_speed=0
 _direction=0
 #define Alarm_0
 /*"/*'/**//* YYD ACTION
@@ -79,8 +79,6 @@ if global.gamePaused=false
   {
     //speed=5
     _speed=5
-    x += cos(degtorad(_direction)) * _speed *gDeltaTime
-    y -= sin(degtorad(_direction)) * _speed *gDeltaTime
     //direction=point_direction(x,y,xstart,ystart)
     _direction=point_direction(x,y,xstart,ystart)
     if _direction>=90 and _direction<=270 {image_xscale=-1}
@@ -229,7 +227,7 @@ if global.gamePaused=false
     }
   }
 }
-else {speed=0; _speed=0}
+else {_speed=0; _speed=0}
 
 if bSpotted=0
 {
@@ -242,6 +240,7 @@ if bSpotted=0
 
 //if gDeltaDoTicks
     image_index += imagespeed*gDeltaTime
+correctSpeedDirection(self)
 #define Other_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

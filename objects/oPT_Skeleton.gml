@@ -40,6 +40,8 @@ turnTime=20
 atkTime=20
 atkDelay=35
 
+_speed=0
+_direction=0
 deathAnim=0
 
 jeremyText="When you attack this from the front, if it's not attacking, it will guard. Best way to deal with this is to either sneak in an attack while it's attacking or parry. I suppose you could jump over it too."
@@ -109,7 +111,7 @@ if global.gamePaused=false
     makeEnemyActive(1)
     if rising>=0 and rising<=99
     {
-      rising+=1
+      rising+=1*gDeltaTime
       if rising=1
       {
         if x<oPlayer1.x {image_xscale=1}
@@ -137,7 +139,7 @@ if global.gamePaused=false
       {
         if (x<oPlayer1.x and image_xscale=-1) or (x>oPlayer1.x and image_xscale=1)
         {
-          turnTime-=1
+          turnTime-=1*gDeltaTime
           if turnTime=0
           {
             xVel*=-1
@@ -232,7 +234,7 @@ if global.gamePaused=false
         }
       }
 
-      yVel+=0.3
+      yVel+=0.3*gDeltaTime
       if isCollisionBottom(1)
       {
         yVel=0
@@ -246,7 +248,7 @@ if global.gamePaused=false
       if isCollisionSolid()
         y-=2
 
-      moveTo(xVel,yVel)
+      moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
       if y>room_height+24
       {
         if questType>0 {enemyQuest(questType)}
@@ -256,7 +258,7 @@ if global.gamePaused=false
   }
   else if life<=0
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     image_speed=0
     if deathAnim mod 4=0
     {

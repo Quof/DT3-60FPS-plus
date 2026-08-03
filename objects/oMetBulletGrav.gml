@@ -39,6 +39,8 @@ if global.gamePaused=false
   if bDestroy=1 {instance_destroy()}
 }
 else {_speed=0}
+
+//correctSpeedDirection(self)
 #define Collision_oAttackBase
 /*"/*'/**//* YYD ACTION
 lib_id=1

@@ -36,8 +36,6 @@ if global.gamePaused=false
       image_angle+=31*gDeltaTime
       _speed=moveSpd
       moveTime-=1*gDeltaTime
-      x += cos(degtorad(_direction)) * _speed * gDeltaTime
-      y -= sin(degtorad(_direction)) * _speed * gDeltaTime
       if moveTime=0
       {
         var tHexPart,tPartDir;
@@ -61,8 +59,6 @@ if global.gamePaused=false
     else if atkProg=2
     {
       _speed=moveSpd
-      x += cos(degtorad(_direction)) * _speed * gDeltaTime
-      y -= sin(degtorad(_direction)) * _speed * gDeltaTime
       if y>=room_height+80 {instance_destroy()}
     }
   }
@@ -70,11 +66,11 @@ if global.gamePaused=false
   {
     _speed=moveSpd
     atkTime+=1*gDeltaTime
-    x += cos(degtorad(_direction)) * _speed * gDeltaTime
-    y -= sin(degtorad(_direction)) * _speed * gDeltaTime
   }
 }
 else {_speed=0}
+
+correctSpeedDirection(self)
 #define Other_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

@@ -29,8 +29,6 @@ if global.gamePaused=false
 {
   atkTime+=1*gDeltaTime
   _speed=mySpd
-  x += cos(degtorad(_direction)) * _speed * gDeltaTime
-  y -= sin(degtorad(_direction)) * _speed * gDeltaTime
   image_angle=_direction
   if atkType=0
   {
@@ -53,6 +51,8 @@ if global.gamePaused=false
   }
 }
 else {_speed=0}
+
+correctSpeedDirection(self)
 #define Other_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

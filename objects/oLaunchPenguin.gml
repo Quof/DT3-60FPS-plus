@@ -19,6 +19,8 @@ moneyWorth=10
 bCheckDir=0
 angleChange=0
 launchTime=0
+_speed=0
+_direction=0
 
 jeremyText="This poor guy is just launched from a cannon. Only one can be fired off per cannon. When it is destroyed in any way, there's quite a large explosion, so watch out there."
 chaoText="These penguins are adorable. Even this one being launched out of a cannon."
@@ -51,11 +53,11 @@ if global.gamePaused=false
     }
     else
     {
-      launchTime+=1
-      image_angle+=angleChange
-      direction=image_angle
-      speed=7
-      if oGame.time mod 2=0
+      launchTime+=1*gDeltaTime
+      image_angle+=angleChange*gDeltaTime
+      _direction=image_angle
+      _speed=7
+      if oGame.time mod (2/gDeltaTime)=0
       {
         var tEffect;
         tEffect=instance_create(x,y,oEffectB)
@@ -69,7 +71,9 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
-else {speed=0}
+else {_speed=0}
+
+correctSpeedDirection(self)
 #define Collision_oSolid
 /*"/*'/**//* YYD ACTION
 lib_id=1

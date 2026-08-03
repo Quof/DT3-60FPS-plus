@@ -140,7 +140,7 @@ if global.gamePaused=false
         for(i=0;i<maxFlames;i+=1)
         {
           tAtk=instance_create(tXpos,2,oPassBullet)
-          tAtk.sprite_index=sKamFlame; tAtk.direction=270; tAtk.damageType="ELEMENTAL"
+          tAtk.sprite_index=sKamFlame; tAtk._direction=270; tAtk.damageType="ELEMENTAL"
           tAtk.atkPower=atkPower; tAtk.bulletSpeed=3; tAtk.decayTime=-100
           if maxFlames=3 {tXpos+=88}
           else if maxFlames=5 {tXpos+=44}

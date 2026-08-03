@@ -34,17 +34,18 @@ if global.gamePaused=false
 {
   if lingerFrame=0
   {
-    image_angle=direction
-    speed=13
+    image_angle=_direction
+    _speed=13
 
-    if isCollisionLeft(1) {lingerFrame=1; speed=0; visible=0}
-    if isCollisionRight(1) {lingerFrame=1; speed=0; visible=0}
-    if isCollisionBottom(1) {lingerFrame=1; speed=0; visible=0}
-    if isCollisionTop(1) {lingerFrame=1; speed=0; visible=0}
+    if isCollisionLeft(1) {lingerFrame=1; _speed=0; visible=0}
+    if isCollisionRight(1) {lingerFrame=1; _speed=0; visible=0}
+    if isCollisionBottom(1) {lingerFrame=1; _speed=0; visible=0}
+    if isCollisionTop(1) {lingerFrame=1; _speed=0; visible=0}
 
     decayTime-=1
     if decayTime<=0 {instance_destroy()}
   }
   else if lingerFrame=1 {instance_destroy()}
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)

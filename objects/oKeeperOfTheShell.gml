@@ -44,7 +44,7 @@ if global.gamePaused=false
     else {image_xscale=-1}
 
     //Fire at player
-    throwTime+=1
+    throwTime+=1*gDeltaTime
     if throwTime=throwDelay
     {
       for(i=0;i<6;i+=1)

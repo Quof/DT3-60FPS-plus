@@ -51,7 +51,7 @@ if global.gamePaused=false
     if bInfected=1
     {
       gunAngle=intercept_course_player(x,y,bulletSpd)
-      shotTime+=1
+      shotTime+=1*gDeltaTime
       if shotTime=shotDelay-10 //Warning
       {
         var tEffect;
@@ -65,14 +65,14 @@ if global.gamePaused=false
         var tNewAttack;
         tNewAttack=instance_create(x,y,oPassBullet)
         tNewAttack.sprite_index=sLB_Laser; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=bulletSpd
-        tNewAttack.decayTime=-100; tNewAttack.direction=gunAngle; tNewAttack.image_xscale=0.5
+        tNewAttack.decayTime=-100; tNewAttack._direction=gunAngle; tNewAttack.image_xscale=0.5
         shotTime=0
       }
     }
   }
   else if life<=0
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       tEffect=instance_create(x,y,oEffect)

@@ -22,7 +22,7 @@ else
 {
   image_xscale=-1
   x-=10
-  direction=180
+  _direction=180
 }
 
 bCollide=0
@@ -46,9 +46,6 @@ if global.gamePaused=false
   if lingerFrame=0
   {
     _speed=bulletSpeed
-    x += cos(degtorad(_direction)) * _speed * gDeltaTime
-    y -= sin(degtorad(_direction)) * _speed * gDeltaTime
-
     if checkScreenArea(x,y,48)=0 {instance_destroy()}
 
     if isCollisionLeft(1) {bCollide=1}
@@ -92,6 +89,8 @@ if global.gamePaused=false
   else if lingerFrame=1 {instance_destroy()}
 }
 else {_speed=0}
+
+correctSpeedDirection(self)
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

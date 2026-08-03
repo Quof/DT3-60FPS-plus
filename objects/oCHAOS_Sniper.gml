@@ -47,7 +47,7 @@ if global.gamePaused=false
     else {image_xscale=-1}
 
     //Fire at player
-    gunShot+=1
+    gunShot+=1*gDeltaTime
     if gunShot=gunDelay
     {
       var tAfterI;
@@ -67,31 +67,32 @@ if global.gamePaused=false
       tNewAttack.decayTime=-100;
       if !collision_line(x+(31*image_xscale),y-22,oPlayer1.x,returnPlayerYCenter(),oSolid,1,1)
       {
-        tNewAttack.direction=tDir
+        tNewAttack._direction=tDir
         tNewAttack.seekProg=2
       }
       else
       {
-        if image_xscale=1 {tNewAttack.direction=0}
-        else {tNewAttack.direction=180}
+        if image_xscale=1 {tNewAttack._direction=0}
+        else {tNewAttack._direction=180}
         tNewAttack.seekProg=0
       }
       gunShot=0
     }
 
-    yVel+=0.25
+    yVel+=0.25*gDeltaTime
     if isCollisionBottom(1)
       yVel=0
     if isCollisionSolid()
       y-=2
 
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
     if y>room_height+24
       instance_destroy()
   }
   else if life<=0
   {
-    deathAnim+=1
+    if deathAnim==0 {deathAnim=1-gDeltaTime}
+    deathAnim+=1*gDeltaTime
     if deathAnim mod 2=0
     {
       tEffect=instance_create(x+random_range(-13,13),y-random(28),oEffect)

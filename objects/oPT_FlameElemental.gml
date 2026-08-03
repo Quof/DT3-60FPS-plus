@@ -72,9 +72,6 @@ if global.gamePaused=false
     {
       _speed=1.5
       _direction+=2*gDeltaTime
-      x += cos(degtorad(_direction)) * _speed * gDeltaTime
-      y -= sin(degtorad(_direction)) * _speed * gDeltaTime
-
       if oGame.time mod (3/gDeltaTime)=0
       {
         if image_xscale=1 {image_xscale=-1}
@@ -163,4 +160,5 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)

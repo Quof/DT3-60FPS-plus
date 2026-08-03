@@ -24,6 +24,8 @@ affiliation=7
 dieSound=0
 dieEffect=0
 inactiveDist*=2
+_hspeed=0
+_vspeed=0
 
 attachState=0
 attachTime=0
@@ -73,7 +75,7 @@ if global.gamePaused=false
     }
     else if wallSet>=1 and wallSet<=80
     {
-      wallSet+=1
+      wallSet+=1*gDeltaTime
       if wallSet mod 3=0
       {
         var tEffect,tSetPartDir,tSetPartTime,tRanPartY;
@@ -97,7 +99,7 @@ if global.gamePaused=false
 
     if attachState=0 //Hanging
     {
-      attachTime+=1
+      attachTime+=1*gDeltaTime
       if attachTime>=285 or life<maxLife
       {
         attachTime=0; attachState=1
@@ -105,7 +107,7 @@ if global.gamePaused=false
     }
     else if attachState=1 //Detach
     {
-      attachTime+=1
+      attachTime+=1*gDeltaTime
       if attachTime=15
       {
         var tEffect,tEfCir,tDir;
@@ -132,7 +134,7 @@ if global.gamePaused=false
     {
       if atkChange=0 and shotTime<shotDelay-5 {atkChange=1} //Stop using spam shot
 
-      if oGame.time mod 8=0 //Smoke
+      if oGame.time mod (8/gDeltaTime)=0 //Smoke
       {
         var tEffect;
         tEffect=instance_create(x-(9*image_xscale),y,oEffectB)
@@ -180,35 +182,35 @@ if global.gamePaused=false
 
       if x>xPoint
       {
-        if currHspd>-maxSpeedX {currHspd-=0.5}
-        else {currHspd+=0.5}
+        if currHspd>-maxSpeedX {currHspd-=0.5*gDeltaTime}
+        else {currHspd+=0.5*gDeltaTime}
       }
       else if x<xPoint
       {
-        if currHspd<maxSpeedX {currHspd+=0.5}
-        else {currHspd-=0.5}
+        if currHspd<maxSpeedX {currHspd+=0.5*gDeltaTime}
+        else {currHspd-=0.5*gDeltaTime}
       }
       if y>yPoint
       {
-        if currVspd>-maxSpeedY {currVspd-=0.15}
-        else {currVspd+=0.6}
+        if currVspd>-maxSpeedY {currVspd-=0.15*gDeltaTime}
+        else {currVspd+=0.6*gDeltaTime}
       }
       else if y<yPoint
       {
-        if currVspd<maxSpeedY {currVspd+=0.6}
-        else {currVspd-=0.15}
+        if currVspd<maxSpeedY {currVspd+=0.6*gDeltaTime}
+        else {currVspd-=0.15*gDeltaTime}
       }
-      hspeed=currHspd; vspeed=currVspd
+      _hspeed=currHspd; _vspeed=currVspd
 
       //ATTACK: Bombing run
-      bombTime+=1
+      bombTime+=1*gDeltaTime
       if bombTime>=bombDelay+15
       {
         if bombTime mod 6=0
         {
           var tNewAttack;
           tNewAttack=instance_create(x,y,oGravityBullet)
-          tNewAttack.atkPower=atkPower; tNewAttack.direction=270; tNewAttack.bulletSpeed=3; tNewAttack.damageType="EXPLOSION"
+          tNewAttack.atkPower=atkPower; tNewAttack._direction=270; tNewAttack.bulletSpeed=3; tNewAttack.damageType="EXPLOSION"
           if bombType=0 {tNewAttack.sprite_index=sC_TurretBombA; bombType=1}
           else if bombType=1 {tNewAttack.sprite_index=sC_TurretBombB; bombType=0}
         }
@@ -235,7 +237,7 @@ if global.gamePaused=false
           }
         }
       }
-      else {hideDelay-=1}
+      else {hideDelay-=1*gDeltaTime}
     }
     else if attachState=3 //Hide behind Shock Unit selected with shield
     {
@@ -249,29 +251,29 @@ if global.gamePaused=false
 
         if x>xPoint
         {
-          if currHspd>-maxSpeedX {currHspd-=0.4}
-          else {currHspd+=0.4}
+          if currHspd>-maxSpeedX {currHspd-=0.4*gDeltaTime}
+          else {currHspd+=0.4*gDeltaTime}
         }
         else if x<xPoint
         {
-          if currHspd<maxSpeedX {currHspd+=0.4}
-          else {currHspd-=0.4}
+          if currHspd<maxSpeedX {currHspd+=0.4*gDeltaTime}
+          else {currHspd-=0.4*gDeltaTime}
         }
         if y>yPoint
         {
-          if currVspd>-maxSpeedY {currVspd-=0.4}
-          else {currVspd+=0.4}
+          if currVspd>-maxSpeedY {currVspd-=0.4*gDeltaTime}
+          else {currVspd+=0.4*gDeltaTime}
         }
         else if y<yPoint
         {
-          if currVspd<maxSpeedY {currVspd+=0.4}
-          else {currVspd-=0.4}
+          if currVspd<maxSpeedY {currVspd+=0.4*gDeltaTime}
+          else {currVspd-=0.4*gDeltaTime}
         }
-        hspeed=currHspd; vspeed=currVspd
+        _hspeed=currHspd; _vspeed=currVspd
 
         if point_distance(x,y,xPoint,yPoint)<34
         {
-          if oGame.time mod 7=0
+          if oGame.time mod (7/gDeltaTime)=0
           {
             if image_xscale=1 {targetAngle=0}
             else {targetAngle=180}
@@ -289,7 +291,7 @@ if global.gamePaused=false
     //ATTACK: Spam Shot
     if atkChange=0
     {
-      shotTime+=1
+      shotTime+=1*gDeltaTime
       if shotTime=shotDelay //Shot warning
       {
         var tEffect;
@@ -318,6 +320,7 @@ if global.gamePaused=false
   }
   else if life<=0
   {
+    if deathAnim==0 {deathAnim=1-gDeltaTime}
     deathAnim+=1
     if deathAnim mod 2=0
     {
@@ -338,7 +341,9 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
-else {hspeed=0; vspeed=0}
+else {_hspeed=0; _vspeed=0}
+
+correctHSpeedVSpeed(self)
 #define Other_10
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -355,7 +360,7 @@ else if bulletCycle=3 {tXOff=17; tYOff=2}
 else if bulletCycle>=4 {tXOff=3; tYOff=11; bulletCycle=0}
 tNewAttack=instance_create(x+(tXOff*image_xscale),y+tYOff,oNormalBullet)
 tNewAttack.sprite_index=sC_TurretBullet; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=12
-tNewAttack.image_speed=0.33; tNewAttack.decayTime=-100; tNewAttack.direction=targetAngle
+tNewAttack.image_speed=0.33; tNewAttack.decayTime=-100; tNewAttack._direction=targetAngle
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

@@ -384,8 +384,7 @@ if global.gamePaused=false
 }
 else {_speed=0}
 
-x += cos(degtorad(_direction)) * _speed * gDeltaTime
-y -= sin(degtorad(_direction)) * _speed * gDeltaTime
+correctSpeedDirection(self)
 #define Other_10
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -532,11 +531,10 @@ else if despProg=4 //End
   despTime+=1*gDeltaTime
   if despTime>=45
   {
+
     if oEvExGates.fadeAlpha>0 {oEvExGates.fadeAlpha-=0.005*gDeltaTime; image_alpha+=0.005*gDeltaTime}
     _speed=2
     _direction=point_direction(x,y,576,256)
-    x += cos(degtorad(_direction)) * _speed * gDeltaTime
-    y -= sin(degtorad(_direction)) * _speed * gDeltaTime
 
     if point_distance(x,y,576,256)<4 and oEvExGates.fadeAlpha=0
     {

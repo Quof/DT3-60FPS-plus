@@ -229,7 +229,7 @@ else if shotType=3 //Spread Shot - DPS=47 (94) (141)
   for(i=0;i<3;i+=1)
   {
     tNewBullet=instance_create(x+10,y+1,oDragShip_Shot3)
-    tNewBullet.bulletSpeed=12; tNewBullet.atkPower=11; tNewBullet.direction=tDir
+    tNewBullet.bulletSpeed=12; tNewBullet.atkPower=11; tNewBullet._direction=tDir
     tDir-=20
   }
   shotDelay=7
@@ -250,9 +250,9 @@ else if shotType=5 //Dual Shot - DPS=60 (120)
   else {tDir=0}
 
   tNewBullet=instance_create(x+3,y-6,oDragShip_Shot5)
-  tNewBullet.bulletSpeed=14; tNewBullet.atkPower=14; tNewBullet.direction=tDir
+  tNewBullet.bulletSpeed=14; tNewBullet.atkPower=14; tNewBullet._direction=tDir
   tNewBullet=instance_create(x+3,y+8,oDragShip_Shot5)
-  tNewBullet.bulletSpeed=14; tNewBullet.atkPower=14; tNewBullet.direction=tDir
+  tNewBullet.bulletSpeed=14; tNewBullet.atkPower=14; tNewBullet._direction=tDir
   shotDelay=7
 }
 else if shotType=6 //Laser Beam - DPS=75

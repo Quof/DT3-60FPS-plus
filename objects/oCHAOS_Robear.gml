@@ -55,7 +55,7 @@ if global.gamePaused=false
     }
 
     //Fire at player
-    gunShot+=1
+    gunShot+=1*gDeltaTime
     if gunShot=gunDelay {sprite_index=sCHAOS_Robear_Lift; image_speed=0; image_index=0}
     else if gunShot=gunDelay+4 {image_index=1}
     else if gunShot=gunDelay+8 {image_index=2}
@@ -89,19 +89,19 @@ if global.gamePaused=false
       gunShot=0
     }
 
-    yVel+=0.3
+    yVel+=0.3*gDeltaTime
     if isCollisionBottom(1)
       yVel=0
     if isCollisionSolid()
       y-=2
 
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
     if y>room_height+24
       instance_destroy()
   }
   else if life<=0
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     if deathAnim mod 2=0
     {
       if deathAnim mod 4=0 {playSound(global.snd_BombExplode,0,0.85,1)}

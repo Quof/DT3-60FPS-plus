@@ -237,8 +237,6 @@ if global.gamePaused=false
             }
           }
           _speed=abs(xSpd)
-          x += cos(degtorad(_direction)) * _speed * gDeltaTime
-          y -= sin(degtorad(_direction)) * _speed * gDeltaTime
           if point_distance(x,y,targetX,targetY)<=16
           {
             _speed=0
@@ -268,13 +266,12 @@ if global.gamePaused=false
               {
                 tNewAtk=instance_create(x+random_range(-20,20),y+random_range(-20,20),oPassBullet)
                 tNewAtk.sprite_index=sAbom_ParaShot; tNewAtk.atkPower=atkPower; tNewAtk.image_speed=0.33
-                tNewAtk.decayTime=-100; tNewAtk._direction=direction; tNewAtk.bulletSpeed=2+i
+                tNewAtk.decayTime=-100; tNewAtk._direction=_direction; tNewAtk.bulletSpeed=2+i
+
               }
             }
           }
           _speed=abs(xSpd)
-          x += cos(degtorad(_direction)) * _speed * gDeltaTime
-          y -= sin(degtorad(_direction)) * _speed * gDeltaTime
           if point_distance(x,y,checkSide,ySpawn)<=16
           {
             _speed=0
@@ -465,6 +462,8 @@ if global.gamePaused=false
   }
 }
 else {_speed=0}
+
+correctSpeedDirection(self)
 #define Other_25
 /*"/*'/**//* YYD ACTION
 lib_id=1

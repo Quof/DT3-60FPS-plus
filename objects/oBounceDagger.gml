@@ -27,13 +27,13 @@ if instance_exists(oEnemyBase)
   var tTargetCenterX,tTargetCenterY;
   tTargetCenterX=myTarget.bbox_left+(myTarget.sprite_width/2)
   tTargetCenterY=myTarget.bbox_top+(myTarget.sprite_height/2)
-  direction=point_direction(x,y,tTargetCenterX,tTargetCenterY)
-  image_angle=direction
+  _direction=point_direction(x,y,tTargetCenterX,tTargetCenterY)
+  image_angle=_direction
 }
 else
 {
-  direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
-  image_angle=direction
+  _direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
+  image_angle=_direction
 }
 
 _speed=0
@@ -52,9 +52,6 @@ if global.gamePaused=false
   if lingerFrame=0
   {
     _speed=bulletSpeed
-    x += cos(degtorad(_direction)) * _speed * gDeltaTime
-    y -= sin(degtorad(_direction)) * _speed * gDeltaTime
-
     if checkScreenArea(x,y,48)=0 {instance_destroy()}
 
     if noDestroyTime=0
@@ -92,6 +89,9 @@ if global.gamePaused=false
   else if lingerFrame=1 {instance_destroy()}
 }
 else {_speed=0}
+
+
+correctSpeedDirection(self)
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
