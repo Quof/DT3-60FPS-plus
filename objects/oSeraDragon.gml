@@ -48,7 +48,7 @@ if global.gamePaused=false
 
   turn_toward_directionUnderscore(player_sprite_center(),5)
 
-  decay-=1*gDeltaTime*gDeltaTime
+  decay-=1*gDeltaTime
   if decay<=0 {hitWall=1}
   if hitWall=1
   {

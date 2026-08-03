@@ -100,7 +100,7 @@ else if spriteUse=4 //Bike Blockage
 {
   if instance_exists(doorID)
   {
-    animTop-=2
+    animTop-=2*gDeltaTime
     if animTop=0 {animTop=16}
     for(i=0;i<image_yscale;i+=1)
     {

@@ -21,7 +21,7 @@ if global.gamePaused=false
 {
   if myDir=0
   {
-    x+=runSpd
+    x+=runSpd*gDeltaTime
     if x>=endRight
     {
       image_xscale=-1
@@ -30,7 +30,7 @@ if global.gamePaused=false
   }
   else if myDir=1
   {
-    x-=runSpd
+    x-=runSpd*gDeltaTime
     if x<=endLeft
     {
       image_xscale=1

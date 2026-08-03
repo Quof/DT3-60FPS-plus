@@ -28,13 +28,13 @@ if global.gamePaused=false
 {
   if trailStarted=1 //Fade out Challenge Master and slight wait
   {
-    trialTime+=1
+    trialTime+=1*gDeltaTime
     if trialTime>=1 and trialTime<=10 {image_alpha-=0.1*gDeltaTime}
     else if trialTime>=55 {trialTime=0; trailStarted=2}
   }
   else if trailStarted=2 //The trial
   {
-    trialTime+=1
+    trialTime+=1*gDeltaTime
     if global.challengeRoom=1 //======================================== TRIAL 1 ========================================
     {
       if trialProg=0
@@ -616,7 +616,7 @@ if global.gamePaused=false
   }
   else if trailStarted=3 //Trial completed
   {
-    trialTime+=1
+    trialTime+=1*gDeltaTime
     if trialTime=1
     {
       oPlayer1.life=oPlayer1.maxLife

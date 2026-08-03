@@ -99,7 +99,7 @@ if global.optShowHoverInfo=1 and bIsBoss=0 and hoverAlpha!=-1
   if place_meeting(x,y,oIdentifier) {hoverAlpha=1.5}
   if hoverAlpha>0 and oIdentifier.bCanScan=1
   {
-    hoverAlpha-=0.05
+    hoverAlpha-=0.05*gDeltaTime
     draw_set_font(fnt_EnemyName)
     draw_set_halign(fa_center)
     draw_set_alpha(hoverAlpha)

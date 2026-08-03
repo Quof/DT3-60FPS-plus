@@ -62,28 +62,28 @@ if global.gamePaused=false
       if x>oPlayer1.x
       {
         if currHspd>-maxHspd
-          currHspd-=0.075
+          currHspd-=0.075*gDeltaTime
         else
           currHspd=-maxHspd
       }
       else if x<oPlayer1.x
       {
         if currHspd<maxHspd
-          currHspd+=0.075
+          currHspd+=0.075*gDeltaTime
         else
           currHspd=maxHspd
       }
       if y+45>oPlayer1.y-26-yDist
       {
         if currVspd>-maxVspd
-          currVspd-=0.05
+          currVspd-=0.05*gDeltaTime
         else
           currVspd=-maxVspd
       }
       else if y+25<oPlayer1.y-26-yDist
       {
         if currVspd<maxVspd
-          currVspd+=0.05
+          currVspd+=0.05*gDeltaTime
         else
           currVspd=maxVspd
       }
@@ -93,7 +93,7 @@ if global.gamePaused=false
       else {image_xscale=-1}
 
       //----- Attack: Homing Missile -----
-      missileTime+=1
+      missileTime+=1*gDeltaTime
       if missileTime>=missileDelay and missileTime<=missileDelay+15
       {
         var tFFScl,tEffect;
@@ -142,7 +142,7 @@ if global.gamePaused=false
       }
 
       //-- Effects --
-      if oGame.time mod 7=0
+      if oGame.time mod (7/gDeltaTime)=0
       {
         var tFFScl,tEffect;
         tFFScl=random(0.2)
@@ -207,7 +207,7 @@ action_id=603
 applies_to=self
 */
 event_inherited()
-propFrame+=1
+propFrame+=1*gDeltaTime
 if propFrame=1 {propScale=1; image_index=0}
 else if propFrame=4 {image_index=1}
 else if propFrame=7 {image_index=0}

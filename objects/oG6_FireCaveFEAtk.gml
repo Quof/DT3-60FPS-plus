@@ -20,11 +20,11 @@ applies_to=self
 if global.gamePaused=false
 {
   _speed=moveSpd
-  fireDelay+=1
+  fireDelay+=1*gDeltaTime
   if fireDelay>=22
   {
     var tNewAttack,tDir;
-    swapFire+=1
+    swapFire+=1*gDeltaTime
     if swapFire mod 2=0 {tDir=0}
     else {tDir=11.25}
     for(i=0;i<atkAmt;i+=1)

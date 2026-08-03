@@ -122,7 +122,7 @@ if bCanHit=1
 //---------- Count down character attack time ----------
 if jerryTime>0
 {
-  jerryTime-=1
+  jerryTime-=1*gDeltaTime
   if jerryTime=0
   {
     jerryAtk=0
@@ -131,7 +131,7 @@ if jerryTime>0
 }
 if claireTime>0
 {
-  claireTime-=1
+  claireTime-=1*gDeltaTime
   if claireTime=0
   {
     claireAtk=0
@@ -142,7 +142,7 @@ if claireTime>0
 //---------- If player waits and does nothing ----------
 if atkHits=0
 {
-  idleTime+=1
+  idleTime+=1*gDeltaTime
   if idleTime=360 {msgCreate(0,0,"Jerry","Uh so... we going to do anything?",0,2,oMessagePerson,0); newMessage.fadingTime=70}
   else if idleTime=430 {msgCreate(0,0,"Claire","Just waiting on you, buddy.",0,2,oMessagePerson,0); newMessage.fadingTime=70}
   else if idleTime=500 {msgCreate(0,0,"Jerry","Why can't you start it?",0,2,oMessagePerson,0); newMessage.fadingTime=60}
@@ -159,13 +159,13 @@ if atkHits=0
 //---------- Count down till finisher is done ----------
 if atkHits>0
 {
-  timeToStop-=1
+  timeToStop-=1*gDeltaTime
   if timeToStop=0 {io_clear()}
 }
 
 if bCanHit>=2
 {
-  bCanHit+=1
+  bCanHit+=1*gDeltaTime
   if bCanHit=45
   {
     if atkHits>global.recMostTeamHits {global.recMostTeamHits=atkHits}

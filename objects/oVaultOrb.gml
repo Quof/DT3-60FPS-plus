@@ -73,7 +73,7 @@ if global.gamePaused=false
       if init=0
       {
         visible=1
-        image_index+=0.2
+        image_index+=0.2*gDeltaTime
         if image_index>=7
         {
           image_index=7
@@ -84,7 +84,7 @@ if global.gamePaused=false
       }
       else if init=1
       {
-        revertTime-=1
+        revertTime-=1*gDeltaTime
         if revertTime=0
         {
           for(i=0;i<6;i+=1)
@@ -94,7 +94,7 @@ if global.gamePaused=false
           stunResist=50
         }
 
-        teleTime+=1
+        teleTime+=1*gDeltaTime
         if teleProg=0 //Normal behavior
         {
           _direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
@@ -133,8 +133,8 @@ if global.gamePaused=false
               tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
               tEffect.image_xscale=0.5; tEffect.image_yscale=0.5
             }
-            x+=lengthdir_x(80,_direction)
-            y+=lengthdir_y(80,_direction)
+            x+=lengthdir_x(80,_direction)*gDeltaTime
+            y+=lengthdir_y(80,_direction)*gDeltaTime
             teleTime=0; teleProg+=1
           }
         }

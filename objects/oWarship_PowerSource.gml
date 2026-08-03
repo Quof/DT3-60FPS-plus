@@ -14,7 +14,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if overloading=1
+if overloading=1 and gDeltaDoTicks
 {
   for(i=0;i<3;i+=1)
   {
@@ -28,7 +28,7 @@ if overloading=1
     tEffect.AccelX=0; tEffect.AccelY=0; tEffect.followID=-1; tEffect.rotation=0
   }
 }
-else if overloading=0
+else if overloading=0 and gDeltaDoTicks
 {
   var tFFScl,tEffect;
   tFFScl=random(0.1)

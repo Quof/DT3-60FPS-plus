@@ -32,7 +32,7 @@ if findTargetX<drawRangeX and findTargetY<drawRangeY
   if collision_rectangle(x,y,x+48,y+64,oPlayerIdle,1,1)
     isActive=1
 
-  if oGame.time mod 3=0 //Sparkle effect
+  if oGame.time mod (3/gDeltaTime)=0 //Sparkle effect
   {
     var tEffect;
     //top

@@ -41,6 +41,8 @@ lib_id=1
 action_id=603
 applies_to=self
 */
+if !gDeltaDoTicks {exit};
+
 if global.gamePaused=false
 {
   if bWindWorks=1
@@ -67,7 +69,7 @@ if global.gamePaused=false
 
     if point_distance(x,y,oPlayer1.x,oPlayer1.y)<1200
     {
-      if oGame.time mod effectMod=0
+      if oGame.time/gDeltaTime mod effectMod=0
       {
         var tEffect;
         if _direction=0
@@ -103,7 +105,7 @@ action_id=603
 applies_to=self
 */
 //If the object is inside wind volume, move object
-if bWindWorks=1
+if bWindWorks=1 and gDeltaDoTicks
 {
   if global.gamePaused=false
   {

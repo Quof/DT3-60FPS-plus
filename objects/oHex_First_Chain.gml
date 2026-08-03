@@ -30,7 +30,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  if bDestroyMe=1
+  if bDestroyMe=1 and gDeltaDoTicks
   {
     for(i=0;i<12;i+=1)
     {

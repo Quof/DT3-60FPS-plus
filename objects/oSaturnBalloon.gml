@@ -15,12 +15,12 @@ applies_to=self
 */
 if balloonProg=1 //-------------------- Balloon is popped --------------------
 {
-  balloonTime+=1
+  balloonTime+=1*gDeltaTime
   if balloonTime>=30 {balloonTime=0; balloonProg+=1}
 }
 else if balloonProg=2 //-------------------- Mr. Saturn jitters --------------------
 {
-  balloonTime+=1
+  balloonTime+=1*gDeltaTime
   if balloonTime>=70
   {
     oMrSaturnLayDown.jitterX=random_range(-jitterAmt,jitterAmt)
@@ -49,7 +49,7 @@ else if balloonProg=2 //-------------------- Mr. Saturn jitters ----------------
 }
 else if balloonProg=3 //-------------------- Wait time --------------------
 {
-  balloonTime+=1
+  balloonTime+=1*gDeltaTime
   if balloonTime=90
   {
     oPlayer1.x=592; oPlayer1.y=176
@@ -66,13 +66,13 @@ else if balloonProg=3 //-------------------- Wait time --------------------
   }
   else if balloonTime>=141 and balloonTime<=364 //112 pixels
   {
-    with oStaticSpike {y+=0.5}
+    with oStaticSpike if gDeltaDoTicks {y+=0.5}
   }
   else if balloonTime=365 {balloonTime=0; balloonProg+=1}
 }
 else if balloonProg=4 //-------------------- Smash player with traps --------------------
 {
-  balloonTime+=1
+  balloonTime+=1*gDeltaTime
   if balloonTime mod 3=0
   {
     playSound(global.snd_ComicHit2,0,1,20000+random(5000))
@@ -85,7 +85,7 @@ else if balloonProg=4 //-------------------- Smash player with traps -----------
 }
 else if balloonProg=5 //-------------------- Kill player --------------------
 {
-  balloonTime+=1
+  balloonTime+=1*gDeltaTime
   if balloonTime=60
   {
     abilSetRemove(0)

@@ -262,7 +262,7 @@ if global.gameProgress=1760 and room=rMega4_Gate //----- [Unskippable] Intro to 
 
     if sceneDelay>=601 and sceneDelay<=680 //Fade in Tri-Flash Spin
     {
-      if triAlpha<0.8 {triAlpha+=0.02*gDeltaTime*gDeltaTime}
+      if triAlpha<0.8 {triAlpha+=0.02*gDeltaTime}
       if triWidth<15 {triWidth+=0.25*gDeltaTime}
     }
     else if sceneDelay=690

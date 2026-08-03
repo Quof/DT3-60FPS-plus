@@ -14,17 +14,17 @@ applies_to=self
 */
 if global.gamePaused=false and bDestroyed=1
 {
-  myColor-=5
+  myColor-=5*gDeltaTime
   image_blend=make_color_rgb(255,myColor,myColor)
   if myColor>=165 //Fire effect
   {
-    if oGame.time mod 7=0 //Burn sound
+    if (oGame.time/gDeltaDoTicks) mod 7=0 //Burn sound
     {
       if checkScreenArea(x,y,64)=1 {playSound(global.snd_Fireball,0,0.8,1)}
     }
     if sprite_index=sBW_DestPropB {modTime=4}
     else modTime=2
-    if oGame.time mod modTime=0 //Fire effect
+    if (oGame.time/gDeltaDoTicks) mod modTime=0 //Fire effect
     {
       tEffect=instance_create(x+8+random(sprite_width-16),y+6+random(sprite_height-12),oEffect)
       tEffect.sprite_index=sFlameUp; tEffect.followID=-1; tEffect.xFollow=0; tEffect.yFollow=0; tEffect.image_alpha=0.75

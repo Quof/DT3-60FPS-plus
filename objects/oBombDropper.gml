@@ -114,7 +114,7 @@ if global.gamePaused=false
     }
 
     dthPropX+=dthPropVelX*gDeltaTime
-    dthPropY+=dthPropVelY*gDeltaTime; dthPropVelY+=0.2*gDeltaTime*gDeltaTime
+    dthPropY+=dthPropVelY*gDeltaTime; dthPropVelY+=0.2*gDeltaTime
     dthPropAng+=dthPropTurn*gDeltaTime
     dthBodyX+=dthBodyVelX*gDeltaTime
     dthBodyY+=dthBodyVelY*gDeltaTime; dthBodyVelY+=0.025*gDeltaTime

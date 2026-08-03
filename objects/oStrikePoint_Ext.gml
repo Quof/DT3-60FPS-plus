@@ -24,7 +24,7 @@ if global.gamePaused=false
   if bGrappled=1 {startLatchTime=1}
   if startLatchTime=1
   {
-    latchTimer+=1
+    latchTimer+=1*gDeltaTime
     if latchTimer>=latchMax
     {
       if mySpd>10
@@ -33,7 +33,7 @@ if global.gamePaused=false
       }
       else
       {
-        if currSpd<8 {currSpd+=0.1}
+        if currSpd<8 {currSpd+=0.1*gDeltaTime}
         _speed=currSpd
       }
     }
@@ -47,7 +47,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-touchFrames+=1
+touchFrames+=1*gDeltaTime
 if touchFrames>=7
 {
   playSound(global.snd_EnemyDieMM,0,0.97,1)

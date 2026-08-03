@@ -18,7 +18,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  moveWave+=pi/60
+  moveWave+=(pi/60)*gDeltaTime
   //balloonX+=cos(moveWave)/2
 
   oSaturnBalloon.x+=cos(moveWave)/2

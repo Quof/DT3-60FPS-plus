@@ -24,9 +24,9 @@ if endProg=0 //Normal
 {
   if global.gamePaused=0
   {
-    if delay>0 {delay-=1}
+    if delay>0 {delay-=1*gDeltaTime}
 
-    yVel+=0.2
+    yVel+=0.2*gDeltaTime
     if isCollisionBottom(1)
       yVel=0
     if isCollisionLeft(1)
@@ -40,7 +40,7 @@ if endProg=0 //Normal
     else {image_xscale=-1}
 
     if yVel>8 {}yVel=8
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
 
     if y>room_height+64
     {
@@ -68,18 +68,18 @@ if endProg=0 //Normal
 else if endProg=1 //Move player to ledge
 {
   //----- Player movement -----
-  if playerXVel<7.8/spdMod {playerXVel+=1.2/spdMod}
+  if playerXVel<7.8/spdMod {playerXVel+=(1.2/spdMod)*gDeltaTime}
 
   if oPlayer1.x>=3848 and oPlayer1.y>=134 {movePlayer=0}
   else {movePlayer=1}
 
-  if movePlayer=1 {oPlayer1.x+=playerXVel}
+  if movePlayer=1 {oPlayer1.x+=playerXVel*gDeltaTime}
 
   if (oPlayer1.y<=48) or (oPlayer1.x>=3856 and oPlayer1.y<=80)
   {
-    playerYVel+=1.2/spdMod
+    playerYVel+=(1.2/spdMod)*gDeltaTime
   }
-  oPlayer1.y+=playerYVel
+  oPlayer1.y+=playerYVel*gDeltaTime
 
   if oPlayer1.x>=3856
   {
@@ -92,16 +92,16 @@ else if endProg=1 //Move player to ledge
     }
   }
   //----- Yoshi movement -----
-  if yoshiYVel<4 {yoshiYVel+=0.1}
-  y+=yoshiYVel
+  if yoshiYVel<4 {yoshiYVel+=0.1*gDeltaTime}
+  y+=yoshiYVel*gDeltaTime
 }
 else if endProg=2 //Player is on ledge
 {
   //----- Yoshi movement -----
-  if yoshiYVel<4 {yoshiYVel+=0.1}
-  y+=yoshiYVel
+  if yoshiYVel<4 {yoshiYVel+=0.1*gDeltaTime}
+  y+=yoshiYVel*gDeltaTime
 
-  endTime+=1
+  endTime+=1*gDeltaTime
   if endTime=60
   {
     oPlayer1.image_xscale=-1

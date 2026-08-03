@@ -36,13 +36,13 @@ if global.gamePaused=false
 {
   if sprite_index=sWepPickupArrows
   {
-    yVel+=0.2
+    yVel+=0.2*gDeltaTime
     if yVel>yVelLimit
       yVel=yVelLimit
   }
   else if sprite_index=sCVHeart
   {
-    yVel+=0.01
+    yVel+=0.01*gDeltaTime
     if yVel>yVelLimit
       yVel=yVelLimit
   }
@@ -57,12 +57,12 @@ if global.gamePaused=false
     else
     {
       if sprite_index=sCVHeart
-        xVel=sin(oGame.time/6)
+        xVel=sin((oGame.time/gDeltaTime)/6)
     }
     if isCollisionSolid()
       y-=2
 
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
     if y>room_height+8
       instance_destroy()
   }

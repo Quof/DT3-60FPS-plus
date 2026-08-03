@@ -23,13 +23,13 @@ if global.gamePaused=false
 {
   if type=0 //Lightning downward
   {
-    if oGame.time mod 3=0
+    if oGame.time mod (3/gDeltaTime)=0
     {
       if image_xscale=1 {image_xscale=-1}
       else {image_xscale=1}
     }
 
-    y+=6
+    y+=6*gDeltaTime
     if y>=ownerID.y
     {
       for(i=0;i<24;i+=1)
@@ -56,7 +56,7 @@ if global.gamePaused=false
   {
     atkPower=125
     _speed=moveSpd
-    lifeTime-=1
+    lifeTime-=1*gDeltaTime
     if lifeTime<=0 {instance_destroy()}
   }
 }

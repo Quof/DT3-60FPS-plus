@@ -23,6 +23,10 @@ dir=0
 bulletSpeed=0
 linkFrm=0
 alarm[0]=1
+_direction=0
+_speed=0
+_hspeed=0
+_vspeed=0
 #define Alarm_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -70,12 +74,12 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  shootTime+=1
+  shootTime+=1*gDeltaTime
   if shootTime>=shootDelay
   {
     newAttack=instance_create(x+offsetX,y+offsetY,objectUse)
     newAttack.sprite_index=spriteUse; newAttack.atkPower=atkPower
-    newAttack.bulletSpeed=bulletSpeed; newAttack.direction=_direction
+    newAttack.bulletSpeed=bulletSpeed; newAttack._direction=_direction
     shootTime=0
   }
 
@@ -99,7 +103,7 @@ draw_sprite_ext(sprite_index,image_index,x,y,image_xscale,image_yscale,image_ang
 
 if instance_exists(objLink)
 {
-  linkFrm+=0.33
+  linkFrm+=0.33*gDeltaTime
   myDir=point_direction(x,y,objLink.bbox_left+(objLink.sprite_width/2),objLink.bbox_top+(objLink.sprite_height/2))
   myDist=point_distance(x,y,objLink.bbox_left+(objLink.sprite_width/2),objLink.bbox_top+(objLink.sprite_height/2))
   draw_sprite_ext(sZapTrap,linkFrm,x,y,myDist/32,0.5,myDir,c_green,0.4)

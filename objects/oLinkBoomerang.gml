@@ -48,9 +48,9 @@ if global.gamePaused=false
 {
   //rotate boomerang
   if image_xscale=1
-    image_angle-=35
+    image_angle-=35*gDeltaTime
   else
-    image_angle+=35
+    image_angle+=35*gDeltaTime
 
   //start sound loop
   if startSoundLoop=14
@@ -59,7 +59,7 @@ if global.gamePaused=false
     startSoundLoop=100
   }
   else if startSoundLoop<14
-    startSoundLoop+=1
+    startSoundLoop+=1*gDeltaTime
 
   //fly out from Link
   if bReturning=false
@@ -67,29 +67,29 @@ if global.gamePaused=false
     if image_xscale=1
     {
       if xVel<maxVelocity
-        xVel+=0.5
+        xVel+=0.5*gDeltaTime
     }
     else
     {
       if xVel>-maxVelocity
-        xVel-=0.5
+        xVel-=0.5*gDeltaTime
     }
 
     if oPlayer1.kUp and dirInfluenceTime=0
     {
       dirInfluenceTime=3
       if yVel>-4
-        yVel-=1
+        yVel-=1*gDeltaTime
     }
     else if oPlayer1.kDown and dirInfluenceTime=0
     {
       dirInfluenceTime=3
       if yVel<4
-        yVel+=1
+        yVel+=1*gDeltaTime
     }
 
     if dirInfluenceTime>0
-      dirInfluenceTime-=1
+      dirInfluenceTime-=1*gDeltaTime
     if returnTimer>=returnTimeMax
     {
       xVel/=4
@@ -97,22 +97,22 @@ if global.gamePaused=false
       bReturning=true
     }
     else
-      returnTimer+=1
+      returnTimer+=1*gDeltaTime
 
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
   }
   else
   {
     //return to Link
     if x>oPlayer1.x and xVel>-maxVelocity
-      xVel-=1
+      xVel-=1*gDeltaTime
     else if x<oPlayer1.x and xVel<maxVelocity
-      xVel+=1
+      xVel+=1*gDeltaTime
 
     if y>oPlayer1.y-26 and yVel>-maxVelocity/1.5
-      yVel-=0.5
+      yVel-=0.5*gDeltaTime
     else if y<oPlayer1.y-26 and yVel<maxVelocity/1.5
-      yVel+=0.5
+      yVel+=0.5*gDeltaTime
 
     tempXvel=xVel
     tempYvel=xVel

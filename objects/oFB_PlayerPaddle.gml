@@ -43,7 +43,7 @@ if global.gamePaused=0
   {
     if x>leftBorder
     {
-      x-=moveSpd
+      x-=moveSpd*gDeltaTime
       if x<leftBorder {x=leftBorder}
     }
   }
@@ -51,7 +51,7 @@ if global.gamePaused=0
   {
     if x<rightBorder
     {
-      x+=moveSpd
+      x+=moveSpd*gDeltaTime
       if x>rightBorder {x=rightBorder}
     }
   }
@@ -59,7 +59,7 @@ if global.gamePaused=0
   {
     if y>topBorder
     {
-      y-=moveSpd
+      y-=moveSpd*gDeltaTime
       if y<topBorder {y=topBorder}
     }
   }
@@ -67,7 +67,7 @@ if global.gamePaused=0
   {
     if y<bottomBorder
     {
-      y+=moveSpd
+      y+=moveSpd*gDeltaTime
       if y>bottomBorder {y=bottomBorder}
     }
   }
@@ -98,7 +98,7 @@ if global.gamePaused=0
     }
   }
 
-  if moveSpd>4 {moveSpd-=0.1}
+  if moveSpd>4 {moveSpd-=0.1*gDeltaTime}
   if moveSpd>6.8
   {
     var tAfterI;
@@ -109,7 +109,7 @@ if global.gamePaused=0
     tAfterI.bFollow=1; tAfterI.idFollow=id; tAfterI.xFollow=0; tAfterI.yFollow=0
   }
 
-  if dashDelay>0 {dashDelay-=1}
+  if dashDelay>0 {dashDelay-=1*gDeltaTime}
 
   if (oKeyCodes.kCodePressed[13] or oKeyCodes.kCodePressed[14]) and dashEnergy>=2000 and dashDelay=0 //Dash
   {
@@ -120,13 +120,13 @@ if global.gamePaused=0
 
   if dashEnergy<dashMeterMax
   {
-    dashEnergy+=5
+    dashEnergy+=5*gDeltaTime
     if dashEnergy>dashMeterMax {dashEnergy=dashMeterMax}
   }
 
   if jeremySuperEnergy<jeremySuperMax
   {
-    jeremySuperEnergy+=10
+    jeremySuperEnergy+=10*gDeltaTime
     if jeremySuperEnergy>jeremySuperMax {jeremySuperEnergy=jeremySuperMax}
   }
 
