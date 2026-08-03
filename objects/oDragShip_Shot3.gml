@@ -18,7 +18,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  image_angle-=15
+  image_angle-=15*gDeltaTime
   _speed=bulletSpeed
 }
 else {_speed=0}

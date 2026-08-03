@@ -23,7 +23,7 @@ if global.gamePaused=false
 {
   image_angle=_direction
   _speed=moveSpd
-  lifeTime-=1
+  lifeTime-=1*gDeltaTime
   if lifeTime<=0 {instance_destroy()}
 }
 else {_speed=0}

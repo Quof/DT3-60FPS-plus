@@ -20,7 +20,7 @@ applies_to=self
 event_inherited()
 if global.gamePaused=false
 {
-  image_index+=0.25
+  image_index+=0.25*gDeltaTime
   if image_index>=5.7
   {
     instance_destroy()

@@ -13,6 +13,11 @@ bShowDamage=false
 bCanTakeDamage=false
 
 damageType="ELEMENTAL"
+
+_direction=0
+_speed=0
+_hspeed=0
+_vspeed=0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -30,7 +35,7 @@ if oPlayer1.extraBulletCheck=0
 {
   if oPlayer1.attackState=oPlayer1.ACT_BLOCK
   {
-    exBulletBlockCheck+=1
+    exBulletBlockCheck+=1*gDeltaTime
     if exBulletBlockCheck>=3
     {
       exBulletBlockCheck=0
@@ -39,7 +44,7 @@ if oPlayer1.extraBulletCheck=0
   }
   else
   {
-    exBulletNormalCheck+=1
+    exBulletNormalCheck+=1*gDeltaTime
     if exBulletNormalCheck>=1
     {
       exBulletNormalCheck=0

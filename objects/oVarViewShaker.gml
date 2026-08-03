@@ -24,7 +24,7 @@ if global.gamePaused=false
   else if oPlayer1.x>room_width-240 {x=room_width-240+shakeAmt}
   else {x=oPlayer1.x+shakeAmt}
   y=oPlayer1.y
-  shakeTime-=1
+  shakeTime-=1*gDeltaTime
   if shakeTime=0
   {
     view_object[0]=oPlayer1

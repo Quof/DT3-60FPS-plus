@@ -22,7 +22,7 @@ event_inherited()
 if global.gamePaused=false
 {
   _speed=moveSpd
-  lifeTime-=1
+  lifeTime-=1*gDeltaTime
   if lifeTime<=0 {instance_destroy()}
 }
 else {_speed=0}

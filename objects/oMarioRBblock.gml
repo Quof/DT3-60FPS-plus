@@ -15,7 +15,7 @@ applies_to=self
 */
 if moveAnim>=1 and moveAnim<=4
 {
-  moveAnim+=1
+  moveAnim+=1*gDeltaTime
   if moveAnim=2
     y-=2
   else if moveAnim=4
@@ -25,7 +25,7 @@ if moveAnim>=1 and moveAnim<=4
 if global.gamePaused=false
 {
   if reHitTime>0
-    reHitTime-=1
+    reHitTime-=1*gDeltaTime
   if isCollisionCharacterBottom(1,0) and reHitTime=0
   {
     if global.hasAbilToken[0]>=2 {instance_create(x,y-8,oAtkBumpBlock)}

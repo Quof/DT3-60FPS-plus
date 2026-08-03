@@ -10,6 +10,9 @@ damageType="SHOT"
 weaponTag=120
 global.recAtkNum+=1
 stunTime=1
+
+_speed=0
+_direction=0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

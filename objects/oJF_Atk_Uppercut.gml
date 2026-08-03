@@ -38,7 +38,7 @@ if global.gamePaused=false
   oPlayer1.xVel=(1.5*oPlayer1.image_xscale)*(decayTime/3)
   oPlayer1.yVel=-decayTime/1.25
 
-  decayTime-=1
+  decayTime-=1*gDeltaTime
   if decayTime=15 {oPlayer1.image_index=1}
   if decayTime<=0
   {

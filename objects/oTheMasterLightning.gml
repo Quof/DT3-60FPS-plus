@@ -24,10 +24,11 @@ applies_to=self
 event_inherited()
 if global.gamePaused=false
 {
-  if _direction>=90 and _direction<=270 {image_angle-=5}
-  else {image_angle+=5}
+  _direction=abs(_direction) mod 360
+  if _direction>=90 and _direction<=270 {image_angle-=5*gDeltaTime}
+  else {image_angle+=5*gDeltaTime}
   _speed=moveSpd
-  lifeTime-=1
+  lifeTime-=1*gDeltaTime
   if lifeTime<=0 {instance_destroy()}
 }
 else {_speed=0}

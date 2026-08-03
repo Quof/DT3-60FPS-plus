@@ -12,7 +12,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-flowerFrm+=1
+flowerFrm+=1*gDeltaTime
 if flowerFrm=10 {image_index=1}
 else if flowerFrm=20 {image_index=0}
 else if flowerFrm=30 {image_index=2}

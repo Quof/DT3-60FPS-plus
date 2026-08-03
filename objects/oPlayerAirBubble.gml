@@ -17,11 +17,11 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  x+=sin(0.1)
+  x+=sin(0.1)*gDeltaTime
 
-  y-=ranSpeed
+  y-=ranSpeed*gDeltaTime
 
-  breakThres+=1
+  breakThres+=1*gDeltaTime
   if isCollisionSolid() and breakThres>=30 {instance_destroy()}
   if y<-8 or y<view_yview[0]-96 or !isCollisionWaterTop(3) {instance_destroy()}
 }

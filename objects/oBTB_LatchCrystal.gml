@@ -17,9 +17,10 @@ event_inherited()
 if global.gamePaused=false
 {
   _speed=moveSpd
-  moveTime+=1
+  moveTime+=1*gDeltaTime
   if moveTime>=moveDelay
   {
+    _direction=abs(_direction) mod 360
     _direction+=180
     moveTime=0
   }

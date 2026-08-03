@@ -15,13 +15,13 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  if oGame.time mod 5=0
+  if oGame.time mod (5/gDeltaTime)=0
   {
     if image_alpha=1 {image_alpha=0}
     else {image_alpha=1}
   }
 
-  decayTime-=1
+  decayTime-=1*gDeltaTime
   if decayTime<=0 {instance_destroy()}
 }
 #define Draw_0

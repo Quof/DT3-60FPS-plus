@@ -19,6 +19,6 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  image_index+=mySpeed*global.speedMod
+  image_index+=mySpeed*global.speedMod*gDeltaTime
   if image_index>=image_number {instance_destroy()}
 }

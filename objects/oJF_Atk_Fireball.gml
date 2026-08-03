@@ -26,8 +26,8 @@ if global.gamePaused=false
 {
   image_xscale=myScale*myDir; image_yscale=myScale
 
-  x+=7*myDir
+  x+=7*myDir*gDeltaTime
 
-  decay-=1
+  decay-=1*gDeltaTime
   if decay<=0 {instance_destroy()}
 }
