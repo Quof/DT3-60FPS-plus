@@ -113,7 +113,7 @@ if global.gamePaused=false
       x += cos(degtorad(_direction)) * _speed * gDeltaTime
       y -= sin(degtorad(_direction)) * _speed * gDeltaTime
 
-      if point_distance(x,y,384,176)<=_speed
+      if point_distance(x,y,384,176)<=_speed*gDeltaTime
       {
         for(i=0;i<6;i+=1)
         {
@@ -129,7 +129,7 @@ if global.gamePaused=false
     else if moveBehavior=3 //Shoot bullets
     {
       _direction=point_direction(x,y,oPlayer1.x,oPlayer1.y)
-      movePath+=1
+      movePath+=1*gDeltaTime
       if movePath>=60
       {
         if movePath mod 8=0

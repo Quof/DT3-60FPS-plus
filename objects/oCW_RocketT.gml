@@ -21,7 +21,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  if oGame.time mod (3/gDeltaDoTicks)=0
+  if oGame.time mod (3/gDeltaTime)=0
   {
     var tEffect;
     tEffect=instance_create(x+23,y+24,oEffect)

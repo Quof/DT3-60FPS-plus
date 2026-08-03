@@ -32,7 +32,7 @@ if global.gamePaused=false
   {
     myBullet[bulletNum]=instance_create(x,y,oCW_MarkShot)
     myBullet[bulletNum].sprite_index=sFSSmallBullet; myBullet[bulletNum].image_speed=0.2; myBullet[bulletNum].atkPower=atkPower
-    myBullet[bulletNum].bulletSpeed=4; myBullet[bulletNum]._direction=direction; myBullet[bulletNum].image_blend=bulletBlend
+    myBullet[bulletNum].bulletSpeed=4; myBullet[bulletNum]._direction=_direction; myBullet[bulletNum].image_blend=bulletBlend
     bulletNum+=1
   }
 

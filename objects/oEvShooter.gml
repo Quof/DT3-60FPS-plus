@@ -703,7 +703,7 @@ if global.gamePaused=false
         {
           tEndLaser=instance_create(room_width+32,oPlayer1.y+tYY,oEndShooterLaser)
           tEndLaser.type=1
-          tYY+=8*gDeltaTime
+          tYY+=8
         }
       }
       else if sceneDelay=540

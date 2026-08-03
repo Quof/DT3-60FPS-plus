@@ -132,7 +132,7 @@ if global.gamePaused=false
           }
         }
 
-        atkTimeB+=1
+        atkTimeB+=1*gDeltaTime
         if atkTimeB mod 90=0 //Missile
         {
           var tAtk;
@@ -144,7 +144,7 @@ if global.gamePaused=false
           tAtk._direction=190; tAtk.image_angle=190; tAtk.bulletCMod=4
         }
 
-        atkTimeC+=1
+        atkTimeC+=1*gDeltaTime
         if atkTimeC mod atkExtC=0 //Standard bullet
         {
           var tAtk,tDir;
@@ -161,7 +161,7 @@ if global.gamePaused=false
       }
       else if myLives=3 //======================================== PHASE 3 ========================================
       {
-        atkTimeA+=1
+        atkTimeA+=1*gDeltaTime
         if atkTimeA mod 140=0 //Flower bullet
         {
           var tAtk,tDir;
@@ -169,7 +169,7 @@ if global.gamePaused=false
           for(i=0;i<8;i+=1)
           {
             tAtk=instance_create(x,y,oFSFlowerBullet)
-            tAtk.atkPower=atkPower; tAtk.decayTime=55; tAtk.bulletSpeed=8; tAtk.bulletCMod=2; tAtk.direction=atkDirA+tDir
+            tAtk.atkPower=atkPower; tAtk.decayTime=55; tAtk.bulletSpeed=8; tAtk.bulletCMod=2; tAtk._direction=atkDirA+tDir
             if i=0 {tAtk.bulletBlend=c_white}
             else if i=1 {tAtk.bulletBlend=make_color_rgb(190,255,255)}
             else if i=2 {tAtk.bulletBlend=make_color_rgb(255,190,255)}
@@ -190,7 +190,7 @@ if global.gamePaused=false
           for(i=0;i<8;i+=1)
           {
             tAtk=instance_create(x-39,y,oFSFlowerCurve)
-            tAtk.atkPower=atkPower; tAtk.decayTime=88; tAtk.bulletSpeed=4; tAtk.bulletCMod=2; tAtk.direction=atkDirB+(i*45)
+            tAtk.atkPower=atkPower; tAtk.decayTime=88; tAtk.bulletSpeed=4; tAtk.bulletCMod=2; tAtk._direction=atkDirB+(i*45)
             tAtk.decayTime=90; tAtk.bulletTurn=4; tAtk.bulletBlend=make_color_rgb(150,160,170)
           }
           atkDirB+=10
@@ -253,7 +253,7 @@ if global.gamePaused=false
     }
     else if segmentProg=1
     {
-      segSideGunY+=1
+      segSideGunY+=1*gDeltaTime
       if segSideGunY>=47  {bCanTakeDamage=1; moveBehavior=2; segmentProg+=1}
     }
     else if segmentProg=2
@@ -262,8 +262,8 @@ if global.gamePaused=false
     }
     else if segmentProg=3
     {
-      if segFrontGuardX<27 {segFrontGuardX+=1}
-      if segFrontGuardY<15 {segFrontGuardY+=1}
+      if segFrontGuardX<27 {segFrontGuardX+=1*gDeltaTime}
+      if segFrontGuardY<15 {segFrontGuardY+=1*gDeltaTime}
 
       if segFrontGuardX>=27 {segmentProg+=1}
     }
@@ -278,14 +278,14 @@ if global.gamePaused=false
     }
     else if segmentProg=6
     {
-      segWingsX+=1
+      segWingsX+=1*gDeltaTime
       if segWingsY<26 {segWingsY+=1}
 
       if segWingsX>=40 {segmentProg+=1}
     }
     else if segmentProg=7
     {
-      segWingsAngle+=1
+      segWingsAngle+=1*gDeltaTime
       if segWingsAngle>=28 {bCanTakeDamage=1; moveBehavior=2; segmentProg+=1}
     }
 

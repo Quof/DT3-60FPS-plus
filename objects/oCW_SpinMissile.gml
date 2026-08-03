@@ -22,11 +22,11 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  timeTillIAbortMyself+=1
+  timeTillIAbortMyself+=1*gDeltaTime
   if timeTillIAbortMyself>=1 and timeTillIAbortMyself<=30
   {
     _direction+=turnDir*gDeltaTime
-    if sprite_index=sC_MarkBullet
+    if sprite_index=sC_MarkBullet and gDeltaDoTicks
     {
       var tEffect;
       tEffect=instance_create(x,y,oEffectB)
