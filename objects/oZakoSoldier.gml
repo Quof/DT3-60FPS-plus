@@ -110,10 +110,10 @@ if global.gamePaused=false
       }
     }
 
-    if gunShot<gunDelay-6 {gunShot+=1}
+    if gunShot<gunDelay-6 {gunShot+=1*gDeltaTime}
     else
     {
-      if xVel=0 and yVel=0 and bJumpReady=1 {gunShot+=1}
+      if xVel=0 and yVel=0 and bJumpReady=1 {gunShot+=1*gDeltaTime}
     }
 
     if gunShot=gunDelay-5 and xVel=0 and yVel=0 and bJumpReady=1 //Fire warning (on ground)
@@ -129,11 +129,11 @@ if global.gamePaused=false
       var tNewAttack;
       tNewAttack=instance_create(x+(16*image_xscale),y-32,oPassBullet)
       tNewAttack.sprite_index=sWolfHeadShot; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5; tNewAttack.depth=9
-      tNewAttack.decayTime=-100; tNewAttack.direction=point_direction(x+(16*image_xscale),y-32,oPlayer1.x,returnPlayerYCenter())
+      tNewAttack.decayTime=-100; tNewAttack._direction=point_direction(x+(16*image_xscale),y-32,oPlayer1.x,returnPlayerYCenter())
       gunShot=0
     }
 
-    yVel+=0.25
+    yVel+=0.25*gDeltaTime
     if isCollisionBottom(1)
     {
       yVel=0
@@ -150,13 +150,17 @@ if global.gamePaused=false
     if isCollisionSolid()
       y-=2
 
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
     if y>room_height+24
       instance_destroy()
   }
   else if life<=0
   {
-    deathAnim+=1
+    if (deathAnim == 0)
+    {
+      deathAnim = 1-gDeltaTime
+    }
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       if global.CHAOS_Upgrade=0 {sprite_index=sZakoSoldierDie}
@@ -164,8 +168,8 @@ if global.gamePaused=false
       if random(100)<=4 {global.recHeardWilhelm+=1; playSound(global.snd_Wilhelm,0,0.95,1)}
       flyX=2*-image_xscale; flyY=-4
     }
-    x+=flyX; y+=flyY
-    flyY+=0.33
+    x+=flyX*gDeltaTime; y+=flyY*gDeltaTime
+    flyY+=0.33*gDeltaTime
     image_alpha-=0.035*gDeltaTime
     if image_alpha<0
     {

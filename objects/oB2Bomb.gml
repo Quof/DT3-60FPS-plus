@@ -34,7 +34,7 @@ if global.gamePaused=false
   {
     if direction<250 {direction+=2}
   }
-  y+=grav
+  y+=grav*gDeltaTime
   image_angle=direction
   if isCollisionTop(1) {bBlownUp=true}
   if isCollisionBottom(1) {bBlownUp=true}
@@ -48,7 +48,7 @@ if global.gamePaused=false
     playSound(global.snd_BombExplode,0,0.9,1)
     instance_destroy()
   }
-  moveTo(xVel,yVel)
+  moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
 
   if y>room_height+32
     instance_destroy()

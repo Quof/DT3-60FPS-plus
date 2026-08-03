@@ -44,7 +44,7 @@ if global.gamePaused=false
   makeEnemyActive(0)
   if bActive=true and stunnedTime=0 and life>0
   {
-    gunShot+=1
+    gunShot+=1*gDeltaTime
     if gunShot=55 {hoodFrame=0}
     else if gunShot=60 {hoodFrame=1}
     else if gunShot=75
@@ -55,7 +55,7 @@ if global.gamePaused=false
       tMissile.atkPower=atkPower; tMissile.targetTime=20; tMissile.sprite_index=sJunkCarMissile
       tMissile.bulletSpeed=7; tMissile.seekThres=20; tMissile.minSpd=3; tMissile.maxSpd=8
       tMissile.turnSpd=4; tMissile.accel=0.2
-      if image_xscale=1 {tMissile.direction=0} else {tMissile.direction=180}
+      if image_xscale=1 {tMissile._direction=0} else {tMissile._direction=180}
     }
     else if gunShot=80 {hoodFrame=0}
     else if gunShot=85 {hoodFrame=-1; gunShot=0}
