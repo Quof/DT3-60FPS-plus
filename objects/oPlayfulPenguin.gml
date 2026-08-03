@@ -44,13 +44,13 @@ if global.gamePaused=false
   if bActive=true and stunnedTime=0
   {
     //Turn around if turn timer is 0
-    turnTimeA-=1
+    turnTimeA-=1*gDeltaTime
     if turnTimeA=0
     {
       image_xscale*=-1
       turnTimeA=19
     }
-    turnTimeB-=1
+    turnTimeB-=1*gDeltaTime
     if turnTimeB=0
     {
       xVel*=-1
@@ -70,7 +70,7 @@ if global.gamePaused=false
       turnTime=25
     }
 
-    yVel+=0.4
+    yVel+=0.4*gDeltaTime
     if isCollisionBottom(1)
       yVel=0
     if isCollisionLeft(1)
@@ -80,7 +80,7 @@ if global.gamePaused=false
     if isCollisionSolid()
       y-=2
 
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
 
     if y>room_height+24
     {

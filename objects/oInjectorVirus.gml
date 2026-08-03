@@ -60,7 +60,7 @@ if global.gamePaused=false
   {
     if bActive=true and stunnedTime=0
     {
-      startUpTime+=1
+      startUpTime+=1*gDeltaTime
       if startUpTime=1 //Appear
       {
         visible=1
@@ -115,25 +115,25 @@ if global.gamePaused=false
           maxSpeed=targetSpd
           if x>oPlayer1.x
           {
-            if currHspd>-maxSpeed {currHspd-=0.2}
-            else {currHspd+=0.2}
+            if currHspd>-maxSpeed {currHspd-=0.2*gDeltaTime}
+            else {currHspd+=0.2*gDeltaTime}
           }
           else if x<oPlayer1.x
           {
-            if currHspd<maxSpeed {currHspd+=0.2}
-            else {currHspd-=0.2}
+            if currHspd<maxSpeed {currHspd+=0.2*gDeltaTime}
+            else {currHspd-=0.2*gDeltaTime}
           }
           if y>oPlayer1.y-26
           {
-            if currVspd>-maxSpeed {currVspd-=0.2}
-            else {currVspd+=0.2}
+            if currVspd>-maxSpeed {currVspd-=0.2*gDeltaTime}
+            else {currVspd+=0.2*gDeltaTime}
           }
           else if y<oPlayer1.y-26
           {
-            if currVspd<maxSpeed {currVspd+=0.2}
-            else {currVspd-=0.2}
+            if currVspd<maxSpeed {currVspd+=0.2*gDeltaTime}
+            else {currVspd-=0.2*gDeltaTime}
           }
-          hspeed=currHspd; vspeed=currVspd
+          _hspeed=currHspd; _vspeed=currVspd
         }
         else
         {
@@ -155,35 +155,35 @@ if global.gamePaused=false
 
             if x>myTarget.x
             {
-              if currHspd>-maxSpeed {currHspd-=0.2}
-              else {currHspd+=0.2}
+              if currHspd>-maxSpeed {currHspd-=0.2*gDeltaTime}
+              else {currHspd+=0.2*gDeltaTime}
             }
             else if x<myTarget.x
             {
-              if currHspd<maxSpeed {currHspd+=0.2}
-              else {currHspd-=0.2}
+              if currHspd<maxSpeed {currHspd+=0.2*gDeltaTime}
+              else {currHspd-=0.2*gDeltaTime}
             }
             if y>myTarget.y
             {
-              if currVspd>-maxSpeed {currVspd-=0.2}
-              else {currVspd+=0.2}
+              if currVspd>-maxSpeed {currVspd-=0.2*gDeltaTime}
+              else {currVspd+=0.2*gDeltaTime}
             }
             else if y<myTarget.y
             {
-              if currVspd<maxSpeed {currVspd+=0.2}
-              else {currVspd-=0.2}
+              if currVspd<maxSpeed {currVspd+=0.2*gDeltaTime}
+              else {currVspd-=0.2*gDeltaTime}
             }
-            hspeed=currHspd; vspeed=currVspd
+            _hspeed=currHspd; _vspeed=currVspd
           }
           else {myTarget=-1} //No target exists, reset to find a new target
         }
       }
     }
-    else {hspeed=0; vspeed=0}
+    else {_hspeed=0; _vspeed=0}
   }
   else if life<=0
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       playSound(global.snd_HardHit1,0,0.9,1)
@@ -200,7 +200,10 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
-else {hspeed=0; vspeed=0}
+else {_hspeed=0; _vspeed=0}
+
+x += _hspeed * gDeltaTime
+y += _vspeed * gDeltaTime
 #define Collision_oInfectMe
 /*"/*'/**//* YYD ACTION
 lib_id=1

@@ -61,8 +61,8 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  pulsate+=0.5
-  wobble+=sin(pulsate)/100
+  pulsate+=0.5*gDeltaTime
+  wobble+=(sin(pulsate)/100)*gDeltaTime
 
   if bActive=0 {makeEnemyActive(1)}
   if life>0
@@ -72,7 +72,7 @@ if global.gamePaused=false
       image_xscale=0.5+(lifePercent/2)
       image_yscale=0.5+(lifePercent/2)
 
-      startUpTime+=1
+      startUpTime+=1*gDeltaTime
       if startUpTime=1 //Appear
       {
         visible=1
@@ -103,25 +103,25 @@ if global.gamePaused=false
         maxSpeed=targetSpd
         if x>oPlayer1.x
         {
-          if currHspd>-maxSpeed {currHspd-=0.25}
-          else {currHspd+=0.25}
+          if currHspd>-maxSpeed {currHspd-=0.25*gDeltaTime}
+          else {currHspd+=0.25*gDeltaTime}
         }
         else if x<oPlayer1.x
         {
-          if currHspd<maxSpeed {currHspd+=0.25}
-          else {currHspd-=0.25}
+          if currHspd<maxSpeed {currHspd+=0.25*gDeltaTime}
+          else {currHspd-=0.25*gDeltaTime}
         }
         if y>oPlayer1.y-26
         {
-          if currVspd>-maxSpeed {currVspd-=0.25}
-          else {currVspd+=0.25}
+          if currVspd>-maxSpeed {currVspd-=0.25*gDeltaTime}
+          else {currVspd+=0.25*gDeltaTime}
         }
         else if y<oPlayer1.y-26
         {
-          if currVspd<maxSpeed {currVspd+=0.25}
-          else {currVspd-=0.25}
+          if currVspd<maxSpeed {currVspd+=0.25*gDeltaTime}
+          else {currVspd-=0.25*gDeltaTime}
         }
-        hspeed=currHspd; vspeed=currVspd
+        _hspeed=currHspd; _vspeed=currVspd
       }
 
       shotTime+=1
@@ -144,16 +144,16 @@ if global.gamePaused=false
         var tNewAttack;
         tNewAttack=instance_create(x,y,oPassBullet)
         tNewAttack.sprite_index=sLB_Laser; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5.5
-        tNewAttack.decayTime=-100; tNewAttack.direction=tShotA; tNewAttack.image_xscale=0.5
+        tNewAttack.decayTime=-100; tNewAttack._direction=tShotA; tNewAttack.image_xscale=0.5
         var tNewAttack;
         tNewAttack=instance_create(x,y,oPassBullet)
         tNewAttack.sprite_index=sLB_Laser; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=7
-        tNewAttack.decayTime=-100; tNewAttack.direction=tShotB; tNewAttack.image_xscale=0.5
+        tNewAttack.decayTime=-100; tNewAttack._direction=tShotB; tNewAttack.image_xscale=0.5
         shotTime=0
       }
 
       //Worm drop effect
-      wormDrop+=1
+      wormDrop+=1*gDeltaTime
       if wormDrop mod 30=0
       {
         var tEffect;
@@ -167,15 +167,15 @@ if global.gamePaused=false
       drainRad=70+((maxLife-life)/12)
       if point_distance(x,y,oPlayer1.x,oPlayer1.y-26)<=drainRad
       {
-        if oGame.time mod 9=0 {playSound(global.snd_Infect,0,0.9,30000)}
-        abilDrain+=1
+        if oGame.time mod (9/gDeltaTime)=0 {playSound(global.snd_Infect,0,0.9,30000)}
+        abilDrain+=1*gDeltaTime
         bDraining=1
         oPlayer1.attackCharge=0
         oPlayer1.specAttackChargeA=0
         oPlayer1.specAttackChargeB=0
         if abilDrain mod 3=0
         {
-          if life<maxLife-10 {life+=10}
+          if life<maxLife-10 {life+=10*gDeltaTime}
           if global.activeCharacter=0
           {
             if global.activeAbility[0]=1
@@ -210,15 +210,15 @@ if global.gamePaused=false
       }
       else {bDraining=0}
     }
-    else {hspeed=0; vspeed=0}
+    else {_hspeed=0; _vspeed=0}
   }
   else if life<=0
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       playSound(global.snd_HardHit1,0,0.9,1)
-      hspeed=0; vspeed=0
+      _hspeed=0; _vspeed=0
       baseColor=c_red; image_blend=c_red
     }
 
@@ -235,7 +235,10 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
-else {hspeed=0; vspeed=0}
+else {_hspeed=0; _vspeed=0}
+
+x += _hspeed * gDeltaTime
+y += _vspeed * gDeltaTime
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

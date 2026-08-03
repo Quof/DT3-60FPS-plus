@@ -61,7 +61,7 @@ if global.gamePaused=false
   makeEnemyActive(0)
   if bActive=true and stunnedTime=0
   {
-    changeTime+=1
+    changeTime+=1*gDeltaTime
     if changeTime>=120 //Change behavior
     {
       behavior=0
@@ -78,8 +78,8 @@ if global.gamePaused=false
     }
     else if behavior=1 //Move toward player
     {
-      if myDir=1 and x<oPlayer1.x {turnTime-=1}
-      else if myDir=-1 and x>oPlayer1.x {turnTime-=1}
+      if myDir=1 and x<oPlayer1.x {turnTime-=1*gDeltaTime}
+      else if myDir=-1 and x>oPlayer1.x {turnTime-=1*gDeltaTime}
 
       if turnTime<=0
       {
@@ -90,8 +90,8 @@ if global.gamePaused=false
     }
     else if behavior=2 //Move away from player player
     {
-      if myDir=1 and x>oPlayer1.x {turnTime-=1}
-      else if myDir=-1 and x<oPlayer1.x {turnTime-=1}
+      if myDir=1 and x>oPlayer1.x {turnTime-=1*gDeltaTime}
+      else if myDir=-1 and x<oPlayer1.x {turnTime-=1*gDeltaTime}
 
       if turnTime<=0
       {
@@ -102,7 +102,7 @@ if global.gamePaused=false
     }
     else if behavior=3 //Move back and forth
     {
-      turnTime-=1
+      turnTime-=1*gDeltaTime
       if turnTime<=0
       {
         turnTime=10
@@ -117,14 +117,14 @@ if global.gamePaused=false
       }
     }
     xVel=runAcc*myDir
-    image_index+=0.25*myDir
+    image_index+=0.25*myDir*gDeltaTime
 
     if bInfected=1 //If infected
     {
       if x>oPlayer1.x {gunAngle=myDistX/5+90}
       else {gunAngle=-myDistX/5+90}
 
-      shotTime+=1
+      shotTime+=1*gDeltaTime
       if shotTime=shotDelay //Attack warn
       {
         var tEffect;
@@ -169,7 +169,7 @@ if global.gamePaused=false
       bombResist=2
     }
 
-    yVel+=0.3
+    yVel+=0.3*gDeltaTime
     if isCollisionBottom(1)
       yVel=0
     if isCollisionLeft(1)
@@ -179,7 +179,7 @@ if global.gamePaused=false
     if isCollisionSolid()
       y-=2
 
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
     if y>room_height+24
     {
       if instance_exists(myInfectSpot)

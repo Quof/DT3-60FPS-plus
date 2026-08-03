@@ -55,13 +55,13 @@ if global.gamePaused=false
     if shotTime<=shotDelay
     {
       turnTime+=1
-      x+=runAcc*image_xscale
+      x+=runAcc*image_xscale*gDeltaTime
     }
 
     if bInfected=1
     {
-      shotTime+=1
-      if shotTime>=shotDelay {lineW+=0.33}
+      shotTime+=1*gDeltaTime
+      if shotTime>=shotDelay {lineW+=0.33*gDeltaTime}
       if shotTime>=shotDelay+30
       {
         if !collision_line(x,y,oPlayer1.x,oPlayer1.y-26,oSolid,true,true)
