@@ -54,7 +54,7 @@ if global.gamePaused=0
 
   if x=xPrev //Check if player got ball stuck
   {
-    checkIfStuck+=1
+    checkIfStuck+=1*gDeltaTime
     if checkIfStuck=30
     {
       var tCheckAchieve;

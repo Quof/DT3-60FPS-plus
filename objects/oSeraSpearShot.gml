@@ -39,7 +39,7 @@ if global.gamePaused=false
 {
   _speed=bulletSpeed
   image_angle=_direction
-  lifeTime-=1
+  lifeTime-=1*gDeltaTime
   if lifeTime=0 {instance_destroy()}
 }
 else {_speed=0}

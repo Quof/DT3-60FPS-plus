@@ -33,8 +33,8 @@ if global.gamePaused=false
 {
   if missileProg=0
   {
-    y-=2*global.speedMod
-    decayTime+=1*global.speedMod
+    y-=2*global.speedMod*gDeltaTime
+    decayTime+=1*global.speedMod*gDeltaTime
     if decayTime>=35
     {
       if instance_exists(oEnemyBase) {myTarget=instance_nearest(x,y,oEnemyBase)}
@@ -57,7 +57,7 @@ if global.gamePaused=false
     image_angle=_direction
     _speed=bulletSpeed*global.speedMod
 
-    decayTime-=1*global.speedMod
+    decayTime-=1*global.speedMod*gDeltaTime
     if decayTime<=0 {instance_destroy()}
   }
 }

@@ -57,7 +57,7 @@ if global.gamePaused=false
     instance_destroy()
   if isCollisionTop(1)
     instance_destroy()
-  lifeTime-=1
+  lifeTime-=1*gDeltaTime
   if lifeTime=0
     instance_destroy()
 }

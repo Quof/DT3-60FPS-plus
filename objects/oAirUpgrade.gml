@@ -26,7 +26,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if oGame.time mod 3=0
+if oGame.time mod (3/gDeltaTime)=0
 {
   if image_blend=c_white
     image_blend=c_orange

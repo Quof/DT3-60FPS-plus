@@ -59,7 +59,7 @@ idleShield.x=x
 idleShield.y=y-26
 if pauseTime>0
 {
-  pauseTime-=1
+  pauseTime-=1*gDeltaTime
   if pauseTime=0
   {
     if global.gameOver=0 {global.gamePaused=false}

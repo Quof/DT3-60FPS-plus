@@ -21,7 +21,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  x+=bulletSpeed
+  x+=bulletSpeed*gDeltaTime
 
   if bStuck=1
   {
@@ -29,7 +29,7 @@ if global.gamePaused=false
     {
       x=stuckID.x+xOffset
       y=stuckID.y+yOffset
-      explodeTime-=1
+      explodeTime-=1*gDeltaTime
 
       if explodeTime<=10
       {

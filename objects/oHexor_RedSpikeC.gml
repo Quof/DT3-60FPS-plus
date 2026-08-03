@@ -29,11 +29,11 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  if extraHitFrameBuffer>0 {extraHitFrameBuffer-=1}
+  if extraHitFrameBuffer>0 {extraHitFrameBuffer-=1*gDeltaTime}
 
   if atkProg=0
   {
-    y-=2
+    if gDeltaDoTicks y-=2
     if y<=64
     {
       image_blend=c_white

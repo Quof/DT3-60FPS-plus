@@ -19,7 +19,7 @@ applies_to=self
 */
 if sceneProg>0
 {
-  sceneProg+=1
+  sceneProg+=1*gDeltaTime
   if sceneProg=2
   {
     oPlayer1.x=xCenter; oPlayer1.y=yCenter

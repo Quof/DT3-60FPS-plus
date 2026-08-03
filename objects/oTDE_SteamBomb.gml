@@ -61,7 +61,7 @@ if global.gamePaused=false
     if bSlowed=1
     {
       _speed=runAcc/1.5
-      slowTime-=1
+      slowTime-=1*gDeltaTime
       if slowTime<=0 {bSlowed=0}
     }
     else {_speed=runAcc}

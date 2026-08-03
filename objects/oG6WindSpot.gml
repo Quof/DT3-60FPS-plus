@@ -69,7 +69,7 @@ if global.gamePaused=false
 
     if point_distance(x,y,oPlayer1.x,oPlayer1.y)<1200
     {
-      if oGame.time/gDeltaTime mod effectMod=0
+      if oGame.time mod effectMod=0
       {
         var tEffect;
         if _direction=0

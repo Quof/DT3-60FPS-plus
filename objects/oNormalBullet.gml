@@ -22,9 +22,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  //speed=bulletSpeed
   _speed=bulletSpeed
-  //image_angle=direction
   image_angle=_direction
   if isCollisionTop(1)
     hitWall=1

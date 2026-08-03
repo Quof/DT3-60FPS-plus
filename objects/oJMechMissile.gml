@@ -37,7 +37,7 @@ if global.gamePaused=false
 {
   if lingerFrame=0
   {
-    homingTrack+=1
+    homingTrack+=1*gDeltaTime
     if homingTrack>=1 and homingTrack<=12 {_speed=8}
     else if homingTrack>=13
     {
@@ -51,7 +51,7 @@ if global.gamePaused=false
       }
       image_angle=_direction
       _speed=8
-      decayTime-=1
+      decayTime-=1*gDeltaTime
       if decayTime<=0 {instance_destroy()}
     }
 

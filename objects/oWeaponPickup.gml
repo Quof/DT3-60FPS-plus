@@ -57,7 +57,7 @@ if global.gamePaused=false
     else
     {
       if sprite_index=sCVHeart
-        xVel=sin((oGame.time/gDeltaTime)/6)
+        xVel=sin(oGame.time/6)/gDeltaTime
     }
     if isCollisionSolid()
       y-=2
