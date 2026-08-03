@@ -24,7 +24,7 @@ behavior=-1
 bCanChirp=0
 bSpotted=0
 alarm[0]=1
-
+_speed=0
 _direction=0
 #define Alarm_0
 /*"/*'/**//* YYD ACTION
