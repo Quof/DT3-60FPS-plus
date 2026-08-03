@@ -1043,7 +1043,7 @@ else if global.gameProgress=1710 and room=rMain_27 //----- [] Decoding west door
       sceneDelay+=1*gDeltaTime
       if sceneDelay>=25
       {
-        progressBar+=1
+        progressBar+=1*gDeltaTime
         if progressBar=300
         {
           delaySpawn(96,752,oWB_BigBat,0,1,1,0.33)
