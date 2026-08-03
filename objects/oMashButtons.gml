@@ -53,7 +53,7 @@ if bCanHit=1
   tButtonCheck=0
   for(i=0;i<14;i+=1)
   {
-    if oKeyCodes.kCodePressed[i]=1 {tButtonCheck=1}
+    if oKeyCodesHighFPS.kCodePressed[i]=1 {tButtonCheck=1}
   }
   if keyboard_check_pressed(vk_anykey) or tButtonCheck=1
   {
