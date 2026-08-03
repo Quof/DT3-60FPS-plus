@@ -34,20 +34,23 @@ if global.gamePaused=false
   }
   else if atkProg=1
   {
-    direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
+    _direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
     atkProg+=1
   }
   else if atkProg=2
   {
-    speed=8
-    image_angle+=5
+    _speed=8
+    image_angle+=5*gDeltaTime
     turn_toward_directionUnderscore(player_sprite_center(),turnSpd)
   }
 
-  decay-=1
+  decay-=1*gDeltaTime
   if decay<=0 {instance_destroy()}
 }
-else {speed=0}
+else {_speed=0}
+
+x += cos(degtorad(_direction)) * _speed * gDeltaTime
+y -= sin(degtorad(_direction)) * _speed * gDeltaTime
 #define Collision_oAttackBase
 /*"/*'/**//* YYD ACTION
 lib_id=1

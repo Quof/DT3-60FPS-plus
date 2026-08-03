@@ -56,7 +56,7 @@ if global.gamePaused=false
     }
     else
     {
-      launchTime+=1
+      launchTime+=1*gDeltaTime
       if launchTime>=75
       {
         myPenguin.bActive=1

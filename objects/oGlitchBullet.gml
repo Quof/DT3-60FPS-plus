@@ -22,13 +22,16 @@ if global.gamePaused=false
   if init=0 {init=1}
   if decayTime!=-100
   {
-    decayTime-=1
+    decayTime-=1*gDeltaTime
     if decayTime<=0 {instance_destroy()}
   }
 
-  speed=bulletSpeed
+  _speed=bulletSpeed
 }
-else {speed=0}
+else {_speed=0}
+
+x += cos(degtorad(_direction)) * _speed * gDeltaTime
+y -= sin(degtorad(_direction)) * _speed * gDeltaTime
 #define Other_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

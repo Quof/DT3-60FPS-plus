@@ -65,7 +65,7 @@ if global.gamePaused=false
       {
         if myCannon.bLaunch>=1
         {
-          launchTime+=1
+          launchTime+=1*gDeltaTime
           if launchTime>=30
           {
             var targetYVel,tNewAttack,tEffect;
@@ -112,7 +112,7 @@ if global.gamePaused=false
       }
     }
 
-    yVel+=0.3
+    yVel+=0.3*gDeltaTime
     if isCollisionBottom(1)
       yVel=0
     if isCollisionLeft(1)
@@ -122,7 +122,7 @@ if global.gamePaused=false
     if isCollisionSolid()
       y-=2
 
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
 
     if y>room_height+24
     {

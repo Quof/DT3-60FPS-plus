@@ -30,6 +30,9 @@ runAcc=3
 shotTime=30
 shotDelay=80
 
+_direction=0
+_speed=0
+
 orbitPos=0
 orbitSpd=1
 myDir=0
@@ -74,15 +77,15 @@ if global.gamePaused=false
       //Movement
       var tDirToPlayer;
       tDirToPlayer=point_direction(x,y,oPlayer1.x+lengthdir_x(96,circlePlayer),returnPlayerYCenter()+lengthdir_y(96,circlePlayer))
-      circlePlayer+=2
-      direction=tDirToPlayer
-      speed=runAcc
+      circlePlayer+=2*gDeltaTime
+      _direction=tDirToPlayer
+      _speed=runAcc
 
       //Weapon
-      shotTime+=1
+      shotTime+=1*gDeltaTime
       if shotTime>=shotDelay-30 {orbitSpd=8}
       else {orbitSpd=1}
-      orbitPos+=orbitSpd
+      orbitPos+=orbitSpd*gDeltaTime
 
       if shotTime>=shotDelay
       {
@@ -94,17 +97,20 @@ if global.gamePaused=false
           tNewAttack=instance_create(x,y,oGlitchBullet)
           tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=6; tNewAttack.decayTime=-100
           tNewAttack.image_xscale=0.75; tNewAttack.image_yscale=0.75
-          tNewAttack.direction=tDir
+          tNewAttack._direction=tDir
           tDir+=12
         }
         shotTime=0
       }
     }
-    else {speed=0}
+    else {_speed=0}
   }
   enemyStepEvent()
 }
-else {speed=0}
+else {_speed=0}
+
+x += cos(degtorad(_direction)) * _speed * gDeltaTime
+y -= sin(degtorad(_direction)) * _speed * gDeltaTime
 #define Other_25
 /*"/*'/**//* YYD ACTION
 lib_id=1

@@ -41,11 +41,11 @@ if global.gamePaused=false
   if bActive=0 {makeEnemyActive(0)}
   if bActive=true
   {
-    speed=moveSpd
-    turnTime+=1
+    _speed=moveSpd
+    turnTime+=1*gDeltaTime
     if turnTime>=turnDelay
     {
-      direction+=turnAmt
+      _direction+=turnAmt*gDeltaTime
       turnTime=0
     }
 
@@ -60,4 +60,7 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
-else {speed=0}
+else {_speed=0}
+
+x += cos(degtorad(_direction)) * _speed * gDeltaTime
+y -= sin(degtorad(_direction)) * _speed * gDeltaTime

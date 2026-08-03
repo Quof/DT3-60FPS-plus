@@ -51,7 +51,7 @@ if global.gamePaused=false
     else {image_xscale=-1}
 
     //Fire at player
-    image_index+=animSpd
+    image_index+=animSpd*gDeltaTime
     if image_index>=1 and bThrow=0
     {
       var tThrowPwr;
@@ -77,12 +77,12 @@ if global.gamePaused=false
       bThrow=0
     }
 
-    yVel+=0.2
+    yVel+=0.2*gDeltaTime
     if isCollisionBottom(1)
     {
       yVel=0
     }
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
   }
   if lifePercent<=0.5 and enemyProg=0
   {

@@ -62,11 +62,11 @@ if global.gamePaused=false and bSetParts=1
     {
       if oPlayer1.x<ball.x //Player on left
       {
-        if e<90+maxBend {e+=seekSpd}
+        if e<90+maxBend {e+=seekSpd*gDeltaTime}
       }
       else //Player on right
       {
-        if e>90-maxBend {e-=seekSpd}
+        if e>90-maxBend {e-=seekSpd*gDeltaTime}
       }
     }
   }
