@@ -79,7 +79,7 @@ if global.gamePaused=false
     }
     else if AIprog=2
     {
-      if laserAmt=0 {turn_toward_direction(player_sprite_center(),5)}
+      if laserAmt=0 {turn_toward_directionUnderscore(player_sprite_center(),5)}
       shotTime+=1
       if shotTime=shotDelay-10 //Warning
       {

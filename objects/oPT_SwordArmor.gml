@@ -30,6 +30,8 @@ atkTime=30
 atkDelay=45
 atkCount=0
 
+_speed=0
+_direction=0
 deathAnim=0
 
 jeremyText="Oh man, this guy can attack and keep his shield up. You're gonna have to either parry or get behind him just as he attacks. It attacks twice for each attack phase. I'd recommend using parry over back attacks due to its large HP pool."
@@ -112,7 +114,7 @@ if global.gamePaused=false
     {
       if point_distance(x,0,oPlayer1.x,0)<56 //Movement
       {
-        if image_xscale=1 {xVel=-runAcc*0.75}
+        if image_xscale=1 {xVel=-runAcc*0.75*gDeltaTime}
         else {xVel=runAcc*0.75}
       }
       else if point_distance(x,0,oPlayer1.x,0)>64
@@ -182,7 +184,7 @@ if global.gamePaused=false
       else if atkTime=atkDelay+32 {atkTime=atkDelay+1}
     }
 
-    yVel+=0.3
+    yVel+=0.3*gDeltaTime
     if isCollisionBottom(1)
       yVel=0
     if isCollisionLeft(1)
@@ -192,7 +194,7 @@ if global.gamePaused=false
     if isCollisionSolid()
       y-=2
 
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
     if y>room_height+24
     {
       if questType>0 {enemyQuest(questType)}
@@ -201,7 +203,7 @@ if global.gamePaused=false
   }
   else if life<=0
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     image_speed=0
     if deathAnim mod 4=0
     {

@@ -17,6 +17,8 @@ bCanBeBlocked=1
 blockCost=450
 bParryOpp=1
 formTime=0
+_speed=0
+_direction=0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -25,8 +27,8 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  image_angle=direction+45
-  formTime+=1
+  image_angle=_direction+45
+  formTime+=1*gDeltaTime
   if formTime=1 {playSound(global.snd_Magic,0,0.9,27000)}
   else if formTime=25 {playSound(global.snd_LightballSpread,0,0.9,27000)}
 
@@ -48,10 +50,13 @@ if global.gamePaused=false
   }
   else if formTime>=25
   {
-    speed=bulletSpeed
+    _speed=bulletSpeed
   }
 }
-else {speed=0}
+else {_speed=0}
+
+x += cos(degtorad(_direction)) * _speed * gDeltaTime
+y -= sin(degtorad(_direction)) * _speed * gDeltaTime
 #define Other_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

@@ -79,7 +79,7 @@ if global.gamePaused=false
     }
 
     //Turn arm toward player
-    turn_toward_direction(point_direction((x-(14*image_xscale))+lengthdir_x(20,direction),y-31+lengthdir_y(20,direction),oPlayer1.x,returnPlayerYCenter()),6)
+    turn_toward_directionUnderscore(point_direction((x-(14*image_xscale))+lengthdir_x(20,direction),y-31+lengthdir_y(20,direction),oPlayer1.x,returnPlayerYCenter()),6)
     gunShot+=1
     if gunShot>=gunDelay
     {

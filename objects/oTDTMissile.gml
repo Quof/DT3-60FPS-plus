@@ -48,7 +48,7 @@ if global.gamePaused=false
     if instance_exists(myTarget)
     {
       mydir=point_direction(x,y,myTarget.x,myTarget.y)
-      turn_toward_direction(mydir,6*global.speedMod)
+      turn_toward_directionUnderscore(mydir,6*global.speedMod)
     }
     else
     {

@@ -24,7 +24,7 @@ if global.gamePaused=false
   {
     myTarget=instance_nearest(x,y,oCHAOS_Assault)
     //direction=point_direction(x,y,myTarget.x,myTarget.y)
-    turn_toward_direction(point_direction(x,y,myTarget.x,myTarget.y),turnSpd)
+    turn_toward_directionUnderscore(point_direction(x,y,myTarget.x,myTarget.y),turnSpd)
   }
 
   image_angle=direction

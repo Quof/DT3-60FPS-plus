@@ -30,6 +30,8 @@ bCanBeBlocked=1
 bParryOpp=0
 blockCost=50
 bAttacking=0
+_speed=0
+_direction=0
 
 deathAnim=0
 yDeath=0
@@ -119,7 +121,7 @@ if global.gamePaused=false
     }
 
     //---------- Bite ----------
-    biteTime+=1
+    biteTime+=1*gDeltaTime
     if biteTime>=biteDelay
     {
       if biteTime=biteDelay //Change anim
@@ -159,7 +161,7 @@ if global.gamePaused=false
 
     if bAttacking=0
     {
-      yVel+=0.3
+      yVel+=0.3*gDeltaTime
       if isCollisionBottom(1)
         yVel=0
       if isCollisionLeft(1)
@@ -168,7 +170,7 @@ if global.gamePaused=false
         xVel=-runAcc
       if isCollisionSolid() and rpgLv>1
         y-=2
-      moveTo(xVel,yVel)
+      moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
     }
     if y>room_height+24
     {
@@ -178,7 +180,7 @@ if global.gamePaused=false
   }
   else if life<=0
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     image_speed=0
     if deathAnim mod 4=0
     {

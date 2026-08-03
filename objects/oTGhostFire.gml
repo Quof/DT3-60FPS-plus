@@ -41,7 +41,7 @@ if global.gamePaused=false
   {
     speed=8
     image_angle+=5
-    turn_toward_direction(player_sprite_center(),turnSpd)
+    turn_toward_directionUnderscore(player_sprite_center(),turnSpd)
   }
 
   decay-=1
