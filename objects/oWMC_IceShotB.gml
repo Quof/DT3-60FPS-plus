@@ -29,7 +29,7 @@ if global.gamePaused=false
   {
     playSound(global.snd_LightballSpread,0,0.92,28000)
     var tDir,tNum;
-    if rWarshipZ_E3 //EX MODE
+    if room == rWarshipZ_E3 //EX MODE
     {
       tDir=230; tNum=9
     }

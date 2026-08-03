@@ -41,7 +41,7 @@ if global.gamePaused=0
   if room=rBT_ZeroB
   {
     //----- Ray Trap Timing -----
-    rayTiming+=1
+    rayTiming+=1*gDeltaTime
     if rayTiming=1
     {
       rayTrap[0].bSensorActive=1
@@ -85,7 +85,7 @@ if global.gamePaused=0
     }
     else if mapEventProg=1
     {
-      mapEventTime+=1
+      mapEventTime+=1*gDeltaTime
       if mapEventTime>=5
       {
         if !instance_exists(oDrillWaying)
@@ -97,7 +97,7 @@ if global.gamePaused=0
     }
     else if mapEventProg=2
     {
-      mapEventTime+=1
+      mapEventTime+=1*gDeltaTime
       if mapEventTime>=5
       {
         if !instance_exists(oDrillWaying)
@@ -130,7 +130,7 @@ if global.gamePaused=0
     }
     else if mapEventProg=1
     {
-      mapEventTime+=1
+      mapEventTime+=1*gDeltaTime
       if mapEventTime>=70
       {
         if !instance_exists(oMegaTortoise)
@@ -162,7 +162,7 @@ if global.gamePaused=0
     }
     else if mapEventProg=1
     {
-      mapEventTime+=1
+      mapEventTime+=1*gDeltaTime
       if mapEventTime>=70
       {
         if oEnemyRemain.enemyCount<=0

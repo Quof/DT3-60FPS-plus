@@ -30,7 +30,7 @@ if global.gamePaused=false
 {
   image_angle=_direction
   _speed=bulletSpeed*global.speedMod
-  decayTime-=1*global.speedMod
+  decayTime-=1*global.speedMod*gDeltaTime
   if decayTime<=0 {instance_destroy()}
 }
 else {_speed=0}

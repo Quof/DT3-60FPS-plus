@@ -31,8 +31,8 @@ applies_to=self
 event_inherited()
 if global.gamePaused=false
 {
-  image_angle+=3
-  yVel+=0.2
+  image_angle+=3*gDeltaTime
+  yVel+=0.2*gDeltaTime
   if isCollisionBottom(1)
   {
     bounces+=1
@@ -40,7 +40,7 @@ if global.gamePaused=false
     else if bounces=2 {yVel=-2.75}
     else if bounces>=3 {instance_destroy()}
   }
-  moveTo(xVel,yVel)
+  moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
 }
 #define Other_0
 /*"/*'/**//* YYD ACTION

@@ -62,7 +62,7 @@ if global.gamePaused=false
     }
     _hspeed=currHspd; _vspeed=currVspd
 
-    if rWarshipZ_E3 //EX MODE
+    if room == rWarshipZ_E3 //EX MODE
     {
       if atkTime>=190
       {

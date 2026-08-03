@@ -23,8 +23,8 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  yVel+=0.3
-  moveTo(xVel,yVel)
+  yVel+=0.3*gDeltaTime
+  moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
 
   if isCollisionSolid()
     y-=2

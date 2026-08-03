@@ -28,7 +28,7 @@ if global.gamePaused=false
   }
   else if mapProg=1
   {
-    mapTime+=1
+    mapTime+=1*gDeltaTime
     if mapTime>=12 {mapTime=0; mapProg+=1}
     for(i=0;i<2;i+=1)
     {
@@ -48,7 +48,7 @@ if global.gamePaused=false
   }
   else if mapProg=3
   {
-    mapTime+=1
+    mapTime+=1*gDeltaTime
     if mapTime>=12 {mapTime=0; mapProg+=1}
     for(i=0;i<2;i+=1)
     {
@@ -68,7 +68,7 @@ if global.gamePaused=false
   }
   else if mapProg=5
   {
-    mapTime+=1
+    mapTime+=1*gDeltaTime
     if mapTime>=12 {mapTime=0; mapProg+=1}
     for(i=0;i<2;i+=1)
     {

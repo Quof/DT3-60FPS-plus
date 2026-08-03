@@ -30,23 +30,23 @@ if global.gamePaused=false
 
   if x>xstart
   {
-    if currHspd>-maxSpeed {currHspd-=0.2-random(0.2); if speedBoost=1 {currHspd-=4}}
-    else {currHspd+=0.25; if speedBoost=1 {currHspd+=4}}
+    if currHspd>-maxSpeed {currHspd-=0.2-random(0.2); if speedBoost=1 {currHspd-=4*gDeltaTime}}
+    else {currHspd+=0.25; if speedBoost=1 {currHspd+=4*gDeltaTime}}
   }
   else if x<xstart
   {
-    if currHspd<maxSpeed {currHspd+=0.2+random(0.2); if speedBoost=1 {currHspd+=4}}
-    else {currHspd-=0.25; if speedBoost=1 {currHspd-=4}}
+    if currHspd<maxSpeed {currHspd+=0.2+random(0.2); if speedBoost=1 {currHspd+=4*gDeltaTime}}
+    else {currHspd-=0.25; if speedBoost=1 {currHspd-=4*gDeltaTime}}
   }
   if y>ystart
   {
-    if currVspd>-maxSpeed {currVspd-=0.2-random(0.2); if speedBoost=1 {currVspd-=2.5}}
-    else {currVspd+=0.25; if speedBoost=1 {currVspd+=2.5}}
+    if currVspd>-maxSpeed {currVspd-=0.2-random(0.2); if speedBoost=1 {currVspd-=2.5*gDeltaTime}}
+    else {currVspd+=0.25; if speedBoost=1 {currVspd+=2.5*gDeltaTime}}
   }
   else if y<ystart
   {
-    if currVspd<maxSpeed {currVspd+=0.2+random(0.2); if speedBoost=1 {currVspd+=2.5}}
-    else {currVspd-=0.25; if speedBoost=1 {currVspd-=2.5}}
+    if currVspd<maxSpeed {currVspd+=0.2+random(0.2); if speedBoost=1 {currVspd+=2.5*gDeltaTime}}
+    else {currVspd-=0.25; if speedBoost=1 {currVspd-=2.5*gDeltaTime}}
   }
   _hspeed=currHspd; _vspeed=currVspd
 

@@ -7,6 +7,10 @@ applies_to=self
 fingerSprite=0
 setupVars=0
 alarm[0]=1
+_direction=0
+_speed=0
+_hspeed=0
+_vspeed=0
 #define Alarm_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

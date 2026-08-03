@@ -128,7 +128,7 @@ if global.gamePaused=false
 }
 else
 {
-  hspeed=0; vspeed=0
+  _hspeed=0; _vspeed=0
   speed=0
 }
 
@@ -139,8 +139,10 @@ if bWindSound=1
     playSound(global.snd_WindBlow,0,0.97,10000)
     windSoundRep=50
   }
-  else {windSoundRep-=1}
+  else {windSoundRep-=1*gDeltaTime}
 }
+
+correctHSpeedVSpeed(self)
 #define Collision_oAttackBase
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -153,9 +155,9 @@ if dashDuration=0 and bCanTakeDamage=true
   {
     if movePhase=0 //Stationary
     {
-      if hspeed=0 and vspeed=0 and dashEnergy>=2000
+      if _hspeed=0 and _vspeed=0 and dashEnergy>=2000
       {
-        hspeed=choose(-6,-4,4,6); vspeed=choose(-6-4,4,6)
+        _hspeed=choose(-6,-4,4,6); _vspeed=choose(-6-4,4,6)
         dashEnergy-=2000
         dashDuration=10
       }

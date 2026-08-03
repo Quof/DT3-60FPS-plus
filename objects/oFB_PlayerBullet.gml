@@ -14,7 +14,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  x+=moveSpd
+  x+=moveSpd*gDeltaTime
   if x>=room_width+8 {instance_destroy()}
 }
 #define Collision_oFB_HexorPaddle

@@ -43,9 +43,9 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-_vspeed+=0.4
+_vspeed+=0.4*gDeltaTime
 
-decay-=1
+decay-=1*gDeltaTime
 if decay<=0
   instance_destroy()
 correctHSpeedVSpeed(self)

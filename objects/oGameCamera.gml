@@ -31,7 +31,7 @@ applies_to=self
 */
 if type=0 //Follow script
 {
-  x+=shakeX
+  x+=shakeX*gDeltaTime
 }
 else if type=1 //Follow player
 {
@@ -51,13 +51,13 @@ else if type=3 //Follow only player y
 
 if shakeTime>0 //Screen shake
 {
-  shakeSrn+=1
+  shakeSrn+=1*gDeltaTime
   if shakeSrn mod 2=0 {shakeX=shakeAmp}
   else {shakeX=-shakeAmp}
 
   if global.gamePaused=false
   {
-    shakeTime-=1
+    shakeTime-=1*gDeltaTime
     if shakeTime=0 {shakeX=0}
   }
 }

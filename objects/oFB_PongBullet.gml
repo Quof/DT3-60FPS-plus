@@ -16,7 +16,7 @@ applies_to=self
 if global.gamePaused=0
 {
   _speed=moveSpd
-  lifeTime+=1
+  lifeTime+=1*gDeltaTime
 }
 else {_speed=0}
 correctSpeedDirection(self)

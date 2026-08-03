@@ -57,7 +57,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  if showMyText>0 {showMyText-=1}
+  if showMyText>0 {showMyText-=1*gDeltaTime}
 }
 #define Collision_oPlayer1
 /*"/*'/**//* YYD ACTION

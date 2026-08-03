@@ -84,14 +84,12 @@ if global.gamePaused=false
       //hspeed=currHspd; vspeed=currVspd
       _hspeed=currHspd
       _vspeed=currVspd
-      x += _hspeed *gDeltaTime
-      y += _vspeed *gDeltaTime
     }
     else {_hspeed=0; _vspeed=0; _vspeed=0; _hspeed=0}
   }
   else if life<=0
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       playSound(global.snd_HardHit1,0,0.9,1)

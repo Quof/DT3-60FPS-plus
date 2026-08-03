@@ -20,6 +20,6 @@ if global.gamePaused=false
 {
   x=oIdentifier.x
   y=oIdentifier.y
-  if life<maxLife and oGame.time mod 5=0
+  if life<maxLife and oGame.time mod (5/gDeltaTime)=0
     life+=1
 }

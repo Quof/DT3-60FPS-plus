@@ -12,9 +12,9 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-lifeTime+=1
-y+=ySpd
-if ySpd<5 {ySpd+=0.1}
+lifeTime+=1*gDeltaTime
+y+=ySpd*gDeltaTime
+if ySpd<5 {ySpd+=0.1*gDeltaTime}
 #define Collision_oSolid
 /*"/*'/**//* YYD ACTION
 lib_id=1
