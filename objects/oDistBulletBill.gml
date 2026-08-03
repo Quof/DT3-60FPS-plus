@@ -38,7 +38,7 @@ if global.gamePaused=false
   makeEnemyActive(0)
   if bActive=true and life>0
   {
-    actProg+=1
+    actProg+=1*gDeltaTime
     if actProg=1
     {
       visible=1
@@ -46,13 +46,13 @@ if global.gamePaused=false
     }
     else if actProg>=4
     {
-      if xSpd>0.5 {xSpd-=0.1}
-      else if xSpd<-0.5 {xSpd+=0.1}
+      if xSpd>0.5 {xSpd-=0.1*gDeltaTime}
+      else if xSpd<-0.5 {xSpd+=0.1*gDeltaTime}
 
-      if ySpd<4 {ySpd+=0.2}
+      if ySpd<4 {ySpd+=0.2*gDeltaTime}
     }
-    x+=xSpd
-    y+=ySpd
+    x+=xSpd*gDeltaTime
+    y+=ySpd*gDeltaTime
   }
   else if life<=0
   {

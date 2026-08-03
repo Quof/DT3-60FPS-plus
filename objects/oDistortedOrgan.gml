@@ -44,7 +44,7 @@ if global.gamePaused=false
 
   if life>0
   {
-    tentaclesTime+=1
+    tentaclesTime+=1*gDeltaTime
     if tentaclesTime=11 {tentaclesFrm=1}
     else if tentaclesTime=22 {tentaclesFrm=2}
     else if tentaclesTime=33 {tentaclesFrm=1}
@@ -52,7 +52,7 @@ if global.gamePaused=false
   }
   else if life<=0
   {
-    deathAnim+=1
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       image_speed=0
