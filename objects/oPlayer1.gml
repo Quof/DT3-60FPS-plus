@@ -1016,7 +1016,7 @@ if global.debugMenu=1
   var tDisX,tDisY,debugMenu;
   tDisX=display_mouse_get_x()
   tDisY=display_mouse_get_y()
-  debugMenu=show_menu_pos(tDisX,tDisY,"[0] Change Game Progress|[1] Change Max Life...|[2] Change Internetz|[3] Teleport...|[4] Kill All|[5] Pause/Unpause|[6] Room Speed|[7] Enable all abilities|[8] Activate Mouse Movement",-1)
+  debugMenu=show_menu_pos(tDisX,tDisY,"[0] Change Game Progress|[1] Change Max Life...|[2] Change Internetz|[3] Teleport...|[4] Kill All|[5] Pause/Unpause|[6] Room Speed|[7] Enable all abilities|[8] Activate Mouse Movement|[9] Set Player Ability Levels",-1)
 
   if debugMenu=0 //==================== CHANGE GAME PROGRESS ====================
     global.gameProgress=get_integer("Change Game Progress",global.gameProgress)
@@ -1119,6 +1119,23 @@ if global.debugMenu=1
       global.debugMouseMove=1
     else
       global.debugMouseMove=0
+  }
+  else if debugMenu=9 //==================== SET PLAYER ABILITY LEVELS ===============
+  {
+    var abilityLevel;
+    abilityLevel=get_integer("Enter player ability level",100)
+    global.stLink_Sword[0] = abilityLevel
+    global.stLink_Arrow[0] = abilityLevel
+    global.stLink_Bomb[0] = abilityLevel
+    global.stBelmont_HairWhip[0] = abilityLevel
+    global.stBelmont_Dagger[0] = abilityLevel
+    global.stBelmont_Holywater[0] = abilityLevel
+    global.stMega_Buster[0] = abilityLevel
+    global.stMega_ShotIce[0] = abilityLevel
+    global.stMega_Gravity[0] = abilityLevel
+    global.stSamus_Cannon[0] = abilityLevel
+    global.stSamus_Missile[0] = abilityLevel
+    global.stSamus_Bomb[0] = abilityLevel
   }
 }
 #define Other_13
