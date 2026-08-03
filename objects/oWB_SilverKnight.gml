@@ -185,16 +185,16 @@ if global.gamePaused=false
   }
   else if life<=0
   {
-    deathAnim+=1
+    if deathAnim == 0 {deathAnim = 1-gDeltaTime}; deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       with myShield {instance_destroy()}
       sprite_index=sWB_SilverKnight_Die
-      yDeath=-6
+      yDeath=-(6 + (0.3/2) * ((1/gDeltaTime) - 1) )
     }
-    else if deathAnim>=2
+    else if deathAnim>1
     {
-      if oGame.time mod 3=0 {image_xscale*=-1}
+      if oGame.time mod (3/gDeltaTime)=0 {image_xscale*=-1}
       y+=yDeath*gDeltaTime
       if yDeath<12 {yDeath+=0.3*gDeltaTime}
       if y>room_height+24 {instance_destroy()}
