@@ -14,7 +14,7 @@ applies_to=self
 if gDeltaDoTicks != 1 { exit; }
 if global.gamePaused=false
 {
-  yVel+=0.3
+  yVel+=0.3*gDeltaTime
   if isCollisionBottom(1)
   {
     xVel=0
@@ -24,7 +24,7 @@ if global.gamePaused=false
     xVel*=-1
   if isCollisionRight(1)
     xVel*=-1
-  moveTo(xVel,yVel)
+  moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
 
   if isCollisionSolid()
     y-=2

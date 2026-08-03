@@ -607,7 +607,7 @@ if global.gamePaused=false
         }
       }
       if isCollisionSolid() {y-=2}
-      moveTo(xVel,yVel)
+      moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
     }
 
     if backGroundFlash>=1 and backGroundFlash<=99 //Normal background flash

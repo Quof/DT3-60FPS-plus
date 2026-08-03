@@ -62,7 +62,7 @@ if global.gamePaused=false
   {
     if appearIn=0
     {
-      heightDraw+=1
+      heightDraw+=1*gDeltaTime
       if heightDraw>=sprite_height
       {
         bCanTakeDamage=true
@@ -94,7 +94,7 @@ if global.gamePaused=false
       //Flipping transition
       if flipTransition>=1 and flipTransition<=50 //To ceiling
       {
-        flipTransition+=1
+        flipTransition+=1*gDeltaTime
         if flipTransition=20
         {
           setCollisionBounds(-30,0,30,47)
@@ -104,7 +104,7 @@ if global.gamePaused=false
       }
       else if flipTransition>=1001 and flipTransition<=1050 //To floor
       {
-        flipTransition+=1
+        flipTransition+=1*gDeltaTime
         if flipTransition=1020
         {
           setCollisionBounds(-30,-47,30,-1)
@@ -160,7 +160,7 @@ if global.gamePaused=false
       //---------- Flip if too much time has passed ----------
       if flipTransition=0
       {
-        flipTime+=1
+        flipTime+=1*gDeltaTime
         if flipTime>=300
         {
           if image_yscale=1 {flipTransition=1; gravAmt=-0.3}
@@ -170,7 +170,7 @@ if global.gamePaused=false
       }
 
       //---------- ATTACK: BOUNCE BULLETS ----------
-      shotTime+=1
+      shotTime+=1*gDeltaTime
       if shotTime>=shotDelay
       {
         var tNewAttack,tShotSpd;
@@ -193,7 +193,7 @@ if global.gamePaused=false
         shotTime=0
       }
 
-      yVel+=gravAmt
+      yVel+=gravAmt*gDeltaTime
       if isCollisionBottom(1)
       {
         if gravAmt>0 {yVel=0}
@@ -209,7 +209,7 @@ if global.gamePaused=false
         else {yVel=0}
       }
 
-      moveTo(xVel,yVel)
+      moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
       if isCollisionSolid() {y-=2}
       if y>room_height+24
       {
@@ -220,7 +220,8 @@ if global.gamePaused=false
   }
   else if life<=0
   {
-    deathAnim+=1
+    if deathAnim==0 {deathAnim=1-gDeltaTime}
+    deathAnim+=1*gDeltaTime
     if deathAnim mod 2=0
     {
       if deathAnim mod 4=0 {playSound(global.snd_BombExplode,0,0.85,1)}

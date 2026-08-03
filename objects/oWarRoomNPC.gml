@@ -26,7 +26,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  npcTime+=1
+  npcTime+=1*gDeltaTime
   if type=1 //------------------------------ Arthur ------------------------------
   {
     if npcTime=1
@@ -63,14 +63,14 @@ if global.gamePaused=false
     }
     else if npcTime>=2 and npcTime<=99 //Slam down
     {
-      if yVel<9 {yVel+=0.2}
+      if yVel<9 {yVel+=0.2*gDeltaTime}
       if isCollisionBottom(1) or isCollisionSolid()
       {
         xVel=0; yVel=0
         tAttack=instance_create(x,y,oBattletoadSmashwave)
         npcTime=100
       }
-      moveTo(xVel,yVel)
+      moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
     }
     else if npcTime=110 {sprite_index=sNPC_Battletoad_Idle; image_speed=0.12}
     else if npcTime=140 //Check if an enemy is close enough and kick
@@ -96,13 +96,13 @@ if global.gamePaused=false
     {
       if npcTime=504 {image_index=1}
       else if npcTime=508 {image_index=2}
-      yVel+=0.3
+      yVel+=0.3*gDeltaTime
       if isCollisionBottom(1) or isCollisionSolid()
       {
         sprite_index=sNPC_Battletoad_Idle; image_speed=0.12
         npcTime=1000
       }
-      moveTo(xVel,yVel)
+      moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
     }
     else if npcTime>=1025
     {
@@ -215,7 +215,7 @@ if global.gamePaused=false
       sprite_index=sNPC_Ristar_ShieldDance; image_speed=0.2
       oPlayer1.bCanTakeDamage=false
     }
-    else if npcTime>=16 and npcTime<=30 {barrierAlpha+=0.025}
+    else if npcTime>=16 and npcTime<=30 {barrierAlpha+=0.025*gDeltaTime}
     else if npcTime>=201 and npcTime<=299
     {
       barrierAlpha-=0.01
@@ -241,7 +241,7 @@ if global.gamePaused=false
     }
     else if npcTime>=2
     {
-      x+=9
+      x+=9*gDeltaTime
       var tEffect;
       tEffect=instance_create(x-11,y-14,oEffectB)
       tEffect.type=3; tEffect.sprite_index=sSamusSMissileEffect; tEffect.newBlend=-1;
@@ -267,14 +267,14 @@ if global.gamePaused=false
     }
     else if npcTime>=2 and npcTime<=99 //Slam down
     {
-      if yVel<9 {yVel+=0.2}
+      if yVel<9 {yVel+=0.2*gDeltaTime}
       if isCollisionBottom(1) or isCollisionSolid()
       {
         xVel=0; yVel=0
         sprite_index=sNPC_TheMaster_Idle
         npcTime=100
       }
-      moveTo(xVel,yVel)
+      moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
     }
     else if npcTime=110 {sprite_index=sNPC_TheMaster_SwordUp}
     else if npcTime=114 {image_index=1}

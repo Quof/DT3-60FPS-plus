@@ -70,7 +70,7 @@ if global.gamePaused=false
     life=myHead.life
     image_blend=myHead.image_blend
 
-    imageEffect+=1
+    imageEffect+=1*gDeltaTime
     if imageEffect mod 8=0
     {
       var tAfterI;
@@ -114,7 +114,7 @@ if global.gamePaused=false
 
     if defend>=1 //Defend
     {
-      defend+=1
+      defend+=1*gDeltaTime
       if defend=2 {sprite_index=sMO_Defend; image_index=0}
       else if defend=4 {image_index=1}
       else if defend=6 {image_index=2}
@@ -136,7 +136,7 @@ if global.gamePaused=false
 
     if scream>=1 //Scream
     {
-      scream+=1
+      scream+=1*gDeltaTime
       if scream=2 {sprite_index=sMO_Scream}
       else if scream>=5 and scream<=30
       {
@@ -193,8 +193,8 @@ if global.gamePaused=false
     
     if point_distance(x,y-32,oPlayer1.x,oPlayer1.y-26)>=144 and scream=0 and defend=0 {waitTime+=0.25} //Speed up attacks if player is too far
     
-    if scream=0 and defend=0 {waitTime+=1}
-    else {waitTime+=0.25}
+    if scream=0 and defend=0 {waitTime+=1*gDeltaTime}
+    else {waitTime+=0.25*gDeltaTime}
     
     if waitTime>=waitDelay and scream=0 and defend=0
     {
@@ -233,7 +233,7 @@ if global.gamePaused=false
       }
       else if actCheck=2 //---------- ATTACK: Jump and Dive ----------
       {
-        actTime+=1
+        actTime+=1*gDeltaTime
         if actTime=1
         {
           sprite_index=sMO_Jump; image_index=0
@@ -269,7 +269,7 @@ if global.gamePaused=false
       }
       else if actCheck=3 //---------- ATTACK: Cleaver ----------
       {
-        actTime+=1
+        actTime+=1*gDeltaTime
         if actTime=1 {sprite_index=sMO_CleaveReady}
         if actTime=10
         {
@@ -296,8 +296,8 @@ if global.gamePaused=false
         }
         else if actTime>=200 and actTime<=499
         {
-          if xVel>0.1 {xVel-=0.3}
-          else if xVel<-0.1 {xVel+=0.3}
+          if xVel>0.1 {xVel-=0.3*gDeltaTime}
+          else if xVel<-0.1 {xVel+=0.3*gDeltaTime}
           
           if xVel>-1 and xVel<1
           {
@@ -319,7 +319,7 @@ if global.gamePaused=false
         //Spark effect
         if xVel<-1.5 or xVel>1.5
         {
-          soundMod+=1
+          soundMod+=1*gDeltaTime
           if soundMod mod 30=0
           {
             playSound(global.snd_Spark,0,0.96,33000)
@@ -338,7 +338,7 @@ if global.gamePaused=false
       }
     }
     
-    yVel+=0.3
+    yVel+=0.3*gDeltaTime
     if isCollisionBottom(1)
     {
       if bJumpReady=0
@@ -365,7 +365,7 @@ if global.gamePaused=false
     if isCollisionSolid()
       y-=2
     
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
     
     if y>room_height+24
     {
@@ -375,7 +375,8 @@ if global.gamePaused=false
   }
   else if life<=0 or !instance_exists(myHead)
   {
-    deathAnim+=1
+    if deathAnim==0 {deathAnim=1-gDeltaTime}
+    deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
       if myShield!=-1

@@ -884,7 +884,7 @@ if maxSlope*abs(xVel)>0 and platformCharacterIs(ON_GROUND)
 else
 {
   //we simply move xVel and yVel while in the air or on a ladder
-  moveTo(xVel,yVel)
+  moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
 }
 //move the character downhill if possible
 //we need to multiply maxDownSlope by the absolute value of xVel since the character normally runs at an xVel larger than 1
