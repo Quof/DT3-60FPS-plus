@@ -24,7 +24,6 @@ if global.gamePaused=false
 {
   image_angle=_direction
   _speed=bulletSpeed
-  speed=0
   dist=point_distance(x,y,xstart,ystart)
   if dist>32
   {
@@ -43,7 +42,7 @@ if global.gamePaused=false
 
 }
 else
-  {speed=0; _speed=0}
+  {_speed=0}
 correctSpeedDirection(self)
 #define Other_0
 /*"/*'/**//* YYD ACTION

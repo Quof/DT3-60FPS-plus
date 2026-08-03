@@ -20,12 +20,12 @@ applies_to=self
 */
 if bSizeUp=false
 {
-  sizeMod-=0.0005
+  sizeMod-=0.0005*gDeltaTime
   if sizeMod<=0 {bSizeUp=true}
 }
 else
 {
-  sizeMod+=0.0005
+  sizeMod+=0.0005*gDeltaTime
   if sizeMod>=0.02 {bSizeUp=false}
 }
 

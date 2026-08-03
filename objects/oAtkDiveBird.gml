@@ -14,6 +14,9 @@ _speed=14
 stunTime=1
 bCanPierce=1
 _direction=0
+_speed=0
+_hspeed=0
+_vspeed=0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -23,7 +26,6 @@ applies_to=self
 event_inherited()
 if global.gamePaused=false
   {
-    //_speed=bulletSpeed
     _speed=bulletSpeed  }
 else
   _speed=0

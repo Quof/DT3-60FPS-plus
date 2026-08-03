@@ -15,7 +15,7 @@ applies_to=self
 if global.gamePaused=0
 {
   oPlayer1.yVel=-jumpBoost
-  jumpBoost-=1
-  decay-=1
+  jumpBoost-=1*gDeltaTime
+  decay-=1*gDeltaTime
   if decay<=0 {instance_destroy()}
 }

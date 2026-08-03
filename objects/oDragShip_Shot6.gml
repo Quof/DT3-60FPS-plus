@@ -19,7 +19,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  x+=bulletSpeed
+  x+=bulletSpeed*gDeltaTime
 }
 #define Other_0
 /*"/*'/**//* YYD ACTION

@@ -18,8 +18,10 @@ lib_id=1
 action_id=603
 applies_to=self
 */
+if gDeltaDoTicks{
+
 if pixelOffset=0 {pixelOffset=1}
-else {pixelOffset=0}
+else {pixelOffset=0}}
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

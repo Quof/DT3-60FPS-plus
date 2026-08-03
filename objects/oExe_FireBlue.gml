@@ -17,6 +17,11 @@ damageType="ELEMENTAL"
 bCanBeBlocked=1
 blockCost=100
 bParryOpp=1
+
+_direction=0
+_speed=0
+_hspeed=0
+_vspeed=0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

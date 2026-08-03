@@ -13,7 +13,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  delayTime-=1
+  delayTime-=1*gDeltaTime
   if delayTime=0
   {
     createEnemy(x,y,ceObject,ceQuest,ceEffect,ceActive)

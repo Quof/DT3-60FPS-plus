@@ -26,7 +26,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  loopTracking+=1
+  loopTracking+=1*gDeltaTime
   if loopTracking>=emSnd_loopFrm
   {
     var tDistCheck;
