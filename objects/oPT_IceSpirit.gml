@@ -129,7 +129,7 @@ if global.gamePaused=false
         var tEffect;
         tEffect=instance_create(x+random_range(-8,8),y+random_range(-14,22),oEffectB)
         tEffect.type=3; tEffect.sprite_index=sEfDiffusionParticle; tEffect.newBlend=-1; tEffect.image_alpha=0.75
-        tEffect.direction=random(360); tEffect.speed=random(1)+1; tEffect.friction=random(0.01)+0.01
+        tEffect._direction=random(360); tEffect.speed=random(1)+1; tEffect.friction=random(0.01)+0.01
         tEffect.fadeSpd=0.025; tEffect.AccelX=0; tEffect.AccelY=0; tEffect.followID=-1; tEffect.rotation=random_range(-3,3)
       }
 
@@ -148,7 +148,7 @@ if global.gamePaused=false
           for(i=0;i<triAtk;i+=1)
           {
             tNewAttack=instance_create(x-(11*image_xscale),y-45,oIceSpiritAtk)
-            tNewAttack.atkPower=atkPower; tNewAttack.decayTime=-100; tNewAttack.direction=tDir
+            tNewAttack.atkPower=atkPower; tNewAttack.decayTime=-100; tNewAttack._direction=tDir
             if triAtk=1 {tNewAttack.bulletSpeed=16}
             else if triAtk=3 {tNewAttack.bulletSpeed=12}
             tDir+=20

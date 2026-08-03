@@ -58,19 +58,19 @@ if global.gamePaused=false
     if bSlowed=1
     {
       xVel=(runAcc*image_xscale)/1.5
-      slowTime-=1
+      slowTime-=1*gDeltaTime
       if slowTime<=0 {bSlowed=0}
     }
     else {xVel=runAcc*image_xscale}
     xVel=xVel
 
-    yVel+=0.3
+    yVel+=0.3*gDeltaTime
     if isCollisionBottom(1)
       yVel=0
     if isCollisionSolid()
       y-=2
 
-    moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
     if y>room_height+24
       instance_destroy()
   }

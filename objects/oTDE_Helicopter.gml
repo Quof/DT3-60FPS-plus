@@ -25,6 +25,8 @@ dieEffect=0
 atkDefense=50
 stabilityDmg=1
 speedMod=1
+_direction=0
+_speed=0
 
 runAcc=2.05
 bSlowed=0
@@ -58,17 +60,18 @@ if global.gamePaused=false
 {
   if bActive=true and stunnedTime=0 and life>0
   {
-    if direction>=90 and direction<270 {image_xscale=-1}
+    _direction=abs(_direction) mod 360
+    if _direction>=90 and _direction<270 {image_xscale=-1}
     else {image_xscale=1}
 
     if bSlowed=1
     {
-      speed=runAcc/1.5
+      _speed=runAcc/1.5
       slowTime-=1
       if slowTime<=0 {bSlowed=0}
     }
-    else {speed=runAcc}
-    speed=speed
+    else {_speed=runAcc}
+    _speed=_speed
   }
   else if life<=0
   {
@@ -83,7 +86,10 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
-else {speed=0}
+else {_speed=0}
+
+x += cos(degtorad(_direction)) * _speed * gDeltaTime
+y -= sin(degtorad(_direction)) * _speed * gDeltaTime
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -91,5 +97,5 @@ action_id=603
 applies_to=self
 */
 event_inherited()
-bladeFrm+=0.25
+bladeFrm+=0.25*gDeltaTime
 draw_sprite_ext(sTDE_SH_Blades,bladeFrm,x+(8*image_xscale),y-23,image_xscale,image_yscale,image_angle,image_blend,image_alpha)

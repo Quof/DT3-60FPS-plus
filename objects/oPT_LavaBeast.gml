@@ -107,7 +107,7 @@ if global.gamePaused=false
     makeEnemyActive(1)
     if rising>=0 and rising<=99
     {
-      rising+=1
+      rising+=1*gDeltaTime
       if rising=1
       {
         var tEffect;

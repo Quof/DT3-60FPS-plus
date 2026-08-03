@@ -29,6 +29,8 @@ speedMod=1
 runAcc=2.2
 bSlowed=0
 slowTime=0
+_speed=0
+_direction=0
 
 jeremyText="Just use turrets on it."
 chaoText="N/A"
@@ -58,12 +60,12 @@ if global.gamePaused=false
   {
     if bSlowed=1
     {
-      speed=runAcc/1.5
+      _speed=runAcc/1.5
       slowTime-=1
       if slowTime<=0 {bSlowed=0}
     }
-    else {speed=runAcc}
-    speed=speed
+    else {_speed=runAcc}
+    _speed=_speed
   }
   else if life<=0
   {
@@ -76,4 +78,7 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
-else {speed=0}
+else {_speed=0}
+
+x += cos(degtorad(_direction)) * _speed * gDeltaTime
+y -= sin(degtorad(_direction)) * _speed * gDeltaTime
