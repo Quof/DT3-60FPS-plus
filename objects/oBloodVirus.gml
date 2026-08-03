@@ -124,7 +124,7 @@ if global.gamePaused=false
         _hspeed=currHspd; _vspeed=currVspd
       }
 
-      shotTime+=1
+      shotTime+=1*gDeltaTime
       if shotTime=shotDelay
       {
         for(i=0;i<16;i+=1)

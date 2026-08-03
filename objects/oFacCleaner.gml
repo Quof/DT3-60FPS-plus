@@ -65,7 +65,7 @@ if global.gamePaused=false
       image_xscale*=-1
       turnTime=0
     }
-    if shotTime<shotDelay {x+=runAcc*image_xscale}
+    if shotTime<shotDelay {x+=runAcc*image_xscale*gDeltaTime}
 
     if bInfected=1
     {
@@ -158,7 +158,7 @@ if bActive=true
 event_inherited()
 if shotTime>=shotDelay
 {
-  elecFrm+=0.4
+  elecFrm+=0.4*gDeltaTime
   draw_sprite_ext(sEfCleanBotElec,elecFrm,x,y,1,1,0,c_white,1)
   draw_sprite_ext(sEfCleanBotElec,elecFrm,x,y,1,1,90,c_white,1)
   draw_sprite_ext(sEfCleanBotElec,elecFrm,x,y,1,1,180,c_white,1)
