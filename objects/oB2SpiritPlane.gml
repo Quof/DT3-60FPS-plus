@@ -70,12 +70,12 @@ if global.gamePaused=false
       tNewAtk.atkPower=atkPower; tNewAtk.depth=26
       if image_xscale=1
       {
-        tNewAtk.direction=350
+        tNewAtk._direction=350
         tNewAtk.image_angle=350
       }
       else
       {
-        tNewAtk.direction=190
+        tNewAtk._direction=190
         tNewAtk.image_angle=190
       }
       tNewAtk.bulletSpeed=4

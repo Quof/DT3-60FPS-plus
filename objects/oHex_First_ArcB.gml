@@ -28,16 +28,11 @@ if global.gamePaused=false
   if type=0 //Arc shot
   {
     _speed=bulletSpeed
-    x += cos(degtorad(_direction)) * _speed * gDeltaTime
-    y -= sin(degtorad(_direction)) * _speed * gDeltaTime
   }
   else if type=1 //Fast shot
   {
     _speed=bulletSpeed
-    x += cos(degtorad(_direction)) * _speed * gDeltaTime
-    y -= sin(degtorad(_direction)) * _speed * gDeltaTime
     image_xscale+=0.05*gDeltaTime; image_yscale+=0.05*gDeltaTime
-
     explodeTime-=1*gDeltaTime
     if explodeTime<=0
     {
@@ -52,3 +47,6 @@ if global.gamePaused=false
   }
 }
 else {_speed=0}
+
+correctSpeedDirection(self)
+

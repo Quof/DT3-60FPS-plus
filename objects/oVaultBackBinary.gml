@@ -15,8 +15,9 @@ action_id=603
 applies_to=self
 */
 if checkScreenArea(x,y,32+string_width(binaryString)*2.5)=0 {instance_destroy()}
-x += cos(degtorad(_direction)) * _speed * gDeltaTime
-y -= sin(degtorad(_direction)) * _speed * gDeltaTime
+
+correctSpeedDirection(self)
+
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

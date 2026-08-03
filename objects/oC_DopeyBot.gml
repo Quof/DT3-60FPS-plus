@@ -71,7 +71,7 @@ if global.gamePaused=false
             {
               tNewAttack=instance_create(x,y,oPassBullet)
               tNewAttack.sprite_index=sC_SparkNeedle; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=6
-              tNewAttack.decayTime=-100; tNewAttack.direction=tDir
+              tNewAttack.decayTime=-100; tNewAttack._direction=tDir
               tDir+=7
             }
           }
@@ -105,8 +105,8 @@ if global.gamePaused=false
 }
 else {_speed=0}
 
-x += cos(degtorad(_direction)) * _speed * gDeltaTime
-y -= sin(degtorad(_direction)) * _speed * gDeltaTime
+correctSpeedDirection(self)
+
 #define Other_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

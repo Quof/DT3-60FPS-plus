@@ -33,7 +33,7 @@ if type=1 //Shotgun Ice Main
     tEffect.sprite_index=sMMshotgunIceEffect; tEffect.image_speed=0.5; tEffect.ySpd=1.5
     tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0
   }
-  speed=11
+  _speed=11
   image_angle-=10
 
   lifeTime-=1
@@ -43,7 +43,7 @@ if type=1 //Shotgun Ice Main
     for(i=0;i<3;i+=1)
     {
       playerAttack=instance_create(x-9,y,oEvCh8WepTest)
-      playerAttack.direction=tIceDir; playerAttack.image_xscale=-1
+      playerAttack._direction=tIceDir; playerAttack.image_xscale=-1
       playerAttack.type=2; playerAttack.sprite_index=sMMXshotgunIce2
       tIceDir+=45
     }
@@ -52,7 +52,7 @@ if type=1 //Shotgun Ice Main
 }
 else if type=2 //Shotgun Ice Break
 {
-  speed=11
+  _speed=11
   image_angle+=10
   lifeTime-=1
   if lifeTime=0 {instance_destroy()}
@@ -61,13 +61,15 @@ else if type=11 //Gravity Well
 {
   if gravityProg=0
   {
-    speed=4
+
+    _speed=4
     lifeTime-=1*gDeltaTime
+
     if lifeTime=0 {gravityProg=1}
   }
   else if gravityProg=1
   {
-    speed=0
+    _speed=0
     sprite_index=sMMXgravityWell3
     image_alpha=0.75
     lifeTime=30
@@ -96,6 +98,7 @@ else if type=21 //Strike Chain
   x=108+extend
   y=252
 }
+correctSpeedDirection(self)
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

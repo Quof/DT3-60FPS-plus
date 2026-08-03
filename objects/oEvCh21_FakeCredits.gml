@@ -45,6 +45,7 @@ if sceneProgress=0 //-------------------- Fake credits --------------------
     instance_destroy()
   }
 }
+correctSpeedDirection(self)
 #define Other_10
 /*"/*'/**//* YYD ACTION
 lib_id=1

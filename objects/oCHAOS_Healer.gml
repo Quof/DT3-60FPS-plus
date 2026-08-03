@@ -151,8 +151,8 @@ if global.gamePaused=false
 }
 else {_speed=0}
 
-x += cos(degtorad(_direction)) * _speed * gDeltaTime
-y -= sin(degtorad(_direction)) * _speed * gDeltaTime
+correctSpeedDirection(self)
+
 #define Other_10
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -234,7 +234,7 @@ else
   else {tMyAngle=180}
 }
 
-tarDirToPlayer=point_direction(tgtToUse.x,tgtToUse.y,oPlayer1.x,returnPlayerYCenter())+tMyAngle //Find direction to point
+tarDirToPlayer=point_direction(tgtToUse.x,tgtToUse.y,oPlayer1.x,returnPlayerYCenter())+tMyAngle //Find _direction to point
 tarDistToPlayer=208-point_distance(tgtToUse.x,tgtToUse.y,oPlayer1.x,returnPlayerYCenter()) //Find distance to point
 if tarDistToPlayer<56 {tarDistToPlayer=56} //Min dist
 //Find point x/y

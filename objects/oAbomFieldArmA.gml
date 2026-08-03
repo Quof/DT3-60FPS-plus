@@ -71,6 +71,7 @@ if global.gamePaused=false
     turn_toward_directionUnderscore(point_direction(x+lengthdir_x(44,22+image_angle),y+lengthdir_y(44,22+image_angle),oPlayer1.x,returnPlayerYCenter()),1)
     image_angle=_direction
     fireTime+=1*gDeltaTime
+
     if fireTime=fireDelay-20 //Attack warning
     {
       var tEffect;
@@ -95,6 +96,7 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
+correctSpeedDirection(self)
 #define Other_25
 /*"/*'/**//* YYD ACTION
 lib_id=1

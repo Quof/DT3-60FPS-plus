@@ -770,6 +770,7 @@ if life<=0 //-------------------- Defeat animation --------------------
     global.newMapX=2920; global.newMapY=224; room_goto(rBossGallery)
   }
 }
+correctSpeedDirection(self)
 #define Collision_oPlayer1
 /*"/*'/**//* YYD ACTION
 lib_id=1

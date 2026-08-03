@@ -3,4 +3,4 @@ shiftTime=0
 shiftMax=64
 moveSpd=2
 bShowLine=0
-direction=180
+_direction=180

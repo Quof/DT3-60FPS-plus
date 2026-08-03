@@ -26,14 +26,13 @@ if global.gamePaused=false
 {
   _speed=moveSpd
   if moveSpd<8 {moveSpd+=0.2*gDeltaTime}
-
   moveTime+=1*gDeltaTime
   if moveTime>=210 {instance_destroy()}
 }
 else {_speed=0}
 
-x += cos(degtorad(_direction)) * _speed * gDeltaTime
-y -= sin(degtorad(_direction)) * _speed * gDeltaTime
+correctSpeedDirection(self)
+
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

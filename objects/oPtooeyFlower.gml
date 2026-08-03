@@ -103,4 +103,4 @@ var tNewAttack;
 tNewAttack=instance_create(x,y-15,oPassBullet)
 tNewAttack.sprite_index=sPtooeySeed; tNewAttack.atkPower=atkPower
 tNewAttack.bulletSpeed=4; tNewAttack.decayTime=90
-tNewAttack.direction=point_direction(x,y-15,oPlayer1.x,returnPlayerYCenter())
+tNewAttack._direction=point_direction(x,y-15,oPlayer1.x,returnPlayerYCenter())

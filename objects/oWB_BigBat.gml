@@ -58,14 +58,14 @@ if global.gamePaused=false
 
         if point_distance(x,y,oPlayer1.x,returnPlayerYCenter())>128 //Far from player
         {
-          direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
-          speed=runAcc
+          _direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
+          _speed=runAcc
         }
         else if point_distance(x,y,oPlayer1.x,returnPlayerYCenter())<112 //Close to player
         {
           chargeTime+=0.5
-          direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())-180
-          speed=runAcc/1.5
+          _direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())-180
+          _speed=runAcc/1.5
         }
         else {chargeTime+=0.5}
 
@@ -73,7 +73,7 @@ if global.gamePaused=false
         {
           if point_distance(x,y,oPlayer1.x,returnPlayerYCenter())<192
           {
-            direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())-180
+            _direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())-180
             image_speed=0.5
             chargeTime=0
             chargeProg+=1
@@ -82,24 +82,24 @@ if global.gamePaused=false
       }
       else if chargeProg=1 //Wait time
       {
-        speed=runAcc/1.5
-        if chargeTime>=15 //Find direction to charge
+        _speed=runAcc/1.5
+        if chargeTime>=15 //Find _direction to charge
         {
           if random(10)>9.1
           {
             var newMessage;
             newMessage=instance_create(x-46,y-70,oEnemyChat)
             newMessage.enemyMessage="Run for the hills!"
-            direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())-180
+            _direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())-180
           }
-          else {direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())}
+          else {_direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())}
           chargeTime=0
           chargeProg+=1
         }
       }
       else if chargeProg=2 //Charge sting
       {
-        speed=runAcc*7
+        _speed=runAcc*7
         if chargeTime>=25
         {
           image_speed=0.1
@@ -109,7 +109,7 @@ if global.gamePaused=false
       }
     }
     else
-      speed=0
+      _speed=0
   }
   else if life<=0
   {
@@ -129,4 +129,5 @@ if global.gamePaused=false
   enemyStepEvent()
 }
 else
-  speed=0
+  _speed=0
+correctSpeedDirection(self)

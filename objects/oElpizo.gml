@@ -477,12 +477,10 @@ if global.gamePaused=false
           else {currVspd-=0.05*gDeltaTime}
         }
         _hspeed=currHspd; _vspeed=currVspd
-        x += _hspeed * gDeltaTime
-        y += _vspeed * gDeltaTime
 
         if specHP<=0 //End desperation attack
         {
-          hspeed=0; vspeed=0
+          _hspeed=0; _vspeed=0
           xVel=0
           with oElpizoSpecBall {instance_destroy()}
           with oAuraSnake {instance_destroy()}
@@ -737,6 +735,9 @@ if global.gamePaused=false
   enemyStepEvent()
 }
 else {_hspeed=0; _vspeed=0}
+
+correctHSpeedVSpeed(self)
+
 #define Other_10
 /*"/*'/**//* YYD ACTION
 lib_id=1

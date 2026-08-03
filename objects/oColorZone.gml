@@ -55,7 +55,7 @@ if global.gamePaused=false
   if moveSpd>0
   {
     _speed=moveSpd
-    speed=0
+    _speed=0
     moveTime+=1*gDeltaTime
     if moveTime>=moveDelay
     {
@@ -66,7 +66,8 @@ if global.gamePaused=false
     y -= sin(degtorad(_direction)) * _speed *gDeltaTime
   }
 }
-else {speed=0; _speed=0}
+else {_speed=0; _speed=0}
+correctSpeedDirection(self)
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

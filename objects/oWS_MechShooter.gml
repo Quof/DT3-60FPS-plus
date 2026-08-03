@@ -43,7 +43,7 @@ for(i=0;i<3;i+=1)
 {
   tNewAttack=instance_create(x+(8*image_xscale),y-18,oWS_QuadBullet)
   tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5; tNewAttack.decayTime=70
-  tNewAttack.direction=tDir
+  tNewAttack._direction=tDir
   tDir+=5
 }
 #define Alarm_0

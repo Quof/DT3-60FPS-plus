@@ -82,6 +82,7 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
+correctSpeedDirection(self)
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -89,4 +90,4 @@ action_id=603
 applies_to=self
 */
 event_inherited()
-if hoodFrame>-1 {draw_sprite_ext(sJunkCarHood,hoodFrame,x,y,image_xscale,image_yscale,direction,image_blend,image_alpha)}
+if hoodFrame>-1 {draw_sprite_ext(sJunkCarHood,hoodFrame,x,y,image_xscale,image_yscale,_direction,image_blend,image_alpha)}

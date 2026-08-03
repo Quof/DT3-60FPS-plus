@@ -93,6 +93,7 @@ if global.gamePaused=false
     }
   }
 }
+correctSpeedDirection(self)
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

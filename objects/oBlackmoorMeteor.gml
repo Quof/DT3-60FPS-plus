@@ -24,9 +24,6 @@ if global.gamePaused=false
 {
   _speed=bulletSpeed
   image_angle+=15*gDeltaTime
-  x += cos(degtorad(_direction)) * _speed * gDeltaTime
-  y -= sin(degtorad(_direction)) * _speed * gDeltaTime
-
   if y>=oBlackmoorMain.yGround
   {
     playSound(global.snd_OrbThrow,0,0.88,49000)
@@ -36,3 +33,7 @@ if global.gamePaused=false
   }
 }
 else {_speed=0}
+
+
+correctSpeedDirection(self)
+

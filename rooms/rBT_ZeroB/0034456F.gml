@@ -1,2 +1,2 @@
-direction=90
+_direction=90
 mySpd=0

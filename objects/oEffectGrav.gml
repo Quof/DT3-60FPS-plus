@@ -36,8 +36,9 @@ else if type=2
     instance_destroy()
 }
 
-x += _hspeed * gDeltaTime
-y += _vspeed * gDeltaTime
+correctHSpeedVSpeed(self)
+
+
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

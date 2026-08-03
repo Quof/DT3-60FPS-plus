@@ -229,7 +229,7 @@ if global.gamePaused=false
     }
   }
 }
-else {speed=0; _speed=0}
+else {_speed=0; _speed=0}
 
 if bSpotted=0
 {
@@ -242,6 +242,7 @@ if bSpotted=0
 
 //if gDeltaDoTicks
     image_index += imagespeed*gDeltaTime
+correctSpeedDirection(self)
 #define Other_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

@@ -38,7 +38,7 @@ if global.gamePaused=false
 {
   if place_meeting(x,y,oNightmareEffect) {bulletSpeed=12}
   else {bulletSpeed=24}
-  speed=bulletSpeed
+  _speed=bulletSpeed
   if x<view_xview[0]
     instance_destroy()
   if x>view_xview[0]+view_wview[0]
@@ -57,7 +57,8 @@ if global.gamePaused=false
     instance_destroy()
 }
 else
-  speed=0
+  _speed=0
+correctSpeedDirection(self)
 #define Other_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

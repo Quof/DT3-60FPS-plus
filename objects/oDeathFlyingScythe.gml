@@ -48,7 +48,7 @@ if global.gamePaused=false
   }
   else if atkProg=1
   {
-    speed=0
+    _speed=0
     _speed=bulletSpeed
     x += cos(degtorad(_direction)) * _speed *gDeltaTime
     y -= sin(degtorad(_direction)) * _speed *gDeltaTime
@@ -57,7 +57,8 @@ if global.gamePaused=false
     if decayTime<=0 {instance_destroy()}
   }
 }
-else {speed=0; _speed=0}
+else {_speed=0; _speed=0}
+correctSpeedDirection(self)
 #define Other_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

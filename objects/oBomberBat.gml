@@ -51,6 +51,7 @@ if global.gamePaused=false
 
     _speed=moveSpd
     turnTime+=1*gDeltaTime
+
     if turnTime>=turnDelay
     {
       turnNum+=1
@@ -73,8 +74,9 @@ if global.gamePaused=false
 }
 else {_speed=0}
 
-x += cos(degtorad(_direction)) * _speed * gDeltaTime
-y -= sin(degtorad(_direction)) * _speed * gDeltaTime
+
+correctSpeedDirection(self)
+
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

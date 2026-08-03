@@ -16,7 +16,7 @@ atkPower=2
 bNoBonus=true
 hitOneTime=0
 
-direction=point_direction(x,y,oPlayer1.x,oPlayer1.y-26)
+_direction=point_direction(x,y,oPlayer1.x,oPlayer1.y-26)
 _direction=point_direction(x,y,oPlayer1.x,oPlayer1.y-26)
 
 jeremyText="Just a basic Virus instance without a host. It simply tries to go in your initial direction."
@@ -53,7 +53,8 @@ if global.gamePaused=false
     instance_destroy()
 }
 else
-  {speed=0; _speed=0}
+  {_speed=0; _speed=0}
+correctSpeedDirection(self)
 #define Collision_oPlayer1
 /*"/*'/**//* YYD ACTION
 lib_id=1

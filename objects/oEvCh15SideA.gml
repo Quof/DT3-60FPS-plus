@@ -60,7 +60,7 @@ if global.gamePaused=false
       {
         var tFESpawn;
         tFESpawn=instance_create(1392,room_height+48,oG6_FireCaveFEAtk)
-        tFESpawn.moveSpd=7; tFESpawn.direction=92
+        tFESpawn.moveSpd=7; tFESpawn._direction=92
         sceneProgress+=1
       }
     }
@@ -70,7 +70,7 @@ if global.gamePaused=false
       {
         var tFESpawn;
         tFESpawn=instance_create(2160,room_height+48,oG6_FireCaveFEAtk)
-        tFESpawn.moveSpd=7; tFESpawn.direction=92
+        tFESpawn.moveSpd=7; tFESpawn._direction=92
         sceneProgress+=1
       }
     }
@@ -80,7 +80,7 @@ if global.gamePaused=false
       {
         var tFESpawn;
         tFESpawn=instance_create(3056,room_height+48,oG6_FireCaveFEAtk)
-        tFESpawn.moveSpd=7; tFESpawn.direction=92
+        tFESpawn.moveSpd=7; tFESpawn._direction=92
         sceneProgress+=1
       }
     }
@@ -93,7 +93,7 @@ if global.gamePaused=false
       {
         var tFESpawn;
         tFESpawn=instance_create(832,room_height+48,oG6_FireCaveFEAtk)
-        tFESpawn.moveSpd=7; tFESpawn.direction=92
+        tFESpawn.moveSpd=7; tFESpawn._direction=92
         sceneProgress+=1
       }
     }
@@ -103,7 +103,7 @@ if global.gamePaused=false
       {
         var tFESpawn;
         tFESpawn=instance_create(1264,room_height+48,oG6_FireCaveFEAtk)
-        tFESpawn.moveSpd=7; tFESpawn.direction=92
+        tFESpawn.moveSpd=7; tFESpawn._direction=92
         sceneProgress+=1
       }
     }
@@ -116,7 +116,7 @@ if global.gamePaused=false
       {
         var tFESpawn;
         tFESpawn=instance_create(1760,room_height+48,oG6_FireCaveFEAtk)
-        tFESpawn.moveSpd=7; tFESpawn.direction=92
+        tFESpawn.moveSpd=7; tFESpawn._direction=92
         sceneProgress+=1
       }
     }

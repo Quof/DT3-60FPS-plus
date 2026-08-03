@@ -60,14 +60,12 @@ if global.gamePaused=false
   if bActive=true and stunnedTime=0
   {
     lightFrm+=0.15*gDeltaTime
-
-    x+=moveSpd*gDeltaTime*cos(degtorad(direction))
-    y-=moveSpd*gDeltaTime*sin(degtorad(direction))
-    direction-=moveArc*gDeltaTime
+    _direction-=moveArc*gDeltaTime
   }
   enemyStepEvent()
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)
 #define Collision_oPlayer1
 /*"/*'/**//* YYD ACTION
 lib_id=1

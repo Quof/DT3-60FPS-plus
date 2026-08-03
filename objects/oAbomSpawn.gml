@@ -115,6 +115,5 @@ else
   _hspeed=0
   _vspeed=0
 }
+correctHSpeedVSpeed(self)
 
-x += _hspeed * gDeltaTime
-y += _vspeed * gDeltaTime

@@ -13,7 +13,8 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-image_angle=direction
+image_angle=_direction
 image_alpha-=fadeSpd*gDeltaTime
 if image_alpha<=0
   instance_destroy()
+correctSpeedDirection(self)

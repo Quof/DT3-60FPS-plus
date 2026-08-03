@@ -123,9 +123,9 @@ if global.gamePaused=false
     newSpeed=tempXvel+tempYvel
     if newSpeed>maxVelocity
       newSpeed=maxVelocity
-    speed=newSpeed
+    _speed=newSpeed
     myDir=point_direction(x,y,oPlayer1.x,oPlayer1.y-26)
-    direction=myDir
+    _direction=myDir
 
     //boomerang caught
     myDist=point_distance(x,y,oPlayer1.x,oPlayer1.y-26)
@@ -139,4 +139,5 @@ if global.gamePaused=false
   }
 }
 else
-  speed=0
+  _speed=0
+correctSpeedDirection(self)

@@ -74,6 +74,7 @@ if global.gamePaused=false
     if lifeTime=0 {instance_destroy()}
   }
 }
+correctSpeedDirection(self)
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

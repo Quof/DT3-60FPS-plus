@@ -29,17 +29,17 @@ if global.gamePaused=false
 {
   _speed=bulletSpeed
   image_angle=_direction
+
   atkProg+=1*gDeltaTime
+
   if atkProg>=targetTime
   {
     if room=rBubbleTowerA7 and gDeltaDoTicks
     {
       var tEffect;
       tEffect=instance_create(x,y,oEffect)
-      tEffect.sprite_index=sSamusMissileEffect; tEffect.image_speed=0.25;
-      tEffect.xSpd=cos(degtorad(_direction)); tEffect.ySpd=-sin(degtorad(_direction));
-      tEffect._direction=(_direction mod 360)
-      tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100;
+      tEffect.sprite_index=sSamusMissileEffect; tEffect.image_speed=0.25; tEffect.speed=1; tEffect.direction=_direction-180
+      tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
     }
     else
     {
@@ -47,10 +47,8 @@ if global.gamePaused=false
       {
         var tEffect;
         tEffect=instance_create(x,y,oEffect)
-        tEffect.sprite_index=sSamusMissileEffect; tEffect.image_speed=0.5;
-        tEffect.xSpd=cos(degtorad(_direction)); tEffect.ySpd=-sin(degtorad(_direction))
-        tEffect._direction=(_direction mod 360)
-        tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100;
+        tEffect.sprite_index=sSamusMissileEffect; tEffect.image_speed=0.5; tEffect.speed=1; tEffect.direction=_direction-180
+        tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
       }
     }
 
@@ -93,10 +91,8 @@ else
   _speed=0
 
 
+correctSpeedDirection(self)
 
-x += cos(degtorad(_direction)) * _speed * gDeltaTime
-y -= sin(degtorad(_direction)) * _speed * gDeltaTime
-/*if gDeltaDoTicks*/
 #define Collision_oPlayer1
 /*"/*'/**//* YYD ACTION
 lib_id=1

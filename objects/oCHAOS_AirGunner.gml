@@ -73,16 +73,16 @@ if global.gamePaused=false
       //Movement
       if point_distance(x,0,oPlayer1.x,0)<82
       {
-        if image_xscale=1 {direction=180}
-        else {direction=0}
-        speed=runAcc/1.5
+        if image_xscale=1 {_direction=180}
+        else {_direction=0}
+        _speed=runAcc/1.5
       }
-      else if point_distance(x,0,oPlayer1.x,0)>74 and point_distance(x,0,oPlayer1.x,0)<80 {speed=0}
+      else if point_distance(x,0,oPlayer1.x,0)>74 and point_distance(x,0,oPlayer1.x,0)<80 {_speed=0}
       else
       {
-        if image_xscale=1 {direction=0}
-        else {direction=180}
-        speed=runAcc
+        if image_xscale=1 {_direction=0}
+        else {_direction=180}
+        _speed=runAcc
       }
       //Attack
       gunShot+=1*gDeltaTime
@@ -138,4 +138,5 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)

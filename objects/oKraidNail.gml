@@ -31,11 +31,12 @@ if global.gamePaused=false
   }
 
   _speed=bulletSpeed
-  x += cos(degtorad(_direction)) * _speed * gDeltaTime
-  y -= sin(degtorad(_direction)) * _speed * gDeltaTime
   image_angle-=15*gDeltaTime
 }
 else {_speed=0}
+
+correctSpeedDirection(self)
+
 #define Collision_oAttackBase
 /*"/*'/**//* YYD ACTION
 lib_id=1

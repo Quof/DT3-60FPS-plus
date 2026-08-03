@@ -729,6 +729,7 @@ if life<=0 //-------------------- Defeat animation --------------------
     y=-64
   }
 }
+correctSpeedDirection(self)
 #define Collision_oPlayer1
 /*"/*'/**//* YYD ACTION
 lib_id=1

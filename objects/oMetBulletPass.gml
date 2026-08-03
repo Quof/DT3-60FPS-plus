@@ -30,8 +30,6 @@ if global.gamePaused=false
   }
 
   _speed=bulletSpeed
-  x += cos(degtorad(_direction)) * _speed * gDeltaTime
-  y -= sin(degtorad(_direction)) * _speed * gDeltaTime
   if sprite_index=sRidleyFireball
   {
     image_xscale+=0.01*gDeltaTime; image_yscale+=0.01*gDeltaTime
@@ -39,6 +37,9 @@ if global.gamePaused=false
   }
 }
 else {_speed=0}
+
+correctSpeedDirection(self)
+
 #define Collision_oAttackBase
 /*"/*'/**//* YYD ACTION
 lib_id=1

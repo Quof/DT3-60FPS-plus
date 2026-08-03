@@ -154,7 +154,7 @@ if global.gamePaused=false
     else if progTime=400
     {
       sprite_index=sNPC_JohnBattle_Bottom
-      direction=0
+      _direction=0
       progTime=0; progress=5
     }
   }
@@ -202,6 +202,7 @@ if global.gamePaused=false
   if gDeltaDoTicks and keyPadAlpha=0.4 {keyPadAlpha=0.5}
   else if gDeltaDoTicks {keyPadAlpha=0.4}
 }
+correctSpeedDirection(self)
 #define Collision_oPassBullet
 /*"/*'/**//* YYD ACTION
 lib_id=1

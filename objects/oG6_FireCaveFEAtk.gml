@@ -19,7 +19,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  speed=moveSpd
+  _speed=moveSpd
   fireDelay+=1
   if fireDelay>=22
   {
@@ -32,10 +32,11 @@ if global.gamePaused=false
       tNewAttack=instance_create(x,y,oPassBullet)
       tNewAttack.sprite_index=sPT_FE_Fireball; tNewAttack.atkPower=atkPower; tNewAttack.decayTime=-100
       tNewAttack.bCanBeBlocked=1; tNewAttack.blockCost=300; tNewAttack.bParryOpp=1; tNewAttack.damageType="ELEMENTAL"
-      tNewAttack.direction=tDir; tNewAttack.depth=9; tNewAttack.bulletSpeed=5; tNewAttack.image_speed=0.33
+      tNewAttack._direction=tDir; tNewAttack.depth=9; tNewAttack.bulletSpeed=5; tNewAttack.image_speed=0.33
       tDir+=360/atkAmt
     }
     fireDelay=0
   }
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)

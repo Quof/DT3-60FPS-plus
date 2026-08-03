@@ -40,9 +40,6 @@ if global.gamePaused=false
     else {bulletSpeed=4}
 
     _speed=bulletSpeed
-    x += cos(degtorad(_direction)) * _speed * gDeltaTime
-    y -= sin(degtorad(_direction)) * _speed * gDeltaTime
-
     if checkScreenArea(x,y,48)=0 {instance_destroy()}
 
     if isCollisionLeft(1) {gravityProg=1}
@@ -68,6 +65,9 @@ if global.gamePaused=false
   }
 }
 else {_speed=0}
+
+correctSpeedDirection(self)
+
 #define Collision_oEnemyBase
 /*"/*'/**//* YYD ACTION
 lib_id=1

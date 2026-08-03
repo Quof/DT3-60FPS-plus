@@ -32,7 +32,7 @@ if global.gamePaused=false
       {
         var myTarget;
         myTarget=instance_nearest(x,y,oCHAOS_Assault)
-        tNewBullet.direction=point_direction(x,y,myTarget.x,myTarget.y)
+        tNewBullet._direction=point_direction(x,y,myTarget.x,myTarget.y)
       }
       shotDelay=0
     }

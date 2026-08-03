@@ -205,10 +205,10 @@ if global.gamePaused=false
           tDir=point_direction(x-39,y,oPlayer1.x,oPlayer1.y)
           tAtk=instance_create(x-79,y-32,oPassBullet)
           tAtk.sprite_index=sFSPlasmaShot; tAtk.atkPower=atkPower; tAtk.bulletSpeed=4
-          tAtk.decayTime=-100; tAtk.direction=tDir; tAtk.image_angle=tDir; tAtk.image_speed=0.33
+          tAtk.decayTime=-100; tAtk._direction=tDir; tAtk.image_angle=tDir; tAtk.image_speed=0.33
           tAtk=instance_create(x-79,y+32,oPassBullet)
           tAtk.sprite_index=sFSPlasmaShot; tAtk.atkPower=atkPower; tAtk.bulletSpeed=4
-          tAtk.decayTime=-100; tAtk.direction=tDir; tAtk.image_angle=tDir; tAtk.image_speed=0.33
+          tAtk.decayTime=-100; tAtk._direction=tDir; tAtk.image_angle=tDir; tAtk.image_speed=0.33
         }
 
         atkTimeB+=1
@@ -403,6 +403,9 @@ if global.gamePaused=false
   enemyStepEvent()
 }
 else {path_speed=0; _speed=0}
+
+correctSpeedDirection(self)
+
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

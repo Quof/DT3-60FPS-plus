@@ -71,7 +71,8 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)
 #define Collision_oSolid
 /*"/*'/**//* YYD ACTION
 lib_id=1

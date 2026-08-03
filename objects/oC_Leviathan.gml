@@ -212,7 +212,7 @@ if global.gamePaused=false
       if moveTime mod 65=0
       {
         var tNewAttack,tDir;
-        tDir=direction=point_direction(x+820,y+70,oPlayer1.x,oPlayer1.y-26)
+        tDir=_direction=point_direction(x+820,y+70,oPlayer1.x,oPlayer1.y-26)
         for(i=0;i<20;i+=1)
         {
           tNewAttack=instance_create(x+820,y+70,oPassBullet)
@@ -301,3 +301,4 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
+correctSpeedDirection(self)

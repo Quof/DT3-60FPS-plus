@@ -86,7 +86,9 @@ if global.gamePaused=false
       centerY=y+lengthdir_y(splittingDist,angleDiff-180)
       _speed=4
       _direction=angleDiff
+
       splittingDist+=4*gDeltaTime
+
       if splittingDist>=96
       {
         bCanTakeDamage=1
@@ -137,8 +139,8 @@ else
   _speed=0
 }
 
-x += cos(degtorad(_direction)) * _speed * gDeltaTime
-y -= sin(degtorad(_direction)) * _speed * gDeltaTime
+correctSpeedDirection(self)
+
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

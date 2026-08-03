@@ -194,7 +194,7 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
-else {speed=0; _speed=0}
+else {_speed=0; _speed=0}
 
 if bSpotted=0
 {
@@ -204,6 +204,7 @@ if bSpotted=0
     bSpotted=1
   }
 }
+correctSpeedDirection(self)
 #define Other_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

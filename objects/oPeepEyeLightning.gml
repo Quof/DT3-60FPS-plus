@@ -53,4 +53,5 @@ if global.gamePaused=false
     }
   }
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)

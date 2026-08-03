@@ -118,6 +118,7 @@ if global.gamePaused=false
 }
 else
 {
-  hspeed=0
-  vspeed=0
+  _hspeed=0
+  _vspeed=0
 }
+correctHSpeedVSpeed(self)

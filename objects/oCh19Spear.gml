@@ -21,7 +21,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  speed=moveSpeed
+  _speed=moveSpeed
 
   if isCollisionTop(1) {hitWall=1}
   if isCollisionBottom(1) {hitWall=2}
@@ -38,4 +38,5 @@ if global.gamePaused=false
     instance_destroy()
   }
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)

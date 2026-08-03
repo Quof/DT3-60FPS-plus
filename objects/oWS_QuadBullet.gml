@@ -28,6 +28,8 @@ if global.gamePaused=false
   image_angle+=15*gDeltaTime
 }
 else {_speed=0}
+correctSpeedDirection(self)
+
 #define Other_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

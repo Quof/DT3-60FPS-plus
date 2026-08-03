@@ -4,10 +4,10 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-hspeed=random_range(-1,1)*gDeltaTime
-vspeed=random_range(1,2)*gDeltaTime
-image_speed=0.2*gDeltaTime+(vspeed/10)
-if hspeed<0
+_hspeed=random_range(-1,1)*gDeltaTime
+_vspeed=random_range(1,2)*gDeltaTime
+image_speed=0.2*gDeltaTime+(_vspeed/10)
+if _hspeed<0
   image_xscale=-1
 #define Step_0
 /*"/*'/**//* YYD ACTION
@@ -21,3 +21,4 @@ else if x>=room_width+16
   instance_destroy()
 else if y>=room_height+16
   instance_destroy()
+correctHSpeedVSpeed(self)

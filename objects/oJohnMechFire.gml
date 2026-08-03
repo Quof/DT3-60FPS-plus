@@ -28,6 +28,4 @@ if global.gamePaused=false
   if lifeTime<=0 {instance_destroy()}
 }
 else {_speed=0}
-
-x += cos(degtorad(_direction)) * _speed * gDeltaTime
-y -= sin(degtorad(_direction)) * _speed * gDeltaTime
+correctSpeedDirection(self)

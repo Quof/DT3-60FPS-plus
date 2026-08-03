@@ -43,6 +43,6 @@ else
 
 tNewAttack=instance_create(other.x,other.y,oPassBullet)
 tNewAttack.sprite_index=other.sprite_index; tNewAttack.atkPower=4
-tNewAttack.bulletSpeed=15; tNewAttack.decayTime=-100; tNewAttack.direction=tPDirChk
+tNewAttack.bulletSpeed=15; tNewAttack.decayTime=-100; tNewAttack._direction=tPDirChk
 
 with other {instance_destroy()}

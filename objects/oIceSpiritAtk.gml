@@ -28,7 +28,9 @@ applies_to=self
 if global.gamePaused=false
 {
   image_angle=_direction+45
+
   formTime+=1*gDeltaTime
+
   if formTime=1 {playSound(global.snd_Magic,0,0.9,27000)}
   else if formTime=25 {playSound(global.snd_LightballSpread,0,0.9,27000)}
 
@@ -55,8 +57,8 @@ if global.gamePaused=false
 }
 else {_speed=0}
 
-x += cos(degtorad(_direction)) * _speed * gDeltaTime
-y -= sin(degtorad(_direction)) * _speed * gDeltaTime
+correctSpeedDirection(self)
+
 #define Other_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

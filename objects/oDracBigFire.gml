@@ -39,12 +39,11 @@ if global.gamePaused=false
     image_angle+=rotSpd*gDeltaTime
   else
     image_angle-=rotSpd*gDeltaTime
-    speed=0
-    x += cos(degtorad(_direction)) * _speed *gDeltaTime
-    y -= sin(degtorad(_direction)) * _speed *gDeltaTime
+    _speed=0
 }
 else
-  {speed=0; _speed=0}
+  {_speed=0; _speed=0}
+correctSpeedDirection(self)
 #define Other_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

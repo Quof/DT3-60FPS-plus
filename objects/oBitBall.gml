@@ -31,9 +31,6 @@ if global.gamePaused=false
   }
 
   _speed=bulletSpeed
-  x += cos(degtorad(_direction)) * _speed * gDeltaTime
-  y -= sin(degtorad(_direction)) * _speed * gDeltaTime
-
   diff=angle_difference(_direction,point_direction(x,y,oPlayer1.x,returnPlayerYCenter()))
   if diff<20 and diff>-20
   {
@@ -50,5 +47,6 @@ if global.gamePaused=false
   atkProg+=1*gDeltaTime
   if atkProg>=decayTime {instance_destroy()}
 }
-else
-  {speed=0; _speed=0}
+else _speed=0
+
+correctSpeedDirection(self)

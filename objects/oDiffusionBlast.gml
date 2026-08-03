@@ -38,11 +38,11 @@ if global.gamePaused=false
       tEffect=instance_create(x,y,oEffectC)
       tEffect.sprite_index=sEfDiffusionParticle; tEffect.image_speed=0.5; tEffect.depth=6; tEffect.newBlend=-1; tEffect.followID=-1
       tEffect.rotation=0; tEffect.moveArc=6; tEffect.fadeSpd=0.05; tEffect.scaleSpd=0
-      tEffect.speed=3; tEffect.direction=90*(i+1)
+      tEffect._speed=3; tEffect._direction=90*(i+1)
       tEffect=instance_create(x,y,oEffectC)
       tEffect.sprite_index=sEfDiffusionParticle; tEffect.image_speed=0.5; tEffect.depth=6; tEffect.newBlend=-1; tEffect.followID=-1
       tEffect.rotation=0; tEffect.moveArc=-6; tEffect.fadeSpd=0.05; tEffect.scaleSpd=0
-      tEffect.speed=3; tEffect.direction=270-(90*i)
+      tEffect._speed=3; tEffect._direction=270-(90*i)
     }
 
     atkPower=75+(global.stSamus_Missile[0]*2)+global.skillTree[13]
@@ -62,6 +62,7 @@ if global.gamePaused=false
     else if blastDamage=25 {instance_destroy()}
   }
 }
+correctSpeedDirection(self)
 #define Collision_oDamagableBase
 /*"/*'/**//* YYD ACTION
 lib_id=1

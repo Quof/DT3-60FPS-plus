@@ -47,11 +47,12 @@ if global.gamePaused=false
   {
     if bulletSpeed<8 {bulletSpeed+=0.1*gDeltaTime}
     _speed=bulletSpeed
-    x += cos(degtorad(_direction)) * _speed * gDeltaTime
-    y -= sin(degtorad(_direction)) * _speed * gDeltaTime
   }
 }
+
 else {_speed=0}
+correctSpeedDirection(self)
+
 #define Other_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

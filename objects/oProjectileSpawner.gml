@@ -11,7 +11,7 @@ spriteUseN - Sprite to use
 shootTimeN - Start time
 shootDelayN - Shoot delay
 atkPowerN - Attack power
-dirN - Attack direction
+dirN - Attack _direction
 bulletSpeedN - Bullet speed
 */
 
@@ -70,3 +70,4 @@ if global.gamePaused=false
     shootTime=0
   }
 }
+correctSpeedDirection(self)

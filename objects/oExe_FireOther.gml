@@ -22,4 +22,8 @@ action_id=603
 applies_to=self
 */
 event_inherited()
+
 image_angle-=15*gDeltaTime
+
+correctSpeedDirection(self)
+

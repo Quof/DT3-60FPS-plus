@@ -31,6 +31,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
+
   image_angle-=15*gDeltaTime
   _direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
   _speed=mySpeed
@@ -49,8 +50,8 @@ if global.gamePaused=false
 }
 else {_speed=0}
 
-x += cos(degtorad(_direction)) * _speed * gDeltaTime
-y -= sin(degtorad(_direction)) * _speed * gDeltaTime
+correctSpeedDirection(self)
+
 #define Collision_oPlayer1
 /*"/*'/**//* YYD ACTION
 lib_id=1

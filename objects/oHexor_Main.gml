@@ -166,8 +166,6 @@ if global.gamePaused=false
       {
         _direction=point_direction(x,y,toPointX,toPointY)
         _speed=4
-        x += cos(degtorad(_direction)) * _speed * gDeltaTime
-        y -= sin(degtorad(_direction)) * _speed * gDeltaTime
         if point_distance(x,y,toPointX,toPointY)<=8
         {
           x=toPointX; y=toPointY
@@ -179,8 +177,6 @@ if global.gamePaused=false
     {
       _direction=point_direction(x,y,toPointX,toPointY)
       _speed=4
-      x += cos(degtorad(_direction)) * _speed * gDeltaTime
-      y -= sin(degtorad(_direction)) * _speed * gDeltaTime
       if point_distance(x,y,toPointX,toPointY)<=8
       {
         x=toPointX; y=toPointY
@@ -200,8 +196,6 @@ if global.gamePaused=false
       {
         _direction=point_direction(x,y,toPointX,toPointY)
         _speed=4
-        x += cos(degtorad(_direction)) * _speed * gDeltaTime
-        y -= sin(degtorad(_direction)) * _speed * gDeltaTime
         if point_distance(x,y,toPointX,toPointY)<=8
         {
           x=toPointX; y=toPointY
@@ -1028,6 +1022,7 @@ else
 {
   _speed=0
 }
+correctSpeedDirection(self)
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

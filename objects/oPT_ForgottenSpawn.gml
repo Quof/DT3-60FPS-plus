@@ -74,7 +74,6 @@ if global.gamePaused=false
 {
   _speed=moveSpd
   image_angle=_direction
-
   if bActive=true and life>0
   {
     diff=angle_difference(image_angle,player_sprite_center())
@@ -108,5 +107,5 @@ if global.gamePaused=false
 }
 else {_speed=0}
 
-x += cos(degtorad(_direction)) * _speed * gDeltaTime
-y -= sin(degtorad(_direction)) * _speed * gDeltaTime
+correctSpeedDirection(self)
+

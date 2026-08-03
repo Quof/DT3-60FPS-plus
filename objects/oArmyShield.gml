@@ -25,6 +25,7 @@ if global.gamePaused=false
   x=oArmyEye.x+lengthdir_x(shieldDist,_direction)
   y=oArmyEye.y-16+lengthdir_y(shieldDist,_direction)
 }
+correctSpeedDirection(self)
 #define Collision_oAttackBase
 /*"/*'/**//* YYD ACTION
 lib_id=1

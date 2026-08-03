@@ -38,16 +38,17 @@ if global.gamePaused=false
     {
       image_blend=c_white
       bCanDealDamage=true
-      direction=point_direction(x,y,oPlayer1.x,oPlayer1.y-32)
+      _direction=point_direction(x,y,oPlayer1.x,oPlayer1.y-32)
       atkTime=0; atkProg=1
     }
   }
   else if atkProg=1
   {
-    speed=bulletSpeed
+    _speed=bulletSpeed
   }
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)
 #define Collision_oPlayer1
 /*"/*'/**//* YYD ACTION
 lib_id=1

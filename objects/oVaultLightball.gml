@@ -6,7 +6,7 @@ applies_to=self
 */
 image_blend=make_color_rgb(130,130,255)
 image_alpha=0.5
-speed=4
+_speed=4
 timeOnScreen=0
 efTime=0
 #define Step_0
@@ -19,7 +19,7 @@ efTime+=1*gDeltaTime
 if efTime mod 3=0
 {
   var tDir,tFFScl;
-  tDir=direction+160+random(40)
+  tDir=_direction+160+random(40)
   tFFScl=random(0.15)
   tEffect=instance_create(x,y,oEffectB)
   tEffect.type=3; tEffect.sprite_index=sEfFirefly; tEffect.image_alpha=0.1
@@ -33,6 +33,7 @@ if timeOnScreen>=45
 {
   if checkScreenArea(x,y,16)=0 {instance_destroy()}
 }
+correctSpeedDirection(self)
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

@@ -91,7 +91,7 @@ else if room=rExtGateG_1 or room=rExtGateG_2 or room=rExtGateG_3 or room=rExtGat
     {
       tTrap=instance_create(4808,208,oMovingTrap)
       tTrap.shiftTime=0; tTrap.shiftMax=60; tTrap.moveSpd=3; tTrap.bShowLine=1
-      tTrap.direction=tDir
+      tTrap._direction=tDir
       tDir+=360/24
     }
   }
@@ -108,7 +108,7 @@ else if room=rExtGateG_1 or room=rExtGateG_2 or room=rExtGateG_3 or room=rExtGat
     {
       tTrap=instance_create(3584,224,oMovingTrap)
       tTrap.shiftTime=0; tTrap.shiftMax=60; tTrap.moveSpd=3; tTrap.bShowLine=1
-      tTrap.direction=tDir
+      tTrap._direction=tDir
       tDir+=360/24
     }
   }

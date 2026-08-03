@@ -58,8 +58,6 @@ if global.gamePaused=false
 {
   image_angle=_direction
   _speed=bulletSpeed
-  x += cos(degtorad(_direction)) * _speed * gDeltaTime
-  y -= sin(degtorad(_direction)) * _speed * gDeltaTime
 
   if global.optWeaponTrail=1 {instance_create(x,y,oEfWeaponTrail)}
 
@@ -76,4 +74,5 @@ if global.gamePaused=false
   if isCollisionTop(1)
     instance_destroy()
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)

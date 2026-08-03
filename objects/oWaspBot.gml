@@ -87,9 +87,9 @@ if global.gamePaused=false
         else
           currVspd=maxVspd
       }
-      hspeed=currHspd
-      vspeed=currVspd
-      if hspeed>0 {image_xscale=1}
+      _hspeed=currHspd
+      _vspeed=currVspd
+      if _hspeed>0 {image_xscale=1}
       else {image_xscale=-1}
 
       //----- Attack: Homing Missile -----
@@ -111,7 +111,7 @@ if global.gamePaused=false
           var tMissile;
           tMissile=instance_create(x,y+2,oEnmityMissile)
           tMissile.atkPower=atkPower; tMissile.targetTime=20
-          tMissile.direction=90
+          tMissile._direction=90
           missileAmt+=1
           if missileAmt=5 {missileType=1; missileAmt=0; missileTime=0}
           else {missileTime=missileDelay+8}
@@ -155,8 +155,8 @@ if global.gamePaused=false
     }
     else
     {
-      hspeed=0
-      vspeed=0
+      _hspeed=0
+      _vspeed=0
     }
   }
   else if life<=0
@@ -196,9 +196,10 @@ if global.gamePaused=false
 }
 else
 {
-  hspeed=0
-  vspeed=0
+  _hspeed=0
+  _vspeed=0
 }
+correctHSpeedVSpeed(self)
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

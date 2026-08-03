@@ -28,13 +28,13 @@ if !instance_exists(oVaultLightball)
     tNewBall=instance_create(tXPos,tYPos,oVaultLightball)
     if tPosYSet=1
     {
-      if tXPos<oPlayer1.x {tNewBall.direction=315}
-      else {tNewBall.direction=225}
+      if tXPos<oPlayer1.x {tNewBall._direction=315}
+      else {tNewBall._direction=225}
     }
     else
     {
-      if tXPos<oPlayer1.x {tNewBall.direction=45}
-      else {tNewBall.direction=135}
+      if tXPos<oPlayer1.x {tNewBall._direction=45}
+      else {tNewBall._direction=135}
     }
     lightballTime=irandom(30)
   }

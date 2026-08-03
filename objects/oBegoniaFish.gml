@@ -8,8 +8,8 @@ _direction=random(360)
 _speed=3+random(0.5)
 dirChange=irandom(150)
 escape=0
-speed=0
-direction=0
+_speed=0
+_direction=0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -41,6 +41,7 @@ if escape=0
 }
 else {escape-=1*gDeltaTime}
 
-speed=0
-x += cos(degtorad(_direction)) * _speed *gDeltaTime
-y -= sin(degtorad(_direction)) * _speed *gDeltaTime
+
+_speed=0
+correctSpeedDirection(self)
+

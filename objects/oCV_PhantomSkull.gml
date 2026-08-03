@@ -27,8 +27,8 @@ inactiveDist*=2
 
 currHspd=0
 currVspd=0
-hspeed=0
-vspeed=0
+_hspeed=0
+_vspeed=0
 _hspeed=0
 _vspeed=0
 _speed=0
@@ -87,7 +87,7 @@ if global.gamePaused=false
       x += _hspeed *gDeltaTime
       y += _vspeed *gDeltaTime
     }
-    else {hspeed=0; vspeed=0; _vspeed=0; _hspeed=0}
+    else {_hspeed=0; _vspeed=0; _vspeed=0; _hspeed=0}
   }
   else if life<=0
   {
@@ -96,7 +96,7 @@ if global.gamePaused=false
     {
       playSound(global.snd_HardHit1,0,0.9,1)
       image_speed=0
-      hspeed=0; vspeed=0
+      _hspeed=0; _vspeed=0
       baseColor=c_red; image_blend=c_red
       tEffect=instance_create(x,y,oEffect)
       tEffect.sprite_index=sDeathFlameA; tEffect.image_speed=0.33; tEffect.image_xscale=2; tEffect.image_yscale=2; tEffect.image_alpha=0.8
@@ -107,4 +107,5 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
-else {hspeed=0; vspeed=0}
+else {_hspeed=0; _vspeed=0}
+correctHSpeedVSpeed(self)

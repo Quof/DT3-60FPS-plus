@@ -37,12 +37,13 @@ applies_to=self
 event_inherited()
 if global.gamePaused=false
 {
-  speed=bulletSpeed
-  image_angle=direction
+  _speed=bulletSpeed
+  image_angle=_direction
   lifeTime-=1
   if lifeTime=0 {instance_destroy()}
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)
 #define Other_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

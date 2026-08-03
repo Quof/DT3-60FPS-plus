@@ -70,6 +70,7 @@ if global.gamePaused=false
   }
   if y>room_height+32 {instance_destroy()}
 }
+correctSpeedDirection(self)
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

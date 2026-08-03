@@ -57,7 +57,7 @@ if global.gamePaused=false
       if x>oPlayer1.x
       {
         xVel*=-1
-        direction=180
+        _direction=180
       }
       initDir=1
     }
@@ -79,14 +79,15 @@ if global.gamePaused=false
     }
 
     //Turn arm toward player
-    turn_toward_directionUnderscore(point_direction((x-(14*image_xscale))+lengthdir_x(20,direction),y-31+lengthdir_y(20,direction),oPlayer1.x,returnPlayerYCenter()),6)
-    gunShot+=1
+    turn_toward_directionUnderscore(point_direction((x-(14*image_xscale))+lengthdir_x(20,_direction),y-31+lengthdir_y(20,_direction),oPlayer1.x,returnPlayerYCenter()),6)
+    
+    gunShot+=1*gDeltaTime
     if gunShot>=gunDelay
     {
       var tNewAttack;
-      tNewAttack=instance_create((x-(14*image_xscale))+lengthdir_x(20,direction),y-31+lengthdir_y(20,direction),oPassBullet)
+      tNewAttack=instance_create((x-(14*image_xscale))+lengthdir_x(20,_direction),y-31+lengthdir_y(20,_direction),oPassBullet)
       tNewAttack.sprite_index=sWolfHeadShot; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5; tNewAttack.depth=9
-      tNewAttack.decayTime=-100; tNewAttack._direction=direction
+      tNewAttack.decayTime=-100; tNewAttack._direction=_direction
       gunShot=0
     }
 
@@ -155,6 +156,7 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
+correctSpeedDirection(self)
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -162,4 +164,4 @@ action_id=603
 applies_to=self
 */
 event_inherited()
-if life>0 {draw_sprite_ext(sBikeSArm,0,x-(14*image_xscale),y-31,1,1,direction,image_blend,image_alpha)}
+if life>0 {draw_sprite_ext(sBikeSArm,0,x-(14*image_xscale),y-31,1,1,_direction,image_blend,image_alpha)}

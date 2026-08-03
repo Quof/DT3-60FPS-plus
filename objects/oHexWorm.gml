@@ -62,7 +62,7 @@ if global.gamePaused=false
   event_inherited()
   if bActive=true and life>0
   {
-    image_angle=direction
+    image_angle=_direction
     if moveBehavior=0 //Decide on a move type
     {
       if movePath=1
@@ -110,9 +110,6 @@ if global.gamePaused=false
     {
       _direction=point_direction(x,y,384,176)
       _speed=4
-      x += cos(degtorad(_direction)) * _speed * gDeltaTime
-      y -= sin(degtorad(_direction)) * _speed * gDeltaTime
-
       if point_distance(x,y,384,176)<=_speed*gDeltaTime
       {
         for(i=0;i<6;i+=1)
@@ -129,7 +126,9 @@ if global.gamePaused=false
     else if moveBehavior=3 //Shoot bullets
     {
       _direction=point_direction(x,y,oPlayer1.x,oPlayer1.y)
+
       movePath+=1*gDeltaTime
+
       if movePath>=60
       {
         if movePath mod 8=0
@@ -190,3 +189,6 @@ if global.gamePaused=false
   enemyStepEvent()
 }
 else {path_speed=0; _speed=0}
+
+correctSpeedDirection(self)
+

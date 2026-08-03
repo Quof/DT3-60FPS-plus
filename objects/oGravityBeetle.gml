@@ -307,7 +307,7 @@ if global.gamePaused=false
         playSound(global.snd_Shock,0,0.88,37000)
         var tNewAttack;
         tNewAttack=instance_create(xCenter-roomSpan+8,yGround,oPassBullet)
-        tNewAttack.sprite_index=sZapTrap; tNewAttack.direction=90
+        tNewAttack.sprite_index=sZapTrap; tNewAttack._direction=90
         tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=12; tNewAttack.decayTime=-100
 
         notDashable=0; image_blend=baseColor
@@ -325,7 +325,7 @@ if global.gamePaused=false
         playSound(global.snd_Shock,0,0.88,37000)
         var tNewAttack;
         tNewAttack=instance_create(xCenter+roomSpan-8,yGround,oPassBullet)
-        tNewAttack.sprite_index=sZapTrap; tNewAttack.direction=90
+        tNewAttack.sprite_index=sZapTrap; tNewAttack._direction=90
         tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=12; tNewAttack.decayTime=-100
 
         notDashable=0; image_blend=baseColor

@@ -207,16 +207,14 @@ if global.gamePaused=false
       atkFreq-=1
       bossProgress+=1
     }
-    speed=0
-    x += cos(degtorad(_direction)) * _speed *gDeltaTime
-    y -= sin(degtorad(_direction)) * _speed *gDeltaTime
+    _speed=0
   }
   else if life<=0 //Defeat animation
   {
     deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
-      speed=0
+      _speed=0
       with oPassBullet
         instance_destroy()
     }
@@ -248,4 +246,5 @@ if global.gamePaused=false
   enemyStepEvent()
 }
 else
-  speed=0
+  _speed=0
+correctSpeedDirection(self)

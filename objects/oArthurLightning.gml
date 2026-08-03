@@ -46,7 +46,7 @@ if global.gamePaused=false
       {
         tAttack=instance_create(x,y,oArthurLightning)
         tAttack.type=1; tAttack.sprite_index=sZapTrap
-        tAttack.direction=tDir; tAttack.image_angle=tDir; tAttack.moveSpd=8
+        tAttack._direction=tDir; tAttack.image_angle=tDir; tAttack.moveSpd=8
         tDir+=10
       }
       instance_destroy()
@@ -55,9 +55,10 @@ if global.gamePaused=false
   else if type=1 //Light balls outward
   {
     atkPower=125
-    speed=moveSpd
+    _speed=moveSpd
     lifeTime-=1
     if lifeTime<=0 {instance_destroy()}
   }
 }
-else {speed=0}
+else {_speed=0}
+correctSpeedDirection(self)

@@ -1,4 +1,4 @@
-direction=270
+_direction=270
 image_xscale=2
 shiftTime=0
 shiftMax=56

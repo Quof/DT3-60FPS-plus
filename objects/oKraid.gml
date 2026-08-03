@@ -201,7 +201,7 @@ if global.gamePaused=false
       else if spikeProg=2 {tXPos=67; tYPos=110}
       else if spikeProg=3 {tXPos=64; tYPos=173; spikeProg=0}
       tAtk=instance_create(segBody.x+tXPos,segBody.y+tYPos,oPassBullet)
-      tAtk.sprite_index=sKraidSpike; tAtk.direction=0; tAtk.depth=26
+      tAtk.sprite_index=sKraidSpike; tAtk._direction=0; tAtk.depth=26
       tAtk.atkPower=atkPower; tAtk.bulletSpeed=2.5; tAtk.decayTime=-100
       spikeTime=0
     }

@@ -240,3 +240,4 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
+correctSpeedDirection(self)

@@ -17,7 +17,7 @@ applies_to=self
 event_inherited()
 
 //Enemy base statistics
-initDir=direction
+initDir=_direction
 bCanTakeDamage=false
 bShowHealthBar=false
 
@@ -28,7 +28,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-initDir=direction
+initDir=_direction
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -37,15 +37,16 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  x+=moveSpd*cos(degtorad(direction))*gDeltaTime
-  y+=-moveSpd*sin(degtorad(direction))*gDeltaTime
+  x+=moveSpd*cos(degtorad(_direction))*gDeltaTime
+  y+=-moveSpd*sin(degtorad(_direction))*gDeltaTime
   if shiftTime>=shiftMax
   {
     shiftTime=0
-    direction+=180
+    _direction+=180
   }
   else {shiftTime+=1*gDeltaTime}
 }
+correctSpeedDirection(self)
 #define Collision_oPlayer1
 /*"/*'/**//* YYD ACTION
 lib_id=1

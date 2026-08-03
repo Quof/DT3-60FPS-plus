@@ -24,9 +24,8 @@ if global.gamePaused=false
   image_angle+=3*gDeltaTime
 }
 else {_speed=0}
+correctSpeedDirection(self)
 
-x += cos(degtorad(_direction)) * _speed * gDeltaTime
-y -= sin(degtorad(_direction)) * _speed * gDeltaTime
 #define Other_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

@@ -116,8 +116,8 @@ if global.gamePaused=false
         tMissile.atkPower=atkPower; tMissile.targetTime=20; tMissile.sprite_index=sJunkCarMissile
         tMissile.bulletSpeed=7; tMissile.seekThres=20; tMissile.minSpd=3; tMissile.maxSpd=8
         tMissile.turnSpd=4; tMissile.accel=0.2
-        if image_xscale=1 {tMissile.direction=135}
-        else {tMissile.direction=45}
+        if image_xscale=1 {tMissile._direction=135}
+        else {tMissile._direction=45}
         multiShot=0
         gunShot=0
       }

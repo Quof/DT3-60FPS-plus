@@ -20,8 +20,8 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  image_angle=direction
-  speed=bulletSpeed
+  image_angle=_direction
+  _speed=bulletSpeed
 
   if isCollisionTop(1)
     bBlownUp=true
@@ -36,7 +36,8 @@ if global.gamePaused=false
     instance_destroy()
 }
 else
-  speed=0
+  _speed=0
+correctSpeedDirection(self)
 #define Other_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

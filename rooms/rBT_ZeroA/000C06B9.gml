@@ -1,2 +1,2 @@
-direction=0
+_direction=0
 mySpd=16
