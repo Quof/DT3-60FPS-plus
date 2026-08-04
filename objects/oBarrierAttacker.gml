@@ -154,6 +154,6 @@ applies_to=self
 event_inherited()
 if image_index=2
 {
-  barFrm+=0.33
+  barFrm+=0.33*gDeltaTime
   draw_sprite_ext(sBarrierAtkBar,barFrm,x+(10*image_xscale),y,image_xscale,1,0,c_white,0.5)
 }
