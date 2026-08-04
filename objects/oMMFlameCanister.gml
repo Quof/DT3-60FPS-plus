@@ -9,8 +9,8 @@ makeActive()
 setCollisionBounds(1,0,sprite_width,sprite_height)
 maxLife=150
 life=maxLife
-delayFrame = 2.25//why the heck
-#define Collision_oAttackBase
+delayFrame = 2.25//2 was too little, 2.5 was too much, lol. Delays the explosion attack from taking the next one too soon.
+#define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
 action_id=603
@@ -18,16 +18,8 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  if other.damageType!="NORMAL"
+  if (life <= 0)
   {
-    life-=other.atkPower
-    if other.damageType!="EXPLOSION"
-    {
-      playSound(global.snd_EnemyHitMM,0,1,1)
-      with other {instance_destroy()}
-    }
-    if life<=0
-    {
       if (delayFrame > 0)//andrew addition, the attack spawned has to be delayed a certain amount to match with 30FPS original
       {
         delayFrame -= gDeltaTime
@@ -47,6 +39,23 @@ if global.gamePaused=false
         tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
         instance_destroy()
       }
+  }
+}
+#define Collision_oAttackBase
+/*"/*'/**//* YYD ACTION
+lib_id=1
+action_id=603
+applies_to=self
+*/
+if global.gamePaused=false
+{
+  if other.damageType!="NORMAL"
+  {
+    life-=other.atkPower
+    if other.damageType!="EXPLOSION"
+    {
+      playSound(global.snd_EnemyHitMM,0,1,1)
+      with other {instance_destroy()}
     }
   }
 }

@@ -58,6 +58,10 @@ if global.gamePaused=false
         {
           visible=true
           y-=352
+          if (y < 0) //Andrew fix: This guy wasn't coming down for some reason if off screen from above, so I set him to 0 if he's outside, hope this don't break things!
+          {
+            y = 0
+          }
         }
         y+=12*gDeltaTime
         if y>=flyPicY

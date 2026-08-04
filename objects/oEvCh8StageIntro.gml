@@ -61,7 +61,7 @@ else if introProg=30 //----- First lightning -----
   {
     tEffect=instance_create(240+lengthdir_x(260,45+(i*90)),176+lengthdir_y(260,45+(i*90)),oEffect)
     tEffect.sprite_index=sZapTrap; tEffect.image_angle=45+(i*90)-180; tEffect.direction=45+(i*90)-180
-    tEffect.image_xscale=1.75; tEffect.image_yscale=1.5; tEffect.speed=12; tEffect.decay=16
+    tEffect.image_xscale=1.75; tEffect.image_yscale=1.5; tEffect.speed=12*gDeltaTime; tEffect.decay=16
     tEffect.newBlend=-1; tEffect.followID=-1; tEffect.xSpd=0; tEffect.ySpd=0
   }
 }
@@ -86,7 +86,7 @@ else if introProg=60 //----- Second lightning -----
     var tEffect;
     tEffect=instance_create(240+lengthdir_x(260,45+(i*90)),176+lengthdir_y(260,45+(i*90)),oEffect)
     tEffect.sprite_index=sZapTrap; tEffect.image_angle=45+(i*90)-180; tEffect.direction=45+(i*90)-180
-    tEffect.image_xscale=1.75; tEffect.image_yscale=1.5; tEffect.speed=12; tEffect.decay=16
+    tEffect.image_xscale=1.75; tEffect.image_yscale=1.5; tEffect.speed=12*gDeltaTime; tEffect.decay=16
     tEffect.newBlend=-1; tEffect.followID=-1; tEffect.xSpd=0; tEffect.ySpd=0
   }
 }
@@ -111,7 +111,7 @@ else if introProg=95 //----- Last lightning -----
     var tEffect;
     tEffect=instance_create(240+lengthdir_x(260,45+(i*90)),176+lengthdir_y(260,45+(i*90)),oEffect)
     tEffect.sprite_index=sZapTrap; tEffect.image_angle=45+(i*90)-180; tEffect.direction=45+(i*90)-180
-    tEffect.image_xscale=1.75; tEffect.image_yscale=1.5; tEffect.speed=12; tEffect.decay=16
+    tEffect.image_xscale=1.75; tEffect.image_yscale=1.5; tEffect.speed=12*gDeltaTime; tEffect.decay=16
     tEffect.newBlend=-1; tEffect.followID=-1; tEffect.xSpd=0; tEffect.ySpd=0
   }
 }

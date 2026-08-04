@@ -39,7 +39,7 @@ _speed=0
 _direction=0
 
 jeremyText="A few things to note. If you damage it or get caught on just the edge of its sight, it'll go into a warning mode and seek out the position you are at the moment the event occurred. If it does see you, it goes into an alert mode and will seek out your current position for about 5 seconds. That timer, however, will reset anytime you're within its sights. Keep in mind it cannot see through walls."
-chaoText="You can tell what mode it's in by the sight color.#Blue: Patrol mode - It's calm.#Yellow: Warn mode - It thinks something is out there.#Red: Alert mode - It knows where its target is and will hunt them down.#Note that every time you deal damage to one, its warn mode _speed increases. This sprite is from 'Phantasy Star 4' on the Sega Genesis."
+chaoText="You can tell what mode it's in by the sight color.#Blue: Patrol mode - It's calm.#Yellow: Warn mode - It thinks something is out there.#Red: Alert mode - It knows where its target is and will hunt them down.#Note that every time you deal damage to one, its warn mode speed increases. This sprite is from 'Phantasy Star 4' on the Sega Genesis."
 devText="I had always planned to have a semi-stealth level in DT3, but it was cut during development. It was later re-added to the plans, but was once again cut. Looks like it made its way in though."
 
 myPath=path_add()
