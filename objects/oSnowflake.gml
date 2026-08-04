@@ -33,12 +33,11 @@ applies_to=self
 if _hspeed>=0 {image_angle-=2*gDeltaTime}
 else {image_angle+=2*gDeltaTime}
 
-x += _hspeed *gDeltaTime
-y += _vspeed *gDeltaTime
-
 if x<-16
   instance_destroy()
 else if x>=room_width+16
   instance_destroy()
 else if y>=room_height+16
   instance_destroy()
+
+correctHSpeedVSpeed(self)

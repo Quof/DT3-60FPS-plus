@@ -199,18 +199,18 @@ if global.gamePaused=false
           tFire=instance_create(x+(12*image_xscale),y,oBarbaFire)
           if image_xscale=1
           {
-            if atkType=1 {tFire.direction=298+random(4)}
-            else if atkType=2 {tFire.direction=358+random(4)}
+            if atkType=1 {tFire._direction=298+random(4)}
+            else if atkType=2 {tFire._direction=358+random(4)}
           }
           else
           {
-            if atkType=1 {tFire.direction=238+random(4)}
-            else if atkType=2 {tFire.direction=178+random(4)}
+            if atkType=1 {tFire._direction=238+random(4)}
+            else if atkType=2 {tFire._direction=178+random(4)}
           }
 
           if atkType=3
           {
-            tFire.direction=sprayDir
+            tFire._direction=sprayDir
             tFire.bulletSpeed=5
             sprayDir+=15*-image_xscale
           }
@@ -276,7 +276,7 @@ if global.gamePaused=false
       for(i=0;i<2;i+=1)
       {
         tFire=instance_create(x+random_range(-20,20),336+random(4),oBarbaFire)
-        tFire.direction=random_range(89,91); tFire.bulletSpeed=10+random(2)
+        tFire._direction=random_range(89,91); tFire.bulletSpeed=10+random(2)
       }
       }
       if fireballStorm>=50 {fireballStorm=0}

@@ -77,17 +77,11 @@ if global.gamePaused=false
       else
         currVspd=maxSpeed
     }
-    _hspeed=0
-    _vspeed=0
     _hspeed=currHspd
     _vspeed=currVspd
-    x += _hspeed *gDeltaTime
-    y += _vspeed *gDeltaTime
   }
   else
   {
-    _hspeed=0
-    _vspeed=0
     _hspeed=0
     _vspeed=0
   }
@@ -104,8 +98,6 @@ if global.gamePaused=false
 }
 else
 {
-  _hspeed=0
-  _vspeed=0
     _hspeed=0
     _vspeed=0
 }

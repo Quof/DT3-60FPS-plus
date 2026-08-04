@@ -5,7 +5,7 @@ action_id=603
 applies_to=self
 */
 hitWaterPlat=0
-direction=90
+_direction=90
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -14,15 +14,15 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  speed=bulletSpeed
+  _speed=bulletSpeed
   if bulletSpeed>6
     bulletSpeed-=0.9*gDeltaTime
 
-  _hspeed=hspeed
+  /*_hspeed=hspeed
   _vspeed=vspeed
   speed=0
   x+=_hspeed*gDeltaTime
-  y+=_vspeed*gDeltaTime
+  y+=_vspeed*gDeltaTime*/
 
   if hitWaterPlat>0
   {
@@ -52,7 +52,9 @@ if global.gamePaused=false
   }
 }
 else
-  speed=0
+  _speed=0
+
+correctSpeedDirection(self)
 #define Collision_oWaterFloatPlatform
 /*"/*'/**//* YYD ACTION
 lib_id=1

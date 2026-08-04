@@ -108,12 +108,8 @@ if global.gamePaused=false
     currHspd=0
     currVspd=0
   }
-  //hspeed=currHspd
-  //vspeed=currVspd
   _hspeed=currHspd
   _vspeed=currVspd
-  x += _hspeed *gDeltaTime
-  y += _vspeed *gDeltaTime
   enemyStepEvent()
 }
 else

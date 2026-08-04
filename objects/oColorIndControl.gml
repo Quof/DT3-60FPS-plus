@@ -41,7 +41,7 @@ applies_to=self
 if global.gamePaused=false
 {
   if bWillDamagePlayer>0
-    bWillDamagePlayer-=1
+    bWillDamagePlayer-=1*gDeltaTime
   if gDeltaDoTicks warnTime-=1
   if warnTime>=1 and warnTime<=90
   {

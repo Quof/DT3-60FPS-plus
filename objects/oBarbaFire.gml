@@ -34,8 +34,8 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  speed=bulletSpeed
-  if direction>=270
+  _speed=bulletSpeed
+  if _direction>=270
     image_angle-=15*gDeltaTime
   else
     image_angle+=15*gDeltaTime
@@ -55,12 +55,13 @@ if global.gamePaused=false
   }
   _hspeed=hspeed
   _vspeed=vspeed
-  speed=0
   x+=_hspeed*gDeltaTime
   y+=_vspeed*gDeltaTime
 }
 else
-  speed=0
+  _speed=0
+
+correctSpeedDirection(self)
 #define Other_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
