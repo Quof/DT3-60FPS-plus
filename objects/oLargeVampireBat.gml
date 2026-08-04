@@ -207,7 +207,7 @@ if global.gamePaused=false
       atkFreq-=1
       bossProgress+=1
     }
-    _speed=0
+    //_speed=0
   }
   else if life<=0 //Defeat animation
   {

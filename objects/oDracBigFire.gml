@@ -39,7 +39,6 @@ if global.gamePaused=false
     image_angle+=rotSpd*gDeltaTime
   else
     image_angle-=rotSpd*gDeltaTime
-    _speed=0
 }
 else
   {_speed=0; _speed=0}

@@ -71,7 +71,6 @@ if global.gamePaused=false
       if slowTime<=0 {bSlowed=0}
     }
     else {_speed=runAcc}
-    _speed=_speed
   }
   else if life<=0
   {
