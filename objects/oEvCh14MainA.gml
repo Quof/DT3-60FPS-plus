@@ -1484,7 +1484,7 @@ else if global.gameProgress=3340 and room=rNGC_BR_B //----- [Unskippable] Gettin
   {
     sceneDelay+=1*gDeltaTime
     if sceneDelay=5 {charClaire.sprite_index=sClaireWalk; charClaire.image_speed=0.5}
-    else if sceneDelay>=6 and sceneDelay<=14 {charClaire.x+=6}
+    else if sceneDelay>=6 and sceneDelay<=14 {charClaire.x+=6*gDeltaTime}
     else if sceneDelay>=15
     {
       charClaire.sprite_index=sClaireIdle; charClaire.image_speed=0.1
