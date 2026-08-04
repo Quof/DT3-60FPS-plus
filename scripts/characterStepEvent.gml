@@ -329,7 +329,7 @@ else if attackState=ACT_IN_BIKE //On bike
     }
 
     xAcc+=8.05
-    maxSlope=15; maxDownSlope=15
+    maxSlope=15/gDeltaTime; maxDownSlope=15
     bikeBoost-=5*gDeltaTime
     if bikeBoost<0 {bikeBoost=0}
   }
@@ -1680,7 +1680,7 @@ else if sprite_index=sJerryJumpForward or sprite_index=sClaireJumpForward or spr
 
 if attackState=ACT_IN_BIKE //Dirt effect on the ground when on bike
 {
-  if platformCharacterIs(ON_GROUND)
+  if platformCharacterIs(ON_GROUND) and gDeltaDoTicks
   {
     var tBikeEffect;
     tBikeEffect=instance_create(x-16-random(6),y-3+random(4),oEffect)
