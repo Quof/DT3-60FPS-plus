@@ -43,6 +43,7 @@ action_id=603
 applies_to=self
 */
 initDir=_direction
+_speed=moveSpd
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -51,15 +52,17 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  x+=moveSpd*cos(degtorad(_direction))*gDeltaTime
-  y+=-moveSpd*sin(degtorad(_direction))*gDeltaTime
+  //x+=moveSpd*cos(degtorad(_direction))*gDeltaTime
+  //y+=-moveSpd*sin(degtorad(_direction))*gDeltaTime
+  _speed=moveSpd
   if shiftTime>=shiftMax
   {
     shiftTime=0
     _direction+=180
   }
-  else {shiftTime+=1*gDeltaTime}
+  shiftTime+=1*gDeltaTime
 }
+else {_speed=0}
 correctSpeedDirection(self)
 #define Collision_oPlayer1
 /*"/*'/**//* YYD ACTION
