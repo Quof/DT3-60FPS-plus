@@ -2014,7 +2014,7 @@ else if room=rMega4_ToxicJungleC //----- [Unskippable] Advancing fire wall of do
 //Beam down at the start of stages
 if global.tempAction[0]>=1
 {
-  beamDownProg+=1*gDeltaTime
+  if beamDownProg==0 {beamDownProg=1-gDeltaTime}; beamDownProg+=1*gDeltaTime
   if beamDownProg=1
   {
     viewFix=instance_create(oPlayer1.x,playerSpotY,oMisc)
@@ -2025,8 +2025,8 @@ if global.tempAction[0]>=1
     oPlayer1.sprite_index=sPlayerDiscombobulate; oPlayer1.image_speed=0
   }
   else if beamDownProg=30 {readyText=1}
-  else if beamDownProg>=31 and beamDownProg<=69 {readyWidth+=1}
-  else if beamDownProg>=80 and beamDownProg<=119
+  else if beamDownProg>30 and beamDownProg<=69 {readyWidth+=1}
+  else if beamDownProg>=80 and beamDownProg<120
   {
     if beamDownProg mod 8=0
     {
@@ -2036,7 +2036,7 @@ if global.tempAction[0]>=1
   }
   else if beamDownProg=120 {readyText=0}
   else if beamDownProg=135 {playSound(global.snd_MMBeamDown,0,1,1)}
-  else if beamDownProg>=136 and beamDownProg<=199
+  else if beamDownProg>=136 and beamDownProg<200
   {
     oPlayer1.y+=16*gDeltaTime
     if oPlayer1.y>=playerSpotY {oPlayer1.y=playerSpotY; oPlayer1.image_index=1; beamDownProg=200}
