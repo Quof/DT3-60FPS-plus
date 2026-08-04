@@ -318,12 +318,15 @@ else if attackState=ACT_IN_BIKE //On bike
 
   if (kActC or kDashLeft or kDashRight) and bikeBoost>=5 and bTakingDamage=false
   {
-    instance_create(x,y,oPlayerAfterImage)
-    var newSpdEffect;
-    newSpdEffect=instance_create(oPlayer1.x+20-random(20),oPlayer1.y-24+random(22),oEffect)
-    newSpdEffect.sprite_index=sMMchargeEffect1; newSpdEffect.image_speed=0.5+random(0.1); newSpdEffect.xSpd=-1-random(1)
-    newSpdEffect.newBlend=-1; newSpdEffect.followID=-1; newSpdEffect.decay=-100
-    newSpdEffect.xSpd=0; newSpdEffect.ySpd=0
+    if gDeltaDoTicks
+    {
+      instance_create(x,y,oPlayerAfterImage)
+      var newSpdEffect;
+      newSpdEffect=instance_create(oPlayer1.x+20-random(20),oPlayer1.y-24+random(22),oEffect)
+      newSpdEffect.sprite_index=sMMchargeEffect1; newSpdEffect.image_speed=0.5+random(0.1); newSpdEffect.xSpd=-1-random(1)
+      newSpdEffect.newBlend=-1; newSpdEffect.followID=-1; newSpdEffect.decay=-100
+      newSpdEffect.xSpd=0; newSpdEffect.ySpd=0
+    }
 
     xAcc+=8.05
     maxSlope=15; maxDownSlope=15
