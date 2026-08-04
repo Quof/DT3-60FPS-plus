@@ -29,7 +29,7 @@ applies_to=self
 */
 if type=1 //Shotgun Ice Main
 {
-  if oGame.time mod 2=0
+  if oGame.time mod (2/gDeltaTime)=0
   {
     tEffect=instance_create(x,y,oEffect)
     tEffect.sprite_index=sMMshotgunIceEffect; tEffect.image_speed=0.5; tEffect.ySpd=1.5
@@ -38,7 +38,7 @@ if type=1 //Shotgun Ice Main
   _speed=11
   image_angle-=10
 
-  lifeTime-=1
+  lifeTime-=1*gDeltaTime
   if lifeTime=0
   {
     var playerAttack,tIceDir; tIceDir=135
@@ -56,7 +56,7 @@ else if type=2 //Shotgun Ice Break
 {
   _speed=11
   image_angle+=10
-  lifeTime-=1
+  lifeTime-=1*gDeltaTime
   if lifeTime=0 {instance_destroy()}
 }
 else if type=11 //Gravity Well
