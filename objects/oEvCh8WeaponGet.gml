@@ -61,13 +61,13 @@ draw_set_color(clGrid)
 for(i=0;i<30;i+=1)
 {
   draw_line(gridLineX[i],-1,gridLineX[i],room_height+1)
-  gridLineX[i]-=1
+  gridLineX[i]-=1*gDeltaTime
   if gridLineX[i]<0 {gridLineX[i]=room_width}
 }
 for(i=0;i<22;i+=1)
 {
   draw_line(-1,gridLineY[i],room_width+1,gridLineY[i])
-  gridLineY[i]-=1
+  gridLineY[i]-=1*gDeltaTime
   if gridLineY[i]<0 {gridLineY[i]=room_height}
 }
 

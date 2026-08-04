@@ -29,3 +29,6 @@ else
   tempMplay=findMusic(0)
 }
 playMusic(tempMplay,0,0)
+
+background_hspeed[0]=-1*gDeltaTime
+background_vspeed[0]=1*gDeltaTime

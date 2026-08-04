@@ -19,6 +19,8 @@ else if global.newMapX=3
   extend=0
   bRetract=0
 }
+_speed=0
+_direction=0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

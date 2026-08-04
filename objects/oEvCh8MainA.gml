@@ -756,10 +756,10 @@ else if room=rMega4_StormC //----- [Unskippable] Bit appears and destroys canist
         npcBitB=instance_create(132,288,oMisc)
         npcBitB.sprite_index=sBit_ArmUp; npcBitB.image_speed=0; npcBitB.type=1; npcBitB.image_alpha=0
       }
-      else if sceneDelay>=26 and sceneDelay<=45
+      else if sceneDelay>=26 and sceneDelay<=46
       {
-        npcBitA.x+=1; npcBitA.image_alpha+=0.05*gDeltaTime
-        npcBitB.x-=1; npcBitB.image_alpha+=0.05*gDeltaTime
+        npcBitA.x+=1*gDeltaTime; npcBitA.image_alpha+=0.05*gDeltaTime
+        npcBitB.x-=1*gDeltaTime; npcBitB.image_alpha+=0.05*gDeltaTime
       }
       else if sceneDelay>=70
       {

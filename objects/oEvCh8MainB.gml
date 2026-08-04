@@ -448,7 +448,7 @@ else if room=rMega4_SigmaB3 and global.gameProgress=1910 //----- [Unskippable] B
         npcBitB=instance_create(404,288,oMisc)
         npcBitB.sprite_index=sBit_ArmUp; npcBitB.image_speed=0; npcBitB.type=1; npcBitB.image_alpha=0; npcBitB.image_xscale=-1
       }
-      else if sceneDelay>=26 and sceneDelay<=45
+      else if sceneDelay>=26 and sceneDelay<=46
       {
         npcBitA.x+=1*gDeltaTime; npcBitA.image_alpha+=0.05*gDeltaTime
         npcBitB.x-=1*gDeltaTime; npcBitB.image_alpha+=0.05*gDeltaTime
@@ -641,7 +641,7 @@ else if room=rMega4_SigmaB5 and global.gameProgress=1930 //----- [Unskippable] B
         npcByteB=instance_create(404,288,oMisc)
         npcByteB.sprite_index=sByte_Idle; npcByteB.image_speed=0; npcByteB.type=1; npcByteB.image_alpha=0; npcByteB.image_xscale=-1
       }
-      else if sceneDelay>=26 and sceneDelay<=45
+      else if sceneDelay>=26 and sceneDelay<=46
       {
         npcByteA.x+=1*gDeltaTime; npcByteA.image_alpha+=0.05*gDeltaTime
         npcByteB.x-=1*gDeltaTime; npcByteB.image_alpha+=0.05*gDeltaTime
@@ -649,7 +649,7 @@ else if room=rMega4_SigmaB5 and global.gameProgress=1930 //----- [Unskippable] B
       else if sceneDelay>=70
       {
         boss=instance_create(384,288,oMMByte)
-        boss.image_xscale=-1*gDeltaTime
+        boss.image_xscale=-1
         with npcByteA {instance_destroy()}
         with npcByteB {instance_destroy()}
         sceneDelay=0; sceneProgress+=1
@@ -768,7 +768,7 @@ else if global.gameProgress=1940 and room=rMega4_SigmaB8 //----- [Unskippable] B
         npcByteB=instance_create(120,288,oMisc)
         npcByteB.sprite_index=sByte_Idle; npcByteB.image_speed=0; npcByteB.type=1; npcByteB.image_alpha=0
       }
-      else if sceneDelay>=26 and sceneDelay<=45
+      else if sceneDelay>=26 and sceneDelay<=46
       {
         npcBitA.x+=1*gDeltaTime; npcBitA.image_alpha+=0.05*gDeltaTime
         npcBitB.x-=1*gDeltaTime; npcBitB.image_alpha+=0.05*gDeltaTime

@@ -200,25 +200,25 @@ if global.gamePaused=false
       msgCreate(0,0,"Jerry","What is that?",0,1,oMessagePerson,0)
       newMessage.fadingTime=60; rmProg+=1
     }
-    else if rmProg=1 {rmTime+=1;if rmTime>=70 {rmProg+=1; rmTime=0}}
+    else if rmProg=1 {rmTime+=1*gDeltaTime;if rmTime>=70 {rmProg+=1; rmTime=0}}
     else if rmProg=2
     {
       msgCreate(0,0,"Jeremy","Eh... the Nightmare Effect?",0,1,oMessagePerson,0)
       newMessage.fadingTime=70; rmProg+=1
     }
-    else if rmProg=3 {rmTime+=1;if rmTime>=80 {rmProg+=1; rmTime=0}}
+    else if rmProg=3 {rmTime+=1*gDeltaTime;if rmTime>=80 {rmProg+=1; rmTime=0}}
     else if rmProg=4
     {
       msgCreate(0,0,"Jerry","It didn't do this.",0,1,oMessagePerson,0)
       newMessage.fadingTime=70; rmProg+=1
     }
-    else if rmProg=5 {rmTime+=1;if rmTime>=80 {rmProg+=1; rmTime=0}}
+    else if rmProg=5 {rmTime+=1*gDeltaTime;if rmTime>=80 {rmProg+=1; rmTime=0}}
     else if rmProg=6
     {
       msgCreate(0,0,"Jeremy","Don't care, I'm still calling it that.",0,1,oMessagePerson,0)
       newMessage.fadingTime=90; rmProg+=1
     }
-    else if rmProg=7 {rmTime+=1;if rmTime>=100 {rmProg+=1; rmTime=0}}
+    else if rmProg=7 {rmTime+=1*gDeltaTime;if rmTime>=100 {rmProg+=1; rmTime=0}}
 
     if sceneProgress=0
     {
