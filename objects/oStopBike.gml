@@ -46,7 +46,17 @@ if oPlayer1.attackState=oPlayer1.ACT_IN_BIKE and bJumpedOut=0
   {
     setCollisionBounds(-8,-40,8,-1)
     attackState=0
-    yVel=-8; yAcc=-8
+    if gDeltaTime == 1
+    {
+      yVel=-8; yAcc=-8
+    }
+    else
+    {
+      var bodged;
+      bodged = (-16) * 1.00
+      yVel = bodged
+      yVel += gravityIntensity*0.5
+    }
     maxSlope=4; maxDownSlope=8
   }
   oBikeViewFollow.viewProg=1
