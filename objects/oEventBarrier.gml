@@ -44,12 +44,22 @@ if variable_local_exists("spriteChange")
     sprite_index=sInvisibleSolidMask
   }
 }
+if !variable_local_exists("doorCache") {doorCache=0}
+#define Alarm_0
+/*"/*'/**//* YYD ACTION
+lib_id=1
+action_id=603
+applies_to=self
+*/
+doorID = GID(doorCache)
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
 action_id=603
 applies_to=self
 */
+doorID = GID(doorCache)
+
 if global.gameProgress>=progCheck
   instance_destroy()
 #define Draw_0
@@ -98,6 +108,7 @@ else if spriteUse=3 //Bike Barrier
 }
 else if spriteUse=4 //Bike Blockage
 {
+  doorID=GID(doorCache)
   if instance_exists(doorID)
   {
     animTop-=2*gDeltaTime
