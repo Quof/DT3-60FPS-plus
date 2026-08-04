@@ -338,7 +338,7 @@ if global.gamePaused=false
               tNewAttack=instance_create(x,y-16,oOOstrichGravWave)
               tNewAttack.atkPower=atkPower; tNewAttack.yVel=-8
             }
-            y-=2
+            y-=2*gDeltaTime
             yVel=-4
           }
         }
