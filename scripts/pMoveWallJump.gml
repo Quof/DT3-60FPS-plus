@@ -35,9 +35,13 @@ canAirDash=1
 doubleJumpCheck=1
 doubleJumpAnim=0
 
+var bodgedX;
+if gDeltaTime == 1 {bodgedX = 1}
+else {bodgedX = 0.88 } //tune as needed
+
 if tWallCheck=0
 {
-  xVel=-6
+  xVel = (-6) * bodgedX
   var tEffect;
   tEffect=instance_create(x,y,oEffect)
   tEffect.sprite_index=sAirDashWave; tEffect.image_xscale=-0.75; tEffect.image_yscale=0.75
@@ -45,7 +49,7 @@ if tWallCheck=0
 }
 else
 {
-  xVel=6
+  xVel = 6 * bodgedX
   var tEffect;
   tEffect=instance_create(x,y,oEffect)
   tEffect.sprite_index=sAirDashWave; tEffect.image_xscale=0.75; tEffect.image_yscale=0.75
