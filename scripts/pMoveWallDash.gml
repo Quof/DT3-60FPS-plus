@@ -32,7 +32,7 @@ else if global.activeCharacter=1 //----- Claire -----
     if global.equipClaire[i]=13 {tDashAdj=2; break;}
   }
 }
-dashInvulnerabilityTime+=dashInvulnerability
+dashInvulnerabilityTime+=dashInvulnerability+tDashAdj
 dashRecHalt+=9
 dashEnergy-=1500
 
