@@ -12,9 +12,7 @@ kLeft=0
 kLeftReleased=1
 
 playSound(global.snd_PlayerJump[2],0,1,1)
-
 xAcc=xVel/1.75
-yAcc+=initialJumpAcc/1.33
 dashMomentumTime=6
 
 var tDashAdj; tDashAdj=0
@@ -35,8 +33,18 @@ else if global.activeCharacter=1 //----- Claire -----
 dashInvulnerabilityTime+=dashInvulnerability+tDashAdj
 dashRecHalt+=9
 dashEnergy-=1500
-
-yVel=-0.05
+if gDeltaTime == 1
+{
+  yAcc+=initialJumpAcc/1.33
+  yVel=-0.05
+}
+else
+{
+  var bodged;
+  bodged = (initialJumpAcc/1.33) + (-0.05)
+  yVel = bodged * 1.00 //tune as needed
+  yVel += gravityIntensity*0.5
+}
 walljumpTime=3
 scrSlowFall(5,0.5,1)
 canAirDash=1
