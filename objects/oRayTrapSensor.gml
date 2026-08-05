@@ -50,7 +50,7 @@ applies_to=self
 */
 if bSensorActive=1
 {
-  if sensorTime mod 2=0 {draw_set_alpha(0.4)}
+  if sensorTime mod 2<1 {draw_set_alpha(0.4)}
   else {draw_set_alpha(1)}
   draw_set_color(c_red)
   draw_line(x,y,x+xOffset,y+yOffset)
