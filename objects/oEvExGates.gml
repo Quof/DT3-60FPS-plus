@@ -29,7 +29,8 @@ else if room=rExtGateB_6
   bossCheck=string_char_at(global.eGateProg,2)
   if bossCheck="8" {global.mapTeleport=0}
   else {global.mapTeleport=2}
-  bgCol=20
+  if global.fixDarkBackgrounds == true {bgCol=50}
+  else bgCol=20
   bgSeq=0
 }
 else if room=rExtGateC_5
@@ -171,7 +172,7 @@ if global.gamePaused=false
 {
   if bClouds=1
   {
-    cloudSpawn+=1
+    cloudSpawn+=1*gDeltaTime
     if cloudSpawn=250
     {
       instance_create(view_xview[0]+view_wview[0]+4,view_yview[0]+random_range(8,96),oBkgCloud)
@@ -183,7 +184,7 @@ if global.gamePaused=false
   {
     if !instance_exists(oLakitu)
     {
-      lakituSpawn+=1
+      lakituSpawn+=1*gDeltaTime
       if lakituSpawn=210
       {
         var tNewEnemy;
@@ -1626,7 +1627,7 @@ if room=rExtGateE_1 //Slightly faster Dash Energy recovery
 {
   if global.gamePaused=false
   {
-    if oPlayer1.dashEnergy<oPlayer1.dashMeterMax-3 {oPlayer1.dashEnergy+=3}
+    if oPlayer1.dashEnergy<oPlayer1.dashMeterMax-3 {oPlayer1.dashEnergy+=3*gDeltaTime}
   }
 }
 else if room=rExtGateB_6 //Subtle background color change
@@ -1702,6 +1703,10 @@ else if room=rExtGateE_4 //----- Enemy Trap -----
       sceneProgress+=1
     }
   }
+}
+else if room=rExtGateE_5 //shadow form dark room
+{
+  if global.fixDarkBackgrounds == true {bgCol=255; background_color=make_color_rgb(bgCol,bgCol,bgCol)}
 }
 else if room=rExtGateG_1 or room=rExtGateG_2 or room=rExtGateG_3 or room=rExtGateG_4 //----- Background Islands -----
 {

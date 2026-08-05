@@ -7,6 +7,7 @@ applies_to=self
 scrGlobalKeyboardInit(0)
 global.booleanImprovements=true
 global.fixMMGravPlatforms=true
+global.fixDarkBackgrounds=true
 gameCreateEvent()
 bStatRender=false
 windowUpdate=0
