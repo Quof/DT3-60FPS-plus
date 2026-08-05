@@ -819,7 +819,22 @@ if bTakingDamage=false
     }
     else //Duck if solid below character
     {
-      if state=STANDING {idleTime=0}
+      if state=STANDING
+      {
+        idleTime=0
+      }
+      if (state==RUNNING && global.activeCharacter==1 && gDeltaTime != 1)
+      {
+        //ANDREW add a little extra ooomph to claire's crouch to get the wavedash back
+        if (xVel > 0)
+        {
+          xVel=11.5
+        }
+        else if (xVel < 0)
+        {
+          xVel=-11.5
+        }
+      }
       state=DUCKING
       global.recTimeSpentDucking+=1*gDeltaTime
     }
@@ -1198,7 +1213,7 @@ else if grappleState=2 //Player is being pulled toward grapple point
     tGrpX=7*image_xscale
     tGrpDir=point_direction(x+tGrpX,0,grappleID.x,0)
     x+=12*cos(degtorad(tGrpDir))*gDeltaTime
-    
+
     tGrpDist=point_distance(x+tGrpX,0,grappleID.x,0)
     if tGrpDist<=7
     {
@@ -1358,7 +1373,7 @@ if attackState!=ACT_MORPHBALL and attackState!=ACT_IN_BIKE and attackState!=ACT_
         }
       }
     }
-    
+
     if kCharSwap and kCharSwapPressed=1 and bTakingDamage=false //Defender
     {
       if global.bTowerDefense>0
@@ -1404,29 +1419,29 @@ if bCanTakeHit=false
   }
 }
 if global.booleanImprovements = true //input buffer
-    { 
+    {
     if atkBufferTime>0 {atkBufferTime-=1*gDeltaTime}
-    
+
     if attackState=ACT_ATK or attackState=ACT_FIRE or attackState=ACT_FIRE_UP or attackState=ACT_FIRE_DOWN or attackState=ACT_BIRD_CALL
         {
         if castRecovering<=0
         {
             atkAnimSpd=-1
             attackState=0
-        
-            if !variable_local_exists("atkBufferTime") {atkBufferTime=0; atkBufferSkill=-1}  
-        
-            if atkBufferTime>0                                                               
-            {                                                                                 
-                var tBufSkill; tBufSkill=atkBufferSkill                                         
-                atkBufferTime=0; atkBufferSkill=-1                                              
-                playerTechUse(tBufSkill)                                                        
-            }                                                                                    
+
+            if !variable_local_exists("atkBufferTime") {atkBufferTime=0; atkBufferSkill=-1}
+
+            if atkBufferTime>0
+            {
+                var tBufSkill; tBufSkill=atkBufferSkill
+                atkBufferTime=0; atkBufferSkill=-1
+                playerTechUse(tBufSkill)
+            }
         }
         else {castRecovering-=1*gDeltaTime}
         }
 }
-else if global.booleanImprovements = false //old no input buffer 
+else if global.booleanImprovements = false //old no input buffer
     {
     if attackState=ACT_ATK or attackState=ACT_FIRE or attackState=ACT_FIRE_UP or attackState=ACT_FIRE_DOWN or attackState=ACT_BIRD_CALL
         {
@@ -1486,7 +1501,7 @@ if global.activeCharacter=0 //-------------------- JERRY --------------------
       else {sprite_index=sJerryAirDash}
     }
     else if flySpeed>90 and jumps>0 and jumps<flyMaxJumps and platformCharacterIs(IN_AIR) {sprite_index=sJerryJumpForward}
-    
+
     if doubleJumpAnim>0 and yVel<4 {sprite_index=sJerryJumpForward}
     if groundDashRecovery>0 {sprite_index=sJerryAirDash}
     else if backDashRecovery>0 {sprite_index=sJerryJumpBack}
@@ -1502,7 +1517,7 @@ if global.activeCharacter=0 //-------------------- JERRY --------------------
     else if state=RUNNING {mmState=BUSTER_RUN}
     else if (state=JUMPING or state=FALLING) {mmState=BUSTER_JUMP}
   }
-  
+
   if bTakingDamage=false
   {
     if attackState=ACT_ATK {sprite_index=sJerrySword}
@@ -1573,7 +1588,7 @@ else if global.activeCharacter=1 //-------------------- CLAIRE -----------------
       else {sprite_index=sClaireAirDash}
     }
     else if flySpeed>90 and jumps>0 and jumps<flyMaxJumps and platformCharacterIs(IN_AIR) {sprite_index=sClaireJumpForward}
-    
+
     if doubleJumpAnim>0 and yVel<4 {sprite_index=sClaireAirRoll}
   }
   if busterAnimStay>0 {busterAnimStay-=1*gDeltaTime}
@@ -1632,7 +1647,7 @@ else if global.activeCharacter=2 //-------------------- JEREMY - MECH ----------
     }
   }
   else {footStepSound=0}
-  
+
   if attackState=0 and bTakingDamage=false
   {
     if state=STANDING or state=LOOKING_UP or state=DUCKING or state=CLIMBING
@@ -1642,7 +1657,7 @@ else if global.activeCharacter=2 //-------------------- JEREMY - MECH ----------
     }
     else if state=RUNNING {sprite_index=sJeremyMechWalk}
     else if state=JUMPING or state=FALLING and statePrev=FALLING {sprite_index=sJeremyMechJump}
-    
+
     if state=JUMPING or bUseFuel=1
     {
       var tEffect,tRanScl,tFuelCol;
