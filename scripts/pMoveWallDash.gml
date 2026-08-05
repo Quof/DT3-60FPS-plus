@@ -40,9 +40,9 @@ if gDeltaTime == 1
 }
 else
 {
-  var bodged;
-  bodged = (initialJumpAcc/1.33) + (-0.05)
-  yVel = bodged * 1.00 //tune as needed
+  var bodgedY;
+  bodgedY = (initialJumpAcc/1.33) + (-0.05)
+  yVel = bodgedY * 1.00 //tune as needed
   yVel += gravityIntensity*0.5
 }
 walljumpTime=3
@@ -51,10 +51,16 @@ canAirDash=1
 doubleJumpCheck=1
 doubleJumpAnim=0
 
+var bodgedX;
+if gDeltaTime == 1 {bodgedX = 1}
+else {bodgedX = 0.9075 } //tune as needed
+// ?????? for 120 fps
+// 0.9075 for 60 fps
+
 if tWallCheck=0
 {
   facing=LEFT
-  xVel=-16
+  xVel = (-16) * bodgedX
   var tEffect;
   tEffect=instance_create(x,y,oEffect)
   tEffect.sprite_index=sAirDashWave; tEffect.image_xscale=-0.75; tEffect.image_yscale=0.75
@@ -63,7 +69,7 @@ if tWallCheck=0
 else
 {
   facing=RIGHT
-  xVel=16
+  xVel = (16) * bodgedX
   var tEffect;
   tEffect=instance_create(x,y,oEffect)
   tEffect.sprite_index=sAirDashWave; tEffect.image_xscale=0.75; tEffect.image_yscale=0.75
