@@ -9,6 +9,7 @@ bStream=1
 
 if global.currentMusic!=tTrackPlay {stopAllMusic()}
 global.currentMusic=tTrackPlay
+global.currentMusicGain=getReplayGain(tTrackPlay) //QWH
 
 if tTrackPlay=0 {stopAllMusic()}
 else if tTrackPlay=1 //---------- MAIN WORLD ----------
