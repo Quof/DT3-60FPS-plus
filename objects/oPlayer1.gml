@@ -1138,6 +1138,90 @@ if global.debugMenu=1
     global.stSamus_Bomb[0] = abilityLevel
   }
 }
+#define Other_11
+/*"/*'/**//* YYD ACTION
+lib_id=1
+action_id=603
+applies_to=self
+*/
+///Leaving Boss Gallery
+//============================== Leaving Boss Gallery ==============================
+if global.currentBoss="Bowser" {global.newMapX=264; global.newMapY=1376; room_goto(rBossGallery)}
+else if global.currentBoss="Cackletta" {global.newMapX=408; global.newMapY=1376; room_goto(rBossGallery)}
+else if global.currentBoss="Kamek" {global.newMapX=552; global.newMapY=1376; room_goto(rBossGallery)}
+else if global.currentBoss="Helmethead" {global.newMapX=872; global.newMapY=1376; room_goto(rBossGallery)}
+else if global.currentBoss="Dead Hand" {global.newMapX=1016; global.newMapY=1376; room_goto(rBossGallery)}
+else if global.currentBoss="Barba" {global.newMapX=1160; global.newMapY=1376; room_goto(rBossGallery)}
+else if global.currentBoss="Thunderbird" {global.newMapX=1304; global.newMapY=1376; room_goto(rBossGallery)}
+else if global.currentBoss="Aqua Serpent" {global.newMapX=1608; global.newMapY=1344; room_goto(rBossGallery)}
+else if global.currentBoss="Final Nightmare" {global.newMapX=1864; global.newMapY=1280; room_goto(rBossGallery)}
+else if global.currentBoss="Control Virus" {global.newMapX=2008; global.newMapY=1280; room_goto(rBossGallery)}
+else if global.currentBoss="Vampire Bat" {global.newMapX=2280; global.newMapY=1312; room_goto(rBossGallery)}
+else if global.currentBoss="Dracula" {global.newMapX=2424; global.newMapY=1312; room_goto(rBossGallery)}
+else if global.currentBoss="Menace" {global.newMapX=2568; global.newMapY=1312; room_goto(rBossGallery)}
+else if global.currentBoss="Death"
+{
+  if global.bossTrack=1 {global.newMapX=2712; global.newMapY=1312; room_goto(rBossGallery)}
+  else if global.bossTrack=2 {global.newMapX=2856; global.newMapY=1312; room_goto(rBossGallery)}
+}
+else if global.currentBoss="Blackmoor" {global.newMapX=2904; global.newMapY=1024; room_goto(rBossGallery)}
+else if global.currentBoss="Enmity" {global.newMapX=2760; global.newMapY=1024; room_goto(rBossGallery)}
+else if global.currentBoss="Maoh" {global.newMapX=2248; global.newMapY=1024; room_goto(rBossGallery)}
+else if global.currentBoss="Storm Eagle" {global.newMapX=2104; global.newMapY=1024; room_goto(rBossGallery)}
+else if global.currentBoss="Overdrive Ostrich" {global.newMapX=1960; global.newMapY=1024; room_goto(rBossGallery)}
+else if global.currentBoss="Gravity Beetle" {global.newMapX=1704; global.newMapY=992; room_goto(rBossGallery)}
+else if global.currentBoss="Bospider" {global.newMapX=1560; global.newMapY=992; room_goto(rBossGallery)}
+else if global.currentBoss="Bit & Byte" {global.newMapX=1288; global.newMapY=1056; room_goto(rBossGallery)}
+else if global.currentBoss="Sigma" {global.newMapX=1144; global.newMapY=1056; room_goto(rBossGallery)}
+else if global.currentBoss="Sigma Epsilon" {global.newMapX=1000; global.newMapY=1056; room_goto(rBossGallery)}
+else if global.currentBoss="Elpizo" {global.newMapX=744; global.newMapY=1088; room_goto(rBossGallery)}
+else if global.currentBoss="Army Eye" {global.newMapX=600; global.newMapY=1088; room_goto(rBossGallery)}
+else if global.currentBoss="Hex" {global.newMapX=360; global.newMapY=848; room_goto(rBossGallery)}
+else if global.currentBoss="Shadow Form" {global.newMapX=504; global.newMapY=848; room_goto(rBossGallery)}
+else if global.currentBoss="Vault Demon" {global.newMapX=648; global.newMapY=848; room_goto(rBossGallery)}
+else if global.currentBoss="Arachnus" {global.newMapX=792; global.newMapY=848; room_goto(rBossGallery)}
+else if global.currentBoss="King Worm" {global.newMapX=1016; global.newMapY=784; room_goto(rBossGallery)}
+else if global.currentBoss="Kraid" {global.newMapX=1160; global.newMapY=784; room_goto(rBossGallery)}
+else if global.currentBoss="Mother Brain" {global.newMapX=1304; global.newMapY=784; room_goto(rBossGallery)}
+else if global.currentBoss="Ridley"
+{
+  if global.bossTrack=1 {global.newMapX=1496; global.newMapY=720; room_goto(rBossGallery)}
+  else if global.bossTrack=2 {global.newMapX=1640; global.newMapY=720; room_goto(rBossGallery)}
+  else if global.bossTrack=3 {global.newMapX=1784; global.newMapY=720; room_goto(rBossGallery)}
+}
+else if global.currentBoss="Nightmare" {global.newMapX=2040; global.newMapY=752; room_goto(rBossGallery)}
+else if global.currentBoss="Sand Crawler" {global.newMapX=2184; global.newMapY=752; room_goto(rBossGallery)}
+else if global.currentBoss="Malevolence" {global.newMapX=2328; global.newMapY=752; room_goto(rBossGallery)}
+else if global.currentBoss="Leviathan" {global.newMapX=2472; global.newMapY=752; room_goto(rBossGallery)}
+
+else if global.currentBoss="Stone Golem" {global.newMapX=2680; global.newMapY=464; room_goto(rBossGallery)}
+else if global.currentBoss="Fire Elemental" {global.newMapX=2536; global.newMapY=464; room_goto(rBossGallery)}
+else if global.currentBoss="High Heels Girl" {global.newMapX=2392; global.newMapY=464; room_goto(rBossGallery)}
+else if global.currentBoss="Unforgotten" {global.newMapX=2152; global.newMapY=528; room_goto(rBossGallery)}
+else if global.currentBoss="Chosen One" {global.newMapX=2008; global.newMapY=528; room_goto(rBossGallery)}
+else if global.currentBoss="Sephiroth" {global.newMapX=1736; global.newMapY=464; room_goto(rBossGallery)}
+else if global.currentBoss="Antipathy" {global.newMapX=1592; global.newMapY=464; room_goto(rBossGallery)}
+else if global.currentBoss="Sera" {global.newMapX=1320; global.newMapY=496; room_goto(rBossGallery)}
+else if global.currentBoss="Brain Machine" {global.newMapX=1176; global.newMapY=496; room_goto(rBossGallery)}
+else if global.currentBoss="Blade Bot" {global.newMapX=1032; global.newMapY=496; room_goto(rBossGallery)}
+else if global.currentBoss="Combat Apparatus" {global.newMapX=888; global.newMapY=496; room_goto(rBossGallery)}
+else if global.currentBoss="Giant Blargg" {global.newMapX=712; global.newMapY=560; room_goto(rBossGallery)}
+else if global.currentBoss="Defective" {global.newMapX=568; global.newMapY=560; room_goto(rBossGallery)}
+else if global.currentBoss="Shadow Eura" {global.newMapX=184; global.newMapY=560; room_goto(rBossGallery)}
+else if global.currentBoss="Decimator"
+{
+  if global.bossTrack=1 {global.newMapX=360; global.newMapY=352; room_goto(rBossGallery)}
+  else if global.bossTrack=3 {global.newMapX=504; global.newMapY=352; room_goto(rBossGallery)}
+}
+else if global.currentBoss="Abomination" {global.newMapX=968; global.newMapY=256; room_goto(rBossGallery)}
+else if global.currentBoss="Hex Final" {global.newMapX=1240; global.newMapY=256; room_goto(rBossGallery)}
+else if global.currentBoss="Warmaster" {global.newMapX=1496; global.newMapY=224; room_goto(rBossGallery)}
+else if global.currentBoss="Parasitic Seed" {global.newMapX=2168; global.newMapY=224; room_goto(rBossGallery)}
+else if global.currentBoss="Virus Parasite" {global.newMapX=2312; global.newMapY=224; room_goto(rBossGallery)}
+else if global.currentBoss="Hexor" {global.newMapX=2456; global.newMapY=224; room_goto(rBossGallery)}
+else if global.currentBoss="The Executive" {global.newMapX=2776; global.newMapY=224; room_goto(rBossGallery)}
+else if global.currentBoss="Warmaster EX" {global.newMapX=2920; global.newMapY=224; room_goto(rBossGallery)}
+else if global.currentBoss="Fedex" {global.newMapX=888; global.newMapY=448; room_goto(rBT_HUB)}
 #define Other_13
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -1151,6 +1235,11 @@ global.gamePaused=false; global.gameOver=false
 global.hudLink_Arrows[0]=global.hudLink_Arrows[1]
 global.hudBelmont_WeaponEn[0]=global.hudBelmont_WeaponEn[1]
 global.hudSamus_Missiles[0]=global.hudSamus_Missiles[1]
+global.hudMega_BusterEn[0]=32
+global.hudMega_ShotIceEn[0]=32
+global.hudMega_GravityEn[0]=32
+global.hudSamus_CannonEn[0]=0
+global.hudGame_WeaponEn[0]=global.hudGame_WeaponEn[1]
 room_restart()
 #define Other_14
 /*"/*'/**//* YYD ACTION
@@ -1178,6 +1267,11 @@ else if global.pMaxLife=80 {if global.pLife<60 {global.pLife=60}} //(20) 15
 global.hudLink_Arrows[0]=global.hudLink_Arrows[1]
 global.hudBelmont_WeaponEn[0]=global.hudBelmont_WeaponEn[1]
 global.hudSamus_Missiles[0]=global.hudSamus_Missiles[1]
+global.hudMega_BusterEn[0]=32
+global.hudMega_ShotIceEn[0]=32
+global.hudMega_GravityEn[0]=32
+global.hudSamus_CannonEn[0]=0
+global.hudGame_WeaponEn[0]=global.hudGame_WeaponEn[1]
 
 //Boss specific respawns
 global.gamePaused=false; global.gameOver=false
