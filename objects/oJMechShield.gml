@@ -14,8 +14,8 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  if greenFlashAlpha>0 {greenFlashAlpha-=0.1}
-  decayTime-=1
+  if greenFlashAlpha>0 {greenFlashAlpha-=0.1*gDeltaTime}
+  decayTime-=1*gDeltaTime
   if decayTime<=0
   {
     image_alpha-=0.1*gDeltaTime

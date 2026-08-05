@@ -14,6 +14,8 @@ global.recAtkNum+=1
 stunTime=1
 decayTime=35
 lingerFrame=0
+_direction = 0
+_speed = 0
 #define Destroy_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

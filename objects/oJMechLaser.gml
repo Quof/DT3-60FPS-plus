@@ -16,6 +16,9 @@ weaponRehitTime=5
 decayTime=75
 lingerFrame=0
 homingTrack=0
+
+_speed = 0
+_direction = 0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -25,7 +28,7 @@ applies_to=self
 event_inherited()
 if global.gamePaused=false
 {
-  homingTrack+=1
+  homingTrack+=1*gDeltaTime
   if homingTrack mod 6=0
   {
     atkPower=400+(oPlayer1.hitCombo*4)
@@ -41,7 +44,7 @@ if global.gamePaused=false
   image_angle=_direction
   _speed=14
 
-  decayTime-=1
+  decayTime-=1*gDeltaTime
   if decayTime<=0 {instance_destroy()}
 }
 else {_speed=0}

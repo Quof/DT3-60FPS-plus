@@ -119,8 +119,17 @@ if global.activeCharacter=0 or global.activeCharacter=1
 }
 else if global.activeCharacter=2
 {
-  initialJumpAcc=-7        //relates to how high the character will jump
-  jumpTimeTotal=60         //how long the user must hold the jump button to get the maximum jump height
+  if gDeltaTime == 1
+  {
+    initialJumpAcc=-7        //relates to how high the character will jump
+    jumpTimeTotal=60         //how long the user must hold the jump button to get the maximum jump height
+  }
+  else
+  {
+    initialJumpAcc=-7.7//7        //relates to how high the character will jump
+    jumpTimeTotal=45//60         //how long the user must hold the jump button to get the maximum jump height
+  }
+
 }
 else if global.activeCharacter=4
 {

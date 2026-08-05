@@ -589,7 +589,7 @@ if bTakingDamage=false
           bUseFuel=1
           mechFuel-=1*gDeltaTime
           yVel=0
-          yAcc=-mechBoostAcc
+          yAcc=-mechBoostAcc*10//Andrew fix: No multiplier was here before, had to multiply by 10 to get it to where 30fps was
         }
         else {bUseFuel=0}
       }

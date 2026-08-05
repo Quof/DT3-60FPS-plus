@@ -16,6 +16,8 @@ bCanPierce=1
 stunTime=1
 decayTime=9
 lingerFrame=0
+_speed = 0
+_direction = 0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -28,14 +30,15 @@ if global.gamePaused=false
   {
     image_alpha-=0.06*gDeltaTime
     image_angle=_direction
-    speed=10.5
+    _speed=10.5
+    speed = 0
 
     if isCollisionLeft(1) {lingerFrame=1; _speed=0; visible=0}
     if isCollisionRight(1) {lingerFrame=1; _speed=0; visible=0}
     if isCollisionBottom(1) {lingerFrame=1; _speed=0; visible=0}
     if isCollisionTop(1) {lingerFrame=1; _speed=0; visible=0}
 
-    decayTime-=1
+    decayTime-=1*gDeltaTime
     if decayTime<=0 {instance_destroy()}
   }
   else if lingerFrame=1 {instance_destroy()}

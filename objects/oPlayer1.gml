@@ -953,7 +953,7 @@ if swapCheck=1 //wait 1 frame before moving objects around in split party maps
 }
 
 //Jeremy Mech tracking
-if mechFireRate>0 {mechFireRate-=1} //Reset Jeremy's Mech firerate
+if mechFireRate>0 {mechFireRate-=1*gDeltaTime} //Reset Jeremy's Mech firerate
 if mechShieldUses<2
 {
   mechShieldRecover+=1*gDeltaTime

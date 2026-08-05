@@ -1178,8 +1178,8 @@ else if global.activeCharacter=2 and global.jeremyCanAtk=1 //-------------------
         mechMissileUses-=1
         var playerAttack;
         playerAttack=instance_create(x-(10*image_xscale),y-48,oJMechMissile)
-        if image_xscale=1 {playerAttack.direction=45; playerAttack.image_angle=45}
-        else if image_xscale=-1 {playerAttack.direction=135; playerAttack.image_angle=135}
+        if image_xscale=1 {playerAttack._direction=45; playerAttack.image_angle=45}
+        else if image_xscale=-1 {playerAttack._direction=135; playerAttack.image_angle=135}
       }
     }
     else
@@ -1191,9 +1191,9 @@ else if global.activeCharacter=2 and global.jeremyCanAtk=1 //-------------------
         var playerAttack,tShotDirRan;
         tShotDirRan=random_range(-2,2)
         playerAttack=instance_create(x+(17*image_xscale),y-33,oJMechShotA)
-        if image_xscale=1 {playerAttack.direction=tShotDirRan; playerAttack.image_angle=tShotDirRan}
-        else if image_xscale=-1 {playerAttack.direction=180+tShotDirRan; playerAttack.image_angle=180+tShotDirRan}
-        mechFireRate=6
+        if image_xscale=1 {playerAttack._direction=tShotDirRan; playerAttack.image_angle=tShotDirRan}
+        else if image_xscale=-1 {playerAttack._direction=180+tShotDirRan; playerAttack.image_angle=180+tShotDirRan}
+        mechFireRate=6.75//6
       }
     }
   }
@@ -1208,14 +1208,14 @@ else if global.activeCharacter=2 and global.jeremyCanAtk=1 //-------------------
         mechLaserEnergy-=mechLaserMax/2
         var playerAttack;
         playerAttack=instance_create(x-(10*image_xscale),y-48,oJMechLaser)
-        if image_xscale=-1 {playerAttack.direction=180; playerAttack.image_angle=180}
+        if image_xscale=-1 {playerAttack._direction=180; playerAttack.image_angle=180}
       }
     }
     else
     {
       if mechFireRate<5 //Flame Thrower
       {
-        if oGame.time mod 2=0
+        if oGame.time mod (2/gDeltaTime)=0
         {
           if global.location=110 {playSound(global.snd_Flame1,0,0.83,42000)}
           else {playSound(global.snd_Flame1,0,0.9,56000)}
@@ -1223,9 +1223,9 @@ else if global.activeCharacter=2 and global.jeremyCanAtk=1 //-------------------
         var playerAttack,tFlameDirRan;
         tFlameDirRan=random_range(-2,2)
         playerAttack=instance_create(x+(17*image_xscale),y-33,oJMechFlame)
-        if image_xscale=1 {playerAttack.direction=tFlameDirRan; playerAttack.image_angle=tFlameDirRan}
-        else if image_xscale=-1 {playerAttack.direction=180+tFlameDirRan; playerAttack.image_angle=180+tFlameDirRan}
-        mechFireRate=6
+        if image_xscale=1 {playerAttack._direction=tFlameDirRan; playerAttack.image_angle=tFlameDirRan}
+        else if image_xscale=-1 {playerAttack._direction=180+tFlameDirRan; playerAttack.image_angle=180+tFlameDirRan}
+        mechFireRate=6.75//6
       }
     }
   }
