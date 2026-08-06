@@ -330,7 +330,7 @@ else if global.gameProgress=2030 and room=rMain_34 //----- [3] Bubble Tower and 
     {
       npcBubblin.sprite_index=sBubblun_Walk; npcBubblin.image_xscale=-1; npcBubblin.image_speed=0.15
     }
-    else if sceneDelay>=16 and sceneDelay<=48 {npcBubblin.x-=1}
+    else if sceneDelay>=16 and sceneDelay<=48 and gDeltaDoTicks {npcBubblin.x-=1}
     else if sceneDelay=49 {npcBubblin.sprite_index=sBubblun_Idle; npcBubblin.image_speed=0.05}
     else if sceneDelay=60 {with npcBubblin {instance_destroy()}}
     else if sceneDelay>=75 {sceneDelay=0; sceneProgress+=1}
