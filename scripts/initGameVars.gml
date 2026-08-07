@@ -529,6 +529,10 @@ for(i=0;i<5;i+=1)
 
 global.nightmareDagger=21
 
+//gamepad
+for(i=1;i<=14;i+=1) {global.padBind[i]=-1}
+global.padSlot=0
+
 //----- Boss Gallery time trials -----
 for(i=0;i<65;i+=1)
 {

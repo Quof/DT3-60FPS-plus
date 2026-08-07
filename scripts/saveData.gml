@@ -334,6 +334,8 @@ ini_write_real(sectionWrite,"247s",global.optMLoop) //music loop
 ini_write_real(sectionWrite,"248",global.optMorphControls)
 ini_write_real(sectionWrite,"249",global.optSwapType)
 ini_write_real(sectionWrite,"250",global.optStickDeadZone)
+for(i=1;i<=14;i+=1)
+  ini_write_real(sectionWrite,"260"+string(i),global.padBind[i])
 
 ini_write_string(sectionWrite,"301",global.ctrlUp)
 ini_write_string(sectionWrite,"302",global.ctrlDown)

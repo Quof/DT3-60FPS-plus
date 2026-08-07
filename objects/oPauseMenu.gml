@@ -16,6 +16,11 @@ colorRecogTop=make_color_rgb(255,239,66)
 colorRecogBottom=make_color_rgb(216,146,4)
 colorRecogShadow=make_color_rgb(49,33,24)
 event_user(0)
+global.padSlot=scrPadFindSlot()
+mPad_CurPos=1
+mPad_CurMax=15 // changed: was 14 -- row 15 is the new Stick Deadzone control (its old home died with subMenu 14)
+mPad_State=0 //0=browse, 1=wait-release before listening, 2=listening, 3=wait-release after binding // changed: state 3 added
+mPad_Blink=0
 
 cursorRepeatMove=0
 subMenu=0
@@ -1124,9 +1129,10 @@ else if subMenu=7 //---------- OPTIONS ----------
       {
         subMenu=11
       }
-      else if mO_CurPos=2 //Gamepad setup
+      else if mO_CurPos=2 //Button Rebinds
       {
-        subMenu=14
+        mPad_CurPos=1; mPad_State=0 // changed: was subMenu=14 (preset menu, now removed)
+        subMenu=15
       }
       else if mO_CurPos=3 //Gamepad input
       {
@@ -1956,7 +1962,7 @@ else if subMenu=13 //---------- RECOGNITIONS ----------
     else {mR_RecCurPos+=1}
   }
 }
-else if subMenu=14 //---------- GAMEPAD SETUP ----------
+/*else if subMenu=14 //---------- GAMEPAD SETUP ----------
 {
   //Change button layout
   if oKeyCodes.kCodePressed[1]=1
@@ -1985,6 +1991,76 @@ else if subMenu=14 //---------- GAMEPAD SETUP ----------
     else {global.optStickDeadZone-=0.05}
   }
   
+}*/
+else if subMenu=15 //---------- CONTROLLER REBIND ----------
+{
+  if mPad_State=0 //Browsing
+  {
+    if oKeyCodes.kCodePressed[3]=1
+    {
+      playSound(global.snd_MenuCursor,0,1,1)
+      if mPad_CurPos=1 {mPad_CurPos=mPad_CurMax}
+      else {mPad_CurPos-=1}
+    }
+    else if oKeyCodes.kCodePressed[4]=1
+    {
+      playSound(global.snd_MenuCursor,0,1,1)
+      if mPad_CurPos=mPad_CurMax {mPad_CurPos=1}
+      else {mPad_CurPos+=1}
+    }
+    if mPad_CurPos<=14 // changed: rows 1-14 rebind; row 15 is the deadzone control
+    {
+      if oKeyCodes.kCodePressed[5]=1 //Rebind selected action
+      {
+        resetKeyCodes()
+        playSound(global.snd_MenuConfirm,0,1,1)
+        mPad_State=1
+      }
+      else if oKeyCodes.kCodePressed[7]=1 //Clear binding
+      {
+        resetKeyCodes()
+        playSound(global.snd_MenuCancel,0,1,1)
+        global.padBind[mPad_CurPos]=-1
+      }
+    }
+    else //Row 15: Stick Deadzone // added: whole else-branch
+    {
+      if oKeyCodes.kCodePressed[1]=1 and global.optStickDeadZone>0.2
+      {
+        playSound(global.snd_MenuCursor,0,1,1)
+        global.optStickDeadZone-=0.05
+      }
+      else if oKeyCodes.kCodePressed[2]=1 and global.optStickDeadZone<0.8
+      {
+        playSound(global.snd_MenuCursor,0,1,1)
+        global.optStickDeadZone+=0.05
+      }
+    }
+  }
+  else if mPad_State=1 //Wait for release before listening
+  {
+    resetKeyCodes()
+    if scrPadGetPressed()=-1 {mPad_State=2}
+    if keyboard_check_pressed(vk_backspace) {mPad_State=0}
+  }
+  else if mPad_State=2 //Listening
+  {
+    resetKeyCodes()
+    var tNewBind;
+    tNewBind=scrPadGetPressed()
+    if tNewBind>-1 // changed: was >0 -- BTN 0 is a valid capture
+    {
+      playSound(global.snd_Equip,0,1,1)
+      global.padBind[mPad_CurPos]=tNewBind
+      mPad_State=3 // changed: was 0 -- go wait for release instead of straight to browse
+    }
+    if keyboard_check_pressed(vk_backspace) {mPad_State=0}
+  }
+  else if mPad_State=3 //Wait for release AFTER binding -- prevents the just-bound held button leaking into the menu as a fresh Confirm press // added: whole state
+  {
+    resetKeyCodes()
+    if scrPadGetPressed()=-1 {mPad_State=0}
+  }
 }
 
 if keyboard_check_pressed(vk_home)
@@ -2008,7 +2084,8 @@ if oKeyCodes.kCodePressed[6]=1 //Go back to a specific submenu
 {
   resetKeyCodes()
   if subMenu>0 and subMenu<11 {subMenu=0} //From main submenus to main menu
-  else if subMenu=11 or subMenu=14 {subMenu=7} //From (Control or Gamepad Setup) to Options
+  else if subMenu=11 {subMenu=7} //From (Control or Gamepad Setup) to Options
+  else if subMenu=15 {subMenu=7}
   else if subMenu=12 {subMenu=2} //From Item list to Equipment
   else if subMenu=13 {subMenu=6} //From Recognitions to Records
   mapDetails=0
@@ -2587,7 +2664,7 @@ if view_current=0
     //Display cursor
     draw_sprite(sPauseM_Cursor,0,contentMenuX+7,contentMenuY+9+(mR_RecCurPos*24))
   }
-  else if subMenu=14 //------------------------------ GAMEPAD SETUP ------------------------------
+/*  else if subMenu=14 //------------------------------ GAMEPAD SETUP ------------------------------
   {
     var tGamepadMenuX,tGamepadMenuY;
     tGamepadMenuX=contentMenuX-32
@@ -2691,6 +2768,59 @@ if view_current=0
       draw_text(tGamepadMenuX+317,tGamepadMenuY+147,"Action A")
       draw_text(tGamepadMenuX+317,tGamepadMenuY+172,"Dash Right")
     }
+  }*/
+
+  else if subMenu=15 //------------------------------ CONTROLLER REBIND ------------------------------
+  {
+    var tRbX,tRbY,tRbW,tRbRowY,tRbNames,i;
+    tRbX=contentMenuX+55 // changed: inset from the left edge instead of starting at +1, so it reads as a floating box like Controls does
+    tRbY=contentMenuY+13 // changed: sits a bit lower, similar to where Controls' box begins
+    tRbW=250 // changed: narrower than the old 319 -- tune this against your actual longest label + value text
+    draw_set_alpha(1)
+    draw_set_color(make_color_rgb(0,120,104))
+    draw_rectangle(tRbX,tRbY,tRbX+tRbW,tRbY+195,0) // changed: width/height now driven by tRbX/tRbW
+    draw_set_color(make_color_rgb(224,128,40))
+    draw_rectangle(tRbX,tRbY,tRbX+tRbW,tRbY+195,1) // changed
+
+    tRbNames[1]="Left"; tRbNames[2]="Right"; tRbNames[3]="Up"; tRbNames[4]="Down"
+    tRbNames[5]="Jump"; tRbNames[6]="Action A"; tRbNames[7]="Action B"; tRbNames[8]="Action C"
+    tRbNames[9]="Character Swap"; tRbNames[10]="Ability Swap"; tRbNames[11]="Skip"; tRbNames[12]="Pause"
+    tRbNames[13]="Dash Left"; tRbNames[14]="Dash Right"
+    tRbNames[15]="Stick Deadzone"
+
+    mPad_Blink+=1*gDeltaTime
+
+    draw_set_font(fnt_PauseMenuText)
+    for(i=1;i<=15;i+=1)
+    {
+      tRbRowY=tRbY+4+((i-1)*12)
+      draw_set_halign(fa_left)
+      textDropShadow(tRbNames[i],tRbX+10,tRbRowY,textColorMain,textColorShadow,1) // changed: x offset shrunk from 22 to 10 to fit the narrower box
+      draw_set_halign(fa_center)
+      if i=15
+        textDropShadow("< "+string_format(global.optStickDeadZone,1,2)+" >",tRbX+tRbW-38,tRbRowY,textColorMain,textColorShadow,1) // changed: right column now derived from tRbW instead of a fixed +252
+      else if mPad_State>0 and i=mPad_CurPos
+      {
+        if floor(mPad_Blink/4) mod 2=0
+          textDropShadow("[PRESS INPUT]",tRbX+tRbW-38,tRbRowY,make_color_rgb(240,232,136),textColorShadow,1) // changed
+      }
+      else
+        textDropShadow(scrPadBindName(global.padBind[i]),tRbX+tRbW-38,tRbRowY,textColorMain,textColorShadow,1) // changed
+    }
+    draw_set_halign(fa_left)
+
+    //Display cursor
+    draw_sprite(sPauseM_AbilArrow,0,tRbX-2+sprite_get_xoffset(sPauseM_AbilArrow),tRbY+4+((mPad_CurPos-1)*12)+sprite_get_yoffset(sPauseM_AbilArrow)) // changed: arrow x follows tRbX now
+
+    if mPad_State=0
+    {
+      if mPad_CurPos<=14
+        menuInfoText=string("Bind individual controller inputs to actions.#[Confirm]: Rebind the selected action.#[" +string(global.ctrlActB) +string("]: Clear the selected binding."))
+      else
+        menuInfoText=string("How far the analog stick must move before it counts as a direction. Raise this if the game responds to a stick you aren't touching.")
+    }
+    else
+      menuInfoText=string("Press any controller button, direction, or trigger to bind it to " +string(tRbNames[mPad_CurPos]) +string(".#Press [Backspace] to cancel."))
   }
 
   //---------- Menu Info ----------

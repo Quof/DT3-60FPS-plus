@@ -85,6 +85,34 @@ if global.optGamePad=0 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ OFF 
 }
 else //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ON @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 {
+  if global.padBind[tKeyCode]!=-1 //---------- USER REBIND ----------
+  {
+    if scrPadBindCheck(tKeyCode) and global.optGamePad=1 {return 1}
+    if tKeyCode>4
+    {
+      var tKeySlot;
+      tKeySlot=tKeyCode
+      if global.optGamepadSetup=2 or global.optGamepadSetup=4
+      {
+        if tKeyCode=13 {tKeySlot=9} else if tKeyCode=14 {tKeySlot=10}
+        else if tKeyCode=9 {tKeySlot=13} else if tKeyCode=10 {tKeySlot=14}
+      }
+      if global.optGamepadSetup=3 or global.optGamepadSetup=4
+      {
+        if tKeySlot=5 {tKeySlot=6} else if tKeySlot=6 {tKeySlot=5}
+      }
+      if tKeySlot=5 {return scrKeyboardCheck(ord(global.ctrlJump))}
+      if tKeySlot=6 {return scrKeyboardCheck(ord(global.ctrlActA))}
+      if tKeySlot=7 {return scrKeyboardCheck(ord(global.ctrlActB))}
+      if tKeySlot=8 {return scrKeyboardCheck(ord(global.ctrlActC))}
+      if tKeySlot=9 {return scrKeyboardCheck(ord(global.ctrlCharSwap))}
+      if tKeySlot=10 {return scrKeyboardCheck(ord(global.ctrlAbilSwap))}
+      if tKeySlot=11 {return scrKeyboardCheck(ord("M"))}
+      if tKeySlot=12 {return scrKeyboardCheck(ord("P"))}
+      if tKeySlot=13 {return scrKeyboardCheck(ord(global.ctrlDashLeft))}
+      return scrKeyboardCheck(ord(global.ctrlDashRight))
+    }
+  }
   if tKeyCode=1 //Move left
   {
     if scrKeyboardCheck(ord(global.ctrlLeft)) or scrKeyboardCheck(vk_left) {return 1}

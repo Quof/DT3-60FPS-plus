@@ -54,6 +54,8 @@ global.optMLoop=ini_read_real(sectionRead,"247s",0) // music loop
 global.optMorphControls=ini_read_real(sectionRead,"248",1)
 global.optSwapType=ini_read_real(sectionRead,"249",0)
 global.optStickDeadZone=ini_read_real(sectionRead,"250",0.4)
+for(i=1;i<=14;i+=1)
+  global.padBind[i]=ini_read_real(sectionRead,"260"+string(i),-1)
 
 global.ctrlUp=ini_read_string(sectionRead,"301","W")
 global.ctrlDown=ini_read_string(sectionRead,"302","S")
