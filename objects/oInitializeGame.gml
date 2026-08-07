@@ -177,21 +177,25 @@ if bCanUseMenu=1
   //input codes
   if keyboard_check_pressed(vk_enter)
   {
+    var window_string;
     if completedGame=2
     {
-      inputMenu=get_string("Input code... >>Here are a few codes... (All codes are lowercase)#
+      //inputMenu=get_string("Input code... >>Here are a few codes... (All codes are lowercase)#
+      window_string = "Input code... >>Here are a few codes... (All codes are lowercase)#
       [earthshiftisbroken] : Nightmare Mode#
       [ihatemyself] : Achilles Mode#
       [ohmygodbirdsaresocool] : Easy Mode#
       [praisethesun] : Dark Mode#
       [framerate] : 2x Speed Mode#
       [nzz] or [negativezeroz] : All enemies renamed to Buttface McGee#
-      [droggeljug] : Most text replaced with droggeljug","")
+      [droggeljug] : Most text replaced with droggeljug"
     }
     else
     {
-      inputMenu=get_string("Input code... (All codes are lowercase)#If you're trying to start the game, check the controls listed on the bottom-right of the screen.","")
+      window_string = "Input code... (All codes are lowercase)#If you're trying to start the game, check the controls listed on the bottom-right of the screen."
     }
+    window_string += "#Also, type 'save NAMEHERE' to load a 'NAMEHERE.dts' save file, or 'save0' to load whichever save you loaded on first boot."
+    inputMenu=get_string(window_string,"")
 
     if inputMenu="earthshiftisbroken" //Nightmare Mode
     {
