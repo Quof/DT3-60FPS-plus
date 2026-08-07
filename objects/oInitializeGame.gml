@@ -20,9 +20,13 @@ global.debugMenu=1
 global.location=0
 titleBirdNum=0
 initGameVars()
+
+loadOptions()
+
 //Check ini
 sectionRead=""
 locCheck=0
+
 event_user(0)
 
 if locCheck>0 {titleLocation=locationCheck(locCheck)}
@@ -500,22 +504,6 @@ global.bNightmareMode=ini_read_real(sectionRead,"137b",0)
 global.bOneHitKillMode=ini_read_real(sectionRead,"137c",0)
 global.permaEasyMode=ini_read_real(sectionRead,"146",0)
 
-global.optMusic=ini_read_real(sectionRead,"201",95)
-global.optSound=ini_read_real(sectionRead,"202",95)
-global.optGamePad=ini_read_real(sectionRead,"222",0)
-
-global.ctrlUp=ini_read_string(sectionRead,"301","W")
-global.ctrlDown=ini_read_string(sectionRead,"302","S")
-global.ctrlLeft=ini_read_string(sectionRead,"303","A")
-global.ctrlRight=ini_read_string(sectionRead,"304","D")
-global.ctrlJump=ini_read_string(sectionRead,"305","J")
-global.ctrlCharSwap=ini_read_string(sectionRead,"306","U")
-global.ctrlAbilSwap=ini_read_string(sectionRead,"307","I")
-global.ctrlActA=ini_read_string(sectionRead,"308","K")
-global.ctrlActB=ini_read_string(sectionRead,"309","L")
-global.ctrlActC=ini_read_string(sectionRead,"310","O")
-global.ctrlDashLeft=ini_read_string(sectionRead,"311","Q")
-global.ctrlDashRight=ini_read_string(sectionRead,"312","E")
 ini_close()
 
 for(i=0;i<8;i+=1)
