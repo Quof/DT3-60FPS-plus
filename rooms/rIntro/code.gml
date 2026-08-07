@@ -23,6 +23,7 @@ if pNum>0
     global.paraString[i]=parameter_string(i+1)
   }
 }
+global.initialSave = global.paraString[0]
 
 global.bNightmareMode=0
 global.bCanUseEsc=1

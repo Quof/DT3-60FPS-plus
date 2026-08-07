@@ -364,7 +364,14 @@ if bCanUseMenu=1
         }
       }
     }
-    if string_starts_with(inputMenu,"save ") and string_length(inputMenu)>=6 // load different saves
+    if inputMenu="save0"
+    {
+      global.paraString[0] = global.initialSave
+      event_user(0)
+      if locCheck>0 {titleLocation=locationCheck(locCheck)}
+      else {titleLocation=""}
+    }
+    else if string_starts_with(inputMenu,"save ") and string_length(inputMenu)>=6 // load different saves
     {
       Sname_len = string_length(inputMenu)-5
       Sname = string_copy(inputMenu,6,Sname_len)
