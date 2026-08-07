@@ -364,6 +364,15 @@ if bCanUseMenu=1
         }
       }
     }
+    if string_starts_with(inputMenu,"save ") and string_length(inputMenu)>=6 // load different saves
+    {
+      Sname_len = string_length(inputMenu)-5
+      Sname = string_copy(inputMenu,6,Sname_len)
+      global.paraString[0] = string_insert(Sname,".dts",1)
+      event_user(0)
+      if locCheck>0 {titleLocation=locationCheck(locCheck)}
+      else {titleLocation=""}
+    }
   }
 
   //start game
