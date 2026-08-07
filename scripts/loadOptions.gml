@@ -3,6 +3,8 @@ var sectionRead,tempVar;
 
 sectionRead="ALPHA"
 var tempVar;
+global.wearingHatJ=ini_read_real(sectionRead,"147",0)
+global.wearingHatC=ini_read_real(sectionRead,"148",0)
 
 global.optMusic=ini_read_real(sectionRead,"201",95)
 global.optSound=ini_read_real(sectionRead,"202",95)

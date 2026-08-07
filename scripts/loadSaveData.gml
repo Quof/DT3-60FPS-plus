@@ -130,8 +130,6 @@ global.tokenRecognitions=ini_read_string(sectionRead,"143","00000000000000000000
 global.tokenRecognitionsSetTwo=ini_read_string(sectionRead,"143ss","00000000000000000000000000000000000000000000000000")
 global.gameCompleted=ini_read_real(sectionRead,"144",0)
 global.permaEasyMode=ini_read_real(sectionRead,"146",0)
-global.wearingHatJ=ini_read_real(sectionRead,"147",0)
-global.wearingHatC=ini_read_real(sectionRead,"148",0)
 
 //options was here
 

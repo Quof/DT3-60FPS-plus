@@ -33,7 +33,7 @@ if locCheck>0 {titleLocation=locationCheck(locCheck)}
 else {titleLocation=""}
 
 SS_LoopSound(global.msc_TitleMenu); SS_SetSoundVol(global.msc_TitleMenu,global.optMusic*100)
-window_set_size(480*screenCheck,352*screenCheck)
+window_set_size(480*global.optWindowSize,352*global.optWindowSize)
 window_center()
 
 global.gamePaused=true
