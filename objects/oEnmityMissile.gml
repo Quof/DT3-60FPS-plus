@@ -91,7 +91,8 @@ else
   _speed=0
 
 
-correctSpeedDirection(self)
+x += cos(degtorad(_direction)) * _speed * gDeltaTime
+y -= sin(degtorad(_direction)) * _speed * gDeltaTime
 #define Collision_oPlayer1
 /*"/*'/**//* YYD ACTION
 lib_id=1

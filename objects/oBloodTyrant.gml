@@ -275,7 +275,7 @@ if global.gamePaused=false
           tFDir+=20
         }
 
-        shielding+=1
+        shielding+=1*gDeltaTime
         if shielding>=13 //End shield cycle
         {
           sprite_index=sBT_Idle

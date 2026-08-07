@@ -86,9 +86,6 @@ if global.gamePaused=false
     tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
     instance_destroy()
   }
-
-  _speed=0
-
 }
 else {_speed=0; _speed=0}
 correctSpeedDirection(self)
