@@ -11,6 +11,7 @@ global.fixDarkBackgrounds=true
 gameCreateEvent()
 bStatRender=false
 windowUpdate=0
+autoSaveTime = 0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -34,6 +35,7 @@ room_speed=global.gameFrameRate
 
 gDeltaDoTicks = 0
 gDeltaTick += gDeltaTime
+autoSaveTime += gDeltaTime
 while (gDeltaTick >= 1.0)
 {
     gDeltaDoTicks += 1
@@ -324,6 +326,24 @@ applies_to=self
 */
 SS_Unload()
 scrGlobalKeyboardShutdown()
+#define Other_4
+/*"/*'/**//* YYD ACTION
+lib_id=1
+action_id=603
+applies_to=self
+*/
+if (room != rIntro and room != rTitle and room != rBeginning and room != rBackStory and room != rMap404 and room != rTestRoom and room != rCheaterRoom)
+{
+  if (autoSaveTime >= 30*60*5) //every 5 minutes
+  {
+    if global.bCanSave=true //save on room transition
+    {
+      global.recSaveNum+=1
+      saveData()
+      autoSaveTime = 0
+    }
+  }
+}
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

@@ -6,6 +6,9 @@ applies_to=self
 */
 myImageSpeedSet=0
 myImageSpeed=0
+
+_speed = 0
+_direction = 0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -20,6 +23,8 @@ if decay!=-100
   if decay=0
     instance_destroy()
 }
+
+correctSpeedDirection(self)
 #define Other_7
 /*"/*'/**//* YYD ACTION
 lib_id=1

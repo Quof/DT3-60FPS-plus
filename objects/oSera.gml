@@ -128,9 +128,9 @@ if global.gamePaused=false
                 tEffect=instance_create(x,y-18,oEffect)
                 tEffect.sprite_index=sMMshotgunIceEffect; tEffect.image_speed=0.33; tEffect.image_angle=random(360)
                 tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
-                tEffect.direction=tDir; tEffect.image_alpha=0.75
-                if i mod 2=0 {tEffect.speed=7}
-                else {tEffect.speed=4}
+                tEffect._direction=tDir; tEffect.image_alpha=0.75
+                if i mod 2=0 {tEffect._speed=7}
+                else {tEffect._speed=4}
                 tDir+=22.5
               }
               visible=0
@@ -143,7 +143,7 @@ if global.gamePaused=false
                 tEffect=instance_create(x+random_range(-2,2),y+random_range(-2,2),oEffectB)
                 tEffect.type=3; tEffect.sprite_index=sEfFirefly; tEffect.newBlend=1
                 tEffect.image_alpha=0.9; tEffect.image_xscale=0.15+tFFScl; tEffect.image_yscale=0.15+tFFScl
-                tEffect.direction=random(360); tEffect.speed=random(1)+1; tEffect.friction=random(0.01)+0.01
+                tEffect._direction=random(360); tEffect._speed=random(1)+1; tEffect.friction=random(0.01)+0.01
                 tEffect.fadeSpd=0.033; tEffect.image_blend=make_color_rgb(random(50),random(50),255)
                 tEffect.AccelX=0; tEffect.AccelY=0; tEffect.followID=-1; tEffect.rotation=0
               }
@@ -157,9 +157,9 @@ if global.gamePaused=false
                 tEffect=instance_create(x,y-18,oEffect)
                 tEffect.sprite_index=sMMshotgunIceEffect; tEffect.image_speed=0.33; tEffect.image_angle=random(360)
                 tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
-                tEffect.direction=tDir; tEffect.image_alpha=0.75
-                if i mod 2=0 {tEffect.speed=5}
-                else {tEffect.speed=3}
+                tEffect._direction=tDir; tEffect.image_alpha=0.75
+                if i mod 2=0 {tEffect._speed=5}
+                else {tEffect._speed=3}
                 tDir+=22.5
               }
               visible=1
