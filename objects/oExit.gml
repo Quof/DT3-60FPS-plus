@@ -105,7 +105,7 @@ exitType relates to whether the player has to press a key to activate the event.
 */
 if exitType=0 //Press Up
 {
-  if oKeyCodes.kCodePressed[3]=1 and global.gamePaused=false
+  if oKeyCodesHighFPS.kCodePressed[3]=1 and global.gamePaused=false
   {
     if room=rMain_45 and global.gameProgress=2600 //Barrens - Twin Rocks puzzle
     {
@@ -164,7 +164,7 @@ else if exitType=1 //No key (Player Touch)
 }
 else if exitType=2 //Press Down
 {
-  if oKeyCodes.kCodePressed[4]=1 and global.gamePaused=false
+  if oKeyCodesHighFPS.kCodePressed[4]=1 and global.gamePaused=false
   {
     global.gamePaused=true
     playSound(global.snd_MarioPipe,0,1,1)
