@@ -311,7 +311,7 @@ else if global.gameProgress=2210 and room=rVault_3 //----- [2] After grabbing Me
   if sceneProgress=0 and !instance_exists(oStoryObject)
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay=1
+    if sceneDelay=1*gDeltaTime
       global.gamePaused=true
     else if sceneDelay>=2
     {
@@ -467,7 +467,7 @@ else if global.gameProgress=2240 and room=rVault_1 //----- [3] Chao is missing -
     if oPlayer1.x<=160
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay=1
+      if sceneDelay=1*gDeltaTime
       {
         global.gamePaused=true
         var tFlash;
@@ -500,7 +500,7 @@ else if global.gameProgress=2240 and room=rVault_1 //----- [3] Chao is missing -
       itemMP=instance_create(oPlayer1.x,oPlayer1.y-26,oMisc)
       itemMP.sprite_index=sZeldaMegaphone; itemMP.image_xscale=-1; itemMP.type=1
     }
-    else if sceneDelay>=21 and sceneDelay<=56 {itemMP.y-=2}
+    else if sceneDelay>=21 and sceneDelay<=56 {itemMP.y-=2*gDeltaTime}
     else if sceneDelay=90
     {
       playSound(global.snd_SkillCapsule,0,1,85000)
