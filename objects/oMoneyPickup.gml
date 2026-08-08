@@ -36,7 +36,12 @@ if global.gamePaused=false
   if isCollisionBottom(1)
     yVel=0
   if isCollisionSolid()
-    y-=2
+  {
+    if gDeltaTime>=0.5
+      y-=2*gDeltaTime
+    else if oGame.time mod (0.5/gDeltaTime) = 0
+      y-=1
+  }
   moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
 
   if y>room_height+24
