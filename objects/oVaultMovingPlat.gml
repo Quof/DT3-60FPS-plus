@@ -32,8 +32,8 @@ applies_to=self
 */
 xVel=xDir
 yVel=yDir
-x+=round(xDir*gDeltaTime)
-y+=round(yDir*gDeltaTime)
+x+=round(xDir)
+y+=round(yDir)
 shiftTimeMax=shiftChange-2
 if variable_local_exists("newRangeX")
   drawRangeX=newRangeX
@@ -55,7 +55,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if global.gamePaused=false and gDeltaDoTicks
+if global.gamePaused=false //and gDeltaDoTicks
 {
   if bCanMove=true
   {
@@ -94,7 +94,7 @@ if global.gamePaused=false and gDeltaDoTicks
       {
         prevX=x
         prevY=y
-        shiftTime+=1*gDeltaTime
+        shiftTime+=1
       }
     }
   }
