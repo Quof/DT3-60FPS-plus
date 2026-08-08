@@ -46,8 +46,9 @@ if animPlayerExit>0
 {
   animPlayerExit+=1*gDeltaTime
   oPlayer1.x=x+(sprite_width/2)
-  //oPlayer1.y+=2*gDeltaTime
-  oPlayer1.y+=(gDeltaTime>=0.5)*2*gDeltaTime + (gDeltaTime<0.5)*(oGame.time mod (0.5/gDeltaTime) == 0)
+  oPlayer1.y+=2*gDeltaTime
+  // The below attempt to fix 120fps jitter fails in mysterious ways. (spinach)
+  //oPlayer1.y+=(gDeltaTime>=0.5)*2*gDeltaTime + (gDeltaTime<0.5)*((oGame.time mod (0.5/gDeltaTime)) == 0)
   if animPlayerExit=30
   {
     global.gamePaused=false
@@ -78,7 +79,7 @@ exitType relates to whether the player has to press up to activate the event.
 */
 if exitType=0
 {
-  if oKeyCodes.kCodePressed[3]=1 and global.gamePaused=false
+  if oKeyCodesHighFPS.kCodePressed[3]=1 and global.gamePaused=false
   {
     oPlayer1.x=newX
     oPlayer1.y=newY
@@ -96,7 +97,7 @@ else if exitType=1
 }
 else if exitType=2
 {
-  if oKeyCodes.kCodePressed[4]=1 and global.gamePaused=false
+  if oKeyCodesHighFPS.kCodePressed[4]=1 and global.gamePaused=false
   {
     global.gamePaused=true
     playSound(global.snd_MarioPipe,0,1,1)
