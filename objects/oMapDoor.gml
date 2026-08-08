@@ -46,7 +46,8 @@ if animPlayerExit>0
 {
   animPlayerExit+=1*gDeltaTime
   oPlayer1.x=x+(sprite_width/2)
-  oPlayer1.y+=2*gDeltaTime
+  //oPlayer1.y+=2*gDeltaTime
+  oPlayer1.y+=(gDeltaTime>=0.5)*2*gDeltaTime + (gDeltaTime<0.5)*(oGame.time mod (0.5/gDeltaTime) == 0)
   if animPlayerExit=30
   {
     global.gamePaused=false
