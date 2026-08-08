@@ -53,7 +53,7 @@ if shakeTime>0 //Screen shake
 {
   shakeSrn+=1*gDeltaTime
   if shakeSrn mod 2=0 {shakeX=shakeAmp}
-  else {shakeX=-shakeAmp}
+  else if shakeSrn mod 2=1 {shakeX=-shakeAmp}
 
   if global.gamePaused=false
   {
