@@ -133,8 +133,8 @@ if global.gamePaused=false
               tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
               tEffect.image_xscale=0.5; tEffect.image_yscale=0.5
             }
-            x+=lengthdir_x(80,_direction)*gDeltaTime
-            y+=lengthdir_y(80,_direction)*gDeltaTime
+            x+=lengthdir_x(80,_direction)
+            y+=lengthdir_y(80,_direction)
             teleTime=0; teleProg+=1
           }
         }
