@@ -60,10 +60,26 @@ else
     xVel = bodged
 }
 
+var dashBodge
+if gDeltaTime == 1
+{
+  dashBodge = 0
+}
+else
+{
+  if global.activeCharacter == 0
+  {
+    dashBodge = global.jerryDashBodge
+  }
+  else if global.activeCharacter == 1
+  {
+    dashBodge = global.claireDashBodge
+  }
+}
 
 if facing=RIGHT
 {
-  xVel=dashVel
+  xVel=dashVel+dashBodge
   var tEffect;
   tEffect=instance_create(x,y,oEffect)
   tEffect.sprite_index=sDashWave
@@ -77,7 +93,7 @@ if facing=RIGHT
 }
 else
 {
-  xVel=-dashVel
+  xVel=-dashVel-dashBodge
   var tEffect;
   tEffect=instance_create(x,y,oEffect)
   tEffect.sprite_index=sDashWave; tEffect.image_xscale=-1

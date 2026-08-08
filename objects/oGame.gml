@@ -235,8 +235,8 @@ if global.debugMenu=true //debug commands
   {
     oPlayer1.life=oPlayer1.maxLife
   }
-  else if keyboard_check(ord("Y"))
-    instance_create(0,0,oScreenEffect)
+  //else if keyboard_check(ord("Y"))
+    //instance_create(0,0,oScreenEffect)
   else if keyboard_check(ord("T"))
   {
     oPlayer1.dashEnergy=oPlayer1.dashMeterMax
@@ -309,6 +309,22 @@ if global.debugMenu=true //debug commands
       global.debugAlwaysMaxHP=true
     else
       global.debugAlwaysMaxHP=false
+  }
+  else if keyboard_check_pressed(ord("T"))
+  {
+    global.jerryDashBodge+=0.05
+  }
+  else if keyboard_check_pressed(ord("G"))
+  {
+    global.jerryDashBodge-=0.05
+  }
+  else if keyboard_check_pressed(ord("Y"))
+  {
+    global.claireDashBodge+=0.05
+  }
+  else if keyboard_check_pressed(ord("H"))
+  {
+    global.claireDashBodge-=0.05
   }
 }
 else
@@ -439,5 +455,9 @@ if view_current=0
   if global.debugAlwaysMaxHP=true
     textDropShadow("<ALWAYS MAX HP>",view_xview[0]+4,view_yview[0]+306,c_white,c_black,1)
   if global.debugMenu=true
+  {
     textDropShadow("<DEBUG MODE ON>",view_xview[0]+4,view_yview[0]+338,c_white,c_black,1)
+    textDropShadow("Jerry Bodge" + string(global.jerryDashBodge),view_xview[0]+4,view_yview[0]+318,c_white,c_black,1)
+    textDropShadow("Claire Bodge" + string(global.claireDashBodge),view_xview[0]+4,view_yview[0]+298,c_white,c_black,1)
+  }
 }

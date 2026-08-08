@@ -708,6 +708,24 @@ if bombJump>0 //Remove bomb boosted effect
   bombJump-=1*gDeltaTime
 }
 
+var dashBodge
+if gDeltaTime == 1
+{
+  dashBodge = 0
+}
+else
+{
+  if global.activeCharacter == 0
+  {
+    dashBodge = global.jerryDashBodge
+  }
+  else if global.activeCharacter == 1
+  {
+    dashBodge = global.claireDashBodge
+  }
+}
+
+
 if groundDashRecovery>0 //Continue ground dash - Jerry only
 {
   if platformCharacterIs(ON_GROUND)
@@ -720,8 +738,8 @@ if groundDashRecovery>0 //Continue ground dash - Jerry only
     tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0
   }
   groundDashRecovery-=1*gDeltaTime
-  if facing=RIGHT {xVel=(dashVel+1)}
-  else if facing=LEFT {xVel=-(dashVel+1)}
+  if facing=RIGHT {xVel=(dashVel+dashBodge+1)}
+  else if facing=LEFT {xVel=-(dashVel+dashBodge+1)}
 }
 if backDashRecovery>0 //Continue ground dash - Jerry only
 {
@@ -735,8 +753,8 @@ if backDashRecovery>0 //Continue ground dash - Jerry only
     tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0
   }
   backDashRecovery-=1*gDeltaTime
-  if facing=RIGHT {xVel=-(dashVel+1)}
-  else if facing=LEFT {xVel=(dashVel+1)}
+  if facing=RIGHT {xVel=-(dashVel+dashBodge+1)}
+  else if facing=LEFT {xVel=(dashVel+dashBodge+1)}
 }
 if claireBackDashRec>0 //For Claire only
 {
@@ -748,8 +766,8 @@ if airDashRecovery>0 //Continue air dash
   airDashRecovery-=1*gDeltaTime
   if global.activeCharacter=0 {yVel=-2.9}
   else if global.activeCharacter=1 {yVel=-3.3}
-  if facing=RIGHT {xVel=(dashVel-1)}
-  else if facing=LEFT {xVel=-(dashVel-1)}
+  if facing=RIGHT {xVel=(dashVel+dashBodge/2-1)}
+  else if facing=LEFT {xVel=-(dashVel+dashBodge/2-1)}
 }
 
 if mobilityDisable>0 {mobilityDisable-=gDeltaTime} //Double jump / Air-dash disable after split party character swap
