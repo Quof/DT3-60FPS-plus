@@ -7,7 +7,7 @@ applies_to=self
 fingerSprite=0
 setupVars=0
 alarm[0]=1
-_direction=0
+if !variable_local_exists("_direction") {_direction=0}
 _speed=0
 _hspeed=0
 _vspeed=0
@@ -30,7 +30,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-correctSpeedDirection(self)
+//correctSpeedDirection(self)
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -43,8 +43,8 @@ if setupVars=1
   {
     for(i=0;i<fingerAmt;i+=1)
     {
-      fingerBend[i]+=0.3+(i*0.015)
-      fingerWave[i]+=sin(fingerBend[i]/4)
+      fingerBend[i]+=(0.3+(i*0.015))*gDeltaTime
+      fingerWave[i]+=sin(fingerBend[i]/4)*gDeltaTime
       if i=0 or i=4 or i=8 or i=12 or i=16 or i=20
         fingerSprite=sBlackmoorFingerA
       else if i=1 or i=5 or i=9 or i=13 or i=17 or i=21

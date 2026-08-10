@@ -864,7 +864,7 @@ else if global.gameProgress=2140 and room=rMain_39Vault //----- [Unskippable] St
   if sceneProgress=0
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay=1
+    if sceneDelay=1*gDeltaTime
     {
       musVolC=global.optMusic*100
       musFileP=findMusic(202)
@@ -925,9 +925,9 @@ else if global.gameProgress=2160 and room=rMain_39Vault //----- [Unskippable] Th
   if sceneProgress=0
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay>=1
+    if sceneDelay>=1*gDeltaTime
     {
-      if sceneDelay=1 {global.gamePaused=true}
+      if sceneDelay=1*gDeltaTime {global.gamePaused=true}
       fadeAlpha+=0.04*gDeltaTime
       if fadeAlpha>=1 {sceneDelay=0; sceneProgress+=1}
     }
@@ -1180,7 +1180,7 @@ else if room=rMain_39Vault
       particleTime=4+irandom(5)
     }
 
-    objectTime-=1
+    objectTime-=1*gDeltaTime
     if objectTime<=0
     {
       var tNewObj,tYY,tSprite;
@@ -1210,7 +1210,7 @@ else if room=rMain_39Vault
       else if pullTime=420 {pullPwr+=1}
       else if pullTime=480 {pullPwr+=1}
       oPlayer1.xVel=-pullPwr
-      if oPlayer1.dashEnergy>10 {oPlayer1.dashEnergy-=10}
+      if oPlayer1.dashEnergy>10 and gDeltaDoTicks {oPlayer1.dashEnergy-=10}
 
       var tDistToVault,tNewVol;
       tDistToVault=point_distance(oPlayer1.x,oPlayer1.y-26,oVaultGate.x+32,oVaultGate.y+32)
