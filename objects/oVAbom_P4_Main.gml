@@ -39,11 +39,14 @@ if global.gamePaused=false
   }
   else if sequence=1 //Boost player
   {
-    tEffect=instance_create(oPlayer1.x+random_range(-3,3),oPlayer1.y-4-random(4),oEffect)
-    tEffect.sprite_index=sZeldaEnemyDie; tEffect.followID=-1; tEffect.image_speed=0.4
-    tEffect.newBlend=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=1+random(3)
-    tEffect.image_xscale=choose(-1,1); tEffect.image_yscale=choose(-1,1)
-    tEffect.image_blend=make_color_rgb(180,180+random(75),180)
+    if gDeltaDoTicks
+    {
+      tEffect=instance_create(oPlayer1.x+random_range(-3,3),oPlayer1.y-4-random(4),oEffect)
+      tEffect.sprite_index=sZeldaEnemyDie; tEffect.followID=-1; tEffect.image_speed=0.4
+      tEffect.newBlend=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=1+random(3)
+      tEffect.image_xscale=choose(-1,1); tEffect.image_yscale=choose(-1,1)
+      tEffect.image_blend=make_color_rgb(180,180+random(75),180)
+    }
 
     oPlayer1.yVel=-20
     seqTime+=1*gDeltaTime
