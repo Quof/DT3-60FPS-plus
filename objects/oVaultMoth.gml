@@ -64,22 +64,22 @@ if global.gamePaused=false
 
         if x>oPlayer1.x+(32*oPlayer1.image_xscale)
         {
-          if currHspd>-maxSpeed {currHspd-=0.1}
+          if currHspd>-maxSpeed {currHspd-=0.1*gDeltaTime}
           else {currHspd=-maxSpeed}
         }
         else if x<oPlayer1.x+(32*oPlayer1.image_xscale)
         {
-          if currHspd<maxSpeed {currHspd+=0.1}
+          if currHspd<maxSpeed {currHspd+=0.1*gDeltaTime}
           else {currHspd=maxSpeed}
         }
         if y>oPlayer1.y-98
         {
-          if currVspd>-maxSpeed {currVspd-=0.1}
+          if currVspd>-maxSpeed {currVspd-=0.1*gDeltaTime}
           else {currVspd=-maxSpeed}
         }
         else if y<oPlayer1.y-98
         {
-          if currVspd<maxSpeed {currVspd+=0.1}
+          if currVspd<maxSpeed {currVspd+=0.1*gDeltaTime}
           else {currVspd=maxSpeed}
         }
         _hspeed=currHspd; _vspeed=currVspd
