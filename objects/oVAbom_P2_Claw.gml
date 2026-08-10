@@ -60,7 +60,7 @@ if global.gamePaused=false
     image_angle=point_direction(x,y,oPlayer1.x,oPlayer1.y-26)
   }
 
-  fireTime+=1
+  fireTime+=1*gDeltaTime
   if fireTime>=fireDelay
   {
     if room=rVault_5

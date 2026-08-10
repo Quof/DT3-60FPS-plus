@@ -67,8 +67,8 @@ if global.gamePaused=false
     }
     for(i=0;i<4;i+=1)
     {
-      bossArmL[i].y-=0.25+(i*0.25)
-      bossArmR[i].y-=0.25+(i*0.25)
+      bossArmL[i].y-=(0.25+(i*0.25))*gDeltaTime
+      bossArmR[i].y-=(0.25+(i*0.25))*gDeltaTime
     }
     seqTime+=1*gDeltaTime
     if seqTime>=90
@@ -134,10 +134,13 @@ if global.gamePaused=false
       shotTime=0
     }
 
-    tEffect=instance_create(x+random_range(-168,168),room_height-2,oEffectB)
-    tEffect.type=3; tEffect.image_speed=0; tEffect.image_index=choose(0,1); tEffect.sprite_index=sPauseM_SkillLv
-    tEffect.direction=random_range(1,179); tEffect.speed=random(1)+1; tEffect.fadeSpd=0.03;
-    tEffect.AccelX=0; tEffect.AccelY=0; tEffect.newBlend=-1; tEffect.followID=-1; tEffect.rotation=0
+    if gDeltaDoTicks
+    {
+      tEffect=instance_create(x+random_range(-168,168),room_height-2,oEffectB)
+      tEffect.type=3; tEffect.image_speed=0; tEffect.image_index=choose(0,1); tEffect.sprite_index=sPauseM_SkillLv
+      tEffect.direction=random_range(1,179); tEffect.speed=random(1)+1; tEffect.fadeSpd=0.03;
+      tEffect.AccelX=0; tEffect.AccelY=0; tEffect.newBlend=-1; tEffect.followID=-1; tEffect.rotation=0
+    }
     if y>=720
     {
       var tempMplay;

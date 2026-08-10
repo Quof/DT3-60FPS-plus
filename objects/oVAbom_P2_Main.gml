@@ -38,18 +38,21 @@ if global.gamePaused=false
   }
   else if sequence=1 //Rise up
   {
-    yVel=-16*gDeltaTime
-    var tEffect;
-    tEffect=instance_create(x+random_range(-168,168),room_height-2,oEffectB)
-    tEffect.type=3; tEffect.image_speed=0; tEffect.image_index=choose(0,1); tEffect.sprite_index=sPauseM_SkillLv
-    tEffect.direction=random_range(1,179); tEffect.speed=random(1)+1; tEffect.fadeSpd=0.03;
-    tEffect.AccelX=0; tEffect.AccelY=0; tEffect.newBlend=-1; tEffect.followID=-1; tEffect.rotation=0
-
-    for(i=0;i<3;i+=1)
+    yVel=-16//*gDeltaTime
+    if gDeltaDoTicks
     {
-      tEffect=instance_create(x+random_range(-140,140),y,oEffect)
-      tEffect.sprite_index=sZeldaEnemyDie; tEffect.followID=-1; tEffect.image_speed=0.4; tEffect.image_yscale=-1
-      tEffect.newBlend=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=1+random(3); tEffect.image_xscale=choose(-1,1)
+      var tEffect;
+      tEffect=instance_create(x+random_range(-168,168),room_height-2,oEffectB)
+      tEffect.type=3; tEffect.image_speed=0; tEffect.image_index=choose(0,1); tEffect.sprite_index=sPauseM_SkillLv
+      tEffect.direction=random_range(1,179); tEffect.speed=random(1)+1; tEffect.fadeSpd=0.03;
+      tEffect.AccelX=0; tEffect.AccelY=0; tEffect.newBlend=-1; tEffect.followID=-1; tEffect.rotation=0
+
+      for(i=0;i<3;i+=1)
+      {
+        tEffect=instance_create(x+random_range(-140,140),y,oEffect)
+        tEffect.sprite_index=sZeldaEnemyDie; tEffect.followID=-1; tEffect.image_speed=0.4; tEffect.image_yscale=-1
+        tEffect.newBlend=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=1+random(3); tEffect.image_xscale=choose(-1,1)
+      }
     }
 
     if y<=176 {sequence+=1}
@@ -59,13 +62,14 @@ if global.gamePaused=false
     yVel+=0.6*gDeltaTime
     if yVel<0
     {
+      if gDeltaDoTicks {
       var tEffect;
       for(i=0;i<3;i+=1)
       {
         tEffect=instance_create(x+random_range(-192,192),y,oEffect)
         tEffect.sprite_index=sZeldaEnemyDie; tEffect.followID=-1; tEffect.image_speed=0.3+random(0.1); tEffect.image_yscale=-1
         tEffect.newBlend=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=1+random(3); tEffect.image_xscale=choose(-1,1)
-      }
+      }}
     }
     if yVel>-9
     {
@@ -131,8 +135,8 @@ if global.gamePaused=false
     {
       for(i=0;i<4;i+=1)
       {
-        bossArm[i].x+=0.25+(i*0.25)
-        bossArm[i].x+=0.25+(i*0.25)
+        bossArm[i].x+=(0.25+(i*0.25)) * gDeltaTime
+        bossArm[i].x+=(0.25+(i*0.25)) * gDeltaTime
       }
     }
     else if seqTime=111
@@ -212,6 +216,7 @@ if global.gamePaused=false
   }
   else if sequence=6 //Chase
   {
+    if seqTime == 0 {seqTime = 1 - gDeltaTime}
     seqTime+=1*gDeltaTime
     if seqTime=1
     {
@@ -268,7 +273,7 @@ if global.gamePaused=false
         sprite_index=sInvisibleSolidMask; visible=0; image_xscale=4; image_yscale=2; xVel=2
       }
       if oPlayer1.x<=1794 {oPlayer1.x=1800}
-      if oPlayer1.x<=1894 and oPlayer1.y>=243 {oPlayer1.y-=32*gDeltaTime}
+      if oPlayer1.x<=1894 and oPlayer1.y>=243 {oPlayer1.y-=32}
       flashSprite=1
     }
     else if seqTime=240
@@ -376,8 +381,8 @@ if global.gamePaused=false
     myClaw.x+=2*gDeltaTime
     for(i=0;i<4;i+=1)
     {
-      bossLeg[i].x+=2
-      bossArm[i].x+=2
+      bossLeg[i].x+=2*gDeltaTime
+      bossArm[i].x+=2*gDeltaTime
     }
   }
   if flashSprite>0 //Flash sprite
@@ -388,7 +393,7 @@ if global.gamePaused=false
     else if flashSprite=22 {image_blend=c_white; flashSprite=0}
   }
 
-  spawnTime+=1
+  spawnTime+=1*gDeltaTime
   if spawnTime>=spawnDelay and instance_number(oAbomSpawn)<2
   {
     instance_create(x+96,y,oAbomSpawn)

@@ -27,7 +27,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  x+=sin(oGame.time/2.5+waveOffset)*gDeltaTime
+  x+=sin(oGame.time*gDeltaTime/2.5+waveOffset)*gDeltaTime
   if room=rVault_5
   {
     if oVAbom_P1_Main.sequence=5 {y+=2*gDeltaTime}
