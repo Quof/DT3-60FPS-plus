@@ -20,10 +20,6 @@ bCanTakeDamage=false
 bCauseKnockback=true
 bShowHealthBar=false
 changeTime=0
-_speed=0
-_direction=0
-_speed=0
-_direction=0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
