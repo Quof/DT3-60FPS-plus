@@ -54,6 +54,7 @@ if global.gamePaused=false
 {
   if sequence=0 //----- Init -----
   {
+    if gDeltaDoTicks {
     var tEffect;
     for(i=0;i<3;i+=1)
     {
@@ -61,7 +62,8 @@ if global.gamePaused=false
       tEffect.type=3; tEffect.image_speed=0; tEffect.image_index=choose(0,1); tEffect.sprite_index=sPauseM_SkillLv
       tEffect.direction=random_range(1,179); tEffect.speed=random(1)+1; tEffect.fadeSpd=0.03;
       tEffect.AccelX=0; tEffect.AccelY=0; tEffect.newBlend=-1; tEffect.followID=-1; tEffect.rotation=0
-    }
+    }}
+    if seqTime == 0 {seqTime=1-gDeltaTime}
     seqTime+=1*gDeltaTime
     if seqTime=1
     {
@@ -86,12 +88,13 @@ if global.gamePaused=false
       else {dirArcMod=-1}
     }
     yVel=-16
+    if gDeltaDoTicks {
     for(i=0;i<3;i+=1)
     {
       tEffect=instance_create(x+random_range(-140,140),y,oEffect)
       tEffect.sprite_index=sZeldaEnemyDie; tEffect.followID=-1; tEffect.image_speed=0.4; tEffect.image_yscale=-1
       tEffect.newBlend=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=1+random(3); tEffect.image_xscale=choose(-1,1)
-    }
+    }}
 
     if y<=240 {sequence+=1}
   }
@@ -100,13 +103,14 @@ if global.gamePaused=false
     yVel+=0.6*gDeltaTime
     if yVel<0
     {
+      if gDeltaDoTicks {
       var tEffect;
       for(i=0;i<3;i+=1)
       {
         tEffect=instance_create(x+random_range(-192,192),y,oEffect)
         tEffect.sprite_index=sZeldaEnemyDie; tEffect.followID=-1; tEffect.image_speed=0.3+random(0.1); tEffect.image_yscale=-1
         tEffect.newBlend=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=1+random(3); tEffect.image_xscale=choose(-1,1)
-      }
+      }}
     }
     if yVel>-9
     {
@@ -217,6 +221,7 @@ if global.gamePaused=false
   }
   else if sequence=5 //----- Dive down -----
   {
+    if gDeltaDoTicks {
     var tEffect;
     for(i=0;i<3;i+=1)
     {
@@ -224,7 +229,7 @@ if global.gamePaused=false
       tEffect.type=3; tEffect.image_speed=0; tEffect.image_index=choose(0,1); tEffect.sprite_index=sPauseM_SkillLv
       tEffect.direction=random_range(1,179); tEffect.speed=random(1)+1; tEffect.fadeSpd=0.03;
       tEffect.AccelX=0; tEffect.AccelY=0; tEffect.newBlend=-1; tEffect.followID=-1; tEffect.rotation=0
-    }
+    }}
 
     yVel+=0.2*gDeltaTime
     if xVel>0 {image_angle-=1.75*gDeltaTime}
@@ -330,14 +335,14 @@ if global.gamePaused=false
     if oVAbomP5_Head.jawAngle>0 {oVAbomP5_Head.bCanTakeDamage=true}
     else {oVAbomP5_Head.bCanTakeDamage=false}
 
-    if seqTime>=31 and seqTime<=45 {oVAbomP5_Head.jawAngle+=1}
+    if seqTime>=31 and seqTime<=45 {oVAbomP5_Head.jawAngle+=1*gDeltaTime}
     else if seqTime>=50 and seqTime<=125
     {
       if shotTime mod 4=0 and shotTime>=4 //Extra laser phase
       {
         if seqTime=51 {laserWarn=1}
         else if seqTime=80 {laserDir=point_direction(x-12,y-282,oPlayer1.x,oPlayer1.y-26)}
-        else if seqTime>=81 and seqTime<=124
+        else if seqTime>=81 and seqTime<=124 and gDeltaDoTicks
         {
           for(i=0;i<2;i+=1)
           {
@@ -367,7 +372,7 @@ if global.gamePaused=false
       }
     }
     else if seqTime>=131 and seqTime<=145 {oVAbomP5_Head.jawAngle-=1*gDeltaTime}
-    else if seqTime>=160 {shotTime+=1*gDeltaTime; seqTime=0}
+    else if seqTime>=160 {shotTime+=1; seqTime=0}
 
     if damageTakenTotal>=700 and shotDelay=0
     {
@@ -452,6 +457,7 @@ if global.gamePaused=false
   }
   else if sequence=16 //----- Run away -----
   {
+    if gDeltaDoTicks {
     var tEffect;
     for(i=0;i<5;i+=1)
     {
@@ -459,7 +465,7 @@ if global.gamePaused=false
       tEffect.type=3; tEffect.image_speed=0; tEffect.image_index=choose(0,1); tEffect.sprite_index=sPauseM_SkillLv
       tEffect.direction=random_range(1,179); tEffect.speed=random(1)+1; tEffect.fadeSpd=0.03;
       tEffect.AccelX=0; tEffect.AccelY=0; tEffect.newBlend=-1; tEffect.followID=-1; tEffect.rotation=0
-    }
+    }}
     if x>=room_width+240
     {
       global.bossTrack=0
@@ -483,7 +489,7 @@ if global.gamePaused=false
     myCollision.yVel=yVel
   }
   x+=xVel*gDeltaTime; y+=yVel*gDeltaTime
-  if xVel!=0 //Move effect
+  if xVel!=0 and gDeltaDoTicks //Move effect
   {
     var tEffect;
     for(i=0;i<3;i+=1)
