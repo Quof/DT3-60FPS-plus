@@ -407,6 +407,7 @@ if global.gamePaused=false
   }
   else if life<=0 //Defeat animation
   {
+    if deathAnim == 0 {deathAnim=1-gDeltaTime}
     deathAnim+=1*gDeltaTime
     if deathAnim=1
     {
@@ -508,11 +509,14 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-playSound(global.snd_MMBulletDeflect,0,0.92,1)
-var tEffect;
-tEffect=instance_create(x+random_range(-6,6),y-4-random(44),oEffect)
-tEffect.sprite_index=sMMchargeComplete
-tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+if gDeltaDoTicks
+{
+  playSound(global.snd_MMBulletDeflect,0,0.92,1)
+  var tEffect;
+  tEffect=instance_create(x+random_range(-6,6),y-4-random(44),oEffect)
+  tEffect.sprite_index=sMMchargeComplete
+  tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+}
 #define Other_11
 /*"/*'/**//* YYD ACTION
 lib_id=1

@@ -1627,7 +1627,7 @@ if room=rExtGateE_1 //Slightly faster Dash Energy recovery
 {
   if global.gamePaused=false
   {
-    if oPlayer1.dashEnergy<oPlayer1.dashMeterMax-3 {oPlayer1.dashEnergy+=3*gDeltaTime}
+    if oPlayer1.dashEnergy<oPlayer1.dashMeterMax-3*gDeltaTime {oPlayer1.dashEnergy+=3*gDeltaTime}
   }
 }
 else if room=rExtGateB_6 //Subtle background color change

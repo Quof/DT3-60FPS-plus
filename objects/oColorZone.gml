@@ -16,8 +16,8 @@ flashTime=0
 innerAlpha=0.5
 sprite_index=sScaledCollision
 moveTime=0
-_speed=0
-_direction=0
+if !variable_local_exists("_direction") {_direction=0}
+if !variable_local_exists("_speed") {_speed=0}
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -55,7 +55,6 @@ if global.gamePaused=false
   if moveSpd>0
   {
     _speed=moveSpd
-    _speed=0
     moveTime+=1*gDeltaTime
     if moveTime>=moveDelay
     {
@@ -64,7 +63,7 @@ if global.gamePaused=false
     }
   }
 }
-else {_speed=0; _speed=0}
+else {_speed=0}
 correctSpeedDirection(self)
 #define Draw_0
 /*"/*'/**//* YYD ACTION
