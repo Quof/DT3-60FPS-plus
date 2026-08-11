@@ -111,8 +111,8 @@ if global.gamePaused=false
 
     if sequence<6
     {
-      if distToPlayer<400 {yVel=-1*gDeltaTime}
-      else {yVel=-2*gDeltaTime}
+      if distToPlayer<400 {yVel=-1}
+      else {yVel=-2}
     }
   }
   if oGame.time mod (2/gDeltaTime)=0 //Dust effect
