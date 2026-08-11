@@ -29,7 +29,7 @@ if global.gamePaused=false
   vaultMaze[3]=string_char_at(global.gameVaultProg,4)
 
   //Key timer
-  if global.tempAction[2]>0 {global.tempAction[2]-=1}
+  if global.tempAction[2]>0 and gDeltaDoTicks {global.tempAction[2]-=1}
   haveKey=0
   for(i=0;i<4;i+=1) //Check for key
   {
