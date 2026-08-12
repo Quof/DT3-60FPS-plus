@@ -7,7 +7,7 @@ applies_to=self
 /*
 Metroid checkpoint script.
 */
-if oKeyCodes.kCodePressed[3]=1 and global.gamePaused=false
+if oKeyCodesHighFPS.kCodePressed[3]=1 and global.gamePaused=false
 {
   global.metCheckpoint[0]=room
   global.metCheckpoint[1]=x+16
