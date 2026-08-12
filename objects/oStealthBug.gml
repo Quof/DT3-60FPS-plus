@@ -75,12 +75,12 @@ if global.gamePaused=false
 
           if point_distance(x,0,oPlayer1.x,0)>20 //Seek player y
           {
-            if image_xscale=1 {x+=runAcc}
-            else {x-=runAcc}
+            if image_xscale=1 {x+=runAcc*gDeltaTime}
+            else {x-=runAcc*gDeltaTime}
           }
 
-          if y>oPlayer1.y-128 {y-=3}
-          else if y<oPlayer1.y-144 {y+=1}
+          if y>oPlayer1.y-128 {y-=3*gDeltaTime}
+          else if y<oPlayer1.y-144 and gDeltaDoTicks {y+=1}
 
           if chargeTime>=chargeDelay
           {
