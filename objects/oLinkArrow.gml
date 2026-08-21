@@ -46,7 +46,18 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-bulletSpeed=12+(attackCharge/5)
+var bodge
+if gDeltaTime == 1
+{
+  bodge = 0
+}
+else
+{
+  bodge = global.arrowSpeedBodge
+}
+
+
+bulletSpeed=12+(attackCharge/5)+bodge
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -56,6 +67,15 @@ applies_to=self
 event_inherited()
 if global.gamePaused=false
 {
+  var bodge
+  if gDeltaTime == 1
+  {
+    bodge = 0
+  }
+  else
+  {
+    bodge = global.arrowRotateBodge
+  }
   if lingerFrame=0
   {
     _speed=bulletSpeed
@@ -64,17 +84,17 @@ if global.gamePaused=false
     {
       if arrowProg=0
       {
-        _direction-=2*gDeltaTime
+        _direction-=2*gDeltaTime+bodge
         if _direction>180 {arrowProg=1}
       }
       else if arrowProg=1
       {
-        if _direction>300 {_direction-=2*gDeltaTime}
+        if _direction>300 {_direction-=2*gDeltaTime+bodge}
       }
     }
     else
     {
-      if _direction<240 {_direction+=2*gDeltaTime}
+      if _direction<240 {_direction+=2*gDeltaTime+bodge}
     }
 
     if checkScreenArea(x,y,48)=0 {instance_destroy()}

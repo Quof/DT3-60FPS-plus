@@ -541,6 +541,8 @@ global.debugAlwaysMaxHP=false
 global.debugMouseMove=true
 
 
-//Dash bodge values
+//various bodge values
 global.jerryDashBodge = -2.5
 global.claireDashBodge = -0.75
+global.arrowSpeedBodge = 0
+global.arrowRotateBodge = 0.05

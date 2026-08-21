@@ -4,7 +4,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-scrGlobalKeyboardInit(0)
+scrGlobalKeyboardInit(1)
 global.booleanImprovements=true
 global.fixMMGravPlatforms=true
 global.fixDarkBackgrounds=true
@@ -310,21 +310,21 @@ if global.debugMenu=true //debug commands
     else
       global.debugAlwaysMaxHP=false
   }
-  else if keyboard_check_pressed(ord("T"))
+  else if scrKeyboardCheck(ord("T"))
   {
-    global.jerryDashBodge+=0.05
+    global.arrowRotateBodge+=0.05
   }
-  else if keyboard_check_pressed(ord("G"))
+  else if scrKeyboardCheck(ord("G"))
   {
-    global.jerryDashBodge-=0.05
+    global.arrowRotateBodge-=0.05
   }
-  else if keyboard_check_pressed(ord("Y"))
+  else if scrKeyboardCheck(ord("Y"))
   {
-    global.claireDashBodge+=0.05
+    global.arrowSpeedBodge+=0.05
   }
-  else if keyboard_check_pressed(ord("H"))
+  else if scrKeyboardCheck(ord("H"))
   {
-    global.claireDashBodge-=0.05
+    global.arrowSpeedBodge-=0.05
   }
 }
 else
@@ -457,7 +457,7 @@ if view_current=0
   if global.debugMenu=true
   {
     textDropShadow("<DEBUG MODE ON>",view_xview[0]+4,view_yview[0]+338,c_white,c_black,1)
-    textDropShadow("Jerry Bodge" + string(global.jerryDashBodge),view_xview[0]+4,view_yview[0]+318,c_white,c_black,1)
-    textDropShadow("Claire Bodge" + string(global.claireDashBodge),view_xview[0]+4,view_yview[0]+298,c_white,c_black,1)
+    textDropShadow("Speed Bodge" + string(global.arrowSpeedBodge),view_xview[0]+4,view_yview[0]+318,c_white,c_black,1)
+    textDropShadow("Rotate Bodge" + string(global.arrowRotateBodge),view_xview[0]+4,view_yview[0]+298,c_white,c_black,1)
   }
 }
