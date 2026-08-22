@@ -544,5 +544,5 @@ global.debugMouseMove=true
 //various bodge values
 global.jerryDashBodge = -2.5
 global.claireDashBodge = -0.75
-global.arrowSpeedBodge = 0
+global.arrowSpeedBodge = 0.75
 global.arrowRotateBodge = 0.05
