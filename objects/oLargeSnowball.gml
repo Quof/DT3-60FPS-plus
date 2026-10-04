@@ -43,7 +43,7 @@ if global.gamePaused=false
 
     setCollisionBounds(-15*image_xscale,-15*image_yscale,15*image_xscale,15*image_yscale)
 
-    if yVel<3 {yVel+=0.2*gDeltaTime}
+    if yVel<3 {{yVel+=0.2*gDeltaTime; yGravBias=0.2}}
     if xVel<0
       image_angle+=5*gDeltaTime
     else

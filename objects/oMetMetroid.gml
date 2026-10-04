@@ -81,7 +81,7 @@ if global.gamePaused=false
         if x>oPlayer1.x and xVel>-5.5 {xVel-=0.33*gDeltaTime}
         else if x<oPlayer1.x and xVel<5.5 {xVel+=0.33*gDeltaTime}
         if y>oPlayer1.y and yVel>-5.5 {yVel-=0.33*gDeltaTime}
-        else if y<oPlayer1.y and yVel<5.5 {yVel+=0.33*gDeltaTime}
+        else if y<oPlayer1.y and yVel<5.5 {{yVel+=0.33*gDeltaTime; yGravBias=0.33}}
         if isCollisionTop(1) {yVel=1}
         if isCollisionBottom(1) {yVel=-1}
         if isCollisionLeft(1) {xVel=1}

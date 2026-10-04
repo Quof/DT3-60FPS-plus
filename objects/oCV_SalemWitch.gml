@@ -132,9 +132,9 @@ if global.gamePaused=false
   if xSpd>0{xSpd-=hitFric*gDeltaTime}
   else if xSpd<0{xSpd+=hitFric*gDeltaTime}
   if ySpd>0{ySpd-=hitFric*gDeltaTime}
-  else if ySpd<0{ySpd+=hitFric*gDeltaTime}
+  else if ySpd<0{{ySpd+=hitFric*gDeltaTime; yGravBias=hitFric}}
 
-  x+=xSpd*gDeltaTime; y+=ySpd*gDeltaTime
+  x+=xSpd*gDeltaTime; {y+=ySpd*gDeltaTime; if variable_local_exists("yGravBias") {y+=yGravBias*(1-gDeltaTime)*0.5*gDeltaTime; yGravBias=0}}
 
   enemyStepEvent()
 }

@@ -294,7 +294,7 @@ if global.gamePaused=false
 
     if notDashable=1 {image_blend=make_color_rgb(random(255),random(255),random(255))}
 
-    yVel+=0.5*gDeltaTime
+    {yVel+=0.5*gDeltaTime; yGravBias=0.5}
     if isCollisionBottom(1)
       yVel=0
     if isCollisionLeft(1) and xVel<0

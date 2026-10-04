@@ -49,10 +49,10 @@ if global.gamePaused=false
       if xSpd>0.5 {xSpd-=0.1*gDeltaTime}
       else if xSpd<-0.5 {xSpd+=0.1*gDeltaTime}
 
-      if ySpd<4 {ySpd+=0.2*gDeltaTime}
+      if ySpd<4 {{ySpd+=0.2*gDeltaTime; yGravBias=0.2}}
     }
     x+=xSpd*gDeltaTime
-    y+=ySpd*gDeltaTime
+    {y+=ySpd*gDeltaTime; if variable_local_exists("yGravBias") {y+=yGravBias*(1-gDeltaTime)*0.5*gDeltaTime; yGravBias=0}}
   }
   else if life<=0
   {

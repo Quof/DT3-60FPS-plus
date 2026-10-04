@@ -64,8 +64,8 @@ if global.gamePaused=false
       image_yscale=1
     else
       image_yscale=-1
-    yVel+=0.5*gDeltaTime
-    y+=yVel*gDeltaTime
+    {yVel+=0.5*gDeltaTime; yGravBias=0.5}
+    {y+=yVel*gDeltaTime; if variable_local_exists("yGravBias") {y+=yGravBias*(1-gDeltaTime)*0.5*gDeltaTime; yGravBias=0}}
     if yVel>1 and y>ystart
     {
       var tEffect;

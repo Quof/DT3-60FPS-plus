@@ -74,7 +74,7 @@ if global.gamePaused=false
       turnTime=45+irandom(45)
     }
 
-    yVel+=0.2*gDeltaTime
+    {yVel+=0.2*gDeltaTime; yGravBias=0.2}
     if isCollisionBottom(1)
       yVel=0
     if isCollisionLeft(1)

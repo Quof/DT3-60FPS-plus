@@ -30,7 +30,7 @@ if global.gamePaused=false
   }
   else
   {
-    yVel+=0.3*gDeltaTime
+    {yVel+=0.3*gDeltaTime; yGravBias=0.3}
     if isCollisionBottom(1)
       yVel=0
     if isCollisionLeft(1)

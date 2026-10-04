@@ -20,7 +20,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-_vspeed+=0.2*gDeltaTime
+_vspeed+=0.2*gDeltaTime; yGravBias=0.2 //(no braces: GM8 treats code that starts with a block as only that block)
 draw_set_halign(fa_center)
 draw_set_alpha(image_alpha)
 draw_set_font(fnt_HUDnum)

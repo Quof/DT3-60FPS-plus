@@ -48,7 +48,7 @@ if global.gamePaused=false
   timeTillDamage+=1*gDeltaTime
   if timeTillDamage=4 {bCanDealDamage=true}
 
-  if yVel<16 {yVel+=0.3*gDeltaTime}
+  if yVel<16 {{yVel+=0.3*gDeltaTime; yGravBias=0.3}}
 
   _hspeed=xVel; _vspeed=yVel
   image_angle=_direction

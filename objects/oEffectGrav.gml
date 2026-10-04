@@ -20,7 +20,7 @@ applies_to=self
 */
 _hspeed=xSpd
 _vspeed=ySpd
-ySpd+=grav*gDeltaTime
+{ySpd+=grav*gDeltaTime; yGravBias=grav}
 image_angle+=rotation*gDeltaTime
 
 if type=1

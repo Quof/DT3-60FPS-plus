@@ -50,7 +50,7 @@ if global.gamePaused=false
   }
   else if phase=2 //Bullets gravity toward the floor
   {
-    yVel+=grav*gDeltaTime
+    {yVel+=grav*gDeltaTime; yGravBias=grav}
     if isCollisionTop(1) {bDestroy=1}
     if isCollisionBottom(1) {bDestroy=1}
     if isCollisionLeft(1) {bDestroy=1}

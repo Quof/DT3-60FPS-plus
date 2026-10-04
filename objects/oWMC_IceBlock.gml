@@ -69,8 +69,8 @@ if global.gamePaused=false
   }
   else if moveProg=4 //Fall
   {
-    y+=ySpd*gDeltaTime
-    if ySpd<8 {ySpd+=0.15*gDeltaTime}
+    {y+=ySpd*gDeltaTime; if variable_local_exists("yGravBias") {y+=yGravBias*(1-gDeltaTime)*0.5*gDeltaTime; yGravBias=0}}
+    if ySpd<8 {{ySpd+=0.15*gDeltaTime; yGravBias=-(0.15)}}
     if y>=warTarget.yGround
     {
       var tEffect;

@@ -571,7 +571,7 @@ if global.gamePaused=false
 
     if specProg=0
     {
-      yVel+=0.4*gDeltaTime
+      {yVel+=0.4*gDeltaTime; yGravBias=0.4}
 
       if isCollisionBottom(1)
       {

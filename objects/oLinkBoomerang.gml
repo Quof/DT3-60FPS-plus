@@ -85,7 +85,7 @@ if global.gamePaused=false
     {
       dirInfluenceTime=3
       if yVel<4
-        yVel+=1*gDeltaTime
+        {yVel+=1*gDeltaTime; yGravBias=1}
     }
 
     if dirInfluenceTime>0
@@ -112,7 +112,7 @@ if global.gamePaused=false
     if y>oPlayer1.y-26 and yVel>-maxVelocity/1.5
       yVel-=0.5*gDeltaTime
     else if y<oPlayer1.y-26 and yVel<maxVelocity/1.5
-      yVel+=0.5*gDeltaTime
+      {yVel+=0.5*gDeltaTime; yGravBias=0.5}
 
     tempXvel=xVel
     tempYvel=xVel

@@ -36,13 +36,13 @@ if global.gamePaused=false
 {
   if sprite_index=sWepPickupArrows
   {
-    yVel+=0.2*gDeltaTime
+    {yVel+=0.2*gDeltaTime; yGravBias=0.2}
     if yVel>yVelLimit
       yVel=yVelLimit
   }
   else if sprite_index=sCVHeart
   {
-    yVel+=0.01*gDeltaTime
+    {yVel+=0.01*gDeltaTime; yGravBias=0.01}
     if yVel>yVelLimit
       yVel=yVelLimit
   }

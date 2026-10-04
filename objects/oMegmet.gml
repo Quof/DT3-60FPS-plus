@@ -49,7 +49,7 @@ if global.gamePaused=false
       initDir=1
     }
 
-    yVel+=0.6*gDeltaTime
+    {yVel+=0.6*gDeltaTime; yGravBias=0.6}
     if isCollisionBottom(1)
     {
       highBounce+=1

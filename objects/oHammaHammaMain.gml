@@ -117,7 +117,7 @@ if global.gamePaused=false
       if armSeq=190 {armSeq=0}
     }
 
-    yVel+=0.2*gDeltaTime
+    {yVel+=0.2*gDeltaTime; yGravBias=0.2}
     if isCollisionBottom(1)
       yVel=0
     if isCollisionSolid()

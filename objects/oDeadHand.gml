@@ -157,9 +157,9 @@ if global.gamePaused=false
       }
       else if atkTime>=2
       {
-        y+=ySpd*gDeltaTime
-        if ySpd<-2 {ySpd+=0.2*gDeltaTime}
-        else if ySpd>=-2 and ySpd<8 {ySpd+=0.4*gDeltaTime}
+        {y+=ySpd*gDeltaTime; if variable_local_exists("yGravBias") {y+=yGravBias*(1-gDeltaTime)*0.5*gDeltaTime; yGravBias=0}}
+        if ySpd<-2 {{ySpd+=0.2*gDeltaTime; yGravBias=-(0.2)}}
+        else if ySpd>=-2 and ySpd<8 {{ySpd+=0.4*gDeltaTime; yGravBias=-(0.4)}}
         if y>=yGround and ySpd>0
         {
           sprite_index=sDeadHand_Idle

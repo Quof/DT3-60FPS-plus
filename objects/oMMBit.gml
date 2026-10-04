@@ -187,7 +187,7 @@ if global.gamePaused=false
       }
     }
 
-    if sprite_index!=sBit_Dash {yVel+=0.5*gDeltaTime}
+    if sprite_index!=sBit_Dash {{yVel+=0.5*gDeltaTime; yGravBias=0.5}}
 
     if isCollisionBottom(1)
       yVel=0

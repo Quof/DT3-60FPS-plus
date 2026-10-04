@@ -193,7 +193,7 @@ if global.gamePaused=false
         shotTime=0
       }
 
-      yVel+=gravAmt*gDeltaTime
+      {yVel+=gravAmt*gDeltaTime; yGravBias=gravAmt}
       if isCollisionBottom(1)
       {
         if gravAmt>0 {yVel=0}

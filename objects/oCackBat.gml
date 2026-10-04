@@ -35,13 +35,13 @@ if global.gamePaused=false
     if type=0 //Summon type
     {
       x+=xSpd*gDeltaTime
-      y-=ySpd*gDeltaTime
+      y-=ySpd*gDeltaTime; if variable_local_exists("yGravBias") {y-=yGravBias*(1-gDeltaTime)*0.5*gDeltaTime; yGravBias=0} //arc correction (see moveTo)
       if xSpd>=0 and xSpd<5
         xSpd+=0.1*gDeltaTime
       else if xSpd<0 and xSpd>-5
         xSpd-=0.1*gDeltaTime
       if ySpd<6
-        ySpd+=0.4*gDeltaTime
+        {ySpd+=0.4*gDeltaTime; yGravBias=-0.4} //moves before accelerating, so the correction is reversed
 
       if y<=-16
         instance_destroy()

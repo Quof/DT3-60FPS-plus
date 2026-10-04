@@ -142,7 +142,7 @@ if global.gamePaused=false
       }
     }
 
-    yVel+=1*gDeltaTime
+    {yVel+=1*gDeltaTime; yGravBias=1}
     if isCollisionBottom(1)
     {
       xVel=0

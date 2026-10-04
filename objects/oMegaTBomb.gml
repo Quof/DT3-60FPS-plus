@@ -24,7 +24,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  if yVel<4.7 {yVel+=0.3*gDeltaTime}
+  if yVel<4.7 {{yVel+=0.3*gDeltaTime; yGravBias=0.3}}
 
   if bombProg=0 //Fly out and search for player
   {

@@ -73,7 +73,7 @@ if global.gamePaused=false
         xVel=2
     }
 
-    yVel+=0.2*gDeltaTime
+    {yVel+=0.2*gDeltaTime; yGravBias=0.2}
     if isCollisionBottom(1)
     {
       image_index=0

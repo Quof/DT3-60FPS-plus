@@ -29,7 +29,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  yVel+=0.3*gDeltaTime
+  {yVel+=0.3*gDeltaTime; yGravBias=0.3}
   if yVel>12 {yVel=12}
 
   if xVel<0

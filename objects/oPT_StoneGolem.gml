@@ -163,7 +163,7 @@ if global.gamePaused=false
       if rockFall>=rockDuration {rockFall=0}
     }
 
-    yVel+=0.5*gDeltaTime
+    {yVel+=0.5*gDeltaTime; yGravBias=0.5}
     if isCollisionBottom(1)
     {
       yVel=0

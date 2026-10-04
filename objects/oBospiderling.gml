@@ -43,7 +43,7 @@ if global.gamePaused=false
   {
     if atkProg=0 //Falling
     {
-      yVel+=0.4*gDeltaTime
+      {yVel+=0.4*gDeltaTime; yGravBias=0.4}
       if yVel>12 {yVel=12}
       if isCollisionBottom(1)
       {

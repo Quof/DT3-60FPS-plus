@@ -107,8 +107,8 @@ if global.gamePaused=false
   }
   else if progress=3 //Blown out of Mech
   {
-    if ySpd<8 {ySpd+=0.3*gDeltaTime}
-    y+=ySpd*gDeltaTime
+    if ySpd<8 {{ySpd+=0.3*gDeltaTime; yGravBias=0.3}}
+    {y+=ySpd*gDeltaTime; if variable_local_exists("yGravBias") {y+=yGravBias*(1-gDeltaTime)*0.5*gDeltaTime; yGravBias=0}}
     if y>=320
     {
       y=320

@@ -105,7 +105,7 @@ if global.gamePaused=false
       }
     }
 
-    yVel+=0.4*gDeltaTime
+    {yVel+=0.4*gDeltaTime; yGravBias=0.4}
     if isCollisionBottom(1)
     {
       if jumpTime>26

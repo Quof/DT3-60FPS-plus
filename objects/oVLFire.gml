@@ -36,9 +36,9 @@ if global.gamePaused=false
     }
   }
 
-  y+=yVel*gDeltaTime
+  {y+=yVel*gDeltaTime; if variable_local_exists("yGravBias") {y+=yGravBias*(1-gDeltaTime)*0.5*gDeltaTime; yGravBias=0}}
   if yVel<3
-  yVel+=grav*gDeltaTime
+  {yVel+=grav*gDeltaTime; yGravBias=-(grav)}
   if y>room_height+16 {instance_destroy()}
 }
 #define Draw_0

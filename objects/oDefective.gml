@@ -86,7 +86,7 @@ if global.gamePaused=false
     }
     else //Down
     {
-      if ySpd<0.4 {ySpd+=0.01*gDeltaTime}
+      if ySpd<0.4 {{ySpd+=0.01*gDeltaTime; yGravBias=0.01}}
       if y>=192 {goDown=0}
     }
     if x>oPlayer1.x
@@ -98,7 +98,7 @@ if global.gamePaused=false
       if xSpd<1.5 {xSpd+=0.01*gDeltaTime}
     }
 
-    x+=xSpd*gDeltaTime; y+=ySpd*gDeltaTime
+    x+=xSpd*gDeltaTime; {y+=ySpd*gDeltaTime; if variable_local_exists("yGravBias") {y+=yGravBias*(1-gDeltaTime)*0.5*gDeltaTime; yGravBias=0}}
 
     //-------------------- ATTACK: RING BULLETS --------------------
     ringBulletTime+=1*gDeltaTime

@@ -23,7 +23,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  yVel+=grav*gDeltaTime
+  {yVel+=grav*gDeltaTime; yGravBias=grav}
   if sprite_index=sHammerBHam or sprite_index=sHammerThrowerHammer or sprite_index=sFireBroFire or sprite_index=sKingWormSpike or sprite_index=sLargeSnowball
   {
     if xVel>0 {image_angle-=10*gDeltaTime}

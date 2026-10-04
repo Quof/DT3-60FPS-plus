@@ -116,7 +116,7 @@ if global.gamePaused=false
       }
     }
 
-    yVel+=0.5*gDeltaTime
+    {yVel+=0.5*gDeltaTime; yGravBias=0.5}
     if isCollisionBottom(1)
     {
       if bReadyToFire=0

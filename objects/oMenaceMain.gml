@@ -470,7 +470,7 @@ if global.gamePaused=false
     {
       with oEnemyBase
       {
-        yVel+=0.4*gDeltaTime
+        {yVel+=0.4*gDeltaTime; yGravBias=0.4}
         image_angle+=spinSpd*gDeltaTime
       }
     }

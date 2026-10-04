@@ -51,8 +51,8 @@ if global.gamePaused=false
   }
   else if myProg=1 //Fall and Rotate
   {
-    y+=yVel*gDeltaTime
-    if yVel<7 {yVel+=0.15*gDeltaTime}
+    {y+=yVel*gDeltaTime; if variable_local_exists("yGravBias") {y+=yGravBias*(1-gDeltaTime)*0.5*gDeltaTime; yGravBias=0}}
+    if yVel<7 {{yVel+=0.15*gDeltaTime; yGravBias=-(0.15)}}
     myCol-=4*gDeltaTime
     image_blend=make_color_rgb(255,myCol,myCol)
     image_angle-=1*gDeltaTime

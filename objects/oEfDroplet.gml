@@ -13,8 +13,8 @@ action_id=603
 applies_to=self
 */
 lifeTime+=1*gDeltaTime
-y+=ySpd*gDeltaTime
-if ySpd<5 {ySpd+=0.1*gDeltaTime}
+{y+=ySpd*gDeltaTime; if variable_local_exists("yGravBias") {y+=yGravBias*(1-gDeltaTime)*0.5*gDeltaTime; yGravBias=0}}
+if ySpd<5 {{ySpd+=0.1*gDeltaTime; yGravBias=-(0.1)}}
 #define Collision_oSolid
 /*"/*'/**//* YYD ACTION
 lib_id=1

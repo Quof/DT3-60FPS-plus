@@ -38,7 +38,7 @@ applies_to=self
 */
 if view_current=0
 {
-  _vspeed+=0.38*gDeltaTime
+  {_vspeed+=0.38*gDeltaTime; yGravBias=0.38}
 
   if drawType=1
   {

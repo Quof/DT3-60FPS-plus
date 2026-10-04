@@ -57,6 +57,6 @@ else if tCharSwap=2 //Switch to Jeremy
   oPlayer1.runAcc=4.5
   oPlayer1.initialJumpAcc=-7
   oPlayer1.jumpTimeTotal=60
-  oPlayer1.jumpBodge60=1.07; oPlayer1.jumpGravComp60=0.5; oPlayer1.doubleJumpBodge60=0.98 //same 60fps jump corrections as before
+  oPlayer1.jumpBodge60=0.99; oPlayer1.jumpGravComp60=0; oPlayer1.doubleJumpBodge60=0.98 //mech jump (-7 / 60): tuned so it matches 30fps at 60 and 120fps
   oPlayer1.frictionDuckingX=0.5
 }

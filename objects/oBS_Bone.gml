@@ -25,12 +25,12 @@ if global.gamePaused=false
   else if xSpd<0
     image_angle+=10*gDeltaTime
 
-  ySpd+=grav*gDeltaTime
+  {ySpd+=grav*gDeltaTime; yGravBias=grav}
   if ySpd>7
     ySpd=7
 
   x+=xSpd*gDeltaTime
-  y+=ySpd*gDeltaTime
+  {y+=ySpd*gDeltaTime; if variable_local_exists("yGravBias") {y+=yGravBias*(1-gDeltaTime)*0.5*gDeltaTime; yGravBias=0}}
 
   if y>room_height+32
     instance_destroy()

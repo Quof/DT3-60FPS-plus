@@ -24,8 +24,8 @@ if global.gamePaused=false
 {
   if moveType=0 //Come down
   {
-    yVel+=0.2*gDeltaTime
-    y+=yVel*gDeltaTime
+    {yVel+=0.2*gDeltaTime; yGravBias=0.2}
+    {y+=yVel*gDeltaTime; if variable_local_exists("yGravBias") {y+=yGravBias*(1-gDeltaTime)*0.5*gDeltaTime; yGravBias=0}}
     if yVel>0 and y>=oSera.y-44 {moveType=1}
   }
   else if moveType=1 //Spray shattered pieces

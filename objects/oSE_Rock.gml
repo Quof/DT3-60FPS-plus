@@ -61,8 +61,8 @@ if global.gamePaused=false
     }
     else if rockSequence=1 //Fall with string
     {
-      y+=yVel*gDeltaTime
-      if yVel<3 {yVel+=0.2*gDeltaTime}
+      {y+=yVel*gDeltaTime; if variable_local_exists("yGravBias") {y+=yGravBias*(1-gDeltaTime)*0.5*gDeltaTime; yGravBias=0}}
+      if yVel<3 {{yVel+=0.2*gDeltaTime; yGravBias=-(0.2)}}
       if y>=176
       {
         y=176
@@ -129,8 +129,8 @@ if global.gamePaused=false
     }
     else if rockSequence=3 //Fall to ground
     {
-      y+=yVel*gDeltaTime
-      if yVel<3 {yVel+=0.2*gDeltaTime}
+      {y+=yVel*gDeltaTime; if variable_local_exists("yGravBias") {y+=yGravBias*(1-gDeltaTime)*0.5*gDeltaTime; yGravBias=0}}
+      if yVel<3 {{yVel+=0.2*gDeltaTime; yGravBias=-(0.2)}}
       var tYCheck;
       if x=256 or 448 {tYCheck=256}
       else {tYCheck=288}

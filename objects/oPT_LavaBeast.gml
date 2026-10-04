@@ -123,7 +123,7 @@ if global.gamePaused=false
         visible=1
       }
 
-      if yVel<12 {yVel+=0.5*gDeltaTime}
+      if yVel<12 {{yVel+=0.5*gDeltaTime; yGravBias=0.5}}
       if yVel>5
       {
         if isCollisionBottom(1)
@@ -140,7 +140,7 @@ if global.gamePaused=false
       }
       else
       {
-        y+=yVel*gDeltaTime
+        y+=(yVel+yGravBias*(1-gDeltaTime)*0.5)*gDeltaTime; yGravBias=0 //gravity arc correction (see moveTo)
       }
     }
     else if rising>=100
@@ -205,7 +205,7 @@ if global.gamePaused=false
         }
       }
 
-      yVel+=0.3*gDeltaTime
+      {yVel+=0.3*gDeltaTime; yGravBias=0.3}
       if isCollisionBottom(1)
         yVel=0
       if isCollisionLeft(1)

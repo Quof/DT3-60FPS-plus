@@ -49,7 +49,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  yVel+=0.2*gDeltaTime
+  {yVel+=0.2*gDeltaTime; yGravBias=0.2}
   if yVel>yVelLimit {yVel=yVelLimit}
 
   if sprite_index!=sMetroidHealthPickup

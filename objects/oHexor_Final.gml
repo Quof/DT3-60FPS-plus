@@ -159,12 +159,12 @@ if global.gamePaused=false
       }
       else if y<centralPointY
       {
-        if _vspeed<maxSpeed {_vspeed+=0.4*gDeltaTime}
+        if _vspeed<maxSpeed {{_vspeed+=0.4*gDeltaTime; yGravBias=0.4}}
         else {_vspeed=maxSpeed}
       }
 
       x += _hspeed * gDeltaTime
-      y += _vspeed * gDeltaTime
+      {y+=_vspeed*gDeltaTime; if variable_local_exists("yGravBias") {y+=yGravBias*(1-gDeltaTime)*0.5*gDeltaTime; yGravBias=0}}
 
       if point_distance(x,y,centralPointX,centralPointY)<=6.5 and dashDuration=0 //Find point and stop
       {

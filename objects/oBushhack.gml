@@ -121,7 +121,7 @@ if global.gamePaused=false
       if throwTime>=30 {throwTime=0; enemyProg=0}
     }
 
-    yVel+=0.4*gDeltaTime
+    {yVel+=0.4*gDeltaTime; yGravBias=0.4}
     if isCollisionBottom(1)
     {
       if enemyProg=1 {sprite_index=sBushhack_Hack; enemyProg=2}

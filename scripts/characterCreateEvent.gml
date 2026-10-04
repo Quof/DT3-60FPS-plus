@@ -119,17 +119,10 @@ if global.activeCharacter=0 or global.activeCharacter=1
 }
 else if global.activeCharacter=2
 {
-  if gDeltaTime == 1
-  {
-    initialJumpAcc=-7        //relates to how high the character will jump
-    jumpTimeTotal=60         //how long the user must hold the jump button to get the maximum jump height
-  }
-  else
-  {
-    initialJumpAcc=-7.7//7        //relates to how high the character will jump
-    jumpTimeTotal=45//60         //how long the user must hold the jump button to get the maximum jump height
-  }
-
+  //Jeremy's mech: original values at every frame rate (charSwitcher uses the same ones);
+  //the 60fps+ jump correction for the mech is set after the defaults below (jumpBodge60/jumpGravComp60)
+  initialJumpAcc=-7        //relates to how high the character will jump
+  jumpTimeTotal=60         //how long the user must hold the jump button to get the maximum jump height
 }
 else if global.activeCharacter=4
 {
@@ -147,6 +140,7 @@ doubleJumpAcc=-6.1         //relates to how high the character will jump from a 
 jumpBodge60=1.07           //multiplier on initialJumpAcc (pMoveJump)
 jumpGravComp60=0.5         //multiplier on gravityIntensity added at jump time (pMoveJump)
 doubleJumpBodge60=0.98     //multiplier on doubleJumpAcc (pMoveDoubleJump)
+if global.activeCharacter=2 {jumpBodge60=0.99; jumpGravComp60=0} //Jeremy's mech (-7 / 60): tuned so its jumps match 30fps at 60 and 120fps
 xVelSetTick=0              //above 30fps: dash code set xVel/yVel this frame (see characterStepEvent / pMoveToWrapNew)
 yVelSetTick=0
 xVelSetExt=0               //same, but set by other objects (fans, wind, bomb blasts); cleared once pMoveToWrapNew has used it

@@ -176,7 +176,7 @@ if global.gamePaused=false
 
     if moveType=0
     {
-      yVel+=0.3*gDeltaTime
+      {yVel+=0.3*gDeltaTime; yGravBias=0.3}
       if isCollisionBottom(1)
       {
         yVel=0

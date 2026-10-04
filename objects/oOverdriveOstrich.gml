@@ -462,7 +462,7 @@ if global.gamePaused=false
     }
 
     if !isCollisionBottom(1) and bHover=0
-      yVel+=0.3*gDeltaTime
+      {yVel+=0.3*gDeltaTime; yGravBias=0.3}
     if isCollisionSolid()
       y-=2
 

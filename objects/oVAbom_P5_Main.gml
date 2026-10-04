@@ -100,7 +100,7 @@ if global.gamePaused=false
   }
   else if sequence=2 //----- Rotate and fall to ground -----
   {
-    yVel+=0.6*gDeltaTime
+    {yVel+=0.6*gDeltaTime; yGravBias=0.6}
     if yVel<0
     {
       if gDeltaDoTicks {
@@ -231,7 +231,7 @@ if global.gamePaused=false
       tEffect.AccelX=0; tEffect.AccelY=0; tEffect.newBlend=-1; tEffect.followID=-1; tEffect.rotation=0
     }}
 
-    yVel+=0.2*gDeltaTime
+    {yVel+=0.2*gDeltaTime; yGravBias=0.2}
     if xVel>0 {image_angle-=1.75*gDeltaTime}
     else {image_angle+=1.75*gDeltaTime}
     if y>=room_height+240
@@ -488,7 +488,7 @@ if global.gamePaused=false
     myCollision.xVel=xVel
     myCollision.yVel=yVel
   }
-  x+=xVel*gDeltaTime; y+=yVel*gDeltaTime
+  x+=xVel*gDeltaTime; {y+=yVel*gDeltaTime; if variable_local_exists("yGravBias") {y+=yGravBias*(1-gDeltaTime)*0.5*gDeltaTime; yGravBias=0}}
   if xVel!=0 and gDeltaDoTicks //Move effect
   {
     var tEffect;

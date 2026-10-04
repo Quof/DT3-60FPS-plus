@@ -41,7 +41,7 @@ if global.gamePaused=false
   if lingerFrame=0
   {
     homingTrack+=1*gDeltaTime
-    if homingTrack>=1 and homingTrack<=12 {_speed=8}
+    if homingTrack>0 and homingTrack<13 {_speed=8} //(was >=1 and <=12: same at 30fps, but above 30fps it left the missile still for part of its first tick)
     else if homingTrack>=13
     {
       if instance_exists(oEnemyBase)
