@@ -69,8 +69,9 @@ if global.gamePaused=false
   }
   else if moveProg=4 //Fall
   {
-    {y+=ySpd*gDeltaTime; if variable_local_exists("yGravBias") {y+=yGravBias*(1-gDeltaTime)*0.5*gDeltaTime; yGravBias=0}}
-    if ySpd<8 {{ySpd+=0.15*gDeltaTime; yGravBias=-(0.15)}}
+    if ySpd<8 {ySpd=scrGravAcc(ySpd,0.15,-1)} //moves then accelerates: second half after the move, original line kept for 30fps (see scrGravAcc)
+    {y+=ySpd*gDeltaTime}
+    if gDeltaTime==1 {if ySpd<8 {ySpd+=0.15}}
     if y>=warTarget.yGround
     {
       var tEffect;

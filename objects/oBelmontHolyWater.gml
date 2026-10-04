@@ -47,7 +47,7 @@ applies_to=self
 event_inherited()
 if global.gamePaused=false
 {
-  {yVel+=0.4*gDeltaTime; yGravBias=0.4}
+  yVel=scrGravAcc(yVel,0.4,1)
 
   if checkScreenArea(x,y,48)=0 {instance_destroy()}
   if isCollisionLeft(1)

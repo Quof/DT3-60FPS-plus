@@ -23,7 +23,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  {yVel+=grav*gDeltaTime; yGravBias=grav}
+  yVel=scrGravAcc(yVel,grav,1)
   if isCollisionTop(1)
     bDestroy=1
   if isCollisionBottom(1)

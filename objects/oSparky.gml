@@ -96,7 +96,7 @@ if global.gamePaused=false
       sparkTime=0
     }
 
-    {yVel+=0.4*gDeltaTime; yGravBias=0.4}
+    yVel=scrGravAcc(yVel,0.4,1)
     if sprite_index!=sSparkySparking //Animation control
     {
       if yVel>=0 {sprite_index=sSparkyDown}

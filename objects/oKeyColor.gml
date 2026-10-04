@@ -18,7 +18,7 @@ if global.gamePaused=false
 {
   if bGrav=1
   {
-    {yVel+=0.3*gDeltaTime; yGravBias=0.3}
+    yVel=scrGravAcc(yVel,0.3,1)
     moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
 
     if isCollisionSolid() {y-=2}

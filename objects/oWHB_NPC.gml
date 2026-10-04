@@ -45,7 +45,7 @@ if global.gamePaused=false
   }
 
   //Movement Physics
-  if yVel<12 {{yVel+=0.3*gDeltaTime; yGravBias=0.3}}
+  if yVel<12 {yVel=scrGravAcc(yVel,0.3,1)}
   if isCollisionBottom(1)
     yVel=0
   if isCollisionLeft(1)

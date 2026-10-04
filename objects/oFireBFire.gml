@@ -22,7 +22,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  {yVel+=grav*gDeltaTime; yGravBias=grav}
+  yVel=scrGravAcc(yVel,grav,1)
   if xVel>0
     image_angle-=10*gDeltaTime
   else if xVel<0

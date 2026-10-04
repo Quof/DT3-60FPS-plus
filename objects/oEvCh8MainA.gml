@@ -1279,13 +1279,12 @@ else if room=rMega4_OstrichE //----- [Unskippable] Boss Fight: Overdrive Ostrich
           boss.image_xscale+=0.02*gDeltaTime
           boss.image_yscale+=0.02*gDeltaTime
         }
-        var tGravBias; tGravBias=0
         if yVel<8
         {
-          yVel+=0.25*gDeltaTime; tGravBias=0.25
+          yVel=scrGravAcc(yVel,0.25,1)
           if yVel>0 {boss.sprite_index=sOOstrich_Falling}
         }
-        boss.y+=(yVel+tGravBias*(1-gDeltaTime)*0.5)*gDeltaTime //gravity arc correction (see moveTo)
+        boss.y+=yVel*gDeltaTime
         if boss.y>=272
         {
           boss.y=272
@@ -1622,8 +1621,9 @@ else if room=rMega4_ToxicJungleE //----- [Unskippable] Boss Fight: Gravity Beetl
         }
         else if sceneDelay>=62 and sceneDelay<=299
         {
-          boss.y+=(yVel-0.25*(1-gDeltaTime)*0.5)*gDeltaTime //gravity arc correction (moves before accelerating, so reversed; see moveTo)
-          yVel+=0.25*gDeltaTime
+          yVel=scrGravAcc(yVel,0.25,-1) //moves then accelerates: second half after the move, original line kept for 30fps (see scrGravAcc)
+          boss.y+=yVel*gDeltaTime
+          if gDeltaTime==1 {yVel+=0.25}
           if boss.y>=288
           {
             boss.sprite_index=sGBeetle_Idle

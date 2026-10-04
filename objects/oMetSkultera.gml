@@ -121,7 +121,7 @@ if global.gamePaused=false
     }
     else //Flop around out of water
     {
-      {yVel+=0.4*gDeltaTime; yGravBias=0.4}
+      yVel=scrGravAcc(yVel,0.4,1)
       if isCollisionBottom(1)
       {
         image_angle=random(360)

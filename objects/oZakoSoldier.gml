@@ -133,7 +133,7 @@ if global.gamePaused=false
       gunShot=0
     }
 
-    {yVel+=0.25*gDeltaTime; yGravBias=0.25}
+    yVel=scrGravAcc(yVel,0.25,1)
     if isCollisionBottom(1)
     {
       yVel=0

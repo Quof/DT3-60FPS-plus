@@ -137,7 +137,7 @@ if global.gamePaused=false
         runFromPlayer-=1*gDeltaTime
       }
 
-      {yVel+=1*gDeltaTime; yGravBias=1}
+      yVel=scrGravAcc(yVel,1,1)
       if isCollisionBottom(1)
       {
         if runFromPlayer=0

@@ -80,7 +80,7 @@ if global.gamePaused=false
     }
 
     if !isCollisionBottom(1)
-      {yVel+=0.2*gDeltaTime; yGravBias=0.2}
+      yVel=scrGravAcc(yVel,0.2,1)
     if isCollisionSolid()
       y-=2
 

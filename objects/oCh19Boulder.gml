@@ -48,7 +48,7 @@ if global.gamePaused=false
 
   if bTargetFound=true
   {
-    {yVel+=0.3*gDeltaTime; yGravBias=0.3}
+    yVel=scrGravAcc(yVel,0.3,1)
     if initDir=1
     {
       if xVel<0

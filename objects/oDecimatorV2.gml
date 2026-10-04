@@ -166,9 +166,9 @@ if global.gamePaused=false
       //Follow player y
       if laserCannonTime<=laserCannonDelay+69
       {
-        if y>oPlayer1.y-26 {if ySpd>-4 {ySpd-=0.4*gDeltaTime}}
-        else if y<oPlayer1.y-26 {if ySpd<4 {{ySpd+=0.4*gDeltaTime; yGravBias=0.4}}}
-        {y+=ySpd*gDeltaTime; if variable_local_exists("yGravBias") {y+=yGravBias*(1-gDeltaTime)*0.5*gDeltaTime; yGravBias=0}}
+        if y>oPlayer1.y-26 {if ySpd>-4 {ySpd=scrGravAcc(ySpd,-0.4,1)}}
+        else if y<oPlayer1.y-26 {if ySpd<4 {ySpd=scrGravAcc(ySpd,0.4,1)}}
+        {y+=ySpd*gDeltaTime}
       }
     }
     else if bossProgress=4 //---------- Shoot at John's mech ----------
@@ -212,9 +212,9 @@ if global.gamePaused=false
       //Follow player y
       if laserCannonTime<=laserCannonDelay+69
       {
-        if y>oPlayer1.y-26 {if ySpd>-4 {ySpd-=0.4*gDeltaTime}}
-        else if y<oPlayer1.y-26 {if ySpd<4 {{ySpd+=0.4*gDeltaTime; yGravBias=0.4}}}
-        {y+=ySpd*gDeltaTime; if variable_local_exists("yGravBias") {y+=yGravBias*(1-gDeltaTime)*0.5*gDeltaTime; yGravBias=0}}
+        if y>oPlayer1.y-26 {if ySpd>-4 {ySpd=scrGravAcc(ySpd,-0.4,1)}}
+        else if y<oPlayer1.y-26 {if ySpd<4 {ySpd=scrGravAcc(ySpd,0.4,1)}}
+        {y+=ySpd*gDeltaTime}
       }
 
       energyBallTime+=1*gDeltaTime

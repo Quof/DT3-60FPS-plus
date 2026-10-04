@@ -406,7 +406,7 @@ if global.gamePaused=false
     //-------------------- Collision --------------------
     if bGravity=1
     {
-      {yVel+=0.5*gDeltaTime; yGravBias=0.5}
+      yVel=scrGravAcc(yVel,0.5,1)
       if yVel>10 {yVel=10}
     }
     if hoverMode=0

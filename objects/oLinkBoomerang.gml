@@ -79,13 +79,13 @@ if global.gamePaused=false
     {
       dirInfluenceTime=3
       if yVel>-4
-        yVel-=1*gDeltaTime
+        yVel-=1 //one nudge every 3 ticks (dirInfluenceTime), so not scaled
     }
     else if oPlayer1.kDown and dirInfluenceTime=0
     {
       dirInfluenceTime=3
       if yVel<4
-        {yVel+=1*gDeltaTime; yGravBias=1}
+        yVel+=1
     }
 
     if dirInfluenceTime>0
@@ -112,7 +112,7 @@ if global.gamePaused=false
     if y>oPlayer1.y-26 and yVel>-maxVelocity/1.5
       yVel-=0.5*gDeltaTime
     else if y<oPlayer1.y-26 and yVel<maxVelocity/1.5
-      {yVel+=0.5*gDeltaTime; yGravBias=0.5}
+      yVel+=0.5*gDeltaTime
 
     tempXvel=xVel
     tempYvel=xVel

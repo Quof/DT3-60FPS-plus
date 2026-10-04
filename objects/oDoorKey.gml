@@ -23,7 +23,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  {yVel+=0.3*gDeltaTime; yGravBias=0.3}
+  yVel=scrGravAcc(yVel,0.3,1)
   moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
 
   if isCollisionSolid()

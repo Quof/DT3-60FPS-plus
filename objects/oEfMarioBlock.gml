@@ -43,7 +43,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-_vspeed+=0.4*gDeltaTime; yGravBias=0.4 //(no braces: GM8 treats code that starts with a block as only that block)
+_vspeed=scrGravAcc(_vspeed,0.4,1)
 
 decay-=1*gDeltaTime
 if decay<=0

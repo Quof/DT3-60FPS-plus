@@ -183,7 +183,7 @@ if global.gamePaused=false
       }
     }
 
-    {yVel+=0.2*gDeltaTime; yGravBias=0.2}
+    yVel=scrGravAcc(yVel,0.2,1)
     if isCollisionBottom(1)
       yVel=0
     if isCollisionLeft(1) and bBroken=0

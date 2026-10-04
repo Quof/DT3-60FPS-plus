@@ -129,13 +129,13 @@ if global.gamePaused=false
       }
       if y>oPlayer1.y-26
       {
-        if ySpd>-maxSpd {ySpd-=0.2*gDeltaTime}
+        if ySpd>-maxSpd {ySpd=scrGravAcc(ySpd,-0.2,1)}
       }
       else if y<oPlayer1.y-26
       {
-        if ySpd<maxSpd {{ySpd+=0.2*gDeltaTime; yGravBias=0.2}}
+        if ySpd<maxSpd {ySpd=scrGravAcc(ySpd,0.2,1)}
       }
-      x+=xSpd*gDeltaTime; {y+=ySpd*gDeltaTime; if variable_local_exists("yGravBias") {y+=yGravBias*(1-gDeltaTime)*0.5*gDeltaTime; yGravBias=0}}
+      x+=xSpd*gDeltaTime; {y+=ySpd*gDeltaTime}
 
       if moveTime>=360
       {

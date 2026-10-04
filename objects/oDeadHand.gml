@@ -157,9 +157,10 @@ if global.gamePaused=false
       }
       else if atkTime>=2
       {
-        {y+=ySpd*gDeltaTime; if variable_local_exists("yGravBias") {y+=yGravBias*(1-gDeltaTime)*0.5*gDeltaTime; yGravBias=0}}
-        if ySpd<-2 {{ySpd+=0.2*gDeltaTime; yGravBias=-(0.2)}}
-        else if ySpd>=-2 and ySpd<8 {{ySpd+=0.4*gDeltaTime; yGravBias=-(0.4)}}
+        if ySpd<-2 {ySpd=scrGravAcc(ySpd,0.2,-1)}
+        else if ySpd>=-2 and ySpd<8 {ySpd=scrGravAcc(ySpd,0.4,-1)} //moves then accelerates: second half after the move, original line kept for 30fps (see scrGravAcc)
+        {y+=ySpd*gDeltaTime}
+        if gDeltaTime==1 {if ySpd<-2 {ySpd+=0.2} else if ySpd>=-2 and ySpd<8 {ySpd+=0.4}}
         if y>=yGround and ySpd>0
         {
           sprite_index=sDeadHand_Idle

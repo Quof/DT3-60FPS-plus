@@ -17,7 +17,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  {yVel+=0.3*gDeltaTime; yGravBias=0.3}
+  yVel=scrGravAcc(yVel,0.3,1)
   if isCollisionBottom(1)
   {
     if checkScreenArea(x,y,48)=1 {playSound(global.snd_RupeeBounce,0,1,1)}

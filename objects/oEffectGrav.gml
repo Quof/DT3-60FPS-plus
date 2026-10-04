@@ -18,9 +18,11 @@ lib_id=1
 action_id=603
 applies_to=self
 */
+//the move uses _vspeed, copied before gravity is added, so this moves then accelerates (order -1, see scrGravAcc)
+ySpd=scrGravAcc(ySpd,grav,-1)
 _hspeed=xSpd
 _vspeed=ySpd
-{ySpd+=grav*gDeltaTime; yGravBias=grav}
+if gDeltaTime==1 {ySpd+=grav}
 image_angle+=rotation*gDeltaTime
 
 if type=1

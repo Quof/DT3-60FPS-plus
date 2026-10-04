@@ -63,8 +63,8 @@ if global.gamePaused=false
       tBufScl=abs(image_yscale)
       image_yscale=-tBufScl
     }
-    {yVel+=0.3*gDeltaTime; yGravBias=0.3}
-    {y+=yVel*gDeltaTime; if variable_local_exists("yGravBias") {y+=yGravBias*(1-gDeltaTime)*0.5*gDeltaTime; yGravBias=0}}
+    yVel=scrGravAcc(yVel,0.3,1)
+    {y+=yVel*gDeltaTime}
     if yVel>1 and y>ystart
     {
       var tEffect;

@@ -257,9 +257,9 @@ if global.gamePaused=false
           else {if xSpd>-1.5 {xSpd-=0.04*gDeltaTime}}
           x+=xSpd*gDeltaTime
 
-          if y<returnPlayerYCenter() {if ySpd<1.5 {{ySpd+=0.4*gDeltaTime; yGravBias=0.4}}}
-          else {if ySpd>-1.5 {ySpd-=0.04*gDeltaTime}}
-          {y+=ySpd*gDeltaTime; if variable_local_exists("yGravBias") {y+=yGravBias*(1-gDeltaTime)*0.5*gDeltaTime; yGravBias=0}}
+          if y<returnPlayerYCenter() {if ySpd<1.5 {ySpd=scrGravAcc(ySpd,0.4,1)}}
+          else {if ySpd>-1.5 {ySpd=scrGravAcc(ySpd,-0.04,1)}}
+          {y+=ySpd*gDeltaTime}
 
           if xSpd>0 {image_xscale=1}
           else {image_xscale=-1}

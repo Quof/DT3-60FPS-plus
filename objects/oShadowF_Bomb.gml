@@ -19,7 +19,7 @@ applies_to=self
 event_inherited()
 if global.gamePaused=false
 {
-  {yVel+=0.2*gDeltaTime; yGravBias=0.2}
+  yVel=scrGravAcc(yVel,0.2,1)
   if xVel>2
     xVel-=0.025
   else if xVel<-2

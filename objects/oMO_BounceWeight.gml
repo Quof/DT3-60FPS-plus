@@ -24,7 +24,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  if yVel<10 {{yVel+=grav*gDeltaTime; yGravBias=grav}}
+  if yVel<10 {yVel=scrGravAcc(yVel,grav,1)}
 
   if xVel>0.75 {xVel-=xFalloff*gDeltaTime}
   else if xVel<-0.75 {xVel+=xFalloff*gDeltaTime}

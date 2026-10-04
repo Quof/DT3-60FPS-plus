@@ -32,7 +32,7 @@ event_inherited()
 if global.gamePaused=false
 {
   image_angle+=3*gDeltaTime
-  {yVel+=0.2*gDeltaTime; yGravBias=0.2}
+  yVel=scrGravAcc(yVel,0.2,1)
   if isCollisionBottom(1)
   {
     bounces+=1

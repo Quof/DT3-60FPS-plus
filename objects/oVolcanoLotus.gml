@@ -95,7 +95,7 @@ if global.gamePaused=false
     else if annoyTime>=annoyDelay+42 //Revert to being less annoying for a bit
       annoyTime=0
 
-    {yVel+=0.2*gDeltaTime; yGravBias=0.2}
+    yVel=scrGravAcc(yVel,0.2,1)
     if isCollisionBottom(1)
       yVel=0
     if isCollisionSolid()

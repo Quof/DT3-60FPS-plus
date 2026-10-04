@@ -63,7 +63,7 @@ if global.gamePaused=false
     }
     else if npcTime>=2 and npcTime<=99 //Slam down
     {
-      if yVel<9 {{yVel+=0.2*gDeltaTime; yGravBias=0.2}}
+      if yVel<9 {yVel=scrGravAcc(yVel,0.2,1)}
       if isCollisionBottom(1) or isCollisionSolid()
       {
         xVel=0; yVel=0
@@ -96,7 +96,7 @@ if global.gamePaused=false
     {
       if npcTime=504 {image_index=1}
       else if npcTime=508 {image_index=2}
-      {yVel+=0.3*gDeltaTime; yGravBias=0.3}
+      yVel=scrGravAcc(yVel,0.3,1)
       if isCollisionBottom(1) or isCollisionSolid()
       {
         sprite_index=sNPC_Battletoad_Idle; image_speed=0.12
@@ -267,7 +267,7 @@ if global.gamePaused=false
     }
     else if npcTime>=2 and npcTime<=99 //Slam down
     {
-      if yVel<9 {{yVel+=0.2*gDeltaTime; yGravBias=0.2}}
+      if yVel<9 {yVel=scrGravAcc(yVel,0.2,1)}
       if isCollisionBottom(1) or isCollisionSolid()
       {
         xVel=0; yVel=0

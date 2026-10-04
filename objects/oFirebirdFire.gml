@@ -26,7 +26,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  {yVel+=grav*gDeltaTime; yGravBias=grav}
+  yVel=scrGravAcc(yVel,grav,1)
   if bSlide=0
   {
     if xVel>0

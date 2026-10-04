@@ -16,6 +16,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
+_vspeed=scrGravAcc(_vspeed,0.38,-1) //gravity is added in Draw, after the move: second half after the move, Draw line kept for 30fps (see scrGravAcc)
 correctHSpeedVSpeed(self);
 #define Draw_0
 /*"/*'/**//* YYD ACTION
@@ -25,7 +26,7 @@ applies_to=self
 */
 if view_current=0
 {
-  {_vspeed+=0.38*gDeltaTime; yGravBias=0.38}
+  if gDeltaTime==1 {_vspeed+=0.38}
   draw_set_halign(fa_center)
   draw_set_alpha(image_alpha)
 

@@ -20,14 +20,9 @@ if gDeltaTime==1 { return moveTo30(argument0, argument1); }
 mtXPrev=x
 mtYPrev=y
 
-var a0mod, a1mod, tA1;
-tA1 = argument1
-//Gravity arc correction: objects that add gravity every frame (yVel+=g*gDeltaTime) set yGravBias=g on that line.
-//The 30fps code adds a whole tick of gravity before moving a whole tick, which drops slightly faster than adding it in
-//smaller steps; the difference is g*(1-gDeltaTime)/2 px per tick. Adding that here puts arcs exactly on the 30fps path.
-if variable_local_exists("yGravBias") {tA1 += yGravBias*(1-gDeltaTime)*0.5*gDeltaTime; yGravBias=0}
+var a0mod, a1mod;
 a0mod = fptoif(argument0/gDeltaTime)*gDeltaTime
-a1mod = fptoif(tA1/gDeltaTime)*gDeltaTime
+a1mod = fptoif(argument1/gDeltaTime)*gDeltaTime
 xVelInteger=sign(a0mod) * floor(abs(a0mod) + frac(oGame.time * 0.618))
 yVelInteger=sign(a1mod) * floor(abs(a1mod) + frac(oGame.time * 0.618))
 

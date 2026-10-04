@@ -62,7 +62,7 @@ if global.gamePaused=false
     else if xVel<0
       image_xscale=-1
 
-    {yVel+=0.3*gDeltaTime; yGravBias=0.3}
+    yVel=scrGravAcc(yVel,0.3,1)
     if isCollisionBottom(1)
       yVel=0
     if isCollisionLeft(1)

@@ -134,7 +134,7 @@ if global.gamePaused=false
     }
     if bJumpReady=0 {shotReady+=1*gDeltaTime}
 
-    if shotTime<=999 {{yVel+=0.25*gDeltaTime; yGravBias=0.25}}
+    if shotTime<=999 {yVel=scrGravAcc(yVel,0.25,1)}
     if isCollisionBottom(1)
     {
       yVel=0

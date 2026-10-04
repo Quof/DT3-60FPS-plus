@@ -24,7 +24,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  {yVel+=grav*gDeltaTime; yGravBias=grav}
-  x+=xVel*gDeltaTime; {y+=yVel*gDeltaTime; if variable_local_exists("yGravBias") {y+=yGravBias*(1-gDeltaTime)*0.5*gDeltaTime; yGravBias=0}}
+  yVel=scrGravAcc(yVel,grav,1)
+  x+=xVel*gDeltaTime; {y+=yVel*gDeltaTime}
   if y>room_height+32 {instance_destroy()}
 }

@@ -303,8 +303,8 @@ with oMoveableSolid
   else
   {
     if !variable_local_exists("mstYRem") {mstYRem=0}
-    yVel+=oGame.moveableSolidGrav*gDeltaTime
-    mstYRem+=(yVel+oGame.moveableSolidGrav*(1-gDeltaTime)*0.5)*gDeltaTime //gravity arc correction (see moveTo)
+    yVel=scrGravAcc(yVel,oGame.moveableSolidGrav,1)
+    mstYRem+=yVel*gDeltaTime
     var tMStep;
     tMStep=floor(mstYRem)
     mstYRem-=tMStep

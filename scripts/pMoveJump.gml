@@ -38,7 +38,10 @@ else
     ijabodge = initialJumpAcc * jumpBodge60
     if bombJump=0 {yVel+=ijabodge}
     else {yVel+=ijabodge*bombAcc}
-    yVel += gravityIntensity*jumpGravComp60
+    //uses grav, not gravityIntensity: gravityIntensity is still last frame's value here. Standing, that's grav anyway, but a
+    //backdash resets jumpTime, so a jump during it (hurricane backdash) got almost no compensation and went ~8px too high.
+    //The 30fps jump never reads it, so its height doesn't depend on it either.
+    yVel += grav*jumpGravComp60
 }
 bombJump=0
 ditherCounter=15 // make jumps deterministic

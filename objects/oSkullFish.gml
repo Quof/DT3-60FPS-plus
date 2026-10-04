@@ -121,7 +121,7 @@ if global.gamePaused=false
       sprite_index=sSkullFishOnLand
       bCanDealDamage=false
 
-      {yVel+=0.4*gDeltaTime; yGravBias=0.4}
+      yVel=scrGravAcc(yVel,0.4,1)
       if isCollisionBottom(1)
       {
         xVel=random_range(-1.5,1.5)

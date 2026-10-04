@@ -1303,8 +1303,8 @@ else if global.gameProgress=4110 and room=rHPF_V //----- [] Jerry is trapped ---
       else if sceneDelay=450 {charJerry.sprite_index=sJerryFall; fallSpd=0}
       else if sceneDelay>=451 and sceneDelay<=599
       {
-        fallSpd+=0.2*gDeltaTime
-        charJerry.y+=(fallSpd+0.2*(1-gDeltaTime)*0.5)*gDeltaTime //gravity arc correction (see moveTo)
+        fallSpd=scrGravAcc(fallSpd,0.2,1)
+        charJerry.y+=fallSpd*gDeltaTime
         if charJerry.y>=288
         {
           tEffect=instance_create(charJerry.x,charJerry.y,oEffect)
@@ -1318,8 +1318,8 @@ else if global.gameProgress=4110 and room=rHPF_V //----- [] Jerry is trapped ---
       }
       else if sceneDelay>=601 and sceneDelay<=699
       {
-        fallSpd+=0.2*gDeltaTime
-        charJerry.y+=(fallSpd+0.2*(1-gDeltaTime)*0.5)*gDeltaTime //gravity arc correction (see moveTo)
+        fallSpd=scrGravAcc(fallSpd,0.2,1)
+        charJerry.y+=fallSpd*gDeltaTime
         if charJerry.y>=288
         {
           charJerry.sprite_index=sJerryLayDown

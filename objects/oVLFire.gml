@@ -36,9 +36,9 @@ if global.gamePaused=false
     }
   }
 
-  {y+=yVel*gDeltaTime; if variable_local_exists("yGravBias") {y+=yGravBias*(1-gDeltaTime)*0.5*gDeltaTime; yGravBias=0}}
-  if yVel<3
-  {yVel+=grav*gDeltaTime; yGravBias=-(grav)}
+  if yVel<3 {yVel=scrGravAcc(yVel,grav,-1)} //moves then accelerates: second half after the move, original line kept for 30fps (see scrGravAcc)
+  {y+=yVel*gDeltaTime}
+  if gDeltaTime==1 {if yVel<3 {yVel+=grav}}
   if y>room_height+16 {instance_destroy()}
 }
 #define Draw_0

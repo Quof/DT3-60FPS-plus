@@ -51,7 +51,7 @@ if global.gamePaused=false
   }
   else if fireProg=2 //Fall to ground and explode
   {
-    if yVel<16 {{yVel+=0.4*gDeltaTime; yGravBias=0.4}}
+    if yVel<16 {yVel=scrGravAcc(yVel,0.4,1)}
     moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
     if isCollisionBottom(1)
     {

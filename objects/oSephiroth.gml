@@ -310,7 +310,7 @@ if global.gamePaused=false
       }
     }
 
-    if meteor<metStormFreq {{yVel+=0.4*gDeltaTime; yGravBias=0.4}}
+    if meteor<metStormFreq {yVel=scrGravAcc(yVel,0.4,1)}
     if isCollisionBottom(1)
     {
       if currentAtk=3 and yVel>6 {xVel=0; actTime=100}

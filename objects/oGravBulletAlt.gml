@@ -23,8 +23,8 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  xVel+=xGrav*gDeltaTime
-  yVel+=yGrav*gDeltaTime
+  xVel=scrGravAccX(xVel,xGrav,1)
+  yVel=scrGravAcc(yVel,yGrav,1)
   hspeed=xVel
   vspeed=yVel
   image_angle=direction
@@ -68,9 +68,8 @@ if global.gamePaused=false
     _hspeed=hspeed
     _vspeed=vspeed
     speed=0
-    //gravity arc correction (see moveTo): +grav*(1-gDeltaTime)/2 per axis puts the arc exactly on the 30fps path
-    x+=(_hspeed+xGrav*(1-gDeltaTime)*0.5)*gDeltaTime
-    y+=(_vspeed+yGrav*(1-gDeltaTime)*0.5)*gDeltaTime
+    x+=_hspeed*gDeltaTime
+    y+=_vspeed*gDeltaTime
 }
 else
 {

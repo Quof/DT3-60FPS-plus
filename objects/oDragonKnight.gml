@@ -317,7 +317,7 @@ if global.gamePaused=false
 
     event_user(0) //Sword placement
 
-    if sprite_index!=sDK_Fly and sprite_index!=sDK_DiveReady {{yVel+=0.3*gDeltaTime; yGravBias=0.3}}
+    if sprite_index!=sDK_Fly and sprite_index!=sDK_DiveReady {yVel=scrGravAcc(yVel,0.3,1)}
 
     if isCollisionBottom(1)
     {

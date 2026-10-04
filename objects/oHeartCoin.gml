@@ -18,7 +18,7 @@ applies_to=self
 if gDeltaDoTicks != 1 { exit; }
 if global.gamePaused=false
 {
-  {yVel+=0.3*gDeltaTime; yGravBias=0.3}
+  yVel=scrGravAcc(yVel,0.3,1)
   if isCollisionBottom(1)
   {
     xVel=0

@@ -39,7 +39,7 @@ if global.gamePaused=false
     if isCollisionSolid()
       instance_destroy()
   }
-  {yVel+=grav*gDeltaTime; yGravBias=grav}
+  yVel=scrGravAcc(yVel,grav,1)
   moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
 
   if y>room_height+32

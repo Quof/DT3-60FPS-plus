@@ -59,7 +59,7 @@ if global.gamePaused=false
     else //-------------------- On Land --------------------
     {
       xVel=0
-      {yVel+=0.3*gDeltaTime; yGravBias=0.3}
+      yVel=scrGravAcc(yVel,0.3,1)
       if isCollisionBottom(1)
         yVel=0
       if isCollisionLeft(1)
