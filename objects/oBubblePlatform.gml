@@ -27,11 +27,12 @@ if global.gamePaused=false
   else if bubbleFrm=15 {image_index=2}
   else if bubbleFrm=20 {image_index=0; bubbleFrm=0}
 
-  //Movement
-  if shiftSeq=0 //Blown out (right)
+  //Movement (on 30fps ticks so the bubble travels exactly as far as at 30fps; gameStepEvent spreads the movement across frames)
+  if gDeltaDoTicks = 0 {}
+  else if shiftSeq=0 //Blown out (right)
   {
     xVel=2
-    shiftTime+=1*gDeltaTime
+    shiftTime+=1
     if shiftTime>=shiftMax
     {
       xVel=0
@@ -42,7 +43,7 @@ if global.gamePaused=false
   else if shiftSeq=1 //Rise up
   {
     yVel=-0.5
-    shiftTime+=1*gDeltaTime
+    shiftTime+=1
     if shiftTime>=120 and shiftTime mod 5=0
     {
       if image_blend=c_white {image_blend=c_red}

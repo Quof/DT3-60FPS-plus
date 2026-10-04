@@ -50,7 +50,10 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  if bCanControl=1
+  //elevator logic runs on 30fps ticks (oKeyCodes also only updates on ticks), so each floor move is exactly as at 30fps;
+  //gameStepEvent spreads the movement across frames
+  if gDeltaDoTicks = 0 {}
+  else if bCanControl=1
   {
     myDist=point_distance(x,y,oPlayer1.x,oPlayer1.y)
     if myDist<20
@@ -88,9 +91,9 @@ if global.gamePaused=false
       //sound_play(snd_ElevatorUse)
       soundDelay=4
     }
-    else {soundDelay-=1*gDeltaTime}
+    else {soundDelay-=1}
 
-    floorMove+=abs(yVel)*gDeltaTime
+    floorMove+=abs(yVel)
     if floorMove>=floorSpc
     {
       yVel=0; myCeiling.yVel=0
@@ -100,5 +103,5 @@ if global.gamePaused=false
       bCanControl=1
     }
   }
-  if gDeltaDoTicks scrPlatformCrush()
+  scrPlatformCrush()
 }

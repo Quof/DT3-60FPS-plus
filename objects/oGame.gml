@@ -18,31 +18,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if keyboard_check_pressed(vk_f2)
-{
-    if global.gameFrameRate==30
-        global.gameFrameRate=60
-    else if global.gameFrameRate==60
-        global.gameFrameRate=120
-    else
-        global.gameFrameRate=30
-    room_speed=global.gameFrameRate
-    gDeltaTime = 30/global.gameFrameRate
-    gDeltaDoTicks = 0
-    gDeltaTick = 0.0
-}
-room_speed=global.gameFrameRate
-
-gDeltaDoTicks = 0
-gDeltaTick += gDeltaTime
-autoSaveTime += gDeltaTime
-while (gDeltaTick >= 1.0)
-{
-    gDeltaDoTicks += 1
-    gDeltaTick -= 1.0
-}
-if gDeltaTime == 1.0 { gDeltaDoTicks = 1; gDeltaTick = 0.999999 }
-
+//gDeltaTime/gDeltaDoTicks are worked out in the Begin Step, so every Step event this frame agrees on whether it's a 30fps tick
 if global.gamePaused=false
   gameStepEvent()
 
@@ -334,6 +310,38 @@ else
     global.debugMenu=true
   }*/
 }
+#define Step_1
+/*"/*'/**//* YYD ACTION
+lib_id=1
+action_id=603
+applies_to=self
+*/
+//Begin Step: decide whether this frame is a 30fps tick before any instance's Step event runs.
+//(this used to be at the top of the Step event, so instances that step before oGame saw the previous frame's value)
+if keyboard_check_pressed(vk_f2)
+{
+    if global.gameFrameRate==30
+        global.gameFrameRate=60
+    else if global.gameFrameRate==60
+        global.gameFrameRate=120
+    else
+        global.gameFrameRate=30
+    room_speed=global.gameFrameRate
+    gDeltaTime = 30/global.gameFrameRate
+    gDeltaDoTicks = 0
+    gDeltaTick = 0.0
+}
+room_speed=global.gameFrameRate
+
+gDeltaDoTicks = 0
+gDeltaTick += gDeltaTime
+autoSaveTime += gDeltaTime
+while (gDeltaTick >= 1.0)
+{
+    gDeltaDoTicks += 1
+    gDeltaTick -= 1.0
+}
+if gDeltaTime == 1.0 { gDeltaDoTicks = 1; gDeltaTick = 0.999999 }
 #define Other_3
 /*"/*'/**//* YYD ACTION
 lib_id=1

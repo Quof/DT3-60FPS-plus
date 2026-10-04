@@ -50,7 +50,8 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  if bAutoMove=true
+  //shift logic runs on 30fps ticks so trips are exactly as long as at 30fps; gameStepEvent spreads the movement across frames
+  if bAutoMove=true and gDeltaDoTicks != 0
   {
     if shiftTime>=shiftTimeMax
     {
@@ -81,15 +82,15 @@ if global.gamePaused=false
     }
     else
     {
-      if prevX!=x or prevY!=y
+      if prevX!=mstLX or prevY!=mstLY //mstLX/mstLY: this tick's finished position (same as x/y at 30fps)
       {
-        prevX=x
-        prevY=y
-        shiftTime+=1*gDeltaTime
+        prevX=mstLX
+        prevY=mstLY
+        shiftTime+=1
       }
     }
   }
-  if gDeltaDoTicks scrPlatformCrush()
+  scrPlatformCrush()
 }
 #define Draw_0
 /*"/*'/**//* YYD ACTION

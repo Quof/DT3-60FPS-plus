@@ -38,7 +38,7 @@ if global.gamePaused=false
   }
   else if sequence=1 //Rise up
   {
-    yVel=-16//*gDeltaTime
+    yVel=-16 //raw: gameStepEvent scales moving-solid velocity when it applies it
     if gDeltaDoTicks
     {
       var tEffect;

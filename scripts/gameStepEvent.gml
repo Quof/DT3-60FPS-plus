@@ -19,20 +19,31 @@ oGame.time+=1
 if oGame.time>100000000
   oGame.time=0
 
-if gDeltaDoTicks == 0 { return 0; }
-
-//since we are not using GM's hspeed and vspeed variables, we need to add in decimal support ourselves (so 0.25 will only move 1 pixel every 4 steps, for example)
-oGame.time30+=1
-//we don't want the time to grow too large
-if oGame.time30>100000000
-  oGame.time30=0
+if gDeltaDoTicks != 0
+{
+  //since we are not using GM's hspeed and vspeed variables, we need to add in decimal support ourselves (so 0.25 will only move 1 pixel every 4 steps, for example)
+  oGame.time30+=1
+  //we don't want the time to grow too large
+  if oGame.time30>100000000
+    oGame.time30=0
+}
 
 //moves all of the solids so that none of them collide with the character
+//at 30fps this runs the original code; above 30fps it runs every frame with xVel/yVel kept in 30fps units
 with oMovingSolid
 {
-  //applies the acceleration
-  xVel+=xAcc
-  yVel+=yAcc
+  if !variable_local_exists("mstFramesLeft") {mstXLeft=0; mstYLeft=0; mstFramesLeft=0; mstXBlocked=0; mstYBlocked=0; mstXV=0; mstYV=0; mstLX=x; mstLY=y; mstEndX=x; mstEndY=y}
+  //if something set this solid's position directly since last frame (e.g. snapping it into place), drop the rest of this tick's move
+  if x!=mstEndX {mstXLeft=0}
+  if y!=mstEndY {mstYLeft=0}
+  //velocity is only sampled on 30fps ticks (like the original), so every tick boundary lands exactly where 30fps would;
+  //above 30fps that tick's movement is then spread over the frames in between (see below)
+  if gDeltaDoTicks != 0
+  {
+    //applies the acceleration
+    xVel+=xAcc
+    yVel+=yAcc
+  }
   //approximates the "active" variables
   if approximatelyZero(xVel)
     xVel=0
@@ -45,25 +56,55 @@ with oMovingSolid
   //moves the solid, pushes the character, carries the character, and stops if the character will be crushed by another solid
   mstXPrev=x
   mstYPrev=y
-  //change the decimal arguments to integer variables with relation to time
-  xVelFrac=frac(abs(xVel))
-  yVelFrac=frac(abs(yVel))
-  xVelInteger=0
-  yVelInteger=0
-  if xVelFrac!=0
-    if round(1/xVelFrac)!=0
-       xVelInteger=(oGame.time30 mod round(1/xVelFrac)=0)
-  if yVelFrac!=0
-    if round(1/yVelFrac)!=0
-      yVelInteger=(oGame.time30 mod round(1/yVelFrac)=0)
-  xVelInteger+=floor(abs(xVel))
-  yVelInteger+=floor(abs(yVel))
-  if xVel<0
-    xVelInteger*=-1
-  if yVel<0
-    yVelInteger*=-1
-  xVelInteger=round(xVelInteger)
-  yVelInteger=round(yVelInteger)
+  if gDeltaTime==1 or gDeltaDoTicks != 0
+  {
+    //change the decimal arguments to integer variables with relation to time
+    xVelFrac=frac(abs(xVel))
+    yVelFrac=frac(abs(yVel))
+    xVelInteger=0
+    yVelInteger=0
+    if xVelFrac!=0
+      if round(1/xVelFrac)!=0
+         xVelInteger=(oGame.time30 mod round(1/xVelFrac)=0)
+    if yVelFrac!=0
+      if round(1/yVelFrac)!=0
+        yVelInteger=(oGame.time30 mod round(1/yVelFrac)=0)
+    xVelInteger+=floor(abs(xVel))
+    yVelInteger+=floor(abs(yVel))
+    if xVel<0
+      xVelInteger*=-1
+    if yVel<0
+      yVelInteger*=-1
+    xVelInteger=round(xVelInteger)
+    yVelInteger=round(yVelInteger)
+  }
+  if gDeltaTime!=1
+  {
+    //above 30fps: velocity is only read on 30fps ticks (anything set mid-tick takes effect on the next tick, as at 30fps).
+    //the tick's whole-pixel move worked out above is then spread over the tick's frames, front-loaded,
+    //so anything that runs after this on the tick frame sees the solid already moving, exactly as at 30fps
+    if gDeltaDoTicks != 0
+    {
+      mstXV=xVel
+      mstYV=yVel
+      mstXLeft=xVelInteger
+      mstYLeft=yVelInteger
+      mstFramesLeft=round(1/gDeltaTime)
+    }
+    if mstFramesLeft>0
+    {
+      xVelInteger=sign(mstXLeft)*ceil(abs(mstXLeft)/mstFramesLeft)
+      yVelInteger=sign(mstYLeft)*ceil(abs(mstYLeft)/mstFramesLeft)
+      mstXLeft-=xVelInteger
+      mstYLeft-=yVelInteger
+      mstFramesLeft-=1
+    }
+    else
+    {
+      xVelInteger=0
+      yVelInteger=0
+    }
+  }
   //calculate the collision bounds of the character -- we'll need it later
   with oCharacter
     calculateCollisionBounds()
@@ -225,22 +266,58 @@ with oMovingSolid
     x+=xVelInteger
     y+=yVelInteger
   }
+  //for crush checks and shift timers: "blocked" = the last attempt to move failed completely.
+  //it stays set on frames with no attempt (sub-pixel speeds) until the solid moves again or stops
+  if xVelInteger!=0 {mstXBlocked=(x=mstXPrev)}
+  else if xVel=0 and mstXV=0 {mstXBlocked=0}
+  if yVelInteger!=0 {mstYBlocked=(y=mstYPrev)}
+  else if yVel=0 and mstYV=0 {mstYBlocked=0}
+  //"logical" position: where the solid will be once this 30fps tick's move has finished.
+  //tick-based logic (e.g. the prevX/prevY shift counters) compares against this, so it sees the same positions as at 30fps
+  if gDeltaTime==1 {mstXLeft=0; mstYLeft=0; mstFramesLeft=0}
+  mstLX=x+mstXLeft
+  mstLY=y+mstYLeft
+  mstEndX=x
+  mstEndY=y
 }
 //finished oMovingSolid code
 //accelerates the oMoveableSolid objects downwards
 with oMoveableSolid
 {
   yMPrev=y
-  yVel+=oGame.moveableSolidGrav
-  //moves the moveable solid down
-  for(y=y;y<yMPrev+yVel;y+=1)
+  if gDeltaTime==1
   {
-    //if there is a collision with a solid or the character one pixel below the moveable solid, we want it to stop
-    //is there a (precise) collision
-    if place_meeting(x,y+1,oSolid) or isCollisionCharacterBottom(1,0)
+    yVel+=oGame.moveableSolidGrav
+    //moves the moveable solid down
+    for(y=y;y<yMPrev+yVel;y+=1)
     {
-      yVel=0
-      break
+      //if there is a collision with a solid or the character one pixel below the moveable solid, we want it to stop
+      //is there a (precise) collision
+      if place_meeting(x,y+1,oSolid) or isCollisionCharacterBottom(1,0)
+      {
+        yVel=0
+        break
+      }
+    }
+  }
+  else
+  {
+    if !variable_local_exists("mstYRem") {mstYRem=0}
+    yVel+=oGame.moveableSolidGrav*gDeltaTime
+    mstYRem+=yVel*gDeltaTime
+    var tMStep;
+    tMStep=floor(mstYRem)
+    mstYRem-=tMStep
+    //moves the moveable solid down
+    for(y=y;y<yMPrev+tMStep;y+=1)
+    {
+      //if there is a collision with a solid or the character one pixel below the moveable solid, we want it to stop
+      if place_meeting(x,y+1,oSolid) or isCollisionCharacterBottom(1,0)
+      {
+        yVel=0
+        mstYRem=0
+        break
+      }
     }
   }
 }

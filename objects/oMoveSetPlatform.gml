@@ -50,7 +50,8 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if global.gamePaused=false
+//runs on 30fps ticks so each leg is exactly as long as at 30fps; gameStepEvent spreads the movement across frames
+if global.gamePaused=false and gDeltaDoTicks != 0
 {
   if bCanMove=true
   {

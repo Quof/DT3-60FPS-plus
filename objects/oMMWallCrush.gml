@@ -47,10 +47,14 @@ if global.gamePaused=false
   }
   else if moveSeq=2
   {
-    moveTime+=1*gDeltaTime
-    if moveTime>=moveMax {xVel=0; moveSeq=3}
+    //on 30fps ticks so the wall travels exactly as far as at 30fps; gameStepEvent spreads the movement across frames
+    if gDeltaDoTicks != 0
+    {
+      moveTime+=1
+      if moveTime>=moveMax {xVel=0; moveSeq=3}
+    }
 
-    if gDeltaDoTicks scrPlatformCrush()
+    scrPlatformCrush()
   }
 }
 #define Draw_0

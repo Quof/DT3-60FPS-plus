@@ -31,7 +31,8 @@ if global.gamePaused=false
     sprite_index=sNull
   }
 
-  if bCanMove=true
+  //shift logic runs on 30fps ticks so trips are exactly as long as at 30fps; gameStepEvent spreads the movement across frames
+  if bCanMove=true and gDeltaDoTicks != 0
   {
     if shiftTime>=shiftMax
     {
@@ -62,10 +63,10 @@ if global.gamePaused=false
     }
     else
     {
-      if prevX!=x or prevY!=y
+      if prevX!=mstLX or prevY!=mstLY //mstLX/mstLY: this tick's finished position (same as x/y at 30fps)
       {
-        prevX=x
-        prevY=y
+        prevX=mstLX
+        prevY=mstLY
         shiftTime+=1
       }
     }

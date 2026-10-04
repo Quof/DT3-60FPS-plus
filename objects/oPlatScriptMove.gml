@@ -19,7 +19,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  if progCheck=1 //Move direction on a set time
+  if progCheck=1 and gDeltaDoTicks != 0 //Move direction on a set time (on 30fps ticks, so the distance matches 30fps exactly)
   {
     if soundUse=1 {playSound(global.snd_Slam,0,1,1)}
     soundUse=0
@@ -32,7 +32,7 @@ if global.gamePaused=false
       progCheck=2
     }
   }
-  if gDeltaDoTicks scrPlatformCrush()
+  scrPlatformCrush()
 }
 #define Draw_0
 /*"/*'/**//* YYD ACTION

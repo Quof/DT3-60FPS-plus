@@ -39,7 +39,7 @@ if global.gamePaused=false && gDeltaDoTicks != 0
     else if platProg=1
     {
       yVel=-2
-      if y<=208
+      if mstLY<=208 //mstLX/mstLY: this tick's finished position (same as x/y at 30fps)
       {
         y=208
         yVel=0
@@ -67,7 +67,7 @@ if global.gamePaused=false && gDeltaDoTicks != 0
       if platTime=30 {xVel=2}
       else if platTime>=31 and platTime<=199
       {
-        if x>=544
+        if mstLX>=544
         {
           xVel=0
           platTime=200
@@ -76,7 +76,7 @@ if global.gamePaused=false && gDeltaDoTicks != 0
       else if platTime=230 {xVel=-2}
       else if platTime>=231 and platTime<=400
       {
-        if x<=288
+        if mstLX<=288
         {
           xVel=0
           platTime=0

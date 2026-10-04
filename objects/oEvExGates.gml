@@ -1643,7 +1643,7 @@ else if room=rExtGateB_6 //Subtle background color change
 }
 else if room=rExtGateE_3 //Create new platforms and color zones
 {
-  if sceneProgress=0
+  if sceneProgress=0 and gDeltaDoTicks != 0 //on a 30fps tick, so the zones and platforms start moving on the same tick as at 30fps
   {
     if (GID(258682)).bMoving=1
     {

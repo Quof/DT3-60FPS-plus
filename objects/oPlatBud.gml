@@ -36,7 +36,8 @@ applies_to=self
 //If the character is standing on the platform, move the platform
 if global.gamePaused=false
 {
-  if type=0
+  //on 30fps ticks, checking this tick's finished position (mstLY), so it stops exactly where it does at 30fps
+  if type=0 and gDeltaDoTicks != 0
   {
     if isCollisionCharacterTop(1,0) or isCollisionCharacterTop(2,oPushRock) or isCollisionCharacterTop(2,oBreakRock)
     {
@@ -44,7 +45,7 @@ if global.gamePaused=false
       var tMove; tMove=0
       if fallSpeed>0
       {
-        if y<ystart+distMax {tMove=1}
+        if mstLY<ystart+distMax {tMove=1}
       }
 
       if tMove=1
@@ -62,7 +63,7 @@ if global.gamePaused=false
     else
     {
       if eLineAlpha>minAlpha {eLineAlpha-=0.02}
-      if y>ystart
+      if mstLY>ystart
       {
         yVel=-riseSpeed
         myWeight.yVel=riseSpeed
@@ -77,7 +78,7 @@ if global.gamePaused=false
   }
   else if type=1
   {
-    if gDeltaDoTicks scrPlatformCrush()
+    scrPlatformCrush()
   }
 }
 #define Draw_0

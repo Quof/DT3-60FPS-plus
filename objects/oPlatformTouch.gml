@@ -38,7 +38,7 @@ applies_to=self
 //If the character stands on the platform, the platform will continuously move indefinately
 if global.gamePaused=false
 {
-  if isCollisionCharacterTop(1,0) and bMoving=0
+  if isCollisionCharacterTop(1,0) and bMoving=0 and gDeltaDoTicks != 0 //on a 30fps tick, so it starts on the same tick as at 30fps
   {
     xVel=moveSpeedX
     yVel=moveSpeedY

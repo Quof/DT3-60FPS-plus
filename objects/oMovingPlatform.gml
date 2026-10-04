@@ -58,7 +58,8 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if global.gamePaused=false && gDeltaDoTicks != 0
+//shift logic runs on 30fps ticks so trips are exactly as long as at 30fps; gameStepEvent spreads the movement across frames
+if global.gamePaused=false and gDeltaDoTicks != 0
 {
   if bCanMove=true
   {
@@ -93,10 +94,10 @@ if global.gamePaused=false && gDeltaDoTicks != 0
     {
       //if place_meeting(x,y,oNightmareEffect) {xVel=xDir/2; yVel=yDir/2}
       //else {xVel=xDir; yVel=yDir}
-      if prevX!=x or prevY!=y
+      if prevX!=mstLX or prevY!=mstLY //mstLX/mstLY: this tick's finished position (same as x/y at 30fps)
       {
-        prevX=x
-        prevY=y
+        prevX=mstLX
+        prevY=mstLY
         shiftTime+=1
       }
     }
@@ -108,7 +109,6 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-magicInterpDrawStart()
 findTargetX=point_distance(oPlayer1.x,0,x,0)
 findTargetY=point_distance(0,oPlayer1.y,0,y)
 if findTargetX<drawRangeX and findTargetY<drawRangeY
@@ -215,4 +215,3 @@ if findTargetX<drawRangeX and findTargetY<drawRangeY
     draw_sprite_ext(sMovingPlatform2,image_index,x+16,y,1,1,270,image_blend,image_alpha)
   }
 }
-magicInterpDrawEnd()

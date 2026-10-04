@@ -24,9 +24,9 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if gDeltaDoTicks != 1 { exit; }
+//runs on 30fps ticks so the fall starts on exactly the same tick as at 30fps; gameStepEvent spreads the movement across frames
 //if the character's falling
-if global.gamePaused=false
+if global.gamePaused=false and gDeltaDoTicks != 0
 {
   if falling
   {
@@ -60,7 +60,6 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-magicInterpDrawStart()
 findTargetX=point_distance(oCharacter.x,0,x,0)
 findTargetY=point_distance(0,oCharacter.y,0,y)
 if findTargetX<drawRangeX and findTargetY<drawRangeY
@@ -68,4 +67,3 @@ if findTargetX<drawRangeX and findTargetY<drawRangeY
   if newSprite=0
     draw_background_part(tileIntermediaryWoods,32,256,16,16,x,y)
 }
-magicInterpDrawEnd()

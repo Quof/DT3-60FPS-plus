@@ -74,11 +74,11 @@ if global.gamePaused=false and gDeltaDoTicks
     }
     else
     {
-      if prevX!=x or prevY!=y
+      if prevX!=mstLX or prevY!=mstLY //mstLX/mstLY: this tick's finished position (same as x/y at 30fps)
       {
         flameFrm+=0.5
-        prevX=x
-        prevY=y
+        prevX=mstLX
+        prevY=mstLY
         shiftTime+=1
       }
     }

@@ -111,7 +111,7 @@ if global.gamePaused=false
 
     if sequence<6
     {
-      if distToPlayer<400 {yVel=-1}
+      if distToPlayer<400 {yVel=-1} //raw: gameStepEvent scales moving-solid velocity when it applies it
       else {yVel=-2}
     }
   }
@@ -152,7 +152,7 @@ if global.gamePaused=false
 
   if solidIsNearPlayers=1 //Kill player if crushed
   {
-    if mstYPrev=y and yVel!=0
+    if yVel!=0 and ((gDeltaTime==1 and mstYPrev=y) or (gDeltaTime!=1 and mstYBlocked=1))
     {
       deathCheck+=1*gDeltaTime
       if deathCheck>=3 {oPlayer1.life-=oPlayer1.maxLife}

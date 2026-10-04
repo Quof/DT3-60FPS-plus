@@ -34,9 +34,13 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if global.gamePaused=false
+//on 30fps ticks, with the collision checks done at this tick's finished position (mstLY),
+//so the elevator stops exactly where it does at 30fps; gameStepEvent spreads the movement across frames
+if global.gamePaused=false and gDeltaDoTicks != 0
 {
-  myDist=point_distance(x,y,oPlayer1.x,oPlayer1.y)
+  myDist=point_distance(x,y,oPlayer1.x,oPlayer1.y) //real positions: the player is carried in step with the elevator
+  var tRealY;
+  tRealY=y; y=mstLY
   if myDist<10
   {
     if scrController(3)
@@ -62,8 +66,9 @@ if global.gamePaused=false
         //sound_play(snd_ElevatorUse)
         soundDelay=4
       }
-      else {soundDelay-=1*gDeltaTime}
+      else {soundDelay-=1}
     }
   }
   else {yVel=0}
+  y=tRealY
 }

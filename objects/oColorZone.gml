@@ -55,16 +55,45 @@ if global.gamePaused=false
   if moveSpd>0
   {
     _speed=moveSpd
-    moveTime+=1*gDeltaTime
-    if moveTime>=moveDelay
+    if gDeltaDoTicks != 0 //on 30fps ticks, like the moving platforms these zones travel with
     {
-      moveTime=0
-      _direction+=180
+      moveTime+=1
+      if moveTime>=moveDelay
+      {
+        moveTime=0
+        _direction+=180
+      }
     }
   }
 }
 else {_speed=0}
-correctSpeedDirection(self)
+
+if gDeltaTime==1 {correctSpeedDirection(self)}
+else if global.gamePaused=false
+{
+  //above 30fps, move in exactly the same per-tick pattern as moving solids (see gameStepEvent),
+  //so zones that ride along with moving platforms stay locked to them instead of drifting by sub-pixels
+  if !variable_local_exists("zcFrames") {zcLeftX=0; zcLeftY=0; zcFrames=0}
+  if gDeltaDoTicks != 0
+  {
+    zcLeftX=cos(degtorad(_direction))*_speed
+    zcLeftY=-sin(degtorad(_direction))*_speed
+    if approximatelyZero(zcLeftX) {zcLeftX=0}
+    if approximatelyZero(zcLeftY) {zcLeftY=0}
+    zcFrames=round(1/gDeltaTime)
+  }
+  if zcFrames>0
+  {
+    var tStepX,tStepY;
+    tStepX=sign(zcLeftX)*min(abs(zcLeftX),ceil(abs(zcLeftX)/zcFrames))
+    tStepY=sign(zcLeftY)*min(abs(zcLeftY),ceil(abs(zcLeftY)/zcFrames))
+    x+=tStepX
+    y+=tStepY
+    zcLeftX-=tStepX
+    zcLeftY-=tStepY
+    zcFrames-=1
+  }
+}
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
