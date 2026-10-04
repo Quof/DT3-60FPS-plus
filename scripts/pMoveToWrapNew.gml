@@ -5,6 +5,11 @@
   if yAcc>yAccLimit {yAcc=yAccLimit}
   else if yAcc<-1*yAccLimit {yAcc=-1*yAccLimit}
 
+  //remember whether anything is accelerating each axis this frame (see the approximatelyZero checks below)
+  var tXAccIn, tYAccIn;
+  tXAccIn = xAcc
+  tYAccIn = yAcc
+
   //applies the acceleration
   var xAccapply, yAccapply;
   var xFricapply, yFricapply;
@@ -27,6 +32,13 @@
 
   xAccapply-=xVel * (1.0 - xFricapply)
   yAccapply-=yVel * (1.0 - yFricapply)
+
+  //dash code set this axis' velocity directly this frame (xVelSetTick/yVelSetTick, see characterStepEvent):
+  //use the original 30fps formula, (velocity + acceleration) * friction, and don't integrate further this frame.
+  //Otherwise the acceleration added on top of a velocity that is overwritten every frame mostly gets lost
+  //(e.g. Claire's air dash momentum on Gate F's ice fell ~50-70px short of 30fps)
+  if xVelSetTick {xVel=(xVel+xAcc)*xFric; xAccapply=0}
+  if yVelSetTick {yVel=(yVel+yAcc)*yFric; yAccapply=0}
 
   xAccapply *= 0.5
   yAccapply *= 0.5
@@ -54,9 +66,12 @@
   else if xVel<-1*xVelLimit {xVel=-1*xVelLimit}
   if yVel>yVelLimit {yVel=yVelLimit}
   else if yVel<-16 {yVel=-16}
-  //approximates the "active" variables
-  if approximatelyZero(xVel) {xVel=0}
-  if approximatelyZero(yVel) {yVel=0}
+  //approximates the "active" variables.
+  //Only snap a tiny velocity to 0 when nothing is accelerating that axis: above 30fps each frame only adds a fraction
+  //of a tick's acceleration, so a low acceleration (e.g. Gate F's ice runAcc, or low gravity at the top of a jump)
+  //would otherwise be snapped back to 0 every frame and never build up (stuck at 120fps).
+  if approximatelyZero(xVel) and tXAccIn == 0 {xVel=0}
+  if approximatelyZero(yVel) and tYAccIn == 0 {yVel=0}
   if approximatelyZero(xAcc) {xAcc=0}
   if approximatelyZero(yAcc) {yAcc=0}
 
@@ -158,8 +173,8 @@
   else if xVel<-1*xVelLimit {xVel=-1*xVelLimit}
   if yVel>yVelLimit {yVel=yVelLimit}
   else if yVel<-16 {yVel=-16}
-  //approximates the "active" variables
-  if approximatelyZero(xVel) {xVel=0}
-  if approximatelyZero(yVel) {yVel=0}
+  //approximates the "active" variables (same rule as above: don't snap to 0 while that axis is being accelerated)
+  if approximatelyZero(xVel) and tXAccIn == 0 {xVel=0}
+  if approximatelyZero(yVel) and tYAccIn == 0 {yVel=0}
   if approximatelyZero(xAcc) {xAcc=0}
   if approximatelyZero(yAcc) {yAcc=0}

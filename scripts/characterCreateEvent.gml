@@ -143,6 +143,13 @@ else
   jumpTimeTotal=21
 }
 doubleJumpAcc=-6.1         //relates to how high the character will jump from a double jump
+//above 30fps only: corrections so jump heights match 30fps (tuned for the standard jump; rooms with different jump physics can override them, e.g. Gate F)
+jumpBodge60=1.07           //multiplier on initialJumpAcc (pMoveJump)
+jumpGravComp60=0.5         //multiplier on gravityIntensity added at jump time (pMoveJump)
+doubleJumpBodge60=0.98     //multiplier on doubleJumpAcc (pMoveDoubleJump)
+xVelSetTick=0              //above 30fps: dash code set xVel/yVel this frame (see characterStepEvent / pMoveToWrapNew)
+yVelSetTick=0
+airDashKick=0              //above 30fps: air dash's upward kick, applied during its first tick (pMoveAirDash)
 climbAcc=0.8               //how fast the character will climb
 runAnimSpeed=0.045         //relates to how fast the running animation should go
 climbAnimSpeed=0.1         //relates to how fast the climbing animation should go

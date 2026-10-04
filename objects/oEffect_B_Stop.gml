@@ -17,7 +17,7 @@ if freezeFrame=0
     speed+=AccelX*gDeltaTime
   if AccelY!=0
     speed+=AccelY*gDeltaTime
-  image_angle+=rotation
+  image_angle+=rotation*gDeltaTime
 
   if type=2 //Time
   {

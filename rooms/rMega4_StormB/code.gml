@@ -7,5 +7,5 @@ var tempMplay;
 tempMplay=findMusic(404)
 playMusic(tempMplay,0,0)
 
-background_hspeed[0]=-1*gDeltaTime
-background_vspeed[0]=1*gDeltaTime
+background_hspeed[0]=-1 //raw 30fps units: oGame scales background scrolling
+background_vspeed[0]=1

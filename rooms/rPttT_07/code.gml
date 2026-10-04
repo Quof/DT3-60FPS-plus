@@ -1,5 +1,5 @@
 locationCheck(76)
-background_hspeed[0]=-10*gDeltaTime
+background_hspeed[0]=-10 //raw 30fps units: oGame scales background scrolling
 background_vspeed[0]=0
 global.mapTeleport=0
 

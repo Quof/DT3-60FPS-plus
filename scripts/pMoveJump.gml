@@ -34,10 +34,11 @@ else
 {
     var ijabodge;
     // compensate for standard-height full jumps to have the same height despite different pixel rounding
-    ijabodge = initialJumpAcc * 1.07
+    //(jumpBodge60/jumpGravComp60 are set in characterCreateEvent: 1.07 and 0.5 by default, overridden in Gate F)
+    ijabodge = initialJumpAcc * jumpBodge60
     if bombJump=0 {yVel+=ijabodge}
     else {yVel+=ijabodge*bombAcc}
-    yVel += gravityIntensity*0.5
+    yVel += gravityIntensity*jumpGravComp60
 }
 bombJump=0
 ditherCounter=15 // make jumps deterministic

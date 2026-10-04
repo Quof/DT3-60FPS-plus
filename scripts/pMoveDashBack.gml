@@ -58,22 +58,10 @@ dashEnergy-=2000
 
 xAcc+=xVel
 
-var dashBodge
-if gDeltaTime == 1
-{
-  dashBodge = 0
-}
-else
-{
-  if global.activeCharacter == 0
-  {
-    dashBodge = global.jerryDashBodge
-  }
-  else if global.activeCharacter == 1
-  {
-    dashBodge = global.claireDashBodge
-  }
-}
+//no dash speed correction needed above 30fps: xVelSetTick makes pMoveToWrapNew use the original 30fps formula for this frame
+var dashBodge;
+dashBodge = 0
+xVelSetTick=1
 
 if facing=RIGHT
 {

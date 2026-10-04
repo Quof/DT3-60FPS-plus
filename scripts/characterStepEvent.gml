@@ -4,6 +4,11 @@ It updates the keys used by the character, moves all of the solids, moves the
 character, sets the sprite index, and sets the animation speed for the sprite.
 */
 
+//above 30fps: set to 1 by dash code that sets xVel/yVel directly this frame; pMoveToWrapNew then applies the
+//original 30fps formula (velocity+acceleration)*friction instead of spreading acceleration/friction over the frame
+xVelSetTick=0
+yVelSetTick=0
+
 if player=1 //========================================
 {
   if (attackState!=ACT_ATK or attackState!=ACT_FIRE or attackState!=ACT_FIRE_UP or attackState!=ACT_FIRE_DOWN) and attackState!=ACT_IN_CANNON and attackState!=ACT_HIDE and global.gamePaused=false
@@ -217,7 +222,7 @@ if attackState!=ACT_IN_BIKE and attackState!=ACT_BLOCK and (grappleState=0 or gr
           if platformCharacterIs(IN_AIR) and dashMomentumTime>0
           {
             xAcc-=(xVel/2.1+(dashMomentumTime/2))
-            xVel=-(dashVel/2.1+(dashMomentumTime/2))
+            xVel=-(dashVel/2.1+(dashMomentumTime/2)); xVelSetTick=1
           }
         }
         else //Claire (Forward dash hold)
@@ -228,7 +233,7 @@ if attackState!=ACT_IN_BIKE and attackState!=ACT_BLOCK and (grappleState=0 or gr
             if platformCharacterIs(IN_AIR)
             {
               xAcc-=(xVel/2.1+(dashMomentumTime/1.95))
-              xVel=-(dashVel/2.1+(dashMomentumTime/1.95))
+              xVel=-(dashVel/2.1+(dashMomentumTime/1.95)); xVelSetTick=1
             }
             if kLeftPushedSteps<=1 {dashMomentumTime=0} //3
           }
@@ -270,7 +275,7 @@ if attackState!=ACT_IN_BIKE and attackState!=ACT_BLOCK and (grappleState=0 or gr
           if platformCharacterIs(IN_AIR) and dashMomentumTime>0
           {
             xAcc+=xVel/2.1+(dashMomentumTime/2)
-            xVel=dashVel/2.1+(dashMomentumTime/2)
+            xVel=dashVel/2.1+(dashMomentumTime/2); xVelSetTick=1
           }
         }
         else //Claire (Forward dash hold)
@@ -281,7 +286,7 @@ if attackState!=ACT_IN_BIKE and attackState!=ACT_BLOCK and (grappleState=0 or gr
             if platformCharacterIs(IN_AIR)
             {
               xAcc+=xVel/2.1+(dashMomentumTime/1.95)
-              xVel=dashVel/2.1+(dashMomentumTime/1.95)
+              xVel=dashVel/2.1+(dashMomentumTime/1.95); xVelSetTick=1
             }
             if kRightPushedSteps<=1 {dashMomentumTime=0} //3
           }
@@ -708,22 +713,11 @@ if bombJump>0 //Remove bomb boosted effect
   bombJump-=1*gDeltaTime
 }
 
-var dashBodge
-if gDeltaTime == 1
-{
-  dashBodge = 0
-}
-else
-{
-  if global.activeCharacter == 0
-  {
-    dashBodge = global.jerryDashBodge
-  }
-  else if global.activeCharacter == 1
-  {
-    dashBodge = global.claireDashBodge
-  }
-}
+//dash speed corrections are no longer needed above 30fps: the frames below that set xVel/yVel are flagged
+//(xVelSetTick/yVelSetTick) and pMoveToWrapNew applies the original 30fps formula to them.
+//(global.jerryDashBodge / global.claireDashBodge are left in initGameVars but no longer used for dashes)
+var dashBodge;
+dashBodge = 0
 
 
 if groundDashRecovery>0 //Continue ground dash - Jerry only
@@ -738,8 +732,8 @@ if groundDashRecovery>0 //Continue ground dash - Jerry only
     tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0
   }
   groundDashRecovery-=1*gDeltaTime
-  if facing=RIGHT {xVel=(dashVel+dashBodge+1)}
-  else if facing=LEFT {xVel=-(dashVel+dashBodge+1)}
+  if facing=RIGHT {xVel=(dashVel+dashBodge+1); xVelSetTick=1}
+  else if facing=LEFT {xVel=-(dashVel+dashBodge+1); xVelSetTick=1}
 }
 if backDashRecovery>0 //Continue ground dash - Jerry only
 {
@@ -753,8 +747,8 @@ if backDashRecovery>0 //Continue ground dash - Jerry only
     tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0
   }
   backDashRecovery-=1*gDeltaTime
-  if facing=RIGHT {xVel=-(dashVel+dashBodge+1)}
-  else if facing=LEFT {xVel=(dashVel+dashBodge+1)}
+  if facing=RIGHT {xVel=-(dashVel+dashBodge+1); xVelSetTick=1}
+  else if facing=LEFT {xVel=(dashVel+dashBodge+1); xVelSetTick=1}
 }
 if claireBackDashRec>0 //For Claire only
 {
@@ -763,11 +757,15 @@ if claireBackDashRec>0 //For Claire only
 
 if airDashRecovery>0 //Continue air dash
 {
+  var tAirDashFirstTick;
+  tAirDashFirstTick=(airDashRecovery>5) //still in the air dash's first 30fps tick (it starts at 6)
   airDashRecovery-=1*gDeltaTime
-  if global.activeCharacter=0 {yVel=-2.9}
-  else if global.activeCharacter=1 {yVel=-3.3}
-  if facing=RIGHT {xVel=(dashVel+dashBodge/2-1)}
-  else if facing=LEFT {xVel=-(dashVel+dashBodge/2-1)}
+  if global.activeCharacter=0 {yVel=-2.9; yVelSetTick=1}
+  else if global.activeCharacter=1 {yVel=-3.3; yVelSetTick=1}
+  //above 30fps, pMoveAirDash's upward kick is added here for the dash's whole first tick, like the 30fps yAcc kick
+  if gDeltaTime!=1 and tAirDashFirstTick {yVel+=airDashKick}
+  if facing=RIGHT {xVel=(dashVel+dashBodge/2-1); xVelSetTick=1}
+  else if facing=LEFT {xVel=-(dashVel+dashBodge/2-1); xVelSetTick=1}
 }
 
 if mobilityDisable>0 {mobilityDisable-=gDeltaTime} //Double jump / Air-dash disable after split party character swap

@@ -33,13 +33,27 @@ with (all)
     if gDeltaTime == 1.0 break;
     // I left friction-having objects mostly alone, because almost all of them are visual effects.
     // Any gameplay-affecting friction-having objects should be modified to not use friction.
-    if friction != 0
+    // The visual effect objects are also included even without friction: lots of code spawns them with
+    // GM's built-in speed/direction (e.g. tEffect.speed=4), which GM applies in full every frame.
+    if friction != 0 or (speed != 0 and (object_index == oEffect or object_index == oEffectB or object_index == oEffectC
+      or object_index == oEffectGrav or object_index == oEffectSpark or object_index == oEffect_B_Stop or object_index == oKillEffect))
     {
         x += hspeed *gDeltaTime
         y += vspeed *gDeltaTime
         x -= hspeed
         y -= vspeed
         speed += friction * (1.0 - gDeltaTime)
+    }
+}
+//GM scrolls every background layer by its full background_hspeed/vspeed every frame; take back the excess above 30fps
+//so background speeds set in the room editor or in code (kept in 30fps units) scroll at the 30fps rate
+if gDeltaTime != 1.0
+{
+    var bgi;
+    for(bgi=0;bgi<8;bgi+=1)
+    {
+        background_x[bgi] -= background_hspeed[bgi] * (1.0 - gDeltaTime)
+        background_y[bgi] -= background_vspeed[bgi] * (1.0 - gDeltaTime)
     }
 }
 

@@ -29,6 +29,7 @@ if tCharSwap=0 //Switch to Jerry
   {
     oPlayer1.initialJumpAcc=-7.1
     oPlayer1.jumpTimeTotal=21
+    oPlayer1.jumpBodge60=1.07; oPlayer1.jumpGravComp60=0.5; oPlayer1.doubleJumpBodge60=0.98 //60fps jump corrections for the standard jump
   }
   oPlayer1.frictionAirX=0.82
   oPlayer1.frictionDuckingX=0.87
@@ -43,6 +44,7 @@ else if tCharSwap=1 //Switch to Claire
   {
     oPlayer1.initialJumpAcc=-7.1
     oPlayer1.jumpTimeTotal=21
+    oPlayer1.jumpBodge60=1.07; oPlayer1.jumpGravComp60=0.5; oPlayer1.doubleJumpBodge60=0.98 //60fps jump corrections for the standard jump
   }
   oPlayer1.frictionAirX=0.82
   oPlayer1.frictionDuckingX=0.9
@@ -55,5 +57,6 @@ else if tCharSwap=2 //Switch to Jeremy
   oPlayer1.runAcc=4.5
   oPlayer1.initialJumpAcc=-7
   oPlayer1.jumpTimeTotal=60
+  oPlayer1.jumpBodge60=1.07; oPlayer1.jumpGravComp60=0.5; oPlayer1.doubleJumpBodge60=0.98 //same 60fps jump corrections as before
   oPlayer1.frictionDuckingX=0.5
 }
