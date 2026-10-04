@@ -186,8 +186,8 @@ if attackState!=ACT_IN_BIKE and attackState!=ACT_BLOCK and (grappleState=0 or gr
 {
   if state!=DUCKING and state!=CLIMBING and global.hasShoes[0]=2
   {
-    if kLeftReleased and approximatelyZero(xVel) {xAcc-=0.5}
-    if kRightReleased and approximatelyZero(xVel) {xAcc+=0.5}
+    if kLeftReleased and approximatelyZero(xVel) {xAcc-=0.5; xVelSetTick=1} //one-off push: full 30fps tick's worth (see pMoveToWrapNew)
+    if kRightReleased and approximatelyZero(xVel) {xAcc+=0.5; xVelSetTick=1}
 
     if kLeft //-------------------- Run left --------------------
     {
@@ -398,7 +398,7 @@ if platformCharacterIs(ON_GROUND) and yVel>0.25 {yVel=0}
 if isCollisionBottom(1)=0 and (isCollisionPlatformBottom(1)=0 or isCollisionPlatform()) and platformCharacterIs(ON_GROUND)
 {
   state=FALLING
-  yAcc+=grav
+  yAcc+=grav; yVelSetTick=1 //one-off push: full 30fps tick's worth (see pMoveToWrapNew)
 }
 if isCollisionTop(1) and state=JUMPING
 {
@@ -824,7 +824,7 @@ if bTakingDamage=false
         y+=1
         idleTime=0
         state=FALLING
-        yAcc+=grav
+        yAcc+=grav; yVelSetTick=1 //one-off push: full 30fps tick's worth (see pMoveToWrapNew)
       }
       else
       {
@@ -839,18 +839,12 @@ if bTakingDamage=false
       {
         idleTime=0
       }
-      if (state==RUNNING && global.activeCharacter==1 && gDeltaTime != 1)
-      {
-        //ANDREW add a little extra ooomph to claire's crouch to get the wavedash back
-        if (xVel > 0)
-        {
-          xVel=11.5
-        }
-        else if (xVel < 0)
-        {
-          xVel=-11.5
-        }
-      }
+      //Crouch burst / wavedash: on the step you crouch, the run code above has already added a full tick of run acceleration,
+      //and friction is now the much lighter crouch friction, so at 30fps (speed + runAcc) * crouch friction gives a burst
+      //(Jerry ~6.6 -> ~11.5, Claire ~7.3 -> ~13.1). Above 30fps that tick's acceleration would only partly apply before the
+      //run input stops, so flag this step to use the 30fps formula (pMoveToWrapNew).
+      //(This replaces an older 60fps-only line that set Claire's xVel to 11.5 here; Jerry didn't get a burst at all.)
+      if state!=DUCKING {xVelSetTick=1}
       state=DUCKING
       global.recTimeSpentDucking+=1*gDeltaTime
     }
@@ -917,6 +911,7 @@ if isCollisionLadder() and state=CLIMBING and kJumpPressed and bTakingDamage=fal
   if facing=LEFT {xVel=-departLadderXVel}
   else {xVel=departLadderXVel}
   yAcc+=departLadderYVel
+  xVelSetTick=1; yVelSetTick=1 //set velocity + one-off push: full 30fps tick's worth (see pMoveToWrapNew)
   state=JUMPING
   jumpButtonReleased=0
   jumpTime=0
@@ -1098,7 +1093,9 @@ else
   {
     if isCollisionWaterBottom(-12)
     {
-      if yVel>8 and gDeltaDoTicks //Water splash effect
+      //Water splash effect. Without the Gravity Suit the fall speed is capped to 8 the moment you enter the water, so this
+      //only happens once and runs on any frame. With the suit there's no cap, so it stays on 30fps ticks to keep the 30fps splash rate.
+      if yVel>8 and (gDeltaDoTicks or global.gameProgress<2820)
       {
         var tEffect,tWaterTarget;
         tWaterTarget=instance_position(x,y,oWater)
@@ -1133,7 +1130,9 @@ else
   {
     if isCollisionWaterBottom(-12)
     {
-      if yVel>8 and gDeltaDoTicks //Water splash effect
+      //Water splash effect + fall speed cap on entering the water. The cap means this only happens once, so it runs on any
+      //frame (it used to wait for a 30fps tick, letting you sink faster than 8 for a frame at 60/120fps)
+      if yVel>8
       {
         playSound(global.snd_Splash,0,0.95,1)
         var tEffect;
@@ -1278,6 +1277,8 @@ if damageTime>=29 //Fix knockback
 {
   if image_xscale=1 {xVel=-2}
   else {xVel=2}
+  xVelSetExt=1 //velocity set every frame: use the 30fps formula (see pMoveToWrapNew). This runs after this frame's move,
+               //so it uses the flag that survives until the next move (xVelSetTick is reset at the top of the step)
 }
 
 //--------------------------------------------------------------------------------

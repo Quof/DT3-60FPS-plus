@@ -2064,7 +2064,7 @@ if global.gamePaused=false
   {
     if jumpProg=0
     {
-      if jumpTime<=7 {oPlayer1.yVel=-20*gDeltaTime}
+      if jumpTime<=7 {oPlayer1.yVel=-20; oPlayer1.yVelSetExt=1} //raw 30fps value; set every frame, so use the 30fps formula (pMoveToWrapNew)
       jumpTime+=1*gDeltaTime
       if jumpTime>=15
       {

@@ -37,8 +37,12 @@
   //use the original 30fps formula, (velocity + acceleration) * friction, and don't integrate further this frame.
   //Otherwise the acceleration added on top of a velocity that is overwritten every frame mostly gets lost
   //(e.g. Claire's air dash momentum on Gate F's ice fell ~50-70px short of 30fps)
-  if xVelSetTick {xVel=(xVel+xAcc)*xFric; xAccapply=0}
-  if yVelSetTick {yVel=(yVel+yAcc)*yFric; yAccapply=0}
+  //The same applies to one-off pushes put into xAcc/yAcc (they'd otherwise only count for one frame's fraction of a tick),
+  //and to velocities set by other objects (xVelSetExt/yVelSetExt: fans, wind, bomb blasts).
+  if xVelSetTick or xVelSetExt {xVel=(xVel+xAcc)*xFric; xAccapply=0}
+  if yVelSetTick or yVelSetExt {yVel=(yVel+yAcc)*yFric; yAccapply=0}
+  xVelSetExt=0
+  yVelSetExt=0
 
   xAccapply *= 0.5
   yAccapply *= 0.5

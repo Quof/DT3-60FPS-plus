@@ -43,6 +43,7 @@ if oPlayer1.attackState=oPlayer1.ACT_MORPHBALL and bCanBoost=1
     {
       oPlayer1.xAcc=-(point_distance(x,0,oPlayer1.x,0)/5)
     }
+    oPlayer1.xVelSetExt=1 //one-off push: apply a full 30fps tick's worth above 30fps (pMoveToWrapNew), not one frame's fraction
     with oPlayer1
     {
       if platformCharacterIs(ON_GROUND) {y-=1}

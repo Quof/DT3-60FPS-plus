@@ -38,7 +38,7 @@ if global.gamePaused=false
       if collision_rectangle(x,y-(16*image_yscale),x+224,y+(16*image_yscale),oPlayer1,1,1)
       {
         if !collision_line(x+2,y,oPlayer1.x,oPlayer1.y-26,oSolid,1,1)
-          oPlayer1.xVel=8
+          {oPlayer1.xVel=8; oPlayer1.xVelSetExt=1} //xVelSetExt: velocity set every frame, use the 30fps formula (pMoveToWrapNew)
       }
     }
     else if image_angle=90
@@ -48,7 +48,7 @@ if global.gamePaused=false
         if !collision_line(x,y-2,oPlayer1.x,oPlayer1.y-26,oSolid,1,1)
         {
           if oPlayer1.state=oPlayer1.RUNNING {oPlayer1.y-=1}
-          oPlayer1.yVel=-8
+          oPlayer1.yVel=-8; oPlayer1.yVelSetExt=1
         }
       }
     }
@@ -57,7 +57,7 @@ if global.gamePaused=false
       if collision_rectangle(x,y-(16*image_yscale),x-224,y+(16*image_yscale),oPlayer1,1,1)
       {
         if !collision_line(x-2,y,oPlayer1.x,oPlayer1.y-26,oSolid,1,1)
-          oPlayer1.xVel=-8
+          {oPlayer1.xVel=-8; oPlayer1.xVelSetExt=1}
       }
     }
     else if image_angle=270
@@ -65,7 +65,7 @@ if global.gamePaused=false
       if collision_rectangle(x-(16*image_yscale),y,x+(16*image_yscale),y+224,oPlayer1,1,1)
       {
         if !collision_line(x,y+2,oPlayer1.x,oPlayer1.y-26,oSolid,1,1)
-          oPlayer1.yVel=8
+          {oPlayer1.yVel=8; oPlayer1.yVelSetExt=1}
       }
     }
   }

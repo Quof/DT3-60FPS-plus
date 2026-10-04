@@ -6,7 +6,8 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  oPlayer1.xVel=windPower*oStormEagle.image_xscale*gDeltaTime
+  //raw 30fps value (the player's movement scales it); xVelSetExt makes pMoveToWrapNew use the 30fps formula for a velocity set every frame
+  oPlayer1.xVel=windPower*oStormEagle.image_xscale; oPlayer1.xVelSetExt=1
   if oGame.time mod (3/gDeltaTime)=0
   {
     var tEffect;

@@ -290,6 +290,7 @@ if bCanTakeDamage=true
       if image_xscale=1 {xVel=-2}
       else {xVel=2}
       y-=2; yVel=-4
+      oPlayer1.xVelSetExt=1; oPlayer1.yVelSetExt=1 //knockback set + one-off yAcc push: full 30fps tick's worth (pMoveToWrapNew)
     }
     else
     {
