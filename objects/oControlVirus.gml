@@ -232,7 +232,8 @@ if global.gamePaused=false
       }
       oCh5CC_CompScr.sequence=2
     }
-    if deathAnim mod (5/gDeltaTime)=0
+    //if deathAnim mod (5/gDeltaTime)=0
+    if deathAnim mod 5=0 //60fps change: deathAnim already counts 30fps ticks (+=gDeltaTime), so the old divide made the explosions fire every 10 ticks at 60fps and every 20 at 120fps instead of every 5
     {
       var tEffect;
       tEffect=instance_create(x-16+random(32),y-16+random(32),oEffect)
