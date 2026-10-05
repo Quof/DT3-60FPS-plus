@@ -171,10 +171,13 @@ if global.gamePaused=false
         else if atkTime>=12
         {
           xSpd=-3
+          if frac(atkTime)=0 //60fps change (added): one ice cloud per 30fps tick; it spawned one every frame (4x the clouds at 120fps)
+          {
           var tIceBreath;
           tIceBreath=instance_create(x-22,y+17,oM_PoisonBreath)
           tIceBreath.atkPower=atkPower; tIceBreath.bulletSpeed=6+random(3); tIceBreath.image_blend=c_teal
           tIceBreath.animSpeed=0.25; tIceBreath._direction=235+random_range(-12,12)
+          } //60fps change (added)
         }
       }
       else if type=3 //---------- YELLOW 2 ----------
@@ -265,7 +268,8 @@ if global.gamePaused=false
           mySpikeB.sprite_index=sSigmaB_HeadSpike; mySpikeB.image_xscale=0.1
           mySpikeB.bFollow=1; mySpikeB.idFollow=id; mySpikeB.xFollow=33; mySpikeB.yFollow=-18
         }
-        else if spikeSeq>=12 and spikeSeq<=20
+        //else if spikeSeq>=12 and spikeSeq<=20
+        else if spikeSeq>11 and spikeSeq<=20 //60fps change: includes every frame of tick 12, so the side spikes grow to full size (0.925 at 120fps, a shorter hitbox)
         {
           mySpikeA.image_xscale-=0.1*gDeltaTime
           mySpikeB.image_xscale+=0.1*gDeltaTime
@@ -280,7 +284,8 @@ if global.gamePaused=false
           mySpikeA.sprite_index=sSigmaB_HeadSpike; mySpikeA.image_xscale=-0.1; mySpikeA.image_angle=90
           mySpikeA.bFollow=1; mySpikeA.idFollow=id; mySpikeA.xFollow=11; mySpikeA.yFollow=-40
         }
-        else if spikeSeq>=12 and spikeSeq<=20 {mySpikeA.image_xscale-=0.1*gDeltaTime}
+        //else if spikeSeq>=12 and spikeSeq<=20 {mySpikeA.image_xscale-=0.1*gDeltaTime}
+        else if spikeSeq>11 and spikeSeq<=20 {mySpikeA.image_xscale-=0.1*gDeltaTime} //60fps change: same for the top spike
       }
     }
   }

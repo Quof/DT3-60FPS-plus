@@ -169,7 +169,9 @@ if global.gamePaused=false
       else if atkProg>=104 and atkProg<=199
       {
         var tNewExplode;
-        if oGame.time mod 2 == false for(i=0;i<2;i+=1) //do NOT change this mod check, it is adjusted for the framerate - quof
+        //for(i=0;i<2;i+=1)
+        //if oGame.time mod 2 == false for(i=0;i<2;i+=1) //do NOT change this mod check, it is adjusted for the framerate - quof
+        if frac(atkProg)=0 for(i=0;i<2;i+=1) //60fps change (approved by quof): one pair per 30fps tick like vanilla, at every framerate: pillars at 40,56,72,88...440. The first pair is always on the window's first frame (atkProg=104 exactly, groundGunX=40), so it's flush with the left wall. (oGame.time mod 2 left gaps at 30fps, doubled the pillars at 120fps, and only hit that first frame half the time)
         {
           tNewExplode=instance_create(groundGunX+(i*16),yGround,oDamageExplosion); tNewExplode.image_yscale=0.9
           tNewExplode.atkPower=atkPower-1; tNewExplode.sprite_index=sBTFirePillar; tNewExplode.decayTime=-100
@@ -239,7 +241,8 @@ if global.gamePaused=false
         else if tLaserPlacement=3 {gridLaserX=176; gridLaserY=208}
         else if tLaserPlacement=4 {gridLaserX=112; gridLaserY=208}
       }
-      else if atkProg>=21 and atkProg<=50 {gridLaserAlpha+=0.03*gDeltaTime}
+      //else if atkProg>=21 and atkProg<=50 {gridLaserAlpha+=0.03*gDeltaTime}
+      else if atkProg>20 and atkProg<=50 {gridLaserAlpha+=0.03*gDeltaTime} //60fps change: includes every frame of tick 21, so the warning lines reach the 30fps alpha (0.9; 0.8775 at 120fps)
       else if atkProg=90-checkGLDelay
       {
         playSound(global.snd_HardHit3,0,0.92,1)
@@ -319,7 +322,8 @@ if global.gamePaused=false
           if sigParts[2].image_angle<20 {sigParts[2].image_angle+=2*gDeltaTime}
         }
       }
-      else if rayGunTime>=10021 and rayGunTime<=10040
+      //else if rayGunTime>=10021 and rayGunTime<=10040
+      else if rayGunTime>10020 and rayGunTime<=10040 //60fps change: includes every frame of tick 10021, so the gun glows as red as at 30fps
       {
         rayGunBlend-=8*gDeltaTime
         sigParts[2].image_blend=make_color_rgb(255,rayGunBlend,rayGunBlend)
@@ -331,7 +335,8 @@ if global.gamePaused=false
         tNewRay=instance_create(x,y,oSigmaBRayGun)
         tNewRay.atkPower=2
       }
-      else if rayGunTime>=10051 and rayGunTime<=10070
+      //else if rayGunTime>=10051 and rayGunTime<=10070
+      else if rayGunTime>10050 and rayGunTime<=10070 //60fps change: same for the glow fading back
       {
         rayGunBlend+=8*gDeltaTime
         sigParts[2].image_blend=make_color_rgb(255,rayGunBlend,rayGunBlend)
@@ -457,7 +462,8 @@ if global.gamePaused=false
       with oSigmaB_BigHead {instance_destroy()}
       with oAttackBase {instance_destroy()}
     }
-    else if deathAnim>=2 and deathAnim<=90
+    //else if deathAnim>=2 and deathAnim<=90
+    else if deathAnim>1 and deathAnim<=90 //60fps change: includes every frame of tick 2, not just its last one
     {
       if deathAnim mod 10=0 {playSound(global.snd_EnemyDieMM,0,1,1)}
       if oGame.time mod (5/gDeltaTime)=0
