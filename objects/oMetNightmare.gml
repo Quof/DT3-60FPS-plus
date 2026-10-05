@@ -151,11 +151,13 @@ if global.gamePaused=false
         xSpd=320+irandom_range(-32,32)
         ySpd=336+irandom_range(-8,8)
       }
-      else if moveTime>=25
+      //else if moveTime>=25
+      else if moveTime>24 //60fps change: includes every frame of tick 25
       {
         _direction=point_direction(x,y,xSpd,ySpd)
         _speed=4
-        if point_distance(x,y,xSpd,ySpd)<5
+        //if point_distance(x,y,xSpd,ySpd)<5
+        if point_distance(x,y,xSpd,ySpd)<5 and frac(moveTime-gDeltaTime)=0 //60fps change: only on the first frame of each 30fps tick (before that tick's move), like at 30fps, so it settles on the same idle spot
         {
           _speed=0
           xSpd=0; ySpd=0
@@ -304,7 +306,8 @@ if global.gamePaused=false
       with oEProjectileBase {instance_destroy()}
       with oAttackBase {instance_destroy()}
     }
-    else if deathAnim>=2 and deathAnim<=90
+    //else if deathAnim>=2 and deathAnim<=90
+    else if deathAnim>1 and deathAnim<=90 //60fps change: includes every frame of tick 2, not just its last one
     {
       if deathAnim mod 6=0 {playSound(global.snd_EnemyDieMM,0,1,1)}
       if oGame.time mod (2/gDeltaTime)=0
