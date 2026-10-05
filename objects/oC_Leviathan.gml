@@ -212,7 +212,8 @@ if global.gamePaused=false
       if moveTime mod 65=0
       {
         var tNewAttack,tDir;
-        tDir=_direction=point_direction(x+820,y+70,oPlayer1.x,oPlayer1.y-26)
+        //tDir=_direction=point_direction(x+820,y+70,oPlayer1.x,oPlayer1.y-26)
+        tDir=point_direction(x+820,y+70,oPlayer1.x,oPlayer1.y-26) //bug fix (not a 60fps change): the second "=" was a comparison in GML, so tDir was 0 or 1 and the ring never faced the player
         for(i=0;i<20;i+=1)
         {
           tNewAttack=instance_create(x+820,y+70,oPassBullet)
@@ -274,7 +275,8 @@ if global.gamePaused=false
     if deathAnim>=1 and deathAnim<=60
     {
       if deathAnim mod 4=0 {playSound(global.snd_HardHit1,0,1,17000)}
-      for(i=0;i<3;i+=1)
+      //for(i=0;i<3;i+=1)
+      if gDeltaDoTicks for(i=0;i<3;i+=1) //60fps change: added "if gDeltaDoTicks"; 3 explosions were spawned every frame (4x at 120fps)
       {
         tEffect=instance_create(random(448),random(160),oEffect)
         tEffect.sprite_index=sRobotExplosion; tEffect.image_speed=0.5
