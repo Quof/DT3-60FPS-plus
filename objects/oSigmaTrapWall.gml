@@ -34,7 +34,12 @@ if global.gamePaused=false
       moveProg=1
     }
   }
-  else if moveProg=1 {x+=xMove*gDeltaTime}
+  //else if moveProg=1 {x+=xMove*gDeltaTime}
+  //60fps change (added): the push walls are moving solids, which only pick up their speed on gDeltaDoTicks frames (see
+  //gameStepEvent). Start moving on that same frame, so trap walls sent with push walls (e.g. the one 16px in front of a
+  //push wall in the desperation attack) stay lined up with them; before, they could be up to 3 frames (6px) apart.
+  else if moveProg=1 and gDeltaDoTicks {moveProg=2}
+  if moveProg=2 {x+=xMove*gDeltaTime} //60fps change: was "else if moveProg=1"
 }
 #define Other_0
 /*"/*'/**//* YYD ACTION

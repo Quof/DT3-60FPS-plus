@@ -106,7 +106,8 @@ if global.gamePaused=false
         {
           if specialAttack=1 {specialAttack=2}
         }
-      else if atkProg>=11 and atkProg<=walkMax
+      //else if atkProg>=11 and atkProg<=walkMax
+      else if atkProg>10 and atkProg<=walkMax //60fps change: includes every frame of tick 11, so each walk covers the full 30fps distance
       {
 
         image_index+=0.08*gDeltaTime
@@ -291,7 +292,8 @@ if global.gamePaused=false
     {
       if atkProg=1 or atkProg=31 {playSound(global.snd_Beam,0,0.94,16000)}
 
-      if atkProg>=1 and atkProg<=20
+      //if atkProg>=1 and atkProg<=20
+      if atkProg>0 and atkProg<=20 //60fps change: includes every frame of tick 1, so Sigma fades fully out (alpha 0, black); at 120fps Sigma stayed at alpha 0.04 while "gone"
       {
         blendCol-=12.75*gDeltaTime
         image_alpha-=0.05*gDeltaTime
@@ -312,7 +314,8 @@ if global.gamePaused=false
           image_xscale=1
         }
       }
-      else if atkProg>=31 and atkProg<=50
+      //else if atkProg>=31 and atkProg<=50
+      else if atkProg>30 and atkProg<=50 //60fps change: same for fading back in
       {
         blendCol+=12.75*gDeltaTime
         image_alpha+=0.05*gDeltaTime
@@ -352,7 +355,8 @@ if global.gamePaused=false
         else //-------------------- DESPERATION ATTACK: WALL SPAM --------------------
     {
       specProg+=1*gDeltaTime
-      image_blend=make_color_rgb(random(255),random(255),random(255))
+      //image_blend=make_color_rgb(random(255),random(255),random(255))
+      if gDeltaDoTicks {image_blend=make_color_rgb(random(255),random(255),random(255))} //60fps change: new random color once per 30fps tick, not every frame
       if specProg=1
       {
         resType[2]=1
@@ -363,14 +367,16 @@ if global.gamePaused=false
         spWall=0
         spDmgW=0
       }
-      else if specProg>=2 and specProg<=21 {image_alpha-=0.05*gDeltaTime}
+      //else if specProg>=2 and specProg<=21 {image_alpha-=0.05*gDeltaTime}
+      else if specProg>1 and specProg<=21 {image_alpha-=0.05*gDeltaTime} //60fps change: these fade windows include every frame of their first tick, so the alpha steps add up to the 30fps totals (fully out, then 0.5, then 1)
       else if specProg=22
       {
         x=400
         roomSide=1
         image_xscale=-1
       }
-      else if specProg>=41 and specProg<=50 {image_alpha+=0.05*gDeltaTime}
+      //else if specProg>=41 and specProg<=50 {image_alpha+=0.05*gDeltaTime}
+      else if specProg>40 and specProg<=50 {image_alpha+=0.05*gDeltaTime} //60fps change: see above
       else if specProg=55 {wallSpikes=1}
       else if specProg=70
       {
@@ -446,7 +452,8 @@ if global.gamePaused=false
       else if specProg=460 {spWall=instance_create(wallSpPosX2,160,oSigmaPushWall); spWall.image_yscale=8; spWall.xMove=-2}
       else if specProg=530 {spDmgW=instance_create(wallSpPosX2,64,oSigmaTrapWall); spDmgW.image_yscale=14; spDmgW.xMove=-4}
       else if specProg=550 {spWall=instance_create(wallSpPosX2,160,oSigmaPushWall); spWall.image_yscale=8; spWall.xMove=-4}
-      else if specProg>=631 and specProg<=640 {image_alpha+=0.05*gDeltaTime}
+      //else if specProg>=631 and specProg<=640 {image_alpha+=0.05*gDeltaTime}
+      else if specProg>630 and specProg<=640 {image_alpha+=0.05*gDeltaTime} //60fps change: see above
       else if specProg>=650
       {
         wallSpikes=199
@@ -477,7 +484,8 @@ if global.gamePaused=false
           rightSpikes[i]=instance_create(room_width,64+(i*16),oStaticSpike)
         }
       }
-      else if wallSpikes>=3 and wallSpikes<=26
+      //else if wallSpikes>=3 and wallSpikes<=26
+      else if wallSpikes>2 and wallSpikes<=26 //60fps change: includes every frame of tick 3, so the instant-kill wall spikes slide in the full 48px (46.5px at 120fps)
       {
         for(i=0;i<14;i+=1)
         {
@@ -585,7 +593,8 @@ if global.gamePaused=false
         tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
       }
 
-      if deathAnim>=61 and deathAnim<=110
+      //if deathAnim>=61 and deathAnim<=110
+      if deathAnim>60 and deathAnim<=110 //60fps change: includes every frame of tick 61, so the white-out reaches full (it stopped at 0.985)
       {
         fadeAlpha+=0.02*gDeltaTime
         blendCol-=5.1*gDeltaTime
