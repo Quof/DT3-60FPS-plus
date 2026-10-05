@@ -140,7 +140,8 @@ if global.gamePaused=false
     else if behavior=1 //---------- Spray spikes, dive straight down periodically ----------
     {
       if progTime=1 {bSpraySpikes=1}
-      else if progTime>=11 and progTime<=175
+      //else if progTime>=11 and progTime<=175
+      else if progTime>10 and progTime<=175 //60fps change: includes every frame of tick 11, so the side-to-side chase covers the same distance and its scrTickAcc ticks line up with progTime
       {
         //(at 30fps the speed-up direction is decided after the move, from the moved position)
         var tA;
@@ -187,7 +188,8 @@ if global.gamePaused=false
       }
       else if progTime>=11 and progTime<=99 //rise up
       {
-        for(i=0;i<4;i+=1)
+        //for(i=0;i<4;i+=1)
+        if gDeltaDoTicks for(i=0;i<4;i+=1) //60fps change: added "if gDeltaDoTicks"; the smoke was spawned every frame (4x at 120fps)
         {
           tEffect=instance_create(x+random_range(-24,24),40+random(16),oEffect)
           tEffect.sprite_index=sMMSmokeCloud; tEffect.image_speed=0.25+random(0.25); tEffect.image_alpha=0.6
@@ -204,7 +206,8 @@ if global.gamePaused=false
       }
       else if progTime>=150 and progTime<=399
       {
-        for(i=0;i<4;i+=1)
+        //for(i=0;i<4;i+=1)
+        if gDeltaDoTicks for(i=0;i<4;i+=1) //60fps change: added "if gDeltaDoTicks"; the smoke was spawned every frame (4x at 120fps)
         {
           tEffect=instance_create(x+random_range(-24,24),yGround-8+random(16),oEffect)
           tEffect.sprite_index=sMMSmokeCloud; tEffect.image_speed=0.25+random(0.25); tEffect.image_alpha=0.6
@@ -333,7 +336,8 @@ if global.gamePaused=false
       with oEProjectileBase {instance_destroy()}
       with oAttackBase {instance_destroy()}
     }
-    else if deathAnim>=2 and deathAnim<=90
+    //else if deathAnim>=2 and deathAnim<=90
+    else if deathAnim>1 and deathAnim<=90 //60fps change: includes every frame of tick 2, not just its last one
     {
       if deathAnim mod 6=0 {playSound(global.snd_EnemyDieMM,0,1,1)}
       if oGame.time mod (2/gDeltaTime)=0

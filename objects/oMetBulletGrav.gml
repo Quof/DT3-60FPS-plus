@@ -26,8 +26,10 @@ if global.gamePaused=false
   yVel=scrGravAcc(yVel,grav,1)
   if sprite_index=sKingWormSpike
   {
-    if xVel>0 {image_angle-=10}
-    else if xVel<0 {image_angle+=10}
+    //if xVel>0 {image_angle-=10}
+    //else if xVel<0 {image_angle+=10}
+    if xVel>0 {image_angle-=10*gDeltaTime} //60fps change: the King Worm spikes spun 2x/4x as fast at 60/120fps
+    else if xVel<0 {image_angle+=10*gDeltaTime} //60fps change: see above
   }
 
   if isCollisionTop(1) {bDestroy=1}
