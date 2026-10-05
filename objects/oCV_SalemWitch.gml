@@ -74,13 +74,13 @@ if global.gamePaused=false
       }
       if moveSpd>0
       {
-        moveSpd-=0.2*gDeltaTime
+        moveSpd=scrTickAcc(moveSpd,-0.2,2) //slow down per 30fps tick (scrTickAcc)
         if moveSpd<=0.25 {moveSpd=0}
       }
       //direction=moveDir
       //speed=moveSpd
       _direction=moveDir
-      _speed=moveSpd
+      _speed=moveSpd+scrTickAccB(2)
 
       //----- Attack -----
       shotTime+=1*gDeltaTime
@@ -129,12 +129,10 @@ if global.gamePaused=false
   }
 
   //----- Hit Movement -----
-  if xSpd>0{xSpd-=hitFric*gDeltaTime}
-  else if xSpd<0{xSpd+=hitFric*gDeltaTime}
-  if ySpd>0{ySpd=scrGravAcc(ySpd,-hitFric,1)}
-  else if ySpd<0{ySpd=scrGravAcc(ySpd,hitFric,1)}
+  xSpd=scrTickAcc(xSpd,hitFric*((xSpd<0)-(xSpd>0)),0) //slow down toward 0, per 30fps tick (scrTickAcc)
+  ySpd=scrTickAcc(ySpd,hitFric*((ySpd<0)-(ySpd>0)),1)
 
-  x+=xSpd*gDeltaTime; {y+=ySpd*gDeltaTime}
+  x+=(xSpd+scrTickAccB(0))*gDeltaTime; y+=(ySpd+scrTickAccB(1))*gDeltaTime
 
   enemyStepEvent()
 }

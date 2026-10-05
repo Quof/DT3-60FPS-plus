@@ -90,8 +90,7 @@ if global.gamePaused=false
       {
         if atkTime>=atkDelay+1
         {
-          if xVel>0 {xVel-=0.5*gDeltaTime}
-          else if xVel<0 {xVel+=0.5*gDeltaTime}
+          xVel=scrTickAcc(xVel,0.5*((xVel<0)-(xVel>0)),0) //slow down toward 0, per 30fps tick (scrTickAcc)
         }
       }
 
@@ -193,7 +192,7 @@ if global.gamePaused=false
     if isCollisionSolid()
       y-=2
 
-    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
+    moveTo((xVel+scrTickAccB(0))*gDeltaTime,yVel*gDeltaTime)
     if y>room_height+24
       instance_destroy()
   }

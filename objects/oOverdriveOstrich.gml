@@ -192,8 +192,7 @@ if global.gamePaused=false
             tSkidEffect.image_alpha=0.75; tSkidEffect.xSpd=(2+random(2))*-image_xscale; tSkidEffect.ySpd=-2-random(2)
             tSkidEffect.newBlend=-1; tSkidEffect.followID=-1; tSkidEffect.decay=-100}
 
-            if xVel>0 {xVel-=0.5*gDeltaTime}
-            else if xVel<0 {xVel+=0.5*gDeltaTime}
+            xVel=scrTickAcc(xVel,0.5*((xVel<0)-(xVel>0)),0) //slow down toward 0, per 30fps tick (scrTickAcc)
             if abs(xVel)<0.6
             {
               if x<oPlayer1.x {image_xscale=1}
@@ -466,7 +465,10 @@ if global.gamePaused=false
     if isCollisionSolid()
       y-=2
 
+    var tB,tV; //movement correction for the skid (scrTickAcc), added only for this move
+    tB=scrTickAccB(0); tV=xVel; xVel+=tB
     enemySlopeMovement()
+    if xVel==tV+tB {xVel=tV}
 
     //---------- Boss Difficulty Curve ----------
     if lifePercent<=0.84 and lifePercent>=0.69 and bossProgress=0

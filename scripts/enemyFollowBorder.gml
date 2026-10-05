@@ -11,7 +11,16 @@ LEFT=2
 RIGHT=3
 currentDir=LEFT
 */
-if gDeltaDoTicks {
+//Above 30fps the path logic below still runs once per 30fps tick (its place_meeting checks probe runAcc pixels ahead,
+//so it has to stay on the runAcc grid), on the logical position efbLX/efbLY. The visible x/y then slides along that
+//tick's single straight step over the tick's frames, instead of jumping runAcc pixels once per tick.
+if gDeltaTime!=1
+{
+  if !variable_local_exists("efbLX") {efbLX=x; efbLY=y; efbSX=x; efbSY=y; efbVX=x; efbVY=y}
+  if x!=efbVX or y!=efbVY {efbLX=x; efbLY=y; efbSX=x; efbSY=y} //moved by something else: carry on from there
+  if gDeltaDoTicks {x=efbLX; y=efbLY}
+}
+if gDeltaTime==1 or gDeltaDoTicks {
 if bClockWise=false //******************** COUNTER-CLOCK-WISE ********************
 {
   if currentDir=UP
@@ -161,4 +170,14 @@ else //******************** CLOCK-WISE ********************
       y-=runAcc
     }
   }
-}}
+}
+}
+if gDeltaTime!=1
+{
+  if gDeltaDoTicks {efbSX=efbLX; efbSY=efbLY; efbLX=x; efbLY=y}
+  var tF;
+  tF=min(1,gDeltaTick+gDeltaTime) //how far through the current tick this frame ends
+  x=efbSX+(efbLX-efbSX)*tF
+  y=efbSY+(efbLY-efbSY)*tF
+  efbVX=x; efbVY=y
+}

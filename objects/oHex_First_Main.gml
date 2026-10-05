@@ -174,7 +174,7 @@ if global.gamePaused=false
         {
           if point_distance(x,y,oHex_First_ArcB.x,oHex_First_ArcB.y)<272
           {
-            with oHex_First_ArcB {bulletSpeed+=1*gDeltaTime}
+            with oHex_First_ArcB {bulletSpeed+=1} //one-off boost (arcShotTime moves on right after), so not scaled
             arcShotTime+=1
           }
         }
@@ -182,7 +182,7 @@ if global.gamePaused=false
         {
           if point_distance(x,y,oHex_First_ArcB.x,oHex_First_ArcB.y)<192
           {
-            with oHex_First_ArcB {bulletSpeed+=1*gDeltaTime}
+            with oHex_First_ArcB {bulletSpeed+=1} //one-off boost (arcShotTime moves on right after), so not scaled
             arcShotTime+=1
           }
         }
@@ -456,7 +456,9 @@ if global.gamePaused=false
       else if lastPhaseTime>=61 and lastPhaseTime<=124 and gDeltaDoTicks {y+=1} //Float down
       else if lastPhaseTime>=161 and lastPhaseTime<=200
       {
-        if lastPhaseTime mod 2=0 {if gDeltaDoTicks x+=1} else {if gDeltaDoTicks x-=1}
+        //shake once per tick, alternating. (lastPhaseTime moves in fractions above 30fps, so its exact even values can miss
+        //the tick frames and every shake went left: decide on the tick frame from the tick number instead)
+        if gDeltaDoTicks {if floor(lastPhaseTime) mod 2=0 {x+=1} else {x-=1}}
       }
       else if lastPhaseTime=201 //Wing spread
       {

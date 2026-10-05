@@ -16,11 +16,14 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  if xSpd<8 {xSpd+=0.1*gDeltaTime}
-  if ySpd>-3 {ySpd-=0.2*gDeltaTime}
+  var tA; //speed changes per tick, decided like at 30fps (scrTickAcc)
+  tA=0; if xSpd<8 {tA=0.1}
+  xSpd=scrTickAcc(xSpd,tA,0)
+  tA=0; if ySpd>-3 {tA=-0.2}
+  ySpd=scrTickAcc(ySpd,tA,1)
 
-  x+=xSpd*gDeltaTime
-  y+=ySpd*gDeltaTime
+  x+=(xSpd+scrTickAccB(0))*gDeltaTime
+  y+=(ySpd+scrTickAccB(1))*gDeltaTime
 
   if x>=room_width+128 {instance_destroy()}
 

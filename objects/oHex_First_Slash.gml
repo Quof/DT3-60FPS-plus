@@ -24,10 +24,10 @@ applies_to=self
 if global.gamePaused=false
 {
   timeToHit+=1*gDeltaTime
-  if timeToHit<10 {image_xscale+=67*gDeltaTime} //Grow
+  if timeToHit<=9 {image_xscale+=67*gDeltaTime} //Grow (9 ticks; <=9 so above 30fps the frames of the 10th tick don't add more)
 
   if timeToHit=35 {lineColor=c_red}
-  if timeToHit>=35 and timeToHit<=44 {lineWidth+=0.5*gDeltaTime} //Damage warn
+  if timeToHit>34 and timeToHit<=44 {lineWidth+=0.5*gDeltaTime} //Damage warn (10 ticks; >34 so all frames of the first tick count)
   if timeToHit=45 //Damage check / Effect
   {
     bCanDealDamage=true

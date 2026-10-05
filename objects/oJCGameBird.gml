@@ -83,7 +83,7 @@ if global.gamePaused=false
   }
   else if timeOnScreen>=41
   {
-    if global.optWeaponTrail=1 {instance_create(x,y,oEfWeaponTrail)}
+    if global.optWeaponTrail=1 and gDeltaDoTicks {instance_create(x,y,oEfWeaponTrail)} //once per 30fps tick
     _speed=flySpd
     if timeOnScreen>=35
     {

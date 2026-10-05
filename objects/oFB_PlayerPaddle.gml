@@ -39,11 +39,15 @@ applies_to=self
 */
 if global.gamePaused=0
 {
+  //the dash slows down after the moves at 30fps: above 30fps the tick's slow-down is spread before them (scrTickAcc, scrTickAccBPre)
+  if gDeltaTime!=1 {moveSpd=scrTickAcc(moveSpd,-0.1*(moveSpd>4),0)}
+  var tMove;
+  tMove=(moveSpd+scrTickAccBPre(0))*gDeltaTime
   if scrController(1)
   {
     if x>leftBorder
     {
-      x-=moveSpd*gDeltaTime
+      x-=tMove
       if x<leftBorder {x=leftBorder}
     }
   }
@@ -51,7 +55,7 @@ if global.gamePaused=0
   {
     if x<rightBorder
     {
-      x+=moveSpd*gDeltaTime
+      x+=tMove
       if x>rightBorder {x=rightBorder}
     }
   }
@@ -59,7 +63,7 @@ if global.gamePaused=0
   {
     if y>topBorder
     {
-      y-=moveSpd*gDeltaTime
+      y-=tMove
       if y<topBorder {y=topBorder}
     }
   }
@@ -67,7 +71,7 @@ if global.gamePaused=0
   {
     if y<bottomBorder
     {
-      y+=moveSpd*gDeltaTime
+      y+=tMove
       if y>bottomBorder {y=bottomBorder}
     }
   }
@@ -98,7 +102,7 @@ if global.gamePaused=0
     }
   }
 
-  if moveSpd>4 {moveSpd-=0.1*gDeltaTime}
+  if gDeltaTime==1 {if moveSpd>4 {moveSpd-=0.1}}
   if moveSpd>6.8
   {
     var tAfterI;

@@ -19,7 +19,7 @@ if global.gamePaused=false
   if myProg=0
   {
     image_yscale+=0.1*gDeltaTime
-    if image_yscale=1 {myProg=1}
+    if image_yscale>=0.9999 {image_yscale=1; myProg=1} //(adding 0.1 or a fraction of it never lands exactly on 1)
   }
   else if myProg=2
   {

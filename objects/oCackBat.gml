@@ -34,13 +34,13 @@ if global.gamePaused=false
       image_xscale=-1
     if type=0 //Summon type
     {
-      x+=xSpd*gDeltaTime
+      var tA; //sideways speed-up happens after the move at 30fps: above 30fps it's spread before it (scrTickAcc, scrTickAccBPre)
+      tA=0.1*((xSpd>=0 and xSpd<5)-(xSpd<0 and xSpd>-5))
+      if gDeltaTime!=1 {xSpd=scrTickAcc(xSpd,tA,0)}
+      x+=(xSpd+scrTickAccBPre(0))*gDeltaTime
       if ySpd<6 {ySpd=scrGravAcc(ySpd,0.4,-1)} //moves then accelerates: second half after the move, original line kept for 30fps (see scrGravAcc)
       y-=ySpd*gDeltaTime
-      if xSpd>=0 and xSpd<5
-        xSpd+=0.1*gDeltaTime
-      else if xSpd<0 and xSpd>-5
-        xSpd-=0.1*gDeltaTime
+      if gDeltaTime==1 {xSpd+=tA}
       if gDeltaTime==1 {if ySpd<6 {ySpd+=0.4}}
 
       if y<=-16

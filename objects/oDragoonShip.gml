@@ -118,7 +118,7 @@ if global.gamePaused=false
       playSound(global.snd_KirbySuck,0,0.98,1)
       checkSuckSound=41
     }
-    if checkSuckSound>0 {checkSuckSound-=1}
+    if checkSuckSound>0 {checkSuckSound-=1*gDeltaTime}
     oDragKirby.visible=1
     bSucking=1
     if oGame.time mod (2/gDeltaTime)=0
@@ -152,7 +152,7 @@ if global.gamePaused=false
   //Assists
   if multiple>0
   {
-    assistDir+=3
+    assistDir+=3*gDeltaTime
     for(i=0;i<multiple;i+=1)
     {
       if shipAssist[i]>0
@@ -179,7 +179,7 @@ if global.gamePaused=false
   //Combo time
   if killCombo>0
   {
-    if instance_exists(oShipEnemyBase) {comboTime+=1}
+    if instance_exists(oShipEnemyBase) {comboTime+=1*gDeltaTime}
     if comboTime=60
     {
       comboTime=0
@@ -189,7 +189,7 @@ if global.gamePaused=false
 
   oPlayer1.sprite_index=sDragoonHitBox
   oPlayer1.x=x; oPlayer1.y=y
-  oDragKirby.x=x+24; oDragKirby.y=y
+  oDragKirby.x=round(x)+24; oDragKirby.y=round(y) //(whole pixels, see Draw)
   oDragSuck.x=x+40; oDragSuck.y=y
 }
 #define Other_10
@@ -268,9 +268,11 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-draw_sprite_ext(sDragoonFlier,0,x,y,1,1,0,c_white,oPlayer1.image_alpha)
+//drawn at whole pixels: above 30fps the ship moves fractions of a pixel per frame, and drawing pixel art at a
+//fractional position doubles/drops rows (the ship's bottom looked distorted when moving down at 120fps)
+draw_sprite_ext(sDragoonFlier,0,round(x),round(y),1,1,0,c_white,oPlayer1.image_alpha)
 if bFocus=1
 {
-  hitBoxImgRot+=3
-  draw_sprite_ext(sDragoonHitBox,image_index,x,y,1,1,hitBoxImgRot,c_white,1)
+  hitBoxImgRot+=3*gDeltaTime
+  draw_sprite_ext(sDragoonHitBox,image_index,round(x),round(y),1,1,hitBoxImgRot,c_white,1)
 }

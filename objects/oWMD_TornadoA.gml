@@ -25,17 +25,16 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  x+=moveSpd*gDeltaTime
-
-  if room=rWarshipZ_E3 //EX MODE
-  {
-    if moveSpd>1 {moveSpd-=0.13*gDeltaTime}
-    else if moveSpd<-1 {moveSpd+=0.13*gDeltaTime}
-  }
+  //moves, then slows down toward 0 (0.13 per tick in EX mode, else 0.15)
+  var tA;
+  if room=rWarshipZ_E3 {tA=0.13} else {tA=0.15}
+  tA*=((moveSpd<-1)-(moveSpd>1))
+  if gDeltaTime==1 {x+=moveSpd; moveSpd+=tA}
   else
   {
-    if moveSpd>1 {moveSpd-=0.15*gDeltaTime}
-    else if moveSpd<-1 {moveSpd+=0.15*gDeltaTime}
+    //above 30fps the tick's change is spread over its frames before each move (scrTickAcc, scrTickAccBPre: moves first)
+    moveSpd=scrTickAcc(moveSpd,tA,0)
+    x+=(moveSpd+scrTickAccBPre(0))*gDeltaTime
   }
 
   image_alpha-=fadeSpd*gDeltaTime

@@ -59,7 +59,7 @@ if global.gamePaused=false
   image_angle=_direction
   _speed=bulletSpeed
 
-  if global.optWeaponTrail=1 {instance_create(x,y,oEfWeaponTrail)}
+  if global.optWeaponTrail=1 and gDeltaDoTicks {instance_create(x,y,oEfWeaponTrail)} //once per 30fps tick
 
   if checkScreenArea(x,y,32)=0 {instance_destroy()}
 

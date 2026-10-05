@@ -69,8 +69,7 @@ if global.gamePaused=false
       if turnTime>=25
       {
         sprite_index=sVaultPantherLookBack
-        if xVel>0 {xVel-=0.33*gDeltaTime}
-        else if xVel<0 {xVel+=0.33*gDeltaTime}
+        xVel=scrTickAcc(xVel,0.33*((xVel<0)-(xVel>0)),0) //slow down toward 0, per 30fps tick (scrTickAcc)
 
         if xVel>=-1 and xVel<=1
         {
@@ -94,7 +93,7 @@ if global.gamePaused=false
         image_xscale=1
       else
         image_xscale=-1
-      moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
+      moveTo((xVel+scrTickAccB(0))*gDeltaTime,yVel*gDeltaTime)
       if y>room_height+24
       {
         if questType>0

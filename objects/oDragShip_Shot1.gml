@@ -22,8 +22,8 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  if bulletSpeed<10 {bulletSpeed+=0.25*gDeltaTime}
-  x+=bulletSpeed*gDeltaTime
+  bulletSpeed=scrTickAcc(bulletSpeed,0.25*(bulletSpeed<10),0) //speed up per 30fps tick (scrTickAcc)
+  x+=(bulletSpeed+scrTickAccB(0))*gDeltaTime
 }
 #define Other_0
 /*"/*'/**//* YYD ACTION

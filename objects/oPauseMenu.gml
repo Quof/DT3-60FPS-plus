@@ -2573,7 +2573,7 @@ if view_current=0
       draw_text(infoMenuX+87,infoMenuY+2,">>" +string(equipCheck[1]))
     }
 
-    mSAP_FrameCount+=1
+    mSAP_FrameCount+=1*gDeltaTime
     if mSAP_FrameCount mod 8=0
     {
       if mSAP_CurFrame=0 {mSAP_CurFrame=1}

@@ -26,10 +26,15 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  _speed=moveSpd
+  var tA;
+  tA=0
+  if type=0 {tA=0.2*(moveSpd<10)}
+  else if type=2 {tA=0.1*(moveSpd<6)}
+  if gDeltaTime!=1 {moveSpd=scrTickAcc(moveSpd,tA,0)} //moves (copies the speed) first, then changes it: above 30fps the tick's change is spread before the move (scrTickAcc, scrTickAccBPre)
+  _speed=moveSpd+scrTickAccBPre(0)
   if type=0 //Fired downward and shatter on ground
   {
-    if moveSpd<10 {moveSpd+=0.2*gDeltaTime}
+    if gDeltaTime==1 {moveSpd+=tA}
     if y>=warTarget.yGround
     {
       var tAtk,tDir;
@@ -63,7 +68,7 @@ if global.gamePaused=false
   }
   else if type=2 //Drop from ceiling
   {
-    if moveSpd<6 {moveSpd+=0.1*gDeltaTime}
+    if gDeltaTime==1 {moveSpd+=tA}
     if y>=warTarget.yGround
     {
       event_user(0)

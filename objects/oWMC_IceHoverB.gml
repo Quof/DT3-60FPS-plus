@@ -24,8 +24,9 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  _speed=moveSpd
-  if moveSpd<8 {moveSpd+=0.2*gDeltaTime}
+  if gDeltaTime!=1 {moveSpd=scrTickAcc(moveSpd,0.2*(moveSpd<8),0)} //moves (copies the speed) first, then changes it: above 30fps the tick's change is spread before the move (scrTickAcc, scrTickAccBPre)
+  _speed=moveSpd+scrTickAccBPre(0)
+  if gDeltaTime==1 {if moveSpd<8 {moveSpd+=0.2}}
   moveTime+=1*gDeltaTime
   if moveTime>=210 {instance_destroy()}
 }

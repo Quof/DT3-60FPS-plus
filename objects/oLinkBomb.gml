@@ -37,23 +37,37 @@ event_inherited()
 if global.gamePaused=false
 {
   yVel=scrGravAcc(yVel,0.2,1)
-  if xVel>2
-    xVel-=0.025*gDeltaTime
-  else if xVel<-2
-    xVel+=0.025*gDeltaTime
-
   if isCollisionLeft(1)
     xVel*=-1
   if isCollisionRight(1)
     xVel*=-1
+
+  //horizontal slowdown: air drag (above 2 speed) plus ground friction, worked out per 30fps tick
+  var tXAcc;
+  tXAcc=0
+  if xVel>2 {tXAcc=-0.025}
+  else if xVel<-2 {tXAcc=0.025}
+  if isCollisionBottom(1)
+  {
+    if xVel+tXAcc>0 {tXAcc-=0.4}
+    else if xVel+tXAcc<0 {tXAcc+=0.4}
+  }
+  if gDeltaTime==1 {xVel+=tXAcc}
+  else
+  {
+    //Above 30fps: half before the move and half after (added at the start of the next frame, before that move),
+    //like scrGravAcc. The 30fps steps (slow down, then move) sit tXAcc/2 off that smooth slowdown, so the speed is
+    //shifted by half of any change in the slowdown (e.g. landing), or by tXAcc/2 when something else set the speed
+    //(throw, wall bounce, stop). Without this the bomb slid 1-2px further than at 30fps.
+    if !variable_local_exists("bxMid") {bxMid=xVel+1; bxHalf=0; bxAcc=0}
+    if xVel==bxMid {xVel+=bxHalf+(tXAcc-bxAcc)*0.5}
+    else {xVel+=tXAcc*0.5}
+    xVel+=tXAcc*gDeltaTime*0.5
+    bxMid=xVel; bxHalf=tXAcc*gDeltaTime*0.5; bxAcc=tXAcc
+  }
   if isCollisionBottom(1)
   {
     yVel=0
-    if xVel>0
-      xVel-=0.4
-    else if xVel<0
-      xVel+=0.4
-
     if (xVel<0.5 and xVel>0) or (xVel>-0.5 and xVel<0)
       xVel=0
   }
@@ -74,7 +88,7 @@ if global.gamePaused=false
 
   moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
 
-  if global.optWeaponTrail=1 {instance_create(x,y,oEfWeaponTrail)}
+  if global.optWeaponTrail=1 and gDeltaDoTicks {instance_create(x,y,oEfWeaponTrail)} //once per 30fps tick
 
   if gDeltaDoTicks {lifeTime-=1}
   if lifeTime<88 and lifeTime>31

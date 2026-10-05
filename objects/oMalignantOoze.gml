@@ -296,8 +296,7 @@ if global.gamePaused=false
         }
         else if actTime>=200 and actTime<=499
         {
-          if xVel>0.1 {xVel-=0.3*gDeltaTime}
-          else if xVel<-0.1 {xVel+=0.3*gDeltaTime}
+          xVel=scrTickAcc(xVel,0.3*((xVel<-0.1)-(xVel>0.1)),0) //slow down toward 0, per 30fps tick (scrTickAcc)
           
           if xVel>-1 and xVel<1
           {
@@ -365,7 +364,7 @@ if global.gamePaused=false
     if isCollisionSolid()
       y-=2
     
-    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
+    moveTo((xVel+scrTickAccB(0))*gDeltaTime,yVel*gDeltaTime)
     
     if y>room_height+24
     {

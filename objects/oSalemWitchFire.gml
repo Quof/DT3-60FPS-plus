@@ -22,7 +22,7 @@ if global.gamePaused=false
 {
   if atkProg=0
   {
-    bulletSpeed-=0.5*gDeltaTime
+    bulletSpeed=scrTickAcc(bulletSpeed,-0.5,0) //slow down per 30fps tick (scrTickAcc)
     if bulletSpeed=0 {atkProg+=1}
   }
   else if atkProg>=1
@@ -50,7 +50,7 @@ if global.gamePaused=false
   }
 
   //speed=bulletSpeed
-  _speed=bulletSpeed
+  _speed=bulletSpeed+scrTickAccB(0)
   image_angle+=15*gDeltaTime
 
   decayTime-=1*gDeltaTime

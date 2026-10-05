@@ -33,9 +33,11 @@ if global.gamePaused=false
   }
   else if atkProg=2 //Fire
   {
-    x+=moveSpd*gDeltaTime
-    if image_xscale=1 and moveSpd<7 {moveSpd+=0.2*gDeltaTime}
-    if image_xscale=-1 and moveSpd>-7 {moveSpd-=0.2*gDeltaTime}
+    var tA;
+    tA=0.2*((image_xscale=1 and moveSpd<7)-(image_xscale=-1 and moveSpd>-7))
+    if gDeltaTime!=1 {moveSpd=scrTickAcc(moveSpd,tA,0)} //moves (copies the speed) first, then changes it: above 30fps the tick's change is spread before the move (scrTickAcc, scrTickAccBPre)
+    x+=(moveSpd+scrTickAccBPre(0))*gDeltaTime
+    if gDeltaTime==1 {moveSpd+=tA}
   }
 }
 #define Collision_oPlayer1

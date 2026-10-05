@@ -22,28 +22,35 @@ applies_to=self
 if global.gamePaused=false
   gameStepEvent()
 
-with (all)
+if gDeltaTime != 1.0
 {
-    if gDeltaTime == 1.0 break;
-    image_index -= image_speed
-    image_index += image_speed *gDeltaTime
-}
-with (all)
-{
-    if gDeltaTime == 1.0 break;
+    // GM adds image_speed and the built-in speed (hspeed/vspeed) in full every frame; take back the excess above 30fps.
+    // (One pass over all instances, kept as small as possible: with hundreds of effects on screen, e.g. Final Nightmare's
+    // laser phase, this loop runs for each of them every frame, 4 times per tick at 120fps)
     // I left friction-having objects mostly alone, because almost all of them are visual effects.
     // Any gameplay-affecting friction-having objects should be modified to not use friction.
+    var tDtM1;
+    tDtM1 = gDeltaTime - 1.0
+    with (all)
+    {
+        image_index += image_speed * tDtM1
+        if friction != 0
+        {
+            x += hspeed * tDtM1
+            y += vspeed * tDtM1
+            speed -= friction * tDtM1
+        }
+    }
     // The visual effect objects are also included even without friction: lots of code spawns them with
     // GM's built-in speed/direction (e.g. tEffect.speed=4), which GM applies in full every frame.
-    if friction != 0 or (speed != 0 and (object_index == oEffect or object_index == oEffectB or object_index == oEffectC
-      or object_index == oEffectGrav or object_index == oEffectSpark or object_index == oEffect_B_Stop or object_index == oKillEffect))
-    {
-        x += hspeed *gDeltaTime
-        y += vspeed *gDeltaTime
-        x -= hspeed
-        y -= vspeed
-        speed += friction * (1.0 - gDeltaTime)
-    }
+    // (looped per object, so only those instances are visited; friction != 0 was already handled above)
+    with (oEffect) if friction == 0 and speed != 0 {x += hspeed * tDtM1; y += vspeed * tDtM1}
+    with (oEffectB) if friction == 0 and speed != 0 {x += hspeed * tDtM1; y += vspeed * tDtM1}
+    with (oEffectC) if friction == 0 and speed != 0 {x += hspeed * tDtM1; y += vspeed * tDtM1}
+    with (oEffectGrav) if friction == 0 and speed != 0 {x += hspeed * tDtM1; y += vspeed * tDtM1}
+    with (oEffectSpark) if friction == 0 and speed != 0 {x += hspeed * tDtM1; y += vspeed * tDtM1}
+    with (oEffect_B_Stop) if friction == 0 and speed != 0 {x += hspeed * tDtM1; y += vspeed * tDtM1}
+    with (oKillEffect) if friction == 0 and speed != 0 {x += hspeed * tDtM1; y += vspeed * tDtM1}
 }
 //GM scrolls every background layer by its full background_hspeed/vspeed every frame; take back the excess above 30fps
 //so background speeds set in the room editor or in code (kept in 30fps units) scroll at the 30fps rate
@@ -229,11 +236,12 @@ if global.debugMenu=true //debug commands
     //instance_create(0,0,oScreenEffect)
   else if keyboard_check(ord("T"))
   {
-    oPlayer1.dashEnergy=oPlayer1.dashMeterMax
+    //(guarded: in some sections, e.g. the shmup, oPlayer1 isn't set up as a character and has no dash meter)
+    with oPlayer1 {if variable_local_exists("dashMeterMax") {dashEnergy=dashMeterMax}}
     global.desertHeat=1500
     global.pCurrBreath=global.pBreathMax
     global.hudLink_Arrows[0]=global.hudLink_Arrows[1]
-    global.hudLink_BombEn[0]=150-(global.skillTree[1]*15)-oPlayer1.equipValA
+    with oPlayer1 {if variable_local_exists("equipValA") {global.hudLink_BombEn[0]=150-(global.skillTree[1]*15)-equipValA}}
     global.hudBelmont_WeaponEn[0]=global.hudBelmont_WeaponEn[1]
     global.hudMega_BusterEn[0]=32
     global.hudMega_ShotIceEn[0]=32

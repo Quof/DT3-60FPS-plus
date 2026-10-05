@@ -253,7 +253,7 @@ else if room=rTrueEnd_B //------------------------------ [] End B --------------
     sceneDelay+=1*gDeltaTime
     if sceneDelay>=20
     {
-      if scrollView=1 {view_xview[0]+=1}
+      if scrollView=1 and gDeltaDoTicks {view_xview[0]+=1}
 
       if sceneDelay=50
       {
@@ -517,7 +517,7 @@ else if room=rTrueEnd_B //------------------------------ [] End B --------------
     sceneDelay+=1*gDeltaTime
     if sceneDelay>=20
     {
-      if scrollView=1 and gDeltaDoText {view_xview[0]+=1}
+      if scrollView=1 and gDeltaDoTicks {view_xview[0]+=1}
       if view_xview[0]>=4364
       {
         view_xview[0]=4364

@@ -109,6 +109,7 @@ if bCanTakeDamage=true and gDeltaDoTicks
             else
               yVel=-6.5
           }
+          if gDeltaTime!=1 {yVel+=gravityIntensity*0.5} //stomp bounce: same half-gravity correction as the player's own jumps above 30fps (pMoveDoubleJump)
           scrSlowFall(5,0.4,0)
         }
 

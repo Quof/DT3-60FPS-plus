@@ -8,7 +8,7 @@ y+=1
 image_speed=0.1
 pauseTime=0
 idleShield=instance_create(x,y-26,oPlayerShieldBubble)
-view_hspeed[0]=32; view_vspeed[0]=32
+view_hspeed[0]=32*gDeltaTime; view_vspeed[0]=32*gDeltaTime //GM moves the view this much every frame: 32px per 30fps tick
 alarm[0]=1
 #define Alarm_0
 /*"/*'/**//* YYD ACTION
@@ -55,6 +55,8 @@ lib_id=1
 action_id=603
 applies_to=self
 */
+//camera speed for character swaps, per frame (pSwapCharacter's pause, pauseTime, is sized for 32px per tick)
+view_hspeed[0]=32*gDeltaTime; view_vspeed[0]=32*gDeltaTime
 idleShield.x=x
 idleShield.y=y-26
 if pauseTime>0

@@ -24,21 +24,22 @@ applies_to=self
 if global.gamePaused=false
 {
   lifeTime+=1*gDeltaTime
+  //particles once per 30fps tick (they were spawned every frame: 2-4x as many above 30fps)
   if lifeTime>=1 and lifeTime<=10
   {
-    var tEffect;
+    if gDeltaDoTicks {var tEffect;
     tEffect=instance_create(x,y,oEffect)
     tEffect.sprite_index=sBelmontWepEffect; tEffect.image_speed=0.6+random(0.1)
-    tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+    tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0}
   }
   else if lifeTime>=11 and lifeTime<=34
   {
     _speed=0
-    var tEffect;
+    if gDeltaDoTicks {var tEffect;
     tEffect=instance_create(x,y,oEffect)
     tEffect.sprite_index=sBelmontWepEffect; tEffect.image_speed=0.6+random(0.1)
     tEffect.speed=1+random(2); tEffect.direction=random(360)
-    tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+    tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0}
   }
   if lifeTime=35
   {

@@ -1209,7 +1209,7 @@ else if room=rMain_39Vault
       else if pullTime=360 {pullPwr+=1}
       else if pullTime=420 {pullPwr+=1}
       else if pullTime=480 {pullPwr+=1}
-      oPlayer1.xVel=-pullPwr
+      oPlayer1.xVel=-pullPwr; oPlayer1.xVelSetExt=1 //set every frame: use the 30fps formula (pMoveToWrapNew), so walking against the pull still counts
       if oPlayer1.dashEnergy>10 and gDeltaDoTicks {oPlayer1.dashEnergy-=10}
 
       var tDistToVault,tNewVol;

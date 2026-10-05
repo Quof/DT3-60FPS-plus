@@ -29,7 +29,7 @@ if sceneProg>0
     tFlash=instance_create(0,0,oScreenFlash)
     tFlash.fadeSpeed=0.2
   }
-  else if sceneProg>=21 and sceneProg<=90
+  else if sceneProg>=21 and sceneProg<=90 and gDeltaDoTicks //particles and colour flash once per 30fps tick, not every frame
   {
     oPlayer1.image_blend=make_color_rgb(random(255),random(255),random(255))
     var tEffect;

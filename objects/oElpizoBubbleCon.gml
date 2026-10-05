@@ -25,8 +25,8 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  if bulletSpeed<8 {bulletSpeed+=0.33*gDeltaTime}
-  _speed=bulletSpeed
+  bulletSpeed=scrTickAcc(bulletSpeed,0.33*(bulletSpeed<8),0) //speed up per 30fps tick (scrTickAcc)
+  _speed=bulletSpeed+scrTickAccB(0)
   turn_toward_directionUnderscore(point_direction(x,y,oPlayer1.x,oPlayer1.y-26),4.5)
 
   for(i=0;i<3;i+=1)

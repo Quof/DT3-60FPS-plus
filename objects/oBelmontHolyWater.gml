@@ -61,7 +61,7 @@ if global.gamePaused=false
 
   moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
 
-  if global.optWeaponTrail=1 {instance_create(x,y,oEfWeaponTrail)}
+  if global.optWeaponTrail=1 and gDeltaDoTicks {instance_create(x,y,oEfWeaponTrail)} //once per 30fps tick
 
   if bShatter=1
   {

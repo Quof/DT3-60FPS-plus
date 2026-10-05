@@ -50,7 +50,7 @@ if global.gamePaused=false
 
     if checkScreenArea(x,y,48)=0 {instance_destroy()}
 
-    if global.optWeaponTrail=1 {instance_create(x,y,oEfWeaponTrail)}
+    if global.optWeaponTrail=1 and gDeltaDoTicks {instance_create(x,y,oEfWeaponTrail)} //once per 30fps tick
 
     if isCollisionLeft(1) {bShatter=1}
     if isCollisionRight(1) {bShatter=1}

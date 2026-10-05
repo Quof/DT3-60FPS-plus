@@ -30,6 +30,9 @@ if type=0
   colVolumeFollow=instance_create(x+16,y+32,oInvisibleSolid)
   colVolumeFollow.image_xscale=4
   colVolumeFollow.image_yscale=5+((platHeight-1)*4)
+  //the pillar (cap, railing and column drawn below) covers floor spikes (depth 30) standing behind it;
+  //29 keeps it behind enemies (25) and the player (20). (Vanilla drew it at 100, behind the spikes)
+  depth=29
 }
 #define Step_0
 /*"/*'/**//* YYD ACTION

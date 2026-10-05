@@ -8,8 +8,8 @@ _direction=random(360)
 _speed=3+random(0.5)
 dirChange=irandom(150)
 escape=0
-_speed=0
-_direction=0
+speed=0 //GM's built-in motion off (moves with _speed/_direction). Was renamed to _speed=0/_direction=0, which froze the fish
+direction=0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -19,7 +19,7 @@ applies_to=self
 if _direction>90 and _direction<270 {image_xscale=-1}
 else {image_xscale=1}
 
-if _speed>1 {_speed-=0.05*gDeltaTime}
+_speed=scrTickAcc(_speed,-0.05*(_speed>1),0) //slow down to 1, per 30fps tick (scrTickAcc)
 
 dirChange+=1*gDeltaTime
 if dirChange>=200
@@ -42,5 +42,8 @@ if escape=0
 else {escape-=1*gDeltaTime}
 
 
-_speed=0
+speed=0 //(see Create)
+var tV; //move with the slow-down correction added for this move only (scrTickAccB)
+tV=_speed; _speed+=scrTickAccB(0)
 correctSpeedDirection(self)
+_speed=tV

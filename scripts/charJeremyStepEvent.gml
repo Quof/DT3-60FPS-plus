@@ -299,11 +299,13 @@ if isCollisionBottom(1)=0 and (isCollisionPlatformBottom(1)=0 or isCollisionPlat
   state=FALLING
   yAcc+=grav
 }
+if bonkCool>0 {bonkCool-=gDeltaTime}
 if isCollisionTop(1) and state=JUMPING
 {
   yVel=abs(yVel*0.3)
-  if dashRecHalt=0
+  if dashRecHalt=0 and bonkCool<=0 //at most once per 30fps tick (see characterStepEvent)
   {
+    bonkCool=1
     var tEffect;
     for(i=0;i<3;i+=1)
     {

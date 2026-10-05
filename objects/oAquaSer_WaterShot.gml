@@ -14,9 +14,9 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  _speed=bulletSpeed
-  if bulletSpeed>6
-    bulletSpeed-=0.9*gDeltaTime
+  if gDeltaTime!=1 {bulletSpeed=scrTickAcc(bulletSpeed,-0.9*(bulletSpeed>6),0)} //moves (copies the speed) first, then changes it: above 30fps the tick's change is spread before the move (scrTickAcc, scrTickAccBPre)
+  _speed=bulletSpeed+scrTickAccBPre(0)
+  if gDeltaTime==1 {if bulletSpeed>6 bulletSpeed-=0.9}
 
   /*_hspeed=hspeed
   _vspeed=vspeed

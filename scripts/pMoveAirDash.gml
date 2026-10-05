@@ -55,7 +55,7 @@ dashInvulnerabilityTime+=dashInvulnerability+tDashAdj
 dashRecHalt+=9
 dashEnergy-=2000
 if gDeltaTime==1 {yAcc+=initialJumpAcc/2}
-else {airDashKick=initialJumpAcc/2} //above 30fps: applied for the dash's whole first tick in characterStepEvent (airDashRecovery block)
+else {airDashKick=initialJumpAcc/2; airDashDJKick=0} //above 30fps: applied for the dash's whole first tick in characterStepEvent (airDashRecovery block)
 //xAcc+=xVel
 //xVel=dashVel
 if airDashRecovery<7 {airDashRecovery=6}

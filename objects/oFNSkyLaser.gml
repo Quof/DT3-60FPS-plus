@@ -21,6 +21,8 @@ warnTime=45
 warnAlpha=1
 alphaChange=0
 warnToPlayer=y
+flashT=0 //ticks since the laser turned on (shade flicker, see Step)
+shadeTick=0
 alarm[0]=1
 #define Alarm_0
 /*"/*'/**//* YYD ACTION
@@ -38,8 +40,21 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  if bCanDealDamage=true and gDeltaDoTicks
+  if bCanDealDamage=true
   {
+    //Vanilla (30fps): the laser keeps its own (blue) color for the tick it turns on, because the shade is only set from the
+    //next step on; then it gets a new random shade every tick. With a new laser every 3 ticks that's the blue flicker.
+    //Above 30fps the same: blue for the first whole tick after turning on, then a new shade at each tick after that
+    //(counted from when this laser turned on). flashT counts ticks since then.
+    flashT+=gDeltaTime
+    if flashT<1 {image_blend=c_white}
+    else if floor(flashT)!=shadeTick
+    {
+      shadeTick=floor(flashT)
+      if room=rLowFacR {image_blend=make_color_rgb(160+random(50),160+random(50),160+random(50))}
+      else {image_blend=make_color_rgb(25+random(50),25+random(50),25+random(50))}
+    }
+
     if gDeltaDoTicks
     {
       tEffect=instance_create(x+(-8+random(16)),y+(-8+random(16)),oEffectB)
@@ -48,12 +63,9 @@ if global.gamePaused=false
       tEffect.friction=random(0.01)+0.01; tEffect.fadeSpd=0.035
       tEffect.AccelX=0; tEffect.AccelY=0; tEffect.newBlend=-1; tEffect.followID=-1; tEffect.rotation=0
 
-      if room=rLowFacR {image_blend=make_color_rgb(160+random(50),160+random(50),160+random(50))}
-      else {image_blend=make_color_rgb(25+random(50),25+random(50),25+random(50))}
+      if decayTime<5000 {decayTime+=1}
+      if decayTime>=idleTime {instance_destroy()}
     }
-
-    if decayTime<5000 {decayTime+=1}
-    if decayTime>=idleTime {instance_destroy()}
   }
   else
   {

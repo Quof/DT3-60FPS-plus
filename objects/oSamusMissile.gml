@@ -98,8 +98,8 @@ if global.gamePaused=false
       }
     }
 
-    if bulletSpeed<12 {bulletSpeed+=0.4*gDeltaTime}
-    _speed=bulletSpeed
+    bulletSpeed=scrTickAcc(bulletSpeed,0.4*(bulletSpeed<12),0) //speed up per 30fps tick (scrTickAcc)
+    _speed=bulletSpeed+scrTickAccB(0)
 
     lifeTime-=1*gDeltaTime
 

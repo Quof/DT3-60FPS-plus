@@ -142,14 +142,18 @@ if global.gamePaused=false
       if progTime=1 {bSpraySpikes=1}
       else if progTime>=11 and progTime<=175
       {
-        x+=xSpd*gDeltaTime
-        if x<oPlayer1.x
+        //(at 30fps the speed-up direction is decided after the move, from the moved position)
+        var tA;
+        if gDeltaTime!=1
         {
-          if xSpd<5 {xSpd+=0.25*gDeltaTime}
+          tA=0.25*((x<oPlayer1.x and xSpd<5)-(x>oPlayer1.x and xSpd>-5))
+          xSpd=scrTickAcc(xSpd,tA,0) //moves (copies the speed) first, then changes it: above 30fps the tick's change is spread before the move (scrTickAcc, scrTickAccBPre)
         }
-        else if x>oPlayer1.x
+        x+=(xSpd+scrTickAccBPre(0))*gDeltaTime
+        if gDeltaTime==1
         {
-          if xSpd>-5 {xSpd-=0.25*gDeltaTime}
+          tA=0.25*((x<oPlayer1.x and xSpd<5)-(x>oPlayer1.x and xSpd>-5))
+          xSpd+=tA
         }
         if progTime=155 {fangAnimate=1}
         else if progTime=167 {eyeAnimate=10}

@@ -45,8 +45,8 @@ if global.gamePaused=false
   }
   else if atkProg=2
   {
-    if bulletSpeed<8 {bulletSpeed+=0.1*gDeltaTime}
-    _speed=bulletSpeed
+    bulletSpeed=scrTickAcc(bulletSpeed,0.1*(bulletSpeed<8),0) //speed up per 30fps tick (scrTickAcc)
+    _speed=bulletSpeed+scrTickAccB(0)
   }
 }
 

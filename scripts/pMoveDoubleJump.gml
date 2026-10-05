@@ -22,6 +22,15 @@ else
     if bombJump=0 {yVel+=djabodge}
     else {yVel+=djabodge*bombAcc}
     yVel += gravityIntensity*0.5
+    //During an air dash, characterStepEvent sets yVel=-2.9 every frame afterwards, which erased this jump completely.
+    //At 30fps the jump goes into yAcc and is added on top of the dash's -2.9 for that tick (and on the dash's last tick
+    //nothing overwrites it afterwards, so the player shoots up). Keep it for the rest of this 30fps tick of the dash.
+    if airDashRecovery>0
+    {
+      if bombJump=0 {airDashDJKick=doubleJumpAcc}
+      else {airDashDJKick=doubleJumpAcc*bombAcc}
+      airDashDJTick=ceil(airDashRecovery)
+    }
 }
 ditherCounter=15 // make jumps deterministic
 with oSmallJumper {bouncePlayerTime=0}

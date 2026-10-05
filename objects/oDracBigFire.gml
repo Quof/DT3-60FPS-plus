@@ -31,9 +31,9 @@ if global.gamePaused=false
     tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
   }
 
-  _speed=bulletSpeed
-  if bulletSpeed<bulletMax
-    bulletSpeed+=bulletAcc*gDeltaTime
+  if gDeltaTime!=1 {bulletSpeed=scrTickAcc(bulletSpeed,bulletAcc*(bulletSpeed<bulletMax),0)} //moves (copies the speed) first, then changes it: above 30fps the tick's change is spread before the move (scrTickAcc, scrTickAccBPre)
+  _speed=bulletSpeed+scrTickAccBPre(0)
+  if gDeltaTime==1 {if bulletSpeed<bulletMax bulletSpeed+=bulletAcc}
 
   if _direction>=90 and _direction<=270
     image_angle+=rotSpd*gDeltaTime

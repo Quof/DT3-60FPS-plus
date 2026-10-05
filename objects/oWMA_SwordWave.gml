@@ -23,9 +23,11 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  _speed=moveSpd
-  if warTarget.DIFFICULTY=1 {moveSpd-=0.1*gDeltaTime}
-  else {moveSpd-=0.2*gDeltaTime}
+  var tA;
+  if warTarget.DIFFICULTY=1 {tA=-0.1} else {tA=-0.2}
+  if gDeltaTime!=1 {moveSpd=scrTickAcc(moveSpd,tA,0)} //moves (copies the speed) first, then changes it: above 30fps the tick's change is spread before the move (scrTickAcc, scrTickAccBPre)
+  _speed=moveSpd+scrTickAccBPre(0)
+  if gDeltaTime==1 {moveSpd+=tA}
   image_alpha-=0.075*gDeltaTime
   if image_alpha<=0.3 {bCanDealDamage=0}
   if image_alpha<=0 {instance_destroy()}

@@ -400,11 +400,15 @@ if isCollisionBottom(1)=0 and (isCollisionPlatformBottom(1)=0 or isCollisionPlat
   state=FALLING
   yAcc+=grav; yVelSetTick=1 //one-off push: full 30fps tick's worth (see pMoveToWrapNew)
 }
+if bonkCool>0 {bonkCool-=gDeltaTime}
 if isCollisionTop(1) and state=JUMPING
 {
   yVel=abs(yVel*0.3)
-  if dashRecHalt=0
+  //particles/record at most once per 30fps tick: something pushing up every frame (e.g. an air dash under a ceiling)
+  //bonks every frame, which made 2-4x the particles above 30fps
+  if dashRecHalt=0 and bonkCool<=0
   {
+    bonkCool=1
     var tEffect,tYY;
     if attackState=ACT_MORPHBALL {tYY=14}
     else {tYY=45}
@@ -761,13 +765,21 @@ if claireBackDashRec>0 //For Claire only
 
 if airDashRecovery>0 //Continue air dash
 {
-  var tAirDashFirstTick;
+  var tAirDashFirstTick, tAirDashTick;
   tAirDashFirstTick=(airDashRecovery>5) //still in the air dash's first 30fps tick (it starts at 6)
+  tAirDashTick=ceil(airDashRecovery) //which 30fps tick of the dash this frame belongs to (6 down to 1)
   airDashRecovery-=1*gDeltaTime
   if global.activeCharacter=0 {yVel=-2.9; yVelSetTick=1}
   else if global.activeCharacter=1 {yVel=-3.3; yVelSetTick=1}
   //above 30fps, pMoveAirDash's upward kick is added here for the dash's whole first tick, like the 30fps yAcc kick
   if gDeltaTime!=1 and tAirDashFirstTick {yVel+=airDashKick}
+  //same for a double jump done during the dash (pMoveDoubleJump): added for the rest of that tick. On the dash's last tick
+  //nothing overwrites it afterwards, so it carries on like the 30fps "shoot up"
+  if gDeltaTime!=1 and airDashDJKick!=0
+  {
+    if tAirDashTick=airDashDJTick {yVel+=airDashDJKick}
+    else {airDashDJKick=0}
+  }
   if facing=RIGHT {xVel=(dashVel+dashBodge/2-1); xVelSetTick=1}
   else if facing=LEFT {xVel=-(dashVel+dashBodge/2-1); xVelSetTick=1}
 }
@@ -1210,7 +1222,9 @@ if grappleState=0 or grappleState=1 //Slow falling speed if facing wall when tou
 
   //move the character downhill if possible
   //we need to multiply maxDownSlope by the absolute value of xVel since the character normally runs at an xVel larger than 1
-  if isCollisionBottom(1)=0 and maxDownSlope>0 and xVelInteger!=0 and platformCharacterIs(ON_GROUND)
+  //(above 30fps: not while moving up. A launch from the ground without a state change, like the bike finish line's,
+  //moves less than maxDownSlope per frame and would be pulled straight back down; at 30fps it moves a whole tick and escapes)
+  if isCollisionBottom(1)=0 and maxDownSlope>0 and xVelInteger!=0 and platformCharacterIs(ON_GROUND) and (gDeltaTime==1 or yVel>=0)
   {
     //the character is floating just above the slope, so move the character down
     upYPrev=y

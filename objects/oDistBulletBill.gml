@@ -46,12 +46,11 @@ if global.gamePaused=false
     }
     else if actProg>=4
     {
-      if xSpd>0.5 {xSpd-=0.1*gDeltaTime}
-      else if xSpd<-0.5 {xSpd+=0.1*gDeltaTime}
+      xSpd=scrTickAcc(xSpd,0.1*((xSpd<-0.5)-(xSpd>0.5)),0) //slow down toward 0, per 30fps tick (scrTickAcc)
 
       if ySpd<4 {ySpd=scrGravAcc(ySpd,0.2,1)}
     }
-    x+=xSpd*gDeltaTime
+    x+=(xSpd+scrTickAccB(0))*gDeltaTime
     {y+=ySpd*gDeltaTime}
   }
   else if life<=0

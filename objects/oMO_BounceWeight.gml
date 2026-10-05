@@ -26,8 +26,7 @@ if global.gamePaused=false
 {
   if yVel<10 {yVel=scrGravAcc(yVel,grav,1)}
 
-  if xVel>0.75 {xVel-=xFalloff*gDeltaTime}
-  else if xVel<-0.75 {xVel+=xFalloff*gDeltaTime}
+  xVel=scrTickAcc(xVel,xFalloff*((xVel<-0.75)-(xVel>0.75)),0) //slow down toward 0, per 30fps tick (scrTickAcc)
 
   if xVel>-1 and xVel<1
   {
@@ -50,7 +49,7 @@ if global.gamePaused=false
     tBufX=abs(xVel)
     xVel=-tBufX
   }
-  moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
+  moveTo((xVel+scrTickAccB(0))*gDeltaTime,yVel*gDeltaTime)
 
 
   if y>room_height+32

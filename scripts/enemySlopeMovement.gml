@@ -23,7 +23,7 @@ if maxSlope*abs(xVel)>0 and isCollisionBottom(1)
   xPrev=x
   yPrev=slopeYPrev      //we don't want to use y, because y is too high
   yPrevHigh=y          //we'll use the higher previous variable later
-  moveTo(xVel,yVel+slopeChangeInY)
+  moveTo(xVel*gDeltaTime,yVel*gDeltaTime+slopeChangeInY)
   dist=point_distance(xPrev,yPrev,x,y) //overall distance that has been traveled
   //we should have only ran at xVel
   if dist>abs(xVelInteger)
@@ -45,7 +45,11 @@ if maxSlope*abs(xVel)>0 and isCollisionBottom(1)
 else
 {
   //we simply move xVel and yVel while in the air or on a ladder
-  moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
+  //(Above 30fps: if the step above lifted the enemy to check for an uphill slope, drop that lift again too. At 30fps the
+  //drop is a whole tick of yVel, which is usually enough to land straight back on the ground in the same frame; a frame's
+  //fraction of it isn't, so walking enemies hung a few pixels up every other frame and bounced while running)
+  if gDeltaTime==1 {moveTo(xVel,yVel)}
+  else {moveTo(xVel*gDeltaTime,yVel*gDeltaTime+slopeChangeInY)}
 }
 //move the character downhill if possible
 //we need to multiply maxDownSlope by the absolute value of xVel since the character normally runs at an xVel larger than 1

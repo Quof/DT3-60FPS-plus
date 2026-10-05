@@ -99,7 +99,8 @@ if instance_exists(bossID)
       draw_sprite_ext(sBossBarMMB,0,bossBarX,bossBarY+4,1,100,0,c_white,1)
       draw_sprite(sBossBarMMC,0,bossBarX,bossBarY+104)
 
-      if lifeFill=1000 {healthTrack=round((bossID.life/bossID.maxLife)*50)}
+      //at least 1 pip while the boss is alive (rounding showed an empty bar below 1% life)
+      if lifeFill=1000 {healthTrack=max(1,round((bossID.life/bossID.maxLife)*50))}
       for(i=0;i<healthTrack;i+=1)
       {
         draw_sprite(sBossBarMMD,0,bossBarX+4,bossBarY+102-(i*2))

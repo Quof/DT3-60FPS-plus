@@ -105,7 +105,7 @@ if global.gamePaused=false
     if isCollisionTop(1) {bCollide=1}
     if y>room_height+16 {instance_destroy()}
 
-    if global.optWeaponTrail=1 {instance_create(x,y,oEfWeaponTrail)}
+    if global.optWeaponTrail=1 and gDeltaDoTicks {instance_create(x,y,oEfWeaponTrail)} //once per 30fps tick
 
     if bCollide=1
     {

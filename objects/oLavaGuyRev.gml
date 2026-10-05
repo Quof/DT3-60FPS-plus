@@ -55,7 +55,7 @@ if global.gamePaused=false
       image_yscale=1
     else
       image_yscale=-1
-    yVel-=0.3*gDeltaTime
+    yVel=scrGravAcc(yVel,-0.3,1)
     y+=yVel*gDeltaTime
     if yVel<1 and y<ystart
     {

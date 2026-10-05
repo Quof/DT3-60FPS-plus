@@ -213,11 +213,11 @@ if global.gamePaused=false
   {
     /*if bGoombaStomp=1 and ATTACK_FORM!=3 //Limited time on achievement after Warmaster swaps
     {
-      goombaStompTime-=1
+      goombaStompTime-=1*gDeltaTime
       if goombaStompTime<=0 {bGoombaStomp=0}
     }*/
 
-    timeTillLastHit+=1
+    timeTillLastHit+=1*gDeltaTime
     //-------------------- Manage form change --------------------
     /*if superChangeAtk=0
     {
@@ -227,7 +227,7 @@ if global.gamePaused=false
         {
           if shiftDamage>=4
           {
-            shiftTime+=1
+            shiftTime+=1*gDeltaTime
             if shiftTime>=shiftMaxTime or shiftDamage>=shiftDmgMax and currentAttack=0 and atkNum=0
             {
               if orderChangeSetting=0
@@ -245,7 +245,7 @@ if global.gamePaused=false
         }
         else
         {
-          shiftTime+=1
+          shiftTime+=1*gDeltaTime
           if shiftTime>=timeTillChange and currentAttack=0
           {
             ATTACK_FORM=orderSet[orderNum]
@@ -275,11 +275,11 @@ if global.gamePaused=false
     else {scaleForFacing=-1}
 
     //-------------------- Idle animation speed --------------------
-    if sprite_index=sWarmasterA_Idle {image_index+=0.25}
-    else if sprite_index=sWarmasterA_JumpUp or sprite_index=sWarmasterA_JumpDown {image_index+=0.25}
-    else if sprite_index=sWarmasterB_Idle or sprite_index=sWarmasterC_Idle or sprite_index=sWarmasterD_Idle {image_index+=0.15}
+    if sprite_index=sWarmasterA_Idle {image_index+=0.25*gDeltaTime}
+    else if sprite_index=sWarmasterA_JumpUp or sprite_index=sWarmasterA_JumpDown {image_index+=0.25*gDeltaTime}
+    else if sprite_index=sWarmasterB_Idle or sprite_index=sWarmasterC_Idle or sprite_index=sWarmasterD_Idle {image_index+=0.15*gDeltaTime}
 
-    if sprite_index=sWarmasterA_SwordRoll {swdRollAng-=45*scaleForFacing}
+    if sprite_index=sWarmasterA_SwordRoll {swdRollAng-=45*scaleForFacing*gDeltaTime}
 
     if sprite_index=sWarmasterA_GrappleRopeB //Keep in place when grappled to the rope
     {
@@ -290,15 +290,15 @@ if global.gamePaused=false
     //-------------------- Effect timer --------------------
     if dashEfType>0
     {
-      dashEfFrm+=0.33
+      dashEfFrm+=0.33*gDeltaTime
       if dashEfFrm>=2.6 {dashEfType=0}
     }
 
     if sprite_index=sWarmasterB_Dashing //Super dash trail and fire pillars
     {
-      var tAfterI;
+      if gDeltaDoTicks {var tAfterI;
       tAfterI=instance_create(x,y,oWMB_DashImage)
-      tAfterI.image_xscale=image_xscale; tAfterI.image_yscale=image_yscale
+      tAfterI.image_xscale=image_xscale; tAfterI.image_yscale=image_yscale}
 
       if actTime mod 3=0 and currentAttack=5
       {
@@ -321,22 +321,22 @@ if global.gamePaused=false
         //Seek player
         if x>oPlayer1.x
         {
-          if currHspd>-maxSpeed {currHspd-=0.15}
+          if currHspd>-maxSpeed {currHspd-=0.15*gDeltaTime}
           else {currHspd=-maxSpeed}
         }
         else if x<oPlayer1.x
         {
-          if currHspd<maxSpeed {currHspd+=0.15}
+          if currHspd<maxSpeed {currHspd+=0.15*gDeltaTime}
           else {currHspd=maxSpeed}
         }
         if y>returnPlayerYCenter()-64
         {
-          if currVspd>-maxSpeed {currVspd-=0.15}
+          if currVspd>-maxSpeed {currVspd-=0.15*gDeltaTime}
           else {currVspd=-maxSpeed}
         }
         else if y<returnPlayerYCenter()-64
         {
-          if currVspd<maxSpeed {currVspd+=0.15}
+          if currVspd<maxSpeed {currVspd+=0.15*gDeltaTime}
           else {currVspd=maxSpeed}
         }
         //Keep within room
@@ -345,9 +345,9 @@ if global.gamePaused=false
         if y-50<yGround-roomHeight {currVspd=3}
         else if y>yGround-2 {currVspd=-3}
 
-        if sprite_index=sWarmasterC_JetB {x+=xVel/1.5} //Atk 2
+        if sprite_index=sWarmasterC_JetB {x+=(xVel/1.5)*gDeltaTime} //Atk 2
 
-        x+=currHspd; y+=currVspd
+        x+=currHspd*gDeltaTime; y+=currVspd*gDeltaTime
 
         if waitTime<waitDelay
         {
@@ -362,7 +362,7 @@ if global.gamePaused=false
     {
       if superChangeAtk<10
       {
-        waitTime+=1
+        waitTime+=1*gDeltaTime
         if superChangeAtk=0 //Standard action
         {
           if waitTime>=waitDelay
@@ -390,15 +390,15 @@ if global.gamePaused=false
       }
       else if superChangeAtk>=10 and superChangeAtk<=99 //Charge super attack
       {
-        superChangeAtk+=1
+        superChangeAtk+=1*gDeltaTime
         if superChangeAtk>=11 and superChangeAtk<=20
         {
-          var tAfterI;
+          if gDeltaDoTicks {var tAfterI;
           tAfterI=instance_create(x,y,oEnemyAfterImage)
           tAfterI.sprite_index=sprite_index; tAfterI.image_index=image_index; tAfterI.image_blend=c_white
           tAfterI.image_xscale=image_xscale*scaleForFacing; tAfterI.image_yscale=image_yscale; tAfterI.depth=24; tAfterI.imageFade=0.1
           tAfterI.xScaling=0.125; tAfterI.yScaling=0.125; tAfterI.xShift=0; tAfterI.yShift=0
-          tAfterI.bFollow=1; tAfterI.idFollow=id; tAfterI.xFollow=0; tAfterI.yFollow=0
+          tAfterI.bFollow=1; tAfterI.idFollow=id; tAfterI.xFollow=0; tAfterI.yFollow=0}
 
           var tFFScl,tEffect;
           for(i=0;i<2;i+=1)
@@ -433,14 +433,14 @@ if global.gamePaused=false
     }
     else //-------------------- Executing attack --------------------
     {
-      actTime+=1
+      actTime+=1*gDeltaTime
       event_user(ATTACK_FORM)
     }
 
     //-------------------- Collision --------------------
     if bGravity=1
     {
-      yVel+=0.5
+      yVel=scrGravAcc(yVel,0.5,1)
       if yVel>10 {yVel=10}
     }
     if hoverMode=0
@@ -612,7 +612,7 @@ if global.gamePaused=false
 
     if backGroundFlash>=1 and backGroundFlash<=99 //Normal background flash
     {
-      backGroundFlash+=1
+      backGroundFlash+=1*gDeltaTime
       if backGroundFlash>=2 and backGroundFlash<=24
       {
         if backGroundFlash mod 3=0 {background_blend[0]=make_color_rgb(255,128,128)}
@@ -631,7 +631,7 @@ if global.gamePaused=false
     }
     if backGroundFlash>=101 and backGroundFlash<=199 //Gray background flash
     {
-      backGroundFlash+=1
+      backGroundFlash+=1*gDeltaTime
       if backGroundFlash>=102 and backGroundFlash<=124
       {
         if backGroundFlash mod 3=0 {background_blend[0]=make_color_rgb(120,120,120)}
@@ -723,8 +723,8 @@ if global.gamePaused=false
 
 if life<=0 //-------------------- Defeat animation --------------------
 {
-  deathAnim+=1
-  if deathAnim=1
+  deathAnim+=1*gDeltaTime
+  if deathAnim=1*gDeltaTime
   {
     oWM_A.warmasterCheck+=1
   }
@@ -1005,8 +1005,8 @@ else if currentAttack=4 //==================== ATK D: ROPE AND BOMB (Goes into A
 
   if actTime>=11 and actTime<=20
   {
-    if ATTACK_SPEED>=3 {ropeYscl+=0.2}
-    else {ropeYscl+=0.1}
+    if ATTACK_SPEED>=3 {ropeYscl+=0.2*gDeltaTime}
+    else {ropeYscl+=0.1*gDeltaTime}
   }
 }
 else if currentAttack=5 //==================== ATK E: SWORD ROLL ====================
@@ -1048,7 +1048,7 @@ else if currentAttack=5 //==================== ATK E: SWORD ROLL ===============
     else {event_user(0)}
   }
 
-  if ropeYscl>0 {ropeYscl-=0.1}
+  if ropeYscl>0 {ropeYscl-=0.1*gDeltaTime}
 }
 else if currentAttack=6 //==================== ATK F: BIG LEAP TOWARD WALL + LEAP OFF WALL (Needs charge) ====================
 {
@@ -1230,7 +1230,7 @@ else if currentAttack=2 //==================== ATK B: FIRE SPAM (Needs charge) =
   else if actTime=11 {sprite_index=sWarmasterB_Dashing}
   else if actTime>=12 and actTime<=99 //Dash to center
   {
-    x+=8*scaleForFacing
+    x+=8*scaleForFacing*gDeltaTime
     var tXcenterCheck;
     tXcenterCheck=point_distance(x,0,xCenter,0)
     if tXcenterCheck<=32 {actTime=100}
@@ -2765,12 +2765,12 @@ else if dashEfType=2
 }
 if sprite_index=sWarmasterC_JetB
 {
-  jetEfFrm+=0.33
+  jetEfFrm+=0.33*gDeltaTime
   draw_sprite_ext(sWarmasterC_JetEfA,jetEfFrm,x-(7*image_xscale),y-46,image_xscale,image_yscale,image_angle,c_white,0.9)
 }
 else if sprite_index=sWarmasterD_Hover
 {
-  jetEfFrm+=0.33
+  jetEfFrm+=0.33*gDeltaTime
   draw_sprite_ext(sWarmasterD_HoverEfA,jetEfFrm,x-(3*image_xscale),y-24,image_xscale,image_yscale,image_angle,c_white,0.9)
 }
 

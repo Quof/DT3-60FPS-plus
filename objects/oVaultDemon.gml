@@ -117,7 +117,7 @@ if global.gamePaused=false
       }
       else
       {
-        if xPrev!=x and yPrev!=y
+        if xPrev!=x and yPrev!=y and gDeltaDoTicks //(once per 30fps tick, not every frame)
         {
           var tAfterI;
           tAfterI=instance_create(x,y,oEnemyAfterImage)
@@ -147,7 +147,6 @@ if global.gamePaused=false
         tAfterI.sprite_index=sprite_index; tAfterI.image_index=image_index; tAfterI.image_blend=c_green
         tAfterI.image_alpha=0.5; tAfterI.image_xscale=image_xscale*1.5; tAfterI.image_yscale=1.5; tAfterI.xShift=0; tAfterI.yShift=0
         tAfterI.imageFade=0.05; tAfterI.xScaling=-0.1; tAfterI.yScaling=-0.1; tAfterI.bFollow=0
-        moveTime+=(1-gDeltaTime) //QWH, I added this line to make it connect to the 21
       }
       else if moveTime>=21
       {

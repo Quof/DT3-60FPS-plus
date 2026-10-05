@@ -213,8 +213,7 @@ if global.gamePaused=false
 
     if slowVel=1 //Slow down a dash
     {
-      if xVel>1 {xVel-=0.33*gDeltaTime}
-      else if xVel<-1 {xVel+=0.33*gDeltaTime}
+      if xVel>1 or xVel<-1 {xVel=scrTickAcc(xVel,0.33*((xVel<-1)-(xVel>1)),0)} //slow down toward 0, per 30fps tick (scrTickAcc)
       else {xVel=0; slowVel=0}
     }
 
@@ -234,7 +233,7 @@ if global.gamePaused=false
     if isCollisionSolid()
       y-=2
 
-    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
+    moveTo((xVel+scrTickAccB(0))*gDeltaTime,yVel*gDeltaTime)
 
     //---------- Boss Difficulty Curve ----------
     if lifePercent<=0.83 and lifePercent>=0.66 and bossProgress=0

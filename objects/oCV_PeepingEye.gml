@@ -184,13 +184,11 @@ if global.gamePaused=false
       lightBullet.y=eyeTail.y+lengthdir_y(9,eyeTail.image_angle-90)
     }
     //----- Hit Movement -----
-    if xSpd>0{xSpd-=hitFric*gDeltaTime}
-    else if xSpd<0{xSpd+=hitFric*gDeltaTime}
-    if ySpd>0{ySpd=scrGravAcc(ySpd,-hitFric,1)}
-    else if ySpd<0{ySpd=scrGravAcc(ySpd,hitFric,1)}
+    xSpd=scrTickAcc(xSpd,hitFric*((xSpd<0)-(xSpd>0)),0) //slow down toward 0, per 30fps tick (scrTickAcc)
+    ySpd=scrTickAcc(ySpd,hitFric*((ySpd<0)-(ySpd>0)),1)
 
-    x+=xSpd*gDeltaTime
-    {y+=ySpd*gDeltaTime}
+    x+=(xSpd+scrTickAccB(0))*gDeltaTime
+    y+=(ySpd+scrTickAccB(1))*gDeltaTime
 
     //----- Tail Movement -----
     eyePart[0].x=x
