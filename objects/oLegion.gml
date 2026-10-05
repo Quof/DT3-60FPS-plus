@@ -198,7 +198,8 @@ if global.gamePaused=false
       with oEProjectileBase {instance_destroy()}
       bCanDealDamage=false
     }
-    else if deathAnim>=2 and deathAnim<=55
+    //else if deathAnim>=2 and deathAnim<=55
+    else if deathAnim>1 and deathAnim<=55 //60fps change: includes every frame of tick 2, not just its last one
     {
       if oGame.time mod (2/gDeltaTime)=0
       {

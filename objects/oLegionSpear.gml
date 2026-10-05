@@ -33,9 +33,11 @@ if global.gamePaused=false
   }
   else if atkProg=1
   {
-    _direction+=spinSpd
+    //_direction+=spinSpd
+    _direction+=spinSpd*gDeltaTime //60fps change: the spear ring spun 2x/4x as fast at 60/120fps
 
-    stabTime+=1
+    //stabTime+=1
+    stabTime+=1*gDeltaTime //60fps change: the spears stabbed 2x/4x as often at 60/120fps
     if stabTime>=stabDelay
     {
       stabTime=0
@@ -45,8 +47,10 @@ if global.gamePaused=false
   else if atkProg=2
   {
     atkTime+=1*gDeltaTime
-    if atkTime>=45 and atkTime<=54 {myDist+=5*gDeltaTime}
-    else if atkTime>=85 and atkTime<=94 {myDist-=5*gDeltaTime}
+    //if atkTime>=45 and atkTime<=54 {myDist+=5*gDeltaTime}
+    //else if atkTime>=85 and atkTime<=94 {myDist-=5*gDeltaTime}
+    if atkTime>44 and atkTime<=54 {myDist+=5*gDeltaTime} //60fps change: includes every frame of tick 45, so the stab reaches the full 50px (46.25px at 120fps)
+    else if atkTime>84 and atkTime<=94 {myDist-=5*gDeltaTime} //60fps change: same for the pull-back
     else if atkTime>=95 {atkTime=0;atkProg=1}
   }
 
