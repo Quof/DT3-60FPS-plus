@@ -333,7 +333,8 @@ if global.gamePaused=false
           myHS.bCanTakeDamage=false
           bCanDealDamage=false
         }
-        else if attackDelay>=13 and attackDelay<=22 {image_alpha-=0.1*gDeltaTime}
+        //else if attackDelay>=13 and attackDelay<=22 {image_alpha-=0.1*gDeltaTime}
+        else if attackDelay>12 and attackDelay<=22 {image_alpha-=0.1*gDeltaTime} //60fps change: includes every frame of tick 13, so Elpizo fades fully out while teleporting (stayed at alpha 0.075 at 120fps)
         else if attackDelay=23 //Choose teleport spot
         {
           var tNextLoc;
@@ -342,7 +343,8 @@ if global.gamePaused=false
           else if tNextLoc=2 {x=256; y=256}
           else if tNextLoc=3 {x=640; y=256}
         }
-        else if attackDelay>=28 and attackDelay<=37 {image_alpha+=0.1*gDeltaTime}
+        //else if attackDelay>=28 and attackDelay<=37 {image_alpha+=0.1*gDeltaTime}
+        else if attackDelay>27 and attackDelay<=37 {image_alpha+=0.1*gDeltaTime} //60fps change: same for fading back in
         else if attackDelay=38
         {
           myHS.bCanTakeDamage=true
@@ -417,9 +419,11 @@ if global.gamePaused=false
         specHP=15
         currHspd=0; currVspd=0
       }
-      else if specProg>=15 and specProg<=69 //Shake
+      //else if specProg>=15 and specProg<=69 //Shake
+      else if specProg>14 and specProg<=69 //Shake. 60fps change: covers every frame of ticks 15-69
       {
-        if floor(specProg) mod 2=0 {x-=1*gDeltaTime}
+        //if floor(specProg) mod 2=0 {x-=1*gDeltaTime}
+        if ceil(specProg) mod 2=0 {x-=1*gDeltaTime} //60fps change: ceil gives the 30fps tick number for every frame of the tick (floor was the previous tick for 3 of its 4 frames, so the shake was out of phase and ended 0.75px off)
         else {x+=1*gDeltaTime}
       }
       else if specProg=70
@@ -706,7 +710,8 @@ if global.gamePaused=false
       with oEProjectileBase {instance_destroy()}
       bCanDealDamage=false
     }
-    else if deathAnim>=2 and deathAnim<=90
+    //else if deathAnim>=2 and deathAnim<=90
+    else if deathAnim>1 and deathAnim<=90 //60fps change: includes every frame of tick 2, not just its last one
     {
       if deathAnim mod 9=0 {playSound(global.snd_EnemyDieMM,0,1,1)}
       if oGame.time mod (3/gDeltaTime)=0
@@ -780,8 +785,13 @@ draw_sprite_ext(sprite_index,image_index,x,y,image_xscale,image_yscale,image_ang
 
 if specProg>=70
 {
+  //if specBackAlpha=0.8 {specBackAlpha=0.6}
+  //else {specBackAlpha=0.8}
+  if gDeltaDoTicks //60fps change (added): flicker once per 30fps tick (Draw runs every frame, so it flickered 4x as fast at 120fps)
+  {
   if specBackAlpha=0.8 {specBackAlpha=0.6}
   else {specBackAlpha=0.8}
+  } //60fps change (added)
   draw_sprite_ext(sE_SpecialBack,image_index,x,y-20,image_xscale,image_yscale,image_angle,image_blend,specBackAlpha)
 }
 
