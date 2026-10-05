@@ -46,19 +46,27 @@ applies_to=self
 if global.gamePaused=0
 {
   //---------- Movement ----------
+  //the dash slows down after the moves at 30fps: above 30fps the tick's slow-down is spread before them (scrTickAcc, scrTickAccBPre), as in oFB_PlayerPaddle
+  if gDeltaTime!=1 {moveSpd=scrTickAcc(moveSpd,-0.1*(moveSpd>4),0)} //60fps change (added)
+  var tMove; //60fps change (added)
+  tMove=(moveSpd+scrTickAccBPre(0))*gDeltaTime //60fps change (added)
   if y>oFB_Ball.y
   {
-    y-=moveSpd
+    //y-=moveSpd
+    y-=tMove //60fps change: the paddle moved its full speed every frame (2x/4x as fast at 60/120fps)
     if y<topBorder {y=topBorder}
   }
   if y<oFB_Ball.y
   {
-    y+=moveSpd
+    //y+=moveSpd
+    y+=tMove //60fps change: see above
     if y>bottomBorder {y=bottomBorder}
   }
 
-  if moveSpd>4 {moveSpd-=0.1}
-  if moveSpd>6.8
+  //if moveSpd>4 {moveSpd-=0.1}
+  if gDeltaTime==1 {if moveSpd>4 {moveSpd-=0.1}} //60fps change: above 30fps the slow-down is done by scrTickAcc above
+  //if moveSpd>6.8
+  if moveSpd>6.8 and gDeltaDoTicks //60fps change: one afterimage per tick (was 2x/4x as many at 60/120fps)
   {
     var tAfterI;
     tAfterI=instance_create(x,y,oEnemyAfterImage)
@@ -69,7 +77,8 @@ if global.gamePaused=0
   }
 
   //---------- Dash Rules ----------
-  if dashDelay>0 {dashDelay-=1}
+  //if dashDelay>0 {dashDelay-=1}
+  if dashDelay>0 {dashDelay-=1*gDeltaTime} //60fps change: the dash cooldown ran 2x/4x as fast at 60/120fps
   if oFB_Ball.x>=420 and bWillDash=0 and dashEnergy>=2000 and dashDelay=0
   {
     var tChkDist;
@@ -90,7 +99,8 @@ if global.gamePaused=0
 
   if dashEnergy<dashMeterMax
   {
-    dashEnergy+=5
+    //dashEnergy+=5
+    dashEnergy+=5*gDeltaTime //60fps change: dash energy refilled 2x/4x as fast at 60/120fps
     if dashEnergy>dashMeterMax {dashEnergy=dashMeterMax}
   }
 
@@ -143,7 +153,8 @@ if global.gamePaused=0
     else if atkTime=160 {atkTime=0; atkCycle=0; atkProg=1}
   }
 
-  aimedBulletTime+=1
+  //aimedBulletTime+=1
+  aimedBulletTime+=1*gDeltaTime //60fps change: aimed shots came 2x/4x as often at 60/120fps
   if aimedBulletTime>=aimedBulletDelay
   {
     var tAtk; tAtk=instance_create(x-10,y,oFB_PongBullet)
@@ -151,7 +162,8 @@ if global.gamePaused=0
     aimedBulletTime=0
   }
 
-  superAimTime+=1
+  //superAimTime+=1
+  superAimTime+=1*gDeltaTime //60fps change: the aimed volley came 2x/4x as often at 60/120fps
   if superAimTime>=900 and superAimTime mod 2=0
   {
     var tAtk; tAtk=instance_create(x-10,y,oFB_PongBullet)
@@ -162,7 +174,8 @@ if global.gamePaused=0
   //---------- Conversation Progress ----------
   if convoProg=0
   {
-    convoTime+=1
+    //convoTime+=1
+    convoTime+=1*gDeltaTime //60fps change: the opening lines (and the start of the attacks) came 2x/4x as fast at 60/120fps
     if convoTime=30
     {
       msgCreate(60,80,"Jeremy","Oh we're really doing this, aren't we?",0,1,oMessagePerson,0)
@@ -186,7 +199,8 @@ if global.gamePaused=0
   }
   else if convoProg=2 //Final attack
   {
-    convoTime+=1
+    //convoTime+=1
+    convoTime+=1*gDeltaTime //60fps change: the final barrage fired 2x/4x as often and ended 2x/4x sooner at 60/120fps
     if convoTime mod 3=0
     {
       var tAtk,tDir;

@@ -30,13 +30,15 @@ if global.gamePaused=false
 {
   if type=0 //Fall down
   {
-    image_angle+=random_range(-3,3)
+    //image_angle+=random_range(-3,3)
+    image_angle+=random_range(-3,3)*gDeltaTime //60fps change: scaled like types 2 and 3
     y+=5.5*gDeltaTime
     if y>=room_height+80 {instance_destroy()}
   }
   else if type=1 //Across room
   {
-    image_angle+=random_range(-3,3)
+    //image_angle+=random_range(-3,3)
+    image_angle+=random_range(-3,3)*gDeltaTime //60fps change: scaled like types 2 and 3
     _speed=moveSpd
     atkTime+=1*gDeltaTime
   }

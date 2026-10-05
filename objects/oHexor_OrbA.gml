@@ -31,7 +31,8 @@ if global.gamePaused=false
 {
   if atkProg=0 //Spin outward
   {
-    if orbDist<48 {orbDist+=1}
+    //if orbDist<48 {orbDist+=1}
+    if orbDist<48 {orbDist+=1*gDeltaTime} //60fps change: the orbs spread out 2x/4x as fast at 60/120fps
 
     orbDir+=3*gDeltaTime
 

@@ -22,7 +22,8 @@ if global.gamePaused=0
 {
   _speed=moveSpd
 
-  instance_create(x,y,oFBallAE)
+  //instance_create(x,y,oFBallAE)
+  if gDeltaDoTicks {instance_create(x,y,oFBallAE)} //60fps change: one trail image per tick (was 2x/4x as many at 60/120fps)
 
   if x<-8 //Player misses
   {
@@ -88,7 +89,10 @@ lib_id=1
 action_id=603
 applies_to=self
 */
+//move_bounce_solid(0)
+direction=_direction; speed=_speed //60fps change (added): move_bounce_solid works on GM's built-in direction/speed, but the ball moves with _direction/_speed now (built-in speed 0), so it never bounced
 move_bounce_solid(0)
+_direction=direction; speed=0 //60fps change (added): take the bounced direction back, and keep GM's built-in motion off
 playSound(global.snd_MenuShift,0,1,10000+random(3000))
 bounceNum+=1
 

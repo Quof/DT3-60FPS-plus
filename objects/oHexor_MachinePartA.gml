@@ -32,7 +32,8 @@ if global.gamePaused=false
 {
   if atkProg=0
   {
-    image_angle+=8
+    //image_angle+=8
+    image_angle+=8*gDeltaTime //60fps change: spun 2x/4x as fast at 60/120fps
     atkTime+=1*gDeltaTime
     if atkTime>=atkDelay
     {
@@ -57,9 +58,13 @@ if global.gamePaused=false
   }
   else if atkProg=2
   {
-    if bulletSpeed<2 {bulletSpeed+=0.1}
-    else if bulletSpeed>=2 and bulletSpeed<=15 {bulletSpeed+=1}
-    _speed=bulletSpeed
+    //if bulletSpeed<2 {bulletSpeed+=0.1}
+    //else if bulletSpeed>=2 and bulletSpeed<=15 {bulletSpeed+=1}
+    //_speed=bulletSpeed
+    var tA; tA=0 //60fps change (added): the speed-up was per frame (top speed reached 2x/4x sooner at 60/120fps); now per 30fps tick (scrTickAcc), speed changes then moves
+    if bulletSpeed<2 {tA=0.1} else if bulletSpeed>=2 and bulletSpeed<=15 {tA=1} //60fps change (added): same conditions as above
+    bulletSpeed=scrTickAcc(bulletSpeed,tA,0) //60fps change (added)
+    _speed=bulletSpeed+scrTickAccB(0) //60fps change: scrTickAccB corrects the move for the speed-up spread over the tick
   }
 }
 else {_speed=0}
@@ -86,8 +91,9 @@ applies_to=self
 */
 if atkProg>=1
 {
-  if lineAlpha=0.3 {lineAlpha=0.6}
-  else {lineAlpha=0.3}
+  //if lineAlpha=0.3 {lineAlpha=0.6}
+  //else {lineAlpha=0.3}
+  if gDeltaDoTicks {if lineAlpha=0.3 {lineAlpha=0.6} else {lineAlpha=0.3}} //60fps change: the aim line flickered every frame (2x/4x as fast at 60/120fps)
   draw_set_alpha(lineAlpha)
   draw_set_color(c_red)
   draw_line(x,y,x+lengthdir_x(540,image_angle),y+lengthdir_y(540,image_angle))

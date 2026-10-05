@@ -141,7 +141,8 @@ if global.gamePaused=false
       twitchTime=irandom(120); bTwitching=0
     }
 
-    if bTwitching=1
+    //if bTwitching=1
+    if bTwitching=1 and gDeltaDoTicks //60fps change: new twitch offsets once per tick (it jittered 2x/4x as fast at 60/120fps)
     {
       twitchRanX=irandom_range(-3,3)
       twitchRanY=irandom_range(-3,3)
@@ -562,7 +563,8 @@ if global.gamePaused=false
             tDemonBlade.type=0; tDemonBlade.moveTime=i*8; tDemonBlade.moveSpd=8; tDemonBlade._direction=180
           }
         }
-        else if atkTime>=83 and atkTime<=120 //Go down
+        //else if atkTime>=83 and atkTime<=120 //Go down
+        else if atkTime>82 and atkTime<=120 //Go down //60fps change: covers every frame of tick 83
         {
           y+=8*gDeltaTime
           if y>=headSpawnY[2]
@@ -601,7 +603,8 @@ if global.gamePaused=false
             tDemonBlade.type=0; tDemonBlade.moveTime=i*8; tDemonBlade.moveSpd=8
           }
         }
-        else if atkTime>=203 and atkTime<=240 //Go down
+        //else if atkTime>=203 and atkTime<=240 //Go down
+        else if atkTime>202 and atkTime<=240 //Go down //60fps change: covers every frame of tick 203
         {
           y+=8*gDeltaTime
           if y>=headSpawnY[2]
@@ -736,7 +739,8 @@ if global.gamePaused=false
           msgCreate(60,80,"Hexor","Fine, time for my final attack.",0,1,oMessagePerson,0)
           newMessage.fadingTime=70
         }
-        else if atkTime>=24 and atkTime<=99
+        //else if atkTime>=24 and atkTime<=99
+        else if atkTime>23 and atkTime<=99 //60fps change: covers every frame of tick 24
         {
           swordDist+=4*gDeltaTime
           swordAlpha-=0.03*gDeltaTime
@@ -901,7 +905,8 @@ if global.gamePaused=false
         msgCreate(60,80,"Hexor","Did you really think...",0,1,oMessagePerson,0)
         newMessage.fadingTime=70
       }
-      else if atkTime>=121 and atkTime<=170
+      //else if atkTime>=121 and atkTime<=170
+      else if atkTime>120 and atkTime<=170 //60fps change: covers every frame of ticks 121-170 (the fade stopped at 0.99/0.985 at 60/120fps)
       {
         oEvCh21MainA.fadeAlpha+=0.02*gDeltaTime
       }
@@ -935,7 +940,8 @@ if global.gamePaused=false
         msgCreate(60,80,"Jeremy","I promised I would return. I don't intend to break that promise.",0,2,oMessagePerson,0)
         newMessage.fadingTime=120
       }
-      else if atkTime>=200 and atkTime<=240 and gDeltaDoTicks
+      //else if atkTime>=200 and atkTime<=240 and gDeltaDoTicks
+      else if atkTime>=200 and atkTime<=240 and frac(atkTime)=0 //60fps change: gDeltaDoTicks follows the global tick, not atkTime, so when they were out of step "atkTime=220" below never ran and the player never switched to Jeremy; this counter's own ticks keep the dust per tick and always reach 220
       {
         var tEffect;
         for(i=0;i<2;i+=1)

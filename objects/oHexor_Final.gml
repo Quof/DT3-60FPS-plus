@@ -103,7 +103,8 @@ if global.gamePaused=false
   if bActive=true and life>0
   {
     //==================== MOVEMENT ====================
-    if dashDuration>0 and gDeltaDoTicks
+    //if dashDuration>0 and gDeltaDoTicks
+    if dashDuration>0 {if gDeltaDoTicks //60fps change: the gate is now inside, so the frames between ticks no longer fall into the energy recovery below during a dash
     {
       var tAfterI;
       tAfterI=instance_create(x,y,oEnemyAfterImage)
@@ -112,7 +113,7 @@ if global.gamePaused=false
       tAfterI.xScaling=0; tAfterI.yScaling=0; tAfterI.xShift=0; tAfterI.yShift=0
       tAfterI.bFollow=1; tAfterI.idFollow=id; tAfterI.xFollow=0; tAfterI.yFollow=0
       dashDuration-=1
-    }
+    }}
     else //Dash energy recovery
     {
       if dashEnergy<dashMeterMax
@@ -306,7 +307,8 @@ if global.gamePaused=false
     }
     else if convoSequence=3
     {
-      convoTime+=1
+      //convoTime+=1
+      convoTime+=1*gDeltaTime //60fps change: this exchange played 2x/4x as fast at 60/120fps
       if convoTime=60
       {
         msgCreate(60,80,"Jeremy","Makes no difference.",0,1,oMessagePerson,0)
@@ -325,7 +327,8 @@ if global.gamePaused=false
     }
     else if convoSequence=5
     {
-      convoTime+=1
+      //convoTime+=1
+      convoTime+=1*gDeltaTime //60fps change: this exchange played 2x/4x as fast at 60/120fps
       if convoTime=60
       {
         msgCreate(60,80,"Jeremy","And I said it makes no difference. I'm not leaving.",0,1,oMessagePerson,0)
@@ -344,7 +347,8 @@ if global.gamePaused=false
     }
     else if convoSequence=7
     {
-      convoTime+=1
+      //convoTime+=1
+      convoTime+=1*gDeltaTime //60fps change: this exchange played 2x/4x as fast at 60/120fps
       if convoTime=100
       {
         msgCreate(60,80,"Hexor","I'll break it soon enough.",0,1,oMessagePerson,0)

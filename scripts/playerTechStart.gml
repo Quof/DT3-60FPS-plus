@@ -1264,7 +1264,8 @@ else if global.activeCharacter=4 and global.jeremyCanAtk=1 //-------------------
 
   if lastDirPress>0 //Reset input string
   {
-    lastDirPress-=1
+    //lastDirPress-=1
+    lastDirPress-=1*gDeltaTime //60fps change: the window for Jeremy's special-move inputs was 1/2 or 1/4 as long at 60/120fps
     if lastDirPress=0
     {
       dirPressIter=0
@@ -1284,7 +1285,8 @@ else if global.activeCharacter=4 and global.jeremyCanAtk=1 //-------------------
   //Energy
   if jeremySuperEnergy<jeremySuperMax
   {
-    jeremySuperEnergy+=1
+    //jeremySuperEnergy+=1
+    jeremySuperEnergy+=1*gDeltaTime //60fps change: the super meter filled 2x/4x as fast at 60/120fps
   }
 
   if kActA and kActAPressed=1 and bTakingDamage=false and (state=STANDING or state=RUNNING or state=JUMPING or state=FALLING or state=LOOKING_UP)

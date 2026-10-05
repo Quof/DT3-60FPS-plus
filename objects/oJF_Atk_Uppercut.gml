@@ -37,6 +37,7 @@ if global.gamePaused=false
 
   oPlayer1.xVel=(1.5*oPlayer1.image_xscale)*(decayTime/3)
   oPlayer1.yVel=-decayTime/1.25
+  oPlayer1.xVelSetExt=1; oPlayer1.yVelSetExt=1 //60fps change (added): velocity set every frame by this object, so the player's move uses the 30fps formula (see pMoveToWrapNew)
 
   decayTime-=1*gDeltaTime
   if decayTime=15 {oPlayer1.image_index=1}

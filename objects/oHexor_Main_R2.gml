@@ -230,7 +230,8 @@ if global.gamePaused=false
 
       if extraAtkTime>=100 //2nd orb
       {
-        extraAtkTime+=1
+        //extraAtkTime+=1
+        extraAtkTime+=1*gDeltaTime //60fps change: the extra machine spikes came 2x/4x as often at 60/120fps
         if bossProgress=1
         {
           if extraAtkTime=101

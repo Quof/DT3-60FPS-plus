@@ -43,13 +43,14 @@ if global.gamePaused=false
     image_xscale+=0.02*gDeltaTime; image_yscale+=0.02*gDeltaTime
 
     var tEffect,tFFScl,tFFDir;
+    if gDeltaDoTicks { //60fps change (added): one charge particle per tick (was 2x/4x as many at 60/120fps)
     tFFScl=random(0.1)
     tFFDir=random(360)
     tEffect=instance_create(x+lengthdir_x(60,tFFDir),y+lengthdir_y(60,tFFDir),oEffectB)
     tEffect.type=3; tEffect.sprite_index=sEfFirefly; tEffect.newBlend=1
     tEffect.image_alpha=0.5; tEffect.image_xscale=0.1+tFFScl; tEffect.image_yscale=0.1+tFFScl
     tEffect.direction=tFFDir-180; tEffect.speed=5.8
-    tEffect.fadeSpd=0.05; tEffect.AccelX=0; tEffect.AccelY=0; tEffect.followID=-1; tEffect.rotation=0
+    tEffect.fadeSpd=0.05; tEffect.AccelX=0; tEffect.AccelY=0; tEffect.followID=-1; tEffect.rotation=0}
 
     if image_xscale>=1
     {
@@ -68,7 +69,8 @@ if global.gamePaused=false
   }
   else if atkProg=1
   {
-    instance_create(x,y,oGanonOrbAE)
+    //instance_create(x,y,oGanonOrbAE)
+    if gDeltaDoTicks {instance_create(x,y,oGanonOrbAE)} //60fps change: one trail image per tick (was 2x/4x as many at 60/120fps)
     _speed=bulletSpeed
   }
 }

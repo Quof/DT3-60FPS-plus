@@ -103,7 +103,8 @@ if global.gamePaused=0
   }
 
   if gDeltaTime==1 {if moveSpd>4 {moveSpd-=0.1}}
-  if moveSpd>6.8
+  //if moveSpd>6.8
+  if moveSpd>6.8 and gDeltaDoTicks //60fps change: one afterimage per tick (was 2x/4x as many at 60/120fps)
   {
     var tAfterI;
     tAfterI=instance_create(x,y,oEnemyAfterImage)

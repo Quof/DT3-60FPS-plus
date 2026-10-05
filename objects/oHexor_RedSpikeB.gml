@@ -29,7 +29,8 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  if extraHitFrameBuffer>0 {extraHitFrameBuffer-=1}
+  //if extraHitFrameBuffer>0 {extraHitFrameBuffer-=1}
+  if extraHitFrameBuffer>0 and gDeltaDoTicks {extraHitFrameBuffer-=1} //60fps change: the 2-step touch grace is counted in 30fps ticks (see the player collision)
 
   if atkProg=0
   {
@@ -59,10 +60,18 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-extraHitFrameBuffer+=2
-if extraHitFrameBuffer=3
+//extraHitFrameBuffer+=2
+//if extraHitFrameBuffer=3
+//{
+//  event_inherited()
+//}
+if gDeltaDoTicks //60fps change (added): counted on 30fps ticks, so a hit still needs 2 ticks of touching (it was 2 frames at 60/120fps)
 {
-  event_inherited()
+  extraHitFrameBuffer+=2
+  if extraHitFrameBuffer=3
+  {
+    event_inherited()
+  }
 }
 #define Collision_oAttackBase
 /*"/*'/**//* YYD ACTION

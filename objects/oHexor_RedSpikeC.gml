@@ -29,7 +29,8 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  if extraHitFrameBuffer>0 {extraHitFrameBuffer-=1*gDeltaTime}
+  //if extraHitFrameBuffer>0 {extraHitFrameBuffer-=1*gDeltaTime}
+  if extraHitFrameBuffer>0 and gDeltaDoTicks {extraHitFrameBuffer-=1} //60fps change: with -=1*gDeltaTime the buffer went 2, 3.5, 5... and never hit exactly 3, so these spikes couldn't damage the player at 60/120fps; now counted in 30fps ticks (see the player collision)
 
   if atkProg=0
   {
@@ -55,10 +56,18 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-extraHitFrameBuffer+=2
-if extraHitFrameBuffer=3
+//extraHitFrameBuffer+=2
+//if extraHitFrameBuffer=3
+//{
+//  event_inherited()
+//}
+if gDeltaDoTicks //60fps change (added): counted on 30fps ticks, so a hit still needs 2 ticks of touching
 {
-  event_inherited()
+  extraHitFrameBuffer+=2
+  if extraHitFrameBuffer=3
+  {
+    event_inherited()
+  }
 }
 #define Collision_oAttackBase
 /*"/*'/**//* YYD ACTION
