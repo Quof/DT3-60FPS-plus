@@ -84,6 +84,7 @@ chkMove=0
 
 deathAnim=0
 blendCol=255
+tileRise=0; riseSolid=noone //60fps change (added): how far the floor tiles have been raised during the Legion transition, and the solid they follow (see Step)
 
 jeremyText="Death has decided to duel you toe to toe. I don't recommend backing off from Death as he'll use near-screen filling attacks. Projectiles don't seem to work well either as he'll just build a defense against them. He doesn't have too many flashy attacks, just a scythe summoning thing, which can get bothersome when you're trying to dodge his scythe. The main thing here is to focus on what he's doing. Don't take your eyes off him."
 chaoText="I'm sensing that Death has a few other tricks up his sleeves that Jeremy isn't picking up. In comparison to all of his incarnations, Death fights the closest to his Rondo of Blood version, but this is still much different than any Death fight."
@@ -292,7 +293,8 @@ if global.gamePaused=false
             else {atkTime=atkDelay-5}
           }
 
-          if atkTime>=10001 and atkTime<=10100 //Swing
+          //if atkTime>=10001 and atkTime<=10100 //Swing
+          if atkTime>10000 and atkTime<=10100 //Swing. 60fps change: starts on the frame after atkTime=10000 like the next tick at 30fps; with >=10001 each of the 3 swings started 3/4 of a tick late at 120fps
           {
             event_user(atkTypeSw[atkSwingNum])
             if atkSwingType=-1
@@ -450,7 +452,8 @@ if global.gamePaused=false
     else if superProg=2 //Fly up
     {
       y-=8*gDeltaTime
-      if y<=-8*gDeltaTime
+      //if y<=-8*gDeltaTime
+      if y<=-8 //60fps change: the original threshold (-8); -8*gDeltaTime ended the fly-up a few frames early at 120fps
       {
         x=304; y=-8
         sprite_index=sDeathStandBack
@@ -632,7 +635,8 @@ if global.gamePaused=false
       sprite_index=sDeathWalk; image_speed=0
       bCanDealDamage=false
     }
-    else if deathAnim>=2 and deathAnim<=55
+    //else if deathAnim>=2 and deathAnim<=55
+    else if deathAnim>1 and deathAnim<=55 //60fps change: includes every frame of tick 2, not just its last one
     {
       if oGame.time mod (2/gDeltaTime)=0
       {
@@ -659,7 +663,8 @@ if global.gamePaused=false
       if y-22<yGround-128 {y+=2*gDeltaTime}
       else {y-=2*gDeltaTime}
       
-      if blendCol>0 {blendCol-=3}
+      //if blendCol>0 {blendCol-=3}
+      if blendCol>0 {blendCol-=3*gDeltaTime} //60fps change: faded to black 2x/4x as fast at 60/120fps (still lands exactly on 0 for the check below)
       myHS.image_blend=make_color_rgb(blendCol,blendCol,blendCol)
       
       if point_distance(x,y-22,xCenter,yGround-128)<3 and blendCol=0 {deathAnim=1000}
@@ -694,13 +699,22 @@ if global.gamePaused=false
             makeActive()
           }
         }
+        riseSolid=newMoveSol //60fps change (added): one of the rising solids, for the floor tiles below
       }
       else if deathAnim>=1062 and deathAnim<=1121
       {
         oMovingSolid.yVel=-1
-        if gDeltaDoTicks tile_layer_shift(999998,0,-1)
+        //tile_layer_shift(999998,0,-1)
+        //if gDeltaDoTicks tile_layer_shift(999998,0,-1)
       }
       else if deathAnim=1122 {oMovingSolid.yVel=0}
+      //60fps change (added): raise the floor tiles 1px each time the rising solids have risen 1px, so the floor you see always
+      //matches the floor you stand on. (Shifting once per gDeltaDoTicks inside the window usually gave 59 shifts at 120fps
+      //against the solids' 60, leaving the tiles 1px off the collision.) At 30fps this is the same 1px per tick as the original.
+      if instance_exists(riseSolid)
+      {
+        while tileRise<floor(yGround-riseSolid.y+0.001) {tile_layer_shift(999998,0,-1); tileRise+=1}
+      }
       
       if boss.image_xscale<1.5
       {
