@@ -132,7 +132,8 @@ if global.gamePaused=false
           else {x=360}
         }
       }
-      else if teleTime>=52 and teleTime<=72 //Wave in
+      //else if teleTime>=52 and teleTime<=72 //Wave in
+      else if teleTime>52-teleMod and teleTime<=72 //Wave in. 60fps change: covers every frame of the first wave-in tick (teleTime counts by teleMod per tick), so the beam shrinks by the same total as at 30fps
       {
         teleOut-=1*teleMod*gDeltaTime
         if teleTime=52 {playSound(global.snd_Beam,0,0.94,16000)}
@@ -177,7 +178,8 @@ if global.gamePaused=false
         else if atkAnim=1 {bBody.sprite_index=sDraculaLeftArm}
         else if atkAnim=2 {bBody.sprite_index=sDraculaBothArms}
       }
-      else if atkTime>=2 and atkTime<=99 //End Anim
+      //else if atkTime>=2 and atkTime<=99 //End Anim
+      else if atkTime>1 and atkTime<=99 //End Anim. 60fps change: includes every frame of tick 2 (the animation started ~3/4 of a tick late at 120fps, and the attack could come a tick late)
       {
         bBody.image_index+=0.15*gDeltaTime
         if bBody.image_index>=bBody.image_number-0.5
@@ -295,7 +297,8 @@ if global.gamePaused=false
           tFire.image_xscale=2; tFire.image_yscale=2; tFire._direction=tDir; tFire.rotSpd=5
         }
       }
-      else if atkTime>=150 and atkTime<=209 //Reverse Anim
+      //else if atkTime>=150 and atkTime<=209 //Reverse Anim
+      else if atkTime>149 and atkTime<=209 //Reverse Anim. 60fps change: includes every frame of tick 150, so the arm animation keeps the 30fps timing
       {
         bBody.image_index-=0.15*gDeltaTime
         if bBody.image_index<=0.4
@@ -323,7 +326,8 @@ if global.gamePaused=false
         if bossProgress=4 {image_xscale=-1}
         else {image_xscale=1}
       }
-      else if atkTime>=2 and atkTime<=99 //End Anim
+      //else if atkTime>=2 and atkTime<=99 //End Anim
+      else if atkTime>1 and atkTime<=99 //End Anim. 60fps change: includes every frame of tick 2 (the animation started ~3/4 of a tick late at 120fps, and the attack could come a tick late)
       {
         bBody.image_index+=0.15*gDeltaTime
         if bBody.image_index>=1.5
@@ -362,7 +366,8 @@ if global.gamePaused=false
       {
         bBody.sprite_index=sDraculaBothArms
       }
-      else if atkTime>=2 and atkTime<=99 //End Anim
+      //else if atkTime>=2 and atkTime<=99 //End Anim
+      else if atkTime>1 and atkTime<=99 //End Anim. 60fps change: includes every frame of tick 2 (the animation started ~3/4 of a tick late at 120fps, and the attack could come a tick late)
       {
         bBody.image_index+=0.15*gDeltaTime
         if bBody.image_index>=3.5
@@ -469,7 +474,8 @@ if global.gamePaused=false
       with oEProjectileBase {instance_destroy()}
       oDraculaBody.bCanDealDamage=0
     }
-    else if deathAnim>=2 and deathAnim<=55
+    //else if deathAnim>=2 and deathAnim<=55
+    else if deathAnim>1 and deathAnim<=55 //60fps change: includes every frame of tick 2, not just its last one
     {
       if oGame.time mod (2/gDeltaTime)=0
       {

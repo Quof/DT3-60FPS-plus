@@ -26,9 +26,11 @@ if global.gamePaused=false
   yVel=scrGravAcc(yVel,grav,1)
 
   if xVel>0
-    image_angle-=2
+    //image_angle-=2
+    image_angle-=2*gDeltaTime //60fps change: was spinning 2x/4x as fast at 60/120fps
   else if xVel<0
-    image_angle+=2
+    //image_angle+=2
+    image_angle+=2*gDeltaTime //60fps change: was spinning 2x/4x as fast at 60/120fps
 
   if isCollisionTop(1)
     bDestroy=1
