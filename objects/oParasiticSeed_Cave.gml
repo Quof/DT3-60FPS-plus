@@ -223,7 +223,8 @@ if global.gamePaused=false
         else if attackProg=3 //Attack cycle
         {
           attackTime+=1*gDeltaTime
-          if attackTime=1
+          //if attackTime=1
+          if attackTime=gDeltaTime //60fps change: bursts on the first frame, before it starts moving (it moved one frame first at 60/120fps; the fly-off burst below already fires on the first frame)
           {
             var tNewAtk;
             for(i=0;i<8;i+=1)
@@ -438,13 +439,15 @@ if global.gamePaused=false
     {
       with oEProjectileBase {instance_destroy()}
     }
-    else if deathAnim>=2 and deathAnim<=60
+    //else if deathAnim>=2 and deathAnim<=60
+    else if deathAnim>1 and deathAnim<=60 //60fps change: covers every frame of ticks 2-60
     {
       if deathAnim mod 3=0 {playSound(global.snd_BombExplode,0,0.92,1)}
       var tEffect;
+      if gDeltaDoTicks { //60fps change (added): one explosion per tick (was 2x/4x as many at 60/120fps)
       tEffect=instance_create(x+random_range(-32,32),y+random_range(-32,32),oEffect)
       tEffect.sprite_index=sSamusSMissileHit; tEffect.image_speed=0.5; tEffect.image_xscale=0.3+random(0.3); tEffect.image_yscale=0.3+random(0.3)
-      tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+      tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0}
     }
     else if deathAnim>61
     {

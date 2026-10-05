@@ -21,7 +21,8 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-wheelAngle-=11
+//wheelAngle-=11
+wheelAngle-=11*gDeltaTime //60fps change: wheels spun 2x/4x as fast at 60/120fps
 
 if global.gamePaused=false
 {
@@ -53,7 +54,8 @@ if global.gamePaused=false
 
   if bumperProg>0
   {
-    bumperProg+=1
+    //bumperProg+=1
+    bumperProg+=1*gDeltaTime //60fps change: the bumpers that fling the player were only out for 2 frames (1/2 or 1/4 of the 30fps time) at 60/120fps, and were removed 2x/4x sooner
     if bumperProg=3
     {
       for(i=0;i<5;i+=1)

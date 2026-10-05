@@ -58,7 +58,8 @@ if global.gamePaused=false
   {
     edgeFrame+=0.33*gDeltaTime
     lifeTime+=1*gDeltaTime
-    if lifeTime>=1 and lifeTime<=34 and gDeltaDoTicks
+    //if lifeTime>=1 and lifeTime<=34 and gDeltaDoTicks
+    if lifeTime>=1 and lifeTime<=34 and frac(lifeTime)=0 //60fps change: on this laser's own ticks (34 sparks like 30fps)
     {
       var tFFScl,tEffect;
       tFFScl=random(0.1)
@@ -69,7 +70,8 @@ if global.gamePaused=false
       tEffect.fadeSpd=0.04; tEffect.image_blend=fairyLightColor
       tEffect.AccelX=0; tEffect.AccelY=0; tEffect.followID=-1; tEffect.rotation=0
     }
-    if lifeTime>=35 and gDeltaDoTicks
+    //if lifeTime>=35 and gDeltaDoTicks
+    if lifeTime>=35 //60fps change: ends at tick 35 like 30fps (the global-tick gate could keep the laser hitting for an extra frame)
     {
       var tFFScl,tEffect;
       for(i=0;i<24;i+=1)
