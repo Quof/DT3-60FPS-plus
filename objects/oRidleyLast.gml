@@ -129,7 +129,8 @@ if global.gamePaused=false
         if baseColor!=c_yellow {baseColor=c_maroon; image_blend=baseColor; event_user(0)}
       }
       else if atkTime=20 {playSound(global.snd_RidleyScreamA,0,0.98,18000)}
-      else if atkTime>=30 and atkTime<=199
+      //else if atkTime>=30 and atkTime<=199
+      else if atkTime>29 and atkTime<=199 //60fps change: includes every frame of tick 30
       {
         if atkTime=64 {ridParts[0].image_index=1}
         else if atkTime=68 {ridParts[0].image_index=0}
@@ -160,7 +161,8 @@ if global.gamePaused=false
             if myDirType=0 {tNewAttack.xVel=2+random(3)} else {tNewAttack.xVel=-2-random(3)}
           }
         }
-        if y<=216 //Stop and use fire circle
+        //if y<=216 //Stop and use fire circle
+        if y<=216 and frac(atkTime)=0 //Stop and use fire circle. 60fps change: checked at the end of each 30fps tick (after its whole 5px rise) like at 30fps, so the fire circle comes from the same height
         {
           bWave=1
           playSound(global.snd_RidleyFire,0,1,1)
@@ -217,7 +219,8 @@ if global.gamePaused=false
         var tWarnSign;
         tWarnSign=instance_create(x,yGround-16,oEfWarningPopup); tWarnSign.warnMax=35
       }
-      else if atkTime>=36 and atkTime<=99 //Hit ground
+      //else if atkTime>=36 and atkTime<=99 //Hit ground
+      else if atkTime>35 and atkTime<=99 //Hit ground. 60fps change: includes every frame of tick 36
       {
         if gDeltaDoTicks {var tAfterI;
         tAfterI=instance_create(x,y,oEnemyAfterImage)
@@ -226,7 +229,8 @@ if global.gamePaused=false
         tAfterI.xScaling=0; tAfterI.yScaling=0; tAfterI.xShift=0; tAfterI.yShift=0; tAfterI.bFollow=-1}
 
         y+=20*gDeltaTime
-        if y>=yGround-64
+        //if y>=yGround-64
+        if y>=yGround-64 and frac(atkTime)=0 //60fps change: checked at the end of each 30fps tick (after its whole 20px drop) like at 30fps (it can end up to 20px past the line); checked every frame the floor slide was higher than at 30fps
         {
           if x<oPlayer1.x {image_xscale=1} else {image_xscale=-1}
           playSound(global.snd_HardHit1,0,1,1)
@@ -244,7 +248,8 @@ if global.gamePaused=false
       else if atkTime=109 {ridParts[0].image_index=2; playSound(global.snd_RidleyScreamA,0,0.98,32000)}
       else if atkTime=136 {ridParts[0].image_index=1}
       else if atkTime=139 {ridParts[0].image_index=0}
-      else if atkTime>=149 and atkTime<=499  //Slide across floor
+      //else if atkTime>=149 and atkTime<=499  //Slide across floor
+      else if atkTime>148 and atkTime<=499  //Slide across floor. 60fps change: includes every frame of tick 149, so the fire pillars (on whole atkTime) come out at their 30fps spots
       {
 
         if gDeltaDoTicks {var tAfterI;
@@ -302,7 +307,8 @@ if global.gamePaused=false
         else {x=448; image_xscale=-1}
         y=-96
       }
-      else if atkTime>=11 and atkTime<=99 //Fly down
+      //else if atkTime>=11 and atkTime<=99 //Fly down
+      else if atkTime>10 and atkTime<=99 //Fly down. 60fps change: includes every frame of tick 11
       {
         y+=8*gDeltaTime
         if y>=192
@@ -312,7 +318,8 @@ if global.gamePaused=false
         }
       }
       else if atkTime=110 {oRidleyParts.tailType=3}
-      else if atkTime>=111 and atkTime<=140 //Track player, tail spins
+      //else if atkTime>=111 and atkTime<=140 //Track player, tail spins
+      else if atkTime>110 and atkTime<=140 //Track player, tail spins. 60fps change: includes every frame of tick 111
       {
         if atkTime=111 {playSound(global.snd_PlayerJump[0],0,1,12000)}
         else if atkTime=131 {playSound(global.snd_PlayerJump[0],0,1,12000)}
@@ -337,10 +344,13 @@ if global.gamePaused=false
         oRidleyParts.tailType=4; oRidleyParts.tailAngle=tChkDir
         playSound(global.snd_PlayerJump[0],0,1,8000)
       }
-      else if atkTime>=151 and atkTime<=160 {oRidleyParts.tailSep+=3*gDeltaTime} //Extend tail
-      else if atkTime>=161 and atkTime<=170 {oRidleyParts.tailSep-=3*gDeltaTime} //Detract tail
+      //else if atkTime>=151 and atkTime<=160 {oRidleyParts.tailSep+=3*gDeltaTime} //Extend tail
+      //else if atkTime>=161 and atkTime<=170 {oRidleyParts.tailSep-=3*gDeltaTime} //Detract tail
+      else if atkTime>150 and atkTime<=160 {oRidleyParts.tailSep+=3*gDeltaTime} //Extend tail. 60fps change: includes every frame of tick 151, so the tail stab reaches as far as at 30fps (the tip fell ~13px short at 120fps)
+      else if atkTime>160 and atkTime<=170 {oRidleyParts.tailSep-=3*gDeltaTime} //Detract tail. 60fps change: see above
       else if atkTime=171 {oRidleyParts.tailType=1}
-      else if atkTime>=175 and atkTime<=218 //Track player and use fire
+      //else if atkTime>=175 and atkTime<=218 //Track player and use fire
+      else if atkTime>174 and atkTime<=218 //Track player and use fire. 60fps change: includes every frame of tick 175
       {
         var tChkMove;
         tChkMove=point_distance(x,0,oPlayer1.x,0)
@@ -394,20 +404,24 @@ if global.gamePaused=false
         if x<xCenter {myDirType=0; image_xscale=-1}
         else {myDirType=1; image_xscale=1}
       }
-      else if atkTime>=31 and atkTime<=999 //Go to side
+      //else if atkTime>=31 and atkTime<=999 //Go to side
+      else if atkTime>30 and atkTime<=999 //Go to side. 60fps change: includes every frame of tick 31
       {
         if myDirType=0
         {
           x-=6*gDeltaTime
-          if x<=96 {image_xscale=1; atkTime=1000}
+          //if x<=96 {image_xscale=1; atkTime=1000}
+          if x<=96 and frac(atkTime)=0 {image_xscale=1; atkTime=1000} //60fps change: checked at the end of each 30fps tick like at 30fps, so the lava dive happens at the same x
         }
         else
         {
           x+=6*gDeltaTime
-          if x>=544 {image_xscale=-1; atkTime=1000}
+          //if x>=544 {image_xscale=-1; atkTime=1000}
+          if x>=544 and frac(atkTime)=0 {image_xscale=-1; atkTime=1000} //60fps change: see above
         }
       }
-      else if atkTime>=1001 and atkTime<=1999 //Go down
+      //else if atkTime>=1001 and atkTime<=1999 //Go down
+      else if atkTime>1000 and atkTime<=1999 //Go down. 60fps change: includes every frame of tick 1001
       {
         if y<368 {y+=3*gDeltaTime}
         else {y+=6*gDeltaTime}
