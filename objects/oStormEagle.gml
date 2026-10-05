@@ -209,7 +209,8 @@ if global.gamePaused=false
             x+=13*image_xscale*gDeltaTime; y+=13*gDeltaTime
             if y>=room_height+80
             {
-              currentDive+=1*gDeltaTime
+              //currentDive+=1*gDeltaTime
+              currentDive+=1 //60fps change: counts dives (once per dive), not time. Scaled by gDeltaTime it took 2x/4x as many dives (6/12 instead of 3) at 60/120fps before the attack ended
               if currentDive>=maxDive
               {
                 atkProg=500
@@ -266,7 +267,8 @@ if global.gamePaused=false
     }
     else //Special attack
     {
-      image_blend=make_color_rgb(random(255),random(255),random(255))
+      //image_blend=make_color_rgb(random(255),random(255),random(255))
+      if gDeltaDoTicks {image_blend=make_color_rgb(random(255),random(255),random(255))} //60fps change: new random color once per 30fps tick, not every frame (flashed 4x as fast at 120fps)
       specProg+=1*gDeltaTime
       if specProg=1 //Start
       {
@@ -285,9 +287,11 @@ if global.gamePaused=false
         sprite_index=sStormE_Dive; image_xscale=-1
         x=room_width+32; y=-32
       }
-      else if specProg>=211 and specProg<=399 //First zigzag pass
+      //else if specProg>=211 and specProg<=399 //First zigzag pass
+      else if specProg>210 and specProg<=399 //First zigzag pass. 60fps change: includes every frame of tick 211, so each tick's move ends on a whole specProg (see the turn check below)
       {
-        if specProg mod 3=0
+        //if specProg mod 3=0
+        if (specProg+1-gDeltaTime) mod 3=0 //60fps change: on the first frame of every 3rd tick (before that tick's move), so the bullets come from the same spots as at 30fps
         {
           var tNewAttack;
           for(i=0;i<2;i+=1)
@@ -309,6 +313,8 @@ if global.gamePaused=false
         }
 
         x-=xSpecSpd*gDeltaTime; y+=ySpecSpd*gDeltaTime
+        if frac(specProg)=0 //60fps change (added): turn around only after a whole tick's move, like at 30fps. Checking every frame turned early, so at 120fps the zigzag was smaller (y 15.5-145.5 instead of 8-148) and faster (26 ticks per zigzag instead of 28)
+        {
         if ySpecSpd>0
         {
           if y>=144 {playSound(global.snd_WindBlow,0,0.92,50000); ySpecSpd*=-1; image_yscale=-1}
@@ -317,6 +323,7 @@ if global.gamePaused=false
         {
           if y<=16 {playSound(global.snd_WindBlow,0,0.92,50000); ySpecSpd*=-1; image_yscale=1}
         }
+        } //60fps change (added)
 
         if x<=-48 {specProg=400}
       }
@@ -325,9 +332,11 @@ if global.gamePaused=false
         sprite_index=sStormE_Dive; image_xscale=1; image_yscale=1
         x=-32; y=176
       }
-      else if specProg>=421 and specProg<=699 //Second zigzag pass
+      //else if specProg>=421 and specProg<=699 //Second zigzag pass
+      else if specProg>420 and specProg<=699 //Second zigzag pass. 60fps change: see the first pass
       {
-        if specProg mod 5=0
+        //if specProg mod 5=0
+        if (specProg+1-gDeltaTime) mod 5=0 //60fps change: see the first pass
         {
           var tNewAttack;
           for(i=0;i<2;i+=1)
@@ -349,6 +358,8 @@ if global.gamePaused=false
         }
 
         x+=xSpecSpd*gDeltaTime; y+=ySpecSpd*gDeltaTime
+        if frac(specProg)=0 //60fps change (added): turn around only after a whole tick's move (see the first pass)
+        {
         if ySpecSpd>0
         {
           if y>=336 {playSound(global.snd_WindBlow,0,0.92,50000); ySpecSpd*=-1; image_yscale=-1}
@@ -357,6 +368,7 @@ if global.gamePaused=false
         {
           if y<=176 {playSound(global.snd_WindBlow,0,0.92,50000); ySpecSpd*=-1; image_yscale=1}
         }
+        } //60fps change (added)
 
         if x>=room_width+32
         {
@@ -441,7 +453,8 @@ if global.gamePaused=false
       with oEProjectileBase {instance_destroy()}
       with oAttackBase {instance_destroy()}
     }
-    else if deathAnim>=2 and deathAnim<=90
+    //else if deathAnim>=2 and deathAnim<=90
+    else if deathAnim>1 and deathAnim<=90 //60fps change: includes every frame of tick 2, not just its last one
     {
       if deathAnim mod 9=0 {playSound(global.snd_EnemyDieMM,0,1,1)}
       if oGame.time mod (3/gDeltaTime)=0

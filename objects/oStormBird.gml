@@ -45,7 +45,8 @@ if global.gamePaused=false
 
     _speed=9
     atkProg+=1*gDeltaTime
-    if atkProg=9 {_direction=player_sprite_center()}
+    //if atkProg=9 {_direction=player_sprite_center()}
+    if atkProg=8+gDeltaTime {_direction=player_sprite_center()} //60fps change: aims on the first frame of tick 9 like at 30fps (atkProg=9 is that tick's last frame, so it flew ~7px further out before turning at 120fps)
   }
   else
   {
