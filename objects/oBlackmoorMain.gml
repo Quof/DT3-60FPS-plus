@@ -164,9 +164,12 @@ if global.gamePaused=false
       moveTime+=1*gDeltaTime
       if moveCycle=0 //Stationary, then V-shape
       {
-        if moveTime>=241 and moveTime<=300 {y-=0.25*gDeltaTime}
-        else if moveTime>=301 and moveTime<=330 {x+=0.25*gDeltaTime; y+=0.25*gDeltaTime}
-        else if moveTime>=331 and moveTime<=360
+        //if moveTime>=241 and moveTime<=300 {y-=0.25*gDeltaTime}
+        if moveTime>240 and moveTime<=300 {y-=0.25*gDeltaTime} //60fps change: windows include every frame of their first tick; with >= each lost 3/4 of a tick at 120fps, so the rise and the V didn't cancel and the body crept upward
+        //else if moveTime>=301 and moveTime<=330 {x+=0.25*gDeltaTime; y+=0.25*gDeltaTime}
+        else if moveTime>300 and moveTime<=330 {x+=0.25*gDeltaTime; y+=0.25*gDeltaTime} //60fps change: see above
+        //else if moveTime>=331 and moveTime<=360
+        else if moveTime>330 and moveTime<=360 //60fps change: see above
         {
           x-=0.25*gDeltaTime; y+=0.25*gDeltaTime
           if moveTime=360 {moveTime=0; moveCycle+=1}
@@ -176,7 +179,8 @@ if global.gamePaused=false
       {
         if moveTime=210 or moveTime=270 or moveTime=330 {instance_create(x,despY1,oBlackmoorSword)}
 
-        if moveTime>=201 and moveTime<=220
+        //if moveTime>=201 and moveTime<=220
+        if moveTime>200 and moveTime<=220 //60fps change: includes every frame of tick 201, so the dash covers the full 80px (77px at 120fps)
         {
           if moveTime=201
           {
@@ -189,7 +193,8 @@ if global.gamePaused=false
           x+=4*gDeltaTime
         }
         else if moveTime=401 {warnCircle=80}
-        else if moveTime>=431 and moveTime<=450
+        //else if moveTime>=431 and moveTime<=450
+        else if moveTime>430 and moveTime<=450 //60fps change: same for the dash back
         {
           if moveTime=431
           {
@@ -355,7 +360,8 @@ if global.gamePaused=false
       with oBlackmoorSword {instance_destroy()}
       with oEnemyBase {bCanDealDamage=false}
     }
-    else if deathAnim>=2 and deathAnim<=55
+    //else if deathAnim>=2 and deathAnim<=55
+    else if deathAnim>1 and deathAnim<=55 //60fps change: includes every frame of tick 2, not just its last one
     {
       if oGame.time mod (2/gDeltaTime)=0
       {
@@ -393,18 +399,21 @@ applies_to=self
 */
 //-- ATTACK: DOUBLE ARM SWING --
 dArmSwingProg+=1*gDeltaTime
-if dArmSwingProg>=1 and dArmSwingProg<=30
+//if dArmSwingProg>=1 and dArmSwingProg<=30
+if dArmSwingProg>0 and dArmSwingProg<=30 //60fps change: windows include every frame of their first tick, so the body/arm angles return exactly to where they started (they crept a little after every swing at 120fps)
 {
   image_angle-=1*gDeltaTime
   bShoulderL.atkAngle+=0.5*gDeltaTime
   bForearmL.atkAngle-=0.5*gDeltaTime
 }
-else if dArmSwingProg>=41 and dArmSwingProg<=60 //Left arm swing
+//else if dArmSwingProg>=41 and dArmSwingProg<=60 //Left arm swing
+else if dArmSwingProg>40 and dArmSwingProg<=60 //Left arm swing. 60fps change: see above
 {
   image_angle+=2*gDeltaTime
   bShoulderL.atkAngle-=4*gDeltaTime
 }
-else if dArmSwingProg>=71 and dArmSwingProg<=90 //Right arm swing
+//else if dArmSwingProg>=71 and dArmSwingProg<=90 //Right arm swing
+else if dArmSwingProg>70 and dArmSwingProg<=90 //Right arm swing. 60fps change: see above
 {
   image_angle-=0.5*gDeltaTime
   bShoulderL.atkAngle+=2*gDeltaTime
@@ -412,7 +421,8 @@ else if dArmSwingProg>=71 and dArmSwingProg<=90 //Right arm swing
   bShoulderR.atkAngle-=4*gDeltaTime
   bForearmR.atkAngle-=2*gDeltaTime
 }
-else if dArmSwingProg>=91 and dArmSwingProg<=110
+//else if dArmSwingProg>=91 and dArmSwingProg<=110
+else if dArmSwingProg>90 and dArmSwingProg<=110 //60fps change: see above
 {
   bShoulderL.atkAngle+=1.25*gDeltaTime
   bForearmL.atkAngle+=0.25*gDeltaTime
@@ -432,7 +442,8 @@ applies_to=self
 */
 //-- ATTACK: METEOR SUMMON (With arms) --
 armMeteorProg+=1*gDeltaTime
-if armMeteorProg>=1 and armMeteorProg<=30
+//if armMeteorProg>=1 and armMeteorProg<=30
+if armMeteorProg>0 and armMeteorProg<=30 //60fps change: windows include every frame of their first tick, so the angles return exactly to where they started
 {
   if armMeteorProg=1 {playSound(global.snd_DemonLaugh,0,0.92,12000)}
   image_angle-=0.5*gDeltaTime
@@ -441,7 +452,8 @@ if armMeteorProg>=1 and armMeteorProg<=30
   bShoulderR.atkAngle+=1*gDeltaTime
   bForearmR.atkAngle+=0.25*gDeltaTime
 }
-else if armMeteorProg>=51 and armMeteorProg<=70
+//else if armMeteorProg>=51 and armMeteorProg<=70
+else if armMeteorProg>50 and armMeteorProg<=70 //60fps change: see above (meteors still spawn at exactly 51)
 {
   image_angle+=1*gDeltaTime
   bShoulderL.atkAngle+=2*gDeltaTime
@@ -460,7 +472,8 @@ else if armMeteorProg>=51 and armMeteorProg<=70
     }
   }
 }
-else if armMeteorProg>=71 and armMeteorProg<=80
+//else if armMeteorProg>=71 and armMeteorProg<=80
+else if armMeteorProg>70 and armMeteorProg<=80 //60fps change: see above
 {
   image_angle-=0.5*gDeltaTime
   bShoulderL.atkAngle-=1*gDeltaTime
@@ -554,7 +567,8 @@ applies_to=self
 event_inherited()
 if warnCircle>0
 {
-  warnCircle-=4
+  //warnCircle-=4
+  warnCircle-=4*gDeltaTime //60fps change: Draw runs every frame, so the warning circle shrank 2x/4x as fast at 60/120fps
   draw_set_color(c_black)
   draw_set_alpha(0.2)
   draw_circle(x-32,y-32,warnCircle,0)
