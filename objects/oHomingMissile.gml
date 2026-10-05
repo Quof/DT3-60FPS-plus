@@ -41,9 +41,11 @@ if global.gamePaused=false
   _speed=bulletSpeed
   image_angle=_direction
   atkProg+=1*gDeltaTime
-  if atkProg>=targetTime
+  //if atkProg>=targetTime
+  if atkProg>targetTime-1 //60fps change: homing starts on the first frame of tick targetTime like at 30fps (see oEnmityMissile)
   {
-    if oGame.time mod (3*gDeltaTime)=0
+    //if oGame.time mod (3*gDeltaTime)=0
+    if oGame.time mod (3/gDeltaTime)=0 //60fps change: was multiplied instead of divided, so the trail spawned every 3 frames (4x at 120fps) instead of every 3 ticks
     {
       var tEffect;
       tEffect=instance_create(x,y,oEffect)
@@ -87,7 +89,8 @@ if global.gamePaused=false
     instance_destroy()
   }
 
-  _speed=0
+  //_speed=0
+  //60fps change: removed the "_speed=0" above; it ran every step right before correctSpeedDirection, so these missiles never moved
 
 }
 else {_speed=0; _speed=0}

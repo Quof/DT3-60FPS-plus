@@ -70,8 +70,10 @@ if global.gamePaused=false
       followInstance()
       shotTime+=1*gDeltaTime
       if shotTime=shotDelay {shotDir=0; warnRad=96; shotTime=1000}
-      else if shotTime>=1001 and shotTime<=1048 {warnRad-=2*gDeltaTime}
-      else if shotTime>=1050 and shotTime<=1120 and gDeltaDoTicks
+      //else if shotTime>=1001 and shotTime<=1048 {warnRad-=2*gDeltaTime}
+      else if shotTime>1000 and shotTime<=1048 {warnRad-=2*gDeltaTime} //60fps change: includes every frame of tick 1001, so the warning circle shrinks all the way
+      //else if shotTime>=1050 and shotTime<=1120 and gDeltaDoTicks
+      else if shotTime>1049 and shotTime<=1120 and frac(shotTime)=0 //60fps change: one shot pair per 30fps tick counted from shotTime itself (71 pairs, like at 30fps; gDeltaDoTicks gave 70 or 71, so the spiral could end 8 degrees short)
       {
         playSound(global.snd_CShotB,0,0.9,60000)
         var tNewAttack;

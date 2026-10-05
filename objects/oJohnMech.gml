@@ -97,7 +97,8 @@ if global.gamePaused=false
     }
 
     rapidFire+=1*gDeltaTime
-    if rapidFire>=190 and rapidFire<=220 and gDeltaDoTicks
+    //if rapidFire>=190 and rapidFire<=220 and gDeltaDoTicks
+    if rapidFire>=190 and rapidFire<=220 and frac(rapidFire)=0 //60fps change: flashes on this counter's own ticks (31 toggles like 30fps)
     {
       if gunBlend=c_white {gunBlend=c_red}
       else {gunBlend=c_white}

@@ -34,7 +34,8 @@ if global.gamePaused=false
   if place_meeting(x,y,oNightmareEffect) {_speed=bulletSpeed/2}
   else {_speed=bulletSpeed}
   image_angle=_direction
-  _speed=0
+  //_speed=0
+  //60fps change: removed the "_speed=0" above; it ran every step right before correctSpeedDirection, so red bullets never moved
 }
 else {_speed=0; _speed=0}
 correctSpeedDirection(self)

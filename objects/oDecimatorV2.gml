@@ -110,7 +110,8 @@ if global.gamePaused=false
     else if bossProgress=1 //---------- Before John shows up ----------
     {
       laserSpamTime+=1*gDeltaTime
-      if laserSpamTime>=laserSpamDelay and gDeltaDoTicks
+      //if laserSpamTime>=laserSpamDelay and gDeltaDoTicks
+      if laserSpamTime>=laserSpamDelay and frac(laserSpamTime)=0 //60fps change: shots on this counter's own ticks, so the spread starts/resets on the same ticks as 30fps
       {
         playSound(global.snd_CShotB,0,0.9,60000)
         var tNewAttack;
@@ -344,7 +345,8 @@ if life<=0 //Defeat animation
     with oEProjectileBase {instance_destroy()}
     with oAttackBase {instance_destroy()}
   }
-  else if deathAnim>=2 and deathAnim<=60
+  //else if deathAnim>=2 and deathAnim<=60
+  else if deathAnim>1 and deathAnim<=60 //60fps change: covers every frame of ticks 2-60
   {
     if deathAnim mod 3=0 {playSound(global.snd_BombExplode,0,0.92,1)}
     if oGame.time mod (2/gDeltaTime)=0

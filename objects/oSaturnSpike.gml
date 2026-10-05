@@ -21,7 +21,8 @@ applies_to=self
 if global.gamePaused=false
 {
   _speed=9
-  _speed=0
+  //_speed=0
+  //60fps change: removed the "_speed=0" above; it ran every step right before correctSpeedDirection, so the spike never moved
   decayTime-=1*gDeltaTime
   if decayTime<=0 {instance_destroy()}
 }

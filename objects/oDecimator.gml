@@ -436,11 +436,15 @@ if life<=0 //Defeat animation
   else if deathAnim>=81
   {
     var tAfterI;
+    if gDeltaDoTicks //60fps change (added): one afterimage per 30fps tick (was every frame)
+    {
     tAfterI=instance_create(x,y,oEnemyAfterImage)
     tAfterI.sprite_index=sprite_index; tAfterI.image_blend=c_green
     tAfterI.image_alpha=0.5; tAfterI.image_xscale=image_xscale; tAfterI.depth=26; tAfterI.imageFade=0.05
     tAfterI.xScaling=0; tAfterI.yScaling=0; tAfterI.xShift=0; tAfterI.yShift=0; tAfterI.bFollow=0
-    x+=8
+    } //60fps change (added)
+    //x+=8
+    x+=8*gDeltaTime //60fps change: was never scaled, so the dash through the wall into the next fight was 2x/4x as fast
     if endSeq=0
     {
       if x>=544

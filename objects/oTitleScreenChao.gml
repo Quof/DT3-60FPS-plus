@@ -22,10 +22,13 @@ if moveProg=30
   _direction=175
   _speed=3.5
 }
-else if moveProg>=111 and moveProg<=190
+//else if moveProg>=111 and moveProg<=190
+else if moveProg>110 and moveProg<=190 //60fps change: covers every frame of ticks 111-190
 {
-  _direction-=0.5
-  _speed-=0.015
+  //_direction-=0.5
+  //_speed-=0.015
+  _direction-=0.5*gDeltaTime //60fps change: the curve turned 2x/4x as much at 60/120fps
+  _speed-=0.015*gDeltaTime //60fps change: and slowed 2x/4x as much
 }
 else if moveProg=320
 {
@@ -60,7 +63,8 @@ else if moveProg>=1000 and moveProg<=9000
     moveProg=10000
   }
 }
-_speed=0
+//_speed=0
+//60fps change: removed the "_speed=0" above; it ran every step after the movement code set _speed, so the title screen Chao never moved (it used to be "speed=0", stopping GM's built-in motion while this object moved itself; renaming it to _speed=0 zeroed the speed instead)
 
 //----- Effect -----
 effectDelay+=1*gDeltaTime

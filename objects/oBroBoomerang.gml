@@ -86,7 +86,8 @@ if global.gamePaused=false
     if !instance_exists(myThrower) {instance_destroy()}
   }
   _speed=bulletSpeed
-  _speed=0
+  //_speed=0
+  //60fps change: removed the "_speed=0" above; it ran every step right before correctSpeedDirection, so the boomerang never moved
   image_angle-=20*type*gDeltaTime
 }
 else {_speed=0; _speed=0}

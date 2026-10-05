@@ -112,7 +112,8 @@ if global.gamePaused=false
         }
         shotTime=0
       }
-      else if shotTime>=2031 and shotTime<=2100 and gDeltaDoTicks //Orange
+      //else if shotTime>=2031 and shotTime<=2100 and gDeltaDoTicks //Orange
+      else if shotTime>2030 and shotTime<=2100 and frac(shotTime)=0 //Orange. 60fps change: one flame pair per 30fps tick counted from shotTime itself (40 pairs, like at 30fps); gDeltaDoTicks gave 39 or 40
       {
         var tNewAttack;
         for(i=0;i<2;i+=1)
@@ -164,7 +165,8 @@ if global.gamePaused=false
   }
   else if life<=0
   {
-    deathAnim+=1
+    //deathAnim+=1
+    deathAnim+=1*gDeltaTime //60fps change: was never scaled (the death explosions, every 4 ticks, came 4x as often at 120fps)
     if deathAnim mod 4=0
     {
       if deathAnim mod 8=0 {playSound(global.snd_HardHit1,0,0.9,1)}
