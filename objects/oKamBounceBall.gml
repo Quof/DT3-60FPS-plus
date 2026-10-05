@@ -48,10 +48,13 @@ if global.gamePaused=false
     }
     else if atkProg=1000 //Bounce around room
     {
-      var tEffect;
-      tEffect=instance_create(x,y,oEffectB)
-      tEffect.type=3; tEffect.sprite_index=sKamAtkBFade; tEffect.newBlend=-1; tEffect.fadeSpd=0.1
-      tEffect.AccelX=0; tEffect.AccelY=0; tEffect.followID=-1; tEffect.rotation=0; tEffect.depth=26
+      if gDeltaDoTicks //trail once per 30fps tick, not every frame
+      {
+        var tEffect;
+        tEffect=instance_create(x,y,oEffectB)
+        tEffect.type=3; tEffect.sprite_index=sKamAtkBFade; tEffect.newBlend=-1; tEffect.fadeSpd=0.1
+        tEffect.AccelX=0; tEffect.AccelY=0; tEffect.followID=-1; tEffect.rotation=0; tEffect.depth=26
+      }
 
       if isCollisionBottom(1)
       {
@@ -91,11 +94,14 @@ if global.gamePaused=false
   }
   else if projType=1 //Summoned by wand
   {
-    var tEffect;
-    tEffect=instance_create(x,y,oEffectB)
-    tEffect.type=3; tEffect.sprite_index=sprite_index; tEffect.image_index=image_index; tEffect.depth=26
-    tEffect.AccelX=0; tEffect.AccelY=0; tEffect.followID=-1; tEffect.rotation=0; tEffect.newBlend=-1; tEffect.fadeSpd=0.1
-    tEffect.image_speed=0; tEffect.image_alpha=0.6; tEffect.image_angle=image_angle
+    if gDeltaDoTicks //trail once per 30fps tick, not every frame
+    {
+      var tEffect;
+      tEffect=instance_create(x,y,oEffectB)
+      tEffect.type=3; tEffect.sprite_index=sprite_index; tEffect.image_index=image_index; tEffect.depth=26
+      tEffect.AccelX=0; tEffect.AccelY=0; tEffect.followID=-1; tEffect.rotation=0; tEffect.newBlend=-1; tEffect.fadeSpd=0.1
+      tEffect.image_speed=0; tEffect.image_alpha=0.6; tEffect.image_angle=image_angle
+    }
     _speed=bulletSpeed
 
     image_angle+=10*gDeltaTime
