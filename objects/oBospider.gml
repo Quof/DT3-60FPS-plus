@@ -32,6 +32,7 @@ imageEffect=0
 eyeFrm=0
 legFrm=0
 moveSpd=4
+mvBudget=0 //60fps change (added): pixels still to move this tick while climbing down (see Step)
 
 webUsed=0
 dirMove=0
@@ -190,9 +191,16 @@ if global.gamePaused=false
     {
       legFrm+=(0.2+(moveSpd/30))*gDeltaTime
       var tClosestWeb,tDistToWebX,tDistToWebY;
-      for(i=0;i<moveSpd;i+=1)
+      //for(i=0;i<moveSpd;i+=1)
+      //{
+      //  if gDeltaDoTicks y+=1
+      //60fps change: move moveSpd px per 30fps tick spread over the tick's frames (1px steps, checking for webs at every pixel
+      //like the original), instead of all moveSpd px on one frame of every 4 at 120fps (choppy). Exactly moveSpd px per tick.
+      mvBudget+=moveSpd*gDeltaTime //60fps change (added)
+      while mvBudget>=1 //60fps change: was the for loop above
       {
-        if gDeltaDoTicks y+=1
+        mvBudget-=1 //60fps change (added)
+        y+=1 //60fps change: was "if gDeltaDoTicks y+=1"
         tClosestWeb=instance_position(x,y,oBospiderWeb)
         if tClosestWeb!=noone
         {
@@ -205,6 +213,7 @@ if global.gamePaused=false
             if x>tClosestWeb.x+21 {dirMove=1}
             else {dirMove=2}
             atkProg=4
+            mvBudget=0 //60fps change (added): don't carry leftover movement into the next descent
             break;
           }
         }
@@ -212,6 +221,7 @@ if global.gamePaused=false
         if y>=224
         {
           atkProg=5
+          mvBudget=0 //60fps change (added)
           break;
         }
       }
@@ -311,7 +321,8 @@ if global.gamePaused=false
       with oEProjectileBase {instance_destroy()}
       with oAttackBase {instance_destroy()}
     }
-    else if deathAnim>=2 and deathAnim<=90
+    //else if deathAnim>=2 and deathAnim<=90
+    else if deathAnim>1 and deathAnim<=90 //60fps change: includes every frame of tick 2, not just its last one
     {
       if deathAnim mod 9=0 {playSound(global.snd_EnemyDieMM,0,1,1)}
       if oGame.time mod (3/gDeltaTime)=0
