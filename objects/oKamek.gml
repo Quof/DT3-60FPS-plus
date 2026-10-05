@@ -60,7 +60,8 @@ if global.gamePaused=false
 
   if sprite_index=sKamekHit and hitStateTime>0 and life>0
   {
-    hitStateTime-=1*gDeltaTime
+    //hitStateTime-=1
+    hitStateTime-=1*gDeltaTime //60fps change: scaled
     if hitStateTime=0 {sprite_index=sKamekIdle}
   }
 
@@ -166,7 +167,8 @@ if global.gamePaused=false
     {
       if atkTime=30 {sprite_index=sKamekHandsUp; bShadow=1}
       else if atkTime=50 {playSound(global.snd_DemonLaugh,0,1,10000)}
-      else if atkTime>50 and atkTime<=110 {shadowScl+=0.05*gDeltaTime} //(>50 so all frames of the first tick count above 30fps)
+      //else if atkTime>=51 and atkTime<=110 {shadowScl+=0.05*gDeltaTime}
+      else if atkTime>50 and atkTime<=110 {shadowScl+=0.05*gDeltaTime} //60fps change: >50 so all frames of the first tick count
       else if atkTime>=120 {atkTime=0; moveType=3}
     }
     else if moveType=3 //Meteor shower
@@ -329,7 +331,7 @@ if bCanTakeDamage=true
             else
               yVel=-6.5
           }
-          if gDeltaTime!=1 {yVel+=gravityIntensity*0.5} //stomp bounce: same half-gravity correction as the player's own jumps above 30fps (pMoveDoubleJump)
+          if gDeltaTime!=1 {yVel+=gravityIntensity*0.5} //60fps change (added): stomp bounce: same half-gravity correction as the player's own jumps above 30fps (pMoveDoubleJump)
           scrSlowFall(5,0.4,0)
         }
         //Damage effect
@@ -471,14 +473,17 @@ if bShadow=1 //Shadow
 draw_sprite_ext(sprite_index,image_index,x,y,image_xscale,image_yscale,image_angle,image_blend,image_alpha)
 if wandState=2 //Barrier
 {
-  shieldAnim+=0.2*gDeltaTime
+  //shieldAnim+=0.2
+  shieldAnim+=0.2*gDeltaTime //60fps change: scaled
   draw_sprite_ext(sWaterBarrier,shieldAnim,x,y-21,image_xscale,image_yscale,image_angle,image_blend,0.33)
 }
 
 if shockPass=1000 //Fire charge effect
 {
   var tEfAlpha,tEfScl;
-  //flicker per 30fps tick (oGame.time counts frames, which made it flicker 2-4x faster above 30fps)
+  //if oGame.time mod 2=0 {tEfAlpha=0.4} else {tEfAlpha=0.6}
+  //if oGame.time mod 3=0 {tEfScl=1} else {tEfScl=1.2}
+  //60fps change: flicker per 30fps tick (oGame.time counts frames, which made it flicker 2-4x faster above 30fps)
   if oGame.time30 mod 2=0 {tEfAlpha=0.4} else {tEfAlpha=0.6}
   if oGame.time30 mod 3=0 {tEfScl=1} else {tEfScl=1.2}
   draw_sprite_ext(sEfPowerWave,0,x,y,tEfScl,tEfScl,0,c_white,tEfAlpha)

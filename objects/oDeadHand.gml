@@ -105,7 +105,7 @@ if global.gamePaused=false
       {
         if atkTime=31 {playSound(global.snd_Earthquake,0,1,44100)}
         var tEffect,tXspd;
-        if gDeltaDoTicks //dust once per 30fps tick (was every frame)
+        if gDeltaDoTicks //60fps change (added): dust once per 30fps tick (was every frame)
         {
           tEffect=instance_create(x-8+random_range(-15,15),yGround+random_range(-3,15),oEffect)
           tEffect.sprite_index=sZeldaEnemyDie; tEffect.image_speed=0.25; tEffect.image_blend=c_gray
@@ -240,7 +240,7 @@ if global.gamePaused=false
     {
       bCanDealDamage=false; bCanTakeDamage=false
       var tEffect,tXspd;
-      if gDeltaDoTicks //dust once per 30fps tick (was every frame)
+      if gDeltaDoTicks //60fps change (added): dust once per 30fps tick (was every frame)
       {
         tEffect=instance_create(x-8+random_range(-15,15),yGround+random_range(-3,15),oEffect)
         tEffect.sprite_index=sZeldaEnemyDie; tEffect.image_speed=0.25; tEffect.image_blend=c_gray
@@ -296,7 +296,7 @@ if global.gamePaused=false
         if bigHandScl<5 {bigHandScl+=0.2*gDeltaTime}
 
         var tEffect,tXspd;
-        if gDeltaDoTicks //dust once per 30fps tick (was every frame)
+        if gDeltaDoTicks //60fps change (added): dust once per 30fps tick (was every frame)
         {
           tEffect=instance_create(x-8+random_range(-15,15),yCeiling+random_range(-3,15),oEffect)
           tEffect.sprite_index=sZeldaEnemyDie; tEffect.image_speed=0.25; tEffect.image_blend=c_gray
@@ -357,7 +357,7 @@ if global.gamePaused=false
       if bigHandScl>0 {bigHandScl-=0.2*gDeltaTime}
 
       var tEffect,tXspd;
-      if gDeltaDoTicks //dust once per 30fps tick (was every frame)
+      if gDeltaDoTicks //60fps change (added): dust once per 30fps tick (was every frame)
       {
         tEffect=instance_create(x-8+random_range(-15,15),yCeiling+random_range(-3,15),oEffect)
         tEffect.sprite_index=sZeldaEnemyDie; tEffect.image_speed=0.25; tEffect.image_blend=c_gray

@@ -25,7 +25,7 @@ hopTime=0
 fireTime=-10
 fireDelay=45
 jumpNum=1
-jumpTk=0
+jumpTk=0 //60fps change (added): ticks since the jump started (see the Jump section)
 
 bottomBlocks=-1
 
@@ -89,7 +89,8 @@ if global.gamePaused=false
           if xSpd<2 {xSpd=2}
           else if xSpd>8 {xSpd=8}
           sprite_index=sBowserStand; image_index=1
-          atkTime=0; atkProg+=1; jumpTk=0
+          //atkTime=0; atkProg+=1
+          atkTime=0; atkProg+=1; jumpTk=0 //60fps change: also reset jumpTk
         }
       }
       else //Hop
@@ -155,7 +156,9 @@ if global.gamePaused=false
     }
     else if atkProg=1 //---------- Jump ----------
     {
-      //The decisions (still rising? which way?) and the "found spot" check happen once per 30fps tick, counted from the
+      //if y>144 {y-=12*gDeltaTime}
+      //if x<xDropSpot
+      //60fps change: the decisions (still rising? which way?) and the "found spot" check happen once per 30fps tick, counted from the
       //start of the jump, like at 30fps; above 30fps the moves in between are split over the tick's frames. (Checking
       //every frame stopped him at a different x, and move_snap(16) below could then pick a different 16px column to stomp)
       if frac(jumpTk)=0 {jumpRise=(y>144); jumpRight=(x<xDropSpot)}
@@ -170,8 +173,9 @@ if global.gamePaused=false
         image_xscale=-1
         x-=xSpd*gDeltaTime
       }
-      jumpTk+=gDeltaTime
-      if frac(jumpTk)=0 and point_distance(x,0,xDropSpot,0)<12 //found spot
+      //if point_distance(x,0,xDropSpot,0)<12 //found spot
+      jumpTk+=gDeltaTime //60fps change (added)
+      if frac(jumpTk)=0 and point_distance(x,0,xDropSpot,0)<12 //found spot. 60fps change: only at the end of a 30fps tick of the jump
       {
         move_snap(16,1)
         sprite_index=sBowserStomp; image_index=0
@@ -251,7 +255,8 @@ if global.gamePaused=false
     if bottomBlocks>=0 and bottomBlocks<=99
     {
       bottomBlocks+=1*gDeltaTime
-      if bottomBlocks>0 and bottomBlocks<=16 //Move bottom blocks down (16 ticks; >0 so all frames of the first tick count above 30fps)
+      //if bottomBlocks>=1 and bottomBlocks<=16 //Move bottom blocks down
+      if bottomBlocks>0 and bottomBlocks<=16 //Move bottom blocks down. 60fps change: >0 so all frames of the first tick count (16 ticks = 16px)
       {
         var tInsCheck;
         tInsCheck=455498
@@ -289,7 +294,8 @@ if global.gamePaused=false
     else if bottomBlocks>=200 and bottomBlocks<=400
     {
       bottomBlocks+=1*gDeltaTime
-      if bottomBlocks>280 and bottomBlocks<=296 //Move bottom blocks up (16 ticks, see above)
+      //if bottomBlocks>=281 and bottomBlocks<=296 //Move bottom blocks up
+      if bottomBlocks>280 and bottomBlocks<=296 //Move bottom blocks up. 60fps change: >280 (see above)
       {
         var tInsCheck;
         tInsCheck=455498

@@ -69,7 +69,8 @@ if global.gamePaused=false
     }
 
     moveTime+=1*gDeltaTime
-    if moveTime>moveThres-1 and moveTime<=moveThres+15 //16 ticks of walking (>moveThres-1 so all frames of the first tick count above 30fps)
+    //if moveTime>=moveThres and moveTime<=moveThres+15
+    if moveTime>moveThres-1 and moveTime<=moveThres+15 //60fps change: >moveThres-1 so all frames of the first tick count (16 ticks of walking)
     {
       image_speed=0.2
       if image_xscale=1

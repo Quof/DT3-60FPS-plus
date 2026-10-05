@@ -56,7 +56,8 @@ if global.gamePaused=false
   }
 
   //_speed=bulletSpeed
-  _speed=bulletSpeed //(correctSpeedDirection already scales by gDeltaTime; this was scaled twice)
+  //_speed=bulletSpeed*gDeltaTime
+  _speed=bulletSpeed //60fps change: correctSpeedDirection already scales by gDeltaTime; this was scaled twice
 
   //image_angle=direction
   image_angle=_direction

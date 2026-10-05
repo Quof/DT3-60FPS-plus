@@ -47,7 +47,8 @@ if global.gamePaused=false
     if hitStateTime>0
     {
       hitStateTime-=1*gDeltaTime
-      if floor(hitStateTime) mod 2=0 {image_alpha=0.5} //(floor: alternate per 30fps tick)
+      //if hitStateTime mod 2=0 {image_alpha=0.5}
+      if floor(hitStateTime) mod 2=0 {image_alpha=0.5} //60fps change: floor, so it alternates per 30fps tick
       else {image_alpha=0.75}
       if hitStateTime=0
       {
@@ -71,8 +72,10 @@ if global.gamePaused=false
     else if atkSequence=1 //---------- Wander back and forth ----------
     {
       image_angle+=10*gDeltaTime
-      if x>oPlayer1.x and xVel>-3 {xVel-=0.2*gDeltaTime}
-      else if x<oPlayer1.x and xVel<3 {xVel+=0.2*gDeltaTime}
+      //if x>oPlayer1.x and xVel>-3 {xVel-=0.2}
+      //else if x<oPlayer1.x and xVel<3 {xVel+=0.2}
+      if x>oPlayer1.x and xVel>-3 {xVel-=0.2*gDeltaTime} //60fps change: scaled
+      else if x<oPlayer1.x and xVel<3 {xVel+=0.2*gDeltaTime} //60fps change: scaled
       x+=xVel*gDeltaTime
       if atkTime>=60 {atkTime=0; atkSequence+=1}
     }
@@ -106,7 +109,8 @@ if global.gamePaused=false
     }
     else if atkSequence=3 //---------- Attack: Lightning ----------
     {
-      image_angle+=10*gDeltaTime
+      //image_angle+=10
+      image_angle+=10*gDeltaTime //60fps change: scaled
       if atkTime>=1 and atkTime<=197 //Hover to sides
       {
         if x<=oKamek.xCenter
@@ -128,7 +132,8 @@ if global.gamePaused=false
         tAtkLight.type=0; tAtkLight.warnTime=35; tAtkLight.decay=15
         atkTime=200
       }
-      else if atkTime>=201 and atkTime<=220 and gDeltaDoTicks //Wand sparkles (once per 30fps tick)
+      //else if atkTime>=201 and atkTime<=220 //Wand sparkles
+      else if atkTime>=201 and atkTime<=220 and gDeltaDoTicks //Wand sparkles. 60fps change: once per 30fps tick
       {
         var tEffect;
         tEffect=instance_create(x,y-10,oEffect)
@@ -147,7 +152,9 @@ if global.gamePaused=false
       else if atkTime>=15 and atkTime<=199 //Swoop
       {
         image_angle+=10*gDeltaTime
-        //moves, then slows its descent / speeds its climb by 0.1 per tick (scrTickAcc, scrTickAccBPre: moves first)
+        //x+=xVel*gDeltaTime; y+=yVel*gDeltaTime
+        //if yVel>-5 {yVel-=0.1}
+        //60fps change: moves, then slows its descent / speeds its climb by 0.1 per tick (scrTickAcc, scrTickAccBPre: moves first)
         if gDeltaTime!=1 {yVel=scrTickAcc(yVel,-0.1*(yVel>-5),0)}
         x+=xVel*gDeltaTime; y+=(yVel+scrTickAccBPre(0))*gDeltaTime
         if gDeltaTime==1 {if yVel>-5 {yVel-=0.1}}
@@ -160,7 +167,8 @@ if global.gamePaused=false
     }
     else if atkSequence=5 //---------- Float back up (after getting hit) ----------
     {
-      y-=2*gDeltaTime
+      //y-=2
+      y-=2*gDeltaTime //60fps change: scaled
       if y<=oKamek.yGround-158
       {
         y=oKamek.yGround-158
@@ -244,7 +252,7 @@ if bCanTakeDamage=true
               else
                 yVel=-6.5
             }
-            if gDeltaTime!=1 {yVel+=gravityIntensity*0.5} //stomp bounce: same half-gravity correction as the player's own jumps above 30fps (pMoveDoubleJump)
+            if gDeltaTime!=1 {yVel+=gravityIntensity*0.5} //60fps change (added): stomp bounce: same half-gravity correction as the player's own jumps above 30fps (pMoveDoubleJump)
           }
 
           //Damage effect

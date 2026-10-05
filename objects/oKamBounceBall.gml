@@ -48,7 +48,7 @@ if global.gamePaused=false
     }
     else if atkProg=1000 //Bounce around room
     {
-      if gDeltaDoTicks //trail once per 30fps tick, not every frame
+      if gDeltaDoTicks //60fps change (added): trail once per 30fps tick, not every frame
       {
         var tEffect;
         tEffect=instance_create(x,y,oEffectB)
@@ -94,7 +94,7 @@ if global.gamePaused=false
   }
   else if projType=1 //Summoned by wand
   {
-    if gDeltaDoTicks //trail once per 30fps tick, not every frame
+    if gDeltaDoTicks //60fps change (added): trail once per 30fps tick, not every frame
     {
       var tEffect;
       tEffect=instance_create(x,y,oEffectB)

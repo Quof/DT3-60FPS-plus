@@ -72,7 +72,8 @@ if global.gamePaused=false
   {
     if timeTillReHit>0 //Set after dealing damage to Cackletta and keeps the player from falling on her again and taking damage
     {
-      timeTillReHit-=1*gDeltaTime
+      //timeTillReHit-=1
+      timeTillReHit-=1*gDeltaTime //60fps change: scaled
       if timeTillReHit=0 {bCanDealDamage=true}
     }
 
@@ -263,15 +264,18 @@ if global.gamePaused=false
         newLoc=lightTeleX[currentTele]
         currentTele+=1
         if currentTele>=5 {currentTele=0}
-        if life=1 {atkTime+=5} //one-off skip ahead, so not scaled
+        //if life=1 {atkTime+=5*gDeltaTime}
+        if life=1 {atkTime+=5} //60fps change: one-off skip ahead, so not scaled
       }
       else if atkTime>=20 and atkTime<=90 //Go to new location
       {
         var tMoveSpd;
         if life=1 {tMoveSpd=16}
         else {tMoveSpd=8}
-        if x<newLoc {x+=tMoveSpd*gDeltaTime; if gDeltaTime!=1 and x>newLoc {x=newLoc}}
-        else {x-=tMoveSpd*gDeltaTime; if gDeltaTime!=1 and x<newLoc {x=newLoc}}
+        //if x<newLoc {x+=tMoveSpd*gDeltaTime}
+        //else {x-=tMoveSpd*gDeltaTime}
+        if x<newLoc {x+=tMoveSpd*gDeltaTime; if gDeltaTime!=1 and x>newLoc {x=newLoc}} //60fps change: stop exactly on newLoc above 30fps
+        else {x-=tMoveSpd*gDeltaTime; if gDeltaTime!=1 and x<newLoc {x=newLoc}} //60fps change (see above)
 
         if oGame.time mod (1/gDeltaTime)=0 {
             var tAfterI;
@@ -343,8 +347,10 @@ if global.gamePaused=false
         var tMoveSpd;
         if life=1 {tMoveSpd=16}
         else {tMoveSpd=8}
-        if x<newLoc {x+=tMoveSpd*gDeltaTime; if gDeltaTime!=1 and x>newLoc {x=newLoc}}
-        else {x-=tMoveSpd*gDeltaTime; if gDeltaTime!=1 and x<newLoc {x=newLoc}}
+        //if x<newLoc {x+=tMoveSpd*gDeltaTime}
+        //else {x-=tMoveSpd*gDeltaTime}
+        if x<newLoc {x+=tMoveSpd*gDeltaTime; if gDeltaTime!=1 and x>newLoc {x=newLoc}} //60fps change: stop exactly on newLoc above 30fps
+        else {x-=tMoveSpd*gDeltaTime; if gDeltaTime!=1 and x<newLoc {x=newLoc}} //60fps change (see above)
 
         if oGame.time mod (1/gDeltaTime)=0 {
             var tAfterI;
@@ -647,7 +653,7 @@ if bCanTakeDamage=true
             else
               yVel=-6.5
           }
-          if gDeltaTime!=1 {yVel+=gravityIntensity*0.5} //stomp bounce: same half-gravity correction as the player's own jumps above 30fps (pMoveDoubleJump)
+          if gDeltaTime!=1 {yVel+=gravityIntensity*0.5} //60fps change (added): stomp bounce: same half-gravity correction as the player's own jumps above 30fps (pMoveDoubleJump)
           scrSlowFall(5,0.4,0)
           y-=16
         }

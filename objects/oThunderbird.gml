@@ -70,12 +70,14 @@ if global.gamePaused=false
     if bFrameUp=0
     {
       animFrame+=0.2*gDeltaTime
-      if animFrame=3.4 {bFrameUp=1}
+      //if animFrame=3.4 {bFrameUp=1}
+      if animFrame>=3.4-0.001 {bFrameUp=1} //60fps change: >= since adding 0.2*gDeltaTime may not land exactly on 3.4
     }
     else if bFrameUp=1
     {
       animFrame-=0.2*gDeltaTime
-      if animFrame=0.6 {bFrameUp=0}
+      //if animFrame=0.6 {bFrameUp=0}
+      if animFrame<=0.6+0.001 {bFrameUp=0} //60fps change: <= (see above)
     }
 
     //---------- Movement ----------
@@ -159,7 +161,8 @@ if global.gamePaused=false
       }
     }
 
-    if spikeRise>=1 and spikeRise<=64 //Move spikes up
+    //if spikeRise>=1 and spikeRise<=64 //Move spikes up
+    if spikeRise>=1 and spikeRise<65 //Move spikes up. 60fps change: <65 so the last tick's frames count (64 ticks = 64px)
     {
       spikeRise+=1*gDeltaTime
       with oMarioSpikeFloor {y-=1*gDeltaTime}
