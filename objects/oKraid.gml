@@ -319,7 +319,8 @@ if global.gamePaused=false
         global.newMapX=1160; global.newMapY=784; room_goto(rBossGallery)
       }
     }
-    else if deathAnim>=2
+    //else if deathAnim>=2
+    else if deathAnim>1 //60fps change: includes every frame of tick 2, so the sink-down and red fade start on time
     {
       if deathAnim mod 6=0 {playSound(global.snd_EnemyDieMM,0,1,1)}
       if deathAnim mod 30=0 {playSound(global.snd_KraidRoarA,0,1,30000+random(30000))}
