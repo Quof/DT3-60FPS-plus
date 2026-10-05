@@ -42,6 +42,7 @@ bLavaRise=0
 stepCount=pi
 
 otherColor=255
+rollFreezeT=-1 //60fps change (added): progTime up to which the roll waits after reaching a corner (see behavior 2)
 
 //Misc Data
 xCenter=240
@@ -151,11 +152,17 @@ if global.gamePaused=false
       {
         if image_xscale=1 {rollDir=2}
         else {rollDir=0}
-        progTime=0; behavior+=1
+        //progTime=0; behavior+=1
+        progTime=0; behavior+=1; rollFreezeT=-1 //60fps change: also reset rollFreezeT
       }
     }
     else if behavior=2 //Roll around edges
     {
+      //60fps change (added): at 30fps, reaching a corner partway through a tick ends that tick's movement (the position is
+      //snapped to the corner), and the new direction starts on the next tick. Above 30fps it kept rolling along the next edge
+      //for the rest of the tick, so every lap got faster and the stop spot/timing drifted. Wait out the rest of the tick.
+      if progTime>rollFreezeT
+      {
       if rollDir=0 //Left
       {
         x-=rollSpd*gDeltaTime
@@ -200,10 +207,12 @@ if global.gamePaused=false
           else {rollDir=0}
         }
       }
-      
+      } //60fps change (added)
+
       if bHitCorner=1 //Projectile when corner is hit
       {
         bHitCorner=0
+        rollFreezeT=ceil(progTime) //60fps change (added): wait until the end of this 30fps tick (see above)
         if bossProgress=0
         {
           var tAtk;
@@ -245,7 +254,8 @@ if global.gamePaused=false
       if turnCur>=8 and turnMax=100 //Turn red
       {
         if otherColor>100 {otherColor-=2*gDeltaTime}
-        if otherColor<200
+        //if otherColor<200
+        if otherColor<200 and gDeltaDoTicks //60fps change: one smoke effect per 30fps tick (was every frame)
         {
           tEffect=instance_create(x+random_range(-16,16),y+random(32),oEffect)
           tEffect.sprite_index=sMMSmokeCloud; tEffect.image_speed=0.25+random(0.25); tEffect.image_alpha=0.6
@@ -260,7 +270,8 @@ if global.gamePaused=false
       
       if turnCur>=turnMax and turnMax<100 //End roll attack
       {
-        if y=yGround
+        //if y=yGround
+        if y=yGround and frac(progTime)=0 //60fps change: only at the end of a 30fps tick (whole progTime), like at 30fps, so it stops at the same spot
         {
           var tDistCheck;
           tDistCheck=point_distance(x,0,xCenter,0)
@@ -283,7 +294,8 @@ if global.gamePaused=false
         sprite_index=sArachnusWalk
         image_speed=0; image_index=0
       }
-      else if progTime>=26 and progTime<=60 //Walk forward
+      //else if progTime>=26 and progTime<=60 //Walk forward
+      else if progTime>25 and progTime<=60 //Walk forward. 60fps change: these walk windows include every frame of their first tick, so the walk/run/back-up distances match 30fps (it ended ~1.5 steps off at 120fps)
       {
         image_speed=runSpd/4
         x+=runSpd*image_xscale*gDeltaTime
@@ -293,7 +305,8 @@ if global.gamePaused=false
         sprite_index=sArachnusIdle
         image_speed=0.2
       }
-      else if progTime>=80 and progTime<=110 //Run forward
+      //else if progTime>=80 and progTime<=110 //Run forward
+      else if progTime>79 and progTime<=110 //Run forward. 60fps change: see above
       {
         image_speed=runSpd/2
         x+=(runSpd*2)*image_xscale*gDeltaTime
@@ -304,7 +317,8 @@ if global.gamePaused=false
         image_speed=0.2
         bWalkNormal=0
       }
-      else if progTime>=130 and progTime<=195 //Walk backward
+      //else if progTime>=130 and progTime<=195 //Walk backward
+      else if progTime>129 and progTime<=195 //Walk backward. 60fps change: see above
       {
         image_speed=0
         image_index-=(runSpd/4)*gDeltaTime
@@ -392,7 +406,8 @@ if global.gamePaused=false
       with oEProjectileBase {instance_destroy()}
       with oAttackBase {instance_destroy()}
     }
-    else if deathAnim>=2 and deathAnim<=90
+    //else if deathAnim>=2 and deathAnim<=90
+    else if deathAnim>1 and deathAnim<=90 //60fps change: includes every frame of tick 2, not just its last one
     {
       if deathAnim mod 6=0 {playSound(global.snd_EnemyDieMM,0,1,1)}
       if oGame.time mod (2/gDeltaTime)=0
