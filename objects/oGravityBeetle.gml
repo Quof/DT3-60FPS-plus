@@ -292,7 +292,8 @@ if global.gamePaused=false
       }
     }
 
-    if notDashable=1 {image_blend=make_color_rgb(random(255),random(255),random(255))}
+    //if notDashable=1 {image_blend=make_color_rgb(random(255),random(255),random(255))}
+    if notDashable=1 and gDeltaDoTicks {image_blend=make_color_rgb(random(255),random(255),random(255))} //60fps change: new random color once per 30fps tick, not every frame
 
     yVel=scrGravAcc(yVel,0.5,1)
     if isCollisionBottom(1)
@@ -381,7 +382,8 @@ if global.gamePaused=false
       with oAttackBase {instance_destroy()}
       notDashable=0
     }
-    else if deathAnim>=2 and deathAnim<=90
+    //else if deathAnim>=2 and deathAnim<=90
+    else if deathAnim>1 and deathAnim<=90 //60fps change: includes every frame of tick 2, not just its last one
     {
       if deathAnim mod 9=0 {playSound(global.snd_EnemyDieMM,0,1,1)}
       if oGame.time mod (3/gDeltaTime)=0
