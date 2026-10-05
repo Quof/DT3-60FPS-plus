@@ -169,6 +169,7 @@ if global.gamePaused=false
       {
         if myDirType=0 {_direction+=1.33*gDeltaTime}
         else {_direction-=1.33*gDeltaTime}
+        _direction=(_direction+360) mod 360 //60fps change (added): the original used GM's built-in direction, which wraps to 0-360. _direction doesn't, so swooping in from the left (270 going up) never reached 89-91 and Ridley circled forever
         if _direction>=89 and _direction<=91 {_direction=90; atkTime=1000}
       }
       else if atkTime>=1000 and atkTime<=1999 //Fly up
@@ -247,11 +248,14 @@ if global.gamePaused=false
         }
         y=128+random(144)
       }
-      else if atkTime>=30 and atkTime<=99 //Fly in
+      //else if atkTime>=30 and atkTime<=99 //Fly in
+      else if atkTime>29 and atkTime<=99 //Fly in. 60fps change: includes every frame of tick 30
       {
         x+=6*image_xscale*gDeltaTime
-        if myDirType=0 and x>=80 {atkTime=100}
-        else if myDirType=1 and x<=560 {atkTime=100}
+        //if myDirType=0 and x>=80 {atkTime=100}
+        //else if myDirType=1 and x<=560 {atkTime=100}
+        if myDirType=0 and x>=80 and frac(atkTime)=0 {atkTime=100} //60fps change: checked at the end of each 30fps tick (after its whole move) like at 30fps, so it stops at the same x (84/556)
+        else if myDirType=1 and x<=560 and frac(atkTime)=0 {atkTime=100} //60fps change: see above
       }
       else if atkTime=105 {ridParts[0].image_index=1}
       else if atkTime=109 {ridParts[0].image_index=2}
@@ -298,7 +302,8 @@ if global.gamePaused=false
         var tWarnSign;
         tWarnSign=instance_create(x,yGround-16,oEfWarningPopup); tWarnSign.warnMax=35
       }
-      else if atkTime>=36 and atkTime<=99 //Hit ground
+      //else if atkTime>=36 and atkTime<=99 //Hit ground
+      else if atkTime>35 and atkTime<=99 //Hit ground. 60fps change: includes every frame of tick 36
       {
         if gDeltaDoTicks {var tAfterI;
         tAfterI=instance_create(x,y,oEnemyAfterImage)
@@ -307,7 +312,8 @@ if global.gamePaused=false
         tAfterI.xScaling=0; tAfterI.yScaling=0; tAfterI.xShift=0; tAfterI.yShift=0; tAfterI.bFollow=-1}
 
         y+=20*gDeltaTime
-        if y>=yGround-64
+        //if y>=yGround-64
+        if y>=yGround-64 and frac(atkTime)=0 //60fps change: checked at the end of each 30fps tick (after its whole 20px drop) like at 30fps. Checked every frame Ridley stopped within 5px of the line, but at 30fps it can end up to 20px past it, so the floor slide was higher than at 30fps
         {
           playSound(global.snd_HardHit1,0,1,1)
           var tEffect;
@@ -325,7 +331,8 @@ if global.gamePaused=false
       else if atkTime=114 {ridParts[0].image_index=2; playSound(global.snd_RidleyScreamA,0,0.98,1)}
       else if atkTime=150 {ridParts[0].image_index=1}
       else if atkTime=154 {ridParts[0].image_index=0}
-      else if atkTime>=165 and atkTime<=499 //Slide across floor
+      //else if atkTime>=165 and atkTime<=499 //Slide across floor
+      else if atkTime>164 and atkTime<=499 //Slide across floor. 60fps change: includes every frame of tick 165; the slide started 3 frames late, so the ground fireballs (spawned on whole atkTime) came out 15-36px behind their 30fps spots
       {
         if gDeltaDoTicks{var tAfterI;
         tAfterI=instance_create(x,y,oEnemyAfterImage)
@@ -383,9 +390,14 @@ if global.gamePaused=false
       }
       else if atkTime>=131 and atkTime<=999 //Change room
       {
-        tile_layer_shift(9,0,2*gDeltaTime)
+        //tile_layer_shift(9,0,2*gDeltaTime)
         (GID(295787)).y+=2*gDeltaTime
-        for(i=0;i<16;i+=1)
+        //60fps change (added): move the floor tiles in whole pixels to follow the floor object (2px per 30fps tick), instead
+        //of shifting the layer by a fraction of a pixel each frame
+        if !variable_local_exists("chgStartY") {chgStartY=(GID(295787)).y-2*gDeltaTime; chgTileY=0}
+        while chgTileY<floor((GID(295787)).y-chgStartY+0.001) {tile_layer_shift(9,0,1); chgTileY+=1}
+        //for(i=0;i<16;i+=1)
+        if gDeltaDoTicks for(i=0;i<16;i+=1) //60fps change: added "if gDeltaDoTicks"; 16 smoke clouds were spawned every frame (4x at 120fps)
         {
           tEffect=instance_create((GID(295787)).x+random(576),(GID(295787)).y+random(4),oEffect)
           tEffect.sprite_index=sMMSmokeCloud; tEffect.image_speed=0.25+random(0.25); tEffect.image_alpha=0.6; tEffect.depth=4
