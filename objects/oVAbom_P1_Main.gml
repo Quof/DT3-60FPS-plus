@@ -25,8 +25,10 @@ if global.gamePaused=false
   if sequence=0 //Fade in / start music
   {
     if phaseIn>=1 {phaseIn+=1*gDeltaTime}
-    if phaseIn>=2 and phaseIn<=7 {image_alpha+=0.05*gDeltaTime}
-    else if phaseIn>=9 and phaseIn<=14 {image_alpha-=0.05*gDeltaTime}
+    //if phaseIn>=2 and phaseIn<=7 {image_alpha+=0.05*gDeltaTime}
+    //else if phaseIn>=9 and phaseIn<=14 {image_alpha-=0.05*gDeltaTime}
+    if phaseIn>1 and phaseIn<=7 {image_alpha+=0.05*gDeltaTime} //60fps change: covers every frame of ticks 2-7
+    else if phaseIn>8 and phaseIn<=14 {image_alpha-=0.05*gDeltaTime} //60fps change: covers every frame of ticks 9-14
     else if phaseIn>=40 {phaseIn=0}
 
     if oPlayer1.x>=912
@@ -116,7 +118,8 @@ if global.gamePaused=false
   }
   else if sequence=5 //Despawn arms and drop down
   {
-    shotTime+=1
+    //shotTime+=1
+    shotTime+=1*gDeltaTime //60fps change: arm pairs despawned every 30 frames (2x/4x as fast at 60/120fps)
     if shotTime=30 and instance_exists(oVAbom_P1_Arm)
     {
       var tEffect;

@@ -27,12 +27,14 @@ applies_to=self
 if global.gamePaused=false
 {
   atkTime+=1*gDeltaTime
-  if atkTime>=1 and atkTime<=8
+  //if atkTime>=1 and atkTime<=8
+  if atkTime>0 and atkTime<=8 //60fps change: covers every frame of ticks 1-8
   {
     image_alpha+=0.1*gDeltaTime
     if atkTime=8 {bCanDealDamage=1}
   }
-  else if atkTime>=9
+  //else if atkTime>=9
+  else if atkTime>8 //60fps change: the orb started chasing half a tick late
   {
     myDist=player_sprite_center()
     myDist=round(myDist/32)
@@ -64,7 +66,8 @@ if global.gamePaused=false
 
     if room == rWarshipZ_E3 //EX MODE
     {
-      if atkTime>=190
+      //if atkTime>=190
+      if atkTime>189 //60fps change: covers every frame of tick 190
       {
         bCanDealDamage=0
         image_alpha-=0.1*gDeltaTime
@@ -73,7 +76,8 @@ if global.gamePaused=false
     }
     else
     {
-      if atkTime>=175
+      //if atkTime>=175
+      if atkTime>174 //60fps change: covers every frame of tick 175 (it kept dealing damage half a tick longer)
       {
         bCanDealDamage=0
         image_alpha-=0.1*gDeltaTime

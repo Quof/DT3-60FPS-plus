@@ -14,7 +14,12 @@ POSSIBLE BUGS / QUIRKS (one per line; [OPEN]=not changed, [NOT FIXING]=decided n
 [OPEN] Shadow Eura (oShadowEura, mouth ball): the "mouthBallTime=10125" branch sits before the jaw-closing window in the same else-if chain, so that tick doesn't close the jaw; the jaw ends 1 degree more open after every mouth-ball cycle (reset when it mists away) (vanilla).
 [OPEN] Deci 10000 (oDecimator, bossPhase 3): "if bounceTime mod bounceMod+2=0" reads as (bounceTime mod bounceMod)+2=0, which is never true, so the homing missiles in that pass never fire (vanilla; probably meant mod (bounceMod+2)).
 [OPEN] Deci 10000 (oDecimator, protector phase): vertical follow speeds up with +0.4 but slows with -0.04 (probably a typo for 0.04) (vanilla).
+[OPEN] Vault Abomination (oVAbom_P2_Main, flash after the chase starts): ticks 12-21 use make_color_rgb(205+flashSprite*5,...), which is 265-310 (over 255) instead of fading back from 145 to 255 (vanilla).
+[OPEN] Vault Abomination (oVAbom_P2_Main, sequence 4): the arm slide repeats "bossArm[i].x+=..." twice, so the arms only move right (maybe one was meant to be y) (vanilla).
+[OPEN] Hex bad-end fight (oHex_Final_BadEnd, energy creator): the two extra creators added at bossProgress>=2 (30 and 150 degrees) never get atkPower, so they and their bullets use the default atkPower=0 (vanilla).
+[OPEN] Warmaster (oCHAOS_Warmaster_Main, form change): "if shiftTime>=shiftMaxTime or shiftDamage>=shiftDmgMax and currentAttack=0 and atkNum=0" reads as A or (B and C and D), so a time-based form change can happen in the middle of the first attack of a string; the new form then runs its own attack with the same currentAttack number and actTime (vanilla; the other branch checks currentAttack=0).
+[OPEN] Warmaster ice form hover (oCHAOS_Warmaster_Main) and wind seeker orb (oWMD_SeekerOrb): max speed is round(player_sprite_center()/40 or /32), but player_sprite_center() returns the direction to the player, not the distance, so the speed depends on the angle (vanilla).
+[OPEN] Warmaster ice ceiling shot (oWMC_IceShotB): "if warTarget.DIFFICULTY=0" is never true (DIFFICULTY starts at 1), so the 5-shard spread is never used (vanilla).
 [NOT FIXING] Flame Elemental (oPT_FlameElemental): big burst makes atkAmt*2 fireballs spaced 360/atkAmt, so 8 directions with 2 stacked fireballs each (vanilla).
-[PENDING] Abomination (oVAbom_P2_Legs): image_angle+=sin(...) without *gDeltaTime.
 [PENDING] Pipe fall-state (item 11); "switch rooms" interpretation unconfirmed; Vault Hex "avoidances" not identified; Kamek center-stop minor issue; Helmethead helmet rise drift; Dylan steps 1px per tick.
 [DECISION] Bospider (oBospider): descent spreads moveSpd px over the tick in whole pixels (mvBudget) - kept for now.

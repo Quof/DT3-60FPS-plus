@@ -190,7 +190,8 @@ if global.gamePaused=false
     if fallingDebris>0
     {
       var tEffect;
-      for(i=0;i<fallingDebris;i+=1)
+      //for(i=0;i<fallingDebris;i+=1)
+      if gDeltaDoTicks for(i=0;i<fallingDebris;i+=1) //60fps change: debris per tick (was 2x/4x as much at 60/120fps)
       {
         tEffect=instance_create(224+random(448),32,oEffectGrav)
         tEffect.type=2; tEffect.sprite_index=sHFight_Debris; tEffect.xSpd=0; tEffect.ySpd=0.5+random(1)
@@ -304,7 +305,8 @@ if global.gamePaused=false
       }
       else if dialogueTime>=961
       {
-        abomImageY-=4
+        //abomImageY-=4
+        abomImageY-=4*gDeltaTime //60fps change: the Abomination rose 2x/4x as fast at 60/120fps
         if abomImageY<=448
         {
           oEvCh20MainA.fadeAlpha+=0.025*gDeltaTime
@@ -370,7 +372,8 @@ applies_to=self
 
 if desperationProg=1 //--------------------------------------------------
 {
-  y-=1*gDeltaTime
+  //y-=1*gDeltaTime
+  if gDeltaDoTicks y-=1 //60fps change: whole pixel per tick, same as oHex_Final_Main's desperation rise
   if y<=96
   {
     desperationProg+=1
@@ -595,7 +598,8 @@ else if desperationProg=3 //--------------------------------------------------
 
   if desperationTime>=480 //End desperation attack
   {
-    y+=1*gDeltaTime
+    //y+=1*gDeltaTime
+    if gDeltaDoTicks y+=1 //60fps change: whole pixel per tick, same as oHex_Final_Main's desperation descent
     if y>=160
     {
       bCanTakeDamage=true
@@ -628,7 +632,8 @@ if wingFrm>=0
 //----- Hex Bubble Shield -----
 if despBubbleShield=1
 {
-  draw_sprite_ext(sWaterBarrier,oGame.time/4,x,y,0.75,0.75,image_angle,image_blend,0.3)
+  //draw_sprite_ext(sWaterBarrier,oGame.time/4,x,y,0.75,0.75,image_angle,image_blend,0.3)
+  draw_sprite_ext(sWaterBarrier,(oGame.time*gDeltaTime)/4,x,y,0.75,0.75,image_angle,image_blend,0.3)
 }
 
 //----- Abomination -----

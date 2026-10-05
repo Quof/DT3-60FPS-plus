@@ -131,7 +131,8 @@ if global.gamePaused=false
         bossArm[i].waveOffset=i*0.41
       }
     }
-    else if seqTime>=21 and seqTime<=110
+    //else if seqTime>=21 and seqTime<=110
+    else if seqTime>20 and seqTime<=110 //60fps change: covers every frame of ticks 21-110
     {
       for(i=0;i<4;i+=1)
       {
@@ -373,9 +374,13 @@ if global.gamePaused=false
   if bCameraMove=1 //Objects follow camera
   {
     var tEffect;
+    //tEffect=instance_create(x+random_range(-10,320),304+random(32),oEffect)
+    //tEffect.sprite_index=sZeldaEnemyDie; tEffect.followID=-1; tEffect.image_speed=0.3+random(0.1)
+    //tEffect.newBlend=-1; tEffect.decay=-100; tEffect.xSpd=-0.5-random(1); tEffect.ySpd=-1-random(1)
+    if gDeltaDoTicks { //60fps change: one effect per tick (was 2x/4x as many at 60/120fps)
     tEffect=instance_create(x+random_range(-10,320),304+random(32),oEffect)
     tEffect.sprite_index=sZeldaEnemyDie; tEffect.followID=-1; tEffect.image_speed=0.3+random(0.1)
-    tEffect.newBlend=-1; tEffect.decay=-100; tEffect.xSpd=-0.5-random(1); tEffect.ySpd=-1-random(1)
+    tEffect.newBlend=-1; tEffect.decay=-100; tEffect.xSpd=-0.5-random(1); tEffect.ySpd=-1-random(1)}
     oGameCamera.x+=2*gDeltaTime
     xVel=2
     myClaw.x+=2*gDeltaTime
@@ -388,8 +393,10 @@ if global.gamePaused=false
   if flashSprite>0 //Flash sprite
   {
     flashSprite+=1*gDeltaTime
-    if flashSprite>=2 and flashSprite<=11 {image_blend=make_color_rgb(255-(flashSprite*10),255-(flashSprite*10),255-(flashSprite*10))}
-    else if flashSprite>=12 and flashSprite<=21 {image_blend=make_color_rgb(205+(flashSprite*5),205+(flashSprite*5),205+(flashSprite*5))}
+    //if flashSprite>=2 and flashSprite<=11 {image_blend=make_color_rgb(255-(flashSprite*10),255-(flashSprite*10),255-(flashSprite*10))}
+    //else if flashSprite>=12 and flashSprite<=21 {image_blend=make_color_rgb(205+(flashSprite*5),205+(flashSprite*5),205+(flashSprite*5))}
+    if flashSprite>1 and flashSprite<=11 {image_blend=make_color_rgb(255-(flashSprite*10),255-(flashSprite*10),255-(flashSprite*10))} //60fps change: covers every frame of ticks 2-11
+    else if flashSprite>11 and flashSprite<=21 {image_blend=make_color_rgb(205+(flashSprite*5),205+(flashSprite*5),205+(flashSprite*5))} //60fps change: covers every frame of ticks 12-21
     else if flashSprite=22 {image_blend=c_white; flashSprite=0}
   }
 

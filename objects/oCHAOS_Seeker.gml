@@ -83,7 +83,8 @@ if global.gamePaused=false
       }
       else if moveType=1 //Spin in circle
       {
-        _direction+=turnDegree
+        //_direction+=turnDegree
+        _direction+=turnDegree*gDeltaTime //60fps change: spun 2x/4x as fast at 60/120fps
       }
       else if moveType=2 //Scan(rotate) to set range
       {
@@ -108,7 +109,8 @@ if global.gamePaused=false
         spdChk=(moveSpd*0.9)*moveMod
         if spdChk<2 {spdChk=2}
         else if spdChk>5 {spdChk=5}
-        path_start(myPath,spdChk,2,1)
+        //path_start(myPath,spdChk,2,1)
+        path_start(myPath,spdChk*gDeltaTime,2,1) //60fps change: path speed is per frame, so it moved 2x/4x as fast at 60/120fps
         if point_distance(x,y,pointX,pointY)<(moveSpd*0.9)*moveMod
         {
           movePause=10
@@ -128,7 +130,8 @@ if global.gamePaused=false
         mp_grid_path(oCS_Grid.myGrid,myPath,x,y,xstart,ystart,1)
         spdChk=moveSpd*1.25
         if spdChk>5 {spdChk=5}
-        path_start(myPath,spdChk,2,1)
+        //path_start(myPath,spdChk,2,1)
+        path_start(myPath,spdChk*gDeltaTime,2,1) //60fps change: path speed is per frame, so it moved 2x/4x as fast at 60/120fps
         if point_distance(x,y,xstart,ystart)<moveSpd*1.25
         {
           _speed=0
@@ -154,9 +157,11 @@ if global.gamePaused=false
         spdChk=moveSpd*0.6
         if spdChk<1.5 {spdChk=1.5}
         else if spdChk>5 {spdChk=5}
-        path_start(myPath,spdChk,2,1)
+        //path_start(myPath,spdChk,2,1)
+        path_start(myPath,spdChk*gDeltaTime,2,1) //60fps change: path speed is per frame, so it moved 2x/4x as fast at 60/120fps
 
-        if oGame.time mod 10=0
+        //if oGame.time mod 10=0
+        if oGame.time mod (10/gDeltaTime)=0 //60fps change: fired every 10 frames (2x/4x as many shots at 60/120fps)
         {
           if !collision_line(x+lengthdir_x(21,_direction),y+lengthdir_y(21,_direction),oPlayer1.x,returnPlayerYCenter(),oSolid,1,1)
           {
@@ -180,6 +185,7 @@ if global.gamePaused=false
       }
     }
 
+    if path_index>=0 {_direction=direction} else {direction=_direction} //60fps change (added): while following a path GM moves it and sets the built-in direction (the vanilla code used direction for both); without this the seeker, its sight range and its shots kept facing the last patrol direction while chasing
     image_angle=_direction
     myRange.x=x+lengthdir_x(21,_direction)
     myRange.y=y+lengthdir_y(21,_direction)
@@ -267,7 +273,8 @@ if alertNotice>0 //Alert Icon
   if alertNotice=1
   {
     alertNScale+=0.2*gDeltaTime
-    if alertNScale=1 {alertNotice=2}
+    //if alertNScale=1 {alertNotice=2}
+    if alertNScale>=1 {alertNScale=1; alertNotice=2} //60fps change: 0.1/0.05 steps don't add up to exactly 1, so the alert icon could keep growing and never clear
   }
   else if alertNotice>=2
   {

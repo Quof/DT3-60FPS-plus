@@ -62,7 +62,8 @@ if global.gamePaused=false
   event_inherited()
   if bActive=true and life>0
   {
-    image_angle=_direction
+    //image_angle=_direction
+    if moveBehavior=1 {image_angle=direction} else {image_angle=_direction} //60fps change: while following a path the head is moved by GM, which sets the built-in direction (_direction is only set for the go-to-position and shooting behaviors)
     if moveBehavior=0 //Decide on a move type
     {
       if movePath=1

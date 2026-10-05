@@ -45,7 +45,8 @@ if global.gamePaused=false
   {
     if moveDelay=0
     {
-      image_angle=_direction
+      //image_angle=_direction
+image_angle=direction //60fps change: body parts follow a path, which sets GM's built-in direction; _direction is never set here, so the segments always faced right
       if oHexWorm.moveBehavior=1 //Follow a path
       {
         if myMoveCheck=0

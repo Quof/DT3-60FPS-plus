@@ -35,8 +35,10 @@ if !collision_line(x,y,oPlayer1.x,returnPlayerYCenter(),oSolid,1,1) //tColCheck=
       ownerID.alertNScale=0
       ownerID.alertMode=3
       ownerID.alertTime=135
-      ownerID.speed=0
-      ownerID.direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
+      //ownerID.speed=0
+      //ownerID.direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
+      ownerID._speed=0 //60fps change: the seeker moves with _speed now, so "speed=0" no longer stopped it before the chase started
+      ownerID._direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter()); ownerID.direction=ownerID._direction //60fps change: the seeker faces with _direction now (direction too, in case it is already on a path)
     }
     else
     {
@@ -46,7 +48,8 @@ if !collision_line(x,y,oPlayer1.x,returnPlayerYCenter(),oSolid,1,1) //tColCheck=
         ownerID.alertNotice=1
         ownerID.alertNScale=0
         ownerID.alertMode=1
-        ownerID.speed=0
+        //ownerID.speed=0
+        ownerID._speed=0 //60fps change: the seeker moves with _speed now, so "speed=0" no longer stopped it during the warning pause
         ownerID.pointX=oPlayer1.x
         ownerID.pointY=returnPlayerYCenter()
       }

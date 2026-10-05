@@ -24,7 +24,8 @@ if global.gamePaused=false
 {
   _speed=bulletSpd
   image_angle-=15*gDeltaTime
-  atkTimeMod+=1
+  //atkTimeMod+=1
+  atkTimeMod+=1*gDeltaTime //60fps change: dropped a bullet every 9 frames (2x/4x as many at 60/120fps)
   if atkTimeMod mod 9=0
   {
     var tAtk;

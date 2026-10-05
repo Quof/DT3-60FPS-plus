@@ -28,7 +28,8 @@ if global.gamePaused=false
   atkTime+=1*gDeltaTime
   if atkProg=0 //Wait and flash
   {
-    if atkTime>=30
+    //if atkTime>=30
+    if atkTime>29 //60fps change: covers every frame of tick 30
     {
       image_xscale+=0.05*gDeltaTime; image_yscale+=0.05*gDeltaTime
       if atkTime mod 2=0

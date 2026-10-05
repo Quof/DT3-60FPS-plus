@@ -135,7 +135,8 @@ if (global.activeCharacter=0 and global.wearingHatJ=9) or (global.activeCharacte
 
 deathConvoTime=0; deathConvoType=0
 alarm[0]=1
-alarm[1]=12
+//alarm[1]=12
+alarm[1]=12/gDeltaTime //60fps change: alarms count frames, so the restart message came 2x/4x sooner at 60/120fps
 #define Alarm_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

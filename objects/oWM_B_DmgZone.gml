@@ -30,14 +30,16 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  timeToHit+=1
+  //timeToHit+=1
+  timeToHit+=1*gDeltaTime //60fps change: the damage zone came every 210 frames (2x/4x as often at 60/120fps)
   if timeToHit=damageTimeThres
   {
     if oPlayer1.y<272 {y=48}
     else {y=320}
     timeToHit=1000
   }
-  else if timeToHit>=1001 and timeToHit<=1065
+  //else if timeToHit>=1001 and timeToHit<=1065
+  else if timeToHit>1000 and timeToHit<=1065 //60fps change: covers every frame of ticks 1001-1065
   {
     image_alpha+=0.01*gDeltaTime
   }

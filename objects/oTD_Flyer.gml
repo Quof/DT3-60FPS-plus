@@ -5,7 +5,8 @@ action_id=603
 applies_to=self
 */
 event_inherited()
-alarm[1]=3
+//alarm[1]=3
+alarm[1]=3/gDeltaTime //60fps change: alarms count frames, so spawn protection ended 2x/4x sooner at 60/120fps
 #define Alarm_1
 /*"/*'/**//* YYD ACTION
 lib_id=1

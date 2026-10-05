@@ -30,7 +30,8 @@ if global.gamePaused=false
     tNewSpawn.moveSpd=moveSpd
     tNewSpawn.turnDelay=turnDelay
     tNewSpawn.turnAmt=turnAmt
-    tNewSpawn.direction=myDir
+    //tNewSpawn.direction=myDir
+    tNewSpawn._direction=myDir //60fps change: bombers move with _direction now, so every bomber started out going right
     instance_destroy()
   }
 }

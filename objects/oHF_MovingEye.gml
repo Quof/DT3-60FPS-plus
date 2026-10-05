@@ -38,7 +38,8 @@ if global.gamePaused=false
   if life>0
   {
     path_speed=moveSpeed*gDeltaTime
-    image_angle=_direction
+    //image_angle=_direction
+    image_angle=direction //60fps change: the eye follows a path, which sets GM's built-in direction; _direction is never set here, so the eye always faced right
   }
   else if life<=0
   {

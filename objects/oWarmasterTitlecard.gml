@@ -14,7 +14,8 @@ applies_to=self
 displayTime+=1*gDeltaTime
 if type=0 //Main
 {
-  if displayTime>=1 and displayTime<=50
+  //if displayTime>=1 and displayTime<=50
+  if displayTime>0 and displayTime<=50 //60fps change: covers every frame of ticks 1-50 (the card ended at scale 1.01/1.02 at 60/120fps)
   {
     image_xscale-=0.02*gDeltaTime; image_yscale-=0.02*gDeltaTime
     image_alpha+=0.02*gDeltaTime
@@ -40,7 +41,8 @@ if type=0 //Main
 }
 else if type=1 //Sub
 {
-  if displayTime>=1 and displayTime<=10
+  //if displayTime>=1 and displayTime<=10
+  if displayTime>0 and displayTime<=10 //60fps change: covers every frame of ticks 1-10 (the trail cards stopped at alpha 0.01/0.015 and stayed on screen at 60/120fps)
   {
     image_xscale+=0.025*gDeltaTime; image_yscale+=0.025*gDeltaTime
     image_alpha-=0.02*gDeltaTime

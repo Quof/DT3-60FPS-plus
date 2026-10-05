@@ -65,7 +65,8 @@ if bInit=1
     {
       if global.gamePaused=false
       {
-        path_speed=drawSpd
+        //path_speed=drawSpd
+        path_speed=drawSpd*gDeltaTime //60fps change: path speed is per frame, so the drawing traced 2x/4x as fast at 60/120fps
         if surface_exists(mySurf)
         {
           surface_set_target(mySurf)
@@ -91,7 +92,8 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-path_start(targetPath,drawSpd,0,true)
+//path_start(targetPath,drawSpd,0,true)
+path_start(targetPath,drawSpd*gDeltaTime,0,true) //60fps change: see the Step event
 bCanDraw=1
 #define Draw_0
 /*"/*'/**//* YYD ACTION

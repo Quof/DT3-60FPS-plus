@@ -35,8 +35,9 @@ if global.gamePaused=false
       _direction+=turnDir*gDeltaTime
      //if _direction>=270 and _direction<=290 {moveTime=1000}
       turnAmt+=abs(turnDir)*gDeltaTime //QWH addition; direction not looping properly was breaking this
-      if turnAmt>=180 and turnAmt <=200 {moveTime=1000}
-      else if turnAmt>=160 and turnAmt<=180 {moveTime=1000}
+      //if turnAmt>=180 and turnAmt <=200 {moveTime=1000}
+      //else if turnAmt>=160 and turnAmt<=180 {moveTime=1000}
+      if (turnDir>0 and turnAmt>=180) or (turnDir<0 and turnAmt>=160) {moveTime=1000} //60fps change: the vanilla check (direction 270-290, starting at 90) is reached after 180 degrees turning left but 160 turning right; the two ranges above applied 160 to both, so left-curving fireballs stopped 20 degrees early
     }
 
     if y>=room_height+32 {instance_destroy()}

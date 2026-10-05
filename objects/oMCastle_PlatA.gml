@@ -33,7 +33,12 @@ applies_to=self
 */
 if other.damageType="SHOT" and other.y>=y+20
 {
-  if other.direction=0
+  var tShotDir; //60fps change (added): shots move with _direction now, so their built-in direction is always 0
+  tShotDir=other.direction //60fps change (added)
+  with other {if variable_local_exists("_direction") {tShotDir=_direction}} //60fps change (added)
+  //if other.direction=0
+  if tShotDir=0 //60fps change: every shot counted as going right, so the platform could only be pushed right
+
   {
     if x<xstart+128
     {
@@ -42,7 +47,8 @@ if other.damageType="SHOT" and other.y>=y+20
       else {xVel=2}
     }
   }
-  else if other.direction=180
+  //else if other.direction=180
+  else if tShotDir=180 //60fps change: see above
   {
     if x>xstart-128
     {

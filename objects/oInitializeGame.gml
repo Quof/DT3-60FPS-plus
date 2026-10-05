@@ -474,8 +474,10 @@ else
     fileWAlpha=1
     introProg=1
     oTitleScreenChao.moveProg=10000
-    oTitleScreenChao.speed=2
-    oTitleScreenChao.direction=65
+    //oTitleScreenChao.speed=2
+    //oTitleScreenChao.direction=65
+    oTitleScreenChao._speed=2 //60fps change: the title Chao moves with _speed/_direction now; built-in speed moved it uncorrected (2x/4x as fast at 60/120fps)
+    oTitleScreenChao._direction=65 //60fps change: see above
     bCanUseMenu=1
   }
 }

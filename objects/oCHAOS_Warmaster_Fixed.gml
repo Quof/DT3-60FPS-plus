@@ -391,7 +391,8 @@ if global.gamePaused=false
       else if superChangeAtk>=10 and superChangeAtk<=99 //Charge super attack
       {
         superChangeAtk+=1*gDeltaTime
-        if superChangeAtk>=11 and superChangeAtk<=20
+        //if superChangeAtk>=11 and superChangeAtk<=20
+        if superChangeAtk>10 and superChangeAtk<=20 //60fps change: covers every frame of ticks 11-20
         {
           if gDeltaDoTicks {var tAfterI;
           tAfterI=instance_create(x,y,oEnemyAfterImage)
@@ -401,7 +402,8 @@ if global.gamePaused=false
           tAfterI.bFollow=1; tAfterI.idFollow=id; tAfterI.xFollow=0; tAfterI.yFollow=0}
 
           var tFFScl,tEffect;
-          for(i=0;i<2;i+=1)
+          //for(i=0;i<2;i+=1)
+          if gDeltaDoTicks for(i=0;i<2;i+=1) //60fps change: 2 fireflies per tick (was 2 per frame, 2x/4x as many at 60/120fps)
           {
             tFFScl=random(0.1)
             tEffect=instance_create(x-random_range(-12,12),y-random(48),oEffectB)
@@ -1003,7 +1005,8 @@ else if currentAttack=4 //==================== ATK D: ROPE AND BOMB (Goes into A
     currentAttack=5
   }
 
-  if actTime>=11 and actTime<=20
+  //if actTime>=11 and actTime<=20
+  if actTime>10 and actTime<=20 //60fps change: covers every frame of ticks 11-20 (the rope only reached 0.95/0.925 of its length at 60/120fps)
   {
     if ATTACK_SPEED>=3 {ropeYscl+=0.2*gDeltaTime}
     else {ropeYscl+=0.1*gDeltaTime}
@@ -1228,7 +1231,8 @@ else if currentAttack=2 //==================== ATK B: FIRE SPAM (Needs charge) =
     else if ATTACK_SPEED>=3 {actTime=3}
   }
   else if actTime=11 {sprite_index=sWarmasterB_Dashing}
-  else if actTime>=12 and actTime<=99 //Dash to center
+  //else if actTime>=12 and actTime<=99 //Dash to center
+  else if actTime>11 and actTime<=99 //Dash to center //60fps change: covers every frame of tick 12
   {
     x+=8*scaleForFacing*gDeltaTime
     var tXcenterCheck;

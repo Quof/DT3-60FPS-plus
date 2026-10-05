@@ -228,11 +228,12 @@ if global.gamePaused=false
         {
           closeTime+=1*gDeltaTime
           var tAfterI;
+          if gDeltaDoTicks { //60fps change (added): one afterimage per tick (was 2x/4x as many at 60/120fps)
           tAfterI=instance_create(x,y,oEnemyAfterImage)
           tAfterI.sprite_index=sprite_index; tAfterI.image_index=image_index; tAfterI.image_blend=c_green
           tAfterI.image_alpha=0.7; tAfterI.image_xscale=image_xscale; tAfterI.depth=26; tAfterI.imageFade=0.05
           tAfterI.xScaling=0; tAfterI.yScaling=0; tAfterI.xShift=0; tAfterI.yShift=0
-          tAfterI.bFollow=0; tAfterI.idFollow=-1; tAfterI.xFollow=0; tAfterI.yFollow=0
+          tAfterI.bFollow=0; tAfterI.idFollow=-1; tAfterI.xFollow=0; tAfterI.yFollow=0}
 
           _direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())-180
           if oPlayer1.x<xCenter and x<xCenter {_direction=0}
@@ -592,7 +593,8 @@ if global.gamePaused=false
     //-------------------- Move Hex up near the end of the fight --------------------
     if bMoveHexUp=1
     {
-      y-=1*gDeltaTime
+      //y-=1*gDeltaTime
+      if gDeltaDoTicks y-=1 //60fps change: whole pixel per tick, same as the desperation rise
       if y<=116
       {
         bHexChains=1
@@ -960,7 +962,8 @@ if global.gamePaused=false
       with oHF_MovingEye {instance_destroy()}
       with oAttackBase {instance_destroy()}
     }
-    else if deathAnim>=2 and deathAnim<=60
+    //else if deathAnim>=2 and deathAnim<=60
+    else if deathAnim>1 and deathAnim<=60 //60fps change: covers every frame of ticks 2-60
     {
       image_alpha-=0.02*gDeltaTime
     }

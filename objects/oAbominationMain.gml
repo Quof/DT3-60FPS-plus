@@ -79,6 +79,7 @@ hitHiddenWeakNum=0
 hiddenEndFail=0
 pullInSequence=0
 hiddenTentacles=0
+for(i=0;i<40;i+=1) {hidTentImg[i]=0} //60fps change (added): tentacle frames for the Draw event, picked once per tick
 
 formWeakSpotX=0; formWeakSpotY=0; formWeakSpotDir=0; formWeakSpotHeartOffsetX=0
 if global.gateHProg<200 or global.bBossGallery=1 or room=rCh21_Main_76
@@ -458,7 +459,8 @@ if global.gamePaused=false
       myCollisionLegRight[0]=instance_create(752,288,oInvisibleSolid); myCollisionLegRight[0].sprite_index=sAbomLegThing; myCollisionLegRight[0].visible=1
       myCollisionLegRight[0].image_angle=60; myCollisionLegRight[0].image_xscale=0; myCollisionLegRight[0].image_yscale=0
     }
-    else if seqTime>=261 and seqTime<=280
+    //else if seqTime>=261 and seqTime<=280
+    else if seqTime>260 and seqTime<=280 //60fps change: covers every frame of ticks 261-280 (the solid leg reached only 0.975/0.96 scale at 60/120fps)
     {
       myCollisionLegLeft[0].image_xscale+=0.05*gDeltaTime; myCollisionLegLeft[0].image_yscale+=0.05*gDeltaTime
       myCollisionLegRight[0].image_xscale+=0.05*gDeltaTime; myCollisionLegRight[0].image_yscale+=0.05*gDeltaTime
@@ -470,7 +472,8 @@ if global.gamePaused=false
       myCollisionLegRight[1]=instance_create(777,236,oInvisibleSolid); myCollisionLegRight[1].sprite_index=sAbomLegThing; myCollisionLegRight[1].visible=1
       myCollisionLegRight[1].image_angle=140; myCollisionLegRight[1].image_xscale=0; myCollisionLegRight[1].image_yscale=0
     }
-    else if seqTime>=291 and seqTime<=310
+    //else if seqTime>=291 and seqTime<=310
+    else if seqTime>290 and seqTime<=310 //60fps change: covers every frame of ticks 291-310
     {
       myCollisionLegLeft[1].image_xscale+=0.05*gDeltaTime; myCollisionLegLeft[1].image_yscale+=0.05*gDeltaTime
       myCollisionLegRight[1].image_xscale+=0.05*gDeltaTime; myCollisionLegRight[1].image_yscale+=0.05*gDeltaTime
@@ -511,16 +514,18 @@ if global.gamePaused=false
   {
     seqTime+=1*gDeltaTime
     if seqTime=1 {bContinuousAttackA=1; bContinuousAttackB=1}
-    else if seqTime>=40 and seqTime<=429
+    //else if seqTime>=40 and seqTime<=429
+    else if seqTime>39 and seqTime<=429 //60fps change: covers every frame of ticks 40-429
     {
       with oAbomFieldArmA
       {
         var tEffect,tScale;
+        if gDeltaDoTicks { //60fps change (added): one effect per arm per tick (was 2x/4x as many at 60/120fps)
         tScale=random(0.17)
         tEffect=instance_create(x+random_range(-16,16),y+random_range(-16,16),oEffect)
         tEffect.sprite_index=sAbom_Tentacle; tEffect.image_speed=0.33; tEffect.image_alpha=0.75
         tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=21; tEffect.xSpd=random_range(-2,2); tEffect.ySpd=random_range(-2,0)
-        tEffect.image_xscale=0.33+tScale; tEffect.image_yscale=0.33+tScale; tEffect.image_angle=random(360)
+        tEffect.image_xscale=0.33+tScale; tEffect.image_yscale=0.33+tScale; tEffect.image_angle=random(360)}
         y+=2*gDeltaTime
       }
     }
@@ -790,7 +795,8 @@ if global.gamePaused=false
     if conAtkTimeB>=conAtkDelayB and conAtkTimeB<=conAtkDelayB+60 //Rise up
     {
       if conAtkTimeB mod 3=0 {playSound(global.snd_BombLaunch,0,0.75,75000)}
-      if gDeltaDoTicks {var tRainUp;
+      //if gDeltaDoTicks {var tRainUp;
+      if frac(conAtkTimeB)=0 {var tRainUp; //60fps change: on this counter's own ticks (61 rising shots like 30fps)
       tRainUp=instance_create(x+random_range(-96,96),y+random_range(-8,8),oPassBullet)
       tRainUp.sprite_index=sAbomRainAtkA; tRainUp.atkPower=12; tRainUp.bulletSpeed=9; tRainUp.depth=30; tRainUp.image_speed=0.33; tRainUp.image_blend=c_gray
       tRainUp.decayTime=-100; tRainUp.image_xscale=0.5; tRainUp.image_yscale=0.5; tRainUp._direction=90+random_range(-7,7); tRainUp.bCanDealDamage=0}
@@ -823,7 +829,8 @@ if global.gamePaused=false
     if conAtkTimeC>=conAtkDelayC and conAtkTimeC<=conAtkDelayC+60 //Rise up
     {
       if conAtkTimeC mod 3=0 {playSound(global.snd_BombLaunch,0,0.75,75000)}
-      if gDeltaDoTicks {var tRainUp;
+      //if gDeltaDoTicks {var tRainUp;
+      if frac(conAtkTimeC)=0 {var tRainUp; //60fps change: on this counter's own ticks (61 rising shots like 30fps)
       tRainUp=instance_create(x+random_range(-96,96),y+random_range(-8,8),oPassBullet)
       tRainUp.sprite_index=sAbomRainAtkA; tRainUp.atkPower=12; tRainUp.bulletSpeed=9; tRainUp.depth=30; tRainUp.image_speed=0.33; tRainUp.image_blend=c_gray
       tRainUp.decayTime=-100; tRainUp.image_xscale=0.5; tRainUp.image_yscale=0.5; tRainUp._direction=90+random_range(-45,45); tRainUp.bCanDealDamage=0}
@@ -1069,7 +1076,8 @@ if global.gamePaused=false
   if pullInSequence>=1
   {
     pullInSequence+=1*gDeltaTime
-    if pullInSequence>=2
+    //if pullInSequence>=2
+    if pullInSequence>=2 and frac(pullInSequence)=0 //60fps change: one pulled-in particle per tick (was 2x/4x as many at 60/120fps)
     {
       var tNewObj,tSize,tDir;
       tSize=1+random(0.4)
@@ -1082,6 +1090,7 @@ if global.gamePaused=false
     {
       if hiddenTentacles=0 {hiddenTentacles=16}
       if hiddenTentacles<112 {hiddenTentacles+=0.5*gDeltaTime}
+      if frac(pullInSequence)=0 {for(i=0;i<40;i+=1) {hidTentImg[i]=random(2)}} //60fps change (added): tentacle frames picked once per tick for the Draw event (random each draw flickered 2x/4x as fast)
     }
     if pullInSequence>=220
     {
@@ -1172,7 +1181,8 @@ if hiddenTentacles>0
 {
   for(i=0;i<40;i+=1)
   {
-    draw_sprite_ext(sAbom_Tentacle,random(2),x+lengthdir_x(hiddenTentacles,40+(i*2.5)),y-54+lengthdir_y(hiddenTentacles,40+(i*2.5)),2,2,40+(i*2.5),image_blend,image_alpha)
+    //draw_sprite_ext(sAbom_Tentacle,random(2),x+lengthdir_x(hiddenTentacles,40+(i*2.5)),y-54+lengthdir_y(hiddenTentacles,40+(i*2.5)),2,2,40+(i*2.5),image_blend,image_alpha)
+    draw_sprite_ext(sAbom_Tentacle,hidTentImg[i],x+lengthdir_x(hiddenTentacles,40+(i*2.5)),y-54+lengthdir_y(hiddenTentacles,40+(i*2.5)),2,2,40+(i*2.5),image_blend,image_alpha)
   }
 }
 

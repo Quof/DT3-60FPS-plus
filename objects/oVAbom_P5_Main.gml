@@ -308,7 +308,8 @@ if global.gamePaused=false
       oVAbomP5_Head.image_xscale+=0.025*gDeltaTime
       oVAbomP5_Head.image_yscale+=0.025*gDeltaTime
     }
-    else if seqTime>=101 and seqTime<=115 {oVAbomP5_Head.jawAngle+=1*gDeltaTime}
+    //else if seqTime>=101 and seqTime<=115 {oVAbomP5_Head.jawAngle+=1*gDeltaTime}
+    else if seqTime>100 and seqTime<=115 {oVAbomP5_Head.jawAngle+=1*gDeltaTime} //60fps change: covers every frame of ticks 101-115
     else if seqTime=130
     {
       view_visible[1]=0
@@ -320,7 +321,8 @@ if global.gamePaused=false
       tHexFlash=instance_create(488,96,oVaultHexFlash); tHexFlash.image_xscale=-1
       oPlayer1.x=480; oPlayer1.y=249
     }
-    else if seqTime>=161 and seqTime<=175 {oVAbomP5_Head.jawAngle-=1*gDeltaTime}
+    //else if seqTime>=161 and seqTime<=175 {oVAbomP5_Head.jawAngle-=1*gDeltaTime}
+    else if seqTime>160 and seqTime<=175 {oVAbomP5_Head.jawAngle-=1*gDeltaTime} //60fps change: covers every frame of ticks 161-175
 
     if seqTime=150
     {
@@ -335,14 +337,16 @@ if global.gamePaused=false
     if oVAbomP5_Head.jawAngle>0 {oVAbomP5_Head.bCanTakeDamage=true}
     else {oVAbomP5_Head.bCanTakeDamage=false}
 
-    if seqTime>=31 and seqTime<=45 {oVAbomP5_Head.jawAngle+=1*gDeltaTime}
+    //if seqTime>=31 and seqTime<=45 {oVAbomP5_Head.jawAngle+=1*gDeltaTime}
+    if seqTime>30 and seqTime<=45 {oVAbomP5_Head.jawAngle+=1*gDeltaTime} //60fps change: covers every frame of ticks 31-45
     else if seqTime>=50 and seqTime<=125
     {
       if shotTime mod 4=0 and shotTime>=4 //Extra laser phase
       {
         if seqTime=51 {laserWarn=1}
         else if seqTime=80 {laserDir=point_direction(x-12,y-282,oPlayer1.x,oPlayer1.y-26)}
-        else if seqTime>=81 and seqTime<=124 and gDeltaDoTicks
+        //else if seqTime>=81 and seqTime<=124 and gDeltaDoTicks
+        else if seqTime>=81 and seqTime<=124 and frac(seqTime)=0 //60fps change: fires on this counter's own ticks (44 volleys like 30fps)
         {
           for(i=0;i<2;i+=1)
           {
@@ -371,7 +375,8 @@ if global.gamePaused=false
         }
       }
     }
-    else if seqTime>=131 and seqTime<=145 {oVAbomP5_Head.jawAngle-=1*gDeltaTime}
+    //else if seqTime>=131 and seqTime<=145 {oVAbomP5_Head.jawAngle-=1*gDeltaTime}
+    else if seqTime>130 and seqTime<=145 {oVAbomP5_Head.jawAngle-=1*gDeltaTime} //60fps change: covers every frame of ticks 131-145
     else if seqTime>=160 {shotTime+=1; seqTime=0}
 
     if damageTakenTotal>=700 and shotDelay=0

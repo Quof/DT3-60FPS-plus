@@ -43,10 +43,12 @@ if global.gamePaused=false
   else if sequence=1 //Rise up
   {
     var tEffect;
+    //tEffect=instance_create(x+random_range(-168,168),room_height-2,oEffectB)
+    if gDeltaDoTicks { //60fps change: one particle per tick (was 2x/4x as many at 60/120fps)
     tEffect=instance_create(x+random_range(-168,168),room_height-2,oEffectB)
     tEffect.type=3; tEffect.image_speed=0; tEffect.image_index=choose(0,1); tEffect.sprite_index=sPauseM_SkillLv
     tEffect.direction=random_range(1,179); tEffect.speed=random(1)+1; tEffect.fadeSpd=0.03;
-    tEffect.AccelX=0; tEffect.AccelY=0; tEffect.newBlend=-1; tEffect.followID=-1; tEffect.rotation=0
+    tEffect.AccelX=0; tEffect.AccelY=0; tEffect.newBlend=-1; tEffect.followID=-1; tEffect.rotation=0}
 
     if y<=3968 {sequence+=1}
   }
@@ -170,7 +172,8 @@ applies_to=self
 draw_sprite_ext(sprite_index,image_index,x,y,image_xscale,image_yscale,image_angle,image_blend,image_alpha)
 if spikeScale>0
 {
-  if spikeScale<2 {spikeScale+=0.05}
+  //if spikeScale<2 {spikeScale+=0.05}
+  if spikeScale<2 {spikeScale+=0.05*gDeltaTime} //60fps change: spikes grew 2x/4x as fast at 60/120fps
   draw_sprite_ext(sAbom_Spike,0,x-156,y-54,spikeScale,spikeScale,image_angle+155,image_blend,image_alpha)
   draw_sprite_ext(sAbom_Spike,0,x-144,y-139,spikeScale,spikeScale,image_angle+135,image_blend,image_alpha)
   draw_sprite_ext(sAbom_Spike,0,x-142,y-214,spikeScale,spikeScale,image_angle+130,image_blend,image_alpha)

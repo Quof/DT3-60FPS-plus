@@ -11,7 +11,11 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if type=2 //Scene Player Character
+if type=1 //60fps change (added): mash-button character sprites move with GM's built-in speed (set by oMashButtons), which is applied in full every frame: take back the excess above 30fps
+{
+  x+=hspeed*(gDeltaTime-1); y+=vspeed*(gDeltaTime-1)
+}
+else if type=2 //Scene Player Character
 {
   //Check animation
   if animCheck>0

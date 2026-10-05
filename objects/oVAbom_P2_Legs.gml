@@ -33,6 +33,7 @@ if global.gamePaused=false
   {
     image_xscale+=0.02*gDeltaTime; image_yscale+=0.02*gDeltaTime
   }
-  if bMove=1 {image_angle+=sin((oGame.time*gDeltaTime)/2.5+waveOffset)}
+  //if bMove=1 {image_angle+=sin((oGame.time*gDeltaTime)/2.5+waveOffset)}
+  if bMove=1 {image_angle+=sin((oGame.time*gDeltaTime)/2.5+waveOffset)*gDeltaTime} //60fps change: the sway was 2x/4x as wide at 60/120fps
   enemyStepEvent()
 }

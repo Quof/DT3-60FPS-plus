@@ -1355,7 +1355,8 @@ else if global.gameProgress=5305 and room=rWarshipZ_E2 //----- [Final Boss Fight
         view_object[0]=oPlayer1
         with oGameCamera {instance_destroy()}
       }
-      else if sceneDelay>=51 and sceneDelay<=60  {fadeAlpha-=0.1}
+      //else if sceneDelay>=51 and sceneDelay<=60  {fadeAlpha-=0.1}
+      else if sceneDelay>50 and sceneDelay<=60  {fadeAlpha-=0.1*gDeltaTime} //60fps change: the fade ran 2x/4x as fast and ended at -0.9/-2.7 instead of 0 at 60/120fps
       else if sceneDelay>=80 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=4 and bWaitForInput=false
@@ -1400,7 +1401,8 @@ else if global.gameProgress=5305 and room=rWarshipZ_E2 //----- [Final Boss Fight
           tEffect.AccelX=0; tEffect.AccelY=0; tEffect.followID=-1; tEffect.rotation=0
         }
       }
-      else if sceneDelay>=121 and sceneDelay<=140 {oMisc.image_alpha-=0.05*gDeltaTime}
+      //else if sceneDelay>=121 and sceneDelay<=140 {oMisc.image_alpha-=0.05*gDeltaTime}
+      else if sceneDelay>120 and sceneDelay<=140 {oMisc.image_alpha-=0.05*gDeltaTime} //60fps change: covers every frame of ticks 121-140
       else if sceneDelay=141 {with oMisc {instance_destroy()}}
       else if sceneDelay>=200 {sceneDelay=0; sceneProgress+=1}
     }

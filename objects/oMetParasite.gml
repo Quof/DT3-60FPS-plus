@@ -91,7 +91,8 @@ if global.gamePaused=false
       if point_distance(x,y,oPlayer1.x,oPlayer1.y-26)<512 {moveSpd=4}
       else {moveSpd=6}
       mp_grid_path(myGrid,myPath,x,y,oPlayer1.x,oPlayer1.y-26,1)
-      path_start(myPath,moveSpd,2,1)
+      //path_start(myPath,moveSpd,2,1)
+      path_start(myPath,moveSpd*gDeltaTime,2,1) //60fps change: path speed is per frame, so the parasite chased 2x/4x as fast at 60/120fps
     }
     enemyStepEvent()
   }
