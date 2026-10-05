@@ -283,7 +283,8 @@ if global.gamePaused=false
           rightSpikes[i]=instance_create(608,48+(i*16),oStaticSpike)
         }
       }
-      else if wallSpikes>=71 and wallSpikes<=118
+      //else if wallSpikes>=71 and wallSpikes<=118
+      else if wallSpikes>70 and wallSpikes<=118 //60fps change: includes every frame of tick 71, so the wall spikes slide out the full 48px (47.25px at 120fps)
       {
         for(i=0;i<16;i+=1)
         {
@@ -347,7 +348,8 @@ if global.gamePaused=false
       with oEProjectileBase {instance_destroy()}
       with oAttackBase {instance_destroy()}
     }
-    else if deathAnim>=2 and deathAnim<=90
+    //else if deathAnim>=2 and deathAnim<=90
+    else if deathAnim>1 and deathAnim<=90 //60fps change: includes every frame of tick 2, not just its last one
     {
       if deathAnim mod 6=0 {playSound(global.snd_BombExplode,0,0.92,1)}
       if oGame.time mod (3/gDeltaTime)=0
