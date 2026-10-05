@@ -95,7 +95,8 @@ if global.gamePaused=false
     if deathAnim mod 4=0
     {
       if deathAnim mod 8=0 {playSound(global.snd_HardHit1,0,0.9,1)}
-      if gDeltaDoTicks {tEffect=instance_create(x+random_range(-13,13),y+random_range(-13,13),oEffect)
+      //if gDeltaDoTicks {tEffect=instance_create(x+random_range(-13,13),y+random_range(-13,13),oEffect)
+      if 1 {tEffect=instance_create(x+random_range(-13,13),y+random_range(-13,13),oEffect) //60fps change: removed the gDeltaDoTicks gate; this is already inside "deathAnim mod 4=0" (true on one frame per 4 ticks), and both were rarely true on the same frame, so the death flames usually never appeared
       tEffect.sprite_index=sDeathFlameA; tEffect.image_speed=0.33
       tEffect.image_alpha=0.5+(image_alpha/3)
       tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0}

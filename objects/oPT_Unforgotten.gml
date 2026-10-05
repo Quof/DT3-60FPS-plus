@@ -79,9 +79,11 @@ if global.gamePaused=false
     else if flythrough>=2 //Fly through arena
     {
       flythrough+=1*gDeltaTime
-      if flythrough>=6 and flythrough<=30
+      //if flythrough>=6 and flythrough<=30
+      if flythrough>5 and flythrough<=30 //60fps change: covers every frame of ticks 6-30
       {
-        if flythrough mod (2*gDeltaTime)=0 {y+=2} else {y-=2}
+        //if flythrough mod (2*gDeltaTime)=0 {y+=2} else {y-=2}
+        if frac(flythrough)=0 {if flythrough mod 2=0 {y+=2} else {y-=2}} //60fps change: one 2px shake per 30fps tick, alternating like at 30fps; the old check shook 2px every frame (4x as fast at 120fps)
       }
       else if flythrough>=31 and flythrough<=200
       {
@@ -122,7 +124,8 @@ if global.gamePaused=false
   }
   else if life<=0
   {
-    deathAnim+=1
+    //deathAnim+=1
+    deathAnim+=1*gDeltaTime //60fps change: was never scaled (the death sound, every 8 ticks, played 4x as often at 120fps)
     if deathAnim=1
     {
       with oEProjectileBase {instance_destroy()}
@@ -317,7 +320,8 @@ if attackCycle=1 //-------------------- [RED] Lunge Attack --------------------
     baseColor=make_color_rgb(colR,colG,colB)
     image_blend=baseColor
   }
-  else if attackTime>=31 and attackTime<=40 //Lunge forward
+  //else if attackTime>=31 and attackTime<=40 //Lunge forward
+  else if attackTime>30 and attackTime<=40 //Lunge forward. 60fps change: includes every frame of tick 31, so the lunge reaches the full 120px (111px at 120fps)
   {
     if attackTime=31
     {
@@ -332,7 +336,8 @@ if attackCycle=1 //-------------------- [RED] Lunge Attack --------------------
     else if moveCycle=4 {x+=12*gDeltaTime}
     else if moveCycle=5 {y+=12*gDeltaTime}
   }
-  else if attackTime>=41 and attackTime<=50 //Pull back
+  //else if attackTime>=41 and attackTime<=50 //Pull back
+  else if attackTime>40 and attackTime<=50 //Pull back. 60fps change: same for the pull back
   {
     if moveCycle=1 {x+=12*gDeltaTime}
     else if moveCycle=2 {x-=12*gDeltaTime; y+=9.6*gDeltaTime}

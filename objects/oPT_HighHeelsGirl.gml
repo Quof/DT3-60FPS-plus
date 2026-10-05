@@ -267,7 +267,8 @@ if global.gamePaused=false
       bCanDealDamage=false
       sprite_index=sHHG_Hit
     }
-    else if deathAnim>=2 and deathAnim<=49
+    //else if deathAnim>=2 and deathAnim<=49
+    else if deathAnim>1 and deathAnim<=49 //60fps change: includes every frame of tick 2, not just its last one
     {
       if oGame.time mod (2/gDeltaTime)=0
       {

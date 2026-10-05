@@ -116,7 +116,8 @@ if global.gamePaused=false
             tDir+=360/tAtkSet
           }
         }
-        myDir+=9*gDeltaTime
+        //myDir+=9*gDeltaTime
+        myDir+=9 //60fps change: back to the original value; this runs once per volley (not every frame), so scaling it made each volley rotate only 2.25 degrees at 120fps (4.5 at 60) instead of 9
         waitTime=0
       }
     }
