@@ -22,7 +22,8 @@ if global.gamePaused=false
 {
   if atkProg=0 //Go toward wall
   {
-    image_angle+=5*image_xscale
+    //image_angle+=5*image_xscale
+    image_angle+=5*image_xscale*gDeltaTime //60fps change: spun 2x/4x as fast at 60/120fps
     if isCollisionLeft(1) {atkProg=1}
     if isCollisionRight(1) {atkProg=1}
     moveTo(xVel*gDeltaTime,yVel*gDeltaTime)

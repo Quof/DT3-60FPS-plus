@@ -115,22 +115,26 @@ if global.gamePaused=false
       }
       else if atkProg>=31 and atkProg<=199
       {
-        if yVel>=0 and y>=oPlayer1.y-16
+        //if yVel>=0 and y>=oPlayer1.y-16
+        if yVel>=0 and y>=oPlayer1.y-16 and frac(atkProg)=0 //60fps change: only at the start of each 30fps tick of the jump (atkProg is whole there, since the jump began on a whole atkProg), like at 30fps, so the dash happens at the same height
         {
           yVel=0
           sprite_index=sBit_Dash
           atkProg=200
         }
       }
-      else if atkProg>=200 and atkProg<=399
+      //else if atkProg>=200 and atkProg<=399
+      else if atkProg>=201 and atkProg<=399 //60fps change: the dash starts on the next 30fps tick after the one that stopped the jump (atkProg 200.25-200.75 are the rest of that tick); at 30fps that's atkProg 201 too
       {
         xVel=runAcc*image_xscale
-        if image_xscale=1 and x>=xCenter+roomSpan-32
+        //if image_xscale=1 and x>=xCenter+roomSpan-32
+        if image_xscale=1 and x>=xCenter+roomSpan-32 and frac(atkProg)=0 //60fps change: only at the start of a 30fps tick (whole atkProg), like at 30fps, so the dash stops at the same spot
         {
           xVel=0
           atkProg=400
         }
-        else if image_xscale=-1 and x<=xCenter-roomSpan+32
+        //else if image_xscale=-1 and x<=xCenter-roomSpan+32
+        else if image_xscale=-1 and x<=xCenter-roomSpan+32 and frac(atkProg)=0 //60fps change: see above
         {
           xVel=0
           atkProg=400
@@ -250,7 +254,8 @@ if global.gamePaused=false
       with oBitBall {instance_destroy()}
       notDashable=0
     }
-    else if deathAnim>=2 and deathAnim<=90
+    //else if deathAnim>=2 and deathAnim<=90
+    else if deathAnim>1 and deathAnim<=90 //60fps change: includes every frame of tick 2, not just its last one
     {
       if deathAnim mod 9=0 {playSound(global.snd_EnemyDieMM,0,1,1)}
       if oGame.time mod (3/gDeltaTime)=0

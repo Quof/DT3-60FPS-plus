@@ -26,7 +26,8 @@ if global.gamePaused=false
   {
     image_xscale+=0.1*gDeltaTime
     image_yscale+=0.1*gDeltaTime
-    if image_xscale=1 {atkProg=1}
+    //if image_xscale=1 {atkProg=1}
+    if image_xscale>=0.999 {atkProg=1} //60fps change: 0.1 + many 0.025 steps doesn't land exactly on 1 (needed the float comparison to round it); this can't be missed
   }
   else if atkProg=1 //Move along room
   {
