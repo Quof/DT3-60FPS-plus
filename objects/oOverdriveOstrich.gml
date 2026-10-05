@@ -103,7 +103,9 @@ if global.gamePaused=false
         }
         else if atkProg>=19 and atkProg<=99
         {
-          if yVel>=0
+          //if yVel>=0
+          if yVel>=0 and frac(atkProg)=0 //60fps change: only at the start of each 30fps tick of the jump (like at 30fps), so it stops to hover at the same spot; checked every frame it stopped partway through a tick, up to 4.5px short
+
           {
             sprite_index=sOOstrich_WaveThrow
             xVel=0; yVel=0
@@ -216,7 +218,9 @@ if global.gamePaused=false
         }
         else if atkProg>=14 and atkProg<=99
         {
-          if yVel>=0
+          //if yVel>=0
+          if yVel>=0 and frac(atkProg)=0 //60fps change: only at the start of each 30fps tick of the hop (see the first jump)
+
           {
             sprite_index=sOOstrich_WaveThrow
             xVel=0; yVel=0
@@ -337,7 +341,8 @@ if global.gamePaused=false
               tNewAttack=instance_create(x,y-16,oOOstrichGravWave)
               tNewAttack.atkPower=atkPower; tNewAttack.yVel=-8
             }
-            y-=2*gDeltaTime
+            //y-=2*gDeltaTime
+            y-=2 //60fps change: one-off lift off the ground for each skip (original value); scaled it only lifted 0.5px at 120fps, so every skip was lower
             yVel=-4
           }
         }
@@ -365,7 +370,8 @@ if global.gamePaused=false
     }
     else //Special attack
     {
-      image_blend=make_color_rgb(random(255),random(255),random(255))
+      //image_blend=make_color_rgb(random(255),random(255),random(255))
+      if gDeltaDoTicks {image_blend=make_color_rgb(random(255),random(255),random(255))} //60fps change: new random color once per 30fps tick, not every frame
       specProg+=1*gDeltaTime
       if specProg=1 //Start
       {
@@ -395,7 +401,8 @@ if global.gamePaused=false
           specProg=500
         }
       }
-      else if specProg>=501 and specProg<=599 //Slow down
+      //else if specProg>=501 and specProg<=599 //Slow down
+      else if specProg>500 and specProg<=599 //Slow down. 60fps change: starts on the frame after specProg=500 (with >=501 it ran 3 more frames at full speed at 120fps, ~8px further)
       {
         if gDeltaDoTicks{var tSkidEffect;
         tSkidEffect=instance_create(x,y-3+random(4),oEffect)
@@ -403,7 +410,8 @@ if global.gamePaused=false
         tSkidEffect.image_alpha=0.75; tSkidEffect.xSpd=(2+random(2))*-image_xscale; tSkidEffect.ySpd=-2-random(2)
         tSkidEffect.newBlend=-1; tSkidEffect.followID=-1; tSkidEffect.decay=-100}
 
-        xVel-=0.5*gDeltaTime
+        //xVel-=0.5*gDeltaTime
+        xVel=scrTickAcc(xVel,-0.5,0) //60fps change: slow down per 30fps tick (scrTickAcc, corrected in the move below like the normal skid), so it skids the same distance as at 30fps (~4px further at 120fps)
         if xVel<=0.6 {xVel=0; image_xscale=-1; specProg=600}
       }
       else if specProg=610 {sprite_index=sOOstrich_Ready}
@@ -426,7 +434,8 @@ if global.gamePaused=false
           specProg=900
         }
       }
-      else if specProg>=901 and specProg<=999 //Slow down last time
+      //else if specProg>=901 and specProg<=999 //Slow down last time
+      else if specProg>900 and specProg<=999 //Slow down last time. 60fps change: see the first slow down
       {
         if gDeltaDoTicks {var tSkidEffect;
         tSkidEffect=instance_create(x,y-3+random(4),oEffect)
@@ -434,7 +443,8 @@ if global.gamePaused=false
         tSkidEffect.image_alpha=0.75; tSkidEffect.xSpd=(2+random(2))*-image_xscale; tSkidEffect.ySpd=-2-random(2)
         tSkidEffect.newBlend=-1; tSkidEffect.followID=-1; tSkidEffect.decay=-100}
 
-        xVel+=0.5*gDeltaTime
+        //xVel+=0.5*gDeltaTime
+        xVel=scrTickAcc(xVel,0.5,0) //60fps change: see the first slow down
         if xVel>=-0.6 {xVel=0; specProg=1000}
       }
       else if specProg>=1010
@@ -525,7 +535,8 @@ if global.gamePaused=false
       with oEProjectileBase {instance_destroy()}
       with oAttackBase {instance_destroy()}
     }
-    else if deathAnim>=2 and deathAnim<=90
+    //else if deathAnim>=2 and deathAnim<=90
+    else if deathAnim>1 and deathAnim<=90 //60fps change: includes every frame of tick 2, not just its last one
     {
       if deathAnim mod 9=0 {playSound(global.snd_EnemyDieMM,0,1,1)}
       if oGame.time mod (3/gDeltaTime)=0
