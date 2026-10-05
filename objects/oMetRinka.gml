@@ -49,7 +49,8 @@ if global.gamePaused=false
   else
   {
     initTime+=1*gDeltaTime
-    if initTime>=1 and initTime<=9 {image_xscale+=0.1*gDeltaTime; image_yscale+=0.1*gDeltaTime}
+    //if initTime>=1 and initTime<=9 {image_xscale+=0.1*gDeltaTime; image_yscale+=0.1*gDeltaTime}
+    if initTime>0 and initTime<=9 {image_xscale+=0.1*gDeltaTime; image_yscale+=0.1*gDeltaTime} //60fps change: includes every frame of tick 1, so the Rinka grows to full size (0.925 at 120fps)
     if initTime>=20
     {
       _direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())

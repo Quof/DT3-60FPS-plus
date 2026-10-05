@@ -80,8 +80,13 @@ if global.gamePaused=false
     else if eyeAnim>=1001 and eyeAnim<=1045 //Charge flash
     {
       var tChargeCol;
+      //tChargeCol=make_color_rgb(random(255),random(255),random(255))
+      //image_blend=tChargeCol; myGun.image_blend=tChargeCol
+      if gDeltaDoTicks //60fps change (added): new random charge color once per 30fps tick, not every frame
+      {
       tChargeCol=make_color_rgb(random(255),random(255),random(255))
       image_blend=tChargeCol; myGun.image_blend=tChargeCol
+      } //60fps change (added)
       if eyeAnim>=1031 {eyeAnim=1045}
     }
     else if eyeAnim=1046 //Fire beam
@@ -107,7 +112,8 @@ if global.gamePaused=false
 
     if jeremyTalks>=1 //Hit Mother Brain from behind
     {
-      jeremyTalks+=1
+      //jeremyTalks+=1
+      jeremyTalks+=1*gDeltaTime //60fps change: this is the conversation timer; unscaled, the lines came 2x/4x as fast at 60/120fps and overlapped (still lands exactly on 3, 70, 150...)
       if jeremyTalks=3
       {
         msgCreate(0,0,"Jeremy","Wow, cheating much?",0,1,oMessagePerson,0)
@@ -174,7 +180,8 @@ if global.gamePaused=false
       with oEProjectileBase {instance_destroy()}
       with oAttackBase {instance_destroy()}
     }
-    else if deathAnim>=2 and deathAnim<=90
+    //else if deathAnim>=2 and deathAnim<=90
+    else if deathAnim>1 and deathAnim<=90 //60fps change: includes every frame of tick 2, not just its last one
     {
       if deathAnim mod 6=0 {playSound(global.snd_EnemyDieMM,0,1,1)}
       if oGame.time mod (2/gDeltaTime)=0
