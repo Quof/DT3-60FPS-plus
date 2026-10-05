@@ -232,7 +232,8 @@ if global.gamePaused=false
       tAfterI.image_alpha=0.75; tAfterI.image_xscale=image_xscale; tAfterI.depth=8; tAfterI.imageFade=0.05
       tAfterI.xScaling=0; tAfterI.yScaling=0.15; tAfterI.xShift=0.15; tAfterI.yShift=0; tAfterI.bFollow=-1
     }
-    else if armSpinTime>=1031 and armSpinTime<=1210 //Flail arms
+    //else if armSpinTime>=1031 and armSpinTime<=1210 //Flail arms
+    else if armSpinTime>1030 and armSpinTime<=1210 //Flail arms. 60fps change: includes every frame of tick 1031, so the arms spin exactly 10 full turns like at 30fps (they ended 15 degrees off at 120fps)
     {
       if stepTime<stepDelay
       {
@@ -260,7 +261,8 @@ if global.gamePaused=false
         else {headPoisonTime=headPoisonDelay-20}
       }
 
-      if headPoisonTime>=10001 and headPoisonTime<=10032 //Tilt head
+      //if headPoisonTime>=10001 and headPoisonTime<=10032 //Tilt head
+      if headPoisonTime>10000 and headPoisonTime<=10032 //Tilt head. 60fps change: includes every frame of tick 10001
       {
         var tPHeadAng;
         tPHeadAng=point_direction(bHead.x,bHead.y,oPlayer1.x,oPlayer1.y)
@@ -268,15 +270,19 @@ if global.gamePaused=false
         else {bHead.bendAngle-=0.25*gDeltaTime}
       }
 
-      if headPoisonTime>=10001 and headPoisonTime<=10012 //Open jaw
+      //if headPoisonTime>=10001 and headPoisonTime<=10012 //Open jaw
+      if headPoisonTime>10000 and headPoisonTime<=10012 //Open jaw. 60fps change: includes every frame of tick 10001, so the jaw opens the full 12 degrees
         bJaw.bendAngle+=1*gDeltaTime
       else if headPoisonTime=10040 {playSound(global.snd_Beam,0,0.92,14000)} //Play breath sound
       else if headPoisonTime>=10041 and headPoisonTime<=10070 //Breath poison
       {
+        if frac(headPoisonTime)=0 //60fps change (added): one cloud per 30fps tick (30 in all); it spawned one every frame, 4x the clouds at 120fps
+        {
         var tPoison;
         tPoison=instance_create(bHead.x,bHead.y,oM_PoisonBreath)
         tPoison.atkPower=atkPower; tPoison.bulletSpeed=7+random(3)
         tPoison.animSpeed=0.25; tPoison._direction=(bHead.image_angle+235)+random_range(-12,12)
+        } //60fps change (added)
       }
       else if headPoisonTime>=10075 //Close jaw
       {
@@ -305,15 +311,18 @@ if global.gamePaused=false
         else {headLaserTime=headLaserDelay-20}
       }
 
-      if headLaserTime>=10001 and headLaserTime<=10026 //Tilt head
+      //if headLaserTime>=10001 and headLaserTime<=10026 //Tilt head
+      if headLaserTime>10000 and headLaserTime<=10026 //Tilt head. 60fps change: includes every frame of tick 10001, so the laser sweep starts and ends at the 30fps angles
       {
         if headLaserTime=10001 {bHead.laserWarn=1}
         bHead.bendAngle-=3*gDeltaTime
       }
 
-      if headLaserTime>=10001 and headLaserTime<=10008 //Open jaw
+      //if headLaserTime>=10001 and headLaserTime<=10008 //Open jaw
+      if headLaserTime>10000 and headLaserTime<=10008 //Open jaw. 60fps change: includes every frame of tick 10001
         bJaw.bendAngle+=1*gDeltaTime
-      else if headLaserTime>=10041 and headLaserTime<=10066
+      //else if headLaserTime>=10041 and headLaserTime<=10066
+      else if headLaserTime>10040 and headLaserTime<=10066 //60fps change: includes every frame of tick 10041 (the laser is still created at exactly 10041)
       {
         if headLaserTime=10041
         {
@@ -466,7 +475,8 @@ if global.gamePaused=false
         spinSpd=choose(-30,-15,15,30)
       }
     }
-    else if deathAnim>=2 and deathAnim<=120
+    //else if deathAnim>=2 and deathAnim<=120
+    else if deathAnim>1 and deathAnim<=120 //60fps change: includes every frame of tick 2, so the falling parts get the same gravity/spin as at 30fps
     {
       with oEnemyBase
       {
@@ -509,7 +519,8 @@ applies_to=self
 */
 //-- ANIMATION: LEFT LEG (FRONT) --
 animProg+=1*stepScale*gDeltaTime
-if animProg>=1 and animProg<=40 //Rotate leg to lift foot up
+//if animProg>=1 and animProg<=40 //Rotate leg to lift foot up
+if animProg>0 and animProg<=40 //Rotate leg to lift foot up. 60fps change: includes every frame of the first tick; with >=1 each half-step lost 3/4 of a tick at 120fps (1/2 at 60), so Menace walked 0.75px short every step and drifted
 {
   if stepForward=0 //Forward
   {
@@ -525,7 +536,8 @@ if animProg>=1 and animProg<=40 //Rotate leg to lift foot up
   bLegL.y-=0.25*stepScale*gDeltaTime
   y-=0.25*stepScale*gDeltaTime
 }
-else if animProg>=41 and animProg<=80 //Rotate leg to bring foot back down
+//else if animProg>=41 and animProg<=80 //Rotate leg to bring foot back down
+else if animProg>40 and animProg<=80 //Rotate leg to bring foot back down. 60fps change: includes every frame of tick 41 (see above)
 {
   if stepForward=0 //Forward
   {
@@ -567,7 +579,8 @@ applies_to=self
 */
 //-- ANIMATION: RIGHT LEG (BACK) --
 animProg+=1*stepScale*gDeltaTime
-if animProg>=1 and animProg<=40 //Rotate leg to lift foot up
+//if animProg>=1 and animProg<=40 //Rotate leg to lift foot up
+if animProg>0 and animProg<=40 //Rotate leg to lift foot up. 60fps change: includes every frame of the first tick; with >=1 each half-step lost 3/4 of a tick at 120fps (1/2 at 60), so Menace walked 0.75px short every step and drifted
 {
   if stepForward=0 //Forward
   {
@@ -583,7 +596,8 @@ if animProg>=1 and animProg<=40 //Rotate leg to lift foot up
   bLegR.y-=0.25*stepScale*gDeltaTime
   y-=0.25*stepScale*gDeltaTime
 }
-else if animProg>=41 and animProg<=80 //Rotate leg to bring foot back down
+//else if animProg>=41 and animProg<=80 //Rotate leg to bring foot back down
+else if animProg>40 and animProg<=80 //Rotate leg to bring foot back down. 60fps change: includes every frame of tick 41 (see above)
 {
   if stepForward=0 //Forward
   {
@@ -627,18 +641,21 @@ applies_to=self
 */
 //-- ANIMATION: LEFT ARM (FRONT) --
 armAnimProgL+=1*armScale*gDeltaTime
-if armAnimProgL>=1 and armAnimProgL<=40
+//if armAnimProgL>=1 and armAnimProgL<=40
+if armAnimProgL>0 and armAnimProgL<=40 //60fps change: includes every frame of each window's first tick, so the swing covers the same angles as at 30fps (it was a few degrees short at 120fps)
 {
   bShoulderL.bendAngle+=1*armScale*gDeltaTime
   bForearmL.bendAngle-=0.25*armScale*gDeltaTime
 }
-else if armAnimProgL>=61 and armAnimProgL<=76
+//else if armAnimProgL>=61 and armAnimProgL<=76
+else if armAnimProgL>60 and armAnimProgL<=76 //60fps change: see above
 {
   if armAnimProgL=61 {playSound(global.snd_PlayerAtk[1],0,1,5512)}
   bShoulderL.bendAngle-=8*armScale*gDeltaTime
   bForearmL.bendAngle-=1*armScale*gDeltaTime
 }
-else if armAnimProgL>=84 and armAnimProgL<=96 //End
+//else if armAnimProgL>=84 and armAnimProgL<=96 //End
+else if armAnimProgL>83 and armAnimProgL<=96 //End. 60fps change: see above
 {
   bShoulderL.bendAngle+=7.3*armScale*gDeltaTime
   bForearmL.bendAngle+=2.1*armScale*gDeltaTime
@@ -658,18 +675,21 @@ applies_to=self
 */
 //-- ANIMATION: RIGHT ARM (BACK) --
 armAnimProgR+=1*armScale*gDeltaTime
-if armAnimProgR>=1 and armAnimProgR<=32
+//if armAnimProgR>=1 and armAnimProgR<=32
+if armAnimProgR>0 and armAnimProgR<=32 //60fps change: includes every frame of each window's first tick (see the left arm)
 {
   bShoulderR.bendAngle+=1*armScale*gDeltaTime
   bForearmR.bendAngle-=0.25*armScale*gDeltaTime
 }
-else if armAnimProgR>=60 and armAnimProgR<=68
+//else if armAnimProgR>=60 and armAnimProgR<=68
+else if armAnimProgR>59 and armAnimProgR<=68 //60fps change: see above
 {
   if armAnimProgR=60 {playSound(global.snd_PlayerAtk[0],0,1,5512)}
   bShoulderR.bendAngle-=8*armScale*gDeltaTime
   bForearmR.bendAngle-=1*armScale*gDeltaTime
 }
-else if armAnimProgR>=80 and armAnimProgR<=92 //End
+//else if armAnimProgR>=80 and armAnimProgR<=92 //End
+else if armAnimProgR>79 and armAnimProgR<=92 //End. 60fps change: see above
 {
   bShoulderR.bendAngle+=2.6*armScale*gDeltaTime
   bForearmR.bendAngle+=1.3*armScale*gDeltaTime

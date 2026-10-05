@@ -22,6 +22,7 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  image_blend=make_color_rgb(155+random(100),155+random(100),155+random(100))
+  //image_blend=make_color_rgb(155+random(100),155+random(100),155+random(100))
+  if gDeltaDoTicks {image_blend=make_color_rgb(155+random(100),155+random(100),155+random(100))} //60fps change: new random tint once per 30fps tick, not every frame (flickered 4x as fast at 120fps)
   image_angle=oMenaceMain.bHead.image_angle+235
 }
