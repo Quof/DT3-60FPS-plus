@@ -127,13 +127,15 @@ if global.gamePaused=false
     else if rockProg=1 //========== Break out of rock ==========
     {
       atkTime+=1*gDeltaTime
-      if atkTime>=15 and atkTime<=49
+      //if atkTime>=15 and atkTime<=49
+      if atkTime>14 and atkTime<=49 //60fps change: covers every frame of ticks 15-49
       {
         /*if atkTime*gDeltaTime mod 2=0 and gDeltaDoTicks {x-=1}
         else if gDeltaDoTicks {x+=1}*/
 
-        if floor(atkTime) mod 2*gDeltaTime=0 {x-=1}
-        else {x+=1}
+        //if floor(atkTime) mod 2*gDeltaTime=0 {x-=1}
+        //else {x+=1}
+        if frac(atkTime)=0 {if atkTime mod 2=0 {x-=1} else {x+=1}} //60fps change: one 1px shake per 30fps tick, alternating like at 30fps; the old line shook 1px every frame (a 4px shake at 120fps)
       }
       if atkTime=50
       {
@@ -263,7 +265,8 @@ if global.gamePaused=false
         {
           mouthBallTime=10000
         }
-        else if mouthBallTime>=10001 and mouthBallTime<=10030 {jawAngle-=1*gDeltaTime}
+        //else if mouthBallTime>=10001 and mouthBallTime<=10030 {jawAngle-=1*gDeltaTime}
+        else if mouthBallTime>10000 and mouthBallTime<=10030 {jawAngle-=1*gDeltaTime} //60fps change: includes every frame of tick 10001
         else if mouthBallTime=10050
         {
           playSound(global.snd_RidleyFire,0,0.95,36000)
@@ -290,7 +293,8 @@ if global.gamePaused=false
           tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=10; tNewAttack.sprite_index=sSE_DarkBall
           tNewAttack._direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
         }
-        else if mouthBallTime>=10101 and mouthBallTime<=10130 {jawAngle+=1*gDeltaTime}
+        //else if mouthBallTime>=10101 and mouthBallTime<=10130 {jawAngle+=1*gDeltaTime}
+        else if mouthBallTime>10100 and mouthBallTime<=10130 {jawAngle+=1*gDeltaTime} //60fps change: includes every frame of tick 10101
         else if mouthBallTime>=10131 {mouthBallTime=0}
 
         //---------- ATTACK: FIRE PILLAR ----------
@@ -345,14 +349,17 @@ if global.gamePaused=false
             tongueAttack=200
           }
         }
-        else if tongueAttack>=211 and tongueAttack<=250 {oEvDCS.fadeAlpha+=0.005*gDeltaTime} //Red fade - 0.2
-        else if tongueAttack>=271 and tongueAttack<=330 //Open jaw
+        //else if tongueAttack>=211 and tongueAttack<=250 {oEvDCS.fadeAlpha+=0.005*gDeltaTime} //Red fade - 0.2
+        else if tongueAttack>210 and tongueAttack<=250 {oEvDCS.fadeAlpha+=0.005*gDeltaTime} //Red fade - 0.2. 60fps change: includes every frame of tick 211
+        //else if tongueAttack>=271 and tongueAttack<=330 //Open jaw
+        else if tongueAttack>270 and tongueAttack<=330 //Open jaw. 60fps change: includes every frame of tick 271, so the tilt and jaw open by the full 30fps amount and close back to exactly 0
         {
           image_angle-=0.5*gDeltaTime
           jawAngle-=0.5*gDeltaTime
         }
         else if tongueAttack=340 {playSound(global.snd_DemonLaugh,0,1,13000)}
-        else if tongueAttack>=341 and tongueAttack<=360 {tongueXscale+=0.05*gDeltaTime} //Extend tongue
+        //else if tongueAttack>=341 and tongueAttack<=360 {tongueXscale+=0.05*gDeltaTime} //Extend tongue
+        else if tongueAttack>340 and tongueAttack<=360 {tongueXscale+=0.05*gDeltaTime} //Extend tongue. 60fps change: includes every frame of tick 341 (full length)
         else if tongueAttack>=370 and tongueAttack<=460 and gDeltaDoTicks //Blood from mouth
         {
           var tNewAtk;
@@ -360,7 +367,8 @@ if global.gamePaused=false
           tNewAtk.sprite_index=sSE_Blood; tNewAtk.image_speed=0.1; tNewAtk.depth=30; tNewAtk.atkPower=atkPower
           tNewAtk.xVel=-1-random(1.5); tNewAtk.yVel=random(1); tNewAtk.grav=0.2
         }
-        else if tongueAttack>=461 and tongueAttack<=490 //Remove red fade and close jaw
+        //else if tongueAttack>=461 and tongueAttack<=490 //Remove red fade and close jaw
+        else if tongueAttack>460 and tongueAttack<=490 //Remove red fade and close jaw. 60fps change: includes every frame of tick 461 (the tilt was left 0.4 degrees off at 120fps)
         {
           if oEvDCS.fadeAlpha>0 {oEvDCS.fadeAlpha-=0.01*gDeltaTime}
           if tongueXscale>0 {tongueXscale-=0.1*gDeltaTime}
@@ -415,7 +423,8 @@ if global.gamePaused=false
         deflectorTime=0; deflectorHits=0
         currHspd=4*image_xscale; currVspd=2
       }
-      if atkTime>=1 and atkTime<=10 {image_alpha-=0.1*gDeltaTime}
+      //if atkTime>=1 and atkTime<=10 {image_alpha-=0.1*gDeltaTime}
+      if atkTime>0 and atkTime<=10 {image_alpha-=0.1*gDeltaTime} //60fps change: covers every frame of ticks 1-10, so Shadow Eura fades fully out (stayed at alpha 0.075 at 120fps)
 
       if currHspd>1 {currHspd-=0.1*gDeltaTime}
       else if currHspd<-1 {currHspd+=0.1*gDeltaTime}
@@ -612,7 +621,8 @@ if life<=0 //Defeat animation
       deathAnim=165
     }
   }
-  else if deathAnim>=166 and deathAnim<=225
+  //else if deathAnim>=166 and deathAnim<=225
+  else if deathAnim>165 and deathAnim<=225 //60fps change: includes every frame of tick 166, not just its last one
   {
     if deathAnim mod 3=0 {playSound(global.snd_BombExplode,0,0.92,1)}
     if oGame.time mod (2/gDeltaTime)=0

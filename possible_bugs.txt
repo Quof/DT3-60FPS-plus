@@ -10,6 +10,8 @@ POSSIBLE BUGS / QUIRKS (one per line; [OPEN]=not changed, [NOT FIXING]=decided n
 [OPEN] Death (oDeath): dive-roll trigger (yVel>=-2) is checked every frame, so the roll can start up to a tick off vs 30fps (a pixel or two in height); could be tick-latched like Bowser's jumpTk.
 [OPEN] Maoh the Giant: spike arm embeds up to 6px into walls at 30fps vs <=1.5px at 120fps (visual only).
 [OPEN] Sigma Epsilon heads (oSigmaB_BigHead): the standable solid (oMovingSolid) takes speed on global ticks while the head moves per frame, so they can be ~2px apart while moving.
+[OPEN] Shadow Eura rocks (oSE_Rock, rockSequence 3): "if x=256 or 448" is always true (448 alone is non-zero), so every falling rock uses tYCheck=256, including the middle one meant for 288 (vanilla).
+[OPEN] Shadow Eura (oShadowEura, mouth ball): the "mouthBallTime=10125" branch sits before the jaw-closing window in the same else-if chain, so that tick doesn't close the jaw; the jaw ends 1 degree more open after every mouth-ball cycle (reset when it mists away) (vanilla).
 [NOT FIXING] Flame Elemental (oPT_FlameElemental): big burst makes atkAmt*2 fireballs spaced 360/atkAmt, so 8 directions with 2 stacked fireballs each (vanilla).
 [PENDING] Abomination (oVAbom_P2_Legs): image_angle+=sin(...) without *gDeltaTime.
 [PENDING] Pipe fall-state (item 11); "switch rooms" interpretation unconfirmed; Vault Hex "avoidances" not identified; Kamek center-stop minor issue; Helmethead helmet rise drift; Dylan steps 1px per tick.

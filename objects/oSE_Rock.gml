@@ -243,7 +243,8 @@ if global.bossTrack>0
 {
   if oShadowEura.bossProgress>=2
   {
-    if oGame.time mod 2=0 {draw_set_color(c_red)}
+    //if oGame.time mod 2=0 {draw_set_color(c_red)}
+    if oGame.time mod (2/gDeltaTime)<1/gDeltaTime {draw_set_color(c_red)} //60fps change: oGame.time counts frames, so this flickered every frame; now red/orange for one 30fps tick each
     else {draw_set_color(c_orange)}
     draw_set_alpha(1)
 
@@ -268,7 +269,8 @@ if global.bossTrack>0
         var tLineDir,tDotAmt;
         tLineDir=point_direction(x,y,oShadowEura.myRockB.x,oShadowEura.myRockB.y)
         tDotAmt=ceil(point_distance(x,y,oShadowEura.myRockB.x,oShadowEura.myRockB.y)/11)
-        laserCrawl-=1
+        //laserCrawl-=1
+        laserCrawl-=1*gDeltaTime //60fps change: the line to rock A was already scaled; this one (rock B) crawled 2x/4x as fast
         if laserCrawl<-12 {laserCrawl=0}
         for(i=0;i<tDotAmt;i+=1)
         {
