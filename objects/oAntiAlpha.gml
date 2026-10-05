@@ -174,13 +174,19 @@ if global.gamePaused=false
         actTime+=1*gDeltaTime
         if actTime=1 {sprite_index=sAntiAlpha_Charge}
         else if actTime=15 {playSound(global.snd_ChargeStrike,0,0.95,14000)}
-        else if actTime>=16 and actTime<=45
+        //else if actTime>=16 and actTime<=45
+        else if actTime>15 and actTime<=45 //60fps change: covers every frame of ticks 16-45
         {
           xVel=(runAcc*5)*image_xscale
-          if image_xscale=1 and x>=xCenter+roomSpan-48 {actTime=45}
-          else if image_xscale=-1 and x<=xCenter-roomSpan+48 {actTime=45}
+          //if image_xscale=1 and x>=xCenter+roomSpan-48 {actTime=45}
+          //else if image_xscale=-1 and x<=xCenter-roomSpan+48 {actTime=45}
+          //60fps change: the wall check runs on the first frame of each 30fps tick (before that tick's move) like at 30fps, and
+          //jumps to the last frame of "tick 45" (44+gDeltaTime = 45 at 30fps) so the rest of this tick still moves, then it stops
+          if image_xscale=1 and x>=xCenter+roomSpan-48 and frac(actTime-gDeltaTime)=0 {actTime=44+gDeltaTime}
+          else if image_xscale=-1 and x<=xCenter-roomSpan+48 and frac(actTime-gDeltaTime)=0 {actTime=44+gDeltaTime}
         }
-        else if actTime=46
+        //else if actTime=46
+        else if actTime>45 and actTime<=46 //60fps change: stops on the first frame of tick 46 (xVel stayed set for 3 more frames at 120fps)
         {
           xVel=0
           sprite_index=sAntiAlpha_Idle
@@ -284,7 +290,8 @@ if life<=0 //Defeat animation
       deathAnim=150
     }
   }
-  else if deathAnim>=151 and deathAnim<=210
+  //else if deathAnim>=151 and deathAnim<=210
+  else if deathAnim>150 and deathAnim<=210 //60fps change: includes every frame of tick 151, not just its last one
   {
     if deathAnim mod 3=0 {playSound(global.snd_BombExplode,0,0.92,1)}
     if oGame.time mod (2/gDeltaTime)=0

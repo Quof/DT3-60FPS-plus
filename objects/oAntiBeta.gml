@@ -209,7 +209,8 @@ if global.gamePaused=false
         }
         else if actTime>=20 and actTime<=199
         {
-          if yVel>=1.2 //Dive down if player is under
+          //if yVel>=1.2 //Dive down if player is under
+          if yVel>=1.2 and frac(actTime)=0 //Dive down if player is under. 60fps change: only at the start of each 30fps tick of the jump (actTime is whole there, since the jump began on a whole actTime), like at 30fps
           {
             if y<oPlayer1.y and point_distance(x,0,oPlayer1.x,0)<=18
             {
@@ -246,12 +247,14 @@ if global.gamePaused=false
     {
       if xVel>0
       {
-        xVel-=0.5*gDeltaTime
+        //xVel-=0.5*gDeltaTime
+        xVel=scrTickAcc(xVel,-0.5,0) //60fps change: slow down per 30fps tick (scrTickAcc, corrected in moveTo below), so the slide is as long as at 30fps (~3px further at 120fps)
         if xVel<=0.51 {xVel=0}
       }
       else if xVel<0
       {
-        xVel+=0.5*gDeltaTime
+        //xVel+=0.5*gDeltaTime
+        xVel=scrTickAcc(xVel,0.5,0) //60fps change: see above
         if xVel>=-0.51 {xVel=0}
       }
     }
@@ -293,7 +296,8 @@ if global.gamePaused=false
     if isCollisionSolid()
       y-=2
 
-    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
+    //moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
+    moveTo((xVel+scrTickAccB(0))*gDeltaTime,yVel*gDeltaTime) //60fps change: scrTickAccB adds the slide's per-tick correction (0 when the slide isn't slowing this frame)
   }
   enemyStepEvent()
 }
