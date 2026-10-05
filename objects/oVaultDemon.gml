@@ -94,8 +94,10 @@ if global.gamePaused=false
 
     if moveType=0 //Glide to player x
     {
-      if gDeltaDoTicks and y>moveYcenter {y-=1}
-      else if gDeltaDoTicks and  y<moveYcenter {y+=1}
+      //if gDeltaDoTicks and y>moveYcenter {y-=1}
+      //else if gDeltaDoTicks and  y<moveYcenter {y+=1}
+      if y>moveYcenter {y-=1*gDeltaTime} //60fps change: 1px per 30fps tick spread over the frames (smooth) instead of a 1px jump every 4th frame at 120fps; y is whole here (rounded when the move type changes), so it lands exactly on moveYcenter
+      else if y<moveYcenter {y+=1*gDeltaTime} //60fps change: see above
 
       if x>oPlayer1.x {if moveSpd>-3 {moveSpd-=0.15*gDeltaTime}}
       else if x<oPlayer1.x {if moveSpd<3 {moveSpd+=0.15*gDeltaTime}}
@@ -103,17 +105,26 @@ if global.gamePaused=false
     }
     else if moveType=1 //Move down in player's way
     {
-      if gDeltaDoTicks and y<moveYcenter+80 {y+=1}
+      //if gDeltaDoTicks and y<moveYcenter+80 {y+=1}
+      if y<moveYcenter+80 {y+=1*gDeltaTime} //60fps change: smooth, see move type 0
     }
     else if moveType=2 //Move to top corner
     {
-      if moveTime>=1 and moveTime<=20 and moveTime mod 2=0
+      //if moveTime>=1 and moveTime<=20 and moveTime mod 2=0
+      //60fps change: for the first 20 ticks the 30fps code leaves an afterimage on even ticks and moves only on odd ticks. Above
+      //30fps, moveTime is only whole on one frame per tick, so it moved on 7 of every 8 frames and reached the corner ~8 ticks
+      //early (the spread shots then came from a different spot). Now the whole even tick is skipped (ceil gives the tick
+      //number), with the afterimage on its whole-number frame as before.
+      if moveTime>0 and moveTime<=20 and ceil(moveTime) mod 2=0
       {
+        if frac(moveTime)=0 //60fps change (added)
+        {
         var tAfterI;
         tAfterI=instance_create(x,y,oEnemyAfterImage)
         tAfterI.sprite_index=sprite_index; tAfterI.image_index=image_index; tAfterI.image_blend=c_green
         tAfterI.image_alpha=0.75; tAfterI.image_xscale=image_xscale; tAfterI.xShift=0; tAfterI.yShift=0
         tAfterI.imageFade=0.05; tAfterI.xScaling=0.2; tAfterI.yScaling=0.2; tAfterI.bFollow=0
+        } //60fps change (added)
       }
       else
       {
@@ -148,7 +159,8 @@ if global.gamePaused=false
         tAfterI.image_alpha=0.5; tAfterI.image_xscale=image_xscale*1.5; tAfterI.image_yscale=1.5; tAfterI.xShift=0; tAfterI.yShift=0
         tAfterI.imageFade=0.05; tAfterI.xScaling=-0.1; tAfterI.yScaling=-0.1; tAfterI.bFollow=0
       }
-      else if moveTime>=21
+      //else if moveTime>=21
+      else if moveTime>20 //60fps change: includes every frame of tick 21
       {
         if y<yGround+96 {y+=4*gDeltaTime}
       }
@@ -409,7 +421,8 @@ if life<=0 //Defeat animation
       deathAnim=195
     }
   }
-  else if deathAnim>=196 and deathAnim<=255
+  //else if deathAnim>=196 and deathAnim<=255
+  else if deathAnim>195 and deathAnim<=255 //60fps change: includes every frame of tick 196, not just its last one
   {
     if deathAnim mod 3=0 {playSound(global.snd_BombExplode,0,0.92,1)}
     if oGame.time mod (2/gDeltaTime)=0
