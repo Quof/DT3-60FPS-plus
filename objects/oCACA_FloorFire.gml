@@ -23,6 +23,7 @@ applies_to=self
 if global.gamePaused=false
 {
   x=oCACA_Main.x+xOffset
-  if oCACA_Main.bFloorFlame=0 {y=-16*gDeltaTime}
+  //if oCACA_Main.bFloorFlame=0 {y=-16*gDeltaTime}
+  if oCACA_Main.bFloorFlame=0 {y=-16} //60fps change: this sets a position (hides the flame above the room), so it isn't scaled; at 120fps it was only 4px above
   else {y=oCACA_Main.yGround}
 }

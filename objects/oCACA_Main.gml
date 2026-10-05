@@ -113,6 +113,8 @@ if global.gamePaused=false
     {
 
       _direction+=3*gDeltaTime
+      x+=moveSpd*cos(degtorad(_direction))*gDeltaTime //60fps change (added back): the original circled with these two lines; the conversion dropped them, so the boss stood still in this phase
+      y+=moveSpd*sin(degtorad(_direction))*gDeltaTime //60fps change (added back): see above
 
       if phaseTime>=490
       {
@@ -138,6 +140,8 @@ if global.gamePaused=false
     {
 
       _direction-=3*gDeltaTime
+      x+=moveSpd*cos(degtorad(_direction))*gDeltaTime //60fps change (added back): see phase 1
+      y+=moveSpd*sin(degtorad(_direction))*gDeltaTime //60fps change (added back): see phase 1
 
       if phaseTime>=490
       {
@@ -271,11 +275,13 @@ if global.gamePaused=false
           laserWarn=1
           laserEyeTime=10000
         }
-        else if laserEyeTime>=10001 and laserEyeTime<=10020
+        //else if laserEyeTime>=10001 and laserEyeTime<=10020
+        else if laserEyeTime>10000 and laserEyeTime<=10020 //60fps change: includes every frame of tick 10001, so the warning circles shrink/fade by the full 30fps amount
         {
           cirRad-=2*gDeltaTime
           circleAlpha-=0.045*gDeltaTime
-          if laserMouthTime=10015 {laserWarn=0}
+          //if laserMouthTime=10015 {laserWarn=0}
+          if laserEyeTime=10015 {laserWarn=0} //bug fix (not a 60fps change): checked the mouth-laser timer, so the warning circles were never switched off and stayed drawn faintly
         }
         else if laserEyeTime>=10031 and laserEyeTime<=10080
         {
@@ -297,7 +303,8 @@ if global.gamePaused=false
 
       if bossProgress>=3 //-------------------- ATTACK: SKY LASER --------------------
       {
-        skyLaserTime+=1
+        //skyLaserTime+=1
+        skyLaserTime+=1*gDeltaTime //60fps change: was never scaled, so the sky lasers came 2x/4x as often at 60/120fps
         if skyLaserTime>=skyLaserDelay and skyLaserTime<=skyLaserDelay+100
         {
           skyLaserTime=10000
@@ -520,7 +527,8 @@ if life<=0 //Defeat animation
     msgCreate(0,0,"Jerry","Big ass robots don't stand a chaaaaaaaance!!",0,1,oMessagePerson,0)
     newMessage.fadingTime=80
   }
-  else if deathAnim>=2 and deathAnim<=79
+  //else if deathAnim>=2 and deathAnim<=79
+  else if deathAnim>1 and deathAnim<=79 //60fps change: includes every frame of tick 2, not just its last one
   {
     if deathAnim mod 3=0 {playSound(global.snd_BombExplode,0,0.92,1)}
     if oGame.time mod (2/gDeltaTime)=0
