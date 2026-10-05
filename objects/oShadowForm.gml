@@ -234,7 +234,8 @@ if global.gamePaused=false
       }
       else if attackDelay>=18-spdChange and attackDelay<=999 //Dive check
       {
-        if bDive=0
+        //if bDive=0
+        if bDive=0 and frac(attackDelay)=0 //60fps change: only at the start of each 30fps tick of the jump (attackDelay is whole there, since the jump began on a whole attackDelay), like at 30fps, so the dive starts from the same spot (up to ~4px off at 120fps)
         {
           if ((image_xscale=1 and x>oPlayer1.x) or (image_xscale=-1 and x<oPlayer1.x)) and y<yGround-48
           {
@@ -414,7 +415,8 @@ if global.gamePaused=false
       sprite_index=sJerryDamaged
       bCanDealDamage=false
     }
-    else if deathAnim>=2 and deathAnim<=90
+    //else if deathAnim>=2 and deathAnim<=90
+    else if deathAnim>1 and deathAnim<=90 //60fps change: includes every frame of tick 2, not just its last one
     {
       if deathAnim mod 9=0 {playSound(global.snd_EnemyDieMM,0,1,1)}
       if oGame.time mod (3/gDeltaTime)=0
