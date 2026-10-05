@@ -234,7 +234,8 @@ if global.gamePaused=false
     missileSpamTime+=1*gDeltaTime
     if missileSpamTime>=missileSpamDelay
     {
-      if gDeltaDoTicks {var tMissile;
+      //if gDeltaDoTicks {var tMissile;
+      if frac(missileSpamTime)=0 {var tMissile; //60fps change: one missile per 30fps tick counted from when the volley starts (missileSpamTime is whole on those frames), so the first one fires right away like at 30fps; gDeltaDoTicks (the game-wide tick) delayed the whole volley by a random 0-3 frames
       tMissile=instance_create(x,y-16,oEnmityMissile)
       tMissile.atkPower=atkPower; tMissile.targetTime=18
       tMissile._direction=missileDir; tMissile.bulletSpeed=4
@@ -306,7 +307,8 @@ if life<=0 //Defeat animation
       deathAnim=175
     }
   }
-  else if deathAnim>=176 and deathAnim<=235
+  //else if deathAnim>=176 and deathAnim<=235
+  else if deathAnim>175 and deathAnim<=235 //60fps change: includes every frame of tick 176, not just its last one
   {
     if deathAnim mod 3=0 {playSound(global.snd_BombExplode,0,0.92,1)}
     if oGame.time mod (2/gDeltaTime)=0
