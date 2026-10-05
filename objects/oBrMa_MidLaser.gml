@@ -33,7 +33,8 @@ if global.gamePaused=false
   x=oBrainMachine.x
   if bCanDealDamage=true
   {
-    image_blend=make_color_rgb(150+random(50),150+random(50),150+random(50))
+    //image_blend=make_color_rgb(150+random(50),150+random(50),150+random(50))
+    if gDeltaDoTicks {image_blend=make_color_rgb(150+random(50),150+random(50),150+random(50))} //60fps change: new random tint once per 30fps tick, not every frame
     decayTime+=1*gDeltaDoTicks
     if decayTime>=idleTime {instance_destroy()}
   }
