@@ -72,10 +72,13 @@ if global.gamePaused=false
         x+=xVel*gDeltaTime
 
         var tEffect;
+        if gDeltaDoTicks //60fps change (added): one sand cloud per 30fps tick (was every frame, 4x at 120fps)
+        {
         if x<=208 or x>=432 {tEffect=instance_create(x+random_range(-32,32),896+random(32),oEffect)}
         else {tEffect=instance_create(x+random_range(-32,32),864+random(32),oEffect)}
         tEffect.sprite_index=sMMSmokeCloud; tEffect.image_speed=0.1+random(0.2); tEffect.image_alpha=0.6; tEffect.depth=9
         tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=-0.5-random(1); tEffect.image_blend=c_orange
+        } //60fps change (added)
 
         if oGame.time mod (18/gDeltaTime)=0 and bossProgress=2
         {
@@ -161,7 +164,8 @@ if global.gamePaused=false
   }
   else if life<=0 //Defeat animation
   {
-    deathAnim+=1
+    //deathAnim+=1
+    deathAnim+=1*gDeltaTime //60fps change: was never scaled, so the defeat sequence was 2x/4x as short at 60/120fps
     if deathAnim=1
     {
       bCanDealDamage=false
@@ -172,7 +176,8 @@ if global.gamePaused=false
       with oEProjectileBase {instance_destroy()}
       with oAttackBase {instance_destroy()}
     }
-    else if deathAnim>=2 and deathAnim<=90
+    //else if deathAnim>=2 and deathAnim<=90
+    else if deathAnim>1 and deathAnim<=90 //60fps change: includes every frame of tick 2, not just its last one
     {
       if deathAnim mod 6=0 {playSound(global.snd_EnemyDieMM,0,1,1)}
       if oGame.time mod (2/gDeltaTime)=0
