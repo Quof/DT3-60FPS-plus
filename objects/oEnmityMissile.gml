@@ -32,7 +32,8 @@ if global.gamePaused=false
 
   atkProg+=1*gDeltaTime
 
-  if atkProg>=targetTime
+  //if atkProg>=targetTime
+  if atkProg>targetTime-1 //60fps change: homing starts on the first frame of tick targetTime like at 30fps (with >= it started on the last frame and turned ~2 degrees less at 120fps)
   {
     if room=rBubbleTowerA7 and gDeltaDoTicks
     {

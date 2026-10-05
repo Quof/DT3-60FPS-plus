@@ -388,7 +388,8 @@ if life<=0 //Defeat animation
       deathAnim=150
     }
   }
-  else if deathAnim>=151 and deathAnim<=210
+  //else if deathAnim>=151 and deathAnim<=210
+  else if deathAnim>150 and deathAnim<=210 //60fps change: includes every frame of tick 151, not just its last one
   {
     if deathAnim mod 3=0 {playSound(global.snd_BombExplode,0,0.92,1)}
     if oGame.time mod (2/gDeltaTime)=0

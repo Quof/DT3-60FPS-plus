@@ -72,7 +72,8 @@ if global.gamePaused=false
           sprite_index=sEnmityHandB
           image_index=0
         }
-        else if atkTime>=41 and atkTime<=70
+        //else if atkTime>=41 and atkTime<=70
+        else if atkTime>40 and atkTime<=70 //60fps change: includes every frame of tick 41, so the punch reaches the full 360px (it fell 9px short at 120fps)
         {
           if atkTime=41 {playSound(global.snd_ChargeStrike,0,0.94,1)}
           if atkTime mod 4=0 {playSound(global.snd_Bobomb,0,0.9,1)}
@@ -158,13 +159,17 @@ if global.gamePaused=false
           tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
           sprite_index=sEnmityHandB
         }
-        else if atkTime>=41 and atkTime<=90
+        //else if atkTime>=41 and atkTime<=90
+        else if atkTime>40 and atkTime<=90 //60fps change: includes every frame of tick 41, so the slam starts on time
         {
+          if gDeltaDoTicks //60fps change (added): one effect per 30fps tick (was every frame, 4x the effects at 120fps)
+          {
           var tEffect;
           tEffect=instance_create(x-18+random(36),y-((8+random(8))*image_xscale),oEffect)
           tEffect.sprite_index=sSamusSMissileHit
           tEffect.image_speed=0.5; tEffect.image_xscale=0.7; tEffect.image_yscale=0.7
           tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+          } //60fps change (added)
 
           y+=16*gDeltaTime
           if y>=288
