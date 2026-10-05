@@ -75,7 +75,8 @@ else if type=3 //----- Tail -----
   else if tailType=1 //Normal wave
   {
     x=myOwner.x-(43*image_xscale)-((tailSeg*8)*image_xscale)
-    tailWave+=0.25
+    //tailWave+=0.25
+    tailWave+=0.25*gDeltaTime //60fps change: the tail waved 2x/4x as fast at 60/120fps
     y=myOwner.y+29+(tailSeg*2)+sin(tailWave+(tailSeg*5))
     if sprite_index=sRidleyTailEnd {image_angle=180}
   }

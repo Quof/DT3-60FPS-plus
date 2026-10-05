@@ -148,22 +148,27 @@ if global.gamePaused=false
         y=room_height+64
         myDirType=choose(0,1)
       }
-      else if atkTime>=2 and atkTime<=99
+      //else if atkTime>=2 and atkTime<=99
+      else if atkTime>1 and atkTime<=99 //60fps change: includes every frame of tick 2
       {
         y-=6*gDeltaTime
-        if y<=304 {bWave=1; atkTime=100}
+        //if y<=304 {bWave=1; atkTime=100}
+        if y<=304 and frac(atkTime)=0 {bWave=1; atkTime=100} //60fps change: checked at the end of each 30fps tick (after its whole move) like at 30fps, so it stops at the same height
       }
-      else if atkTime>=101 and atkTime<=220
+      //else if atkTime>=101 and atkTime<=220
+      else if atkTime>100 and atkTime<=220 //60fps change: includes every frame of tick 101
       {
         if myDirType=0 //Left
         {
           x-=5*gDeltaTime
-          if x<=144 {myDirType=1}
+          //if x<=144 {myDirType=1}
+          if x<=144 and frac(atkTime)=0 {myDirType=1} //60fps change: turn around only at the end of a 30fps tick (after its whole 5px move) like at 30fps; checked every frame it turned early, and the back-and-forth drifted out of step with 30fps
         }
         else if myDirType=1 //Right
         {
           x+=5*gDeltaTime
-          if x>=336 {myDirType=0}
+          //if x>=336 {myDirType=0}
+          if x>=336 and frac(atkTime)=0 {myDirType=0} //60fps change: see above
         }
       }
 
@@ -206,7 +211,8 @@ if global.gamePaused=false
           tWarnSign=instance_create(x,64+(i*76),oEfWarningPopup); tWarnSign.warnMax=35
         }
       }
-      else if atkTime>=40 and atkTime<=99
+      //else if atkTime>=40 and atkTime<=99
+      else if atkTime>39 and atkTime<=99 //60fps change: includes every frame of tick 40, so the fireball spray (on whole atkTime) comes from the 30fps heights
       {
         if gDeltaDoTicks {var tEffect,tXadj;
         for(i=0;i<5;i+=1)
@@ -223,13 +229,15 @@ if global.gamePaused=false
         if bossProgress>=0 and bossProgress<=1 {fireballRate=3}
         else if bossProgress>=2 and bossProgress<=3 {fireballRate=2}
         else if bossProgress>=4 {fireballRate=1}
-        if y>=room_height+64
+        //if y>=room_height+64
+        if y>=room_height+64 and frac(atkTime)=0 //60fps change: checked at the end of each 30fps tick, so the overshoot carried into the climb back up matches 30fps
         {
           if x=144 {x=366; image_xscale=-1} else {x=144; image_xscale=1}
           fireballRate=0; atkTime=100
         }
       }
-      else if atkTime>=140 and atkTime<=199
+      //else if atkTime>=140 and atkTime<=199
+      else if atkTime>139 and atkTime<=199 //60fps change: includes every frame of tick 140
       {
         if gDeltaDoTicks {var tEffect,tXadj;
         for(i=0;i<5;i+=1)
@@ -279,22 +287,34 @@ if global.gamePaused=false
     else if atkProg=3 //-------------------- Hover over player, use tail, use fireball --------------------
     {
       if atkTime=10 {fireType=0; oRidleyParts.tailType=3}
-      else if atkTime>=11 and atkTime<=40 //Track player, tail spins
+      //else if atkTime>=11 and atkTime<=40 //Track player, tail spins
+      else if atkTime>10 and atkTime<=40 //Track player, tail spins. 60fps change: includes every frame of tick 11
       {
         if atkTime=11 {playSound(global.snd_PlayerJump[0],0,1,12000)}
         else if atkTime=31 {playSound(global.snd_PlayerJump[0],0,1,12000)}
         var tChkMove;
         tChkMove=point_distance(x,0,oPlayer1.x,0)
         distMax=64
-        if tChkMove<distMax-(distMax/6) and gDeltaDoTicks
+        //if tChkMove<distMax-(distMax/6) and gDeltaDoTicks
+        //{
+        //  if image_xscale=1 {x-=moveSpd/2}
+        //  else {x+=moveSpd/2}
+        //}
+        //else if tChkMove>distMax and gDeltaDoTicks
+        //{
+        //  if image_xscale=1 {x+=moveSpd}
+        //  else {x-=moveSpd}
+        //}
+        //60fps change: the same speeds spread over each frame (smooth), like the other Ridleys, instead of a 2.5/5px jump every 4th frame at 120fps
+        if tChkMove<distMax-(distMax/6)
         {
-          if image_xscale=1 {x-=moveSpd/2}
-          else {x+=moveSpd/2}
+          if image_xscale=1 {x-=moveSpd/2*gDeltaTime}
+          else {x+=moveSpd/2*gDeltaTime}
         }
-        else if tChkMove>distMax and gDeltaDoTicks
+        else if tChkMove>distMax
         {
-          if image_xscale=1 {x+=moveSpd}
-          else {x-=moveSpd}
+          if image_xscale=1 {x+=moveSpd*gDeltaTime}
+          else {x-=moveSpd*gDeltaTime}
         }
       }
       else if atkTime=50 //Find player for tail stab
@@ -304,23 +324,37 @@ if global.gamePaused=false
         oRidleyParts.tailType=4; oRidleyParts.tailAngle=tChkDir
         playSound(global.snd_PlayerJump[0],0,1,8000)
       }
-      else if atkTime>=51 and atkTime<=60 {oRidleyParts.tailSep+=3*gDeltaTime} //Extend tail
-      else if atkTime>=61 and atkTime<=70 {oRidleyParts.tailSep-=3*gDeltaTime} //Detract tail
+      //else if atkTime>=51 and atkTime<=60 {oRidleyParts.tailSep+=3*gDeltaTime} //Extend tail
+      //else if atkTime>=61 and atkTime<=70 {oRidleyParts.tailSep-=3*gDeltaTime} //Detract tail
+      else if atkTime>50 and atkTime<=60 {oRidleyParts.tailSep+=3*gDeltaTime} //Extend tail. 60fps change: includes every frame of tick 51, so the tail stab reaches as far as at 30fps (~13px short at 120fps)
+      else if atkTime>60 and atkTime<=70 {oRidleyParts.tailSep-=3*gDeltaTime} //Detract tail. 60fps change: see above
       else if atkTime=71 {oRidleyParts.tailType=1}
-      else if atkTime>=75 and atkTime<=118 //Track player and use fire
+      //else if atkTime>=75 and atkTime<=118 //Track player and use fire
+      else if atkTime>74 and atkTime<=118 //Track player and use fire. 60fps change: includes every frame of tick 75
       {
         var tChkMove;
         tChkMove=point_distance(x,0,oPlayer1.x,0)
         distMax=64
-        if tChkMove<distMax-(distMax/6) and gDeltaDoTicks
+        //if tChkMove<distMax-(distMax/6) and gDeltaDoTicks
+        //{
+        //  if image_xscale=1 {x-=moveSpd/2}
+        //  else {x+=moveSpd/2}
+        //}
+        //else if tChkMove>distMax and gDeltaDoTicks
+        //{
+        //  if image_xscale=1 {x+=moveSpd}
+        //  else {x-=moveSpd}
+        //}
+        //60fps change: the same speeds spread over each frame (smooth), like the other Ridleys, instead of a 2.5/5px jump every 4th frame at 120fps
+        if tChkMove<distMax-(distMax/6)
         {
-          if image_xscale=1 {x-=moveSpd/2}
-          else {x+=moveSpd/2}
+          if image_xscale=1 {x-=moveSpd/2*gDeltaTime}
+          else {x+=moveSpd/2*gDeltaTime}
         }
-        else if tChkMove>distMax and gDeltaDoTicks
+        else if tChkMove>distMax
         {
-          if image_xscale=1 {x+=moveSpd}
-          else {x-=moveSpd}
+          if image_xscale=1 {x+=moveSpd*gDeltaTime}
+          else {x-=moveSpd*gDeltaTime}
         }
 
         if atkTime=76 {ridParts[0].image_index=1}
@@ -403,7 +437,8 @@ if global.gamePaused=false
         with oEnemyBase {bCanDealDamage=0}
       }
     }
-    else if deathAnim>=2 and deathAnim<=999
+    //else if deathAnim>=2 and deathAnim<=999
+    else if deathAnim>1 and deathAnim<=999 //60fps change: includes every frame of tick 2
     {
       if deathAnim mod 2=0
       {

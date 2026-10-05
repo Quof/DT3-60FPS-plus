@@ -123,9 +123,11 @@ if global.gamePaused=false
           else if (strikeDir>=315 and strikeDir<=360) or strikeDir<=89 {strikeDir=315}
           if strikeDir<270 {moveArc=-2} else {moveArc=2}
         }
-        else if atkTime>=55 and atkTime<=150
+        //else if atkTime>=55 and atkTime<=150
+        else if atkTime>54 and atkTime<=150 //60fps change: includes every frame of tick 55
         {
-          if atkTime<=90 {strikeDir+=moveArc}
+          //if atkTime<=90 {strikeDir+=moveArc}
+          if atkTime<=90 {strikeDir+=moveArc*gDeltaTime} //60fps change: the swoop curved 2x/4x as much per tick at 60/120fps (a much tighter, different swoop)
           _direction=strikeDir
           _speed=6.5
           if x>=room_width+96 or x<=-96 or y<=-96 {atkTime=150}
@@ -143,7 +145,8 @@ if global.gamePaused=false
           else {x=room_width+96; image_xscale=-1}
           y=96
         }
-        else if atkTime>=2 and atkTime<=999
+        //else if atkTime>=2 and atkTime<=999
+        else if atkTime>1 and atkTime<=999 //60fps change: includes every frame of tick 2, so the fireballs (on whole atkTime) come from the 30fps spots
         {
           x+=strikeDir*gDeltaTime
           if atkTime mod 13=0

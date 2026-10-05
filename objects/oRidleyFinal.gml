@@ -108,10 +108,12 @@ if global.gamePaused=false
     if atkProg=0 //-------------------- Fly up over player --------------------
     {
       if atkTime=1 {bWave=0; oRidleyParts.tailType=2}
-      else if atkTime>=2 and atkTime<=999
+      //else if atkTime>=2 and atkTime<=999
+      else if atkTime>1 and atkTime<=999 //60fps change: includes every frame of tick 2
       {
         y-=6*gDeltaTime
-        if y<=180
+        //if y<=180
+        if y<=180 and frac(atkTime)=0 //60fps change: checked at the end of each 30fps tick like at 30fps, so it stops at the same height
         {
           bWave=1
           atkTime=0; atkProg=1
@@ -121,7 +123,8 @@ if global.gamePaused=false
     else if atkProg=1 //-------------------- Hover over player, use tail, use fireball --------------------
     {
       //Movement
-      if atkTime<=110 or atkTime>=149
+      //if atkTime<=110 or atkTime>=149
+      if atkTime<=110 or atkTime>148 //60fps change: covers every frame of tick 149 (with the change below, no frames are left out of both)
       {
         if x>oPlayer1.x
         {
@@ -133,7 +136,8 @@ if global.gamePaused=false
         }
         x+=moveSpdX*gDeltaTime
       }
-      else if atkTime>=111 and atkTime<=140 //Track player, tail spins
+      //else if atkTime>=111 and atkTime<=140 //Track player, tail spins
+      else if atkTime>110 and atkTime<=140 //Track player, tail spins. 60fps change: includes every frame of tick 111 (atkTime 110.25-110.75 moved in neither branch)
       {
         var tChkMove;
         tChkMove=point_distance(x,0,oPlayer1.x,0)
@@ -166,8 +170,10 @@ if global.gamePaused=false
         oRidleyParts.tailType=4; oRidleyParts.tailAngle=tChkDir
         playSound(global.snd_PlayerJump[0],0,1,8000)
       }
-      else if atkTime>=151 and atkTime<=160 {oRidleyParts.tailSep+=3*gDeltaTime} //Extend tail
-      else if atkTime>=161 and atkTime<=170 {oRidleyParts.tailSep-=3*gDeltaTime} //Detract tail
+      //else if atkTime>=151 and atkTime<=160 {oRidleyParts.tailSep+=3*gDeltaTime} //Extend tail
+      //else if atkTime>=161 and atkTime<=170 {oRidleyParts.tailSep-=3*gDeltaTime} //Detract tail
+      else if atkTime>150 and atkTime<=160 {oRidleyParts.tailSep+=3*gDeltaTime} //Extend tail. 60fps change: includes every frame of tick 151, so the tail stab reaches as far as at 30fps
+      else if atkTime>160 and atkTime<=170 {oRidleyParts.tailSep-=3*gDeltaTime} //Detract tail. 60fps change: see above
       else if atkTime=171 {oRidleyParts.tailType=2}
       else if atkTime>=175
       {
