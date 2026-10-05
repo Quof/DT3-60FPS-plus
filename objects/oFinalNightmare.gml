@@ -398,8 +398,10 @@ if global.gamePaused=false
     {
       faceImage+=0.1*gDeltaTime
       colSeq+=1*gDeltaTime
-      if colSeq>=1 and colSeq<=50 {colorPhase+=1*gDeltaTime}
-      else if colSeq>=51 and colSeq<=100
+      //if colSeq>=1 and colSeq<=50 {colorPhase+=1*gDeltaTime}
+      if colSeq>0 and colSeq<=50 {colorPhase+=1*gDeltaTime} //60fps change: >0 so all frames of the first tick count
+      //else if colSeq>=51 and colSeq<=100
+      else if colSeq>50 and colSeq<=100 //60fps change: >50 (see above)
       {
         colorPhase-=1*gDeltaTime
         if colSeq=100 {colSeq=0}
@@ -438,10 +440,15 @@ if global.gamePaused=false
 
       //Bob up and down
       sLordMoveTime+=1*gDeltaTime
-      if sLordMoveTime>=1 and sLordMoveTime<=21 {sLordMove+=0.04*gDeltaTime}
-      else if sLordMoveTime>=22 and sLordMoveTime<=42 {sLordMove-=0.04*gDeltaTime}
-      else if sLordMoveTime>=52 and sLordMoveTime<=72 {sLordMove-=0.04*gDeltaTime}
-      else if sLordMoveTime>=73 and sLordMoveTime<=93 {sLordMove+=0.04*gDeltaTime}
+      //if sLordMoveTime>=1 and sLordMoveTime<=21 {sLordMove+=0.04*gDeltaTime}
+      //else if sLordMoveTime>=22 and sLordMoveTime<=42 {sLordMove-=0.04*gDeltaTime}
+      //else if sLordMoveTime>=52 and sLordMoveTime<=72 {sLordMove-=0.04*gDeltaTime}
+      //else if sLordMoveTime>=73 and sLordMoveTime<=93 {sLordMove+=0.04*gDeltaTime}
+      //60fps change: windows start just after the previous tick (>0, >21, >51, >72) so all frames of their first tick count
+      if sLordMoveTime>0 and sLordMoveTime<=21 {sLordMove+=0.04*gDeltaTime}
+      else if sLordMoveTime>21 and sLordMoveTime<=42 {sLordMove-=0.04*gDeltaTime}
+      else if sLordMoveTime>51 and sLordMoveTime<=72 {sLordMove-=0.04*gDeltaTime}
+      else if sLordMoveTime>72 and sLordMoveTime<=93 {sLordMove+=0.04*gDeltaTime}
       else if sLordMoveTime>=103 {sLordMoveTime=0}
       y+=sLordMove*gDeltaTime
 
@@ -578,7 +585,8 @@ if global.gamePaused=false
     else if transform=4 //To phase 3
     {
       tranSeq+=1*gDeltaTime
-      if tranSeq>=1 and tranSeq<=100
+      //if tranSeq>=1 and tranSeq<=100
+      if tranSeq>0 and tranSeq<=100 //60fps change: >0 so all frames of the first tick count
       {
         if tranSeq=1 {resType[4]=1; bCanTakeDamage=0}
         if tranSeq<=60 {tranSize+=0.5*gDeltaTime}
@@ -633,7 +641,8 @@ if global.gamePaused=false
           tranSeq=30
         }
       }
-      else if tranSeq>=31 and tranSeq<=210
+      //else if tranSeq>=31 and tranSeq<=210
+      else if tranSeq>30 and tranSeq<=210 //60fps change: >30 so all frames of the first tick count
       {
         if tranSeq<=210 {tranSize+=1*gDeltaTime}
 
@@ -973,8 +982,10 @@ if sprite_index=sShroudLHead
 }
 else
 {
-  formSDir-=3
-  stepCount+=pi/60
+  //formSDir-=3
+  //stepCount+=pi/60
+  formSDir-=3*gDeltaTime //60fps change: scaled (Draw runs every frame)
+  stepCount+=pi/60*gDeltaTime //60fps change: scaled
   formSDist=8+sin(stepCount)
   if sprite_index!=sFNFace
   {
@@ -999,7 +1010,8 @@ if tranSize>0 {draw_circle(x,y,tranSize,0)}
 
 if spreadCircle>0 //Attack indicator
 {
-  spreadCircle-=atkCircSpd
+  //spreadCircle-=atkCircSpd
+  spreadCircle-=atkCircSpd*gDeltaTime //60fps change: scaled (the warning ring shrank 2-4x too fast)
   draw_set_color(c_gray)
   draw_set_alpha(0.4+(spreadCircle*2))
   draw_circle(x,y,4+spreadCircle,1)
