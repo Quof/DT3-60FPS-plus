@@ -78,7 +78,7 @@ if global.gamePaused=false
 
   if bActive=true and life>0
   {
-    x+=sin((oGame.time)*gDeltaTime/2.5)*gDeltaTime
+    x+=sin(oGame.time30/2.5)*gDeltaTime //same clock as the body segments (oBarbaBody), so the head stays on its neck
     if atkCycle=0 //-------------------- Choose location --------------------
     {
       var nextSpotX;
