@@ -129,7 +129,8 @@ if global.gamePaused=false
         var tEffect;
         tEffect=instance_create(x+random_range(-8,8),y+random_range(-14,22),oEffectB)
         tEffect.type=3; tEffect.sprite_index=sEfDiffusionParticle; tEffect.newBlend=-1; tEffect.image_alpha=0.75
-        tEffect._direction=random(360); tEffect.speed=random(1)+1; tEffect.friction=random(0.01)+0.01
+        //tEffect._direction=random(360); tEffect.speed=random(1)+1; tEffect.friction=random(0.01)+0.01
+        tEffect.direction=random(360); tEffect.speed=random(1)+1; tEffect.friction=random(0.01)+0.01 //60fps change: back to the built-in direction (as in the original); oEffectB moves with built-in speed/direction, so with _direction every particle flew straight right
         tEffect.fadeSpd=0.025; tEffect.AccelX=0; tEffect.AccelY=0; tEffect.followID=-1; tEffect.rotation=random_range(-3,3)
       }
 

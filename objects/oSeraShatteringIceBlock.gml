@@ -30,10 +30,13 @@ if global.gamePaused=false
   }
   else if moveType=1 //Spray shattered pieces
   {
+    if gDeltaDoTicks //60fps change (added): one ice spray effect per 30fps tick (was every frame, 4x at 120fps)
+    {
     tEffect=instance_create(x,y,oEffect)
     tEffect.sprite_index=sMMshotgunIceEffect; tEffect.image_speed=0.35; tEffect.image_angle=random(360)
     tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
     tEffect.direction=random(360); tEffect.speed=3; tEffect.image_alpha=0.75
+    } //60fps change (added)
     if oGame.time mod (4/gDeltaTime)=0 {playSound(global.snd_CShotA,0,0.9,1)}
     if oGame.time mod (2/gDeltaTime)=0
     {

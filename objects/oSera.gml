@@ -143,7 +143,8 @@ if global.gamePaused=false
                 tEffect=instance_create(x+random_range(-2,2),y+random_range(-2,2),oEffectB)
                 tEffect.type=3; tEffect.sprite_index=sEfFirefly; tEffect.newBlend=1
                 tEffect.image_alpha=0.9; tEffect.image_xscale=0.15+tFFScl; tEffect.image_yscale=0.15+tFFScl
-                tEffect._direction=random(360); tEffect._speed=random(1)+1; tEffect.friction=random(0.01)+0.01
+                //tEffect._direction=random(360); tEffect._speed=random(1)+1; tEffect.friction=random(0.01)+0.01
+                tEffect.direction=random(360); tEffect.speed=random(1)+1; tEffect.friction=random(0.01)+0.01 //60fps change: back to the built-in direction/speed (as in the original); oEffectB doesn't use _speed/_direction, so these sparkles didn't move (oGame corrects built-in speed for it)
                 tEffect.fadeSpd=0.033; tEffect.image_blend=make_color_rgb(random(50),random(50),255)
                 tEffect.AccelX=0; tEffect.AccelY=0; tEffect.followID=-1; tEffect.rotation=0
               }
@@ -187,29 +188,35 @@ if global.gamePaused=false
       //---------- Dampen speed ----------
       if xVel>=0.4
       {
-        xVel-=0.2*gDeltaTime
+        //xVel-=0.2*gDeltaTime
+        xVel=scrTickAcc(xVel,-0.2,0) //60fps change: slow down per 30fps tick (scrTickAcc, corrected in the move below), so dashes go as far as at 30fps (~3-4px further at 120fps)
         if xVel<=1.2 {if sprite_index=sSeraDashForward or sprite_index=sSeraDashBack {sprite_index=sSeraIdle}}
         if xVel<=0.5 {xVel=0}
       }
       else if xVel<=-0.4
       {
-        xVel+=0.2*gDeltaTime
+        //xVel+=0.2*gDeltaTime
+        xVel=scrTickAcc(xVel,0.2,0) //60fps change: see above
         if xVel>=-1.2 {if sprite_index=sSeraDashForward or sprite_index=sSeraDashBack {sprite_index=sSeraIdle}}
         if xVel>=-0.5 {xVel=0}
       }
 
       if yVel>=0.3
       {
-        yVel-=0.15*gDeltaTime
+        //yVel-=0.15*gDeltaTime
+        yVel=scrTickAcc(yVel,-0.15,1) //60fps change: see xVel above
         if yVel<=0.3 {yVel=0}
       }
       else if yVel<=-0.3
       {
-        yVel+=0.15*gDeltaTime
-        if yVel<=-0.3 {yVel=0}
+        //yVel+=0.15*gDeltaTime
+        yVel=scrTickAcc(yVel,0.15,1) //60fps change: see xVel above
+        //if yVel<=-0.3 {yVel=0}
+        if yVel>=-0.3 {yVel=0} //bug fix (not a 60fps change): was "<=-0.3", which zeroed every upward dash on its first tick
       }
 
-      x+=xVel*gDeltaTime; y+=yVel*gDeltaTime
+      //x+=xVel*gDeltaTime; y+=yVel*gDeltaTime
+      x+=(xVel+scrTickAccB(0))*gDeltaTime; y+=(yVel+scrTickAccB(1))*gDeltaTime //60fps change: scrTickAccB adds the per-tick slowdown correction (0 when not slowing this frame)
 
       if sprite_index=sSeraDashForward or sprite_index=sSeraDashBack //---------- After-image ----------
       {
@@ -459,7 +466,8 @@ if global.gamePaused=false
             }
           }
 
-          if sprite_index=sSeraSpearSpin {image_index+=0.33}
+          //if sprite_index=sSeraSpearSpin {image_index+=0.33}
+          if sprite_index=sSeraSpearSpin {image_index+=0.33*gDeltaTime} //60fps change: the spear spin animated 2x/4x as fast at 60/120fps
         }
         else if actCheck=6 //---------- ATTACK: CEILING SHATTER SHOT ----------
         {
@@ -569,7 +577,8 @@ if life<=0 //Defeat animation
     with oSeraRainSpearheads {instance_destroy()}
     sprite_index=sSeraHit
   }
-  else if deathAnim>=2 and deathAnim<=60
+  //else if deathAnim>=2 and deathAnim<=60
+  else if deathAnim>1 and deathAnim<=60 //60fps change: includes every frame of tick 2, not just its last one
   {
     if deathAnim mod 3=0 {playSound(global.snd_BombExplode,0,0.92,1)}
     if oGame.time mod (2/gDeltaTime)=0
