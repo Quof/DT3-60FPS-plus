@@ -204,15 +204,22 @@ if global.gamePaused=false
           }
           else {bCanFire=1}
         }
-        else if actTime>=25 and actTime<=35
+        //else if actTime>=25 and actTime<=35
+        else if actTime>24 and actTime<=35 //60fps change: covers every frame of ticks 25-35
         {
           if actTime=25 {playSound(global.snd_ChargeStrike,0,0.97,15000)}
-          if image_index<6 {image_index+=0.5}
+          //if image_index<6 {image_index+=0.5}
+          if image_index<6 {image_index+=0.5*gDeltaTime} //60fps change: animated 2x/4x as fast at 60/120fps
           xVel=(runAcc)*image_xscale
-          if image_xscale=1 and x>=xCenter+roomSpan-56 {actTime=35}
-          else if image_xscale=-1 and x<=xCenter-roomSpan+56 {actTime=35}
+          //if image_xscale=1 and x>=xCenter+roomSpan-56 {actTime=35}
+          //else if image_xscale=-1 and x<=xCenter-roomSpan+56 {actTime=35}
+          //60fps change: wall check on the first frame of each 30fps tick (before that tick's move) like at 30fps, jumping to
+          //the last frame of "tick 35" (34+gDeltaTime = 35 at 30fps) so the rest of this tick still moves, then it stops
+          if image_xscale=1 and x>=xCenter+roomSpan-56 and frac(actTime-gDeltaTime)=0 {actTime=34+gDeltaTime}
+          else if image_xscale=-1 and x<=xCenter-roomSpan+56 and frac(actTime-gDeltaTime)=0 {actTime=34+gDeltaTime}
         }
-        else if actTime=36
+        //else if actTime=36
+        else if actTime>35 and actTime<=36 //60fps change: stops on the first frame of tick 36 (xVel stayed set for 3 more frames at 120fps)
         {
           xVel=0
           image_index=7
@@ -240,15 +247,20 @@ if global.gamePaused=false
           }
           else {bCanFire=1}
         }
-        else if actTime>=15 and actTime<=35
+        //else if actTime>=15 and actTime<=35
+        else if actTime>14 and actTime<=35 //60fps change: covers every frame of ticks 15-35
         {
           if actTime=15 {playSound(global.snd_ChargeStrike,0,0.97,15000)}
-          if image_index<8 {image_index+=0.5}
+          //if image_index<8 {image_index+=0.5}
+          if image_index<8 {image_index+=0.5*gDeltaTime} //60fps change: animated 2x/4x as fast at 60/120fps
           xVel=(runAcc*0.75)*image_xscale
-          if image_xscale=1 and x>=xCenter+roomSpan-56 {actTime=35}
-          else if image_xscale=-1 and x<=xCenter-roomSpan+56 {actTime=35}
+          //if image_xscale=1 and x>=xCenter+roomSpan-56 {actTime=35}
+          //else if image_xscale=-1 and x<=xCenter-roomSpan+56 {actTime=35}
+          if image_xscale=1 and x>=xCenter+roomSpan-56 and frac(actTime-gDeltaTime)=0 {actTime=34+gDeltaTime} //60fps change: see charge attack A
+          else if image_xscale=-1 and x<=xCenter-roomSpan+56 and frac(actTime-gDeltaTime)=0 {actTime=34+gDeltaTime} //60fps change: see charge attack A
         }
-        else if actTime=36
+        //else if actTime=36
+        else if actTime>35 and actTime<=36 //60fps change: see charge attack A
         {
           xVel=0
           image_index=9
@@ -484,10 +496,12 @@ if global.gamePaused=false
 if life<=0 //Defeat animation
 {
   deathAnim+=1*gDeltaTime
-  if deathAnim>=1 and deathAnim<=60
+  //if deathAnim>=1 and deathAnim<=60
+  if deathAnim>0 and deathAnim<=60 //60fps change: covers every frame of ticks 1-60
   {
     if deathAnim mod 3=0 {playSound(global.snd_BombExplode,0,0.92,1)}
-    if oGame.time mod 2=0
+    //if oGame.time mod 2=0
+    if oGame.time mod (2/gDeltaTime)=0 //60fps change: oGame.time counts frames, so this made 2x/4x the explosions at 60/120fps
     {
       var tEffect;
       tEffect=instance_create(x+random_range(-36,36),y-random(80),oEffect)
