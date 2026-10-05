@@ -453,12 +453,15 @@ if global.gamePaused=false
         }
       }
       else if lastPhaseTime=30 {image_index=1}
-      else if lastPhaseTime>=61 and lastPhaseTime<=124 and gDeltaDoTicks {y+=1} //Float down
-      else if lastPhaseTime>=161 and lastPhaseTime<=200
+      //else if lastPhaseTime>=61 and lastPhaseTime<=124 and gDeltaDoTicks {y+=1} //Float down
+      else if lastPhaseTime>60 and lastPhaseTime<=124 {y+=1*gDeltaTime} //Float down. 60fps change: smooth, and exactly 64px (64 ticks) at every framerate; gDeltaDoTicks inside the window gave 63 or 64 depending on the frame it started
+      //else if lastPhaseTime>=161 and lastPhaseTime<=200
+      else if lastPhaseTime>160 and lastPhaseTime<=200 //60fps change: covers every frame of ticks 161-200
       {
         //shake once per tick, alternating. (lastPhaseTime moves in fractions above 30fps, so its exact even values can miss
         //the tick frames and every shake went left: decide on the tick frame from the tick number instead)
-        if gDeltaDoTicks {if floor(lastPhaseTime) mod 2=0 {x+=1} else {x-=1}}
+        //if gDeltaDoTicks {if floor(lastPhaseTime) mod 2=0 {x+=1} else {x-=1}}
+        if frac(lastPhaseTime)=0 {if lastPhaseTime mod 2=0 {x+=1} else {x-=1}} //60fps change: once per 30fps tick counted from lastPhaseTime itself (ticks 161-200, 20 each way), so Hex ends exactly where it started; gDeltaDoTicks gave 39 or 40 shakes depending on timing, leaving Hex 1px off
       }
       else if lastPhaseTime=201 //Wing spread
       {
