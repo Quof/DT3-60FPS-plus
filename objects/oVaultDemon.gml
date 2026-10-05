@@ -94,10 +94,8 @@ if global.gamePaused=false
 
     if moveType=0 //Glide to player x
     {
-      //if gDeltaDoTicks and y>moveYcenter {y-=1}
-      //else if gDeltaDoTicks and  y<moveYcenter {y+=1}
-      if y>moveYcenter {y-=1*gDeltaTime} //60fps change: 1px per 30fps tick spread over the frames (smooth) instead of a 1px jump every 4th frame at 120fps; y is whole here (rounded when the move type changes), so it lands exactly on moveYcenter
-      else if y<moveYcenter {y+=1*gDeltaTime} //60fps change: see above
+      if gDeltaDoTicks and y>moveYcenter {y-=1}
+      else if gDeltaDoTicks and  y<moveYcenter {y+=1}
 
       if x>oPlayer1.x {if moveSpd>-3 {moveSpd-=0.15*gDeltaTime}}
       else if x<oPlayer1.x {if moveSpd<3 {moveSpd+=0.15*gDeltaTime}}
@@ -105,8 +103,7 @@ if global.gamePaused=false
     }
     else if moveType=1 //Move down in player's way
     {
-      //if gDeltaDoTicks and y<moveYcenter+80 {y+=1}
-      if y<moveYcenter+80 {y+=1*gDeltaTime} //60fps change: smooth, see move type 0
+      if gDeltaDoTicks and y<moveYcenter+80 {y+=1}
     }
     else if moveType=2 //Move to top corner
     {

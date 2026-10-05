@@ -295,26 +295,15 @@ if global.gamePaused=false
         var tChkMove;
         tChkMove=point_distance(x,0,oPlayer1.x,0)
         distMax=64
-        //if tChkMove<distMax-(distMax/6) and gDeltaDoTicks
-        //{
-        //  if image_xscale=1 {x-=moveSpd/2}
-        //  else {x+=moveSpd/2}
-        //}
-        //else if tChkMove>distMax and gDeltaDoTicks
-        //{
-        //  if image_xscale=1 {x+=moveSpd}
-        //  else {x-=moveSpd}
-        //}
-        //60fps change: the same speeds spread over each frame (smooth), like the other Ridleys, instead of a 2.5/5px jump every 4th frame at 120fps
-        if tChkMove<distMax-(distMax/6)
+        if tChkMove<distMax-(distMax/6) and gDeltaDoTicks
         {
-          if image_xscale=1 {x-=moveSpd/2*gDeltaTime}
-          else {x+=moveSpd/2*gDeltaTime}
+          if image_xscale=1 {x-=moveSpd/2}
+          else {x+=moveSpd/2}
         }
-        else if tChkMove>distMax
+        else if tChkMove>distMax and gDeltaDoTicks
         {
-          if image_xscale=1 {x+=moveSpd*gDeltaTime}
-          else {x-=moveSpd*gDeltaTime}
+          if image_xscale=1 {x+=moveSpd}
+          else {x-=moveSpd}
         }
       }
       else if atkTime=50 //Find player for tail stab
@@ -335,26 +324,15 @@ if global.gamePaused=false
         var tChkMove;
         tChkMove=point_distance(x,0,oPlayer1.x,0)
         distMax=64
-        //if tChkMove<distMax-(distMax/6) and gDeltaDoTicks
-        //{
-        //  if image_xscale=1 {x-=moveSpd/2}
-        //  else {x+=moveSpd/2}
-        //}
-        //else if tChkMove>distMax and gDeltaDoTicks
-        //{
-        //  if image_xscale=1 {x+=moveSpd}
-        //  else {x-=moveSpd}
-        //}
-        //60fps change: the same speeds spread over each frame (smooth), like the other Ridleys, instead of a 2.5/5px jump every 4th frame at 120fps
-        if tChkMove<distMax-(distMax/6)
+        if tChkMove<distMax-(distMax/6) and gDeltaDoTicks
         {
-          if image_xscale=1 {x-=moveSpd/2*gDeltaTime}
-          else {x+=moveSpd/2*gDeltaTime}
+          if image_xscale=1 {x-=moveSpd/2}
+          else {x+=moveSpd/2}
         }
-        else if tChkMove>distMax
+        else if tChkMove>distMax and gDeltaDoTicks
         {
-          if image_xscale=1 {x+=moveSpd*gDeltaTime}
-          else {x-=moveSpd*gDeltaTime}
+          if image_xscale=1 {x+=moveSpd}
+          else {x-=moveSpd}
         }
 
         if atkTime=76 {ridParts[0].image_index=1}

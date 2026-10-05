@@ -454,7 +454,7 @@ if global.gamePaused=false
       }
       else if lastPhaseTime=30 {image_index=1}
       //else if lastPhaseTime>=61 and lastPhaseTime<=124 and gDeltaDoTicks {y+=1} //Float down
-      else if lastPhaseTime>60 and lastPhaseTime<=124 {y+=1*gDeltaTime} //Float down. 60fps change: smooth, and exactly 64px (64 ticks) at every framerate; gDeltaDoTicks inside the window gave 63 or 64 depending on the frame it started
+      else if lastPhaseTime>60 and lastPhaseTime<=124 {if frac(lastPhaseTime)=0 {y+=1}} //Float down. 60fps change: still a whole 1px step once per 30fps tick, but counted from lastPhaseTime itself (ticks 61-124) so it is exactly 64px every time; gDeltaDoTicks inside the window gave 63 or 64 depending on the frame it started
       //else if lastPhaseTime>=161 and lastPhaseTime<=200
       else if lastPhaseTime>160 and lastPhaseTime<=200 //60fps change: covers every frame of ticks 161-200
       {

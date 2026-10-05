@@ -136,9 +136,12 @@ if global.gamePaused=false
       {
         if mouthFlameTime=10121 {playSound(global.snd_Beam,0,0.95,11025)}
         var tPoison;
+        if frac(mouthFlameTime)=0 //60fps change (added): one flame cloud per 30fps tick; it spawned one every frame (4x the damaging clouds at 120fps)
+        {
         tPoison=instance_create(x+random_range(-3,3),y+random_range(-3,3),oM_PoisonBreath)
         tPoison.atkPower=atkPower; tPoison.bulletSpeed=5+random(2); tPoison.depth=24
         tPoison.animSpeed=0.25; tPoison._direction=270+random_range(-5,5); tPoison.image_blend=c_maroon
+        } //60fps change (added)
 
         if sideStart=1
         {
@@ -322,8 +325,10 @@ if global.gamePaused=false
       lightningFreq-=6
       lightningLength+=9
       firePillar+=1
-      (GID(314511)).image_xscale-=0.05*gDeltaTime; (GID(314511)).image_yscale-=0.1*gDeltaTime;
-      (GID(314512)).image_xscale-=0.05*gDeltaTime; (GID(314512)).image_yscale-=0.1*gDeltaTime;
+      //(GID(314511)).image_xscale-=0.05*gDeltaTime; (GID(314511)).image_yscale-=0.1*gDeltaTime;
+      (GID(314511)).image_xscale-=0.05; (GID(314511)).image_yscale-=0.1; //60fps change: one-off shrink when the boss reaches this HP stage (runs once), so not scaled; scaled it only shrank the spotlights by 1/4 at 120fps
+      //(GID(314512)).image_xscale-=0.05*gDeltaTime; (GID(314512)).image_yscale-=0.1*gDeltaTime;
+      (GID(314512)).image_xscale-=0.05; (GID(314512)).image_yscale-=0.1; //60fps change: one-off shrink when the boss reaches this HP stage (runs once), so not scaled; scaled it only shrank the spotlights by 1/4 at 120fps
       bossProgress+=1
     }
     else if lifePercent<=0.6 and lifePercent>=0.51 and bossProgress=1
@@ -334,8 +339,10 @@ if global.gamePaused=false
       lightningFreq-=6
       lightningLength+=9
       firePillar+=1
-      (GID(314511)).image_xscale-=0.05*gDeltaTime; (GID(314511)).image_yscale-=0.2*gDeltaTime;
-      (GID(314512)).image_xscale-=0.05*gDeltaTime; (GID(314512)).image_yscale-=0.2*gDeltaTime;
+      //(GID(314511)).image_xscale-=0.05*gDeltaTime; (GID(314511)).image_yscale-=0.2*gDeltaTime;
+      (GID(314511)).image_xscale-=0.05; (GID(314511)).image_yscale-=0.2; //60fps change: one-off shrink when the boss reaches this HP stage (runs once), so not scaled; scaled it only shrank the spotlights by 1/4 at 120fps
+      //(GID(314512)).image_xscale-=0.05*gDeltaTime; (GID(314512)).image_yscale-=0.2*gDeltaTime;
+      (GID(314512)).image_xscale-=0.05; (GID(314512)).image_yscale-=0.2; //60fps change: one-off shrink when the boss reaches this HP stage (runs once), so not scaled; scaled it only shrank the spotlights by 1/4 at 120fps
       bossProgress+=1
     }
     else if lifePercent<=0.5 and lifePercent>=0.38 and bossProgress=2
@@ -355,8 +362,10 @@ if global.gamePaused=false
       lightningFreq-=6
       lightningLength+=8
       firePillar+=1
-      (GID(314511)).image_xscale-=0.1*gDeltaTime; (GID(314511)).image_yscale-=0.2*gDeltaTime;
-      (GID(314512)).image_xscale-=0.1*gDeltaTime; (GID(314512)).image_yscale-=0.2*gDeltaTime;
+      //(GID(314511)).image_xscale-=0.1*gDeltaTime; (GID(314511)).image_yscale-=0.2*gDeltaTime;
+      (GID(314511)).image_xscale-=0.1; (GID(314511)).image_yscale-=0.2; //60fps change: one-off shrink when the boss reaches this HP stage (runs once), so not scaled; scaled it only shrank the spotlights by 1/4 at 120fps
+      //(GID(314512)).image_xscale-=0.1*gDeltaTime; (GID(314512)).image_yscale-=0.2*gDeltaTime;
+      (GID(314512)).image_xscale-=0.1; (GID(314512)).image_yscale-=0.2; //60fps change: one-off shrink when the boss reaches this HP stage (runs once), so not scaled; scaled it only shrank the spotlights by 1/4 at 120fps
       bossProgress+=1
     }
     else if lifePercent<=0.19 and lifePercent>=0 and bossProgress=4
@@ -366,8 +375,10 @@ if global.gamePaused=false
       lightningDelay-=25
       lightningFreq-=5
       lightningLength+=8
-      (GID(314511)).image_xscale-=0.2*gDeltaTime; (GID(314511)).image_yscale-=0.3*gDeltaTime;
-      (GID(314512)).image_xscale-=0.2*gDeltaTime; (GID(314512)).image_yscale-=0.3*gDeltaTime;
+      //(GID(314511)).image_xscale-=0.2*gDeltaTime; (GID(314511)).image_yscale-=0.3*gDeltaTime;
+      (GID(314511)).image_xscale-=0.2; (GID(314511)).image_yscale-=0.3; //60fps change: one-off shrink when the boss reaches this HP stage (runs once), so not scaled; scaled it only shrank the spotlights by 1/4 at 120fps
+      //(GID(314512)).image_xscale-=0.2*gDeltaTime; (GID(314512)).image_yscale-=0.3*gDeltaTime;
+      (GID(314512)).image_xscale-=0.2; (GID(314512)).image_yscale-=0.3; //60fps change: one-off shrink when the boss reaches this HP stage (runs once), so not scaled; scaled it only shrank the spotlights by 1/4 at 120fps
       bossProgress+=1
     }
   }
@@ -382,7 +393,8 @@ if life<=0 //Defeat animation
     with oEProjectileBase {instance_destroy()}
     with oAttackBase {instance_destroy()}
   }
-  else if deathAnim>=2 and deathAnim<=90
+  //else if deathAnim>=2 and deathAnim<=90
+  else if deathAnim>1 and deathAnim<=90 //60fps change: includes every frame of tick 2, not just its last one
   {
     if deathAnim mod 3=0 {playSound(global.snd_BombExplode,0,0.92,1)}
     if oGame.time mod (2/gDeltaTime)=0
