@@ -28,7 +28,8 @@ if global.gamePaused=false
   if fireProg=0
   {
     image_alpha+=0.01*gDeltaTime
-    if image_alpha=0.75 {fireProg=1}
+    //if image_alpha=0.75 {fireProg=1}
+    if image_alpha>=0.75 {image_alpha=0.75; fireProg=1} //60fps change: the 0.01/0.005/0.0025 steps never add up to exactly 0.75 (at 120fps they end just under it); if this is missed the alpha keeps rising and the big laser's flame fade-out can't make them harmless
   }
 
   if image_alpha>=0.5 {bCanDealDamage=1}

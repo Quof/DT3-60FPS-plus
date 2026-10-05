@@ -408,7 +408,8 @@ else if global.gameProgress=5550 and room=rAbomF //----- [3] Boss Fight: Virus P
     else if sceneProgress=7
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay>=21 and sceneDelay<=70 {fadeAlpha+=0.02*gDeltaTime}
+      //if sceneDelay>=21 and sceneDelay<=70 {fadeAlpha+=0.02*gDeltaTime}
+      if sceneDelay>20 and sceneDelay<=70 {fadeAlpha+=0.02*gDeltaTime} //60fps change: covers every frame of ticks 21-70
       if sceneDelay=40
       {
         msgCreate(0,0,"Chao","Guys? What's going on?",0,1,oMessagePerson,0)
@@ -612,7 +613,8 @@ else if global.gameProgress=5570 and room=rCh21_WastelandA //----- [5] Meeting w
       warmasterEnd.sprite_index=sPlayerDiscombobulate
       warmasterEnd.image_index=0; warmasterEnd.image_speed=0
     }
-    else if sceneDelay>=6 and sceneDelay<=35 {warmasterEnd.y-=14*gDeltaTime}
+    //else if sceneDelay>=6 and sceneDelay<=35 {warmasterEnd.y-=14*gDeltaTime}
+    else if sceneDelay>5 and sceneDelay<=35 {warmasterEnd.y-=14*gDeltaTime} //60fps change: covers every frame of ticks 6-35
     else if sceneDelay>=40
     {
       with warmasterEnd {instance_destroy()}
@@ -868,7 +870,8 @@ else if global.gameProgress=5640 and room=rDistortionF //----- [8] Final Boss Fi
     {
       sceneDelay+=1*gDeltaTime
       if sceneDelay=20 {oHexor_Main.bShowTentacles=1}
-      else if sceneDelay>=21 and sceneDelay<=70 {oHexor_Main.tentacleScale+=0.02*gDeltaTime}
+      //else if sceneDelay>=21 and sceneDelay<=70 {oHexor_Main.tentacleScale+=0.02*gDeltaTime}
+      else if sceneDelay>20 and sceneDelay<=70 {oHexor_Main.tentacleScale+=0.02*gDeltaTime} //60fps change: covers every frame of ticks 21-70 (the tentacles grew to 0.99/0.985 of full size at 60/120fps)
       else if sceneDelay>=90 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=13 and bWaitForInput=false

@@ -100,7 +100,8 @@ if global.gameOver=false and bChaoActive=1
     {
       if degradeDelay<=0
       {
-        chaoGraze-=3
+        //chaoGraze-=3
+        chaoGraze-=3*gDeltaTime //60fps change: the graze meter (Chao's damage bonus) drained 2x/4x as fast at 60/120fps
         if chaoGraze<0 {chaoGraze=0}
       }
       else {degradeDelay-=1*gDeltaTime}
@@ -130,7 +131,8 @@ if global.gameOver=false and bChaoActive=1
             xvel=mouse_x-x
             yvel=mouse_y-y
             var len;
-            len = sqrt(xvel*xvel + yvel+yvel)
+            //len = sqrt(xvel*xvel + yvel+yvel)
+            len = sqrt(xvel*xvel + yvel*yvel) //60fps change: was "yvel+yvel", so Chao's speed toward the mouse was wrong, and with the mouse well above Chao the value under sqrt went negative (a GM8 runtime error)
             xvel *= 32/len
             yvel *= 32/len
           }
@@ -283,7 +285,8 @@ if global.gameOver=false and bChaoActive=1
 
   if chaoEndAssisted>0 //When Chao assists the player during the Warship escape sequence
   {
-    chaoEndAssisted+=1
+    //chaoEndAssisted+=1
+    chaoEndAssisted+=1*gDeltaTime //60fps change: the escape-sequence assist light lasted 1/2 or 1/4 as long and flickered 2x/4x as fast at 60/120fps
     if chaoEndAssisted mod 2=0
     {
       if chaoLightAssistAlpha=0.25 {chaoLightAssistAlpha=0.75}
@@ -309,7 +312,8 @@ if global.gameOver=false and bChaoActive=1
 {
   if room!=rEnd_SceneA
   {
-    if currentColor<=5 //Normal Spray
+    //if currentColor<=5 //Normal Spray
+    if currentColor<=5 and gDeltaDoTicks //Normal Spray //60fps change: holding the middle button sprayed one particle per frame (2x/4x as many at 60/120fps)
     {
       var tFFEScl,tEEffect;
       tFFEScl=random(0.1)
@@ -381,7 +385,8 @@ if global.gameOver=false and bChaoActive=1
 {
   if currentColor>0
   {
-    currentColor-=1*gDeltaTime
+    //currentColor-=1*gDeltaTime
+    currentColor-=1 //60fps change: the mouse wheel event runs once per notch, not every frame, so it must not be scaled (with *gDeltaTime one notch gave 0.5/0.25 and the colors broke)
     if currentColor=5 {with oEfChaoDraw {instance_destroy()}}
   }
 }
@@ -394,7 +399,8 @@ applies_to=self
 if global.gameOver=false and bChaoActive=1
 {
   if currentColor<6
-    currentColor+=1*gDeltaTime
+    //currentColor+=1*gDeltaTime
+    currentColor+=1 //60fps change: see the wheel-up event (once per notch, not every frame)
 }
 #define Other_10
 /*"/*'/**//* YYD ACTION

@@ -395,7 +395,8 @@ if global.gamePaused=false
     {
       aimedShotSpreadTime+=1*gDeltaTime
       if aimedShotSpreadTime=aimedShotSpreadDelay {aimedShotWarn=48}
-      else if aimedShotSpreadTime>=aimedShotSpreadDelay+1 and aimedShotSpreadTime<=aimedShotSpreadDelay+24 {aimedShotWarn-=2*gDeltaTime}
+      //else if aimedShotSpreadTime>=aimedShotSpreadDelay+1 and aimedShotSpreadTime<=aimedShotSpreadDelay+24 {aimedShotWarn-=2*gDeltaTime}
+      else if aimedShotSpreadTime>aimedShotSpreadDelay and aimedShotSpreadTime<=aimedShotSpreadDelay+24 {aimedShotWarn-=2*gDeltaTime} //60fps change: covers every frame of ticks +1 to +24 (the warning ring stopped at radius 1/1.5 and stayed drawn at 60/120fps)
       else if aimedShotSpreadTime=aimedShotSpreadDelay+25 {playerDir=find_chao_dir()}
       else if aimedShotSpreadTime>=aimedShotSpreadDelay+26 and aimedShotSpreadTime<=aimedShotSpreadDelay+46 and aimedShotSpreadTime mod 4=0
       {
@@ -451,7 +452,8 @@ if global.gamePaused=false
     if bBigLaser=1
     {
       bigLaserTime+=1*gDeltaTime
-      if bigLaserTime>=1 and bigLaserTime<=15 {bigLaserWarn+=0.04*gDeltaTime}
+      //if bigLaserTime>=1 and bigLaserTime<=15 {bigLaserWarn+=0.04*gDeltaTime}
+      if bigLaserTime>0 and bigLaserTime<=15 {bigLaserWarn+=0.04*gDeltaTime} //60fps change: covers every frame of ticks 1-15
       if bigLaserTime=40
       {
         bigLaserWarn=0
@@ -467,7 +469,8 @@ if global.gamePaused=false
     if flameAct>=100 and flameAct<=199 //Fade out
     {
       flameAct+=1*gDeltaTime
-      if flameAct>=101 and flameAct<=120
+      //if flameAct>=101 and flameAct<=120
+      if flameAct>100 and flameAct<=120 //60fps change: covers every frame of ticks 101-120
       {
         for(i=0;i<8;i+=1)
         {
@@ -479,7 +482,8 @@ if global.gamePaused=false
     else if flameAct>=200 and flameAct<=299 //Fade in
     {
       flameAct+=1*gDeltaTime
-      if flameAct>=201 and flameAct<=220
+      //if flameAct>=201 and flameAct<=220
+      if flameAct>200 and flameAct<=220 //60fps change: covers every frame of ticks 201-220
       {
         for(i=0;i<8;i+=1)
         {
