@@ -73,7 +73,7 @@ if global.gamePaused=false
       }
 
       moveTime+=1*gDeltaTime
-      if moveTime>=moveThres and moveTime<=moveThres+15
+      if moveTime>moveThres-1 and moveTime<=moveThres+15 //16 ticks (see oHelmetHead)
       {
         image_speed=0.2
         if image_xscale=1

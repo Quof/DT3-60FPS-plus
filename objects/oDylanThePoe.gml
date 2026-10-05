@@ -71,7 +71,7 @@ if global.gamePaused=false
     {
       atkTime+=1*gDeltaTime
       if atkTime=10 {playSound(global.snd_Error,0,1,10000)}
-      else if atkTime>=11 and atkTime<=30
+      else if atkTime>10 and atkTime<=30 //(>10 so all frames of the first tick count above 30fps: fades in fully)
       {
         image_alpha+=0.05*gDeltaTime
       }
