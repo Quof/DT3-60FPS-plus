@@ -253,7 +253,8 @@ if life<=0 //Defeat animation
     with oMovingSolid {instance_destroy()}
     with oAttackBase {instance_destroy()}
   }
-  else if deathAnim>=2
+  //else if deathAnim>=2
+  else if deathAnim>1 //60fps change: includes every frame of tick 2
   {
     y+=1*gDeltaTime
     image_alpha-=0.02*gDeltaTime

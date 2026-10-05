@@ -257,7 +257,8 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if gDeltaDoTicks { exit; }
+//if gDeltaDoTicks { exit; }
+if !gDeltaDoTicks { exit; } //60fps change: handle the stomp/contact once per 30fps tick (exit on the frames between ticks); the old check was inverted, so at 30fps (every frame is a tick) this never ran and Blargg couldn't be stomped or touch the player
 
 if hitState=1
 {
