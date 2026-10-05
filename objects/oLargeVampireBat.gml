@@ -34,6 +34,7 @@ atkFreq=19
 
 movePlace=0
 moveSpd=0
+moveTk=0; tkSpd=0; tkDir=0 //60fps change (added): per-tick latch for the dive/return (see Step)
 
 deathAnim=0
 
@@ -107,14 +108,21 @@ if global.gamePaused=false
         targetSpotX=oPlayer1.x; targetSpotY=returnPlayerYCenter()
         moveDir=point_direction(x,y,targetSpotX,targetSpotY)
         moveSpd=6
-        atkTime=0; atkProg=1
+        //atkTime=0; atkProg=1
+        atkTime=0; atkProg=1; moveTk=0 //60fps change: also reset moveTk
       }
     }
     else if atkProg=1 //Attack
     {
-      _speed=moveSpd
-      _direction=moveDir
-      if point_distance(x,y,targetSpotX,targetSpotY)<12
+      //_speed=moveSpd
+      //_direction=moveDir
+      //if point_distance(x,y,targetSpotX,targetSpotY)<12
+      //60fps change (added): above 30fps, the speed/direction and the "reached the spot" check are only taken at the start of
+      //each 30fps tick (moveTk whole), like at 30fps, so the turn happens at the same spot (checking every frame turned up to ~4px early)
+      if frac(moveTk)=0 {tkSpd=moveSpd; tkDir=moveDir}
+      _speed=tkSpd //60fps change: was moveSpd, latched per tick
+      _direction=tkDir //60fps change: was moveDir, latched per tick
+      if frac(moveTk)=0 and point_distance(x,y,targetSpotX,targetSpotY)<12 //60fps change: only at the start of a 30fps tick
       {
         atkNum+=1
         if atkNum mod 3=0
@@ -137,17 +145,23 @@ if global.gamePaused=false
         moveDir=point_direction(x,y,targetSpotX,targetSpotY)
         atkProg=2
       }
+      moveTk+=gDeltaTime //60fps change (added)
     }
     else if atkProg=2 //Return
     {
-      _speed=moveSpd
-      _direction=moveDir
-      if point_distance(x,y,targetSpotX,targetSpotY)<12
+      //_speed=moveSpd
+      //_direction=moveDir
+      //if point_distance(x,y,targetSpotX,targetSpotY)<12
+      if frac(moveTk)=0 {tkSpd=moveSpd; tkDir=moveDir} //60fps change (added): see Attack above
+      _speed=tkSpd //60fps change: was moveSpd, latched per tick
+      _direction=tkDir //60fps change: was moveDir, latched per tick
+      if frac(moveTk)=0 and point_distance(x,y,targetSpotX,targetSpotY)<12 //60fps change: only at the start of a 30fps tick
       {
         _speed=0
         if atkNum mod 3=0 {atkProg=3}
         else {atkProg=0}
       }
+      moveTk+=gDeltaTime //60fps change (added)
     }
     else if atkProg=3 //Shoot fire from side
     {
@@ -218,7 +232,8 @@ if global.gamePaused=false
       with oPassBullet
         instance_destroy()
     }
-    else if deathAnim>=2 and deathAnim<=55
+    //else if deathAnim>=2 and deathAnim<=55
+    else if deathAnim>1 and deathAnim<=55 //60fps change: includes every frame of tick 2 (deathAnim 1.25-2 at 120fps), not just its last one
     {
       if oGame.time mod (2/gDeltaTime)=0
       {
