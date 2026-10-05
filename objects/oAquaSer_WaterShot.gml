@@ -27,12 +27,14 @@ if global.gamePaused=false
   if hitWaterPlat>0
   {
     idToLift.yVel=-bulletSpeed
-    tEffect=instance_create(x-20+random(40),y-20,oEffectB)
+    //tEffect=instance_create(x-20+random(40),y-20,oEffectB)
+    if gDeltaDoTicks {tEffect=instance_create(x-20+random(40),y-20,oEffectB) //60fps change (added if): spray once per 30fps tick
     tEffect.type=3; tEffect.sprite_index=sMMchargeEffect1
     tEffect.image_alpha=0.8; tEffect.image_speed=0; tEffect.image_angle=90
     tEffect.image_blend=c_teal; tEffect.direction=270; tEffect.speed=random(0.4)+0.1
     tEffect.AccelY=0.1; tEffect.fadeSpd=0.0075
-    tEffect.AccelX=0; tEffect.newBlend=-1; tEffect.followID=-1; tEffect.rotation=0
+    //tEffect.AccelX=0; tEffect.newBlend=-1; tEffect.followID=-1; tEffect.rotation=0
+    tEffect.AccelX=0; tEffect.newBlend=-1; tEffect.followID=-1; tEffect.rotation=0} //(end of the 60fps if above)
 
     hitWaterPlat+=1*gDeltaTime
     if hitWaterPlat=12

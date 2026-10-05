@@ -392,7 +392,8 @@ if global.gamePaused=false
       else if moveProg>=1001 and moveProg<=1999 //Arc around
       {
         speed=moveSpd; direction=moveDir
-        tTemp+=1
+        //tTemp+=1
+        tTemp+=1*gDeltaTime //60fps change: scaled (counts every frame here)
         if tTemp=20
         {
           for(i=0;i<20;i+=1)
@@ -480,14 +481,16 @@ if global.gamePaused=false
       else if moveProg>=1051 and moveProg<=1999 //Arc under
       {
         speed=moveSpd; direction=moveDir
-        if moveProg>=1051 and moveProg<=1059
+        //if moveProg>=1051 and moveProg<=1059
+        if moveProg>1050 and moveProg<=1059 //60fps change: >1050 so all frames of the first tick count (9 ticks x 10 degrees)
         {
           if moveSide=1 //Left
             moveDir+=10*gDeltaTime
           else //Right
             moveDir-=10*gDeltaTime
         }
-        else if moveProg>=1063 and moveProg<=1071
+        //else if moveProg>=1063 and moveProg<=1071
+        else if moveProg>1062 and moveProg<=1071 //60fps change (see above)
         {
           if moveSide=1 //Left
             moveDir-=10*gDeltaTime
@@ -528,14 +531,16 @@ if global.gamePaused=false
           tFire.image_xscale=3; tFire.image_yscale=3
           tFire.atkPower=atkPower; tFire.bulletSpeed=5; tFire.decayTime=-100
         }
-        else if moveProg>=1083 and moveProg<=1091
+        //else if moveProg>=1083 and moveProg<=1091
+        else if moveProg>1082 and moveProg<=1091 //60fps change (see above)
         {
           if moveSide=1 //Left
             moveDir-=10*gDeltaTime
           else //Right
             moveDir+=10*gDeltaTime
         }
-        else if moveProg>=1095 and moveProg<=1103
+        //else if moveProg>=1095 and moveProg<=1103
+        else if moveProg>1094 and moveProg<=1103 //60fps change (see above)
         {
           if moveSide=1 //Left
             moveDir+=10*gDeltaTime
@@ -697,7 +702,8 @@ if global.gamePaused=false
     }
     else if deathAnim>=1001 and deathAnim<=1054
     {
-      if oGame.time mod (2/gDeltaTime)
+      //if oGame.time mod (2/gDeltaTime)
+      if oGame.time mod (2/gDeltaTime)=0 //60fps change: =0 was missing (vanilla: mod 2=0), so this fired on 7 of 8 frames at 120fps
       {
         var tEffect;
         tEffect=instance_create((x-sprite_width/2)+random(sprite_width),(y-sprite_height/2)+random(sprite_height),oEffect)
