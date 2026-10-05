@@ -171,7 +171,7 @@ if global.gamePaused=false
         var tNewExplode;
         //for(i=0;i<2;i+=1)
         //if oGame.time mod 2 == false for(i=0;i<2;i+=1) //do NOT change this mod check, it is adjusted for the framerate - quof
-        if frac(atkProg)=0 for(i=0;i<2;i+=1) //60fps change (approved by quof): one pair per 30fps tick like vanilla, at every framerate: pillars at 40,56,72,88...440. The first pair is always on the window's first frame (atkProg=104 exactly, groundGunX=40), so it's flush with the left wall. (oGame.time mod 2 left gaps at 30fps, doubled the pillars at 120fps, and only hit that first frame half the time)
+        if frac(atkProg)=0 for(i=0;i<2;i+=1) //60fps change: one pair per 30fps tick like vanilla, at every framerate: pillars at 40,56,72,88...440. The first pair is always on the window's first frame (atkProg=104 exactly, groundGunX=40), so it's flush with the left wall. (oGame.time mod 2 left gaps at 30fps, doubled the pillars at 120fps, and only hit that first frame half the time)
         {
           tNewExplode=instance_create(groundGunX+(i*16),yGround,oDamageExplosion); tNewExplode.image_yscale=0.9
           tNewExplode.atkPower=atkPower-1; tNewExplode.sprite_index=sBTFirePillar; tNewExplode.decayTime=-100

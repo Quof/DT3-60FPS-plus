@@ -1,0 +1,16 @@
+POSSIBLE BUGS / QUIRKS (one per line; [OPEN]=not changed, [NOT FIXING]=decided not to fix, [PENDING]=to do later, [DECISION]=kept as is for now)
+[OPEN] King Worm (oKingWorm, behavior 1): "else if progTime=180" (open fangs) is inside the "progTime<=175" window, so it can never run (vanilla too).
+[OPEN] Malevolence (oMalevolence): after the mouth-flame glide, the head returns 4px/axis per tick and needs to get within 3px of center; at 30fps it can bounce around center forever, so mouthFlameTime never resets (unconfirmed in play; can't happen at 60/120).
+[OPEN] Sephiroth (oSephMetControl): the meteor column "reset" uses start+metRounds*24 with metRounds=5, so after the first sweep (0-96) it repeats 120-216 forever and never returns to the outer columns (vanilla).
+[OPEN] Leviathan (oC_Leviathan, moveProg 3): after the 120 reset, "moveTime mod 40=0" is true on the same step, so an extra aimed shot fires (vanilla, all framerates).
+[OPEN] Unforgotten spawns (oPT_ForgottenSpawn): start moving at direction 0 (right) and turn toward the player, though the sprite starts pointed at the player (vanilla).
+[OPEN] Several PT bosses (Stone Golem, Flame Elemental, High Heels Girl, Unforgotten, Chosen One, Sephiroth) copy global.hudGame_WeaponEn[1] into [0] on Create - probably intentional.
+[OPEN] charJeremyStepEvent (used when global.activeCharacter=4): ~1034 lines with only 2 gDeltaTime uses (e.g. xVel+=extForceX unscaled) - Jeremy movement likely not converted for 60/120fps.
+[OPEN] oNormArcBullet: _direction+=arcAmt is unscaled and falloff sign logic is odd, but nothing creates this object.
+[OPEN] Death (oDeath): dive-roll trigger (yVel>=-2) is checked every frame, so the roll can start up to a tick off vs 30fps (a pixel or two in height); could be tick-latched like Bowser's jumpTk.
+[OPEN] Maoh the Giant: spike arm embeds up to 6px into walls at 30fps vs <=1.5px at 120fps (visual only).
+[OPEN] Sigma Epsilon heads (oSigmaB_BigHead): the standable solid (oMovingSolid) takes speed on global ticks while the head moves per frame, so they can be ~2px apart while moving.
+[NOT FIXING] Flame Elemental (oPT_FlameElemental): big burst makes atkAmt*2 fireballs spaced 360/atkAmt, so 8 directions with 2 stacked fireballs each (vanilla).
+[PENDING] Abomination (oVAbom_P2_Legs): image_angle+=sin(...) without *gDeltaTime.
+[PENDING] Pipe fall-state (item 11); "switch rooms" interpretation unconfirmed; Vault Hex "avoidances" not identified; Kamek center-stop minor issue; Helmethead helmet rise drift; Dylan steps 1px per tick.
+[DECISION] Bospider (oBospider): descent spreads moveSpd px over the tick in whole pixels (mvBudget) - kept for now.

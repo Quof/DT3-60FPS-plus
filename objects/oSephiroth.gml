@@ -225,7 +225,8 @@ if global.gamePaused=false
             bCanTakeDamage=false
             image_alpha-=0.25*gDeltaTime
           }
-          else if actTime>=2 and actTime<=4 {image_alpha-=0.25*gDeltaTime}
+          //else if actTime>=2 and actTime<=4 {image_alpha-=0.25*gDeltaTime}
+          else if actTime>0 and actTime<=4 {image_alpha-=0.25*gDeltaTime} //60fps change: the fade covers every frame of ticks 1-4 ("actTime=1" above is only one frame at 120fps), so Sephiroth fully disappears; it only faded to alpha 0.375 at 120fps
           else if actTime=8
           {
             if altAtk<=1 {x=oPlayer1.x+(48*-oPlayer1.image_xscale)}
@@ -235,7 +236,8 @@ if global.gamePaused=false
             if x>xCenter+roomSpan-24 {x=xCenter+roomSpan-24}
             if x<xCenter-roomSpan+24 {x=xCenter-roomSpan+24}
           }
-          else if actTime>=9 and actTime<=11 {image_alpha+=0.25*gDeltaTime}
+          //else if actTime>=9 and actTime<=11 {image_alpha+=0.25*gDeltaTime}
+          else if actTime>8 and actTime<12 {image_alpha+=0.25*gDeltaTime} //60fps change: covers every frame of ticks 9-12 except the "actTime=12" frame below, which adds the rest
           else if actTime=12
           {
             image_alpha+=0.25*gDeltaTime
@@ -270,14 +272,16 @@ if global.gamePaused=false
         bCanTakeDamage=false
         image_alpha-=0.25*gDeltaTime
       }
-      else if actTime>=2 and actTime<=4 {image_alpha-=0.25*gDeltaTime}
+      //else if actTime>=2 and actTime<=4 {image_alpha-=0.25*gDeltaTime}
+      else if actTime>0 and actTime<=4 {image_alpha-=0.25*gDeltaTime} //60fps change: covers every frame of ticks 1-4 (see the teleport), so Sephiroth fully disappears before moving up
       else if actTime=6
       {
         xSpot=x
         x=xCenter
         y=yGround-160
       }
-      else if actTime>=7 and actTime<=10 {image_alpha+=0.25*gDeltaTime}
+      //else if actTime>=7 and actTime<=10 {image_alpha+=0.25*gDeltaTime}
+      else if actTime>6 and actTime<=10 {image_alpha+=0.25*gDeltaTime} //60fps change: covers every frame of ticks 7-10
       else if actTime=12 {bCanTakeDamage=true; image_index=1}
       else if actTime=14 {image_index=2}
       else if actTime=16 {image_index=3}
@@ -290,13 +294,15 @@ if global.gamePaused=false
         newMeteor=instance_create(0,0,oSephMetControl)
         newMeteor.meteorFreq=meteorFreq; newMeteor.meteorTime=meteorTime
       }
-      else if actTime>=67 and actTime<=70 {bCanTakeDamage=false; image_index=0; image_alpha-=0.25*gDeltaTime}
+      //else if actTime>=67 and actTime<=70 {bCanTakeDamage=false; image_index=0; image_alpha-=0.25*gDeltaTime}
+      else if actTime>66 and actTime<=70 {bCanTakeDamage=false; image_index=0; image_alpha-=0.25*gDeltaTime} //60fps change: covers every frame of ticks 67-70
       else if actTime=74
       {
         x=xSpot
         y=yGround
       }
-      else if actTime>=75 and actTime<=77 {image_alpha+=0.25*gDeltaTime}
+      //else if actTime>=75 and actTime<=77 {image_alpha+=0.25*gDeltaTime}
+      else if actTime>74 and actTime<78 {image_alpha+=0.25*gDeltaTime} //60fps change: covers every frame of ticks 75-78 except the "actTime=78" frame below, which adds the rest
       else if actTime=78
       {
         bCanTakeDamage=true
@@ -395,7 +401,8 @@ if global.gamePaused=false
         }
       }
     }
-    else if deathAnim>=2 and deathAnim<=75
+    //else if deathAnim>=2 and deathAnim<=75
+    else if deathAnim>1 and deathAnim<=75 //60fps change: includes every frame of tick 2, not just its last one
     {
       if oGame.time mod (2/gDeltaTime)=0
       {
@@ -553,7 +560,8 @@ else if actTime>=30
   event_user(4)
 }
 
-if actTime>=21 and actTime<=26 //Keep sword slash following Sephiroth
+//if actTime>=21 and actTime<=26 //Keep sword slash following Sephiroth
+if actTime>20 and actTime<=26 //Keep sword slash following Sephiroth. 60fps change: includes every frame of tick 21, so the slash doesn't lag behind for 3 frames
 {
   oSephAtk.x=x
   oSephAtk.y=y
@@ -586,7 +594,8 @@ else if actTime=103
   event_user(4)
 }
 
-if actTime>=2 and actTime<=100 //Keep sword slash following Sephiroth
+//if actTime>=2 and actTime<=100 //Keep sword slash following Sephiroth
+if actTime>1 and actTime<=100 //Keep sword slash following Sephiroth. 60fps change: includes every frame of tick 2
 {
   oSephAtk.x=x
   oSephAtk.y=y+2
