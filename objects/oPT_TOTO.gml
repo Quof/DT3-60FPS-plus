@@ -186,7 +186,8 @@ if global.gamePaused=false
       image_index=2
       createScreenText(240,96,80,fnt_Chapter,fa_middle,"But the attack failed because#it wasn't fully coded.",3,c_white,1,0)
     }
-    else if deathAnim>=311 and deathAnim<=400
+    //else if deathAnim>=311 and deathAnim<=400
+    else if deathAnim>310 and deathAnim<=400 //60fps change: includes every frame of tick 311, not just its last one
     {
       if deathAnim mod 3=0 {playSound(global.snd_BombExplode,0,0.92,1)}
       if oGame.time mod (2/gDeltaTime)=0
@@ -255,7 +256,8 @@ if attackTime=1 //Check side
   if x>room_width/2 {sideStart=1}
   else {sideStart=2}
 }
-else if attackTime>=2 and attackTime<=21 //Move up and to the side
+//else if attackTime>=2 and attackTime<=21 //Move up and to the side
+else if attackTime>1 and attackTime<=21 //Move up and to the side. 60fps change: includes every frame of tick 2, so it moves the full 60px (57.75px at 120fps)
 {
   y-=3*gDeltaTime
   if sideStart=1 {x-=3*gDeltaTime}
@@ -307,7 +309,8 @@ else if attackTime>=2 and attackTime<=99 //Move off map
     if x>=room_width {image_index=2; attackTime=100}
   }
 }
-else if attackTime>=101 and attackTime<=399 //Fly across map, use fireballs down
+//else if attackTime>=101 and attackTime<=399 //Fly across map, use fireballs down
+else if attackTime>100 and attackTime<=399 //Fly across map, use fireballs down. 60fps change: includes every frame of tick 101, so the fireballs (on whole attackTime) drop from the 30fps spots
 {
   var myAtk;
   if attackTime mod atkC_Freq=0
@@ -350,9 +353,11 @@ if attackTime=1 //Check side
   if x<room_width/2 {sideStart=1}
   else {sideStart=2}
 }
-else if attackTime>=2 and attackTime<=99 //Go to side position
+//else if attackTime>=2 and attackTime<=99 //Go to side position
+else if attackTime>1 and attackTime<=99 //Go to side position. 60fps change: includes every frame of tick 2
 {
-  if y<272 {y+=3}
+  //if y<272 {y+=3}
+  if y<272 {y+=3*gDeltaTime} //60fps change: was never scaled (dropped 2x/4x as fast at 60/120fps)
   if sideStart=1
   {
     x+=8*gDeltaTime
@@ -459,7 +464,8 @@ draw_sprite_ext(sTOTO_Body,bodyFrm,x,y,image_xscale,image_yscale,image_angle,ima
 event_inherited() //Head
 if deathAnim>=136 and deathAnim<=290
 {
-  chargeFrame+=0.33
+  //chargeFrame+=0.33
+  chargeFrame+=0.33*gDeltaTime //60fps change: Draw runs every frame, so the charge animation played 2x/4x as fast
   for(i=0;i<3;i+=1)
   {
     draw_sprite_ext(sMMcharging,chargeFrame+1,x,y+96,5,5,0,c_white,0.75)
