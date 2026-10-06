@@ -34,7 +34,8 @@ if global.gamePaused=false
   if formTime=1 {playSound(global.snd_Magic,0,0.9,27000)}
   else if formTime=25 {playSound(global.snd_LightballSpread,0,0.9,27000)}
 
-  if formTime>=1 and formTime<=5
+  //if formTime>=1 and formTime<=5
+  if formTime>0 and formTime<=5 //60fps change: covers every frame of tick 1; the lance only faded in to 0.9/0.85 alpha at 60/120fps and stayed see-through
   {
     image_alpha+=0.2*gDeltaTime
   }

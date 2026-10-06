@@ -47,8 +47,10 @@ if global.gamePaused=false
     {
       x-=runAcc*gDeltaTime
       moveDir+=1*gDeltaTime
-      if moveDir>=1 and moveDir<=35 {y+=runAcc*gDeltaTime}
-      else if moveDir>=36 and moveDir<=70
+      //if moveDir>=1 and moveDir<=35 {y+=runAcc*gDeltaTime}
+      if moveDir>0 and moveDir<=35 {y+=runAcc*gDeltaTime} //60fps change: covers every frame of ticks 1 and 36, so the bob is as tall as at 30fps
+      //else if moveDir>=36 and moveDir<=70
+      else if moveDir>35 and moveDir<=70 //60fps change: see above
       {
         y-=runAcc*gDeltaTime
         if moveDir=70 {moveDir=0}

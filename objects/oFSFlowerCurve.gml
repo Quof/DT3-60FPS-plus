@@ -28,8 +28,10 @@ applies_to=self
 if global.gamePaused=false
 {
   arcTime+=1*gDeltaTime
-  if arcTime>=1 and arcTime<=10 {_direction+=bulletTurn*gDeltaTime}
-  else if arcTime>=11 and arcTime<=30 {_direction-=bulletTurn*gDeltaTime}
+  //if arcTime>=1 and arcTime<=10 {_direction+=bulletTurn*gDeltaTime}
+  if arcTime>0 and arcTime<=10 {_direction+=bulletTurn*gDeltaTime} //60fps change: covers every frame of each tick; the first frame(s) of tick 11 fell to the else below and turned the wrong way, so the curve drifted at 60/120fps (as in oCW_ArcBullet)
+  //else if arcTime>=11 and arcTime<=30 {_direction-=bulletTurn*gDeltaTime}
+  else if arcTime>10 and arcTime<=30 {_direction-=bulletTurn*gDeltaTime} //60fps change: see above
   else
   {
     _direction+=4*gDeltaTime

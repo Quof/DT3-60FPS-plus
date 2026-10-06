@@ -83,9 +83,11 @@ if global.gamePaused=false
     }
 
     if oGame.time mod (8/gDeltaTime)=0 {playSound(global.snd_EnemyDieMM,0,0.9,1)}
+    if gDeltaDoTicks { //60fps change (added): one explosion per 30fps tick (was 2x/4x as many at 60/120fps)
     tEffect=instance_create(x+random(sprite_width),y+random(sprite_height),oEffect)
     tEffect.sprite_index=sRobotExplosion
     tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=-1
+    } //60fps change (added)
 
     if deathAnim>=35
     {

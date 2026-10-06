@@ -43,7 +43,8 @@ if global.gamePaused=false
     }
 
     moveProg+=1*gDeltaTime
-    if moveProg>=1 and moveProg<=99
+    //if moveProg>=1 and moveProg<=99
+    if moveProg>0 and moveProg<=99 //60fps change: covers every frame of tick 1, so it flies in as far as at 30fps (3px/4.5px short at 60/120fps)
     {
       x-=runAcc*gDeltaTime
       if moveProg>=stopTime {moveProg=100}

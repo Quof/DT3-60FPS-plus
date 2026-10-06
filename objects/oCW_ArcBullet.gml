@@ -27,8 +27,10 @@ if global.gamePaused=false
   if init=0 {init=1}
 
   arcTime+=1*gDeltaTime
-  if arcTime>=1 and arcTime<=10 {_direction+=4*gDeltaTime}
-  else if arcTime>=11 and arcTime<=30 {_direction-=4*gDeltaTime}
+  //if arcTime>=1 and arcTime<=10 {_direction+=4*gDeltaTime}
+  if arcTime>0 and arcTime<=10 {_direction+=4*gDeltaTime} //60fps change: covers every frame of each tick; the first frame(s) of tick 11 fell to the else below and turned the wrong way, so the arc drifted 4/6 degrees per cycle at 60/120fps
+  //else if arcTime>=11 and arcTime<=30 {_direction-=4*gDeltaTime}
+  else if arcTime>10 and arcTime<=30 {_direction-=4*gDeltaTime} //60fps change: see above
   else
   {
     _direction+=4*gDeltaTime

@@ -56,7 +56,8 @@ if global.gamePaused=false
         event_user(0)
         _speed=0
       }
-      if waitTime>0 {waitTime-=1}
+      //if waitTime>0 {waitTime-=1}
+      if waitTime>0 {waitTime-=1*gDeltaTime} //60fps change: the wait between target searches was 2x/4x too short at 60/120fps
 
       if instance_exists(myTarget) //---------- Has valid target ----------
       {
@@ -115,13 +116,15 @@ if global.gamePaused=false
           //Find point x/y
           var tDirToPlayer;
           tDirToPlayer=point_direction(x,y,oPlayer1.x+lengthdir_x(100,circlePlayer),returnPlayerYCenter()+lengthdir_y(100,circlePlayer))
-          circlePlayer+=2
+          //circlePlayer+=2
+          circlePlayer+=2*gDeltaTime //60fps change: circled the player 2x/4x too fast at 60/120fps
           _direction=tDirToPlayer
           _speed=3.5
         }
       }
 
-      if life<maxLife and oGame.time mod (5/gDeltaTime)=0 {life+=1*gDeltaTime} //Auto-recover HP
+      //if life<maxLife and oGame.time mod (5/gDeltaTime)=0 {life+=1*gDeltaTime} //Auto-recover HP
+      if life<maxLife and oGame.time mod (5/gDeltaTime)=0 {life+=1} //Auto-recover HP //60fps change: this already runs once per 5 ticks, so scaling the +1 as well made it heal only 3/sec at 60fps and 1.5/sec at 120fps (6/sec at 30fps)
     }
     else {_speed=0}
   }

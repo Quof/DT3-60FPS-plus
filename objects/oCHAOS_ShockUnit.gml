@@ -105,7 +105,8 @@ if global.gamePaused=false
       //---------- Check if wall and jump up ----------
       if aiCheckHoriz(0,3,16,16,-8)=1
       {
-        y-=4*gDeltaTime
+        //y-=4*gDeltaTime
+        y-=4 //60fps change: a one-off lift for the jump, not a per-frame move; scaled, it only lifted 1px at 120fps, so the landing check below ended the jump immediately
         yVel=-6.5
       }
 
@@ -120,13 +121,15 @@ if global.gamePaused=false
       if tDrop=0
       {
         sprite_index=sCHAOS_ShockUnitIdle
-        y-=4*gDeltaTime
+        //y-=4*gDeltaTime
+        y-=4 //60fps change: see above
         yVel=-6
         bJumpReady=0
       }
     }
 
-    if canDash>0 {canDash-=1}
+    //if canDash>0 {canDash-=1}
+    if canDash>0 {canDash-=1*gDeltaTime} //60fps change: the back-dash cooldown (and the dash itself) ran out 2x/4x too fast at 60/120fps
     if !instance_exists(myShield) or shotTime>shotDelay
     {
       //Dash back if player is too close

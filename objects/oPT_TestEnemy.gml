@@ -155,7 +155,8 @@ if global.gamePaused=false
   }
   else if life<=0
   {
-    deathAnim+=1
+    //deathAnim+=1
+    deathAnim+=1*gDeltaTime //60fps change: counted per frame, so the death flames and sounds came 2x/4x as often at 60/120fps
     _speed=0
     if deathAnim mod 4=0
     {

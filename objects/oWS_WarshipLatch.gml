@@ -36,7 +36,8 @@ if global.gamePaused=false
   if life<=0
   {
     if deathAnim==0 {deathAnim=1-gDeltaTime}
-    deathAnim+=1*gDeltaTimes
+    //deathAnim+=1*gDeltaTimes
+    deathAnim+=1*gDeltaTime //60fps change: typo (gDeltaTimes); an unknown variable is an error in GM8, so breaking a latch stopped the game
     if deathAnim=1
     {
       for(i=0;i<3;i+=1)

@@ -107,6 +107,7 @@ if global.gamePaused=false
     _hspeed=currHspd; _vspeed=currVspd
 
     //Smoke
+    if gDeltaDoTicks { //60fps change (added): one smoke puff per 30fps tick (was 2x/4x as many at 60/120fps)
     var tEffect;
     tEffect=instance_create(x-(17*image_xscale),y-2,oEffectB)
     tEffect.type=3; tEffect.sprite_index=sMMSmokeCloud; tEffect.newBlend=-1; tEffect.depth=26
@@ -115,6 +116,7 @@ if global.gamePaused=false
     tEffect.AccelX=0; tEffect.AccelY=0; tEffect.followID=-1; tEffect.rotation=0
     if image_xscale=1 {tEffect.direction=random_range(255,265)}
     else {tEffect.direction=random_range(275,285)}
+    } //60fps change (added)
 
     shotTime+=1*gDeltaTime
     if shotType=0 //Point explosion missile
@@ -255,7 +257,8 @@ applies_to=self
 */
 if bLaser=1
 {
-  laserCrawl+=2
+  //laserCrawl+=2
+  laserCrawl+=2*gDeltaTime //60fps change: the aiming dots crawled 2x/4x too fast at 60/120fps
   if laserCrawl>12 {laserCrawl=0}
   draw_set_alpha(1)
   draw_set_color(circleCol)

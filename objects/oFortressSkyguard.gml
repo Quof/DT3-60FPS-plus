@@ -269,7 +269,8 @@ if global.gamePaused=false
     }
     else if segmentProg=4
     {
-      segFrontGunX+=1
+      //segFrontGunX+=1
+      segFrontGunX+=1*gDeltaTime //60fps change: the front guns slid out 2x/4x too fast at 60/120fps
       if segFrontGunX>=46 {bCanTakeDamage=1; moveBehavior=2; segmentProg+=1}
     }
     else if segmentProg=5
@@ -279,7 +280,8 @@ if global.gamePaused=false
     else if segmentProg=6
     {
       segWingsX+=1*gDeltaTime
-      if segWingsY<26 {segWingsY+=1}
+      //if segWingsY<26 {segWingsY+=1}
+      if segWingsY<26 {segWingsY+=1*gDeltaTime} //60fps change: the wings spread 2x/4x too fast at 60/120fps
 
       if segWingsX>=40 {segmentProg+=1}
     }

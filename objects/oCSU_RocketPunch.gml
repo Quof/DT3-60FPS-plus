@@ -97,7 +97,8 @@ if global.gamePaused=false
 
     if point_distance(x,0,oPlayer1.x,0)<maxSpeedX and y<oPlayer1.y
     {
-      hspeed=0; currHspd=0
+      //hspeed=0; currHspd=0
+      _hspeed=0; currHspd=0 //60fps change: the built-in hspeed became _hspeed everywhere else here
       atkTime=0; atkProg+=1
     }
   }
@@ -111,7 +112,8 @@ if global.gamePaused=false
       tEffect.followID=-1; tEffect.newBlend=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
       currY=y
     }
-    else if atkTime>=11 and atkTime<=30
+    //else if atkTime>=11 and atkTime<=30
+    else if atkTime>10 and atkTime<=30 //60fps change: covers every frame of tick 11, so the slam starts on time and reaches as far as at 30fps
     {
       y+=8*gDeltaTime
       if atkTime mod 2=0
@@ -156,3 +158,5 @@ if global.gamePaused=false
   if !instance_exists(ownerID) {instance_destroy()}
 }
 else {_speed=0; _hspeed=0}
+correctHSpeedVSpeed(self) //60fps change (added): _hspeed/_speed replaced the built-in hspeed/speed, but nothing moved the fist by them, so it never tracked the player's x and stayed hovering after rising (the Shock Unit then never lowered its shield)
+correctSpeedDirection(self) //60fps change (added): see above (the return to the owner)

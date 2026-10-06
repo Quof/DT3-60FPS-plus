@@ -23,7 +23,8 @@ applies_to=self
 if global.gamePaused=false
 {
   timeTillIAbortMyself+=1*gDeltaTime
-  if timeTillIAbortMyself>=1 and timeTillIAbortMyself<=30
+  //if timeTillIAbortMyself>=1 and timeTillIAbortMyself<=30
+  if timeTillIAbortMyself>0 and timeTillIAbortMyself<=30 //60fps change: covers every frame of tick 1, so it turns and moves as far as at 30fps
   {
     _direction+=turnDir*gDeltaTime
     if sprite_index=sC_MarkBullet and gDeltaDoTicks
@@ -42,12 +43,14 @@ if global.gamePaused=false
   image_angle=_direction
   if sprite_index=sC_MarkBullet
   {
-    if timeTillIAbortMyself>=1 and timeTillIAbortMyself<=25 {_speed=3}
+    //if timeTillIAbortMyself>=1 and timeTillIAbortMyself<=25 {_speed=3}
+    if timeTillIAbortMyself>0 and timeTillIAbortMyself<=25 {_speed=3} //60fps change: see above
     else if timeTillIAbortMyself>=31 {_speed=8}
   }
   else
   {
-    if timeTillIAbortMyself>=1 and timeTillIAbortMyself<=10 {_speed=2.75}
+    //if timeTillIAbortMyself>=1 and timeTillIAbortMyself<=10 {_speed=2.75}
+    if timeTillIAbortMyself>0 and timeTillIAbortMyself<=10 {_speed=2.75} //60fps change: see above
     else if timeTillIAbortMyself>=31 {_speed=8}
   }
 

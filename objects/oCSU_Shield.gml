@@ -25,7 +25,8 @@ if global.gamePaused=false
   if atkProg=0 //Grow shield
   {
     image_xscale+=0.1*gDeltaTime; image_yscale+=0.1*gDeltaTime
-    if image_xscale=1.3 {atkProg=1}
+    //if image_xscale=1.3 {atkProg=1}
+    if image_xscale>=1.3 {image_xscale=1.3; image_yscale=1.3; atkProg=1} //60fps change: in 0.05/0.025 steps the scale never lands exactly on 1.3 (float), so the shield kept growing and never turned with its owner
   }
   if !instance_exists(ownerID) {instance_destroy()}
 }

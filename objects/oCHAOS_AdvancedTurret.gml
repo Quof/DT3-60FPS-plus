@@ -310,7 +310,8 @@ if global.gamePaused=false
         {
           event_user(0)
         }
-        targetAngle+=1.5*image_xscale
+        //targetAngle+=1.5*image_xscale
+        targetAngle+=1.5*image_xscale*gDeltaTime //60fps change: the spam shot swept 2x/4x too fast at 60/120fps
       }
       if shotTime>=shotDelay+50
       {
@@ -321,7 +322,8 @@ if global.gamePaused=false
   else if life<=0
   {
     if deathAnim==0 {deathAnim=1-gDeltaTime}
-    deathAnim+=1
+    //deathAnim+=1
+    deathAnim+=1*gDeltaTime //60fps change: unscaled, deathAnim stayed off whole numbers above 30fps, so the death explosions and sounds never played
     if deathAnim mod 2=0
     {
       if deathAnim mod 4=0 {playSound(global.snd_BombExplode,0,0.85,1)}

@@ -75,12 +75,14 @@ if global.gamePaused=false
       else if movePath=2 {targetPath=pth_HW_B; x=432; y=-32}
       else if movePath=3 {targetPath=pth_HW_C; x=432; y=384}
       else if movePath=4 {targetPath=pth_HW_D; x=-32; y=192}
-      path_start(targetPath,moveSpd,0,true)
+      //path_start(targetPath,moveSpd,0,true)
+      path_start(targetPath,moveSpd*gDeltaTime,0,true) //60fps change: path speed is per frame; unscaled, the first frame of each path moved a whole tick's distance
       with oHW_Body //Reset all body parts
       {
         x=oHexWorm.x; y=oHexWorm.y
         bCanTakeDamage=true
-        path_start(oHexWorm.targetPath,oHexWorm.moveSpd,0,true)
+        //path_start(oHexWorm.targetPath,oHexWorm.moveSpd,0,true)
+        path_start(oHexWorm.targetPath,oHexWorm.moveSpd*gDeltaTime,0,true) //60fps change: see above
         myMoveCheck=0
         var tDelay;
         tDelay=round(32/oHexWorm.moveSpd)

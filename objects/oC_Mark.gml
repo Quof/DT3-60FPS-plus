@@ -60,8 +60,10 @@ if global.gamePaused=false
     {
       moveCount+=1
       if moveCount=5 {moveCount=1}
-      if moveCount=1 {path_start(pth_Mark_A,moveSpd,0,true)}
-      else if moveCount=3 {path_start(pth_Mark_B,8,0,true)}
+      //if moveCount=1 {path_start(pth_Mark_A,moveSpd,0,true)}
+      //else if moveCount=3 {path_start(pth_Mark_B,8,0,true)}
+      if moveCount=1 {path_start(pth_Mark_A,moveSpd*gDeltaTime,0,true)} //60fps change: path speed is per frame; unscaled, the first frame of each path moved a whole tick's distance
+      else if moveCount=3 {path_start(pth_Mark_B,8*gDeltaTime,0,true)} //60fps change: see above
       bulletCheck=point_direction(x,y,oPlayer1.x,oPlayer1.y)
       if bossProgress=1
       {
@@ -88,7 +90,8 @@ if global.gamePaused=false
             tNewAttack.decayTime=-100; tNewAttack._direction=point_direction(x,y,oPlayer1.x,oPlayer1.y)
           }
         }
-        else if moveProg>=41 and moveProg<=60
+        //else if moveProg>=41 and moveProg<=60
+        else if moveProg>40 and moveProg<=60 //60fps change: moveProg 40.5 (40.25) fell to the else below and reset to 0, so the ring bursts never fired at 60/120fps
         {
           if moveProg mod 2=0
           {

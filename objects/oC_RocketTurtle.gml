@@ -74,7 +74,8 @@ if global.gamePaused=false
             tNewAttack.image_speed=0.33; tNewAttack.decayTime=-100; tNewAttack._direction=tDir
             tDir+=30
           }
-          bulletCheck+=1*gDeltaTime
+          //bulletCheck+=1*gDeltaTime
+          bulletCheck+=1 //60fps change: counts volleys, not time; scaled, it fired 2x/4x as many volleys per burst at 60/120fps
           if bulletCheck>=bulletMax
           {
             bulletCheck=0

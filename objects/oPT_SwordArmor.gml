@@ -114,7 +114,8 @@ if global.gamePaused=false
     {
       if point_distance(x,0,oPlayer1.x,0)<56 //Movement
       {
-        if image_xscale=1 {xVel=-runAcc*0.75*gDeltaTime}
+        //if image_xscale=1 {xVel=-runAcc*0.75*gDeltaTime}
+        if image_xscale=1 {xVel=-runAcc*0.75} //60fps change: xVel is scaled again in moveTo, so facing right it backed away at half/quarter speed at 60/120fps
         else {xVel=runAcc*0.75}
       }
       else if point_distance(x,0,oPlayer1.x,0)>64

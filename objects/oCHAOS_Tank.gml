@@ -71,7 +71,8 @@ if global.gamePaused=false
     }
     else
     {
-      if life<maxLife {life+=1*gDeltaTime}
+      //if life<maxLife {life+=1*gDeltaTime}
+      if life<maxLife and gDeltaDoTicks {life+=1} //60fps change: regenerate 1 HP per 30fps tick so life stays a whole number (the same rate as before)
     }
 
     //Facing direction
