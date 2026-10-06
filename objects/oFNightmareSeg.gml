@@ -52,6 +52,7 @@ if global.gamePaused=false
     {
       if armSide=0 {_direction-=leftSpd*gDeltaTime} //Left
       else if armSide=1 {_direction+=rightSpd*gDeltaTime} //Right
+      _direction=(_direction+360) mod 360 //60fps change (added): the original used GM's built-in direction, which wraps to 0-360. _direction doesn't, so the left arm never came back around to 180 and the arm drop attack (oFinalNightmare, armStart 1) only happened once
     }
 
     //Bomb Attack
@@ -87,6 +88,7 @@ if global.gamePaused=false
     {
       if armSide=0 {_direction-=leftSpd*gDeltaTime} //Left
       else if armSide=1 {_direction+=rightSpd*1.1*gDeltaTime} //Right
+      _direction=(_direction+360) mod 360 //60fps change (added): wraps like GM's built-in direction did, so the punch check below (player angle, 0-360) keeps matching after the first full turn; without it the arms stopped punching
 
       atkTime+=1*gDeltaTime
       if atkTime>200
