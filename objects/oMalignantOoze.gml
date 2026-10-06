@@ -87,7 +87,8 @@ if global.gamePaused=false
       if x<oPlayer1.x {image_xscale=1}
       else {image_xscale=-1}
 
-      if sprite_index=sMO_Idle {image_index+=0.2}
+      //if sprite_index=sMO_Idle {image_index+=0.2}
+      if sprite_index=sMO_Idle {image_index+=0.2*gDeltaTime} //60fps change: scaled (the idle animation played 2x/4x as fast)
 
       if waitTime>5 and waitTime<waitDelay-5
       {
@@ -191,7 +192,7 @@ if global.gamePaused=false
       }
     }
     
-    if point_distance(x,y-32,oPlayer1.x,oPlayer1.y-26)>=144 and scream=0 and defend=0 {waitTime+=0.25} //Speed up attacks if player is too far
+    if point_distance(x,y-32,oPlayer1.x,oPlayer1.y-26)>=144 and scream=0 and defend=0 {waitTime+=0.25*gDeltaTime} //Speed up attacks if player is too far. 60fps change: scaled (the speed-up was 2x/4x as strong at 60/120fps)
     
     if scream=0 and defend=0 {waitTime+=1*gDeltaTime}
     else {waitTime+=0.25*gDeltaTime}
@@ -206,7 +207,8 @@ if global.gamePaused=false
       }
       else if actCheck=1 //---------- ATTACK: Throw Bounce Weight ----------
       {
-        actTime+=1
+        //actTime+=1
+        actTime+=1*gDeltaTime //60fps change: scaled like the other attacks (the throw played 2x/4x as fast at 60/120fps)
         if actTime=1
         {
           sprite_index=sMO_Throw; image_index=0
@@ -324,6 +326,7 @@ if global.gamePaused=false
             playSound(global.snd_Spark,0,0.96,33000)
           }
           var tEfSpark,tEfSDir;
+          if gDeltaDoTicks //60fps change (added): sparks once per 30fps tick (2x/4x as many were spawned every frame)
           for(i=0;i<2;i+=1)
           {
             tEfSDir=random_range(78,102)

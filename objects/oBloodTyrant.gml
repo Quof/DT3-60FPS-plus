@@ -247,7 +247,8 @@ if global.gamePaused=false
     else if shieldPower>=3
     {
       shieldPower+=1*gDeltaTime
-      image_blend=make_color_rgb(random(255),random(255),random(255))
+      //image_blend=make_color_rgb(random(255),random(255),random(255))
+      if gDeltaDoTicks {image_blend=make_color_rgb(random(255),random(255),random(255))} //60fps change: new random color once per 30fps tick, not every frame (flashed 2x/4x as fast)
 
       if shieldPower=30 //Fire shield energy blasts
       {
@@ -448,7 +449,8 @@ if global.gamePaused=false
       }
       else {atkJumpTime=atkJumpDelay-20}
     }
-    else if atkJumpTime>=1001 and atkJumpTime<=1010 //Dash back
+    //else if atkJumpTime>=1001 and atkJumpTime<=1010 //Dash back
+    else if atkJumpTime>1000 and atkJumpTime<=1010 //Dash back. 60fps change: covers every frame of ticks 1001-1010, so the dash-back slows by the full 30fps amount
     {
       if image_xscale=1 {xVel+=0.075*gDeltaTime}
       else {xVel-=0.075*gDeltaTime}
