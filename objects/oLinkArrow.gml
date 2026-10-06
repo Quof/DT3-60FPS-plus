@@ -39,6 +39,7 @@ _speed=0
 _direction=0
 bCollide=0
 lingerFrame=0
+arrowTick=0 //60fps change (added): the arrow's own 30fps tick count, so it turns once per tick (see the Step event)
 alarm[0]=1
 #define Alarm_0
 /*"/*'/**//* YYD ACTION
@@ -46,18 +47,17 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-var bodge
-if gDeltaTime == 1
-{
-  bodge = 0
-}
-else
-{
-  bodge = global.arrowSpeedBodge
-}
-
-
-bulletSpeed=12+(attackCharge/5)+bodge
+//var bodge
+//if gDeltaTime == 1
+//{
+//  bodge = 0
+//}
+//else
+//{
+//  bodge = global.arrowSpeedBodge
+//}
+//bulletSpeed=12+(attackCharge/5)+bodge
+bulletSpeed=12+(attackCharge/5) //60fps change: no speed bodge needed now that the arrow turns once per 30fps tick (the +0.75 made arrows fly 20+px further than at 30fps)
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -67,34 +67,43 @@ applies_to=self
 event_inherited()
 if global.gamePaused=false
 {
-  var bodge
-  if gDeltaTime == 1
-  {
-    bodge = 0
-  }
-  else
-  {
-    bodge = global.arrowRotateBodge
-  }
+  //var bodge
+  //if gDeltaTime == 1
+  //{
+  //  bodge = 0
+  //}
+  //else
+  //{
+  //  bodge = global.arrowRotateBodge
+  //}
   if lingerFrame=0
   {
     _speed=bulletSpeed
     image_angle=_direction
+    //60fps change (added): turn 2 degrees once per 30fps tick (on the first frame of each of this arrow's ticks) and move every frame,
+    //so every tick moves exactly like 30fps (turning a bit every frame left the arrow lagging upward, so the arc went too high)
+    arrowTick+=gDeltaTime
+    if frac(arrowTick-gDeltaTime)=0
+    {
     if bDir=0
     {
       if arrowProg=0
       {
-        _direction-=2*gDeltaTime+bodge
+        //_direction-=2*gDeltaTime+bodge
+        _direction-=2; if _direction<0 {_direction+=360} //60fps change: wraps like GM's built-in direction did, so "_direction>180" below works (without it right-facing arrows never reached the 300 limit and kept curving into loops)
         if _direction>180 {arrowProg=1}
       }
       else if arrowProg=1
       {
-        if _direction>300 {_direction-=2*gDeltaTime+bodge}
+        //if _direction>300 {_direction-=2*gDeltaTime+bodge}
+        if _direction>300 {_direction-=2} //60fps change: once per tick (see above)
       }
     }
     else
     {
-      if _direction<240 {_direction+=2*gDeltaTime+bodge}
+      //if _direction<240 {_direction+=2*gDeltaTime+bodge}
+      if _direction<240 {_direction+=2} //60fps change: once per tick (see above)
+    }
     }
 
     if checkScreenArea(x,y,48)=0 {instance_destroy()}

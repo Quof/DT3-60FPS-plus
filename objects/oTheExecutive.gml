@@ -521,7 +521,8 @@ if moveProg=1 //----- Teleport -----
     x=xCenter; y=80; sprite_index=sPT_EX_Outline
     playSound(global.snd_Teleport,0,0.92,44100)
   }
-  else if moveTime>=51 and moveTime<=70 {image_alpha+=0.05*gDeltaTime}
+  //else if moveTime>=51 and moveTime<=70 {image_alpha+=0.05*gDeltaTime}
+  else if moveTime>50 and moveTime<=70 {image_alpha+=0.05*gDeltaTime} //60fps change: covers every frame of ticks 51-70 (he stayed at alpha 0.975/0.9625 at 60/120fps)
   else if moveTime=71
   {
     sprite_index=sPT_FE_ArmsOut; bCanTakeDamage=1; bCanDealDamage=1; phase1_circle=2
@@ -1085,7 +1086,8 @@ else if moveProg=13
     exVal[0]=1
   }
 
-  currVspd+=0.25*gDeltaTime
+  //currVspd+=0.25*gDeltaTime
+  currVspd=scrGravAcc(currVspd,0.25,1) //60fps change: the jump's gravity per 30fps tick (scrGravAcc); with a per-frame step it peaked 2-3px higher
   _vspeed=currVspd
 
   if currVspd>=1 and y>=272
@@ -1695,7 +1697,8 @@ else if moveProg>=1
     else if phase6_bulletCheckA=3 //Move and go to next phase
     {
       exVal[0]+=1*gDeltaTime
-      if exVal[0]>=1 and exVal[0]<=8 and gDeltaDoTicks {x-=1; y-=1}
+      //if exVal[0]>=1 and exVal[0]<=8 and gDeltaDoTicks {x-=1; y-=1}
+      if exVal[0]>=1 and exVal[0]<=8 and frac(exVal[0])=0 {x-=1; y-=1} //60fps change: on this counter's own ticks (always 8 steps; the global tick gave 7 or 8)
       else if exVal[0]>=10
       {
         exVal[0]=0
@@ -1767,7 +1770,8 @@ else if moveProg>=1
     else if phase6_bulletCheckA=3 //Move and go to next phase
     {
       exVal[0]+=1*gDeltaTime
-      if exVal[0]>=1 and exVal[0]<=8 and gDeltaDoTicks {x-=1; y-=1}
+      //if exVal[0]>=1 and exVal[0]<=8 and gDeltaDoTicks {x-=1; y-=1}
+      if exVal[0]>=1 and exVal[0]<=8 and frac(exVal[0])=0 {x-=1; y-=1} //60fps change: on this counter's own ticks (always 8 steps; the global tick gave 7 or 8)
       else if exVal[0]>=10
       {
         exVal[0]=0
@@ -1848,7 +1852,8 @@ else if moveProg>=1
     else if phase6_bulletCheckA=3 //Move up
     {
       exVal[0]+=1*gDeltaTime
-      if exVal[0]>=1 and exVal[0]<=99
+      //if exVal[0]>=1 and exVal[0]<=99
+      if exVal[0]>0 and exVal[0]<=99 //60fps change: covers every frame of tick 1
       {
         y-=4*gDeltaTime
         if y<=128
@@ -2092,7 +2097,8 @@ else if moveProg>=1
   {
     if moveProg=1 //Move to top-right
     {
-      moveTime+=1
+      //moveTime+=1
+      moveTime+=1*gDeltaTime //60fps change: the pause before moving was 10 frames instead of 10 ticks
       if moveTime=1 {bCanDealDamage=0}
       if moveTime>=10
       {
@@ -2265,7 +2271,8 @@ else if moveProg>=1
       }
       else if atkTime[0]>=130 //Scatter upward
       {
-        for(i=0;i<8;i+=1)
+        //for(i=0;i<8;i+=1)
+        if frac(atkTime[0])=0 for(i=0;i<8;i+=1) //60fps change: 8 bullets per tick (it was 8 per frame, 2x/4x as many at 60/120fps)
         {
           var tAtk; tAtk=instance_create(x,y,oExe_FireRed); tAtk.type=0; tAtk.bulSpd=6; tAtk._direction=irandom_range(30,150)
         }
@@ -2312,7 +2319,8 @@ else
   draw_sprite_ext(sprite_index,image_index,x,y,image_xscale,image_yscale,image_angle,image_blend,image_alpha)
 }
 
-if pepsiLogo>=16 and pepsiLogo<=17
+//if pepsiLogo>=16 and pepsiLogo<=17
+if pepsiLogo>15 and pepsiLogo<=17 //60fps change: shown for all of ticks 16-17
 {
   draw_sprite_ext(sPepsiLogo,0,xCenter,yGround-128,1,1,0,c_white,1)
 }

@@ -25,4 +25,5 @@ event_inherited()
 
 image_angle-=15*gDeltaTime
 
-correctSpeedDirection(self)
+//correctSpeedDirection(self)
+//60fps change: removed the line above; event_inherited() already runs oExe_BulletBase's Step, which does the move, so this bullet moved twice per step (double speed)

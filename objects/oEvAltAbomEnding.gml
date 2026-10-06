@@ -159,7 +159,8 @@ else if room=rAbomD
           viewFix=instance_create(oPlayer1.x,176,oMisc)
           viewFix.type=0; viewFix.sprite_index=sNull; view_object[0]=viewFix
         }
-        else if sceneDelay>=11 and sceneDelay<=99
+        //else if sceneDelay>=11 and sceneDelay<=99
+        else if sceneDelay>10 and sceneDelay<=99 //60fps change: covers every frame of tick 11
         {
           viewFix.x+=4*gDeltaTime
           if viewFix.x>=864 {viewFix.x=864; sceneDelay=100}
@@ -437,8 +438,10 @@ else if room=rAbomD
   {
     if heartSpawn<300 and global.gamePaused=0
     {
-      heartSpawn+=1
-      for(i=0;i<3;i+=1)
+      //heartSpawn+=1
+      //for(i=0;i<3;i+=1)
+      heartSpawn+=1*gDeltaTime //60fps change: 3 hearts per tick for 300 ticks (they came 2x/4x as fast at 60/120fps)
+      if frac(heartSpawn)=0 for(i=0;i<3;i+=1) //60fps change: see above
       {
         instance_create(random_range(704,1024),random_range(80,208),oHealthPickup)
       }

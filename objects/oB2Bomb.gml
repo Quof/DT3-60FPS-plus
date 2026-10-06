@@ -17,6 +17,7 @@ effectDelay=0
 weight=50
 bBlownUp=false
 grav=1.25
+bombTick=0 //60fps change (added): this bomb's own 30fps tick count, so it turns once per tick (see the Step event)
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -26,6 +27,8 @@ applies_to=self
 if global.gamePaused=false
 {
   _speed=bulletSpeed
+  bombTick+=gDeltaTime //60fps change (added): turn 2 degrees once per 30fps tick (it turned 2 degrees every frame, 2x/4x as fast at 60/120fps), as in oLinkArrow
+  if frac(bombTick-gDeltaTime)=0 { //60fps change (added)
   if _direction>270
   {
     if _direction>290 {_direction-=2}
@@ -34,6 +37,7 @@ if global.gamePaused=false
   {
     if _direction<250 {_direction+=2}
   }
+  } //60fps change (added)
 
   y+=grav*gDeltaTime
   image_angle=_direction

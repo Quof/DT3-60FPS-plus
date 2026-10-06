@@ -24,7 +24,8 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-correctSpeedDirection(self)
+//correctSpeedDirection(self)
+event_inherited() //60fps change: this Step event (added during the speed/direction rename) replaced oExe_BulletBase's Step, which sets the speed and runs the curve/speed-change/orbit types, so these bullets never moved; the base Step also does the move (correctSpeedDirection)
 #define Collision_oPlayer1
 /*"/*'/**//* YYD ACTION
 lib_id=1
