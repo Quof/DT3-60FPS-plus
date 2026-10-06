@@ -30,23 +30,31 @@ if global.gamePaused=false
 
   if x>xstart
   {
-    if currHspd>-maxSpeed {currHspd-=0.2-random(0.2); if speedBoost=1 {currHspd-=4*gDeltaTime}}
-    else {currHspd+=0.25; if speedBoost=1 {currHspd+=4*gDeltaTime}}
+    //if currHspd>-maxSpeed {currHspd-=0.2-random(0.2); if speedBoost=1 {currHspd-=4*gDeltaTime}}
+    if currHspd>-maxSpeed {currHspd-=(0.2-random(0.2))*gDeltaTime; if speedBoost=1 {currHspd-=4*gDeltaTime}} //60fps change: the base drift was per frame, so these background enemies swerved 2x/4x as hard at 60/120fps
+    //else {currHspd+=0.25; if speedBoost=1 {currHspd+=4*gDeltaTime}}
+    else {currHspd+=(0.25)*gDeltaTime; if speedBoost=1 {currHspd+=4*gDeltaTime}} //60fps change: the base drift was per frame, so these background enemies swerved 2x/4x as hard at 60/120fps
   }
   else if x<xstart
   {
-    if currHspd<maxSpeed {currHspd+=0.2+random(0.2); if speedBoost=1 {currHspd+=4*gDeltaTime}}
-    else {currHspd-=0.25; if speedBoost=1 {currHspd-=4*gDeltaTime}}
+    //if currHspd<maxSpeed {currHspd+=0.2+random(0.2); if speedBoost=1 {currHspd+=4*gDeltaTime}}
+    if currHspd<maxSpeed {currHspd+=(0.2+random(0.2))*gDeltaTime; if speedBoost=1 {currHspd+=4*gDeltaTime}} //60fps change: the base drift was per frame, so these background enemies swerved 2x/4x as hard at 60/120fps
+    //else {currHspd-=0.25; if speedBoost=1 {currHspd-=4*gDeltaTime}}
+    else {currHspd-=(0.25)*gDeltaTime; if speedBoost=1 {currHspd-=4*gDeltaTime}} //60fps change: the base drift was per frame, so these background enemies swerved 2x/4x as hard at 60/120fps
   }
   if y>ystart
   {
-    if currVspd>-maxSpeed {currVspd-=0.2-random(0.2); if speedBoost=1 {currVspd-=2.5*gDeltaTime}}
-    else {currVspd+=0.25; if speedBoost=1 {currVspd+=2.5*gDeltaTime}}
+    //if currVspd>-maxSpeed {currVspd-=0.2-random(0.2); if speedBoost=1 {currVspd-=2.5*gDeltaTime}}
+    if currVspd>-maxSpeed {currVspd-=(0.2-random(0.2))*gDeltaTime; if speedBoost=1 {currVspd-=2.5*gDeltaTime}} //60fps change: the base drift was per frame, so these background enemies swerved 2x/4x as hard at 60/120fps
+    //else {currVspd+=0.25; if speedBoost=1 {currVspd+=2.5*gDeltaTime}}
+    else {currVspd+=(0.25)*gDeltaTime; if speedBoost=1 {currVspd+=2.5*gDeltaTime}} //60fps change: the base drift was per frame, so these background enemies swerved 2x/4x as hard at 60/120fps
   }
   else if y<ystart
   {
-    if currVspd<maxSpeed {currVspd+=0.2+random(0.2); if speedBoost=1 {currVspd+=2.5*gDeltaTime}}
-    else {currVspd-=0.25; if speedBoost=1 {currVspd-=2.5*gDeltaTime}}
+    //if currVspd<maxSpeed {currVspd+=0.2+random(0.2); if speedBoost=1 {currVspd+=2.5*gDeltaTime}}
+    if currVspd<maxSpeed {currVspd+=(0.2+random(0.2))*gDeltaTime; if speedBoost=1 {currVspd+=2.5*gDeltaTime}} //60fps change: the base drift was per frame, so these background enemies swerved 2x/4x as hard at 60/120fps
+    //else {currVspd-=0.25; if speedBoost=1 {currVspd-=2.5*gDeltaTime}}
+    else {currVspd-=(0.25)*gDeltaTime; if speedBoost=1 {currVspd-=2.5*gDeltaTime}} //60fps change: the base drift was per frame, so these background enemies swerved 2x/4x as hard at 60/120fps
   }
   _hspeed=currHspd; _vspeed=currVspd
 

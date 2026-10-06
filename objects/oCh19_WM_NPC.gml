@@ -344,10 +344,13 @@ if global.gamePaused=false
 
   if wallJumpTime>=100 //Wall jump
   {
-    wallJumpTime+=1
-    if wallJumpTime=105 {image_xscale=myScale; x+=2*gDeltaTime; xVel=runAcc; yVel=jumpAcc}
+    //wallJumpTime+=1
+    wallJumpTime+=1*gDeltaTime //60fps change: the Warmaster clung to walls for half/quarter as long at 60/120fps
+    //if wallJumpTime=105 {image_xscale=myScale; x+=2*gDeltaTime; xVel=runAcc; yVel=jumpAcc}
+    if wallJumpTime=105 {image_xscale=myScale; x+=2; xVel=runAcc; yVel=jumpAcc} //60fps change: one-off push off the wall, not a per-frame move
     else if wallJumpTime=107 {wallJumpTime=-100}
-    if wallJumpTime=205 {image_xscale=-myScale; x-=2*gDeltaTime; xVel=-runAcc; yVel=jumpAcc; wallJumpTime=-100}
+    //if wallJumpTime=205 {image_xscale=-myScale; x-=2*gDeltaTime; xVel=-runAcc; yVel=jumpAcc; wallJumpTime=-100}
+    if wallJumpTime=205 {image_xscale=-myScale; x-=2; xVel=-runAcc; yVel=jumpAcc; wallJumpTime=-100} //60fps change: one-off push off the wall
     else if wallJumpTime=207 {wallJumpTime=-100}
   }
 

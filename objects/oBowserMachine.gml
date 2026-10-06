@@ -45,10 +45,12 @@ if global.gamePaused=false
   }
   else if eventProg=2 //Pete appears
   {
-    eventTime+=1
+    //eventTime+=1
+    eventTime+=1*gDeltaTime //60fps change: Pete's entrance ran 2x/4x too fast at 60/120fps
     if eventTime=50 {playSound(global.snd_Dec_ChargeUp,0,1,1)}
     else if eventTime=70 {bPete=1}
-    else if eventTime>=71 and eventTime<=77 {peteYOffset-=6*gDeltaTime}
+    //else if eventTime>=71 and eventTime<=77 {peteYOffset-=6*gDeltaTime}
+    else if eventTime>70 and eventTime<=77 {peteYOffset-=6*gDeltaTime} //60fps change: covers every frame of the first tick, so Pete rises the full 42px
     else if eventTime>=120 {eventTime=0; eventProg+=1}
   }
   else if eventProg=3 //Pete is shot down

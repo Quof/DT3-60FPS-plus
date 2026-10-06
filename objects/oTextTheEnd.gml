@@ -20,7 +20,8 @@ if textProg=0 //50+60+50=160
 }
 else if textProg=1
 {
-  textTime+=1
+  //textTime+=1
+  textTime+=1*gDeltaTime //60fps change: "The End?" stayed up half/quarter as long at 60/120fps
   if textTime>=60
   {
     image_alpha-=0.02*gDeltaTime

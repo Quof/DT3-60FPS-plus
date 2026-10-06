@@ -237,7 +237,8 @@ else if global.gameProgress=570 and room=rCCity_NA_S2 //----- [3] Reunion -----
   else if sceneProgress=19
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay>=31 and sceneDelay<=81
+    //if sceneDelay>=31 and sceneDelay<=81
+    if sceneDelay>30 and sceneDelay<=81 //60fps change: covers every frame of tick 31, so Gene fades in to full brightness (252/251 instead of 255 at 60/120fps)
     {
       cBlend+=5*gDeltaTime
       oNPC_Gene.image_blend=make_color_rgb(cBlend,cBlend,cBlend)

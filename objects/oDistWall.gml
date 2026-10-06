@@ -12,7 +12,8 @@ action_id=603
 applies_to=self
 */
 efSwirlTime+=1*gDeltaTime
-if efSwirlTime mod (3/gDeltaTime)=0
+//if efSwirlTime mod (3/gDeltaTime)=0
+if efSwirlTime mod 3=0 //60fps change: efSwirlTime already counts ticks, so it's mod 3; mod (3/gDeltaTime) spawned half/quarter as many particles at 60/120fps
 {
   for(i=0;i<image_yscale;i+=1)
   {

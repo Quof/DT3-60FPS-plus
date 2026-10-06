@@ -410,7 +410,8 @@ if global.gamePaused=false
   {
     for(i=0;i<7;i+=1)
     {
-      spawnGameHero[i]+=1
+      //spawnGameHero[i]+=1
+      spawnGameHero[i]+=1*gDeltaTime //60fps change: the background heroes spawned 2x/4x as often at 60/120fps
     }
 
     if spawnGameHero[0]>=280 //Arthur

@@ -51,10 +51,14 @@ if global.gamePaused=false
     yVel=scrGravAcc(yVel,0.3,1)
     if initDir=1
     {
+      //if xVel<0
+      //  image_angle+=5
+      //else
+      //  image_angle-=5
       if xVel<0
-        image_angle+=5
+        image_angle+=5*gDeltaTime //60fps change: the boulder spun 2x/4x too fast at 60/120fps
       else
-        image_angle-=5
+        image_angle-=5*gDeltaTime //60fps change
     }
   }
   if isCollisionBottom(1)

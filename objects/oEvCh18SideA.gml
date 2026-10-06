@@ -75,7 +75,8 @@ if global.gamePaused=false
           (GID(363322)).sprite_index=sWarmasterA_Run;
           (GID(363322)).image_speed=0.4; (GID(363322)).image_xscale=-1.25;
         }
-        else if convo[0]>=91 and convo[0]<=106 {(GID(363322)).x-=6}
+        //else if convo[0]>=91 and convo[0]<=106 {(GID(363322)).x-=6}
+        else if convo[0]>90 and convo[0]<=106 {(GID(363322)).x-=6*gDeltaTime} //60fps change: the Warmaster ran 2x/4x too far at 60/120fps; also covers every frame of the first tick
         else if convo[0]>=107
         {
           (GID(363322)).sprite_index=sWarmasterA_Idle; (GID(363322)).image_speed=0.15;
@@ -107,9 +108,11 @@ if global.gamePaused=false
           (GID(363322)).sprite_index=sWarmasterA_Run;
           (GID(363322)).image_speed=0.4; (GID(363322)).image_xscale=-1.25;
         }
-        else if convo[0]>=81 and convo[0]<=106 {(GID(363322)).x-=6}
+        //else if convo[0]>=81 and convo[0]<=106 {(GID(363322)).x-=6}
+        else if convo[0]>80 and convo[0]<=106 {(GID(363322)).x-=6*gDeltaTime} //60fps change: the Warmaster ran 2x/4x too far at 60/120fps; also covers every frame of the first tick
 
-        if convo[0]>=101 and convo[0]<=120
+        //if convo[0]>=101 and convo[0]<=120
+        if convo[0]>100 and convo[0]<=120 //60fps change: covers every frame of the first tick, so the fade runs its full length
         {
           (GID(363323)).image_alpha-=0.05*gDeltaTime
         }

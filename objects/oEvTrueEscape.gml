@@ -327,10 +327,12 @@ else if global.gameProgress=5360 and room=rWarshipZ_EscapeB //----- [3] Jerry pa
   else if sceneProgress=1
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay>=1 and sceneDelay<=12 {oPlayer1.x-=7*gDeltaTime}
+    //if sceneDelay>=1 and sceneDelay<=12 {oPlayer1.x-=7*gDeltaTime}
+    if sceneDelay>0 and sceneDelay<=12 {oPlayer1.x-=7*gDeltaTime} //60fps change: covers every frame of the first tick, so Claire steps back the full 84px
     else if sceneDelay=13 {oPlayer1.sprite_index=sClaireIdle; oPlayer1.image_speed=0.1; oPlayer1.image_xscale=1}
     else if sceneDelay=24 {oPlayer1.sprite_index=sClaireWalk; oPlayer1.image_speed=0.33}
-    else if sceneDelay>=25 and sceneDelay<=28 {oPlayer1.x+=7*gDeltaTime}
+    //else if sceneDelay>=25 and sceneDelay<=28 {oPlayer1.x+=7*gDeltaTime}
+    else if sceneDelay>24 and sceneDelay<=28 {oPlayer1.x+=7*gDeltaTime} //60fps change: covers every frame of the first tick
     else if sceneDelay=29 {oPlayer1.sprite_index=sClaireIdle; oPlayer1.image_speed=0.1; oPlayer1.image_xscale=1}
 
     if sceneDelay=10 {jerryChar.image_index=1}

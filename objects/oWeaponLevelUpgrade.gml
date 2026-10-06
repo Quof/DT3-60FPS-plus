@@ -28,7 +28,8 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  if oGame.time30 mod (3/gDeltaTime)=0 //Flash sprite
+  //if oGame.time30 mod (3/gDeltaTime)=0 //Flash sprite
+  if oGame.time30 mod 3=0 and gDeltaDoTicks //Flash sprite //60fps change: time30 counts ticks and stays the same for every frame of a tick, so toggle once per tick; it toggled 2x/4x within the tick and barely flashed at 60/120fps
   {
     if image_blend=c_white {image_blend=c_orange}
     else {image_blend=c_white}

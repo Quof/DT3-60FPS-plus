@@ -33,13 +33,15 @@ if global.gamePaused=0
     else if sceneProgress=1
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay>=1 and sceneDelay<=25 {oScreenText.image_alpha+=0.04*gDeltaTime}
+      //if sceneDelay>=1 and sceneDelay<=25 {oScreenText.image_alpha+=0.04*gDeltaTime}
+      if sceneDelay>0 and sceneDelay<=25 {oScreenText.image_alpha+=0.04*gDeltaTime} //60fps change: covers every frame of the first tick, so the fade runs its full length
       else if sceneDelay=90
       {
         myLingerText=instance_create(156,100,oLingerText)
         myLingerText.screenText="remember"
       }
-      else if sceneDelay>=91 and sceneDelay<=115 {oScreenText.image_alpha-=0.04*gDeltaTime}
+      //else if sceneDelay>=91 and sceneDelay<=115 {oScreenText.image_alpha-=0.04*gDeltaTime}
+      else if sceneDelay>90 and sceneDelay<=115 {oScreenText.image_alpha-=0.04*gDeltaTime} //60fps change: covers every frame of the first tick, so the fade runs its full length
       else if sceneDelay>=200 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=2
@@ -64,8 +66,10 @@ if global.gamePaused=0
     else if sceneProgress=1
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay>=1 and sceneDelay<=50 {pastMessageAlpha+=0.01*gDeltaTime}
-      else if sceneDelay>=201 and sceneDelay<=250 {pastMessageAlpha-=0.01*gDeltaTime}
+      //if sceneDelay>=1 and sceneDelay<=50 {pastMessageAlpha+=0.01*gDeltaTime}
+      if sceneDelay>0 and sceneDelay<=50 {pastMessageAlpha+=0.01*gDeltaTime} //60fps change: covers every frame of the first tick, so the fade runs its full length
+      //else if sceneDelay>=201 and sceneDelay<=250 {pastMessageAlpha-=0.01*gDeltaTime}
+      else if sceneDelay>200 and sceneDelay<=250 {pastMessageAlpha-=0.01*gDeltaTime} //60fps change: covers every frame of the first tick, so the fade runs its full length
       else if sceneDelay>=260
       {
         pastMessageSpr=sPastMessage_02
@@ -75,8 +79,10 @@ if global.gamePaused=0
     else if sceneProgress=2
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay>=1 and sceneDelay<=50 {pastMessageAlpha+=0.01*gDeltaTime}
-      else if sceneDelay>=201 and sceneDelay<=250 {pastMessageAlpha-=0.01*gDeltaTime}
+      //if sceneDelay>=1 and sceneDelay<=50 {pastMessageAlpha+=0.01*gDeltaTime}
+      if sceneDelay>0 and sceneDelay<=50 {pastMessageAlpha+=0.01*gDeltaTime} //60fps change: covers every frame of the first tick, so the fade runs its full length
+      //else if sceneDelay>=201 and sceneDelay<=250 {pastMessageAlpha-=0.01*gDeltaTime}
+      else if sceneDelay>200 and sceneDelay<=250 {pastMessageAlpha-=0.01*gDeltaTime} //60fps change: covers every frame of the first tick, so the fade runs its full length
       else if sceneDelay>=260
       {
         pastMessageSpr=sPastMessage_03
@@ -86,8 +92,10 @@ if global.gamePaused=0
     else if sceneProgress=3
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay>=1 and sceneDelay<=50 {pastMessageAlpha+=0.01*gDeltaTime}
-      else if sceneDelay>=201 and sceneDelay<=250 {pastMessageAlpha-=0.01*gDeltaTime}
+      //if sceneDelay>=1 and sceneDelay<=50 {pastMessageAlpha+=0.01*gDeltaTime}
+      if sceneDelay>0 and sceneDelay<=50 {pastMessageAlpha+=0.01*gDeltaTime} //60fps change: covers every frame of the first tick, so the fade runs its full length
+      //else if sceneDelay>=201 and sceneDelay<=250 {pastMessageAlpha-=0.01*gDeltaTime}
+      else if sceneDelay>200 and sceneDelay<=250 {pastMessageAlpha-=0.01*gDeltaTime} //60fps change: covers every frame of the first tick, so the fade runs its full length
       else if sceneDelay>=260
       {
         sceneDelay=0; sceneProgress+=1
@@ -195,13 +203,15 @@ if global.gamePaused=0
     else if sceneProgress=1
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay>=1 and sceneDelay<=25 {oScreenText.image_alpha+=0.04*gDeltaTime}
+      //if sceneDelay>=1 and sceneDelay<=25 {oScreenText.image_alpha+=0.04*gDeltaTime}
+      if sceneDelay>0 and sceneDelay<=25 {oScreenText.image_alpha+=0.04*gDeltaTime} //60fps change: covers every frame of the first tick, so the fade runs its full length
       else if sceneDelay=90
       {
         myLingerText=instance_create(170,100,oLingerText)
         myLingerText.screenText="undo"
       }
-      else if sceneDelay>=91 and sceneDelay<=115 {oScreenText.image_alpha-=0.04*gDeltaTime}
+      //else if sceneDelay>=91 and sceneDelay<=115 {oScreenText.image_alpha-=0.04*gDeltaTime}
+      else if sceneDelay>90 and sceneDelay<=115 {oScreenText.image_alpha-=0.04*gDeltaTime} //60fps change: covers every frame of the first tick, so the fade runs its full length
       else if sceneDelay>=200 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=2

@@ -37,7 +37,8 @@ if eventProg=1
 
   if eventType=1 //Rotate down
   {
-    image_angle+=1
+    //image_angle+=1
+    image_angle+=1*gDeltaTime //60fps change: the platform tipped 2x/4x too fast at 60/120fps
     if image_angle>=20 {eventProg=2}
   }
   else if eventType=2 //Move down
@@ -48,13 +49,15 @@ if eventProg=1
   else if eventType=3 //Move down and rotate
   {
     yVel=2
-    image_angle+=1
+    //image_angle+=1
+    image_angle+=1*gDeltaTime //60fps change: rotated 2x/4x too far at 60/120fps
     if eventTime>=eventEnd {yVel=0; eventProg=2}
   }
   else if eventType=4 //Move down and rotate (opposite way)
   {
     yVel=2
-    image_angle-=1
+    //image_angle-=1
+    image_angle-=1*gDeltaTime //60fps change: rotated 2x/4x too far at 60/120fps
     if eventTime>=eventEnd {yVel=0; eventProg=2}
   }
 }

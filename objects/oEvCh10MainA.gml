@@ -92,7 +92,8 @@ if global.gameProgress=2160 and room=rVault_1 //----- [1] Chapter 10 - Are we in
     if sceneDelay=10 {oPlayer1.sprite_index=sClaireIdle; oPlayer1.image_speed=0.1}
     else if sceneDelay=20 {oPlayer1.image_xscale=-1}
     else if sceneDelay=27 {oPlayer1.sprite_index=sClaireWalk; oPlayer1.image_speed=0.33}
-    else if sceneDelay>=28 and sceneDelay<=32 {oPlayer1.x-=5*gDeltaTime}
+    //else if sceneDelay>=28 and sceneDelay<=32 {oPlayer1.x-=5*gDeltaTime}
+    else if sceneDelay>27 and sceneDelay<=32 {oPlayer1.x-=5*gDeltaTime} //60fps change: covers every frame of the first tick, so Claire walks the full 25px
     else if sceneDelay=33 {oPlayer1.sprite_index=sClaireIdle; oPlayer1.image_speed=0.1}
     else if sceneDelay=38 {oPlayer1.sprite_index=sClaireKneel; oPlayer1.image_index=0; oPlayer1.image_speed=0}
     else if sceneDelay=42 {oPlayer1.image_index=1}
@@ -500,7 +501,8 @@ else if global.gameProgress=2240 and room=rVault_1 //----- [3] Chao is missing -
       itemMP=instance_create(oPlayer1.x,oPlayer1.y-26,oMisc)
       itemMP.sprite_index=sZeldaMegaphone; itemMP.image_xscale=-1; itemMP.type=1
     }
-    else if sceneDelay>=21 and sceneDelay<=56 {itemMP.y-=2*gDeltaTime}
+    //else if sceneDelay>=21 and sceneDelay<=56 {itemMP.y-=2*gDeltaTime}
+    else if sceneDelay>20 and sceneDelay<=56 {itemMP.y-=2*gDeltaTime} //60fps change: covers every frame of the first tick, so the megaphone rises the full 72px
     else if sceneDelay=90
     {
       playSound(global.snd_SkillCapsule,0,1,85000)
@@ -551,7 +553,8 @@ else if global.gameProgress=2240 and room=rVault_1 //----- [3] Chao is missing -
       npcHex=instance_create(288,192,oMisc)
       npcHex.sprite_index=sHex_A_Idle; npcHex.image_xscale=-1; npcHex.image_alpha=0 npcHex.type=4; npcHex.moveStep=pi/2
     }
-    else if sceneDelay>=31 and sceneDelay<=65 {npcHex.image_alpha+=0.02*gDeltaTime}
+    //else if sceneDelay>=31 and sceneDelay<=65 {npcHex.image_alpha+=0.02*gDeltaTime}
+    else if sceneDelay>30 and sceneDelay<=65 {npcHex.image_alpha+=0.02*gDeltaTime} //60fps change: covers every frame of the first tick, so Hex fades in to the full 0.7
     else if sceneDelay>=70 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=16 and bWaitForInput=false
@@ -1954,8 +1957,10 @@ else if global.gameProgress=2480 and room=rVault_16 //----- [] Reobtaining the a
       tEffect.newBlend=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0; tEffect.image_speed=0.4
       tEffect.image_xscale=2.5; tEffect.image_yscale=2.5
     }
-    else if sceneDelay>=51 and sceneDelay<=60 {fadeAlpha+=0.025*gDeltaTime}
-    else if sceneDelay>=91 and sceneDelay<=110 {fadeAlpha-=0.0125*gDeltaTime}
+    //else if sceneDelay>=51 and sceneDelay<=60 {fadeAlpha+=0.025*gDeltaTime}
+    else if sceneDelay>50 and sceneDelay<=60 {fadeAlpha+=0.025*gDeltaTime} //60fps change: covers every frame of the first tick, so the flash reaches the full 0.25
+    //else if sceneDelay>=91 and sceneDelay<=110 {fadeAlpha-=0.0125*gDeltaTime}
+    else if sceneDelay>90 and sceneDelay<=110 {fadeAlpha-=0.0125*gDeltaTime} //60fps change: covers every frame of the first tick, so the flash fades fully back out
     else if sceneDelay>=130 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=5

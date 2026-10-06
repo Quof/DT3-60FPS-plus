@@ -355,7 +355,8 @@ else if global.gameProgress=1890 and room=rMega4_SigmaA5 //----- [Unskippable] B
       else if sceneDelay=243 {oPlayer1.image_index=0}
       else if sceneDelay>=244
       {
-        oPlayer1.y-=16
+        //oPlayer1.y-=16
+        oPlayer1.y-=16*gDeltaTime //60fps change: the beam-out after Bospider rose 2x/4x too fast at 60/120fps (the other beam-outs were already scaled)
         if oPlayer1.y<=-16 {sceneDelay=0; sceneProgress+=1}
       }
     }
@@ -448,7 +449,8 @@ else if room=rMega4_SigmaB3 and global.gameProgress=1910 //----- [Unskippable] B
         npcBitB=instance_create(404,288,oMisc)
         npcBitB.sprite_index=sBit_ArmUp; npcBitB.image_speed=0; npcBitB.type=1; npcBitB.image_alpha=0; npcBitB.image_xscale=-1
       }
-      else if sceneDelay>=26 and sceneDelay<=46
+      //else if sceneDelay>=26 and sceneDelay<=46
+      else if sceneDelay>25 and sceneDelay<=46 //60fps change: covers every frame of tick 26
       {
         npcBitA.x+=1*gDeltaTime; npcBitA.image_alpha+=0.05*gDeltaTime
         npcBitB.x-=1*gDeltaTime; npcBitB.image_alpha+=0.05*gDeltaTime
@@ -641,7 +643,8 @@ else if room=rMega4_SigmaB5 and global.gameProgress=1930 //----- [Unskippable] B
         npcByteB=instance_create(404,288,oMisc)
         npcByteB.sprite_index=sByte_Idle; npcByteB.image_speed=0; npcByteB.type=1; npcByteB.image_alpha=0; npcByteB.image_xscale=-1
       }
-      else if sceneDelay>=26 and sceneDelay<=46
+      //else if sceneDelay>=26 and sceneDelay<=46
+      else if sceneDelay>25 and sceneDelay<=46 //60fps change: covers every frame of tick 26
       {
         npcByteA.x+=1*gDeltaTime; npcByteA.image_alpha+=0.05*gDeltaTime
         npcByteB.x-=1*gDeltaTime; npcByteB.image_alpha+=0.05*gDeltaTime
@@ -768,7 +771,8 @@ else if global.gameProgress=1940 and room=rMega4_SigmaB8 //----- [Unskippable] B
         npcByteB=instance_create(120,288,oMisc)
         npcByteB.sprite_index=sByte_Idle; npcByteB.image_speed=0; npcByteB.type=1; npcByteB.image_alpha=0
       }
-      else if sceneDelay>=26 and sceneDelay<=46
+      //else if sceneDelay>=26 and sceneDelay<=46
+      else if sceneDelay>25 and sceneDelay<=46 //60fps change: covers every frame of tick 26
       {
         npcBitA.x+=1*gDeltaTime; npcBitA.image_alpha+=0.05*gDeltaTime
         npcBitB.x-=1*gDeltaTime; npcBitB.image_alpha+=0.05*gDeltaTime
@@ -1224,7 +1228,8 @@ else if global.gameProgress=1980 and room=rMega4_SigmaC5 //----- [Unskippable] B
     else if sceneProgress=2
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay>=21 and sceneDelay<=40 {boss.sigParts[2].image_angle+=1*gDeltaTime} //QWH, not sure about this one
+      //if sceneDelay>=21 and sceneDelay<=40 {boss.sigParts[2].image_angle+=1*gDeltaTime} //QWH, not sure about this one
+      if sceneDelay>20 and sceneDelay<=40 {boss.sigParts[2].image_angle+=1*gDeltaTime} //QWH, not sure about this one //60fps change: covers every frame of tick 21, so the part turns the full 20 degrees (the scaled turn itself is right)
       if sceneDelay>=60
       {
         var tempMplay;
@@ -1401,12 +1406,14 @@ else if global.gameProgress=1980 and room=rMega4_SigmaC5 //----- [Unskippable] B
         pChip=instance_create(176,182,oProgramChip)
         pChip.chipType=3; pChip.visible=0
       }
-      else if sceneDelay>=21 and sceneDelay<=35
+      //else if sceneDelay>=21 and sceneDelay<=35
+      else if sceneDelay>20 and sceneDelay<=35 //60fps change: covers every frame of ticks 21 and 36, so the circle reaches 30px (it peaked at 29px at 60fps)
       {
         circleRad+=2*gDeltaTime
         if sceneDelay=25 {pChip.visible=1}
       }
-      else if sceneDelay>=36 and sceneDelay<=50
+      //else if sceneDelay>=36 and sceneDelay<=50
+      else if sceneDelay>35 and sceneDelay<=50 //60fps change: see above
         circleRad-=2*gDeltaTime
       else if sceneDelay>=75 {sceneDelay=0; sceneProgress+=1}
     }
@@ -1514,7 +1521,8 @@ if room=rMega4_SigmaC3 //Start crush walls
 }
 else if room=rMega4_SigmaC5
 {
-  bubbleTime+=1
+  //bubbleTime+=1
+  bubbleTime+=1*gDeltaTime //60fps change: the bubbles behind Sigma spawned 2x/4x as often at 60/120fps
   if bubbleTime>=bubbleDelay
   {
     var tSigmaBubble;
@@ -1539,11 +1547,13 @@ if global.tempAction[0]>=1
     view_object[0]=viewFix
     if global.tempAction[0]=4 {oPlayer1.y=340}
     else if global.tempAction[0]=5 {oPlayer1.y=340}
-    else if global.tempAction[0]=6 {oPlayer1.y=-8*gDeltaTime} //QWH also not sure about this
+    //else if global.tempAction[0]=6 {oPlayer1.y=-8*gDeltaTime} //QWH also not sure about this
+    else if global.tempAction[0]=6 {oPlayer1.y=-8} //60fps change: a starting position, not a per-frame move, so it isn't scaled (it started at -4/-2 at 60/120fps)
     oPlayer1.sprite_index=sPlayerDiscombobulate; oPlayer1.image_speed=0
   }
   else if beamDownProg=30 {readyText=1}
-  else if beamDownProg>=31 and beamDownProg<=69 {readyWidth+=1*gDeltaTime}
+  //else if beamDownProg>=31 and beamDownProg<=69 {readyWidth+=1*gDeltaTime}
+  else if beamDownProg>30 and beamDownProg<=69 {readyWidth+=1*gDeltaTime} //60fps change: covers every frame of tick 31, so READY is fully revealed
   else if beamDownProg>=80 and beamDownProg<=119
   {
     if beamDownProg mod 8=0

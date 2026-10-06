@@ -207,7 +207,8 @@ else
   {
     catchSequence+=1*gDeltaTime
     if catchSequence=1 {image_speed=0}
-    if catchSequence>=1 and catchSequence<=50 {redWarn+=0.02*gDeltaTime}
+    //if catchSequence>=1 and catchSequence<=50 {redWarn+=0.02*gDeltaTime}
+    if catchSequence>0 and catchSequence<=50 {redWarn+=0.02*gDeltaTime} //60fps change: covers every frame of the first tick, so the red warning reaches full strength
     if catchSequence>=51
     {
       //Reset progress

@@ -421,7 +421,8 @@ else {draw_sprite(sMMMapLIcon,3,156,133)}
 if text_Pos<string_length(text_Full)
 {
   textDropShadow(text_New,194,108,colorText,c_black,1)
-  for(i=0;i<2;i+=1)
+  //for(i=0;i<2;i+=1)
+  if gDeltaDoTicks for(i=0;i<2;i+=1) //60fps change: added "if gDeltaDoTicks"; 2 letters were typed every frame, so the info text appeared 2x/4x too fast
   {
     text_Pos+=1
     text_New+=string_char_at(text_Full,text_Pos)
@@ -430,7 +431,8 @@ if text_Pos<string_length(text_Full)
 else {textDropShadow(text_Full,194,108,colorText,c_black,1)}
 
 //Display cursor
-placerFrm+=0.3
+//placerFrm+=0.3
+placerFrm+=0.3*gDeltaTime //60fps change: the map marker animated 2x/4x too fast at 60/120fps
 draw_sprite(sMMMapPlacer,placerFrm,placerX,placerY)
 draw_sprite(sMMMapCursor,image_index,cursorX,cursorY)
 
@@ -440,5 +442,6 @@ if flashWhite>0
   draw_set_alpha(flashWhite)
   draw_set_color(c_white)
   draw_rectangle(-1,-1,room_width+1,room_height+1,0)
-  flashWhite-=0.08
+  //flashWhite-=0.08
+  flashWhite-=0.08*gDeltaTime //60fps change: the white flash faded 2x/4x too fast at 60/120fps
 }

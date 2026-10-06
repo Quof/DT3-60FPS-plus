@@ -44,6 +44,7 @@ applies_to=self
 if initVars=1
 {
   draw_background_tiled_ext(backStatic,xx,yy,1,1,c_white,image_alpha)
-  xx+=31
-  yy+=21
+  //xx+=31
+  //yy+=21
+  if gDeltaDoTicks {xx+=31; yy+=21} //60fps change: the static jumped every frame, so it flickered 2x/4x as fast at 60/120fps
 }

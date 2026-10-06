@@ -195,13 +195,15 @@ else if global.gameProgress=1570 and room=rMain_21 //----- [Unskippable] Enemy T
       else if sceneProgress=1
       {
         sceneDelay+=1*gDeltaTime
-        if sceneDelay>=1 and sceneDelay<=40
+        //if sceneDelay>=1 and sceneDelay<=40
+        if sceneDelay>0 and sceneDelay<=40 //60fps change: covers every frame of ticks 1 and 51, so the red overlay and sky beam reach their full 30fps strength
         {
           oScreenColorOverlay.image_alpha+=0.005*gDeltaTime
           if sceneDelay=30
             {msgCreate(0,0,"Jerry","Eh, what's this?",0,1,oMessagePerson,0); newMessage.fadingTime=60}
         }
-        else if sceneDelay>=51 and sceneDelay<=100
+        //else if sceneDelay>=51 and sceneDelay<=100
+        else if sceneDelay>50 and sceneDelay<=100 //60fps change: see above
         {
           if sceneDelay<=70
           {
@@ -963,7 +965,8 @@ else if global.gameProgress=1690 and room=rMountTemple_J //----- [9] Get Access 
       npcMMX.sprite_index=sPlayerDiscombobulate
       npcMMX.image_index=0; npcMMX.image_speed=0
     }
-    else if sceneDelay>=6 and sceneDelay<=35 {npcMMX.y-=14*gDeltaTime}
+    //else if sceneDelay>=6 and sceneDelay<=35 {npcMMX.y-=14*gDeltaTime}
+    else if sceneDelay>5 and sceneDelay<=35 {npcMMX.y-=14*gDeltaTime} //60fps change: covers every frame of tick 6, so X beams up the full distance
     else if sceneDelay>=40 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=36 and bWaitForInput=false
@@ -1188,7 +1191,8 @@ else if global.gameProgress=1720 and room=rMain_28 //----- [11] Virus & Twin Was
         npcMMX.sprite_index=sPlayerDiscombobulate
         npcMMX.image_index=0; npcMMX.image_speed=0
       }
-      else if sceneDelay>=6 and sceneDelay<=35 {npcMMX.y-=14*gDeltaTime}
+      //else if sceneDelay>=6 and sceneDelay<=35 {npcMMX.y-=14*gDeltaTime}
+      else if sceneDelay>5 and sceneDelay<=35 {npcMMX.y-=14*gDeltaTime} //60fps change: covers every frame of tick 6, so X beams up the full distance
       else if sceneDelay>=40
       {
         with npcMMX {instance_destroy()}

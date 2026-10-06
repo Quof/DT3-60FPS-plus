@@ -115,10 +115,12 @@ if room=rEnd_WarshipA //----- [] End A -----
   if charactersEscape=1
   {
     if gDeltaDoTicks {bubbleClaire.x-=1}; bubbleClaire.y+=3*gDeltaTime
-    if gDeltaDoTicks {bubbleChao.x-=1}; bubbleChao.y+=3
+    //if gDeltaDoTicks {bubbleChao.x-=1}; bubbleChao.y+=3
+    if gDeltaDoTicks {bubbleChao.x-=1}; bubbleChao.y+=3*gDeltaTime //60fps change: Chao's bubble fell 2x/4x too fast at 60/120fps (Claire's was already scaled)
   }
 
-  if shipExplode=1
+  //if shipExplode=1
+  if shipExplode=1 and gDeltaDoTicks //60fps change: explosions and the sound counter once per 30fps tick (per frame was 2x/4x as many at 60/120fps)
   {
     for(i=0;i<4;i+=1)
     {
@@ -161,7 +163,8 @@ else if room=rEnd_SceneA //----- [] End B -----
   else if sceneProgress=2
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay>=11 and sceneDelay<=20 {shieldAlpha-=0.01*gDeltaTime}
+    //if sceneDelay>=11 and sceneDelay<=20 {shieldAlpha-=0.01*gDeltaTime}
+    if sceneDelay>10 and sceneDelay<=20 {shieldAlpha-=0.01*gDeltaTime} //60fps change: covers every frame of the first tick
     else if sceneDelay=21 {bCharacterShields=0}
     else if sceneDelay>=40 {sceneDelay=0; sceneProgress+=1}
   }
@@ -199,7 +202,8 @@ applies_to=self
 */
 if bCharacterShields=1
 {
-  shieldFrm+=0.25
+  //shieldFrm+=0.25
+  shieldFrm+=0.25*gDeltaTime //60fps change: the shields animated 2x/4x too fast at 60/120fps
   for(i=0;i<3;i+=1)
   {
     draw_sprite_ext(sWaterBarrier,shieldFrm+i,oPlayer1.x,oPlayer1.y-26,image_xscale+(0.25*i),image_yscale+(0.25*i),image_angle,image_blend,shieldAlpha+(0.1*i))

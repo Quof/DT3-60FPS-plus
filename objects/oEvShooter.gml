@@ -352,7 +352,8 @@ if global.gamePaused=false
     {
       if sceneDelay<670
       {
-        otherTimeA+=1
+        //otherTimeA+=1
+        otherTimeA+=1*gDeltaTime //60fps change: these asteroid walls came 2x/4x as often at 60/120fps
         if otherTimeA=90
         {
           var tAst; tAst=instance_create(asteroidX,asteroidY1-56,oDragAsteroid); tAst.bulletSpeed=5; tAst._direction=180; tAst.image_xscale=0.75; tAst.image_yscale=0.75

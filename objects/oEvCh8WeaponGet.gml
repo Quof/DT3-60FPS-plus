@@ -72,7 +72,8 @@ for(i=0;i<22;i+=1)
 }
 
 wepProg+=1*gDeltaTime
-if wepProg>=1 and wepProg<=10 {fadeOut-=0.1*gDeltaTime}
+//if wepProg>=1 and wepProg<=10 {fadeOut-=0.1*gDeltaTime}
+if wepProg>0 and wepProg<=10 {fadeOut-=0.1*gDeltaTime} //60fps change: covers every frame of tick 1; the fade-in stopped at 0.05/0.075, leaving a faint black overlay over the whole scene at 60/120fps
 
 if wepProg=5 //----- Play music -----
 {
@@ -156,7 +157,8 @@ else if global.newMapX=3 //Show Strike Chain
   else if wepProg=540 {playerSprite=sJerryIdle}
 }
 
-if wepProg>=641 and wepProg<=650 {fadeOut+=0.1*gDeltaTime}
+//if wepProg>=641 and wepProg<=650 {fadeOut+=0.1*gDeltaTime}
+if wepProg>640 and wepProg<=650 {fadeOut+=0.1*gDeltaTime} //60fps change: covers every frame of tick 641, so it fades fully to black
 else if wepProg=660 //End sequence
 {
   global.hasAbilToken[3]=2+global.newMapX
@@ -189,13 +191,15 @@ textDropShadow("YOU GOT A NEW WEAPON!",136,16,clGrid,c_black,4)
 
 //Flavor text
 draw_set_font(fnt_StatRender)
-if wepProg>=31 and wepProg<=40 {wepTAlpha+=0.1*gDeltaTime}
+//if wepProg>=31 and wepProg<=40 {wepTAlpha+=0.1*gDeltaTime}
+if wepProg>30 and wepProg<=40 {wepTAlpha+=0.1*gDeltaTime} //60fps change: covers every frame of tick 31, so the title fades fully in
 if wepProg>=50
 {
   if wepTPos[0]<string_length(wepTFull[0])
   {
     textDropShadow(wepTNew[0],40,80,clExtraText,c_black,4)
-    for(i=0;i<2;i+=1)
+    //for(i=0;i<2;i+=1)
+    if gDeltaDoTicks for(i=0;i<2;i+=1) //60fps change: added "if gDeltaDoTicks"; 2 letters were typed every frame, so the text appeared 2x/4x too fast
     {
       wepTPos[0]+=1
       wepTNew[0]+=string_char_at(wepTFull[0],wepTPos[0])
@@ -208,7 +212,8 @@ if wepProg>=210
   if wepTPos[1]<string_length(wepTFull[1])
   {
     textDropShadow(wepTNew[1],40,94,clExtraText,c_black,4)
-    for(i=0;i<2;i+=1)
+    //for(i=0;i<2;i+=1)
+    if gDeltaDoTicks for(i=0;i<2;i+=1) //60fps change: added "if gDeltaDoTicks"; 2 letters were typed every frame, so the text appeared 2x/4x too fast
     {
       wepTPos[1]+=1
       wepTNew[1]+=string_char_at(wepTFull[1],wepTPos[1])
@@ -221,7 +226,8 @@ if wepProg>=300
   if wepTPos[2]<string_length(wepTFull[2])
   {
     textDropShadow(wepTNew[2],40,108,clExtraText,c_black,4)
-    for(i=0;i<2;i+=1)
+    //for(i=0;i<2;i+=1)
+    if gDeltaDoTicks for(i=0;i<2;i+=1) //60fps change: added "if gDeltaDoTicks"; 2 letters were typed every frame, so the text appeared 2x/4x too fast
     {
       wepTPos[2]+=1
       wepTNew[2]+=string_char_at(wepTFull[2],wepTPos[2])
@@ -252,7 +258,8 @@ if wepProg>=480
   if wepTPos[4]<string_length(wepTFull[4])
   {
     textDropShadow(wepTNew[4],40,140,clExtraText,c_black,4)
-    for(i=0;i<2;i+=1)
+    //for(i=0;i<2;i+=1)
+    if gDeltaDoTicks for(i=0;i<2;i+=1) //60fps change: added "if gDeltaDoTicks"; 2 letters were typed every frame, so the text appeared 2x/4x too fast
     {
       wepTPos[4]+=1
       wepTNew[4]+=string_char_at(wepTFull[4],wepTPos[4])

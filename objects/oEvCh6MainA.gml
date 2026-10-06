@@ -141,12 +141,15 @@ if global.gameProgress=1150 and room=rBelmont3_Gate //----- [1] Intro to Transyl
         efStars[i].image_alpha=0.4-(0.075*i); efStars[i].image_xscale=1+i; efStars[i].image_yscale=1+i
       }
     }
-    else if sceneDelay>=41 and sceneDelay<=79
+    //else if sceneDelay>=41 and sceneDelay<=79
+    else if sceneDelay>40 and sceneDelay<=79 //60fps change: covers every frame of tick 41, so the charge shrinks as far as at 30fps
     {
       for(i=0;i<4;i+=1)
       {
-        if i mod 2=0 {efStars[i].image_angle+=2*(i*2)}
-        else {efStars[i].image_angle-=2*(i*2)}
+        //if i mod 2=0 {efStars[i].image_angle+=2*(i*2)}
+        //else {efStars[i].image_angle-=2*(i*2)}
+        if i mod 2=0 {efStars[i].image_angle+=2*(i*2)*gDeltaTime} //60fps change: the stars spun 2x/4x too fast at 60/120fps
+        else {efStars[i].image_angle-=2*(i*2)*gDeltaTime} //60fps change: see above
       }
       efCharge.image_xscale-=0.1*gDeltaTime; efCharge.image_yscale-=0.1*gDeltaTime
     }
@@ -450,9 +453,11 @@ else if global.gameProgress=1220 and room=rBelmont3_2D //----- [3] Meet Death - 
   else if sceneProgress=7
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay>=11 and sceneDelay<=61
+    //if sceneDelay>=11 and sceneDelay<=61
+    if sceneDelay>10 and sceneDelay<=61 //60fps change: covers every frame of tick 11
     {
-      tColor+=5
+      //tColor+=5
+      tColor+=5*gDeltaTime //60fps change: Death brightened 2x/4x too fast and tColor ran up to 505/1005 (past 255) at 60/120fps
       npcDeath.image_blend=make_color_rgb(tColor,tColor,tColor)
     }
     else if sceneDelay>=90 {sceneDelay=0; sceneProgress+=1}
@@ -498,9 +503,11 @@ else if global.gameProgress=1220 and room=rBelmont3_2D //----- [3] Meet Death - 
   else if sceneProgress=27
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay>=11 and sceneDelay<=30
+    //if sceneDelay>=11 and sceneDelay<=30
+    if sceneDelay>10 and sceneDelay<=30 //60fps change: covers every frame of tick 11
     {
-      if tColor>0 {tColor-=15}
+      //if tColor>0 {tColor-=15}
+      if tColor>0 {tColor-=15*gDeltaTime} //60fps change: Death darkened 2x/4x too fast at 60/120fps
       npcDeath.image_blend=make_color_rgb(tColor,tColor,tColor)
       npcDeath.image_xscale+=0.1*gDeltaTime; npcDeath.image_yscale+=0.1*gDeltaTime; npcDeath.image_alpha-=0.05*gDeltaTime
     }
@@ -725,7 +732,8 @@ else if global.gameProgress=1280 and room=rBelmont3_3F //----- [6] Boss Fight: D
         npcDeath.sprite_index=sDeathIdle; npcDeath.image_speed=0.15
         npcDeath.image_alpha=0; npcDeath.type=2
       }
-      else if sceneDelay>=11 and sceneDelay<=30
+      //else if sceneDelay>=11 and sceneDelay<=30
+      else if sceneDelay>10 and sceneDelay<=30 //60fps change: covers every frame of tick 11, so Death fades fully in
       {
         npcDeath.image_alpha+=0.05*gDeltaTime
       }
@@ -740,7 +748,8 @@ else if global.gameProgress=1280 and room=rBelmont3_3F //----- [6] Boss Fight: D
     else if sceneProgress=17
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay>=11 and sceneDelay<=30
+      //if sceneDelay>=11 and sceneDelay<=30
+      if sceneDelay>10 and sceneDelay<=30 //60fps change: covers every frame of tick 11, so Death fades fully out
       {
         npcDeath.image_xscale+=0.05*gDeltaTime; npcDeath.image_yscale+=0.05*gDeltaTime
         npcDeath.image_alpha-=0.05*gDeltaTime
@@ -1229,7 +1238,8 @@ else if global.gameProgress=1430 and room=rBelmont3_6C //----- [] Boss Fight: Me
       else if sceneProgress=1
       {
         sceneDelay+=1*gDeltaTime
-        if sceneDelay>=1 and sceneDelay<=50 {fadeAlpha+=0.02*gDeltaTime}
+        //if sceneDelay>=1 and sceneDelay<=50 {fadeAlpha+=0.02*gDeltaTime}
+        if sceneDelay>0 and sceneDelay<=50 {fadeAlpha+=0.02*gDeltaTime} //60fps change: covers every frame of each window's first tick (here and the two fades below)
         else if sceneDelay=90 {boss=instance_create(848,200,oMenaceMain)}
         else if sceneDelay=91
         {
@@ -1242,8 +1252,10 @@ else if global.gameProgress=1430 and room=rBelmont3_6C //----- [] Boss Fight: Me
           backGBlend=1
           with oEnemyBase {image_blend=c_black}
         }
-        else if sceneDelay>=101 and sceneDelay<=200 {fadeAlpha-=0.005*gDeltaTime}
-        else if sceneDelay>=201 and sceneDelay<=250 {fadeAlpha-=0.01*gDeltaTime}
+        //else if sceneDelay>=101 and sceneDelay<=200 {fadeAlpha-=0.005*gDeltaTime}
+        //else if sceneDelay>=201 and sceneDelay<=250 {fadeAlpha-=0.01*gDeltaTime}
+        else if sceneDelay>100 and sceneDelay<=200 {fadeAlpha-=0.005*gDeltaTime} //60fps change: see above
+        else if sceneDelay>200 and sceneDelay<=250 {fadeAlpha-=0.01*gDeltaTime} //60fps change: see above
         else if sceneDelay=260
         {
           fadeInCol=0
@@ -1289,7 +1301,8 @@ else if global.gameProgress=1430 and room=rBelmont3_6C //----- [] Boss Fight: Me
     if sceneProgress=0
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay>=31 and sceneDelay<=130
+      //if sceneDelay>=31 and sceneDelay<=130
+      if sceneDelay>30 and sceneDelay<=130 //60fps change: covers every frame of tick 31, so the Menace background fades fully out (it stayed at 0.01/0.0125 alpha at 60/120fps)
         backFol.image_alpha-=0.01*gDeltaTime
       else if sceneDelay>=150
       {
@@ -1595,7 +1608,8 @@ else if global.gameProgress=1510 and room=rBelmont3_7G //----- [12] Boss Fight: 
         npcDeath.image_speed=0.15
         npcDeath.type=2
       }
-      else if sceneDelay>=21 and sceneDelay<=70
+      //else if sceneDelay>=21 and sceneDelay<=70
+      else if sceneDelay>20 and sceneDelay<=70 //60fps change: covers every frame of tick 21, so Death fades fully in
         npcDeath.image_alpha+=0.02*gDeltaTime
       else if sceneDelay>=90 {sceneDelay=0; sceneProgress+=1}
     }
@@ -1619,7 +1633,8 @@ else if global.gameProgress=1510 and room=rBelmont3_7G //----- [12] Boss Fight: 
         npcDeath.sprite_index=sDeathTransform
         npcDeath.image_speed=0.4
       }
-      else if sceneDelay>=31 and sceneDelay<=55
+      //else if sceneDelay>=31 and sceneDelay<=55
+      else if sceneDelay>30 and sceneDelay<=55 //60fps change: covers every frame of tick 31
       {
         transWidth+=1.5*gDeltaTime
         transAlpha+=0.02*gDeltaTime
@@ -1632,10 +1647,13 @@ else if global.gameProgress=1510 and room=rBelmont3_7G //----- [12] Boss Fight: 
         npcDeath.image_speed=0
         npcDeath.image_xscale=-1
       }
-      else if sceneDelay>=121 and sceneDelay<=145
+      //else if sceneDelay>=121 and sceneDelay<=145
+      else if sceneDelay>120 and sceneDelay<=145 //60fps change: covers every frame of tick 121
       {
-        transWidth-=1.5
-        transAlpha-=0.02
+        //transWidth-=1.5
+        //transAlpha-=0.02
+        transWidth-=1.5*gDeltaTime //60fps change: the light pillar shrank and faded 2x/4x too fast at 60/120fps (its growth above was already scaled)
+        transAlpha-=0.02*gDeltaTime //60fps change: see above
       }
       else if sceneDelay=170
       {
@@ -1739,12 +1757,14 @@ else if global.gameProgress=1510 and room=rBelmont3_7G //----- [12] Boss Fight: 
         pChip=instance_create(304,134,oProgramChip)
         pChip.chipType=2; pChip.visible=0
       }
-      else if sceneDelay>=21 and sceneDelay<=35
+      //else if sceneDelay>=21 and sceneDelay<=35
+      else if sceneDelay>20 and sceneDelay<=35 //60fps change: covers every frame of ticks 21 and 36, so the circle reaches 30px (it peaked at 29px at 60fps)
       {
         circleRad+=2*gDeltaTime
         if sceneDelay=25 {pChip.visible=1}
       }
-      else if sceneDelay>=36 and sceneDelay<=50
+      //else if sceneDelay>=36 and sceneDelay<=50
+      else if sceneDelay>35 and sceneDelay<=50 //60fps change: see above
         circleRad-=2*gDeltaTime
       else if sceneDelay>=75 {sceneDelay=0; sceneProgress+=1}
     }
@@ -1954,9 +1974,11 @@ if oKeyCodes.kCodePressed[11]=1 and global.gamePaused=true and sceneProgress>=1 
 if backGBlend=1
 {
   backCTime+=1*gDeltaTime
-  if backCTime>=1 and backCTime<=150
+  //if backCTime>=1 and backCTime<=150
+  if backCTime>0 and backCTime<=150 //60fps change: covers every frame of ticks 1 and 151, so the Menace background pulses as deep as at 30fps
     backCChg-=1.25*gDeltaTime
-  else if backCTime>=151 and backCTime<=300
+  //else if backCTime>=151 and backCTime<=300
+  else if backCTime>150 and backCTime<=300 //60fps change: see above
   {
     backCChg+=1.25*gDeltaTime
     if backCTime=300

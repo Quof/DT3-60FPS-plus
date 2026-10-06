@@ -69,7 +69,8 @@ if global.gamePaused=false
 
     if point_distance(x,y,oPlayer1.x,oPlayer1.y)<1200
     {
-      if oGame.time mod effectMod=0
+      //if oGame.time mod effectMod=0
+      if oGame.time30 mod effectMod=0 //60fps change: this Step only runs on ticks, so count ticks; oGame.time counts frames, which gave 2x the wind streaks or none at all at 60/120fps depending on frame parity
       {
         var tEffect;
         if _direction=0

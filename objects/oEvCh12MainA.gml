@@ -116,8 +116,10 @@ else if global.gameProgress=2620 and room=rMain_47 //----- [3] Boss Fight: Vault
       }
       else if sceneDelay>=2
       {
-        if musVolC>=7500 {musVolC-=30}
-        else {musVolC-=350}
+        //if musVolC>=7500 {musVolC-=30}
+        //else {musVolC-=350}
+        if musVolC>=7500 {musVolC-=30*gDeltaTime} //60fps change: the music fade-out ran 2x/4x too fast at 60/120fps
+        else {musVolC-=350*gDeltaTime} //60fps change
         SS_SetSoundVol(musFileP,musVolC)
         if musVolC<=1000
         {
@@ -443,7 +445,8 @@ if global.gamePaused=false
       if exCharTalkATime>=100
       {
         exCharTalkATime=0
-        if global.gameOptDT<=2 {exCharTalkAProg+=1*gDeltaTime} //Sand Crawler not defeated
+        //if global.gameOptDT<=2 {exCharTalkAProg+=1*gDeltaTime} //Sand Crawler not defeated
+        if global.gameOptDT<=2 {exCharTalkAProg+=1} //Sand Crawler not defeated //60fps change: one-off step to the next line; scaled, it stuck at 10.5 so the rest of the talk never played and the flag was never saved
         else {exCharTalkAProg=99}
       }
     }

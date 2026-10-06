@@ -45,7 +45,8 @@ else if changeProg=4
   changeTime+=1*gDeltaTime
   if changeTime>=5
   {
-    if myColor<255 {myColor+=5}
+    //if myColor<255 {myColor+=5}
+    if myColor<255 {myColor+=5*gDeltaTime} //60fps change: Chao's color came back 2x/4x too fast at 60/120fps
     image_blend=make_color_rgb(myColor,myColor,myColor)
 
     circleAlpha-=0.015*gDeltaTime

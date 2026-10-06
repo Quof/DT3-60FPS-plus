@@ -296,7 +296,8 @@ else if room=rTrueEnd_B //------------------------------ [] End B --------------
   {
     if global.modeDark=1
     {
-      darkModeText+=1
+      //darkModeText+=1
+      darkModeText+=1*gDeltaTime //60fps change: the dark mode lines in this scene came 2x/4x too fast at 60/120fps (the other scenes were already scaled)
       if darkModeText=10
       {
         msgCreate(60,280,"Jerry","Agreed and...",0,2,oMessagePerson,0); newMessage.fadingTime=50
@@ -495,7 +496,8 @@ else if room=rTrueEnd_B //------------------------------ [] End B --------------
   {
     if global.modeDark=1
     {
-      darkModeText+=1
+      //darkModeText+=1
+      darkModeText+=1*gDeltaTime //60fps change: the dark mode lines in this scene came 2x/4x too fast at 60/120fps (the other scenes were already scaled)
       if darkModeText=10
       {
         msgCreate(60,280,"Jerry","Got a bit quiet there.",0,2,oMessagePerson,0); newMessage.fadingTime=70
@@ -746,11 +748,13 @@ else if room=rTrueEnd_C //------------------------------ [] End C --------------
         ini_write_real(sectionWrite,"144",global.gameCompleted)
         ini_close()
       }
-      else if sceneDelay>=31 and sceneDelay<=80
+      //else if sceneDelay>=31 and sceneDelay<=80
+      else if sceneDelay>30 and sceneDelay<=80 //60fps change: covers every frame of the first tick, so the text fades in fully
       {
         dtAlpha+=0.02*gDeltaTime
       }
-      else if sceneDelay>=111 and sceneDelay<=130
+      //else if sceneDelay>=111 and sceneDelay<=130
+      else if sceneDelay>110 and sceneDelay<=130 //60fps change: covers every frame of the first tick, so the text fades in fully
       {
         thanksAlpha+=0.05*gDeltaTime
       }
@@ -787,12 +791,14 @@ if jeremyLaser>0
 {
   if scaleUp=1
   {
-    laserScaleY+=0.01
+    //laserScaleY+=0.01
+    laserScaleY+=0.01*gDeltaTime //60fps change: the laser pulsed 2x/4x too fast at 60/120fps
     if laserScaleY>=0.9 {scaleUp=0}
   }
   else
   {
-    laserScaleY-=0.01
+    //laserScaleY-=0.01
+    laserScaleY-=0.01*gDeltaTime //60fps change
     if laserScaleY<=0.8 {scaleUp=1}
   }
 

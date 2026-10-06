@@ -37,7 +37,8 @@ if global.gamePaused=false
   {
     if actProg=0
     {
-      actTime+=1
+      //actTime+=1
+      actTime+=1*gDeltaTime //60fps change: the start delay was 2x/4x too short at 60/120fps
       if actTime>=10 {actTime=0; actProg+=1}
     }
     else if actProg=1 {xVel=runAcc; actProg+=1}
@@ -85,7 +86,8 @@ if other.type=0 //Stop
 }
 else if other.type=1 //Jump
 {
-  y-=2*gDeltaTime
+  //y-=2*gDeltaTime
+  y-=2 //60fps change: one-off lift off the ground before the jump, not a per-frame move
   jumpAcc=other.jumpAcc
   yVel=jumpAcc
 }

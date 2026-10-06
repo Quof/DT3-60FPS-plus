@@ -130,7 +130,8 @@ if global.gameProgress=3870 and room=rCCity_NA_S2 //----- [1] On the defensive -
     {
       npcMatt.sprite_index=sNPC_Matt_Dash; npcMatt.image_xscale=-1
     }
-    else if sceneDelay>=6 and sceneDelay<=22 {npcMatt.x-=4*gDeltaTime}
+    //else if sceneDelay>=6 and sceneDelay<=22 {npcMatt.x-=4*gDeltaTime}
+    else if sceneDelay>5 and sceneDelay<=22 {npcMatt.x-=4*gDeltaTime} //60fps change: covers every frame of the first tick, so Matt dashes the full 68px
     else if sceneDelay=25
     {
       tEffect=instance_create(oNPC_John.x,oNPC_John.y-18,oEffect)

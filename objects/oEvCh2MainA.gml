@@ -62,12 +62,15 @@ if global.gameProgress=150 and room=rMario1_1 //----- [1] Intro to Mario World -
         efStars[i].image_xscale=1+i; efStars[i].image_yscale=1+i
       }
     }
-    else if sceneDelay>=41 and sceneDelay<=79
+    //else if sceneDelay>=41 and sceneDelay<=79
+    else if sceneDelay>40 and sceneDelay<=79 //60fps change: covers every frame of tick 41, so the charge shrinks as far as at 30fps
     {
       for(i=0;i<4;i+=1)
       {
-        if i mod 2=0 {efStars[i].image_angle+=2*(i*2)}
-        else {efStars[i].image_angle-=2*(i*2)}
+        //if i mod 2=0 {efStars[i].image_angle+=2*(i*2)}
+        //else {efStars[i].image_angle-=2*(i*2)}
+        if i mod 2=0 {efStars[i].image_angle+=2*(i*2)*gDeltaTime} //60fps change: the stars spun 2x/4x too fast at 60/120fps
+        else {efStars[i].image_angle-=2*(i*2)*gDeltaTime} //60fps change: see above
       }
       efCharge.image_xscale-=0.1*gDeltaTime
       efCharge.image_yscale-=0.1*gDeltaTime
@@ -306,7 +309,8 @@ else if global.gameProgress=160 and room=rMario1_1 //----- [2] (Unskippable unti
   {
     sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {fadeColor=c_black}
-    else if sceneDelay>=2 and sceneDelay<=21 {fadeAlpha+=0.05*gDeltaTime}
+    //else if sceneDelay>=2 and sceneDelay<=21 {fadeAlpha+=0.05*gDeltaTime}
+    else if sceneDelay>1 and sceneDelay<=21 {fadeAlpha+=0.05*gDeltaTime} //60fps change: covers every frame of tick 2, so the screen fades fully to black
     else if sceneDelay>=30 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=19 and bWaitForInput=false
@@ -566,7 +570,8 @@ else if global.gameProgress=250 and room=rMario1_4Story //----- [4] Cackletta ta
   else if sceneProgress=11
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay>=11 and sceneDelay<=30
+    //if sceneDelay>=11 and sceneDelay<=30
+    if sceneDelay>=11 and sceneDelay<=30 and gDeltaDoTicks //60fps change: 1px per 30fps tick (as the chip's later drop below); it moved 1px every frame, so it dropped 39px/77px at 60/120fps instead of 20
       pChip.y+=1
     else if sceneDelay=31
     {
@@ -602,7 +607,8 @@ else if global.gameProgress=250 and room=rMario1_4Story //----- [4] Cackletta ta
       tEffect.sprite_index=sSpellCast; tEffect.image_xscale=0.6; tEffect.image_yscale=0.6
       tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
     }
-    else if sceneDelay>=10 and sceneDelay<=17
+    //else if sceneDelay>=10 and sceneDelay<=17
+    else if sceneDelay>9 and sceneDelay<=17 //60fps change: covers every frame of tick 10, so Jerry's leap goes as far as at 30fps
     {
       charJerry.x-=1*gDeltaTime
       charJerry.y-=7*gDeltaTime
@@ -1073,7 +1079,8 @@ else if global.gameProgress=500 and room=rMario1_CCBoss //----- [13] Boss Fight:
         viewFix.sprite_index=sNull
         view_object[0]=viewFix
       }
-      else if sceneDelay>=11 and sceneDelay<=50
+      //else if sceneDelay>=11 and sceneDelay<=50
+      else if sceneDelay>10 and sceneDelay<=50 //60fps change: covers every frame of tick 11, so the view pans the full 160px (it was 2px/3px short at 60/120fps)
         viewFix.x+=4*gDeltaTime //Quof - not sure if this is good
       if sceneDelay>=70
       {
@@ -1091,7 +1098,8 @@ else if global.gameProgress=500 and room=rMario1_CCBoss //----- [13] Boss Fight:
         boss=instance_create(464,176,oCackletta)
         boss.image_alpha=0
       }
-      else if sceneDelay>=11 and sceneDelay<=30
+      //else if sceneDelay>=11 and sceneDelay<=30
+      else if sceneDelay>10 and sceneDelay<=30 //60fps change: covers every frame of tick 11, so Cackletta fades fully in
         boss.image_alpha+=0.05*gDeltaTime
       else if sceneDelay>=50 {sceneDelay=0; sceneProgress+=1}
     }
@@ -1211,13 +1219,17 @@ else if global.gameProgress=500 and room=rMario1_CCBoss //----- [13] Boss Fight:
         pChip=instance_create(464,160,oProgramChip)
         pChip.chipType=0; pChip.visible=0
       }
-      else if sceneDelay>=21 and sceneDelay<=35
+      //else if sceneDelay>=21 and sceneDelay<=35
+      else if sceneDelay>20 and sceneDelay<=35 //60fps change: covers every frame of tick 21
       {
-        circleRad+=2
+        //circleRad+=2
+        circleRad+=2*gDeltaTime //60fps change: the circle grew to 58px/114px at 60/120fps instead of 30px
         if sceneDelay=25 {pChip.visible=1}
       }
-      else if sceneDelay>=36 and sceneDelay<=50
-        circleRad-=2
+      //else if sceneDelay>=36 and sceneDelay<=50
+      //  circleRad-=2
+      else if sceneDelay>35 and sceneDelay<=50 //60fps change: see above
+        circleRad-=2*gDeltaTime //60fps change: see above
       else if sceneDelay>=75 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=8 and bWaitForInput=false

@@ -78,8 +78,10 @@ if global.gamePaused=false
 oPlayer1.x=x-9
 oPlayer1.y=y-28
 oPlayer1.sprite_index=sJerryOnTruck
-claireFrame+=0.33
-treadFrame+=0.33
+//claireFrame+=0.33
+//treadFrame+=0.33
+claireFrame+=0.33*gDeltaTime //60fps change: the riders and treads animated 2x/4x too fast at 60/120fps
+treadFrame+=0.33*gDeltaTime //60fps change
 #define Collision_oZakoCannonfodder
 /*"/*'/**//* YYD ACTION
 lib_id=1

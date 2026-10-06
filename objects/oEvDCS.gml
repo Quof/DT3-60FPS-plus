@@ -280,12 +280,15 @@ else if room=rDCS_E and global.gameProgress=4775 //----- [3] Perplexing moment w
   {
     sceneDelay+=1*gDeltaTime
     if sceneDelay=20 {(GID(404466)).image_xscale=1.25; (GID(404466)).sprite_index=sWarmasterA_Run; (GID(404466)).image_speed=0.33}
-    else if sceneDelay>=21 and sceneDelay<=32
+    //else if sceneDelay>=21 and sceneDelay<=32
+    else if sceneDelay>20 and sceneDelay<=32 //60fps change: covers every frame of the first tick
     {
-      (GID(404466)).x+=6
+      //(GID(404466)).x+=6
+      (GID(404466)).x+=6*gDeltaTime //60fps change: the Warmaster ran 2x/4x too far at 60/120fps
       if sceneDelay=32 {(GID(404466)).sprite_index=sWarmasterA_JumpUp}
     }
-    else if sceneDelay>=33 and sceneDelay<=60 {(GID(404466)).x+=6*gDeltaTime; (GID(404466)).y-=8*gDeltaTime}
+    //else if sceneDelay>=33 and sceneDelay<=60 {(GID(404466)).x+=6*gDeltaTime; (GID(404466)).y-=8*gDeltaTime}
+    else if sceneDelay>32 and sceneDelay<=60 {(GID(404466)).x+=6*gDeltaTime; (GID(404466)).y-=8*gDeltaTime} //60fps change: covers every frame of the first tick, so the jump runs its full length
     else if sceneDelay>=80 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=14 and bWaitForInput=false
@@ -500,6 +503,7 @@ else if room=rDCS_U and global.gameProgress=4780 //----- [] Boss Fight: Shadow E
       else if sceneDelay>=51 and sceneDelay<=999
       {
         var tEffect;
+        if gDeltaDoTicks //60fps change (added): smoke spawns once per 30fps tick (per frame was 2x/4x as much at 60/120fps)
         for(i=0;i<3;i+=1)
         {
           for(ii=0;ii<8;ii+=1)
@@ -736,7 +740,8 @@ else if room=rDCS_V and global.gameProgress=4790 //----- [] The second Dragoon p
       myNPC.x+=2*gDeltaTime; myNPC.y-=2*gDeltaTime
       if myNPC.x>=320 {sceneDelay=300}
     }
-    else if sceneDelay>=301 and sceneDelay<=320 {myNPC.image_alpha-=0.05*gDeltaTime}
+    //else if sceneDelay>=301 and sceneDelay<=320 {myNPC.image_alpha-=0.05*gDeltaTime}
+    else if sceneDelay>300 and sceneDelay<=320 {myNPC.image_alpha-=0.05*gDeltaTime} //60fps change: covers every frame of the first tick, so the Warmaster fades out fully
 
     if pullSpeed>0 //Pull player
     {

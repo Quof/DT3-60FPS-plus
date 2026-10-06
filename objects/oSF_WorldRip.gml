@@ -51,7 +51,8 @@ if global.gamePaused=false
   }
   else if pullProg=1 //Pull in blocks
   {
-    if checkScreenArea(x,y,208)
+    //if checkScreenArea(x,y,208)
+    if checkScreenArea(x,y,208) and gDeltaDoTicks //60fps change: pieces spawn once per 30fps tick (per frame was 2x/4x as many at 60/120fps)
     {
       var tEffect,tDir;
       tDir=random(360)

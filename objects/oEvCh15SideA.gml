@@ -423,8 +423,10 @@ if global.gamePaused=false
   }
   else if room=rGame6_WaterCaveB //Water level
   {
-    if oWaterVolume.y>oPlayer1.y-14 {oWaterVolume.y-=1}
-    else if oWaterVolume.y<oPlayer1.y-18 {oWaterVolume.y+=2}
+    //if oWaterVolume.y>oPlayer1.y-14 {oWaterVolume.y-=1}
+    //else if oWaterVolume.y<oPlayer1.y-18 {oWaterVolume.y+=2}
+    if oWaterVolume.y>oPlayer1.y-14 and gDeltaDoTicks {oWaterVolume.y-=1} //60fps change: per-tick step; per frame the water chased the player 2x/4x as fast at 60/120fps
+    else if oWaterVolume.y<oPlayer1.y-18 and gDeltaDoTicks {oWaterVolume.y+=2} //60fps change
   }
   else if room=rGame6_WaterCaveD
   {

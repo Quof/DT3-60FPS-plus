@@ -46,7 +46,8 @@ if global.gamePaused=false
     else if sceneProgress=1
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay>=1 and sceneDelay<=20 {fadeAlpha+=0.025*gDeltaTime}
+      //if sceneDelay>=1 and sceneDelay<=20 {fadeAlpha+=0.025*gDeltaTime}
+      if sceneDelay>0 and sceneDelay<=20 {fadeAlpha+=0.025*gDeltaTime} //60fps change: covers every frame of the first tick, so the fade runs its full length
       else if sceneDelay=40
       {
         npc_A=instance_create(xView-48,yView+64,oMisc)
@@ -58,7 +59,8 @@ if global.gamePaused=false
         npc_D=instance_create(xView+48,yView+64,oMisc)
         npc_D.sprite_index=sJeremyDream; npc_D.image_speed=0; npc_D.image_alpha=0 npc_D.type=1; npc_D.image_blend=c_black; npc_D.depth=0
       }
-      else if sceneDelay>=41 and sceneDelay<=60 {npc_A.image_alpha+=0.025*gDeltaTime; npc_B.image_alpha+=0.025*gDeltaTime; npc_C.image_alpha+=0.025*gDeltaTime; npc_D.image_alpha+=0.025*gDeltaTime}
+      //else if sceneDelay>=41 and sceneDelay<=60 {npc_A.image_alpha+=0.025*gDeltaTime; npc_B.image_alpha+=0.025*gDeltaTime; npc_C.image_alpha+=0.025*gDeltaTime; npc_D.image_alpha+=0.025*gDeltaTime}
+      else if sceneDelay>40 and sceneDelay<=60 {npc_A.image_alpha+=0.025*gDeltaTime; npc_B.image_alpha+=0.025*gDeltaTime; npc_C.image_alpha+=0.025*gDeltaTime; npc_D.image_alpha+=0.025*gDeltaTime} //60fps change: covers every frame of the first tick, so the fade runs its full length
       else if sceneDelay=80 {createScreenText(xView,yView+84,90,fnt_EnemyName,fa_middle,"-Claire-#Where did he just send us?",3,c_white,0,0)}
       else if sceneDelay=170 {createScreenText(xView,yView+84,90,fnt_EnemyName,fa_middle,"-Jeremy-#He didn't send us anywhere.",3,c_white,0,0)}
       else if sceneDelay=260 {createScreenText(xView,yView+84,50,fnt_EnemyName,fa_middle,"-Claire-#What?",3,c_white,0,0)}
@@ -93,8 +95,10 @@ if global.gamePaused=false
       else if sceneDelay=1410 {createScreenText(xView,yView+84,90,fnt_EnemyName,fa_middle,"-Jerry-#Sure but... eh, yes.",3,c_white,0,0)}
       else if sceneDelay=1500 {createScreenText(xView,yView+84,180,fnt_EnemyName,fa_middle,"-Jeremy-#Let's do this then.#Note that the rules of the world have not changed.#You can still lose in here.",3,c_white,0,0)}
       else if sceneDelay=1680 {createScreenText(xView,yView+84,90,fnt_EnemyName,fa_middle,"-Jerry-#Naturally.",3,c_white,0,0)}
-      else if sceneDelay>=1791 and sceneDelay<=1810 {npc_A.image_alpha-=0.025*gDeltaTime; npc_B.image_alpha-=0.025*gDeltaTime; npc_C.image_alpha-=0.025*gDeltaTime; npc_D.image_alpha-=0.025*gDeltaTime}
-      else if sceneDelay>=1831 and sceneDelay<=1850 {fadeAlpha-=0.025*gDeltaTime}
+      //else if sceneDelay>=1791 and sceneDelay<=1810 {npc_A.image_alpha-=0.025*gDeltaTime; npc_B.image_alpha-=0.025*gDeltaTime; npc_C.image_alpha-=0.025*gDeltaTime; npc_D.image_alpha-=0.025*gDeltaTime}
+      else if sceneDelay>1790 and sceneDelay<=1810 {npc_A.image_alpha-=0.025*gDeltaTime; npc_B.image_alpha-=0.025*gDeltaTime; npc_C.image_alpha-=0.025*gDeltaTime; npc_D.image_alpha-=0.025*gDeltaTime} //60fps change: covers every frame of the first tick, so the fade runs its full length
+      //else if sceneDelay>=1831 and sceneDelay<=1850 {fadeAlpha-=0.025*gDeltaTime}
+      else if sceneDelay>1830 and sceneDelay<=1850 {fadeAlpha-=0.025*gDeltaTime} //60fps change: covers every frame of the first tick, so the fade runs its full length
       else if sceneDelay>=1850
       {
         var tCheckAchieve;
@@ -125,7 +129,8 @@ if global.gamePaused=false
     else if sceneProgress=1
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay>=1 and sceneDelay<=20 {fadeAlpha+=0.025*gDeltaTime}
+      //if sceneDelay>=1 and sceneDelay<=20 {fadeAlpha+=0.025*gDeltaTime}
+      if sceneDelay>0 and sceneDelay<=20 {fadeAlpha+=0.025*gDeltaTime} //60fps change: covers every frame of the first tick, so the fade runs its full length
       else if sceneDelay=40
       {
         npc_A=instance_create(xView-32,yView+64,oMisc)
@@ -133,15 +138,18 @@ if global.gamePaused=false
         npc_B=instance_create(xView+32,yView+64,oMisc)
         npc_B.sprite_index=sJeremyDream; npc_B.image_speed=0; npc_B.image_alpha=0 npc_B.type=1; npc_B.image_blend=c_black; npc_B.depth=0; npc_B.image_xscale=-1
       }
-      else if sceneDelay>=41 and sceneDelay<=60 {npc_A.image_alpha+=0.025*gDeltaTime; npc_B.image_alpha+=0.025*gDeltaTime}
+      //else if sceneDelay>=41 and sceneDelay<=60 {npc_A.image_alpha+=0.025*gDeltaTime; npc_B.image_alpha+=0.025*gDeltaTime}
+      else if sceneDelay>40 and sceneDelay<=60 {npc_A.image_alpha+=0.025*gDeltaTime; npc_B.image_alpha+=0.025*gDeltaTime} //60fps change: covers every frame of the first tick, so the fade runs its full length
       else if sceneDelay=80 {createScreenText(xView,yView+84,150,fnt_EnemyName,fa_middle,"-Jerry-#Hey Jeremy! My mom got me the Super Nintendo yesterday!#You gotta come play it!",3,c_white,0,0)}
       else if sceneDelay=230 {createScreenText(xView,yView+84,140,fnt_EnemyName,fa_middle,"-Jeremy-#Awesome! I got grounded from my Sega for a week. A whole week!",3,c_white,0,0)}
       else if sceneDelay=370 {createScreenText(xView,yView+84,110,fnt_EnemyName,fa_middle,"-Jerry-#What did you do? You never get in trouble.",3,c_white,0,0)}
       else if sceneDelay=480 {createScreenText(xView,yView+84,120,fnt_EnemyName,fa_middle,"-Jeremy-#My dad caught me messing with his computer again.",3,c_white,0,0)}
       else if sceneDelay=600 {createScreenText(xView,yView+84,140,fnt_EnemyName,fa_middle,"-Jerry-#Super lame. Oh hey! For summer break,#do you wanna trade game systems?",3,c_white,0,0)}
       else if sceneDelay=740 {createScreenText(xView,yView+84,200,fnt_EnemyName,fa_middle,"-Jeremy-#I bet I can convince my dad to let me#bring my TV and Sega over to your place.#We can play everything together then!",3,c_white,0,0)}
-      else if sceneDelay>=960 and sceneDelay<=980 {npc_A.image_alpha-=0.025*gDeltaTime; npc_B.image_alpha-=0.025*gDeltaTime}
-      else if sceneDelay>=1001 and sceneDelay<=1020 {fadeAlpha-=0.025*gDeltaTime}
+      //else if sceneDelay>=960 and sceneDelay<=980 {npc_A.image_alpha-=0.025*gDeltaTime; npc_B.image_alpha-=0.025*gDeltaTime}
+      else if sceneDelay>959 and sceneDelay<=980 {npc_A.image_alpha-=0.025*gDeltaTime; npc_B.image_alpha-=0.025*gDeltaTime} //60fps change: covers every frame of the first tick, so the fade runs its full length
+      //else if sceneDelay>=1001 and sceneDelay<=1020 {fadeAlpha-=0.025*gDeltaTime}
+      else if sceneDelay>1000 and sceneDelay<=1020 {fadeAlpha-=0.025*gDeltaTime} //60fps change: covers every frame of the first tick, so the fade runs its full length
       else if sceneDelay>=1030 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=2
@@ -182,7 +190,8 @@ if global.gamePaused=false
     else if sceneProgress=1
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay>=1 and sceneDelay<=20 {fadeAlpha+=0.025*gDeltaTime}
+      //if sceneDelay>=1 and sceneDelay<=20 {fadeAlpha+=0.025*gDeltaTime}
+      if sceneDelay>0 and sceneDelay<=20 {fadeAlpha+=0.025*gDeltaTime} //60fps change: covers every frame of the first tick, so the fade runs its full length
       else if sceneDelay=40
       {
         npc_A=instance_create(xView-32,yView+64,oMisc)
@@ -190,12 +199,15 @@ if global.gamePaused=false
         npc_B=instance_create(xView+32,yView+64,oMisc)
         npc_B.sprite_index=sJeremyDream; npc_B.image_speed=0; npc_B.image_alpha=0 npc_B.type=1; npc_B.image_blend=c_black; npc_B.depth=0; npc_B.image_xscale=-1
       }
-      else if sceneDelay>=41 and sceneDelay<=60 {npc_A.image_alpha+=0.025*gDeltaTime; npc_B.image_alpha+=0.025*gDeltaTime}
+      //else if sceneDelay>=41 and sceneDelay<=60 {npc_A.image_alpha+=0.025*gDeltaTime; npc_B.image_alpha+=0.025*gDeltaTime}
+      else if sceneDelay>40 and sceneDelay<=60 {npc_A.image_alpha+=0.025*gDeltaTime; npc_B.image_alpha+=0.025*gDeltaTime} //60fps change: covers every frame of the first tick, so the fade runs its full length
       else if sceneDelay=80 {createScreenText(xView,yView+84,110,fnt_EnemyName,fa_middle,"-Jerry-#How's that PC you got last year?",3,c_white,0,0)}
       else if sceneDelay=190 {createScreenText(xView,yView+84,170,fnt_EnemyName,fa_middle,"-Jeremy-#My dad showed me a bunch of stuff and gave me#a compiler a few weeks ago!",3,c_white,0,0)}
       else if sceneDelay=360 {createScreenText(xView,yView+84,150,fnt_EnemyName,fa_middle,"-Jerry-#What's a compiler? Can a Mac even get those?",3,c_white,0,0)}
-      else if sceneDelay>=510 and sceneDelay<=530 {npc_A.image_alpha-=0.025*gDeltaTime; npc_B.image_alpha-=0.025*gDeltaTime}
-      else if sceneDelay>=551 and sceneDelay<=570 {fadeAlpha-=0.025*gDeltaTime}
+      //else if sceneDelay>=510 and sceneDelay<=530 {npc_A.image_alpha-=0.025*gDeltaTime; npc_B.image_alpha-=0.025*gDeltaTime}
+      else if sceneDelay>509 and sceneDelay<=530 {npc_A.image_alpha-=0.025*gDeltaTime; npc_B.image_alpha-=0.025*gDeltaTime} //60fps change: covers every frame of the first tick, so the fade runs its full length
+      //else if sceneDelay>=551 and sceneDelay<=570 {fadeAlpha-=0.025*gDeltaTime}
+      else if sceneDelay>550 and sceneDelay<=570 {fadeAlpha-=0.025*gDeltaTime} //60fps change: covers every frame of the first tick, so the fade runs its full length
       else if sceneDelay>=580 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=2
@@ -351,7 +363,8 @@ if global.gamePaused=false
     else if sceneProgress=1
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay>=1 and sceneDelay<=20 {fadeAlpha+=0.025*gDeltaTime}
+      //if sceneDelay>=1 and sceneDelay<=20 {fadeAlpha+=0.025*gDeltaTime}
+      if sceneDelay>0 and sceneDelay<=20 {fadeAlpha+=0.025*gDeltaTime} //60fps change: covers every frame of the first tick, so the fade runs its full length
       else if sceneDelay=40
       {
         npc_A=instance_create(xView-32,yView+64,oMisc)
@@ -359,15 +372,18 @@ if global.gamePaused=false
         npc_B=instance_create(xView+32,yView+64,oMisc)
         npc_B.sprite_index=sChaoHumanForm; npc_B.image_speed=0; npc_B.image_alpha=0 npc_B.type=1; npc_B.image_blend=c_black; npc_B.image_xscale=-1
       }
-      else if sceneDelay>=41 and sceneDelay<=60 {npc_A.image_alpha+=0.025*gDeltaTime; npc_B.image_alpha+=0.025*gDeltaTime}
+      //else if sceneDelay>=41 and sceneDelay<=60 {npc_A.image_alpha+=0.025*gDeltaTime; npc_B.image_alpha+=0.025*gDeltaTime}
+      else if sceneDelay>40 and sceneDelay<=60 {npc_A.image_alpha+=0.025*gDeltaTime; npc_B.image_alpha+=0.025*gDeltaTime} //60fps change: covers every frame of the first tick, so the fade runs its full length
       else if sceneDelay=80 {createScreenText(xView,yView+84,120,fnt_EnemyName,fa_middle,"-Jeremy-#Sis, did you rewrite some of my project code?",3,c_white,0,0)}
       else if sceneDelay=200 {createScreenText(xView,yView+84,160,fnt_EnemyName,fa_middle,"-Chao-#Yea... I fixed the exception handling that was causing a few bugs.",3,c_white,0,0)}
       else if sceneDelay=360 {createScreenText(xView,yView+84,90,fnt_EnemyName,fa_middle,"-Jeremy-#I was getting to it!",3,c_white,0,0)}
       else if sceneDelay=450 {createScreenText(xView,yView+84,140,fnt_EnemyName,fa_middle,"-Chao-#I just wanted to help. Your project is really cool!",3,c_white,0,0)}
       else if sceneDelay=590 {createScreenText(xView,yView+84,140,fnt_EnemyName,fa_middle,"-Jeremy-#Well, thanks... Just show me what you changed, okay?",3,c_white,0,0)}
       else if sceneDelay=730 {createScreenText(xView,yView+84,120,fnt_EnemyName,fa_middle,"-Chao-#Sure! This is going to be the best game ever!",3,c_white,0,0)}
-      else if sceneDelay>=850 and sceneDelay<=870 {npc_A.image_alpha-=0.025*gDeltaTime; npc_B.image_alpha-=0.025*gDeltaTime}
-      else if sceneDelay>=891 and sceneDelay<=910 {fadeAlpha-=0.025*gDeltaTime}
+      //else if sceneDelay>=850 and sceneDelay<=870 {npc_A.image_alpha-=0.025*gDeltaTime; npc_B.image_alpha-=0.025*gDeltaTime}
+      else if sceneDelay>849 and sceneDelay<=870 {npc_A.image_alpha-=0.025*gDeltaTime; npc_B.image_alpha-=0.025*gDeltaTime} //60fps change: covers every frame of the first tick, so the fade runs its full length
+      //else if sceneDelay>=891 and sceneDelay<=910 {fadeAlpha-=0.025*gDeltaTime}
+      else if sceneDelay>890 and sceneDelay<=910 {fadeAlpha-=0.025*gDeltaTime} //60fps change: covers every frame of the first tick, so the fade runs its full length
       else if sceneDelay>=920 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=2
@@ -490,7 +506,8 @@ if global.gamePaused=false
     else if sceneProgress=1
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay>=1 and sceneDelay<=20 {fadeAlpha+=0.025*gDeltaTime}
+      //if sceneDelay>=1 and sceneDelay<=20 {fadeAlpha+=0.025*gDeltaTime}
+      if sceneDelay>0 and sceneDelay<=20 {fadeAlpha+=0.025*gDeltaTime} //60fps change: covers every frame of the first tick, so the fade runs its full length
       else if sceneDelay=40
       {
         npc_A=instance_create(xView-32,yView+64,oMisc)
@@ -498,7 +515,8 @@ if global.gamePaused=false
         npc_B=instance_create(xView+32,yView+64,oMisc)
         npc_B.sprite_index=sChaoHumanForm; npc_B.image_speed=0; npc_B.image_alpha=0 npc_B.type=1; npc_B.image_blend=c_black; npc_B.image_xscale=-1
       }
-      else if sceneDelay>=41 and sceneDelay<=60 {npc_A.image_alpha+=0.025*gDeltaTime; npc_B.image_alpha+=0.025*gDeltaTime}
+      //else if sceneDelay>=41 and sceneDelay<=60 {npc_A.image_alpha+=0.025*gDeltaTime; npc_B.image_alpha+=0.025*gDeltaTime}
+      else if sceneDelay>40 and sceneDelay<=60 {npc_A.image_alpha+=0.025*gDeltaTime; npc_B.image_alpha+=0.025*gDeltaTime} //60fps change: covers every frame of the first tick, so the fade runs its full length
       else if sceneDelay=80 {createScreenText(xView,yView+84,120,fnt_EnemyName,fa_middle,"-Chao-#I saw you looking at Jerry last time everyone was over here.",3,c_white,0,0)}
       else if sceneDelay=200 {createScreenText(xView,yView+84,160,fnt_EnemyName,fa_middle,"-Claire-#Yeah, he's kinda cute and when#he's not being mean, he's...",3,c_white,0,0)}
       else if sceneDelay>=201 {sceneDelay=0; sceneProgress+=1}
@@ -518,8 +536,10 @@ if global.gamePaused=false
     else if sceneProgress=3
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay>=1 and sceneDelay<=20 {npc_A.image_alpha-=0.025*gDeltaTime; npc_B.image_alpha-=0.025*gDeltaTime}
-      else if sceneDelay>=41 and sceneDelay<=60 {fadeAlpha-=0.025*gDeltaTime}
+      //if sceneDelay>=1 and sceneDelay<=20 {npc_A.image_alpha-=0.025*gDeltaTime; npc_B.image_alpha-=0.025*gDeltaTime}
+      if sceneDelay>0 and sceneDelay<=20 {npc_A.image_alpha-=0.025*gDeltaTime; npc_B.image_alpha-=0.025*gDeltaTime} //60fps change: covers every frame of the first tick, so the fade runs its full length
+      //else if sceneDelay>=41 and sceneDelay<=60 {fadeAlpha-=0.025*gDeltaTime}
+      else if sceneDelay>40 and sceneDelay<=60 {fadeAlpha-=0.025*gDeltaTime} //60fps change: covers every frame of the first tick, so the fade runs its full length
       else if sceneDelay>=70 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=4

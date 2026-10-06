@@ -116,7 +116,8 @@ if global.gameProgress=5500 and room=rCh21_WarshipSkies //----- [1] Chapter 21 -
       lockCharacterY=112
       fadeAlpha=1
     }
-    else if sceneDelay>=11 and sceneDelay<=15 {fadeAlpha-=0.2}
+    //else if sceneDelay>=11 and sceneDelay<=15 {fadeAlpha-=0.2}
+    else if sceneDelay>10 and sceneDelay<=15 {fadeAlpha-=0.2*gDeltaTime} //60fps change: the fade ran 2x/4x too fast at 60/120fps; also covers every frame of the first tick
     else if sceneDelay>=16
     {
       sceneDelay=0; sceneProgress=0
@@ -641,9 +642,11 @@ else if global.gameProgress=5520 //Falling minigame
         sceneDelay=0; sceneProgress+=1
       }
 
-      if sceneDelay>=31 and sceneDelay<=60
+      //if sceneDelay>=31 and sceneDelay<=60
+      if sceneDelay>30 and sceneDelay<=60 //60fps change: covers every frame of the first tick
       {
-        cloudBlend-=2
+        //cloudBlend-=2
+        cloudBlend-=2*gDeltaTime //60fps change: the clouds turned red 2x/4x too fast at 60/120fps
         background_blend[5]=make_color_rgb(255,cloudBlend,cloudBlend)
       }
     }

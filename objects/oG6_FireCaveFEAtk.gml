@@ -24,7 +24,8 @@ if global.gamePaused=false
   if fireDelay>=22
   {
     var tNewAttack,tDir;
-    swapFire+=1*gDeltaTime
+    //swapFire+=1*gDeltaTime
+    swapFire+=1 //60fps change: counts volleys (runs once per volley), so it isn't scaled; scaled, the offset ring only alternated every 4/8 volleys at 60/120fps
     if swapFire mod 2=0 {tDir=0}
     else {tDir=11.25}
     for(i=0;i<atkAmt;i+=1)

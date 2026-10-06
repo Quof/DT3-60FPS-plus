@@ -691,7 +691,8 @@ applies_to=self
 */
 if bCharacterShields=1
 {
-  shieldFrm+=0.25
+  //shieldFrm+=0.25
+  shieldFrm+=0.25*gDeltaTime //60fps change: the shields animated 2x/4x too fast at 60/120fps
   for(i=0;i<3;i+=1)
   {
     draw_sprite_ext(sWaterBarrier,shieldFrm+i,oPlayer1.x,oPlayer1.y-26,image_xscale+(0.25*i),image_yscale+(0.25*i),image_angle,image_blend,0.2+(0.1*i))

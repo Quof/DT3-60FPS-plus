@@ -346,7 +346,8 @@ else if global.gameProgress=4310 and room=rWepFacK //----- [7] Boss Fight: Brain
         boss.image_alpha=0
         with oStrikeChainPoint {instance_destroy()}
       }
-      else if sceneDelay>=21 and sceneDelay<=70 {boss.image_alpha+=0.02*gDeltaTime}
+      //else if sceneDelay>=21 and sceneDelay<=70 {boss.image_alpha+=0.02*gDeltaTime}
+      else if sceneDelay>20 and sceneDelay<=70 {boss.image_alpha+=0.02*gDeltaTime} //60fps change: covers every frame of the first tick, so it runs its full length
       else if sceneDelay>=95 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=2 and bWaitForInput=false
@@ -708,7 +709,8 @@ else if global.gameProgress=4420 and room=rLowFacJ //----- [] Enemy Trap: Spider
     {
       createEnemy(320,352,oCHAOS_SpiderDrone,0,1,1)
     }
-    else if sceneDelay>=231 and sceneDelay<=240
+    //else if sceneDelay>=231 and sceneDelay<=240
+    else if sceneDelay>230 and sceneDelay<=240 //60fps change: covers every frame of the first tick, so it runs its full length
     {
       (GID(378907)).image_alpha-=0.1*gDeltaTime;
     }
@@ -1034,7 +1036,8 @@ else if global.gameProgress=4460 and room=rLowFacR //----- [] Boss Fight: Advanc
     else if sceneProgress=2
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay>=71 and sceneDelay<=121
+      //if sceneDelay>=71 and sceneDelay<=121
+      if sceneDelay>70 and sceneDelay<=121 //60fps change: covers every frame of the first tick, so it runs its full length
       {
         blendCol+=5*gDeltaTime
         boss.image_blend=make_color_rgb(blendCol,blendCol,blendCol)
@@ -1059,7 +1062,8 @@ else if global.gameProgress=4460 and room=rLowFacR //----- [] Boss Fight: Advanc
     if bMusicFade=1
     {
       musicFade-=40*gDeltaTime
-      fadeVolume(global.msc_WeaponFacility,40)
+      //fadeVolume(global.msc_WeaponFacility,40)
+      fadeVolume(global.msc_WeaponFacility,40*gDeltaTime) //60fps change: per-frame music fade; musicFade was already scaled but the volume step wasn't, so the volume dropped 2x/4x too fast at 60/120fps
       if musicFade<=6000
       {
         stopAllMusic()
@@ -1146,14 +1150,17 @@ else if global.gameProgress=4470 and room=rLowFacS //----- [] Hex and the Warshi
     if sceneProgress=11
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay>=1 and sceneDelay<=35
+      //if sceneDelay>=1 and sceneDelay<=35
+      if sceneDelay>0 and sceneDelay<=35 //60fps change: covers every frame of the first tick, so it runs its full length
       {
         oMisc.x+=8*gDeltaTime
+        if gDeltaDoTicks { //60fps change (added): afterimages spawn once per 30fps tick (per frame was 2x/4x as many at 60/120fps)
         var tAfterI;
         tAfterI=instance_create(oMisc.x,oMisc.y,oEnemyAfterImage)
         tAfterI.sprite_index=oMisc.sprite_index; tAfterI.image_index=image_index; tAfterI.image_blend=c_green
         tAfterI.image_alpha=0.8; tAfterI.image_xscale=image_xscale; tAfterI.depth=26; tAfterI.imageFade=0.1
         tAfterI.xScaling=0; tAfterI.yScaling=0; tAfterI.xShift=0; tAfterI.yShift=0; tAfterI.bFollow=-1
+        } //60fps change (added)
       }
       else if sceneDelay=45
       {
@@ -1233,8 +1240,10 @@ else if global.gameProgress=4470 and room=rLowFacS //----- [] Hex and the Warshi
 
     if bMusicFade=0
     {
-      musicFade-=50
-      fadeVolume(global.msc_WeaponFacility,50)
+      //musicFade-=50
+      musicFade-=50*gDeltaTime //60fps change: per-frame music fade, so it faded 2x/4x too fast at 60/120fps
+      //fadeVolume(global.msc_WeaponFacility,50)
+      fadeVolume(global.msc_WeaponFacility,50*gDeltaTime) //60fps change: per-frame music fade, so it faded 2x/4x too fast at 60/120fps
       if musicFade<=7000
       {
         stopAllMusic()
@@ -1269,10 +1278,12 @@ else if global.gameProgress=4470 and room=rLowFacS //----- [] Hex and the Warshi
       oPlayer1.extForceX=-1
       warshipProg+=1*gDeltaTime
       var tEffect;
+      if gDeltaDoTicks { //60fps change (added): effects spawn once per 30fps tick (per frame was 2x/4x as many at 60/120fps)
       tEffect=instance_create(1072,256+random(128),oEffect)
       tEffect.sprite_index=sMMSmokeCloud; tEffect.followID=-1; tEffect.xFollow=0; tEffect.yFollow=0
       tEffect.newBlend=-1; tEffect.decay=-100; tEffect.xSpd=-6-random(6); tEffect.ySpd=1+random(1); tEffect.image_alpha=0.9
       tEffect.image_xscale=2; tEffect.image_yscale=2; tEffect.image_speed=0.2
+      } //60fps change (added)
 
       if warshipProg mod 9=0
       {
@@ -1312,7 +1323,8 @@ else if global.gameProgress=4470 and room=rLowFacCutA //----- [] CHAOS Warship t
     if sceneDelay=29 {backSoundLoop=1}
     else if sceneDelay=211 {backSoundLoop=0}
 
-    if sceneDelay>=30 and sceneDelay<=210
+    //if sceneDelay>=30 and sceneDelay<=210
+    if sceneDelay>=30 and sceneDelay<=210 and gDeltaDoTicks //60fps change: effects spawn once per 30fps tick (per frame was 2x/4x as many at 60/120fps)
     {
       var tEffect;
       tEffect=instance_create(232+random_range(-16,16),88+random_range(-5,5),oEffect)
@@ -1327,7 +1339,8 @@ else if global.gameProgress=4470 and room=rLowFacCutA //----- [] CHAOS Warship t
       theWarship.type=0; theWarship.sprite_index=sCHAOS_WarshipMain
       theWarship.image_xscale=0.05; theWarship.image_yscale=0.05
     }
-    else if sceneDelay>=81 and sceneDelay<=290 //Ship flies up
+    //else if sceneDelay>=81 and sceneDelay<=290 //Ship flies up
+    else if sceneDelay>80 and sceneDelay<=290 //Ship flies up //60fps change: covers every frame of the first tick, so it runs its full length
     {
       theWarship.y-=0.1*gDeltaTime
       if theWarship.image_xscale<0.15
@@ -1335,15 +1348,18 @@ else if global.gameProgress=4470 and room=rLowFacCutA //----- [] CHAOS Warship t
         theWarship.image_xscale+=0.0005*gDeltaTime; theWarship.image_yscale+=0.0005*gDeltaTime
       }
     }
-    else if sceneDelay>=340 and sceneDelay<=490 //Ship flies right
+    //else if sceneDelay>=340 and sceneDelay<=490 //Ship flies right
+    else if sceneDelay>339 and sceneDelay<=490 //Ship flies right //60fps change: covers every frame of the first tick, so it runs its full length
     {
       theWarship.x+=2*gDeltaTime
       theWarship.image_xscale+=0.0005*gDeltaTime; theWarship.image_yscale+=0.0005*gDeltaTime
       var tEffect;
+      if gDeltaDoTicks { //60fps change (added): effects spawn once per 30fps tick (per frame was 2x/4x as many at 60/120fps)
       tEffect=instance_create(theWarship.x-14,theWarship.y+random_range(-8,8),oEffect)
       tEffect.sprite_index=sShipExplosion; tEffect.followID=-1; tEffect.xFollow=0; tEffect.yFollow=0
       tEffect.newBlend=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0; tEffect.image_alpha=0.75
       tEffect.image_xscale=0.2; tEffect.image_yscale=0.2; tEffect.image_speed=0.2
+      } //60fps change (added)
 
       if sceneDelay=340 {playSound(global.snd_ShipMovement,0,1,1)}
       else if sceneDelay=390 {playSound(global.snd_ShipMovement,0,1,1)}
@@ -1355,8 +1371,10 @@ else if global.gameProgress=4470 and room=rLowFacCutA //----- [] CHAOS Warship t
       if musicFade>=9000 {fadeAmt=20}
       else if musicFade>=7000 and musicFade<=8999 {fadeAmt=30}
       else {fadeAmt=50}
-      musicFade-=fadeAmt
-      fadeVolume(global.msc_IFB,fadeAmt)
+      //musicFade-=fadeAmt
+      musicFade-=fadeAmt*gDeltaTime //60fps change: per-frame music fade, so it faded 2x/4x too fast at 60/120fps
+      //fadeVolume(global.msc_IFB,fadeAmt)
+      fadeVolume(global.msc_IFB,fadeAmt*gDeltaTime) //60fps change: per-frame music fade, so it faded 2x/4x too fast at 60/120fps
       if musicFade<=5000
       {
         stopAllMusic()
@@ -1366,7 +1384,8 @@ else if global.gameProgress=4470 and room=rLowFacCutA //----- [] CHAOS Warship t
 
     if backSoundLoop>0
     {
-      backSoundLoop+=1
+      //backSoundLoop+=1
+      backSoundLoop+=1*gDeltaTime //60fps change: the explosion sound looped 2x/4x as often at 60/120fps
       if backSoundLoop=2 {playSound(global.snd_Bobomb,0,0.95,22050+random(9000))}
       else if backSoundLoop>=9 {backSoundLoop=1}
     }
@@ -1609,7 +1628,8 @@ else if global.gameProgress=4510 and room=rMain_71 //----- [13] Bubblin reveals 
     }
     else if sceneDelay>=2 and sceneDelay<=99
     {
-      npcBubblun.x-=4
+      //npcBubblun.x-=4
+      npcBubblun.x-=4*gDeltaTime //60fps change: Bubblun walked off 2x/4x too fast at 60/120fps
       if npcBubblun.x<oPlayer1.x-24 {oPlayer1.image_xscale=-1}
       if npcBubblun.x<=-24
       {

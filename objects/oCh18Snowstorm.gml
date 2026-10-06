@@ -39,7 +39,8 @@ if global.gamePaused=false
   }
 }
 
-if bStorming=1
+//if bStorming=1
+if bStorming=1 and gDeltaDoTicks //60fps change: snowflakes spawn once per 30fps tick (per frame was 2x/4x as many at 60/120fps)
 {
   var tSnow,tRanScl;
   for(i=0;i<3;i+=1)
@@ -47,7 +48,8 @@ if bStorming=1
     tRanScl=0.2+random(0.2)
     tSnow=instance_create(view_xview[0]+random(480),view_yview[0]+random(352),oSnowflake)
     tSnow.type=2; tSnow.image_index=irandom_range(0,2)
-    tSnow.vspeed=random_range(8,11); tSnow.hspeed=random_range(8,12)*stormDir
+    //tSnow.vspeed=random_range(8,11); tSnow.hspeed=random_range(8,12)*stormDir
+    tSnow._vspeed=random_range(8,11); tSnow._hspeed=random_range(8,12)*stormDir //60fps change: built-in speed moves per frame, so storm flakes flew 2x/4x too fast at 60/120fps; oSnowflake moves by _hspeed/_vspeed
     tSnow.image_xscale=tRanScl; tSnow.image_yscale=tRanScl
   }
 }

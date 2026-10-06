@@ -67,7 +67,8 @@ if room=rSF_A
     {
       sceneDelay+=1*gDeltaTime
       if sceneDelay=1 {oCh19_WM_NPC.image_xscale=-1.25; global.gamePaused=true}
-      else if sceneDelay>=31 and sceneDelay<=70 {fadeAlpha-=0.025*gDeltaTime}
+      //else if sceneDelay>=31 and sceneDelay<=70 {fadeAlpha-=0.025*gDeltaTime}
+      else if sceneDelay>30 and sceneDelay<=70 {fadeAlpha-=0.025*gDeltaTime} //60fps change: covers every frame of the first tick, so it runs its full length
       if sceneDelay>=90 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=1 and bWaitForInput=false
@@ -205,7 +206,8 @@ else if room=rSF_B
         dreamFigureA_Sprite=sClaireIdle
         dreamFigureB_Sprite=sChaoHumanForm
       }
-      else if sceneDelay>=11 and sceneDelay<=20 {dreamFigureA_Alpha+=0.02; dreamFigureB_Alpha+=0.02}
+      //else if sceneDelay>=11 and sceneDelay<=20 {dreamFigureA_Alpha+=0.02; dreamFigureB_Alpha+=0.02}
+      else if sceneDelay>10 and sceneDelay<=20 {dreamFigureA_Alpha+=0.02*gDeltaTime; dreamFigureB_Alpha+=0.02*gDeltaTime} //60fps change: the figures faded in 2x/4x too fast at 60/120fps; also covers every frame of the first tick
       else if sceneDelay=30 {createScreenText(xView,yView,80,fnt_EnemyName,fa_middle,"-Claire-#Where's your brother?",3,c_white,1,0)}
       else if sceneDelay=110 {createScreenText(xView,yView,160,fnt_EnemyName,fa_middle,"-Chao-#He's working again. Like usual. How are things between you and Jerry?",3,c_white,1,0)}
       else if sceneDelay=270 {createScreenText(xView,yView,90,fnt_EnemyName,fa_middle,"-Claire-#Not so good... We broke up.",3,c_white,1,0)}
@@ -221,7 +223,8 @@ else if room=rSF_B
         msgCreate(0,0,"Jerry","These again.",0,1,oMessagePerson,0)
         newMessage.fadingTime=50
       }
-      else if sceneDelay>=521 and sceneDelay<=530 {dreamFigureA_Alpha+=0.02; dreamFigureB_Alpha+=0.02}
+      //else if sceneDelay>=521 and sceneDelay<=530 {dreamFigureA_Alpha+=0.02; dreamFigureB_Alpha+=0.02}
+      else if sceneDelay>520 and sceneDelay<=530 {dreamFigureA_Alpha+=0.02*gDeltaTime; dreamFigureB_Alpha+=0.02*gDeltaTime} //60fps change: the figures faded in 2x/4x too fast at 60/120fps; also covers every frame of the first tick
       else if sceneDelay=540 {createScreenText(xView,yView,130,fnt_EnemyName,fa_middle,"-Chao-#CLAIRE, you will never believe what Jeremy did!",3,c_white,1,0)}
       else if sceneDelay=670 {createScreenText(xView,yView,90,fnt_EnemyName,fa_middle,"-Claire-#What did he do this time?",3,c_white,1,0)}
       else if sceneDelay=760 {createScreenText(xView,yView,130,fnt_EnemyName,fa_middle,"-Chao-#Remember that national fighting game tournament?",3,c_white,1,0)}
@@ -260,7 +263,8 @@ else if room=rSF_C
         dreamFigureA_Sprite=sJerrySit; dreamFigureA_X=208
         dreamFigureB_Sprite=sClaireSitUp; dreamFigureB_Frame=2; dreamFigureB_X=272
       }
-      else if sceneDelay>=11 and sceneDelay<=20 {dreamFigureA_Alpha+=0.02; dreamFigureB_Alpha+=0.02}
+      //else if sceneDelay>=11 and sceneDelay<=20 {dreamFigureA_Alpha+=0.02; dreamFigureB_Alpha+=0.02}
+      else if sceneDelay>10 and sceneDelay<=20 {dreamFigureA_Alpha+=0.02*gDeltaTime; dreamFigureB_Alpha+=0.02*gDeltaTime} //60fps change: the figures faded in 2x/4x too fast at 60/120fps; also covers every frame of the first tick
       else if sceneDelay=30 {createScreenText(xView,yView,80,fnt_EnemyName,fa_middle,"-Claire-#We need to talk, Jerry.",3,c_white,1,0)}
       else if sceneDelay=110 {createScreenText(xView,yView,80,fnt_EnemyName,fa_middle,"-Jerry-#I know what this is about.",3,c_white,1,0)}
       else if sceneDelay=190
@@ -280,7 +284,8 @@ else if room=rSF_C
         tStatic=instance_create(0,0,oQuickStatic); tStatic.staticTime=10; tStatic.image_alpha=0.66
       }
       else if sceneDelay=530 {dreamFigureB_Sprite=sClaireWalk; dreamFigureB_Facing=1}
-      else if sceneDelay>=531 and sceneDelay<=539 {dreamFigureB_X+=6*gDeltaTime; dreamFigureB_Frame+=0.34*gDeltaTime}
+      //else if sceneDelay>=531 and sceneDelay<=539 {dreamFigureB_X+=6*gDeltaTime; dreamFigureB_Frame+=0.34*gDeltaTime}
+      else if sceneDelay>530 and sceneDelay<=539 {dreamFigureB_X+=6*gDeltaTime; dreamFigureB_Frame+=0.34*gDeltaTime} //60fps change: covers every frame of the first tick, so it runs its full length
       else if sceneDelay>=540
       {
         var tStatic;
@@ -619,7 +624,8 @@ else if room=rSF_H
         dreamFigureA_Sprite=sWarmasterA_Idle
         dreamFigureB_Sprite=sHex_A_Idle
       }
-      else if sceneDelay>=11 and sceneDelay<=20 {dreamFigureA_Alpha+=0.02*gDeltaTime; dreamFigureB_Alpha+=0.02*gDeltaTime}
+      //else if sceneDelay>=11 and sceneDelay<=20 {dreamFigureA_Alpha+=0.02*gDeltaTime; dreamFigureB_Alpha+=0.02*gDeltaTime}
+      else if sceneDelay>10 and sceneDelay<=20 {dreamFigureA_Alpha+=0.02*gDeltaTime; dreamFigureB_Alpha+=0.02*gDeltaTime} //60fps change: covers every frame of the first tick, so it runs its full length
       else if sceneDelay=30 {createScreenText(xView,yView,120,fnt_EnemyName,fa_middle,"-Warmaster-#Who are you? You never explained yourself.",3,c_white,1,0)}
       else if sceneDelay=150 {createScreenText(xView,yView,150,fnt_EnemyName,fa_middle,"-Hex-#An ally. We can benefit greatly from one another if you'll agree to my terms.",3,c_white,1,0)}
       else if sceneDelay=300 {createScreenText(xView,yView,80,fnt_EnemyName,fa_middle,"-Warmaster-#What can you offer me?",3,c_white,1,0)}
@@ -644,7 +650,8 @@ else if room=rSF_H
         dreamFigureA_Sprite=sWarmasterA_Idle
         dreamFigureB_Sprite=sHex_A_Idle
       }
-      else if sceneDelay>=11 and sceneDelay<=20 {dreamFigureA_Alpha+=0.02*gDeltaTime; dreamFigureB_Alpha+=0.02*gDeltaTime}
+      //else if sceneDelay>=11 and sceneDelay<=20 {dreamFigureA_Alpha+=0.02*gDeltaTime; dreamFigureB_Alpha+=0.02*gDeltaTime}
+      else if sceneDelay>10 and sceneDelay<=20 {dreamFigureA_Alpha+=0.02*gDeltaTime; dreamFigureB_Alpha+=0.02*gDeltaTime} //60fps change: covers every frame of the first tick, so it runs its full length
       else if sceneDelay=30 {createScreenText(xView,yView,80,fnt_EnemyName,fa_middle,"-Warmaster-#Everything is set to go.",3,c_white,1,0)}
       else if sceneDelay=110 {createScreenText(xView,yView,180,fnt_EnemyName,fa_middle,"-Hex-#Perfect. Now all we need to do is wait for them#to remove the Virus and its locks will be lifted.",3,c_white,1,0)}
       else if sceneDelay=290 {createScreenText(xView,yView,180,fnt_EnemyName,fa_middle,"-Warmaster-#Remember that once the Virus is removed,#that the program will not resume control. We are all free.",3,c_white,1,0)}

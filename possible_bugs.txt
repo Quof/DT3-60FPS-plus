@@ -41,6 +41,12 @@ POSSIBLE BUGS / QUIRKS (one per line; [OPEN]=not changed, [NOT FIXING]=decided n
 [OPEN] Wall Cancer (oWallCancer): the end of each step sets xVel=0 (copied from oCrablaster) but it moves vertically, so yVel is never cleared and it never pauses between steps (vanilla).
 [OPEN] Fortress Skyguard (oFortressSkyguard, phase 4 at 50% HP): "if atkExtC>60 {atkExtC-=60}" is overwritten by "atkExtC=150" on the next line; probably meant atkTimeC (vanilla).
 [OPEN] Siege Helicopter (oTDE_Helicopter, Alarm 0): its name is set to "Lv. X CHAOS Siege Steam Bomb" (copied from oTDE_SteamBomb) (vanilla).
+[OPEN] Chapter 1 Virus Bubble minigame (oEvCh1MainA, gameProgress 2): one wave is at sceneDelay=1930 (between the 980 and 1080 waves, probably meant 930); the minigame ends at 1500, so it never spawns (vanilla).
+[OPEN] Boulder warning markers (oEvCh7BoulderControl, Create): "if rMain_22" / "else if rMain_23" are missing "room=", so the first branch always runs (timeToRock=70, markers at 400/592/816/1152/1424). Those match rMain_23's drops, but rMain_22 drops at 816/1648, so its markers are wrong. The two branches also look swapped (vanilla).
+[OPEN] Overdrive Ostrich intro (oEvCh8MainA, rMega4_OstrichE sceneProgress 3): "if boss.x<624 {x+=1*gDeltaTime}" moves the event object's own x instead of boss.x, so it does nothing (vanilla).
+[OPEN] Dragon Knight afterimage (oEvCh9MainA): the afterimage is created at the event object's x,y with idFollow=id, so it follows the event object instead of enemyImage (vanilla).
+[OPEN] Chao is missing scene (oEvCh10MainA, gameProgress 2240): Hex's line "I prefer this name now..." is gated on sceneProgress=1 (between 17 and 18), which is already handled earlier in the chain, so it never plays (vanilla).
+[OPEN] Crystal scene (oEvCh15MainA, sceneProgress 14): "else if sceneDelay=71 and sceneDelay<=80 {fadeAlpha+=0.05}" runs once (probably meant >=71), so the screen only fades 0.05 instead of 0.5 over ticks 71-80 (vanilla).
 [NOT FIXING] Flame Elemental (oPT_FlameElemental): big burst makes atkAmt*2 fireballs spaced 360/atkAmt, so 8 directions with 2 stacked fireballs each (vanilla).
 [PENDING] Pipe fall-state (item 11); "switch rooms" interpretation unconfirmed; Vault Hex "avoidances" not identified; Kamek center-stop minor issue; Dylan steps 1px per tick.
 [NOT FIXING] Helmethead (non-EX, oHelmetHeadHelmet): the helmet's sideways slow-down during its rise is spread over every frame, so it slides 0.5-0.75px further than at 30fps.

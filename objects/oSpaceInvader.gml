@@ -48,17 +48,22 @@ if global.gamePaused=false
     if moveTime>=moveProg
     {
       image_index+=1
-      moveNum+=1*gDeltaTime
+      //moveNum+=1*gDeltaTime
+      moveNum+=1 //60fps change: this block runs once per step, so the step counters and the 8px steps aren't scaled; scaled, the invaders took half steps and the rowCheck mod 2 direction swap broke
       if moveNum<11
       {
-        if rowCheck mod 2=0 {x+=8*gDeltaTime}
-        else {x-=8*gDeltaTime}
+        //if rowCheck mod 2=0 {x+=8*gDeltaTime}
+        //else {x-=8*gDeltaTime}
+        if rowCheck mod 2=0 {x+=8} //60fps change
+        else {x-=8} //60fps change
       }
       else
       {
         moveNum=0
-        rowCheck+=1*gDeltaTime
-        y+=8*gDeltaTime
+        //rowCheck+=1*gDeltaTime
+        //y+=8*gDeltaTime
+        rowCheck+=1 //60fps change
+        y+=8 //60fps change
       }
       moveTime=0
 

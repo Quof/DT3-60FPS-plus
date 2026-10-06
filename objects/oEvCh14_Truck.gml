@@ -151,7 +151,8 @@ else
       if sceneDelay>=30
       {
         if fadeAlpha<1 {fadeAlpha+=0.02*gDeltaTime}
-        else if fadeAlpha=1
+        //else if fadeAlpha=1
+        else if fadeAlpha>=1 //60fps change: smaller steps may not land exactly on 1
         {
           global.activeCharacter=0
           global.newMapX=512

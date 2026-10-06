@@ -115,12 +115,15 @@ if global.gameProgress=620 and room=rLink2_HP //----- [1] Intro to Hyrule - Ch.4
         efStars[i].image_xscale=1+i; efStars[i].image_yscale=1+i
       }
     }
-    else if sceneDelay>=41 and sceneDelay<=79
+    //else if sceneDelay>=41 and sceneDelay<=79
+    else if sceneDelay>40 and sceneDelay<=79 //60fps change: covers every frame of tick 41, so the charge shrinks as far as at 30fps
     {
       for(i=0;i<4;i+=1)
       {
-        if i mod 2=0 {efStars[i].image_angle+=2*(i*2)}
-        else {efStars[i].image_angle-=2*(i*2)}
+        //if i mod 2=0 {efStars[i].image_angle+=2*(i*2)}
+        //else {efStars[i].image_angle-=2*(i*2)}
+        if i mod 2=0 {efStars[i].image_angle+=2*(i*2)*gDeltaTime} //60fps change: the stars spun 2x/4x too fast at 60/120fps
+        else {efStars[i].image_angle-=2*(i*2)*gDeltaTime} //60fps change: see above
       }
       efCharge.image_xscale-=0.1*gDeltaTime
       efCharge.image_yscale-=0.1*gDeltaTime
@@ -1333,16 +1336,19 @@ else if global.gameProgress=870 and room=rLink2_PalaceW_10 //----- [14] Opening 
       masterKey.sprite_index=sDoorKey; masterKey.type=1
       masterKey.image_xscale=1.5; masterKey.image_yscale=1.5
     }
-    else if sceneDelay>=21 and sceneDelay<=76
+    //else if sceneDelay>=21 and sceneDelay<=76
+    else if sceneDelay>20 and sceneDelay<=76 //60fps change: covers every frame of each window's first tick (here and below)
     {
       masterKey.image_angle+=5*gDeltaTime
       masterKey.y-=1*gDeltaTime
     }
-    else if sceneDelay>=77 and sceneDelay<=120
+    //else if sceneDelay>=77 and sceneDelay<=120
+    else if sceneDelay>76 and sceneDelay<=120 //60fps change: see above
     {
       masterKey.image_angle+=15*gDeltaTime
       masterKey.depth=5
 
+      if gDeltaDoTicks { //60fps change (added): one sparkle per 30fps tick (was 2x/4x as many at 60/120fps)
       var tFFScl;
       tFFScl=random(0.2)
       tEffect=instance_create(masterKey.x,masterKey.y,oEffectB)
@@ -1352,8 +1358,10 @@ else if global.gameProgress=870 and room=rLink2_PalaceW_10 //----- [14] Opening 
       tEffect.direction=random(360); tEffect.speed=random(2)+4; tEffect.friction=random(0.1)+0.1
       tEffect.fadeSpd=0.005; tEffect.image_blend=make_color_rgb(240,240,random(30))
       tEffect.AccelX=0; tEffect.AccelY=0; tEffect.followID=-1; tEffect.rotation=0
+      } //60fps change (added)
     }
-    else if sceneDelay>=121 and sceneDelay<=160
+    //else if sceneDelay>=121 and sceneDelay<=160
+    else if sceneDelay>120 and sceneDelay<=160 //60fps change: see above
     {
       masterKey.image_angle+=20*gDeltaTime
       masterKey.image_xscale+=0.5*gDeltaTime; masterKey.image_yscale+=0.5*gDeltaTime
@@ -1419,14 +1427,17 @@ else if global.gameProgress=880 and room=rLink2_PalaceW_12 //----- [15] Boss Fig
     else if sceneProgress=8
     {
       oScreenText.image_alpha+=0.02*gDeltaTime
-      if oScreenText.image_alpha=1
+      //if oScreenText.image_alpha=1
+      if oScreenText.image_alpha>=1 {oScreenText.image_alpha=1} //60fps change: 0.01/0.005 steps don't add up to exactly 1 (float), so wait for 1 or more instead of exactly 1
+      if oScreenText.image_alpha>=1 //60fps change: see above
         sceneProgress+=1
     }
     else if sceneProgress=9 and bWaitForInput=false //Wait for [Confirm] keypress
       msgCreate(-1000,-1000,"","",1,0,oMessageCutscene,1)
     else if sceneProgress=10
     {
-      if oScreenText.image_alpha=0
+      //if oScreenText.image_alpha=0
+      if oScreenText.image_alpha<=0 //60fps change: see the fade-in above (exactly 0 is not reached in float steps)
       {
         sceneDelay+=1*gDeltaTime
         if sceneDelay>=15
@@ -1451,14 +1462,17 @@ else if global.gameProgress=880 and room=rLink2_PalaceW_12 //----- [15] Boss Fig
     else if sceneProgress=14
     {
       oScreenText.image_alpha+=0.02*gDeltaTime
-      if oScreenText.image_alpha=1
+      //if oScreenText.image_alpha=1
+      if oScreenText.image_alpha>=1 {oScreenText.image_alpha=1} //60fps change: 0.01/0.005 steps don't add up to exactly 1 (float), so wait for 1 or more instead of exactly 1
+      if oScreenText.image_alpha>=1 //60fps change: see above
         sceneProgress+=1
     }
     else if sceneProgress=15 and bWaitForInput=false //Wait for [Confirm] keypress
       msgCreate(-1000,-1000,"","",1,0,oMessageCutscene,1)
     else if sceneProgress=16
     {
-      if oScreenText.image_alpha=0
+      //if oScreenText.image_alpha=0
+      if oScreenText.image_alpha<=0 //60fps change: see the fade-in above (exactly 0 is not reached in float steps)
       {
         sceneDelay+=1*gDeltaTime
         if sceneDelay>=15
@@ -1628,11 +1642,14 @@ else if global.gameProgress=890 and room=rLink2_PalaceW_13 //----- [16] Not real
       shadowJerry.image_xscale=-1; shadowJerry.image_blend=c_black; shadowJerry.image_speed=0.1
       tShdYSpd=-3
     }
-    else if sceneDelay>=6 and sceneDelay<=100
+    //else if sceneDelay>=6 and sceneDelay<=100
+    else if sceneDelay>5 and sceneDelay<=100 //60fps change: covers every frame of tick 6
     {
       shadowJerry.hspeed=3
+      tShdYSpd=scrGravAcc(tShdYSpd,0.3,-1) //60fps change (added): gravity per 30fps tick (the vspeed below is applied after this step, then it accelerates, so order -1)
       shadowJerry.vspeed=tShdYSpd
-      tShdYSpd+=0.3
+      //tShdYSpd+=0.3
+      if gDeltaTime==1 {tShdYSpd+=0.3} //60fps change: it sped up by 0.3 every frame, so the hop fell 2x/4x too fast at 60/120fps
       if shadowJerry.y>=288 and sceneDelay>=10
       {
         shadowJerry.y=288
@@ -1713,12 +1730,14 @@ else if global.gameProgress=890 and room=rLink2_PalaceW_13 //----- [16] Not real
       pChip=instance_create(288,176,oProgramChip)
       pChip.chipType=1; pChip.visible=0
     }
-    else if sceneDelay>=21 and sceneDelay<=35
+    //else if sceneDelay>=21 and sceneDelay<=35
+    else if sceneDelay>20 and sceneDelay<=35 //60fps change: covers every frame of ticks 21 and 36, so the circle reaches 30px (it peaked at 29px at 60fps)
     {
       circleRad+=2*gDeltaTime
       if sceneDelay=25 {pChip.visible=1}
     }
-    else if sceneDelay>=36 and sceneDelay<=50
+    //else if sceneDelay>=36 and sceneDelay<=50
+    else if sceneDelay>35 and sceneDelay<=50 //60fps change: see above
       circleRad-=2*gDeltaTime
     else if sceneDelay>=75 {sceneDelay=0; sceneProgress+=1}
   }
@@ -1877,7 +1896,8 @@ else if global.gameProgress=900 and room=rLink2_HP //----- [17] Triforce/Zelda g
     }
     else if sceneDelay=21
     {
-      imageTri[0].y-=2*gDeltaTime
+      //imageTri[0].y-=2*gDeltaTime
+      imageTri[0].y-=2 //60fps change: a one-off 2px nudge to line the top piece up, not a per-frame move
       for(i=0;i<3;i+=1)
       {
         imageTri[i].image_alpha=1

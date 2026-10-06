@@ -1015,7 +1015,8 @@ else if room=rDistFinal_Round3 //----- [10] Jeremy gets bigger -----
       (GID(467397)).image_xscale=0;
       (GID(467397)).image_yscale=0;
     }
-    else if sceneDelay>=21 and sceneDelay<=70
+    //else if sceneDelay>=21 and sceneDelay<=70
+    else if sceneDelay>20 and sceneDelay<=70 //60fps change: covers every frame of the first tick, so it grows to full size
     {
       (GID(467397)).image_xscale+=0.02*gDeltaTime;
       (GID(467397)).image_yscale+=0.02*gDeltaTime;
@@ -1085,7 +1086,8 @@ else if room=rDistFinal_Round3 //----- [10] Jeremy gets bigger -----
   {
     with oAttackBase {instance_destroy()}
     instance_create(oPlayer1.x-7,oPlayer1.y-29,oHexor_MashButtons)
-    jeremyVelY=-2*gDeltaTime
+    //jeremyVelY=-2*gDeltaTime
+    jeremyVelY=-2 //60fps change: a starting speed, and it's scaled again where it's used (y+=jeremyVelY*gDeltaTime), so the hop was half/quarter height at 60/120fps
     sceneDelay=0; sceneProgress+=1
   }
   

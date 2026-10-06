@@ -512,7 +512,8 @@ else if global.gameProgress=3422 and room=rGame6_HeroPlainsD //----- [6] Spring 
   else if sceneProgress=20
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay>=1 and sceneDelay<=7
+    //if sceneDelay>=1 and sceneDelay<=7
+    if sceneDelay>0 and sceneDelay<=7 //60fps change: covers every frame of the first tick, so the light fades out fully
     {
       npcChosen.image_alpha-=0.1*gDeltaTime
     }
@@ -679,7 +680,8 @@ else if global.gameProgress=3430 and room=rGame6_HeroPlainsD //----- [] Fight th
     {
       oWHB_NPC.x-=6*gDeltaTime
       oWHB_NPC.y+=WHB_Yvel*gDeltaTime
-      if sceneDelay=6 {WHB_Yvel=-6*gDeltaTime; oWHB_NPC.sprite_index=sWHB_Jump}
+      //if sceneDelay=6 {WHB_Yvel=-6*gDeltaTime; oWHB_NPC.sprite_index=sWHB_Jump}
+      if sceneDelay=6 {WHB_Yvel=-6; oWHB_NPC.sprite_index=sWHB_Jump} //60fps change: the jump speed was scaled twice (here and in the y+= above), so the jump was half/quarter height at 60/120fps
       else if sceneDelay>=7 {WHB_Yvel+=0.3*gDeltaTime}
 
       if oWHB_NPC.x<=688 {sceneDelay=100}
@@ -809,7 +811,8 @@ else if global.gameProgress=3440 and room=rGame6_Hometown //----- [8] Recover Je
   else if sceneProgress=4
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay>=11 and sceneDelay<=20 {fadeAlpha+=0.1}
+    //if sceneDelay>=11 and sceneDelay<=20 {fadeAlpha+=0.1}
+    if sceneDelay>10 and sceneDelay<=20 {fadeAlpha+=0.1*gDeltaTime} //60fps change: the fade ran 2x/4x too fast at 60/120fps; also covers every frame of the first tick
     else if sceneDelay>=40 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=5 and bWaitForInput=false
@@ -817,7 +820,8 @@ else if global.gameProgress=3440 and room=rGame6_Hometown //----- [8] Recover Je
   else if sceneProgress=6
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay>=11 and sceneDelay<=20 {fadeAlpha-=0.1}
+    //if sceneDelay>=11 and sceneDelay<=20 {fadeAlpha-=0.1}
+    if sceneDelay>10 and sceneDelay<=20 {fadeAlpha-=0.1*gDeltaTime} //60fps change: the fade ran 2x/4x too fast at 60/120fps; also covers every frame of the first tick
     else if sceneDelay>=40 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=7 and bWaitForInput=false
@@ -1057,6 +1061,7 @@ else if global.gameProgress=3470 and room=rGame6_EarthJ //----- [] Boss Fight: T
       {
         if sceneDelay mod 5=0 {playSound(global.snd_MetroidBomb,0,1,1)}
 
+        if gDeltaDoTicks { //60fps change (added): smoke and rocks spawn once per 30fps tick (per frame was 2x/4x as many at 60/120fps)
         for(i=0;i<4;i+=1)
         {
           var tEffect,tXSpd;
@@ -1070,6 +1075,7 @@ else if global.gameProgress=3470 and room=rGame6_EarthJ //----- [] Boss Fight: T
         tEffect.sprite_index=sDTitanRock; tEffect.xSpd=tXSpd; tEffect.ySpd=-9+random(3); tEffect.fadeSpd=0.04
         tEffect.type=2; tEffect.grav=0.8; tEffect.rotation=tXSpd*2; tEffect.newBlend=-1; tEffect.followID=-1
         tEffect.image_xscale=0.25; tEffect.image_yscale=0.25
+        } //60fps change (added)
 
         npcBoss.image_yscale+=0.01*gDeltaTime
         if npcBoss.image_yscale>=1 {sceneDelay=0; sceneProgress+=1}
@@ -1157,9 +1163,12 @@ else if global.gameProgress=3480 and room=rGame6_EarthK //----- [] Obtain Earth 
   else if sceneProgress=3
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay>=11 and sceneDelay<=46 {oLevelDecal.y+=1*gDeltaTime}
-    else if sceneDelay>=61 and sceneDelay<=70 {oLevelDecal.image_alpha-=0.1*gDeltaTime}
-    else if sceneDelay>=90 {sceneDelay=0; sceneProgress+=1*gDeltaTime}
+    //if sceneDelay>=11 and sceneDelay<=46 {oLevelDecal.y+=1*gDeltaTime}
+    if sceneDelay>=11 and sceneDelay<=46 and gDeltaDoTicks {oLevelDecal.y+=1} //60fps change: whole-pixel steps on ticks like the other three copies of this scene (it was 35.5px instead of 36 at 60fps)
+    //else if sceneDelay>=61 and sceneDelay<=70 {oLevelDecal.image_alpha-=0.1*gDeltaTime}
+    else if sceneDelay>60 and sceneDelay<=70 {oLevelDecal.image_alpha-=0.1*gDeltaTime} //60fps change: covers every frame of the first tick, so the decal fades out fully
+    //else if sceneDelay>=90 {sceneDelay=0; sceneProgress+=1*gDeltaTime}
+    else if sceneDelay>=90 {sceneDelay=0; sceneProgress+=1} //60fps change: one-off step to the next scene step; scaled, it landed on 3.5 and the cutscene stalled
   }
   else if sceneProgress=4 and bWaitForInput=false
     msgCreate(0,0,"Claire","I'm worried about Jerry...",0,3,oMessageCutscene,1)
@@ -1299,12 +1308,15 @@ else if global.gameProgress=3490 and room=rGame6_JDream //----- [11] Jerry's des
         efStars[i].image_xscale=1+i; efStars[i].image_yscale=1+i
       }
     }
-    else if sceneDelay>=41 and sceneDelay<=79
+    //else if sceneDelay>=41 and sceneDelay<=79
+    else if sceneDelay>40 and sceneDelay<=79 //60fps change: covers every frame of the first tick, so it runs its full length
     {
       for(i=0;i<4;i+=1)
       {
-        if i mod 2=0 {efStars[i].image_angle+=2*(i*2)}
-        else {efStars[i].image_angle-=2*(i*2)}
+        //if i mod 2=0 {efStars[i].image_angle+=2*(i*2)}
+        if i mod 2=0 {efStars[i].image_angle+=(2*(i*2))*gDeltaTime} //60fps change: the stars spun 2x/4x too fast at 60/120fps
+        //else {efStars[i].image_angle-=2*(i*2)}
+        else {efStars[i].image_angle-=(2*(i*2))*gDeltaTime} //60fps change
       }
       efCharge.image_xscale-=0.1*gDeltaTime; efCharge.image_yscale-=0.1*gDeltaTime
     }
@@ -1577,7 +1589,8 @@ else if global.gameProgress=3530 and room=rGame6_FireF //----- [13] Obtain Fire 
   {
     sceneDelay+=1*gDeltaTime
     if sceneDelay>=11 and sceneDelay<=46 and gDeltaDoTicks {oLevelDecal.y+=1}
-    else if sceneDelay>=61 and sceneDelay<=70 {oLevelDecal.image_alpha-=0.1*gDeltaTime}
+    //else if sceneDelay>=61 and sceneDelay<=70 {oLevelDecal.image_alpha-=0.1*gDeltaTime}
+    else if sceneDelay>60 and sceneDelay<=70 {oLevelDecal.image_alpha-=0.1*gDeltaTime} //60fps change: covers every frame of the first tick, so the decal fades out fully
     else if sceneDelay>=90 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=3 and bWaitForInput=false
@@ -1947,7 +1960,8 @@ else if global.gameProgress=3570 and room=rGame6_WaterA //----- [17] Obtain Wate
   {
     sceneDelay+=1*gDeltaTime
     if sceneDelay>=11 and sceneDelay<=46 and gDeltaDoTicks {oLevelDecal.y+=1}
-    else if sceneDelay>=61 and sceneDelay<=70 {oLevelDecal.image_alpha-=0.1*gDeltaTime}
+    //else if sceneDelay>=61 and sceneDelay<=70 {oLevelDecal.image_alpha-=0.1*gDeltaTime}
+    else if sceneDelay>60 and sceneDelay<=70 {oLevelDecal.image_alpha-=0.1*gDeltaTime} //60fps change: covers every frame of the first tick, so the decal fades out fully
     else if sceneDelay>=90 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=3 and bWaitForInput=false
@@ -2230,8 +2244,10 @@ else if global.gameProgress=3620 and room=rGame6_WindI //----- [] Boss Fight: Th
       sceneDelay+=1*gDeltaTime
       if sceneDelay>=20
       {
-        musicFade-=30
-        fadeVolume(global.msc_RPGElementsA,30)
+        //musicFade-=30
+        musicFade-=30*gDeltaTime //60fps change: per-frame music fade, so it faded 2x/4x too fast at 60/120fps
+        //fadeVolume(global.msc_RPGElementsA,30)
+        fadeVolume(global.msc_RPGElementsA,30*gDeltaTime) //60fps change: per-frame music fade, so it faded 2x/4x too fast at 60/120fps
         if musicFade<=5500
         {
           stopAllMusic()
@@ -2334,7 +2350,8 @@ else if global.gameProgress=3630 and room=rGame6_WindJ //----- [19] Obtain Wind 
   {
     sceneDelay+=1*gDeltaTime
     if sceneDelay>=11 and sceneDelay<=46 and gDeltaDoTicks {oLevelDecal.y+=1}
-    else if sceneDelay>=61 and sceneDelay<=70 {oLevelDecal.image_alpha-=0.1*gDeltaTime}
+    //else if sceneDelay>=61 and sceneDelay<=70 {oLevelDecal.image_alpha-=0.1*gDeltaTime}
+    else if sceneDelay>60 and sceneDelay<=70 {oLevelDecal.image_alpha-=0.1*gDeltaTime} //60fps change: covers every frame of the first tick, so the decal fades out fully
     else if sceneDelay>=90 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=3 and bWaitForInput=false
@@ -2421,7 +2438,8 @@ else if global.gameProgress=3640 and room=rGame6_Hometown //----- [20] Presentin
       myCrystal[3]=instance_create(oPlayer1.x,oPlayer1.y-26,oLevelDecal)
       myCrystal[3].sprite_index=sG6_Crystal; myCrystal[3].image_speed=0.15; myCrystal[3].image_blend=make_color_rgb(0,150,20)
     }
-    else if sceneDelay>=21 and sceneDelay<=90
+    //else if sceneDelay>=21 and sceneDelay<=90
+    else if sceneDelay>20 and sceneDelay<=90 //60fps change: covers every frame of the first tick, so it runs its full length
     {
       for(i=0;i<4;i+=1)
       {
@@ -2465,7 +2483,8 @@ else if global.gameProgress=3640 and room=rGame6_Hometown //----- [20] Presentin
       }
       with oLevelDecal {instance_destroy()}
     }
-    else if sceneDelay=71 and sceneDelay<=80 {fadeAlpha+=0.05*gDeltaTime}
+    //else if sceneDelay=71 and sceneDelay<=80 {fadeAlpha+=0.05*gDeltaTime}
+    else if sceneDelay=71 and sceneDelay<=80 {fadeAlpha+=0.05} //60fps change: "sceneDelay=71" makes this run once, so the step is not scaled (it only added half/quarter at 60/120fps)
     else if sceneDelay=95
     {
       tEffect=instance_create(oNPC_GeneralC.x,oNPC_GeneralC.y-25,oEffectB)
@@ -2538,7 +2557,8 @@ else if global.gameProgress=3640 and room=rGame6_Hometown //----- [20] Presentin
   {
     sceneDelay+=1*gDeltaTime
     if sceneDelay=5 {fadeColor=c_white}
-    else if sceneDelay>=6 and sceneDelay<=10 {fadeAlpha+=0.1*gDeltaTime}
+    //else if sceneDelay>=6 and sceneDelay<=10 {fadeAlpha+=0.1*gDeltaTime}
+    else if sceneDelay>5 and sceneDelay<=10 {fadeAlpha+=0.1*gDeltaTime} //60fps change: covers every frame of the first tick, so it runs its full length
     else if sceneDelay>=11 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=32
@@ -2554,7 +2574,8 @@ else if global.gameProgress=3640 and room=rGame6_DreamWoodsA //----- [21] The Dr
   if sceneProgress=0
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay>=51 and sceneDelay<=150 {fadeAlpha-=0.01*gDeltaTime}
+    //if sceneDelay>=51 and sceneDelay<=150 {fadeAlpha-=0.01*gDeltaTime}
+    if sceneDelay>50 and sceneDelay<=150 {fadeAlpha-=0.01*gDeltaTime} //60fps change: covers every frame of the first tick, so it runs its full length
     else if sceneDelay>=160 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=1 and bWaitForInput=false
@@ -2647,7 +2668,8 @@ else if global.gameProgress=3770 and room=rGame6_DreamWoodsF //----- [Unskippabl
   else if sceneProgress=1
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay>=21 and sceneDelay<=70 {oPlayer1.image_alpha+=0.02*gDeltaTime}
+    //if sceneDelay>=21 and sceneDelay<=70 {oPlayer1.image_alpha+=0.02*gDeltaTime}
+    if sceneDelay>20 and sceneDelay<=70 {oPlayer1.image_alpha+=0.02*gDeltaTime} //60fps change: covers every frame of the first tick, so it runs its full length
     else if sceneDelay>=71 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=2
@@ -2667,7 +2689,8 @@ else if global.gameProgress=3770 and room=rGame6_DreamWoodsF //----- [Unskippabl
         efStars[i].image_xscale=1+i; efStars[i].image_yscale=1+i
       }
     }
-    else if sceneDelay>=41 and sceneDelay<=79
+    //else if sceneDelay>=41 and sceneDelay<=79
+    else if sceneDelay>40 and sceneDelay<=79 //60fps change: covers every frame of the first tick, so it runs its full length
     {
       for(i=0;i<4;i+=1)
       {
@@ -2695,7 +2718,8 @@ else if global.gameProgress=3770 and room=rGame6_DreamWoodsF //----- [Unskippabl
   else if sceneProgress=4
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay>=31 and sceneDelay<=80 {fadeAlpha-=0.02*gDeltaTime}
+    //if sceneDelay>=31 and sceneDelay<=80 {fadeAlpha-=0.02*gDeltaTime}
+    if sceneDelay>30 and sceneDelay<=80 {fadeAlpha-=0.02*gDeltaTime} //60fps change: covers every frame of the first tick, so it runs its full length
     else if sceneDelay=81 {oPlayer1.depth=20}
     else if sceneDelay>=100
     {
@@ -2940,7 +2964,8 @@ else if global.gameProgress=3820 and room=rGame6_CoDP //----- [26] Boss Fight: T
         tFlash=instance_create(0,0,oScreenFlash)
         tFlash.fadeSpeed=0.1; tFlash.image_alpha=1
       }
-      if sceneDelay>=11 and sceneDelay<=110
+      //if sceneDelay>=11 and sceneDelay<=110
+      if sceneDelay>10 and sceneDelay<=110 //60fps change: covers every frame of the first tick, so it runs its full length
       {
         fadeColor=c_black
         fadeAlpha+=0.005*gDeltaTime
@@ -2968,7 +2993,8 @@ else if global.gameProgress=3820 and room=rGame6_CoDP //----- [26] Boss Fight: T
           tEffect.speed=random(0.5)+0.5; tEffect.friction=random(0.01)+0.01; tEffect.fadeSpd=0.02
           tEffect.image_blend=c_black; tEffect.AccelX=0; tEffect.AccelY=0; tEffect.followID=-1; tEffect.rotation=0
         }
-        if gDeltaDotTime {npcBishonen.y+=1}
+        //if gDeltaDotTime {npcBishonen.y+=1}
+        if gDeltaDoTicks {npcBishonen.y+=1} //60fps change: typo fix (gDeltaDotTime is not a variable, so this line errored)
         if npcBishonen.y>=room_height+56 {sceneDelay=0; sceneProgress+=1}
       }
     }
@@ -3322,8 +3348,10 @@ else if global.gameProgress=3860 and room=rGame6_CoDU //----- [Unskippable] Intr
     }
     else if sceneDelay>=30
     {
-      musicFade-=90
-      fadeVolume(global.msc_RPGDoomCastle,90)
+      //musicFade-=90
+      musicFade-=90*gDeltaTime //60fps change: per-frame music fade, so it faded 2x/4x too fast at 60/120fps
+      //fadeVolume(global.msc_RPGDoomCastle,90)
+      fadeVolume(global.msc_RPGDoomCastle,90*gDeltaTime) //60fps change: per-frame music fade, so it faded 2x/4x too fast at 60/120fps
       if musicFade<=5500
       {
         stopAllMusic()
@@ -3354,7 +3382,8 @@ else if global.gameProgress=3860 and room=rGame6_CoDU //----- [Unskippable] Intr
       tempMplay=findMusic(1011)
       playMusic(tempMplay,0,0)
     }
-    else if sceneDelay>=31 and sceneDelay<=130
+    //else if sceneDelay>=31 and sceneDelay<=130
+    else if sceneDelay>30 and sceneDelay<=130 //60fps change: covers every frame of the first tick, so it runs its full length
     {
       if sceneDelay=80 {lightningTime=50}
       fadeAlpha-=0.01*gDeltaTime
@@ -3372,8 +3401,10 @@ else if global.gameProgress=3860 and room=rGame6_CoDU //----- [Unskippable] Intr
     }
     else if sceneDelay>=720
     {
-      musicFade-=40
-      fadeVolume(global.msc_MasterPlan,40)
+      //musicFade-=40
+      musicFade-=40*gDeltaTime //60fps change: per-frame music fade, so it faded 2x/4x too fast at 60/120fps
+      //fadeVolume(global.msc_MasterPlan,40)
+      fadeVolume(global.msc_MasterPlan,40*gDeltaTime) //60fps change: per-frame music fade, so it faded 2x/4x too fast at 60/120fps
       if musicFade<=7500 {sceneDelay=0; sceneProgress+=1}
     }
   }
@@ -3549,12 +3580,14 @@ else if global.gameProgress=3860 and room=rGame6_CoDU //----- [Unskippable] Intr
       pChip=instance_create(oPlayer1.x,708,oProgramChip)
       pChip.chipType=5; pChip.visible=0
     }
-    else if sceneDelay>=21 and sceneDelay<=35
+    //else if sceneDelay>=21 and sceneDelay<=35
+    else if sceneDelay>20 and sceneDelay<=35 //60fps change: covers every frame of the first tick, so it runs its full length
     {
       circleRad+=2*gDeltaTime
       if sceneDelay=25 {pChip.visible=1}
     }
-    else if sceneDelay>=36 and sceneDelay<=50 {circleRad-=2*gDeltaTime}
+    //else if sceneDelay>=36 and sceneDelay<=50 {circleRad-=2*gDeltaTime}
+    else if sceneDelay>35 and sceneDelay<=50 {circleRad-=2*gDeltaTime} //60fps change: covers every frame of the first tick, so it runs its full length
     else if sceneDelay>=75 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=58

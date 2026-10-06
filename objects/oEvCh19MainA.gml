@@ -420,7 +420,8 @@ else if global.gameProgress=4580 and room=rDiscoA //----- [5] Intro to The Disco
   {
     sceneDelay+=1*gDeltaTime
     if sceneDelay=1*gDeltaTime {global.gamePaused=true}
-    else if sceneDelay>=31 and sceneDelay<=70 {fadeAlpha-=0.025*gDeltaTime}
+    //else if sceneDelay>=31 and sceneDelay<=70 {fadeAlpha-=0.025*gDeltaTime}
+    else if sceneDelay>30 and sceneDelay<=70 {fadeAlpha-=0.025*gDeltaTime} //60fps change: covers every frame of the first tick, so it runs its full length
     if sceneDelay>=80 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=1 and bWaitForInput=false
@@ -495,7 +496,8 @@ else if global.gameProgress=4610 and room=rDiscoD //----- [6] Hex shows up -----
   else if sceneProgress=10
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay>=10 {(GID(399156)).x+=6*gDeltaTime}
+    //if sceneDelay>=10 {(GID(399156)).x+=6*gDeltaTime}
+    if sceneDelay>9 {(GID(399156)).x+=6*gDeltaTime} //60fps change: covers every frame of the first tick, so it runs its full length
     if sceneDelay>=40 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=11 and bWaitForInput=false
@@ -825,6 +827,7 @@ else if room=rDiscoI //----- [] Boss Fight: Defective -----
     if kirbyFade>0 and kirbyFade<100 //Fade Kirby away
     {
       kirbyFade+=1*gDeltaTime
+      if gDeltaDoTicks { //60fps change (added): fireflies spawn once per 30fps tick (per frame was 2x/4x as many at 60/120fps)
       var tFFScl,tEffect;
       tFFScl=random(0.1)
       tEffect=instance_create((GID(401981)).x+random_range(-8,8),(GID(401981)).y-1-random(14),oEffectB)
@@ -833,6 +836,7 @@ else if room=rDiscoI //----- [] Boss Fight: Defective -----
       tEffect.direction=random_range(70,110); tEffect.speed=random(1)+1; tEffect.friction=random(0.02)+0.02
       tEffect.fadeSpd=0.005; tEffect.image_blend=make_color_rgb(random(50),random(50),255)
       tEffect.AccelX=0; tEffect.AccelY=0; tEffect.followID=-1; tEffect.rotation=0
+      } //60fps change (added)
       (GID(401981)).image_alpha-=0.02*gDeltaTime;
       (GID(401983)).image_alpha-=0.02*gDeltaTime;
       if kirbyFade>=52 {kirbyFade=1000}
@@ -858,7 +862,8 @@ else if room=rDiscoI //----- [] Boss Fight: Defective -----
             boss=instance_create(992,128,oDefective)
             boss.image_alpha=0; boss.bCanDealDamage=0; boss.bCanTakeDamage=0
           }
-          else if sceneDelay>=91 and sceneDelay<=110 {boss.image_alpha+=0.05*gDeltaTime}
+          //else if sceneDelay>=91 and sceneDelay<=110 {boss.image_alpha+=0.05*gDeltaTime}
+          else if sceneDelay>90 and sceneDelay<=110 {boss.image_alpha+=0.05*gDeltaTime} //60fps change: covers every frame of the first tick, so it runs its full length
           else if sceneDelay=140
           {
             boss.bCanDealDamage=1; boss.bCanTakeDamage=1; boss.activateBoss=1
@@ -992,7 +997,8 @@ else if room=rHiddenVillage //----- [10] The next piece of the Dragoon -----
     else if sceneProgress=2
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay>=31 and sceneDelay<=55 {fadeAlpha-=0.04*gDeltaTime}
+      //if sceneDelay>=31 and sceneDelay<=55 {fadeAlpha-=0.04*gDeltaTime}
+      if sceneDelay>30 and sceneDelay<=55 {fadeAlpha-=0.04*gDeltaTime} //60fps change: covers every frame of the first tick, so it runs its full length
       else if sceneDelay>=80 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=3 and bWaitForInput=false
@@ -1091,7 +1097,8 @@ else if room=rMain_92 //----- [11] Back to the Hidden Village -----
     else if sceneProgress=1
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay>=1 and sceneDelay<=50 {fadeAlpha-=0.02*gDeltaTime}
+      //if sceneDelay>=1 and sceneDelay<=50 {fadeAlpha-=0.02*gDeltaTime}
+      if sceneDelay>0 and sceneDelay<=50 {fadeAlpha-=0.02*gDeltaTime} //60fps change: covers every frame of the first tick, so it runs its full length
       else if sceneDelay>=70 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=2 and bWaitForInput=false
@@ -1162,7 +1169,8 @@ else if room=rMain_84 and global.gameProgress=4940 //----- [12] Did that hit the
         charClaire=instance_create(3136,256,oMisc)
         charClaire.sprite_index=sClaireSitUp; charClaire.image_speed=0; charClaire.image_index=2; charClaire.type=2
       }
-      else if sceneDelay>=31 and sceneDelay<=70 {fadeAlpha-=0.025*gDeltaTime}
+      //else if sceneDelay>=31 and sceneDelay<=70 {fadeAlpha-=0.025*gDeltaTime}
+      else if sceneDelay>30 and sceneDelay<=70 {fadeAlpha-=0.025*gDeltaTime} //60fps change: covers every frame of the first tick, so it runs its full length
       else if sceneDelay=130 {charClaire.sprite_index=sClaireIdle; charClaire.image_speed=0.1}
       else if sceneDelay>=140 {eventTime=0; sceneProgress+=1}
     }
@@ -1197,7 +1205,8 @@ else if room=rHiddenVillage_Destroyed and global.gameProgress=4940 //----- [13] 
     if sceneProgress=0
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay>=41 and sceneDelay<=90 {fadeAlpha-=0.02*gDeltaTime}
+      //if sceneDelay>=41 and sceneDelay<=90 {fadeAlpha-=0.02*gDeltaTime}
+      if sceneDelay>40 and sceneDelay<=90 {fadeAlpha-=0.02*gDeltaTime} //60fps change: covers every frame of the first tick, so it runs its full length
       else if sceneDelay>=120 {eventTime=0; sceneProgress+=1}
     }
     else if sceneProgress=1 and bWaitForInput=false
@@ -1282,7 +1291,8 @@ else if room=rHiddenVillage_Destroyed and global.gameProgress=4940 //----- [13] 
         //tShield=instance_create(2656,294,oMisc)
         //tShield.type=0; tShield.sprite_index=sWaterBarrier; tShield.image_xscale=0.75; tShield.image_yscale=0.75
       }
-      else if sceneDelay>=3 and sceneDelay<=32
+      //else if sceneDelay>=3 and sceneDelay<=32
+      else if sceneDelay>2 and sceneDelay<=32 //60fps change: covers every frame of the first tick, so it runs its full length
       {
         if sceneDelay=3
         {
@@ -1428,8 +1438,10 @@ else if room=rMain_84 and global.gameProgress=4950 //----- [14] Reunited with Ge
   else if sceneProgress=7
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay>=1 and sceneDelay<=20 {fadeAlpha+=0.05*gDeltaTime}
-    else if sceneDelay>=61 and sceneDelay<=80 {fadeAlpha-=0.05*gDeltaTime}
+    //if sceneDelay>=1 and sceneDelay<=20 {fadeAlpha+=0.05*gDeltaTime}
+    if sceneDelay>0 and sceneDelay<=20 {fadeAlpha+=0.05*gDeltaTime} //60fps change: covers every frame of the first tick, so it runs its full length
+    //else if sceneDelay>=61 and sceneDelay<=80 {fadeAlpha-=0.05*gDeltaTime}
+    else if sceneDelay>60 and sceneDelay<=80 {fadeAlpha-=0.05*gDeltaTime} //60fps change: covers every frame of the first tick, so it runs its full length
     else if sceneDelay>=100 {sceneDelay=0; sceneProgress+=1}
   }
   else if sceneProgress=8 and bWaitForInput=false
@@ -1667,7 +1679,8 @@ else if room=rMC_N and global.gameProgress=5010 //----- [] Boss Fight: Decimator
         view_object[0]=oPlayer1
         with oRm_MC_Camera {instance_destroy()}
       }
-      else if sceneDelay>=51 and sceneDelay<=60  {fadeAlpha-=0.1}
+      //else if sceneDelay>=51 and sceneDelay<=60  {fadeAlpha-=0.1}
+      else if sceneDelay>50 and sceneDelay<=60  {fadeAlpha-=0.1*gDeltaTime} //60fps change: the fade ran 2x/4x too fast at 60/120fps; also covers every frame of the first tick
       else if sceneDelay>=80 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=4 and bWaitForInput=false
@@ -1781,7 +1794,8 @@ else if room=rMC_N and global.gameProgress=5030 //----- [16] The 3 Dragoon Piece
       }
       if chipSpd<20 {chipSpd+=0.25*gDeltaTime}
       chipDir+=chipSpd*gDeltaTime
-      if sceneDelay>=501 and sceneDelay<=560 {chipDist+=1*gDeltaTime} //Pieces out
+      //if sceneDelay>=501 and sceneDelay<=560 {chipDist+=1*gDeltaTime} //Pieces out
+      if sceneDelay>500 and sceneDelay<=560 {chipDist+=1*gDeltaTime} //Pieces out //60fps change: covers every frame of the first tick, so it runs its full length
       else if sceneDelay>=591 {chipDist-=2*gDeltaTime} //Pieces in
 
       if chipDist<=0
@@ -2044,7 +2058,8 @@ if global.gamePaused=false
   else if room=rDiscoF or room=rDiscoG {oPlayer1.runAcc=12; oPlayer1.xAccLimit=12}
   else if room=rDiscoH and global.gameProgress<=4660
   {
-    if global.forceTime mod (30/gDeltaTime)=0
+    //if global.forceTime mod (30/gDeltaTime)=0
+    if global.forceTime mod 30=0 and gDeltaDoTicks //60fps change: forceTime counts ticks (oScreenTimer only lowers it on ticks), so it's mod 30, once per tick; mod (30/gDeltaTime) jumped 32px every 2s at 60fps (64px every 4s at 120fps)
     {
       background_x[0]-=16
     }

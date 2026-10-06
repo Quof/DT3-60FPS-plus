@@ -164,7 +164,8 @@ else if global.newMapX=3
   else if introProg=198 {bossFrame=2}
 }
 
-if introProg>=261 and introProg<=270 {fadeOut+=0.1}
+//if introProg>=261 and introProg<=270 {fadeOut+=0.1}
+if introProg>260 and introProg<=270 {fadeOut+=0.1*gDeltaTime} //60fps change: the fade to black ran 2x/4x too fast at 60/120fps
 else if introProg=275 //End sequence
 {
   global.tempAction[0]=global.newMapX
@@ -188,7 +189,8 @@ if flashWhite>0
   draw_set_alpha(flashWhite)
   draw_set_color(c_white)
   draw_rectangle(-1,-1,room_width+1,room_height+1,0)
-  flashWhite-=0.05
+  //flashWhite-=0.05
+  flashWhite-=0.05*gDeltaTime //60fps change: the white flash faded 2x/4x too fast at 60/120fps
 }
 
 draw_set_alpha(1)

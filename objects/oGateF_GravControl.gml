@@ -60,6 +60,7 @@ if lowGravOn=1
     draw_set_font(fnt_Timer)
     draw_set_halign(fa_left)
     draw_set_alpha(1)
-    textDropShadow(lowGravTime,view_xview[0]+412,view_yview[0]+8,c_black,c_white,3)
+    //textDropShadow(lowGravTime,view_xview[0]+412,view_yview[0]+8,c_black,c_white,3)
+    textDropShadow(ceil(lowGravTime),view_xview[0]+412,view_yview[0]+8,c_black,c_white,3) //60fps change: the timer counts in fractions at 60/120fps, so show whole ticks (it showed 179.50 etc.)
   }
 }

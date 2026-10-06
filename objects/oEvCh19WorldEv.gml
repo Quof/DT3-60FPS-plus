@@ -77,7 +77,8 @@ if global.gamePaused=false
         bCanShake=1
         global.Ch19WIn=1
       }
-      else if eventTime>=151 and eventTime<=250 {if fadeAlpha<0.2 {fadeAlpha+=0.002*gDeltaTime}}
+      //else if eventTime>=151 and eventTime<=250 {if fadeAlpha<0.2 {fadeAlpha+=0.002*gDeltaTime}}
+      else if eventTime>150 and eventTime<=250 {if fadeAlpha<0.2 {fadeAlpha+=0.002*gDeltaTime}} //60fps change: covers every frame of the first tick, so the tint reaches 0.2
 
       if sideConvoTime=0
       {
@@ -90,7 +91,8 @@ if global.gamePaused=false
       }
       else
       {
-        sideConvoTime+=1
+        //sideConvoTime+=1
+        sideConvoTime+=1*gDeltaTime //60fps change: the follow-up line came 2x/4x too early at 60/120fps
         if sideConvoTime=70
         {
           msgCreate(0,0,"Claire","And that shake... what's going on?",0,1,oMessagePerson,0)
@@ -233,7 +235,8 @@ if global.gamePaused=false
       else if eventProg=1
       {
         eventTime+=1*gDeltaTime
-        if eventTime>=1 and eventTime<=30
+        //if eventTime>=1 and eventTime<=30
+        if eventTime>0 and eventTime<=30 //60fps change: covers every frame of the first tick, so the blast grows to its full size
         {
           explodeRad+=24*gDeltaTime
         }

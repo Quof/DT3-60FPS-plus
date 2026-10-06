@@ -42,7 +42,8 @@ if bExplosion=1
     else if expType=2 {tEffect.sprite_index=sSamusSMissileHit}
     explosionDelay=irandom_range(4,10)
 
-    soundEffectTime-=1*gDeltaTime
+    //soundEffectTime-=1*gDeltaTime
+    soundEffectTime-=1 //60fps change: counts explosions (this runs once per explosion), so it isn't scaled; scaled, the blast sound played 2x/4x less often at 60/120fps
     if soundEffectTime<=0
     {
       playSound(global.snd_MetroidBomb,0,0.91,1)

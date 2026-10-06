@@ -13,10 +13,17 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-var tNewTrail;
-tNewTrail=instance_create(x,y,oVaultLineTail)
-tNewTrail.type=1; tNewTrail.size=size; tNewTrail.fadeSpd=fadeSpd;
-tNewTrail.image_alpha=0.75; tNewTrail.image_blend=image_blend
+//var tNewTrail;
+//tNewTrail=instance_create(x,y,oVaultLineTail)
+//tNewTrail.type=1; tNewTrail.size=size; tNewTrail.fadeSpd=fadeSpd;
+//tNewTrail.image_alpha=0.75; tNewTrail.image_blend=image_blend
+if gDeltaDoTicks //60fps change (added): one trail piece per 30fps tick; per frame, the additive trail was 2x/4x as dense and bright at 60/120fps
+{
+  var tNewTrail;
+  tNewTrail=instance_create(x,y,oVaultLineTail)
+  tNewTrail.type=1; tNewTrail.size=size; tNewTrail.fadeSpd=fadeSpd;
+  tNewTrail.image_alpha=0.75; tNewTrail.image_blend=image_blend
+}
 
 dirChangeTime+=1*gDeltaTime
 if dirChangeTime=40

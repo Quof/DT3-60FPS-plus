@@ -608,7 +608,8 @@ else if global.gameProgress=2080 and room=rBubbleTowerA7 //----- [5] Boss: Army 
       {
         npcBubblin.sprite_index=sBubblun_Walk; npcBubblin.image_xscale=1; npcBubblin.image_speed=0.15
       }
-      else if sceneDelay>=16 and sceneDelay<=48 {npcBubblin.x+=1*gDeltaTime}
+      //else if sceneDelay>=16 and sceneDelay<=48 {npcBubblin.x+=1*gDeltaTime}
+      else if sceneDelay>15 and sceneDelay<=48 {npcBubblin.x+=1*gDeltaTime} //60fps change: covers every frame of tick 16
       else if sceneDelay=49 {npcBubblin.sprite_index=sBubblun_Idle; npcBubblin.image_speed=0.05}
       else if sceneDelay=60 {with npcBubblin {instance_destroy()}}
       else if sceneDelay>=75 {sceneDelay=0; sceneProgress+=1}
@@ -670,7 +671,8 @@ else if global.gameProgress=2100 and room=rMain_36 //----- [Unskippable] Enemy T
       else if sceneProgress=1
       {
         sceneDelay+=1*gDeltaTime
-        if sceneDelay>=1 and sceneDelay<=40
+        //if sceneDelay>=1 and sceneDelay<=40
+        if sceneDelay>0 and sceneDelay<=40 //60fps change: covers every frame of tick 1, so the red overlay reaches its full 30fps strength
         {
           oScreenColorOverlay.image_alpha+=0.005*gDeltaTime
           if sceneDelay=30
@@ -693,9 +695,11 @@ else if global.gameProgress=2100 and room=rMain_36 //----- [Unskippable] Enemy T
       else if sceneProgress=2
       {
         sceneDelay+=1*gDeltaTime
-        if sceneDelay>=1 and sceneDelay<=20 {enemyImage.y-=8*gDeltaTime}
+        //if sceneDelay>=1 and sceneDelay<=20 {enemyImage.y-=8*gDeltaTime}
+        if sceneDelay>0 and sceneDelay<=20 {enemyImage.y-=8*gDeltaTime} //60fps change: covers every frame of ticks 1 and 61, so the Dragon Knight rises and lands where it does at 30fps (it ended 3px low at 60fps)
         else if sceneDelay=21 {enemyImage.sprite_index=sDK_Fly; enemyImage.image_speed=0.15}
-        if sceneDelay>=61 and sceneDelay<=132
+        //if sceneDelay>=61 and sceneDelay<=132
+        if sceneDelay>60 and sceneDelay<=132 //60fps change: see above
         {
           enemyImage.y+=2*gDeltaTime
           if sceneDelay=132
@@ -714,7 +718,8 @@ else if global.gameProgress=2100 and room=rMain_36 //----- [Unskippable] Enemy T
           enemyImage.sprite_index=sDK_Swing; enemyImage.image_index=0; enemyImage.image_speed=0
           playSound(global.snd_DemonLaugh,0,0.96,1)
         }
-        else if sceneDelay>=31 and sceneDelay<=42
+        //else if sceneDelay>=31 and sceneDelay<=42
+        else if sceneDelay>=31 and sceneDelay<=42 and gDeltaDoTicks //60fps change: one afterimage per 30fps tick (was 2x/4x as many at 60/120fps)
         {
           var tAfterI;
           tAfterI=instance_create(x,y,oEnemyAfterImage)

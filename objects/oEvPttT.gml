@@ -201,7 +201,8 @@ else if global.gamePttT_Prog=80 and room=rPttT_07 //----- [] Boss fight end ----
     if sceneProgress=0
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay>=31 and sceneDelay<=55
+      //if sceneDelay>=31 and sceneDelay<=55
+      if sceneDelay>30 and sceneDelay<=55 //60fps change: covers every frame of the first tick, so the fade reaches full black
       {
         fadeAlpha+=0.04*gDeltaTime
       }

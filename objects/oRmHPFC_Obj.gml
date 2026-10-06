@@ -25,12 +25,14 @@ if global.gamePaused=false
   {
     y+=8*gDeltaTime
     var tEffect;
+    if gDeltaDoTicks { //60fps change (added): smoke spawns once per 30fps tick (per frame was 2x/4x as much at 60/120fps)
     tEffect=instance_create(x-32,bbox_top+random(4),oEffect)
     tEffect.sprite_index=sMMSmokeCloud; tEffect.image_speed=0.5; tEffect.xSpd=0; tEffect.ySpd=0
     tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100
     tEffect=instance_create(x,bbox_top+random(4),oEffect)
     tEffect.sprite_index=sMMSmokeCloud; tEffect.image_speed=0.5; tEffect.xSpd=0; tEffect.ySpd=0
     tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100
+    } //60fps change (added)
     if y>=296
     {
       playSound(global.snd_Slam,0,0.9,1)

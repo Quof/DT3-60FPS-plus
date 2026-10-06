@@ -244,7 +244,8 @@ if global.gamePaused=false
     }
     else if motherTime>=11 and motherTime<=99
     {
-      musicChangeVol-=100
+      //musicChangeVol-=100
+      musicChangeVol-=100*gDeltaTime //60fps change: per-frame music fade, so it faded 2x/4x too fast at 60/120fps
       SS_SetSoundVol(musicLoadCheck,musicChangeVol)
       if musicChangeVol<=6000
       {
@@ -259,7 +260,8 @@ if global.gamePaused=false
     }
     else if motherTime>=100
     {
-      musicChangeVol+=250
+      //musicChangeVol+=250
+      musicChangeVol+=250*gDeltaTime //60fps change: per-frame music fade-in, so it came back 2x/4x too fast at 60/120fps
       SS_SetSoundVol(musicLoadCheck,musicChangeVol)
       if musicChangeVol>=global.optMusic*100
       {

@@ -654,7 +654,8 @@ else if global.gameProgress=3230 and room=rNGC_LC_C //----- [Unskippable] Jeremy
   if musicFade>0 and sceneProgress>=9 and sceneProgress<=18 //Fade music
   {
     musicFade-=8*gDeltaTime
-    fadeVolume(global.msc_NGCLowerChamber,8)
+    //fadeVolume(global.msc_NGCLowerChamber,8)
+    fadeVolume(global.msc_NGCLowerChamber,8*gDeltaTime) //60fps change: per-frame fade, so the music faded 2x/4x too fast at 60/120fps
   }
   
   if sceneProgress=0
@@ -830,12 +831,14 @@ else if global.gameProgress=3260 and room=rNGC_LC_F //----- [12] Boss: Malevolen
         else if sceneDelay>=46
         {
           var tEffect;
+          if gDeltaDoTicks { //60fps change (added): smoke spawns once per 30fps tick (per frame was 2x/4x as much at 60/120fps)
           for(i=0;i<8;i+=1)
           {
             tEffect=instance_create(112+random(256),1344+random(16),oEffect)
             tEffect.sprite_index=sMMSmokeCloud; tEffect.image_speed=0.1+random(0.1); tEffect.image_alpha=0.6; tEffect.depth=9
             tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=-0.5-random(1)
           }
+          } //60fps change (added)
           boss.y-=2*gDeltaTime
           boss.image_alpha+=0.01*gDeltaTime
           if boss.y<=1264
@@ -1233,7 +1236,8 @@ else if global.gameProgress=3290 and room=rNGC_LC_H //----- [13] Finding the Eng
   else if sceneProgress=36
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay>=16 and sceneDelay<=25
+    //if sceneDelay>=16 and sceneDelay<=25
+    if sceneDelay>15 and sceneDelay<=25 //60fps change: covers every frame of the first tick, so John fades out fully
     {
       oNPC_John.image_alpha-=0.1*gDeltaTime
     }
@@ -1484,7 +1488,8 @@ else if global.gameProgress=3340 and room=rNGC_BR_B //----- [Unskippable] Gettin
   {
     sceneDelay+=1*gDeltaTime
     if sceneDelay=5 {charClaire.sprite_index=sClaireWalk; charClaire.image_speed=0.5}
-    else if sceneDelay>=6 and sceneDelay<=14 {charClaire.x+=6*gDeltaTime}
+    //else if sceneDelay>=6 and sceneDelay<=14 {charClaire.x+=6*gDeltaTime}
+    else if sceneDelay>5 and sceneDelay<=14 {charClaire.x+=6*gDeltaTime} //60fps change: covers every frame of the first tick, so it runs its full length
     else if sceneDelay>=15
     {
       charClaire.sprite_index=sClaireIdle; charClaire.image_speed=0.1
@@ -1507,9 +1512,11 @@ else if global.gameProgress=3340 and room=rNGC_BR_B //----- [Unskippable] Gettin
   {
     jerryTime+=1*gDeltaTime
     if jerryTime=5 {charJerry.sprite_index=sJerryWalk; charJerry.image_speed=0.5}
-    else if jerryTime>=6 and jerryTime<=20 {charJerry.x+=6*gDeltaTime}
+    //else if jerryTime>=6 and jerryTime<=20 {charJerry.x+=6*gDeltaTime}
+    else if jerryTime>5 and jerryTime<=20 {charJerry.x+=6*gDeltaTime} //60fps change: covers every frame of the first tick, so it runs its full length
     else if jerryTime=21 {charJerry.sprite_index=sJerryJump}
-    else if jerryTime>=22 and jerryTime<=99
+    //else if jerryTime>=22 and jerryTime<=99
+    else if jerryTime>21 and jerryTime<=99 //60fps change: covers every frame of the first tick, so it runs its full length
     {
       charJerry.y+=jerryY*gDeltaTime
       jerryY+=0.33*gDeltaTime
@@ -1519,9 +1526,11 @@ else if global.gameProgress=3340 and room=rNGC_BR_B //----- [Unskippable] Gettin
     
     claireTime+=1*gDeltaTime
     if claireTime=5 {charClaire.sprite_index=sClaireWalk; charClaire.image_xscale=1; charClaire.image_speed=0.5}
-    else if claireTime>=6 and claireTime<=12 {charClaire.x+=6*gDeltaTime}
+    //else if claireTime>=6 and claireTime<=12 {charClaire.x+=6*gDeltaTime}
+    else if claireTime>5 and claireTime<=12 {charClaire.x+=6*gDeltaTime} //60fps change: covers every frame of the first tick, so it runs its full length
     else if claireTime=13 {charClaire.sprite_index=sClaireJump}
-    else if claireTime>=14 and claireTime<=99
+    //else if claireTime>=14 and claireTime<=99
+    else if claireTime>13 and claireTime<=99 //60fps change: covers every frame of the first tick, so it runs its full length
     {
       charClaire.y+=claireY*gDeltaTime
       claireY+=0.33*gDeltaTime
@@ -1603,7 +1612,8 @@ else if global.gameProgress=3360 and room=rMain_56 //----- [16] The Engineer is 
   else if sceneProgress=7
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay>=21 and sceneDelay<=30 {oNPC_John.image_alpha+=0.1*gDeltaTime}
+    //if sceneDelay>=21 and sceneDelay<=30 {oNPC_John.image_alpha+=0.1*gDeltaTime}
+    if sceneDelay>20 and sceneDelay<=30 {oNPC_John.image_alpha+=0.1*gDeltaTime} //60fps change: covers every frame of the first tick, so it runs its full length
     else if sceneDelay=50 {(GID(308182)).image_xscale=1; (GID(308183)).image_xscale=1}
     else if sceneDelay=55
     {
@@ -1792,7 +1802,8 @@ if global.gameOptDT=2 and room=rDesertedTowerD //----- [EX1] Boss: Sand Crawler 
     else if sceneProgress=2
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay>=1 and sceneDelay<=40
+      //if sceneDelay>=1 and sceneDelay<=40
+      if sceneDelay>=1 and sceneDelay<=40 and gDeltaDoTicks //60fps change: effects spawn once per 30fps tick (per frame was 2x/4x as many at 60/120fps)
       {
         var tEffect;
         for(i=0;i<8;i+=1)

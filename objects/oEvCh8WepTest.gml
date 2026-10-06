@@ -36,7 +36,8 @@ if type=1 //Shotgun Ice Main
     tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0
   }
   _speed=11
-  image_angle-=10
+  //image_angle-=10
+  image_angle-=10*gDeltaTime //60fps change: spun 2x/4x too fast at 60/120fps
 
   lifeTime-=1*gDeltaTime
   if lifeTime=0
@@ -55,7 +56,8 @@ if type=1 //Shotgun Ice Main
 else if type=2 //Shotgun Ice Break
 {
   _speed=11
-  image_angle+=10
+  //image_angle+=10
+  image_angle+=10*gDeltaTime //60fps change: spun 2x/4x too fast at 60/120fps
   lifeTime-=1*gDeltaTime
   if lifeTime=0 {instance_destroy()}
 }

@@ -167,8 +167,9 @@ if global.gamePaused=false
   if damageTime>0
   {
     damageTime-=1*gDeltaTime
-    if image_alpha=0.75 {image_alpha=0.25}
-    else {image_alpha=0.75}
+    //if image_alpha=0.75 {image_alpha=0.25}
+    //else {image_alpha=0.75}
+    if gDeltaDoTicks {if image_alpha=0.75 {image_alpha=0.25} else {image_alpha=0.75}} //60fps change: flicker once per 30fps tick (per frame it flickered 2x/4x as fast)
     if damageTime=0
     {
       image_alpha=1

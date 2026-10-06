@@ -35,7 +35,8 @@ if global.gamePaused=false
     else {y=256}
     timeToHit=1000
   }
-  else if timeToHit>=1001 and timeToHit<=1065
+  //else if timeToHit>=1001 and timeToHit<=1065
+  else if timeToHit>1000 and timeToHit<=1065 //60fps change: covers every frame of the first tick, so the warning fades in fully
   {
     image_alpha+=0.01*gDeltaTime
   }

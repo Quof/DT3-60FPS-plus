@@ -79,6 +79,7 @@ if room=rEnd_PartA //----- [] End A -----
 
   if explosionsBehind>0 and explosionsBehind<9 //Explosion effect while Chao escapes
   {
+    if gDeltaDoTicks //60fps change (added): explosions spawn once per 30fps tick (per frame was 2x/4x as many at 60/120fps)
     for(i=0;i<explosionsBehind;i+=1)
     {
       var tEffect;
@@ -92,6 +93,7 @@ if room=rEnd_PartA //----- [] End A -----
   }
   else if explosionsBehind=100
   {
+    if gDeltaDoTicks //60fps change (added): explosions spawn once per 30fps tick (per frame was 2x/4x as many at 60/120fps)
     for(i=0;i<4;i+=1)
     {
       var tEffect;
@@ -133,7 +135,8 @@ else if room=rEnd_PartB //----- [] End B -----
       shipWhite+=4*gDeltaTime
       if shipWhite>20 {shipExplode=0}
       if shipWhite=136 {with oMisc {instance_destroy()}}
-      else if shipWhite>=137 {whiteAlpha-=0.02}
+      //else if shipWhite>=137 {whiteAlpha-=0.02}
+      else if shipWhite>=137 {whiteAlpha-=0.02*gDeltaTime} //60fps change: the white flash faded 2x/4x too fast at 60/120fps
     }
     if sceneDelay>=170 {sceneDelay=0; sceneProgress+=1}
   }
@@ -146,7 +149,8 @@ else if room=rEnd_PartB //----- [] End B -----
     }
   }
 
-  if shipExplode=1
+  //if shipExplode=1
+  if shipExplode=1 and gDeltaDoTicks //60fps change: explosions and the sound counter once per 30fps tick (per frame was 2x/4x as many at 60/120fps)
   {
     for(i=0;i<4;i+=1)
     {

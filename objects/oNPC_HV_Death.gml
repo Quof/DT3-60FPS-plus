@@ -27,6 +27,7 @@ if eventProg=1
   {
     image_alpha-=0.05*gDeltaTime
     var tFFScl,tEffect;
+    if gDeltaDoTicks //60fps change (added): fireflies spawn once per 30fps tick (per frame was 2x/4x as many at 60/120fps)
     for(i=0;i<3;i+=1)
     {
       tFFScl=random(0.1)

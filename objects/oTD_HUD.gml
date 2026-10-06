@@ -85,7 +85,8 @@ if global.optShowHUD=1
     textDropShadow(tiStat_FireRate,turretWinX+74,turretWinY+35,make_color_rgb(255,248,155),make_color_rgb(16,8,8),1)
   }
 
-  if room_speed=60
+  //if room_speed=60
+  if room_speed=global.gameFrameRate*2 //60fps change: the speed-up doubles the current frame rate now, so "2x" showed all the time at 60fps and never at 120fps
   {
     draw_set_alpha(1)
     draw_set_font(fnt_PauseMenuText)

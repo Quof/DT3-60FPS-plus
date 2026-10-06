@@ -498,7 +498,8 @@ else if global.gameProgress=4030 and room=rHPF_N //----- [] Red overlay and Bloo
   else if sceneProgress=1
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay>=1 and sceneDelay<=40
+    //if sceneDelay>=1 and sceneDelay<=40
+    if sceneDelay>0 and sceneDelay<=40 //60fps change: covers every frame of the first tick, so it runs its full length
     {
       oScreenColorOverlay.image_alpha+=0.0025*gDeltaTime
     }
@@ -533,7 +534,8 @@ else if global.gameProgress=4030 and room=rHPF_N //----- [] Red overlay and Bloo
       var enemyBarrier;
       enemyBarrier=instance_create(1328,192,oSolidVirusBlock); enemyBarrier.image_yscale=8
     }
-    else if sceneDelay>=2 and sceneDelay<=41
+    //else if sceneDelay>=2 and sceneDelay<=41
+    else if sceneDelay>1 and sceneDelay<=41 //60fps change: covers every frame of the first tick, so it runs its full length
     {
       oScreenColorOverlay.image_alpha+=0.0025*gDeltaTime
     }
@@ -573,7 +575,8 @@ else if global.gameProgress=4040 and room=rHPF_O //----- [] Red overlay -----
   else if sceneProgress=1
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay>=1 and sceneDelay<=40
+    //if sceneDelay>=1 and sceneDelay<=40
+    if sceneDelay>0 and sceneDelay<=40 //60fps change: covers every frame of the first tick, so it runs its full length
     {
       oScreenColorOverlay.image_alpha+=0.0025*gDeltaTime
     }
@@ -595,7 +598,8 @@ else if global.gameProgress=4050 and room=rHPF_P //----- [] Virus door -----
   else if sceneProgress=1
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay>=1 and sceneDelay<=40
+    //if sceneDelay>=1 and sceneDelay<=40
+    if sceneDelay>0 and sceneDelay<=40 //60fps change: covers every frame of the first tick, so it runs its full length
     {
       oScreenColorOverlay.image_alpha+=0.0025*gDeltaTime
     }
@@ -679,7 +683,8 @@ else if global.gameProgress=4060 and room=rHPF_R //----- [] Blood Virus trap ---
 
   if sceneProgress>=1
   {
-    sentrySpawn+=1
+    //sentrySpawn+=1
+    sentrySpawn+=1*gDeltaTime //60fps change: the sentry/injector reinforcements came 2x/4x as often at 60/120fps
     if sentrySpawn>=1350
     {
       var tNewEnemy;
@@ -742,7 +747,8 @@ else if global.gameProgress=4080 and room=rHPF_U //----- [6] Sera's Intro -----
       npcSera=instance_create(416,174,oNPC_Sera)
       npcSera.image_xscale=-1; npcSera.image_alpha=0
     }
-    else if sceneDelay>=21 and sceneDelay<=70 {npcSera.image_alpha+=0.005*gDeltaTime}
+    //else if sceneDelay>=21 and sceneDelay<=70 {npcSera.image_alpha+=0.005*gDeltaTime}
+    else if sceneDelay>20 and sceneDelay<=70 {npcSera.image_alpha+=0.005*gDeltaTime} //60fps change: covers every frame of the first tick, so it runs its full length
     else if sceneDelay>=71 and sceneDelay<=120
     {
       npcSera.image_alpha+=0.1*gDeltaTime
@@ -874,8 +880,10 @@ else if global.gameProgress=4090 and room=rHPF_U //----- [Unskippable] Boss Figh
         else if sceneDelay=149 {musicFade=global.optMusic*100}
         else if sceneDelay>=150
         {
-          musicFade-=30
-          fadeVolume(global.msc_GiantEnemyRobot,30)
+          //musicFade-=30
+          musicFade-=30*gDeltaTime //60fps change: per-frame music fade, so it faded 2x/4x too fast at 60/120fps
+          //fadeVolume(global.msc_GiantEnemyRobot,30)
+          fadeVolume(global.msc_GiantEnemyRobot,30*gDeltaTime) //60fps change: per-frame music fade, so it faded 2x/4x too fast at 60/120fps
           if musicFade<=7000
           {
             stopAllMusic()
@@ -887,7 +895,8 @@ else if global.gameProgress=4090 and room=rHPF_U //----- [Unskippable] Boss Figh
       else if sceneProgress=3
       {
         sceneDelay+=1*gDeltaTime
-        if sceneDelay>=1 and sceneDelay<=32 {oNPC_Sera.y+=2}
+        //if sceneDelay>=1 and sceneDelay<=32 {oNPC_Sera.y+=2}
+        if sceneDelay>0 and sceneDelay<=32 {oNPC_Sera.y+=2*gDeltaTime} //60fps change: Sera dropped 2x/4x too far at 60/120fps; also covers every frame of the first tick
         else if sceneDelay=33
         {
           playSound(global.snd_Slam,0,0.88,1)
@@ -1065,7 +1074,8 @@ else if global.gameProgress=4100 and room=rHPF_V //----- [7] Shutting down the V
         pChip[i].image_speed=0; pChip[i].type=1
       }
     }
-    else if sceneDelay>=11 and sceneDelay<=80
+    //else if sceneDelay>=11 and sceneDelay<=80
+    else if sceneDelay>10 and sceneDelay<=80 //60fps change: covers every frame of the first tick, so it runs its full length
     {
       for(i=0;i<6;i+=1)
       {
@@ -1177,7 +1187,8 @@ else if global.gameProgress=4100 and room=rHPF_V //----- [7] Shutting down the V
         sceneDelay=100
       }
     }
-    else if sceneDelay>=141 and sceneDelay<=190 {fadeAlpha-=0.02*gDeltaTime}
+    //else if sceneDelay>=141 and sceneDelay<=190 {fadeAlpha-=0.02*gDeltaTime}
+    else if sceneDelay>140 and sceneDelay<=190 {fadeAlpha-=0.02*gDeltaTime} //60fps change: covers every frame of the first tick, so it runs its full length
     else if sceneDelay>=210
     {
       var tempMplay;
@@ -1194,7 +1205,8 @@ else if global.gameProgress=4100 and room=rHPF_V //----- [7] Shutting down the V
   {
     sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {charClaire.sprite_index=sClaireWalk; charClaire.image_speed=0.33}
-    else if sceneDelay>=2 and sceneDelay<=11 {charClaire.x+=7*gDeltaTime}
+    //else if sceneDelay>=2 and sceneDelay<=11 {charClaire.x+=7*gDeltaTime}
+    else if sceneDelay>1 and sceneDelay<=11 {charClaire.x+=7*gDeltaTime} //60fps change: covers every frame of the first tick, so it runs its full length
     if sceneDelay=8
     {
       enemyBarrier=instance_create(48,224,oEnemyBarrier); enemyBarrier.image_yscale=4
@@ -1271,7 +1283,8 @@ else if global.gameProgress=4110 and room=rHPF_V //----- [] Jerry is trapped ---
       else if sceneDelay=90 {charJerry.sprite_index=sJerryDamaged}
       else if sceneDelay>=91 and sceneDelay<=218
       {
-        charJerry.y-=0.5
+        //charJerry.y-=0.5
+        if gDeltaDoTicks {charJerry.y-=0.5} //60fps change: per-tick rise like the soul below; per frame Jerry rose 2x/4x too far at 60/120fps
         if sceneDelay=160
         {
           msgCreate(0,0,"Hex","Now why would I do something like that?",0,2,oMessagePerson,0)
@@ -1408,7 +1421,8 @@ else if global.gameProgress=4110 and room=rHPF_V //----- [] Jerry is trapped ---
         msgCreate(0,0,"Jeremy","I'll keep Jerry safe.",0,1,oMessagePerson,0)
         newMessage.fadingTime=70
       }
-      else if sceneDelay>=531 and sceneDelay<=570
+      //else if sceneDelay>=531 and sceneDelay<=570
+      else if sceneDelay>530 and sceneDelay<=570 //60fps change: covers every frame of the first tick, so it runs its full length
       {
         charJerry.image_alpha-=0.025*gDeltaTime
       }
@@ -1452,9 +1466,11 @@ else if global.gameProgress=4120 and room=rHPF_U //----- [Unskippable] Enemy Tra
           tempMplay=findMusic(809)
           playMusic(tempMplay,0,0)
         }
-        else if sceneDelay>=11 and sceneDelay<=110
+        //else if sceneDelay>=11 and sceneDelay<=110
+        else if sceneDelay>10 and sceneDelay<=110 //60fps change: covers every frame of the first tick, so it runs its full length
         {
           var tEffect;
+          if gDeltaDoTicks { //60fps change (added): poison clouds spawn once per 30fps tick (per frame was 2x/4x as many at 60/120fps)
           for(i=0;i<2;i+=1)
           {
             tEffect=instance_create(eImageDrop.x+random_range(-9,9),eImageDrop.y-random(72*image_yscale),oEffectGrav)
@@ -1462,6 +1478,7 @@ else if global.gameProgress=4120 and room=rHPF_U //----- [Unskippable] Enemy Tra
             tEffect.fadeSpd=0.05; tEffect.newBlend=-1; tEffect.image_xscale=0.75; tEffect.image_yscale=0.75
             tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=random_range(-2,2); tEffect.ySpd=-5-random(2); tEffect.type=1
           }
+          } //60fps change (added)
           eImageDrop.image_yscale+=0.01*gDeltaTime
         }
         else if sceneDelay>=120 {sceneDelay=0; sceneProgress+=1}
@@ -1617,7 +1634,8 @@ else if room=rCCity_NA_S1 and global.gameProgress=4190 //----- [8] Waking up Jer
   else if sceneProgress=18
   {
     sceneDelay+=1*gDeltaTime
-    if sceneDelay>=20 and sceneDelay<=90
+    //if sceneDelay>=20 and sceneDelay<=90
+    if sceneDelay>=20 and sceneDelay<=90 and gDeltaDoTicks //60fps change: effects spawn once per 30fps tick (per frame was 2x/4x as many at 60/120fps)
     {
       var tEfJS,tDir;
       tDir=random(360)

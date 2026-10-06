@@ -184,7 +184,8 @@ if global.gameProgress=1760 and room=rMega4_Gate //----- [Unskippable] Intro to 
   {
     triAng+=2*gDeltaTime
     sceneDelay+=1*gDeltaTime
-    if sceneDelay>=31 and sceneDelay<=350 //X floats up
+    //if sceneDelay>=31 and sceneDelay<=350 //X floats up
+    if sceneDelay>30 and sceneDelay<=350 //X floats up //60fps change: covers every frame of each window's first tick in this scene (here and below), so the movements, fades and scales finish where they do at 30fps
     {
       if sceneDelay>=95 and sceneDelay mod 11=0 //Flash Tri-Flash
       {
@@ -218,7 +219,8 @@ if global.gameProgress=1760 and room=rMega4_Gate //----- [Unskippable] Intro to 
       drawType=1
     }
 
-    if sceneDelay>=171 and sceneDelay<=379 //Charge effect scale down
+    //if sceneDelay>=171 and sceneDelay<=379 //Charge effect scale down
+    if sceneDelay>170 and sceneDelay<=379 //Charge effect scale down //60fps change: see above
     {
       efCharge.x=npcMMX.x; efCharge.y=npcMMX.y-20
       efCharge.image_xscale-=0.019*gDeltaTime; efCharge.image_yscale-=0.019*gDeltaTime
@@ -301,12 +303,14 @@ if global.gameProgress=1760 and room=rMega4_Gate //----- [Unskippable] Intro to 
       newMessage.fadingTime=60
     }
 
-    if sceneDelay>=1281 and sceneDelay<=1510 //Circle size increase (Slow)
+    //if sceneDelay>=1281 and sceneDelay<=1510 //Circle size increase (Slow)
+    if sceneDelay>1280 and sceneDelay<=1510 //Circle size increase (Slow) //60fps change: see above
     {
       if circleAlpha<1 {circleAlpha+=0.05*gDeltaTime}
       if circleSize<80 {circleSize+=0.25*gDeltaTime}
     }
-    else if sceneDelay>=1511 and sceneDelay<=1630 //Circle size increase (Fast)
+    //else if sceneDelay>=1511 and sceneDelay<=1630 //Circle size increase (Fast)
+    else if sceneDelay>1510 and sceneDelay<=1630 //Circle size increase (Fast) //60fps change: see above
     {
       circleSize+=3.5*gDeltaTime
       triDist+=1*gDeltaTime
@@ -333,7 +337,8 @@ if global.gameProgress=1760 and room=rMega4_Gate //----- [Unskippable] Intro to 
     {
       if circleAlpha>0 {circleAlpha-=0.04*gDeltaTime}
     }
-    else if sceneDelay>=1681 and sceneDelay<=1760 //Bring Tri-Flash in
+    //else if sceneDelay>=1681 and sceneDelay<=1760 //Bring Tri-Flash in
+    else if sceneDelay>1680 and sceneDelay<=1760 //Bring Tri-Flash in //60fps change: see above
     {
       if sceneDelay=1681
       {
@@ -362,7 +367,8 @@ if global.gameProgress=1760 and room=rMega4_Gate //----- [Unskippable] Intro to 
       msgCreate(0,0,"X","AND SAVE IT!",6,3,oMessagePerson,0)
       newMessage.fadingTime=60
     }
-    else if sceneDelay>=1911 and sceneDelay<=1920 {npcMMX.image_alpha-=0.1*gDeltaTime} //MMX fade out
+    //else if sceneDelay>=1911 and sceneDelay<=1920 {npcMMX.image_alpha-=0.1*gDeltaTime} //MMX fade out
+    else if sceneDelay>1910 and sceneDelay<=1920 {npcMMX.image_alpha-=0.1*gDeltaTime} //MMX fade out //60fps change: see above (X stayed faintly visible at 0.05/0.075 alpha at 60/120fps)
 
     if sceneDelay=1911 //Normal ability notice
     {
@@ -372,7 +378,8 @@ if global.gameProgress=1760 and room=rMega4_Gate //----- [Unskippable] Intro to 
       abilNotice.image_speed=0; abilNotice.depth=15; abilNotice.type=1
       abilNotice.image_xscale=4; abilNotice.image_yscale=4; abilNotice.image_alpha=0.75
     }
-    else if sceneDelay>=1912 and sceneDelay<=1951
+    //else if sceneDelay>=1912 and sceneDelay<=1951
+    else if sceneDelay>1911 and sceneDelay<=1951 //60fps change: see above
     {
       abilNotice.image_xscale-=0.1*gDeltaTime
       abilNotice.image_yscale-=0.1*gDeltaTime
@@ -756,7 +763,8 @@ else if room=rMega4_StormC //----- [Unskippable] Bit appears and destroys canist
         npcBitB=instance_create(132,288,oMisc)
         npcBitB.sprite_index=sBit_ArmUp; npcBitB.image_speed=0; npcBitB.type=1; npcBitB.image_alpha=0
       }
-      else if sceneDelay>=26 and sceneDelay<=46
+      //else if sceneDelay>=26 and sceneDelay<=46
+      else if sceneDelay>25 and sceneDelay<=46 //60fps change: covers every frame of tick 26
       {
         npcBitA.x+=1*gDeltaTime; npcBitA.image_alpha+=0.05*gDeltaTime
         npcBitB.x-=1*gDeltaTime; npcBitB.image_alpha+=0.05*gDeltaTime
@@ -792,6 +800,7 @@ else if room=rMega4_StormC //----- [Unskippable] Bit appears and destroys canist
       }
       else if sceneDelay>=21 and sceneDelay<=60
       {
+        if gDeltaDoTicks { //60fps change (added): one sparkle per 30fps tick (was 2x/4x as many at 60/120fps)
         var tFFScl,tEffect;
         tFFScl=random(0.15)
         tEffect=instance_create(npcBitA.x+18,npcBitA.y-47,oEffectB)
@@ -800,6 +809,7 @@ else if room=rMega4_StormC //----- [Unskippable] Bit appears and destroys canist
         tEffect.direction=random(360); tEffect.speed=random(1)+1; tEffect.friction=random(0.03)+0.03
         tEffect.fadeSpd=0.02; tEffect.image_blend=make_color_rgb(225,225,random(60))
         tEffect.AccelX=0; tEffect.AccelY=0; tEffect.followID=-1; tEffect.rotation=0
+        } //60fps change (added)
       }
       else if sceneDelay=61
       {
@@ -1599,7 +1609,8 @@ else if room=rMega4_ToxicJungleE //----- [Unskippable] Boss Fight: Gravity Beetl
       else if sceneProgress=5
       {
         sceneDelay+=1*gDeltaTime
-        if sceneDelay>=15 and sceneDelay<=60
+        //if sceneDelay>=15 and sceneDelay<=60
+        if sceneDelay>=15 and sceneDelay<=60 and gDeltaDoTicks //60fps change: 3 smoke clouds per 30fps tick (they were spawned every frame, 2x/4x as many at 60/120fps)
         {
           for(i=0;i<3;i+=1)
           {
@@ -1935,7 +1946,8 @@ else if room=rMega4_StormB //Wasp Bot fight
       {
         if !instance_exists(cannonSpawn[i])
         {
-          cannonTime[i]-=1
+          //cannonTime[i]-=1
+          cannonTime[i]-=1*gDeltaTime //60fps change: the Turn Cannons respawned 2x/4x too soon at 60/120fps
           if cannonTime[i]=30
           {
             var tEffect;
@@ -2026,7 +2038,8 @@ if global.tempAction[0]>=1
     oPlayer1.sprite_index=sPlayerDiscombobulate; oPlayer1.image_speed=0
   }
   else if beamDownProg=30 {readyText=1}
-  else if beamDownProg>30 and beamDownProg<=69 {readyWidth+=1}
+  //else if beamDownProg>30 and beamDownProg<=69 {readyWidth+=1}
+  else if beamDownProg>30 and beamDownProg<=69 {readyWidth+=1*gDeltaTime} //60fps change: the READY text was revealed 2x/4x too fast at 60/120fps
   else if beamDownProg>=80 and beamDownProg<120
   {
     if beamDownProg mod 8=0

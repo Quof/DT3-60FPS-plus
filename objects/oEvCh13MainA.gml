@@ -236,7 +236,8 @@ else if global.gameProgress=2690 and room=rSamus5_Lv1_D and global.gamePaused=fa
     else if sceneProgress=1
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay>=1 and sceneDelay<=90
+      //if sceneDelay>=1 and sceneDelay<=90
+      if sceneDelay>=1 and sceneDelay<=90 and gDeltaDoTicks //60fps change: effects spawn once per 30fps tick (per frame was 2x/4x as many at 60/120fps)
       {
         if sceneDelay mod 4=0 {playSound(global.snd_EnemyDieMM,0,1,1)}
         var tEffect;
@@ -250,7 +251,8 @@ else if global.gameProgress=2690 and room=rSamus5_Lv1_D and global.gamePaused=fa
         tile_layer_hide(8)
         boss=instance_create(480,-64,oRidleyFirst); boss.image_xscale=-1
       }
-      else if sceneDelay>=92 and sceneDelay<=115 {oRidleyFirstParts.image_xscale=-1; boss.y+=8*gDeltaTime}
+      //else if sceneDelay>=92 and sceneDelay<=115 {oRidleyFirstParts.image_xscale=-1; boss.y+=8*gDeltaTime}
+      else if sceneDelay>91 and sceneDelay<=115 {oRidleyFirstParts.image_xscale=-1; boss.y+=8*gDeltaTime} //60fps change: covers every frame of the first tick, so it runs its full length
       else if sceneDelay=121 {boss.ridParts[0].image_index=1; playSound(global.snd_RidleyScreamA,0,0.98,1)}
       else if sceneDelay=124 {boss.ridParts[0].image_index=2}
       else if sceneDelay=144 {boss.ridParts[0].image_index=1}
@@ -305,7 +307,8 @@ else if global.gameProgress=2710 and room=rSamus5_Lv1_E and global.gamePaused=fa
   {
     sceneDelay+=1*gDeltaTime
     if sceneDelay=1 {with oMetRipper {instance_destroy()}}
-    if sceneDelay>=15 and sceneDelay<=40
+    //if sceneDelay>=15 and sceneDelay<=40
+    if sceneDelay>=15 and sceneDelay<=40 and gDeltaDoTicks //60fps change: effects spawn once per 30fps tick (per frame was 2x/4x as many at 60/120fps)
     {
       if sceneDelay mod 4=0 {playSound(global.snd_EnemyDieMM,0,1,1)}
       var tEffect;
@@ -319,7 +322,8 @@ else if global.gameProgress=2710 and room=rSamus5_Lv1_E and global.gamePaused=fa
       tile_layer_hide(8)
     }
     else if sceneDelay=42 {boss=instance_create(368,-64,oRidleyFirst); boss.image_xscale=-1}
-    else if sceneDelay>=43 and sceneDelay<=66 {oRidleyFirstParts.image_xscale=-1; boss.y+=8*gDeltaTime}
+    //else if sceneDelay>=43 and sceneDelay<=66 {oRidleyFirstParts.image_xscale=-1; boss.y+=8*gDeltaTime}
+    else if sceneDelay>42 and sceneDelay<=66 {oRidleyFirstParts.image_xscale=-1; boss.y+=8*gDeltaTime} //60fps change: covers every frame of the first tick, so it runs its full length
     else if sceneDelay>=67
     {
       with oRidDoorBeacon {bActive=1}
@@ -391,7 +395,8 @@ else if global.gameProgress=2720 and room=rSamus5_Lv1_F and global.gamePaused=fa
       with oMetSkree {instance_destroy()}
       with oMetSmallSidehopper {instance_destroy()}
     }
-    else if sceneDelay>=15 and sceneDelay<=40
+    //else if sceneDelay>=15 and sceneDelay<=40
+    else if sceneDelay>=15 and sceneDelay<=40 and gDeltaDoTicks //60fps change: effects spawn once per 30fps tick (per frame was 2x/4x as many at 60/120fps)
     {
       if sceneDelay mod 4=0 {playSound(global.snd_EnemyDieMM,0,1,1)}
       var tEffect;
@@ -408,7 +413,8 @@ else if global.gameProgress=2720 and room=rSamus5_Lv1_F and global.gamePaused=fa
       }
     }
     else if sceneDelay=42 {boss=instance_create(-48,64,oRidleyFirst)}
-    else if sceneDelay>=43 and sceneDelay<=66 { boss.x+=8*gDeltaTime}
+    //else if sceneDelay>=43 and sceneDelay<=66 { boss.x+=8*gDeltaTime}
+    else if sceneDelay>42 and sceneDelay<=66 { boss.x+=8*gDeltaTime} //60fps change: covers every frame of the first tick, so it runs its full length
     else if sceneDelay>=67
     {
       with oRidDoorBeacon {bActive=1}
@@ -867,7 +873,8 @@ else if room=rSamus5_Lv2_S //----- [] Diffusion Missile -----
     else if sceneProgress=1
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay>=1 and sceneDelay<=45
+      //if sceneDelay>=1 and sceneDelay<=45
+      if sceneDelay>=1 and sceneDelay<=45 and gDeltaDoTicks //60fps change: effects spawn once per 30fps tick (per frame was 2x/4x as many at 60/120fps)
       {
         for(i=0;i<3;i+=1)
         {
@@ -1005,6 +1012,7 @@ else if room=rSamus5_Lv1_Boss and global.gamePaused=false //----- [] Boss Fight:
       else if sceneProgress=2
       {
         var tEffect;
+        if gDeltaDoTicks { //60fps change (added): rocks and smoke spawn once per 30fps tick (per frame was 2x/4x as many at 60/120fps)
         tEffect=instance_create(112+random(160),400+random(8),oEffectGrav)
         tEffect.sprite_index=sKraidRock; tEffect.type=2; tEffect.fadeSpd=0.04; tEffect.rotation=0; tEffect.grav=0.25
         tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=random_range(-2,2); tEffect.ySpd=-3-random(2)
@@ -1012,6 +1020,7 @@ else if room=rSamus5_Lv1_Boss and global.gamePaused=false //----- [] Boss Fight:
         tEffect=instance_create(112+random(160),400+random(4),oEffect)
         tEffect.sprite_index=sMMSmokeCloud; tEffect.image_speed=0.5; tEffect.image_alpha=0.6
         tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+        } //60fps change (added)
         boss.segBody.y-=1*gDeltaTime
         if boss.y<=133 {sceneProgress+=1}
       }
@@ -1075,7 +1084,8 @@ else if room=rSamus5_Lv2_U //----- [] Map before Arachnus -----
     else if sceneProgress=1
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay>=1 and sceneDelay<=45
+      //if sceneDelay>=1 and sceneDelay<=45
+      if sceneDelay>=1 and sceneDelay<=45 and gDeltaDoTicks //60fps change: effects spawn once per 30fps tick (per frame was 2x/4x as many at 60/120fps)
       {
         for(i=0;i<3;i+=1)
         {
@@ -1089,7 +1099,8 @@ else if room=rSamus5_Lv2_U //----- [] Map before Arachnus -----
         var tEnemySpawn;
         tEnemySpawn=instance_create(1408,304,oMetSidehopper); tEnemySpawn.bStrong=1
       }
-      if sceneDelay>=31 and sceneDelay<=75
+      //if sceneDelay>=31 and sceneDelay<=75
+      if sceneDelay>=31 and sceneDelay<=75 and gDeltaDoTicks //60fps change: effects spawn once per 30fps tick (per frame was 2x/4x as many at 60/120fps)
       {
         for(i=0;i<3;i+=1)
         {
@@ -1112,7 +1123,8 @@ else if room=rSamus5_Lv2_U //----- [] Map before Arachnus -----
     else if sceneProgress=3
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay>=1 and sceneDelay<=45
+      //if sceneDelay>=1 and sceneDelay<=45
+      if sceneDelay>=1 and sceneDelay<=45 and gDeltaDoTicks //60fps change: effects spawn once per 30fps tick (per frame was 2x/4x as many at 60/120fps)
       {
         for(i=0;i<3;i+=1)
         {
@@ -1307,13 +1319,15 @@ else if room=rSamus5_Lv3_Boss and global.gamePaused=false //----- [] Boss Fight:
       {
         sceneDelay+=1*gDeltaTime
         if sceneDelay=1 {fadeColor=c_black}
-        else if sceneDelay>=11 and sceneDelay<=60 {fadeAlpha+=0.02*gDeltaTime}
+        //else if sceneDelay>=11 and sceneDelay<=60 {fadeAlpha+=0.02*gDeltaTime}
+        else if sceneDelay>10 and sceneDelay<=60 {fadeAlpha+=0.02*gDeltaTime} //60fps change: covers every frame of the first tick, so it runs its full length
         else if sceneDelay=70
         {
           boss=instance_create(240,0,oKingWorm)
           with oEnemyBase {bCanDealDamage=false}
         }
-        else if sceneDelay>=81 and sceneDelay<=130 {fadeAlpha-=0.02*gDeltaTime}
+        //else if sceneDelay>=81 and sceneDelay<=130 {fadeAlpha-=0.02*gDeltaTime}
+        else if sceneDelay>80 and sceneDelay<=130 {fadeAlpha-=0.02*gDeltaTime} //60fps change: covers every frame of the first tick, so it runs its full length
         else if sceneDelay>=170
         {
           boss.y+=4*gDeltaTime
@@ -1513,7 +1527,8 @@ else if global.gameProgress=3000 and room=rSamus5_Lv4_FinalBoss //----- [6] Boss
     else if sceneProgress=3
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay>=1 and sceneDelay<=60
+      //if sceneDelay>=1 and sceneDelay<=60
+      if sceneDelay>0 and sceneDelay<=60 //60fps change: covers every frame of the first tick, so it runs its full length
       {
         with oEnemyBase {image_alpha+=0.025*gDeltaTime}
         npcHex.image_alpha+=0.025*gDeltaTime
@@ -1531,7 +1546,8 @@ else if global.gameProgress=3000 and room=rSamus5_Lv4_FinalBoss //----- [6] Boss
     else if sceneProgress=8
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay>=30 and sceneDelay<=90
+      //if sceneDelay>=30 and sceneDelay<=90
+      if sceneDelay>=30 and sceneDelay<=90 and gDeltaDoTicks //60fps change: effects spawn once per 30fps tick (per frame was 2x/4x as many at 60/120fps)
       {
         if sceneDelay=60
         {
@@ -1554,7 +1570,8 @@ else if global.gameProgress=3000 and room=rSamus5_Lv4_FinalBoss //----- [6] Boss
     else if sceneProgress=11
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay>=11 and sceneDelay<=70 {npcHex.image_alpha-=0.025*gDeltaTime}
+      //if sceneDelay>=11 and sceneDelay<=70 {npcHex.image_alpha-=0.025*gDeltaTime}
+      if sceneDelay>10 and sceneDelay<=70 {npcHex.image_alpha-=0.025*gDeltaTime} //60fps change: covers every frame of the first tick, so Hex fades out fully (stayed faintly visible)
       else if sceneDelay=90 {boss.ridParts[0].image_index=1}
       else if sceneDelay=94 {boss.ridParts[0].image_index=2; playSound(global.snd_RidleyScreamA,0,0.98,1)}
       else if sceneDelay=134 {boss.ridParts[0].image_index=1}
@@ -1604,7 +1621,8 @@ else if room=rSamus5_Lv4_RidleyTunnel and global.gamePaused=false //----- [] Bos
   oPlayer1.y=208
   oPlayer1.yVelLimit=0
   oPlayer1.yAccLimit=0
-  if instance_exists(oSamusBomb) {oSamusBomb.y-=12}
+  //if instance_exists(oSamusBomb) {oSamusBomb.y-=12}
+  if instance_exists(oSamusBomb) {oSamusBomb.y-=12*gDeltaTime} //60fps change: bombs were pushed up 2x/4x too fast at 60/120fps
   sceneDelay+=1*gDeltaTime
   if sceneDelay mod 39=0 {instance_create(0,room_height,oRidleyTunnelLights)}
   
@@ -1624,7 +1642,8 @@ else if room=rSamus5_Lv4_RidleyTunnel and global.gamePaused=false //----- [] Bos
       tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
     }}
     fadeAlpha-=0.05*gDeltaTime
-    if fadeAlpha=0 {sceneProgress+=1}
+    //if fadeAlpha=0 {sceneProgress+=1}
+    if fadeAlpha<=0 {sceneProgress+=1} //60fps change: smaller steps may not land exactly on 0
   }
   else if sceneProgress=2
   {
@@ -1858,13 +1877,15 @@ else if room=rSamus5_VentShaft //----- [] Getting the Program Chip -----
       if sceneDelay>=30
       {
         fadeAlpha-=0.05*gDeltaTime
-        if fadeAlpha=0 {sceneProgress+=1}
+        //if fadeAlpha=0 {sceneProgress+=1}
+        if fadeAlpha<=0 {sceneProgress+=1} //60fps change: smaller steps may not land exactly on 0
       }
     }
     else if sceneProgress=2
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay>=30
+      //if sceneDelay>=30
+      if sceneDelay>=30 and gDeltaDoTicks //60fps change: effects spawn once per 30fps tick (per frame was 2x/4x as many at 60/120fps)
       {
         if sceneDelay mod 8=0 {playSound(global.snd_EnemyDieMM,0,1,1)}
         var tEffect;
@@ -1893,7 +1914,8 @@ else if room=rSamus5_VentShaft //----- [] Getting the Program Chip -----
     else if sceneProgress=3
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay>=1 and sceneDelay<=56 {oPlayer1.x+=2*gDeltaTime}
+      //if sceneDelay>=1 and sceneDelay<=56 {oPlayer1.x+=2*gDeltaTime}
+      if sceneDelay>0 and sceneDelay<=56 {oPlayer1.x+=2*gDeltaTime} //60fps change: covers every frame of the first tick, so it runs its full length
       oPlayer1.y+=playerMoveY*gDeltaTime
       playerMoveY+=0.3*gDeltaTime
       if oPlayer1.y>=320 and playerMoveY>0
@@ -1920,14 +1942,17 @@ else if room=rSamus5_VentShaft //----- [] Getting the Program Chip -----
         pChip.chipType=4
         pChip.visible=0
       }
-      else if sceneDelay>=21 and sceneDelay<=35
+      //else if sceneDelay>=21 and sceneDelay<=35
+      else if sceneDelay>20 and sceneDelay<=35 //60fps change: covers every frame of the first tick, so it runs its full length
       {
         circleRad+=2*gDeltaTime
         if sceneDelay=25
           pChip.visible=1
       }
-      else if sceneDelay>=36 and sceneDelay<=50
-        circleRad-=2
+      //else if sceneDelay>=36 and sceneDelay<=50
+      else if sceneDelay>35 and sceneDelay<=50 //60fps change: covers every frame of the first tick, so it runs its full length
+        //circleRad-=2
+        circleRad-=2*gDeltaTime //60fps change: the ring shrank 2x/4x too fast at 60/120fps
       else if sceneDelay>=75 {sceneDelay=0; sceneProgress+=1}
     }
     else if sceneProgress=8

@@ -75,15 +75,18 @@ if global.gamePaused=false
       else if bubbTime=21 {npcBubblin.sprite_index=sBubblun_Walk; npcBubblin.image_xscale=-1}
       else if bubbTime=48 {npcBubblin.sprite_index=sBubblun_Idle}
       else if bubbTime=53 {event_user(0); npcBubblin.sprite_index=sBubblun_Jump; npcBubblin.image_xscale=1}
-      else if bubbTime>=59 and bubbTime<=64
+      //else if bubbTime>=59 and bubbTime<=64
+      else if bubbTime>58 and bubbTime<=64 //60fps change: covers every frame of the window's first tick, so the move/scale is as long as at 30fps
       {
         npcBubblin.x+=4*gDeltaTime
         if bubbTime=62 {npcBubblin.sprite_index=sBubblun_Fall}
         if bubbTime=64 {npcBubblin.sprite_index=sBubblun_Idle}
       }
       else if bubbTime=71 {event_user(0); npcBubblin.sprite_index=sBubblun_Jump}
-      else if bubbTime>=85 and bubbTime<=88 {npcBubblin.x+=4*gDeltaTime}
-      else if bubbTime>=89 and bubbTime<=92
+      //else if bubbTime>=85 and bubbTime<=88 {npcBubblin.x+=4*gDeltaTime}
+      else if bubbTime>84 and bubbTime<=88 {npcBubblin.x+=4*gDeltaTime} //60fps change: covers every frame of the window's first tick, so the move/scale is as long as at 30fps
+      //else if bubbTime>=89 and bubbTime<=92
+      else if bubbTime>88 and bubbTime<=92 //60fps change: covers every frame of the window's first tick, so the move/scale is as long as at 30fps
       {
         npcBubblin.x+=4*gDeltaTime
         if bubbTime=89 {npcBubblin.sprite_index=sBubblun_Fall}
@@ -102,20 +105,23 @@ if global.gamePaused=false
       else if bubbTime=37 {npcBubblin.sprite_index=sBubblun_Walk; npcBubblin.image_xscale=-1}
       else if bubbTime=55 {npcBubblin.sprite_index=sBubblun_Idle}
       else if bubbTime=74 {event_user(0); npcBubblin.sprite_index=sBubblun_Jump}
-      else if bubbTime>=94 and bubbTime<=98
+      //else if bubbTime>=94 and bubbTime<=98
+      else if bubbTime>93 and bubbTime<=98 //60fps change: covers every frame of the window's first tick, so the move/scale is as long as at 30fps
       {
         npcBubblin.x-=4*gDeltaTime
         if bubbTime=95 {npcBubblin.sprite_index=sBubblun_Fall}
         if bubbTime=98 {npcBubblin.sprite_index=sBubblun_Idle}
       }
-      else if bubbTime>=107 and bubbTime<=123
+      //else if bubbTime>=107 and bubbTime<=123
+      else if bubbTime>106 and bubbTime<=123 //60fps change: covers every frame of the window's first tick, so the move/scale is as long as at 30fps
       {
         npcBubblin.x-=4*gDeltaTime
         if bubbTime=107 {event_user(0); npcBubblin.sprite_index=sBubblun_Jump}
         if bubbTime=120 {npcBubblin.sprite_index=sBubblun_Fall}
         if bubbTime=123 {npcBubblin.sprite_index=sBubblun_Idle}
       }
-      else if bubbTime>=132 and bubbTime<=147
+      //else if bubbTime>=132 and bubbTime<=147
+      else if bubbTime>131 and bubbTime<=147 //60fps change: covers every frame of the window's first tick, so the move/scale is as long as at 30fps
       {
         npcBubblin.x+=4*gDeltaTime
         if bubbTime=132 {event_user(0); npcBubblin.sprite_index=sBubblun_Jump; npcBubblin.image_xscale=1}
@@ -139,8 +145,10 @@ if global.gamePaused=false
         bubbleBub.image_speed=0; bubbleBub.type=1; bubbleBub.image_alpha=0.6; bubbleBub.depth=39
         bubbleBub.image_xscale=0.1; bubbleBub.image_yscale=0.1
       }
-      else if bubbTime>=71 and bubbTime<=82 {bubbleBub.image_xscale+=0.1*gDeltaTime; bubbleBub.image_yscale+=0.1*gDeltaTime}
-      else if bubbTime>=83 and bubbTime<=122 {bubbleBub.y-=4*gDeltaTime; npcBubblin.y-=4*gDeltaTime}
+      //else if bubbTime>=71 and bubbTime<=82 {bubbleBub.image_xscale+=0.1*gDeltaTime; bubbleBub.image_yscale+=0.1*gDeltaTime}
+      else if bubbTime>70 and bubbTime<=82 {bubbleBub.image_xscale+=0.1*gDeltaTime; bubbleBub.image_yscale+=0.1*gDeltaTime} //60fps change: covers every frame of the window's first tick, so the move/scale is as long as at 30fps
+      //else if bubbTime>=83 and bubbTime<=122 {bubbleBub.y-=4*gDeltaTime; npcBubblin.y-=4*gDeltaTime}
+      else if bubbTime>82 and bubbTime<=122 {bubbleBub.y-=4*gDeltaTime; npcBubblin.y-=4*gDeltaTime} //60fps change: covers every frame of the window's first tick, so the move/scale is as long as at 30fps
       else if bubbTime=123
       {
         var tFFScl,tEffect;
@@ -172,8 +180,10 @@ if global.gamePaused=false
         bubbleBub.image_speed=0; bubbleBub.type=1; bubbleBub.image_alpha=0.6; bubbleBub.depth=39
         bubbleBub.image_xscale=0.1; bubbleBub.image_yscale=0.1
       }
-      else if bubbTime>=61 and bubbTime<=72 {bubbleBub.image_xscale+=0.1*gDeltaTime; bubbleBub.image_yscale+=0.1*gDeltaTime}
-      else if bubbTime>=73 and bubbTime<=148 {bubbleBub.y-=4*gDeltaTime; npcBubblin.y-=4*gDeltaTime}
+      //else if bubbTime>=61 and bubbTime<=72 {bubbleBub.image_xscale+=0.1*gDeltaTime; bubbleBub.image_yscale+=0.1*gDeltaTime}
+      else if bubbTime>60 and bubbTime<=72 {bubbleBub.image_xscale+=0.1*gDeltaTime; bubbleBub.image_yscale+=0.1*gDeltaTime} //60fps change: covers every frame of the window's first tick, so the move/scale is as long as at 30fps
+      //else if bubbTime>=73 and bubbTime<=148 {bubbleBub.y-=4*gDeltaTime; npcBubblin.y-=4*gDeltaTime}
+      else if bubbTime>72 and bubbTime<=148 {bubbleBub.y-=4*gDeltaTime; npcBubblin.y-=4*gDeltaTime} //60fps change: covers every frame of the window's first tick, so the move/scale is as long as at 30fps
       else if bubbTime=149
       {
         var tFFScl,tEffect;
@@ -193,38 +203,46 @@ if global.gamePaused=false
     else if bubbProg=4 //---------- Walk toward Heart Island ----------
     {
       if bubbTime=10 {npcBubblin.sprite_index=sBubblun_Walk}
-      else if bubbTime>=45 and bubbTime<=50
+      //else if bubbTime>=45 and bubbTime<=50
+      else if bubbTime>44 and bubbTime<=50 //60fps change: covers every frame of the window's first tick, so the move/scale is as long as at 30fps
       {
         npcBubblin.x+=4*gDeltaTime
         if bubbTime=45 {event_user(0); npcBubblin.sprite_index=sBubblun_Jump}
         if bubbTime=49 {npcBubblin.sprite_index=sBubblun_Fall}
-        if bubbTime=50 {npcBubblin.sprite_index=sBubblun_Idle; npcBubblin.y+=4*gDeltaTime}
+        //if bubbTime=50 {npcBubblin.sprite_index=sBubblun_Idle; npcBubblin.y+=4*gDeltaTime}
+        if bubbTime=50 {npcBubblin.sprite_index=sBubblun_Idle; npcBubblin.y+=4} //60fps change: a one-off landing nudge, not a per-frame move
       }
       else if bubbTime=51 {npcBubblin.sprite_index=sBubblun_Walk}
-      else if bubbTime>=66 and bubbTime<=71
+      //else if bubbTime>=66 and bubbTime<=71
+      else if bubbTime>65 and bubbTime<=71 //60fps change: covers every frame of the window's first tick, so the move/scale is as long as at 30fps
       {
         npcBubblin.x+=4*gDeltaTime
         if bubbTime=66 {event_user(0); npcBubblin.sprite_index=sBubblun_Jump}
         if bubbTime=70 {npcBubblin.sprite_index=sBubblun_Fall}
-        if bubbTime=71 {npcBubblin.sprite_index=sBubblun_Idle; npcBubblin.y+=4*gDeltaTime}
+        //if bubbTime=71 {npcBubblin.sprite_index=sBubblun_Idle; npcBubblin.y+=4*gDeltaTime}
+        if bubbTime=71 {npcBubblin.sprite_index=sBubblun_Idle; npcBubblin.y+=4} //60fps change: a one-off landing nudge, not a per-frame move
       }
       else if bubbTime=72 {npcBubblin.sprite_index=sBubblun_Walk}
-      else if bubbTime>=130 and bubbTime<=148
+      //else if bubbTime>=130 and bubbTime<=148
+      else if bubbTime>129 and bubbTime<=148 //60fps change: covers every frame of the window's first tick, so the move/scale is as long as at 30fps
       {
         npcBubblin.x+=4*gDeltaTime
         if bubbTime=130 {event_user(0); npcBubblin.sprite_index=sBubblun_Jump}
         if bubbTime=138 {npcBubblin.sprite_index=sBubblun_Fall}
-        if bubbTime=148 {npcBubblin.sprite_index=sBubblun_Idle; npcBubblin.y+=4*gDeltaTime}
+        //if bubbTime=148 {npcBubblin.sprite_index=sBubblun_Idle; npcBubblin.y+=4*gDeltaTime}
+        if bubbTime=148 {npcBubblin.sprite_index=sBubblun_Idle; npcBubblin.y+=4} //60fps change: a one-off landing nudge, not a per-frame move
       }
       else if bubbTime=149 {npcBubblin.sprite_index=sBubblun_Walk}
       else if bubbTime>=150 and bubbTime<=162 and gDeltaDoTicks {npcBubblin.y-=1}
       else if bubbTime>=178 and bubbTime<=192 and gDeltaDoTicks {npcBubblin.y+=1}
-      else if bubbTime>=195 and bubbTime<=215
+      //else if bubbTime>=195 and bubbTime<=215
+      else if bubbTime>194 and bubbTime<=215 //60fps change: covers every frame of the window's first tick, so the move/scale is as long as at 30fps
       {
         npcBubblin.x+=4*gDeltaTime
         if bubbTime=195 {event_user(0); npcBubblin.sprite_index=sBubblun_Jump}
         if bubbTime=203 {npcBubblin.sprite_index=sBubblun_Fall}
-        if bubbTime=215 {npcBubblin.sprite_index=sBubblun_Idle; npcBubblin.y+=4*gDeltaTime}
+        //if bubbTime=215 {npcBubblin.sprite_index=sBubblun_Idle; npcBubblin.y+=4*gDeltaTime}
+        if bubbTime=215 {npcBubblin.sprite_index=sBubblun_Idle; npcBubblin.y+=4} //60fps change: a one-off landing nudge, not a per-frame move
       }
       else if bubbTime=216 {npcBubblin.sprite_index=sBubblun_Walk}
       else if bubbTime>=220 and bubbTime<=235 and gDeltaDoTicks {npcBubblin.y-=1}
@@ -261,13 +279,15 @@ if global.gamePaused=false
       else if loveTime=87 {npcLovelun.sprite_index=sLovelun_Fall}
       else if loveTime=91 {npcLovelun.sprite_index=sLovelun_Idle}
       else if loveTime=96 {event_user(1); npcLovelun.sprite_index=sLovelun_Jump}
-      else if loveTime>=111 and loveTime<=114
+      //else if loveTime>=111 and loveTime<=114
+      else if loveTime>110 and loveTime<=114 //60fps change: covers every frame of the window's first tick, so the move/scale is as long as at 30fps
       {
         npcLovelun.x-=4*gDeltaTime
         if loveTime=111 {npcLovelun.sprite_index=sLovelun_Fall}
         if loveTime=114 {npcLovelun.sprite_index=sLovelun_Idle; npcLovelun.image_xscale=1}
       }
-      else if loveTime>=118 and loveTime<=134
+      //else if loveTime>=118 and loveTime<=134
+      else if loveTime>117 and loveTime<=134 //60fps change: covers every frame of the window's first tick, so the move/scale is as long as at 30fps
       {
         npcLovelun.x+=4*gDeltaTime
         if loveTime=118 {event_user(1); npcLovelun.sprite_index=sLovelun_Jump}
@@ -285,7 +305,8 @@ if global.gamePaused=false
       }
       else if loveTime=67 {npcLovelun.sprite_index=sLovelun_Walk; npcLovelun.image_xscale=-1}
       else if loveTime=85 {npcLovelun.sprite_index=sLovelun_Idle}
-      else if loveTime>=87 and loveTime<=97
+      //else if loveTime>=87 and loveTime<=97
+      else if loveTime>86 and loveTime<=97 //60fps change: covers every frame of the window's first tick, so the move/scale is as long as at 30fps
       {
         npcLovelun.x-=4*gDeltaTime
         if loveTime=87 {event_user(1); npcLovelun.sprite_index=sLovelun_Jump}
@@ -293,7 +314,8 @@ if global.gamePaused=false
         if loveTime=97 {npcLovelun.sprite_index=sLovelun_Idle}
       }
       else if loveTime=101 {event_user(1); npcLovelun.sprite_index=sLovelun_Jump; npcLovelun.image_xscale=1}
-      else if loveTime>=102 and loveTime<=117
+      //else if loveTime>=102 and loveTime<=117
+      else if loveTime>101 and loveTime<=117 //60fps change: covers every frame of the window's first tick, so the move/scale is as long as at 30fps
       {
         npcLovelun.x+=3*gDeltaTime
         if loveTime=102 {event_user(1); npcLovelun.sprite_index=sLovelun_Jump}
@@ -317,8 +339,10 @@ if global.gamePaused=false
         bubbleLove.image_speed=0; bubbleLove.type=1; bubbleLove.image_alpha=0.6; bubbleLove.depth=39
         bubbleLove.image_xscale=0.1; bubbleLove.image_yscale=0.1
       }
-      else if loveTime>=43 and loveTime<=54 {bubbleLove.image_xscale+=0.1*gDeltaTime; bubbleLove.image_yscale+=0.1*gDeltaTime}
-      else if loveTime>=55 and loveTime<=90 {bubbleLove.y-=4*gDeltaTime; npcLovelun.y-=4*gDeltaTime}
+      //else if loveTime>=43 and loveTime<=54 {bubbleLove.image_xscale+=0.1*gDeltaTime; bubbleLove.image_yscale+=0.1*gDeltaTime}
+      else if loveTime>42 and loveTime<=54 {bubbleLove.image_xscale+=0.1*gDeltaTime; bubbleLove.image_yscale+=0.1*gDeltaTime} //60fps change: covers every frame of the window's first tick, so the move/scale is as long as at 30fps
+      //else if loveTime>=55 and loveTime<=90 {bubbleLove.y-=4*gDeltaTime; npcLovelun.y-=4*gDeltaTime}
+      else if loveTime>54 and loveTime<=90 {bubbleLove.y-=4*gDeltaTime; npcLovelun.y-=4*gDeltaTime} //60fps change: covers every frame of the window's first tick, so the move/scale is as long as at 30fps
       else if loveTime=91
       {
         var tFFScl,tEffect;
@@ -349,8 +373,10 @@ if global.gamePaused=false
         bubbleLove.image_speed=0; bubbleLove.type=1; bubbleLove.image_alpha=0.6; bubbleLove.depth=39
         bubbleLove.image_xscale=0.1; bubbleLove.image_yscale=0.1
       }
-      else if loveTime>=83 and loveTime<=94 {bubbleLove.image_xscale+=0.1*gDeltaTime; bubbleLove.image_yscale+=0.1*gDeltaTime}
-      else if loveTime>=95 and loveTime<=134 {bubbleLove.y-=4; npcLovelun.y-=4*gDeltaTime}
+      //else if loveTime>=83 and loveTime<=94 {bubbleLove.image_xscale+=0.1*gDeltaTime; bubbleLove.image_yscale+=0.1*gDeltaTime}
+      else if loveTime>82 and loveTime<=94 {bubbleLove.image_xscale+=0.1*gDeltaTime; bubbleLove.image_yscale+=0.1*gDeltaTime} //60fps change: covers every frame of the window's first tick, so the move/scale is as long as at 30fps
+      //else if loveTime>=95 and loveTime<=134 {bubbleLove.y-=4; npcLovelun.y-=4*gDeltaTime}
+      else if loveTime>94 and loveTime<=134 {bubbleLove.y-=4*gDeltaTime; npcLovelun.y-=4*gDeltaTime} //60fps change: covers every frame of the window's first tick; also scaled the bubble's rise (it rose 2x/4x as fast as Lovelun inside it at 60/120fps)
       else if loveTime=135
       {
         var tFFScl,tEffect;
@@ -381,8 +407,10 @@ if global.gamePaused=false
         bubbleLove.image_speed=0; bubbleLove.type=1; bubbleLove.image_alpha=0.6; bubbleLove.depth=39
         bubbleLove.image_xscale=0.1; bubbleLove.image_yscale=0.1
       }
-      else if loveTime>=93 and loveTime<=104 {bubbleLove.image_xscale+=0.1*gDeltaTime; bubbleLove.image_yscale+=0.1*gDeltaTime}
-      else if loveTime>=105 and loveTime<=160 {bubbleLove.y-=4*gDeltaTime; npcLovelun.y-=4*gDeltaTime}
+      //else if loveTime>=93 and loveTime<=104 {bubbleLove.image_xscale+=0.1*gDeltaTime; bubbleLove.image_yscale+=0.1*gDeltaTime}
+      else if loveTime>92 and loveTime<=104 {bubbleLove.image_xscale+=0.1*gDeltaTime; bubbleLove.image_yscale+=0.1*gDeltaTime} //60fps change: covers every frame of the window's first tick, so the move/scale is as long as at 30fps
+      //else if loveTime>=105 and loveTime<=160 {bubbleLove.y-=4*gDeltaTime; npcLovelun.y-=4*gDeltaTime}
+      else if loveTime>104 and loveTime<=160 {bubbleLove.y-=4*gDeltaTime; npcLovelun.y-=4*gDeltaTime} //60fps change: covers every frame of the window's first tick, so the move/scale is as long as at 30fps
       else if loveTime=161
       {
         var tFFScl,tEffect;
@@ -402,38 +430,46 @@ if global.gamePaused=false
     else if loveProg=5 //---------- Walk toward Heart Island ----------
     {
       if loveTime=10 {npcLovelun.sprite_index=sLovelun_Walk}
-      else if loveTime>=45 and loveTime<=50
+      //else if loveTime>=45 and loveTime<=50
+      else if loveTime>44 and loveTime<=50 //60fps change: covers every frame of the window's first tick, so the move/scale is as long as at 30fps
       {
         npcLovelun.x+=4*gDeltaTime
         if loveTime=45 {event_user(1); npcLovelun.sprite_index=sLovelun_Jump}
         if loveTime=49 {npcLovelun.sprite_index=sLovelun_Fall}
-        if loveTime=50 {npcLovelun.sprite_index=sLovelun_Idle; npcLovelun.y+=4*gDeltaTime}
+        //if loveTime=50 {npcLovelun.sprite_index=sLovelun_Idle; npcLovelun.y+=4*gDeltaTime}
+        if loveTime=50 {npcLovelun.sprite_index=sLovelun_Idle; npcLovelun.y+=4} //60fps change: a one-off landing nudge, not a per-frame move
       }
       else if loveTime=51 {npcLovelun.sprite_index=sLovelun_Walk}
-      else if loveTime>=66 and loveTime<=71
+      //else if loveTime>=66 and loveTime<=71
+      else if loveTime>65 and loveTime<=71 //60fps change: covers every frame of the window's first tick, so the move/scale is as long as at 30fps
       {
         npcLovelun.x+=4*gDeltaTime
         if loveTime=66 {event_user(1); npcLovelun.sprite_index=sLovelun_Jump}
         if loveTime=70 {npcLovelun.sprite_index=sLovelun_Fall}
-        if loveTime=71 {npcLovelun.sprite_index=sLovelun_Idle; npcLovelun.y+=4*gDeltaTime}
+        //if loveTime=71 {npcLovelun.sprite_index=sLovelun_Idle; npcLovelun.y+=4*gDeltaTime}
+        if loveTime=71 {npcLovelun.sprite_index=sLovelun_Idle; npcLovelun.y+=4} //60fps change: a one-off landing nudge, not a per-frame move
       }
       else if loveTime=72 {npcLovelun.sprite_index=sLovelun_Walk}
-      else if loveTime>=130 and loveTime<=148
+      //else if loveTime>=130 and loveTime<=148
+      else if loveTime>129 and loveTime<=148 //60fps change: covers every frame of the window's first tick, so the move/scale is as long as at 30fps
       {
         npcLovelun.x+=4*gDeltaTime
         if loveTime=130 {event_user(1); npcLovelun.sprite_index=sLovelun_Jump}
         if loveTime=138 {npcLovelun.sprite_index=sLovelun_Fall}
-        if loveTime=148 {npcLovelun.sprite_index=sLovelun_Idle; npcLovelun.y+=4*gDeltaTime}
+        //if loveTime=148 {npcLovelun.sprite_index=sLovelun_Idle; npcLovelun.y+=4*gDeltaTime}
+        if loveTime=148 {npcLovelun.sprite_index=sLovelun_Idle; npcLovelun.y+=4} //60fps change: a one-off landing nudge, not a per-frame move
       }
       else if loveTime=149 {npcLovelun.sprite_index=sLovelun_Walk}
       else if loveTime>=150 and loveTime<=162 and gDeltaDoTicks {npcLovelun.y-=1}
       else if loveTime>=178 and loveTime<=192 and gDeltaDoTicks {npcLovelun.y+=1}
-      else if loveTime>=195 and loveTime<=215
+      //else if loveTime>=195 and loveTime<=215
+      else if loveTime>194 and loveTime<=215 //60fps change: covers every frame of the window's first tick, so the move/scale is as long as at 30fps
       {
         npcLovelun.x+=4*gDeltaTime
         if loveTime=195 {event_user(1); npcLovelun.sprite_index=sLovelun_Jump}
         if loveTime=203 {npcLovelun.sprite_index=sLovelun_Fall}
-        if loveTime=215 {npcLovelun.sprite_index=sLovelun_Idle; npcLovelun.y+=4*gDeltaTime}
+        //if loveTime=215 {npcLovelun.sprite_index=sLovelun_Idle; npcLovelun.y+=4*gDeltaTime}
+        if loveTime=215 {npcLovelun.sprite_index=sLovelun_Idle; npcLovelun.y+=4} //60fps change: a one-off landing nudge, not a per-frame move
       }
       else if loveTime=216 {npcLovelun.sprite_index=sLovelun_Walk}
       else if loveTime>=220 and loveTime<=235  and gDeltaDoTicks {npcLovelun.y-=1}
