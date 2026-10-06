@@ -67,7 +67,8 @@ if global.gamePaused=false
     if bSlowed=1
     {
       _speed=runAcc/1.5
-      slowTime-=1
+      //slowTime-=1
+      slowTime-=1*gDeltaTime //60fps change: the slow wore off 2x/4x too fast at 60/120fps
       if slowTime<=0 {bSlowed=0}
     }
     else {_speed=runAcc}
