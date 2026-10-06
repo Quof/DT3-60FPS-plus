@@ -168,14 +168,16 @@ if global.gamePaused=false
     {
       if shotTime>=shotDelay+1
       {
-        if xVel>0
-          xVel-=0.4*gDeltaTime
-        else if xVel<0
-          xVel+=0.4*gDeltaTime
+        //if xVel>0
+        //  xVel-=0.4*gDeltaTime
+        //else if xVel<0
+        //  xVel+=0.4*gDeltaTime
+        xVel=scrTickAcc(xVel,0.4*((xVel<0)-(xVel>0)),0) //60fps change: slow down toward 0 per 30fps tick (scrTickAcc), like the Stalfos/Wolfos back-dash; slowing a bit every frame made the dash 1-2px longer
       }
     }
 
-    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
+    //moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
+    moveTo((xVel+scrTickAccB(0))*gDeltaTime,yVel*gDeltaTime) //60fps change: scrTickAccB adds the back-dash's per-tick correction (0 when it isn't slowing this frame)
     if y>room_height+24
     {
       if questType>0

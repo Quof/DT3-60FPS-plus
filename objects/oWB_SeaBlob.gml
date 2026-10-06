@@ -103,13 +103,16 @@ if global.gamePaused=false
   }
   else if life<=0
   {
-    deathAnim+=1
+    //deathAnim+=1
+    if deathAnim == 0 {deathAnim = 1-gDeltaTime}; deathAnim+=1*gDeltaTime //60fps change: counts ticks, starting at 1 on the first frame (as Big Bat/Silver Knight do)
     if deathAnim=1
     {
       sprite_index=sWB_SeaBlob_Die
-      yDeath=-6
+      //yDeath=-6
+      yDeath=-(6 + (0.3/2) * ((1/gDeltaTime) - 1) ) //60fps change: same death-hop correction as Big Bat/Silver Knight, so the hop reaches the 30fps height with the per-frame fall below
     }
-    else if deathAnim>=2
+    //else if deathAnim>=2
+    else if deathAnim>1 //60fps change: the fall starts on the frame after deathAnim=1, as it did at 30fps
     {
       y+=yDeath*gDeltaTime
       if yDeath<12 {yDeath+=0.3*gDeltaTime}
