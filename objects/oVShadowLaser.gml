@@ -25,14 +25,16 @@ if global.gamePaused=false
 {
   lifeTime+=1*gDeltaTime
   //particles once per 30fps tick (they were spawned every frame: 2-4x as many above 30fps)
-  if lifeTime>=1 and lifeTime<=10
+  //if lifeTime>=1 and lifeTime<=10
+  if lifeTime>0 and lifeTime<=10 //60fps change: covers every frame of each tick, so the laser moves out and stops on time instead of half a tick late
   {
     if gDeltaDoTicks {var tEffect;
     tEffect=instance_create(x,y,oEffect)
     tEffect.sprite_index=sBelmontWepEffect; tEffect.image_speed=0.6+random(0.1)
     tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0}
   }
-  else if lifeTime>=11 and lifeTime<=34
+  //else if lifeTime>=11 and lifeTime<=34
+  else if lifeTime>10 and lifeTime<=34 //60fps change: see above
   {
     _speed=0
     if gDeltaDoTicks {var tEffect;
@@ -47,7 +49,8 @@ if global.gamePaused=false
     _direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
   }
 
-  if lifeTime>=1 and lifeTime<=10 {_speed=8}
+  //if lifeTime>=1 and lifeTime<=10 {_speed=8}
+  if lifeTime>0 and lifeTime<=10 {_speed=8} //60fps change: see above
   else if lifeTime>=35 {_speed=17}
 }
 else {_speed=0}

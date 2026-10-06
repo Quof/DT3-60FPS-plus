@@ -101,7 +101,8 @@ if global.gamePaused=false
       }
       if patrolTime>=30 and patrolTime<=9999 //Line of sight
       {
-        if collision_line(x,y-26,oPlayer1.x,oPlayer1.y-26,oSolid,1,1) {lineOfSight+=1}
+        //if collision_line(x,y-26,oPlayer1.x,oPlayer1.y-26,oSolid,1,1) {lineOfSight+=1}
+        if collision_line(x,y-26,oPlayer1.x,oPlayer1.y-26,oSolid,1,1) {lineOfSight+=1*gDeltaTime} //60fps change: counted per frame, so it gave up the chase 2x/4x sooner at 60/120fps when you broke line of sight
         else {lineOfSight=0}
 
         if lineOfSight>=25 {patrolTime=10000}

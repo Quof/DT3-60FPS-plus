@@ -56,7 +56,8 @@ if global.gamePaused=false
     if yVel=0 and bJumpReady=1 {jumpTime+=1*gDeltaTime} //Jump at set times
     if jumpTime>=jumpDelay
     {
-      if shotTime<500 {shotTime+=10*gDeltaTime}
+      //if shotTime<500 {shotTime+=10*gDeltaTime}
+      if shotTime<500 {shotTime+=10} //60fps change: a one-off bonus per jump, not a per-frame count; scaled, each jump only brought the multishot 5/2.5 ticks closer at 60/120fps instead of 10
       xVel=(runAcc*1.125)*image_xscale
       y-=4
       yVel=-4

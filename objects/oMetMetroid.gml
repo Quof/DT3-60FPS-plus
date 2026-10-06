@@ -104,8 +104,10 @@ if global.gamePaused=false
       }
       else if latching=2 //Blast away from the player after being hit with explosive type damage
       {
-        blastSpd-=0.5*gDeltaTime
-        moveTo(blastSpd*gDeltaTime*cos(degtorad(blastDir)),-blastSpd*gDeltaTime*sin(degtorad(blastDir)))
+        //blastSpd-=0.5*gDeltaTime
+        blastSpd=scrTickAcc(blastSpd,-0.5,0) //60fps change: slow down per 30fps tick (scrTickAcc); slowing a bit every frame made it fly 2-3px further, and blastSpd now lands on 5 exactly as at 30fps
+        //moveTo(blastSpd*gDeltaTime*cos(degtorad(blastDir)),-blastSpd*gDeltaTime*sin(degtorad(blastDir)))
+        moveTo((blastSpd+scrTickAccB(0))*gDeltaTime*cos(degtorad(blastDir)),-(blastSpd+scrTickAccB(0))*gDeltaTime*sin(degtorad(blastDir))) //60fps change: scrTickAccB adds the slow-down's per-tick correction
         if blastSpd<=5
         {
           xVel=0; yVel=0

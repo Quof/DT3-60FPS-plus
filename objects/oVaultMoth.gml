@@ -116,7 +116,8 @@ if global.gamePaused=false
         }
         else if introAnim>=10
         {
-          introAnim+=1
+          //introAnim+=1
+          introAnim+=1*gDeltaTime //60fps change: the end of the phase-in was 2x/4x too short at 60/120fps
           if introAnim>=20
           {
             image_speed=0.2

@@ -80,7 +80,8 @@ if global.gamePaused=false
         playSound(global.snd_MetEnemyMove,0,1,1)
         sprite_index=sMetSkreeDive
         image_speed=0.33
-        y+=2*gDeltaTime
+        //y+=2*gDeltaTime
+        y+=2 //60fps change: a one-off nudge off the ceiling when the dive starts, not a per-frame move
         var tDist;
         tDist=point_distance(0,y,0,oPlayer1.y-26)
         tDist/=16
@@ -102,7 +103,8 @@ if global.gamePaused=false
     }
     else if diving=10 //Dive down
     {
-      if yVel<16 {yVel+=0.2}
+      //if yVel<16 {yVel+=0.2}
+      if yVel<16 {yVel=scrGravAcc(yVel,0.2,1)} //60fps change: sped up 2x/4x too fast at 60/120fps
       if isCollisionBottom(1) {yGround=y+sprite_height; yVel=0; diving=20}
       if isCollisionLeft(1) {xVel=1}
       if isCollisionRight(1) {xVel=-1}

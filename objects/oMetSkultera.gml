@@ -122,7 +122,8 @@ if global.gamePaused=false
     else //Flop around out of water
     {
       yVel=scrGravAcc(yVel,0.4,1)
-      if isCollisionBottom(1)
+      //if isCollisionBottom(1)
+      if isCollisionBottom(1) and yVel>=0 //60fps change: a hop only moves it 0.3-0.8px off the floor in its first frame at 120fps, so it re-rolled the hop (angle, xVel, yVel) for a few frames; only hop when not already rising
       {
         image_angle=random(360)
         xVel=random_range(-1.5,1.5)
