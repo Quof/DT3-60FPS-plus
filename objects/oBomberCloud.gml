@@ -49,7 +49,8 @@ if global.gamePaused=false
     turnTime+=1*gDeltaTime
     if turnTime>=turnDelay
     {
-      _direction+=turnAmt*gDeltaTime
+      //_direction+=turnAmt*gDeltaTime
+      _direction+=turnAmt //60fps change: a one-off turn (as in oBomberBat), not a per-frame turn; scaled, it only turned half/a quarter of the way at 60/120fps, so it never flew its square
       turnTime=0
     }
 

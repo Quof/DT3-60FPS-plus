@@ -54,7 +54,8 @@ if global.gamePaused=false
 
     if shotTime<=shotDelay
     {
-      turnTime+=1
+      //turnTime+=1
+      turnTime+=1*gDeltaTime //60fps change: counted per frame while the move is per tick, so it patrolled only half/a quarter as far before turning at 60/120fps
       x+=runAcc*image_xscale*gDeltaTime
     }
 

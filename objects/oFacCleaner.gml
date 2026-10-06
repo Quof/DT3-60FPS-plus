@@ -72,7 +72,8 @@ if global.gamePaused=false
       shotTime+=1*gDeltaTime
       if bRockForm=0
       {
-        if shotTime>=shotDelay and shotTime<=shotDelay+9 {lineAlpha+=0.1*gDeltaTime}
+        //if shotTime>=shotDelay and shotTime<=shotDelay+9 {lineAlpha+=0.1*gDeltaTime}
+        if shotTime>shotDelay-1 and shotTime<=shotDelay+9 {lineAlpha+=0.1*gDeltaTime} //60fps change: covers every frame of the first tick, so the warning lines fade fully in
         else if shotTime=shotDelay+12
         {
           var tNewAtk,tDir;

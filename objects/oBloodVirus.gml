@@ -175,7 +175,8 @@ if global.gamePaused=false
         oPlayer1.specAttackChargeB=0
         if abilDrain mod 3=0
         {
-          if life<maxLife-10 {life+=10*gDeltaTime}
+          //if life<maxLife-10 {life+=10*gDeltaTime}
+          if life<maxLife-10 {life+=10} //60fps change: this already runs once per 3 ticks of draining, so scaling the +10 too made it heal only half/a quarter as much at 60/120fps
           if global.activeCharacter=0
           {
             if global.activeAbility[0]=1
@@ -262,7 +263,8 @@ if bDraining=1
 draw_sprite_ext(sprite_index,image_index,x,y,(image_yscale+wobble),(image_yscale+wobble),image_angle,image_blend,0.25)
 for(i=0;i<8;i+=1)
 {
-  handFrm[i]+=0.1+random(0.1)
+  //handFrm[i]+=0.1+random(0.1)
+  handFrm[i]+=(0.1+random(0.1))*gDeltaTime //60fps change: the hands animated 2x/4x too fast at 60/120fps
   draw_sprite_ext(sBV_ExtendHands,handFrm[i],x+lengthdir_x(12,handDir[i]),y+lengthdir_y(12,handDir[i]),(image_yscale+wobble),(image_yscale+wobble),handDir[i],image_blend,image_alpha)
 }
 draw_sprite_ext(sprite_index,image_index,x,y,(image_yscale+wobble),(image_yscale+wobble),image_angle,image_blend,image_alpha)

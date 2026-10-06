@@ -66,7 +66,8 @@ if life<=0 //Defeat animation
   if deathAnim>=1 and deathAnim<=60
   {
     if deathAnim mod 3=0 {playSound(global.snd_BombExplode,0,0.92,1)}
-    if oGame.time mod 2=0
+    //if oGame.time mod 2=0
+    if oGame.time mod (2/gDeltaTime)=0 //60fps change: oGame.time counts frames, so this made 2x/4x the explosions at 60/120fps
     {
       var tEffect;
       tEffect=instance_create(x+random_range(-sprite_width,sprite_width),y+random_range(-sprite_height,sprite_height),oEffect)

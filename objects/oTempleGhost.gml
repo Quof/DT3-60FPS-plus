@@ -54,7 +54,8 @@ if global.gamePaused=false
     if collision_circle(x,y,8,oCh19CeilingTrap,1,1) {bTouchSpikeCeiling=1}
     else {bTouchSpikeCeiling=0}
 
-    if checkLight>0 {checkLight-=1}
+    //if checkLight>0 {checkLight-=1}
+    if checkLight>0 {checkLight-=1*gDeltaTime} //60fps change: after leaving the light it stayed vulnerable for 2 ticks at 30fps, but only 1/0.5 at 60/120fps
     else {bCanTakeDamage=0}
 
     if x>oPlayer1.x {image_xscale=-1}
@@ -98,9 +99,11 @@ if global.gamePaused=false
         myFire[i].myOwner=id; myFire[i].atkPower=atkPower
       }
     }
-    else if shotTime>=shotDelay+11 and shotTime<=shotDelay+50
+    //else if shotTime>=shotDelay+11 and shotTime<=shotDelay+50
+    else if shotTime>shotDelay+10 and shotTime<=shotDelay+50 //60fps change: covers every frame of tick shotDelay+11
     {
-      if shotTime<=shotDelay+30 {shotDist+=2}
+      //if shotTime<=shotDelay+30 {shotDist+=2}
+      if shotTime<=shotDelay+30 {shotDist+=2*gDeltaTime} //60fps change: the ghost fires spread out 78px/154px at 60/120fps instead of 40px
       for(i=0;i<8;i+=1)
       {
         myFire[i].x=x+(16*image_xscale)+lengthdir_x(shotDist,i*45)

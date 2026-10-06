@@ -56,7 +56,8 @@ if global.gamePaused=false
     {
       if point_distance(x,y,oPlayer1.x,oPlayer1.y-26)<192 {dropped=0}
     }
-    else if dropped<dropDist {dropped+=6; y+=6}
+    //else if dropped<dropDist {dropped+=6; y+=6}
+    else if dropped<dropDist {dropped+=6*gDeltaTime; y+=6*gDeltaTime} //60fps change: dropped 2x/4x too fast at 60/120fps (dropDist is a multiple of 6, so it still stops exactly)
 
     //Hanging wave
     moveWave+=(pi/40)*gDeltaTime
