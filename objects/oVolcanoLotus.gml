@@ -52,6 +52,7 @@ if global.gamePaused=false
     }
     else if annoyTime>=annoyDelay and annoyTime<=annoyDelay+20 //Ready to be annoying
     {
+      if frac(annoyTime)=0 //60fps change (added): flash once per 30fps tick (it flashed every frame, 2x/4x as fast at 60/120fps)
       if image_index=1
         image_index=2
       else

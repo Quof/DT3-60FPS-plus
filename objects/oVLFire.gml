@@ -28,8 +28,10 @@ if global.gamePaused=false
   else if yVel>0.4
   {
     swirlProg+=1*gDeltaTime
-    if swirlProg>=1 and swirlProg<=3 {x+=1*gDeltaTime}
-    else if swirlProg>=4 and swirlProg<=6
+    //if swirlProg>=1 and swirlProg<=3 {x+=1*gDeltaTime}
+    //else if swirlProg>=4 and swirlProg<=6
+    if swirlProg>0 and swirlProg<=3 {x+=1*gDeltaTime} //60fps change: covers every frame of ticks 1-3 (the sway was 2.5px with a pause at 60fps, 2.25px at 120fps, instead of 3px)
+    else if swirlProg>3 and swirlProg<=6 //60fps change: covers every frame of ticks 4-6
     {
       x-=1*gDeltaTime
       if swirlProg=6 {swirlProg=0}

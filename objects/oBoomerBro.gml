@@ -23,7 +23,8 @@ resType[3]=2
 baseItemChance=50
 baseDropIndex=90
 affiliation=1
-runAcc=0.5*gDeltaTime
+//runAcc=0.5*gDeltaTime
+runAcc=0.5 //60fps change: runAcc is a speed already scaled in moveTo(xVel*gDeltaTime), so scaling it here too made the Boomerang Bro walk at half/quarter speed at 60/120fps
 
 throwTime=35
 throwDelay=65

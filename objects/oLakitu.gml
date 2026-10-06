@@ -83,14 +83,17 @@ if global.gamePaused=false
           {
             if checkScreenArea(x,y,48)=1 {playSound(global.snd_LinkBomb,0,0.95,18000)}
             var tNewSpiny,tDirX;
-            if image_xscale=1 {tDirX=6*gDeltaTime}
-            else {tDirX=-6*gDeltaTime}
+            //if image_xscale=1 {tDirX=6*gDeltaTime}
+            //else {tDirX=-6*gDeltaTime}
+            if image_xscale=1 {tDirX=6} //60fps change: a spawn offset, not a per-frame move (the Spiny spawned 3px/1.5px from Lakitu at 60/120fps)
+            else {tDirX=-6} //60fps change: see above
             tNewSpiny=instance_create(x+tDirX,y-6,oSpinyBeetle)
             tNewSpiny.bActive=true
             tNewSpiny.sprite_index=sSpinyBeetleBall
             if tDirX>0 {tNewSpiny.xVel=1}
             else {tNewSpiny.xVel=-1}
-            tNewSpiny.yVel=-3*gDeltaTime
+            //tNewSpiny.yVel=-3*gDeltaTime
+            tNewSpiny.yVel=-3 //60fps change: the Spiny's yVel is a speed (scaled in its own moveTo), so scaling it here made the throw rise at half/quarter speed at 60/120fps
           }
           bThrown=1
         }

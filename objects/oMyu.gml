@@ -51,7 +51,8 @@ if global.gamePaused=false
     if moveTime>=moveWait and jumpTime<jumpWait and yVel=0
     {
       image_index=1
-      y-=4*gDeltaTime
+      //y-=4*gDeltaTime
+      y-=4 //60fps change: a one-off lift at the start of the hop, not a per-frame move; scaled, it only lifted 1px at 120fps, so the ground check ended the small hop right away
       yVel=-0.2
       if x>oCharacter.x
         xVel=-2
@@ -65,7 +66,8 @@ if global.gamePaused=false
     if jumpTime=jumpWait and yVel=0
     {
       image_index=1
-      y-=4*gDeltaTime
+      //y-=4*gDeltaTime
+      y-=4 //60fps change: one-off lift (see above)
       yVel=-3
       if x>oCharacter.x
         xVel=-2

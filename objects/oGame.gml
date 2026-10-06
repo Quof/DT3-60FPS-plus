@@ -102,7 +102,8 @@ if global.playTimeFrameCount>=30/gDeltaTime
     createScreenText(514,336,-1,fnt_Swap,fa_left,"Go to sleep, Quof! You have been playing for 24 hours! It's time to sleep... ... ... GO TO SLEEP!",3,c_white,1,1)
   }
 }
-else {global.playTimeFrameCount+=1*gDeltaTime}
+//else {global.playTimeFrameCount+=1*gDeltaTime}
+else {global.playTimeFrameCount+=1} //60fps change: counts frames, since the check above already waits 30/gDeltaTime frames; scaled here too, play time (and the 2-hour notice) ran at half/quarter speed at 60/120fps
 
 //close the game
 if global.bCanUseEsc=1

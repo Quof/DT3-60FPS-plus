@@ -38,18 +38,25 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if global.gamePaused=false and gDeltaDoTicks
+//if global.gamePaused=false and gDeltaDoTicks
+if global.gamePaused=false //60fps change: runs every frame. With the whole event gated to 30fps ticks, enemyStepEvent also only ran once per tick, so stun and the damage flash lasted 2x/4x as long at 60/120fps, and the patrol moved in 1.5px steps
 {
   makeEnemyActive(0)
   if bActive=true and stunnedTime=0
   {
-    dirChange+=1
-    if dirChange>=60
+    //dirChange+=1
+    dirChange+=1*gDeltaTime //60fps change: scaled
+    //if dirChange>=60
+    if dirChange>59 //60fps change: covers every frame of ticks 60-87, so the slowdown totals the same as at 30fps
     {
+      //if xVel>0
+      //  xVel-=(runAcc/30)
+      //else
+      //  xVel+=(runAcc/30)
       if xVel>0
-        xVel-=(runAcc/30)
+        xVel-=(runAcc/30)*gDeltaTime //60fps change: scaled
       else
-        xVel+=(runAcc/30)
+        xVel+=(runAcc/30)*gDeltaTime //60fps change: scaled
       if dirChange>=87
       {
         if xVel>0
@@ -68,7 +75,8 @@ if global.gamePaused=false and gDeltaDoTicks
       image_xscale=1
     else
       image_xscale=-1
-    moveTo(xVel,yVel)
+    //moveTo(xVel,yVel)
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime) //60fps change: scaled (runs every frame now)
     if isCollisionSolid()
       y-=2
   }

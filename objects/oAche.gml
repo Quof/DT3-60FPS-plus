@@ -59,11 +59,17 @@ if global.gamePaused=false
     }
     else if atkProg=1 //Swoop down
     {
+      //x+=atkX*gDeltaTime
+      //y+=atkY*gDeltaTime
+      //
+      //if atkY>-8
+      //  atkY-=0.35*gDeltaTime
+      //60fps change: the 30fps code moves and then slows the swoop by 0.35 per tick; slowing a bit every frame made the swoop
+      //3px (60fps) to 4.5px (120fps) shallower. scrGravAcc (move-then-accelerate order) keeps the same depth.
+      if atkY>-8 {atkY=scrGravAcc(atkY,-0.35,-1)}
       x+=atkX*gDeltaTime
       y+=atkY*gDeltaTime
-
-      if atkY>-8
-        atkY-=0.35*gDeltaTime
+      if gDeltaTime==1 {if atkY>-8 {atkY-=0.35}}
       if (isCollisionTop(1) and atkY<-7) or y<=ystart
       {
         sprite_index=sAcheIdle

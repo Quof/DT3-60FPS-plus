@@ -158,9 +158,11 @@ if global.gamePaused=false
       tEffect.sprite_index=sRobotExplosion
       tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
     }
-    if deathAnim mod (4/gDeltaTime)=0
+    //if deathAnim mod (4/gDeltaTime)=0
+    if deathAnim mod 4=0 //60fps change: deathAnim already counts 30fps ticks (+=gDeltaTime), so dividing by gDeltaTime too made the explosions every 8/16 ticks at 60/120fps instead of every 4
     {
-      if deathAnim mod (8/gDeltaTime)=0 {playSound(global.snd_BombExplode,0,0.8,1)}
+      //if deathAnim mod (8/gDeltaTime)=0 {playSound(global.snd_BombExplode,0,0.8,1)}
+      if deathAnim mod 8=0 {playSound(global.snd_BombExplode,0,0.8,1)} //60fps change: see above
       tEffect=instance_create(x+random_range(-12,12),y+random_range(-12,12),oEffect)
       tEffect.sprite_index=sRobotExplosion
       tEffect.image_xscale=0.4; tEffect.image_yscale=0.4; tEffect.image_alpha=0.5+(image_alpha/3)

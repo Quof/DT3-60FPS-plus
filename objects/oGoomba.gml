@@ -69,7 +69,9 @@ if global.gamePaused=false
   }
   else if life<=0
   {
-    deathAnim+=1
+    //deathAnim+=1
+    if deathAnim==0 {deathAnim=1-gDeltaTime} //60fps change (added): so deathAnim is 1 on the first frame, like at 30fps
+    deathAnim+=1*gDeltaTime //60fps change: the squashed Goomba vanished after 12 frames instead of 12 ticks (2x/4x too soon at 60/120fps)
     if deathAnim=1
     {
       if bJumpedOn=0

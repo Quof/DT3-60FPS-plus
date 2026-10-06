@@ -59,10 +59,14 @@ if global.gamePaused=false
       if xVel>0 {image_xscale=1}
       else if xVel<0 {image_xscale=-1}
 
+      //if x>oPlayer1.x and image_xscale=1
+      //  turnTime+=1
+      //else if x<oPlayer1.x and image_xscale=-1
+      //  turnTime+=1
       if x>oPlayer1.x and image_xscale=1
-        turnTime+=1
+        turnTime+=1*gDeltaTime //60fps change: scaled (it turned around 2x/4x as fast at 60/120fps)
       else if x<oPlayer1.x and image_xscale=-1
-        turnTime+=1
+        turnTime+=1*gDeltaTime //60fps change: scaled
       if turnTime>=40
       {
         xVel*=-1

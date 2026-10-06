@@ -59,8 +59,10 @@ if global.gamePaused=false
       if findTargetX>=36 {atkProg+=1*gDeltaTime}
     }
 
-    if atkProg>=11 and atkProg<=26 {y-=2*gDeltaTime}
-    else if atkProg>=51 and atkProg<=66 {y+=2*gDeltaTime}
+    //if atkProg>=11 and atkProg<=26 {y-=2*gDeltaTime}
+    //else if atkProg>=51 and atkProg<=66 {y+=2*gDeltaTime}
+    if atkProg>10 and atkProg<=26 {y-=2*gDeltaTime} //60fps change: covers every frame of ticks 11-26, so the plant rises the full 32px (31px at 60fps, 30.5px at 120fps)
+    else if atkProg>50 and atkProg<=66 {y+=2*gDeltaTime} //60fps change: see above
     else if atkProg=115 {atkProg=0}
   }
   enemyStepEvent()

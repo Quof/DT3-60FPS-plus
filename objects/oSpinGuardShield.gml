@@ -31,7 +31,8 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if global.gamePaused=false && gDeltaDoTicks
+//if global.gamePaused=false && gDeltaDoTicks
+if global.gamePaused=false //60fps change: every frame; enemyStepEvent scales its stun/damage-flash timers by gDeltaTime, so running it once per 30fps tick made them last 2x/4x as long
 {
   makeEnemyActive(0)
   enemyStepEvent()
