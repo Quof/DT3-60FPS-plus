@@ -83,7 +83,8 @@ if global.gamePaused=false
         tNewAttack.atkPower=atkPower
         tNewAttack.xVel=random_range(3,4)*image_xscale
         tNewAttack.yVel=-random_range(5,6)
-        throwCycle+=1*gDeltaTime
+        //throwCycle+=1*gDeltaTime
+        throwCycle+=1 //60fps change: counts throws (runs once per throw), so not scaled; scaled, the longer pause and hop came every 12/24 throws at 60/120fps instead of every 6
         if throwCycle=6
         {
           if random(10)>3

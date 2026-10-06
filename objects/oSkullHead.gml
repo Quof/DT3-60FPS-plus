@@ -53,9 +53,11 @@ if global.gamePaused=false
   {
 
     bobTime+=1*gDeltaTime
-    if bobTime>=1 and bobTime<=20
+    //if bobTime>=1 and bobTime<=20
+    if bobTime>0 and bobTime<=20 //60fps change: covers every frame of ticks 1-20, so the bob is the full 76px (74.1px at 60fps)
       y+=bobAmount*gDeltaTime
-    else if bobTime>=25 and bobTime<=44
+    //else if bobTime>=25 and bobTime<=44
+    else if bobTime>24 and bobTime<=44 //60fps change: see above
       y-=bobAmount*gDeltaTime
     else if bobTime>=49
       bobTime=0

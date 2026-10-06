@@ -84,7 +84,8 @@ if global.gamePaused=false
       if tDrop=0
       {
         xVel=(runAcc*1.25)*image_xscale
-        y-=4*gDeltaTime
+        //y-=4*gDeltaTime
+        y-=4 //60fps change: a one-off lift at the start of the ledge jump, not a per-frame move; scaled, it only lifted 1px at 120fps, so the ground check below cancelled the jump and the orc walked off the ledge
         yVel=-6
         bJumpReady=0
       }

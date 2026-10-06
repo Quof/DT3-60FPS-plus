@@ -14,8 +14,12 @@ applies_to=self
 if global.gamePaused=false
 {
   decayTime-=1*gDeltaTime
-  if decayTime mod (25/gDeltaTime)=0 {playSound(global.snd_Cucco1,0,1,16000+random(12000))}
-  if decayTime mod (6/gDeltaTime)=0
+  //if decayTime mod (25/gDeltaTime)=0 {playSound(global.snd_Cucco1,0,1,16000+random(12000))}
+  //if decayTime mod (6/gDeltaTime)=0
+  //60fps change: decayTime already counts 30fps ticks (-=gDeltaTime), so dividing by gDeltaTime too made the angry chickens
+  //spawn every 12/24 ticks at 60/120fps instead of every 6 (half/a quarter as many)
+  if decayTime mod 25=0 {playSound(global.snd_Cucco1,0,1,16000+random(12000))}
+  if decayTime mod 6=0
   {
     var tChicken,tSpawnSide;
     tChicken=instance_create(x,y,oZChicken)

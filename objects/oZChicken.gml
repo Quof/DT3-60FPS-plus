@@ -87,7 +87,8 @@ if global.gamePaused=false
           if hopTime mod hopSpd=0
           {
             xVel=runAcc*image_xscale
-            y-=2*gDeltaTime
+            //y-=2*gDeltaTime
+            y-=2 //60fps change: a one-off lift for each hop, not a per-frame move; scaled, it lifted only 1px/0.5px at 60/120fps, so the ground check below cancelled every hop
             yVel=-2.5
             image_index=choose(2,3)
             hopNum+=1
@@ -129,7 +130,8 @@ if global.gamePaused=false
         else {image_xscale=1}
         xVel=(runAcc*2)*image_xscale
 
-        if runFromPlayer mod (3/gDeltaTime)=0
+        //if runFromPlayer mod (3/gDeltaTime)=0
+        if runFromPlayer mod 3=0 //60fps change: runFromPlayer already counts 30fps ticks (-=gDeltaTime), so dividing by gDeltaTime too made the flap animation 2x/4x too slow
         {
           if image_index=2 {image_index=3}
           else {image_index=2}
@@ -161,7 +163,8 @@ if global.gamePaused=false
         myDir=player_sprite_center()
         initDir=1
       }
-      if flyTime mod (3/gDeltaTime)=0
+      //if flyTime mod (3/gDeltaTime)=0
+      if flyTime mod 3=0 //60fps change: flyTime already counts 30fps ticks (+=gDeltaTime), so dividing by gDeltaTime too made the flap animation 2x/4x too slow
       {
         if image_index=2 {image_index=3}
         else {image_index=2}

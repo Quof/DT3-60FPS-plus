@@ -76,9 +76,15 @@ if global.gamePaused=false
 
     if initDir=0 //Rising
     {
+      //x+=flyVel*gDeltaTime
+      //y+=airVel*gDeltaTime
+      //airVel+=0.3*gDeltaTime
+      //60fps change: the 30fps code moves and then accelerates; accelerating a bit every frame made the leap out of the
+      //water 3px (60fps) to 4px (120fps) lower. scrGravAcc (move-then-accelerate order) keeps the 30fps arc.
+      airVel=scrGravAcc(airVel,0.3,-1)
       x+=flyVel*gDeltaTime
       y+=airVel*gDeltaTime
-      airVel+=0.3*gDeltaTime
+      if gDeltaTime==1 {airVel+=0.3}
       if airVel>=2
       {
         xVel=flyVel

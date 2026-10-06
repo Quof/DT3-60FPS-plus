@@ -64,7 +64,8 @@ if global.gamePaused=false
         {
           if !isCollisionWaterTop(-8) and oPlayer1.y<y
           {
-            y-=4*gDeltaTime
+            //y-=4*gDeltaTime
+            y-=4 //60fps change: a one-off lift when it leaps out of the water, not a per-frame move
             yVel=-6.5
             forceSwimUp=10
           }
@@ -110,7 +111,8 @@ if global.gamePaused=false
           {
             if aiCheckHoriz(0,2,16,16,-8)=1
             {
-              y-=4*gDeltaTime
+              //y-=4*gDeltaTime
+              y-=4 //60fps change: a one-off lift for the cliff jump; scaled, it lifted only 2px/1px at 60/120fps and at 120fps the ground check below cancelled the jump
               yVel=-6.5
             }
           }
@@ -190,9 +192,11 @@ if global.gamePaused=false
   {
     deathAnim+=1*gDeltaTime
     image_speed=0
-    if deathAnim mod (4/gDeltaTime)=0
+    //if deathAnim mod (4/gDeltaTime)=0
+    if deathAnim mod 4=0 //60fps change: deathAnim already counts 30fps ticks (+=gDeltaTime), so dividing by gDeltaTime too gave half/a quarter of the death flames at 60/120fps
     {
-      if deathAnim mod (8/gDeltaTime)=0 {playSound(global.snd_BombExplode,0,0.8,1)}
+      //if deathAnim mod (8/gDeltaTime)=0 {playSound(global.snd_BombExplode,0,0.8,1)}
+      if deathAnim mod 8=0 {playSound(global.snd_BombExplode,0,0.8,1)} //60fps change: see above
       tEffect=instance_create(x+random_range(-10,10),y-1-random(42),oEffect)
       tEffect.sprite_index=sDeathFlameA; tEffect.image_speed=0.33
       tEffect.image_alpha=0.5+(image_alpha/3)

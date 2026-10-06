@@ -29,10 +29,14 @@ if global.gamePaused=false
   yVel=scrGravAcc(yVel,grav,1)
   if bSlide=0
   {
+    //if xVel>0
+    //  image_angle-=10
+    //else if xVel<0
+    //  image_angle+=10
     if xVel>0
-      image_angle-=10
+      image_angle-=10*gDeltaTime //60fps change: scaled (spun 2x/4x as fast at 60/120fps)
     else if xVel<0
-      image_angle+=10
+      image_angle+=10*gDeltaTime //60fps change: scaled
   }
   else if bSlide=1
   {
@@ -47,6 +51,7 @@ if global.gamePaused=false
     fizzleTime+=1*gDeltaTime
     if fizzleTime>=50 and fizzleTime<=64
     {
+      if frac(fizzleTime)=0 //60fps change (added): flicker once per 30fps tick (it flickered every frame, 2x/4x as fast)
       if image_alpha=0.5
         image_alpha=0.75
       else
@@ -66,7 +71,8 @@ if global.gamePaused=false
       setCollisionBounds(-3,-4,3,0)
       sprite_index=sFirebirdFire
       image_angle=0
-      y-=2*gDeltaTime
+      //y-=2*gDeltaTime
+      y-=2 //60fps change: a one-off lift when the fire lands, not a per-frame move
       yVel=-1
       bSlide=1
     }

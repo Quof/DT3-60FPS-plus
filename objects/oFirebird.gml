@@ -103,7 +103,8 @@ if global.gamePaused=false
     if isCollisionBottom(1)
     {
       y-=2
-      extraHeight+=1*gDeltaTime
+      //extraHeight+=1*gDeltaTime
+      extraHeight+=1 //60fps change: counts bounces (once per landing), so not scaled; scaled, the high bounce came every 8/16 bounces at 60/120fps instead of every 4
       if extraHeight mod 4=0
         yVel=-4
       else

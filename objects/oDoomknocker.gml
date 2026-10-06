@@ -82,7 +82,8 @@ if global.gamePaused=false
         tNewAttack.bulletSpeed=5*image_xscale
         if random(10)>5
         {
-          y-=2*gDeltaTime
+          //y-=2*gDeltaTime
+          y-=2 //60fps change: a one-off lift for the hop, not a per-frame move; scaled, it lifted only 1px/0.5px at 60/120fps, so the ground check cancelled the hop
           yVel=-2
         }
         sprite_index=sDoomknockerWalk

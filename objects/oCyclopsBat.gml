@@ -90,9 +90,11 @@ if global.gamePaused=false
       image_speed=0; image_index=3
       deathAnim=3
     }
-    if deathAnim mod (4/gDeltaTime)=0
+    //if deathAnim mod (4/gDeltaTime)=0
+    if deathAnim mod 4=0 //60fps change: deathAnim already counts 30fps ticks (+=gDeltaTime), so dividing by gDeltaTime too gave half/a quarter of the death flames at 60/120fps
     {
-      if deathAnim mod (8/gDeltaTime)=0 {playSound(global.snd_BombExplode,0,0.8,1)}
+      //if deathAnim mod (8/gDeltaTime)=0 {playSound(global.snd_BombExplode,0,0.8,1)}
+      if deathAnim mod 8=0 {playSound(global.snd_BombExplode,0,0.8,1)} //60fps change: see above
       tEffect=instance_create(x+random_range(-7,7),y+random_range(-7,7),oEffect)
       tEffect.sprite_index=sDeathFlameA; tEffect.image_speed=0.33
       tEffect.image_alpha=0.5+(image_alpha/3)

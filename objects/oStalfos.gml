@@ -67,7 +67,8 @@ if global.gamePaused=false
 
         if point_distance(x,y,oPlayer1.x,oPlayer1.y-26)>minDistToPlayer+(minDistToPlayer/5)
         {
-          image_index+=animSpd
+          //image_index+=animSpd
+          image_index+=animSpd*gDeltaTime //60fps change: scaled like the other two branches (the walk-forward animation played 2x/4x as fast)
           sprite_index=sStalfosWalk
           if image_xscale=1 {xVel=runAcc}
           else {xVel=-runAcc}

@@ -62,12 +62,14 @@ if global.gamePaused=false
 
       if x>oCharacter.x and image_xscale=1
       {
-        turnTime+=1
+        //turnTime+=1
+        turnTime+=1*gDeltaTime //60fps change: scaled (it turned around 2x/4x as fast at 60/120fps)
         x+=runAcc*gDeltaTime
       }
       else if x<oCharacter.x and image_xscale=-1
       {
-        turnTime+=1
+        //turnTime+=1
+        turnTime+=1*gDeltaTime //60fps change: scaled
         x+=-runAcc*gDeltaTime
       }
       else

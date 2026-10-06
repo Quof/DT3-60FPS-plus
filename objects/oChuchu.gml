@@ -80,7 +80,8 @@ if global.gamePaused=false
     }
     else if electricTime>=81 and electricTime<=115
     {
-      if electricTime mod (3/gDeltaTime)=0
+      //if electricTime mod (3/gDeltaTime)=0
+      if electricTime mod 3=0 //60fps change: electricTime already counts 30fps ticks (+=gDeltaTime), so dividing by gDeltaTime too made the electric animation 2x/4x too slow
       {
         image_index+=1
         if image_index=6 {image_index=3}

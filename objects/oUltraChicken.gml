@@ -54,7 +54,8 @@ if global.gamePaused=false
       myDir=player_sprite_center()
       initDir=1
     }
-    if flyTime mod (3/gDeltaTime)=0
+    //if flyTime mod (3/gDeltaTime)=0
+    if flyTime mod 3=0 //60fps change: flyTime already counts 30fps ticks (+=gDeltaTime), so dividing by gDeltaTime too made the flap animation 2x/4x too slow
     {
       if image_index=2 {image_index=3}
       else {image_index=2}

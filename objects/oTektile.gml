@@ -76,7 +76,8 @@ if global.gamePaused=false
     jumpTime+=1*gDeltaTime
     if jumpTime>=jumpDelay
     {
-      y-=4*gDeltaTime
+      //y-=4*gDeltaTime
+      y-=4 //60fps change: a one-off lift at the start of the jump, not a per-frame move; scaled, it only lifted 1px at 120fps, so the ground check below zeroed yVel and the Tektite never jumped
       yVel=-8.5
       if image_xscale=1
         xVel=runAcc
