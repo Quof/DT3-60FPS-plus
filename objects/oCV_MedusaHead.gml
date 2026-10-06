@@ -56,13 +56,17 @@ if global.gamePaused=false
   makeEnemyActive(0)
   if bActive=true and stunnedTime=0 and life>0
   {
-    if tauntPlayer>0 {tauntPlayer-=1}
+    //if tauntPlayer>0 {tauntPlayer-=1}
+    if tauntPlayer>0 {tauntPlayer-=1*gDeltaTime} //60fps change: scaled (taunt cooldown)
     bobTime+=1*gDeltaTime
-    if bobTime>=1 and bobTime<=20 {y+=bobAmount*gDeltaTime}
-    else if bobTime>=28 and bobTime<=47 {y-=bobAmount*gDeltaTime}
+    //if bobTime>=1 and bobTime<=20 {y+=bobAmount*gDeltaTime}
+    //else if bobTime>=28 and bobTime<=47 {y-=bobAmount*gDeltaTime}
+    if bobTime>0 and bobTime<=20 {y+=bobAmount*gDeltaTime} //60fps change: covers every frame of ticks 1-20, so the bob is the full 76px (74.1px at 60fps)
+    else if bobTime>27 and bobTime<=47 {y-=bobAmount*gDeltaTime} //60fps change: see above
     else if bobTime>=55 {bobTime=0}
     x+=xVel*gDeltaTime
-    if abilityDrain>0 {abilityDrain-=1}
+    //if abilityDrain>0 {abilityDrain-=1}
+    if abilityDrain>0 {abilityDrain-=1*gDeltaTime} //60fps change: scaled; the cooldown between Heart Energy drains was 2x/4x shorter at 60/120fps
   }
   else if life<=0
   {

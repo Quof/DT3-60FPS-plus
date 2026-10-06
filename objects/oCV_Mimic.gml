@@ -82,7 +82,8 @@ if global.gamePaused=false
           image_xscale=-1
           xVel=-6
         }
-        y-=4*gDeltaTime
+        //y-=4*gDeltaTime
+        y-=4 //60fps change: a one-off lift for the leap, not a per-frame move; scaled, it only lifted 1px at 120fps, so the landing check below ended the attack immediately
         yVel=-5
       }
     }

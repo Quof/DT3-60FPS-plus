@@ -101,7 +101,8 @@ if global.gamePaused=false
       if image_alpha<0 {instance_destroy()}
     }
   }
-  if abilityDrain>0 {abilityDrain-=1}
+  //if abilityDrain>0 {abilityDrain-=1}
+  if abilityDrain>0 {abilityDrain-=1*gDeltaTime} //60fps change: scaled; the cooldown between Heart Energy drains was 2x/4x shorter at 60/120fps
   enemyStepEvent()
 }
 else

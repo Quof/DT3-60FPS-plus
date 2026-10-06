@@ -74,7 +74,8 @@ if global.gamePaused=false
     throwTime+=1*gDeltaTime
     if point_distance(x,0,oPlayer1.x,0)<112 and throwTime<throwDelay-5
     {
-      if oGame.time mod 2=0 {throwTime+=1}
+      //if oGame.time mod 2=0 {throwTime+=1}
+      if oGame.time mod (2/gDeltaTime)=0 {throwTime+=1} //60fps change: oGame.time counts frames, so this bonus came 2x/4x as often (it threw much sooner up close at 60/120fps)
     }
 
     if throwTime>=throwDelay
@@ -132,7 +133,9 @@ if global.gamePaused=false
   }
   else if life<=0
   {
-    deathAnim+=1
+    //deathAnim+=1
+    if deathAnim==0 {deathAnim=1-gDeltaTime} //60fps change (added): so deathAnim is 1 on the first frame, like at 30fps
+    deathAnim+=1*gDeltaTime //60fps change: counts ticks (the death flames were spawned 2x/4x as often)
     if deathAnim=1
     {
       sprite_index=sCV_AxeKnight_ThrowDown

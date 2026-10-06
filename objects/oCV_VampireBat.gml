@@ -58,7 +58,8 @@ if global.gamePaused=false
   makeEnemyActive(0)
   if bActive=true and stunnedTime=0 and life>0
   {
-    if tauntPlayer>0 {tauntPlayer-=1}
+    //if tauntPlayer>0 {tauntPlayer-=1}
+    if tauntPlayer>0 {tauntPlayer-=1*gDeltaTime} //60fps change: scaled (taunt cooldown)
     if initDir=false
     {
       xVel=runAcc
@@ -72,9 +73,11 @@ if global.gamePaused=false
       initDir=true
     }
     bobTime+=1*gDeltaTime
-    if bobTime>=1 and bobTime<=20
+    //if bobTime>=1 and bobTime<=20
+    if bobTime>0 and bobTime<=20 //60fps change: covers every frame of ticks 1-20 (the bob was 0.35px short and paused for a frame)
       y+=0.7*gDeltaTime
-    else if bobTime>=21 and bobTime<=40
+    //else if bobTime>=21 and bobTime<=40
+    else if bobTime>20 and bobTime<=40 //60fps change: see above
     {
       y-=0.7*gDeltaTime
       if bobTime=40
