@@ -96,5 +96,6 @@ action_id=603
 applies_to=self
 */
 draw_sprite_ext(sprite_index,image_index,x,y,image_xscale,image_yscale,image_angle,image_blend,image_alpha)
-flameFrm+=0.5
+//flameFrm+=0.5
+flameFrm+=0.5*gDeltaTime //60fps change: thruster flame animated 2x/4x too fast at 60/120fps
 draw_sprite_ext(sMM_SEPEffect,flameFrm,x-(15*image_xscale),y+3,1,1,flameAng,c_white,image_alpha)

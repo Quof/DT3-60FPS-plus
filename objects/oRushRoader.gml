@@ -65,7 +65,8 @@ if global.gamePaused=false
       else if x<oPlayer1.x and image_xscale=-1
         turnTime+=1*gDeltaTime
 
-      if !isCollisionBottom(1) and turnTime=31 {turnTime=29}
+      //if !isCollisionBottom(1) and turnTime=31 {turnTime=29}
+      if !isCollisionBottom(1) and turnTime>30 {turnTime=29} //60fps change: turnTime steps 30 -> 30.5/30.25 above 30fps and never equals 31 here, so it could start turning in midair
     }
     else
     {

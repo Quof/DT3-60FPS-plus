@@ -52,7 +52,8 @@ if global.gamePaused=false
   }
   else if bombProg=2 //Drop
   {
-    if paraScale<1 {paraScale+=0.1}
+    //if paraScale<1 {paraScale+=0.1}
+    if paraScale<1 {paraScale+=0.1*gDeltaTime} //60fps change: parachute opened 2x/4x too fast at 60/120fps
   }
 
   if isCollisionTop(1)

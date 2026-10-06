@@ -38,6 +38,7 @@ POSSIBLE BUGS / QUIRKS (one per line; [OPEN]=not changed, [NOT FIXING]=decided n
 [OPEN] Maoh (oMaohTheGiant, bomb smoke): xSpd/ySpd are set and then overwritten with 0 on the same line (and "tDecay" typo), so the smoke doesn't rise. specialAttack/specProg/specTime/specDir are unused (vanilla).
 [OPEN] Menace (oMenaceMain, Other_11): the right leg sets stepTime=irandom(29) then stepTime=0, so only the left leg gets the random pause (vanilla).
 [OPEN] Bit (oMMBit): ballTime goes up each phase but is never used; oBitBall always gets decayTime=180 (vanilla).
+[OPEN] Wall Cancer (oWallCancer): the end of each step sets xVel=0 (copied from oCrablaster) but it moves vertically, so yVel is never cleared and it never pauses between steps (vanilla).
 [NOT FIXING] Flame Elemental (oPT_FlameElemental): big burst makes atkAmt*2 fireballs spaced 360/atkAmt, so 8 directions with 2 stacked fireballs each (vanilla).
 [PENDING] Pipe fall-state (item 11); "switch rooms" interpretation unconfirmed; Vault Hex "avoidances" not identified; Kamek center-stop minor issue; Dylan steps 1px per tick.
 [NOT FIXING] Helmethead (non-EX, oHelmetHeadHelmet): the helmet's sideways slow-down during its rise is spread over every frame, so it slides 0.5-0.75px further than at 30fps.

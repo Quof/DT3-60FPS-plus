@@ -60,12 +60,14 @@ if global.gamePaused=false
   if bActive=true and stunnedTime=0 and life>0
   {
     stepTime+=1*gDeltaTime
-    if stepTime=1
+    //if stepTime=1
+    if stepTime=1*gDeltaTime //60fps change: pick the direction on the first frame of tick 1 (as the Crablaster does), not after half a tick of moving the old way
     {
       if y>oPlayer1.y-26 {yVel=-runAcc; image_yscale=-1}
       else {yVel=runAcc; image_yscale=1}
     }
-    else if stepTime>=2 and stepTime<=99
+    //else if stepTime>=2 and stepTime<=99
+    else if stepTime>1 and stepTime<=99 //60fps change: covers every frame of tick 2, so the step animation starts on time
     {
       image_index+=0.15*gDeltaTime
       if image_index>3.8
@@ -155,7 +157,8 @@ event_inherited()
 
 if shotTime>=shotDelay
 {
-  blasterFrame+=0.3
+  //blasterFrame+=0.3
+  blasterFrame+=0.3*gDeltaTime //60fps change: charge glow animated 2x/4x too fast at 60/120fps
   draw_sprite(sWallCancerShot,blasterFrame,x+(22*image_xscale),y-9)
   draw_sprite(sWallCancerShot,blasterFrame,x+(22*image_xscale),y+9)
 }

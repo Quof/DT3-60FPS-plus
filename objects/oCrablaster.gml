@@ -55,7 +55,8 @@ if global.gamePaused=false
       if x>oPlayer1.x {xVel=-runAcc; image_xscale=-1}
       else {xVel=runAcc; image_xscale=1}
     }
-    else if stepTime>=2 and stepTime<=99
+    //else if stepTime>=2 and stepTime<=99
+    else if stepTime>1 and stepTime<=99 //60fps change: covers every frame of tick 2, so the step animation starts on time
     {
       image_index+=0.15*gDeltaTime
       if image_index>7.8
@@ -148,7 +149,8 @@ event_inherited()
 
 if shotTime>=shotDelay
 {
-  blasterFrame+=0.3
+  //blasterFrame+=0.3
+  blasterFrame+=0.3*gDeltaTime //60fps change: charge glow animated 2x/4x too fast at 60/120fps
   draw_sprite(sCrablasterShot,blasterFrame,x+13,y+23)
   draw_sprite(sCrablasterShot,blasterFrame,x-13,y+23)
 }

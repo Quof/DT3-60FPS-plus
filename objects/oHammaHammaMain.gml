@@ -86,12 +86,14 @@ if global.gamePaused=false
       tEffect.newBlend=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
     }
     else if armSeq=60 {findLeftDir=point_direction(leftBall.x,leftBall.y,oPlayer1.x,returnPlayerYCenter())}
-    else if armSeq>=61 and armSeq<=80 //Extend left arm
+    //else if armSeq>=61 and armSeq<=80 //Extend left arm
+    else if armSeq>60 and armSeq<=80 //Extend left arm //60fps change: covers every frame of tick 61, so the arm reaches as far as at 30fps (3.5px/5.25px short at 60/120fps)
     {
       leftBall.x+=armSpd*cos(degtorad(findLeftDir))*gDeltaTime
       leftBall.y+=-armSpd*sin(degtorad(findLeftDir))*gDeltaTime
     }
-    else if armSeq>=141 and armSeq<=160 //Retract left arm
+    //else if armSeq>=141 and armSeq<=160 //Retract left arm
+    else if armSeq>140 and armSeq<=160 //Retract left arm //60fps change: see above
     {
       leftBall.x+=armSpd*cos(degtorad(findLeftDir-180))*gDeltaTime
       leftBall.y+=-armSpd*sin(degtorad(findLeftDir-180))*gDeltaTime
@@ -105,12 +107,14 @@ if global.gamePaused=false
       tEffect.newBlend=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
     }
     else if armSeq=90 {findRightDir=point_direction(rightBall.x,rightBall.y,oPlayer1.x,returnPlayerYCenter())}
-    else if armSeq>=91 and armSeq<=110 //Extend right arm
+    //else if armSeq>=91 and armSeq<=110 //Extend right arm
+    else if armSeq>90 and armSeq<=110 //Extend right arm //60fps change: see above
     {
       rightBall.x+=armSpd*cos(degtorad(findRightDir))*gDeltaTime
       rightBall.y+=-armSpd*sin(degtorad(findRightDir))*gDeltaTime
     }
-    else if armSeq>=171 and armSeq<=190 //Retract right arm
+    //else if armSeq>=171 and armSeq<=190 //Retract right arm
+    else if armSeq>170 and armSeq<=190 //Retract right arm //60fps change: see above
     {
       rightBall.x+=armSpd*cos(degtorad(findRightDir-180))*gDeltaTime
       rightBall.y+=-armSpd*sin(degtorad(findRightDir-180))*gDeltaTime

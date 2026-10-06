@@ -52,16 +52,20 @@ if global.gamePaused=false
     else {image_xscale=-1}
 
     bombTime+=1*gDeltaTime
-    if bombTime>=bombDelay+1 and bombTime<=bombDelay+6 {pipeY[0]-=0.5*gDeltaTime}
-    else if bombTime>=bombDelay+12 and bombTime<=bombDelay+14 {pipeY[0]+=1*gDeltaTime}
+    //if bombTime>=bombDelay+1 and bombTime<=bombDelay+6 {pipeY[0]-=0.5*gDeltaTime}
+    if bombTime>bombDelay and bombTime<=bombDelay+6 {pipeY[0]-=0.5*gDeltaTime} //60fps change: covers every frame of the first tick of each window; the up and down windows lost different amounts, so the pipes sank 0.25px/0.375px per volley at 60/120fps
+    //else if bombTime>=bombDelay+12 and bombTime<=bombDelay+14 {pipeY[0]+=1*gDeltaTime}
+    else if bombTime>bombDelay+11 and bombTime<=bombDelay+14 {pipeY[0]+=1*gDeltaTime} //60fps change: see above
     else if bombTime=bombDelay+15
     {
       var tNewAttack;
       tNewAttack=instance_create(x+(6*image_xscale),y-39,oMegaTBomb); tNewAttack.type=0
       tNewAttack.atkPower=atkPower; tNewAttack.xVel=7*image_xscale; tNewAttack.yVel=-8
     }
-    else if bombTime>=bombDelay+18 and bombTime<=bombDelay+23 {pipeY[1]-=0.5*gDeltaTime}
-    else if bombTime>=bombDelay+27 and bombTime<=bombDelay+29 {pipeY[1]+=1*gDeltaTime}
+    //else if bombTime>=bombDelay+18 and bombTime<=bombDelay+23 {pipeY[1]-=0.5*gDeltaTime}
+    else if bombTime>bombDelay+17 and bombTime<=bombDelay+23 {pipeY[1]-=0.5*gDeltaTime} //60fps change: see above
+    //else if bombTime>=bombDelay+27 and bombTime<=bombDelay+29 {pipeY[1]+=1*gDeltaTime}
+    else if bombTime>bombDelay+26 and bombTime<=bombDelay+29 {pipeY[1]+=1*gDeltaTime} //60fps change: see above
     else if bombTime=bombDelay+30
     {
       var tNewAttack;

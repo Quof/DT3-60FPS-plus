@@ -94,7 +94,8 @@ if global.gamePaused=false
 
       //----- Attack: Homing Missile -----
       missileTime+=1*gDeltaTime
-      if missileTime>=missileDelay and missileTime<=missileDelay+15
+      //if missileTime>=missileDelay and missileTime<=missileDelay+15
+      if missileTime>=missileDelay and missileTime<=missileDelay+15 and gDeltaDoTicks //60fps change: one smoke puff per 30fps tick (was 2x/4x the puffs at 60/120fps)
       {
         var tFFScl,tEffect;
         tFFScl=random(0.2)
