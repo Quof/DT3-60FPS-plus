@@ -75,11 +75,17 @@ if global.gamePaused=false
     if bMoveNormally=1 //Normal walk toward player
     {
       moveTime+=1*gDeltaTime
-      if moveTime>=moveThres and moveTime<=moveThres+15
+      //if moveTime>=moveThres and moveTime<=moveThres+15
+      if moveTime>moveThres-1 and moveTime<=moveThres+15 //60fps change: covers all of ticks 40-55
       {
         image_speed=0.2
-        if image_xscale=1 and gDeltaDoTicks {x+=1}
-        else if gDeltaDoTicks {x-=1}
+        //if image_xscale=1 and gDeltaDoTicks {x+=1}
+        //else if gDeltaDoTicks {x-=1}
+        if frac(moveTime-gDeltaTime)=0 //60fps change (added): steps on the first frame of each of moveTime's own ticks 40-55 (gDeltaDoTicks is out of step with moveTime about half the time, which gave 15 steps instead of 16)
+        {
+          if image_xscale=1 {x+=1}
+          else {x-=1}
+        }
       }
       else if moveTime>=moveThres+16
       {

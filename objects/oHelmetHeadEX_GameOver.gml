@@ -81,7 +81,8 @@ else //static effect
 
 if showOptions>0 and useCommands=false //Start options
 {
-  showOptions+=1
+  //showOptions+=1
+  showOptions+=1*gDeltaTime //60fps change: the menu takes 4 ticks to start taking input, like at 30fps
   if showOptions=2 {playSound(global.snd_Continue,0,1,1)}
   if showOptions=5
   {
@@ -165,7 +166,8 @@ if useCommands=true
   else if gameOverProg=1 //Final fade out
   {
     gameOverTime+=1*gDeltaTime
-    if gameOverTime>=1 and gameOverTime<=100 {confirmFadeOut+=0.01*gDeltaTime}
+    //if gameOverTime>=1 and gameOverTime<=100 {confirmFadeOut+=0.01*gDeltaTime}
+    if gameOverTime>0 and gameOverTime<=100 {confirmFadeOut+=0.01*gDeltaTime} //60fps change: covers all of ticks 1-100, so it fades fully to black (it stopped at 0.995)
     else if gameOverTime>=110
     {
       global.gamePaused=false; global.gameOver=false

@@ -40,7 +40,8 @@ _direction=0
 bCollide=0
 lingerFrame=0
 arrowTick=0 //60fps change (added): the arrow's own 30fps tick count, so it turns once per tick (see the Step event)
-alarm[0]=1
+//alarm[0]=1
+alarm[0]=round(1/gDeltaTime) //60fps change: the speed is set one 30fps tick after creation, as at 30fps. Alarms count frames, so with 1 the arrow started moving after half/a quarter of a tick, having turned 2 degrees once instead of twice, and the whole arc flew ~2 degrees higher (over Army Eye)
 #define Alarm_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

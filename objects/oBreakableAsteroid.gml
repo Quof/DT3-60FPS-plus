@@ -26,7 +26,8 @@ jeremyText="These are like asteroids you may have seen in other video games."
 chaoText="You can't eat asteroids."
 devText="Thanks Bea."
 
-alarm[0]=1
+//alarm[0]=1
+alarm[0]=round(1/gDeltaTime) //60fps change: the type's speed is set one 30fps tick after creation, as at 30fps (alarms count frames, so with 1 split pieces switched from speed 2 to 5/7 after half/a quarter of a tick and drifted a few px further)
 #define Alarm_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

@@ -42,6 +42,7 @@ bDisplayBarrier=0
 floorFireTime=0
 swordProg=0
 swordBeamSpd=1
+swordTick=0 //60fps change (added): ticks counted for the desperation sword beams (bossProgress 8)
 checkWhenToDestroyShield=0
 
 helmetShadowProg=0
@@ -96,7 +97,8 @@ if global.gamePaused=false
     if bMoveNormally=1 //Normal walk toward player
     {
       moveTime+=1*gDeltaTime
-      if moveTime>=moveThres and moveTime<=moveThres+15 and gDeltaDoTicks
+      //if moveTime>=moveThres and moveTime<=moveThres+15 and gDeltaDoTicks
+      if moveTime>moveThres-1 and moveTime<=moveThres+15 and frac(moveTime-gDeltaTime)=0 //60fps change: steps on the first frame of each of moveTime's own ticks 40-55 (gDeltaDoTicks is out of step with moveTime about half the time, which gave 15 steps instead of 16)
       {
         image_speed=0.2
         if image_xscale=1 {x+=1}
@@ -153,7 +155,8 @@ if global.gamePaused=false
         tEffect.followID=id; tEffect.xFollow=0; tEffect.yFollow=-35
         tEffect.newBlend=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
       }
-      else if atkTime>=35
+      //else if atkTime>=35
+      else if atkTime>34 //60fps change: tick 35's first frame moves too, so each tick ends where the 30fps tick does
       {
         x+=4*gDeltaTime
         if x>422
@@ -250,7 +253,11 @@ if global.gamePaused=false
     }
     else if bossProgress=8 //Desperation shield block sequence
     {
-      atkTime+=swordBeamSpd*gDeltaTime
+      //atkTime+=swordBeamSpd*gDeltaTime
+      //60fps change: atkTime goes up by a whole tick's swordBeamSpd at the end of each tick, like at 30fps. Counting up every frame by
+      //1.25-1.75 per tick crossed the thresholds below in the middle of a tick, so beams came up to half a tick early and unevenly spaced
+      swordTick+=gDeltaTime //60fps change (added)
+      if frac(swordTick)=0 {atkTime+=swordBeamSpd} //60fps change (added)
       if atkTime>=40 and swordProg=0 {myBeam=instance_create(x+(6*image_xscale),y-7,oHelmetSwordBeam); myBeam.atkPower=atkPower; myBeam.bulletSpeed=5; myBeam._direction=180; swordProg+=1}
       else if atkTime>=48 and swordProg=1 {myBeam=instance_create(x+(6*image_xscale),y-26,oHelmetSwordBeam); myBeam.atkPower=atkPower; myBeam.bulletSpeed=5; myBeam._direction=180; swordProg+=1}
       else if atkTime>=56 and swordProg=2 {myBeam=instance_create(x+(6*image_xscale),y-26,oHelmetSwordBeam); myBeam.atkPower=atkPower; myBeam.bulletSpeed=5; myBeam._direction=180; swordProg+=1}
@@ -708,6 +715,7 @@ if global.gamePaused=false
         instance_destroy()
       }
       atkTime=0
+      swordTick=0 //60fps change (added): in step with atkTime for bossProgress 8
       bossProgress+=1
     }
     else if lifePercent<=0.18 and bossProgress=10 //Final barrier
@@ -761,7 +769,8 @@ if global.gamePaused=false
     {
       oHelmetHeadEX_Catface.alternateFlash=1
     }
-    else if deathAnim>=141 and deathAnim<=160
+    //else if deathAnim>=141 and deathAnim<=160
+    else if deathAnim>140 and deathAnim<=160 //60fps change: covers all of ticks 141-160, so the shadow grows to 2 like at 30fps (it stopped at 1.95)
     {
       endShadow+=0.1*gDeltaTime
     }

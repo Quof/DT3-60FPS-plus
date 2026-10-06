@@ -26,8 +26,13 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  _speed=moveSpd
-  moveSpd-=0.175
+  //_speed=moveSpd
+  //moveSpd-=0.175
+  //60fps change: the slow-down was per frame (at 60fps the waves ended at about half speed, at 120fps nearly stopped); now per 30fps tick,
+  //moving first then slowing, as in oWMA_SwordWave (scrTickAcc, scrTickAccBPre)
+  if gDeltaTime!=1 {moveSpd=scrTickAcc(moveSpd,-0.175,0)}
+  _speed=moveSpd+scrTickAccBPre(0)
+  if gDeltaTime==1 {moveSpd-=0.175}
 
   if image_alpha<=0.3 {image_alpha-=0.075*gDeltaTime}
   else {image_alpha-=0.04*gDeltaTime}

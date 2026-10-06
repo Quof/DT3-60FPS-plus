@@ -15,7 +15,8 @@ bShowDamage=false
 bCanTakeDamage=false
 size=2
 moveSpd=8
-alarm[0]=1
+//alarm[0]=1
+alarm[0]=round(1/gDeltaTime) //60fps change: the type's speed is set one 30fps tick after creation, as at 30fps (alarms count frames, so with 1 the wave dropped from speed 8 after half/a quarter of a tick and ended 1-3px short)
 #define Alarm_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

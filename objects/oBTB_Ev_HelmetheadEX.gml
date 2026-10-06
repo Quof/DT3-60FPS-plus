@@ -32,7 +32,8 @@ if room=rBT_HelmetheadEX //----- [] Boss Fight: Helmethead EX ----- [1]
 {
   if global.bossTrack=0
   {
-    if roomShake=1
+    //if roomShake=1
+    if roomShake=1 and gDeltaDoTicks //60fps change: smoke and rocks once per 30fps tick (every frame made 2x/4x as many)
     {
       var tEffect;
       tEffect=instance_create(48+random(384),80,oEffectB)

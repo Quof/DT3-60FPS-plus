@@ -1,4 +1,4 @@
-﻿POSSIBLE BUGS / QUIRKS (one per line; [OPEN]=not changed, [NOT FIXING]=decided not to fix, [PENDING]=to do later, [DECISION]=kept as is for now)
+POSSIBLE BUGS / QUIRKS (one per line; [OPEN]=not changed, [NOT FIXING]=decided not to fix, [PENDING]=to do later, [DECISION]=kept as is for now)
 [OPEN] King Worm (oKingWorm, behavior 1): "else if progTime=180" (open fangs) is inside the "progTime<=175" window, so it can never run (vanilla too).
 [OPEN] Malevolence (oMalevolence): after the mouth-flame glide, the head returns 4px/axis per tick and needs to get within 3px of center; at 30fps it can bounce around center forever, so mouthFlameTime never resets (unconfirmed in play; can't happen at 60/120).
 [OPEN] Sephiroth (oSephMetControl): the meteor column "reset" uses start+metRounds*24 with metRounds=5, so after the first sweep (0-96) it repeats 120-216 forever and never returns to the outer columns (vanilla).
@@ -20,7 +20,8 @@
 [OPEN] Warmaster ice form hover (oCHAOS_Warmaster_Main) and wind seeker orb (oWMD_SeekerOrb): max speed is round(player_sprite_center()/40 or /32), but player_sprite_center() returns the direction to the player, not the distance, so the speed depends on the angle (vanilla).
 [OPEN] Warmaster ice ceiling shot (oWMC_IceShotB): "if warTarget.DIFFICULTY=0" is never true (DIFFICULTY starts at 1), so the 5-shard spread is never used (vanilla).
 [OPEN] The Executive (oTheExecutive, phase 6 "Move up"): the fireflies are created at instance_create(oPlayer1,oPlayer1-26,...), using the object index as x/y instead of oPlayer1.x/oPlayer1.y-26, so they appear near the room's top-left corner (vanilla).
-[PENDING] Force Game Over (oPauseMenu, Retry) can reportedly softlock, maybe when the 5-minute autosave (oGame Room Start, cousinoer5) fires during the game-over room change; not found yet. oGameOver's noStaticTime/staticEffect/showOptions counters are unscaled (sequence runs 2x/4x as fast) but don't lock.
+[OPEN] Helmethead EX helmets (oHelmetHeadHelmetEX, bossProg 4): each helmet heads for its lower spot (x=48 / x=424) but checks its distance to where it starts (128 / 352), so both snap to their lower spots after one step instead of sliding there (vanilla; likely intended as a quick teleport with the pulse effect).
 [NOT FIXING] Flame Elemental (oPT_FlameElemental): big burst makes atkAmt*2 fireballs spaced 360/atkAmt, so 8 directions with 2 stacked fireballs each (vanilla).
-[PENDING] Pipe fall-state (item 11); "switch rooms" interpretation unconfirmed; Vault Hex "avoidances" not identified; Kamek center-stop minor issue; Helmethead helmet rise drift; Dylan steps 1px per tick.
+[PENDING] Pipe fall-state (item 11); "switch rooms" interpretation unconfirmed; Vault Hex "avoidances" not identified; Kamek center-stop minor issue; Dylan steps 1px per tick.
+[NOT FIXING] Helmethead (non-EX, oHelmetHeadHelmet): the helmet's sideways slow-down during its rise is spread over every frame, so it slides 0.5-0.75px further than at 30fps.
 [DECISION] Bospider (oBospider): descent spreads moveSpd px over the tick in whole pixels (mvBudget) - kept for now.

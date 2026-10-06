@@ -83,11 +83,19 @@ if global.gamePaused=false
   {
     if moveProg=0
     {
-      x+=xSpd*gDeltaTime
-      if xSpd>0
-        xSpd-=0.1*gDeltaTime
-      if xSpd<0
-        xSpd+=0.1*gDeltaTime
+      //x+=xSpd*gDeltaTime
+      //if xSpd>0
+      //  xSpd-=0.1*gDeltaTime
+      //if xSpd<0
+      //  xSpd+=0.1*gDeltaTime
+      //60fps change: the 30fps code moves and then slows down by 0.1 per tick; slowing a bit every frame made the helmets slide 0.5-0.75px further
+      var tSpd;
+      tSpd=xSpd
+      if tSpd>0 {tSpd-=0.1}
+      if tSpd<0 {tSpd+=0.1}
+      if gDeltaTime!=1 {xSpd=scrTickAcc(xSpd,tSpd-xSpd,0)}
+      x+=(xSpd+scrTickAccBPre(0))*gDeltaTime
+      if gDeltaTime==1 {xSpd=tSpd}
       y-=3*gDeltaTime
       if y<=yGround
       {
@@ -106,7 +114,8 @@ if global.gamePaused=false
       }
 
       moveTime+=1*gDeltaTime
-      if moveTime>=moveThres and moveTime<=moveThres+15 and gDeltaDoTicks
+      //if moveTime>=moveThres and moveTime<=moveThres+15 and gDeltaDoTicks
+      if moveTime>moveThres-1 and moveTime<=moveThres+15 and frac(moveTime-gDeltaTime)=0 //60fps change: steps on the first frame of each of moveTime's own ticks (gDeltaDoTicks is out of step with moveTime about half the time, which gave 15 steps instead of 16)
       {
         image_speed=0.2
         if image_xscale=1
@@ -183,7 +192,8 @@ if global.gamePaused=false
     if shotTime=30 {aimedShotTime=0; bAimedShot=1}
     else if shotTime>=61 and shotTime<=80
     {
-      shotDir+=dirChange*gDeltaTime
+      //shotDir+=dirChange*gDeltaTime
+      if frac(shotTime)=0 {shotDir+=dirChange} //60fps change: turns at the end of each tick, after that tick's shot, like at 30fps (turning every frame missed the first half of tick 61, and shots on the last frame of a tick were already turned half a tick further)
     }
     if circleRad>0 {circleRad-=1*gDeltaTime}
 
@@ -215,17 +225,22 @@ if global.gamePaused=false
         tFire.sprite_index=sWolfHeadShot; tFire.atkPower=atkPower; tFire.bulletSpeed=8; tFire.decayTime=-100
         tFire._direction=extraShotAngle
       }
-      if bArcExtraBullet=1
+      if bArcExtraBullet=1 and frac(atkTime)=0 //60fps change: turns at the end of each tick, after that tick's shot, like at 30fps (shots on the last frame of a tick were already turned half a tick further)
       {
-        if type=1 {extraShotAngle-=1*gDeltaTime}
-        else if type=2 {extraShotAngle+=1*gDeltaTime}
+        //if type=1 {extraShotAngle-=1*gDeltaTime}
+        //else if type=2 {extraShotAngle+=1*gDeltaTime}
+        if type=1 {extraShotAngle-=1} //60fps change: once per tick (see above)
+        else if type=2 {extraShotAngle+=1} //60fps change: once per tick (see above)
       }
     }
 
-    if tinyArcDown>=100 and tinyArcDown<=110
+    //if tinyArcDown>=100 and tinyArcDown<=110
+    if tinyArcDown>=100 and tinyArcDown<=110 and frac(atkTime)=0 //60fps change: turns at the end of each tick, after that tick's shot, 11 times like at 30fps (every frame it turned 10.5 ticks' worth, and shots were already turned half a tick further)
     {
-      tinyArcDown+=1*gDeltaTime
-      shotDir+=dirChange*gDeltaTime
+      //tinyArcDown+=1*gDeltaTime
+      //shotDir+=dirChange*gDeltaTime
+      tinyArcDown+=1 //60fps change: once per tick (see above)
+      shotDir+=dirChange //60fps change: once per tick (see above)
     }
   }
   else if bossProg=4 //Move to lower sides

@@ -280,7 +280,8 @@ if global.gamePaused=false
       if dashEfFrm>=2.6 {dashEfType=0}
     }
 
-    if sprite_index=sWarmasterB_Dashing and gDeltaDoTicks //Super dash trail and fire pillars
+    //if sprite_index=sWarmasterB_Dashing and gDeltaDoTicks //Super dash trail and fire pillars
+    if sprite_index=sWarmasterB_Dashing and frac(actTime)=0 //Super dash trail and fire pillars //60fps change: on actTime's own ticks; gDeltaDoTicks follows the global tick, so when it was out of step with actTime "actTime mod 3=0" below never ran and the big fire pillars along the dash didn't spawn
     {
       var tAfterI;
       tAfterI=instance_create(x,y,oWMB_DashImage)
@@ -383,7 +384,8 @@ if global.gamePaused=false
       else if superChangeAtk>=10 and superChangeAtk<=99 //Charge super attack
       {
         superChangeAtk+=1*gDeltaTime
-        if superChangeAtk>=11 and superChangeAtk<=20
+        //if superChangeAtk>=11 and superChangeAtk<=20
+        if superChangeAtk>10 and superChangeAtk<=20 //60fps change: covers every frame of ticks 11-20
         {
           if gDeltaDoTicks {var tAfterI;
           tAfterI=instance_create(x,y,oEnemyAfterImage)
@@ -393,7 +395,8 @@ if global.gamePaused=false
           tAfterI.bFollow=1; tAfterI.idFollow=id; tAfterI.xFollow=0; tAfterI.yFollow=0}
 
           var tFFScl,tEffect;
-          for(i=0;i<2;i+=1)
+          //for(i=0;i<2;i+=1)
+          if gDeltaDoTicks for(i=0;i<2;i+=1) //60fps change: 2 fireflies per tick (was 2 per frame, 2x/4x as many at 60/120fps)
           {
             tFFScl=random(0.1)
             tEffect=instance_create(x-random_range(-12,12),y-random(48),oEffectB)
@@ -659,17 +662,22 @@ if global.gamePaused=false
     if backGroundFlash>=1 and backGroundFlash<=99 //Normal background flash
     {
       backGroundFlash+=1*gDeltaTime
-      if backGroundFlash>=2 and backGroundFlash<=24
+      //if backGroundFlash>=2 and backGroundFlash<=24
+      if backGroundFlash>1 and backGroundFlash<=24 //60fps change: covers every frame of ticks 2-24
       {
-        if backGroundFlash mod 3=0 {background_blend[0]=make_color_rgb(255,128,128)}
+        //if backGroundFlash mod 3=0 {background_blend[0]=make_color_rgb(255,128,128)}
+        if ceil(backGroundFlash) mod 3=0 {background_blend[0]=make_color_rgb(255,128,128)} //60fps change: ceil gives the tick number, so the red lasts the whole tick (it was only the last frame of it, a shorter, fainter flash at 60/120fps)
         else {background_blend[0]=c_white}
       }
-      else if backGroundFlash>=25 and backGroundFlash<=50
+      //else if backGroundFlash>=25 and backGroundFlash<=50
+      else if backGroundFlash>24 and backGroundFlash<=50 //60fps change: covers every frame of ticks 25-50
       {
-        if backGroundFlash mod 5=0 {background_blend[0]=make_color_rgb(255,128,128)}
+        //if backGroundFlash mod 5=0 {background_blend[0]=make_color_rgb(255,128,128)}
+        if ceil(backGroundFlash) mod 5=0 {background_blend[0]=make_color_rgb(255,128,128)} //60fps change: see above
         else {background_blend[0]=c_white}
       }
-      else if backGroundFlash>=51
+      //else if backGroundFlash>=51
+      else if backGroundFlash>50 //60fps change: ends on the first frame of tick 51
       {
         background_blend[0]=c_white
         backGroundFlash=0
@@ -678,17 +686,22 @@ if global.gamePaused=false
     if backGroundFlash>=101 and backGroundFlash<=199 //Gray background flash
     {
       backGroundFlash+=1*gDeltaTime
-      if backGroundFlash>=102 and backGroundFlash<=124
+      //if backGroundFlash>=102 and backGroundFlash<=124
+      if backGroundFlash>101 and backGroundFlash<=124 //60fps change: covers every frame of ticks 102-124
       {
-        if backGroundFlash mod 3=0 {background_blend[0]=make_color_rgb(120,120,120)}
+        //if backGroundFlash mod 3=0 {background_blend[0]=make_color_rgb(120,120,120)}
+        if ceil(backGroundFlash) mod 3=0 {background_blend[0]=make_color_rgb(120,120,120)} //60fps change: ceil gives the tick number, so the flash lasts the whole tick
         else {background_blend[0]=make_color_rgb(50,50,50)}
       }
-      else if backGroundFlash>=125 and backGroundFlash<=150
+      //else if backGroundFlash>=125 and backGroundFlash<=150
+      else if backGroundFlash>124 and backGroundFlash<=150 //60fps change: covers every frame of ticks 125-150
       {
-        if backGroundFlash mod 5=0 {background_blend[0]=make_color_rgb(120,120,120)}
+        //if backGroundFlash mod 5=0 {background_blend[0]=make_color_rgb(120,120,120)}
+        if ceil(backGroundFlash) mod 5=0 {background_blend[0]=make_color_rgb(120,120,120)} //60fps change: see above
         else {background_blend[0]=make_color_rgb(30,30,30)}
       }
-      else if backGroundFlash>=151
+      //else if backGroundFlash>=151
+      else if backGroundFlash>150 //60fps change: ends on the first frame of tick 151
       {
         background_blend[0]=make_color_rgb(30,30,30)
         backGroundFlash=0
@@ -697,7 +710,8 @@ if global.gamePaused=false
 
     if pepsiLogo>=1
     {
-      pepsiLogo+=1
+      //pepsiLogo+=1
+      pepsiLogo+=1*gDeltaTime //60fps change: the logo flashed 2x/4x sooner and shorter at 60/120fps
     }
 
     //-------------------- Boss Difficulty Curve --------------------
@@ -1614,7 +1628,8 @@ else if currentAttack=2 //==================== ATK B: FIRE SPAM (Needs charge) =
     actTime=3
   }
   else if actTime=11 {sprite_index=sWarmasterB_Dashing}
-  else if actTime>=12 and actTime<=99 //Dash to center
+  //else if actTime>=12 and actTime<=99 //Dash to center
+  else if actTime>11 and actTime<=99 //Dash to center //60fps change: covers every frame of tick 12
   {
     x+=8*scaleForFacing*gDeltaTime
     var tXcenterCheck;
@@ -1902,10 +1917,12 @@ else if currentAttack=7 //==================== ATK G: ZIP AND STRIKE ===========
       tAtk.decayTime=-100; tAtk.damageType="EXPLOSION"; tAtk.image_speed=0.33; tAtk._direction=270; tAtk.image_angle=270
     }
 
-    if image_index=0 {image_index=1}
-    else {image_index=0}
+    //if image_index=0 {image_index=1}
+    //else {image_index=0}
+    if frac(actTime)=0 {if image_index=0 {image_index=1} else {image_index=0}} //60fps change: flickers once per tick (it was every frame)
 
-    if gDeltaDoTicks {var tAtk;
+    //if gDeltaDoTicks {var tAtk;
+    if frac(actTime)=0 {var tAtk; //60fps change: on actTime's own ticks (49 shots in the sweep like 30fps; the global tick gave 48 or 49)
     tAtk=instance_create(x+(8*scaleForFacing),y+3,oPassBullet)
     tAtk.sprite_index=sWarmasterB_AtkFireballA; tAtk.atkPower=atkPower; tAtk.bulletSpeed=8
     tAtk.decayTime=-100; tAtk.damageType="EXPLOSION"; tAtk.image_speed=0.33; tAtk._direction=fireAng; tAtk.image_angle=fireAng
@@ -3541,7 +3558,8 @@ else if sprite_index=sWarmasterD_Hover
 if sprite_index=sWarmasterA_SwordRoll {draw_sprite_ext(sprite_index,image_index,x,y,image_xscale,image_yscale,swdRollAng,image_blend,image_alpha)}
 else {draw_self()}
 
-if pepsiLogo>=16 and pepsiLogo<=17
+//if pepsiLogo>=16 and pepsiLogo<=17
+if pepsiLogo>15 and pepsiLogo<=17 //60fps change: shown for all of ticks 16-17
 {
   draw_sprite_ext(sPepsiLogo,0,xCenter,yGround-128,1,1,0,c_white,1)
 }

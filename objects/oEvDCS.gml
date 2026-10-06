@@ -557,7 +557,8 @@ else if room=rDCS_U and global.gameProgress=4780 //----- [] Boss Fight: Shadow E
       sceneDelay=0; sceneProgress=0
     }
 
-    if roomShake=1
+    //if roomShake=1
+    if roomShake=1 and gDeltaDoTicks //60fps change: smoke and rocks once per 30fps tick (every frame made 2x/4x as many)
     {
       var tEffect;
       tEffect=instance_create(160+random(384),random(64),oEffectB)
