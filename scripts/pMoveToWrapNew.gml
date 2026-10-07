@@ -39,8 +39,35 @@
   //(e.g. Claire's air dash momentum on Gate F's ice fell ~50-70px short of 30fps)
   //The same applies to one-off pushes put into xAcc/yAcc (they'd otherwise only count for one frame's fraction of a tick),
   //and to velocities set by other objects (xVelSetExt/yVelSetExt: fans, wind, bomb blasts).
-  if xVelSetTick or xVelSetExt {xVel=(xVel+xAcc)*xFric; xAccapply=0}
-  if yVelSetTick or yVelSetExt {yVel=(yVel+yAcc)*yFric; yAccapply=0}
+  //if xVelSetTick or xVelSetExt {xVel=(xVel+xAcc)*xFric; xAccapply=0}
+  //if yVelSetTick or yVelSetExt {yVel=(yVel+yAcc)*yFric; yAccapply=0}
+  //60fps change: a velocity set just once (crouch slide, walking off a ledge, getting hit, wall jumps, the release nudge...)
+  //is also kept unchanged until half a 30fps tick has passed. At 60fps that's only this frame, and starting the integration
+  //half a tick in lines it up with the 30fps ticks; at 120fps this frame is a quarter tick, so without the hold the crouch
+  //slide came up 2-4px short and falls off ledges ran ~2px ahead. A velocity set again on the next frame (dashes, fans,
+  //knockback) is set every frame anyway, so that cancels the hold.
+  if xVelSetTick or xVelSetExt
+  {
+    xVel=(xVel+xAcc)*xFric; xAccapply=0
+    if xVelSetPrev=0 {xVelHold=0.5-gDeltaTime} else {xVelHold=0}
+    xVelSetPrev=1
+  }
+  else
+  {
+    xVelSetPrev=0
+    if xVelHold>0.0001 {xAccapply=0; xVelHold-=gDeltaTime}
+  }
+  if yVelSetTick or yVelSetExt
+  {
+    yVel=(yVel+yAcc)*yFric; yAccapply=0
+    if yVelSetPrev=0 {yVelHold=0.5-gDeltaTime} else {yVelHold=0}
+    yVelSetPrev=1
+  }
+  else
+  {
+    yVelSetPrev=0
+    if yVelHold>0.0001 {yAccapply=0; yVelHold-=gDeltaTime}
+  }
   xVelSetExt=0
   yVelSetExt=0
 

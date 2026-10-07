@@ -222,7 +222,8 @@ if attackState!=ACT_BLOCK and bTakingDamage=false and dashTickTime<=0 //60fps ch
         }
 
         xAcc-=runAcc
-        if platformCharacterIs(IN_AIR) and dashMomentumTime>0
+        //if platformCharacterIs(IN_AIR) and dashMomentumTime>0
+        if (platformCharacterIs(IN_AIR) or landTickHold>0) and dashMomentumTime>0 //60fps change: see the landing code
         {
           //xAcc-=(xVel/2.1+(dashMomentumTime/2))
           xAcc-=(xVel/2.1+(ceil(dashMomentumTime)/2)) //60fps change: the 30fps tick's value of the counter (as characterStepEvent)
@@ -258,7 +259,8 @@ if attackState!=ACT_BLOCK and bTakingDamage=false and dashTickTime<=0 //60fps ch
         }
 
         xAcc+=runAcc
-        if platformCharacterIs(IN_AIR) and dashMomentumTime>0
+        //if platformCharacterIs(IN_AIR) and dashMomentumTime>0
+        if (platformCharacterIs(IN_AIR) or landTickHold>0) and dashMomentumTime>0 //60fps change: see the landing code
         {
           //xAcc+=xVel/2.1+(dashMomentumTime/2)
           xAcc+=xVel/2.1+(ceil(dashMomentumTime)/2) //60fps change: see run left
@@ -311,6 +313,7 @@ if (isCollisionBottom(1) or isCollisionPlatformBottom(1) and isCollisionPlatform
   doubleJumpAnim=0
   if grappleState=0 {busterAnimStay=0}
   airDashDamage=0
+  if gDeltaTime!=1 and dashMomentumTime>0 {landTickHold=frac(dashMomentumTime)} //60fps change (added): rest of this 30fps tick still counts as in the air for dash momentum (see characterStepEvent)
 }
 //fix grounded bug when player object is being pushed down by an external force
 if platformCharacterIs(ON_GROUND) and yVel>0.25 {yVel=0}
@@ -796,7 +799,8 @@ else
   //Decrease the friction when the character is "flying"
   if canFly and jumps>1 {xFric=frictionFlyingX}
   else if flySpeed>50 {xFric=frictionRunningFastX}
-  else if platformCharacterIs(IN_AIR) and kLeft=0 and kRight=0 //In air
+  //else if platformCharacterIs(IN_AIR) and kLeft=0 and kRight=0 //In air
+  else if (platformCharacterIs(IN_AIR) or landTickHold>0) and kLeft=0 and kRight=0 //In air //60fps change: see the landing code
   {
     //if dashMomentumTime>0
     if dashMomentumTime>=1 //60fps change: whole-number thresholds for counters that were just counted down (see characterStepEvent)
@@ -990,9 +994,11 @@ if isCollisionBottom(1)=0 and maxDownSlope>0 and xVelInteger!=0 and platformChar
     }
   y=upYPrev
 }
+if landTickHold>0 {landTickHold-=gDeltaTime} //60fps change (added): see the landing code
 
 //The character is no longer taking damage (in recovery state) when they hit the ground
-if bTakingDamage=true and (state=STANDING or state=RUNNING or state=LOOKING_UP) and damageTime<26
+//if bTakingDamage=true and (state=STANDING or state=RUNNING or state=LOOKING_UP) and damageTime<26
+if bTakingDamage=true and (state=STANDING or state=RUNNING or state=LOOKING_UP) and damageTime<=25 //60fps change: same tick as at 30fps (see characterStepEvent)
 {
   bTakingDamage=false
 }
@@ -1001,7 +1007,8 @@ if damageTime<=recoverTime
   bTakingDamage=false
 }
 
-if damageTime>=29 //Fix knockback
+//if damageTime>=29 //Fix knockback
+if damageTime>28 //Fix knockback //60fps change: 2 ticks of knockback push at every frame rate (see characterStepEvent)
 {
   if image_xscale=1 {xVel=-2}
   else {xVel=2}

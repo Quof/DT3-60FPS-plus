@@ -37,10 +37,11 @@ else if global.activeCharacter=1 //----- Claire -----
   }
   else
   {
-    var bodged;
-    bodged = (initialJumpAcc/2) * 1.2 //fine tune this as needed
-    yVel = bodged
-    yVel += gravityIntensity*0.5
+    //var bodged;
+    //bodged = (initialJumpAcc/2) * 1.2 //fine tune this as needed
+    //yVel = bodged
+    //yVel += gravityIntensity*0.5
+    yVel = initialJumpAcc/2 - grav*(0.5-gDeltaTime)*0.5 //60fps change: see pMoveDashForward
   }
 
 

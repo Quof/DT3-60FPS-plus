@@ -228,7 +228,8 @@ if attackState!=ACT_IN_BIKE and attackState!=ACT_BLOCK and (grappleState=0 or gr
         if global.activeCharacter=0 //Jerry
         {
           xAcc-=runAcc
-          if platformCharacterIs(IN_AIR) and dashMomentumTime>0
+          //if platformCharacterIs(IN_AIR) and dashMomentumTime>0
+          if (platformCharacterIs(IN_AIR) or landTickHold>0) and dashMomentumTime>0 //60fps change: see the landing code
           {
             //xAcc-=(xVel/2.1+(dashMomentumTime/2))
             //xVel=-(dashVel/2.1+(dashMomentumTime/2)); xVelSetTick=1
@@ -243,7 +244,8 @@ if attackState!=ACT_IN_BIKE and attackState!=ACT_BLOCK and (grappleState=0 or gr
           //if dashMomentumTime>=1
           if dashMomentumTime>0 //60fps change: >=1 dropped the second half of the last momentum tick at 60fps (same as >=1 at 30fps)
           {
-            if platformCharacterIs(IN_AIR)
+            //if platformCharacterIs(IN_AIR)
+            if platformCharacterIs(IN_AIR) or landTickHold>0 //60fps change: see the landing code
             {
               //xAcc-=(xVel/2.1+(dashMomentumTime/1.95))
               //xVel=-(dashVel/2.1+(dashMomentumTime/1.95)); xVelSetTick=1
@@ -289,7 +291,8 @@ if attackState!=ACT_IN_BIKE and attackState!=ACT_BLOCK and (grappleState=0 or gr
         if global.activeCharacter=0 //Jerry
         {
           xAcc+=runAcc
-          if platformCharacterIs(IN_AIR) and dashMomentumTime>0
+          //if platformCharacterIs(IN_AIR) and dashMomentumTime>0
+          if (platformCharacterIs(IN_AIR) or landTickHold>0) and dashMomentumTime>0 //60fps change: see the landing code
           {
             //xAcc+=xVel/2.1+(dashMomentumTime/2)
             //xVel=dashVel/2.1+(dashMomentumTime/2); xVelSetTick=1
@@ -303,7 +306,8 @@ if attackState!=ACT_IN_BIKE and attackState!=ACT_BLOCK and (grappleState=0 or gr
           //if dashMomentumTime>=1
           if dashMomentumTime>0 //60fps change: see run left
           {
-            if platformCharacterIs(IN_AIR)
+            //if platformCharacterIs(IN_AIR)
+            if platformCharacterIs(IN_AIR) or landTickHold>0 //60fps change: see the landing code
             {
               //xAcc+=xVel/2.1+(dashMomentumTime/1.95)
               //xVel=dashVel/2.1+(dashMomentumTime/1.95); xVelSetTick=1
@@ -413,6 +417,11 @@ if (isCollisionBottom(1) or isCollisionPlatformBottom(1) and isCollisionPlatform
   doubleJumpAnim=0
   if grappleState=0 {busterAnimStay=0}
   airDashDamage=0
+  //60fps change (added): landing with dash momentum keeps the air friction and the momentum formula for the rest of this
+  //30fps tick of the dash (dashMomentumTime is a whole number at its tick boundaries). At 30fps a landing only shows up at
+  //the start of the next tick, so the tick it touched down in still moved with them; above 30fps it showed up within 1/2
+  //or 1/4 tick, so Claire's dash hop (0.96 friction in the air, 0.5 on the ground) started slowing down early
+  if gDeltaTime!=1 and dashMomentumTime>0 {landTickHold=frac(dashMomentumTime)}
 }
 //fix grounded bug when player object is being pushed down by an external force
 if platformCharacterIs(ON_GROUND) and yVel>0.25 {yVel=0}
@@ -1101,7 +1110,8 @@ else
     //Decrease the friction when the character is "flying"
     if canFly and jumps>1 {xFric=frictionFlyingX}
     else if flySpeed>50 {xFric=frictionRunningFastX}
-    else if platformCharacterIs(IN_AIR) and kLeft=0 and kRight=0 //In air
+    //else if platformCharacterIs(IN_AIR) and kLeft=0 and kRight=0 //In air
+    else if (platformCharacterIs(IN_AIR) or landTickHold>0) and kLeft=0 and kRight=0 //In air //60fps change: see the landing code
     {
       //These counters were just counted down for this frame, so between 30fps ticks they hold fractions: compare against the
       //next whole number (e.g. >=20 instead of >19) so each friction lasts exactly as many 30fps ticks as at 30fps.
@@ -1320,9 +1330,13 @@ else if grappleState=3
     grappleState=0
   }
 }
+if landTickHold>0 {landTickHold-=gDeltaTime} //60fps change (added): see the landing code
 
 //The character is no longer taking damage (in recovery state) when they hit the ground
-if bTakingDamage=true and (state=STANDING or state=RUNNING or state=DUCKING or state=LOOKING_UP) and damageTime<26
+//if bTakingDamage=true and (state=STANDING or state=RUNNING or state=DUCKING or state=LOOKING_UP) and damageTime<26
+//60fps change: damageTime counts down in fractions between 30fps ticks, so <26 let the player recover half/three quarters
+//of a tick early (at 25.5/25.25); <=25 is the same tick as at 30fps
+if bTakingDamage=true and (state=STANDING or state=RUNNING or state=DUCKING or state=LOOKING_UP) and damageTime<=25
 {
   bTakingDamage=false
 }
@@ -1331,7 +1345,8 @@ if damageTime<=recoverTime
   bTakingDamage=false
 }
 
-if damageTime>=29 //Fix knockback
+//if damageTime>=29 //Fix knockback
+if damageTime>28 //Fix knockback //60fps change: >=29 kept the knockback push for 1.5 ticks at 60fps (30, 29.5, 29) instead of 2
 {
   if image_xscale=1 {xVel=-2}
   else {xVel=2}

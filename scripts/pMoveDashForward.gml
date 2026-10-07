@@ -38,10 +38,16 @@ else if global.activeCharacter=1 //----- Claire -----
   }
   else
   {
-    var bodged;
-    bodged = (initialJumpAcc/2) * 1.2 //fine tune this as needed
-    yVel = bodged
-    yVel += gravityIntensity*0.5
+    //var bodged;
+    //bodged = (initialJumpAcc/2) * 1.2 //fine tune this as needed
+    //yVel = bodged
+    //yVel += gravityIntensity*0.5
+    //60fps change: gravity starts one frame after the hop here (1 tick at 30fps), which makes the hop higher the longer that
+    //frame is. At 60fps that exactly makes up for pMoveToWrapNew's gravity (no correction needed); at 120fps it's 1/4 tick
+    //short, so add back half of the missing gravity (all of it is right if the dash button is let go at once, none of it if
+    //it's held, since gravity then ramps up from 0). With landTickHold (characterStepEvent) the hop distance averages within
+    //~1px (60fps) / ~2px (120fps) of 30fps; with the 1.2 value it was 4-6px short at 120fps and the hop was higher at 60fps
+    yVel = initialJumpAcc/2 - grav*(0.5-gDeltaTime)*0.5
   }
   //the "state" gets changed to JUMPING later on in the code
   state=FALLING
