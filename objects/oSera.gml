@@ -212,8 +212,10 @@ if global.gamePaused=false
         //yVel+=0.15*gDeltaTime
         yVel=scrTickAcc(yVel,0.15,1) //60fps change: see xVel above
         //if yVel<=-0.3 {yVel=0}
-        if global.booleanImprovements = true {if yVel>=-0.3 {yVel=0}} //bug fix (not a 60fps change): was "<=-0.3", which zeroed every upward dash on its first tick
-        else if global.booleanImprovements = false {if yVel<=-0.3 {yVel=0}} //old behavior: upward dash stops on its first tick
+        //if global.booleanImprovements = true {if yVel>=-0.3 {yVel=0}} //bug fix (not a 60fps change): was "<=-0.3", which zeroed every upward dash on its first tick
+        //else if global.booleanImprovements = false {if yVel<=-0.3 {yVel=0}} //old behavior: upward dash stops on its first tick
+        if global.fixSeraDash = true {if yVel>=-0.3 {yVel=0}} //bug fix (not a 60fps change): was "<=-0.3", which zeroed every upward dash on its first tick //dipswitch change: own switch (was booleanImprovements)
+        else if global.fixSeraDash = false {if yVel<=-0.3 {yVel=0}} //old behavior: upward dash stops on its first tick //dipswitch change
       }
 
       //x+=xVel*gDeltaTime; y+=yVel*gDeltaTime

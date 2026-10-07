@@ -68,4 +68,9 @@ global.ctrlActC=ini_read_string(sectionRead,"310","O")
 global.ctrlDashLeft=ini_read_string(sectionRead,"311","Q")
 global.ctrlDashRight=ini_read_string(sectionRead,"312","E")
 
+//dipswitch change (added): the remaster's dipswitches (Options > Gameplay > Customize Remastered Changes), on by default
+var i;
+remasterSwitchList()
+for(i=0;i<global.dsCount;i+=1) {variable_global_set(global.dsVar[i],ini_read_real(sectionRead,global.dsKey[i],1))}
+
 ini_close()

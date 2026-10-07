@@ -265,6 +265,7 @@ else if mO_OptSubMenu=4 //------------------------- GAMEPLAY -------------------
   textDropShadow("Chao Seek Enemy",contentMenuX+28,contentMenuY+127,textColorMain,textColorShadow,1)
   textDropShadow("No Air Stall on Down",contentMenuX+28,contentMenuY+139,textColorMain,textColorShadow,1)
   textDropShadow("Morph Controls",contentMenuX+28,contentMenuY+151,textColorMain,textColorShadow,1)
+  textDropShadow("Customize Remastered Changes",contentMenuX+28,contentMenuY+163,textColorMain,textColorShadow,1) //dipswitch change (added): opens the dipswitch list (subMenu 15)
 
   var tMorphText;
   if global.optShowDamage=0 {textDropShadow("Off",contentMenuX+164,contentMenuY+43,textColorMain,textColorShadow,1)}
@@ -322,6 +323,7 @@ else if mO_OptSubMenu=4 //------------------------- GAMEPLAY -------------------
   else if mO_CurPos=8 {menuInfoText="This makes Chao seek out the nearest enemy to her (or you) and hover over it. 'Let Chao Roam' must be on for this. It's kinda like turning her into an info attack drone if you turn on 'Show Hover Info' as well."}
   else if mO_CurPos=9 {menuInfoText="Turn this on if you would like to have holding down not activate the air stall when dealing damage to an enemy in the air."}
   else if mO_CurPos=10 {menuInfoText=string("Controls for morphing and unmorphing.#-Current Controls-#") +string(tMorphText)}
+  else if mO_CurPos=11 {menuInfoText="Turn each of the remaster's changes to the original game on or off."} //dipswitch change (added)
 }
 else if mO_OptSubMenu=5 //------------------------- UNREAL GUY -------------------------
 {

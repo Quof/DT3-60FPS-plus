@@ -102,7 +102,8 @@ if global.gamePaused=false
     atkProg+=1*gDeltaTime
     if actionState=0 //--------- Walk forward ---------
     {
-     if atkProg=1 and global.booleanImprovements = true
+     //if atkProg=1 and global.booleanImprovements = true
+     if atkProg=1 and global.sigmaAvoidance = true //dipswitch change: own switch (was booleanImprovements)
         {
           if specialAttack=1 {specialAttack=2}
         }

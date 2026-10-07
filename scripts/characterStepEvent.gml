@@ -1508,7 +1508,8 @@ if bCanTakeHit=false
     bTakingDamage=false
   }
 }
-if global.booleanImprovements = true //input buffer
+//if global.booleanImprovements = true //input buffer
+if global.atkInputBuffer = true //input buffer //dipswitch change: own switch (was booleanImprovements)
     {
     if atkBufferTime>0 {atkBufferTime-=1*gDeltaTime}
 
@@ -1531,7 +1532,8 @@ if global.booleanImprovements = true //input buffer
         else {castRecovering-=1*gDeltaTime}
         }
 }
-else if global.booleanImprovements = false //old no input buffer
+//else if global.booleanImprovements = false //old no input buffer
+else if global.atkInputBuffer = false //old no input buffer //dipswitch change
     {
     if attackState=ACT_ATK or attackState=ACT_FIRE or attackState=ACT_FIRE_UP or attackState=ACT_FIRE_DOWN or attackState=ACT_BIRD_CALL
         {

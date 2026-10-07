@@ -42,16 +42,20 @@ global.gamePaused=true
 if progressCheck=0
 {
   fileCursorPos=1
-  fileCursorY=150
+  //fileCursorY=150
+  fileCursorY=147 //title options change: five buttons on a 19px step now (sFileMain)
 }
 else //Start cursor on "Continue" if the player has a saved game in progress
 {
   fileCursorPos=2
-  fileCursorY=175
+  //fileCursorY=175
+  fileCursorY=166 //title options change
 }
 fileCursorX=120
-cursorMoveInc=25
-arraySizeMax=4
+//cursorMoveInc=25
+//arraySizeMax=4
+cursorMoveInc=19 //title options change: New Game, Continue, Options, Back Story, Exit Game
+arraySizeMax=5 //title options change
 
 //-- Intro data --
 bCanUseMenu=0
@@ -143,6 +147,9 @@ if bCanUseMenu=1
       titleCTime=0
   }
   titleCl=make_color_rgb(titleRGB,255,titleRGB)
+
+  //title options change (added): the Options menu (oPauseMenu) has the controls while it's open
+  if instance_exists(oPauseMenu) {exit}
 
   //----- Title menu controls -----
   if oKeyCodesHighFPS.kCodePressed[4]=1
@@ -419,12 +426,20 @@ if bCanUseMenu=1
         else {room_goto(rCheaterRoom)}
       }
     }
-    else if fileCursorPos=3 //---------- Back Story ----------
+    else if fileCursorPos=3 //---------- Options ---------- //title options change (added)
+    {
+      //the pause menu's Options submenu; in title mode it saves to DT3Options.dts only (see oPauseMenu)
+      global.gamePaused=true
+      instance_create(0,0,oPauseMenu)
+    }
+    //else if fileCursorPos=3 //---------- Back Story ----------
+    else if fileCursorPos=4 //---------- Back Story ---------- //title options change
     {
       SS_StopSound(global.msc_TitleMenu)
       room_goto(rBackStory)
     }
-    else if fileCursorPos=4 //---------- Exit ----------
+    //else if fileCursorPos=4 //---------- Exit ----------
+    else if fileCursorPos=5 //---------- Exit ---------- //title options change
       game_end()
   }
 }
@@ -568,6 +583,8 @@ else //Title screen stuff
   draw_set_font(fnt_Points)
   textDropShadow("Game by ZephyrBurst",4,323,c_white,c_black,1)
   textDropShadow("Send all questions and concerns to ZephyrBurst@yahoo.com",4,335,c_white,c_black,1)
+  //title options change (added): controls can be changed from the title's Options menu now, so show the current ones
+  controlHelp="Controls:#[" +string(global.ctrlUp) +"] Up    [" +string(global.ctrlDown) +"] Down#[" +string(global.ctrlJump) +"] Confirm"
   textDropShadow(controlHelp,384,307,c_white,c_black,1)
 
   //DT3 Title - width[432]  heightToSecondWord[30]
@@ -626,8 +643,11 @@ else //Title screen stuff
     
     if fileCursorPos=1 {textDropShadow("If you want to start a new game.",80,248,c_white,c_black,4)}
     else if fileCursorPos=2 {textDropShadow("If you want to continue from where you left off last time.",80,248,c_white,c_black,4)}
-    else if fileCursorPos=3 {textDropShadow("If you want a refresher on the story so far, or if you didn't play the#first two games.",80,248,c_white,c_black,4)}
-    else if fileCursorPos=4 {textDropShadow("If you want to close the game, but why would you ever want to do that?",80,248,c_white,c_black,4)}
+    //else if fileCursorPos=3 {textDropShadow("If you want a refresher on the story so far, or if you didn't play the#first two games.",80,248,c_white,c_black,4)}
+    //else if fileCursorPos=4 {textDropShadow("If you want to close the game, but why would you ever want to do that?",80,248,c_white,c_black,4)}
+    else if fileCursorPos=3 {textDropShadow("If you want to change the controls, audio, display and other settings.",80,248,c_white,c_black,4)} //title options change (added)
+    else if fileCursorPos=4 {textDropShadow("If you want a refresher on the story so far, or if you didn't play the#first two games.",80,248,c_white,c_black,4)} //title options change
+    else if fileCursorPos=5 {textDropShadow("If you want to close the game, but why would you ever want to do that?",80,248,c_white,c_black,4)} //title options change
     
     //File cursor
     draw_sprite_ext(sTitleCursor,0,fileCursorX,fileCursorY,1,1,0,titleCl,1)

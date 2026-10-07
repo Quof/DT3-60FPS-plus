@@ -5,10 +5,16 @@ action_id=603
 applies_to=self
 */
 scrGlobalKeyboardInit(0)
-global.booleanImprovements=true
-global.fixMMGravPlatforms=true
-global.fixDarkBackgrounds=true
-global.fixMMRecharge=true //Mega Man inactive-set recharge: skill tree 28 shortens the recharge time (vanilla's operator order made it only shift the timing); see playerAbilRecover
+//global.booleanImprovements=true
+//global.fixMMGravPlatforms=true
+//global.fixDarkBackgrounds=true
+//global.fixMMRecharge=true //Mega Man inactive-set recharge: skill tree 28 shortens the recharge time (vanilla's operator order made it only shift the timing); see playerAbilRecover
+//dipswitch change: the dipswitches are options now (remasterSwitchList), loaded from DT3Options.dts by loadOptions, which
+//oInitializeGame runs just before this; setting them here would undo the player's choices, so this only fills in any
+//that weren't loaded. booleanImprovements was split into fixSeraDash, sigmaAvoidance and atkInputBuffer.
+var i;
+remasterSwitchList()
+for(i=0;i<global.dsCount;i+=1) {if !variable_global_exists(global.dsVar[i]) {variable_global_set(global.dsVar[i],true)}}
 gameCreateEvent()
 bStatRender=false
 windowUpdate=0

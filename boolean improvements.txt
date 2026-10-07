@@ -29,21 +29,24 @@ actually implemented:
 	`if (oKeyCodesHighFPS.kCode[10]=1 and oKeyCodesHighFPS.kCodePressed[14]=1 and` in oPlayer1 Step Action
 	
 2) ATK buffer (will probably remove)
+	switch is global.atkInputBuffer (see 11)
 	oPlayer1 create event (atkBuffer)
-	playerTechUse script (atkBuffer)
+	playerTechUse script (atkBuffer); its buffer time is atkBufferTime=0, so nothing gets buffered yet
 	characterStepEvent (atkBuffer)
 	
 3) sigma avoidance re-added, oSigmaA step event line 43
+	switch is global.sigmaAvoidance (see 11)
 
 4) megaman recharge dipswitch
-	switch is global.fixMMRecharge=true in oGame create event
+	switch is global.fixMMRecharge (see 11)
 	applied in the playerAbilRecover script (Mega Man buster / Shotgun Ice / Gravity Well recharge): skill tree 28 shortens the recharge time
 
 5) MM Gravity Well platform bug fixed, with dipswitch
-	switch is global.fixMMGravPlatforms=true in oGame create event
+	switch is global.fixMMGravPlatforms (see 11)
 	applied in oGWPlatform step event, lines 94-104 and 108-136
 
 6) fixDarkBackgrounds, oEvExGates create event line 26, oEvExGates step line 1539
+	switch is global.fixDarkBackgrounds (see 11)
 
 7) HQ Music
 
@@ -51,3 +54,12 @@ actually implemented:
 
 9) Changing saves from title (ghetto version)
 	oInitializeGame step event (lines 271 - 286, starts with 'if inputMenu="save0"')
+
+10) Sera's upward dash fix (the dash stopped on its first tick), oSera step event
+	switch is global.fixSeraDash (see 11)
+
+11) dipswitch menu: Options > Gameplay > Customize Remastered Changes (in game and on the title screen)
+	the list is the remasterSwitchList script: global variable name, key in DT3Options.dts (401 and up), name and info text for the menu
+	saved/loaded with the other options (saveOptions/loadOptions), all on by default
+	to add one: add a line to remasterSwitchList, then check global.<name> where the change is made
+	booleanImprovements is gone, split into atkInputBuffer (2), sigmaAvoidance (3) and fixSeraDash (10)

@@ -4,7 +4,12 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-global.recMenuOpenNum+=1
+//title options change (added): opened from the title screen's Options entry (oInitializeGame). Only the Options submenu
+//is used there, and no game is running (no player, HUD or Chao), so what needs them is skipped or guarded. Closing it
+//saves the options to DT3Options.dts (saveOptions) and goes back to the title menu.
+titleMode=(room=rTitle)
+//global.recMenuOpenNum+=1
+if titleMode=0 {global.recMenuOpenNum+=1} //title options change: a game record (saved in the game save)
 image_speed=0.1
 textColorMain=make_color_rgb(240,240,240)
 textColorShadow=make_color_rgb(0,120,72)
@@ -25,6 +30,20 @@ mainInc=20
 mainMax=9
 mainCurX=15
 mainCurY=28+((mainCurPos-1)*mainInc)
+if titleMode=1 //title options change (added): straight into Options
+{
+  mainCurPos=7
+  mainCurY=28+((mainCurPos-1)*mainInc)
+  subMenu=7
+  //The title reads oKeyCodesHighFPS (every frame) but this menu reads oKeyCodes (30fps ticks only). At 60/120fps the
+  //Confirm press that opened the menu could still be new to oKeyCodes on its next tick and activate the first option
+  //(Change Controls) straight away. Mark whatever is held right now as already held.
+  for(i=1;i<=14;i+=1)
+  {
+    oKeyCodes.kCode[i]=scrController(i)
+    oKeyCodes.kCodePressed[i]=0
+  }
+}
 
 sawBirdHatJ=0
 sawBirdHatC=0
@@ -262,6 +281,9 @@ mO_OptConMax=7 //Gamepad profile num
 //6: Audio
 maxHats=15
 
+//Menu - Customize Remastered Changes (dipswitch change (added): Options > Gameplay, the dipswitch list in remasterSwitchList)
+mDS_CurPos=1
+
 //Menu - Save
 mS_CurPos=1
 mS_CurInc=26
@@ -289,7 +311,9 @@ curInfo=vk_f1
 for(i=0;i<3;i+=1)
 {
   //bottles[i]=string_char_at(global.extraItems,i+1)
-  bottles[i]=oPlayer1.pBottles[i]
+  //bottles[i]=oPlayer1.pBottles[i]
+  if instance_exists(oPlayer1) {bottles[i]=oPlayer1.pBottles[i]} //title options change: there's no player on the title screen
+  else {bottles[i]="0"}
 }
 //---------- Item Check ----------
 for(i=0;i<40;i+=1)
@@ -301,8 +325,10 @@ for(i=0;i<40;i+=1)
 }
 
 //Achievement
-global.gamePercent=checkItemPercent(0)
-if global.gamePercent=100
+//global.gamePercent=checkItemPercent(0)
+//if global.gamePercent=100
+if titleMode=0 {global.gamePercent=checkItemPercent(0)} //title options change: no game loaded on the title screen
+if global.gamePercent=100 and titleMode=0 //title options change
 {
   var tCheckAchieve;
   tCheckAchieve=string_char_at(global.tokenRecognitionsSetTwo,6)
@@ -323,7 +349,8 @@ action_id=603
 applies_to=self
 */
 if gDeltaDoTicks != 1 { exit; }
-global.recTimeInMenu+=1
+//global.recTimeInMenu+=1
+if titleMode=0 {global.recTimeInMenu+=1} //title options change: a game record
 if cursorRepeatMove>0
 {
   cursorRepeatMove+=1
@@ -880,7 +907,8 @@ else if subMenu=6 //---------- RECORDS ----------
 }
 else if subMenu=7 //---------- OPTIONS ----------
 {
-  if mO_OptSubMenu=2
+  //if mO_OptSubMenu=2
+  if mO_OptSubMenu=2 and titleMode=0 //title options change: "birds seen" is a game record
   {
     if global.wearingHatJ=9 and sawBirdHatJ=0
     {
@@ -927,7 +955,8 @@ else if subMenu=7 //---------- OPTIONS ----------
   if mO_OptSubMenu=1 {mO_OptMax=9} //Control
   else if mO_OptSubMenu=2 {mO_OptMax=10} //Graphics
   else if mO_OptSubMenu=3 {mO_OptMax=9} //Display
-  else if mO_OptSubMenu=4 {mO_OptMax=10} //Gameplay
+  //else if mO_OptSubMenu=4 {mO_OptMax=10} //Gameplay
+  else if mO_OptSubMenu=4 {mO_OptMax=11} //Gameplay //dipswitch change: + Customize Remastered Changes
   else if mO_OptSubMenu=5 {mO_OptMax=7} //Unreal Guy
   else if mO_OptSubMenu=6 {mO_OptMax=6} //Audio // music loop
 
@@ -1005,10 +1034,18 @@ else if subMenu=7 //---------- OPTIONS ----------
         {
           playSound(global.snd_MenuCursor,0,1,1)
           global.optMusic-=1
+          if titleMode=1 //title options change (added): the title music isn't global.currentMusic, and findMusic(0) stops all music
+          {
+            if global.optMusic>0 {SS_SetSoundVol(global.msc_TitleMenu,global.optMusic*100)}
+            else {SS_StopSound(global.msc_TitleMenu)}
+          }
+          else
+          {
           var tempMplay;
           tempMplay=findMusic(global.currentMusic)
           SS_SetSoundVol(tempMplay,global.optMusic*100)
           if global.optMusic=0 {stopAllMusic()}
+          }
         }
       }
       else if mO_CurPos=2 //Sound Volume
@@ -1094,12 +1131,21 @@ else if subMenu=7 //---------- OPTIONS ----------
         if global.optMusic<100
         {
           playSound(global.snd_MenuCursor,0,1,1)
+          if titleMode=1 //title options change (added): see above
+          {
+            global.optMusic+=1
+            if !SS_IsSoundLooping(global.msc_TitleMenu) {SS_LoopSound(global.msc_TitleMenu)}
+            SS_SetSoundVol(global.msc_TitleMenu,global.optMusic*100)
+          }
+          else
+          {
           var prevVol,tempMplay;
           prevVol=global.optMusic
           tempMplay=findMusic(global.currentMusic)
           global.optMusic+=1
           if prevVol=0 {playMusic(tempMplay,0,0)}
           SS_SetSoundVol(tempMplay,global.optMusic*100)
+          }
         }
       }
       else if mO_CurPos=2 //Sound Volume
@@ -1310,7 +1356,8 @@ else if subMenu=7 //---------- OPTIONS ----------
         if global.optChaoRoam=1
         {
           global.optChaoRoam=0
-          oIdentifier.fairyAutoRoam=false
+          //oIdentifier.fairyAutoRoam=false
+          if instance_exists(oIdentifier) {oIdentifier.fairyAutoRoam=false} //title options change: Chao doesn't exist on the title screen
         }
         else {global.optChaoRoam=1}
       }
@@ -1326,7 +1373,8 @@ else if subMenu=7 //---------- OPTIONS ----------
         else if global.optChaoAttack=2
         {
           global.optChaoAttack=0
-          oIdentifier.followTarget=oPlayer1
+          //oIdentifier.followTarget=oPlayer1
+          if instance_exists(oIdentifier) {oIdentifier.followTarget=oPlayer1} //title options change: see Let Chao Roam
         }
       }
       else if mO_CurPos=9 //No Air Stall on Down
@@ -1339,6 +1387,10 @@ else if subMenu=7 //---------- OPTIONS ----------
         if global.optMorphControls=0 {global.optMorphControls=1}
         else if global.optMorphControls=1 {global.optMorphControls=2}
         else {global.optMorphControls=0}
+      }
+      else if mO_CurPos=11 //Customize Remastered Changes //dipswitch change (added)
+      {
+        subMenu=15
       }
     }
     else if mO_OptSubMenu=5 //---------- UNREAL GUY ----------
@@ -1387,7 +1439,22 @@ else if subMenu=7 //---------- OPTIONS ----------
     {
       if mO_CurPos=1 //Music Volume
       {
-        if global.optMusic=0
+        if titleMode=1 //title options change (added): mute/max the title music (see the volume code above)
+        {
+          if global.optMusic=0
+          {
+            global.optMusic=100
+            if !SS_IsSoundLooping(global.msc_TitleMenu) {SS_LoopSound(global.msc_TitleMenu)}
+            SS_SetSoundVol(global.msc_TitleMenu,global.optMusic*100)
+          }
+          else
+          {
+            global.optMusic=0
+            SS_StopSound(global.msc_TitleMenu)
+          }
+        }
+        //if global.optMusic=0
+        else if global.optMusic=0 //title options change
         {
           global.optMusic=100
           var tempMplay;
@@ -1986,6 +2053,29 @@ else if subMenu=14 //---------- GAMEPAD SETUP ----------
   }
   
 }
+else if subMenu=15 //---------- CUSTOMIZE REMASTERED CHANGES ---------- //dipswitch change (added)
+{
+  if oKeyCodes.kCodePressed[3]=1
+  {
+    playSound(global.snd_MenuCursor,0,1,1)
+    if mDS_CurPos=1 {mDS_CurPos=global.dsCount}
+    else {mDS_CurPos-=1}
+  }
+  else if oKeyCodes.kCodePressed[4]=1
+  {
+    playSound(global.snd_MenuCursor,0,1,1)
+    if mDS_CurPos=global.dsCount {mDS_CurPos=1}
+    else {mDS_CurPos+=1}
+  }
+
+  if oKeyCodes.kCodePressed[5]=1 //Turn the dipswitch on/off (saved with the options: saveOptions)
+  {
+    resetKeyCodes()
+    playSound(global.snd_MenuConfirm,0,1,1)
+    if variable_global_get(global.dsVar[mDS_CurPos-1])=true {variable_global_set(global.dsVar[mDS_CurPos-1],false)}
+    else {variable_global_set(global.dsVar[mDS_CurPos-1],true)}
+  }
+}
 
 if keyboard_check_pressed(vk_home)
 {
@@ -2007,8 +2097,17 @@ if keyboard_check_pressed(vk_home)
 if oKeyCodes.kCodePressed[6]=1 //Go back to a specific submenu
 {
   resetKeyCodes()
+  if titleMode=1 and subMenu=7 //title options change (added): backing out of Options goes back to the title screen
+  {
+    io_clear()
+    playSound(global.snd_MenuClose,0,1,1)
+    saveOptions()
+    instance_destroy()
+    exit
+  }
   if subMenu>0 and subMenu<11 {subMenu=0} //From main submenus to main menu
-  else if subMenu=11 or subMenu=14 {subMenu=7} //From (Control or Gamepad Setup) to Options
+  //else if subMenu=11 or subMenu=14 {subMenu=7} //From (Control or Gamepad Setup) to Options
+  else if subMenu=11 or subMenu=14 or subMenu=15 {subMenu=7} //From (Control, Gamepad Setup or Remastered Changes) to Options //dipswitch change
   else if subMenu=12 {subMenu=2} //From Item list to Equipment
   else if subMenu=13 {subMenu=6} //From Recognitions to Records
   mapDetails=0
@@ -2024,6 +2123,8 @@ if oKeyCodes.kCodePressed[12]=1 //Close menu
   io_clear()
   resetKeyCodes()
   playSound(global.snd_MenuClose,0,1,1)
+  //title options change (added): on the title screen there's no game to unpause and no HUD; save the options and go back
+  if titleMode=1 {saveOptions(); instance_destroy(); exit}
   global.gamePaused=false
   oHUD.menuOpen=false
   if global.optKeepMenuPos>0 {global.optKeepMenuPos=mainCurPos+10}
@@ -2130,9 +2231,23 @@ if view_current=0
   contentMenuX=mainMenuX+114
   contentMenuY=mainMenuY+27
   infoMenuX=mainMenuX+0
-  infoMenuY=mainMenuY+213
+  //infoMenuY=mainMenuY+213
+  infoMenuY=mainMenuY+225 //dipswitch change: sPauseM_Main is 12px taller (room for an 11th options row), so MENU INFO is 12px lower
 
   //---------- Draw Menu ----------
+  //title options change (added): no MAIN column on the title screen. sPauseM_Main is drawn without it (MAIN is x 0-99
+  //of the sprite): the top bar + content panel (x 106-443) move 53px left so they're centred, and MENU INFO (full
+  //width, y 226-292) stays where it is (already centred). Everything in the content panel follows contentMenuX.
+  if titleMode=1
+  {
+    contentMenuX-=53
+    //draw_sprite_part(sPauseM_Main,0,106,0,338,207,contentMenuX-8,mainMenuY)
+    //draw_sprite_part(sPauseM_Main,0,0,214,444,67,mainMenuX,mainMenuY+214)
+    draw_sprite_part(sPauseM_Main,0,106,0,338,219,contentMenuX-8,mainMenuY) //dipswitch change: sPauseM_Main is 12px taller
+    draw_sprite_part(sPauseM_Main,0,0,226,444,67,mainMenuX,mainMenuY+226) //dipswitch change
+  }
+  else
+  {
   draw_sprite(sPauseM_Main,0,mainMenuX,mainMenuY)
   if global.mapTeleport=0 or global.bBossGallery=1 {draw_sprite(sPauseM_NoTeleport,0,mainMenuX+17,mainMenuY+161)}
   draw_sprite(sPauseM_Cursor,0,mainMenuX+mainCurX,mainMenuY+mainCurY)
@@ -2144,6 +2259,7 @@ if view_current=0
     draw_rectangle(mainMenuX+mainCurX-10,mainMenuY+mainCurY-8,mainMenuX+mainCurX+76,mainMenuY+mainCurY+8,0)
     draw_set_alpha(1)
     draw_rectangle(mainMenuX+mainCurX-10,mainMenuY+mainCurY-8,mainMenuX+mainCurX+76,mainMenuY+mainCurY+8,1)
+  }
   }
 
   //---------- Display Current Chapter ----------
@@ -2174,9 +2290,11 @@ if view_current=0
   else if global.gameProgress>=4530 and global.gameProgress<=5049 {tChapterName="Chapter 19: That Which can be Taken"}
   else if global.gameProgress>=5050 and global.gameProgress<=5490 {tChapterName="Chapter 20: Trust"}
   else if global.gameProgress>=5500 {tChapterName="Chapter 21: Distorted Travesty"}
+  if titleMode=1 {tChapterName="Press [" +string(global.ctrlActA) +"] to save and go back to the title screen."} //title options change (added)
   textDropShadow(tChapterName,contentMenuX+2,contentMenuY-23,textColorMain,textColorShadow,1)
 
-  textDropShadow("Press the [Home] key to reset your controls to the default settings.",mainMenuX+8,mainMenuY+282,textColorMain,textColorShadow,1)
+  //textDropShadow("Press the [Home] key to reset your controls to the default settings.",mainMenuX+8,mainMenuY+282,textColorMain,textColorShadow,1)
+  textDropShadow("Press the [Home] key to reset your controls to the default settings.",mainMenuX+8,mainMenuY+294,textColorMain,textColorShadow,1) //dipswitch change: under the 12px taller sPauseM_Main
 
   //----- Prizes -----
   if global.yoshiDoll>=1 {draw_sprite(sPauseM_YoshiDoll,0,contentMenuX+48,contentMenuY-27)}
@@ -2691,6 +2809,42 @@ if view_current=0
       draw_text(tGamepadMenuX+317,tGamepadMenuY+147,"Action A")
       draw_text(tGamepadMenuX+317,tGamepadMenuY+172,"Dash Right")
     }
+  }
+  else if subMenu=15 //------------------------------ CUSTOMIZE REMASTERED CHANGES ------------------------------
+  {
+    //dipswitch change (added): the dipswitch list (remasterSwitchList), laid out like the CONTROLS list. The frame
+    //(sPauseM_RemasterMain) is drawn in parts so it grows with the list: header (rows 0-16), a 12px strip per dipswitch
+    //(rows 17-28) and the bottom border (rows 29-35). It sits under the option tabs, centred in the content panel.
+    var tDSMenuX,tDSMenuY,tDSValue,i;
+    tDSMenuX=contentMenuX+25
+    tDSMenuY=contentMenuY+44
+    draw_sprite_part(sPauseM_RemasterMain,0,0,0,272,17,tDSMenuX,tDSMenuY)
+    for(i=0;i<global.dsCount;i+=1) {draw_sprite_part(sPauseM_RemasterMain,0,0,17,272,12,tDSMenuX,tDSMenuY+17+(i*12))}
+    draw_sprite_part(sPauseM_RemasterMain,0,0,29,272,7,tDSMenuX,tDSMenuY+17+(global.dsCount*12))
+
+    draw_set_alpha(1)
+    draw_set_font(fnt_PauseMenuMain)
+    draw_set_halign(fa_left)
+    draw_set_color(textColorMain)
+    draw_text(tDSMenuX+17,tDSMenuY+1,"REMASTERED CHANGES")
+    for(i=0;i<global.dsCount;i+=1)
+    {
+      //Name, then a line out to the ON/OFF column
+      draw_set_font(fnt_PauseMenuMain)
+      draw_set_halign(fa_left)
+      textDropShadow(global.dsName[i],tDSMenuX+20,tDSMenuY+16+(i*12),textColorMain,textColorShadow,1)
+      draw_set_color(textColorShadow)
+      draw_rectangle(tDSMenuX+24+string_width(global.dsName[i]),tDSMenuY+26+(i*12),tDSMenuX+231,tDSMenuY+26+(i*12),0)
+      draw_set_font(fnt_PauseMenuText)
+      draw_set_halign(fa_center)
+      if variable_global_get(global.dsVar[i])=true {tDSValue="ON"}
+      else {tDSValue="OFF"}
+      textDropShadow(tDSValue,tDSMenuX+247,tDSMenuY+17+(i*12),textColorMain,textColorShadow,1)
+    }
+    draw_set_halign(fa_left)
+    //Display cursor
+    draw_sprite(sPauseM_AbilArrow,0,tDSMenuX+16,tDSMenuY+22+((mDS_CurPos-1)*12))
+    menuInfoText=global.dsInfo[mDS_CurPos-1]
   }
 
   //---------- Menu Info ----------
