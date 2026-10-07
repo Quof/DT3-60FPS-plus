@@ -71,3 +71,9 @@ actually implemented:
 	the left stick always moves too; Stick Dead Zone moved to the Control options
 	menus use scrController 15/16 for Confirm/Back (keyboard: the Jump/Action A keys as before; gamepad: always A/Cross and B/Circle, whatever Jump/Action A are set to)
 	the gamepad only counts while the game window has focus (gm82core window_has_focus)
+
+13) Color Zone Colors: Options > Graphics, zones 1-4 = red, blue, green, yellow by default
+	only shown once the save has seen color zones (gameProgress 2370+, after the Vault's Color Zones scene; on the title screen, the shown save's progress): then it's row 9 and the hats move to 10/11 (oPauseMenu mCZ_Show / mCZ_HatRow)
+	global.czColor[1-4] (defaults global.czDefault), saved in DT3Options.dts keys 261-264 (loadOptions/saveOptions)
+	the list is subMenu 16 and changing one is subMenu 17 in oPauseMenu
+	used by oColorZone, oColorIndControl (drawColorZoneDiamond: original diamonds at the default colors, sColorZoneDiamondW tinted otherwise), oPlayer1's glow and oVaultOrb

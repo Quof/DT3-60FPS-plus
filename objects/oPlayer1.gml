@@ -1486,10 +1486,11 @@ if global.location=40 or global.location=105
   {
     var tMyZoneColorGlow;
     tMyZoneColorGlow=c_white
-    if oColorIndControl.currentColor=1 {tMyZoneColorGlow=c_red}
-    else if oColorIndControl.currentColor=2 {tMyZoneColorGlow=c_blue}
-    else if oColorIndControl.currentColor=3 {tMyZoneColorGlow=c_green}
-    else if oColorIndControl.currentColor=4 {tMyZoneColorGlow=c_yellow}
+    //if oColorIndControl.currentColor=1 {tMyZoneColorGlow=c_red}
+    //else if oColorIndControl.currentColor=2 {tMyZoneColorGlow=c_blue}
+    //else if oColorIndControl.currentColor=3 {tMyZoneColorGlow=c_green}
+    //else if oColorIndControl.currentColor=4 {tMyZoneColorGlow=c_yellow}
+    if oColorIndControl.currentColor>=1 and oColorIndControl.currentColor<=4 {tMyZoneColorGlow=global.czColor[oColorIndControl.currentColor]} //color zone change: Color Zone Colors option
     draw_set_blend_mode(bm_add)
     draw_set_alpha(0.3)
     draw_circle_color(x,y-(sprite_height/2),24,tMyZoneColorGlow,c_black,false)

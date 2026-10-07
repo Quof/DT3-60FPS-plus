@@ -112,20 +112,34 @@ applies_to=self
 xPort=view_xview[0]+290
 yPort=view_yview[0]+8
 draw_sprite(sColorZoneMain,0,xPort,yPort)
-draw_sprite_ext(sColorZoneDiamond,0,xPort+65,yPort+15,0.8,0.8,0,image_blend,0.3)
-draw_sprite_ext(sColorZoneDiamond,1,xPort+99,yPort+15,0.8,0.8,0,image_blend,0.3)
-draw_sprite_ext(sColorZoneDiamond,2,xPort+133,yPort+15,0.8,0.8,0,image_blend,0.3)
-draw_sprite_ext(sColorZoneDiamond,3,xPort+167,yPort+15,0.8,0.8,0,image_blend,0.3)
+//color zone change: the diamonds and rings use the Color Zone Colors option (drawColorZoneDiamond draws the original
+//diamonds while a zone has its default color)
+//draw_sprite_ext(sColorZoneDiamond,0,xPort+65,yPort+15,0.8,0.8,0,image_blend,0.3)
+//draw_sprite_ext(sColorZoneDiamond,1,xPort+99,yPort+15,0.8,0.8,0,image_blend,0.3)
+//draw_sprite_ext(sColorZoneDiamond,2,xPort+133,yPort+15,0.8,0.8,0,image_blend,0.3)
+//draw_sprite_ext(sColorZoneDiamond,3,xPort+167,yPort+15,0.8,0.8,0,image_blend,0.3)
+drawColorZoneDiamond(1,xPort+65,yPort+15,0.8,0,0.3)
+drawColorZoneDiamond(2,xPort+99,yPort+15,0.8,0,0.3)
+drawColorZoneDiamond(3,xPort+133,yPort+15,0.8,0,0.3)
+drawColorZoneDiamond(4,xPort+167,yPort+15,0.8,0,0.3)
 
-if currentColor=1 {draw_sprite_ext(sColorZoneDiamond,0,xPort+65,yPort+15,warnScale,warnScale,warnRotate,image_blend,warnAlpha)}
-else if currentColor=2 {draw_sprite_ext(sColorZoneDiamond,1,xPort+99,yPort+15,warnScale,warnScale,warnRotate,image_blend,warnAlpha)}
-else if currentColor=3 {draw_sprite_ext(sColorZoneDiamond,2,xPort+133,yPort+15,warnScale,warnScale,warnRotate,image_blend,warnAlpha)}
-else if currentColor=4 {draw_sprite_ext(sColorZoneDiamond,3,xPort+167,yPort+15,warnScale,warnScale,warnRotate,image_blend,warnAlpha)}
+//if currentColor=1 {draw_sprite_ext(sColorZoneDiamond,0,xPort+65,yPort+15,warnScale,warnScale,warnRotate,image_blend,warnAlpha)}
+//else if currentColor=2 {draw_sprite_ext(sColorZoneDiamond,1,xPort+99,yPort+15,warnScale,warnScale,warnRotate,image_blend,warnAlpha)}
+//else if currentColor=3 {draw_sprite_ext(sColorZoneDiamond,2,xPort+133,yPort+15,warnScale,warnScale,warnRotate,image_blend,warnAlpha)}
+//else if currentColor=4 {draw_sprite_ext(sColorZoneDiamond,3,xPort+167,yPort+15,warnScale,warnScale,warnRotate,image_blend,warnAlpha)}
+if currentColor=1 {drawColorZoneDiamond(1,xPort+65,yPort+15,warnScale,warnRotate,warnAlpha)}
+else if currentColor=2 {drawColorZoneDiamond(2,xPort+99,yPort+15,warnScale,warnRotate,warnAlpha)}
+else if currentColor=3 {drawColorZoneDiamond(3,xPort+133,yPort+15,warnScale,warnRotate,warnAlpha)}
+else if currentColor=4 {drawColorZoneDiamond(4,xPort+167,yPort+15,warnScale,warnRotate,warnAlpha)}
 
-if bColorActive[0]=1 {draw_sprite_ext(sColorZoneAct,0,xPort+65,yPort+15,1,1,0,c_red,1)}
-if bColorActive[1]=1 {draw_sprite_ext(sColorZoneAct,0,xPort+99,yPort+15,1,1,0,c_blue,1)}
-if bColorActive[2]=1 {draw_sprite_ext(sColorZoneAct,0,xPort+133,yPort+15,1,1,0,c_green,1)}
-if bColorActive[3]=1 {draw_sprite_ext(sColorZoneAct,0,xPort+167,yPort+15,1,1,0,c_yellow,1)}
+//if bColorActive[0]=1 {draw_sprite_ext(sColorZoneAct,0,xPort+65,yPort+15,1,1,0,c_red,1)}
+//if bColorActive[1]=1 {draw_sprite_ext(sColorZoneAct,0,xPort+99,yPort+15,1,1,0,c_blue,1)}
+//if bColorActive[2]=1 {draw_sprite_ext(sColorZoneAct,0,xPort+133,yPort+15,1,1,0,c_green,1)}
+//if bColorActive[3]=1 {draw_sprite_ext(sColorZoneAct,0,xPort+167,yPort+15,1,1,0,c_yellow,1)}
+if bColorActive[0]=1 {draw_sprite_ext(sColorZoneAct,0,xPort+65,yPort+15,1,1,0,global.czColor[1],1)}
+if bColorActive[1]=1 {draw_sprite_ext(sColorZoneAct,0,xPort+99,yPort+15,1,1,0,global.czColor[2],1)}
+if bColorActive[2]=1 {draw_sprite_ext(sColorZoneAct,0,xPort+133,yPort+15,1,1,0,global.czColor[3],1)}
+if bColorActive[3]=1 {draw_sprite_ext(sColorZoneAct,0,xPort+167,yPort+15,1,1,0,global.czColor[4],1)}
 
 draw_set_color(textColor)
 draw_set_alpha(1)

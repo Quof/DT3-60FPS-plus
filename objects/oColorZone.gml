@@ -4,14 +4,16 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if zoneColor=1
-  image_blend=c_red
-else if zoneColor=2
-  image_blend=c_blue
-else if zoneColor=3
-  image_blend=c_green
-else if zoneColor=4
-  image_blend=c_yellow
+//if zoneColor=1
+//  image_blend=c_red
+//else if zoneColor=2
+//  image_blend=c_blue
+//else if zoneColor=3
+//  image_blend=c_green
+//else if zoneColor=4
+//  image_blend=c_yellow
+//color zone change: the colors are an option now (Options > Graphics > Color Zone Colors; red, blue, green, yellow by default)
+if zoneColor>=1 and zoneColor<=4 {image_blend=global.czColor[zoneColor]}
 flashTime=0
 innerAlpha=0.5
 sprite_index=sScaledCollision
@@ -102,6 +104,7 @@ applies_to=self
 */
 if checkScreenArea(x,y,240)=1
 {
+  if zoneColor>=1 and zoneColor<=4 {image_blend=global.czColor[zoneColor]} //color zone change (added): follows the option right away (it can be changed from the pause menu)
   draw_set_color(image_blend)
   draw_set_alpha(innerAlpha)
   draw_rectangle(x,y,x+image_xscale-1,y+image_yscale-1,0)

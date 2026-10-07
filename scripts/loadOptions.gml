@@ -81,4 +81,9 @@ for(i=1;i<=14;i+=1)
   if i!=11 and i!=12 {global.gpBind[i]=ini_read_real(sectionRead,string(320+i),global.gpBind[i])}
 }
 
+//color zone change (added): Color Zone Colors (Options > Graphics), keys 261-264. By default 1 is red, 2 blue, 3 green
+//and 4 yellow, the colors oColorZone always used
+global.czDefault[1]=c_red; global.czDefault[2]=c_blue; global.czDefault[3]=c_green; global.czDefault[4]=c_yellow
+for(i=1;i<=4;i+=1) {global.czColor[i]=ini_read_real(sectionRead,string(260+i),global.czDefault[i])}
+
 ini_close()

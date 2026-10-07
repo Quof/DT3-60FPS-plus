@@ -292,6 +292,18 @@ mGP_Listen=0      //1: waiting for a button on the pad
 mGP_ListenTime=0
 mGP_WaitRelease=0 //1: waiting for everything on the pad to be let go first
 
+//Menu - Color Zone Colors (color zone change (added): Options > Graphics; subMenu 16 is the zone list, 17 changes one)
+mCZ_CurPos=1  //zone 1-4
+mCZ_EditPos=1 //1-3: red/green/blue, 4: Default
+mCZ_Hold=0    //ticks left/right has been held (changes speed up)
+//The option only shows once this save has seen the color zones: they first show up in the Vault, and its "Color Zones"
+//scene ends at gameProgress 2370. On the title screen that's the save shown there (oInitializeGame.progressCheck).
+//Without it, Graphics is laid out as before (the hats on rows 9 and 10).
+mCZ_Show=0
+if titleMode=1 {if instance_exists(oInitializeGame) {if oInitializeGame.progressCheck>=2370 {mCZ_Show=1}}}
+else if global.gameProgress>=2370 {mCZ_Show=1}
+mCZ_HatRow=9+mCZ_Show //Graphics row of Jerry's Hat (Claire's Hat is the next one)
+
 //Menu - Save
 mS_CurPos=1
 mS_CurInc=26
@@ -966,7 +978,8 @@ else if subMenu=7 //---------- OPTIONS ----------
 
   //if mO_OptSubMenu=1 {mO_OptMax=9} //Control
   if mO_OptSubMenu=1 {mO_OptMax=10} //Control //gamepad change: + Stick Dead Zone (it was on the old Gamepad Setup screen)
-  else if mO_OptSubMenu=2 {mO_OptMax=10} //Graphics
+  //else if mO_OptSubMenu=2 {mO_OptMax=10} //Graphics
+  else if mO_OptSubMenu=2 {mO_OptMax=10+mCZ_Show} //Graphics //color zone change: + Color Zone Colors once it's shown (row 9, the hats move to 10/11)
   else if mO_OptSubMenu=3 {mO_OptMax=9} //Display
   //else if mO_OptSubMenu=4 {mO_OptMax=10} //Gameplay
   else if mO_OptSubMenu=4 {mO_OptMax=11} //Gameplay //dipswitch change: + Customize Remastered Changes
@@ -988,12 +1001,14 @@ else if subMenu=7 //---------- OPTIONS ----------
           playSound(global.snd_MenuCursor,0,1,1)
         }
       }
-      else if mO_CurPos=9 or mO_CurPos=10 //Hat cycle
+      //else if mO_CurPos=9 or mO_CurPos=10 //Hat cycle
+      else if mO_CurPos=mCZ_HatRow or mO_CurPos=mCZ_HatRow+1 //Hat cycle //color zone change: a row lower when Color Zone Colors is shown
       {
         if oKeyCodes.kCodePressed[1]=1
         {
           playSound(global.snd_MenuCursor,0,1,1)
-          if mO_CurPos=9
+          //if mO_CurPos=9
+          if mO_CurPos=mCZ_HatRow //color zone change
           {
             if global.wearingHatJ=0 {global.wearingHatJ=maxHats}
             else {global.wearingHatJ-=1}
@@ -1098,12 +1113,14 @@ else if subMenu=7 //---------- OPTIONS ----------
           playSound(global.snd_MenuCursor,0,1,1)
         }
       }
-      else if mO_CurPos=9 or mO_CurPos=10 //Hat cycle
+      //else if mO_CurPos=9 or mO_CurPos=10 //Hat cycle
+      else if mO_CurPos=mCZ_HatRow or mO_CurPos=mCZ_HatRow+1 //Hat cycle //color zone change: a row lower when Color Zone Colors is shown
       {
         if oKeyCodes.kCodePressed[2]=1
         {
           playSound(global.snd_MenuCursor,0,1,1)
-          if mO_CurPos=9
+          //if mO_CurPos=9
+          if mO_CurPos=mCZ_HatRow //color zone change
           {
             if global.wearingHatJ=maxHats {global.wearingHatJ=0}
             else {global.wearingHatJ+=1}
@@ -1302,11 +1319,17 @@ else if subMenu=7 //---------- OPTIONS ----------
         if global.optWeaponTrail=1 {global.optWeaponTrail=0}
         else {global.optWeaponTrail=1}
       }
-      else if mO_CurPos=9 //Jerry Hat
+      else if mO_CurPos=9 and mCZ_Show=1 //Color Zone Colors //color zone change (added)
+      {
+        subMenu=16
+      }
+      //else if mO_CurPos=9 //Jerry Hat
+      else if mO_CurPos=mCZ_HatRow //Jerry Hat //color zone change: a row lower when Color Zone Colors is shown
       {
         global.wearingHatJ=0
       }
-      else if mO_CurPos=10 //Claire Hat
+      //else if mO_CurPos=10 //Claire Hat
+      else if mO_CurPos=mCZ_HatRow+1 //Claire Hat //color zone change: a row lower when Color Zone Colors is shown
       {
         global.wearingHatC=0
       }
@@ -2198,6 +2221,80 @@ else if subMenu=15 //---------- CUSTOMIZE REMASTERED CHANGES ---------- //dipswi
     else {variable_global_set(global.dsVar[mDS_CurPos-1],true)}
   }
 }
+else if subMenu=16 //---------- COLOR ZONE COLORS: the zones ---------- //color zone change (added)
+{
+  if oKeyCodes.kCodePressed[3]=1
+  {
+    playSound(global.snd_MenuCursor,0,1,1)
+    if mCZ_CurPos=1 {mCZ_CurPos=4}
+    else {mCZ_CurPos-=1}
+  }
+  else if oKeyCodes.kCodePressed[4]=1
+  {
+    playSound(global.snd_MenuCursor,0,1,1)
+    if mCZ_CurPos=4 {mCZ_CurPos=1}
+    else {mCZ_CurPos+=1}
+  }
+
+  if oKeyCodes.kCodePressed[15]=1 //change this zone's color
+  {
+    resetKeyCodes()
+    playSound(global.snd_MenuConfirm,0,1,1)
+    subMenu=17
+    mCZ_EditPos=1
+    mCZ_Hold=0
+  }
+}
+else if subMenu=17 //---------- COLOR ZONE COLORS: change one ---------- //color zone change (added)
+{
+  if oKeyCodes.kCodePressed[3]=1
+  {
+    playSound(global.snd_MenuCursor,0,1,1)
+    if mCZ_EditPos=1 {mCZ_EditPos=4}
+    else {mCZ_EditPos-=1}
+  }
+  else if oKeyCodes.kCodePressed[4]=1
+  {
+    playSound(global.snd_MenuCursor,0,1,1)
+    if mCZ_EditPos=4 {mCZ_EditPos=1}
+    else {mCZ_EditPos+=1}
+  }
+
+  //Red/Green/Blue: left/right changes it by 1; held, it keeps going after a moment and speeds up after a second
+  var tCZDir,tCZStep,tCZr,tCZg,tCZb;
+  tCZDir=0
+  if mCZ_EditPos<=3
+  {
+    if scrController(1) {tCZDir=-1}
+    else if scrController(2) {tCZDir=1}
+  }
+  if tCZDir=0 {mCZ_Hold=0}
+  else
+  {
+    mCZ_Hold+=1
+    tCZStep=0
+    if mCZ_Hold=1 {tCZStep=1; playSound(global.snd_MenuCursor,0,1,1)}
+    else if mCZ_Hold>8 and mCZ_Hold<=30 {tCZStep=1}
+    else if mCZ_Hold>30 {tCZStep=5}
+    if tCZStep>0
+    {
+      tCZr=color_get_red(global.czColor[mCZ_CurPos])
+      tCZg=color_get_green(global.czColor[mCZ_CurPos])
+      tCZb=color_get_blue(global.czColor[mCZ_CurPos])
+      if mCZ_EditPos=1 {tCZr=median(0,tCZr+(tCZDir*tCZStep),255)}
+      else if mCZ_EditPos=2 {tCZg=median(0,tCZg+(tCZDir*tCZStep),255)}
+      else {tCZb=median(0,tCZb+(tCZDir*tCZStep),255)}
+      global.czColor[mCZ_CurPos]=make_color_rgb(tCZr,tCZg,tCZb)
+    }
+  }
+
+  if oKeyCodes.kCodePressed[15]=1 and mCZ_EditPos=4 //Default
+  {
+    resetKeyCodes()
+    playSound(global.snd_MenuConfirm,0,1,1)
+    global.czColor[mCZ_CurPos]=global.czDefault[mCZ_CurPos]
+  }
+}
 
 if keyboard_check_pressed(vk_home)
 {
@@ -2230,7 +2327,9 @@ if oKeyCodes.kCodePressed[16]=1 //Go back to a specific submenu //gamepad change
   }
   if subMenu>0 and subMenu<11 {subMenu=0} //From main submenus to main menu
   //else if subMenu=11 or subMenu=14 {subMenu=7} //From (Control or Gamepad Setup) to Options
-  else if subMenu=11 or subMenu=14 or subMenu=15 {subMenu=7} //From (Control, Gamepad Setup or Remastered Changes) to Options //dipswitch change
+  //else if subMenu=11 or subMenu=14 or subMenu=15 {subMenu=7} //From (Control, Gamepad Setup or Remastered Changes) to Options //dipswitch change
+  else if subMenu=11 or subMenu=14 or subMenu=15 or subMenu=16 {subMenu=7} //From (Control, Gamepad Setup, Remastered Changes or Color Zone Colors) to Options //color zone change
+  else if subMenu=17 {subMenu=16} //From changing a color zone's color back to the zones //color zone change (added)
   else if subMenu=12 {subMenu=2} //From Item list to Equipment
   else if subMenu=13 {subMenu=6} //From Recognitions to Records
   mapDetails=0
@@ -3008,6 +3107,90 @@ if view_current=0
     //Display cursor
     draw_sprite(sPauseM_AbilArrow,0,tDSMenuX+16,tDSMenuY+22+((mDS_CurPos-1)*12))
     menuInfoText=global.dsInfo[mDS_CurPos-1]
+  }
+  else if subMenu=16 or subMenu=17 //------------------------------ COLOR ZONE COLORS ------------------------------
+  {
+    //color zone change (added): the zones with their colors, and right below them (subMenu 17) the one being changed,
+    //so its color block can be seen changing. Both use the sPauseM_RemasterMain frame in parts (see above), 4 rows each.
+    var tCZX,tCZY,tCZRow,tCZc,tCZv,tCZx1,tCZx2,tCZm,tCZName,tCZLeft,tCZRight,i;
+    tCZX=contentMenuX+25
+    tCZY=contentMenuY+38
+    draw_sprite_part(sPauseM_RemasterMain,0,0,0,272,17,tCZX,tCZY)
+    for(i=0;i<4;i+=1) {draw_sprite_part(sPauseM_RemasterMain,0,0,17,272,12,tCZX,tCZY+17+(i*12))}
+    draw_sprite_part(sPauseM_RemasterMain,0,0,29,272,7,tCZX,tCZY+65)
+    draw_set_alpha(1)
+    draw_set_font(fnt_PauseMenuMain)
+    draw_set_halign(fa_left)
+    draw_set_color(textColorMain)
+    draw_text(tCZX+17,tCZY+1,"COLOR ZONES")
+    for(i=1;i<=4;i+=1)
+    {
+      tCZRow=tCZY+16+((i-1)*12)
+      textDropShadow("Color Zone " +string(i),tCZX+20,tCZRow,textColorMain,textColorShadow,1)
+      draw_set_color(textColorShadow)
+      draw_rectangle(tCZX+24+string_width("Color Zone " +string(i)),tCZRow+10,tCZX+219,tCZRow+10,0) //line out to the color
+      draw_rectangle(tCZX+223,tCZRow+3,tCZX+258,tCZRow+10,0) //color block (border, then the color)
+      draw_set_color(global.czColor[i])
+      draw_rectangle(tCZX+224,tCZRow+4,tCZX+257,tCZRow+9,0)
+    }
+    //Display cursor
+    draw_sprite(sPauseM_AbilArrow,0,tCZX+16,tCZY+22+((mCZ_CurPos-1)*12))
+    menuInfoText="Select a color zone to change its color.#The zones, the color indicator at the top of the screen and the orbs that go with them all use these colors."
+
+    if subMenu=17 //---------- The zone being changed: red, green, blue (0-255) and Default ----------
+    {
+      tCZY+=72
+      draw_sprite_part(sPauseM_RemasterMain,0,0,0,272,17,tCZX,tCZY)
+      for(i=0;i<4;i+=1) {draw_sprite_part(sPauseM_RemasterMain,0,0,17,272,12,tCZX,tCZY+17+(i*12))}
+      draw_sprite_part(sPauseM_RemasterMain,0,0,29,272,7,tCZX,tCZY+65)
+      draw_set_font(fnt_PauseMenuMain)
+      draw_set_halign(fa_left)
+      draw_set_color(textColorMain)
+      draw_text(tCZX+17,tCZY+1,"COLOR ZONE " +string(mCZ_CurPos))
+      tCZc=global.czColor[mCZ_CurPos]
+      tCZx1=tCZX+72
+      tCZx2=tCZX+222
+      for(i=1;i<=4;i+=1)
+      {
+        tCZRow=tCZY+16+((i-1)*12)
+        if i=1 {tCZName="Red"; tCZv=color_get_red(tCZc); tCZLeft=make_color_rgb(0,color_get_green(tCZc),color_get_blue(tCZc)); tCZRight=make_color_rgb(255,color_get_green(tCZc),color_get_blue(tCZc))}
+        else if i=2 {tCZName="Green"; tCZv=color_get_green(tCZc); tCZLeft=make_color_rgb(color_get_red(tCZc),0,color_get_blue(tCZc)); tCZRight=make_color_rgb(color_get_red(tCZc),255,color_get_blue(tCZc))}
+        else if i=3 {tCZName="Blue"; tCZv=color_get_blue(tCZc); tCZLeft=make_color_rgb(color_get_red(tCZc),color_get_green(tCZc),0); tCZRight=make_color_rgb(color_get_red(tCZc),color_get_green(tCZc),255)}
+        else {tCZName="Default"}
+        draw_set_font(fnt_PauseMenuMain)
+        draw_set_halign(fa_left)
+        textDropShadow(tCZName,tCZX+20,tCZRow,textColorMain,textColorShadow,1)
+        if i<=3
+        {
+          //bar from none of this color to all of it (the other two as they are now), a marker, and the number
+          draw_set_color(textColorShadow)
+          draw_rectangle(tCZx1-1,tCZRow+4,tCZx2+1,tCZRow+9,0)
+          draw_rectangle_color(tCZx1,tCZRow+5,tCZx2,tCZRow+8,tCZLeft,tCZRight,tCZRight,tCZLeft,0)
+          tCZm=tCZx1+round(tCZv*(tCZx2-tCZx1)/255)
+          draw_set_color(textColorShadow)
+          draw_rectangle(tCZm-1,tCZRow+2,tCZm+1,tCZRow+11,0)
+          draw_set_color(textColorMain)
+          draw_rectangle(tCZm,tCZRow+3,tCZm,tCZRow+10,0)
+          draw_set_font(fnt_PauseMenuText)
+          draw_set_halign(fa_center)
+          textDropShadow(string(tCZv),tCZX+247,tCZRow+1,textColorMain,textColorShadow,1)
+        }
+      }
+      draw_set_halign(fa_left)
+      //Display cursor
+      draw_sprite(sPauseM_AbilArrow,0,tCZX+16,tCZY+22+((mCZ_EditPos-1)*12))
+      if mCZ_EditPos=1 {menuInfoText="Press left or right to change the amount of red.#Hold it down to change it faster."}
+      else if mCZ_EditPos=2 {menuInfoText="Press left or right to change the amount of green.#Hold it down to change it faster."}
+      else if mCZ_EditPos=3 {menuInfoText="Press left or right to change the amount of blue.#Hold it down to change it faster."}
+      else
+      {
+        if mCZ_CurPos=1 {tCZName="red"}
+        else if mCZ_CurPos=2 {tCZName="blue"}
+        else if mCZ_CurPos=3 {tCZName="green"}
+        else {tCZName="yellow"}
+        menuInfoText="Set Color Zone " +string(mCZ_CurPos) +" back to its original color (" +tCZName +")."
+      }
+    }
   }
 
   //---------- Menu Info ----------

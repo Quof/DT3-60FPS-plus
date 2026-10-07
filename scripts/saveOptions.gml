@@ -84,4 +84,7 @@ for(i=1;i<=14;i+=1)
   if i!=11 and i!=12 {ini_write_real(sectionWrite,string(320+i),global.gpBind[i])}
 }
 
+//color zone change (added): Color Zone Colors (see loadOptions)
+for(i=1;i<=4;i+=1) {ini_write_real(sectionWrite,string(260+i),global.czColor[i])}
+
 ini_close()
