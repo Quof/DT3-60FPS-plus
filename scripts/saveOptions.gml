@@ -38,6 +38,7 @@ ini_write_real(sectionWrite,"227",global.optCentralizeHUD)
 ini_write_real(sectionWrite,"228",global.optMessagePlink)
 ini_write_real(sectionWrite,"229",global.optDPadDash)
 ini_write_real(sectionWrite,"230",global.optRightIsForward)
+ini_write_real(sectionWrite,"251",global.optDT4Dash) //dt4 dash change (added): DT4 Dashing
 ini_write_real(sectionWrite,"231",global.optCanResizeWindow)
 ini_write_real(sectionWrite,"232",global.optUnrealGuyChainAudio)
 ini_write_real(sectionWrite,"233",global.optUnrealGuyChainVisual)

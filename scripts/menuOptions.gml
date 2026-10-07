@@ -74,54 +74,104 @@ draw_rectangle(contentMenuX+tXMarkCheck,contentMenuY+34,contentMenuX+tXMarkCheck
 draw_set_halign(fa_left)
 if mO_OptSubMenu=1 //------------------------- CONTROL -------------------------
 {
+  var tDT4Col; //dt4 dash change (added): DT4 Dashing is greyed out while Right is Forward is off (it needs it)
+  if global.optRightIsForward=1 {tDT4Col=textColorMain}
+  else {tDT4Col=make_color_rgb(190,190,190)}
+  //niche dash change (added): without Niche Dash Settings (dipswitch), rows 4-6 (D-Pad Dash, Right is Forward,
+  //DT4 Dashing) are one row, Left/Right Dashing, and the rows after them move up two. mO_CtrlItem (oPauseMenu) is the
+  //option on the cursor's row.
+  var tCtrlUp; tCtrlUp=24*(1-global.nicheDashSettings)
   //textDropShadow("Change Controls",contentMenuX+28,contentMenuY+43,textColorMain,textColorShadow,1)
   //textDropShadow("Gamepad Setup",contentMenuX+28,contentMenuY+55,textColorMain,textColorShadow,1)
   textDropShadow("Change Keyboard Bindings",contentMenuX+28,contentMenuY+43,textColorMain,textColorShadow,1) //gamepad change: renamed
   textDropShadow("Change Gamepad Bindings",contentMenuX+28,contentMenuY+55,textColorMain,textColorShadow,1) //gamepad change: renamed
   textDropShadow("Gamepad Input",contentMenuX+28,contentMenuY+67,textColorMain,textColorShadow,1)
-  textDropShadow("D-Pad Dash",contentMenuX+28,contentMenuY+79,textColorMain,textColorShadow,1)
-  textDropShadow("Right is Forward",contentMenuX+28,contentMenuY+91,textColorMain,textColorShadow,1)
-  textDropShadow("Show Key State",contentMenuX+28,contentMenuY+103,textColorMain,textColorShadow,1)
-  textDropShadow("Cursor Repeat Speed",contentMenuX+28,contentMenuY+115,textColorMain,textColorShadow,1)
-  textDropShadow("Keep Menu Position",contentMenuX+28,contentMenuY+127,textColorMain,textColorShadow,1)
-  textDropShadow("Swap Type",contentMenuX+28,contentMenuY+139,textColorMain,textColorShadow,1)
-  textDropShadow("Stick Dead Zone",contentMenuX+28,contentMenuY+151,textColorMain,textColorShadow,1) //gamepad change (added): moved here from the old Gamepad Setup screen
+  //textDropShadow("D-Pad Dash",contentMenuX+28,contentMenuY+79,textColorMain,textColorShadow,1)
+  if global.nicheDashSettings=1 {textDropShadow("D-Pad Dash",contentMenuX+28,contentMenuY+79,textColorMain,textColorShadow,1)} //niche dash change: only with Niche Dash Settings
+  //textDropShadow("Right is Forward",contentMenuX+28,contentMenuY+91,textColorMain,textColorShadow,1)
+  if global.nicheDashSettings=1 {textDropShadow("Right is Forward",contentMenuX+28,contentMenuY+91,textColorMain,textColorShadow,1)} //niche dash change: only with Niche Dash Settings
+  if global.nicheDashSettings=1 {textDropShadow("DT4 Dashing",contentMenuX+28,contentMenuY+103,tDT4Col,textColorShadow,1)} //dt4 dash change (added) //niche dash change: only with Niche Dash Settings
+  if global.nicheDashSettings=0 {textDropShadow("Left/Right Dashing",contentMenuX+28,contentMenuY+79,textColorMain,textColorShadow,1)} //niche dash change (added): in place of rows 4-6
+  //textDropShadow("Show Key State",contentMenuX+28,contentMenuY+103,textColorMain,textColorShadow,1)
+  textDropShadow("Show Key State",contentMenuX+28,contentMenuY+115-tCtrlUp,textColorMain,textColorShadow,1) //dt4 dash change: a row lower (DT4 Dashing is row 6) //niche dash change: up two without Niche Dash Settings
+  //textDropShadow("Cursor Repeat Speed",contentMenuX+28,contentMenuY+115,textColorMain,textColorShadow,1)
+  textDropShadow("Cursor Repeat Speed",contentMenuX+28,contentMenuY+127-tCtrlUp,textColorMain,textColorShadow,1) //dt4 dash change: a row lower (DT4 Dashing is row 6) //niche dash change: up two without Niche Dash Settings
+  //textDropShadow("Keep Menu Position",contentMenuX+28,contentMenuY+127,textColorMain,textColorShadow,1)
+  textDropShadow("Keep Menu Position",contentMenuX+28,contentMenuY+139-tCtrlUp,textColorMain,textColorShadow,1) //dt4 dash change: a row lower (DT4 Dashing is row 6) //niche dash change: up two without Niche Dash Settings
+  //textDropShadow("Swap Type",contentMenuX+28,contentMenuY+139,textColorMain,textColorShadow,1)
+  textDropShadow("Swap Type",contentMenuX+28,contentMenuY+151-tCtrlUp,textColorMain,textColorShadow,1) //dt4 dash change: a row lower (DT4 Dashing is row 6) //niche dash change: up two without Niche Dash Settings
+  //textDropShadow("Stick Dead Zone",contentMenuX+28,contentMenuY+151,textColorMain,textColorShadow,1) //gamepad change (added): moved here from the old Gamepad Setup screen
+  textDropShadow("Stick Dead Zone",contentMenuX+28,contentMenuY+163-tCtrlUp,textColorMain,textColorShadow,1) //gamepad change (added): moved here from the old Gamepad Setup screen //dt4 dash change: a row lower (DT4 Dashing is row 6) //niche dash change: up two without Niche Dash Settings
 
   if global.optGamePad=0 {textDropShadow("Off",contentMenuX+164,contentMenuY+67,textColorMain,textColorShadow,1)}
   else if global.optGamePad=1 {textDropShadow("On",contentMenuX+164,contentMenuY+67,textColorMain,textColorShadow,1)}
-  if global.optDPadDash=0 {textDropShadow("Off",contentMenuX+164,contentMenuY+79,textColorMain,textColorShadow,1)}
-  else if global.optDPadDash=1 {textDropShadow("On",contentMenuX+164,contentMenuY+79,textColorMain,textColorShadow,1)}
-  if global.optRightIsForward=0 {textDropShadow("Off",contentMenuX+164,contentMenuY+91,textColorMain,textColorShadow,1)}
-  else if global.optRightIsForward=1 {textDropShadow("On",contentMenuX+164,contentMenuY+91,textColorMain,textColorShadow,1)}
-  if global.optShowKeyState=0 {textDropShadow("Off",contentMenuX+164,contentMenuY+103,textColorMain,textColorShadow,1)}
-  else if global.optShowKeyState=1 {textDropShadow("On",contentMenuX+164,contentMenuY+103,textColorMain,textColorShadow,1)}
-  textDropShadow(global.optCursorRepeat,contentMenuX+164,contentMenuY+115,textColorMain,textColorShadow,1)
-  if global.optKeepMenuPos=0 {textDropShadow("Off",contentMenuX+164,contentMenuY+127,textColorMain,textColorShadow,1)}
-  else if global.optKeepMenuPos=1 {textDropShadow("On",contentMenuX+164,contentMenuY+127,textColorMain,textColorShadow,1)}
-  if global.optSwapType=0 {textDropShadow("Standard",contentMenuX+164,contentMenuY+139,textColorMain,textColorShadow,1)}
-  else if global.optSwapType=1 {textDropShadow("Dedicated",contentMenuX+164,contentMenuY+139,textColorMain,textColorShadow,1)}
-  else if global.optSwapType=2 {textDropShadow("Dedicated (Fixed)",contentMenuX+164,contentMenuY+139,textColorMain,textColorShadow,1)}
-  else if global.optSwapType=3 {textDropShadow("Hold+Direction",contentMenuX+164,contentMenuY+139,textColorMain,textColorShadow,1)}
-  textDropShadow(string(round(global.optStickDeadZone*100)) +"%",contentMenuX+164,contentMenuY+151,textColorMain,textColorShadow,1) //gamepad change (added)
+  //if global.optDPadDash=0 {textDropShadow("Off",contentMenuX+164,contentMenuY+79,textColorMain,textColorShadow,1)}
+  if global.nicheDashSettings=1 and global.optDPadDash=0 {textDropShadow("Off",contentMenuX+164,contentMenuY+79,textColorMain,textColorShadow,1)} //niche dash change: only with Niche Dash Settings
+  //else if global.optDPadDash=1 {textDropShadow("On",contentMenuX+164,contentMenuY+79,textColorMain,textColorShadow,1)}
+  else if global.nicheDashSettings=1 and global.optDPadDash=1 {textDropShadow("On",contentMenuX+164,contentMenuY+79,textColorMain,textColorShadow,1)} //niche dash change: only with Niche Dash Settings
+  //if global.optRightIsForward=0 {textDropShadow("Off",contentMenuX+164,contentMenuY+91,textColorMain,textColorShadow,1)}
+  if global.nicheDashSettings=1 and global.optRightIsForward=0 {textDropShadow("Off",contentMenuX+164,contentMenuY+91,textColorMain,textColorShadow,1)} //niche dash change: only with Niche Dash Settings
+  //else if global.optRightIsForward=1 {textDropShadow("On",contentMenuX+164,contentMenuY+91,textColorMain,textColorShadow,1)}
+  else if global.nicheDashSettings=1 and global.optRightIsForward=1 {textDropShadow("On",contentMenuX+164,contentMenuY+91,textColorMain,textColorShadow,1)} //niche dash change: only with Niche Dash Settings
+  if global.nicheDashSettings=1 and global.optDT4Dash=0 {textDropShadow("Off",contentMenuX+164,contentMenuY+103,tDT4Col,textColorShadow,1)} //dt4 dash change (added) //niche dash change: only with Niche Dash Settings
+  else if global.nicheDashSettings=1 {textDropShadow("On",contentMenuX+164,contentMenuY+103,tDT4Col,textColorShadow,1)} //dt4 dash change (added) //niche dash change
+  if global.nicheDashSettings=0 {if global.optRightIsForward=0 {textDropShadow("On",contentMenuX+164,contentMenuY+79,textColorMain,textColorShadow,1)} else {textDropShadow("Off",contentMenuX+164,contentMenuY+79,textColorMain,textColorShadow,1)}} //niche dash change (added): Left/Right Dashing is Right is Forward the other way around
+  //if global.optShowKeyState=0 {textDropShadow("Off",contentMenuX+164,contentMenuY+103,textColorMain,textColorShadow,1)}
+  if global.optShowKeyState=0 {textDropShadow("Off",contentMenuX+164,contentMenuY+115-tCtrlUp,textColorMain,textColorShadow,1)} //dt4 dash change: a row lower (DT4 Dashing is row 6) //niche dash change: up two without Niche Dash Settings
+  //else if global.optShowKeyState=1 {textDropShadow("On",contentMenuX+164,contentMenuY+103,textColorMain,textColorShadow,1)}
+  else if global.optShowKeyState=1 {textDropShadow("On",contentMenuX+164,contentMenuY+115-tCtrlUp,textColorMain,textColorShadow,1)} //dt4 dash change: a row lower (DT4 Dashing is row 6) //niche dash change: up two without Niche Dash Settings
+  //textDropShadow(global.optCursorRepeat,contentMenuX+164,contentMenuY+115,textColorMain,textColorShadow,1)
+  textDropShadow(global.optCursorRepeat,contentMenuX+164,contentMenuY+127-tCtrlUp,textColorMain,textColorShadow,1) //dt4 dash change: a row lower (DT4 Dashing is row 6) //niche dash change: up two without Niche Dash Settings
+  //if global.optKeepMenuPos=0 {textDropShadow("Off",contentMenuX+164,contentMenuY+127,textColorMain,textColorShadow,1)}
+  if global.optKeepMenuPos=0 {textDropShadow("Off",contentMenuX+164,contentMenuY+139-tCtrlUp,textColorMain,textColorShadow,1)} //dt4 dash change: a row lower (DT4 Dashing is row 6) //niche dash change: up two without Niche Dash Settings
+  //else if global.optKeepMenuPos=1 {textDropShadow("On",contentMenuX+164,contentMenuY+127,textColorMain,textColorShadow,1)}
+  else if global.optKeepMenuPos=1 {textDropShadow("On",contentMenuX+164,contentMenuY+139-tCtrlUp,textColorMain,textColorShadow,1)} //dt4 dash change: a row lower (DT4 Dashing is row 6) //niche dash change: up two without Niche Dash Settings
+  //if global.optSwapType=0 {textDropShadow("Standard",contentMenuX+164,contentMenuY+139,textColorMain,textColorShadow,1)}
+  if global.optSwapType=0 {textDropShadow("Standard",contentMenuX+164,contentMenuY+151-tCtrlUp,textColorMain,textColorShadow,1)} //dt4 dash change: a row lower (DT4 Dashing is row 6) //niche dash change: up two without Niche Dash Settings
+  //else if global.optSwapType=1 {textDropShadow("Dedicated",contentMenuX+164,contentMenuY+139,textColorMain,textColorShadow,1)}
+  else if global.optSwapType=1 {textDropShadow("Dedicated",contentMenuX+164,contentMenuY+151-tCtrlUp,textColorMain,textColorShadow,1)} //dt4 dash change: a row lower (DT4 Dashing is row 6) //niche dash change: up two without Niche Dash Settings
+  //else if global.optSwapType=2 {textDropShadow("Dedicated (Fixed)",contentMenuX+164,contentMenuY+139,textColorMain,textColorShadow,1)}
+  else if global.optSwapType=2 {textDropShadow("Dedicated (Fixed)",contentMenuX+164,contentMenuY+151-tCtrlUp,textColorMain,textColorShadow,1)} //dt4 dash change: a row lower (DT4 Dashing is row 6) //niche dash change: up two without Niche Dash Settings
+  //else if global.optSwapType=3 {textDropShadow("Hold+Direction",contentMenuX+164,contentMenuY+139,textColorMain,textColorShadow,1)}
+  else if global.optSwapType=3 {textDropShadow("Hold+Direction",contentMenuX+164,contentMenuY+151-tCtrlUp,textColorMain,textColorShadow,1)} //dt4 dash change: a row lower (DT4 Dashing is row 6) //niche dash change: up two without Niche Dash Settings
+  //textDropShadow(string(round(global.optStickDeadZone*100)) +"%",contentMenuX+164,contentMenuY+151,textColorMain,textColorShadow,1) //gamepad change (added)
+  textDropShadow(string(round(global.optStickDeadZone*100)) +"%",contentMenuX+164,contentMenuY+163-tCtrlUp,textColorMain,textColorShadow,1) //gamepad change (added) //dt4 dash change: a row lower (DT4 Dashing is row 6) //niche dash change: up two without Niche Dash Settings
 
-  if mO_CurPos=1 {menuInfoText="Change the control setup. This is for keyboard controls only. It only changes gamepad controls if you're using 3rd party software to bind keys to controller inputs."}
+  //if mO_CurPos=1 {menuInfoText="Change the control setup. This is for keyboard controls only. It only changes gamepad controls if you're using 3rd party software to bind keys to controller inputs."}
+  if mO_CtrlItem=1 {menuInfoText="Change the control setup. This is for keyboard controls only. It only changes gamepad controls if you're using 3rd party software to bind keys to controller inputs."} //niche dash change: the option, not the row
   //else if mO_CurPos=2 {menuInfoText="Change the gamepad control setup. This is only if you're using the built in gamepad controls. (Turn on 'Gamepad Input' in the next option down for these to take effect.)"}
-  else if mO_CurPos=2 {menuInfoText="Change the gamepad controls: pick an action, then press the button for it on your gamepad. (Turn on 'Gamepad Input' in the next option down for these to take effect.)"} //gamepad change: no more presets
+  //else if mO_CurPos=2 {menuInfoText="Change the gamepad controls: pick an action, then press the button for it on your gamepad. (Turn on 'Gamepad Input' in the next option down for these to take effect.)"} //gamepad change: no more presets
+  else if mO_CtrlItem=2 {menuInfoText="Change the gamepad controls: pick an action, then press the button for it on your gamepad. (Turn on 'Gamepad Input' in the next option down for these to take effect.)"} //gamepad change: no more presets //niche dash change
   //else if mO_CurPos=3 {menuInfoText="Enable Gamepad support. Keep this off if you prefer to use your own software for keybindings."}
-  else if mO_CurPos=3 {menuInfoText="Enable Gamepad support (Xbox, PlayStation, Switch Pro and most other controllers). Keep this off if you prefer to use your own software for keybindings."} //gamepad change
-  else if mO_CurPos=4 {menuInfoText="Enable [Up] and [Down] to execute dashing.#Turn this off if you only want dashing initiated with the dash buttons."}
-  else if mO_CurPos=5 {menuInfoText="Turning this on will cause [Dash Right] to become [Dash Forward], and [Dash Left] to be [Dash Back].#Experiment with these (when dashing is obtained) to see which suits you best."}
-  else if mO_CurPos=6 {menuInfoText="Display what keys are being pressed."}
-  else if mO_CurPos=7 {menuInfoText="Change the cursor speed for the Skill Tree and Map submenu."}
-  else if mO_CurPos=8 {menuInfoText="Remember the cursor position when the pause menu is closed."}
-  else if mO_CurPos=9
+  //else if mO_CurPos=3 {menuInfoText="Enable Gamepad support (Xbox, PlayStation, Switch Pro and most other controllers). Keep this off if you prefer to use your own software for keybindings."} //gamepad change
+  else if mO_CtrlItem=3 {menuInfoText="Enable Gamepad support (Xbox, PlayStation, Switch Pro and most other controllers). Keep this off if you prefer to use your own software for keybindings."} //gamepad change //niche dash change
+  //else if mO_CurPos=4 {menuInfoText="Enable [Up] and [Down] to execute dashing.#Turn this off if you only want dashing initiated with the dash buttons."}
+  else if mO_CtrlItem=4 {menuInfoText="Enable [Up] and [Down] to execute dashing.#Turn this off if you only want dashing initiated with the dash buttons."} //niche dash change
+  //else if mO_CurPos=5 {menuInfoText="Turning this on will cause [Dash Right] to become [Dash Forward], and [Dash Left] to be [Dash Back].#Experiment with these (when dashing is obtained) to see which suits you best."}
+  //else if mO_CtrlItem=5 {menuInfoText="Turning this on will cause [Dash Right] to become [Dash Forward], and [Dash Left] to be [Dash Back].#Experiment with these (when dashing is obtained) to see which suits you best."} //niche dash change
+  else if mO_CtrlItem=5 {menuInfoText="Turning this on will cause [Dash Forward] to dash forward and [Dash Back] to dash back. Off, they always dash right and left.#Experiment with these (when dashing is obtained) to see which suits you best."} //niche dash change //dash rename change: the buttons are called Dash Forward/Dash Back now
+  else if mO_CtrlItem=12 {menuInfoText="On: [Dash Back] now always dashes to the left, and [Dash Forward] always dashes to the right.#Off: Standard dash controls."} //niche dash change (added)
+  else if mO_CtrlItem=6 //dt4 dash change (added) //niche dash change
+  {
+    if global.optRightIsForward=1 {menuInfoText="Dash like in DT4: [Dash Forward] dashes the way you're moving, or back if you're standing still. [Dash Back] still always dashes back."}
+    else {menuInfoText="Dash like in DT4: [Dash Forward] dashes the way you're moving, or back if you're standing still.#Turn on 'Right is Forward' to use this."}
+  }
+  //else if mO_CurPos=6 {menuInfoText="Display what keys are being pressed."}
+  else if mO_CtrlItem=7 {menuInfoText="Display what keys are being pressed."} //dt4 dash change: a row lower (DT4 Dashing is row 6) //niche dash change
+  //else if mO_CurPos=7 {menuInfoText="Change the cursor speed for the Skill Tree and Map submenu."}
+  else if mO_CtrlItem=8 {menuInfoText="Change the cursor speed for the Skill Tree and Map submenu."} //dt4 dash change: a row lower (DT4 Dashing is row 6) //niche dash change
+  //else if mO_CurPos=8 {menuInfoText="Remember the cursor position when the pause menu is closed."}
+  else if mO_CtrlItem=9 {menuInfoText="Remember the cursor position when the pause menu is closed."} //dt4 dash change: a row lower (DT4 Dashing is row 6) //niche dash change
+  //else if mO_CurPos=9
+  else if mO_CtrlItem=10 //dt4 dash change: a row lower (DT4 Dashing is row 6) //niche dash change
   {
     if global.optSwapType=0 {menuInfoText="Character Swap changes characters, Ability Swap changes abilities... yep."}
     else if global.optSwapType=1 {menuInfoText="Each character gets their own dedicated button. For example, pressing the Character Swap button will always change to Jerry if he is not the active character. If he is active, it will change his ability set. The Ability Swap button would be dedicated to Claire."}
     else if global.optSwapType=2 {menuInfoText="Same as Dedicated, but swapping to the other character defaults to their primary melee Ability Set."}
     else if global.optSwapType=3 {menuInfoText="To swap characters and abilities, hold down the Ability Swap button and press a directional key to swap to a character and/or ability. When abilities are available, the HUD will note which direction to press. The Character Swap key is for special cases, otherwise it functions the same as Standard."}
   }
-  else if mO_CurPos=10 {menuInfoText="How far a gamepad stick has to be pushed before it counts.#Press left or right to change this. (Default: 40%)"} //gamepad change (added)
+  //else if mO_CurPos=10 {menuInfoText="How far a gamepad stick has to be pushed before it counts.#Press left or right to change this. (Default: 40%)"} //gamepad change (added)
+  else if mO_CtrlItem=11 {menuInfoText="How far a gamepad stick has to be pushed before it counts.#Press left or right to change this. (Default: 40%)"} //gamepad change (added) //dt4 dash change: a row lower (DT4 Dashing is row 6) //niche dash change
 }
 else if mO_OptSubMenu=2 //------------------------- GRAPHICS -------------------------
 {

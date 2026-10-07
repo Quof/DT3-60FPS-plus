@@ -47,10 +47,11 @@ if joystick_found() or (global.gpDevice=-1 and tCount>0) or global.gpDevice>=tCo
 }
 
 for(i=0;i<=16;i+=1) {global.gpHeld[i]=0}
+global.gpFrames+=1 //key carry change: counted with or without a pad (the screen transition key carry, scrKeyCarry, uses it too)
 if global.gpDevice<0 {exit}
 //Only while the game window has focus (gm82core's window_has_focus, updated in its Begin Step), so the pad doesn't play
 //the game from the background. Skipped for the first frames, before gm82core has set it.
-global.gpFrames+=1
+//global.gpFrames+=1
 if global.gpFrames>2 {if !window_has_focus() {exit}}
 
 //---------- Read the axes and the hat once ----------

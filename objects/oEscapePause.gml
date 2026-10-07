@@ -7,6 +7,7 @@ applies_to=self
 if oKeyCodes.kCodePressed[12]=1 //Close menu
 {
   io_clear()
+  scrKeyCarryClear() //key carry change (added): the left/right keys carried through a screen transition are cleared too
   resetKeyCodes()
   playSound(global.snd_MenuClose,0,1,1)
   global.gamePaused=false

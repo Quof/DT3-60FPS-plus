@@ -42,6 +42,15 @@ global.gpR2Ready=0
 
 for(i=0;i<=16;i+=1) {global.gpHeld[i]=0}  //per action (15/16: menu Confirm/Back), read by scrController
 global.gpFrames=0     //frames since startup: window_has_focus() is only read once gm82core has updated it (scrGamepadPoll)
+//key carry change (added): left/right keys held through a screen transition (scrKeyCarry), by key code
+for(i=0;i<256;i+=1) {global.kbCarry[i]=0; global.kbWasHeld[i]=0}
+//socd change (added): scrSOCD's state. socdHeld: each direction (1-4) at the last check; socdLast: per pair (0 left/right,
+//1 up/down) the direction pressed last; socdTie: the one that wins when both are pressed at once
+for(i=1;i<=4;i+=1) {global.socdHeld[i]=0}
+global.socdTie[0]=2  //right
+global.socdTie[1]=3  //up
+global.socdLast[0]=global.socdTie[0]
+global.socdLast[1]=global.socdTie[1]
 for(i=0;i<16;i+=1)
 {
   global.gpAxis[i]=0     //this frame's axis values
@@ -74,6 +83,7 @@ global.gpRowAct[12]=14 //Dash Right
 global.gpRowName[1]="Up"; global.gpRowName[2]="Down"; global.gpRowName[3]="Left"; global.gpRowName[4]="Right"
 global.gpRowName[5]="Jump"; global.gpRowName[6]="Swap Character"; global.gpRowName[7]="Swap Ability Set"
 global.gpRowName[8]="Action A"; global.gpRowName[9]="Action B"; global.gpRowName[10]="Action C"
-global.gpRowName[11]="Dash Left"; global.gpRowName[12]="Dash Right"
+//global.gpRowName[11]="Dash Left"; global.gpRowName[12]="Dash Right"
+global.gpRowName[11]="Dash Back"; global.gpRowName[12]="Dash Forward" //dash rename change: named as in the CONTROLS/GAMEPAD lists
 
 scrGamepadDefaults()

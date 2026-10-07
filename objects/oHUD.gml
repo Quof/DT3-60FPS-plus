@@ -46,6 +46,7 @@ if global.gamePaused=false
     if global.canPause=1
     {
       io_clear()
+      scrKeyCarryClear() //key carry change (added): the left/right keys carried through a screen transition are cleared too
       resetKeyCodes()
       playSound(global.snd_MenuOpen,0,1,1)
       global.gamePaused=true

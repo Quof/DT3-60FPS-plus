@@ -62,6 +62,7 @@ if confirmationMenu=0
   else if oKeyCodes.kCodePressed[16]=1 or oKeyCodes.kCodePressed[12]=1 //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
   {
     io_clear()
+    scrKeyCarryClear() //key carry change (added): the left/right keys carried through a screen transition are cleared too
     resetKeyCodes()
     playSound(global.snd_MenuClose,0,1,1)
     instance_destroy()
@@ -107,6 +108,7 @@ if confirmationMenu=1
       confirmMenuPos=0
       confirmationMenu=0
       io_clear()
+      scrKeyCarryClear() //key carry change (added): the left/right keys carried through a screen transition are cleared too
       resetKeyCodes()
     }
   }
@@ -116,6 +118,7 @@ if confirmationMenu=1
     confirmMenuPos=0
     confirmationMenu=0
     io_clear()
+    scrKeyCarryClear() //key carry change (added): the left/right keys carried through a screen transition are cleared too
     resetKeyCodes()
   }
 }

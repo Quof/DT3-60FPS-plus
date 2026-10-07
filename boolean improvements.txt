@@ -9,12 +9,12 @@ default:
 - if i understand the code currently, color zones currently give 1 frame of leeway for stepping outside of a colorzone right before taking damage. not sure if this should be 4 frames now for equivalent leeway.
 - adjust dash / air dash tutorial text to not focus on up/down dash as if anyone uses that lmao
 - make Nightmare work properly when starting new files from a Nightmare save
-- held buttons not registered on room entries
+- held buttons not registered on room entries (left/right done, see 16)
 - render boss hp bars (maybe just Megaman's) to not show empty despite the boss having hp
 
 dipswitches:
 - autosave on room entry
-- SOCD handling (last-pressed)
+- SOCD handling (last-pressed) (done, see 17)
 - make Final Nightmare & Shadow Form backgrounds lighter (oEvExGates line 1457)
 - fix Koopa sprite bug
 - non-restarting music
@@ -77,3 +77,30 @@ actually implemented:
 	global.czColor[1-4] (defaults global.czDefault), saved in DT3Options.dts keys 261-264 (loadOptions/saveOptions)
 	the list is subMenu 16 and changing one is subMenu 17 in oPauseMenu
 	used by oColorZone, oColorIndControl (drawColorZoneDiamond: original diamonds at the default colors, sColorZoneDiamondW tinted otherwise), oPlayer1's glow and oVaultOrb
+
+14) DT4 Dashing: Options > Control, row 6 (the rows below it moved down one), global.optDT4Dash, DT3Options.dts key 251, on by default (see 15)
+	only does anything with Right is Forward on (greyed out and can't be changed otherwise)
+	on the ground, [Dash Forward] dashes toward the left/right being held (backdash if the character faces the other way), or backdashes if neither is held; [Dash Back] is unchanged
+	characterStepEvent and charJeremyStepEvent, in the Right is Forward branch of the ground dash
+
+15) Niche Dash Settings (dipswitch 407, off by default): the Control options D-Pad Dash, Right is Forward and DT4 Dashing only show with it on
+	with it off, Control shows Left/Right Dashing in their place (row 4; the rows after it move up two): it's Right is Forward the other way around, with no setting of its own
+	Left/Right Dashing on = Right is Forward and DT4 Dashing off (plain left/right dashes); off = both on, the default (Right is Forward now defaults to on)
+	flipping the dipswitch can't make the two disagree, since both read global.optRightIsForward
+	oPauseMenu mO_CtrlItem = the Control option on the cursor's row (1-11 with the dipswitch, 12 = Left/Right Dashing); dipswitches now have per-switch defaults (dsDefault in remasterSwitchList)
+	the dash buttons are called Dash Back (kCode 13) and Dash Forward (14) in the CONTROLS/GAMEPAD lists now (sPauseM_ControlMain rows 11/12 relabelled, sPauseM_GamepadMain rebuilt from it)
+
+16) held left/right keep going through screen transitions (not a dipswitch; scrKeyCarry explains it)
+	GM forgets held keys on a room change and only the key pressed last comes back (Windows key repeat), so holding right and then pressing jump stopped the player on the next screen
+	a left/right key (the bound key or the arrow key) held when the room changes, and still held, counts as held until it's let go
+	oKeyCodesHighFPS Step and Room End note the held keys, Room Start carries them, scrKeyboardCheck reads them with keyboard_check_direct (only while the window has focus)
+	every io_clear() is followed by scrKeyCarryClear(), so menus/messages that clear the keys still drop them like before
+	only left/right: other held buttons are still forgotten on room entry
+	also: rExtGateB_1 has an oKeyCodesHighFPS placed in it; that extra copy now destroys itself (its scrGamepadInit put the gamepad controls back to the defaults)
+
+17) SOCD: Last Input Priority (dipswitch 408, global.socdLastInput, on by default)
+	left+right or up+down held at once: only the one pressed last counts; the other takes over again when that one is let go (if it's still held)
+	both pressed on the same frame: right wins, up for up/down (global.socdTie, set in scrGamepadInit)
+	scrController 1-4 go through scrSOCD, which reads the directions with scrDirHeld (keyboard and gamepad together: what scrController returned for them before)
+	the press order is tracked on every check, with the dipswitch off too; off = both count at once, as in the original
+	everything that reads directions through scrController follows it: the player, menus, minigames, Show Key State

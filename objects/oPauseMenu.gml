@@ -275,6 +275,7 @@ mO_OptMax=8
 mO_OptSubMenu=1
 //mO_OptConMax=7 //Gamepad profile num
 //gamepad change: the gamepad presets are gone (Gamepad Setup is now a list like CONTROLS, see subMenu 14)
+mO_CtrlItem=1 //niche dash change (added): the Control option on the cursor's row (set in the Step, see subMenu 7)
 //1: Control
 //2: Graphics
 //3: Display
@@ -977,7 +978,9 @@ else if subMenu=7 //---------- OPTIONS ----------
   }
 
   //if mO_OptSubMenu=1 {mO_OptMax=9} //Control
-  if mO_OptSubMenu=1 {mO_OptMax=10} //Control //gamepad change: + Stick Dead Zone (it was on the old Gamepad Setup screen)
+  //if mO_OptSubMenu=1 {mO_OptMax=10} //Control //gamepad change: + Stick Dead Zone (it was on the old Gamepad Setup screen)
+  //if mO_OptSubMenu=1 {mO_OptMax=11} //Control //dt4 dash change: + DT4 Dashing (row 6)
+  if mO_OptSubMenu=1 {mO_OptMax=9+(2*global.nicheDashSettings)} //Control //niche dash change: 11 rows with Niche Dash Settings, 9 without (see mO_CtrlItem)
   //else if mO_OptSubMenu=2 {mO_OptMax=10} //Graphics
   else if mO_OptSubMenu=2 {mO_OptMax=10+mCZ_Show} //Graphics //color zone change: + Color Zone Colors once it's shown (row 9, the hats move to 10/11)
   else if mO_OptSubMenu=3 {mO_OptMax=9} //Display
@@ -985,6 +988,16 @@ else if subMenu=7 //---------- OPTIONS ----------
   else if mO_OptSubMenu=4 {mO_OptMax=11} //Gameplay //dipswitch change: + Customize Remastered Changes
   else if mO_OptSubMenu=5 {mO_OptMax=7} //Unreal Guy
   else if mO_OptSubMenu=6 {mO_OptMax=6} //Audio // music loop
+
+  //niche dash change (added): which Control option is on the cursor's row (mO_CtrlItem; the Control code below checks this).
+  //1-11 are the rows with Niche Dash Settings on (D-Pad Dash 4, Right is Forward 5, DT4 Dashing 6). With it off, row 4 is
+  //Left/Right Dashing (12) instead of those three, and the rows after it move up two.
+  mO_CtrlItem=mO_CurPos
+  if global.nicheDashSettings=0
+  {
+    if mO_CurPos=4 {mO_CtrlItem=12}
+    else if mO_CurPos>=5 {mO_CtrlItem=mO_CurPos+2}
+  }
 
   if scrController(1) and cursorRepeatMove mod 2=0 //----- Left -----
   {
@@ -1087,7 +1100,8 @@ else if subMenu=7 //---------- OPTIONS ----------
     }
     else if mO_OptSubMenu=1 //gamepad change (added)
     {
-      if mO_CurPos=10 //Stick Dead Zone (20-80%, as on the old Gamepad Setup screen)
+      //if mO_CurPos=10 //Stick Dead Zone (20-80%, as on the old Gamepad Setup screen)
+      if mO_CtrlItem=11 //Stick Dead Zone (20-80%, as on the old Gamepad Setup screen) //dt4 dash change: a row lower //niche dash change: mO_CtrlItem
       {
         if oKeyCodes.kCodePressed[1]=1
         {
@@ -1201,7 +1215,8 @@ else if subMenu=7 //---------- OPTIONS ----------
     }
     else if mO_OptSubMenu=1 //gamepad change (added)
     {
-      if mO_CurPos=10 //Stick Dead Zone
+      //if mO_CurPos=10 //Stick Dead Zone
+      if mO_CtrlItem=11 //Stick Dead Zone //dt4 dash change: a row lower //niche dash change: mO_CtrlItem
       {
         if oKeyCodes.kCodePressed[2]=1
         {
@@ -1217,55 +1232,83 @@ else if subMenu=7 //---------- OPTIONS ----------
   if oKeyCodes.kCodePressed[15]=1 //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
   {
     resetKeyCodes()
-    if mO_OptSubMenu!=5 {playSound(global.snd_MenuConfirm,0,1,1)}
+    //if mO_OptSubMenu!=5 {playSound(global.snd_MenuConfirm,0,1,1)}
+    if mO_OptSubMenu!=5 and !(mO_OptSubMenu=1 and mO_CtrlItem=6 and global.optRightIsForward=0) {playSound(global.snd_MenuConfirm,0,1,1)} //dt4 dash change: not for DT4 Dashing while it's greyed out
 
     if mO_OptSubMenu=1 //---------- CONTROL ----------
     {
-      if mO_CurPos=1 //Change Controls
+      //if mO_CurPos=1 //Change Controls
+      if mO_CtrlItem=1 //Change Controls //niche dash change: mO_CtrlItem (the Control rows depend on Niche Dash Settings)
       {
         subMenu=11
       }
-      else if mO_CurPos=2 //Gamepad setup
+      //else if mO_CurPos=2 //Gamepad setup
+      else if mO_CtrlItem=2 //Gamepad setup //niche dash change
       {
         subMenu=14
         mGP_Listen=0 //gamepad change (added)
       }
-      else if mO_CurPos=3 //Gamepad input
+      //else if mO_CurPos=3 //Gamepad input
+      else if mO_CtrlItem=3 //Gamepad input //niche dash change
       {
         if global.optGamePad=1 {global.optGamePad=0}
         else {global.optGamePad=1}
       }
-      else if mO_CurPos=4 //D-Pad Dash
+      //else if mO_CurPos=4 //D-Pad Dash
+      else if mO_CtrlItem=4 //D-Pad Dash //niche dash change
       {
         if global.optDPadDash=1 {global.optDPadDash=0}
         else {global.optDPadDash=1}
       }
-      else if mO_CurPos=5 //Right is Forward
+      //else if mO_CurPos=5 //Right is Forward
+      else if mO_CtrlItem=5 //Right is Forward //niche dash change
       {
         if global.optRightIsForward=1 {global.optRightIsForward=0}
         else {global.optRightIsForward=1}
       }
-      else if mO_CurPos=6 //Show Key State
+      else if mO_CtrlItem=6 //DT4 Dashing //dt4 dash change (added): only while Right is Forward is on (it's greyed out otherwise)
+      {
+        if global.optRightIsForward=1
+        {
+          if global.optDT4Dash=1 {global.optDT4Dash=0}
+          else {global.optDT4Dash=1}
+        }
+        else {playSound(global.snd_Error,0,1,1)}
+      }
+      else if mO_CtrlItem=12 //Left/Right Dashing //niche dash change (added): shown in place of rows 4-6 without Niche Dash Settings
+      {
+        //On: plain left/right dashes (Right is Forward and DT4 Dashing off). Off: Right is Forward with DT4 Dashing, the
+        //default. It has no setting of its own (it shows Right is Forward the other way around), so flipping Niche Dash
+        //Settings never shows the two disagreeing.
+        if global.optRightIsForward=1 {global.optRightIsForward=0; global.optDT4Dash=0}
+        else {global.optRightIsForward=1; global.optDT4Dash=1}
+      }
+      //else if mO_CurPos=6 //Show Key State
+      else if mO_CtrlItem=7 //Show Key State //dt4 dash change: a row lower //niche dash change: mO_CtrlItem
       {
         if global.optShowKeyState=1 {global.optShowKeyState=0}
         else {global.optShowKeyState=1}
       }
-      else if mO_CurPos=7 //Cursor Repeat
+      //else if mO_CurPos=7 //Cursor Repeat
+      else if mO_CtrlItem=8 //Cursor Repeat //dt4 dash change: a row lower //niche dash change: mO_CtrlItem
       {
         global.optCursorRepeat+=1
         if global.optCursorRepeat=6 {global.optCursorRepeat=1}
       }
-      else if mO_CurPos=8 //Keep Menu Position
+      //else if mO_CurPos=8 //Keep Menu Position
+      else if mO_CtrlItem=9 //Keep Menu Position //dt4 dash change: a row lower //niche dash change: mO_CtrlItem
       {
         if global.optKeepMenuPos>0 {global.optKeepMenuPos=0}
         else {global.optKeepMenuPos=1}
       }
-      else if mO_CurPos=9 //Swap Type
+      //else if mO_CurPos=9 //Swap Type
+      else if mO_CtrlItem=10 //Swap Type //dt4 dash change: a row lower //niche dash change: mO_CtrlItem
       {
         global.optSwapType+=1
         if global.optSwapType>=4 {global.optSwapType=0}
       }
-      else if mO_CurPos=10 //Stick Dead Zone //gamepad change (added)
+      //else if mO_CurPos=10 //Stick Dead Zone //gamepad change (added)
+      else if mO_CtrlItem=11 //Stick Dead Zone //gamepad change (added) //dt4 dash change: a row lower //niche dash change: mO_CtrlItem
       {
         if global.optStickDeadZone>=0.8 {global.optStickDeadZone=0.2}
         else {global.optStickDeadZone=round((global.optStickDeadZone+0.05)*20)/20}
@@ -2219,6 +2262,7 @@ else if subMenu=15 //---------- CUSTOMIZE REMASTERED CHANGES ---------- //dipswi
     playSound(global.snd_MenuConfirm,0,1,1)
     if variable_global_get(global.dsVar[mDS_CurPos-1])=true {variable_global_set(global.dsVar[mDS_CurPos-1],false)}
     else {variable_global_set(global.dsVar[mDS_CurPos-1],true)}
+    if global.nicheDashSettings=0 {global.optDT4Dash=global.optRightIsForward} //niche dash change (added): hiding the dash options goes back to one of Left/Right Dashing' two setups (see loadOptions)
   }
 }
 else if subMenu=16 //---------- COLOR ZONE COLORS: the zones ---------- //color zone change (added)
@@ -2320,6 +2364,7 @@ if oKeyCodes.kCodePressed[16]=1 //Go back to a specific submenu //gamepad change
   if titleMode=1 and subMenu=7 //title options change (added): backing out of Options goes back to the title screen
   {
     io_clear()
+    scrKeyCarryClear() //key carry change (added): the left/right keys carried through a screen transition are cleared too
     playSound(global.snd_MenuClose,0,1,1)
     saveOptions()
     instance_destroy()
@@ -2337,12 +2382,14 @@ if oKeyCodes.kCodePressed[16]=1 //Go back to a specific submenu //gamepad change
 if keyboard_check_pressed(curInfo) //Show game info
 {
   io_clear()
+  scrKeyCarryClear() //key carry change (added): the left/right keys carried through a screen transition are cleared too
   show_info()
 }
 
 if oKeyCodes.kCodePressed[12]=1 //Close menu
 {
   io_clear()
+  scrKeyCarryClear() //key carry change (added): the left/right keys carried through a screen transition are cleared too
   resetKeyCodes()
   playSound(global.snd_MenuClose,0,1,1)
   //title options change (added): on the title screen there's no game to unpause and no HUD; save the options and go back
@@ -2424,6 +2471,7 @@ if confirmationMenu>0
       confirmMenuPos=0
       confirmationMenu=0
       io_clear()
+      scrKeyCarryClear() //key carry change (added): the left/right keys carried through a screen transition are cleared too
       resetKeyCodes()
     }
   }
@@ -2433,6 +2481,7 @@ if confirmationMenu>0
     confirmMenuPos=0
     confirmationMenu=0
     io_clear()
+    scrKeyCarryClear() //key carry change (added): the left/right keys carried through a screen transition are cleared too
     resetKeyCodes()
   }
 }

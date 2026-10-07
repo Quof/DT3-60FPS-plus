@@ -150,6 +150,7 @@ if oKeyCodes.kCodePressed[16]=1 //Close shop window //gamepad change: menu Confi
 if bWindowClose=1
 {
   io_clear()
+  scrKeyCarryClear() //key carry change (added): the left/right keys carried through a screen transition are cleared too
   resetKeyCodes()
   playSound(global.snd_MenuCancel,0,1,1)
   global.gamePaused=false

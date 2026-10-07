@@ -1,7 +1,7 @@
 /*
 The remaster's dipswitches: changes that can be turned on/off in Options > Gameplay > Customize Remastered Changes.
 Each one is a true/false global (global.<name>, checked where the change is made). They're saved in DT3Options.dts
-(loadOptions/saveOptions) and are all on by default.
+(loadOptions/saveOptions) and are on by default unless dsDefault (at the end) says otherwise.
 Called by loadOptions, saveOptions and oGame's Create.
 
 To add one: add a line below (keep each key unique), then check global.<name> where the change is made.
@@ -24,4 +24,16 @@ global.dsVar[i]="sigmaAvoidance"; global.dsKey[i]="405"; global.dsName[i]="Sigma
 global.dsInfo[i]="At half health, Sigma uses his avoidance attack: spikes slide out of the walls and waves of walls cross the room.#Off: he doesn't use it, as in the original."; i+=1
 global.dsVar[i]="atkInputBuffer"; global.dsKey[i]="406"; global.dsName[i]="Attack Input Buffer"
 global.dsInfo[i]="An attack pressed during another attack comes out as soon as that one ends.#Off: presses during an attack are ignored, as in the original."; i+=1
+//niche dash change (added): shows the original dash options in Options > Control instead of Left/Right Dashing
+global.dsVar[i]="nicheDashSettings"; global.dsKey[i]="407"; global.dsName[i]="Niche Dash Settings"
+global.dsInfo[i]="Show the D-Pad Dash, Right is Forward and DT4 Dashing options in Options > Control, in place of Left/Right Dashing.#Off: only Left/Right Dashing is shown."; i+=1
+//socd change (added): SOCD handling, last input priority (scrSOCD)
+global.dsVar[i]="socdLastInput"; global.dsKey[i]="408"; global.dsName[i]="SOCD: Last Input Priority"
+global.dsInfo[i]="Left and right (or up and down) held at once: only the one pressed last counts, and the other takes over when it's let go. Pressed together, right (or up) wins.#Off: both count at once, as in the original."; i+=1
 global.dsCount=i
+//niche dash change (added): dsDefault - each one's default (loadOptions, oGame). On, except the ones named here
+for(i=0;i<global.dsCount;i+=1)
+{
+  global.dsDefault[i]=1
+  if global.dsVar[i]="nicheDashSettings" {global.dsDefault[i]=0}
+}

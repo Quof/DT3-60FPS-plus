@@ -861,6 +861,7 @@ if confirmationMenu>0
       confirmMenuPos=0
       confirmationMenu=0
       io_clear()
+      scrKeyCarryClear() //key carry change (added): the left/right keys carried through a screen transition are cleared too
       resetKeyCodes()
     }
   }
@@ -870,6 +871,7 @@ if confirmationMenu>0
     confirmMenuPos=0
     confirmationMenu=0
     io_clear()
+    scrKeyCarryClear() //key carry change (added): the left/right keys carried through a screen transition are cleared too
     resetKeyCodes()
   }
 }

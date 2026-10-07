@@ -33,7 +33,10 @@ global.optShowMoney=ini_read_real(sectionRead,"226",1)
 global.optCentralizeHUD=ini_read_real(sectionRead,"227",0)
 global.optMessagePlink=ini_read_real(sectionRead,"228",0)
 global.optDPadDash=ini_read_real(sectionRead,"229",1)
-global.optRightIsForward=ini_read_real(sectionRead,"230",0)
+//global.optRightIsForward=ini_read_real(sectionRead,"230",0)
+global.optRightIsForward=ini_read_real(sectionRead,"230",1) //niche dash change: on by default (with DT4 Dashing; Left/Right Dashing is the off switch for both)
+//global.optDT4Dash=ini_read_real(sectionRead,"251",0) //dt4 dash change (added): DT4 Dashing
+global.optDT4Dash=ini_read_real(sectionRead,"251",1) //dt4 dash change (added): DT4 Dashing //niche dash change: on by default
 global.optCanResizeWindow=ini_read_real(sectionRead,"231",1)
 global.optUnrealGuyChainAudio=ini_read_real(sectionRead,"232",0)
 global.optUnrealGuyChainVisual=ini_read_real(sectionRead,"233",0)
@@ -72,7 +75,11 @@ global.ctrlDashRight=ini_read_string(sectionRead,"312","E")
 //dipswitch change (added): the remaster's dipswitches (Options > Gameplay > Customize Remastered Changes), on by default
 var i;
 remasterSwitchList()
-for(i=0;i<global.dsCount;i+=1) {variable_global_set(global.dsVar[i],ini_read_real(sectionRead,global.dsKey[i],1))}
+//for(i=0;i<global.dsCount;i+=1) {variable_global_set(global.dsVar[i],ini_read_real(sectionRead,global.dsKey[i],1))}
+for(i=0;i<global.dsCount;i+=1) {variable_global_set(global.dsVar[i],ini_read_real(sectionRead,global.dsKey[i],global.dsDefault[i]))} //niche dash change: each dipswitch's own default
+//niche dash change (added): without Niche Dash Settings there are only Left/Right Dashing' two setups (on: Right is Forward
+//and DT4 Dashing off; off: both on), so DT4 Dashing follows Right is Forward. (Also when the dipswitch is turned off.)
+if global.nicheDashSettings=0 {global.optDT4Dash=global.optRightIsForward}
 
 //gamepad change (added): gamepad controls (codes: scrGamepadInit), key 320+action (Skip and Pause are always BACK/START)
 scrGamepadDefaults()

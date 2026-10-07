@@ -553,14 +553,26 @@ if bTakingDamage=false
       }
       else //Right is Forward
       {
-        if ((kDown and kJumpPressed and global.optDPadDash=1) or (kDashLeftPressed)) and dashEnergy>=2000 and global.hasShoes[2]=2 and backDashRecovery=0 and attackState!=ACT_IN_BIKE //Dash back
+        //dt4 dash change (added): DT4 Dashing (Control options). [Dash Forward] dashes toward the left/right being held: a
+        //forward dash if the character faces that way, a backdash if not (facing can be locked, e.g. mid-attack), and a
+        //backdash if neither (or both) is held. [Dash Back] stays a backdash.
+        var tDashBackPressed,tDashFwdPressed;
+        tDashBackPressed=kDashLeftPressed
+        tDashFwdPressed=kDashRightPressed
+        if global.optDT4Dash=1 and kDashRightPressed
+        {
+          if (kRight-kLeft)=0 or (kRight and facing=LEFT) or (kLeft and facing=RIGHT) {tDashBackPressed=1; tDashFwdPressed=0}
+        }
+        //if ((kDown and kJumpPressed and global.optDPadDash=1) or (kDashLeftPressed)) and dashEnergy>=2000 and global.hasShoes[2]=2 and backDashRecovery=0 and attackState!=ACT_IN_BIKE //Dash back
+        if ((kDown and kJumpPressed and global.optDPadDash=1) or (tDashBackPressed)) and dashEnergy>=2000 and global.hasShoes[2]=2 and backDashRecovery=0 and attackState!=ACT_IN_BIKE //Dash back //dt4 dash change
         {
           if attackState!=ACT_MORPHBALL and attackState!=ACT_ON_YOSHI
           {
             pMoveDashBack()
           }
         }
-        else if ((kUp and kJumpPressed and global.optDPadDash=1) or (kDashRightPressed)) and dashEnergy>=2000 and global.hasShoes[2]=2 and groundDashRecovery=0 and attackState!=ACT_IN_BIKE //Dash forward
+        //else if ((kUp and kJumpPressed and global.optDPadDash=1) or (kDashRightPressed)) and dashEnergy>=2000 and global.hasShoes[2]=2 and groundDashRecovery=0 and attackState!=ACT_IN_BIKE //Dash forward
+        else if ((kUp and kJumpPressed and global.optDPadDash=1) or (tDashFwdPressed)) and dashEnergy>=2000 and global.hasShoes[2]=2 and groundDashRecovery=0 and attackState!=ACT_IN_BIKE //Dash forward //dt4 dash change
         {
           if attackState!=ACT_MORPHBALL and attackState!=ACT_ON_YOSHI
           {

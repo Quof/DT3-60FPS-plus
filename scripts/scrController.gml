@@ -12,10 +12,13 @@ var tKeyCode,tKey;
 tKeyCode=argument0
 tKey=0
 
-if tKeyCode=1 {tKey=scrKeyboardCheck(ord(global.ctrlLeft)) or scrKeyboardCheck(vk_left)} //Move left
-else if tKeyCode=2 {tKey=scrKeyboardCheck(ord(global.ctrlRight)) or scrKeyboardCheck(vk_right)} //Move right
-else if tKeyCode=3 {tKey=scrKeyboardCheck(ord(global.ctrlUp)) or scrKeyboardCheck(vk_up)} //Look up
-else if tKeyCode=4 {tKey=scrKeyboardCheck(ord(global.ctrlDown)) or scrKeyboardCheck(vk_down)} //Duck
+//socd change: the four directions go through scrSOCD (SOCD handling, last input wins: dipswitch socdLastInput), which
+//reads them with scrDirHeld (these four lines, keyboard and gamepad)
+//if tKeyCode=1 {tKey=scrKeyboardCheck(ord(global.ctrlLeft)) or scrKeyboardCheck(vk_left)} //Move left
+//else if tKeyCode=2 {tKey=scrKeyboardCheck(ord(global.ctrlRight)) or scrKeyboardCheck(vk_right)} //Move right
+//else if tKeyCode=3 {tKey=scrKeyboardCheck(ord(global.ctrlUp)) or scrKeyboardCheck(vk_up)} //Look up
+//else if tKeyCode=4 {tKey=scrKeyboardCheck(ord(global.ctrlDown)) or scrKeyboardCheck(vk_down)} //Duck
+if tKeyCode>=1 and tKeyCode<=4 {return scrSOCD(tKeyCode)} //Move left/right, look up, duck //socd change
 else if tKeyCode=5 {tKey=scrKeyboardCheck(ord(global.ctrlJump))} //Jump
 else if tKeyCode=6 {tKey=scrKeyboardCheck(ord(global.ctrlActA))} //Action A
 else if tKeyCode=7 {tKey=scrKeyboardCheck(ord(global.ctrlActB))} //Action B

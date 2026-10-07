@@ -80,6 +80,7 @@ if delayMove<=0
       if oKeyCodes.kCodePressed[12]=1
       {
         io_clear()
+        scrKeyCarryClear() //key carry change (added): the left/right keys carried through a screen transition are cleared too
         resetKeyCodes()
         playSound(global.snd_MenuOpen,0,1,1)
         instance_create(0,0,oZeldaSaveMenu)

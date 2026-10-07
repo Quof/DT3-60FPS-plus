@@ -280,6 +280,7 @@ else
   if oKeyCodes.kCodePressed[16]=1 //Close shop window //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
   {
     io_clear()
+    scrKeyCarryClear() //key carry change (added): the left/right keys carried through a screen transition are cleared too
     resetKeyCodes()
     playSound(global.snd_MenuCancel,0,1,1)
     depth=50
@@ -297,6 +298,7 @@ if oKeyCodes.kCodePressed[3]=1 and global.gamePaused=false
 {
   global.recPeopleTalkNum+=1
   io_clear()
+  scrKeyCarryClear() //key carry change (added): the left/right keys carried through a screen transition are cleared too
   resetKeyCodes()
   depth=-99
   bShopOpen=1

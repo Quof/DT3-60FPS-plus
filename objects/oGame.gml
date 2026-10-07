@@ -14,7 +14,8 @@ scrGlobalKeyboardInit(0)
 //that weren't loaded. booleanImprovements was split into fixSeraDash, sigmaAvoidance and atkInputBuffer.
 var i;
 remasterSwitchList()
-for(i=0;i<global.dsCount;i+=1) {if !variable_global_exists(global.dsVar[i]) {variable_global_set(global.dsVar[i],true)}}
+//for(i=0;i<global.dsCount;i+=1) {if !variable_global_exists(global.dsVar[i]) {variable_global_set(global.dsVar[i],true)}}
+for(i=0;i<global.dsCount;i+=1) {if !variable_global_exists(global.dsVar[i]) {variable_global_set(global.dsVar[i],global.dsDefault[i])}} //niche dash change: each dipswitch's own default
 gameCreateEvent()
 bStatRender=false
 windowUpdate=0

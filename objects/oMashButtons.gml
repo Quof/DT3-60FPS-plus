@@ -160,7 +160,8 @@ if atkHits=0
 if atkHits>0
 {
   timeToStop-=1*gDeltaTime
-  if timeToStop=0 {io_clear()}
+  //if timeToStop=0 {io_clear()}
+  if timeToStop=0 {io_clear(); scrKeyCarryClear()} //key carry change: the left/right keys carried through a screen transition are cleared too
 }
 
 if bCanHit>=2

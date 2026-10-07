@@ -87,6 +87,7 @@ if exitType=0
     view_xview[0]=newX
     view_yview[0]=newY
     io_clear()
+    scrKeyCarryClear() //key carry change (added): the left/right keys carried through a screen transition are cleared too
   }
 }
 else if exitType=1

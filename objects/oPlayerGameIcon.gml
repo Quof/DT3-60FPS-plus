@@ -61,6 +61,7 @@ if !instance_exists(oZeldaSaveMenu)
     if oKeyCodes.kCodePressed[12]=1
     {
       io_clear()
+      scrKeyCarryClear() //key carry change (added): the left/right keys carried through a screen transition are cleared too
       resetKeyCodes()
       playSound(global.snd_MenuOpen,0,1,1)
       instance_create(0,0,oZeldaSaveMenu)
@@ -72,6 +73,7 @@ if !instance_exists(oZeldaSaveMenu)
     if !collision_point(x,y,oSolid,0,1) and !collision_point(x,y,oGameMapExit,0,1) and !collision_point(x,y,oNoLandingZone,0,1)
     {
       io_clear()
+      scrKeyCarryClear() //key carry change (added): the left/right keys carried through a screen transition are cleared too
       bOnBird=0
       sprite_index=sClaireGDown
       global.stCGame_C[1]=x
@@ -85,6 +87,7 @@ if !instance_exists(oZeldaSaveMenu)
     if !collision_point(x,y,oSolid,0,1) and !collision_point(x,y,oGameMapExit,0,1) and !collision_point(x,y,oNoLandingZone,0,1)
     {
       io_clear()
+      scrKeyCarryClear() //key carry change (added): the left/right keys carried through a screen transition are cleared too
       playSound(global.snd_RPG_ItemGrab,0,1,33500)
       global.stCGame_C[1]=x
       global.stCGame_C[2]=y
@@ -125,6 +128,7 @@ applies_to=self
 if oKeyCodes.kCodePressed[5]=1 and !instance_exists(oZeldaSaveMenu) and bMoveStep=0
 {
   io_clear()
+  scrKeyCarryClear() //key carry change (added): the left/right keys carried through a screen transition are cleared too
   bOnBird=1
   sprite_index=sGreatBirdDown
   with oGreatBird {instance_destroy()}

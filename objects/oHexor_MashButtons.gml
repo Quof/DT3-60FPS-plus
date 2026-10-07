@@ -105,6 +105,7 @@ if bCanHit=1
 if atkHits>100
 {
   io_clear()
+  scrKeyCarryClear() //key carry change (added): the left/right keys carried through a screen transition are cleared too
   oEvCh21MainA.sceneProgress=30
   instance_destroy()
 }

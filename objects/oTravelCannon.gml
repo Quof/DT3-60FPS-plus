@@ -50,6 +50,7 @@ if global.gamePaused=false
         depth=100
         bCannonInUse=0
         io_clear()
+        scrKeyCarryClear() //key carry change (added): the left/right keys carried through a screen transition are cleared too
       }
     }
     else if cannonProg=1 //FIRE PLAYER FROM CANNON

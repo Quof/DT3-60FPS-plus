@@ -395,12 +395,22 @@ if bTakingDamage=false
       }
       else //Right is Forward
       {
-        if ((kDown and kJumpPressed and global.optDPadDash=1) or (kDashLeftPressed)) and dashEnergy>=2000 and global.hasShoes[2]=2 and backDashRecovery=0 //Dash back
+        //dt4 dash change (added): DT4 Dashing, same as characterStepEvent
+        var tDashBackPressed,tDashFwdPressed;
+        tDashBackPressed=kDashLeftPressed
+        tDashFwdPressed=kDashRightPressed
+        if global.optDT4Dash=1 and kDashRightPressed
+        {
+          if (kRight-kLeft)=0 or (kRight and facing=LEFT) or (kLeft and facing=RIGHT) {tDashBackPressed=1; tDashFwdPressed=0}
+        }
+        //if ((kDown and kJumpPressed and global.optDPadDash=1) or (kDashLeftPressed)) and dashEnergy>=2000 and global.hasShoes[2]=2 and backDashRecovery=0 //Dash back
+        if ((kDown and kJumpPressed and global.optDPadDash=1) or (tDashBackPressed)) and dashEnergy>=2000 and global.hasShoes[2]=2 and backDashRecovery=0 //Dash back //dt4 dash change
         {
           if attackState!=ACT_MORPHBALL
             pMoveDashBack()
         }
-        else if ((kUp and kJumpPressed and global.optDPadDash=1) or (kDashRightPressed)) and dashEnergy>=2000 and global.hasShoes[2]=2 and groundDashRecovery=0 //Dash forward
+        //else if ((kUp and kJumpPressed and global.optDPadDash=1) or (kDashRightPressed)) and dashEnergy>=2000 and global.hasShoes[2]=2 and groundDashRecovery=0 //Dash forward
+        else if ((kUp and kJumpPressed and global.optDPadDash=1) or (tDashFwdPressed)) and dashEnergy>=2000 and global.hasShoes[2]=2 and groundDashRecovery=0 //Dash forward //dt4 dash change
         {
           if attackState!=ACT_MORPHBALL
             pMoveDashForward()
