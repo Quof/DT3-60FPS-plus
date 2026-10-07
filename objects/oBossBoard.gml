@@ -275,7 +275,8 @@ else if oKeyCodes.kCodePressed[2]=1 or oKeyCodes.kCodePressed[4]=1 //Right/Down
   if currentPage=5 {currentPage=1}
   else {currentPage+=1}
 }
-else if oKeyCodes.kCodePressed[6]=1 //Close board
+//else if oKeyCodes.kCodePressed[6]=1 //Close board
+else if oKeyCodes.kCodePressed[16]=1 //Close board //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
 {
   io_clear()
   resetKeyCodes()

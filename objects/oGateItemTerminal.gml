@@ -16,7 +16,8 @@ consoleAnim+=0.15*gDeltaTime
 
 if bConsoleOn=1
 {
-  if oKeyCodes.kCodePressed[6]=1
+  //if oKeyCodes.kCodePressed[6]=1
+  if oKeyCodes.kCodePressed[16]=1 //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
   {
     resetKeyCodes()
     depth=50; oPlayer1.visible=1

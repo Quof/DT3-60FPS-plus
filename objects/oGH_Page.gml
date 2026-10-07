@@ -106,7 +106,8 @@ if global.gamePaused=false
 }
 else
 {
-  if oKeyCodes.kCodePressed[5]=1 or oKeyCodes.kCodePressed[6]=1
+  //if oKeyCodes.kCodePressed[5]=1 or oKeyCodes.kCodePressed[6]=1
+  if oKeyCodes.kCodePressed[15]=1 or oKeyCodes.kCodePressed[16]=1 //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
   {
     showPage=0
     oPlayer1.visible=1

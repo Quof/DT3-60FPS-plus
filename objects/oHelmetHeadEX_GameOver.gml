@@ -102,7 +102,8 @@ if useCommands=true
     {
       playSound(global.snd_MenuCursor,0,1,1)
     }
-    if oKeyCodes.kCodePressed[5]=1 //Confirm
+    //if oKeyCodes.kCodePressed[5]=1 //Confirm
+    if oKeyCodes.kCodePressed[15]=1 //Confirm //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
     {
       resetKeyCodes()
       if confirmPressNum<=82 {playSound(global.snd_Error,0,1,1)}

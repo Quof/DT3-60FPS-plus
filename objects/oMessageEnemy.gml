@@ -52,14 +52,16 @@ if instance_exists(enemyID)
       scanLineTime=360
     }
 
-    if (oKeyCodes.kCodePressed[5]=1 or keyboard_check_pressed(vk_enter)) and windowClosed=false
+    //if (oKeyCodes.kCodePressed[5]=1 or keyboard_check_pressed(vk_enter)) and windowClosed=false
+    if (oKeyCodes.kCodePressed[15]=1 or keyboard_check_pressed(vk_enter)) and windowClosed=false //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
     {
       io_clear()
       playSound(global.snd_InfoOff,0,1,1)
       windowClosed=true
     }
 
-    if oKeyCodes.kCodePressed[6]=1 and windowClosed=false
+    //if oKeyCodes.kCodePressed[6]=1 and windowClosed=false
+    if oKeyCodes.kCodePressed[16]=1 and windowClosed=false //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
     {
       io_clear()
       playSound(global.snd_InfoOff,0,1,1)

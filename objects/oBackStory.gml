@@ -19,7 +19,8 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if oKeyCodes.kCodePressed[5]=1
+//if oKeyCodes.kCodePressed[5]=1
+if oKeyCodes.kCodePressed[15]=1 //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
 {
   if currentPage>1
   {
@@ -28,7 +29,8 @@ if oKeyCodes.kCodePressed[5]=1
     currentPage-=1
   }
 }
-if oKeyCodes.kCodePressed[6]=1 or keyboard_check_pressed(vk_enter)
+//if oKeyCodes.kCodePressed[6]=1 or keyboard_check_pressed(vk_enter)
+if oKeyCodes.kCodePressed[16]=1 or keyboard_check_pressed(vk_enter) //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
 {
   if currentPage<13 {playSound(global.snd_PageFlip,0,0.95,1)}
   image_alpha=0

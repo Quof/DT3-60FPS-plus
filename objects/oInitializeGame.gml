@@ -394,7 +394,8 @@ if bCanUseMenu=1
   }
 
   //start game
-  if oKeyCodesHighFPS.kCodePressed[5]=1 or keyboard_check_pressed(vk_enter)
+  //if oKeyCodesHighFPS.kCodePressed[5]=1 or keyboard_check_pressed(vk_enter)
+  if oKeyCodesHighFPS.kCodePressed[15]=1 or keyboard_check_pressed(vk_enter) //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
   {
     resetKeyCodes()
     playSound(global.snd_MenuConfirm,0,0.95,1)
@@ -480,7 +481,8 @@ else
     }
   }
 
-  if oKeyCodesHighFPS.kCodePressed[5]=1 or keyboard_check_pressed(vk_enter)
+  //if oKeyCodesHighFPS.kCodePressed[5]=1 or keyboard_check_pressed(vk_enter)
+  if oKeyCodesHighFPS.kCodePressed[15]=1 or keyboard_check_pressed(vk_enter) //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
   {
     resetKeyCodes()
     playSound(global.snd_MenuConfirm,0,0.95,1)

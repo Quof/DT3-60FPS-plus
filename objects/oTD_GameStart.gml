@@ -57,7 +57,8 @@ if bMenuDisplayed=1
     }
   }
 
-  if oKeyCodes.kCodePressed[5]=1
+  //if oKeyCodes.kCodePressed[5]=1
+  if oKeyCodes.kCodePressed[15]=1 //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
   {
     if curPos=1 //Quit
     {
@@ -106,7 +107,8 @@ if bMenuDisplayed=1
       room_goto(rTD_Lv5)
     }
   }
-  else if oKeyCodes.kCodePressed[6]=1 //Cancel
+  //else if oKeyCodes.kCodePressed[6]=1 //Cancel
+  else if oKeyCodes.kCodePressed[16]=1 //Cancel //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
   {
     curPos=1; curY=24
     bMenuDisplayed=0

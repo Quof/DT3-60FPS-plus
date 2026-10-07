@@ -38,7 +38,8 @@ if titleMode=1 //title options change (added): straight into Options
   //The title reads oKeyCodesHighFPS (every frame) but this menu reads oKeyCodes (30fps ticks only). At 60/120fps the
   //Confirm press that opened the menu could still be new to oKeyCodes on its next tick and activate the first option
   //(Change Controls) straight away. Mark whatever is held right now as already held.
-  for(i=1;i<=14;i+=1)
+  //for(i=1;i<=14;i+=1)
+  for(i=1;i<=16;i+=1) //gamepad change: + menu Confirm/Back
   {
     oKeyCodes.kCode[i]=scrController(i)
     oKeyCodes.kCodePressed[i]=0
@@ -272,7 +273,8 @@ mO_CurX=24
 mO_CurY=37+12
 mO_OptMax=8
 mO_OptSubMenu=1
-mO_OptConMax=7 //Gamepad profile num
+//mO_OptConMax=7 //Gamepad profile num
+//gamepad change: the gamepad presets are gone (Gamepad Setup is now a list like CONTROLS, see subMenu 14)
 //1: Control
 //2: Graphics
 //3: Display
@@ -283,6 +285,12 @@ maxHats=15
 
 //Menu - Customize Remastered Changes (dipswitch change (added): Options > Gameplay, the dipswitch list in remasterSwitchList)
 mDS_CurPos=1
+
+//Menu - Gamepad Setup (gamepad change (added): Options > Control, the GAMEPAD list, subMenu 14)
+mGP_CurPos=1      //1-12: actions (global.gpRowAct), 13: Set to Default
+mGP_Listen=0      //1: waiting for a button on the pad
+mGP_ListenTime=0
+mGP_WaitRelease=0 //1: waiting for everything on the pad to be let go first
 
 //Menu - Save
 mS_CurPos=1
@@ -388,7 +396,8 @@ if subMenu=0 //---------- Main Menu ----------
     }
   }
 
-  if oKeyCodes.kCodePressed[5]=1
+  //if oKeyCodes.kCodePressed[5]=1
+  if oKeyCodes.kCodePressed[15]=1 //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
   {
     resetKeyCodes()
     subMenu=mainCurPos
@@ -474,7 +483,8 @@ else if subMenu=2 //---------- EQUIPMENT ----------
   else if mEq_CurPos=7 {mEq_CurX=152; mEq_CurY=30}
   else if mEq_CurPos=8 {mEq_CurX=170; mEq_CurY=30}
 
-  if oKeyCodes.kCodePressed[5]=1 //Goto item menu or use potion
+  //if oKeyCodes.kCodePressed[5]=1 //Goto item menu or use potion
+  if oKeyCodes.kCodePressed[15]=1 //Goto item menu or use potion //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
   {
     resetKeyCodes()
     if global.currentBoss="" //If there is no boss encounter
@@ -700,7 +710,8 @@ else if subMenu=3 //---------- SKILL TREE ----------
     else {mSAP_CurX+=1}
   }
 
-  if oKeyCodes.kCodePressed[5]=1
+  //if oKeyCodes.kCodePressed[5]=1
+  if oKeyCodes.kCodePressed[15]=1 //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
   {
     if global.pAP>=info_Cost and info_Index!=-1
     {
@@ -898,7 +909,8 @@ else if subMenu=6 //---------- RECORDS ----------
       }
     }
 
-    if oKeyCodes.kCodePressed[5]=1
+    //if oKeyCodes.kCodePressed[5]=1
+    if oKeyCodes.kCodePressed[15]=1 //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
     {
       mR_RecCurPos=1
       subMenu=13
@@ -952,7 +964,8 @@ else if subMenu=7 //---------- OPTIONS ----------
     else {mO_OptSubMenu+=1}
   }
 
-  if mO_OptSubMenu=1 {mO_OptMax=9} //Control
+  //if mO_OptSubMenu=1 {mO_OptMax=9} //Control
+  if mO_OptSubMenu=1 {mO_OptMax=10} //Control //gamepad change: + Stick Dead Zone (it was on the old Gamepad Setup screen)
   else if mO_OptSubMenu=2 {mO_OptMax=10} //Graphics
   else if mO_OptSubMenu=3 {mO_OptMax=9} //Display
   //else if mO_OptSubMenu=4 {mO_OptMax=10} //Gameplay
@@ -1057,6 +1070,18 @@ else if subMenu=7 //---------- OPTIONS ----------
         }
       }
     }
+    else if mO_OptSubMenu=1 //gamepad change (added)
+    {
+      if mO_CurPos=10 //Stick Dead Zone (20-80%, as on the old Gamepad Setup screen)
+      {
+        if oKeyCodes.kCodePressed[1]=1
+        {
+          playSound(global.snd_MenuCursor,0,1,1)
+          if global.optStickDeadZone<=0.2 {global.optStickDeadZone=0.8}
+          else {global.optStickDeadZone=round((global.optStickDeadZone-0.05)*20)/20}
+        }
+      }
+    }
   }
   else if scrController(2) and cursorRepeatMove mod 2=0 //----- Right -----
   {
@@ -1157,9 +1182,22 @@ else if subMenu=7 //---------- OPTIONS ----------
         }
       }
     }
+    else if mO_OptSubMenu=1 //gamepad change (added)
+    {
+      if mO_CurPos=10 //Stick Dead Zone
+      {
+        if oKeyCodes.kCodePressed[2]=1
+        {
+          playSound(global.snd_MenuCursor,0,1,1)
+          if global.optStickDeadZone>=0.8 {global.optStickDeadZone=0.2}
+          else {global.optStickDeadZone=round((global.optStickDeadZone+0.05)*20)/20}
+        }
+      }
+    }
   }
 
-  if oKeyCodes.kCodePressed[5]=1
+  //if oKeyCodes.kCodePressed[5]=1
+  if oKeyCodes.kCodePressed[15]=1 //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
   {
     resetKeyCodes()
     if mO_OptSubMenu!=5 {playSound(global.snd_MenuConfirm,0,1,1)}
@@ -1173,6 +1211,7 @@ else if subMenu=7 //---------- OPTIONS ----------
       else if mO_CurPos=2 //Gamepad setup
       {
         subMenu=14
+        mGP_Listen=0 //gamepad change (added)
       }
       else if mO_CurPos=3 //Gamepad input
       {
@@ -1208,6 +1247,11 @@ else if subMenu=7 //---------- OPTIONS ----------
       {
         global.optSwapType+=1
         if global.optSwapType>=4 {global.optSwapType=0}
+      }
+      else if mO_CurPos=10 //Stick Dead Zone //gamepad change (added)
+      {
+        if global.optStickDeadZone>=0.8 {global.optStickDeadZone=0.2}
+        else {global.optStickDeadZone=round((global.optStickDeadZone+0.05)*20)/20}
       }
     }
     else if mO_OptSubMenu=2 //---------- GRAPHICS ----------
@@ -1497,7 +1541,8 @@ else if subMenu=7 //---------- OPTIONS ----------
 }
 else if subMenu=8 //---------- TELEPORT ----------
 {
-  if oKeyCodes.kCodePressed[5]=1
+  //if oKeyCodes.kCodePressed[5]=1
+  if oKeyCodes.kCodePressed[15]=1 //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
   {
     resetKeyCodes()
     if global.mapTeleport=0 or global.bBossGallery=1 //Can't use
@@ -1750,7 +1795,8 @@ else if subMenu=9 //---------- SAVE ----------
       }
     }
   
-    if oKeyCodes.kCodePressed[5]=1
+    //if oKeyCodes.kCodePressed[5]=1
+    if oKeyCodes.kCodePressed[15]=1 //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
     {
       resetKeyCodes()
       if mS_CurPos=1 //Save
@@ -1819,7 +1865,8 @@ else if subMenu=11 //---------- CONTROLS ----------
     }
   }
   
-  if oKeyCodes.kCodePressed[5]=1
+  //if oKeyCodes.kCodePressed[5]=1
+  if oKeyCodes.kCodePressed[15]=1 //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
   {
     resetKeyCodes()
     playSound(global.snd_MenuConfirm,0,1,1)
@@ -1929,7 +1976,8 @@ else if subMenu=12 //---------- ITEM MENU ----------
     else {mItem_CurX+=1}
   }
   
-  if oKeyCodes.kCodePressed[5]=1 //Equip item
+  //if oKeyCodes.kCodePressed[5]=1 //Equip item
+  if oKeyCodes.kCodePressed[15]=1 //Equip item //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
   {
     resetKeyCodes()
     if mEq_CurPos>=1 and mEq_CurPos<=3 //Jerry
@@ -2025,6 +2073,10 @@ else if subMenu=13 //---------- RECOGNITIONS ----------
 }
 else if subMenu=14 //---------- GAMEPAD SETUP ----------
 {
+  //gamepad change: the preset layouts are replaced by the GAMEPAD list (laid out like CONTROLS): pick an action, then
+  //press the button for it on the pad (scrGamepadCapture). The dead zone moved to the Control options. The old code is
+  //kept here, commented out.
+  /*
   //Change button layout
   if oKeyCodes.kCodePressed[1]=1
   {
@@ -2051,7 +2103,76 @@ else if subMenu=14 //---------- GAMEPAD SETUP ----------
     if global.optStickDeadZone=0.2 {global.optStickDeadZone=0.8}
     else {global.optStickDeadZone-=0.05}
   }
-  
+  */
+  var tGPCode,tGPAct,tGPOld;
+  if mGP_Listen=1 //---------- Waiting for a button on the pad ----------
+  {
+    mGP_ListenTime+=1
+    if global.gpDevice<0 {mGP_Listen=0; playSound(global.snd_Error,0,1,1)} //the pad was unplugged
+    else if mGP_WaitRelease=1 //everything on the pad has to be let go first (the button that picked the action is usually still held)
+    {
+      if scrGamepadCapture()=0 {mGP_WaitRelease=0}
+    }
+    else
+    {
+      tGPCode=scrGamepadCapture()
+      if tGPCode>0
+      {
+        tGPAct=global.gpRowAct[mGP_CurPos]
+        tGPOld=global.gpBind[tGPAct]
+        //an action that already had this button gets this one's old button, so nothing ends up on two actions
+        for(i=1;i<=14;i+=1) {if global.gpBind[i]=tGPCode and i!=tGPAct {global.gpBind[i]=tGPOld}}
+        global.gpBind[tGPAct]=tGPCode
+        mGP_Listen=0
+        playSound(global.snd_MenuConfirm,0,1,1)
+        //the button is still held and may now be Confirm or Back: count it as already held, so it doesn't act in the menu
+        scrGamepadPoll()
+        scrKeyCodesSync()
+      }
+    }
+    //Cancel: the keyboard's Back key, or 5 seconds of nothing (Esc would also bring up the quit question)
+    if mGP_Listen=1 and (mGP_ListenTime>=150 or scrKeyboardCheck(ord(global.ctrlActA)))
+    {
+      mGP_Listen=0
+      playSound(global.snd_MenuCancel,0,1,1)
+    }
+    exit //nothing else in the menu reacts while the pad's buttons are being read
+  }
+
+  if oKeyCodes.kCodePressed[3]=1
+  {
+    playSound(global.snd_MenuCursor,0,1,1)
+    if mGP_CurPos=1 {mGP_CurPos=13}
+    else {mGP_CurPos-=1}
+  }
+  else if oKeyCodes.kCodePressed[4]=1
+  {
+    playSound(global.snd_MenuCursor,0,1,1)
+    if mGP_CurPos=13 {mGP_CurPos=1}
+    else {mGP_CurPos+=1}
+  }
+
+  //if oKeyCodes.kCodePressed[5]=1
+  if oKeyCodes.kCodePressed[15]=1 //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
+  {
+    resetKeyCodes()
+    if mGP_CurPos=13 //Set to Default
+    {
+      playSound(global.snd_MenuConfirm,0,1,1)
+      scrGamepadDefaults()
+      scrGamepadPoll()
+      scrKeyCodesSync()
+    }
+    else if global.gpDevice<0 {playSound(global.snd_Error,0,1,1)} //no pad to read the new button from
+    else
+    {
+      playSound(global.snd_MenuConfirm,0,1,1)
+      mGP_Listen=1
+      mGP_ListenTime=0
+      mGP_WaitRelease=1
+      for(i=0;i<16;i+=1) {global.gpCapBase[i]=global.gpAxis[i]}
+    }
+  }
 }
 else if subMenu=15 //---------- CUSTOMIZE REMASTERED CHANGES ---------- //dipswitch change (added)
 {
@@ -2068,7 +2189,8 @@ else if subMenu=15 //---------- CUSTOMIZE REMASTERED CHANGES ---------- //dipswi
     else {mDS_CurPos+=1}
   }
 
-  if oKeyCodes.kCodePressed[5]=1 //Turn the dipswitch on/off (saved with the options: saveOptions)
+  //if oKeyCodes.kCodePressed[5]=1 //Turn the dipswitch on/off (saved with the options: saveOptions)
+  if oKeyCodes.kCodePressed[15]=1 //Turn the dipswitch on/off (saved with the options: saveOptions) //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
   {
     resetKeyCodes()
     playSound(global.snd_MenuConfirm,0,1,1)
@@ -2094,7 +2216,8 @@ if keyboard_check_pressed(vk_home)
   global.ctrlDashRight="E"
 }
 
-if oKeyCodes.kCodePressed[6]=1 //Go back to a specific submenu
+//if oKeyCodes.kCodePressed[6]=1 //Go back to a specific submenu
+if oKeyCodes.kCodePressed[16]=1 //Go back to a specific submenu //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
 {
   resetKeyCodes()
   if titleMode=1 and subMenu=7 //title options change (added): backing out of Options goes back to the title screen
@@ -2178,7 +2301,8 @@ if confirmationMenu>0
     }
   }
 
-  if oKeyCodes.kCodePressed[5]=1
+  //if oKeyCodes.kCodePressed[5]=1
+  if oKeyCodes.kCodePressed[15]=1 //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
   {
     if confirmMenuPos=0
     {
@@ -2204,7 +2328,8 @@ if confirmationMenu>0
       resetKeyCodes()
     }
   }
-  else if oKeyCodes.kCodePressed[6]=1
+  //else if oKeyCodes.kCodePressed[6]=1
+  else if oKeyCodes.kCodePressed[16]=1 //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
   {
     confirmMenuPos=0
     confirmationMenu=0
@@ -2707,6 +2832,43 @@ if view_current=0
   }
   else if subMenu=14 //------------------------------ GAMEPAD SETUP ------------------------------
   {
+    //gamepad change: the GAMEPAD list, laid out like CONTROLS (sPauseM_GamepadMain is sPauseM_ControlMain with GAMEPAD
+    //in the header and a wider [ ] column for the button names). The old preset picture is kept below, commented out.
+    var tGPMenuX,tGPMenuY,tGPName,tGPPad,i;
+    tGPMenuX=contentMenuX+114
+    tGPMenuY=contentMenuY+17
+    draw_sprite(sPauseM_GamepadMain,0,tGPMenuX,tGPMenuY)
+    //Display cursor
+    draw_sprite(sPauseM_AbilArrow,0,tGPMenuX+16,tGPMenuY+22+((mGP_CurPos-1)*12))
+    //Display current gamepad controls
+    draw_set_font(fnt_PauseMenuText)
+    draw_set_halign(fa_center)
+    draw_set_alpha(1)
+    for(i=1;i<=12;i+=1)
+    {
+      tGPName=scrGamepadName(global.gpBind[global.gpRowAct[i]])
+      if mGP_Listen=1 and mGP_CurPos=i //waiting for a button: blink
+      {
+        if (current_time div 300) mod 2=0 {tGPName="PRESS"}
+        else {tGPName=""}
+      }
+      textDropShadow(tGPName,tGPMenuX+161,tGPMenuY+16+((i-1)*12),textColorMain,textColorShadow,1)
+    }
+    draw_set_halign(fa_left)
+
+    if mGP_Listen=1 {menuInfoText="Press the button for " +global.gpRowName[mGP_CurPos] +" on your gamepad.#[" +string(global.ctrlActA) +"]: Cancel (or wait 5 seconds)."}
+    else if mGP_CurPos=13 {menuInfoText="Set the gamepad controls back to the defaults."}
+    else
+    {
+      menuInfoText="Select an action, then press the button for it on your gamepad. The left stick always moves too.#" +scrGamepadName(1) +": Confirm   " +scrGamepadName(2) +": Back   " +scrGamepadName(10) +": Pause   " +scrGamepadName(9) +": Skip cutscenes"
+      //a last line only when something is stopping the pad from working
+      tGPPad=""
+      if global.gpDevice<0 {tGPPad="No gamepad found.  "}
+      if global.optGamePad=0 {tGPPad+="'Gamepad Input' is off, so the gamepad isn't used."}
+      if tGPPad!="" {menuInfoText+="#" +tGPPad}
+    }
+
+    /*
     var tGamepadMenuX,tGamepadMenuY;
     tGamepadMenuX=contentMenuX-32
     tGamepadMenuY=contentMenuY-20
@@ -2809,6 +2971,7 @@ if view_current=0
       draw_text(tGamepadMenuX+317,tGamepadMenuY+147,"Action A")
       draw_text(tGamepadMenuX+317,tGamepadMenuY+172,"Dash Right")
     }
+    */
   }
   else if subMenu=15 //------------------------------ CUSTOMIZE REMASTERED CHANGES ------------------------------
   {

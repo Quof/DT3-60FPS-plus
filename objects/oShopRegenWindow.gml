@@ -50,7 +50,8 @@ else if oKeyCodes.kCodePressed[2]=1
   }
 }
 
-if oKeyCodes.kCodePressed[5]=1
+//if oKeyCodes.kCodePressed[5]=1
+if oKeyCodes.kCodePressed[15]=1 //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
 {
   if cursorPos=1
   {
@@ -142,7 +143,8 @@ if oKeyCodes.kCodePressed[5]=1
   }
 }
 
-if oKeyCodes.kCodePressed[6]=1 //Close shop window
+//if oKeyCodes.kCodePressed[6]=1 //Close shop window
+if oKeyCodes.kCodePressed[16]=1 //Close shop window //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
   bWindowClose=1
 
 if bWindowClose=1

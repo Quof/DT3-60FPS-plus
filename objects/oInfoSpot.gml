@@ -19,7 +19,8 @@ action_id=603
 applies_to=self
 */
 //post message
-if (keyboard_check_pressed(ord(global.ctrlUp)) or keyboard_check_pressed(vk_up)) and global.gamePaused=false
+//if (keyboard_check_pressed(ord(global.ctrlUp)) or keyboard_check_pressed(vk_up)) and global.gamePaused=false
+if oKeyCodesHighFPS.kCodePressed[3]=1 and global.gamePaused=false //gamepad change: Up as scrController reads it (keyboard or gamepad), pressed this frame
 {
   global.recBinariesRead+=1
   with oMessageSign

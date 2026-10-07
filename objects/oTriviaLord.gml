@@ -39,7 +39,8 @@ if quizType=1
   else if cursorPos=2 {cursorY=15}
   else if cursorPos=3 {cursorY=27}
 
-  if oKeyCodes.kCodePressed[5]=1
+  //if oKeyCodes.kCodePressed[5]=1
+  if oKeyCodes.kCodePressed[15]=1 //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
   {
     resetKeyCodes()
     if cursorPos=1

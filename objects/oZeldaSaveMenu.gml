@@ -43,7 +43,8 @@ if confirmationMenu=0
     }
   }
 
-  if oKeyCodes.kCodePressed[5]=1
+  //if oKeyCodes.kCodePressed[5]=1
+  if oKeyCodes.kCodePressed[15]=1 //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
   {
     resetKeyCodes()
     if curPos=0 //Save
@@ -57,7 +58,8 @@ if confirmationMenu=0
       confirmMenuPos=1
     }
   }
-  else if oKeyCodes.kCodePressed[6]=1 or oKeyCodes.kCodePressed[12]=1
+  //else if oKeyCodes.kCodePressed[6]=1 or oKeyCodes.kCodePressed[12]=1
+  else if oKeyCodes.kCodePressed[16]=1 or oKeyCodes.kCodePressed[12]=1 //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
   {
     io_clear()
     resetKeyCodes()
@@ -92,7 +94,8 @@ if confirmationMenu=1
     }
   }
 
-  if oKeyCodes.kCodePressed[5]=1
+  //if oKeyCodes.kCodePressed[5]=1
+  if oKeyCodes.kCodePressed[15]=1 //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
   {
     if confirmMenuPos=0 //Title Screen
     {
@@ -107,7 +110,8 @@ if confirmationMenu=1
       resetKeyCodes()
     }
   }
-  else if oKeyCodes.kCodePressed[6]=1
+  //else if oKeyCodes.kCodePressed[6]=1
+  else if oKeyCodes.kCodePressed[16]=1 //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
   {
     confirmMenuPos=0
     confirmationMenu=0

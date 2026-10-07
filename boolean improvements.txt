@@ -63,3 +63,11 @@ actually implemented:
 	saved/loaded with the other options (saveOptions/loadOptions), all on by default
 	to add one: add a line to remasterSwitchList, then check global.<name> where the change is made
 	booleanImprovements is gone, split into atkInputBuffer (2), sigmaAvoidance (3) and fixSeraDash (10)
+
+12) gamepad support with Game Maker 8.2's joystick extension (SDL2), replacing the old gamepad presets
+	scrGamepadInit explains the button codes and pad layouts; scrGamepadPoll reads the pad every frame (oKeyCodesHighFPS Begin Step), scrController uses it
+	Options > Control > Change Gamepad Bindings is a list like Change Keyboard Bindings: pick an action, press the button for it (scrGamepadCapture); Set to Default = scrGamepadDefaults
+	saved in DT3Options.dts, keys 321-334 (320+action, Skip/Pause are always BACK/START); Gamepad Input (222) is on by default now
+	the left stick always moves too; Stick Dead Zone moved to the Control options
+	menus use scrController 15/16 for Confirm/Back (keyboard: the Jump/Action A keys as before; gamepad: always A/Cross and B/Circle, whatever Jump/Action A are set to)
+	the gamepad only counts while the game window has focus (gm82core window_has_focus)

@@ -43,7 +43,7 @@ ini_write_real(sectionWrite,"232",global.optUnrealGuyChainAudio)
 ini_write_real(sectionWrite,"233",global.optUnrealGuyChainVisual)
 ini_write_real(sectionWrite,"234",global.optUnrealGuySpreeAudio)
 ini_write_real(sectionWrite,"235",global.optUnrealGuySpreeVisual)
-ini_write_real(sectionWrite,"236",global.optGamepadSetup)
+//ini_write_real(sectionWrite,"236",global.optGamepadSetup) //gamepad change: the gamepad presets are gone
 ini_write_real(sectionWrite,"237",global.optChaoAttack)
 ini_write_real(sectionWrite,"238",global.optShowMapHeader)
 ini_write_real(sectionWrite,"239",global.optBitrateExplosion)
@@ -77,5 +77,11 @@ ini_write_string(sectionWrite,"312",global.ctrlDashRight)
 var i;
 remasterSwitchList()
 for(i=0;i<global.dsCount;i+=1) {ini_write_real(sectionWrite,global.dsKey[i],variable_global_get(global.dsVar[i]))}
+
+//gamepad change (added): gamepad controls (see loadOptions)
+for(i=1;i<=14;i+=1)
+{
+  if i!=11 and i!=12 {ini_write_real(sectionWrite,string(320+i),global.gpBind[i])}
+}
 
 ini_close()

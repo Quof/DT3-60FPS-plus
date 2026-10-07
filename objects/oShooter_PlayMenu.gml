@@ -51,7 +51,8 @@ if bCanMoveCursor=1
       curY+=curInc
     }
   }
-  if oKeyCodes.kCodePressed[5]=1
+  //if oKeyCodes.kCodePressed[5]=1
+  if oKeyCodes.kCodePressed[15]=1 //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
   {
     if curPos>=1 and curPos<=8 //To Dragoon segment
     {
@@ -83,7 +84,8 @@ if bCanMoveCursor=1
       room_goto_fixed(rWarshipA)
     }
   }
-  else if oKeyCodes.kCodePressed[6]=1
+  //else if oKeyCodes.kCodePressed[6]=1
+  else if oKeyCodes.kCodePressed[16]=1 //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
   {
     resetKeyCodes()
     global.gamePaused=false

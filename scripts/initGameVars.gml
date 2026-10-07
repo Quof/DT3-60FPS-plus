@@ -446,8 +446,9 @@ global.recWarmasterLoses=0
 global.recWarmasterResets=0
 
 //----- Options Flags -----
-global.optGamePad=0
-global.optGamepadSetup=1
+//global.optGamePad=0
+global.optGamePad=1 //gamepad change: on by default (loadOptions)
+//global.optGamepadSetup=1 //gamepad change: the gamepad presets are gone
 global.optDPadDash=1
 global.optRightIsForward=1
 global.optShowKeyState=0

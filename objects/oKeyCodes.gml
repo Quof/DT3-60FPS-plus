@@ -4,7 +4,8 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-for(i=1;i<=14;i+=1)
+//for(i=1;i<=14;i+=1)
+for(i=1;i<=16;i+=1) //gamepad change: + 15/16, menu Confirm/Back (scrController)
 {
   kCode[i]=0
   kCodePressed[i]=0
@@ -16,7 +17,8 @@ action_id=603
 applies_to=self
 */
 if gDeltaDoTicks != 1 { exit; }
-for(i=1;i<=14;i+=1)
+//for(i=1;i<=14;i+=1)
+for(i=1;i<=16;i+=1) //gamepad change: + 15/16, menu Confirm/Back (scrController)
 {
   if kCode[i]
   {

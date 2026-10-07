@@ -21,7 +21,8 @@ if global.gamePaused=false
     {
       oPlayer1.x=x
       oPlayer1.y=y
-      if oKeyCodes.kCodePressed[5]=1 //Fire
+      //if oKeyCodes.kCodePressed[5]=1 //Fire
+      if oKeyCodes.kCodePressed[15]=1 //Fire //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
       {
         oPlayer1.visible=1
         oPlayer1.x=x+(21*image_xscale)
@@ -40,7 +41,8 @@ if global.gamePaused=false
         }
         cannonProg=1
       }
-      else if oKeyCodes.kCodePressed[6]=1 //Cancel
+      //else if oKeyCodes.kCodePressed[6]=1 //Cancel
+      else if oKeyCodes.kCodePressed[16]=1 //Cancel //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
       {
         oPlayer1.attackState=0
         oPlayer1.bCanTakeDamage=true

@@ -24,7 +24,8 @@ global.optShowChainMeter=ini_read_real(sectionRead,"218",1)
 global.optShowHoverInfo=ini_read_real(sectionRead,"219",0)
 global.optSplitWindow=ini_read_real(sectionRead,"220",30)
 global.optChaoRoam=ini_read_real(sectionRead,"221",1)
-global.optGamePad=ini_read_real(sectionRead,"222",0)
+//global.optGamePad=ini_read_real(sectionRead,"222",0)
+global.optGamePad=ini_read_real(sectionRead,"222",1) //gamepad change: on by default now that pads work without extra software
 global.optShowKeyState=ini_read_real(sectionRead,"223",0)
 global.optWindowSize=ini_read_real(sectionRead,"224",1)
 global.optShowScore=ini_read_real(sectionRead,"225",1)
@@ -38,7 +39,7 @@ global.optUnrealGuyChainAudio=ini_read_real(sectionRead,"232",0)
 global.optUnrealGuyChainVisual=ini_read_real(sectionRead,"233",0)
 global.optUnrealGuySpreeAudio=ini_read_real(sectionRead,"234",0)
 global.optUnrealGuySpreeVisual=ini_read_real(sectionRead,"235",0)
-global.optGamepadSetup=ini_read_real(sectionRead,"236",1)
+//global.optGamepadSetup=ini_read_real(sectionRead,"236",1) //gamepad change: the gamepad presets are gone (gamepad controls: keys 321-334 below)
 global.optChaoAttack=ini_read_real(sectionRead,"237",0)
 global.optShowMapHeader=ini_read_real(sectionRead,"238",0)
 global.optBitrateExplosion=ini_read_real(sectionRead,"239",1)
@@ -72,5 +73,12 @@ global.ctrlDashRight=ini_read_string(sectionRead,"312","E")
 var i;
 remasterSwitchList()
 for(i=0;i<global.dsCount;i+=1) {variable_global_set(global.dsVar[i],ini_read_real(sectionRead,global.dsKey[i],1))}
+
+//gamepad change (added): gamepad controls (codes: scrGamepadInit), key 320+action (Skip and Pause are always BACK/START)
+scrGamepadDefaults()
+for(i=1;i<=14;i+=1)
+{
+  if i!=11 and i!=12 {global.gpBind[i]=ini_read_real(sectionRead,string(320+i),global.gpBind[i])}
+}
 
 ini_close()

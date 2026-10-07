@@ -51,7 +51,8 @@ if bCanMoveCursor=1
       curY+=curInc
     }
   }
-  if oKeyCodes.kCodePressed[5]=1
+  //if oKeyCodes.kCodePressed[5]=1
+  if oKeyCodes.kCodePressed[15]=1 //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
   {
     if curPos=1
     {

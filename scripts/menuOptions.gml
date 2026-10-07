@@ -74,8 +74,10 @@ draw_rectangle(contentMenuX+tXMarkCheck,contentMenuY+34,contentMenuX+tXMarkCheck
 draw_set_halign(fa_left)
 if mO_OptSubMenu=1 //------------------------- CONTROL -------------------------
 {
-  textDropShadow("Change Controls",contentMenuX+28,contentMenuY+43,textColorMain,textColorShadow,1)
-  textDropShadow("Gamepad Setup",contentMenuX+28,contentMenuY+55,textColorMain,textColorShadow,1)
+  //textDropShadow("Change Controls",contentMenuX+28,contentMenuY+43,textColorMain,textColorShadow,1)
+  //textDropShadow("Gamepad Setup",contentMenuX+28,contentMenuY+55,textColorMain,textColorShadow,1)
+  textDropShadow("Change Keyboard Bindings",contentMenuX+28,contentMenuY+43,textColorMain,textColorShadow,1) //gamepad change: renamed
+  textDropShadow("Change Gamepad Bindings",contentMenuX+28,contentMenuY+55,textColorMain,textColorShadow,1) //gamepad change: renamed
   textDropShadow("Gamepad Input",contentMenuX+28,contentMenuY+67,textColorMain,textColorShadow,1)
   textDropShadow("D-Pad Dash",contentMenuX+28,contentMenuY+79,textColorMain,textColorShadow,1)
   textDropShadow("Right is Forward",contentMenuX+28,contentMenuY+91,textColorMain,textColorShadow,1)
@@ -83,6 +85,7 @@ if mO_OptSubMenu=1 //------------------------- CONTROL -------------------------
   textDropShadow("Cursor Repeat Speed",contentMenuX+28,contentMenuY+115,textColorMain,textColorShadow,1)
   textDropShadow("Keep Menu Position",contentMenuX+28,contentMenuY+127,textColorMain,textColorShadow,1)
   textDropShadow("Swap Type",contentMenuX+28,contentMenuY+139,textColorMain,textColorShadow,1)
+  textDropShadow("Stick Dead Zone",contentMenuX+28,contentMenuY+151,textColorMain,textColorShadow,1) //gamepad change (added): moved here from the old Gamepad Setup screen
 
   if global.optGamePad=0 {textDropShadow("Off",contentMenuX+164,contentMenuY+67,textColorMain,textColorShadow,1)}
   else if global.optGamePad=1 {textDropShadow("On",contentMenuX+164,contentMenuY+67,textColorMain,textColorShadow,1)}
@@ -99,10 +102,13 @@ if mO_OptSubMenu=1 //------------------------- CONTROL -------------------------
   else if global.optSwapType=1 {textDropShadow("Dedicated",contentMenuX+164,contentMenuY+139,textColorMain,textColorShadow,1)}
   else if global.optSwapType=2 {textDropShadow("Dedicated (Fixed)",contentMenuX+164,contentMenuY+139,textColorMain,textColorShadow,1)}
   else if global.optSwapType=3 {textDropShadow("Hold+Direction",contentMenuX+164,contentMenuY+139,textColorMain,textColorShadow,1)}
+  textDropShadow(string(round(global.optStickDeadZone*100)) +"%",contentMenuX+164,contentMenuY+151,textColorMain,textColorShadow,1) //gamepad change (added)
 
   if mO_CurPos=1 {menuInfoText="Change the control setup. This is for keyboard controls only. It only changes gamepad controls if you're using 3rd party software to bind keys to controller inputs."}
-  else if mO_CurPos=2 {menuInfoText="Change the gamepad control setup. This is only if you're using the built in gamepad controls. (Turn on 'Gamepad Input' in the next option down for these to take effect.)"}
-  else if mO_CurPos=3 {menuInfoText="Enable Gamepad support. Keep this off if you prefer to use your own software for keybindings."}
+  //else if mO_CurPos=2 {menuInfoText="Change the gamepad control setup. This is only if you're using the built in gamepad controls. (Turn on 'Gamepad Input' in the next option down for these to take effect.)"}
+  else if mO_CurPos=2 {menuInfoText="Change the gamepad controls: pick an action, then press the button for it on your gamepad. (Turn on 'Gamepad Input' in the next option down for these to take effect.)"} //gamepad change: no more presets
+  //else if mO_CurPos=3 {menuInfoText="Enable Gamepad support. Keep this off if you prefer to use your own software for keybindings."}
+  else if mO_CurPos=3 {menuInfoText="Enable Gamepad support (Xbox, PlayStation, Switch Pro and most other controllers). Keep this off if you prefer to use your own software for keybindings."} //gamepad change
   else if mO_CurPos=4 {menuInfoText="Enable [Up] and [Down] to execute dashing.#Turn this off if you only want dashing initiated with the dash buttons."}
   else if mO_CurPos=5 {menuInfoText="Turning this on will cause [Dash Right] to become [Dash Forward], and [Dash Left] to be [Dash Back].#Experiment with these (when dashing is obtained) to see which suits you best."}
   else if mO_CurPos=6 {menuInfoText="Display what keys are being pressed."}
@@ -115,6 +121,7 @@ if mO_OptSubMenu=1 //------------------------- CONTROL -------------------------
     else if global.optSwapType=2 {menuInfoText="Same as Dedicated, but swapping to the other character defaults to their primary melee Ability Set."}
     else if global.optSwapType=3 {menuInfoText="To swap characters and abilities, hold down the Ability Swap button and press a directional key to swap to a character and/or ability. When abilities are available, the HUD will note which direction to press. The Character Swap key is for special cases, otherwise it functions the same as Standard."}
   }
+  else if mO_CurPos=10 {menuInfoText="How far a gamepad stick has to be pushed before it counts.#Press left or right to change this. (Default: 40%)"} //gamepad change (added)
 }
 else if mO_OptSubMenu=2 //------------------------- GRAPHICS -------------------------
 {

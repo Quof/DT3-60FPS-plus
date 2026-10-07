@@ -57,7 +57,8 @@ else
     else {cursorPos+=1}
   }
 
-  if oKeyCodes.kCodePressed[5]=1
+  //if oKeyCodes.kCodePressed[5]=1
+  if oKeyCodes.kCodePressed[15]=1 //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
   {
     if oPlayer1.currentMoney!=404
     {
@@ -275,7 +276,8 @@ else
       newMessage.fadingTime=55
     }
   }
-  if oKeyCodes.kCodePressed[6]=1 //Close shop window
+  //if oKeyCodes.kCodePressed[6]=1 //Close shop window
+  if oKeyCodes.kCodePressed[16]=1 //Close shop window //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
   {
     io_clear()
     resetKeyCodes()

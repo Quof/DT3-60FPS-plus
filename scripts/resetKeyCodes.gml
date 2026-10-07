@@ -8,6 +8,11 @@ for(i=1;i<=12;i+=1)
   oKeyCodes.kCodePressed[i]=0
   oKeyCodesHighFPS.kCodePressed[i]=0
 }
+//gamepad change (added): menu Confirm/Back (scrController 15/16)
+oKeyCodes.kCodePressed[15]=0
+oKeyCodes.kCodePressed[16]=0
+oKeyCodesHighFPS.kCodePressed[15]=0
+oKeyCodesHighFPS.kCodePressed[16]=0
 
 /*
 kLeft=0

@@ -625,7 +625,8 @@ else //Normal
           GOCursorY-=GOCursorInc
         }
       }
-      if oKeyCodesHighFPS.kCodePressed[5]=1 //Confirm
+      //if oKeyCodesHighFPS.kCodePressed[5]=1 //Confirm
+      if oKeyCodesHighFPS.kCodePressed[15]=1 //Confirm //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
       {
         resetKeyCodes()
         if GOCursorPos=1 //Retry Boss Fight / Encounter
@@ -836,7 +837,8 @@ if confirmationMenu>0
     }
   }
 
-  if oKeyCodes.kCodePressed[5]=1
+  //if oKeyCodes.kCodePressed[5]=1
+  if oKeyCodes.kCodePressed[15]=1 //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
   {
     if confirmMenuPos=0
     {
@@ -862,7 +864,8 @@ if confirmationMenu>0
       resetKeyCodes()
     }
   }
-  else if oKeyCodes.kCodePressed[6]=1
+  //else if oKeyCodes.kCodePressed[6]=1
+  else if oKeyCodes.kCodePressed[16]=1 //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
   {
     confirmMenuPos=0
     confirmationMenu=0

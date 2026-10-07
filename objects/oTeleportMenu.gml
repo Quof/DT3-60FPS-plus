@@ -141,7 +141,8 @@ else if oKeyCodes.kCodePressed[2]=1 //Forward
   }
 }
 
-if oKeyCodes.kCodePressed[5]=1
+//if oKeyCodes.kCodePressed[5]=1
+if oKeyCodes.kCodePressed[15]=1 //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
 {
   resetKeyCodes()
   if telePos!=gateNum
@@ -375,7 +376,8 @@ if oKeyCodes.kCodePressed[5]=1
     room_goto_fixed(toRoom)
   }
 }
-else if oKeyCodes.kCodePressed[6]=1
+//else if oKeyCodes.kCodePressed[6]=1
+else if oKeyCodes.kCodePressed[16]=1 //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
 {
   io_clear()
   resetKeyCodes()

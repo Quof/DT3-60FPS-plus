@@ -128,7 +128,8 @@ if bTriviaReady=1
       else if cursorPos=5 {cursorPos=6}
       else if cursorPos=6 {cursorPos=4}
     }
-    else if oKeyCodes.kCodePressed[5]=1 //Confirm
+    //else if oKeyCodes.kCodePressed[5]=1 //Confirm
+    else if oKeyCodes.kCodePressed[15]=1 //Confirm //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
     {
       if questionNum>0
       {
@@ -194,7 +195,8 @@ if bTriviaReady=1
     if cancelQuiz>0 {cancelQuiz-=1}
     if global.gameProgress>=3870
     {
-      if oKeyCodes.kCodePressed[6]=1 and bTriviaComplete=0 //Cancel Trivia
+      //if oKeyCodes.kCodePressed[6]=1 and bTriviaComplete=0 //Cancel Trivia
+      if oKeyCodes.kCodePressed[16]=1 and bTriviaComplete=0 //Cancel Trivia //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
       {
         if cancelQuiz=0 {cancelQuiz=45}
         else

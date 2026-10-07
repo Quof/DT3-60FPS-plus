@@ -5,6 +5,37 @@ argument0: What control code to look for.
 returns 1 if the button is pressed down
 */
 
+//gamepad change: the gamepad is read once per frame by scrGamepadPoll (Game Maker 8.2's joystick extension, with the
+//buttons set in Options > Control > Change Gamepad Bindings) into global.gpHeld. The old version, which read GM8's joystick
+//functions with fixed preset layouts, is kept below, commented out.
+var tKeyCode,tKey;
+tKeyCode=argument0
+tKey=0
+
+if tKeyCode=1 {tKey=scrKeyboardCheck(ord(global.ctrlLeft)) or scrKeyboardCheck(vk_left)} //Move left
+else if tKeyCode=2 {tKey=scrKeyboardCheck(ord(global.ctrlRight)) or scrKeyboardCheck(vk_right)} //Move right
+else if tKeyCode=3 {tKey=scrKeyboardCheck(ord(global.ctrlUp)) or scrKeyboardCheck(vk_up)} //Look up
+else if tKeyCode=4 {tKey=scrKeyboardCheck(ord(global.ctrlDown)) or scrKeyboardCheck(vk_down)} //Duck
+else if tKeyCode=5 {tKey=scrKeyboardCheck(ord(global.ctrlJump))} //Jump
+else if tKeyCode=6 {tKey=scrKeyboardCheck(ord(global.ctrlActA))} //Action A
+else if tKeyCode=7 {tKey=scrKeyboardCheck(ord(global.ctrlActB))} //Action B
+else if tKeyCode=8 {tKey=scrKeyboardCheck(ord(global.ctrlActC))} //Action C
+else if tKeyCode=9 {tKey=scrKeyboardCheck(ord(global.ctrlCharSwap))} //Character Swap
+else if tKeyCode=10 {tKey=scrKeyboardCheck(ord(global.ctrlAbilSwap))} //Ability Swap
+else if tKeyCode=11 {tKey=scrKeyboardCheck(ord("M"))} //Skip
+else if tKeyCode=12 {tKey=scrKeyboardCheck(ord("P"))} //Pause
+else if tKeyCode=13 {tKey=scrKeyboardCheck(ord(global.ctrlDashLeft))} //Dash left
+else if tKeyCode=14 {tKey=scrKeyboardCheck(ord(global.ctrlDashRight))} //Dash right
+//gamepad change (added): menu Confirm/Back. On the keyboard they're the Jump/Action A keys as before; on a gamepad they're
+//always A (Cross) and B (Circle), whatever Jump and Action A are set to (scrGamepadPoll)
+else if tKeyCode=15 {tKey=scrKeyboardCheck(ord(global.ctrlJump))} //Menu confirm
+else if tKeyCode=16 {tKey=scrKeyboardCheck(ord(global.ctrlActA))} //Menu back
+
+if tKey {return 1}
+if global.optGamePad=1 {return global.gpHeld[tKeyCode]}
+return 0
+
+/*
 var tKeyCode;
 tKeyCode=argument0
 
@@ -514,3 +545,4 @@ else //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ON @@@@@@@@@@@@@@@@@@@
     }
   }
 }
+*/
