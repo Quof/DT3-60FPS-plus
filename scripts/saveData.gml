@@ -364,3 +364,6 @@ tNewMessage.signSize=0
 tNewMessage.depth=-101
 
 bSaving=0
+//save slots change (added): the game is in the save file now; a new game started over a slot's save autosaves again
+//from here (oGame doesn't autosave while this is 1, so this is a manual save)
+global.saveSlotNewGame=0

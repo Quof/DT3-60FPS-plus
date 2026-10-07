@@ -27,6 +27,46 @@ loadOptions()
 sectionRead=""
 locCheck=0
 
+//save slots change (added): New Game and Continue pick one of five save slots, DT3data1.dts to DT3data5.dts (the options
+//in DT3Options.dts are shared by all of them). global.saveSlot is the slot in use, or 0 when the save file came from the
+//command line or the 'save NAME' code: then New Game and Continue use that file directly, as before.
+if !variable_global_exists("saveSlot")
+{
+  if parameter_count()=0
+  {
+    //the save from before the slots (DT3data.dts) becomes slot 1, once
+    if global.saveSlotsMoved=0
+    {
+      if file_exists("DT3data.dts") and !file_exists("DT3data1.dts") {file_copy("DT3data.dts","DT3data1.dts")}
+      global.saveSlotsMoved=1
+      saveOptions()
+    }
+    global.saveSlot=global.lastSaveSlot //the slot played last (DT3Options.dts) is the one shown on the right
+    global.paraString[0]="DT3data"+string(global.saveSlot)+".dts"
+  }
+  else {global.saveSlot=0}
+}
+slotMenu=0      //1: the slot list for New Game, 2: for Continue
+slotCursorPos=1
+//save slots change (added): the true end message (and the list of codes) shows when any save has reached the true end
+//(the five slots, and the save file in use if it isn't one of them). Files that aren't there are skipped, not created
+titleTrueEnd=0
+var tTrueI,tTrueFile;
+for(tTrueI=0;tTrueI<=5;tTrueI+=1)
+{
+  if tTrueI=0 {tTrueFile=global.paraString[0]}
+  else {tTrueFile="DT3data"+string(tTrueI)+".dts"}
+  if file_exists(tTrueFile)
+  {
+    ini_open(tTrueFile)
+    if ini_read_real("ALPHA","144",0)=2 {titleTrueEnd=1}
+    ini_close()
+  }
+}
+codeNightmare=0 //modes turned on with codes on this screen, for a new game (event_user(0) keeps them while looking through the slots)
+codeAchilles=0
+codeEasy=0
+
 event_user(0)
 
 if locCheck>0 {titleLocation=locationCheck(locCheck)}
@@ -151,6 +191,62 @@ if bCanUseMenu=1
   //title options change (added): the Options menu (oPauseMenu) has the controls while it's open
   if instance_exists(oPauseMenu) {exit}
 
+  //save slots change (added): the slot list, in place of the five options after New Game or Continue. Moving through it
+  //shows each slot's save on the right; Back goes back to the five options
+  if slotMenu>0
+  {
+    if oKeyCodesHighFPS.kCodePressed[4]=1 or oKeyCodesHighFPS.kCodePressed[3]=1
+    {
+      playSound(global.snd_MenuCursor,0,1,1)
+      if oKeyCodesHighFPS.kCodePressed[4]=1 {slotCursorPos+=1; if slotCursorPos>5 {slotCursorPos=1}}
+      else {slotCursorPos-=1; if slotCursorPos<1 {slotCursorPos=5}}
+      global.paraString[0]="DT3data"+string(slotCursorPos)+".dts"
+      event_user(0)
+      if locCheck>0 {titleLocation=locationCheck(locCheck)}
+      else {titleLocation=""}
+    }
+    else if oKeyCodesHighFPS.kCodePressed[16]=1 //back to the five options, showing the slot in use again
+    {
+      resetKeyCodes()
+      playSound(global.snd_MenuCancel,0,1,1)
+      slotMenu=0
+      global.paraString[0]="DT3data"+string(global.saveSlot)+".dts"
+      event_user(0)
+      if locCheck>0 {titleLocation=locationCheck(locCheck)}
+      else {titleLocation=""}
+    }
+    else if oKeyCodesHighFPS.kCodePressed[15]=1 or keyboard_check_pressed(vk_enter)
+    {
+      resetKeyCodes()
+      if slotMenu=2 and titleLocation="" {playSound(global.snd_MenuCancel,0,1,1)} //an empty slot: nothing to continue
+      else
+      {
+        playSound(global.snd_MenuConfirm,0,0.95,1)
+        global.gamePaused=0
+        global.saveSlot=slotCursorPos
+        global.lastSaveSlot=slotCursorPos //shown on the right next time
+        saveOptions()
+        if slotMenu=1 //---------- New Game ----------
+        {
+          global.saveSlotNewGame=0
+          //a save already in this slot stays until the new game is saved (oGame doesn't autosave till then), and a
+          //copy of it goes to DT3data<slot>backup.dts
+          if titleLocation!=""
+          {
+            var tBackup;
+            tBackup="DT3data"+string(slotCursorPos)+"backup.dts"
+            if file_exists(tBackup) {file_delete(tBackup)}
+            file_copy(global.paraString[0],tBackup)
+            global.saveSlotNewGame=1
+          }
+          event_user(2)
+        }
+        else {event_user(3)} //---------- Continue ----------
+      }
+    }
+    exit
+  }
+
   //----- Title menu controls -----
   if oKeyCodesHighFPS.kCodePressed[4]=1
   {
@@ -185,7 +281,8 @@ if bCanUseMenu=1
   if keyboard_check_pressed(vk_enter)
   {
     var window_string;
-    if completedGame=2
+    //if completedGame=2
+    if completedGame=2 or titleTrueEnd=1 //save slots change: any save at the true end, not just the one shown
     {
       //inputMenu=get_string("Input code... >>Here are a few codes... (All codes are lowercase)#
       window_string = "Input code... >>Here are a few codes... (All codes are lowercase)#
@@ -209,6 +306,7 @@ if bCanUseMenu=1
       if global.bNightmareMode=0
       {
         global.bNightmareMode=1
+        codeNightmare=1 //save slots change (added): kept while looking through the slots (event_user(0))
         global.difficulty=1
         global.skillTree[0]=2
         global.skillTree[1]=2
@@ -243,6 +341,7 @@ if bCanUseMenu=1
       if global.bOneHitKillMode=0
       {
         global.bOneHitKillMode=1
+        codeAchilles=1 //save slots change (added): kept while looking through the slots (event_user(0))
         show_message("[Achilles Mode] Activated!##On this setting, everything kills you in one hit. This can be paired with [Nightmare Mode] or extra self-hate.#A new game is required.")
       }
       else
@@ -255,6 +354,7 @@ if bCanUseMenu=1
       if global.permaEasyMode=0
       {
         global.permaEasyMode=1
+        codeEasy=1 //save slots change (added): kept while looking through the slots (event_user(0))
         show_message("[Permanent Easy Mode] Activated!!##On this setting, you have the half damage of [Assist Mode] without the penalties.#A new game is required.")
       }
       else
@@ -377,7 +477,10 @@ if bCanUseMenu=1
     }
     if inputMenu="save0"
     {
-      global.paraString[0] = global.initialSave
+      //global.paraString[0] = global.initialSave
+      //save slots change: back to the save slots (the one played last), or to the command line's save file as before
+      if parameter_count()=0 {global.saveSlot=global.lastSaveSlot; global.paraString[0]="DT3data"+string(global.saveSlot)+".dts"}
+      else {global.paraString[0] = global.initialSave}
       event_user(0)
       if locCheck>0 {titleLocation=locationCheck(locCheck)}
       else {titleLocation=""}
@@ -387,6 +490,7 @@ if bCanUseMenu=1
       Sname_len = string_length(inputMenu)-5
       Sname = string_copy(inputMenu,6,Sname_len)
       global.paraString[0] = string_insert(Sname,".dts",1)
+      global.saveSlot=0 //save slots change (added): New Game and Continue use this file instead of the slots ('save0' goes back)
       event_user(0)
       if locCheck>0 {titleLocation=locationCheck(locCheck)}
       else {titleLocation=""}
@@ -402,6 +506,11 @@ if bCanUseMenu=1
     global.gamePaused=0
     if fileCursorPos=1 //---------- New Game ----------
     {
+      //save slots change: the slot list first (its New Game starts the game); with a save file from the command line or
+      //'save NAME', straight to event_user(2), which has the code that was here
+      if global.saveSlot>0 {slotMenu=1; slotCursorPos=global.saveSlot; global.gamePaused=true}
+      else {global.saveSlotNewGame=0; event_user(2)}
+      /*
       SS_StopSound(global.msc_TitleMenu)
       ini_open(global.paraString[0])
       var sectionRead;
@@ -409,9 +518,15 @@ if bCanUseMenu=1
       global.gameCompleted=ini_read_real(sectionRead,"144",0)
       ini_close()
       room_goto(rBeginning)
+      */
     }
-    else if fileCursorPos=2 and titleLocation!="" //---------- Continue ----------
+    //else if fileCursorPos=2 and titleLocation!="" //---------- Continue ----------
+    else if fileCursorPos=2 //---------- Continue ---------- //save slots change
     {
+      //save slots change: the slot list first, like New Game; event_user(3) has the code that was here
+      if global.saveSlot>0 {slotMenu=2; slotCursorPos=global.saveSlot; global.gamePaused=true}
+      else if titleLocation!="" {event_user(3)}
+      /*
       SS_StopSound(global.msc_TitleMenu)
       loadSaveData()
       global.resetMusic=true
@@ -426,6 +541,7 @@ if bCanUseMenu=1
         if checkIfCheating=0 {room_goto(roomToPlace)}
         else {room_goto(rCheaterRoom)}
       }
+      */
     }
     else if fileCursorPos=3 //---------- Options ---------- //title options change (added)
     {
@@ -539,15 +655,76 @@ truthCaveProg=ini_read_real(sectionRead,"123iH",0)
 
 titleBirdNum=ini_read_real(sectionRead,"107",0)
 
-global.bNightmareMode=ini_read_real(sectionRead,"137b",0)
-global.bOneHitKillMode=ini_read_real(sectionRead,"137c",0)
-global.permaEasyMode=ini_read_real(sectionRead,"146",0)
+//global.bNightmareMode=ini_read_real(sectionRead,"137b",0)
+//global.bOneHitKillMode=ini_read_real(sectionRead,"137c",0)
+//global.permaEasyMode=ini_read_real(sectionRead,"146",0)
+//save slots change: the save's own modes are only for the preview on the right (panel colour, MODE). The global ones are
+//the modes for a new game: only the ones turned on with codes on this screen, so a code always works whatever save is
+//shown, and the mode messages on the left only show for codes that were entered (Continue loads the save's own modes)
+titleNightmare=ini_read_real(sectionRead,"137b",0)
+titleAchilles=ini_read_real(sectionRead,"137c",0)
+titleEasy=ini_read_real(sectionRead,"146",0)
+global.bNightmareMode=codeNightmare
+global.bOneHitKillMode=codeAchilles
+global.permaEasyMode=codeEasy
 
 ini_close()
 
 for(i=0;i<8;i+=1)
 {
   instrProg[i]=string_char_at(extraGateProg,i+1)
+}
+
+//save slots change (added): the preview panel for this save (sFilePanel frame), its MODE text and the shadow of the texts
+//in it. A normal save shows no mode (the modes stay secret until the game is beaten): frame 0 is the original panel.
+//1 Easy (green), 2 Achilles (red), 3 Nightmare (dark purple), 4 Night Terror = both (black with crimson vines), each
+//with GAME TIME shortened to fit MODE next to it
+titlePanel=0; titleModeName=""; titlePanelShadow=make_color_rgb(0,120,72)
+if titleNightmare=1 and titleAchilles=1 {titlePanel=4; titleModeName="Night Terror"; titlePanelShadow=make_color_rgb(92,10,22)}
+else if titleNightmare=1 {titlePanel=3; titleModeName="Nightmare"; titlePanelShadow=make_color_rgb(42,14,60)}
+else if titleAchilles=1 {titlePanel=2; titleModeName="Achilles"; titlePanelShadow=make_color_rgb(112,24,16)}
+else if titleEasy=1 {titlePanel=1; titleModeName="Easy"}
+if locCheck=0 {titlePanel=0; titleModeName=""; titlePanelShadow=make_color_rgb(0,120,72)} //no save here: the plain panel, empty
+//save slots change (added): locationCheck only names a location that's different from global.location (otherwise it
+//gives back the number, and the Draw event's titleLocation!="" can't compare it), so the location name for the save
+//read here always comes out when the same location was shown before (moving through the slots, 'save NAME', 'save0')
+global.location=0
+#define Other_12
+/*"/*'/**//* YYD ACTION
+lib_id=1
+action_id=603
+applies_to=self
+*/
+//save slots change (added): New Game, moved here from the Step event (the five options' New Game when the save file came
+//from the command line or 'save NAME', or a slot in the slot list). The new game saves to global.paraString[0]
+SS_StopSound(global.msc_TitleMenu)
+ini_open(global.paraString[0])
+var sectionRead;
+sectionRead="ALPHA"
+global.gameCompleted=ini_read_real(sectionRead,"144",0)
+ini_close()
+room_goto(rBeginning)
+#define Other_13
+/*"/*'/**//* YYD ACTION
+lib_id=1
+action_id=603
+applies_to=self
+*/
+//save slots change (added): Continue, moved here from the Step event like New Game (event_user(2)): loads the save in
+//global.paraString[0]
+SS_StopSound(global.msc_TitleMenu)
+loadSaveData()
+global.resetMusic=true
+
+extCheatFlag=string_char_at(global.extraFlags,10)
+if extCheatFlag="1"
+{
+  room_goto(rCheaterRoom)
+}
+else
+{
+  if checkIfCheating=0 {room_goto(roomToPlace)}
+  else {room_goto(rCheaterRoom)}
 }
 #define Draw_0
 /*"/*'/**//* YYD ACTION
@@ -594,7 +771,17 @@ else //Title screen stuff
   //Subtitle
   draw_sprite_general(sTitleText,0,0,30,124,20,10,78,1,1,0,titleCl,titleCl,titleCl,titleCl,subtitleAlpha)
   //Title Menu
-  draw_sprite_ext(sFileMain,0,107,133,1,1,0,c_white,fileWAlpha)
+  //draw_sprite_ext(sFileMain,0,107,133,1,1,0,c_white,fileWAlpha)
+  //save slots change: drawn in parts now. On the left the five options (sFileMain's left part) or the slot list
+  //(sFileSlots, with the end of the circuit moved to the slot on the cursor: sFileSlotLink); on the right the preview
+  //panel, coloured by the save's mode and with the MODE box (sFilePanel, frame from event_user(0))
+  if slotMenu=0 {draw_sprite_part_ext(sFileMain,0,0,0,116,105,107,133,1,1,c_white,fileWAlpha)}
+  else
+  {
+    draw_sprite_ext(sFileSlots,0,107,133,1,1,0,c_white,fileWAlpha)
+    draw_sprite_ext(sFileSlotLink,slotCursorPos-1,200,146,1,1,0,c_white,fileWAlpha)
+  }
+  draw_sprite_ext(sFilePanel,titlePanel,223,133,1,1,0,c_white,fileWAlpha)
 
   if bCanUseMenu=1 //Control menu
   {
@@ -626,24 +813,44 @@ else //Title screen stuff
       
       draw_set_font(fnt_PauseMenuText)
       
-      textDropShadow(titleLocation,232,178,textColorMain,textColorShadow,1)
+      //textDropShadow(titleLocation,232,178,textColorMain,textColorShadow,1)
+      textDropShadow(titleLocation,232,178,textColorMain,titlePanelShadow,1) //save slots change: the shadow goes with the panel's colour
       var tMinuteZ, tSecondZ;
       if titleMinute<10 {tMinuteZ="0"}
       else {tMinuteZ=""}
       if titleSecond<10 {tSecondZ="0"}
       else {tSecondZ=""}
-      textDropShadow(string(titleHour) +string(":") +string(tMinuteZ) +string(titleMinute) +string(":") +string(tSecondZ) +string(titleSecond),232,202,textColorMain,textColorShadow,1)
+      //textDropShadow(string(titleHour) +string(":") +string(tMinuteZ) +string(titleMinute) +string(":") +string(tSecondZ) +string(titleSecond),232,202,textColorMain,textColorShadow,1)
+      textDropShadow(string(titleHour) +string(":") +string(tMinuteZ) +string(titleMinute) +string(":") +string(tSecondZ) +string(titleSecond),232,202,textColorMain,titlePanelShadow,1) //save slots change
+      if titleModeName!="" {textDropShadow(titleModeName,320,202,textColorMain,titlePanelShadow,1)} //save slots change (added): the MODE box (not for normal saves)
     }
-    if completedGame=1
+    //save slots change (added): the font was only set above when the save shown has a location, so with an empty slot
+    //shown (the true end message can show for any save now) these texts came out in fnt_Points
+    draw_set_font(fnt_PauseMenuText)
+    //if completedGame=1
+    if completedGame=1 and titleTrueEnd=0 //save slots change: the true end message below wins when any save has reached it
     {
       textDropShadow("Oh hey, you've beaten the game!#Also, press [Enter] and type 'earthshiftisbroken' for more fun!#AND/OR... type 'ihatemyself' for something else!",120,96,textColorMain,textColorShadow,1)
     }
-    else if completedGame=2
+    //else if completedGame=2
+    else if completedGame=2 or titleTrueEnd=1 //save slots change: any save at the true end (titleTrueEnd), not just the one shown
     {
       textDropShadow("Oh hey, you've reached the true end!#Also, press [Enter] for more fun!",120,104,textColorMain,textColorShadow,1)
     }
     
-    if fileCursorPos=1 {textDropShadow("If you want to start a new game.",80,248,c_white,c_black,4)}
+    //save slots change (added): what the slot on the cursor does, in the slot list
+    if slotMenu=1
+    {
+      if titleLocation="" {textDropShadow("Start a new game in this slot.",80,248,c_white,c_black,4)}
+      else {textDropShadow("Start a new game in this slot. The save that's already here is kept#(and backed up) until you save the new game.",80,248,c_white,c_black,4)}
+    }
+    else if slotMenu=2
+    {
+      if titleLocation="" {textDropShadow("This slot is empty.",80,248,c_white,c_black,4)}
+      else {textDropShadow("Continue the game saved in this slot.",80,248,c_white,c_black,4)}
+    }
+    //if fileCursorPos=1 {textDropShadow("If you want to start a new game.",80,248,c_white,c_black,4)}
+    else if fileCursorPos=1 {textDropShadow("If you want to start a new game.",80,248,c_white,c_black,4)} //save slots change
     else if fileCursorPos=2 {textDropShadow("If you want to continue from where you left off last time.",80,248,c_white,c_black,4)}
     //else if fileCursorPos=3 {textDropShadow("If you want a refresher on the story so far, or if you didn't play the#first two games.",80,248,c_white,c_black,4)}
     //else if fileCursorPos=4 {textDropShadow("If you want to close the game, but why would you ever want to do that?",80,248,c_white,c_black,4)}
@@ -652,7 +859,9 @@ else //Title screen stuff
     else if fileCursorPos=5 {textDropShadow("If you want to close the game, but why would you ever want to do that?",80,248,c_white,c_black,4)} //title options change
     
     //File cursor
-    draw_sprite_ext(sTitleCursor,0,fileCursorX,fileCursorY,1,1,0,titleCl,1)
+    //draw_sprite_ext(sTitleCursor,0,fileCursorX,fileCursorY,1,1,0,titleCl,1)
+    if slotMenu=0 {draw_sprite_ext(sTitleCursor,0,fileCursorX,fileCursorY,1,1,0,titleCl,1)}
+    else {draw_sprite_ext(sTitleCursor,0,fileCursorX,147+19*(slotCursorPos-1),1,1,0,titleCl,1)} //save slots change (added): on the slot list's rows
     
     //Display save file used
     draw_set_font(fnt_StatRender)

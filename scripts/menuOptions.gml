@@ -134,6 +134,7 @@ if mO_OptSubMenu=1 //------------------------- CONTROL -------------------------
   else if global.optSwapType=2 {textDropShadow("Dedicated (Fixed)",contentMenuX+164,contentMenuY+151-tCtrlUp,textColorMain,textColorShadow,1)} //dt4 dash change: a row lower (DT4 Dashing is row 6) //niche dash change: up two without Niche Dash Settings
   //else if global.optSwapType=3 {textDropShadow("Hold+Direction",contentMenuX+164,contentMenuY+139,textColorMain,textColorShadow,1)}
   else if global.optSwapType=3 {textDropShadow("Hold+Direction",contentMenuX+164,contentMenuY+151-tCtrlUp,textColorMain,textColorShadow,1)} //dt4 dash change: a row lower (DT4 Dashing is row 6) //niche dash change: up two without Niche Dash Settings
+  else if global.optSwapType=4 {textDropShadow("Standard (Fixed)",contentMenuX+164,contentMenuY+151-tCtrlUp,textColorMain,textColorShadow,1)} //standard fixed change (added)
   //textDropShadow(string(round(global.optStickDeadZone*100)) +"%",contentMenuX+164,contentMenuY+151,textColorMain,textColorShadow,1) //gamepad change (added)
   textDropShadow(string(round(global.optStickDeadZone*100)) +"%",contentMenuX+164,contentMenuY+163-tCtrlUp,textColorMain,textColorShadow,1) //gamepad change (added) //dt4 dash change: a row lower (DT4 Dashing is row 6) //niche dash change: up two without Niche Dash Settings
 
@@ -169,6 +170,7 @@ if mO_OptSubMenu=1 //------------------------- CONTROL -------------------------
     else if global.optSwapType=1 {menuInfoText="Each character gets their own dedicated button. For example, pressing the Character Swap button will always change to Jerry if he is not the active character. If he is active, it will change his ability set. The Ability Swap button would be dedicated to Claire."}
     else if global.optSwapType=2 {menuInfoText="Same as Dedicated, but swapping to the other character defaults to their primary melee Ability Set."}
     else if global.optSwapType=3 {menuInfoText="To swap characters and abilities, hold down the Ability Swap button and press a directional key to swap to a character and/or ability. When abilities are available, the HUD will note which direction to press. The Character Swap key is for special cases, otherwise it functions the same as Standard."}
+    else if global.optSwapType=4 {menuInfoText="Same as Standard, but ability sets are linked across characters. (It makes sense if you try it.)"} //standard fixed change (added)
   }
   //else if mO_CurPos=10 {menuInfoText="How far a gamepad stick has to be pushed before it counts.#Press left or right to change this. (Default: 40%)"} //gamepad change (added)
   else if mO_CtrlItem=11 {menuInfoText="How far a gamepad stick has to be pushed before it counts.#Press left or right to change this. (Default: 40%)"} //gamepad change (added) //dt4 dash change: a row lower (DT4 Dashing is row 6) //niche dash change

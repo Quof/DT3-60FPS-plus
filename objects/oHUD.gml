@@ -276,16 +276,31 @@ if view_current=0
       }
 
       //Show which character has which ability set active --------------------------------------------------
-      if global.optSwapType>=0 and global.optSwapType<=2
+      //if global.optSwapType>=0 and global.optSwapType<=2
+      if (global.optSwapType>=0 and global.optSwapType<=2) or global.optSwapType=4 //standard fixed change: or Standard (Fixed)
       {
-        if (global.activeAbility[0]=1 or global.activeAbility[0]=2) and (global.activeAbility[1]=1 or global.activeAbility[1]=2) and global.bTowerDefense=0 and global.canCharSwap=2 and global.gameProgress>=1990
+        //standard fixed change (added): the sets shown. With Standard (Fixed) the other character's is the one they'd get
+        //when swapped to (scrSwapLinkedSet), not the one they were on last
+        var tHudSetJ,tHudSetC;
+        tHudSetJ=global.activeAbility[0]; tHudSetC=global.activeAbility[1]
+        if global.optSwapType=4
+        {
+          if global.activeCharacter=0 {tHudSetC=scrSwapLinkedSet(0)}
+          else if global.activeCharacter=1 {tHudSetJ=scrSwapLinkedSet(0)}
+        }
+        //if (global.activeAbility[0]=1 or global.activeAbility[0]=2) and (global.activeAbility[1]=1 or global.activeAbility[1]=2) and global.bTowerDefense=0 and global.canCharSwap=2 and global.gameProgress>=1990
+        if (tHudSetJ=1 or tHudSetJ=2) and (tHudSetC=1 or tHudSetC=2) and global.bTowerDefense=0 and global.canCharSwap=2 and global.gameProgress>=1990 //standard fixed change
         {
           draw_sprite(sHUD_JC_Ind,0,view_xview[0]+240,view_yview[0]+13)
-          if global.activeAbility[0]=1 {draw_sprite(sHUD_Abil_Ind,0,view_xview[0]+228,view_yview[0]+32)}
-          else if global.activeAbility[0]=2 {draw_sprite(sHUD_Abil_Ind,1,view_xview[0]+228,view_yview[0]+32)}
+          //if global.activeAbility[0]=1 {draw_sprite(sHUD_Abil_Ind,0,view_xview[0]+228,view_yview[0]+32)}
+          //else if global.activeAbility[0]=2 {draw_sprite(sHUD_Abil_Ind,1,view_xview[0]+228,view_yview[0]+32)}
+          if tHudSetJ=1 {draw_sprite(sHUD_Abil_Ind,0,view_xview[0]+228,view_yview[0]+32)} //standard fixed change
+          else if tHudSetJ=2 {draw_sprite(sHUD_Abil_Ind,1,view_xview[0]+228,view_yview[0]+32)} //standard fixed change
 
-          if global.activeAbility[1]=1 {draw_sprite(sHUD_Abil_Ind,2,view_xview[0]+250,view_yview[0]+32)}
-          else if global.activeAbility[1]=2 {draw_sprite(sHUD_Abil_Ind,3,view_xview[0]+250,view_yview[0]+32)}
+          //if global.activeAbility[1]=1 {draw_sprite(sHUD_Abil_Ind,2,view_xview[0]+250,view_yview[0]+32)}
+          //else if global.activeAbility[1]=2 {draw_sprite(sHUD_Abil_Ind,3,view_xview[0]+250,view_yview[0]+32)}
+          if tHudSetC=1 {draw_sprite(sHUD_Abil_Ind,2,view_xview[0]+250,view_yview[0]+32)} //standard fixed change
+          else if tHudSetC=2 {draw_sprite(sHUD_Abil_Ind,3,view_xview[0]+250,view_yview[0]+32)} //standard fixed change
         }
       }
       else //Hold+Direction

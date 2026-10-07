@@ -104,3 +104,22 @@ actually implemented:
 	scrController 1-4 go through scrSOCD, which reads the directions with scrDirHeld (keyboard and gamepad together: what scrController returned for them before)
 	the press order is tracked on every check, with the dipswitch off too; off = both count at once, as in the original
 	everything that reads directions through scrController follows it: the player, menus, minigames, Show Key State
+
+18) Save slots: New Game and Continue on the title open a list of 5 slots (DT3data1.dts - DT3data5.dts); DT3Options.dts is shared by all of them
+	oInitializeGame: slotMenu (1 New Game, 2 Continue) and slotCursorPos; moving through the list shows each slot's save on the right (event_user(0)), Back returns to the five options
+	the slot played last is the one shown at startup: global.lastSaveSlot, DT3Options.dts key 500
+	DT3data.dts (the save from before the slots) is copied to slot 1 once (key 501) and left where it is
+	New Game over a slot that has a save: the save is copied to DT3data<slot>backup.dts and stays in the slot until the new game is saved by hand; oGame doesn't autosave till then (global.saveSlotNewGame, cleared by saveData and loadSaveData)
+	the New Game and Continue code moved to oInitializeGame's user events 2 and 3
+	a save file from the command line or the 'save NAME' code (9) skips the slots (global.saveSlot=0); 'save0' goes back to them
+	preview panel: sFilePanel frame 0 = the original panel, for normal saves and empty slots (no MODE: the modes stay secret until the game is beaten); 1-4 = green (Easy), red (Achilles), dark purple (Nightmare), black with crimson vines (Night Terror: Nightmare + Achilles), with GAME TIME shortened and MODE next to it
+	sFileSlots = the slot buttons (numbers 3-5 drawn 2px higher than Georgia puts them, so they sit on the line like 1-2 instead of hanging onto the button's edge), sFileSlotLink = the circuit's left end for each slot row (follows the cursor in the slot list)
+	a new game's modes are only the ones entered as codes on the title (codeNightmare etc., kept while looking through the slots): the save shown doesn't change them, so a code always works and the mode messages on the left only show for entered codes (Continue loads the save's own modes)
+	the true end message (and the code list in the [Enter] box) shows when any save has reached the true end (titleTrueEnd, read from the slots in Create)
+	event_user(0) sets global.location to 0: locationCheck gives back the number instead of the name when it's the same location as last time, which crashed the title's Draw when moving through the slots
+
+19) Swap Type: Standard (Fixed) (Options > Control > Swap Type, right after Standard)
+	global.optSwapType=4, so saved Swap Types keep their meaning; the menu goes Standard, Standard (Fixed), Dedicated, Dedicated (Fixed), Hold+Direction
+	like Standard, but a character swap gives the other character the Ability Set linked to the current one's instead of the one they were on last: Link-Belmont (1), Mega Man-Samus (2), also the Game sets (3) and Defender (4)
+	if they don't have it, Link/Belmont, else no set; a set counts when its token is active (Defender: tower defense) or they're already on it (sets events put both on, like the boss gallery's Game sets)
+	scrSwapLinkedSet (called before pSwapCharacter in characterStepEvent); the HUD's J/C indicator shows the other character's linked set in this mode

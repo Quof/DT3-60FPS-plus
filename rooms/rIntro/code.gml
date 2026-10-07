@@ -24,6 +24,9 @@ if pNum>0
   }
 }
 global.initialSave = global.paraString[0]
+//save slots change (added): 1 while a new game started over a slot's save hasn't been saved yet: that save stays and
+//oGame doesn't autosave till then (see oInitializeGame)
+global.saveSlotNewGame=0
 
 global.bNightmareMode=0
 global.bCanUseEsc=1

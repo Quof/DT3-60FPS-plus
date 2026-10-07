@@ -391,7 +391,8 @@ if (room != rIntro and room != rTitle and room != rBeginning and room != rBackSt
 {
   if (autoSaveTime >= 30*60*5) //every 5 minutes
   {
-    if global.bCanSave=true //save on room transition
+    //if global.bCanSave=true //save on room transition
+    if global.bCanSave=true and global.saveSlotNewGame=0 //save on room transition //save slots change: not while a new game started over a slot's save hasn't been saved yet (that save stays till then; see oInitializeGame)
     {
       global.recSaveNum+=1
       saveData()

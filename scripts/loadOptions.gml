@@ -93,4 +93,9 @@ for(i=1;i<=14;i+=1)
 global.czDefault[1]=c_red; global.czDefault[2]=c_blue; global.czDefault[3]=c_green; global.czDefault[4]=c_yellow
 for(i=1;i<=4;i+=1) {global.czColor[i]=ini_read_real(sectionRead,string(260+i),global.czDefault[i])}
 
+//save slots change (added): the save slot played last (500, shown on the title screen; see oInitializeGame) and whether
+//the save from before the slots (DT3data.dts) has been copied to slot 1 yet (501)
+global.lastSaveSlot=median(1,round(ini_read_real(sectionRead,"500",1)),5)
+global.saveSlotsMoved=ini_read_real(sectionRead,"501",0)
+
 ini_close()

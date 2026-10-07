@@ -1304,8 +1304,13 @@ else if subMenu=7 //---------- OPTIONS ----------
       //else if mO_CurPos=9 //Swap Type
       else if mO_CtrlItem=10 //Swap Type //dt4 dash change: a row lower //niche dash change: mO_CtrlItem
       {
-        global.optSwapType+=1
-        if global.optSwapType>=4 {global.optSwapType=0}
+        //global.optSwapType+=1
+        //if global.optSwapType>=4 {global.optSwapType=0}
+        //standard fixed change: Standard (Fixed) is 4 (so saved settings keep their meaning) but comes right after
+        //Standard: 0, 4, 1, 2, 3
+        if global.optSwapType=0 {global.optSwapType=4}
+        else if global.optSwapType=4 {global.optSwapType=1}
+        else {global.optSwapType+=1; if global.optSwapType>=4 {global.optSwapType=0}}
       }
       //else if mO_CurPos=10 //Stick Dead Zone //gamepad change (added)
       else if mO_CtrlItem=11 //Stick Dead Zone //gamepad change (added) //dt4 dash change: a row lower //niche dash change: mO_CtrlItem

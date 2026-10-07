@@ -276,3 +276,5 @@ set_synchronization(global.optVSync)
 window_set_sizeable(global.optCanResizeWindow)
 global.pCurrBreath=global.pBreathMax
 global.hudLink_BombEn[0]=150-(global.skillTree[1]*15)
+//save slots change (added): the game being played is the one in the save file again (autosaves are fine; see oInitializeGame)
+global.saveSlotNewGame=0

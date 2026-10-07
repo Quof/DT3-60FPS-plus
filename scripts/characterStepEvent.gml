@@ -1370,13 +1370,20 @@ if damageTime>28 //Fix knockback //60fps change: >=29 kept the knockback push fo
 if attackState!=ACT_MORPHBALL and attackState!=ACT_IN_BIKE and attackState!=ACT_ON_YOSHI and grappleState=0 and bTakingDamage=false
 {
   //---------- Swap characters ---------- (Left trigger - Normally)
-  if global.optSwapType>=0 and global.optSwapType<=2 //Standard or Dedicated
+  //if global.optSwapType>=0 and global.optSwapType<=2 //Standard or Dedicated
+  if (global.optSwapType>=0 and global.optSwapType<=2) or global.optSwapType=4 //Standard or Dedicated //standard fixed change: or Standard (Fixed)
   {
     if kCharSwapPressed=1 and bTakingDamage=false
     {
       if global.optSwapType=0 //Standard
       {
         if charSwapRecover=0 and global.canCharSwap=2 {pSwapCharacter()}
+      }
+      //standard fixed change (added): Standard (Fixed): the character being swapped to takes the Ability Set linked to
+      //the current one's instead of the one they were on last (scrSwapLinkedSet)
+      else if global.optSwapType=4
+      {
+        if charSwapRecover=0 and global.canCharSwap=2 {scrSwapLinkedSet(1); pSwapCharacter()}
       }
       else if global.optSwapType>=1 and global.optSwapType<=2 //Dedicated
       {
@@ -1401,7 +1408,8 @@ if attackState!=ACT_MORPHBALL and attackState!=ACT_IN_BIKE and attackState!=ACT_
     //-------------------- Swap abilities -------------------- (Right trigger - Normally)
     if kAbilSwapPressed=1 and bTakingDamage=false
     {
-      if global.optSwapType=0 //Standard
+      //if global.optSwapType=0 //Standard
+      if global.optSwapType=0 or global.optSwapType=4 //Standard //standard fixed change: Standard (Fixed) swaps sets the same way
       {
         pSwapAbility()
       }
