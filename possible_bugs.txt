@@ -47,6 +47,7 @@ POSSIBLE BUGS / QUIRKS (one per line; [OPEN]=not changed, [NOT FIXING]=decided n
 [OPEN] Dragon Knight afterimage (oEvCh9MainA): the afterimage is created at the event object's x,y with idFollow=id, so it follows the event object instead of enemyImage (vanilla).
 [OPEN] Chao is missing scene (oEvCh10MainA, gameProgress 2240): Hex's line "I prefer this name now..." is gated on sceneProgress=1 (between 17 and 18), which is already handled earlier in the chain, so it never plays (vanilla).
 [OPEN] Crystal scene (oEvCh15MainA, sceneProgress 14): "else if sceneDelay=71 and sceneDelay<=80 {fadeAlpha+=0.05}" runs once (probably meant >=71), so the screen only fades 0.05 instead of 0.5 over ticks 71-80 (vanilla).
+[OPEN] Firebrand firewave (oFirebrandFirewave, Step): "if lifeTime>=10 and lifeTime<=1" can never be true (probably meant <=10), so the extra fade over its last ticks never happens (vanilla).
 [NOT FIXING] Flame Elemental (oPT_FlameElemental): big burst makes atkAmt*2 fireballs spaced 360/atkAmt, so 8 directions with 2 stacked fireballs each (vanilla).
 [PENDING] Pipe fall-state (item 11); "switch rooms" interpretation unconfirmed; Vault Hex "avoidances" not identified; Kamek center-stop minor issue; Dylan steps 1px per tick.
 [NOT FIXING] Helmethead (non-EX, oHelmetHeadHelmet): the helmet's sideways slow-down during its rise is spread over every frame, so it slides 0.5-0.75px further than at 30fps.

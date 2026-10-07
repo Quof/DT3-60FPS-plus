@@ -118,10 +118,12 @@ if instance_exists(enemyID)
   //---------- Display Target Effect ----------
   for(i=0;i<3;i+=1)
   {
-    circleAlpha[i]+=0.04
+    //circleAlpha[i]+=0.04
+    circleAlpha[i]+=0.04*gDeltaTime //60fps change: the target rings shrank and faded in 2x/4x too fast at 60/120fps
     draw_set_alpha(circleAlpha[i])
     draw_circle(effectX,effectY,circleRad[i],true)
-    circleRad[i]-=1
+    //circleRad[i]-=1
+    circleRad[i]-=1*gDeltaTime //60fps change
     if circleRad[i]<=0
     {
       circleRad[i]=36
@@ -141,7 +143,8 @@ if instance_exists(enemyID)
   //---------- Display Statistical Data ----------
   draw_set_font(fnt_Scan)
   draw_set_halign(fa_right)
-  if scanProgress<6
+  //if scanProgress<6
+  if scanProgress<6 and gDeltaDoTicks //60fps change: the scan steps (and the random numbers) once per 30fps tick; per frame the scan finished 2x/4x too fast at 60/120fps
   {
     if scanStep>=10
     {
@@ -248,7 +251,8 @@ if instance_exists(enemyID)
     if global.gameProgress>=2170 {draw_sprite(sAffiliationIcons,enemyID.affiliation,statsWindowX+300,statsWindowY+260)}
     else //Do not display the H icon until Chapter 10
     {
-      staticFrm+=1
+      //staticFrm+=1
+      staticFrm+=1*gDeltaTime //60fps change: the static animated 2x/4x too fast at 60/120fps
       draw_sprite(sAffIconStatic,staticFrm,statsWindowX+300,statsWindowY+260)
     }
   }

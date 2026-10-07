@@ -14,16 +14,19 @@ action_id=603
 applies_to=self
 */
 lifeTime+=1*gDeltaTime
-if lifeTime>=1 and lifeTime<=100
+//if lifeTime>=1 and lifeTime<=100
+if lifeTime>0 and lifeTime<=100 //60fps change: covers every frame of the first tick
 {
   image_alpha+=0.05*gDeltaTime
-  if image_alpha=1
-    lifeTime=200
+  //if image_alpha=1
+  if image_alpha>=1 //60fps change: smaller steps may not land exactly on 1 (it would keep brightening and stay up much longer)
+    {image_alpha=1; lifeTime=200}
 }
 else if lifeTime>=290
 {
   image_alpha-=0.05*gDeltaTime
-  if image_alpha=0
+  //if image_alpha=0
+  if image_alpha<=0 //60fps change: smaller steps may not land exactly on 0 (the display would never be destroyed)
     instance_destroy()
 }
 #define Draw_0

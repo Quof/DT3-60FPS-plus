@@ -765,7 +765,8 @@ else if global.activeCharacter=1 //---------------------------------------- Clai
       }
     }
     //Check for double tap to morph
-    if doubleTapTime>0 {doubleTapTime-=1}
+    //if doubleTapTime>0 {doubleTapTime-=1}
+    if doubleTapTime>0 {doubleTapTime-=1*gDeltaTime} //60fps change: the double-tap-down window to morph was half/quarter as long at 60/120fps
     if kDownPressed and attackState=0
     {
       if doubleTapTime=0
@@ -806,7 +807,8 @@ else if global.activeCharacter=1 //---------------------------------------- Clai
 
         playerAttack=instance_create(x,y-8,oSamusBomb)
         playerAttack.bombType=1; playerAttack.bounces=2
-        playerAttack.xVel=1*2; playerAttack.yVel=4
+        //playerAttack.xVel=1*2; playerAttack.yVel=4
+        playerAttack.xVel=1; playerAttack.yVel=4 //restored vanilla value (it had become 1*2, so the spread wasn't symmetric with the -1 bomb below)
 
         playerAttack=instance_create(x,y-8,oSamusBomb)
         playerAttack.bombType=1; playerAttack.bounces=2

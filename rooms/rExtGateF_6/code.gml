@@ -13,7 +13,7 @@ if instrProg!="8" and instrProg!="9"
 
 oPlayer1.initialJumpAcc=-9.4; oPlayer1.jumpTimeTotal=35
 oPlayer1.jumpBodge60=0.99; oPlayer1.jumpGravComp60=0; oPlayer1.doubleJumpBodge60=0.99 //60fps+: tuned so Gate F jumps match 30fps (within the 30fps pixel spread) at normal, low and Nightmare gravity
-//oPlayer1.runAcc=0.8; oPlayer1.frictionRunningX=0.9
+oPlayer1.runAcc=0.8; oPlayer1.frictionRunningX=0.9 //Gate F ice physics (restored: was commented out, so the Nightmare boss room had normal run physics)
 global.hasShoes[2]=2; global.hasShoes[3]=2
 
 gameScene=instance_create(0,0,oEvExGates)

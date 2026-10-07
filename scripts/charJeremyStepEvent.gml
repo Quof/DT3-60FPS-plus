@@ -187,7 +187,8 @@ else
 }
 
 //Allows the character to run left and right
-if attackState!=ACT_BLOCK and bTakingDamage=false
+//if attackState!=ACT_BLOCK and bTakingDamage=false
+if attackState!=ACT_BLOCK and bTakingDamage=false and dashTickTime<=0 //60fps change: not for the rest of a dash's first 30fps tick (same as characterStepEvent)
 {
   if (attackState=0 or platformCharacterIs(IN_AIR)) and global.hasShoes[0]=2 and attackState!=ACT_FIRE and attackState!=ACT_FIRE_UP and attackState!=ACT_FIRE_DOWN
   {
@@ -209,7 +210,8 @@ if attackState!=ACT_BLOCK and bTakingDamage=false
         airDashRecovery=0
         if dashMomentumTime<20 {dashMomentumTime=0}
       }
-      if (kLeftPushedSteps>1 or isCollisionMoveableSolidRight(1)) and (facing=LEFT or approximatelyZero(xVel))
+      //if (kLeftPushedSteps>1 or isCollisionMoveableSolidRight(1)) and (facing=LEFT or approximatelyZero(xVel))
+      if (kLeftPushedSteps>=1.5 or isCollisionMoveableSolidRight(1)) and (facing=LEFT or approximatelyZero(xVel)) //60fps change: run start, same as characterStepEvent
       {
         if state=STANDING
         {
@@ -222,9 +224,10 @@ if attackState!=ACT_BLOCK and bTakingDamage=false
         xAcc-=runAcc
         if platformCharacterIs(IN_AIR) and dashMomentumTime>0
         {
-          xAcc-=(xVel/2.1+(dashMomentumTime/2))
+          //xAcc-=(xVel/2.1+(dashMomentumTime/2))
+          xAcc-=(xVel/2.1+(ceil(dashMomentumTime)/2)) //60fps change: the 30fps tick's value of the counter (as characterStepEvent)
           //xVel=-(dashVel/2.1+(dashMomentumTime/2))
-          xVel=-(dashVel/2.1+(dashMomentumTime/2)); xVelSetTick=1 //60fps change: velocity set directly (see pMoveToWrapNew)
+          xVel=-(dashVel/2.1+(ceil(dashMomentumTime)/2)); xVelSetTick=1 //60fps change: velocity set directly (see pMoveToWrapNew)
         }
       }
       if airDashRecovery=0 {facing=LEFT}
@@ -242,7 +245,8 @@ if attackState!=ACT_BLOCK and bTakingDamage=false
         airDashRecovery=0
         if dashMomentumTime<20 {dashMomentumTime=0}
       }
-      if (kRightPushedSteps>1 or isCollisionMoveableSolidLeft(1)) and (facing=RIGHT or approximatelyZero(xVel))
+      //if (kRightPushedSteps>1 or isCollisionMoveableSolidLeft(1)) and (facing=RIGHT or approximatelyZero(xVel))
+      if (kRightPushedSteps>=1.5 or isCollisionMoveableSolidLeft(1)) and (facing=RIGHT or approximatelyZero(xVel)) //60fps change: see run left
       {
         if state=STANDING
         {
@@ -256,9 +260,10 @@ if attackState!=ACT_BLOCK and bTakingDamage=false
         xAcc+=runAcc
         if platformCharacterIs(IN_AIR) and dashMomentumTime>0
         {
-          xAcc+=xVel/2.1+(dashMomentumTime/2)
+          //xAcc+=xVel/2.1+(dashMomentumTime/2)
+          xAcc+=xVel/2.1+(ceil(dashMomentumTime)/2) //60fps change: see run left
           //xVel=dashVel/2.1+(dashMomentumTime/2)
-          xVel=dashVel/2.1+(dashMomentumTime/2); xVelSetTick=1 //60fps change: velocity set directly (see pMoveToWrapNew)
+          xVel=dashVel/2.1+(ceil(dashMomentumTime)/2); xVelSetTick=1 //60fps change: velocity set directly (see pMoveToWrapNew)
         }
       }
       if airDashRecovery=0 {facing=RIGHT}
@@ -450,7 +455,8 @@ else {maxDownSlope=8}
 
 if groundDashRecovery>0 //Continue ground dash - Jerry only
 {
-  if platformCharacterIs(ON_GROUND)
+  //if platformCharacterIs(ON_GROUND)
+  if platformCharacterIs(ON_GROUND) and gDeltaDoTicks //60fps change: one smoke cloud per 30fps tick (was 2x/4x at 60/120fps)
   {
     var tEffect;
     tEffect=instance_create(oPlayer1.x,oPlayer1.y+1,oEffect)
@@ -459,6 +465,7 @@ if groundDashRecovery>0 //Continue ground dash - Jerry only
     tEffect.image_speed=0.5+(groundDashRecovery/25); tEffect.ySpd=-1.8+(groundDashRecovery/8)
     tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0
   }
+  if dashTickTime>0 {xAcc=dashTickXAcc} //60fps change (added): rest of the dash's first 30fps tick keeps the dash frame's acceleration (as characterStepEvent)
   //groundDashRecovery-=1
   //if facing=RIGHT {xVel=(dashVel+1)}
   //else if facing=LEFT {xVel=-(dashVel+1)}
@@ -468,7 +475,8 @@ if groundDashRecovery>0 //Continue ground dash - Jerry only
 }
 if backDashRecovery>0 //Continue ground dash - Jerry only
 {
-  if platformCharacterIs(ON_GROUND)
+  //if platformCharacterIs(ON_GROUND)
+  if platformCharacterIs(ON_GROUND) and gDeltaDoTicks //60fps change: see above
   {
     var tEffect;
     tEffect=instance_create(oPlayer1.x,oPlayer1.y+1,oEffect)
@@ -477,6 +485,7 @@ if backDashRecovery>0 //Continue ground dash - Jerry only
     tEffect.image_speed=0.5+(backDashRecovery/25); tEffect.ySpd=-1.8+(backDashRecovery/8)
     tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0
   }
+  if dashTickTime>0 {xAcc=dashTickXAcc} //60fps change (added): see above
   //backDashRecovery-=1
   //if facing=RIGHT {xVel=-(dashVel+1)}
   //else if facing=LEFT {xVel=(dashVel+1)}
@@ -510,6 +519,7 @@ if airDashRecovery>0 //Continue air dash
     if tAirDashTick=airDashDJTick {yVel+=airDashDJKick}
     else {airDashDJKick=0}
   }
+  if dashTickTime>0 {xAcc=dashTickXAcc} //60fps change (added): see groundDashRecovery
   if facing=RIGHT {xVel=(dashVel-1); xVelSetTick=1} //60fps change: see above
   else if facing=LEFT {xVel=-(dashVel-1); xVelSetTick=1} //60fps change: see above
 }
@@ -519,6 +529,7 @@ if airDashRecovery>0 //Continue air dash
 //if doubleJumpAnim>0 {doubleJumpAnim-=1} //Double jump animation
 if mobilityDisable>0 {mobilityDisable-=gDeltaTime} //Double jump / Air-dash disable after split party character swap //60fps change
 if dashMomentumTime>0 {dashMomentumTime-=gDeltaTime} //Dash momentum //60fps change
+if dashTickTime>0 {dashTickTime-=gDeltaTime} //60fps change (added): dash's first 30fps tick (see the run code)
 if doubleJumpAnim>0 {doubleJumpAnim-=gDeltaTime} //Double jump animation //60fps change
 
 //if jumpTime<jumpTimeTotal {jumpTime+=1}
@@ -787,7 +798,8 @@ else
   else if flySpeed>50 {xFric=frictionRunningFastX}
   else if platformCharacterIs(IN_AIR) and kLeft=0 and kRight=0 //In air
   {
-    if dashMomentumTime>0
+    //if dashMomentumTime>0
+    if dashMomentumTime>=1 //60fps change: whole-number thresholds for counters that were just counted down (see characterStepEvent)
     {
       xFric=0.965
     }
@@ -795,10 +807,12 @@ else
   }
   else //On ground
   {
-    if dashMomentumTime>19 {xFric=0.965}
+    //if dashMomentumTime>19 {xFric=0.965}
+    if dashMomentumTime>=20 {xFric=0.965} //60fps change: see above
     else
     {
-      if groundDashRecovery>0 or backDashRecovery>0 {xFric=0.9}
+      //if groundDashRecovery>0 or backDashRecovery>0 {xFric=0.9}
+      if groundDashRecovery>=1 or backDashRecovery>=1 {xFric=0.9} //60fps change: see above
       else {xFric=frictionRunningX}
     }
   }

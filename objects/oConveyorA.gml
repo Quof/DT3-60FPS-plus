@@ -194,7 +194,8 @@ if global.optShowHoverInfo=1 and hoverAlpha!=-1 //Hover info
   if place_meeting(x,y,oIdentifier) {hoverAlpha=1.5}
   if hoverAlpha>0 and oIdentifier.bCanScan=1
   {
-    hoverAlpha-=0.05
+    //hoverAlpha-=0.05
+    hoverAlpha-=0.05*gDeltaTime //60fps change: the hover info faded 2x/4x too fast at 60/120fps
     draw_set_font(fnt_EnemyName)
     draw_set_halign(fa_center)
     draw_set_alpha(hoverAlpha)

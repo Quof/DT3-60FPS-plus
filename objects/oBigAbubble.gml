@@ -21,7 +21,8 @@ if global.gamePaused=false
   {
     image_xscale+=0.05*gDeltaTime
     image_yscale+=0.05*gDeltaTime
-    if image_xscale=1 {fullSize=1}
+    //if image_xscale=1 {fullSize=1}
+    if image_xscale>=1 {image_xscale=1; image_yscale=1; fullSize=1} //60fps change: smaller steps may not land exactly on 1 (the bubble would keep growing and never rise)
   }
   else
   {

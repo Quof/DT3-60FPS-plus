@@ -18,7 +18,8 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if activateTime>0 {activateTime-=1}
+//if activateTime>0 {activateTime-=1}
+if activateTime>0 {activateTime-=1*gDeltaTime} //60fps change: the doors became usable 2x/4x too soon at 60/120fps
 #define Collision_oPlayer1
 /*"/*'/**//* YYD ACTION
 lib_id=1

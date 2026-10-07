@@ -25,7 +25,8 @@ if global.gamePaused=false
 {
   image_xscale+=0.02*gDeltaTime; image_yscale+=0.02*gDeltaTime
   image_alpha-=0.005*gDeltaTime
-  lifeTime-=1
+  //lifeTime-=1
+  lifeTime-=1*gDeltaTime //60fps change: the firewave lasted half/quarter as long at 60/120fps
   if lifeTime>=10 and lifeTime<=1 {image_alpha-=0.05*gDeltaTime}
   if lifeTime<=0 {instance_destroy()}
 }

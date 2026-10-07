@@ -59,3 +59,4 @@ else {airDashKick=initialJumpAcc/2; airDashDJKick=0} //above 30fps: applied for 
 //xAcc+=xVel
 //xVel=dashVel
 if airDashRecovery<7 {airDashRecovery=6}
+dashTickTime=1; dashTickXAcc=xAcc //60fps change (added): see pMoveDashForward

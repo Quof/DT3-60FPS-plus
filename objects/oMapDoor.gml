@@ -37,7 +37,8 @@ if type=1
         effectLimit=3
       }
       else
-        effectLimit-=1
+        //effectLimit-=1
+        effectLimit-=1*gDeltaTime //60fps change: the door smoke spawned 2x/4x as often at 60/120fps
     }
   }
 }
@@ -107,7 +108,8 @@ else if exitType=2
     oPlayer1.depth=1100000
     oPlayer1.bCanTakeDamage=false
     oPlayer1.bCanTakeHit=false
-    animPlayerExit=1*gDeltaTime
+    //animPlayerExit=1*gDeltaTime
+    animPlayerExit=1 //60fps change: a starting value, like oExit; scaled, the pipe animation started early and moved the player 1-2px further
   }
 }
 #define Draw_0
@@ -118,7 +120,8 @@ applies_to=self
 */
 if bShowArrow=true
 {
-  pointTime+=1
+  //pointTime+=1
+  pointTime+=1*gDeltaTime //60fps change: the arrow bobbed 2x/4x too fast at 60/120fps
   if pointTime=20
     arrowY+=1
   else if pointTime=40

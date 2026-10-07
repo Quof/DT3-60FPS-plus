@@ -13,7 +13,8 @@ action_id=603
 applies_to=self
 */
 displayTime+=1*gDeltaTime
-if displayTime>=1 and displayTime<=25
+//if displayTime>=1 and displayTime<=25
+if displayTime>0 and displayTime<=25 //60fps change: covers every frame of the first tick, so it fades in fully
   image_alpha+=0.04*gDeltaTime
 else if displayTime>=95
 {

@@ -208,7 +208,8 @@ if sprite_index=sKirbyDoorway
     }
     init=1
   }
-  starTime+=1
+  //starTime+=1
+  if gDeltaDoTicks {starTime+=1} //60fps change: Kirby door stars animate once per 30fps tick (Draw runs every frame)
   if starTime=5 {starFrame=1}
   else if starTime=10 {starFrame=2}
   else if starTime=15 {starFrame=3}
@@ -217,7 +218,8 @@ if sprite_index=sKirbyDoorway
   {
     draw_sprite(sKirbyDoorStarSmall,starFrame,x+20,starY[i])
     draw_sprite(sKirbyDoorStarSmall,starFrame,x-4,starY[i])
-    starY[i]+=2
+    //starY[i]+=2
+    if gDeltaDoTicks {starY[i]+=2} //60fps change: whole-pixel steps once per 30fps tick; per frame the stars fell 2x/4x too fast
     if starY[i]>=y+34 {starY[i]=y-12}
   }
   draw_sprite(sKirbyDoorStarBig,starFrame,x+8,y-12)

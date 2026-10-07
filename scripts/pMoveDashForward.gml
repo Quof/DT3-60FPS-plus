@@ -90,3 +90,7 @@ else
 //"variable jumping" states
 jumpButtonReleased=0
 jumpTime=0
+
+//60fps change (added): above 30fps the rest of this 30fps tick skips the run code and Jerry's dash keeps this acceleration
+//(characterStepEvent), like the 30fps dash that set the whole tick
+dashTickTime=1; dashTickXAcc=xAcc

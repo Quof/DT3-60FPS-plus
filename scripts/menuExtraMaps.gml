@@ -89,7 +89,8 @@ if tShowPos=1 //Draw location
   mMap_FrameCount+=1*gDeltaTime
   if mMap_FrameCount mod 6=0
   {
-    mMap_CurFrame+=1*gDeltaTime
+    //mMap_CurFrame+=1*gDeltaTime
+    mMap_CurFrame+=1 //60fps change: this runs once per 6 ticks (the mod check above), so it's one frame step; scaled, the marker animated at half/quarter speed at 60/120fps (as in menuMap)
     if mMap_CurFrame=4
       mMap_CurFrame=0
   }

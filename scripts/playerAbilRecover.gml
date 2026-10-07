@@ -30,7 +30,8 @@ if global.bNightmareMode=0 //Normal mode
   {
     if global.hudBelmont_WeaponEn[0]<global.hudBelmont_WeaponEn[1]
     {
-      if oGame.time mod (42-(global.skillTree[2]*3))/gDeltaTime=0
+      //if oGame.time mod (42-(global.skillTree[2]*3))/gDeltaTime=0
+      if oGame.time mod ((42-(global.skillTree[2]*3))/gDeltaTime)=0 //60fps change: the /gDeltaTime was outside the mod's brackets (mod and / are evaluated left to right), so it counted frames and Belmont energy recharged 2x/4x as fast at 60/120fps
         global.hudBelmont_WeaponEn[0]+=1
     }
   }
@@ -38,17 +39,29 @@ if global.bNightmareMode=0 //Normal mode
   {
     if global.hudMega_BusterEn[0]<32
     {
-      if oGame.time mod (30-global.skillTree[28])/gDeltaTime=0
+      //if oGame.time mod (30-global.skillTree[28])/gDeltaTime=0
+      var tMMRecharge;
+      if global.fixMMRecharge=true {tMMRecharge=(oGame.time mod ((30-global.skillTree[28])/gDeltaTime)=0)} //dipswitch: recharge every 30-skill ticks, so skill 28 speeds it up
+      else {tMMRecharge=((oGame.time mod (30/gDeltaTime))-(global.skillTree[28]/gDeltaTime)=0)} //60fps change: vanilla's "oGame.time mod 30-global.skillTree[28]=0" (once per 30 ticks, the skill only shifts the timing) scaled to frames; the converted line recharged 2x/4x as fast at 60/120fps
+      if tMMRecharge
         global.hudMega_BusterEn[0]+=1
     }
     if global.hudMega_ShotIceEn[0]<32
     {
-      if oGame.time mod (72-round(global.skillTree[28]*1.67))/gDeltaTime=0
+      //if oGame.time mod (72-round(global.skillTree[28]*1.67))/gDeltaTime=0
+      var tMMRecharge;
+      if global.fixMMRecharge=true {tMMRecharge=(oGame.time mod ((72-round(global.skillTree[28]*1.67))/gDeltaTime)=0)} //dipswitch: recharge every 72-skill ticks
+      else {tMMRecharge=((oGame.time mod (72/gDeltaTime))-(round(global.skillTree[28]*1.67)/gDeltaTime)=0)} //60fps change: vanilla's "oGame.time mod 72-round(...)=0" (once per 72 ticks) scaled to frames; the converted line recharged 2x/4x as fast at 60/120fps
+      if tMMRecharge
         global.hudMega_ShotIceEn[0]+=1
     }
     if global.hudMega_GravityEn[0]<32
     {
-      if oGame.time mod 80-((global.skillTree[28]*2))/gDeltaTime=0
+      //if oGame.time mod 80-((global.skillTree[28]*2))/gDeltaTime=0
+      var tMMRecharge;
+      if global.fixMMRecharge=true {tMMRecharge=(oGame.time mod ((80-(global.skillTree[28]*2))/gDeltaTime)=0)} //dipswitch: recharge every 80-skill ticks
+      else {tMMRecharge=((oGame.time mod (80/gDeltaTime))-((global.skillTree[28]*2)/gDeltaTime)=0)} //60fps change: vanilla's "oGame.time mod 80-(...)=0" (once per 80 ticks) scaled to frames; the converted line counted frames, so it recharged 2x/4x as fast at 60/120fps
+      if tMMRecharge
         global.hudMega_GravityEn[0]+=1
     }
   }

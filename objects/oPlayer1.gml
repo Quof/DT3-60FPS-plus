@@ -454,18 +454,33 @@ if global.gamePaused=false and global.bShooter=0
       playerAbilRecover(1); playerAbilRecover(2); playerAbilRecover(4)
       if global.hudMega_BusterEn[0]<32
       {
-        if oGame.time mod 15-global.skillTree[28]=0
-          global.hudMega_BusterEn[0]+=1*gDeltaTime
+        //if oGame.time mod 15-global.skillTree[28]=0
+        //  global.hudMega_BusterEn[0]+=1*gDeltaTime
+        var tMMRecharge; //60fps change: counts 30fps ticks and adds whole points (it added half/quarter points twice/four times as often at 60/120fps)
+        if global.fixMMRecharge=true {tMMRecharge=(oGame.time mod ((15-global.skillTree[28])/gDeltaTime)=0)} //dipswitch: recharge every 15-skill ticks
+        else {tMMRecharge=((oGame.time mod (15/gDeltaTime))-(global.skillTree[28]/gDeltaTime)=0)} //vanilla: once per 15 ticks (the skill only shifts the timing)
+        if tMMRecharge
+          global.hudMega_BusterEn[0]+=1
       }
       if global.hudMega_ShotIceEn[0]<32
       {
-        if oGame.time mod 36-round(global.skillTree[28]*1.67)=0
-          global.hudMega_ShotIceEn[0]+=1*gDeltaTime
+        //if oGame.time mod 36-round(global.skillTree[28]*1.67)=0
+        //  global.hudMega_ShotIceEn[0]+=1*gDeltaTime
+        var tMMRecharge; //60fps change: see above
+        if global.fixMMRecharge=true {tMMRecharge=(oGame.time mod ((36-round(global.skillTree[28]*1.67))/gDeltaTime)=0)} //dipswitch
+        else {tMMRecharge=((oGame.time mod (36/gDeltaTime))-(round(global.skillTree[28]*1.67)/gDeltaTime)=0)} //vanilla: once per 36 ticks
+        if tMMRecharge
+          global.hudMega_ShotIceEn[0]+=1
       }
       if global.hudMega_GravityEn[0]<32
       {
-        if oGame.time mod 40-(global.skillTree[28]*2)=0
-          global.hudMega_GravityEn[0]+=1*gDeltaTime
+        //if oGame.time mod 40-(global.skillTree[28]*2)=0
+        //  global.hudMega_GravityEn[0]+=1*gDeltaTime
+        var tMMRecharge; //60fps change: see above
+        if global.fixMMRecharge=true {tMMRecharge=(oGame.time mod ((40-(global.skillTree[28]*2))/gDeltaTime)=0)} //dipswitch
+        else {tMMRecharge=((oGame.time mod (40/gDeltaTime))-((global.skillTree[28]*2)/gDeltaTime)=0)} //vanilla: once per 40 ticks
+        if tMMRecharge
+          global.hudMega_GravityEn[0]+=1
       }
     }
     else if global.activeAbility[0]=3 //Game Set ----------
@@ -523,13 +538,17 @@ if global.gamePaused=false and global.bShooter=0
         }
         if global.bNightmareMode=0
         {
-          if oGame.time mod (21-(global.skillTree[2]*3)-equipValA)=0
-            global.hudBelmont_WeaponEn[0]+=1*gDeltaTime
+          //if oGame.time mod (21-(global.skillTree[2]*3)-equipValA)=0
+          //  global.hudBelmont_WeaponEn[0]+=1*gDeltaTime
+          if oGame.time mod ((21-(global.skillTree[2]*3)-equipValA)/gDeltaTime)=0 //60fps change: counts 30fps ticks and adds whole points (it added half/quarter points twice/four times as often)
+            global.hudBelmont_WeaponEn[0]+=1
         }
         else
         {
-          if oGame.time mod 15=0
-            global.hudBelmont_WeaponEn[0]+=1*gDeltaTime
+          //if oGame.time mod 15=0
+          //  global.hudBelmont_WeaponEn[0]+=1*gDeltaTime
+          if oGame.time mod (15/gDeltaTime)=0 //60fps change: see above
+            global.hudBelmont_WeaponEn[0]+=1
         }
       }
     }
@@ -683,7 +702,8 @@ if global.gamePaused=false and global.bShooter=0
   
   if isCollisionWaterTop(tBreathHC) //Head underwater
   {
-    bubbleTime-=1
+    //bubbleTime-=1
+    bubbleTime-=1*gDeltaTime //60fps change: air bubbles came out 2x/4x as often underwater at 60/120fps
     if bubbleTime<=0
     {
       var newBubble,bubbleCount;
@@ -716,8 +736,9 @@ if global.gamePaused=false and global.bShooter=0
   //---------- Starman time ----------
   if starmanTime>0
   {
-    image_blend=make_color_rgb(random(255),random(255),random(255))
+    if gDeltaDoTicks {image_blend=make_color_rgb(random(255),random(255),random(255))} //60fps change: color and effects once per 30fps tick (per frame was 2x/4x as many at 60/120fps)
     var tEfAI,tEfStar;
+    if gDeltaDoTicks //60fps change (added)
     for(i=0;i<4;i+=1)
     {
       tEfStar=instance_create((x-(sprite_width/2))+random(sprite_width),(y-sprite_height+3)+random(sprite_height-6),oEffect)
@@ -728,10 +749,13 @@ if global.gamePaused=false and global.bShooter=0
       tEfStar.image_alpha=0.4+random(0.6); tEfStar.ySpd=-1-random(3)
       tEfStar.newBlend=-1; tEfStar.followID=-1; tEfStar.decay=-100; tEfStar.xSpd=0
     }
+    if gDeltaDoTicks { //60fps change (added)
     tEfAI=instance_create(x,y,oPlayerAfterImage)
     tEfAI.imageColor=image_blend
+    } //60fps change (added)
     starmanTime-=1*gDeltaTime
-    if starmanTime>=1 and starmanTime<=40
+    //if starmanTime>=1 and starmanTime<=40
+    if starmanTime>=1 and starmanTime<=40 and gDeltaDoTicks //60fps change: ending burst once per 30fps tick
     {
       var tEfStar;
       for(i=0;i<4;i+=1)
@@ -916,9 +940,11 @@ else if global.bShooter=1
   //---------- Flash time after taking damage in Dragoon ----------
   if bCanTakeHit=false
   {
-    damageTime-=1
-    if image_alpha=0.75 {image_alpha=0.25}
-    else {image_alpha=0.75}
+    //damageTime-=1
+    //if image_alpha=0.75 {image_alpha=0.25}
+    //else {image_alpha=0.75}
+    damageTime-=1*gDeltaTime //60fps change: Dragoon invincibility after a hit was half/quarter as long at 60/120fps
+    if gDeltaDoTicks {if image_alpha=0.75 {image_alpha=0.25} else {image_alpha=0.75}} //60fps change: flicker once per 30fps tick
     if damageTime<=0
     {
       image_alpha=1
@@ -942,7 +968,8 @@ if global.location=108
   }
 }
 
-if extraBulletCheck>0 {extraBulletCheck-=1}
+//if extraBulletCheck>0 {extraBulletCheck-=1}
+if extraBulletCheck>0 {extraBulletCheck-=1*gDeltaTime} //60fps change: the grace window against a second hit from the same volley (The Executive) was half/quarter as long at 60/120fps
 
 if swapCheck=1 //wait 1 frame before moving objects around in split party maps
 {
@@ -1568,7 +1595,8 @@ if attackState=ACT_MORPHBALL //Show when character is in precision mode with Mor
 {
   if kActB
   {
-    if oGame.time mod 3=0
+    //if oGame.time mod 3=0
+    if oGame.time mod (3/gDeltaTime)=0 //60fps change: oGame.time counts frames, so the precision ring flickered 2x/4x too fast at 60/120fps
     {
       if morphMode=11 {morphMode=10}
       else {morphMode=11}

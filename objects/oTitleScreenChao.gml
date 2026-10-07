@@ -49,12 +49,14 @@ else if moveProg>=1000 and moveProg<=9000
 {
   var tFFScl;
   tFFScl=random(0.1)
+  if gDeltaDoTicks { //60fps change (added): the trail spawns once per 30fps tick (per frame was 2x/4x as many at 60/120fps)
   tEffect=instance_create(x,y,oEffectB)
   tEffect.depth=-5; tEffect.type=3; tEffect.sprite_index=sEfFirefly; tEffect.image_alpha=0.3
   tEffect.image_xscale=0.2+tFFScl; tEffect.image_yscale=0.2+tFFScl; tEffect.direction=random_range(265,275)
   tEffect.speed=random(1.25)+2.25; tEffect.friction=random(0.03)+0.03; tEffect.fadeSpd=0.005
   tEffect.image_blend=make_color_rgb(random(80),255,random(80))
   tEffect.AccelX=0; tEffect.AccelY=0; tEffect.newBlend=1; tEffect.followID=-1; tEffect.rotation=0
+  } //60fps change (added)
 
   if x>=452
   {

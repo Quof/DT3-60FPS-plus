@@ -72,7 +72,8 @@ if isCollisionCharacterBottom(1,0) and hitTime=0
       newEffect=instance_create(x+8,y+8,oEfMarioBlock)
       newEffect.type=i
     }
-    hitTime=1*gDeltaTime
+    //hitTime=1*gDeltaTime
+    hitTime=1 //60fps change: a starting value; scaled, the block broke half/three-quarters of a tick late at 60/120fps
   }
 }
 

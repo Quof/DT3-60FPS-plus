@@ -43,7 +43,8 @@ if global.gamePaused=false
     fallingProgress+=1*gDeltaTime
     if fallingProgress=1
       x+=1
-    else if fallingProgress>=2 and fallingProgress<=30
+    //else if fallingProgress>=2 and fallingProgress<=30
+    else if fallingProgress>=2 and fallingProgress<=30 and gDeltaDoTicks //60fps change: shake once per 30fps tick (per frame it shook 2x/4x as fast at 60/120fps)
     {
       if shakeDir=1
         x-=2

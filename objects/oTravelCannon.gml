@@ -53,11 +53,13 @@ if global.gamePaused=false
     else if cannonProg=1 //FIRE PLAYER FROM CANNON
     {
       cannonTime+=1*gDeltaTime
-      awardAwesome(150)
-      oPlayer1.xVel=16
-      oPlayer1.yVel=-16
+      //awardAwesome(150)
+      if gDeltaDoTicks {awardAwesome(150)} //60fps change: once per 30fps tick (per frame gave 2x/4x the Awesome points at 60/120fps)
+      oPlayer1.xVel=16; oPlayer1.xVelSetExt=1 //60fps change: velocity set every frame, use the 30fps formula (pMoveToWrapNew)
+      oPlayer1.yVel=-16; oPlayer1.yVelSetExt=1 //60fps change
 
       var tFFEScl,tEEffect;
+      if gDeltaDoTicks //60fps change (added): the rainbow trail spawns once per 30fps tick (per frame was 2x/4x as many at 60/120fps)
       for(i=0;i<6;i+=1)
       {
         tFFEScl=random(0.1)

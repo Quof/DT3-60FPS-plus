@@ -22,7 +22,8 @@ applies_to=self
 event_inherited()
 if global.gamePaused=false
 {
-  yVel+=0.2*DeltaTime
+  //yVel+=0.2*DeltaTime
+  yVel=scrGravAcc(yVel,0.2,1) //60fps change: typo fix (DeltaTime is not a variable, so this line errored); accelerates then moves, see scrGravAcc
 
   if isCollisionBottom(1) {yVel=0}
   if isCollisionSolid() {y-=2}

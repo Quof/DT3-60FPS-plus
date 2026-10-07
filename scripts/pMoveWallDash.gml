@@ -33,34 +33,42 @@ else if global.activeCharacter=1 //----- Claire -----
 dashInvulnerabilityTime+=dashInvulnerability+tDashAdj
 dashRecHalt+=9
 dashEnergy-=1500
-if gDeltaTime == 1
-{
-  yAcc+=initialJumpAcc/1.33
-  yVel=-0.05
-}
-else
-{
-  var bodgedY;
-  bodgedY = (initialJumpAcc/1.33) + (-0.05)
-  yVel = bodgedY * 1.00 //tune as needed
-  yVel += gravityIntensity*0.5
-}
+//if gDeltaTime == 1
+//{
+//  yAcc+=initialJumpAcc/1.33
+//  yVel=-0.05
+//}
+//else
+//{
+//  var bodgedY;
+//  bodgedY = (initialJumpAcc/1.33) + (-0.05)
+//  yVel = bodgedY * 1.00 //tune as needed
+//  yVel += gravityIntensity*0.5
+//}
+//60fps change: the 30fps kick at every frame rate, with yVelSetTick/xVelSetTick (below) so pMoveToWrapNew uses the 30fps
+//formula (velocity + acceleration) * friction for this frame, like the ground dashes. The tuned values didn't fit both cases
+//at 60fps (~5px short when not pushing into the wall, too far when pushing into it) and weren't tuned for 120fps at all
+yAcc+=initialJumpAcc/1.33
+yVel=-0.05
+yVelSetTick=1
 walljumpTime=3
 scrSlowFall(5,0.5,1)
 canAirDash=1
 doubleJumpCheck=1
 doubleJumpAnim=0
 
-var bodgedX;
-if gDeltaTime == 1 {bodgedX = 1}
-else {bodgedX = 0.9075 } //tune as needed
-// ?????? for 120 fps
-// 0.9075 for 60 fps
+//var bodgedX;
+//if gDeltaTime == 1 {bodgedX = 1}
+//else {bodgedX = 0.9075 } //tune as needed
+//// ?????? for 120 fps
+//// 0.9075 for 60 fps
+xVelSetTick=1 //60fps change (added): see above
 
 if tWallCheck=0
 {
   facing=LEFT
-  xVel = (-16) * bodgedX
+  //xVel = (-16) * bodgedX
+  xVel=-16 //60fps change
   var tEffect;
   tEffect=instance_create(x,y,oEffect)
   tEffect.sprite_index=sAirDashWave; tEffect.image_xscale=-0.75; tEffect.image_yscale=0.75
@@ -69,7 +77,8 @@ if tWallCheck=0
 else
 {
   facing=RIGHT
-  xVel = (16) * bodgedX
+  //xVel = (16) * bodgedX
+  xVel=16 //60fps change
   var tEffect;
   tEffect=instance_create(x,y,oEffect)
   tEffect.sprite_index=sAirDashWave; tEffect.image_xscale=0.75; tEffect.image_yscale=0.75

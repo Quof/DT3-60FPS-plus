@@ -87,7 +87,8 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-lifeTime-=1
+//lifeTime-=1
+lifeTime-=1*gDeltaTime //60fps change: the notice disappeared 2x/4x too soon at 60/120fps
 if lifeTime<=20
 {
   image_alpha-=0.05*gDeltaTime

@@ -8,6 +8,7 @@ scrGlobalKeyboardInit(0)
 global.booleanImprovements=true
 global.fixMMGravPlatforms=true
 global.fixDarkBackgrounds=true
+global.fixMMRecharge=true //Mega Man inactive-set recharge: skill tree 28 shortens the recharge time (vanilla's operator order made it only shift the timing); see playerAbilRecover
 gameCreateEvent()
 bStatRender=false
 windowUpdate=0

@@ -18,11 +18,13 @@ if global.gamePaused=false
 {
   if x>xstart
   {
-    if xVel>-4 {xVel-=0.1}
+    //if xVel>-4 {xVel-=0.1}
+    if xVel>-4 {xVel-=0.1*gDeltaTime} //60fps change: per-frame acceleration; the platform swung back 2x/4x as hard at 60/120fps
   }
   else if x<xstart
   {
-    if xVel<4 {xVel+=0.1}
+    //if xVel<4 {xVel+=0.1}
+    if xVel<4 {xVel+=0.1*gDeltaTime} //60fps change
   }
 }
 #define Collision_oAttackBase

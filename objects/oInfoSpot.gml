@@ -55,7 +55,8 @@ if variable_local_exists("binary")
     changeTime=4
   }
   else
-    changeTime-=1
+    //changeTime-=1
+    changeTime-=1*gDeltaTime //60fps change: the binary text changed 2x/4x too fast at 60/120fps
   for(i=0;i<4;i+=1)
   {
     for(ii=0;ii<5;ii+=1)

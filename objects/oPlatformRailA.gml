@@ -82,7 +82,8 @@ if global.gamePaused=false
         }
       }
     }
-    else {turnDelay-=1}
+    //else {turnDelay-=1}
+    else {turnDelay-=1*gDeltaTime} //60fps change: the delay after a turn was half/quarter as long at 60/120fps
   }
 
   if myHP<=0

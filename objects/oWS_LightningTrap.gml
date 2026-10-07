@@ -88,12 +88,18 @@ else if image_angle=270
 
 if bWave=1
 {
-  if image_angle=0 {ballX+=4}
-  else if image_angle=90 {ballY-=4}
-  else if image_angle=180 {ballX-=4}
-  else if image_angle=270 {ballY+=4}
-  ballAngle+=21
+  //if image_angle=0 {ballX+=4}
+  //else if image_angle=90 {ballY-=4}
+  //else if image_angle=180 {ballX-=4}
+  //else if image_angle=270 {ballY+=4}
+  //ballAngle+=21
+  if image_angle=0 {ballX+=4*gDeltaTime} //60fps change: the lightning ball (drawn here every frame) travelled and spun 2x/4x too fast at 60/120fps
+  else if image_angle=90 {ballY-=4*gDeltaTime} //60fps change
+  else if image_angle=180 {ballX-=4*gDeltaTime} //60fps change
+  else if image_angle=270 {ballY+=4*gDeltaTime} //60fps change
+  ballAngle+=21*gDeltaTime //60fps change
   draw_sprite_ext(sWS_LightBall,image_index,ballX,ballY,0.66,0.66,ballAngle,image_blend,image_alpha)
-  ballTime-=1
+  //ballTime-=1
+  ballTime-=1*gDeltaTime //60fps change
   if ballTime<=0 {bWave=0}
 }

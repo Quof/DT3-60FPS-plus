@@ -91,7 +91,8 @@ if isCollisionCharacterBottom(1,0) and bHit=false
     }
   }
   awardAwesome(20)
-  moveAnim=1*gDeltaTime
+  //moveAnim=1*gDeltaTime
+  moveAnim=1 //60fps change: a starting value; scaled, the bump started half/three-quarters of a tick late at 60/120fps
   sprite_index=sMarioBlockHit
   bHit=true
 }

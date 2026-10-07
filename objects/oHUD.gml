@@ -229,7 +229,8 @@ if view_current=0
       //Display air dash icon --------------------------------------------------
       if global.optCentralizeHUD=0
       {
-        if airDashScl>1 {airDashScl-=0.2}
+        //if airDashScl>1 {airDashScl-=0.2}
+        if airDashScl>1 {airDashScl-=0.2*gDeltaTime} //60fps change: the icon pop shrank back 2x/4x too fast at 60/120fps
         if oPlayer1.canAirDash=1 and global.hasShoes[3]=2
         {
           airdashFrm+=0.2*gDeltaTime
@@ -237,7 +238,8 @@ if view_current=0
         }
 
         //Display double jump icon --------------------------------------------------
-        if doubleJumpScl>1 {doubleJumpScl-=0.2}
+        //if doubleJumpScl>1 {doubleJumpScl-=0.2}
+        if doubleJumpScl>1 {doubleJumpScl-=0.2*gDeltaTime} //60fps change: see above
         if global.canDoubleJump=2 and oPlayer1.doubleJumpCheck=1
         {
           draw_sprite_ext(sHUD_DoubleJumpIcon,0,view_xview[0]+152,view_yview[0]+52,doubleJumpScl,doubleJumpScl,0,c_white,1)

@@ -43,7 +43,8 @@ applies_to=self
 */
 if global.gamePaused=false
 {
-  if sprite_index=sG6MovingSpike {image_angle+=15}
+  //if sprite_index=sG6MovingSpike {image_angle+=15}
+  if sprite_index=sG6MovingSpike {image_angle+=15*gDeltaTime} //60fps change: the spike spun 2x/4x too fast at 60/120fps
   x+=moveSpd*cos(degtorad(_direction))*gDeltaTime
   y+=-moveSpd*sin(degtorad(_direction))*gDeltaTime
   if shiftTime>=shiftMax

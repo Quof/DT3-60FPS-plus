@@ -16,11 +16,13 @@ if view_current=0
 {
   if displayFadeTime<=0
   {
-    displayAlpha-=0.04
+    //displayAlpha-=0.04
+    displayAlpha-=0.04*gDeltaTime //60fps change: the enemy life display faded 2x/4x too fast at 60/120fps
     if displayAlpha<=0 {instance_destroy()}
   }
   else
-    displayFadeTime-=1
+    //displayFadeTime-=1
+    displayFadeTime-=1*gDeltaTime //60fps change: and started fading 2x/4x too soon
   if instance_exists(eID)
   {
     displayIndX=view_xview[0]+476

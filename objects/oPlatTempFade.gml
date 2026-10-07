@@ -25,7 +25,8 @@ applies_to=self
 //requires: timeCurr, timeTillOn, timeTillOff
 if global.gamePaused=false
 {
-  if oGame.time mod (2*gDeltaTime)=0
+  //if oGame.time mod (2*gDeltaTime)=0
+  if oGame.time mod (2/gDeltaTime)=0 //60fps change: was 2*gDeltaTime (mod 1 / mod 0.5), so the platforms flickered every frame at 60/120fps
   {
     if image_alpha=1 {image_alpha=0.5}
     else {image_alpha=1}

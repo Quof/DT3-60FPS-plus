@@ -182,7 +182,12 @@ else
 }
 
 //Allows the character to run left and right
-if attackState!=ACT_IN_BIKE and attackState!=ACT_BLOCK and (grappleState=0 or grappleState=1) and bTakingDamage=false
+//if attackState!=ACT_IN_BIKE and attackState!=ACT_BLOCK and (grappleState=0 or grappleState=1) and bTakingDamage=false
+//60fps change: not for the rest of a dash's first 30fps tick (dashTickTime, set by pMoveDashForward/pMoveDashBack/pMoveAirDash).
+//At 30fps this code had already run for that tick before the dash took over; running it again on the next frames added run
+//acceleration and the dash momentum formula to the dash's first tick (Jerry's back dash while holding forward lost 3-4.5px,
+//Claire's turned forward half a tick early and ended up 10-16px off)
+if attackState!=ACT_IN_BIKE and attackState!=ACT_BLOCK and (grappleState=0 or grappleState=1) and bTakingDamage=false and dashTickTime<=0
 {
   if state!=DUCKING and state!=CLIMBING and global.hasShoes[0]=2
   {
@@ -206,7 +211,11 @@ if attackState!=ACT_IN_BIKE and attackState!=ACT_BLOCK and (grappleState=0 or gr
         airDashRecovery=0
         if dashMomentumTime<25 {dashMomentumTime=0}
       }
-      if (kLeftPushedSteps>1 or isCollisionMoveableSolidRight(1)) and (facing=LEFT or approximatelyZero(xVel))
+      //if (kLeftPushedSteps>1 or isCollisionMoveableSolidRight(1)) and (facing=LEFT or approximatelyZero(xVel))
+      //60fps change: >1 started the run 3/4 of a tick early at 120fps (steps 1.25) but half a tick early at 60fps (1.5), which
+      //happens to cancel out pMoveToWrapNew's half-tick lag in speeding up (a run start matches 30fps at 60fps; >=2 would leave
+      //it ~3px behind). >=1.5 uses the 60fps timing at 120fps too (was ~2px ahead). Same as >1 at 30fps
+      if (kLeftPushedSteps>=1.5 or isCollisionMoveableSolidRight(1)) and (facing=LEFT or approximatelyZero(xVel))
       {
         if state=STANDING
         {
@@ -221,21 +230,28 @@ if attackState!=ACT_IN_BIKE and attackState!=ACT_BLOCK and (grappleState=0 or gr
           xAcc-=runAcc
           if platformCharacterIs(IN_AIR) and dashMomentumTime>0
           {
-            xAcc-=(xVel/2.1+(dashMomentumTime/2))
-            xVel=-(dashVel/2.1+(dashMomentumTime/2)); xVelSetTick=1
+            //xAcc-=(xVel/2.1+(dashMomentumTime/2))
+            //xVel=-(dashVel/2.1+(dashMomentumTime/2)); xVelSetTick=1
+            //60fps change: ceil() uses the 30fps tick's value of the counter (it counts down in fractions between ticks)
+            xAcc-=(xVel/2.1+(ceil(dashMomentumTime)/2))
+            xVel=-(dashVel/2.1+(ceil(dashMomentumTime)/2)); xVelSetTick=1 //60fps change
           }
         }
         else //Claire (Forward dash hold)
         {
           xAcc-=runAcc
-          if dashMomentumTime>=1
+          //if dashMomentumTime>=1
+          if dashMomentumTime>0 //60fps change: >=1 dropped the second half of the last momentum tick at 60fps (same as >=1 at 30fps)
           {
             if platformCharacterIs(IN_AIR)
             {
-              xAcc-=(xVel/2.1+(dashMomentumTime/1.95))
-              xVel=-(dashVel/2.1+(dashMomentumTime/1.95)); xVelSetTick=1
+              //xAcc-=(xVel/2.1+(dashMomentumTime/1.95))
+              //xVel=-(dashVel/2.1+(dashMomentumTime/1.95)); xVelSetTick=1
+              xAcc-=(xVel/2.1+(ceil(dashMomentumTime)/1.95)) //60fps change: the 30fps tick's value of the counter
+              xVel=-(dashVel/2.1+(ceil(dashMomentumTime)/1.95)); xVelSetTick=1 //60fps change
             }
-            if kLeftPushedSteps<=1 {dashMomentumTime=0} //3
+            //if kLeftPushedSteps<=1 {dashMomentumTime=0} //3
+            if kLeftPushedSteps<1.5 {dashMomentumTime=0} //3 //60fps change: the counterpart of the >=1.5 run start above
           }
         }
       }
@@ -258,7 +274,8 @@ if attackState!=ACT_IN_BIKE and attackState!=ACT_BLOCK and (grappleState=0 or gr
         airDashRecovery=0
         if dashMomentumTime<25 {dashMomentumTime=0}
       }
-      if (kRightPushedSteps>1 or isCollisionMoveableSolidLeft(1)) and (facing=RIGHT or approximatelyZero(xVel))
+      //if (kRightPushedSteps>1 or isCollisionMoveableSolidLeft(1)) and (facing=RIGHT or approximatelyZero(xVel))
+      if (kRightPushedSteps>=1.5 or isCollisionMoveableSolidLeft(1)) and (facing=RIGHT or approximatelyZero(xVel)) //60fps change: see run left
       {
         if state=STANDING
         {
@@ -274,21 +291,27 @@ if attackState!=ACT_IN_BIKE and attackState!=ACT_BLOCK and (grappleState=0 or gr
           xAcc+=runAcc
           if platformCharacterIs(IN_AIR) and dashMomentumTime>0
           {
-            xAcc+=xVel/2.1+(dashMomentumTime/2)
-            xVel=dashVel/2.1+(dashMomentumTime/2); xVelSetTick=1
+            //xAcc+=xVel/2.1+(dashMomentumTime/2)
+            //xVel=dashVel/2.1+(dashMomentumTime/2); xVelSetTick=1
+            xAcc+=xVel/2.1+(ceil(dashMomentumTime)/2) //60fps change: see run left
+            xVel=dashVel/2.1+(ceil(dashMomentumTime)/2); xVelSetTick=1 //60fps change
           }
         }
         else //Claire (Forward dash hold)
         {
           xAcc+=runAcc
-          if dashMomentumTime>=1
+          //if dashMomentumTime>=1
+          if dashMomentumTime>0 //60fps change: see run left
           {
             if platformCharacterIs(IN_AIR)
             {
-              xAcc+=xVel/2.1+(dashMomentumTime/1.95)
-              xVel=dashVel/2.1+(dashMomentumTime/1.95); xVelSetTick=1
+              //xAcc+=xVel/2.1+(dashMomentumTime/1.95)
+              //xVel=dashVel/2.1+(dashMomentumTime/1.95); xVelSetTick=1
+              xAcc+=xVel/2.1+(ceil(dashMomentumTime)/1.95) //60fps change: see run left
+              xVel=dashVel/2.1+(ceil(dashMomentumTime)/1.95); xVelSetTick=1 //60fps change
             }
-            if kRightPushedSteps<=1 {dashMomentumTime=0} //3
+            //if kRightPushedSteps<=1 {dashMomentumTime=0} //3
+            if kRightPushedSteps<1.5 {dashMomentumTime=0} //3 //60fps change: see run left
           }
         }
       }
@@ -730,7 +753,8 @@ dashBodge = 0
 
 if groundDashRecovery>0 //Continue ground dash - Jerry only
 {
-  if platformCharacterIs(ON_GROUND)
+  //if platformCharacterIs(ON_GROUND)
+  if platformCharacterIs(ON_GROUND) and gDeltaDoTicks //60fps change: one smoke cloud per 30fps tick (was 2x/4x at 60/120fps)
   {
     var tEffect;
     tEffect=instance_create(oPlayer1.x,oPlayer1.y+1,oEffect)
@@ -739,13 +763,17 @@ if groundDashRecovery>0 //Continue ground dash - Jerry only
     tEffect.image_speed=0.5+(groundDashRecovery/25); tEffect.ySpd=-1.8+(groundDashRecovery/8)
     tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0
   }
+  //60fps change (added): rest of the dash's first 30fps tick: keep the dash frame's acceleration (the run code is skipped,
+  //see above). At 30fps this is the same value
+  if dashTickTime>0 {xAcc=dashTickXAcc}
   groundDashRecovery-=1*gDeltaTime
   if facing=RIGHT {xVel=(dashVel+dashBodge+1); xVelSetTick=1}
   else if facing=LEFT {xVel=-(dashVel+dashBodge+1); xVelSetTick=1}
 }
 if backDashRecovery>0 //Continue ground dash - Jerry only
 {
-  if platformCharacterIs(ON_GROUND)
+  //if platformCharacterIs(ON_GROUND)
+  if platformCharacterIs(ON_GROUND) and gDeltaDoTicks //60fps change: see above
   {
     var tEffect;
     tEffect=instance_create(oPlayer1.x,oPlayer1.y+1,oEffect)
@@ -754,6 +782,7 @@ if backDashRecovery>0 //Continue ground dash - Jerry only
     tEffect.image_speed=0.5+(backDashRecovery/25); tEffect.ySpd=-1.8+(backDashRecovery/8)
     tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0
   }
+  if dashTickTime>0 {xAcc=dashTickXAcc} //60fps change (added): see above
   backDashRecovery-=1*gDeltaTime
   if facing=RIGHT {xVel=-(dashVel+dashBodge+1); xVelSetTick=1}
   else if facing=LEFT {xVel=(dashVel+dashBodge+1); xVelSetTick=1}
@@ -780,12 +809,14 @@ if airDashRecovery>0 //Continue air dash
     if tAirDashTick=airDashDJTick {yVel+=airDashDJKick}
     else {airDashDJKick=0}
   }
+  if dashTickTime>0 {xAcc=dashTickXAcc} //60fps change (added): see groundDashRecovery
   if facing=RIGHT {xVel=(dashVel+dashBodge/2-1); xVelSetTick=1}
   else if facing=LEFT {xVel=-(dashVel+dashBodge/2-1); xVelSetTick=1}
 }
 
 if mobilityDisable>0 {mobilityDisable-=gDeltaTime} //Double jump / Air-dash disable after split party character swap
 if dashMomentumTime>0 {dashMomentumTime-=gDeltaTime} //Dash momentum
+if dashTickTime>0 {dashTickTime-=gDeltaTime} //60fps change (added): dash's first 30fps tick (see the run code)
 if doubleJumpAnim>0 {doubleJumpAnim-=gDeltaTime} //Double jump animation
 
 if jumpTime<jumpTimeTotal {jumpTime+=gDeltaTime}
@@ -1072,7 +1103,12 @@ else
     else if flySpeed>50 {xFric=frictionRunningFastX}
     else if platformCharacterIs(IN_AIR) and kLeft=0 and kRight=0 //In air
     {
-      if dashMomentumTime>0
+      //These counters were just counted down for this frame, so between 30fps ticks they hold fractions: compare against the
+      //next whole number (e.g. >=20 instead of >19) so each friction lasts exactly as many 30fps ticks as at 30fps.
+      //With >19/>0 the dash friction ran on for an extra 1/2 (60fps) or 3/4 (120fps) tick: ground dashes went ~4px (60fps)
+      //or ~5px (120fps) further
+      //if dashMomentumTime>0
+      if dashMomentumTime>=1 //60fps change
       {
         if global.activeCharacter=0 {xFric=0.965}
         else {xFric=0.96}
@@ -1083,16 +1119,19 @@ else
     {
       if global.activeCharacter=0
       {
-        if dashMomentumTime>19 {xFric=0.965}
+        //if dashMomentumTime>19 {xFric=0.965}
+        if dashMomentumTime>=20 {xFric=0.965} //60fps change: see above
         else
         {
-          if groundDashRecovery>0 or backDashRecovery>0 {xFric=0.9}
+          //if groundDashRecovery>0 or backDashRecovery>0 {xFric=0.9}
+          if groundDashRecovery>=1 or backDashRecovery>=1 {xFric=0.9} //60fps change: see above
           else {xFric=frictionRunningX}
         }
       }
       else
       {
-        if dashMomentumTime>20 {xFric=0.96}
+        //if dashMomentumTime>20 {xFric=0.96}
+        if dashMomentumTime>=21 {xFric=0.96} //60fps change: see above
         else {xFric=frictionRunningX}
       }
     }
@@ -1241,7 +1280,8 @@ else if grappleState=2 //Player is being pulled toward grapple point
 {
   if instance_exists(grappleID)
   {
-    if oMMXstrikeChain.extend>12 {oMMXstrikeChain.extend-=12}
+    //if oMMXstrikeChain.extend>12 {oMMXstrikeChain.extend-=12}
+    if oMMXstrikeChain.extend>12 {oMMXstrikeChain.extend-=12*gDeltaTime} //60fps change: the chain shortened 2x/4x faster than the player is pulled along it at 60/120fps
     var tGrpDist,tGrpDir,tGrpX;
     tGrpX=7*image_xscale
     tGrpDir=point_direction(x+tGrpX,0,grappleID.x,0)

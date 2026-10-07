@@ -83,3 +83,6 @@ else
 //"variable jumping" states
 jumpButtonReleased=0
 jumpTime=0
+
+//60fps change (added): see pMoveDashForward
+dashTickTime=1; dashTickXAcc=xAcc

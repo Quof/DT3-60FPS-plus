@@ -17,7 +17,8 @@ if global.gamePaused=false
 {
   if bouncePlayerTime>0
   {
-    oPlayer1.yVel=-14
+    //oPlayer1.yVel=-14
+    oPlayer1.yVel=-14; oPlayer1.yVelSetExt=1 //60fps change: velocity set every frame, use the 30fps formula (pMoveToWrapNew), like oBegoniaFan
     bouncePlayerTime-=1*gDeltaTime
   }
   yVel=scrGravAcc(yVel,0.3,1)

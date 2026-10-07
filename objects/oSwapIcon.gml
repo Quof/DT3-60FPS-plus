@@ -16,7 +16,8 @@ applies_to=self
 */
 if waitTime=0
 {
-  xPos+=20
+  //xPos+=20
+  xPos+=20*gDeltaTime //60fps change: the swap icon slid in 2x/4x too fast at 60/120fps
   if xPos=0
     waitTime+=1
 }
@@ -33,7 +34,8 @@ else if waitTime>=100
     instance_destroy()
 }
 
-if xPos!=0
+//if xPos!=0
+if xPos!=0 and gDeltaDoTicks //60fps change: one afterimage per 30fps tick (per frame was 2x/4x as many at 60/120fps)
 {
   afterImage=instance_create(view_xview[0]+256+xPos,view_yview[0]+192,oSceneAfterImage)
   afterImage.image_alpha=0.6

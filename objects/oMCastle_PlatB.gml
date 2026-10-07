@@ -21,8 +21,10 @@ applies_to=self
 if global.gamePaused=false
 {
   if image_xscale<1 {image_xscale+=0.2*gDeltaTime; image_yscale+=0.2*gDeltaTime}
-  distToGo-=1
-  if distToGo<=30 {myColor-=7}
+  //distToGo-=1
+  //if distToGo<=30 {myColor-=7}
+  distToGo-=1*gDeltaTime //60fps change: the platforms vanished after half/quarter the distance at 60/120fps
+  if distToGo<=30 {myColor-=7*gDeltaTime} //60fps change
   if distToGo<=0 {instance_destroy()}
 }
 #define Draw_0

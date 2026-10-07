@@ -92,8 +92,10 @@ else if sceneProgress=2
   }
   else if sceneDelay>=271
   {
-    if musVolC>=7500 {musVolC-=50}
-    else {musVolC-=400}
+    //if musVolC>=7500 {musVolC-=50}
+    //else {musVolC-=400}
+    if musVolC>=7500 {musVolC-=50*gDeltaTime} //60fps change: per-frame music fade, so it faded 2x/4x too fast at 60/120fps
+    else {musVolC-=400*gDeltaTime} //60fps change
     SS_SetSoundVol(musFileP,musVolC)
     if musVolC<=0
     {

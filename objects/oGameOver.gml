@@ -516,7 +516,8 @@ else //Normal
 {
   if global.optBitrateExplosion=1 and checkQuickGO=0 //No static
   {
-    noStaticTime+=1
+    //noStaticTime+=1
+    noStaticTime+=1*gDeltaTime //60fps change: this timer ran 2x/4x too fast at 60/120fps
     if noStaticTime=2
     {
       background_alpha[7]=0
@@ -536,7 +537,8 @@ else //Normal
   {
     if staticEffect>=2 //fade to black
     {
-      staticEffect+=1
+      //staticEffect+=1
+      staticEffect+=1*gDeltaTime //60fps change: the fade to black after the static ran 2x/4x too fast at 60/120fps
       if staticEffect=3
       {
         background_alpha[7]=0
@@ -558,7 +560,8 @@ else //Normal
 
   if showOptions>0 and useCommands=false //Start options
   {
-    showOptions+=1
+    //showOptions+=1
+    showOptions+=1*gDeltaTime //60fps change: the menu came up 2x/4x too fast at 60/120fps
     if showOptions=2 {playSound(global.snd_Continue,0,1,1)}
     if showOptions=5
     {

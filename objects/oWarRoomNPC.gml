@@ -218,7 +218,8 @@ if global.gamePaused=false
     else if npcTime>=16 and npcTime<=30 {barrierAlpha+=0.025*gDeltaTime}
     else if npcTime>=201 and npcTime<=299
     {
-      barrierAlpha-=0.01
+      //barrierAlpha-=0.01
+      barrierAlpha-=0.01*gDeltaTime //60fps change: Ristar's barrier faded 2x/4x too fast (so it protected for half/quarter as long) at 60/120fps
       if barrierAlpha<=0 {npcTime=300}
     }
     else if npcTime>=301 and npcTime<=320
@@ -314,6 +315,7 @@ if type=5 and npcTime>=15 //Ristar barrier
   draw_set_alpha(0.15)
   draw_set_color(c_blue)
   draw_line(x,y-12,oPlayer1.x,returnPlayerYCenter())
-  barrierFrm+=0.25
+  //barrierFrm+=0.25
+  barrierFrm+=0.25*gDeltaTime //60fps change: the barrier animated 2x/4x too fast at 60/120fps
   draw_sprite_ext(sWaterBarrier,barrierFrm,oPlayer1.x,returnPlayerYCenter(),1.25,1.25,0,c_white,barrierAlpha)
 }

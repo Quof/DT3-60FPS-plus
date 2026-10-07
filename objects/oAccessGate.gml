@@ -117,7 +117,8 @@ if image_blend!=c_white
 
     if heartRec=100 //Gate H
     {
-      if oGame.time mod 2=0 {gateH_HeartEffect=irandom_range(1,20)}
+      //if oGame.time mod 2=0 {gateH_HeartEffect=irandom_range(1,20)}
+      if oGame.time mod (2/gDeltaTime)=0 {gateH_HeartEffect=irandom_range(1,20)} //60fps change: oGame.time counts frames, so the Gate H hearts flickered 2x/4x too fast at 60/120fps
       for(i=0;i<gateH_HeartEffect;i+=1)
       {
         if i<10

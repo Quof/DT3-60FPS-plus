@@ -28,7 +28,8 @@ if global.gamePaused=false
   {
     if global.shroudThreat>=1000
     {
-      spawnTime+=1
+      //spawnTime+=1
+      spawnTime+=1*gDeltaTime //60fps change: the Shroud warnings and spawns came 2x/4x too soon at 60/120fps
       if spawnTime>=15
       {
         spawnTime=0
@@ -55,7 +56,8 @@ if global.gamePaused=false
   }
   else if shroudProg=1
   {
-    spawnTime+=1
+    //spawnTime+=1
+    spawnTime+=1*gDeltaTime //60fps change
     if spawnTime>=120
       shroudProg=2
   }
@@ -103,7 +105,8 @@ if global.gamePaused=false
   {
     if global.gameProgress>=195 //Blazing
     {
-      blazingTime+=1
+      //blazingTime+=1
+      blazingTime+=1*gDeltaTime //60fps change: the Blazing Bat assist arrived 2x/4x too soon at 60/120fps
       if blazingTime=180
         blazingBat=instance_create(x,y,oBlazingAssist)
     }
