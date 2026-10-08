@@ -779,7 +779,8 @@ else if global.gameProgress=2120 and room=rMain_39 //----- [Unskippable] What is
     {
       oPlayer1.image_xscale=-1
       global.gamePaused=true
-      musVolC=global.optMusic*100
+      //musVolC=global.optMusic*100
+      musVolC=scrMusicVolume(global.currentMusicGain) //remastered music change: starts from the volume the music is at (scrMusicVolume), not the old formula's, so the volume doesn't jump when the fade starts
       musFileP=findMusic(10)
     }
     else if sceneDelay>=10
@@ -871,7 +872,8 @@ else if global.gameProgress=2140 and room=rMain_39Vault //----- [Unskippable] St
     sceneDelay+=1*gDeltaTime
     if sceneDelay=1*gDeltaTime
     {
-      musVolC=global.optMusic*100
+      //musVolC=global.optMusic*100
+      musVolC=scrMusicVolume(global.currentMusicGain) //remastered music change: starts from the volume the music is at (scrMusicVolume), not the old formula's, so the volume doesn't jump when the fade starts
       musFileP=findMusic(202)
       oPlayer1.x=336; oPlayer1.image_xscale=-1
       global.gamePaused=true
@@ -1220,7 +1222,8 @@ else if room=rMain_39Vault
       var tDistToVault,tNewVol;
       tDistToVault=point_distance(oPlayer1.x,oPlayer1.y-26,oVaultGate.x+32,oVaultGate.y+32)
       tNewVol=5000-(tDistToVault*20)
-      musVolC=(global.optMusic*100)-tNewVol
+      //musVolC=(global.optMusic*100)-tNewVol
+      musVolC=scrMusicVolume(global.currentMusicGain)-tNewVol //remastered music change: from the volume the music plays at (scrMusicVolume), not the old formula's
       SS_SetSoundVol(musFileP,musVolC)
     }
   }

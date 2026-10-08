@@ -23,7 +23,8 @@ if global.bossTrack=1 //Boss Fight: Advanced Combat Apparatus
 }
 else
 {
-  SS_SetSoundVol(global.msc_WeaponFacility,global.optMusic*100)
+  //SS_SetSoundVol(global.msc_WeaponFacility,global.optMusic*100)
+  SS_SetSoundVol(global.msc_WeaponFacility,scrMusicVolume(getReplayGain(22))) //remastered music change: the volume playMusic gives DT_WeaponFacility (22) (scrMusicVolume), not the old formula's
   var tempMplay;
   tempMplay=findMusic(22)
 }

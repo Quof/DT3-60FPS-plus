@@ -246,6 +246,7 @@ global.newMapY=336               //where to place the player on a new map
 global.currentBoss=""            //the current boss battle in progress
 global.bossTrack=0               //used for continuing in boss fights
 global.currentMusic=0            //current music playing
+global.currentMusicGain=0        //remastered music change (added): its loudness adjustment in dB (getReplayGain, set by findMusic; playMusic reads it)
 global.rbSwitchBlueOn=false      //which switch color is active
 global.wpWaterLevel=368          //water levels in the Water Palace in Gate 2
 global.wpWaterLEntry=368         //the water level in Water Palace on map entry

@@ -72,7 +72,8 @@ event_user(0)
 if locCheck>0 {titleLocation=locationCheck(locCheck)}
 else {titleLocation=""}
 
-SS_LoopSound(global.msc_TitleMenu); SS_SetSoundVol(global.msc_TitleMenu,global.optMusic*100)
+//SS_LoopSound(global.msc_TitleMenu); SS_SetSoundVol(global.msc_TitleMenu,global.optMusic*100)
+SS_LoopSound(global.msc_TitleMenu); SS_SetSoundVol(global.msc_TitleMenu,scrMusicVolume(getReplayGain(9000))) //remastered music change: the same volume as the rest of the music (scrMusicVolume), with the title music's own loudness adjustment
 window_set_size(480*global.optWindowSize,352*global.optWindowSize)
 window_center()
 

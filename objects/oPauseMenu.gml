@@ -1078,14 +1078,16 @@ else if subMenu=7 //---------- OPTIONS ----------
           global.optMusic-=1
           if titleMode=1 //title options change (added): the title music isn't global.currentMusic, and findMusic(0) stops all music
           {
-            if global.optMusic>0 {SS_SetSoundVol(global.msc_TitleMenu,global.optMusic*100)}
+            //if global.optMusic>0 {SS_SetSoundVol(global.msc_TitleMenu,global.optMusic*100)}
+            if global.optMusic>0 {SS_SetSoundVol(global.msc_TitleMenu,scrMusicVolume(getReplayGain(9000)))} //remastered music change: the same volume as the rest of the music (scrMusicVolume), with the title music's own loudness adjustment
             else {SS_StopSound(global.msc_TitleMenu)}
           }
           else
           {
           var tempMplay;
           tempMplay=findMusic(global.currentMusic)
-          SS_SetSoundVol(tempMplay,global.optMusic*100)
+          //SS_SetSoundVol(tempMplay,global.optMusic*100)
+          SS_SetSoundVol(tempMplay,scrMusicVolume(global.currentMusicGain)) //remastered music change: the volume playMusic gives it (scrMusicVolume), not the old formula's
           if global.optMusic=0 {stopAllMusic()}
           }
         }
@@ -1192,7 +1194,8 @@ else if subMenu=7 //---------- OPTIONS ----------
           {
             global.optMusic+=1
             if !SS_IsSoundLooping(global.msc_TitleMenu) {SS_LoopSound(global.msc_TitleMenu)}
-            SS_SetSoundVol(global.msc_TitleMenu,global.optMusic*100)
+            //SS_SetSoundVol(global.msc_TitleMenu,global.optMusic*100)
+            SS_SetSoundVol(global.msc_TitleMenu,scrMusicVolume(getReplayGain(9000))) //remastered music change: the same volume as the rest of the music (scrMusicVolume), with the title music's own loudness adjustment
           }
           else
           {
@@ -1201,7 +1204,8 @@ else if subMenu=7 //---------- OPTIONS ----------
           tempMplay=findMusic(global.currentMusic)
           global.optMusic+=1
           if prevVol=0 {playMusic(tempMplay,0,0)}
-          SS_SetSoundVol(tempMplay,global.optMusic*100)
+          //SS_SetSoundVol(tempMplay,global.optMusic*100)
+          SS_SetSoundVol(tempMplay,scrMusicVolume(global.currentMusicGain)) //remastered music change: the volume playMusic gives it (scrMusicVolume), not the old formula's
           }
         }
       }
@@ -1561,7 +1565,8 @@ else if subMenu=7 //---------- OPTIONS ----------
           {
             global.optMusic=100
             if !SS_IsSoundLooping(global.msc_TitleMenu) {SS_LoopSound(global.msc_TitleMenu)}
-            SS_SetSoundVol(global.msc_TitleMenu,global.optMusic*100)
+            //SS_SetSoundVol(global.msc_TitleMenu,global.optMusic*100)
+            SS_SetSoundVol(global.msc_TitleMenu,scrMusicVolume(getReplayGain(9000))) //remastered music change: the same volume as the rest of the music (scrMusicVolume), with the title music's own loudness adjustment
           }
           else
           {

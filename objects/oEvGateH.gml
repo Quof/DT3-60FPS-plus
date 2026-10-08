@@ -239,7 +239,8 @@ if global.gamePaused=false
     if motherTime=10
     {
       if global.gateHProg<30 {playSound(global.snd_VO_GH_01,0,1,1)}
-      musicChangeVol=global.optMusic*100
+      //musicChangeVol=global.optMusic*100
+      musicChangeVol=scrMusicVolume(global.currentMusicGain) //remastered music change: starts from the volume the music is at (scrMusicVolume), not the old formula's, so the volume doesn't jump when the fade starts
       musicLoadCheck=findMusic(906)
     }
     else if motherTime>=11 and motherTime<=99
@@ -263,8 +264,10 @@ if global.gamePaused=false
       //musicChangeVol+=250
       musicChangeVol+=250*gDeltaTime //60fps change: per-frame music fade-in, so it came back 2x/4x too fast at 60/120fps
       SS_SetSoundVol(musicLoadCheck,musicChangeVol)
-      if musicChangeVol>=global.optMusic*100
+      //if musicChangeVol>=global.optMusic*100
+      if musicChangeVol>=scrMusicVolume(global.currentMusicGain) //remastered music change: fades in to the volume playMusic would give it (scrMusicVolume), not the old formula's
       {
+        musicChangeVol=scrMusicVolume(global.currentMusicGain); SS_SetSoundVol(musicLoadCheck,musicChangeVol) //remastered music change (added): ends on that volume (the last step could go up to 2.5dB past it)
         motherTime=0
         global.tempAction[0]=2
       }

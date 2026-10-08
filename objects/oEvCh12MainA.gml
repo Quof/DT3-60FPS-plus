@@ -111,7 +111,8 @@ else if global.gameProgress=2620 and room=rMain_47 //----- [3] Boss Fight: Vault
       sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
-        musVolC=global.optMusic*100
+        //musVolC=global.optMusic*100
+        musVolC=scrMusicVolume(global.currentMusicGain) //remastered music change: starts from the volume the music is at (scrMusicVolume), not the old formula's, so the volume doesn't jump when the fade starts
         musFileP=findMusic(13)
       }
       else if sceneDelay>=2

@@ -877,7 +877,8 @@ else if global.gameProgress=4090 and room=rHPF_U //----- [Unskippable] Boss Figh
           msgCreate(0,0,"Sera","No, it will not infect me! I will fight this!",6,1,oMessagePerson,0)
           newMessage.fadingTime=70
         }
-        else if sceneDelay=149 {musicFade=global.optMusic*100}
+        //else if sceneDelay=149 {musicFade=global.optMusic*100}
+        else if sceneDelay=149 {musicFade=scrMusicVolume(global.currentMusicGain)} //remastered music change: the counter starts at the volume the music is at (scrMusicVolume), not the old formula's, so the fade ends where it was meant to
         else if sceneDelay>=150
         {
           //musicFade-=30

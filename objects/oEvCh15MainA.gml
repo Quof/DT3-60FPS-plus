@@ -58,7 +58,8 @@ else if room=rGame6_WindI
 {
   if global.gameProgress=3620
   {
-    musicFade=global.optMusic*100
+    //musicFade=global.optMusic*100
+    musicFade=scrMusicVolume(getReplayGain(605)) //remastered music change: the counter starts at the volume DT_RPGElementsA (605) plays at (scrMusicVolume), not the old formula's, so the fade ends where it was meant to
   }
 }
 else if room=rGame6_DreamWoodsA
@@ -105,7 +106,8 @@ else if room=rGame6_CoDU
   {
     fadeColor=c_black
     fadeAlpha=1
-    musicFade=global.optMusic*100
+    //musicFade=global.optMusic*100
+    musicFade=scrMusicVolume(getReplayGain(604)) //remastered music change: the counter starts at the volume DT_RPGDoomCastle (604) plays at (scrMusicVolume), not the old formula's, so the fade ends where it was meant to
     oHUD.visible=0
   }
 }
@@ -3377,7 +3379,8 @@ else if global.gameProgress=3860 and room=rGame6_CoDU //----- [Unskippable] Intr
     }
     if sceneDelay=30
     {
-      musicFade=global.optMusic*100
+      //musicFade=global.optMusic*100
+      musicFade=scrMusicVolume(getReplayGain(1011)) //remastered music change: the counter starts at the volume DT_MasterPlan (1011) plays at (scrMusicVolume), not the old formula's, so the fade ends where it was meant to
       var tempMplay;
       tempMplay=findMusic(1011)
       playMusic(tempMplay,0,0)
@@ -3471,7 +3474,8 @@ else if global.gameProgress=3860 and room=rGame6_CoDU //----- [Unskippable] Intr
       tempMplay=findMusic(1012)
       playMusic(tempMplay,0,0)
       fadeVolume(global.msc_Trivia,1500)*/
-      musicFade=(global.optMusic*100)
+      //musicFade=(global.optMusic*100)
+      musicFade=scrMusicVolume(getReplayGain(1012)) //remastered music change: the counter starts at the volume DT_Trivia (1012) plays at (scrMusicVolume), not the old formula's, so the fade ends where it was meant to
       var tempMplay;
       tempMplay=findMusic(1012)
       playMusic(tempMplay,0,0)

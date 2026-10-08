@@ -59,7 +59,8 @@ else if room=rNGC_LC_C
 {
   if global.gameProgress=3230
   {
-    musicFade=global.optMusic*100
+    //musicFade=global.optMusic*100
+    musicFade=scrMusicVolume(getReplayGain(16)) //remastered music change: the counter starts at the volume DT_NGCLowerChamber (16) plays at (scrMusicVolume), not the old formula's, so the fade ends where it was meant to
     fadeColor=c_black
     fadeAlpha=0.4
   }

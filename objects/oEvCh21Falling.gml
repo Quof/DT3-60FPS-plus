@@ -613,7 +613,8 @@ else if global.gameProgress=5520 //Falling minigame
       sceneDelay+=1*gDeltaTime
       if sceneDelay=30
       {
-        musVolC=global.optMusic*100
+        //musVolC=global.optMusic*100
+        musVolC=scrMusicVolume(global.currentMusicGain) //remastered music change: starts from the volume the music is at (scrMusicVolume), not the old formula's, so the volume doesn't jump when the fade starts
         musFileP=findMusic(1025)
       }
       else if sceneDelay>=31 and sceneDelay<=499

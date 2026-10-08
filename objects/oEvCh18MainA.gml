@@ -55,12 +55,14 @@ else if global.gameProgress=4460 and room=rLowFacR
 {
   blendCol=0
   bMusicFade=0
-  musicFade=global.optMusic*100
+  //musicFade=global.optMusic*100
+  musicFade=scrMusicVolume(getReplayGain(22)) //remastered music change: the counter starts at the volume DT_WeaponFacility (22) plays at (scrMusicVolume), not the old formula's, so the fade ends where it was meant to
 }
 else if global.gameProgress=4470 and room=rLowFacS
 {
   bMusicFade=0
-  musicFade=global.optMusic*100
+  //musicFade=global.optMusic*100
+  musicFade=scrMusicVolume(getReplayGain(22)) //remastered music change: the counter starts at the volume DT_WeaponFacility (22) plays at (scrMusicVolume), not the old formula's, so the fade ends where it was meant to
   warshipProg=0
   backSoundLoop=0
   firePillarX=0
@@ -70,7 +72,8 @@ else if room=rLowFacCutA
   fadeColor=c_black
   fadeAlpha=1
   oPlayer1.visible=0
-  musicFade=global.optMusic*100
+  //musicFade=global.optMusic*100
+  musicFade=scrMusicVolume(getReplayGain(1002)) //remastered music change: the counter starts at the volume DT_IFB (1002) plays at (scrMusicVolume), not the old formula's, so the fade ends where it was meant to
   fadeAmt=10
   backSoundLoop=0
 }

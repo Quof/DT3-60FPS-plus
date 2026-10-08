@@ -495,7 +495,8 @@ else if global.gameProgress=5380 and room=rWarshipZ_EscapeD //----- [] Claire wa
     sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
-      musVolC=global.optMusic*100
+      //musVolC=global.optMusic*100
+      musVolC=scrMusicVolume(global.currentMusicGain) //remastered music change: starts from the volume the music is at (scrMusicVolume), not the old formula's, so the volume doesn't jump when the fade starts
       musFileP=findMusic(1020)
     }
     else if sceneDelay>=2

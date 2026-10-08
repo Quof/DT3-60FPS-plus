@@ -533,7 +533,8 @@ else if room=rTrueEnd_B //------------------------------ [] End B --------------
     sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
-      musVolC=global.optMusic*100
+      //musVolC=global.optMusic*100
+      musVolC=scrMusicVolume(global.currentMusicGain) //remastered music change: starts from the volume the music is at (scrMusicVolume), not the old formula's, so the volume doesn't jump when the fade starts
       musFileP=findMusic(1027)
     }
     if sceneDelay>=10 and sceneDelay<=99

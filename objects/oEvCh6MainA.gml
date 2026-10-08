@@ -1119,11 +1119,11 @@ else if global.gameProgress=1370 and room=rBelmont3_4H //----- [9] After grabbin
   else if sceneProgress=10 and bWaitForInput=false
     msgCreate(0,0,"Jeremy","I'm sure there was somewhere you couldn't go before in the Castle Courtyard area. Oh and one other thing... This ability is not tied to the Gate, you can leave and you'll still have it.",0,3,oMessageCutscene,1)
   else if sceneProgress=11 and bWaitForInput=false
-    msgCreate(0,0,"Jeremy","There's a few things I want to note about the dash. The first is that there are two different dashes.#To dash forward, press [Jump] while holding [Up].#To dash back, press [Jump] while holding [Down].",0,3,oMessageCutscene,1)
+    msgCreate(0,0,"Jeremy","There's a few things I want to note about the dash. The first is that there are two different dashes.#To dash forward, press the dash button while moving.#To dash back, press the dash button while standing still.#There's also a dedicated Dash Back button you can bind.",0,3,oMessageCutscene,1)
   else if sceneProgress=12 and bWaitForInput=false
-    msgCreate(0,0,"Jeremy",string("You can also dash by simply pressing [") +string(global.ctrlDashRight) +string("] or [") +string(global.ctrlDashLeft) +string("]. In the Options submenu, there is an entry titled 'Right is Forward'. When this is on, which it is by default, [") +string(global.ctrlDashRight) +string("] will always dash forward, regardless of facing direction, and [") +string(global.ctrlDashLeft) +string("] is always back."),0,3,oMessageCutscene,1)
+    msgCreate(0,0,"Jeremy",string("There is also a setting in the menu called Left/Right dashing. When this is on, [") +string(global.ctrlDashRight) +string("] will always dash right, regardless of facing direction, and [") +string(global.ctrlDashLeft) +string("] is always left."),0,3,oMessageCutscene,1)
   else if sceneProgress=13 and bWaitForInput=false
-    msgCreate(0,0,"Jeremy",string("When it is off, [") +string(global.ctrlDashRight) +string("] always dashes you right, while [") +string(global.ctrlDashLeft) +string("] always dashes your left. Play whichever way you're more comfortable with. You can also turn off Up/Down from executing the dash by turning off 'D-Pad Dash'."),0,3,oMessageCutscene,1)
+    msgCreate(0,0,"Jeremy",string("Play whichever way you're more comfortable with. There are more niche dash settings hidden by default that can be turned on in the menu if you know where to look. "),0,3,oMessageCutscene,1)
   else if sceneProgress=14 and bWaitForInput=false
     msgCreate(0,0,"Jeremy","Just try it all for yourself in this room, you'll see how it works. You have infinite dash energy in this room for some reason.",0,3,oMessageCutscene,1)
   else if sceneProgress=15
@@ -1429,7 +1429,8 @@ else if room=rBelmont3_6G //----- [] Break barrier door -----
   {
     if sceneProgress=0 and oPlayer1.x>=448
     {
-      musVolC=global.optMusic*100
+      //musVolC=global.optMusic*100
+      musVolC=scrMusicVolume(global.currentMusicGain) //remastered music change: starts from the volume the music is at (scrMusicVolume), not the old formula's, so the volume doesn't jump when the fade starts
       musFileP=findMusic(306)
       sceneProgress+=1
     }

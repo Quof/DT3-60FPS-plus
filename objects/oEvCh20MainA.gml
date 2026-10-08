@@ -1163,7 +1163,8 @@ else if global.gameProgress=5305 and room=rWarshipZ_E2 //----- [Final Boss Fight
       sceneDelay+=1*gDeltaTime
       if sceneDelay=30
       {
-        musVolC=global.optMusic*100
+        //musVolC=global.optMusic*100
+        musVolC=scrMusicVolume(global.currentMusicGain) //remastered music change: starts from the volume the music is at (scrMusicVolume), not the old formula's, so the volume doesn't jump when the fade starts
         musFileP=findMusic(1016)
       }
       else if sceneDelay>=31 and sceneDelay<=499
@@ -1276,7 +1277,8 @@ else if global.gameProgress=5305 and room=rWarshipZ_E2 //----- [Final Boss Fight
       sceneDelay+=1*gDeltaTime
       if sceneDelay=30
       {
-        musVolC=global.optMusic*100
+        //musVolC=global.optMusic*100
+        musVolC=scrMusicVolume(global.currentMusicGain) //remastered music change: starts from the volume the music is at (scrMusicVolume), not the old formula's, so the volume doesn't jump when the fade starts
         musFileP=findMusic(1022)
       }
       else if sceneDelay>=31 and sceneDelay<=499

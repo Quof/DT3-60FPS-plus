@@ -1353,7 +1353,8 @@ else if global.gameProgress=2420 and room=rVault_13 //----- [] Boss Fight: Hex -
       sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
-        musVolC=global.optMusic*100
+        //musVolC=global.optMusic*100
+        musVolC=scrMusicVolume(global.currentMusicGain) //remastered music change: starts from the volume the music is at (scrMusicVolume), not the old formula's, so the volume doesn't jump when the fade starts
         musFileP=findMusic(11)
       }
       else if sceneDelay>=2
@@ -1431,7 +1432,8 @@ else if global.gameProgress=2420 and room=rVault_13 //----- [] Boss Fight: Hex -
       sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
-        musVolC=global.optMusic*100
+        //musVolC=global.optMusic*100
+        musVolC=scrMusicVolume(global.currentMusicGain) //remastered music change: starts from the volume the music is at (scrMusicVolume), not the old formula's, so the volume doesn't jump when the fade starts
         musFileP=findMusic(1001)
       }
       else if sceneDelay>=2
@@ -1482,7 +1484,8 @@ else if global.gameProgress=2420 and room=rVault_13 //----- [] Boss Fight: Hex -
       sceneDelay+=1*gDeltaTime
       if sceneDelay=1
       {
-        musVolC=global.optMusic*100
+        //musVolC=global.optMusic*100
+        musVolC=scrMusicVolume(global.currentMusicGain) //remastered music change: starts from the volume the music is at (scrMusicVolume), not the old formula's, so the volume doesn't jump when the fade starts
         musFileP=findMusic(807)
       }
       else if sceneDelay>=2
@@ -1827,7 +1830,8 @@ else if global.gameProgress=2450 and room=rVault_15 //----- [8] Jeremy & Chao re
     sceneDelay+=1*gDeltaTime
     if sceneDelay=1
     {
-      musVolC=global.optMusic*100
+      //musVolC=global.optMusic*100
+      musVolC=scrMusicVolume(global.currentMusicGain) //remastered music change: starts from the volume the music is at (scrMusicVolume), not the old formula's, so the volume doesn't jump when the fade starts
       musFileP=findMusic(1003)
     }
     else if sceneDelay>=2
