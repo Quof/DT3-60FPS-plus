@@ -38,6 +38,8 @@ for(i=1;i<=16;i+=1) //gamepad change: + 15/16, menu Confirm/Back (scrController)
 }
 //key carry change (added): note which left/right keys are held, for the screen transition carry (scrKeyCarry)
 scrKeyCarry(0)
+//quick restart change (added): Quick Restart's buttons (U + I, L1 + R1), every frame so a press is caught once
+scrQuickRestartInput()
 #define Step_1
 /*"/*'/**//* YYD ACTION
 lib_id=1

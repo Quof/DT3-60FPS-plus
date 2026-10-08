@@ -25,6 +25,16 @@ if tKey >= 97 and tKey <= 122
     tKey -= 32;
 }
 
+/*
+quick restart change (added): U and I held through a Quick Restart don't count until they're let go and pressed again
+(the player made after the restart would see them as just pressed: Swap Character/Ability Set by default).
+scrQuickRestartInput lets go of the lock.
+*/
+if (tKey = 85 and global.qrLockU = 1) or (tKey = 73 and global.qrLockI = 1)
+{
+    return 0;
+}
+
 if global.comparisonInputEnabled = 1
 {
     return external_call(global.globalKeyIsDown, tKey);

@@ -73,6 +73,10 @@ ini_write_string(sectionWrite,"309",global.ctrlActB)
 ini_write_string(sectionWrite,"310",global.ctrlActC)
 ini_write_string(sectionWrite,"311",global.ctrlDashLeft)
 ini_write_string(sectionWrite,"312",global.ctrlDashRight)
+ini_write_string(sectionWrite,"313",global.ctrlConfirm) //controls change (added)
+ini_write_string(sectionWrite,"314",global.ctrlCancel) //controls change (added)
+ini_write_string(sectionWrite,"315",global.ctrlPause) //controls change (added)
+ini_write_string(sectionWrite,"316",global.ctrlSkip) //controls change (added)
 
 //dipswitch change (added): the remaster's dipswitches (see remasterSwitchList)
 var i;
@@ -80,10 +84,11 @@ remasterSwitchList()
 for(i=0;i<global.dsCount;i+=1) {ini_write_real(sectionWrite,global.dsKey[i],variable_global_get(global.dsVar[i]))}
 
 //gamepad change (added): gamepad controls (see loadOptions)
-for(i=1;i<=14;i+=1)
-{
-  if i!=11 and i!=12 {ini_write_real(sectionWrite,string(320+i),global.gpBind[i])}
-}
+//for(i=1;i<=14;i+=1)
+//{
+//  if i!=11 and i!=12 {ini_write_real(sectionWrite,string(320+i),global.gpBind[i])}
+//}
+for(i=1;i<=16;i+=1) {ini_write_real(sectionWrite,string(320+i),global.gpBind[i])} //controls change: Cutscene Skip, Pause, Confirm and Cancel too
 
 //color zone change (added): Color Zone Colors (see loadOptions)
 for(i=1;i<=4;i+=1) {ini_write_real(sectionWrite,string(260+i),global.czColor[i])}

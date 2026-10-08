@@ -47,12 +47,23 @@ if joystick_found() or (global.gpDevice=-1 and tCount>0) or global.gpDevice>=tCo
 }
 
 for(i=0;i<=16;i+=1) {global.gpHeld[i]=0}
+global.gpQuickRestart=0 //quick restart change (added)
 global.gpFrames+=1 //key carry change: counted with or without a pad (the screen transition key carry, scrKeyCarry, uses it too)
 if global.gpDevice<0 {exit}
 //Only while the game window has focus (gm82core's window_has_focus, updated in its Begin Step), so the pad doesn't play
 //the game from the background. Skipped for the first frames, before gm82core has set it.
 //global.gpFrames+=1
 if global.gpFrames>2 {if !window_has_focus() {exit}}
+
+//quick restart change (added): L1/R1 held through a Quick Restart count again once they're let go (scrGamepadCheck)
+if global.qrLockL1=1 or global.qrLockR1=1
+{
+  var tRawL1,tRawR1;
+  if global.gpLayout=2 {tRawL1=global.gpRaw2[5]; tRawR1=global.gpRaw2[6]}
+  else {tRawL1=global.gpRaw1[5]; tRawR1=global.gpRaw1[6]}
+  if global.qrLockL1=1 {if !joystick_check_button(global.gpDevice,tRawL1) {global.qrLockL1=0}}
+  if global.qrLockR1=1 {if !joystick_check_button(global.gpDevice,tRawR1) {global.qrLockR1=0}}
+}
 
 //---------- Read the axes and the hat once ----------
 for(i=0;i<global.gpAxes;i+=1) {global.gpAxis[i]=joystick_axis(global.gpDevice,i)}
@@ -83,14 +94,18 @@ if global.gpAxL2>=0 {if global.gpAxis[global.gpAxL2]<=-0.9 {global.gpL2Ready=1}}
 if global.gpAxR2>=0 {if global.gpAxis[global.gpAxR2]<=-0.9 {global.gpR2Ready=1}}
 
 //---------- Actions ----------
-for(i=1;i<=14;i+=1)
-{
-  if i!=11 and i!=12 {global.gpHeld[i]=scrGamepadCheck(global.gpBind[i])}
-}
-global.gpHeld[11]=scrGamepadCheck(9)   //Skip cutscene: BACK
-global.gpHeld[12]=scrGamepadCheck(10)  //Pause: START
-global.gpHeld[15]=scrGamepadCheck(1)   //Menu confirm: A (Cross)
-global.gpHeld[16]=scrGamepadCheck(2)   //Menu back: B (Circle)
+//for(i=1;i<=14;i+=1)
+//{
+//  if i!=11 and i!=12 {global.gpHeld[i]=scrGamepadCheck(global.gpBind[i])}
+//}
+//global.gpHeld[11]=scrGamepadCheck(9)   //Skip cutscene: BACK
+//global.gpHeld[12]=scrGamepadCheck(10)  //Pause: START
+//global.gpHeld[15]=scrGamepadCheck(1)   //Menu confirm: A (Cross)
+//global.gpHeld[16]=scrGamepadCheck(2)   //Menu back: B (Circle)
+//controls change: Cutscene Skip, Pause and the menu's Confirm/Cancel are set in the GAMEPAD list too now
+for(i=1;i<=16;i+=1) {global.gpHeld[i]=scrGamepadCheck(global.gpBind[i])}
+//quick restart change (added): Quick Restart is always L1 + R1, whatever they're set to (scrQuickRestartInput)
+global.gpQuickRestart=(scrGamepadCheck(5) and scrGamepadCheck(6))
 //The left stick always moves as well, like the arrow keys next to the keyboard controls
 if global.gpAxes>=2
 {

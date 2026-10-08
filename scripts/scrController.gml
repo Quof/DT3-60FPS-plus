@@ -25,14 +25,20 @@ else if tKeyCode=7 {tKey=scrKeyboardCheck(ord(global.ctrlActB))} //Action B
 else if tKeyCode=8 {tKey=scrKeyboardCheck(ord(global.ctrlActC))} //Action C
 else if tKeyCode=9 {tKey=scrKeyboardCheck(ord(global.ctrlCharSwap))} //Character Swap
 else if tKeyCode=10 {tKey=scrKeyboardCheck(ord(global.ctrlAbilSwap))} //Ability Swap
-else if tKeyCode=11 {tKey=scrKeyboardCheck(ord("M"))} //Skip
-else if tKeyCode=12 {tKey=scrKeyboardCheck(ord("P"))} //Pause
+//else if tKeyCode=11 {tKey=scrKeyboardCheck(ord("M"))} //Skip
+//else if tKeyCode=12 {tKey=scrKeyboardCheck(ord("P"))} //Pause
+else if tKeyCode=11 {tKey=scrKeyboardCheck(ord(global.ctrlSkip))} //Skip //controls change: set in CONTROLS now (M by default)
+else if tKeyCode=12 {tKey=scrKeyboardCheck(ord(global.ctrlPause))} //Pause //controls change: set in CONTROLS now (P by default)
 else if tKeyCode=13 {tKey=scrKeyboardCheck(ord(global.ctrlDashLeft))} //Dash left
 else if tKeyCode=14 {tKey=scrKeyboardCheck(ord(global.ctrlDashRight))} //Dash right
 //gamepad change (added): menu Confirm/Back. On the keyboard they're the Jump/Action A keys as before; on a gamepad they're
 //always A (Cross) and B (Circle), whatever Jump and Action A are set to (scrGamepadPoll)
-else if tKeyCode=15 {tKey=scrKeyboardCheck(ord(global.ctrlJump))} //Menu confirm
-else if tKeyCode=16 {tKey=scrKeyboardCheck(ord(global.ctrlActA))} //Menu back
+//else if tKeyCode=15 {tKey=scrKeyboardCheck(ord(global.ctrlJump))} //Menu confirm
+//else if tKeyCode=16 {tKey=scrKeyboardCheck(ord(global.ctrlActA))} //Menu back
+//controls change: menu Confirm/Cancel have their own keys now (J/K by default, as the Jump/Action A keys were), and
+//their own buttons in the GAMEPAD list
+else if tKeyCode=15 {tKey=scrKeyboardCheck(ord(global.ctrlConfirm))} //Menu confirm
+else if tKeyCode=16 {tKey=scrKeyboardCheck(ord(global.ctrlCancel))} //Menu back
 
 if tKey {return 1}
 if global.optGamePad=1 {return global.gpHeld[tKeyCode]}

@@ -763,7 +763,8 @@ else //Title screen stuff
   textDropShadow("Game by ZephyrBurst",4,323,c_white,c_black,1)
   textDropShadow("Send all questions and concerns to ZephyrBurst@yahoo.com",4,335,c_white,c_black,1)
   //title options change (added): controls can be changed from the title's Options menu now, so show the current ones
-  controlHelp="Controls:#[" +string(global.ctrlUp) +"] Up    [" +string(global.ctrlDown) +"] Down#[" +string(global.ctrlJump) +"] Confirm"
+  //controlHelp="Controls:#[" +string(global.ctrlUp) +"] Up    [" +string(global.ctrlDown) +"] Down#[" +string(global.ctrlJump) +"] Confirm"
+  controlHelp="Controls:#[" +string(global.ctrlUp) +"] Up    [" +string(global.ctrlDown) +"] Down#[" +string(global.ctrlConfirm) +"] Confirm" //controls change: Confirm's own key
   textDropShadow(controlHelp,384,307,c_white,c_black,1)
 
   //DT3 Title - width[432]  heightToSecondWord[30]

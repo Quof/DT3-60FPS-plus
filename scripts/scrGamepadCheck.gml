@@ -19,6 +19,9 @@ if c<=12 //---------- Named buttons ----------
     if global.gpAxR2>=0 and global.gpR2Ready {return global.gpAxis[global.gpAxR2]>-0.4}
     return 0
   }
+  //quick restart change (added): L1/R1 held through a Quick Restart don't count until they're let go and pressed again
+  //(the player made after the restart would see them as just pressed: the dashes by default). scrGamepadPoll lets go
+  if (c=5 and global.qrLockL1=1) or (c=6 and global.qrLockR1=1) {return 0}
   if global.gpLayout=2 {return joystick_check_button(d,global.gpRaw2[c])}
   return joystick_check_button(d,global.gpRaw1[c])
 }
@@ -46,7 +49,13 @@ if c<=24 //---------- Right stick ----------
   if c=23 {return global.gpAxis[global.gpAxRX]<=-global.optStickDeadZone}
   return global.gpAxis[global.gpAxRX]>=global.optStickDeadZone
 }
-if c>=100 and c<200 {return joystick_check_button(d,c-100)} //---------- Raw button ----------
+//if c>=100 and c<200 {return joystick_check_button(d,c-100)} //---------- Raw button ----------
+if c>=100 and c<200 //---------- Raw button ---------- //quick restart change: L1/R1 set as raw buttons are locked the same way
+{
+  if global.gpLayout=2 {if (global.qrLockL1=1 and c-100=global.gpRaw2[5]) or (global.qrLockR1=1 and c-100=global.gpRaw2[6]) {return 0}}
+  else {if (global.qrLockL1=1 and c-100=global.gpRaw1[5]) or (global.qrLockR1=1 and c-100=global.gpRaw1[6]) {return 0}}
+  return joystick_check_button(d,c-100)
+}
 if c>=200 and c<232 //---------- Raw axis ----------
 {
   var a;

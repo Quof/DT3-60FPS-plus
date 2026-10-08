@@ -2,8 +2,8 @@ default:
 - split saves & options into 2 files
   - have an option ingame to get a transferrable savefile?
   - autosave options
-- rebindable cutscene skip
-- rebindable pause
+- rebindable cutscene skip (done, see 21)
+- rebindable pause (done, see 21)
 - maybe remove arrow keys as a forced keybind
 - colorblind options for color zones
 - if i understand the code currently, color zones currently give 1 frame of leeway for stepping outside of a colorzone right before taking damage. not sure if this should be 4 frames now for equivalent leeway.
@@ -25,8 +25,8 @@ dipswitches:
 
 
 actually implemented:
-1) DT4 reset
-	`if (oKeyCodesHighFPS.kCode[10]=1 and oKeyCodesHighFPS.kCodePressed[14]=1 and` in oPlayer1 Step Action
+1) DT4 reset (Quick Restart; reworked, see 21)
+	oPlayer1 Step, at the end (quick restart change); its buttons are read by scrQuickRestartInput
 	
 2) ATK buffer (will probably remove)
 	switch is global.atkInputBuffer (see 11)
@@ -35,103 +35,43 @@ actually implemented:
 	characterStepEvent (atkBuffer)
 	
 3) sigma avoidance re-added, oSigmaA step event line 43
-	switch is global.sigmaAvoidance (see 11)
 
 4) megaman recharge dipswitch
-	switch is global.fixMMRecharge (see 11)
 	applied in the playerAbilRecover script (Mega Man buster / Shotgun Ice / Gravity Well recharge): skill tree 28 shortens the recharge time
 
 5) MM Gravity Well platform bug fixed, with dipswitch
-	switch is global.fixMMGravPlatforms (see 11)
 	applied in oGWPlatform step event, lines 94-104 and 108-136
 
 6) fixDarkBackgrounds, oEvExGates create event line 26, oEvExGates step line 1539
-	switch is global.fixDarkBackgrounds (see 11)
 
 7) HQ Music
 
 8) Auto save feature. Right now it auto saves on a room transition with a 5 minute cooldown. We can add an option to tweak that cooldown or turn it off. Most of the logic for this lives in oGame's Room Start event. oGame Create has a new line initializing the auto save timer, and step increments it accordingly.
 
-9) Changing saves from title (ghetto version)
+9) Changing saves from title
 	oInitializeGame step event (lines 271 - 286, starts with 'if inputMenu="save0"')
 
 10) Sera's upward dash fix (the dash stopped on its first tick), oSera step event
-	switch is global.fixSeraDash (see 11)
 
-11) dipswitch menu: Options > Gameplay > Customize Remastered Changes (in game and on the title screen)
-	the list is the remasterSwitchList script: global variable name, key in DT3Options.dts (401 and up), name and info text for the menu
-	saved/loaded with the other options (saveOptions/loadOptions), all on by default
-	to add one: add a line to remasterSwitchList, then check global.<name> where the change is made
-	booleanImprovements is gone, split into atkInputBuffer (2), sigmaAvoidance (3) and fixSeraDash (10)
+11) dipswitch menu
 
-12) gamepad support with Game Maker 8.2's joystick extension (SDL2), replacing the old gamepad presets
-	scrGamepadInit explains the button codes and pad layouts; scrGamepadPoll reads the pad every frame (oKeyCodesHighFPS Begin Step), scrController uses it
-	Options > Control > Change Gamepad Bindings is a list like Change Keyboard Bindings: pick an action, press the button for it (scrGamepadCapture); Set to Default = scrGamepadDefaults
-	saved in DT3Options.dts, keys 321-334 (320+action, Skip/Pause are always BACK/START); Gamepad Input (222) is on by default now
-	the left stick always moves too; Stick Dead Zone moved to the Control options
-	menus use scrController 15/16 for Confirm/Back (keyboard: the Jump/Action A keys as before; gamepad: always A/Cross and B/Circle, whatever Jump/Action A are set to)
-	the gamepad only counts while the game window has focus (gm82core window_has_focus)
+12) gamepad support
 
-13) Color Zone Colors: Options > Graphics, zones 1-4 = red, blue, green, yellow by default
-	only shown once the save has seen color zones (gameProgress 2370+, after the Vault's Color Zones scene; on the title screen, the shown save's progress): then it's row 9 and the hats move to 10/11 (oPauseMenu mCZ_Show / mCZ_HatRow)
-	global.czColor[1-4] (defaults global.czDefault), saved in DT3Options.dts keys 261-264 (loadOptions/saveOptions)
-	the list is subMenu 16 and changing one is subMenu 17 in oPauseMenu
-	used by oColorZone, oColorIndControl (drawColorZoneDiamond: original diamonds at the default colors, sColorZoneDiamondW tinted otherwise), oPlayer1's glow and oVaultOrb
+13) Color Zone Color changing
 
-14) DT4 Dashing: Options > Control, row 6 (the rows below it moved down one), global.optDT4Dash, DT3Options.dts key 251, on by default (see 15)
-	only does anything with Right is Forward on (greyed out and can't be changed otherwise)
-	on the ground, [Dash Forward] dashes toward the left/right being held (backdash if the character faces the other way), or backdashes if neither is held; [Dash Back] is unchanged
-	characterStepEvent and charJeremyStepEvent, in the Right is Forward branch of the ground dash
+14) DT4 Dashing options
 
-15) Niche Dash Settings (dipswitch 407, off by default): the Control options D-Pad Dash, Right is Forward and DT4 Dashing only show with it on
-	with it off, Control shows Left/Right Dashing in their place (row 4; the rows after it move up two): it's Right is Forward the other way around, with no setting of its own
-	Left/Right Dashing on = Right is Forward and DT4 Dashing off (plain left/right dashes); off = both on, the default (Right is Forward now defaults to on)
-	flipping the dipswitch can't make the two disagree, since both read global.optRightIsForward
-	oPauseMenu mO_CtrlItem = the Control option on the cursor's row (1-11 with the dipswitch, 12 = Left/Right Dashing); dipswitches now have per-switch defaults (dsDefault in remasterSwitchList)
-	the dash buttons are called Dash Back (kCode 13) and Dash Forward (14) in the CONTROLS/GAMEPAD lists now (sPauseM_ControlMain rows 11/12 relabelled, sPauseM_GamepadMain rebuilt from it)
+15) movement keys persist over screen transitions
 
-16) held left/right keep going through screen transitions (not a dipswitch; scrKeyCarry explains it)
-	GM forgets held keys on a room change and only the key pressed last comes back (Windows key repeat), so holding right and then pressing jump stopped the player on the next screen
-	a left/right key (the bound key or the arrow key) held when the room changes, and still held, counts as held until it's let go
-	oKeyCodesHighFPS Step and Room End note the held keys, Room Start carries them, scrKeyboardCheck reads them with keyboard_check_direct (only while the window has focus)
-	every io_clear() is followed by scrKeyCarryClear(), so menus/messages that clear the keys still drop them like before
-	only left/right: other held buttons are still forgotten on room entry
-	also: rExtGateB_1 has an oKeyCodesHighFPS placed in it; that extra copy now destroys itself (its scrGamepadInit put the gamepad controls back to the defaults)
+16) rebindable confirm, cancel, pause, cutscene skip
 
-17) SOCD: Last Input Priority (dipswitch 408, global.socdLastInput, on by default)
-	left+right or up+down held at once: only the one pressed last counts; the other takes over again when that one is let go (if it's still held)
-	both pressed on the same frame: right wins, up for up/down (global.socdTie, set in scrGamepadInit)
-	scrController 1-4 go through scrSOCD, which reads the directions with scrDirHeld (keyboard and gamepad together: what scrController returned for them before)
-	the press order is tracked on every check, with the dipswitch off too; off = both count at once, as in the original
-	everything that reads directions through scrController follows it: the player, menus, minigames, Show Key State
+17) SOCD handling with last input priority
 
-18) Save slots: New Game and Continue on the title open a list of 5 slots (DT3data1.dts - DT3data5.dts); DT3Options.dts is shared by all of them
-	oInitializeGame: slotMenu (1 New Game, 2 Continue) and slotCursorPos; moving through the list shows each slot's save on the right (event_user(0)), Back returns to the five options
-	the slot played last is the one shown at startup: global.lastSaveSlot, DT3Options.dts key 500
-	DT3data.dts (the save from before the slots) is copied to slot 1 once (key 501) and left where it is
-	New Game over a slot that has a save: the save is copied to DT3data<slot>backup.dts and stays in the slot until the new game is saved by hand; oGame doesn't autosave till then (global.saveSlotNewGame, cleared by saveData and loadSaveData)
-	the New Game and Continue code moved to oInitializeGame's user events 2 and 3
-	a save file from the command line or the 'save NAME' code (9) skips the slots (global.saveSlot=0); 'save0' goes back to them
-	preview panel: sFilePanel frame 0 = the original panel, for normal saves and empty slots (no MODE: the modes stay secret until the game is beaten); 1-4 = green (Easy), red (Achilles), dark purple (Nightmare), black with crimson vines (Night Terror: Nightmare + Achilles), with GAME TIME shortened and MODE next to it
-	sFileSlots = the slot buttons (numbers 3-5 drawn 2px higher than Georgia puts them, so they sit on the line like 1-2 instead of hanging onto the button's edge), sFileSlotLink = the circuit's left end for each slot row (follows the cursor in the slot list)
-	a new game's modes are only the ones entered as codes on the title (codeNightmare etc., kept while looking through the slots): the save shown doesn't change them, so a code always works and the mode messages on the left only show for entered codes (Continue loads the save's own modes)
-	the true end message (and the code list in the [Enter] box) shows when any save has reached the true end (titleTrueEnd, read from the slots in Create)
-	event_user(0) sets global.location to 0: locationCheck gives back the number instead of the name when it's the same location as last time, which crashed the title's Draw when moving through the slots
+18) save slots 
 
-19) Swap Type: Standard (Fixed) (Options > Control > Swap Type, right after Standard)
-	global.optSwapType=4, so saved Swap Types keep their meaning; the menu goes Standard, Standard (Fixed), Dedicated, Dedicated (Fixed), Hold+Direction
-	like Standard, but a character swap gives the other character the Ability Set linked to the current one's instead of the one they were on last: Link-Belmont (1), Mega Man-Samus (2), also the Game sets (3) and Defender (4)
-	if they don't have it, Link/Belmont, else no set; a set counts when its token is active (Defender: tower defense) or they're already on it (sets events put both on, like the boss gallery's Game sets)
-	scrSwapLinkedSet (called before pSwapCharacter in characterStepEvent); the HUD's J/C indicator shows the other character's linked set in this mode
+19) new swap type 
 
-20) Boss gallery: NORMALIZED mode lever (oGalleryLever, floating at waist height over the ledge left of the gallery's entrance, with a sign next to it that explains it; global.galleryNormalized, kept in the save file, key galNorm)
-	on: each boss door puts in the build one would have by that boss with everything obtainable collected (scrNormLoadout, one build per door type): max HP and heart pieces, arrow/heart/missile/Ki maximums, breath, bomb upgrades, weapon levels (the upgrade items only), and the skill tree filled for the ability sets one has by then (AP isn't a limit)
-	Swift Foot (skillTree[23]) is never taken away: the fight gets the higher of the real one and the build's
-	sword equipment (Magic Sword, Sword of Bravery, Power Glove) comes off when the lever is turned on and on entering the gallery with it on, and the pause menu won't put it back on in there (scrNormSwordsOff, scrNormSwordBlocked); it can go back on anywhere else. Other equipment isn't touched
-	the door keeps the real build aside (scrNormState(0)) and rBossGallery's creation code puts it back; every way out of a gallery fight goes there (a win, Exit, the game over Exit). Retry restarts the boss room with the normalized build still in
-	anywhere else (walking out of a boss room through one of its exits): oGame's Room Start puts the real build back in the first room that has the player and isn't the fight's room (global.normRoom)
-	saveData always writes the real build (scrNormState(2) swaps it in for the save and back out after); loadSaveData and initGameVars clear global.normActive
-	AP spent during a fight comes back; AP earned during one is given again when the real build goes back in (the global.recTotalAP difference)
-	scoring is by hits taken instead of time: global.bossGalleryHitsN (save keys 770+) keeps the fewest hits taken in a win (oPlayer1.tookHitAmount, recorded by bossRoomTally when the fight used a normalized build). Medals: bronze for 3-4 hits, silver for 1-2, gold for none, nothing for 5 or more, no platinum. The best time is kept too: global.bossGalleryTimeN (save keys 750+), the same time as the normal one (5 seconds added per hit); NEW RECORD shows for either
-	with the lever on, the doors show -Best Time | Hits- and the two records (time | hits) under the boss name, with the hit medals (oBossGalleryDoor event_user(1)), and the board is sBossBoardNorm: the best times, FEWEST HITS where the par times were, TOTAL TIME and TOTAL HITS (oBossBoard event_user(0)). The achievements still go by the normal times; the Battle Tower's WEX door shows up for a WEX win with the lever on too
-	how the builds were worked out: items count from the area they're in (the gate item terminals' sections, each area's story events), a gate's heart container from the boss after the one that drops it, the Central City shop's from Central City - South, optional bosses at the earliest point they can be fought; a door's values can be changed in scrNormLoadout to tune it
+20) Boss gallery normalized mode
+
+21) Quick Restart (the DT4 reset)
+

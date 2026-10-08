@@ -71,6 +71,10 @@ global.ctrlActB=ini_read_string(sectionRead,"309","L")
 global.ctrlActC=ini_read_string(sectionRead,"310","O")
 global.ctrlDashLeft=ini_read_string(sectionRead,"311","Q")
 global.ctrlDashRight=ini_read_string(sectionRead,"312","E")
+global.ctrlConfirm=ini_read_string(sectionRead,"313","J") //controls change (added): menu Confirm
+global.ctrlCancel=ini_read_string(sectionRead,"314","K") //controls change (added): menu Cancel
+global.ctrlPause=ini_read_string(sectionRead,"315","P") //controls change (added)
+global.ctrlSkip=ini_read_string(sectionRead,"316","M") //controls change (added): Cutscene Skip
 
 //dipswitch change (added): the remaster's dipswitches (Options > Gameplay > Customize Remastered Changes), on by default
 var i;
@@ -83,10 +87,12 @@ if global.nicheDashSettings=0 {global.optDT4Dash=global.optRightIsForward}
 
 //gamepad change (added): gamepad controls (codes: scrGamepadInit), key 320+action (Skip and Pause are always BACK/START)
 scrGamepadDefaults()
-for(i=1;i<=14;i+=1)
-{
-  if i!=11 and i!=12 {global.gpBind[i]=ini_read_real(sectionRead,string(320+i),global.gpBind[i])}
-}
+//for(i=1;i<=14;i+=1)
+//{
+//  if i!=11 and i!=12 {global.gpBind[i]=ini_read_real(sectionRead,string(320+i),global.gpBind[i])}
+//}
+//controls change: all 16 now (11 Cutscene Skip, 12 Pause, 15 Confirm, 16 Cancel can be set too); missing ones keep the defaults
+for(i=1;i<=16;i+=1) {global.gpBind[i]=ini_read_real(sectionRead,string(320+i),global.gpBind[i])}
 
 //color zone change (added): Color Zone Colors (Options > Graphics), keys 261-264. By default 1 is red, 2 blue, 3 green
 //and 4 yellow, the colors oColorZone always used

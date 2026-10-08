@@ -1004,24 +1004,58 @@ if mechLaserEnergy<mechLaserMax {mechLaserEnergy+=1*gDeltaTime}
 
 
 
-if (oKeyCodesHighFPS.kCode[9]=1 and oKeyCodesHighFPS.kCodePressed[14]=1 and global.gamePaused=true) or (oKeyCodesHighFPS.kCodePressed[10]=1 and oKeyCodesHighFPS.kCode[14]=1 and global.gamePaused=true)  //DT4 style reset, don't sue me
+//if (oKeyCodesHighFPS.kCode[9]=1 and oKeyCodesHighFPS.kCodePressed[14]=1 and global.gamePaused=true) or (oKeyCodesHighFPS.kCodePressed[10]=1 and oKeyCodesHighFPS.kCode[14]=1 and global.gamePaused=true)  //DT4 style reset, don't sue me
+//    {
+//    if global.currentBoss=""
+//          {
+//          if global.bossTrack>=101 and global.bossTrack<=999
+//            {
+//            event_user(3)
+//            }
+//            else
+//            {
+//            event_user(4)
+//            }
+//          }
+//          else
+//          {
+//          event_user(3)
+//          }
+//    }
+//quick restart change: Quick Restart (DT4 style reset), U + I on the keyboard / L1 + R1 on a gamepad, fixed
+//(scrQuickRestartInput). It worked whenever the game was paused (cutscenes, shops, the game over screen, the CONTROLS
+//list while keys were being typed in) with Swap Character/Ability Set + Dash Right; now only from the pause menu's main
+//screen, and only where the pause menu's Retry is allowed (global.bCanForceGO). It restarts the way the game over's
+//first option would (Retry Boss in a boss fight or encounter, Retry Map elsewhere) and counts as a death like a game over
+//does (the death counter, the map's deaths for the restart messages, no map header after it), and also resets what the
+//game over resets for the next try: the map's hit count, the kill streak, breath and looping sounds.
+if global.qrPressed=1 and instance_exists(oPauseMenu)
+{
+  if oPauseMenu.titleMode=0 and oPauseMenu.subMenu=0
+  {
+    if global.bCanForceGO=true
     {
-    if global.currentBoss=""
-          {
-          if global.bossTrack>=101 and global.bossTrack<=999
-            {
-            event_user(3)
-            }
-            else
-            {
-            event_user(4)
-            }
-          }
-          else
-          {
-          event_user(3)
-          }
+      global.rmDeaths+=1
+      global.recDeathCount+=1
+      global.recInterLostDeath+=moneyEarnedOnMap
+      global.checkForDeath=1
+      //U/I and L1/R1 are read as let go until they're let go (scrKeyboardCheck, scrGamepadCheck): the player made after
+      //the restart starts with nothing held, so it would take them as just pressed (dashing, swapping)
+      global.qrLockU=1; global.qrLockI=1; global.qrLockL1=1; global.qrLockR1=1
+      stopLoopingSounds()
+      global.hitsTaken=0
+      global.killStreak=0
+      global.pCurrBreath=global.pBreathMax
+      if global.currentBoss=""
+      {
+        if global.bossTrack>=101 and global.bossTrack<=999 {event_user(3)}
+        else {event_user(4)}
+      }
+      else {event_user(3)}
     }
+    else {playSound(global.snd_Error,0,1,1)}
+  }
+}
 #define Mouse_50
 /*"/*'/**//* YYD ACTION
 lib_id=1

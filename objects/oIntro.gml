@@ -43,7 +43,8 @@ if sceneProgress=0
   }
 }
 else if sceneProgress=1 and bWaitForInput=false
-  msgCreate(0,0,"","When the arrow appears on the bottom-right of the message, press the [J] key to advance the scene further.#If you would like to skip a cutscene, press [M]. Note that not all cutscenes may be skipped.",7,3,oMessageCutscene,1)
+  //msgCreate(0,0,"","When the arrow appears on the bottom-right of the message, press the [J] key to advance the scene further.#If you would like to skip a cutscene, press [M]. Note that not all cutscenes may be skipped.",7,3,oMessageCutscene,1)
+  msgCreate(0,0,"","When the arrow appears on the bottom-right of the message, press the [" +string(global.ctrlConfirm) +"] key to advance the scene further.#If you would like to skip a cutscene, press [" +string(global.ctrlSkip) +"]. Note that not all cutscenes may be skipped.",7,3,oMessageCutscene,1) //controls change: the keys they're set to
 else if sceneProgress=2 and bWaitForInput=false
   msgCreate(0,0,"Jerry","So you know what to do Jeremy?",0,3,oMessageCutscene,1)
 else if sceneProgress=3 and bWaitForInput=false

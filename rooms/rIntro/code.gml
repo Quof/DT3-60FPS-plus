@@ -40,6 +40,11 @@ global.ctrlAbilSwap="I"
 global.ctrlActA="K"
 global.ctrlActB="L"
 global.ctrlActC="O"
+//controls change (added): the menu's Confirm/Cancel, Pause and Cutscene Skip keys (scrController reads them)
+global.ctrlConfirm="J"
+global.ctrlCancel="K"
+global.ctrlPause="P"
+global.ctrlSkip="M"
 if !instance_exists(oKeyCodes)
 {
   instance_create(0,0,oKeyCodes)

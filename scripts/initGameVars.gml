@@ -524,6 +524,10 @@ global.ctrlActB="L"
 global.ctrlActC="O"
 global.ctrlDashLeft="Q"
 global.ctrlDashRight="E"
+global.ctrlConfirm="J" //controls change (added): menu Confirm (was the Jump key)
+global.ctrlCancel="K"  //controls change (added): menu Cancel (was the Action A key)
+global.ctrlPause="P"   //controls change (added)
+global.ctrlSkip="M"    //controls change (added): Cutscene Skip
 
 for(i=0;i<5;i+=1)
 {

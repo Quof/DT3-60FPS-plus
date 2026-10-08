@@ -20,7 +20,8 @@ action_id=603
 applies_to=self
 */
 //if oKeyCodes.kCodePressed[5]=1
-if oKeyCodes.kCodePressed[15]=1 //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
+//if oKeyCodes.kCodePressed[15]=1 //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
+if oKeyCodes.kCodePressed[16]=1 //controls change: Cancel goes back a page (Confirm going back had A go back on a gamepad)
 {
   if currentPage>1
   {
@@ -30,7 +31,8 @@ if oKeyCodes.kCodePressed[15]=1 //gamepad change: menu Confirm/Back (15/16: on a
   }
 }
 //if oKeyCodes.kCodePressed[6]=1 or keyboard_check_pressed(vk_enter)
-if oKeyCodes.kCodePressed[16]=1 or keyboard_check_pressed(vk_enter) //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
+//if oKeyCodes.kCodePressed[16]=1 or keyboard_check_pressed(vk_enter) //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
+if oKeyCodes.kCodePressed[15]=1 or keyboard_check_pressed(vk_enter) //controls change: Confirm (or Enter) goes forward a page
 {
   if currentPage<13 {playSound(global.snd_PageFlip,0,0.95,1)}
   image_alpha=0
@@ -56,7 +58,8 @@ draw_set_alpha(1)
 draw_set_color(make_color_rgb(248,248,248))
 draw_set_halign(fa_left)
 draw_set_font(fnt_EnemyChat)
-draw_text(4,4,string("Press [K] or [Enter] to go forward one page or [J] to go back. Press [L] to go back to the title screen.#Page: ") +string(currentPage) +string("/13"))
+//draw_text(4,4,string("Press [K] or [Enter] to go forward one page or [J] to go back. Press [L] to go back to the title screen.#Page: ") +string(currentPage) +string("/13"))
+draw_text(4,4,string("Press [") +string(global.ctrlConfirm) +string("] or [Enter] to go forward one page or [") +string(global.ctrlCancel) +string("] to go back. Press [") +string(global.ctrlActB) +string("] to go back to the title screen.#Page: ") +string(currentPage) +string("/13")) //controls change: the keys they're set to
 
 draw_set_font(fnt_NES)
 draw_set_alpha(image_alpha)

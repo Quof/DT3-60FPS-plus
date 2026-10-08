@@ -3,7 +3,8 @@ if global.gameProgress=30
 {
   newTutorial=instance_create(0,0,oTutorialPanel)
   newTutorial.tutorialTitle="Pause Menu"
-  newTutorial.tutorialInfo="To open the Pause Menu, press [P]. From there, you can save your progress and do all sorts of other stuff."
+  //newTutorial.tutorialInfo="To open the Pause Menu, press [P]. From there, you can save your progress and do all sorts of other stuff."
+  newTutorial.tutorialInfo="To open the Pause Menu, press [" +string(global.ctrlPause) +"]. From there, you can save your progress and do all sorts of other stuff." //controls change: the key it's set to
   newTutorial.scrAreaY=0
   global.gameProgress=40
 }

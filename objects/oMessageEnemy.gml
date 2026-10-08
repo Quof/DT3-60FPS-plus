@@ -62,7 +62,10 @@ if instance_exists(enemyID)
     }
 
     //if oKeyCodes.kCodePressed[6]=1 and windowClosed=false
-    if oKeyCodes.kCodePressed[16]=1 and windowClosed=false //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
+    //if oKeyCodes.kCodePressed[16]=1 and windowClosed=false //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
+    //controls change: Action A again (Jeremy's text, like Action B/C for Chao's and the developer's): as Back, it was on
+    //the same button as Action C on a gamepad (B), which then never got to the developer's text
+    if oKeyCodes.kCodePressed[6]=1 and windowClosed=false
     {
       io_clear()
       scrKeyCarryClear() //key carry change (added): the left/right keys carried through a screen transition are cleared too
@@ -219,7 +222,8 @@ if instance_exists(enemyID)
 
   //---------- Display Key Commands ----------
   draw_set_halign(fa_center)
-  textDropShadow(global.ctrlJump,statsWindowX+218,statsWindowY+39,textColor1,textColor2,4)
+  //textDropShadow(global.ctrlJump,statsWindowX+218,statsWindowY+39,textColor1,textColor2,4)
+  textDropShadow(global.ctrlConfirm,statsWindowX+218,statsWindowY+39,textColor1,textColor2,4) //controls change: the window closes with Confirm
   textDropShadow(global.ctrlActA,statsWindowX+218,statsWindowY+53,textColor1,textColor2,4)
   textDropShadow(global.ctrlActB,statsWindowX+218,statsWindowY+67,textColor1,textColor2,4)
   textDropShadow(global.ctrlActC,statsWindowX+218,statsWindowY+81,textColor1,textColor2,4)

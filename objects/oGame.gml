@@ -505,7 +505,7 @@ if view_current=0
   if global.debugMenu=true
   {
     textDropShadow("<DEBUG MODE ON>",view_xview[0]+4,view_yview[0]+338,c_white,c_black,1)
-    textDropShadow("Speed Bodge" + string(global.arrowSpeedBodge),view_xview[0]+4,view_yview[0]+318,c_white,c_black,1)
-    textDropShadow("Rotate Bodge" + string(global.arrowRotateBodge),view_xview[0]+4,view_yview[0]+298,c_white,c_black,1)
+    //textDropShadow("Speed Bodge" + string(global.arrowSpeedBodge),view_xview[0]+4,view_yview[0]+318,c_white,c_black,1)
+    //textDropShadow("Rotate Bodge" + string(global.arrowRotateBodge),view_xview[0]+4,view_yview[0]+298,c_white,c_black,1)
   }
 }

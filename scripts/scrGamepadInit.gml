@@ -42,6 +42,17 @@ global.gpR2Ready=0
 
 for(i=0;i<=16;i+=1) {global.gpHeld[i]=0}  //per action (15/16: menu Confirm/Back), read by scrController
 global.gpFrames=0     //frames since startup: window_has_focus() is only read once gm82core has updated it (scrGamepadPoll)
+//quick restart change (added): Quick Restart's fixed buttons (scrQuickRestartInput): L1 + R1 both held this frame, and
+//whether its buttons (keyboard or pad) were held last frame / became held this frame
+global.gpQuickRestart=0
+global.qrHeld=0
+global.qrPressed=0
+//quick restart change (added): U, I, L1, R1 held through a Quick Restart are locked (read as let go) until they're let go
+//(scrKeyboardCheck, scrGamepadCheck), so the player made after the restart doesn't take them as pressed
+global.qrLockU=0
+global.qrLockI=0
+global.qrLockL1=0
+global.qrLockR1=0
 //key carry change (added): left/right keys held through a screen transition (scrKeyCarry), by key code
 for(i=0;i<256;i+=1) {global.kbCarry[i]=0; global.kbWasHeld[i]=0}
 //socd change (added): scrSOCD's state. socdHeld: each direction (1-4) at the last check; socdLast: per pair (0 left/right,
@@ -78,12 +89,22 @@ global.gpRowAct[7]=10  //Swap Ability Set
 global.gpRowAct[8]=6   //Action A
 global.gpRowAct[9]=7   //Action B
 global.gpRowAct[10]=8  //Action C
-global.gpRowAct[11]=13 //Dash Left
-global.gpRowAct[12]=14 //Dash Right
+//global.gpRowAct[11]=13 //Dash Left
+//global.gpRowAct[12]=14 //Dash Right
+//controls change: Dash Forward first, then the menu and system controls, which can be set too now
+global.gpRowAct[11]=14 //Dash Forward
+global.gpRowAct[12]=13 //Dash Back
+global.gpRowAct[13]=15 //Confirm (added)
+global.gpRowAct[14]=16 //Cancel (added)
+global.gpRowAct[15]=12 //Pause (added)
+global.gpRowAct[16]=11 //Cutscene Skip (added)
+global.gpRows=16       //controls change (added): action rows in the list (Set to Default is the one after them)
 global.gpRowName[1]="Up"; global.gpRowName[2]="Down"; global.gpRowName[3]="Left"; global.gpRowName[4]="Right"
 global.gpRowName[5]="Jump"; global.gpRowName[6]="Swap Character"; global.gpRowName[7]="Swap Ability Set"
 global.gpRowName[8]="Action A"; global.gpRowName[9]="Action B"; global.gpRowName[10]="Action C"
 //global.gpRowName[11]="Dash Left"; global.gpRowName[12]="Dash Right"
-global.gpRowName[11]="Dash Back"; global.gpRowName[12]="Dash Forward" //dash rename change: named as in the CONTROLS/GAMEPAD lists
+//global.gpRowName[11]="Dash Back"; global.gpRowName[12]="Dash Forward" //dash rename change: named as in the CONTROLS/GAMEPAD lists
+global.gpRowName[11]="Dash Forward"; global.gpRowName[12]="Dash Back" //controls change
+global.gpRowName[13]="Confirm"; global.gpRowName[14]="Cancel"; global.gpRowName[15]="Pause"; global.gpRowName[16]="Cutscene Skip" //controls change (added)
 
 scrGamepadDefaults()

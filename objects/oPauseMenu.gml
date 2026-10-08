@@ -288,7 +288,7 @@ maxHats=15
 mDS_CurPos=1
 
 //Menu - Gamepad Setup (gamepad change (added): Options > Control, the GAMEPAD list, subMenu 14)
-mGP_CurPos=1      //1-12: actions (global.gpRowAct), 13: Set to Default
+mGP_CurPos=1      //1-16: actions (global.gpRowAct), 17: Set to Default (controls change: was 1-12, 13)
 mGP_Listen=0      //1: waiting for a button on the pad
 mGP_ListenTime=0
 mGP_WaitRelease=0 //1: waiting for everything on the pad to be let go first
@@ -315,7 +315,8 @@ mS_CurY=30
 //Menu - Controls
 mCon_CurPos=1
 mCon_CurInc=12
-mCon_CurMax=13
+//mCon_CurMax=13
+mCon_CurMax=17 //controls change: + Confirm, Cancel, Pause, Cutscene Skip
 mCon_CurX=16
 mCon_CurY=22
 
@@ -1993,17 +1994,40 @@ else if subMenu=11 //---------- CONTROLS ----------
       keyChange=get_string(keyHelpInfo,global.ctrlActC)
       global.ctrlActC=string_upper(keyChange)
     }
-    else if mCon_CurPos=11 //Dash Back
+    //else if mCon_CurPos=11 //Dash Back
+    else if mCon_CurPos=12 //Dash Back //controls change: Dash Forward is the row above it now
     {
       keyChange=get_string(keyHelpInfo,global.ctrlDashLeft)
       global.ctrlDashLeft=string_upper(keyChange)
     }
-    else if mCon_CurPos=12 //Dash Right
+    //else if mCon_CurPos=12 //Dash Right
+    else if mCon_CurPos=11 //Dash Forward //controls change
     {
       keyChange=get_string(keyHelpInfo,global.ctrlDashRight)
       global.ctrlDashRight=string_upper(keyChange)
     }
-    else if mCon_CurPos=13 //Set to default controls
+    else if mCon_CurPos=13 //Confirm //controls change (added): the menu's Confirm/Cancel, Pause and Cutscene Skip keys
+    {
+      keyChange=get_string(keyHelpInfo,global.ctrlConfirm)
+      global.ctrlConfirm=string_upper(keyChange)
+    }
+    else if mCon_CurPos=14 //Cancel //controls change (added)
+    {
+      keyChange=get_string(keyHelpInfo,global.ctrlCancel)
+      global.ctrlCancel=string_upper(keyChange)
+    }
+    else if mCon_CurPos=15 //Pause //controls change (added)
+    {
+      keyChange=get_string(keyHelpInfo,global.ctrlPause)
+      global.ctrlPause=string_upper(keyChange)
+    }
+    else if mCon_CurPos=16 //Cutscene Skip //controls change (added)
+    {
+      keyChange=get_string(keyHelpInfo,global.ctrlSkip)
+      global.ctrlSkip=string_upper(keyChange)
+    }
+    //else if mCon_CurPos=13 //Set to default controls
+    else if mCon_CurPos=17 //Set to default controls //controls change: the last row is 17 now
     {
       global.ctrlUp="W"
       global.ctrlDown="S"
@@ -2017,6 +2041,10 @@ else if subMenu=11 //---------- CONTROLS ----------
       global.ctrlActC="O"
       global.ctrlDashLeft="Q"
       global.ctrlDashRight="E"
+      global.ctrlConfirm="J" //controls change (added)
+      global.ctrlCancel="K" //controls change (added)
+      global.ctrlPause="P" //controls change (added)
+      global.ctrlSkip="M" //controls change (added)
     }
   }
 }
@@ -2192,7 +2220,8 @@ else if subMenu=14 //---------- GAMEPAD SETUP ----------
   var tGPCode,tGPAct,tGPOld;
   if mGP_Listen=1 //---------- Waiting for a button on the pad ----------
   {
-    mGP_ListenTime+=1
+    //mGP_ListenTime+=1
+    mGP_ListenTime+=1*gDeltaTime //controls change: 30fps ticks, so the 5 seconds below aren't 2.5/1.25 at 60/120fps
     if global.gpDevice<0 {mGP_Listen=0; playSound(global.snd_Error,0,1,1)} //the pad was unplugged
     else if mGP_WaitRelease=1 //everything on the pad has to be let go first (the button that picked the action is usually still held)
     {
@@ -2206,8 +2235,20 @@ else if subMenu=14 //---------- GAMEPAD SETUP ----------
         tGPAct=global.gpRowAct[mGP_CurPos]
         tGPOld=global.gpBind[tGPAct]
         //an action that already had this button gets this one's old button, so nothing ends up on two actions
-        for(i=1;i<=14;i+=1) {if global.gpBind[i]=tGPCode and i!=tGPAct {global.gpBind[i]=tGPOld}}
+        //for(i=1;i<=14;i+=1) {if global.gpBind[i]=tGPCode and i!=tGPAct {global.gpBind[i]=tGPOld}}
+        //global.gpBind[tGPAct]=tGPCode
+        //controls change: with Confirm/Cancel, Pause and Cutscene Skip in the list, only actions that can't share a
+        //button move (scrControlClash: Confirm/Cancel may share one with a game action). One that moves gets this one's
+        //old button, unless something it can't share a button with is on that one too; then it's left without one (-)
         global.gpBind[tGPAct]=tGPCode
+        for(i=1;i<=16;i+=1)
+        {
+          if i!=tGPAct and global.gpBind[i]=tGPCode and scrControlClash(i,tGPAct)
+          {
+            global.gpBind[i]=tGPOld
+            for(ii=1;ii<=16;ii+=1) {if ii!=i and tGPOld>0 and global.gpBind[ii]=tGPOld and scrControlClash(i,ii) {global.gpBind[i]=0}}
+          }
+        }
         mGP_Listen=0
         playSound(global.snd_MenuConfirm,0,1,1)
         //the button is still held and may now be Confirm or Back: count it as already held, so it doesn't act in the menu
@@ -2216,7 +2257,8 @@ else if subMenu=14 //---------- GAMEPAD SETUP ----------
       }
     }
     //Cancel: the keyboard's Back key, or 5 seconds of nothing (Esc would also bring up the quit question)
-    if mGP_Listen=1 and (mGP_ListenTime>=150 or scrKeyboardCheck(ord(global.ctrlActA)))
+    //if mGP_Listen=1 and (mGP_ListenTime>=150 or scrKeyboardCheck(ord(global.ctrlActA)))
+    if mGP_Listen=1 and (mGP_ListenTime>=150 or scrKeyboardCheck(ord(global.ctrlCancel))) //controls change: the keyboard's Cancel key
     {
       mGP_Listen=0
       playSound(global.snd_MenuCancel,0,1,1)
@@ -2227,13 +2269,15 @@ else if subMenu=14 //---------- GAMEPAD SETUP ----------
   if oKeyCodes.kCodePressed[3]=1
   {
     playSound(global.snd_MenuCursor,0,1,1)
-    if mGP_CurPos=1 {mGP_CurPos=13}
+    //if mGP_CurPos=1 {mGP_CurPos=13}
+    if mGP_CurPos=1 {mGP_CurPos=global.gpRows+1} //controls change: 16 action rows, then Set to Default
     else {mGP_CurPos-=1}
   }
   else if oKeyCodes.kCodePressed[4]=1
   {
     playSound(global.snd_MenuCursor,0,1,1)
-    if mGP_CurPos=13 {mGP_CurPos=1}
+    //if mGP_CurPos=13 {mGP_CurPos=1}
+    if mGP_CurPos=global.gpRows+1 {mGP_CurPos=1} //controls change
     else {mGP_CurPos+=1}
   }
 
@@ -2241,7 +2285,8 @@ else if subMenu=14 //---------- GAMEPAD SETUP ----------
   if oKeyCodes.kCodePressed[15]=1 //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
   {
     resetKeyCodes()
-    if mGP_CurPos=13 //Set to Default
+    //if mGP_CurPos=13 //Set to Default
+    if mGP_CurPos=global.gpRows+1 //Set to Default //controls change
     {
       playSound(global.snd_MenuConfirm,0,1,1)
       scrGamepadDefaults()
@@ -2374,6 +2419,10 @@ if keyboard_check_pressed(vk_home)
   global.ctrlActC="O"
   global.ctrlDashLeft="Q"
   global.ctrlDashRight="E"
+  global.ctrlConfirm="J" //controls change (added)
+  global.ctrlCancel="K" //controls change (added)
+  global.ctrlPause="P" //controls change (added)
+  global.ctrlSkip="M" //controls change (added)
 }
 
 //if oKeyCodes.kCodePressed[6]=1 //Go back to a specific submenu
@@ -2523,20 +2572,17 @@ if view_current=0
   contentMenuX=mainMenuX+114
   contentMenuY=mainMenuY+27
   infoMenuX=mainMenuX+0
-  //infoMenuY=mainMenuY+213
-  infoMenuY=mainMenuY+225 //dipswitch change: sPauseM_Main is 12px taller (room for an 11th options row), so MENU INFO is 12px lower
+  infoMenuY=mainMenuY+213
 
   //---------- Draw Menu ----------
   //title options change (added): no MAIN column on the title screen. sPauseM_Main is drawn without it (MAIN is x 0-99
   //of the sprite): the top bar + content panel (x 106-443) move 53px left so they're centred, and MENU INFO (full
-  //width, y 226-292) stays where it is (already centred). Everything in the content panel follows contentMenuX.
+  //width, y 214-280) stays where it is (already centred). Everything in the content panel follows contentMenuX.
   if titleMode=1
   {
     contentMenuX-=53
-    //draw_sprite_part(sPauseM_Main,0,106,0,338,207,contentMenuX-8,mainMenuY)
-    //draw_sprite_part(sPauseM_Main,0,0,214,444,67,mainMenuX,mainMenuY+214)
-    draw_sprite_part(sPauseM_Main,0,106,0,338,219,contentMenuX-8,mainMenuY) //dipswitch change: sPauseM_Main is 12px taller
-    draw_sprite_part(sPauseM_Main,0,0,226,444,67,mainMenuX,mainMenuY+226) //dipswitch change
+    draw_sprite_part(sPauseM_Main,0,106,0,338,207,contentMenuX-8,mainMenuY)
+    draw_sprite_part(sPauseM_Main,0,0,214,444,67,mainMenuX,mainMenuY+214)
   }
   else
   {
@@ -2582,11 +2628,13 @@ if view_current=0
   else if global.gameProgress>=4530 and global.gameProgress<=5049 {tChapterName="Chapter 19: That Which can be Taken"}
   else if global.gameProgress>=5050 and global.gameProgress<=5490 {tChapterName="Chapter 20: Trust"}
   else if global.gameProgress>=5500 {tChapterName="Chapter 21: Distorted Travesty"}
-  if titleMode=1 {tChapterName="Press [" +string(global.ctrlActA) +"] to save and go back to the title screen."} //title options change (added)
+  //if titleMode=1 {tChapterName="Press [" +string(global.ctrlActA) +"] to save and go back to the title screen."} //title options change (added)
+  if titleMode=1 {tChapterName="Press [" +string(global.ctrlCancel) +"] to save and go back to the title screen."} //title options change (added) //controls change: the Cancel key
+  //controls change (added): the CONTROLS and GAMEPAD lists are as tall as the content panel now and cover this line
+  if subMenu=11 or subMenu=14 {tChapterName=""}
   textDropShadow(tChapterName,contentMenuX+2,contentMenuY-23,textColorMain,textColorShadow,1)
 
-  //textDropShadow("Press the [Home] key to reset your controls to the default settings.",mainMenuX+8,mainMenuY+282,textColorMain,textColorShadow,1)
-  textDropShadow("Press the [Home] key to reset your controls to the default settings.",mainMenuX+8,mainMenuY+294,textColorMain,textColorShadow,1) //dipswitch change: under the 12px taller sPauseM_Main
+  textDropShadow("Press the [Home] key to reset your controls to the default settings.",mainMenuX+8,mainMenuY+282,textColorMain,textColorShadow,1)
 
   //----- Prizes -----
   if global.yoshiDoll>=1 {draw_sprite(sPauseM_YoshiDoll,0,contentMenuX+48,contentMenuY-27)}
@@ -2640,7 +2688,8 @@ if view_current=0
       }
       else
       {
-        menuInfoText=string("Select an available equipment slot to assign an item to.#[" +string(global.ctrlActA) +string("]: Check available equipment.#[") +string(global.ctrlActB) +string("]: Unequip current slot."))
+        //menuInfoText=string("Select an available equipment slot to assign an item to.#[" +string(global.ctrlActA) +string("]: Check available equipment.#[") +string(global.ctrlActB) +string("]: Unequip current slot."))
+        menuInfoText=string("Select an available equipment slot to assign an item to.#[" +string(global.ctrlConfirm) +string("]: Check available equipment.#[") +string(global.ctrlActB) +string("]: Unequip current slot.")) //controls change: the item list opens with Confirm
       }
       mSAP_FrameCount+=1*gDeltaTime
       if mSAP_FrameCount mod 8=0
@@ -2882,24 +2931,48 @@ if view_current=0
 
   if subMenu=11 //------------------------------ CONTROLS ------------------------------
   {
-    draw_sprite(sPauseM_ControlMain,0,contentMenuX+122,contentMenuY+17)
-    menuInfoText="Change the control setup. This is for keyboard controls only. It only changes gamepad controls if you're using 3rd party software to bind keys to controller inputs."
+    //draw_sprite(sPauseM_ControlMain,0,contentMenuX+122,contentMenuY+17)
+    //controls change: 17 rows now (+ Confirm, Cancel, Pause, Cutscene Skip; Dash Forward above Dash Back), so the list
+    //starts at the top of the content panel and ends just above MENU INFO (sPauseM_ControlMain is 226 tall)
+    var tConY;
+    tConY=contentMenuY-27
+    draw_sprite(sPauseM_ControlMain,0,contentMenuX+122,tConY)
+    //menuInfoText="Change the control setup. This is for keyboard controls only. It only changes gamepad controls if you're using 3rd party software to bind keys to controller inputs."
+    menuInfoText="Change the control setup. This is for keyboard controls only. It only changes gamepad controls if you're using 3rd party software to bind keys to controller inputs.#Quick Restart: [U] + [I] on the pause menu." //controls change
     //Display cursor
-    draw_sprite(sPauseM_AbilArrow,0,contentMenuX+122+mCon_CurX,contentMenuY+17+mCon_CurY)
+    //draw_sprite(sPauseM_AbilArrow,0,contentMenuX+122+mCon_CurX,contentMenuY+17+mCon_CurY)
+    draw_sprite(sPauseM_AbilArrow,0,contentMenuX+122+mCon_CurX,tConY+mCon_CurY) //controls change
     //Display current controls
     draw_set_halign(fa_center)
-    textDropShadow(global.ctrlUp,contentMenuX+259,contentMenuY+33,textColorMain,textColorShadow,1)
-    textDropShadow(global.ctrlDown,contentMenuX+259,contentMenuY+45,textColorMain,textColorShadow,1)
-    textDropShadow(global.ctrlLeft,contentMenuX+259,contentMenuY+57,textColorMain,textColorShadow,1)
-    textDropShadow(global.ctrlRight,contentMenuX+259,contentMenuY+69,textColorMain,textColorShadow,1)
-    textDropShadow(global.ctrlJump,contentMenuX+259,contentMenuY+81,textColorMain,textColorShadow,1)
-    textDropShadow(global.ctrlCharSwap,contentMenuX+259,contentMenuY+93,textColorMain,textColorShadow,1)
-    textDropShadow(global.ctrlAbilSwap,contentMenuX+259,contentMenuY+105,textColorMain,textColorShadow,1)
-    textDropShadow(global.ctrlActA,contentMenuX+259,contentMenuY+117,textColorMain,textColorShadow,1)
-    textDropShadow(global.ctrlActB,contentMenuX+259,contentMenuY+129,textColorMain,textColorShadow,1)
-    textDropShadow(global.ctrlActC,contentMenuX+259,contentMenuY+141,textColorMain,textColorShadow,1)
-    textDropShadow(global.ctrlDashLeft,contentMenuX+259,contentMenuY+153,textColorMain,textColorShadow,1)
-    textDropShadow(global.ctrlDashRight,contentMenuX+259,contentMenuY+165,textColorMain,textColorShadow,1)
+    //textDropShadow(global.ctrlUp,contentMenuX+259,contentMenuY+33,textColorMain,textColorShadow,1)
+    //textDropShadow(global.ctrlDown,contentMenuX+259,contentMenuY+45,textColorMain,textColorShadow,1)
+    //textDropShadow(global.ctrlLeft,contentMenuX+259,contentMenuY+57,textColorMain,textColorShadow,1)
+    //textDropShadow(global.ctrlRight,contentMenuX+259,contentMenuY+69,textColorMain,textColorShadow,1)
+    //textDropShadow(global.ctrlJump,contentMenuX+259,contentMenuY+81,textColorMain,textColorShadow,1)
+    //textDropShadow(global.ctrlCharSwap,contentMenuX+259,contentMenuY+93,textColorMain,textColorShadow,1)
+    //textDropShadow(global.ctrlAbilSwap,contentMenuX+259,contentMenuY+105,textColorMain,textColorShadow,1)
+    //textDropShadow(global.ctrlActA,contentMenuX+259,contentMenuY+117,textColorMain,textColorShadow,1)
+    //textDropShadow(global.ctrlActB,contentMenuX+259,contentMenuY+129,textColorMain,textColorShadow,1)
+    //textDropShadow(global.ctrlActC,contentMenuX+259,contentMenuY+141,textColorMain,textColorShadow,1)
+    //textDropShadow(global.ctrlDashLeft,contentMenuX+259,contentMenuY+153,textColorMain,textColorShadow,1)
+    //textDropShadow(global.ctrlDashRight,contentMenuX+259,contentMenuY+165,textColorMain,textColorShadow,1)
+    //controls change: same spots relative to the list (its row k at tConY+16+12*(k-1))
+    textDropShadow(global.ctrlUp,contentMenuX+259,tConY+16,textColorMain,textColorShadow,1)
+    textDropShadow(global.ctrlDown,contentMenuX+259,tConY+28,textColorMain,textColorShadow,1)
+    textDropShadow(global.ctrlLeft,contentMenuX+259,tConY+40,textColorMain,textColorShadow,1)
+    textDropShadow(global.ctrlRight,contentMenuX+259,tConY+52,textColorMain,textColorShadow,1)
+    textDropShadow(global.ctrlJump,contentMenuX+259,tConY+64,textColorMain,textColorShadow,1)
+    textDropShadow(global.ctrlCharSwap,contentMenuX+259,tConY+76,textColorMain,textColorShadow,1)
+    textDropShadow(global.ctrlAbilSwap,contentMenuX+259,tConY+88,textColorMain,textColorShadow,1)
+    textDropShadow(global.ctrlActA,contentMenuX+259,tConY+100,textColorMain,textColorShadow,1)
+    textDropShadow(global.ctrlActB,contentMenuX+259,tConY+112,textColorMain,textColorShadow,1)
+    textDropShadow(global.ctrlActC,contentMenuX+259,tConY+124,textColorMain,textColorShadow,1)
+    textDropShadow(global.ctrlDashRight,contentMenuX+259,tConY+136,textColorMain,textColorShadow,1) //Dash Forward
+    textDropShadow(global.ctrlDashLeft,contentMenuX+259,tConY+148,textColorMain,textColorShadow,1) //Dash Back
+    textDropShadow(global.ctrlConfirm,contentMenuX+259,tConY+160,textColorMain,textColorShadow,1)
+    textDropShadow(global.ctrlCancel,contentMenuX+259,tConY+172,textColorMain,textColorShadow,1)
+    textDropShadow(global.ctrlPause,contentMenuX+259,tConY+184,textColorMain,textColorShadow,1)
+    textDropShadow(global.ctrlSkip,contentMenuX+259,tConY+196,textColorMain,textColorShadow,1)
   }
   else if subMenu=12 //------------------------------ ITEM LIST ------------------------------
   {
@@ -3003,7 +3076,8 @@ if view_current=0
     //in the header and a wider [ ] column for the button names). The old preset picture is kept below, commented out.
     var tGPMenuX,tGPMenuY,tGPName,tGPPad,i;
     tGPMenuX=contentMenuX+114
-    tGPMenuY=contentMenuY+17
+    //tGPMenuY=contentMenuY+17
+    tGPMenuY=contentMenuY-27 //controls change: 17 rows now, so the list starts at the top of the content panel (see CONTROLS)
     draw_sprite(sPauseM_GamepadMain,0,tGPMenuX,tGPMenuY)
     //Display cursor
     draw_sprite(sPauseM_AbilArrow,0,tGPMenuX+16,tGPMenuY+22+((mGP_CurPos-1)*12))
@@ -3011,7 +3085,8 @@ if view_current=0
     draw_set_font(fnt_PauseMenuText)
     draw_set_halign(fa_center)
     draw_set_alpha(1)
-    for(i=1;i<=12;i+=1)
+    //for(i=1;i<=12;i+=1)
+    for(i=1;i<=global.gpRows;i+=1) //controls change: 16 action rows
     {
       tGPName=scrGamepadName(global.gpBind[global.gpRowAct[i]])
       if mGP_Listen=1 and mGP_CurPos=i //waiting for a button: blink
@@ -3023,11 +3098,15 @@ if view_current=0
     }
     draw_set_halign(fa_left)
 
-    if mGP_Listen=1 {menuInfoText="Press the button for " +global.gpRowName[mGP_CurPos] +" on your gamepad.#[" +string(global.ctrlActA) +"]: Cancel (or wait 5 seconds)."}
-    else if mGP_CurPos=13 {menuInfoText="Set the gamepad controls back to the defaults."}
+    //if mGP_Listen=1 {menuInfoText="Press the button for " +global.gpRowName[mGP_CurPos] +" on your gamepad.#[" +string(global.ctrlActA) +"]: Cancel (or wait 5 seconds)."}
+    //else if mGP_CurPos=13 {menuInfoText="Set the gamepad controls back to the defaults."}
+    if mGP_Listen=1 {menuInfoText="Press the button for " +global.gpRowName[mGP_CurPos] +" on your gamepad.#[" +string(global.ctrlCancel) +"]: Cancel (or wait 5 seconds)."} //controls change: the keyboard's Cancel key
+    else if mGP_CurPos=global.gpRows+1 {menuInfoText="Set the gamepad controls back to the defaults."} //controls change
     else
     {
-      menuInfoText="Select an action, then press the button for it on your gamepad. The left stick always moves too.#" +scrGamepadName(1) +": Confirm   " +scrGamepadName(2) +": Back   " +scrGamepadName(10) +": Pause   " +scrGamepadName(9) +": Skip cutscenes"
+      //menuInfoText="Select an action, then press the button for it on your gamepad. The left stick always moves too.#" +scrGamepadName(1) +": Confirm   " +scrGamepadName(2) +": Back   " +scrGamepadName(10) +": Pause   " +scrGamepadName(9) +": Skip cutscenes"
+      //controls change: Confirm, Cancel, Pause and Cutscene Skip are in the list now; Quick Restart's buttons are fixed
+      menuInfoText="Select an action, then press the button for it on your gamepad. The left stick always moves too. Confirm and Cancel can share a button with a game action.#Quick Restart: " +scrGamepadName(5) +" + " +scrGamepadName(6) +" on the pause menu."
       //a last line only when something is stopping the pad from working
       tGPPad=""
       if global.gpDevice<0 {tGPPad="No gamepad found.  "}
