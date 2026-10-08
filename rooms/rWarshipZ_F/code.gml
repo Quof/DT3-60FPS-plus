@@ -1,6 +1,7 @@
 locationCheck(99)
 if global.gameProgress=5320 {global.gameProgress=5325}
-SS_SetSoundFreq(global.msc_CentralCore,22050)
+//SS_SetSoundFreq(global.msc_CentralCore,22050)
+scrMusicFreq(global.msc_CentralCore,22050) //remastered music change: scaled to the file's own sample rate (scrMusicFreq)
 
 background_visible[1]=1; background_visible[2]=1
 background_alpha[1]=0.04; background_alpha[2]=0.04

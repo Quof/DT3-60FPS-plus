@@ -2064,13 +2064,20 @@ if global.gamePaused=false
       background_x[0]-=16
     }
 
-    if oPlayer1.x>=720 {playerRunSpeed=6.4; SS_SetSoundFreq(global.msc_Discombobulated,19800)}
-    if oPlayer1.x>=1392 {playerRunSpeed=5.8; SS_SetSoundFreq(global.msc_Discombobulated,17550)}
-    if oPlayer1.x>=1904 {playerRunSpeed=5.2; SS_SetSoundFreq(global.msc_Discombobulated,15300)}
-    if oPlayer1.x>=2752 {playerRunSpeed=4.6; SS_SetSoundFreq(global.msc_Discombobulated,13050)}
-    if oPlayer1.x>=3504 {playerRunSpeed=4; SS_SetSoundFreq(global.msc_Discombobulated,10800)}
-    if oPlayer1.x>=4144 {playerRunSpeed=3.5; SS_SetSoundFreq(global.msc_Discombobulated,8550)}
-    if oPlayer1.x>=4928 {playerRunSpeed=3; SS_SetSoundFreq(global.msc_Discombobulated,6300)}
+    //if oPlayer1.x>=720 {playerRunSpeed=6.4; SS_SetSoundFreq(global.msc_Discombobulated,19800)}
+    if oPlayer1.x>=720 {playerRunSpeed=6.4; scrMusicFreq(global.msc_Discombobulated,19800)} //remastered music change: scaled to the file's own sample rate (scrMusicFreq)
+    //if oPlayer1.x>=1392 {playerRunSpeed=5.8; SS_SetSoundFreq(global.msc_Discombobulated,17550)}
+    if oPlayer1.x>=1392 {playerRunSpeed=5.8; scrMusicFreq(global.msc_Discombobulated,17550)} //remastered music change: scaled to the file's own sample rate (scrMusicFreq)
+    //if oPlayer1.x>=1904 {playerRunSpeed=5.2; SS_SetSoundFreq(global.msc_Discombobulated,15300)}
+    if oPlayer1.x>=1904 {playerRunSpeed=5.2; scrMusicFreq(global.msc_Discombobulated,15300)} //remastered music change: scaled to the file's own sample rate (scrMusicFreq)
+    //if oPlayer1.x>=2752 {playerRunSpeed=4.6; SS_SetSoundFreq(global.msc_Discombobulated,13050)}
+    if oPlayer1.x>=2752 {playerRunSpeed=4.6; scrMusicFreq(global.msc_Discombobulated,13050)} //remastered music change: scaled to the file's own sample rate (scrMusicFreq)
+    //if oPlayer1.x>=3504 {playerRunSpeed=4; SS_SetSoundFreq(global.msc_Discombobulated,10800)}
+    if oPlayer1.x>=3504 {playerRunSpeed=4; scrMusicFreq(global.msc_Discombobulated,10800)} //remastered music change: scaled to the file's own sample rate (scrMusicFreq)
+    //if oPlayer1.x>=4144 {playerRunSpeed=3.5; SS_SetSoundFreq(global.msc_Discombobulated,8550)}
+    if oPlayer1.x>=4144 {playerRunSpeed=3.5; scrMusicFreq(global.msc_Discombobulated,8550)} //remastered music change: scaled to the file's own sample rate (scrMusicFreq)
+    //if oPlayer1.x>=4928 {playerRunSpeed=3; SS_SetSoundFreq(global.msc_Discombobulated,6300)}
+    if oPlayer1.x>=4928 {playerRunSpeed=3; scrMusicFreq(global.msc_Discombobulated,6300)} //remastered music change: scaled to the file's own sample rate (scrMusicFreq)
     oPlayer1.runAcc=playerRunSpeed
     oPlayer1.dashEnergy=0
   }

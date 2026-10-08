@@ -10,4 +10,5 @@ global.currentBoss=""
 var tempMplay;
 tempMplay=findMusic(202)
 playMusic(tempMplay,0,0)
-SS_SetSoundFreq(global.msc_OminousHall,11025)
+//SS_SetSoundFreq(global.msc_OminousHall,11025)
+scrMusicFreq(global.msc_OminousHall,11025) //remastered music change: scaled to the file's own sample rate (scrMusicFreq)

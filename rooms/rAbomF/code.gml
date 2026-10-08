@@ -1,6 +1,7 @@
 locationCheck(76)
 //global.bCanUseEsc=0
-SS_SetSoundFreq(global.msc_OminousHall,22050)
+//SS_SetSoundFreq(global.msc_OminousHall,22050)
+scrMusicFreq(global.msc_OminousHall,22050) //remastered music change: scaled to the file's own sample rate (scrMusicFreq)
 
 gameScene=instance_create(0,0,oEvCh21MainA)
 

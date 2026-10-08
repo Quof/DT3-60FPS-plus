@@ -47,7 +47,8 @@ else if sceneProgress=1 //-------------------- Start music --------------------
       var tempMplay;
       tempMplay=findMusic(1003)
       playMusic(tempMplay,0,1)
-      SS_SetSoundFreq(global.msc_IFC,11025)
+      //SS_SetSoundFreq(global.msc_IFC,11025)
+      scrMusicFreq(global.msc_IFC,11025) //remastered music change: scaled to the file's own sample rate (scrMusicFreq)
     }
   }
   if sceneDelay>=30
@@ -57,7 +58,8 @@ else if sceneProgress=1 //-------------------- Start music --------------------
       var tempMplay;
       tempMplay=findMusic(1021)
       playMusic(tempMplay,0,1)
-      SS_SetSoundFreq(global.msc_Credits,21550)
+      //SS_SetSoundFreq(global.msc_Credits,21550)
+      scrMusicFreq(global.msc_Credits,21550) //remastered music change: scaled to the file's own sample rate (scrMusicFreq)
     }
     sceneDelay=0; sceneProgress+=1
   }

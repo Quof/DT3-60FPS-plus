@@ -1155,7 +1155,8 @@ else if global.gameProgress=500 and room=rMario1_CCBoss //----- [13] Boss Fight:
       tBossTitle.bossTitle="Beany Babe"
       tempMplay=findMusic(801)
       playMusic(tempMplay,0,0)
-      SS_SetSoundFreq(global.msc_BowserFight,21550)
+      //SS_SetSoundFreq(global.msc_BowserFight,21550)
+      scrMusicFreq(global.msc_BowserFight,21550) //remastered music change: scaled to the file's own sample rate (scrMusicFreq)
       sceneDelay=0; sceneProgress=0
     }
   }

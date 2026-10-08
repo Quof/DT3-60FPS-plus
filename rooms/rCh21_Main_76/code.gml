@@ -12,4 +12,5 @@ backFollow.depth=1499999
 var tempMplay;
 tempMplay=findMusic(0)
 playMusic(tempMplay,0,0)
-SS_SetSoundFreq(global.msc_OminousHall,22050)
+//SS_SetSoundFreq(global.msc_OminousHall,22050)
+scrMusicFreq(global.msc_OminousHall,22050) //remastered music change: scaled to the file's own sample rate (scrMusicFreq)

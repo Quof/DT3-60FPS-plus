@@ -100,7 +100,8 @@ else if sceneProgress=2
     SS_SetSoundVol(musFileP,musVolC)
     if musVolC<=0
     {
-      SS_SetSoundFreq(global.msc_IFC,22050)
+      //SS_SetSoundFreq(global.msc_IFC,22050)
+      scrMusicFreq(global.msc_IFC,22050) //remastered music change: scaled to the file's own sample rate (scrMusicFreq)
       stopAllMusic()
       room_goto(rTitle)
     }

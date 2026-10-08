@@ -2,7 +2,8 @@ locationCheck(99)
 background_visible[1]=1; background_visible[2]=1
 background_alpha[1]=0.04; background_alpha[2]=0.04
 
-SS_SetSoundFreq(global.msc_CentralCore,22050)
+//SS_SetSoundFreq(global.msc_CentralCore,22050)
+scrMusicFreq(global.msc_CentralCore,22050) //remastered music change: scaled to the file's own sample rate (scrMusicFreq)
 
 abilSetRemove(1)
 global.hasShoes[0]=2; global.hasShoes[1]=2

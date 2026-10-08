@@ -32,7 +32,8 @@ global.optShowScore=ini_read_real(sectionRead,"225",1)
 global.optShowMoney=ini_read_real(sectionRead,"226",1)
 global.optCentralizeHUD=ini_read_real(sectionRead,"227",0)
 global.optMessagePlink=ini_read_real(sectionRead,"228",0)
-global.optDPadDash=ini_read_real(sectionRead,"229",1)
+//global.optDPadDash=ini_read_real(sectionRead,"229",1)
+global.optDPadDash=ini_read_real(sectionRead,"229",0) //dash defaults change: off by default
 //global.optRightIsForward=ini_read_real(sectionRead,"230",0)
 global.optRightIsForward=ini_read_real(sectionRead,"230",1) //niche dash change: on by default (with DT4 Dashing; Left/Right Dashing is the off switch for both)
 //global.optDT4Dash=ini_read_real(sectionRead,"251",0) //dt4 dash change (added): DT4 Dashing
@@ -58,6 +59,15 @@ global.optMLoop=ini_read_real(sectionRead,"247s",0) // music loop
 global.optMorphControls=ini_read_real(sectionRead,"248",1)
 global.optSwapType=ini_read_real(sectionRead,"249",0)
 global.optStickDeadZone=ini_read_real(sectionRead,"250",0.4)
+//fps option change (added): Options > Graphics > FPS (also F2), 60 by default. Not while the 2x Speed code mode is on (it
+//sets the frame rate itself)
+if global.modeSpeed=0
+{
+  var tFPS;
+  tFPS=ini_read_real(sectionRead,"252",60)
+  if tFPS!=30 and tFPS!=60 and tFPS!=120 {tFPS=60}
+  scrSetFrameRate(tFPS)
+}
 
 global.ctrlUp=ini_read_string(sectionRead,"301","W")
 global.ctrlDown=ini_read_string(sectionRead,"302","S")

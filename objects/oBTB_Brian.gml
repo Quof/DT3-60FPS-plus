@@ -24,11 +24,13 @@ if global.gamePaused=false
   }
   else if mapProg=1
   {
-    SS_SetSoundFreq(global.msc_MarioWorld,mySoundFreq)
+    //SS_SetSoundFreq(global.msc_MarioWorld,mySoundFreq)
+    scrMusicFreq(global.msc_MarioWorld,mySoundFreq) //remastered music change: scaled to the file's own sample rate (scrMusicFreq)
     mySoundFreq-=100*gDeltaTime
     if mySoundFreq<=1500
     {
-      SS_SetSoundFreq(global.msc_MarioWorld,22050)
+      //SS_SetSoundFreq(global.msc_MarioWorld,22050)
+      scrMusicFreq(global.msc_MarioWorld,22050) //remastered music change: scaled to the file's own sample rate (scrMusicFreq)
       SS_StopSound(global.msc_MarioWorld)
       mapProg=2
     }

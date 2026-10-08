@@ -61,5 +61,6 @@ if global.optMusic>0
     }
   }
 
-  if global.modeSpeed=1 {SS_SetSoundFreq(tempMusic,44100)}
+  //if global.modeSpeed=1 {SS_SetSoundFreq(tempMusic,44100)}
+  if global.modeSpeed=1 {scrMusicFreq(tempMusic,44100)} //remastered music change: scaled to the file's own sample rate (scrMusicFreq)
 }

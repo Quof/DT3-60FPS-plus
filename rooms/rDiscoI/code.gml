@@ -25,6 +25,7 @@ else
   if global.gameProgress=4680 or global.gameProgress=4690 {tempMplay=findMusic(0)}
   else {tempMplay=findMusic(28)}
   playMusic(tempMplay,0,0)
-  SS_SetSoundFreq(global.msc_Discombobulated,6300)
+  //SS_SetSoundFreq(global.msc_Discombobulated,6300)
+  scrMusicFreq(global.msc_Discombobulated,6300) //remastered music change: scaled to the file's own sample rate (scrMusicFreq)
 }
 playMusic(tempMplay,0,0)

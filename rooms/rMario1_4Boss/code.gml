@@ -23,4 +23,5 @@ else
   tempMplay=findMusic(102)
 }
 playMusic(tempMplay,0,0)
-SS_SetSoundFreq(global.msc_BowserFight,22050)
+//SS_SetSoundFreq(global.msc_BowserFight,22050)
+scrMusicFreq(global.msc_BowserFight,22050) //remastered music change: scaled to the file's own sample rate (scrMusicFreq)

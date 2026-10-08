@@ -1,7 +1,8 @@
 locationCheck(34)
 global.mapTeleport=0
 global.rbSwitchBlueOn=false
-SS_SetSoundFreq(global.msc_MarioWorld,22050)
+//SS_SetSoundFreq(global.msc_MarioWorld,22050)
+scrMusicFreq(global.msc_MarioWorld,22050) //remastered music change: scaled to the file's own sample rate (scrMusicFreq)
 
 global.currentBoss=""; global.bossTrack=0
 global.partySplit=0

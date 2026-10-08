@@ -22,7 +22,8 @@ if sceneProgress=0 //-------------------- Fake credits --------------------
     var tempMplay;
     tempMplay=findMusic(1003)
     playMusic(tempMplay,0,1)
-    SS_SetSoundFreq(global.msc_IFC,11025)
+    //SS_SetSoundFreq(global.msc_IFC,11025)
+    scrMusicFreq(global.msc_IFC,11025) //remastered music change: scaled to the file's own sample rate (scrMusicFreq)
   }
   else if sceneDelay=60 {myText="- Game Scenario & Story -"; event_user(0)}
   else if sceneDelay=120 {myText="Game Design:   ZephyrBurst"; event_user(2)}

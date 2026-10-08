@@ -3,8 +3,10 @@ locationCheck(88)
 oPlayer1.life=oPlayer1.maxLife
 global.pLife=global.pMaxLife
 
-if global.gameProgress=4670 {SS_SetSoundFreq(global.msc_Discombobulated,6300)}
-else {SS_SetSoundFreq(global.msc_Discombobulated,22050)}
+//if global.gameProgress=4670 {SS_SetSoundFreq(global.msc_Discombobulated,6300)}
+if global.gameProgress=4670 {scrMusicFreq(global.msc_Discombobulated,6300)} //remastered music change: scaled to the file's own sample rate (scrMusicFreq)
+//else {SS_SetSoundFreq(global.msc_Discombobulated,22050)}
+else {scrMusicFreq(global.msc_Discombobulated,22050)} //remastered music change: scaled to the file's own sample rate (scrMusicFreq)
 
 gameScene=instance_create(0,0,oEvCh19MainA)
 

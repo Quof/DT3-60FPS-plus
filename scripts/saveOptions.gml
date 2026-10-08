@@ -60,6 +60,7 @@ ini_write_real(sectionWrite,"247s",global.optMLoop) //music loop
 ini_write_real(sectionWrite,"248",global.optMorphControls)
 ini_write_real(sectionWrite,"249",global.optSwapType)
 ini_write_real(sectionWrite,"250",global.optStickDeadZone)
+if global.modeSpeed=0 {ini_write_real(sectionWrite,"252",global.gameFrameRate)} //fps option change (added): Options > Graphics > FPS (see loadOptions)
 
 ini_write_string(sectionWrite,"301",global.ctrlUp)
 ini_write_string(sectionWrite,"302",global.ctrlDown)

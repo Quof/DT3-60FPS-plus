@@ -25,7 +25,8 @@ if sceneProgress=0 //-------------------- Start music --------------------
   var tempMplay;
   tempMplay=findMusic(1025)
   playMusic(tempMplay,0,1)
-  SS_SetSoundFreq(global.msc_Skyfall,88200)
+  //SS_SetSoundFreq(global.msc_Skyfall,88200)
+  scrMusicFreq(global.msc_Skyfall,88200) //remastered music change: scaled to the file's own sample rate (scrMusicFreq)
   sceneDelay=0; sceneProgress+=1
 }
 else if sceneProgress=1 //-------------------- Game Scenario & Story --------------------
@@ -130,7 +131,8 @@ else if sceneProgress=6 //-------------------- End --------------------
     endText+=1
     if endText>=8
     {
-      SS_SetSoundFreq(global.msc_Skyfall,22050)
+      //SS_SetSoundFreq(global.msc_Skyfall,22050)
+      scrMusicFreq(global.msc_Skyfall,22050) //remastered music change: scaled to the file's own sample rate (scrMusicFreq)
       stopAllMusic()
       sceneDelay=0; sceneProgress+=1
     }

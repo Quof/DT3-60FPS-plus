@@ -303,7 +303,8 @@ mCZ_Hold=0    //ticks left/right has been held (changes speed up)
 mCZ_Show=0
 if titleMode=1 {if instance_exists(oInitializeGame) {if oInitializeGame.progressCheck>=2370 {mCZ_Show=1}}}
 else if global.gameProgress>=2370 {mCZ_Show=1}
-mCZ_HatRow=9+mCZ_Show //Graphics row of Jerry's Hat (Claire's Hat is the next one)
+//mCZ_HatRow=9+mCZ_Show //Graphics row of Jerry's Hat (Claire's Hat is the next one)
+mCZ_HatRow=10 //options move change: Display row of Jerry's Hat (Claire's Hat is the next one); the hats are on Display now
 
 //Menu - Save
 mS_CurPos=1
@@ -364,6 +365,15 @@ if global.gamePercent=100 and titleMode=0 //title options change
 
 confirmationMenu=0
 confirmMenuPos=1 //0:Confirm, 1:Cancel
+
+//jukebox change (added): where the music playing is from, for "Music From" in the bottom right (scrMusicCredit, Draw)
+mMusicCredit=""
+if titleMode=0 and global.currentMusic!=0
+{
+  var tMusicPlay;
+  tMusicPlay=findMusic(global.currentMusic)
+  if SS_IsSoundPlaying(tMusicPlay) or SS_IsSoundLooping(tMusicPlay) {mMusicCredit=scrMusicCredit(global.currentMusic)}
+}
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -934,7 +944,8 @@ else if subMenu=6 //---------- RECORDS ----------
 else if subMenu=7 //---------- OPTIONS ----------
 {
   //if mO_OptSubMenu=2
-  if mO_OptSubMenu=2 and titleMode=0 //title options change: "birds seen" is a game record
+  //if mO_OptSubMenu=2 and titleMode=0 //title options change: "birds seen" is a game record
+  if mO_OptSubMenu=3 and titleMode=0 //title options change: "birds seen" is a game record //options move change: the hats are on Display now
   {
     if global.wearingHatJ=9 and sawBirdHatJ=0
     {
@@ -983,8 +994,10 @@ else if subMenu=7 //---------- OPTIONS ----------
   //if mO_OptSubMenu=1 {mO_OptMax=11} //Control //dt4 dash change: + DT4 Dashing (row 6)
   if mO_OptSubMenu=1 {mO_OptMax=9+(2*global.nicheDashSettings)} //Control //niche dash change: 11 rows with Niche Dash Settings, 9 without (see mO_CtrlItem)
   //else if mO_OptSubMenu=2 {mO_OptMax=10} //Graphics
-  else if mO_OptSubMenu=2 {mO_OptMax=10+mCZ_Show} //Graphics //color zone change: + Color Zone Colors once it's shown (row 9, the hats move to 10/11)
-  else if mO_OptSubMenu=3 {mO_OptMax=9} //Display
+  //else if mO_OptSubMenu=2 {mO_OptMax=10+mCZ_Show} //Graphics //color zone change: + Color Zone Colors once it's shown (row 9, the hats move to 10/11)
+  else if mO_OptSubMenu=2 {mO_OptMax=9+mCZ_Show} //Graphics //options move change: + FPS (row 2), - the hats (on Display now); Color Zone Colors is row 10
+  //else if mO_OptSubMenu=3 {mO_OptMax=9} //Display
+  else if mO_OptSubMenu=3 {mO_OptMax=11} //Display //options move change: + Jerry's Hat and Claire's Hat (rows 10/11)
   //else if mO_OptSubMenu=4 {mO_OptMax=10} //Gameplay
   else if mO_OptSubMenu=4 {mO_OptMax=11} //Gameplay //dipswitch change: + Customize Remastered Changes
   else if mO_OptSubMenu=5 {mO_OptMax=7} //Unreal Guy
@@ -1004,7 +1017,8 @@ else if subMenu=7 //---------- OPTIONS ----------
   {
     if mO_OptSubMenu=2
     {
-      if mO_CurPos=3 //Window Scaling
+      //if mO_CurPos=3 //Window Scaling
+      if mO_CurPos=4 //Window Scaling //options move change: a row lower (FPS is row 2)
       {
         if oKeyCodes.kCodePressed[1]=1
         {
@@ -1015,25 +1029,36 @@ else if subMenu=7 //---------- OPTIONS ----------
           playSound(global.snd_MenuCursor,0,1,1)
         }
       }
-      //else if mO_CurPos=9 or mO_CurPos=10 //Hat cycle
-      else if mO_CurPos=mCZ_HatRow or mO_CurPos=mCZ_HatRow+1 //Hat cycle //color zone change: a row lower when Color Zone Colors is shown
+      else if mO_CurPos=2 //FPS //fps option change (added): down a step (120, 60, 30, then around to 120)
       {
         if oKeyCodes.kCodePressed[1]=1
         {
           playSound(global.snd_MenuCursor,0,1,1)
-          //if mO_CurPos=9
-          if mO_CurPos=mCZ_HatRow //color zone change
-          {
-            if global.wearingHatJ=0 {global.wearingHatJ=maxHats}
-            else {global.wearingHatJ-=1}
-          }
-          else
-          {
-            if global.wearingHatC=0 {global.wearingHatC=maxHats}
-            else {global.wearingHatC-=1}
-          }
+          if global.gameFrameRate>=120 {scrSetFrameRate(60)}
+          else if global.gameFrameRate>=60 {scrSetFrameRate(30)}
+          else {scrSetFrameRate(120)}
         }
       }
+      //options move change: the hats are on Display now (below)
+      ////else if mO_CurPos=9 or mO_CurPos=10 //Hat cycle
+      //else if mO_CurPos=mCZ_HatRow or mO_CurPos=mCZ_HatRow+1 //Hat cycle //color zone change: a row lower when Color Zone Colors is shown
+      //{
+      //  if oKeyCodes.kCodePressed[1]=1
+      //  {
+      //    playSound(global.snd_MenuCursor,0,1,1)
+      //    //if mO_CurPos=9
+      //    if mO_CurPos=mCZ_HatRow //color zone change
+      //    {
+      //      if global.wearingHatJ=0 {global.wearingHatJ=maxHats}
+      //      else {global.wearingHatJ-=1}
+      //    }
+      //    else
+      //    {
+      //      if global.wearingHatC=0 {global.wearingHatC=maxHats}
+      //      else {global.wearingHatC-=1}
+      //    }
+      //  }
+      //}
     }
     else if mO_OptSubMenu=3
     {
@@ -1043,6 +1068,23 @@ else if subMenu=7 //---------- OPTIONS ----------
         {
           playSound(global.snd_MenuCursor,0,1,1)
           global.optSplitWindow-=1
+        }
+      }
+      else if mO_CurPos=mCZ_HatRow or mO_CurPos=mCZ_HatRow+1 //Hat cycle //options move change (added): from Graphics
+      {
+        if oKeyCodes.kCodePressed[1]=1
+        {
+          playSound(global.snd_MenuCursor,0,1,1)
+          if mO_CurPos=mCZ_HatRow
+          {
+            if global.wearingHatJ=0 {global.wearingHatJ=maxHats}
+            else {global.wearingHatJ-=1}
+          }
+          else
+          {
+            if global.wearingHatC=0 {global.wearingHatC=maxHats}
+            else {global.wearingHatC-=1}
+          }
         }
       }
     }
@@ -1119,7 +1161,8 @@ else if subMenu=7 //---------- OPTIONS ----------
   {
     if mO_OptSubMenu=2
     {
-      if mO_CurPos=3 //Window Scaling
+      //if mO_CurPos=3 //Window Scaling
+      if mO_CurPos=4 //Window Scaling //options move change: a row lower (FPS is row 2)
       {
         if oKeyCodes.kCodePressed[2]=1
         {
@@ -1130,25 +1173,36 @@ else if subMenu=7 //---------- OPTIONS ----------
           playSound(global.snd_MenuCursor,0,1,1)
         }
       }
-      //else if mO_CurPos=9 or mO_CurPos=10 //Hat cycle
-      else if mO_CurPos=mCZ_HatRow or mO_CurPos=mCZ_HatRow+1 //Hat cycle //color zone change: a row lower when Color Zone Colors is shown
+      else if mO_CurPos=2 //FPS //fps option change (added): up a step (30, 60, 120, then around to 30), as F2 does
       {
         if oKeyCodes.kCodePressed[2]=1
         {
           playSound(global.snd_MenuCursor,0,1,1)
-          //if mO_CurPos=9
-          if mO_CurPos=mCZ_HatRow //color zone change
-          {
-            if global.wearingHatJ=maxHats {global.wearingHatJ=0}
-            else {global.wearingHatJ+=1}
-          }
-          else
-          {
-            if global.wearingHatC=maxHats {global.wearingHatC=0}
-            else {global.wearingHatC+=1}
-          }
+          if global.gameFrameRate<60 {scrSetFrameRate(60)}
+          else if global.gameFrameRate<120 {scrSetFrameRate(120)}
+          else {scrSetFrameRate(30)}
         }
       }
+      //options move change: the hats are on Display now (below)
+      ////else if mO_CurPos=9 or mO_CurPos=10 //Hat cycle
+      //else if mO_CurPos=mCZ_HatRow or mO_CurPos=mCZ_HatRow+1 //Hat cycle //color zone change: a row lower when Color Zone Colors is shown
+      //{
+      //  if oKeyCodes.kCodePressed[2]=1
+      //  {
+      //    playSound(global.snd_MenuCursor,0,1,1)
+      //    //if mO_CurPos=9
+      //    if mO_CurPos=mCZ_HatRow //color zone change
+      //    {
+      //      if global.wearingHatJ=maxHats {global.wearingHatJ=0}
+      //      else {global.wearingHatJ+=1}
+      //    }
+      //    else
+      //    {
+      //      if global.wearingHatC=maxHats {global.wearingHatC=0}
+      //      else {global.wearingHatC+=1}
+      //    }
+      //  }
+      //}
     }
     else if mO_OptSubMenu=3
     {
@@ -1158,6 +1212,23 @@ else if subMenu=7 //---------- OPTIONS ----------
         {
           playSound(global.snd_MenuCursor,0,1,1)
           global.optSplitWindow+=1
+        }
+      }
+      else if mO_CurPos=mCZ_HatRow or mO_CurPos=mCZ_HatRow+1 //Hat cycle //options move change (added): from Graphics
+      {
+        if oKeyCodes.kCodePressed[2]=1
+        {
+          playSound(global.snd_MenuCursor,0,1,1)
+          if mO_CurPos=mCZ_HatRow
+          {
+            if global.wearingHatJ=maxHats {global.wearingHatJ=0}
+            else {global.wearingHatJ+=1}
+          }
+          else
+          {
+            if global.wearingHatC=maxHats {global.wearingHatC=0}
+            else {global.wearingHatC+=1}
+          }
         }
       }
     }
@@ -1332,13 +1403,21 @@ else if subMenu=7 //---------- OPTIONS ----------
         if global.gamePriority=3 {global.gamePriority=0}
         set_program_priority(global.gamePriority)
       }
-      else if mO_CurPos=2 //Set Synchronization
+      else if mO_CurPos=2 //FPS //fps option change (added): 30, 60, 120, then around to 30, as F2 does
+      {
+        if global.gameFrameRate<60 {scrSetFrameRate(60)}
+        else if global.gameFrameRate<120 {scrSetFrameRate(120)}
+        else {scrSetFrameRate(30)}
+      }
+      //else if mO_CurPos=2 //Set Synchronization
+      else if mO_CurPos=3 //Set Synchronization //options move change: a row lower (FPS is row 2)
       {
         if global.optVSync=1 {global.optVSync=0}
         else {global.optVSync=1}
         set_synchronization(global.optVSync)
       }
-      else if mO_CurPos=3 //Window Scaling
+      //else if mO_CurPos=3 //Window Scaling
+      else if mO_CurPos=4 //Window Scaling //options move change: a row lower
       {
         if global.optWindowSize<2 {global.optWindowSize=2}
         else if global.optWindowSize>=2 and global.optWindowSize<3 {global.optWindowSize=3}
@@ -1346,46 +1425,53 @@ else if subMenu=7 //---------- OPTIONS ----------
         window_set_size(480*global.optWindowSize,352*global.optWindowSize)
         window_center()
       }
-      else if mO_CurPos=4 //Window Resizing
+      //else if mO_CurPos=4 //Window Resizing
+      else if mO_CurPos=5 //Window Resizing //options move change: a row lower
       {
         if global.optCanResizeWindow=1 {global.optCanResizeWindow=0}
         else {global.optCanResizeWindow=1}
         window_set_sizeable(global.optCanResizeWindow)
       }
-      else if mO_CurPos=5 //Low Health Warn
+      //else if mO_CurPos=5 //Low Health Warn
+      else if mO_CurPos=6 //Low Health Warn //options move change: a row lower
       {
         if global.optLowHealthWarn=1 {global.optLowHealthWarn=0}
         else {global.optLowHealthWarn=1}
       }
-      else if mO_CurPos=6 //Game Over Settings
+      //else if mO_CurPos=6 //Game Over Settings
+      else if mO_CurPos=7 //Game Over Settings //options move change: a row lower
       {
         global.optBitrateExplosion+=1
         if global.optBitrateExplosion>=3 {global.optBitrateExplosion=0}
       }
-      else if mO_CurPos=7 //Player Trail
+      //else if mO_CurPos=7 //Player Trail
+      else if mO_CurPos=8 //Player Trail //options move change: a row lower
       {
         if global.optPlayerTrail=1 {global.optPlayerTrail=0}
         else {global.optPlayerTrail=1}
       }
-      else if mO_CurPos=8 //Weapon Trail
+      //else if mO_CurPos=8 //Weapon Trail
+      else if mO_CurPos=9 //Weapon Trail //options move change: a row lower
       {
         if global.optWeaponTrail=1 {global.optWeaponTrail=0}
         else {global.optWeaponTrail=1}
       }
-      else if mO_CurPos=9 and mCZ_Show=1 //Color Zone Colors //color zone change (added)
+      //else if mO_CurPos=9 and mCZ_Show=1 //Color Zone Colors //color zone change (added)
+      else if mO_CurPos=10 and mCZ_Show=1 //Color Zone Colors //color zone change (added) //options move change: a row lower
       {
         subMenu=16
       }
-      //else if mO_CurPos=9 //Jerry Hat
-      else if mO_CurPos=mCZ_HatRow //Jerry Hat //color zone change: a row lower when Color Zone Colors is shown
-      {
-        global.wearingHatJ=0
-      }
-      //else if mO_CurPos=10 //Claire Hat
-      else if mO_CurPos=mCZ_HatRow+1 //Claire Hat //color zone change: a row lower when Color Zone Colors is shown
-      {
-        global.wearingHatC=0
-      }
+      //options move change: the hats are on Display now (below)
+      ////else if mO_CurPos=9 //Jerry Hat
+      //else if mO_CurPos=mCZ_HatRow //Jerry Hat //color zone change: a row lower when Color Zone Colors is shown
+      //{
+      //  global.wearingHatJ=0
+      //}
+      ////else if mO_CurPos=10 //Claire Hat
+      //else if mO_CurPos=mCZ_HatRow+1 //Claire Hat //color zone change: a row lower when Color Zone Colors is shown
+      //{
+      //  global.wearingHatC=0
+      //}
     }
     else if mO_OptSubMenu=3 //---------- DISPLAY ----------
     {
@@ -1436,6 +1522,14 @@ else if subMenu=7 //---------- OPTIONS ----------
       {
         if global.optDeathCounter=1 {global.optDeathCounter=0}
         else {global.optDeathCounter=1}
+      }
+      else if mO_CurPos=mCZ_HatRow //Jerry Hat //options move change (added): from Graphics
+      {
+        global.wearingHatJ=0
+      }
+      else if mO_CurPos=mCZ_HatRow+1 //Claire Hat //options move change (added): from Graphics
+      {
+        global.wearingHatC=0
       }
     }
     else if mO_OptSubMenu=4 //---------- GAMEPLAY ----------
@@ -1634,7 +1728,7 @@ else if subMenu=8 //---------- TELEPORT ----------
       global.gamePaused=false
       global.bossTrack=0; global.rmDeaths=0; global.currentBoss=""
     }
-    
+
     if global.bBossGallery=0
     {
       if global.mapTeleport=1 //Gate A
@@ -1871,7 +1965,7 @@ else if subMenu=9 //---------- SAVE ----------
         mS_CurY+=mS_CurInc
       }
     }
-  
+
     //if oKeyCodes.kCodePressed[5]=1
     if oKeyCodes.kCodePressed[15]=1 //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
     {
@@ -1941,7 +2035,7 @@ else if subMenu=11 //---------- CONTROLS ----------
       mCon_CurY+=mCon_CurInc
     }
   }
-  
+
   //if oKeyCodes.kCodePressed[5]=1
   if oKeyCodes.kCodePressed[15]=1 //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
   {
@@ -2136,7 +2230,7 @@ else if subMenu=12 //---------- ITEM MENU ----------
       else if mItem_CurY=2 {tIndAdj=10}
       else if mItem_CurY=3 {tIndAdj=20}
       else if mItem_CurY=4 {tIndAdj=30}
-      
+
       //if eCheck[mItem_CurX-1+tIndAdj]="1" and tIndAdj>-1
       if eCheck[mItem_CurX-1+tIndAdj]="1" and tIndAdj>-1 and scrNormSwordBlocked(mItem_CurX+tIndAdj)=0 //normalized gallery change: no sword equipment in the boss gallery with its lever on
       {
@@ -2156,7 +2250,7 @@ else if subMenu=12 //---------- ITEM MENU ----------
         tNewString=string_insert("2",tNewString,mItem_CurX+tIndAdj)
         global.equipItems=tNewString
         eCheck[mItem_CurX-1+tIndAdj]="2"
-        
+
         //Check Speed Booster
         oPlayer1.dashRecovery=20+(global.skillTree[22]*2)
         for(i=0;i<3;i+=1)
@@ -2639,7 +2733,7 @@ if view_current=0
   if subMenu=11 or subMenu=14 {tChapterName=""}
   textDropShadow(tChapterName,contentMenuX+2,contentMenuY-23,textColorMain,textColorShadow,1)
 
-  textDropShadow("Press the [Home] key to reset your controls to the default settings.",mainMenuX+8,mainMenuY+282,textColorMain,textColorShadow,1)
+  //textDropShadow("Press the [Home] key to reset your controls to the default settings.",mainMenuX+8,mainMenuY+282,textColorMain,textColorShadow,1) //menu info change: it's in the PROGRESS menu info now
 
   //----- Prizes -----
   if global.yoshiDoll>=1 {draw_sprite(sPauseM_YoshiDoll,0,contentMenuX+48,contentMenuY-27)}
@@ -2670,7 +2764,8 @@ if view_current=0
     if global.permaEasyMode=1 {tExtDiffText=" (E)"}
 
     draw_text(contentMenuX+106,contentMenuY,string(tDiffText) +string(tExtDiffText))
-    menuInfoText="Your overall progress and status."
+    //menuInfoText="Your overall progress and status."
+    menuInfoText="Your overall progress and status.#Press the [Home] key to reset your controls to the default settings." //menu info change: the [Home] line, from below the menu
     menuProgress()
   }
   else if mainCurPos=2 //------------------------------ EQUIPMENT ------------------------------
@@ -2943,7 +3038,7 @@ if view_current=0
     tConY=contentMenuY-27
     draw_sprite(sPauseM_ControlMain,0,contentMenuX+122,tConY)
     //menuInfoText="Change the control setup. This is for keyboard controls only. It only changes gamepad controls if you're using 3rd party software to bind keys to controller inputs."
-    menuInfoText="Change the control setup. This is for keyboard controls only. It only changes gamepad controls if you're using 3rd party software to bind keys to controller inputs.#Quick Restart: [U] + [I] on the pause menu." //controls change
+    menuInfoText="Change keyboard bindings.#Press the [Home] key to reset your controls to the default settings." //controls change
     //Display cursor
     //draw_sprite(sPauseM_AbilArrow,0,contentMenuX+122+mCon_CurX,contentMenuY+17+mCon_CurY)
     draw_sprite(sPauseM_AbilArrow,0,contentMenuX+122+mCon_CurX,tConY+mCon_CurY) //controls change
@@ -3364,4 +3459,14 @@ if view_current=0
   }
   textDropShadow(global.equipItems,contentMenuX-32,contentMenuY-32,textColorMain,make_color_rgb(12,16,15),4)
   */
+
+  //jukebox change (added): where the music playing is from, right-aligned in the bottom right (mMusicCredit, set in Create)
+  if mMusicCredit!="" and global.optMusic>0
+  {
+    draw_set_font(fnt_PauseMenuText)
+    draw_set_halign(fa_right)
+    textDropShadow("Music From",view_xview[0]+view_wview[0]-4,view_yview[0]+view_hview[0]-27,textColorMain,textColorShadow,4)
+    scrTextFit(mMusicCredit,view_xview[0]+view_wview[0]-4,view_yview[0]+view_hview[0]-14,472,textColorMain,textColorShadow)
+    draw_set_halign(fa_left)
+  }
 }

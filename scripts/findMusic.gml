@@ -852,6 +852,10 @@ else if tTrackPlay=1027
     global.msc_Scrolling=SS_LoadSound(working_directory+"\Music\DT_Scrolling.ogg",bStream)
   tempFindMusic=global.msc_Scrolling
 }
+else if tTrackPlay=9000 //jukebox change (added): the title screen music (loadExtFiles loads it, it's never unloaded), so the music room's jukebox plays it like the other tracks
+{
+  tempFindMusic=global.msc_TitleMenu
+}
 
 if tTrackPlay!=0 {return tempFindMusic}
 else {return 0}

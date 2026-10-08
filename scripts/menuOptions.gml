@@ -139,10 +139,10 @@ if mO_OptSubMenu=1 //------------------------- CONTROL -------------------------
   textDropShadow(string(round(global.optStickDeadZone*100)) +"%",contentMenuX+164,contentMenuY+163-tCtrlUp,textColorMain,textColorShadow,1) //gamepad change (added) //dt4 dash change: a row lower (DT4 Dashing is row 6) //niche dash change: up two without Niche Dash Settings
 
   //if mO_CurPos=1 {menuInfoText="Change the control setup. This is for keyboard controls only. It only changes gamepad controls if you're using 3rd party software to bind keys to controller inputs."}
-  if mO_CtrlItem=1 {menuInfoText="Change the control setup. This is for keyboard controls only. It only changes gamepad controls if you're using 3rd party software to bind keys to controller inputs."} //niche dash change: the option, not the row
+  if mO_CtrlItem=1 {menuInfoText="Change keyboard bindings.#Press the [Home] key to reset your controls to the default settings."} //niche dash change: the option, not the row
   //else if mO_CurPos=2 {menuInfoText="Change the gamepad control setup. This is only if you're using the built in gamepad controls. (Turn on 'Gamepad Input' in the next option down for these to take effect.)"}
   //else if mO_CurPos=2 {menuInfoText="Change the gamepad controls: pick an action, then press the button for it on your gamepad. (Turn on 'Gamepad Input' in the next option down for these to take effect.)"} //gamepad change: no more presets
-  else if mO_CtrlItem=2 {menuInfoText="Change the gamepad controls: pick an action, then press the button for it on your gamepad. (Turn on 'Gamepad Input' in the next option down for these to take effect.)"} //gamepad change: no more presets //niche dash change
+  else if mO_CtrlItem=2 {menuInfoText="Change gamepad bindings. (Turn on 'Gamepad Input' in the next option down for these to take effect.)#Press the [Home] key to reset your controls to the default settings."} //gamepad change: no more presets //niche dash change
   //else if mO_CurPos=3 {menuInfoText="Enable Gamepad support. Keep this off if you prefer to use your own software for keybindings."}
   //else if mO_CurPos=3 {menuInfoText="Enable Gamepad support (Xbox, PlayStation, Switch Pro and most other controllers). Keep this off if you prefer to use your own software for keybindings."} //gamepad change
   else if mO_CtrlItem=3 {menuInfoText="Enable Gamepad support (Xbox, PlayStation, Switch Pro and most other controllers). Keep this off if you prefer to use your own software for keybindings."} //gamepad change //niche dash change
@@ -177,134 +177,167 @@ if mO_OptSubMenu=1 //------------------------- CONTROL -------------------------
 }
 else if mO_OptSubMenu=2 //------------------------- GRAPHICS -------------------------
 {
-  var tHatY; tHatY=contentMenuY+139+(12*mCZ_Show) //color zone change (added): y of Jerry's Hat (Claire's is 12 lower); a row lower when Color Zone Colors is shown
+  //var tHatY; tHatY=contentMenuY+139+(12*mCZ_Show) //color zone change (added): y of Jerry's Hat (Claire's is 12 lower); a row lower when Color Zone Colors is shown //options move change: the hats are on Display now
   textDropShadow("Game Priority",contentMenuX+28,contentMenuY+43,textColorMain,textColorShadow,1)
-  textDropShadow("V-Sync",contentMenuX+28,contentMenuY+55,textColorMain,textColorShadow,1)
-  textDropShadow("Window Scaling",contentMenuX+28,contentMenuY+67,textColorMain,textColorShadow,1)
-  textDropShadow("Window Resizing",contentMenuX+28,contentMenuY+79,textColorMain,textColorShadow,1)
-  textDropShadow("Show Low Health Warn",contentMenuX+28,contentMenuY+91,textColorMain,textColorShadow,1)
-  textDropShadow("Game Over Settings",contentMenuX+28,contentMenuY+103,textColorMain,textColorShadow,1)
-  textDropShadow("Player Trail",contentMenuX+28,contentMenuY+115,textColorMain,textColorShadow,1)
-  textDropShadow("Weapon Trail",contentMenuX+28,contentMenuY+127,textColorMain,textColorShadow,1)
-  if mCZ_Show=1 {textDropShadow("Color Zone Colors",contentMenuX+28,contentMenuY+139,textColorMain,textColorShadow,1)} //color zone change (added): opens the color zone list (subMenu 16); only once the save has seen color zones
+  textDropShadow("FPS",contentMenuX+28,contentMenuY+55,textColorMain,textColorShadow,1) //fps option change (added)
+  //textDropShadow("V-Sync",contentMenuX+28,contentMenuY+55,textColorMain,textColorShadow,1)
+  textDropShadow("V-Sync",contentMenuX+28,contentMenuY+67,textColorMain,textColorShadow,1) //options move change: a row lower (FPS is row 2)
+  //textDropShadow("Window Scaling",contentMenuX+28,contentMenuY+67,textColorMain,textColorShadow,1)
+  textDropShadow("Window Scaling",contentMenuX+28,contentMenuY+79,textColorMain,textColorShadow,1) //options move change: a row lower (FPS is row 2)
+  //textDropShadow("Window Resizing",contentMenuX+28,contentMenuY+79,textColorMain,textColorShadow,1)
+  textDropShadow("Window Resizing",contentMenuX+28,contentMenuY+91,textColorMain,textColorShadow,1) //options move change: a row lower (FPS is row 2)
+  //textDropShadow("Show Low Health Warn",contentMenuX+28,contentMenuY+91,textColorMain,textColorShadow,1)
+  textDropShadow("Show Low Health Warn",contentMenuX+28,contentMenuY+103,textColorMain,textColorShadow,1) //options move change: a row lower (FPS is row 2)
+  //textDropShadow("Game Over Settings",contentMenuX+28,contentMenuY+103,textColorMain,textColorShadow,1)
+  textDropShadow("Game Over Settings",contentMenuX+28,contentMenuY+115,textColorMain,textColorShadow,1) //options move change: a row lower (FPS is row 2)
+  //textDropShadow("Player Trail",contentMenuX+28,contentMenuY+115,textColorMain,textColorShadow,1)
+  textDropShadow("Player Trail",contentMenuX+28,contentMenuY+127,textColorMain,textColorShadow,1) //options move change: a row lower (FPS is row 2)
+  //textDropShadow("Weapon Trail",contentMenuX+28,contentMenuY+127,textColorMain,textColorShadow,1)
+  textDropShadow("Weapon Trail",contentMenuX+28,contentMenuY+139,textColorMain,textColorShadow,1) //options move change: a row lower (FPS is row 2)
+  //if mCZ_Show=1 {textDropShadow("Color Zone Colors",contentMenuX+28,contentMenuY+139,textColorMain,textColorShadow,1)} //color zone change (added): opens the color zone list (subMenu 16); only once the save has seen color zones
+  if mCZ_Show=1 {textDropShadow("Color Zone Colors",contentMenuX+28,contentMenuY+151,textColorMain,textColorShadow,1)} //color zone change (added): opens the color zone list (subMenu 16); only once the save has seen color zones //options move change: a row lower (FPS is row 2)
   //textDropShadow("Jerry's Hat",contentMenuX+28,contentMenuY+139,textColorMain,textColorShadow,1)
-  textDropShadow("Jerry's Hat",contentMenuX+28,tHatY,textColorMain,textColorShadow,1) //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
+  //textDropShadow("Jerry's Hat",contentMenuX+28,tHatY,textColorMain,textColorShadow,1) //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
   //textDropShadow("Claire's Hat",contentMenuX+28,contentMenuY+151,textColorMain,textColorShadow,1)
-  textDropShadow("Claire's Hat",contentMenuX+28,tHatY+12,textColorMain,textColorShadow,1) //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
+  //textDropShadow("Claire's Hat",contentMenuX+28,tHatY+12,textColorMain,textColorShadow,1) //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
 
   if global.gamePriority=0 {textDropShadow("Normal",contentMenuX+164,contentMenuY+43,textColorMain,textColorShadow,1)}
   else if global.gamePriority=1 {textDropShadow("High",contentMenuX+164,contentMenuY+43,textColorMain,textColorShadow,1)}
   else if global.gamePriority=2 {textDropShadow("Highest",contentMenuX+164,contentMenuY+43,textColorMain,textColorShadow,1)}
-  if global.optVSync=0 {textDropShadow("Off",contentMenuX+164,contentMenuY+55,textColorMain,textColorShadow,1)}
-  else if global.optVSync=1 {textDropShadow("On",contentMenuX+164,contentMenuY+55,textColorMain,textColorShadow,1)}
-  textDropShadow(string(global.optWindowSize) +string("x"),contentMenuX+164,contentMenuY+67,textColorMain,textColorShadow,1)
-  if global.optCanResizeWindow=0 {textDropShadow("Off",contentMenuX+164,contentMenuY+79,textColorMain,textColorShadow,1)}
-  else if global.optCanResizeWindow=1 {textDropShadow("On",contentMenuX+164,contentMenuY+79,textColorMain,textColorShadow,1)}
-  if global.optLowHealthWarn=0 {textDropShadow("Off",contentMenuX+164,contentMenuY+91,textColorMain,textColorShadow,1)}
-  else if global.optLowHealthWarn=1 {textDropShadow("On",contentMenuX+164,contentMenuY+91,textColorMain,textColorShadow,1)}
-  if global.optBitrateExplosion=0 {textDropShadow("Normal",contentMenuX+164,contentMenuY+103,textColorMain,textColorShadow,1)}
-  else if global.optBitrateExplosion=1 {textDropShadow("Reduce Static Effect",contentMenuX+164,contentMenuY+103,textColorMain,textColorShadow,1)}
-  else if global.optBitrateExplosion=2 {textDropShadow("Auto Skip",contentMenuX+164,contentMenuY+103,textColorMain,textColorShadow,1)}
-  if global.optPlayerTrail=0 {textDropShadow("Off",contentMenuX+164,contentMenuY+115,textColorMain,textColorShadow,1)}
-  else if global.optPlayerTrail=1 {textDropShadow("On",contentMenuX+164,contentMenuY+115,textColorMain,textColorShadow,1)}
-  if global.optWeaponTrail=0 {textDropShadow("Off",contentMenuX+164,contentMenuY+127,textColorMain,textColorShadow,1)}
-  else if global.optWeaponTrail=1 {textDropShadow("On",contentMenuX+164,contentMenuY+127,textColorMain,textColorShadow,1)}
+  textDropShadow(string(global.gameFrameRate),contentMenuX+164,contentMenuY+55,textColorMain,textColorShadow,1) //fps option change (added)
+  //if global.optVSync=0 {textDropShadow("Off",contentMenuX+164,contentMenuY+55,textColorMain,textColorShadow,1)}
+  if global.optVSync=0 {textDropShadow("Off",contentMenuX+164,contentMenuY+67,textColorMain,textColorShadow,1)} //options move change: a row lower (FPS is row 2)
+  //else if global.optVSync=1 {textDropShadow("On",contentMenuX+164,contentMenuY+55,textColorMain,textColorShadow,1)}
+  else if global.optVSync=1 {textDropShadow("On",contentMenuX+164,contentMenuY+67,textColorMain,textColorShadow,1)} //options move change: a row lower (FPS is row 2)
+  //textDropShadow(string(global.optWindowSize) +string("x"),contentMenuX+164,contentMenuY+67,textColorMain,textColorShadow,1)
+  textDropShadow(string(global.optWindowSize) +string("x"),contentMenuX+164,contentMenuY+79,textColorMain,textColorShadow,1) //options move change: a row lower (FPS is row 2)
+  //if global.optCanResizeWindow=0 {textDropShadow("Off",contentMenuX+164,contentMenuY+79,textColorMain,textColorShadow,1)}
+  if global.optCanResizeWindow=0 {textDropShadow("Off",contentMenuX+164,contentMenuY+91,textColorMain,textColorShadow,1)} //options move change: a row lower (FPS is row 2)
+  //else if global.optCanResizeWindow=1 {textDropShadow("On",contentMenuX+164,contentMenuY+79,textColorMain,textColorShadow,1)}
+  else if global.optCanResizeWindow=1 {textDropShadow("On",contentMenuX+164,contentMenuY+91,textColorMain,textColorShadow,1)} //options move change: a row lower (FPS is row 2)
+  //if global.optLowHealthWarn=0 {textDropShadow("Off",contentMenuX+164,contentMenuY+91,textColorMain,textColorShadow,1)}
+  if global.optLowHealthWarn=0 {textDropShadow("Off",contentMenuX+164,contentMenuY+103,textColorMain,textColorShadow,1)} //options move change: a row lower (FPS is row 2)
+  //else if global.optLowHealthWarn=1 {textDropShadow("On",contentMenuX+164,contentMenuY+91,textColorMain,textColorShadow,1)}
+  else if global.optLowHealthWarn=1 {textDropShadow("On",contentMenuX+164,contentMenuY+103,textColorMain,textColorShadow,1)} //options move change: a row lower (FPS is row 2)
+  //if global.optBitrateExplosion=0 {textDropShadow("Normal",contentMenuX+164,contentMenuY+103,textColorMain,textColorShadow,1)}
+  if global.optBitrateExplosion=0 {textDropShadow("Normal",contentMenuX+164,contentMenuY+115,textColorMain,textColorShadow,1)} //options move change: a row lower (FPS is row 2)
+  //else if global.optBitrateExplosion=1 {textDropShadow("Reduce Static Effect",contentMenuX+164,contentMenuY+103,textColorMain,textColorShadow,1)}
+  else if global.optBitrateExplosion=1 {textDropShadow("Reduce Static Effect",contentMenuX+164,contentMenuY+115,textColorMain,textColorShadow,1)} //options move change: a row lower (FPS is row 2)
+  //else if global.optBitrateExplosion=2 {textDropShadow("Auto Skip",contentMenuX+164,contentMenuY+103,textColorMain,textColorShadow,1)}
+  else if global.optBitrateExplosion=2 {textDropShadow("Auto Skip",contentMenuX+164,contentMenuY+115,textColorMain,textColorShadow,1)} //options move change: a row lower (FPS is row 2)
+  //if global.optPlayerTrail=0 {textDropShadow("Off",contentMenuX+164,contentMenuY+115,textColorMain,textColorShadow,1)}
+  if global.optPlayerTrail=0 {textDropShadow("Off",contentMenuX+164,contentMenuY+127,textColorMain,textColorShadow,1)} //options move change: a row lower (FPS is row 2)
+  //else if global.optPlayerTrail=1 {textDropShadow("On",contentMenuX+164,contentMenuY+115,textColorMain,textColorShadow,1)}
+  else if global.optPlayerTrail=1 {textDropShadow("On",contentMenuX+164,contentMenuY+127,textColorMain,textColorShadow,1)} //options move change: a row lower (FPS is row 2)
+  //if global.optWeaponTrail=0 {textDropShadow("Off",contentMenuX+164,contentMenuY+127,textColorMain,textColorShadow,1)}
+  if global.optWeaponTrail=0 {textDropShadow("Off",contentMenuX+164,contentMenuY+139,textColorMain,textColorShadow,1)} //options move change: a row lower (FPS is row 2)
+  //else if global.optWeaponTrail=1 {textDropShadow("On",contentMenuX+164,contentMenuY+127,textColorMain,textColorShadow,1)}
+  else if global.optWeaponTrail=1 {textDropShadow("On",contentMenuX+164,contentMenuY+139,textColorMain,textColorShadow,1)} //options move change: a row lower (FPS is row 2)
 
-  hatSpriteJ=sNull
-  hatSpriteC=sNull
+  //hatSpriteJ=sNull
+  //hatSpriteC=sNull
   //if global.wearingHatJ=0 {textDropShadow("No hat",contentMenuX+164,contentMenuY+139,textColorMain,textColorShadow,1)}
-  if global.wearingHatJ=0 {textDropShadow("No hat",contentMenuX+164,tHatY,textColorMain,textColorShadow,1)} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
+  //if global.wearingHatJ=0 {textDropShadow("No hat",contentMenuX+164,tHatY,textColorMain,textColorShadow,1)} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
   //else if global.wearingHatJ=1 {textDropShadow("Classy Hat",contentMenuX+164,contentMenuY+139,textColorMain,textColorShadow,1); hatSpriteJ=sDLC_Hat_01}
-  else if global.wearingHatJ=1 {textDropShadow("Classy Hat",contentMenuX+164,tHatY,textColorMain,textColorShadow,1); hatSpriteJ=sDLC_Hat_01} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
+  //else if global.wearingHatJ=1 {textDropShadow("Classy Hat",contentMenuX+164,tHatY,textColorMain,textColorShadow,1); hatSpriteJ=sDLC_Hat_01} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
   //else if global.wearingHatJ=2 {textDropShadow("Top Hat?",contentMenuX+164,contentMenuY+139,textColorMain,textColorShadow,1); hatSpriteJ=sDLC_Hat_02}
-  else if global.wearingHatJ=2 {textDropShadow("Top Hat?",contentMenuX+164,tHatY,textColorMain,textColorShadow,1); hatSpriteJ=sDLC_Hat_02} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
+  //else if global.wearingHatJ=2 {textDropShadow("Top Hat?",contentMenuX+164,tHatY,textColorMain,textColorShadow,1); hatSpriteJ=sDLC_Hat_02} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
   //else if global.wearingHatJ=3 {textDropShadow("Cap... Hat??",contentMenuX+164,contentMenuY+139,textColorMain,textColorShadow,1); hatSpriteJ=sDLC_Hat_03}
-  else if global.wearingHatJ=3 {textDropShadow("Cap... Hat??",contentMenuX+164,tHatY,textColorMain,textColorShadow,1); hatSpriteJ=sDLC_Hat_03} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
+  //else if global.wearingHatJ=3 {textDropShadow("Cap... Hat??",contentMenuX+164,tHatY,textColorMain,textColorShadow,1); hatSpriteJ=sDLC_Hat_03} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
   //else if global.wearingHatJ=4 {textDropShadow("Ah yeah, Crown Hat!",contentMenuX+164,contentMenuY+139,textColorMain,textColorShadow,1); hatSpriteJ=sDLC_Hat_04}
-  else if global.wearingHatJ=4 {textDropShadow("Ah yeah, Crown Hat!",contentMenuX+164,tHatY,textColorMain,textColorShadow,1); hatSpriteJ=sDLC_Hat_04} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
+  //else if global.wearingHatJ=4 {textDropShadow("Ah yeah, Crown Hat!",contentMenuX+164,tHatY,textColorMain,textColorShadow,1); hatSpriteJ=sDLC_Hat_04} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
   //else if global.wearingHatJ=5 {textDropShadow("!Watermelon Hat!",contentMenuX+164,contentMenuY+139,textColorMain,textColorShadow,1); hatSpriteJ=sDLC_Hat_05}
-  else if global.wearingHatJ=5 {textDropShadow("!Watermelon Hat!",contentMenuX+164,tHatY,textColorMain,textColorShadow,1); hatSpriteJ=sDLC_Hat_05} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
+  //else if global.wearingHatJ=5 {textDropShadow("!Watermelon Hat!",contentMenuX+164,tHatY,textColorMain,textColorShadow,1); hatSpriteJ=sDLC_Hat_05} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
   //else if global.wearingHatJ=6 {textDropShadow("Party Hat",contentMenuX+164,contentMenuY+139,textColorMain,textColorShadow,1); hatSpriteJ=sDLC_Hat_06}
-  else if global.wearingHatJ=6 {textDropShadow("Party Hat",contentMenuX+164,tHatY,textColorMain,textColorShadow,1); hatSpriteJ=sDLC_Hat_06} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
+  //else if global.wearingHatJ=6 {textDropShadow("Party Hat",contentMenuX+164,tHatY,textColorMain,textColorShadow,1); hatSpriteJ=sDLC_Hat_06} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
   //else if global.wearingHatJ=7 {textDropShadow("Applejack's Hat",contentMenuX+164,contentMenuY+139,textColorMain,textColorShadow,1); hatSpriteJ=sDLC_Hat_07}
-  else if global.wearingHatJ=7 {textDropShadow("Applejack's Hat",contentMenuX+164,tHatY,textColorMain,textColorShadow,1); hatSpriteJ=sDLC_Hat_07} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
+  //else if global.wearingHatJ=7 {textDropShadow("Applejack's Hat",contentMenuX+164,tHatY,textColorMain,textColorShadow,1); hatSpriteJ=sDLC_Hat_07} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
   //else if global.wearingHatJ=8 {textDropShadow("Wing Hat",contentMenuX+164,contentMenuY+139,textColorMain,textColorShadow,1); hatSpriteJ=sDLC_Hat_08}
-  else if global.wearingHatJ=8 {textDropShadow("Wing Hat",contentMenuX+164,tHatY,textColorMain,textColorShadow,1); hatSpriteJ=sDLC_Hat_08} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
+  //else if global.wearingHatJ=8 {textDropShadow("Wing Hat",contentMenuX+164,tHatY,textColorMain,textColorShadow,1); hatSpriteJ=sDLC_Hat_08} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
   //else if global.wearingHatJ=9 {textDropShadow("Bird Hat!!!",contentMenuX+164,contentMenuY+139,textColorMain,textColorShadow,1); hatSpriteJ=sDLC_Hat_09}
-  else if global.wearingHatJ=9 {textDropShadow("Bird Hat!!!",contentMenuX+164,tHatY,textColorMain,textColorShadow,1); hatSpriteJ=sDLC_Hat_09} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
+  //else if global.wearingHatJ=9 {textDropShadow("Bird Hat!!!",contentMenuX+164,tHatY,textColorMain,textColorShadow,1); hatSpriteJ=sDLC_Hat_09} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
   //else if global.wearingHatJ=10 {textDropShadow("Arby's Hat",contentMenuX+164,contentMenuY+139,textColorMain,textColorShadow,1); hatSpriteJ=sDLC_Hat_10}
-  else if global.wearingHatJ=10 {textDropShadow("Arby's Hat",contentMenuX+164,tHatY,textColorMain,textColorShadow,1); hatSpriteJ=sDLC_Hat_10} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
+  //else if global.wearingHatJ=10 {textDropShadow("Arby's Hat",contentMenuX+164,tHatY,textColorMain,textColorShadow,1); hatSpriteJ=sDLC_Hat_10} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
   //else if global.wearingHatJ=11 {textDropShadow("Wizard Hat (But no robe)",contentMenuX+164,contentMenuY+139,textColorMain,textColorShadow,1); hatSpriteJ=sDLC_Hat_11}
-  else if global.wearingHatJ=11 {textDropShadow("Wizard Hat (But no robe)",contentMenuX+164,tHatY,textColorMain,textColorShadow,1); hatSpriteJ=sDLC_Hat_11} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
+  //else if global.wearingHatJ=11 {textDropShadow("Wizard Hat (But no robe)",contentMenuX+164,tHatY,textColorMain,textColorShadow,1); hatSpriteJ=sDLC_Hat_11} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
   //else if global.wearingHatJ=12 {textDropShadow("Bitchen Hat",contentMenuX+164,contentMenuY+139,textColorMain,textColorShadow,1); hatSpriteJ=sDLC_Hat_12}
-  else if global.wearingHatJ=12 {textDropShadow("Bitchen Hat",contentMenuX+164,tHatY,textColorMain,textColorShadow,1); hatSpriteJ=sDLC_Hat_12} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
+  //else if global.wearingHatJ=12 {textDropShadow("Bitchen Hat",contentMenuX+164,tHatY,textColorMain,textColorShadow,1); hatSpriteJ=sDLC_Hat_12} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
   //else if global.wearingHatJ=13 {textDropShadow("Buttface Hat",contentMenuX+164,contentMenuY+139,textColorMain,textColorShadow,1); hatSpriteJ=sDLC_Hat_13}
-  else if global.wearingHatJ=13 {textDropShadow("Buttface Hat",contentMenuX+164,tHatY,textColorMain,textColorShadow,1); hatSpriteJ=sDLC_Hat_13} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
+  //else if global.wearingHatJ=13 {textDropShadow("Buttface Hat",contentMenuX+164,tHatY,textColorMain,textColorShadow,1); hatSpriteJ=sDLC_Hat_13} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
   //else if global.wearingHatJ=14 {textDropShadow("Cat in the Hat... Hat?",contentMenuX+164,contentMenuY+139,textColorMain,textColorShadow,1); hatSpriteJ=sDLC_Hat_14}
-  else if global.wearingHatJ=14 {textDropShadow("Cat in the Hat... Hat?",contentMenuX+164,tHatY,textColorMain,textColorShadow,1); hatSpriteJ=sDLC_Hat_14} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
+  //else if global.wearingHatJ=14 {textDropShadow("Cat in the Hat... Hat?",contentMenuX+164,tHatY,textColorMain,textColorShadow,1); hatSpriteJ=sDLC_Hat_14} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
   //else if global.wearingHatJ=15 {textDropShadow("Twitch Hat?",contentMenuX+164,contentMenuY+139,textColorMain,textColorShadow,1); hatSpriteJ=sDLC_Hat_15}
-  else if global.wearingHatJ=15 {textDropShadow("Twitch Hat?",contentMenuX+164,tHatY,textColorMain,textColorShadow,1); hatSpriteJ=sDLC_Hat_15} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
+  //else if global.wearingHatJ=15 {textDropShadow("Twitch Hat?",contentMenuX+164,tHatY,textColorMain,textColorShadow,1); hatSpriteJ=sDLC_Hat_15} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
 
   //if global.wearingHatC=0 {textDropShadow("No hat",contentMenuX+164,contentMenuY+151,textColorMain,textColorShadow,1)}
-  if global.wearingHatC=0 {textDropShadow("No hat",contentMenuX+164,tHatY+12,textColorMain,textColorShadow,1)} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
+  //if global.wearingHatC=0 {textDropShadow("No hat",contentMenuX+164,tHatY+12,textColorMain,textColorShadow,1)} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
   //else if global.wearingHatC=1 {textDropShadow("Classy Hat",contentMenuX+164,contentMenuY+151,textColorMain,textColorShadow,1); hatSpriteC=sDLC_Hat_01}
-  else if global.wearingHatC=1 {textDropShadow("Classy Hat",contentMenuX+164,tHatY+12,textColorMain,textColorShadow,1); hatSpriteC=sDLC_Hat_01} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
+  //else if global.wearingHatC=1 {textDropShadow("Classy Hat",contentMenuX+164,tHatY+12,textColorMain,textColorShadow,1); hatSpriteC=sDLC_Hat_01} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
   //else if global.wearingHatC=2 {textDropShadow("Top Hat?",contentMenuX+164,contentMenuY+151,textColorMain,textColorShadow,1); hatSpriteC=sDLC_Hat_02}
-  else if global.wearingHatC=2 {textDropShadow("Top Hat?",contentMenuX+164,tHatY+12,textColorMain,textColorShadow,1); hatSpriteC=sDLC_Hat_02} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
+  //else if global.wearingHatC=2 {textDropShadow("Top Hat?",contentMenuX+164,tHatY+12,textColorMain,textColorShadow,1); hatSpriteC=sDLC_Hat_02} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
   //else if global.wearingHatC=3 {textDropShadow("Cap... Hat??",contentMenuX+164,contentMenuY+151,textColorMain,textColorShadow,1); hatSpriteC=sDLC_Hat_03}
-  else if global.wearingHatC=3 {textDropShadow("Cap... Hat??",contentMenuX+164,tHatY+12,textColorMain,textColorShadow,1); hatSpriteC=sDLC_Hat_03} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
+  //else if global.wearingHatC=3 {textDropShadow("Cap... Hat??",contentMenuX+164,tHatY+12,textColorMain,textColorShadow,1); hatSpriteC=sDLC_Hat_03} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
   //else if global.wearingHatC=4 {textDropShadow("Ah yeah, Crown Hat!",contentMenuX+164,contentMenuY+151,textColorMain,textColorShadow,1); hatSpriteC=sDLC_Hat_04}
-  else if global.wearingHatC=4 {textDropShadow("Ah yeah, Crown Hat!",contentMenuX+164,tHatY+12,textColorMain,textColorShadow,1); hatSpriteC=sDLC_Hat_04} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
+  //else if global.wearingHatC=4 {textDropShadow("Ah yeah, Crown Hat!",contentMenuX+164,tHatY+12,textColorMain,textColorShadow,1); hatSpriteC=sDLC_Hat_04} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
   //else if global.wearingHatC=5 {textDropShadow("!Watermelon Hat!",contentMenuX+164,contentMenuY+151,textColorMain,textColorShadow,1); hatSpriteC=sDLC_Hat_05}
-  else if global.wearingHatC=5 {textDropShadow("!Watermelon Hat!",contentMenuX+164,tHatY+12,textColorMain,textColorShadow,1); hatSpriteC=sDLC_Hat_05} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
+  //else if global.wearingHatC=5 {textDropShadow("!Watermelon Hat!",contentMenuX+164,tHatY+12,textColorMain,textColorShadow,1); hatSpriteC=sDLC_Hat_05} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
   //else if global.wearingHatC=6 {textDropShadow("Party Hat",contentMenuX+164,contentMenuY+151,textColorMain,textColorShadow,1); hatSpriteC=sDLC_Hat_06}
-  else if global.wearingHatC=6 {textDropShadow("Party Hat",contentMenuX+164,tHatY+12,textColorMain,textColorShadow,1); hatSpriteC=sDLC_Hat_06} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
+  //else if global.wearingHatC=6 {textDropShadow("Party Hat",contentMenuX+164,tHatY+12,textColorMain,textColorShadow,1); hatSpriteC=sDLC_Hat_06} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
   //else if global.wearingHatC=7 {textDropShadow("Applejack's Hat",contentMenuX+164,contentMenuY+151,textColorMain,textColorShadow,1); hatSpriteC=sDLC_Hat_07}
-  else if global.wearingHatC=7 {textDropShadow("Applejack's Hat",contentMenuX+164,tHatY+12,textColorMain,textColorShadow,1); hatSpriteC=sDLC_Hat_07} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
+  //else if global.wearingHatC=7 {textDropShadow("Applejack's Hat",contentMenuX+164,tHatY+12,textColorMain,textColorShadow,1); hatSpriteC=sDLC_Hat_07} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
   //else if global.wearingHatC=8 {textDropShadow("Wing Hat",contentMenuX+164,contentMenuY+151,textColorMain,textColorShadow,1); hatSpriteC=sDLC_Hat_08}
-  else if global.wearingHatC=8 {textDropShadow("Wing Hat",contentMenuX+164,tHatY+12,textColorMain,textColorShadow,1); hatSpriteC=sDLC_Hat_08} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
+  //else if global.wearingHatC=8 {textDropShadow("Wing Hat",contentMenuX+164,tHatY+12,textColorMain,textColorShadow,1); hatSpriteC=sDLC_Hat_08} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
   //else if global.wearingHatC=9 {textDropShadow("Bird Hat!!!",contentMenuX+164,contentMenuY+151,textColorMain,textColorShadow,1); hatSpriteC=sDLC_Hat_09}
-  else if global.wearingHatC=9 {textDropShadow("Bird Hat!!!",contentMenuX+164,tHatY+12,textColorMain,textColorShadow,1); hatSpriteC=sDLC_Hat_09} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
+  //else if global.wearingHatC=9 {textDropShadow("Bird Hat!!!",contentMenuX+164,tHatY+12,textColorMain,textColorShadow,1); hatSpriteC=sDLC_Hat_09} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
   //else if global.wearingHatC=10 {textDropShadow("Arby's Hat",contentMenuX+164,contentMenuY+151,textColorMain,textColorShadow,1); hatSpriteC=sDLC_Hat_10}
-  else if global.wearingHatC=10 {textDropShadow("Arby's Hat",contentMenuX+164,tHatY+12,textColorMain,textColorShadow,1); hatSpriteC=sDLC_Hat_10} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
+  //else if global.wearingHatC=10 {textDropShadow("Arby's Hat",contentMenuX+164,tHatY+12,textColorMain,textColorShadow,1); hatSpriteC=sDLC_Hat_10} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
   //else if global.wearingHatC=11 {textDropShadow("Wizard Hat (But no robe)",contentMenuX+164,contentMenuY+151,textColorMain,textColorShadow,1); hatSpriteC=sDLC_Hat_11}
-  else if global.wearingHatC=11 {textDropShadow("Wizard Hat (But no robe)",contentMenuX+164,tHatY+12,textColorMain,textColorShadow,1); hatSpriteC=sDLC_Hat_11} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
+  //else if global.wearingHatC=11 {textDropShadow("Wizard Hat (But no robe)",contentMenuX+164,tHatY+12,textColorMain,textColorShadow,1); hatSpriteC=sDLC_Hat_11} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
   //else if global.wearingHatC=12 {textDropShadow("Bitchen Hat",contentMenuX+164,contentMenuY+151,textColorMain,textColorShadow,1); hatSpriteC=sDLC_Hat_12}
-  else if global.wearingHatC=12 {textDropShadow("Bitchen Hat",contentMenuX+164,tHatY+12,textColorMain,textColorShadow,1); hatSpriteC=sDLC_Hat_12} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
+  //else if global.wearingHatC=12 {textDropShadow("Bitchen Hat",contentMenuX+164,tHatY+12,textColorMain,textColorShadow,1); hatSpriteC=sDLC_Hat_12} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
   //else if global.wearingHatC=13 {textDropShadow("Buttface Hat",contentMenuX+164,contentMenuY+151,textColorMain,textColorShadow,1); hatSpriteC=sDLC_Hat_13}
-  else if global.wearingHatC=13 {textDropShadow("Buttface Hat",contentMenuX+164,tHatY+12,textColorMain,textColorShadow,1); hatSpriteC=sDLC_Hat_13} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
+  //else if global.wearingHatC=13 {textDropShadow("Buttface Hat",contentMenuX+164,tHatY+12,textColorMain,textColorShadow,1); hatSpriteC=sDLC_Hat_13} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
   //else if global.wearingHatC=14 {textDropShadow("Cat in the Hat... Hat?",contentMenuX+164,contentMenuY+151,textColorMain,textColorShadow,1); hatSpriteC=sDLC_Hat_14}
-  else if global.wearingHatC=14 {textDropShadow("Cat in the Hat... Hat?",contentMenuX+164,tHatY+12,textColorMain,textColorShadow,1); hatSpriteC=sDLC_Hat_14} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
+  //else if global.wearingHatC=14 {textDropShadow("Cat in the Hat... Hat?",contentMenuX+164,tHatY+12,textColorMain,textColorShadow,1); hatSpriteC=sDLC_Hat_14} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
   //else if global.wearingHatC=15 {textDropShadow("Twitch Hat?",contentMenuX+164,contentMenuY+151,textColorMain,textColorShadow,1); hatSpriteC=sDLC_Hat_15}
-  else if global.wearingHatC=15 {textDropShadow("Twitch Hat?",contentMenuX+164,tHatY+12,textColorMain,textColorShadow,1); hatSpriteC=sDLC_Hat_15} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
+  //else if global.wearingHatC=15 {textDropShadow("Twitch Hat?",contentMenuX+164,tHatY+12,textColorMain,textColorShadow,1); hatSpriteC=sDLC_Hat_15} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
 
   //if mO_CurPos=9 or mO_CurPos=10
-  if mO_CurPos=mCZ_HatRow or mO_CurPos=mCZ_HatRow+1 //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
-  {
-    var tMainHatMenuX,tMainHatMenuY;
-    tMainHatMenuX=contentMenuX+124
-    tMainHatMenuY=contentMenuY+28
-    draw_sprite(sPauseM_HatMenu,0,tMainHatMenuX,tMainHatMenuY)
-    draw_sprite(hatSpriteJ,0,tMainHatMenuX-50,tMainHatMenuY+70)
-    draw_sprite(hatSpriteC,0,tMainHatMenuX+50,tMainHatMenuY+70)
-  }
+  //if mO_CurPos=mCZ_HatRow or mO_CurPos=mCZ_HatRow+1 //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow) //options move change: the hats are on Display now
+  //{
+    //var tMainHatMenuX,tMainHatMenuY;
+    //tMainHatMenuX=contentMenuX+124
+    //tMainHatMenuY=contentMenuY+28
+    //draw_sprite(sPauseM_HatMenu,0,tMainHatMenuX,tMainHatMenuY)
+    //draw_sprite(hatSpriteJ,0,tMainHatMenuX-50,tMainHatMenuY+70)
+    //draw_sprite(hatSpriteC,0,tMainHatMenuX+50,tMainHatMenuY+70)
+  //}
 
   if mO_CurPos=1 {menuInfoText="Higher priorities give the game more CPU time. Use a higher setting if the game suffers from lag."}
-  else if mO_CurPos=2 {menuInfoText="Set V-Sync on/off. Turning this off may reduce some lag, but may cause the game window to tear."}
-  else if mO_CurPos=3 {menuInfoText="Press left or right to decrease/increase the window scaling size.#Always in 4:3 ratio.#F3 (or Confirm on this menu) toggles the screensize through 1x/2x/3x sizes."}
-  else if mO_CurPos=4 {menuInfoText="Turning this off locks the mouse from being able to resize the window."}
-  else if mO_CurPos=5 {menuInfoText="Give an on-screen warning when health is low. Keep this off if you want to keep your bitrate low when recording the game. Goes well with the option below this."}
-  else if mO_CurPos=6
+  else if mO_CurPos=2 {menuInfoText="How many frames a second the game runs at: 30, 60 or 120. F2 changes this too.#Lower it if the game slows down."} //fps option change (added)
+  //else if mO_CurPos=2 {menuInfoText="Set V-Sync on/off. Turning this off may reduce some lag, but may cause the game window to tear."}
+  else if mO_CurPos=3 {menuInfoText="Set V-Sync on/off. Turning this off may reduce some lag, but may cause the game window to tear."} //options move change: a row lower (FPS is row 2)
+  //else if mO_CurPos=3 {menuInfoText="Press left or right to decrease/increase the window scaling size.#Always in 4:3 ratio.#F3 (or Confirm on this menu) toggles the screensize through 1x/2x/3x sizes."}
+  else if mO_CurPos=4 {menuInfoText="Press left or right to decrease/increase the window scaling size.#Always in 4:3 ratio.#F3 (or Confirm on this menu) toggles the screensize through 1x/2x/3x sizes."} //options move change: a row lower (FPS is row 2)
+  //else if mO_CurPos=4 {menuInfoText="Turning this off locks the mouse from being able to resize the window."}
+  else if mO_CurPos=5 {menuInfoText="Turning this off locks the mouse from being able to resize the window."} //options move change: a row lower (FPS is row 2)
+  //else if mO_CurPos=5 {menuInfoText="Give an on-screen warning when health is low. Keep this off if you want to keep your bitrate low when recording the game. Goes well with the option below this."}
+  else if mO_CurPos=6 {menuInfoText="Give an on-screen warning when health is low. Keep this off if you want to keep your bitrate low when recording the game. Goes well with the option below this."} //options move change: a row lower (FPS is row 2)
+  //else if mO_CurPos=6
+  else if mO_CurPos=7 //options move change: a row lower (FPS is row 2)
   {
     if global.optBitrateExplosion=0 {menuInfoText="Normal Game Over settings."}
     else if global.optBitrateExplosion=1 {menuInfoText="Removes the 'STATIC BITRATE EXPLOSIN' when you get a Game Over. In other words, you no longer get that static effect when you lose. Useful to those who record their gameplay and want to keep filesizes lower."}
     else if global.optBitrateExplosion=2 {menuInfoText="Will return to game play and skip the Game Over screen upon death. Not recommended for first time players."}
   }
-  else if mO_CurPos=7 {menuInfoText="When this is on, the player character will leave a trail behind them.#Note from Zephyr: I sometimes used this for testing things. Have fun, though I recommend having it off for most things."}
-  else if mO_CurPos=8 {menuInfoText="When this is on, some of your weapons will leave a trail behind them.#Note from Zephyr: Same as above."}
-  else if mO_CurPos=9 and mCZ_Show=1 {menuInfoText="Change the colors of the color zones and the color indicator.#Useful if some of the colors are hard to tell apart."} //color zone change (added)
+  //else if mO_CurPos=7 {menuInfoText="When this is on, the player character will leave a trail behind them.#Note from Zephyr: I sometimes used this for testing things. Have fun, though I recommend having it off for most things."}
+  else if mO_CurPos=8 {menuInfoText="When this is on, the player character will leave a trail behind them.#Note from Zephyr: I sometimes used this for testing things. Have fun, though I recommend having it off for most things."} //options move change: a row lower (FPS is row 2)
+  //else if mO_CurPos=8 {menuInfoText="When this is on, some of your weapons will leave a trail behind them.#Note from Zephyr: Same as above."}
+  else if mO_CurPos=9 {menuInfoText="When this is on, some of your weapons will leave a trail behind them.#Note from Zephyr: Same as above."} //options move change: a row lower (FPS is row 2)
+  //else if mO_CurPos=9 and mCZ_Show=1 {menuInfoText="Change what colors are used for the color zones and their indicators.#Helpful if they are difficult to tell apart.."} //color zone change (added)
+  else if mO_CurPos=10 and mCZ_Show=1 {menuInfoText="Change what colors are used for the color zones and their indicators.#Helpful if they are difficult to tell apart.."} //color zone change (added) //options move change: a row lower (FPS is row 2)
   //else if mO_CurPos=9 or mO_CurPos=10 {menuInfoText="Wear various kinds of hats!#Press left or right to change hats. Confirm will remove your hat."}
-  else if mO_CurPos=mCZ_HatRow or mO_CurPos=mCZ_HatRow+1 {menuInfoText="Wear various kinds of hats!#Press left or right to change hats. Confirm will remove your hat."} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
+  //else if mO_CurPos=mCZ_HatRow or mO_CurPos=mCZ_HatRow+1 {menuInfoText="Wear various kinds of hats!#Press left or right to change hats. Confirm will remove your hat."} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
 }
 else if mO_OptSubMenu=3 //------------------------- DISPLAY -------------------------
 {
@@ -337,6 +370,54 @@ else if mO_OptSubMenu=3 //------------------------- DISPLAY --------------------
   if global.optDeathCounter=0 {textDropShadow("Off",contentMenuX+164,contentMenuY+139,textColorMain,textColorShadow,1)}
   else if global.optDeathCounter=1 {textDropShadow("On",contentMenuX+164,contentMenuY+139,textColorMain,textColorShadow,1)}
 
+  //options move change (added): the hats (from Graphics), rows 10 and 11 (mCZ_HatRow)
+  var tHatY; tHatY=contentMenuY+151 //y of Jerry's Hat (Claire's is 12 lower)
+  textDropShadow("Jerry's Hat",contentMenuX+28,tHatY,textColorMain,textColorShadow,1)
+  textDropShadow("Claire's Hat",contentMenuX+28,tHatY+12,textColorMain,textColorShadow,1)
+  hatSpriteJ=sNull
+  hatSpriteC=sNull
+  if global.wearingHatJ=0 {textDropShadow("No hat",contentMenuX+164,tHatY,textColorMain,textColorShadow,1)}
+  else if global.wearingHatJ=1 {textDropShadow("Classy Hat",contentMenuX+164,tHatY,textColorMain,textColorShadow,1); hatSpriteJ=sDLC_Hat_01}
+  else if global.wearingHatJ=2 {textDropShadow("Top Hat?",contentMenuX+164,tHatY,textColorMain,textColorShadow,1); hatSpriteJ=sDLC_Hat_02}
+  else if global.wearingHatJ=3 {textDropShadow("Cap... Hat??",contentMenuX+164,tHatY,textColorMain,textColorShadow,1); hatSpriteJ=sDLC_Hat_03}
+  else if global.wearingHatJ=4 {textDropShadow("Ah yeah, Crown Hat!",contentMenuX+164,tHatY,textColorMain,textColorShadow,1); hatSpriteJ=sDLC_Hat_04}
+  else if global.wearingHatJ=5 {textDropShadow("!Watermelon Hat!",contentMenuX+164,tHatY,textColorMain,textColorShadow,1); hatSpriteJ=sDLC_Hat_05}
+  else if global.wearingHatJ=6 {textDropShadow("Party Hat",contentMenuX+164,tHatY,textColorMain,textColorShadow,1); hatSpriteJ=sDLC_Hat_06}
+  else if global.wearingHatJ=7 {textDropShadow("Applejack's Hat",contentMenuX+164,tHatY,textColorMain,textColorShadow,1); hatSpriteJ=sDLC_Hat_07}
+  else if global.wearingHatJ=8 {textDropShadow("Wing Hat",contentMenuX+164,tHatY,textColorMain,textColorShadow,1); hatSpriteJ=sDLC_Hat_08}
+  else if global.wearingHatJ=9 {textDropShadow("Bird Hat!!!",contentMenuX+164,tHatY,textColorMain,textColorShadow,1); hatSpriteJ=sDLC_Hat_09}
+  else if global.wearingHatJ=10 {textDropShadow("Arby's Hat",contentMenuX+164,tHatY,textColorMain,textColorShadow,1); hatSpriteJ=sDLC_Hat_10}
+  else if global.wearingHatJ=11 {textDropShadow("Wizard Hat (But no robe)",contentMenuX+164,tHatY,textColorMain,textColorShadow,1); hatSpriteJ=sDLC_Hat_11}
+  else if global.wearingHatJ=12 {textDropShadow("Bitchen Hat",contentMenuX+164,tHatY,textColorMain,textColorShadow,1); hatSpriteJ=sDLC_Hat_12}
+  else if global.wearingHatJ=13 {textDropShadow("Buttface Hat",contentMenuX+164,tHatY,textColorMain,textColorShadow,1); hatSpriteJ=sDLC_Hat_13}
+  else if global.wearingHatJ=14 {textDropShadow("Cat in the Hat... Hat?",contentMenuX+164,tHatY,textColorMain,textColorShadow,1); hatSpriteJ=sDLC_Hat_14}
+  else if global.wearingHatJ=15 {textDropShadow("Twitch Hat?",contentMenuX+164,tHatY,textColorMain,textColorShadow,1); hatSpriteJ=sDLC_Hat_15}
+  if global.wearingHatC=0 {textDropShadow("No hat",contentMenuX+164,tHatY+12,textColorMain,textColorShadow,1)}
+  else if global.wearingHatC=1 {textDropShadow("Classy Hat",contentMenuX+164,tHatY+12,textColorMain,textColorShadow,1); hatSpriteC=sDLC_Hat_01}
+  else if global.wearingHatC=2 {textDropShadow("Top Hat?",contentMenuX+164,tHatY+12,textColorMain,textColorShadow,1); hatSpriteC=sDLC_Hat_02}
+  else if global.wearingHatC=3 {textDropShadow("Cap... Hat??",contentMenuX+164,tHatY+12,textColorMain,textColorShadow,1); hatSpriteC=sDLC_Hat_03}
+  else if global.wearingHatC=4 {textDropShadow("Ah yeah, Crown Hat!",contentMenuX+164,tHatY+12,textColorMain,textColorShadow,1); hatSpriteC=sDLC_Hat_04}
+  else if global.wearingHatC=5 {textDropShadow("!Watermelon Hat!",contentMenuX+164,tHatY+12,textColorMain,textColorShadow,1); hatSpriteC=sDLC_Hat_05}
+  else if global.wearingHatC=6 {textDropShadow("Party Hat",contentMenuX+164,tHatY+12,textColorMain,textColorShadow,1); hatSpriteC=sDLC_Hat_06}
+  else if global.wearingHatC=7 {textDropShadow("Applejack's Hat",contentMenuX+164,tHatY+12,textColorMain,textColorShadow,1); hatSpriteC=sDLC_Hat_07}
+  else if global.wearingHatC=8 {textDropShadow("Wing Hat",contentMenuX+164,tHatY+12,textColorMain,textColorShadow,1); hatSpriteC=sDLC_Hat_08}
+  else if global.wearingHatC=9 {textDropShadow("Bird Hat!!!",contentMenuX+164,tHatY+12,textColorMain,textColorShadow,1); hatSpriteC=sDLC_Hat_09}
+  else if global.wearingHatC=10 {textDropShadow("Arby's Hat",contentMenuX+164,tHatY+12,textColorMain,textColorShadow,1); hatSpriteC=sDLC_Hat_10}
+  else if global.wearingHatC=11 {textDropShadow("Wizard Hat (But no robe)",contentMenuX+164,tHatY+12,textColorMain,textColorShadow,1); hatSpriteC=sDLC_Hat_11}
+  else if global.wearingHatC=12 {textDropShadow("Bitchen Hat",contentMenuX+164,tHatY+12,textColorMain,textColorShadow,1); hatSpriteC=sDLC_Hat_12}
+  else if global.wearingHatC=13 {textDropShadow("Buttface Hat",contentMenuX+164,tHatY+12,textColorMain,textColorShadow,1); hatSpriteC=sDLC_Hat_13}
+  else if global.wearingHatC=14 {textDropShadow("Cat in the Hat... Hat?",contentMenuX+164,tHatY+12,textColorMain,textColorShadow,1); hatSpriteC=sDLC_Hat_14}
+  else if global.wearingHatC=15 {textDropShadow("Twitch Hat?",contentMenuX+164,tHatY+12,textColorMain,textColorShadow,1); hatSpriteC=sDLC_Hat_15}
+  if mO_CurPos=mCZ_HatRow or mO_CurPos=mCZ_HatRow+1
+  {
+    var tMainHatMenuX,tMainHatMenuY;
+    tMainHatMenuX=contentMenuX+124
+    tMainHatMenuY=contentMenuY+28
+    draw_sprite(sPauseM_HatMenu,0,tMainHatMenuX,tMainHatMenuY)
+    draw_sprite(hatSpriteJ,0,tMainHatMenuX-50,tMainHatMenuY+70)
+    draw_sprite(hatSpriteC,0,tMainHatMenuX+50,tMainHatMenuY+70)
+  }
+
   if mO_CurPos=1
   {
     if global.optShowHUD<2 {menuInfoText="Toggle HUD on/off.#Hey, if you want to play blind and naked, be my guest."}
@@ -350,6 +431,7 @@ else if mO_OptSubMenu=3 //------------------------- DISPLAY --------------------
   else if mO_CurPos=7 {menuInfoText="Display your Awesome Score. This value is completely pointless and exists simply because it can. It tracks everything you've done."}
   else if mO_CurPos=8 {menuInfoText="Display the map header, the one displayed in the game's window header, when entering a map. This is useful if you want to read those map headers but prefer to play fullscreen. Note that if Jeremy or Chao are blocked, for story purposes, this option will not work."}
   else if mO_CurPos=9 {menuInfoText="Display a death counter on the bottom-left of the screen. Because why not?"}
+  else if mO_CurPos=mCZ_HatRow or mO_CurPos=mCZ_HatRow+1 {menuInfoText="Wear various kinds of hats!#Press left or right to change hats. Confirm will remove your hat."} //options move change (added): from Graphics
 }
 else if mO_OptSubMenu=4 //------------------------- GAMEPLAY -------------------------
 {
