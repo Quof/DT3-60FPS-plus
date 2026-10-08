@@ -2060,7 +2060,8 @@ else if subMenu=12 //---------- ITEM MENU ----------
       else if mItem_CurY=3 {tIndAdj=20}
       else if mItem_CurY=4 {tIndAdj=30}
       
-      if eCheck[mItem_CurX-1+tIndAdj]="1" and tIndAdj>-1
+      //if eCheck[mItem_CurX-1+tIndAdj]="1" and tIndAdj>-1
+      if eCheck[mItem_CurX-1+tIndAdj]="1" and tIndAdj>-1 and scrNormSwordBlocked(mItem_CurX+tIndAdj)=0 //normalized gallery change: no sword equipment in the boss gallery with its lever on
       {
         playSound(global.snd_Equip,0,1,1)
         if global.equipJerry[mEq_CurPos-1]>0
@@ -2087,6 +2088,12 @@ else if subMenu=12 //---------- ITEM MENU ----------
         }
         subMenu=2
       }
+      else if eCheck[mItem_CurX-1+tIndAdj]="1" and tIndAdj>-1 //normalized gallery change (added): a sword item while it's blocked
+      {
+        playSound(global.snd_Error,0,1,1)
+        msgCreate(120,120,"","Sword equipment can't be put on in the Boss Gallery while NORMALIZED mode is on.",7,2,oMessagePerson,0)
+        newMessage.fadingTime=55
+      }
     }
     else if mEq_CurPos>=4 and mEq_CurPos<=6 //Claire
     {
@@ -2097,7 +2104,8 @@ else if subMenu=12 //---------- ITEM MENU ----------
       else if mItem_CurY=3 {tIndAdj=20}
       else if mItem_CurY=4 {tIndAdj=30}
       
-      if eCheck[mItem_CurX-1+tIndAdj]="1" and tIndAdj>-1
+      //if eCheck[mItem_CurX-1+tIndAdj]="1" and tIndAdj>-1
+      if eCheck[mItem_CurX-1+tIndAdj]="1" and tIndAdj>-1 and scrNormSwordBlocked(mItem_CurX+tIndAdj)=0 //normalized gallery change: no sword equipment in the boss gallery with its lever on
       {
         playSound(global.snd_Equip,0,1,1)
         if global.equipClaire[mEq_CurPos-4]>0
@@ -2123,6 +2131,12 @@ else if subMenu=12 //---------- ITEM MENU ----------
           if global.equipClaire[i]=25 {oPlayer1.dashRecovery+=4}
         }
         subMenu=2
+      }
+      else if eCheck[mItem_CurX-1+tIndAdj]="1" and tIndAdj>-1 //normalized gallery change (added): a sword item while it's blocked
+      {
+        playSound(global.snd_Error,0,1,1)
+        msgCreate(120,120,"","Sword equipment can't be put on in the Boss Gallery while NORMALIZED mode is on.",7,2,oMessagePerson,0)
+        newMessage.fadingTime=55
       }
     }
   }

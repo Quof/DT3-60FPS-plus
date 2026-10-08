@@ -12,7 +12,8 @@ if global.BTB_ZephSecret=0 //If player finds the secret morph ball room in NZZ's
   tile_layer_hide(1000010)
 }
 
-if global.bossGalleryTime[64]=99999 //If player beats WEX
+//if global.bossGalleryTime[64]=99999 //If player beats WEX
+if global.bossGalleryTime[64]=99999 and global.bossGalleryHitsN[64]=99999 //If player beats WEX //normalized gallery change: a win with the gallery lever on counts too
 {
   tile_layer_hide(1000020)
 }

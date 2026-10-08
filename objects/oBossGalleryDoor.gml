@@ -38,6 +38,14 @@ if oKeyCodes.kCodePressed[3]=1 and activateTime=0 and global.gamePaused=false
   global.newMapX=newMapX; global.newMapY=newMapY
   global.gamePaused=false
   writeToPlayerGlobals()
+  //normalized gallery change (added): with the gallery lever (oGalleryLever) on, the fight uses this boss's normalized
+  //build (scrNormLoadout); the real one is kept aside and put back in rBossGallery's creation code
+  if global.galleryNormalized=1
+  {
+    if global.normActive=0 {scrNormState(0)}
+    global.normRoom=toRoom //the fight's room (oGame's Room Start puts the real build back anywhere else)
+    scrNormApply(type)
+  }
   if global.bNightmareMode=0 {global.difficulty=2}
   if global.rmDeaths>=5 {global.chaoRecognition=1}
   global.rmDeaths=0; global.hitsTaken=0
@@ -516,6 +524,37 @@ else if type=65 //Warmaster EX
   global.hasAbilToken[0]=2; global.hasAbilToken[1]=4; global.hasAbilToken[2]=4; global.hasAbilToken[3]=5; global.hasAbilToken[4]=8
   global.currentBoss="Warmaster EX"; global.bossTrack=1
 }
+#define Other_11
+/*"/*'/**//* YYD ACTION
+lib_id=1
+action_id=603
+applies_to=self
+*/
+/*
+normalized gallery change (added): the door's text and award board with the gallery lever on (from the Draw event, which
+has set the font, color and alignment): the best time and the fewest hits taken in a win (bossRoomTally) under the
+boss name, and medals for the hits: bronze for 3-4, silver for 1-2, gold for none (none for 5 or more). No platinum
+*/
+var tHits,tTimeText,tHitsText;
+tHits=global.bossGalleryHitsN[type-1]
+tTimeText="-----"
+if global.bossGalleryTimeN[type-1]<99999 {tTimeText=string(global.bossGalleryTimeN[type-1])}
+tHitsText="-----"
+if tHits<99999 {tHitsText=string(tHits)}
+draw_text(x+8,y-112,string(bossName) +"#-Best Time | Hits-#" +tTimeText +" | " +tHitsText)
+
+//Award board
+if point_distance(x+8,y+16,oPlayer1.x,returnPlayerYCenter())<=64
+{
+  draw_sprite(sBossAwardCheck,0,x+8,y+64)
+  draw_set_color(textColorGreen)
+  draw_text(x-22,y+58,"3-4")
+  draw_text(x+8,y+58,"1-2")
+  draw_text(x+38,y+58,"0")
+  if tHits<=4 {draw_sprite(sBossGalleryMedals,0,x-22,y+64)}
+  if tHits<=2 {draw_sprite(sBossGalleryMedals,1,x+8,y+64)}
+  if tHits=0 {draw_sprite(sBossGalleryMedals,2,x+38,y+64)}
+}
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -540,6 +579,7 @@ if point_distance(x+8,y+16,oPlayer1.x,returnPlayerYCenter())<=480
   draw_set_alpha(1)
   draw_set_font(fnt_EnemyName)
   draw_set_halign(fa_middle)
+  if global.galleryNormalized=1 {event_user(1); exit} //normalized gallery change (added): the gallery lever's scoring
   if global.bossGalleryTime[type-1]=99999 {draw_text(x+8,y-112,string(bossName) +string("#-Best Time-#-----"))}
   else {draw_text(x+8,y-112,string(bossName) +string("#-Best Time-#") +string(global.bossGalleryTime[type-1]))}
 

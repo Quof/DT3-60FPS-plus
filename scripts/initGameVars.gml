@@ -536,7 +536,12 @@ global.nightmareDagger=21
 for(i=0;i<65;i+=1)
 {
   global.bossGalleryTime[i]=99999
+  global.bossGalleryHitsN[i]=99999 //normalized gallery change (added): fewest hits taken in a win with the gallery lever on (99999: none yet)
+  global.bossGalleryTimeN[i]=99999 //normalized gallery change (added): best time with the gallery lever on
 }
+global.galleryNormalized=0 //normalized gallery change (added): the boss gallery lever (oGalleryLever): normalized builds for the bosses
+global.normActive=0        //normalized gallery change (added): do not save in the data file, 1 while a normalized build is in use (scrNormState)
+global.normRoom=-1         //normalized gallery change (added): do not save in the data file, the room of the fight using it
 
 //Debug flags
 global.debugInvincible=false

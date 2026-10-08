@@ -23,6 +23,93 @@ for(i=0;i<65;i+=1) //Check total time
   else {bShowTotalTime=0}
 }
 
+//normalized gallery change (added): with the gallery lever on (oGalleryLever), the board shows the lever's records: the
+//best times (global.bossGalleryTimeN) and, where the par times were, the fewest hits taken in a win
+//(global.bossGalleryHitsN): sBossBoardNorm, drawn by event_user(0)
+bNormBoard=global.galleryNormalized
+if bNormBoard=1
+{
+  sprite_index=sBossBoardNorm
+  totalBossTimeN=0
+  bShowTotalTimeN=1
+  totalBossHits=0
+  bShowTotalHits=1
+  for(i=0;i<65;i+=1)
+  {
+    if global.bossGalleryTimeN[i]<99999 {totalBossTimeN+=global.bossGalleryTimeN[i]}
+    else {bShowTotalTimeN=0}
+    if global.bossGalleryHitsN[i]<99999 {totalBossHits+=global.bossGalleryHitsN[i]}
+    else {bShowTotalHits=0}
+  }
+  //the names the Draw event shows, by boss index
+  boardName[0]="Bowser"
+  boardName[1]="Cackletta"
+  boardName[2]="Kamek"
+  boardName[3]="Helmethead"
+  boardName[4]="Dead Hand"
+  boardName[5]="Barba"
+  boardName[6]="Thunderbird"
+  boardName[7]="Aqua Serpent"
+  boardName[8]="Final Nightmare"
+  boardName[9]="Control Virus"
+  boardName[10]="Large Vampire Bat"
+  boardName[11]="Dracula"
+  boardName[12]="Menace"
+  boardName[13]="Death"
+  boardName[14]="Death (Legion)"
+  boardName[15]="Blackmore"
+  boardName[16]="Enmity"
+  boardName[17]="Maoh the Gaint"
+  boardName[18]="Storm Eagle"
+  boardName[19]="Overdrive Ostrich"
+  boardName[20]="Gravity Beetle"
+  boardName[21]="Bospider"
+  boardName[22]="Bit & Byte"
+  boardName[23]="Sigma"
+  boardName[24]="Sigma Epsilon"
+  boardName[25]="Elpizo"
+  boardName[26]="Army Eye"
+  boardName[27]="Hex (Vault)"
+  boardName[28]="Shadow Form"
+  boardName[29]="Vault Demon"
+  boardName[30]="Arachnus"
+  boardName[31]="King Worm"
+  boardName[32]="Kraid"
+  boardName[33]="Mother Brain"
+  boardName[34]="Ridley"
+  boardName[35]="Ridley (Lava)"
+  boardName[36]="Ridley (Tunnel)"
+  boardName[37]="Nightmare"
+  boardName[38]="Sand Crawler"
+  boardName[39]="Malevolence"
+  boardName[40]="Leviathan"
+  boardName[41]="The Stone Golem"
+  boardName[42]="The Flame Elemental"
+  boardName[43]="High Heels Girl"
+  boardName[44]="The Unforgotten"
+  boardName[45]="The Chosen One"
+  boardName[46]="Sephiroth"
+  boardName[47]="Antipathy"
+  boardName[48]="Sera"
+  boardName[49]="Brain Machine"
+  boardName[50]="Blade Bot"
+  boardName[51]="Combat Apparatus"
+  boardName[52]="Giant Blargg"
+  boardName[53]="Defective"
+  boardName[54]="Shadow Eura"
+  boardName[55]="Decimator 10000"
+  boardName[56]="Decimator 20000"
+  boardName[57]="Abomination"
+  boardName[58]="Hex (Warship)"
+  boardName[59]="CHAOS Warmaster"
+  boardName[60]="Parasitic Seed"
+  boardName[61]="Virus Parasite"
+  boardName[62]="Hexor"
+  boardName[63]="The Executive"
+  boardName[64]="CHAOS Warmaster EX"
+  if global.modeWahfuu=1 {boardName[38]="Wahfuu Jr."; boardName[57]="Wahfuu"}
+}
+
 //------------------------------ PAGE 1 ------------------------------
 awardTimes[0,0]=65
 awardTimes[0,1]=45
@@ -286,12 +373,62 @@ else if oKeyCodes.kCodePressed[16]=1 //Close board //gamepad change: menu Confir
   global.gamePaused=0
   instance_destroy()
 }
+#define Other_10
+/*"/*'/**//* YYD ACTION
+lib_id=1
+action_id=603
+applies_to=self
+*/
+/*
+normalized gallery change (added): the board with the gallery lever on (from the Draw event): for each boss the best
+time, and where the par times were, the fewest hits taken in a win with its medal (bronze for 3-4, silver for 1-2,
+gold for none, nothing for 5 or more). Totals of both at the bottom. sBossBoardNorm is sBossBoard with those labels
+*/
+var tFirst,tCount,tHits,tTime;
+boardX=view_xview[0]+37
+boardY=view_yview[0]+20
+draw_sprite_ext(sprite_index,image_index,boardX,boardY,image_xscale,image_yscale,image_angle,image_blend,image_alpha)
+draw_set_font(fnt_NES)
+draw_set_alpha(1)
+draw_set_halign(fa_left)
+draw_set_color(textColorA)
+if bShowTotalTimeN=1 {draw_text(boardX+112,boardY+291,totalBossTimeN)}
+else {draw_text(boardX+112,boardY+291,"-----")}
+if bShowTotalHits=1 {draw_text(boardX+260,boardY+291,totalBossHits)}
+else {draw_text(boardX+260,boardY+291,"-----")}
+draw_text(boardX+351,boardY+291,currentPage)
+
+tFirst=(currentPage-1)*15
+tCount=15
+if currentPage=5 {tCount=5}
+for(i=0;i<tCount;i+=1)
+{
+  tHits=global.bossGalleryHitsN[tFirst+i]
+  tTime=global.bossGalleryTimeN[tFirst+i]
+  draw_set_halign(fa_left)
+  if tHits<99999 or tTime<99999 {draw_text(boardX+21,boardY+33+(17*i),boardName[tFirst+i])}
+  else {draw_text(boardX+21,boardY+33+(17*i),"----------")}
+  if tTime<99999 {draw_text(boardX+217,boardY+33+(17*i),tTime)}
+  else {draw_text(boardX+217,boardY+33+(17*i),"-----")}
+  draw_set_halign(fa_center)
+  if tHits<99999
+  {
+    draw_text(boardX+316,boardY+33+(17*i),tHits)
+    for(ii=0;ii<3;ii+=1) //Medals: 3-4 hits, 1-2 hits, no hits
+    {
+      if (ii=0 and tHits<=4) or (ii=1 and tHits<=2) or (ii=2 and tHits=0) {draw_sprite_ext(sBossGalleryMedals,ii,boardX+348,boardY+36+(17*i),0.5,0.5,0,c_white,1)}
+    }
+  }
+  else {draw_text(boardX+332,boardY+33+(17*i),"-----")}
+}
+draw_set_halign(fa_left)
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
 action_id=603
 applies_to=self
 */
+if bNormBoard=1 {event_user(0); exit} //normalized gallery change (added): the gallery lever's board
 boardX=view_xview[0]+37
 boardY=view_yview[0]+20
 draw_sprite_ext(sprite_index,image_index,boardX,boardY,image_xscale,image_yscale,image_angle,image_blend,image_alpha)

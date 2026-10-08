@@ -258,7 +258,10 @@ global.currentBoss=ini_read_string(sectionRead,"616bn","")
 for(i=0;i<65;i+=1)
 {
   global.bossGalleryTime[i]=ini_read_real(sectionRead,"700" +string(i),99999)
+  global.bossGalleryHitsN[i]=ini_read_real(sectionRead,"770" +string(i),99999) //normalized gallery change (added)
+  global.bossGalleryTimeN[i]=ini_read_real(sectionRead,"750" +string(i),99999) //normalized gallery change (added)
 }
+global.galleryNormalized=ini_read_real(sectionRead,"galNorm",0) //normalized gallery change (added): the gallery lever
 
 if global.location=49 and global.bossTrack!=0
 {
@@ -278,3 +281,5 @@ global.pCurrBreath=global.pBreathMax
 global.hudLink_BombEn[0]=150-(global.skillTree[1]*15)
 //save slots change (added): the game being played is the one in the save file again (autosaves are fine; see oInitializeGame)
 global.saveSlotNewGame=0
+//normalized gallery change (added): the build just loaded is the real one (saves never get a normalized one)
+global.normActive=0

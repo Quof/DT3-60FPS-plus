@@ -389,6 +389,14 @@ applies_to=self
 */
 if (room != rIntro and room != rTitle and room != rBeginning and room != rBackStory and room != rMap404 and room != rTestRoom and room != rCheaterRoom)
 {
+  //normalized gallery change (added): a boss gallery fight with a normalized build goes on only in the room the gallery
+  //door sent the player to (Retry restarts that room); anywhere else (walking out of the boss room through one of its
+  //exits) the real build goes back in, in the first room with the player in it (scrNormState puts the player's stats
+  //right). The way back to the gallery does it in rBossGallery's creation code.
+  if global.normActive=1
+  {
+    if room!=global.normRoom and instance_exists(oPlayer1) {scrNormState(1)}
+  }
   if (autoSaveTime >= 30*60*5) //every 5 minutes
   {
     //if global.bCanSave=true //save on room transition
