@@ -476,7 +476,7 @@ global.optShowCombatAward=1
 global.optShowChainMeter=1
 global.optShowArea=1
 global.optShowScore=1
-global.optShowMapHeader=0
+global.optShowMapHeader=1
 global.optDeathCounter=0
 //-----
 global.optShowDamage=1
