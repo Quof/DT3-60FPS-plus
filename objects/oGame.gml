@@ -397,7 +397,7 @@ if (room != rIntro and room != rTitle and room != rBeginning and room != rBackSt
   {
     if room!=global.normRoom and instance_exists(oPlayer1) {scrNormState(1)}
   }
-  if (autoSaveTime >= 30*60*5) //every 5 minutes
+  if (autoSaveTime >= 30*60*10) //every 10 minutes. I changed this from 5 (quof)
   {
     //if global.bCanSave=true //save on room transition
     if global.bCanSave=true and global.saveSlotNewGame=0 //save on room transition //save slots change: not while a new game started over a slot's save hasn't been saved yet (that save stays till then; see oInitializeGame)
