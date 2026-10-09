@@ -250,7 +250,7 @@ if global.gamePaused=false
           tAtk._direction=point_direction(x,y-16,oPlayer1.x,oPlayer1.y-26)+10
         }
       }
-      
+
       if turnCur>=8 and turnMax=100 //Turn red
       {
         if otherColor>100 {otherColor-=2*gDeltaTime}
@@ -261,13 +261,13 @@ if global.gamePaused=false
           tEffect.sprite_index=sMMSmokeCloud; tEffect.image_speed=0.25+random(0.25); tEffect.image_alpha=0.6
           tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
         }
-        
+
         baseColor=make_color_rgb(255,otherColor,otherColor)
         image_blend=baseColor
         turnCur=50
       }
       else if turnCur>=50 and turnCur<=60 {turnCur=50}
-      
+
       if turnCur>=turnMax and turnMax<100 //End roll attack
       {
         //if y=yGround
@@ -288,7 +288,7 @@ if global.gamePaused=false
     else if behavior=3 //Walk around
     {
       if y<yGround {y+=2*gDeltaTime}
-      
+
       if progTime=25
       {
         sprite_index=sArachnusWalk
@@ -335,7 +335,7 @@ if global.gamePaused=false
         progTime=0; behavior=0
       }
     }
-    
+
     //Lava control
     if bLavaRise=2
     {
@@ -346,7 +346,7 @@ if global.gamePaused=false
     {
       if (GID(288153)).y<290 {(GID(288153)).y+=2*gDeltaTime}
     }
-    
+
     //---------- Boss Difficulty Curve ----------
     if lifePercent<=0.88 and lifePercent>=0.77 and bossProgress=0
     {
@@ -391,7 +391,7 @@ if global.gamePaused=false
       with oEnemyBase {resType[5]=2}
       bossProgress+=1
     }
-    
+
     if image_xscale=1 {myShell.x=x-23}
     else {myShell.x=x-2}
     myShell.y=y-47

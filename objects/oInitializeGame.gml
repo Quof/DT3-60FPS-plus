@@ -16,7 +16,7 @@ if !variable_global_exists("gamePriority")
 }
 stopAllMusic()
 stopLoopingSounds()
-global.debugMenu=1
+global.debugMenu=0
 global.location=0
 titleBirdNum=0
 initGameVars()
@@ -753,16 +753,16 @@ else //Title screen stuff
   //Help Info
   draw_set_color(c_black)
   draw_set_alpha(0.4)
-  draw_rectangle(2,324,112,335,0) //Game by darken
-  draw_rectangle(2,336,308,349,0) //Send to darken
+  //draw_rectangle(2,324,112,335,0) //Game by darken
+  draw_rectangle(2,336,112,349,0) //Send to darken
   draw_rectangle(382,308,477,349,0) //control help darken
   draw_set_alpha(1)
   draw_set_halign(fa_left)
   draw_set_font(fnt_StatRender)
   textDropShadow("Version: " +string(versionTag),4,1,c_white,c_black,1)
   draw_set_font(fnt_Points)
-  textDropShadow("Game by ZephyrBurst",4,323,c_white,c_black,1)
-  textDropShadow("Send all questions and concerns to ZephyrBurst@yahoo.com",4,335,c_white,c_black,1)
+  //textDropShadow("Game by ZephyrBurst",4,323,c_white,c_black,1)
+  textDropShadow("Game by ZephyrBurst",4,335,c_white,c_black,1)
   //title options change (added): controls can be changed from the title's Options menu now, so show the current ones
   //controlHelp="Controls:#[" +string(global.ctrlUp) +"] Up    [" +string(global.ctrlDown) +"] Down#[" +string(global.ctrlJump) +"] Confirm"
   controlHelp="Controls:#[" +string(global.ctrlUp) +"] Up    [" +string(global.ctrlDown) +"] Down#[" +string(global.ctrlConfirm) +"] Confirm" //controls change: Confirm's own key
@@ -839,7 +839,7 @@ else //Title screen stuff
     {
       textDropShadow("Oh hey, you've reached the true end!#Also, press [Enter] for more fun!",120,104,textColorMain,textColorShadow,1)
     }
-    
+
     //save slots change (added): what the slot on the cursor does, in the slot list
     if slotMenu=1
     {
@@ -859,7 +859,7 @@ else //Title screen stuff
     else if fileCursorPos=3 {textDropShadow("If you want to change the controls, audio, display and other settings.",80,248,c_white,c_black,4)} //title options change (added)
     else if fileCursorPos=4 {textDropShadow("If you want a refresher on the story so far, or if you didn't play the#first two games.",80,248,c_white,c_black,4)} //title options change
     else if fileCursorPos=5 {textDropShadow("If you want to close the game, but why would you ever want to do that?",80,248,c_white,c_black,4)} //title options change
-    
+
     //File cursor
     //draw_sprite_ext(sTitleCursor,0,fileCursorX,fileCursorY,1,1,0,titleCl,1)
     if slotMenu=0 {draw_sprite_ext(sTitleCursor,0,fileCursorX,fileCursorY,1,1,0,titleCl,1)}
@@ -868,8 +868,8 @@ else //Title screen stuff
     //Display save file used
     draw_set_font(fnt_StatRender)
     draw_set_halign(fa_right)
-    textDropShadow("Active Save",478,-1,c_white,c_black,1)
-    textDropShadow(global.paraString[0],478,9,c_white,c_black,1)
+    //textDropShadow("Active Save",478,-1,c_white,c_black,1)
+    //textDropShadow(global.paraString[0],478,9,c_white,c_black,1)
     //Display game modes active
     draw_set_halign(fa_left)
     if global.bNightmareMode=1 {textDropShadow("*Nightmare Mode*",2,146,c_white,c_black,1)}
@@ -882,12 +882,12 @@ else //Title screen stuff
     {
       if nmm_redPulse=0
       {
-        nmm_redAlpha+=0.005
+        nmm_redAlpha+=0.005*gDeltaTime
         if nmm_redAlpha>=0.35 {nmm_redPulse=1}
       }
       else if nmm_redPulse=1
       {
-        nmm_redAlpha-=0.005
+        nmm_redAlpha-=0.005*gDeltaTime
         if nmm_redAlpha<=0.2 {nmm_redPulse=0}
       }
       draw_set_alpha(nmm_redAlpha)

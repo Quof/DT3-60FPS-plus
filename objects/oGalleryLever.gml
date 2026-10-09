@@ -11,8 +11,8 @@ boss (scrNormLoadout), fights are scored by hits taken (global.bossGalleryHitsN:
 and sword equipment comes off and stays off in the gallery (scrNormSwordsOff, scrNormSwordBlocked).
 */
 image_speed=0
-//image_index=global.galleryNormalized
-image_index=1-global.galleryNormalized //normalized gallery change: handle up (frame 0) is on, down (frame 1) is off
+image_index=global.galleryNormalized
+//image_index=1-global.galleryNormalized //normalized gallery change: handle up (frame 0) is on, down (frame 1) is off
 #define Collision_oPlayer1
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -24,8 +24,8 @@ applies_to=self
 if oKeyCodesHighFPS.kCodePressed[3]=1 and global.gamePaused=false
 {
   global.galleryNormalized=1-global.galleryNormalized
-  //image_index=global.galleryNormalized
-  image_index=1-global.galleryNormalized //normalized gallery change: up is on, down is off
+  image_index=global.galleryNormalized
+  //image_index=1-global.galleryNormalized //normalized gallery change: up is on, down is off
   playSound(global.snd_RBSwitch,0,1,1)
   if global.galleryNormalized=1 {scrNormSwordsOff()}
 }

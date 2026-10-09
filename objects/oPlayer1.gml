@@ -1483,7 +1483,7 @@ action_id=603
 applies_to=self
 */
 
-var __y;
+/*var __y;
 __y = 100
 draw_set_font(fnt_PauseMenuText)
 draw_text_color(view_xview[0],view_yview[0]+__y+1,string(xVel), c_white,c_white,c_white,c_white,255)
@@ -1510,7 +1510,7 @@ draw_text_color(view_xview[0]+1,view_yview[0]+__y,string(y), c_white,c_white,c_w
 draw_text_color(view_xview[0]+1,view_yview[0]+__y+2,string(y), c_white,c_white,c_white,c_white,255)
 draw_text_color(view_xview[0]+1,view_yview[0]+__y+1,string(y), c_black,c_black,c_black,c_black,255)
 __y += 24
-draw_text_color(view_xview[0]+1,view_yview[0]+__y+1,string(joystick_count()), c_black,c_black,c_black,c_black,255)
+draw_text_color(view_xview[0]+1,view_yview[0]+__y+1,string(joystick_count()), c_black,c_black,c_black,c_black,255)*/ //(debug menu text)
 
 
 
