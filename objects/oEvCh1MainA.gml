@@ -481,7 +481,7 @@ else if global.gameProgress=2 and room=rMain_1 //----- [] Virus Bubble minigame 
           tXPos+=64
         }
       }
-      else if sceneDelay=1030
+      else if sceneDelay=1930
       {
         tNewVirus=instance_create(160,tYStart,oSeekerVirusBasic)
         tNewVirus.type=1; tNewVirus.moveSpd=0.75
