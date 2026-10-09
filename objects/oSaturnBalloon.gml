@@ -37,7 +37,7 @@ else if balloonProg=2 //-------------------- Mr. Saturn jitters ----------------
   if balloonTime>=370
   {
     if balloonTime mod 10=0 {playSound(global.snd_Cucco1,0,1,16000+random(12000))}
-    if global.gamePaused=false {instance_create(random(view_xview[0]+480),random(view_yview[0]+352),oUltraChicken)}
+    if global.gamePaused=false and gDeltaDoTicks {instance_create(random(view_xview[0]+480),random(view_yview[0]+352),oUltraChicken)}
   }
 
   if oPlayer1.life<=0

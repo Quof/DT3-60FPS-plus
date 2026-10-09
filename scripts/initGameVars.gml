@@ -462,7 +462,7 @@ global.optSwapType=0
 global.optStickDeadZone=0.4
 //-----
 global.optVSync=1
-global.optWindowSize=1
+global.optWindowSize=2
 global.optCanResizeWindow=1
 global.optLowHealthWarn=1
 global.optBitrateExplosion=1

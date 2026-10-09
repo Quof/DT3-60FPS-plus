@@ -314,7 +314,7 @@ else if mO_OptSubMenu=2 //------------------------- GRAPHICS -------------------
   //}
 
   if mO_CurPos=1 {menuInfoText="Higher priorities give the game more CPU time. Use a higher setting if the game suffers from lag."}
-  else if mO_CurPos=2 {menuInfoText="How many frames a second the game runs at: 30, 60 or 120. F2 changes this too.#Lower it if the game slows down."} //fps option change (added)
+  else if mO_CurPos=2 {menuInfoText="Changes the game's framerate between 30, 60 or 120. #Lower it if the game slows down. Physics are framerate dependent, so lag = actual slowdown."} //fps option change (added)
   //else if mO_CurPos=2 {menuInfoText="Set V-Sync on/off. Turning this off may reduce some lag, but may cause the game window to tear."}
   else if mO_CurPos=3 {menuInfoText="Set V-Sync on/off. Turning this off may reduce some lag, but may cause the game window to tear."} //options move change: a row lower (FPS is row 2)
   //else if mO_CurPos=3 {menuInfoText="Press left or right to decrease/increase the window scaling size.#Always in 4:3 ratio.#F3 (or Confirm on this menu) toggles the screensize through 1x/2x/3x sizes."}

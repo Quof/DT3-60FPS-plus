@@ -52,7 +52,7 @@ if global.gamePaused=false
 
       if findTargetX<atkDistX and y<oPlayer1.y and findTargetY<detectDistY
       {
-        if global.location!=40
+        if global.location!=40 and gDeltaDoTicks
         {
           if random(100)<2
           {

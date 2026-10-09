@@ -83,7 +83,7 @@ if global.gamePaused=false
       else if chargeProg=1 //Wait time
       {
         _speed=runAcc/1.5
-        if chargeTime>=15 //Find _direction to charge
+        if chargeTime>=15 and gDeltaDoTicks //Find _direction to charge
         {
           if random(10)>9.1
           {

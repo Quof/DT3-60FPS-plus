@@ -15,7 +15,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-image_speed=0.33*gDeltaTime //the vending machine's blink (0.33 a frame at 30fps), at any frame rate
+image_speed=0.33 //the vending machine's blink (0.33 a frame at 30fps), at any frame rate
 if global.gamePaused=false
 {
   if showMyText>0 {showMyText-=1*gDeltaTime}

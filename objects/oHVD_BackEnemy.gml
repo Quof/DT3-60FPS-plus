@@ -26,7 +26,7 @@ if global.gamePaused=false
 {
   //Movement
   speedBoost=0
-  if random(100)<1 {speedBoost=1}
+  if gDeltaDoTicks {if random(100)<1 {speedBoost=1}}
 
   if x>xstart
   {
