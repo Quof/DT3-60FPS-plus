@@ -11,6 +11,7 @@ if !variable_global_exists("gamePriority")
 {
   SS_Init()
   loadExtFiles()
+  scrSoundGainInit() //sound volume change (added): the sound effects' loudness adjustments (playSound)
   global.gamePriority=0     //initialize game priority var (loading purposes as well)
   global.sessionPlayTime=0  //how long the player has been playing this play session
 }

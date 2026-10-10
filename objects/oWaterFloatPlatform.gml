@@ -32,6 +32,12 @@ applies_to=self
 */
 if global.gamePaused=false && gDeltaDoTicks
 {
+  //60fps change (added): the checks below use this tick's finished position (mstLX/mstLY, same as x/y at 30fps). On the
+  //tick frame only part of the tick's move is done yet, so the platform found the water late and bounced higher, and
+  //stopped for a rock on top too late and rose into it
+  var tRealX,tRealY;
+  tRealX=x; tRealY=y
+  x=mstLX; y=mstLY
   if isCollisionWaterBottom(-4)
   {
     yVel-=0.2
@@ -63,6 +69,7 @@ if global.gamePaused=false && gDeltaDoTicks
     if isCollisionWaterBottom(-4)
       yVel-=0.5
   }
+  x=tRealX; y=tRealY //60fps change (added)
 }
 #define Step_2
 /*"/*'/**//* YYD ACTION

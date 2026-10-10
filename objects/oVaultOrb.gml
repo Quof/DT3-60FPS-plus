@@ -65,6 +65,12 @@ lib_id=1
 action_id=603
 applies_to=self
 */
+//color zone change (added): follows the option right away (it can be changed from the pause menu)
+if myColor>=1 and myColor<=4 and baseColor!=global.czColor[myColor]
+{
+  if image_blend=baseColor {image_blend=global.czColor[myColor]}
+  baseColor=global.czColor[myColor]
+}
 if global.gamePaused=false
 {
   makeEnemyActive(0)

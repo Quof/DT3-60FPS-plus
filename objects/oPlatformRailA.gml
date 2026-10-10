@@ -38,12 +38,23 @@ if global.gamePaused=false
   if bCanMove=true
   {
     offscreenDestroy-=1*gDeltaTime
+    //60fps change (added): turns on 30fps ticks, checked at this tick's finished position (mstLX/mstLY, same as x/y at
+    //30fps). Every frame it caught the turn mid-move and snapped the platform up to half a move in one go without the
+    //player on it, so going up the player ended up inside it and wasn't carried sideways after the turn.
+    if gDeltaDoTicks
+    {
     if turnDelay=0
     {
-      nextTurn=instance_nearest(x,y,oPlatRail) //find closest rail turn
-      if point_distance(x,y,nextTurn.x+8,nextTurn.y+8)<moveSpd
+      //nextTurn=instance_nearest(x,y,oPlatRail) //find closest rail turn
+      //if point_distance(x,y,nextTurn.x+8,nextTurn.y+8)<moveSpd
+      nextTurn=instance_nearest(mstLX,mstLY,oPlatRail) //find closest rail turn //60fps change: this tick's finished position
+      if point_distance(mstLX,mstLY,nextTurn.x+8,nextTurn.y+8)<moveSpd //60fps change
       {
-        x=nextTurn.x+8; y=nextTurn.y+8
+        //x=nextTurn.x+8; y=nextTurn.y+8
+        //60fps change: above 30fps, while the tick's move is still being spread over the frames, the rest of it is made to
+        //end on the turn instead (gameStepEvent moves it and carries/pushes the player)
+        if gDeltaTime!=1 and mstFramesLeft>0 {mstXLeft=nextTurn.x+8-x; mstYLeft=nextTurn.y+8-y; mstLX=nextTurn.x+8; mstLY=nextTurn.y+8}
+        else {x=nextTurn.x+8; y=nextTurn.y+8}
         var tXvel,tYvel;
         tXvel=xVel; tYvel=yVel
         xVel=0; yVel=0
@@ -83,7 +94,9 @@ if global.gamePaused=false
       }
     }
     //else {turnDelay-=1}
-    else {turnDelay-=1*gDeltaTime} //60fps change: the delay after a turn was half/quarter as long at 60/120fps
+    //else {turnDelay-=1*gDeltaTime} //60fps change: the delay after a turn was half/quarter as long at 60/120fps
+    else {turnDelay-=1} //60fps change: once per 30fps tick (the turn logic is on ticks now)
+    }
   }
 
   if myHP<=0

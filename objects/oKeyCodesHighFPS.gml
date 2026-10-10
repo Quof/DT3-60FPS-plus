@@ -65,3 +65,16 @@ applies_to=self
 */
 //key carry change (added): note the left/right keys held as the room ends, for the carry in Room Start (scrKeyCarry)
 scrKeyCarry(2)
+//60fps change (added): oKeyCodes only updates on ticks, so a key pressed on an in-between frame (e.g. Up on a door, read
+//from this object) wasn't in its kCode yet and came out as a new press on the next room's first tick, and a press from
+//the room's last tick stayed set into the next room. That opened things the player arrived on (the item terminal the
+//Cackletta warp drops the player on). Held keys count as already held and no press carries over, as at 30fps.
+var i;
+if instance_exists(oKeyCodes)
+{
+  for(i=1;i<=16;i+=1)
+  {
+    if kCode[i] {oKeyCodes.kCode[i]=1}
+    oKeyCodes.kCodePressed[i]=0
+  }
+}

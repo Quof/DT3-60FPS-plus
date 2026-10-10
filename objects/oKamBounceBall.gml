@@ -56,25 +56,29 @@ if global.gamePaused=false
         tEffect.AccelX=0; tEffect.AccelY=0; tEffect.followID=-1; tEffect.rotation=0; tEffect.depth=26
       }
 
-      if isCollisionBottom(1)
+      //if isCollisionBottom(1)
+      if isCollisionBottom(1) and yVel>0 //60fps change: only while moving into it; at 0.75-1.5px a frame the ball was still within 1px after bouncing, bounced back and counted it again
       {
         playSound(global.snd_RupeeBounce,0,0.92,30000)
         yVel*=-1
         hitWall+=1
       }
-      if isCollisionLeft(1)
+      //if isCollisionLeft(1)
+      if isCollisionLeft(1) and xVel<0 //60fps change
       {
         playSound(global.snd_RupeeBounce,0,0.92,30000)
         xVel*=-1
         hitWall+=1
       }
-      if isCollisionRight(1)
+      //if isCollisionRight(1)
+      if isCollisionRight(1) and xVel>0 //60fps change
       {
         playSound(global.snd_RupeeBounce,0,0.92,30000)
         xVel*=-1
         hitWall+=1
       }
-      if isCollisionTop(1)
+      //if isCollisionTop(1)
+      if isCollisionTop(1) and yVel<0 //60fps change
       {
         playSound(global.snd_RupeeBounce,0,0.92,30000)
         yVel*=-1

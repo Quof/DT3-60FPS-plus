@@ -45,14 +45,20 @@ with oMovingSolid
     yVel+=yAcc
   }
   //approximates the "active" variables
-  if approximatelyZero(xVel)
-    xVel=0
-  if approximatelyZero(yVel)
-    yVel=0
-  if approximatelyZero(xAcc)
-    xAcc=0
-  if approximatelyZero(yAcc)
-    yAcc=0
+  //60fps change (added): only on 30fps ticks, where the velocity is read (as at 30fps, it sees a whole tick's acceleration).
+  //Solids that accelerate themselves every frame with *gDeltaTime (oMetalBlock, oBreakRock: 0.2 a tick) only add 0.1/0.05
+  //a frame, and every frame that got zeroed here before it could build up, so they never fell
+  if gDeltaDoTicks != 0
+  {
+    if approximatelyZero(xVel)
+      xVel=0
+    if approximatelyZero(yVel)
+      yVel=0
+    if approximatelyZero(xAcc)
+      xAcc=0
+    if approximatelyZero(yAcc)
+      yAcc=0
+  }
   //moves the solid, pushes the character, carries the character, and stops if the character will be crushed by another solid
   mstXPrev=x
   mstYPrev=y
@@ -318,6 +324,17 @@ with oMoveableSolid
         mstYRem=0
         break
       }
+    }
+    //60fps change (added): a moving solid's tick move is spread over the frames, so one rising under this (a water
+    //platform) could finish its move after the rock landed on it and end up inside it, and the rock couldn't be pushed
+    //any more. Lift it back on top (a few pixels at most; left where it was if that doesn't free it).
+    if place_meeting(x,y,oMovingSolid)
+    {
+      var tLift;
+      tLift=0
+      while place_meeting(x,y,oMovingSolid) and tLift<4 {y-=1; tLift+=1}
+      if place_meeting(x,y,oSolid) {y+=tLift}
+      else {yVel=0; mstYRem=0}
     }
   }
 }
