@@ -21,7 +21,8 @@ applies_to=self
 */
 //if oKeyCodes.kCodePressed[5]=1
 //if oKeyCodes.kCodePressed[15]=1 //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
-if oKeyCodes.kCodePressed[16]=1 //controls change: Cancel goes back a page (Confirm going back had A go back on a gamepad)
+//if oKeyCodes.kCodePressed[16]=1 //controls change: Cancel goes back a page (Confirm going back had A go back on a gamepad)
+if oKeyCodesHighFPS.kCodePressed[16]=1 //controls change: Cancel goes back a page (Confirm going back had A go back on a gamepad) //60fps change: oKeyCodesHighFPS (a press is there for one frame; oKeyCodes keeps it until the next 30fps tick, so one press turned 2/4 pages at 60/120fps)
 {
   if currentPage>1
   {
@@ -32,7 +33,8 @@ if oKeyCodes.kCodePressed[16]=1 //controls change: Cancel goes back a page (Conf
 }
 //if oKeyCodes.kCodePressed[6]=1 or keyboard_check_pressed(vk_enter)
 //if oKeyCodes.kCodePressed[16]=1 or keyboard_check_pressed(vk_enter) //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
-if oKeyCodes.kCodePressed[15]=1 or keyboard_check_pressed(vk_enter) //controls change: Confirm (or Enter) goes forward a page
+//if oKeyCodes.kCodePressed[15]=1 or keyboard_check_pressed(vk_enter) //controls change: Confirm (or Enter) goes forward a page
+if oKeyCodesHighFPS.kCodePressed[15]=1 or keyboard_check_pressed(vk_enter) //controls change: Confirm (or Enter) goes forward a page //60fps change: oKeyCodesHighFPS (see above)
 {
   if currentPage<13 {playSound(global.snd_PageFlip,0,0.95,1)}
   image_alpha=0
@@ -42,7 +44,8 @@ if oKeyCodes.kCodePressed[15]=1 or keyboard_check_pressed(vk_enter) //controls c
     room_goto(rTitle)
   }
 }
-else if oKeyCodes.kCodePressed[7]=1
+//else if oKeyCodes.kCodePressed[7]=1
+else if oKeyCodesHighFPS.kCodePressed[7]=1 //60fps change: oKeyCodesHighFPS (see above)
 {
   room_goto(rTitle)
 }

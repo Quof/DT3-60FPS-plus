@@ -35,15 +35,32 @@ if !variable_global_exists("saveSlot")
 {
   if parameter_count()=0
   {
+    //saves folder change (added): the slots' saves (and their backups) from before the Saves folder, in the game's folder,
+    //are copied into it, once (DT3Options.dts: 502). The ones in the game's folder are left where they are
+    if global.savesFolderMoved=0
+    {
+      var tMvI,tMvName;
+      for(tMvI=1;tMvI<=5;tMvI+=1)
+      {
+        tMvName="DT3data"+string(tMvI)+".dts"
+        if file_exists(tMvName) and !file_exists(global.saveDir+tMvName) {file_copy(tMvName,global.saveDir+tMvName)}
+        tMvName="DT3data"+string(tMvI)+"backup.dts"
+        if file_exists(tMvName) and !file_exists(global.saveDir+tMvName) {file_copy(tMvName,global.saveDir+tMvName)}
+      }
+      global.savesFolderMoved=1
+      saveOptions()
+    }
     //the save from before the slots (DT3data.dts) becomes slot 1, once
     if global.saveSlotsMoved=0
     {
-      if file_exists("DT3data.dts") and !file_exists("DT3data1.dts") {file_copy("DT3data.dts","DT3data1.dts")}
+      //if file_exists("DT3data.dts") and !file_exists("DT3data1.dts") {file_copy("DT3data.dts","DT3data1.dts")}
+      if file_exists("DT3data.dts") and !file_exists(global.saveDir+"DT3data1.dts") {file_copy("DT3data.dts",global.saveDir+"DT3data1.dts")} //saves folder change: into the Saves folder
       global.saveSlotsMoved=1
       saveOptions()
     }
     global.saveSlot=global.lastSaveSlot //the slot played last (DT3Options.dts) is the one shown on the right
-    global.paraString[0]="DT3data"+string(global.saveSlot)+".dts"
+    //global.paraString[0]="DT3data"+string(global.saveSlot)+".dts"
+    global.paraString[0]=global.saveDir+"DT3data"+string(global.saveSlot)+".dts" //saves folder change: in the Saves folder
   }
   else {global.saveSlot=0}
 }
@@ -56,7 +73,8 @@ var tTrueI,tTrueFile;
 for(tTrueI=0;tTrueI<=5;tTrueI+=1)
 {
   if tTrueI=0 {tTrueFile=global.paraString[0]}
-  else {tTrueFile="DT3data"+string(tTrueI)+".dts"}
+  //else {tTrueFile="DT3data"+string(tTrueI)+".dts"}
+  else {tTrueFile=global.saveDir+"DT3data"+string(tTrueI)+".dts"} //saves folder change: in the Saves folder
   if file_exists(tTrueFile)
   {
     ini_open(tTrueFile)
@@ -202,7 +220,8 @@ if bCanUseMenu=1
       playSound(global.snd_MenuCursor,0,1,1)
       if oKeyCodesHighFPS.kCodePressed[4]=1 {slotCursorPos+=1; if slotCursorPos>5 {slotCursorPos=1}}
       else {slotCursorPos-=1; if slotCursorPos<1 {slotCursorPos=5}}
-      global.paraString[0]="DT3data"+string(slotCursorPos)+".dts"
+      //global.paraString[0]="DT3data"+string(slotCursorPos)+".dts"
+      global.paraString[0]=global.saveDir+"DT3data"+string(slotCursorPos)+".dts" //saves folder change: in the Saves folder
       event_user(0)
       if locCheck>0 {titleLocation=locationCheck(locCheck)}
       else {titleLocation=""}
@@ -212,7 +231,8 @@ if bCanUseMenu=1
       resetKeyCodes()
       playSound(global.snd_MenuCancel,0,1,1)
       slotMenu=0
-      global.paraString[0]="DT3data"+string(global.saveSlot)+".dts"
+      //global.paraString[0]="DT3data"+string(global.saveSlot)+".dts"
+      global.paraString[0]=global.saveDir+"DT3data"+string(global.saveSlot)+".dts" //saves folder change: in the Saves folder
       event_user(0)
       if locCheck>0 {titleLocation=locationCheck(locCheck)}
       else {titleLocation=""}
@@ -236,7 +256,8 @@ if bCanUseMenu=1
           if titleLocation!=""
           {
             var tBackup;
-            tBackup="DT3data"+string(slotCursorPos)+"backup.dts"
+            //tBackup="DT3data"+string(slotCursorPos)+"backup.dts"
+            tBackup=global.saveDir+"DT3data"+string(slotCursorPos)+"backup.dts" //saves folder change: in the Saves folder
             if file_exists(tBackup) {file_delete(tBackup)}
             file_copy(global.paraString[0],tBackup)
             global.saveSlotNewGame=1
@@ -481,7 +502,8 @@ if bCanUseMenu=1
     {
       //global.paraString[0] = global.initialSave
       //save slots change: back to the save slots (the one played last), or to the command line's save file as before
-      if parameter_count()=0 {global.saveSlot=global.lastSaveSlot; global.paraString[0]="DT3data"+string(global.saveSlot)+".dts"}
+      //if parameter_count()=0 {global.saveSlot=global.lastSaveSlot; global.paraString[0]="DT3data"+string(global.saveSlot)+".dts"}
+      if parameter_count()=0 {global.saveSlot=global.lastSaveSlot; global.paraString[0]=global.saveDir+"DT3data"+string(global.saveSlot)+".dts"} //saves folder change: in the Saves folder
       else {global.paraString[0] = global.initialSave}
       event_user(0)
       if locCheck>0 {titleLocation=locationCheck(locCheck)}
@@ -491,7 +513,10 @@ if bCanUseMenu=1
     {
       Sname_len = string_length(inputMenu)-5
       Sname = string_copy(inputMenu,6,Sname_len)
-      global.paraString[0] = string_insert(Sname,".dts",1)
+      //global.paraString[0] = string_insert(Sname,".dts",1)
+      //saves folder change: in the Saves folder; one made before it (in the game's folder) is copied in first
+      if !file_exists(global.saveDir+Sname+".dts") and file_exists(Sname+".dts") {file_copy(Sname+".dts",global.saveDir+Sname+".dts")}
+      global.paraString[0]=global.saveDir+Sname+".dts"
       global.saveSlot=0 //save slots change (added): New Game and Continue use this file instead of the slots ('save0' goes back)
       event_user(0)
       if locCheck>0 {titleLocation=locationCheck(locCheck)}

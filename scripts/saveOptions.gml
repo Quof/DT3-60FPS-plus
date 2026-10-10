@@ -97,5 +97,6 @@ for(i=1;i<=4;i+=1) {ini_write_real(sectionWrite,string(260+i),global.czColor[i])
 //save slots change (added): the save slot played last and whether DT3data.dts was copied to slot 1 (see loadOptions)
 ini_write_real(sectionWrite,"500",global.lastSaveSlot)
 ini_write_real(sectionWrite,"501",global.saveSlotsMoved)
+ini_write_real(sectionWrite,"502",global.savesFolderMoved) //saves folder change (added): see loadOptions
 
 ini_close()

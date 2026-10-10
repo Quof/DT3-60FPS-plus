@@ -4,7 +4,8 @@ Used when the gamepad controls change while a button is held (GAMEPAD list), so 
 menu on the next tick. Call scrGamepadPoll first so global.gpHeld follows the new controls.
 */
 var i,tHeld;
-for(i=1;i<=16;i+=1)
+//for(i=1;i<=16;i+=1)
+for(i=1;i<=18;i+=1) //options tabs change: + 17/18, the Options tabs (U/L1, I/R1)
 {
   tHeld=scrController(i)
   oKeyCodes.kCode[i]=tHeld

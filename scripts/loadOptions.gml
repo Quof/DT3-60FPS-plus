@@ -115,5 +115,6 @@ for(i=1;i<=4;i+=1) {global.czColor[i]=ini_read_real(sectionRead,string(260+i),gl
 //the save from before the slots (DT3data.dts) has been copied to slot 1 yet (501)
 global.lastSaveSlot=median(1,round(ini_read_real(sectionRead,"500",1)),5)
 global.saveSlotsMoved=ini_read_real(sectionRead,"501",0)
+global.savesFolderMoved=ini_read_real(sectionRead,"502",0) //saves folder change (added): the saves from before the Saves folder have been copied into it (oInitializeGame)
 
 ini_close()

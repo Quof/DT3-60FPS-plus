@@ -6,8 +6,10 @@ It is used to display the Options submenu.
 draw_set_font(fnt_PauseMenuText)
 draw_set_halign(fa_middle)
 draw_sprite(sPauseM_OptionsHeader,0,contentMenuX+170,contentMenuY+26)
-textDropShadow(global.ctrlCharSwap,contentMenuX+127,contentMenuY+20,textColorMain,textColorShadow,1)
-textDropShadow(global.ctrlAbilSwap,contentMenuX+213,contentMenuY+20,textColorMain,textColorShadow,1)
+//textDropShadow(global.ctrlCharSwap,contentMenuX+127,contentMenuY+20,textColorMain,textColorShadow,1)
+//textDropShadow(global.ctrlAbilSwap,contentMenuX+213,contentMenuY+20,textColorMain,textColorShadow,1)
+textDropShadow("U",contentMenuX+127,contentMenuY+20,textColorMain,textColorShadow,1) //options tabs change: the tabs are always U/I (L1/R1 on a gamepad) now
+textDropShadow("I",contentMenuX+213,contentMenuY+20,textColorMain,textColorShadow,1) //options tabs change
 //Display option submenu
 var tXMarkCheck,tMarkW,tMarkH;
 tXMarkCheck=0

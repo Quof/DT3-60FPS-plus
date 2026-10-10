@@ -9,7 +9,8 @@ applies_to=self
 //needed.
 if instance_number(oKeyCodesHighFPS)>1 {instance_destroy(); exit}
 //for(i=1;i<=14;i+=1)
-for(i=1;i<=16;i+=1) //gamepad change: + 15/16, menu Confirm/Back (scrController)
+//for(i=1;i<=16;i+=1) //gamepad change: + 15/16, menu Confirm/Back (scrController)
+for(i=1;i<=18;i+=1) //gamepad change: + 15/16, menu Confirm/Back (scrController) //options tabs change: + 17/18, the Options tabs (U/L1, I/R1)
 {
   kCode[i]=0
   kCodePressed[i]=0
@@ -22,7 +23,8 @@ action_id=603
 applies_to=self
 */
 //for(i=1;i<=14;i+=1)
-for(i=1;i<=16;i+=1) //gamepad change: + 15/16, menu Confirm/Back (scrController)
+//for(i=1;i<=16;i+=1) //gamepad change: + 15/16, menu Confirm/Back (scrController)
+for(i=1;i<=18;i+=1) //gamepad change: + 15/16, menu Confirm/Back (scrController) //options tabs change: + 17/18, the Options tabs (U/L1, I/R1)
 {
   if kCode[i]
   {
@@ -72,7 +74,8 @@ scrKeyCarry(2)
 var i;
 if instance_exists(oKeyCodes)
 {
-  for(i=1;i<=16;i+=1)
+  //for(i=1;i<=16;i+=1)
+  for(i=1;i<=18;i+=1) //options tabs change: + 17/18, the Options tabs (U/L1, I/R1)
   {
     if kCode[i] {oKeyCodes.kCode[i]=1}
     oKeyCodes.kCodePressed[i]=0

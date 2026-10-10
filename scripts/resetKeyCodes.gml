@@ -13,6 +13,11 @@ oKeyCodes.kCodePressed[15]=0
 oKeyCodes.kCodePressed[16]=0
 oKeyCodesHighFPS.kCodePressed[15]=0
 oKeyCodesHighFPS.kCodePressed[16]=0
+//options tabs change (added): the Options tabs (scrController 17/18: U/L1, I/R1)
+oKeyCodes.kCodePressed[17]=0
+oKeyCodes.kCodePressed[18]=0
+oKeyCodesHighFPS.kCodePressed[17]=0
+oKeyCodesHighFPS.kCodePressed[18]=0
 
 /*
 kLeft=0

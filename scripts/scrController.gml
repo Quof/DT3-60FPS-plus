@@ -39,6 +39,15 @@ else if tKeyCode=14 {tKey=scrKeyboardCheck(ord(global.ctrlDashRight))} //Dash ri
 //their own buttons in the GAMEPAD list
 else if tKeyCode=15 {tKey=scrKeyboardCheck(ord(global.ctrlConfirm))} //Menu confirm
 else if tKeyCode=16 {tKey=scrKeyboardCheck(ord(global.ctrlCancel))} //Menu back
+//options tabs change (added): the Options menu's tabs (oPauseMenu), always U/I on the keyboard and L1/R1 on a gamepad,
+//whatever Swap Character/Swap Ability are set to (as Quick Restart: scrQuickRestartInput)
+else if tKeyCode=17 or tKeyCode=18
+{
+  if tKeyCode=17 {tKey=scrKeyboardCheck(ord("U"))}
+  else {tKey=scrKeyboardCheck(ord("I"))}
+  if !tKey and global.optGamePad=1 {tKey=scrGamepadCheck(tKeyCode-12)} //17: L1 (5), 18: R1 (6)
+  return tKey
+}
 
 if tKey {return 1}
 if global.optGamePad=1 {return global.gpHeld[tKeyCode]}

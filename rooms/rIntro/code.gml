@@ -11,6 +11,12 @@ gDeltaTick = 0.0
 global.objectIDMap = ds_map_create()
 
 global.paraString[0]="DT3data.dts"
+//saves folder change (added): the save files go in a Saves folder in the game's folder, made here if it isn't there
+//(the options, DT3Options.dts, stay in the game's folder; a save file given on the command line is used where it is).
+//If it can't be made, the saves stay in the game's folder as before
+global.saveDir=working_directory+"\Saves\"
+if !directory_exists(global.saveDir) {directory_create(global.saveDir)}
+if !directory_exists(global.saveDir) {global.saveDir=""}
 
 //Check if command line arguments were given
 var pNum;

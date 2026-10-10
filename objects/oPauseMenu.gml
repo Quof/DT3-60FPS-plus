@@ -39,7 +39,8 @@ if titleMode=1 //title options change (added): straight into Options
   //Confirm press that opened the menu could still be new to oKeyCodes on its next tick and activate the first option
   //(Change Controls) straight away. Mark whatever is held right now as already held.
   //for(i=1;i<=14;i+=1)
-  for(i=1;i<=16;i+=1) //gamepad change: + menu Confirm/Back
+  //for(i=1;i<=16;i+=1) //gamepad change: + menu Confirm/Back
+  for(i=1;i<=18;i+=1) //gamepad change: + menu Confirm/Back //options tabs change: + 17/18, the Options tabs (U/L1, I/R1)
   {
     oKeyCodes.kCode[i]=scrController(i)
     oKeyCodes.kCodePressed[i]=0
@@ -983,14 +984,16 @@ else if subMenu=7 //---------- OPTIONS ----------
     if mO_CurPos=mO_OptMax {mO_CurPos=1}
     else {mO_CurPos+=1}
   }
-  else if oKeyCodes.kCodePressed[9]=1 //Opt Menu Left
+  //else if oKeyCodes.kCodePressed[9]=1 //Opt Menu Left
+  else if oKeyCodes.kCodePressed[17]=1 //Opt Menu Left //options tabs change: always U / L1 (scrController 17), not Swap Character
   {
     playSound(global.snd_MenuCursor,0,1,1)
     mO_CurPos=1
     if mO_OptSubMenu=1 {mO_OptSubMenu=6}
     else {mO_OptSubMenu-=1}
   }
-  else if oKeyCodes.kCodePressed[10]=1 //Opt Menu Right
+  //else if oKeyCodes.kCodePressed[10]=1 //Opt Menu Right
+  else if oKeyCodes.kCodePressed[18]=1 //Opt Menu Right //options tabs change: always I / R1 (scrController 18), not Swap Ability
   {
     playSound(global.snd_MenuCursor,0,1,1)
     mO_CurPos=1
