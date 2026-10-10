@@ -550,18 +550,29 @@ draw_text(x+8,y-112,string(bossName) +"#-Best Time | Hits-#" +tTimeText +" | " +
 //Award board
 if point_distance(x+8,y+16,oPlayer1.x,returnPlayerYCenter())<=64
 {
-  draw_sprite(sBossAwardCheck,0,x+8,y+64)
-  draw_set_color(textColorGreen)
-  draw_text(x-22,y+58,"3-4")
-  draw_text(x+8,y+58,"1-2")
-  draw_text(x+38,y+58,"0")
-  if tHits<=4 {draw_sprite(sBossGalleryMedals,0,x-22,y+64)}
-  if tHits<=2 {draw_sprite(sBossGalleryMedals,1,x+8,y+64)}
-  if tHits=0 {draw_sprite(sBossGalleryMedals,2,x+38,y+64)}
+  //platinum box change (added): once the platinum medal is earned (a win without a hit with the New Dark Omen on:
+  //bossRoomTally; every boss has one here), one ornate box with it (sBossAwardPlat) takes the three medals' box's place
+  if global.bossGalleryPlatN[type-1]=1
+  {
+    draw_sprite(sBossAwardPlat,0,x+8,y+64)
+    scrPlatGlow(x+8,y+64,1,type,0); draw_sprite(sBossGalleryMedals,3,x+8,y+64); scrPlatGlow(x+8,y+64,1,type,1)
+  }
+  else
+  {
+    draw_sprite(sBossAwardCheck,0,x+8,y+64)
+    draw_set_color(textColorGreen)
+    draw_text(x-22,y+58,"3-4")
+    draw_text(x+8,y+58,"1-2")
+    draw_text(x+38,y+58,"0")
+    if tHits<=4 {draw_sprite(sBossGalleryMedals,0,x-22,y+64)}
+    if tHits<=2 {draw_sprite(sBossGalleryMedals,1,x+8,y+64)}
+    if tHits=0 {draw_sprite(sBossGalleryMedals,2,x+38,y+64)}
+  }
   //dark omen change (added): the platinum medal, shown under the board once it's earned like the regular gallery's (a win
   //without a hit with the New Dark Omen on: bossRoomTally). Every boss has one here
   //if global.bossGalleryPlatN[type-1]=1 {draw_sprite(sBossGalleryMedals,3,x+8,y+106)}
-  if global.bossGalleryPlatN[type-1]=1 {scrPlatGlow(x+8,y+106,1,type,0); draw_sprite(sBossGalleryMedals,3,x+8,y+106); scrPlatGlow(x+8,y+106,1,type,1)} //platinum glow change: the radiant shine (scrPlatGlow)
+  //if global.bossGalleryPlatN[type-1]=1 {scrPlatGlow(x+8,y+106,1,type,0); draw_sprite(sBossGalleryMedals,3,x+8,y+106); scrPlatGlow(x+8,y+106,1,type,1)} //platinum glow change: the radiant shine (scrPlatGlow)
+  //platinum box change: in its own box now (above)
 }
 #define Draw_0
 /*"/*'/**//* YYD ACTION
@@ -594,23 +605,39 @@ if point_distance(x+8,y+16,oPlayer1.x,returnPlayerYCenter())<=480
   //Award board
   if point_distance(x+8,y+16,oPlayer1.x,returnPlayerYCenter())<=64
   {
-    draw_sprite(sBossAwardCheck,0,x+8,y+64)
-    draw_set_color(textColorGreen)
-    for(i=0;i<3;i+=1)
+    //platinum box change (added): once the platinum medal is earned, one ornate box with it (sBossAwardPlat) takes the
+    //three medals' box's place; its time is under it in white, as it was under the medal
+    var tPlatGot;
+    tPlatGot=0
+    if variable_local_exists("hasPlat") {if global.bossGalleryTime[type-1]<=award[3] {tPlatGot=1}}
+    if tPlatGot=1
     {
-      draw_text(x-22+(i*30),y+58,award[i])
-      if global.bossGalleryTime[type-1]<=award[i] {draw_sprite(sBossGalleryMedals,i,x-22+(i*30),y+64)}
+      draw_sprite(sBossAwardPlat,0,x+8,y+64)
+      scrPlatGlow(x+8,y+64,1,type,0); draw_sprite(sBossGalleryMedals,3,x+8,y+64); scrPlatGlow(x+8,y+64,1,type,1)
+      draw_set_color(c_white)
+      draw_text(x+8,y+100,award[3])
     }
-
-    if variable_local_exists("hasPlat")
+    else
     {
-      if global.bossGalleryTime[type-1]<=award[3]
+      draw_sprite(sBossAwardCheck,0,x+8,y+64)
+      draw_set_color(textColorGreen)
+      for(i=0;i<3;i+=1)
       {
-        //draw_sprite(sBossGalleryMedals,3,x+8,y+106)
-        scrPlatGlow(x+8,y+106,1,type,0); draw_sprite(sBossGalleryMedals,3,x+8,y+106); scrPlatGlow(x+8,y+106,1,type,1) //platinum glow change: the radiant shine (scrPlatGlow)
-        draw_set_color(c_white)
-        draw_text(x+8,y+120,award[3])
+        draw_text(x-22+(i*30),y+58,award[i])
+        if global.bossGalleryTime[type-1]<=award[i] {draw_sprite(sBossGalleryMedals,i,x-22+(i*30),y+64)}
       }
     }
+
+    //platinum box change: the platinum medal is in its own box now (above)
+    //if variable_local_exists("hasPlat")
+    //{
+    //  if global.bossGalleryTime[type-1]<=award[3]
+    //  {
+    //    //draw_sprite(sBossGalleryMedals,3,x+8,y+106)
+    //    scrPlatGlow(x+8,y+106,1,type,0); draw_sprite(sBossGalleryMedals,3,x+8,y+106); scrPlatGlow(x+8,y+106,1,type,1) //platinum glow change: the radiant shine (scrPlatGlow)
+    //    draw_set_color(c_white)
+    //    draw_text(x+8,y+120,award[3])
+    //  }
+    //}
   }
 }
