@@ -17,7 +17,7 @@ if !variable_global_exists("gamePriority")
 }
 stopAllMusic()
 stopLoopingSounds()
-global.debugMenu=0
+global.debugMenu=1
 global.location=0
 titleBirdNum=0
 initGameVars()

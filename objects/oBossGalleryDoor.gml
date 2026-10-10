@@ -45,6 +45,9 @@ if oKeyCodes.kCodePressed[3]=1 and activateTime=0 and global.gamePaused=false
     if global.normActive=0 {scrNormState(0)}
     global.normRoom=toRoom //the fight's room (oGame's Room Start puts the real build back anywhere else)
     scrNormApply(type)
+    //dark omen change (added): with the New Dark Omen on, the normalized build's skill tree is lowered the same way
+    //(scrOmenState); the build kept aside has the lowered one too, so it's what comes back after the fight
+    if global.normActive=1 and global.omenActive=1 {scrOmenState(5)}
   }
   if global.bNightmareMode=0 {global.difficulty=2}
   if global.rmDeaths>=5 {global.chaoRecognition=1}
@@ -534,6 +537,7 @@ applies_to=self
 normalized gallery change (added): the door's text and award board with the gallery lever on (from the Draw event, which
 has set the font, color and alignment): the best time and the fewest hits taken in a win (bossRoomTally) under the
 boss name, and medals for the hits: bronze for 3-4, silver for 1-2, gold for none (none for 5 or more). No platinum
+(dark omen change: platinum for none with the New Dark Omen on, below)
 */
 var tHits,tTimeText,tHitsText;
 tHits=global.bossGalleryHitsN[type-1]
@@ -554,6 +558,10 @@ if point_distance(x+8,y+16,oPlayer1.x,returnPlayerYCenter())<=64
   if tHits<=4 {draw_sprite(sBossGalleryMedals,0,x-22,y+64)}
   if tHits<=2 {draw_sprite(sBossGalleryMedals,1,x+8,y+64)}
   if tHits=0 {draw_sprite(sBossGalleryMedals,2,x+38,y+64)}
+  //dark omen change (added): the platinum medal, shown under the board once it's earned like the regular gallery's (a win
+  //without a hit with the New Dark Omen on: bossRoomTally). Every boss has one here
+  //if global.bossGalleryPlatN[type-1]=1 {draw_sprite(sBossGalleryMedals,3,x+8,y+106)}
+  if global.bossGalleryPlatN[type-1]=1 {scrPlatGlow(x+8,y+106,1,type,0); draw_sprite(sBossGalleryMedals,3,x+8,y+106); scrPlatGlow(x+8,y+106,1,type,1)} //platinum glow change: the radiant shine (scrPlatGlow)
 }
 #define Draw_0
 /*"/*'/**//* YYD ACTION
@@ -598,7 +606,8 @@ if point_distance(x+8,y+16,oPlayer1.x,returnPlayerYCenter())<=480
     {
       if global.bossGalleryTime[type-1]<=award[3]
       {
-        draw_sprite(sBossGalleryMedals,3,x+8,y+106)
+        //draw_sprite(sBossGalleryMedals,3,x+8,y+106)
+        scrPlatGlow(x+8,y+106,1,type,0); draw_sprite(sBossGalleryMedals,3,x+8,y+106); scrPlatGlow(x+8,y+106,1,type,1) //platinum glow change: the radiant shine (scrPlatGlow)
         draw_set_color(c_white)
         draw_text(x+8,y+120,award[3])
       }

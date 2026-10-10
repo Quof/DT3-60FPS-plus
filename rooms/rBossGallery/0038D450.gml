@@ -6,4 +6,5 @@ bossName="The Executive"
 award[0]=540
 award[1]=420
 award[2]=343
+award[3]=280; hasPlat=1 //platinum medal change (added)
 if global.gameExecutiveDefeated=0 or global.gameProgress<4970 {instance_destroy()}

@@ -17,6 +17,7 @@ global.bossResultNewRecord=0
 
 playerCheatedProg=0
 playerCheatedTime=0
+recordCol=c_white //60fps change (added): NEW RECORD!!'s colour (Step)
 
 if global.bossResultTime=2222222
 {
@@ -33,14 +34,18 @@ if global.gamePaused=false
 {
   if bDisplayResults=1
   {
-    displayTime-=1
-    if displayTime<=20 {displayAlpha-=0.05}
+    //displayTime-=1
+    //if displayTime<=20 {displayAlpha-=0.05}
+    displayTime-=1*gDeltaTime //60fps change: the results (and NEW RECORD!!) went away 2x/4x too soon at 60/120fps
+    if displayTime<=20 {displayAlpha-=0.05*gDeltaTime} //60fps change
     if displayTime<=0 {displayAlpha=0; bDisplayResults=0}
+    if gDeltaDoTicks {recordCol=make_color_rgb(random(255),random(255),random(255))} //60fps change (added): NEW RECORD!!'s colour changes once per 30fps tick (Draw)
   }
 
   if playerCheatedProg=1
   {
-    playerCheatedTime+=1
+    //playerCheatedTime+=1
+    playerCheatedTime+=1*gDeltaTime //60fps change
     if playerCheatedTime=30
     {
       msgCreate(0,0,"Jeremy","Guys, stop abusing game flags to cheat at this.",0,2,oMessagePerson,0)
@@ -78,7 +83,8 @@ if bDisplayResults=1
   if bDisplayNewRecord=1
   {
     draw_set_halign(fa_middle)
-    textDropShadow("NEW RECORD!!",bossResultsX+75,bossResultsY+79,make_color_rgb(random(255),random(255),random(255)),textColorA,4)
+    //textDropShadow("NEW RECORD!!",bossResultsX+75,bossResultsY+79,make_color_rgb(random(255),random(255),random(255)),textColorA,4)
+    textDropShadow("NEW RECORD!!",bossResultsX+75,bossResultsY+79,recordCol,textColorA,4) //60fps change: the colour picked once per tick (Step)
   }
 
   if global.difficulty=1 and global.bNightmareMode=0

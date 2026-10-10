@@ -222,7 +222,8 @@ if bCanTakeDamage=true
       if global.equipClaire[i]=27 {tDarkOmen=1}
     }
     if tCurseCheck=3 {totalDamage*=3} //triple damage from cursed equipment
-    if tDarkOmen=1 {totalDamage*=2} //double damage from Dark Omen
+    //if tDarkOmen=1 {totalDamage*=2} //double damage from Dark Omen
+    if tDarkOmen=1 and global.omenActive=0 {totalDamage*=2} //double damage from Dark Omen //dark omen change: only the original Dark Omen (New Dark Omen off); the new one kills in one hit (below)
     totalDamage-=tEqpAdj
 
     //Damage resists from skills
@@ -506,7 +507,8 @@ if bCanTakeDamage=true
     if totalDamage<1 {totalDamage=1} //ensures character takes minimum damage
     if global.bRecordHits=1
     {
-      if global.bOneHitKillMode=1 {totalDamage=irandom_range(10000,99999)} //one hit kill if playing on one hit kill mode
+      //if global.bOneHitKillMode=1 {totalDamage=irandom_range(10000,99999)} //one hit kill if playing on one hit kill mode
+      if global.bOneHitKillMode=1 or global.omenActive=1 {totalDamage=irandom_range(10000,99999)} //one hit kill if playing on one hit kill mode //dark omen change: and with the New Dark Omen on (scrOmenState)
     }
     if tObjHit.bDealZeroDamage=1 {totalDamage=0}
     else

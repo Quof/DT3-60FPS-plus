@@ -20,7 +20,8 @@ for(i=0;i<3;i+=1)
     break;
   }
 }
-atkPower=round((50+(round(global.stLink_Arrow[0]*1.5)+global.skillTree[9]))*tCrossbow)
+//atkPower=round((50+(round(global.stLink_Arrow[0]*1.5)+global.skillTree[9]))*tCrossbow)
+atkPower=round((50+(round(scrOmenLv(global.stLink_Arrow[0])*1.5)+global.skillTree[9]))*tCrossbow) //dark omen change: the weapon level counts 10 lower while the New Dark Omen is on (scrOmenLv)
 atkPower=weaponDmgMod(0,atkPower)
 global.recAtkNum+=1
 global.stLink_Arrow[2]+=1

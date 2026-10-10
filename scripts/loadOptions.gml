@@ -94,6 +94,8 @@ for(i=0;i<global.dsCount;i+=1) {variable_global_set(global.dsVar[i],ini_read_rea
 //niche dash change (added): without Niche Dash Settings there are only Left/Right Dashing' two setups (on: Right is Forward
 //and DT4 Dashing off; off: both on), so DT4 Dashing follows Right is Forward. (Also when the dipswitch is turned off.)
 if global.nicheDashSettings=0 {global.optDT4Dash=global.optRightIsForward}
+//autosave change (added): Autosave is minutes between autosaves; anything but 0 (off), 5, 15 or 30 goes back to 15
+if global.autosaveFreq!=0 and global.autosaveFreq!=5 and global.autosaveFreq!=15 and global.autosaveFreq!=30 {global.autosaveFreq=15}
 
 //gamepad change (added): gamepad controls (codes: scrGamepadInit), key 320+action (Skip and Pause are always BACK/START)
 scrGamepadDefaults()

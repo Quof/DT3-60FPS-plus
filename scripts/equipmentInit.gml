@@ -241,7 +241,10 @@ else if tItemList=2
   {
     equipCheck[1]="Dark Omen"
     equipCheck[2]=100
-    equipCheck[3]="Doubles the damage you take from every source... This is a useless item, only use it if you want more punishment. Affects both characters."
+    //equipCheck[3]="Doubles the damage you take from every source... This is a useless item, only use it if you want more punishment. Affects both characters."
+    //dark omen change: the New Dark Omen's description (dipswitch: remasterSwitchList), or the original's with it off
+    if global.newDarkOmen=1 {equipCheck[3]="Drastically weakens you to the point you die in one hit and do far less damage. Only use this item if you want more punishment... or if you are hunting for its secret purpose. Affects both characters."}
+    else {equipCheck[3]="Doubles the damage you take from every source... This is a useless item, only use it if you want more punishment. Affects both characters."}
   }
   else if tItemIndex=28
   {

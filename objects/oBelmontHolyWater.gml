@@ -11,7 +11,8 @@ setCollisionBounds(-4,-4,4,4)
 damageType="ELEMENTAL"
 weaponTag=32
 atkLv=global.stBelmont_Holywater[0]
-atkPower=90+(global.stBelmont_Holywater[0]*2)+global.skillTree[12]
+//atkPower=90+(global.stBelmont_Holywater[0]*2)+global.skillTree[12]
+atkPower=90+(scrOmenLv(global.stBelmont_Holywater[0])*2)+global.skillTree[12] //dark omen change: the weapon level counts 10 lower while the New Dark Omen is on (scrOmenLv)
 atkPower=weaponDmgMod(1,atkPower)
 global.recAtkNum+=1
 global.stBelmont_Holywater[2]+=1

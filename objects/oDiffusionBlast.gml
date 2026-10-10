@@ -11,7 +11,8 @@ image_speed=0.5
 damageType="SPECIAL"
 weaponTag=41
 atkLv=global.stSamus_Missile[0]
-atkPower=75+global.stSamus_Missile[0]+global.skillTree[13]
+//atkPower=75+global.stSamus_Missile[0]+global.skillTree[13]
+atkPower=75+scrOmenLv(global.stSamus_Missile[0])+global.skillTree[13] //dark omen change: the weapon level counts 10 lower while the New Dark Omen is on (scrOmenLv)
 atkPower=weaponDmgMod(1,atkPower)
 stunTime=12
 weaponRehitTime=30
@@ -45,7 +46,8 @@ if global.gamePaused=false
       tEffect._speed=3; tEffect._direction=270-(90*i)
     }
 
-    atkPower=75+(global.stSamus_Missile[0]*2)+global.skillTree[13]
+    //atkPower=75+(global.stSamus_Missile[0]*2)+global.skillTree[13]
+    atkPower=75+(scrOmenLv(global.stSamus_Missile[0])*2)+global.skillTree[13] //dark omen change: the weapon level counts 10 lower while the New Dark Omen is on (scrOmenLv)
     sprite_index=sSamusDiffusionBlast; depth=9
     image_index=0; image_speed=0
     image_xscale=2; image_yscale=2

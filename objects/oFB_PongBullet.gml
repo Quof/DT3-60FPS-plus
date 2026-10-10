@@ -26,7 +26,8 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if global.bOneHitKillMode=1 {oFB_PlayerPaddle.life-=10000}
+//if global.bOneHitKillMode=1 {oFB_PlayerPaddle.life-=10000}
+if global.bOneHitKillMode=1 or global.omenActive=1 {oFB_PlayerPaddle.life-=10000} //dark omen change: also with the New Dark Omen on (scrOmenState), as in Achilles Mode
 else {oFB_PlayerPaddle.life-=25}
 playSound(global.snd_PlayerDamaged[0],0,0.95,10000+random(3000))
 tEffect=instance_create(x,y,oEffect)

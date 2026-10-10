@@ -10,7 +10,8 @@ setCollisionBounds(-2,-2,2,2)
 damageType="PIERCE"
 weaponTag=31
 atkLv=global.stBelmont_Dagger[0]
-atkPower=65+(global.stBelmont_Dagger[0]*2)+global.skillTree[12]
+//atkPower=65+(global.stBelmont_Dagger[0]*2)+global.skillTree[12]
+atkPower=65+(scrOmenLv(global.stBelmont_Dagger[0])*2)+global.skillTree[12] //dark omen change: the weapon level counts 10 lower while the New Dark Omen is on (scrOmenLv)
 atkPower=weaponDmgMod(1,atkPower)
 stunTime=7
 

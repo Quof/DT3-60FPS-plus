@@ -19,6 +19,13 @@ if global.difficulty=2 or global.bNightmareMode=1
       global.bossGalleryTimeN[tBossIndex]=global.levelTimeSecond
       global.bossResultNewRecord=1
     }
+    //dark omen change (added): a win without a hit with the New Dark Omen on (scrOmenState) earns the platinum medal
+    //(oBossGalleryDoor and oBossBoard show it). Only the new one: not with the dipswitch off
+    if global.newDarkOmen=1 and global.omenActive=1 and oPlayer1.tookHitAmount=0 and global.bossGalleryPlatN[tBossIndex]=0
+    {
+      global.bossGalleryPlatN[tBossIndex]=1
+      global.bossResultNewRecord=1
+    }
   }
   //if global.bossGalleryTime[tBossIndex]>global.levelTimeSecond
   else if global.bossGalleryTime[tBossIndex]>global.levelTimeSecond //normalized gallery change

@@ -179,7 +179,11 @@ else if mO_OptSubMenu=2 //------------------------- GRAPHICS -------------------
 {
   //var tHatY; tHatY=contentMenuY+139+(12*mCZ_Show) //color zone change (added): y of Jerry's Hat (Claire's is 12 lower); a row lower when Color Zone Colors is shown //options move change: the hats are on Display now
   textDropShadow("Game Priority",contentMenuX+28,contentMenuY+43,textColorMain,textColorShadow,1)
-  textDropShadow("FPS",contentMenuX+28,contentMenuY+55,textColorMain,textColorShadow,1) //fps option change (added)
+  //textDropShadow("FPS",contentMenuX+28,contentMenuY+55,textColorMain,textColorShadow,1) //fps option change (added)
+  var tFPSCol; //fps title only change (added): FPS is greyed out outside the title screen (it can only be changed there)
+  if titleMode=1 {tFPSCol=textColorMain}
+  else {tFPSCol=make_color_rgb(190,190,190)}
+  textDropShadow("FPS",contentMenuX+28,contentMenuY+55,tFPSCol,textColorShadow,1) //fps option change (added) //fps title only change: tFPSCol
   //textDropShadow("V-Sync",contentMenuX+28,contentMenuY+55,textColorMain,textColorShadow,1)
   textDropShadow("V-Sync",contentMenuX+28,contentMenuY+67,textColorMain,textColorShadow,1) //options move change: a row lower (FPS is row 2)
   //textDropShadow("Window Scaling",contentMenuX+28,contentMenuY+67,textColorMain,textColorShadow,1)
@@ -204,7 +208,8 @@ else if mO_OptSubMenu=2 //------------------------- GRAPHICS -------------------
   if global.gamePriority=0 {textDropShadow("Normal",contentMenuX+164,contentMenuY+43,textColorMain,textColorShadow,1)}
   else if global.gamePriority=1 {textDropShadow("High",contentMenuX+164,contentMenuY+43,textColorMain,textColorShadow,1)}
   else if global.gamePriority=2 {textDropShadow("Highest",contentMenuX+164,contentMenuY+43,textColorMain,textColorShadow,1)}
-  textDropShadow(string(global.gameFrameRate),contentMenuX+164,contentMenuY+55,textColorMain,textColorShadow,1) //fps option change (added)
+  //textDropShadow(string(global.gameFrameRate),contentMenuX+164,contentMenuY+55,textColorMain,textColorShadow,1) //fps option change (added)
+  textDropShadow(string(global.gameFrameRate),contentMenuX+164,contentMenuY+55,tFPSCol,textColorShadow,1) //fps option change (added) //fps title only change: tFPSCol
   //if global.optVSync=0 {textDropShadow("Off",contentMenuX+164,contentMenuY+55,textColorMain,textColorShadow,1)}
   if global.optVSync=0 {textDropShadow("Off",contentMenuX+164,contentMenuY+67,textColorMain,textColorShadow,1)} //options move change: a row lower (FPS is row 2)
   //else if global.optVSync=1 {textDropShadow("On",contentMenuX+164,contentMenuY+55,textColorMain,textColorShadow,1)}

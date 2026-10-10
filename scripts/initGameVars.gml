@@ -198,6 +198,11 @@ global.playTimeHour=0
 global.playTimeMinute=0
 global.playTimeSecond=0
 global.playTimeFrameCount=0
+//play time change (added): Play Time in the pause menu, not counting the pause menu (the one above is Open Time: oGame)
+global.activeTimeHour=0
+global.activeTimeMinute=0
+global.activeTimeSecond=0
+global.activeTimeFrameCount=0
 
 global.forceTime=-100 //time left till Game Over  [Countdown Timer] (if applicable)
 
@@ -544,10 +549,12 @@ for(i=0;i<65;i+=1)
   global.bossGalleryTime[i]=99999
   global.bossGalleryHitsN[i]=99999 //normalized gallery change (added): fewest hits taken in a win with the gallery lever on (99999: none yet)
   global.bossGalleryTimeN[i]=99999 //normalized gallery change (added): best time with the gallery lever on
+  global.bossGalleryPlatN[i]=0 //dark omen change (added): 1 once a win with the gallery lever on had no hits with the New Dark Omen on (platinum medal)
 }
 global.galleryNormalized=0 //normalized gallery change (added): the boss gallery lever (oGalleryLever): normalized builds for the bosses
 global.normActive=0        //normalized gallery change (added): do not save in the data file, 1 while a normalized build is in use (scrNormState)
 global.normRoom=-1         //normalized gallery change (added): do not save in the data file, the room of the fight using it
+global.omenActive=0        //dark omen change (added): do not save in the data file, 1 while the New Dark Omen's weakened values are in (scrOmenState)
 
 //Debug flags
 global.debugInvincible=false

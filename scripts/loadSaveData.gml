@@ -13,6 +13,12 @@ checkIfCheating=ini_read_real(sectionRead,"gamebeat",0)
 global.playTimeHour=ini_read_real(sectionRead,"101",0)
 global.playTimeMinute=ini_read_real(sectionRead,"102",0)
 global.playTimeSecond=ini_read_real(sectionRead,"103",0)
+//play time change (added): Play Time (not counting the pause menu; the one above is Open Time). A save from before it
+//starts from Open Time
+global.activeTimeHour=ini_read_real(sectionRead,"101p",global.playTimeHour)
+global.activeTimeMinute=ini_read_real(sectionRead,"102p",global.playTimeMinute)
+global.activeTimeSecond=ini_read_real(sectionRead,"103p",global.playTimeSecond)
+global.activeTimeFrameCount=0
 global.pMaxLife=ini_read_real(sectionRead,"104",0)
 global.pLife=ini_read_real(sectionRead,"105",0)
 global.pAP=ini_read_real(sectionRead,"106",0)
@@ -260,6 +266,7 @@ for(i=0;i<65;i+=1)
   global.bossGalleryTime[i]=ini_read_real(sectionRead,"700" +string(i),99999)
   global.bossGalleryHitsN[i]=ini_read_real(sectionRead,"770" +string(i),99999) //normalized gallery change (added)
   global.bossGalleryTimeN[i]=ini_read_real(sectionRead,"750" +string(i),99999) //normalized gallery change (added)
+  global.bossGalleryPlatN[i]=ini_read_real(sectionRead,"790" +string(i),0) //dark omen change (added)
 }
 global.galleryNormalized=ini_read_real(sectionRead,"galNorm",0) //normalized gallery change (added): the gallery lever
 
@@ -283,3 +290,6 @@ global.hudLink_BombEn[0]=150-(global.skillTree[1]*15)
 global.saveSlotNewGame=0
 //normalized gallery change (added): the build just loaded is the real one (saves never get a normalized one)
 global.normActive=0
+//dark omen change (added): the same for the New Dark Omen: what was just loaded are the real values (saves never get the
+//weakened ones), so nothing is kept aside any more; it goes back on from them if the Dark Omen is equipped (scrOmenState)
+global.omenActive=0

@@ -29,6 +29,9 @@ applies_to=self
 //gDeltaTime/gDeltaDoTicks are worked out in the Begin Step, so every Step event this frame agrees on whether it's a 30fps tick
 if global.gamePaused=false
   gameStepEvent()
+//dark omen change (added): the New Dark Omen's weakened values go in while the Dark Omen is equipped and come back out
+//when it isn't (scrOmenState), whatever changed the equipment; also while paused, so the pause menu shows them right away
+scrOmenState(2)
 
 if gDeltaTime != 1.0
 {
@@ -85,6 +88,9 @@ if windowUpdate mod 30=0
 }
 
 //play time
+//play time change: this one is Open Time in the pause menu (always counts); Play Time is below. The frame is counted
+//before the check now, so a second is exactly 30 ticks (the frame that reset the count wasn't counted: 31)
+global.playTimeFrameCount+=1 //play time change (added)
 if global.playTimeFrameCount>=30/gDeltaTime
 {
   global.playTimeFrameCount=0
@@ -111,7 +117,27 @@ if global.playTimeFrameCount>=30/gDeltaTime
   }
 }
 //else {global.playTimeFrameCount+=1*gDeltaTime}
-else {global.playTimeFrameCount+=1} //60fps change: counts frames, since the check above already waits 30/gDeltaTime frames; scaled here too, play time (and the 2-hour notice) ran at half/quarter speed at 60/120fps
+//else {global.playTimeFrameCount+=1} //60fps change: counts frames, since the check above already waits 30/gDeltaTime frames; scaled here too, play time (and the 2-hour notice) ran at half/quarter speed at 60/120fps
+//play time change (added): Play Time in the pause menu: the same count, but not while the pause menu is up
+if !instance_exists(oPauseMenu)
+{
+  global.activeTimeFrameCount+=1
+  if global.activeTimeFrameCount>=30/gDeltaTime
+  {
+    global.activeTimeFrameCount=0
+    global.activeTimeSecond+=1
+    if global.activeTimeSecond>=60
+    {
+      global.activeTimeSecond=0
+      global.activeTimeMinute+=1
+      if global.activeTimeMinute>=60
+      {
+        global.activeTimeMinute=0
+        global.activeTimeHour+=1
+      }
+    }
+  }
+}
 
 //close the game
 if global.bCanUseEsc=1
@@ -397,7 +423,8 @@ if (room != rIntro and room != rTitle and room != rBeginning and room != rBackSt
   {
     if room!=global.normRoom and instance_exists(oPlayer1) {scrNormState(1)}
   }
-  if (autoSaveTime >= 30*60*10) //every 10 minutes. I changed this from 5 (quof)
+  //if (autoSaveTime >= 30*60*10) //every 10 minutes. I changed this from 5 (quof)
+  if global.autosaveFreq>0 and autoSaveTime>=30*60*global.autosaveFreq //autosave change: Autosave (dipswitch): every 5, 15 or 30 minutes, or never (0)
   {
     //if global.bCanSave=true //save on room transition
     if global.bCanSave=true and global.saveSlotNewGame=0 //save on room transition //save slots change: not while a new game started over a slot's save hasn't been saved yet (that save stays till then; see oInitializeGame)

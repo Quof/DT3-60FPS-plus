@@ -737,7 +737,16 @@ else if subMenu=3 //---------- SKILL TREE ----------
   //if oKeyCodes.kCodePressed[5]=1
   if oKeyCodes.kCodePressed[15]=1 //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
   {
-    if global.pAP>=info_Cost and info_Index!=-1
+    //dark omen change (added): no skills are learned while the New Dark Omen is on (scrOmenState: the skill tree is
+    //Nightmare Mode's then, and the real one comes back when it's taken off)
+    if global.omenActive=1 and info_Index!=-1
+    {
+      playSound(global.snd_Error,0,1,1)
+      msgCreate(120,120,"","Skills can't be learned while the Dark Omen is equipped.",7,2,oMessagePerson,0)
+      newMessage.fadingTime=45
+    }
+    //if global.pAP>=info_Cost and info_Index!=-1
+    else if global.pAP>=info_Cost and info_Index!=-1 //dark omen change: "else" added
     {
       if info_Lv<info_Max
       {
@@ -1031,13 +1040,15 @@ else if subMenu=7 //---------- OPTIONS ----------
       }
       else if mO_CurPos=2 //FPS //fps option change (added): down a step (120, 60, 30, then around to 120)
       {
-        if oKeyCodes.kCodePressed[1]=1
+        //if oKeyCodes.kCodePressed[1]=1
+        if oKeyCodes.kCodePressed[1]=1 and titleMode=1 //fps title only change: only from the title screen
         {
           playSound(global.snd_MenuCursor,0,1,1)
           if global.gameFrameRate>=120 {scrSetFrameRate(60)}
           else if global.gameFrameRate>=60 {scrSetFrameRate(30)}
           else {scrSetFrameRate(120)}
         }
+        else if oKeyCodes.kCodePressed[1]=1 {scrFPSLockedMsg()} //fps title only change (added)
       }
       //options move change: the hats are on Display now (below)
       ////else if mO_CurPos=9 or mO_CurPos=10 //Hat cycle
@@ -1175,13 +1186,15 @@ else if subMenu=7 //---------- OPTIONS ----------
       }
       else if mO_CurPos=2 //FPS //fps option change (added): up a step (30, 60, 120, then around to 30), as F2 does
       {
-        if oKeyCodes.kCodePressed[2]=1
+        //if oKeyCodes.kCodePressed[2]=1
+        if oKeyCodes.kCodePressed[2]=1 and titleMode=1 //fps title only change: only from the title screen
         {
           playSound(global.snd_MenuCursor,0,1,1)
           if global.gameFrameRate<60 {scrSetFrameRate(60)}
           else if global.gameFrameRate<120 {scrSetFrameRate(120)}
           else {scrSetFrameRate(30)}
         }
+        else if oKeyCodes.kCodePressed[2]=1 {scrFPSLockedMsg()} //fps title only change (added)
       }
       //options move change: the hats are on Display now (below)
       ////else if mO_CurPos=9 or mO_CurPos=10 //Hat cycle
@@ -1309,7 +1322,8 @@ else if subMenu=7 //---------- OPTIONS ----------
   {
     resetKeyCodes()
     //if mO_OptSubMenu!=5 {playSound(global.snd_MenuConfirm,0,1,1)}
-    if mO_OptSubMenu!=5 and !(mO_OptSubMenu=1 and mO_CtrlItem=6 and global.optRightIsForward=0) {playSound(global.snd_MenuConfirm,0,1,1)} //dt4 dash change: not for DT4 Dashing while it's greyed out
+    //if mO_OptSubMenu!=5 and !(mO_OptSubMenu=1 and mO_CtrlItem=6 and global.optRightIsForward=0) {playSound(global.snd_MenuConfirm,0,1,1)} //dt4 dash change: not for DT4 Dashing while it's greyed out
+    if mO_OptSubMenu!=5 and !(mO_OptSubMenu=1 and mO_CtrlItem=6 and global.optRightIsForward=0) and !(mO_OptSubMenu=2 and mO_CurPos=2 and titleMode=0) {playSound(global.snd_MenuConfirm,0,1,1)} //dt4 dash change: not for DT4 Dashing while it's greyed out //fps title only change: nor FPS outside the title screen
 
     if mO_OptSubMenu=1 //---------- CONTROL ----------
     {
@@ -1405,7 +1419,9 @@ else if subMenu=7 //---------- OPTIONS ----------
       }
       else if mO_CurPos=2 //FPS //fps option change (added): 30, 60, 120, then around to 30, as F2 does
       {
-        if global.gameFrameRate<60 {scrSetFrameRate(60)}
+        if titleMode=0 {scrFPSLockedMsg()} //fps title only change (added): only from the title screen
+        //if global.gameFrameRate<60 {scrSetFrameRate(60)}
+        else if global.gameFrameRate<60 {scrSetFrameRate(60)} //fps title only change: "else" added
         else if global.gameFrameRate<120 {scrSetFrameRate(120)}
         else {scrSetFrameRate(30)}
       }
@@ -2417,13 +2433,35 @@ else if subMenu=15 //---------- CUSTOMIZE REMASTERED CHANGES ---------- //dipswi
     if mDS_CurPos=global.dsCount {mDS_CurPos=1}
     else {mDS_CurPos+=1}
   }
+  //autosave change (added): Left/Right step Autosave down/up through off, 5, 15 and 30 minutes (scrAutosaveStep); the
+  //on/off dipswitches only use Confirm
+  else if global.dsVar[mDS_CurPos-1]="autosaveFreq" and oKeyCodes.kCodePressed[1]=1
+  {
+    playSound(global.snd_MenuCursor,0,1,1)
+    scrAutosaveStep(-1)
+  }
+  else if global.dsVar[mDS_CurPos-1]="autosaveFreq" and oKeyCodes.kCodePressed[2]=1
+  {
+    playSound(global.snd_MenuCursor,0,1,1)
+    scrAutosaveStep(1)
+  }
 
   //if oKeyCodes.kCodePressed[5]=1 //Turn the dipswitch on/off (saved with the options: saveOptions)
   if oKeyCodes.kCodePressed[15]=1 //Turn the dipswitch on/off (saved with the options: saveOptions) //gamepad change: menu Confirm/Back (15/16: on a gamepad always A/B)
   {
     resetKeyCodes()
-    playSound(global.snd_MenuConfirm,0,1,1)
-    if variable_global_get(global.dsVar[mDS_CurPos-1])=true {variable_global_set(global.dsVar[mDS_CurPos-1],false)}
+    //playSound(global.snd_MenuConfirm,0,1,1)
+    if !scrDSLocked(mDS_CurPos-1) {playSound(global.snd_MenuConfirm,0,1,1)} //dark omen change: not for one that can't be changed right now (below)
+    //if variable_global_get(global.dsVar[mDS_CurPos-1])=true {variable_global_set(global.dsVar[mDS_CurPos-1],false)}
+    //if global.dsVar[mDS_CurPos-1]="autosaveFreq" {scrAutosaveStep(1)} //autosave change (added): up a step (off, 5, 15, 30, around)
+    if scrDSLocked(mDS_CurPos-1) //dark omen change (added): New Dark Omen in the boss gallery or a boss fight (scrDSLocked)
+    {
+      playSound(global.snd_Error,0,1,1)
+      msgCreate(120,120,"","New Dark Omen can't be changed in the Boss Gallery or during boss fights.",7,2,oMessagePerson,0)
+      newMessage.fadingTime=55
+    }
+    else if global.dsVar[mDS_CurPos-1]="autosaveFreq" {scrAutosaveStep(1)} //autosave change (added): up a step (off, 5, 15, 30, around) //dark omen change: "else" added
+    else if variable_global_get(global.dsVar[mDS_CurPos-1])=true {variable_global_set(global.dsVar[mDS_CurPos-1],false)} //autosave change: "else" added
     else {variable_global_set(global.dsVar[mDS_CurPos-1],true)}
     if global.nicheDashSettings=0 {global.optDT4Dash=global.optRightIsForward} //niche dash change (added): hiding the dash options goes back to one of Left/Right Dashing' two setups (see loadOptions)
   }
@@ -3325,34 +3363,78 @@ if view_current=0
     //(sPauseM_RemasterMain) is drawn in parts so it grows with the list: header (rows 0-16), a 12px strip per dipswitch
     //(rows 17-28) and the bottom border (rows 29-35). It sits under the option tabs, centred in the content panel.
     var tDSMenuX,tDSMenuY,tDSValue,i;
+    var tDSPer,tDSFirst,tDSPages,tDSRows,j; //dipswitch pages change (added): the pages (below)
     tDSMenuX=contentMenuX+25
     tDSMenuY=contentMenuY+44
+    //dipswitch pages change (added): 8 dipswitches a page, what fits in the content panel at this size. The page shown is
+    //the cursor's, so Up/Down go through all of them (past the last one on a page, the next page comes up); the frame stays
+    //the same height on every page
+    tDSPer=8
+    tDSFirst=floor((mDS_CurPos-1)/tDSPer)*tDSPer
+    tDSPages=ceil(global.dsCount/tDSPer)
+    tDSRows=min(global.dsCount,tDSPer)
     draw_sprite_part(sPauseM_RemasterMain,0,0,0,272,17,tDSMenuX,tDSMenuY)
-    for(i=0;i<global.dsCount;i+=1) {draw_sprite_part(sPauseM_RemasterMain,0,0,17,272,12,tDSMenuX,tDSMenuY+17+(i*12))}
-    draw_sprite_part(sPauseM_RemasterMain,0,0,29,272,7,tDSMenuX,tDSMenuY+17+(global.dsCount*12))
+    //for(i=0;i<global.dsCount;i+=1) {draw_sprite_part(sPauseM_RemasterMain,0,0,17,272,12,tDSMenuX,tDSMenuY+17+(i*12))}
+    //draw_sprite_part(sPauseM_RemasterMain,0,0,29,272,7,tDSMenuX,tDSMenuY+17+(global.dsCount*12))
+    for(i=0;i<tDSRows;i+=1) {draw_sprite_part(sPauseM_RemasterMain,0,0,17,272,12,tDSMenuX,tDSMenuY+17+(i*12))} //dipswitch pages change: a page's rows
+    draw_sprite_part(sPauseM_RemasterMain,0,0,29,272,7,tDSMenuX,tDSMenuY+17+(tDSRows*12)) //dipswitch pages change
 
     draw_set_alpha(1)
     draw_set_font(fnt_PauseMenuMain)
     draw_set_halign(fa_left)
     draw_set_color(textColorMain)
     draw_text(tDSMenuX+17,tDSMenuY+1,"REMASTERED CHANGES")
-    for(i=0;i<global.dsCount;i+=1)
+    //dipswitch pages change (added): the page, right of the title (the header's stripes start at +208)
+    if tDSPages>1
     {
+      draw_set_halign(fa_right)
+      draw_text(tDSMenuX+200,tDSMenuY+1,string(tDSFirst/tDSPer+1)+"/"+string(tDSPages))
+      draw_set_halign(fa_left)
+    }
+    //for(i=0;i<global.dsCount;i+=1)
+    for(j=0;j<tDSRows and tDSFirst+j<global.dsCount;j+=1) //dipswitch pages change: the page's dipswitches (j: the row)
+    {
+      i=tDSFirst+j //dipswitch pages change (added)
       //Name, then a line out to the ON/OFF column
       draw_set_font(fnt_PauseMenuMain)
       draw_set_halign(fa_left)
-      textDropShadow(global.dsName[i],tDSMenuX+20,tDSMenuY+16+(i*12),textColorMain,textColorShadow,1)
+      //dark omen change (added): greyed out while it can't be changed (scrDSLocked: New Dark Omen in the boss gallery or a
+      //boss fight)
+      var tDSCol;
+      if scrDSLocked(i) {tDSCol=make_color_rgb(190,190,190)}
+      else {tDSCol=textColorMain}
+      //textDropShadow(global.dsName[i],tDSMenuX+20,tDSMenuY+16+(i*12),textColorMain,textColorShadow,1)
+      //textDropShadow(global.dsName[i],tDSMenuX+20,tDSMenuY+16+(j*12),textColorMain,textColorShadow,1) //dipswitch pages change: the row
+      textDropShadow(global.dsName[i],tDSMenuX+20,tDSMenuY+16+(j*12),tDSCol,textColorShadow,1) //dipswitch pages change: the row //dark omen change: tDSCol
+      //autosave change (added): the value is worked out first, so the line can stop short of a longer one ("30 MIN");
+      //ON and OFF keep the line ending where it did
+      var tDSLineEnd;
+      if global.dsVar[i]="autosaveFreq" //minutes between autosaves, 0 = off
+      {
+        if global.autosaveFreq=0 {tDSValue="OFF"}
+        else {tDSValue=string(global.autosaveFreq)+" MIN"}
+      }
+      else if variable_global_get(global.dsVar[i])=true {tDSValue="ON"}
+      else {tDSValue="OFF"}
+      draw_set_font(fnt_PauseMenuText)
+      tDSLineEnd=min(231,247-ceil(string_width(tDSValue)/2)-3)
+      draw_set_font(fnt_PauseMenuMain)
       draw_set_color(textColorShadow)
-      draw_rectangle(tDSMenuX+24+string_width(global.dsName[i]),tDSMenuY+26+(i*12),tDSMenuX+231,tDSMenuY+26+(i*12),0)
+      //draw_rectangle(tDSMenuX+24+string_width(global.dsName[i]),tDSMenuY+26+(i*12),tDSMenuX+231,tDSMenuY+26+(i*12),0)
+      //draw_rectangle(tDSMenuX+24+string_width(global.dsName[i]),tDSMenuY+26+(i*12),tDSMenuX+tDSLineEnd,tDSMenuY+26+(i*12),0) //autosave change: tDSLineEnd
+      draw_rectangle(tDSMenuX+24+string_width(global.dsName[i]),tDSMenuY+26+(j*12),tDSMenuX+tDSLineEnd,tDSMenuY+26+(j*12),0) //autosave change: tDSLineEnd //dipswitch pages change: the row
       draw_set_font(fnt_PauseMenuText)
       draw_set_halign(fa_center)
-      if variable_global_get(global.dsVar[i])=true {tDSValue="ON"}
-      else {tDSValue="OFF"}
-      textDropShadow(tDSValue,tDSMenuX+247,tDSMenuY+17+(i*12),textColorMain,textColorShadow,1)
+      //if variable_global_get(global.dsVar[i])=true {tDSValue="ON"}
+      //else {tDSValue="OFF"}
+      //textDropShadow(tDSValue,tDSMenuX+247,tDSMenuY+17+(i*12),textColorMain,textColorShadow,1)
+      //textDropShadow(tDSValue,tDSMenuX+247,tDSMenuY+17+(j*12),textColorMain,textColorShadow,1) //dipswitch pages change: the row
+      textDropShadow(tDSValue,tDSMenuX+247,tDSMenuY+17+(j*12),tDSCol,textColorShadow,1) //dipswitch pages change: the row //dark omen change: tDSCol
     }
     draw_set_halign(fa_left)
     //Display cursor
-    draw_sprite(sPauseM_AbilArrow,0,tDSMenuX+16,tDSMenuY+22+((mDS_CurPos-1)*12))
+    //draw_sprite(sPauseM_AbilArrow,0,tDSMenuX+16,tDSMenuY+22+((mDS_CurPos-1)*12))
+    draw_sprite(sPauseM_AbilArrow,0,tDSMenuX+16,tDSMenuY+22+((mDS_CurPos-1-tDSFirst)*12)) //dipswitch pages change: its row on the page
     menuInfoText=global.dsInfo[mDS_CurPos-1]
   }
   else if subMenu=16 or subMenu=17 //------------------------------ COLOR ZONE COLORS ------------------------------

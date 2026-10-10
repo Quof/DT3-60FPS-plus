@@ -205,28 +205,48 @@ if mP_Page=1
   draw_set_color(textColorShadow)
   draw_rectangle(contentMenuX+257,contentMenuY+16,contentMenuX+315,contentMenuY+41,1)
   draw_set_halign(fa_center)
-  textDropShadow("Play Time",contentMenuX+287,contentMenuY+17,textColorMain,textColorShadow,1)
+  //textDropShadow("Play Time",contentMenuX+287,contentMenuY+17,textColorMain,textColorShadow,1)
+  textDropShadow("Open Time",contentMenuX+287,contentMenuY+17,textColorMain,textColorShadow,1) //play time change: this one always counts (oGame)
   var tMinuteZ, tSecondZ;
   if global.playTimeMinute<10 {tMinuteZ="0"}
   else {tMinuteZ=""}
   if global.playTimeSecond<10 {tSecondZ="0"}
   else {tSecondZ=""}
   textDropShadow(string(global.playTimeHour) +string(":") +string(tMinuteZ) +string(global.playTimeMinute) +string(":") +string(tSecondZ) +string(global.playTimeSecond),contentMenuX+287,contentMenuY+28,textColorMain,textColorShadow,1)
-  
+
+  //play time change (added): Play Time, which doesn't count while the pause menu is up (oGame), in a box the same as the
+  //one above; the boxes below are 29 lower to make room
+  draw_set_color(textColorShadow)
+  draw_rectangle(contentMenuX+257,contentMenuY+45,contentMenuX+315,contentMenuY+70,1)
+  textDropShadow("Play Time",contentMenuX+287,contentMenuY+46,textColorMain,textColorShadow,1)
+  if global.activeTimeMinute<10 {tMinuteZ="0"}
+  else {tMinuteZ=""}
+  if global.activeTimeSecond<10 {tSecondZ="0"}
+  else {tSecondZ=""}
+  textDropShadow(string(global.activeTimeHour) +string(":") +string(tMinuteZ) +string(global.activeTimeMinute) +string(":") +string(tSecondZ) +string(global.activeTimeSecond),contentMenuX+287,contentMenuY+57,textColorMain,textColorShadow,1)
+
   //----- Display Max Air -----
   draw_set_color(textColorShadow)
-  draw_rectangle(contentMenuX+257,contentMenuY+45,contentMenuX+315,contentMenuY+63,1)
-  draw_sprite(sAirUpgrade,0,contentMenuX+265,contentMenuY+46)
-  textDropShadow(round(global.pBreathMax/30),contentMenuX+300,contentMenuY+48,textColorMain,textColorShadow,1)
-  
+  //draw_rectangle(contentMenuX+257,contentMenuY+45,contentMenuX+315,contentMenuY+63,1)
+  //draw_sprite(sAirUpgrade,0,contentMenuX+265,contentMenuY+46)
+  //textDropShadow(round(global.pBreathMax/30),contentMenuX+300,contentMenuY+48,textColorMain,textColorShadow,1)
+  draw_rectangle(contentMenuX+257,contentMenuY+74,contentMenuX+315,contentMenuY+92,1) //play time change: 29 lower
+  draw_sprite(sAirUpgrade,0,contentMenuX+265,contentMenuY+75) //play time change: 29 lower
+  textDropShadow(round(global.pBreathMax/30),contentMenuX+300,contentMenuY+77,textColorMain,textColorShadow,1) //play time change: 29 lower
+
   //----- Display Heart Pieces and Keys -----
   draw_set_color(textColorShadow)
-  draw_rectangle(contentMenuX+257,contentMenuY+67,contentMenuX+315,contentMenuY+94,1)
-  draw_line(contentMenuX+286,contentMenuY+67,contentMenuX+286,contentMenuY+94)
-  draw_sprite(sPauseM_HeartPiece,global.pHeartPieces,contentMenuX+272,contentMenuY+81)
-  draw_sprite(sDoorKey,0,contentMenuX+300,contentMenuY+81)
+  //draw_rectangle(contentMenuX+257,contentMenuY+67,contentMenuX+315,contentMenuY+94,1)
+  //draw_line(contentMenuX+286,contentMenuY+67,contentMenuX+286,contentMenuY+94)
+  //draw_sprite(sPauseM_HeartPiece,global.pHeartPieces,contentMenuX+272,contentMenuY+81)
+  //draw_sprite(sDoorKey,0,contentMenuX+300,contentMenuY+81)
+  draw_rectangle(contentMenuX+257,contentMenuY+96,contentMenuX+315,contentMenuY+123,1) //play time change: 29 lower
+  draw_line(contentMenuX+286,contentMenuY+96,contentMenuX+286,contentMenuY+123) //play time change: 29 lower
+  draw_sprite(sPauseM_HeartPiece,global.pHeartPieces,contentMenuX+272,contentMenuY+110) //play time change: 29 lower
+  draw_sprite(sDoorKey,0,contentMenuX+300,contentMenuY+110) //play time change: 29 lower
   draw_set_halign(fa_left)
-  textDropShadow(global.pKeys,contentMenuX+306,contentMenuY+81,textColorMain,textColorShadow,1)
+  //textDropShadow(global.pKeys,contentMenuX+306,contentMenuY+81,textColorMain,textColorShadow,1)
+  textDropShadow(global.pKeys,contentMenuX+306,contentMenuY+110,textColorMain,textColorShadow,1) //play time change: 29 lower
   
   //----- Display Bestiary % -----
   /*

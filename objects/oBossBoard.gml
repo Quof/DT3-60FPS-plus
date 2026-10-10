@@ -311,6 +311,21 @@ awardTimes[64,0]=310
 awardTimes[64,1]=260
 awardTimes[64,2]=210
 
+//platinum medal change (added): the platinum par times, the boss gallery doors' (their award[3], set in rBossGallery's
+//instance creation code; -1: that boss has no platinum medal; every boss has one now). The board shows the platinum medal over the gold one
+for(i=0;i<65;i+=1) {awardTimes[i,3]=-1}
+awardTimes[0,3]=23; awardTimes[1,3]=114; awardTimes[2,3]=29; awardTimes[3,3]=14; awardTimes[4,3]=19; awardTimes[5,3]=6
+awardTimes[6,3]=6; awardTimes[7,3]=21; awardTimes[8,3]=48; awardTimes[9,3]=22; awardTimes[10,3]=7; awardTimes[11,3]=13
+awardTimes[12,3]=16; awardTimes[13,3]=36; awardTimes[14,3]=6; awardTimes[15,3]=12; awardTimes[16,3]=27; awardTimes[17,3]=15
+awardTimes[18,3]=18; awardTimes[19,3]=8; awardTimes[20,3]=8; awardTimes[21,3]=24; awardTimes[22,3]=11; awardTimes[23,3]=21; awardTimes[24,3]=23
+awardTimes[25,3]=14; awardTimes[26,3]=31; awardTimes[27,3]=49; awardTimes[28,3]=19; awardTimes[29,3]=19; awardTimes[30,3]=18
+awardTimes[31,3]=6; awardTimes[32,3]=5; awardTimes[33,3]=8; awardTimes[34,3]=6; awardTimes[35,3]=15; awardTimes[36,3]=4
+awardTimes[37,3]=13; awardTimes[38,3]=7; awardTimes[39,3]=27; awardTimes[40,3]=108; awardTimes[41,3]=5; awardTimes[42,3]=5
+awardTimes[43,3]=4; awardTimes[44,3]=12; awardTimes[45,3]=12; awardTimes[46,3]=11; awardTimes[47,3]=12; awardTimes[48,3]=18
+awardTimes[49,3]=19; awardTimes[50,3]=20; awardTimes[51,3]=25; awardTimes[52,3]=19; awardTimes[53,3]=16; awardTimes[54,3]=55
+awardTimes[55,3]=26; awardTimes[56,3]=53; awardTimes[57,3]=94; awardTimes[58,3]=144; awardTimes[59,3]=39; awardTimes[60,3]=27
+awardTimes[61,3]=128; awardTimes[62,3]=147; awardTimes[63,3]=280; awardTimes[64,3]=91
+
 var tCheckForAllGold;
 tCheckForAllGold=0
 for(i=0;i<65;i+=1)
@@ -417,6 +432,15 @@ for(i=0;i<tCount;i+=1)
     for(ii=0;ii<3;ii+=1) //Medals: 3-4 hits, 1-2 hits, no hits
     {
       if (ii=0 and tHits<=4) or (ii=1 and tHits<=2) or (ii=2 and tHits=0) {draw_sprite_ext(sBossGalleryMedals,ii,boardX+348,boardY+36+(17*i),0.5,0.5,0,c_white,1)}
+    }
+    //dark omen change (added): the platinum medal over the gold one (a win without a hit with the New Dark Omen on:
+    //bossRoomTally)
+    //if global.bossGalleryPlatN[tFirst+i]=1 {draw_sprite_ext(sBossGalleryMedals,3,boardX+348,boardY+36+(17*i),0.5,0.5,0,c_white,1)}
+    if global.bossGalleryPlatN[tFirst+i]=1 //platinum glow change: the radiant shine (scrPlatGlow)
+    {
+      scrPlatGlow(boardX+348,boardY+36+(17*i),0.5,tFirst+i,0)
+      draw_sprite_ext(sBossGalleryMedals,3,boardX+348,boardY+36+(17*i),0.5,0.5,0,c_white,1)
+      scrPlatGlow(boardX+348,boardY+36+(17*i),0.5,tFirst+i,1)
     }
   }
   else {draw_text(boardX+332,boardY+33+(17*i),"-----")}
@@ -642,5 +666,20 @@ else if currentPage=5
       draw_text(boardX+21,boardY+33+(17*i),"----------")
       draw_text(boardX+217,boardY+33+(17*i),"-----")
     }
+  }
+}
+//platinum medal change (added): the platinum medal over the gold one where its par time was beaten (awardTimes[i,3], the
+//boss gallery doors' platinum times), on whichever page is shown
+var tFirst,tCount;
+tFirst=(currentPage-1)*15
+tCount=15
+if currentPage=5 {tCount=5}
+for(i=0;i<tCount;i+=1)
+{
+  if global.bossGalleryTime[tFirst+i]<99999 and awardTimes[tFirst+i,3]>=0 and global.bossGalleryTime[tFirst+i]<=awardTimes[tFirst+i,3]
+  {
+    scrPlatGlow(boardX+249,boardY+36+(17*i),0.5,tFirst+i,0) //platinum glow change (added): the radiant shine
+    draw_sprite_ext(sBossGalleryMedals,3,boardX+249,boardY+36+(17*i),0.5,0.5,0,c_white,1)
+    scrPlatGlow(boardX+249,boardY+36+(17*i),0.5,tFirst+i,1) //platinum glow change (added)
   }
 }
