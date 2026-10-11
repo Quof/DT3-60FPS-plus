@@ -49,7 +49,8 @@ applies_to=self
 /*
 Metroid command console script.
 */
-if oKeyCodes.kCodePressed[3]=1 and global.gamePaused=false
+//if oKeyCodes.kCodePressed[3]=1 and global.gamePaused=false
+if oKeyCodesHighFPS.kCodePressed[3]=1 and global.gamePaused=false //60fps change: pressed on this frame only (oKeyCodes' press lasts the whole 30fps tick, so above 30fps this toggled 2/4 times and undid itself)
 {
   if bConsoleOn=0 {bConsoleOn=1}
   else {bConsoleOn=0}

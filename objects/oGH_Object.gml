@@ -76,7 +76,8 @@ applies_to=self
 if global.gamePaused=false
 {
   showControls=2
-  if oKeyCodes.kCodePressed[3]=1 //################################################################################ Up
+  //if oKeyCodes.kCodePressed[3]=1 //################################################################################ Up
+  if oKeyCodesHighFPS.kCodePressed[3]=1 //Up //60fps change: pressed on this frame only (oKeyCodes' press lasts the whole 30fps tick, so above 30fps doors/lamps toggled 2/4 times and undid themselves)
   {
     if sprite_index=sHHouse_DresserA //==================== DRESSER ====================
     {
@@ -132,7 +133,8 @@ if global.gamePaused=false
       }
     }
   }
-  else if oKeyCodes.kCodePressed[4]=1 //################################################################################ Down
+  //else if oKeyCodes.kCodePressed[4]=1 //################################################################################ Down
+  else if oKeyCodesHighFPS.kCodePressed[4]=1 //Down //60fps change: see Up
   {
     if sprite_index=sHHouse_DresserA //==================== DRESSER ====================
     {
