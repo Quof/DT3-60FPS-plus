@@ -1325,6 +1325,9 @@ else if global.pMaxLife=64 {if global.pLife<48 {global.pLife=48}} //(16) 12
 else if global.pMaxLife>=68 and global.pMaxLife<=72 {if global.pLife<52 {global.pLife=52}} //(17-18) 13
 else if global.pMaxLife=76 {if global.pLife<56 {global.pLife=56}} //(19) 14
 else if global.pMaxLife=80 {if global.pLife<60 {global.pLife=60}} //(20) 15
+//full heal change (added): with the Full Heal After Death dipswitch, retrying from the checkpoint refills all of the
+//player's life instead of the minimum above (about 75%)
+if global.fullHealAfterDeath=true {global.pLife=global.pMaxLife}
 //Ammo
 global.hudLink_Arrows[0]=global.hudLink_Arrows[1]
 global.hudBelmont_WeaponEn[0]=global.hudBelmont_WeaponEn[1]

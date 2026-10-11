@@ -30,6 +30,9 @@ global.dsInfo[i]="At half health, a certain boss uses an avoidance attack origin
 //socd change (added): SOCD handling, last input priority (scrSOCD) //autosave change: moved above Attack Input Buffer
 global.dsVar[i]="socdLastInput"; global.dsKey[i]="408"; global.dsName[i]="SOCD Handling"
 global.dsInfo[i]="What it says on the tin. Can no longer hold left and right at the same time. #Off: Now you can."; i+=1
+//full heal change (added): retrying from the checkpoint after a game over refills all of the player's life (oGameOver)
+global.dsVar[i]="fullHealAfterDeath"; global.dsKey[i]="412"; global.dsName[i]="Full Heal After Death"
+global.dsInfo[i]="Make it so you heal 100% of your HP instead of 75% after dying.#The original developer endorsed this change."; i+=1
 //dark omen change (added): the New Dark Omen (scrOmenState); off, it's the original one (double damage taken)
 global.dsVar[i]="newDarkOmen"; global.dsKey[i]="411"; global.dsName[i]="New Dark Omen"
 global.dsInfo[i]="The Dark Omen equipment was changed to weaken the player character's damage output.#Off: Returns to its original behavior of simply making you take double damage."; i+=1

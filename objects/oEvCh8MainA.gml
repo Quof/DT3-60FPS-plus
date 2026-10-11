@@ -518,7 +518,7 @@ else if global.gameProgress=1800 and room=rMega4_IntroB //----- [] Tutorial: Wal
       var tNewTutorial;
       tNewTutorial=instance_create(0,0,oTutorialPanel)
       tNewTutorial.tutorialTitle="Wall Jumping 2"
-      tNewTutorial.tutorialInfo="To dash off a wall, simply hold [Down] when you jump off of it. The dash buttons work as well."
+      tNewTutorial.tutorialInfo="To dash off a wall, press the dash button. You do NOT need to hold left or right while dashing off the wall, and in fact doing so will give you much grief."
       tNewTutorial.scrAreaY=0
       sceneProgress+=1
     }
