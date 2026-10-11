@@ -2027,7 +2027,7 @@ else if global.gameProgress=2480 and room=rVault_16 //----- [] Reobtaining the a
     var tNewTutorial;
     tNewTutorial=instance_create(0,0,oTutorialPanel)
     tNewTutorial.tutorialTitle="Air Dash"
-    tNewTutorial.tutorialInfo="To air dash, hold [Up] or [Down] and press [Jump] while you are in the air. The dash buttons both work as well. The air dash's burst does not take previous momentum into consideration."
+    tNewTutorial.tutorialInfo="To air dash, press the dash button while in the air. Wow, it's almost like the controls were simplified. The air dash's burst does not take previous momentum into consideration."
     tNewTutorial.scrAreaY=0
     sceneDelay=0; sceneProgress=0
     global.hasShoes[3]=2

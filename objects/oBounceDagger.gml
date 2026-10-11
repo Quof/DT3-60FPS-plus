@@ -38,7 +38,9 @@ else
 }
 
 _speed=0
-_direction=0
+//_direction=0
+//60fps change: the line above undid the aim at the target (above), so a bounced dagger always flew right while
+//pointing at the target
 _hspeed=0
 _vspeed=0
 #define Step_0

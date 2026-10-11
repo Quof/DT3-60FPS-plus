@@ -324,6 +324,9 @@ if view_current=0
           draw_set_color(make_color_rgb(32,192,40))
           var tBombEn;
           tBombEn=(global.hudLink_BombEn[0]/(120-round(global.skillTree[1]*7.5)-oPlayer1.equipValA))*23
+          //bomb bar fix (added): refills (storeStatus, checkpoints, healing) set the meter above its full value, which the
+          //player's Step only brings back down while the game isn't paused, so in cutscenes the bar stuck out past the top
+          if tBombEn>23 {tBombEn=23}
           draw_rectangle(view_xview[0]+169,view_yview[0]+44,view_xview[0]+174,view_yview[0]+44-tBombEn,0)
           draw_set_color(make_color_rgb(248,248,248))
           draw_rectangle(view_xview[0]+169,view_yview[0]+44-tBombEn,view_xview[0]+174,view_yview[0]+44-tBombEn,1)
