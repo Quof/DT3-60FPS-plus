@@ -478,6 +478,16 @@ if global.quickGameOver=1
   staticEffect=9
   background_alpha[7]=0
   backAlpha=1
+  //quick game over change (added): a forced game over (the pause menu's Retry) has its menu up and taking input straight
+  //away. It used to show a white screen for a tick (backColor turns black when staticEffect reaches 10), then the menu,
+  //then take input 4 ticks after that. This is the state the Step reached by then (the checks there for 10, 2 and 5
+  //aren't hit again: staticEffect only goes up from 10, and showOptions stops counting once useCommands is set)
+  staticEffect=10
+  backColor=c_black
+  showOptions=5
+  playSound(global.snd_Continue,0,1,1)
+  with oBikeDestroyer {instance_destroy()}
+  useCommands=true
 }
 
 confirmationMenu=0

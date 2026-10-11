@@ -235,6 +235,7 @@ global.gateHProg=0               //Progress in Gate H
 global.gateHLamps="111111111"    //Which candles are lit (Do not save in data file)
 global.BTB_ZephSecret=0          //If the secret Zephyr map is unlocked
 global.BTB_FedexBeat=0           //If Fedex in Bubble Tower B is beaten
+global.BTB_WM2Beat=0            //warmaster ii change (added): if Warmaster II in Bubble Tower B is beaten
 global.gameOptShortcuts="00000000000000000000" //Optional shortcuts opened
 global.abomAttempts=0            //Checks if the Abomination has been attempted after all Instruments have been obtained
 global.BTB_HelmetHead=0          //Helmet Head EX checks

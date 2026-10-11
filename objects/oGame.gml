@@ -508,12 +508,58 @@ if view_current=0
   draw_set_halign(fa_left)
   draw_set_font(fnt_StatRender)
   //Display key states
+  //key state change (added): all the icons in one row with 2px between each, laid out by their own edges whether they're
+  //held or not (so they stay put): the four directions, then the eight actions. Rotated ones sit a pixel off from their
+  //origin (8x8, origin 4,4): left edge 4 left of it at 0/90 degrees, 3 at 180/270; top 4 above it at 0/270, 3 at 90/180.
+  //With the gamepad being used (global.gpLastUsed: scrGamepadPoll) the actions show the pad button each one is set to
+  //(sKeyPressPad, Xbox or PlayStation names: scrPadIcon); its shoulder/system ones are 9 wide, the rest 8
   if global.optShowKeyState=1
+  {
+    var tKSi,tKSa,tKSx,tKSspr,tKSf,tKSr,tKSw;
+    tKSx=view_xview[0]+95 //the first one's left edge (where the left arrow's was)
+    for(tKSi=0;tKSi<12;tKSi+=1)
+    {
+      if tKSi<10 {tKSa=tKSi+1} //Left, Right, Up, Down, Jump, Action A/B/C, Character Swap, Ability Swap
+      else {tKSa=tKSi+3}       //Dash Left, Dash Right
+      tKSspr=sKeyPressDisplay; tKSr=0; tKSw=8
+      if tKSa<=4 {tKSf=0; if tKSa=1 {tKSr=180} else if tKSa=3 {tKSr=90} else if tKSa=4 {tKSr=270}}
+      else if global.gpLastUsed=1
+      {
+        tKSspr=sKeyPressPad
+        tKSf=scrPadIcon(global.gpBind[tKSa])
+        if (tKSf>=4 and tKSf<=11) or (tKSf>=16 and tKSf<=23) {tKSw=9}
+      }
+      else if tKSa<=8 {tKSf=tKSa-4}
+      else if tKSa<=10 {tKSf=5; if tKSa=10 {tKSr=180}}
+      else {tKSf=6; if tKSa=13 {tKSr=180}}
+      if scrController(tKSa)
+      {
+        draw_sprite_ext(tKSspr,tKSf,tKSx+4-(tKSr=180 or tKSr=270),view_yview[0]+344-(tKSr=90 or tKSr=180),1,1,tKSr,c_white,1)
+      }
+      tKSx+=tKSw+2
+    }
+  }
+  //if global.optShowKeyState=1
+  if 0 //key state change: the old layout, replaced by the row above
   {
     if scrController(1) {draw_sprite_ext(sKeyPressDisplay,0,view_xview[0]+98,view_yview[0]+343,1,1,180,c_white,1)} //Left
     if scrController(2) {draw_sprite_ext(sKeyPressDisplay,0,view_xview[0]+108,view_yview[0]+344,1,1,0,c_white,1)} //Right
     if scrController(3) {draw_sprite_ext(sKeyPressDisplay,0,view_xview[0]+117,view_yview[0]+343,1,1,90,c_white,1)} //Up
     if scrController(4) {draw_sprite_ext(sKeyPressDisplay,0,view_xview[0]+125,view_yview[0]+344,1,1,270,c_white,1)} //Down
+    //key state change (added): with the gamepad being used (global.gpLastUsed: scrGamepadPoll), the actions show the pad
+    //button each one is set to (sKeyPressPad, Xbox or PlayStation names: scrPadIcon), upright, one every 9px
+    if global.gpLastUsed=1
+    {
+      var tKSi,tKSa;
+      for(tKSi=0;tKSi<8;tKSi+=1)
+      {
+        if tKSi<6 {tKSa=5+tKSi} //Jump, Action A/B/C, Character Swap, Ability Swap
+        else {tKSa=13+tKSi-6}   //Dash Left, Dash Right
+        if scrController(tKSa) {draw_sprite(sKeyPressPad,scrPadIcon(global.gpBind[tKSa]),view_xview[0]+135+(tKSi*9),view_yview[0]+344)}
+      }
+    }
+    else
+    {
     if scrController(5) {draw_sprite_ext(sKeyPressDisplay,1,view_xview[0]+135,view_yview[0]+344,1,1,0,c_white,1)} //Jump
     if scrController(6) {draw_sprite_ext(sKeyPressDisplay,2,view_xview[0]+144,view_yview[0]+344,1,1,0,c_white,1)} //Action A
     if scrController(7) {draw_sprite_ext(sKeyPressDisplay,3,view_xview[0]+153,view_yview[0]+344,1,1,0,c_white,1)} //Action B
@@ -522,6 +568,7 @@ if view_current=0
     if scrController(10) {draw_sprite_ext(sKeyPressDisplay,5,view_xview[0]+179,view_yview[0]+343,1,1,180,c_white,1)} //Ability Swap
     if scrController(13) {draw_sprite_ext(sKeyPressDisplay,6,view_xview[0]+188,view_yview[0]+343,1,1,180,c_white,1)} //Dash Left
     if scrController(14) {draw_sprite_ext(sKeyPressDisplay,6,view_xview[0]+198,view_yview[0]+344,1,1,0,c_white,1)} //Dash Right
+    }
   }
 
   //Display debug states

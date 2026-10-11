@@ -1,4 +1,9 @@
-ini_open("DT3Options.dts")
+//ini_open("DT3Options.dts")
+//saves folder change: the options are in the Saves folder too (global.saveDir, set in rIntro's code)
+var tOptFile;
+tOptFile="DT3Options.dts"
+if variable_global_exists("saveDir") {tOptFile=global.saveDir+"DT3Options.dts"}
+ini_open(tOptFile)
 var sectionRead,tempVar;
 
 sectionRead="ALPHA"
@@ -116,5 +121,6 @@ for(i=1;i<=4;i+=1) {global.czColor[i]=ini_read_real(sectionRead,string(260+i),gl
 global.lastSaveSlot=median(1,round(ini_read_real(sectionRead,"500",1)),5)
 global.saveSlotsMoved=ini_read_real(sectionRead,"501",0)
 global.savesFolderMoved=ini_read_real(sectionRead,"502",0) //saves folder change (added): the saves from before the Saves folder have been copied into it (oInitializeGame)
+global.slot1Moved=ini_read_real(sectionRead,"503",0) //save slots change (added): slot 1's save has been copied to its own file, DT3data.dts in the Saves folder (oInitializeGame)
 
 ini_close()
