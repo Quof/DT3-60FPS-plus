@@ -2005,6 +2005,19 @@ else if subMenu=9 //---------- SAVE ----------
           global.recForcedGameOver+=1
           global.quickGameOver=1
           oPlayer1.life-=oPlayer1.maxLife
+          //quick game over change (added): the game over starts here, as the menu closes. It used to start on the player's
+          //next Step (its death check, which this is the same as), leaving a frame with neither on screen
+          if global.bCanGameOver=1
+          {
+            if global.BTB_HelmetHead=1
+            {
+              if !instance_exists(oHelmetHeadEX_GameOver) {stopLoopingSounds(); oPlayer1.gameOver=instance_create(0,0,oHelmetHeadEX_GameOver)}
+            }
+            else
+            {
+              if !instance_exists(oGameOver) {stopLoopingSounds(); oPlayer1.gameOver=instance_create(0,0,oGameOver)}
+            }
+          }
           oHUD.menuOpen=false
           instance_destroy()
           exit;
