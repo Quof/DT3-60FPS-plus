@@ -14,6 +14,7 @@ clExtraText=make_color_rgb(121,124,201)
 clOverlay=make_color_rgb(41,41,234)
 
 wepProg=0
+wepNameTick=-1 //60fps change (added): the last tick a letter of the move's name was typed on (Draw)
 fadeOut=1
 wepTAlpha=0
 wepTFull[0]="- Getting current weapon data string..."
@@ -242,9 +243,12 @@ if wepProg>=410
   if wepTPos[3]<string_length(wepTFull[3])
   {
     textDropShadow(wepTNew[3],90,310,clGrid,c_black,4)
-    if wepProg mod 2=0
+    //if wepProg mod 2=0
+    if floor(wepProg)!=wepNameTick and floor(wepProg) mod 2=0 //60fps change: once per 30fps tick (every frame of an even tick passed above 30fps: letters typed 2x/4x and the sound played on top of itself)
     {
-      if wepProg mod 4=0 {playSound(global.snd_MMText,0,1,1)}
+      wepNameTick=floor(wepProg) //60fps change (added)
+      //if wepProg mod 4=0 {playSound(global.snd_MMText,0,1,1)}
+      if floor(wepProg) mod 4=0 {playSound(global.snd_MMText,0,1,1)} //60fps change: see above
       wepTPos[3]+=1
       wepTNew[3]+=string_char_at(wepTFull[3],wepTPos[3])
     }

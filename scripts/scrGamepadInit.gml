@@ -41,6 +41,7 @@ global.gpL2Ready=0
 global.gpR2Ready=0
 
 for(i=0;i<=16;i+=1) {global.gpHeld[i]=0}  //per action (15/16: menu Confirm/Back), read by scrController
+global.gpLastUsed=0   //key state change (added): 1 once a gamepad action is held, 0 again on a key press (scrGamepadPoll); Show Key State's icons (oGame)
 global.gpFrames=0     //frames since startup: window_has_focus() is only read once gm82core has updated it (scrGamepadPoll)
 //quick restart change (added): Quick Restart's fixed buttons (scrQuickRestartInput): L1 + R1 both held this frame, and
 //whether its buttons (keyboard or pad) were held last frame / became held this frame

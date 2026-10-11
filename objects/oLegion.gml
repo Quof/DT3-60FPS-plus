@@ -232,7 +232,14 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if bTakingDamage=false and other.bCanDealDamage=true and bActive=true
+//bone fix (added): the bones only come off on a hit that lands. This used to run whenever an attack touched him while he
+//wasn't flashing, including attacks that had already hit him (oDamagableBase skips those), so a lingering or piercing
+//attack threw 4 bones every frame (4x as many at 120fps) and they piled up into the hundreds
+var tWasHit;
+tWasHit=bTakingDamage
+event_inherited()
+//if bTakingDamage=false and other.bCanDealDamage=true and bActive=true
+if tWasHit=false and bTakingDamage=true //bone fix: the hit just landed (takeDamage set bTakingDamage)
 {
   var tEffect,txSpd,tLen,tDir;
   for(i=0;i<4;i+=1)
@@ -247,4 +254,4 @@ if bTakingDamage=false and other.bCanDealDamage=true and bActive=true
     tEffect.newBlend=-1; tEffect.decay=-100; tEffect.followID=-1
   }
 }
-event_inherited()
+//event_inherited() //bone fix: before the bones now (above)

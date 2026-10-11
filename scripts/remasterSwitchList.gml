@@ -50,5 +50,6 @@ for(i=0;i<global.dsCount;i+=1)
 {
   global.dsDefault[i]=1
   if global.dsVar[i]="nicheDashSettings" {global.dsDefault[i]=0}
+  if global.dsVar[i]="atkInputBuffer" {global.dsDefault[i]=0} //input buffer change (added): off by default
   if global.dsVar[i]="autosaveFreq" {global.dsDefault[i]=15} //autosave change (added): every 15 minutes
 }

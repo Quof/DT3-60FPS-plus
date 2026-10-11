@@ -1315,8 +1315,10 @@ else if grappleState=2 //Player is being pulled toward grapple point
     {
       with oMMXstrikeChain {instance_destroy()}
       grappleID.retractTime=11
-      x=grappleID.x
-      y=grappleID.y+40
+      //x=grappleID.x
+      //y=grappleID.y+40
+      x=round(grappleID.x) //60fps change: on whole pixels (a moving point is on fractions of one between 30fps ticks, which drew the player distorted)
+      y=round(grappleID.y)+40 //60fps change: see above
       canAirDash=1
       doubleJumpCheck=1
       grappleState=3
@@ -1334,8 +1336,10 @@ else if grappleState=3
   xVel=0
   if instance_exists(grappleID)
   {
-    x=grappleID.x
-    y=grappleID.y+40
+    //x=grappleID.x
+    //y=grappleID.y+40
+    x=round(grappleID.x) //60fps change: on whole pixels (a moving point is on fractions of one between 30fps ticks, which drew the player distorted)
+    y=round(grappleID.y)+40 //60fps change: see above
   }
   else
   {

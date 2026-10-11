@@ -56,7 +56,14 @@ if global.gamePaused=false
       colDrill.image_yscale+=0.25*gDeltaTime
       y-=4*gDeltaTime
       image_speed=0.3
-      if colDrill.image_yscale=drillMax {image_index=0; drillProg=1}
+      //if colDrill.image_yscale=drillMax {image_index=0; drillProg=1}
+      if colDrill.image_yscale>=drillMax //60fps change: the pillar stops the same frame, its bottom kept on the base (its upward speed used to last until the next 30fps tick, so it rose a few pixels too far and lifted off the base)
+      {
+        image_index=0; drillProg=1
+        colDrill.image_yscale=drillMax
+        colDrill.yVel=0
+        colDrill.y=colDrill.ystart+16-drillMax*16
+      }
     }
     else if drillProg=1 //Slight wait
     {

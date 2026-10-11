@@ -49,6 +49,9 @@ if joystick_found() or (global.gpDevice=-1 and tCount>0) or global.gpDevice>=tCo
 for(i=0;i<=16;i+=1) {global.gpHeld[i]=0}
 global.gpQuickRestart=0 //quick restart change (added)
 global.gpFrames+=1 //key carry change: counted with or without a pad (the screen transition key carry, scrKeyCarry, uses it too)
+//key state change (added): a key pressed (or no pad) means the keyboard is what's being used (Show Key State's icons;
+//a held gamepad action sets it back, at the end)
+if keyboard_check(vk_anykey) or global.gpDevice<0 or global.optGamePad=0 {global.gpLastUsed=0}
 if global.gpDevice<0 {exit}
 //Only while the game window has focus (gm82core's window_has_focus, updated in its Begin Step), so the pad doesn't play
 //the game from the background. Skipped for the first frames, before gm82core has set it.
@@ -114,3 +117,5 @@ if global.gpAxes>=2
   if global.gpAxis[1]<=-global.optStickDeadZone {global.gpHeld[3]=1}
   if global.gpAxis[1]>=global.optStickDeadZone {global.gpHeld[4]=1}
 }
+//key state change (added): a gamepad action held means the gamepad is what's being used (Show Key State's icons)
+if global.optGamePad=1 {for(i=1;i<=16;i+=1) {if global.gpHeld[i] {global.gpLastUsed=1}}}
