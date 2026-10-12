@@ -78,7 +78,8 @@ if global.gamePaused=false
         {
           if myTarget.life<myTarget.maxLife
           {
-            if myTarget.life>0 {myTarget.life+=3*gDeltaTime}
+            //if myTarget.life>0 {myTarget.life+=3*gDeltaTime}
+            if myTarget.life>0 and gDeltaDoTicks {myTarget.life+=3} //60fps change: 3 HP once per 30fps tick, the same rate as before, in whole points (a fraction every frame left the target's HP on decimals)
             if myTarget.life>myTarget.maxLife {myTarget.life=myTarget.maxLife}
           }
         }

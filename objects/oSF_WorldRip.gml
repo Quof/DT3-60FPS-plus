@@ -18,9 +18,18 @@ pullProg=0
 
 circleRad=400
 circleAlpha=0.2
+global.sfRipCount+=1 //60fps change (added): see oSF_TileMain's Step
 
 playSound(global.snd_WindBlow,0,1,11050)
 playSound(global.snd_Thunder,0,1,11050)
+#define Destroy_0
+/*"/*'/**//* YYD ACTION
+lib_id=1
+action_id=603
+applies_to=self
+*/
+event_inherited()
+global.sfRipCount-=1 //60fps change (added): see oSF_TileMain's Step
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

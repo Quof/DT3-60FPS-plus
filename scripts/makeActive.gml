@@ -18,3 +18,5 @@ mstLX=x
 mstLY=y
 mstEndX=x
 mstEndY=y
+if !variable_local_exists("deathCheck") {deathCheck=0} //60fps change (added): the platforms' crush counter (scrPlatformCrush), read by gameStepEvent's
+//moving solids to tell whether a standing solid's "near a player" flag still matters (only set if missing: it's also called from Steps)

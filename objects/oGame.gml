@@ -19,6 +19,8 @@ for(i=0;i<global.dsCount;i+=1) {if !variable_global_exists(global.dsVar[i]) {var
 gameCreateEvent()
 bStatRender=false
 windowUpdate=0
+global.sfRipCount=0 //60fps change (added): see oSF_TileMain's Step
+global.mstMoverNum=0 //60fps change (added): see the moving solids in gameStepEvent
 autoSaveTime = 0
 #define Step_0
 /*"/*'/**//* YYD ACTION

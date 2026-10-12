@@ -79,3 +79,16 @@ if global.gamePaused=false
   }
   enemyStepEvent()
 }
+#define Draw_0
+/*"/*'/**//* YYD ACTION
+lib_id=1
+action_id=603
+applies_to=self
+*/
+//60fps change (added): drawn on whole pixels. Above 30fps it moves a fraction of its 1px a tick every frame, which drew
+//between pixels and shimmered (as the Facility cleaner bot); its real x is put back at the end
+var tRealX;
+tRealX=x
+x=floor(x+0.5) //60fps change: whole pixels (floor(v+0.5): GM8's round() rounds .5 to the even number)
+event_inherited()
+x=tRealX //60fps change (added): see the top

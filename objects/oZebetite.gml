@@ -52,7 +52,8 @@ if global.gamePaused=false
   {
     if life<maxLife
     {
-      life+=2*gDeltaTime
+      //life+=2*gDeltaTime
+      if gDeltaDoTicks {life+=2} //60fps change: once per 30fps tick, the same rate, in whole points (a fraction every frame left the HP on decimals)
       if life>maxLife {life=maxLife}
     }
   }

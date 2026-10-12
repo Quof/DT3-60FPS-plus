@@ -34,7 +34,10 @@ if global.gamePaused=false
   image_angle=_direction
 }
 else {_speed=0}
-correctSpeedDirection(self)
+//correctSpeedDirection(self)
+x+=cos(degtorad(_direction))*_speed*gDeltaTime; y-=sin(degtorad(_direction))*_speed*gDeltaTime //60fps change: the same move as
+//correctSpeedDirection without the script call (Create sets both): hundreds of these can be out at once (e.g. Shadow Eura's
+//blood volleys), and at 60/120fps the call's cost every frame for each of them lagged
 #define Other_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

@@ -121,7 +121,8 @@ if global.gamePaused=false
       {
         x=myRock.x+8
         y=myRock.y+10
-        if life<maxLife {life+=1*gDeltaTime}
+        //if life<maxLife {life+=1*gDeltaTime}
+        if life<maxLife and gDeltaDoTicks {life+=1} //60fps change: once per 30fps tick, the same rate, in whole points (a fraction every frame left the HP on decimals)
       }
     }
     else if rockProg=1 //========== Break out of rock ==========

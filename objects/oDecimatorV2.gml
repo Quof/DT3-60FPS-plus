@@ -84,7 +84,8 @@ if global.gamePaused=false
   if bActive=true and life>0
   {
     //HP Regen
-    life+=regenRate*gDeltaTime
+    //life+=regenRate*gDeltaTime
+    if gDeltaDoTicks {life+=regenRate} //60fps change: once per 30fps tick, the same rate, in whole points (a fraction every frame left the HP on decimals)
     if life>maxLife {life=maxLife}
 
     if bWave=1

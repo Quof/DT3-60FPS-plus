@@ -415,7 +415,8 @@ if global.gamePaused=false
 
     if lifeRefill>=100 and lifeRefill<=999 //Recharge life one time
     {
-      life+=10*gDeltaTime
+      //life+=10*gDeltaTime
+      if gDeltaDoTicks {life+=10} //60fps change: once per 30fps tick, the same rate, in whole points (a fraction every frame left the HP on decimals)
       lifeRefill+=1*gDeltaTime
       if lifeRefill>=180 {lifeRefill=1000}
     }

@@ -6,6 +6,7 @@ applies_to=self
 */
 event_inherited()
 enemyCount=-1
+global.sfRipCount=0 //60fps change (added): no world rips yet in this room (see oSF_TileMain's Step)
 fadeColor=c_white
 fadeAlpha=0
 xView=240; yView=280
