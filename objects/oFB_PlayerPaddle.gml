@@ -92,7 +92,8 @@ if global.gamePaused=0
     if (!scrController(13) and !scrController(14)) {dashDelay=0}
   }
 
-  if oKeyCodes.kCodePressed[6]=1 //Attack
+  //if oKeyCodes.kCodePressed[6]=1 //Attack
+  if oKeyCodesHighFPS.kCodePressed[6]=1 //Attack. 60fps change: oKeyCodes' "pressed" lasts the whole 30fps tick, so one press fired on 2/4 frames at 60/120fps (2-4 shots, 300 energy each)
   {
     if jeremySuperEnergy>=300
     {

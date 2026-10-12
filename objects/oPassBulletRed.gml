@@ -42,15 +42,6 @@ else {_speed=0; _speed=0}
 x+=cos(degtorad(_direction))*_speed*gDeltaTime; y-=sin(degtorad(_direction))*_speed*gDeltaTime //60fps change: the same move as
 //correctSpeedDirection without the script call (Create sets both): hundreds of these can be out at once (e.g. Shadow Eura's
 //blood volleys), and at 60/120fps the call's cost every frame for each of them lagged
-#define Draw_0
-/*"/*'/**//* YYD ACTION
-lib_id=1
-action_id=603
-applies_to=self
-*/
-//60fps change (added): drawn directly. The inherited Draw (oDamagableBase) only checks findTargetX/Y, which a bullet
-//never updates (always 0), then calls enemyDrawEvent to do this same draw_sprite_ext; skipping that per-bullet script call
-draw_self()
 #define Collision_oPlayer1
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -66,3 +57,12 @@ applies_to=self
 */
 if decayTime=-100 and init=1
   instance_destroy()
+#define Draw_0
+/*"/*'/**//* YYD ACTION
+lib_id=1
+action_id=603
+applies_to=self
+*/
+//60fps change (added): drawn directly. The inherited Draw (oDamagableBase) only checks findTargetX/Y, which a bullet
+//never updates (always 0), then calls enemyDrawEvent to do this same draw_sprite_ext; skipping that per-bullet script call
+draw_self()

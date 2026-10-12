@@ -466,7 +466,8 @@ global.optKeepMenuPos=0
 global.optSwapType=0
 global.optStickDeadZone=0.4
 //-----
-global.optVSync=1
+//global.optVSync=1
+global.optVSync=0 //60fps change: vsync off by default. With it on, a frame can only show on a screen refresh, so on a 144Hz monitor 120fps repeats every sixth refresh, and a frame that misses one refresh waits for the next (any lag drops straight to 72fps)
 global.optWindowSize=2
 global.optCanResizeWindow=1
 global.optLowHealthWarn=1

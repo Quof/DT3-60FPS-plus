@@ -149,6 +149,7 @@ xVelSetTick=0              //above 30fps: dash code set xVel/yVel this frame (se
 yVelSetTick=0
 xVelSetExt=0               //same, but set by other objects (fans, wind, bomb blasts); cleared once pMoveToWrapNew has used it
 yVelSetExt=0
+bikeLaunchHold=0; bikeLaunchVel=0 //60fps change (added): the bike finish line's launch above 30fps (oStopBike, characterStepEvent)
 airDashKick=0              //above 30fps: air dash's upward kick, applied during its first tick (pMoveAirDash)
 airDashDJKick=0            //above 30fps: a double jump done during an air dash, applied for the rest of that 30fps tick (pMoveDoubleJump)
 airDashDJTick=0            //which tick of the air dash that was (ceil(airDashRecovery))

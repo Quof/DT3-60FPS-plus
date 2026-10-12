@@ -400,7 +400,8 @@ else if global.gameProgress=5520 //Falling minigame
     else if sceneProgress=6 //35 seconds
     {
       sceneDelay+=1*gDeltaTime
-      if sceneDelay=1 {metSpd=5; metAlternateC=40}
+      //if sceneDelay=1 {metSpd=5; metAlternateC=40}
+      if sceneDelay<=1 {metSpd=5; metAlternateC=40} //60fps change: every frame of tick 1. GM8 works out every part of the "and" below, so "sceneDelay mod metAlternateC" ran on the frames before sceneDelay reached 1 (0.25/0.5) with metAlternateC still 0: "Modulo by 0" crash
       else if sceneDelay=200 {metAlternateC=30}
       else if sceneDelay=400 {metAlternateC=25}
       else if sceneDelay=600 {metAlternateC=20}

@@ -23,7 +23,8 @@ applies_to=self
 if global.gamePaused=false
 {
   showControls=2
-  if oKeyCodes.kCodePressed[3]=1
+  //if oKeyCodes.kCodePressed[3]=1
+  if oKeyCodesHighFPS.kCodePressed[3]=1 //60fps change: oKeyCodes' "pressed" lasts the whole 30fps tick, so the page flip sound played 2/4 times per press at 60/120fps
   {
     playSound(global.snd_PageFlip,0,0.95,1)
     if global.gateHProg=3 and noteType=1

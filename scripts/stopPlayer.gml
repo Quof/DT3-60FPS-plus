@@ -4,6 +4,8 @@ It is best used for cutscenes.
 */
 with oPlayerAfterImage {instance_destroy()}
 with oMMXstrikeChain {instance_destroy()}
+if oPlayer1.grappleState>=2 and gDeltaTime<1 {oPlayer1.yVelSetExt=1} //60fps change (added): the gravity piled up while pulled to or hanging from a
+//Strike Chain point is applied whole on the player's next move, as at 30fps (see pMoveToWrapNew and characterStepEvent)
 oPlayer1.grappleState=0
 
 oPlayer1.kLeft=0

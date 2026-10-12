@@ -415,7 +415,12 @@ xAccInputWalk = xAcc
 
 if platformCharacterIs(IN_AIR)
 {
-  yAcc+=gravityIntensity
+  //yAcc+=gravityIntensity
+  //60fps change: while pulled to or hanging from a Strike Chain point (grappleState 2/3) the move code doesn't run, so
+  //yAcc isn't spent every frame and the gravity piles up until the player lets go (capped at 10 when it's applied). Above
+  //30fps it gained a whole tick's gravity every frame, so it reached the cap in a quarter of the time; a frame's share keeps
+  //it at 30fps's amount (what's left over when the point disappears or the player is hit while hanging)
+  if grappleState>=2 and gDeltaTime<1 {yAcc+=gravityIntensity*gDeltaTime} else {yAcc+=gravityIntensity}
 }
 if (isCollisionBottom(1) or isCollisionPlatformBottom(1) and isCollisionPlatform()=0) and platformCharacterIs(IN_AIR) and yVel>=0
 {
@@ -441,11 +446,17 @@ if (isCollisionBottom(1) or isCollisionPlatformBottom(1) and isCollisionPlatform
 if platformCharacterIs(ON_GROUND) and yVel>0.25 {yVel=0}
 
 //if the character has just walked off of the edge of a solid
-if isCollisionBottom(1)=0 and (isCollisionPlatformBottom(1)=0 or isCollisionPlatform()) and platformCharacterIs(ON_GROUND)
+//if isCollisionBottom(1)=0 and (isCollisionPlatformBottom(1)=0 or isCollisionPlatform()) and platformCharacterIs(ON_GROUND)
+if bikeLaunchHold<=0.0001 and isCollisionBottom(1)=0 and (isCollisionPlatformBottom(1)=0 or isCollisionPlatform()) and platformCharacterIs(ON_GROUND) //60fps change: not during the bike finish line's launch tick (see below)
 {
+  if bikeLaunchVel!=0 {yVel=bikeLaunchVel; bikeLaunchVel=0} //60fps change (added): see below
   state=FALLING
   yAcc+=grav; yVelSetTick=1 //one-off push: full 30fps tick's worth (see pMoveToWrapNew)
 }
+//60fps change (added): the bike finish line's launch (oStopBike) keeps the player on the ground for its first 30fps tick,
+//as at 30fps (there leaving the ground is only noticed on the next tick), and gives back its -16 speed as they leave the
+//ground on the frame after; the speed is dropped if they didn't
+if bikeLaunchHold>0.0001 {bikeLaunchHold-=gDeltaTime} else {bikeLaunchVel=0}
 if bonkCool>0 {bonkCool-=gDeltaTime}
 if isCollisionTop(1) and state=JUMPING
 {
@@ -697,39 +708,49 @@ if bTakingDamage=false
     }
     else if kJumpPressed
     {
+      //60fps change (added): the gravity piled up in yAcc while hanging (see where gravity is added) is dropped, as 30fps's
+      //yAcc=... below overwrites it. Left in, it was applied on the jump frame as a downward push of 10 x the frame's share of
+      //a tick (5 at 60fps, 2.5 at 120fps), which the x1.43 below was tuned against at 120fps: at 60fps jumps off a point only
+      //reached about half their 30fps height, and at 120fps a jump right after latching on went about a third too high
+      yAcc=0
       if kDown
       {
         //yAcc=2
-        yVel=2
-        var bodged;
+        //yVel=2
+        //var bodged;
         // fine tune this 1.00 as needed
          // compensation for fixed gravity integration
-        yVel += gravityIntensity*0.5
+        //yVel += gravityIntensity*0.5
+        yAcc=2; yVelSetTick=1 //60fps change: 30fps's yAcc=2 as a one-off push, a full 30fps tick's worth (see pMoveToWrapNew); the drop fell up to twice as fast
       }
       else
       {
         playSound(global.snd_PlayerJump[2],0,1,1)
         global.recJumped+=1
+        //60fps change: at 30fps this jump is the same as one from standing still (yAcc=initialJumpAcc, yVel 0, no gravity that
+        //tick), so it uses the standing jump's 60/120fps formula (pMoveJump), which matches 30fps's heights within a pixel
         if bombJump=0
                     {
                         //yAcc=initialJumpAcc
-                        var bodged;
+                        //var bodged;
                         // fine tune this 1.00 as needed
-                        bodged = (initialJumpAcc) * 1.43
-                        yVel = bodged
+                        //bodged = (initialJumpAcc) * 1.43
+                        //yVel = bodged
                         // compensation for fixed gravity integration
-                        yVel += gravityIntensity*0.5
+                        //yVel += gravityIntensity*0.5
+                        yVel = initialJumpAcc*jumpBodge60 + grav*jumpGravComp60 //60fps change: see above
                     }
         else
             {
             //yAcc=initialJumpAcc*bombAcc
-            var bodged;
+            //var bodged;
             // fine tune this 1.00 as needed
             //bodged = (initialJumpAcc) * 1.43 * bBombAcc
-            bodged = (initialJumpAcc) * 1.43 * bombAcc //60fps change: bBombAcc was never defined (typo), so this jump off a Strike Chain point with a bomb boost crashed at 60/120fps
-            yVel = bodged
+            //bodged = (initialJumpAcc) * 1.43 * bombAcc //60fps change: bBombAcc was never defined (typo), so this jump off a Strike Chain point with a bomb boost crashed at 60/120fps
+            //yVel = bodged
             // compensation for fixed gravity integration
-            yVel += gravityIntensity*0.5
+            //yVel += gravityIntensity*0.5
+            yVel = initialJumpAcc*jumpBodge60*bombAcc + grav*jumpGravComp60 //60fps change: see above
             }
 
         bombJump=0
@@ -1353,6 +1374,7 @@ else if grappleState=2 //Player is being pulled toward grapple point
   {
     state=FALLING
     grappleState=0
+    if gDeltaTime<1 {yVelSetExt=1} //60fps change (added): the gravity piled up while pulled is applied whole on the next move, as at 30fps (see pMoveToWrapNew); it only got one frame's share of it, so the fall started slow
   }
 }
 else if grappleState=3
@@ -1370,6 +1392,7 @@ else if grappleState=3
   {
     state=FALLING
     grappleState=0
+    if gDeltaTime<1 {yVelSetExt=1} //60fps change (added): see the point disappearing while pulled, above
   }
 }
 if landTickHold>0 {landTickHold-=gDeltaTime} //60fps change (added): see the landing code

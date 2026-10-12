@@ -12,6 +12,8 @@ bounceNum=0
 checkIfStuck=0
 xPrev=0
 achievementSaveCheck=0
+bounceSndTick=-1 //60fps change (added): see the bounce sound (Collision with oFB_Solid)
+hexStuckHits=0; hexStuckTick=-10 //pong change (added): see Collision with oFB_Solid
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -90,11 +92,32 @@ lib_id=1
 action_id=603
 applies_to=self
 */
+//pong change (added): a ball stuck against Hexor's paddle (it keeps chasing the ball's height, so with the ball right above or
+//below it the paddle pushes up into it every frame) goes through after 10 bounces in a row and scores, instead of bouncing
+//in place until the anti-cheat reset blamed the player ("Dishonest Pong"). Counted once per 30fps tick, so 10 bounces take
+//as long at any frame rate; hits more than 2 ticks apart (a normal rally) start the count over
+if other.object_index=oFB_HexorPaddle
+{
+  if oGame.time30!=hexStuckTick
+  {
+    if oGame.time30-hexStuckTick<=2 {hexStuckHits+=1} else {hexStuckHits=1}
+    hexStuckTick=oGame.time30
+  }
+  if hexStuckHits>=10
+  {
+    //placed just past the paddle's right side, heading right: it leaves the screen there and Hexor misses (see Step)
+    hexStuckHits=0
+    x=other.bbox_right+(x-bbox_left)+1
+    _direction=0
+    exit
+  }
+}
 //move_bounce_solid(0)
 direction=_direction; speed=_speed //60fps change (added): move_bounce_solid works on GM's built-in direction/speed, but the ball moves with _direction/_speed now (built-in speed 0), so it never bounced
 move_bounce_solid(0)
 _direction=direction; speed=0 //60fps change (added): take the bounced direction back, and keep GM's built-in motion off
-playSound(global.snd_MenuShift,0,1,10000+random(3000))
+//playSound(global.snd_MenuShift,0,1,10000+random(3000))
+if gDeltaTime==1 or bounceSndTick!=oGame.time30 {playSound(global.snd_MenuShift,0,1,10000+random(3000)); bounceSndTick=oGame.time30} //60fps change: at most once per 30fps tick. A ball stuck against a paddle collides every frame, so the bounce sound played 2x/4x as often as at 30fps (about 120 a second at 120fps)
 bounceNum+=1
 
 if moveSpd=4 and bounceNum>=6 {bounceNum=0; moveSpd+=1}

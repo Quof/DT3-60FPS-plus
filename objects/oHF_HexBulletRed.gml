@@ -33,7 +33,10 @@ if global.gamePaused=false
 }
 else {_speed=0}
 
-correctSpeedDirection(self)
+//correctSpeedDirection(self)
+x+=cos(degtorad(_direction))*_speed*gDeltaTime; y-=sin(degtorad(_direction))*_speed*gDeltaTime //60fps change: the same move as
+//correctSpeedDirection without the script call (oDamagableBase's Create sets both): Hex's desperation attack has a few
+//hundred of these out at once, and at 60/120fps the call's cost every frame for each of them lagged
 #define Collision_oPlayer1
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -49,3 +52,12 @@ applies_to=self
 */
 if decayTime=-100 and init=1
   instance_destroy()
+#define Draw_0
+/*"/*'/**//* YYD ACTION
+lib_id=1
+action_id=603
+applies_to=self
+*/
+//60fps change (added): drawn directly. The inherited Draw (oDamagableBase) only checks findTargetX/Y, which a bullet
+//never updates (always 0), and then does this same draw_sprite_ext
+draw_self()

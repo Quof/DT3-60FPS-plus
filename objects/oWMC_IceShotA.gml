@@ -84,7 +84,8 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-playSound(global.snd_Drip,0,0.82,44100)
+//playSound(global.snd_Drip,0,0.82,44100)
+playSound(global.snd_Drip,0,0.126,44100) //sound volume change: the original's loudness. Its playSound put 0.82 straight into SS_SetSoundVol's dB/100 scale (-18dB); as an amplitude (playSound now) 0.82 is -1.7dB, so every shard breaking (7 per ice shot, 12 shots in the dash attack) played 16dB louder. 0.126 is -18dB
 tEffect=instance_create(x,y,oEffect)
 tEffect.sprite_index=sMMchargeComplete; tEffect.image_speed=0.5; tEffect.image_xscale=0.3; tEffect.image_yscale=0.3
 tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
