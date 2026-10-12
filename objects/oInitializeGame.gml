@@ -342,7 +342,6 @@ if bCanUseMenu=1
     {
       window_string = "Input code... (All codes are lowercase)#If you're trying to start the game, check the controls listed on the bottom-right of the screen."
     }
-    window_string += "#Also, type 'save NAMEHERE' to load a 'NAMEHERE.dts' save file, or 'save0' to load whichever save you loaded on first boot."
     inputMenu=get_string(window_string,"")
 
     if inputMenu="earthshiftisbroken" //Nightmare Mode
@@ -861,9 +860,9 @@ else //Title screen stuff
         draw_sprite_ext(sPauseM_Instruments,6,362,162,0.5,0.5,0,c_white,1) //Organ of Evening Calm
       if instrProg[7]="9"
         draw_sprite_ext(sPauseM_Instruments,7,372,162,0.5,0.5,0,c_white,1) //Thunder Drum
-      
+
       draw_set_font(fnt_PauseMenuText)
-      
+
       //textDropShadow(titleLocation,232,178,textColorMain,textColorShadow,1)
       textDropShadow(titleLocation,232,178,textColorMain,titlePanelShadow,1) //save slots change: the shadow goes with the panel's colour
       var tMinuteZ, tSecondZ;

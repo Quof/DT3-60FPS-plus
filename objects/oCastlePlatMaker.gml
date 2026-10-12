@@ -48,5 +48,6 @@ if platDelay>0
   draw_set_color(c_black)
   draw_set_font(fnt_GOoptions)
   draw_set_halign(fa_center)
-  draw_text(x,y-8,platDelay)
+  //draw_text(x,y-8,platDelay)
+  draw_text(x,y-8,ceil(platDelay)) //60fps change: whole numbers (it counts down by a fraction each frame at 60/120fps, which showed decimals)
 }

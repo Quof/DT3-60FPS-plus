@@ -44,7 +44,8 @@ if global.gamePaused=false
   {
     if yVel<4 {yVel+=0.2*gDeltaTime}
 
-    if y>=railingY //Hit rails
+    //if y>=railingY //Hit rails
+    if y>=railingY and yVel>0 //Hit rails. 60fps change: only while coming down. Above 30fps the bounce (yVel=-2) only moves the cart from the next 30fps tick, so on the frames before that it was still on the rails and this cancelled the bounce (the right cart usually); at 30fps it has always moved up by now
     {
       yVel=0
       y=railingY
