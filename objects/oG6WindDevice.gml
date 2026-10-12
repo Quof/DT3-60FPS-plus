@@ -32,7 +32,8 @@ if reHitTime=0 and other.bCanHitSwitch=1 and global.gamePaused=false
 
   for(i=0;i<windMax;i+=1)
   {
-    windID[i].direction=windID[i].myDir[windID[i].dirIndex]
+    //windID[i].direction=windID[i].myDir[windID[i].dirIndex]
+    windID[i]._direction=windID[i].myDir[windID[i].dirIndex] //60fps change: the wind zones use _direction (oG6WindSpot) since the 60fps conversion, so setting direction did nothing and the wind never turned
     if windID[i].dirIndex=0 {windID[i].dirIndex=1}
     else {windID[i].dirIndex=0}
   }

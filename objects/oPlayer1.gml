@@ -367,6 +367,10 @@ action_id=603
 applies_to=self
 */
 ditherCounter+=1
+//input bleed change (added): while the game is paused the buttons aren't read, and outside a cutscene characterStepEvent
+//doesn't even run (a menu, a shop, dialogue), so it couldn't note that itself; the next step that reads them then locks the
+//ones pressed in the meantime (scrButtonLockHeld), e.g. A on a gamepad advancing the last line of dialogue
+if global.gamePaused=true {kKeysRead=0}
 
 if global.cutscene=true
 {

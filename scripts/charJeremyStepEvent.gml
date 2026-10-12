@@ -796,7 +796,8 @@ if extForceX!=0
   //xVel+=extForceX
   //if extForceX>0 {extForceX-=0.2}
   //else if extForceX<0 {extForceX+=0.2}
-  xVel+=extForceX*gDeltaTime //60fps change
+  //xVel+=extForceX*gDeltaTime //60fps change
+  if gDeltaTime==1 {xVel+=extForceX} else {extAccX=extForceX} //60fps change: as an acceleration above 30fps (see characterStepEvent)
   if extForceX>0 {extForceX-=0.2*gDeltaTime} //60fps change
   else if extForceX<0 {extForceX+=0.2*gDeltaTime} //60fps change
   if abs(extForceX)<0.4 {extForceX=0}
@@ -806,7 +807,8 @@ if extForceY!=0
   //yVel+=extForceY
   //if extForceY>0 {extForceY-=0.2}
   //else if extForceY<0 {extForceY+=0.2}
-  yVel+=extForceY*gDeltaTime //60fps change
+  //yVel+=extForceY*gDeltaTime //60fps change
+  if gDeltaTime==1 {yVel+=extForceY} else {extAccY=extForceY} //60fps change: see above
   if extForceY>0 {extForceY-=0.2*gDeltaTime} //60fps change
   else if extForceY<0 {extForceY+=0.2*gDeltaTime} //60fps change
   if abs(extForceY)<0.4 {extForceY=0}

@@ -276,6 +276,8 @@ grappleID=0                //id of the grapple point being used
 
 extForceX=0                //external force applied to xVel
 extForceY=0                //external force applied to yVel
+extAccX=0                  //60fps change (added): above 30fps, this frame's external force, applied as acceleration by pMoveToWrapNew
+extAccY=0                  //60fps change (added)
 
 //Variables pertaining to attacking (don't edit)
 global.hudLink_BombEn[0]=150 //resets Jerry's bomb time

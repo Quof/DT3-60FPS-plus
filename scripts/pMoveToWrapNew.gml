@@ -5,6 +5,16 @@
   if yAcc>yAccLimit {yAcc=yAccLimit}
   else if yAcc<-1*yAccLimit {yAcc=-1*yAccLimit}
 
+  //60fps change (added): the external forces (extForceX/Y: wind, a guard's knockback...), which characterStepEvent leaves
+  //here as extAccX/Y, count as acceleration, so friction treats them as at 30fps. Added after the cap above, as at 30fps
+  //they went straight onto the velocity, uncapped
+  var tExtX;
+  tExtX=extAccX
+  xAcc+=extAccX
+  yAcc+=extAccY
+  extAccX=0
+  extAccY=0
+
   //remember whether anything is accelerating each axis this frame (see the approximatelyZero checks below)
   var tXAccIn, tYAccIn;
   tXAccIn = xAcc
@@ -79,7 +89,8 @@
   yVel+=yAccapply
 
   // friction bodge so that microadjusting is easier
-  if xAccInputWalk == 0.0 && xFric > 0.2 && xFric < 0.8 && abs(xVel) < 3.0
+  //if xAccInputWalk == 0.0 && xFric > 0.2 && xFric < 0.8 && abs(xVel) < 3.0
+  if xAccInputWalk == 0.0 && tExtX == 0 && xFric > 0.2 && xFric < 0.8 && abs(xVel) < 3.0 //60fps change: not while an external force pushes (it held back the wind's push on a player standing in it)
   {
       var xVelSign;
       xVelSign = sign(xVel)

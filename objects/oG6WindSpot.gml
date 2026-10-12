@@ -41,31 +41,47 @@ lib_id=1
 action_id=603
 applies_to=self
 */
+//60fps change (added): the push on the player is set every frame, not only on 30fps ticks (the rest of this Step still
+//is). The player's external force wears off a little every frame, so setting it once a tick left it weaker for most of
+//the tick (an updraft no longer lifted the player at 120fps); set every frame, it stays at full strength as it does
+//through a whole tick at 30fps
+if global.gamePaused=false and bWindWorks=1
+{
+  if collision_rectangle(x,y,x+image_xscale,y+image_yscale,oPlayer1,1,1)
+  {
+    if _direction=0 {oPlayer1.extForceX=1.85}
+    else if _direction=90 {oPlayer1.extForceY=-1.25}
+    else if _direction=180 {oPlayer1.extForceX=-1.85}
+    else if _direction=270 {oPlayer1.extForceY=1.25}
+  }
+}
+
 if !gDeltaDoTicks {exit};
 
 if global.gamePaused=false
 {
   if bWindWorks=1
   {
-    if collision_rectangle(x,y,x+image_xscale,y+image_yscale,oPlayer1,1,1)
-    {
-      if _direction=0
-      {
-        oPlayer1.extForceX=1.85
-      }
-      else if _direction=90
-      {
-        oPlayer1.extForceY=-1.25
-      }
-      else if _direction=180
-      {
-        oPlayer1.extForceX=-1.85
-      }
-      else if _direction=270
-      {
-        oPlayer1.extForceY=1.25
-      }
-    }
+    //60fps change: the push on the player is set above now, every frame
+    //if collision_rectangle(x,y,x+image_xscale,y+image_yscale,oPlayer1,1,1)
+    //{
+    //  if _direction=0
+    //  {
+    //    oPlayer1.extForceX=1.85
+    //  }
+    //  else if _direction=90
+    //  {
+    //    oPlayer1.extForceY=-1.25
+    //  }
+    //  else if _direction=180
+    //  {
+    //    oPlayer1.extForceX=-1.85
+    //  }
+    //  else if _direction=270
+    //  {
+    //    oPlayer1.extForceY=1.25
+    //  }
+    //}
 
     if point_distance(x,y,oPlayer1.x,oPlayer1.y)<1200
     {

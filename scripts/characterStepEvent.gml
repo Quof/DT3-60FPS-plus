@@ -1102,14 +1102,20 @@ else if flySpeed<0 {flySpeed=0}
 //Exterior forces on the player
 if extForceX!=0
 {
-  xVel+=extForceX*gDeltaTime
+  //xVel+=extForceX*gDeltaTime
+  //60fps change: above 30fps the force goes to pMoveToWrapNew as an acceleration (extAccX/extAccY), so it meets friction
+  //the way it does at 30fps, (velocity+force)*friction each tick. Added straight to the velocity it skipped that: Gate 6's
+  //sideways wind pushed a player standing on the ground at a third to a half of the 30fps speed (and 6-8% too fast in
+  //the air), and a guard's knockback slid about a third as far
+  if gDeltaTime==1 {xVel+=extForceX} else {extAccX=extForceX}
   if extForceX>0 {extForceX-=0.2*gDeltaTime}
   else if extForceX<0 {extForceX+=0.2*gDeltaTime}
   if abs(extForceX)<0.4 {extForceX=0}
 }
 if extForceY!=0
 {
-  yVel+=extForceY*gDeltaTime
+  //yVel+=extForceY*gDeltaTime
+  if gDeltaTime==1 {yVel+=extForceY} else {extAccY=extForceY} //60fps change: see above
   if extForceY>0 {extForceY-=0.2*gDeltaTime}
   else if extForceY<0 {extForceY+=0.2*gDeltaTime}
   if abs(extForceY)<0.4 {extForceY=0}
