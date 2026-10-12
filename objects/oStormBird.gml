@@ -26,7 +26,8 @@ atkProg=0
 bSpotted=0
 _direction=0
 
-jeremyText="All it does is fly outword for a moment and then straight for you."
+//jeremyText="All it does is fly outword for a moment and then straight for you."
+jeremyText="All it does is fly outward for a moment and then straight for you." //typo fix
 chaoText="Have you noticed that there are a lot of birds lately? I wonder what's up with that..."
 devText="Around the time that I was making this level, I was working at a crap job. However, birds were often very common, and I observed them quite a bit. It was one of the few things I enjoyed about the job and a lot of times, I looked forward to going to work to see what the birds would do. A few minor additions in the form of birds were added to DT3 during this time."
 #define Step_0

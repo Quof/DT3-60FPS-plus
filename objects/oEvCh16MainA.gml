@@ -305,7 +305,8 @@ else if global.gameProgress=3900 and room=rCCity_NorthA //----- [4] Talk to John
   else if sceneProgress=7 and bWaitForInput=false
     msgCreate(0,0,"Jeremy","What makes the Warmaster so bad?",0,3,oMessageCutscene,1)
   else if sceneProgress=8 and bWaitForInput=false
-    msgCreate(0,0,"John","To be honest, no one really knows much about him. Whats been gathered though, is he's never been beaten. It wasn't recorded when and how CHAOS was formed, but it is known that the Warmaster was the one that started and leads them.",6,3,oMessageCutscene,1)
+    //msgCreate(0,0,"John","To be honest, no one really knows much about him. Whats been gathered though, is he's never been beaten. It wasn't recorded when and how CHAOS was formed, but it is known that the Warmaster was the one that started and leads them.",6,3,oMessageCutscene,1)
+    msgCreate(0,0,"John","To be honest, no one really knows much about him. What's been gathered though, is he's never been beaten. It wasn't recorded when and how CHAOS was formed, but it is known that the Warmaster was the one that started and leads them.",6,3,oMessageCutscene,1) //typo fix
   else if sceneProgress=9 and bWaitForInput=false
     msgCreate(0,0,"John","CHAOS is simply a group of bots under him that follow exactly as he says. I don't know what his agendas are, but he hates humans. To make things worse, he's apparently working with that Hex bot.",6,3,oMessageCutscene,1)
   else if sceneProgress=10 and bWaitForInput=false

@@ -22,11 +22,13 @@ global.dsInfo[i]="The pitch-black background of two boss fights will be brighten
 global.dsVar[i]="fixMMGravPlatforms"; global.dsKey[i]="402"; global.dsName[i]="Fix Gravity Platform Bug"
 global.dsInfo[i]="Certain platforms using a gravity mechanic could break under certain conditions, this fixes them.#Off: They can be broken again as in the original."; i+=1
 global.dsVar[i]="fixMMRecharge"; global.dsKey[i]="403"; global.dsName[i]="Fix Mega Man Boost Skill"
-global.dsInfo[i]="The Boost Skill in the skill tree will function properly instead of not workin..#Off: The skill will be non-functional as in the original."; i+=1
+//global.dsInfo[i]="The Boost Skill in the skill tree will function properly instead of not workin..#Off: The skill will be non-functional as in the original."; i+=1
+global.dsInfo[i]="The Boost Skill in the skill tree will function properly instead of not working.#Off: The skill will be non-functional as in the original."; i+=1 //typo fix
 global.dsVar[i]="fixSeraDash"; global.dsKey[i]="404"; global.dsName[i]="Fix A Boss's Upward Dash"
 global.dsInfo[i]="A certain boss will dash upward properly. #Off: Their dash will remain unable to move upwards."; i+=1
 global.dsVar[i]="sigmaAvoidance"; global.dsKey[i]="405"; global.dsName[i]="Cut Avoidance Attack"
-global.dsInfo[i]="At half health, a certain boss uses an avoidance attack originally removed from the game. #Off: He doesn't use the move as in the."; i+=1
+//global.dsInfo[i]="At half health, a certain boss uses an avoidance attack originally removed from the game. #Off: He doesn't use the move as in the."; i+=1
+global.dsInfo[i]="At half health, a certain boss uses an avoidance attack originally removed from the game. #Off: He doesn't use the move as in the original."; i+=1 //typo fix
 //socd change (added): SOCD handling, last input priority (scrSOCD) //autosave change: moved above Attack Input Buffer
 global.dsVar[i]="socdLastInput"; global.dsKey[i]="408"; global.dsName[i]="SOCD Handling"
 global.dsInfo[i]="What it says on the tin. Can no longer hold left and right at the same time. #Off: Now you can."; i+=1
@@ -41,6 +43,12 @@ global.dsInfo[i]="An attack pressed during another attack comes out as soon as t
 //niche dash change (added): shows the original dash options in Options > Control instead of Left/Right Dashing
 global.dsVar[i]="nicheDashSettings"; global.dsKey[i]="407"; global.dsName[i]="Niche Dash Settings"
 global.dsInfo[i]="Shows more nuanced dash settings, including the ability to dash with the dpad.#Off: Only Left/Right Dashing is shown in the controls menu."; i+=1
+//skeleton sparkle change (added): the Gate 6 Skeleton's sword sparkle comes later and follows the blade (oPT_Skeleton).
+//Hidden from the list for now: uncomment the two lines below (and remove the global.skeletonSparkle=0 line after them) to
+//bring the dipswitch back
+//global.dsVar[i]="skeletonSparkle"; global.dsKey[i]="413"; global.dsName[i]="Skeleton Sparkle"
+//global.dsInfo[i]="Adjusts the sparkle timing on the Skeleton enemy of Gate 6.#That won't make sense out of context, but should you ever need this option you will immediately understand."; i+=1
+global.skeletonSparkle=0 //skeleton sparkle change (added): off while the dipswitch is hidden (oPT_Skeleton checks it)
 ////socd change (added): SOCD handling, last input priority (scrSOCD)
 //global.dsVar[i]="socdLastInput"; global.dsKey[i]="408"; global.dsName[i]="SOCD Handling"
 //global.dsInfo[i]="What it says on the tin. Can no longer hold left and right at the same time. #Off: Now you can."; i+=1
@@ -51,5 +59,6 @@ for(i=0;i<global.dsCount;i+=1)
   global.dsDefault[i]=1
   if global.dsVar[i]="nicheDashSettings" {global.dsDefault[i]=0}
   if global.dsVar[i]="atkInputBuffer" {global.dsDefault[i]=0} //input buffer change (added): off by default
+  if global.dsVar[i]="skeletonSparkle" {global.dsDefault[i]=0} //skeleton sparkle change (added): off by default
   if global.dsVar[i]="autosaveFreq" {global.dsDefault[i]=15} //autosave change (added): every 15 minutes
 }

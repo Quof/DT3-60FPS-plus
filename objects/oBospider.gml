@@ -97,7 +97,8 @@ if global.gamePaused=false
     }
     else
     {
-      jeremyText="Just like where it came from, you need to watch the 'webbing' to predict where it will be. It will continually go down, when it finds a web string next to it, will always use it to move itself to the next vertical web string. It's only vulnerable when the eye on the body is open and is using clever tricks to conseal its weakness. I only have access to whatever weakness is open at the time, so you'll need to experiment."
+      //jeremyText="Just like where it came from, you need to watch the 'webbing' to predict where it will be. It will continually go down, when it finds a web string next to it, will always use it to move itself to the next vertical web string. It's only vulnerable when the eye on the body is open and is using clever tricks to conseal its weakness. I only have access to whatever weakness is open at the time, so you'll need to experiment."
+      jeremyText="Just like where it came from, you need to watch the 'webbing' to predict where it will be. It will continually go down, when it finds a web string next to it, will always use it to move itself to the next vertical web string. It's only vulnerable when the eye on the body is open and is using clever tricks to conceal its weakness. I only have access to whatever weakness is open at the time, so you'll need to experiment." //typo fix
       for(i=0;i<6;i+=1) {resType[i]=1}
     }
 

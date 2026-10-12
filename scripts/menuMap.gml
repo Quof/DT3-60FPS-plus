@@ -193,7 +193,8 @@ if mMap_Submenu=1
         indexCheck=string_char_at(global.apBoost,53); if indexCheck="1" {item_Num+=1; coll_AP+=1}
         indexCheck=string_char_at(global.weaponLevels,77); if indexCheck="1" {item_Num+=1; coll_Weapon+=1}
         area_Name="Central City - North"
-        menuInfoText="A grand city which lies in the center of the digital mainland and home to both humans and bots. The north is largely a residentally zoned area."
+        //menuInfoText="A grand city which lies in the center of the digital mainland and home to both humans and bots. The north is largely a residentally zoned area."
+        menuInfoText="A grand city which lies in the center of the digital mainland and home to both humans and bots. The north is largely a residentially zoned area." //typo fix
       }
       else if mapIndexCheck[10]="1" and mMap_CurX=15 and mMap_CurY=7
       {
@@ -792,7 +793,8 @@ if mMap_Submenu=1
         indexCheck=string_char_at(global.weaponLevels,116); if indexCheck="1" {item_Num+=1; coll_Weapon+=1}
         item_Num+=global.metSpringBall; coll_Extra+=global.metSpringBall
         area_Name="Access Gate 5"
-        menuInfoText="A large research facility housing seperate, yet connected, domes. A Program Chip is secured in the lowest depths of the facility behind a great door with 3 locks."
+        //menuInfoText="A large research facility housing seperate, yet connected, domes. A Program Chip is secured in the lowest depths of the facility behind a great door with 3 locks."
+        menuInfoText="A large research facility housing separate, yet connected, domes. A Program Chip is secured in the lowest depths of the facility behind a great door with 3 locks." //typo fix
       }
       else if mapIndexCheck[50]="1" and mMap_CurX>=24 and mMap_CurX<=25 and mMap_CurY>=13 and mMap_CurY<=15
       {
@@ -1251,7 +1253,8 @@ if mMap_Submenu=1
         indexCheck=string_char_at(global.apBoost,78); if indexCheck="1" {item_Num+=1; coll_AP+=1}
         indexCheck=string_char_at(global.apBoost,79); if indexCheck="1" {item_Num+=1; coll_AP+=1}
         area_Name="Farreaches - Aversion"
-        menuInfoText="A section of the Farreaches that have been corrupted due to its proximity to the Vault. Strange occurrences have occured here."
+        //menuInfoText="A section of the Farreaches that have been corrupted due to its proximity to the Vault. Strange occurrences have occured here."
+        menuInfoText="A section of the Farreaches that have been corrupted due to its proximity to the Vault. Strange occurrences have occurred here." //typo fix
       }
       else if mapIndexCheck[96]="1" and mMap_CurX=33 and mMap_CurY=5
       {
@@ -1553,7 +1556,8 @@ if mMap_Submenu=1
     //textDropShadow("NO MAP AVAILABLE",contentMenuX+164,contentMenuY+80,c_black,textColorMain,4)
     draw_set_font(fnt_PauseMenuText)
     draw_set_halign(fa_left)
-    textDropShadowExt("NO MAP AVAILABLE!! At least that's what they say. Is there truly a map? Is it that we simply can't see it? Do we have the cognitive capacity to even comprehend the map if it were to exist? But wait, we just said it could exist, but we simply don't see it... or was that a question? Do things truly exist if we can't percieve them with our own eyes? Does this mean we don't exist if we aren't looking at ourselves through a mirror or a clean stream of water? Perhaps we don't exist at all and are mere fragments of thought in a greater being's mind. Despite all this, there is no map available for this region.",contentMenuX+18,contentMenuY+32,textColorMain,c_black,4,12,298)
+    //textDropShadowExt("NO MAP AVAILABLE!! At least that's what they say. Is there truly a map? Is it that we simply can't see it? Do we have the cognitive capacity to even comprehend the map if it were to exist? But wait, we just said it could exist, but we simply don't see it... or was that a question? Do things truly exist if we can't percieve them with our own eyes? Does this mean we don't exist if we aren't looking at ourselves through a mirror or a clean stream of water? Perhaps we don't exist at all and are mere fragments of thought in a greater being's mind. Despite all this, there is no map available for this region.",contentMenuX+18,contentMenuY+32,textColorMain,c_black,4,12,298)
+    textDropShadowExt("NO MAP AVAILABLE!! At least that's what they say. Is there truly a map? Is it that we simply can't see it? Do we have the cognitive capacity to even comprehend the map if it were to exist? But wait, we just said it could exist, but we simply don't see it... or was that a question? Do things truly exist if we can't perceive them with our own eyes? Does this mean we don't exist if we aren't looking at ourselves through a mirror or a clean stream of water? Perhaps we don't exist at all and are mere fragments of thought in a greater being's mind. Despite all this, there is no map available for this region.",contentMenuX+18,contentMenuY+32,textColorMain,c_black,4,12,298) //typo fix
   }
 
   //---------------------------------------- Display location ----------------------------------------

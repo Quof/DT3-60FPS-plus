@@ -847,7 +847,8 @@ else if global.gameProgress=5250 and room=rWarshipQ //----- [] Boss Fight: Hex F
       else if sceneProgress=16 and bWaitForInput=false
         msgCreate(0,0,"Jeremy","You're not to talk to her!",0,3,oMessageCutscene,1)
       else if sceneProgress=17 and bWaitForInput=false
-        msgCreate(0,0,"Hex","It's rude to speak for someone else, Jeremy. Besides, we were well aquainted in the Vault.",0,3,oMessageCutscene,1)
+        //msgCreate(0,0,"Hex","It's rude to speak for someone else, Jeremy. Besides, we were well aquainted in the Vault.",0,3,oMessageCutscene,1)
+        msgCreate(0,0,"Hex","It's rude to speak for someone else, Jeremy. Besides, we were well acquainted in the Vault.",0,3,oMessageCutscene,1) //typo fix
       else if sceneProgress=18 and bWaitForInput=false
         msgCreate(0,0,"Chao","I don't want to talk to you.",0,3,oMessageCutscene,1)
       else if sceneProgress=19 and bWaitForInput=false

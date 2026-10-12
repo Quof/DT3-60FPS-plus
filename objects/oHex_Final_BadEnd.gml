@@ -60,7 +60,8 @@ xCenter=448
 yGround=288
 roomSpan=240
 
-jeremyText="Hex is holding back... a lot. He's up to something. There's also a very large presense gathering, which is weirding me out. I don't know where it's coming from."
+//jeremyText="Hex is holding back... a lot. He's up to something. There's also a very large presense gathering, which is weirding me out. I don't know where it's coming from."
+jeremyText="Hex is holding back... a lot. He's up to something. There's also a very large presence gathering, which is weirding me out. I don't know where it's coming from." //typo fix
 chaoText="Hex is acting very strange here. As if he's completely confident that he's going to win. He's not even trying to put up a fight with you guys."
 devText="No Dev Commentary at this time."
 

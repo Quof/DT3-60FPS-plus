@@ -23,7 +23,8 @@ for(i=0;i<6;i+=1)
 
 jeremyText="The Spin Guard's shields. They are invulnerable to everything and just get in the way."
 chaoText="What else can really be said for these?"
-devText="Development for DT1 started around February 2009 and the first full release was in November 2010. During that time, I had moved to California from Austin, Texas for a few months. After some shenanegans there, I moved back to Austin, which is where I am at the moment of typing this message... (February 14, 2012)"
+//devText="Development for DT1 started around February 2009 and the first full release was in November 2010. During that time, I had moved to California from Austin, Texas for a few months. After some shenanegans there, I moved back to Austin, which is where I am at the moment of typing this message... (February 14, 2012)"
+devText="Development for DT1 started around February 2009 and the first full release was in November 2010. During that time, I had moved to California from Austin, Texas for a few months. After some shenanigans there, I moved back to Austin, which is where I am at the moment of typing this message... (February 14, 2012)" //typo fix
 extraInfo="Immune to damage."
 #define Step_0
 /*"/*'/**//* YYD ACTION

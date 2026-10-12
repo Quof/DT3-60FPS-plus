@@ -59,7 +59,8 @@ if global.gamePaused=false
     showBossHP=instance_create(0,0,oBossLifeDisplay); showBossHP.bossID=id; showBossHP.type=1; showBossHP.lifeFill=1000
     jeremyText="Don't try to go by how this guy used to play out, it won't help you out here that much. The bouncing gravity orbs are still roughly the same, and he still hops around sometimes, and he also still charges, and... okay yeah. He still does all these things he did before, but in a different way, but not in a different way. You'll see, it's weird."
     chaoText="Watch out for his charge attack, when you see him flashing, he can't be dashed through. I think it would be a good idea to remember this sort of thing for later as well. Oh! I found something interesting in his desperation attack data. When I looked through the algorithms, I found there's a slight exploit with it."
-    devText="Chapter 8 took me just over 2 months to complete. This seemed like a large amount of time, more than I wanted, but when seeing that there were 7 seperate levels and having each one take roughly a week to make, it made sense. A week is about how much time I gave myself for each level in Gate 4."
+    //devText="Chapter 8 took me just over 2 months to complete. This seemed like a large amount of time, more than I wanted, but when seeing that there were 7 seperate levels and having each one take roughly a week to make, it made sense. A week is about how much time I gave myself for each level in Gate 4."
+    devText="Chapter 8 took me just over 2 months to complete. This seemed like a large amount of time, more than I wanted, but when seeing that there were 7 separate levels and having each one take roughly a week to make, it made sense. A week is about how much time I gave myself for each level in Gate 4." //typo fix
     activateBoss=2
   }
 

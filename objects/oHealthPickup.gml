@@ -57,7 +57,8 @@ if global.gamePaused=false
     if isCollisionBottom(1)
       yVel=0
     if isCollisionSolid()
-      y-=2
+      //y-=2
+      y-=2*gDeltaTime //60fps change: 2px per 30fps tick (it was 2px every frame, 2x/4x as fast at 60/120fps)
     moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
 
     if y>room_height+8 {instance_destroy()}

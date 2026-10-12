@@ -193,7 +193,8 @@ if view_current=0
             tNumImg=2
           else if global.pCurrBreath>=31 and global.pCurrBreath<61
             tNumImg=1
-          else if global.pCurrBreath>=0 and global.pCurrBreath<31
+          //else if global.pCurrBreath>=0 and global.pCurrBreath<31
+          else //60fps change: anything lower too; breath drains in fractions above 30fps, so it can end just below 0 (left tNumImg unset)
             tNumImg=0
           draw_sprite(sDrownCountdown,tNumImg,oPlayer1.x,oPlayer1.y-72)
         }

@@ -35,7 +35,8 @@ moveProgress=0
 moveTime=0
 
 jeremyText="Up - Forward - Down - Forward, repeat. This is ALL these do, oh and don't forget about the annoying amount of projectile spam they send at you. If you don't kill them and stay in one spot for a long time, the amount of crap on screen... try not to put yourself in that situation."
-chaoText="These worked just like the Skull Heads, but in this the sprite doesn't seem to be interchangable."
+//chaoText="These worked just like the Skull Heads, but in this the sprite doesn't seem to be interchangable."
+chaoText="These worked just like the Skull Heads, but in this the sprite doesn't seem to be interchangeable." //typo fix
 devText="One thing I don't use to gauge if something is 'too difficult' is how many attempts it takes me to complete a scenario. The number of attempts, when I thought about it, is a bad metric to use for this. It's a rather non-tangible thing to determine overall. Instead of designing for something being difficult though, I simply design an obstacle and give the player the tools to overcome that obstacle."
 #define Step_0
 /*"/*'/**//* YYD ACTION

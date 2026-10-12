@@ -82,11 +82,23 @@ if global.gamePaused=false
         else if x<oPlayer1.x and xVel<5.5 {xVel+=0.33*gDeltaTime}
         if y>oPlayer1.y and yVel>-5.5 {yVel=scrGravAcc(yVel,-0.33,1)}
         else if y<oPlayer1.y and yVel<5.5 {yVel=scrGravAcc(yVel,0.33,1)}
+        //stuck fix (added): latched, it's put on the player's head with no wall check, so it can be left inside a solid when
+        //the player stands by a wall or in a narrow gap. Inside one, every side counts as blocked and it never moved again;
+        //it now drifts straight towards the player (through the solid) until it's out
+        calculateCollisionBounds()
+        if collision_rectangle(round(lb),round(tb),round(rb-1),round(bb-1),oSolid,1,1)>0
+        {
+          x+=xVel*gDeltaTime
+          y+=yVel*gDeltaTime
+        }
+        else
+        {
         if isCollisionTop(1) {yVel=1}
         if isCollisionBottom(1) {yVel=-1}
         if isCollisionLeft(1) {xVel=1}
         if isCollisionRight(1) {xVel=-1}
         moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
+        }
       }
       else if latching=1 //Latched onto player
       {

@@ -37,7 +37,8 @@ deathAnim=0
 
 jeremyText="It tries to keep itself at a reasonable distance and then lob axes at you. Or axerangs since they come back. What would you even call something like that?"
 chaoText="Oh that one hallway with the Axe Knights was horrible. I didn't know that Holy Water could stun and insta-kill them back then."
-devText="The hallway with these guys and the Medusa Heads is an obvious nod to a part in the original Castlevania that brought me tons of headache. Of course with DT's mechanics, unless there's a few traps, it's not going to be as hectic, and I'm not going to reach for that level this early on in the Gate. That room is more like a nod to it. (Yep, spoilers if you haven't reached that room yet. This will be an incredibly rare occurence.)"
+//devText="The hallway with these guys and the Medusa Heads is an obvious nod to a part in the original Castlevania that brought me tons of headache. Of course with DT's mechanics, unless there's a few traps, it's not going to be as hectic, and I'm not going to reach for that level this early on in the Gate. That room is more like a nod to it. (Yep, spoilers if you haven't reached that room yet. This will be an incredibly rare occurence.)"
+devText="The hallway with these guys and the Medusa Heads is an obvious nod to a part in the original Castlevania that brought me tons of headache. Of course with DT's mechanics, unless there's a few traps, it's not going to be as hectic, and I'm not going to reach for that level this early on in the Gate. That room is more like a nod to it. (Yep, spoilers if you haven't reached that room yet. This will be an incredibly rare occurrence.)" //typo fix
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

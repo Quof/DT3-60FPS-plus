@@ -14,6 +14,11 @@ if player=1 //========================================
   if (attackState!=ACT_ATK or attackState!=ACT_FIRE or attackState!=ACT_FIRE_UP or attackState!=ACT_FIRE_DOWN) and attackState!=ACT_IN_CANNON and attackState!=ACT_HIDE and global.gamePaused=false
   {
     //updates the keys
+    //input bleed change (added): after a stretch of not reading the buttons (dialogue, a menu or a shop pausing the game;
+    //the travel cannon; hiding), a button pressed in the meantime is ignored until it's let go (scrButtonLockHeld), so
+    //the press that advanced the dialogue or closed the menu doesn't also jump/attack here
+    if kKeysRead=0 {scrButtonLockHeld()}
+    kKeysRead=1
     //key left
     if walljumpTime=0
     {
@@ -94,6 +99,7 @@ if player=1 //========================================
       kJump=scrController(5)
       if kJump {kJumpPressed=1}
     }
+    if scrButtonLocked(5) {kJump=0; kJumpPressed=0} //input bleed change (added): see above
     //key "Action A"
     if kActA
     {
@@ -105,6 +111,7 @@ if player=1 //========================================
       kActA=scrController(6)
       if kActA {kActAPressed=1}
     }
+    if scrButtonLocked(6) {kActA=0; kActAPressed=0} //input bleed change (added): see above
     //key "Action B"
     if kActB
     {
@@ -116,6 +123,7 @@ if player=1 //========================================
       kActB=scrController(7)
       if kActB {kActBPressed=1}
     }
+    if scrButtonLocked(7) {kActB=0; kActBPressed=0} //input bleed change (added): see above
     //key "Action C"
     if kActC
     {
@@ -127,6 +135,7 @@ if player=1 //========================================
       kActC=scrController(8)
       if kActC {kActCPressed=1}
     }
+    if scrButtonLocked(8) {kActC=0; kActCPressed=0} //input bleed change (added): see above
     //key "Character Swap"
     if kCharSwap
     {
@@ -138,6 +147,7 @@ if player=1 //========================================
       kCharSwap=scrController(9)
       if kCharSwap {kCharSwapPressed=1}
     }
+    if scrButtonLocked(9) {kCharSwap=0; kCharSwapPressed=0} //input bleed change (added): see above
     //key "Ability Swap"
     if kAbilSwap
     {
@@ -149,6 +159,7 @@ if player=1 //========================================
       kAbilSwap=scrController(10)
       if kAbilSwap {kAbilSwapPressed=1}
     }
+    if scrButtonLocked(10) {kAbilSwap=0; kAbilSwapPressed=0} //input bleed change (added): see above
     //key "Dash Left"
     if kDashLeft
     {
@@ -160,6 +171,7 @@ if player=1 //========================================
       kDashLeft=scrController(13)
       if kDashLeft {kDashLeftPressed=1}
     }
+    if scrButtonLocked(13) {kDashLeft=0; kDashLeftPressed=0} //input bleed change (added): see above
     //key "Dash Right"
     if kDashRight
     {
@@ -171,7 +183,9 @@ if player=1 //========================================
       kDashRight=scrController(14)
       if kDashRight {kDashRightPressed=1}
     }
+    if scrButtonLocked(14) {kDashRight=0; kDashRightPressed=0} //input bleed change (added): see above
   }
+  else {kKeysRead=0} //input bleed change (added): the buttons weren't read this step
 }
 
 //Deals with the ladderTimer ========================================

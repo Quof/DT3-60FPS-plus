@@ -39,7 +39,8 @@ dthBodyY=0; dthBodyVelY=0.5
 dthBodyAng=0; dthBodyTurn=random_range(-1,1)
 
 jeremyText="A robot with slow tracking capabilities. They aren't much of a threat due to their slow bomb deployment. They usually serve as air support."
-chaoText="I don't remember where these sprites are from... oh geeze, what was it?#"
+//chaoText="I don't remember where these sprites are from... oh geeze, what was it?#"
+chaoText="I don't remember where these sprites are from... oh geez, what was it?#" //typo fix
 if room=rCCity_NorthA
   chaoText+="The inhabitants of Central City don't have the facilities or means to fight back yet. We need to somehow remove these from the area for them."
 devText="I wanted DT1 to be more like a Metroidvania, but at the time, I just didn't have the skill to pull it off effectively in Game Maker. I used a few elements, such as using new abilities to open up new areas, but it didn't feel the same with the world broken up the way it was."

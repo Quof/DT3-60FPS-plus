@@ -392,7 +392,8 @@ else if tRecognitionPage=4 //============================== PAGE 4 =============
     draw_sprite_ext(sAchievementMedalA,0,contentMenuX+26,contentMenuY+153,1,1,0,c_black,1)
     if mR_RecCurPos=6 and subMenu=13
     {
-      if global.gameCompleted>=1 {menuInfoText="Those Counselman guys have a story to tell. Listen to it all.#[Can be missed.]"}
+      //if global.gameCompleted>=1 {menuInfoText="Those Counselman guys have a story to tell. Listen to it all.#[Can be missed.]"}
+      if global.gameCompleted>=1 {menuInfoText="Those Councilman guys have a story to tell. Listen to it all.#[Can be missed.]"} //typo fix
       else {menuInfoText="?????"}
     }
   }
@@ -400,7 +401,8 @@ else if tRecognitionPage=4 //============================== PAGE 4 =============
   {
     textDropColor("AVID LISTENER",contentMenuX+48,contentMenuY+141,colorRecogTop,colorRecogBottom,colorRecogShadow,1)
     draw_sprite_ext(sAchievementMedalA,0,contentMenuX+26,contentMenuY+153,1,1,0,c_white,1)
-    if mR_RecCurPos=6 and subMenu=13 {menuInfoText="Listened to all of at least one Counselman's story!#Were you actually interested though?"}
+    //if mR_RecCurPos=6 and subMenu=13 {menuInfoText="Listened to all of at least one Counselman's story!#Were you actually interested though?"}
+    if mR_RecCurPos=6 and subMenu=13 {menuInfoText="Listened to all of at least one Councilman's story!#Were you actually interested though?"} //typo fix
   }
 }
 else if tRecognitionPage=5 //============================== PAGE 5 ==============================

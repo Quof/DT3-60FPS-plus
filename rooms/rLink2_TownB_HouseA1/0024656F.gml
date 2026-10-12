@@ -1,4 +1,5 @@
-talker="Knowledgable Man"
+//talker="Knowledgable Man"
+talker="Knowledgeable Man" //typo fix
 stringToShow="There are secrets where you would likely expect them to be."
 boxSize=3
 

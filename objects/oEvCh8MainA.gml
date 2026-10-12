@@ -1004,7 +1004,8 @@ else if room=rMega4_StormE //----- [Unskippable] Boss Fight: Storm Eagle -----
         var tBossTitle,tempMplay;
         tBossTitle=instance_create(0,0,oBossNameDisplay)
         tBossTitle.bossName="Storm Eagle"
-        tBossTitle.bossTitle="Elite Aeriel Hunter"
+        //tBossTitle.bossTitle="Elite Aeriel Hunter"
+        tBossTitle.bossTitle="Elite Aerial Hunter" //typo fix
         tempMplay=findMusic(810)
         playMusic(tempMplay,0,0)
         boss.activateBoss=1

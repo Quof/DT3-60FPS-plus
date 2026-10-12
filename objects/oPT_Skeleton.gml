@@ -48,6 +48,11 @@ jeremyText="When you attack this from the front, if it's not attacking, it will 
 chaoText="This comes from the game 'King of Dragons'. In that game, they could also throw spears, but it doesn't look like this has access to that."
 devText="When designing the parry system, it went through quite a few iterations. The original idea is what the game has now, but I toyed with both characters having their own shield meter, as well as both having the same shielding mechanics. I wanted to further separate the playstyles and make them fit with their intended ranges, so a lot of them were thrown out pretty quick."
 alarm[0]=1
+//skeleton sparkle change (added): with the Skeleton Sparkle dipswitch (global.skeletonSparkle), the weapon sparkle
+//(oG6_CounterSpark) comes later and follows the blade (Step); off, it's the original one at the start of the swing.
+//sparkDone: the current swing's sparkle has been made; sparkID: that sparkle
+sparkDone=1
+sparkID=noone
 #define Alarm_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -206,7 +211,8 @@ if global.gamePaused=false
           if point_distance(x,0,oPlayer1.x,0)<80
           {
             xVel=0
-            instance_create(x-(74*image_xscale),y-19,oG6_CounterSpark)
+            //instance_create(x-(74*image_xscale),y-19,oG6_CounterSpark)
+            if global.skeletonSparkle=0 {instance_create(x-(74*image_xscale),y-19,oG6_CounterSpark)} else {sparkDone=0} //skeleton sparkle change: made below
             sprite_index=sPT_Skeleton_Swing
             bBlocking=0
             image_speed=0; image_index=0
@@ -232,6 +238,26 @@ if global.gamePaused=false
           image_speed=0.15
           atkTime=0
         }
+      }
+      //skeleton sparkle change (added): the sparkle (10 ticks) spawns at atkDelay+9, so it has gone 7 ticks before the swing's
+      //most horizontal frame (3) at atkDelay+26 (3 ticks before the swing can hurt, at atkDelay+22). It stays at the blade's
+      //tip (frame 0: held low behind; frame 1: raised)
+      if sparkDone=0 and sprite_index=sPT_Skeleton_Swing and atkTime>=atkDelay+9
+      {
+        sparkDone=1
+        if atkTime-(atkDelay+9)<10
+        {
+          var tSpark;
+          tSpark=instance_create(x+(-74*image_xscale),y+(-19),oG6_CounterSpark)
+          tSpark.frameCount=atkTime-(atkDelay+9); tSpark.image_index=atkTime-(atkDelay+9); tSpark.image_angle=10*(atkTime-(atkDelay+9))
+          tSpark.followID=id; tSpark.followX=-74; tSpark.followY=-19
+          sparkID=tSpark
+        }
+      }
+      if instance_exists(sparkID) and sprite_index=sPT_Skeleton_Swing
+      {
+        if floor(image_index)<=0 {sparkID.followX=-74; sparkID.followY=-19}
+        else {sparkID.followX=-42; sparkID.followY=-64}
       }
 
       yVel=scrGravAcc(yVel,0.3,1)

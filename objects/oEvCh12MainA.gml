@@ -172,7 +172,8 @@ else if global.gameProgress=2620 and room=rMain_47 //----- [3] Boss Fight: Vault
     else if sceneProgress=6 and bWaitForInput=false
       msgCreate(0,0,"Jerry","Yeah... so what is it?",0,3,oMessageCutscene,1)
     else if sceneProgress=7 and bWaitForInput=false
-      msgCreate(0,0,"Chao","It's from the Vault, gimmie a sec while I scan for more.",0,3,oMessageCutscene,1)
+      //msgCreate(0,0,"Chao","It's from the Vault, gimmie a sec while I scan for more.",0,3,oMessageCutscene,1)
+      msgCreate(0,0,"Chao","It's from the Vault, gimme a sec while I scan for more.",0,3,oMessageCutscene,1) //typo fix
     else if sceneProgress=8 and bWaitForInput=false
       msgCreate(0,0,"Vault Demon","Primary Objective: Jerry.#Secondary Objective: The other one.",5,3,oMessageCutscene,1)
     else if sceneProgress=9 and bWaitForInput=false

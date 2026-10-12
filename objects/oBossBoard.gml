@@ -59,7 +59,8 @@ if bNormBoard=1
   boardName[14]="Death (Legion)"
   boardName[15]="Blackmore"
   boardName[16]="Enmity"
-  boardName[17]="Maoh the Gaint"
+  //boardName[17]="Maoh the Gaint"
+  boardName[17]="Maoh the Giant" //typo fix
   boardName[18]="Storm Eagle"
   boardName[19]="Overdrive Ostrich"
   boardName[20]="Gravity Beetle"
@@ -514,7 +515,8 @@ else if currentPage=2
     {
       if i=0 {bossName="Blackmore"}
       else if i=1 {bossName="Enmity"}
-      else if i=2 {bossName="Maoh the Gaint"}
+      //else if i=2 {bossName="Maoh the Gaint"}
+      else if i=2 {bossName="Maoh the Giant"} //typo fix
       else if i=3 {bossName="Storm Eagle"}
       else if i=4 {bossName="Overdrive Ostrich"}
       else if i=5 {bossName="Gravity Beetle"}

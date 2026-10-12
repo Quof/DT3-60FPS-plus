@@ -1782,7 +1782,8 @@ else if global.gameProgress=3545 and room=rGame6_Hometown //----- [16] Ask old m
   {
     var tNewChapter;
     tNewChapter=instance_create(0,0,oChapterDisplay)
-    tNewChapter.newChapter="Act 12#The Less Than Steller#Temple of Water"
+    //tNewChapter.newChapter="Act 12#The Less Than Steller#Temple of Water"
+    tNewChapter.newChapter="Act 12#The Less Than Stellar#Temple of Water" //typo fix
     sceneDelay=0; sceneProgress=0
     global.gameProgress=3550
     global.gamePaused=false
@@ -2538,7 +2539,8 @@ else if global.gameProgress=3640 and room=rGame6_Hometown //----- [20] Presentin
   else if sceneProgress=26 and bWaitForInput=false
     msgCreate(0,0,"Jeremy","I've had it with trials!",0,3,oMessageCutscene,1)
   else if sceneProgress=27 and bWaitForInput=false
-    msgCreate(0,0,"The Overlord","I am going to send you to the farthest reachest of the land for that remark. If you will not arbitrarily face my trial before facing me, then you are not worthy!",6,3,oMessageCutscene,1)
+    //msgCreate(0,0,"The Overlord","I am going to send you to the farthest reachest of the land for that remark. If you will not arbitrarily face my trial before facing me, then you are not worthy!",6,3,oMessageCutscene,1)
+    msgCreate(0,0,"The Overlord","I am going to send you to the farthest reaches of the land for that remark. If you will not arbitrarily face my trial before facing me, then you are not worthy!",6,3,oMessageCutscene,1) //typo fix
   else if sceneProgress=28 and bWaitForInput=false
     msgCreate(0,0,"Jerry","I don't even understand this dude anymore! It's time to kick his ass!",0,3,oMessageCutscene,1)
   else if sceneProgress=29
@@ -3502,7 +3504,8 @@ else if global.gameProgress=3860 and room=rGame6_CoDU //----- [Unskippable] Intr
   else if sceneProgress=10 and bWaitForInput=false
     msgCreate(0,0,"Jerry","So... what is it you do? Like, are we going to fight?",0,3,oMessageCutscene,1)
   else if sceneProgress=11 and bWaitForInput=false
-    msgCreate(0,0,"Trivia Lord","Fight?! I am the Trivia Lord, I do not battle, that is for primative beasts!! I ask questions!! Questions from all sorts of topics!!",6,3,oMessageCutscene,1)
+    //msgCreate(0,0,"Trivia Lord","Fight?! I am the Trivia Lord, I do not battle, that is for primative beasts!! I ask questions!! Questions from all sorts of topics!!",6,3,oMessageCutscene,1)
+    msgCreate(0,0,"Trivia Lord","Fight?! I am the Trivia Lord, I do not battle, that is for primitive beasts!! I ask questions!! Questions from all sorts of topics!!",6,3,oMessageCutscene,1) //typo fix
   else if sceneProgress=12 and bWaitForInput=false
     msgCreate(0,0,"Jerry","You're really excited about this, aren't you?",0,3,oMessageCutscene,1)
   else if sceneProgress=13 and bWaitForInput=false

@@ -2352,7 +2352,8 @@ else if subMenu=14 //---------- GAMEPAD SETUP ----------
   if mGP_Listen=1 //---------- Waiting for a button on the pad ----------
   {
     //mGP_ListenTime+=1
-    mGP_ListenTime+=1*gDeltaTime //controls change: 30fps ticks, so the 5 seconds below aren't 2.5/1.25 at 60/120fps
+    //mGP_ListenTime+=1*gDeltaTime //controls change: 30fps ticks, so the 5 seconds below aren't 2.5/1.25 at 60/120fps
+    mGP_ListenTime+=1 //controls change: the Step only runs on 30fps ticks (its first line), so this already counts ticks; *gDeltaTime made the 5 seconds 10/20 at 60/120fps
     if global.gpDevice<0 {mGP_Listen=0; playSound(global.snd_Error,0,1,1)} //the pad was unplugged
     else if mGP_WaitRelease=1 //everything on the pad has to be let go first (the button that picked the action is usually still held)
     {

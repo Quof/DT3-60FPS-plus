@@ -90,6 +90,10 @@ kDashLeft=0
 kDashLeftPressed=0
 kDashRight=0
 kDashRightPressed=0
+//input bleed change (added): kBtnLock: buttons pressed while the player wasn't reading them, ignored till let go
+//(scrButtonLockHeld); kKeysRead: the buttons were read last step (characterStepEvent, charJeremyStepEvent)
+for(i=0;i<=18;i+=1) {kBtnLock[i]=0}
+kKeysRead=1
 
 kLeftPushedSteps=0
 kRightPushedSteps=0

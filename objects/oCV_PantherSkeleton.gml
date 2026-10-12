@@ -31,7 +31,8 @@ deathAnim=0
 
 jeremyText="It works like the Ghouls except it's shorter and faster, which means it's more annoying."
 chaoText="Eh, I've got no comment for this thing."
-devText="Castlevania 1 had those panthers in the first level, which is why these things were used. The original panthers had a small leap when they reached the edge of a platfrom, which I decided against."
+//devText="Castlevania 1 had those panthers in the first level, which is why these things were used. The original panthers had a small leap when they reached the edge of a platfrom, which I decided against."
+devText="Castlevania 1 had those panthers in the first level, which is why these things were used. The original panthers had a small leap when they reached the edge of a platform, which I decided against." //typo fix
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

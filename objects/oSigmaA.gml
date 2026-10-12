@@ -70,7 +70,8 @@ if global.gamePaused=false
     showBossHP=instance_create(0,0,oBossLifeDisplay); showBossHP.bossID=id; showBossHP.type=1; showBossHP.lifeFill=1000
     jeremyText="You're in the Boss Gallery now it seems. I'm not telling you anything about this guy, you already know what he can do. Plus I'm feeling lazy, leave me alone."
     chaoText="I'm not quite as good as Jeremy on reading the behavior data, but I'll try my best. Like the Mavericks, Sigma follows a strict pattern, if you can learn that pattern, he's not too hard. Note that after what appears to be moving walls, he'll send out an undodgable attack. There's got to be something you can do to counter that one. As for his resistances, he seems to boost them when he's not taking any actions."
-    devText="When planning the encounter against Sigma, I was originally going to go with a duel-like fight for this part. Due to story related shenanegans, I wanted Sigma to appear creepy and somewhat menacing. For this, using the X6 Sigma seemed perfect."
+    //devText="When planning the encounter against Sigma, I was originally going to go with a duel-like fight for this part. Due to story related shenanegans, I wanted Sigma to appear creepy and somewhat menacing. For this, using the X6 Sigma seemed perfect."
+    devText="When planning the encounter against Sigma, I was originally going to go with a duel-like fight for this part. Due to story related shenanigans, I wanted Sigma to appear creepy and somewhat menacing. For this, using the X6 Sigma seemed perfect." //typo fix
     activateBoss=2
   }
 

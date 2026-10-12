@@ -1547,18 +1547,22 @@ else if global.gameProgress=3000 and room=rSamus5_Lv4_FinalBoss //----- [6] Boss
     {
       sceneDelay+=1*gDeltaTime
       //if sceneDelay>=30 and sceneDelay<=90
-      if sceneDelay>=30 and sceneDelay<=90 and gDeltaDoTicks //60fps change: effects spawn once per 30fps tick (per frame was 2x/4x as many at 60/120fps)
+      //if sceneDelay>=30 and sceneDelay<=90 and gDeltaDoTicks //60fps change: effects spawn once per 30fps tick (per frame was 2x/4x as many at 60/120fps)
+      if sceneDelay>=30 and sceneDelay<=90 //60fps change: the tick check moved to the effects below; sceneDelay=60 is often not a tick frame above 30fps, so Ridley never turned yellow and stayed black
       {
         if sceneDelay=60
         {
           with oEnemyBase {baseColor=c_yellow; image_blend=baseColor}
         }
+        if gDeltaDoTicks //60fps change (added): effects spawn once per 30fps tick (per frame was 2x/4x as many at 60/120fps)
+        {
         var tEffect;
         for(i=0;i<4;i+=1)
         {
           tEffect=instance_create(boss.x-16+random(90),boss.y-16+random(95),oEffect)
           tEffect.sprite_index=sRobotExplosion; tEffect.depth=4; tEffect.image_speed=0.5
           tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+        }
         }
       }
       else if sceneDelay>=130 {sceneDelay=0; sceneProgress+=1}

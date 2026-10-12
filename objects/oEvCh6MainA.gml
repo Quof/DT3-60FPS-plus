@@ -1328,7 +1328,8 @@ else if global.gameProgress=1440 and room=rBelmont3_6C //----- [] Get Death's Ri
     tNewStoryItem=instance_create(896,496,oStoryObject)
     tNewStoryItem.sprite_index=sCV_DeathParts; tNewStoryItem.image_speed=0; tNewStoryItem.image_index=1
     tNewStoryItem.soundToPlay=global.snd_HeartPiece
-    tNewStoryItem.stringToShow="You now prossess [Death's Rib]."
+    //tNewStoryItem.stringToShow="You now prossess [Death's Rib]."
+    tNewStoryItem.stringToShow="You now possess [Death's Rib]." //typo fix
     tNewStoryItem.fadingTime=80
     tNewStoryItem.boxSize=1
     sceneProgress+=1

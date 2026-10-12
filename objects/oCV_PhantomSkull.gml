@@ -36,7 +36,8 @@ _direction=0
 
 deathAnim=0
 
-jeremyText="It's a flying skull that tries to seek you out. I think it's kinda mimicing Chao's movement."
+//jeremyText="It's a flying skull that tries to seek you out. I think it's kinda mimicing Chao's movement."
+jeremyText="It's a flying skull that tries to seek you out. I think it's kinda mimicking Chao's movement." //typo fix
 chaoText="These things are stealing my movement type! Take them all out Claire!"
 devText="An interesting fact about the first game's release is I wasn't able to beat the Shroud Lord on Distorted. Everything else, including the Artist battle, I was able to do. It wasn't until roughly a year after its release that I got around to finally beating it on that setting. This is something I won't be doing ever again. If I can't complete it, it won't be released. That being said, the Distorted setting is like the unwanted step-child..."
 #define Step_0

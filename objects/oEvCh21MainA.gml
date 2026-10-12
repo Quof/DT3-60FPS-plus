@@ -137,7 +137,8 @@ if global.gameProgress=5520 and room=rCh21_Main_75 //----- [1] Jeremy said you'd
   else if sceneProgress=28 and bWaitForInput=false
     msgCreate(0,0,"Chao","Simple, we used the instruments wrong. We weren't supposed to use them to weaken the creature from the outside, but from the inside. They would have told us about the real weak spots if we knew how to use them properly.",0,3,oMessageCutscene,1)
   else if sceneProgress=29 and bWaitForInput=false
-    msgCreate(0,0,"Chao","Okay so, listen carefully. When you two wake up the Abominaton, Jeremy and I will have the instruments display where you're supposed to attack. There will be two spots to hit, but both need to be hit at almost the same time.",0,3,oMessageCutscene,1)
+    //msgCreate(0,0,"Chao","Okay so, listen carefully. When you two wake up the Abominaton, Jeremy and I will have the instruments display where you're supposed to attack. There will be two spots to hit, but both need to be hit at almost the same time.",0,3,oMessageCutscene,1)
+    msgCreate(0,0,"Chao","Okay so, listen carefully. When you two wake up the Abomination, Jeremy and I will have the instruments display where you're supposed to attack. There will be two spots to hit, but both need to be hit at almost the same time.",0,3,oMessageCutscene,1) //typo fix
   else if sceneProgress=30 and bWaitForInput=false
     msgCreate(0,0,"Chao","There's another thing. You'll need to do it 3 times.",0,3,oMessageCutscene,1)
   else if sceneProgress=31 and bWaitForInput=false
@@ -1073,7 +1074,8 @@ else if room=rDistFinal_Round3 //----- [10] Jeremy gets bigger -----
   else if sceneProgress=14 and bWaitForInput=false
     msgCreate(0,0,"Jeremy","So do I.",0,3,oMessageCutscene,1)
   else if sceneProgress=15 and bWaitForInput=false
-    msgCreate(0,0,"Jeremy","And I've placed us both in a state of statis.",0,3,oMessageCutscene,1)
+    //msgCreate(0,0,"Jeremy","And I've placed us both in a state of statis.",0,3,oMessageCutscene,1)
+    msgCreate(0,0,"Jeremy","And I've placed us both in a state of stasis.",0,3,oMessageCutscene,1) //typo fix
   else if sceneProgress=16 and bWaitForInput=false
     msgCreate(0,0,"Hexor","Then you can't move.",0,3,oMessageCutscene,1)
   else if sceneProgress=17 and bWaitForInput=false

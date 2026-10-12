@@ -30,7 +30,8 @@ initDir=0
 runAcc=1
 
 jeremyText="Just an annoyance. Unless you have Star Power, you can't fight it. Just avoid these the best you can."
-chaoText="Aww, Spinys are cute too! I bet they're just misunderstood. They probably don't want to hurt Mario, they're just percieved that way and are unfairly thrown everywhere by Lakitus."
+//chaoText="Aww, Spinys are cute too! I bet they're just misunderstood. They probably don't want to hurt Mario, they're just percieved that way and are unfairly thrown everywhere by Lakitus."
+chaoText="Aww, Spinys are cute too! I bet they're just misunderstood. They probably don't want to hurt Mario, they're just perceived that way and are unfairly thrown everywhere by Lakitus." //typo fix
 devText="From a technical standpoint, these things don't even have any code attached to them for Mario stomping.#Hey, not all of these comments are going to be interesting!"
 #define Step_0
 /*"/*'/**//* YYD ACTION

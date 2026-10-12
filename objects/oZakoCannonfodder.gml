@@ -128,11 +128,24 @@ if global.gamePaused=false
       yVel=0
       bJumpReady=1
     }
-    if isCollisionLeft(1)
+    //60fps change (added): a side that's clear maxSlope pixels higher is a slope it can climb, not a wall. Above 30fps it
+    //moves about 1px a frame, so at the foot of a slope it touched the slope's side every other frame and was turned back
+    //each time, running in place there (at 30fps its 2-3px steps carried it up onto the slope first)
+    var tSlopeL,tSlopeR;
+    tSlopeL=0; tSlopeR=0
+    if gDeltaTime<1 and isCollisionBottom(1)
+    {
+      y-=maxSlope
+      tSlopeL=!isCollisionLeft(1); tSlopeR=!isCollisionRight(1)
+      y+=maxSlope
+    }
+    //if isCollisionLeft(1)
+    if isCollisionLeft(1) and tSlopeL=0 //60fps change: see above
     {
       if xVel!=0 {xVel=runAcc}
     }
-    if isCollisionRight(1)
+    //if isCollisionRight(1)
+    if isCollisionRight(1) and tSlopeR=0 //60fps change: see above
     {
       if xVel!=0 {xVel=-runAcc}
     }

@@ -1330,7 +1330,8 @@ else if global.gameProgress=1980 and room=rMega4_SigmaC5 //----- [Unskippable] B
     else if sceneProgress=7 and bWaitForInput=false
       msgCreate(0,0,"Jerry","Eh... So Chao, any signs of Jeremy?",0,3,oMessageCutscene,1)
     else if sceneProgress=8 and bWaitForInput=false
-      msgCreate(0,0,"Chao","Once Sigma was beaten, a faint signal could be seen. It looks like Sigma was the main source of the interferance.",0,3,oMessageCutscene,1)
+      //msgCreate(0,0,"Chao","Once Sigma was beaten, a faint signal could be seen. It looks like Sigma was the main source of the interferance.",0,3,oMessageCutscene,1)
+      msgCreate(0,0,"Chao","Once Sigma was beaten, a faint signal could be seen. It looks like Sigma was the main source of the interference.",0,3,oMessageCutscene,1) //typo fix
     else if sceneProgress=9 and bWaitForInput=false
       msgCreate(0,0,"Jerry","Main source? So there IS something else... Sigma wasn't lying.",0,3,oMessageCutscene,1)
     else if sceneProgress=10 and bWaitForInput=false

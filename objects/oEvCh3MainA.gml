@@ -256,7 +256,8 @@ else if global.gameProgress=570 and room=rCCity_NA_S2 //----- [3] Reunion -----
   else if sceneProgress=24 and bWaitForInput=false
     msgCreate(0,0,"Jeremy","The Vault?",0,3,oMessageCutscene,1)
   else if sceneProgress=25 and bWaitForInput=false
-    msgCreate(0,0,"Gene","No, not there. It had a seperate secured zone for humans. When you guys fulfilled your agreement terms with The Darkness, it freed us all from it. Brought most of us to this city.",6,3,oMessageCutscene,1)
+    //msgCreate(0,0,"Gene","No, not there. It had a seperate secured zone for humans. When you guys fulfilled your agreement terms with The Darkness, it freed us all from it. Brought most of us to this city.",6,3,oMessageCutscene,1)
+    msgCreate(0,0,"Gene","No, not there. It had a separate secured zone for humans. When you guys fulfilled your agreement terms with The Darkness, it freed us all from it. Brought most of us to this city.",6,3,oMessageCutscene,1) //typo fix
   else if sceneProgress=26 and bWaitForInput=false
     msgCreate(0,0,"Jerry","What is that thing you mentioned, the Vault?",0,3,oMessageCutscene,1)
   else if sceneProgress=27 and bWaitForInput=false

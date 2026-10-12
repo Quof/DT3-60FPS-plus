@@ -29,7 +29,8 @@ if global.gameProgress<=6
   jeremyText+=" Until you get your jumping ability, you're gonna have to run under them or wait till they drop off a cliff."
 else
   jeremyText+=" Under most circumstances they won't be a problem."
-chaoText="Hey Claire, rememeber all the plushies I have of these? They nearly filled an entire side of my room when lined up."
+//chaoText="Hey Claire, rememeber all the plushies I have of these? They nearly filled an entire side of my room when lined up."
+chaoText="Hey Claire, remember all the plushies I have of these? They nearly filled an entire side of my room when lined up." //typo fix
 devText="I almost put in the shell bumping mechanic that most 2D Mario games use. And while it would've been a great mechanic for puzzles and general chaos, it fell outside of what I was trying to do. I thought it again after Gate 1 was finished, but by that point, I'd need to go back and redesign the entire zone to include some real use of the shells."
 #define Step_0
 /*"/*'/**//* YYD ACTION

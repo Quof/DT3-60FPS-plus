@@ -342,7 +342,8 @@ else if mO_OptSubMenu=2 //------------------------- GRAPHICS -------------------
   //else if mO_CurPos=8 {menuInfoText="When this is on, some of your weapons will leave a trail behind them.#Note from Zephyr: Same as above."}
   else if mO_CurPos=9 {menuInfoText="When this is on, some of your weapons will leave a trail behind them.#Note from Zephyr: Same as above."} //options move change: a row lower (FPS is row 2)
   //else if mO_CurPos=9 and mCZ_Show=1 {menuInfoText="Change what colors are used for the color zones and their indicators.#Helpful if they are difficult to tell apart.."} //color zone change (added)
-  else if mO_CurPos=10 and mCZ_Show=1 {menuInfoText="Change what colors are used for the color zones and their indicators.#Helpful if they are difficult to tell apart.."} //color zone change (added) //options move change: a row lower (FPS is row 2)
+  //else if mO_CurPos=10 and mCZ_Show=1 {menuInfoText="Change what colors are used for the color zones and their indicators.#Helpful if they are difficult to tell apart.."} //color zone change (added) //options move change: a row lower (FPS is row 2)
+  else if mO_CurPos=10 and mCZ_Show=1 {menuInfoText="Change what colors are used for the color zones and their indicators.#Helpful if they are difficult to tell apart."} //color zone change (added) //options move change: a row lower (FPS is row 2) //typo fix
   //else if mO_CurPos=9 or mO_CurPos=10 {menuInfoText="Wear various kinds of hats!#Press left or right to change hats. Confirm will remove your hat."}
   //else if mO_CurPos=mCZ_HatRow or mO_CurPos=mCZ_HatRow+1 {menuInfoText="Wear various kinds of hats!#Press left or right to change hats. Confirm will remove your hat."} //color zone change: a row lower when Color Zone Colors is shown (tHatY, mCZ_HatRow)
 }

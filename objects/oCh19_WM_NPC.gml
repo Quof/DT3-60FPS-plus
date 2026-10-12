@@ -187,7 +187,8 @@ if global.gamePaused=false
       }
       else if actTime=260
       {
-        msgCreate(0,0,"Warmaster","You are wrong. The program had lost most of its control when you and Jeremy destroyed the Data Reallocation Modules and the damage done by the Virus is now irreversable.",6,3,oMessagePerson,0)
+        //msgCreate(0,0,"Warmaster","You are wrong. The program had lost most of its control when you and Jeremy destroyed the Data Reallocation Modules and the damage done by the Virus is now irreversable.",6,3,oMessagePerson,0)
+        msgCreate(0,0,"Warmaster","You are wrong. The program had lost most of its control when you and Jeremy destroyed the Data Reallocation Modules and the damage done by the Virus is now irreversible.",6,3,oMessagePerson,0) //typo fix
         newMessage.fadingTime=250
       }
       else if actTime=510

@@ -14,6 +14,10 @@
 */
 //if !gDeltaDoTicks {exit}
 var wdir, tempdir, turnspeed;
+//60fps change (added): _direction stands in for GameMaker's built-in direction, which every instance has from the start
+//(0 until it's set). One that hadn't set it yet (e.g. the Dragoon ship's homing needle on its first turn) crashed with
+//"Unknown variable"; it counts as 0, as the built-in did (see correctSpeedDirection)
+if !variable_local_exists("_direction") {_direction=0}
 wdir=argument0
 turnspeed=argument1
 turnspeed=turnspeed*gDeltaTime
