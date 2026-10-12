@@ -8,12 +8,18 @@ image_speed=0.33
 bMoveStep=0
 moveTime=0
 decayTime=0
+//walk through change (added): touching the player is a coin flip, fight or walk right through it (oPlayerZeldaIcon's
+//collision), as the original sometimes let you; passCheck: flipped for this contact, passThrough: the result
+passCheck=0
+passThrough=0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
 action_id=603
 applies_to=self
 */
+//walk through change (added): once apart again, the next contact flips again
+if passCheck=1 {if !place_meeting(x,y,oPlayerZeldaIcon) {passCheck=0}}
 if !instance_exists(oZeldaSaveMenu)
 {
   if bMoveStep=0 //Move decision

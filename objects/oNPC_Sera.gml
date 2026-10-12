@@ -275,7 +275,8 @@ if eventProg=1 and global.gamePaused=false
   if instance_exists(oSeraInjector)
   {
     myTarget=instance_nearest(x,y-20,oSeraInjector)
-    if point_distance(x,y-20,myTarget.x,myTarget.y)<=5 //Sera is infected
+    //if point_distance(x,y-20,myTarget.x,myTarget.y)<=5 //Sera is infected
+    if point_distance(x,y-26,myTarget.x,myTarget.y)<=5 //Sera is infected //infect fix: measured at the point the viruses fly straight at (y-26, where they're aimed when spawned); at y-20, ones coming in at a shallow angle passed 6px from it and flew right through her
     {
       sprite_index=sSeraHit
       eventProg=2

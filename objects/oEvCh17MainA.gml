@@ -914,10 +914,13 @@ else if global.gameProgress=4090 and room=rHPF_U //----- [Unskippable] Boss Figh
           tempMplay=findMusic(1005)
           playMusic(tempMplay,0,1)
           blendCol=0
+          seraRise=0 //60fps change (added): see below
         }
         else if sceneDelay>=181 and sceneDelay<=436
         {
-          if gDeltaDoTicks {oNPC_Sera.y-=0.25}
+          //if gDeltaDoTicks {oNPC_Sera.y-=0.25}
+          //60fps change: rises a whole pixel every 4 ticks, the same speed; 0.25px a tick left her between pixels most of the time, which drew unevenly (a slight stutter)
+          if gDeltaDoTicks {seraRise+=0.25; if seraRise>=1 {oNPC_Sera.y-=1; seraRise-=1}}
           if blendCol<255 {blendCol+=1*gDeltaTime}
           oNPC_Sera.image_blend=make_color_rgb(blendCol,blendCol,blendCol)
         }
@@ -1173,7 +1176,8 @@ else if global.gameProgress=4100 and room=rHPF_V //----- [7] Shutting down the V
       with hexMeteor
       {
         sprite_index=sDraculaMeteor; type=1
-        _speed=18; _direction=point_direction(x,y,oEvCh17MainA.charJerry.x,oEvCh17MainA.charJerry.y)
+        //_speed=18; _direction=point_direction(x,y,oEvCh17MainA.charJerry.x,oEvCh17MainA.charJerry.y)
+        speed=18; direction=point_direction(x,y,oEvCh17MainA.charJerry.x,oEvCh17MainA.charJerry.y) //60fps change: GM's built-in speed/direction again, as in the original. oMisc doesn't move by _speed/_direction (its type 1 moves by the built-in speed and takes back the excess above 30fps), so the meteor hung in the air and never hit Jerry
       }
     }
     else if sceneDelay>=11 and sceneDelay<=99

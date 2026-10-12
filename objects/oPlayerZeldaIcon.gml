@@ -120,7 +120,11 @@ applies_to=self
 */
 if moveTime=0 and bCanMove=1
 {
-  event_user(1)
+  //event_user(1)
+  //walk through change: a coin flip each time an enemy touches the icon: the fight starts, or you walk right through it
+  //(as the original sometimes let you, between its steps). It doesn't flip again till they've been apart (oG2_MapEn)
+  if other.passCheck=0 {other.passCheck=1; other.passThrough=irandom(1)}
+  if other.passThrough=0 {event_user(1)}
 }
 #define Mouse_54
 /*"/*'/**//* YYD ACTION
