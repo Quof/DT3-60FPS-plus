@@ -62,7 +62,9 @@ draw_set_color(make_color_rgb(248,248,248))
 draw_set_halign(fa_left)
 draw_set_font(fnt_EnemyChat)
 //draw_text(4,4,string("Press [K] or [Enter] to go forward one page or [J] to go back. Press [L] to go back to the title screen.#Page: ") +string(currentPage) +string("/13"))
-draw_text(4,4,string("Press [") +string(global.ctrlConfirm) +string("] or [Enter] to go forward one page or [") +string(global.ctrlCancel) +string("] to go back. Press [") +string(global.ctrlActB) +string("] to go back to the title screen.#Page: ") +string(currentPage) +string("/13")) //controls change: the keys they're set to
+//draw_text(4,4,string("Press [") +string(global.ctrlConfirm) +string("] or [Enter] to go forward one page or [") +string(global.ctrlCancel) +string("] to go back. Press [") +string(global.ctrlActB) +string("] to go back to the title screen.#Page: ") +string(currentPage) +string("/13")) //controls change: the keys they're set to
+global.inputAlign=fa_left //input text change (added)
+scrDrawInput(4,4,string("Press [Confirm] or [Enter] to go forward one page or [Cancel] to go back. Press [Action B] to go back to the title screen.#Page: ") +string(currentPage) +string("/13"),-1,-1,1) //input text change: the keys as [tokens], shown as the key set for them or the gamepad button's icon (scrDrawInput)
 
 draw_set_font(fnt_NES)
 draw_set_alpha(image_alpha)

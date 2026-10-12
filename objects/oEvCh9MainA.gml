@@ -197,7 +197,8 @@ else if global.gameProgress=2010 and room=rMain_30 //----- [] Tutorial: Ability 
     var tNewTutorial;
     tNewTutorial=instance_create(0,0,oTutorialPanel)
     tNewTutorial.tutorialTitle="Ability Swapping"
-    tNewTutorial.tutorialInfo=string("To swap between Ability Sets, press [") +string(global.ctrlAbilSwap) +string("]. Currently, only Jerry has more than one.")
+    //tNewTutorial.tutorialInfo=string("To swap between Ability Sets, press [") +string(global.ctrlAbilSwap) +string("]. Currently, only Jerry has more than one.")
+    tNewTutorial.tutorialInfo="To swap between Ability Sets, press [Ability Swap]. Currently, only Jerry has more than one." //input text change: the keys as [tokens], shown as the key set for them or the gamepad button's icon (scrDrawInput)
     tNewTutorial.scrAreaY=1
     sceneProgress+=1
   }

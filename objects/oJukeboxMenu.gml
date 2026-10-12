@@ -191,4 +191,5 @@ if global.optMusic>0 and jbPlaying>=0 //where it's from (scrMusicCredit)
 
 //controls
 draw_set_font(fnt_Points)
-textDropShadow(string("[Up/Down] Song     [Left/Right] Area     [") +string(global.ctrlConfirm) +string("] Play     [") +string(global.ctrlCancel) +string("] Close"),tX+14,tY+267,tColorTextA,tColorTop,4)
+//textDropShadow(string("[Up/Down] Song     [Left/Right] Area     [") +string(global.ctrlConfirm) +string("] Play     [") +string(global.ctrlCancel) +string("] Close"),tX+14,tY+267,tColorTextA,tColorTop,4)
+textDropShadow("[Up]/[Down] Song     [Left]/[Right] Area     [Confirm] Play     [Cancel] Close",tX+14,tY+267,tColorTextA,tColorTop,4) //input text change: the keys as [tokens], shown as the key set for them or the gamepad button's icon (scrDrawInput)

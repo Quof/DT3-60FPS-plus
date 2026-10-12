@@ -38,6 +38,9 @@ global.initialSave = global.paraString[0]
 //save slots change (added): 1 while a new game started over a slot's save hasn't been saved yet: that save stays and
 //oGame doesn't autosave till then (see oInitializeGame)
 global.saveSlotNewGame=0
+//input text change (added): how scrDrawInput lines up a text with gamepad icons in it (fa_left; centered texts set
+//fa_center before drawing)
+global.inputAlign=fa_left
 
 global.bNightmareMode=0
 global.bCanUseEsc=1

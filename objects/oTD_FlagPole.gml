@@ -127,6 +127,7 @@ if bWaveStart=0
   textDropShadow(string("Time Till Next Wave#<") +string(ceil(waveCountdown)) +string(">"),view_xview[0]+240,view_yview[0]+312,make_color_rgb(255,248,155),make_color_rgb(16,8,8),3) //60fps change: whole numbers (it counts down a fraction of a tick per frame above 30fps, which showed decimals); rounded up, so it counts down to 0 the same way as at 30fps
   if room_speed=global.gameFrameRate
   {
+    global.inputAlign=fa_center //input text change (added): centered, for the gamepad icon (scrDrawInput)
     textDropShadow("Hold [Down] to speed up the 'Next Wave' timer.",view_xview[0]+240,view_yview[0]+336,make_color_rgb(255,248,155),make_color_rgb(16,8,8),3)
   }
 }

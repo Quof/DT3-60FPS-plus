@@ -65,7 +65,7 @@ if global.gamePaused=false
       image_xscale*=-1
       turnTime=0
     }
-    if shotTime<shotDelay {x+=runAcc*image_xscale*gDeltaTime}
+    if shotTime<shotDelay {x+=runAcc*image_xscale*gDeltaTime} //60fps change: moves a fraction of its 1.5px every frame, and is drawn on whole pixels (Draw)
 
     if bInfected=1
     {
@@ -141,6 +141,11 @@ lib_id=1
 action_id=603
 applies_to=self
 */
+//60fps change (added): drawn on whole pixels. Above 30fps it moves a fraction of a pixel every frame, which drew between
+//pixels and stuttered; its real x is put back at the end
+var tRealX;
+tRealX=x
+x=round(x)
 if bActive=true
 {
   if shotTime>=shotDelay and bRockForm=0
@@ -165,3 +170,4 @@ if shotTime>=shotDelay
   draw_sprite_ext(sEfCleanBotElec,elecFrm,x,y,1,1,180,c_white,1)
   draw_sprite_ext(sEfCleanBotElec,elecFrm,x,y,1,1,270,c_white,1)
 }
+x=tRealX //60fps change (added): see the top

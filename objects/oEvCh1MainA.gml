@@ -196,7 +196,8 @@ else if global.gameProgress=1 and room=rMain_1 //----- [] Virus attacks -----
     {
       sceneDelay+=1*gDeltaTime
       if sceneDelay=40
-        createScreenText(80,200,160,fnt_EnemyName,fa_left,string("You can 'duck' by holding the [") +string(global.ctrlDown) +string("] or [Down Arrow] key."),3,c_white,1,0)
+        //createScreenText(80,200,160,fnt_EnemyName,fa_left,string("You can 'duck' by holding the [") +string(global.ctrlDown) +string("] or [Down Arrow] key."),3,c_white,1,0)
+        createScreenText(80,200,160,fnt_EnemyName,fa_left,"You can 'duck' by holding [Down Keys].",3,c_white,1,0) //input text change: the keys as [tokens], shown as the key set for them or the gamepad button's icon (scrDrawInput)
       else if sceneDelay=120
       {
         virusAtk=instance_create(room_width+8,2032,oSeekerVirusBasic)
@@ -328,7 +329,8 @@ else if global.gameProgress=1 and room=rMain_1 //----- [] Virus attacks -----
         newMessage.fadingTime=80
       }
       else if sceneDelay=230
-        createScreenText(60,160,570,fnt_EnemyName,fa_left,string("Control the angle of the arrow by holding [Left] or [") +string(global.ctrlLeft) +string("] to rotate left.#[Right] or [") +string(global.ctrlRight) +string("] to rotate right.#To fire a Virus Control Bubble, press [") +string(global.ctrlActA) +string("]Red, [") +string(global.ctrlActB) +string("]Green, or [") +string(global.ctrlActC) +string("]Blue.#Keep Jerry safe from the Virus attacks."),3,c_white,1,0)
+        //createScreenText(60,160,570,fnt_EnemyName,fa_left,string("Control the angle of the arrow by holding [Left] or [") +string(global.ctrlLeft) +string("] to rotate left.#[Right] or [") +string(global.ctrlRight) +string("] to rotate right.#To fire a Virus Control Bubble, press [") +string(global.ctrlActA) +string("]Red, [") +string(global.ctrlActB) +string("]Green, or [") +string(global.ctrlActC) +string("]Blue.#Keep Jerry safe from the Virus attacks."),3,c_white,1,0)
+        createScreenText(60,160,570,fnt_EnemyName,fa_left,"Control the angle of the arrow by holding [Left Keys] to rotate left.#[Right Keys] to rotate right.#To fire a Virus Control Bubble, press [Action A]Red, [Action B]Green, or [Action C]Blue.#Keep Jerry safe from the Virus attacks.",3,c_white,1,0) //input text change: the keys as [tokens], shown as the key set for them or the gamepad button's icon (scrDrawInput)
       else if sceneDelay=670
       {
         msgCreate(0,0,"Jeremy","Fend them off while I get your movement working again.",0,1,oMessagePerson,0)
@@ -545,7 +547,8 @@ else if global.gameProgress=9 and room=rMain_1 //----- [2] Regaining Movement --
     var tNewTutorial;
     tNewTutorial=instance_create(0,0,oTutorialPanel)
     tNewTutorial.tutorialTitle="Movement"
-    tNewTutorial.tutorialInfo=string("To move left or right, use the [Arrow Keys], [") +string(global.ctrlLeft) +string("], or [") +string(global.ctrlRight) +string("]. To duck, press [S]. You can slide if you duck after running.")
+    //tNewTutorial.tutorialInfo=string("To move left or right, use the [Arrow Keys], [") +string(global.ctrlLeft) +string("], or [") +string(global.ctrlRight) +string("]. To duck, press [S]. You can slide if you duck after running.")
+    tNewTutorial.tutorialInfo="To move left or right, use the [Arrow Keys], [Left Key], or [Right Key]. To duck, press [Down Key]. You can slide if you duck after running." //input text change: the keys as [tokens], shown as the key set for them or the gamepad button's icon (scrDrawInput)
     tNewTutorial.scrAreaY=0
     sceneDelay=0; sceneProgress=0
     global.newMapX=240
@@ -695,7 +698,8 @@ else if global.gameProgress=60 and room=rMain_4 //----- [5] After grabbing Jump 
     var tNewTutorial;
     tNewTutorial=instance_create(0,0,oTutorialPanel)
     tNewTutorial.tutorialTitle="Jumping"
-    tNewTutorial.tutorialInfo=string("To jump, press [") +string(global.ctrlJump) +string("]. The longer it is held down, the higher you will jump.")
+    //tNewTutorial.tutorialInfo=string("To jump, press [") +string(global.ctrlJump) +string("]. The longer it is held down, the higher you will jump.")
+    tNewTutorial.tutorialInfo="To jump, press [Jump]. The longer it is held down, the higher you will jump." //input text change: the keys as [tokens], shown as the key set for them or the gamepad button's icon (scrDrawInput)
     tNewTutorial.scrAreaY=0
     sceneDelay=0; sceneProgress=0
     global.hasShoes[1]=2
@@ -800,7 +804,8 @@ else if global.gameProgress=100 and room=rMain_5 //----- [7] Swap characters ---
     var tNewTutorial;
     tNewTutorial=instance_create(0,0,oTutorialPanel)
     tNewTutorial.tutorialTitle="Character Swapping"
-    tNewTutorial.tutorialInfo=string("To swap out characters, press [") +string(global.ctrlCharSwap) +string("]. There is a slight delay before you can swap again after using it.")
+    //tNewTutorial.tutorialInfo=string("To swap out characters, press [") +string(global.ctrlCharSwap) +string("]. There is a slight delay before you can swap again after using it.")
+    tNewTutorial.tutorialInfo="To swap out characters, press [Character Swap]. There is a slight delay before you can swap again after using it." //input text change: the keys as [tokens], shown as the key set for them or the gamepad button's icon (scrDrawInput)
     tNewTutorial.scrAreaY=0
     sceneDelay=0; sceneProgress=0
     global.gameProgress=110

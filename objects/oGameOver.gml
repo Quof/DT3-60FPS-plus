@@ -113,7 +113,8 @@ if global.quickGameOver=0
   else if ranMessage=43 {failMessage="We all agree you should stop."} //LostSoldier20
   else if ranMessage=44 {failMessage="Trying to die in every way possible?"} //LostSoldier20
   else if ranMessage=45 {failMessage="You could use a Horcrux."} //LostSoldier20
-  else if ranMessage=46 {failMessage="Press J to not die."} //LostSoldier20
+  //else if ranMessage=46 {failMessage="Press J to not die."} //LostSoldier20
+    else if ranMessage=46 {failMessage="Press [Jump] to not die."} //LostSoldier20 //input text change: the keys as [tokens], shown as the key set for them or the gamepad button's icon (scrDrawInput)
   else if ranMessage=47 {failMessage="Is this a comedy or a tragedy?"} //LostSoldier20
   else if ranMessage=48 {failMessage="Oh hey, failure was an option after all!"} //Cirno
   else if ranMessage=49 {failMessage="Get rekt."}
@@ -1091,7 +1092,10 @@ if showOptions>0
   draw_text(view_xview[0]+240,view_yview[0]+30,"GAME OVER")
   draw_set_font(fnt_Points)
   draw_set_color(failColor)
-  draw_text(view_xview[0]+240,view_yview[0]+68,failMessage)
+  //draw_text(view_xview[0]+240,view_yview[0]+68,failMessage)
+  global.inputAlign=fa_center //input text change (added): its alignment, for the gamepad icon (scrDrawInput)
+  scrDrawInput(view_xview[0]+240,view_yview[0]+68,failMessage,-1,-1,1) //input text change: [Jump] shows the key set for it, or the gamepad button's icon
+  global.inputAlign=fa_left //input text change (added)
   draw_set_font(fnt_GOoptions)
   draw_set_color(c_white)
   if global.currentBoss!="" or global.bossTrack>=101 and global.bossTrack<=999

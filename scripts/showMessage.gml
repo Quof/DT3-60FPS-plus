@@ -185,4 +185,6 @@ draw_set_color(make_color_rgb(12,43,0))
 draw_text(tXpos+3,tYpos-1,">> " +string(tCharTalk))
 //---------- Show text message ----------
 draw_set_font(fnt_Points)
-draw_text_ext(tXpos+5,tYpos+12,tTextDisplay,13,tWinSizeX-10)
+//draw_text_ext(tXpos+5,tYpos+12,tTextDisplay,13,tWinSizeX-10)
+global.inputAlign=fa_left //input text change (added)
+scrDrawInput(tXpos+5,tYpos+12,tTextDisplay,13,tWinSizeX-10,1) //input text change: input [tokens] show the key set for them, or the gamepad button's icon

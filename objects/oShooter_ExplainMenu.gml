@@ -79,15 +79,19 @@ else
   {
     if sceneProgress=0 {bCanMoveCursor=0; sceneProgress=1}
     else if sceneProgress=1 and bWaitForInput=false
-      msgCreate(0,0,"John",string("The [Arrow Keys] or [WASD] will move the Dragoon in the direction you would imagine that key would direct it.#[") +string(global.ctrlJump) +string("] will fire the current weapon."),6,3,oMessageCutscene,1)
+      //msgCreate(0,0,"John",string("The [Arrow Keys] or [WASD] will move the Dragoon in the direction you would imagine that key would direct it.#[") +string(global.ctrlJump) +string("] will fire the current weapon."),6,3,oMessageCutscene,1)
+      msgCreate(0,0,"John","The [Arrow Keys] or [WASD] will move the Dragoon in the direction you would imagine that key would direct it.#[Jump] will fire the current weapon.",6,3,oMessageCutscene,1) //input text change: the keys as [tokens], shown as the key set for them or the gamepad button's icon (scrDrawInput)
     else if sceneProgress=2 and bWaitForInput=false
-      msgCreate(0,0,"John",string("Holding [") +string(global.ctrlActA) +string("] will cause the Dragoon to move at half speed should you desire."),6,3,oMessageCutscene,1)
+      //msgCreate(0,0,"John",string("Holding [") +string(global.ctrlActA) +string("] will cause the Dragoon to move at half speed should you desire."),6,3,oMessageCutscene,1)
+      msgCreate(0,0,"John","Holding [Action A] will cause the Dragoon to move at half speed should you desire.",6,3,oMessageCutscene,1) //input text change: the keys as [tokens], shown as the key set for them or the gamepad button's icon (scrDrawInput)
     else if sceneProgress=3 and bWaitForInput=false
-      msgCreate(0,0,"John",string("Holding [") +string(global.ctrlActB) +string("] will cause the Dragoon to 'suck in' a weakened enemy. You'll be able to tell if an enemy is weakened by it turning a shade of red. An enemy is weakened when it is below 45% HP."),6,3,oMessageCutscene,1)
+      //msgCreate(0,0,"John",string("Holding [") +string(global.ctrlActB) +string("] will cause the Dragoon to 'suck in' a weakened enemy. You'll be able to tell if an enemy is weakened by it turning a shade of red. An enemy is weakened when it is below 45% HP."),6,3,oMessageCutscene,1)
+      msgCreate(0,0,"John","Holding [Action B] will cause the Dragoon to 'suck in' a weakened enemy. You'll be able to tell if an enemy is weakened by it turning a shade of red. An enemy is weakened when it is below 45% HP.",6,3,oMessageCutscene,1) //input text change: the keys as [tokens], shown as the key set for them or the gamepad button's icon (scrDrawInput)
     else if sceneProgress=4 and bWaitForInput=false
       msgCreate(0,0,"John","Note that when an enemy is 'sucked in' your 'sucking' ability will be disabled for about 1 second.",6,3,oMessageCutscene,1)
     else if sceneProgress=5 and bWaitForInput=false
-      msgCreate(0,0,"John",string("Press [") +string(global.ctrlCharSwap) +string("] to swap the current controller of the Dragoon. Jerry and Claire have the same control set up, however, each of them can store their own weapon. (More on this in 'Suck Ability'.)"),6,3,oMessageCutscene,1)
+      //msgCreate(0,0,"John",string("Press [") +string(global.ctrlCharSwap) +string("] to swap the current controller of the Dragoon. Jerry and Claire have the same control set up, however, each of them can store their own weapon. (More on this in 'Suck Ability'.)"),6,3,oMessageCutscene,1)
+      msgCreate(0,0,"John","Press [Character Swap] to swap the current controller of the Dragoon. Jerry and Claire have the same control set up, however, each of them can store their own weapon. (More on this in 'Suck Ability'.)",6,3,oMessageCutscene,1) //input text change: the keys as [tokens], shown as the key set for them or the gamepad button's icon (scrDrawInput)
     else if sceneProgress=6 {sceneProgress=0; bCanMoveCursor=1}
   }
   else if curPos=3 //Basic Rules

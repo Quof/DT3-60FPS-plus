@@ -2783,7 +2783,8 @@ if view_current=0
   else if global.gameProgress>=5050 and global.gameProgress<=5490 {tChapterName="Chapter 20: Trust"}
   else if global.gameProgress>=5500 {tChapterName="Chapter 21: Distorted Travesty"}
   //if titleMode=1 {tChapterName="Press [" +string(global.ctrlActA) +"] to save and go back to the title screen."} //title options change (added)
-  if titleMode=1 {tChapterName="Press [" +string(global.ctrlCancel) +"] to save and go back to the title screen."} //title options change (added) //controls change: the Cancel key
+  //if titleMode=1 {tChapterName="Press [" +string(global.ctrlCancel) +"] to save and go back to the title screen."} //title options change (added) //controls change: the Cancel key
+  if titleMode=1 {tChapterName="Press [Cancel] to save and go back to the title screen."} //input text change: the keys as [tokens], shown as the key set for them or the gamepad button's icon (scrDrawInput)
   //controls change (added): the CONTROLS and GAMEPAD lists are as tall as the content panel now and cover this line
   if subMenu=11 or subMenu=14 {tChapterName=""}
   textDropShadow(tChapterName,contentMenuX+2,contentMenuY-23,textColorMain,textColorShadow,1)
@@ -2844,7 +2845,8 @@ if view_current=0
       else
       {
         //menuInfoText=string("Select an available equipment slot to assign an item to.#[" +string(global.ctrlActA) +string("]: Check available equipment.#[") +string(global.ctrlActB) +string("]: Unequip current slot."))
-        menuInfoText=string("Select an available equipment slot to assign an item to.#[" +string(global.ctrlConfirm) +string("]: Check available equipment.#[") +string(global.ctrlActB) +string("]: Unequip current slot.")) //controls change: the item list opens with Confirm
+        //menuInfoText=string("Select an available equipment slot to assign an item to.#[" +string(global.ctrlConfirm) +string("]: Check available equipment.#[") +string(global.ctrlActB) +string("]: Unequip current slot.")) //controls change: the item list opens with Confirm
+        menuInfoText="Select an available equipment slot to assign an item to.#[Confirm]: Check available equipment.#[Action B]: Unequip current slot." //input text change: the keys as [tokens], shown as the key set for them or the gamepad button's icon (scrDrawInput)
       }
       mSAP_FrameCount+=1*gDeltaTime
       if mSAP_FrameCount mod 8=0

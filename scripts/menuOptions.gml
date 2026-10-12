@@ -562,8 +562,10 @@ else if mO_OptSubMenu=6 //------------------------- AUDIO ----------------------
   if global.optMLoop=0 {textDropShadow("On",contentMenuX+164,contentMenuY+103,textColorMain,textColorShadow,1)} // music loop
   else if global.optMLoop=1 {textDropShadow("Off",contentMenuX+164,contentMenuY+103,textColorMain,textColorShadow,1)} // music loop
 
-  if mO_CurPos=1 {menuInfoText="Press left or right to change the music volume or press the confirm key to mute or max out the volume.#0 to mute, max = 100."}
-  else if mO_CurPos=2 {menuInfoText="Press left or right to change the sound volume or press the confirm key to mute or max out the volume.#0 to mute, max = 100."}
+  //if mO_CurPos=1 {menuInfoText="Press left or right to change the music volume or press the confirm key to mute or max out the volume.#0 to mute, max = 100."}
+  if mO_CurPos=1 {menuInfoText="Press left or right to change the music volume or press [Confirm] to mute or max out the volume.#0 to mute, max = 100."} //input text change: the input as a [token], shown as the key set for it or the gamepad button's icon
+  //else if mO_CurPos=2 {menuInfoText="Press left or right to change the sound volume or press the confirm key to mute or max out the volume.#0 to mute, max = 100."}
+  else if mO_CurPos=2 {menuInfoText="Press left or right to change the sound volume or press [Confirm] to mute or max out the volume.#0 to mute, max = 100."} //input text change: the input as a [token], shown as the key set for it or the gamepad button's icon
   else if mO_CurPos=3 {menuInfoText="Play a sound when new text boxes appear.#Now you'll never miss a thing again!"}
   else if mO_CurPos=4 {menuInfoText="Play a sound when no dashes remain.#Also play a sound when a dash is available."}
   else if mO_CurPos=5 {menuInfoText="When a certain item is obtained, Chao will alert you that a collectible is in the map you enter."}

@@ -265,8 +265,17 @@ if wepProg>=480
     //for(i=0;i<2;i+=1)
     if gDeltaDoTicks for(i=0;i<2;i+=1) //60fps change: added "if gDeltaDoTicks"; 2 letters were typed every frame, so the text appeared 2x/4x too fast
     {
-      wepTPos[4]+=1
-      wepTNew[4]+=string_char_at(wepTFull[4],wepTPos[4])
+      //wepTPos[4]+=1
+      //wepTNew[4]+=string_char_at(wepTFull[4],wepTPos[4])
+      //input text change: an input [token] goes in whole (scrInputTokenLen), so half of one ([Action Bu) never shows
+      var tTokLen;
+      tTokLen=scrInputTokenLen(wepTFull[4],wepTPos[4]+1)
+      if tTokLen>0 {wepTNew[4]+=string_copy(wepTFull[4],wepTPos[4]+1,tTokLen); wepTPos[4]+=tTokLen}
+      else
+      {
+        wepTPos[4]+=1
+        wepTNew[4]+=string_char_at(wepTFull[4],wepTPos[4])
+      }
     }
   }
   else {textDropShadow(wepTFull[4],40,140,clExtraText,c_black,4)}

@@ -12,6 +12,22 @@ turretProg=0
 
 myInfectSpot=instance_create(x,y-16,oHPF_ConInfect)
 myInfectSpot.myOwner=id
+alarm[0]=1 //gid order change (added): see Alarm 0
+#define Alarm_0
+/*"/*'/**//* YYD ACTION
+lib_id=1
+action_id=603
+applies_to=self
+*/
+//gid order change (added): the creation code looks up what this console controls (controlID, turID) with GID, but
+//the bridge/door/turrets can come later in the room's order and register themselves (GID_SET) after it. On the room's
+//first visit the lookup found no one, so infecting the console did nothing (later visits found the previous visit's
+//ids, which happened to match). Looked up again here, once every instance in the room exists
+if variable_local_exists("controlCache") {controlID=GID(controlCache)}
+if type=2 and variable_local_exists("controlCache") //(rooms set turCache with controlCache; checked by the plain variable)
+{
+  for(i=0;i<turMax;i+=1) {turID[i]=GID(turCache[i])}
+}
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

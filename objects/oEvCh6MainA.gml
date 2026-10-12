@@ -1121,7 +1121,8 @@ else if global.gameProgress=1370 and room=rBelmont3_4H //----- [9] After grabbin
   else if sceneProgress=11 and bWaitForInput=false
     msgCreate(0,0,"Jeremy","There's a few things I want to note about the dash. The first is that there are two different dashes.#To dash forward, press the dash button while moving.#To dash back, press the dash button while standing still.#There's also a dedicated Dash Back button you can bind.",0,3,oMessageCutscene,1)
   else if sceneProgress=12 and bWaitForInput=false
-    msgCreate(0,0,"Jeremy",string("There is also a setting in the menu called Left/Right dashing. When this is on, [") +string(global.ctrlDashRight) +string("] will always dash right, regardless of facing direction, and [") +string(global.ctrlDashLeft) +string("] is always left."),0,3,oMessageCutscene,1)
+    //msgCreate(0,0,"Jeremy",string("There is also a setting in the menu called Left/Right dashing. When this is on, [") +string(global.ctrlDashRight) +string("] will always dash right, regardless of facing direction, and [") +string(global.ctrlDashLeft) +string("] is always left."),0,3,oMessageCutscene,1)
+    msgCreate(0,0,"Jeremy","There is also a setting in the menu called Left/Right dashing. When this is on, [Dash Right] will always dash right, regardless of facing direction, and [Dash Left] is always left.",0,3,oMessageCutscene,1) //input text change: the keys as [tokens], shown as the key set for them or the gamepad button's icon (scrDrawInput)
   else if sceneProgress=13 and bWaitForInput=false
     msgCreate(0,0,"Jeremy",string("Play whichever way you're more comfortable with. There are more niche dash settings hidden by default that can be turned on in the menu if you know where to look. "),0,3,oMessageCutscene,1)
   else if sceneProgress=14 and bWaitForInput=false

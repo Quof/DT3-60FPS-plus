@@ -12,6 +12,10 @@ lib_id=1
 action_id=603
 applies_to=self
 */
+//gid order change (added): the creation code looks up the item this door guards (itemID) with GID, but the item can
+//come later in the room's order and register itself (GID_SET) after it, so on the room's first visit the door found
+//no item and destroyed itself in its first Step. Looked up again here (before that Step), once every instance exists
+if variable_local_exists("itemCache") {itemID=GID(itemCache)}
 if variable_local_exists("bBlock")
 {
   sprite_index=sInvisibleSolidMask

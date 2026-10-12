@@ -2016,7 +2016,8 @@ else if global.gameProgress=3590 and room=rGame6_CoMB //----- [18] Getting Doubl
   else if sceneProgress=4 and bWaitForInput=false
     msgCreate(0,0,"Jeremy","No, as soon as we get the Program Chip, you can use it outside.",0,3,oMessageCutscene,1)
   else if sceneProgress=5 and bWaitForInput=false
-    msgCreate(0,0,"Jeremy","To use it, just press the jump button while you're in the air.",0,3,oMessageCutscene,1)
+    //msgCreate(0,0,"Jeremy","To use it, just press the jump button while you're in the air.",0,3,oMessageCutscene,1)
+    msgCreate(0,0,"Jeremy","To use it, just press [Jump] while you're in the air.",0,3,oMessageCutscene,1) //input text change: the input as a [token], shown as the key set for it or the gamepad button's icon
   else if sceneProgress=6 and bWaitForInput=false
     msgCreate(0,0,"Jeremy","You regain your double jump when you land on the ground or deal damage to an enemy.",0,3,oMessageCutscene,1)
   else if sceneProgress=7 and bWaitForInput=false

@@ -28,6 +28,18 @@ dsTextType=argument5
 dsLineHeight=argument6
 dsLineWidth=argument7
 
+//input text change (added): input [tokens] ([Jump], [Action A]...) show the key set for them, or the gamepad
+//button's icon while the gamepad is in use (scrInputText, scrDrawInputShadow)
+if is_string(dsTextString)
+{
+  if string_pos("[",dsTextString)>0
+  {
+    if global.gpLastUsed=1 {if scrInputHas(dsTextString) {scrDrawInputShadow(dsTextString,dsTextX,dsTextY,dsTextMainCol,dsTextShadowCol,dsTextType,dsLineHeight,dsLineWidth); exit}}
+    dsTextString=scrInputText(dsTextString)
+    global.inputAlign=fa_left //a centered caller's setting is used up
+  }
+}
+
 if dsTextType=0 //-------------------- BREAK --------------------
 {
   draw_set_color(dsTextShadowCol)

@@ -228,7 +228,8 @@ if global.gameProgress=620 and room=rLink2_HP //----- [1] Intro to Hyrule - Ch.4
     var tNewTutorial,tNewChapter,tempMplay;
     tNewTutorial=instance_create(0,0,oTutorialPanel)
     tNewTutorial.tutorialTitle="Action Button A"
-    tNewTutorial.tutorialInfo=string("To use Link's primary ability, the Master Sword, press Action Button A, which is currently set to [") +string(global.ctrlActA) +string("].")
+    //tNewTutorial.tutorialInfo=string("To use Link's primary ability, the Master Sword, press Action Button A, which is currently set to [") +string(global.ctrlActA) +string("].")
+    tNewTutorial.tutorialInfo="To use Link's primary ability, the Master Sword, press Action Button A, which is currently set to [Action A]." //input text change: the keys as [tokens], shown as the key set for them or the gamepad button's icon (scrDrawInput)
     tNewTutorial.scrAreaY=0
     tNewChapter=instance_create(0,0,oChapterDisplay)
     tNewChapter.newChapter="Chapter 4#Jerry's Adventure"
@@ -360,7 +361,8 @@ else if global.gameProgress=690 and room=rLink2_PalaceA_6 //----- [5] After grab
     var tNewTutorial,tNewBarrier;
     tNewTutorial=instance_create(0,0,oTutorialPanel)
     tNewTutorial.tutorialTitle="Action Button B"
-    tNewTutorial.tutorialInfo=string("To use Link's Arrows, press [") +string(global.ctrlActB) +string("]. You can charge the arrow by holding it down. Hold [Up] or [Down] before firing to change the firing direction.")
+    //tNewTutorial.tutorialInfo=string("To use Link's Arrows, press [") +string(global.ctrlActB) +string("]. You can charge the arrow by holding it down. Hold [Up] or [Down] before firing to change the firing direction.")
+    tNewTutorial.tutorialInfo="To use Link's Arrows, press [Action B]. You can charge the arrow by holding it down. Hold [Up] or [Down] before firing to change the firing direction." //input text change: the keys as [tokens], shown as the key set for them or the gamepad button's icon (scrDrawInput)
     tNewTutorial.scrAreaY=0
     tNewBarrier=instance_create(640,240,oSwitchBarrier)
     tNewBarrier.switchID=140072
@@ -570,7 +572,8 @@ else if global.gameProgress=725 and room=rLink2_PalaceF_9 //----- [7] After grab
     var tNewTutorial;
     tNewTutorial=instance_create(0,0,oTutorialPanel)
     tNewTutorial.tutorialTitle="Action Button C"
-    tNewTutorial.tutorialInfo=string("To use Link's Bombs, press [") +string(global.ctrlActC) +string("]. Like the arrows, their initial angle can be changed by holding Up or Down before firing. Press the bomb button again while it is active to speed up its detonation.")
+    //tNewTutorial.tutorialInfo=string("To use Link's Bombs, press [") +string(global.ctrlActC) +string("]. Like the arrows, their initial angle can be changed by holding Up or Down before firing. Press the bomb button again while it is active to speed up its detonation.")
+    tNewTutorial.tutorialInfo="To use Link's Bombs, press [Action C]. Like the arrows, their initial angle can be changed by holding Up or Down before firing. Press the bomb button again while it is active to speed up its detonation." //input text change: the keys as [tokens], shown as the key set for them or the gamepad button's icon (scrDrawInput)
     tNewTutorial.scrAreaY=0
     sceneDelay=0; sceneProgress=0
     global.newMapX=208

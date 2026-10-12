@@ -199,7 +199,10 @@ if showOptions>0
   draw_text(view_xview[0]+240,view_yview[0]+30,"GAME OVER")
   draw_set_font(fnt_Points)
   draw_set_color(failColor)
-  draw_text(view_xview[0]+240,view_yview[0]+68,failMessage)
+  //draw_text(view_xview[0]+240,view_yview[0]+68,failMessage)
+  global.inputAlign=fa_center //input text change (added): its alignment, for the gamepad icon (scrDrawInput)
+  scrDrawInput(view_xview[0]+240,view_yview[0]+68,failMessage,-1,-1,1) //input text change: [Jump] shows the key set for it, or the gamepad button's icon
+  global.inputAlign=fa_left //input text change (added)
   draw_set_font(fnt_GOoptions)
   draw_set_color(c_white)
   menuStartY=135

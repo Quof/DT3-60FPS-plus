@@ -183,7 +183,8 @@ if global.gamePaused=0
     }
     else if convoTime=110
     {
-      msgCreate(60,80,"Jeremy","Huh, I still have my dash and I can focus move with the jump button.",0,1,oMessagePerson,0)
+      //msgCreate(60,80,"Jeremy","Huh, I still have my dash and I can focus move with the jump button.",0,1,oMessagePerson,0)
+      msgCreate(60,80,"Jeremy","Huh, I still have my dash and I can focus move with [Jump].",0,1,oMessagePerson,0) //input text change: the input as a [token], shown as the key set for it or the gamepad button's icon
       newMessage.fadingTime=120
     }
     else if convoTime=230

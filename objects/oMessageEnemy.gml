@@ -223,10 +223,14 @@ if instance_exists(enemyID)
   //---------- Display Key Commands ----------
   draw_set_halign(fa_center)
   //textDropShadow(global.ctrlJump,statsWindowX+218,statsWindowY+39,textColor1,textColor2,4)
-  textDropShadow(global.ctrlConfirm,statsWindowX+218,statsWindowY+39,textColor1,textColor2,4) //controls change: the window closes with Confirm
-  textDropShadow(global.ctrlActA,statsWindowX+218,statsWindowY+53,textColor1,textColor2,4)
-  textDropShadow(global.ctrlActB,statsWindowX+218,statsWindowY+67,textColor1,textColor2,4)
-  textDropShadow(global.ctrlActC,statsWindowX+218,statsWindowY+81,textColor1,textColor2,4)
+  //textDropShadow(global.ctrlConfirm,statsWindowX+218,statsWindowY+39,textColor1,textColor2,4) //controls change: the window closes with Confirm
+  //textDropShadow(global.ctrlActA,statsWindowX+218,statsWindowY+53,textColor1,textColor2,4)
+  //textDropShadow(global.ctrlActB,statsWindowX+218,statsWindowY+67,textColor1,textColor2,4)
+  //textDropShadow(global.ctrlActC,statsWindowX+218,statsWindowY+81,textColor1,textColor2,4)
+  scrDrawInputKey(15,statsWindowX+218,statsWindowY+39,textColor1,textColor2,4) //input text change: the key set for it, or the gamepad button's icon (scrDrawInputKey)
+  scrDrawInputKey(6,statsWindowX+218,statsWindowY+53,textColor1,textColor2,4) //input text change: the key set for it, or the gamepad button's icon
+  scrDrawInputKey(7,statsWindowX+218,statsWindowY+67,textColor1,textColor2,4) //input text change: the key set for it, or the gamepad button's icon
+  scrDrawInputKey(8,statsWindowX+218,statsWindowY+81,textColor1,textColor2,4) //input text change: the key set for it, or the gamepad button's icon
 
   draw_set_color(c_green)
   draw_set_alpha(0.25)

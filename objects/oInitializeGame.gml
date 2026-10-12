@@ -813,7 +813,8 @@ else //Title screen stuff
   textDropShadow("Game by ZephyrBurst",4,335,c_white,c_black,1)
   //title options change (added): controls can be changed from the title's Options menu now, so show the current ones
   //controlHelp="Controls:#[" +string(global.ctrlUp) +"] Up    [" +string(global.ctrlDown) +"] Down#[" +string(global.ctrlJump) +"] Confirm"
-  controlHelp="Controls:#[" +string(global.ctrlUp) +"] Up    [" +string(global.ctrlDown) +"] Down#[" +string(global.ctrlConfirm) +"] Confirm" //controls change: Confirm's own key
+  //controlHelp="Controls:#[" +string(global.ctrlUp) +"] Up    [" +string(global.ctrlDown) +"] Down#[" +string(global.ctrlConfirm) +"] Confirm" //controls change: Confirm's own key
+  controlHelp="Controls:#[Up Key] Up    [Down Key] Down#[Confirm] Confirm" //input text change: the keys as [tokens], shown as the key set for them or the gamepad button's icon (scrDrawInput)
   textDropShadow(controlHelp,384,307,c_white,c_black,1)
 
   //DT3 Title - width[432]  heightToSecondWord[30]
