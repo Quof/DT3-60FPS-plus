@@ -1710,7 +1710,8 @@ else if room=rExtGateE_5 //shadow form dark room
 }
 else if room=rExtGateG_1 or room=rExtGateG_2 or room=rExtGateG_3 or room=rExtGateG_4 //----- Background Islands -----
 {
-  backIsleSpawn-=1
+  //backIsleSpawn-=1
+  backIsleSpawn-=1*gDeltaTime //60fps change: the spawn countdown ran every frame, 2x/4x as fast at 60/120fps (2x/4x as many islands)
   if backIsleSpawn<=0
   {
     var tSpawnZone;

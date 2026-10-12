@@ -1003,7 +1003,8 @@ if isCollisionLadder() and state=CLIMBING and kJumpPressed and bTakingDamage=fal
 //---------- Run (Not used right now) ----------
 if kRun and (kLeft or kRight) and bTakingDamage=false
 {
-  flySpeed+=2
+  //flySpeed+=2
+  flySpeed+=2*gDeltaTime //60fps change: flySpeed's build-up and drain run every frame while the input is held, 2x/4x as fast at 60/120fps (e.g. the fast-running friction after a flying jump wore off sooner)
   if state!=DUCKING and state!=LOOKING_UP and state!=CLIMBING and state!=FALLING
   {
     if kLeft
@@ -1020,20 +1021,24 @@ if kRun and (kLeft or kRight) and bTakingDamage=false
     }
   }
 }
-else {flySpeed-=3}
+//else {flySpeed-=3}
+else {flySpeed-=3*gDeltaTime} //60fps change: see above
 
 if bTakingDamage=false
 {
-  if kJump {flySpeed-=1}
+  //if kJump {flySpeed-=1}
+  if kJump {flySpeed-=1*gDeltaTime} //60fps change: see above
   if (kLeft and xVel>0) or (kRight and xVel<0)
   {
-    flySpeed-=10
+    //flySpeed-=10
+    flySpeed-=10*gDeltaTime //60fps change: see above
     flySpeedTimer=0
   }
   //If the character hits a wall
   if (kLeft and isCollisionLeft(1)) or (kRight and isCollisionRight(1))
   {
-    flySpeed-=20
+    //flySpeed-=20
+    flySpeed-=20*gDeltaTime //60fps change: see above
     flySpeedTimer=0
   }
 }

@@ -25,7 +25,8 @@ applies_to=self
 if global.gamePaused=false
 {
   _speed=bulletSpeed
-  _direction+=arcAmt
+  //_direction+=arcAmt
+  _direction+=arcAmt*gDeltaTime //60fps change: turned every frame, so the arc curled 2x/4x as tight at 60/120fps (the falloff below was already scaled)
   image_angle=_direction
 
   if arcAmt!=0
@@ -61,7 +62,7 @@ if global.gamePaused=false
     }
     instance_destroy()
   }
-  _speed=0
+  //_speed=0 //60fps change: removed; vanilla only stopped it while paused (the else below), and this cleared the speed before every move, so arc shots hung where they were fired
 }
 else
   {_speed=0;_speed=0}

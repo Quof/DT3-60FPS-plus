@@ -21,7 +21,8 @@ if global.gamePaused=false
   moveWave+=(pi/60)*gDeltaTime
   //balloonX+=cos(moveWave)/2
 
-  oSaturnBalloon.x+=cos(moveWave)/2
+  //oSaturnBalloon.x+=cos(moveWave)/2
+  oSaturnBalloon.x+=cos(moveWave)/2*gDeltaTime //60fps change: moved every frame, so the balloon swayed 2x/4x as wide at 60/120fps
   oSaturnBalloon.y=y+balloonY
 }
 #define Draw_0

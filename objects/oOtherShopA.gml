@@ -37,7 +37,8 @@ if bShopOpen=0
 }
 else
 {
-  cursorTime+=1
+  //cursorTime+=1
+  cursorTime+=1*gDeltaTime //60fps change: the cursor blink ran every frame, 2x/4x as fast at 60/120fps
   if cursorTime mod 15=0
   {
     if cursorPulse=0 {cursorPulse=1}

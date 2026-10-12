@@ -4,7 +4,8 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-image_angle+=rotateSpeed
+//image_angle+=rotateSpeed
+image_angle+=rotateSpeed*gDeltaTime //60fps change: turned every frame, 2x/4x as fast at 60/120fps
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

@@ -62,7 +62,8 @@ if global.gamePaused=false
       bTargetFound=true
       seekTime=seekMax
     }
-    seekTime-=1
+    //seekTime-=1
+    seekTime-=1*gDeltaTime //60fps change: the extend/wait/retract timer ran every frame, 2x/4x as fast at 60/120fps, so the spike only reached half/a quarter as far
     if seekTime>0 //Extend spike
     {
       extendDist-=seekSpeed*gDeltaTime
