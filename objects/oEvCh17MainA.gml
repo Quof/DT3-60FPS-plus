@@ -1285,11 +1285,12 @@ else if global.gameProgress=4110 and room=rHPF_V //----- [] Jerry is trapped ---
         msgCreate(0,0,"Claire","Let him go!!",0,2,oMessagePerson,0)
         newMessage.fadingTime=70
       }
-      else if sceneDelay=90 {charJerry.sprite_index=sJerryDamaged}
+      else if sceneDelay=90 {charJerry.sprite_index=sJerryDamaged; jerryRise=0} //(jerryRise: 60fps change (added), see below)
       else if sceneDelay>=91 and sceneDelay<=218
       {
         //charJerry.y-=0.5
-        if gDeltaDoTicks {charJerry.y-=0.5} //60fps change: per-tick rise like the soul below; per frame Jerry rose 2x/4x too far at 60/120fps
+        //if gDeltaDoTicks {charJerry.y-=0.5} //60fps change: per-tick rise like the soul below; per frame Jerry rose 2x/4x too far at 60/120fps
+        if gDeltaDoTicks {jerryRise+=0.5; if jerryRise>=1 {charJerry.y-=1; jerryRise-=1}} //60fps change: a whole pixel every 2 ticks, the same speed; 0.5px a tick left him between pixels every other tick, which drew unevenly (a slight stutter)
         if sceneDelay=160
         {
           msgCreate(0,0,"Hex","Now why would I do something like that?",0,2,oMessagePerson,0)
@@ -1302,8 +1303,10 @@ else if global.gameProgress=4110 and room=rHPF_V //----- [] Jerry is trapped ---
         jerrySoul.type=3; jerrySoul.sprite_index=sEfFirefly; jerrySoul.newBlend=1
         jerrySoul.image_alpha=0.6; jerrySoul.image_xscale=0.2; jerrySoul.image_yscale=0.2
         jerrySoul.fadeSpd=0; jerrySoul.AccelX=0; jerrySoul.AccelY=0; jerrySoul.followID=-1; jerrySoul.rotation=15
+        soulRise=0 //60fps change (added): see below
       }
-      else if sceneDelay>=331 and sceneDelay<=394 and gDeltaDoTicks {jerrySoul.y-=0.5}
+      //else if sceneDelay>=331 and sceneDelay<=394 and gDeltaDoTicks {jerrySoul.y-=0.5}
+      else if sceneDelay>=331 and sceneDelay<=394 and gDeltaDoTicks {soulRise+=0.5; if soulRise>=1 {jerrySoul.y-=1; soulRise-=1}} //60fps change: a whole pixel every 2 ticks, as Jerry above
       else if sceneDelay=420
       {
         var tEfJS;

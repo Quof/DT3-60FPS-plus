@@ -66,7 +66,9 @@ else if balloonProg=3 //-------------------- Wait time --------------------
   }
   else if balloonTime>=141 and balloonTime<=364 //112 pixels
   {
-    with oStaticSpike if gDeltaDoTicks {y+=0.5}
+    //with oStaticSpike if gDeltaDoTicks {y+=0.5}
+    if !variable_local_exists("spikeStep") {spikeStep=0}
+    if gDeltaDoTicks {spikeStep+=0.5; if spikeStep>=1 {with oStaticSpike {y+=1}; spikeStep-=1}} //60fps change: the same speed in whole pixels (it moved a fraction of one per tick and sat between pixels, which drew unevenly)
   }
   else if balloonTime=365 {balloonTime=0; balloonProg+=1}
 }

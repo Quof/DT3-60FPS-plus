@@ -514,7 +514,9 @@ else if room=rDCS_U and global.gameProgress=4780 //----- [] Boss Fight: Shadow E
             tEffect.AccelX=0; tEffect.AccelY=0; tEffect.followID=-1; tEffect.rotation=0
           }
         }
-        if gDeltaDoTicks {myRockA.y+=0.25; myRockB.y+=0.25; myRockC.y+=0.25}
+        //if gDeltaDoTicks {myRockA.y+=0.25; myRockB.y+=0.25; myRockC.y+=0.25}
+        if !variable_local_exists("rockStep") {rockStep=0}
+        if gDeltaDoTicks {rockStep+=0.25; if rockStep>=1 {myRockA.y+=1; myRockB.y+=1; myRockC.y+=1; rockStep-=1}} //60fps change: the same speed in whole pixels (it moved a fraction of one per tick and sat between pixels, which drew unevenly)
         if myRockA.y>=76 {sceneDelay=1000}
       }
       else if sceneDelay=1040
@@ -733,7 +735,9 @@ else if room=rDCS_V and global.gameProgress=4790 //----- [] The second Dragoon p
     else if sceneDelay=220 {pullSpeed=12}
 
     //Pull Warmaster
-    if sceneDelay>=140 and sceneDelay<=200 and gDeltaDoTicks {myNPC.x+=0.5}
+    //if sceneDelay>=140 and sceneDelay<=200 and gDeltaDoTicks {myNPC.x+=0.5}
+    if !variable_local_exists("pullStep") {pullStep=0}
+    if sceneDelay>=140 and sceneDelay<=200 and gDeltaDoTicks {pullStep+=0.5; if pullStep>=1 {myNPC.x+=1; pullStep-=1}} //60fps change: the same speed in whole pixels (it moved a fraction of one per tick and sat between pixels, which drew unevenly)
     else if sceneDelay>=201 and sceneDelay<=220 and gDeltaDoTicks {myNPC.x+=1}
     if sceneDelay>=221 and sceneDelay<=299
     {

@@ -39,5 +39,11 @@ else if x>=room_width+16
   instance_destroy()
 else if y>=room_height+16
   instance_destroy()
+//60fps change (added): storm flakes (type 2) fly in a straight line faster than the view moves, so once one has left the
+//view it can't be seen again. They lived until they left the room (hundreds at once in the large ice rooms), which
+//lagged at 60/120fps where each one runs every frame
+else if type=2 and (y>=view_yview[0]+view_hview[0]+32 or (_hspeed>0 and x>=view_xview[0]+view_wview[0]+32) or (_hspeed<0 and x<view_xview[0]-32))
+  instance_destroy()
 
-correctHSpeedVSpeed(self)
+//correctHSpeedVSpeed(self)
+x+=_hspeed*gDeltaTime; y+=_vspeed*gDeltaTime //60fps change: the same move without the script call (Create sets both), as there are many flakes

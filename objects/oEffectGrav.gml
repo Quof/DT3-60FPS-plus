@@ -39,6 +39,10 @@ else if type=2
 }
 
 correctHSpeedVSpeed(self)
+//60fps change (added): effects spawned with decay=-100 (the "no timer" value, e.g. the Malignant Ooze's poison clouds)
+//never reach decay=0, so they fell out of the room and kept running Step/Draw for the rest of the room. Hundreds of
+//them, 2x/4x as often at 60/120fps, caused heavy lag. Once one is falling fully below the room it can't be seen again
+if bbox_top>room_height and ySpd>=0 and grav>=0 and followID=-1 {instance_destroy()}
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

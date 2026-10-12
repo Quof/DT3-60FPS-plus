@@ -190,7 +190,7 @@ if global.gamePaused=false
 
   oPlayer1.sprite_index=sDragoonHitBox
   oPlayer1.x=x; oPlayer1.y=y
-  oDragKirby.x=round(x)+24; oDragKirby.y=round(y) //(whole pixels, see Draw)
+  oDragKirby.x=floor(x+0.5)+24; oDragKirby.y=floor(y+0.5) //(whole pixels, see Draw)
   oDragSuck.x=x+40; oDragSuck.y=y
 }
 #define Other_10
@@ -271,9 +271,9 @@ applies_to=self
 */
 //drawn at whole pixels: above 30fps the ship moves fractions of a pixel per frame, and drawing pixel art at a
 //fractional position doubles/drops rows (the ship's bottom looked distorted when moving down at 120fps)
-draw_sprite_ext(sDragoonFlier,0,round(x),round(y),1,1,0,c_white,oPlayer1.image_alpha)
+draw_sprite_ext(sDragoonFlier,0,floor(x+0.5),floor(y+0.5),1,1,0,c_white,oPlayer1.image_alpha)
 if bFocus=1
 {
   hitBoxImgRot+=3*gDeltaTime
-  draw_sprite_ext(sDragoonHitBox,image_index,round(x),round(y),1,1,hitBoxImgRot,c_white,1)
+  draw_sprite_ext(sDragoonHitBox,image_index,floor(x+0.5),floor(y+0.5),1,1,hitBoxImgRot,c_white,1)
 }

@@ -52,6 +52,9 @@ lib_id=1
 action_id=603
 applies_to=self
 */
+var tRealX,tRealY; //60fps change (added): drawn on the same whole pixels as its grapple points (oStrikeChainPoint), so
+tRealX=x; tRealY=y //they don't shift against the wheel while it moves half a pixel a frame (put back at the end)
+x=floor(x+0.5); y=floor(y+0.5)
 draw_set_color(connectionColor)
 draw_set_alpha(1)
 draw_line_width(x,y,x+107,y+107,2) //Top
@@ -64,3 +67,4 @@ draw_sprite_ext(sCh18Wheel,image_index,x,y,image_xscale,image_yscale,wheelRotate
 draw_sprite_ext(sCh18Wheel,image_index,x+107,y+107,image_xscale,image_yscale,wheelRotate,image_blend,image_alpha) //Top-right
 draw_sprite_ext(sCh18Wheel,image_index,x+107,y+324,image_xscale,image_yscale,-wheelRotate,image_blend,image_alpha) //Bottom-right
 draw_sprite_ext(sCh18Wheel,image_index,x,y+217,image_xscale,image_yscale,-wheelRotate,image_blend,image_alpha) //Bottom-left
+x=tRealX; y=tRealY //60fps change (added): see the top

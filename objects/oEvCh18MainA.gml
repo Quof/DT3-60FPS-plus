@@ -1345,7 +1345,9 @@ else if global.gameProgress=4470 and room=rLowFacCutA //----- [] CHAOS Warship t
     //else if sceneDelay>=81 and sceneDelay<=290 //Ship flies up
     else if sceneDelay>80 and sceneDelay<=290 //Ship flies up //60fps change: covers every frame of the first tick, so it runs its full length
     {
-      theWarship.y-=0.1*gDeltaTime
+      //theWarship.y-=0.1*gDeltaTime
+      if !variable_local_exists("shipStep") {shipStep=0}
+      if gDeltaDoTicks {shipStep+=0.1; if shipStep>=1 {theWarship.y-=1; shipStep-=1}} //60fps change: the same speed in whole pixels (it moved a fraction of one per tick and sat between pixels, which drew unevenly)
       if theWarship.image_xscale<0.15
       {
         theWarship.image_xscale+=0.0005*gDeltaTime; theWarship.image_yscale+=0.0005*gDeltaTime

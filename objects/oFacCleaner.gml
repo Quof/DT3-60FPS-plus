@@ -145,7 +145,7 @@ applies_to=self
 //pixels and stuttered; its real x is put back at the end
 var tRealX;
 tRealX=x
-x=round(x)
+x=floor(x+0.5) //60fps change: whole pixels (floor(v+0.5): GM8's round() rounds .5 to the even number, so a mover on half pixels stepped 0 then 2 pixels)
 if bActive=true
 {
   if shotTime>=shotDelay and bRockForm=0

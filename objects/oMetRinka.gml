@@ -45,6 +45,9 @@ if global.gamePaused=false
   if bActive=true
   {
     _speed=3
+    //60fps change (added): a Rinka that missed flew on in a straight line forever (nothing stops it outside the view), so
+    //one piled up off-room every few seconds through the Mother Brain fight, each still running every frame at 60/120fps
+    if x<-32 or x>room_width+32 or y<-32 or y>room_height+32 {instance_destroy()}
   }
   else
   {

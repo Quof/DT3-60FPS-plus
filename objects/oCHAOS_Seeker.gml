@@ -43,6 +43,7 @@ chaoText="You can tell what mode it's in by the sight color.#Blue: Patrol mode -
 devText="I had always planned to have a semi-stealth level in DT3, but it was cut during development. It was later re-added to the plans, but was once again cut. Looks like it made its way in though."
 
 myPath=path_add()
+pathTickSpd=0; pathFromX=x; pathFromY=y; pathStepX=0; pathStepY=0; pathStepLeft=0 //60fps change (added): see the End Step
 
 _direction=initDir
 myRange=instance_create(x,y,oCS_Range)
@@ -105,17 +106,19 @@ if global.gamePaused=false
 
       if movePause=0
       {
+        if gDeltaDoTicks { //60fps change (added): planned and followed once per 30fps tick, a whole tick's step at a time as at 30fps (the End Step spreads each step over the tick's frames)
         mp_grid_path(oCS_Grid.myGrid,myPath,x,y,pointX,pointY,1)
         spdChk=(moveSpd*0.9)*moveMod
         if spdChk<2 {spdChk=2}
         else if spdChk>5 {spdChk=5}
-        //path_start(myPath,spdChk,2,1)
-        path_start(myPath,spdChk*gDeltaTime,2,1) //60fps change: path speed is per frame, so it moved 2x/4x as fast at 60/120fps
+        path_start(myPath,spdChk,2,1)
+        pathTickSpd=spdChk //60fps change (added): the path's speed on each tick (see the end of the Step)
         if point_distance(x,y,pointX,pointY)<(moveSpd*0.9)*moveMod
         {
           movePause=10
           alertMode=2
         }
+        } //60fps change (added)
       }
       else {movePause-=1*gDeltaTime}
     }
@@ -127,11 +130,12 @@ if global.gamePaused=false
 
       if movePause=0
       {
+        if gDeltaDoTicks { //60fps change (added): planned and followed once per 30fps tick, a whole tick's step at a time as at 30fps (the End Step spreads each step over the tick's frames)
         mp_grid_path(oCS_Grid.myGrid,myPath,x,y,xstart,ystart,1)
         spdChk=moveSpd*1.25
         if spdChk>5 {spdChk=5}
-        //path_start(myPath,spdChk,2,1)
-        path_start(myPath,spdChk*gDeltaTime,2,1) //60fps change: path speed is per frame, so it moved 2x/4x as fast at 60/120fps
+        path_start(myPath,spdChk,2,1)
+        pathTickSpd=spdChk //60fps change (added): the path's speed on each tick (see the end of the Step)
         if point_distance(x,y,xstart,ystart)<moveSpd*1.25
         {
           _speed=0
@@ -141,6 +145,7 @@ if global.gamePaused=false
           turnTime=0
           alertMode=0
         }
+        } //60fps change (added)
       }
       else {movePause-=1*gDeltaTime}
     }
@@ -153,12 +158,14 @@ if global.gamePaused=false
       alertTime-=1*gDeltaTime
       if alertTime<=120
       {
+        if gDeltaDoTicks { //60fps change (added): planned and followed once per 30fps tick, a whole tick's step at a time as at 30fps (the End Step spreads each step over the tick's frames)
         mp_grid_path(oCS_Grid.myGrid,myPath,x,y,oPlayer1.x,returnPlayerYCenter(),1)
         spdChk=moveSpd*0.6
         if spdChk<1.5 {spdChk=1.5}
         else if spdChk>5 {spdChk=5}
-        //path_start(myPath,spdChk,2,1)
-        path_start(myPath,spdChk*gDeltaTime,2,1) //60fps change: path speed is per frame, so it moved 2x/4x as fast at 60/120fps
+        path_start(myPath,spdChk,2,1)
+        pathTickSpd=spdChk //60fps change (added): the path's speed on each tick (see the end of the Step)
+        } //60fps change (added)
 
         //if oGame.time mod 10=0
         if oGame.time mod (10/gDeltaTime)=0 //60fps change: fired every 10 frames (2x/4x as many shots at 60/120fps)
@@ -218,9 +225,43 @@ else
 {
   _speed=0
   path_end()
+  pathStepLeft=0 //60fps change (added): see the End Step
 }
 
+//60fps change (added): GM sets its built-in speed to 0 on every step along a path, so a seeker shot while patrolling
+//stopped moving that way once it chased. _speed stayed set, and its push every frame, just before GM's path step, made
+//GM's facing (direction, measured from where the step started to where it ended) point the wrong way
+if path_index>=0 {_speed=0}
 correctSpeedDirection(self)
+//60fps change (added): the path only moves on 30fps ticks, by a whole tick's step as at 30fps (the same route, turns and
+//drift past the point), and the End Step spreads each step over the tick's frames. Moving a little along it every frame
+//(and planning it again every frame) made GM's facing follow each short leg of the grid path, so the seeker and its
+//sight range jittered, and paths kept going past the point between plans
+if path_index>=0 {if gDeltaDoTicks {path_speed=pathTickSpd} else {path_speed=0}}
+pathFromX=x; pathFromY=y
+#define Step_2
+/*"/*'/**//* YYD ACTION
+lib_id=1
+action_id=603
+applies_to=self
+*/
+event_inherited()
+//60fps change (added): on a tick frame the path just moved a whole 30fps tick's step (see the end of the Step); go back
+//and cover that step in a straight line over the tick's frames instead (GM's facing for the step, direction, stays)
+if gDeltaTime<1 and global.gamePaused=false
+{
+  if gDeltaDoTicks and path_index>=0
+  {
+    pathStepX=(x-pathFromX)*gDeltaTime; pathStepY=(y-pathFromY)*gDeltaTime
+    x=pathFromX+pathStepX; y=pathFromY+pathStepY
+    pathStepLeft=round(1/gDeltaTime)-1
+  }
+  else if pathStepLeft>0
+  {
+    x+=pathStepX; y+=pathStepY
+    pathStepLeft-=1
+  }
+}
 #define Collision_oPlayer1
 /*"/*'/**//* YYD ACTION
 lib_id=1

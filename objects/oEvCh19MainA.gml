@@ -770,7 +770,9 @@ else if room=rDiscoI //----- [] Boss Fight: Defective -----
     }
     else if sceneProgress=2
     {
-      if gDeltaDoTicks {oPlayer1.x+=0.5}
+      //if gDeltaDoTicks {oPlayer1.x+=0.5}
+      if !variable_local_exists("edgeStep") {edgeStep=0}
+      if gDeltaDoTicks {edgeStep+=0.5; if edgeStep>=1 {oPlayer1.x+=1; edgeStep-=1}} //60fps change: the same speed in whole pixels (it moved a fraction of one per tick and sat between pixels, which drew unevenly)
       if oPlayer1.x>=856
       {
         playSound(global.snd_FadeAway,0,0.92,1)
@@ -779,7 +781,9 @@ else if room=rDiscoI //----- [] Boss Fight: Defective -----
     }
     else if sceneProgress=3
     {
-      if gDeltaDoTicks {oPlayer1.x+=0.5}
+      //if gDeltaDoTicks {oPlayer1.x+=0.5}
+      if !variable_local_exists("edgeStep") {edgeStep=0}
+      if gDeltaDoTicks {edgeStep+=0.5; if edgeStep>=1 {oPlayer1.x+=1; edgeStep-=1}} //60fps change: the same speed in whole pixels (it moved a fraction of one per tick and sat between pixels, which drew unevenly)
       if oPlayer1.x>=884
       {
         if global.activeCharacter=0 {oPlayer1.sprite_index=sJerryDuck}

@@ -73,10 +73,12 @@ else if room=rSamus5_Lv4_C //---------------------------------------------------
     {
       if mySpike[0].x<1008
       {
-        for(i=0;i<7;i+=1)
-        {
-          mySpike[i].x+=0.5*gDeltaTime
-        }
+        //for(i=0;i<7;i+=1)
+        //{
+        //  mySpike[i].x+=0.5*gDeltaTime
+        //}
+        if !variable_local_exists("spikeStep") {spikeStep=0}
+        if gDeltaDoTicks {spikeStep+=0.5; if spikeStep>=1 {for(i=0;i<7;i+=1) {mySpike[i].x+=1}; spikeStep-=1}} //60fps change: the same speed in whole pixels (it moved a fraction of one per tick and sat between pixels, which drew unevenly)
       }
       if !instance_exists(GID(288771)) and !instance_exists(GID(288773))
       {

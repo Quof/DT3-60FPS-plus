@@ -52,6 +52,23 @@ if global.gamePaused=false
     if reuseTime=0 {poleExtendDist=5; bGrappled=0}
   }
 }
+#define Step_2
+/*"/*'/**//* YYD ACTION
+lib_id=1
+action_id=603
+applies_to=self
+*/
+//60fps change (added): the player hanging from this point is put on it in the player's Step, but whatever moves the point
+//(a conveyor, rail or rotating device, or the point itself) can step after the player, which left the player (and the
+//view following them) a frame behind the point; on a point moving every frame that jerked it back and forth a pixel
+//against the player. Put on it again here, once everything has moved for the frame
+if global.gamePaused=false and instance_exists(oPlayer1)
+{
+  if oPlayer1.grappleState=3 and oPlayer1.grappleID=id
+  {
+    oPlayer1.x=floor(x+0.5); oPlayer1.y=floor(y+0.5)+40
+  }
+}
 #define Collision_oMMXstrikeChain
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -76,7 +93,7 @@ action_id=603
 applies_to=self
 */
 var tDX,tDY;
-tDX=round(x); tDY=round(y) //60fps change (added): drawn on whole pixels, like the player hanging from it (characterStepEvent)
+tDX=floor(x+0.5); tDY=floor(y+0.5) //60fps change (added): drawn on whole pixels, like the player hanging from it (characterStepEvent) (floor(v+0.5): GM8's round() rounds .5 to the even number, so a mover on half pixels stepped 0 then 2 pixels)
 for(i=0;i<4;i+=1)
 {
   //if i=0 {draw_sprite_ext(sStrikeChainPole,0,x+poleExtendDist,y-poleExtendDist,1,1,i*90,image_blend,1)}

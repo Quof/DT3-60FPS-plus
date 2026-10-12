@@ -206,7 +206,9 @@ if global.gameProgress=1760 and room=rMega4_Gate //----- [Unskippable] Intro to 
         efCharge.image_yscale=4
       }
 
-      npcMMX.y-=0.25*gDeltaTime
+      //npcMMX.y-=0.25*gDeltaTime
+      if !variable_local_exists("mmxRise") {mmxRise=0}
+      if gDeltaDoTicks {mmxRise+=0.25; if mmxRise>=1 {npcMMX.y-=1; mmxRise-=1}} //60fps change: the same speed in whole pixels (it moved a fraction of one per tick and sat between pixels, which drew unevenly)
     }
     else if sceneDelay=380 //Complete float up
     {

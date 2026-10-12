@@ -39,7 +39,9 @@ if global.gamePaused=false
 
     if x<room_width+16
     {
-      if y<yThres and gDeltaDoTicks {y+=0.5}
+      //if y<yThres and gDeltaDoTicks {y+=0.5}
+      if !variable_local_exists("sinkStep") {sinkStep=0}
+      if y<yThres and gDeltaDoTicks {sinkStep+=0.5; if sinkStep>=1 {y+=1; sinkStep-=1}} //60fps change: the same speed in whole pixels (it moved a fraction of one per tick and sat between pixels, which drew unevenly)
     }
 
     moveProg+=1*gDeltaTime

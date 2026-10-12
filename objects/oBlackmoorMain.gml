@@ -284,7 +284,9 @@ if global.gamePaused=false
     //-------------------- UTILITY: FLAME MOVE --------------------
     if flameProg=1
     {
-      if gDeltaDoTicks oGateCFlame.x+=0.25
+      //if gDeltaDoTicks oGateCFlame.x+=0.25
+      if !variable_local_exists("flameSlide") {flameSlide=0}
+      if gDeltaDoTicks {flameSlide+=0.25; if flameSlide>=1 {oGateCFlame.x+=1; flameSlide-=1}} //60fps change: the same speed in whole pixels (it moved a fraction of one per tick and sat between pixels, which drew unevenly)
       flameMove+=1*gDeltaTime
       if flameMove=32 {flameMove=0; flameProg=0}
     }

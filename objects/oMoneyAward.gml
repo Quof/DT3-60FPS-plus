@@ -17,7 +17,8 @@ if view_current=0
   draw_set_font(fnt_NES)
   draw_set_halign(fa_center)
   draw_set_alpha(1)
-  textDropShadow(string("+") +string(moneyValue),round(x),round(y),c_white,c_black,1)
+  //textDropShadow(string("+") +string(moneyValue),round(x),round(y),c_white,c_black,1)
+  textDropShadow(string("+") +string(moneyValue),floor(x+0.5),floor(y+0.5),c_white,c_black,1) //60fps change: GM8's round() rounds .5 to the even number, which made the rising text step unevenly between ticks
 
   if vspeed>=0 {instance_destroy()}
 }

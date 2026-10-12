@@ -49,7 +49,8 @@ if gDeltaTime != 1.0
         {
             x += hspeed * tDtM1
             y += vspeed * tDtM1
-            speed -= friction * tDtM1
+            //speed -= friction * tDtM1
+            if speed != 0 {speed -= friction * tDtM1} //60fps change: GM's friction stops at 0, and adding the excess back from there left a small speed that never ran out (e.g. the Malignant Ooze's sparks, which end once slower than 0.25, drifted forever)
         }
     }
     // The visual effect objects are also included even without friction: lots of code spawns them with

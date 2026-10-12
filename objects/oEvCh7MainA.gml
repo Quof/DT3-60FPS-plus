@@ -234,7 +234,9 @@ else if global.gameProgress=1570 and room=rMain_21 //----- [Unskippable] Enemy T
           else if sceneDelay=630
             {msgCreate(0,0,"Jerry","I don't like this...",0,1,oMessagePerson,0); newMessage.fadingTime=60}
 
-          eImageDrop.y+=0.5*gDeltaTime
+          //eImageDrop.y+=0.5*gDeltaTime
+          if !variable_local_exists("dropStep") {dropStep=0}
+          if gDeltaDoTicks {dropStep+=0.5; if dropStep>=1 {eImageDrop.y+=1; dropStep-=1}} //60fps change: the same speed in whole pixels (it moved a fraction of one per tick and sat between pixels, which drew unevenly)
           if eImageDrop.y>=288 {sceneDelay=0; sceneProgress+=1}
         }
       }

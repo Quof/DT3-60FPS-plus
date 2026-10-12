@@ -65,8 +65,10 @@ if global.gamePaused=false
 
     if isCollisionBottom(1)
       yVel=0
+    //if isCollisionSolid()
+    //  y-=6
     if isCollisionSolid()
-      y-=6
+      y-=6*gDeltaTime //60fps change: the push out of the ground ran every frame, so on slopes (where the growing ball keeps sinking in) it rose 2x/4x as fast at 60/120fps
 
     //moveTo(xVel,yVel)
     enemySlopeMovement()

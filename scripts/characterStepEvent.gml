@@ -1337,8 +1337,8 @@ else if grappleState=2 //Player is being pulled toward grapple point
       grappleID.retractTime=11
       //x=grappleID.x
       //y=grappleID.y+40
-      x=round(grappleID.x) //60fps change: on whole pixels (a moving point is on fractions of one between 30fps ticks, which drew the player distorted)
-      y=round(grappleID.y)+40 //60fps change: see above
+      x=floor(grappleID.x+0.5) //60fps change: on whole pixels (a moving point is on fractions of one between 30fps ticks, which drew the player distorted) (floor(v+0.5): GM8's round() rounds .5 to the even number, so a mover on half pixels stepped 0 then 2 pixels)
+      y=floor(grappleID.y+0.5)+40 //60fps change: see above
       canAirDash=1
       doubleJumpCheck=1
       grappleState=3
@@ -1358,8 +1358,8 @@ else if grappleState=3
   {
     //x=grappleID.x
     //y=grappleID.y+40
-    x=round(grappleID.x) //60fps change: on whole pixels (a moving point is on fractions of one between 30fps ticks, which drew the player distorted)
-    y=round(grappleID.y)+40 //60fps change: see above
+    x=floor(grappleID.x+0.5) //60fps change: on whole pixels (a moving point is on fractions of one between 30fps ticks, which drew the player distorted) (floor(v+0.5): GM8's round() rounds .5 to the even number, so a mover on half pixels stepped 0 then 2 pixels)
+    y=floor(grappleID.y+0.5)+40 //60fps change: see above
   }
   else
   {

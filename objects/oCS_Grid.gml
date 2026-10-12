@@ -17,7 +17,8 @@ applies_to=self
 /*if global.gamePaused=false
 {
   //Update grid
-  updateCheck+=1
+  //updateCheck+=1
+  updateCheck+=1*gDeltaTime //60fps change: the grid was rebuilt from every solid every 30 frames, 2x/4x as often at 60/120fps
   if updateCheck>=30
   {
     mp_grid_clear_all(myGrid)
