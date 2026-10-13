@@ -38,8 +38,9 @@ IK = dict(HP=1, MONEY=2, EQUIP=3, AQ=4, HE=5, MP=6, GP=7, AU=8, WB=9, WL=10, AP=
 LT_ITEM = {1: "HP", 3: "AQ", 4: "HE", 5: "MP", 6: "GP", 7: "AU", 8: "WB", 10: "AP", 11: "LB", 12: "MB", 13: "KEY",
            14: "HC", 15: "XF", 16: "XC", 17: "XS"}
 
-# progression: the items the logic counts, in the order of the requirement strings (one digit each, keys two)
-PROG = ["jump", "gdash", "adash", "djump", "hijump", "base", "link", "belmont", "megaman", "samus", "gamej", "gamec", "keys"]
+# progression: the items the logic counts, in the order of the requirement strings (one digit each, keys two). mario: the
+# Mario Ability Set (hasAbilToken[0]: jumping on Mario enemies, hitting blocks from below)
+PROG = ["jump", "gdash", "adash", "djump", "hijump", "mario", "link", "belmont", "megaman", "samus", "gamej", "gamec", "keys"]
 # how many of each there are. The ability sets' items are progressive: each one is the set's next level (hasAbilToken 2,
 # 3...): Link and Belmont 3 (their three weapons; nothing uses a level 5), Mega Man 4 (the grapple at 5), Samus 7 (Arm
 # Cannon, Morph Ball, Charge Beam, Missiles, Spazer Beam, Bombs, Diffusion Missile), the Gate 6 sets 2
@@ -50,8 +51,95 @@ EXTRA = [("JUMP", 0), ("GDASH", 0), ("ADASH", 0), ("DJUMP", 0), ("HIJUMP", 0), (
 
 # what the story has given by the time it first reaches an area (the area numbers locationCheck uses are in story
 # order): the logic estimate. Each stage has everything the ones before it have
-STAGE_ADD = {1: {"jump": 1}, 2: {"base": 1}, 3: {"link": 3}, 4: {"gdash": 1, "belmont": 3}, 5: {"megaman": 4},
+STAGE_ADD = {1: {"jump": 1}, 2: {"mario": 1}, 3: {"link": 3}, 4: {"gdash": 1, "belmont": 3}, 5: {"megaman": 4},
              6: {"adash": 1}, 7: {"samus": 7, "hijump": 2}, 8: {"djump": 1, "gamej": 2, "gamec": 2}, 9: {}}
+# places whose pickup only shows once something optional is done (their creation code checks the global): the stage of
+# the logic they need. Tower defense (rCCity_NorthA's rewards for its offenses) opens late in the story (gameProgress
+# 3900), and its fights are the player's own
+COND_STAGE = {"gameOptTowerDef": 8}
+# places a Trial Master trial gives (the pickup's creation code hides it till the trial's done; Central City South's
+# heart container, made by the room, comes with the 7th): no ability or key there, since the trials need the three
+# cursed equipment pieces on (equipment 10-12, shuffled as other items), and those don't go there either (rndGenerate)
+COND_TRIAL = "trialMasterQuest"
+TRIAL_HC = 7
+
+
+# the pickups whose events get the randomizer's part ahead of the game's own (their location type), and what that part is
+SIMPLE_PICKUPS = {"oHeartPiece": 1, "oArrowQuiver": 3, "oHeartEnergy": 4, "oMissilePack": 5, "oGamePower": 6,
+                  "oAirUpgrade": 7, "oWalletBoost": 8, "oWeaponLevelUpgrade": 9, "oAPBoost": 10,
+                  "oLinkBombUpgrade": 11, "oMorphBombUpgrade": 12, "oHeartContainer": 14, "oDoorKey": 13}
+ALARM_PREFIX = ("//Randomizer: in a randomizer game this is a location: it shows its item (rndPickupSetup), or goes if that's\n"
+                "//been taken. Otherwise as the game's own\n"
+                "if global.rndActive=1\n{\n  rndPickupSetup(%d)\n%s  exit\n}\n")
+ALARM_EXTRA = {"oHeartContainer": "  if rndLoc>=0 {if !rndHCOpen(objectNum) {instance_destroy()}} //its boss beaten first\n",
+               "oDoorKey": "  indexCheck=\"0\"\n"}
+COLL_PREFIX = ("//Randomizer: in a randomizer game, the location's item. Otherwise as the game's own\n"
+               "if global.rndActive=1\n{\n  if variable_local_exists(\"rndLoc\") {if rndLoc>=0 {rndCollect(rndLoc);%s instance_destroy()}}\n"
+               "  exit\n}\n")
+COLL_EXTRA = {"oDoorKey": " indexCheck=\"1\";"}
+# other events of the game's objects the mod has its own copy of: the game's own (read when the mod's built), with one
+# line changed (the original kept commented above it). The randomizer's boss fights have the boss gallery's flag on (so a
+# beaten boss goes to the gallery, where rndBossEnd takes over) without its timer
+GAME_PATCHES = [
+    ("oHUD", "Draw_0",
+     "    if global.bBossGallery=1 and room!=rBossGallery //Display timer in boss gallery\n",
+     "    //if global.bBossGallery=1 and room!=rBossGallery //Display timer in boss gallery\n"
+     "    if global.bBossGallery=1 and room!=rBossGallery and global.rndFight<0 //Randomizer change: not in a randomizer boss fight\n"),
+]
+
+# bosses: the boss gallery's doors give each boss's type (oBossGalleryDoor's user event 0 sets its fight up), room and
+# where the player starts it. One boss a room (its first type: Death, Sigma, Ridley and Decimator have a second). Left to
+# the game: the Nightmare Gates' bosses (their instruments: rooms rExtGate*), the Abomination (type 58, the instrument
+# quest's), the Warmaster EX room (type 65: the game's own Fedex fight), the Ridley tunnel chase (37) and the Leviathan
+# road (41), which aren't fights a room makes
+BOSS_SKIP = {37, 41, 58, 65}
+BOSS_FINAL = 60          # the Warmaster: the win (his door is in the first room)
+HC_BOSS = {1: 2, 2: 8, 3: 14, 4: 24, 5: 35, 6: 46}  # heart container (objectNum): the boss type after whose fight the game gives it
+# bosses whose rooms the story's exit no longer goes to in an endgame world (it goes on past them): going through that
+# exit (from, to) is the way into the fight, and the player goes on to where it leads after it
+BOSS_VIA = {35: ("rSamus5_Lv4_N", "rSamus5_Lv4_RidleyTunnel"), 61: ("rPttT_06", "rPttT_08")}
+
+
+def vanilla_event(obj, ev):
+    """the game's own code for an object's event (objects/<obj>.gml), without the action header"""
+    t = read(os.path.join(PROJ, "objects", obj + ".gml"))
+    parts = re.split(r"^#define (\w+)\s*$", t, flags=re.M)
+    for i in range(1, len(parts), 2):
+        if parts[i] == ev:
+            body = parts[i + 1]
+            body = re.sub(r"^\s*/\*\"/\*'/\*\*//\* YYD ACTION.*?\*/\s*?\n", "", body, count=1, flags=re.S)
+            return body.strip("\n") + "\n"
+    raise SystemExit("%s has no %s event" % (obj, ev))
+
+
+def object_sprite(obj):
+    """an object's sprite (objects\\<obj>.txt), or None"""
+    p = os.path.join(PROJ, "objects", obj + ".txt")
+    if not os.path.exists(p): return None
+    m = re.search(r"^sprite=(\w+)", read(p), re.M)
+    return m.group(1) if m else None
+
+
+def sprite_bounds(name):
+    """each frame's opaque pixels, from the sprite's origin: [(left, top, right, bottom)], None for a frame with none"""
+    sys.path.insert(0, os.path.dirname(HERE))
+    import png
+    d = os.path.join(PROJ, "sprites", name)
+    info = dict(l.strip().split("=", 1) for l in open(os.path.join(d, "sprite.txt"), encoding="utf-8") if "=" in l)
+    ox, oy = int(info.get("origin_x", 0)), int(info.get("origin_y", 0))
+    res = []
+    for i in range(int(info.get("frames", 1))):
+        w, h, rows = png.read(os.path.join(d, "%d.png" % i))
+        l = t = 1 << 30; r = b = -1
+        for y, row in enumerate(rows):
+            for x in range(w):
+                if row[x * 4 + 3]:
+                    if x < l: l = x
+                    if x > r: r = x
+                    if y < t: t = y
+                    b = y
+        res.append((l - ox, t - oy, r - ox, b - oy) if r >= 0 else None)
+    return res
 
 
 def area_stage(a):
@@ -93,6 +181,16 @@ def room_area(room):
     return int(m.group(1)) if m else None
 
 
+def room_areas(rooms):
+    """each room's area. A room without its own locationCheck is in the area the game last set, its room group's
+    (rMario1_1 sets Gate 1's for the rMario1 rooms after it): the group's latest in story order, to be safe"""
+    own = {r: room_area(r) for r in rooms}
+    group = collections.defaultdict(list)
+    for r, a in own.items():
+        if a is not None: group[r.split("_")[0]].append(a)
+    return {r: a if a is not None else max(group[r.split("_")[0]] or [None]) for r, a in own.items()}
+
+
 def instances(room):
     p = os.path.join(ROOMS, room, "instances.txt")
     if not os.path.exists(p): return
@@ -119,7 +217,7 @@ def main():
     out = sys.argv[1]
     rooms = room_names()
     anames = area_names()
-    rarea = {r: room_area(r) for r in rooms}
+    rarea = room_areas(rooms)
 
     # ---- locations: (type, objectNum) -> rooms, vanilla item
     locs = collections.OrderedDict()
@@ -130,11 +228,14 @@ def main():
             if obj == "oLockedDoor":
                 doors[num(code, "objectNum")].add(room)
             elif obj == "oNPC_Shop" and re.search(r"shopType\s*=\s*oShopWindow", code):
+                # a shop: the room editor's id (a room's copies share it); the game finds it by its room and the place
+                # it starts at (its instance id isn't the editor's)
                 sid = int(hexid, 16)
                 inv = [num(code, r"inv\[%d\]" % i) or 0 for i in range(5)]
                 mx = num(code, "maxInv") or 5
-                s = shops.setdefault(sid, {"rooms": [], "inv": [v for v in inv[:mx]]})
+                s = shops.setdefault(sid, {"rooms": [], "at": [], "inv": [v for v in inv[:mx]]})
                 s["rooms"].append(room)
+                s["at"].append((room, x, y))
             elif obj in LT_BY_OBJ:
                 t = LT_BY_OBJ[obj]
                 n = num(code, "objectNum")
@@ -142,6 +243,9 @@ def main():
                 if n is None: continue
                 l = locs.setdefault((t, n), {"rooms": [], "item": None})
                 l["rooms"].append(room)
+                for g, st in COND_STAGE.items():
+                    if re.search(r"global\.%s\b" % g, code): l["cond"] = max(l.get("cond", 0), st)
+                if re.search(r"global\.%s\b" % COND_TRIAL, code): l["trial"] = 1
                 if t == 2:
                     amt = num(code, "objectAmt") or 0
                     l["item"] = ("EQUIP", amt) if num(code, "newItem") == 1 else ("MONEY", amt)
@@ -158,11 +262,16 @@ def main():
     for n in (1, 2, 3):  # the starting items, dropped where a new game starts (see roomStart)
         locs[(18, n)] = {"rooms": ["rMain_1"], "item": None}
 
-    # ---- logic: the stage of each location's area (the most demanding of its rooms), and keys: a key for every locked
-    # door in an area up to its own in story order (a door takes a key as soon as the player is next to it)
-    door_area = sorted(min((rarea.get(r) or 999) for r in rs) for d, rs in doors.items() if d is not None)
+    # ---- logic: the stage of each location's area (the most demanding of its rooms), and keys. Each key opens its own
+    # door (the mod's oLockedDoor: a key that opened any door could be used up on the wrong one, in a world that's all
+    # open), and the doors are in story order (their areas'): a location needs the keys of every locked door in an area
+    # up to its own (one may be in the way); "keys N" is the first N doors' keys
+    door_list = sorted((min((rarea.get(r) or 999) for r in rs), d) for d, rs in doors.items() if d is not None)
+    door_order = [d for a, d in door_list]
+    door_area = [a for a, d in door_list]
+    door_rank = {d: i for i, d in enumerate(door_order)}
     def keys_for(a):
-        if a is None: return PMAX[-1]
+        if a is None: return len(door_order)
         return sum(1 for da in door_area if da <= a)
     overrides, room_over = read_logic()
     rows = []
@@ -171,14 +280,20 @@ def main():
         if t == 18:
             req, a = stage_req(0), 1
         else:
-            st = max(area_stage(a) for a in areas)
+            st = max([area_stage(a) for a in areas] + [l.get("cond", 0)])
             a = max((x for x in areas if x is not None), default=None) if None not in areas else None
             req = stage_req(st)
             req["keys"] = max(keys_for(x) for x in areas)
+            if t == 14 and n == TRIAL_HC: l["trial"] = 1
+            if (t == 14 and n in HC_BOSS) or l.get("trial"):
+                # a heart container a boss's fight gives, or a trial's reward: no ability or key there (asking for
+                # everything keeps them out), so a fight that can't be won yet never holds the game back
+                req = stage_req(9)
+                req["keys"] = len(door_order)
         for r in l["rooms"]:
             if r in room_over: req = merge_req(req, room_over[r])
         if (t, n) in overrides: req = merge_req(req, overrides[(t, n)])
-        rows.append({"type": t, "num": n, "rooms": l["rooms"], "area": a, "req": req, "item": l["item"]})
+        rows.append({"type": t, "num": n, "rooms": l["rooms"], "area": a, "req": req, "item": l["item"], "trial": l.get("trial", 0)})
 
     # ---- items: what the locations hold, the abilities, less as many money chests as needed (the smallest)
     items = [r["item"] for r in rows if r["item"] is not None] + list(EXTRA)
@@ -187,6 +302,45 @@ def main():
     drop = set(money[:extra])
     items = [it for i, it in enumerate(items) if i not in drop]
     assert len(items) == len(rows), (len(items), len(rows))
+    # each key is one door's (its parameter: the door's objectNum)
+    keys = [i for i, it in enumerate(items) if it[0] == "KEY"]
+    if len(keys) != len(door_order) or len(keys) != PMAX[-1]:
+        raise SystemExit("%d keys, %d locked doors (PMAX says %d): each key opens its own door" % (len(keys), len(door_order), PMAX[-1]))
+    for i, d in zip(keys, door_order): items[i] = ("KEY", d)
+
+    # ---- bosses (rBossGallery's doors)
+    bosses = []
+    seen_rooms = set()
+    for obj, x, y, hexid, code in instances("rBossGallery"):
+        if obj != "oBossGalleryDoor": continue
+        t = num(code, "type"); tr = re.search(r"toRoom\s*=\s*(\w+)", code)
+        if t is None or not tr: continue
+        bosses.append((t, tr.group(1), num(code, "newMapX") or 0, num(code, "newMapY") or 0,
+                       (re.search(r'bossName="([^"]*)"', code) or [None, "?"])[1]))
+    bosses.sort()
+    blist = []
+    for t, room, bx, by, name in bosses:
+        if t in BOSS_SKIP or room.startswith("rExtGate") or room in seen_rooms: continue
+        rc = os.path.join(ROOMS, room, "code.gml")
+        if not os.path.exists(rc) or not re.search(r"bossTrack\s*=\s*1", read(rc)): continue
+        seen_rooms.add(room)
+        blist.append((t, room, bx, by, name))
+    bidx = {t: i for i, (t, room, bx, by, name) in enumerate(blist)}
+    if BOSS_FINAL not in bidx: raise SystemExit("the final boss (type %d) isn't in the boss list" % BOSS_FINAL)
+    # where each fight starts (the room code's bossTrack part puts the player there; else the gallery's place): the
+    # player walking up to it starts the fight. One outside the room (the room code moves the player in its own way)
+    # starts as the room is come into
+    bstart = []
+    for t, room, bx, by, name in blist:
+        rc = read(os.path.join(ROOMS, room, "code.gml"))
+        m = re.search(r"if global\.bossTrack\s*(>=|=)\s*1", rc)
+        pp = re.search(r"oPlayer1\.x\s*=\s*(-?\d+)\s*;?\s*oPlayer1\.y\s*=\s*(-?\d+)", rc[m.end():m.end() + 1500]) if m else None
+        fx, fy = (int(pp.group(1)), int(pp.group(2))) if pp else (bx, by)
+        rw = int(re.search(r"^width=(\d+)", read(os.path.join(ROOMS, room, "room.txt")), re.M).group(1))
+        rh = int(re.search(r"^height=(\d+)", read(os.path.join(ROOMS, room, "room.txt")), re.M).group(1))
+        bstart.append((fx, fy, 0 if 0 <= fx < rw and 0 <= fy <= rh else 1))
+    for t, via in BOSS_VIA.items():
+        if t not in bidx or any(r not in rooms for r in via): raise SystemExit("BOSS_VIA: boss %d or a room of %s isn't there" % (t, via))
 
     # ---- write
     os.makedirs(out, exist_ok=True)
@@ -197,6 +351,33 @@ def main():
             dst = os.path.join(out, rel)
             os.makedirs(os.path.dirname(dst), exist_ok=True)
             shutil.copyfile(os.path.join(root, f), dst)
+    # the pickups' events: the randomizer's part, then the game's own (so they follow the project's code)
+    for obj, lt in SIMPLE_PICKUPS.items():
+        d = os.path.join(out, "objects", obj)
+        os.makedirs(d, exist_ok=True)
+        with open(os.path.join(d, "object.ini"), "w", encoding="utf-8", newline="\n") as f:
+            f.write("[object]\nevents=replace\n")
+        with open(os.path.join(d, "Alarm_0.gml"), "w", encoding="utf-8", newline="\n") as f:
+            f.write(ALARM_PREFIX % (lt, ALARM_EXTRA.get(obj, "")) + vanilla_event(obj, "Alarm_0"))
+        with open(os.path.join(d, "Collision_oPlayer1.gml"), "w", encoding="utf-8", newline="\n") as f:
+            f.write(COLL_PREFIX % COLL_EXTRA.get(obj, "") + vanilla_event(obj, "Collision_oPlayer1"))
+    for obj, ev, old, new in GAME_PATCHES:
+        code = vanilla_event(obj, ev)
+        if code.count(old) != 1: raise SystemExit("%s %s: the line GAME_PATCHES changes isn't there once (the game's code changed)" % (obj, ev))
+        d = os.path.join(out, "objects", obj)
+        os.makedirs(d, exist_ok=True)
+        with open(os.path.join(d, "object.ini"), "w", encoding="utf-8", newline="\n") as f:
+            f.write("[object]\nevents=replace\n")
+        with open(os.path.join(d, ev + ".gml"), "w", encoding="utf-8", newline="\n") as f:
+            f.write("//(the game's own %s %s, with the Randomizer's change: rndgen.py GAME_PATCHES)\n" % (obj, ev) + code.replace(old, new))
+    # <event>.prefix.gml (mod\objects): the randomizer's part of one of the game's events, the game's own after it
+    for root, ds, fs in os.walk(os.path.join(out, "objects")):
+        for f in fs:
+            if f.endswith(".prefix.gml"):
+                obj, ev = os.path.basename(root), f[:-len(".prefix.gml")]
+                with open(os.path.join(root, ev + ".gml"), "w", encoding="utf-8", newline="\n") as g:
+                    g.write(read(os.path.join(root, f)).rstrip("\n") + "\n" + vanilla_event(obj, ev))
+                os.remove(os.path.join(root, f))
     L = ["//Randomizer data: every location, the items and the equipment shops, made by tools/modkit/randomizer/rndgen.py",
          "//from the game's rooms (don't change it here: change rndgen.py or logic.txt and build again)",
          "var i,t;",
@@ -206,8 +387,9 @@ def main():
         a = r["area"]
         where = "%s (%s)" % (anames.get(a, "?"), r["rooms"][0]) if a else r["rooms"][0]
         L.append("global.rndLocType[%d]=%d; global.rndLocNum[%d]=%d; global.rndLocOf[%d,%d]=%d; global.rndLocReq[%d]=%s; "
-                 "global.rndLocName[%d]=%s" % (i, r["type"], i, r["num"], r["type"], r["num"], i, i, gml_str(req_str(r["req"])),
-                                               i, gml_str("%s: %s %d" % (where, LT_LABEL[r["type"]], r["num"]))))
+                 "global.rndLocName[%d]=%s; global.rndLocTrial[%d]=%d"
+                 % (i, r["type"], i, r["num"], r["type"], r["num"], i, i, gml_str(req_str(r["req"])),
+                    i, gml_str("%s: %s %d" % (where, LT_LABEL[r["type"]], r["num"])), i, r["trial"]))
     L.append("global.rndItemN=%d" % len(items))
     for i, (k, p) in enumerate(items):
         L.append("global.rndItemKind[%d]=%d; global.rndItemParam[%d]=%d" % (i, IK[k], i, p))
@@ -220,6 +402,51 @@ def main():
                      % (k, sid, k, slot, k, eq, k, gml_str(s["rooms"][0])))
             k += 1
     L.append("global.rndEShopN=%d" % k)
+    # where each shop's shopkeeper is (rndShopEquip finds the shop by its room and starting place)
+    j = 0
+    for sid, s in shops.items():
+        for room, x, y in s["at"]:
+            L.append("global.rndEShopAtRoom[%d]=%s; global.rndEShopAtX[%d]=%d; global.rndEShopAtY[%d]=%d; global.rndEShopAtNpc[%d]=%d"
+                     % (j, room, j, x, j, y, j, sid))
+            j += 1
+    L.append("global.rndEShopAtN=%d" % j)
+    L.append("global.rndBossN=%d" % len(blist))
+    for i, (t, room, bx, by, name) in enumerate(blist):
+        L.append("global.rndBossType[%d]=%d; global.rndBossRoom[%d]=%s; global.rndBossX[%d]=%d; global.rndBossY[%d]=%d; "
+                 "global.rndBossName[%d]=%s" % (i, t, i, room, i, bx, i, by, i, gml_str(name)))
+        vf, vt = BOSS_VIA.get(t, ("-1", "-1"))
+        L.append("global.rndBossViaFrom[%d]=%s; global.rndBossViaTo[%d]=%s" % (i, vf, i, vt))
+        fx, fy, fe = bstart[i]
+        L.append("global.rndBossFX[%d]=%d; global.rndBossFY[%d]=%d; global.rndBossOnEntry[%d]=%d" % (i, fx, i, fy, i, fe))
+    L.append("global.rndBossFinal=%d" % bidx[BOSS_FINAL])
+    for n in range(8):
+        L.append("global.rndHCBoss[%d]=%d" % (n, bidx.get(HC_BOSS.get(n, -1), -1)))
+    # the locked doors (by objectNum): their order (the logic's) and where they are
+    L.append("for(i=0;i<=50;i+=1) {global.rndDoorRank[i]=-1; global.rndDoorArea[i]=%s; global.rndDoorPlace[i]=%s}"
+             % (gml_str("?"), gml_str("?")))
+    L.append("global.rndDoorN=%d" % len(door_order))
+    for i, d in enumerate(door_order):
+        rs = sorted(doors[d])
+        an = anames.get(rarea.get(rs[0]), "?")
+        L.append("global.rndDoorRank[%d]=%d; global.rndDoorArea[%d]=%s; global.rndDoorPlace[%d]=%s"
+                 % (d, i, d, gml_str(an), d, gml_str("%s, %s" % (an, rs[0]))))
+    # the sprites of the pickups and of the items' looks (rndItemLook): their opaque pixels from the origin, of all frames
+    # (rndSprU*) and of each (rndSprF*), for rndItemFit
+    sprs = sorted(set(re.findall(r"sprite_index=(s\w+)", read(os.path.join(HERE, "mod", "scripts", "rndItemLook.gml")))) |
+                  {object_sprite(o) for c, o, l in LTYPES if object_sprite(o)})
+    L.append("global.rndSprMax=0")
+    for s in sprs: L.append("global.rndSprMax=max(global.rndSprMax,%s)" % s)
+    L.append("for(i=0;i<=global.rndSprMax;i+=1) {global.rndSprK[i]=0}")
+    for s in sprs:
+        fr = sprite_bounds(s)
+        known = [b for b in fr if b]
+        u = (min(b[0] for b in known), min(b[1] for b in known), max(b[2] for b in known), max(b[3] for b in known))
+        L.append("global.rndSprK[%s]=1; global.rndSprN[%s]=%d; global.rndSprUL[%s]=%d; global.rndSprUT[%s]=%d; global.rndSprUR[%s]=%d; "
+                 "global.rndSprUB[%s]=%d" % (s, s, len(fr), s, u[0], s, u[1], s, u[2], s, u[3]))
+        for i, b in enumerate(fr):
+            b = b or u
+            L.append("global.rndSprFL[%s,%d]=%d; global.rndSprFT[%s,%d]=%d; global.rndSprFR[%s,%d]=%d; global.rndSprFB[%s,%d]=%d"
+                     % (s, i, b[0], s, i, b[1], s, i, b[2], s, i, b[3]))
     os.makedirs(os.path.join(out, "scripts"), exist_ok=True)
     with open(os.path.join(out, "scripts", "rndData.gml"), "w", encoding="utf-8", newline="\n") as f:
         f.write("\n".join(L) + "\n")
@@ -231,11 +458,77 @@ def main():
         for i, r in enumerate(rows):
             w.writerow([i, LT_LABEL[r["type"]].lower(), r["num"], " ".join(r["rooms"]), r["area"] or "",
                         anames.get(r["area"], ""), req_text(r["req"]), "%s %s" % r["item"] if r["item"] else ""])
+    with open(os.path.join(HERE, "doors.csv"), "w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f)
+        w.writerow(["door (keys N: the first N)", "objectNum", "rooms", "area", "area name"])
+        for i, (a, d) in enumerate(door_list):
+            w.writerow([i + 1, d, " ".join(sorted(doors[d])), a if a < 999 else "", anames.get(a, "")])
     print("locations %d, items %d (%d abilities added, %d money chests left out), equipment shop slots %d, shops %d"
           % (len(rows), len(items), len(EXTRA), len(drop), k, len(shops)))
-    print("locked doors by area:", door_area)
-    cnt = collections.Counter(max((s for s in range(10) if req_le(stage_req(s), r["req"])), default=0) for r in rows)
+    print("locked doors (objectNum: area) in story order:", ", ".join("%d: %s" % (d, a if a < 999 else "?") for a, d in door_list))
+    # (stage 9 adds nothing to 8: both are everything)
+    cnt = collections.Counter(max((s for s in range(9) if req_le(stage_req(s), r["req"])), default=0) for r in rows)
     print("locations by logic stage:", dict(sorted(cnt.items())))
+    print("bosses fought the randomizer's way: %d (%s)" % (len(blist), ", ".join("%d %s" % (t, n) for t, r, x, y, n in blist)))
+    # the same placement the game makes (rndGenerate), for a few seeds: it must work under the logic
+    ok = sum(1 for seed in range(50) if fill_check(rows, items, seed, door_rank))
+    print("placement check: %d of 50 seeds placed" % ok)
+    if ok == 0: raise SystemExit("no seed could be placed: the logic asks for more than the locations allow")
+
+
+def prog_of(item):
+    k, p = item
+    if k in ("JUMP", "GDASH", "ADASH", "DJUMP", "HIJUMP"): return ["JUMP", "GDASH", "ADASH", "DJUMP", "HIJUMP"].index(k)
+    if k == "SET": return 5 + p
+    if k == "KEY": return 12
+    return -1
+
+
+def fill_check(rows, items, seed, door_rank):
+    """rndGenerate's assumed fill, in Python: whether every progression item finds a place. Keys count as the first
+    doors (in the logic's order) whose keys are all had. The most constrained go first (as rndGenerate)"""
+    import random
+    rnd = random.Random(seed)
+    req = [[r["req"][p] for p in PROG] for r in rows]
+    prog = [i for i, it in enumerate(items) if prog_of(it) >= 0]
+    rnd.shuffle(prog)
+    tot = collections.Counter(prog_of(items[i]) for i in prog)
+
+    def places(i):
+        p = prog_of(items[i])
+        have = [tot[q] for q in range(13)]
+        if p == 12: have[12] = door_rank[items[i][1]]
+        else: have[p] -= 1
+        return sum(1 for r in req if all(a <= b for a, b in zip(r, have)))
+    prog.sort(key=places)
+    fill = [-1] * len(rows)
+    at = []
+
+    def add(have, keys, item):
+        p = prog_of(item)
+        if p == 12:
+            keys.add(door_rank[item[1]])
+            have[12] = 0
+            while have[12] in keys: have[12] += 1
+        else:
+            have[p] += 1
+
+    for n, it in enumerate(prog):
+        have = [0] * 13
+        keys = set()
+        for k in prog[n + 1:]: add(have, keys, items[k])
+        taken = [False] * n
+        changed = True
+        while changed:
+            changed = False
+            for k in range(n):
+                if not taken[k] and all(a <= b for a, b in zip(req[at[k]], have)):
+                    taken[k] = True; add(have, keys, items[prog[k]]); changed = True
+        cand = [i for i in range(len(rows)) if fill[i] < 0 and all(a <= b for a, b in zip(req[i], have))]
+        if not cand: return False
+        loc = rnd.choice(cand)
+        fill[loc] = it; at.append(loc)
+    return True
 
 
 def req_le(a, b):
@@ -294,9 +587,11 @@ def read_logic():
 
 
 # ---------------------------------------------------------------- world state
-WORLD_KEYS = ["123", "123iA", "123iB", "123iC", "123iD", "123iE", "123iF", "123iG", "123iH", "123iV1", "123iXA", "123iXB",
-              "123iXC", "123iXE", "123iXF", "123iXG", "123iXH", "124", "125", "129c", "129e", "129g", "134", "134we",
-              "136", "138", "140", "141a", "142sg0", "142sg1", "142sg2", "144"]
+#(left as a new game has them: 123iXB tower defense and 123iXC the Trial Master's trials, done again for their rewards;
+#129e the shortcuts, opened again; 124 the program chips, 138 the Yoshi dolls and 144 the game completed)
+WORLD_KEYS = ["123", "123iA", "123iB", "123iC", "123iD", "123iE", "123iF", "123iG", "123iH", "123iV1", "123iXA",
+              "123iXE", "123iXF", "123iXG", "123iXH", "125", "129c", "129g", "134", "134we",
+              "136", "140", "141a", "142sg0", "142sg1", "142sg2"]
 
 
 def save_keys():

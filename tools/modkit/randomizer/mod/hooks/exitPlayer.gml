@@ -1,16 +1,24 @@
-//Randomizer: the player going through an exit (this is the exit). Into the room of a boss not beaten yet: its fight
-//starts there, the boss gallery's way (rndBossStart)
-if global.rndActive=1 and global.bBossGallery=0 and global.rndFight<0
+//Randomizer: the player going through an exit (this is the exit)
+var b;
+//the story's way into Ridley's or the Parasitic Seed's fight (rndExitBoss)
+b=rndExitBoss(toRoom,newMapX,newMapY)
+if b>=0
 {
-  var b;
-  b=rndBossAt(toRoom)
-  if b>=0 and b!=global.rndBossFinal
+  toRoom=global.rndBossRoom[b]
+  newMapX=global.rndBossX[b]
+  newMapY=global.rndBossY[b]
+  exit
+}
+//out of the room of a boss not beaten yet some other way than the player came in (not the exit by where they came into
+//the room): the fight instead, so a boss has to be beaten to go on
+if global.rndRoomBoss>=0 and global.rndFight<0 and global.bBossGallery=0
+{
+  if point_distance(x,y,global.rndInX,global.rndInY)>128
   {
-    if string_char_at(global.rndBossDone,b+1)="0"
-    {
-      rndBossStart(b,newMapX,newMapY)
-      newMapX=global.rndBossX[b]
-      newMapY=global.rndBossY[b]
-    }
+    b=global.rndRoomBoss
+    rndBossStart(b,room,-1,-1)
+    toRoom=room
+    newMapX=global.rndBossX[b]
+    newMapY=global.rndBossY[b]
   }
 }

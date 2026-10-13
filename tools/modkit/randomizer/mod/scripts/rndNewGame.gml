@@ -13,6 +13,9 @@ global.gameProgress=global.rndWorldProg
 global.activeCharacter=0
 global.activeAbility[0]=0
 global.activeAbility[1]=0
+//not the game completed, even over a slot whose save had it (the title's New Game keeps it from there): Bubble Tower B
+//and the Gate 6 DLC stay shut
+global.gameCompleted=0
 
 randomize()
 if global.rndNextSeed>=0 {global.rndSeed=global.rndNextSeed}
@@ -35,4 +38,9 @@ global.rndWon=0
 rndAbilApply()
 rndLog()
 randomize()
+//where the opening scene leaves the player: on the ground of the first room, not paused (the intro paused the game,
+//and its scene doesn't run past the story)
+global.newMapX=240
+global.newMapY=2048
+global.gamePaused=false
 room_goto(rMain_1)

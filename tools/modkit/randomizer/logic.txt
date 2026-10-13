@@ -1,0 +1,14 @@
+# Changes to the Randomizer's logic estimate: what the player needs to reach a location. rndgen.py reads this file;
+# build again after changing it. locations.csv lists every location with what the estimate says it needs.
+#
+# A line replaces the estimate for one location or a room's locations:
+#   <location type> <number>: <requirements>      heart piece 12: jump gdash
+#   room <room>: <requirements>                   room rMain_2: jump keys 2
+# Location types are as locations.csv names them (heart piece, treasure chest, skill point, weapon upgrade, key...).
+# Requirements, separated by spaces or commas:
+#   jump, gdash (dash), adash (air dash), djump (double jump), hijump N (High Jump Boots, 1 or 2), mario (the Mario
+#   Ability Set: jumping on Mario enemies, hitting blocks from below), link N, belmont N, megaman N, samus N, gamej N,
+#   gamec N (an ability set's items, in their order: link 2 = the Master Sword and the Bow & Arrow), keys N (the keys of
+#   the first N locked doors in doors.csv), stage N (the estimate's stages, 0-9: everything up to that point of the
+#   story), or nothing
+# A room's line applies first, then a location's own line replaces it.

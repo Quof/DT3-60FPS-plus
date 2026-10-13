@@ -33,7 +33,7 @@ switch (k)
   case 23: sprite_index=sHiJumpBoots; image_index=1; image_speed=0; break
   case 24:
     sprite_index=sWeaponLevelPickup; image_speed=0; image_blend=make_color_rgb(255,220,120)
-    if p=0 {image_index=0; image_blend=make_color_rgb(255,170,170)}
+    if p=0 {sprite_index=sMarioQBlockN; image_index=0; image_speed=0.2; image_blend=c_white} //the Mario Ability Set: a ? block
     else if p=1 {image_index=0}
     else if p=2 {image_index=3}
     else if p=3 {image_index=6}

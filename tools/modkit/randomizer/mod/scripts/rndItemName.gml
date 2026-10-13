@@ -18,7 +18,7 @@ switch (k)
   case 11: return "Skill Point"
   case 12: return "Bomb Upgrade"
   case 13: return "Morph Bomb Upgrade"
-  case 14: return "Key"
+  case 14: return "Key (its door: "+global.rndDoorPlace[p]+")"
   case 15: return "Heart Container"
   case 16: return "Item Finder"
   case 17: return "X-Special Charge"
@@ -29,7 +29,7 @@ switch (k)
   case 22: return "Double Jump"
   case 23: return "High Jump Boots (progressive)"
   case 24:
-    if p=0 {return "Fighting Skills"}
+    if p=0 {return "Mario Ability Set"}
     if p=1 {return "Link ability (progressive)"}
     if p=2 {return "Belmont ability (progressive)"}
     if p=3 {return "Mega Man ability (progressive)"}

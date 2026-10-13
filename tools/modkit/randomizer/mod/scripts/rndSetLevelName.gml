@@ -2,7 +2,7 @@
 var s,l;
 s=argument0
 l=argument1
-if s=0 {return "Fighting Skills"}
+if s=0 {return "Mario Ability Set"}
 if s=1
 {
   if l=2 {return "Link: Master Sword"}

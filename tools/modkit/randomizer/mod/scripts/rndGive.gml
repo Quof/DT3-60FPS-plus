@@ -114,11 +114,12 @@ switch (k)
     global.metBombUpgrade+=1
     rndMsg("You found a Morph Bomb Upgrade!#Morph Bomb blast radius increased by 7%!",2)
     break
-  case 14:
+  case 14: //a key: its own door's (p: the door's objectNum)
     playSound(global.snd_SkillCapsule,0,1,1)
     awardAwesome(200)
     global.pKeys+=1
-    rndMsg("You found a Key!",1)
+    global.rndKeyOwn=rndSetChar(global.rndKeyOwn,p,"1")
+    rndMsg("You found a Key!#It opens a door in "+global.rndDoorArea[p]+".",2)
     break
   case 15:
     playSound(global.snd_HeartPiece,0,1,1)
@@ -164,7 +165,8 @@ switch (k)
     else
     {
       l=global.rndOwn[n]+1
-      rndMsg("You found a new ability!#"+rndSetLevelName(p,l),2)
+      if p=0 {rndMsg("Jerry and Claire gained the Mario Ability Set!#They can now jump on bad guys from the Mario Universe.",2)}
+      else {rndMsg("You found a new ability!#"+rndSetLevelName(p,l),2)}
       //an active set gets its new level; one the room has inactive (1) stays inactive till abilSetRemove(0)
       if global.hasAbilToken[p]=0 or global.hasAbilToken[p]>=2
       {
