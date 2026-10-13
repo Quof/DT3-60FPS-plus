@@ -23,7 +23,8 @@ if global.optSound>0 and global.bSoundCanPlay=1
   else
   {
     var tDb;
-    tDb=20*log10(global.optSound/100)+20*log10(tVolume)
+    //tDb=20*log10(global.optSound/100)+20*log10(tVolume)
+    tDb=20*log10(global.optSound/100)+(tVolume-1)*100 //original levels change: the volume given here is in the original's scale again (each 0.01 below 1 is 1dB quieter, so 0.9 is -10dB and 0.8 -20dB, as SS_SetSoundVol took it), so quiet sounds are as quiet as in the original. The Sound slider stays an amplitude
     if ds_map_exists(global.sndGain,tSound) {tDb+=ds_map_find_value(global.sndGain,tSound)}
     if tDb>0 {tDb=0} //never over the file's own volume
     tVolume=1+tDb/100

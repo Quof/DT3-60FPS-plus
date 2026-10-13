@@ -22,6 +22,10 @@ global.location=0
 titleBirdNum=0
 initGameVars()
 
+//saves folder change (added): whether the options file is being made for the first time (there's none, or an empty
+//one), before loadOptions reads it. If a save is moved in from the game's folder below, its options are used (scrOptionsFromSave)
+var tOptNew;
+tOptNew=!scrFileHas(global.saveDir+"DT3Options.dts")
 loadOptions()
 
 //Check ini
@@ -36,16 +40,18 @@ if !variable_global_exists("saveSlot")
   if parameter_count()=0
   {
     //saves folder change (added): the slots' saves (and their backups) from before the Saves folder, in the game's folder,
-    //are copied into it, once (DT3Options.dts: 502). The ones in the game's folder are left where they are
+    //are moved into it, once (DT3Options.dts: 502)
     if global.savesFolderMoved=0
     {
       var tMvI,tMvName;
       for(tMvI=1;tMvI<=5;tMvI+=1)
       {
         tMvName="DT3data"+string(tMvI)+".dts"
-        if file_exists(tMvName) and !file_exists(global.saveDir+tMvName) {file_copy(tMvName,global.saveDir+tMvName)}
+        //if file_exists(tMvName) and !file_exists(global.saveDir+tMvName) {file_copy(tMvName,global.saveDir+tMvName)}
+        scrSaveMove(tMvName) //saves folder change: moved instead of copied, like DT3data.dts and DT3Options.dts (scrSaveMove)
         tMvName="DT3data"+string(tMvI)+"backup.dts"
-        if file_exists(tMvName) and !file_exists(global.saveDir+tMvName) {file_copy(tMvName,global.saveDir+tMvName)}
+        //if file_exists(tMvName) and !file_exists(global.saveDir+tMvName) {file_copy(tMvName,global.saveDir+tMvName)}
+        scrSaveMove(tMvName) //saves folder change: moved instead of copied
       }
       global.savesFolderMoved=1
       saveOptions()
@@ -61,19 +67,25 @@ if !variable_global_exists("saveSlot")
     }
     //save slots change (added): slot 1's file is DT3data.dts in the Saves folder (scrSlotFile). If it isn't there yet, it's
     //copied in, once (DT3Options.dts: 503), from slot 1's old file (DT3data1.dts, in the Saves folder or the game's folder,
-    //which has the newest slot 1 progress) or else from DT3data.dts in the game's folder. The old files are left where they are
+    //which has the newest slot 1 progress). The old files are left where they are. DT3data.dts in the game's folder is
+    //moved in after this (scrSaveMove)
     if global.slot1Moved=0
     {
       var tS1From;
       tS1From=""
       if file_exists(global.saveDir+"DT3data1.dts") {tS1From=global.saveDir+"DT3data1.dts"}
       else if file_exists("DT3data1.dts") {tS1From="DT3data1.dts"}
-      else if file_exists("DT3data.dts") {tS1From="DT3data.dts"}
+      //else if file_exists("DT3data.dts") {tS1From="DT3data.dts"} //saves folder change: DT3data.dts in the game's folder is moved in below instead (scrSaveMove)
       if tS1From!="" and tS1From!=scrSlotFile(1) and !file_exists(scrSlotFile(1)) {file_copy(tS1From,scrSlotFile(1))}
       if file_exists(global.saveDir+"DT3data1backup.dts") and !file_exists(global.saveDir+"DT3databackup.dts") {file_copy(global.saveDir+"DT3data1backup.dts",global.saveDir+"DT3databackup.dts")}
       global.slot1Moved=1
       saveOptions()
     }
+    //saves folder change (added): every time the game starts, the save in the game's folder (DT3data.dts, the original
+    //game's save) is moved into the Saves folder as slot 1's save if the Saves folder doesn't have one (scrSaveMove).
+    //If neither has one, it's made as before. When the options file is new too, the options are taken from that save
+    //(the original game kept them in it: scrOptionsFromSave)
+    if scrSaveMove("DT3data.dts") and tOptNew {scrOptionsFromSave(scrSlotFile(1))}
     global.saveSlot=global.lastSaveSlot //the slot played last (DT3Options.dts) is the one shown on the right
     //global.paraString[0]="DT3data"+string(global.saveSlot)+".dts"
     //global.paraString[0]=global.saveDir+"DT3data"+string(global.saveSlot)+".dts" //saves folder change: in the Saves folder

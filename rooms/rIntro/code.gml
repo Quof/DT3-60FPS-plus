@@ -18,10 +18,11 @@ global.saveDir=working_directory+"\Saves\"
 if !directory_exists(global.saveDir) {directory_create(global.saveDir)}
 if !directory_exists(global.saveDir) {global.saveDir=""}
 //options from before (in the game's folder) are copied into the Saves folder if it has none yet; the old file is left
-if global.saveDir!=""
-{
-  if !file_exists(global.saveDir+"DT3Options.dts") and file_exists("DT3Options.dts") {file_copy("DT3Options.dts",global.saveDir+"DT3Options.dts")}
-}
+//if global.saveDir!=""
+//{
+//  if !file_exists(global.saveDir+"DT3Options.dts") and file_exists("DT3Options.dts") {file_copy("DT3Options.dts",global.saveDir+"DT3Options.dts")}
+//}
+scrSaveMove("DT3Options.dts") //saves folder change: options in the game's folder are moved into the Saves folder if it has none, every time the game starts, instead of copied (scrSaveMove). DT3data.dts is moved the same way by oInitializeGame
 
 //Check if command line arguments were given
 var pNum;
