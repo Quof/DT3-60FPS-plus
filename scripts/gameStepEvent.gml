@@ -70,11 +70,9 @@ with tTarget[tJ]
     else if xVel=0 and yVel=0 and xAcc=0 and yAcc=0
     {
       tQuick=1
-      //60fps change (added): one standing still since before this tick has nothing to update. Its "near a player" flag is
-      //only read by the crush checks (scrPlatformCrush), which only use it while the solid moves, or to clear a crush count
-      //that's left over (deathCheck), so the flag is still worked out while there is one
-      if mstXV!=0 or mstYV!=0 or deathCheck!=0 //it moved last tick, or has a crush count: settle what the rest of the loop would have worked out
-      {
+      //60fps change (added): one standing still since before this tick only settles what the rest of the loop would have worked out
+      //if mstXV!=0 or mstYV!=0 or deathCheck!=0
+      { //60fps change: always (solids that never moved, e.g. oPlatBud, never had solidIsNearPlayers set for scrPlatformCrush)
       mstXPrev=x; mstYPrev=y; xVelFrac=0; yVelFrac=0; xVelInteger=0; yVelInteger=0
       mstXV=0; mstYV=0; mstFramesLeft=round(1/gDeltaTime)-1
       if tBoundsOld {with oCharacter calculateCollisionBounds(); tBoundsOld=0}

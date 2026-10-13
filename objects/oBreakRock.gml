@@ -20,6 +20,18 @@ if global.gamePaused=false
     yVel=0
   if yVel>12
     yVel=12
+  //60fps change (added): moving solids don't stop at the floor (gameStepEvent moves them by their speed), so a falling rock
+  //sank up to 7px into the ground, depending on the drop height (at 30fps too). Its speed is capped to the gap below it,
+  //counting what's left of this tick's move (mstYLeft)
+  if yVel>0
+  {
+    var tGap,tRow;
+    calculateCollisionBounds()
+    tRow=round(bb)+mstYLeft
+    tGap=0
+    while tGap<ceil(yVel) and collision_line(round(lb),tRow+tGap,round(rb-1),tRow+tGap,oSolid,1,1)<=0 {tGap+=1}
+    if yVel>tGap {yVel=tGap}
+  }
   if y>room_height+24
     instance_destroy()
 }

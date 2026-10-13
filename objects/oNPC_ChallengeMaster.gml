@@ -29,7 +29,8 @@ if global.gamePaused=false
   if trailStarted=1 //Fade out Challenge Master and slight wait
   {
     trialTime+=1*gDeltaTime
-    if trialTime>=1 and trialTime<=10 {image_alpha-=0.1*gDeltaTime}
+    //if trialTime>=1 and trialTime<=10 {image_alpha-=0.1*gDeltaTime}
+    if trialTime>0 and trialTime<=10 {image_alpha-=0.1*gDeltaTime} //60fps change: >0 so all frames of the first tick count (stopped at 0.05/0.075 alpha at 60/120fps)
     else if trialTime>=55 {trialTime=0; trailStarted=2}
   }
   else if trailStarted=2 //The trial
@@ -629,7 +630,8 @@ if global.gamePaused=false
       trialCheck="1"
     }
 
-    if trialTime>=1 and trialTime<=10 {image_alpha+=0.1*gDeltaTime}
+    //if trialTime>=1 and trialTime<=10 {image_alpha+=0.1*gDeltaTime}
+    if trialTime>0 and trialTime<=10 {image_alpha+=0.1*gDeltaTime} //60fps change: >0 so all frames of the first tick count (the fade back in matches the fade out)
     else if trialTime>=20
     {
       if global.challengeRoom=1
