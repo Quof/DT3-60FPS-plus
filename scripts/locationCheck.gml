@@ -156,6 +156,8 @@ if tNewLoc!=global.location
   else if global.location=108 {tNewLoc="Nightmare Gate H"}
   else if global.location=109 {tNewLoc="Sacred Temple"}
   else if global.location=110 {tNewLoc="The Distortion"}
+  //mods change (added): a location number a mod adds (mod.ini [locations], scrModLocation)
+  if is_real(tNewLoc) {if scrModLocation(global.location)!="" {tNewLoc=scrModLocation(global.location)}}
 
   if room!=rTitle
   {

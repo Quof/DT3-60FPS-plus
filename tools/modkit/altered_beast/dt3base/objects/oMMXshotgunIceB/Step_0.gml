@@ -1,0 +1,37 @@
+event_inherited()
+if global.gamePaused=false
+{
+  if lingerFrame=0
+  {
+    if place_meeting(x,y,oNightmareEffect) {bulletSpeed=5.5}
+    else {bulletSpeed=11}
+
+    _speed=bulletSpeed
+
+    if _direction<90 {image_angle-=10*gDeltaTime}
+    else {image_angle+=10*gDeltaTime}
+
+    if checkScreenArea(x,y,48)=0 {instance_destroy()}
+
+    if global.optWeaponTrail=1 and gDeltaDoTicks {instance_create(x,y,oEfWeaponTrail)} //once per 30fps tick
+
+    if isCollisionLeft(1) {bShatter=1}
+    if isCollisionRight(1) {bShatter=1}
+    if isCollisionBottom(1) {bShatter=1}
+    if isCollisionTop(1) {bShatter=1}
+    lifeTime-=1*gDeltaTime
+    if lifeTime=0 {bShatter=1}
+
+    if bShatter=1
+    {
+      tEffect=instance_create(x,y,oEffect)
+      tEffect.sprite_index=sMMchargeComplete; tEffect.image_speed=0.5; tEffect.image_xscale=0.25; tEffect.image_yscale=0.25
+      tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+      lingerFrame=1; _speed=0; visible=0
+    }
+  }
+  else if lingerFrame=1 {instance_destroy()}
+}
+
+else {_speed=0}
+correctSpeedDirection(self)

@@ -1,0 +1,19 @@
+event_inherited()
+image_xscale=4
+image_yscale=4
+image_speed=0.5
+damageType="EXPLOSION"
+weaponTag=42
+atkLv=global.stSamus_Bomb[0]
+//atkPower=65+round(global.stSamus_Bomb[0]*2)+global.skillTree[13]
+atkPower=65+round(scrOmenLv(global.stSamus_Bomb[0])*2)+global.skillTree[13] //dark omen change: the weapon level counts 10 lower while the New Dark Omen is on (scrOmenLv)
+atkPower=weaponDmgMod(1,atkPower)
+stunTime=6
+bCanPierce=1
+bCanBoost=1
+decayTime=10
+
+_speed=0
+_direction=0
+_hspeed=0
+_vspeed=0

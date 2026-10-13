@@ -1,0 +1,148 @@
+resetKeyCodes()
+
+if global.modeDark=1
+{
+  instance_create(0,0,oSurfLightAll)
+}
+ditherCounter=0
+
+room_speed=global.gameFrameRate
+instance_create(0,0,oScreenCutIn)
+//if !instance_exists(oGameCamera) {myCamera=instance_create(x,y,oGameCamera)}
+
+//set character in proper position on new map
+if room!=rLink2_EnRoad and room!=rLink2_EnGrass and room!=rLink2_EnDesert and room!=rLink2_EnForest
+{
+  x=global.newMapX
+  y=global.newMapY
+  view_xview[0]=x-240
+  view_yview[0]=y-176
+  if view_xview[0]<0 {view_xview[0]=0}
+  else if view_xview[0]>room_width-480 {view_xview[0]=room_width-480}
+
+  if view_yview[0]<0 {view_yview[0]=0}
+  else if view_yview[0]>room_height-352 {view_yview[0]=room_height-352}
+}
+y+=1
+//set initial values
+bPlayable=true //whether the character is playable
+parent="player"
+charEnemyCreateEvent()
+characterCreateEvent()
+image_speed=idleAnimSpeed
+chargeFrame=0
+equipValA=0
+equipValB=0
+if global.activeCharacter=1 {sprite_index=sClaireIdle}
+if x>room_width/2 {image_xscale=-1; facing=LEFT}
+atkBufferTime=0 //attack buffer experiment
+atkBufferSkill=-1
+
+//variables pertaining to the character's status and inventory
+maxLife=global.pMaxLife
+life=global.pLife
+
+currentMoney=global.pMoney
+
+//used if ammo runs out
+arrowRecharge=0
+missileRecharge=0
+
+//extra flags
+modDashRecharge=0
+dashNumThisMap=0 //number of times the player has dashed this map
+waterTime=0
+chargeSoundCheck=0 //tracks the charging up sound
+extraBulletCheck=0 //track for The Executive
+
+//set bottles
+for(i=0;i<3;i+=1)
+{
+  pBottles[i]=string_char_at(global.extraItems,i+1)
+}
+
+if global.gameOver=true
+{
+  //var tempMplay;
+  //tempMplay=findMusic(global.currentMusic)
+  //playMusic(tempMplay,0,0)
+  global.gameOver=false
+}
+
+global.levelTimeSecond=0
+global.levelTimeFrameCount=0
+
+//reset block
+global.stJGame_C[0]=1000
+
+global.genEnemyAward=10 //reset generated enemy awards
+
+if global.awesomePoints>=12345678
+{
+  var tCheckAchieve;
+  tCheckAchieve=string_char_at(global.tokenRecognitions,7)
+  if tCheckAchieve="0"
+  {
+    var tAchievement;
+    tAchievement=instance_create(0,0,oAchievementNotice)
+    tAchievement.myAchievement="You Are Awesome"; tAchievement.checkNum=7
+  }
+}
+if global.recBirdsSeen>=11111
+{
+  var tCheckAchieve;
+  tCheckAchieve=string_char_at(global.tokenRecognitionsSetTwo,10)
+  if tCheckAchieve="0"
+  {
+    var tAchievement;
+    tAchievement=instance_create(0,0,oAchievementNoticeSS)
+    tAchievement.myAchievement="Ornithology Major"; tAchievement.checkNum=10
+  }
+}
+
+morphMode=11 //reset morph mode
+global.desertHeat=1500
+waveOfAwesomeScale=3
+
+bKeepPlayerOnScreen=1
+view_visible[1]=0
+view_object[1]=oPlayerIdle
+
+view_hborder[1]=120 //60
+view_vborder[1]=88 //44
+
+view_wview[1]=240
+view_hview[1]=176
+
+view_wport[1]=120
+view_hport[1]=88
+view_xport[1]=359
+view_yport[1]=1
+
+if global.gameProgress>=4930 and global.gameProgress<=4940 //Just after Subconscious Filter
+{
+  oIdentifier.bCanScan=0; oIdentifier.deactivate=1
+  instance_create(0,0,oEvCh19WorldEv)
+}
+
+if (global.activeCharacter=0 and global.wearingHatJ=9) or (global.activeCharacter=1 and global.wearingHatC=9) {global.recBirdsSeen+=1}
+
+deathConvoTime=0; deathConvoType=0
+alarm[0]=1
+//alarm[1]=12
+alarm[1]=12/gDeltaTime //60fps change: alarms count frames, so the restart message came 2x/4x sooner at 60/120fps
+
+battleRage=0//frames for battlerage
+birdTimer=0
+timeForBird=20
+
+bBoomerangOut=false
+boomerLevel=0
+boomerTimer=0
+
+momentumStacks=0
+momentumTimer=0
+lastElementHit="NONE"
+
+bloodlust=0
+focusStacks=0

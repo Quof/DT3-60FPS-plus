@@ -1,0 +1,1 @@
+initFireDir=image_xscale

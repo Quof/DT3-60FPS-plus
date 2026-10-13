@@ -1,0 +1,6 @@
+draw_sprite_ext(sprite_index,image_index,x,y,image_xscale,image_yscale,image_angle,image_blend,image_alpha)
+draw_set_alpha(0.66)
+draw_set_color(c_black)
+draw_circle(x,y,lifeTime/2,1)
+draw_set_color(c_white)
+draw_circle(x,y,(lifeTime/2)+1,1)

@@ -1,6 +1,7 @@
 /*
 This script is used to stop any music that might still be playing.
 */
+scrModMusicStop() //mods change (added): the mods' music tracks too
 SS_StopSound(global.msc_TitleMenu)
 SS_StopSound(global.msc_Main1)
 SS_StopSound(global.msc_Main2)

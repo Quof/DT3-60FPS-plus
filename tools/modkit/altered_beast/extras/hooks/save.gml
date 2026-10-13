@@ -1,0 +1,25 @@
+//Altered Beast's save data, in its own section of the save file (Altered Insanity kept it with the game's own, in ALPHA:
+//the load hook reads it from there for a save made with the original). The save file is open.
+var s;
+s="AlteredBeast"
+ini_write_real(s,"999ale",global.alterEquip)
+ini_write_real(s,"999ali",global.alterIntro)
+ini_write_real(s,"999t1",global.TrueEnabled)
+ini_write_real(s,"999t2",global.LinkSwordTrue)
+ini_write_real(s,"999t3",global.LinkArrowTrue)
+ini_write_real(s,"999t4",global.LinkBombTrue)
+ini_write_real(s,"999t5",global.XBusterTrue)
+ini_write_real(s,"999t6",global.XIceTrue)
+ini_write_real(s,"999t7",global.XGravTrue)
+ini_write_real(s,"999t8",global.BelmontWhipTrue)
+ini_write_real(s,"999t9",global.BelmontKnifeTrue)
+ini_write_real(s,"999t10",global.BelmontWaterTrue)
+ini_write_real(s,"999t11",global.SamusCannonTrue)
+ini_write_real(s,"999t12",global.SamusMissileTrue)
+ini_write_real(s,"999t13",global.SamusBombTrue)
+ini_write_real(s,"999s1",global.snakeLength)
+ini_write_real(s,"999s2",global.snakeDelay)
+ini_write_real(s,"999s3",global.snakeRed)
+ini_write_real(s,"999s4",global.crouchOnly)
+ini_write_real(s,"999s5",global.dashOnly)
+ini_write_real(s,"999s6",global.amuletItem)

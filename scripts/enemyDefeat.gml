@@ -5,6 +5,7 @@ argument0: kill type
 -- 1: Mario enemy
 argument1: weapon tag
 */
+if global.modOvr[enemyDefeat]>=0 {var __n; __n=0; repeat (argument_count) {global.modArg[__n]=argument[__n]; __n+=1}; return scrModOverride(enemyDefeat,argument_count)} //mods change (added): a mod's own version of this script runs instead (scrModOverride)
 life=0
 var tKillType,tKillTag;
 tKillType=argument0

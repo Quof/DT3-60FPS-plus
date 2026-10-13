@@ -288,6 +288,8 @@ for(i=0;i<65;i+=1)
   ini_write_real(sectionWrite,"790" +string(i),global.bossGalleryPlatN[i]) //dark omen change (added)
 }
 ini_write_real(sectionWrite,"galNorm",global.galleryNormalized) //normalized gallery change (added): the gallery lever
+scrModSaveRoom() //mods change (added): a mod room is saved by name too (its index changes with the mods that are on)
+scrModHook("save",0,0) //mods change (added): the mods' own save data (each in its own section of the save file)
 ini_close()
 scrOmenState(4) //dark omen change (added)
 scrNormState(2) //normalized gallery change (added)

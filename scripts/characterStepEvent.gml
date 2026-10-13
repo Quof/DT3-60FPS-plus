@@ -3,6 +3,7 @@ This script should be placed in the step event for the platform character.
 It updates the keys used by the character, moves all of the solids, moves the
 character, sets the sprite index, and sets the animation speed for the sprite.
 */
+if global.modOvr[characterStepEvent]>=0 {var __n; __n=0; repeat (argument_count) {global.modArg[__n]=argument[__n]; __n+=1}; return scrModOverride(characterStepEvent,argument_count)} //mods change (added): a mod's own version of this script runs instead (scrModOverride)
 
 //above 30fps: set to 1 by dash code that sets xVel/yVel directly this frame; pMoveToWrapNew then applies the
 //original 30fps formula (velocity+acceleration)*friction instead of spreading acceleration/friction over the frame

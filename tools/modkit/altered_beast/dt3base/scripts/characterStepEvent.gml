@@ -1,0 +1,1888 @@
+/*
+This script should be placed in the step event for the platform character.
+It updates the keys used by the character, moves all of the solids, moves the
+character, sets the sprite index, and sets the animation speed for the sprite.
+*/
+
+//above 30fps: set to 1 by dash code that sets xVel/yVel directly this frame; pMoveToWrapNew then applies the
+//original 30fps formula (velocity+acceleration)*friction instead of spreading acceleration/friction over the frame
+xVelSetTick=0
+yVelSetTick=0
+
+if player=1 //========================================
+{
+  if (attackState!=ACT_ATK or attackState!=ACT_FIRE or attackState!=ACT_FIRE_UP or attackState!=ACT_FIRE_DOWN) and attackState!=ACT_IN_CANNON and attackState!=ACT_HIDE and global.gamePaused=false
+  {
+    //updates the keys
+    //input bleed change (added): after a stretch of not reading the buttons (dialogue, a menu or a shop pausing the game;
+    //the travel cannon; hiding), a button pressed in the meantime is ignored until it's let go (scrButtonLockHeld), so
+    //the press that advanced the dialogue or closed the menu doesn't also jump/attack here
+    if kKeysRead=0 {scrButtonLockHeld()}
+    kKeysRead=1
+    //key left
+    if walljumpTime=0
+    {
+      kLeftReleased=0
+      if kLeft
+      {
+        kLeft=scrController(1)
+        kLeftPushedSteps+=1*gDeltaTime
+        kLeftPressed=0
+        if (kLeft=0) {kLeftReleased=1}
+      }
+      else
+      {
+        kLeft=scrController(1)
+        if kLeft {kLeftPressed=1}
+        kLeftPushedSteps=0
+      }
+      //key right
+      kRightReleased=0
+      if kRight
+      {
+        kRight=scrController(2)
+        kRightPushedSteps+=1*gDeltaTime
+        kRightPressed=0
+        if kRight=0 {kRightReleased=1}
+      }
+      else
+      {
+        kRight=scrController(2)
+        if kRight {kRightPressed=1}
+        kRightPushedSteps=0
+      }
+    }
+    //key up
+    kUpReleased=0
+    if kUp
+    {
+      kUp=scrController(3)
+      kUpPushedSteps+=1*gDeltaTime
+      kUpPressed=0
+      if kUp=0 {kDownReleased=1}
+    }
+    else
+    {
+      kUp=scrController(3)
+      if kUp {kUpPressed=1}
+      kUpPushedSteps=0
+    }
+
+    //key down
+    kDownReleased=0
+    if kDown
+    {
+      kDown=scrController(4)
+      kDownPushedSteps+=1*gDeltaTime
+      kDownPressed=0
+      if kDown=0 {kDownReleased=1}
+    }
+    else
+    {
+      kDown=scrController(4)
+      if kDown {kDownPressed=1}
+      kDownPushedSteps=0
+    }
+
+    //key "run"
+    //if canRun {kRun=keyboard_check(vk_shift)}
+    //else {kRun=0}
+
+    //key "jump"
+    if kJump
+    {
+      kJump=scrController(5)
+      kJumpPressed=0
+    }
+    else
+    {
+      kJump=scrController(5)
+      if kJump {kJumpPressed=1}
+    }
+    if scrButtonLocked(5) {kJump=0; kJumpPressed=0} //input bleed change (added): see above
+    //key "Action A"
+    if kActA
+    {
+      kActA=scrController(6)
+      kActAPressed=0
+    }
+    else
+    {
+      kActA=scrController(6)
+      if kActA {kActAPressed=1}
+    }
+    if scrButtonLocked(6) {kActA=0; kActAPressed=0} //input bleed change (added): see above
+    //key "Action B"
+    if kActB
+    {
+      kActB=scrController(7)
+      kActBPressed=0
+    }
+    else
+    {
+      kActB=scrController(7)
+      if kActB {kActBPressed=1}
+    }
+    if scrButtonLocked(7) {kActB=0; kActBPressed=0} //input bleed change (added): see above
+    //key "Action C"
+    if kActC
+    {
+      kActC=scrController(8)
+      kActCPressed=0
+    }
+    else
+    {
+      kActC=scrController(8)
+      if kActC {kActCPressed=1}
+    }
+    if scrButtonLocked(8) {kActC=0; kActCPressed=0} //input bleed change (added): see above
+    //key "Character Swap"
+    if kCharSwap
+    {
+      kCharSwap=scrController(9)
+      kCharSwapPressed=0
+    }
+    else
+    {
+      kCharSwap=scrController(9)
+      if kCharSwap {kCharSwapPressed=1}
+    }
+    if scrButtonLocked(9) {kCharSwap=0; kCharSwapPressed=0} //input bleed change (added): see above
+    //key "Ability Swap"
+    if kAbilSwap
+    {
+      kAbilSwap=scrController(10)
+      kAbilSwapPressed=0
+    }
+    else
+    {
+      kAbilSwap=scrController(10)
+      if kAbilSwap {kAbilSwapPressed=1}
+    }
+    if scrButtonLocked(10) {kAbilSwap=0; kAbilSwapPressed=0} //input bleed change (added): see above
+    //key "Dash Left"
+    if kDashLeft
+    {
+      kDashLeft=scrController(13)
+      kDashLeftPressed=0
+    }
+    else
+    {
+      kDashLeft=scrController(13)
+      if kDashLeft {kDashLeftPressed=1}
+    }
+    if scrButtonLocked(13) {kDashLeft=0; kDashLeftPressed=0} //input bleed change (added): see above
+    //key "Dash Right"
+    if kDashRight
+    {
+      kDashRight=scrController(14)
+      kDashRightPressed=0
+    }
+    else
+    {
+      kDashRight=scrController(14)
+      if kDashRight {kDashRightPressed=1}
+    }
+    if scrButtonLocked(14) {kDashRight=0; kDashRightPressed=0} //input bleed change (added): see above
+  }
+  else {kKeysRead=0} //input bleed change (added): the buttons weren't read this step
+}
+
+//Deals with the ladderTimer ========================================
+if state=CLIMBING {ladderTimer=10}
+else
+{
+  if ladderTimer>0 {ladderTimer-=1*gDeltaTime}
+}
+
+//Allows the character to run left and right
+//if attackState!=ACT_IN_BIKE and attackState!=ACT_BLOCK and (grappleState=0 or grappleState=1) and bTakingDamage=false
+//60fps change: not for the rest of a dash's first 30fps tick (dashTickTime, set by pMoveDashForward/pMoveDashBack/pMoveAirDash).
+//At 30fps this code had already run for that tick before the dash took over; running it again on the next frames added run
+//acceleration and the dash momentum formula to the dash's first tick (Jerry's back dash while holding forward lost 3-4.5px,
+//Claire's turned forward half a tick early and ended up 10-16px off)
+if attackState!=ACT_IN_BIKE and attackState!=ACT_BLOCK and (grappleState=0 or grappleState=1) and bTakingDamage=false and dashTickTime<=0
+{
+  if state!=DUCKING and state!=CLIMBING and global.hasShoes[0]=2
+  {
+    if kLeftReleased and approximatelyZero(xVel) {xAcc-=0.5; xVelSetTick=1} //one-off push: full 30fps tick's worth (see pMoveToWrapNew)
+    if kRightReleased and approximatelyZero(xVel) {xAcc+=0.5; xVelSetTick=1}
+
+    if kLeft //-------------------- Run left --------------------
+    {
+      idleTime=0
+      if kLeftPushedSteps<3
+      {
+        backDashRecovery=0
+        if global.activeCharacter=1 and claireBackDashRec>0
+        {
+          dashMomentumTime=0; claireBackDashRec=0
+        }
+      }
+      if facing=RIGHT
+      {
+        groundDashRecovery=0
+        airDashRecovery=0
+        if dashMomentumTime<25 {dashMomentumTime=0}
+      }
+      //if (kLeftPushedSteps>1 or isCollisionMoveableSolidRight(1)) and (facing=LEFT or approximatelyZero(xVel))
+      //60fps change: >1 started the run 3/4 of a tick early at 120fps (steps 1.25) but half a tick early at 60fps (1.5), which
+      //happens to cancel out pMoveToWrapNew's half-tick lag in speeding up (a run start matches 30fps at 60fps; >=2 would leave
+      //it ~3px behind). >=1.5 uses the 60fps timing at 120fps too (was ~2px ahead). Same as >1 at 30fps
+      if (kLeftPushedSteps>=1.5 or isCollisionMoveableSolidRight(1)) and (facing=LEFT or approximatelyZero(xVel))
+      {
+        if state=STANDING
+        {
+          tEffect=instance_create(oPlayer1.x,oPlayer1.y,oEffect)
+          tEffect.sprite_index=sStartRunEffect
+          tEffect.image_speed=0.75; tEffect.image_xscale=-1.5; tEffect.image_yscale=1.5
+          tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+        }
+
+        if global.activeCharacter=0 //Jerry
+        {
+          xAcc-=runAcc
+          //if platformCharacterIs(IN_AIR) and dashMomentumTime>0
+          if (platformCharacterIs(IN_AIR) or landTickHold>0) and dashMomentumTime>0 //60fps change: see the landing code
+          {
+            //xAcc-=(xVel/2.1+(dashMomentumTime/2))
+            //xVel=-(dashVel/2.1+(dashMomentumTime/2)); xVelSetTick=1
+            //60fps change: ceil() uses the 30fps tick's value of the counter (it counts down in fractions between ticks)
+            xAcc-=(xVel/2.1+(ceil(dashMomentumTime)/2))
+            xVel=-(dashVel/2.1+(ceil(dashMomentumTime)/2)); xVelSetTick=1 //60fps change
+          }
+        }
+        else //Claire (Forward dash hold)
+        {
+          xAcc-=runAcc
+          //if dashMomentumTime>=1
+          if dashMomentumTime>0 //60fps change: >=1 dropped the second half of the last momentum tick at 60fps (same as >=1 at 30fps)
+          {
+            //if platformCharacterIs(IN_AIR)
+            if platformCharacterIs(IN_AIR) or landTickHold>0 //60fps change: see the landing code
+            {
+              //xAcc-=(xVel/2.1+(dashMomentumTime/1.95))
+              //xVel=-(dashVel/2.1+(dashMomentumTime/1.95)); xVelSetTick=1
+              xAcc-=(xVel/2.1+(ceil(dashMomentumTime)/1.95)) //60fps change: the 30fps tick's value of the counter
+              xVel=-(dashVel/2.1+(ceil(dashMomentumTime)/1.95)); xVelSetTick=1 //60fps change
+            }
+            //if kLeftPushedSteps<=1 {dashMomentumTime=0} //3
+            if kLeftPushedSteps<1.5 {dashMomentumTime=0} //3 //60fps change: the counterpart of the >=1.5 run start above
+          }
+        }
+      }
+      if airDashRecovery=0 {facing=LEFT}
+    }
+    if kRight //-------------------- Run right --------------------
+    {
+      idleTime=0
+      if kRightPushedSteps<3
+      {
+        backDashRecovery=0
+        if global.activeCharacter=1 and claireBackDashRec>0
+        {
+          dashMomentumTime=0; claireBackDashRec=0
+        }
+      }
+      if facing=LEFT
+      {
+        groundDashRecovery=0
+        airDashRecovery=0
+        if dashMomentumTime<25 {dashMomentumTime=0}
+      }
+      //if (kRightPushedSteps>1 or isCollisionMoveableSolidLeft(1)) and (facing=RIGHT or approximatelyZero(xVel))
+      if (kRightPushedSteps>=1.5 or isCollisionMoveableSolidLeft(1)) and (facing=RIGHT or approximatelyZero(xVel)) //60fps change: see run left
+      {
+        if state=STANDING
+        {
+          var tEffect;
+          tEffect=instance_create(oPlayer1.x,oPlayer1.y,oEffect)
+          tEffect.sprite_index=sStartRunEffect
+          tEffect.image_speed=0.75; tEffect.image_xscale=1.5; tEffect.image_yscale=1.5
+          tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+        }
+
+        if global.activeCharacter=0 //Jerry
+        {
+          xAcc+=runAcc
+          //if platformCharacterIs(IN_AIR) and dashMomentumTime>0
+          if (platformCharacterIs(IN_AIR) or landTickHold>0) and dashMomentumTime>0 //60fps change: see the landing code
+          {
+            //xAcc+=xVel/2.1+(dashMomentumTime/2)
+            //xVel=dashVel/2.1+(dashMomentumTime/2); xVelSetTick=1
+            xAcc+=xVel/2.1+(ceil(dashMomentumTime)/2) //60fps change: see run left
+            xVel=dashVel/2.1+(ceil(dashMomentumTime)/2); xVelSetTick=1 //60fps change
+          }
+        }
+        else //Claire (Forward dash hold)
+        {
+          xAcc+=runAcc
+          //if dashMomentumTime>=1
+          if dashMomentumTime>0 //60fps change: see run left
+          {
+            //if platformCharacterIs(IN_AIR)
+            if platformCharacterIs(IN_AIR) or landTickHold>0 //60fps change: see the landing code
+            {
+              //xAcc+=xVel/2.1+(dashMomentumTime/1.95)
+              //xVel=dashVel/2.1+(dashMomentumTime/1.95); xVelSetTick=1
+              xAcc+=xVel/2.1+(ceil(dashMomentumTime)/1.95) //60fps change: see run left
+              xVel=dashVel/2.1+(ceil(dashMomentumTime)/1.95); xVelSetTick=1 //60fps change
+            }
+            //if kRightPushedSteps<=1 {dashMomentumTime=0} //3
+            if kRightPushedSteps<1.5 {dashMomentumTime=0} //3 //60fps change: see run left
+          }
+        }
+      }
+      if airDashRecovery=0 {facing=RIGHT}
+    }
+  }
+  else if state=DUCKING
+  {
+    if global.hasShoes[0]=2
+    {
+      if facing=LEFT and kRight {facing=RIGHT}
+      else if facing=RIGHT and kLeft {facing=LEFT}
+    }
+  }
+}
+else if attackState=ACT_IN_BIKE //On bike
+{
+  if kActA and kActAPressed=1 and bTakingDamage=false
+  {
+    if instance_number(oBikeShot)<2
+    {
+      playSound(global.snd_MMBuster[0],0,1,1)
+      var newBikeEffect,newBikeShot;
+      newBikeEffect=instance_create(oPlayer1.x+24,oPlayer1.y-15,oEffect)
+      newBikeEffect.sprite_index=sEfAbilSwap; newBikeEffect.xSpd=-2
+      newBikeEffect.image_xscale=0.5; newBikeEffect.image_yscale=0.5
+      newBikeEffect.followID=oPlayer1.id; newBikeEffect.xFollow=24; newBikeEffect.yFollow=-15
+      newBikeEffect.newBlend=-1; newBikeEffect.decay=-100; newBikeEffect.xSpd=0; newBikeEffect.ySpd=0
+      newBikeShot=instance_create(x+16,y-15,oBikeShot)
+    }
+  }
+
+  if (kActC or kDashLeft or kDashRight) and bikeBoost>=5 and bTakingDamage=false
+  {
+    if gDeltaDoTicks
+    {
+      instance_create(x,y,oPlayerAfterImage)
+      var newSpdEffect;
+      newSpdEffect=instance_create(oPlayer1.x+20-random(20),oPlayer1.y-24+random(22),oEffect)
+      newSpdEffect.sprite_index=sMMchargeEffect1; newSpdEffect.image_speed=0.5+random(0.1); newSpdEffect.xSpd=-1-random(1)
+      newSpdEffect.newBlend=-1; newSpdEffect.followID=-1; newSpdEffect.decay=-100
+      newSpdEffect.xSpd=0; newSpdEffect.ySpd=0
+    }
+
+    xAcc+=8.05
+    maxSlope=15/gDeltaTime; maxDownSlope=15
+    bikeBoost-=5*gDeltaTime
+    if bikeBoost<0 {bikeBoost=0}
+  }
+  else
+  {
+    xAcc+=5.7
+    maxSlope=11; maxDownSlope=11
+  }
+}
+else if grappleState=3
+{
+  if kLeft {facing=LEFT}
+  if kRight {facing=RIGHT}
+}
+
+if state=CLIMBING and isCollisionLadder()=0
+{
+  state=FALLING
+}
+if state=CLIMBING and bTakingDamage=false
+{
+  if kLeft
+  {
+    xAcc-=climbAcc
+    facing=LEFT
+  }
+  if kRight
+  {
+    xAcc+=climbAcc
+    facing=RIGHT
+  }
+  if kUp {yAcc-=climbAcc}
+  if kDown {yAcc+=climbAcc}
+}
+
+xAccInputWalk = xAcc
+
+if platformCharacterIs(IN_AIR)
+{
+  //yAcc+=gravityIntensity
+  //60fps change: while pulled to or hanging from a Strike Chain point (grappleState 2/3) the move code doesn't run, so
+  //yAcc isn't spent every frame and the gravity piles up until the player lets go (capped at 10 when it's applied). Above
+  //30fps it gained a whole tick's gravity every frame, so it reached the cap in a quarter of the time; a frame's share keeps
+  //it at 30fps's amount (what's left over when the point disappears or the player is hit while hanging)
+  if grappleState>=2 and gDeltaTime<1 {yAcc+=gravityIntensity*gDeltaTime} else {yAcc+=gravityIntensity}
+}
+if (isCollisionBottom(1) or isCollisionPlatformBottom(1) and isCollisionPlatform()=0) and platformCharacterIs(IN_AIR) and yVel>=0
+{
+  //player has just landed
+  //if yVel>0 {playSound(global.snd_JumpLand,0,0.8,1)}
+  yVel=0
+  yAcc=0
+  hopOnCount=0
+  state=RUNNING
+  jumps=0
+  canAirDash=1
+  doubleJumpCheck=1
+  doubleJumpAnim=0
+  if grappleState=0 {busterAnimStay=0}
+  airDashDamage=0
+  //60fps change (added): landing with dash momentum keeps the air friction and the momentum formula for the rest of this
+  //30fps tick of the dash (dashMomentumTime is a whole number at its tick boundaries). At 30fps a landing only shows up at
+  //the start of the next tick, so the tick it touched down in still moved with them; above 30fps it showed up within 1/2
+  //or 1/4 tick, so Claire's dash hop (0.96 friction in the air, 0.5 on the ground) started slowing down early
+  if gDeltaTime!=1 and dashMomentumTime>0 {landTickHold=frac(dashMomentumTime)}
+}
+//fix grounded bug when player object is being pushed down by an external force
+if platformCharacterIs(ON_GROUND) and yVel>0.25 {yVel=0}
+
+//if the character has just walked off of the edge of a solid
+//if isCollisionBottom(1)=0 and (isCollisionPlatformBottom(1)=0 or isCollisionPlatform()) and platformCharacterIs(ON_GROUND)
+if bikeLaunchHold<=0.0001 and isCollisionBottom(1)=0 and (isCollisionPlatformBottom(1)=0 or isCollisionPlatform()) and platformCharacterIs(ON_GROUND) //60fps change: not during the bike finish line's launch tick (see below)
+{
+  if bikeLaunchVel!=0 {yVel=bikeLaunchVel; bikeLaunchVel=0} //60fps change (added): see below
+  state=FALLING
+  yAcc+=grav; yVelSetTick=1 //one-off push: full 30fps tick's worth (see pMoveToWrapNew)
+}
+//60fps change (added): the bike finish line's launch (oStopBike) keeps the player on the ground for its first 30fps tick,
+//as at 30fps (there leaving the ground is only noticed on the next tick), and gives back its -16 speed as they leave the
+//ground on the frame after; the speed is dropped if they didn't
+if bikeLaunchHold>0.0001 {bikeLaunchHold-=gDeltaTime} else {bikeLaunchVel=0}
+if bonkCool>0 {bonkCool-=gDeltaTime}
+if isCollisionTop(1) and state=JUMPING
+{
+  yVel=abs(yVel*0.3)
+  //particles/record at most once per 30fps tick: something pushing up every frame (e.g. an air dash under a ceiling)
+  //bonks every frame, which made 2-4x the particles above 30fps
+  if dashRecHalt=0 and bonkCool<=0
+  {
+    bonkCool=1
+    var tEffect,tYY;
+    if attackState=ACT_MORPHBALL {tYY=14}
+    else {tYY=45}
+    for(i=0;i<3;i+=1)
+    {
+      tEffect=instance_create(oPlayer1.x,oPlayer1.y-tYY,oEffectB)
+      tEffect.type=3; tEffect.sprite_index=sEfDiffusionParticle; tEffect.direction=random(360)+(i*90); tEffect.speed=4; tEffect.newBlend=-1
+      tEffect.fadeSpd=0.08; tEffect.AccelX=0; tEffect.AccelY=0; tEffect.followID=-1; tEffect.rotation=0; tEffect.friction=0.33
+    }
+    global.recHeadBonks+=1
+  }
+}
+
+//---------- Wall jump ----------
+if bCanWallJump=1 and attackState!=ACT_MORPHBALL and attackState!=ACT_IN_BIKE and (grappleState=0 or grappleState=1)
+{
+  if bTakingDamage=false
+  {
+    if isCollisionRight(3) and platformCharacterIs(IN_AIR) and facing=RIGHT //right wall
+    {
+      canAirDash=1
+      doubleJumpCheck=1
+      if (((kDown or kUp) and kJumpPressed and global.optDPadDash=1) or (kDashLeftPressed or kDashRightPressed)) and dashEnergy>=2000
+      {
+        pMoveWallDash(0)
+      }
+      else
+      {
+        if kJumpPressed
+        {
+          pMoveWallJump(0)
+        }
+      }
+    }
+    else if isCollisionLeft(3) and platformCharacterIs(IN_AIR) and facing=LEFT //left wall
+    {
+      canAirDash=1
+      doubleJumpCheck=1
+      if (((kDown or kUp) and kJumpPressed and global.optDPadDash=1) or (kDashLeftPressed or kDashRightPressed)) and dashEnergy>=2000
+      {
+        pMoveWallDash(1)
+      }
+      else
+      {
+        if kJumpPressed
+        {
+          pMoveWallJump(1)
+        }
+      }
+    }
+  }
+  if walljumpTime>0 {walljumpTime-=1*gDeltaTime}
+}
+
+//player may jump
+if bTakingDamage=false
+{
+  if (grappleState=0 or grappleState=1)
+  {
+    if platformCharacterIs(ON_GROUND) and attackState!=ACT_BLOCK
+    {
+      if global.optRightIsForward=0 //Left and Right
+      {
+        if ((kDown and kJumpPressed and global.optDPadDash=1) or (kDashRightPressed and facing=LEFT) or (kDashLeftPressed and facing=RIGHT)) and dashEnergy>=2000 and global.hasShoes[2]=2 and backDashRecovery=0 and attackState!=ACT_IN_BIKE //Dash back
+        {
+          if attackState!=ACT_MORPHBALL and attackState!=ACT_ON_YOSHI
+          {
+            pMoveDashBack()
+          }
+        }
+        else if ((kUp and kJumpPressed and global.optDPadDash=1) or (kDashLeftPressed and facing=LEFT) or (kDashRightPressed and facing=RIGHT)) and dashEnergy>=2000 and global.hasShoes[2]=2 and groundDashRecovery=0 and attackState!=ACT_IN_BIKE //Dash forward
+        {
+          if attackState!=ACT_MORPHBALL and attackState!=ACT_ON_YOSHI
+          {
+            pMoveDashForward()
+          }
+        }
+        else
+        {
+          if kJumpPressed
+          {
+            //give an initial HUGE jump if jump is pressed and flySpeed is big and canFlyJump and the character is running
+            if flySpeed>=95 and jumps=0 and canFlyJump
+            {
+              playSound(global.snd_PlayerJump[0],0,1,1)
+              jumps=1
+              flyAccTimer=5
+              flyDir=facing //either LEFT or RIGHT
+              //yAcc+=initialJumpAcc*0.7
+              yVel+=initialJumpAcc*0.7
+              if canFly
+              {
+                flyInitialHeight=y
+                flyJumpsTimer=10
+                flyJumpWasPressed=-1
+              }
+            }
+            else //----- Normal jump -----
+            {
+              if global.hasShoes[1]=2
+              {
+                if attackState!=ACT_MORPHBALL or global.metSpringBall=1
+                {
+                  pMoveJump()
+                }
+              }
+            }
+          }
+        }
+      }
+      else //Right is Forward
+      {
+        //dt4 dash change (added): DT4 Dashing (Control options). [Dash Forward] dashes toward the left/right being held: a
+        //forward dash if the character faces that way, a backdash if not (facing can be locked, e.g. mid-attack), and a
+        //backdash if neither (or both) is held. [Dash Back] stays a backdash.
+        var tDashBackPressed,tDashFwdPressed;
+        tDashBackPressed=kDashLeftPressed
+        tDashFwdPressed=kDashRightPressed
+        if global.optDT4Dash=1 and kDashRightPressed
+        {
+          if (kRight-kLeft)=0 or (kRight and facing=LEFT) or (kLeft and facing=RIGHT) {tDashBackPressed=1; tDashFwdPressed=0}
+        }
+        //if ((kDown and kJumpPressed and global.optDPadDash=1) or (kDashLeftPressed)) and dashEnergy>=2000 and global.hasShoes[2]=2 and backDashRecovery=0 and attackState!=ACT_IN_BIKE //Dash back
+        if ((kDown and kJumpPressed and global.optDPadDash=1) or (tDashBackPressed)) and dashEnergy>=2000 and global.hasShoes[2]=2 and backDashRecovery=0 and attackState!=ACT_IN_BIKE //Dash back //dt4 dash change
+        {
+          if attackState!=ACT_MORPHBALL and attackState!=ACT_ON_YOSHI
+          {
+            pMoveDashBack()
+          }
+        }
+        //else if ((kUp and kJumpPressed and global.optDPadDash=1) or (kDashRightPressed)) and dashEnergy>=2000 and global.hasShoes[2]=2 and groundDashRecovery=0 and attackState!=ACT_IN_BIKE //Dash forward
+        else if ((kUp and kJumpPressed and global.optDPadDash=1) or (tDashFwdPressed)) and dashEnergy>=2000 and global.hasShoes[2]=2 and groundDashRecovery=0 and attackState!=ACT_IN_BIKE //Dash forward //dt4 dash change
+        {
+          if attackState!=ACT_MORPHBALL and attackState!=ACT_ON_YOSHI
+          {
+            pMoveDashForward()
+          }
+        }
+        else
+        {
+          if kJumpPressed
+          {
+            //give an initial HUGE jump if jump is pressed and flySpeed is big and canFlyJump and the character is running
+            if flySpeed>=95 and jumps=0 and canFlyJump
+            {
+              playSound(global.snd_PlayerJump[0],0,1,1)
+              jumps=1
+              flyAccTimer=5
+              flyDir=facing //either LEFT or RIGHT
+              //yAcc+=initialJumpAcc*0.7
+              yVel+=initialJumpAcc*0.7
+              if canFly
+              {
+                flyInitialHeight=y
+                flyJumpsTimer=10
+                flyJumpWasPressed=-1
+              }
+            }
+            else //----- Normal jump -----
+            {
+              if global.hasShoes[1]=2
+              {
+                if attackState!=ACT_MORPHBALL or global.metSpringBall=1
+                {
+                  pMoveJump()
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    else if platformCharacterIs(IN_AIR) and mobilityDisable=0 and bWallGrab=0 and attackState!=ACT_MORPHBALL and attackState!=ACT_IN_BIKE and attackState!=ACT_BLOCK //air dash and air jump
+    {
+      if global.activeCharacter=0 or global.activeCharacter=1
+      {
+        if (((kUp or kDown) and kJumpPressed and global.optDPadDash=1) or (kDashLeftPressed or kDashRightPressed)) and dashEnergy>=2000 and airDashRecovery=0 and canAirDash=1 and global.hasShoes[3]=2 //Air dash
+        {
+          if attackState!=ACT_ON_YOSHI
+          {
+            pMoveAirDash()
+          }
+        }
+        else //Air jump (Double jump)
+        {
+          if global.hasShoes[1]=2 and kJumpPressed and global.canDoubleJump=2 and doubleJumpCheck=1
+          {
+            if attackState!=ACT_ON_YOSHI
+            {
+              pMoveDoubleJump()
+            }
+          }
+        }
+      }
+      else
+      {
+        if jumpTime>=jumpTimeTotal and kJump and mechFuel>0
+        {
+          bUseFuel=1
+          mechFuel-=1*gDeltaTime
+          yVel=0
+          //original 30fps value. (It was briefly *10 to make up for the push mostly getting lost above 30fps, but that line runs
+          //at every frame rate, so 30fps hovered up 10x too fast.) The velocity is set every frame, so flag it: pMoveToWrapNew then
+          //uses the 30fps formula (0 + yAcc) and the hover rises 0.5px per tick at every frame rate.
+          yAcc=-mechBoostAcc
+          yVelSetTick=1
+        }
+        else {bUseFuel=0}
+      }
+    }
+  }
+  else if grappleState=3
+  {
+    if kJumpPressed and gDeltaTime == 1.00
+    {
+      if kDown
+      {
+        yAcc=2
+      }
+      else
+      {
+        playSound(global.snd_PlayerJump[2],0,1,1)
+        global.recJumped+=1
+        if bombJump=0 {yAcc=initialJumpAcc}
+        else {yAcc=initialJumpAcc*bombAcc}
+        bombJump=0
+        //xAcc+=xVel/2
+        var tEffect;
+        tEffect=instance_create(oPlayer1.x,oPlayer1.y+2,oEffect)
+        tEffect.sprite_index=sSpellCast; tEffect.image_xscale=0.6; tEffect.image_yscale=0.6
+        tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+      }
+      grappleID.reuseTime=20
+      idleTime=0
+      busterAnimStay=0
+      state=FALLING
+      jumpButtonReleased=0
+      jumpTime=0
+      grappleState=0
+    }
+    else if kJumpPressed
+    {
+      //60fps change (added): the gravity piled up in yAcc while hanging (see where gravity is added) is dropped, as 30fps's
+      //yAcc=... below overwrites it. Left in, it was applied on the jump frame as a downward push of 10 x the frame's share of
+      //a tick (5 at 60fps, 2.5 at 120fps), which the x1.43 below was tuned against at 120fps: at 60fps jumps off a point only
+      //reached about half their 30fps height, and at 120fps a jump right after latching on went about a third too high
+      yAcc=0
+      if kDown
+      {
+        //yAcc=2
+        //yVel=2
+        //var bodged;
+        // fine tune this 1.00 as needed
+         // compensation for fixed gravity integration
+        //yVel += gravityIntensity*0.5
+        yAcc=2; yVelSetTick=1 //60fps change: 30fps's yAcc=2 as a one-off push, a full 30fps tick's worth (see pMoveToWrapNew); the drop fell up to twice as fast
+      }
+      else
+      {
+        playSound(global.snd_PlayerJump[2],0,1,1)
+        global.recJumped+=1
+        //60fps change: at 30fps this jump is the same as one from standing still (yAcc=initialJumpAcc, yVel 0, no gravity that
+        //tick), so it uses the standing jump's 60/120fps formula (pMoveJump), which matches 30fps's heights within a pixel
+        if bombJump=0
+                    {
+                        //yAcc=initialJumpAcc
+                        //var bodged;
+                        // fine tune this 1.00 as needed
+                        //bodged = (initialJumpAcc) * 1.43
+                        //yVel = bodged
+                        // compensation for fixed gravity integration
+                        //yVel += gravityIntensity*0.5
+                        yVel = initialJumpAcc*jumpBodge60 + grav*jumpGravComp60 //60fps change: see above
+                    }
+        else
+            {
+            //yAcc=initialJumpAcc*bombAcc
+            //var bodged;
+            // fine tune this 1.00 as needed
+            //bodged = (initialJumpAcc) * 1.43 * bBombAcc
+            //bodged = (initialJumpAcc) * 1.43 * bombAcc //60fps change: bBombAcc was never defined (typo), so this jump off a Strike Chain point with a bomb boost crashed at 60/120fps
+            //yVel = bodged
+            // compensation for fixed gravity integration
+            //yVel += gravityIntensity*0.5
+            yVel = initialJumpAcc*jumpBodge60*bombAcc + grav*jumpGravComp60 //60fps change: see above
+            }
+
+        bombJump=0
+        //xAcc+=xVel/2
+        var tEffect;
+        tEffect=instance_create(oPlayer1.x,oPlayer1.y+2,oEffect)
+        tEffect.sprite_index=sSpellCast; tEffect.image_xscale=0.6; tEffect.image_yscale=0.6
+        tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+      }
+      grappleID.reuseTime=20
+      idleTime=0
+      busterAnimStay=0
+      state=FALLING
+      jumpButtonReleased=0
+      jumpTime=0
+      grappleState=0
+    }
+  }
+
+  //Jump off Yoshi
+  if platformCharacterIs(IN_AIR) and mobilityDisable=0 and bWallGrab=0 and kJumpPressed and kUp and attackState=ACT_ON_YOSHI
+  {
+    playSound(global.snd_PlayerJump[1],0,0.95,1)
+    instance_create(x,y,oBTB_GetOnYoshi)
+    instance_create(0,0,oBTB_YoshiJump)
+    attackState=0
+  }
+}
+
+if global.activeCharacter=2
+{
+  if platformCharacterIs(ON_GROUND)
+  {
+    bUseFuel=0
+    mechFuel=mechMaxFuel
+  }
+}
+
+if groundDashRecovery>0 or backDashRecovery>0 {maxDownSlope=14} //Fix Jerry's slope sticking when dashing
+else {maxDownSlope=8}
+
+if bombJump>0 //Remove bomb boosted effect
+{
+  tEffect=instance_create(oPlayer1.x-8+random(16),oPlayer1.y-6+random(4),oEffect)
+  tEffect.sprite_index=sSamusMissileEffect; tEffect.image_alpha=0.4+random(0.4); tEffect.image_speed=0.2+random(0.2)
+  tEffect.decay=-100; tEffect.xSpd=random_range(-0.5,0.5); tEffect.ySpd=1+random(2)
+  tEffect.newBlend=-1; tEffect.followID=-1
+  bombJump-=1*gDeltaTime
+}
+
+//dash speed corrections are no longer needed above 30fps: the frames below that set xVel/yVel are flagged
+//(xVelSetTick/yVelSetTick) and pMoveToWrapNew applies the original 30fps formula to them.
+//(global.jerryDashBodge / global.claireDashBodge are left in initGameVars but no longer used for dashes)
+var dashBodge;
+dashBodge = 0
+
+
+if groundDashRecovery>0 //Continue ground dash - Jerry only
+{
+  //if platformCharacterIs(ON_GROUND)
+  if platformCharacterIs(ON_GROUND) and gDeltaDoTicks //60fps change: one smoke cloud per 30fps tick (was 2x/4x at 60/120fps)
+  {
+    var tEffect;
+    tEffect=instance_create(oPlayer1.x,oPlayer1.y+1,oEffect)
+    tEffect.sprite_index=sMMSmokeCloud
+    tEffect.image_xscale=0.75; tEffect.image_yscale=0.75
+    tEffect.image_speed=0.5+(groundDashRecovery/25); tEffect.ySpd=-1.8+(groundDashRecovery/8)
+    tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0
+  }
+  //60fps change (added): rest of the dash's first 30fps tick: keep the dash frame's acceleration (the run code is skipped,
+  //see above). At 30fps this is the same value
+  if dashTickTime>0 {xAcc=dashTickXAcc}
+  groundDashRecovery-=1*gDeltaTime
+  if facing=RIGHT {xVel=(dashVel+dashBodge+1); xVelSetTick=1}
+  else if facing=LEFT {xVel=-(dashVel+dashBodge+1); xVelSetTick=1}
+}
+if backDashRecovery>0 //Continue ground dash - Jerry only
+{
+  //if platformCharacterIs(ON_GROUND)
+  if platformCharacterIs(ON_GROUND) and gDeltaDoTicks //60fps change: see above
+  {
+    var tEffect;
+    tEffect=instance_create(oPlayer1.x,oPlayer1.y+1,oEffect)
+    tEffect.sprite_index=sMMSmokeCloud
+    tEffect.image_xscale=0.75; tEffect.image_yscale=0.75
+    tEffect.image_speed=0.5+(backDashRecovery/25); tEffect.ySpd=-1.8+(backDashRecovery/8)
+    tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0
+  }
+  if dashTickTime>0 {xAcc=dashTickXAcc} //60fps change (added): see above
+  backDashRecovery-=1*gDeltaTime
+  if facing=RIGHT {xVel=-(dashVel+dashBodge+1); xVelSetTick=1}
+  else if facing=LEFT {xVel=(dashVel+dashBodge+1); xVelSetTick=1}
+}
+if claireBackDashRec>0 //For Claire only
+{
+  claireBackDashRec-=1*gDeltaTime
+}
+
+if airDashRecovery>0 //Continue air dash
+{
+  var tAirDashFirstTick, tAirDashTick;
+  tAirDashFirstTick=(airDashRecovery>5) //still in the air dash's first 30fps tick (it starts at 6)
+  tAirDashTick=ceil(airDashRecovery) //which 30fps tick of the dash this frame belongs to (6 down to 1)
+  airDashRecovery-=1*gDeltaTime
+  if global.activeCharacter=0 {yVel=-2.9; yVelSetTick=1}
+  else if global.activeCharacter=1 {yVel=-3.3; yVelSetTick=1}
+  //above 30fps, pMoveAirDash's upward kick is added here for the dash's whole first tick, like the 30fps yAcc kick
+  if gDeltaTime!=1 and tAirDashFirstTick {yVel+=airDashKick}
+  //same for a double jump done during the dash (pMoveDoubleJump): added for the rest of that tick. On the dash's last tick
+  //nothing overwrites it afterwards, so it carries on like the 30fps "shoot up"
+  if gDeltaTime!=1 and airDashDJKick!=0
+  {
+    if tAirDashTick=airDashDJTick {yVel+=airDashDJKick}
+    else {airDashDJKick=0}
+  }
+  if dashTickTime>0 {xAcc=dashTickXAcc} //60fps change (added): see groundDashRecovery
+  if facing=RIGHT {xVel=(dashVel+dashBodge/2-1); xVelSetTick=1}
+  else if facing=LEFT {xVel=-(dashVel+dashBodge/2-1); xVelSetTick=1}
+}
+
+if mobilityDisable>0 {mobilityDisable-=gDeltaTime} //Double jump / Air-dash disable after split party character swap
+if dashMomentumTime>0 {dashMomentumTime-=gDeltaTime} //Dash momentum
+if dashTickTime>0 {dashTickTime-=gDeltaTime} //60fps change (added): dash's first 30fps tick (see the run code)
+if doubleJumpAnim>0 {doubleJumpAnim-=gDeltaTime} //Double jump animation
+
+if jumpTime<jumpTimeTotal {jumpTime+=gDeltaTime}
+//Let the character continue to jump
+if kJump=0 and kDashLeft=0 and kDashRight=0 {jumpButtonReleased=1}
+if jumpButtonReleased {jumpTime=jumpTimeTotal}
+gravityIntensity=(jumpTime/jumpTimeTotal)*grav
+
+if bTakingDamage=false
+{
+  if kUp and xVel=0 and xAcc=0 and platformCharacterIs(ON_GROUND) and isCollisionLadder()=0 //Looking up
+  {
+    if kLeft=0 or kRight=0 {state=LOOKING_UP}
+    hopOnCount=0
+    canAirDash=1
+    doubleJumpCheck=1
+    doubleJumpAnim=0
+    idleTime=0
+    if grappleState=0
+    {
+      if kUpPushedSteps<3 {busterAnimStay=0}
+    }
+    airDashDamage=0
+  }
+  if kUp=0 and state=LOOKING_UP //Go back to a standing position from looking up
+  {
+    state=STANDING
+    hopOnCount=0
+    canAirDash=1
+    doubleJumpCheck=1
+    doubleJumpAnim=0
+    idleTime=0
+    if grappleState=0 {busterAnimStay=0}
+    airDashDamage=0
+  }
+  
+  if kDown and platformCharacterIs(ON_GROUND) and isCollisionLadder()=0 and attackState!=ACT_IN_BIKE //Drop down platform
+  {
+    hopOnCount=0
+    canAirDash=1
+    doubleJumpCheck=1
+    doubleJumpAnim=0
+    if grappleState=0
+    {
+      if kDownPushedSteps<3 {busterAnimStay=0}
+    }
+    airDashDamage=0
+    if isCollisionPlatformBottom(1)
+    {
+      if isCollisionBottom(1)=0
+      {
+        y+=1
+        idleTime=0
+        state=FALLING
+        yAcc+=grav; yVelSetTick=1 //one-off push: full 30fps tick's worth (see pMoveToWrapNew)
+      }
+      else
+      {
+        //the character can't move down because there is a solid in the way
+        idleTime=0
+        state=RUNNING
+      }
+    }
+    else //Duck if solid below character
+    {
+      if state=STANDING
+      {
+        idleTime=0
+      }
+      //Crouch burst / wavedash: on the step you crouch, the run code above has already added a full tick of run acceleration,
+      //and friction is now the much lighter crouch friction, so at 30fps (speed + runAcc) * crouch friction gives a burst
+      //(Jerry ~6.6 -> ~11.5, Claire ~7.3 -> ~13.1). Above 30fps that tick's acceleration would only partly apply before the
+      //run input stops, so flag this step to use the 30fps formula (pMoveToWrapNew).
+      //(This replaces an older 60fps-only line that set Claire's xVel to 11.5 here; Jerry didn't get a burst at all.)
+      if state!=DUCKING {xVelSetTick=1}
+      state=DUCKING
+      global.recTimeSpentDucking+=1*gDeltaTime
+    }
+  }
+}
+
+if kDown=0 and state=DUCKING and bTakingDamage=false //Go back to a standing position from ducking
+{
+  state=STANDING
+  //xVel=0
+  xAcc=0
+  hopOnCount=0
+  canAirDash=1
+  doubleJumpCheck=1
+  doubleJumpAnim=0
+  idleTime=0
+  if grappleState=0 {busterAnimStay=0}
+  airDashDamage=0
+}
+if xVel=0 and xAcc=0 and state=RUNNING //Go back to a standing position from running
+{
+  state=STANDING
+  hopOnCount=0
+  canAirDash=1
+  doubleJumpCheck=1
+  doubleJumpAnim=0
+  if grappleState=0 {busterAnimStay=0}
+  airDashDamage=0
+}
+if xAcc!=0 and (state=STANDING or state=LOOKING_UP)
+{
+  state=RUNNING
+  hopOnCount=0
+  canAirDash=1
+  doubleJumpCheck=1
+  doubleJumpAnim=0
+  if grappleState=0 {busterAnimStay=0}
+  airDashDamage=0
+}
+if yVel<0 and platformCharacterIs(IN_AIR) {state=JUMPING}
+if yVel>0 and platformCharacterIs(IN_AIR) {state=FALLING}
+//---------- Slow fall effect ----------
+if slowFallTime>0
+{
+  if slowFallEffect<(jumpTime/jumpTimeTotal)*grav {gravityIntensity=slowFallEffect}
+  if slowFallEffect<1 {slowFallEffect+=0.008*gDeltaTime}
+  slowFallTime-=1*gDeltaTime
+}
+
+if (kUp or kDown) and isCollisionLadder() and ladderTimer=0 and bTakingDamage=false
+{
+  //nullifies the velocity
+  xVel=0
+  yVel=0
+  //nullifies the acceleration
+  xAcc=0
+  yAcc=0
+  state=CLIMBING
+}
+
+//---------- Ladder ----------
+if isCollisionLadder() and state=CLIMBING and kJumpPressed and bTakingDamage=false
+{
+  if facing=LEFT {xVel=-departLadderXVel}
+  else {xVel=departLadderXVel}
+  yAcc+=departLadderYVel
+  xVelSetTick=1; yVelSetTick=1 //set velocity + one-off push: full 30fps tick's worth (see pMoveToWrapNew)
+  state=JUMPING
+  jumpButtonReleased=0
+  jumpTime=0
+}
+
+//---------- Run (Not used right now) ----------
+if kRun and (kLeft or kRight) and bTakingDamage=false
+{
+  //flySpeed+=2
+  flySpeed+=2*gDeltaTime //60fps change: flySpeed's build-up and drain run every frame while the input is held, 2x/4x as fast at 60/120fps (e.g. the fast-running friction after a flying jump wore off sooner)
+  if state!=DUCKING and state!=LOOKING_UP and state!=CLIMBING and state!=FALLING
+  {
+    if kLeft
+    {
+      if flySpeed<70 {xAcc-=runAcc*flySpeed/70} //you can change the value here
+      else {xAcc-=runAcc} //you can change the value here
+      facing=LEFT
+    }
+    if kRight
+    {
+      if flySpeed<70 {xAcc+=runAcc*flySpeed/70 } //you can change the value here
+      else {xAcc+=runAcc} //you can change the value here
+      facing=RIGHT
+    }
+  }
+}
+//else {flySpeed-=3}
+else {flySpeed-=3*gDeltaTime} //60fps change: see above
+
+if bTakingDamage=false
+{
+  //if kJump {flySpeed-=1}
+  if kJump {flySpeed-=1*gDeltaTime} //60fps change: see above
+  if (kLeft and xVel>0) or (kRight and xVel<0)
+  {
+    //flySpeed-=10
+    flySpeed-=10*gDeltaTime //60fps change: see above
+    flySpeedTimer=0
+  }
+  //If the character hits a wall
+  if (kLeft and isCollisionLeft(1)) or (kRight and isCollisionRight(1))
+  {
+    //flySpeed-=20
+    flySpeed-=20*gDeltaTime //60fps change: see above
+    flySpeedTimer=0
+  }
+}
+//Set flySpeed to 100 if the flySpeedTimer is still ticking
+if flySpeedTimer>0
+{
+  flySpeedTimer-=1*gDeltaTime
+  flySpeed=100
+}
+if flyJumpsTimer>0
+{
+  if flyJumpWasPressed=-1 {flyJumpWasPressed=0}
+  else if kJumpPressed {flyJumpWasPressed=1}
+  flySpeed=100
+  flyJumpsTimer-=1*gDeltaTime
+  if jumps>1
+  {
+    gravityIntensity=0.5
+  }
+}
+else if canFly and isCollisionBottom(1)=0 and isCollisionPlatformBottom(1)=0 and isCollisionPlatform()=0 and jumps>0
+{
+  flySpeed=100
+  if jumps>1 {gravityIntensity=0.5}
+  if (kJumpPressed or flyJumpWasPressed) and flySpeed>80 and jumps<flyMaxJumps
+  {
+    jumps+=1
+    flyInitialHeight-=50
+    flyJumpsTimer=15
+    flyJumpWasPressed=-1
+    flyAcc2Timer=2
+  }
+}
+//Stops everything if the character jumps on a ladder (and stops moving) or ducks
+if state=CLIMBING or state=DUCKING
+{
+  flySpeed=0
+  flySpeedTimer=0
+  flyAccTimer=0
+  flyAcc2Timer=0
+}
+//Causes the actual HUGE jump
+if flyAccTimer>0
+{
+  flyAccTimer-=1*gDeltaTime
+  yAcc-=1
+}
+if flyAcc2Timer>0
+{
+  flyAcc2Timer-=1*gDeltaTime
+  if yVel>0 {yVel=0}
+  if y<flyInitialHeight and y<flyInitialHeight+200 {yAcc+=(0.014)*(flyInitialHeight-y)-5.014}
+  else if y>flyInitialHeight {yAcc-=5}
+
+  if facing=LEFT {xAcc-=2}
+  else {xAcc+=2}
+}
+//Apply the limits of flySpeed
+if flySpeed>100
+{
+  flySpeed=100
+  flySpeedTimer=60
+}
+else if flySpeed<0 {flySpeed=0}
+
+//Exterior forces on the player
+if extForceX!=0
+{
+  //xVel+=extForceX*gDeltaTime
+  //60fps change: above 30fps the force goes to pMoveToWrapNew as an acceleration (extAccX/extAccY), so it meets friction
+  //the way it does at 30fps, (velocity+force)*friction each tick. Added straight to the velocity it skipped that: Gate 6's
+  //sideways wind pushed a player standing on the ground at a third to a half of the 30fps speed (and 6-8% too fast in
+  //the air), and a guard's knockback slid about a third as far
+  if gDeltaTime==1 {xVel+=extForceX} else {extAccX=extForceX}
+  if extForceX>0 {extForceX-=0.2*gDeltaTime}
+  else if extForceX<0 {extForceX+=0.2*gDeltaTime}
+  if abs(extForceX)<0.4 {extForceX=0}
+}
+if extForceY!=0
+{
+  //yVel+=extForceY*gDeltaTime
+  if gDeltaTime==1 {yVel+=extForceY} else {extAccY=extForceY} //60fps change: see above
+  if extForceY>0 {extForceY-=0.2*gDeltaTime}
+  else if extForceY<0 {extForceY+=0.2*gDeltaTime}
+  if abs(extForceY)<0.4 {extForceY=0}
+}
+
+//Calculates the horizontal and vertical friction, depending on the state of the charater
+if state=CLIMBING
+{
+  xFric=frictionClimbingX
+  yFric=frictionClimbingY
+}
+else
+{
+  if state=DUCKING
+  {
+    if attackState!=ACT_MORPHBALL and attackState!=ACT_ON_YOSHI
+    {
+      if xVel<2 and xVel>-2 {xFric=0.2}
+      else {xFric=frictionDuckingX}
+    }
+    else {xFric=frictionRunningX}
+  }
+  else
+  {
+    //Decrease the friction when the character is "flying"
+    if canFly and jumps>1 {xFric=frictionFlyingX}
+    else if flySpeed>50 {xFric=frictionRunningFastX}
+    //else if platformCharacterIs(IN_AIR) and kLeft=0 and kRight=0 //In air
+    else if (platformCharacterIs(IN_AIR) or landTickHold>0) and kLeft=0 and kRight=0 //In air //60fps change: see the landing code
+    {
+      //These counters were just counted down for this frame, so between 30fps ticks they hold fractions: compare against the
+      //next whole number (e.g. >=20 instead of >19) so each friction lasts exactly as many 30fps ticks as at 30fps.
+      //With >19/>0 the dash friction ran on for an extra 1/2 (60fps) or 3/4 (120fps) tick: ground dashes went ~4px (60fps)
+      //or ~5px (120fps) further
+      //if dashMomentumTime>0
+      if dashMomentumTime>=1 //60fps change
+      {
+        if global.activeCharacter=0 {xFric=0.965}
+        else {xFric=0.96}
+      }
+      else {xFric=frictionAirX}
+    }
+    else //On ground
+    {
+      if global.activeCharacter=0
+      {
+        //if dashMomentumTime>19 {xFric=0.965}
+        if dashMomentumTime>=20 {xFric=0.965} //60fps change: see above
+        else
+        {
+          //if groundDashRecovery>0 or backDashRecovery>0 {xFric=0.9}
+          if groundDashRecovery>=1 or backDashRecovery>=1 {xFric=0.9} //60fps change: see above
+          else {xFric=frictionRunningX}
+        }
+      }
+      else
+      {
+        //if dashMomentumTime>20 {xFric=0.96}
+        if dashMomentumTime>=21 {xFric=0.96} //60fps change: see above
+        else {xFric=frictionRunningX}
+      }
+    }
+
+    if attackState=ACT_IN_CANNON //{xFric=0.82}
+    {
+      xFric=1
+      gravityIntensity=0
+    }
+    else if attackState=ACT_IN_BIKE {xFric=0.65}
+  }
+  //If the character is underwater
+  if global.location=49 //In Gate 5
+  {
+    if isCollisionWaterBottom(-12)
+    {
+      //Water splash effect. Without the Gravity Suit the fall speed is capped to 8 the moment you enter the water, so this
+      //only happens once and runs on any frame. With the suit there's no cap, so it stays on 30fps ticks to keep the 30fps splash rate.
+      if yVel>8 and (gDeltaDoTicks or global.gameProgress<2820)
+      {
+        var tEffect,tWaterTarget;
+        tWaterTarget=instance_position(x,y,oWater)
+        if tWaterTarget=noone {tWaterTarget=instance_nearest(x,y,oWater)}
+        if y<tWaterTarget.y+32
+        {
+          for(i=0;i<yVel*3;i+=1)
+          {
+            tEffect=instance_create(x-4+random(8),y+4,oWaterEffect)
+            tEffect.hspeed=random_range(-1.75,1.75); tEffect.vspeed=-random(3)-4
+            tEffect.image_xscale=1+random(0.5); tEffect.image_yscale=1+random(0.5)
+            tEffect.image_alpha=0.8+random(0.1); tEffect.image_blend=make_color_rgb(50+random(30),110+random(80),255)
+            tEffect.fadeSpd=0.02+random(0.02)
+          }
+        }
+        if global.gameProgress<2820 {yVel=8} //Player does not have Gravity Suit
+      }
+
+      if global.gameProgress<2820 //Player does not have Gravity Suit
+      {
+        if state=DUCKING {xFric=frictionWaterXDuck}
+        else {xFric=frictionWaterXRun}
+
+        if state=FALLING and yVel>0 {yFric=frictionWaterYFall}
+        else {yFric=frictionWaterYJump}
+      }
+      else {yFric=1}
+    }
+    else {yFric=1}
+  }
+  else //Normal water circumstance
+  {
+    if isCollisionWaterBottom(-12)
+    {
+      //Water splash effect + fall speed cap on entering the water. The cap means this only happens once, so it runs on any
+      //frame (it used to wait for a 30fps tick, letting you sink faster than 8 for a frame at 60/120fps)
+      if yVel>8
+      {
+        playSound(global.snd_Splash,0,0.95,1)
+        var tEffect;
+        for(i=0;i<yVel*3;i+=1)
+        {
+          tEffect=instance_create(x-4+random(8),y+4,oWaterEffect)
+          tEffect.hspeed=random_range(-1.75,1.75); tEffect.vspeed=-random(3)-4
+          tEffect.image_xscale=1+random(0.5); tEffect.image_yscale=1+random(0.5)
+          tEffect.image_alpha=0.8+random(0.1); tEffect.image_blend=make_color_rgb(50+random(30),110+random(80),255)
+          tEffect.fadeSpd=0.02+random(0.02)
+        }
+        yVel=8
+      }
+
+      if state=DUCKING {xFric=frictionWaterXDuck}
+      else {xFric=frictionWaterXRun}
+
+      if state=FALLING and yVel>0 {yFric=frictionWaterYFall}
+      else {yFric=frictionWaterYJump}
+    }
+    else {yFric=1}
+  }
+
+  if isCollisionWaterBottom(-8) //Water walk splash effect
+  {
+    if !isCollisionWaterTop(-4) and abs(xVel)>2 and gDeltaDoTicks
+    {
+      var tEffect,tWaterTarget;
+      tWaterTarget=instance_position(x,y,oWater)
+      if tWaterTarget=noone {tWaterTarget=instance_nearest(x,y,oWater)}
+      tEffect=instance_create(x-4+random(8),tWaterTarget.y+4,oWaterEffect)
+      tEffect.hspeed=random_range(-1.75,1.75); tEffect.vspeed=-random(3)-4
+      tEffect.image_xscale=1+random(0.5); tEffect.image_yscale=1+random(0.5)
+      tEffect.image_alpha=0.8+random(0.1); tEffect.image_blend=make_color_rgb(50+random(30),110+random(80),255)
+      tEffect.fadeSpd=0.02+random(0.02)
+    }
+  }
+}
+
+if grappleState=0 or grappleState=1 //Slow falling speed if facing wall when touching it
+{
+  if bCanWallJump=1 and attackState!=ACT_MORPHBALL and attackState!=ACT_IN_BIKE //Wall slide
+  {
+    wallGrabEffect-=1*gDeltaTime
+    if (isCollisionLeft(3) and facing=LEFT) or (isCollisionRight(3) and facing=RIGHT) and platformCharacterIs(IN_AIR)
+    {
+      bWallGrab=1
+      yVelLimit=4
+      if (wallGrabEffect<=0 and yVel>0) or (wallGrabEffect<=0 and sprite_index=sJerryBusterHang)
+      {
+        var facDir,tEffect;
+        if facing=RIGHT {facDir=10}
+        else if facing=LEFT {facDir=-10}
+        tEffect=instance_create(oPlayer1.x+facDir,oPlayer1.y,oEffect)
+        tEffect.sprite_index=sMMSmokeCloud; tEffect.image_speed=0.35
+        tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+        wallGrabEffect=2
+      }
+    }
+    else
+    {
+      bWallGrab=0
+      yVelLimit=12
+    }
+  }
+
+  if (gDeltaTime==1)
+    pMoveToWrapOrig()
+  else
+    pMoveToWrapNew()
+
+  //move the character downhill if possible
+  //we need to multiply maxDownSlope by the absolute value of xVel since the character normally runs at an xVel larger than 1
+  //(above 30fps: not while moving up. A launch from the ground without a state change, like the bike finish line's,
+  //moves less than maxDownSlope per frame and would be pulled straight back down; at 30fps it moves a whole tick and escapes)
+  if isCollisionBottom(1)=0 and maxDownSlope>0 and xVelInteger!=0 and platformCharacterIs(ON_GROUND) and (gDeltaTime==1 or yVel>=0)
+  {
+    //the character is floating just above the slope, so move the character down
+    upYPrev=y
+    for(y=y;y<=upYPrev+maxDownSlope;y+=1)
+      if isCollisionBottom(1) //we hit a solid below
+      {
+        upYPrev=y //I know that this doesn't seem to make sense, because of the name of the variable, but it all works out correctly after we break out of this loop
+        break
+      }
+    y=upYPrev
+  }
+}
+else if grappleState=2 //Player is being pulled toward grapple point
+{
+  if instance_exists(grappleID)
+  {
+    //if oMMXstrikeChain.extend>12 {oMMXstrikeChain.extend-=12}
+    if oMMXstrikeChain.extend>12 {oMMXstrikeChain.extend-=12*gDeltaTime} //60fps change: the chain shortened 2x/4x faster than the player is pulled along it at 60/120fps
+    var tGrpDist,tGrpDir,tGrpX;
+    tGrpX=7*image_xscale
+    tGrpDir=point_direction(x+tGrpX,0,grappleID.x,0)
+    x+=12*cos(degtorad(tGrpDir))*gDeltaTime
+
+    tGrpDist=point_distance(x+tGrpX,0,grappleID.x,0)
+    if tGrpDist<=7
+    {
+      with oMMXstrikeChain {instance_destroy()}
+      grappleID.retractTime=11
+      //x=grappleID.x
+      //y=grappleID.y+40
+      x=floor(grappleID.x+0.5) //60fps change: on whole pixels (a moving point is on fractions of one between 30fps ticks, which drew the player distorted) (floor(v+0.5): GM8's round() rounds .5 to the even number, so a mover on half pixels stepped 0 then 2 pixels)
+      y=floor(grappleID.y+0.5)+40 //60fps change: see above
+      canAirDash=1
+      doubleJumpCheck=1
+      grappleState=3
+    }
+  }
+  else
+  {
+    state=FALLING
+    grappleState=0
+    if gDeltaTime<1 {yVelSetExt=1} //60fps change (added): the gravity piled up while pulled is applied whole on the next move, as at 30fps (see pMoveToWrapNew); it only got one frame's share of it, so the fall started slow
+  }
+}
+else if grappleState=3
+{
+  oPlayer1.extForceX=0
+  xVel=0
+  if instance_exists(grappleID)
+  {
+    //x=grappleID.x
+    //y=grappleID.y+40
+    x=floor(grappleID.x+0.5) //60fps change: on whole pixels (a moving point is on fractions of one between 30fps ticks, which drew the player distorted) (floor(v+0.5): GM8's round() rounds .5 to the even number, so a mover on half pixels stepped 0 then 2 pixels)
+    y=floor(grappleID.y+0.5)+40 //60fps change: see above
+  }
+  else
+  {
+    state=FALLING
+    grappleState=0
+    if gDeltaTime<1 {yVelSetExt=1} //60fps change (added): see the point disappearing while pulled, above
+  }
+}
+if landTickHold>0 {landTickHold-=gDeltaTime} //60fps change (added): see the landing code
+
+//The character is no longer taking damage (in recovery state) when they hit the ground
+//if bTakingDamage=true and (state=STANDING or state=RUNNING or state=DUCKING or state=LOOKING_UP) and damageTime<26
+//60fps change: damageTime counts down in fractions between 30fps ticks, so <26 let the player recover half/three quarters
+//of a tick early (at 25.5/25.25); <=25 is the same tick as at 30fps
+if bTakingDamage=true and (state=STANDING or state=RUNNING or state=DUCKING or state=LOOKING_UP) and damageTime<=25
+{
+  bTakingDamage=false
+}
+if damageTime<=recoverTime
+{
+  bTakingDamage=false
+}
+
+//if damageTime>=29 //Fix knockback
+if damageTime>28 //Fix knockback //60fps change: >=29 kept the knockback push for 1.5 ticks at 60fps (30, 29.5, 29) instead of 2
+{
+  if image_xscale=1 {xVel=-2}
+  else {xVel=2}
+  xVelSetExt=1 //velocity set every frame: use the 30fps formula (see pMoveToWrapNew). This runs after this frame's move,
+               //so it uses the flag that survives until the next move (xVelSetTick is reset at the top of the step)
+}
+
+//--------------------------------------------------------------------------------
+if attackState!=ACT_MORPHBALL and attackState!=ACT_IN_BIKE and attackState!=ACT_ON_YOSHI and grappleState=0 and bTakingDamage=false
+{
+  //---------- Swap characters ---------- (Left trigger - Normally)
+  //if global.optSwapType>=0 and global.optSwapType<=2 //Standard or Dedicated
+  if (global.optSwapType>=0 and global.optSwapType<=2) or global.optSwapType=4 //Standard or Dedicated //standard fixed change: or Standard (Fixed)
+  {
+    if kCharSwapPressed=1 and bTakingDamage=false
+    {
+      if global.optSwapType=0 //Standard
+      {
+        if charSwapRecover=0 and global.canCharSwap=2 {pSwapCharacter()}
+      }
+      //standard fixed change (added): Standard (Fixed): the character being swapped to takes the Ability Set linked to
+      //the current one's instead of the one they were on last (scrSwapLinkedSet)
+      else if global.optSwapType=4
+      {
+        if charSwapRecover=0 and global.canCharSwap=2 {scrSwapLinkedSet(1); pSwapCharacter()}
+      }
+      else if global.optSwapType>=1 and global.optSwapType<=2 //Dedicated
+      {
+        //Jerry only
+        if global.activeCharacter=0 {pSwapAbility()}
+        else
+        {
+          if charSwapRecover=0 and global.canCharSwap=2
+          {
+            if global.optSwapType=2 and global.activeCharacter=1 //Swap to Link on character switch
+            {
+              if global.hasAbilToken[1]>=2
+              {
+                global.activeAbility[0]=1; scrSwapEffect()
+              }
+            }
+            pSwapCharacter()
+          }
+        }
+      }
+    }
+    //-------------------- Swap abilities -------------------- (Right trigger - Normally)
+    if kAbilSwapPressed=1 and bTakingDamage=false
+    {
+      //if global.optSwapType=0 //Standard
+      if global.optSwapType=0 or global.optSwapType=4 //Standard //standard fixed change: Standard (Fixed) swaps sets the same way
+      {
+        pSwapAbility()
+      }
+      else if global.optSwapType>=1 and global.optSwapType<=2 //Dedicated
+      {
+        //Claire only
+        if global.activeCharacter=1 {pSwapAbility()}
+        else
+        {
+          if charSwapRecover=0 and global.canCharSwap=2
+          {
+            if global.optSwapType=2 and global.activeCharacter=0 //Swap to Belmont on character switch
+            {
+              if global.hasAbilToken[2]>=2
+              {
+                global.activeAbility[1]=1; scrSwapEffect()
+              }
+            }
+            pSwapCharacter()
+          }
+        }
+      }
+    }
+  }
+  else if global.optSwapType=3 //---------- Hold ----------
+  {
+    if kAbilSwap and bTakingDamage=false
+    {
+      if kUp //Link
+      {
+        if (global.activeCharacter=0) or (global.activeCharacter=1 and charSwapRecover=0 and global.canCharSwap=2)
+        {
+          if global.hasAbilToken[1]>=2
+          {
+            if global.activeCharacter=1 {pSwapCharacter()}
+            global.activeAbility[0]=1; scrSwapEffect();
+          }
+        }
+      }
+      else if kDown //Belmont
+      {
+        if (global.activeCharacter=1) or (global.activeCharacter=0 and charSwapRecover=0 and global.canCharSwap=2)
+        {
+          if global.hasAbilToken[2]>=2
+          {
+            if global.activeCharacter=0 {pSwapCharacter()}
+            global.activeAbility[1]=1; scrSwapEffect();
+          }
+        }
+      }
+      else if kLeft //Mega Man
+      {
+        if (global.activeCharacter=0) or (global.activeCharacter=1 and charSwapRecover=0 and global.canCharSwap=2)
+        {
+          if global.hasAbilToken[3]>=2
+          {
+            if global.activeCharacter=1 {pSwapCharacter()}
+            global.activeAbility[0]=2; scrSwapEffect();
+          }
+        }
+      }
+      else if kRight //Samus
+      {
+        if (global.activeCharacter=1) or (global.activeCharacter=0 and charSwapRecover=0 and global.canCharSwap=2)
+        {
+          if global.hasAbilToken[4]>=2
+          {
+            if global.activeCharacter=0 {pSwapCharacter()}
+            global.activeAbility[1]=2; scrSwapEffect();
+          }
+        }
+      }
+    }
+
+    if kCharSwap and kCharSwapPressed=1 and bTakingDamage=false //Defender
+    {
+      if global.bTowerDefense>0
+      {
+        if global.activeCharacter=0 {global.activeAbility[0]=4; scrSwapEffect();}
+        else {global.activeAbility[1]=4; scrSwapEffect();}
+      }
+      else
+      {
+        if global.canCharSwap=2 and charSwapRecover=0 {pSwapCharacter()}
+      }
+    }
+  }
+}
+if charSwapRecover>0 {charSwapRecover-=1*gDeltaTime}
+
+//---------- Ability use ----------
+if attackState!=ACT_IN_BIKE and attackState!=ACT_ON_YOSHI and bTakingDamage=false {playerTechStart()}
+
+if chargeSoundCheck=1 //Stop charging sound if all charging buttons are released
+{
+  if kActA=0 and kActB=0 and kActC=0
+  {
+    SS_StopSound(global.snd_WepCharge)
+    chargeSoundCheck=0
+  }
+}
+
+//---------- Flash time after taking damage ----------
+if bCanTakeHit=false
+{
+  damageTime-=gDeltaTime
+  if sprite_index!=sJerryDamaged or sprite_index!=sClaireDamaged
+  {
+    if image_alpha=0.75 {image_alpha=0.25}
+    else {image_alpha=0.75}
+  }
+  if damageTime<=0
+  {
+    image_alpha=1
+    bCanTakeHit=true
+    bTakingDamage=false
+  }
+}
+//if global.booleanImprovements = true //input buffer
+if global.atkInputBuffer = true //input buffer //dipswitch change: own switch (was booleanImprovements)
+    {
+    if atkBufferTime>0 {atkBufferTime-=1*gDeltaTime}
+
+    if attackState=ACT_ATK or attackState=ACT_FIRE or attackState=ACT_FIRE_UP or attackState=ACT_FIRE_DOWN or attackState=ACT_BIRD_CALL
+        {
+        if castRecovering<=0
+        {
+            atkAnimSpd=-1
+            attackState=0
+
+            if !variable_local_exists("atkBufferTime") {atkBufferTime=0; atkBufferSkill=-1}
+
+            if atkBufferTime>0
+            {
+                var tBufSkill; tBufSkill=atkBufferSkill
+                atkBufferTime=0; atkBufferSkill=-1
+                playerTechUse(tBufSkill)
+            }
+        }
+        else {castRecovering-=1*gDeltaTime}
+        }
+}
+//else if global.booleanImprovements = false //old no input buffer
+else if global.atkInputBuffer = false //old no input buffer //dipswitch change
+    {
+    if attackState=ACT_ATK or attackState=ACT_FIRE or attackState=ACT_FIRE_UP or attackState=ACT_FIRE_DOWN or attackState=ACT_BIRD_CALL
+        {
+        if castRecovering<=0
+            {
+            atkAnimSpd=-1
+            attackState=0
+            }
+        else {castRecovering-=1*gDeltaTime}
+    }
+}
+
+
+
+
+
+//---------- Figure out what sprite index the character should be -----------
+if global.activeCharacter=0 //-------------------- JERRY --------------------
+{
+  if attackState=0 and bTakingDamage=false
+  {
+    if state=STANDING {sprite_index=sJerryIdle}
+    else if state=RUNNING {sprite_index=sJerryWalk}
+    else if state=DUCKING {sprite_index=sJerryDuck}
+    else if state=LOOKING_UP {sprite_index=sJerryLookUp}
+    else if state=CLIMBING {sprite_index=sJerryIdle}
+    else if state=JUMPING
+    {
+      if airDashRecovery=0
+      {
+        if facing=RIGHT
+        {
+          if xVel>10 {sprite_index=sJerryJumpForward}
+          else if xVel<-7.5 or walljumpTime>0 {sprite_index=sJerryJumpBack}
+          else {sprite_index=sJerryJump}
+        }
+        else
+        {
+          if xVel>7.5 or walljumpTime>0 {sprite_index=sJerryJumpBack}
+          else if xVel<-10 {sprite_index=sJerryJumpForward}
+          else {sprite_index=sJerryJump}
+        }
+      }
+      else {sprite_index=sJerryAirDash}
+    }
+    else if state=FALLING and statePrev=FALLING //and statePrevPrev=FALLING
+    {
+      if airDashRecovery=0
+      {
+        if bWallGrab=0 {sprite_index=sJerryJump}
+        else
+        {
+          if global.activeAbility[0]=2 {sprite_index=sJerryBusterHang}
+          else {sprite_index=sJerryHang}
+        }
+      }
+      else {sprite_index=sJerryAirDash}
+    }
+    else if flySpeed>90 and jumps>0 and jumps<flyMaxJumps and platformCharacterIs(IN_AIR) {sprite_index=sJerryJumpForward}
+
+    if doubleJumpAnim>0 and yVel<4 {sprite_index=sJerryJumpForward}
+    if groundDashRecovery>0 {sprite_index=sJerryAirDash}
+    else if backDashRecovery>0 {sprite_index=sJerryJumpBack}
+  }
+  //attack state animations override action states
+  if grappleState=0
+  {
+    if busterAnimStay>0 {busterAnimStay-=1*gDeltaTime}
+  }
+  else if grappleState=1 or grappleState=2
+  {
+    if state=STANDING or state=LOOKING_UP {mmState=BUSTER_STAND}
+    else if state=RUNNING {mmState=BUSTER_RUN}
+    else if (state=JUMPING or state=FALLING) {mmState=BUSTER_JUMP}
+  }
+
+  if bTakingDamage=false
+  {
+    if attackState=ACT_ATK {sprite_index=sJerrySword}
+    else if attackState=ACT_FIRE {sprite_index=sJerryFire1}
+    else if attackState=ACT_FIRE_UP {sprite_index=sJerryFire2}
+    else if attackState=ACT_FIRE_DOWN {sprite_index=sJerryFire3}
+    else if attackState=ACT_IN_CANNON {sprite_index=sJerryJumpForward}
+    else if attackState=ACT_IN_BIKE {sprite_index=sJerryBike}
+    else if attackState=ACT_BIRD_CALL {sprite_index=sJerryCasting}
+    else if attackState=ACT_BLOCK {sprite_index=sJerryGuard}
+    else if attackState=ACT_ON_YOSHI
+    {
+      if state=STANDING or state=LOOKING_UP or state=DUCKING {sprite_index=sJerryOnYoshiIdle}
+      else if state=JUMPING or state=FALLING {sprite_index=sJerryOnYoshiJump}
+      else {sprite_index=sJerryOnYoshiRun}
+    }
+    if busterAnimStay>0
+    {
+      if mmState=BUSTER_STAND {sprite_index=sJerryBusterStand}
+      else if mmState=BUSTER_RUN {sprite_index=sJerryBusterRun}
+      else if mmState=BUSTER_JUMP {sprite_index=sJerryBusterJump}
+      else if mmState=BUSTER_DUCK {sprite_index=sJerryBusterDuck}
+      if bWallGrab=1 {sprite_index=sJerryBusterHang}
+      if grappleState=3 {sprite_index=sJerryBusterGrapple}
+    }
+  }
+  else
+  {
+    if attackState!=ACT_IN_BIKE {sprite_index=sJerryDamaged}
+    else {sprite_index=sJerryBike}
+  }
+}
+else if global.activeCharacter=1 //-------------------- CLAIRE --------------------
+{
+  if attackState=0 and bTakingDamage=false
+  {
+    if state=STANDING {sprite_index=sClaireIdle}
+    else if state=RUNNING {sprite_index=sClaireWalk}
+    else if state=DUCKING {sprite_index=sClaireDuck}
+    else if state=LOOKING_UP {sprite_index=sClaireLookUp}
+    else if state=CLIMBING {sprite_index=sClaireIdle}
+    else if state=JUMPING
+    {
+      if airDashRecovery=0
+      {
+        if facing=RIGHT
+        {
+          if xVel>10 {sprite_index=sClaireJumpForward}
+          else if xVel<-7.5 or walljumpTime>0 {sprite_index=sClaireJumpBack}
+          else {sprite_index=sClaireJump}
+        }
+        else
+        {
+          if xVel>7.5 or walljumpTime>0 {sprite_index=sClaireJumpBack}
+          else if xVel<-10 {sprite_index=sClaireJumpForward}
+          else {sprite_index=sClaireJump}
+        }
+      }
+      else {sprite_index=sClaireAirDash}
+    }
+    else if state=FALLING and statePrev=FALLING //and statePrevPrev=FALLING
+    {
+      if airDashRecovery=0
+      {
+        if bWallGrab=0 {sprite_index=sClaireJump}
+        else {sprite_index=sClaireWallGrab}
+      }
+      else {sprite_index=sClaireAirDash}
+    }
+    else if flySpeed>90 and jumps>0 and jumps<flyMaxJumps and platformCharacterIs(IN_AIR) {sprite_index=sClaireJumpForward}
+
+    if doubleJumpAnim>0 and yVel<4 {sprite_index=sClaireAirRoll}
+  }
+  if busterAnimStay>0 {busterAnimStay-=1*gDeltaTime}
+  //attack state animations override action states
+  if bTakingDamage=false
+  {
+    if attackState=ACT_ATK
+    {
+      if global.activeAbility[1]=1 {sprite_index=sClaireHairWhip}
+      else if global.activeAbility[1]=3 {sprite_index=sClaireBladeStrike}
+    }
+    else if attackState=ACT_FIRE {sprite_index=sClaireThrow}
+    else if attackState=ACT_IN_CANNON {sprite_index=sClaireAirRoll}
+    else if attackState=ACT_HIDE {sprite_index=sClaireDuck}
+    else if attackState=ACT_BLOCK {sprite_index=sClaireGuard}
+    if busterAnimStay>0
+    {
+      if mmState=BUSTER_STAND {sprite_index=sClaireCannonStandA}
+      else if mmState=BUSTER_STAND_UP {sprite_index=sClaireCannonStandB}
+      else if mmState=BUSTER_RUN {sprite_index=sClaireCannonRunA}
+      else if mmState=BUSTER_RUN_UP {sprite_index=sClaireCannonRunB}
+      else if mmState=BUSTER_JUMP {sprite_index=sClaireCannonJumpA}
+      else if mmState=BUSTER_JUMP_UP {sprite_index=sClaireCannonJumpB}
+      else if mmState=BUSTER_JUMP_DOWN {sprite_index=sClaireCannonJumpC}
+      else if mmState=BUSTER_DUCK {sprite_index=sClaireCannonDuck}
+    }
+    if attackState=ACT_MORPHBALL {sprite_index=sClaireMorphBall}
+  }
+  else
+  {
+    if attackState=ACT_MORPHBALL {sprite_index=sClaireMorphBall}
+    else {sprite_index=sClaireDamaged}
+  }
+}
+else if global.activeCharacter=2 //-------------------- JEREMY - MECH --------------------
+{
+  if xVel>0 or xVel<0 and sprite_index=sJeremyMechWalk //Footstep sound
+  {
+    if image_index>=4 and image_index<=4.99
+    {
+      if footStepSound=0
+      {
+        if global.location=110 {playSound(global.snd_MechStepA,0,0.88,14000)}
+        else {playSound(global.snd_MechStepA,0,0.95,1)}
+        footStepSound=1
+      }
+    }
+    else if image_index>=0 and image_index<=0.99
+    {
+      if footStepSound=1
+      {
+        if global.location=110 {playSound(global.snd_MechStepA,0,0.88,14000)}
+        else {playSound(global.snd_MechStepA,0,0.95,1)}
+        footStepSound=0
+      }
+    }
+  }
+  else {footStepSound=0}
+
+  if attackState=0 and bTakingDamage=false
+  {
+    if state=STANDING or state=LOOKING_UP or state=DUCKING or state=CLIMBING
+    {
+      if mechFireRate>0 {sprite_index=sJeremyMechWalk; image_index=0}
+      else {sprite_index=sJeremyMechIdle}
+    }
+    else if state=RUNNING {sprite_index=sJeremyMechWalk}
+    else if state=JUMPING or state=FALLING and statePrev=FALLING {sprite_index=sJeremyMechJump}
+
+    if state=JUMPING or bUseFuel=1
+    {
+      var tEffect,tRanScl,tFuelCol;
+      tFuelCol=c_white
+      tRanScl=random(0.25)
+      if bUseFuel=1 {tFuelCol=c_orange; tRanScl+=0.1}
+      tEffect=instance_create(x-(16*image_xscale),y-31,oEffect)
+      tEffect.sprite_index=sMMSmokeCloud; tEffect.image_xscale=0.5+tRanScl; tEffect.image_yscale=0.5+tRanScl; tEffect.image_alpha=0.5+random(0.25)
+      tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=random_range(-0.5,0.5); tEffect.ySpd=3+random(2)
+      tEffect.image_blend=tFuelCol
+    }
+  }
+}
+
+//calculates the image_speed based on the character's velocity and/or state
+if state=RUNNING
+  image_speed=abs(xVel)*runAnimSpeed+0.1
+else if state=CLIMBING
+  image_speed=sqrt(sqr(abs(xVel))+sqr(abs(yVel)))*climbAnimSpeed
+else if state=STANDING or state=DUCKING or state=LOOKING_UP
+  image_speed=idleAnimSpeed
+
+if attackState!=0
+  image_speed=0.5
+else if attackState=ACT_FIRE or attackState=ACT_FIRE_UP or attackState=ACT_FIRE_DOWN
+  image_speed=1
+
+if atkAnimSpd!=-1 //Do not use attack anim speed unless needed
+  image_speed=atkAnimSpd
+
+if sprite_index=sJerryDamaged or sprite_index=sClaireDamaged //Damage state anim speed
+  image_speed=0.75
+else if sprite_index=sJerryJumpForward or sprite_index=sClaireJumpForward or sprite_index=sClaireAirRoll //Air roll anim speed
+  image_speed=0.4
+
+if attackState=ACT_IN_BIKE //Dirt effect on the ground when on bike
+{
+  if platformCharacterIs(ON_GROUND) and gDeltaDoTicks
+  {
+    var tBikeEffect;
+    tBikeEffect=instance_create(x-16-random(6),y-3+random(4),oEffect)
+    tBikeEffect.sprite_index=sMMSmokeCloud; tBikeEffect.image_blend=make_color_rgb(248,240,144)
+    tBikeEffect.image_alpha=0.75; tBikeEffect.xSpd=-2-random(2); tBikeEffect.ySpd=-2-random(2)
+    tBikeEffect.newBlend=-1; tBikeEffect.followID=-1; tBikeEffect.decay=-100
+  }
+  bikeAnimFrm+=0.4*gDeltaTime
+  image_speed=0
+}
+
+//figures out which direction the sprite should be facing
+if facing=LEFT {image_xscale=-1}
+else if facing=RIGHT {image_xscale=1}
+
+//sets the previous state and the previously previous state
+statePrevPrev=statePrev
+statePrev=state
+attackStatePrevPrev=attackStatePrev
+attackStatePrev=attackState
+
+//image_speed *= gDeltaTime
+
+//limit the image_speed to 1 so the animation always looks good
+if image_speed>1 {image_speed=1}

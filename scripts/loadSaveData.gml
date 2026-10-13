@@ -274,6 +274,8 @@ if global.location=49 and global.bossTrack!=0
 {
   roomToPlace=ini_read_real(sectionRead,"130rm",0)
 }
+scrModLoadSavedRoom() //mods change (added): a save made in a mod's room goes back to it (or, with its mod off, somewhere safe)
+scrModHook("load",0,0) //mods change (added): the mods' own save data
 ini_close()
 
 //Load options from the options file

@@ -1,0 +1,41 @@
+draw_sprite_ext(sHealingPost,-1,x,y,image_xscale,image_yscale,image_angle,image_blend,image_alpha)
+draw_set_alpha(0.45)
+if bSizeUp=false
+{
+  sizeMod-=0.08*gDeltaTime
+  if sizeMod<=-2
+    bSizeUp=true
+}
+else
+{
+  sizeMod+=0.08*gDeltaTime
+  if sizeMod>=6
+    bSizeUp=false
+}
+distSize=-point_distance(oPlayer1.x,oPlayer1.y,x,y)/16
+if distSize<-16
+  distSize=-16
+draw_set_blend_mode(bm_add)
+draw_circle_color(x,y-(40*image_yscale),28+sizeMod+distSize,make_color_rgb(72,248,64),c_black,false)
+draw_set_blend_mode(bm_normal)
+if global.gamePaused=false
+{
+  if effectDelay=0
+  {
+    var tFFScl,ranX,ranY,tEffect;
+    tFFScl=random(0.15)
+    ranX=x-(sprite_width/2)+random(14)
+    ranY=y-(sprite_height)+random(sprite_height/2)
+
+    tEffect=instance_create(ranX,ranY,oEffectB)
+    tEffect.type=3; tEffect.sprite_index=sEfFirefly; tEffect.newBlend=1; tEffect.image_alpha=0.3
+    tEffect.image_xscale=0.15+tFFScl; tEffect.image_yscale=0.15+tFFScl; tEffect.direction=random(360)
+    tEffect.speed=random(0.5)+0.5; tEffect.friction=random(0.01)+0.01; tEffect.fadeSpd=0.005
+    tEffect.image_blend=make_color_rgb(67+random(10),243+random(10),59+random(10))
+    tEffect.AccelX=0; tEffect.AccelY=0; tEffect.followID=-1; tEffect.rotation=0
+
+    effectDelay=10+round(random(10))
+  }
+  else
+    effectDelay-=1*gDeltaTime
+}

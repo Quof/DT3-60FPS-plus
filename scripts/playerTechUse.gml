@@ -3,6 +3,7 @@ This script is called inside the character step event.
 It is used when the player uses an ability.
 argument0: Which ability is used
 */
+if global.modOvr[playerTechUse]>=0 {var __n; __n=0; repeat (argument_count) {global.modArg[__n]=argument[__n]; __n+=1}; return scrModOverride(playerTechUse,argument_count)} //mods change (added): a mod's own version of this script runs instead (scrModOverride)
 var tSkillUse; tSkillUse=argument0
 
 if !variable_local_exists("atkBufferTime") {atkBufferTime=0; atkBufferSkill=-1}

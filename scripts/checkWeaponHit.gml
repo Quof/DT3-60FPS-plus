@@ -4,6 +4,7 @@ use: checkWeaponHit(pWeapon_id)
 
 argument0: Player Weapon id
 */
+if global.modOvr[checkWeaponHit]>=0 {var __n; __n=0; repeat (argument_count) {global.modArg[__n]=argument[__n]; __n+=1}; return scrModOverride(checkWeaponHit,argument_count)} //mods change (added): a mod's own version of this script runs instead (scrModOverride)
 var tPWepId;
 tPWepId=argument0
 

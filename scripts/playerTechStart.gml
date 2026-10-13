@@ -3,6 +3,7 @@ This script is called inside the character step event.
 It is just to clean up the code.
 */
 
+if global.modOvr[playerTechStart]>=0 {var __n; __n=0; repeat (argument_count) {global.modArg[__n]=argument[__n]; __n+=1}; return scrModOverride(playerTechStart,argument_count)} //mods change (added): a mod's own version of this script runs instead (scrModOverride)
 if global.activeCharacter=0 //---------------------------------------- Jerry ----------------------------------------
 {
   if global.activeAbility[0]=1 //-------------------- Link --------------------
@@ -1248,7 +1249,8 @@ else if global.activeCharacter=2 and global.jeremyCanAtk=1 //-------------------
 
   if kActC and kActCPressed=1 and bTakingDamage=false and (state=STANDING or state=RUNNING or state=JUMPING or state=FALLING or state=DUCKING or state=LOOKING_UP)
   {
-    if mechShieldUses>0 //Shield
+    //if mechShieldUses>0 //Shield
+    if mechShieldUses>0 and scrModHook("mechShield",0,0)!=1 //Shield //mods change: unless a mod's code put the shields up its own way (it returns 1)
     {
       if global.location=110 {playSound(global.snd_NewAbilitySet,0,0.85,10000)}
       else {playSound(global.snd_NewAbilitySet,0,0.92,14000)}

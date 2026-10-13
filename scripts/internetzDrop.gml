@@ -5,6 +5,7 @@ argument0: Determine if enemy drop
 -- 1: An enemy drops this
 */
 
+if global.modOvr[internetzDrop]>=0 {var __n; __n=0; repeat (argument_count) {global.modArg[__n]=argument[__n]; __n+=1}; return scrModOverride(internetzDrop,argument_count)} //mods change (added): a mod's own version of this script runs instead (scrModOverride)
 var tEnDrop;
 tEnDrop=argument0
 

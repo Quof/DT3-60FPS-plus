@@ -1,0 +1,89 @@
+{
+  "_about": "Altered Beast, the alternate equipment set from cousinoer5's Altered Insanity, as a DT3+ mod. It replaces some of the game's scripts and object events with DT3+'s versions that have Altered Insanity's changes in them: merged by tools/modkit/mergemod.py (python mergemod.py init|update|check altered_beast/config.json) and finished by hand in merged/, then built with python tools/modkit/convert.py altered_beast/config.json. Its new objects (special attacks, the altered enemies its room shows) are ported to DT3+'s 60fps code by hand in ported/ (new_objects_legacy: any that aren't run as 30fps code). 'vanilla' is the original game split with gmksplit: the DT3_v1_5_2_4_v120_gmksplit folder of this repository's commit fe70bd6d, unzipped into tools/modkit/_vanilla (git archive --format=zip -o vanilla.zip fe70bd6d DT3_v1_5_2_4_v120_gmksplit). Paths are this computer's.",
+  "mod": "D:/Furige/dt3plus mod testing/DT3 Altered Insanity/fAlteredInsanity_gmksplit",
+  "vanilla": "../_vanilla/DT3_v1_5_2_4_v120_gmksplit",
+  "project": "../../..",
+  "out": "C:/Users/diplo/AppData/Local/Temp/claude/D--Furige-dt3-project-file-DT3-60FPS-plus/f5f2808c-879a-408c-a97d-96227aba9f1b/scratchpad/modout/AlteredBeast",
+  "extras": "extras",
+  "merge": {
+    "merged": "merged",
+    "dt3base": "dt3base",
+    "leave_out": "speedrun|Speedrun|requireNightmare|SRstat|SRalter|activeCharacter\\s*!?=\\s*3|oIdentifier\\.(mana|summon|chaoTarget)|[Cc]haoBoss|inBossChallenge|cousinoer5|Cousinoer5|challengeRoom|rC5_|rBT_Cousinoer5|c5Trials",
+    "only": "alterEquip|alterIntro|equipJerry|equipClaire|GreenLife|boomer|dashOnly|crouchOnly|darkOmenAugment|battleRage|TrueEnabled|amuletItem|hasArmor|increaseResists|weaken|armor\\b|defense\\b|spawnArmorEffect",
+    "scripts": ["abilSetRemove", "charSwitcher", "characterCreateEvent", "characterDrawEvent", "characterStepEvent",
+                "checkWeaponHit", "enemyDefeat", "enemyDrawEvent", "enemyStepEvent", "equipmentInit", "hitPlayer",
+                "internetzDrop", "menuAbilitySet", "menuEquipment", "menuOptions", "menuRecognitions", "pMoveAirDash",
+                "pMoveDashBack", "pMoveDashForward", "pMoveWallDash", "pSwapCharacter", "playerTechStart",
+                "playerTechUse", "scrFullStatRestore", "storeStatus", "takeDamage", "weaponDmgMod", "playerHeartDisplay"],
+    "objects": {
+      "oAtkDiveBird": "all", "oBelDagNightmareExt": "all", "oBelmontAxe": "all", "oBelmontDagger": "all",
+      "oBelmontHWExplosion": "all", "oBelmontHolyWater": "all", "oBelmontWhip": "all", "oBombermanExplode": "all",
+      "oBounceDagger": "all", "oDiffusionBlast": "all", "oDiveBird": "all", "oLinkArrow": "all", "oLinkBExplosion": "all",
+      "oLinkBoomerang": "all", "oLinkSWave": "all", "oLinkSword": "all", "oMMXbuster": "all", "oMMXgravityWell": "all",
+      "oMMXgravityWellChargeB": "all", "oMMXshotgunIceA": "all", "oMMXshotgunIceB": "all", "oMMXshotgunIceChargeA": "all",
+      "oMMXshotgunIceChargeB": "all", "oSamusBExplosion": "all", "oSamusCannon": "all", "oSamusMissile": "all",
+      "oSamusPowerBombB": "all",
+      "oAttackBase": "all", "oDamagableBase": "all", "oEnemyBase": "all", "oPlayer1": "all", "oPauseMenu": "all",
+      "oHUD": "all", "oNPC_GeneralC": "all", "oHealingPost": "all", "oMetroidCheckpoint": "all",
+      "oShopRegenWindow": "all", "oMessageEnemy": "all",
+      "oEProjectileBase": ["Collision_oMMXgravityWarp"]
+    },
+    "only_objects": {
+      "oAntiAlpha": "all", "oAntiBeta": "all", "oAquaSerpent": "all", "oArmyEye": "all", "oBarba": "all",
+      "oBlackmoorMain": "all", "oBladeBot": "all", "oBrainMachine": "all", "oCACA_Main": "all",
+      "oCHAOS_Warmaster_EX": "all", "oCHAOS_Warmaster_Main": "all", "oDeadHand": "all", "oDeath": "all",
+      "oDecimator": "all", "oDecimatorV2": "all", "oDefective": "all", "oDracula": "all", "oElpizo": "all",
+      "oEnmity": "all", "oFedex": "all", "oFinalNightmare": "all", "oHelmetHead": "all", "oLargeVampireBat": "all",
+      "oLatchCrystal": "all", "oLegion": "all", "oMalevolence": "all", "oMaohTheGiant": "all", "oMenaceMain": "all",
+      "oParasiticSeed_Cave": "all", "oSephiroth": "all", "oSera": "all", "oShadowEura": "all", "oShadowForm": "all",
+      "oStormEagle": "all", "oThunderbird": "all", "oVaultDemon": "all"
+    }
+  },
+  "select_new": {"code": ["merged", "extras"], "rooms": ["rBT_Cousinoer5AlterDevCom"]},
+  "new_objects_legacy": 1,
+  "clones": false,
+  "unported": false,
+  "patch_rooms": ["rMain_20", "rBT_HUB"],
+  "patch_rules": {
+    "rBT_HUB": {"only_instances": [483484, 483488, 483790, 484247],
+                "only_tile_ids": [10674681, 10674682, 10674683, 10674684, 10674685, 10674686, 10674687, 10674688],
+                "why": "the Altered Beast's: the ledge at the top right (with its solid), its two signs and the door to the Altered Beast's room (the rest is Virtual Insanity's)",
+                "room_code": "", "why_room_code": "the added room code is Virtual Insanity's (its boss challenges)"}
+  },
+  "rename_sprites": {"sScanMenuDmgTypes": "sScanMenuDmgTypesAB"},
+  "edits": {
+    "script characterSpecialAbility": [
+      ["playerAttack.direction=tIceDir", "//playerAttack.direction=tIceDir\n      playerAttack._direction=tIceDir //60fps change: the shotgun ice is DT3+'s, which moves by its own _direction"],
+      ["playerAttack.direction=tAtkDir", "//playerAttack.direction=tAtkDir\n      playerAttack._direction=tAtkDir //60fps change: the rupture arrow moves by its own _direction"],
+      ["playerAttack.direction=tBustDir", "//playerAttack.direction=tBustDir\n      playerAttack._direction=tBustDir //60fps change: the fourth charge moves by its own _direction (the ice sled, which also gets this, moves as a moving solid and reads neither)"],
+      ["playerAttack.direction=tDir", "//playerAttack.direction=tDir\n      playerAttack._direction=tDir //60fps change: the wave beam and the diffusion missile move by their own _direction"]
+    ],
+    "script pMoveGravDash": [
+      ["  for(i=0;i<6;i+=1)\n", "  if gDeltaDoTicks //60fps change (added): the feathers once per 30fps tick (this runs every frame Claire dashes in a gravity well)\n  for(i=0;i<6;i+=1)\n"]
+    ],
+    "oLinkMine/Create_0": [
+      ["lifeTime=9000\n", "lifeTime=9000\nmineKeyPrev=1 //60fps change (added): whether Action C was down on the last 30fps tick (see the step event)\n"]
+    ],
+    "oLinkMine/Step_0": [
+      ["if global.gamePaused=false\n{\n", "if global.gamePaused=false\n{\n      //60fps change (added): this runs on 30fps ticks, and the player's kActCPressed is only on for the frame Action C was\n      //pressed in: a press is the button down now and not on the last tick\n      var tMinePress; tMinePress=(oPlayer1.kActC and mineKeyPrev=0); mineKeyPrev=oPlayer1.kActC\n"],
+      ["if oPlayer1.kActC and oPlayer1.kActCPressed=1 {lifeTime=31}", "//if oPlayer1.kActC and oPlayer1.kActCPressed=1 {lifeTime=31}\n          if tMinePress {lifeTime=31} //60fps change"]
+    ]
+  },
+  "copy": {"sound/DT_BoulderHit.wav": "D:/Furige/dt3plus mod testing/DT3 Altered Insanity/Sound/DT_BoulderHit.wav"},
+  "mod_ini": {
+    "mod": {
+      "name": "Altered Beast",
+      "author": "cousinoer5 (merged with DT3+)",
+      "version": "1.01",
+      "description": "Altered Insanity's alternate equipment set: every piece of equipment altered, special attacks paid for in green health, curses and challenge options. Type alterme on the title screen before a new game, or find the Altered Beast once the game is beaten. It replaces some of the game's own scripts and object events with versions made from DT3+'s.",
+      "legacy": 0,
+      "order": 0,
+      "fallbackRoom": "rBT_HUB",
+      "fallbackX": 64,
+      "fallbackY": 304
+    },
+    "sounds": [
+      {"var": "snd_DT_BoulderHit", "file": "DT_BoulderHit.wav"}
+    ]
+  }
+}

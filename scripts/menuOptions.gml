@@ -3,6 +3,7 @@ This script is called in the HUD pause menu and is an extension of it.
 It is used to display the Options submenu.
 */
 
+if global.modOvr[menuOptions]>=0 {var __n; __n=0; repeat (argument_count) {global.modArg[__n]=argument[__n]; __n+=1}; return scrModOverride(menuOptions,argument_count)} //mods change (added): a mod's own version of this script runs instead (scrModOverride)
 draw_set_font(fnt_PauseMenuText)
 draw_set_halign(fa_middle)
 draw_sprite(sPauseM_OptionsHeader,0,contentMenuX+170,contentMenuY+26)

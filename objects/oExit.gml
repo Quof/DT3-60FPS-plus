@@ -41,6 +41,7 @@ if animPlayerExit>0 //Going down pipe
   oPlayer1.y+=2*gDeltaTime
   if animPlayerExit=30
   {
+    scrModHook("exitPlayer",exitType,0) //mods change (added): the mods' own code for exits (they can change toRoom, newMapX, newMapY)
     global.gamePaused=false
     global.recAreaTrans+=1
     global.newMapX=newMapX; global.newMapY=newMapY
@@ -127,6 +128,7 @@ if exitType=0 //Press Up
         if desertDir=1 {global.tempAction[0]+=1}
       }
     }
+    scrModHook("exitPlayer",exitType,0) //mods change (added): the mods' own code for exits (they can change toRoom, newMapX, newMapY)
 
     global.wpWaterLEntry=global.wpWaterLevel
     global.recAreaTrans+=1
@@ -146,6 +148,7 @@ if exitType=0 //Press Up
 }
 else if exitType=1 //No key (Player Touch)
 {
+  scrModHook("exitPlayer",exitType,0) //mods change (added): see above
   global.wpWaterLEntry=global.wpWaterLevel
   global.recAreaTrans+=1
   global.newMapX=newMapX; global.newMapY=newMapY

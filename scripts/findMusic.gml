@@ -856,6 +856,7 @@ else if tTrackPlay=9000 //jukebox change (added): the title screen music (loadEx
 {
   tempFindMusic=global.msc_TitleMenu
 }
+else {tempFindMusic=scrModMusicFind(tTrackPlay)} //mods change (added): a track number a mod adds (mod.ini [music]), or 0 (no music) for one nothing has
 
 if tTrackPlay!=0 {return tempFindMusic}
 else {return 0}

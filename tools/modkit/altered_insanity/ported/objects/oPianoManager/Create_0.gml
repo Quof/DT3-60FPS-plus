@@ -1,0 +1,3 @@
+currentNoteString = ""
+noteStringOne = "B2A2F1B2A2F1B2A2E1D1E1"
+noteStringTwo = "C1D#1C#1C1C#1C1D#1C#1A#1C#1D#1C#1A#1C#1D#1C#1E1E1E1E1E1E1F1G#1C2"

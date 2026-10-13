@@ -47,7 +47,8 @@ if gDeltaTime != 1.0
     with (all)
     {
         image_index += image_speed * tDtM1
-        if friction != 0
+        //if friction != 0
+        if friction != 0 and !ds_map_exists(global.modLegacyMap,object_index) //mods change: not 30fps mods' objects, whose built-in motion only runs on ticks (scrModLegacyFreeze)
         {
             x += hspeed * tDtM1
             y += vspeed * tDtM1
@@ -391,7 +392,8 @@ if keyboard_check_pressed(vk_f2)
     gDeltaDoTicks = 0
     gDeltaTick = 0.0
 }
-room_speed=global.gameFrameRate
+//room_speed=global.gameFrameRate
+room_speed=global.gameFrameRate*global.modSpeedMul //mods change: times the game speed a mod can set (global.modSpeedMul, normally 1)
 
 gDeltaDoTicks = 0
 gDeltaTick += gDeltaTime
@@ -402,6 +404,14 @@ while (gDeltaTick >= 1.0)
     gDeltaTick -= 1.0
 }
 if gDeltaTime == 1.0 { gDeltaDoTicks = 1; gDeltaTick = 0.999999 }
+scrModLegacyFreeze() //mods change (added): between 30fps ticks, 30fps mods' objects' alarms and built-in motion hold still
+#define Step_2
+/*"/*'/**//* YYD ACTION
+lib_id=1
+action_id=603
+applies_to=self
+*/
+scrModLegacyThaw() //mods change (added): their built-in motion back (scrModLegacyFreeze)
 #define Other_3
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -416,6 +426,9 @@ lib_id=1
 action_id=603
 applies_to=self
 */
+global.modSpeedMul=1 //mods change (added): a game speed a mod sets lasts for that room (the original game set room_speed back when the player was made in the next room)
+scrModRoomPatch() //mods change (added): the mods' patches for this room (after its creation code)
+scrModHook("roomStart",0,0) //mods change (added)
 if (room != rIntro and room != rTitle and room != rBeginning and room != rBackStory and room != rMap404 and room != rTestRoom and room != rCheaterRoom)
 {
   //normalized gallery change (added): a boss gallery fight with a normalized build goes on only in the room the gallery

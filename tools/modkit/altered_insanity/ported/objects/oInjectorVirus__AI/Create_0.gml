@@ -1,0 +1,42 @@
+event_inherited()
+image_speed=0.3
+visible=0
+
+//Enemy base statistics
+eName="Injector Virus"
+eLevel=30
+maxLife=175
+if room=rC5_Arena6
+{
+    maxLife = 100000 //nope not letting you break the final challenge in this room!
+}
+life=maxLife
+pointWorth=20
+atkPower=7
+resType[1]=5
+stunResist=50
+baseItemChance=30
+baseDropIndex=90
+pickupDropMod=10
+detectDistX=188
+detectDistY=156
+dieEffect=0
+myTarget=-1
+startUpTime=0
+
+currHspd=0; currVspd=0
+
+deathAnim=0
+
+jeremyText="Take these out as quick as you can, if they reach any of the facility's bots, they'll infect them and turn that bot on you. It's very very worth noting that the blue ones can infect non-aggressive bots such as consoles affecting doors and bridges. These have a limited sight distance, keep that in mind."
+chaoText="The Virus hasn't been as actively aggressive toward you as it has been here. It knows you're close to shutting it down. We've come this far though, I know it won't stop us."
+devText="Early on, the way these infect friendly bots and then turn those bots on the player was how all Virus infected enemies were going to work, but I scrapped that idea and decided to save it for late game only. There were a few complications back then that were later worked out, but over all, it felt better to save this till now."
+extraInfo="Infects bots."
+
+alarm[0]=1
+
+//if room=rC5_Arena1 or room=rC5_Arena8 or room=rC5_Arena7 or room=rC5_Arena6 or rC5_Arena12
+if global.challengeRoom>0
+{
+type = 0
+}

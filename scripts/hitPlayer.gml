@@ -2,6 +2,7 @@
 This script is used when the player takes damage.
 argument0: id of the object dealing damage to the player.
 */
+if global.modOvr[hitPlayer]>=0 {var __n; __n=0; repeat (argument_count) {global.modArg[__n]=argument[__n]; __n+=1}; return scrModOverride(hitPlayer,argument_count)} //mods change (added): a mod's own version of this script runs instead (scrModOverride)
 var tObjHit;
 tObjHit=argument0
 

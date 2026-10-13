@@ -12,3 +12,5 @@ https://gm82.cherry-treehouse.com/
 3) Install GM8.2 Core, GM8.2 Buffer, GM8.2 Joystick and GM8.2 Sound in Extensions of GM8.2. You have to press the + and install them. The Super Sound plugin isn't needed anymore: the SS_ scripts (Scripts > DT3+ > Custom) play the game's sound through GM8.2 Sound.
 
 4) Install any missing fonts, also available on Discord.
+
+Mods go in the Mods folder and are turned on or off on the title screen: Mods/README.txt has what a mod can be made of. tools/modkit converts a mod made as an edited copy of the original game.

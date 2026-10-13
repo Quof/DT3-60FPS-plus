@@ -3,6 +3,7 @@ This script is used when an object takes damage
 bPlayable is used to tell whether the object is your character or an enemy
 argument0: id of the object dealing damage
 */
+if global.modOvr[takeDamage]>=0 {var __n; __n=0; repeat (argument_count) {global.modArg[__n]=argument[__n]; __n+=1}; return scrModOverride(takeDamage,argument_count)} //mods change (added): a mod's own version of this script runs instead (scrModOverride)
 var tObjHit;
 tObjHit=argument0
 
@@ -514,6 +515,7 @@ if bCanTakeDamage=true
     else
     {
       if global.bBossGallery=1 {global.levelTimeSecond+=5} //add 5 seconds if player is in the boss gallery
+      scrModHook("playerHit",totalDamage,tObjHit) //mods change (added): the mods' own code for the player being hit (the damage so far, and what hit)
     }
     
     with oJerryParryWindow {instance_destroy()}

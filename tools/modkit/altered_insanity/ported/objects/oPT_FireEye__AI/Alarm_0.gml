@@ -1,0 +1,42 @@
+eName=string("Lv.") +string(rpgLv) +string(" Prototype Fire Eye")
+pointWorth=25+round(rpgLv/6)
+if rpgLv<=9
+{
+  expValue=5+round(rpgLv*1.5)
+  maxLife=210+(rpgLv*5)
+}
+else if rpgLv>=10 and rpgLv<=24
+{
+  expValue=10+(rpgLv*2)
+  maxLife=250+(rpgLv*6)
+}
+else if rpgLv>=25 and rpgLv<=49
+{
+  expValue=20+round(rpgLv*3.25)
+  maxLife=290+round(rpgLv*7.75)
+}
+else if rpgLv>=50 and rpgLv<=59
+{
+  expValue=40+round(rpgLv*5)
+  maxLife=350+round(rpgLv*9.5)
+}
+else if rpgLv>=60
+{
+  expValue=50+round(rpgLv*6)
+  maxLife=450+(rpgLv*11)
+}
+life=maxLife
+
+if global.location=107
+{
+  eName=string("Lv.") +string(rpgLv) +string(" Betatype Fire Eye")
+  eLevel+=1
+  maxLife=round(maxLife*1.1)
+  life=maxLife
+  pointWorth=round(pointWorth*1.2)
+  expValue*=7
+  atkPower+=1
+  baseColor=make_color_rgb(255,190,180)
+  image_blend=baseColor
+  jeremyText+=" This upgraded version simply has slightly higher base stats."
+}

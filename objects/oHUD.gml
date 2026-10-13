@@ -648,6 +648,7 @@ if view_current=0
       draw_sprite(sHUD_BossGalleryClock,0,view_xview[0]+382,view_yview[0]+8)
       textDropShadow(global.levelTimeSecond,view_xview[0]+392,view_yview[0]+8,awesomeColorA,awesomeColorB,3)
     }
+    scrModHook("drawHUD",0,0) //mods change (added): the mods' own HUD parts (drawn with the HUD on, after the rest)
   }
 
   if oPlayer1.attackState=oPlayer1.ACT_IN_BIKE

@@ -375,6 +375,7 @@ if global.quickGameOver=0
     hintMessage="What are you doing here?"
   else if global.currentBoss="Helmethead EX"
     hintMessage="It never ends."
+  scrModHook("gameOverHint",0,0) //mods change (added): the mods' own hints for their bosses and situations (they set hintMessage)
 }
 else
 {
@@ -737,6 +738,8 @@ if room=rGame6_WindH and oPlayer1.x<=384
   hintMessage="Yeah, that happened."
 else if room=rGame6_CoDS and oPlayer1.x>=224 and oPlayer1.x<=656 and oPlayer1.y>=room_height
   hintMessage="Heh heh, death by butts. Classic."
+
+scrModHook("gameOverHint",1,0) //mods change (added): the mods' own hints for their rooms (they set hintMessage)
 #define Other_11
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -957,6 +960,7 @@ else //Not in boss gallery
     global.newMapY=448
     room_goto(rBT_HUB)
   }
+  else if scrModHook("gameOverRetry",0,0)=1 {} //mods change (added): a mod's own place to retry from (it goes there and returns 1)
   else
   {
     if global.bossTrack=102 //TD -> Central City

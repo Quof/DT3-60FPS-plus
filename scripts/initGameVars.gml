@@ -568,3 +568,6 @@ global.jerryDashBodge = -2.5
 global.claireDashBodge = -0.75
 global.arrowSpeedBodge = 0.75
 global.arrowRotateBodge = 0.05
+
+//mods change (added): the mods' own game variables ("init" hooks)
+scrModHook("init",0,0)

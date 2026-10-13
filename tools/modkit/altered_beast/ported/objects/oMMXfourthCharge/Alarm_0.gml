@@ -1,0 +1,1 @@
+bCanDealDamage=true

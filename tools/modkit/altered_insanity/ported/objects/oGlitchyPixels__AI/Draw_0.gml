@@ -1,0 +1,9 @@
+draw_set_alpha(1)
+draw_set_color(myColor)
+draw_circle(x,y,7,0)
+myDir=0
+for(i=0;i<6;i+=1)
+{
+  draw_circle(x+lengthdir_x(12,orbitPos+myDir),y+lengthdir_y(12,orbitPos+myDir),2,0)
+  myDir+=360/6
+}

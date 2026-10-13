@@ -1,0 +1,1 @@
+weaponRehitTime=1000

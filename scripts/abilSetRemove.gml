@@ -4,6 +4,7 @@ argument0: Whether to set active or inactive
 -- 0: Set abilities active
 -- 1: Set abilities inactive
 */
+if global.modOvr[abilSetRemove]>=0 {var __n; __n=0; repeat (argument_count) {global.modArg[__n]=argument[__n]; __n+=1}; return scrModOverride(abilSetRemove,argument_count)} //mods change (added): a mod's own version of this script runs instead (scrModOverride)
 var tAbilSet;
 tAbilSet=argument0
 

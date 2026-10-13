@@ -1,0 +1,32 @@
+event_inherited()
+bCanTakeDamage=false; bCanDealDamage=false
+image_alpha=0
+bActive=1
+
+//Enemy base statistics
+eName="Decimator Protector"
+eLevel=36
+maxLife=300
+life=maxLife
+pointWorth=10
+atkPower=10
+stunResist=50
+affiliation=7
+dieEffect=0
+
+spin=0
+myProg=0
+progTime=0
+shotDelay=560
+checkHP=0
+deathAnim=0
+
+jeremyText="There are 4 types of these as you can see. Each one with its own attacks and resistances. The weaknesses are:#Fuchsia: PIERCE#Orange: SPECIAL#Blue: SHOT#Green: ELEMENTAL"
+chaoText="Its regeneration is at its fastest with this attachment. I'd recommend getting rid of the green ones first. I personally think they're the most threatening. The orange ones have that flame thrower, but as long as you keep your distance, it's a useless attack for it. This attachment gains half resist to NORMAL attacks at 75%."
+devText="These were the hardest part to get right with the Decimator. I definitely didn't want all of them attacking at the same time or out of sequence. When testing that, it was way too chaotic when mixed with the missiles from the sky, as well as a new attack the Decimator gains on the second half of the fight."
+
+        if global.inBossChallenge
+        {
+devText = "Haha, these things are pretty rough"
+        }
+alarm[0]=1

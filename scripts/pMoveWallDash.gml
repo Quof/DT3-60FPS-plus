@@ -1,6 +1,7 @@
 //This script allows the player to wall dash
 //argument0: 0: left, 1: right
 
+if global.modOvr[pMoveWallDash]>=0 {var __n; __n=0; repeat (argument_count) {global.modArg[__n]=argument[__n]; __n+=1}; return scrModOverride(pMoveWallDash,argument_count)} //mods change (added): a mod's own version of this script runs instead (scrModOverride)
 var tWallCheck;
 tWallCheck=argument0
 

@@ -1,5 +1,6 @@
 //This script swaps the characters
 
+if global.modOvr[pSwapCharacter]>=0 {var __n; __n=0; repeat (argument_count) {global.modArg[__n]=argument[__n]; __n+=1}; return scrModOverride(pSwapCharacter,argument_count)} //mods change (added): a mod's own version of this script runs instead (scrModOverride)
 idleTime=0
 if global.stJGame_C[0]>1500 {global.stJGame_C[0]=1000} //Remove super mode in Gate 6
 if attackState=ACT_BLOCK {attackState=0}

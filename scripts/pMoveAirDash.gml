@@ -1,5 +1,6 @@
 //This script allows the player to air dash
 
+if global.modOvr[pMoveAirDash]>=0 {var __n; __n=0; repeat (argument_count) {global.modArg[__n]=argument[__n]; __n+=1}; return scrModOverride(pMoveAirDash,argument_count)} //mods change (added): a mod's own version of this script runs instead (scrModOverride)
 canAirDash=0
 global.recAirDash+=1
 if facing=RIGHT

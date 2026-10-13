@@ -4,6 +4,7 @@ argument0 is whether to read or write to the values
 -- 0: write
 -- 1: read
 */
+if global.modOvr[storeStatus]>=0 {var __n; __n=0; repeat (argument_count) {global.modArg[__n]=argument[__n]; __n+=1}; return scrModOverride(storeStatus,argument_count)} //mods change (added): a mod's own version of this script runs instead (scrModOverride)
 var twr; twr=argument0
 if argument0=0
 {

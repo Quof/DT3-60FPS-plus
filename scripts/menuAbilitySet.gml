@@ -2,6 +2,7 @@
 This script is called in the HUD pause menu and is an extension of it.
 It is used to display the Ability Set submenu.
 */
+if global.modOvr[menuAbilitySet]>=0 {var __n; __n=0; repeat (argument_count) {global.modArg[__n]=argument[__n]; __n+=1}; return scrModOverride(menuAbilitySet,argument_count)} //mods change (added): a mod's own version of this script runs instead (scrModOverride)
 
 //Display current character and ability arrows
 draw_set_color(textColorShadow)

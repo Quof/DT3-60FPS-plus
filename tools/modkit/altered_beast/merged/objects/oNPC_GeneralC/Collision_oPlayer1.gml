@@ -1,0 +1,45 @@
+if oKeyCodes.kCodePressed[3]=1 and global.gamePaused=false
+{
+  if oPlayer1.state=oPlayer1.STANDING or oPlayer1.state=oPlayer1.RUNNING or oPlayer1.state=oPlayer1.DUCKING or oPlayer1.state=oPlayer1.LOOKING_UP
+  {
+    global.recPeopleTalkNum+=1
+    with oMessageNPCchat {instance_destroy()}
+    sceneProgress=0
+    scenePChk(oPlayer1.x,oPlayer1.y,0,0.1,1)
+    if oPlayer1.x<=x {oPlayer1.x=x-32; oPlayer1.image_xscale=1}
+    else {oPlayer1.x=x+32; oPlayer1.image_xscale=-1}
+
+    if sprite_index=sWarmasterA_Idle
+    {
+      if x<=oPlayer1.x {image_xscale=1.25}
+      else {image_xscale=-1.25}
+    }
+    else
+    {
+      if x<=oPlayer1.x {image_xscale=1}
+      else {image_xscale=-1}
+    }
+    bTalking=1
+    global.gamePaused=true
+    if (npcTag=300)
+    {
+        event_user(0)
+        if global.alterIntro= 0 
+        {
+            global.alterIntro= 1
+        }
+        else
+        {
+            if global.alterEquip=0
+            {
+                global.alterEquip=1
+            }
+            else if global.alterEquip=1
+            {
+                global.alterEquip=0
+                if global.hasShoes[0]=1 {global.hasShoes[0]=2} //mods change (added): walking back if the altered Speed Booster's Dash Only took it (characterCreateEvent only gives it back while altered)
+  }
+}
+    }
+  }
+}

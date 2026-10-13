@@ -27,6 +27,7 @@ initGameVars()
 var tOptNew;
 tOptNew=!scrFileHas(global.saveDir+"DT3Options.dts")
 loadOptions()
+scrModInit() //mods change (added): finds the mods in the Mods folder and loads the ones turned on (once)
 
 //Check ini
 sectionRead=""
@@ -146,6 +147,7 @@ fileCursorX=120
 //arraySizeMax=4
 cursorMoveInc=19 //title options change: New Game, Continue, Options, Back Story, Exit Game
 arraySizeMax=5 //title options change
+if global.modCount>0 {arraySizeMax=6} //mods change (added): and Mods, when there are mods in the Mods folder
 
 //-- Intro data --
 bCanUseMenu=0
@@ -240,6 +242,7 @@ if bCanUseMenu=1
 
   //title options change (added): the Options menu (oPauseMenu) has the controls while it's open
   if instance_exists(oPauseMenu) {exit}
+  if instance_exists(oModMenu) {exit} //mods change (added): the Mods window is open
 
   //save slots change (added): the slot list, in place of the five options after New Game or Continue. Moving through it
   //shows each slot's save on the right; Back goes back to the five options
@@ -536,7 +539,7 @@ if bCanUseMenu=1
       //save slots change: back to the save slots (the one played last), or to the command line's save file as before
       //if parameter_count()=0 {global.saveSlot=global.lastSaveSlot; global.paraString[0]="DT3data"+string(global.saveSlot)+".dts"}
       //if parameter_count()=0 {global.saveSlot=global.lastSaveSlot; global.paraString[0]=global.saveDir+"DT3data"+string(global.saveSlot)+".dts"} //saves folder change: in the Saves folder
-if parameter_count()=0 {global.saveSlot=global.lastSaveSlot; global.paraString[0]=scrSlotFile(global.saveSlot)} //save slots change: slot 1 is DT3data.dts
+      if parameter_count()=0 {global.saveSlot=global.lastSaveSlot; global.paraString[0]=scrSlotFile(global.saveSlot)} //save slots change: slot 1 is DT3data.dts
       else {global.paraString[0] = global.initialSave}
       event_user(0)
       if locCheck>0 {titleLocation=locationCheck(locCheck)}
@@ -555,6 +558,7 @@ if parameter_count()=0 {global.saveSlot=global.lastSaveSlot; global.paraString[0
       if locCheck>0 {titleLocation=locationCheck(locCheck)}
       else {titleLocation=""}
     }
+    scrModHook("titleCode",inputMenu,0) //mods change (added): the mods' own codes
   }
 
   //start game
@@ -618,6 +622,11 @@ if parameter_count()=0 {global.saveSlot=global.lastSaveSlot; global.paraString[0
     //else if fileCursorPos=4 //---------- Exit ----------
     else if fileCursorPos=5 //---------- Exit ---------- //title options change
       game_end()
+    else if fileCursorPos=6 //---------- Mods ---------- //mods change (added)
+    {
+      global.gamePaused=true
+      instance_create(0,0,oModMenu)
+    }
   }
 }
 else
@@ -837,7 +846,23 @@ else //Title screen stuff
   //save slots change: drawn in parts now. On the left the five options (sFileMain's left part) or the slot list
   //(sFileSlots, with the end of the circuit moved to the slot on the cursor: sFileSlotLink); on the right the preview
   //panel, coloured by the save's mode and with the MODE box (sFilePanel, frame from event_user(0))
-  if slotMenu=0 {draw_sprite_part_ext(sFileMain,0,0,0,116,105,107,133,1,1,c_white,fileWAlpha)}
+  //if slotMenu=0 {draw_sprite_part_ext(sFileMain,0,0,0,116,105,107,133,1,1,c_white,fileWAlpha)}
+  if slotMenu=0 and arraySizeMax<6 {draw_sprite_part_ext(sFileMain,0,0,0,116,105,107,133,1,1,c_white,fileWAlpha)} //mods change: as before without the Mods button
+  else if slotMenu=0 //mods change (added): a sixth button, Mods, under Exit Game: the panel one button longer
+  {
+    draw_sprite_part_ext(sFileMain,0,0,0,116,98,107,133,1,1,c_white,fileWAlpha) //the five buttons
+    draw_sprite_part_ext(sFileMain,0,0,79,116,6,107,231,1,1,c_white,fileWAlpha) //the sixth from Exit Game's edges: top,
+    draw_sprite_part_ext(sFileMain,0,0,85,18,10,107,237,1,1,c_white,fileWAlpha) //left end,
+    draw_sprite_part_ext(sFileMain,0,84,85,32,10,191,237,1,1,c_white,fileWAlpha) //right end,
+    draw_sprite_part_ext(sFileMain,0,0,95,116,10,107,247,1,1,c_white,fileWAlpha) //bottom, then the panel's bottom edge
+    draw_set_alpha(fileWAlpha)
+    draw_set_color(make_color_rgb(0,184,72))
+    draw_rectangle(125,237,191,247,0) //the button's middle, where its label goes
+    draw_set_font(fnt_PauseMenuMain)
+    draw_set_halign(fa_left)
+    textDropShadow("Mods",125,235,make_color_rgb(240,240,240),make_color_rgb(0,120,64),1)
+    draw_set_alpha(1)
+  }
   else
   {
     draw_sprite_ext(sFileSlots,0,107,133,1,1,0,c_white,fileWAlpha)
@@ -900,6 +925,8 @@ else //Title screen stuff
       textDropShadow("Oh hey, you've reached the true end!#Also, press [Enter] for more fun!",120,104,textColorMain,textColorShadow,1)
     }
 
+    var tInfoY; tInfoY=248 //mods change (added): the title menu's info text, lower when the Mods button makes the menu longer
+    if slotMenu=0 and arraySizeMax>=6 {tInfoY=267}
     //save slots change (added): what the slot on the cursor does, in the slot list
     if slotMenu=1
     {
@@ -912,13 +939,19 @@ else //Title screen stuff
       else {textDropShadow("Continue the game saved in this slot.",80,248,c_white,c_black,4)}
     }
     //if fileCursorPos=1 {textDropShadow("If you want to start a new game.",80,248,c_white,c_black,4)}
-    else if fileCursorPos=1 {textDropShadow("If you want to start a new game.",80,248,c_white,c_black,4)} //save slots change
-    else if fileCursorPos=2 {textDropShadow("If you want to continue from where you left off last time.",80,248,c_white,c_black,4)}
+    //else if fileCursorPos=1 {textDropShadow("If you want to start a new game.",80,248,c_white,c_black,4)} //save slots change
+    //else if fileCursorPos=2 {textDropShadow("If you want to continue from where you left off last time.",80,248,c_white,c_black,4)}
     //else if fileCursorPos=3 {textDropShadow("If you want a refresher on the story so far, or if you didn't play the#first two games.",80,248,c_white,c_black,4)}
     //else if fileCursorPos=4 {textDropShadow("If you want to close the game, but why would you ever want to do that?",80,248,c_white,c_black,4)}
-    else if fileCursorPos=3 {textDropShadow("If you want to change the controls, audio, display and other settings.",80,248,c_white,c_black,4)} //title options change (added)
-    else if fileCursorPos=4 {textDropShadow("If you want a refresher on the story so far, or if you didn't play the#first two games.",80,248,c_white,c_black,4)} //title options change
-    else if fileCursorPos=5 {textDropShadow("If you want to close the game, but why would you ever want to do that?",80,248,c_white,c_black,4)} //title options change
+    //else if fileCursorPos=3 {textDropShadow("If you want to change the controls, audio, display and other settings.",80,248,c_white,c_black,4)} //title options change (added)
+    //else if fileCursorPos=4 {textDropShadow("If you want a refresher on the story so far, or if you didn't play the#first two games.",80,248,c_white,c_black,4)} //title options change
+    //else if fileCursorPos=5 {textDropShadow("If you want to close the game, but why would you ever want to do that?",80,248,c_white,c_black,4)} //title options change
+    else if fileCursorPos=1 {textDropShadow("If you want to start a new game.",80,tInfoY,c_white,c_black,4)} //mods change: at tInfoY
+    else if fileCursorPos=2 {textDropShadow("If you want to continue from where you left off last time.",80,tInfoY,c_white,c_black,4)} //mods change
+    else if fileCursorPos=3 {textDropShadow("If you want to change the controls, audio, display and other settings.",80,tInfoY,c_white,c_black,4)} //mods change
+    else if fileCursorPos=4 {textDropShadow("If you want a refresher on the story so far, or if you didn't play the#first two games.",80,tInfoY,c_white,c_black,4)} //mods change
+    else if fileCursorPos=5 {textDropShadow("If you want to close the game, but why would you ever want to do that?",80,tInfoY,c_white,c_black,4)} //mods change
+    else if fileCursorPos=6 {textDropShadow("If you want to turn mods on or off. Mods are other people's add-ons for#the game: only use ones you trust, as they can run their own code.",80,tInfoY,c_white,c_black,4)} //mods change (added)
 
     //File cursor
     //draw_sprite_ext(sTitleCursor,0,fileCursorX,fileCursorY,1,1,0,titleCl,1)
@@ -937,7 +970,8 @@ else //Title screen stuff
     if global.permaEasyMode=1 {textDropShadow("*Easy Mode*",2,166,c_white,c_black,1)}
     if global.modeDark=1 {textDropShadow("*Dark Mode*",2,176,c_white,c_black,1)}
     if global.modeSpeed=1 {textDropShadow("*2x Speed Mode*",2,186,c_white,c_black,1)}
-    
+    scrModHook("drawTitle",0,0) //mods change (added): the mods' own title screen text (under the modes above)
+
     if global.bNightmareMode=1 and global.bOneHitKillMode=1 //Red tint on title screen if Night Terror is on
     {
       if nmm_redPulse=0

@@ -1,6 +1,7 @@
 /*
 This script is called in the enemy step event.
 */
+if global.modOvr[enemyStepEvent]>=0 {var __n; __n=0; repeat (argument_count) {global.modArg[__n]=argument[__n]; __n+=1}; return scrModOverride(enemyStepEvent,argument_count)} //mods change (added): a mod's own version of this script runs instead (scrModOverride)
 lifePercent=life/maxLife
 //stun time
 if stunnedTime>0

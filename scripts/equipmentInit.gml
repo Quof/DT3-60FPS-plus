@@ -10,6 +10,7 @@ tEquipCheck has 4 values.
 -- 3: Item Description
 -- 4: Item Icon
 */
+if global.modOvr[equipmentInit]>=0 {var __n; __n=0; repeat (argument_count) {global.modArg[__n]=argument[__n]; __n+=1}; return scrModOverride(equipmentInit,argument_count)} //mods change (added): a mod's own version of this script runs instead (scrModOverride)
 var tItemList,tItemIndex;
 tItemList=argument0
 tItemIndex=argument1

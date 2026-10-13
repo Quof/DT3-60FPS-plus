@@ -146,4 +146,5 @@ switch (argument0)
   case 1026: return "Baten Kaitos [Crystal Abyss]";
   case 1027: return "Wild Arms [Adlehyde Castle]";
 }
-return "";
+//return "";
+return scrModMusicCredit(argument0); //mods change: a mod's track's credit (mod.ini [music]), or ""

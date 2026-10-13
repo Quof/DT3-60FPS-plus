@@ -1,0 +1,73 @@
+if global.gamePaused=false
+{
+  if type=0 //Curve
+  {
+    moveTime+=1*gDeltaTime
+    if moveTime>=16 and moveTime<=999
+    {
+      _direction+=turnDir*gDeltaTime
+     //if _direction>=270 and _direction<=290 {moveTime=1000}
+      turnAmt+=abs(turnDir)*gDeltaTime //QWH addition; direction not looping properly was breaking this
+      //if turnAmt>=180 and turnAmt <=200 {moveTime=1000}
+      //else if turnAmt>=160 and turnAmt<=180 {moveTime=1000}
+      if (turnDir>0 and turnAmt>=180) or (turnDir<0 and turnAmt>=160) {moveTime=1000} //60fps change: the vanilla check (direction 270-290, starting at 90) is reached after 180 degrees turning left but 160 turning right; the two ranges above applied 160 to both, so left-curving fireballs stopped 20 degrees early
+    }
+
+    if y>=room_height+32 {instance_destroy()}
+  }
+  else if type=1 //Up and then aim
+  {
+    if moveTime=0
+    {
+      if y<=stopY {bulletSpeed=0; moveTime=1}
+    }
+    else if moveTime>=1
+    {
+      moveTime+=1*gDeltaTime
+      if moveTime=25
+      {
+        if global.activeCharacter!=3
+        {
+        _direction=point_direction(x,y,oPlayer1.x,returnPlayerYCenter())
+        }
+        else
+        {
+            //direction=point_direction(x,y,oIdentifier.x,returnPlayerYCenter())
+            _direction=point_direction(x,y,oIdentifier.x,returnPlayerYCenter()) //60fps change: _direction (correctSpeedDirection)
+        }
+        bulletSpeed=6
+      }
+      else if moveTime>=120 {instance_destroy()}
+    }
+  }
+  else if type=2 //Up and back down
+  {
+    if moveTime=0
+    {
+      if y<=-32
+      {
+        var tAtk;
+        tAtk=instance_create(warTarget.xCenter-warTarget.roomSpan+16,0,oPassBullet)
+        tAtk.sprite_index=sWarmasterB_AtkFireballA; tAtk.atkPower=atkPower; tAtk.bulletSpeed=12; tAtk.image_blend=image_blend
+        tAtk.decayTime=-100; tAtk.damageType="EXPLOSION"; tAtk.image_speed=0.33; tAtk._direction=270; tAtk.image_angle=270
+        tAtk=instance_create(warTarget.xCenter+warTarget.roomSpan-16,0,oPassBullet)
+        tAtk.sprite_index=sWarmasterB_AtkFireballA; tAtk.atkPower=atkPower; tAtk.bulletSpeed=12; tAtk.image_blend=image_blend
+        tAtk.decayTime=-100; tAtk.damageType="EXPLOSION"; tAtk.image_speed=0.33; tAtk._direction=270; tAtk.image_angle=270
+        x=xFall
+        _direction=270
+        bulletSpeed=12
+        moveTime=1
+      }
+    }
+    else if moveTime=1
+    {
+      if y>=room_height+32 {instance_destroy()}
+    }
+  }
+
+  _speed=bulletSpeed
+  image_angle=_direction
+}
+else {_speed=0}
+
+correctSpeedDirection(self)

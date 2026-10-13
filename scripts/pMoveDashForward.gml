@@ -1,5 +1,6 @@
 //This script allows the player to dash forward
 
+if global.modOvr[pMoveDashForward]>=0 {var __n; __n=0; repeat (argument_count) {global.modArg[__n]=argument[__n]; __n+=1}; return scrModOverride(pMoveDashForward,argument_count)} //mods change (added): a mod's own version of this script runs instead (scrModOverride)
 idleTime=0
 if grappleState=0 {busterAnimStay=0}
 

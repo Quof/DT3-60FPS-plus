@@ -1,5 +1,6 @@
 //Fully restore all player stats to max
 
+if global.modOvr[scrFullStatRestore]>=0 {var __n; __n=0; repeat (argument_count) {global.modArg[__n]=argument[__n]; __n+=1}; return scrModOverride(scrFullStatRestore,argument_count)} //mods change (added): a mod's own version of this script runs instead (scrModOverride)
 var tEquipA;
 tEquipA=0
 for(i=0;i<3;i+=1)
