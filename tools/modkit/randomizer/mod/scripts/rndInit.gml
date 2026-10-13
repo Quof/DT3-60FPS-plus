@@ -14,7 +14,31 @@ if !variable_global_exists("rndLocN")
   }
   for(i=0;i<global.rndItemN;i+=1) {global.rndItemProg[i]=rndProgOf(global.rndItemKind[i],global.rndItemParam[i])}
   global.rndNextSeed=-1
+  //Archipelago: the next new game is an Archipelago game (the title screen's code 'ap'), and the folder where the game
+  //and the DT3+ Client trade files: %LOCALAPPDATA%\DT3PlusArchipelago\, made if it isn't there
+  global.rndApNext=0
+  global.rndApPath=environment_get_variable("LOCALAPPDATA")
+  if global.rndApPath="" {global.rndApPath=working_directory}
+  global.rndApPath+="\DT3PlusArchipelago\"
+  if !directory_exists(global.rndApPath) {directory_create(global.rndApPath)}
 }
+global.rndMsgQuiet=0
+//Archipelago: this game is one (rndAP), its seed line ("seed|<seed>|<slot>": the client's files must start with it),
+//how many received items it has given, its own deaths sent (DeathLink); the client's session (rndApReadSession)
+global.rndAP=0
+global.rndApSeedLine=""
+global.rndApRecv=0
+global.rndApDeaths=0
+global.rndApSession=""
+global.rndApSessDeath=0
+global.rndApShopSeed=0
+global.rndApDeathLink=0
+global.rndApDeathSeen=0
+global.rndApDeathGot=0
+global.rndApDeathCause=""
+global.rndApDying=0
+global.rndApPollT=0
+global.rndApLocLoaded=0
 global.rndVersion=1
 global.rndActive=0
 global.rndSeed=0

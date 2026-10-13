@@ -32,6 +32,22 @@ Playing
     Parasitic Seed, whose rooms the endgame world's exits go past, are fought going through the exit the story used
     to go into them (rndgen.py, BOSS_VIA). A boss's heart container is there once it's beaten.
 
+Archipelago
+  The Randomizer can be one game of an Archipelago multiworld (game name "DT3+"): its items can be in other players'
+  games, and theirs in its places. Three parts:
+  - the DT3+ world, archipelago\dt3plus.apworld in the build (made from archipelago\dt3plus: its locations, items and
+    logic are the same as the mod's, data.py written by the build). Install it with the Archipelago Launcher's
+    "Install APWorld" (or put it in Archipelago's custom_worlds folder); Archipelago 0.6.4 or later.
+  - the DT3+ Client (client.py, in the world: the Launcher's "DT3+ Client"). The game can't connect to the server
+    itself, so the client does, and the two trade small text files in %LOCALAPPDATA%\DT3PlusArchipelago (client.py
+    describes each; every file starts with the multiworld's seed and the slot, so neither side reads another game's).
+  - the mod's Archipelago mode: type ap on the title screen, then start a New Game while the client is connected. No
+    items are placed in the game: a place taken sends its check to the client (another world's item says whose it is
+    and shows as a multicoloured orb), and the items the server sends are given as they come, with who sent them.
+    DeathLink both ways when the multiworld has it on. The equipment shops are shuffled from the multiworld's seed. A
+    save carries on with the client connected again: checks made meanwhile are sent then.
+  The docs for the Archipelago website are in archipelago\dt3plus\docs.
+
 Building
   python tools\modkit\randomizer\rndgen.py <output folder>
   (then copy the output folder to Mods\Randomizer). The build reads the game's rooms and code: the places (locations),

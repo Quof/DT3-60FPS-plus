@@ -19,4 +19,18 @@ if global.rndActive=1
   rndShopFromString()
   global.gameProgress=global.rndWorldProg
   rndAbilApply()
+  //Archipelago: its seed line, the items it has given and deaths it has sent, and the client's session; told when the
+  //client isn't connected to this game's multiworld (its checks and items wait till it is)
+  global.rndAP=ini_read_real(s,"ap",0)
+  if global.rndAP=1
+  {
+    global.rndApSeedLine=ini_read_string(s,"apseed","")
+    global.rndApRecv=ini_read_real(s,"aprecv",0)
+    global.rndApDeaths=ini_read_real(s,"apdeaths",0)
+    if rndApReadSession()=0 or global.rndApSession!=global.rndApSeedLine
+    {
+      show_message("Archipelago: the DT3+ Client isn't connected to this game's multiworld ("+string_replace_all(string_delete(global.rndApSeedLine,1,5),"|",", slot ")+"). Its checks are kept and sent, and its items come, once it is.")
+    }
+    rndApStart()
+  }
 }

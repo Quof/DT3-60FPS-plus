@@ -14,6 +14,6 @@ if global.rndActive=1
   }
   indexCheck="0"
   rndItem=rndPlaced(rndLoc)
-  specialChest=(global.rndItemKind[rndItem]!=2)
+  specialChest=rndChestSpecial(rndLoc)
   exit
 }

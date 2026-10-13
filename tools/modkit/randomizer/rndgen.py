@@ -418,6 +418,7 @@ def main():
         L.append("global.rndBossViaFrom[%d]=%s; global.rndBossViaTo[%d]=%s" % (i, vf, i, vt))
         fx, fy, fe = bstart[i]
         L.append("global.rndBossFX[%d]=%d; global.rndBossFY[%d]=%d; global.rndBossOnEntry[%d]=%d" % (i, fx, i, fy, i, fe))
+    L.append("global.rndApBase=%d //Archipelago: a location's id is this+type*1000+objectNum, an item's this+kind*10000+parameter" % AP_BASE)
     L.append("global.rndBossFinal=%d" % bidx[BOSS_FINAL])
     for n in range(8):
         L.append("global.rndHCBoss[%d]=%d" % (n, bidx.get(HC_BOSS.get(n, -1), -1)))
@@ -432,13 +433,16 @@ def main():
                  % (d, i, d, gml_str(an), d, gml_str("%s, %s" % (an, rs[0]))))
     # the sprites of the pickups and of the items' looks (rndItemLook): their opaque pixels from the origin, of all frames
     # (rndSprU*) and of each (rndSprF*), for rndItemFit
-    sprs = sorted(set(re.findall(r"sprite_index=(s\w+)", read(os.path.join(HERE, "mod", "scripts", "rndItemLook.gml")))) |
+    sprs = sorted(set(re.findall(r"sprite_index=(s\w+)", read(os.path.join(HERE, "mod", "scripts", "rndItemLookKP.gml")))) |
                   {object_sprite(o) for c, o, l in LTYPES if object_sprite(o)})
+    # and the Archipelago look of another world's item: the mod's own sprite (made here)
+    ap_bounds = ap_sprite(os.path.join(out, "sprites"))
+    sprs.append(AP_SPRITE)
     L.append("global.rndSprMax=0")
     for s in sprs: L.append("global.rndSprMax=max(global.rndSprMax,%s)" % s)
     L.append("for(i=0;i<=global.rndSprMax;i+=1) {global.rndSprK[i]=0}")
     for s in sprs:
-        fr = sprite_bounds(s)
+        fr = ap_bounds if s == AP_SPRITE else sprite_bounds(s)
         known = [b for b in fr if b]
         u = (min(b[0] for b in known), min(b[1] for b in known), max(b[2] for b in known), max(b[3] for b in known))
         L.append("global.rndSprK[%s]=1; global.rndSprN[%s]=%d; global.rndSprUL[%s]=%d; global.rndSprUT[%s]=%d; global.rndSprUR[%s]=%d; "
@@ -474,6 +478,150 @@ def main():
     ok = sum(1 for seed in range(50) if fill_check(rows, items, seed, door_rank))
     print("placement check: %d of 50 seeds placed" % ok)
     if ok == 0: raise SystemExit("no seed could be placed: the logic asks for more than the locations allow")
+    ap_export(rows, items, door_order, doors, rarea, anames, out)
+
+
+# ---------------------------------------------------------------- Archipelago
+# The DT3+ world (archipelago\dt3plus): its data (data.py, written here from the same locations, items and logic as the
+# mod's) and the packed world, dt3plus.apworld, in the build's archipelago folder. Ids: a location's AP_BASE +
+# type*1000 + objectNum, an item's AP_BASE + kind*10000 + parameter (the mod's rndApBase works them out the same way)
+AP_GAME = "DT3+"
+AP_VERSION = 1
+AP_BASE = 4454000
+AP_DIR = os.path.join(HERE, "archipelago", "dt3plus")
+AP_SPRITE = "sRndAPItem"
+AP_WEAPONS = ["Master Sword", "Bow & Arrow", "Fuse Bomb", "Hair Whip", "Dagger", "Holy Water", "X-Buster", "Shotgun Ice",
+              "Gravity Well", "Arm Cannon", "Missile", "Morph Bomb"]
+AP_SETS = ["Mario Ability Set", "Progressive Link", "Progressive Belmont", "Progressive Mega Man", "Progressive Samus",
+           "Progressive Jerry Game Powers", "Progressive Claire Game Powers"]
+# the progression items the logic counts, in PROG's order (keys aside)
+AP_PROG = ["Jump", "Dash", "Air Dash", "Double Jump", "Progressive High Jump Boots"] + AP_SETS
+AP_SIMPLE = {"HP": "Heart Piece", "AQ": "Arrow Quiver", "HE": "Heart Energy Expansion", "MP": "Missile Expansion",
+             "GP": "Game Power", "AU": "Air Upgrade", "WB": "Internetz Mod", "AP": "Skill Point", "LB": "Bomb Upgrade",
+             "MB": "Morph Bomb Upgrade", "HC": "Heart Container", "XF": "Item Finder", "XC": "X-Special Charge",
+             "XS": "Spring Ball", "JUMP": "Jump", "GDASH": "Dash", "ADASH": "Air Dash", "DJUMP": "Double Jump",
+             "HIJUMP": "Progressive High Jump Boots"}
+AP_CURSED = (10, 11, 12)  # the cursed equipment the Trial Master's trials need on
+
+
+def equipment_names():
+    """equipmentInit's names of the equipment (its list 2), by number"""
+    t = read(os.path.join(PROJ, "scripts", "equipmentInit.gml"))
+    t = t[t.find("tItemList=2"):]
+    return {int(m.group(1)): m.group(2) for m in re.finditer(r'tItemIndex=(\d+)\s*\{\s*equipCheck\[1\]="([^"]*)"', t)}
+
+
+def ap_sprite(folder):
+    """the mod's sprite for another world's item, 16x16: six coloured orbs in a ring, outlined. Returns its bounds as
+    sprite_bounds does"""
+    sys.path.insert(0, os.path.dirname(HERE))
+    import math, png
+    cols = [(232, 72, 85), (245, 152, 66), (240, 220, 80), (95, 200, 95), (80, 140, 235), (175, 105, 225)]
+    centres = [(7.5 + 4.6 * math.cos(math.radians(-90 + 60 * k)), 7.5 + 4.6 * math.sin(math.radians(-90 + 60 * k))) for k in range(6)]
+    rows = []
+    for y in range(16):
+        row = bytearray(16 * 4)
+        for x in range(16):
+            px = None
+            for (cx, cy), col in zip(centres, cols):
+                d = math.hypot(x - cx, y - cy)
+                if d <= 2.1: px = col + (255,); break
+                if d <= 3.0 and px is None: px = (24, 24, 32, 255)
+            if px: row[x * 4:x * 4 + 4] = bytes(px)
+        rows.append(row)
+    os.makedirs(folder, exist_ok=True)
+    png.write(os.path.join(folder, AP_SPRITE + ".png"), 16, 16, rows)
+    with open(os.path.join(folder, AP_SPRITE + ".ini"), "w", encoding="utf-8", newline="\n") as f:
+        f.write("[sprite]\nframes=1\nxorig=0\nyorig=0\ntransparent=0\nsmooth=0\nsepmasks=0\nbboxmode=0\nleft=0\ntop=0\n"
+                "right=15\nbottom=15\nkind=0\ntolerance=0\n")
+    xs = [x for y, r in enumerate(rows) for x in range(16) if r[x * 4 + 3]]
+    ys = [y for y, r in enumerate(rows) for x in range(16) if r[x * 4 + 3]]
+    return [(min(xs), min(ys), max(xs), max(ys))]
+
+
+def ap_export(rows, items, door_order, doors, rarea, anames, out):
+    import zipfile
+    equip = equipment_names()
+    # the keys, by door: named after the door's area (numbered where an area has several)
+    door_area_name = {d: anames.get(rarea.get(sorted(doors[d])[0]), sorted(doors[d])[0]) for d in door_order}
+    key_names = {}
+    for d in door_order:
+        same = [e for e in door_order if door_area_name[e] == door_area_name[d]]
+        key_names[d] = "Key: " + door_area_name[d] + (" %d" % (same.index(d) + 1) if len(same) > 1 else "")
+
+    def name_of(kind, p):
+        if kind in AP_SIMPLE: return AP_SIMPLE[kind]
+        if kind == "MONEY": return "%d Internetz" % p
+        if kind == "EQUIP": return equip.get(p, "Equipment %d" % p)
+        if kind == "WL": return "Weapon Upgrade: " + AP_WEAPONS[p]
+        if kind == "KEY": return key_names[p]
+        if kind == "SET": return AP_SETS[p]
+        raise SystemExit("no Archipelago name for item %s %s" % (kind, p))
+
+    def classification(kind, p):
+        if kind in ("JUMP", "GDASH", "ADASH", "DJUMP", "HIJUMP", "SET", "KEY"): return 1   # progression
+        if kind == "EQUIP" and p in AP_CURSED: return 1
+        if kind == "MONEY": return 0                                                       # filler
+        return 2                                                                           # useful
+
+    ap_items = collections.OrderedDict()
+    for kind, p in items:
+        n = name_of(kind, p)
+        iid = AP_BASE + IK[kind] * 10000 + p
+        if n in ap_items:
+            if ap_items[n][0] != iid: raise SystemExit("two items named %r" % n)
+            ap_items[n][2] += 1
+        else:
+            ap_items[n] = [iid, classification(kind, p), 1]
+    money = sorted(p for kind, p in items if kind == "MONEY")
+    filler = name_of("MONEY", money[0]) if money else "Heart Piece"
+    cursed = [equip[p] for p in AP_CURSED]
+    for c in cursed:
+        if c not in ap_items: raise SystemExit("the cursed equipment %r isn't in the pool" % c)
+
+    ap_locs = collections.OrderedDict()
+    for r in rows:
+        a = r["area"]
+        where = anames.get(a) if a else None
+        n = "%s - %s %d" % (where or r["rooms"][0], LT_LABEL[r["type"]], r["num"])
+        if n in ap_locs: raise SystemExit("two locations named %r" % n)
+        ap_locs[n] = (AP_BASE + r["type"] * 1000 + r["num"], tuple(r["req"][p] for p in PROG), bool(r.get("trial")))
+    victory = tuple(PMAX[:-1]) + (len(door_order),)
+
+    L = ['"""DT3+ Archipelago data, made by tools/modkit/randomizer/rndgen.py from the game (change rndgen.py, not this)"""',
+         "GAME = %r" % AP_GAME,
+         "VERSION = %d" % AP_VERSION,
+         "BASE_ID = %d" % AP_BASE,
+         "# the progression items the logic counts, in the order of LOCATIONS' requirement counts (then N: the keys of",
+         "# the first N doors in DOOR_KEYS)",
+         "PROG_ITEMS = %r" % AP_PROG,
+         "# the keys, in the doors' story order",
+         "DOOR_KEYS = %r" % [key_names[d] for d in door_order],
+         "# what the Trial Master's trials need on",
+         "CURSED_GEAR = %r" % cursed,
+         "FILLER = %r" % filler,
+         "VICTORY_LOCATION = 'Defeat the CHAOS Warmaster'",
+         "VICTORY_REQUIREMENT = %r" % (victory,),
+         "# name: (id, classification (0 filler, 1 progression, 2 useful), how many in the pool)",
+         "ITEMS = {"]
+    L += ["    %r: (%d, %d, %d)," % (n, v[0], v[1], v[2]) for n, v in ap_items.items()]
+    L += ["}", "# name: (id, requirement counts, a Trial Master trial's (needs CURSED_GEAR))", "LOCATIONS = {"]
+    L += ["    %r: (%d, %r, %r)," % (n, v[0], v[1], v[2]) for n, v in ap_locs.items()]
+    L += ["}"]
+    with open(os.path.join(AP_DIR, "data.py"), "w", encoding="utf-8", newline="\n") as f:
+        f.write("\n".join(L) + "\n")
+
+    # the packed world: a zip with the dt3plus folder in it
+    os.makedirs(os.path.join(out, "archipelago"), exist_ok=True)
+    dest = os.path.join(out, "archipelago", "dt3plus.apworld")
+    with zipfile.ZipFile(dest, "w", zipfile.ZIP_DEFLATED) as z:
+        for root, ds, fs in os.walk(AP_DIR):
+            ds[:] = [d for d in ds if d != "__pycache__"]
+            for f in sorted(fs):
+                if f.endswith((".pyc", ".tmp")): continue
+                p = os.path.join(root, f)
+                z.write(p, os.path.join("dt3plus", os.path.relpath(p, AP_DIR)).replace("\\", "/"))
+    print("Archipelago: %d locations, %d items in %d kinds (filler %r), %s" % (len(ap_locs), len(items), len(ap_items), filler, dest))
 
 
 def prog_of(item):

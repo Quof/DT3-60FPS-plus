@@ -1,10 +1,11 @@
 //Randomizer: every frame, the abilities the game turned on are the ones the player has found (rndAbilClamp); not in the
 //boss gallery's own fights, which give their bosses' abilities. In Central City - South, the heart container the 7th
-//trial gives comes as the trial ends (rndHC7)
+//trial gives comes as the trial ends (rndHC7). An Archipelago game trades with the DT3+ Client (rndApPoll)
 if global.rndActive=1
 {
   if !(global.bBossGallery=1 and global.rndFight<0) {rndAbilClamp()}
   if room=rCCity_SGrove {rndHC7()}
+  if global.rndAP=1 {rndApPoll()}
   if instance_exists(oPlayer1)
   {
     //in a randomizer boss fight: where the player is (they come back there once the boss is beaten: rndBossEnd)

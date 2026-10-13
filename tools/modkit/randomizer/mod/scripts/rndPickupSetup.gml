@@ -10,5 +10,6 @@ rndItem=rndPlaced(rndLoc)
 tSpr=sprite_index
 tFrm=floor(image_index)
 if image_speed>0 {tFrm=-1}
-rndItemLook(rndItem)
+if global.rndAP=1 {rndApLook(rndLoc)}
+else {rndItemLook(rndItem)}
 rndItemFit(tSpr,tFrm)
