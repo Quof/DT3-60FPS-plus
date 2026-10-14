@@ -14,6 +14,13 @@ out 4240,288   # to rWarshipK at 48,1120; the player goes into it
 
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 
+# Spots: somewhere whose reaching opens a way (the barriers that wait for it need event:rWarshipJ/<spot>, and
+# solve.py makes that what reaching the spot needs)
+spot switch1   # a colored switch the partner can be left standing on (party split), at 1671,391
+spot switch2   # a colored switch the partner can be left standing on (party split), at 2327,135
+spot switch3   # a colored switch the partner can be left standing on (party split), at 3255,135
+spot switch4   # a colored switch the partner can be left standing on (party split), at 3431,359
+
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
@@ -21,10 +28,18 @@ out 4240,288   # to rWarshipK at 48,1120; the player goes into it
 # the locked door whose objectNum is N.
 from in 96,416
   out 96,368     -
-  out 4240,288   djump,adash,samus:2
+  out 4240,288   djump,adash,samus:2 | samus:2,event:rWarshipJ/switch2
+  spot switch1   samus:2
+  spot switch2   djump,adash,samus:2 | djump,samus:2,event:rWarshipJ/switch2
+  spot switch3   djump,adash,samus:2 | djump,samus:2,event:rWarshipJ/switch2 | adash,samus:2,event:rWarshipJ/switch2
+  spot switch4   djump,adash,samus:2 | samus:2,event:rWarshipJ/switch2
 from in 4208,320
   out 96,368     djump,samus:2
   out 4240,288   -
+  spot switch1   djump,samus:2
+  spot switch2   djump
+  spot switch3   djump | adash
+  spot switch4   samus:2
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
@@ -62,6 +77,288 @@ how in 96,416 -> out 4240,288: djump,adash,samus:2
       -> standing at x 4010-4073, y 369
   13. jump (held 21 ticks), holding right, double jump at tick 10, air dash (Jerry) at tick 18, from 4010,369; touches it on the way   [djump,adash]
       -> out 4240,288
+how in 96,416 -> out 4240,288: samus:2,event:rWarshipJ/switch2
+     coming in at 96,416
+   1. coming in: holding nothing, from 96,416; lands at 96,417
+      -> standing at x 55-329, y 417
+   2. turn into the Morph Ball at 55,417   [samus:2]
+      -> as the Morph Ball at x 55-534, y 417
+   3. as the Morph Ball: roll off the edge, holding right once in the air, from 55,417; lands at 595,465
+      -> as the Morph Ball at x 535-1913, y 465
+   4. turn back from the Morph Ball at 1591,465
+      -> standing at x 1591-1913, y 465
+   5. running right, jump (held 21 ticks), holding right, from 1760,465; lands at 1936,417
+      -> standing at x 1914-1977, y 417
+   6. jump (held 6 ticks), holding right, from 1914,417; lands at 2009,369
+      -> standing at x 1978-2041, y 369
+   7. jump (held 6 ticks), holding right, from 1978,369; lands at 2073,321
+      -> standing at x 2042-2105, y 321
+   8. jump (held 21 ticks), holding right, from 2048,321, through the oBarrierColor at 2176,272; lands at 2263,465   [event:rWarshipJ/switch2]
+      -> standing at x 2183-2454, y 465
+   9. running right, jump (held 6 ticks), holding right, from 2352,465; lands at 2514,465
+      -> standing at x 2506-2985, y 465
+  10. running right, jump (held 21 ticks), holding right, from 2928,465; lands at 3132,465
+      -> standing at x 3095-3593, y 465
+  11. jump (held 21 ticks), holding right, turn into the Morph Ball at tick 8, from 3520,465; lands at 3666,465   [samus:2]
+      -> as the Morph Ball at x 3623-3945, y 465
+  12. turn back from the Morph Ball at 3767,465
+      -> standing at x 3767-3945, y 465
+  13. running right, jump (held 21 ticks), holding right, from 3792,465; lands at 3968,417
+      -> standing at x 3946-4009, y 417
+  14. jump (held 6 ticks), holding right, from 3946,417; lands at 4041,369
+      -> standing at x 4010-4073, y 369
+  15. jump (held 6 ticks), holding right, from 4032,369; lands at 4127,321
+      -> standing at x 4074-4256, y 321
+  16. standing at 4238,321, goes into it
+      -> out 4240,288
+how in 96,416 -> spot switch1: samus:2
+     coming in at 96,416
+   1. coming in: holding nothing, from 96,416; lands at 96,417
+      -> standing at x 55-329, y 417
+   2. turn into the Morph Ball at 55,417   [samus:2]
+      -> as the Morph Ball at x 55-534, y 417
+   3. as the Morph Ball: roll off the edge, holding right once in the air, from 55,417; lands at 595,465
+      -> as the Morph Ball at x 535-1913, y 465
+   4. turn back from the Morph Ball at 1591,465
+      -> standing at x 1591-1913, y 465
+   5. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1591,465; touches it on the way
+      -> spot switch1
+how in 96,416 -> spot switch2: djump,adash,samus:2
+     coming in at 96,416
+   1. coming in: holding nothing, from 96,416; lands at 96,417
+      -> standing at x 55-329, y 417
+   2. turn into the Morph Ball at 55,417   [samus:2]
+      -> as the Morph Ball at x 55-534, y 417
+   3. as the Morph Ball: roll off the edge, holding right once in the air, turn back once there's room, from 55,417; lands at 609,465
+      -> standing at x 535-1433, y 465
+   4. running right, jump (held 21 ticks), holding right, double jump at tick 10, from 1216,465; lands at 1392,385   [djump]
+      -> standing at x 1338-1446, y 385
+   5. running right, jump (held 21 ticks), holding right, from 1392,385; lands at 1546,321
+      -> standing at x 1482-1673, y 321
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 1504,321; lands at 1701,225   [djump]
+      -> standing at x 1674-1817, y 225
+   7. jump (held 21 ticks), holding right, double jump at tick 10, from 1674,225; lands at 1849,177   [djump]
+      -> standing at x 1818-1926, y 177
+   8. running right, jump (held 2 ticks), holding right, double jump at tick 11, air dash (Jerry) at tick 26, from 1924,177; lands at 2292,161   [djump,adash]
+      -> standing at x 2282-2582, y 161
+   9. standing at 2314,161, on it
+      -> spot switch2
+how in 96,416 -> spot switch2: djump,samus:2,event:rWarshipJ/switch2
+     coming in at 96,416
+   1. coming in: holding nothing, from 96,416; lands at 96,417
+      -> standing at x 55-329, y 417
+   2. turn into the Morph Ball at 55,417   [samus:2]
+      -> as the Morph Ball at x 55-534, y 417
+   3. as the Morph Ball: roll off the edge, holding right once in the air, from 55,417; lands at 595,465
+      -> as the Morph Ball at x 535-1913, y 465
+   4. turn back from the Morph Ball at 1591,465
+      -> standing at x 1591-1913, y 465
+   5. running right, jump (held 21 ticks), holding right, from 1760,465; lands at 1936,417
+      -> standing at x 1914-1977, y 417
+   6. jump (held 6 ticks), holding right, from 1914,417; lands at 2009,369
+      -> standing at x 1978-2041, y 369
+   7. jump (held 6 ticks), holding right, from 1978,369; lands at 2073,321
+      -> standing at x 2042-2105, y 321
+   8. jump (held 21 ticks), holding right, from 2048,321, through the oBarrierColor at 2176,272; lands at 2263,465   [event:rWarshipJ/switch2]
+      -> standing at x 2183-2454, y 465
+   9. running right, jump (held 6 ticks), holding right, from 2352,465; lands at 2514,465
+      -> standing at x 2506-2985, y 465
+  10. running right, jump (held 21 ticks), holding right, from 2928,465; lands at 3132,465
+      -> standing at x 3095-3593, y 465
+  11. jump (held 21 ticks), holding right, turn into the Morph Ball at tick 8, from 3520,465; lands at 3666,465   [samus:2]
+      -> as the Morph Ball at x 3623-3945, y 465
+  12. turn back from the Morph Ball at 3767,465
+      -> standing at x 3767-3945, y 465
+  13. running right, jump (held 21 ticks), holding right, from 3792,465; lands at 3968,417
+      -> standing at x 3946-4009, y 417
+  14. jump (held 6 ticks), holding right, from 3946,417; lands at 4041,369
+      -> standing at x 4010-4073, y 369
+  15. jump (held 6 ticks), holding right, from 4032,369; lands at 4127,321
+      -> standing at x 4074-4256, y 321
+  16. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 4078,321; lands at 3983,241   [djump]
+      -> standing at x 3978-4054, y 241
+  17. jump (held 2 ticks), holding left, from 3978,241; lands at 3876,241
+      -> standing at x 3623-3926, y 241
+  18. jump (held 21 ticks), holding left, from 3623,241; lands at 3498,241
+      -> standing at x 2762-3593, y 241
+  19. jump (held 2 ticks), holding left, from 2762,241; lands at 2651,257
+      -> standing at x 2583-2694, y 257
+  20. jump (held 21 ticks), holding left, double jump at tick 15, from 2583,257; lands at 2525,161   [djump]
+      -> standing at x 2282-2582, y 161
+  21. standing at 2314,161, on it
+      -> spot switch2
+how in 96,416 -> spot switch3: djump,adash,samus:2
+     coming in at 96,416
+   1. coming in: holding nothing, from 96,416; lands at 96,417
+      -> standing at x 55-329, y 417
+   2. turn into the Morph Ball at 55,417   [samus:2]
+      -> as the Morph Ball at x 55-534, y 417
+   3. as the Morph Ball: roll off the edge, holding right once in the air, turn back once there's room, from 55,417; lands at 609,465
+      -> standing at x 535-1433, y 465
+   4. running right, jump (held 21 ticks), holding right, double jump at tick 10, from 1216,465; lands at 1392,385   [djump]
+      -> standing at x 1338-1446, y 385
+   5. running right, jump (held 21 ticks), holding right, from 1392,385; lands at 1546,321
+      -> standing at x 1482-1673, y 321
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 1504,321; lands at 1701,225   [djump]
+      -> standing at x 1674-1817, y 225
+   7. jump (held 21 ticks), holding right, double jump at tick 10, from 1674,225; lands at 1849,177   [djump]
+      -> standing at x 1818-1926, y 177
+   8. running right, jump (held 2 ticks), holding right, double jump at tick 11, air dash (Jerry) at tick 26, from 1924,177; lands at 2292,161   [djump,adash]
+      -> standing at x 2282-2582, y 161
+   9. walk off the edge, holding right once in the air, air dash (Jerry) at tick 6 or once there's room ahead, from 2282,161; lands at 2814,241   [adash]
+      -> standing at x 2762-3593, y 241
+  10. jump (held 21 ticks), holding right, double jump at tick 16, air dash (Jerry) at tick 8, from 2944,241; touches it on the way   [djump,adash]
+      -> spot switch3
+how in 96,416 -> spot switch3: djump,samus:2,event:rWarshipJ/switch2
+     coming in at 96,416
+   1. coming in: holding nothing, from 96,416; lands at 96,417
+      -> standing at x 55-329, y 417
+   2. turn into the Morph Ball at 55,417   [samus:2]
+      -> as the Morph Ball at x 55-534, y 417
+   3. as the Morph Ball: roll off the edge, holding right once in the air, from 55,417; lands at 595,465
+      -> as the Morph Ball at x 535-1913, y 465
+   4. turn back from the Morph Ball at 1591,465
+      -> standing at x 1591-1913, y 465
+   5. running right, jump (held 21 ticks), holding right, from 1760,465; lands at 1936,417
+      -> standing at x 1914-1977, y 417
+   6. jump (held 6 ticks), holding right, from 1914,417; lands at 2009,369
+      -> standing at x 1978-2041, y 369
+   7. jump (held 6 ticks), holding right, from 1978,369; lands at 2073,321
+      -> standing at x 2042-2105, y 321
+   8. jump (held 21 ticks), holding right, from 2048,321, through the oBarrierColor at 2176,272; lands at 2263,465   [event:rWarshipJ/switch2]
+      -> standing at x 2183-2454, y 465
+   9. running right, jump (held 6 ticks), holding right, from 2352,465; lands at 2514,465
+      -> standing at x 2506-2985, y 465
+  10. running right, jump (held 21 ticks), holding right, from 2928,465; lands at 3132,465
+      -> standing at x 3095-3593, y 465
+  11. jump (held 21 ticks), holding right, turn into the Morph Ball at tick 8, from 3520,465; lands at 3666,465   [samus:2]
+      -> as the Morph Ball at x 3623-3945, y 465
+  12. turn back from the Morph Ball at 3767,465
+      -> standing at x 3767-3945, y 465
+  13. running right, jump (held 21 ticks), holding right, from 3792,465; lands at 3968,417
+      -> standing at x 3946-4009, y 417
+  14. jump (held 6 ticks), holding right, from 3946,417; lands at 4041,369
+      -> standing at x 4010-4073, y 369
+  15. jump (held 6 ticks), holding right, from 4032,369; lands at 4127,321
+      -> standing at x 4074-4256, y 321
+  16. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 4078,321; lands at 3983,241   [djump]
+      -> standing at x 3978-4054, y 241
+  17. jump (held 2 ticks), holding left, from 3978,241; lands at 3876,241
+      -> standing at x 3623-3926, y 241
+  18. jump (held 21 ticks), holding left, from 3623,241; lands at 3498,241
+      -> standing at x 2762-3593, y 241
+  19. jump (held 21 ticks), holding right, double jump at tick 15, from 3024,241; touches it on the way   [djump]
+      -> spot switch3
+how in 96,416 -> spot switch3: adash,samus:2,event:rWarshipJ/switch2
+     coming in at 96,416
+   1. coming in: holding nothing, from 96,416; lands at 96,417
+      -> standing at x 55-329, y 417
+   2. turn into the Morph Ball at 55,417   [samus:2]
+      -> as the Morph Ball at x 55-534, y 417
+   3. as the Morph Ball: roll off the edge, holding right once in the air, from 55,417; lands at 595,465
+      -> as the Morph Ball at x 535-1913, y 465
+   4. turn back from the Morph Ball at 1591,465
+      -> standing at x 1591-1913, y 465
+   5. running right, jump (held 21 ticks), holding right, from 1760,465; lands at 1936,417
+      -> standing at x 1914-1977, y 417
+   6. jump (held 6 ticks), holding right, from 1914,417; lands at 2009,369
+      -> standing at x 1978-2041, y 369
+   7. jump (held 6 ticks), holding right, from 1978,369; lands at 2073,321
+      -> standing at x 2042-2105, y 321
+   8. jump (held 21 ticks), holding right, from 2048,321, through the oBarrierColor at 2176,272; lands at 2263,465   [event:rWarshipJ/switch2]
+      -> standing at x 2183-2454, y 465
+   9. running right, jump (held 6 ticks), holding right, from 2352,465; lands at 2514,465
+      -> standing at x 2506-2985, y 465
+  10. running right, jump (held 21 ticks), holding right, from 2928,465; lands at 3132,465
+      -> standing at x 3095-3593, y 465
+  11. jump (held 21 ticks), holding right, turn into the Morph Ball at tick 8, from 3520,465; lands at 3666,465   [samus:2]
+      -> as the Morph Ball at x 3623-3945, y 465
+  12. turn back from the Morph Ball at 3767,465
+      -> standing at x 3767-3945, y 465
+  13. running right, jump (held 21 ticks), holding right, from 3792,465; lands at 3968,417
+      -> standing at x 3946-4009, y 417
+  14. jump (held 6 ticks), holding right, from 3946,417; lands at 4041,369
+      -> standing at x 4010-4073, y 369
+  15. jump (held 6 ticks), holding right, from 4032,369; lands at 4127,321
+      -> standing at x 4074-4256, y 321
+  16. jump (held 21 ticks), holding nothing, then left after 12 ticks, air dash (Jerry) at tick 12, from 4074,321; lands at 3990,241   [adash]
+      -> standing at x 3978-4054, y 241
+  17. jump (held 2 ticks), holding left, from 3978,241; lands at 3876,241
+      -> standing at x 3623-3926, y 241
+  18. jump (held 21 ticks), holding left, from 3623,241; lands at 3498,241
+      -> standing at x 2762-3593, y 241
+  19. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 3024,241; touches it on the way   [adash]
+      -> spot switch3
+how in 96,416 -> spot switch4: djump,adash,samus:2
+     coming in at 96,416
+   1. coming in: holding nothing, from 96,416; lands at 96,417
+      -> standing at x 55-329, y 417
+   2. turn into the Morph Ball at 55,417   [samus:2]
+      -> as the Morph Ball at x 55-534, y 417
+   3. as the Morph Ball: roll off the edge, holding right once in the air, turn back once there's room, from 55,417; lands at 609,465
+      -> standing at x 535-1433, y 465
+   4. running right, jump (held 21 ticks), holding right, double jump at tick 10, from 1216,465; lands at 1392,385   [djump]
+      -> standing at x 1338-1446, y 385
+   5. running right, jump (held 21 ticks), holding right, from 1392,385; lands at 1546,321
+      -> standing at x 1482-1673, y 321
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 1504,321; lands at 1701,225   [djump]
+      -> standing at x 1674-1817, y 225
+   7. jump (held 21 ticks), holding right, double jump at tick 10, from 1674,225; lands at 1849,177   [djump]
+      -> standing at x 1818-1926, y 177
+   8. running right, jump (held 2 ticks), holding right, double jump at tick 11, air dash (Jerry) at tick 26, from 1924,177; lands at 2292,161   [djump,adash]
+      -> standing at x 2282-2582, y 161
+   9. walk off the edge, holding right once in the air, air dash (Jerry) at tick 6 or once there's room ahead, from 2282,161; lands at 2814,241   [adash]
+      -> standing at x 2762-3593, y 241
+  10. jump (held 21 ticks), holding right, double jump at tick 16, air dash (Jerry) at tick 8, from 3312,241; lands at 3670,241   [djump,adash]
+      -> standing at x 3623-3926, y 241
+  11. walk off the edge, holding right once in the air, double jump at tick 2, from 3623,241; lands at 4143,321   [djump]
+      -> standing at x 4074-4256, y 321
+  12. walk off the edge, holding left, then nothing after 1 ticks in the air, from 4074,321; lands at 4047,369
+      -> standing at x 4010-4073, y 369
+  13. jump (held 21 ticks), holding left, turn into the Morph Ball at tick 8, from 4010,369; lands at 3875,465   [samus:2]
+      -> as the Morph Ball at x 3623-3945, y 465
+  14. turn back from the Morph Ball at 3623,465
+      -> standing at x 3623-3737, y 465
+  15. jump (held 21 ticks), holding left, from 3623,465; lands at 3505,465
+      -> standing at x 3095-3593, y 465
+  16. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 3095,465; lands at 3086,417
+      -> standing at x 3066-3094, y 417
+  17. jump (held 21 ticks), holding right, double jump at tick 16, air dash (Jerry) at tick 8, from 3086,417; touches it on the way   [djump,adash]
+      -> spot switch4
+how in 96,416 -> spot switch4: samus:2,event:rWarshipJ/switch2
+     coming in at 96,416
+   1. coming in: holding nothing, from 96,416; lands at 96,417
+      -> standing at x 55-329, y 417
+   2. turn into the Morph Ball at 55,417   [samus:2]
+      -> as the Morph Ball at x 55-534, y 417
+   3. as the Morph Ball: roll off the edge, holding right once in the air, from 55,417; lands at 595,465
+      -> as the Morph Ball at x 535-1913, y 465
+   4. turn back from the Morph Ball at 1591,465
+      -> standing at x 1591-1913, y 465
+   5. running right, jump (held 21 ticks), holding right, from 1760,465; lands at 1936,417
+      -> standing at x 1914-1977, y 417
+   6. jump (held 6 ticks), holding right, from 1914,417; lands at 2009,369
+      -> standing at x 1978-2041, y 369
+   7. jump (held 6 ticks), holding right, from 1978,369; lands at 2073,321
+      -> standing at x 2042-2105, y 321
+   8. jump (held 21 ticks), holding right, from 2048,321, through the oBarrierColor at 2176,272; lands at 2263,465   [event:rWarshipJ/switch2]
+      -> standing at x 2183-2454, y 465
+   9. running right, jump (held 6 ticks), holding right, from 2352,465; lands at 2514,465
+      -> standing at x 2506-2985, y 465
+  10. running right, jump (held 21 ticks), holding right, from 2928,465; lands at 3132,465
+      -> standing at x 3095-3593, y 465
+  11. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 3536,465; lands at 3612,401
+      -> standing at x 3594-3622, y 401
+  12. jump (held 21 ticks), holding left, turn into the Morph Ball at tick 8, from 3594,401; lands at 3519,385   [samus:2]
+      -> as the Morph Ball at x 3498-3526, y 385
+  13. turn back from the Morph Ball at 3498,385
+      -> standing at x 3498-3526, y 385
+  14. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 3498,385; lands at 3414,385
+      -> standing at x 3402-3462, y 385
+  15. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 3402,385; lands at 3356,385
+      -> standing at x 3338-3366, y 385
+  16. jump (held 2 ticks), holding right, from 3338,385; touches it on the way
+      -> spot switch4
 how in 4208,320 -> out 96,368: djump,samus:2
      coming in at 4208,320
    1. coming in: holding nothing, from 4208,320; lands at 4208,321
@@ -96,3 +393,91 @@ how in 4208,320 -> out 4240,288: -
       -> standing at x 4074-4256, y 321
    2. standing at 4238,321, goes into it
       -> out 4240,288
+how in 4208,320 -> spot switch1: djump,samus:2
+     coming in at 4208,320
+   1. coming in: holding nothing, from 4208,320; lands at 4208,321
+      -> standing at x 4074-4256, y 321
+   2. jump (held 21 ticks), holding left, double jump at tick 15, from 4074,321; lands at 3927,257   [djump]
+      -> standing at x 3927-3977, y 257
+   3. jump (held 2 ticks), holding left, from 3927,257; lands at 3844,241
+      -> standing at x 3623-3926, y 241
+   4. jump (held 21 ticks), holding left, from 3623,241; lands at 3498,241
+      -> standing at x 2762-3593, y 241
+   5. jump (held 2 ticks), holding left, from 2762,241; lands at 2651,257
+      -> standing at x 2583-2694, y 257
+   6. jump (held 21 ticks), holding left, double jump at tick 15, from 2583,257; lands at 2525,161   [djump]
+      -> standing at x 2282-2582, y 161
+   7. jump (held 21 ticks), holding left, double jump at tick 15, from 2282,161; lands at 1960,225   [djump]
+      -> standing at x 1927-1974, y 225
+   8. jump (held 21 ticks), holding left, from 1927,225; lands at 1780,225
+      -> standing at x 1674-1817, y 225
+   9. walk off the edge, holding left once in the air, double jump at tick 8, from 1678,225; lands at 1433,385   [djump]
+      -> standing at x 1338-1446, y 385
+  10. jump (held 21 ticks), holding left, turn into the Morph Ball at tick 8, from 1338,385; lands at 1235,465   [samus:2]
+      -> as the Morph Ball at x 535-1913, y 465
+  11. turn back from the Morph Ball at 1591,465
+      -> standing at x 1591-1913, y 465
+  12. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1591,465; touches it on the way
+      -> spot switch1
+how in 4208,320 -> spot switch2: djump
+     coming in at 4208,320
+   1. coming in: holding nothing, from 4208,320; lands at 4208,321
+      -> standing at x 4074-4256, y 321
+   2. jump (held 21 ticks), holding left, double jump at tick 15, from 4074,321; lands at 3927,257   [djump]
+      -> standing at x 3927-3977, y 257
+   3. jump (held 2 ticks), holding left, from 3927,257; lands at 3844,241
+      -> standing at x 3623-3926, y 241
+   4. jump (held 21 ticks), holding left, from 3623,241; lands at 3498,241
+      -> standing at x 2762-3593, y 241
+   5. jump (held 2 ticks), holding left, from 2762,241; lands at 2651,257
+      -> standing at x 2583-2694, y 257
+   6. jump (held 21 ticks), holding left, double jump at tick 15, from 2583,257; lands at 2525,161   [djump]
+      -> standing at x 2282-2582, y 161
+   7. standing at 2314,161, on it
+      -> spot switch2
+how in 4208,320 -> spot switch3: djump
+     coming in at 4208,320
+   1. coming in: holding nothing, from 4208,320; lands at 4208,321
+      -> standing at x 4074-4256, y 321
+   2. jump (held 21 ticks), holding left, double jump at tick 15, from 4074,321; lands at 3927,257   [djump]
+      -> standing at x 3927-3977, y 257
+   3. jump (held 2 ticks), holding left, from 3927,257; lands at 3844,241
+      -> standing at x 3623-3926, y 241
+   4. jump (held 21 ticks), holding left, from 3623,241; lands at 3498,241
+      -> standing at x 2762-3593, y 241
+   5. jump (held 21 ticks), holding right, double jump at tick 15, from 3024,241; touches it on the way   [djump]
+      -> spot switch3
+how in 4208,320 -> spot switch3: adash
+     coming in at 4208,320
+   1. coming in: holding nothing, from 4208,320; lands at 4208,321
+      -> standing at x 4074-4256, y 321
+   2. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 4074,321; lands at 3938,257   [adash]
+      -> standing at x 3927-3977, y 257
+   3. jump (held 2 ticks), holding left, from 3927,257; lands at 3844,241
+      -> standing at x 3623-3926, y 241
+   4. jump (held 21 ticks), holding left, from 3623,241; lands at 3498,241
+      -> standing at x 2762-3593, y 241
+   5. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 3024,241; touches it on the way   [adash]
+      -> spot switch3
+how in 4208,320 -> spot switch4: samus:2
+     coming in at 4208,320
+   1. coming in: holding nothing, from 4208,320; lands at 4208,321
+      -> standing at x 4074-4256, y 321
+   2. walk off the edge, holding left, then nothing after 1 ticks in the air, from 4074,321; lands at 4047,369
+      -> standing at x 4010-4073, y 369
+   3. jump (held 21 ticks), holding left, turn into the Morph Ball at tick 8, from 4010,369; lands at 3875,465   [samus:2]
+      -> as the Morph Ball at x 3623-3945, y 465
+   4. turn back from the Morph Ball at 3623,465
+      -> standing at x 3623-3737, y 465
+   5. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 3623,465; lands at 3618,401
+      -> standing at x 3594-3622, y 401
+   6. jump (held 21 ticks), holding left, turn into the Morph Ball at tick 8, from 3594,401; lands at 3519,385   [samus:2]
+      -> as the Morph Ball at x 3498-3526, y 385
+   7. turn back from the Morph Ball at 3498,385
+      -> standing at x 3498-3526, y 385
+   8. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 3498,385; lands at 3414,385
+      -> standing at x 3402-3462, y 385
+   9. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 3402,385; lands at 3356,385
+      -> standing at x 3338-3366, y 385
+  10. jump (held 2 ticks), holding right, from 3338,385; touches it on the way
+      -> spot switch4

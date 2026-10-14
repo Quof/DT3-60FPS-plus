@@ -33,6 +33,9 @@ LTYPES = [
     (16, "oMMBoostedCharge", "X Charge Capsule"), (17, "oMetPick_SpringBall", "Spring Ball")]
 LT_BY_OBJ = {o: c for c, o, l in LTYPES}
 LT_LABEL = {c: l for c, o, l in LTYPES}
+# location types that stay the game's own, not locations: the Item Finder (its pickup gives it, as in the game; the
+# mod's oIdentifier makes Chao's alert tell the locations' items apart)
+KEEP_TYPES = {15}
 
 # item kinds (the numbers the mod's scripts use)
 IK = dict(HP=1, MONEY=2, EQUIP=3, AQ=4, HE=5, MP=6, GP=7, AU=8, WB=9, WL=10, AP=11, LB=12, MB=13, KEY=14, HC=15, XF=16,
@@ -227,7 +230,7 @@ def main():
                 s = shops.setdefault(sid, {"rooms": [], "at": [], "inv": [v for v in inv[:mx]]})
                 s["rooms"].append(room)
                 s["at"].append((room, x, y))
-            elif obj in LT_BY_OBJ:
+            elif obj in LT_BY_OBJ and LT_BY_OBJ[obj] not in KEEP_TYPES:
                 t = LT_BY_OBJ[obj]
                 n = num(code, "objectNum")
                 if t in (15, 16, 17): n = 1

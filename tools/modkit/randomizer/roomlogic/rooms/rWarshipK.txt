@@ -16,6 +16,10 @@ out 1216,896   # to rWarshipL at 48,256; the player goes into it
 loc 9 100   # weapon upgrade 100, at 999,663
 loc 9 60   # weapon upgrade 60, at 823,551
 
+# Spots: somewhere whose reaching opens a way (the barriers that wait for it need event:rWarshipK/<spot>, and
+# solve.py makes that what reaching the spot needs)
+spot switch1   # a colored switch the partner can be left standing on (party split), at 407,359
+
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
@@ -26,11 +30,13 @@ from in 48,1120
   out 1216,896   djump,adash
   loc 9 100      never
   loc 9 60       never
+  spot switch1   djump,adash
 from in 1184,928
-  out 0,1088     never
+  out 0,1088     djump,event:rWarshipK/switch1
   out 1216,896   -
   loc 9 100      never
   loc 9 60       never
+  spot switch1   djump,adash,event:rWarshipK/switch1
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
@@ -80,9 +86,91 @@ how in 48,1120 -> out 1216,896: djump,adash
       -> standing at x 711-1232, y 929
   19. standing at 1214,929, goes into it
       -> out 1216,896
+how in 48,1120 -> spot switch1: djump,adash
+     coming in at 48,1120
+   1. coming in: holding nothing, from 48,1120; lands at 48,1121
+      -> standing at x 0-294, y 1121
+   2. running right, jump (held 21 ticks), holding right, double jump at tick 10, from 64,1121; lands at 255,1041   [djump]
+      -> standing at x 234-329, y 1041
+   3. jump (held 21 ticks), holding left, double jump at tick 10, from 234,1041; lands at 118,961   [djump]
+      -> standing at x 103-198, y 961
+   4. jump (held 21 ticks), holding nothing, then right after 14 ticks, double jump at tick 12, from 128,961; lands at 179,865   [djump]
+      -> standing at x 170-230, y 865
+   5. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 222,865; lands at 194,769   [djump]
+      -> standing at x 154-214, y 769
+   6. jump (held 21 ticks), holding right, double jump at tick 10, from 154,769; lands at 322,689   [djump]
+      -> standing at x 282-329, y 689
+   7. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 282,689; lands at 187,609   [djump]
+      -> standing at x 170-246, y 609
+   8. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 170,609; lands at 130,513   [djump]
+      -> standing at x 103-150, y 513
+   9. jump (held 21 ticks), holding right, double jump at tick 16, air dash (Jerry) at tick 8, from 103,513; lands at 271,417   [djump,adash]
+      -> standing at x 218-278, y 417
+  10. jump (held 21 ticks), holding nothing, then left after 12 ticks, air dash (Jerry) at tick 12, from 218,417; lands at 134,337   [adash]
+      -> standing at x 122-198, y 337
+  11. jump (held 21 ticks), holding right, double jump at tick 15, from 122,337; lands at 291,241   [djump]
+      -> standing at x 234-297, y 241
+  12. jump (held 21 ticks), holding right, from 234,241; lands at 365,177
+      -> standing at x 298-406, y 177
+  13. running right, jump (held 21 ticks), holding right, then nothing after 2 ticks, from 368,177; touches it on the way
+      -> spot switch1
+how in 1184,928 -> out 0,1088: djump,event:rWarshipK/switch1
+     coming in at 1184,928
+   1. coming in: holding nothing, from 1184,928; lands at 1184,929
+      -> standing at x 711-1232, y 929
+   2. jump (held 21 ticks), holding left, double jump at tick 15, from 711,929; lands at 653,833   [djump]
+      -> standing at x 518-710, y 833
+   3. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 522,833; lands at 498,737   [djump]
+      -> standing at x 458-518, y 737
+   4. walk off the edge, holding left once in the air, from 458,737; lands at 375,881
+      -> standing at x 375-422, y 881
+   5. walk off the edge, holding right once in the air, double jump at tick 8, from 375,881, through the oBarrierColor at 544,848; lands at 665,1169   [djump,event:rWarshipK/switch1]
+      -> standing at x 295-665, y 1169
+   6. jump (held 6 ticks), holding left, from 295,1169; lands at 236,1121
+      -> standing at x 0-294, y 1121
+   7. standing at 0,1121, goes into it
+      -> out 0,1088
 how in 1184,928 -> out 1216,896: -
      coming in at 1184,928
    1. coming in: holding nothing, from 1184,928; lands at 1184,929
       -> standing at x 711-1232, y 929
    2. standing at 1214,929, goes into it
       -> out 1216,896
+how in 1184,928 -> spot switch1: djump,adash,event:rWarshipK/switch1
+     coming in at 1184,928
+   1. coming in: holding nothing, from 1184,928; lands at 1184,929
+      -> standing at x 711-1232, y 929
+   2. jump (held 21 ticks), holding left, double jump at tick 15, from 711,929; lands at 653,833   [djump]
+      -> standing at x 518-710, y 833
+   3. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 522,833; lands at 498,737   [djump]
+      -> standing at x 458-518, y 737
+   4. walk off the edge, holding left once in the air, from 458,737; lands at 375,881
+      -> standing at x 375-422, y 881
+   5. walk off the edge, holding right once in the air, double jump at tick 8, from 375,881, through the oBarrierColor at 544,848; lands at 665,1169   [djump,event:rWarshipK/switch1]
+      -> standing at x 295-665, y 1169
+   6. jump (held 6 ticks), holding left, from 295,1169; lands at 236,1121
+      -> standing at x 0-294, y 1121
+   7. running right, jump (held 21 ticks), holding right, double jump at tick 10, from 64,1121; lands at 255,1041   [djump]
+      -> standing at x 234-329, y 1041
+   8. jump (held 21 ticks), holding left, double jump at tick 10, from 234,1041; lands at 118,961   [djump]
+      -> standing at x 103-198, y 961
+   9. jump (held 21 ticks), holding nothing, then right after 14 ticks, double jump at tick 12, from 128,961; lands at 179,865   [djump]
+      -> standing at x 170-230, y 865
+  10. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 222,865; lands at 194,769   [djump]
+      -> standing at x 154-214, y 769
+  11. jump (held 21 ticks), holding right, double jump at tick 10, from 154,769; lands at 322,689   [djump]
+      -> standing at x 282-329, y 689
+  12. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 282,689; lands at 187,609   [djump]
+      -> standing at x 170-246, y 609
+  13. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 170,609; lands at 130,513   [djump]
+      -> standing at x 103-150, y 513
+  14. jump (held 21 ticks), holding right, double jump at tick 16, air dash (Jerry) at tick 8, from 103,513; lands at 271,417   [djump,adash]
+      -> standing at x 218-278, y 417
+  15. jump (held 21 ticks), holding nothing, then left after 12 ticks, air dash (Jerry) at tick 12, from 218,417; lands at 134,337   [adash]
+      -> standing at x 122-198, y 337
+  16. jump (held 21 ticks), holding right, double jump at tick 15, from 122,337; lands at 291,241   [djump]
+      -> standing at x 234-297, y 241
+  17. jump (held 21 ticks), holding right, from 234,241; lands at 365,177
+      -> standing at x 298-406, y 177
+  18. running right, jump (held 21 ticks), holding right, then nothing after 2 ticks, from 368,177; touches it on the way
+      -> spot switch1

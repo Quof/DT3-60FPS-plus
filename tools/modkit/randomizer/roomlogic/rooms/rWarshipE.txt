@@ -14,6 +14,11 @@ out 1568,176   # to rWarshipF at 48,256; the player goes into it
 
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 
+# Spots: somewhere whose reaching opens a way (the barriers that wait for it need event:rWarshipE/<spot>, and
+# solve.py makes that what reaching the spot needs)
+spot switch1   # a colored switch the partner can be left standing on (party split), at 1223,167
+spot switch2   # a colored switch the partner can be left standing on (party split), at 1335,295
+
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
@@ -21,10 +26,14 @@ out 1568,176   # to rWarshipF at 48,256; the player goes into it
 # the locked door whose objectNum is N.
 from in 48,256
   out 0,224      -
-  out 1568,176   never
+  out 1568,176   adash,samus:2,event:rWarshipE/switch1,event:rWarshipE/switch2 | djump,samus:2,event:rWarshipE/switch1,event:rWarshipE/switch2 | djump,megaman:4,event:rWarshipE/switch2
+  spot switch1   djump,megaman:4 | djump,samus:2,event:rWarshipE/switch1 | adash,samus:2,event:rWarshipE/switch1
+  spot switch2   djump,megaman:4 | samus:2,event:rWarshipE/switch1
 from in 1536,208
-  out 0,224      never
+  out 0,224      event:rWarshipE/switch2
   out 1568,176   -
+  spot switch1   event:rWarshipE/switch2
+  spot switch2   event:rWarshipE/switch2
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
@@ -34,9 +43,185 @@ how in 48,256 -> out 0,224: -
       -> standing at x 0-342, y 257
    2. standing at 0,257, goes into it
       -> out 0,224
+how in 48,256 -> out 1568,176: adash,samus:2,event:rWarshipE/switch1,event:rWarshipE/switch2
+     coming in at 48,256
+   1. coming in: holding nothing, from 48,256; lands at 48,257
+      -> standing at x 0-342, y 257
+   2. walk off the edge, holding right once in the air, turn into the Morph Ball where the body meets a wall or ceiling, from 32,257; lands at 411,321   [samus:2]
+      -> as the Morph Ball at x 343-809, y 321
+   3. walk from 809,321 to 810,321 into the oBarrierColor at 816,256   [event:rWarshipE/switch1]
+      -> as the Morph Ball at x 810-838, y 321 (where a gate is)
+   4. walk from 838,321 to 839,321
+      -> as the Morph Ball at x 839-1369, y 321
+   5. turn back from the Morph Ball at 1303,321
+      -> standing at x 1303-1369, y 321
+   6. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 1303,321; lands at 1461,241   [adash]
+      -> standing at x 1370-1465, y 241
+   7. jump (held 21 ticks), holding right, air dash (Jerry) at tick 4, from 1370,241, through the oBarrierColor at 1472,96; touches it on the way   [adash,event:rWarshipE/switch2]
+      -> out 1568,176
+how in 48,256 -> out 1568,176: djump,samus:2,event:rWarshipE/switch1,event:rWarshipE/switch2
+     coming in at 48,256
+   1. coming in: holding nothing, from 48,256; lands at 48,257
+      -> standing at x 0-342, y 257
+   2. walk off the edge, holding right once in the air, turn into the Morph Ball where the body meets a wall or ceiling, from 32,257; lands at 411,321   [samus:2]
+      -> as the Morph Ball at x 343-809, y 321
+   3. walk from 809,321 to 810,321 into the oBarrierColor at 816,256   [event:rWarshipE/switch1]
+      -> as the Morph Ball at x 810-838, y 321 (where a gate is)
+   4. walk from 838,321 to 839,321
+      -> as the Morph Ball at x 839-1369, y 321
+   5. turn back from the Morph Ball at 1303,321
+      -> standing at x 1303-1369, y 321
+   6. jump (held 21 ticks), holding right, double jump at tick 10, from 1303,321; lands at 1450,241   [djump]
+      -> standing at x 1370-1465, y 241
+   7. running right, jump (held 21 ticks), holding right, double jump at tick 10, from 1424,241, through the oBarrierColor at 1472,96; touches it on the way   [djump,event:rWarshipE/switch2]
+      -> out 1568,176
+how in 48,256 -> out 1568,176: djump,megaman:4,event:rWarshipE/switch2
+     coming in at 48,256
+   1. coming in: holding nothing, from 48,256; lands at 48,257
+      -> standing at x 0-342, y 257
+   2. walk off the edge, holding right once in the air, from 32,257; lands at 413,321
+      -> standing at x 343-617, y 321
+   3. running right, jump (held 6 ticks), holding right, from 384,321; fires the Strike Chain at the point at 528,232   [megaman:4]
+      -> hanging from the Strike Chain point at 528,232
+   4. off the Strike Chain point: jump (held 21 ticks), holding nothing, from 528,272; fires the Strike Chain at the point at 480,176   [megaman:4]
+      -> hanging from the Strike Chain point at 480,176
+   5. off the Strike Chain point: jump (held 21 ticks), holding nothing, then left after 12 ticks, double jump at tick 12, from 480,216; fires the Strike Chain at the point at 528,112   [djump,megaman:4]
+      -> hanging from the Strike Chain point at 528,112
+   6. off the Strike Chain point: jump (held 21 ticks), holding right, double jump at tick 12, from 528,152; lands at 676,81   [djump]
+      -> standing at x 618-726, y 81
+   7. walk off the edge, holding right once in the air, double jump at tick 8, from 622,81; lands at 903,193   [djump]
+      -> standing at x 823-1302, y 193
+   8. walk off the edge, holding right once in the air, from 823,193; lands at 1380,241
+      -> standing at x 1370-1465, y 241
+   9. running right, jump (held 21 ticks), holding right, double jump at tick 10, from 1424,241, through the oBarrierColor at 1472,96; touches it on the way   [djump,event:rWarshipE/switch2]
+      -> out 1568,176
+how in 48,256 -> spot switch1: djump,megaman:4
+     coming in at 48,256
+   1. coming in: holding nothing, from 48,256; lands at 48,257
+      -> standing at x 0-342, y 257
+   2. walk off the edge, holding right once in the air, from 32,257; lands at 413,321
+      -> standing at x 343-617, y 321
+   3. running right, jump (held 6 ticks), holding right, from 384,321; fires the Strike Chain at the point at 528,232   [megaman:4]
+      -> hanging from the Strike Chain point at 528,232
+   4. off the Strike Chain point: jump (held 21 ticks), holding nothing, from 528,272; fires the Strike Chain at the point at 480,176   [megaman:4]
+      -> hanging from the Strike Chain point at 480,176
+   5. off the Strike Chain point: jump (held 21 ticks), holding nothing, then left after 12 ticks, double jump at tick 12, from 480,216; fires the Strike Chain at the point at 528,112   [djump,megaman:4]
+      -> hanging from the Strike Chain point at 528,112
+   6. off the Strike Chain point: jump (held 21 ticks), holding right, double jump at tick 12, from 528,152; lands at 676,81   [djump]
+      -> standing at x 618-726, y 81
+   7. walk off the edge, holding right once in the air, double jump at tick 8, from 622,81; lands at 903,193   [djump]
+      -> standing at x 823-1302, y 193
+   8. standing at 1210,193, on it
+      -> spot switch1
+how in 48,256 -> spot switch1: djump,samus:2,event:rWarshipE/switch1
+     coming in at 48,256
+   1. coming in: holding nothing, from 48,256; lands at 48,257
+      -> standing at x 0-342, y 257
+   2. walk off the edge, holding right once in the air, turn into the Morph Ball where the body meets a wall or ceiling, from 32,257; lands at 411,321   [samus:2]
+      -> as the Morph Ball at x 343-809, y 321
+   3. walk from 809,321 to 810,321 into the oBarrierColor at 816,256   [event:rWarshipE/switch1]
+      -> as the Morph Ball at x 810-838, y 321 (where a gate is)
+   4. walk from 838,321 to 839,321
+      -> as the Morph Ball at x 839-1369, y 321
+   5. turn back from the Morph Ball at 1303,321
+      -> standing at x 1303-1369, y 321
+   6. jump (held 21 ticks), holding right, double jump at tick 10, from 1303,321; lands at 1450,241   [djump]
+      -> standing at x 1370-1465, y 241
+   7. jump (held 6 ticks), holding left, from 1370,241; lands at 1275,193
+      -> standing at x 823-1302, y 193
+   8. standing at 1210,193, on it
+      -> spot switch1
+how in 48,256 -> spot switch1: adash,samus:2,event:rWarshipE/switch1
+     coming in at 48,256
+   1. coming in: holding nothing, from 48,256; lands at 48,257
+      -> standing at x 0-342, y 257
+   2. walk off the edge, holding right once in the air, turn into the Morph Ball where the body meets a wall or ceiling, from 32,257; lands at 411,321   [samus:2]
+      -> as the Morph Ball at x 343-809, y 321
+   3. walk from 809,321 to 810,321 into the oBarrierColor at 816,256   [event:rWarshipE/switch1]
+      -> as the Morph Ball at x 810-838, y 321 (where a gate is)
+   4. walk from 838,321 to 839,321
+      -> as the Morph Ball at x 839-1369, y 321
+   5. turn back from the Morph Ball at 1303,321
+      -> standing at x 1303-1369, y 321
+   6. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 1303,321; lands at 1461,241   [adash]
+      -> standing at x 1370-1465, y 241
+   7. jump (held 6 ticks), holding left, from 1370,241; lands at 1275,193
+      -> standing at x 823-1302, y 193
+   8. standing at 1210,193, on it
+      -> spot switch1
+how in 48,256 -> spot switch2: djump,megaman:4
+     coming in at 48,256
+   1. coming in: holding nothing, from 48,256; lands at 48,257
+      -> standing at x 0-342, y 257
+   2. walk off the edge, holding right once in the air, from 32,257; lands at 413,321
+      -> standing at x 343-617, y 321
+   3. running right, jump (held 6 ticks), holding right, from 384,321; fires the Strike Chain at the point at 528,232   [megaman:4]
+      -> hanging from the Strike Chain point at 528,232
+   4. off the Strike Chain point: jump (held 21 ticks), holding nothing, from 528,272; fires the Strike Chain at the point at 480,176   [megaman:4]
+      -> hanging from the Strike Chain point at 480,176
+   5. off the Strike Chain point: jump (held 21 ticks), holding nothing, then left after 12 ticks, double jump at tick 12, from 480,216; fires the Strike Chain at the point at 528,112   [djump,megaman:4]
+      -> hanging from the Strike Chain point at 528,112
+   6. off the Strike Chain point: jump (held 21 ticks), holding right, double jump at tick 12, from 528,152; lands at 676,81   [djump]
+      -> standing at x 618-726, y 81
+   7. walk off the edge, holding right once in the air, double jump at tick 8, from 622,81; lands at 903,193   [djump]
+      -> standing at x 823-1302, y 193
+   8. walk off the edge, holding right, then nothing after 1 ticks in the air, from 823,193; touches it on the way
+      -> spot switch2
+how in 48,256 -> spot switch2: samus:2,event:rWarshipE/switch1
+     coming in at 48,256
+   1. coming in: holding nothing, from 48,256; lands at 48,257
+      -> standing at x 0-342, y 257
+   2. walk off the edge, holding right once in the air, turn into the Morph Ball where the body meets a wall or ceiling, from 32,257; lands at 411,321   [samus:2]
+      -> as the Morph Ball at x 343-809, y 321
+   3. walk from 809,321 to 810,321 into the oBarrierColor at 816,256   [event:rWarshipE/switch1]
+      -> as the Morph Ball at x 810-838, y 321 (where a gate is)
+   4. walk from 838,321 to 839,321
+      -> as the Morph Ball at x 839-1369, y 321
+   5. turn back from the Morph Ball at 1303,321
+      -> standing at x 1303-1369, y 321
+   6. standing at 1322,321, on it
+      -> spot switch2
+how in 1536,208 -> out 0,224: event:rWarshipE/switch2
+     coming in at 1536,208
+   1. coming in: holding nothing, from 1536,208; lands at 1536,209
+      -> standing at x 1495-1584, y 209
+   2. walk off the edge, holding left once in the air, from 1495,209, through the oBarrierColor at 1472,96; lands at 1422,241   [event:rWarshipE/switch2]
+      -> standing at x 1370-1465, y 241
+   3. jump (held 6 ticks), holding left, from 1370,241; lands at 1275,193
+      -> standing at x 823-1302, y 193
+   4. jump (held 21 ticks), holding left, from 823,193; lands at 750,129
+      -> standing at x 727-822, y 129
+   5. jump (held 6 ticks), holding left, from 727,129; lands at 668,81
+      -> standing at x 618-726, y 81
+   6. walk off the edge, holding left once in the air, from 618,81; lands at 428,321
+      -> standing at x 343-617, y 321
+   7. jump (held 21 ticks), holding left, from 343,321; lands at 270,257
+      -> standing at x 0-342, y 257
+   8. standing at 0,257, goes into it
+      -> out 0,224
 how in 1536,208 -> out 1568,176: -
      coming in at 1536,208
    1. coming in: holding nothing, from 1536,208; lands at 1536,209
       -> standing at x 1495-1584, y 209
    2. standing at 1566,209, goes into it
       -> out 1568,176
+how in 1536,208 -> spot switch1: event:rWarshipE/switch2
+     coming in at 1536,208
+   1. coming in: holding nothing, from 1536,208; lands at 1536,209
+      -> standing at x 1495-1584, y 209
+   2. walk off the edge, holding left once in the air, from 1495,209, through the oBarrierColor at 1472,96; lands at 1422,241   [event:rWarshipE/switch2]
+      -> standing at x 1370-1465, y 241
+   3. jump (held 6 ticks), holding left, from 1370,241; lands at 1275,193
+      -> standing at x 823-1302, y 193
+   4. standing at 1210,193, on it
+      -> spot switch1
+how in 1536,208 -> spot switch2: event:rWarshipE/switch2
+     coming in at 1536,208
+   1. coming in: holding nothing, from 1536,208; lands at 1536,209
+      -> standing at x 1495-1584, y 209
+   2. walk off the edge, holding left once in the air, from 1495,209, through the oBarrierColor at 1472,96; lands at 1422,241   [event:rWarshipE/switch2]
+      -> standing at x 1370-1465, y 241
+   3. jump (held 6 ticks), holding left, from 1370,241; lands at 1275,193
+      -> standing at x 823-1302, y 193
+   4. walk off the edge, holding right, then nothing after 1 ticks in the air, from 823,193; touches it on the way
+      -> spot switch2

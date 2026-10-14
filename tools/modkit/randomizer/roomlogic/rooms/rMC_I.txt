@@ -22,7 +22,7 @@ out 2928,288   # to rMC_J at 48,1024; the player goes into it
 # the locked door whose objectNum is N.
 from in 48,256
   out 0,224      -
-  out 2928,288   never
+  out 2928,288   djump,gdash,link:3,belmont:2,megaman:3,samus:5
 from in 2896,320
   out 0,224      never
   out 2928,288   -
@@ -35,6 +35,34 @@ how in 48,256 -> out 0,224: -
       -> [barrier 425597 shut] standing at x 0-262, y 257
    2. standing at 0,257, goes into it
       -> out 0,224
+how in 48,256 -> out 2928,288: djump,gdash,link:3,belmont:2,megaman:3,samus:5
+     [barrier 425597 shut] coming in at 48,256
+   1. coming in: holding nothing, from 48,256; lands at 48,257
+      -> [barrier 425597 shut] standing at x 0-262, y 257
+   2. running right, jump (held 21 ticks), holding right, from 112,257; lands at 325,257
+      -> [barrier 425597 shut] standing at x 314-518, y 257
+   3. walk off the edge, holding right once in the air, from 314,257; lands at 591,417
+      -> [barrier 425597 shut] standing at x 570-761, y 417
+   4. dash right (Jerry), jump (held 21 ticks), holding right, from 576,417; lands at 780,225   [gdash]
+      -> [barrier 425597 shut] standing at x 762-793, y 225
+   5. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 762,225; lands at 850,225
+      -> [barrier 425597 shut] standing at x 823-873, y 225
+   6. dash right (Jerry), jump (held 21 ticks), holding right, from 831,225; lands at 1142,289   [gdash]
+      -> [barrier 425597 shut] standing at x 1095-1350, y 289
+   7. walk off the edge, holding right once in the air, from 1095,289; lands at 1432,353
+      -> [barrier 425597 shut] standing at x 1351-1465, y 353
+   8. jump (held 21 ticks), holding nothing, then right after 8 ticks, turn into the Morph Ball at tick 8, from 1461,353; lands at 1555,353   [samus:2]
+      -> [barrier 425597 shut] as the Morph Ball at x 1543-2054, y 353
+   9. as the Morph Ball: running right, roll off the edge, holding right once in the air, turn back once there's room, from 1568,353; lands at 2135,417
+      -> [barrier 425597 shut] standing at x 2055-2393, y 417
+  10. dash right (Jerry), jump (held 21 ticks), holding right, from 2144,417; lands at 2416,385   [gdash]
+      -> [barrier 425597 shut] standing at x 2394-2434, y 385
+  11. jump (held 21 ticks), holding right, from 2394,385; lands at 2599,417
+      -> [barrier 425597 shut] standing at x 2535-2809, y 417
+  12. jump (held 21 ticks), holding right, double jump at tick 15, from 2576,417; lands at 2771,321   [djump]
+      -> [barrier 425597 shut] standing at x 2714-2790, y 321
+  13. walk off the edge, holding right once in the air, double jump at tick 2, from 2714,321, through the oTimeSwBarrier at 2816,256; touches it on the way   [djump,link:3,belmont:2,megaman:3,samus:5]
+      -> out 2928,288
 how in 2896,320 -> out 2928,288: -
      [barrier 425597 shut] coming in at 2896,320
    1. coming in: holding nothing, from 2896,320; lands at 2896,321

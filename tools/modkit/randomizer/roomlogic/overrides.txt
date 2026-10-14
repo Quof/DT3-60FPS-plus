@@ -12,6 +12,11 @@
 #       going through that exit needs this too, on top of getting to it.
 #   link <room> out <id> -> <room> in <x,y>
 #       that exit leads somewhere else.
+#   room <room> : <requirements>
+#       every way through the room (from each way in to each way out, place and spot) needs this, in place of what
+#       the room's file says.
+#   area <number> : <requirements>
+#       the same for every room of the area (a later room line can still change one of them).
 #
 # Requirements: alternatives separated by |, any one of which is enough; each a list (spaces or commas) of: djump,
 # adash, gdash, hijump N, mario, link N, belmont N, megaman N, samus N, gamej N, gamec N (that many of the item), key N
@@ -38,3 +43,102 @@ set rMega4_OstrichB in 48,240 -> loc heart energy 24 : djump
 set rMega4_OstrichD in 48,272 -> out 8720,224 : nothing
 set rMega4_OstrichD in 48,272 -> loc weapon upgrade 63 : nothing
 set rMega4_OstrichD in 48,272 -> loc heart piece 20 : djump
+# Sigma's bike room, the same way: the ride needs nothing; its heart piece the double jump
+set rMega4_SigmaA1 in * -> out 11504,368 : nothing
+add rMega4_SigmaA1 in * -> loc heart piece 22 : djump
+add rMega4_SigmaA1 in * -> loc arrow quiver 16 : nothing
+# Sigma's stages: SigmaB1 needs Mega Man's Gravity Well (its Gravity Well platforms); SigmaC3's crushing walls are
+# climbed by wall jumps, some needing the dash to kick off
+add rMega4_SigmaB1 in * -> out 3952,160 : megaman 3
+add rMega4_SigmaC3 in * -> out 464,128 : gdash
+
+# Central City North B, rCCity_NB_S1a: jumping alone does it; a mid-air swap leaves the partner holding the red switch
+# (swapping only holds switches: it gives no jump or dash back)
+add rCCity_NB_S1a in * -> spot switch3 : nothing
+
+# The Nightmare Gates (areas 101-107): what each gate needs to get through (the logic doesn't work their gimmicks out)
+area 101 : mario
+area 102 : link 3
+area 103 : gdash belmont 3
+area 104 : gdash megaman 3
+area 105 : gdash adash belmont 1 | gdash adash link 1
+area 106 : gdash adash samus 7
+area 107 : gdash adash djump
+# A: bouncing off Mario enemies. B: Link's arrows and bombs. C: the dash, Belmont's whip, dagger and Holy Water.
+# D: Mega Man's Gravity Well and Shotgun Ice, the dash (wall jumps are the gate's own). E: the dash, the air dash, the
+# whip or the sword; its boss needs both characters armed (Jerry: Link or Mega Man; Claire: Belmont or Samus).
+# F: the dash, the air dash, all of Samus' set. G: the dash, the air dash, the double jump
+room rExtGateE_5 : gdash adash belmont 1 link 1 | gdash adash belmont 1 megaman 1 | gdash adash link 1 samus 1
+
+# Gate 6, Prototype Game: the wind pushes the player its way, and getting into the wind temple needs the double jump,
+# so the wind's ways count as needing it; a latch crystal gives the double jump and air dash back when hit, so its
+# ways need one of them; the Earth rooms' rocks, pressure switches and platforms need nothing
+add rGame6_WindA in * -> out 1736,144 : djump
+add rGame6_WindA in * -> loc game power 16 : djump
+add rGame6_WindA in * -> loc game power 17 : djump
+room rGame6_WindB : djump
+room rGame6_WindC : djump
+room rGame6_WindD : djump
+room rGame6_WindE : djump
+room rGame6_WindF : djump
+room rGame6_WindG : djump
+room rGame6_WindH : djump
+room rGame6_WindI : djump
+room rGame6_WindJ : djump
+add rGame6_CoDB in * -> out 1904,272 : djump | adash
+add rGame6_CoDB in * -> loc game power 41 : djump | adash
+add rGame6_CoDF in * -> out 1904,336 : djump | adash
+add rGame6_CoDF in * -> out 0,656 : djump | adash
+add rGame6_CoDF in * -> out 864,-16 : djump | adash
+add rGame6_CoDF in * -> loc game power 45 : djump | adash
+add rGame6_CoDF in * -> loc game power 46 : djump | adash
+add rGame6_CoDS in * -> out 0,256 : djump | adash
+add rGame6_CoDS in * -> loc game power 50 : djump | adash
+add rGame6_CoDD in * -> out 1792,752 : djump | adash
+add rGame6_CoDG in * -> loc game power 47 : djump | adash
+add rGame6_CoDH in * -> out 1792,192 : djump | adash
+add rGame6_CoDH in * -> loc game power 48 : djump | adash
+add rGame6_CoDH in * -> loc key 16 : djump | adash
+add rGame6_CoDI in * -> out 0,256 : djump | adash
+add rGame6_DreamWoodsE in * -> out 0,240 : djump | adash
+add rGame6_EarthA in * -> out 2544,192 : nothing
+add rGame6_EarthF in * -> out 0,160 : nothing
+add rGame6_EarthB in * -> loc game power 5 : nothing
+add rGame6_EarthC in * -> loc heart piece 33 : nothing
+add rGame6_EarthD in * -> loc game power 7 : nothing
+add rGame6_FireExtra in * -> loc heart piece 40 : djump
+add rGame6_HeroPlainsE in * -> loc game power 4 : djump
+
+# Begonia's Mountain Temple: its step switches, rolling boulders and fans need nothing (a fan switch takes a hit)
+add rMountTemple_A in * -> out 1912,560 : nothing
+add rMountTemple_A in * -> loc internetz mod 1 : nothing
+add rMountTemple_G in * -> out 0,336 : nothing
+add rMountTemple_F in * -> loc air upgrade 7 : attack
+
+# The Hidden Program Facility: the double jump and the air dash, and an attack
+add rHPF_N in * -> out 2032,672 : djump adash attack
+add rHPF_P in * -> out 0,736 : djump adash attack
+add rHPF_F in * -> loc heart piece 35 : djump adash attack
+add rHPF_F in * -> loc treasure chest 53 : djump adash attack
+add rHPF_L in * -> loc treasure chest 54 : djump adash attack
+add rHPF_I in * -> loc internetz mod 16 : djump adash attack
+add rHPF_K in * -> loc missile tank 26 : djump adash attack
+add rHPF_O in * -> loc weapon upgrade 29 : djump adash attack
+
+# The CHAOS Warship (area 99): every movement ability and every attack
+area 99 : djump adash gdash mario link 3 belmont 3 megaman 4 samus 7
+
+# Rails (the Leaf Cave, the Deserted Tower...): their switches take any weapon but Link's bombs or the Morph Ball's
+add rLeafCaveA in * -> out 1272,160 : attack
+add rLeafCaveA in * -> loc skill point 76 : attack
+add rLeafCaveB in * -> loc heart piece 41 : attack
+add rLeafCaveB in * -> loc treasure chest 66 : attack
+add rMain_44_Curse in * -> loc treasure chest 48 : attack
+add rDesertedTowerA in * -> loc internetz mod 11 : attack
+add rDesertedTowerC in * -> loc arrow quiver 22 : attack
+
+# The Grand Impediment's travel cannon (rMain_72): the air dash or the double jump, and a weapon
+add rMain_72 in * -> out 72,112 : adash attack | djump attack
+add rMain_72 in * -> out 1712,272 : adash attack | djump attack
+add rMain_72 in * -> loc treasure chest 72 : adash attack | djump attack
+add rMain_72 in * -> loc bomb upgrade 5 : adash attack | djump attack

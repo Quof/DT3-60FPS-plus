@@ -15,6 +15,11 @@ out 1680,320   # to rPttT_04 at 48,256; the player goes into it
 
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 
+# Spots: somewhere whose reaching opens a way (the barriers that wait for it need event:rPttT_03/<spot>, and
+# solve.py makes that what reaching the spot needs)
+spot switch1   # a colored switch the partner can be left standing on (party split), at 1015,423
+spot key1   # a colored key, at 1135,151
+
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
@@ -22,13 +27,19 @@ out 1680,320   # to rPttT_04 at 48,256; the player goes into it
 # the locked door whose objectNum is N.
 from in 48,448
   out 0,416      -
-  out 1680,320   never
+  out 1680,320   djump,event:rPttT_03/key1
+  spot switch1   -
+  spot key1      djump,event:rPttT_03/switch1
 from in 144,448
   out 0,416      -
-  out 1680,320   never
+  out 1680,320   djump,event:rPttT_03/key1
+  spot switch1   -
+  spot key1      djump,event:rPttT_03/switch1
 from in 1648,352
-  out 0,416      never
+  out 0,416      event:rPttT_03/key1
   out 1680,320   -
+  spot switch1   event:rPttT_03/key1
+  spot key1      djump,event:rPttT_03/key1,event:rPttT_03/switch1
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
@@ -38,11 +49,113 @@ how in 48,448 -> out 0,416: -
       -> standing at x 0-345, y 449
    2. standing at 0,449, goes into it
       -> out 0,416
+how in 48,448 -> out 1680,320: djump,event:rPttT_03/key1
+     coming in at 48,448
+   1. coming in: holding nothing, from 48,448; lands at 48,449
+      -> standing at x 0-345, y 449
+   2. running right, jump (held 6 ticks), holding right, from 272,449; lands at 434,449
+      -> standing at x 391-665, y 449
+   3. running right, jump (held 21 ticks), holding right, from 592,449; lands at 798,449
+      -> standing at x 775-889, y 449
+   4. running right, jump (held 21 ticks), holding right, from 816,449; lands at 1022,449
+      -> standing at x 999-1561, y 449
+   5. jump (held 21 ticks), holding right, double jump at tick 15, from 1376,449; lands at 1573,353   [djump]
+      -> standing at x 1562-1593, y 353
+   6. walk off the edge, holding right once in the air, from 1562,353, through the barrier at 1600,288; touches it on the way   [event:rPttT_03/key1]
+      -> out 1680,320
+how in 48,448 -> spot switch1: -
+     coming in at 48,448
+   1. coming in: holding nothing, from 48,448; lands at 48,449
+      -> standing at x 0-345, y 449
+   2. running right, jump (held 6 ticks), holding right, from 272,449; lands at 434,449
+      -> standing at x 391-665, y 449
+   3. running right, jump (held 21 ticks), holding right, from 592,449; lands at 798,449
+      -> standing at x 775-889, y 449
+   4. running right, jump (held 21 ticks), holding right, from 816,449; touches it on the way
+      -> spot switch1
+how in 48,448 -> spot key1: djump,event:rPttT_03/switch1
+     coming in at 48,448
+   1. coming in: holding nothing, from 48,448; lands at 48,449
+      -> standing at x 0-345, y 449
+   2. running right, jump (held 2 ticks), holding right, from 272,449; lands at 360,417
+      -> standing at x 346-390, y 417
+   3. jump (held 21 ticks), holding left, double jump at tick 15, from 346,417; lands at 237,321   [djump]
+      -> standing at x 186-294, y 321
+   4. jump (held 21 ticks), holding nothing, then right after 14 ticks, double jump at tick 12, from 256,321; lands at 307,225   [djump]
+      -> standing at x 298-342, y 225
+   5. jump (held 21 ticks), holding right, from 298,225; lands at 503,257
+      -> standing at x 474-518, y 257
+   6. jump (held 21 ticks), holding right, double jump at tick 10, from 496,257; lands at 686,193   [djump]
+      -> standing at x 666-710, y 193
+   7. jump (held 21 ticks), holding right, double jump at tick 15, from 670,193, through the oBarrierColor at 880,64; lands at 904,193   [djump,event:rPttT_03/switch1]
+      -> standing at x 903-934, y 193
+   8. jump (held 21 ticks), holding right, double jump at tick 5, from 930,193; lands at 1091,161   [djump]
+      -> standing at x 1082-1190, y 161
+   9. standing at 1129,161, on it
+      -> spot key1
 how in 144,448 -> out 0,416: -
      coming in at 144,448
    1. coming in: holding nothing, from 144,448; lands at 144,449
       -> standing at x 0-345, y 449
    2. standing at 0,449, goes into it
+      -> out 0,416
+how in 144,448 -> out 1680,320: djump,event:rPttT_03/key1
+     coming in at 144,448
+   1. coming in: holding nothing, from 144,448; lands at 144,449
+      -> standing at x 0-345, y 449
+   2. running right, jump (held 6 ticks), holding right, from 272,449; lands at 434,449
+      -> standing at x 391-665, y 449
+   3. running right, jump (held 21 ticks), holding right, from 592,449; lands at 798,449
+      -> standing at x 775-889, y 449
+   4. running right, jump (held 21 ticks), holding right, from 816,449; lands at 1022,449
+      -> standing at x 999-1561, y 449
+   5. jump (held 21 ticks), holding right, double jump at tick 15, from 1376,449; lands at 1573,353   [djump]
+      -> standing at x 1562-1593, y 353
+   6. walk off the edge, holding right once in the air, from 1562,353, through the barrier at 1600,288; touches it on the way   [event:rPttT_03/key1]
+      -> out 1680,320
+how in 144,448 -> spot switch1: -
+     coming in at 144,448
+   1. coming in: holding nothing, from 144,448; lands at 144,449
+      -> standing at x 0-345, y 449
+   2. running right, jump (held 6 ticks), holding right, from 272,449; lands at 434,449
+      -> standing at x 391-665, y 449
+   3. running right, jump (held 21 ticks), holding right, from 592,449; lands at 798,449
+      -> standing at x 775-889, y 449
+   4. running right, jump (held 21 ticks), holding right, from 816,449; touches it on the way
+      -> spot switch1
+how in 144,448 -> spot key1: djump,event:rPttT_03/switch1
+     coming in at 144,448
+   1. coming in: holding nothing, from 144,448; lands at 144,449
+      -> standing at x 0-345, y 449
+   2. running right, jump (held 2 ticks), holding right, from 272,449; lands at 360,417
+      -> standing at x 346-390, y 417
+   3. jump (held 21 ticks), holding left, double jump at tick 15, from 346,417; lands at 237,321   [djump]
+      -> standing at x 186-294, y 321
+   4. jump (held 21 ticks), holding nothing, then right after 14 ticks, double jump at tick 12, from 256,321; lands at 307,225   [djump]
+      -> standing at x 298-342, y 225
+   5. jump (held 21 ticks), holding right, from 298,225; lands at 503,257
+      -> standing at x 474-518, y 257
+   6. jump (held 21 ticks), holding right, double jump at tick 10, from 496,257; lands at 686,193   [djump]
+      -> standing at x 666-710, y 193
+   7. jump (held 21 ticks), holding right, double jump at tick 15, from 670,193, through the oBarrierColor at 880,64; lands at 904,193   [djump,event:rPttT_03/switch1]
+      -> standing at x 903-934, y 193
+   8. jump (held 21 ticks), holding right, double jump at tick 5, from 930,193; lands at 1091,161   [djump]
+      -> standing at x 1082-1190, y 161
+   9. standing at 1129,161, on it
+      -> spot key1
+how in 1648,352 -> out 0,416: event:rPttT_03/key1
+     coming in at 1648,352
+   1. coming in: holding nothing, from 1648,352; lands at 1648,353
+      -> standing at x 1623-1696, y 353
+   2. walk off the edge, holding left once in the air, from 1623,353, through the barrier at 1600,288; lands at 1455,449   [event:rPttT_03/key1]
+      -> standing at x 999-1561, y 449
+   3. jump (held 21 ticks), holding left, from 999,449; lands at 831,449
+      -> standing at x 775-889, y 449
+   4. jump (held 21 ticks), holding left, from 775,449; lands at 607,449
+      -> standing at x 391-665, y 449
+   5. jump (held 6 ticks), holding left, from 391,449; lands at 273,449
+      -> standing at x 0-345, y 449
+   6. standing at 0,449, goes into it
       -> out 0,416
 how in 1648,352 -> out 1680,320: -
      coming in at 1648,352
@@ -50,3 +163,39 @@ how in 1648,352 -> out 1680,320: -
       -> standing at x 1623-1696, y 353
    2. standing at 1678,353, goes into it
       -> out 1680,320
+how in 1648,352 -> spot switch1: event:rPttT_03/key1
+     coming in at 1648,352
+   1. coming in: holding nothing, from 1648,352; lands at 1648,353
+      -> standing at x 1623-1696, y 353
+   2. walk off the edge, holding left once in the air, from 1623,353, through the barrier at 1600,288; lands at 1455,449   [event:rPttT_03/key1]
+      -> standing at x 999-1561, y 449
+   3. jump (held 21 ticks), holding left, from 999,449; lands at 831,449
+      -> standing at x 775-889, y 449
+   4. running right, jump (held 21 ticks), holding right, from 816,449; touches it on the way
+      -> spot switch1
+how in 1648,352 -> spot key1: djump,event:rPttT_03/key1,event:rPttT_03/switch1
+     coming in at 1648,352
+   1. coming in: holding nothing, from 1648,352; lands at 1648,353
+      -> standing at x 1623-1696, y 353
+   2. walk off the edge, holding left once in the air, from 1623,353, through the barrier at 1600,288; lands at 1455,449   [event:rPttT_03/key1]
+      -> standing at x 999-1561, y 449
+   3. jump (held 21 ticks), holding left, from 999,449; lands at 831,449
+      -> standing at x 775-889, y 449
+   4. jump (held 21 ticks), holding left, from 775,449; lands at 607,449
+      -> standing at x 391-665, y 449
+   5. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 391,449; lands at 374,417
+      -> standing at x 346-390, y 417
+   6. jump (held 21 ticks), holding left, double jump at tick 15, from 346,417; lands at 237,321   [djump]
+      -> standing at x 186-294, y 321
+   7. jump (held 21 ticks), holding nothing, then right after 14 ticks, double jump at tick 12, from 256,321; lands at 307,225   [djump]
+      -> standing at x 298-342, y 225
+   8. jump (held 21 ticks), holding right, from 298,225; lands at 503,257
+      -> standing at x 474-518, y 257
+   9. jump (held 21 ticks), holding right, double jump at tick 10, from 496,257; lands at 686,193   [djump]
+      -> standing at x 666-710, y 193
+  10. jump (held 21 ticks), holding right, double jump at tick 15, from 670,193, through the oBarrierColor at 880,64; lands at 904,193   [djump,event:rPttT_03/switch1]
+      -> standing at x 903-934, y 193
+  11. jump (held 21 ticks), holding right, double jump at tick 5, from 930,193; lands at 1091,161   [djump]
+      -> standing at x 1082-1190, y 161
+  12. standing at 1129,161, on it
+      -> spot key1

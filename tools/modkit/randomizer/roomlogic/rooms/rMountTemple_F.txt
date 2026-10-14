@@ -3,6 +3,7 @@
 # Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
 # Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
 # middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+# switches: the room is worked out in each of its states, the player coming in in the first: [fan400_856 off, fan832_768 off, fan800_304 off, fan784_576 off]
 
 # Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
 in 48,928   # from rMountTemple_E out 2032,928
@@ -24,14 +25,14 @@ loc 7 7   # air upgrade 7, at 1055,664
 # the locked door whose objectNum is N.
 from in 48,928
   out 0,896      -
-  out 0,160      never
+  out 0,160      djump,adash,link:1 | djump,adash,belmont:1 | djump,adash,megaman:1 | djump,adash,samus:1
   out 1936,176   never
-  loc 7 7        never
+  loc 7 7        djump,adash,samus:2
 from in 48,192
-  out 0,896      samus:2
+  out 0,896      never
   out 0,160      -
   out 1936,176   never
-  loc 7 7        -
+  loc 7 7        never
 from in 1904,208
   out 0,896      never
   out 0,160      never
@@ -41,66 +42,196 @@ from in 1904,208
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
 how in 48,928 -> out 0,896: -
-     coming in at 48,928
+     [fan400_856 off, fan832_768 off, fan800_304 off, fan784_576 off] coming in at 48,928
    1. coming in: holding nothing, from 48,928; lands at 48,929
-      -> standing at x 0-150, y 929
+      -> [fan400_856 off, fan832_768 off, fan800_304 off, fan784_576 off] standing at x 0-150, y 929
    2. standing at 0,929, goes into it
       -> out 0,896
-how in 48,192 -> out 0,896: samus:2
-     coming in at 48,192
-   1. coming in: holding nothing, from 48,192; lands at 48,193
-      -> standing at x 0-118, y 193
-   2. running right, jump (held 21 ticks), holding right, turn into the Morph Ball where the body meets a wall or ceiling, from 64,193; lands at 178,193   [samus:2]
-      -> as the Morph Ball at x 170-329, y 193
-   3. as the Morph Ball: running left, roll off the edge, holding left, then nothing after 1 ticks in the air, from 170,193; lands at 154,369
-      -> as the Morph Ball at x 134-214, y 369
-   4. turn back from the Morph Ball at 134,369
-      -> standing at x 134-214, y 369
-   5. running right, jump (held 21 ticks), holding right, from 206,369; lands at 428,577
-      -> standing at x 394-438, y 577
-   6. walk off the edge, holding right, then left after 1 ticks in the air, from 394,577; lands at 368,737
-      -> standing at x 202-438, y 737
-   7. walk off the edge, holding left once in the air, from 202,737; lands at 151,814
-      -> standing at x 151-166, y 814
-   8. walk off the edge, holding right, then left after 1 ticks in the air, from 151,814; lands at 116,929
-      -> standing at x 0-150, y 929
-   9. standing at 0,929, goes into it
-      -> out 0,896
+how in 48,928 -> out 0,160: djump,adash,link:1
+     [fan400_856 off, fan832_768 off, fan800_304 off, fan784_576 off] coming in at 48,928
+   1. coming in: holding nothing, from 48,928; lands at 48,929
+      -> [fan400_856 off, fan832_768 off, fan800_304 off, fan784_576 off] standing at x 0-150, y 929
+   2. running right, jump (held 21 ticks), holding right, from 112,929; lands at 209,929
+      -> [fan400_856 off, fan832_768 off, fan800_304 off, fan784_576 off] standing at x 202-393, y 929
+   3. hit the switch at 400,856 from 334,929 (jumping if need be): [fan400_856 on, fan832_768 off, fan800_304 off, fan784_576 off]   [link:1]
+      -> [fan400_856 on, fan832_768 off, fan800_304 off, fan784_576 off] standing at x 202-393, y 929
+   4. running left, walk off the edge, holding left, then right after 1 ticks in the air, from 202,929; lands at 256,737
+      -> [fan400_856 on, fan832_768 off, fan800_304 off, fan784_576 off] standing at x 202-438, y 737
+   5. running right, jump (held 21 ticks), holding right, from 368,737; lands at 505,737
+      -> [fan400_856 on, fan832_768 off, fan800_304 off, fan784_576 off] standing at x 490-566, y 737
+   6. jump (held 21 ticks), holding right, from 490,737; lands at 689,801
+      -> [fan400_856 on, fan832_768 off, fan800_304 off, fan784_576 off] standing at x 631-793, y 801
+   7. hit the switch at 832,768 from 776,801 (jumping if need be): [fan400_856 on, fan832_768 on, fan800_304 off, fan784_576 off]   [link:1]
+      -> [fan400_856 on, fan832_768 on, fan800_304 off, fan784_576 off] standing at x 631-793, y 801
+   8. jump (held 21 ticks), holding nothing, then left after 12 ticks, air dash (Jerry) at tick 12, from 688,801; lands at 619,769   [adash]
+      -> [fan400_856 on, fan832_768 on, fan800_304 off, fan784_576 off] standing at x 567-630, y 769
+   9. jump (held 6 ticks), holding left, from 567,769; lands at 537,737
+      -> [fan400_856 on, fan832_768 on, fan800_304 off, fan784_576 off] standing at x 490-566, y 737
+  10. jump (held 21 ticks), holding left, double jump at tick 21, air dash (Jerry) at tick 20, from 492,737; lands at 426,577   [djump,adash]
+      -> [fan400_856 on, fan832_768 on, fan800_304 off, fan784_576 off] standing at x 394-438, y 577
+  11. jump (held 21 ticks), holding left, double jump at tick 16, air dash (Claire) at tick 8, from 394,577; lands at 237,401   [djump,adash]
+      -> [fan400_856 on, fan832_768 on, fan800_304 off, fan784_576 off] standing at x 230-342, y 401
+  12. jump (held 6 ticks), holding left, from 256,401; lands at 182,369
+      -> [fan400_856 on, fan832_768 on, fan800_304 off, fan784_576 off] standing at x 134-214, y 369
+  13. jump (held 21 ticks), holding nothing, then right after 14 ticks, double jump at tick 12, from 134,369; lands at 230,193   [djump]
+      -> [fan400_856 on, fan832_768 on, fan800_304 off, fan784_576 off] standing at x 170-329, y 193
+  14. walk off the edge, holding left once in the air, from 170,193; lands at 57,193
+      -> [fan400_856 on, fan832_768 on, fan800_304 off, fan784_576 off] standing at x 0-118, y 193
+  15. standing at 0,193, goes into it
+      -> out 0,160
+how in 48,928 -> out 0,160: djump,adash,belmont:1
+     [fan400_856 off, fan832_768 off, fan800_304 off, fan784_576 off] coming in at 48,928
+   1. coming in: holding nothing, from 48,928; lands at 48,929
+      -> [fan400_856 off, fan832_768 off, fan800_304 off, fan784_576 off] standing at x 0-150, y 929
+   2. running right, jump (held 21 ticks), holding right, from 112,929; lands at 209,929
+      -> [fan400_856 off, fan832_768 off, fan800_304 off, fan784_576 off] standing at x 202-393, y 929
+   3. hit the switch at 400,856 from 334,929 (jumping if need be): [fan400_856 on, fan832_768 off, fan800_304 off, fan784_576 off]   [belmont:1]
+      -> [fan400_856 on, fan832_768 off, fan800_304 off, fan784_576 off] standing at x 202-393, y 929
+   4. running left, walk off the edge, holding left, then right after 1 ticks in the air, from 202,929; lands at 256,737
+      -> [fan400_856 on, fan832_768 off, fan800_304 off, fan784_576 off] standing at x 202-438, y 737
+   5. running right, jump (held 21 ticks), holding right, from 368,737; lands at 505,737
+      -> [fan400_856 on, fan832_768 off, fan800_304 off, fan784_576 off] standing at x 490-566, y 737
+   6. jump (held 21 ticks), holding right, from 490,737; lands at 689,801
+      -> [fan400_856 on, fan832_768 off, fan800_304 off, fan784_576 off] standing at x 631-793, y 801
+   7. hit the switch at 832,768 from 776,801 (jumping if need be): [fan400_856 on, fan832_768 on, fan800_304 off, fan784_576 off]   [belmont:1]
+      -> [fan400_856 on, fan832_768 on, fan800_304 off, fan784_576 off] standing at x 631-793, y 801
+   8. jump (held 21 ticks), holding nothing, then left after 12 ticks, air dash (Jerry) at tick 12, from 688,801; lands at 619,769   [adash]
+      -> [fan400_856 on, fan832_768 on, fan800_304 off, fan784_576 off] standing at x 567-630, y 769
+   9. jump (held 6 ticks), holding left, from 567,769; lands at 537,737
+      -> [fan400_856 on, fan832_768 on, fan800_304 off, fan784_576 off] standing at x 490-566, y 737
+  10. jump (held 21 ticks), holding left, double jump at tick 21, air dash (Jerry) at tick 20, from 492,737; lands at 426,577   [djump,adash]
+      -> [fan400_856 on, fan832_768 on, fan800_304 off, fan784_576 off] standing at x 394-438, y 577
+  11. jump (held 21 ticks), holding left, double jump at tick 16, air dash (Claire) at tick 8, from 394,577; lands at 237,401   [djump,adash]
+      -> [fan400_856 on, fan832_768 on, fan800_304 off, fan784_576 off] standing at x 230-342, y 401
+  12. jump (held 6 ticks), holding left, from 256,401; lands at 182,369
+      -> [fan400_856 on, fan832_768 on, fan800_304 off, fan784_576 off] standing at x 134-214, y 369
+  13. jump (held 21 ticks), holding nothing, then right after 14 ticks, double jump at tick 12, from 134,369; lands at 230,193   [djump]
+      -> [fan400_856 on, fan832_768 on, fan800_304 off, fan784_576 off] standing at x 170-329, y 193
+  14. walk off the edge, holding left once in the air, from 170,193; lands at 57,193
+      -> [fan400_856 on, fan832_768 on, fan800_304 off, fan784_576 off] standing at x 0-118, y 193
+  15. standing at 0,193, goes into it
+      -> out 0,160
+how in 48,928 -> out 0,160: djump,adash,megaman:1
+     [fan400_856 off, fan832_768 off, fan800_304 off, fan784_576 off] coming in at 48,928
+   1. coming in: holding nothing, from 48,928; lands at 48,929
+      -> [fan400_856 off, fan832_768 off, fan800_304 off, fan784_576 off] standing at x 0-150, y 929
+   2. running right, jump (held 21 ticks), holding right, from 112,929; lands at 209,929
+      -> [fan400_856 off, fan832_768 off, fan800_304 off, fan784_576 off] standing at x 202-393, y 929
+   3. hit the switch at 400,856 from 334,929 (jumping if need be): [fan400_856 on, fan832_768 off, fan800_304 off, fan784_576 off]   [megaman:1]
+      -> [fan400_856 on, fan832_768 off, fan800_304 off, fan784_576 off] standing at x 202-393, y 929
+   4. running left, walk off the edge, holding left, then right after 1 ticks in the air, from 202,929; lands at 256,737
+      -> [fan400_856 on, fan832_768 off, fan800_304 off, fan784_576 off] standing at x 202-438, y 737
+   5. running right, jump (held 21 ticks), holding right, from 368,737; lands at 505,737
+      -> [fan400_856 on, fan832_768 off, fan800_304 off, fan784_576 off] standing at x 490-566, y 737
+   6. jump (held 21 ticks), holding right, from 490,737; lands at 689,801
+      -> [fan400_856 on, fan832_768 off, fan800_304 off, fan784_576 off] standing at x 631-793, y 801
+   7. hit the switch at 832,768 from 776,801 (jumping if need be): [fan400_856 on, fan832_768 on, fan800_304 off, fan784_576 off]   [megaman:1]
+      -> [fan400_856 on, fan832_768 on, fan800_304 off, fan784_576 off] standing at x 631-793, y 801
+   8. jump (held 21 ticks), holding nothing, then left after 12 ticks, air dash (Jerry) at tick 12, from 688,801; lands at 619,769   [adash]
+      -> [fan400_856 on, fan832_768 on, fan800_304 off, fan784_576 off] standing at x 567-630, y 769
+   9. jump (held 6 ticks), holding left, from 567,769; lands at 537,737
+      -> [fan400_856 on, fan832_768 on, fan800_304 off, fan784_576 off] standing at x 490-566, y 737
+  10. jump (held 21 ticks), holding left, double jump at tick 21, air dash (Jerry) at tick 20, from 492,737; lands at 426,577   [djump,adash]
+      -> [fan400_856 on, fan832_768 on, fan800_304 off, fan784_576 off] standing at x 394-438, y 577
+  11. jump (held 21 ticks), holding left, double jump at tick 16, air dash (Claire) at tick 8, from 394,577; lands at 237,401   [djump,adash]
+      -> [fan400_856 on, fan832_768 on, fan800_304 off, fan784_576 off] standing at x 230-342, y 401
+  12. jump (held 6 ticks), holding left, from 256,401; lands at 182,369
+      -> [fan400_856 on, fan832_768 on, fan800_304 off, fan784_576 off] standing at x 134-214, y 369
+  13. jump (held 21 ticks), holding nothing, then right after 14 ticks, double jump at tick 12, from 134,369; lands at 230,193   [djump]
+      -> [fan400_856 on, fan832_768 on, fan800_304 off, fan784_576 off] standing at x 170-329, y 193
+  14. walk off the edge, holding left once in the air, from 170,193; lands at 57,193
+      -> [fan400_856 on, fan832_768 on, fan800_304 off, fan784_576 off] standing at x 0-118, y 193
+  15. standing at 0,193, goes into it
+      -> out 0,160
+how in 48,928 -> out 0,160: djump,adash,samus:1
+     [fan400_856 off, fan832_768 off, fan800_304 off, fan784_576 off] coming in at 48,928
+   1. coming in: holding nothing, from 48,928; lands at 48,929
+      -> [fan400_856 off, fan832_768 off, fan800_304 off, fan784_576 off] standing at x 0-150, y 929
+   2. running right, jump (held 21 ticks), holding right, from 112,929; lands at 209,929
+      -> [fan400_856 off, fan832_768 off, fan800_304 off, fan784_576 off] standing at x 202-393, y 929
+   3. hit the switch at 400,856 from 334,929 (jumping if need be): [fan400_856 on, fan832_768 off, fan800_304 off, fan784_576 off]   [samus:1]
+      -> [fan400_856 on, fan832_768 off, fan800_304 off, fan784_576 off] standing at x 202-393, y 929
+   4. running left, walk off the edge, holding left, then right after 1 ticks in the air, from 202,929; lands at 256,737
+      -> [fan400_856 on, fan832_768 off, fan800_304 off, fan784_576 off] standing at x 202-438, y 737
+   5. running right, jump (held 21 ticks), holding right, from 368,737; lands at 505,737
+      -> [fan400_856 on, fan832_768 off, fan800_304 off, fan784_576 off] standing at x 490-566, y 737
+   6. jump (held 21 ticks), holding right, from 490,737; lands at 689,801
+      -> [fan400_856 on, fan832_768 off, fan800_304 off, fan784_576 off] standing at x 631-793, y 801
+   7. hit the switch at 832,768 from 776,801 (jumping if need be): [fan400_856 on, fan832_768 on, fan800_304 off, fan784_576 off]   [samus:1]
+      -> [fan400_856 on, fan832_768 on, fan800_304 off, fan784_576 off] standing at x 631-793, y 801
+   8. jump (held 21 ticks), holding nothing, then left after 12 ticks, air dash (Jerry) at tick 12, from 688,801; lands at 619,769   [adash]
+      -> [fan400_856 on, fan832_768 on, fan800_304 off, fan784_576 off] standing at x 567-630, y 769
+   9. jump (held 6 ticks), holding left, from 567,769; lands at 537,737
+      -> [fan400_856 on, fan832_768 on, fan800_304 off, fan784_576 off] standing at x 490-566, y 737
+  10. jump (held 21 ticks), holding left, double jump at tick 21, air dash (Jerry) at tick 20, from 492,737; lands at 426,577   [djump,adash]
+      -> [fan400_856 on, fan832_768 on, fan800_304 off, fan784_576 off] standing at x 394-438, y 577
+  11. jump (held 21 ticks), holding left, double jump at tick 16, air dash (Claire) at tick 8, from 394,577; lands at 237,401   [djump,adash]
+      -> [fan400_856 on, fan832_768 on, fan800_304 off, fan784_576 off] standing at x 230-342, y 401
+  12. jump (held 6 ticks), holding left, from 256,401; lands at 182,369
+      -> [fan400_856 on, fan832_768 on, fan800_304 off, fan784_576 off] standing at x 134-214, y 369
+  13. jump (held 21 ticks), holding nothing, then right after 14 ticks, double jump at tick 12, from 134,369; lands at 230,193   [djump]
+      -> [fan400_856 on, fan832_768 on, fan800_304 off, fan784_576 off] standing at x 170-329, y 193
+  14. walk off the edge, holding left once in the air, from 170,193; lands at 57,193
+      -> [fan400_856 on, fan832_768 on, fan800_304 off, fan784_576 off] standing at x 0-118, y 193
+  15. standing at 0,193, goes into it
+      -> out 0,160
+how in 48,928 -> loc 7 7: djump,adash,samus:2
+     [fan400_856 off, fan832_768 off, fan800_304 off, fan784_576 off] coming in at 48,928
+   1. coming in: holding nothing, from 48,928; lands at 48,929
+      -> [fan400_856 off, fan832_768 off, fan800_304 off, fan784_576 off] standing at x 0-150, y 929
+   2. running right, jump (held 21 ticks), holding right, from 112,929; lands at 209,929
+      -> [fan400_856 off, fan832_768 off, fan800_304 off, fan784_576 off] standing at x 202-393, y 929
+   3. hit the switch at 400,856 from 334,929 (jumping if need be): [fan400_856 on, fan832_768 off, fan800_304 off, fan784_576 off]   [samus:1]
+      -> [fan400_856 on, fan832_768 off, fan800_304 off, fan784_576 off] standing at x 202-393, y 929
+   4. running left, walk off the edge, holding left, then right after 1 ticks in the air, from 202,929; lands at 256,737
+      -> [fan400_856 on, fan832_768 off, fan800_304 off, fan784_576 off] standing at x 202-438, y 737
+   5. running right, jump (held 21 ticks), holding right, from 368,737; lands at 505,737
+      -> [fan400_856 on, fan832_768 off, fan800_304 off, fan784_576 off] standing at x 490-566, y 737
+   6. jump (held 21 ticks), holding right, from 490,737; lands at 689,801
+      -> [fan400_856 on, fan832_768 off, fan800_304 off, fan784_576 off] standing at x 631-793, y 801
+   7. hit the switch at 832,768 from 776,801 (jumping if need be): [fan400_856 on, fan832_768 on, fan800_304 off, fan784_576 off]   [samus:1]
+      -> [fan400_856 on, fan832_768 on, fan800_304 off, fan784_576 off] standing at x 631-793, y 801
+   8. jump (held 21 ticks), holding nothing, then left after 12 ticks, air dash (Jerry) at tick 12, from 688,801; lands at 619,769   [adash]
+      -> [fan400_856 on, fan832_768 on, fan800_304 off, fan784_576 off] standing at x 567-630, y 769
+   9. jump (held 6 ticks), holding left, from 567,769; lands at 537,737
+      -> [fan400_856 on, fan832_768 on, fan800_304 off, fan784_576 off] standing at x 490-566, y 737
+  10. running left, walk off the edge, holding left, then nothing after 1 ticks in the air, from 490,737; lands at 507,577
+      -> [fan400_856 on, fan832_768 on, fan800_304 off, fan784_576 off] standing at x 490-662, y 577
+  11. shoot the switch at 784,576 from 490,577: [fan400_856 on, fan832_768 on, fan800_304 off, fan784_576 on]   [samus:1]
+      -> [fan400_856 on, fan832_768 on, fan800_304 off, fan784_576 on] standing at x 490-662, y 577
+  12. jump (held 21 ticks), holding left, turn into the Morph Ball at tick 8, from 490,577; lands at 428,577   [samus:2]
+      -> [fan400_856 on, fan832_768 on, fan800_304 off, fan784_576 on] as the Morph Ball at x 394-438, y 577
+  13. turn back from the Morph Ball at 394,577
+      -> [fan400_856 on, fan832_768 on, fan800_304 off, fan784_576 on] standing at x 394-438, y 577
+  14. jump (held 21 ticks), holding left, double jump at tick 16, air dash (Claire) at tick 8, from 394,577; lands at 237,401   [djump,adash]
+      -> [fan400_856 on, fan832_768 on, fan800_304 off, fan784_576 on] standing at x 230-342, y 401
+  15. jump (held 6 ticks), holding left, from 256,401; lands at 182,369
+      -> [fan400_856 on, fan832_768 on, fan800_304 off, fan784_576 on] standing at x 134-214, y 369
+  16. jump (held 21 ticks), holding nothing, then right after 14 ticks, double jump at tick 12, from 134,369; lands at 230,193   [djump]
+      -> [fan400_856 on, fan832_768 on, fan800_304 off, fan784_576 on] standing at x 170-329, y 193
+  17. jump (held 21 ticks), holding right, double jump at tick 10, air dash (Jerry) at tick 18, from 208,193; lands at 343,161   [djump,adash]
+      -> [fan400_856 on, fan832_768 on, fan800_304 off, fan784_576 on] standing at x 330-394, y 161
+  18. jump (held 21 ticks), holding right, double jump at tick 10, air dash (Jerry) at tick 18, from 384,161; lands at 619,161   [djump,adash]
+      -> [fan400_856 on, fan832_768 on, fan800_304 off, fan784_576 on] standing at x 564-662, y 161
+  19. walk off the edge, holding right, then nothing after 1 ticks in the air, from 564,161; lands at 728,225
+      -> [fan400_856 on, fan832_768 on, fan800_304 off, fan784_576 on] standing at x 663-746, y 225
+  20. running right, jump (held 21 ticks), holding right, from 688,225; lands at 807,225
+      -> [fan400_856 on, fan832_768 on, fan800_304 off, fan784_576 on] standing at x 772-858, y 225
+  21. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 832,225; lands at 1096,561   [adash]
+      -> [fan400_856 on, fan832_768 on, fan800_304 off, fan784_576 on] standing at x 970-1142, y 561
+  22. walk off the edge, holding left once in the air, from 970,561; lands at 919,721
+      -> [fan400_856 on, fan832_768 on, fan800_304 off, fan784_576 on] standing at x 919-969, y 721
+  23. jump (held 21 ticks), holding right, double jump at tick 15, from 919,721; touches it on the way   [djump]
+      -> loc 7 7
 how in 48,192 -> out 0,160: -
-     coming in at 48,192
+     [fan400_856 off, fan832_768 off, fan800_304 off, fan784_576 off] coming in at 48,192
    1. coming in: holding nothing, from 48,192; lands at 48,193
-      -> standing at x 0-118, y 193
+      -> [fan400_856 off, fan832_768 off, fan800_304 off, fan784_576 off] standing at x 0-118, y 193
    2. standing at 0,193, goes into it
       -> out 0,160
-how in 48,192 -> loc 7 7: -
-     coming in at 48,192
-   1. coming in: holding nothing, from 48,192; lands at 48,193
-      -> standing at x 0-118, y 193
-   2. running right, jump (held 21 ticks), holding right, from 80,193; lands at 177,193
-      -> standing at x 170-329, y 193
-   3. running right, jump (held 6 ticks), holding right, from 288,193; lands at 354,161
-      -> standing at x 330-394, y 161
-   4. running right, jump (held 2 ticks), holding right, from 368,161; lands at 445,161
-      -> standing at x 420-458, y 161
-   5. running right, jump (held 2 ticks), holding right, from 448,161; lands at 525,161
-      -> standing at x 500-538, y 161
-   6. jump (held 21 ticks), holding right, from 508,161; lands at 591,161
-      -> standing at x 564-662, y 161
-   7. walk off the edge, holding right, then nothing after 1 ticks in the air, from 564,161; lands at 675,225
-      -> standing at x 663-746, y 225
-   8. running right, jump (held 21 ticks), holding right, from 704,225; lands at 801,225
-      -> standing at x 772-858, y 225
-   9. running right, jump (held 2 ticks), holding right, from 832,225; lands at 909,225
-      -> standing at x 884-1014, y 225
-  10. running right, jump (held 21 ticks), holding right, from 928,225; lands at 1101,561
-      -> standing at x 970-1142, y 561
-  11. walk off the edge, holding left, then right after 1 ticks in the air, from 970,561; lands at 1004,689
-      -> standing at x 970-1018, y 689
-  12. jump (held 2 ticks), holding right, from 1008,689; touches it on the way
-      -> loc 7 7
 how in 1904,208 -> out 1936,176: -
-     coming in at 1904,208
+     [fan400_856 off, fan832_768 off, fan800_304 off, fan784_576 off] coming in at 1904,208
    1. coming in: holding nothing, from 1904,208; lands at 1904,209
-      -> standing at x 1834-1952, y 209
+      -> [fan400_856 off, fan832_768 off, fan800_304 off, fan784_576 off] standing at x 1834-1952, y 209
    2. standing at 1934,209, goes into it
       -> out 1936,176

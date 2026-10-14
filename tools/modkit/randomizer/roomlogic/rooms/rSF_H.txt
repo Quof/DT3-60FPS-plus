@@ -21,9 +21,9 @@ out 2832,448   # to rSF_I at 48,1856; the player goes into it
 # the locked door whose objectNum is N.
 from in 48,384
   out 0,352      -
-  out 2832,448   never
+  out 2832,448   link:3,belmont:2,megaman:3,samus:5
 from in 2800,480
-  out 0,352      never
+  out 0,352      link:3,belmont:2,megaman:3,samus:5
   out 2832,448   -
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
@@ -33,6 +33,22 @@ how in 48,384 -> out 0,352: -
    1. coming in: holding nothing, from 48,384; lands at 48,385
       -> standing at x 0-697, y -24-385
    2. standing at 0,385, goes into it
+      -> out 0,352
+how in 48,384 -> out 2832,448: link:3,belmont:2,megaman:3,samus:5
+     coming in at 48,384
+   1. coming in: holding nothing, from 48,384; lands at 48,385
+      -> standing at x 0-697, y -24-385
+   2. jump (held 21 ticks), wall-jump up the same wall, from 640,353, through the oTimeSwBarrier at 704,192; lands at 739,257   [link:3,belmont:2,megaman:3,samus:5]
+      -> standing at x 727-2848, y 232-481
+   3. standing at 2830,481, goes into it
+      -> out 2832,448
+how in 2800,480 -> out 0,352: link:3,belmont:2,megaman:3,samus:5
+     coming in at 2800,480
+   1. coming in: holding nothing, from 2800,480; lands at 2800,481
+      -> standing at x 727-2848, y 232-481
+   2. walk off the edge, holding left once in the air, from 727,257, through the oTimeSwBarrier at 704,192; clings to the wall at 583,384   [link:3,belmont:2,megaman:3,samus:5]
+      -> standing at x 0-697, y -24-385
+   3. standing at 0,385, goes into it
       -> out 0,352
 how in 2800,480 -> out 2832,448: -
      coming in at 2800,480

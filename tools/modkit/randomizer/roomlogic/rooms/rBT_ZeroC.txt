@@ -16,6 +16,11 @@ out 1792,288   # to rBT_ZeroSecret at 80,1056; the player goes into it
 
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 
+# Spots: somewhere whose reaching opens a way (the barriers that wait for it need event:rBT_ZeroC/<spot>, and
+# solve.py makes that what reaching the spot needs)
+spot switch1   # a colored switch the partner can be left standing on (party split), at 1111,87
+spot switch2   # a colored switch the partner can be left standing on (party split), at 967,183
+
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
@@ -24,6 +29,30 @@ out 1792,288   # to rBT_ZeroSecret at 80,1056; the player goes into it
 from in 48,304 [rb 0]
   out 1768,160   never
   out 1792,288   never
+  spot switch1   link:3,belmont:2,megaman:3,samus:5,event:rBT_ZeroC/switch2
+  spot switch2   never
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 48,304 [rb 0] -> spot switch1: link:3,belmont:2,megaman:3,samus:5,event:rBT_ZeroC/switch2
+     [bricks whole, blue blocks solid, sliding blocks as placed] coming in at 48,304
+   1. swap to the partner (party split), at 48,112
+      -> [bricks whole, blue blocks solid, sliding blocks as placed] as the partner (party split), where it starts: 48,112
+   2. coming in: holding nothing, from 48,112; lands at 48,113
+      -> [bricks whole, blue blocks solid, sliding blocks as placed] standing at x 23-105, y 113
+   3. turn into the Morph Ball at 23,113   [samus:2]
+      -> [bricks whole, blue blocks solid, sliding blocks as placed] as the Morph Ball at x 23-153, y 113
+   4. turn back from the Morph Ball at 151,113
+      -> [bricks whole, blue blocks solid, sliding blocks as placed] standing at x 151-153, y 113
+   5. jump (held 6 ticks), holding right, turn into the Morph Ball where the body meets a wall or ceiling, from 151,113; lands at 184,81   [samus:2]
+      -> [bricks whole, blue blocks solid, sliding blocks as placed] as the Morph Ball at x 154-198, y 81
+   6. as the Morph Ball: roll off the edge, holding right once in the air, from 154,81; lands at 212,113
+      -> [bricks whole, blue blocks solid, sliding blocks as placed] as the Morph Ball at x 199-249, y 113
+   7. turn back from the Morph Ball at 247,113
+      -> [bricks whole, blue blocks solid, sliding blocks as placed] standing at x 247-249, y 113
+   8. jump (held 6 ticks), holding right, turn into the Morph Ball where the body meets a wall or ceiling, from 247,113; lands at 280,81   [samus:2]
+      -> [bricks whole, blue blocks solid, sliding blocks as placed] as the Morph Ball at x 250-294, y 81
+   9. as the Morph Ball: roll off the edge, holding right once in the air, turn back once there's room, from 250,81; lands at 354,113
+      -> [bricks whole, blue blocks solid, sliding blocks as placed] standing at x 295-582, y 113
+  10. running right, walk off the edge, holding right once in the air, from 368,113, through the oBarrierColor at 704,48, the oTimeSwBarrier at 656,48, the oTimeSwBarrier at 1120,272, ...; touches it on the way   [link:3,belmont:2,megaman:3,samus:5,event:rBT_ZeroC/switch2]
+      -> spot switch1

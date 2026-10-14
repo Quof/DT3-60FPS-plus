@@ -15,13 +15,377 @@ out 3344,288   # to rExtGateG_3 at 80,336; the player goes into it
 
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 
+# Spots: somewhere whose reaching opens a way (the barriers that wait for it need event:rExtGateG_2/<spot>, and
+# solve.py makes that what reaching the spot needs)
+spot switch1   # a colored switch the partner can be left standing on (party split), at 2359,583
+spot switch2   # a colored switch the partner can be left standing on (party split), at 1895,663
+spot switch3   # a colored switch the partner can be left standing on (party split), at 1719,887
+spot key4   # a colored key, at 31,295
+spot key3   # a colored key, at 3279,935
+spot key1   # a colored key, at 1087,935
+spot key2   # a colored key, at 79,135
+
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
 # link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
 # the locked door whose objectNum is N.
 from in 128,592 [rb 0]
-  out 3344,288   never
+  out 3344,288 [rb 0]   djump,event:rExtGateG_2/key4,event:rExtGateG_2/switch1
+  out 3344,288 [rb 1]   djump,megaman:1,event:rExtGateG_2/key4,event:rExtGateG_2/switch1 | djump,samus:1,event:rExtGateG_2/key4,event:rExtGateG_2/switch1 | djump,link:1,event:rExtGateG_2/key4,event:rExtGateG_2/switch1 | djump,belmont:1,event:rExtGateG_2/key4,event:rExtGateG_2/switch1
+  spot switch1          djump
+  spot switch2          adash,event:rExtGateG_2/key2
+  spot switch3          djump
+  spot key4             never
+  spot key3             djump,event:rExtGateG_2/switch2
+  spot key1             djump,megaman:1 | djump,samus:1 | djump,link:1 | djump,belmont:1
+  spot key2             never
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 128,592 [rb 0] -> out 3344,288 [rb 0]: djump,event:rExtGateG_2/key4,event:rExtGateG_2/switch1
+     [blue blocks solid] coming in at 128,592
+   1. coming in: holding nothing, from 128,592; lands at 128,593
+      -> [blue blocks solid] standing at x 0-214, y 593
+   2. running right, jump (held 21 ticks), holding right, from 112,593; lands at 288,545
+      -> [blue blocks solid] standing at x 266-406, y 545
+   3. jump (held 21 ticks), holding right, double jump at tick 15, from 368,545; lands at 595,465   [djump]
+      -> [blue blocks solid] standing at x 586-649, y 465
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 586,465; lands at 659,433
+      -> [blue blocks solid] standing at x 650-790, y 433
+   5. jump (held 21 ticks), holding right, double jump at tick 15, from 654,433; lands at 851,337   [djump]
+      -> [blue blocks solid] standing at x 842-950, y 337
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 880,337; lands at 1077,241   [djump]
+      -> [blue blocks solid] standing at x 1066-1190, y 241
+   7. jump (held 21 ticks), holding right, double jump at tick 15, from 1120,241; lands at 1317,145   [djump]
+      -> [blue blocks solid] standing at x 1306-1430, y 145
+   8. jump (held 21 ticks), holding right, double jump at tick 15, from 1306,145; lands at 1679,305   [djump]
+      -> [blue blocks solid] standing at x 1642-1766, y 305
+   9. jump (held 21 ticks), holding right, double jump at tick 15, from 1744,305; lands at 1985,241   [djump]
+      -> [blue blocks solid] standing at x 1978-2102, y 241
+  10. jump (held 21 ticks), holding right, double jump at tick 15, from 2048,241; lands at 2275,161   [djump]
+      -> [blue blocks solid] standing at x 2266-2454, y 161
+  11. jump (held 21 ticks), holding right, double jump at tick 15, from 2400,161; lands at 2847,433   [djump]
+      -> [blue blocks solid] standing at x 2826-2918, y 433
+  12. jump (held 21 ticks), holding right, double jump at tick 10, from 2826,433; lands at 2994,353   [djump]
+      -> [blue blocks solid] standing at x 2970-3049, y 353
+  13. jump (held 6 ticks), holding right, from 2970,353; lands at 3087,321
+      -> [blue blocks solid] standing at x 3050-3097, y 321
+  14. walk off the edge, holding right once in the air, from 3050,321, through the barrier at 3216,256, the oBarrierColor at 176,144, the oBarrierColor at 3104,256, ...; touches it on the way   [event:rExtGateG_2/key4,event:rExtGateG_2/switch1]
+      -> out 3344,288 [rb 0]
+how in 128,592 [rb 0] -> out 3344,288 [rb 1]: djump,megaman:1,event:rExtGateG_2/key4,event:rExtGateG_2/switch1
+     [blue blocks solid] coming in at 128,592
+   1. coming in: holding nothing, from 128,592; lands at 128,593
+      -> [blue blocks solid] standing at x 0-214, y 593
+   2. running right, jump (held 21 ticks), holding right, from 112,593; lands at 288,545
+      -> [blue blocks solid] standing at x 266-406, y 545
+   3. jump (held 21 ticks), holding right, double jump at tick 15, from 368,545; lands at 595,465   [djump]
+      -> [blue blocks solid] standing at x 586-649, y 465
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 586,465; lands at 659,433
+      -> [blue blocks solid] standing at x 650-790, y 433
+   5. jump (held 21 ticks), holding right, double jump at tick 15, from 654,433; lands at 851,337   [djump]
+      -> [blue blocks solid] standing at x 842-950, y 337
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 880,337; lands at 1077,241   [djump]
+      -> [blue blocks solid] standing at x 1066-1190, y 241
+   7. jump (held 21 ticks), holding right, double jump at tick 15, from 1120,241; lands at 1317,145   [djump]
+      -> [blue blocks solid] standing at x 1306-1430, y 145
+   8. shoot the switch at 1360,112 from 1306,145: [red blocks solid]   [megaman:1]
+      -> [red blocks solid] standing at x 1306-1430, y 145
+   9. walk off the edge, holding right once in the air, double jump at tick 2, from 1306,145; lands at 1650,225   [djump]
+      -> [red blocks solid] standing at x 1642-1766, y 225
+  10. jump (held 21 ticks), holding right, double jump at tick 15, from 1696,225; lands at 1989,241   [djump]
+      -> [red blocks solid] standing at x 1978-2102, y 241
+  11. jump (held 21 ticks), holding right, double jump at tick 15, from 2048,241; lands at 2275,161   [djump]
+      -> [red blocks solid] standing at x 2266-2454, y 161
+  12. jump (held 21 ticks), holding right, double jump at tick 15, from 2400,161; lands at 2847,433   [djump]
+      -> [red blocks solid] standing at x 2826-2918, y 433
+  13. jump (held 21 ticks), holding right, double jump at tick 10, from 2826,433; lands at 2994,353   [djump]
+      -> [red blocks solid] standing at x 2970-3049, y 353
+  14. jump (held 6 ticks), holding right, from 2970,353; lands at 3087,321
+      -> [red blocks solid] standing at x 3050-3097, y 321
+  15. walk off the edge, holding right once in the air, from 3050,321, through the barrier at 3216,256, the oBarrierColor at 176,144, the oBarrierColor at 3104,256, ...; touches it on the way   [event:rExtGateG_2/key4,event:rExtGateG_2/switch1]
+      -> out 3344,288 [rb 1]
+how in 128,592 [rb 0] -> out 3344,288 [rb 1]: djump,samus:1,event:rExtGateG_2/key4,event:rExtGateG_2/switch1
+     [blue blocks solid] coming in at 128,592
+   1. coming in: holding nothing, from 128,592; lands at 128,593
+      -> [blue blocks solid] standing at x 0-214, y 593
+   2. running right, jump (held 21 ticks), holding right, from 112,593; lands at 288,545
+      -> [blue blocks solid] standing at x 266-406, y 545
+   3. jump (held 21 ticks), holding right, double jump at tick 15, from 368,545; lands at 595,465   [djump]
+      -> [blue blocks solid] standing at x 586-649, y 465
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 586,465; lands at 659,433
+      -> [blue blocks solid] standing at x 650-790, y 433
+   5. jump (held 21 ticks), holding right, double jump at tick 15, from 654,433; lands at 851,337   [djump]
+      -> [blue blocks solid] standing at x 842-950, y 337
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 880,337; lands at 1077,241   [djump]
+      -> [blue blocks solid] standing at x 1066-1190, y 241
+   7. jump (held 21 ticks), holding right, double jump at tick 15, from 1120,241; lands at 1317,145   [djump]
+      -> [blue blocks solid] standing at x 1306-1430, y 145
+   8. shoot the switch at 1360,112 from 1306,145: [red blocks solid]   [samus:1]
+      -> [red blocks solid] standing at x 1306-1430, y 145
+   9. walk off the edge, holding right once in the air, double jump at tick 2, from 1306,145; lands at 1650,225   [djump]
+      -> [red blocks solid] standing at x 1642-1766, y 225
+  10. jump (held 21 ticks), holding right, double jump at tick 15, from 1696,225; lands at 1989,241   [djump]
+      -> [red blocks solid] standing at x 1978-2102, y 241
+  11. jump (held 21 ticks), holding right, double jump at tick 15, from 2048,241; lands at 2275,161   [djump]
+      -> [red blocks solid] standing at x 2266-2454, y 161
+  12. jump (held 21 ticks), holding right, double jump at tick 15, from 2400,161; lands at 2847,433   [djump]
+      -> [red blocks solid] standing at x 2826-2918, y 433
+  13. jump (held 21 ticks), holding right, double jump at tick 10, from 2826,433; lands at 2994,353   [djump]
+      -> [red blocks solid] standing at x 2970-3049, y 353
+  14. jump (held 6 ticks), holding right, from 2970,353; lands at 3087,321
+      -> [red blocks solid] standing at x 3050-3097, y 321
+  15. walk off the edge, holding right once in the air, from 3050,321, through the barrier at 3216,256, the oBarrierColor at 176,144, the oBarrierColor at 3104,256, ...; touches it on the way   [event:rExtGateG_2/key4,event:rExtGateG_2/switch1]
+      -> out 3344,288 [rb 1]
+how in 128,592 [rb 0] -> out 3344,288 [rb 1]: djump,link:1,event:rExtGateG_2/key4,event:rExtGateG_2/switch1
+     [blue blocks solid] coming in at 128,592
+   1. coming in: holding nothing, from 128,592; lands at 128,593
+      -> [blue blocks solid] standing at x 0-214, y 593
+   2. running right, jump (held 21 ticks), holding right, from 112,593; lands at 288,545
+      -> [blue blocks solid] standing at x 266-406, y 545
+   3. jump (held 21 ticks), holding right, double jump at tick 15, from 368,545; lands at 595,465   [djump]
+      -> [blue blocks solid] standing at x 586-649, y 465
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 586,465; lands at 659,433
+      -> [blue blocks solid] standing at x 650-790, y 433
+   5. jump (held 21 ticks), holding right, double jump at tick 15, from 654,433; lands at 851,337   [djump]
+      -> [blue blocks solid] standing at x 842-950, y 337
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 880,337; lands at 1077,241   [djump]
+      -> [blue blocks solid] standing at x 1066-1190, y 241
+   7. jump (held 21 ticks), holding right, double jump at tick 15, from 1120,241; lands at 1317,145   [djump]
+      -> [blue blocks solid] standing at x 1306-1430, y 145
+   8. hit the switch at 1360,112 from 1312,145 (jumping if need be): [red blocks solid]   [link:1]
+      -> [red blocks solid] standing at x 1306-1430, y 145
+   9. walk off the edge, holding right once in the air, double jump at tick 2, from 1306,145; lands at 1650,225   [djump]
+      -> [red blocks solid] standing at x 1642-1766, y 225
+  10. jump (held 21 ticks), holding right, double jump at tick 15, from 1696,225; lands at 1989,241   [djump]
+      -> [red blocks solid] standing at x 1978-2102, y 241
+  11. jump (held 21 ticks), holding right, double jump at tick 15, from 2048,241; lands at 2275,161   [djump]
+      -> [red blocks solid] standing at x 2266-2454, y 161
+  12. jump (held 21 ticks), holding right, double jump at tick 15, from 2400,161; lands at 2847,433   [djump]
+      -> [red blocks solid] standing at x 2826-2918, y 433
+  13. jump (held 21 ticks), holding right, double jump at tick 10, from 2826,433; lands at 2994,353   [djump]
+      -> [red blocks solid] standing at x 2970-3049, y 353
+  14. jump (held 6 ticks), holding right, from 2970,353; lands at 3087,321
+      -> [red blocks solid] standing at x 3050-3097, y 321
+  15. walk off the edge, holding right once in the air, from 3050,321, through the barrier at 3216,256, the oBarrierColor at 176,144, the oBarrierColor at 3104,256, ...; touches it on the way   [event:rExtGateG_2/key4,event:rExtGateG_2/switch1]
+      -> out 3344,288 [rb 1]
+how in 128,592 [rb 0] -> out 3344,288 [rb 1]: djump,belmont:1,event:rExtGateG_2/key4,event:rExtGateG_2/switch1
+     [blue blocks solid] coming in at 128,592
+   1. coming in: holding nothing, from 128,592; lands at 128,593
+      -> [blue blocks solid] standing at x 0-214, y 593
+   2. running right, jump (held 21 ticks), holding right, from 112,593; lands at 288,545
+      -> [blue blocks solid] standing at x 266-406, y 545
+   3. jump (held 21 ticks), holding right, double jump at tick 15, from 368,545; lands at 595,465   [djump]
+      -> [blue blocks solid] standing at x 586-649, y 465
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 586,465; lands at 659,433
+      -> [blue blocks solid] standing at x 650-790, y 433
+   5. jump (held 21 ticks), holding right, double jump at tick 15, from 654,433; lands at 851,337   [djump]
+      -> [blue blocks solid] standing at x 842-950, y 337
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 880,337; lands at 1077,241   [djump]
+      -> [blue blocks solid] standing at x 1066-1190, y 241
+   7. jump (held 21 ticks), holding right, double jump at tick 15, from 1120,241; lands at 1317,145   [djump]
+      -> [blue blocks solid] standing at x 1306-1430, y 145
+   8. hit the switch at 1360,112 from 1312,145 (jumping if need be): [red blocks solid]   [belmont:1]
+      -> [red blocks solid] standing at x 1306-1430, y 145
+   9. walk off the edge, holding right once in the air, double jump at tick 2, from 1306,145; lands at 1650,225   [djump]
+      -> [red blocks solid] standing at x 1642-1766, y 225
+  10. jump (held 21 ticks), holding right, double jump at tick 15, from 1696,225; lands at 1989,241   [djump]
+      -> [red blocks solid] standing at x 1978-2102, y 241
+  11. jump (held 21 ticks), holding right, double jump at tick 15, from 2048,241; lands at 2275,161   [djump]
+      -> [red blocks solid] standing at x 2266-2454, y 161
+  12. jump (held 21 ticks), holding right, double jump at tick 15, from 2400,161; lands at 2847,433   [djump]
+      -> [red blocks solid] standing at x 2826-2918, y 433
+  13. jump (held 21 ticks), holding right, double jump at tick 10, from 2826,433; lands at 2994,353   [djump]
+      -> [red blocks solid] standing at x 2970-3049, y 353
+  14. jump (held 6 ticks), holding right, from 2970,353; lands at 3087,321
+      -> [red blocks solid] standing at x 3050-3097, y 321
+  15. walk off the edge, holding right once in the air, from 3050,321, through the barrier at 3216,256, the oBarrierColor at 176,144, the oBarrierColor at 3104,256, ...; touches it on the way   [event:rExtGateG_2/key4,event:rExtGateG_2/switch1]
+      -> out 3344,288 [rb 1]
+how in 128,592 [rb 0] -> spot switch1: djump
+     [blue blocks solid] coming in at 128,592
+   1. coming in: holding nothing, from 128,592; lands at 128,593
+      -> [blue blocks solid] standing at x 0-214, y 593
+   2. running right, jump (held 21 ticks), holding right, from 112,593; lands at 288,545
+      -> [blue blocks solid] standing at x 266-406, y 545
+   3. jump (held 21 ticks), holding right, double jump at tick 15, from 368,545; lands at 595,465   [djump]
+      -> [blue blocks solid] standing at x 586-649, y 465
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 586,465; lands at 659,433
+      -> [blue blocks solid] standing at x 650-790, y 433
+   5. jump (held 21 ticks), holding right, double jump at tick 15, from 654,433; lands at 851,337   [djump]
+      -> [blue blocks solid] standing at x 842-950, y 337
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 880,337; lands at 1077,241   [djump]
+      -> [blue blocks solid] standing at x 1066-1190, y 241
+   7. jump (held 21 ticks), holding right, double jump at tick 15, from 1120,241; lands at 1317,145   [djump]
+      -> [blue blocks solid] standing at x 1306-1430, y 145
+   8. jump (held 21 ticks), holding right, double jump at tick 15, from 1408,145; lands at 1891,481   [djump]
+      -> [blue blocks solid] standing at x 1831-2166, y 481
+   9. walk off the edge, holding right once in the air, double jump at tick 16, from 1831,481; touches it on the way   [djump]
+      -> spot switch1
+how in 128,592 [rb 0] -> spot switch2: adash,event:rExtGateG_2/key2
+     [blue blocks solid] coming in at 128,592
+   1. coming in: holding nothing, from 128,592; lands at 128,593
+      -> [blue blocks solid] standing at x 0-214, y 593
+   2. running right, jump (held 21 ticks), holding right, from 112,593; lands at 288,545
+      -> [blue blocks solid] standing at x 266-406, y 545
+   3. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 368,545; lands at 601,465   [adash]
+      -> [blue blocks solid] standing at x 586-649, y 465
+   4. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 586,465; lands at 898,513   [adash]
+      -> [blue blocks solid] standing at x 890-966, y 513
+   5. jump (held 21 ticks), holding right, from 890,513; lands at 1124,593
+      -> [blue blocks solid] standing at x 1114-1254, y 593
+   6. running right, jump (held 9 ticks), holding right, air dash (Jerry) at tick 26, from 1252,593; lands at 1620,657   [adash]
+      -> [blue blocks solid] standing at x 1610-1782, y 657
+   7. walk off the edge, holding right once in the air, from 1610,657; lands at 1817,689
+      -> [blue blocks solid] standing at x 1783-1817, y 689
+   8. walk off the edge, holding right once in the air, from 1783,689, through the barrier at 1824,592; touches it on the way   [event:rExtGateG_2/key2]
+      -> spot switch2
+how in 128,592 [rb 0] -> spot switch3: djump
+     [blue blocks solid] coming in at 128,592
+   1. coming in: holding nothing, from 128,592; lands at 128,593
+      -> [blue blocks solid] standing at x 0-214, y 593
+   2. running right, jump (held 21 ticks), holding right, from 112,593; lands at 288,545
+      -> [blue blocks solid] standing at x 266-406, y 545
+   3. jump (held 21 ticks), holding right, double jump at tick 15, from 368,545; lands at 595,465   [djump]
+      -> [blue blocks solid] standing at x 586-649, y 465
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 586,465; lands at 659,433
+      -> [blue blocks solid] standing at x 650-790, y 433
+   5. jump (held 21 ticks), holding right, double jump at tick 15, from 654,433; lands at 851,337   [djump]
+      -> [blue blocks solid] standing at x 842-950, y 337
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 880,337; lands at 1077,241   [djump]
+      -> [blue blocks solid] standing at x 1066-1190, y 241
+   7. jump (held 21 ticks), holding right, double jump at tick 15, from 1120,241; lands at 1317,145   [djump]
+      -> [blue blocks solid] standing at x 1306-1430, y 145
+   8. jump (held 21 ticks), holding right, double jump at tick 15, from 1408,145; lands at 1891,481   [djump]
+      -> [blue blocks solid] standing at x 1831-2166, y 481
+   9. walk off the edge, holding right once in the air, from 1831,481; lands at 2422,881
+      -> [blue blocks solid] standing at x 2346-2438, y 881
+  10. jump (held 6 ticks), holding left, from 2346,881; lands at 2149,977
+      -> [blue blocks solid] standing at x 2058-2166, y 977
+  11. jump (held 2 ticks), holding left, from 2058,977; lands at 1956,977
+      -> [blue blocks solid] standing at x 1866-1990, y 977
+  12. jump (held 21 ticks), holding left, from 1866,977; lands at 1735,913
+      -> [blue blocks solid] standing at x 1703-1766, y 913
+  13. standing at 1706,913, on it
+      -> spot switch3
+how in 128,592 [rb 0] -> spot key3: djump,event:rExtGateG_2/switch2
+     [blue blocks solid] coming in at 128,592
+   1. coming in: holding nothing, from 128,592; lands at 128,593
+      -> [blue blocks solid] standing at x 0-214, y 593
+   2. running right, jump (held 21 ticks), holding right, from 112,593; lands at 288,545
+      -> [blue blocks solid] standing at x 266-406, y 545
+   3. jump (held 21 ticks), holding right, double jump at tick 15, from 368,545; lands at 595,465   [djump]
+      -> [blue blocks solid] standing at x 586-649, y 465
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 586,465; lands at 659,433
+      -> [blue blocks solid] standing at x 650-790, y 433
+   5. jump (held 21 ticks), holding right, double jump at tick 15, from 654,433; lands at 851,337   [djump]
+      -> [blue blocks solid] standing at x 842-950, y 337
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 880,337; lands at 1077,241   [djump]
+      -> [blue blocks solid] standing at x 1066-1190, y 241
+   7. jump (held 21 ticks), holding right, double jump at tick 15, from 1120,241; lands at 1317,145   [djump]
+      -> [blue blocks solid] standing at x 1306-1430, y 145
+   8. jump (held 21 ticks), holding right, double jump at tick 15, from 1306,145; lands at 1679,305   [djump]
+      -> [blue blocks solid] standing at x 1642-1766, y 305
+   9. jump (held 21 ticks), holding right, double jump at tick 15, from 1744,305; lands at 1985,241   [djump]
+      -> [blue blocks solid] standing at x 1978-2102, y 241
+  10. jump (held 21 ticks), holding right, double jump at tick 15, from 2048,241; lands at 2275,161   [djump]
+      -> [blue blocks solid] standing at x 2266-2454, y 161
+  11. jump (held 21 ticks), holding right, double jump at tick 15, from 2400,161; lands at 2847,433   [djump]
+      -> [blue blocks solid] standing at x 2826-2918, y 433
+  12. jump (held 21 ticks), holding right, from 2826,433, through the oBarrierColor at 3216,848; touches it on the way   [event:rExtGateG_2/switch2]
+      -> spot key3
+how in 128,592 [rb 0] -> spot key1: djump,megaman:1
+     [blue blocks solid] coming in at 128,592
+   1. coming in: holding nothing, from 128,592; lands at 128,593
+      -> [blue blocks solid] standing at x 0-214, y 593
+   2. running right, jump (held 21 ticks), holding right, from 112,593; lands at 288,545
+      -> [blue blocks solid] standing at x 266-406, y 545
+   3. jump (held 21 ticks), holding right, double jump at tick 15, from 368,545; lands at 595,465   [djump]
+      -> [blue blocks solid] standing at x 586-649, y 465
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 586,465; lands at 659,433
+      -> [blue blocks solid] standing at x 650-790, y 433
+   5. jump (held 21 ticks), holding right, double jump at tick 15, from 654,433; lands at 851,337   [djump]
+      -> [blue blocks solid] standing at x 842-950, y 337
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 880,337; lands at 1077,241   [djump]
+      -> [blue blocks solid] standing at x 1066-1190, y 241
+   7. jump (held 21 ticks), holding right, double jump at tick 15, from 1120,241; lands at 1317,145   [djump]
+      -> [blue blocks solid] standing at x 1306-1430, y 145
+   8. shoot the switch at 1360,112 from 1306,145: [red blocks solid]   [megaman:1]
+      -> [red blocks solid] standing at x 1306-1430, y 145
+   9. running left, jump (held 21 ticks), holding left, from 1306,145; lands at 591,993
+      -> [red blocks solid] standing at x 538-854, y 993
+  10. running right, jump (held 21 ticks), holding right, from 752,993; lands at 928,945
+      -> [red blocks solid] standing at x 906-1113, y 945
+  11. standing at 1081,945, on it
+      -> spot key1
+how in 128,592 [rb 0] -> spot key1: djump,samus:1
+     [blue blocks solid] coming in at 128,592
+   1. coming in: holding nothing, from 128,592; lands at 128,593
+      -> [blue blocks solid] standing at x 0-214, y 593
+   2. running right, jump (held 21 ticks), holding right, from 112,593; lands at 288,545
+      -> [blue blocks solid] standing at x 266-406, y 545
+   3. jump (held 21 ticks), holding right, double jump at tick 15, from 368,545; lands at 595,465   [djump]
+      -> [blue blocks solid] standing at x 586-649, y 465
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 586,465; lands at 659,433
+      -> [blue blocks solid] standing at x 650-790, y 433
+   5. jump (held 21 ticks), holding right, double jump at tick 15, from 654,433; lands at 851,337   [djump]
+      -> [blue blocks solid] standing at x 842-950, y 337
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 880,337; lands at 1077,241   [djump]
+      -> [blue blocks solid] standing at x 1066-1190, y 241
+   7. jump (held 21 ticks), holding right, double jump at tick 15, from 1120,241; lands at 1317,145   [djump]
+      -> [blue blocks solid] standing at x 1306-1430, y 145
+   8. shoot the switch at 1360,112 from 1306,145: [red blocks solid]   [samus:1]
+      -> [red blocks solid] standing at x 1306-1430, y 145
+   9. running left, jump (held 21 ticks), holding left, from 1306,145; lands at 591,993
+      -> [red blocks solid] standing at x 538-854, y 993
+  10. running right, jump (held 21 ticks), holding right, from 752,993; lands at 928,945
+      -> [red blocks solid] standing at x 906-1113, y 945
+  11. standing at 1081,945, on it
+      -> spot key1
+how in 128,592 [rb 0] -> spot key1: djump,link:1
+     [blue blocks solid] coming in at 128,592
+   1. coming in: holding nothing, from 128,592; lands at 128,593
+      -> [blue blocks solid] standing at x 0-214, y 593
+   2. running right, jump (held 21 ticks), holding right, from 112,593; lands at 288,545
+      -> [blue blocks solid] standing at x 266-406, y 545
+   3. jump (held 21 ticks), holding right, double jump at tick 15, from 368,545; lands at 595,465   [djump]
+      -> [blue blocks solid] standing at x 586-649, y 465
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 586,465; lands at 659,433
+      -> [blue blocks solid] standing at x 650-790, y 433
+   5. jump (held 21 ticks), holding right, double jump at tick 15, from 654,433; lands at 851,337   [djump]
+      -> [blue blocks solid] standing at x 842-950, y 337
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 880,337; lands at 1077,241   [djump]
+      -> [blue blocks solid] standing at x 1066-1190, y 241
+   7. jump (held 21 ticks), holding right, double jump at tick 15, from 1120,241; lands at 1317,145   [djump]
+      -> [blue blocks solid] standing at x 1306-1430, y 145
+   8. hit the switch at 1360,112 from 1312,145 (jumping if need be): [red blocks solid]   [link:1]
+      -> [red blocks solid] standing at x 1306-1430, y 145
+   9. running left, jump (held 21 ticks), holding left, from 1306,145; lands at 591,993
+      -> [red blocks solid] standing at x 538-854, y 993
+  10. running right, jump (held 21 ticks), holding right, from 752,993; lands at 928,945
+      -> [red blocks solid] standing at x 906-1113, y 945
+  11. standing at 1081,945, on it
+      -> spot key1
+how in 128,592 [rb 0] -> spot key1: djump,belmont:1
+     [blue blocks solid] coming in at 128,592
+   1. coming in: holding nothing, from 128,592; lands at 128,593
+      -> [blue blocks solid] standing at x 0-214, y 593
+   2. running right, jump (held 21 ticks), holding right, from 112,593; lands at 288,545
+      -> [blue blocks solid] standing at x 266-406, y 545
+   3. jump (held 21 ticks), holding right, double jump at tick 15, from 368,545; lands at 595,465   [djump]
+      -> [blue blocks solid] standing at x 586-649, y 465
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 586,465; lands at 659,433
+      -> [blue blocks solid] standing at x 650-790, y 433
+   5. jump (held 21 ticks), holding right, double jump at tick 15, from 654,433; lands at 851,337   [djump]
+      -> [blue blocks solid] standing at x 842-950, y 337
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 880,337; lands at 1077,241   [djump]
+      -> [blue blocks solid] standing at x 1066-1190, y 241
+   7. jump (held 21 ticks), holding right, double jump at tick 15, from 1120,241; lands at 1317,145   [djump]
+      -> [blue blocks solid] standing at x 1306-1430, y 145
+   8. hit the switch at 1360,112 from 1312,145 (jumping if need be): [red blocks solid]   [belmont:1]
+      -> [red blocks solid] standing at x 1306-1430, y 145
+   9. running left, jump (held 21 ticks), holding left, from 1306,145; lands at 591,993
+      -> [red blocks solid] standing at x 538-854, y 993
+  10. running right, jump (held 21 ticks), holding right, from 752,993; lands at 928,945
+      -> [red blocks solid] standing at x 906-1113, y 945
+  11. standing at 1081,945, on it
+      -> spot key1

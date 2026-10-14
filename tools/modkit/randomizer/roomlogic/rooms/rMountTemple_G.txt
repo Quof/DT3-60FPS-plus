@@ -3,6 +3,7 @@
 # Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
 # Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
 # middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+# switches: the room is worked out in each of its states, the player coming in in the first: [fan1264_296 off]
 
 # Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
 in 96,368   # from rMountTemple_F out 1936,176
@@ -14,6 +15,15 @@ out 1880,928   # to rMountTemple_H at 720,256; the player presses up at it
 
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 
+# Spots: somewhere whose reaching opens a way (the barriers that wait for it need event:rMountTemple_G/<spot>, and
+# solve.py makes that what reaching the spot needs)
+spot switch1   # a colored switch the partner can be left standing on (party split), at 1127,727
+spot switch2   # a colored switch the partner can be left standing on (party split), at 1831,647
+spot switch3   # a colored switch the partner can be left standing on (party split), at 1239,567
+spot key3   # a colored key, at 1471,599
+spot key2   # a colored key, at 1071,247
+spot key1   # a colored key, at 175,903
+
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
@@ -21,22 +31,324 @@ out 1880,928   # to rMountTemple_H at 720,256; the player presses up at it
 # the locked door whose objectNum is N.
 from in 96,368
   out 0,336      -
-  out 1880,928   never
+  out 1880,928   adash,event:rMountTemple_G/key3 | djump,event:rMountTemple_G/key3
+  spot switch1   djump | adash
+  spot switch2   adash,event:rMountTemple_G/key2 | djump,event:rMountTemple_G/key2
+  spot switch3   never
+  spot key3      adash,event:rMountTemple_G/key1 | djump,event:rMountTemple_G/key1
+  spot key2      adash | djump
+  spot key1      djump,event:rMountTemple_G/switch1 | adash,event:rMountTemple_G/switch1
 from in 1888,960
   out 0,336      never
   out 1880,928   -
+  spot switch1   djump,adash,event:rMountTemple_G/key3
+  spot switch2   event:rMountTemple_G/key2,event:rMountTemple_G/key3
+  spot switch3   never
+  spot key3      event:rMountTemple_G/key1,event:rMountTemple_G/key3
+  spot key2      never
+  spot key1      djump,adash,event:rMountTemple_G/key3,event:rMountTemple_G/switch1
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
 how in 96,368 -> out 0,336: -
-     coming in at 96,368
+     [fan1264_296 off] coming in at 96,368
    1. coming in: holding nothing, from 96,368; lands at 96,369
-      -> standing at x 0-246, y 369
+      -> [fan1264_296 off] standing at x 0-246, y 369
    2. standing at 0,369, goes into it
       -> out 0,336
+how in 96,368 -> out 1880,928: adash,event:rMountTemple_G/key3
+     [fan1264_296 off] coming in at 96,368
+   1. coming in: holding nothing, from 96,368; lands at 96,369
+      -> [fan1264_296 off] standing at x 0-246, y 369
+   2. running right, jump (held 21 ticks), holding right, air dash (Jerry) at tick 8, from 96,369; lands at 290,369   [adash]
+      -> [fan1264_296 off] standing at x 282-470, y 369
+   3. walk off the edge, holding right once in the air, air dash (Jerry) at tick 2, from 282,369; lands at 710,433   [adash]
+      -> [fan1264_296 off] standing at x 682-950, y 433
+   4. walk off the edge, holding left, then right after 2 ticks in the air, air dash back right (Jerry) at tick 6 or once there's room ahead, from 682,433; lands at 1155,961   [adash]
+      -> [fan1264_296 off] standing at x 1063-1321, y 961
+   5. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 1319,961; lands at 1737,961   [adash]
+      -> [fan1264_296 off] standing at x 1655-1737, y 961
+   6. walk off the edge, holding right once in the air, from 1655,961, through the barrier at 1744,896; touches it on the way   [event:rMountTemple_G/key3]
+      -> out 1880,928
+how in 96,368 -> out 1880,928: djump,event:rMountTemple_G/key3
+     [fan1264_296 off] coming in at 96,368
+   1. coming in: holding nothing, from 96,368; lands at 96,369
+      -> [fan1264_296 off] standing at x 0-246, y 369
+   2. jump (held 21 ticks), holding right, double jump at tick 10, from 160,369; lands at 288,369   [djump]
+      -> [fan1264_296 off] standing at x 282-470, y 369
+   3. walk off the edge, holding right once in the air, double jump at tick 8, from 352,369; lands at 757,593   [djump]
+      -> [fan1264_296 off] standing at x 487-822, y 593
+   4. walk off the edge, holding right once in the air, from 487,593; lands at 1157,961
+      -> [fan1264_296 off] standing at x 1063-1321, y 961
+   5. jump (held 21 ticks), holding right, double jump at tick 15, from 1152,961; lands at 1336,945   [djump]
+      -> [fan1264_296 off] standing at x 1322-1366, y 945
+   6. walk off the edge, holding right once in the air, double jump at tick 16, from 1322,945; lands at 1737,961   [djump]
+      -> [fan1264_296 off] standing at x 1655-1737, y 961
+   7. walk off the edge, holding right once in the air, from 1655,961, through the barrier at 1744,896; touches it on the way   [event:rMountTemple_G/key3]
+      -> out 1880,928
+how in 96,368 -> spot switch1: djump
+     [fan1264_296 off] coming in at 96,368
+   1. coming in: holding nothing, from 96,368; lands at 96,369
+      -> [fan1264_296 off] standing at x 0-246, y 369
+   2. jump (held 21 ticks), holding right, double jump at tick 10, from 160,369; lands at 288,369   [djump]
+      -> [fan1264_296 off] standing at x 282-470, y 369
+   3. walk off the edge, holding right once in the air, double jump at tick 8, from 352,369; lands at 757,593   [djump]
+      -> [fan1264_296 off] standing at x 487-822, y 593
+   4. walk off the edge, holding right once in the air, double jump at tick 2, from 487,593; touches it on the way   [djump]
+      -> spot switch1
+how in 96,368 -> spot switch1: adash
+     [fan1264_296 off] coming in at 96,368
+   1. coming in: holding nothing, from 96,368; lands at 96,369
+      -> [fan1264_296 off] standing at x 0-246, y 369
+   2. running right, jump (held 21 ticks), holding right, air dash (Jerry) at tick 8, from 96,369; lands at 290,369   [adash]
+      -> [fan1264_296 off] standing at x 282-470, y 369
+   3. walk off the edge, holding right once in the air, air dash (Claire) at tick 2, from 282,369; lands at 757,593   [adash]
+      -> [fan1264_296 off] standing at x 487-822, y 593
+   4. walk off the edge, holding right once in the air, air dash (Jerry) at tick 6 or once there's room ahead, from 487,593; touches it on the way   [adash]
+      -> spot switch1
+how in 96,368 -> spot switch2: adash,event:rMountTemple_G/key2
+     [fan1264_296 off] coming in at 96,368
+   1. coming in: holding nothing, from 96,368; lands at 96,369
+      -> [fan1264_296 off] standing at x 0-246, y 369
+   2. running right, jump (held 21 ticks), holding right, air dash (Jerry) at tick 8, from 96,369; lands at 290,369   [adash]
+      -> [fan1264_296 off] standing at x 282-470, y 369
+   3. walk off the edge, holding right once in the air, air dash (Jerry) at tick 2, from 282,369; lands at 710,433   [adash]
+      -> [fan1264_296 off] standing at x 682-950, y 433
+   4. walk off the edge, holding left, then right after 2 ticks in the air, air dash back right (Jerry) at tick 6 or once there's room ahead, from 682,433; lands at 1155,961   [adash]
+      -> [fan1264_296 off] standing at x 1063-1321, y 961
+   5. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 1232,961; lands at 1561,945   [adash]
+      -> [fan1264_296 off] standing at x 1546-1590, y 945
+   6. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 1582,945; lands at 1535,801
+      -> [fan1264_296 off] standing at x 1463-1558, y 801
+   7. jump (held 21 ticks), holding right, from 1463,801; lands at 1673,734
+      -> [fan1264_296 off] standing at x 1651-1709, y 726-734
+   8. jump (held 21 ticks), holding left, air dash (Jerry) at tick 10, from 1680,726; lands at 1601,673   [adash]
+      -> [fan1264_296 off] standing at x 1546-1638, y 673
+   9. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 1568,673, through the barrier at 1792,576; touches it on the way   [adash,event:rMountTemple_G/key2]
+      -> spot switch2
+how in 96,368 -> spot switch2: djump,event:rMountTemple_G/key2
+     [fan1264_296 off] coming in at 96,368
+   1. coming in: holding nothing, from 96,368; lands at 96,369
+      -> [fan1264_296 off] standing at x 0-246, y 369
+   2. jump (held 21 ticks), holding right, double jump at tick 10, from 160,369; lands at 288,369   [djump]
+      -> [fan1264_296 off] standing at x 282-470, y 369
+   3. walk off the edge, holding right once in the air, double jump at tick 8, from 352,369; lands at 757,593   [djump]
+      -> [fan1264_296 off] standing at x 487-822, y 593
+   4. walk off the edge, holding right once in the air, from 487,593; lands at 1157,961
+      -> [fan1264_296 off] standing at x 1063-1321, y 961
+   5. jump (held 21 ticks), holding right, double jump at tick 15, from 1152,961; lands at 1336,945   [djump]
+      -> [fan1264_296 off] standing at x 1322-1366, y 945
+   6. walk off the edge, holding right once in the air, double jump at tick 8, from 1322,945; lands at 1572,945   [djump]
+      -> [fan1264_296 off] standing at x 1546-1590, y 945
+   7. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 1582,945; lands at 1535,801
+      -> [fan1264_296 off] standing at x 1463-1558, y 801
+   8. jump (held 21 ticks), holding right, from 1463,801; lands at 1673,734
+      -> [fan1264_296 off] standing at x 1651-1709, y 726-734
+   9. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 1651,732; lands at 1624,673   [djump]
+      -> [fan1264_296 off] standing at x 1546-1638, y 673
+  10. jump (held 21 ticks), holding right, double jump at tick 15, from 1616,673, through the barrier at 1792,576; touches it on the way   [djump,event:rMountTemple_G/key2]
+      -> spot switch2
+how in 96,368 -> spot key3: adash,event:rMountTemple_G/key1
+     [fan1264_296 off] coming in at 96,368
+   1. coming in: holding nothing, from 96,368; lands at 96,369
+      -> [fan1264_296 off] standing at x 0-246, y 369
+   2. running right, jump (held 21 ticks), holding right, air dash (Jerry) at tick 8, from 96,369; lands at 290,369   [adash]
+      -> [fan1264_296 off] standing at x 282-470, y 369
+   3. walk off the edge, holding right once in the air, air dash (Jerry) at tick 2, from 282,369; lands at 710,433   [adash]
+      -> [fan1264_296 off] standing at x 682-950, y 433
+   4. walk off the edge, holding left, then right after 2 ticks in the air, air dash back right (Jerry) at tick 6 or once there's room ahead, from 682,433; lands at 1155,961   [adash]
+      -> [fan1264_296 off] standing at x 1063-1321, y 961
+   5. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 1232,961; lands at 1561,945   [adash]
+      -> [fan1264_296 off] standing at x 1546-1590, y 945
+   6. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 1582,945; lands at 1535,801
+      -> [fan1264_296 off] standing at x 1463-1558, y 801
+   7. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 1488,801; lands at 1689,721   [adash]
+      -> [fan1264_296 off] standing at x 1678-1735, y 713-721
+   8. running left, jump (held 21 ticks), holding left, air dash (Jerry) at tick 8, from 1678,719, through the barrier at 1504,512; lands at 1484,609   [adash,event:rMountTemple_G/key1]
+      -> [fan1264_296 off] standing at x 1463-1497, y 609
+   9. standing at 1465,609, on it
+      -> spot key3
+how in 96,368 -> spot key3: djump,event:rMountTemple_G/key1
+     [fan1264_296 off] coming in at 96,368
+   1. coming in: holding nothing, from 96,368; lands at 96,369
+      -> [fan1264_296 off] standing at x 0-246, y 369
+   2. jump (held 21 ticks), holding right, double jump at tick 10, from 160,369; lands at 288,369   [djump]
+      -> [fan1264_296 off] standing at x 282-470, y 369
+   3. walk off the edge, holding right once in the air, double jump at tick 8, from 352,369; lands at 757,593   [djump]
+      -> [fan1264_296 off] standing at x 487-822, y 593
+   4. walk off the edge, holding right once in the air, from 487,593; lands at 1157,961
+      -> [fan1264_296 off] standing at x 1063-1321, y 961
+   5. jump (held 21 ticks), holding right, double jump at tick 15, from 1152,961; lands at 1336,945   [djump]
+      -> [fan1264_296 off] standing at x 1322-1366, y 945
+   6. walk off the edge, holding right once in the air, double jump at tick 8, from 1322,945; lands at 1572,945   [djump]
+      -> [fan1264_296 off] standing at x 1546-1590, y 945
+   7. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 1582,945; lands at 1535,801
+      -> [fan1264_296 off] standing at x 1463-1558, y 801
+   8. walk off the edge, holding right once in the air, double jump at tick 8, from 1463,801; lands at 1683,719   [djump]
+      -> [fan1264_296 off] standing at x 1678-1735, y 713-721
+   9. jump (held 21 ticks), holding left, double jump at tick 10, from 1696,714, through the barrier at 1504,512; lands at 1497,609   [djump,event:rMountTemple_G/key1]
+      -> [fan1264_296 off] standing at x 1463-1497, y 609
+  10. standing at 1465,609, on it
+      -> spot key3
+how in 96,368 -> spot key2: adash
+     [fan1264_296 off] coming in at 96,368
+   1. coming in: holding nothing, from 96,368; lands at 96,369
+      -> [fan1264_296 off] standing at x 0-246, y 369
+   2. running right, jump (held 21 ticks), holding right, air dash (Jerry) at tick 8, from 96,369; lands at 290,369   [adash]
+      -> [fan1264_296 off] standing at x 282-470, y 369
+   3. walk off the edge, holding right once in the air, air dash (Jerry) at tick 2, from 282,369; lands at 710,433   [adash]
+      -> [fan1264_296 off] standing at x 682-950, y 433
+   4. walk off the edge, holding right once in the air, air dash (Jerry) at tick 2, from 682,433; lands at 1088,433   [adash]
+      -> [fan1264_296 off] standing at x 1002-1433, y 433
+   5. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 1184,433; lands at 1447,369   [adash]
+      -> [fan1264_296 off] standing at x 1434-1478, y 369
+   6. walk off the edge, holding right once in the air, air dash (Jerry) at tick 6 or once there's room ahead, from 1434,369; lands at 1657,401   [adash]
+      -> [fan1264_296 off] standing at x 1626-1689, y 401
+   7. jump (held 21 ticks), holding right, from 1626,401; lands at 1699,369
+      -> [fan1264_296 off] standing at x 1690-1752, y 369
+   8. jump (held 21 ticks), holding right, from 1690,369; lands at 1763,337
+      -> [fan1264_296 off] standing at x 1753-1817, y 337
+   9. running right, jump (held 6 ticks), holding right, from 1808,337; lands at 1847,305
+      -> [fan1264_296 off] standing at x 1818-1897, y 305
+  10. jump (held 21 ticks), holding left, air dash (Jerry) at tick 10, from 1818,305; lands at 1701,257   [adash]
+      -> [fan1264_296 off] standing at x 1047-1782, y 257-259
+  11. standing at 1065,257, on it
+      -> spot key2
+how in 96,368 -> spot key2: djump
+     [fan1264_296 off] coming in at 96,368
+   1. coming in: holding nothing, from 96,368; lands at 96,369
+      -> [fan1264_296 off] standing at x 0-246, y 369
+   2. jump (held 21 ticks), holding right, double jump at tick 10, from 160,369; lands at 288,369   [djump]
+      -> [fan1264_296 off] standing at x 282-470, y 369
+   3. jump (held 21 ticks), holding right, double jump at tick 15, from 462,369; lands at 697,433   [djump]
+      -> [fan1264_296 off] standing at x 682-950, y 433
+   4. walk off the edge, holding right once in the air, double jump at tick 2, from 682,433; lands at 1054,433   [djump]
+      -> [fan1264_296 off] standing at x 1002-1433, y 433
+   5. jump (held 21 ticks), holding right, double jump at tick 15, from 1232,433; lands at 1458,369   [djump]
+      -> [fan1264_296 off] standing at x 1434-1478, y 369
+   6. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1434,369; lands at 1569,433
+      -> [fan1264_296 off] standing at x 1479-1625, y 433
+   7. jump (held 21 ticks), holding right, double jump at tick 15, from 1479,433; lands at 1643,401   [djump]
+      -> [fan1264_296 off] standing at x 1626-1689, y 401
+   8. jump (held 21 ticks), holding right, from 1626,401; lands at 1699,369
+      -> [fan1264_296 off] standing at x 1690-1752, y 369
+   9. jump (held 21 ticks), holding right, from 1690,369; lands at 1763,337
+      -> [fan1264_296 off] standing at x 1753-1817, y 337
+  10. jump (held 21 ticks), holding right, double jump at tick 10, from 1776,337; lands at 1872,305   [djump]
+      -> [fan1264_296 off] standing at x 1818-1897, y 305
+  11. jump (held 21 ticks), holding left, double jump at tick 10, from 1818,305; lands at 1719,257   [djump]
+      -> [fan1264_296 off] standing at x 1047-1782, y 257-259
+  12. standing at 1065,257, on it
+      -> spot key2
+how in 96,368 -> spot key1: djump,event:rMountTemple_G/switch1
+     [fan1264_296 off] coming in at 96,368
+   1. coming in: holding nothing, from 96,368; lands at 96,369
+      -> [fan1264_296 off] standing at x 0-246, y 369
+   2. jump (held 21 ticks), holding right, double jump at tick 10, from 160,369; lands at 288,369   [djump]
+      -> [fan1264_296 off] standing at x 282-470, y 369
+   3. walk off the edge, holding right once in the air, double jump at tick 8, from 352,369; lands at 757,593   [djump]
+      -> [fan1264_296 off] standing at x 487-822, y 593
+   4. walk off the edge, holding left once in the air, from 487,593, through the oBarrierColor at 464,496; lands at 87,961   [event:rMountTemple_G/switch1]
+      -> [fan1264_296 off] standing at x 87-105, y 961
+   5. jump (held 21 ticks), holding right, double jump at tick 15, from 87,961; touches it on the way   [djump]
+      -> spot key1
+how in 96,368 -> spot key1: adash,event:rMountTemple_G/switch1
+     [fan1264_296 off] coming in at 96,368
+   1. coming in: holding nothing, from 96,368; lands at 96,369
+      -> [fan1264_296 off] standing at x 0-246, y 369
+   2. running right, jump (held 21 ticks), holding right, air dash (Jerry) at tick 8, from 96,369; lands at 290,369   [adash]
+      -> [fan1264_296 off] standing at x 282-470, y 369
+   3. walk off the edge, holding right once in the air, air dash (Claire) at tick 2, from 282,369; lands at 757,593   [adash]
+      -> [fan1264_296 off] standing at x 487-822, y 593
+   4. walk off the edge, holding left once in the air, from 487,593, through the oBarrierColor at 464,496; lands at 87,961   [event:rMountTemple_G/switch1]
+      -> [fan1264_296 off] standing at x 87-105, y 961
+   5. jump (held 21 ticks), holding nothing, then right after 12 ticks, air dash (Jerry) at tick 12, from 87,961; touches it on the way   [adash]
+      -> spot key1
 how in 1888,960 -> out 1880,928: -
-     coming in at 1888,960
+     [fan1264_296 off] coming in at 1888,960
    1. coming in: holding nothing, from 1888,960; lands at 1888,961
-      -> standing at x 1767-1897, y 961
+      -> [fan1264_296 off] standing at x 1767-1897, y 961
    2. standing at 1878,961, presses up at it
       -> out 1880,928
+how in 1888,960 -> spot switch1: djump,adash,event:rMountTemple_G/key3
+     [fan1264_296 off] coming in at 1888,960
+   1. coming in: holding nothing, from 1888,960; lands at 1888,961
+      -> [fan1264_296 off] standing at x 1767-1897, y 961
+   2. jump (held 2 ticks), holding left, from 1767,961, through the barrier at 1744,896; lands at 1704,961   [event:rMountTemple_G/key3]
+      -> [fan1264_296 off] standing at x 1655-1737, y 961
+   3. jump (held 2 ticks), holding left, from 1655,961; lands at 1431,961
+      -> [fan1264_296 off] standing at x 1431-1545, y 961
+   4. jump (held 2 ticks), holding left, from 1431,961; lands at 1199,961
+      -> [fan1264_296 off] standing at x 1063-1321, y 961
+   5. jump (held 2 ticks), holding left, from 1063,961; lands at 1031,945
+      -> [fan1264_296 off] standing at x 1031-1062, y 945
+   6. jump (held 6 ticks), holding left, from 1031,945; lands at 982,913
+      -> [fan1264_296 off] standing at x 967-998, y 913
+   7. jump (held 2 ticks), holding left, double jump at tick 21, air dash (Jerry) at tick 20, from 968,913; lands at 896,737   [djump,adash]
+      -> [fan1264_296 off] standing at x 887-902, y 737
+   8. jump (held 21 ticks), holding left, double jump at tick 10, air dash (Jerry) at tick 18, from 887,737; lands at 764,593   [djump,adash]
+      -> [fan1264_296 off] standing at x 487-822, y 593
+   9. walk off the edge, holding right once in the air, double jump at tick 2, from 487,593; touches it on the way   [djump]
+      -> spot switch1
+how in 1888,960 -> spot switch2: event:rMountTemple_G/key2,event:rMountTemple_G/key3
+     [fan1264_296 off] coming in at 1888,960
+   1. coming in: holding nothing, from 1888,960; lands at 1888,961
+      -> [fan1264_296 off] standing at x 1767-1897, y 961
+   2. walk from 1767,961 to 1766,961 into the barrier at 1744,896   [event:rMountTemple_G/key3]
+      -> [fan1264_296 off] standing at x 1738-1766, y 961 (where a gate is)
+   3. running left, jump (held 6 ticks), holding left, from 1738,961, through the barrier at 1744,896; lands at 1646,945   [event:rMountTemple_G/key3]
+      -> [fan1264_296 off] standing at x 1610-1654, y 945
+   4. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 1610,945; lands at 1482,801
+      -> [fan1264_296 off] standing at x 1463-1558, y 801
+   5. walk off the edge, holding right once in the air, from 1463,801; lands at 1668,740
+      -> [fan1264_296 off] standing at x 1625-1682, y 739-747
+   6. jump (held 6 ticks), holding right, from 1648,739; lands at 1711,708
+      -> [fan1264_296 off] standing at x 1704-1737, y 706-708
+   7. jump (held 6 ticks), holding right, from 1704,706; lands at 1756,673
+      -> [fan1264_296 off] standing at x 1738-1785, y 673
+   8. walk off the edge, holding right once in the air, from 1738,673, through the barrier at 1792,576; touches it on the way   [event:rMountTemple_G/key2]
+      -> spot switch2
+how in 1888,960 -> spot key3: event:rMountTemple_G/key1,event:rMountTemple_G/key3
+     [fan1264_296 off] coming in at 1888,960
+   1. coming in: holding nothing, from 1888,960; lands at 1888,961
+      -> [fan1264_296 off] standing at x 1767-1897, y 961
+   2. walk from 1767,961 to 1766,961 into the barrier at 1744,896   [event:rMountTemple_G/key3]
+      -> [fan1264_296 off] standing at x 1738-1766, y 961 (where a gate is)
+   3. running left, jump (held 6 ticks), holding left, from 1738,961, through the barrier at 1744,896; lands at 1646,945   [event:rMountTemple_G/key3]
+      -> [fan1264_296 off] standing at x 1610-1654, y 945
+   4. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 1610,945; lands at 1482,801
+      -> [fan1264_296 off] standing at x 1463-1558, y 801
+   5. walk off the edge, holding right once in the air, from 1463,801; lands at 1668,740
+      -> [fan1264_296 off] standing at x 1625-1682, y 739-747
+   6. jump (held 6 ticks), holding right, from 1648,739; lands at 1711,708
+      -> [fan1264_296 off] standing at x 1704-1737, y 706-708
+   7. jump (held 21 ticks), holding left, from 1704,706; lands at 1631,673
+      -> [fan1264_296 off] standing at x 1546-1638, y 673
+   8. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 1630,673, through the barrier at 1504,512; lands at 1515,609   [event:rMountTemple_G/key1]
+      -> [fan1264_296 off] standing at x 1498-1526, y 609 (where a gate is)
+   9. walk from 1498,609 to 1497,609
+      -> [fan1264_296 off] standing at x 1463-1497, y 609
+  10. standing at 1465,609, on it
+      -> spot key3
+how in 1888,960 -> spot key1: djump,adash,event:rMountTemple_G/key3,event:rMountTemple_G/switch1
+     [fan1264_296 off] coming in at 1888,960
+   1. coming in: holding nothing, from 1888,960; lands at 1888,961
+      -> [fan1264_296 off] standing at x 1767-1897, y 961
+   2. jump (held 2 ticks), holding left, from 1767,961, through the barrier at 1744,896; lands at 1704,961   [event:rMountTemple_G/key3]
+      -> [fan1264_296 off] standing at x 1655-1737, y 961
+   3. jump (held 2 ticks), holding left, from 1655,961; lands at 1431,961
+      -> [fan1264_296 off] standing at x 1431-1545, y 961
+   4. jump (held 2 ticks), holding left, from 1431,961; lands at 1199,961
+      -> [fan1264_296 off] standing at x 1063-1321, y 961
+   5. jump (held 2 ticks), holding left, from 1063,961; lands at 1031,945
+      -> [fan1264_296 off] standing at x 1031-1062, y 945
+   6. jump (held 6 ticks), holding left, from 1031,945; lands at 982,913
+      -> [fan1264_296 off] standing at x 967-998, y 913
+   7. jump (held 2 ticks), holding left, double jump at tick 21, air dash (Jerry) at tick 20, from 968,913; lands at 896,737   [djump,adash]
+      -> [fan1264_296 off] standing at x 887-902, y 737
+   8. jump (held 21 ticks), holding left, double jump at tick 10, air dash (Jerry) at tick 18, from 887,737; lands at 764,593   [djump,adash]
+      -> [fan1264_296 off] standing at x 487-822, y 593
+   9. walk off the edge, holding left once in the air, from 487,593, through the oBarrierColor at 464,496; lands at 87,961   [event:rMountTemple_G/switch1]
+      -> [fan1264_296 off] standing at x 87-105, y 961
+  10. jump (held 21 ticks), holding right, double jump at tick 15, from 87,961; touches it on the way   [djump]
+      -> spot key1

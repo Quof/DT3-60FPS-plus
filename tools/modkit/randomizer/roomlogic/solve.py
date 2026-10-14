@@ -143,6 +143,7 @@ class RoomLogic:
         self.name = name; self.area = ""; self.area_num = None; self.boss = False; self.map = False
         self.ins, self.outs, self.locs, self.loc_names = [], [], [], {}
         self.carried, self.resets = [], {}
+        self.spots = []          # its spots (somewhere whose reaching is the event <room>/<spot>)
         self.table = collections.OrderedDict()
 
     def ways(self, inid=None):
@@ -188,6 +189,7 @@ def load_room(path):
                 st, rest = split_state(f[2:])
                 target = ("out", f[1], st)
             elif f[0] == "loc": target, rest = ("loc", int(f[1]), int(f[2])), f[3:]
+            elif f[0] == "spot": target, rest = ("spot", f[1]), f[2:]
             else: raise SystemExit("%s: %r" % (where, line))
             r.table[(cur, target)] = parse(" ".join(rest), where)
             continue
@@ -201,6 +203,7 @@ def load_room(path):
         elif f[0] == "loc":
             key = (int(f[1]), int(f[2])); r.locs.append(key)
             if "#" in line: r.loc_names[key] = line.split("#", 1)[1].split(",")[0].strip()
+        elif f[0] == "spot": r.spots.append(f[1])
         elif f[0] == "from": cur = (f[2], split_state(f[3:])[0])
         else: raise SystemExit("%s: %r" % (where, line))
     r.carried.sort()
@@ -268,6 +271,8 @@ def load_overrides(rooms, conn, path=OVERRIDES):
                 target = ("loc", int(right[1]), int(right[2]))
             elif right[0] == "loc" and " ".join(right[1:]).lower() in names:
                 k = names[" ".join(right[1:]).lower()]; target = ("loc",) + k
+            elif right[0] == "spot" and len(right) == 2 and right[1] in r.spots:
+                target = ("spot", right[1])
             else: raise SystemExit("%s: '%s' isn't a way out ('out <x,y>') or a place ('loc <type> <number>' or its name)" % (where, hf[1].strip()))
             if target[0] == "loc" and (target[1], target[2]) not in r.locs: raise SystemExit("%s: %s has no place %s" % (where, room, hf[1].strip()))
             if left[2] != "*" and left[2] not in r.ins: raise SystemExit("%s: %s has no way in %r" % (where, room, left[2]))
@@ -276,11 +281,32 @@ def load_overrides(rooms, conn, path=OVERRIDES):
             if not ways: ways = [(i, ()) for i in (r.ins if left[2] == "*" else [left[2]])]
             alts = parse(req, where)
             for w in ways:
-                t = target if target[0] == "loc" else ("out", target[1], w[1])
+                t = target if target[0] in ("loc", "spot") else ("out", target[1], w[1])
                 if cmd == "set": r.table[(w, t)] = list(alts)
                 else:
                     cur = r.table.setdefault((w, t), [])
                     for a in alts: add(cur, a)
+            n += 1
+        elif cmd in ("room", "area"):
+            # every way through the room (or every room of the area): from each way in (in each state) to each way out
+            # (left in the same state), place and spot, needing this, in place of what the room's file says
+            head, _, req = f[1].partition(":")
+            if not _: raise SystemExit("%s: no ':'" % where)
+            what = head.strip()
+            if cmd == "room":
+                if what not in rooms: raise SystemExit("%s: no room %r" % (where, what))
+                these = [rooms[what]]
+            else:
+                if not what.isdigit(): raise SystemExit("%s: 'area <number> : <requirements>'" % where)
+                these = [r for r in rooms.values() if r.area_num == int(what)]
+                if not these: raise SystemExit("%s: no room in area %s" % (where, what))
+            alts = parse(req, where)
+            for r in these:
+                ways = r.ways() or [(i, ()) for i in r.ins]
+                for w in ways:
+                    for o in r.outs: r.table[(w, ("out", o, w[1]))] = list(alts)
+                    for l in r.locs: r.table[(w, ("loc",) + l)] = list(alts)
+                    for sp in r.spots: r.table[(w, ("spot", sp))] = list(alts)
             n += 1
         elif cmd == "need":
             head, _, req = f[1].partition(":")
@@ -296,7 +322,7 @@ def load_overrides(rooms, conn, path=OVERRIDES):
             if hf[4] not in rooms or hf[6] not in rooms[hf[4]].ins: raise SystemExit("%s: %s has no way in %r" % (where, hf[4], hf[6]))
             conn.links[(hf[0], hf[2])] = (hf[4], hf[6]); n += 1
         else:
-            raise SystemExit("%s: unknown line %r (set, add, need or link)" % (where, cmd))
+            raise SystemExit("%s: unknown line %r (set, add, room, area, need or link)" % (where, cmd))
     return n
 
 
@@ -309,6 +335,7 @@ class Result:
         self.places = collections.OrderedDict()   # (type, number) -> alternatives
         self.place_room = {}     # (type, number) -> the room (the first that has it)
         self.place_back = {}     # ((type, number), need) -> (node, its need, what the room part needed)
+        self.spots = {}          # (room, spot) -> alternatives: what reaching it needs
 
 
 def through_exit(rooms, conn, room, out):
@@ -359,8 +386,11 @@ def load_events(path=EVENTS):
 
 
 def event_needs(rooms, res, events):
-    """what each event needs, from a result: {event: alternatives}"""
+    """what each event needs, from a result: {event: alternatives}. Each room's spots are events too: <room>/<spot>,
+    what reaching it needs"""
     out = {}
+    for r in rooms.values():
+        for sp in r.spots: out["%s/%s" % (r.name, sp)] = list(res.spots.get((r.name, sp), []))
     for name, ways in events.items():
         alts = []
         for kind, what, extra in ways:
@@ -444,6 +474,13 @@ def solve(rooms, conn, options=frozenset(), carry=True, events=None):
         if node[0] not in rooms: continue
         gs1, st = come_in(rooms[node[0]], node[2])
         for target, talts in by_way.get((node[0], (node[1], st)), []):
+            if target[0] == "spot":
+                dst = res.spots.setdefault((node[0], target[1]), [])
+                for a in alts:
+                    for t in talts:
+                        n = keep(mx(a, t), options)
+                        if n is not None: add(dst, n)
+                continue
             if target[0] != "loc": continue
             key = (target[1], target[2])
             for a in alts:

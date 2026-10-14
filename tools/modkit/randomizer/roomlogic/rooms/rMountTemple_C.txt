@@ -19,6 +19,11 @@ out 72,752   # to this room at 2256,112; the player presses down at it
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 loc 2 23   # treasure chest 23, at 2096,67
 
+# Spots: somewhere whose reaching opens a way (the barriers that wait for it need event:rMountTemple_C/<spot>, and
+# solve.py makes that what reaching the spot needs)
+spot switch1   # a colored switch the partner can be left standing on (party split), at 1751,567
+spot switch2   # a colored switch the partner can be left standing on (party split), at 1959,567
+
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
@@ -26,28 +31,36 @@ loc 2 23   # treasure chest 23, at 2096,67
 # the locked door whose objectNum is N.
 from in 48,512
   out 40,480     -
-  out 3000,224   never
-  out 2824,320   never
-  out 72,752     never
+  out 3000,224   adash,samus:2,event:rMountTemple_C/switch1 | djump,samus:2,event:rMountTemple_C/switch1
+  out 2824,320   adash,samus:2,event:rMountTemple_C/switch1 | djump,samus:2,event:rMountTemple_C/switch1
+  out 72,752     event:rMountTemple_C/switch2
   loc 2 23       samus:2
+  spot switch1   -
+  spot switch2   samus:2,event:rMountTemple_C/switch1
 from in 352,112
   out 40,480     -
-  out 3000,224   never
-  out 2824,320   never
-  out 72,752     never
-  loc 2 23       samus:2
+  out 3000,224   -
+  out 2824,320   -
+  out 72,752     event:rMountTemple_C/switch2
+  loc 2 23       samus:2 | event:rMountTemple_C/switch1
+  spot switch1   -
+  spot switch2   -
 from in 2256,112
-  out 40,480     never
+  out 40,480     djump,event:rMountTemple_C/switch1
   out 3000,224   -
   out 2824,320   -
-  out 72,752     never
-  loc 2 23       never
+  out 72,752     samus:2,event:rMountTemple_C/switch1,event:rMountTemple_C/switch2 | djump,event:rMountTemple_C/switch1,event:rMountTemple_C/switch2
+  loc 2 23       event:rMountTemple_C/switch1
+  spot switch1   djump,event:rMountTemple_C/switch1 | samus:2,event:rMountTemple_C/switch1
+  spot switch2   -
 from in 3008,256
-  out 40,480     never
+  out 40,480     djump,event:rMountTemple_C/switch1
   out 3000,224   -
   out 2824,320   -
-  out 72,752     never
-  loc 2 23       never
+  out 72,752     samus:2,event:rMountTemple_C/switch1,event:rMountTemple_C/switch2 | djump,event:rMountTemple_C/switch1,event:rMountTemple_C/switch2
+  loc 2 23       event:rMountTemple_C/switch1
+  spot switch1   djump,event:rMountTemple_C/switch1 | samus:2,event:rMountTemple_C/switch1
+  spot switch2   -
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
@@ -57,6 +70,148 @@ how in 48,512 -> out 40,480: -
       -> standing at x 39-774, y 513
    2. standing at 39,513, presses up at it
       -> out 40,480
+how in 48,512 -> out 3000,224: adash,samus:2,event:rMountTemple_C/switch1
+     coming in at 48,512
+   1. coming in: holding nothing, from 48,512; lands at 48,513
+      -> standing at x 39-774, y 513
+   2. running right, walk off the edge, holding right once in the air, from 160,513; lands at 862,622
+      -> standing at x 711-921, y 609-666
+   3. jump (held 2 ticks), holding right, from 896,609; lands at 996,598
+      -> standing at x 951-1081, y 545-609
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1056,545; lands at 1092,481
+      -> standing at x 1082-1689, y 481
+   5. running right, jump (held 21 ticks), holding right, turn into the Morph Ball where the body meets a wall or ceiling, from 1632,481; lands at 1795,465   [samus:2]
+      -> as the Morph Ball at x 1786-1830, y 465
+   6. as the Morph Ball: roll off the edge, holding right once in the air, from 1786,465; lands at 1881,593
+      -> as the Morph Ball at x 1863-1881, y 593
+   7. as the Morph Ball: roll off the edge, holding right once in the air, turn back once there's room, from 1863,593, through the oBarrierColor at 1888,528; lands at 2168,657   [event:rMountTemple_C/switch1]
+      -> standing at x 2119-2425, y 657
+   8. running right, jump (held 21 ticks), holding right, from 2320,657; lands at 2474,593
+      -> standing at x 2458-2649, y 593
+   9. running right, jump (held 21 ticks), holding right, from 2528,593; lands at 2681,545
+      -> standing at x 2650-2681, y 545
+  10. jump (held 21 ticks), holding left, from 2650,545; lands at 2519,481
+      -> standing at x 2503-2566, y 481
+  11. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, air dash (Jerry) at tick 16, from 2503,481; lands at 2615,385   [adash]
+      -> standing at x 2522-2681, y 385
+  12. running right, jump (held 2 ticks), holding right, from 2608,385; lands at 2696,353
+      -> standing at x 2682-2726, y 353
+  13. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 2682,353; lands at 2606,289
+      -> standing at x 2570-2614, y 289
+  14. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 2570,289; lands at 2864,257   [adash]
+      -> standing at x 2842-3033, y 257
+  15. standing at 2998,257, presses up at it
+      -> out 3000,224
+how in 48,512 -> out 3000,224: djump,samus:2,event:rMountTemple_C/switch1
+     coming in at 48,512
+   1. coming in: holding nothing, from 48,512; lands at 48,513
+      -> standing at x 39-774, y 513
+   2. running right, walk off the edge, holding right once in the air, from 160,513; lands at 862,622
+      -> standing at x 711-921, y 609-666
+   3. jump (held 2 ticks), holding right, from 896,609; lands at 996,598
+      -> standing at x 951-1081, y 545-609
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1056,545; lands at 1092,481
+      -> standing at x 1082-1689, y 481
+   5. running right, jump (held 21 ticks), holding right, turn into the Morph Ball where the body meets a wall or ceiling, from 1632,481; lands at 1795,465   [samus:2]
+      -> as the Morph Ball at x 1786-1830, y 465
+   6. as the Morph Ball: roll off the edge, holding right once in the air, from 1786,465; lands at 1881,593
+      -> as the Morph Ball at x 1863-1881, y 593
+   7. as the Morph Ball: roll off the edge, holding right once in the air, turn back once there's room, from 1863,593, through the oBarrierColor at 1888,528; lands at 2168,657   [event:rMountTemple_C/switch1]
+      -> standing at x 2119-2425, y 657
+   8. running right, jump (held 21 ticks), holding right, from 2320,657; lands at 2474,593
+      -> standing at x 2458-2649, y 593
+   9. running right, jump (held 21 ticks), holding right, from 2528,593; lands at 2681,545
+      -> standing at x 2650-2681, y 545
+  10. jump (held 21 ticks), holding left, from 2650,545; lands at 2519,481
+      -> standing at x 2503-2566, y 481
+  11. jump (held 21 ticks), holding right, double jump at tick 15, from 2503,481; lands at 2579,385   [djump]
+      -> standing at x 2522-2681, y 385
+  12. jump (held 21 ticks), holding right, double jump at tick 15, from 2672,385; lands at 2841,353   [djump]
+      -> standing at x 2810-2841, y 353
+  13. jump (held 21 ticks), holding right, double jump at tick 15, from 2810,353; lands at 2899,257   [djump]
+      -> standing at x 2842-3033, y 257
+  14. standing at 2998,257, presses up at it
+      -> out 3000,224
+how in 48,512 -> out 2824,320: adash,samus:2,event:rMountTemple_C/switch1
+     coming in at 48,512
+   1. coming in: holding nothing, from 48,512; lands at 48,513
+      -> standing at x 39-774, y 513
+   2. running right, walk off the edge, holding right once in the air, from 160,513; lands at 862,622
+      -> standing at x 711-921, y 609-666
+   3. jump (held 2 ticks), holding right, from 896,609; lands at 996,598
+      -> standing at x 951-1081, y 545-609
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1056,545; lands at 1092,481
+      -> standing at x 1082-1689, y 481
+   5. running right, jump (held 21 ticks), holding right, turn into the Morph Ball where the body meets a wall or ceiling, from 1632,481; lands at 1795,465   [samus:2]
+      -> as the Morph Ball at x 1786-1830, y 465
+   6. as the Morph Ball: roll off the edge, holding right once in the air, from 1786,465; lands at 1881,593
+      -> as the Morph Ball at x 1863-1881, y 593
+   7. as the Morph Ball: roll off the edge, holding right once in the air, turn back once there's room, from 1863,593, through the oBarrierColor at 1888,528; lands at 2168,657   [event:rMountTemple_C/switch1]
+      -> standing at x 2119-2425, y 657
+   8. running right, jump (held 21 ticks), holding right, from 2320,657; lands at 2474,593
+      -> standing at x 2458-2649, y 593
+   9. running right, jump (held 21 ticks), holding right, from 2528,593; lands at 2681,545
+      -> standing at x 2650-2681, y 545
+  10. jump (held 21 ticks), holding left, from 2650,545; lands at 2519,481
+      -> standing at x 2503-2566, y 481
+  11. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, air dash (Jerry) at tick 16, from 2503,481; lands at 2615,385   [adash]
+      -> standing at x 2522-2681, y 385
+  12. running right, jump (held 2 ticks), holding right, from 2608,385; lands at 2696,353
+      -> standing at x 2682-2726, y 353
+  13. jump (held 21 ticks), holding left, air dash (Jerry) at tick 10, from 2682,353; lands at 2475,289   [adash]
+      -> standing at x 2426-2502, y 289
+  14. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 2480,289; touches it on the way   [adash]
+      -> out 2824,320
+how in 48,512 -> out 2824,320: djump,samus:2,event:rMountTemple_C/switch1
+     coming in at 48,512
+   1. coming in: holding nothing, from 48,512; lands at 48,513
+      -> standing at x 39-774, y 513
+   2. running right, walk off the edge, holding right once in the air, from 160,513; lands at 862,622
+      -> standing at x 711-921, y 609-666
+   3. jump (held 2 ticks), holding right, from 896,609; lands at 996,598
+      -> standing at x 951-1081, y 545-609
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1056,545; lands at 1092,481
+      -> standing at x 1082-1689, y 481
+   5. running right, jump (held 21 ticks), holding right, turn into the Morph Ball where the body meets a wall or ceiling, from 1632,481; lands at 1795,465   [samus:2]
+      -> as the Morph Ball at x 1786-1830, y 465
+   6. as the Morph Ball: roll off the edge, holding right once in the air, from 1786,465; lands at 1881,593
+      -> as the Morph Ball at x 1863-1881, y 593
+   7. as the Morph Ball: roll off the edge, holding right once in the air, turn back once there's room, from 1863,593, through the oBarrierColor at 1888,528; lands at 2168,657   [event:rMountTemple_C/switch1]
+      -> standing at x 2119-2425, y 657
+   8. running right, jump (held 21 ticks), holding right, from 2320,657; lands at 2474,593
+      -> standing at x 2458-2649, y 593
+   9. running right, jump (held 21 ticks), holding right, from 2528,593; lands at 2681,545
+      -> standing at x 2650-2681, y 545
+  10. jump (held 21 ticks), holding left, from 2650,545; lands at 2519,481
+      -> standing at x 2503-2566, y 481
+  11. jump (held 21 ticks), holding right, double jump at tick 15, from 2503,481; lands at 2579,385   [djump]
+      -> standing at x 2522-2681, y 385
+  12. jump (held 21 ticks), holding right, double jump at tick 15, from 2672,385; touches it on the way   [djump]
+      -> out 2824,320
+how in 48,512 -> out 72,752: event:rMountTemple_C/switch2
+     coming in at 48,512
+   1. coming in: holding nothing, from 48,512; lands at 48,513
+      -> standing at x 39-774, y 513
+   2. running right, walk off the edge, holding right once in the air, from 160,513; lands at 862,622
+      -> standing at x 711-921, y 609-666
+   3. jump (held 2 ticks), holding right, from 896,609; lands at 996,598
+      -> standing at x 951-1081, y 545-609
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1056,545; lands at 1092,481
+      -> standing at x 1082-1689, y 481
+   5. running right, jump (held 21 ticks), holding right, from 1504,481; lands at 1702,465
+      -> standing at x 1690-1734, y 465
+   6. running right, walk off the edge, holding right, then left after 1 ticks in the air, from 1726,465, through the oBarrierColor at 1712,528; lands at 1705,593   [event:rMountTemple_C/switch2]
+      -> standing at x 1562-1705, y 593
+   7. jump (held 6 ticks), holding left, from 1562,593; lands at 1394,721
+      -> standing at x 1380-1434, y 721
+   8. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 1380,721; lands at 1267,689
+      -> standing at x 1255-1286, y 689
+   9. jump (held 21 ticks), holding left, from 1255,689; lands at 1108,723
+      -> standing at x 103-1209, y 689-817
+  10. jump (held 2 ticks), holding left, from 103,817; lands at 71,785
+      -> standing at x 71-102, y 785
+  11. standing at 71,785, presses down at it
+      -> out 72,752
 how in 48,512 -> loc 2 23: samus:2
      coming in at 48,512
    1. coming in: holding nothing, from 48,512; lands at 48,513
@@ -87,12 +242,86 @@ how in 48,512 -> loc 2 23: samus:2
       -> standing at x 2042-2073, y 97
   14. jump (held 6 ticks), holding right, from 2042,97; touches it on the way
       -> loc 2 23
+how in 48,512 -> spot switch1: -
+     coming in at 48,512
+   1. coming in: holding nothing, from 48,512; lands at 48,513
+      -> standing at x 39-774, y 513
+   2. running right, walk off the edge, holding right once in the air, from 160,513; lands at 862,622
+      -> standing at x 711-921, y 609-666
+   3. jump (held 2 ticks), holding right, from 896,609; lands at 996,598
+      -> standing at x 951-1081, y 545-609
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1056,545; lands at 1092,481
+      -> standing at x 1082-1689, y 481
+   5. running right, jump (held 21 ticks), holding right, from 1504,481; lands at 1702,465
+      -> standing at x 1690-1734, y 465
+   6. walk off the edge, holding right, then nothing after 1 ticks in the air, from 1734,465; touches it on the way
+      -> spot switch1
+how in 48,512 -> spot switch2: samus:2,event:rMountTemple_C/switch1
+     coming in at 48,512
+   1. coming in: holding nothing, from 48,512; lands at 48,513
+      -> standing at x 39-774, y 513
+   2. running right, walk off the edge, holding right once in the air, from 160,513; lands at 862,622
+      -> standing at x 711-921, y 609-666
+   3. jump (held 2 ticks), holding right, from 896,609; lands at 996,598
+      -> standing at x 951-1081, y 545-609
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1056,545; lands at 1092,481
+      -> standing at x 1082-1689, y 481
+   5. running right, jump (held 21 ticks), holding right, turn into the Morph Ball where the body meets a wall or ceiling, from 1632,481; lands at 1795,465   [samus:2]
+      -> as the Morph Ball at x 1786-1830, y 465
+   6. as the Morph Ball: roll off the edge, holding right once in the air, turn back once there's room, from 1786,465; lands at 1881,593
+      -> standing at x 1863-1881, y 593
+   7. walk off the edge, holding right once in the air, from 1863,593, through the oBarrierColor at 1888,528; touches it on the way   [event:rMountTemple_C/switch1]
+      -> spot switch2
 how in 352,112 -> out 40,480: -
      coming in at 352,112
    1. coming in: holding right, from 352,112; lands at 591,513
       -> standing at x 39-774, y 513
    2. standing at 39,513, presses up at it
       -> out 40,480
+how in 352,112 -> out 3000,224: -
+     coming in at 352,112
+   1. swap to the partner (party split), at 2944,256
+      -> as the partner (party split), where it starts: 2944,256
+   2. coming in: holding nothing, from 2944,256; lands at 2944,257
+      -> standing at x 2842-3033, y 257
+   3. standing at 2998,257, presses up at it
+      -> out 3000,224
+how in 352,112 -> out 2824,320: -
+     coming in at 352,112
+   1. swap to the partner (party split), at 2944,256
+      -> as the partner (party split), where it starts: 2944,256
+   2. coming in: holding nothing, from 2944,256; lands at 2944,257
+      -> standing at x 2842-3033, y 257
+   3. jump (held 2 ticks), holding left, from 2842,257; lands at 2740,257
+      -> standing at x 2714-2758, y 257
+   4. jump (held 2 ticks), holding left, from 2714,257; lands at 2590,289
+      -> standing at x 2570-2614, y 289
+   5. jump (held 21 ticks), holding right, from 2606,289; touches it on the way
+      -> out 2824,320
+how in 352,112 -> out 72,752: event:rMountTemple_C/switch2
+     coming in at 352,112
+   1. coming in: holding right, from 352,112; lands at 591,513
+      -> standing at x 39-774, y 513
+   2. running right, walk off the edge, holding right once in the air, from 160,513; lands at 862,622
+      -> standing at x 711-921, y 609-666
+   3. jump (held 2 ticks), holding right, from 896,609; lands at 996,598
+      -> standing at x 951-1081, y 545-609
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1056,545; lands at 1092,481
+      -> standing at x 1082-1689, y 481
+   5. running right, jump (held 21 ticks), holding right, from 1504,481; lands at 1702,465
+      -> standing at x 1690-1734, y 465
+   6. running right, walk off the edge, holding right, then left after 1 ticks in the air, from 1726,465, through the oBarrierColor at 1712,528; lands at 1705,593   [event:rMountTemple_C/switch2]
+      -> standing at x 1562-1705, y 593
+   7. jump (held 6 ticks), holding left, from 1562,593; lands at 1394,721
+      -> standing at x 1380-1434, y 721
+   8. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 1380,721; lands at 1267,689
+      -> standing at x 1255-1286, y 689
+   9. jump (held 21 ticks), holding left, from 1255,689; lands at 1108,723
+      -> standing at x 103-1209, y 689-817
+  10. jump (held 2 ticks), holding left, from 103,817; lands at 71,785
+      -> standing at x 71-102, y 785
+  11. standing at 71,785, presses down at it
+      -> out 72,752
 how in 352,112 -> loc 2 23: samus:2
      coming in at 352,112
    1. coming in: holding right, from 352,112; lands at 591,513
@@ -123,19 +352,107 @@ how in 352,112 -> loc 2 23: samus:2
       -> standing at x 2042-2073, y 97
   14. jump (held 6 ticks), holding right, from 2042,97; touches it on the way
       -> loc 2 23
-how in 2256,112 -> out 3000,224: -
+how in 352,112 -> loc 2 23: event:rMountTemple_C/switch1
+     coming in at 352,112
+   1. swap to the partner (party split), at 2944,256
+      -> as the partner (party split), where it starts: 2944,256
+   2. coming in: holding nothing, from 2944,256; lands at 2944,257
+      -> standing at x 2842-3033, y 257
+   3. jump (held 6 ticks), holding left, from 2842,257; lands at 2623,385
+      -> standing at x 2522-2681, y 385
+   4. walk off the edge, holding left, then right after 1 ticks in the air, from 2522,385; lands at 2543,481
+      -> standing at x 2503-2566, y 481
+   5. walk off the edge, holding right once in the air, from 2503,481; lands at 2649,593
+      -> standing at x 2458-2649, y 593
+   6. walk off the edge, holding left once in the air, from 2458,593; lands at 2378,657
+      -> standing at x 2119-2425, y 657
+   7. jump (held 21 ticks), holding left, from 2119,657; lands at 2014,593
+      -> standing at x 1911-2086, y 593
+   8. running left, jump (held 21 ticks), holding left, from 1911,593, through the oBarrierColor at 1888,528; lands at 1831,529   [event:rMountTemple_C/switch1]
+      -> standing at x 1831-1862, y 529
+   9. jump (held 21 ticks), holding right, from 1831,529; lands at 1913,465
+      -> standing at x 1882-1913, y 465
+  10. jump (held 6 ticks), holding left, from 1882,465; lands at 1831,417
+      -> standing at x 1831-1862, y 417
+  11. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1831,417; lands at 1954,385
+      -> standing at x 1914-2041, y 385
+  12. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, from 2032,385; lands at 1927,225
+      -> standing at x 1927-1942, y 225
+  13. jump (held 21 ticks), holding right, from 1927,225; lands at 2041,161
+      -> standing at x 2026-2041, y 161
+  14. jump (held 21 ticks), holding right, from 2026,161; lands at 2073,97
+      -> standing at x 2042-2073, y 97
+  15. jump (held 6 ticks), holding right, from 2042,97; touches it on the way
+      -> loc 2 23
+how in 352,112 -> spot switch1: -
+     coming in at 352,112
+   1. coming in: holding right, from 352,112; lands at 591,513
+      -> standing at x 39-774, y 513
+   2. running right, walk off the edge, holding right once in the air, from 160,513; lands at 862,622
+      -> standing at x 711-921, y 609-666
+   3. jump (held 2 ticks), holding right, from 896,609; lands at 996,598
+      -> standing at x 951-1081, y 545-609
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1056,545; lands at 1092,481
+      -> standing at x 1082-1689, y 481
+   5. running right, jump (held 21 ticks), holding right, from 1504,481; lands at 1702,465
+      -> standing at x 1690-1734, y 465
+   6. walk off the edge, holding right, then nothing after 1 ticks in the air, from 1734,465; touches it on the way
+      -> spot switch1
+how in 352,112 -> spot switch2: -
+     coming in at 352,112
+   1. swap to the partner (party split), at 2944,256
+      -> as the partner (party split), where it starts: 2944,256
+   2. coming in: holding nothing, from 2944,256; lands at 2944,257
+      -> standing at x 2842-3033, y 257
+   3. jump (held 6 ticks), holding left, from 2842,257; lands at 2623,385
+      -> standing at x 2522-2681, y 385
+   4. walk off the edge, holding left, then right after 1 ticks in the air, from 2522,385; lands at 2543,481
+      -> standing at x 2503-2566, y 481
+   5. walk off the edge, holding right once in the air, from 2503,481; lands at 2649,593
+      -> standing at x 2458-2649, y 593
+   6. walk off the edge, holding left once in the air, from 2458,593; lands at 2378,657
+      -> standing at x 2119-2425, y 657
+   7. jump (held 21 ticks), holding left, from 2119,657; lands at 2014,593
+      -> standing at x 1911-2086, y 593
+   8. standing at 1946,593, on it
+      -> spot switch2
+how in 2256,112 -> out 40,480: djump,event:rMountTemple_C/switch1
      coming in at 2256,112
    1. coming in: holding nothing, from 2256,112; lands at 2256,289
       -> standing at x 2202-2310, y 289
-   2. running right, jump (held 21 ticks), holding right, from 2240,289; lands at 2446,289
-      -> standing at x 2426-2502, y 289
-   3. jump (held 21 ticks), holding right, from 2426,289; lands at 2609,289
-      -> standing at x 2570-2614, y 289
-   4. jump (held 21 ticks), holding right, from 2570,289; lands at 2738,257
-      -> standing at x 2714-2758, y 257
-   5. jump (held 6 ticks), holding right, from 2714,257; lands at 2853,257
+   2. running right, jump (held 21 ticks), holding right, from 2306,289; lands at 2570,385
+      -> standing at x 2522-2681, y 385
+   3. walk off the edge, holding left, then right after 1 ticks in the air, from 2522,385; lands at 2543,481
+      -> standing at x 2503-2566, y 481
+   4. walk off the edge, holding right once in the air, from 2503,481; lands at 2649,593
+      -> standing at x 2458-2649, y 593
+   5. walk off the edge, holding left once in the air, from 2458,593; lands at 2378,657
+      -> standing at x 2119-2425, y 657
+   6. jump (held 21 ticks), holding left, from 2119,657; lands at 2014,593
+      -> standing at x 1911-2086, y 593
+   7. running left, jump (held 21 ticks), holding left, from 1911,593, through the oBarrierColor at 1888,528; lands at 1831,529   [event:rMountTemple_C/switch1]
+      -> standing at x 1831-1862, y 529
+   8. jump (held 21 ticks), holding right, from 1831,529; lands at 1913,465
+      -> standing at x 1882-1913, y 465
+   9. jump (held 6 ticks), holding left, from 1882,465; lands at 1831,417
+      -> standing at x 1831-1862, y 417
+  10. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1831,417; lands at 1954,385
+      -> standing at x 1914-2041, y 385
+  11. jump (held 21 ticks), holding left, double jump at tick 15, from 1914,385; lands at 1783,281   [djump]
+      -> standing at x 1594-1830, y 225-289
+  12. walk off the edge, holding left once in the air, from 1594,225; lands at 1536,257
+      -> standing at x 570-1593, y 129-257
+  13. walk off the edge, holding left, then nothing after 1 ticks in the air, from 570,129; lands at 536,513
+      -> standing at x 39-774, y 513
+  14. standing at 39,513, presses up at it
+      -> out 40,480
+how in 2256,112 -> out 3000,224: -
+     coming in at 2256,112
+   1. swap to the partner (party split), at 2944,256
+      -> as the partner (party split), where it starts: 2944,256
+   2. coming in: holding nothing, from 2944,256; lands at 2944,257
       -> standing at x 2842-3033, y 257
-   6. standing at 2998,257, presses up at it
+   3. standing at 2998,257, presses up at it
       -> out 3000,224
 how in 2256,112 -> out 2824,320: -
      coming in at 2256,112
@@ -147,6 +464,218 @@ how in 2256,112 -> out 2824,320: -
       -> standing at x 2570-2614, y 289
    4. jump (held 21 ticks), holding right, from 2606,289; touches it on the way
       -> out 2824,320
+how in 2256,112 -> out 72,752: samus:2,event:rMountTemple_C/switch1,event:rMountTemple_C/switch2
+     coming in at 2256,112
+   1. coming in: holding nothing, from 2256,112; lands at 2256,289
+      -> standing at x 2202-2310, y 289
+   2. running right, jump (held 21 ticks), holding right, from 2306,289; lands at 2570,385
+      -> standing at x 2522-2681, y 385
+   3. walk off the edge, holding left, then right after 1 ticks in the air, from 2522,385; lands at 2543,481
+      -> standing at x 2503-2566, y 481
+   4. walk off the edge, holding right once in the air, from 2503,481; lands at 2649,593
+      -> standing at x 2458-2649, y 593
+   5. walk off the edge, holding left once in the air, from 2458,593; lands at 2378,657
+      -> standing at x 2119-2425, y 657
+   6. jump (held 21 ticks), holding left, from 2119,657; lands at 2014,593
+      -> standing at x 1911-2086, y 593
+   7. running left, jump (held 21 ticks), holding left, from 1911,593, through the oBarrierColor at 1888,528; lands at 1831,529   [event:rMountTemple_C/switch1]
+      -> standing at x 1831-1862, y 529
+   8. jump (held 21 ticks), holding nothing, then left after 14 ticks, turn into the Morph Ball where the body meets a wall or ceiling, from 1831,529; lands at 1809,465   [samus:2]
+      -> as the Morph Ball at x 1786-1830, y 465
+   9. as the Morph Ball: running left, roll off the edge, holding left once in the air, turn back once there's room, from 1794,465, through the oBarrierColor at 1712,528; lands at 1705,593   [event:rMountTemple_C/switch2]
+      -> standing at x 1562-1705, y 593
+  10. jump (held 6 ticks), holding left, from 1562,593; lands at 1394,721
+      -> standing at x 1380-1434, y 721
+  11. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 1380,721; lands at 1267,689
+      -> standing at x 1255-1286, y 689
+  12. jump (held 21 ticks), holding left, from 1255,689; lands at 1108,723
+      -> standing at x 103-1209, y 689-817
+  13. jump (held 2 ticks), holding left, from 103,817; lands at 71,785
+      -> standing at x 71-102, y 785
+  14. standing at 71,785, presses down at it
+      -> out 72,752
+how in 2256,112 -> out 72,752: djump,event:rMountTemple_C/switch1,event:rMountTemple_C/switch2
+     coming in at 2256,112
+   1. coming in: holding nothing, from 2256,112; lands at 2256,289
+      -> standing at x 2202-2310, y 289
+   2. running right, jump (held 21 ticks), holding right, from 2306,289; lands at 2570,385
+      -> standing at x 2522-2681, y 385
+   3. walk off the edge, holding left, then right after 1 ticks in the air, from 2522,385; lands at 2543,481
+      -> standing at x 2503-2566, y 481
+   4. walk off the edge, holding right once in the air, from 2503,481; lands at 2649,593
+      -> standing at x 2458-2649, y 593
+   5. walk off the edge, holding left once in the air, from 2458,593; lands at 2378,657
+      -> standing at x 2119-2425, y 657
+   6. jump (held 21 ticks), holding left, from 2119,657; lands at 2014,593
+      -> standing at x 1911-2086, y 593
+   7. running left, jump (held 21 ticks), holding left, from 1911,593, through the oBarrierColor at 1888,528; lands at 1831,529   [event:rMountTemple_C/switch1]
+      -> standing at x 1831-1862, y 529
+   8. jump (held 21 ticks), holding right, from 1831,529; lands at 1913,465
+      -> standing at x 1882-1913, y 465
+   9. jump (held 6 ticks), holding left, from 1882,465; lands at 1831,417
+      -> standing at x 1831-1862, y 417
+  10. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1831,417; lands at 1954,385
+      -> standing at x 1914-2041, y 385
+  11. jump (held 21 ticks), holding left, double jump at tick 15, from 1914,385; lands at 1783,281   [djump]
+      -> standing at x 1594-1830, y 225-289
+  12. walk off the edge, holding left once in the air, from 1594,225; lands at 1536,257
+      -> standing at x 570-1593, y 129-257
+  13. walk off the edge, holding left, then nothing after 1 ticks in the air, from 570,129; lands at 536,513
+      -> standing at x 39-774, y 513
+  14. running right, walk off the edge, holding right once in the air, from 160,513; lands at 862,622
+      -> standing at x 711-921, y 609-666
+  15. running right, jump (held 21 ticks), holding right, then nothing after 2 ticks, from 896,609; lands at 938,577
+      -> standing at x 922-950, y 577
+  16. jump (held 21 ticks), holding right, double jump at tick 15, from 922,577; lands at 1119,481   [djump]
+      -> standing at x 1082-1689, y 481
+  17. running right, jump (held 21 ticks), holding right, from 1504,481; lands at 1702,465
+      -> standing at x 1690-1734, y 465
+  18. running right, walk off the edge, holding right, then left after 1 ticks in the air, from 1726,465, through the oBarrierColor at 1712,528; lands at 1705,593   [event:rMountTemple_C/switch2]
+      -> standing at x 1562-1705, y 593
+  19. jump (held 6 ticks), holding left, from 1562,593; lands at 1394,721
+      -> standing at x 1380-1434, y 721
+  20. jump (held 21 ticks), holding left, double jump at tick 15, from 1392,721; lands at 1123,716   [djump]
+      -> standing at x 103-1209, y 689-817
+  21. jump (held 2 ticks), holding left, from 103,817; lands at 71,785
+      -> standing at x 71-102, y 785
+  22. standing at 71,785, presses down at it
+      -> out 72,752
+how in 2256,112 -> loc 2 23: event:rMountTemple_C/switch1
+     coming in at 2256,112
+   1. coming in: holding nothing, from 2256,112; lands at 2256,289
+      -> standing at x 2202-2310, y 289
+   2. running right, jump (held 21 ticks), holding right, from 2306,289; lands at 2570,385
+      -> standing at x 2522-2681, y 385
+   3. walk off the edge, holding left, then right after 1 ticks in the air, from 2522,385; lands at 2543,481
+      -> standing at x 2503-2566, y 481
+   4. walk off the edge, holding right once in the air, from 2503,481; lands at 2649,593
+      -> standing at x 2458-2649, y 593
+   5. walk off the edge, holding left once in the air, from 2458,593; lands at 2378,657
+      -> standing at x 2119-2425, y 657
+   6. jump (held 21 ticks), holding left, from 2119,657; lands at 2014,593
+      -> standing at x 1911-2086, y 593
+   7. running left, jump (held 21 ticks), holding left, from 1911,593, through the oBarrierColor at 1888,528; lands at 1831,529   [event:rMountTemple_C/switch1]
+      -> standing at x 1831-1862, y 529
+   8. jump (held 21 ticks), holding right, from 1831,529; lands at 1913,465
+      -> standing at x 1882-1913, y 465
+   9. jump (held 6 ticks), holding left, from 1882,465; lands at 1831,417
+      -> standing at x 1831-1862, y 417
+  10. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1831,417; lands at 1954,385
+      -> standing at x 1914-2041, y 385
+  11. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, from 2032,385; lands at 1927,225
+      -> standing at x 1927-1942, y 225
+  12. jump (held 21 ticks), holding right, from 1927,225; lands at 2041,161
+      -> standing at x 2026-2041, y 161
+  13. jump (held 21 ticks), holding right, from 2026,161; lands at 2073,97
+      -> standing at x 2042-2073, y 97
+  14. jump (held 6 ticks), holding right, from 2042,97; touches it on the way
+      -> loc 2 23
+how in 2256,112 -> spot switch1: djump,event:rMountTemple_C/switch1
+     coming in at 2256,112
+   1. coming in: holding nothing, from 2256,112; lands at 2256,289
+      -> standing at x 2202-2310, y 289
+   2. running right, jump (held 21 ticks), holding right, from 2306,289; lands at 2570,385
+      -> standing at x 2522-2681, y 385
+   3. walk off the edge, holding left, then right after 1 ticks in the air, from 2522,385; lands at 2543,481
+      -> standing at x 2503-2566, y 481
+   4. walk off the edge, holding right once in the air, from 2503,481; lands at 2649,593
+      -> standing at x 2458-2649, y 593
+   5. walk off the edge, holding left once in the air, from 2458,593; lands at 2378,657
+      -> standing at x 2119-2425, y 657
+   6. jump (held 21 ticks), holding left, from 2119,657; lands at 2014,593
+      -> standing at x 1911-2086, y 593
+   7. running left, jump (held 21 ticks), holding left, from 1911,593, through the oBarrierColor at 1888,528; lands at 1831,529   [event:rMountTemple_C/switch1]
+      -> standing at x 1831-1862, y 529
+   8. jump (held 21 ticks), holding right, from 1831,529; lands at 1913,465
+      -> standing at x 1882-1913, y 465
+   9. jump (held 6 ticks), holding left, from 1882,465; lands at 1831,417
+      -> standing at x 1831-1862, y 417
+  10. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1831,417; lands at 1954,385
+      -> standing at x 1914-2041, y 385
+  11. jump (held 21 ticks), holding left, double jump at tick 15, from 1914,385; lands at 1783,281   [djump]
+      -> standing at x 1594-1830, y 225-289
+  12. walk off the edge, holding left once in the air, from 1594,225; lands at 1536,257
+      -> standing at x 570-1593, y 129-257
+  13. walk off the edge, holding left, then nothing after 1 ticks in the air, from 570,129; lands at 536,513
+      -> standing at x 39-774, y 513
+  14. running right, walk off the edge, holding right once in the air, from 160,513; lands at 862,622
+      -> standing at x 711-921, y 609-666
+  15. running right, jump (held 21 ticks), holding right, then nothing after 2 ticks, from 896,609; lands at 938,577
+      -> standing at x 922-950, y 577
+  16. jump (held 21 ticks), holding right, double jump at tick 15, from 922,577; lands at 1119,481   [djump]
+      -> standing at x 1082-1689, y 481
+  17. running right, jump (held 21 ticks), holding right, from 1504,481; lands at 1702,465
+      -> standing at x 1690-1734, y 465
+  18. walk off the edge, holding right, then nothing after 1 ticks in the air, from 1734,465; touches it on the way
+      -> spot switch1
+how in 2256,112 -> spot switch1: samus:2,event:rMountTemple_C/switch1
+     coming in at 2256,112
+   1. coming in: holding nothing, from 2256,112; lands at 2256,289
+      -> standing at x 2202-2310, y 289
+   2. running right, jump (held 21 ticks), holding right, from 2306,289; lands at 2570,385
+      -> standing at x 2522-2681, y 385
+   3. walk off the edge, holding left, then right after 1 ticks in the air, from 2522,385; lands at 2543,481
+      -> standing at x 2503-2566, y 481
+   4. walk off the edge, holding right once in the air, from 2503,481; lands at 2649,593
+      -> standing at x 2458-2649, y 593
+   5. walk off the edge, holding left once in the air, from 2458,593; lands at 2378,657
+      -> standing at x 2119-2425, y 657
+   6. jump (held 21 ticks), holding left, from 2119,657; lands at 2014,593
+      -> standing at x 1911-2086, y 593
+   7. running left, jump (held 21 ticks), holding left, from 1911,593, through the oBarrierColor at 1888,528; lands at 1831,529   [event:rMountTemple_C/switch1]
+      -> standing at x 1831-1862, y 529
+   8. jump (held 21 ticks), holding nothing, then left after 14 ticks, turn into the Morph Ball where the body meets a wall or ceiling, from 1831,529; lands at 1809,465   [samus:2]
+      -> as the Morph Ball at x 1786-1830, y 465
+   9. as the Morph Ball: running left, roll off the edge, holding left once in the air, turn back once there's room, from 1786,465; lands at 1735,593
+      -> standing at x 1735-1785, y 593
+  10. standing at 1738,593, on it
+      -> spot switch1
+how in 2256,112 -> spot switch2: -
+     coming in at 2256,112
+   1. coming in: holding nothing, from 2256,112; lands at 2256,289
+      -> standing at x 2202-2310, y 289
+   2. running right, jump (held 21 ticks), holding right, from 2306,289; lands at 2570,385
+      -> standing at x 2522-2681, y 385
+   3. walk off the edge, holding left, then right after 1 ticks in the air, from 2522,385; lands at 2543,481
+      -> standing at x 2503-2566, y 481
+   4. walk off the edge, holding right once in the air, from 2503,481; lands at 2649,593
+      -> standing at x 2458-2649, y 593
+   5. walk off the edge, holding left once in the air, from 2458,593; lands at 2378,657
+      -> standing at x 2119-2425, y 657
+   6. jump (held 21 ticks), holding left, from 2119,657; lands at 2014,593
+      -> standing at x 1911-2086, y 593
+   7. standing at 1946,593, on it
+      -> spot switch2
+how in 3008,256 -> out 40,480: djump,event:rMountTemple_C/switch1
+     coming in at 3008,256
+   1. coming in: holding nothing, from 3008,256; lands at 3008,257
+      -> standing at x 2842-3033, y 257
+   2. jump (held 6 ticks), holding left, from 2842,257; lands at 2623,385
+      -> standing at x 2522-2681, y 385
+   3. walk off the edge, holding left, then right after 1 ticks in the air, from 2522,385; lands at 2543,481
+      -> standing at x 2503-2566, y 481
+   4. walk off the edge, holding right once in the air, from 2503,481; lands at 2649,593
+      -> standing at x 2458-2649, y 593
+   5. walk off the edge, holding left once in the air, from 2458,593; lands at 2378,657
+      -> standing at x 2119-2425, y 657
+   6. jump (held 21 ticks), holding left, from 2119,657; lands at 2014,593
+      -> standing at x 1911-2086, y 593
+   7. running left, jump (held 21 ticks), holding left, from 1911,593, through the oBarrierColor at 1888,528; lands at 1831,529   [event:rMountTemple_C/switch1]
+      -> standing at x 1831-1862, y 529
+   8. jump (held 21 ticks), holding right, from 1831,529; lands at 1913,465
+      -> standing at x 1882-1913, y 465
+   9. jump (held 6 ticks), holding left, from 1882,465; lands at 1831,417
+      -> standing at x 1831-1862, y 417
+  10. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1831,417; lands at 1954,385
+      -> standing at x 1914-2041, y 385
+  11. jump (held 21 ticks), holding left, double jump at tick 15, from 1914,385; lands at 1783,281   [djump]
+      -> standing at x 1594-1830, y 225-289
+  12. walk off the edge, holding left once in the air, from 1594,225; lands at 1536,257
+      -> standing at x 570-1593, y 129-257
+  13. walk off the edge, holding left, then nothing after 1 ticks in the air, from 570,129; lands at 536,513
+      -> standing at x 39-774, y 513
+  14. standing at 39,513, presses up at it
+      -> out 40,480
 how in 3008,256 -> out 3000,224: -
      coming in at 3008,256
    1. coming in: holding nothing, from 3008,256; lands at 3008,257
@@ -163,3 +692,185 @@ how in 3008,256 -> out 2824,320: -
       -> standing at x 2570-2614, y 289
    4. jump (held 21 ticks), holding right, from 2606,289; touches it on the way
       -> out 2824,320
+how in 3008,256 -> out 72,752: samus:2,event:rMountTemple_C/switch1,event:rMountTemple_C/switch2
+     coming in at 3008,256
+   1. coming in: holding nothing, from 3008,256; lands at 3008,257
+      -> standing at x 2842-3033, y 257
+   2. jump (held 6 ticks), holding left, from 2842,257; lands at 2623,385
+      -> standing at x 2522-2681, y 385
+   3. walk off the edge, holding left, then right after 1 ticks in the air, from 2522,385; lands at 2543,481
+      -> standing at x 2503-2566, y 481
+   4. walk off the edge, holding right once in the air, from 2503,481; lands at 2649,593
+      -> standing at x 2458-2649, y 593
+   5. walk off the edge, holding left once in the air, from 2458,593; lands at 2378,657
+      -> standing at x 2119-2425, y 657
+   6. jump (held 21 ticks), holding left, from 2119,657; lands at 2014,593
+      -> standing at x 1911-2086, y 593
+   7. running left, jump (held 21 ticks), holding left, from 1911,593, through the oBarrierColor at 1888,528; lands at 1831,529   [event:rMountTemple_C/switch1]
+      -> standing at x 1831-1862, y 529
+   8. jump (held 21 ticks), holding nothing, then left after 14 ticks, turn into the Morph Ball where the body meets a wall or ceiling, from 1831,529; lands at 1809,465   [samus:2]
+      -> as the Morph Ball at x 1786-1830, y 465
+   9. as the Morph Ball: running left, roll off the edge, holding left once in the air, turn back once there's room, from 1794,465, through the oBarrierColor at 1712,528; lands at 1705,593   [event:rMountTemple_C/switch2]
+      -> standing at x 1562-1705, y 593
+  10. jump (held 6 ticks), holding left, from 1562,593; lands at 1394,721
+      -> standing at x 1380-1434, y 721
+  11. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 1380,721; lands at 1267,689
+      -> standing at x 1255-1286, y 689
+  12. jump (held 21 ticks), holding left, from 1255,689; lands at 1108,723
+      -> standing at x 103-1209, y 689-817
+  13. jump (held 2 ticks), holding left, from 103,817; lands at 71,785
+      -> standing at x 71-102, y 785
+  14. standing at 71,785, presses down at it
+      -> out 72,752
+how in 3008,256 -> out 72,752: djump,event:rMountTemple_C/switch1,event:rMountTemple_C/switch2
+     coming in at 3008,256
+   1. coming in: holding nothing, from 3008,256; lands at 3008,257
+      -> standing at x 2842-3033, y 257
+   2. jump (held 6 ticks), holding left, from 2842,257; lands at 2623,385
+      -> standing at x 2522-2681, y 385
+   3. walk off the edge, holding left, then right after 1 ticks in the air, from 2522,385; lands at 2543,481
+      -> standing at x 2503-2566, y 481
+   4. walk off the edge, holding right once in the air, from 2503,481; lands at 2649,593
+      -> standing at x 2458-2649, y 593
+   5. walk off the edge, holding left once in the air, from 2458,593; lands at 2378,657
+      -> standing at x 2119-2425, y 657
+   6. jump (held 21 ticks), holding left, from 2119,657; lands at 2014,593
+      -> standing at x 1911-2086, y 593
+   7. running left, jump (held 21 ticks), holding left, from 1911,593, through the oBarrierColor at 1888,528; lands at 1831,529   [event:rMountTemple_C/switch1]
+      -> standing at x 1831-1862, y 529
+   8. jump (held 21 ticks), holding right, from 1831,529; lands at 1913,465
+      -> standing at x 1882-1913, y 465
+   9. jump (held 6 ticks), holding left, from 1882,465; lands at 1831,417
+      -> standing at x 1831-1862, y 417
+  10. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1831,417; lands at 1954,385
+      -> standing at x 1914-2041, y 385
+  11. jump (held 21 ticks), holding left, double jump at tick 15, from 1914,385; lands at 1783,281   [djump]
+      -> standing at x 1594-1830, y 225-289
+  12. walk off the edge, holding left once in the air, from 1594,225; lands at 1536,257
+      -> standing at x 570-1593, y 129-257
+  13. walk off the edge, holding left, then nothing after 1 ticks in the air, from 570,129; lands at 536,513
+      -> standing at x 39-774, y 513
+  14. running right, walk off the edge, holding right once in the air, from 160,513; lands at 862,622
+      -> standing at x 711-921, y 609-666
+  15. running right, jump (held 21 ticks), holding right, then nothing after 2 ticks, from 896,609; lands at 938,577
+      -> standing at x 922-950, y 577
+  16. jump (held 21 ticks), holding right, double jump at tick 15, from 922,577; lands at 1119,481   [djump]
+      -> standing at x 1082-1689, y 481
+  17. running right, jump (held 21 ticks), holding right, from 1504,481; lands at 1702,465
+      -> standing at x 1690-1734, y 465
+  18. running right, walk off the edge, holding right, then left after 1 ticks in the air, from 1726,465, through the oBarrierColor at 1712,528; lands at 1705,593   [event:rMountTemple_C/switch2]
+      -> standing at x 1562-1705, y 593
+  19. jump (held 6 ticks), holding left, from 1562,593; lands at 1394,721
+      -> standing at x 1380-1434, y 721
+  20. jump (held 21 ticks), holding left, double jump at tick 15, from 1392,721; lands at 1123,716   [djump]
+      -> standing at x 103-1209, y 689-817
+  21. jump (held 2 ticks), holding left, from 103,817; lands at 71,785
+      -> standing at x 71-102, y 785
+  22. standing at 71,785, presses down at it
+      -> out 72,752
+how in 3008,256 -> loc 2 23: event:rMountTemple_C/switch1
+     coming in at 3008,256
+   1. coming in: holding nothing, from 3008,256; lands at 3008,257
+      -> standing at x 2842-3033, y 257
+   2. jump (held 6 ticks), holding left, from 2842,257; lands at 2623,385
+      -> standing at x 2522-2681, y 385
+   3. walk off the edge, holding left, then right after 1 ticks in the air, from 2522,385; lands at 2543,481
+      -> standing at x 2503-2566, y 481
+   4. walk off the edge, holding right once in the air, from 2503,481; lands at 2649,593
+      -> standing at x 2458-2649, y 593
+   5. walk off the edge, holding left once in the air, from 2458,593; lands at 2378,657
+      -> standing at x 2119-2425, y 657
+   6. jump (held 21 ticks), holding left, from 2119,657; lands at 2014,593
+      -> standing at x 1911-2086, y 593
+   7. running left, jump (held 21 ticks), holding left, from 1911,593, through the oBarrierColor at 1888,528; lands at 1831,529   [event:rMountTemple_C/switch1]
+      -> standing at x 1831-1862, y 529
+   8. jump (held 21 ticks), holding right, from 1831,529; lands at 1913,465
+      -> standing at x 1882-1913, y 465
+   9. jump (held 6 ticks), holding left, from 1882,465; lands at 1831,417
+      -> standing at x 1831-1862, y 417
+  10. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1831,417; lands at 1954,385
+      -> standing at x 1914-2041, y 385
+  11. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, from 2032,385; lands at 1927,225
+      -> standing at x 1927-1942, y 225
+  12. jump (held 21 ticks), holding right, from 1927,225; lands at 2041,161
+      -> standing at x 2026-2041, y 161
+  13. jump (held 21 ticks), holding right, from 2026,161; lands at 2073,97
+      -> standing at x 2042-2073, y 97
+  14. jump (held 6 ticks), holding right, from 2042,97; touches it on the way
+      -> loc 2 23
+how in 3008,256 -> spot switch1: djump,event:rMountTemple_C/switch1
+     coming in at 3008,256
+   1. coming in: holding nothing, from 3008,256; lands at 3008,257
+      -> standing at x 2842-3033, y 257
+   2. jump (held 6 ticks), holding left, from 2842,257; lands at 2623,385
+      -> standing at x 2522-2681, y 385
+   3. walk off the edge, holding left, then right after 1 ticks in the air, from 2522,385; lands at 2543,481
+      -> standing at x 2503-2566, y 481
+   4. walk off the edge, holding right once in the air, from 2503,481; lands at 2649,593
+      -> standing at x 2458-2649, y 593
+   5. walk off the edge, holding left once in the air, from 2458,593; lands at 2378,657
+      -> standing at x 2119-2425, y 657
+   6. jump (held 21 ticks), holding left, from 2119,657; lands at 2014,593
+      -> standing at x 1911-2086, y 593
+   7. running left, jump (held 21 ticks), holding left, from 1911,593, through the oBarrierColor at 1888,528; lands at 1831,529   [event:rMountTemple_C/switch1]
+      -> standing at x 1831-1862, y 529
+   8. jump (held 21 ticks), holding right, from 1831,529; lands at 1913,465
+      -> standing at x 1882-1913, y 465
+   9. jump (held 6 ticks), holding left, from 1882,465; lands at 1831,417
+      -> standing at x 1831-1862, y 417
+  10. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1831,417; lands at 1954,385
+      -> standing at x 1914-2041, y 385
+  11. jump (held 21 ticks), holding left, double jump at tick 15, from 1914,385; lands at 1783,281   [djump]
+      -> standing at x 1594-1830, y 225-289
+  12. walk off the edge, holding left once in the air, from 1594,225; lands at 1536,257
+      -> standing at x 570-1593, y 129-257
+  13. walk off the edge, holding left, then nothing after 1 ticks in the air, from 570,129; lands at 536,513
+      -> standing at x 39-774, y 513
+  14. running right, walk off the edge, holding right once in the air, from 160,513; lands at 862,622
+      -> standing at x 711-921, y 609-666
+  15. running right, jump (held 21 ticks), holding right, then nothing after 2 ticks, from 896,609; lands at 938,577
+      -> standing at x 922-950, y 577
+  16. jump (held 21 ticks), holding right, double jump at tick 15, from 922,577; lands at 1119,481   [djump]
+      -> standing at x 1082-1689, y 481
+  17. running right, jump (held 21 ticks), holding right, from 1504,481; lands at 1702,465
+      -> standing at x 1690-1734, y 465
+  18. walk off the edge, holding right, then nothing after 1 ticks in the air, from 1734,465; touches it on the way
+      -> spot switch1
+how in 3008,256 -> spot switch1: samus:2,event:rMountTemple_C/switch1
+     coming in at 3008,256
+   1. coming in: holding nothing, from 3008,256; lands at 3008,257
+      -> standing at x 2842-3033, y 257
+   2. jump (held 6 ticks), holding left, from 2842,257; lands at 2623,385
+      -> standing at x 2522-2681, y 385
+   3. walk off the edge, holding left, then right after 1 ticks in the air, from 2522,385; lands at 2543,481
+      -> standing at x 2503-2566, y 481
+   4. walk off the edge, holding right once in the air, from 2503,481; lands at 2649,593
+      -> standing at x 2458-2649, y 593
+   5. walk off the edge, holding left once in the air, from 2458,593; lands at 2378,657
+      -> standing at x 2119-2425, y 657
+   6. jump (held 21 ticks), holding left, from 2119,657; lands at 2014,593
+      -> standing at x 1911-2086, y 593
+   7. running left, jump (held 21 ticks), holding left, from 1911,593, through the oBarrierColor at 1888,528; lands at 1831,529   [event:rMountTemple_C/switch1]
+      -> standing at x 1831-1862, y 529
+   8. jump (held 21 ticks), holding nothing, then left after 14 ticks, turn into the Morph Ball where the body meets a wall or ceiling, from 1831,529; lands at 1809,465   [samus:2]
+      -> as the Morph Ball at x 1786-1830, y 465
+   9. as the Morph Ball: running left, roll off the edge, holding left once in the air, turn back once there's room, from 1786,465; lands at 1735,593
+      -> standing at x 1735-1785, y 593
+  10. standing at 1738,593, on it
+      -> spot switch1
+how in 3008,256 -> spot switch2: -
+     coming in at 3008,256
+   1. coming in: holding nothing, from 3008,256; lands at 3008,257
+      -> standing at x 2842-3033, y 257
+   2. jump (held 6 ticks), holding left, from 2842,257; lands at 2623,385
+      -> standing at x 2522-2681, y 385
+   3. walk off the edge, holding left, then right after 1 ticks in the air, from 2522,385; lands at 2543,481
+      -> standing at x 2503-2566, y 481
+   4. walk off the edge, holding right once in the air, from 2503,481; lands at 2649,593
+      -> standing at x 2458-2649, y 593
+   5. walk off the edge, holding left once in the air, from 2458,593; lands at 2378,657
+      -> standing at x 2119-2425, y 657
+   6. jump (held 21 ticks), holding left, from 2119,657; lands at 2014,593
+      -> standing at x 1911-2086, y 593
+   7. standing at 1946,593, on it
+      -> spot switch2

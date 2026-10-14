@@ -17,6 +17,12 @@ out 48,64   # to rBubbleTowerA6 at 128,304; the player presses up at it
 
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 
+# Spots: somewhere whose reaching opens a way (the barriers that wait for it need event:rBubbleTowerA5/<spot>, and
+# solve.py makes that what reaching the spot needs)
+spot switch1   # a colored switch the partner can be left standing on (party split), at 343,391
+spot key1   # a colored key, at 175,343
+spot key2   # a colored key, at 279,663
+
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
@@ -24,20 +30,32 @@ out 48,64   # to rBubbleTowerA6 at 128,304; the player presses up at it
 # the locked door whose objectNum is N.
 from in 360,960 [rb 0]
   out 352,928 [rb 0]   -
-  out 240,928          never
+  out 240,928 [rb 0]   -
   out 48,64            never
+  spot switch1         samus:6
+  spot key1            never
+  spot key2            djump,event:rBubbleTowerA5/key1
 from in 360,960 [rb 1]
   out 352,928 [rb 1]   -
-  out 240,928          never
+  out 240,928 [rb 1]   -
   out 48,64            never
+  spot switch1         samus:6
+  spot key1            never
+  spot key2            djump,event:rBubbleTowerA5/key1
 from in 56,96 [rb 0]
-  out 352,928        never
-  out 240,928        never
-  out 48,64 [rb 0]   -
+  out 352,928          never
+  out 240,928 [rb 0]   samus:2,event:rBubbleTowerA5/switch1
+  out 48,64 [rb 0]     -
+  spot switch1         never
+  spot key1            -
+  spot key2            djump,samus:2,event:rBubbleTowerA5/key1,event:rBubbleTowerA5/switch1
 from in 56,96 [rb 1]
-  out 352,928        never
-  out 240,928        never
-  out 48,64 [rb 1]   -
+  out 352,928          never
+  out 240,928 [rb 1]   samus:2,event:rBubbleTowerA5/switch1
+  out 48,64 [rb 1]     -
+  spot switch1         never
+  spot key1            -
+  spot key2            djump,samus:2,event:rBubbleTowerA5/key1,event:rBubbleTowerA5/switch1
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
@@ -47,21 +65,257 @@ how in 360,960 [rb 0] -> out 352,928 [rb 0]: -
       -> [blue blocks solid] standing at x 327-537, y 961
    2. standing at 350,961, presses up at it
       -> out 352,928 [rb 0]
+how in 360,960 [rb 0] -> out 240,928 [rb 0]: -
+     [blue blocks solid] coming in at 360,960
+   1. swap to the partner (party split), at 248,960
+      -> [blue blocks solid] as the partner (party split), where it starts: 248,960
+   2. coming in: holding nothing, from 248,960; lands at 248,961
+      -> [blue blocks solid] standing at x 231-281, y 961
+   3. standing at 238,961, presses up at it
+      -> out 240,928 [rb 0]
+how in 360,960 [rb 0] -> spot switch1: samus:6
+     [blue blocks solid] coming in at 360,960
+   1. coming in: holding nothing, from 360,960; lands at 360,961
+      -> [blue blocks solid] standing at x 327-537, y 961
+   2. running right, jump (held 2 ticks), holding right, from 496,961; lands at 569,929
+      -> [blue blocks solid] standing at x 538-569, y 929
+   3. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 538,929; lands at 510,881
+      -> [blue blocks solid] standing at x 484-518, y 881
+   4. turn into the Morph Ball at 484,881   [samus:2]
+      -> [blue blocks solid] as the Morph Ball at x 484-518, y 881
+   5. as the Morph Ball: a bomb jump (a morph bomb under the ball), holding left, from 496,881; lands at 426,881   [samus:6]
+      -> [blue blocks solid] as the Morph Ball at x 420-458, y 881
+   6. as the Morph Ball: a bomb jump (a morph bomb under the ball), holding left, from 420,881; lands at 359,881   [samus:6]
+      -> [blue blocks solid] as the Morph Ball at x 359-394, y 881
+   7. turn back from the Morph Ball at 359,881
+      -> [blue blocks solid] standing at x 359-394, y 881
+   8. jump (held 2 ticks), holding left, from 359,881; lands at 327,849
+      -> [blue blocks solid] standing at x 327-358, y 849
+   9. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 327,849; lands at 435,801
+      -> [blue blocks solid] standing at x 378-537, y 801
+  10. running right, jump (held 2 ticks), holding right, from 496,801; lands at 569,769
+      -> [blue blocks solid] standing at x 538-569, y 769
+  11. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 538,769; lands at 510,721
+      -> [blue blocks solid] standing at x 500-518, y 721
+  12. turn into the Morph Ball at 500,721   [samus:2]
+      -> [blue blocks solid] as the Morph Ball at x 500-518, y 721
+  13. as the Morph Ball: a bomb jump (a morph bomb under the ball), holding left, from 500,721; lands at 430,721   [samus:6]
+      -> [blue blocks solid] as the Morph Ball at x 404-474, y 721
+  14. as the Morph Ball: a bomb jump (a morph bomb under the ball), holding left, from 404,721; lands at 359,721   [samus:6]
+      -> [blue blocks solid] as the Morph Ball at x 359-378, y 721
+  15. turn back from the Morph Ball at 359,721
+      -> [blue blocks solid] standing at x 359-378, y 721
+  16. jump (held 2 ticks), holding left, from 359,721; lands at 327,689
+      -> [blue blocks solid] standing at x 327-358, y 689
+  17. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 327,689; lands at 435,641
+      -> [blue blocks solid] standing at x 378-569, y 641
+  18. jump (held 21 ticks), holding right, from 416,641; lands at 547,576
+      -> [blue blocks solid] standing at x 522-569, y 576-578
+  19. jump (held 2 ticks), holding right, from 522,576; lands at 569,545
+      -> [blue blocks solid] standing at x 522-569, y 545-547
+  20. jump (held 21 ticks), holding left, from 522,545; lands at 439,480
+      -> [blue blocks solid] standing at x 439-486, y 480-482
+  21. jump (held 21 ticks), holding left, from 439,480; lands at 344,417
+      -> [blue blocks solid] standing at x 327-358, y 417
+  22. standing at 330,417, on it
+      -> spot switch1
+how in 360,960 [rb 0] -> spot key2: djump,event:rBubbleTowerA5/key1
+     [blue blocks solid] coming in at 360,960
+   1. swap to the partner (party split), at 248,960
+      -> [blue blocks solid] as the partner (party split), where it starts: 248,960
+   2. coming in: holding nothing, from 248,960; lands at 248,961
+      -> [blue blocks solid] standing at x 231-281, y 961
+   3. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, double jump at tick 18, from 272,961; lands at 187,753   [djump]
+      -> [blue blocks solid] standing at x 119-230, y 753
+   4. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, double jump at tick 18, from 127,753, through the barrier at 256,608; touches it on the way   [djump,event:rBubbleTowerA5/key1]
+      -> spot key2
 how in 360,960 [rb 1] -> out 352,928 [rb 1]: -
      [red blocks solid] coming in at 360,960
    1. coming in: holding nothing, from 360,960; lands at 360,961
       -> [red blocks solid] standing at x 327-537, y 961
    2. standing at 350,961, presses up at it
       -> out 352,928 [rb 1]
+how in 360,960 [rb 1] -> out 240,928 [rb 1]: -
+     [red blocks solid] coming in at 360,960
+   1. swap to the partner (party split), at 248,960
+      -> [red blocks solid] as the partner (party split), where it starts: 248,960
+   2. coming in: holding nothing, from 248,960; lands at 248,961
+      -> [red blocks solid] standing at x 231-281, y 961
+   3. standing at 238,961, presses up at it
+      -> out 240,928 [rb 1]
+how in 360,960 [rb 1] -> spot switch1: samus:6
+     [red blocks solid] coming in at 360,960
+   1. coming in: holding nothing, from 360,960; lands at 360,961
+      -> [red blocks solid] standing at x 327-537, y 961
+   2. running right, jump (held 2 ticks), holding right, from 496,961; lands at 569,929
+      -> [red blocks solid] standing at x 538-569, y 929
+   3. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 538,929; lands at 510,881
+      -> [red blocks solid] standing at x 484-518, y 881
+   4. turn into the Morph Ball at 484,881   [samus:2]
+      -> [red blocks solid] as the Morph Ball at x 484-518, y 881
+   5. as the Morph Ball: a bomb jump (a morph bomb under the ball), holding left, from 496,881; lands at 426,881   [samus:6]
+      -> [red blocks solid] as the Morph Ball at x 420-458, y 881
+   6. as the Morph Ball: a bomb jump (a morph bomb under the ball), holding left, from 420,881; lands at 359,881   [samus:6]
+      -> [red blocks solid] as the Morph Ball at x 359-394, y 881
+   7. turn back from the Morph Ball at 359,881
+      -> [red blocks solid] standing at x 359-394, y 881
+   8. jump (held 2 ticks), holding left, from 359,881; lands at 327,849
+      -> [red blocks solid] standing at x 327-358, y 849
+   9. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 327,849; lands at 435,801
+      -> [red blocks solid] standing at x 378-537, y 801
+  10. running right, jump (held 2 ticks), holding right, from 496,801; lands at 569,769
+      -> [red blocks solid] standing at x 538-569, y 769
+  11. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 538,769; lands at 510,721
+      -> [red blocks solid] standing at x 500-518, y 721
+  12. turn into the Morph Ball at 500,721   [samus:2]
+      -> [red blocks solid] as the Morph Ball at x 500-518, y 721
+  13. as the Morph Ball: a bomb jump (a morph bomb under the ball), holding left, from 500,721; lands at 430,721   [samus:6]
+      -> [red blocks solid] as the Morph Ball at x 404-474, y 721
+  14. as the Morph Ball: a bomb jump (a morph bomb under the ball), holding left, from 404,721; lands at 359,721   [samus:6]
+      -> [red blocks solid] as the Morph Ball at x 359-378, y 721
+  15. turn back from the Morph Ball at 359,721
+      -> [red blocks solid] standing at x 359-378, y 721
+  16. jump (held 2 ticks), holding left, from 359,721; lands at 327,689
+      -> [red blocks solid] standing at x 327-358, y 689
+  17. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 327,689; lands at 435,641
+      -> [red blocks solid] standing at x 378-569, y 641
+  18. jump (held 21 ticks), holding right, from 416,641; lands at 547,576
+      -> [red blocks solid] standing at x 522-569, y 576-578
+  19. jump (held 2 ticks), holding right, from 522,576; lands at 569,545
+      -> [red blocks solid] standing at x 522-569, y 545-547
+  20. jump (held 21 ticks), holding left, from 522,545; lands at 439,480
+      -> [red blocks solid] standing at x 439-486, y 480-482
+  21. jump (held 21 ticks), holding left, from 439,480; lands at 344,417
+      -> [red blocks solid] standing at x 327-358, y 417
+  22. standing at 330,417, on it
+      -> spot switch1
+how in 360,960 [rb 1] -> spot key2: djump,event:rBubbleTowerA5/key1
+     [red blocks solid] coming in at 360,960
+   1. swap to the partner (party split), at 248,960
+      -> [red blocks solid] as the partner (party split), where it starts: 248,960
+   2. coming in: holding nothing, from 248,960; lands at 248,961
+      -> [red blocks solid] standing at x 231-281, y 961
+   3. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, double jump at tick 18, from 272,961; lands at 187,753   [djump]
+      -> [red blocks solid] standing at x 119-230, y 753
+   4. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, double jump at tick 18, from 127,753, through the barrier at 256,608; touches it on the way   [djump,event:rBubbleTowerA5/key1]
+      -> spot key2
+how in 56,96 [rb 0] -> out 240,928 [rb 0]: samus:2,event:rBubbleTowerA5/switch1
+     [blue blocks solid] coming in at 56,96
+   1. coming in: holding nothing, from 56,96; lands at 56,97
+      -> [blue blocks solid] standing at x 39-182, y 97
+   2. walk off the edge, holding right, then nothing after 1 ticks in the air, from 39,97; lands at 221,161
+      -> [blue blocks solid] standing at x 186-230, y 161
+   3. walk off the edge, holding left once in the air, from 186,161; lands at 39,337
+      -> [blue blocks solid] standing at x 39-86, y 337
+   4. turn into the Morph Ball at 39,337   [samus:2]
+      -> [blue blocks solid] as the Morph Ball at x 39-86, y 337
+   5. as the Morph Ball: roll off the edge, holding right once in the air, from 39,337; lands at 169,545
+      -> [blue blocks solid] as the Morph Ball at x 90-169, y 545
+   6. as the Morph Ball: roll off the edge, holding left, then nothing after 1 ticks in the air, from 90,545; lands at 53,945
+      -> [blue blocks solid] as the Morph Ball at x 42-86, y 945
+   7. turn back from the Morph Ball at 42,945
+      -> [blue blocks solid] standing at x 42-86, y 945
+   8. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, from 50,945; lands at 174,865
+      -> [blue blocks solid] standing at x 106-201, y 865
+   9. running right, jump (held 21 ticks), holding right, then nothing after 2 ticks, from 192,865, through the oBarrierColor at 208,800; touches it on the way   [event:rBubbleTowerA5/switch1]
+      -> out 240,928 [rb 0]
 how in 56,96 [rb 0] -> out 48,64 [rb 0]: -
      [blue blocks solid] coming in at 56,96
    1. coming in: holding nothing, from 56,96; lands at 56,97
       -> [blue blocks solid] standing at x 39-182, y 97
    2. standing at 46,97, presses up at it
       -> out 48,64 [rb 0]
+how in 56,96 [rb 0] -> spot key1: -
+     [blue blocks solid] coming in at 56,96
+   1. coming in: holding nothing, from 56,96; lands at 56,97
+      -> [blue blocks solid] standing at x 39-182, y 97
+   2. walk off the edge, holding right, then nothing after 1 ticks in the air, from 39,97; lands at 221,161
+      -> [blue blocks solid] standing at x 186-230, y 161
+   3. walk off the edge, holding left once in the air, from 186,161; lands at 39,337
+      -> [blue blocks solid] standing at x 39-86, y 337
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 39,337; touches it on the way
+      -> spot key1
+how in 56,96 [rb 0] -> spot key2: djump,samus:2,event:rBubbleTowerA5/key1,event:rBubbleTowerA5/switch1
+     [blue blocks solid] coming in at 56,96
+   1. coming in: holding nothing, from 56,96; lands at 56,97
+      -> [blue blocks solid] standing at x 39-182, y 97
+   2. walk off the edge, holding right, then nothing after 1 ticks in the air, from 39,97; lands at 221,161
+      -> [blue blocks solid] standing at x 186-230, y 161
+   3. walk off the edge, holding left once in the air, from 186,161; lands at 39,337
+      -> [blue blocks solid] standing at x 39-86, y 337
+   4. turn into the Morph Ball at 39,337   [samus:2]
+      -> [blue blocks solid] as the Morph Ball at x 39-86, y 337
+   5. as the Morph Ball: roll off the edge, holding right once in the air, from 39,337; lands at 169,545
+      -> [blue blocks solid] as the Morph Ball at x 90-169, y 545
+   6. as the Morph Ball: roll off the edge, holding left, then nothing after 1 ticks in the air, from 90,545; lands at 53,945
+      -> [blue blocks solid] as the Morph Ball at x 42-86, y 945
+   7. turn back from the Morph Ball at 42,945
+      -> [blue blocks solid] standing at x 42-86, y 945
+   8. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, from 50,945; lands at 174,865
+      -> [blue blocks solid] standing at x 106-201, y 865
+   9. walk off the edge, holding right, then left after 1 ticks in the air, from 106,865, through the oBarrierColor at 208,800; lands at 231,961   [event:rBubbleTowerA5/switch1]
+      -> [blue blocks solid] standing at x 231-281, y 961
+  10. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, double jump at tick 18, from 272,961; lands at 187,753   [djump]
+      -> [blue blocks solid] standing at x 119-230, y 753
+  11. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, double jump at tick 18, from 127,753, through the barrier at 256,608; touches it on the way   [djump,event:rBubbleTowerA5/key1]
+      -> spot key2
+how in 56,96 [rb 1] -> out 240,928 [rb 1]: samus:2,event:rBubbleTowerA5/switch1
+     [red blocks solid] coming in at 56,96
+   1. coming in: holding nothing, from 56,96; lands at 56,97
+      -> [red blocks solid] standing at x 39-182, y 97
+   2. walk off the edge, holding right, then nothing after 1 ticks in the air, from 39,97; lands at 221,161
+      -> [red blocks solid] standing at x 186-230, y 161
+   3. walk off the edge, holding left once in the air, from 186,161; lands at 39,337
+      -> [red blocks solid] standing at x 39-86, y 337
+   4. turn into the Morph Ball at 39,337   [samus:2]
+      -> [red blocks solid] as the Morph Ball at x 39-86, y 337
+   5. as the Morph Ball: roll off the edge, holding right once in the air, from 39,337; lands at 169,545
+      -> [red blocks solid] as the Morph Ball at x 90-169, y 545
+   6. as the Morph Ball: roll off the edge, holding left, then nothing after 1 ticks in the air, from 90,545; lands at 53,945
+      -> [red blocks solid] as the Morph Ball at x 42-86, y 945
+   7. turn back from the Morph Ball at 42,945
+      -> [red blocks solid] standing at x 42-86, y 945
+   8. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, from 50,945; lands at 174,865
+      -> [red blocks solid] standing at x 106-201, y 865
+   9. running right, jump (held 21 ticks), holding right, then nothing after 2 ticks, from 192,865, through the oBarrierColor at 208,800; touches it on the way   [event:rBubbleTowerA5/switch1]
+      -> out 240,928 [rb 1]
 how in 56,96 [rb 1] -> out 48,64 [rb 1]: -
      [red blocks solid] coming in at 56,96
    1. coming in: holding nothing, from 56,96; lands at 56,97
       -> [red blocks solid] standing at x 39-182, y 97
    2. standing at 46,97, presses up at it
       -> out 48,64 [rb 1]
+how in 56,96 [rb 1] -> spot key1: -
+     [red blocks solid] coming in at 56,96
+   1. coming in: holding nothing, from 56,96; lands at 56,97
+      -> [red blocks solid] standing at x 39-182, y 97
+   2. walk off the edge, holding right, then nothing after 1 ticks in the air, from 39,97; lands at 221,161
+      -> [red blocks solid] standing at x 186-230, y 161
+   3. walk off the edge, holding left once in the air, from 186,161; lands at 39,337
+      -> [red blocks solid] standing at x 39-86, y 337
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 39,337; touches it on the way
+      -> spot key1
+how in 56,96 [rb 1] -> spot key2: djump,samus:2,event:rBubbleTowerA5/key1,event:rBubbleTowerA5/switch1
+     [red blocks solid] coming in at 56,96
+   1. coming in: holding nothing, from 56,96; lands at 56,97
+      -> [red blocks solid] standing at x 39-182, y 97
+   2. walk off the edge, holding right, then nothing after 1 ticks in the air, from 39,97; lands at 221,161
+      -> [red blocks solid] standing at x 186-230, y 161
+   3. walk off the edge, holding left once in the air, from 186,161; lands at 39,337
+      -> [red blocks solid] standing at x 39-86, y 337
+   4. turn into the Morph Ball at 39,337   [samus:2]
+      -> [red blocks solid] as the Morph Ball at x 39-86, y 337
+   5. as the Morph Ball: roll off the edge, holding right once in the air, from 39,337; lands at 169,545
+      -> [red blocks solid] as the Morph Ball at x 90-169, y 545
+   6. as the Morph Ball: roll off the edge, holding left, then nothing after 1 ticks in the air, from 90,545; lands at 53,945
+      -> [red blocks solid] as the Morph Ball at x 42-86, y 945
+   7. turn back from the Morph Ball at 42,945
+      -> [red blocks solid] standing at x 42-86, y 945
+   8. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, from 50,945; lands at 174,865
+      -> [red blocks solid] standing at x 106-201, y 865
+   9. walk off the edge, holding right, then left after 1 ticks in the air, from 106,865, through the oBarrierColor at 208,800; lands at 231,961   [event:rBubbleTowerA5/switch1]
+      -> [red blocks solid] standing at x 231-281, y 961
+  10. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, double jump at tick 18, from 272,961; lands at 187,753   [djump]
+      -> [red blocks solid] standing at x 119-230, y 753
+  11. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, double jump at tick 18, from 127,753, through the barrier at 256,608; touches it on the way   [djump,event:rBubbleTowerA5/key1]
+      -> spot key2

@@ -13,6 +13,12 @@ out 2624,176   # to rMain_92 at 320,224; the player presses up at it
 
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 
+# Spots: somewhere whose reaching opens a way (the barriers that wait for it need event:rSF_I/<spot>, and
+# solve.py makes that what reaching the spot needs)
+spot key1   # a colored key, at 63,103
+spot key2   # a colored key, at 2719,1527
+spot key3   # a colored key, at 143,807
+
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
@@ -20,7 +26,10 @@ out 2624,176   # to rMain_92 at 320,224; the player presses up at it
 # the locked door whose objectNum is N.
 from in 48,1856
   out 0,1824     -
-  out 2624,176   never
+  out 2624,176   djump,event:rSF_I/key3 | adash,event:rSF_I/key3 | gdash,event:rSF_I/key3
+  spot key1      never
+  spot key2      djump,event:rSF_I/key1 | adash,event:rSF_I/key1 | gdash,event:rSF_I/key1
+  spot key3      never
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
@@ -30,3 +39,147 @@ how in 48,1856 -> out 0,1824: -
       -> standing at x 0-903, y 1601-1857
    2. standing at 0,1857, goes into it
       -> out 0,1824
+how in 48,1856 -> out 2624,176: djump,event:rSF_I/key3
+     coming in at 48,1856
+   1. coming in: holding nothing, from 48,1856; lands at 48,1857
+      -> standing at x 0-903, y 1601-1857
+   2. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, double jump at tick 10, from 903,1602; clings to the wall at 1241,1810   [djump]
+      -> standing at x 1241-1319, y 1713-1815
+   3. jump (held 21 ticks), holding right, double jump at tick 15, from 1296,1713; clings to the wall at 1497,1627   [djump]
+      -> standing at x 1497-1527, y 1537-1639
+   4. on the wall to the right: kick off it (wall jump), wall-jump up the same wall, from 1497,1552; clings to the wall at 1817,1508
+      -> standing at x 1817-2231, y 1313-1511
+   5. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2231,1314; lands at 2378,1297
+      -> standing at x 2281-2439, y 1233-1399
+   6. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2439,1248; lands at 2586,1233
+      -> standing at x 2569-2848, y 1169-1335
+   7. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 2601,1184; clings to the wall at 2567,1139
+      -> standing at x 1913-2567, y 561-1143
+   8. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, double jump at tick 10, from 1991,576; clings to the wall at 2297,736   [djump]
+      -> standing at x 2297-2345, y 632-791
+   9. jump (held 21 ticks), holding nothing, then right after 14 ticks, double jump at tick 12, from 2302,689, through the barrier at 2352,592; clings to the wall at 2375,698   [djump,event:rSF_I/key3]
+      -> standing at x 2279-2375, y -24-698
+  10. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2279,-24; lands at 2420,177
+      -> standing at x 2361-2681, y 120-241
+  11. standing at 2576,241, presses up at it
+      -> out 2624,176
+how in 48,1856 -> out 2624,176: adash,event:rSF_I/key3
+     coming in at 48,1856
+   1. coming in: holding nothing, from 48,1856; lands at 48,1857
+      -> standing at x 0-903, y 1601-1857
+   2. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, air dash back right (Jerry) at tick 5, from 903,1602; clings to the wall at 1241,1779   [adash]
+      -> standing at x 1241-1319, y 1713-1815
+   3. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 1280,1713; clings to the wall at 1497,1638   [adash]
+      -> standing at x 1497-1527, y 1537-1639
+   4. on the wall to the right: kick off it (wall jump), wall-jump up the same wall, from 1497,1552; clings to the wall at 1817,1508
+      -> standing at x 1817-2231, y 1313-1511
+   5. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2231,1314; lands at 2378,1297
+      -> standing at x 2281-2439, y 1233-1399
+   6. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2439,1248; lands at 2586,1233
+      -> standing at x 2569-2848, y 1169-1335
+   7. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 2601,1184; clings to the wall at 2567,1139
+      -> standing at x 1913-2567, y 561-1143
+   8. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, air dash back right (Jerry) at tick 5, from 1991,576; lands at 2308,689   [adash]
+      -> standing at x 2297-2345, y 632-791
+   9. jump (held 21 ticks), holding nothing, then right after 12 ticks, air dash (Jerry) at tick 12, from 2304,689, through the barrier at 2352,592; clings to the wall at 2375,630   [adash,event:rSF_I/key3]
+      -> standing at x 2279-2375, y -24-698
+  10. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2279,-24; lands at 2420,177
+      -> standing at x 2361-2681, y 120-241
+  11. standing at 2576,241, presses up at it
+      -> out 2624,176
+how in 48,1856 -> out 2624,176: gdash,event:rSF_I/key3
+     coming in at 48,1856
+   1. coming in: holding nothing, from 48,1856; lands at 48,1857
+      -> standing at x 0-903, y 1601-1857
+   2. dash right (Jerry), jump (held 21 ticks), holding right, from 864,1601; clings to the wall at 1241,1811   [gdash]
+      -> standing at x 1241-1319, y 1713-1815
+   3. on the wall to the left: kick off it (wall jump), holding left, then nothing after 1 ticks, from 1319,1714; lands at 1346,1713
+      -> standing at x 1337-1415, y 1713-1815
+   4. dash right (Jerry), jump (held 21 ticks), holding right, from 1392,1713; clings to the wall at 1689,1775   [gdash]
+      -> standing at x 1689-1751, y 1745-1799
+   5. dash right (Jerry), jump (held 21 ticks), holding right, from 1728,1745; clings to the wall at 2009,1783   [gdash]
+      -> standing at x 2009-2071, y 1745-1799
+   6. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2071,1746; clings to the wall at 2201,1723
+      -> standing at x 2201-2231, y 1713-1799
+   7. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 2202,1713; clings to the wall at 2185,1642
+      -> standing at x 2185-2263, y 1569-1671
+   8. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 2185,1584; lands at 2038,1569
+      -> standing at x 2009-2055, y 1569-1639
+   9. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 2009,1570; clings to the wall at 1879,1547
+      -> standing at x 1801-1879, y 1537-1639
+  10. on the wall to the right: kick off it (wall jump), wall-jump up the same wall, from 1801,1538; clings to the wall at 1817,1466
+      -> standing at x 1817-2231, y 1313-1511
+  11. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2231,1314; lands at 2378,1297
+      -> standing at x 2281-2439, y 1233-1399
+  12. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2439,1248; lands at 2586,1233
+      -> standing at x 2569-2848, y 1169-1335
+  13. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 2601,1184; clings to the wall at 2567,1139
+      -> standing at x 1913-2567, y 561-1143
+  14. dash right (Jerry), jump (held 21 ticks), holding right, from 1914,561; clings to the wall at 2297,783   [gdash]
+      -> standing at x 2297-2345, y 632-791
+  15. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 2336,689, through the barrier at 2352,592; clings to the wall at 2375,625   [event:rSF_I/key3]
+      -> standing at x 2279-2375, y -24-698
+  16. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2279,-24; lands at 2420,177
+      -> standing at x 2361-2681, y 120-241
+  17. standing at 2576,241, presses up at it
+      -> out 2624,176
+how in 48,1856 -> spot key2: djump,event:rSF_I/key1
+     coming in at 48,1856
+   1. coming in: holding nothing, from 48,1856; lands at 48,1857
+      -> standing at x 0-903, y 1601-1857
+   2. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, double jump at tick 10, from 903,1602; clings to the wall at 1241,1810   [djump]
+      -> standing at x 1241-1319, y 1713-1815
+   3. jump (held 21 ticks), holding right, double jump at tick 15, from 1296,1713; clings to the wall at 1497,1627   [djump]
+      -> standing at x 1497-1527, y 1537-1639
+   4. on the wall to the right: kick off it (wall jump), wall-jump up the same wall, from 1497,1552; clings to the wall at 1817,1508
+      -> standing at x 1817-2231, y 1313-1511
+   5. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2231,1314; lands at 2378,1297
+      -> standing at x 2281-2439, y 1233-1399
+   6. on the wall to the left: holding right, from 2439,1280; lands at 2574,1537
+      -> standing at x 2537-2617, y 1512-1591
+   7. walk off the edge, holding right once in the air, from 2538,1537, through the barrier at 2624,1472; touches it on the way   [event:rSF_I/key1]
+      -> spot key2
+how in 48,1856 -> spot key2: adash,event:rSF_I/key1
+     coming in at 48,1856
+   1. coming in: holding nothing, from 48,1856; lands at 48,1857
+      -> standing at x 0-903, y 1601-1857
+   2. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, air dash back right (Jerry) at tick 5, from 903,1602; clings to the wall at 1241,1779   [adash]
+      -> standing at x 1241-1319, y 1713-1815
+   3. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 1280,1713; clings to the wall at 1497,1638   [adash]
+      -> standing at x 1497-1527, y 1537-1639
+   4. on the wall to the right: kick off it (wall jump), wall-jump up the same wall, from 1497,1552; clings to the wall at 1817,1508
+      -> standing at x 1817-2231, y 1313-1511
+   5. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2231,1314; lands at 2378,1297
+      -> standing at x 2281-2439, y 1233-1399
+   6. on the wall to the left: holding right, from 2439,1280; lands at 2574,1537
+      -> standing at x 2537-2617, y 1512-1591
+   7. walk off the edge, holding right once in the air, from 2538,1537, through the barrier at 2624,1472; touches it on the way   [event:rSF_I/key1]
+      -> spot key2
+how in 48,1856 -> spot key2: gdash,event:rSF_I/key1
+     coming in at 48,1856
+   1. coming in: holding nothing, from 48,1856; lands at 48,1857
+      -> standing at x 0-903, y 1601-1857
+   2. dash right (Jerry), jump (held 21 ticks), holding right, from 864,1601; clings to the wall at 1241,1811   [gdash]
+      -> standing at x 1241-1319, y 1713-1815
+   3. on the wall to the left: kick off it (wall jump), holding left, then nothing after 1 ticks, from 1319,1714; lands at 1346,1713
+      -> standing at x 1337-1415, y 1713-1815
+   4. dash right (Jerry), jump (held 21 ticks), holding right, from 1392,1713; clings to the wall at 1689,1775   [gdash]
+      -> standing at x 1689-1751, y 1745-1799
+   5. dash right (Jerry), jump (held 21 ticks), holding right, from 1728,1745; clings to the wall at 2009,1783   [gdash]
+      -> standing at x 2009-2071, y 1745-1799
+   6. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2071,1746; clings to the wall at 2201,1723
+      -> standing at x 2201-2231, y 1713-1799
+   7. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 2202,1713; clings to the wall at 2185,1642
+      -> standing at x 2185-2263, y 1569-1671
+   8. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 2185,1584; lands at 2038,1569
+      -> standing at x 2009-2055, y 1569-1639
+   9. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 2009,1570; clings to the wall at 1879,1547
+      -> standing at x 1801-1879, y 1537-1639
+  10. on the wall to the right: kick off it (wall jump), wall-jump up the same wall, from 1801,1538; clings to the wall at 1817,1466
+      -> standing at x 1817-2231, y 1313-1511
+  11. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2231,1314; lands at 2378,1297
+      -> standing at x 2281-2439, y 1233-1399
+  12. on the wall to the left: holding right, from 2439,1280; lands at 2574,1537
+      -> standing at x 2537-2617, y 1512-1591
+  13. walk off the edge, holding right once in the air, from 2538,1537, through the barrier at 2624,1472; touches it on the way   [event:rSF_I/key1]
+      -> spot key2

@@ -19,6 +19,11 @@ out 384,448   # to rPttT_06 at 144,208; the player presses up at it
 
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 
+# Spots: somewhere whose reaching opens a way (the barriers that wait for it need event:rPttT_02/<spot>, and
+# solve.py makes that what reaching the spot needs)
+spot key1   # a colored key, at 863,183
+spot key2   # a colored key, at 1839,119
+
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
@@ -26,25 +31,31 @@ out 384,448   # to rPttT_06 at 144,208; the player presses up at it
 # the locked door whose objectNum is N.
 from in 48,448
   out 0,416      -
-  out 2064,384   never
+  out 2064,384   djump,event:rPttT_02/key1,event:rPttT_02/key2
   out 192,448    -
   out 256,448    -
   out 320,448    -
   out 384,448    -
+  spot key1      djump
+  spot key2      djump,event:rPttT_02/key1
 from in 2032,416
-  out 0,416      never
+  out 0,416      djump,event:rPttT_02/key1,event:rPttT_02/key2
   out 2064,384   -
-  out 192,448    never
-  out 256,448    never
-  out 320,448    never
-  out 384,448    never
+  out 192,448    djump,event:rPttT_02/key1,event:rPttT_02/key2
+  out 256,448    djump,event:rPttT_02/key1,event:rPttT_02/key2
+  out 320,448    djump,event:rPttT_02/key1,event:rPttT_02/key2
+  out 384,448    djump,event:rPttT_02/key1,event:rPttT_02/key2
+  spot key1      djump,event:rPttT_02/key1,event:rPttT_02/key2
+  spot key2      djump,event:rPttT_02/key2
 from in 144,448
   out 0,416      -
-  out 2064,384   never
+  out 2064,384   djump,event:rPttT_02/key1,event:rPttT_02/key2
   out 192,448    -
   out 256,448    -
   out 320,448    -
   out 384,448    -
+  spot key1      djump
+  spot key2      djump,event:rPttT_02/key1
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
@@ -54,6 +65,24 @@ how in 48,448 -> out 0,416: -
       -> standing at x 0-633, y 449
    2. standing at 0,449, goes into it
       -> out 0,416
+how in 48,448 -> out 2064,384: djump,event:rPttT_02/key1,event:rPttT_02/key2
+     coming in at 48,448
+   1. coming in: holding nothing, from 48,448; lands at 48,449
+      -> standing at x 0-633, y 449
+   2. running right, jump (held 21 ticks), holding right, from 496,449; lands at 650,385
+      -> standing at x 634-838, y 385
+   3. running right, jump (held 21 ticks), holding right, from 688,385; lands at 901,385
+      -> standing at x 890-1129, y 385
+   4. walk from 1129,385 to 1130,385 into the barrier at 1136,256   [event:rPttT_02/key1]
+      -> standing at x 1130-1158, y 385 (where a gate is)
+   5. jump (held 21 ticks), holding nothing, then right after 14 ticks, double jump at tick 12, from 1150,385, through the barrier at 1136,256; lands at 1198,289   [djump,event:rPttT_02/key1]
+      -> standing at x 1178-1222, y 289
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 1200,289; lands at 1500,321   [djump]
+      -> standing at x 1415-1606, y 321
+   7. jump (held 21 ticks), holding right, double jump at tick 15, from 1568,321; lands at 1890,417   [djump]
+      -> standing at x 1831-1977, y 417
+   8. walk off the edge, holding right once in the air, from 1831,417, through the barrier at 1984,352; touches it on the way   [event:rPttT_02/key2]
+      -> out 2064,384
 how in 48,448 -> out 192,448: -
      coming in at 48,448
    1. coming in: holding nothing, from 48,448; lands at 48,449
@@ -78,18 +107,192 @@ how in 48,448 -> out 384,448: -
       -> standing at x 0-633, y 449
    2. standing at 350,449, presses up at it
       -> out 384,448
+how in 48,448 -> spot key1: djump
+     coming in at 48,448
+   1. coming in: holding nothing, from 48,448; lands at 48,449
+      -> standing at x 0-633, y 449
+   2. running right, jump (held 21 ticks), holding right, from 496,449; lands at 650,385
+      -> standing at x 634-838, y 385
+   3. jump (held 21 ticks), holding right, double jump at tick 15, from 736,385; lands at 933,289   [djump]
+      -> standing at x 922-953, y 289
+   4. jump (held 21 ticks), holding left, double jump at tick 15, from 922,289; lands at 845,193   [djump]
+      -> standing at x 826-902, y 193
+   5. standing at 857,193, on it
+      -> spot key1
+how in 48,448 -> spot key2: djump,event:rPttT_02/key1
+     coming in at 48,448
+   1. coming in: holding nothing, from 48,448; lands at 48,449
+      -> standing at x 0-633, y 449
+   2. running right, jump (held 21 ticks), holding right, from 496,449; lands at 650,385
+      -> standing at x 634-838, y 385
+   3. running right, jump (held 21 ticks), holding right, from 688,385; lands at 901,385
+      -> standing at x 890-1129, y 385
+   4. walk from 1129,385 to 1130,385 into the barrier at 1136,256   [event:rPttT_02/key1]
+      -> standing at x 1130-1158, y 385 (where a gate is)
+   5. jump (held 21 ticks), holding nothing, then right after 14 ticks, double jump at tick 12, from 1150,385, through the barrier at 1136,256; lands at 1198,289   [djump,event:rPttT_02/key1]
+      -> standing at x 1178-1222, y 289
+   6. jump (held 21 ticks), holding right, from 1178,289; lands at 1309,225
+      -> standing at x 1274-1414, y 225
+   7. jump (held 21 ticks), holding right, double jump at tick 15, from 1328,225; lands at 1569,161   [djump]
+      -> standing at x 1562-1670, y 161
+   8. jump (held 21 ticks), holding right, double jump at tick 15, from 1662,161; touches it on the way   [djump]
+      -> spot key2
+how in 2032,416 -> out 0,416: djump,event:rPttT_02/key1,event:rPttT_02/key2
+     coming in at 2032,416
+   1. coming in: holding nothing, from 2032,416; lands at 2032,417
+      -> standing at x 2007-2080, y 417
+   2. jump (held 2 ticks), holding left, from 2007,417, through the barrier at 1984,352; lands at 1956,417   [event:rPttT_02/key2]
+      -> standing at x 1831-1977, y 417
+   3. jump (held 21 ticks), holding left, from 1831,417; lands at 1758,353
+      -> standing at x 1722-1830, y 353
+   4. running left, jump (held 6 ticks), holding left, from 1722,353; lands at 1582,321
+      -> standing at x 1415-1606, y 321
+   5. jump (held 21 ticks), holding left, double jump at tick 15, from 1415,321; lands at 1357,225   [djump]
+      -> standing at x 1274-1414, y 225
+   6. jump (held 2 ticks), holding left, from 1274,225, through the barrier at 1136,256; lands at 1093,385   [event:rPttT_02/key1]
+      -> standing at x 890-1129, y 385
+   7. jump (held 21 ticks), holding left, double jump at tick 15, from 890,385; lands at 575,449   [djump]
+      -> standing at x 0-633, y 449
+   8. standing at 0,449, goes into it
+      -> out 0,416
 how in 2032,416 -> out 2064,384: -
      coming in at 2032,416
    1. coming in: holding nothing, from 2032,416; lands at 2032,417
       -> standing at x 2007-2080, y 417
    2. standing at 2062,417, goes into it
       -> out 2064,384
+how in 2032,416 -> out 192,448: djump,event:rPttT_02/key1,event:rPttT_02/key2
+     coming in at 2032,416
+   1. coming in: holding nothing, from 2032,416; lands at 2032,417
+      -> standing at x 2007-2080, y 417
+   2. jump (held 2 ticks), holding left, from 2007,417, through the barrier at 1984,352; lands at 1956,417   [event:rPttT_02/key2]
+      -> standing at x 1831-1977, y 417
+   3. jump (held 21 ticks), holding left, from 1831,417; lands at 1758,353
+      -> standing at x 1722-1830, y 353
+   4. running left, jump (held 6 ticks), holding left, from 1722,353; lands at 1582,321
+      -> standing at x 1415-1606, y 321
+   5. jump (held 21 ticks), holding left, double jump at tick 15, from 1415,321; lands at 1357,225   [djump]
+      -> standing at x 1274-1414, y 225
+   6. jump (held 2 ticks), holding left, from 1274,225, through the barrier at 1136,256; lands at 1093,385   [event:rPttT_02/key1]
+      -> standing at x 890-1129, y 385
+   7. jump (held 21 ticks), holding left, double jump at tick 15, from 890,385; lands at 575,449   [djump]
+      -> standing at x 0-633, y 449
+   8. standing at 158,449, presses up at it
+      -> out 192,448
+how in 2032,416 -> out 256,448: djump,event:rPttT_02/key1,event:rPttT_02/key2
+     coming in at 2032,416
+   1. coming in: holding nothing, from 2032,416; lands at 2032,417
+      -> standing at x 2007-2080, y 417
+   2. jump (held 2 ticks), holding left, from 2007,417, through the barrier at 1984,352; lands at 1956,417   [event:rPttT_02/key2]
+      -> standing at x 1831-1977, y 417
+   3. jump (held 21 ticks), holding left, from 1831,417; lands at 1758,353
+      -> standing at x 1722-1830, y 353
+   4. running left, jump (held 6 ticks), holding left, from 1722,353; lands at 1582,321
+      -> standing at x 1415-1606, y 321
+   5. jump (held 21 ticks), holding left, double jump at tick 15, from 1415,321; lands at 1357,225   [djump]
+      -> standing at x 1274-1414, y 225
+   6. jump (held 2 ticks), holding left, from 1274,225, through the barrier at 1136,256; lands at 1093,385   [event:rPttT_02/key1]
+      -> standing at x 890-1129, y 385
+   7. jump (held 21 ticks), holding left, double jump at tick 15, from 890,385; lands at 575,449   [djump]
+      -> standing at x 0-633, y 449
+   8. standing at 222,449, presses up at it
+      -> out 256,448
+how in 2032,416 -> out 320,448: djump,event:rPttT_02/key1,event:rPttT_02/key2
+     coming in at 2032,416
+   1. coming in: holding nothing, from 2032,416; lands at 2032,417
+      -> standing at x 2007-2080, y 417
+   2. jump (held 2 ticks), holding left, from 2007,417, through the barrier at 1984,352; lands at 1956,417   [event:rPttT_02/key2]
+      -> standing at x 1831-1977, y 417
+   3. jump (held 21 ticks), holding left, from 1831,417; lands at 1758,353
+      -> standing at x 1722-1830, y 353
+   4. running left, jump (held 6 ticks), holding left, from 1722,353; lands at 1582,321
+      -> standing at x 1415-1606, y 321
+   5. jump (held 21 ticks), holding left, double jump at tick 15, from 1415,321; lands at 1357,225   [djump]
+      -> standing at x 1274-1414, y 225
+   6. jump (held 2 ticks), holding left, from 1274,225, through the barrier at 1136,256; lands at 1093,385   [event:rPttT_02/key1]
+      -> standing at x 890-1129, y 385
+   7. jump (held 21 ticks), holding left, double jump at tick 15, from 890,385; lands at 575,449   [djump]
+      -> standing at x 0-633, y 449
+   8. standing at 286,449, presses up at it
+      -> out 320,448
+how in 2032,416 -> out 384,448: djump,event:rPttT_02/key1,event:rPttT_02/key2
+     coming in at 2032,416
+   1. coming in: holding nothing, from 2032,416; lands at 2032,417
+      -> standing at x 2007-2080, y 417
+   2. jump (held 2 ticks), holding left, from 2007,417, through the barrier at 1984,352; lands at 1956,417   [event:rPttT_02/key2]
+      -> standing at x 1831-1977, y 417
+   3. jump (held 21 ticks), holding left, from 1831,417; lands at 1758,353
+      -> standing at x 1722-1830, y 353
+   4. running left, jump (held 6 ticks), holding left, from 1722,353; lands at 1582,321
+      -> standing at x 1415-1606, y 321
+   5. jump (held 21 ticks), holding left, double jump at tick 15, from 1415,321; lands at 1357,225   [djump]
+      -> standing at x 1274-1414, y 225
+   6. jump (held 2 ticks), holding left, from 1274,225, through the barrier at 1136,256; lands at 1093,385   [event:rPttT_02/key1]
+      -> standing at x 890-1129, y 385
+   7. jump (held 21 ticks), holding left, double jump at tick 15, from 890,385; lands at 575,449   [djump]
+      -> standing at x 0-633, y 449
+   8. standing at 350,449, presses up at it
+      -> out 384,448
+how in 2032,416 -> spot key1: djump,event:rPttT_02/key1,event:rPttT_02/key2
+     coming in at 2032,416
+   1. coming in: holding nothing, from 2032,416; lands at 2032,417
+      -> standing at x 2007-2080, y 417
+   2. jump (held 2 ticks), holding left, from 2007,417, through the barrier at 1984,352; lands at 1956,417   [event:rPttT_02/key2]
+      -> standing at x 1831-1977, y 417
+   3. jump (held 21 ticks), holding left, from 1831,417; lands at 1758,353
+      -> standing at x 1722-1830, y 353
+   4. running left, jump (held 6 ticks), holding left, from 1722,353; lands at 1582,321
+      -> standing at x 1415-1606, y 321
+   5. jump (held 21 ticks), holding left, double jump at tick 15, from 1415,321; lands at 1357,225   [djump]
+      -> standing at x 1274-1414, y 225
+   6. jump (held 2 ticks), holding left, from 1274,225, through the barrier at 1136,256; lands at 1093,385   [event:rPttT_02/key1]
+      -> standing at x 890-1129, y 385
+   7. jump (held 21 ticks), holding right, double jump at tick 15, from 890,385; lands at 953,289   [djump]
+      -> standing at x 922-953, y 289
+   8. jump (held 21 ticks), holding left, double jump at tick 15, from 922,289; lands at 845,193   [djump]
+      -> standing at x 826-902, y 193
+   9. standing at 857,193, on it
+      -> spot key1
+how in 2032,416 -> spot key2: djump,event:rPttT_02/key2
+     coming in at 2032,416
+   1. coming in: holding nothing, from 2032,416; lands at 2032,417
+      -> standing at x 2007-2080, y 417
+   2. jump (held 2 ticks), holding left, from 2007,417, through the barrier at 1984,352; lands at 1956,417   [event:rPttT_02/key2]
+      -> standing at x 1831-1977, y 417
+   3. jump (held 21 ticks), holding left, from 1831,417; lands at 1758,353
+      -> standing at x 1722-1830, y 353
+   4. running left, jump (held 6 ticks), holding left, from 1722,353; lands at 1582,321
+      -> standing at x 1415-1606, y 321
+   5. jump (held 21 ticks), holding left, double jump at tick 15, from 1415,321; lands at 1357,225   [djump]
+      -> standing at x 1274-1414, y 225
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 1328,225; lands at 1569,161   [djump]
+      -> standing at x 1562-1670, y 161
+   7. jump (held 21 ticks), holding right, double jump at tick 15, from 1662,161; touches it on the way   [djump]
+      -> spot key2
 how in 144,448 -> out 0,416: -
      coming in at 144,448
    1. coming in: holding nothing, from 144,448; lands at 144,449
       -> standing at x 0-633, y 449
    2. standing at 0,449, goes into it
       -> out 0,416
+how in 144,448 -> out 2064,384: djump,event:rPttT_02/key1,event:rPttT_02/key2
+     coming in at 144,448
+   1. coming in: holding nothing, from 144,448; lands at 144,449
+      -> standing at x 0-633, y 449
+   2. running right, jump (held 21 ticks), holding right, from 496,449; lands at 650,385
+      -> standing at x 634-838, y 385
+   3. running right, jump (held 21 ticks), holding right, from 688,385; lands at 901,385
+      -> standing at x 890-1129, y 385
+   4. walk from 1129,385 to 1130,385 into the barrier at 1136,256   [event:rPttT_02/key1]
+      -> standing at x 1130-1158, y 385 (where a gate is)
+   5. jump (held 21 ticks), holding nothing, then right after 14 ticks, double jump at tick 12, from 1150,385, through the barrier at 1136,256; lands at 1198,289   [djump,event:rPttT_02/key1]
+      -> standing at x 1178-1222, y 289
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 1200,289; lands at 1500,321   [djump]
+      -> standing at x 1415-1606, y 321
+   7. jump (held 21 ticks), holding right, double jump at tick 15, from 1568,321; lands at 1890,417   [djump]
+      -> standing at x 1831-1977, y 417
+   8. walk off the edge, holding right once in the air, from 1831,417, through the barrier at 1984,352; touches it on the way   [event:rPttT_02/key2]
+      -> out 2064,384
 how in 144,448 -> out 192,448: -
      coming in at 144,448
    1. coming in: holding nothing, from 144,448; lands at 144,449
@@ -114,3 +317,33 @@ how in 144,448 -> out 384,448: -
       -> standing at x 0-633, y 449
    2. standing at 350,449, presses up at it
       -> out 384,448
+how in 144,448 -> spot key1: djump
+     coming in at 144,448
+   1. coming in: holding nothing, from 144,448; lands at 144,449
+      -> standing at x 0-633, y 449
+   2. running right, jump (held 21 ticks), holding right, from 496,449; lands at 650,385
+      -> standing at x 634-838, y 385
+   3. jump (held 21 ticks), holding right, double jump at tick 15, from 736,385; lands at 933,289   [djump]
+      -> standing at x 922-953, y 289
+   4. jump (held 21 ticks), holding left, double jump at tick 15, from 922,289; lands at 845,193   [djump]
+      -> standing at x 826-902, y 193
+   5. standing at 857,193, on it
+      -> spot key1
+how in 144,448 -> spot key2: djump,event:rPttT_02/key1
+     coming in at 144,448
+   1. coming in: holding nothing, from 144,448; lands at 144,449
+      -> standing at x 0-633, y 449
+   2. running right, jump (held 21 ticks), holding right, from 496,449; lands at 650,385
+      -> standing at x 634-838, y 385
+   3. running right, jump (held 21 ticks), holding right, from 688,385; lands at 901,385
+      -> standing at x 890-1129, y 385
+   4. walk from 1129,385 to 1130,385 into the barrier at 1136,256   [event:rPttT_02/key1]
+      -> standing at x 1130-1158, y 385 (where a gate is)
+   5. jump (held 21 ticks), holding nothing, then right after 14 ticks, double jump at tick 12, from 1150,385, through the barrier at 1136,256; lands at 1198,289   [djump,event:rPttT_02/key1]
+      -> standing at x 1178-1222, y 289
+   6. jump (held 21 ticks), holding right, from 1178,289; lands at 1309,225
+      -> standing at x 1274-1414, y 225
+   7. jump (held 21 ticks), holding right, double jump at tick 15, from 1328,225; lands at 1569,161   [djump]
+      -> standing at x 1562-1670, y 161
+   8. jump (held 21 ticks), holding right, double jump at tick 15, from 1662,161; touches it on the way   [djump]
+      -> spot key2

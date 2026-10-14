@@ -15,6 +15,16 @@ out 2224,320   # to rWarshipN at 48,640; the player goes into it
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 loc 9 50   # weapon upgrade 50, at 1351,423
 
+# Spots: somewhere whose reaching opens a way (the barriers that wait for it need event:rWarshipM/<spot>, and
+# solve.py makes that what reaching the spot needs)
+spot switch1   # a colored switch the partner can be left standing on (party split), at 663,151
+spot switch2   # a colored switch the partner can be left standing on (party split), at 711,471
+spot switch3   # a colored switch the partner can be left standing on (party split), at 1239,151
+spot key1   # a colored key, at 1079,167
+spot key2   # a colored key, at 871,167
+spot key3   # a colored key, at 1351,103
+spot key4   # a colored key, at 551,167
+
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
@@ -22,12 +32,26 @@ loc 9 50   # weapon upgrade 50, at 1351,423
 # the locked door whose objectNum is N.
 from in 48,256
   out 0,224      -
-  out 2224,320   never
-  loc 9 50       never
+  out 2224,320   djump,event:rWarshipM/key2,event:rWarshipM/key4,event:rWarshipM/switch2 | djump,event:rWarshipM/key2,event:rWarshipM/key4,event:rWarshipM/switch1,event:rWarshipM/switch3 | djump,event:rWarshipM/key2,event:rWarshipM/key3,event:rWarshipM/key4,event:rWarshipM/switch1
+  loc 9 50       djump,event:rWarshipM/key2,event:rWarshipM/switch1,event:rWarshipM/switch2 | djump,event:rWarshipM/key2,event:rWarshipM/switch1,event:rWarshipM/switch3 | djump,event:rWarshipM/key2,event:rWarshipM/key3,event:rWarshipM/switch1
+  spot switch1   djump
+  spot switch2   event:rWarshipM/switch1 | event:rWarshipM/key3,event:rWarshipM/switch2 | djump,event:rWarshipM/switch2,event:rWarshipM/switch3
+  spot switch3   djump,event:rWarshipM/switch2 | djump,event:rWarshipM/key3,event:rWarshipM/switch1 | djump,event:rWarshipM/switch1,event:rWarshipM/switch3
+  spot key1      djump,event:rWarshipM/switch2 | djump,event:rWarshipM/key3,event:rWarshipM/switch1 | djump,event:rWarshipM/switch1,event:rWarshipM/switch3
+  spot key2      djump,event:rWarshipM/key1
+  spot key3      djump,event:rWarshipM/key2,event:rWarshipM/switch2,event:rWarshipM/switch3 | djump,event:rWarshipM/key2,event:rWarshipM/switch1,event:rWarshipM/switch3
+  spot key4      djump,event:rWarshipM/switch3
 from in 2192,352
-  out 0,224      never
+  out 0,224      djump,event:rWarshipM/key2,event:rWarshipM/key4,event:rWarshipM/switch1,event:rWarshipM/switch3 | djump,event:rWarshipM/key2,event:rWarshipM/key4,event:rWarshipM/switch2 | djump,event:rWarshipM/key2,event:rWarshipM/key3,event:rWarshipM/key4,event:rWarshipM/switch1
   out 2224,320   -
-  loc 9 50       never
+  loc 9 50       event:rWarshipM/key4,event:rWarshipM/switch1
+  spot switch1   djump,event:rWarshipM/key2,event:rWarshipM/key4,event:rWarshipM/switch1,event:rWarshipM/switch3 | djump,event:rWarshipM/key2,event:rWarshipM/key4,event:rWarshipM/switch2 | djump,event:rWarshipM/key2,event:rWarshipM/key3,event:rWarshipM/key4,event:rWarshipM/switch1
+  spot switch2   djump,event:rWarshipM/key2,event:rWarshipM/key4,event:rWarshipM/switch1,event:rWarshipM/switch2 | event:rWarshipM/key2,event:rWarshipM/key4,event:rWarshipM/switch3 | djump,event:rWarshipM/key2,event:rWarshipM/key3,event:rWarshipM/key4
+  spot switch3   djump,event:rWarshipM/key2,event:rWarshipM/key4
+  spot key1      djump,event:rWarshipM/key2,event:rWarshipM/key4
+  spot key2      djump,event:rWarshipM/key1,event:rWarshipM/key2,event:rWarshipM/key4,event:rWarshipM/switch2 | djump,event:rWarshipM/key1,event:rWarshipM/key2,event:rWarshipM/key4,event:rWarshipM/switch1,event:rWarshipM/switch3 | djump,event:rWarshipM/key1,event:rWarshipM/key2,event:rWarshipM/key3,event:rWarshipM/key4,event:rWarshipM/switch1
+  spot key3      djump,event:rWarshipM/key4,event:rWarshipM/switch3
+  spot key4      djump,event:rWarshipM/key2,event:rWarshipM/key4,event:rWarshipM/switch2,event:rWarshipM/switch3 | djump,event:rWarshipM/key2,event:rWarshipM/key4,event:rWarshipM/switch1,event:rWarshipM/switch3
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
@@ -37,9 +61,909 @@ how in 48,256 -> out 0,224: -
       -> standing at x 0-486, y 257
    2. standing at 0,257, goes into it
       -> out 0,224
+how in 48,256 -> out 2224,320: djump,event:rWarshipM/key2,event:rWarshipM/key4,event:rWarshipM/switch2
+     coming in at 48,256
+   1. coming in: holding nothing, from 48,256; lands at 48,257
+      -> standing at x 0-486, y 257
+   2. walk off the edge, holding right once in the air, from 32,257; lands at 589,337
+      -> standing at x 487-617, y 337
+   3. jump (held 6 ticks), holding right, from 528,337; lands at 637,297
+      -> standing at x 618-646, y 297
+   4. running right, jump (held 6 ticks), holding right, from 642,297; lands at 792,297
+      -> standing at x 778-806, y 297
+   5. running right, jump (held 6 ticks), holding right, from 802,297, through the oBarrierColor at 944,240; lands at 952,297   [event:rWarshipM/switch2]
+      -> standing at x 938-966, y 297 (where a gate is)
+   6. running right, jump (held 21 ticks), holding right, then nothing after 2 ticks, from 962,297, through the oBarrierColor at 944,240; lands at 1008,273   [event:rWarshipM/switch2]
+      -> standing at x 1002-1062, y 273
+   7. jump (held 21 ticks), holding right, double jump at tick 15, from 1002,273; lands at 1097,177   [djump]
+      -> standing at x 1050-1097, y 177
+   8. jump (held 6 ticks), holding right, from 1050,177; lands at 1257,337
+      -> standing at x 1127-1257, y 337
+   9. running right, jump (held 6 ticks), holding right, from 1216,337, through the barrier at 1264,240; lands at 1336,337   [event:rWarshipM/key2]
+      -> standing at x 1287-1417, y 337
+  10. running right, jump (held 6 ticks), holding right, from 1376,337, through the barrier at 1424,240; lands at 1476,289   [event:rWarshipM/key4]
+      -> standing at x 1447-1862, y 289
+  11. walk off the edge, holding right once in the air, from 1447,289; lands at 1945,353
+      -> standing at x 1863-2240, y 353
+  12. standing at 2222,353, goes into it
+      -> out 2224,320
+how in 48,256 -> out 2224,320: djump,event:rWarshipM/key2,event:rWarshipM/key4,event:rWarshipM/switch1,event:rWarshipM/switch3
+     coming in at 48,256
+   1. coming in: holding nothing, from 48,256; lands at 48,257
+      -> standing at x 0-486, y 257
+   2. walk off the edge, holding right once in the air, from 144,257, through the oBarrierColor at 528,336, the oBarrierColor at 1328,336; lands at 617,497   [event:rWarshipM/switch1]
+      -> standing at x 487-617, y 497
+   3. running right, jump (held 6 ticks), holding right, from 576,497; lands at 727,497
+      -> standing at x 647-777, y 497
+   4. running right, jump (held 6 ticks), holding right, from 688,497; lands at 850,497
+      -> standing at x 807-937, y 497
+   5. running right, jump (held 6 ticks), holding right, from 848,497; lands at 1010,497
+      -> standing at x 967-1097, y 497
+   6. running right, jump (held 6 ticks), holding right, from 1056,497; lands at 1176,497
+      -> standing at x 1127-1257, y 497
+   7. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1127,497; lands at 1211,433
+      -> standing at x 1162-1222, y 433
+   8. jump (held 21 ticks), holding right, double jump at tick 15, from 1162,433, through the oBarrierColor at 624,80, the oBarrierColor at 1168,336, the oBarrierColor at 1328,176, ...; lands at 1257,337   [djump,event:rWarshipM/switch3]
+      -> standing at x 1127-1257, y 337
+   9. running right, jump (held 6 ticks), holding right, from 1216,337, through the barrier at 1264,240; lands at 1336,337   [event:rWarshipM/key2]
+      -> standing at x 1287-1417, y 337
+  10. running right, jump (held 6 ticks), holding right, from 1376,337, through the barrier at 1424,240; lands at 1476,289   [event:rWarshipM/key4]
+      -> standing at x 1447-1862, y 289
+  11. walk off the edge, holding right once in the air, from 1447,289; lands at 1945,353
+      -> standing at x 1863-2240, y 353
+  12. standing at 2222,353, goes into it
+      -> out 2224,320
+how in 48,256 -> out 2224,320: djump,event:rWarshipM/key2,event:rWarshipM/key3,event:rWarshipM/key4,event:rWarshipM/switch1
+     coming in at 48,256
+   1. coming in: holding nothing, from 48,256; lands at 48,257
+      -> standing at x 0-486, y 257
+   2. walk off the edge, holding right once in the air, from 144,257, through the oBarrierColor at 528,336, the oBarrierColor at 1328,336; lands at 617,497   [event:rWarshipM/switch1]
+      -> standing at x 487-617, y 497
+   3. running right, jump (held 21 ticks), holding right, then nothing after 2 ticks, from 592,497; lands at 628,457
+      -> standing at x 618-646, y 457
+   4. running right, jump (held 6 ticks), holding right, from 642,457; lands at 792,457
+      -> standing at x 778-806, y 457
+   5. running right, jump (held 6 ticks), holding right, from 802,457; lands at 952,457
+      -> standing at x 938-966, y 457
+   6. running right, jump (held 21 ticks), holding right, then nothing after 2 ticks, from 962,457; lands at 1008,433
+      -> standing at x 1002-1062, y 433
+   7. jump (held 21 ticks), holding right, double jump at tick 15, from 1002,433, through the barrier at 1008,336; lands at 1097,337   [djump,event:rWarshipM/key3]
+      -> standing at x 967-1097, y 337
+   8. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 967,337; lands at 1053,273
+      -> standing at x 1002-1062, y 273
+   9. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 1024,273; lands at 994,177   [djump]
+      -> standing at x 967-1014, y 177
+  10. running right, jump (held 6 ticks), holding right, from 1006,177; lands at 1168,177
+      -> standing at x 1127-1174, y 177
+  11. walk off the edge, holding right once in the air, double jump at tick 16, from 1127,177, through the barrier at 1264,240; lands at 1335,337   [djump,event:rWarshipM/key2]
+      -> standing at x 1287-1417, y 337
+  12. running right, jump (held 6 ticks), holding right, from 1376,337, through the barrier at 1424,240; lands at 1476,289   [event:rWarshipM/key4]
+      -> standing at x 1447-1862, y 289
+  13. walk off the edge, holding right once in the air, from 1447,289; lands at 1945,353
+      -> standing at x 1863-2240, y 353
+  14. standing at 2222,353, goes into it
+      -> out 2224,320
+how in 48,256 -> loc 9 50: djump,event:rWarshipM/key2,event:rWarshipM/switch1,event:rWarshipM/switch2
+     coming in at 48,256
+   1. coming in: holding nothing, from 48,256; lands at 48,257
+      -> standing at x 0-486, y 257
+   2. walk off the edge, holding right once in the air, from 32,257; lands at 589,337
+      -> standing at x 487-617, y 337
+   3. jump (held 6 ticks), holding right, from 528,337; lands at 637,297
+      -> standing at x 618-646, y 297
+   4. running right, jump (held 6 ticks), holding right, from 642,297; lands at 792,297
+      -> standing at x 778-806, y 297
+   5. running right, jump (held 6 ticks), holding right, from 802,297, through the oBarrierColor at 944,240; lands at 952,297   [event:rWarshipM/switch2]
+      -> standing at x 938-966, y 297 (where a gate is)
+   6. running right, jump (held 21 ticks), holding right, then nothing after 2 ticks, from 962,297, through the oBarrierColor at 944,240; lands at 1008,273   [event:rWarshipM/switch2]
+      -> standing at x 1002-1062, y 273
+   7. jump (held 21 ticks), holding right, double jump at tick 15, from 1002,273; lands at 1097,177   [djump]
+      -> standing at x 1050-1097, y 177
+   8. jump (held 6 ticks), holding right, from 1050,177; lands at 1257,337
+      -> standing at x 1127-1257, y 337
+   9. running right, jump (held 6 ticks), holding right, from 1216,337, through the barrier at 1264,240; lands at 1336,337   [event:rWarshipM/key2]
+      -> standing at x 1287-1417, y 337
+  10. walk off the edge, holding right, then nothing after 1 ticks in the air, from 1344,337, through the oBarrierColor at 528,336, the oBarrierColor at 1328,336; touches it on the way   [event:rWarshipM/switch1]
+      -> loc 9 50
+how in 48,256 -> loc 9 50: djump,event:rWarshipM/key2,event:rWarshipM/switch1,event:rWarshipM/switch3
+     coming in at 48,256
+   1. coming in: holding nothing, from 48,256; lands at 48,257
+      -> standing at x 0-486, y 257
+   2. walk off the edge, holding right once in the air, from 144,257, through the oBarrierColor at 528,336, the oBarrierColor at 1328,336; lands at 617,497   [event:rWarshipM/switch1]
+      -> standing at x 487-617, y 497
+   3. running right, jump (held 6 ticks), holding right, from 576,497; lands at 727,497
+      -> standing at x 647-777, y 497
+   4. running right, jump (held 6 ticks), holding right, from 688,497; lands at 850,497
+      -> standing at x 807-937, y 497
+   5. running right, jump (held 6 ticks), holding right, from 848,497; lands at 1010,497
+      -> standing at x 967-1097, y 497
+   6. running right, jump (held 6 ticks), holding right, from 1056,497; lands at 1176,497
+      -> standing at x 1127-1257, y 497
+   7. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1127,497; lands at 1211,433
+      -> standing at x 1162-1222, y 433
+   8. jump (held 21 ticks), holding right, double jump at tick 15, from 1162,433, through the oBarrierColor at 624,80, the oBarrierColor at 1168,336, the oBarrierColor at 1328,176, ...; lands at 1257,337   [djump,event:rWarshipM/switch3]
+      -> standing at x 1127-1257, y 337
+   9. running right, jump (held 6 ticks), holding right, from 1216,337, through the barrier at 1264,240; lands at 1336,337   [event:rWarshipM/key2]
+      -> standing at x 1287-1417, y 337
+  10. walk off the edge, holding right, then nothing after 1 ticks in the air, from 1344,337, through the oBarrierColor at 528,336, the oBarrierColor at 1328,336; touches it on the way   [event:rWarshipM/switch1]
+      -> loc 9 50
+how in 48,256 -> loc 9 50: djump,event:rWarshipM/key2,event:rWarshipM/key3,event:rWarshipM/switch1
+     coming in at 48,256
+   1. coming in: holding nothing, from 48,256; lands at 48,257
+      -> standing at x 0-486, y 257
+   2. walk off the edge, holding right once in the air, from 144,257, through the oBarrierColor at 528,336, the oBarrierColor at 1328,336; lands at 617,497   [event:rWarshipM/switch1]
+      -> standing at x 487-617, y 497
+   3. running right, jump (held 21 ticks), holding right, then nothing after 2 ticks, from 592,497; lands at 628,457
+      -> standing at x 618-646, y 457
+   4. running right, jump (held 6 ticks), holding right, from 642,457; lands at 792,457
+      -> standing at x 778-806, y 457
+   5. running right, jump (held 6 ticks), holding right, from 802,457; lands at 952,457
+      -> standing at x 938-966, y 457
+   6. running right, jump (held 21 ticks), holding right, then nothing after 2 ticks, from 962,457; lands at 1008,433
+      -> standing at x 1002-1062, y 433
+   7. jump (held 21 ticks), holding right, double jump at tick 15, from 1002,433, through the barrier at 1008,336; lands at 1097,337   [djump,event:rWarshipM/key3]
+      -> standing at x 967-1097, y 337
+   8. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 967,337; lands at 1053,273
+      -> standing at x 1002-1062, y 273
+   9. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 1024,273; lands at 994,177   [djump]
+      -> standing at x 967-1014, y 177
+  10. running right, jump (held 6 ticks), holding right, from 1006,177; lands at 1168,177
+      -> standing at x 1127-1174, y 177
+  11. walk off the edge, holding right once in the air, double jump at tick 16, from 1127,177, through the barrier at 1264,240; lands at 1335,337   [djump,event:rWarshipM/key2]
+      -> standing at x 1287-1417, y 337
+  12. walk off the edge, holding right, then nothing after 1 ticks in the air, from 1344,337, through the oBarrierColor at 528,336, the oBarrierColor at 1328,336; touches it on the way   [event:rWarshipM/switch1]
+      -> loc 9 50
+how in 48,256 -> spot switch1: djump
+     coming in at 48,256
+   1. coming in: holding nothing, from 48,256; lands at 48,257
+      -> standing at x 0-486, y 257
+   2. walk off the edge, holding right once in the air, from 32,257; lands at 589,337
+      -> standing at x 487-617, y 337
+   3. jump (held 6 ticks), holding right, from 528,337; lands at 637,297
+      -> standing at x 618-646, y 297
+   4. running right, jump (held 21 ticks), holding right, then nothing after 2 ticks, from 642,297; lands at 688,273
+      -> standing at x 682-742, y 273
+   5. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 704,273; lands at 674,177   [djump]
+      -> standing at x 647-694, y 177
+   6. standing at 650,177, on it
+      -> spot switch1
+how in 48,256 -> spot switch2: event:rWarshipM/switch1
+     coming in at 48,256
+   1. coming in: holding nothing, from 48,256; lands at 48,257
+      -> standing at x 0-486, y 257
+   2. walk off the edge, holding right once in the air, from 144,257, through the oBarrierColor at 528,336, the oBarrierColor at 1328,336; lands at 617,497   [event:rWarshipM/switch1]
+      -> standing at x 487-617, y 497
+   3. running right, jump (held 6 ticks), holding right, from 576,497; touches it on the way
+      -> spot switch2
+how in 48,256 -> spot switch2: event:rWarshipM/key3,event:rWarshipM/switch2
+     coming in at 48,256
+   1. coming in: holding nothing, from 48,256; lands at 48,257
+      -> standing at x 0-486, y 257
+   2. walk off the edge, holding right once in the air, from 32,257; lands at 589,337
+      -> standing at x 487-617, y 337
+   3. running right, jump (held 6 ticks), holding right, from 528,337; lands at 690,337
+      -> standing at x 647-777, y 337
+   4. running right, jump (held 6 ticks), holding right, from 736,337; lands at 887,337
+      -> standing at x 807-937, y 337
+   5. running right, jump (held 6 ticks), holding right, from 848,337, through the oBarrierColor at 944,240; lands at 1010,337   [event:rWarshipM/switch2]
+      -> standing at x 967-1097, y 337
+   6. walk off the edge, holding right once in the air, from 967,337, through the barrier at 1008,336; lands at 1097,497   [event:rWarshipM/key3]
+      -> standing at x 967-1097, y 497
+   7. jump (held 6 ticks), holding left, from 967,497; lands at 857,497
+      -> standing at x 807-937, y 497
+   8. jump (held 6 ticks), holding left, from 807,497; lands at 697,497
+      -> standing at x 647-777, y 497
+   9. jump (held 6 ticks), holding left, from 647,497; lands at 568,497
+      -> standing at x 487-617, y 497
+  10. running right, jump (held 6 ticks), holding right, from 576,497; touches it on the way
+      -> spot switch2
+how in 48,256 -> spot switch2: djump,event:rWarshipM/switch2,event:rWarshipM/switch3
+     coming in at 48,256
+   1. coming in: holding nothing, from 48,256; lands at 48,257
+      -> standing at x 0-486, y 257
+   2. walk off the edge, holding right once in the air, from 32,257; lands at 589,337
+      -> standing at x 487-617, y 337
+   3. jump (held 6 ticks), holding right, from 528,337; lands at 637,297
+      -> standing at x 618-646, y 297
+   4. running right, jump (held 6 ticks), holding right, from 642,297; lands at 792,297
+      -> standing at x 778-806, y 297
+   5. running right, jump (held 6 ticks), holding right, from 802,297, through the oBarrierColor at 944,240; lands at 952,297   [event:rWarshipM/switch2]
+      -> standing at x 938-966, y 297 (where a gate is)
+   6. running right, jump (held 21 ticks), holding right, then nothing after 2 ticks, from 962,297, through the oBarrierColor at 944,240; lands at 1008,273   [event:rWarshipM/switch2]
+      -> standing at x 1002-1062, y 273
+   7. jump (held 21 ticks), holding right, double jump at tick 15, from 1002,273; lands at 1097,177   [djump]
+      -> standing at x 1050-1097, y 177
+   8. jump (held 6 ticks), holding right, from 1050,177; lands at 1257,337
+      -> standing at x 1127-1257, y 337
+   9. walk off the edge, holding left once in the air, double jump at tick 16, from 1184,337, through the oBarrierColor at 624,80, the oBarrierColor at 1168,336, the oBarrierColor at 1328,176, ...; lands at 1048,497   [djump,event:rWarshipM/switch3]
+      -> standing at x 967-1097, y 497
+  10. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 967,497; lands at 956,457
+      -> standing at x 938-966, y 457
+  11. walk off the edge, holding left once in the air, double jump at tick 8, from 942,457; lands at 715,497   [djump]
+      -> standing at x 647-777, y 497
+  12. jump (held 6 ticks), holding left, from 647,497; lands at 568,497
+      -> standing at x 487-617, y 497
+  13. running right, jump (held 6 ticks), holding right, from 576,497; touches it on the way
+      -> spot switch2
+how in 48,256 -> spot switch3: djump,event:rWarshipM/switch2
+     coming in at 48,256
+   1. coming in: holding nothing, from 48,256; lands at 48,257
+      -> standing at x 0-486, y 257
+   2. walk off the edge, holding right once in the air, from 32,257; lands at 589,337
+      -> standing at x 487-617, y 337
+   3. jump (held 6 ticks), holding right, from 528,337; lands at 637,297
+      -> standing at x 618-646, y 297
+   4. running right, jump (held 6 ticks), holding right, from 642,297; lands at 792,297
+      -> standing at x 778-806, y 297
+   5. running right, jump (held 6 ticks), holding right, from 802,297, through the oBarrierColor at 944,240; lands at 952,297   [event:rWarshipM/switch2]
+      -> standing at x 938-966, y 297 (where a gate is)
+   6. running right, jump (held 21 ticks), holding right, then nothing after 2 ticks, from 962,297, through the oBarrierColor at 944,240; lands at 1008,273   [event:rWarshipM/switch2]
+      -> standing at x 1002-1062, y 273
+   7. jump (held 21 ticks), holding right, double jump at tick 15, from 1002,273; lands at 1097,177   [djump]
+      -> standing at x 1050-1097, y 177
+   8. jump (held 21 ticks), holding right, double jump at tick 10, from 1072,177; touches it on the way   [djump]
+      -> spot switch3
+how in 48,256 -> spot switch3: djump,event:rWarshipM/key3,event:rWarshipM/switch1
+     coming in at 48,256
+   1. coming in: holding nothing, from 48,256; lands at 48,257
+      -> standing at x 0-486, y 257
+   2. walk off the edge, holding right once in the air, from 144,257, through the oBarrierColor at 528,336, the oBarrierColor at 1328,336; lands at 617,497   [event:rWarshipM/switch1]
+      -> standing at x 487-617, y 497
+   3. running right, jump (held 21 ticks), holding right, then nothing after 2 ticks, from 592,497; lands at 628,457
+      -> standing at x 618-646, y 457
+   4. running right, jump (held 6 ticks), holding right, from 642,457; lands at 792,457
+      -> standing at x 778-806, y 457
+   5. running right, jump (held 6 ticks), holding right, from 802,457; lands at 952,457
+      -> standing at x 938-966, y 457
+   6. running right, jump (held 21 ticks), holding right, then nothing after 2 ticks, from 962,457; lands at 1008,433
+      -> standing at x 1002-1062, y 433
+   7. jump (held 21 ticks), holding right, double jump at tick 15, from 1002,433, through the barrier at 1008,336; lands at 1097,337   [djump,event:rWarshipM/key3]
+      -> standing at x 967-1097, y 337
+   8. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 967,337; lands at 1053,273
+      -> standing at x 1002-1062, y 273
+   9. jump (held 21 ticks), holding right, double jump at tick 15, from 1002,273; lands at 1097,177   [djump]
+      -> standing at x 1050-1097, y 177
+  10. jump (held 21 ticks), holding right, double jump at tick 10, from 1072,177; touches it on the way   [djump]
+      -> spot switch3
+how in 48,256 -> spot switch3: djump,event:rWarshipM/switch1,event:rWarshipM/switch3
+     coming in at 48,256
+   1. coming in: holding nothing, from 48,256; lands at 48,257
+      -> standing at x 0-486, y 257
+   2. walk off the edge, holding right once in the air, from 144,257, through the oBarrierColor at 528,336, the oBarrierColor at 1328,336; lands at 617,497   [event:rWarshipM/switch1]
+      -> standing at x 487-617, y 497
+   3. running right, jump (held 6 ticks), holding right, from 576,497; lands at 727,497
+      -> standing at x 647-777, y 497
+   4. running right, jump (held 6 ticks), holding right, from 688,497; lands at 850,497
+      -> standing at x 807-937, y 497
+   5. running right, jump (held 6 ticks), holding right, from 848,497; lands at 1010,497
+      -> standing at x 967-1097, y 497
+   6. running right, jump (held 6 ticks), holding right, from 1056,497; lands at 1176,497
+      -> standing at x 1127-1257, y 497
+   7. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1127,497; lands at 1211,433
+      -> standing at x 1162-1222, y 433
+   8. jump (held 21 ticks), holding right, double jump at tick 15, from 1162,433, through the oBarrierColor at 624,80, the oBarrierColor at 1168,336, the oBarrierColor at 1328,176, ...; lands at 1257,337   [djump,event:rWarshipM/switch3]
+      -> standing at x 1127-1257, y 337
+   9. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1127,337; lands at 1213,273
+      -> standing at x 1162-1222, y 273
+  10. jump (held 21 ticks), holding right, double jump at tick 15, from 1162,273; lands at 1257,177   [djump]
+      -> standing at x 1210-1257, y 177
+  11. running left, jump (held 6 ticks), holding left, from 1216,177; lands at 1054,177
+      -> standing at x 1050-1097, y 177
+  12. jump (held 21 ticks), holding right, double jump at tick 10, from 1072,177; touches it on the way   [djump]
+      -> spot switch3
+how in 48,256 -> spot key1: djump,event:rWarshipM/switch2
+     coming in at 48,256
+   1. coming in: holding nothing, from 48,256; lands at 48,257
+      -> standing at x 0-486, y 257
+   2. walk off the edge, holding right once in the air, from 32,257; lands at 589,337
+      -> standing at x 487-617, y 337
+   3. jump (held 6 ticks), holding right, from 528,337; lands at 637,297
+      -> standing at x 618-646, y 297
+   4. running right, jump (held 6 ticks), holding right, from 642,297; lands at 792,297
+      -> standing at x 778-806, y 297
+   5. running right, jump (held 6 ticks), holding right, from 802,297, through the oBarrierColor at 944,240; lands at 952,297   [event:rWarshipM/switch2]
+      -> standing at x 938-966, y 297 (where a gate is)
+   6. running right, jump (held 21 ticks), holding right, then nothing after 2 ticks, from 962,297, through the oBarrierColor at 944,240; lands at 1008,273   [event:rWarshipM/switch2]
+      -> standing at x 1002-1062, y 273
+   7. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 1024,273; lands at 994,177   [djump]
+      -> standing at x 967-1014, y 177
+   8. jump (held 2 ticks), holding right, from 971,177; touches it on the way
+      -> spot key1
+how in 48,256 -> spot key1: djump,event:rWarshipM/key3,event:rWarshipM/switch1
+     coming in at 48,256
+   1. coming in: holding nothing, from 48,256; lands at 48,257
+      -> standing at x 0-486, y 257
+   2. walk off the edge, holding right once in the air, from 144,257, through the oBarrierColor at 528,336, the oBarrierColor at 1328,336; lands at 617,497   [event:rWarshipM/switch1]
+      -> standing at x 487-617, y 497
+   3. running right, jump (held 21 ticks), holding right, then nothing after 2 ticks, from 592,497; lands at 628,457
+      -> standing at x 618-646, y 457
+   4. running right, jump (held 6 ticks), holding right, from 642,457; lands at 792,457
+      -> standing at x 778-806, y 457
+   5. running right, jump (held 6 ticks), holding right, from 802,457; lands at 952,457
+      -> standing at x 938-966, y 457
+   6. running right, jump (held 21 ticks), holding right, then nothing after 2 ticks, from 962,457; lands at 1008,433
+      -> standing at x 1002-1062, y 433
+   7. jump (held 21 ticks), holding right, double jump at tick 15, from 1002,433, through the barrier at 1008,336; lands at 1097,337   [djump,event:rWarshipM/key3]
+      -> standing at x 967-1097, y 337
+   8. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 967,337; lands at 1053,273
+      -> standing at x 1002-1062, y 273
+   9. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 1024,273; lands at 994,177   [djump]
+      -> standing at x 967-1014, y 177
+  10. jump (held 2 ticks), holding right, from 971,177; touches it on the way
+      -> spot key1
+how in 48,256 -> spot key1: djump,event:rWarshipM/switch1,event:rWarshipM/switch3
+     coming in at 48,256
+   1. coming in: holding nothing, from 48,256; lands at 48,257
+      -> standing at x 0-486, y 257
+   2. walk off the edge, holding right once in the air, from 144,257, through the oBarrierColor at 528,336, the oBarrierColor at 1328,336; lands at 617,497   [event:rWarshipM/switch1]
+      -> standing at x 487-617, y 497
+   3. running right, jump (held 6 ticks), holding right, from 576,497; lands at 727,497
+      -> standing at x 647-777, y 497
+   4. running right, jump (held 6 ticks), holding right, from 688,497; lands at 850,497
+      -> standing at x 807-937, y 497
+   5. running right, jump (held 6 ticks), holding right, from 848,497; lands at 1010,497
+      -> standing at x 967-1097, y 497
+   6. running right, jump (held 6 ticks), holding right, from 1056,497; lands at 1176,497
+      -> standing at x 1127-1257, y 497
+   7. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1127,497; lands at 1211,433
+      -> standing at x 1162-1222, y 433
+   8. jump (held 21 ticks), holding right, double jump at tick 15, from 1162,433, through the oBarrierColor at 624,80, the oBarrierColor at 1168,336, the oBarrierColor at 1328,176, ...; lands at 1257,337   [djump,event:rWarshipM/switch3]
+      -> standing at x 1127-1257, y 337
+   9. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1127,337; lands at 1213,273
+      -> standing at x 1162-1222, y 273
+  10. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 1184,273; lands at 1154,177   [djump]
+      -> standing at x 1127-1174, y 177
+  11. jump (held 21 ticks), holding left, double jump at tick 5, from 1127,177; lands at 1003,177   [djump]
+      -> standing at x 967-1014, y 177
+  12. jump (held 2 ticks), holding right, from 971,177; touches it on the way
+      -> spot key1
+how in 48,256 -> spot key2: djump,event:rWarshipM/key1
+     coming in at 48,256
+   1. coming in: holding nothing, from 48,256; lands at 48,257
+      -> standing at x 0-486, y 257
+   2. walk off the edge, holding right once in the air, from 32,257; lands at 589,337
+      -> standing at x 487-617, y 337
+   3. jump (held 6 ticks), holding right, from 528,337; lands at 637,297
+      -> standing at x 618-646, y 297
+   4. running right, jump (held 21 ticks), holding right, then nothing after 2 ticks, from 642,297; lands at 688,273
+      -> standing at x 682-742, y 273
+   5. jump (held 21 ticks), holding right, double jump at tick 15, from 682,273; lands at 777,177   [djump]
+      -> standing at x 730-777, y 177
+   6. jump (held 6 ticks), holding right, from 730,177, through the barrier at 784,80; touches it on the way   [event:rWarshipM/key1]
+      -> spot key2
+how in 48,256 -> spot key3: djump,event:rWarshipM/key2,event:rWarshipM/switch2,event:rWarshipM/switch3
+     coming in at 48,256
+   1. coming in: holding nothing, from 48,256; lands at 48,257
+      -> standing at x 0-486, y 257
+   2. walk off the edge, holding right once in the air, from 32,257; lands at 589,337
+      -> standing at x 487-617, y 337
+   3. jump (held 6 ticks), holding right, from 528,337; lands at 637,297
+      -> standing at x 618-646, y 297
+   4. running right, jump (held 6 ticks), holding right, from 642,297; lands at 792,297
+      -> standing at x 778-806, y 297
+   5. running right, jump (held 6 ticks), holding right, from 802,297, through the oBarrierColor at 944,240; lands at 952,297   [event:rWarshipM/switch2]
+      -> standing at x 938-966, y 297 (where a gate is)
+   6. running right, jump (held 21 ticks), holding right, then nothing after 2 ticks, from 962,297, through the oBarrierColor at 944,240; lands at 1008,273   [event:rWarshipM/switch2]
+      -> standing at x 1002-1062, y 273
+   7. jump (held 21 ticks), holding right, double jump at tick 15, from 1002,273; lands at 1097,177   [djump]
+      -> standing at x 1050-1097, y 177
+   8. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1050,177; lands at 1116,137
+      -> standing at x 1098-1126, y 137
+   9. walk off the edge, holding right once in the air, double jump at tick 16, from 1098,137, through the barrier at 1264,240; lands at 1279,297   [djump,event:rWarshipM/key2]
+      -> standing at x 1258-1286, y 297 (where a gate is)
+  10. jump (held 21 ticks), holding right, double jump at tick 10, from 1258,297, through the barrier at 1264,240; lands at 1358,273   [djump,event:rWarshipM/key2]
+      -> standing at x 1322-1382, y 273
+  11. jump (held 21 ticks), holding right, double jump at tick 15, from 1322,273, through the oBarrierColor at 624,80, the oBarrierColor at 1168,336, the oBarrierColor at 1328,176, ...; lands at 1417,177   [djump,event:rWarshipM/switch3]
+      -> standing at x 1287-1417, y 177
+  12. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 1287,177; touches it on the way
+      -> spot key3
+how in 48,256 -> spot key3: djump,event:rWarshipM/key2,event:rWarshipM/switch1,event:rWarshipM/switch3
+     coming in at 48,256
+   1. coming in: holding nothing, from 48,256; lands at 48,257
+      -> standing at x 0-486, y 257
+   2. walk off the edge, holding right once in the air, from 144,257, through the oBarrierColor at 528,336, the oBarrierColor at 1328,336; lands at 617,497   [event:rWarshipM/switch1]
+      -> standing at x 487-617, y 497
+   3. running right, jump (held 6 ticks), holding right, from 576,497; lands at 727,497
+      -> standing at x 647-777, y 497
+   4. running right, jump (held 6 ticks), holding right, from 688,497; lands at 850,497
+      -> standing at x 807-937, y 497
+   5. running right, jump (held 6 ticks), holding right, from 848,497; lands at 1010,497
+      -> standing at x 967-1097, y 497
+   6. running right, jump (held 6 ticks), holding right, from 1056,497; lands at 1176,497
+      -> standing at x 1127-1257, y 497
+   7. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1127,497; lands at 1211,433
+      -> standing at x 1162-1222, y 433
+   8. jump (held 21 ticks), holding right, double jump at tick 15, from 1162,433, through the oBarrierColor at 624,80, the oBarrierColor at 1168,336, the oBarrierColor at 1328,176, ...; lands at 1257,337   [djump,event:rWarshipM/switch3]
+      -> standing at x 1127-1257, y 337
+   9. jump (held 21 ticks), holding right, double jump at tick 10, from 1127,337, through the barrier at 1264,240; lands at 1279,297   [djump,event:rWarshipM/key2]
+      -> standing at x 1258-1286, y 297 (where a gate is)
+  10. jump (held 21 ticks), holding right, double jump at tick 10, from 1258,297, through the barrier at 1264,240; lands at 1358,273   [djump,event:rWarshipM/key2]
+      -> standing at x 1322-1382, y 273
+  11. jump (held 21 ticks), holding right, double jump at tick 15, from 1322,273, through the oBarrierColor at 624,80, the oBarrierColor at 1168,336, the oBarrierColor at 1328,176, ...; lands at 1417,177   [djump,event:rWarshipM/switch3]
+      -> standing at x 1287-1417, y 177
+  12. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 1287,177; touches it on the way
+      -> spot key3
+how in 48,256 -> spot key4: djump,event:rWarshipM/switch3
+     coming in at 48,256
+   1. coming in: holding nothing, from 48,256; lands at 48,257
+      -> standing at x 0-486, y 257
+   2. walk off the edge, holding right once in the air, from 32,257; lands at 589,337
+      -> standing at x 487-617, y 337
+   3. jump (held 6 ticks), holding right, from 528,337; lands at 637,297
+      -> standing at x 618-646, y 297
+   4. running right, jump (held 21 ticks), holding right, then nothing after 2 ticks, from 642,297; lands at 688,273
+      -> standing at x 682-742, y 273
+   5. jump (held 21 ticks), holding right, double jump at tick 15, from 682,273; lands at 777,177   [djump]
+      -> standing at x 730-777, y 177
+   6. running left, jump (held 6 ticks), holding left, from 730,177, through the oBarrierColor at 624,80, the oBarrierColor at 1168,336, the oBarrierColor at 1328,176, ...; lands at 568,177   [event:rWarshipM/switch3]
+      -> standing at x 487-617, y 177
+   7. standing at 545,177, on it
+      -> spot key4
+how in 2192,352 -> out 0,224: djump,event:rWarshipM/key2,event:rWarshipM/key4,event:rWarshipM/switch1,event:rWarshipM/switch3
+     coming in at 2192,352
+   1. coming in: holding nothing, from 2192,352; lands at 2192,353
+      -> standing at x 1863-2240, y 353
+   2. jump (held 21 ticks), holding left, from 1863,353; lands at 1790,289
+      -> standing at x 1447-1862, y 289
+   3. walk off the edge, holding left once in the air, from 1447,289, through the barrier at 1424,240; lands at 1369,337   [event:rWarshipM/key4]
+      -> standing at x 1287-1417, y 337
+   4. jump (held 6 ticks), holding left, from 1287,337, through the barrier at 1264,240; lands at 1208,337   [event:rWarshipM/key2]
+      -> standing at x 1127-1257, y 337
+   5. walk off the edge, holding right once in the air, from 1127,337, through the oBarrierColor at 624,80, the oBarrierColor at 1168,336, the oBarrierColor at 1328,176, ...; lands at 1257,497   [event:rWarshipM/switch3]
+      -> standing at x 1127-1257, y 497
+   6. jump (held 6 ticks), holding left, from 1127,497; lands at 1048,497
+      -> standing at x 967-1097, y 497
+   7. jump (held 6 ticks), holding left, from 967,497; lands at 857,497
+      -> standing at x 807-937, y 497
+   8. jump (held 6 ticks), holding left, from 807,497; lands at 697,497
+      -> standing at x 647-777, y 497
+   9. jump (held 6 ticks), holding left, from 647,497; lands at 568,497
+      -> standing at x 487-617, y 497
+  10. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 487,497; lands at 573,433
+      -> standing at x 522-582, y 433
+  11. jump (held 21 ticks), holding right, double jump at tick 15, from 522,433, through the oBarrierColor at 528,336, the oBarrierColor at 1328,336; lands at 617,337   [djump,event:rWarshipM/switch1]
+      -> standing at x 487-617, y 337
+  12. jump (held 21 ticks), holding left, double jump at tick 10, from 487,337; lands at 406,257   [djump]
+      -> standing at x 0-486, y 257
+  13. standing at 0,257, goes into it
+      -> out 0,224
+how in 2192,352 -> out 0,224: djump,event:rWarshipM/key2,event:rWarshipM/key4,event:rWarshipM/switch2
+     coming in at 2192,352
+   1. coming in: holding nothing, from 2192,352; lands at 2192,353
+      -> standing at x 1863-2240, y 353
+   2. jump (held 21 ticks), holding left, from 1863,353; lands at 1790,289
+      -> standing at x 1447-1862, y 289
+   3. walk from 1447,289 to 1446,289 into the barrier at 1424,240   [event:rWarshipM/key4]
+      -> standing at x 1418-1446, y 289 (where a gate is)
+   4. running left, jump (held 6 ticks), holding left, from 1418,289, through the barrier at 1264,240, the barrier at 1424,240; lands at 1265,297   [event:rWarshipM/key2,event:rWarshipM/key4]
+      -> standing at x 1258-1286, y 297 (where a gate is)
+   5. jump (held 2 ticks), holding left, from 1258,297, through the barrier at 1264,240; lands at 1178,273   [event:rWarshipM/key2]
+      -> standing at x 1162-1222, y 273
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 1162,273; lands at 1257,177   [djump]
+      -> standing at x 1210-1257, y 177
+   7. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 1210,177; lands at 1104,137
+      -> standing at x 1098-1126, y 137
+   8. walk off the edge, holding left once in the air, double jump at tick 16, from 1098,137, through the oBarrierColor at 944,240; lands at 945,297   [djump,event:rWarshipM/switch2]
+      -> standing at x 938-966, y 297 (where a gate is)
+   9. walk off the edge, holding left once in the air, double jump at tick 8, from 942,297, through the oBarrierColor at 944,240; lands at 728,337   [djump,event:rWarshipM/switch2]
+      -> standing at x 647-777, y 337
+  10. jump (held 6 ticks), holding left, from 647,337; lands at 537,337
+      -> standing at x 487-617, y 337
+  11. jump (held 21 ticks), holding left, double jump at tick 10, from 487,337; lands at 406,257   [djump]
+      -> standing at x 0-486, y 257
+  12. standing at 0,257, goes into it
+      -> out 0,224
+how in 2192,352 -> out 0,224: djump,event:rWarshipM/key2,event:rWarshipM/key3,event:rWarshipM/key4,event:rWarshipM/switch1
+     coming in at 2192,352
+   1. coming in: holding nothing, from 2192,352; lands at 2192,353
+      -> standing at x 1863-2240, y 353
+   2. jump (held 21 ticks), holding left, from 1863,353; lands at 1790,289
+      -> standing at x 1447-1862, y 289
+   3. walk from 1447,289 to 1446,289 into the barrier at 1424,240   [event:rWarshipM/key4]
+      -> standing at x 1418-1446, y 289 (where a gate is)
+   4. running left, jump (held 6 ticks), holding left, from 1418,289, through the barrier at 1264,240, the barrier at 1424,240; lands at 1265,297   [event:rWarshipM/key2,event:rWarshipM/key4]
+      -> standing at x 1258-1286, y 297 (where a gate is)
+   5. jump (held 2 ticks), holding left, from 1258,297, through the barrier at 1264,240; lands at 1178,273   [event:rWarshipM/key2]
+      -> standing at x 1162-1222, y 273
+   6. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 1184,273; lands at 1154,177   [djump]
+      -> standing at x 1127-1174, y 177
+   7. jump (held 6 ticks), holding left, from 1127,177; lands at 967,337
+      -> standing at x 967-1097, y 337
+   8. walk off the edge, holding left once in the air, double jump at tick 16, from 1024,337, through the barrier at 1008,336; lands at 842,497   [djump,event:rWarshipM/key3]
+      -> standing at x 807-937, y 497
+   9. jump (held 6 ticks), holding left, from 807,497; lands at 697,497
+      -> standing at x 647-777, y 497
+  10. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 647,497; lands at 636,457
+      -> standing at x 618-646, y 457
+  11. jump (held 2 ticks), holding left, from 618,457; lands at 538,433
+      -> standing at x 522-582, y 433
+  12. jump (held 21 ticks), holding right, double jump at tick 15, from 522,433, through the oBarrierColor at 528,336, the oBarrierColor at 1328,336; lands at 617,337   [djump,event:rWarshipM/switch1]
+      -> standing at x 487-617, y 337
+  13. jump (held 21 ticks), holding left, double jump at tick 10, from 487,337; lands at 406,257   [djump]
+      -> standing at x 0-486, y 257
+  14. standing at 0,257, goes into it
+      -> out 0,224
 how in 2192,352 -> out 2224,320: -
      coming in at 2192,352
    1. coming in: holding nothing, from 2192,352; lands at 2192,353
       -> standing at x 1863-2240, y 353
    2. standing at 2222,353, goes into it
       -> out 2224,320
+how in 2192,352 -> loc 9 50: event:rWarshipM/key4,event:rWarshipM/switch1
+     coming in at 2192,352
+   1. coming in: holding nothing, from 2192,352; lands at 2192,353
+      -> standing at x 1863-2240, y 353
+   2. jump (held 21 ticks), holding left, from 1863,353; lands at 1790,289
+      -> standing at x 1447-1862, y 289
+   3. walk off the edge, holding left once in the air, from 1447,289, through the barrier at 1424,240; lands at 1369,337   [event:rWarshipM/key4]
+      -> standing at x 1287-1417, y 337
+   4. walk off the edge, holding right, then nothing after 1 ticks in the air, from 1344,337, through the oBarrierColor at 528,336, the oBarrierColor at 1328,336; touches it on the way   [event:rWarshipM/switch1]
+      -> loc 9 50
+how in 2192,352 -> spot switch1: djump,event:rWarshipM/key2,event:rWarshipM/key4,event:rWarshipM/switch1,event:rWarshipM/switch3
+     coming in at 2192,352
+   1. coming in: holding nothing, from 2192,352; lands at 2192,353
+      -> standing at x 1863-2240, y 353
+   2. jump (held 21 ticks), holding left, from 1863,353; lands at 1790,289
+      -> standing at x 1447-1862, y 289
+   3. walk off the edge, holding left once in the air, from 1447,289, through the barrier at 1424,240; lands at 1369,337   [event:rWarshipM/key4]
+      -> standing at x 1287-1417, y 337
+   4. jump (held 6 ticks), holding left, from 1287,337, through the barrier at 1264,240; lands at 1208,337   [event:rWarshipM/key2]
+      -> standing at x 1127-1257, y 337
+   5. walk off the edge, holding right once in the air, from 1127,337, through the oBarrierColor at 624,80, the oBarrierColor at 1168,336, the oBarrierColor at 1328,176, ...; lands at 1257,497   [event:rWarshipM/switch3]
+      -> standing at x 1127-1257, y 497
+   6. jump (held 6 ticks), holding left, from 1127,497; lands at 1048,497
+      -> standing at x 967-1097, y 497
+   7. jump (held 6 ticks), holding left, from 967,497; lands at 857,497
+      -> standing at x 807-937, y 497
+   8. jump (held 6 ticks), holding left, from 807,497; lands at 697,497
+      -> standing at x 647-777, y 497
+   9. jump (held 6 ticks), holding left, from 647,497; lands at 568,497
+      -> standing at x 487-617, y 497
+  10. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 487,497; lands at 573,433
+      -> standing at x 522-582, y 433
+  11. jump (held 21 ticks), holding right, double jump at tick 15, from 522,433, through the oBarrierColor at 528,336, the oBarrierColor at 1328,336; lands at 617,337   [djump,event:rWarshipM/switch1]
+      -> standing at x 487-617, y 337
+  12. jump (held 21 ticks), holding right, double jump at tick 5, from 487,337; lands at 640,297   [djump]
+      -> standing at x 618-646, y 297
+  13. jump (held 21 ticks), holding right, double jump at tick 10, from 618,297; lands at 718,273   [djump]
+      -> standing at x 682-742, y 273
+  14. jump (held 21 ticks), holding right, double jump at tick 15, from 682,273; lands at 777,177   [djump]
+      -> standing at x 730-777, y 177
+  15. running left, jump (held 6 ticks), holding left, from 730,177, through the oBarrierColor at 624,80, the oBarrierColor at 1168,336, the oBarrierColor at 1328,176, ...; lands at 568,177   [event:rWarshipM/switch3]
+      -> standing at x 487-617, y 177
+  16. running right, jump (held 6 ticks), holding right, from 528,177, through the oBarrierColor at 624,80, the oBarrierColor at 1168,336, the oBarrierColor at 1328,176, ...; touches it on the way   [event:rWarshipM/switch3]
+      -> spot switch1
+how in 2192,352 -> spot switch1: djump,event:rWarshipM/key2,event:rWarshipM/key4,event:rWarshipM/switch2
+     coming in at 2192,352
+   1. coming in: holding nothing, from 2192,352; lands at 2192,353
+      -> standing at x 1863-2240, y 353
+   2. jump (held 21 ticks), holding left, from 1863,353; lands at 1790,289
+      -> standing at x 1447-1862, y 289
+   3. walk from 1447,289 to 1446,289 into the barrier at 1424,240   [event:rWarshipM/key4]
+      -> standing at x 1418-1446, y 289 (where a gate is)
+   4. running left, jump (held 6 ticks), holding left, from 1418,289, through the barrier at 1264,240, the barrier at 1424,240; lands at 1265,297   [event:rWarshipM/key2,event:rWarshipM/key4]
+      -> standing at x 1258-1286, y 297 (where a gate is)
+   5. jump (held 2 ticks), holding left, from 1258,297, through the barrier at 1264,240; lands at 1178,273   [event:rWarshipM/key2]
+      -> standing at x 1162-1222, y 273
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 1162,273; lands at 1257,177   [djump]
+      -> standing at x 1210-1257, y 177
+   7. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 1210,177; lands at 1104,137
+      -> standing at x 1098-1126, y 137
+   8. walk off the edge, holding left once in the air, double jump at tick 16, from 1098,137, through the oBarrierColor at 944,240; lands at 945,297   [djump,event:rWarshipM/switch2]
+      -> standing at x 938-966, y 297 (where a gate is)
+   9. walk off the edge, holding left once in the air, double jump at tick 8, from 942,297, through the oBarrierColor at 944,240; lands at 728,337   [djump,event:rWarshipM/switch2]
+      -> standing at x 647-777, y 337
+  10. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 647,337; lands at 731,273
+      -> standing at x 682-742, y 273
+  11. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 704,273; lands at 674,177   [djump]
+      -> standing at x 647-694, y 177
+  12. standing at 650,177, on it
+      -> spot switch1
+how in 2192,352 -> spot switch1: djump,event:rWarshipM/key2,event:rWarshipM/key3,event:rWarshipM/key4,event:rWarshipM/switch1
+     coming in at 2192,352
+   1. coming in: holding nothing, from 2192,352; lands at 2192,353
+      -> standing at x 1863-2240, y 353
+   2. jump (held 21 ticks), holding left, from 1863,353; lands at 1790,289
+      -> standing at x 1447-1862, y 289
+   3. walk from 1447,289 to 1446,289 into the barrier at 1424,240   [event:rWarshipM/key4]
+      -> standing at x 1418-1446, y 289 (where a gate is)
+   4. running left, jump (held 6 ticks), holding left, from 1418,289, through the barrier at 1264,240, the barrier at 1424,240; lands at 1265,297   [event:rWarshipM/key2,event:rWarshipM/key4]
+      -> standing at x 1258-1286, y 297 (where a gate is)
+   5. jump (held 2 ticks), holding left, from 1258,297, through the barrier at 1264,240; lands at 1178,273   [event:rWarshipM/key2]
+      -> standing at x 1162-1222, y 273
+   6. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 1184,273; lands at 1154,177   [djump]
+      -> standing at x 1127-1174, y 177
+   7. jump (held 6 ticks), holding left, from 1127,177; lands at 967,337
+      -> standing at x 967-1097, y 337
+   8. walk off the edge, holding left once in the air, double jump at tick 16, from 1024,337, through the barrier at 1008,336; lands at 842,497   [djump,event:rWarshipM/key3]
+      -> standing at x 807-937, y 497
+   9. jump (held 6 ticks), holding left, from 807,497; lands at 697,497
+      -> standing at x 647-777, y 497
+  10. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 647,497; lands at 636,457
+      -> standing at x 618-646, y 457
+  11. jump (held 2 ticks), holding left, from 618,457; lands at 538,433
+      -> standing at x 522-582, y 433
+  12. jump (held 21 ticks), holding right, double jump at tick 15, from 522,433, through the oBarrierColor at 528,336, the oBarrierColor at 1328,336; lands at 617,337   [djump,event:rWarshipM/switch1]
+      -> standing at x 487-617, y 337
+  13. jump (held 21 ticks), holding right, double jump at tick 5, from 487,337; lands at 640,297   [djump]
+      -> standing at x 618-646, y 297
+  14. jump (held 21 ticks), holding right, double jump at tick 10, from 618,297; lands at 718,273   [djump]
+      -> standing at x 682-742, y 273
+  15. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 704,273; lands at 674,177   [djump]
+      -> standing at x 647-694, y 177
+  16. standing at 650,177, on it
+      -> spot switch1
+how in 2192,352 -> spot switch2: djump,event:rWarshipM/key2,event:rWarshipM/key4,event:rWarshipM/switch1,event:rWarshipM/switch2
+     coming in at 2192,352
+   1. coming in: holding nothing, from 2192,352; lands at 2192,353
+      -> standing at x 1863-2240, y 353
+   2. jump (held 21 ticks), holding left, from 1863,353; lands at 1790,289
+      -> standing at x 1447-1862, y 289
+   3. walk from 1447,289 to 1446,289 into the barrier at 1424,240   [event:rWarshipM/key4]
+      -> standing at x 1418-1446, y 289 (where a gate is)
+   4. running left, jump (held 6 ticks), holding left, from 1418,289, through the barrier at 1264,240, the barrier at 1424,240; lands at 1265,297   [event:rWarshipM/key2,event:rWarshipM/key4]
+      -> standing at x 1258-1286, y 297 (where a gate is)
+   5. jump (held 2 ticks), holding left, from 1258,297, through the barrier at 1264,240; lands at 1178,273   [event:rWarshipM/key2]
+      -> standing at x 1162-1222, y 273
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 1162,273; lands at 1257,177   [djump]
+      -> standing at x 1210-1257, y 177
+   7. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 1210,177; lands at 1104,137
+      -> standing at x 1098-1126, y 137
+   8. walk off the edge, holding left once in the air, double jump at tick 16, from 1098,137, through the oBarrierColor at 944,240; lands at 945,297   [djump,event:rWarshipM/switch2]
+      -> standing at x 938-966, y 297 (where a gate is)
+   9. walk off the edge, holding left once in the air, double jump at tick 8, from 942,297, through the oBarrierColor at 944,240; lands at 728,337   [djump,event:rWarshipM/switch2]
+      -> standing at x 647-777, y 337
+  10. jump (held 6 ticks), holding left, from 647,337; lands at 537,337
+      -> standing at x 487-617, y 337
+  11. walk off the edge, holding right once in the air, double jump at tick 16, from 487,337, through the oBarrierColor at 528,336, the oBarrierColor at 1328,336; touches it on the way   [djump,event:rWarshipM/switch1]
+      -> spot switch2
+how in 2192,352 -> spot switch2: event:rWarshipM/key2,event:rWarshipM/key4,event:rWarshipM/switch3
+     coming in at 2192,352
+   1. coming in: holding nothing, from 2192,352; lands at 2192,353
+      -> standing at x 1863-2240, y 353
+   2. jump (held 21 ticks), holding left, from 1863,353; lands at 1790,289
+      -> standing at x 1447-1862, y 289
+   3. walk off the edge, holding left once in the air, from 1447,289, through the barrier at 1424,240; lands at 1369,337   [event:rWarshipM/key4]
+      -> standing at x 1287-1417, y 337
+   4. jump (held 6 ticks), holding left, from 1287,337, through the barrier at 1264,240; lands at 1208,337   [event:rWarshipM/key2]
+      -> standing at x 1127-1257, y 337
+   5. walk off the edge, holding right once in the air, from 1127,337, through the oBarrierColor at 624,80, the oBarrierColor at 1168,336, the oBarrierColor at 1328,176, ...; lands at 1257,497   [event:rWarshipM/switch3]
+      -> standing at x 1127-1257, y 497
+   6. jump (held 6 ticks), holding left, from 1127,497; lands at 1048,497
+      -> standing at x 967-1097, y 497
+   7. jump (held 6 ticks), holding left, from 967,497; lands at 857,497
+      -> standing at x 807-937, y 497
+   8. jump (held 6 ticks), holding left, from 807,497; lands at 697,497
+      -> standing at x 647-777, y 497
+   9. jump (held 6 ticks), holding left, from 647,497; lands at 568,497
+      -> standing at x 487-617, y 497
+  10. running right, jump (held 6 ticks), holding right, from 576,497; touches it on the way
+      -> spot switch2
+how in 2192,352 -> spot switch2: djump,event:rWarshipM/key2,event:rWarshipM/key3,event:rWarshipM/key4
+     coming in at 2192,352
+   1. coming in: holding nothing, from 2192,352; lands at 2192,353
+      -> standing at x 1863-2240, y 353
+   2. jump (held 21 ticks), holding left, from 1863,353; lands at 1790,289
+      -> standing at x 1447-1862, y 289
+   3. walk from 1447,289 to 1446,289 into the barrier at 1424,240   [event:rWarshipM/key4]
+      -> standing at x 1418-1446, y 289 (where a gate is)
+   4. running left, jump (held 6 ticks), holding left, from 1418,289, through the barrier at 1264,240, the barrier at 1424,240; lands at 1265,297   [event:rWarshipM/key2,event:rWarshipM/key4]
+      -> standing at x 1258-1286, y 297 (where a gate is)
+   5. jump (held 2 ticks), holding left, from 1258,297, through the barrier at 1264,240; lands at 1178,273   [event:rWarshipM/key2]
+      -> standing at x 1162-1222, y 273
+   6. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 1184,273; lands at 1154,177   [djump]
+      -> standing at x 1127-1174, y 177
+   7. jump (held 6 ticks), holding left, from 1127,177; lands at 967,337
+      -> standing at x 967-1097, y 337
+   8. walk off the edge, holding left once in the air, double jump at tick 16, from 1024,337, through the barrier at 1008,336; lands at 842,497   [djump,event:rWarshipM/key3]
+      -> standing at x 807-937, y 497
+   9. jump (held 6 ticks), holding left, from 807,497; lands at 697,497
+      -> standing at x 647-777, y 497
+  10. jump (held 6 ticks), holding left, from 647,497; lands at 568,497
+      -> standing at x 487-617, y 497
+  11. running right, jump (held 6 ticks), holding right, from 576,497; touches it on the way
+      -> spot switch2
+how in 2192,352 -> spot switch3: djump,event:rWarshipM/key2,event:rWarshipM/key4
+     coming in at 2192,352
+   1. coming in: holding nothing, from 2192,352; lands at 2192,353
+      -> standing at x 1863-2240, y 353
+   2. jump (held 21 ticks), holding left, from 1863,353; lands at 1790,289
+      -> standing at x 1447-1862, y 289
+   3. walk from 1447,289 to 1446,289 into the barrier at 1424,240   [event:rWarshipM/key4]
+      -> standing at x 1418-1446, y 289 (where a gate is)
+   4. running left, jump (held 6 ticks), holding left, from 1418,289, through the barrier at 1264,240, the barrier at 1424,240; lands at 1265,297   [event:rWarshipM/key2,event:rWarshipM/key4]
+      -> standing at x 1258-1286, y 297 (where a gate is)
+   5. jump (held 2 ticks), holding left, from 1258,297, through the barrier at 1264,240; lands at 1178,273   [event:rWarshipM/key2]
+      -> standing at x 1162-1222, y 273
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 1162,273; lands at 1257,177   [djump]
+      -> standing at x 1210-1257, y 177
+   7. running left, jump (held 6 ticks), holding left, from 1216,177; lands at 1054,177
+      -> standing at x 1050-1097, y 177
+   8. jump (held 21 ticks), holding right, double jump at tick 10, from 1072,177; touches it on the way   [djump]
+      -> spot switch3
+how in 2192,352 -> spot key1: djump,event:rWarshipM/key2,event:rWarshipM/key4
+     coming in at 2192,352
+   1. coming in: holding nothing, from 2192,352; lands at 2192,353
+      -> standing at x 1863-2240, y 353
+   2. jump (held 21 ticks), holding left, from 1863,353; lands at 1790,289
+      -> standing at x 1447-1862, y 289
+   3. walk from 1447,289 to 1446,289 into the barrier at 1424,240   [event:rWarshipM/key4]
+      -> standing at x 1418-1446, y 289 (where a gate is)
+   4. running left, jump (held 6 ticks), holding left, from 1418,289, through the barrier at 1264,240, the barrier at 1424,240; lands at 1265,297   [event:rWarshipM/key2,event:rWarshipM/key4]
+      -> standing at x 1258-1286, y 297 (where a gate is)
+   5. jump (held 2 ticks), holding left, from 1258,297, through the barrier at 1264,240; lands at 1178,273   [event:rWarshipM/key2]
+      -> standing at x 1162-1222, y 273
+   6. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 1184,273; lands at 1154,177   [djump]
+      -> standing at x 1127-1174, y 177
+   7. jump (held 21 ticks), holding left, double jump at tick 5, from 1127,177; lands at 1003,177   [djump]
+      -> standing at x 967-1014, y 177
+   8. jump (held 2 ticks), holding right, from 971,177; touches it on the way
+      -> spot key1
+how in 2192,352 -> spot key2: djump,event:rWarshipM/key1,event:rWarshipM/key2,event:rWarshipM/key4,event:rWarshipM/switch2
+     coming in at 2192,352
+   1. coming in: holding nothing, from 2192,352; lands at 2192,353
+      -> standing at x 1863-2240, y 353
+   2. jump (held 21 ticks), holding left, from 1863,353; lands at 1790,289
+      -> standing at x 1447-1862, y 289
+   3. walk from 1447,289 to 1446,289 into the barrier at 1424,240   [event:rWarshipM/key4]
+      -> standing at x 1418-1446, y 289 (where a gate is)
+   4. running left, jump (held 6 ticks), holding left, from 1418,289, through the barrier at 1264,240, the barrier at 1424,240; lands at 1265,297   [event:rWarshipM/key2,event:rWarshipM/key4]
+      -> standing at x 1258-1286, y 297 (where a gate is)
+   5. jump (held 2 ticks), holding left, from 1258,297, through the barrier at 1264,240; lands at 1178,273   [event:rWarshipM/key2]
+      -> standing at x 1162-1222, y 273
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 1162,273; lands at 1257,177   [djump]
+      -> standing at x 1210-1257, y 177
+   7. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 1210,177; lands at 1104,137
+      -> standing at x 1098-1126, y 137
+   8. walk off the edge, holding left once in the air, double jump at tick 16, from 1098,137, through the oBarrierColor at 944,240; lands at 945,297   [djump,event:rWarshipM/switch2]
+      -> standing at x 938-966, y 297 (where a gate is)
+   9. walk off the edge, holding left once in the air, double jump at tick 8, from 942,297, through the oBarrierColor at 944,240; lands at 728,337   [djump,event:rWarshipM/switch2]
+      -> standing at x 647-777, y 337
+  10. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 647,337; lands at 731,273
+      -> standing at x 682-742, y 273
+  11. jump (held 21 ticks), holding right, double jump at tick 15, from 682,273; lands at 777,177   [djump]
+      -> standing at x 730-777, y 177
+  12. jump (held 6 ticks), holding right, from 730,177, through the barrier at 784,80; touches it on the way   [event:rWarshipM/key1]
+      -> spot key2
+how in 2192,352 -> spot key2: djump,event:rWarshipM/key1,event:rWarshipM/key2,event:rWarshipM/key4,event:rWarshipM/switch1,event:rWarshipM/switch3
+     coming in at 2192,352
+   1. coming in: holding nothing, from 2192,352; lands at 2192,353
+      -> standing at x 1863-2240, y 353
+   2. jump (held 21 ticks), holding left, from 1863,353; lands at 1790,289
+      -> standing at x 1447-1862, y 289
+   3. walk off the edge, holding left once in the air, from 1447,289, through the barrier at 1424,240; lands at 1369,337   [event:rWarshipM/key4]
+      -> standing at x 1287-1417, y 337
+   4. jump (held 6 ticks), holding left, from 1287,337, through the barrier at 1264,240; lands at 1208,337   [event:rWarshipM/key2]
+      -> standing at x 1127-1257, y 337
+   5. walk off the edge, holding right once in the air, from 1127,337, through the oBarrierColor at 624,80, the oBarrierColor at 1168,336, the oBarrierColor at 1328,176, ...; lands at 1257,497   [event:rWarshipM/switch3]
+      -> standing at x 1127-1257, y 497
+   6. jump (held 6 ticks), holding left, from 1127,497; lands at 1048,497
+      -> standing at x 967-1097, y 497
+   7. jump (held 6 ticks), holding left, from 967,497; lands at 857,497
+      -> standing at x 807-937, y 497
+   8. jump (held 6 ticks), holding left, from 807,497; lands at 697,497
+      -> standing at x 647-777, y 497
+   9. jump (held 6 ticks), holding left, from 647,497; lands at 568,497
+      -> standing at x 487-617, y 497
+  10. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 487,497; lands at 573,433
+      -> standing at x 522-582, y 433
+  11. jump (held 21 ticks), holding right, double jump at tick 15, from 522,433, through the oBarrierColor at 528,336, the oBarrierColor at 1328,336; lands at 617,337   [djump,event:rWarshipM/switch1]
+      -> standing at x 487-617, y 337
+  12. jump (held 21 ticks), holding right, double jump at tick 5, from 487,337; lands at 640,297   [djump]
+      -> standing at x 618-646, y 297
+  13. jump (held 21 ticks), holding right, double jump at tick 10, from 618,297; lands at 718,273   [djump]
+      -> standing at x 682-742, y 273
+  14. jump (held 21 ticks), holding right, double jump at tick 15, from 682,273; lands at 777,177   [djump]
+      -> standing at x 730-777, y 177
+  15. jump (held 6 ticks), holding right, from 730,177, through the barrier at 784,80; touches it on the way   [event:rWarshipM/key1]
+      -> spot key2
+how in 2192,352 -> spot key2: djump,event:rWarshipM/key1,event:rWarshipM/key2,event:rWarshipM/key3,event:rWarshipM/key4,event:rWarshipM/switch1
+     coming in at 2192,352
+   1. coming in: holding nothing, from 2192,352; lands at 2192,353
+      -> standing at x 1863-2240, y 353
+   2. jump (held 21 ticks), holding left, from 1863,353; lands at 1790,289
+      -> standing at x 1447-1862, y 289
+   3. walk from 1447,289 to 1446,289 into the barrier at 1424,240   [event:rWarshipM/key4]
+      -> standing at x 1418-1446, y 289 (where a gate is)
+   4. running left, jump (held 6 ticks), holding left, from 1418,289, through the barrier at 1264,240, the barrier at 1424,240; lands at 1265,297   [event:rWarshipM/key2,event:rWarshipM/key4]
+      -> standing at x 1258-1286, y 297 (where a gate is)
+   5. jump (held 2 ticks), holding left, from 1258,297, through the barrier at 1264,240; lands at 1178,273   [event:rWarshipM/key2]
+      -> standing at x 1162-1222, y 273
+   6. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 1184,273; lands at 1154,177   [djump]
+      -> standing at x 1127-1174, y 177
+   7. jump (held 6 ticks), holding left, from 1127,177; lands at 967,337
+      -> standing at x 967-1097, y 337
+   8. walk off the edge, holding left once in the air, double jump at tick 16, from 1024,337, through the barrier at 1008,336; lands at 842,497   [djump,event:rWarshipM/key3]
+      -> standing at x 807-937, y 497
+   9. jump (held 6 ticks), holding left, from 807,497; lands at 697,497
+      -> standing at x 647-777, y 497
+  10. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 647,497; lands at 636,457
+      -> standing at x 618-646, y 457
+  11. jump (held 2 ticks), holding left, from 618,457; lands at 538,433
+      -> standing at x 522-582, y 433
+  12. jump (held 21 ticks), holding right, double jump at tick 15, from 522,433, through the oBarrierColor at 528,336, the oBarrierColor at 1328,336; lands at 617,337   [djump,event:rWarshipM/switch1]
+      -> standing at x 487-617, y 337
+  13. jump (held 21 ticks), holding right, double jump at tick 5, from 487,337; lands at 640,297   [djump]
+      -> standing at x 618-646, y 297
+  14. jump (held 21 ticks), holding right, double jump at tick 10, from 618,297; lands at 718,273   [djump]
+      -> standing at x 682-742, y 273
+  15. jump (held 21 ticks), holding right, double jump at tick 15, from 682,273; lands at 777,177   [djump]
+      -> standing at x 730-777, y 177
+  16. jump (held 6 ticks), holding right, from 730,177, through the barrier at 784,80; touches it on the way   [event:rWarshipM/key1]
+      -> spot key2
+how in 2192,352 -> spot key3: djump,event:rWarshipM/key4,event:rWarshipM/switch3
+     coming in at 2192,352
+   1. coming in: holding nothing, from 2192,352; lands at 2192,353
+      -> standing at x 1863-2240, y 353
+   2. jump (held 21 ticks), holding left, from 1863,353; lands at 1790,289
+      -> standing at x 1447-1862, y 289
+   3. walk from 1447,289 to 1446,289 into the barrier at 1424,240   [event:rWarshipM/key4]
+      -> standing at x 1418-1446, y 289 (where a gate is)
+   4. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 1418,289, through the barrier at 1424,240; lands at 1372,273   [event:rWarshipM/key4]
+      -> standing at x 1322-1382, y 273
+   5. jump (held 21 ticks), holding right, double jump at tick 15, from 1322,273, through the oBarrierColor at 624,80, the oBarrierColor at 1168,336, the oBarrierColor at 1328,176, ...; lands at 1417,177   [djump,event:rWarshipM/switch3]
+      -> standing at x 1287-1417, y 177
+   6. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 1287,177; touches it on the way
+      -> spot key3
+how in 2192,352 -> spot key4: djump,event:rWarshipM/key2,event:rWarshipM/key4,event:rWarshipM/switch2,event:rWarshipM/switch3
+     coming in at 2192,352
+   1. coming in: holding nothing, from 2192,352; lands at 2192,353
+      -> standing at x 1863-2240, y 353
+   2. jump (held 21 ticks), holding left, from 1863,353; lands at 1790,289
+      -> standing at x 1447-1862, y 289
+   3. walk from 1447,289 to 1446,289 into the barrier at 1424,240   [event:rWarshipM/key4]
+      -> standing at x 1418-1446, y 289 (where a gate is)
+   4. running left, jump (held 6 ticks), holding left, from 1418,289, through the barrier at 1264,240, the barrier at 1424,240; lands at 1265,297   [event:rWarshipM/key2,event:rWarshipM/key4]
+      -> standing at x 1258-1286, y 297 (where a gate is)
+   5. jump (held 2 ticks), holding left, from 1258,297, through the barrier at 1264,240; lands at 1178,273   [event:rWarshipM/key2]
+      -> standing at x 1162-1222, y 273
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 1162,273; lands at 1257,177   [djump]
+      -> standing at x 1210-1257, y 177
+   7. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 1210,177; lands at 1104,137
+      -> standing at x 1098-1126, y 137
+   8. walk off the edge, holding left once in the air, double jump at tick 16, from 1098,137, through the oBarrierColor at 944,240; lands at 945,297   [djump,event:rWarshipM/switch2]
+      -> standing at x 938-966, y 297 (where a gate is)
+   9. walk off the edge, holding left once in the air, double jump at tick 8, from 942,297, through the oBarrierColor at 944,240; lands at 728,337   [djump,event:rWarshipM/switch2]
+      -> standing at x 647-777, y 337
+  10. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 647,337; lands at 731,273
+      -> standing at x 682-742, y 273
+  11. jump (held 21 ticks), holding right, double jump at tick 15, from 682,273; lands at 777,177   [djump]
+      -> standing at x 730-777, y 177
+  12. running left, jump (held 6 ticks), holding left, from 730,177, through the oBarrierColor at 624,80, the oBarrierColor at 1168,336, the oBarrierColor at 1328,176, ...; lands at 568,177   [event:rWarshipM/switch3]
+      -> standing at x 487-617, y 177
+  13. standing at 545,177, on it
+      -> spot key4
+how in 2192,352 -> spot key4: djump,event:rWarshipM/key2,event:rWarshipM/key4,event:rWarshipM/switch1,event:rWarshipM/switch3
+     coming in at 2192,352
+   1. coming in: holding nothing, from 2192,352; lands at 2192,353
+      -> standing at x 1863-2240, y 353
+   2. jump (held 21 ticks), holding left, from 1863,353; lands at 1790,289
+      -> standing at x 1447-1862, y 289
+   3. walk off the edge, holding left once in the air, from 1447,289, through the barrier at 1424,240; lands at 1369,337   [event:rWarshipM/key4]
+      -> standing at x 1287-1417, y 337
+   4. jump (held 6 ticks), holding left, from 1287,337, through the barrier at 1264,240; lands at 1208,337   [event:rWarshipM/key2]
+      -> standing at x 1127-1257, y 337
+   5. walk off the edge, holding right once in the air, from 1127,337, through the oBarrierColor at 624,80, the oBarrierColor at 1168,336, the oBarrierColor at 1328,176, ...; lands at 1257,497   [event:rWarshipM/switch3]
+      -> standing at x 1127-1257, y 497
+   6. jump (held 6 ticks), holding left, from 1127,497; lands at 1048,497
+      -> standing at x 967-1097, y 497
+   7. jump (held 6 ticks), holding left, from 967,497; lands at 857,497
+      -> standing at x 807-937, y 497
+   8. jump (held 6 ticks), holding left, from 807,497; lands at 697,497
+      -> standing at x 647-777, y 497
+   9. jump (held 6 ticks), holding left, from 647,497; lands at 568,497
+      -> standing at x 487-617, y 497
+  10. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 487,497; lands at 573,433
+      -> standing at x 522-582, y 433
+  11. jump (held 21 ticks), holding right, double jump at tick 15, from 522,433, through the oBarrierColor at 528,336, the oBarrierColor at 1328,336; lands at 617,337   [djump,event:rWarshipM/switch1]
+      -> standing at x 487-617, y 337
+  12. jump (held 21 ticks), holding right, double jump at tick 5, from 487,337; lands at 640,297   [djump]
+      -> standing at x 618-646, y 297
+  13. jump (held 21 ticks), holding right, double jump at tick 10, from 618,297; lands at 718,273   [djump]
+      -> standing at x 682-742, y 273
+  14. jump (held 21 ticks), holding right, double jump at tick 15, from 682,273; lands at 777,177   [djump]
+      -> standing at x 730-777, y 177
+  15. running left, jump (held 6 ticks), holding left, from 730,177, through the oBarrierColor at 624,80, the oBarrierColor at 1168,336, the oBarrierColor at 1328,176, ...; lands at 568,177   [event:rWarshipM/switch3]
+      -> standing at x 487-617, y 177
+  16. standing at 545,177, on it
+      -> spot key4

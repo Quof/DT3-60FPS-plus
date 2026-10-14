@@ -18,29 +18,36 @@ out 392,80   # to rVault_16 at 160,256; the player presses up at it
 
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 
+# Spots: somewhere whose reaching opens a way (the barriers that wait for it need event:rVault_1/<spot>, and
+# solve.py makes that what reaching the spot needs)
+spot switch1   # a colored switch the partner can be left standing on (party split), at 1455,287
+
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
 # link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
 # the locked door whose objectNum is N.
 from in 160,288
-  out 2864,208   djump,adash
-  out 2800,48    djump,adash
+  out 2864,208   djump,adash | mario | event:rVault_1/switch1
+  out 2800,48    djump,adash | mario | event:rVault_1/switch1
   out 248,80     djump | adash
   out 320,80     djump | adash
   out 392,80     adash | djump
+  spot switch1   -
 from in 2832,240
   out 2864,208   -
   out 2800,48    -
   out 248,80     djump | adash
   out 320,80     djump | adash
   out 392,80     adash | djump
+  spot switch1   -
 from in 2808,80
   out 2864,208   -
   out 2800,48    -
   out 248,80     djump | adash
   out 320,80     djump | adash
   out 392,80     adash | djump
+  spot switch1   -
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
@@ -70,6 +77,66 @@ how in 160,288 -> out 2864,208: djump,adash
       -> standing at x 2506-2582, y 241
   12. jump (held 21 ticks), holding right, double jump at tick 16, air dash (Jerry) at tick 8, from 2510,241; touches it on the way   [djump,adash]
       -> out 2864,208
+how in 160,288 -> out 2864,208: mario
+     coming in at 160,288
+   1. coming in: holding nothing, from 160,288; lands at 160,289
+      -> standing at x 0-262, y 257-289
+   2. running right, jump (held 21 ticks), holding right, from 176,289; lands at 367,257
+      -> standing at x 346-614, y 257
+   3. running right, jump (held 21 ticks), holding right, from 480,257; lands at 678,240
+      -> standing at x 666-742, y 240-242
+   4. running right, jump (held 21 ticks), holding right, from 734,240; lands at 932,225
+      -> standing at x 922-1062, y 225
+   5. running right, jump (held 6 ticks), holding right, from 960,225; lands at 1122,225
+      -> standing at x 1114-1130, y 225
+   6. jump (held 21 ticks), holding right, from 1114,225; lands at 1294,209
+      -> standing at x 1286-1302, y 209
+   7. jump (held 21 ticks), holding right, from 1290,209; lands at 1458,177
+      -> standing at x 1450-1466, y 177
+   8. jump (held 6 ticks), holding right, from 1456,177; lands at 1602,188
+      -> standing at x 1579-1621, y 166-188
+   9. running right, jump (held 21 ticks), holding right, from 1613,182; lands at 1811,193
+      -> standing at x 1784-1910, y 193
+  10. walk off the edge, holding right once in the air, from 1784,193; lands at 1996,257
+      -> standing at x 1962-2102, y 257
+  11. jump (held 40 ticks), holding right, bounce off a flying enemy at tick 12 (Mario Ability Set), from 2048,257; lands at 2297,145   [mario]
+      -> standing at x 2234-2342, y 145
+  12. jump (held 40 ticks), holding right, bounce off a flying enemy at tick 12 (Mario Ability Set), from 2338,145; lands at 2719,241   [mario]
+      -> standing at x 2634-2880, y 241
+  13. standing at 2862,241, goes into it
+      -> out 2864,208
+how in 160,288 -> out 2864,208: event:rVault_1/switch1
+     coming in at 160,288
+   1. coming in: holding nothing, from 160,288; lands at 160,289
+      -> standing at x 0-262, y 257-289
+   2. running right, jump (held 21 ticks), holding right, from 176,289; lands at 367,257
+      -> standing at x 346-614, y 257
+   3. running right, jump (held 21 ticks), holding right, from 480,257; lands at 678,240
+      -> standing at x 666-742, y 240-242
+   4. running right, jump (held 21 ticks), holding right, from 734,240; lands at 932,225
+      -> standing at x 922-1062, y 225
+   5. running right, jump (held 21 ticks), holding right, from 976,225; lands at 1182,225
+      -> standing at x 1174-1190, y 225
+   6. jump (held 21 ticks), holding right, from 1178,225; lands at 1346,193
+      -> standing at x 1338-1354, y 193
+   7. jump (held 6 ticks), holding right, from 1344,193; lands at 1490,204
+      -> standing at x 1467-1509, y 182-204
+   8. jump (held 21 ticks), holding right, from 1509,182; lands at 1684,161
+      -> standing at x 1674-1783, y 161
+   9. jump (held 21 ticks), holding right, from 1678,161, through the oBarrierColor at 1808,0; lands at 1809,97   [event:rVault_1/switch1]
+      -> standing at x 1802-1830, y 83-97 (where a gate is)
+  10. walk from 1830,83 to 1831,82
+      -> standing at x 1831-1990, y 49-97
+  11. running right, jump (held 21 ticks), holding right, from 1888,49; lands at 2116,81
+      -> standing at x 2090-2150, y 81
+  12. running right, jump (held 21 ticks), holding right, from 2128,81; lands at 2407,193
+      -> standing at x 2394-2470, y 193
+  13. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 2394,193; lands at 2518,241
+      -> standing at x 2506-2582, y 241
+  14. jump (held 6 ticks), holding right, from 2506,241; lands at 2645,241
+      -> standing at x 2634-2880, y 241
+  15. standing at 2862,241, goes into it
+      -> out 2864,208
 how in 160,288 -> out 2800,48: djump,adash
      coming in at 160,288
    1. coming in: holding nothing, from 160,288; lands at 160,289
@@ -95,6 +162,68 @@ how in 160,288 -> out 2800,48: djump,adash
   11. jump (held 21 ticks), holding right, double jump at tick 10, air dash (Jerry) at tick 18, from 2234,145; lands at 2569,129   [djump,adash]
       -> standing at x 2554-2569, y 129
   12. jump (held 21 ticks), holding right, double jump at tick 16, air dash (Jerry) at tick 8, from 2554,129; touches it on the way   [djump,adash]
+      -> out 2800,48
+how in 160,288 -> out 2800,48: mario
+     coming in at 160,288
+   1. coming in: holding nothing, from 160,288; lands at 160,289
+      -> standing at x 0-262, y 257-289
+   2. running right, jump (held 21 ticks), holding right, from 176,289; lands at 367,257
+      -> standing at x 346-614, y 257
+   3. running right, jump (held 21 ticks), holding right, from 480,257; lands at 678,240
+      -> standing at x 666-742, y 240-242
+   4. running right, jump (held 21 ticks), holding right, from 734,240; lands at 932,225
+      -> standing at x 922-1062, y 225
+   5. running right, jump (held 6 ticks), holding right, from 960,225; lands at 1122,225
+      -> standing at x 1114-1130, y 225
+   6. jump (held 21 ticks), holding right, from 1114,225; lands at 1294,209
+      -> standing at x 1286-1302, y 209
+   7. jump (held 21 ticks), holding right, from 1290,209; lands at 1458,177
+      -> standing at x 1450-1466, y 177
+   8. jump (held 6 ticks), holding right, from 1456,177; lands at 1602,188
+      -> standing at x 1579-1621, y 166-188
+   9. running right, jump (held 21 ticks), holding right, from 1613,182; lands at 1811,193
+      -> standing at x 1784-1910, y 193
+  10. walk off the edge, holding right once in the air, from 1784,193; lands at 1996,257
+      -> standing at x 1962-2102, y 257
+  11. jump (held 40 ticks), holding right, bounce off a flying enemy at tick 12 (Mario Ability Set), from 2048,257; lands at 2297,145   [mario]
+      -> standing at x 2234-2342, y 145
+  12. walk off the edge, holding right once in the air, from 2234,145; lands at 2417,193
+      -> standing at x 2394-2470, y 193
+  13. jump (held 40 ticks), holding right, bounce off a flying enemy at tick 12 (Mario Ability Set), from 2432,193; lands at 2681,81   [mario]
+      -> standing at x 2666-2841, y 81
+  14. standing at 2798,81, presses up at it
+      -> out 2800,48
+how in 160,288 -> out 2800,48: event:rVault_1/switch1
+     coming in at 160,288
+   1. coming in: holding nothing, from 160,288; lands at 160,289
+      -> standing at x 0-262, y 257-289
+   2. running right, jump (held 21 ticks), holding right, from 176,289; lands at 367,257
+      -> standing at x 346-614, y 257
+   3. running right, jump (held 21 ticks), holding right, from 480,257; lands at 678,240
+      -> standing at x 666-742, y 240-242
+   4. running right, jump (held 21 ticks), holding right, from 734,240; lands at 932,225
+      -> standing at x 922-1062, y 225
+   5. running right, jump (held 21 ticks), holding right, from 976,225; lands at 1182,225
+      -> standing at x 1174-1190, y 225
+   6. jump (held 21 ticks), holding right, from 1178,225; lands at 1346,193
+      -> standing at x 1338-1354, y 193
+   7. jump (held 6 ticks), holding right, from 1344,193; lands at 1490,204
+      -> standing at x 1467-1509, y 182-204
+   8. jump (held 21 ticks), holding right, from 1509,182; lands at 1684,161
+      -> standing at x 1674-1783, y 161
+   9. jump (held 21 ticks), holding right, from 1678,161, through the oBarrierColor at 1808,0; lands at 1809,97   [event:rVault_1/switch1]
+      -> standing at x 1802-1830, y 83-97 (where a gate is)
+  10. walk from 1830,83 to 1831,82
+      -> standing at x 1831-1990, y 49-97
+  11. running right, jump (held 21 ticks), holding right, from 1888,49; lands at 2116,81
+      -> standing at x 2090-2150, y 81
+  12. running right, jump (held 21 ticks), holding right, from 2128,81; lands at 2407,193
+      -> standing at x 2394-2470, y 193
+  13. jump (held 21 ticks), holding right, from 2432,193; lands at 2563,129
+      -> standing at x 2554-2569, y 129
+  14. jump (held 21 ticks), holding right, from 2554,129; lands at 2707,81
+      -> standing at x 2666-2841, y 81
+  15. standing at 2798,81, presses up at it
       -> out 2800,48
 how in 160,288 -> out 248,80: djump
      coming in at 160,288
@@ -168,6 +297,22 @@ how in 160,288 -> out 392,80: djump
       -> standing at x 0-134, y 1-64
    5. jump (held 21 ticks), holding right, double jump at tick 10, from 126,60; touches it on the way   [djump]
       -> out 392,80
+how in 160,288 -> spot switch1: -
+     coming in at 160,288
+   1. coming in: holding nothing, from 160,288; lands at 160,289
+      -> standing at x 0-262, y 257-289
+   2. running right, jump (held 21 ticks), holding right, from 176,289; lands at 367,257
+      -> standing at x 346-614, y 257
+   3. running right, jump (held 21 ticks), holding right, from 480,257; lands at 678,240
+      -> standing at x 666-742, y 240-242
+   4. running right, jump (held 21 ticks), holding right, from 734,240; lands at 932,225
+      -> standing at x 922-1062, y 225
+   5. running right, jump (held 21 ticks), holding right, from 1040,225; lands at 1238,209
+      -> standing at x 1226-1242, y 209
+   6. jump (held 6 ticks), holding right, from 1232,209; lands at 1378,220
+      -> standing at x 1355-1397, y 198-220
+   7. walk off the edge, holding right, then nothing after 1 ticks in the air, from 1357,205; touches it on the way
+      -> spot switch1
 how in 2832,240 -> out 2864,208: -
      coming in at 2832,240
    1. coming in: holding nothing, from 2832,240; lands at 2832,241
@@ -392,6 +537,26 @@ how in 2832,240 -> out 392,80: djump
       -> standing at x 0-134, y 1-64
   16. jump (held 21 ticks), holding right, double jump at tick 10, from 126,60; touches it on the way   [djump]
       -> out 392,80
+how in 2832,240 -> spot switch1: -
+     coming in at 2832,240
+   1. coming in: holding nothing, from 2832,240; lands at 2832,241
+      -> standing at x 2634-2880, y 241
+   2. jump (held 2 ticks), holding left, from 2634,241; lands at 2532,241
+      -> standing at x 2506-2582, y 241
+   3. jump (held 6 ticks), holding left, from 2506,241; lands at 2412,193
+      -> standing at x 2394-2470, y 193
+   4. jump (held 6 ticks), holding left, from 2394,193; lands at 2299,145
+      -> standing at x 2234-2342, y 145
+   5. jump (held 21 ticks), holding left, from 2234,145; lands at 2103,81
+      -> standing at x 2090-2150, y 81
+   6. jump (held 2 ticks), holding left, from 2090,81; lands at 1973,97
+      -> standing at x 1831-1990, y 49-97
+   7. running left, jump (held 21 ticks), holding left, from 1872,49; lands at 1596,187
+      -> standing at x 1579-1621, y 166-188
+   8. jump (held 21 ticks), holding left, from 1579,166; lands at 1361,212
+      -> standing at x 1355-1397, y 198-220
+   9. walk off the edge, holding right, then nothing after 1 ticks in the air, from 1357,205; touches it on the way
+      -> spot switch1
 how in 2808,80 -> out 2864,208: -
      coming in at 2808,80
    1. coming in: holding nothing, from 2808,80; lands at 2808,81
@@ -598,3 +763,21 @@ how in 2808,80 -> out 392,80: djump
       -> standing at x 0-134, y 1-64
   15. jump (held 21 ticks), holding right, double jump at tick 10, from 126,60; touches it on the way   [djump]
       -> out 392,80
+how in 2808,80 -> spot switch1: -
+     coming in at 2808,80
+   1. coming in: holding nothing, from 2808,80; lands at 2808,81
+      -> standing at x 2666-2841, y 81
+   2. jump (held 6 ticks), holding left, from 2666,81; lands at 2461,193
+      -> standing at x 2394-2470, y 193
+   3. jump (held 6 ticks), holding left, from 2394,193; lands at 2299,145
+      -> standing at x 2234-2342, y 145
+   4. jump (held 21 ticks), holding left, from 2234,145; lands at 2103,81
+      -> standing at x 2090-2150, y 81
+   5. jump (held 2 ticks), holding left, from 2090,81; lands at 1973,97
+      -> standing at x 1831-1990, y 49-97
+   6. running left, jump (held 21 ticks), holding left, from 1872,49; lands at 1596,187
+      -> standing at x 1579-1621, y 166-188
+   7. jump (held 21 ticks), holding left, from 1579,166; lands at 1361,212
+      -> standing at x 1355-1397, y 198-220
+   8. walk off the edge, holding right, then nothing after 1 ticks in the air, from 1357,205; touches it on the way
+      -> spot switch1

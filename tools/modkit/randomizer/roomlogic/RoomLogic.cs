@@ -19,10 +19,11 @@ using System.Threading;
 using System.Threading.Tasks;
 
 // ---------------------------------------------------------------- requirements
-// what a way needs: counts of the progression items (4 bits each) and the locked doors' keys (a bit each, by objectNum)
+// what a way needs: counts of the progression items (4 bits each), the locked doors' keys (a bit each, by objectNum),
+// and events (a bit each, E0 then E1: Req.EventNames)
 public struct Req : IEquatable<Req>
 {
-    public ulong C, K;
+    public ulong C, K, E0, E1;
     public const int DJUMP = 0, ADASH = 1, GDASH = 2, HIJUMP = 3, MARIO = 4, LINK = 5, BELMONT = 6, MEGAMAN = 7, SAMUS = 8,
         GAMEJ = 9, GAMEC = 10, N = 11;
     public static readonly string[] Names = { "djump", "adash", "gdash", "hijump", "mario", "link", "belmont", "megaman",
@@ -36,19 +37,22 @@ public struct Req : IEquatable<Req>
     }
     public static Req Max(Req a, Req b)
     {
-        Req r; r.K = a.K | b.K; r.C = 0;
+        Req r; r.K = a.K | b.K; r.E0 = a.E0 | b.E0; r.E1 = a.E1 | b.E1; r.C = 0;
         for (int i = 0; i < N; i++) r.C |= (ulong)Math.Max(a.Get(i), b.Get(i)) << (i * 4);
         return r;
     }
     public bool Le(Req b)
     {
-        if ((K & ~b.K) != 0) return false;
+        if ((K & ~b.K) != 0 || (E0 & ~b.E0) != 0 || (E1 & ~b.E1) != 0) return false;
         for (int i = 0; i < N; i++) if (Get(i) > b.Get(i)) return false;
         return true;
     }
-    public bool Equals(Req o) { return C == o.C && K == o.K; }
+    // (needing nothing at all; and the whole of it as text, for telling joins apart)
+    public bool None { get { return C == 0 && K == 0 && E0 == 0 && E1 == 0; } }
+    public string Id { get { return C + ":" + K + ":" + E0 + ":" + E1; } }
+    public bool Equals(Req o) { return C == o.C && K == o.K && E0 == o.E0 && E1 == o.E1; }
     public override bool Equals(object o) { return o is Req && Equals((Req)o); }
-    public override int GetHashCode() { return (C ^ (K * 0x9E3779B97F4A7C15UL)).GetHashCode(); }
+    public override int GetHashCode() { return (C ^ (K * 0x9E3779B97F4A7C15UL) ^ (E0 * 0xC2B2AE3D27D4EB4FUL) ^ (E1 * 0x165667B19E3779F9UL)).GetHashCode(); }
     public override string ToString()
     {
         var p = new List<string>();
@@ -58,13 +62,16 @@ public struct Req : IEquatable<Req>
             if (n == 1 && (i == DJUMP || i == ADASH || i == GDASH || i == MARIO)) p.Add(Names[i]);
             else if (n > 0) p.Add(Names[i] + ":" + n);
         }
-        for (int k = 0; k < EventBit; k++) if ((K & (1UL << k)) != 0) p.Add("key:" + k);
-        lock (EventNames) for (int k = EventBit; k < 64; k++) if ((K & (1UL << k)) != 0) p.Add("event:" + EventNames[k - EventBit]);
+        for (int k = 0; k < 64; k++) if ((K & (1UL << k)) != 0) p.Add("key:" + k);
+        var ev = new List<string>();
+        lock (EventNames)
+            for (int k = 0; k < 128; k++) if (((k < 64 ? E0 >> k : E1 >> (k - 64)) & 1) != 0) ev.Add("event:" + EventNames[k]);
+        ev.Sort(string.CompareOrdinal);   // (by name, as solve.py writes them)
+        p.AddRange(ev);
         return p.Count == 0 ? "-" : string.Join(",", p);
     }
     // events (something the game remembers that opens a way elsewhere: event:<name>, solve.py's events.txt says what
-    // makes each happen): a bit each in K, from bit 40 (the keys' objectNums are under it)
-    public const int EventBit = 40;
+    // makes each happen; a room's spot: <room>/<spot>): a bit each, numbered as they're first read
     public static readonly List<string> EventNames = new List<string>();
     // "a|b": alternatives; each comma-separated item:count (key:N a door's key, event:NAME an event, attack any ability
     // set's attack)
@@ -89,7 +96,8 @@ public struct Req : IEquatable<Req>
                 {
                     int bit;
                     lock (EventNames) { bit = EventNames.IndexOf(kv[1]); if (bit < 0) { EventNames.Add(kv[1]); bit = EventNames.Count - 1; } }
-                    for (int j = 0; j < rs.Count; j++) { var r = rs[j]; r.K |= 1UL << (EventBit + bit); rs[j] = r; }
+                    if (bit >= 128) throw new Exception("more than 128 events: " + kv[1]);
+                    for (int j = 0; j < rs.Count; j++) { var r = rs[j]; if (bit < 64) r.E0 |= 1UL << bit; else r.E1 |= 1UL << (bit - 64); rs[j] = r; }
                     continue;
                 }
                 int n = kv.Length > 1 ? int.Parse(kv[1]) : 1;
@@ -330,6 +338,8 @@ class RoomData
     public HashSet<string> Carried = new HashSet<string>();
     public Dictionary<string, int> Resets = new Dictionary<string, int>();
     public bool RbAuto;
+    // a party split room's idle partner: where it starts (the player can swap to it)
+    public List<int[]> Partner = new List<int[]>();
     public int Level(int s)
     {
         int a = Groups.IndexOf("w1"), b = Groups.IndexOf("w3");
@@ -357,6 +367,9 @@ class RoomData
 
 class Exit { public Shape S; public string To; public int NX, NY, Type; public bool InRoom; public int IX, IY; public string Obj; }   // IX,IY: where it's placed
 class Loc { public int Type, Num; public Shape S; public string Label; }
+// a spot: somewhere whose reaching opens a way elsewhere (a colored switch the partner holds, a colored key): the room
+// file says what reaching it needs, and solve.py makes it the event <room>/<tag> that the barriers it opens need
+class Spot { public string Tag; public Shape S; }
 class Gate { public Shape S; public List<Req> Need; public string Name; public int Group; }   // Group: the room's gates by what opens them
 class Spring { public Shape S; public bool Large; }
 
@@ -512,6 +525,25 @@ class Sim
         xVel = right == 0 ? -6 : 6;
     }
 
+    // Begonia's fans (oBegoniaFan's Step): the body in one's stream, nothing solid between the fan and the body's middle,
+    // the player's speed its way is set to 8 (going up off the ground, a pixel up first)
+    void Blow()
+    {
+        int hb = morph ? 14 : 46;
+        foreach (var fn in R.Fans)
+        {
+            if (x + 6 < fn[0] || x - 7 > fn[2] || y - 1 < fn[1] || y - hb > fn[3]) continue;
+            int lx = fn[5], ly = fn[6], tx = x, ty = y - 26, n = Math.Max(Math.Abs(tx - lx), Math.Abs(ty - ly));
+            bool seen = true;
+            for (int i = 0; i <= n && seen; i++) if (S.Get(lx + (n == 0 ? 0 : (tx - lx) * i / n), ly + (n == 0 ? 0 : (ty - ly) * i / n))) seen = false;
+            if (!seen) continue;
+            if (fn[4] == 0) xVel = 8;
+            else if (fn[4] == 180) xVel = -8;
+            else if (fn[4] == 90) { if (state == RUNNING) y -= 1; yVel = -8; }
+            else yVel = 8;
+        }
+    }
+
     public void Step(In inp)
     {
         // keys
@@ -636,6 +668,7 @@ class Sim
             if ((ColLeft(3) && facing == -1) || (ColRight(3) && facing == 1 && InAir)) { wallGrab = true; yVelLimit = 4; }
             else { wallGrab = false; yVelLimit = 12; }
         }
+        if (R.Fans.Count > 0) Blow();
         Move(xFric, yFric);
         if (y > R.Data.H + 64) dead = true;
         else if (y < -32) yVel = 4;
@@ -665,6 +698,7 @@ class Room
     public List<int> ExitIds = new List<int>();
     public List<Loc> Locs = new List<Loc>();
     public List<int> LocIds = new List<int>();
+    public List<Spot> Spots = new List<Spot>();
     public List<int[]> Elevators = new List<int[]>();     // oUseElevator: its x, y (the top row of its lower bar)
     // moving platforms: the top of each along its path, as jump-through floor (the player waits for it and rides it); which
     // platform each such pixel is
@@ -676,6 +710,9 @@ class Room
     public int[] HangNode = new int[0];
     // flying enemies the Mario Ability Set bounces off (where they start)
     public List<int[]> Bouncers = new List<int[]>();
+    // fans (Begonia's): each one's stream (left, top, right, bottom), the way it blows (0 right, 90 up, 180 left, 270
+    // down), and where its line of sight to the player starts
+    public List<int[]> Fans = new List<int[]>();
     // where the player can stand: per x, the y's; and each one's region
     public Dictionary<long, int> PosRegion = new Dictionary<long, int>();
     public Dictionary<long, int> MPosRegion = new Dictionary<long, int>();
@@ -813,6 +850,19 @@ class Analyzer
             if (it.K == 'M' || it.K == 'B' || it.K == 'Q') continue;
             if (it.K == 'F') { R.Bouncers.Add(new[] { (int)Math.Round(it.X), (int)Math.Round(it.Y) }); continue; }
             if (it.K == 'k') { rippers.Add(new[] { (int)Math.Round(it.X), (int)Math.Round(it.Y) }); continue; }
+            if (it.K == 'n')
+            {
+                // (a fan a switch turns on and off is there only in its state: StateData)
+                if (it.F.Length >= 3 && ((d.Initial >> int.Parse(it.F[1])) & 1) != int.Parse(it.F[2])) continue;
+                // (oBegoniaFan's Step: the stream 224px its way and 16px times its yscale to either side; the line of
+                // sight from 2px out of it)
+                int fx = (int)Math.Round(it.X), fy = (int)Math.Round(it.Y), half = (int)Math.Round(16 * it.YS), way = int.Parse(it.F[0]);
+                if (way == 0) R.Fans.Add(new[] { fx, fy - half, fx + 224, fy + half, 0, fx + 2, fy });
+                else if (way == 90) R.Fans.Add(new[] { fx - half, fy - 224, fx + half, fy, 90, fx, fy - 2 });
+                else if (way == 180) R.Fans.Add(new[] { fx - 224, fy - half, fx, fy + half, 180, fx - 2, fy });
+                else R.Fans.Add(new[] { fx - half, fy, fx + half, fy + 224, 270, fx, fy + 2 });
+                continue;
+            }
             var m = Mask.Get(it.Spr);
             if (m == null) { R.Log.Add("no mask: " + it.Spr); continue; }
             switch (it.K)
@@ -825,7 +875,7 @@ class Analyzer
                     {
                         var g = new Gate { S = new Shape(m, it.X, it.Y, it.XS, it.YS, it.A), Need = Req.ParseAlts(it.F[0]), Name = it.F.Length > 1 ? it.F[1] : "" };
                         if (g.S.Empty) break;
-                        bool free = g.Need.Count == 1 && g.Need[0].C == 0 && g.Need[0].K == 0;
+                        bool free = g.Need.Count == 1 && g.Need[0].None;
                         if (free) break;   // opens with nothing: not there
                         string key = string.Join("|", g.Need.Select(q => q.ToString()));
                         int grp;
@@ -855,6 +905,7 @@ class Analyzer
                 case 'V': R.Elevators.Add(new[] { (int)Math.Round(it.X), (int)Math.Round(it.Y) }); break;
                 case 'r': rocks.Add(new Shape(m, it.X, it.Y, it.XS, it.YS, it.A)); break;
                 case 'f': floats.Add(Tuple.Create(m, it)); break;
+                case 's': R.Spots.Add(new Spot { Tag = it.F[0], S = new Shape(m, it.X, it.Y, it.XS, it.YS, it.A) }); break;
                 case 'K': R.Points.Add(new[] { (int)Math.Round(it.X), (int)Math.Round(it.Y) }); break;
                 case 'N':
                     {
@@ -1121,7 +1172,7 @@ class Analyzer
     void AddEdge(int a, int b, Req l, string how)
     {
         if (a == b) return;
-        string k = a + ">" + b + ":" + l.C + ":" + l.K;
+        string k = a + ">" + b + ":" + l.Id;
         if (!edgeSeen.Add(k)) return;
         R.Edges.Add(new Edge { From = a, To = b, L = l, How = how });
     }
@@ -1130,20 +1181,20 @@ class Analyzer
     void AddEdge(int a, int b, Req l, Prog p, int sx, int sy, int end, int ex, int ey, int gates = 0)
     {
         if (a == b) return;
-        string k = a + ">" + b + ":" + l.C + ":" + l.K;
+        string k = a + ">" + b + ":" + l.Id;
         if (!edgeSeen.Add(k)) return;
         string e = end == 0 ? "lands at " + ex + "," + ey : end == 1 ? "clings to the wall at " + ex + "," + ey : "fires the Strike Chain at the point at " + ex + "," + ey;
         R.Edges.Add(new Edge { From = a, To = b, L = l, How = Describe(p) + ", from " + sx + "," + sy + (gates != 0 ? ", through " + GatesWords(gates, int.MinValue, 0) : "") + "; " + e });
     }
     void AddTouch(int from, int kind, int index, Req l, string how)
     {
-        string k = from + ">" + kind + ":" + index + ":" + l.C + ":" + l.K;
+        string k = from + ">" + kind + ":" + index + ":" + l.Id;
         if (!touchSeen.Add(k)) return;
         R.Touches.Add(new Touch { From = from, Kind = kind, Index = index, L = l, How = how });
     }
     void AddTouch(int from, int kind, int index, Req l, Prog p, int sx, int sy, int gates = 0)
     {
-        string k = from + ">" + kind + ":" + index + ":" + l.C + ":" + l.K;
+        string k = from + ">" + kind + ":" + index + ":" + l.Id;
         if (!touchSeen.Add(k)) return;
         R.Touches.Add(new Touch { From = from, Kind = kind, Index = index, L = l, How = Describe(p) + ", from " + sx + "," + sy + (gates != 0 ? ", through " + GatesWords(gates, int.MinValue, 0) : "") + "; touches it on the way" });
     }
@@ -1254,6 +1305,26 @@ class Analyzer
             EntrySims(node, e[0], e[1]);
             node++;
         }
+        // a party split room: the player can swap to the idle partner, where it starts (which can hang on where the player
+        // came in: oPlayerIdle's xThres). Swapping freezes the one left where it is, in the air too: it can hold a switch
+        // it was jumping over (the switch spots count any touch on the way)
+        var partnerNode = new Dictionary<long, int>();
+        foreach (var pp in R.Data.Partner)
+            foreach (var kv in R.EntryNode)
+            {
+                int ex = (int)(kv.Key >> 32);
+                bool moved = pp[5] == 1 ? ex < pp[2] : ex > pp[2];
+                int px = moved ? pp[3] : pp[0], py = moved ? pp[4] : pp[1];
+                long pk = Shape.Key(px, py);
+                int pn;
+                if (!partnerNode.TryGetValue(pk, out pn))
+                {
+                    pn = node++; partnerNode[pk] = pn;
+                    R.NodeName[pn] = "as the partner (party split), where it starts: " + px + "," + py;
+                    EntrySims(pn, px, py);
+                }
+                AddEdge(kv.Value, pn, new Req(), "swap to the partner (party split), at " + px + "," + py);
+            }
         R.NNodes = node;
         // a moving platform joins every place along its path: on it anywhere, off it anywhere
         if (R.Movers > 0)
@@ -1364,7 +1435,7 @@ class Analyzer
             foreach (int b in regs)
             {
                 if (a == b || has.Contains(((long)a << 32) | (uint)b)) continue;
-                if (reach[b] != null && reach[b].Any(q => q.C == 0 && q.K == 0)) continue;
+                if (reach[b] != null && reach[b].Any(q => q.None)) continue;
                 var A = box[a]; var B = box[b];
                 // (the boxes' gap across, and how far up or down b is)
                 int gapX = Math.Max(0, Math.Max(B[0] - A[2], A[0] - B[2]));
@@ -1458,6 +1529,7 @@ class Analyzer
             StandBox(p.X, p.Y, out x0, out y0, out x1, out y1);
             if (top < 40) y0 = p.Y - 12;
             for (int j = 0; j < R.Locs.Count; j++) if (R.Locs[j].S.Hits(x0, y0, x1, y1)) AddTouch(reg[i], 0, j, new Req(), (top < 40 ? "as the Morph Ball, " : "") + "standing at " + p.X + "," + p.Y + ", touches it");
+            for (int j = 0; j < R.Spots.Count; j++) if (R.Spots[j].S.Hits(x0, y0, x1, y1)) AddTouch(reg[i], 2, j, new Req(), (top < 40 ? "as the Morph Ball, " : "") + "standing at " + p.X + "," + p.Y + ", on it");
             for (int j = 0; j < R.Exits.Count; j++)
             {
                 var ex = R.Exits[j];
@@ -1695,7 +1767,7 @@ class Analyzer
         return ps;
     }
 
-    class Result { public int LandX = int.MinValue, LandY, LandT; public List<int> Locs = new List<int>(); public List<int> Exits = new List<int>(); public List<int> Hangs = new List<int>(); public List<long> Clings = new List<long>(); public int Gates; public bool Morph, Morphed; }
+    class Result { public int LandX = int.MinValue, LandY, LandT; public List<int> Locs = new List<int>(); public List<int> Spots = new List<int>(); public List<int> Exits = new List<int>(); public List<int> Hangs = new List<int>(); public List<long> Clings = new List<long>(); public int Gates; public bool Morph, Morphed; }
 
     // the moves from standing at x,y (not as the Morph Ball) that land safely within maxT ticks: where, when, what they
     // need and how (for a shot at a switch: the player moves while it flies; AnalyzeStates)
@@ -1786,7 +1858,8 @@ class Analyzer
         int x0 = s.x, y0 = s.y;
         int roomT = 0;
         bool adDone = false;
-        for (int t = 0; t < p.MaxT; t++)
+        int lim = p.MaxT;
+        for (int t = 0; t < lim; t++)
         {
             // the input this tick
             int hs;
@@ -1870,6 +1943,7 @@ class Analyzer
                 foreach (var gt in R.Gates) if (gt.Group < 31 && (res.Gates & (1 << gt.Group)) == 0 && gt.S.Hits(ax0, ay0, ax1, ay1)) res.Gates |= 1 << gt.Group;
             }
             for (int k = 0; k < R.Locs.Count; k++) if (R.Locs[k].S.Hits(bx0, by0, bx1, by1) && !res.Locs.Contains(k)) res.Locs.Add(k);
+            for (int k = 0; k < R.Spots.Count; k++) if (R.Spots[k].S.Hits(bx0, by0, bx1, by1) && !res.Spots.Contains(k)) res.Spots.Add(k);
             for (int k = 0; k < R.Exits.Count; k++)
             {
                 var e = R.Exits[k];
@@ -1901,6 +1975,9 @@ class Analyzer
                 res.LandX = s.x; res.LandY = s.y; res.Morph = s.morph; res.LandT = t;
                 return res;
             }
+            // (water slows a fall to about 4px a tick: a move still in the air in water as its time runs out gets more,
+            // up to 5 times its own)
+            if (t == lim - 1 && lim < p.MaxT * 5 && s.InAir && R.Water.Any && R.Water.Row(s.y - 14, s.x - 7, s.x + 6)) lim += p.MaxT;
         }
         return res;
     }
@@ -1925,6 +2002,7 @@ class Analyzer
         if (gates != 0) need = Pareto.Product(need, GatesNeed(gates));
         foreach (int k in res.Locs) foreach (var l in need) AddTouch(from, 0, k, l, p, sx, sy, gates);
         foreach (int k in res.Exits) foreach (var l in need) AddTouch(from, 1, k, l, p, sx, sy, gates);
+        foreach (int k in res.Spots) foreach (var l in need) AddTouch(from, 2, k, l, p, sx, sy, gates);
         // (a way in's moves are made before the points' nodes are: from there, the moves of where it lands reach them)
         foreach (int k in res.Hangs) if (k < R.HangNode.Length) foreach (var l in need) AddEdge(from, R.HangNode[k], l.With(Req.MEGAMAN, 4), p, sx, sy, 2, R.Points[k][0], R.Points[k][1], gates);
         foreach (long ck in res.Clings) foreach (var l in need) AddEdge(from, R.PosRegion[ck], l, p, sx, sy, 1, (int)(ck >> 32), (int)(uint)ck, gates);
@@ -2224,13 +2302,23 @@ static class Program
                 continue;
             }
             if (f[0] == "RG") { cur.Resets[f[1]] = int.Parse(f[2]); continue; }
+            if (f[0] == "PI")
+            {
+                // (where it starts; with xThres, newX, newY and rev: put at newX,newY when the player comes in past
+                // xThres, before it with rev)
+                var pi = f.Skip(1).Select(v => (int)Math.Round(D(v))).ToArray();
+                cur.Partner.Add(pi.Length >= 6 ? pi : new[] { pi[0], pi[1], int.MaxValue, pi[0], pi[1], 0 });
+                continue;
+            }
             if (f[0] == "RBAUTO") { cur.RbAuto = true; continue; }
             // (a switch: SW, kept as w; a state's solid: T, its group's number in F[0]; water in one of the Water Palace's
-            // levels: TW, kept as y; a floating platform: FP, kept as f)
-            var it = new Inst { K = f[0] == "SW" ? 'w' : f[0] == "KR" ? 'k' : f[0] == "PR" ? 'r' : f[0] == "TW" ? 'y' : f[0] == "FP" ? 'f' : f[0][0],
+            // levels: TW, kept as y; a floating platform: FP, kept as f; a fan: FN, kept as n, a switch's group's number
+            // in F[1])
+            var it = new Inst { K = f[0] == "SW" ? 'w' : f[0] == "KR" ? 'k' : f[0] == "PR" ? 'r' : f[0] == "TW" ? 'y' : f[0] == "FP" ? 'f' : f[0] == "SP" ? 's' : f[0] == "FN" ? 'n' : f[0][0],
                 Spr = f[1], X = D(f[2]), Y = D(f[3]), XS = D(f[4]), YS = D(f[5]), A = D(f[6]), F = f.Skip(7).ToArray() };
             if (it.K == 'w' && it.F[0] == "water") { cur.Group("w3"); it.F = new[] { cur.Group("w1").ToString(), "water", it.F[1] }; }
             else if (it.K == 'T' || it.K == 'w' || it.K == 'U') it.F[0] = cur.Group(it.F[0]).ToString();
+            else if (it.K == 'n' && it.F.Length >= 3) it.F[1] = cur.Group(it.F[1]).ToString();
             if (it.K == 'y') { cur.Group("w1"); cur.Group("w3"); }
             cur.I.Add(it);
         }
@@ -2539,7 +2627,7 @@ static class Program
             foreach (var t in r.Touches)
             {
                 if (t.Kind == 0) adj[b + t.From].Add(new KeyValuePair<int, Req>(locBase + locIx[r.Locs[t.Index].Type + " " + r.Locs[t.Index].Num], t.L));
-                else adj[b + t.From].Add(new KeyValuePair<int, Req>(exitBase[ri] + t.Index, t.L));
+                else if (t.Kind == 1) adj[b + t.From].Add(new KeyValuePair<int, Req>(exitBase[ri] + t.Index, t.L));
             }
         }
         // the best ways: from the start, every node's alternatives (none needing more than another)
@@ -2687,6 +2775,14 @@ static class Program
             var l = r.Locs[j];
             sb.AppendLine("loc " + l.Type + " " + l.Num + "   # " + l.Label + ", at " + (l.S.X0 + l.S.X1) / 2 + "," + (l.S.Y0 + l.S.Y1) / 2);
         }
+        if (r.Spots.Count > 0)
+        {
+            sb.AppendLine();
+            sb.AppendLine("# Spots: somewhere whose reaching opens a way (the barriers that wait for it need event:" + d.Name + "/<spot>, and");
+            sb.AppendLine("# solve.py makes that what reaching the spot needs)");
+            foreach (var sp in r.Spots)
+                sb.AppendLine("spot " + sp.Tag + "   # " + (sp.Tag.StartsWith("key") ? "a colored key, at " : "a colored switch the partner can be left standing on (party split), at ") + (sp.S.X0 + sp.S.X1) / 2 + "," + (sp.S.Y0 + sp.S.Y1) / 2);
+        }
         // each way in: the ways through the room from it
         int N = r.NNodes;
         var adj = new List<Edge>[N];
@@ -2739,7 +2835,7 @@ static class Program
                 if (steps[u] == null) continue;
                 foreach (var t in touchesAt[u])
                 {
-                    string key = t.Kind == 1 ? "out " + exitIds[t.Index] + label(stateOf(u)) : "loc " + r.Locs[t.Index].Type + " " + r.Locs[t.Index].Num;
+                    string key = t.Kind == 1 ? "out " + exitIds[t.Index] + label(stateOf(u)) : t.Kind == 2 ? "spot " + r.Spots[t.Index].Tag : "loc " + r.Locs[t.Index].Type + " " + r.Locs[t.Index].Num;
                     var tl = T(key);
                     foreach (var s in steps[u]) if (!s.Dead) AddStep(tl, Req.Max(s.L, t.L), s, -1, t.How, t.L);
                 }
@@ -2758,6 +2854,12 @@ static class Program
             for (int j = 0; j < r.Locs.Count; j++)
             {
                 string key = "loc " + r.Locs[j].Type + " " + r.Locs[j].Num;
+                List<Step> l;
+                targets.Add(new KeyValuePair<string, List<Step>>(key, tmap.TryGetValue(key, out l) ? l : new List<Step>()));
+            }
+            foreach (var sp in r.Spots)
+            {
+                string key = "spot " + sp.Tag;
                 List<Step> l;
                 targets.Add(new KeyValuePair<string, List<Step>>(key, tmap.TryGetValue(key, out l) ? l : new List<Step>()));
             }
@@ -2841,7 +2943,7 @@ static class Program
     static RoomData StateData(RoomData rd, int s)
     {
         int G = Math.Min(rd.Groups.Count, 4);
-        var d2 = new RoomData { Name = rd.Name, W = rd.W, H = rd.H, Area = rd.Area, IsMap = rd.IsMap, Boss = rd.Boss };
+        var d2 = new RoomData { Name = rd.Name, W = rd.W, H = rd.H, Area = rd.Area, IsMap = rd.IsMap, Boss = rd.Boss, Partner = rd.Partner };
         foreach (var it in rd.I)
         {
             if (it.K == 'w') continue;
@@ -2849,6 +2951,14 @@ static class Program
             if (it.K == 'y')
             {
                 if (int.Parse(it.F[0]) == rd.Level(s)) d2.I.Add(new Inst { K = 'W', Spr = it.Spr, X = it.X, Y = it.Y, XS = it.XS, YS = it.YS, A = it.A, F = new string[0] });
+                continue;
+            }
+            // (a fan a switch turns on and off: there in its state)
+            if (it.K == 'n' && it.F.Length >= 3)
+            {
+                int gi = int.Parse(it.F[1]);
+                if ((gi < G ? (s >> gi) & 1 : (rd.Initial >> gi) & 1) == int.Parse(it.F[2]))
+                    d2.I.Add(new Inst { K = 'n', Spr = it.Spr, X = it.X, Y = it.Y, XS = it.XS, YS = it.YS, A = it.A, F = new[] { it.F[0] } });
                 continue;
             }
             if (it.K == 'T' || it.K == 'U')
@@ -2967,7 +3077,7 @@ static class Program
         parent.NNodes = total;
         parent.NRegions = 0;
         parent.StateOff = off; parent.StateRegions = subs.Select(x => x.NRegions).ToArray(); parent.StateInit = init;
-        parent.Exits = subs[0].Exits; parent.Locs = subs[0].Locs;
+        parent.Exits = subs[0].Exits; parent.Locs = subs[0].Locs; parent.Spots = subs[0].Spots;
         parent.BadEntries = subs[init].BadEntries;
         for (int s = 0; s < nS; s++)
         {
@@ -3117,7 +3227,7 @@ static class Program
                             {
                                 if (mv.Item3 > (int)(dist / w.Item2) + tg.Item3) continue;
                                 var l = Req.Max(mv.Item4, Req.ParseAlts(w.Item1)[0]);
-                                if (!seenD.Add(fk.Key + ">" + tg.Item1 + ":" + l.C + ":" + l.K + (tg.Item2 == "" ? "" : ":ride"))) continue;
+                                if (!seenD.Add(fk.Key + ">" + tg.Item1 + ":" + l.Id + (tg.Item2 == "" ? "" : ":ride"))) continue;
                                 parent.Edges.Add(new Edge { From = fk.Key + off[s], To = tg.Item1 + off[s2], L = l, How = how });
                             }
                         }

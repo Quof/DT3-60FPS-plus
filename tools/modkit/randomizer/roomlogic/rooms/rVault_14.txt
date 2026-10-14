@@ -18,6 +18,13 @@ out 1880,1280   # to this room at 944,800; the player presses down at it
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 loc 8 10   # internetz mod 10, at 1687,1351
 
+# Spots: somewhere whose reaching opens a way (the barriers that wait for it need event:rVault_14/<spot>, and
+# solve.py makes that what reaching the spot needs)
+spot switch1   # a colored switch the partner can be left standing on (party split), at 1263,1135
+spot switch2   # a colored switch the partner can be left standing on (party split), at 135,327
+spot key1   # a colored key, at 63,1255
+spot key2   # a colored key, at 1647,567
+
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
@@ -25,19 +32,31 @@ loc 8 10   # internetz mod 10, at 1687,1351
 # the locked door whose objectNum is N.
 from in 48,1072
   out 0,1040      -
-  out 1904,144    never
-  out 1880,1280   never
-  loc 8 10        never
+  out 1904,144    event:rVault_14/key2 | djump,adash,event:rVault_14/switch1
+  out 1880,1280   djump,adash,event:rVault_14/switch1,event:rVault_14/switch2 | event:rVault_14/key1,event:rVault_14/switch2 | event:rVault_14/key2,event:rVault_14/switch2
+  loc 8 10        event:rVault_14/key1,event:rVault_14/switch2 | event:rVault_14/key2,event:rVault_14/switch2 | djump,adash,event:rVault_14/switch1,event:rVault_14/switch2
+  spot switch1    -
+  spot switch2    djump,event:rVault_14/switch1 | adash,event:rVault_14/switch1 | gdash,event:rVault_14/switch1
+  spot key1       -
+  spot key2       djump,adash,event:rVault_14/switch1 | event:rVault_14/key2 | event:rVault_14/key1,event:rVault_14/switch2
 from in 944,800
   out 0,1040      -
-  out 1904,144    never
-  out 1880,1280   never
-  loc 8 10        never
+  out 1904,144    event:rVault_14/key2 | djump,adash,event:rVault_14/switch1
+  out 1880,1280   djump,adash,event:rVault_14/switch1,event:rVault_14/switch2 | event:rVault_14/key1,event:rVault_14/switch2 | event:rVault_14/key2,event:rVault_14/switch2
+  loc 8 10        event:rVault_14/key1,event:rVault_14/switch2 | event:rVault_14/key2,event:rVault_14/switch2 | djump,adash,event:rVault_14/switch1,event:rVault_14/switch2
+  spot switch1    -
+  spot switch2    djump,event:rVault_14/switch1 | adash,event:rVault_14/switch1 | gdash,event:rVault_14/switch1
+  spot key1       -
+  spot key2       djump,adash,event:rVault_14/switch1 | event:rVault_14/key2 | event:rVault_14/key1,event:rVault_14/switch2
 from in 1872,176
   out 0,1040      -
   out 1904,144    -
-  out 1880,1280   never
-  loc 8 10        never
+  out 1880,1280   event:rVault_14/switch2
+  loc 8 10        event:rVault_14/switch2
+  spot switch1    -
+  spot switch2    djump,event:rVault_14/switch1 | adash,event:rVault_14/switch1 | gdash,event:rVault_14/switch1
+  spot key1       -
+  spot key2       -
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
@@ -47,6 +66,582 @@ how in 48,1072 -> out 0,1040: -
       -> [bricks whole] standing at x 0-393, y 1073
    2. standing at 0,1073, goes into it
       -> out 0,1040
+how in 48,1072 -> out 1904,144: event:rVault_14/key2
+     [bricks whole] coming in at 48,1072
+   1. coming in: holding nothing, from 48,1072; lands at 48,1073
+      -> [bricks whole] standing at x 0-393, y 1073
+   2. running right, jump (held 21 ticks), holding right, from 304,1073; lands at 510,1073
+      -> [bricks whole] standing at x 439-585, y 1073
+   3. running right, jump (held 21 ticks), holding right, from 560,1073; lands at 739,1041
+      -> [bricks whole] standing at x 730-774, y 1041
+   4. jump (held 21 ticks), holding right, from 752,1041; lands at 935,1041
+      -> [bricks whole] standing at x 906-998, y 1041
+   5. running right, jump (held 21 ticks), holding right, from 960,1041; lands at 1086,964
+      -> [bricks whole] standing at x 1080-1140, y 962-964
+   6. running right, jump (held 21 ticks), holding right, from 1132,962; lands at 1286,897
+      -> [bricks whole] standing at x 1274-1305, y 897
+   7. jump (held 21 ticks), holding right, from 1274,897; lands at 1337,833
+      -> [bricks whole] standing at x 1322-1337, y 833
+   8. jump (held 21 ticks), holding left, from 1322,833; lands at 1207,769
+      -> [bricks whole] standing at x 1207-1254, y 769
+   9. jump (held 2 ticks), holding left, from 1207,769, through the barrier at 1184,704; lands at 1156,769   [event:rVault_14/key2]
+      -> [bricks whole] standing at x 1079-1177, y 769
+  10. jump (held 6 ticks), holding left, from 1079,769; lands at 1063,721
+      -> [bricks whole] standing at x 1063-1078, y 721
+  11. jump (held 6 ticks), holding right, from 1063,721; lands at 1180,689
+      -> [bricks whole] standing at x 1146-1321, y 689
+  12. jump (held 21 ticks), holding right, from 1146,689; lands at 1365,449
+      -> [bricks whole] standing at x 1322-1609, y 449
+  13. running right, jump (held 21 ticks), holding right, from 1392,449; lands at 1546,385
+      -> [bricks whole] standing at x 1530-1574, y 385
+  14. jump (held 21 ticks), holding right, from 1530,385; lands at 1782,177
+      -> [bricks whole] standing at x 1722-1920, y 177
+  15. standing at 1902,177, goes into it
+      -> out 1904,144
+how in 48,1072 -> out 1904,144: djump,adash,event:rVault_14/switch1
+     [bricks whole] coming in at 48,1072
+   1. coming in: holding nothing, from 48,1072; lands at 48,1073
+      -> [bricks whole] standing at x 0-393, y 1073
+   2. running right, jump (held 21 ticks), holding right, from 256,1073; lands at 410,1009
+      -> [bricks whole] standing at x 394-438, y 1009
+   3. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 394,1009; lands at 318,945
+      -> [bricks whole] standing at x 282-326, y 945
+   4. jump (held 2 ticks), holding left, from 282,945; lands at 217,913
+      -> [bricks whole] standing at x 186-230, y 913
+   5. jump (held 6 ticks), holding left, from 208,913; lands at 91,881
+      -> [bricks whole] standing at x 71-102, y 881
+   6. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, from 71,881; lands at 232,721
+      -> [bricks whole] standing at x 218-329, y 721
+   7. walk off the edge, holding right once in the air, double jump at tick 2, from 218,721, through the oBarrierColor at 336,656, the oBarrierColor at 480,656; lands at 518,721   [djump,event:rVault_14/switch1]
+      -> [bricks whole] standing at x 503-630, y 721
+   8. jump (held 21 ticks), holding right, double jump at tick 15, from 503,721; lands at 681,689   [djump]
+      -> [bricks whole] standing at x 650-681, y 689
+   9. jump (held 21 ticks), holding left, double jump at tick 15, from 650,689; lands at 551,593   [djump]
+      -> [bricks whole] standing at x 551-566, y 593
+  10. jump (held 21 ticks), holding left, double jump at tick 15, from 558,593; lands at 287,577   [djump]
+      -> [bricks whole] standing at x 282-310, y 577
+  11. jump (held 21 ticks), holding left, double jump at tick 15, from 282,577; lands at 214,472   [djump]
+      -> [bricks whole] standing at x 203-230, y 454-477
+  12. jump (held 6 ticks), holding right, from 203,454; lands at 302,403
+      -> [bricks whole] standing at x 282-358, y 401-428
+  13. jump (held 21 ticks), holding left, double jump at tick 15, from 282,428; lands at 128,353   [djump]
+      -> [bricks whole] standing at x 119-201, y 353
+  14. jump (held 21 ticks), holding right, double jump at tick 15, from 119,353; lands at 338,273   [djump]
+      -> [bricks whole] standing at x 282-422, y 273
+  15. running right, jump (held 9 ticks), holding right, double jump at tick 16, air dash (Claire) at tick 26, from 420,273; lands at 774,193   [djump,adash]
+      -> [bricks whole] standing at x 762-790, y 193
+  16. jump (held 21 ticks), holding right, double jump at tick 10, from 762,193; lands at 1365,449   [djump]
+      -> [bricks whole] standing at x 1322-1609, y 449
+  17. jump (held 21 ticks), holding right, double jump at tick 15, from 1322,449; lands at 1556,385   [djump]
+      -> [bricks whole] standing at x 1530-1574, y 385
+  18. jump (held 21 ticks), holding right, from 1530,385; lands at 1782,177
+      -> [bricks whole] standing at x 1722-1920, y 177
+  19. standing at 1902,177, goes into it
+      -> out 1904,144
+how in 48,1072 -> out 1880,1280: djump,adash,event:rVault_14/switch1,event:rVault_14/switch2
+     [bricks whole] coming in at 48,1072
+   1. coming in: holding nothing, from 48,1072; lands at 48,1073
+      -> [bricks whole] standing at x 0-393, y 1073
+   2. running right, jump (held 21 ticks), holding right, from 256,1073; lands at 410,1009
+      -> [bricks whole] standing at x 394-438, y 1009
+   3. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 394,1009; lands at 318,945
+      -> [bricks whole] standing at x 282-326, y 945
+   4. jump (held 2 ticks), holding left, from 282,945; lands at 217,913
+      -> [bricks whole] standing at x 186-230, y 913
+   5. jump (held 6 ticks), holding left, from 208,913; lands at 91,881
+      -> [bricks whole] standing at x 71-102, y 881
+   6. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, from 71,881; lands at 232,721
+      -> [bricks whole] standing at x 218-329, y 721
+   7. walk off the edge, holding right once in the air, double jump at tick 2, from 218,721, through the oBarrierColor at 336,656, the oBarrierColor at 480,656; lands at 518,721   [djump,event:rVault_14/switch1]
+      -> [bricks whole] standing at x 503-630, y 721
+   8. jump (held 21 ticks), holding right, double jump at tick 15, from 503,721; lands at 681,689   [djump]
+      -> [bricks whole] standing at x 650-681, y 689
+   9. jump (held 21 ticks), holding left, double jump at tick 15, from 650,689; lands at 551,593   [djump]
+      -> [bricks whole] standing at x 551-566, y 593
+  10. jump (held 21 ticks), holding left, double jump at tick 15, from 558,593; lands at 287,577   [djump]
+      -> [bricks whole] standing at x 282-310, y 577
+  11. jump (held 21 ticks), holding left, double jump at tick 15, from 282,577; lands at 214,472   [djump]
+      -> [bricks whole] standing at x 203-230, y 454-477
+  12. jump (held 6 ticks), holding right, from 203,454; lands at 302,403
+      -> [bricks whole] standing at x 282-358, y 401-428
+  13. jump (held 21 ticks), holding left, double jump at tick 15, from 282,428; lands at 128,353   [djump]
+      -> [bricks whole] standing at x 119-201, y 353
+  14. jump (held 21 ticks), holding right, double jump at tick 15, from 119,353; lands at 338,273   [djump]
+      -> [bricks whole] standing at x 282-422, y 273
+  15. running right, jump (held 9 ticks), holding right, double jump at tick 16, air dash (Claire) at tick 26, from 420,273; lands at 774,193   [djump,adash]
+      -> [bricks whole] standing at x 762-790, y 193
+  16. jump (held 21 ticks), holding right, double jump at tick 10, from 762,193; lands at 1365,449   [djump]
+      -> [bricks whole] standing at x 1322-1609, y 449
+  17. jump (held 21 ticks), holding right, double jump at tick 10, air dash (Jerry) at tick 18, from 1322,449; lands at 1639,401   [djump,adash]
+      -> [bricks whole] standing at x 1610-1686, y 401
+  18. drop down through the platform, holding right, from 1648,401; lands at 1657,449
+      -> [bricks whole] standing at x 1639-1657, y 449
+  19. drop down through the platform, holding nothing, from 1639,449; lands at 1639,577
+      -> [bricks whole] standing at x 1594-1702, y 577
+  20. walk off the edge, holding left once in the air, from 1594,577; lands at 1514,641
+      -> [bricks whole] standing at x 1434-1850, y 641
+  21. walk off the edge, holding left, then right after 1 ticks in the air, from 1434,641; lands at 1433,753
+      -> [bricks whole] standing at x 1415-1433, y 753
+  22. walk off the edge, holding right, then nothing after 1 ticks in the air, from 1415,753, through the oBarrierColor at 1504,1024, the oBarrierColor at 1632,1040, the oBarrierColor at 1376,896, ...; lands at 1777,849   [event:rVault_14/switch2]
+      -> [bricks whole] standing at x 1626-1801, y 849
+  23. running left, walk off the edge, holding left, then right after 1 ticks in the air, from 1634,849; lands at 1669,961
+      -> [bricks whole] standing at x 1658-1734, y 961
+  24. walk off the edge, holding right, then left after 1 ticks in the air, from 1658,961; lands at 1661,1313
+      -> [bricks whole] standing at x 1642-1670, y 1313
+  25. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 1642,1313; touches it on the way   [adash]
+      -> out 1880,1280
+how in 48,1072 -> out 1880,1280: event:rVault_14/key1,event:rVault_14/switch2
+     [bricks whole] coming in at 48,1072
+   1. coming in: holding nothing, from 48,1072; lands at 48,1073
+      -> [bricks whole] standing at x 0-393, y 1073
+   2. running right, jump (held 21 ticks), holding right, from 256,1073; lands at 410,1009
+      -> [bricks whole] standing at x 394-438, y 1009
+   3. jump (held 21 ticks), holding right, from 394,1009; lands at 599,1041
+      -> [bricks whole] standing at x 586-630, y 1041
+   4. jump (held 21 ticks), holding right, from 622,1041; lands at 871,1137
+      -> [bricks whole] standing at x 858-1046, y 1137
+   5. running right, jump (held 21 ticks), holding right, from 960,1137; lands at 1151,1105
+      -> [bricks whole] standing at x 1098-1174, y 1105
+   6. jump (held 6 ticks), holding right, from 1104,1105; lands at 1278,1158
+      -> [bricks whole] standing at x 1243-1285, y 1142-1164
+   7. jump (held 21 ticks), holding right, from 1281,1153, through the barrier at 1408,1024; lands at 1438,1121   [event:rVault_14/key1]
+      -> [bricks whole] standing at x 1431-1497, y 1121
+   8. jump (held 6 ticks), holding right, from 1456,1121, through the oBarrierColor at 1504,1024, the oBarrierColor at 1632,1040, the oBarrierColor at 1376,896, ...; lands at 1587,1105   [event:rVault_14/switch2]
+      -> [bricks whole] standing at x 1578-1657, y 1105
+   9. jump (held 21 ticks), holding right, from 1578,1105; lands at 1657,1041
+      -> [bricks whole] standing at x 1626-1657, y 1041
+  10. jump (held 21 ticks), holding left, from 1626,1041; lands at 1495,977
+      -> [bricks whole] standing at x 1479-1542, y 977
+  11. jump (held 21 ticks), holding right, from 1504,977; lands at 1679,961
+      -> [bricks whole] standing at x 1658-1734, y 961
+  12. walk off the edge, holding right, then left after 1 ticks in the air, from 1658,961; lands at 1661,1313
+      -> [bricks whole] standing at x 1642-1670, y 1313
+  13. running right, jump (held 21 ticks), holding right, from 1666,1313; touches it on the way
+      -> out 1880,1280
+how in 48,1072 -> out 1880,1280: event:rVault_14/key2,event:rVault_14/switch2
+     [bricks whole] coming in at 48,1072
+   1. coming in: holding nothing, from 48,1072; lands at 48,1073
+      -> [bricks whole] standing at x 0-393, y 1073
+   2. running right, jump (held 21 ticks), holding right, from 304,1073; lands at 510,1073
+      -> [bricks whole] standing at x 439-585, y 1073
+   3. running right, jump (held 21 ticks), holding right, from 560,1073; lands at 739,1041
+      -> [bricks whole] standing at x 730-774, y 1041
+   4. jump (held 21 ticks), holding right, from 752,1041; lands at 935,1041
+      -> [bricks whole] standing at x 906-998, y 1041
+   5. running right, jump (held 21 ticks), holding right, from 960,1041; lands at 1086,964
+      -> [bricks whole] standing at x 1080-1140, y 962-964
+   6. running right, jump (held 21 ticks), holding right, from 1132,962; lands at 1286,897
+      -> [bricks whole] standing at x 1274-1305, y 897
+   7. jump (held 21 ticks), holding right, from 1274,897; lands at 1337,833
+      -> [bricks whole] standing at x 1322-1337, y 833
+   8. jump (held 21 ticks), holding left, from 1322,833; lands at 1207,769
+      -> [bricks whole] standing at x 1207-1254, y 769
+   9. jump (held 2 ticks), holding left, from 1207,769, through the barrier at 1184,704; lands at 1156,769   [event:rVault_14/key2]
+      -> [bricks whole] standing at x 1079-1177, y 769
+  10. jump (held 6 ticks), holding left, from 1079,769; lands at 1063,721
+      -> [bricks whole] standing at x 1063-1078, y 721
+  11. jump (held 6 ticks), holding right, from 1063,721; lands at 1180,689
+      -> [bricks whole] standing at x 1146-1321, y 689
+  12. jump (held 21 ticks), holding right, from 1146,689; lands at 1365,449
+      -> [bricks whole] standing at x 1322-1609, y 449
+  13. running right, jump (held 21 ticks), holding right, from 1456,449; lands at 1624,401
+      -> [bricks whole] standing at x 1610-1686, y 401
+  14. drop down through the platform, holding right, from 1648,401; lands at 1657,449
+      -> [bricks whole] standing at x 1639-1657, y 449
+  15. drop down through the platform, holding nothing, from 1639,449; lands at 1639,577
+      -> [bricks whole] standing at x 1594-1702, y 577
+  16. running left, jump (held 2 ticks), holding left, from 1594,577; lands at 1383,721
+      -> [bricks whole] standing at x 1383-1398, y 721
+  17. walk off the edge, holding right once in the air, from 1383,721; lands at 1433,753
+      -> [bricks whole] standing at x 1415-1433, y 753
+  18. walk off the edge, holding right, then nothing after 1 ticks in the air, from 1415,753, through the oBarrierColor at 1504,1024, the oBarrierColor at 1632,1040, the oBarrierColor at 1376,896, ...; lands at 1777,849   [event:rVault_14/switch2]
+      -> [bricks whole] standing at x 1626-1801, y 849
+  19. running left, walk off the edge, holding left, then right after 1 ticks in the air, from 1634,849; lands at 1669,961
+      -> [bricks whole] standing at x 1658-1734, y 961
+  20. walk off the edge, holding right, then left after 1 ticks in the air, from 1658,961; lands at 1661,1313
+      -> [bricks whole] standing at x 1642-1670, y 1313
+  21. running right, jump (held 21 ticks), holding right, from 1666,1313; touches it on the way
+      -> out 1880,1280
+how in 48,1072 -> loc 8 10: event:rVault_14/key1,event:rVault_14/switch2
+     [bricks whole] coming in at 48,1072
+   1. coming in: holding nothing, from 48,1072; lands at 48,1073
+      -> [bricks whole] standing at x 0-393, y 1073
+   2. running right, jump (held 21 ticks), holding right, from 256,1073; lands at 410,1009
+      -> [bricks whole] standing at x 394-438, y 1009
+   3. jump (held 21 ticks), holding right, from 394,1009; lands at 599,1041
+      -> [bricks whole] standing at x 586-630, y 1041
+   4. jump (held 21 ticks), holding right, from 622,1041; lands at 871,1137
+      -> [bricks whole] standing at x 858-1046, y 1137
+   5. running right, jump (held 21 ticks), holding right, from 960,1137; lands at 1151,1105
+      -> [bricks whole] standing at x 1098-1174, y 1105
+   6. jump (held 6 ticks), holding right, from 1104,1105; lands at 1278,1158
+      -> [bricks whole] standing at x 1243-1285, y 1142-1164
+   7. jump (held 21 ticks), holding right, from 1281,1153, through the barrier at 1408,1024; lands at 1438,1121   [event:rVault_14/key1]
+      -> [bricks whole] standing at x 1431-1497, y 1121
+   8. jump (held 6 ticks), holding right, from 1456,1121, through the oBarrierColor at 1504,1024, the oBarrierColor at 1632,1040, the oBarrierColor at 1376,896, ...; lands at 1587,1105   [event:rVault_14/switch2]
+      -> [bricks whole] standing at x 1578-1657, y 1105
+   9. jump (held 21 ticks), holding right, from 1578,1105; lands at 1657,1041
+      -> [bricks whole] standing at x 1626-1657, y 1041
+  10. jump (held 21 ticks), holding left, from 1626,1041; lands at 1495,977
+      -> [bricks whole] standing at x 1479-1542, y 977
+  11. jump (held 21 ticks), holding right, from 1504,977; lands at 1679,961
+      -> [bricks whole] standing at x 1658-1734, y 961
+  12. walk off the edge, holding right, then left after 1 ticks in the air, from 1662,961; lands at 1671,1361
+      -> [bricks whole] standing at x 1671-1705, y 1361
+  13. standing at 1682,1361, touches it
+      -> loc 8 10
+how in 48,1072 -> loc 8 10: event:rVault_14/key2,event:rVault_14/switch2
+     [bricks whole] coming in at 48,1072
+   1. coming in: holding nothing, from 48,1072; lands at 48,1073
+      -> [bricks whole] standing at x 0-393, y 1073
+   2. running right, jump (held 21 ticks), holding right, from 304,1073; lands at 510,1073
+      -> [bricks whole] standing at x 439-585, y 1073
+   3. running right, jump (held 21 ticks), holding right, from 560,1073; lands at 739,1041
+      -> [bricks whole] standing at x 730-774, y 1041
+   4. jump (held 21 ticks), holding right, from 752,1041; lands at 935,1041
+      -> [bricks whole] standing at x 906-998, y 1041
+   5. running right, jump (held 21 ticks), holding right, from 960,1041; lands at 1086,964
+      -> [bricks whole] standing at x 1080-1140, y 962-964
+   6. running right, jump (held 21 ticks), holding right, from 1132,962; lands at 1286,897
+      -> [bricks whole] standing at x 1274-1305, y 897
+   7. jump (held 21 ticks), holding right, from 1274,897; lands at 1337,833
+      -> [bricks whole] standing at x 1322-1337, y 833
+   8. jump (held 21 ticks), holding left, from 1322,833; lands at 1207,769
+      -> [bricks whole] standing at x 1207-1254, y 769
+   9. jump (held 2 ticks), holding left, from 1207,769, through the barrier at 1184,704; lands at 1156,769   [event:rVault_14/key2]
+      -> [bricks whole] standing at x 1079-1177, y 769
+  10. jump (held 6 ticks), holding left, from 1079,769; lands at 1063,721
+      -> [bricks whole] standing at x 1063-1078, y 721
+  11. jump (held 6 ticks), holding right, from 1063,721; lands at 1180,689
+      -> [bricks whole] standing at x 1146-1321, y 689
+  12. jump (held 21 ticks), holding right, from 1146,689; lands at 1365,449
+      -> [bricks whole] standing at x 1322-1609, y 449
+  13. running right, jump (held 21 ticks), holding right, from 1456,449; lands at 1624,401
+      -> [bricks whole] standing at x 1610-1686, y 401
+  14. drop down through the platform, holding right, from 1648,401; lands at 1657,449
+      -> [bricks whole] standing at x 1639-1657, y 449
+  15. drop down through the platform, holding nothing, from 1639,449; lands at 1639,577
+      -> [bricks whole] standing at x 1594-1702, y 577
+  16. running left, jump (held 2 ticks), holding left, from 1594,577; lands at 1383,721
+      -> [bricks whole] standing at x 1383-1398, y 721
+  17. walk off the edge, holding right once in the air, from 1383,721; lands at 1433,753
+      -> [bricks whole] standing at x 1415-1433, y 753
+  18. walk off the edge, holding right, then nothing after 1 ticks in the air, from 1415,753, through the oBarrierColor at 1504,1024, the oBarrierColor at 1632,1040, the oBarrierColor at 1376,896, ...; lands at 1777,849   [event:rVault_14/switch2]
+      -> [bricks whole] standing at x 1626-1801, y 849
+  19. running left, walk off the edge, holding left, then right after 1 ticks in the air, from 1634,849; lands at 1669,961
+      -> [bricks whole] standing at x 1658-1734, y 961
+  20. walk off the edge, holding right, then left after 1 ticks in the air, from 1662,961; lands at 1671,1361
+      -> [bricks whole] standing at x 1671-1705, y 1361
+  21. standing at 1682,1361, touches it
+      -> loc 8 10
+how in 48,1072 -> loc 8 10: djump,adash,event:rVault_14/switch1,event:rVault_14/switch2
+     [bricks whole] coming in at 48,1072
+   1. coming in: holding nothing, from 48,1072; lands at 48,1073
+      -> [bricks whole] standing at x 0-393, y 1073
+   2. running right, jump (held 21 ticks), holding right, from 256,1073; lands at 410,1009
+      -> [bricks whole] standing at x 394-438, y 1009
+   3. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 394,1009; lands at 318,945
+      -> [bricks whole] standing at x 282-326, y 945
+   4. jump (held 2 ticks), holding left, from 282,945; lands at 217,913
+      -> [bricks whole] standing at x 186-230, y 913
+   5. jump (held 6 ticks), holding left, from 208,913; lands at 91,881
+      -> [bricks whole] standing at x 71-102, y 881
+   6. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, from 71,881; lands at 232,721
+      -> [bricks whole] standing at x 218-329, y 721
+   7. walk off the edge, holding right once in the air, double jump at tick 2, from 218,721, through the oBarrierColor at 336,656, the oBarrierColor at 480,656; lands at 518,721   [djump,event:rVault_14/switch1]
+      -> [bricks whole] standing at x 503-630, y 721
+   8. jump (held 21 ticks), holding right, double jump at tick 15, from 503,721; lands at 681,689   [djump]
+      -> [bricks whole] standing at x 650-681, y 689
+   9. jump (held 21 ticks), holding left, double jump at tick 15, from 650,689; lands at 551,593   [djump]
+      -> [bricks whole] standing at x 551-566, y 593
+  10. jump (held 21 ticks), holding left, double jump at tick 15, from 558,593; lands at 287,577   [djump]
+      -> [bricks whole] standing at x 282-310, y 577
+  11. jump (held 21 ticks), holding left, double jump at tick 15, from 282,577; lands at 214,472   [djump]
+      -> [bricks whole] standing at x 203-230, y 454-477
+  12. jump (held 6 ticks), holding right, from 203,454; lands at 302,403
+      -> [bricks whole] standing at x 282-358, y 401-428
+  13. jump (held 21 ticks), holding left, double jump at tick 15, from 282,428; lands at 128,353   [djump]
+      -> [bricks whole] standing at x 119-201, y 353
+  14. jump (held 21 ticks), holding right, double jump at tick 15, from 119,353; lands at 338,273   [djump]
+      -> [bricks whole] standing at x 282-422, y 273
+  15. running right, jump (held 9 ticks), holding right, double jump at tick 16, air dash (Claire) at tick 26, from 420,273; lands at 774,193   [djump,adash]
+      -> [bricks whole] standing at x 762-790, y 193
+  16. jump (held 21 ticks), holding right, double jump at tick 10, from 762,193; lands at 1365,449   [djump]
+      -> [bricks whole] standing at x 1322-1609, y 449
+  17. jump (held 21 ticks), holding right, double jump at tick 10, air dash (Jerry) at tick 18, from 1322,449; lands at 1639,401   [djump,adash]
+      -> [bricks whole] standing at x 1610-1686, y 401
+  18. drop down through the platform, holding right, from 1648,401; lands at 1657,449
+      -> [bricks whole] standing at x 1639-1657, y 449
+  19. drop down through the platform, holding nothing, from 1639,449; lands at 1639,577
+      -> [bricks whole] standing at x 1594-1702, y 577
+  20. walk off the edge, holding left once in the air, from 1594,577; lands at 1514,641
+      -> [bricks whole] standing at x 1434-1850, y 641
+  21. walk off the edge, holding left, then right after 1 ticks in the air, from 1434,641; lands at 1433,753
+      -> [bricks whole] standing at x 1415-1433, y 753
+  22. walk off the edge, holding right, then nothing after 1 ticks in the air, from 1415,753, through the oBarrierColor at 1504,1024, the oBarrierColor at 1632,1040, the oBarrierColor at 1376,896, ...; lands at 1777,849   [event:rVault_14/switch2]
+      -> [bricks whole] standing at x 1626-1801, y 849
+  23. running left, walk off the edge, holding left, then right after 1 ticks in the air, from 1634,849; lands at 1669,961
+      -> [bricks whole] standing at x 1658-1734, y 961
+  24. walk off the edge, holding right, then left after 1 ticks in the air, from 1662,961; lands at 1671,1361
+      -> [bricks whole] standing at x 1671-1705, y 1361
+  25. standing at 1682,1361, touches it
+      -> loc 8 10
+how in 48,1072 -> spot switch1: -
+     [bricks whole] coming in at 48,1072
+   1. coming in: holding nothing, from 48,1072; lands at 48,1073
+      -> [bricks whole] standing at x 0-393, y 1073
+   2. running right, jump (held 21 ticks), holding right, from 304,1073; lands at 510,1073
+      -> [bricks whole] standing at x 439-585, y 1073
+   3. running right, jump (held 21 ticks), holding right, from 560,1073; lands at 739,1041
+      -> [bricks whole] standing at x 730-774, y 1041
+   4. jump (held 21 ticks), holding right, from 752,1041; lands at 935,1041
+      -> [bricks whole] standing at x 906-998, y 1041
+   5. jump (held 21 ticks), holding right, from 928,1041; lands at 1059,976
+      -> [bricks whole] standing at x 1052-1112, y 976-978
+   6. walk off the edge, holding right, then nothing after 1 ticks in the air, from 1052,976; touches it on the way
+      -> spot switch1
+how in 48,1072 -> spot switch2: djump,event:rVault_14/switch1
+     [bricks whole] coming in at 48,1072
+   1. coming in: holding nothing, from 48,1072; lands at 48,1073
+      -> [bricks whole] standing at x 0-393, y 1073
+   2. running right, jump (held 21 ticks), holding right, from 256,1073; lands at 410,1009
+      -> [bricks whole] standing at x 394-438, y 1009
+   3. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 394,1009; lands at 318,945
+      -> [bricks whole] standing at x 282-326, y 945
+   4. jump (held 2 ticks), holding left, from 282,945; lands at 217,913
+      -> [bricks whole] standing at x 186-230, y 913
+   5. jump (held 6 ticks), holding left, from 208,913; lands at 91,881
+      -> [bricks whole] standing at x 71-102, y 881
+   6. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, from 71,881; lands at 232,721
+      -> [bricks whole] standing at x 218-329, y 721
+   7. walk off the edge, holding right once in the air, double jump at tick 2, from 218,721, through the oBarrierColor at 336,656, the oBarrierColor at 480,656; lands at 518,721   [djump,event:rVault_14/switch1]
+      -> [bricks whole] standing at x 503-630, y 721
+   8. jump (held 21 ticks), holding right, double jump at tick 15, from 503,721; lands at 681,689   [djump]
+      -> [bricks whole] standing at x 650-681, y 689
+   9. jump (held 21 ticks), holding left, double jump at tick 15, from 650,689; lands at 551,593   [djump]
+      -> [bricks whole] standing at x 551-566, y 593
+  10. jump (held 21 ticks), holding left, double jump at tick 15, from 558,593; lands at 287,577   [djump]
+      -> [bricks whole] standing at x 282-310, y 577
+  11. jump (held 21 ticks), holding left, double jump at tick 15, from 282,577; lands at 214,472   [djump]
+      -> [bricks whole] standing at x 203-230, y 454-477
+  12. jump (held 6 ticks), holding right, from 203,454; lands at 302,403
+      -> [bricks whole] standing at x 282-358, y 401-428
+  13. jump (held 21 ticks), holding left, double jump at tick 15, from 286,417; lands at 106,337   [djump]
+      -> [bricks whole] standing at x 90-118, y 337
+  14. walk off the edge, holding right once in the air, from 90,337; touches it on the way
+      -> spot switch2
+how in 48,1072 -> spot switch2: adash,event:rVault_14/switch1
+     [bricks whole] coming in at 48,1072
+   1. coming in: holding nothing, from 48,1072; lands at 48,1073
+      -> [bricks whole] standing at x 0-393, y 1073
+   2. running right, jump (held 21 ticks), holding right, from 256,1073; lands at 410,1009
+      -> [bricks whole] standing at x 394-438, y 1009
+   3. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 394,1009; lands at 318,945
+      -> [bricks whole] standing at x 282-326, y 945
+   4. jump (held 2 ticks), holding left, from 282,945; lands at 217,913
+      -> [bricks whole] standing at x 186-230, y 913
+   5. jump (held 6 ticks), holding left, from 208,913; lands at 91,881
+      -> [bricks whole] standing at x 71-102, y 881
+   6. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, from 71,881; lands at 232,721
+      -> [bricks whole] standing at x 218-329, y 721
+   7. walk off the edge, holding right once in the air, air dash (Jerry) at tick 2, from 218,721, through the oBarrierColor at 336,656, the oBarrierColor at 480,656; lands at 525,721   [adash,event:rVault_14/switch1]
+      -> [bricks whole] standing at x 503-630, y 721
+   8. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 560,721; lands at 713,641   [adash]
+      -> [bricks whole] standing at x 682-713, y 641
+   9. running left, jump (held 21 ticks), holding left, from 682,641; lands at 528,577
+      -> [bricks whole] standing at x 522-550, y 577
+  10. jump (held 21 ticks), holding left, air dash (Jerry) at tick 10, from 522,577; lands at 251,609   [adash]
+      -> [bricks whole] standing at x 135-265, y 609
+  11. jump (held 6 ticks), holding left, from 135,609; lands at 118,549
+      -> [bricks whole] standing at x 71-134, y 545-572
+  12. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 71,551; lands at 174,470   [adash]
+      -> [bricks whole] standing at x 154-181, y 454-477
+  13. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 154,477; lands at 326,401   [adash]
+      -> [bricks whole] standing at x 282-358, y 401-428
+  14. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 288,414; lands at 105,337   [adash]
+      -> [bricks whole] standing at x 90-118, y 337
+  15. walk off the edge, holding right once in the air, from 90,337; touches it on the way
+      -> spot switch2
+how in 48,1072 -> spot switch2: gdash,event:rVault_14/switch1
+     [bricks whole] coming in at 48,1072
+   1. coming in: holding nothing, from 48,1072; lands at 48,1073
+      -> [bricks whole] standing at x 0-393, y 1073
+   2. running right, jump (held 21 ticks), holding right, from 256,1073; lands at 410,1009
+      -> [bricks whole] standing at x 394-438, y 1009
+   3. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 394,1009; lands at 318,945
+      -> [bricks whole] standing at x 282-326, y 945
+   4. jump (held 2 ticks), holding left, from 282,945; lands at 217,913
+      -> [bricks whole] standing at x 186-230, y 913
+   5. jump (held 6 ticks), holding left, from 208,913; lands at 91,881
+      -> [bricks whole] standing at x 71-102, y 881
+   6. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, from 71,881; lands at 232,721
+      -> [bricks whole] standing at x 218-329, y 721
+   7. walk from 329,721 to 330,721 into the oBarrierColor at 336,656   [event:rVault_14/switch1]
+      -> [bricks whole] standing at x 330-358, y 721 (where a gate is)
+   8. dash right (Jerry), jump (held 21 ticks), holding right, from 330,721, through the oBarrierColor at 336,656, the oBarrierColor at 480,656; lands at 503,721   [gdash,event:rVault_14/switch1]
+      -> [bricks whole] standing at x 503-630, y 721
+   9. dash right (Jerry), jump (held 21 ticks), holding right, from 503,721; lands at 681,689   [gdash]
+      -> [bricks whole] standing at x 650-681, y 689
+  10. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 650,689; lands at 708,641
+      -> [bricks whole] standing at x 682-713, y 641
+  11. jump (held 6 ticks), holding left, from 682,641; lands at 567,609
+      -> [bricks whole] standing at x 567-598, y 609
+  12. jump (held 21 ticks), holding left, from 567,609; lands at 403,577
+      -> [bricks whole] standing at x 394-438, y 577
+  13. running left, jump (held 2 ticks), holding left, from 394,577; lands at 247,609
+      -> [bricks whole] standing at x 135-265, y 609
+  14. jump (held 6 ticks), holding left, from 135,609; lands at 118,549
+      -> [bricks whole] standing at x 71-134, y 545-572
+  15. dash right (Jerry), jump (held 21 ticks), holding right, from 71,551; lands at 164,475   [gdash]
+      -> [bricks whole] standing at x 154-181, y 454-477
+  16. dash right (Jerry), jump (held 21 ticks), holding right, from 154,477; lands at 306,402   [gdash]
+      -> [bricks whole] standing at x 282-358, y 401-428
+  17. jump (held 21 ticks), holding left, from 304,403; lands at 158,353
+      -> [bricks whole] standing at x 119-201, y 353
+  18. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 144,353; lands at 97,337
+      -> [bricks whole] standing at x 90-118, y 337
+  19. walk off the edge, holding right once in the air, from 90,337; touches it on the way
+      -> spot switch2
+how in 48,1072 -> spot key1: -
+     [bricks whole] coming in at 48,1072
+   1. coming in: holding nothing, from 48,1072; lands at 48,1073
+      -> [bricks whole] standing at x 0-393, y 1073
+   2. running right, jump (held 21 ticks), holding right, from 304,1073; lands at 510,1073
+      -> [bricks whole] standing at x 439-585, y 1073
+   3. running right, jump (held 21 ticks), holding right, from 464,1073; lands at 670,1073
+      -> [bricks whole] standing at x 631-697, y 1073
+   4. jump (held 21 ticks), holding right, from 633,1073; lands at 938,1361
+      -> [bricks whole] standing at x 551-1142, y 1361
+   5. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 551,1361; lands at 534,1329
+      -> [bricks whole] standing at x 506-550, y 1329
+   6. running left, jump (held 6 ticks), holding left, from 506,1329; lands at 337,1345
+      -> [bricks whole] standing at x 170-377, y 1345
+   7. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 170,1345; lands at 134,1313
+      -> [bricks whole] standing at x 122-150, y 1313
+   8. jump (held 6 ticks), holding left, from 122,1313; lands at 44,1265
+      -> [bricks whole] standing at x 39-102, y 1265
+   9. standing at 57,1265, on it
+      -> spot key1
+how in 48,1072 -> spot key2: djump,adash,event:rVault_14/switch1
+     [bricks whole] coming in at 48,1072
+   1. coming in: holding nothing, from 48,1072; lands at 48,1073
+      -> [bricks whole] standing at x 0-393, y 1073
+   2. running right, jump (held 21 ticks), holding right, from 256,1073; lands at 410,1009
+      -> [bricks whole] standing at x 394-438, y 1009
+   3. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 394,1009; lands at 318,945
+      -> [bricks whole] standing at x 282-326, y 945
+   4. jump (held 2 ticks), holding left, from 282,945; lands at 217,913
+      -> [bricks whole] standing at x 186-230, y 913
+   5. jump (held 6 ticks), holding left, from 208,913; lands at 91,881
+      -> [bricks whole] standing at x 71-102, y 881
+   6. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, from 71,881; lands at 232,721
+      -> [bricks whole] standing at x 218-329, y 721
+   7. walk off the edge, holding right once in the air, double jump at tick 2, from 218,721, through the oBarrierColor at 336,656, the oBarrierColor at 480,656; lands at 518,721   [djump,event:rVault_14/switch1]
+      -> [bricks whole] standing at x 503-630, y 721
+   8. jump (held 21 ticks), holding right, double jump at tick 15, from 503,721; lands at 681,689   [djump]
+      -> [bricks whole] standing at x 650-681, y 689
+   9. jump (held 21 ticks), holding left, double jump at tick 15, from 650,689; lands at 551,593   [djump]
+      -> [bricks whole] standing at x 551-566, y 593
+  10. jump (held 21 ticks), holding left, double jump at tick 15, from 558,593; lands at 287,577   [djump]
+      -> [bricks whole] standing at x 282-310, y 577
+  11. jump (held 21 ticks), holding left, double jump at tick 15, from 282,577; lands at 214,472   [djump]
+      -> [bricks whole] standing at x 203-230, y 454-477
+  12. jump (held 6 ticks), holding right, from 203,454; lands at 302,403
+      -> [bricks whole] standing at x 282-358, y 401-428
+  13. jump (held 21 ticks), holding left, double jump at tick 15, from 282,428; lands at 128,353   [djump]
+      -> [bricks whole] standing at x 119-201, y 353
+  14. jump (held 21 ticks), holding right, double jump at tick 15, from 119,353; lands at 338,273   [djump]
+      -> [bricks whole] standing at x 282-422, y 273
+  15. running right, jump (held 9 ticks), holding right, double jump at tick 16, air dash (Claire) at tick 26, from 420,273; lands at 774,193   [djump,adash]
+      -> [bricks whole] standing at x 762-790, y 193
+  16. jump (held 21 ticks), holding right, double jump at tick 10, from 762,193; lands at 1365,449   [djump]
+      -> [bricks whole] standing at x 1322-1609, y 449
+  17. jump (held 21 ticks), holding right, double jump at tick 10, air dash (Jerry) at tick 18, from 1322,449; lands at 1639,401   [djump,adash]
+      -> [bricks whole] standing at x 1610-1686, y 401
+  18. drop down through the platform, holding right, from 1648,401; lands at 1657,449
+      -> [bricks whole] standing at x 1639-1657, y 449
+  19. drop down through the platform, holding nothing, from 1639,449; lands at 1639,577
+      -> [bricks whole] standing at x 1594-1702, y 577
+  20. running left, jump (held 21 ticks), holding left, from 1594,577; lands at 1359,625
+      -> [bricks whole] standing at x 1351-1366, y 625
+  21. jump (held 21 ticks), holding right, double jump at tick 10, air dash (Jerry) at tick 18, from 1351,625; touches it on the way   [djump,adash]
+      -> spot key2
+how in 48,1072 -> spot key2: event:rVault_14/key2
+     [bricks whole] coming in at 48,1072
+   1. coming in: holding nothing, from 48,1072; lands at 48,1073
+      -> [bricks whole] standing at x 0-393, y 1073
+   2. running right, jump (held 21 ticks), holding right, from 304,1073; lands at 510,1073
+      -> [bricks whole] standing at x 439-585, y 1073
+   3. running right, jump (held 21 ticks), holding right, from 560,1073; lands at 739,1041
+      -> [bricks whole] standing at x 730-774, y 1041
+   4. jump (held 21 ticks), holding right, from 752,1041; lands at 935,1041
+      -> [bricks whole] standing at x 906-998, y 1041
+   5. running right, jump (held 21 ticks), holding right, from 960,1041; lands at 1086,964
+      -> [bricks whole] standing at x 1080-1140, y 962-964
+   6. running right, jump (held 21 ticks), holding right, from 1132,962; lands at 1286,897
+      -> [bricks whole] standing at x 1274-1305, y 897
+   7. jump (held 21 ticks), holding right, from 1274,897; lands at 1337,833
+      -> [bricks whole] standing at x 1322-1337, y 833
+   8. jump (held 21 ticks), holding left, from 1322,833; lands at 1207,769
+      -> [bricks whole] standing at x 1207-1254, y 769
+   9. jump (held 2 ticks), holding left, from 1207,769, through the barrier at 1184,704; lands at 1156,769   [event:rVault_14/key2]
+      -> [bricks whole] standing at x 1079-1177, y 769
+  10. jump (held 6 ticks), holding left, from 1079,769; lands at 1063,721
+      -> [bricks whole] standing at x 1063-1078, y 721
+  11. jump (held 6 ticks), holding right, from 1063,721; lands at 1180,689
+      -> [bricks whole] standing at x 1146-1321, y 689
+  12. jump (held 21 ticks), holding right, from 1146,689; lands at 1365,449
+      -> [bricks whole] standing at x 1322-1609, y 449
+  13. running right, jump (held 21 ticks), holding right, from 1456,449; lands at 1624,401
+      -> [bricks whole] standing at x 1610-1686, y 401
+  14. drop down through the platform, holding right, from 1648,401; lands at 1657,449
+      -> [bricks whole] standing at x 1639-1657, y 449
+  15. drop down through the platform, holding nothing, from 1639,449; lands at 1639,577
+      -> [bricks whole] standing at x 1594-1702, y 577
+  16. walk off the edge, holding left once in the air, from 1594,577; lands at 1514,641
+      -> [bricks whole] standing at x 1434-1850, y 641
+  17. running right, jump (held 21 ticks), holding right, from 1488,641; touches it on the way
+      -> spot key2
+how in 48,1072 -> spot key2: event:rVault_14/key1,event:rVault_14/switch2
+     [bricks whole] coming in at 48,1072
+   1. coming in: holding nothing, from 48,1072; lands at 48,1073
+      -> [bricks whole] standing at x 0-393, y 1073
+   2. running right, jump (held 21 ticks), holding right, from 256,1073; lands at 410,1009
+      -> [bricks whole] standing at x 394-438, y 1009
+   3. jump (held 21 ticks), holding right, from 394,1009; lands at 599,1041
+      -> [bricks whole] standing at x 586-630, y 1041
+   4. jump (held 21 ticks), holding right, from 622,1041; lands at 871,1137
+      -> [bricks whole] standing at x 858-1046, y 1137
+   5. running right, jump (held 21 ticks), holding right, from 960,1137; lands at 1151,1105
+      -> [bricks whole] standing at x 1098-1174, y 1105
+   6. jump (held 6 ticks), holding right, from 1104,1105; lands at 1278,1158
+      -> [bricks whole] standing at x 1243-1285, y 1142-1164
+   7. jump (held 21 ticks), holding right, from 1281,1153, through the barrier at 1408,1024; lands at 1438,1121   [event:rVault_14/key1]
+      -> [bricks whole] standing at x 1431-1497, y 1121
+   8. jump (held 6 ticks), holding right, from 1456,1121, through the oBarrierColor at 1504,1024, the oBarrierColor at 1632,1040, the oBarrierColor at 1376,896, ...; lands at 1587,1105   [event:rVault_14/switch2]
+      -> [bricks whole] standing at x 1578-1657, y 1105
+   9. jump (held 21 ticks), holding right, from 1578,1105; lands at 1657,1041
+      -> [bricks whole] standing at x 1626-1657, y 1041
+  10. jump (held 21 ticks), holding left, from 1626,1041; lands at 1495,977
+      -> [bricks whole] standing at x 1479-1542, y 977
+  11. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 1479,977; lands at 1453,961
+      -> [bricks whole] standing at x 1434-1478, y 961
+  12. jump (held 21 ticks), holding left, from 1456,961; lands at 1383,897
+      -> [bricks whole] standing at x 1383-1446, y 897
+  13. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1383,897; lands at 1491,849
+      -> [bricks whole] standing at x 1466-1606, y 849
+  14. running right, jump (held 21 ticks), holding right, from 1504,849; lands at 1636,849
+      -> [bricks whole] standing at x 1626-1801, y 849
+  15. running right, jump (held 6 ticks), holding right, from 1696,849; lands at 1836,817
+      -> [bricks whole] standing at x 1802-1865, y 817
+  16. jump (held 21 ticks), holding left, from 1802,817; lands at 1671,753
+      -> [bricks whole] standing at x 1463-1734, y 753
+  17. jump (held 6 ticks), holding left, from 1463,753, through the oBarrierColor at 1504,1024, the oBarrierColor at 1632,1040, the oBarrierColor at 1376,896, ...; lands at 1368,705   [event:rVault_14/switch2]
+      -> [bricks whole] standing at x 1367-1382, y 705
+  18. jump (held 21 ticks), holding right, from 1367,705; lands at 1498,641
+      -> [bricks whole] standing at x 1434-1850, y 641
+  19. running right, jump (held 21 ticks), holding right, from 1488,641; touches it on the way
+      -> spot key2
 how in 944,800 -> out 0,1040: -
      [bricks whole] coming in at 944,800
    1. coming in: holding nothing, from 944,800; lands at 944,1041
@@ -59,21 +654,553 @@ how in 944,800 -> out 0,1040: -
       -> [bricks whole] standing at x 0-393, y 1073
    5. standing at 0,1073, goes into it
       -> out 0,1040
+how in 944,800 -> out 1904,144: event:rVault_14/key2
+     [bricks whole] coming in at 944,800
+   1. coming in: holding nothing, from 944,800; lands at 944,1041
+      -> [bricks whole] standing at x 906-998, y 1041
+   2. running right, jump (held 21 ticks), holding right, from 960,1041; lands at 1086,964
+      -> [bricks whole] standing at x 1080-1140, y 962-964
+   3. running right, jump (held 21 ticks), holding right, from 1132,962; lands at 1286,897
+      -> [bricks whole] standing at x 1274-1305, y 897
+   4. jump (held 21 ticks), holding right, from 1274,897; lands at 1337,833
+      -> [bricks whole] standing at x 1322-1337, y 833
+   5. jump (held 21 ticks), holding left, from 1322,833; lands at 1207,769
+      -> [bricks whole] standing at x 1207-1254, y 769
+   6. jump (held 2 ticks), holding left, from 1207,769, through the barrier at 1184,704; lands at 1156,769   [event:rVault_14/key2]
+      -> [bricks whole] standing at x 1079-1177, y 769
+   7. jump (held 6 ticks), holding left, from 1079,769; lands at 1063,721
+      -> [bricks whole] standing at x 1063-1078, y 721
+   8. jump (held 6 ticks), holding right, from 1063,721; lands at 1180,689
+      -> [bricks whole] standing at x 1146-1321, y 689
+   9. jump (held 21 ticks), holding right, from 1146,689; lands at 1365,449
+      -> [bricks whole] standing at x 1322-1609, y 449
+  10. running right, jump (held 21 ticks), holding right, from 1392,449; lands at 1546,385
+      -> [bricks whole] standing at x 1530-1574, y 385
+  11. jump (held 21 ticks), holding right, from 1530,385; lands at 1782,177
+      -> [bricks whole] standing at x 1722-1920, y 177
+  12. standing at 1902,177, goes into it
+      -> out 1904,144
+how in 944,800 -> out 1904,144: djump,adash,event:rVault_14/switch1
+     [bricks whole] coming in at 944,800
+   1. coming in: holding left, from 944,800; lands at 775,1073
+      -> [bricks whole] standing at x 775-806, y 1073
+   2. jump (held 21 ticks), holding left, from 775,1073; lands at 622,1041
+      -> [bricks whole] standing at x 586-630, y 1041
+   3. jump (held 21 ticks), holding left, from 586,1041; lands at 418,1009
+      -> [bricks whole] standing at x 394-438, y 1009
+   4. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 394,1009; lands at 318,945
+      -> [bricks whole] standing at x 282-326, y 945
+   5. jump (held 2 ticks), holding left, from 282,945; lands at 217,913
+      -> [bricks whole] standing at x 186-230, y 913
+   6. jump (held 6 ticks), holding left, from 208,913; lands at 91,881
+      -> [bricks whole] standing at x 71-102, y 881
+   7. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, from 71,881; lands at 232,721
+      -> [bricks whole] standing at x 218-329, y 721
+   8. walk off the edge, holding right once in the air, double jump at tick 2, from 218,721, through the oBarrierColor at 336,656, the oBarrierColor at 480,656; lands at 518,721   [djump,event:rVault_14/switch1]
+      -> [bricks whole] standing at x 503-630, y 721
+   9. jump (held 21 ticks), holding right, double jump at tick 15, from 503,721; lands at 681,689   [djump]
+      -> [bricks whole] standing at x 650-681, y 689
+  10. jump (held 21 ticks), holding left, double jump at tick 15, from 650,689; lands at 551,593   [djump]
+      -> [bricks whole] standing at x 551-566, y 593
+  11. jump (held 21 ticks), holding left, double jump at tick 15, from 558,593; lands at 287,577   [djump]
+      -> [bricks whole] standing at x 282-310, y 577
+  12. jump (held 21 ticks), holding left, double jump at tick 15, from 282,577; lands at 214,472   [djump]
+      -> [bricks whole] standing at x 203-230, y 454-477
+  13. jump (held 6 ticks), holding right, from 203,454; lands at 302,403
+      -> [bricks whole] standing at x 282-358, y 401-428
+  14. jump (held 21 ticks), holding left, double jump at tick 15, from 282,428; lands at 128,353   [djump]
+      -> [bricks whole] standing at x 119-201, y 353
+  15. jump (held 21 ticks), holding right, double jump at tick 15, from 119,353; lands at 338,273   [djump]
+      -> [bricks whole] standing at x 282-422, y 273
+  16. running right, jump (held 9 ticks), holding right, double jump at tick 16, air dash (Claire) at tick 26, from 420,273; lands at 774,193   [djump,adash]
+      -> [bricks whole] standing at x 762-790, y 193
+  17. jump (held 21 ticks), holding right, double jump at tick 10, from 762,193; lands at 1365,449   [djump]
+      -> [bricks whole] standing at x 1322-1609, y 449
+  18. jump (held 21 ticks), holding right, double jump at tick 15, from 1322,449; lands at 1556,385   [djump]
+      -> [bricks whole] standing at x 1530-1574, y 385
+  19. jump (held 21 ticks), holding right, from 1530,385; lands at 1782,177
+      -> [bricks whole] standing at x 1722-1920, y 177
+  20. standing at 1902,177, goes into it
+      -> out 1904,144
+how in 944,800 -> out 1880,1280: djump,adash,event:rVault_14/switch1,event:rVault_14/switch2
+     [bricks whole] coming in at 944,800
+   1. coming in: holding left, from 944,800; lands at 775,1073
+      -> [bricks whole] standing at x 775-806, y 1073
+   2. jump (held 21 ticks), holding left, from 775,1073; lands at 622,1041
+      -> [bricks whole] standing at x 586-630, y 1041
+   3. jump (held 21 ticks), holding left, from 586,1041; lands at 418,1009
+      -> [bricks whole] standing at x 394-438, y 1009
+   4. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 394,1009; lands at 318,945
+      -> [bricks whole] standing at x 282-326, y 945
+   5. jump (held 2 ticks), holding left, from 282,945; lands at 217,913
+      -> [bricks whole] standing at x 186-230, y 913
+   6. jump (held 6 ticks), holding left, from 208,913; lands at 91,881
+      -> [bricks whole] standing at x 71-102, y 881
+   7. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, from 71,881; lands at 232,721
+      -> [bricks whole] standing at x 218-329, y 721
+   8. walk off the edge, holding right once in the air, double jump at tick 2, from 218,721, through the oBarrierColor at 336,656, the oBarrierColor at 480,656; lands at 518,721   [djump,event:rVault_14/switch1]
+      -> [bricks whole] standing at x 503-630, y 721
+   9. jump (held 21 ticks), holding right, double jump at tick 15, from 503,721; lands at 681,689   [djump]
+      -> [bricks whole] standing at x 650-681, y 689
+  10. jump (held 21 ticks), holding left, double jump at tick 15, from 650,689; lands at 551,593   [djump]
+      -> [bricks whole] standing at x 551-566, y 593
+  11. jump (held 21 ticks), holding left, double jump at tick 15, from 558,593; lands at 287,577   [djump]
+      -> [bricks whole] standing at x 282-310, y 577
+  12. jump (held 21 ticks), holding left, double jump at tick 15, from 282,577; lands at 214,472   [djump]
+      -> [bricks whole] standing at x 203-230, y 454-477
+  13. jump (held 6 ticks), holding right, from 203,454; lands at 302,403
+      -> [bricks whole] standing at x 282-358, y 401-428
+  14. jump (held 21 ticks), holding left, double jump at tick 15, from 282,428; lands at 128,353   [djump]
+      -> [bricks whole] standing at x 119-201, y 353
+  15. jump (held 21 ticks), holding right, double jump at tick 15, from 119,353; lands at 338,273   [djump]
+      -> [bricks whole] standing at x 282-422, y 273
+  16. running right, jump (held 9 ticks), holding right, double jump at tick 16, air dash (Claire) at tick 26, from 420,273; lands at 774,193   [djump,adash]
+      -> [bricks whole] standing at x 762-790, y 193
+  17. jump (held 21 ticks), holding right, double jump at tick 10, from 762,193; lands at 1365,449   [djump]
+      -> [bricks whole] standing at x 1322-1609, y 449
+  18. jump (held 21 ticks), holding right, double jump at tick 10, air dash (Jerry) at tick 18, from 1322,449; lands at 1639,401   [djump,adash]
+      -> [bricks whole] standing at x 1610-1686, y 401
+  19. drop down through the platform, holding right, from 1648,401; lands at 1657,449
+      -> [bricks whole] standing at x 1639-1657, y 449
+  20. drop down through the platform, holding nothing, from 1639,449; lands at 1639,577
+      -> [bricks whole] standing at x 1594-1702, y 577
+  21. walk off the edge, holding left once in the air, from 1594,577; lands at 1514,641
+      -> [bricks whole] standing at x 1434-1850, y 641
+  22. walk off the edge, holding left, then right after 1 ticks in the air, from 1434,641; lands at 1433,753
+      -> [bricks whole] standing at x 1415-1433, y 753
+  23. walk off the edge, holding right, then nothing after 1 ticks in the air, from 1415,753, through the oBarrierColor at 1504,1024, the oBarrierColor at 1632,1040, the oBarrierColor at 1376,896, ...; lands at 1777,849   [event:rVault_14/switch2]
+      -> [bricks whole] standing at x 1626-1801, y 849
+  24. running left, walk off the edge, holding left, then right after 1 ticks in the air, from 1634,849; lands at 1669,961
+      -> [bricks whole] standing at x 1658-1734, y 961
+  25. walk off the edge, holding right, then left after 1 ticks in the air, from 1658,961; lands at 1661,1313
+      -> [bricks whole] standing at x 1642-1670, y 1313
+  26. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 1642,1313; touches it on the way   [adash]
+      -> out 1880,1280
+how in 944,800 -> out 1880,1280: event:rVault_14/key1,event:rVault_14/switch2
+     [bricks whole] coming in at 944,800
+   1. coming in: holding nothing, from 944,800; lands at 944,1041
+      -> [bricks whole] standing at x 906-998, y 1041
+   2. jump (held 21 ticks), holding right, from 944,1041; lands at 1076,971
+      -> [bricks whole] standing at x 1066-1126, y 969-971
+   3. walk off the edge, holding right, then nothing after 1 ticks in the air, from 1066,969; lands at 1279,1156
+      -> [bricks whole] standing at x 1243-1285, y 1142-1164
+   4. jump (held 21 ticks), holding right, from 1281,1153, through the barrier at 1408,1024; lands at 1438,1121   [event:rVault_14/key1]
+      -> [bricks whole] standing at x 1431-1497, y 1121
+   5. jump (held 6 ticks), holding right, from 1456,1121, through the oBarrierColor at 1504,1024, the oBarrierColor at 1632,1040, the oBarrierColor at 1376,896, ...; lands at 1587,1105   [event:rVault_14/switch2]
+      -> [bricks whole] standing at x 1578-1657, y 1105
+   6. jump (held 21 ticks), holding right, from 1578,1105; lands at 1657,1041
+      -> [bricks whole] standing at x 1626-1657, y 1041
+   7. jump (held 21 ticks), holding left, from 1626,1041; lands at 1495,977
+      -> [bricks whole] standing at x 1479-1542, y 977
+   8. jump (held 21 ticks), holding right, from 1504,977; lands at 1679,961
+      -> [bricks whole] standing at x 1658-1734, y 961
+   9. walk off the edge, holding right, then left after 1 ticks in the air, from 1658,961; lands at 1661,1313
+      -> [bricks whole] standing at x 1642-1670, y 1313
+  10. running right, jump (held 21 ticks), holding right, from 1666,1313; touches it on the way
+      -> out 1880,1280
+how in 944,800 -> out 1880,1280: event:rVault_14/key2,event:rVault_14/switch2
+     [bricks whole] coming in at 944,800
+   1. coming in: holding nothing, from 944,800; lands at 944,1041
+      -> [bricks whole] standing at x 906-998, y 1041
+   2. running right, jump (held 21 ticks), holding right, from 960,1041; lands at 1086,964
+      -> [bricks whole] standing at x 1080-1140, y 962-964
+   3. running right, jump (held 21 ticks), holding right, from 1132,962; lands at 1286,897
+      -> [bricks whole] standing at x 1274-1305, y 897
+   4. jump (held 21 ticks), holding right, from 1274,897; lands at 1337,833
+      -> [bricks whole] standing at x 1322-1337, y 833
+   5. jump (held 21 ticks), holding left, from 1322,833; lands at 1207,769
+      -> [bricks whole] standing at x 1207-1254, y 769
+   6. jump (held 2 ticks), holding left, from 1207,769, through the barrier at 1184,704; lands at 1156,769   [event:rVault_14/key2]
+      -> [bricks whole] standing at x 1079-1177, y 769
+   7. jump (held 6 ticks), holding left, from 1079,769; lands at 1063,721
+      -> [bricks whole] standing at x 1063-1078, y 721
+   8. jump (held 6 ticks), holding right, from 1063,721; lands at 1180,689
+      -> [bricks whole] standing at x 1146-1321, y 689
+   9. jump (held 21 ticks), holding right, from 1146,689; lands at 1365,449
+      -> [bricks whole] standing at x 1322-1609, y 449
+  10. running right, jump (held 21 ticks), holding right, from 1456,449; lands at 1624,401
+      -> [bricks whole] standing at x 1610-1686, y 401
+  11. drop down through the platform, holding right, from 1648,401; lands at 1657,449
+      -> [bricks whole] standing at x 1639-1657, y 449
+  12. drop down through the platform, holding nothing, from 1639,449; lands at 1639,577
+      -> [bricks whole] standing at x 1594-1702, y 577
+  13. running left, jump (held 2 ticks), holding left, from 1594,577; lands at 1383,721
+      -> [bricks whole] standing at x 1383-1398, y 721
+  14. walk off the edge, holding right once in the air, from 1383,721; lands at 1433,753
+      -> [bricks whole] standing at x 1415-1433, y 753
+  15. walk off the edge, holding right, then nothing after 1 ticks in the air, from 1415,753, through the oBarrierColor at 1504,1024, the oBarrierColor at 1632,1040, the oBarrierColor at 1376,896, ...; lands at 1777,849   [event:rVault_14/switch2]
+      -> [bricks whole] standing at x 1626-1801, y 849
+  16. running left, walk off the edge, holding left, then right after 1 ticks in the air, from 1634,849; lands at 1669,961
+      -> [bricks whole] standing at x 1658-1734, y 961
+  17. walk off the edge, holding right, then left after 1 ticks in the air, from 1658,961; lands at 1661,1313
+      -> [bricks whole] standing at x 1642-1670, y 1313
+  18. running right, jump (held 21 ticks), holding right, from 1666,1313; touches it on the way
+      -> out 1880,1280
+how in 944,800 -> loc 8 10: event:rVault_14/key1,event:rVault_14/switch2
+     [bricks whole] coming in at 944,800
+   1. coming in: holding nothing, from 944,800; lands at 944,1041
+      -> [bricks whole] standing at x 906-998, y 1041
+   2. jump (held 21 ticks), holding right, from 944,1041; lands at 1076,971
+      -> [bricks whole] standing at x 1066-1126, y 969-971
+   3. walk off the edge, holding right, then nothing after 1 ticks in the air, from 1066,969; lands at 1279,1156
+      -> [bricks whole] standing at x 1243-1285, y 1142-1164
+   4. jump (held 21 ticks), holding right, from 1281,1153, through the barrier at 1408,1024; lands at 1438,1121   [event:rVault_14/key1]
+      -> [bricks whole] standing at x 1431-1497, y 1121
+   5. jump (held 6 ticks), holding right, from 1456,1121, through the oBarrierColor at 1504,1024, the oBarrierColor at 1632,1040, the oBarrierColor at 1376,896, ...; lands at 1587,1105   [event:rVault_14/switch2]
+      -> [bricks whole] standing at x 1578-1657, y 1105
+   6. jump (held 21 ticks), holding right, from 1578,1105; lands at 1657,1041
+      -> [bricks whole] standing at x 1626-1657, y 1041
+   7. jump (held 21 ticks), holding left, from 1626,1041; lands at 1495,977
+      -> [bricks whole] standing at x 1479-1542, y 977
+   8. jump (held 21 ticks), holding right, from 1504,977; lands at 1679,961
+      -> [bricks whole] standing at x 1658-1734, y 961
+   9. walk off the edge, holding right, then left after 1 ticks in the air, from 1662,961; lands at 1671,1361
+      -> [bricks whole] standing at x 1671-1705, y 1361
+  10. standing at 1682,1361, touches it
+      -> loc 8 10
+how in 944,800 -> loc 8 10: event:rVault_14/key2,event:rVault_14/switch2
+     [bricks whole] coming in at 944,800
+   1. coming in: holding nothing, from 944,800; lands at 944,1041
+      -> [bricks whole] standing at x 906-998, y 1041
+   2. running right, jump (held 21 ticks), holding right, from 960,1041; lands at 1086,964
+      -> [bricks whole] standing at x 1080-1140, y 962-964
+   3. running right, jump (held 21 ticks), holding right, from 1132,962; lands at 1286,897
+      -> [bricks whole] standing at x 1274-1305, y 897
+   4. jump (held 21 ticks), holding right, from 1274,897; lands at 1337,833
+      -> [bricks whole] standing at x 1322-1337, y 833
+   5. jump (held 21 ticks), holding left, from 1322,833; lands at 1207,769
+      -> [bricks whole] standing at x 1207-1254, y 769
+   6. jump (held 2 ticks), holding left, from 1207,769, through the barrier at 1184,704; lands at 1156,769   [event:rVault_14/key2]
+      -> [bricks whole] standing at x 1079-1177, y 769
+   7. jump (held 6 ticks), holding left, from 1079,769; lands at 1063,721
+      -> [bricks whole] standing at x 1063-1078, y 721
+   8. jump (held 6 ticks), holding right, from 1063,721; lands at 1180,689
+      -> [bricks whole] standing at x 1146-1321, y 689
+   9. jump (held 21 ticks), holding right, from 1146,689; lands at 1365,449
+      -> [bricks whole] standing at x 1322-1609, y 449
+  10. running right, jump (held 21 ticks), holding right, from 1456,449; lands at 1624,401
+      -> [bricks whole] standing at x 1610-1686, y 401
+  11. drop down through the platform, holding right, from 1648,401; lands at 1657,449
+      -> [bricks whole] standing at x 1639-1657, y 449
+  12. drop down through the platform, holding nothing, from 1639,449; lands at 1639,577
+      -> [bricks whole] standing at x 1594-1702, y 577
+  13. running left, jump (held 2 ticks), holding left, from 1594,577; lands at 1383,721
+      -> [bricks whole] standing at x 1383-1398, y 721
+  14. walk off the edge, holding right once in the air, from 1383,721; lands at 1433,753
+      -> [bricks whole] standing at x 1415-1433, y 753
+  15. walk off the edge, holding right, then nothing after 1 ticks in the air, from 1415,753, through the oBarrierColor at 1504,1024, the oBarrierColor at 1632,1040, the oBarrierColor at 1376,896, ...; lands at 1777,849   [event:rVault_14/switch2]
+      -> [bricks whole] standing at x 1626-1801, y 849
+  16. running left, walk off the edge, holding left, then right after 1 ticks in the air, from 1634,849; lands at 1669,961
+      -> [bricks whole] standing at x 1658-1734, y 961
+  17. walk off the edge, holding right, then left after 1 ticks in the air, from 1662,961; lands at 1671,1361
+      -> [bricks whole] standing at x 1671-1705, y 1361
+  18. standing at 1682,1361, touches it
+      -> loc 8 10
+how in 944,800 -> loc 8 10: djump,adash,event:rVault_14/switch1,event:rVault_14/switch2
+     [bricks whole] coming in at 944,800
+   1. coming in: holding left, from 944,800; lands at 775,1073
+      -> [bricks whole] standing at x 775-806, y 1073
+   2. jump (held 21 ticks), holding left, from 775,1073; lands at 622,1041
+      -> [bricks whole] standing at x 586-630, y 1041
+   3. jump (held 21 ticks), holding left, from 586,1041; lands at 418,1009
+      -> [bricks whole] standing at x 394-438, y 1009
+   4. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 394,1009; lands at 318,945
+      -> [bricks whole] standing at x 282-326, y 945
+   5. jump (held 2 ticks), holding left, from 282,945; lands at 217,913
+      -> [bricks whole] standing at x 186-230, y 913
+   6. jump (held 6 ticks), holding left, from 208,913; lands at 91,881
+      -> [bricks whole] standing at x 71-102, y 881
+   7. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, from 71,881; lands at 232,721
+      -> [bricks whole] standing at x 218-329, y 721
+   8. walk off the edge, holding right once in the air, double jump at tick 2, from 218,721, through the oBarrierColor at 336,656, the oBarrierColor at 480,656; lands at 518,721   [djump,event:rVault_14/switch1]
+      -> [bricks whole] standing at x 503-630, y 721
+   9. jump (held 21 ticks), holding right, double jump at tick 15, from 503,721; lands at 681,689   [djump]
+      -> [bricks whole] standing at x 650-681, y 689
+  10. jump (held 21 ticks), holding left, double jump at tick 15, from 650,689; lands at 551,593   [djump]
+      -> [bricks whole] standing at x 551-566, y 593
+  11. jump (held 21 ticks), holding left, double jump at tick 15, from 558,593; lands at 287,577   [djump]
+      -> [bricks whole] standing at x 282-310, y 577
+  12. jump (held 21 ticks), holding left, double jump at tick 15, from 282,577; lands at 214,472   [djump]
+      -> [bricks whole] standing at x 203-230, y 454-477
+  13. jump (held 6 ticks), holding right, from 203,454; lands at 302,403
+      -> [bricks whole] standing at x 282-358, y 401-428
+  14. jump (held 21 ticks), holding left, double jump at tick 15, from 282,428; lands at 128,353   [djump]
+      -> [bricks whole] standing at x 119-201, y 353
+  15. jump (held 21 ticks), holding right, double jump at tick 15, from 119,353; lands at 338,273   [djump]
+      -> [bricks whole] standing at x 282-422, y 273
+  16. running right, jump (held 9 ticks), holding right, double jump at tick 16, air dash (Claire) at tick 26, from 420,273; lands at 774,193   [djump,adash]
+      -> [bricks whole] standing at x 762-790, y 193
+  17. jump (held 21 ticks), holding right, double jump at tick 10, from 762,193; lands at 1365,449   [djump]
+      -> [bricks whole] standing at x 1322-1609, y 449
+  18. jump (held 21 ticks), holding right, double jump at tick 10, air dash (Jerry) at tick 18, from 1322,449; lands at 1639,401   [djump,adash]
+      -> [bricks whole] standing at x 1610-1686, y 401
+  19. drop down through the platform, holding right, from 1648,401; lands at 1657,449
+      -> [bricks whole] standing at x 1639-1657, y 449
+  20. drop down through the platform, holding nothing, from 1639,449; lands at 1639,577
+      -> [bricks whole] standing at x 1594-1702, y 577
+  21. walk off the edge, holding left once in the air, from 1594,577; lands at 1514,641
+      -> [bricks whole] standing at x 1434-1850, y 641
+  22. walk off the edge, holding left, then right after 1 ticks in the air, from 1434,641; lands at 1433,753
+      -> [bricks whole] standing at x 1415-1433, y 753
+  23. walk off the edge, holding right, then nothing after 1 ticks in the air, from 1415,753, through the oBarrierColor at 1504,1024, the oBarrierColor at 1632,1040, the oBarrierColor at 1376,896, ...; lands at 1777,849   [event:rVault_14/switch2]
+      -> [bricks whole] standing at x 1626-1801, y 849
+  24. running left, walk off the edge, holding left, then right after 1 ticks in the air, from 1634,849; lands at 1669,961
+      -> [bricks whole] standing at x 1658-1734, y 961
+  25. walk off the edge, holding right, then left after 1 ticks in the air, from 1662,961; lands at 1671,1361
+      -> [bricks whole] standing at x 1671-1705, y 1361
+  26. standing at 1682,1361, touches it
+      -> loc 8 10
+how in 944,800 -> spot switch1: -
+     [bricks whole] coming in at 944,800
+   1. coming in: holding nothing, from 944,800; lands at 944,1041
+      -> [bricks whole] standing at x 906-998, y 1041
+   2. jump (held 21 ticks), holding right, from 928,1041; lands at 1059,976
+      -> [bricks whole] standing at x 1052-1112, y 976-978
+   3. walk off the edge, holding right, then nothing after 1 ticks in the air, from 1052,976; touches it on the way
+      -> spot switch1
+how in 944,800 -> spot switch2: djump,event:rVault_14/switch1
+     [bricks whole] coming in at 944,800
+   1. coming in: holding left, from 944,800; lands at 775,1073
+      -> [bricks whole] standing at x 775-806, y 1073
+   2. jump (held 21 ticks), holding left, from 775,1073; lands at 622,1041
+      -> [bricks whole] standing at x 586-630, y 1041
+   3. jump (held 21 ticks), holding left, from 586,1041; lands at 418,1009
+      -> [bricks whole] standing at x 394-438, y 1009
+   4. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 394,1009; lands at 318,945
+      -> [bricks whole] standing at x 282-326, y 945
+   5. jump (held 2 ticks), holding left, from 282,945; lands at 217,913
+      -> [bricks whole] standing at x 186-230, y 913
+   6. jump (held 6 ticks), holding left, from 208,913; lands at 91,881
+      -> [bricks whole] standing at x 71-102, y 881
+   7. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, from 71,881; lands at 232,721
+      -> [bricks whole] standing at x 218-329, y 721
+   8. walk off the edge, holding right once in the air, double jump at tick 2, from 218,721, through the oBarrierColor at 336,656, the oBarrierColor at 480,656; lands at 518,721   [djump,event:rVault_14/switch1]
+      -> [bricks whole] standing at x 503-630, y 721
+   9. jump (held 21 ticks), holding right, double jump at tick 15, from 503,721; lands at 681,689   [djump]
+      -> [bricks whole] standing at x 650-681, y 689
+  10. jump (held 21 ticks), holding left, double jump at tick 15, from 650,689; lands at 551,593   [djump]
+      -> [bricks whole] standing at x 551-566, y 593
+  11. jump (held 21 ticks), holding left, double jump at tick 15, from 558,593; lands at 287,577   [djump]
+      -> [bricks whole] standing at x 282-310, y 577
+  12. jump (held 21 ticks), holding left, double jump at tick 15, from 282,577; lands at 214,472   [djump]
+      -> [bricks whole] standing at x 203-230, y 454-477
+  13. jump (held 6 ticks), holding right, from 203,454; lands at 302,403
+      -> [bricks whole] standing at x 282-358, y 401-428
+  14. jump (held 21 ticks), holding left, double jump at tick 15, from 286,417; lands at 106,337   [djump]
+      -> [bricks whole] standing at x 90-118, y 337
+  15. walk off the edge, holding right once in the air, from 90,337; touches it on the way
+      -> spot switch2
+how in 944,800 -> spot switch2: adash,event:rVault_14/switch1
+     [bricks whole] coming in at 944,800
+   1. coming in: holding left, from 944,800; lands at 775,1073
+      -> [bricks whole] standing at x 775-806, y 1073
+   2. jump (held 21 ticks), holding left, from 775,1073; lands at 622,1041
+      -> [bricks whole] standing at x 586-630, y 1041
+   3. jump (held 21 ticks), holding left, from 586,1041; lands at 418,1009
+      -> [bricks whole] standing at x 394-438, y 1009
+   4. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 394,1009; lands at 318,945
+      -> [bricks whole] standing at x 282-326, y 945
+   5. jump (held 2 ticks), holding left, from 282,945; lands at 217,913
+      -> [bricks whole] standing at x 186-230, y 913
+   6. jump (held 6 ticks), holding left, from 208,913; lands at 91,881
+      -> [bricks whole] standing at x 71-102, y 881
+   7. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, from 71,881; lands at 232,721
+      -> [bricks whole] standing at x 218-329, y 721
+   8. walk off the edge, holding right once in the air, air dash (Jerry) at tick 2, from 218,721, through the oBarrierColor at 336,656, the oBarrierColor at 480,656; lands at 525,721   [adash,event:rVault_14/switch1]
+      -> [bricks whole] standing at x 503-630, y 721
+   9. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 560,721; lands at 713,641   [adash]
+      -> [bricks whole] standing at x 682-713, y 641
+  10. running left, jump (held 21 ticks), holding left, from 682,641; lands at 528,577
+      -> [bricks whole] standing at x 522-550, y 577
+  11. jump (held 21 ticks), holding left, air dash (Jerry) at tick 10, from 522,577; lands at 251,609   [adash]
+      -> [bricks whole] standing at x 135-265, y 609
+  12. jump (held 6 ticks), holding left, from 135,609; lands at 118,549
+      -> [bricks whole] standing at x 71-134, y 545-572
+  13. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 71,551; lands at 174,470   [adash]
+      -> [bricks whole] standing at x 154-181, y 454-477
+  14. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 154,477; lands at 326,401   [adash]
+      -> [bricks whole] standing at x 282-358, y 401-428
+  15. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 288,414; lands at 105,337   [adash]
+      -> [bricks whole] standing at x 90-118, y 337
+  16. walk off the edge, holding right once in the air, from 90,337; touches it on the way
+      -> spot switch2
+how in 944,800 -> spot switch2: gdash,event:rVault_14/switch1
+     [bricks whole] coming in at 944,800
+   1. coming in: holding left, from 944,800; lands at 775,1073
+      -> [bricks whole] standing at x 775-806, y 1073
+   2. jump (held 21 ticks), holding left, from 775,1073; lands at 622,1041
+      -> [bricks whole] standing at x 586-630, y 1041
+   3. jump (held 21 ticks), holding left, from 586,1041; lands at 418,1009
+      -> [bricks whole] standing at x 394-438, y 1009
+   4. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 394,1009; lands at 318,945
+      -> [bricks whole] standing at x 282-326, y 945
+   5. jump (held 2 ticks), holding left, from 282,945; lands at 217,913
+      -> [bricks whole] standing at x 186-230, y 913
+   6. jump (held 6 ticks), holding left, from 208,913; lands at 91,881
+      -> [bricks whole] standing at x 71-102, y 881
+   7. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, from 71,881; lands at 232,721
+      -> [bricks whole] standing at x 218-329, y 721
+   8. walk from 329,721 to 330,721 into the oBarrierColor at 336,656   [event:rVault_14/switch1]
+      -> [bricks whole] standing at x 330-358, y 721 (where a gate is)
+   9. dash right (Jerry), jump (held 21 ticks), holding right, from 330,721, through the oBarrierColor at 336,656, the oBarrierColor at 480,656; lands at 503,721   [gdash,event:rVault_14/switch1]
+      -> [bricks whole] standing at x 503-630, y 721
+  10. dash right (Jerry), jump (held 21 ticks), holding right, from 503,721; lands at 681,689   [gdash]
+      -> [bricks whole] standing at x 650-681, y 689
+  11. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 650,689; lands at 708,641
+      -> [bricks whole] standing at x 682-713, y 641
+  12. jump (held 6 ticks), holding left, from 682,641; lands at 567,609
+      -> [bricks whole] standing at x 567-598, y 609
+  13. jump (held 21 ticks), holding left, from 567,609; lands at 403,577
+      -> [bricks whole] standing at x 394-438, y 577
+  14. running left, jump (held 2 ticks), holding left, from 394,577; lands at 247,609
+      -> [bricks whole] standing at x 135-265, y 609
+  15. jump (held 6 ticks), holding left, from 135,609; lands at 118,549
+      -> [bricks whole] standing at x 71-134, y 545-572
+  16. dash right (Jerry), jump (held 21 ticks), holding right, from 71,551; lands at 164,475   [gdash]
+      -> [bricks whole] standing at x 154-181, y 454-477
+  17. dash right (Jerry), jump (held 21 ticks), holding right, from 154,477; lands at 306,402   [gdash]
+      -> [bricks whole] standing at x 282-358, y 401-428
+  18. jump (held 21 ticks), holding left, from 304,403; lands at 158,353
+      -> [bricks whole] standing at x 119-201, y 353
+  19. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 144,353; lands at 97,337
+      -> [bricks whole] standing at x 90-118, y 337
+  20. walk off the edge, holding right once in the air, from 90,337; touches it on the way
+      -> spot switch2
+how in 944,800 -> spot key1: -
+     [bricks whole] coming in at 944,800
+   1. coming in: holding nothing, from 944,800; lands at 944,1041
+      -> [bricks whole] standing at x 906-998, y 1041
+   2. walk off the edge, holding left once in the air, from 906,1041; lands at 727,1361
+      -> [bricks whole] standing at x 551-1142, y 1361
+   3. jump (held 21 ticks), holding left, from 551,1361; lands at 423,1329
+      -> [bricks whole] standing at x 423-454, y 1329
+   4. jump (held 6 ticks), holding left, from 423,1329; lands at 292,1345
+      -> [bricks whole] standing at x 170-377, y 1345
+   5. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 170,1345; lands at 134,1313
+      -> [bricks whole] standing at x 122-150, y 1313
+   6. jump (held 6 ticks), holding left, from 122,1313; lands at 44,1265
+      -> [bricks whole] standing at x 39-102, y 1265
+   7. standing at 57,1265, on it
+      -> spot key1
+how in 944,800 -> spot key2: djump,adash,event:rVault_14/switch1
+     [bricks whole] coming in at 944,800
+   1. coming in: holding left, from 944,800; lands at 775,1073
+      -> [bricks whole] standing at x 775-806, y 1073
+   2. jump (held 21 ticks), holding left, from 775,1073; lands at 622,1041
+      -> [bricks whole] standing at x 586-630, y 1041
+   3. jump (held 21 ticks), holding left, from 586,1041; lands at 418,1009
+      -> [bricks whole] standing at x 394-438, y 1009
+   4. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 394,1009; lands at 318,945
+      -> [bricks whole] standing at x 282-326, y 945
+   5. jump (held 2 ticks), holding left, from 282,945; lands at 217,913
+      -> [bricks whole] standing at x 186-230, y 913
+   6. jump (held 6 ticks), holding left, from 208,913; lands at 91,881
+      -> [bricks whole] standing at x 71-102, y 881
+   7. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, from 71,881; lands at 232,721
+      -> [bricks whole] standing at x 218-329, y 721
+   8. walk off the edge, holding right once in the air, double jump at tick 2, from 218,721, through the oBarrierColor at 336,656, the oBarrierColor at 480,656; lands at 518,721   [djump,event:rVault_14/switch1]
+      -> [bricks whole] standing at x 503-630, y 721
+   9. jump (held 21 ticks), holding right, double jump at tick 15, from 503,721; lands at 681,689   [djump]
+      -> [bricks whole] standing at x 650-681, y 689
+  10. jump (held 21 ticks), holding left, double jump at tick 15, from 650,689; lands at 551,593   [djump]
+      -> [bricks whole] standing at x 551-566, y 593
+  11. jump (held 21 ticks), holding left, double jump at tick 15, from 558,593; lands at 287,577   [djump]
+      -> [bricks whole] standing at x 282-310, y 577
+  12. jump (held 21 ticks), holding left, double jump at tick 15, from 282,577; lands at 214,472   [djump]
+      -> [bricks whole] standing at x 203-230, y 454-477
+  13. jump (held 6 ticks), holding right, from 203,454; lands at 302,403
+      -> [bricks whole] standing at x 282-358, y 401-428
+  14. jump (held 21 ticks), holding left, double jump at tick 15, from 282,428; lands at 128,353   [djump]
+      -> [bricks whole] standing at x 119-201, y 353
+  15. jump (held 21 ticks), holding right, double jump at tick 15, from 119,353; lands at 338,273   [djump]
+      -> [bricks whole] standing at x 282-422, y 273
+  16. running right, jump (held 9 ticks), holding right, double jump at tick 16, air dash (Claire) at tick 26, from 420,273; lands at 774,193   [djump,adash]
+      -> [bricks whole] standing at x 762-790, y 193
+  17. jump (held 21 ticks), holding right, double jump at tick 10, from 762,193; lands at 1365,449   [djump]
+      -> [bricks whole] standing at x 1322-1609, y 449
+  18. jump (held 21 ticks), holding right, double jump at tick 10, air dash (Jerry) at tick 18, from 1322,449; lands at 1639,401   [djump,adash]
+      -> [bricks whole] standing at x 1610-1686, y 401
+  19. drop down through the platform, holding right, from 1648,401; lands at 1657,449
+      -> [bricks whole] standing at x 1639-1657, y 449
+  20. drop down through the platform, holding nothing, from 1639,449; lands at 1639,577
+      -> [bricks whole] standing at x 1594-1702, y 577
+  21. running left, jump (held 21 ticks), holding left, from 1594,577; lands at 1359,625
+      -> [bricks whole] standing at x 1351-1366, y 625
+  22. jump (held 21 ticks), holding right, double jump at tick 10, air dash (Jerry) at tick 18, from 1351,625; touches it on the way   [djump,adash]
+      -> spot key2
+how in 944,800 -> spot key2: event:rVault_14/key2
+     [bricks whole] coming in at 944,800
+   1. coming in: holding nothing, from 944,800; lands at 944,1041
+      -> [bricks whole] standing at x 906-998, y 1041
+   2. running right, jump (held 21 ticks), holding right, from 960,1041; lands at 1086,964
+      -> [bricks whole] standing at x 1080-1140, y 962-964
+   3. running right, jump (held 21 ticks), holding right, from 1132,962; lands at 1286,897
+      -> [bricks whole] standing at x 1274-1305, y 897
+   4. jump (held 21 ticks), holding right, from 1274,897; lands at 1337,833
+      -> [bricks whole] standing at x 1322-1337, y 833
+   5. jump (held 21 ticks), holding left, from 1322,833; lands at 1207,769
+      -> [bricks whole] standing at x 1207-1254, y 769
+   6. jump (held 2 ticks), holding left, from 1207,769, through the barrier at 1184,704; lands at 1156,769   [event:rVault_14/key2]
+      -> [bricks whole] standing at x 1079-1177, y 769
+   7. jump (held 6 ticks), holding left, from 1079,769; lands at 1063,721
+      -> [bricks whole] standing at x 1063-1078, y 721
+   8. jump (held 6 ticks), holding right, from 1063,721; lands at 1180,689
+      -> [bricks whole] standing at x 1146-1321, y 689
+   9. jump (held 21 ticks), holding right, from 1146,689; lands at 1365,449
+      -> [bricks whole] standing at x 1322-1609, y 449
+  10. running right, jump (held 21 ticks), holding right, from 1456,449; lands at 1624,401
+      -> [bricks whole] standing at x 1610-1686, y 401
+  11. drop down through the platform, holding right, from 1648,401; lands at 1657,449
+      -> [bricks whole] standing at x 1639-1657, y 449
+  12. drop down through the platform, holding nothing, from 1639,449; lands at 1639,577
+      -> [bricks whole] standing at x 1594-1702, y 577
+  13. walk off the edge, holding left once in the air, from 1594,577; lands at 1514,641
+      -> [bricks whole] standing at x 1434-1850, y 641
+  14. running right, jump (held 21 ticks), holding right, from 1488,641; touches it on the way
+      -> spot key2
+how in 944,800 -> spot key2: event:rVault_14/key1,event:rVault_14/switch2
+     [bricks whole] coming in at 944,800
+   1. coming in: holding nothing, from 944,800; lands at 944,1041
+      -> [bricks whole] standing at x 906-998, y 1041
+   2. jump (held 21 ticks), holding right, from 944,1041; lands at 1076,971
+      -> [bricks whole] standing at x 1066-1126, y 969-971
+   3. walk off the edge, holding right, then nothing after 1 ticks in the air, from 1066,969; lands at 1279,1156
+      -> [bricks whole] standing at x 1243-1285, y 1142-1164
+   4. jump (held 21 ticks), holding right, from 1281,1153, through the barrier at 1408,1024; lands at 1438,1121   [event:rVault_14/key1]
+      -> [bricks whole] standing at x 1431-1497, y 1121
+   5. jump (held 6 ticks), holding right, from 1456,1121, through the oBarrierColor at 1504,1024, the oBarrierColor at 1632,1040, the oBarrierColor at 1376,896, ...; lands at 1587,1105   [event:rVault_14/switch2]
+      -> [bricks whole] standing at x 1578-1657, y 1105
+   6. jump (held 21 ticks), holding right, from 1578,1105; lands at 1657,1041
+      -> [bricks whole] standing at x 1626-1657, y 1041
+   7. jump (held 21 ticks), holding left, from 1626,1041; lands at 1495,977
+      -> [bricks whole] standing at x 1479-1542, y 977
+   8. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 1479,977; lands at 1453,961
+      -> [bricks whole] standing at x 1434-1478, y 961
+   9. jump (held 21 ticks), holding left, from 1456,961; lands at 1383,897
+      -> [bricks whole] standing at x 1383-1446, y 897
+  10. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1383,897; lands at 1491,849
+      -> [bricks whole] standing at x 1466-1606, y 849
+  11. running right, jump (held 21 ticks), holding right, from 1504,849; lands at 1636,849
+      -> [bricks whole] standing at x 1626-1801, y 849
+  12. running right, jump (held 6 ticks), holding right, from 1696,849; lands at 1836,817
+      -> [bricks whole] standing at x 1802-1865, y 817
+  13. jump (held 21 ticks), holding left, from 1802,817; lands at 1671,753
+      -> [bricks whole] standing at x 1463-1734, y 753
+  14. jump (held 6 ticks), holding left, from 1463,753, through the oBarrierColor at 1504,1024, the oBarrierColor at 1632,1040, the oBarrierColor at 1376,896, ...; lands at 1368,705   [event:rVault_14/switch2]
+      -> [bricks whole] standing at x 1367-1382, y 705
+  15. jump (held 21 ticks), holding right, from 1367,705; lands at 1498,641
+      -> [bricks whole] standing at x 1434-1850, y 641
+  16. running right, jump (held 21 ticks), holding right, from 1488,641; touches it on the way
+      -> spot key2
 how in 1872,176 -> out 0,1040: -
      [bricks whole] coming in at 1872,176
-   1. coming in: holding nothing, from 1872,176; lands at 1872,177
-      -> [bricks whole] standing at x 1722-1920, y 177
-   2. running left, jump (held 21 ticks), holding left, from 1722,177; lands at 1472,241
-      -> [bricks whole] standing at x 1450-1494, y 241
-   3. running left, jump (held 21 ticks), holding left, from 1450,241; lands at 1010,625
-      -> [bricks whole] standing at x 1002-1030, y 625
-   4. jump (held 6 ticks), holding left, from 1002,625; lands at 747,1041
-      -> [bricks whole] standing at x 730-774, y 1041
-   5. running left, jump (held 6 ticks), holding left, from 730,1041; lands at 546,1073
+   1. swap to the partner (party split), at 576,1072
+      -> [bricks whole] as the partner (party split), where it starts: 576,1072
+   2. coming in: holding nothing, from 576,1072; lands at 576,1073
       -> [bricks whole] standing at x 439-585, y 1073
-   6. jump (held 21 ticks), holding left, from 439,1073; lands at 314,1073
+   3. jump (held 21 ticks), holding left, from 439,1073; lands at 314,1073
       -> [bricks whole] standing at x 0-393, y 1073
-   7. standing at 0,1073, goes into it
+   4. standing at 0,1073, goes into it
       -> out 0,1040
 how in 1872,176 -> out 1904,144: -
      [bricks whole] coming in at 1872,176
@@ -81,3 +1208,209 @@ how in 1872,176 -> out 1904,144: -
       -> [bricks whole] standing at x 1722-1920, y 177
    2. standing at 1902,177, goes into it
       -> out 1904,144
+how in 1872,176 -> out 1880,1280: event:rVault_14/switch2
+     [bricks whole] coming in at 1872,176
+   1. coming in: holding nothing, from 1872,176; lands at 1872,177
+      -> [bricks whole] standing at x 1722-1920, y 177
+   2. walk off the edge, holding left once in the air, from 1722,177; lands at 1554,385
+      -> [bricks whole] standing at x 1530-1574, y 385
+   3. walk off the edge, holding right once in the air, from 1530,385; lands at 1625,401
+      -> [bricks whole] standing at x 1610-1686, y 401
+   4. drop down through the platform, holding right, from 1648,401; lands at 1657,449
+      -> [bricks whole] standing at x 1639-1657, y 449
+   5. drop down through the platform, holding nothing, from 1639,449; lands at 1639,577
+      -> [bricks whole] standing at x 1594-1702, y 577
+   6. walk off the edge, holding left once in the air, from 1594,577; lands at 1514,641
+      -> [bricks whole] standing at x 1434-1850, y 641
+   7. walk off the edge, holding left, then right after 1 ticks in the air, from 1434,641; lands at 1433,753
+      -> [bricks whole] standing at x 1415-1433, y 753
+   8. walk off the edge, holding right, then nothing after 1 ticks in the air, from 1415,753, through the oBarrierColor at 1504,1024, the oBarrierColor at 1632,1040, the oBarrierColor at 1376,896, ...; lands at 1777,849   [event:rVault_14/switch2]
+      -> [bricks whole] standing at x 1626-1801, y 849
+   9. running left, walk off the edge, holding left, then right after 1 ticks in the air, from 1634,849; lands at 1669,961
+      -> [bricks whole] standing at x 1658-1734, y 961
+  10. walk off the edge, holding right, then left after 1 ticks in the air, from 1658,961; lands at 1661,1313
+      -> [bricks whole] standing at x 1642-1670, y 1313
+  11. running right, jump (held 21 ticks), holding right, from 1666,1313; touches it on the way
+      -> out 1880,1280
+how in 1872,176 -> loc 8 10: event:rVault_14/switch2
+     [bricks whole] coming in at 1872,176
+   1. coming in: holding nothing, from 1872,176; lands at 1872,177
+      -> [bricks whole] standing at x 1722-1920, y 177
+   2. walk off the edge, holding left once in the air, from 1722,177; lands at 1554,385
+      -> [bricks whole] standing at x 1530-1574, y 385
+   3. walk off the edge, holding right once in the air, from 1530,385; lands at 1625,401
+      -> [bricks whole] standing at x 1610-1686, y 401
+   4. drop down through the platform, holding right, from 1648,401; lands at 1657,449
+      -> [bricks whole] standing at x 1639-1657, y 449
+   5. drop down through the platform, holding nothing, from 1639,449; lands at 1639,577
+      -> [bricks whole] standing at x 1594-1702, y 577
+   6. walk off the edge, holding left once in the air, from 1594,577; lands at 1514,641
+      -> [bricks whole] standing at x 1434-1850, y 641
+   7. walk off the edge, holding left, then right after 1 ticks in the air, from 1434,641; lands at 1433,753
+      -> [bricks whole] standing at x 1415-1433, y 753
+   8. walk off the edge, holding right, then nothing after 1 ticks in the air, from 1415,753, through the oBarrierColor at 1504,1024, the oBarrierColor at 1632,1040, the oBarrierColor at 1376,896, ...; lands at 1777,849   [event:rVault_14/switch2]
+      -> [bricks whole] standing at x 1626-1801, y 849
+   9. running left, walk off the edge, holding left, then right after 1 ticks in the air, from 1634,849; lands at 1669,961
+      -> [bricks whole] standing at x 1658-1734, y 961
+  10. walk off the edge, holding right, then left after 1 ticks in the air, from 1662,961; lands at 1671,1361
+      -> [bricks whole] standing at x 1671-1705, y 1361
+  11. standing at 1682,1361, touches it
+      -> loc 8 10
+how in 1872,176 -> spot switch1: -
+     [bricks whole] coming in at 1872,176
+   1. swap to the partner (party split), at 576,1072
+      -> [bricks whole] as the partner (party split), where it starts: 576,1072
+   2. coming in: holding nothing, from 576,1072; lands at 576,1073
+      -> [bricks whole] standing at x 439-585, y 1073
+   3. running right, jump (held 21 ticks), holding right, from 560,1073; lands at 739,1041
+      -> [bricks whole] standing at x 730-774, y 1041
+   4. jump (held 21 ticks), holding right, from 752,1041; lands at 935,1041
+      -> [bricks whole] standing at x 906-998, y 1041
+   5. jump (held 21 ticks), holding right, from 928,1041; lands at 1059,976
+      -> [bricks whole] standing at x 1052-1112, y 976-978
+   6. walk off the edge, holding right, then nothing after 1 ticks in the air, from 1052,976; touches it on the way
+      -> spot switch1
+how in 1872,176 -> spot switch2: djump,event:rVault_14/switch1
+     [bricks whole] coming in at 1872,176
+   1. swap to the partner (party split), at 576,1072
+      -> [bricks whole] as the partner (party split), where it starts: 576,1072
+   2. coming in: holding nothing, from 576,1072; lands at 576,1073
+      -> [bricks whole] standing at x 439-585, y 1073
+   3. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 439,1073; lands at 409,1009
+      -> [bricks whole] standing at x 394-438, y 1009
+   4. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 394,1009; lands at 318,945
+      -> [bricks whole] standing at x 282-326, y 945
+   5. jump (held 2 ticks), holding left, from 282,945; lands at 217,913
+      -> [bricks whole] standing at x 186-230, y 913
+   6. jump (held 6 ticks), holding left, from 208,913; lands at 91,881
+      -> [bricks whole] standing at x 71-102, y 881
+   7. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, from 71,881; lands at 232,721
+      -> [bricks whole] standing at x 218-329, y 721
+   8. walk off the edge, holding right once in the air, double jump at tick 2, from 218,721, through the oBarrierColor at 336,656, the oBarrierColor at 480,656; lands at 518,721   [djump,event:rVault_14/switch1]
+      -> [bricks whole] standing at x 503-630, y 721
+   9. jump (held 21 ticks), holding right, double jump at tick 15, from 503,721; lands at 681,689   [djump]
+      -> [bricks whole] standing at x 650-681, y 689
+  10. jump (held 21 ticks), holding left, double jump at tick 15, from 650,689; lands at 551,593   [djump]
+      -> [bricks whole] standing at x 551-566, y 593
+  11. jump (held 21 ticks), holding left, double jump at tick 15, from 558,593; lands at 287,577   [djump]
+      -> [bricks whole] standing at x 282-310, y 577
+  12. jump (held 21 ticks), holding left, double jump at tick 15, from 282,577; lands at 214,472   [djump]
+      -> [bricks whole] standing at x 203-230, y 454-477
+  13. jump (held 6 ticks), holding right, from 203,454; lands at 302,403
+      -> [bricks whole] standing at x 282-358, y 401-428
+  14. jump (held 21 ticks), holding left, double jump at tick 15, from 286,417; lands at 106,337   [djump]
+      -> [bricks whole] standing at x 90-118, y 337
+  15. walk off the edge, holding right once in the air, from 90,337; touches it on the way
+      -> spot switch2
+how in 1872,176 -> spot switch2: adash,event:rVault_14/switch1
+     [bricks whole] coming in at 1872,176
+   1. swap to the partner (party split), at 576,1072
+      -> [bricks whole] as the partner (party split), where it starts: 576,1072
+   2. coming in: holding nothing, from 576,1072; lands at 576,1073
+      -> [bricks whole] standing at x 439-585, y 1073
+   3. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 439,1073; lands at 409,1009
+      -> [bricks whole] standing at x 394-438, y 1009
+   4. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 394,1009; lands at 318,945
+      -> [bricks whole] standing at x 282-326, y 945
+   5. jump (held 2 ticks), holding left, from 282,945; lands at 217,913
+      -> [bricks whole] standing at x 186-230, y 913
+   6. jump (held 6 ticks), holding left, from 208,913; lands at 91,881
+      -> [bricks whole] standing at x 71-102, y 881
+   7. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, from 71,881; lands at 232,721
+      -> [bricks whole] standing at x 218-329, y 721
+   8. walk off the edge, holding right once in the air, air dash (Jerry) at tick 2, from 218,721, through the oBarrierColor at 336,656, the oBarrierColor at 480,656; lands at 525,721   [adash,event:rVault_14/switch1]
+      -> [bricks whole] standing at x 503-630, y 721
+   9. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 560,721; lands at 713,641   [adash]
+      -> [bricks whole] standing at x 682-713, y 641
+  10. running left, jump (held 21 ticks), holding left, from 682,641; lands at 528,577
+      -> [bricks whole] standing at x 522-550, y 577
+  11. jump (held 21 ticks), holding left, air dash (Jerry) at tick 10, from 522,577; lands at 251,609   [adash]
+      -> [bricks whole] standing at x 135-265, y 609
+  12. jump (held 6 ticks), holding left, from 135,609; lands at 118,549
+      -> [bricks whole] standing at x 71-134, y 545-572
+  13. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 71,551; lands at 174,470   [adash]
+      -> [bricks whole] standing at x 154-181, y 454-477
+  14. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 154,477; lands at 326,401   [adash]
+      -> [bricks whole] standing at x 282-358, y 401-428
+  15. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 288,414; lands at 105,337   [adash]
+      -> [bricks whole] standing at x 90-118, y 337
+  16. walk off the edge, holding right once in the air, from 90,337; touches it on the way
+      -> spot switch2
+how in 1872,176 -> spot switch2: gdash,event:rVault_14/switch1
+     [bricks whole] coming in at 1872,176
+   1. swap to the partner (party split), at 576,1072
+      -> [bricks whole] as the partner (party split), where it starts: 576,1072
+   2. coming in: holding nothing, from 576,1072; lands at 576,1073
+      -> [bricks whole] standing at x 439-585, y 1073
+   3. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 439,1073; lands at 409,1009
+      -> [bricks whole] standing at x 394-438, y 1009
+   4. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 394,1009; lands at 318,945
+      -> [bricks whole] standing at x 282-326, y 945
+   5. jump (held 2 ticks), holding left, from 282,945; lands at 217,913
+      -> [bricks whole] standing at x 186-230, y 913
+   6. jump (held 6 ticks), holding left, from 208,913; lands at 91,881
+      -> [bricks whole] standing at x 71-102, y 881
+   7. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, from 71,881; lands at 232,721
+      -> [bricks whole] standing at x 218-329, y 721
+   8. walk from 329,721 to 330,721 into the oBarrierColor at 336,656   [event:rVault_14/switch1]
+      -> [bricks whole] standing at x 330-358, y 721 (where a gate is)
+   9. dash right (Jerry), jump (held 21 ticks), holding right, from 330,721, through the oBarrierColor at 336,656, the oBarrierColor at 480,656; lands at 503,721   [gdash,event:rVault_14/switch1]
+      -> [bricks whole] standing at x 503-630, y 721
+  10. dash right (Jerry), jump (held 21 ticks), holding right, from 503,721; lands at 681,689   [gdash]
+      -> [bricks whole] standing at x 650-681, y 689
+  11. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 650,689; lands at 708,641
+      -> [bricks whole] standing at x 682-713, y 641
+  12. jump (held 6 ticks), holding left, from 682,641; lands at 567,609
+      -> [bricks whole] standing at x 567-598, y 609
+  13. jump (held 21 ticks), holding left, from 567,609; lands at 403,577
+      -> [bricks whole] standing at x 394-438, y 577
+  14. running left, jump (held 2 ticks), holding left, from 394,577; lands at 247,609
+      -> [bricks whole] standing at x 135-265, y 609
+  15. jump (held 6 ticks), holding left, from 135,609; lands at 118,549
+      -> [bricks whole] standing at x 71-134, y 545-572
+  16. dash right (Jerry), jump (held 21 ticks), holding right, from 71,551; lands at 164,475   [gdash]
+      -> [bricks whole] standing at x 154-181, y 454-477
+  17. dash right (Jerry), jump (held 21 ticks), holding right, from 154,477; lands at 306,402   [gdash]
+      -> [bricks whole] standing at x 282-358, y 401-428
+  18. jump (held 21 ticks), holding left, from 304,403; lands at 158,353
+      -> [bricks whole] standing at x 119-201, y 353
+  19. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 144,353; lands at 97,337
+      -> [bricks whole] standing at x 90-118, y 337
+  20. walk off the edge, holding right once in the air, from 90,337; touches it on the way
+      -> spot switch2
+how in 1872,176 -> spot key1: -
+     [bricks whole] coming in at 1872,176
+   1. swap to the partner (party split), at 576,1072
+      -> [bricks whole] as the partner (party split), where it starts: 576,1072
+   2. coming in: holding nothing, from 576,1072; lands at 576,1073
+      -> [bricks whole] standing at x 439-585, y 1073
+   3. running right, jump (held 21 ticks), holding right, from 560,1073; lands at 739,1041
+      -> [bricks whole] standing at x 730-774, y 1041
+   4. jump (held 21 ticks), holding nothing, then right after 14 ticks, from 766,1041; lands at 945,1361
+      -> [bricks whole] standing at x 551-1142, y 1361
+   5. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 551,1361; lands at 534,1329
+      -> [bricks whole] standing at x 506-550, y 1329
+   6. running left, jump (held 6 ticks), holding left, from 506,1329; lands at 337,1345
+      -> [bricks whole] standing at x 170-377, y 1345
+   7. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 170,1345; lands at 134,1313
+      -> [bricks whole] standing at x 122-150, y 1313
+   8. jump (held 6 ticks), holding left, from 122,1313; lands at 44,1265
+      -> [bricks whole] standing at x 39-102, y 1265
+   9. standing at 57,1265, on it
+      -> spot key1
+how in 1872,176 -> spot key2: -
+     [bricks whole] coming in at 1872,176
+   1. coming in: holding nothing, from 1872,176; lands at 1872,177
+      -> [bricks whole] standing at x 1722-1920, y 177
+   2. walk off the edge, holding left once in the air, from 1722,177; lands at 1554,385
+      -> [bricks whole] standing at x 1530-1574, y 385
+   3. walk off the edge, holding right once in the air, from 1530,385; lands at 1625,401
+      -> [bricks whole] standing at x 1610-1686, y 401
+   4. drop down through the platform, holding right, from 1648,401; lands at 1657,449
+      -> [bricks whole] standing at x 1639-1657, y 449
+   5. drop down through the platform, holding nothing, from 1639,449; lands at 1639,577
+      -> [bricks whole] standing at x 1594-1702, y 577
+   6. walk off the edge, holding left once in the air, from 1594,577; lands at 1514,641
+      -> [bricks whole] standing at x 1434-1850, y 641
+   7. running right, jump (held 21 ticks), holding right, from 1488,641; touches it on the way
+      -> spot key2

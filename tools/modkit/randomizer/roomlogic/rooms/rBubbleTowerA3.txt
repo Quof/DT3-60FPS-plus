@@ -25,12 +25,13 @@ out 56,144   # to rBubbleTowerA4 at 360,960; the player presses up at it
 from in 360,960 [rb 0]
   out 352,928 [rb 0]   -
   out 352,928 [rb 1]   megaman:1 | samus:1 | link:2 | belmont:2
-  out 240,928 [rb 0]   samus:2
+  out 240,928 [rb 0]   -
   out 56,144 [rb 0]    samus:2
 from in 360,960 [rb 1]
   out 352,928 [rb 0]   djump,adash,megaman:1 | djump,adash,samus:1 | djump,adash,link:2 | djump,adash,belmont:2
   out 352,928 [rb 1]   -
   out 240,928 [rb 0]   djump,adash,samus:2
+  out 240,928 [rb 1]   -
   out 56,144 [rb 0]    djump,adash,samus:2
 from in 64,176 [rb 0]
   out 352,928 [rb 0]   samus:2
@@ -189,43 +190,13 @@ how in 360,960 [rb 0] -> out 352,928 [rb 1]: belmont:2
       -> [red blocks solid] standing at x 327-521, y 961
   16. standing at 350,961, presses up at it
       -> out 352,928 [rb 1]
-how in 360,960 [rb 0] -> out 240,928 [rb 0]: samus:2
+how in 360,960 [rb 0] -> out 240,928 [rb 0]: -
      [blue blocks solid] coming in at 360,960
-   1. coming in: holding nothing, from 360,960; lands at 360,961
-      -> [blue blocks solid] standing at x 327-521, y 961
-   2. running right, jump (held 6 ticks), holding right, from 448,961; lands at 569,929
-      -> [blue blocks solid] standing at x 538-569, y 929
-   3. jump (held 21 ticks), holding left, from 538,929; lands at 414,865
-      -> [blue blocks solid] standing at x 410-486, y 865
-   4. jump (held 2 ticks), holding left, from 410,865; lands at 345,833
-      -> [blue blocks solid] standing at x 327-374, y 833
-   5. jump (held 21 ticks), holding right, from 327,833; lands at 457,769
-      -> [blue blocks solid] standing at x 426-457, y 769
-   6. jump (held 21 ticks), holding nothing, then right after 14 ticks, from 426,769; lands at 477,721
-      -> [blue blocks solid] standing at x 458-486, y 721
-   7. jump (held 21 ticks), holding left, from 458,721; lands at 327,657
-      -> [blue blocks solid] standing at x 327-390, y 657
-   8. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 327,657; lands at 422,593
-      -> [blue blocks solid] standing at x 411-457, y 593-595
-   9. step onto moving platform 1 at 411,593
-      -> [blue blocks solid] riding moving platform 1 (waiting for it where it goes)
-  10. ride moving platform 1 and step off at 487,593
-      -> [blue blocks solid] standing at x 487-533, y 593-595
-  11. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 487,593; lands at 569,529
-      -> [blue blocks solid] standing at x 522-569, y 529
-  12. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 522,529; lands at 446,465
-      -> [blue blocks solid] standing at x 442-502, y 465
-  13. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 442,465; lands at 394,391
-      -> [blue blocks solid] standing at x 352-412, y 391-393
-  14. running right, jump (held 21 ticks), holding right, from 384,391; lands at 569,353
-      -> [blue blocks solid] standing at x 554-569, y 353
-  15. jump (held 2 ticks), holding left, from 554,353; lands at 376,177
-      -> [blue blocks solid] standing at x 362-438, y 177
-  16. jump (held 6 ticks), holding left, turn into the Morph Ball where the body meets a wall or ceiling, from 362,177; lands at 317,161   [samus:2]
-      -> [blue blocks solid] as the Morph Ball at x 282-326, y 161
-  17. as the Morph Ball: running left, roll off the edge, holding left once in the air, turn back once there's room, from 286,161; lands at 39,833
-      -> [blue blocks solid] standing at x 39-134, y 833
-  18. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 39,833; touches it on the way
+   1. swap to the partner (party split), at 248,960
+      -> [blue blocks solid] as the partner (party split), where it starts: 248,960
+   2. coming in: holding nothing, from 248,960; lands at 248,961
+      -> [blue blocks solid] standing at x 39-281, y 961
+   3. standing at 238,961, presses up at it
       -> out 240,928 [rb 0]
 how in 360,960 [rb 0] -> out 56,144 [rb 0]: samus:2
      [blue blocks solid] coming in at 360,960
@@ -401,6 +372,18 @@ how in 360,960 [rb 1] -> out 240,928 [rb 0]: djump,adash,samus:2
       -> [blue blocks solid] standing at x 39-134, y 833
   14. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 39,833; touches it on the way
       -> out 240,928 [rb 0]
+how in 360,960 [rb 1] -> out 240,928 [rb 1]: -
+     [red blocks solid] coming in at 360,960
+   1. swap to the partner (party split), at 248,960
+      -> [red blocks solid] as the partner (party split), where it starts: 248,960
+   2. coming in: holding nothing, from 248,960; lands at 248,961
+      -> [red blocks solid] standing at x 39-281, y 961
+   3. running right, jump (held 21 ticks), holding right, then nothing after 2 ticks, from 96,961; lands at 142,897
+      -> [red blocks solid] standing at x 138-182, y 897
+   4. jump (held 21 ticks), holding left, from 138,897; lands at 62,833
+      -> [red blocks solid] standing at x 39-134, y 833
+   5. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 39,833; touches it on the way
+      -> out 240,928 [rb 1]
 how in 360,960 [rb 1] -> out 56,144 [rb 0]: djump,adash,samus:2
      [red blocks solid] coming in at 360,960
    1. coming in: holding nothing, from 360,960; lands at 360,961

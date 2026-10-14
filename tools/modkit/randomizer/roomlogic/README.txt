@@ -145,6 +145,16 @@ overrides.txt's lines (the file explains them too):
       going through that exit needs this too
   link <room> out <id> -> <room> in <x,y>
       that exit leads somewhere else
+  room <room> : <requirements>
+      every way through the room (from each way in to each way out, place and spot) needs this, in place of the
+      room file's
+  area <number> : <requirements>
+      the same for every room of the area (a later room line can still change one of them)
+
+overrides.txt has these for what the simulation can't work out: the Nightmare Gates (an area line each), the CHAOS
+Warship, the Hidden Program Facility, the bike rides, Gate 6's wind temple (a room line each) and latch crystals, rails
+and the travel cannon. Timed switch barriers (roomdata.py's TIMED_SWITCH) need what the timed
+switches take between them: the Gravity Well, Link's bombs, Belmont's whip and dagger, the Spazer Beam.
 
 Say why in a comment next to each change. Examples:
 
@@ -170,6 +180,16 @@ has been visited. The gate or barrier then needs "event <name>", and events.txt 
 solve.py works out what each event needs from the rest of the logic, puts that in the event's place, and does it
 again till nothing changes (so an event can open the way to another). A new event: a line here, and the gate's
 requirement (roomdata.py, or an override).
+
+Spots are a room's own events: somewhere whose reaching opens a way in the same room. A room file lists them
+("spot switch1"), says what reaching each needs from each way in, and the barriers they open need
+event:<room>/<spot> (solve.py makes that what reaching the spot needs). They're the colored puzzles:
+  - a colored switch holds its barriers open while someone's on it. In a party split room (two characters, the
+    player swapping between them) the idle one can be left on it, in the air too (swapping freezes the one left,
+    gravity and all), so its barriers count as open once the party reaches it (passing through counts);
+  - a colored key opens its color's door (the lock panel beside it) once it's reached.
+A party split room's idle partner starts where the room puts it (oPlayerIdle: elsewhere when the player comes in
+past its xThres); the player can swap to it at once ("swap to the partner").
 
 If the simulation itself is wrong (a move the game allows that it doesn't try, a mechanic it doesn't know), change
 roomdata.py or RoomLogic.cs and run roomlogic.py: every room file is made again, and git shows what changed.
@@ -205,6 +225,9 @@ roomlogic.py runs three steps:
      the player standing on it; red and blue switches near an enemy's shots or a moving trap change by themselves (the
      player waits). Push rocks: the player gets beside one, pushes it where it's needed (left or right, off edges) and
      moves off it from there. Elevators (Zelda II's): ridden up and down their shafts, got off where a floor is level.
+     Begonia's fans blow the player along their stream (224px long), as oBegoniaFan does, unless something solid is in
+     the way; a fan switch turns its fans on and off (a state of the room's), and a fan with no switch that starts off
+     stays off. Water slows a fall, so a move still falling in water when its time runs out gets more time.
      Last, for each way in, the room's ways out and places: the room file, with the moves.
   3. solve.py: the rooms joined (roomlogic.txt), with overrides.txt; and a check that, without overrides, it gets the
      same as RoomLogic.exe's own joining (work\roomlogic_check.txt): a difference means a bug in one of them, and
@@ -215,12 +238,15 @@ a landing needs floor (or a wall) 4px to either side, a touch is with the player
 move the timing search finds counts only if it also works with its timings a tick earlier or later.
 
 What it doesn't model (what's behind these needs everything, so it never holds an ability or key, unless an override
-says otherwise): the party split's two characters (the colored switches, keys and locks), wind, moving crushers
+says otherwise): steering left and right during a long fall (a move holds one way after its start), wind, moving
+crushers
 (Sigma's crushing walls count as walls where they start), rails, the Gravity Well's platforms, the bike (overrides
 say what Overdrive Ostrich's rides need); bouncing off enemies other than the Mario Ability Set's flying ones (the
 CHAOS soldiers can't be); the bosses themselves (a boss needs any attack). A room's switches of one kind count as one
 switch (hitting any changes all their blocks), and so do its ice blocks and platform makers (one hit: all their
-platforms). Timed rings count as needing the dash (the Farreaches' ring barriers).
+platforms). Timed rings count as needing the dash (the Farreaches' ring barriers). A party split puzzle counts its
+colored switches as all held once reached, though only one character is ever left on one (two at once can't be);
+and a colored key opens its door once both are reached, whichever comes first.
 
 
 CHECKING IT

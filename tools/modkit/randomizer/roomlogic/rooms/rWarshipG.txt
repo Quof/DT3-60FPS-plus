@@ -16,6 +16,11 @@ out 2832,176   # to rWarshipH at 112,240; the player presses up at it
 loc 9 30   # weapon upgrade 30, at 279,39
 loc 9 70   # weapon upgrade 70, at 2247,215
 
+# Spots: somewhere whose reaching opens a way (the barriers that wait for it need event:rWarshipG/<spot>, and
+# solve.py makes that what reaching the spot needs)
+spot switch1   # a colored switch the partner can be left standing on (party split), at 2119,263
+spot switch2   # a colored switch the partner can be left standing on (party split), at 2199,263
+
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
@@ -26,11 +31,15 @@ from in 112,288
   out 2832,176   never
   loc 9 30       never
   loc 9 70       never
+  spot switch1   never
+  spot switch2   never
 from in 2832,224
   out 112,240    never
   out 2832,176   -
   loc 9 30       never
-  loc 9 70       never
+  loc 9 70       samus:6,event:rWarshipG/switch1,event:rWarshipG/switch2
+  spot switch1   samus:2,event:rWarshipG/switch1,event:rWarshipG/switch2
+  spot switch2   samus:2,event:rWarshipG/switch1,event:rWarshipG/switch2
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
@@ -46,3 +55,39 @@ how in 2832,224 -> out 2832,176: -
       -> standing at x 2714-2912, y 225
    2. standing at 2814,225, presses up at it
       -> out 2832,176
+how in 2832,224 -> loc 9 70: samus:6,event:rWarshipG/switch1,event:rWarshipG/switch2
+     coming in at 2832,224
+   1. coming in: holding nothing, from 2832,224; lands at 2832,225
+      -> standing at x 2714-2912, y 225
+   2. jump (held 2 ticks), holding left, from 2714,225; lands at 2568,289
+      -> standing at x 2551-2598, y 289
+   3. jump (held 21 ticks), holding left, turn into the Morph Ball at tick 8, from 2551,289, through the oBarrierColor at 2448,32, the oBarrierColor at 2528,32; lands at 2407,289   [samus:2,event:rWarshipG/switch1,event:rWarshipG/switch2]
+      -> as the Morph Ball at x 1690-2441, y 289
+   4. turn back from the Morph Ball at 2087,289
+      -> standing at x 2087-2233, y 289
+   5. running right, jump (held 21 ticks), holding right, turn into the Morph Ball where the body meets a wall or ceiling, from 2112,289, through the Metroid block at 2240,208; touches it on the way   [samus:6]
+      -> loc 9 70
+how in 2832,224 -> spot switch1: samus:2,event:rWarshipG/switch1,event:rWarshipG/switch2
+     coming in at 2832,224
+   1. coming in: holding nothing, from 2832,224; lands at 2832,225
+      -> standing at x 2714-2912, y 225
+   2. jump (held 2 ticks), holding left, from 2714,225; lands at 2568,289
+      -> standing at x 2551-2598, y 289
+   3. jump (held 21 ticks), holding left, turn into the Morph Ball at tick 8, from 2551,289, through the oBarrierColor at 2448,32, the oBarrierColor at 2528,32; lands at 2407,289   [samus:2,event:rWarshipG/switch1,event:rWarshipG/switch2]
+      -> as the Morph Ball at x 1690-2441, y 289
+   4. turn back from the Morph Ball at 2087,289
+      -> standing at x 2087-2233, y 289
+   5. standing at 2106,289, on it
+      -> spot switch1
+how in 2832,224 -> spot switch2: samus:2,event:rWarshipG/switch1,event:rWarshipG/switch2
+     coming in at 2832,224
+   1. coming in: holding nothing, from 2832,224; lands at 2832,225
+      -> standing at x 2714-2912, y 225
+   2. jump (held 2 ticks), holding left, from 2714,225; lands at 2568,289
+      -> standing at x 2551-2598, y 289
+   3. jump (held 21 ticks), holding left, turn into the Morph Ball at tick 8, from 2551,289, through the oBarrierColor at 2448,32, the oBarrierColor at 2528,32; lands at 2407,289   [samus:2,event:rWarshipG/switch1,event:rWarshipG/switch2]
+      -> as the Morph Ball at x 1690-2441, y 289
+   4. turn back from the Morph Ball at 2087,289
+      -> standing at x 2087-2233, y 289
+   5. standing at 2186,289, on it
+      -> spot switch2

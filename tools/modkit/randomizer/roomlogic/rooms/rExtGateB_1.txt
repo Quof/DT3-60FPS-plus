@@ -15,6 +15,13 @@ out 3056,784   # to rExtGateB_2 at 48,336; the player goes into it
 
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 
+# Spots: somewhere whose reaching opens a way (the barriers that wait for it need event:rExtGateB_1/<spot>, and
+# solve.py makes that what reaching the spot needs)
+spot key1   # a colored key, at 95,119
+spot key2   # a colored key, at 239,1415
+spot key3   # a colored key, at 2927,1431
+spot key4   # a colored key, at 2895,359
+
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
@@ -22,10 +29,18 @@ out 3056,784   # to rExtGateB_2 at 48,336; the player goes into it
 # the locked door whose objectNum is N.
 from in 96,416
   out 88,384     -
-  out 3056,784   never
+  out 3056,784   event:rExtGateB_1/key1,event:rExtGateB_1/key2,event:rExtGateB_1/key3,event:rExtGateB_1/key4
+  spot key1      link:1 | belmont:1 | megaman:1 | samus:1
+  spot key2      adash,samus:1 | adash,megaman:1 | adash,link:1 | adash,belmont:1 | samus:2
+  spot key3      megaman:1 | samus:1 | link:1 | belmont:1
+  spot key4      never
 from in 208,416
   out 88,384     -
-  out 3056,784   never
+  out 3056,784   event:rExtGateB_1/key1,event:rExtGateB_1/key2,event:rExtGateB_1/key3,event:rExtGateB_1/key4
+  spot key1      link:1 | belmont:1 | megaman:1 | samus:1
+  spot key2      adash,samus:1 | adash,megaman:1 | adash,link:1 | adash,belmont:1 | samus:2
+  spot key3      megaman:1 | samus:1 | link:1 | belmont:1
+  spot key4      never
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
@@ -35,9 +50,1473 @@ how in 96,416 -> out 88,384: -
       -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 39-326, y 417
    2. standing at 86,417, presses up at it
       -> out 88,384
+how in 96,416 -> out 3056,784: event:rExtGateB_1/key1,event:rExtGateB_1/key2,event:rExtGateB_1/key3,event:rExtGateB_1/key4
+     [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] coming in at 96,416
+   1. coming in: holding nothing, from 96,416; lands at 96,417
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 39-326, y 417
+   2. running right, jump (held 21 ticks), holding right, from 240,417; lands at 453,417
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 442-569, y 417
+   3. jump (held 21 ticks), holding right, from 446,417; lands at 577,353
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 570-934, y 353
+   4. running right, jump (held 21 ticks), holding right, from 848,353; lands at 1061,353
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1050-1254, y 353
+   5. running right, jump (held 21 ticks), holding right, from 1200,353; lands at 1354,289
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1338-1414, y 289
+   6. running right, jump (held 21 ticks), holding right, from 1376,289; lands at 1552,241
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1530-1606, y 241
+   7. jump (held 21 ticks), holding right, from 1536,241; lands at 1763,305
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1754-1894, y 305
+   8. walk off the edge, holding right once in the air, from 1754,305; lands at 1981,369
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1895-2150, y 369
+   9. running right, jump (held 21 ticks), holding right, from 2032,369; lands at 2399,625
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 2343-2406, y 625
+  10. running right, jump (held 21 ticks), holding right, from 2398,625; lands at 2697,817
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 2599-2697, y 817
+  11. walk off the edge, holding right once in the air, from 2599,817, through the barrier at 2704,752, the barrier at 2736,752, the barrier at 2768,752, ...; touches it on the way   [event:rExtGateB_1/key1,event:rExtGateB_1/key2,event:rExtGateB_1/key3,event:rExtGateB_1/key4]
+      -> out 3056,784
+how in 96,416 -> spot key1: link:1
+     [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] coming in at 96,416
+   1. coming in: holding nothing, from 96,416; lands at 96,417
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 39-326, y 417
+   2. running right, jump (held 21 ticks), holding right, from 240,417; lands at 453,417
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 442-569, y 417
+   3. jump (held 21 ticks), holding right, from 446,417; lands at 577,353
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 570-934, y 353
+   4. walk off the edge, holding right once in the air, from 570,353; lands at 1049,481
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1034-1049, y 481
+   5. walk off the edge, holding left once in the air, from 1034,481; lands at 903,625
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 794-934, y 625
+   6. jump (held 2 ticks), holding left, from 794,625; lands at 619,737
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 410-697, y 737
+   7. walk off the edge, holding left once in the air, from 410,737; lands at 330,801
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 295-390, y 801
+   8. hit the switch at 240,768 from 295,801 (jumping if need be): [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut]   [link:1]
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 295-390, y 801
+   9. jump (held 21 ticks), holding right, from 295,801; lands at 426,737
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 410-697, y 737
+  10. running right, jump (held 21 ticks), holding right, from 560,737; lands at 714,673
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 698-793, y 673
+  11. jump (held 21 ticks), holding right, from 698,673; lands at 851,625
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 794-934, y 625
+  12. running right, jump (held 6 ticks), holding right, from 832,625; lands at 972,593
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 954-982, y 593
+  13. jump (held 21 ticks), holding nothing, then right after 14 ticks, from 958,593; lands at 1009,545
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 1002-1030, y 545
+  14. jump (held 21 ticks), holding right, from 1002,545; lands at 1049,481
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 1034-1049, y 481
+  15. jump (held 21 ticks), holding left, from 1034,481; lands at 935,417
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 935-950, y 417
+  16. jump (held 21 ticks), holding left, from 935,417; lands at 862,353
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 570-934, y 353
+  17. jump (held 21 ticks), holding right, from 574,353; lands at 705,289
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 698-726, y 289
+  18. jump (held 21 ticks), holding right, from 718,289; lands at 793,225
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 778-793, y 225
+  19. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 778,225; lands at 748,161
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 730-758, y 161
+  20. jump (held 6 ticks), holding left, from 730,161; lands at 652,113
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 570-710, y 113
+  21. jump (held 2 ticks), holding left, from 570,113; lands at 439,161
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 346-486, y 161
+  22. running left, jump (held 21 ticks), holding left, from 346,161; lands at 155,129
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 71-166, y 129
+  23. standing at 89,129, on it
+      -> spot key1
+how in 96,416 -> spot key1: belmont:1
+     [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] coming in at 96,416
+   1. coming in: holding nothing, from 96,416; lands at 96,417
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 39-326, y 417
+   2. running right, jump (held 21 ticks), holding right, from 240,417; lands at 453,417
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 442-569, y 417
+   3. jump (held 21 ticks), holding right, from 446,417; lands at 577,353
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 570-934, y 353
+   4. walk off the edge, holding right once in the air, from 570,353; lands at 1049,481
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1034-1049, y 481
+   5. walk off the edge, holding left once in the air, from 1034,481; lands at 903,625
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 794-934, y 625
+   6. jump (held 2 ticks), holding left, from 794,625; lands at 619,737
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 410-697, y 737
+   7. walk off the edge, holding left once in the air, from 410,737; lands at 330,801
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 295-390, y 801
+   8. hit the switch at 240,768 from 295,801 (jumping if need be): [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut]   [belmont:1]
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 295-390, y 801
+   9. jump (held 21 ticks), holding right, from 295,801; lands at 426,737
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 410-697, y 737
+  10. running right, jump (held 21 ticks), holding right, from 560,737; lands at 714,673
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 698-793, y 673
+  11. jump (held 21 ticks), holding right, from 698,673; lands at 851,625
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 794-934, y 625
+  12. running right, jump (held 6 ticks), holding right, from 832,625; lands at 972,593
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 954-982, y 593
+  13. jump (held 21 ticks), holding nothing, then right after 14 ticks, from 958,593; lands at 1009,545
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 1002-1030, y 545
+  14. jump (held 21 ticks), holding right, from 1002,545; lands at 1049,481
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 1034-1049, y 481
+  15. jump (held 21 ticks), holding left, from 1034,481; lands at 935,417
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 935-950, y 417
+  16. jump (held 21 ticks), holding left, from 935,417; lands at 862,353
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 570-934, y 353
+  17. jump (held 21 ticks), holding right, from 574,353; lands at 705,289
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 698-726, y 289
+  18. jump (held 21 ticks), holding right, from 718,289; lands at 793,225
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 778-793, y 225
+  19. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 778,225; lands at 748,161
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 730-758, y 161
+  20. jump (held 6 ticks), holding left, from 730,161; lands at 652,113
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 570-710, y 113
+  21. jump (held 2 ticks), holding left, from 570,113; lands at 439,161
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 346-486, y 161
+  22. running left, jump (held 21 ticks), holding left, from 346,161; lands at 155,129
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 71-166, y 129
+  23. standing at 89,129, on it
+      -> spot key1
+how in 96,416 -> spot key1: megaman:1
+     [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] coming in at 96,416
+   1. coming in: holding nothing, from 96,416; lands at 96,417
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 39-326, y 417
+   2. running right, jump (held 21 ticks), holding right, from 240,417; lands at 453,417
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 442-569, y 417
+   3. jump (held 21 ticks), holding right, from 446,417; lands at 577,353
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 570-934, y 353
+   4. walk off the edge, holding right once in the air, from 570,353; lands at 1049,481
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1034-1049, y 481
+   5. walk off the edge, holding left once in the air, from 1034,481; lands at 903,625
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 794-934, y 625
+   6. jump (held 2 ticks), holding left, from 794,625; lands at 619,737
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 410-697, y 737
+   7. walk off the edge, holding left once in the air, from 410,737; lands at 330,801
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 295-390, y 801
+   8. hit the switch at 240,768 from 295,801 (jumping if need be): [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut]   [megaman:1]
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 295-390, y 801
+   9. jump (held 21 ticks), holding right, from 295,801; lands at 426,737
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 410-697, y 737
+  10. running right, jump (held 21 ticks), holding right, from 560,737; lands at 714,673
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 698-793, y 673
+  11. jump (held 21 ticks), holding right, from 698,673; lands at 851,625
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 794-934, y 625
+  12. running right, jump (held 6 ticks), holding right, from 832,625; lands at 972,593
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 954-982, y 593
+  13. jump (held 21 ticks), holding nothing, then right after 14 ticks, from 958,593; lands at 1009,545
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 1002-1030, y 545
+  14. jump (held 21 ticks), holding right, from 1002,545; lands at 1049,481
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 1034-1049, y 481
+  15. jump (held 21 ticks), holding left, from 1034,481; lands at 935,417
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 935-950, y 417
+  16. jump (held 21 ticks), holding left, from 935,417; lands at 862,353
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 570-934, y 353
+  17. jump (held 21 ticks), holding right, from 574,353; lands at 705,289
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 698-726, y 289
+  18. jump (held 21 ticks), holding right, from 718,289; lands at 793,225
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 778-793, y 225
+  19. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 778,225; lands at 748,161
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 730-758, y 161
+  20. jump (held 6 ticks), holding left, from 730,161; lands at 652,113
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 570-710, y 113
+  21. jump (held 2 ticks), holding left, from 570,113; lands at 439,161
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 346-486, y 161
+  22. running left, jump (held 21 ticks), holding left, from 346,161; lands at 155,129
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 71-166, y 129
+  23. standing at 89,129, on it
+      -> spot key1
+how in 96,416 -> spot key1: samus:1
+     [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] coming in at 96,416
+   1. coming in: holding nothing, from 96,416; lands at 96,417
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 39-326, y 417
+   2. running right, jump (held 21 ticks), holding right, from 240,417; lands at 453,417
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 442-569, y 417
+   3. jump (held 21 ticks), holding right, from 446,417; lands at 577,353
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 570-934, y 353
+   4. walk off the edge, holding right once in the air, from 570,353; lands at 1049,481
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1034-1049, y 481
+   5. walk off the edge, holding left once in the air, from 1034,481; lands at 903,625
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 794-934, y 625
+   6. jump (held 2 ticks), holding left, from 794,625; lands at 619,737
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 410-697, y 737
+   7. walk off the edge, holding left once in the air, from 410,737; lands at 330,801
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 295-390, y 801
+   8. hit the switch at 240,768 from 295,801 (jumping if need be): [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut]   [samus:1]
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 295-390, y 801
+   9. jump (held 21 ticks), holding right, from 295,801; lands at 426,737
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 410-697, y 737
+  10. running right, jump (held 21 ticks), holding right, from 560,737; lands at 714,673
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 698-793, y 673
+  11. jump (held 21 ticks), holding right, from 698,673; lands at 851,625
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 794-934, y 625
+  12. running right, jump (held 6 ticks), holding right, from 832,625; lands at 972,593
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 954-982, y 593
+  13. jump (held 21 ticks), holding nothing, then right after 14 ticks, from 958,593; lands at 1009,545
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 1002-1030, y 545
+  14. jump (held 21 ticks), holding right, from 1002,545; lands at 1049,481
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 1034-1049, y 481
+  15. jump (held 21 ticks), holding left, from 1034,481; lands at 935,417
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 935-950, y 417
+  16. jump (held 21 ticks), holding left, from 935,417; lands at 862,353
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 570-934, y 353
+  17. jump (held 21 ticks), holding right, from 574,353; lands at 705,289
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 698-726, y 289
+  18. jump (held 21 ticks), holding right, from 718,289; lands at 793,225
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 778-793, y 225
+  19. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 778,225; lands at 748,161
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 730-758, y 161
+  20. jump (held 6 ticks), holding left, from 730,161; lands at 652,113
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 570-710, y 113
+  21. jump (held 2 ticks), holding left, from 570,113; lands at 439,161
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 346-486, y 161
+  22. running left, jump (held 21 ticks), holding left, from 346,161; lands at 155,129
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 71-166, y 129
+  23. standing at 89,129, on it
+      -> spot key1
+how in 96,416 -> spot key2: adash,samus:1
+     [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] coming in at 96,416
+   1. coming in: holding nothing, from 96,416; lands at 96,417
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 39-326, y 417
+   2. running right, jump (held 21 ticks), holding right, from 240,417; lands at 453,417
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 442-569, y 417
+   3. jump (held 21 ticks), holding right, from 446,417; lands at 577,353
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 570-934, y 353
+   4. running right, jump (held 21 ticks), holding right, from 848,353; lands at 1061,353
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1050-1254, y 353
+   5. running right, jump (held 21 ticks), holding right, from 1200,353; lands at 1354,289
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1338-1414, y 289
+   6. running right, jump (held 21 ticks), holding right, from 1376,289; lands at 1552,241
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1530-1606, y 241
+   7. jump (held 21 ticks), holding right, from 1536,241; lands at 1763,305
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1754-1894, y 305
+   8. walk off the edge, holding right once in the air, from 1754,305; lands at 1981,369
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1895-2150, y 369
+   9. running right, jump (held 2 ticks), holding right, from 2128,369; lands at 2523,1329
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 2343-2694, y 1329
+  10. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 2343,1329; lands at 2321,1281
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 2298-2342, y 1281
+  11. running left, jump (held 6 ticks), holding left, from 2298,1281; lands at 2107,1329
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1946-2118, y 1329
+  12. jump (held 2 ticks), holding left, from 1946,1329; lands at 1844,1329
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1287-1862, y 1329
+  13. running right, jump (held 21 ticks), holding right, from 1504,1329; lands at 1658,1265
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1642-1670, y 1265
+  14. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 1642,1265; lands at 1566,1201
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1562-1590, y 1201
+  15. jump (held 21 ticks), holding left, air dash (Jerry) at tick 10, from 1562,1201; lands at 1338,1153   [adash]
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1322-1350, y 1153
+  16. jump (held 21 ticks), holding left, from 1322,1153; lands at 1214,1089
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 410-1286, y 1089
+  17. walk off the edge, holding left once in the air, from 410,1089; lands at 337,1137
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 167-409, y 1137
+  18. shoot (or throw at) the switch at 184,1112 from 409,1137, and while the shot flies, jump (held 6 ticks), holding right; lands at 468,1089 (tick 15): [sliding blocks as placed, barrier 192132 shut, barrier 192133 open, barrier 192134 shut]   [samus:1]
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 410-1286, y 1089
+  19. running right, walk off the edge, holding right once in the air, from 752,1089; lands at 1478,1329
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1287-1862, y 1329
+  20. hit the switch at 1312,1280 from 1287,1329 (jumping if need be): [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut]   [samus:1]
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1287-1862, y 1329
+  21. running right, jump (held 21 ticks), holding right, air dash (Claire) at tick 8, from 1456,1329; lands at 1663,1265   [adash]
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1642-1670, y 1265
+  22. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 1642,1265; lands at 1566,1201
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1562-1590, y 1201
+  23. jump (held 21 ticks), holding left, air dash (Jerry) at tick 4, from 1562,1201; lands at 1491,1153   [adash]
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1482-1510, y 1153
+  24. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 1482,1153; lands at 1757,1105   [adash]
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1738-1766, y 1105
+  25. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1738,1105; lands at 1796,1057
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1786-1913, y 1057
+  26. running right, jump (held 21 ticks), holding right, from 1840,1057; lands at 1977,993
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1914-1977, y 993
+  27. jump (held 21 ticks), holding right, from 1918,993; lands at 2041,929
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1978-2041, y 929
+  28. running right, jump (held 21 ticks), holding right, then nothing after 2 ticks, from 2016,929; lands at 2046,865
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 2042-2073, y 865
+  29. running right, jump (held 21 ticks), holding right, air dash (Jerry) at tick 8, from 2066,865; lands at 2086,689   [adash]
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 2074-2105, y 689
+  30. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, air dash (Jerry) at tick 16, from 2096,689; lands at 1870,721   [adash]
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1050-1945, y 721
+  31. walk off the edge, holding left, then nothing after 1 ticks in the air, from 1050,721; lands at 1016,1361
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 794-1017, y 1361
+  32. jump (held 2 ticks), holding left, from 794,1361; lands at 743,1361
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 570-774, y 1361
+  33. jump (held 2 ticks), holding left, from 570,1361; lands at 519,1361
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 346-550, y 1361
+  34. walk off the edge, holding left once in the air, from 346,1361; lands at 266,1425
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 135-345, y 1425
+  35. standing at 233,1425, on it
+      -> spot key2
+how in 96,416 -> spot key2: adash,megaman:1
+     [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] coming in at 96,416
+   1. coming in: holding nothing, from 96,416; lands at 96,417
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 39-326, y 417
+   2. running right, jump (held 21 ticks), holding right, from 240,417; lands at 453,417
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 442-569, y 417
+   3. jump (held 21 ticks), holding right, from 446,417; lands at 577,353
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 570-934, y 353
+   4. running right, jump (held 21 ticks), holding right, from 848,353; lands at 1061,353
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1050-1254, y 353
+   5. running right, jump (held 21 ticks), holding right, from 1200,353; lands at 1354,289
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1338-1414, y 289
+   6. running right, jump (held 21 ticks), holding right, from 1376,289; lands at 1552,241
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1530-1606, y 241
+   7. jump (held 21 ticks), holding right, from 1536,241; lands at 1763,305
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1754-1894, y 305
+   8. walk off the edge, holding right once in the air, from 1754,305; lands at 1981,369
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1895-2150, y 369
+   9. running right, jump (held 2 ticks), holding right, from 2128,369; lands at 2523,1329
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 2343-2694, y 1329
+  10. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 2343,1329; lands at 2321,1281
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 2298-2342, y 1281
+  11. running left, jump (held 6 ticks), holding left, from 2298,1281; lands at 2107,1329
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1946-2118, y 1329
+  12. jump (held 2 ticks), holding left, from 1946,1329; lands at 1844,1329
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1287-1862, y 1329
+  13. running right, jump (held 21 ticks), holding right, from 1504,1329; lands at 1658,1265
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1642-1670, y 1265
+  14. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 1642,1265; lands at 1566,1201
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1562-1590, y 1201
+  15. jump (held 21 ticks), holding left, air dash (Jerry) at tick 10, from 1562,1201; lands at 1338,1153   [adash]
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1322-1350, y 1153
+  16. jump (held 21 ticks), holding left, from 1322,1153; lands at 1214,1089
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 410-1286, y 1089
+  17. walk off the edge, holding left once in the air, from 410,1089; lands at 337,1137
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 167-409, y 1137
+  18. shoot (or throw at) the switch at 184,1112 from 409,1137, and while the shot flies, jump (held 21 ticks), holding right, air dash (Jerry) at tick 4; lands at 431,1089 (tick 14): [sliding blocks as placed, barrier 192132 shut, barrier 192133 open, barrier 192134 shut]   [adash,megaman:1]
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 410-1286, y 1089
+  19. running right, walk off the edge, holding right once in the air, from 752,1089; lands at 1478,1329
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1287-1862, y 1329
+  20. hit the switch at 1312,1280 from 1287,1329 (jumping if need be): [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut]   [megaman:1]
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1287-1862, y 1329
+  21. running right, jump (held 21 ticks), holding right, air dash (Claire) at tick 8, from 1456,1329; lands at 1663,1265   [adash]
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1642-1670, y 1265
+  22. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 1642,1265; lands at 1566,1201
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1562-1590, y 1201
+  23. jump (held 21 ticks), holding left, air dash (Jerry) at tick 4, from 1562,1201; lands at 1491,1153   [adash]
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1482-1510, y 1153
+  24. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 1482,1153; lands at 1757,1105   [adash]
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1738-1766, y 1105
+  25. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1738,1105; lands at 1796,1057
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1786-1913, y 1057
+  26. running right, jump (held 21 ticks), holding right, from 1840,1057; lands at 1977,993
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1914-1977, y 993
+  27. jump (held 21 ticks), holding right, from 1918,993; lands at 2041,929
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1978-2041, y 929
+  28. running right, jump (held 21 ticks), holding right, then nothing after 2 ticks, from 2016,929; lands at 2046,865
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 2042-2073, y 865
+  29. running right, jump (held 21 ticks), holding right, air dash (Jerry) at tick 8, from 2066,865; lands at 2086,689   [adash]
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 2074-2105, y 689
+  30. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, air dash (Jerry) at tick 16, from 2096,689; lands at 1870,721   [adash]
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1050-1945, y 721
+  31. walk off the edge, holding left, then nothing after 1 ticks in the air, from 1050,721; lands at 1016,1361
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 794-1017, y 1361
+  32. jump (held 2 ticks), holding left, from 794,1361; lands at 743,1361
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 570-774, y 1361
+  33. jump (held 2 ticks), holding left, from 570,1361; lands at 519,1361
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 346-550, y 1361
+  34. walk off the edge, holding left once in the air, from 346,1361; lands at 266,1425
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 135-345, y 1425
+  35. standing at 233,1425, on it
+      -> spot key2
+how in 96,416 -> spot key2: adash,link:1
+     [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] coming in at 96,416
+   1. coming in: holding nothing, from 96,416; lands at 96,417
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 39-326, y 417
+   2. running right, jump (held 21 ticks), holding right, from 240,417; lands at 453,417
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 442-569, y 417
+   3. jump (held 21 ticks), holding right, from 446,417; lands at 577,353
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 570-934, y 353
+   4. running right, jump (held 21 ticks), holding right, from 848,353; lands at 1061,353
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1050-1254, y 353
+   5. running right, jump (held 21 ticks), holding right, from 1200,353; lands at 1354,289
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1338-1414, y 289
+   6. running right, jump (held 21 ticks), holding right, from 1376,289; lands at 1552,241
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1530-1606, y 241
+   7. jump (held 21 ticks), holding right, from 1536,241; lands at 1763,305
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1754-1894, y 305
+   8. walk off the edge, holding right once in the air, from 1754,305; lands at 1981,369
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1895-2150, y 369
+   9. running right, jump (held 2 ticks), holding right, from 2128,369; lands at 2523,1329
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 2343-2694, y 1329
+  10. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 2343,1329; lands at 2321,1281
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 2298-2342, y 1281
+  11. running left, jump (held 6 ticks), holding left, from 2298,1281; lands at 2107,1329
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1946-2118, y 1329
+  12. jump (held 2 ticks), holding left, from 1946,1329; lands at 1844,1329
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1287-1862, y 1329
+  13. running right, jump (held 21 ticks), holding right, from 1504,1329; lands at 1658,1265
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1642-1670, y 1265
+  14. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 1642,1265; lands at 1566,1201
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1562-1590, y 1201
+  15. jump (held 21 ticks), holding left, air dash (Jerry) at tick 10, from 1562,1201; lands at 1338,1153   [adash]
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1322-1350, y 1153
+  16. jump (held 21 ticks), holding left, from 1322,1153; lands at 1214,1089
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 410-1286, y 1089
+  17. walk off the edge, holding left once in the air, from 410,1089; lands at 337,1137
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 167-409, y 1137
+  18. hit the switch at 184,1112 from 167,1137 (jumping if need be): [sliding blocks as placed, barrier 192132 shut, barrier 192133 open, barrier 192134 shut]   [link:1]
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 167-409, y 1137
+  19. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 167,1137; lands at 442,1089   [adash]
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 410-1286, y 1089
+  20. running right, walk off the edge, holding right once in the air, from 752,1089; lands at 1478,1329
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1287-1862, y 1329
+  21. hit the switch at 1312,1280 from 1287,1329 (jumping if need be): [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut]   [link:1]
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1287-1862, y 1329
+  22. running right, jump (held 21 ticks), holding right, air dash (Claire) at tick 8, from 1456,1329; lands at 1663,1265   [adash]
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1642-1670, y 1265
+  23. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 1642,1265; lands at 1566,1201
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1562-1590, y 1201
+  24. jump (held 21 ticks), holding left, air dash (Jerry) at tick 4, from 1562,1201; lands at 1491,1153   [adash]
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1482-1510, y 1153
+  25. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 1482,1153; lands at 1757,1105   [adash]
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1738-1766, y 1105
+  26. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1738,1105; lands at 1796,1057
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1786-1913, y 1057
+  27. running right, jump (held 21 ticks), holding right, from 1840,1057; lands at 1977,993
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1914-1977, y 993
+  28. jump (held 21 ticks), holding right, from 1918,993; lands at 2041,929
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1978-2041, y 929
+  29. running right, jump (held 21 ticks), holding right, then nothing after 2 ticks, from 2016,929; lands at 2046,865
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 2042-2073, y 865
+  30. running right, jump (held 21 ticks), holding right, air dash (Jerry) at tick 8, from 2066,865; lands at 2086,689   [adash]
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 2074-2105, y 689
+  31. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, air dash (Jerry) at tick 16, from 2096,689; lands at 1870,721   [adash]
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1050-1945, y 721
+  32. walk off the edge, holding left, then nothing after 1 ticks in the air, from 1050,721; lands at 1016,1361
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 794-1017, y 1361
+  33. jump (held 2 ticks), holding left, from 794,1361; lands at 743,1361
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 570-774, y 1361
+  34. jump (held 2 ticks), holding left, from 570,1361; lands at 519,1361
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 346-550, y 1361
+  35. walk off the edge, holding left once in the air, from 346,1361; lands at 266,1425
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 135-345, y 1425
+  36. standing at 233,1425, on it
+      -> spot key2
+how in 96,416 -> spot key2: adash,belmont:1
+     [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] coming in at 96,416
+   1. coming in: holding nothing, from 96,416; lands at 96,417
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 39-326, y 417
+   2. running right, jump (held 21 ticks), holding right, from 240,417; lands at 453,417
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 442-569, y 417
+   3. jump (held 21 ticks), holding right, from 446,417; lands at 577,353
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 570-934, y 353
+   4. running right, jump (held 21 ticks), holding right, from 848,353; lands at 1061,353
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1050-1254, y 353
+   5. running right, jump (held 21 ticks), holding right, from 1200,353; lands at 1354,289
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1338-1414, y 289
+   6. running right, jump (held 21 ticks), holding right, from 1376,289; lands at 1552,241
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1530-1606, y 241
+   7. jump (held 21 ticks), holding right, from 1536,241; lands at 1763,305
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1754-1894, y 305
+   8. walk off the edge, holding right once in the air, from 1754,305; lands at 1981,369
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1895-2150, y 369
+   9. running right, jump (held 2 ticks), holding right, from 2128,369; lands at 2523,1329
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 2343-2694, y 1329
+  10. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 2343,1329; lands at 2321,1281
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 2298-2342, y 1281
+  11. running left, jump (held 6 ticks), holding left, from 2298,1281; lands at 2107,1329
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1946-2118, y 1329
+  12. jump (held 2 ticks), holding left, from 1946,1329; lands at 1844,1329
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1287-1862, y 1329
+  13. running right, jump (held 21 ticks), holding right, from 1504,1329; lands at 1658,1265
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1642-1670, y 1265
+  14. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 1642,1265; lands at 1566,1201
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1562-1590, y 1201
+  15. jump (held 21 ticks), holding left, air dash (Jerry) at tick 10, from 1562,1201; lands at 1338,1153   [adash]
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1322-1350, y 1153
+  16. jump (held 21 ticks), holding left, from 1322,1153; lands at 1214,1089
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 410-1286, y 1089
+  17. walk off the edge, holding left once in the air, from 410,1089; lands at 337,1137
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 167-409, y 1137
+  18. hit the switch at 184,1112 from 167,1137 (jumping if need be): [sliding blocks as placed, barrier 192132 shut, barrier 192133 open, barrier 192134 shut]   [belmont:1]
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 167-409, y 1137
+  19. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 167,1137; lands at 442,1089   [adash]
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 410-1286, y 1089
+  20. running right, walk off the edge, holding right once in the air, from 752,1089; lands at 1478,1329
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1287-1862, y 1329
+  21. hit the switch at 1312,1280 from 1287,1329 (jumping if need be): [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut]   [belmont:1]
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1287-1862, y 1329
+  22. running right, jump (held 21 ticks), holding right, air dash (Claire) at tick 8, from 1456,1329; lands at 1663,1265   [adash]
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1642-1670, y 1265
+  23. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 1642,1265; lands at 1566,1201
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1562-1590, y 1201
+  24. jump (held 21 ticks), holding left, air dash (Jerry) at tick 4, from 1562,1201; lands at 1491,1153   [adash]
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1482-1510, y 1153
+  25. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 1482,1153; lands at 1757,1105   [adash]
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1738-1766, y 1105
+  26. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1738,1105; lands at 1796,1057
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1786-1913, y 1057
+  27. running right, jump (held 21 ticks), holding right, from 1840,1057; lands at 1977,993
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1914-1977, y 993
+  28. jump (held 21 ticks), holding right, from 1918,993; lands at 2041,929
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1978-2041, y 929
+  29. running right, jump (held 21 ticks), holding right, then nothing after 2 ticks, from 2016,929; lands at 2046,865
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 2042-2073, y 865
+  30. running right, jump (held 21 ticks), holding right, air dash (Jerry) at tick 8, from 2066,865; lands at 2086,689   [adash]
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 2074-2105, y 689
+  31. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, air dash (Jerry) at tick 16, from 2096,689; lands at 1870,721   [adash]
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1050-1945, y 721
+  32. walk off the edge, holding left, then nothing after 1 ticks in the air, from 1050,721; lands at 1016,1361
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 794-1017, y 1361
+  33. jump (held 2 ticks), holding left, from 794,1361; lands at 743,1361
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 570-774, y 1361
+  34. jump (held 2 ticks), holding left, from 570,1361; lands at 519,1361
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 346-550, y 1361
+  35. walk off the edge, holding left once in the air, from 346,1361; lands at 266,1425
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 135-345, y 1425
+  36. standing at 233,1425, on it
+      -> spot key2
+how in 96,416 -> spot key2: samus:2
+     [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] coming in at 96,416
+   1. coming in: holding nothing, from 96,416; lands at 96,417
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 39-326, y 417
+   2. running right, jump (held 21 ticks), holding right, from 240,417; lands at 453,417
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 442-569, y 417
+   3. jump (held 21 ticks), holding right, from 446,417; lands at 577,353
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 570-934, y 353
+   4. running right, jump (held 21 ticks), holding right, from 848,353; lands at 1061,353
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1050-1254, y 353
+   5. running right, jump (held 21 ticks), holding right, from 1200,353; lands at 1354,289
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1338-1414, y 289
+   6. running right, jump (held 21 ticks), holding right, from 1376,289; lands at 1552,241
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1530-1606, y 241
+   7. jump (held 21 ticks), holding right, from 1536,241; lands at 1763,305
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1754-1894, y 305
+   8. walk off the edge, holding right once in the air, from 1754,305; lands at 1981,369
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1895-2150, y 369
+   9. running right, jump (held 2 ticks), holding right, from 2128,369; lands at 2523,1329
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 2343-2694, y 1329
+  10. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 2343,1329; lands at 2321,1281
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 2298-2342, y 1281
+  11. running left, jump (held 6 ticks), holding left, from 2298,1281; lands at 2107,1329
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1946-2118, y 1329
+  12. jump (held 2 ticks), holding left, from 1946,1329; lands at 1844,1329
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1287-1862, y 1329
+  13. running right, jump (held 21 ticks), holding right, from 1504,1329; lands at 1658,1265
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1642-1670, y 1265
+  14. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 1642,1265; lands at 1566,1201
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1562-1590, y 1201
+  15. jump (held 6 ticks), holding left, from 1582,1201; lands at 1487,1153
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1482-1510, y 1153
+  16. jump (held 21 ticks), holding left, from 1510,1153; lands at 1327,1153
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1322-1350, y 1153
+  17. jump (held 21 ticks), holding left, from 1322,1153; lands at 1214,1089
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 410-1286, y 1089
+  18. walk off the edge, holding left once in the air, from 410,1089; lands at 337,1137
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 167-409, y 1137
+  19. shoot (or throw at) the switch at 184,1112 from 409,1137, and while the shot flies, jump (held 6 ticks), holding right; lands at 468,1089 (tick 15): [sliding blocks as placed, barrier 192132 shut, barrier 192133 open, barrier 192134 shut]   [samus:1]
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 410-1286, y 1089
+  20. running right, walk off the edge, holding right once in the air, from 752,1089; lands at 1478,1329
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1287-1862, y 1329
+  21. hit the switch at 1312,1280 from 1287,1329 (jumping if need be): [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut]   [samus:1]
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1287-1862, y 1329
+  22. running right, jump (held 21 ticks), holding right, from 1504,1329; lands at 1658,1265
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1642-1670, y 1265
+  23. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 1642,1265; lands at 1566,1201
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1562-1590, y 1201
+  24. running right, jump (held 6 ticks), holding right, from 1586,1201; lands at 1704,1153
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1690-1718, y 1153
+  25. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1690,1153; lands at 1748,1105
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1738-1766, y 1105
+  26. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1738,1105; lands at 1796,1057
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1786-1913, y 1057
+  27. running right, jump (held 21 ticks), holding right, from 1840,1057; lands at 1977,993
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1914-1977, y 993
+  28. jump (held 21 ticks), holding right, from 1918,993; lands at 2041,929
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1978-2041, y 929
+  29. jump (held 21 ticks), holding nothing, then right after 14 ticks, turn into the Morph Ball where the body meets a wall or ceiling, from 2041,929; lands at 2105,689   [samus:2]
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] as the Morph Ball at x 2074-2105, y 689
+  30. turn back from the Morph Ball at 2074,689
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 2074-2105, y 689
+  31. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, from 2096,689; lands at 1999,529
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1946-2086, y 529
+  32. walk off the edge, holding left once in the air, from 1946,529; lands at 1868,721
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1050-1945, y 721
+  33. walk off the edge, holding left, then nothing after 1 ticks in the air, from 1050,721; lands at 1016,1361
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 794-1017, y 1361
+  34. jump (held 2 ticks), holding left, from 794,1361; lands at 743,1361
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 570-774, y 1361
+  35. jump (held 2 ticks), holding left, from 570,1361; lands at 519,1361
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 346-550, y 1361
+  36. walk off the edge, holding left once in the air, from 346,1361; lands at 266,1425
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 135-345, y 1425
+  37. standing at 233,1425, on it
+      -> spot key2
+how in 96,416 -> spot key3: megaman:1
+     [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] coming in at 96,416
+   1. coming in: holding nothing, from 96,416; lands at 96,417
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 39-326, y 417
+   2. running right, jump (held 21 ticks), holding right, from 240,417; lands at 453,417
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 442-569, y 417
+   3. jump (held 21 ticks), holding right, from 446,417; lands at 577,353
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 570-934, y 353
+   4. running right, jump (held 21 ticks), holding right, from 848,353; lands at 1061,353
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1050-1254, y 353
+   5. running right, jump (held 21 ticks), holding right, from 1200,353; lands at 1354,289
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1338-1414, y 289
+   6. running right, jump (held 21 ticks), holding right, from 1376,289; lands at 1552,241
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1530-1606, y 241
+   7. jump (held 21 ticks), holding right, from 1536,241; lands at 1763,305
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1754-1894, y 305
+   8. walk off the edge, holding right once in the air, from 1754,305; lands at 1981,369
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1895-2150, y 369
+   9. running right, jump (held 2 ticks), holding right, from 2128,369; lands at 2523,1329
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 2343-2694, y 1329
+  10. running right, jump (held 21 ticks), holding right, from 2416,1329; lands at 2563,1263
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 2554-2598, y 1263-1265
+  11. step onto moving platform 1 at 2554,1263
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] riding moving platform 1 (waiting for it where it goes)
+  12. ride moving platform 1 and step off at 2554,1186
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 2554-2585, y 1186-1188
+  13. jump (held 21 ticks), holding right, from 2554,1186; lands at 2685,1121
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 2650-2713, y 1121
+  14. shoot the switch at 2928,1024 from 2650,1121 (at the top of a jump): [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 open]   [megaman:1]
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 open] standing at x 2650-2713, y 1121
+  15. jump (held 2 ticks), holding left, from 2650,1121; lands at 2462,1329
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 open] standing at x 2343-2694, y 1329
+  16. walk off the edge, holding right once in the air, from 2343,1329; lands at 2797,1409
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 open] standing at x 2759-2854, y 1409
+  17. jump (held 6 ticks), holding right, from 2762,1409; touches it on the way
+      -> spot key3
+how in 96,416 -> spot key3: samus:1
+     [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] coming in at 96,416
+   1. coming in: holding nothing, from 96,416; lands at 96,417
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 39-326, y 417
+   2. running right, jump (held 21 ticks), holding right, from 240,417; lands at 453,417
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 442-569, y 417
+   3. jump (held 21 ticks), holding right, from 446,417; lands at 577,353
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 570-934, y 353
+   4. running right, jump (held 21 ticks), holding right, from 848,353; lands at 1061,353
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1050-1254, y 353
+   5. running right, jump (held 21 ticks), holding right, from 1200,353; lands at 1354,289
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1338-1414, y 289
+   6. running right, jump (held 21 ticks), holding right, from 1376,289; lands at 1552,241
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1530-1606, y 241
+   7. jump (held 21 ticks), holding right, from 1536,241; lands at 1763,305
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1754-1894, y 305
+   8. walk off the edge, holding right once in the air, from 1754,305; lands at 1981,369
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1895-2150, y 369
+   9. running right, jump (held 2 ticks), holding right, from 2128,369; lands at 2523,1329
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 2343-2694, y 1329
+  10. running right, jump (held 21 ticks), holding right, from 2416,1329; lands at 2563,1263
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 2554-2598, y 1263-1265
+  11. step onto moving platform 1 at 2554,1263
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] riding moving platform 1 (waiting for it where it goes)
+  12. ride moving platform 1 and step off at 2554,1186
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 2554-2585, y 1186-1188
+  13. jump (held 21 ticks), holding right, from 2554,1186; lands at 2685,1121
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 2650-2713, y 1121
+  14. shoot the switch at 2928,1024 from 2650,1121 (at the top of a jump): [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 open]   [samus:1]
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 open] standing at x 2650-2713, y 1121
+  15. jump (held 2 ticks), holding left, from 2650,1121; lands at 2462,1329
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 open] standing at x 2343-2694, y 1329
+  16. walk off the edge, holding right once in the air, from 2343,1329; lands at 2797,1409
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 open] standing at x 2759-2854, y 1409
+  17. jump (held 6 ticks), holding right, from 2762,1409; touches it on the way
+      -> spot key3
+how in 96,416 -> spot key3: link:1
+     [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] coming in at 96,416
+   1. coming in: holding nothing, from 96,416; lands at 96,417
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 39-326, y 417
+   2. running right, jump (held 21 ticks), holding right, from 240,417; lands at 453,417
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 442-569, y 417
+   3. jump (held 21 ticks), holding right, from 446,417; lands at 577,353
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 570-934, y 353
+   4. running right, jump (held 21 ticks), holding right, from 848,353; lands at 1061,353
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1050-1254, y 353
+   5. running right, jump (held 21 ticks), holding right, from 1200,353; lands at 1354,289
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1338-1414, y 289
+   6. running right, jump (held 21 ticks), holding right, from 1376,289; lands at 1552,241
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1530-1606, y 241
+   7. jump (held 21 ticks), holding right, from 1536,241; lands at 1763,305
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1754-1894, y 305
+   8. walk off the edge, holding right once in the air, from 1754,305; lands at 1981,369
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1895-2150, y 369
+   9. running right, jump (held 2 ticks), holding right, from 2128,369; lands at 2523,1329
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 2343-2694, y 1329
+  10. running right, jump (held 21 ticks), holding right, from 2416,1329; lands at 2563,1263
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 2554-2598, y 1263-1265
+  11. step onto moving platform 1 at 2554,1263
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] riding moving platform 1 (waiting for it where it goes)
+  12. ride moving platform 1 and step off at 2554,1186
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 2554-2585, y 1186-1188
+  13. jump (held 21 ticks), holding right, from 2554,1186; lands at 2685,1121
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 2650-2713, y 1121
+  14. jump (held 21 ticks), holding right, from 2650,1121; lands at 2781,1057
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 2714-2969, y 1057
+  15. hit the switch at 2928,1024 from 2872,1057 (jumping if need be): [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 open]   [link:1]
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 open] standing at x 2714-2969, y 1057
+  16. jump (held 2 ticks), holding left, from 2714,1057; lands at 2461,1329
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 open] standing at x 2343-2694, y 1329
+  17. walk off the edge, holding right once in the air, from 2343,1329; lands at 2797,1409
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 open] standing at x 2759-2854, y 1409
+  18. jump (held 6 ticks), holding right, from 2762,1409; touches it on the way
+      -> spot key3
+how in 96,416 -> spot key3: belmont:1
+     [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] coming in at 96,416
+   1. coming in: holding nothing, from 96,416; lands at 96,417
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 39-326, y 417
+   2. running right, jump (held 21 ticks), holding right, from 240,417; lands at 453,417
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 442-569, y 417
+   3. jump (held 21 ticks), holding right, from 446,417; lands at 577,353
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 570-934, y 353
+   4. running right, jump (held 21 ticks), holding right, from 848,353; lands at 1061,353
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1050-1254, y 353
+   5. running right, jump (held 21 ticks), holding right, from 1200,353; lands at 1354,289
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1338-1414, y 289
+   6. running right, jump (held 21 ticks), holding right, from 1376,289; lands at 1552,241
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1530-1606, y 241
+   7. jump (held 21 ticks), holding right, from 1536,241; lands at 1763,305
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1754-1894, y 305
+   8. walk off the edge, holding right once in the air, from 1754,305; lands at 1981,369
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1895-2150, y 369
+   9. running right, jump (held 2 ticks), holding right, from 2128,369; lands at 2523,1329
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 2343-2694, y 1329
+  10. running right, jump (held 21 ticks), holding right, from 2416,1329; lands at 2563,1263
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 2554-2598, y 1263-1265
+  11. step onto moving platform 1 at 2554,1263
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] riding moving platform 1 (waiting for it where it goes)
+  12. ride moving platform 1 and step off at 2554,1186
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 2554-2585, y 1186-1188
+  13. jump (held 21 ticks), holding right, from 2554,1186; lands at 2685,1121
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 2650-2713, y 1121
+  14. jump (held 21 ticks), holding right, from 2650,1121; lands at 2781,1057
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 2714-2969, y 1057
+  15. hit the switch at 2928,1024 from 2872,1057 (jumping if need be): [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 open]   [belmont:1]
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 open] standing at x 2714-2969, y 1057
+  16. jump (held 2 ticks), holding left, from 2714,1057; lands at 2461,1329
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 open] standing at x 2343-2694, y 1329
+  17. walk off the edge, holding right once in the air, from 2343,1329; lands at 2797,1409
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 open] standing at x 2759-2854, y 1409
+  18. jump (held 6 ticks), holding right, from 2762,1409; touches it on the way
+      -> spot key3
 how in 208,416 -> out 88,384: -
      [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] coming in at 208,416
    1. coming in: holding nothing, from 208,416; lands at 208,417
       -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 39-326, y 417
    2. standing at 86,417, presses up at it
       -> out 88,384
+how in 208,416 -> out 3056,784: event:rExtGateB_1/key1,event:rExtGateB_1/key2,event:rExtGateB_1/key3,event:rExtGateB_1/key4
+     [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] coming in at 208,416
+   1. coming in: holding nothing, from 208,416; lands at 208,417
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 39-326, y 417
+   2. running right, jump (held 21 ticks), holding right, from 240,417; lands at 453,417
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 442-569, y 417
+   3. jump (held 21 ticks), holding right, from 446,417; lands at 577,353
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 570-934, y 353
+   4. running right, jump (held 21 ticks), holding right, from 848,353; lands at 1061,353
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1050-1254, y 353
+   5. running right, jump (held 21 ticks), holding right, from 1200,353; lands at 1354,289
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1338-1414, y 289
+   6. running right, jump (held 21 ticks), holding right, from 1376,289; lands at 1552,241
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1530-1606, y 241
+   7. jump (held 21 ticks), holding right, from 1536,241; lands at 1763,305
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1754-1894, y 305
+   8. walk off the edge, holding right once in the air, from 1754,305; lands at 1981,369
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1895-2150, y 369
+   9. running right, jump (held 21 ticks), holding right, from 2032,369; lands at 2399,625
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 2343-2406, y 625
+  10. running right, jump (held 21 ticks), holding right, from 2398,625; lands at 2697,817
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 2599-2697, y 817
+  11. walk off the edge, holding right once in the air, from 2599,817, through the barrier at 2704,752, the barrier at 2736,752, the barrier at 2768,752, ...; touches it on the way   [event:rExtGateB_1/key1,event:rExtGateB_1/key2,event:rExtGateB_1/key3,event:rExtGateB_1/key4]
+      -> out 3056,784
+how in 208,416 -> spot key1: link:1
+     [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] coming in at 208,416
+   1. coming in: holding nothing, from 208,416; lands at 208,417
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 39-326, y 417
+   2. running right, jump (held 21 ticks), holding right, from 240,417; lands at 453,417
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 442-569, y 417
+   3. jump (held 21 ticks), holding right, from 446,417; lands at 577,353
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 570-934, y 353
+   4. walk off the edge, holding right once in the air, from 570,353; lands at 1049,481
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1034-1049, y 481
+   5. walk off the edge, holding left once in the air, from 1034,481; lands at 903,625
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 794-934, y 625
+   6. jump (held 2 ticks), holding left, from 794,625; lands at 619,737
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 410-697, y 737
+   7. walk off the edge, holding left once in the air, from 410,737; lands at 330,801
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 295-390, y 801
+   8. hit the switch at 240,768 from 295,801 (jumping if need be): [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut]   [link:1]
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 295-390, y 801
+   9. jump (held 21 ticks), holding right, from 295,801; lands at 426,737
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 410-697, y 737
+  10. running right, jump (held 21 ticks), holding right, from 560,737; lands at 714,673
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 698-793, y 673
+  11. jump (held 21 ticks), holding right, from 698,673; lands at 851,625
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 794-934, y 625
+  12. running right, jump (held 6 ticks), holding right, from 832,625; lands at 972,593
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 954-982, y 593
+  13. jump (held 21 ticks), holding nothing, then right after 14 ticks, from 958,593; lands at 1009,545
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 1002-1030, y 545
+  14. jump (held 21 ticks), holding right, from 1002,545; lands at 1049,481
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 1034-1049, y 481
+  15. jump (held 21 ticks), holding left, from 1034,481; lands at 935,417
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 935-950, y 417
+  16. jump (held 21 ticks), holding left, from 935,417; lands at 862,353
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 570-934, y 353
+  17. jump (held 21 ticks), holding right, from 574,353; lands at 705,289
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 698-726, y 289
+  18. jump (held 21 ticks), holding right, from 718,289; lands at 793,225
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 778-793, y 225
+  19. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 778,225; lands at 748,161
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 730-758, y 161
+  20. jump (held 6 ticks), holding left, from 730,161; lands at 652,113
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 570-710, y 113
+  21. jump (held 2 ticks), holding left, from 570,113; lands at 439,161
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 346-486, y 161
+  22. running left, jump (held 21 ticks), holding left, from 346,161; lands at 155,129
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 71-166, y 129
+  23. standing at 89,129, on it
+      -> spot key1
+how in 208,416 -> spot key1: belmont:1
+     [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] coming in at 208,416
+   1. coming in: holding nothing, from 208,416; lands at 208,417
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 39-326, y 417
+   2. running right, jump (held 21 ticks), holding right, from 240,417; lands at 453,417
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 442-569, y 417
+   3. jump (held 21 ticks), holding right, from 446,417; lands at 577,353
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 570-934, y 353
+   4. walk off the edge, holding right once in the air, from 570,353; lands at 1049,481
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1034-1049, y 481
+   5. walk off the edge, holding left once in the air, from 1034,481; lands at 903,625
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 794-934, y 625
+   6. jump (held 2 ticks), holding left, from 794,625; lands at 619,737
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 410-697, y 737
+   7. walk off the edge, holding left once in the air, from 410,737; lands at 330,801
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 295-390, y 801
+   8. hit the switch at 240,768 from 295,801 (jumping if need be): [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut]   [belmont:1]
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 295-390, y 801
+   9. jump (held 21 ticks), holding right, from 295,801; lands at 426,737
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 410-697, y 737
+  10. running right, jump (held 21 ticks), holding right, from 560,737; lands at 714,673
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 698-793, y 673
+  11. jump (held 21 ticks), holding right, from 698,673; lands at 851,625
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 794-934, y 625
+  12. running right, jump (held 6 ticks), holding right, from 832,625; lands at 972,593
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 954-982, y 593
+  13. jump (held 21 ticks), holding nothing, then right after 14 ticks, from 958,593; lands at 1009,545
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 1002-1030, y 545
+  14. jump (held 21 ticks), holding right, from 1002,545; lands at 1049,481
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 1034-1049, y 481
+  15. jump (held 21 ticks), holding left, from 1034,481; lands at 935,417
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 935-950, y 417
+  16. jump (held 21 ticks), holding left, from 935,417; lands at 862,353
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 570-934, y 353
+  17. jump (held 21 ticks), holding right, from 574,353; lands at 705,289
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 698-726, y 289
+  18. jump (held 21 ticks), holding right, from 718,289; lands at 793,225
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 778-793, y 225
+  19. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 778,225; lands at 748,161
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 730-758, y 161
+  20. jump (held 6 ticks), holding left, from 730,161; lands at 652,113
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 570-710, y 113
+  21. jump (held 2 ticks), holding left, from 570,113; lands at 439,161
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 346-486, y 161
+  22. running left, jump (held 21 ticks), holding left, from 346,161; lands at 155,129
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 71-166, y 129
+  23. standing at 89,129, on it
+      -> spot key1
+how in 208,416 -> spot key1: megaman:1
+     [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] coming in at 208,416
+   1. coming in: holding nothing, from 208,416; lands at 208,417
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 39-326, y 417
+   2. running right, jump (held 21 ticks), holding right, from 240,417; lands at 453,417
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 442-569, y 417
+   3. jump (held 21 ticks), holding right, from 446,417; lands at 577,353
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 570-934, y 353
+   4. walk off the edge, holding right once in the air, from 570,353; lands at 1049,481
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1034-1049, y 481
+   5. walk off the edge, holding left once in the air, from 1034,481; lands at 903,625
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 794-934, y 625
+   6. jump (held 2 ticks), holding left, from 794,625; lands at 619,737
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 410-697, y 737
+   7. walk off the edge, holding left once in the air, from 410,737; lands at 330,801
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 295-390, y 801
+   8. hit the switch at 240,768 from 295,801 (jumping if need be): [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut]   [megaman:1]
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 295-390, y 801
+   9. jump (held 21 ticks), holding right, from 295,801; lands at 426,737
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 410-697, y 737
+  10. running right, jump (held 21 ticks), holding right, from 560,737; lands at 714,673
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 698-793, y 673
+  11. jump (held 21 ticks), holding right, from 698,673; lands at 851,625
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 794-934, y 625
+  12. running right, jump (held 6 ticks), holding right, from 832,625; lands at 972,593
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 954-982, y 593
+  13. jump (held 21 ticks), holding nothing, then right after 14 ticks, from 958,593; lands at 1009,545
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 1002-1030, y 545
+  14. jump (held 21 ticks), holding right, from 1002,545; lands at 1049,481
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 1034-1049, y 481
+  15. jump (held 21 ticks), holding left, from 1034,481; lands at 935,417
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 935-950, y 417
+  16. jump (held 21 ticks), holding left, from 935,417; lands at 862,353
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 570-934, y 353
+  17. jump (held 21 ticks), holding right, from 574,353; lands at 705,289
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 698-726, y 289
+  18. jump (held 21 ticks), holding right, from 718,289; lands at 793,225
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 778-793, y 225
+  19. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 778,225; lands at 748,161
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 730-758, y 161
+  20. jump (held 6 ticks), holding left, from 730,161; lands at 652,113
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 570-710, y 113
+  21. jump (held 2 ticks), holding left, from 570,113; lands at 439,161
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 346-486, y 161
+  22. running left, jump (held 21 ticks), holding left, from 346,161; lands at 155,129
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 71-166, y 129
+  23. standing at 89,129, on it
+      -> spot key1
+how in 208,416 -> spot key1: samus:1
+     [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] coming in at 208,416
+   1. coming in: holding nothing, from 208,416; lands at 208,417
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 39-326, y 417
+   2. running right, jump (held 21 ticks), holding right, from 240,417; lands at 453,417
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 442-569, y 417
+   3. jump (held 21 ticks), holding right, from 446,417; lands at 577,353
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 570-934, y 353
+   4. walk off the edge, holding right once in the air, from 570,353; lands at 1049,481
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1034-1049, y 481
+   5. walk off the edge, holding left once in the air, from 1034,481; lands at 903,625
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 794-934, y 625
+   6. jump (held 2 ticks), holding left, from 794,625; lands at 619,737
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 410-697, y 737
+   7. walk off the edge, holding left once in the air, from 410,737; lands at 330,801
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 295-390, y 801
+   8. hit the switch at 240,768 from 295,801 (jumping if need be): [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut]   [samus:1]
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 295-390, y 801
+   9. jump (held 21 ticks), holding right, from 295,801; lands at 426,737
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 410-697, y 737
+  10. running right, jump (held 21 ticks), holding right, from 560,737; lands at 714,673
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 698-793, y 673
+  11. jump (held 21 ticks), holding right, from 698,673; lands at 851,625
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 794-934, y 625
+  12. running right, jump (held 6 ticks), holding right, from 832,625; lands at 972,593
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 954-982, y 593
+  13. jump (held 21 ticks), holding nothing, then right after 14 ticks, from 958,593; lands at 1009,545
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 1002-1030, y 545
+  14. jump (held 21 ticks), holding right, from 1002,545; lands at 1049,481
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 1034-1049, y 481
+  15. jump (held 21 ticks), holding left, from 1034,481; lands at 935,417
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 935-950, y 417
+  16. jump (held 21 ticks), holding left, from 935,417; lands at 862,353
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 570-934, y 353
+  17. jump (held 21 ticks), holding right, from 574,353; lands at 705,289
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 698-726, y 289
+  18. jump (held 21 ticks), holding right, from 718,289; lands at 793,225
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 778-793, y 225
+  19. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 778,225; lands at 748,161
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 730-758, y 161
+  20. jump (held 6 ticks), holding left, from 730,161; lands at 652,113
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 570-710, y 113
+  21. jump (held 2 ticks), holding left, from 570,113; lands at 439,161
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 346-486, y 161
+  22. running left, jump (held 21 ticks), holding left, from 346,161; lands at 155,129
+      -> [sliding blocks as placed, barrier 192132 open, barrier 192133 shut, barrier 192134 shut] standing at x 71-166, y 129
+  23. standing at 89,129, on it
+      -> spot key1
+how in 208,416 -> spot key2: adash,samus:1
+     [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] coming in at 208,416
+   1. coming in: holding nothing, from 208,416; lands at 208,417
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 39-326, y 417
+   2. running right, jump (held 21 ticks), holding right, from 240,417; lands at 453,417
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 442-569, y 417
+   3. jump (held 21 ticks), holding right, from 446,417; lands at 577,353
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 570-934, y 353
+   4. running right, jump (held 21 ticks), holding right, from 848,353; lands at 1061,353
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1050-1254, y 353
+   5. running right, jump (held 21 ticks), holding right, from 1200,353; lands at 1354,289
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1338-1414, y 289
+   6. running right, jump (held 21 ticks), holding right, from 1376,289; lands at 1552,241
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1530-1606, y 241
+   7. jump (held 21 ticks), holding right, from 1536,241; lands at 1763,305
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1754-1894, y 305
+   8. walk off the edge, holding right once in the air, from 1754,305; lands at 1981,369
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1895-2150, y 369
+   9. running right, jump (held 2 ticks), holding right, from 2128,369; lands at 2523,1329
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 2343-2694, y 1329
+  10. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 2343,1329; lands at 2321,1281
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 2298-2342, y 1281
+  11. running left, jump (held 6 ticks), holding left, from 2298,1281; lands at 2107,1329
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1946-2118, y 1329
+  12. jump (held 2 ticks), holding left, from 1946,1329; lands at 1844,1329
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1287-1862, y 1329
+  13. running right, jump (held 21 ticks), holding right, from 1504,1329; lands at 1658,1265
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1642-1670, y 1265
+  14. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 1642,1265; lands at 1566,1201
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1562-1590, y 1201
+  15. jump (held 21 ticks), holding left, air dash (Jerry) at tick 10, from 1562,1201; lands at 1338,1153   [adash]
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1322-1350, y 1153
+  16. jump (held 21 ticks), holding left, from 1322,1153; lands at 1214,1089
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 410-1286, y 1089
+  17. walk off the edge, holding left once in the air, from 410,1089; lands at 337,1137
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 167-409, y 1137
+  18. shoot (or throw at) the switch at 184,1112 from 409,1137, and while the shot flies, jump (held 6 ticks), holding right; lands at 468,1089 (tick 15): [sliding blocks as placed, barrier 192132 shut, barrier 192133 open, barrier 192134 shut]   [samus:1]
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 410-1286, y 1089
+  19. running right, walk off the edge, holding right once in the air, from 752,1089; lands at 1478,1329
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1287-1862, y 1329
+  20. hit the switch at 1312,1280 from 1287,1329 (jumping if need be): [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut]   [samus:1]
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1287-1862, y 1329
+  21. running right, jump (held 21 ticks), holding right, air dash (Claire) at tick 8, from 1456,1329; lands at 1663,1265   [adash]
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1642-1670, y 1265
+  22. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 1642,1265; lands at 1566,1201
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1562-1590, y 1201
+  23. jump (held 21 ticks), holding left, air dash (Jerry) at tick 4, from 1562,1201; lands at 1491,1153   [adash]
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1482-1510, y 1153
+  24. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 1482,1153; lands at 1757,1105   [adash]
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1738-1766, y 1105
+  25. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1738,1105; lands at 1796,1057
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1786-1913, y 1057
+  26. running right, jump (held 21 ticks), holding right, from 1840,1057; lands at 1977,993
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1914-1977, y 993
+  27. jump (held 21 ticks), holding right, from 1918,993; lands at 2041,929
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1978-2041, y 929
+  28. running right, jump (held 21 ticks), holding right, then nothing after 2 ticks, from 2016,929; lands at 2046,865
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 2042-2073, y 865
+  29. running right, jump (held 21 ticks), holding right, air dash (Jerry) at tick 8, from 2066,865; lands at 2086,689   [adash]
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 2074-2105, y 689
+  30. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, air dash (Jerry) at tick 16, from 2096,689; lands at 1870,721   [adash]
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1050-1945, y 721
+  31. walk off the edge, holding left, then nothing after 1 ticks in the air, from 1050,721; lands at 1016,1361
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 794-1017, y 1361
+  32. jump (held 2 ticks), holding left, from 794,1361; lands at 743,1361
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 570-774, y 1361
+  33. jump (held 2 ticks), holding left, from 570,1361; lands at 519,1361
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 346-550, y 1361
+  34. walk off the edge, holding left once in the air, from 346,1361; lands at 266,1425
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 135-345, y 1425
+  35. standing at 233,1425, on it
+      -> spot key2
+how in 208,416 -> spot key2: adash,megaman:1
+     [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] coming in at 208,416
+   1. coming in: holding nothing, from 208,416; lands at 208,417
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 39-326, y 417
+   2. running right, jump (held 21 ticks), holding right, from 240,417; lands at 453,417
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 442-569, y 417
+   3. jump (held 21 ticks), holding right, from 446,417; lands at 577,353
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 570-934, y 353
+   4. running right, jump (held 21 ticks), holding right, from 848,353; lands at 1061,353
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1050-1254, y 353
+   5. running right, jump (held 21 ticks), holding right, from 1200,353; lands at 1354,289
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1338-1414, y 289
+   6. running right, jump (held 21 ticks), holding right, from 1376,289; lands at 1552,241
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1530-1606, y 241
+   7. jump (held 21 ticks), holding right, from 1536,241; lands at 1763,305
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1754-1894, y 305
+   8. walk off the edge, holding right once in the air, from 1754,305; lands at 1981,369
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1895-2150, y 369
+   9. running right, jump (held 2 ticks), holding right, from 2128,369; lands at 2523,1329
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 2343-2694, y 1329
+  10. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 2343,1329; lands at 2321,1281
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 2298-2342, y 1281
+  11. running left, jump (held 6 ticks), holding left, from 2298,1281; lands at 2107,1329
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1946-2118, y 1329
+  12. jump (held 2 ticks), holding left, from 1946,1329; lands at 1844,1329
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1287-1862, y 1329
+  13. running right, jump (held 21 ticks), holding right, from 1504,1329; lands at 1658,1265
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1642-1670, y 1265
+  14. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 1642,1265; lands at 1566,1201
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1562-1590, y 1201
+  15. jump (held 21 ticks), holding left, air dash (Jerry) at tick 10, from 1562,1201; lands at 1338,1153   [adash]
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1322-1350, y 1153
+  16. jump (held 21 ticks), holding left, from 1322,1153; lands at 1214,1089
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 410-1286, y 1089
+  17. walk off the edge, holding left once in the air, from 410,1089; lands at 337,1137
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 167-409, y 1137
+  18. shoot (or throw at) the switch at 184,1112 from 409,1137, and while the shot flies, jump (held 21 ticks), holding right, air dash (Jerry) at tick 4; lands at 431,1089 (tick 14): [sliding blocks as placed, barrier 192132 shut, barrier 192133 open, barrier 192134 shut]   [adash,megaman:1]
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 410-1286, y 1089
+  19. running right, walk off the edge, holding right once in the air, from 752,1089; lands at 1478,1329
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1287-1862, y 1329
+  20. hit the switch at 1312,1280 from 1287,1329 (jumping if need be): [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut]   [megaman:1]
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1287-1862, y 1329
+  21. running right, jump (held 21 ticks), holding right, air dash (Claire) at tick 8, from 1456,1329; lands at 1663,1265   [adash]
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1642-1670, y 1265
+  22. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 1642,1265; lands at 1566,1201
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1562-1590, y 1201
+  23. jump (held 21 ticks), holding left, air dash (Jerry) at tick 4, from 1562,1201; lands at 1491,1153   [adash]
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1482-1510, y 1153
+  24. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 1482,1153; lands at 1757,1105   [adash]
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1738-1766, y 1105
+  25. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1738,1105; lands at 1796,1057
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1786-1913, y 1057
+  26. running right, jump (held 21 ticks), holding right, from 1840,1057; lands at 1977,993
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1914-1977, y 993
+  27. jump (held 21 ticks), holding right, from 1918,993; lands at 2041,929
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1978-2041, y 929
+  28. running right, jump (held 21 ticks), holding right, then nothing after 2 ticks, from 2016,929; lands at 2046,865
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 2042-2073, y 865
+  29. running right, jump (held 21 ticks), holding right, air dash (Jerry) at tick 8, from 2066,865; lands at 2086,689   [adash]
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 2074-2105, y 689
+  30. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, air dash (Jerry) at tick 16, from 2096,689; lands at 1870,721   [adash]
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1050-1945, y 721
+  31. walk off the edge, holding left, then nothing after 1 ticks in the air, from 1050,721; lands at 1016,1361
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 794-1017, y 1361
+  32. jump (held 2 ticks), holding left, from 794,1361; lands at 743,1361
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 570-774, y 1361
+  33. jump (held 2 ticks), holding left, from 570,1361; lands at 519,1361
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 346-550, y 1361
+  34. walk off the edge, holding left once in the air, from 346,1361; lands at 266,1425
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 135-345, y 1425
+  35. standing at 233,1425, on it
+      -> spot key2
+how in 208,416 -> spot key2: adash,link:1
+     [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] coming in at 208,416
+   1. coming in: holding nothing, from 208,416; lands at 208,417
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 39-326, y 417
+   2. running right, jump (held 21 ticks), holding right, from 240,417; lands at 453,417
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 442-569, y 417
+   3. jump (held 21 ticks), holding right, from 446,417; lands at 577,353
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 570-934, y 353
+   4. running right, jump (held 21 ticks), holding right, from 848,353; lands at 1061,353
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1050-1254, y 353
+   5. running right, jump (held 21 ticks), holding right, from 1200,353; lands at 1354,289
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1338-1414, y 289
+   6. running right, jump (held 21 ticks), holding right, from 1376,289; lands at 1552,241
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1530-1606, y 241
+   7. jump (held 21 ticks), holding right, from 1536,241; lands at 1763,305
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1754-1894, y 305
+   8. walk off the edge, holding right once in the air, from 1754,305; lands at 1981,369
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1895-2150, y 369
+   9. running right, jump (held 2 ticks), holding right, from 2128,369; lands at 2523,1329
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 2343-2694, y 1329
+  10. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 2343,1329; lands at 2321,1281
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 2298-2342, y 1281
+  11. running left, jump (held 6 ticks), holding left, from 2298,1281; lands at 2107,1329
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1946-2118, y 1329
+  12. jump (held 2 ticks), holding left, from 1946,1329; lands at 1844,1329
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1287-1862, y 1329
+  13. running right, jump (held 21 ticks), holding right, from 1504,1329; lands at 1658,1265
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1642-1670, y 1265
+  14. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 1642,1265; lands at 1566,1201
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1562-1590, y 1201
+  15. jump (held 21 ticks), holding left, air dash (Jerry) at tick 10, from 1562,1201; lands at 1338,1153   [adash]
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1322-1350, y 1153
+  16. jump (held 21 ticks), holding left, from 1322,1153; lands at 1214,1089
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 410-1286, y 1089
+  17. walk off the edge, holding left once in the air, from 410,1089; lands at 337,1137
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 167-409, y 1137
+  18. hit the switch at 184,1112 from 167,1137 (jumping if need be): [sliding blocks as placed, barrier 192132 shut, barrier 192133 open, barrier 192134 shut]   [link:1]
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 167-409, y 1137
+  19. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 167,1137; lands at 442,1089   [adash]
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 410-1286, y 1089
+  20. running right, walk off the edge, holding right once in the air, from 752,1089; lands at 1478,1329
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1287-1862, y 1329
+  21. hit the switch at 1312,1280 from 1287,1329 (jumping if need be): [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut]   [link:1]
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1287-1862, y 1329
+  22. running right, jump (held 21 ticks), holding right, air dash (Claire) at tick 8, from 1456,1329; lands at 1663,1265   [adash]
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1642-1670, y 1265
+  23. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 1642,1265; lands at 1566,1201
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1562-1590, y 1201
+  24. jump (held 21 ticks), holding left, air dash (Jerry) at tick 4, from 1562,1201; lands at 1491,1153   [adash]
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1482-1510, y 1153
+  25. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 1482,1153; lands at 1757,1105   [adash]
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1738-1766, y 1105
+  26. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1738,1105; lands at 1796,1057
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1786-1913, y 1057
+  27. running right, jump (held 21 ticks), holding right, from 1840,1057; lands at 1977,993
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1914-1977, y 993
+  28. jump (held 21 ticks), holding right, from 1918,993; lands at 2041,929
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1978-2041, y 929
+  29. running right, jump (held 21 ticks), holding right, then nothing after 2 ticks, from 2016,929; lands at 2046,865
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 2042-2073, y 865
+  30. running right, jump (held 21 ticks), holding right, air dash (Jerry) at tick 8, from 2066,865; lands at 2086,689   [adash]
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 2074-2105, y 689
+  31. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, air dash (Jerry) at tick 16, from 2096,689; lands at 1870,721   [adash]
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1050-1945, y 721
+  32. walk off the edge, holding left, then nothing after 1 ticks in the air, from 1050,721; lands at 1016,1361
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 794-1017, y 1361
+  33. jump (held 2 ticks), holding left, from 794,1361; lands at 743,1361
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 570-774, y 1361
+  34. jump (held 2 ticks), holding left, from 570,1361; lands at 519,1361
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 346-550, y 1361
+  35. walk off the edge, holding left once in the air, from 346,1361; lands at 266,1425
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 135-345, y 1425
+  36. standing at 233,1425, on it
+      -> spot key2
+how in 208,416 -> spot key2: adash,belmont:1
+     [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] coming in at 208,416
+   1. coming in: holding nothing, from 208,416; lands at 208,417
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 39-326, y 417
+   2. running right, jump (held 21 ticks), holding right, from 240,417; lands at 453,417
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 442-569, y 417
+   3. jump (held 21 ticks), holding right, from 446,417; lands at 577,353
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 570-934, y 353
+   4. running right, jump (held 21 ticks), holding right, from 848,353; lands at 1061,353
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1050-1254, y 353
+   5. running right, jump (held 21 ticks), holding right, from 1200,353; lands at 1354,289
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1338-1414, y 289
+   6. running right, jump (held 21 ticks), holding right, from 1376,289; lands at 1552,241
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1530-1606, y 241
+   7. jump (held 21 ticks), holding right, from 1536,241; lands at 1763,305
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1754-1894, y 305
+   8. walk off the edge, holding right once in the air, from 1754,305; lands at 1981,369
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1895-2150, y 369
+   9. running right, jump (held 2 ticks), holding right, from 2128,369; lands at 2523,1329
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 2343-2694, y 1329
+  10. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 2343,1329; lands at 2321,1281
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 2298-2342, y 1281
+  11. running left, jump (held 6 ticks), holding left, from 2298,1281; lands at 2107,1329
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1946-2118, y 1329
+  12. jump (held 2 ticks), holding left, from 1946,1329; lands at 1844,1329
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1287-1862, y 1329
+  13. running right, jump (held 21 ticks), holding right, from 1504,1329; lands at 1658,1265
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1642-1670, y 1265
+  14. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 1642,1265; lands at 1566,1201
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1562-1590, y 1201
+  15. jump (held 21 ticks), holding left, air dash (Jerry) at tick 10, from 1562,1201; lands at 1338,1153   [adash]
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1322-1350, y 1153
+  16. jump (held 21 ticks), holding left, from 1322,1153; lands at 1214,1089
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 410-1286, y 1089
+  17. walk off the edge, holding left once in the air, from 410,1089; lands at 337,1137
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 167-409, y 1137
+  18. hit the switch at 184,1112 from 167,1137 (jumping if need be): [sliding blocks as placed, barrier 192132 shut, barrier 192133 open, barrier 192134 shut]   [belmont:1]
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 167-409, y 1137
+  19. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 167,1137; lands at 442,1089   [adash]
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 410-1286, y 1089
+  20. running right, walk off the edge, holding right once in the air, from 752,1089; lands at 1478,1329
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1287-1862, y 1329
+  21. hit the switch at 1312,1280 from 1287,1329 (jumping if need be): [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut]   [belmont:1]
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1287-1862, y 1329
+  22. running right, jump (held 21 ticks), holding right, air dash (Claire) at tick 8, from 1456,1329; lands at 1663,1265   [adash]
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1642-1670, y 1265
+  23. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 1642,1265; lands at 1566,1201
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1562-1590, y 1201
+  24. jump (held 21 ticks), holding left, air dash (Jerry) at tick 4, from 1562,1201; lands at 1491,1153   [adash]
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1482-1510, y 1153
+  25. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 1482,1153; lands at 1757,1105   [adash]
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1738-1766, y 1105
+  26. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1738,1105; lands at 1796,1057
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1786-1913, y 1057
+  27. running right, jump (held 21 ticks), holding right, from 1840,1057; lands at 1977,993
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1914-1977, y 993
+  28. jump (held 21 ticks), holding right, from 1918,993; lands at 2041,929
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1978-2041, y 929
+  29. running right, jump (held 21 ticks), holding right, then nothing after 2 ticks, from 2016,929; lands at 2046,865
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 2042-2073, y 865
+  30. running right, jump (held 21 ticks), holding right, air dash (Jerry) at tick 8, from 2066,865; lands at 2086,689   [adash]
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 2074-2105, y 689
+  31. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, air dash (Jerry) at tick 16, from 2096,689; lands at 1870,721   [adash]
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1050-1945, y 721
+  32. walk off the edge, holding left, then nothing after 1 ticks in the air, from 1050,721; lands at 1016,1361
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 794-1017, y 1361
+  33. jump (held 2 ticks), holding left, from 794,1361; lands at 743,1361
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 570-774, y 1361
+  34. jump (held 2 ticks), holding left, from 570,1361; lands at 519,1361
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 346-550, y 1361
+  35. walk off the edge, holding left once in the air, from 346,1361; lands at 266,1425
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 135-345, y 1425
+  36. standing at 233,1425, on it
+      -> spot key2
+how in 208,416 -> spot key2: samus:2
+     [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] coming in at 208,416
+   1. coming in: holding nothing, from 208,416; lands at 208,417
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 39-326, y 417
+   2. running right, jump (held 21 ticks), holding right, from 240,417; lands at 453,417
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 442-569, y 417
+   3. jump (held 21 ticks), holding right, from 446,417; lands at 577,353
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 570-934, y 353
+   4. running right, jump (held 21 ticks), holding right, from 848,353; lands at 1061,353
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1050-1254, y 353
+   5. running right, jump (held 21 ticks), holding right, from 1200,353; lands at 1354,289
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1338-1414, y 289
+   6. running right, jump (held 21 ticks), holding right, from 1376,289; lands at 1552,241
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1530-1606, y 241
+   7. jump (held 21 ticks), holding right, from 1536,241; lands at 1763,305
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1754-1894, y 305
+   8. walk off the edge, holding right once in the air, from 1754,305; lands at 1981,369
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1895-2150, y 369
+   9. running right, jump (held 2 ticks), holding right, from 2128,369; lands at 2523,1329
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 2343-2694, y 1329
+  10. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 2343,1329; lands at 2321,1281
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 2298-2342, y 1281
+  11. running left, jump (held 6 ticks), holding left, from 2298,1281; lands at 2107,1329
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1946-2118, y 1329
+  12. jump (held 2 ticks), holding left, from 1946,1329; lands at 1844,1329
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1287-1862, y 1329
+  13. running right, jump (held 21 ticks), holding right, from 1504,1329; lands at 1658,1265
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1642-1670, y 1265
+  14. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 1642,1265; lands at 1566,1201
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1562-1590, y 1201
+  15. jump (held 6 ticks), holding left, from 1582,1201; lands at 1487,1153
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1482-1510, y 1153
+  16. jump (held 21 ticks), holding left, from 1510,1153; lands at 1327,1153
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1322-1350, y 1153
+  17. jump (held 21 ticks), holding left, from 1322,1153; lands at 1214,1089
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 410-1286, y 1089
+  18. walk off the edge, holding left once in the air, from 410,1089; lands at 337,1137
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 167-409, y 1137
+  19. shoot (or throw at) the switch at 184,1112 from 409,1137, and while the shot flies, jump (held 6 ticks), holding right; lands at 468,1089 (tick 15): [sliding blocks as placed, barrier 192132 shut, barrier 192133 open, barrier 192134 shut]   [samus:1]
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 410-1286, y 1089
+  20. running right, walk off the edge, holding right once in the air, from 752,1089; lands at 1478,1329
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1287-1862, y 1329
+  21. hit the switch at 1312,1280 from 1287,1329 (jumping if need be): [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut]   [samus:1]
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1287-1862, y 1329
+  22. running right, jump (held 21 ticks), holding right, from 1504,1329; lands at 1658,1265
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1642-1670, y 1265
+  23. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 1642,1265; lands at 1566,1201
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1562-1590, y 1201
+  24. running right, jump (held 6 ticks), holding right, from 1586,1201; lands at 1704,1153
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1690-1718, y 1153
+  25. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1690,1153; lands at 1748,1105
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1738-1766, y 1105
+  26. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1738,1105; lands at 1796,1057
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1786-1913, y 1057
+  27. running right, jump (held 21 ticks), holding right, from 1840,1057; lands at 1977,993
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1914-1977, y 993
+  28. jump (held 21 ticks), holding right, from 1918,993; lands at 2041,929
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1978-2041, y 929
+  29. jump (held 21 ticks), holding nothing, then right after 14 ticks, turn into the Morph Ball where the body meets a wall or ceiling, from 2041,929; lands at 2105,689   [samus:2]
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] as the Morph Ball at x 2074-2105, y 689
+  30. turn back from the Morph Ball at 2074,689
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 2074-2105, y 689
+  31. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, from 2096,689; lands at 1999,529
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1946-2086, y 529
+  32. walk off the edge, holding left once in the air, from 1946,529; lands at 1868,721
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 1050-1945, y 721
+  33. walk off the edge, holding left, then nothing after 1 ticks in the air, from 1050,721; lands at 1016,1361
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 794-1017, y 1361
+  34. jump (held 2 ticks), holding left, from 794,1361; lands at 743,1361
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 570-774, y 1361
+  35. jump (held 2 ticks), holding left, from 570,1361; lands at 519,1361
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 346-550, y 1361
+  36. walk off the edge, holding left once in the air, from 346,1361; lands at 266,1425
+      -> [sliding blocks moved, barrier 192132 shut, barrier 192133 open, barrier 192134 shut] standing at x 135-345, y 1425
+  37. standing at 233,1425, on it
+      -> spot key2
+how in 208,416 -> spot key3: megaman:1
+     [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] coming in at 208,416
+   1. coming in: holding nothing, from 208,416; lands at 208,417
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 39-326, y 417
+   2. running right, jump (held 21 ticks), holding right, from 240,417; lands at 453,417
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 442-569, y 417
+   3. jump (held 21 ticks), holding right, from 446,417; lands at 577,353
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 570-934, y 353
+   4. running right, jump (held 21 ticks), holding right, from 848,353; lands at 1061,353
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1050-1254, y 353
+   5. running right, jump (held 21 ticks), holding right, from 1200,353; lands at 1354,289
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1338-1414, y 289
+   6. running right, jump (held 21 ticks), holding right, from 1376,289; lands at 1552,241
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1530-1606, y 241
+   7. jump (held 21 ticks), holding right, from 1536,241; lands at 1763,305
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1754-1894, y 305
+   8. walk off the edge, holding right once in the air, from 1754,305; lands at 1981,369
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1895-2150, y 369
+   9. running right, jump (held 2 ticks), holding right, from 2128,369; lands at 2523,1329
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 2343-2694, y 1329
+  10. running right, jump (held 21 ticks), holding right, from 2416,1329; lands at 2563,1263
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 2554-2598, y 1263-1265
+  11. step onto moving platform 1 at 2554,1263
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] riding moving platform 1 (waiting for it where it goes)
+  12. ride moving platform 1 and step off at 2554,1186
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 2554-2585, y 1186-1188
+  13. jump (held 21 ticks), holding right, from 2554,1186; lands at 2685,1121
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 2650-2713, y 1121
+  14. shoot the switch at 2928,1024 from 2650,1121 (at the top of a jump): [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 open]   [megaman:1]
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 open] standing at x 2650-2713, y 1121
+  15. jump (held 2 ticks), holding left, from 2650,1121; lands at 2462,1329
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 open] standing at x 2343-2694, y 1329
+  16. walk off the edge, holding right once in the air, from 2343,1329; lands at 2797,1409
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 open] standing at x 2759-2854, y 1409
+  17. jump (held 6 ticks), holding right, from 2762,1409; touches it on the way
+      -> spot key3
+how in 208,416 -> spot key3: samus:1
+     [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] coming in at 208,416
+   1. coming in: holding nothing, from 208,416; lands at 208,417
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 39-326, y 417
+   2. running right, jump (held 21 ticks), holding right, from 240,417; lands at 453,417
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 442-569, y 417
+   3. jump (held 21 ticks), holding right, from 446,417; lands at 577,353
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 570-934, y 353
+   4. running right, jump (held 21 ticks), holding right, from 848,353; lands at 1061,353
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1050-1254, y 353
+   5. running right, jump (held 21 ticks), holding right, from 1200,353; lands at 1354,289
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1338-1414, y 289
+   6. running right, jump (held 21 ticks), holding right, from 1376,289; lands at 1552,241
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1530-1606, y 241
+   7. jump (held 21 ticks), holding right, from 1536,241; lands at 1763,305
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1754-1894, y 305
+   8. walk off the edge, holding right once in the air, from 1754,305; lands at 1981,369
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1895-2150, y 369
+   9. running right, jump (held 2 ticks), holding right, from 2128,369; lands at 2523,1329
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 2343-2694, y 1329
+  10. running right, jump (held 21 ticks), holding right, from 2416,1329; lands at 2563,1263
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 2554-2598, y 1263-1265
+  11. step onto moving platform 1 at 2554,1263
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] riding moving platform 1 (waiting for it where it goes)
+  12. ride moving platform 1 and step off at 2554,1186
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 2554-2585, y 1186-1188
+  13. jump (held 21 ticks), holding right, from 2554,1186; lands at 2685,1121
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 2650-2713, y 1121
+  14. shoot the switch at 2928,1024 from 2650,1121 (at the top of a jump): [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 open]   [samus:1]
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 open] standing at x 2650-2713, y 1121
+  15. jump (held 2 ticks), holding left, from 2650,1121; lands at 2462,1329
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 open] standing at x 2343-2694, y 1329
+  16. walk off the edge, holding right once in the air, from 2343,1329; lands at 2797,1409
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 open] standing at x 2759-2854, y 1409
+  17. jump (held 6 ticks), holding right, from 2762,1409; touches it on the way
+      -> spot key3
+how in 208,416 -> spot key3: link:1
+     [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] coming in at 208,416
+   1. coming in: holding nothing, from 208,416; lands at 208,417
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 39-326, y 417
+   2. running right, jump (held 21 ticks), holding right, from 240,417; lands at 453,417
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 442-569, y 417
+   3. jump (held 21 ticks), holding right, from 446,417; lands at 577,353
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 570-934, y 353
+   4. running right, jump (held 21 ticks), holding right, from 848,353; lands at 1061,353
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1050-1254, y 353
+   5. running right, jump (held 21 ticks), holding right, from 1200,353; lands at 1354,289
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1338-1414, y 289
+   6. running right, jump (held 21 ticks), holding right, from 1376,289; lands at 1552,241
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1530-1606, y 241
+   7. jump (held 21 ticks), holding right, from 1536,241; lands at 1763,305
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1754-1894, y 305
+   8. walk off the edge, holding right once in the air, from 1754,305; lands at 1981,369
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1895-2150, y 369
+   9. running right, jump (held 2 ticks), holding right, from 2128,369; lands at 2523,1329
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 2343-2694, y 1329
+  10. running right, jump (held 21 ticks), holding right, from 2416,1329; lands at 2563,1263
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 2554-2598, y 1263-1265
+  11. step onto moving platform 1 at 2554,1263
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] riding moving platform 1 (waiting for it where it goes)
+  12. ride moving platform 1 and step off at 2554,1186
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 2554-2585, y 1186-1188
+  13. jump (held 21 ticks), holding right, from 2554,1186; lands at 2685,1121
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 2650-2713, y 1121
+  14. jump (held 21 ticks), holding right, from 2650,1121; lands at 2781,1057
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 2714-2969, y 1057
+  15. hit the switch at 2928,1024 from 2872,1057 (jumping if need be): [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 open]   [link:1]
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 open] standing at x 2714-2969, y 1057
+  16. jump (held 2 ticks), holding left, from 2714,1057; lands at 2461,1329
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 open] standing at x 2343-2694, y 1329
+  17. walk off the edge, holding right once in the air, from 2343,1329; lands at 2797,1409
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 open] standing at x 2759-2854, y 1409
+  18. jump (held 6 ticks), holding right, from 2762,1409; touches it on the way
+      -> spot key3
+how in 208,416 -> spot key3: belmont:1
+     [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] coming in at 208,416
+   1. coming in: holding nothing, from 208,416; lands at 208,417
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 39-326, y 417
+   2. running right, jump (held 21 ticks), holding right, from 240,417; lands at 453,417
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 442-569, y 417
+   3. jump (held 21 ticks), holding right, from 446,417; lands at 577,353
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 570-934, y 353
+   4. running right, jump (held 21 ticks), holding right, from 848,353; lands at 1061,353
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1050-1254, y 353
+   5. running right, jump (held 21 ticks), holding right, from 1200,353; lands at 1354,289
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1338-1414, y 289
+   6. running right, jump (held 21 ticks), holding right, from 1376,289; lands at 1552,241
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1530-1606, y 241
+   7. jump (held 21 ticks), holding right, from 1536,241; lands at 1763,305
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1754-1894, y 305
+   8. walk off the edge, holding right once in the air, from 1754,305; lands at 1981,369
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 1895-2150, y 369
+   9. running right, jump (held 2 ticks), holding right, from 2128,369; lands at 2523,1329
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 2343-2694, y 1329
+  10. running right, jump (held 21 ticks), holding right, from 2416,1329; lands at 2563,1263
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 2554-2598, y 1263-1265
+  11. step onto moving platform 1 at 2554,1263
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] riding moving platform 1 (waiting for it where it goes)
+  12. ride moving platform 1 and step off at 2554,1186
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 2554-2585, y 1186-1188
+  13. jump (held 21 ticks), holding right, from 2554,1186; lands at 2685,1121
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 2650-2713, y 1121
+  14. jump (held 21 ticks), holding right, from 2650,1121; lands at 2781,1057
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 shut] standing at x 2714-2969, y 1057
+  15. hit the switch at 2928,1024 from 2872,1057 (jumping if need be): [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 open]   [belmont:1]
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 open] standing at x 2714-2969, y 1057
+  16. jump (held 2 ticks), holding left, from 2714,1057; lands at 2461,1329
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 open] standing at x 2343-2694, y 1329
+  17. walk off the edge, holding right once in the air, from 2343,1329; lands at 2797,1409
+      -> [sliding blocks as placed, barrier 192132 shut, barrier 192133 shut, barrier 192134 open] standing at x 2759-2854, y 1409
+  18. jump (held 6 ticks), holding right, from 2762,1409; touches it on the way
+      -> spot key3

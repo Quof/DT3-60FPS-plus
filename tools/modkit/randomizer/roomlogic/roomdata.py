@@ -35,7 +35,24 @@ rooms.txt, one line an instance, tab-separated (RoomLogic.cs reads it):
                                                                a switch: hit (an attack, the head from below, an
                                                                elemental attack), the group's state changes (once: only
                                                                from the state it starts in)
-  RS group state                                               the state a group starts in, when it isn't 0
+  SW sprite x y xscale yscale angle water N                    a Water Palace switch: hit, the water goes to level N
+  RS group state                                               the state a group starts in (the room sets it as the
+                                                               player comes in: rb, water)
+  RG group state                                               the same, in a room that has nothing of the group's
+  CG group                                                     a state the player carries from room to room (rb: the
+                                                               red/blue switches'; water: the Water Palace's level)
+  RBAUTO                                                       enemies' shots or moving traps hit the room's red/blue
+                                                               switches by themselves
+  TW sprite x y xscale yscale angle N                          water at the Water Palace's level N
+  FP sprite x y xscale yscale angle                            a floating platform (rises with water, falls without)
+  FN sNull x y 1 yscale 0 way [group state]                    a fan (Begonia's) at x,y blowing the player way (0 right,
+                                                               90 up, 180 left, 270 down); with a group, only in that
+                                                               state of it (a fan switch's)
+  SP sprite x y xscale yscale angle tag                        a spot: reaching it is the event <room>/<tag> (a colored
+                                                               switch the party split's partner holds, a colored key)
+  PI x y [xThres newX newY rev]                                the party split's idle partner: where it starts (at
+                                                               newX,newY when the player comes in past xThres; before it
+                                                               with rev)
   U sprite x y xscale yscale angle group state line x1 y1 x2 y2
                                                                a moving platform (as N) there only in one state of a
                                                                group (cpm: the Magical Castle's platform makers)
@@ -45,8 +62,10 @@ rooms.txt, one line an instance, tab-separated (RoomLogic.cs reads it):
   Q                                                            the room is a map (an overworld): its exits all connect
   BV room room                                                 (before the rooms) going from one to the other is a
                                                                boss fight (rndgen.py's BOSS_VIA)
+  CARRY group state                                            (before the rooms) a carried state as a new game starts
 Requirements: alternatives separated by |, each a comma-separated list of item:count (link:1,samus:4), key:N for the
-key of locked door N, attack for any ability set's attack, "-" for nothing.
+key of locked door N, event:NAME for an event (solve.py's events.txt), attack for any ability set's attack, "-" for
+nothing.
 """
 import os, re, sys, collections
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -68,6 +87,8 @@ RB_OBJECTS = {"oRBswitch", "oRedBlocker", "oBlueBlocker", "oRedMBlock", "oBlueMB
 # what hits red/blue switches by itself (they take enemies' shots and traps as well as the player's attacks): a
 # Sparky's sparks, and traps that move or zap
 SWITCH_HITTERS = {"oSparky", "oPlatformFollower", "oZapTrap", "oZapTrapRed", "oMarioChainBall", "oMovingTrap"}
+# what a timed switch's barrier counts as needing (all of it: what the game's timed switches take between them)
+TIMED_SWITCH = "megaman:3,link:3,belmont:2,samus:5"
 # the Water Palace's water levels (oWaterSwitch's wLvlTarget): its switches show 1, 2 or 3
 WATER_LEVELS = {1: 176, 2: 368, 3: 640}
 WORLD_PROGRESS = 5641   # rndInit's rndWorldProg
@@ -85,7 +106,7 @@ SPRINGS = {"oLargeJumper": "L", "oSmallJumper": "S"}
 # flying enemies the Mario Ability Set stomps (oEMarioBase's children and the like: the player bounces off one at -13.5,
 # a double jump and air dash back): RoomLogic.cs lets a jump near one bounce off it at the top
 BOUNCERS = {"oGreenParatroopa", "oRedParatroopa", "oLakitu", "oBulletBill", "oDistBulletBill", "oWingedMelon", "oCackBat",
-            "oHF_MovingEye", "oMagicalBat"}
+            "oHF_MovingEye", "oMagicalBat", "oToady", "oWS_TheGuardian"}
 ATTACK = "attack"
 NORMAL_HIT = "link:1|belmont:1"           # damageType NORMAL, weaponTag<100: Link's sword, Belmont's whip
 EXPLOSION = "link:3|samus:6"              # Link's bombs (Fuse Bomb), Samus' morph bombs
@@ -188,7 +209,7 @@ EXITS = {"oExit", "oAccessGate", "oMMBossDoor", "oDistortionGate"}
 # other ways to another room, the place they go to fixed in their code: (exitType, toRoom, x, y)
 FIXED_EXITS = {"oVaultGate": (0, "rVault_1", 160, 288),        # (the Vault, from the Farreaches)
                "oShooter_Start": (0, "rWarshipA", 1072, 416)}  # (the shooter's menu goes on to the Warship once it's done)
-LOCATIONS = {o: c for c, o, l in rndgen.LTYPES}
+LOCATIONS = {o: c for c, o, l in rndgen.LTYPES if c not in rndgen.KEEP_TYPES}
 
 
 def menu_exits(room, world):
@@ -458,8 +479,44 @@ def main():
         for tag, sx, sy, spr in spots:
             if tag in door_of.values(): lines.append("SP\t%s\t%d\t%d\t1\t1\t0\t%s" % (spr, sx, sy, tag))
         water_carried = any(obj == "oWaterVolume" and "wpWaterLevel" in code for obj, x, y, code in todo)
+        # Begonia's fan switches: hit, each turns its fans on or off (a group of the room's for each switch)
+        fan_group = {}
+        for obj, x, y, code in todo:
+            if obj == "oFanSwitch":
+                for g in re.findall(r"fanID\[\d+\]\s*=\s*\(?\s*GID\(\s*(\d+)\s*\)", code):
+                    fan_group.setdefault(int(g), "fan%d_%d" % (x, y))
         for obj, x, y, code in todo:
             ch = proj.chain(obj)
+            if obj == "oBegoniaFan":
+                # a fan: it blows the player its way (8px a tick) in a stream 224px long and 32px wide (times its
+                # yscale), unless something solid is between it and the player. One that starts off (noSpin) blows once
+                # its switch turns it on (state 1 of the switch's group); one with no switch stays off (the chest in
+                # rMain_25ExtA starts its fan)
+                r = run.instance(obj, x, y, code, W, H, area)
+                v = r.vars
+                fx, fy, fys, ang = v.get("x"), v.get("y"), v.get("image_yscale", 1), v.get("image_angle", 0)
+                if r.destroyed == 1 or not all(isinstance(t, (int, float)) for t in (fx, fy, fys, ang)): continue
+                way = int(ang) % 360
+                if way not in (0, 90, 180, 270): continue
+                on = "noSpin" not in v
+                m = re.search(r"GID_SET\(\s*(\d+)", code)
+                grp = fan_group.get(int(m.group(1))) if m else None
+                if grp:
+                    lines.append("FN\tsNull\t%s\t%s\t1\t%s\t0\t%d\t%s\t%d" % (fnum(fx), fnum(fy), fnum(fys), way, grp, 0 if on else 1))
+                elif on:
+                    lines.append("FN\tsNull\t%s\t%s\t1\t%s\t0\t%d" % (fnum(fx), fnum(fy), fnum(fys), way))
+                report["fan"] += 1
+                continue
+            if obj == "oFanSwitch":
+                r = run.instance(obj, x, y, code, W, H, area)
+                v = r.vars
+                grp = "fan%d_%d" % (x, y)
+                if r.destroyed == 1 or grp not in fan_group.values(): continue
+                spr = v.get("sprite_index")
+                lines.append("SW\t%s\t%s\t%s\t%s\t%s\t%s\t%s\tattack" % (spr if isinstance(spr, Res) else proj.sprite.get(obj), fnum(v.get("x", x)),
+                             fnum(v.get("y", y)), fnum(v.get("image_xscale", 1)), fnum(v.get("image_yscale", 1)), fnum(v.get("image_angle", 0)), grp))
+                report["fan switch"] += 1
+                continue
             # what a room's switches change: a state of the room (RoomLogic.cs works out each state's places, and goes
             # from one to another where a switch can be hit)
             if obj in ("oRBswitch", "sSwitchPlatformBlock"):
@@ -551,11 +608,15 @@ def main():
                         lines.append("T\tsInvisibleSolidMask\t%s\t%s\t%s\t%s\t0\tpb\t%d" % (fnum(bx), fnum(by), fnum(bxs), fnum(bys), st))
                 continue
             if obj == "oPlayerIdle":
-                # the party split's idle partner: where it starts (and where it's put coming in from the far side)
+                # the party split's idle partner: where it starts; put at newX,newY instead when the player comes in
+                # past xThres (before it, with checkRev)
                 if split:
-                    lines.append("PI\t%d\t%d" % (x, y))
+                    m0 = re.search(r"xThres\s*=\s*(\d+)", code)
                     m1, m2 = re.search(r"newX\s*=\s*(\d+)", code), re.search(r"newY\s*=\s*(\d+)", code)
-                    if m1 and m2: lines.append("PI\t%s\t%s" % (m1.group(1), m2.group(1)))
+                    if m0 and m1 and m2:
+                        lines.append("PI\t%d\t%d\t%s\t%s\t%s\t%d" % (x, y, m0.group(1), m1.group(1), m2.group(1), 1 if "checkRev" in code else 0))
+                    else:
+                        lines.append("PI\t%d\t%d" % (x, y))
                 continue
             if obj == "oMetRipper":
                 # a Ripper: it flies left and right along its row, turning at walls, and carries a Strike Chain point
@@ -662,6 +723,11 @@ def main():
             if r.destroyed == 2: report["solid maybe there"] += 1
             if obj in NOT_SOLID: continue
             # a barrier a switch opens: gone if its switch is on already, else shut till it's hit (the room's state b<GID>)
+            # a timed switch's barrier (open for a while once the switch is hit): counted as needing what the timed
+            # switches take between them, the Gravity Well, Link's bombs, Belmont's whip and dagger and the Spazer Beam
+            if obj == "oTimeSwBarrier":
+                lines.append("G\t%s\t%s\t%s" % (geo, TIMED_SWITCH, obj)); report["timed switch barrier"] += 1
+                continue
             if obj in ("oSwitchBarrier", "oTimeSwBarrier"):
                 if obj == "oSwitchBarrier":
                     g = v.get("switchCache")

@@ -58,3 +58,6 @@ if !(global.bBossGallery=1 and global.rndFight<0)
 if room=rMain_1 {rndStartRoom()}
 //Central City - South's heart container, which the 7th trial gives (rndHC7)
 rndHC7()
+//Nightmare Gate H isn't in the Randomizer: its access gate goes to the mod's own room for it (rRndGateH), which gives
+//the gate's instrument and goes on to the Sacred Temple
+if room=rHiddenVillage_Destroyed {with (oAccessGate) {if toRoom=rExtGateH_1 {toRoom=rRndGateH; newMapX=64; newMapY=304}}}
