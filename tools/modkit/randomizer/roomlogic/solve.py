@@ -16,8 +16,9 @@ usage:
   python solve.py --option <name>            count an option's ways (requirements "option <name>") as there
 
 Requirements, in every file: alternatives separated by |, any one of which is enough; each a list (commas or spaces)
-of: djump, adash, gdash, hijump N, mario, link N, belmont N, megaman N, samus N, gamej N, gamec N (N: that many of the
-item; "megaman:2" is the same as "megaman 2"), key N (the key of the locked door whose objectNum is N), attack (any
+of: djump, adash, gdash, hijump N, mario, link N, belmont N, megaman N, samus N, gamej N, gamec N, varia (the Varia
+Suit), cursed N (that many of the three cursed equipment pieces) (N: that many of the item; "megaman:2" is the same as
+"megaman 2"), key N (the key of the locked door whose objectNum is N), attack (any
 ability set's attack: link 1, belmont 1, megaman 1 or samus 1), event NAME (once it's happened: events.txt), option
 NAME (only with that option on), nothing or - (walking and jumping), never (no way).
 
@@ -34,9 +35,10 @@ OVERRIDES = os.path.join(HERE, "overrides.txt")
 EVENTS = os.path.join(HERE, "events.txt")
 OUT = os.path.join(HERE, "roomlogic.txt")
 
-# the items the logic counts, in RoomLogic.cs's order (Req.Names); djump, adash, gdash and mario are one item each
-ITEMS = ["djump", "adash", "gdash", "hijump", "mario", "link", "belmont", "megaman", "samus", "gamej", "gamec"]
-SINGLE = {"djump", "adash", "gdash", "mario"}
+# the items the logic counts, in RoomLogic.cs's order (Req.Names); djump, adash, gdash, mario and varia are one item
+# each (varia: the Varia Suit; cursed: the Trial Master's three cursed equipment pieces)
+ITEMS = ["djump", "adash", "gdash", "hijump", "mario", "link", "belmont", "megaman", "samus", "gamej", "gamec", "varia", "cursed"]
+SINGLE = {"djump", "adash", "gdash", "mario", "varia"}
 
 
 # ---------------------------------------------------------------- requirements

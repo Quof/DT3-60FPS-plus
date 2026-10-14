@@ -19,9 +19,10 @@
 #       the same for every room of the area (a later room line can still change one of them).
 #
 # Requirements: alternatives separated by |, any one of which is enough; each a list (spaces or commas) of: djump,
-# adash, gdash, hijump N, mario, link N, belmont N, megaman N, samus N, gamej N, gamec N (that many of the item), key N
-# (the key of the locked door whose objectNum is N: doors.csv), attack (any ability set's attack), option NAME (only
-# with that option on), nothing, or never.
+# adash, gdash, hijump N, mario, link N, belmont N, megaman N, samus N, gamej N, gamec N (that many of the item), varia
+# (the Varia Suit), cursed N (that many of the three cursed equipment pieces), key N (the key of the locked door whose
+# objectNum is N: doors.csv), attack (any ability set's attack), event NAME (events.txt), option NAME (only with that
+# option on), nothing, or never.
 #
 # Say why next to a change (a comment), so whoever reads it later knows. Examples (not in effect: they're comments):
 #   set rMain_62 in 48,1920 -> out 0,224 : djump megaman 2 | djump belmont 3
@@ -137,8 +138,150 @@ add rMain_44_Curse in * -> loc treasure chest 48 : attack
 add rDesertedTowerA in * -> loc internetz mod 11 : attack
 add rDesertedTowerC in * -> loc arrow quiver 22 : attack
 
+# Magical Canopy (rMain_14): the sword bounces the player up when it hits an enemy in the air (takeDamage's aerial
+# bounce), so hitting the Bomb Dropper under the upper ledge gets the player back up onto the ledge with the door to
+# the Leaf Cave
+add rMain_14 in * -> out 8,320 : link 1
+
 # The Grand Impediment's travel cannon (rMain_72): the air dash or the double jump, and a weapon
 add rMain_72 in * -> out 72,112 : adash attack | djump attack
 add rMain_72 in * -> out 1712,272 : adash attack | djump attack
 add rMain_72 in * -> loc treasure chest 72 : adash attack | djump attack
 add rMain_72 in * -> loc bomb upgrade 5 : adash attack | djump attack
+
+# The Trial Master's trials (the Challenge Arenas, and the last in Central City - South): a trial's reward shows once the
+# trial's done, and the trials need the three cursed equipment pieces on (cursed 3). The last one also takes five of
+# the six others done (events.txt: trial1-trial6)
+set rCArena_1 in * -> loc heart piece 37 : cursed 3
+set rCArena_2 in * -> loc arrow quiver 27 : cursed 3
+set rCArena_3 in * -> loc missile tank 27 : cursed 3
+set rCArena_4 in * -> loc internetz mod 17 : cursed 3
+set rCArena_5 in * -> loc skill point 64 : cursed 3
+set rCArena_5 in * -> loc skill point 65 : cursed 3
+set rCArena_6 in * -> loc skill point 66 : cursed 3
+set rCArena_6 in * -> loc skill point 67 : cursed 3
+set rCCity_SGrove in * -> loc heart container 7 : cursed 3 event trial1 event trial2 event trial3 event trial4 event trial5 | cursed 3 event trial1 event trial2 event trial3 event trial4 event trial6 | cursed 3 event trial1 event trial2 event trial3 event trial5 event trial6 | cursed 3 event trial1 event trial2 event trial4 event trial5 event trial6 | cursed 3 event trial1 event trial3 event trial4 event trial5 event trial6 | cursed 3 event trial2 event trial3 event trial4 event trial5 event trial6
+
+# ---- Places and exits the simulation doesn't work out, with what each takes ----
+
+# Mushroom Kingdom. rMario1_2: the rising platforms earlier in the room get the player above the ceiling, to the heart
+# piece's chamber
+add rMario1_2 in * -> loc heart piece 3 : nothing
+add rMario1_HFa in * -> loc treasure chest 4 : nothing
+add rMario1_CCc in * -> out 3560,200 : mario
+# Stratum Steppe: the chest is reached from above
+add rMain_5 in * -> loc treasure chest 1 : mario
+# Magical Hills, the Magical Castle and the Lava Cave: bouncing off the Mario enemies
+add rMain_11 in * -> loc heart energy 3 : mario
+add rMain_12 in * -> loc skill point 87 : mario
+add rMain_78 in * -> loc skill point 70 : mario
+add rMC_K_Secret in * -> loc weapon upgrade 39 : djump mario
+add rMC_K_Secret in * -> loc weapon upgrade 89 : djump mario
+add rMC_B in * -> out 1600,288 : samus 1 djump adash | megaman 1 djump adash
+add rMC_K in * -> out 0,384 : samus 1 adash djump
+add rLavaCaveA in * -> out 9584,256 : mario adash
+# Farreaches - Hypothesis: bouncing off the Winged Melons
+add rMain_97 in * -> loc treasure chest 73 : mario
+add rMain_97 in * -> loc skill point 92 : mario
+# Link's Fuse Bomb or Samus's Bombs
+add rMain_32 in * -> out 0,1120 : link 3 | samus 6
+add rMain_36 in * -> out 4336,-16 : link 3 | samus 6
+add rCCity_CCC in * -> out 0,944 : link 3 | samus 6
+add rCaveNetwork_B in * -> loc skill point 75 : link 3 | samus 6
+add rCaveNetwork_B in * -> loc skill point 80 : link 3 | samus 6
+add rCaveNetwork_B in * -> out 2032,192 : link 3 | samus 6
+add rBubbleTowerA2 in * -> out 168,128 : link 3
+
+# Hyrule. Death Mountain: the blocks broken with bombs (Link's or Samus's) fall
+add rLink2_SPlains_A in * -> loc arrow quiver 6 : link 3 | samus 6
+add rLink2_PalaceW_6 in * -> loc air upgrade 2 : nothing
+add rLink2_PalaceA_8 in * -> out 2032,272 : nothing
+add rLink2_DeathMount_B_Secret in * -> loc internetz mod 4 : link 3 | samus 6
+
+# Transylvania. rBelmont3_7B: the heart energy takes Belmont's whip, the door to the secret room (on the right wall near
+# the top) the double jump or the air dash from there, the exit in the ceiling (to rBelmont3_7E) nothing
+add rBelmont3_7B in * -> loc heart energy 18 : belmont 1
+add rBelmont3_7B in * -> out 944,288 : belmont 1 djump | belmont 1 adash
+add rBelmont3_7B in * -> out 560,-16 : nothing
+add rBelmont3_6A in * -> loc weapon upgrade 34 : belmont 2
+add rBelmont3_7C in * -> loc weapon upgrade 35 : belmont 1
+add rBelmont3_5A in * -> out 1840,176 : adash megaman 4
+
+# Megapolis. Toxic Jungle D: the dash and wall jumps (the area has them). SigmaC2: the Gravity Well moves the Gravity
+# Well platform
+add rMega4_ToxicJungleD in * -> loc heart piece 21 : gdash
+add rMega4_SigmaC2 in * -> loc internetz mod 6 : megaman 3
+add rMega4_SigmaB2 in * -> out 3312,96 : megaman 3 gdash
+
+# The Vault
+add rVault_12 in * -> loc treasure chest 38 : attack
+add rVault_16 in * -> out 2016,272 : adash
+
+# The Research Facility (Gate 5). Its lava (oMetLava) only hurts up to gameProgress 2850, where the story gives the
+# Varia Suit, so it never hurts in a Randomizer game (the logic's rooms still count it as a hazard). rSamus5_Lv1_O:
+# hitting an enemy gives the air dash back. rSamus5_Lv1_V: the weapon upgrade is fallen onto from above
+add rSamus5_Lv1_G in * -> loc treasure chest 43 : adash samus 2
+add rSamus5_Lv1_L in * -> loc treasure chest 44 : samus 2
+add rSamus5_Lv1_O in * -> loc missile tank 4 : gdash adash attack
+add rSamus5_Lv1_O in * -> out 1184,224 : gdash adash attack
+add rSamus5_Lv1_V in 360,80 -> loc weapon upgrade 114 : nothing
+add rSamus5_Lv2_D in * -> loc weapon upgrade 112 : samus 6
+add rSamus5_Lv2_G in * -> out 1232,352 : samus 6
+add rSamus5_Lv2_H in * -> out 0,976 : samus 7
+add rSamus5_Lv2_H in * -> out 464,976 : samus 7
+add rSamus5_Lv2_K in * -> loc missile tank 24 : hijump 1 samus 2
+add rSamus5_Lv3_O in * -> loc missile tank 11 : samus 6
+add rSamus5_Lv3_L in * -> loc missile tank 14 : samus 6
+add rSamus5_Lv3_M in * -> loc weapon upgrade 105 : samus 6
+add rSamus5_Lv3_M in * -> loc morph bomb upgrade 9 : samus 6
+add rSamus5_Lv4_B in * -> out 1904,256 : samus 7
+add rSamus5_EscapeB in * -> out 48,1376 : adash samus 7
+
+# The Barrens, the Burning Stretch and Neo Grime. The Sand Cave's bike ride needs nothing
+add rMain_50 in * -> loc treasure chest 46 : djump adash
+add rMain_50 in * -> loc skill point 49 : djump adash
+add rSandCave in * -> loc missile tank 30 : nothing
+add rSandCave in * -> loc arrow quiver 30 : nothing
+add rSandCave in * -> loc treasure chest 71 : adash
+add rMain_46 in * -> loc skill point 44 : link 3 adash
+add rMain_48 in * -> loc weapon upgrade 57 : megaman 4 adash samus 2
+add rMain_51 in * -> loc heart energy 27 : samus 5
+add rMain_52 in * -> loc internetz mod 12 : samus 5 adash
+add rMain_55 in * -> loc internetz mod 13 : samus 5 adash
+add rMain_54 in * -> loc skill point 98 : adash | djump
+
+# Begonia - Watery Cave: the underwater shaft is only the fall
+add rMain_26ExtA in * -> loc internetz mod 3 : nothing
+add rMain_26ExtA in * -> loc skill point 16 : nothing
+
+# Starry Skies
+add rIceWindCaveA in * -> loc arrow quiver 29 : djump
+add rIceWindCaveA in * -> loc skill point 82 : djump
+add rIceWindCaveA in * -> out 600,160 : djump
+add rMain_61 in * -> loc weapon upgrade 8 : adash
+add rMain_65 in * -> loc weapon upgrade 58 : megaman 4
+add rMain_66 in * -> loc skill point 62 : gdash
+add rMain_67 in * -> loc weapon upgrade 28 : djump adash
+add rMain_71 in * -> loc weapon upgrade 108 : link 3 adash djump
+
+# Initiate's Pass, the Grand Lower Cavity and the Highlands. rMain_73: Samus's Bombs (a Spring Ball jump also works, but
+# the Spring Ball isn't one of the logic's items)
+add rMain_2 in * -> loc skill point 84 : samus 2
+add rMain_73 in * -> loc internetz mod 18 : samus 6
+add rMain_79 in * -> loc skill point 93 : samus 2
+add rMain_80 in * -> loc skill point 71 : link 1 djump megaman 4
+add rMain_81 in * -> out 3824,96 : megaman 4 adash
+
+# The Displaced Construction Site
+add rDCS_D in * -> loc weapon upgrade 79 : link 3 djump
+add rDCS_F in * -> loc weapon upgrade 9 : belmont 3
+add rDCS_L in * -> out 1936,256 : adash samus 2 | djump samus 2
+add rDCS_S in * -> loc weapon upgrade 109 : adash samus 2
+add rDCS_T in * -> loc weapon upgrade 49 : djump adash attack
+
+# Gate 6 and the CHAOS Weapons Facility
+add rGame6_CoDO in * -> out 2368,336 : adash
+add rLowFacH in * -> out 2704,256 : megaman 4 adash djump
+add rLowFacM in * -> out 0,288 : megaman 4 adash djump
+add rWepFacG in * -> out 0,224 : megaman 4 adash djump
+add rWepFacI in * -> out 3120,224 : megaman 4 adash djump

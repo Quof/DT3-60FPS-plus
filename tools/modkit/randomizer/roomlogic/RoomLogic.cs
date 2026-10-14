@@ -24,10 +24,11 @@ using System.Threading.Tasks;
 public struct Req : IEquatable<Req>
 {
     public ulong C, K, E0, E1;
+    // (varia: the Varia Suit, Gate 5's lava harmless; cursed: how many of the Trial Master's three cursed equipment pieces)
     public const int DJUMP = 0, ADASH = 1, GDASH = 2, HIJUMP = 3, MARIO = 4, LINK = 5, BELMONT = 6, MEGAMAN = 7, SAMUS = 8,
-        GAMEJ = 9, GAMEC = 10, N = 11;
+        GAMEJ = 9, GAMEC = 10, VARIA = 11, CURSED = 12, N = 13;
     public static readonly string[] Names = { "djump", "adash", "gdash", "hijump", "mario", "link", "belmont", "megaman",
-        "samus", "gamej", "gamec" };
+        "samus", "gamej", "gamec", "varia", "cursed" };
     public int Get(int i) { return (int)((C >> (i * 4)) & 15); }
     public Req With(int i, int n)
     {
@@ -59,7 +60,7 @@ public struct Req : IEquatable<Req>
         for (int i = 0; i < N; i++)
         {
             int n = Get(i);
-            if (n == 1 && (i == DJUMP || i == ADASH || i == GDASH || i == MARIO)) p.Add(Names[i]);
+            if (n == 1 && (i == DJUMP || i == ADASH || i == GDASH || i == MARIO || i == VARIA)) p.Add(Names[i]);
             else if (n > 0) p.Add(Names[i] + ":" + n);
         }
         for (int k = 0; k < 64; k++) if ((K & (1UL << k)) != 0) p.Add("key:" + k);
@@ -196,8 +197,9 @@ class Mask
         return m;
     }
 
-    // calls set(x, y) for every room pixel the instance covers (its mask at its place, scale and angle)
-    public void Stamp(double x, double y, double xs, double ys, double ang, Action<int, int> set)
+    // calls set(x, y) for every room pixel the instance covers (its mask at its place, scale and angle); clip: only those
+    // in it (left, top, right, bottom)
+    public void Stamp(double x, double y, double xs, double ys, double ang, Action<int, int> set, int[] clip = null)
     {
         if (xs == 0 || ys == 0) return;
         double a = ang * Math.PI / 180, ca = Math.Cos(a), sa = Math.Sin(a);
@@ -210,6 +212,7 @@ class Mask
             minx = Math.Min(minx, x + sx); maxx = Math.Max(maxx, x + sx); miny = Math.Min(miny, y + sy); maxy = Math.Max(maxy, y + sy);
         }
         int x0 = (int)Math.Floor(minx), x1 = (int)Math.Ceiling(maxx), y0 = (int)Math.Floor(miny), y1 = (int)Math.Ceiling(maxy);
+        if (clip != null) { x0 = Math.Max(x0, clip[0]); y0 = Math.Max(y0, clip[1]); x1 = Math.Min(x1, clip[2] + 1); y1 = Math.Min(y1, clip[3] + 1); }
         for (int py = y0; py < y1; py++)
             for (int px = x0; px < x1; px++)
             {
@@ -292,14 +295,14 @@ class Shape
     public int X0, Y0, X1, Y1;
     public HashSet<long> Px = new HashSet<long>();
     public static long Key(int x, int y) { return ((long)x << 32) ^ (uint)y; }
-    public Shape(Mask m, double x, double y, double xs, double ys, double a)
+    public Shape(Mask m, double x, double y, double xs, double ys, double a, int[] clip = null)
     {
         X0 = int.MaxValue; Y0 = int.MaxValue; X1 = int.MinValue; Y1 = int.MinValue;
         m.Stamp(x, y, xs, ys, a, (px, py) =>
         {
             Px.Add(Key(px, py));
             if (px < X0) X0 = px; if (px > X1) X1 = px; if (py < Y0) Y0 = py; if (py > Y1) Y1 = py;
-        });
+        }, clip);
     }
     public bool Empty { get { return Px.Count == 0; } }
     public bool Hits(int x0, int y0, int x1, int y1)
@@ -370,7 +373,7 @@ class Loc { public int Type, Num; public Shape S; public string Label; }
 // a spot: somewhere whose reaching opens a way elsewhere (a colored switch the partner holds, a colored key): the room
 // file says what reaching it needs, and solve.py makes it the event <room>/<tag> that the barriers it opens need
 class Spot { public string Tag; public Shape S; }
-class Gate { public Shape S; public List<Req> Need; public string Name; public int Group; }   // Group: the room's gates by what opens them
+class Gate { public Shape S; public List<Req> Need; public string Name; public int Group; public bool Hazard; }   // Group: the room's gates by what opens them; Hazard: a hazard while shut, never solid (Gate 5's lava)
 class Spring { public Shape S; public bool Large; }
 
 // ---------------------------------------------------------------- the player (characterStepEvent at 30fps)
@@ -690,6 +693,9 @@ class Room
 {
     public RoomData Data;
     public Bits2D SolidC, SolidO, Plat, Haz, Water, GhostB;
+    // hazards something makes harmless (Gate 5's lava, with the Varia Suit): each also a gate (R.Gates) needing it, so a
+    // move with the gates open goes through it, one with them shut never touches it
+    public Bits2D HazV;
     public List<Gate> Gates = new List<Gate>();
     public Dictionary<string, int> GateGroupOf = new Dictionary<string, int>();
     public List<List<Req>> GroupNeed = new List<List<Req>>();
@@ -841,6 +847,9 @@ class Analyzer
         var d = R.Data;
         R.SolidC = new Bits2D(d.W, d.H); R.SolidO = new Bits2D(d.W, d.H); R.Plat = new Bits2D(d.W, d.H);
         R.Haz = new Bits2D(d.W, d.H); R.Water = new Bits2D(d.W, d.H); R.GhostB = new Bits2D(d.W, d.H);
+        R.HazV = new Bits2D(d.W, d.H);
+        // (the grids' extent: the room and Bits2D.M around it)
+        var grid = new[] { -Bits2D.M, -Bits2D.M, d.W + Bits2D.M - 1, d.H + Bits2D.M - 1 };
         var falling = new List<Loc>();
         var rippers = new List<int[]>();
         var rocks = new List<Shape>();
@@ -869,7 +878,7 @@ class Analyzer
             {
                 case 'S': m.Stamp(it.X, it.Y, it.XS, it.YS, it.A, (x, y) => { R.SolidC.Set(x, y); R.SolidO.Set(x, y); }); break;
                 case 'P': m.Stamp(it.X, it.Y, it.XS, it.YS, it.A, (x, y) => R.Plat.Set(x, y)); break;
-                case 'H': m.Stamp(it.X, it.Y, it.XS, it.YS, it.A, (x, y) => R.Haz.Set(x, y)); break;
+                case 'H': m.Stamp(it.X, it.Y, it.XS, it.YS, it.A, (x, y) => R.Haz.Set(x, y), grid); break;
                 case 'W': m.Stamp(it.X, it.Y, it.XS, it.YS, it.A, (x, y) => R.Water.Set(x, y)); break;
                 case 'G':
                     {
@@ -884,6 +893,22 @@ class Analyzer
                         g.Group = grp;
                         R.Gates.Add(g);
                         foreach (var k in g.S.Px) R.SolidC.Set((int)(k >> 32), (int)(uint)k);
+                        break;
+                    }
+                case 'v':
+                    {
+                        // (a hazard its requirement makes harmless: a gate that's never solid, a hazard while it's shut;
+                        // past 31 kinds of gate, a hazard for good. Only its part in the room's grid: Gate 5's heated
+                        // rooms are an invisible lava 16 times the room's size)
+                        var g = new Gate { S = new Shape(m, it.X, it.Y, it.XS, it.YS, it.A, grid), Need = Req.ParseAlts(it.F[0]), Name = it.F.Length > 1 ? it.F[1] : "", Hazard = true };
+                        if (g.S.Empty) break;
+                        string key = string.Join("|", g.Need.Select(q => q.ToString()));
+                        int grp;
+                        if (!R.GateGroupOf.TryGetValue(key, out grp)) { grp = R.GroupNeed.Count; R.GateGroupOf[key] = grp; R.GroupNeed.Add(g.Need); }
+                        if (grp >= 31) { R.Log.Add("more than 31 kinds of gate: " + g.Name + " is left a hazard"); foreach (var k2 in g.S.Px) R.Haz.Set((int)(k2 >> 32), (int)(uint)k2); break; }
+                        g.Group = grp;
+                        R.Gates.Add(g);
+                        foreach (var k in g.S.Px) R.HazV.Set((int)(k >> 32), (int)(uint)k);
                         break;
                     }
                 case 'J': R.Springs.Add(new Spring { S = new Shape(m, it.X, it.Y, it.XS, it.YS, it.A), Large = it.F[0] == "L" }); break;
@@ -1034,11 +1059,25 @@ class Analyzer
         return (R.Plat.Any && R.Plat.Row(y - 1, x - 7, x + 6) && !R.Plat.Box(x - 7, y - top, x + 6, y - 2)) || R.GhostB.Row(y - 1, x - 7, x + 6);
     }
     // (the game's hurt box is the sprite's mask: standing, from 46px above the feet; the Morph Ball's, 14px)
-    public bool HazardAt(int x, int y, int top) { return R.Haz.Any && R.Haz.Box(x - 7, y - (top < 40 ? 14 : Math.Max(top, 46)), x + 6, y - 2); }
+    // (open: with the gates open, so a hazard that's also a gate, Gate 5's lava, isn't one)
+    public bool HazardAt(int x, int y, int top, bool open = false)
+    {
+        int y0 = y - (top < 40 ? 14 : Math.Max(top, 46));
+        return (R.Haz.Any && R.Haz.Box(x - 7, y0, x + 6, y - 2)) || (!open && R.HazV.Any && R.HazV.Box(x - 7, y0, x + 6, y - 2));
+    }
 
     // Gates: bit set of the gates the body is in (open-only places). Cling: beside a wall in the air, where the game has
     // wall jumps (the player climbs any wall there by kicking off it): the side it's on (1 right, -1 left), else 0
     class Pos { public int X, Y; public int Gates; public int Cling; }
+
+    // the gates the player standing at x,y is in: a solid one in the body's box, a hazard one in the hurt box (HazardAt's)
+    int GatesAt(int x, int y, int top)
+    {
+        int gs = 0, h0 = y - (top < 40 ? 14 : Math.Max(top, 46));
+        foreach (var gt in R.Gates)
+            if (gt.Group < 31 && (gt.Hazard ? gt.S.Hits(x - 7, h0, x + 6, y - 2) : gt.S.Hits(x - 7, y - top, x + 6, y - 2))) gs |= 1 << gt.Group;
+        return gs;
+    }
 
     List<Pos> Standable(int top)
     {
@@ -1059,6 +1098,12 @@ class Analyzer
                 if (runC >= top - 1 && (occC[i] || (R.Plat.Any && R.Plat.Row(yy, x - 7, x + 6) && !R.Plat.Box(x - 7, y - top, x + 6, y - 2)) || R.GhostB.Row(yy, x - 7, x + 6)))
                 {
                     if (!HazardAt(x, y, top)) outp.Add(new Pos { X = x, Y = y });
+                    else if (R.HazV.Any && !HazardAt(x, y, top, true))
+                    {
+                        // (in a hazard its gate makes harmless: a place with that gate open)
+                        int gs = GatesAt(x, y, top);
+                        if (gs != 0) outp.Add(new Pos { X = x, Y = y, Gates = gs });
+                    }
                 }
                 else if (wallArea && top == 40 && runC >= top - 1)
                 {
@@ -1067,10 +1112,9 @@ class Analyzer
                 }
                 else if (R.Gates.Count > 0 && runO >= top - 1 && (occO[i] || (R.Plat.Any && R.Plat.Row(yy, x - 7, x + 6) && !R.Plat.Box(x - 7, y - top, x + 6, y - 2)) || R.GhostB.Row(yy, x - 7, x + 6)))
                 {
-                    if (!HazardAt(x, y, top))
+                    if (!HazardAt(x, y, top, true))
                     {
-                        int gs = 0;
-                        foreach (var gt in R.Gates) if (gt.Group < 31 && gt.S.Hits(x - 7, y - top, x + 6, y - 2)) gs |= 1 << gt.Group;
+                        int gs = GatesAt(x, y, top);
                         if (gs != 0) outp.Add(new Pos { X = x, Y = y, Gates = gs });
                     }
                 }
@@ -1152,6 +1196,7 @@ class Analyzer
                 case "oCh18BustBlock": what = "the breakable block"; break;
                 case "oBreakableExplodeWall": case "oBreakableWExp_Coded": case "oBreakRock": what = "the bombable wall"; break;
                 case "oEventBarrier": what = "the barrier"; break;
+                case "oMetLava": what = "the lava"; break;
                 default: what = "the " + gt.Name; break;
             }
             string s = what + " at " + gt.S.X0 + "," + gt.S.Y0;
@@ -1935,12 +1980,15 @@ class Analyzer
             int bx0, by0, bx1, by1;
             if (s.OnGround) StandBox(s.x, s.y, out bx0, out by0, out bx1, out by1); else AirBox(s.x, s.y, out bx0, out by0, out bx1, out by1);
             if (s.morph) by0 = s.y - 12;
-            if (HazardAt(s.x, s.y, s.top)) return res;
+            if (HazardAt(s.x, s.y, s.top, open)) return res;
             if (s.dead) return res;
             if (open && R.Gates.Count > 0)
             {
+                // (the gates gone through: a solid one where the body's been, a hazard one where its hurt box has)
                 int ax0 = Math.Min(px, s.x) - 7, ax1 = Math.Max(px, s.x) + 6, ay0 = Math.Min(py, s.y) - s.top, ay1 = Math.Max(py, s.y) - 2;
-                foreach (var gt in R.Gates) if (gt.Group < 31 && (res.Gates & (1 << gt.Group)) == 0 && gt.S.Hits(ax0, ay0, ax1, ay1)) res.Gates |= 1 << gt.Group;
+                int hy0 = Math.Min(py, s.y) - (s.top < 40 ? 14 : Math.Max(s.top, 46));
+                foreach (var gt in R.Gates)
+                    if (gt.Group < 31 && (res.Gates & (1 << gt.Group)) == 0 && gt.S.Hits(ax0, gt.Hazard ? hy0 : ay0, ax1, ay1)) res.Gates |= 1 << gt.Group;
             }
             for (int k = 0; k < R.Locs.Count; k++) if (R.Locs[k].S.Hits(bx0, by0, bx1, by1) && !res.Locs.Contains(k)) res.Locs.Add(k);
             for (int k = 0; k < R.Spots.Count; k++) if (R.Spots[k].S.Hits(bx0, by0, bx1, by1) && !res.Spots.Contains(k)) res.Spots.Add(k);
@@ -2313,8 +2361,8 @@ static class Program
             if (f[0] == "RBAUTO") { cur.RbAuto = true; continue; }
             // (a switch: SW, kept as w; a state's solid: T, its group's number in F[0]; water in one of the Water Palace's
             // levels: TW, kept as y; a floating platform: FP, kept as f; a fan: FN, kept as n, a switch's group's number
-            // in F[1])
-            var it = new Inst { K = f[0] == "SW" ? 'w' : f[0] == "KR" ? 'k' : f[0] == "PR" ? 'r' : f[0] == "TW" ? 'y' : f[0] == "FP" ? 'f' : f[0] == "SP" ? 's' : f[0] == "FN" ? 'n' : f[0][0],
+            // in F[1]; a hazard something makes harmless: HV, kept as v)
+            var it = new Inst { K = f[0] == "SW" ? 'w' : f[0] == "KR" ? 'k' : f[0] == "PR" ? 'r' : f[0] == "TW" ? 'y' : f[0] == "FP" ? 'f' : f[0] == "SP" ? 's' : f[0] == "FN" ? 'n' : f[0] == "HV" ? 'v' : f[0][0],
                 Spr = f[1], X = D(f[2]), Y = D(f[3]), XS = D(f[4]), YS = D(f[5]), A = D(f[6]), F = f.Skip(7).ToArray() };
             if (it.K == 'w' && it.F[0] == "water") { cur.Group("w3"); it.F = new[] { cur.Group("w1").ToString(), "water", it.F[1] }; }
             else if (it.K == 'T' || it.K == 'w' || it.K == 'U') it.F[0] = cur.Group(it.F[0]).ToString();
@@ -2331,7 +2379,7 @@ static class Program
         var rd = new RoomData { Name = "test", W = 2000, H = 400, Area = 1 };
         var room = new Room(rd);
         room.SolidC = new Bits2D(2000, 400); room.SolidO = room.SolidC; room.Plat = new Bits2D(2000, 400);
-        room.Haz = new Bits2D(2000, 400); room.Water = new Bits2D(2000, 400); room.GhostB = new Bits2D(2000, 400);
+        room.Haz = new Bits2D(2000, 400); room.Water = new Bits2D(2000, 400); room.GhostB = new Bits2D(2000, 400); room.HazV = new Bits2D(2000, 400);
         for (int x = -320; x < 2320; x++) for (int y = 300; y < 400; y++) room.SolidC.Set(x, y);
         var tests = new[] {
             new Prog { Name = "jump21", Ch = 0, Dir = 1, JumpAt = 0, JumpHold = 21, H1 = 0, H2 = 0, HDelay = 0 },
@@ -2421,6 +2469,7 @@ static class Program
                     if (room.Plat.Get(x, y)) c = unchecked((int)0xFF4060E0);
                     if (room.GhostB.Get(x, y)) c = unchecked((int)0xFF304890);
                     if (room.Haz.Get(x, y)) c = unchecked((int)0xFFE02020);
+                    else if (room.HazV.Get(x, y)) c = unchecked((int)0xFFE08830);
                     px[y * W + x] = c;
                 }
             Func<int, int> regColor = r => { uint h = (uint)(r * 2654435761u); return unchecked((int)(0xFF000000u | ((h & 0x7F7F7Fu) + 0x606060u))); };
@@ -2569,7 +2618,7 @@ static class Program
             try { if (rd.Groups.Count > 0) AnalyzeStates(room); else new Analyzer(room).Analyze(); }
             catch (Exception e) { room.Log.Add("failed: " + e); }
             // the grids aren't needed after the analysis
-            room.SolidC = room.SolidO = room.Plat = room.Haz = room.Water = room.GhostB = null;
+            room.SolidC = room.SolidO = room.Plat = room.Haz = room.Water = room.GhostB = room.HazV = null;
             // the room's file (its ways through, and how); the words aren't needed after it
             Dictionary<long, List<string>> cf;
             string file;
@@ -3252,7 +3301,7 @@ static class Program
                     parent.Edges.Add(new Edge { From = kv.Value + off[s], To = r2 + off[s2], L = new Req(), How = "wait at " + x + "," + y + " for an enemy's shot or a trap to hit a red or blue switch: [" + StateWords(rd, s2) + "]" });
                 }
             }
-        foreach (var sub in subs) sub.SolidC = sub.SolidO = sub.Plat = sub.Haz = sub.Water = sub.GhostB = null;
+        foreach (var sub in subs) sub.SolidC = sub.SolidO = sub.Plat = sub.Haz = sub.Water = sub.GhostB = sub.HazV = null;
     }
 
     static void AddExit(Room[] rooms, int[] baseOf, List<KeyValuePair<int, Req>>[] adj, int from, Room r, int k, Req l, List<Req> attack)

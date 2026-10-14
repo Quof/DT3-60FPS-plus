@@ -26,23 +26,23 @@ out 464,976   # to rSamus5_Lv2_U at 64,304; the player goes into it
 from in 64,160
   out 0,128     link:1 | belmont:1 | megaman:1 | samus:1
   out 464,128   link:1 | belmont:1 | megaman:1 | samus:1
-  out 0,976     never
-  out 464,976   never
+  out 0,976     link:1,varia | belmont:1,varia | megaman:1,varia | samus:1,varia
+  out 464,976   link:1,varia | belmont:1,varia | megaman:1,varia | samus:1,varia
 from in 416,160
   out 0,128     link:1 | belmont:1 | megaman:1 | samus:1
   out 464,128   link:1 | belmont:1 | megaman:1 | samus:1
-  out 0,976     never
-  out 464,976   never
+  out 0,976     link:1,varia | belmont:1,varia | megaman:1,varia | samus:1,varia
+  out 464,976   link:1,varia | belmont:1,varia | megaman:1,varia | samus:1,varia
 from in 64,1008
   out 0,128     never
   out 464,128   never
-  out 0,976     never
-  out 464,976   never
+  out 0,976     link:1,varia | belmont:1,varia | megaman:1,varia | samus:1,varia
+  out 464,976   link:1,varia | belmont:1,varia | megaman:1,varia | samus:1,varia
 from in 416,1008
   out 0,128     never
   out 464,128   never
-  out 0,976     never
-  out 464,976   never
+  out 0,976     link:1,varia | belmont:1,varia | megaman:1,varia | samus:1,varia
+  out 464,976   link:1,varia | belmont:1,varia | megaman:1,varia | samus:1,varia
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
@@ -118,6 +118,118 @@ how in 64,160 -> out 464,128: samus:1
       -> standing at x 378-449, y 161
    4. walk off the edge, holding right once in the air, from 378,161, through the Metroid door at 0,96, the Metroid door at 456,96, the Metroid door at 0,944, ...; touches it on the way   [samus:1]
       -> out 464,128
+how in 64,160 -> out 0,976: link:1,varia
+     coming in at 64,160
+   1. coming in: holding nothing, from 64,160; lands at 64,161
+      -> standing at x 31-102, y 161
+   2. walk off the edge, holding right once in the air, from 31,161; lands at 324,465
+      -> standing at x 250-409, y 450-497
+   3. walk off the edge, holding left once in the air, from 250,497, through the lava at 0,512; lands at 80,721   [varia]
+      -> standing at x 71-118, y 721 (where a gate is)
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 71,721, through the lava at 0,512; lands at 366,1009   [varia]
+      -> standing at x 31-449, y 1009 (where a gate is)
+   5. walk from 31,1009 to 30,1009 into the Metroid door at 0,944, the lava at 0,512   [link:1,varia]
+      -> standing at x 0-30, y 1009 (where a gate is)
+   6. standing at 0,1009, goes into it
+      -> out 0,976
+how in 64,160 -> out 0,976: belmont:1,varia
+     coming in at 64,160
+   1. coming in: holding nothing, from 64,160; lands at 64,161
+      -> standing at x 31-102, y 161
+   2. walk off the edge, holding right once in the air, from 31,161; lands at 324,465
+      -> standing at x 250-409, y 450-497
+   3. walk off the edge, holding left once in the air, from 250,497, through the lava at 0,512; lands at 80,721   [varia]
+      -> standing at x 71-118, y 721 (where a gate is)
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 71,721, through the lava at 0,512; lands at 366,1009   [varia]
+      -> standing at x 31-449, y 1009 (where a gate is)
+   5. walk from 31,1009 to 30,1009 into the Metroid door at 0,944, the lava at 0,512   [belmont:1,varia]
+      -> standing at x 0-30, y 1009 (where a gate is)
+   6. standing at 0,1009, goes into it
+      -> out 0,976
+how in 64,160 -> out 0,976: megaman:1,varia
+     coming in at 64,160
+   1. coming in: holding nothing, from 64,160; lands at 64,161
+      -> standing at x 31-102, y 161
+   2. walk off the edge, holding right once in the air, from 31,161; lands at 324,465
+      -> standing at x 250-409, y 450-497
+   3. walk off the edge, holding left once in the air, from 250,497, through the lava at 0,512; lands at 80,721   [varia]
+      -> standing at x 71-118, y 721 (where a gate is)
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 71,721, through the lava at 0,512; lands at 366,1009   [varia]
+      -> standing at x 31-449, y 1009 (where a gate is)
+   5. walk from 31,1009 to 30,1009 into the Metroid door at 0,944, the lava at 0,512   [megaman:1,varia]
+      -> standing at x 0-30, y 1009 (where a gate is)
+   6. standing at 0,1009, goes into it
+      -> out 0,976
+how in 64,160 -> out 0,976: samus:1,varia
+     coming in at 64,160
+   1. coming in: holding nothing, from 64,160; lands at 64,161
+      -> standing at x 31-102, y 161
+   2. walk off the edge, holding right once in the air, from 31,161; lands at 324,465
+      -> standing at x 250-409, y 450-497
+   3. walk off the edge, holding left once in the air, from 250,497, through the lava at 0,512; lands at 80,721   [varia]
+      -> standing at x 71-118, y 721 (where a gate is)
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 71,721, through the lava at 0,512; lands at 366,1009   [varia]
+      -> standing at x 31-449, y 1009 (where a gate is)
+   5. walk from 31,1009 to 30,1009 into the Metroid door at 0,944, the lava at 0,512   [samus:1,varia]
+      -> standing at x 0-30, y 1009 (where a gate is)
+   6. standing at 0,1009, goes into it
+      -> out 0,976
+how in 64,160 -> out 464,976: link:1,varia
+     coming in at 64,160
+   1. coming in: holding nothing, from 64,160; lands at 64,161
+      -> standing at x 31-102, y 161
+   2. walk off the edge, holding right once in the air, from 31,161; lands at 324,465
+      -> standing at x 250-409, y 450-497
+   3. walk off the edge, holding left once in the air, from 250,497, through the lava at 0,512; lands at 80,721   [varia]
+      -> standing at x 71-118, y 721 (where a gate is)
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 71,721, through the lava at 0,512; lands at 366,1009   [varia]
+      -> standing at x 31-449, y 1009 (where a gate is)
+   5. walk from 31,1009 to 30,1009 into the Metroid door at 0,944, the lava at 0,512   [link:1,varia]
+      -> standing at x 0-30, y 1009 (where a gate is)
+   6. walk off the edge, holding right once in the air, from 22,1009, through the Metroid door at 0,96, the Metroid door at 456,96, the Metroid door at 0,944, ...; touches it on the way   [link:1,varia]
+      -> out 464,976
+how in 64,160 -> out 464,976: belmont:1,varia
+     coming in at 64,160
+   1. coming in: holding nothing, from 64,160; lands at 64,161
+      -> standing at x 31-102, y 161
+   2. walk off the edge, holding right once in the air, from 31,161; lands at 324,465
+      -> standing at x 250-409, y 450-497
+   3. walk off the edge, holding left once in the air, from 250,497, through the lava at 0,512; lands at 80,721   [varia]
+      -> standing at x 71-118, y 721 (where a gate is)
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 71,721, through the lava at 0,512; lands at 366,1009   [varia]
+      -> standing at x 31-449, y 1009 (where a gate is)
+   5. walk from 31,1009 to 30,1009 into the Metroid door at 0,944, the lava at 0,512   [belmont:1,varia]
+      -> standing at x 0-30, y 1009 (where a gate is)
+   6. walk off the edge, holding right once in the air, from 22,1009, through the Metroid door at 0,96, the Metroid door at 456,96, the Metroid door at 0,944, ...; touches it on the way   [belmont:1,varia]
+      -> out 464,976
+how in 64,160 -> out 464,976: megaman:1,varia
+     coming in at 64,160
+   1. coming in: holding nothing, from 64,160; lands at 64,161
+      -> standing at x 31-102, y 161
+   2. walk off the edge, holding right once in the air, from 31,161; lands at 324,465
+      -> standing at x 250-409, y 450-497
+   3. walk off the edge, holding left once in the air, from 250,497, through the lava at 0,512; lands at 80,721   [varia]
+      -> standing at x 71-118, y 721 (where a gate is)
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 71,721, through the lava at 0,512; lands at 366,1009   [varia]
+      -> standing at x 31-449, y 1009 (where a gate is)
+   5. walk from 31,1009 to 30,1009 into the Metroid door at 0,944, the lava at 0,512   [megaman:1,varia]
+      -> standing at x 0-30, y 1009 (where a gate is)
+   6. walk off the edge, holding right once in the air, from 22,1009, through the Metroid door at 0,96, the Metroid door at 456,96, the Metroid door at 0,944, ...; touches it on the way   [megaman:1,varia]
+      -> out 464,976
+how in 64,160 -> out 464,976: samus:1,varia
+     coming in at 64,160
+   1. coming in: holding nothing, from 64,160; lands at 64,161
+      -> standing at x 31-102, y 161
+   2. walk off the edge, holding right once in the air, from 31,161; lands at 324,465
+      -> standing at x 250-409, y 450-497
+   3. walk off the edge, holding left once in the air, from 250,497, through the lava at 0,512; lands at 80,721   [varia]
+      -> standing at x 71-118, y 721 (where a gate is)
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 71,721, through the lava at 0,512; lands at 366,1009   [varia]
+      -> standing at x 31-449, y 1009 (where a gate is)
+   5. walk from 31,1009 to 30,1009 into the Metroid door at 0,944, the lava at 0,512   [samus:1,varia]
+      -> standing at x 0-30, y 1009 (where a gate is)
+   6. walk off the edge, holding right once in the air, from 22,1009, through the Metroid door at 0,96, the Metroid door at 456,96, the Metroid door at 0,944, ...; touches it on the way   [samus:1,varia]
+      -> out 464,976
 how in 416,160 -> out 0,128: link:1
      coming in at 416,160
    1. coming in: holding nothing, from 416,160; lands at 416,161
@@ -182,3 +294,243 @@ how in 416,160 -> out 464,128: samus:1
       -> standing at x 378-449, y 161
    2. walk off the edge, holding right once in the air, from 378,161, through the Metroid door at 0,96, the Metroid door at 456,96, the Metroid door at 0,944, ...; touches it on the way   [samus:1]
       -> out 464,128
+how in 416,160 -> out 0,976: link:1,varia
+     coming in at 416,160
+   1. coming in: holding nothing, from 416,160; lands at 416,161
+      -> standing at x 378-449, y 161
+   2. walk off the edge, holding left once in the air, from 378,161; lands at 216,354
+      -> standing at x 119-246, y 337-369
+   3. walk off the edge, holding right, then left after 1 ticks in the air, from 119,337, through the lava at 0,512; lands at 88,721   [varia]
+      -> standing at x 71-118, y 721 (where a gate is)
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 71,721, through the lava at 0,512; lands at 366,1009   [varia]
+      -> standing at x 31-449, y 1009 (where a gate is)
+   5. walk from 31,1009 to 30,1009 into the Metroid door at 0,944, the lava at 0,512   [link:1,varia]
+      -> standing at x 0-30, y 1009 (where a gate is)
+   6. standing at 0,1009, goes into it
+      -> out 0,976
+how in 416,160 -> out 0,976: belmont:1,varia
+     coming in at 416,160
+   1. coming in: holding nothing, from 416,160; lands at 416,161
+      -> standing at x 378-449, y 161
+   2. walk off the edge, holding left once in the air, from 378,161; lands at 216,354
+      -> standing at x 119-246, y 337-369
+   3. walk off the edge, holding right, then left after 1 ticks in the air, from 119,337, through the lava at 0,512; lands at 88,721   [varia]
+      -> standing at x 71-118, y 721 (where a gate is)
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 71,721, through the lava at 0,512; lands at 366,1009   [varia]
+      -> standing at x 31-449, y 1009 (where a gate is)
+   5. walk from 31,1009 to 30,1009 into the Metroid door at 0,944, the lava at 0,512   [belmont:1,varia]
+      -> standing at x 0-30, y 1009 (where a gate is)
+   6. standing at 0,1009, goes into it
+      -> out 0,976
+how in 416,160 -> out 0,976: megaman:1,varia
+     coming in at 416,160
+   1. coming in: holding nothing, from 416,160; lands at 416,161
+      -> standing at x 378-449, y 161
+   2. walk off the edge, holding left once in the air, from 378,161; lands at 216,354
+      -> standing at x 119-246, y 337-369
+   3. walk off the edge, holding right, then left after 1 ticks in the air, from 119,337, through the lava at 0,512; lands at 88,721   [varia]
+      -> standing at x 71-118, y 721 (where a gate is)
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 71,721, through the lava at 0,512; lands at 366,1009   [varia]
+      -> standing at x 31-449, y 1009 (where a gate is)
+   5. walk from 31,1009 to 30,1009 into the Metroid door at 0,944, the lava at 0,512   [megaman:1,varia]
+      -> standing at x 0-30, y 1009 (where a gate is)
+   6. standing at 0,1009, goes into it
+      -> out 0,976
+how in 416,160 -> out 0,976: samus:1,varia
+     coming in at 416,160
+   1. coming in: holding nothing, from 416,160; lands at 416,161
+      -> standing at x 378-449, y 161
+   2. walk off the edge, holding left once in the air, from 378,161; lands at 216,354
+      -> standing at x 119-246, y 337-369
+   3. walk off the edge, holding right, then left after 1 ticks in the air, from 119,337, through the lava at 0,512; lands at 88,721   [varia]
+      -> standing at x 71-118, y 721 (where a gate is)
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 71,721, through the lava at 0,512; lands at 366,1009   [varia]
+      -> standing at x 31-449, y 1009 (where a gate is)
+   5. walk from 31,1009 to 30,1009 into the Metroid door at 0,944, the lava at 0,512   [samus:1,varia]
+      -> standing at x 0-30, y 1009 (where a gate is)
+   6. standing at 0,1009, goes into it
+      -> out 0,976
+how in 416,160 -> out 464,976: link:1,varia
+     coming in at 416,160
+   1. coming in: holding nothing, from 416,160; lands at 416,161
+      -> standing at x 378-449, y 161
+   2. walk off the edge, holding left once in the air, from 378,161; lands at 216,354
+      -> standing at x 119-246, y 337-369
+   3. walk off the edge, holding right, then left after 1 ticks in the air, from 119,337, through the lava at 0,512; lands at 88,721   [varia]
+      -> standing at x 71-118, y 721 (where a gate is)
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 71,721, through the lava at 0,512; lands at 366,1009   [varia]
+      -> standing at x 31-449, y 1009 (where a gate is)
+   5. walk from 31,1009 to 30,1009 into the Metroid door at 0,944, the lava at 0,512   [link:1,varia]
+      -> standing at x 0-30, y 1009 (where a gate is)
+   6. walk off the edge, holding right once in the air, from 22,1009, through the Metroid door at 0,96, the Metroid door at 456,96, the Metroid door at 0,944, ...; touches it on the way   [link:1,varia]
+      -> out 464,976
+how in 416,160 -> out 464,976: belmont:1,varia
+     coming in at 416,160
+   1. coming in: holding nothing, from 416,160; lands at 416,161
+      -> standing at x 378-449, y 161
+   2. walk off the edge, holding left once in the air, from 378,161; lands at 216,354
+      -> standing at x 119-246, y 337-369
+   3. walk off the edge, holding right, then left after 1 ticks in the air, from 119,337, through the lava at 0,512; lands at 88,721   [varia]
+      -> standing at x 71-118, y 721 (where a gate is)
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 71,721, through the lava at 0,512; lands at 366,1009   [varia]
+      -> standing at x 31-449, y 1009 (where a gate is)
+   5. walk from 31,1009 to 30,1009 into the Metroid door at 0,944, the lava at 0,512   [belmont:1,varia]
+      -> standing at x 0-30, y 1009 (where a gate is)
+   6. walk off the edge, holding right once in the air, from 22,1009, through the Metroid door at 0,96, the Metroid door at 456,96, the Metroid door at 0,944, ...; touches it on the way   [belmont:1,varia]
+      -> out 464,976
+how in 416,160 -> out 464,976: megaman:1,varia
+     coming in at 416,160
+   1. coming in: holding nothing, from 416,160; lands at 416,161
+      -> standing at x 378-449, y 161
+   2. walk off the edge, holding left once in the air, from 378,161; lands at 216,354
+      -> standing at x 119-246, y 337-369
+   3. walk off the edge, holding right, then left after 1 ticks in the air, from 119,337, through the lava at 0,512; lands at 88,721   [varia]
+      -> standing at x 71-118, y 721 (where a gate is)
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 71,721, through the lava at 0,512; lands at 366,1009   [varia]
+      -> standing at x 31-449, y 1009 (where a gate is)
+   5. walk from 31,1009 to 30,1009 into the Metroid door at 0,944, the lava at 0,512   [megaman:1,varia]
+      -> standing at x 0-30, y 1009 (where a gate is)
+   6. walk off the edge, holding right once in the air, from 22,1009, through the Metroid door at 0,96, the Metroid door at 456,96, the Metroid door at 0,944, ...; touches it on the way   [megaman:1,varia]
+      -> out 464,976
+how in 416,160 -> out 464,976: samus:1,varia
+     coming in at 416,160
+   1. coming in: holding nothing, from 416,160; lands at 416,161
+      -> standing at x 378-449, y 161
+   2. walk off the edge, holding left once in the air, from 378,161; lands at 216,354
+      -> standing at x 119-246, y 337-369
+   3. walk off the edge, holding right, then left after 1 ticks in the air, from 119,337, through the lava at 0,512; lands at 88,721   [varia]
+      -> standing at x 71-118, y 721 (where a gate is)
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 71,721, through the lava at 0,512; lands at 366,1009   [varia]
+      -> standing at x 31-449, y 1009 (where a gate is)
+   5. walk from 31,1009 to 30,1009 into the Metroid door at 0,944, the lava at 0,512   [samus:1,varia]
+      -> standing at x 0-30, y 1009 (where a gate is)
+   6. walk off the edge, holding right once in the air, from 22,1009, through the Metroid door at 0,96, the Metroid door at 456,96, the Metroid door at 0,944, ...; touches it on the way   [samus:1,varia]
+      -> out 464,976
+how in 64,1008 -> out 0,976: link:1,varia
+     coming in at 64,1008
+   1. coming in: holding nothing, from 64,1008, through the lava at 0,512; lands at 64,1009   [varia]
+      -> standing at x 31-449, y 1009 (where a gate is)
+   2. walk from 31,1009 to 30,1009 into the Metroid door at 0,944, the lava at 0,512   [link:1,varia]
+      -> standing at x 0-30, y 1009 (where a gate is)
+   3. standing at 0,1009, goes into it
+      -> out 0,976
+how in 64,1008 -> out 0,976: belmont:1,varia
+     coming in at 64,1008
+   1. coming in: holding nothing, from 64,1008, through the lava at 0,512; lands at 64,1009   [varia]
+      -> standing at x 31-449, y 1009 (where a gate is)
+   2. walk from 31,1009 to 30,1009 into the Metroid door at 0,944, the lava at 0,512   [belmont:1,varia]
+      -> standing at x 0-30, y 1009 (where a gate is)
+   3. standing at 0,1009, goes into it
+      -> out 0,976
+how in 64,1008 -> out 0,976: megaman:1,varia
+     coming in at 64,1008
+   1. coming in: holding nothing, from 64,1008, through the lava at 0,512; lands at 64,1009   [varia]
+      -> standing at x 31-449, y 1009 (where a gate is)
+   2. walk from 31,1009 to 30,1009 into the Metroid door at 0,944, the lava at 0,512   [megaman:1,varia]
+      -> standing at x 0-30, y 1009 (where a gate is)
+   3. standing at 0,1009, goes into it
+      -> out 0,976
+how in 64,1008 -> out 0,976: samus:1,varia
+     coming in at 64,1008
+   1. coming in: holding nothing, from 64,1008, through the lava at 0,512; lands at 64,1009   [varia]
+      -> standing at x 31-449, y 1009 (where a gate is)
+   2. walk from 31,1009 to 30,1009 into the Metroid door at 0,944, the lava at 0,512   [samus:1,varia]
+      -> standing at x 0-30, y 1009 (where a gate is)
+   3. standing at 0,1009, goes into it
+      -> out 0,976
+how in 64,1008 -> out 464,976: link:1,varia
+     coming in at 64,1008
+   1. coming in: holding nothing, from 64,1008, through the lava at 0,512; lands at 64,1009   [varia]
+      -> standing at x 31-449, y 1009 (where a gate is)
+   2. walk from 31,1009 to 30,1009 into the Metroid door at 0,944, the lava at 0,512   [link:1,varia]
+      -> standing at x 0-30, y 1009 (where a gate is)
+   3. walk off the edge, holding right once in the air, from 22,1009, through the Metroid door at 0,96, the Metroid door at 456,96, the Metroid door at 0,944, ...; touches it on the way   [link:1,varia]
+      -> out 464,976
+how in 64,1008 -> out 464,976: belmont:1,varia
+     coming in at 64,1008
+   1. coming in: holding nothing, from 64,1008, through the lava at 0,512; lands at 64,1009   [varia]
+      -> standing at x 31-449, y 1009 (where a gate is)
+   2. walk from 31,1009 to 30,1009 into the Metroid door at 0,944, the lava at 0,512   [belmont:1,varia]
+      -> standing at x 0-30, y 1009 (where a gate is)
+   3. walk off the edge, holding right once in the air, from 22,1009, through the Metroid door at 0,96, the Metroid door at 456,96, the Metroid door at 0,944, ...; touches it on the way   [belmont:1,varia]
+      -> out 464,976
+how in 64,1008 -> out 464,976: megaman:1,varia
+     coming in at 64,1008
+   1. coming in: holding nothing, from 64,1008, through the lava at 0,512; lands at 64,1009   [varia]
+      -> standing at x 31-449, y 1009 (where a gate is)
+   2. walk from 31,1009 to 30,1009 into the Metroid door at 0,944, the lava at 0,512   [megaman:1,varia]
+      -> standing at x 0-30, y 1009 (where a gate is)
+   3. walk off the edge, holding right once in the air, from 22,1009, through the Metroid door at 0,96, the Metroid door at 456,96, the Metroid door at 0,944, ...; touches it on the way   [megaman:1,varia]
+      -> out 464,976
+how in 64,1008 -> out 464,976: samus:1,varia
+     coming in at 64,1008
+   1. coming in: holding nothing, from 64,1008, through the lava at 0,512; lands at 64,1009   [varia]
+      -> standing at x 31-449, y 1009 (where a gate is)
+   2. walk from 31,1009 to 30,1009 into the Metroid door at 0,944, the lava at 0,512   [samus:1,varia]
+      -> standing at x 0-30, y 1009 (where a gate is)
+   3. walk off the edge, holding right once in the air, from 22,1009, through the Metroid door at 0,96, the Metroid door at 456,96, the Metroid door at 0,944, ...; touches it on the way   [samus:1,varia]
+      -> out 464,976
+how in 416,1008 -> out 0,976: link:1,varia
+     coming in at 416,1008
+   1. coming in: holding nothing, from 416,1008, through the lava at 0,512; lands at 416,1009   [varia]
+      -> standing at x 31-449, y 1009 (where a gate is)
+   2. walk from 31,1009 to 30,1009 into the Metroid door at 0,944, the lava at 0,512   [link:1,varia]
+      -> standing at x 0-30, y 1009 (where a gate is)
+   3. standing at 0,1009, goes into it
+      -> out 0,976
+how in 416,1008 -> out 0,976: belmont:1,varia
+     coming in at 416,1008
+   1. coming in: holding nothing, from 416,1008, through the lava at 0,512; lands at 416,1009   [varia]
+      -> standing at x 31-449, y 1009 (where a gate is)
+   2. walk from 31,1009 to 30,1009 into the Metroid door at 0,944, the lava at 0,512   [belmont:1,varia]
+      -> standing at x 0-30, y 1009 (where a gate is)
+   3. standing at 0,1009, goes into it
+      -> out 0,976
+how in 416,1008 -> out 0,976: megaman:1,varia
+     coming in at 416,1008
+   1. coming in: holding nothing, from 416,1008, through the lava at 0,512; lands at 416,1009   [varia]
+      -> standing at x 31-449, y 1009 (where a gate is)
+   2. walk from 31,1009 to 30,1009 into the Metroid door at 0,944, the lava at 0,512   [megaman:1,varia]
+      -> standing at x 0-30, y 1009 (where a gate is)
+   3. standing at 0,1009, goes into it
+      -> out 0,976
+how in 416,1008 -> out 0,976: samus:1,varia
+     coming in at 416,1008
+   1. coming in: holding nothing, from 416,1008, through the lava at 0,512; lands at 416,1009   [varia]
+      -> standing at x 31-449, y 1009 (where a gate is)
+   2. walk from 31,1009 to 30,1009 into the Metroid door at 0,944, the lava at 0,512   [samus:1,varia]
+      -> standing at x 0-30, y 1009 (where a gate is)
+   3. standing at 0,1009, goes into it
+      -> out 0,976
+how in 416,1008 -> out 464,976: link:1,varia
+     coming in at 416,1008
+   1. coming in: holding nothing, from 416,1008, through the lava at 0,512; lands at 416,1009   [varia]
+      -> standing at x 31-449, y 1009 (where a gate is)
+   2. walk from 31,1009 to 30,1009 into the Metroid door at 0,944, the lava at 0,512   [link:1,varia]
+      -> standing at x 0-30, y 1009 (where a gate is)
+   3. walk off the edge, holding right once in the air, from 22,1009, through the Metroid door at 0,96, the Metroid door at 456,96, the Metroid door at 0,944, ...; touches it on the way   [link:1,varia]
+      -> out 464,976
+how in 416,1008 -> out 464,976: belmont:1,varia
+     coming in at 416,1008
+   1. coming in: holding nothing, from 416,1008, through the lava at 0,512; lands at 416,1009   [varia]
+      -> standing at x 31-449, y 1009 (where a gate is)
+   2. walk from 31,1009 to 30,1009 into the Metroid door at 0,944, the lava at 0,512   [belmont:1,varia]
+      -> standing at x 0-30, y 1009 (where a gate is)
+   3. walk off the edge, holding right once in the air, from 22,1009, through the Metroid door at 0,96, the Metroid door at 456,96, the Metroid door at 0,944, ...; touches it on the way   [belmont:1,varia]
+      -> out 464,976
+how in 416,1008 -> out 464,976: megaman:1,varia
+     coming in at 416,1008
+   1. coming in: holding nothing, from 416,1008, through the lava at 0,512; lands at 416,1009   [varia]
+      -> standing at x 31-449, y 1009 (where a gate is)
+   2. walk from 31,1009 to 30,1009 into the Metroid door at 0,944, the lava at 0,512   [megaman:1,varia]
+      -> standing at x 0-30, y 1009 (where a gate is)
+   3. walk off the edge, holding right once in the air, from 22,1009, through the Metroid door at 0,96, the Metroid door at 456,96, the Metroid door at 0,944, ...; touches it on the way   [megaman:1,varia]
+      -> out 464,976
+how in 416,1008 -> out 464,976: samus:1,varia
+     coming in at 416,1008
+   1. coming in: holding nothing, from 416,1008, through the lava at 0,512; lands at 416,1009   [varia]
+      -> standing at x 31-449, y 1009 (where a gate is)
+   2. walk from 31,1009 to 30,1009 into the Metroid door at 0,944, the lava at 0,512   [samus:1,varia]
+      -> standing at x 0-30, y 1009 (where a gate is)
+   3. walk off the edge, holding right once in the air, from 22,1009, through the Metroid door at 0,96, the Metroid door at 456,96, the Metroid door at 0,944, ...; touches it on the way   [samus:1,varia]
+      -> out 464,976

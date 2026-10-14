@@ -153,8 +153,9 @@ for(tPlaced=0;tPlaced<tProgN;tPlaced+=1)
   //what it opens: the next layer
   if rndGenMark(tCur+1)>0 {tCur+=1}
 }
-//the other items, at random in the locations left. The cursed equipment (10-12: the Trial Master's trials need all three
-//on) first, each at a free place that isn't a trial's (rndLocTrial), so the trials can always be done
+//the other items, at random in the locations left. (The cursed equipment, 10-12, which the Trial Master's trials need
+//all three of on, is a progression item, placed above with the logic, which keeps it off the trials' places; the loop
+//below, which puts any not placed yet at free places that aren't a trial's, rndLocTrial, finds none)
 tFreeN=0
 for(i=0;i<N;i+=1) {if tFill[i]<0 {tFree[tFreeN]=i; tFreeN+=1}}
 for(i=tFreeN-1;i>0;i-=1) {j=irandom(i); k=tFree[i]; tFree[i]=tFree[j]; tFree[j]=k}

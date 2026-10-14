@@ -39,26 +39,30 @@ KEEP_TYPES = {15}
 
 # item kinds (the numbers the mod's scripts use)
 IK = dict(HP=1, MONEY=2, EQUIP=3, AQ=4, HE=5, MP=6, GP=7, AU=8, WB=9, WL=10, AP=11, LB=12, MB=13, KEY=14, HC=15, XF=16,
-          XC=17, XS=18, JUMP=19, GDASH=20, ADASH=21, DJUMP=22, HIJUMP=23, SET=24)
+          XC=17, XS=18, JUMP=19, GDASH=20, ADASH=21, DJUMP=22, HIJUMP=23, SET=24, VARIA=25)
 LT_ITEM = {1: "HP", 3: "AQ", 4: "HE", 5: "MP", 6: "GP", 7: "AU", 8: "WB", 10: "AP", 11: "LB", 12: "MB", 13: "KEY",
            14: "HC", 15: "XF", 16: "XC", 17: "XS"}
 
 # progression: the items the logic counts (their index: the mod's rndItemProg, and the logic's numbers in rndData; a
 # key is 20 + its door's objectNum). jump: had from the start (the new game gives it). mario: the Mario Ability Set
-# (hasAbilToken[0]: jumping on Mario enemies, hitting blocks from below)
-PROG = ["jump", "gdash", "adash", "djump", "hijump", "mario", "link", "belmont", "megaman", "samus", "gamej", "gamec", "keys"]
+# (hasAbilToken[0]: jumping on Mario enemies, hitting blocks from below). varia: the Varia Suit (Gate 5's lava harmless:
+# the mod's oMetLava). cursed: the Trial Master's three cursed equipment pieces (equipment 10-12), which the trials need on
+PROG = ["jump", "gdash", "adash", "djump", "hijump", "mario", "link", "belmont", "megaman", "samus", "gamej", "gamec",
+        "varia", "cursed", "keys"]
 KEY_BASE = 20
+VARIA_IX, CURSED_IX = 12, 13
+CURSED = (10, 11, 12)
 # how many of each there are. The ability sets' items are progressive: each one is the set's next level (hasAbilToken 2,
 # 3...): Link and Belmont 3 (their three weapons; nothing uses a level 5), Mega Man 4 (the Strike Chain at 5), Samus 7
 # (Arm Cannon, Morph Ball, Charge Beam, Missiles, Spazer Beam, Bombs, Diffusion Missile), the Gate 6 sets 2
-PMAX = [0, 1, 1, 1, 2, 1, 3, 3, 4, 7, 2, 2, 17]
+PMAX = [0, 1, 1, 1, 2, 1, 3, 3, 4, 7, 2, 2, 1, 3, 17]
 # the abilities that aren't at any location in an endgame world (the story gave them): added to the pool (not jumping:
 # a new game starts with it)
 EXTRA = [("GDASH", 0), ("ADASH", 0), ("DJUMP", 0), ("HIJUMP", 0), ("HIJUMP", 0)] + \
-        [("SET", s) for s, n in enumerate(PMAX[5:12]) for _ in range(n)]
+        [("SET", s) for s, n in enumerate(PMAX[5:12]) for _ in range(n)] + [("VARIA", 0)]
 # the room logic's names for the progression items
 LOGIC_NAMES = {"gdash": 1, "adash": 2, "djump": 3, "hijump": 4, "mario": 5, "link": 6, "belmont": 7, "megaman": 8,
-               "samus": 9, "gamej": 10, "gamec": 11}
+               "samus": 9, "gamej": 10, "gamec": 11, "varia": VARIA_IX, "cursed": CURSED_IX}
 # a location that needs everything (the logic doesn't reach it, or it's a fight's or a trial's reward): it gets no
 # ability or key
 EVERYTHING = None
@@ -66,8 +70,8 @@ EVERYTHING = None
 # defense's rewards (rCCity_NorthA): need everything
 COND_GLOBALS = ("gameOptTowerDef",)
 # places a Trial Master trial gives (the pickup's creation code hides it till the trial's done; Central City South's
-# heart container, made by the room, comes with the 7th): no ability or key there, since the trials need the three
-# cursed equipment pieces on (equipment 10-12, shuffled as other items), and those don't go there either (rndGenerate)
+# heart container, which the mod makes, comes with the 7th): the trials need the three cursed equipment pieces on, so
+# these places need them (roomlogic\overrides.txt: cursed 3; the 7th trial, five of the six others done too)
 COND_TRIAL = "trialMasterQuest"
 TRIAL_HC = 7
 
@@ -87,12 +91,17 @@ COLL_PREFIX = ("//Randomizer: in a randomizer game, the location's item. Otherwi
 COLL_EXTRA = {"oDoorKey": " indexCheck=\"1\";"}
 # other events of the game's objects the mod has its own copy of: the game's own (read when the mod's built), with one
 # line changed (the original kept commented above it). The randomizer's boss fights have the boss gallery's flag on (so a
-# beaten boss goes to the gallery, where rndBossEnd takes over) without its timer
+# beaten boss goes to the gallery, where rndBossEnd takes over) without its timer. Gate 5's lava hurts till the story
+# gives the Varia Suit (gameProgress 2850); in a randomizer game, till the Varia Suit item's found (rndOwn[12])
 GAME_PATCHES = [
     ("oHUD", "Draw_0",
      "    if global.bBossGallery=1 and room!=rBossGallery //Display timer in boss gallery\n",
      "    //if global.bBossGallery=1 and room!=rBossGallery //Display timer in boss gallery\n"
      "    if global.bBossGallery=1 and room!=rBossGallery and global.rndFight<0 //Randomizer change: not in a randomizer boss fight\n"),
+    ("oMetLava", "Collision_oPlayer1",
+     "if global.gameProgress<=2850 {redDmgHit(0)}\n",
+     "//if global.gameProgress<=2850 {redDmgHit(0)}\n"
+     "if global.gameProgress<=2850 or (global.rndActive=1 and global.rndOwn[12]=0) {redDmgHit(0)} //Randomizer change: in a randomizer game, till the Varia Suit's found\n"),
 ]
 
 # bosses: the boss gallery's doors give each boss's type (oBossGalleryDoor's user event 0 sets its fight up), room and
@@ -268,9 +277,9 @@ def main():
         a = max((x for x in areas if x is not None), default=None) if None not in areas else None
         req = roomlogic.get((t, n), EVERYTHING)
         if t == 14 and n == TRIAL_HC: l["trial"] = 1
-        if (t == 14 and n in HC_BOSS) or l.get("trial") or l.get("cond"):
-            # a heart container a boss's fight gives, a trial's reward or tower defense's: no ability or key there, so a
-            # fight that can't be won yet never holds the game back
+        if (t == 14 and n in HC_BOSS) or l.get("cond"):
+            # a heart container a boss's fight gives, or tower defense's reward: no ability or key there, so a fight that
+            # can't be won yet never holds the game back
             req = EVERYTHING
         for r in l["rooms"]:
             if r in room_over: req = room_over[r]
@@ -495,13 +504,14 @@ AP_WEAPONS = ["Master Sword", "Bow & Arrow", "Fuse Bomb", "Hair Whip", "Dagger",
               "Gravity Well", "Arm Cannon", "Missile", "Morph Bomb"]
 AP_SETS = ["Mario Ability Set", "Progressive Link", "Progressive Belmont", "Progressive Mega Man", "Progressive Samus",
            "Progressive Jerry Game Powers", "Progressive Claire Game Powers"]
-# the progression items the logic counts, in PROG's order (keys aside)
-AP_PROG = ["Jump", "Dash", "Air Dash", "Double Jump", "Progressive High Jump Boots"] + AP_SETS
+# the progression items the logic counts, in PROG's order (keys aside; the cursed equipment is three items of its own,
+# CURSED_GEAR, which a trial's place needs)
+AP_PROG = ["Jump", "Dash", "Air Dash", "Double Jump", "Progressive High Jump Boots"] + AP_SETS + ["Varia Suit"]
 AP_SIMPLE = {"HP": "Heart Piece", "AQ": "Arrow Quiver", "HE": "Heart Energy Expansion", "MP": "Missile Expansion",
              "GP": "Game Power", "AU": "Air Upgrade", "WB": "Internetz Mod", "AP": "Skill Point", "LB": "Bomb Upgrade",
              "MB": "Morph Bomb Upgrade", "HC": "Heart Container", "XF": "Item Finder", "XC": "X-Special Charge",
              "XS": "Spring Ball", "GDASH": "Dash", "ADASH": "Air Dash", "DJUMP": "Double Jump",
-             "HIJUMP": "Progressive High Jump Boots"}
+             "HIJUMP": "Progressive High Jump Boots", "VARIA": "Varia Suit"}
 AP_CURSED = (10, 11, 12)  # the cursed equipment the Trial Master's trials need on
 
 
@@ -560,7 +570,7 @@ def ap_export(rows, items, door_order, doors, rarea, anames, out):
         raise SystemExit("no Archipelago name for item %s %s" % (kind, p))
 
     def classification(kind, p):
-        if kind in ("GDASH", "ADASH", "DJUMP", "HIJUMP", "SET", "KEY"): return 1           # progression
+        if kind in ("GDASH", "ADASH", "DJUMP", "HIJUMP", "SET", "KEY", "VARIA"): return 1  # progression
         if kind == "EQUIP" and p in AP_CURSED: return 1
         if kind == "MONEY": return 0                                                       # filler
         return 2                                                                           # useful
@@ -589,9 +599,11 @@ def ap_export(rows, items, door_order, doors, rarea, anames, out):
         where = anames.get(a) if a else None
         n = "%s - %s %d" % (where or r["rooms"][0], LT_LABEL[r["type"]], r["num"])
         if n in ap_locs: raise SystemExit("two locations named %r" % n)
-        need = None if r["req"] is EVERYTHING else [[(ap_need(ix), c) for ix, c in sorted(alt.items())] for alt in r["req"]]
+        # (the cursed equipment a trial's place needs: CURSED_GEAR, by its trial flag)
+        need = None if r["req"] is EVERYTHING else [[(ap_need(ix), c) for ix, c in sorted(alt.items()) if ix != CURSED_IX] for alt in r["req"]]
         ap_locs[n] = (AP_BASE + r["type"] * 1000 + r["num"], need, bool(r.get("trial")))
-    everything = [(AP_PROG[p], PMAX[p]) for p in range(1, 12) if PMAX[p]] + [(key_names[d], 1) for d in door_order]
+    everything = [(AP_PROG[p], PMAX[p]) for p in range(1, VARIA_IX + 1) if PMAX[p]] + [(c, 1) for c in cursed] + \
+                 [(key_names[d], 1) for d in door_order]
 
     L = ['"""DT3+ Archipelago data, made by tools/modkit/randomizer/rndgen.py from the game (change rndgen.py, not this)"""',
          "GAME = %r" % AP_GAME,
@@ -634,10 +646,13 @@ def ap_export(rows, items, door_order, doors, rarea, anames, out):
 
 
 def prog_of(item):
-    """an item's progression number (rndProgOf: 1-11 an ability or set, KEY_BASE+objectNum a door's key), or -1"""
+    """an item's progression number (rndProgOf: 1-11 an ability or set, 12 the Varia Suit, 13 a cursed equipment piece,
+    KEY_BASE+objectNum a door's key), or -1"""
     k, p = item
     if k in ("JUMP", "GDASH", "ADASH", "DJUMP", "HIJUMP"): return ["JUMP", "GDASH", "ADASH", "DJUMP", "HIJUMP"].index(k)
     if k == "SET": return 5 + p
+    if k == "VARIA": return VARIA_IX
+    if k == "EQUIP" and p in CURSED: return CURSED_IX
     if k == "KEY": return KEY_BASE + p
     return -1
 

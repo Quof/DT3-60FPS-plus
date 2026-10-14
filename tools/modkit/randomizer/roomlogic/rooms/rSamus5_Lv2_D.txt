@@ -23,11 +23,11 @@ loc 9 112   # weapon upgrade 112, at 575,327
 from in 1856,272
   out 1904,240   link:1 | belmont:1 | megaman:1 | samus:1
   out 0,240      samus:2
-  loc 9 112      never
+  loc 9 112      samus:2,varia
 from in 64,272
   out 1904,240   samus:2
   out 0,240      link:1 | belmont:1 | megaman:1 | samus:1
-  loc 9 112      never
+  loc 9 112      samus:2,varia
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
@@ -75,12 +75,40 @@ how in 1856,272 -> out 0,240: samus:2
       -> as the Morph Ball at x 202-521, y 209-273
    9. turn back from the Morph Ball at 202,241
       -> standing at x 202-521, y 209-273
-  10. jump (held 2 ticks), holding left, from 202,241; lands at 78,273
-      -> standing at x 31-134, y 273
+  10. jump (held 21 ticks), holding left, turn into the Morph Ball at tick 8, from 202,241; lands at 59,273   [samus:2]
+      -> as the Morph Ball at x 31-134, y 273
   11. walk from 31,273 to 30,273 into the Metroid door at 0,208   [samus:1]
+      -> as the Morph Ball at x 0-30, y 273 (where a gate is)
+  12. turn back from the Morph Ball at 0,273
       -> standing at x 0-30, y 273 (where a gate is)
-  12. standing at 0,273, goes into it
+  13. standing at 0,273, goes into it
       -> out 0,240
+how in 1856,272 -> loc 9 112: samus:2,varia
+     coming in at 1856,272
+   1. coming in: holding nothing, from 1856,272; lands at 1856,273
+      -> standing at x 1610-1889, y 257-273
+   2. jump (held 2 ticks), holding left, from 1610,257; lands at 1508,257
+      -> standing at x 1466-1558, y 257
+   3. jump (held 2 ticks), holding left, from 1466,257; lands at 1379,241
+      -> standing at x 1370-1398, y 241
+   4. jump (held 21 ticks), holding left, from 1370,241; lands at 1239,177
+      -> standing at x 1226-1254, y 177
+   5. running left, jump (held 21 ticks), holding left, from 1226,177; lands at 1076,273
+      -> standing at x 970-1094, y 273
+   6. jump (held 2 ticks), holding left, from 970,273; lands at 868,273
+      -> standing at x 711-934, y 273
+   7. jump (held 21 ticks), holding left, turn into the Morph Ball at tick 8, from 711,273; lands at 663,257   [samus:2]
+      -> as the Morph Ball at x 663-710, y 257
+   8. as the Morph Ball: roll off the edge, holding left once in the air, from 663,257, through the Metroid door at 1896,208, the Metroid door at 0,208, the Metroid block at 528,240, ...; lands at 135,337   [samus:1,varia]
+      -> as the Morph Ball at x 135-425, y 337 (where a gate is)
+   9. turn back from the Morph Ball at 325,337
+      -> standing at x 325-411, y 337 (where a gate is)
+  10. running right, jump (held 21 ticks), holding right, turn into the Morph Ball where the body meets a wall or ceiling, from 368,337, through the lava at 0,288; lands at 431,321   [samus:2,varia]
+      -> as the Morph Ball at x 426-470, y 321 (where a gate is)
+  11. as the Morph Ball: roll off the edge, holding right once in the air, from 426,321, through the lava at 0,288; lands at 509,337   [varia]
+      -> as the Morph Ball at x 471-729, y 337 (where a gate is)
+  12. as the Morph Ball, standing at 570,337, touches it
+      -> loc 9 112
 how in 64,272 -> out 1904,240: samus:2
      coming in at 64,272
    1. coming in: holding nothing, from 64,272; lands at 64,273
@@ -131,3 +159,17 @@ how in 64,272 -> out 0,240: samus:1
       -> standing at x 0-30, y 273 (where a gate is)
    3. standing at 0,273, goes into it
       -> out 0,240
+how in 64,272 -> loc 9 112: samus:2,varia
+     coming in at 64,272
+   1. coming in: holding nothing, from 64,272; lands at 64,273
+      -> standing at x 31-134, y 273
+   2. walk off the edge, holding right once in the air, turn into the Morph Ball where the body meets a wall or ceiling, from 31,273, through the lava at 0,288; lands at 214,337   [samus:2,varia]
+      -> as the Morph Ball at x 135-425, y 337 (where a gate is)
+   3. turn back from the Morph Ball at 325,337
+      -> standing at x 325-411, y 337 (where a gate is)
+   4. running right, jump (held 21 ticks), holding right, turn into the Morph Ball where the body meets a wall or ceiling, from 368,337, through the lava at 0,288; lands at 431,321   [samus:2,varia]
+      -> as the Morph Ball at x 426-470, y 321 (where a gate is)
+   5. as the Morph Ball: roll off the edge, holding right once in the air, from 426,321, through the lava at 0,288; lands at 509,337   [varia]
+      -> as the Morph Ball at x 471-729, y 337 (where a gate is)
+   6. as the Morph Ball, standing at 570,337, touches it
+      -> loc 9 112

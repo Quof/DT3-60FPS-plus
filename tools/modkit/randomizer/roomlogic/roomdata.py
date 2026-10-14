@@ -10,6 +10,8 @@ usage: python roomdata.py [<rooms.txt>]     (default: work\rooms.txt; roomlogic.
 rooms.txt, one line an instance, tab-separated (RoomLogic.cs reads it):
   R room width height area areaname                            a room (the lines after it are its instances)
   S|P|H|W sprite x y xscale yscale angle                       solid, platform, hazard, water
+  HV sprite x y xscale yscale angle requirement name           a hazard the requirement makes harmless (Gate 5's lava:
+                                                               varia, the Varia Suit)
   G sprite x y xscale yscale angle requirement name            gate: solid until the requirement is met
   J sprite x y xscale yscale angle L|S                         spring (large, small)
   X sprite x y xscale yscale angle toRoom x y exitType name    exit to another room (exitType 0 up, 1 touch, 2 down,
@@ -714,6 +716,10 @@ def main():
             if kind == "chain":
                 lines.append("K\t%s" % geo); continue
             if kind == "hazard":
+                # (Gate 5's lava hurts in a Randomizer game till the Varia Suit's found, the mod's oMetLava; its purple
+                # lava always does)
+                if obj == "oMetLava" and v.get("image_blend") != gmleval.CONSTS["c_purple"]:
+                    lines.append("HV\t%s\tvaria\t%s" % (geo, obj)); report["lava (harmless with the Varia Suit)"] += 1; continue
                 lines.append("H\t%s" % geo); continue
             if kind == "platform":
                 lines.append("P\t%s" % geo); continue
@@ -800,6 +806,13 @@ def main():
                         report["moving platform ridden"] += 1
                         continue
             lines.append("S\t%s" % geo)
+        # the Trial Master's 7th trial's heart container: the room's code makes it only in Nightmare mode, the mod in every
+        # Randomizer game once the trial's done (rndHC7), where the code puts it
+        m = re.search(r"instance_create\(\s*(\d+)\s*,\s*(\d+)\s*,\s*oHeartContainer\s*\)\s*\n\s*\w+\.objectNum\s*=\s*%d\b" % rndgen.TRIAL_HC,
+                      read(rc) if os.path.exists(rc) else "")
+        if m:
+            lines.append("L\tsHeartContainer\t%s\t%s\t1\t1\t0\t14\t%d\t0\theart container %d" % (m.group(1), m.group(2), rndgen.TRIAL_HC, rndgen.TRIAL_HC))
+            report["trial heart container"] += 1
         # the switches the barriers wait for (hit once: open for good, for this visit)
         for g in sorted(switches_used):
             h = holders[g]

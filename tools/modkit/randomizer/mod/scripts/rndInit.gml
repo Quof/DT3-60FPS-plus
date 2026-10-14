@@ -62,7 +62,7 @@ global.rndFightLoseX=608
 global.rndFightLoseY=320
 global.rndFightRetX=0
 global.rndFightRetY=0
-for(i=0;i<12;i+=1) {global.rndOwn[i]=0}
+for(i=0;i<13;i+=1) {global.rndOwn[i]=0} //(0-11 the abilities and sets, 12 the Varia Suit: rndProgOf)
 global.rndKeyOwn=string_repeat("0",50) //the doors (objectNum) whose keys have been found
 global.rndGot=string_repeat("0",global.rndLocN)
 global.rndPlace=""

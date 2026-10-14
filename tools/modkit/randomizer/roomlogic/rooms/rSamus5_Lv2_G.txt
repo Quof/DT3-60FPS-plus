@@ -28,11 +28,11 @@ from in 64,272
 from in 1856,272
   out 0,240      never
   out 1904,240   link:1 | belmont:1 | megaman:1 | samus:1
-  out 1232,352   never
+  out 1232,352   samus:6,varia
 from in 1232,336
   out 0,240      never
-  out 1904,240   never
-  out 1232,352   never
+  out 1904,240   samus:6,varia
+  out 1232,352   samus:6,varia
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
@@ -92,3 +92,31 @@ how in 1856,272 -> out 1904,240: samus:1
       -> standing at x 625-1889, y 177-281
    2. walk off the edge, holding right once in the air, from 1200,197, through the Metroid door at 0,208, the Metroid door at 1896,208; touches it on the way   [samus:1]
       -> out 1904,240
+how in 1856,272 -> out 1232,352: samus:6,varia
+     coming in at 1856,272
+   1. coming in: holding nothing, from 1856,272; lands at 1856,273
+      -> standing at x 625-1889, y 177-281
+   2. walk off the edge, holding right once in the air, turn into the Morph Ball where the body meets a wall or ceiling, from 625,281, through the Metroid block at 944,272, the Metroid block at 960,272, the Metroid block at 1040,272, ...; lands at 979,337   [samus:6,varia]
+      -> as the Morph Ball at x 567-1529, y 337 (where a gate is)
+   3. turn back from the Morph Ball at 1205,337
+      -> standing at x 1205-1259, y 337 (where a gate is)
+   4. walk off the edge, holding right once in the air, from 1205,337, through the Metroid block at 944,272, the Metroid block at 960,272, the Metroid block at 1040,272, ...; touches it on the way   [samus:6,varia]
+      -> out 1232,352
+how in 1232,336 -> out 1904,240: samus:6,varia
+     coming in at 1232,336
+   1. coming in: holding nothing, from 1232,336, through the lava at 0,280; lands at 1232,337   [varia]
+      -> standing at x 1205-1259, y 337 (where a gate is)
+   2. turn into the Morph Ball at 1205,337   [samus:2]
+      -> as the Morph Ball at x 567-1529, y 337 (where a gate is)
+   3. turn back from the Morph Ball at 951,337
+      -> standing at x 951-969, y 337 (where a gate is)
+   4. jump (held 21 ticks), holding left, from 951,337, through the Metroid block at 944,272, the Metroid block at 960,272, the Metroid block at 1040,272, ...; lands at 922,260   [samus:6,varia]
+      -> standing at x 625-1889, y 177-281
+   5. walk off the edge, holding right once in the air, from 1200,197, through the Metroid door at 0,208, the Metroid door at 1896,208; touches it on the way   [samus:1]
+      -> out 1904,240
+how in 1232,336 -> out 1232,352: samus:6,varia
+     coming in at 1232,336
+   1. coming in: holding nothing, from 1232,336, through the lava at 0,280; lands at 1232,337   [varia]
+      -> standing at x 1205-1259, y 337 (where a gate is)
+   2. walk off the edge, holding right once in the air, from 1205,337, through the Metroid block at 944,272, the Metroid block at 960,272, the Metroid block at 1040,272, ...; touches it on the way   [samus:6,varia]
+      -> out 1232,352

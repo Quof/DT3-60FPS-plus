@@ -11,7 +11,7 @@ if rndApSplit(argument0)<3 {exit}
 tId=real(global.rndApPart[0])-global.rndApBase //bug fix: tId (see the var line)
 k=tId div 10000 //bug fix: tId
 p=tId mod 10000 //bug fix: tId
-if k<1 or k>24 {exit}
+if k<1 or k>25 {exit}
 if argument1=0 or global.rndApPart[1]="1" {rndGiveKP(k,p); exit}
 global.rndMsgQuiet=1
 rndGiveKP(k,p)

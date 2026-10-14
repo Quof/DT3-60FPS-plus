@@ -52,6 +52,9 @@ Requirements are written the same way everywhere: alternatives separated by |, a
                     X-Buster, 2 Shotgun Ice, 3 the Gravity Well, 4 the Strike Chain (Grapple); Samus 1 the Arm Cannon,
                     2 the Morph Ball, 3 the Charge Beam, 4 Missiles, 5 the Spazer Beam, 6 Bombs, 7 the Diffusion Missile;
                     gamej/gamec Jerry's and Claire's Game Powers (Gate 6 only)
+  varia             the Varia Suit: Gate 5's lava doesn't hurt (its purple lava always does)
+  cursed N          N of the Trial Master's three cursed equipment pieces (the Cursed Helm, Ring and Pendant): his
+                    trials need all three on
   key N             the key of the locked door whose objectNum is N (..\doors.csv lists them)
   attack            any ability set's attack: link 1, belmont 1, megaman 1 or samus 1 (four alternatives)
   event NAME        once that event has happened (events.txt says what it takes: EVENTS below)
@@ -63,8 +66,9 @@ The files write "megaman:2"; "megaman 2" means the same.
 
 Places (locations) are named "loc <type> <number>": the type is rndgen.py's (1 heart piece, 2 treasure chest, 3 arrow
 quiver, 4 heart energy, 5 missile tank, 6 Game Power, 7 air upgrade, 8 Internetz mod, 9 weapon upgrade, 10 skill
-point, 11 bomb upgrade, 12 morph bomb upgrade, 13 key, 14 heart container, 15 the Item Finder, 16 the X-Special charge,
-17 the Spring Ball), the number its objectNum. The room files and solve.py also take their names: "skill point 59".
+point, 11 bomb upgrade, 12 morph bomb upgrade, 13 key, 14 heart container, 16 the X-Special charge, 17 the Spring
+Ball; the Item Finder, 15, isn't one), the number its objectNum. The room files and solve.py also take their names:
+"skill point 59".
 
 
 READING A ROOM FILE
@@ -203,7 +207,8 @@ roomlogic.py runs three steps:
   1. roomdata.py: the rooms as the logic sees them (work\rooms.txt). Each instance's creation code and Create event are
      run in the Randomizer's world (gmleval.py: a new game's globals, then the endgame world, gameProgress 5641), so
      what that world removes isn't there, and its size, place and exit are what its code makes them. Each object is a
-     solid, a jump-through platform, a hazard (spikes, lava: never touched), water, a spring, a gate (solid till
+     solid, a jump-through platform, a hazard (spikes, lava: never touched; Gate 5's lava only till the Varia Suit, a
+     gate that's never solid), water, a spring, a gate (solid till
      something opens it: a key, a sword or whip, bombs, missiles, an event...), a moving platform and its path, an
      elevator, a Strike Chain point (a Ripper's flies along its row), a switch and what it changes (blocks, barriers;
      an ice block's or a platform maker's platform; bricks; the Water Palace's water), a flying enemy the Mario

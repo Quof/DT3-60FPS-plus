@@ -31,6 +31,7 @@ switch (k)
   case 21: sprite_index=sDashBoots; image_speed=0; image_blend=make_color_rgb(150,210,255); break
   case 22: sprite_index=sDoubleJumpItem; image_speed=0; break
   case 23: sprite_index=sHiJumpBoots; image_index=1; image_speed=0; break
+  case 25: sprite_index=sVariaPickup; image_speed=0.2; break
   case 24:
     sprite_index=sWeaponLevelPickup; image_speed=0; image_blend=make_color_rgb(255,220,120)
     if p=0 {sprite_index=sMarioQBlockN; image_index=0; image_speed=0.2; image_blend=c_white} //the Mario Ability Set: a ? block

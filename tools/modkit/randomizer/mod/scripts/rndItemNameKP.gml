@@ -28,6 +28,7 @@ switch (k)
   case 21: return "Air Dash"
   case 22: return "Double Jump"
   case 23: return "High Jump Boots (progressive)"
+  case 25: return "Varia Suit"
   case 24:
     if p=0 {return "Mario Ability Set"}
     if p=1 {return "Link ability (progressive)"}

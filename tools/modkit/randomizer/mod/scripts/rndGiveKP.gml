@@ -148,6 +148,12 @@ switch (k)
     global.metSpringBall=1
     rndMsg("You found the [Spring Ball]!#You can now jump in Morph Ball mode.",2)
     break
+  case 25: //the Varia Suit: Gate 5's lava doesn't hurt (the mod's oMetLava)
+    playSound(global.snd_MetItemGet,0,1,1)
+    awardAwesome(10000)
+    global.rndOwn[12]+=1
+    rndMsg("You found the [Varia Suit]!#You no longer take damage from most lava.",2)
+    break
   case 19: case 20: case 21: case 22: case 23: case 24:
     playSound(global.snd_SkillGet,0,1,1)
     awardAwesome(10000)

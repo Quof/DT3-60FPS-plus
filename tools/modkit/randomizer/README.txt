@@ -4,15 +4,18 @@ DT3+ Randomizer (a mod)
 A new game with the mod on starts in the game's endgame world: every area open, the story done, no CHAOS invasion. The
 player is in Central City - North, at the door from Greatest Stretch, able to walk and jump. Every collectible the
 progress page counts (heart pieces and containers, chests, quivers, heart energy, missile tanks, Game Power, air
-upgrades, Internetz mods, weapon upgrades, skill points, bomb upgrades, keys, the Item Finder, the X-Special charge, the
-Spring Ball), the other movement abilities (dash, air dash, double jump, the High Jump Boots) and every ability set (the
-Mario Ability Set, shown as a ? block, and the attacks of Link, Belmont, Mega Man, Samus and the two Gate 6 sets) are
-shuffled into each other's places when the game starts, in layers (see Logic). The equipment shops' stock is shuffled
+upgrades, Internetz mods, weapon upgrades, skill points, bomb upgrades, keys, the X-Special charge, the Spring Ball),
+the other movement abilities (dash, air dash, double jump, the High Jump Boots), the Varia Suit (Gate 5's lava doesn't
+hurt once it's found; before, it does) and every ability set (the Mario Ability Set, shown as a ? block, and the attacks
+of Link, Belmont, Mega Man, Samus and the two Gate 6 sets) are shuffled into each other's places when the game starts,
+in layers (see Logic). The Item Finder isn't shuffled: it's where the game has it, and with it Chao shows a ! instead of
+the treasure icon in a map with an ability, an ability set's item or a key. The equipment shops' stock is shuffled
 between the shops. A spoiler log is written to the Saves folder ("Randomizer spoiler log <seed>.txt"), with the
-options and the abilities and keys by layer. As in a new game: tower defense and the Trial Master's cursed trials aren't done (their rewards come
-from doing them; the 7th trial also gives Central City South's heart container, and the three cursed equipment pieces
-the trials need are never among the trials' rewards), the shortcuts are shut, and there are no program chips, Yoshi
-dolls or game-completed flag (Bubble Tower B and the Gate 6 DLC stay shut).
+options and the abilities and keys by layer. As in a new game: tower defense and the Trial Master's cursed trials aren't
+done (their rewards come from doing them, with the three cursed equipment pieces on; the 7th trial, five of the six
+others done, also gives Central City South's heart container), the shortcuts are shut, and there are no program chips,
+Yoshi dolls or game-completed flag (Bubble Tower B and the Gate 6 DLC stay shut). Nightmare Gate H is left out: its
+access gate goes to a blank room (the mod's rRndGateH) that counts the gate as beaten and goes on to the Sacred Temple.
 
 Win: the 8 instruments (the Nightmare Gates' bosses, then the Sacred Temple) and the Abomination, as the game has them;
 then the CHAOS Warmaster, whose door appears in Grand Rising (the game's first room) once the Abomination is beaten.
@@ -108,7 +111,8 @@ Logic
   so on. With Guarantee Early Weapons, a new layer's first item is a weapon (above). The game can always be finished.
 
   Places the room logic can't work out (behind puzzles, timed rings or things it doesn't model, and the rewards of
-  bosses, the Trial Master's trials and tower defense) need everything: they never hold an ability or key.
+  bosses and tower defense) need everything: they never hold an ability or key. The Trial Master's trials' rewards
+  need the three cursed equipment pieces (which are placed with the logic, as the abilities are).
   locations.csv lists every place with what it needs.
 
   Why a place needs what it does: python roomlogic\solve.py --explain "skill point 59" lists the rooms on each way
@@ -118,8 +122,8 @@ Logic
   out or a place), what going through an exit needs, or where an exit leads. Everything past it is worked out again
   with it (roomlogic\README.txt). As a last resort, logic.txt replaces what a single place (or every place in a room)
   needs, with alternatives separated by |, each the items it takes (djump, adash, gdash, hijump 2, mario, link 2,
-  belmont 1, megaman 4, samus 6, gamej 1, gamec 1, key 3: the key of the locked door whose objectNum is 3 in
-  doors.csv), nothing or everything. It only changes that place (or room): the rooms past it aren't changed with it.
+  belmont 1, megaman 4, samus 6, gamej 1, gamec 1, varia, cursed 3, key 3: the key of the locked door whose objectNum is
+  3 in doors.csv), nothing or everything. It only changes that place (or room): the rooms past it aren't changed with it.
 
 Limits
   - Moving platforms are counted as somewhere the player can stand anywhere along their path (waiting for them), and

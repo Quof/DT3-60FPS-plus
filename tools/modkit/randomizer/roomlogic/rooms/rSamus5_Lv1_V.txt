@@ -26,9 +26,9 @@ loc 9 114   # weapon upgrade 114, at 359,295
 from in 64,336
   out 352,-16   never
   out -16,144   never
-  out -16,304   never
+  out -16,304   samus:2,varia
   loc 12 10     never
-  loc 9 114     never
+  loc 9 114     samus:2,varia
 from in 64,240
   out 352,-16   never
   out -16,144   samus:2
@@ -44,6 +44,28 @@ from in 360,80
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 64,336 -> out -16,304: samus:2,varia
+     coming in at 64,336
+   1. coming in: holding nothing, from 64,336, through the lava at 0,256; lands at 64,337   [varia]
+      -> standing at x 55-137, y 337 (where a gate is)
+   2. turn into the Morph Ball at 55,337   [samus:2]
+      -> as the Morph Ball at x 0-137, y 337 (where a gate is)
+   3. as the Morph Ball, standing at 0,337, goes into it
+      -> out -16,304
+how in 64,336 -> loc 9 114: samus:2,varia
+     coming in at 64,336
+   1. coming in: holding nothing, from 64,336, through the lava at 0,256; lands at 64,337   [varia]
+      -> standing at x 55-137, y 337 (where a gate is)
+   2. jump (held 21 ticks), holding right, turn into the Morph Ball where the body meets a wall or ceiling, from 80,337, through the lava at 0,256; lands at 212,337   [samus:2,varia]
+      -> as the Morph Ball at x 167-265, y 337 (where a gate is)
+   3. turn back from the Morph Ball at 231,337
+      -> standing at x 231-265, y 337 (where a gate is)
+   4. jump (held 21 ticks), holding right, turn into the Morph Ball where the body meets a wall or ceiling, from 231,337, through the lava at 0,256; lands at 345,337   [samus:2,varia]
+      -> as the Morph Ball at x 295-345, y 337 (where a gate is)
+   5. turn back from the Morph Ball at 295,337
+      -> standing at x 295-345, y 337 (where a gate is)
+   6. jump (held 2 ticks), holding right, from 295,337, through the lava at 0,256; touches it on the way   [varia]
+      -> loc 9 114
 how in 64,240 -> out -16,144: samus:2
      coming in at 64,240
    1. coming in: holding nothing, from 64,240; lands at 64,241
