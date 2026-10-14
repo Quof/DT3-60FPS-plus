@@ -45,10 +45,12 @@ if global.gamePaused=false
   }
   else if room=rExtGateG_2 //Map display and slimes spawning in
   {
-    if scrController(4) {mapTime+=1}
+    //if scrController(4) {mapTime+=1}
+    if scrController(4) {mapTime+=1*gDeltaTime} //60fps change: per frame (as DT3+'s oEvExGates)
     else {mapTime=0}
 
-    if instance_number(oPT_Slime)<8 {slimeTime+=1}
+    //if instance_number(oPT_Slime)<8 {slimeTime+=1}
+    if instance_number(oPT_Slime)<8 {slimeTime+=1*gDeltaTime} //60fps change: per frame (as DT3+'s oEvExGates)
     if slimeTime>=300 and false       //spsp
     {
       global.tempAction[0]=64

@@ -1,0 +1,271 @@
+# rLink2_PalaceF_6a: Access Gate 2: Hyrule (area 10), 1440x704 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+# switches: the room is worked out in each of its states, the player coming in in the first: [blue blocks solid]
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 1104,576   # from this room's door out 200,512
+in 208,544   # from this room's door out 1096,544
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 0,480   # to rLink2_PalaceF_7 at 432,256; the player goes into it
+out 1424,608   # to rLink2_PalaceF_10 at 48,288; the player goes into it
+out 200,512   # to this room at 1104,576; the player presses down at it
+out 1096,544   # to this room at 208,544; the player presses down at it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+loc 13 17   # key 17, at 528,628
+loc 11 4   # bomb upgrade 4, at 223,119
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 1104,576
+  out 0,480      djump | adash,gdash
+  out 1424,608   -
+  out 200,512    adash,gdash | djump
+  out 1096,544   -
+  loc 13 17      djump | adash,gdash
+  loc 11 4       adash,gdash | djump
+from in 208,544
+  out 0,480      -
+  out 1424,608   never
+  out 200,512    -
+  out 1096,544   never
+  loc 13 17      never
+  loc 11 4       -
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 1104,576 -> out 0,480: djump
+     [blue blocks solid] coming in at 1104,576
+   1. coming in: holding nothing, from 1104,576; lands at 1104,577
+      -> [blue blocks solid] standing at x 1082-1126, y 577
+   2. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1082,577; lands at 1186,545
+      -> [blue blocks solid] standing at x 1178-1254, y 545
+   3. jump (held 21 ticks), holding left, double jump at tick 15, from 1178,545; lands at 945,577   [djump]
+      -> [blue blocks solid] standing at x 922-1017, y 577
+   4. jump (held 21 ticks), holding left, from 922,577; lands at 817,577
+      -> [blue blocks solid] standing at x 698-838, y 577
+   5. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 768,577; lands at 722,481   [djump]
+      -> [blue blocks solid] standing at x 698-742, y 481
+   6. jump (held 21 ticks), holding left, double jump at tick 10, from 698,481; lands at 479,449   [djump]
+      -> [blue blocks solid] standing at x 442-486, y 449
+   7. walk off the edge, holding left once in the air, double jump at tick 16, from 442,449; lands at 232,577   [djump]
+      -> [blue blocks solid] standing at x 231-262, y 577
+   8. jump (held 21 ticks), holding left, from 231,577; lands at 126,513
+      -> [blue blocks solid] standing at x 0-198, y 513
+   9. standing at 0,513, goes into it
+      -> out 0,480
+how in 1104,576 -> out 0,480: adash,gdash
+     [blue blocks solid] coming in at 1104,576
+   1. coming in: holding nothing, from 1104,576; lands at 1104,577
+      -> [blue blocks solid] standing at x 1082-1126, y 577
+   2. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1082,577; lands at 1186,545
+      -> [blue blocks solid] standing at x 1178-1254, y 545
+   3. jump (held 21 ticks), holding right, from 1178,545; lands at 1369,513
+      -> [blue blocks solid] standing at x 1306-1369, y 513
+   4. dash left (Jerry), jump (held 21 ticks), holding left, air dash (Jerry) at tick 12, from 1344,513; lands at 1041,449   [adash,gdash]
+      -> [blue blocks solid] standing at x 1018-1062, y 449
+   5. jump (held 21 ticks), holding left, air dash (Claire) at tick 10, from 1040,449; lands at 865,513   [adash]
+      -> [blue blocks solid] standing at x 858-902, y 513
+   6. jump (held 21 ticks), holding nothing, then left after 12 ticks, air dash (Claire) at tick 12, from 858,513; lands at 711,481   [adash]
+      -> [blue blocks solid] standing at x 698-742, y 481
+   7. jump (held 21 ticks), holding left, air dash (Jerry) at tick 10, from 698,481; lands at 458,449   [adash]
+      -> [blue blocks solid] standing at x 442-486, y 449
+   8. walk off the edge, holding left, then nothing after 1 ticks in the air, from 442,449; lands at 416,641
+      -> [blue blocks solid] standing at x 378-422, y 641
+   9. jump (held 21 ticks), holding left, from 378,641; lands at 247,577
+      -> [blue blocks solid] standing at x 231-262, y 577
+  10. jump (held 21 ticks), holding left, from 231,577; lands at 126,513
+      -> [blue blocks solid] standing at x 0-198, y 513
+  11. standing at 0,513, goes into it
+      -> out 0,480
+how in 1104,576 -> out 1424,608: -
+     [blue blocks solid] coming in at 1104,576
+   1. coming in: holding nothing, from 1104,576; lands at 1104,577
+      -> [blue blocks solid] standing at x 1082-1126, y 577
+   2. walk off the edge, holding right once in the air, from 1082,577; lands at 1213,641
+      -> [blue blocks solid] standing at x 1159-1440, y 641
+   3. standing at 1422,641, goes into it
+      -> out 1424,608
+how in 1104,576 -> out 200,512: adash,gdash
+     [blue blocks solid] coming in at 1104,576
+   1. coming in: holding nothing, from 1104,576; lands at 1104,577
+      -> [blue blocks solid] standing at x 1082-1126, y 577
+   2. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1082,577; lands at 1186,545
+      -> [blue blocks solid] standing at x 1178-1254, y 545
+   3. jump (held 21 ticks), holding right, from 1178,545; lands at 1369,513
+      -> [blue blocks solid] standing at x 1306-1369, y 513
+   4. dash left (Jerry), jump (held 21 ticks), holding left, air dash (Jerry) at tick 12, from 1344,513; lands at 1041,449   [adash,gdash]
+      -> [blue blocks solid] standing at x 1018-1062, y 449
+   5. jump (held 21 ticks), holding left, air dash (Claire) at tick 10, from 1040,449; lands at 865,513   [adash]
+      -> [blue blocks solid] standing at x 858-902, y 513
+   6. jump (held 21 ticks), holding nothing, then left after 12 ticks, air dash (Claire) at tick 12, from 858,513; lands at 711,481   [adash]
+      -> [blue blocks solid] standing at x 698-742, y 481
+   7. jump (held 21 ticks), holding left, air dash (Jerry) at tick 10, from 698,481; lands at 458,449   [adash]
+      -> [blue blocks solid] standing at x 442-486, y 449
+   8. walk off the edge, holding left, then nothing after 1 ticks in the air, from 442,449; lands at 416,641
+      -> [blue blocks solid] standing at x 378-422, y 641
+   9. jump (held 21 ticks), holding left, from 378,641; lands at 247,577
+      -> [blue blocks solid] standing at x 231-262, y 577
+  10. jump (held 21 ticks), holding left, from 231,577; lands at 126,513
+      -> [blue blocks solid] standing at x 0-198, y 513
+  11. dash right (Jerry), jump (held 21 ticks), holding right, from 16,513; touches it on the way   [gdash]
+      -> out 200,512
+how in 1104,576 -> out 200,512: djump
+     [blue blocks solid] coming in at 1104,576
+   1. coming in: holding nothing, from 1104,576; lands at 1104,577
+      -> [blue blocks solid] standing at x 1082-1126, y 577
+   2. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1082,577; lands at 1186,545
+      -> [blue blocks solid] standing at x 1178-1254, y 545
+   3. jump (held 21 ticks), holding left, double jump at tick 15, from 1178,545; lands at 945,577   [djump]
+      -> [blue blocks solid] standing at x 922-1017, y 577
+   4. jump (held 21 ticks), holding left, from 922,577; lands at 817,577
+      -> [blue blocks solid] standing at x 698-838, y 577
+   5. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 768,577; lands at 722,481   [djump]
+      -> [blue blocks solid] standing at x 698-742, y 481
+   6. jump (held 21 ticks), holding left, double jump at tick 10, from 698,481; lands at 479,449   [djump]
+      -> [blue blocks solid] standing at x 442-486, y 449
+   7. walk off the edge, holding left once in the air, double jump at tick 16, from 442,449; lands at 232,577   [djump]
+      -> [blue blocks solid] standing at x 231-262, y 577
+   8. jump (held 21 ticks), holding left, from 231,577; lands at 126,513
+      -> [blue blocks solid] standing at x 0-198, y 513
+   9. walk off the edge, holding right, then left after 1 ticks in the air, from 32,513; touches it on the way
+      -> out 200,512
+how in 1104,576 -> out 1096,544: -
+     [blue blocks solid] coming in at 1104,576
+   1. coming in: holding nothing, from 1104,576; lands at 1104,577
+      -> [blue blocks solid] standing at x 1082-1126, y 577
+   2. walk off the edge, holding left once in the air, from 1082,577; lands at 1063,609
+      -> [blue blocks solid] standing at x 1063-1081, y 609
+   3. jump (held 2 ticks), holding right, from 1063,609; touches it on the way
+      -> out 1096,544
+how in 1104,576 -> loc 13 17: djump
+     [blue blocks solid] coming in at 1104,576
+   1. coming in: holding nothing, from 1104,576; lands at 1104,577
+      -> [blue blocks solid] standing at x 1082-1126, y 577
+   2. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1082,577; lands at 1186,545
+      -> [blue blocks solid] standing at x 1178-1254, y 545
+   3. jump (held 21 ticks), holding left, double jump at tick 15, from 1178,545; lands at 945,577   [djump]
+      -> [blue blocks solid] standing at x 922-1017, y 577
+   4. jump (held 21 ticks), holding left, from 922,577; lands at 817,577
+      -> [blue blocks solid] standing at x 698-838, y 577
+   5. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 768,577; lands at 722,481   [djump]
+      -> [blue blocks solid] standing at x 698-742, y 481
+   6. running left, jump (held 6 ticks), holding left, from 698,481; lands at 536,481
+      -> [blue blocks solid] standing at x 506-550, y 481
+   7. walk off the edge, holding left, then right after 1 ticks in the air, from 506,481; touches it on the way
+      -> loc 13 17
+how in 1104,576 -> loc 13 17: adash,gdash
+     [blue blocks solid] coming in at 1104,576
+   1. coming in: holding nothing, from 1104,576; lands at 1104,577
+      -> [blue blocks solid] standing at x 1082-1126, y 577
+   2. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1082,577; lands at 1186,545
+      -> [blue blocks solid] standing at x 1178-1254, y 545
+   3. jump (held 21 ticks), holding right, from 1178,545; lands at 1369,513
+      -> [blue blocks solid] standing at x 1306-1369, y 513
+   4. dash left (Jerry), jump (held 21 ticks), holding left, air dash (Jerry) at tick 12, from 1344,513; lands at 1041,449   [adash,gdash]
+      -> [blue blocks solid] standing at x 1018-1062, y 449
+   5. jump (held 21 ticks), holding left, air dash (Claire) at tick 10, from 1040,449; lands at 865,513   [adash]
+      -> [blue blocks solid] standing at x 858-902, y 513
+   6. jump (held 21 ticks), holding nothing, then left after 12 ticks, air dash (Claire) at tick 12, from 858,513; lands at 711,481   [adash]
+      -> [blue blocks solid] standing at x 698-742, y 481
+   7. running left, jump (held 6 ticks), holding left, from 698,481; lands at 536,481
+      -> [blue blocks solid] standing at x 506-550, y 481
+   8. walk off the edge, holding left, then right after 1 ticks in the air, from 506,481; touches it on the way
+      -> loc 13 17
+how in 1104,576 -> loc 11 4: adash,gdash
+     [blue blocks solid] coming in at 1104,576
+   1. coming in: holding nothing, from 1104,576; lands at 1104,577
+      -> [blue blocks solid] standing at x 1082-1126, y 577
+   2. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1082,577; lands at 1186,545
+      -> [blue blocks solid] standing at x 1178-1254, y 545
+   3. jump (held 21 ticks), holding right, from 1178,545; lands at 1369,513
+      -> [blue blocks solid] standing at x 1306-1369, y 513
+   4. dash left (Jerry), jump (held 21 ticks), holding left, air dash (Jerry) at tick 12, from 1344,513; lands at 1041,449   [adash,gdash]
+      -> [blue blocks solid] standing at x 1018-1062, y 449
+   5. jump (held 21 ticks), holding left, air dash (Claire) at tick 10, from 1040,449; lands at 865,513   [adash]
+      -> [blue blocks solid] standing at x 858-902, y 513
+   6. jump (held 21 ticks), holding nothing, then left after 12 ticks, air dash (Claire) at tick 12, from 858,513; lands at 711,481   [adash]
+      -> [blue blocks solid] standing at x 698-742, y 481
+   7. jump (held 21 ticks), holding left, air dash (Jerry) at tick 10, from 698,481; lands at 458,449   [adash]
+      -> [blue blocks solid] standing at x 442-486, y 449
+   8. walk off the edge, holding left, then nothing after 1 ticks in the air, from 442,449; lands at 416,641
+      -> [blue blocks solid] standing at x 378-422, y 641
+   9. jump (held 21 ticks), holding left, from 378,641; lands at 247,577
+      -> [blue blocks solid] standing at x 231-262, y 577
+  10. jump (held 21 ticks), holding left, from 231,577; lands at 126,513
+      -> [blue blocks solid] standing at x 0-198, y 513
+  11. running right, jump (held 21 ticks), holding right, from 32,513; lands at 207,321
+      -> [blue blocks solid] standing at x 186-249, y 321
+  12. jump (held 21 ticks), holding left, from 186,321; lands at 71,257
+      -> [blue blocks solid] standing at x 71-102, y 257
+  13. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 71,257; lands at 157,193
+      -> [blue blocks solid] standing at x 122-166, y 193
+  14. dash right (Jerry), jump (held 21 ticks), holding right, from 122,193; touches it on the way   [gdash]
+      -> loc 11 4
+how in 1104,576 -> loc 11 4: djump
+     [blue blocks solid] coming in at 1104,576
+   1. coming in: holding nothing, from 1104,576; lands at 1104,577
+      -> [blue blocks solid] standing at x 1082-1126, y 577
+   2. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1082,577; lands at 1186,545
+      -> [blue blocks solid] standing at x 1178-1254, y 545
+   3. jump (held 21 ticks), holding left, double jump at tick 15, from 1178,545; lands at 945,577   [djump]
+      -> [blue blocks solid] standing at x 922-1017, y 577
+   4. jump (held 21 ticks), holding left, from 922,577; lands at 817,577
+      -> [blue blocks solid] standing at x 698-838, y 577
+   5. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 768,577; lands at 722,481   [djump]
+      -> [blue blocks solid] standing at x 698-742, y 481
+   6. jump (held 21 ticks), holding left, double jump at tick 10, from 698,481; lands at 479,449   [djump]
+      -> [blue blocks solid] standing at x 442-486, y 449
+   7. walk off the edge, holding left once in the air, double jump at tick 16, from 442,449; lands at 232,577   [djump]
+      -> [blue blocks solid] standing at x 231-262, y 577
+   8. jump (held 21 ticks), holding left, from 231,577; lands at 126,513
+      -> [blue blocks solid] standing at x 0-198, y 513
+   9. running right, jump (held 21 ticks), holding right, from 32,513; lands at 207,321
+      -> [blue blocks solid] standing at x 186-249, y 321
+  10. jump (held 21 ticks), holding left, from 186,321; lands at 71,257
+      -> [blue blocks solid] standing at x 71-102, y 257
+  11. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 71,257; lands at 157,193
+      -> [blue blocks solid] standing at x 122-166, y 193
+  12. jump (held 21 ticks), holding right, from 122,193; lands at 253,129
+      -> [blue blocks solid] standing at x 186-262, y 129
+  13. standing at 216,129, touches it
+      -> loc 11 4
+how in 208,544 -> out 0,480: -
+     [blue blocks solid] coming in at 208,544
+   1. coming in: holding nothing, from 208,544; lands at 208,545
+      -> [blue blocks solid] standing at x 199-230, y 545
+   2. jump (held 2 ticks), holding left, from 199,545; lands at 156,513
+      -> [blue blocks solid] standing at x 0-198, y 513
+   3. standing at 0,513, goes into it
+      -> out 0,480
+how in 208,544 -> out 200,512: -
+     [blue blocks solid] coming in at 208,544
+   1. coming in: holding nothing, from 208,544; lands at 208,545
+      -> [blue blocks solid] standing at x 199-230, y 545
+   2. jump (held 2 ticks), holding left, from 199,545; lands at 156,513
+      -> [blue blocks solid] standing at x 0-198, y 513
+   3. walk off the edge, holding right, then left after 1 ticks in the air, from 32,513; touches it on the way
+      -> out 200,512
+how in 208,544 -> loc 11 4: -
+     [blue blocks solid] coming in at 208,544
+   1. coming in: holding nothing, from 208,544; lands at 208,545
+      -> [blue blocks solid] standing at x 199-230, y 545
+   2. jump (held 2 ticks), holding left, from 199,545; lands at 156,513
+      -> [blue blocks solid] standing at x 0-198, y 513
+   3. running right, jump (held 21 ticks), holding right, from 32,513; lands at 207,321
+      -> [blue blocks solid] standing at x 186-249, y 321
+   4. jump (held 21 ticks), holding left, from 186,321; lands at 71,257
+      -> [blue blocks solid] standing at x 71-102, y 257
+   5. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 71,257; lands at 157,193
+      -> [blue blocks solid] standing at x 122-166, y 193
+   6. jump (held 21 ticks), holding right, from 122,193; lands at 253,129
+      -> [blue blocks solid] standing at x 186-262, y 129
+   7. standing at 216,129, touches it
+      -> loc 11 4

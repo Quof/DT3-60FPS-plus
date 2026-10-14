@@ -1,0 +1,44 @@
+# rMega4_SigmaA4: Access Gate 4: Megapolis (area 29), 3840x352 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 48,304   # from rMega4_SigmaA3 out 464,160
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 3824,176   # to rMega4_SigmaA5 at 192,256; the player goes into it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 48,304
+  out 3824,176   djump,adash | megaman:4
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 48,304 -> out 3824,176: djump,adash
+     coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> standing at x 0-1865, y 145-321
+   2. jump (held 21 ticks), holding right, double jump at tick 10, air dash (Claire) at tick 18, from 1632,321; clings to the wall at 1833,214   [djump,adash]
+      -> standing at x 1833-3840, y 145-305
+   3. standing at 3822,225, goes into it
+      -> out 3824,176
+how in 48,304 -> out 3824,176: megaman:4
+     coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> standing at x 0-1865, y 145-321
+   2. running right, jump (held 21 ticks), holding right, from 1424,305; fires the Strike Chain at the point at 1648,192   [megaman:4]
+      -> hanging from the Strike Chain point at 1648,192
+   3. off the Strike Chain point: jump (held 21 ticks), holding right, from 1648,232; fires the Strike Chain at the point at 1744,160   [megaman:4]
+      -> hanging from the Strike Chain point at 1744,160
+   4. off the Strike Chain point: jump (held 21 ticks), holding right, from 1744,200; clings to the wall at 1833,150
+      -> standing at x 1833-3840, y 145-305
+   5. standing at 3822,225, goes into it
+      -> out 3824,176

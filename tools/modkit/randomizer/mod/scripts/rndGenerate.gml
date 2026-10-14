@@ -1,104 +1,157 @@
-//Randomizer: places every item at a location (global.rndPlace, three digits a location: the item's number). The
-//progression items (abilities, keys) go first, one at a time, each at a free location that can be reached with every
-//progression item not placed yet plus those already placed where that reaches (assumed fill), so the game can always be
-//finished with the logic's requirements (rndData, from rndgen.py and logic.txt). Keys count as the first doors, in the
-//logic's order, whose keys are all had (each key opens its own door). They're placed the most constrained first (Jump,
-//the first doors' keys: the fewest places they could go), in a random order otherwise. The other items fill the rest at
-//random. Returns 1, or 0 when a progression item had nowhere to go (try another seed)
-var N,i,j,k,n,p,tProgN,tJunkN,tFreeN,tCandN,tChanged,tOk,tLoc;
+//Randomizer: places every item at a location (global.rndPlace, three digits a location: the item's number), in layers.
+//The progression items (abilities, keys) go one at a time, each to a free location the ones placed before it reach
+//(rndData's logic, from the room logic: rndGenReach), so the game can always be finished. Each one is, if there is one,
+//an item that opens a location not reached yet (one more of it is all that location lacks); the locations it opens are
+//the next layer (global.rndGLayer: layer 0 is what jumping alone reaches). Where it goes: the newest layer with a free
+//location with a chance of 7 in 10 (the new game's option Ability Spread: 3 in 10 Near, always Far), else the one
+//before it with that chance, and so on (the oldest if none of them), so the abilities spread out from Central City
+//instead of all being near it. With the option Guarantee Early Weapons, a new layer's first item is a weapon (an item of
+//the Link, Belmont, Mega Man or Samus set: the sets with an attack) while there are any left: every layer has one. The
+//other items fill the rest at random.
+//Returns 1, or 0 when a progression item had nowhere to go (try another seed)
+var N,i,j,k,a,e,s,tProgN,tJunkN,tFreeN,tCandN,tCur,tLay,tLast,tPick,tPlaced,tMiss,tMissIx,tShort,tIx,tLoc,tW,tR,tKind,tNewest,tForce,tWpnN;
 N=global.rndLocN
-for(i=0;i<N;i+=1) {tFill[i]=-1}
+s=global.rndAltStride
+tNewest=0.7
+if global.rndOptSpread=0 {tNewest=0.3}
+else if global.rndOptSpread=2 {tNewest=1}
+for(i=0;i<N;i+=1) {tFill[i]=-1; global.rndGLayer[i]=-1}
 tProgN=0
 tJunkN=0
 for(i=0;i<global.rndItemN;i+=1)
 {
-  if global.rndItemProg[i]>=0 {tProg[tProgN]=i; tProgN+=1}
+  if global.rndItemProg[i]>0 {tProg[tProgN]=i; tDone[tProgN]=0; tProgN+=1}
   else {tJunk[tJunkN]=i; tJunkN+=1}
 }
-for(i=tProgN-1;i>0;i-=1) {j=irandom(i); k=tProg[i]; tProg[i]=tProg[j]; tProg[j]=k}
-//how many places each could go with every other progression item (tCnt), and the order by that (ties as shuffled)
-for(p=0;p<13;p+=1) {tTot[p]=0}
-for(k=0;k<tProgN;k+=1) {p=global.rndItemProg[tProg[k]]; tTot[p]+=1}
-for(k=0;k<tProgN;k+=1)
+for(i=0;i<global.rndKeyBase+64;i+=1) {global.rndGHave[i]=0; tUseful[i]=0}
+//the layers with a weapon (a layer is made by an item placed: there are at most as many as items, and the first)
+for(i=0;i<=tProgN+1;i+=1) {tLayW[i]=0}
+global.rndGAll=0
+rndGenMark(0)
+tCur=0
+for(tPlaced=0;tPlaced<tProgN;tPlaced+=1)
 {
-  for(p=0;p<13;p+=1) {tHave[p]=tTot[p]}
-  p=global.rndItemProg[tProg[k]]
-  if p=12 {tHave[12]=global.rndDoorRank[global.rndItemParam[tProg[k]]]}
-  else {tHave[p]-=1}
-  tCnt[k]=0
+  //the items one more of which opens a location: for each location not reached yet, an alternative short of just that
+  for(i=0;i<global.rndKeyBase+64;i+=1) {tUseful[i]=0}
   for(i=0;i<N;i+=1)
   {
-    tOk=1
-    for(p=0;p<13;p+=1) {if global.rndReqV[i,p]>tHave[p] {tOk=0; break}}
-    tCnt[k]+=tOk
-  }
-}
-for(k=1;k<tProgN;k+=1)
-{
-  j=k
-  while j>0
-  {
-    if tCnt[j-1]<=tCnt[j] {break}
-    i=tCnt[j-1]; tCnt[j-1]=tCnt[j]; tCnt[j]=i
-    i=tProg[j-1]; tProg[j-1]=tProg[j]; tProg[j]=i
-    j-=1
-  }
-}
-for(n=0;n<tProgN;n+=1)
-{
-  //what the player can have: the progression items not placed yet, but this one...
-  for(p=0;p<13;p+=1) {tHave[p]=0}
-  for(k=0;k<global.rndDoorN;k+=1) {tKey[k]=0}
-  for(k=n+1;k<tProgN;k+=1)
-  {
-    p=global.rndItemProg[tProg[k]]
-    if p=12 {tKey[global.rndDoorRank[global.rndItemParam[tProg[k]]]]=1}
-    else {tHave[p]+=1}
-  }
-  while tHave[12]<global.rndDoorN {if tKey[tHave[12]]=0 {break}; tHave[12]+=1}
-  //...and those already placed where that reaches (until it reaches no more)
-  for(k=0;k<n;k+=1) {tTaken[k]=0}
-  tChanged=1
-  while tChanged
-  {
-    tChanged=0
-    for(k=0;k<n;k+=1)
+    if global.rndGLayer[i]<0
     {
-      if tTaken[k]=0
+      for(a=0;a<global.rndLocAltN[i];a+=1)
       {
-        tLoc=tAt[k]
-        tOk=1
-        for(p=0;p<13;p+=1) {if global.rndReqV[tLoc,p]>tHave[p] {tOk=0; break}}
-        if tOk
+        tMiss=0
+        tMissIx=-1
+        for(e=0;e<global.rndLocAltLen[i,a];e+=1)
         {
-          tTaken[k]=1
-          p=global.rndItemProg[tProg[k]]
-          if p=12
+          tIx=global.rndLocAltIx[i,a*s+e]
+          tShort=global.rndLocAltC[i,a*s+e]-global.rndGHave[tIx]
+          if tShort>0
           {
-            tKey[global.rndDoorRank[global.rndItemParam[tProg[k]]]]=1
-            while tHave[12]<global.rndDoorN {if tKey[tHave[12]]=0 {break}; tHave[12]+=1}
+            tMiss+=tShort
+            tMissIx=tIx
+            if tMiss>1 {break}
           }
-          else {tHave[p]+=1}
-          tChanged=1
         }
+        if tMiss=1 {tUseful[tMissIx]+=1}
       }
     }
   }
-  //this item goes to a free location that reaches
-  tCandN=0
-  for(i=0;i<N;i+=1)
+  //the items it can be (tPool): any not placed yet. With Guarantee Early Weapons, while the newest layer has no weapon
+  //and has a free location: the weapons not placed yet (6-9: rndProgOf's Link, Belmont, Mega Man and Samus sets); it
+  //goes in the newest layer (tForce)
+  for(k=0;k<tProgN;k+=1) {tPool[k]=1-tDone[k]}
+  tForce=0
+  if global.rndOptWeapons=1 and tLayW[tCur]=0
   {
-    if tFill[i]<0
+    tFreeN=0
+    for(i=0;i<N;i+=1) {if global.rndGLayer[i]=tCur and tFill[i]<0 {tFreeN+=1}}
+    tWpnN=0
+    for(k=0;k<tProgN;k+=1)
     {
-      tOk=1
-      for(p=0;p<13;p+=1) {if global.rndReqV[i,p]>tHave[p] {tOk=0; break}}
-      if tOk {tCand[tCandN]=i; tCandN+=1}
+      tIx=global.rndItemProg[tProg[k]]
+      if tDone[k]=0 and tIx>=6 and tIx<=9 {tWpnN+=1}
+    }
+    if tFreeN>0 and tWpnN>0
+    {
+      tForce=1
+      for(k=0;k<tProgN;k+=1)
+      {
+        tIx=global.rndItemProg[tProg[k]]
+        if tIx<6 or tIx>9 {tPool[k]=0}
+      }
     }
   }
-  if tCandN=0 {return 0}
+  //which item: one of the pool that opens something, if there is one (else any of the pool). Of those, a kind of item
+  //that opens fewer locations is likelier (each kind by 1 / how many it opens), so the ones that open the most (the
+  //movement abilities) tend to come later and the layers stretch out
+  tCandN=0
+  for(k=0;k<tProgN;k+=1)
+  {
+    if tPool[k]=1 {if tUseful[global.rndItemProg[tProg[k]]]>0 {tCand[tCandN]=k; tCandN+=1}}
+  }
+  if tCandN>0
+  {
+    for(i=0;i<global.rndKeyBase+64;i+=1) {tSeen[i]=0}
+    tW=0
+    for(j=0;j<tCandN;j+=1)
+    {
+      tIx=global.rndItemProg[tProg[tCand[j]]]
+      if tSeen[tIx]=0 {tSeen[tIx]=1; tW+=1/tUseful[tIx]}
+    }
+    tR=random(tW)
+    tKind=global.rndItemProg[tProg[tCand[tCandN-1]]]
+    for(i=0;i<global.rndKeyBase+64;i+=1) {tSeen[i]=0}
+    for(j=0;j<tCandN;j+=1)
+    {
+      tIx=global.rndItemProg[tProg[tCand[j]]]
+      if tSeen[tIx]=0
+      {
+        tSeen[tIx]=1
+        tR-=1/tUseful[tIx]
+        if tR<=0 {tKind=tIx; break}
+      }
+    }
+    j=0
+    for(i=0;i<tCandN;i+=1) {if global.rndItemProg[tProg[tCand[i]]]=tKind {tCand[j]=tCand[i]; j+=1}}
+    tCandN=j
+  }
+  else
+  {
+    for(k=0;k<tProgN;k+=1) {if tPool[k]=1 {tCand[tCandN]=k; tCandN+=1}}
+  }
+  k=tCand[irandom(tCandN-1)]
+  //where: a weapon the option puts in the newest layer goes there; else a layer with a free location, the newest first
+  //(each in turn with a chance of tNewest)
+  if tForce=1 {tPick=tCur}
+  else
+  {
+    tPick=-1
+    tLast=-1
+    for(tLay=tCur;tLay>=0;tLay-=1)
+    {
+      tFreeN=0
+      for(i=0;i<N;i+=1) {if global.rndGLayer[i]=tLay and tFill[i]<0 {tFreeN+=1}}
+      if tFreeN>0
+      {
+        tLast=tLay
+        if random(1)<tNewest {tPick=tLay; break}
+      }
+    }
+    if tPick<0 {tPick=tLast}
+    if tPick<0 {return 0}
+  }
+  //a free location in it, at random
+  tCandN=0
+  for(i=0;i<N;i+=1) {if global.rndGLayer[i]=tPick and tFill[i]<0 {tCand[tCandN]=i; tCandN+=1}}
   tLoc=tCand[irandom(tCandN-1)]
-  tFill[tLoc]=tProg[n]
-  tAt[n]=tLoc
+  tFill[tLoc]=tProg[k]
+  tDone[k]=1
+  tIx=global.rndItemProg[tProg[k]]
+  global.rndGHave[tIx]+=1
+  if tIx>=6 and tIx<=9 {tLayW[tPick]=1}
+  if tPlaced=tProgN-1 {global.rndGAll=1}
+  //what it opens: the next layer
+  if rndGenMark(tCur+1)>0 {tCur+=1}
 }
 //the other items, at random in the locations left. The cursed equipment (10-12: the Trial Master's trials need all three
 //on) first, each at a free place that isn't a trial's (rndLocTrial), so the trials can always be done

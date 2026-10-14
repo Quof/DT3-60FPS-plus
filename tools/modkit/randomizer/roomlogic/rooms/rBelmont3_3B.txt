@@ -1,0 +1,321 @@
+# rBelmont3_3B: Access Gate 3: Transylvania (area 15), 640x1488 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+# switches: the room is worked out in each of its states, the player coming in in the first: [sliding blocks as placed]
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 48,1408   # from rBelmont3_3A out 2784,240
+in 592,160   # from rBelmont3_3C out 0,256
+in 592,1408   # from rBelmont3_3B_Secret out 0,240
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 0,1376   # to rBelmont3_3A at 2752,272; the player goes into it
+out 624,128   # to rBelmont3_3C at 48,288; the player goes into it
+out 624,1376   # to rBelmont3_3B_Secret at 48,272; the player goes into it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+loc 4 6   # heart energy 6, at 575,952
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 48,1408
+  out 0,1376     -
+  out 624,128    never
+  out 624,1376   adash | djump
+  loc 4 6        samus:2
+from in 592,160
+  out 0,1376     link:1 | belmont:1 | megaman:1 | samus:1
+  out 624,128    -
+  out 624,1376   never
+  loc 4 6        samus:2
+from in 592,1408
+  out 0,1376     djump | adash
+  out 624,128    never
+  out 624,1376   -
+  loc 4 6        adash,samus:2 | djump,samus:2
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 48,1408 -> out 0,1376: -
+     [sliding blocks as placed] coming in at 48,1408
+   1. coming in: holding nothing, from 48,1408; lands at 48,1409
+      -> [sliding blocks as placed] standing at x 0-358, y 1409
+   2. standing at 0,1409, goes into it
+      -> out 0,1376
+how in 48,1408 -> out 624,1376: adash
+     [sliding blocks as placed] coming in at 48,1408
+   1. coming in: holding nothing, from 48,1408; lands at 48,1409
+      -> [sliding blocks as placed] standing at x 0-358, y 1409
+   2. walk off the edge, holding right once in the air, air dash (Jerry) at tick 2, from 32,1409; lands at 520,1409   [adash]
+      -> [sliding blocks as placed] standing at x 506-640, y 1409
+   3. standing at 622,1409, goes into it
+      -> out 624,1376
+how in 48,1408 -> out 624,1376: djump
+     [sliding blocks as placed] coming in at 48,1408
+   1. coming in: holding nothing, from 48,1408; lands at 48,1409
+      -> [sliding blocks as placed] standing at x 0-358, y 1409
+   2. walk off the edge, holding right once in the air, double jump at tick 2, from 128,1409; lands at 516,1409   [djump]
+      -> [sliding blocks as placed] standing at x 506-640, y 1409
+   3. standing at 622,1409, goes into it
+      -> out 624,1376
+how in 48,1408 -> loc 4 6: samus:2
+     [sliding blocks as placed] coming in at 48,1408
+   1. coming in: holding nothing, from 48,1408; lands at 48,1409
+      -> [sliding blocks as placed] standing at x 0-358, y 1409
+   2. shoot the switch at 544,1376 from 231,1409: [sliding blocks moved]   [samus:1]
+      -> [sliding blocks moved] standing at x 0-345, y 1409
+   3. running right, jump (held 21 ticks), holding right, from 208,1409; lands at 362,1345
+      -> [sliding blocks moved] standing at x 346-409, y 1345
+   4. jump (held 21 ticks), holding right, from 350,1345; lands at 473,1281
+      -> [sliding blocks moved] standing at x 410-473, y 1281
+   5. jump (held 21 ticks), holding right, turn into the Morph Ball at tick 8, from 410,1281; lands at 545,1249   [samus:2]
+      -> [sliding blocks moved] as the Morph Ball at x 474-550, y 1249
+   6. as the Morph Ball: roll off the edge, holding right once in the air, turn back once there's room, from 474,1249; lands at 601,1281
+      -> [sliding blocks moved] standing at x 551-601, y 1281
+   7. hit the switch at 568,1256 from 551,1281 (jumping if need be): [sliding blocks as placed]   [samus:1]
+      -> [sliding blocks as placed] standing at x 551-601, y 1281
+   8. jump (held 21 ticks), holding left, turn into the Morph Ball where the body meets a wall or ceiling, from 551,1281; lands at 429,1281   [samus:2]
+      -> [sliding blocks as placed] as the Morph Ball at x 423-473, y 1281
+   9. turn back from the Morph Ball at 423,1281
+      -> [sliding blocks as placed] standing at x 423-473, y 1281
+  10. jump (held 21 ticks), holding left, from 423,1281; lands at 359,1217
+      -> [sliding blocks as placed] standing at x 359-422, y 1217
+  11. jump (held 21 ticks), holding left, from 359,1217; lands at 295,1153
+      -> [sliding blocks as placed] standing at x 295-358, y 1153
+  12. jump (held 21 ticks), holding left, from 295,1153; lands at 222,1089
+      -> [sliding blocks as placed] standing at x 39-294, y 1089
+  13. shoot the switch at 248,1048 from 39,1089: [sliding blocks moved]   [samus:1]
+      -> [sliding blocks moved] standing at x 39-153, y 1089
+  14. jump (held 21 ticks), holding right, from 39,1089; lands at 170,1025
+      -> [sliding blocks moved] standing at x 154-217, y 1025
+  15. jump (held 21 ticks), holding right, from 154,1025; lands at 285,961
+      -> [sliding blocks moved] standing at x 218-377, y 961
+  16. jump (held 21 ticks), holding left, from 218,961; lands at 87,897
+      -> [sliding blocks moved] standing at x 39-102, y 897
+  17. hit the switch at 104,808 from 90,897 (jumping if need be): [sliding blocks as placed]   [samus:1]
+      -> [sliding blocks as placed] standing at x 90-166, y 897
+  18. jump (held 21 ticks), holding right, from 128,897; lands at 259,833
+      -> [sliding blocks as placed] standing at x 250-326, y 833
+  19. jump (held 21 ticks), holding nothing, then right after 8 ticks, turn into the Morph Ball at tick 8, from 250,833; lands at 387,953   [samus:2]
+      -> [sliding blocks as placed] as the Morph Ball at x 378-422, y 953
+  20. as the Morph Ball: roll off the edge, holding right, then nothing after 1 ticks in the air, from 378,953; lands at 465,1025
+      -> [sliding blocks as placed] as the Morph Ball at x 423-486, y 1025
+  21. turn back from the Morph Ball at 423,1025
+      -> [sliding blocks as placed] standing at x 423-486, y 1025
+  22. jump (held 21 ticks), holding right, from 448,1025; touches it on the way
+      -> loc 4 6
+how in 592,160 -> out 0,1376: link:1
+     [sliding blocks as placed] coming in at 592,160
+   1. coming in: holding nothing, from 592,160; lands at 592,161
+      -> [sliding blocks as placed] standing at x 506-640, y 161
+   2. walk off the edge, holding left once in the air, from 506,161; lands at 382,289
+      -> [sliding blocks as placed] standing at x 346-486, y 289
+   3. jump (held 2 ticks), holding left, from 346,289; lands at 244,289
+      -> [sliding blocks as placed] standing at x 154-294, y 289
+   4. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 192,289; lands at 145,897
+      -> [sliding blocks as placed] standing at x 90-166, y 897
+   5. walk off the edge, holding left once in the air, from 90,897; lands at 39,1089
+      -> [sliding blocks as placed] standing at x 39-294, y 1089
+   6. walk off the edge, holding right, then nothing after 1 ticks in the air, from 39,1089; lands at 332,1153
+      -> [sliding blocks as placed] standing at x 295-358, y 1153
+   7. hit the switch at 248,1048 from 295,1153 (jumping if need be): [sliding blocks moved]   [link:1]
+      -> [sliding blocks moved] standing at x 295-358, y 1153
+   8. walk off the edge, holding right, then left after 1 ticks in the air, from 295,1153; lands at 301,1409
+      -> [sliding blocks moved] standing at x 0-345, y 1409
+   9. standing at 0,1409, goes into it
+      -> out 0,1376
+how in 592,160 -> out 0,1376: belmont:1
+     [sliding blocks as placed] coming in at 592,160
+   1. coming in: holding nothing, from 592,160; lands at 592,161
+      -> [sliding blocks as placed] standing at x 506-640, y 161
+   2. walk off the edge, holding left once in the air, from 506,161; lands at 382,289
+      -> [sliding blocks as placed] standing at x 346-486, y 289
+   3. jump (held 2 ticks), holding left, from 346,289; lands at 244,289
+      -> [sliding blocks as placed] standing at x 154-294, y 289
+   4. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 192,289; lands at 145,897
+      -> [sliding blocks as placed] standing at x 90-166, y 897
+   5. walk off the edge, holding left once in the air, from 90,897; lands at 39,1089
+      -> [sliding blocks as placed] standing at x 39-294, y 1089
+   6. walk off the edge, holding right, then nothing after 1 ticks in the air, from 39,1089; lands at 332,1153
+      -> [sliding blocks as placed] standing at x 295-358, y 1153
+   7. hit the switch at 248,1048 from 295,1153 (jumping if need be): [sliding blocks moved]   [belmont:1]
+      -> [sliding blocks moved] standing at x 295-358, y 1153
+   8. walk off the edge, holding right, then left after 1 ticks in the air, from 295,1153; lands at 301,1409
+      -> [sliding blocks moved] standing at x 0-345, y 1409
+   9. standing at 0,1409, goes into it
+      -> out 0,1376
+how in 592,160 -> out 0,1376: megaman:1
+     [sliding blocks as placed] coming in at 592,160
+   1. coming in: holding nothing, from 592,160; lands at 592,161
+      -> [sliding blocks as placed] standing at x 506-640, y 161
+   2. walk off the edge, holding left once in the air, from 506,161; lands at 382,289
+      -> [sliding blocks as placed] standing at x 346-486, y 289
+   3. jump (held 2 ticks), holding left, from 346,289; lands at 244,289
+      -> [sliding blocks as placed] standing at x 154-294, y 289
+   4. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 192,289; lands at 145,897
+      -> [sliding blocks as placed] standing at x 90-166, y 897
+   5. walk off the edge, holding left once in the air, from 90,897; lands at 39,1089
+      -> [sliding blocks as placed] standing at x 39-294, y 1089
+   6. walk off the edge, holding right, then nothing after 1 ticks in the air, from 39,1089; lands at 332,1153
+      -> [sliding blocks as placed] standing at x 295-358, y 1153
+   7. hit the switch at 248,1048 from 295,1153 (jumping if need be): [sliding blocks moved]   [megaman:1]
+      -> [sliding blocks moved] standing at x 295-358, y 1153
+   8. walk off the edge, holding right, then left after 1 ticks in the air, from 295,1153; lands at 301,1409
+      -> [sliding blocks moved] standing at x 0-345, y 1409
+   9. standing at 0,1409, goes into it
+      -> out 0,1376
+how in 592,160 -> out 0,1376: samus:1
+     [sliding blocks as placed] coming in at 592,160
+   1. coming in: holding nothing, from 592,160; lands at 592,161
+      -> [sliding blocks as placed] standing at x 506-640, y 161
+   2. walk off the edge, holding left once in the air, from 506,161; lands at 382,289
+      -> [sliding blocks as placed] standing at x 346-486, y 289
+   3. jump (held 2 ticks), holding left, from 346,289; lands at 244,289
+      -> [sliding blocks as placed] standing at x 154-294, y 289
+   4. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 192,289; lands at 145,897
+      -> [sliding blocks as placed] standing at x 90-166, y 897
+   5. walk off the edge, holding left once in the air, from 90,897; lands at 39,1089
+      -> [sliding blocks as placed] standing at x 39-294, y 1089
+   6. walk off the edge, holding right, then nothing after 1 ticks in the air, from 39,1089; lands at 332,1153
+      -> [sliding blocks as placed] standing at x 295-358, y 1153
+   7. hit the switch at 248,1048 from 295,1153 (jumping if need be): [sliding blocks moved]   [samus:1]
+      -> [sliding blocks moved] standing at x 295-358, y 1153
+   8. walk off the edge, holding right, then left after 1 ticks in the air, from 295,1153; lands at 301,1409
+      -> [sliding blocks moved] standing at x 0-345, y 1409
+   9. standing at 0,1409, goes into it
+      -> out 0,1376
+how in 592,160 -> out 624,128: -
+     [sliding blocks as placed] coming in at 592,160
+   1. coming in: holding nothing, from 592,160; lands at 592,161
+      -> [sliding blocks as placed] standing at x 506-640, y 161
+   2. standing at 622,161, goes into it
+      -> out 624,128
+how in 592,160 -> loc 4 6: samus:2
+     [sliding blocks as placed] coming in at 592,160
+   1. coming in: holding nothing, from 592,160; lands at 592,161
+      -> [sliding blocks as placed] standing at x 506-640, y 161
+   2. walk off the edge, holding left once in the air, from 506,161; lands at 382,289
+      -> [sliding blocks as placed] standing at x 346-486, y 289
+   3. running left, jump (held 21 ticks), holding left, from 346,289; lands at 39,609
+      -> [sliding blocks as placed] standing at x 39-102, y 609
+   4. jump (held 6 ticks), holding right, turn into the Morph Ball where the body meets a wall or ceiling, from 64,609; lands at 387,953   [samus:2]
+      -> [sliding blocks as placed] as the Morph Ball at x 378-422, y 953
+   5. as the Morph Ball: roll off the edge, holding right, then nothing after 1 ticks in the air, from 378,953; lands at 465,1025
+      -> [sliding blocks as placed] as the Morph Ball at x 423-486, y 1025
+   6. turn back from the Morph Ball at 423,1025
+      -> [sliding blocks as placed] standing at x 423-486, y 1025
+   7. jump (held 21 ticks), holding right, from 448,1025; touches it on the way
+      -> loc 4 6
+how in 592,1408 -> out 0,1376: djump
+     [sliding blocks as placed] coming in at 592,1408
+   1. coming in: holding nothing, from 592,1408; lands at 592,1409
+      -> [sliding blocks as placed] standing at x 506-640, y 1409
+   2. jump (held 21 ticks), holding left, double jump at tick 15, from 506,1409; lands at 309,1409   [djump]
+      -> [sliding blocks as placed] standing at x 0-358, y 1409
+   3. standing at 0,1409, goes into it
+      -> out 0,1376
+how in 592,1408 -> out 0,1376: adash
+     [sliding blocks as placed] coming in at 592,1408
+   1. coming in: holding nothing, from 592,1408; lands at 592,1409
+      -> [sliding blocks as placed] standing at x 506-640, y 1409
+   2. jump (held 21 ticks), holding left, air dash (Jerry) at tick 4, from 506,1409; lands at 329,1409   [adash]
+      -> [sliding blocks as placed] standing at x 0-358, y 1409
+   3. standing at 0,1409, goes into it
+      -> out 0,1376
+how in 592,1408 -> out 624,1376: -
+     [sliding blocks as placed] coming in at 592,1408
+   1. coming in: holding nothing, from 592,1408; lands at 592,1409
+      -> [sliding blocks as placed] standing at x 506-640, y 1409
+   2. standing at 622,1409, goes into it
+      -> out 624,1376
+how in 592,1408 -> loc 4 6: adash,samus:2
+     [sliding blocks as placed] coming in at 592,1408
+   1. coming in: holding nothing, from 592,1408; lands at 592,1409
+      -> [sliding blocks as placed] standing at x 506-640, y 1409
+   2. jump (held 21 ticks), holding left, air dash (Jerry) at tick 4, from 506,1409; lands at 329,1409   [adash]
+      -> [sliding blocks as placed] standing at x 0-358, y 1409
+   3. shoot the switch at 544,1376 from 231,1409: [sliding blocks moved]   [samus:1]
+      -> [sliding blocks moved] standing at x 0-345, y 1409
+   4. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 112,1409; lands at 366,1345   [adash]
+      -> [sliding blocks moved] standing at x 346-409, y 1345
+   5. jump (held 21 ticks), holding right, from 350,1345; lands at 473,1281
+      -> [sliding blocks moved] standing at x 410-473, y 1281
+   6. jump (held 21 ticks), holding right, turn into the Morph Ball at tick 8, from 410,1281; lands at 545,1249   [samus:2]
+      -> [sliding blocks moved] as the Morph Ball at x 474-550, y 1249
+   7. as the Morph Ball: roll off the edge, holding right once in the air, turn back once there's room, from 474,1249; lands at 601,1281
+      -> [sliding blocks moved] standing at x 551-601, y 1281
+   8. hit the switch at 568,1256 from 551,1281 (jumping if need be): [sliding blocks as placed]   [samus:1]
+      -> [sliding blocks as placed] standing at x 551-601, y 1281
+   9. jump (held 21 ticks), holding left, turn into the Morph Ball where the body meets a wall or ceiling, from 551,1281; lands at 429,1281   [samus:2]
+      -> [sliding blocks as placed] as the Morph Ball at x 423-473, y 1281
+  10. turn back from the Morph Ball at 423,1281
+      -> [sliding blocks as placed] standing at x 423-473, y 1281
+  11. jump (held 21 ticks), holding left, from 423,1281; lands at 359,1217
+      -> [sliding blocks as placed] standing at x 359-422, y 1217
+  12. jump (held 21 ticks), holding left, from 359,1217; lands at 295,1153
+      -> [sliding blocks as placed] standing at x 295-358, y 1153
+  13. jump (held 21 ticks), holding left, from 295,1153; lands at 222,1089
+      -> [sliding blocks as placed] standing at x 39-294, y 1089
+  14. shoot the switch at 248,1048 from 39,1089: [sliding blocks moved]   [samus:1]
+      -> [sliding blocks moved] standing at x 39-153, y 1089
+  15. jump (held 21 ticks), holding right, from 39,1089; lands at 170,1025
+      -> [sliding blocks moved] standing at x 154-217, y 1025
+  16. jump (held 21 ticks), holding right, from 154,1025; lands at 285,961
+      -> [sliding blocks moved] standing at x 218-377, y 961
+  17. jump (held 21 ticks), holding left, from 218,961; lands at 87,897
+      -> [sliding blocks moved] standing at x 39-102, y 897
+  18. hit the switch at 104,808 from 90,897 (jumping if need be): [sliding blocks as placed]   [samus:1]
+      -> [sliding blocks as placed] standing at x 90-166, y 897
+  19. jump (held 21 ticks), holding right, turn into the Morph Ball where the body meets a wall or ceiling, air dash (Claire) at tick 10, from 144,897; lands at 387,953   [adash,samus:2]
+      -> [sliding blocks as placed] as the Morph Ball at x 378-422, y 953
+  20. as the Morph Ball: roll off the edge, holding right, then nothing after 1 ticks in the air, from 378,953; lands at 465,1025
+      -> [sliding blocks as placed] as the Morph Ball at x 423-486, y 1025
+  21. turn back from the Morph Ball at 423,1025
+      -> [sliding blocks as placed] standing at x 423-486, y 1025
+  22. jump (held 21 ticks), holding nothing, then right after 12 ticks, air dash (Jerry) at tick 12, from 423,1025; touches it on the way   [adash]
+      -> loc 4 6
+how in 592,1408 -> loc 4 6: djump,samus:2
+     [sliding blocks as placed] coming in at 592,1408
+   1. coming in: holding nothing, from 592,1408; lands at 592,1409
+      -> [sliding blocks as placed] standing at x 506-640, y 1409
+   2. jump (held 21 ticks), holding left, double jump at tick 15, from 506,1409; lands at 309,1409   [djump]
+      -> [sliding blocks as placed] standing at x 0-358, y 1409
+   3. shoot the switch at 544,1376 from 231,1409: [sliding blocks moved]   [samus:1]
+      -> [sliding blocks moved] standing at x 0-345, y 1409
+   4. running right, jump (held 21 ticks), holding right, double jump at tick 10, from 160,1409; lands at 358,1345   [djump]
+      -> [sliding blocks moved] standing at x 346-409, y 1345
+   5. jump (held 21 ticks), holding right, double jump at tick 15, from 350,1345; lands at 531,1249   [djump]
+      -> [sliding blocks moved] standing at x 474-537, y 1249
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 474,1249; lands at 595,1153   [djump]
+      -> [sliding blocks moved] standing at x 538-601, y 1153
+   7. shoot the switch at 248,1048 from 538,1153 (at the top of a jump): [sliding blocks as placed]   [samus:1]
+      -> [sliding blocks as placed] standing at x 538-601, y 1153
+   8. jump (held 2 ticks), holding left, from 538,1153; lands at 414,1217
+      -> [sliding blocks as placed] standing at x 359-422, y 1217
+   9. jump (held 21 ticks), holding left, from 359,1217; lands at 295,1153
+      -> [sliding blocks as placed] standing at x 295-358, y 1153
+  10. jump (held 21 ticks), holding left, from 295,1153; lands at 222,1089
+      -> [sliding blocks as placed] standing at x 39-294, y 1089
+  11. shoot the switch at 248,1048 from 39,1089: [sliding blocks moved]   [samus:1]
+      -> [sliding blocks moved] standing at x 39-153, y 1089
+  12. jump (held 21 ticks), holding right, from 39,1089; lands at 170,1025
+      -> [sliding blocks moved] standing at x 154-217, y 1025
+  13. jump (held 21 ticks), holding right, from 154,1025; lands at 285,961
+      -> [sliding blocks moved] standing at x 218-377, y 961
+  14. jump (held 21 ticks), holding left, from 218,961; lands at 87,897
+      -> [sliding blocks moved] standing at x 39-102, y 897
+  15. hit the switch at 104,808 from 90,897 (jumping if need be): [sliding blocks as placed]   [samus:1]
+      -> [sliding blocks as placed] standing at x 90-166, y 897
+  16. jump (held 21 ticks), holding right, turn into the Morph Ball where the body meets a wall or ceiling, double jump at tick 10, from 144,897; lands at 389,953   [djump,samus:2]
+      -> [sliding blocks as placed] as the Morph Ball at x 378-422, y 953
+  17. as the Morph Ball: roll off the edge, holding right, then nothing after 1 ticks in the air, from 378,953; lands at 465,1025
+      -> [sliding blocks as placed] as the Morph Ball at x 423-486, y 1025
+  18. turn back from the Morph Ball at 423,1025
+      -> [sliding blocks as placed] standing at x 423-486, y 1025
+  19. jump (held 21 ticks), holding right, from 448,1025; touches it on the way
+      -> loc 4 6

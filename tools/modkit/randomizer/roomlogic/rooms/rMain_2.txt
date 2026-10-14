@@ -1,0 +1,413 @@
+# rMain_2: Initiate's Pass - West (area 2), 1840x528 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 64,400   # from rMain_1 out 408,2016
+in 1776,384   # from rMain_3 out 32,608
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 56,368   # to rMain_1 at 416,2048; the player presses up at it
+out 1768,352   # to rMain_3 at 40,640; the player presses up at it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+loc 13 1   # key 1, at 56,132
+loc 13 2   # key 2, at 408,100
+loc 1 2   # heart piece 2, at 1271,55
+loc 9 6   # weapon upgrade 6, at 1639,71
+loc 10 84   # skill point 84, at 1167,351
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 64,400
+  out 56,368     -
+  out 1768,352   -
+  loc 13 1       -
+  loc 13 2       -
+  loc 1 2        adash | djump | gdash | mario | key:2
+  loc 9 6        adash,mario | djump,mario | djump,adash,link:1 | djump,adash,belmont:1
+  loc 10 84      never
+from in 1776,384
+  out 56,368     -
+  out 1768,352   -
+  loc 13 1       -
+  loc 13 2       -
+  loc 1 2        adash | djump | gdash | mario | key:2
+  loc 9 6        djump,mario | adash,mario | djump,adash,link:1 | djump,adash,belmont:1
+  loc 10 84      never
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 64,400 -> out 56,368: -
+     coming in at 64,400
+   1. coming in: holding nothing, from 64,400; lands at 64,401
+      -> standing at x 0-582, y 401-403
+   2. standing at 46,401, presses up at it
+      -> out 56,368
+how in 64,400 -> out 1768,352: -
+     coming in at 64,400
+   1. coming in: holding nothing, from 64,400; lands at 64,401
+      -> standing at x 0-582, y 401-403
+   2. running right, jump (held 21 ticks), holding right, from 432,401; lands at 595,337
+      -> standing at x 586-662, y 337-339
+   3. running right, jump (held 21 ticks), holding right, from 624,337; lands at 778,273
+      -> standing at x 762-1046, y 271-273
+   4. walk off the edge, holding right once in the air, from 762,273; lands at 1102,289
+      -> standing at x 983-1238, y 286-293
+   5. running right, jump (held 2 ticks), holding right, from 1216,289; lands at 1363,321
+      -> standing at x 1354-1430, y 321
+   6. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1354,321; lands at 1486,385
+      -> standing at x 1431-1840, y 385
+   7. standing at 1758,385, presses up at it
+      -> out 1768,352
+how in 64,400 -> loc 13 1: -
+     coming in at 64,400
+   1. coming in: holding nothing, from 64,400; lands at 64,401
+      -> standing at x 0-582, y 401-403
+   2. jump (held 21 ticks), holding right, from 448,401; lands at 601,352
+      -> standing at x 586-662, y 352-354
+   3. jump (held 21 ticks), holding nothing, then right after 14 ticks, from 586,352; lands at 616,289
+      -> standing at x 586-662, y 289-291
+   4. jump (held 21 ticks), holding left, from 586,289; lands at 510,225
+      -> standing at x 119-582, y 223-227
+   5. running right, jump (held 21 ticks), holding right, from 464,225; lands at 597,148
+      -> standing at x 378-718, y 113-162
+   6. jump (held 21 ticks), holding left, from 378,113; lands at 173,147
+      -> standing at x 0-182, y 145-149
+   7. standing at 46,145, touches it
+      -> loc 13 1
+how in 64,400 -> loc 13 2: -
+     coming in at 64,400
+   1. coming in: holding nothing, from 64,400; lands at 64,401
+      -> standing at x 0-582, y 401-403
+   2. jump (held 21 ticks), holding right, from 448,401; lands at 601,352
+      -> standing at x 586-662, y 352-354
+   3. jump (held 21 ticks), holding nothing, then right after 14 ticks, from 586,352; lands at 616,289
+      -> standing at x 586-662, y 289-291
+   4. jump (held 21 ticks), holding left, from 586,289; lands at 510,225
+      -> standing at x 119-582, y 223-227
+   5. running right, jump (held 21 ticks), holding right, from 464,225; lands at 597,148
+      -> standing at x 378-718, y 113-162
+   6. standing at 398,113, touches it
+      -> loc 13 2
+how in 64,400 -> loc 1 2: adash
+     coming in at 64,400
+   1. coming in: holding nothing, from 64,400; lands at 64,401
+      -> standing at x 0-582, y 401-403
+   2. running right, jump (held 21 ticks), holding right, from 432,401; lands at 595,337
+      -> standing at x 586-662, y 337-339
+   3. running right, jump (held 21 ticks), holding right, from 624,337; lands at 778,273
+      -> standing at x 762-1046, y 271-273
+   4. step onto moving platform 7 at 970,271
+      -> riding moving platform 7 (waiting for it where it goes)
+   5. ride moving platform 7 and step off at 983,85
+      -> standing at x 906-1046, y 81-87
+   6. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 976,81; touches it on the way   [adash]
+      -> loc 1 2
+how in 64,400 -> loc 1 2: djump
+     coming in at 64,400
+   1. coming in: holding nothing, from 64,400; lands at 64,401
+      -> standing at x 0-582, y 401-403
+   2. running right, jump (held 21 ticks), holding right, from 432,401; lands at 595,337
+      -> standing at x 586-662, y 337-339
+   3. running right, jump (held 21 ticks), holding right, from 624,337; lands at 778,273
+      -> standing at x 762-1046, y 271-273
+   4. step onto moving platform 7 at 970,271
+      -> riding moving platform 7 (waiting for it where it goes)
+   5. ride moving platform 7 and step off at 983,85
+      -> standing at x 906-1046, y 81-87
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 1008,85; touches it on the way   [djump]
+      -> loc 1 2
+how in 64,400 -> loc 1 2: gdash
+     coming in at 64,400
+   1. coming in: holding nothing, from 64,400; lands at 64,401
+      -> standing at x 0-582, y 401-403
+   2. running right, jump (held 21 ticks), holding right, from 432,401; lands at 595,337
+      -> standing at x 586-662, y 337-339
+   3. running right, jump (held 21 ticks), holding right, from 624,337; lands at 778,273
+      -> standing at x 762-1046, y 271-273
+   4. step onto moving platform 7 at 970,271
+      -> riding moving platform 7 (waiting for it where it goes)
+   5. ride moving platform 7 and step off at 983,85
+      -> standing at x 906-1046, y 81-87
+   6. dash right (Jerry), jump (held 21 ticks), holding right, from 1008,85; touches it on the way   [gdash]
+      -> loc 1 2
+how in 64,400 -> loc 1 2: mario
+     coming in at 64,400
+   1. coming in: holding nothing, from 64,400; lands at 64,401
+      -> standing at x 0-582, y 401-403
+   2. running right, jump (held 21 ticks), holding right, from 432,401; lands at 595,337
+      -> standing at x 586-662, y 337-339
+   3. running right, jump (held 21 ticks), holding right, from 624,337; lands at 778,273
+      -> standing at x 762-1046, y 271-273
+   4. running right, jump (held 21 ticks), holding right, from 800,273; lands at 984,240
+      -> standing at x 970-1046, y 240-242
+   5. running right, jump (held 21 ticks), holding right, from 1008,240; lands at 1162,177
+      -> standing at x 1130-1353, y 176-177
+   6. jump (held 40 ticks), holding nothing, then left after 22 ticks, bounce off a flying enemy at tick 12 (Mario Ability Set), from 1345,176; touches it on the way   [mario]
+      -> loc 1 2
+how in 64,400 -> loc 1 2: key:2
+     coming in at 64,400
+   1. coming in: holding nothing, from 64,400; lands at 64,401
+      -> standing at x 0-582, y 401-403
+   2. running right, jump (held 21 ticks), holding right, from 432,401; lands at 595,337
+      -> standing at x 586-662, y 337-339
+   3. running right, jump (held 21 ticks), holding right, from 624,337; lands at 778,273
+      -> standing at x 762-1046, y 271-273
+   4. running right, jump (held 21 ticks), holding right, from 800,273; lands at 984,240
+      -> standing at x 970-1046, y 240-242
+   5. running right, jump (held 21 ticks), holding right, from 1008,240; lands at 1162,177
+      -> standing at x 1130-1353, y 176-177
+   6. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 1349,176, through the locked door at 1296,175; lands at 1246,65   [key:2]
+      -> standing at x 1242-1302, y 65
+   7. standing at 1265,65, touches it
+      -> loc 1 2
+how in 64,400 -> loc 9 6: adash,mario
+     coming in at 64,400
+   1. coming in: holding nothing, from 64,400; lands at 64,401
+      -> standing at x 0-582, y 401-403
+   2. running right, jump (held 21 ticks), holding right, from 432,401; lands at 595,337
+      -> standing at x 586-662, y 337-339
+   3. running right, jump (held 21 ticks), holding right, from 624,337; lands at 778,273
+      -> standing at x 762-1046, y 271-273
+   4. walk off the edge, holding right once in the air, from 762,273; lands at 1102,289
+      -> standing at x 983-1238, y 286-293
+   5. walk off the edge, holding right once in the air, air dash (Jerry) at tick 6 or once there's room ahead, from 1056,291; lands at 1509,385   [adash]
+      -> standing at x 1431-1840, y 385
+   6. jump (held 40 ticks), holding nothing, then right after 22 ticks, bounce off a flying enemy at tick 12 (Mario Ability Set), air dash (Jerry) at tick 28, from 1431,385; lands at 1588,209   [adash,mario]
+      -> standing at x 1530-1606, y 209
+   7. jump (held 40 ticks), holding nothing, then right after 22 ticks, bounce off a flying enemy at tick 12 (Mario Ability Set), from 1568,209; touches it on the way   [mario]
+      -> loc 9 6
+how in 64,400 -> loc 9 6: djump,mario
+     coming in at 64,400
+   1. coming in: holding nothing, from 64,400; lands at 64,401
+      -> standing at x 0-582, y 401-403
+   2. running right, jump (held 21 ticks), holding right, from 432,401; lands at 595,337
+      -> standing at x 586-662, y 337-339
+   3. running right, jump (held 21 ticks), holding right, from 624,337; lands at 778,273
+      -> standing at x 762-1046, y 271-273
+   4. walk off the edge, holding right once in the air, from 762,273; lands at 1102,289
+      -> standing at x 983-1238, y 286-293
+   5. jump (held 21 ticks), holding right, double jump at tick 15, from 1230,289; lands at 1530,385   [djump]
+      -> standing at x 1431-1840, y 385
+   6. jump (held 40 ticks), holding nothing, then right after 22 ticks, bounce off a flying enemy at tick 12 (Mario Ability Set), double jump at tick 32, from 1431,385; lands at 1573,209   [djump,mario]
+      -> standing at x 1530-1606, y 209
+   7. jump (held 40 ticks), holding nothing, then right after 22 ticks, bounce off a flying enemy at tick 12 (Mario Ability Set), from 1568,209; touches it on the way   [mario]
+      -> loc 9 6
+how in 64,400 -> loc 9 6: djump,adash,link:1
+     coming in at 64,400
+   1. coming in: holding nothing, from 64,400; lands at 64,401
+      -> standing at x 0-582, y 401-403
+   2. running right, jump (held 21 ticks), holding right, from 432,401; lands at 595,337
+      -> standing at x 586-662, y 337-339
+   3. running right, jump (held 21 ticks), holding right, from 624,337; lands at 778,273
+      -> standing at x 762-1046, y 271-273
+   4. walk off the edge, holding right once in the air, from 762,273; lands at 1102,289
+      -> standing at x 983-1238, y 286-293
+   5. running right, jump (held 2 ticks), holding right, from 1216,289; lands at 1363,321
+      -> standing at x 1354-1430, y 321
+   6. jump (held 14 ticks), holding right, double jump at tick 21, air dash (Jerry) at tick 14, from 1428,321; lands at 1566,209   [djump,adash]
+      -> standing at x 1530-1606, y 209
+   7. jump (held 21 ticks), holding right, double jump at tick 15, from 1598,209; lands at 1795,145   [djump]
+      -> standing at x 1786-1814, y 145
+   8. jump (held 21 ticks), holding left, from 1786,145, through the breakable wall at 1664,48, the breakable wall at 1664,16, the breakable wall at 1664,-16, ...; lands at 1655,81   [link:1]
+      -> standing at x 1626-1657, y 81
+   9. standing at 1634,81, touches it
+      -> loc 9 6
+how in 64,400 -> loc 9 6: djump,adash,belmont:1
+     coming in at 64,400
+   1. coming in: holding nothing, from 64,400; lands at 64,401
+      -> standing at x 0-582, y 401-403
+   2. running right, jump (held 21 ticks), holding right, from 432,401; lands at 595,337
+      -> standing at x 586-662, y 337-339
+   3. running right, jump (held 21 ticks), holding right, from 624,337; lands at 778,273
+      -> standing at x 762-1046, y 271-273
+   4. walk off the edge, holding right once in the air, from 762,273; lands at 1102,289
+      -> standing at x 983-1238, y 286-293
+   5. running right, jump (held 2 ticks), holding right, from 1216,289; lands at 1363,321
+      -> standing at x 1354-1430, y 321
+   6. jump (held 14 ticks), holding right, double jump at tick 21, air dash (Jerry) at tick 14, from 1428,321; lands at 1566,209   [djump,adash]
+      -> standing at x 1530-1606, y 209
+   7. jump (held 21 ticks), holding right, double jump at tick 15, from 1598,209; lands at 1795,145   [djump]
+      -> standing at x 1786-1814, y 145
+   8. jump (held 21 ticks), holding left, from 1786,145, through the breakable wall at 1664,48, the breakable wall at 1664,16, the breakable wall at 1664,-16, ...; lands at 1655,81   [belmont:1]
+      -> standing at x 1626-1657, y 81
+   9. standing at 1634,81, touches it
+      -> loc 9 6
+how in 1776,384 -> out 56,368: -
+     coming in at 1776,384
+   1. coming in: holding nothing, from 1776,384; lands at 1776,385
+      -> standing at x 1431-1840, y 385
+   2. jump (held 21 ticks), holding left, from 1431,385; lands at 1358,321
+      -> standing at x 1354-1430, y 321
+   3. running left, jump (held 6 ticks), holding left, from 1354,321; lands at 1214,289
+      -> standing at x 983-1238, y 286-293
+   4. jump (held 2 ticks), holding left, from 983,286; lands at 888,273
+      -> standing at x 762-1046, y 271-273
+   5. running left, walk off the edge, holding left once in the air, from 762,273; lands at 652,368
+      -> standing at x 586-662, y 368-370
+   6. walk off the edge, holding left once in the air, from 586,368; lands at 521,401
+      -> standing at x 0-582, y 401-403
+   7. standing at 46,401, presses up at it
+      -> out 56,368
+how in 1776,384 -> out 1768,352: -
+     coming in at 1776,384
+   1. coming in: holding nothing, from 1776,384; lands at 1776,385
+      -> standing at x 1431-1840, y 385
+   2. standing at 1758,385, presses up at it
+      -> out 1768,352
+how in 1776,384 -> loc 13 1: -
+     coming in at 1776,384
+   1. coming in: holding nothing, from 1776,384; lands at 1776,385
+      -> standing at x 1431-1840, y 385
+   2. jump (held 21 ticks), holding left, from 1431,385; lands at 1358,321
+      -> standing at x 1354-1430, y 321
+   3. running left, jump (held 6 ticks), holding left, from 1354,321; lands at 1214,289
+      -> standing at x 983-1238, y 286-293
+   4. step onto moving platform 7 at 983,286
+      -> riding moving platform 7 (waiting for it where it goes)
+   5. ride moving platform 7 and step off at 983,85
+      -> standing at x 906-1046, y 81-87
+   6. running left, jump (held 6 ticks), holding left, from 906,81; lands at 693,161
+      -> standing at x 378-718, y 113-162
+   7. jump (held 21 ticks), holding left, from 378,113; lands at 173,147
+      -> standing at x 0-182, y 145-149
+   8. standing at 46,145, touches it
+      -> loc 13 1
+how in 1776,384 -> loc 13 2: -
+     coming in at 1776,384
+   1. coming in: holding nothing, from 1776,384; lands at 1776,385
+      -> standing at x 1431-1840, y 385
+   2. jump (held 21 ticks), holding left, from 1431,385; lands at 1358,321
+      -> standing at x 1354-1430, y 321
+   3. running left, jump (held 6 ticks), holding left, from 1354,321; lands at 1214,289
+      -> standing at x 983-1238, y 286-293
+   4. step onto moving platform 7 at 983,286
+      -> riding moving platform 7 (waiting for it where it goes)
+   5. ride moving platform 7 and step off at 983,85
+      -> standing at x 906-1046, y 81-87
+   6. running left, jump (held 6 ticks), holding left, from 906,81; lands at 693,161
+      -> standing at x 378-718, y 113-162
+   7. standing at 398,113, touches it
+      -> loc 13 2
+how in 1776,384 -> loc 1 2: adash
+     coming in at 1776,384
+   1. coming in: holding nothing, from 1776,384; lands at 1776,385
+      -> standing at x 1431-1840, y 385
+   2. jump (held 21 ticks), holding left, from 1431,385; lands at 1358,321
+      -> standing at x 1354-1430, y 321
+   3. running left, jump (held 6 ticks), holding left, from 1354,321; lands at 1214,289
+      -> standing at x 983-1238, y 286-293
+   4. step onto moving platform 7 at 983,286
+      -> riding moving platform 7 (waiting for it where it goes)
+   5. ride moving platform 7 and step off at 983,85
+      -> standing at x 906-1046, y 81-87
+   6. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 976,81; touches it on the way   [adash]
+      -> loc 1 2
+how in 1776,384 -> loc 1 2: djump
+     coming in at 1776,384
+   1. coming in: holding nothing, from 1776,384; lands at 1776,385
+      -> standing at x 1431-1840, y 385
+   2. jump (held 21 ticks), holding left, from 1431,385; lands at 1358,321
+      -> standing at x 1354-1430, y 321
+   3. running left, jump (held 6 ticks), holding left, from 1354,321; lands at 1214,289
+      -> standing at x 983-1238, y 286-293
+   4. step onto moving platform 7 at 983,286
+      -> riding moving platform 7 (waiting for it where it goes)
+   5. ride moving platform 7 and step off at 983,85
+      -> standing at x 906-1046, y 81-87
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 1008,85; touches it on the way   [djump]
+      -> loc 1 2
+how in 1776,384 -> loc 1 2: gdash
+     coming in at 1776,384
+   1. coming in: holding nothing, from 1776,384; lands at 1776,385
+      -> standing at x 1431-1840, y 385
+   2. jump (held 21 ticks), holding left, from 1431,385; lands at 1358,321
+      -> standing at x 1354-1430, y 321
+   3. running left, jump (held 6 ticks), holding left, from 1354,321; lands at 1214,289
+      -> standing at x 983-1238, y 286-293
+   4. step onto moving platform 7 at 983,286
+      -> riding moving platform 7 (waiting for it where it goes)
+   5. ride moving platform 7 and step off at 983,85
+      -> standing at x 906-1046, y 81-87
+   6. dash right (Jerry), jump (held 21 ticks), holding right, from 1008,85; touches it on the way   [gdash]
+      -> loc 1 2
+how in 1776,384 -> loc 1 2: mario
+     coming in at 1776,384
+   1. coming in: holding nothing, from 1776,384; lands at 1776,385
+      -> standing at x 1431-1840, y 385
+   2. jump (held 21 ticks), holding left, from 1431,385; lands at 1358,321
+      -> standing at x 1354-1430, y 321
+   3. running left, jump (held 6 ticks), holding left, from 1354,321; lands at 1214,289
+      -> standing at x 983-1238, y 286-293
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 983,286; lands at 1034,224
+      -> standing at x 970-1046, y 224-226
+   5. running right, jump (held 6 ticks), holding right, from 1024,224; lands at 1142,177
+      -> standing at x 1130-1353, y 176-177
+   6. jump (held 40 ticks), holding nothing, then left after 22 ticks, bounce off a flying enemy at tick 12 (Mario Ability Set), from 1345,176; touches it on the way   [mario]
+      -> loc 1 2
+how in 1776,384 -> loc 1 2: key:2
+     coming in at 1776,384
+   1. coming in: holding nothing, from 1776,384; lands at 1776,385
+      -> standing at x 1431-1840, y 385
+   2. jump (held 21 ticks), holding left, from 1431,385; lands at 1358,321
+      -> standing at x 1354-1430, y 321
+   3. running left, jump (held 6 ticks), holding left, from 1354,321; lands at 1214,289
+      -> standing at x 983-1238, y 286-293
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 983,286; lands at 1034,224
+      -> standing at x 970-1046, y 224-226
+   5. running right, jump (held 6 ticks), holding right, from 1024,224; lands at 1142,177
+      -> standing at x 1130-1353, y 176-177
+   6. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 1349,176, through the locked door at 1296,175; lands at 1246,65   [key:2]
+      -> standing at x 1242-1302, y 65
+   7. standing at 1265,65, touches it
+      -> loc 1 2
+how in 1776,384 -> loc 9 6: djump,mario
+     coming in at 1776,384
+   1. coming in: holding nothing, from 1776,384; lands at 1776,385
+      -> standing at x 1431-1840, y 385
+   2. jump (held 40 ticks), holding nothing, then right after 22 ticks, bounce off a flying enemy at tick 12 (Mario Ability Set), double jump at tick 32, from 1431,385; lands at 1573,209   [djump,mario]
+      -> standing at x 1530-1606, y 209
+   3. jump (held 40 ticks), holding nothing, then right after 22 ticks, bounce off a flying enemy at tick 12 (Mario Ability Set), from 1568,209; touches it on the way   [mario]
+      -> loc 9 6
+how in 1776,384 -> loc 9 6: adash,mario
+     coming in at 1776,384
+   1. coming in: holding nothing, from 1776,384; lands at 1776,385
+      -> standing at x 1431-1840, y 385
+   2. jump (held 40 ticks), holding nothing, then right after 22 ticks, bounce off a flying enemy at tick 12 (Mario Ability Set), air dash (Jerry) at tick 28, from 1431,385; lands at 1588,209   [adash,mario]
+      -> standing at x 1530-1606, y 209
+   3. jump (held 40 ticks), holding nothing, then right after 22 ticks, bounce off a flying enemy at tick 12 (Mario Ability Set), from 1568,209; touches it on the way   [mario]
+      -> loc 9 6
+how in 1776,384 -> loc 9 6: djump,adash,link:1
+     coming in at 1776,384
+   1. coming in: holding nothing, from 1776,384; lands at 1776,385
+      -> standing at x 1431-1840, y 385
+   2. jump (held 21 ticks), holding left, from 1431,385; lands at 1358,321
+      -> standing at x 1354-1430, y 321
+   3. jump (held 14 ticks), holding right, double jump at tick 21, air dash (Jerry) at tick 14, from 1428,321; lands at 1566,209   [djump,adash]
+      -> standing at x 1530-1606, y 209
+   4. jump (held 21 ticks), holding right, double jump at tick 15, from 1598,209; lands at 1795,145   [djump]
+      -> standing at x 1786-1814, y 145
+   5. jump (held 21 ticks), holding left, from 1786,145, through the breakable wall at 1664,48, the breakable wall at 1664,16, the breakable wall at 1664,-16, ...; lands at 1655,81   [link:1]
+      -> standing at x 1626-1657, y 81
+   6. standing at 1634,81, touches it
+      -> loc 9 6
+how in 1776,384 -> loc 9 6: djump,adash,belmont:1
+     coming in at 1776,384
+   1. coming in: holding nothing, from 1776,384; lands at 1776,385
+      -> standing at x 1431-1840, y 385
+   2. jump (held 21 ticks), holding left, from 1431,385; lands at 1358,321
+      -> standing at x 1354-1430, y 321
+   3. jump (held 14 ticks), holding right, double jump at tick 21, air dash (Jerry) at tick 14, from 1428,321; lands at 1566,209   [djump,adash]
+      -> standing at x 1530-1606, y 209
+   4. jump (held 21 ticks), holding right, double jump at tick 15, from 1598,209; lands at 1795,145   [djump]
+      -> standing at x 1786-1814, y 145
+   5. jump (held 21 ticks), holding left, from 1786,145, through the breakable wall at 1664,48, the breakable wall at 1664,16, the breakable wall at 1664,-16, ...; lands at 1655,81   [belmont:1]
+      -> standing at x 1626-1657, y 81
+   6. standing at 1634,81, touches it
+      -> loc 9 6

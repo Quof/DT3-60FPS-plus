@@ -1,7 +1,7 @@
 """
-Builds the DT3+ Randomizer mod from the project: every collectible location in the game's rooms, the item pool, the
-logic estimate for each location and the endgame world state, written as the mod's data scripts, with the hand-written
-mod files in mod\\.
+Builds the DT3+ Randomizer mod from the project: every collectible location in the game's rooms, the item pool, what
+each location needs (the room logic's) and the endgame world state, written as the mod's data scripts, with the
+hand-written mod files in mod\\.
 
 usage: python rndgen.py <output folder>
        python rndgen.py --world-from <save.dts>      (re-reads world.txt's values from a finished save)
@@ -9,7 +9,9 @@ usage: python rndgen.py <output folder>
 Inputs next to this file:
   mod\\        the mod's own code (mod.ini, hooks, scripts, objects), copied to the output as is
   world.txt   the endgame world state: save file keys (loadSaveData) and their values, from a 100% save
-  logic.txt   changes to the logic estimate (see README.txt)
+  roomlogic\\  what each location needs, worked out from the rooms: each room's logic (rooms\\), the connections and
+              the hand-made changes (overrides.txt), joined by solve.py (roomlogic\\README.txt)
+  logic.txt   last-resort changes to single locations (see README.txt)
 Outputs:
   <output>\\scripts\\rndData.gml    locations, items and shops
   <output>\\scripts\\rndWorld.gml   the world state
@@ -28,7 +30,7 @@ LTYPES = [
     (7, "oAirUpgrade", "Air Upgrade"), (8, "oWalletBoost", "Internetz Mod"), (9, "oWeaponLevelUpgrade", "Weapon Upgrade"),
     (10, "oAPBoost", "Skill Point"), (11, "oLinkBombUpgrade", "Bomb Upgrade"), (12, "oMorphBombUpgrade", "Morph Bomb Upgrade"),
     (13, "oDoorKey", "Key"), (14, "oHeartContainer", "Heart Container"), (15, "oItemFinderPickup", "Item Finder"),
-    (16, "oMMBoostedCharge", "X Charge Capsule"), (17, "oMetPick_SpringBall", "Spring Ball"), (18, "oRndStartItem", "Starting Item")]
+    (16, "oMMBoostedCharge", "X Charge Capsule"), (17, "oMetPick_SpringBall", "Spring Ball")]
 LT_BY_OBJ = {o: c for c, o, l in LTYPES}
 LT_LABEL = {c: l for c, o, l in LTYPES}
 
@@ -38,25 +40,28 @@ IK = dict(HP=1, MONEY=2, EQUIP=3, AQ=4, HE=5, MP=6, GP=7, AU=8, WB=9, WL=10, AP=
 LT_ITEM = {1: "HP", 3: "AQ", 4: "HE", 5: "MP", 6: "GP", 7: "AU", 8: "WB", 10: "AP", 11: "LB", 12: "MB", 13: "KEY",
            14: "HC", 15: "XF", 16: "XC", 17: "XS"}
 
-# progression: the items the logic counts, in the order of the requirement strings (one digit each, keys two). mario: the
-# Mario Ability Set (hasAbilToken[0]: jumping on Mario enemies, hitting blocks from below)
+# progression: the items the logic counts (their index: the mod's rndItemProg, and the logic's numbers in rndData; a
+# key is 20 + its door's objectNum). jump: had from the start (the new game gives it). mario: the Mario Ability Set
+# (hasAbilToken[0]: jumping on Mario enemies, hitting blocks from below)
 PROG = ["jump", "gdash", "adash", "djump", "hijump", "mario", "link", "belmont", "megaman", "samus", "gamej", "gamec", "keys"]
+KEY_BASE = 20
 # how many of each there are. The ability sets' items are progressive: each one is the set's next level (hasAbilToken 2,
-# 3...): Link and Belmont 3 (their three weapons; nothing uses a level 5), Mega Man 4 (the grapple at 5), Samus 7 (Arm
-# Cannon, Morph Ball, Charge Beam, Missiles, Spazer Beam, Bombs, Diffusion Missile), the Gate 6 sets 2
-PMAX = [1, 1, 1, 1, 2, 1, 3, 3, 4, 7, 2, 2, 17]
-# the abilities that aren't at any location in an endgame world (the story gave them): added to the pool
-EXTRA = [("JUMP", 0), ("GDASH", 0), ("ADASH", 0), ("DJUMP", 0), ("HIJUMP", 0), ("HIJUMP", 0)] + \
+# 3...): Link and Belmont 3 (their three weapons; nothing uses a level 5), Mega Man 4 (the Strike Chain at 5), Samus 7
+# (Arm Cannon, Morph Ball, Charge Beam, Missiles, Spazer Beam, Bombs, Diffusion Missile), the Gate 6 sets 2
+PMAX = [0, 1, 1, 1, 2, 1, 3, 3, 4, 7, 2, 2, 17]
+# the abilities that aren't at any location in an endgame world (the story gave them): added to the pool (not jumping:
+# a new game starts with it)
+EXTRA = [("GDASH", 0), ("ADASH", 0), ("DJUMP", 0), ("HIJUMP", 0), ("HIJUMP", 0)] + \
         [("SET", s) for s, n in enumerate(PMAX[5:12]) for _ in range(n)]
-
-# what the story has given by the time it first reaches an area (the area numbers locationCheck uses are in story
-# order): the logic estimate. Each stage has everything the ones before it have
-STAGE_ADD = {1: {"jump": 1}, 2: {"mario": 1}, 3: {"link": 3}, 4: {"gdash": 1, "belmont": 3}, 5: {"megaman": 4},
-             6: {"adash": 1}, 7: {"samus": 7, "hijump": 2}, 8: {"djump": 1, "gamej": 2, "gamec": 2}, 9: {}}
-# places whose pickup only shows once something optional is done (their creation code checks the global): the stage of
-# the logic they need. Tower defense (rCCity_NorthA's rewards for its offenses) opens late in the story (gameProgress
-# 3900), and its fights are the player's own
-COND_STAGE = {"gameOptTowerDef": 8}
+# the room logic's names for the progression items
+LOGIC_NAMES = {"gdash": 1, "adash": 2, "djump": 3, "hijump": 4, "mario": 5, "link": 6, "belmont": 7, "megaman": 8,
+               "samus": 9, "gamej": 10, "gamec": 11}
+# a location that needs everything (the logic doesn't reach it, or it's a fight's or a trial's reward): it gets no
+# ability or key
+EVERYTHING = None
+# places whose pickup only shows once something optional is done (their creation code checks the global): tower
+# defense's rewards (rCCity_NorthA): need everything
+COND_GLOBALS = ("gameOptTowerDef",)
 # places a Trial Master trial gives (the pickup's creation code hides it till the trial's done; Central City South's
 # heart container, made by the room, comes with the 7th): no ability or key there, since the trials need the three
 # cursed equipment pieces on (equipment 10-12, shuffled as other items), and those don't go there either (rndGenerate)
@@ -140,20 +145,6 @@ def sprite_bounds(name):
                     b = y
         res.append((l - ox, t - oy, r - ox, b - oy) if r >= 0 else None)
     return res
-
-
-def area_stage(a):
-    if a is None: return 9
-    for top, st in ((1, 1), (6, 1), (9, 2), (14, 3), (28, 4), (29, 5), (41, 6), (50, 7), (59, 8)):
-        if a <= top: return st
-    return 9
-
-
-def stage_req(st):
-    r = dict.fromkeys(PROG, 0)
-    for s in range(1, st + 1):
-        r.update(STAGE_ADD.get(s, {}))
-    return r
 
 
 def read(p):
@@ -243,8 +234,8 @@ def main():
                 if n is None: continue
                 l = locs.setdefault((t, n), {"rooms": [], "item": None})
                 l["rooms"].append(room)
-                for g, st in COND_STAGE.items():
-                    if re.search(r"global\.%s\b" % g, code): l["cond"] = max(l.get("cond", 0), st)
+                for g in COND_GLOBALS:
+                    if re.search(r"global\.%s\b" % g, code): l["cond"] = 1
                 if re.search(r"global\.%s\b" % COND_TRIAL, code): l["trial"] = 1
                 if t == 2:
                     amt = num(code, "objectAmt") or 0
@@ -259,40 +250,28 @@ def main():
             for m in re.finditer(r"instance_create\([^)]*oHeartContainer\)\s*\n\s*\w+\.objectNum=(\d+)", read(cp)):
                 l = locs.setdefault((14, int(m.group(1))), {"rooms": [], "item": ("HC", 0)})
                 if room not in l["rooms"]: l["rooms"].append(room)
-    for n in (1, 2, 3):  # the starting items, dropped where a new game starts (see roomStart)
-        locs[(18, n)] = {"rooms": ["rMain_1"], "item": None}
 
-    # ---- logic: the stage of each location's area (the most demanding of its rooms), and keys. Each key opens its own
-    # door (the mod's oLockedDoor: a key that opened any door could be used up on the wrong one, in a world that's all
-    # open), and the doors are in story order (their areas'): a location needs the keys of every locked door in an area
-    # up to its own (one may be in the way); "keys N" is the first N doors' keys
+    # ---- logic: what the room logic says each location needs (roomlogic.txt: alternatives, each the progression items
+    # and the keys it takes; each key opens its own door, the mod's oLockedDoor). The doors are listed in their areas'
+    # order (for the keys' names and the Archipelago world)
     door_list = sorted((min((rarea.get(r) or 999) for r in rs), d) for d, rs in doors.items() if d is not None)
     door_order = [d for a, d in door_list]
-    door_area = [a for a, d in door_list]
     door_rank = {d: i for i, d in enumerate(door_order)}
-    def keys_for(a):
-        if a is None: return len(door_order)
-        return sum(1 for da in door_area if da <= a)
+    roomlogic = read_roomlogic()
     overrides, room_over = read_logic()
     rows = []
     for (t, n), l in locs.items():
         areas = [rarea.get(r) for r in l["rooms"]]
-        if t == 18:
-            req, a = stage_req(0), 1
-        else:
-            st = max([area_stage(a) for a in areas] + [l.get("cond", 0)])
-            a = max((x for x in areas if x is not None), default=None) if None not in areas else None
-            req = stage_req(st)
-            req["keys"] = max(keys_for(x) for x in areas)
-            if t == 14 and n == TRIAL_HC: l["trial"] = 1
-            if (t == 14 and n in HC_BOSS) or l.get("trial"):
-                # a heart container a boss's fight gives, or a trial's reward: no ability or key there (asking for
-                # everything keeps them out), so a fight that can't be won yet never holds the game back
-                req = stage_req(9)
-                req["keys"] = len(door_order)
+        a = max((x for x in areas if x is not None), default=None) if None not in areas else None
+        req = roomlogic.get((t, n), EVERYTHING)
+        if t == 14 and n == TRIAL_HC: l["trial"] = 1
+        if (t == 14 and n in HC_BOSS) or l.get("trial") or l.get("cond"):
+            # a heart container a boss's fight gives, a trial's reward or tower defense's: no ability or key there, so a
+            # fight that can't be won yet never holds the game back
+            req = EVERYTHING
         for r in l["rooms"]:
-            if r in room_over: req = merge_req(req, room_over[r])
-        if (t, n) in overrides: req = merge_req(req, overrides[(t, n)])
+            if r in room_over: req = room_over[r]
+        if (t, n) in overrides: req = overrides[(t, n)]
         rows.append({"type": t, "num": n, "rooms": l["rooms"], "area": a, "req": req, "item": l["item"], "trial": l.get("trial", 0)})
 
     # ---- items: what the locations hold, the abilities, less as many money chests as needed (the smallest)
@@ -383,13 +362,26 @@ def main():
          "var i,t;",
          "for(t=0;t<=18;t+=1) {for(i=0;i<=130;i+=1) {global.rndLocOf[t,i]=-1}}",
          "global.rndLocN=%d" % len(rows)]
+    # each location's logic: its alternatives (rndLocAltN, -1: it needs everything), each a list (rndLocAltLen long) of
+    # what it takes: rndLocAltIx a progression item's number (rndProgOf; KEY_BASE+objectNum for a door's key) and
+    # rndLocAltC how many (index a*ALT_STRIDE+j)
     for i, r in enumerate(rows):
         a = r["area"]
         where = "%s (%s)" % (anames.get(a, "?"), r["rooms"][0]) if a else r["rooms"][0]
-        L.append("global.rndLocType[%d]=%d; global.rndLocNum[%d]=%d; global.rndLocOf[%d,%d]=%d; global.rndLocReq[%d]=%s; "
+        L.append("global.rndLocType[%d]=%d; global.rndLocNum[%d]=%d; global.rndLocOf[%d,%d]=%d; "
                  "global.rndLocName[%d]=%s; global.rndLocTrial[%d]=%d"
-                 % (i, r["type"], i, r["num"], r["type"], r["num"], i, i, gml_str(req_str(r["req"])),
+                 % (i, r["type"], i, r["num"], r["type"], r["num"], i,
                     i, gml_str("%s: %s %d" % (where, LT_LABEL[r["type"]], r["num"])), i, r["trial"]))
+        if r["req"] is EVERYTHING:
+            L.append("global.rndLocAltN[%d]=-1" % i)
+            continue
+        s = ["global.rndLocAltN[%d]=%d" % (i, len(r["req"]))]
+        for ai, alt in enumerate(r["req"]):
+            s.append("global.rndLocAltLen[%d,%d]=%d" % (i, ai, len(alt)))
+            for j, (ix, c) in enumerate(sorted(alt.items())):
+                s.append("global.rndLocAltIx[%d,%d]=%d; global.rndLocAltC[%d,%d]=%d" % (i, ai * ALT_STRIDE + j, ix, i, ai * ALT_STRIDE + j, c))
+        L.append("; ".join(s))
+    L.append("global.rndKeyBase=%d; global.rndAltStride=%d" % (KEY_BASE, ALT_STRIDE))
     L.append("global.rndItemN=%d" % len(items))
     for i, (k, p) in enumerate(items):
         L.append("global.rndItemKind[%d]=%d; global.rndItemParam[%d]=%d" % (i, IK[k], i, p))
@@ -464,20 +456,26 @@ def main():
                         anames.get(r["area"], ""), req_text(r["req"]), "%s %s" % r["item"] if r["item"] else ""])
     with open(os.path.join(HERE, "doors.csv"), "w", newline="", encoding="utf-8") as f:
         w = csv.writer(f)
-        w.writerow(["door (keys N: the first N)", "objectNum", "rooms", "area", "area name"])
+        w.writerow(["order", "objectNum (key N in logic.txt)", "rooms", "area", "area name"])
         for i, (a, d) in enumerate(door_list):
             w.writerow([i + 1, d, " ".join(sorted(doors[d])), a if a < 999 else "", anames.get(a, "")])
     print("locations %d, items %d (%d abilities added, %d money chests left out), equipment shop slots %d, shops %d"
           % (len(rows), len(items), len(EXTRA), len(drop), k, len(shops)))
-    print("locked doors (objectNum: area) in story order:", ", ".join("%d: %s" % (d, a if a < 999 else "?") for a, d in door_list))
-    # (stage 9 adds nothing to 8: both are everything)
-    cnt = collections.Counter(max((s for s in range(9) if req_le(stage_req(s), r["req"])), default=0) for r in rows)
-    print("locations by logic stage:", dict(sorted(cnt.items())))
+    print("locked doors (objectNum: area):", ", ".join("%d: %s" % (d, a if a < 999 else "?") for a, d in door_list))
+    free = sum(1 for r in rows if r["req"] is not EVERYTHING and any(not alt for alt in r["req"]))
+    some = sum(1 for r in rows if r["req"] is not EVERYTHING)
+    print("locations: %d need nothing but jumping, %d can hold an ability or key, %d need everything (no ability or key)"
+          % (free, some, len(rows) - some))
     print("bosses fought the randomizer's way: %d (%s)" % (len(blist), ", ".join("%d %s" % (t, n) for t, r, x, y, n in blist)))
-    # the same placement the game makes (rndGenerate), for a few seeds: it must work under the logic
-    ok = sum(1 for seed in range(50) if fill_check(rows, items, seed, door_rank))
-    print("placement check: %d of 50 seeds placed" % ok)
-    if ok == 0: raise SystemExit("no seed could be placed: the logic asks for more than the locations allow")
+    # the same placement the game makes (rndGenerate), for a few seeds with each option: it must work under the logic
+    for label, wpn, spread in (("default options", False, 1), ("Guarantee Early Weapons", True, 1),
+                               ("Ability Spread Near", False, 0), ("Ability Spread Far", False, 2)):
+        results = [fill_check(rows, items, seed, door_order, wpn, SPREAD[spread]) for seed in range(50)]
+        ok = [r for r in results if r]
+        if not ok: raise SystemExit("%s: no seed could be placed: the logic asks for more than the locations allow" % label)
+        depth = [max(p[0] for p in r) + 1 for r in ok]
+        print("placement check, %s: %d of 50 seeds placed, layers %d to %d (average %.1f)"
+              % (label, len(ok), min(depth), max(depth), sum(depth) / len(depth)))
     ap_export(rows, items, door_order, doors, rarea, anames, out)
 
 
@@ -486,7 +484,7 @@ def main():
 # mod's) and the packed world, dt3plus.apworld, in the build's archipelago folder. Ids: a location's AP_BASE +
 # type*1000 + objectNum, an item's AP_BASE + kind*10000 + parameter (the mod's rndApBase works them out the same way)
 AP_GAME = "DT3+"
-AP_VERSION = 1
+AP_VERSION = 2
 AP_BASE = 4454000
 AP_DIR = os.path.join(HERE, "archipelago", "dt3plus")
 AP_SPRITE = "sRndAPItem"
@@ -499,7 +497,7 @@ AP_PROG = ["Jump", "Dash", "Air Dash", "Double Jump", "Progressive High Jump Boo
 AP_SIMPLE = {"HP": "Heart Piece", "AQ": "Arrow Quiver", "HE": "Heart Energy Expansion", "MP": "Missile Expansion",
              "GP": "Game Power", "AU": "Air Upgrade", "WB": "Internetz Mod", "AP": "Skill Point", "LB": "Bomb Upgrade",
              "MB": "Morph Bomb Upgrade", "HC": "Heart Container", "XF": "Item Finder", "XC": "X-Special Charge",
-             "XS": "Spring Ball", "JUMP": "Jump", "GDASH": "Dash", "ADASH": "Air Dash", "DJUMP": "Double Jump",
+             "XS": "Spring Ball", "GDASH": "Dash", "ADASH": "Air Dash", "DJUMP": "Double Jump",
              "HIJUMP": "Progressive High Jump Boots"}
 AP_CURSED = (10, 11, 12)  # the cursed equipment the Trial Master's trials need on
 
@@ -559,7 +557,7 @@ def ap_export(rows, items, door_order, doors, rarea, anames, out):
         raise SystemExit("no Archipelago name for item %s %s" % (kind, p))
 
     def classification(kind, p):
-        if kind in ("JUMP", "GDASH", "ADASH", "DJUMP", "HIJUMP", "SET", "KEY"): return 1   # progression
+        if kind in ("GDASH", "ADASH", "DJUMP", "HIJUMP", "SET", "KEY"): return 1           # progression
         if kind == "EQUIP" and p in AP_CURSED: return 1
         if kind == "MONEY": return 0                                                       # filler
         return 2                                                                           # useful
@@ -579,33 +577,41 @@ def ap_export(rows, items, door_order, doors, rarea, anames, out):
     for c in cursed:
         if c not in ap_items: raise SystemExit("the cursed equipment %r isn't in the pool" % c)
 
+    def ap_need(ix):
+        return key_names[ix - KEY_BASE] if ix >= KEY_BASE else AP_PROG[ix]
+
     ap_locs = collections.OrderedDict()
     for r in rows:
         a = r["area"]
         where = anames.get(a) if a else None
         n = "%s - %s %d" % (where or r["rooms"][0], LT_LABEL[r["type"]], r["num"])
         if n in ap_locs: raise SystemExit("two locations named %r" % n)
-        ap_locs[n] = (AP_BASE + r["type"] * 1000 + r["num"], tuple(r["req"][p] for p in PROG), bool(r.get("trial")))
-    victory = tuple(PMAX[:-1]) + (len(door_order),)
+        need = None if r["req"] is EVERYTHING else [[(ap_need(ix), c) for ix, c in sorted(alt.items())] for alt in r["req"]]
+        ap_locs[n] = (AP_BASE + r["type"] * 1000 + r["num"], need, bool(r.get("trial")))
+    everything = [(AP_PROG[p], PMAX[p]) for p in range(1, 12) if PMAX[p]] + [(key_names[d], 1) for d in door_order]
 
     L = ['"""DT3+ Archipelago data, made by tools/modkit/randomizer/rndgen.py from the game (change rndgen.py, not this)"""',
          "GAME = %r" % AP_GAME,
          "VERSION = %d" % AP_VERSION,
          "BASE_ID = %d" % AP_BASE,
-         "# the progression items the logic counts, in the order of LOCATIONS' requirement counts (then N: the keys of",
-         "# the first N doors in DOOR_KEYS)",
-         "PROG_ITEMS = %r" % AP_PROG,
-         "# the keys, in the doors' story order",
+         "# the progression items the logic counts (a new game starts with jumping)",
+         "PROG_ITEMS = %r" % AP_PROG[1:],
+         "SET_ITEMS = %r" % AP_SETS,
+         "# the keys, each its own door's",
          "DOOR_KEYS = %r" % [key_names[d] for d in door_order],
          "# what the Trial Master's trials need on",
          "CURSED_GEAR = %r" % cursed,
          "FILLER = %r" % filler,
+         "# every progression item: what a location the logic doesn't reach needs, and the win",
+         "EVERYTHING = %r" % everything,
          "VICTORY_LOCATION = 'Defeat the CHAOS Warmaster'",
-         "VICTORY_REQUIREMENT = %r" % (victory,),
          "# name: (id, classification (0 filler, 1 progression, 2 useful), how many in the pool)",
          "ITEMS = {"]
     L += ["    %r: (%d, %d, %d)," % (n, v[0], v[1], v[2]) for n, v in ap_items.items()]
-    L += ["}", "# name: (id, requirement counts, a Trial Master trial's (needs CURSED_GEAR))", "LOCATIONS = {"]
+    L += ["}",
+          "# name: (id, what it needs: alternatives, each [(item, count)], any one of which is enough (None: EVERYTHING),",
+          "#        a Trial Master trial's (needs CURSED_GEAR too))",
+          "LOCATIONS = {"]
     L += ["    %r: (%d, %r, %r)," % (n, v[0], v[1], v[2]) for n, v in ap_locs.items()]
     L += ["}"]
     with open(os.path.join(AP_DIR, "data.py"), "w", encoding="utf-8", newline="\n") as f:
@@ -625,85 +631,139 @@ def ap_export(rows, items, door_order, doors, rarea, anames, out):
 
 
 def prog_of(item):
+    """an item's progression number (rndProgOf: 1-11 an ability or set, KEY_BASE+objectNum a door's key), or -1"""
     k, p = item
     if k in ("JUMP", "GDASH", "ADASH", "DJUMP", "HIJUMP"): return ["JUMP", "GDASH", "ADASH", "DJUMP", "HIJUMP"].index(k)
     if k == "SET": return 5 + p
-    if k == "KEY": return 12
+    if k == "KEY": return KEY_BASE + p
     return -1
 
 
-def fill_check(rows, items, seed, door_rank):
-    """rndGenerate's assumed fill, in Python: whether every progression item finds a place. Keys count as the first
-    doors (in the logic's order) whose keys are all had. The most constrained go first (as rndGenerate)"""
+# rndGenerate's layers: each progression item goes to a free location the items placed before it reach, in the newest
+# layer (what the last item opened) with this chance, else the one before with it, and so on. The new game's options
+# (oRndOptions) choose it: Ability Spread Near, Normal, Far
+SPREAD = (0.3, 0.7, 1.0)
+NEWEST = SPREAD[1]
+# the weapons (the ability sets with an attack, the room logic's "attack": Link, Belmont, Mega Man, Samus). With the
+# option Guarantee Early Weapons, every layer gets one while there are any left: the first item placed in a new layer
+WEAPONS = (6, 7, 8, 9)
+ALT_STRIDE = 40   # (rndLocAltIx/rndLocAltC: an alternative's entries are a*ALT_STRIDE+j)
+
+
+def reaches(req, have, all_had):
+    if req is EVERYTHING: return all_had
+    return any(all(have[ix] >= c for ix, c in alt.items()) for alt in req)
+
+
+def fill_check(rows, items, seed, door_order, weapons=False, newest=NEWEST):
+    """rndGenerate's placement in Python (the same steps, Python's random numbers): the progression items one at a time,
+    each one that opens a location the items so far don't reach if there is one (else any; a kind that opens fewer is
+    likelier), at a free location they reach, by layer. weapons: Guarantee Early Weapons (a new layer's first item is a
+    weapon); newest: Ability Spread's chance. Returns [(layer, location, item)] for the items, or None when one had
+    nowhere to go"""
     import random
     rnd = random.Random(seed)
-    req = [[r["req"][p] for p in PROG] for r in rows]
-    prog = [i for i, it in enumerate(items) if prog_of(it) >= 0]
+    prog = [i for i, it in enumerate(items) if prog_of(it) > 0]
     rnd.shuffle(prog)
-    tot = collections.Counter(prog_of(items[i]) for i in prog)
+    total = collections.Counter(prog_of(items[i]) for i in prog)
+    have = collections.Counter()
+    layer = [-1] * len(rows)
+    filled = [False] * len(rows)
+    armed = set()   # the layers with a weapon
+    cur = 0
 
-    def places(i):
-        p = prog_of(items[i])
-        have = [tot[q] for q in range(13)]
-        if p == 12: have[12] = door_rank[items[i][1]]
-        else: have[p] -= 1
-        return sum(1 for r in req if all(a <= b for a, b in zip(r, have)))
-    prog.sort(key=places)
-    fill = [-1] * len(rows)
-    at = []
-
-    def add(have, keys, item):
-        p = prog_of(item)
-        if p == 12:
-            keys.add(door_rank[item[1]])
-            have[12] = 0
-            while have[12] in keys: have[12] += 1
+    def mark(lay):
+        all_had = all(have[ix] >= n for ix, n in total.items())
+        new = 0
+        for i, r in enumerate(rows):
+            if layer[i] < 0 and reaches(r["req"], have, all_had): layer[i] = lay; new += 1
+        return new
+    mark(0)
+    placed = []
+    remaining = list(prog)
+    while remaining:
+        useful = collections.Counter()
+        for i, r in enumerate(rows):
+            if layer[i] >= 0 or r["req"] is EVERYTHING: continue
+            for alt in r["req"]:
+                short = [ix for ix, c in alt.items() if have[ix] < c]
+                if len(short) == 1 and alt[short[0]] - have[short[0]] == 1: useful[short[0]] += 1
+        pool = remaining
+        force = False
+        if weapons and cur not in armed and any(not filled[i] for i in range(len(rows)) if layer[i] == cur):
+            pool = [k for k in remaining if prog_of(items[k]) in WEAPONS]
+            if pool: force = True
+            else: pool = remaining
+        cand = [k for k in pool if useful[prog_of(items[k])] > 0]
+        if cand:
+            kinds = sorted(set(prog_of(items[c]) for c in cand))
+            r = rnd.random() * sum(1.0 / useful[ix] for ix in kinds)
+            kind = kinds[-1]
+            for ix in kinds:
+                r -= 1.0 / useful[ix]
+                if r <= 0: kind = ix; break
+            cand = [c for c in cand if prog_of(items[c]) == kind]
         else:
-            have[p] += 1
-
-    for n, it in enumerate(prog):
-        have = [0] * 13
-        keys = set()
-        for k in prog[n + 1:]: add(have, keys, items[k])
-        taken = [False] * n
-        changed = True
-        while changed:
-            changed = False
-            for k in range(n):
-                if not taken[k] and all(a <= b for a, b in zip(req[at[k]], have)):
-                    taken[k] = True; add(have, keys, items[prog[k]]); changed = True
-        cand = [i for i in range(len(rows)) if fill[i] < 0 and all(a <= b for a, b in zip(req[i], have))]
-        if not cand: return False
-        loc = rnd.choice(cand)
-        fill[loc] = it; at.append(loc)
-    return True
-
-
-def req_le(a, b):
-    return all(a[p] <= b[p] for p in PROG)
+            cand = list(pool)
+        k = rnd.choice(cand)
+        if force:
+            pick = cur
+        else:
+            layers = sorted({layer[i] for i in range(len(rows)) if layer[i] >= 0 and not filled[i]}, reverse=True)
+            if not layers: return None
+            pick = layers[-1]
+            for lay in layers:
+                if rnd.random() < newest: pick = lay; break
+        loc = rnd.choice([i for i in range(len(rows)) if layer[i] == pick and not filled[i]])
+        filled[loc] = True
+        placed.append((pick, loc, k))
+        if prog_of(items[k]) in WEAPONS: armed.add(pick)
+        remaining.remove(k)
+        have[prog_of(items[k])] += 1
+        if mark(cur + 1): cur += 1
+    return placed
 
 
-def req_str(r):
-    return "".join(str(min(9, r[p])) for p in PROG[:-1]) + "%02d" % r["keys"]
+def alt_text(alt):
+    if not alt: return "nothing"
+    names = {v: k for k, v in LOGIC_NAMES.items()}
+    out = []
+    for ix, c in sorted(alt.items()):
+        if ix >= KEY_BASE: out.append("key %d" % (ix - KEY_BASE))
+        elif PMAX[ix] == 1: out.append(names[ix])
+        else: out.append("%s %d" % (names[ix], c))
+    return " ".join(out)
 
 
-def req_text(r):
-    return " ".join(("%s" % p if r[p] == 1 and PMAX[i] == 1 else "%s %d" % (p, r[p])) for i, p in enumerate(PROG) if r[p]) or "nothing"
+def req_text(req):
+    return "everything" if req is EVERYTHING else " | ".join(alt_text(a) for a in req)
 
 
-def merge_req(base, ov):
-    if ov.get("=", False):
-        r = dict.fromkeys(PROG, 0)
-        r.update({k: v for k, v in ov.items() if k in PROG})
-        return r
-    r = dict(base)
-    r.update({k: v for k, v in ov.items() if k in PROG})
-    return r
+def read_roomlogic():
+    """{(type, number): alternatives} from the room logic: roomlogic\\solve.py joins each room's logic (roomlogic\\rooms\\),
+    the connections and the hand-made changes (roomlogic\\overrides.txt), and writes roomlogic\\roomlogic.txt. A place it
+    doesn't reach needs EVERYTHING"""
+    rl = os.path.join(HERE, "roomlogic")
+    if not os.path.isdir(os.path.join(rl, "rooms")):
+        raise SystemExit("roomlogic\\rooms isn't there: run roomlogic\\roomlogic.py first (see roomlogic\\README.txt)")
+    sys.path.insert(0, rl)
+    import solve
+    out = {}
+    for key, alts in solve.solve_all().items():
+        conv = []
+        for a in alts:
+            if a.o: continue   # (a way only with an option on: the mod has no such options yet)
+            alt = {LOGIC_NAMES[solve.ITEMS[i]]: n for i, n in enumerate(a.c) if n}
+            for k in a.k: alt[KEY_BASE + k] = 1
+            conv.append(alt)
+        out[key] = conv if conv else EVERYTHING
+    return out
 
 
 def read_logic():
-    """logic.txt: '<location type> <number>: <requirements>' or 'room <room>: <requirements>'. Requirements: 'stage N',
-    item names from PROG with an optional count (link 2, keys 6), or 'nothing'. A line replaces the estimate."""
+    """logic.txt: '<location type> <number>: <requirements>' or 'room <room>: <requirements>', replacing the room
+    logic's. Requirements: alternatives separated by |, each the items it takes (djump, samus 4, key 3: a door's key by
+    its objectNum), 'nothing' or 'everything'"""
     labels = {l.lower(): c for c, l in LT_LABEL.items()}
     over, room_over = {}, {}
     p = os.path.join(HERE, "logic.txt")
@@ -713,18 +773,24 @@ def read_logic():
         if not line: continue
         if ":" not in line: raise SystemExit("logic.txt line %d: no ':'" % ln)
         what, req = [s.strip() for s in line.split(":", 1)]
-        r = {"=": True}
-        toks = req.replace(",", " ").split()
-        i = 0
-        while i < len(toks):
-            t = toks[i].lower()
-            if t == "nothing": i += 1; continue
-            if t == "stage":
-                r.update(stage_req(int(toks[i + 1]))); i += 2; continue
-            if t not in PROG: raise SystemExit("logic.txt line %d: unknown requirement %r" % (ln, t))
-            cnt = 1
-            if i + 1 < len(toks) and toks[i + 1].isdigit(): cnt = int(toks[i + 1]); i += 1
-            r[t] = cnt; i += 1
+        if req.strip().lower() == "everything":
+            r = EVERYTHING
+        else:
+            r = []
+            for part in req.split("|"):
+                alt = {}
+                toks = part.replace(",", " ").split()
+                i = 0
+                while i < len(toks):
+                    t = toks[i].lower()
+                    if t == "nothing": i += 1; continue
+                    cnt = 1
+                    if i + 1 < len(toks) and toks[i + 1].isdigit(): cnt = int(toks[i + 1]); i += 1
+                    if t == "key": alt[KEY_BASE + cnt] = 1
+                    elif t in LOGIC_NAMES: alt[LOGIC_NAMES[t]] = cnt
+                    else: raise SystemExit("logic.txt line %d: unknown requirement %r" % (ln, t))
+                    i += 1
+                r.append(alt)
         if what.lower().startswith("room "):
             room_over[what[5:].strip()] = r
         else:

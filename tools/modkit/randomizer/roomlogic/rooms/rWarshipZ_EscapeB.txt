@@ -1,0 +1,50 @@
+# rWarshipZ_EscapeB: CHAOS Warship (area 99), 5472x480 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 5424,288   # from rWarshipZ_EscapeA out 0,240
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 0,208   # to rWarshipZ_EscapeC at 3792,240; the player goes into it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 5424,288
+  out 0,208   djump
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 5424,288 -> out 0,208: djump
+     coming in at 5424,288
+   1. coming in: holding nothing, from 5424,288; lands at 5424,289
+      -> standing at x 4567-5472, y 289
+   2. jump (held 6 ticks), holding left, from 4567,289; lands at 4535,241
+      -> standing at x 4535-4566, y 241
+   3. jump (held 6 ticks), holding left, from 4535,241; lands at 4382,289
+      -> standing at x 3271-4457, y 289
+   4. jump (held 2 ticks), holding left, from 3271,289; lands at 3228,257
+      -> standing at x 3207-3270, y 257
+   5. jump (held 21 ticks), holding left, from 3207,257; lands at 3014,273
+      -> standing at x 2042-3049, y 273
+   6. jump (held 6 ticks), holding left, from 2042,273; lands at 1927,241
+      -> standing at x 1927-1958, y 241
+   7. jump (held 6 ticks), holding left, from 1927,241; lands at 1803,241
+      -> standing at x 743-1881, y 241
+   8. jump (held 2 ticks), holding left, from 743,241; lands at 700,209
+      -> standing at x 679-742, y 209
+   9. jump (held 21 ticks), holding right, double jump at tick 15, from 679,209; lands at 876,113   [djump]
+      -> standing at x 858-934, y 113
+  10. running left, jump (held 21 ticks), holding left, from 858,113; lands at 667,81
+      -> standing at x 602-678, y 81
+  11. walk off the edge, holding left once in the air, from 602,81; lands at 463,241
+      -> standing at x 0-601, y 241
+  12. standing at 0,241, goes into it
+      -> out 0,208

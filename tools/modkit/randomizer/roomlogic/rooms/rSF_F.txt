@@ -1,0 +1,76 @@
+# rSF_F: Subconscious Filter (area 91), 4800x416 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 48,224   # from rSF_E out 3568,288
+in 4752,224   # from rSF_G out 0,480
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 0,192   # to rSF_E at 3536,320; the player goes into it
+out 4784,192   # to rSF_G at 48,512; the player goes into it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 48,224
+  out 0,192      -
+  out 4784,192   -
+from in 4752,224
+  out 0,192      -
+  out 4784,192   -
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 48,224 -> out 0,192: -
+     coming in at 48,224
+   1. coming in: holding nothing, from 48,224; lands at 48,225
+      -> standing at x 0-1191, y 129-343
+   2. standing at 0,225, goes into it
+      -> out 0,192
+how in 48,224 -> out 4784,192: -
+     coming in at 48,224
+   1. coming in: holding nothing, from 48,224; lands at 48,225
+      -> standing at x 0-1191, y 129-343
+   2. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 1095,194; lands at 1233,257
+      -> standing at x 1209-1847, y 97-328
+   3. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 1831,98; lands at 2008,209
+      -> standing at x 1977-2439, y 193-327
+   4. jump (held 21 ticks), holding right, from 2224,193; clings to the wall at 2377,160
+      -> standing at x 2377-2427, y 81-167
+   5. jump (held 21 ticks), holding right, from 2378,81; lands at 2671,257
+      -> standing at x 2649-3303, y 177-328
+   6. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 3207,192; lands at 3464,353
+      -> standing at x 3449-4391, y 129-408
+   7. on the wall to the right: kick off it (wall jump), wall-jump up the same wall, from 4089,194; clings to the wall at 4505,366
+      -> standing at x 4505-4800, y 225-481
+   8. standing at 4782,225, goes into it
+      -> out 4784,192
+how in 4752,224 -> out 0,192: -
+     coming in at 4752,224
+   1. coming in: holding nothing, from 4752,224; lands at 4752,225
+      -> standing at x 4505-4800, y 225-481
+   2. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 4505,226; clings to the wall at 4391,189
+      -> standing at x 3449-4391, y 129-408
+   3. jump (held 21 ticks), holding left, from 3450,353; clings to the wall at 3303,315
+      -> standing at x 2649-3303, y 177-328
+   4. jump (held 21 ticks), holding left, from 2650,257; clings to the wall at 2439,317
+      -> standing at x 1977-2439, y 193-327
+   5. running left, jump (held 6 ticks), holding left, from 1978,209; clings to the wall at 1847,182
+      -> standing at x 1209-1847, y 97-328
+   6. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 1209,272; clings to the wall at 1095,235
+      -> standing at x 0-1191, y 129-343
+   7. standing at 0,225, goes into it
+      -> out 0,192
+how in 4752,224 -> out 4784,192: -
+     coming in at 4752,224
+   1. coming in: holding nothing, from 4752,224; lands at 4752,225
+      -> standing at x 4505-4800, y 225-481
+   2. standing at 4782,225, goes into it
+      -> out 4784,192

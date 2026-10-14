@@ -1,0 +1,72 @@
+# rWarshipO: CHAOS Warship (area 99), 4048x352 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 48,240   # from rWarshipN out 864,1088
+in 4000,240   # from rWarshipP out 0,208
+in 272,256   # from rWarshipP out 3488,240
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 0,208   # to rWarshipN at 832,1120; the player goes into it
+out 4032,208   # to rWarshipP at 48,240; the player goes into it
+out 272,256   # to rWarshipP at 3488,240; the player presses up at it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 48,240
+  out 0,208      -
+  out 4032,208   never
+  out 272,256    -
+from in 4000,240
+  out 0,208      never
+  out 4032,208   -
+  out 272,256    never
+from in 272,256
+  out 0,208      -
+  out 4032,208   never
+  out 272,256    -
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 48,240 -> out 0,208: -
+     coming in at 48,240
+   1. coming in: holding nothing, from 48,240; lands at 48,241
+      -> standing at x 0-214, y 241
+   2. standing at 0,241, goes into it
+      -> out 0,208
+how in 48,240 -> out 272,256: -
+     coming in at 48,240
+   1. coming in: holding nothing, from 48,240; lands at 48,241
+      -> standing at x 0-214, y 241
+   2. walk off the edge, holding right once in the air, from 32,241; touches it on the way
+      -> out 272,256
+how in 4000,240 -> out 4032,208: -
+     coming in at 4000,240
+   1. coming in: holding nothing, from 4000,240; lands at 4000,241
+      -> standing at x 1578-4048, y 241
+   2. standing at 4030,241, goes into it
+      -> out 4032,208
+how in 272,256 -> out 0,208: -
+     coming in at 272,256
+   1. coming in: holding nothing, from 272,256; lands at 272,257
+      -> standing at x 215-358, y 257
+   2. jump (held 2 ticks), holding left, from 215,257; lands at 132,241
+      -> standing at x 0-214, y 241
+   3. standing at 0,241, goes into it
+      -> out 0,208
+how in 272,256 -> out 272,256: -
+     coming in at 272,256
+   1. coming in: holding nothing, from 272,256; lands at 272,257
+      -> standing at x 215-358, y 257
+   2. jump (held 2 ticks), holding left, from 215,257; lands at 132,241
+      -> standing at x 0-214, y 241
+   3. walk off the edge, holding right once in the air, from 32,241; touches it on the way
+      -> out 272,256

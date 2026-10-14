@@ -1,0 +1,25 @@
+# Hand-made changes to the Randomizer's logic. solve.py (and rndgen.py, which runs it) applies them on top of the rooms'
+# logic (rooms\<room>.txt) and the connections (connections.txt); they stay when roomlogic.py makes those again. A change
+# here flows on: everything past it is worked out again (python solve.py: a few seconds; README.txt says more).
+#
+# Lines (# starts a comment):
+#   set <room> in <x,y> -> <way out or place> : <requirements>
+#       what that way through the room needs, in place of what the room's file says. "in *": from every way in. A way
+#       out is "out <id>" as the room's file names it; a place is "loc <type> <number>" or its name ("loc skill point 59").
+#   add <room> in <x,y> -> <way out or place> : <requirements>
+#       another way through, as well as the room file's.
+#   need <room> out <id> : <requirements>
+#       going through that exit needs this too, on top of getting to it.
+#   link <room> out <id> -> <room> in <x,y>
+#       that exit leads somewhere else.
+#
+# Requirements: alternatives separated by |, any one of which is enough; each a list (spaces or commas) of: djump,
+# adash, gdash, hijump N, mario, link N, belmont N, megaman N, samus N, gamej N, gamec N (that many of the item), key N
+# (the key of the locked door whose objectNum is N: doors.csv), attack (any ability set's attack), option NAME (only
+# with that option on), nothing, or never.
+#
+# Say why next to a change (a comment), so whoever reads it later knows. Examples (not in effect: they're comments):
+#   set rMain_62 in 48,1920 -> out 0,224 : djump megaman 2 | djump belmont 3
+#   add rMain_62 in * -> loc skill point 59 : hijump 2
+#   need rMain_62 out 880,96 : megaman 4
+#   set rMain_18 in 56,240 -> out 1992,224 : never

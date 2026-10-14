@@ -1,0 +1,72 @@
+# rCCity_NAShop: Central City - North (area 9), 480x352 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 432,288   # from rCCity_NorthA out 424,256
+in 432,128   # from rCCity_NorthA out 504,96
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 464,256   # to rCCity_NorthA at 432,288; the player goes into it
+out 464,96   # to rCCity_NorthA at 512,128; the player goes into it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 432,288
+  out 464,256   -
+  out 464,96    djump | adash
+from in 432,128
+  out 464,256   -
+  out 464,96    -
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 432,288 -> out 464,256: -
+     coming in at 432,288
+   1. coming in: holding nothing, from 432,288; lands at 432,289
+      -> standing at x 39-480, y 289-321
+   2. standing at 462,289, goes into it
+      -> out 464,256
+how in 432,288 -> out 464,96: djump
+     coming in at 432,288
+   1. coming in: holding nothing, from 432,288; lands at 432,289
+      -> standing at x 39-480, y 289-321
+   2. jump (held 21 ticks), holding left, from 39,321; lands at 39,249
+      -> standing at x 39-89, y 249
+   3. jump (held 21 ticks), holding left, double jump at tick 10, from 39,249; lands at 39,161   [djump]
+      -> standing at x 39-480, y 129-161
+   4. standing at 462,129, goes into it
+      -> out 464,96
+how in 432,288 -> out 464,96: adash
+     coming in at 432,288
+   1. coming in: holding nothing, from 432,288; lands at 432,289
+      -> standing at x 39-480, y 289-321
+   2. jump (held 21 ticks), holding left, from 39,321; lands at 39,249
+      -> standing at x 39-89, y 249
+   3. jump (held 21 ticks), holding left, air dash (Claire) at tick 16, from 39,249; lands at 39,161   [adash]
+      -> standing at x 39-480, y 129-161
+   4. standing at 462,129, goes into it
+      -> out 464,96
+how in 432,128 -> out 464,256: -
+     coming in at 432,128
+   1. coming in: holding nothing, from 432,128; lands at 432,129
+      -> standing at x 39-480, y 129-161
+   2. drop down through the platform, holding right, from 39,161; lands at 89,249
+      -> standing at x 39-89, y 249
+   3. drop down through the platform, holding right, from 39,249; lands at 104,321
+      -> standing at x 39-480, y 289-321
+   4. standing at 462,289, goes into it
+      -> out 464,256
+how in 432,128 -> out 464,96: -
+     coming in at 432,128
+   1. coming in: holding nothing, from 432,128; lands at 432,129
+      -> standing at x 39-480, y 129-161
+   2. standing at 462,129, goes into it
+      -> out 464,96

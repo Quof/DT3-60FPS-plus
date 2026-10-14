@@ -958,23 +958,35 @@ class Converter:
             code = open(os.path.join(sd, f), encoding="utf-8").read()
             wtext(os.path.join(self.out, "scripts", f), self.fix_code(code, "script " + n, False) + "\n")
             self.report["the game's scripts the mod's versions replace (merged with DT3+'s)"].append(n)
+        from mergemod import dt3_event, code_only
         od = os.path.join(md, "objects")
         done = set()
         for o in sorted(os.listdir(od)) if os.path.isdir(od) else []:
-            evs, apps = [], []
+            evs, apps, same, built = [], [], [], []
             for f in sorted(os.listdir(os.path.join(od, o))):
                 if not f.endswith(".gml"): continue
                 # <event>.append.gml: the mod's lines, added after DT3+'s event (mergemod.py, append_events)
                 ev = f[:-len(".append.gml")] if f.endswith(".append.gml") else f[:-4]
-                (apps if f.endswith(".append.gml") else evs).append(ev)
                 code = open(os.path.join(od, o, f), encoding="utf-8").read()
+                if not f.endswith(".append.gml") and o not in self.new["Objects"]:
+                    # a merged event with the same code as DT3+'s changes nothing, so it's left out; one that's DT3+'s with
+                    # lines added at the end (or one DT3+'s object doesn't have) is added to the event instead of
+                    # replacing it: replacing means clearing the event first, which takes long for an object that many
+                    # others inherit from (seconds for oDamagableBase)
+                    dt = dt3_event(self.proj, o, ev)
+                    if code_only(code) == code_only(dt): same.append(ev); continue
+                    add = self.append_part(dt, code)
+                    if add is not None: code = add; built.append(ev)
+                (apps if f.endswith(".append.gml") or ev in built else evs).append(ev)
                 wtext(os.path.join(self.out, "objects", o, ev + ".gml"), self.fix_code(code, "%s/%s" % (o, ev), False) + "\n")
-            if o not in self.new["Objects"]:
+            if o not in self.new["Objects"] and (evs or apps or self.changed_props(o)):
                 lines = ["[object]", "events=replace"] + (["append=" + ",".join(apps)] if apps else []) + self.changed_props(o)
                 wtext(os.path.join(self.out, "objects", o, "object.ini"), "\n".join(lines) + "\n")
             done.add(o)
             if evs: self.report["the game's object events the mod's versions replace (merged with DT3+'s)"].append("%s: %s" % (o, ", ".join(evs)))
             if apps: self.report["the game's object events the mod's lines are added after (merged: append)"].append("%s: %s" % (o, ", ".join(apps)))
+            if built: self.report["merged events added after DT3+'s event instead of replacing it (DT3+'s with lines added at the end, or one its object doesn't have)"].append("%s: %s" % (o, ", ".join(built)))
+            if same: self.report["merged events left out: the same code as DT3+'s (replacing them would change nothing)"].append("%s: %s" % (o, ", ".join(same)))
         # the game's objects whose settings (sprite, parent...) alone the mod changed
         if cfg["merge"].get("objects") == "changed":
             for o in sorted(self.changed_objects):
@@ -983,6 +995,21 @@ class Converter:
                 if props:
                     wtext(os.path.join(self.out, "objects", o, "object.ini"), "\n".join(["[object]"] + props) + "\n")
                     self.report["the game's objects whose settings the mod changed"].append("%s: %s" % (o, ", ".join(props)))
+
+    @staticmethod
+    def append_part(dt, code):
+        """the part of a merged event that can be added after DT3+'s event instead of replacing it, or None: the lines
+        after DT3+'s event when the merged event is DT3+'s with lines added at the end (as mergemod's append_events
+        checks it: DT3+'s event can't end early, the lines don't use its var locals, which they wouldn't see as an action
+        of their own, and they make code on their own, not an "else" going on from its last "if"), or all of it when
+        DT3+'s object doesn't have the event"""
+        add = appended(dt, code)
+        if add is None or not add.strip(): return None
+        if norm(dt) == "": return add
+        if gml.ends_early(dt): return None
+        if gml.var_locals(dt) & gml.identifiers(add): return None
+        if gmlcheck.check(add): return None
+        return add
 
     def changed_props(self, o):
         """object.ini lines for the settings of one of the game's objects that the mod changed"""

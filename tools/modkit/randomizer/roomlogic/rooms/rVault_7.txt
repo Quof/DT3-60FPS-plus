@@ -1,0 +1,104 @@
+# rVault_7: The Vault (area 40), 2048x2048 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 48,1984   # from rVault_6 out 1008,144
+in 200,1936   # from this room's door out 1776,352
+in 1784,336   # from this room's door out 192,1952
+in 2000,288   # from rVault_8 out 0,224
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 0,1952   # to rVault_6 at 976,176; the player goes into it
+out 2032,256   # to rVault_8 at 48,256; the player goes into it
+out 1776,352   # to this room at 200,1936; the player presses up at it
+out 192,1952   # to this room at 1784,336; the player presses up at it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 48,1984
+  out 0,1952     -
+  out 2032,256   never
+  out 1776,352   never
+  out 192,1952   -
+from in 200,1936
+  out 0,1952     -
+  out 2032,256   never
+  out 1776,352   never
+  out 192,1952   -
+from in 1784,336
+  out 0,1952     never
+  out 2032,256   -
+  out 1776,352   -
+  out 192,1952   never
+from in 2000,288
+  out 0,1952     never
+  out 2032,256   -
+  out 1776,352   -
+  out 192,1952   never
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 48,1984 -> out 0,1952: -
+     coming in at 48,1984
+   1. coming in: holding nothing, from 48,1984; lands at 48,1985
+      -> standing at x 0-1241, y 1985
+   2. standing at 0,1985, goes into it
+      -> out 0,1952
+how in 48,1984 -> out 192,1952: -
+     coming in at 48,1984
+   1. coming in: holding nothing, from 48,1984; lands at 48,1985
+      -> standing at x 0-1241, y 1985
+   2. standing at 190,1985, presses up at it
+      -> out 192,1952
+how in 200,1936 -> out 0,1952: -
+     coming in at 200,1936
+   1. coming in: holding nothing, from 200,1936; lands at 200,1985
+      -> standing at x 0-1241, y 1985
+   2. standing at 0,1985, goes into it
+      -> out 0,1952
+how in 200,1936 -> out 192,1952: -
+     coming in at 200,1936
+   1. coming in: holding nothing, from 200,1936; lands at 200,1985
+      -> standing at x 0-1241, y 1985
+   2. standing at 190,1985, presses up at it
+      -> out 192,1952
+how in 1784,336 -> out 2032,256: -
+     coming in at 1784,336
+   1. coming in: holding nothing, from 1784,336; lands at 1784,385
+      -> standing at x 1738-1817, y 385
+   2. jump (held 6 ticks), holding right, from 1738,385; lands at 1833,337
+      -> standing at x 1818-1897, y 337
+   3. jump (held 6 ticks), holding right, from 1818,337; lands at 1913,289
+      -> standing at x 1898-2048, y 289
+   4. standing at 2030,289, goes into it
+      -> out 2032,256
+how in 1784,336 -> out 1776,352: -
+     coming in at 1784,336
+   1. coming in: holding nothing, from 1784,336; lands at 1784,385
+      -> standing at x 1738-1817, y 385
+   2. walk off the edge, holding left once in the air, from 1738,385; lands at 1665,433
+      -> standing at x 1658-1737, y 433
+   3. jump (held 21 ticks), holding right, from 1658,433; touches it on the way
+      -> out 1776,352
+how in 2000,288 -> out 2032,256: -
+     coming in at 2000,288
+   1. coming in: holding nothing, from 2000,288; lands at 2000,289
+      -> standing at x 1898-2048, y 289
+   2. standing at 2030,289, goes into it
+      -> out 2032,256
+how in 2000,288 -> out 1776,352: -
+     coming in at 2000,288
+   1. coming in: holding nothing, from 2000,288; lands at 2000,289
+      -> standing at x 1898-2048, y 289
+   2. running left, jump (held 2 ticks), holding left, from 1898,289; lands at 1685,433
+      -> standing at x 1658-1737, y 433
+   3. jump (held 21 ticks), holding right, from 1658,433; touches it on the way
+      -> out 1776,352

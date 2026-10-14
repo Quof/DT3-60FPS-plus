@@ -1,0 +1,871 @@
+# rMain_44: Barrens - Lower Waste (area 44), 4320x512 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+# switches: the room is worked out in each of its states, the player coming in in the first: [bricks whole]
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 4224,160   # from rMain_42 out 4248,352
+in 48,384   # from rMain_45 out 920,288
+in 1424,192   # from rMain_48 out 2712,112
+in 4272,400   # from rMain_50 out 0,1056
+in 416,400   # from rMain_44_Curse out 1240,800
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 4216,128   # to rMain_42 at 4256,384; the player presses up at it
+out 40,352   # to rMain_45 at 928,320; the player presses up at it
+out 1416,160   # to rMain_48 at 2720,144; the player presses up at it
+out 4304,368   # to rMain_50 at 48,1088; the player goes into it
+out 408,368   # to rMain_44_Curse at 1248,832; the player presses up at it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+loc 10 43   # skill point 43, at 2487,71
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 4224,160
+  out 4216,128   -
+  out 40,352     never
+  out 1416,160   djump,adash
+  out 4304,368   samus:2
+  out 408,368    djump,adash,samus:2
+  loc 10 43      djump,adash
+from in 48,384
+  out 4216,128   -
+  out 40,352     -
+  out 1416,160   adash | djump
+  out 4304,368   samus:2
+  out 408,368    samus:2
+  loc 10 43      djump,adash
+from in 1424,192
+  out 4216,128   -
+  out 40,352     never
+  out 1416,160   -
+  out 4304,368   samus:2
+  out 408,368    samus:2
+  loc 10 43      djump,adash
+from in 4272,400
+  out 4216,128   samus:2
+  out 40,352     never
+  out 1416,160   djump,adash,samus:2
+  out 4304,368   -
+  out 408,368    djump,adash,samus:2
+  loc 10 43      djump,adash,samus:2
+from in 416,400
+  out 4216,128   samus:2
+  out 40,352     never
+  out 1416,160   adash,samus:2 | djump,samus:2
+  out 4304,368   samus:2
+  out 408,368    -
+  loc 10 43      djump,adash,samus:2
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 4224,160 -> out 4216,128: -
+     [bricks whole] coming in at 4224,160
+   1. coming in: holding nothing, from 4224,160; lands at 4224,161
+      -> [bricks whole] standing at x 4058-4249, y 161
+   2. walk off the edge, holding left once in the air, from 4058,161; lands at 4000,193
+      -> [bricks whole] standing at x 3994-4057, y 193
+   3. running right, jump (held 21 ticks), holding right, from 4032,193; touches it on the way
+      -> out 4216,128
+how in 4224,160 -> out 1416,160: djump,adash
+     [bricks whole] coming in at 4224,160
+   1. coming in: holding nothing, from 4224,160; lands at 4224,161
+      -> [bricks whole] standing at x 4058-4249, y 161
+   2. jump (held 21 ticks), holding left, from 4058,161; lands at 3831,225
+      -> [bricks whole] standing at x 3770-3846, y 225
+   3. running left, jump (held 6 ticks), holding left, from 3770,225; lands at 3594,241
+      -> [bricks whole] standing at x 3562-3606, y 241
+   4. running left, jump (held 21 ticks), holding left, from 3562,241; lands at 3342,257
+      -> [bricks whole] standing at x 3223-3350, y 225-257
+   5. jump (held 2 ticks), holding left, from 3223,225; lands at 3180,193
+      -> [bricks whole] standing at x 3143-3222, y 177-193
+   6. jump (held 2 ticks), holding left, from 3143,177; lands at 3100,145
+      -> [bricks whole] standing at x 3002-3142, y 129-145
+   7. running left, jump (held 6 ticks), holding left, from 3002,145; lands at 2818,177
+      -> [bricks whole] standing at x 2794-2857, y 177
+   8. jump (held 21 ticks), holding left, from 2794,177; lands at 2538,289
+      -> [bricks whole] standing at x 2506-2550, y 289
+   9. jump (held 6 ticks), holding left, from 2506,289; lands at 2367,289
+      -> [bricks whole] standing at x 2282-2409, y 289-291
+  10. jump (held 21 ticks), holding left, double jump at tick 16, air dash (Jerry) at tick 8, from 2282,289; lands at 2031,193   [djump,adash]
+      -> [bricks whole] standing at x 1962-2038, y 193
+  11. walk off the edge, holding left once in the air, from 1962,193; lands at 1767,433
+      -> [bricks whole] standing at x 1719-1833, y 417-449
+  12. jump (held 21 ticks), holding left, double jump at tick 10, air dash (Jerry) at tick 18, from 1719,435; lands at 1447,417   [djump,adash]
+      -> [bricks whole] standing at x 1415-1513, y 385-449
+  13. jump (held 21 ticks), holding left, double jump at tick 10, air dash (Jerry) at tick 18, from 1415,385; lands at 1168,289   [djump,adash]
+      -> [bricks whole] standing at x 1159-1222, y 289
+  14. jump (held 2 ticks), holding left, from 1159,289; lands at 1116,257
+      -> [bricks whole] standing at x 1082-1158, y 257
+  15. jump (held 21 ticks), holding right, double jump at tick 16, air dash (Jerry) at tick 8, from 1088,257; touches it on the way   [djump,adash]
+      -> out 1416,160
+how in 4224,160 -> out 4304,368: samus:2
+     [bricks whole] coming in at 4224,160
+   1. coming in: holding nothing, from 4224,160; lands at 4224,161
+      -> [bricks whole] standing at x 4058-4249, y 161
+   2. jump (held 2 ticks), holding left, from 4058,161; lands at 3912,225
+      -> [bricks whole] standing at x 3898-3993, y 225
+   3. running left, walk off the edge, holding left, then nothing after 1 ticks in the air, from 3898,225; lands at 3852,401
+      -> [bricks whole] standing at x 3818-3926, y 401
+   4. running right, jump (held 21 ticks), holding right, turn into the Morph Ball where the body meets a wall or ceiling, from 3856,401; lands at 4004,401   [samus:2]
+      -> [bricks whole] as the Morph Ball at x 3994-4320, y 401
+   5. turn back from the Morph Ball at 4167,401
+      -> [bricks whole] standing at x 4167-4320, y 401
+   6. standing at 4302,401, goes into it
+      -> out 4304,368
+how in 4224,160 -> out 408,368: djump,adash,samus:2
+     [bricks whole] coming in at 4224,160
+   1. coming in: holding nothing, from 4224,160; lands at 4224,161
+      -> [bricks whole] standing at x 4058-4249, y 161
+   2. jump (held 21 ticks), holding left, from 4058,161; lands at 3831,225
+      -> [bricks whole] standing at x 3770-3846, y 225
+   3. running left, jump (held 6 ticks), holding left, from 3770,225; lands at 3594,241
+      -> [bricks whole] standing at x 3562-3606, y 241
+   4. running left, jump (held 21 ticks), holding left, from 3562,241; lands at 3342,257
+      -> [bricks whole] standing at x 3223-3350, y 225-257
+   5. jump (held 2 ticks), holding left, from 3223,225; lands at 3180,193
+      -> [bricks whole] standing at x 3143-3222, y 177-193
+   6. jump (held 2 ticks), holding left, from 3143,177; lands at 3100,145
+      -> [bricks whole] standing at x 3002-3142, y 129-145
+   7. running left, jump (held 6 ticks), holding left, from 3002,145; lands at 2818,177
+      -> [bricks whole] standing at x 2794-2857, y 177
+   8. jump (held 21 ticks), holding left, from 2794,177; lands at 2538,289
+      -> [bricks whole] standing at x 2506-2550, y 289
+   9. jump (held 6 ticks), holding left, from 2506,289; lands at 2367,289
+      -> [bricks whole] standing at x 2282-2409, y 289-291
+  10. jump (held 21 ticks), holding left, double jump at tick 16, air dash (Jerry) at tick 8, from 2282,289; lands at 2031,193   [djump,adash]
+      -> [bricks whole] standing at x 1962-2038, y 193
+  11. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 1962,193; lands at 1567,385   [adash]
+      -> [bricks whole] standing at x 1546-1593, y 385
+  12. jump (held 21 ticks), holding left, double jump at tick 15, from 1546,385; lands at 1290,417   [djump]
+      -> [bricks whole] standing at x 1146-1337, y 386-433
+  13. jump (held 21 ticks), holding left, turn into the Morph Ball at tick 8, from 1146,433; lands at 990,449   [samus:2]
+      -> [bricks whole] as the Morph Ball at x 839-1017, y 449
+  14. turn back from the Morph Ball at 839,449
+      -> [bricks whole] standing at x 839-841, y 449
+  15. jump (held 6 ticks), holding left, turn into the Morph Ball where the body meets a wall or ceiling, from 839,449; lands at 808,417   [samus:2]
+      -> [bricks whole] as the Morph Ball at x 762-838, y 417
+  16. as the Morph Ball: roll off the edge, holding left once in the air, from 762,417; lands at 748,449
+      -> [bricks whole] as the Morph Ball at x 679-761, y 449
+  17. turn back from the Morph Ball at 679,449
+      -> [bricks whole] standing at x 679-681, y 449
+  18. jump (held 6 ticks), holding left, turn into the Morph Ball where the body meets a wall or ceiling, from 679,449; lands at 648,417   [samus:2]
+      -> [bricks whole] as the Morph Ball at x 602-678, y 417
+  19. as the Morph Ball: running left, roll off the edge, holding left once in the air, turn back once there's room, from 602,417; lands at 546,449
+      -> [bricks whole] standing at x 503-601, y 449
+  20. jump (held 6 ticks), holding left, from 503,449; lands at 444,401
+      -> [bricks whole] standing at x 375-502, y 401
+  21. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 416,401; lands at 375,321   [djump]
+      -> [bricks whole] standing at x 375-406, y 321
+  22. walk off the edge, holding right, then left after 1 ticks in the air, from 375,321; touches it on the way
+      -> out 408,368
+how in 4224,160 -> loc 10 43: djump,adash
+     [bricks whole] coming in at 4224,160
+   1. coming in: holding nothing, from 4224,160; lands at 4224,161
+      -> [bricks whole] standing at x 4058-4249, y 161
+   2. jump (held 21 ticks), holding left, from 4058,161; lands at 3831,225
+      -> [bricks whole] standing at x 3770-3846, y 225
+   3. running left, jump (held 6 ticks), holding left, from 3770,225; lands at 3594,241
+      -> [bricks whole] standing at x 3562-3606, y 241
+   4. running left, jump (held 21 ticks), holding left, from 3562,241; lands at 3342,257
+      -> [bricks whole] standing at x 3223-3350, y 225-257
+   5. jump (held 2 ticks), holding left, from 3223,225; lands at 3180,193
+      -> [bricks whole] standing at x 3143-3222, y 177-193
+   6. jump (held 2 ticks), holding left, from 3143,177; lands at 3100,145
+      -> [bricks whole] standing at x 3002-3142, y 129-145
+   7. running left, jump (held 6 ticks), holding left, from 3002,145; lands at 2818,177
+      -> [bricks whole] standing at x 2794-2857, y 177
+   8. jump (held 21 ticks), holding left, from 2794,177; lands at 2538,289
+      -> [bricks whole] standing at x 2506-2550, y 289
+   9. jump (held 6 ticks), holding left, from 2506,289; lands at 2367,289
+      -> [bricks whole] standing at x 2282-2409, y 289-291
+  10. jump (held 21 ticks), holding left, double jump at tick 16, air dash (Jerry) at tick 8, from 2282,289; lands at 2031,193   [djump,adash]
+      -> [bricks whole] standing at x 1962-2038, y 193
+  11. jump (held 21 ticks), holding right, double jump at tick 16, air dash (Jerry) at tick 8, from 2034,193; lands at 2353,129   [djump,adash]
+      -> [bricks whole] standing at x 2346-2377, y 129
+  12. jump (held 21 ticks), holding right, from 2346,129; touches it on the way
+      -> loc 10 43
+how in 48,384 -> out 4216,128: -
+     [bricks whole] coming in at 48,384
+   1. coming in: holding nothing, from 48,384; lands at 48,385
+      -> [bricks whole] standing at x 0-121, y 385
+   2. jump (held 21 ticks), holding right, from 0,385; lands at 131,321
+      -> [bricks whole] standing at x 122-198, y 321
+   3. jump (held 21 ticks), holding right, from 160,321; lands at 313,273
+      -> [bricks whole] standing at x 298-329, y 273
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 298,273; lands at 371,241
+      -> [bricks whole] standing at x 330-553, y 241
+   5. running right, jump (held 21 ticks), holding right, from 496,241; lands at 760,337
+      -> [bricks whole] standing at x 746-854, y 337
+   6. running right, jump (held 2 ticks), holding right, from 846,337; lands at 1030,433
+      -> [bricks whole] standing at x 1018-1094, y 433
+   7. jump (held 6 ticks), holding right, from 1018,433; lands at 1157,433
+      -> [bricks whole] standing at x 1146-1337, y 386-433
+   8. running right, jump (held 21 ticks), holding right, from 1200,433; lands at 1354,369
+      -> [bricks whole] standing at x 1338-1414, y 369
+   9. running right, jump (held 21 ticks), holding right, from 1406,369; lands at 1604,353
+      -> [bricks whole] standing at x 1594-1670, y 353
+  10. running right, jump (held 21 ticks), holding right, from 1632,353; lands at 1845,353
+      -> [bricks whole] standing at x 1834-1897, y 353
+  11. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1834,353; lands at 1907,321
+      -> [bricks whole] standing at x 1898-1961, y 321
+  12. jump (held 21 ticks), holding right, from 1898,321; lands at 1961,257
+      -> [bricks whole] standing at x 1946-1961, y 257
+  13. jump (held 21 ticks), holding right, from 1946,257; lands at 2034,193
+      -> [bricks whole] standing at x 1962-2038, y 193
+  14. jump (held 21 ticks), holding right, from 2030,193; lands at 2293,321
+      -> [bricks whole] standing at x 2282-2345, y 321-323
+  15. jump (held 21 ticks), holding right, from 2286,321; lands at 2417,257
+      -> [bricks whole] standing at x 2410-2486, y 257
+  16. running right, jump (held 6 ticks), holding right, from 2478,257; lands at 2618,225
+      -> [bricks whole] standing at x 2602-2742, y 225
+  17. running right, jump (held 21 ticks), holding right, from 2640,225; lands at 2816,177
+      -> [bricks whole] standing at x 2794-2857, y 177
+  18. running right, jump (held 21 ticks), holding right, from 2832,177; lands at 3023,145
+      -> [bricks whole] standing at x 3002-3142, y 129-145
+  19. walk off the edge, holding right, then nothing after 1 ticks in the air, from 3002,145; lands at 3182,193
+      -> [bricks whole] standing at x 3143-3222, y 177-193
+  20. running right, jump (held 21 ticks), holding right, from 3200,193; lands at 3567,449
+      -> [bricks whole] standing at x 3479-3625, y 401-449
+  21. jump (held 6 ticks), holding right, from 3504,417; lands at 3635,401
+      -> [bricks whole] standing at x 3626-3766, y 401
+  22. running right, jump (held 2 ticks), holding right, from 3758,401; lands at 3941,225
+      -> [bricks whole] standing at x 3898-3993, y 225
+  23. jump (held 6 ticks), holding right, from 3898,225; lands at 4015,193
+      -> [bricks whole] standing at x 3994-4057, y 193
+  24. running right, jump (held 21 ticks), holding right, from 4032,193; touches it on the way
+      -> out 4216,128
+how in 48,384 -> out 40,352: -
+     [bricks whole] coming in at 48,384
+   1. coming in: holding nothing, from 48,384; lands at 48,385
+      -> [bricks whole] standing at x 0-121, y 385
+   2. standing at 30,385, presses up at it
+      -> out 40,352
+how in 48,384 -> out 1416,160: adash
+     [bricks whole] coming in at 48,384
+   1. coming in: holding nothing, from 48,384; lands at 48,385
+      -> [bricks whole] standing at x 0-121, y 385
+   2. jump (held 21 ticks), holding right, from 0,385; lands at 131,321
+      -> [bricks whole] standing at x 122-198, y 321
+   3. jump (held 21 ticks), holding right, from 160,321; lands at 313,273
+      -> [bricks whole] standing at x 298-329, y 273
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 298,273; lands at 371,241
+      -> [bricks whole] standing at x 330-553, y 241
+   5. running right, jump (held 21 ticks), holding right, from 496,241; lands at 760,337
+      -> [bricks whole] standing at x 746-854, y 337
+   6. running right, jump (held 2 ticks), holding right, from 846,337; lands at 1030,433
+      -> [bricks whole] standing at x 1018-1094, y 433
+   7. jump (held 6 ticks), holding right, from 1018,433; lands at 1157,433
+      -> [bricks whole] standing at x 1146-1337, y 386-433
+   8. running right, jump (held 21 ticks), holding right, from 1200,433; lands at 1354,369
+      -> [bricks whole] standing at x 1338-1414, y 369
+   9. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 1338,369; lands at 1159,289   [adash]
+      -> [bricks whole] standing at x 1159-1222, y 289
+  10. jump (held 2 ticks), holding left, from 1159,289; lands at 1116,257
+      -> [bricks whole] standing at x 1082-1158, y 257
+  11. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 1152,257; touches it on the way   [adash]
+      -> out 1416,160
+how in 48,384 -> out 1416,160: djump
+     [bricks whole] coming in at 48,384
+   1. coming in: holding nothing, from 48,384; lands at 48,385
+      -> [bricks whole] standing at x 0-121, y 385
+   2. jump (held 21 ticks), holding right, from 0,385; lands at 131,321
+      -> [bricks whole] standing at x 122-198, y 321
+   3. jump (held 21 ticks), holding right, from 160,321; lands at 313,273
+      -> [bricks whole] standing at x 298-329, y 273
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 298,273; lands at 371,241
+      -> [bricks whole] standing at x 330-553, y 241
+   5. running right, jump (held 21 ticks), holding right, from 496,241; lands at 760,337
+      -> [bricks whole] standing at x 746-854, y 337
+   6. running right, jump (held 2 ticks), holding right, from 846,337; lands at 1030,433
+      -> [bricks whole] standing at x 1018-1094, y 433
+   7. jump (held 6 ticks), holding right, from 1018,433; lands at 1157,433
+      -> [bricks whole] standing at x 1146-1337, y 386-433
+   8. jump (held 21 ticks), holding left, double jump at tick 15, from 1333,389; lands at 1193,289   [djump]
+      -> [bricks whole] standing at x 1159-1222, y 289
+   9. jump (held 21 ticks), holding right, double jump at tick 15, from 1159,289; lands at 1356,193   [djump]
+      -> [bricks whole] standing at x 1306-1510, y 193
+  10. standing at 1406,193, presses up at it
+      -> out 1416,160
+how in 48,384 -> out 4304,368: samus:2
+     [bricks whole] coming in at 48,384
+   1. coming in: holding nothing, from 48,384; lands at 48,385
+      -> [bricks whole] standing at x 0-121, y 385
+   2. jump (held 21 ticks), holding right, from 0,385; lands at 131,321
+      -> [bricks whole] standing at x 122-198, y 321
+   3. jump (held 21 ticks), holding right, from 160,321; lands at 313,273
+      -> [bricks whole] standing at x 298-329, y 273
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 298,273; lands at 371,241
+      -> [bricks whole] standing at x 330-553, y 241
+   5. running right, jump (held 21 ticks), holding right, from 496,241; lands at 760,337
+      -> [bricks whole] standing at x 746-854, y 337
+   6. running right, jump (held 2 ticks), holding right, from 846,337; lands at 1030,433
+      -> [bricks whole] standing at x 1018-1094, y 433
+   7. jump (held 6 ticks), holding right, from 1018,433; lands at 1157,433
+      -> [bricks whole] standing at x 1146-1337, y 386-433
+   8. running right, jump (held 21 ticks), holding right, from 1200,433; lands at 1354,369
+      -> [bricks whole] standing at x 1338-1414, y 369
+   9. running right, jump (held 21 ticks), holding right, from 1406,369; lands at 1604,353
+      -> [bricks whole] standing at x 1594-1670, y 353
+  10. running right, jump (held 21 ticks), holding right, from 1632,353; lands at 1845,353
+      -> [bricks whole] standing at x 1834-1897, y 353
+  11. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1834,353; lands at 1907,321
+      -> [bricks whole] standing at x 1898-1961, y 321
+  12. jump (held 21 ticks), holding right, from 1898,321; lands at 1961,257
+      -> [bricks whole] standing at x 1946-1961, y 257
+  13. jump (held 21 ticks), holding right, from 1946,257; lands at 2034,193
+      -> [bricks whole] standing at x 1962-2038, y 193
+  14. jump (held 21 ticks), holding right, from 2030,193; lands at 2293,321
+      -> [bricks whole] standing at x 2282-2345, y 321-323
+  15. jump (held 21 ticks), holding right, from 2286,321; lands at 2417,257
+      -> [bricks whole] standing at x 2410-2486, y 257
+  16. running right, jump (held 6 ticks), holding right, from 2478,257; lands at 2618,225
+      -> [bricks whole] standing at x 2602-2742, y 225
+  17. running right, jump (held 21 ticks), holding right, from 2640,225; lands at 2816,177
+      -> [bricks whole] standing at x 2794-2857, y 177
+  18. running right, jump (held 21 ticks), holding right, from 2832,177; lands at 3023,145
+      -> [bricks whole] standing at x 3002-3142, y 129-145
+  19. walk off the edge, holding right, then nothing after 1 ticks in the air, from 3002,145; lands at 3182,193
+      -> [bricks whole] standing at x 3143-3222, y 177-193
+  20. running right, jump (held 21 ticks), holding right, from 3200,193; lands at 3567,449
+      -> [bricks whole] standing at x 3479-3625, y 401-449
+  21. jump (held 6 ticks), holding right, from 3504,417; lands at 3635,401
+      -> [bricks whole] standing at x 3626-3766, y 401
+  22. running right, jump (held 2 ticks), holding right, from 3712,401; lands at 3837,401
+      -> [bricks whole] standing at x 3818-3926, y 401
+  23. running right, jump (held 21 ticks), holding right, turn into the Morph Ball where the body meets a wall or ceiling, from 3856,401; lands at 4004,401   [samus:2]
+      -> [bricks whole] as the Morph Ball at x 3994-4320, y 401
+  24. turn back from the Morph Ball at 4167,401
+      -> [bricks whole] standing at x 4167-4320, y 401
+  25. standing at 4302,401, goes into it
+      -> out 4304,368
+how in 48,384 -> out 408,368: samus:2
+     [bricks whole] coming in at 48,384
+   1. coming in: holding nothing, from 48,384; lands at 48,385
+      -> [bricks whole] standing at x 0-121, y 385
+   2. jump (held 21 ticks), holding right, from 0,385; lands at 131,321
+      -> [bricks whole] standing at x 122-198, y 321
+   3. jump (held 21 ticks), holding right, from 160,321; lands at 313,273
+      -> [bricks whole] standing at x 298-329, y 273
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 298,273; lands at 371,241
+      -> [bricks whole] standing at x 330-553, y 241
+   5. running right, jump (held 21 ticks), holding right, from 496,241; lands at 760,337
+      -> [bricks whole] standing at x 746-854, y 337
+   6. running right, jump (held 21 ticks), holding right, turn into the Morph Ball where the body meets a wall or ceiling, from 832,337; lands at 1017,449   [samus:2]
+      -> [bricks whole] as the Morph Ball at x 839-1017, y 449
+   7. turn back from the Morph Ball at 839,449
+      -> [bricks whole] standing at x 839-841, y 449
+   8. jump (held 6 ticks), holding left, turn into the Morph Ball where the body meets a wall or ceiling, from 839,449; lands at 808,417   [samus:2]
+      -> [bricks whole] as the Morph Ball at x 762-838, y 417
+   9. as the Morph Ball: roll off the edge, holding left once in the air, from 762,417; lands at 748,449
+      -> [bricks whole] as the Morph Ball at x 679-761, y 449
+  10. turn back from the Morph Ball at 679,449
+      -> [bricks whole] standing at x 679-681, y 449
+  11. jump (held 6 ticks), holding left, turn into the Morph Ball where the body meets a wall or ceiling, from 679,449; lands at 648,417   [samus:2]
+      -> [bricks whole] as the Morph Ball at x 602-678, y 417
+  12. as the Morph Ball: running left, roll off the edge, holding left once in the air, turn back once there's room, from 602,417; lands at 546,449
+      -> [bricks whole] standing at x 503-601, y 449
+  13. jump (held 6 ticks), holding left, from 503,449; lands at 444,401
+      -> [bricks whole] standing at x 375-502, y 401
+  14. standing at 398,401, presses up at it
+      -> out 408,368
+how in 48,384 -> loc 10 43: djump,adash
+     [bricks whole] coming in at 48,384
+   1. coming in: holding nothing, from 48,384; lands at 48,385
+      -> [bricks whole] standing at x 0-121, y 385
+   2. jump (held 21 ticks), holding right, from 0,385; lands at 131,321
+      -> [bricks whole] standing at x 122-198, y 321
+   3. jump (held 21 ticks), holding right, from 160,321; lands at 313,273
+      -> [bricks whole] standing at x 298-329, y 273
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 298,273; lands at 371,241
+      -> [bricks whole] standing at x 330-553, y 241
+   5. running right, jump (held 21 ticks), holding right, from 496,241; lands at 760,337
+      -> [bricks whole] standing at x 746-854, y 337
+   6. running right, jump (held 2 ticks), holding right, from 846,337; lands at 1030,433
+      -> [bricks whole] standing at x 1018-1094, y 433
+   7. jump (held 6 ticks), holding right, from 1018,433; lands at 1157,433
+      -> [bricks whole] standing at x 1146-1337, y 386-433
+   8. running right, jump (held 21 ticks), holding right, from 1200,433; lands at 1354,369
+      -> [bricks whole] standing at x 1338-1414, y 369
+   9. running right, jump (held 21 ticks), holding right, from 1406,369; lands at 1604,353
+      -> [bricks whole] standing at x 1594-1670, y 353
+  10. running right, jump (held 21 ticks), holding right, from 1632,353; lands at 1845,353
+      -> [bricks whole] standing at x 1834-1897, y 353
+  11. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1834,353; lands at 1907,321
+      -> [bricks whole] standing at x 1898-1961, y 321
+  12. jump (held 21 ticks), holding right, from 1898,321; lands at 1961,257
+      -> [bricks whole] standing at x 1946-1961, y 257
+  13. jump (held 21 ticks), holding right, from 1946,257; lands at 2034,193
+      -> [bricks whole] standing at x 1962-2038, y 193
+  14. jump (held 21 ticks), holding right, double jump at tick 16, air dash (Jerry) at tick 8, from 2034,193; lands at 2353,129   [djump,adash]
+      -> [bricks whole] standing at x 2346-2377, y 129
+  15. jump (held 21 ticks), holding right, from 2346,129; touches it on the way
+      -> loc 10 43
+how in 1424,192 -> out 4216,128: -
+     [bricks whole] coming in at 1424,192
+   1. coming in: holding nothing, from 1424,192; lands at 1424,193
+      -> [bricks whole] standing at x 1306-1510, y 193
+   2. walk off the edge, holding right once in the air, from 1306,193; lands at 1650,353
+      -> [bricks whole] standing at x 1594-1670, y 353
+   3. running right, jump (held 21 ticks), holding right, from 1632,353; lands at 1845,353
+      -> [bricks whole] standing at x 1834-1897, y 353
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1834,353; lands at 1907,321
+      -> [bricks whole] standing at x 1898-1961, y 321
+   5. jump (held 21 ticks), holding right, from 1898,321; lands at 1961,257
+      -> [bricks whole] standing at x 1946-1961, y 257
+   6. jump (held 21 ticks), holding right, from 1946,257; lands at 2034,193
+      -> [bricks whole] standing at x 1962-2038, y 193
+   7. jump (held 21 ticks), holding right, from 2030,193; lands at 2293,321
+      -> [bricks whole] standing at x 2282-2345, y 321-323
+   8. jump (held 21 ticks), holding right, from 2286,321; lands at 2417,257
+      -> [bricks whole] standing at x 2410-2486, y 257
+   9. running right, jump (held 6 ticks), holding right, from 2478,257; lands at 2618,225
+      -> [bricks whole] standing at x 2602-2742, y 225
+  10. running right, jump (held 21 ticks), holding right, from 2640,225; lands at 2816,177
+      -> [bricks whole] standing at x 2794-2857, y 177
+  11. running right, jump (held 21 ticks), holding right, from 2832,177; lands at 3023,145
+      -> [bricks whole] standing at x 3002-3142, y 129-145
+  12. walk off the edge, holding right, then nothing after 1 ticks in the air, from 3002,145; lands at 3182,193
+      -> [bricks whole] standing at x 3143-3222, y 177-193
+  13. running right, jump (held 21 ticks), holding right, from 3200,193; lands at 3567,449
+      -> [bricks whole] standing at x 3479-3625, y 401-449
+  14. jump (held 6 ticks), holding right, from 3504,417; lands at 3635,401
+      -> [bricks whole] standing at x 3626-3766, y 401
+  15. running right, jump (held 2 ticks), holding right, from 3758,401; lands at 3941,225
+      -> [bricks whole] standing at x 3898-3993, y 225
+  16. jump (held 6 ticks), holding right, from 3898,225; lands at 4015,193
+      -> [bricks whole] standing at x 3994-4057, y 193
+  17. running right, jump (held 21 ticks), holding right, from 4032,193; touches it on the way
+      -> out 4216,128
+how in 1424,192 -> out 1416,160: -
+     [bricks whole] coming in at 1424,192
+   1. coming in: holding nothing, from 1424,192; lands at 1424,193
+      -> [bricks whole] standing at x 1306-1510, y 193
+   2. standing at 1406,193, presses up at it
+      -> out 1416,160
+how in 1424,192 -> out 4304,368: samus:2
+     [bricks whole] coming in at 1424,192
+   1. coming in: holding nothing, from 1424,192; lands at 1424,193
+      -> [bricks whole] standing at x 1306-1510, y 193
+   2. walk off the edge, holding right once in the air, from 1306,193; lands at 1650,353
+      -> [bricks whole] standing at x 1594-1670, y 353
+   3. running right, jump (held 21 ticks), holding right, from 1632,353; lands at 1845,353
+      -> [bricks whole] standing at x 1834-1897, y 353
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1834,353; lands at 1907,321
+      -> [bricks whole] standing at x 1898-1961, y 321
+   5. jump (held 21 ticks), holding right, from 1898,321; lands at 1961,257
+      -> [bricks whole] standing at x 1946-1961, y 257
+   6. jump (held 21 ticks), holding right, from 1946,257; lands at 2034,193
+      -> [bricks whole] standing at x 1962-2038, y 193
+   7. jump (held 21 ticks), holding right, from 2030,193; lands at 2293,321
+      -> [bricks whole] standing at x 2282-2345, y 321-323
+   8. jump (held 21 ticks), holding right, from 2286,321; lands at 2417,257
+      -> [bricks whole] standing at x 2410-2486, y 257
+   9. running right, jump (held 6 ticks), holding right, from 2478,257; lands at 2618,225
+      -> [bricks whole] standing at x 2602-2742, y 225
+  10. running right, jump (held 21 ticks), holding right, from 2640,225; lands at 2816,177
+      -> [bricks whole] standing at x 2794-2857, y 177
+  11. running right, jump (held 21 ticks), holding right, from 2832,177; lands at 3023,145
+      -> [bricks whole] standing at x 3002-3142, y 129-145
+  12. walk off the edge, holding right, then nothing after 1 ticks in the air, from 3002,145; lands at 3182,193
+      -> [bricks whole] standing at x 3143-3222, y 177-193
+  13. running right, jump (held 21 ticks), holding right, from 3200,193; lands at 3567,449
+      -> [bricks whole] standing at x 3479-3625, y 401-449
+  14. jump (held 6 ticks), holding right, from 3504,417; lands at 3635,401
+      -> [bricks whole] standing at x 3626-3766, y 401
+  15. running right, jump (held 2 ticks), holding right, from 3712,401; lands at 3837,401
+      -> [bricks whole] standing at x 3818-3926, y 401
+  16. running right, jump (held 21 ticks), holding right, turn into the Morph Ball where the body meets a wall or ceiling, from 3856,401; lands at 4004,401   [samus:2]
+      -> [bricks whole] as the Morph Ball at x 3994-4320, y 401
+  17. turn back from the Morph Ball at 4167,401
+      -> [bricks whole] standing at x 4167-4320, y 401
+  18. standing at 4302,401, goes into it
+      -> out 4304,368
+how in 1424,192 -> out 408,368: samus:2
+     [bricks whole] coming in at 1424,192
+   1. coming in: holding nothing, from 1424,192; lands at 1424,193
+      -> [bricks whole] standing at x 1306-1510, y 193
+   2. running left, jump (held 21 ticks), holding left, turn into the Morph Ball where the body meets a wall or ceiling, from 1306,193; lands at 972,449   [samus:2]
+      -> [bricks whole] as the Morph Ball at x 839-1017, y 449
+   3. turn back from the Morph Ball at 839,449
+      -> [bricks whole] standing at x 839-841, y 449
+   4. jump (held 6 ticks), holding left, turn into the Morph Ball where the body meets a wall or ceiling, from 839,449; lands at 808,417   [samus:2]
+      -> [bricks whole] as the Morph Ball at x 762-838, y 417
+   5. as the Morph Ball: roll off the edge, holding left once in the air, from 762,417; lands at 748,449
+      -> [bricks whole] as the Morph Ball at x 679-761, y 449
+   6. turn back from the Morph Ball at 679,449
+      -> [bricks whole] standing at x 679-681, y 449
+   7. jump (held 6 ticks), holding left, turn into the Morph Ball where the body meets a wall or ceiling, from 679,449; lands at 648,417   [samus:2]
+      -> [bricks whole] as the Morph Ball at x 602-678, y 417
+   8. as the Morph Ball: running left, roll off the edge, holding left once in the air, turn back once there's room, from 602,417; lands at 546,449
+      -> [bricks whole] standing at x 503-601, y 449
+   9. jump (held 6 ticks), holding left, from 503,449; lands at 444,401
+      -> [bricks whole] standing at x 375-502, y 401
+  10. standing at 398,401, presses up at it
+      -> out 408,368
+how in 1424,192 -> loc 10 43: djump,adash
+     [bricks whole] coming in at 1424,192
+   1. coming in: holding nothing, from 1424,192; lands at 1424,193
+      -> [bricks whole] standing at x 1306-1510, y 193
+   2. walk off the edge, holding right once in the air, from 1306,193; lands at 1650,353
+      -> [bricks whole] standing at x 1594-1670, y 353
+   3. running right, jump (held 21 ticks), holding right, from 1632,353; lands at 1845,353
+      -> [bricks whole] standing at x 1834-1897, y 353
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1834,353; lands at 1907,321
+      -> [bricks whole] standing at x 1898-1961, y 321
+   5. jump (held 21 ticks), holding right, from 1898,321; lands at 1961,257
+      -> [bricks whole] standing at x 1946-1961, y 257
+   6. jump (held 21 ticks), holding right, from 1946,257; lands at 2034,193
+      -> [bricks whole] standing at x 1962-2038, y 193
+   7. jump (held 21 ticks), holding right, double jump at tick 16, air dash (Jerry) at tick 8, from 2034,193; lands at 2353,129   [djump,adash]
+      -> [bricks whole] standing at x 2346-2377, y 129
+   8. jump (held 21 ticks), holding right, from 2346,129; touches it on the way
+      -> loc 10 43
+how in 4272,400 -> out 4216,128: samus:2
+     [bricks whole] coming in at 4272,400
+   1. coming in: holding nothing, from 4272,400; lands at 4272,401
+      -> [bricks whole] standing at x 4167-4320, y 401
+   2. turn into the Morph Ball at 4167,401   [samus:2]
+      -> [bricks whole] as the Morph Ball at x 3994-4320, y 401
+   3. turn back from the Morph Ball at 3994,401
+      -> [bricks whole] standing at x 3994-4025, y 401
+   4. running left, jump (held 2 ticks), holding left, from 3994,401; lands at 3803,225
+      -> [bricks whole] standing at x 3770-3846, y 225
+   5. running right, jump (held 21 ticks), holding right, from 3824,225; lands at 4015,193
+      -> [bricks whole] standing at x 3994-4057, y 193
+   6. running right, jump (held 21 ticks), holding right, from 4032,193; touches it on the way
+      -> out 4216,128
+how in 4272,400 -> out 1416,160: djump,adash,samus:2
+     [bricks whole] coming in at 4272,400
+   1. coming in: holding nothing, from 4272,400; lands at 4272,401
+      -> [bricks whole] standing at x 4167-4320, y 401
+   2. turn into the Morph Ball at 4167,401   [samus:2]
+      -> [bricks whole] as the Morph Ball at x 3994-4320, y 401
+   3. turn back from the Morph Ball at 3994,401
+      -> [bricks whole] standing at x 3994-4025, y 401
+   4. running left, jump (held 2 ticks), holding left, from 3994,401; lands at 3803,225
+      -> [bricks whole] standing at x 3770-3846, y 225
+   5. running left, jump (held 6 ticks), holding left, from 3770,225; lands at 3594,241
+      -> [bricks whole] standing at x 3562-3606, y 241
+   6. running left, jump (held 21 ticks), holding left, from 3562,241; lands at 3342,257
+      -> [bricks whole] standing at x 3223-3350, y 225-257
+   7. jump (held 2 ticks), holding left, from 3223,225; lands at 3180,193
+      -> [bricks whole] standing at x 3143-3222, y 177-193
+   8. jump (held 2 ticks), holding left, from 3143,177; lands at 3100,145
+      -> [bricks whole] standing at x 3002-3142, y 129-145
+   9. running left, jump (held 6 ticks), holding left, from 3002,145; lands at 2818,177
+      -> [bricks whole] standing at x 2794-2857, y 177
+  10. jump (held 21 ticks), holding left, from 2794,177; lands at 2538,289
+      -> [bricks whole] standing at x 2506-2550, y 289
+  11. jump (held 6 ticks), holding left, from 2506,289; lands at 2367,289
+      -> [bricks whole] standing at x 2282-2409, y 289-291
+  12. jump (held 21 ticks), holding left, double jump at tick 16, air dash (Jerry) at tick 8, from 2282,289; lands at 2031,193   [djump,adash]
+      -> [bricks whole] standing at x 1962-2038, y 193
+  13. walk off the edge, holding left once in the air, from 1962,193; lands at 1767,433
+      -> [bricks whole] standing at x 1719-1833, y 417-449
+  14. jump (held 21 ticks), holding left, double jump at tick 10, air dash (Jerry) at tick 18, from 1719,435; lands at 1447,417   [djump,adash]
+      -> [bricks whole] standing at x 1415-1513, y 385-449
+  15. jump (held 21 ticks), holding left, double jump at tick 10, air dash (Jerry) at tick 18, from 1415,385; lands at 1168,289   [djump,adash]
+      -> [bricks whole] standing at x 1159-1222, y 289
+  16. jump (held 2 ticks), holding left, from 1159,289; lands at 1116,257
+      -> [bricks whole] standing at x 1082-1158, y 257
+  17. jump (held 21 ticks), holding right, double jump at tick 16, air dash (Jerry) at tick 8, from 1088,257; touches it on the way   [djump,adash]
+      -> out 1416,160
+how in 4272,400 -> out 4304,368: -
+     [bricks whole] coming in at 4272,400
+   1. coming in: holding nothing, from 4272,400; lands at 4272,401
+      -> [bricks whole] standing at x 4167-4320, y 401
+   2. standing at 4302,401, goes into it
+      -> out 4304,368
+how in 4272,400 -> out 408,368: djump,adash,samus:2
+     [bricks whole] coming in at 4272,400
+   1. coming in: holding nothing, from 4272,400; lands at 4272,401
+      -> [bricks whole] standing at x 4167-4320, y 401
+   2. turn into the Morph Ball at 4167,401   [samus:2]
+      -> [bricks whole] as the Morph Ball at x 3994-4320, y 401
+   3. turn back from the Morph Ball at 3994,401
+      -> [bricks whole] standing at x 3994-4025, y 401
+   4. running left, jump (held 2 ticks), holding left, from 3994,401; lands at 3803,225
+      -> [bricks whole] standing at x 3770-3846, y 225
+   5. running left, jump (held 6 ticks), holding left, from 3770,225; lands at 3594,241
+      -> [bricks whole] standing at x 3562-3606, y 241
+   6. running left, jump (held 21 ticks), holding left, from 3562,241; lands at 3342,257
+      -> [bricks whole] standing at x 3223-3350, y 225-257
+   7. jump (held 2 ticks), holding left, from 3223,225; lands at 3180,193
+      -> [bricks whole] standing at x 3143-3222, y 177-193
+   8. jump (held 2 ticks), holding left, from 3143,177; lands at 3100,145
+      -> [bricks whole] standing at x 3002-3142, y 129-145
+   9. running left, jump (held 6 ticks), holding left, from 3002,145; lands at 2818,177
+      -> [bricks whole] standing at x 2794-2857, y 177
+  10. jump (held 21 ticks), holding left, from 2794,177; lands at 2538,289
+      -> [bricks whole] standing at x 2506-2550, y 289
+  11. jump (held 6 ticks), holding left, from 2506,289; lands at 2367,289
+      -> [bricks whole] standing at x 2282-2409, y 289-291
+  12. jump (held 21 ticks), holding left, double jump at tick 16, air dash (Jerry) at tick 8, from 2282,289; lands at 2031,193   [djump,adash]
+      -> [bricks whole] standing at x 1962-2038, y 193
+  13. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 1962,193; lands at 1567,385   [adash]
+      -> [bricks whole] standing at x 1546-1593, y 385
+  14. jump (held 21 ticks), holding left, double jump at tick 15, from 1546,385; lands at 1290,417   [djump]
+      -> [bricks whole] standing at x 1146-1337, y 386-433
+  15. jump (held 21 ticks), holding left, turn into the Morph Ball at tick 8, from 1146,433; lands at 990,449   [samus:2]
+      -> [bricks whole] as the Morph Ball at x 839-1017, y 449
+  16. turn back from the Morph Ball at 839,449
+      -> [bricks whole] standing at x 839-841, y 449
+  17. jump (held 6 ticks), holding left, turn into the Morph Ball where the body meets a wall or ceiling, from 839,449; lands at 808,417   [samus:2]
+      -> [bricks whole] as the Morph Ball at x 762-838, y 417
+  18. as the Morph Ball: roll off the edge, holding left once in the air, from 762,417; lands at 748,449
+      -> [bricks whole] as the Morph Ball at x 679-761, y 449
+  19. turn back from the Morph Ball at 679,449
+      -> [bricks whole] standing at x 679-681, y 449
+  20. jump (held 6 ticks), holding left, turn into the Morph Ball where the body meets a wall or ceiling, from 679,449; lands at 648,417   [samus:2]
+      -> [bricks whole] as the Morph Ball at x 602-678, y 417
+  21. as the Morph Ball: running left, roll off the edge, holding left once in the air, turn back once there's room, from 602,417; lands at 546,449
+      -> [bricks whole] standing at x 503-601, y 449
+  22. jump (held 6 ticks), holding left, from 503,449; lands at 444,401
+      -> [bricks whole] standing at x 375-502, y 401
+  23. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 416,401; lands at 375,321   [djump]
+      -> [bricks whole] standing at x 375-406, y 321
+  24. walk off the edge, holding right, then left after 1 ticks in the air, from 375,321; touches it on the way
+      -> out 408,368
+how in 4272,400 -> loc 10 43: djump,adash,samus:2
+     [bricks whole] coming in at 4272,400
+   1. coming in: holding nothing, from 4272,400; lands at 4272,401
+      -> [bricks whole] standing at x 4167-4320, y 401
+   2. turn into the Morph Ball at 4167,401   [samus:2]
+      -> [bricks whole] as the Morph Ball at x 3994-4320, y 401
+   3. turn back from the Morph Ball at 3994,401
+      -> [bricks whole] standing at x 3994-4025, y 401
+   4. running left, jump (held 2 ticks), holding left, from 3994,401; lands at 3803,225
+      -> [bricks whole] standing at x 3770-3846, y 225
+   5. running left, jump (held 6 ticks), holding left, from 3770,225; lands at 3594,241
+      -> [bricks whole] standing at x 3562-3606, y 241
+   6. running left, jump (held 21 ticks), holding left, from 3562,241; lands at 3342,257
+      -> [bricks whole] standing at x 3223-3350, y 225-257
+   7. jump (held 2 ticks), holding left, from 3223,225; lands at 3180,193
+      -> [bricks whole] standing at x 3143-3222, y 177-193
+   8. jump (held 2 ticks), holding left, from 3143,177; lands at 3100,145
+      -> [bricks whole] standing at x 3002-3142, y 129-145
+   9. running left, jump (held 6 ticks), holding left, from 3002,145; lands at 2818,177
+      -> [bricks whole] standing at x 2794-2857, y 177
+  10. jump (held 21 ticks), holding left, from 2794,177; lands at 2538,289
+      -> [bricks whole] standing at x 2506-2550, y 289
+  11. jump (held 6 ticks), holding left, from 2506,289; lands at 2367,289
+      -> [bricks whole] standing at x 2282-2409, y 289-291
+  12. jump (held 21 ticks), holding left, double jump at tick 16, air dash (Jerry) at tick 8, from 2282,289; lands at 2031,193   [djump,adash]
+      -> [bricks whole] standing at x 1962-2038, y 193
+  13. jump (held 21 ticks), holding right, double jump at tick 16, air dash (Jerry) at tick 8, from 2034,193; lands at 2353,129   [djump,adash]
+      -> [bricks whole] standing at x 2346-2377, y 129
+  14. jump (held 21 ticks), holding right, from 2346,129; touches it on the way
+      -> loc 10 43
+how in 416,400 -> out 4216,128: samus:2
+     [bricks whole] coming in at 416,400
+   1. coming in: holding nothing, from 416,400; lands at 416,401
+      -> [bricks whole] standing at x 375-502, y 401
+   2. walk off the edge, holding right once in the air, from 375,401; lands at 565,449
+      -> [bricks whole] standing at x 503-601, y 449
+   3. running right, jump (held 21 ticks), holding right, turn into the Morph Ball where the body meets a wall or ceiling, from 544,449; lands at 609,417   [samus:2]
+      -> [bricks whole] as the Morph Ball at x 602-678, y 417
+   4. as the Morph Ball: roll off the edge, holding right once in the air, from 602,417; lands at 691,449
+      -> [bricks whole] as the Morph Ball at x 679-761, y 449
+   5. turn back from the Morph Ball at 759,449
+      -> [bricks whole] standing at x 759-761, y 449
+   6. jump (held 6 ticks), holding right, turn into the Morph Ball where the body meets a wall or ceiling, from 759,449; lands at 792,417   [samus:2]
+      -> [bricks whole] as the Morph Ball at x 762-838, y 417
+   7. as the Morph Ball: roll off the edge, holding right once in the air, from 762,417; lands at 851,449
+      -> [bricks whole] as the Morph Ball at x 839-1017, y 449
+   8. turn back from the Morph Ball at 983,449
+      -> [bricks whole] standing at x 983-1017, y 449
+   9. jump (held 21 ticks), holding right, from 983,449; lands at 1158,433
+      -> [bricks whole] standing at x 1146-1337, y 386-433
+  10. running right, jump (held 21 ticks), holding right, from 1200,433; lands at 1354,369
+      -> [bricks whole] standing at x 1338-1414, y 369
+  11. running right, jump (held 21 ticks), holding right, from 1406,369; lands at 1604,353
+      -> [bricks whole] standing at x 1594-1670, y 353
+  12. running right, jump (held 21 ticks), holding right, from 1632,353; lands at 1845,353
+      -> [bricks whole] standing at x 1834-1897, y 353
+  13. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1834,353; lands at 1907,321
+      -> [bricks whole] standing at x 1898-1961, y 321
+  14. jump (held 21 ticks), holding right, from 1898,321; lands at 1961,257
+      -> [bricks whole] standing at x 1946-1961, y 257
+  15. jump (held 21 ticks), holding right, from 1946,257; lands at 2034,193
+      -> [bricks whole] standing at x 1962-2038, y 193
+  16. jump (held 21 ticks), holding right, from 2030,193; lands at 2293,321
+      -> [bricks whole] standing at x 2282-2345, y 321-323
+  17. jump (held 21 ticks), holding right, from 2286,321; lands at 2417,257
+      -> [bricks whole] standing at x 2410-2486, y 257
+  18. running right, jump (held 6 ticks), holding right, from 2478,257; lands at 2618,225
+      -> [bricks whole] standing at x 2602-2742, y 225
+  19. running right, jump (held 21 ticks), holding right, from 2640,225; lands at 2816,177
+      -> [bricks whole] standing at x 2794-2857, y 177
+  20. running right, jump (held 21 ticks), holding right, from 2832,177; lands at 3023,145
+      -> [bricks whole] standing at x 3002-3142, y 129-145
+  21. walk off the edge, holding right, then nothing after 1 ticks in the air, from 3002,145; lands at 3182,193
+      -> [bricks whole] standing at x 3143-3222, y 177-193
+  22. running right, jump (held 21 ticks), holding right, from 3200,193; lands at 3567,449
+      -> [bricks whole] standing at x 3479-3625, y 401-449
+  23. jump (held 6 ticks), holding right, from 3504,417; lands at 3635,401
+      -> [bricks whole] standing at x 3626-3766, y 401
+  24. running right, jump (held 2 ticks), holding right, from 3758,401; lands at 3941,225
+      -> [bricks whole] standing at x 3898-3993, y 225
+  25. jump (held 6 ticks), holding right, from 3898,225; lands at 4015,193
+      -> [bricks whole] standing at x 3994-4057, y 193
+  26. running right, jump (held 21 ticks), holding right, from 4032,193; touches it on the way
+      -> out 4216,128
+how in 416,400 -> out 1416,160: adash,samus:2
+     [bricks whole] coming in at 416,400
+   1. coming in: holding nothing, from 416,400; lands at 416,401
+      -> [bricks whole] standing at x 375-502, y 401
+   2. walk off the edge, holding right once in the air, from 375,401; lands at 565,449
+      -> [bricks whole] standing at x 503-601, y 449
+   3. running right, jump (held 21 ticks), holding right, turn into the Morph Ball where the body meets a wall or ceiling, from 544,449; lands at 609,417   [samus:2]
+      -> [bricks whole] as the Morph Ball at x 602-678, y 417
+   4. as the Morph Ball: roll off the edge, holding right once in the air, from 602,417; lands at 691,449
+      -> [bricks whole] as the Morph Ball at x 679-761, y 449
+   5. turn back from the Morph Ball at 759,449
+      -> [bricks whole] standing at x 759-761, y 449
+   6. jump (held 6 ticks), holding right, turn into the Morph Ball where the body meets a wall or ceiling, from 759,449; lands at 792,417   [samus:2]
+      -> [bricks whole] as the Morph Ball at x 762-838, y 417
+   7. as the Morph Ball: roll off the edge, holding right once in the air, from 762,417; lands at 851,449
+      -> [bricks whole] as the Morph Ball at x 839-1017, y 449
+   8. turn back from the Morph Ball at 983,449
+      -> [bricks whole] standing at x 983-1017, y 449
+   9. jump (held 21 ticks), holding right, from 983,449; lands at 1158,433
+      -> [bricks whole] standing at x 1146-1337, y 386-433
+  10. running right, jump (held 21 ticks), holding right, from 1200,433; lands at 1354,369
+      -> [bricks whole] standing at x 1338-1414, y 369
+  11. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 1338,369; lands at 1159,289   [adash]
+      -> [bricks whole] standing at x 1159-1222, y 289
+  12. jump (held 2 ticks), holding left, from 1159,289; lands at 1116,257
+      -> [bricks whole] standing at x 1082-1158, y 257
+  13. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 1152,257; touches it on the way   [adash]
+      -> out 1416,160
+how in 416,400 -> out 1416,160: djump,samus:2
+     [bricks whole] coming in at 416,400
+   1. coming in: holding nothing, from 416,400; lands at 416,401
+      -> [bricks whole] standing at x 375-502, y 401
+   2. walk off the edge, holding right once in the air, from 375,401; lands at 565,449
+      -> [bricks whole] standing at x 503-601, y 449
+   3. running right, jump (held 21 ticks), holding right, turn into the Morph Ball where the body meets a wall or ceiling, from 544,449; lands at 609,417   [samus:2]
+      -> [bricks whole] as the Morph Ball at x 602-678, y 417
+   4. as the Morph Ball: roll off the edge, holding right once in the air, from 602,417; lands at 691,449
+      -> [bricks whole] as the Morph Ball at x 679-761, y 449
+   5. turn back from the Morph Ball at 759,449
+      -> [bricks whole] standing at x 759-761, y 449
+   6. jump (held 6 ticks), holding right, turn into the Morph Ball where the body meets a wall or ceiling, from 759,449; lands at 792,417   [samus:2]
+      -> [bricks whole] as the Morph Ball at x 762-838, y 417
+   7. as the Morph Ball: roll off the edge, holding right once in the air, from 762,417; lands at 851,449
+      -> [bricks whole] as the Morph Ball at x 839-1017, y 449
+   8. turn back from the Morph Ball at 983,449
+      -> [bricks whole] standing at x 983-1017, y 449
+   9. jump (held 21 ticks), holding right, from 983,449; lands at 1158,433
+      -> [bricks whole] standing at x 1146-1337, y 386-433
+  10. jump (held 21 ticks), holding left, double jump at tick 15, from 1333,389; lands at 1193,289   [djump]
+      -> [bricks whole] standing at x 1159-1222, y 289
+  11. jump (held 21 ticks), holding right, double jump at tick 15, from 1159,289; lands at 1356,193   [djump]
+      -> [bricks whole] standing at x 1306-1510, y 193
+  12. standing at 1406,193, presses up at it
+      -> out 1416,160
+how in 416,400 -> out 4304,368: samus:2
+     [bricks whole] coming in at 416,400
+   1. coming in: holding nothing, from 416,400; lands at 416,401
+      -> [bricks whole] standing at x 375-502, y 401
+   2. walk off the edge, holding right once in the air, from 375,401; lands at 565,449
+      -> [bricks whole] standing at x 503-601, y 449
+   3. running right, jump (held 21 ticks), holding right, turn into the Morph Ball where the body meets a wall or ceiling, from 544,449; lands at 609,417   [samus:2]
+      -> [bricks whole] as the Morph Ball at x 602-678, y 417
+   4. as the Morph Ball: roll off the edge, holding right once in the air, from 602,417; lands at 691,449
+      -> [bricks whole] as the Morph Ball at x 679-761, y 449
+   5. turn back from the Morph Ball at 759,449
+      -> [bricks whole] standing at x 759-761, y 449
+   6. jump (held 6 ticks), holding right, turn into the Morph Ball where the body meets a wall or ceiling, from 759,449; lands at 792,417   [samus:2]
+      -> [bricks whole] as the Morph Ball at x 762-838, y 417
+   7. as the Morph Ball: roll off the edge, holding right once in the air, from 762,417; lands at 851,449
+      -> [bricks whole] as the Morph Ball at x 839-1017, y 449
+   8. turn back from the Morph Ball at 983,449
+      -> [bricks whole] standing at x 983-1017, y 449
+   9. jump (held 21 ticks), holding right, from 983,449; lands at 1158,433
+      -> [bricks whole] standing at x 1146-1337, y 386-433
+  10. running right, jump (held 21 ticks), holding right, from 1200,433; lands at 1354,369
+      -> [bricks whole] standing at x 1338-1414, y 369
+  11. running right, jump (held 21 ticks), holding right, from 1406,369; lands at 1604,353
+      -> [bricks whole] standing at x 1594-1670, y 353
+  12. running right, jump (held 21 ticks), holding right, from 1632,353; lands at 1845,353
+      -> [bricks whole] standing at x 1834-1897, y 353
+  13. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1834,353; lands at 1907,321
+      -> [bricks whole] standing at x 1898-1961, y 321
+  14. jump (held 21 ticks), holding right, from 1898,321; lands at 1961,257
+      -> [bricks whole] standing at x 1946-1961, y 257
+  15. jump (held 21 ticks), holding right, from 1946,257; lands at 2034,193
+      -> [bricks whole] standing at x 1962-2038, y 193
+  16. jump (held 21 ticks), holding right, from 2030,193; lands at 2293,321
+      -> [bricks whole] standing at x 2282-2345, y 321-323
+  17. jump (held 21 ticks), holding right, from 2286,321; lands at 2417,257
+      -> [bricks whole] standing at x 2410-2486, y 257
+  18. running right, jump (held 6 ticks), holding right, from 2478,257; lands at 2618,225
+      -> [bricks whole] standing at x 2602-2742, y 225
+  19. running right, jump (held 21 ticks), holding right, from 2640,225; lands at 2816,177
+      -> [bricks whole] standing at x 2794-2857, y 177
+  20. running right, jump (held 21 ticks), holding right, from 2832,177; lands at 3023,145
+      -> [bricks whole] standing at x 3002-3142, y 129-145
+  21. walk off the edge, holding right, then nothing after 1 ticks in the air, from 3002,145; lands at 3182,193
+      -> [bricks whole] standing at x 3143-3222, y 177-193
+  22. running right, jump (held 21 ticks), holding right, from 3200,193; lands at 3567,449
+      -> [bricks whole] standing at x 3479-3625, y 401-449
+  23. jump (held 6 ticks), holding right, from 3504,417; lands at 3635,401
+      -> [bricks whole] standing at x 3626-3766, y 401
+  24. running right, jump (held 2 ticks), holding right, from 3712,401; lands at 3837,401
+      -> [bricks whole] standing at x 3818-3926, y 401
+  25. running right, jump (held 21 ticks), holding right, turn into the Morph Ball where the body meets a wall or ceiling, from 3856,401; lands at 4004,401   [samus:2]
+      -> [bricks whole] as the Morph Ball at x 3994-4320, y 401
+  26. turn back from the Morph Ball at 4167,401
+      -> [bricks whole] standing at x 4167-4320, y 401
+  27. standing at 4302,401, goes into it
+      -> out 4304,368
+how in 416,400 -> out 408,368: -
+     [bricks whole] coming in at 416,400
+   1. coming in: holding nothing, from 416,400; lands at 416,401
+      -> [bricks whole] standing at x 375-502, y 401
+   2. standing at 398,401, presses up at it
+      -> out 408,368
+how in 416,400 -> loc 10 43: djump,adash,samus:2
+     [bricks whole] coming in at 416,400
+   1. coming in: holding nothing, from 416,400; lands at 416,401
+      -> [bricks whole] standing at x 375-502, y 401
+   2. walk off the edge, holding right once in the air, from 375,401; lands at 565,449
+      -> [bricks whole] standing at x 503-601, y 449
+   3. running right, jump (held 21 ticks), holding right, turn into the Morph Ball where the body meets a wall or ceiling, from 544,449; lands at 609,417   [samus:2]
+      -> [bricks whole] as the Morph Ball at x 602-678, y 417
+   4. as the Morph Ball: roll off the edge, holding right once in the air, from 602,417; lands at 691,449
+      -> [bricks whole] as the Morph Ball at x 679-761, y 449
+   5. turn back from the Morph Ball at 759,449
+      -> [bricks whole] standing at x 759-761, y 449
+   6. jump (held 6 ticks), holding right, turn into the Morph Ball where the body meets a wall or ceiling, from 759,449; lands at 792,417   [samus:2]
+      -> [bricks whole] as the Morph Ball at x 762-838, y 417
+   7. as the Morph Ball: roll off the edge, holding right once in the air, from 762,417; lands at 851,449
+      -> [bricks whole] as the Morph Ball at x 839-1017, y 449
+   8. turn back from the Morph Ball at 983,449
+      -> [bricks whole] standing at x 983-1017, y 449
+   9. jump (held 21 ticks), holding right, from 983,449; lands at 1158,433
+      -> [bricks whole] standing at x 1146-1337, y 386-433
+  10. running right, jump (held 21 ticks), holding right, from 1200,433; lands at 1354,369
+      -> [bricks whole] standing at x 1338-1414, y 369
+  11. running right, jump (held 21 ticks), holding right, from 1406,369; lands at 1604,353
+      -> [bricks whole] standing at x 1594-1670, y 353
+  12. running right, jump (held 21 ticks), holding right, from 1632,353; lands at 1845,353
+      -> [bricks whole] standing at x 1834-1897, y 353
+  13. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1834,353; lands at 1907,321
+      -> [bricks whole] standing at x 1898-1961, y 321
+  14. jump (held 21 ticks), holding right, from 1898,321; lands at 1961,257
+      -> [bricks whole] standing at x 1946-1961, y 257
+  15. jump (held 21 ticks), holding right, from 1946,257; lands at 2034,193
+      -> [bricks whole] standing at x 1962-2038, y 193
+  16. jump (held 21 ticks), holding right, double jump at tick 16, air dash (Jerry) at tick 8, from 2034,193; lands at 2353,129   [djump,adash]
+      -> [bricks whole] standing at x 2346-2377, y 129
+  17. jump (held 21 ticks), holding right, from 2346,129; touches it on the way
+      -> loc 10 43

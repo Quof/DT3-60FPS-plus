@@ -40,9 +40,10 @@ class DT3PlusWeb(WebWorld):
 
 class DT3PlusWorld(World):
     """
-    DT3+ is a fan-made platformer across many games' worlds. In the Randomizer, a new game starts in the open endgame
-    world with nothing but walking: every collectible, movement ability, ability set and key is somewhere in the
-    multiworld. Get the 8 instruments and beat the Abomination, then defeat the CHAOS Warmaster.
+    DT3+ is a fan-made platformer across many games' worlds. In the Randomizer, a new game starts in Central City in the
+    open endgame world, able to walk and jump: every collectible, the other movement abilities, the ability sets and the
+    keys are somewhere in the multiworld. Get the 8 instruments and beat the Abomination, then defeat the CHAOS
+    Warmaster.
     """
     game = data.GAME
     web = DT3PlusWeb()
@@ -54,8 +55,8 @@ class DT3PlusWorld(World):
     location_name_to_id = {name: loc[0] for name, loc in data.LOCATIONS.items()}
     item_name_groups = {
         "Keys": set(data.DOOR_KEYS),
-        "Movement": {"Jump", "Dash", "Air Dash", "Double Jump", "Progressive High Jump Boots"},
-        "Ability Sets": {name for name in data.PROG_ITEMS[5:12]},
+        "Movement": {"Dash", "Air Dash", "Double Jump", "Progressive High Jump Boots"},
+        "Ability Sets": set(data.SET_ITEMS),
         "Cursed Equipment": set(data.CURSED_GEAR),
     }
 

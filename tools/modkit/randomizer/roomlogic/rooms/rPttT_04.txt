@@ -1,0 +1,72 @@
+# rPttT_04: Great Colossal Falloff (area 76), 1280x1248 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 112,256   # from rPttT_02 out 256,448
+in 48,256   # from rPttT_03 out 1680,320
+in 464,112   # from this room's door out 936,536
+in 1008,720   # from this room's door out 904,1112
+in 1232,576   # from rPttT_05 out 0,320
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 0,224   # to rPttT_03 at 1648,352; the player goes into it
+out 1264,544   # to rPttT_05 at 48,352; the player goes into it
+out 936,536   # to this room at 464,112; the player presses down at it
+out 904,1112   # to this room at 1008,720; the player presses down at it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 112,256
+  out 0,224      -
+  out 1264,544   never
+  out 936,536    never
+  out 904,1112   never
+from in 48,256
+  out 0,224      -
+  out 1264,544   never
+  out 936,536    never
+  out 904,1112   never
+from in 464,112
+  out 0,224      never
+  out 1264,544   never
+  out 936,536    never
+  out 904,1112   never
+from in 1008,720
+  out 0,224      never
+  out 1264,544   never
+  out 936,536    never
+  out 904,1112   never
+from in 1232,576
+  out 0,224      never
+  out 1264,544   -
+  out 936,536    never
+  out 904,1112   never
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 112,256 -> out 0,224: -
+     coming in at 112,256
+   1. coming in: holding nothing, from 112,256; lands at 112,257
+      -> standing at x 0-134, y 257
+   2. standing at 0,257, goes into it
+      -> out 0,224
+how in 48,256 -> out 0,224: -
+     coming in at 48,256
+   1. coming in: holding nothing, from 48,256; lands at 48,257
+      -> standing at x 0-134, y 257
+   2. standing at 0,257, goes into it
+      -> out 0,224
+how in 1232,576 -> out 1264,544: -
+     coming in at 1232,576
+   1. coming in: holding nothing, from 1232,576; lands at 1232,577
+      -> standing at x 1143-1280, y 577
+   2. standing at 1262,577, goes into it
+      -> out 1264,544

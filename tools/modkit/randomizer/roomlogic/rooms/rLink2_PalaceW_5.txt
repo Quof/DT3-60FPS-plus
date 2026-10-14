@@ -1,0 +1,69 @@
+# rLink2_PalaceW_5: Access Gate 2: Hyrule (area 10), 1424x784 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 784,304   # from rLink2_PalaceW_3 out 776,272
+in 1376,240   # from rLink2_PalaceW_6 out 0,208
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 776,272   # to rLink2_PalaceW_3 at 784,304; the player presses up at it
+out 1408,208   # to rLink2_PalaceW_6 at 48,240; the player goes into it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+loc 7 1   # air upgrade 1, at 527,744
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 784,304
+  out 776,272    -
+  out 1408,208   -
+  loc 7 1        never
+from in 1376,240
+  out 776,272    -
+  out 1408,208   -
+  loc 7 1        never
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 784,304 -> out 776,272: -
+     coming in at 784,304
+   1. coming in: holding nothing, from 784,304; lands at 784,305
+      -> standing at x 696-870, y 305
+   2. standing at 774,305, presses up at it
+      -> out 776,272
+how in 784,304 -> out 1408,208: -
+     coming in at 784,304
+   1. coming in: holding nothing, from 784,304; lands at 784,305
+      -> standing at x 696-870, y 305
+   2. running right, jump (held 21 ticks), holding right, from 720,305; lands at 976,385
+      -> standing at x 970-1065, y 385
+   3. jump (held 21 ticks), holding right, from 970,385; lands at 1109,337
+      -> standing at x 1066-1129, y 337
+   4. jump (held 6 ticks), holding right, from 1066,337; lands at 1161,289
+      -> standing at x 1130-1161, y 289
+   5. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1130,289; lands at 1188,241
+      -> standing at x 1162-1424, y 241
+   6. standing at 1406,241, goes into it
+      -> out 1408,208
+how in 1376,240 -> out 776,272: -
+     coming in at 1376,240
+   1. coming in: holding nothing, from 1376,240; lands at 1376,241
+      -> standing at x 1162-1424, y 241
+   2. jump (held 21 ticks), holding left, from 1162,241; lands at 1031,177
+      -> standing at x 954-1062, y 177
+   3. walk off the edge, holding left once in the air, from 954,177; lands at 830,305
+      -> standing at x 696-870, y 305
+   4. standing at 774,305, presses up at it
+      -> out 776,272
+how in 1376,240 -> out 1408,208: -
+     coming in at 1376,240
+   1. coming in: holding nothing, from 1376,240; lands at 1376,241
+      -> standing at x 1162-1424, y 241
+   2. standing at 1406,241, goes into it
+      -> out 1408,208

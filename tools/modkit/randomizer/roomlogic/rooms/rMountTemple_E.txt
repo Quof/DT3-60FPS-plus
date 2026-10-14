@@ -1,0 +1,78 @@
+# rMountTemple_E: Begonia - Mountain Temple (area 24), 2048x1008 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 112,144   # from rMountTemple_A out 1912,560
+in 2000,960   # from rMountTemple_F out 0,896
+in 2000,368   # from rMountTemple_F out 0,160
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 104,112   # to rMountTemple_A at 1920,592; the player presses up at it
+out 2032,928   # to rMountTemple_F at 48,928; the player goes into it
+out 2032,336   # to rMountTemple_F at 48,192; the player goes into it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+loc 4 23   # heart energy 23, at 1167,552
+loc 2 24   # treasure chest 24, at 944,531
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 112,144
+  out 104,112    -
+  out 2032,928   never
+  out 2032,336   never
+  loc 4 23       never
+  loc 2 24       -
+from in 2000,960
+  out 104,112    never
+  out 2032,928   -
+  out 2032,336   never
+  loc 4 23       never
+  loc 2 24       never
+from in 2000,368
+  out 104,112    never
+  out 2032,928   never
+  out 2032,336   -
+  loc 4 23       never
+  loc 2 24       never
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 112,144 -> out 104,112: -
+     coming in at 112,144
+   1. coming in: holding nothing, from 112,144; lands at 112,145
+      -> standing at x 55-374, y 145
+   2. standing at 102,145, presses up at it
+      -> out 104,112
+how in 112,144 -> loc 2 24: -
+     coming in at 112,144
+   1. coming in: holding nothing, from 112,144; lands at 112,145
+      -> standing at x 55-374, y 145
+   2. walk off the edge, holding right once in the air, from 55,145; lands at 496,305
+      -> standing at x 394-566, y 305
+   3. running right, jump (held 21 ticks), holding right, from 528,305; lands at 665,305
+      -> standing at x 650-726, y 305
+   4. walk off the edge, holding right once in the air, from 650,305; lands at 900,433
+      -> standing at x 874-982, y 433
+   5. walk off the edge, holding left once in the air, from 874,433; lands at 759,545
+      -> standing at x 759-1001, y 545
+   6. standing at 934,545, touches it
+      -> loc 2 24
+how in 2000,960 -> out 2032,928: -
+     coming in at 2000,960
+   1. coming in: holding nothing, from 2000,960; lands at 2000,961
+      -> standing at x 1591-2048, y 961
+   2. standing at 2030,961, goes into it
+      -> out 2032,928
+how in 2000,368 -> out 2032,336: -
+     coming in at 2000,368
+   1. coming in: holding nothing, from 2000,368; lands at 2000,369
+      -> standing at x 1834-2048, y 369
+   2. standing at 2030,369, goes into it
+      -> out 2032,336

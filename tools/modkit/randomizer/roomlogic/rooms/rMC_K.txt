@@ -1,0 +1,391 @@
+# rMC_K: Magical Castle (area 93), 2976x480 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+# switches: the room is worked out in each of its states, the player coming in in the first: [no platform makers' platforms]
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 2768,320   # from rMC_A out 512,416
+in 48,416   # from rMC_J out 464,160
+in 2896,64   # from rMC_L out 208,336
+in 2928,320   # from rMC_K_Secret out 0,224
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 0,384   # to rMC_J at 432,192; the player goes into it
+out 2768,320   # to rMC_A at 512,416; the player presses up at it
+out 2880,-16   # to rMC_L at 288,288; the player goes into it
+out 2960,288   # to rMC_K_Secret at 48,256; the player goes into it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 2768,320
+  out 0,384      never
+  out 2768,320   -
+  out 2880,-16   never
+  out 2960,288   -
+from in 48,416
+  out 0,384      -
+  out 2768,320   adash,megaman:1 | adash,samus:1 | adash,link:1 | adash,belmont:1
+  out 2880,-16   never
+  out 2960,288   adash,megaman:1 | adash,samus:1 | adash,link:1 | adash,belmont:1
+from in 2896,64
+  out 0,384      never
+  out 2768,320   -
+  out 2880,-16   -
+  out 2960,288   -
+from in 2928,320
+  out 0,384      never
+  out 2768,320   -
+  out 2880,-16   never
+  out 2960,288   -
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 2768,320 -> out 2768,320: -
+     [no platform makers' platforms] coming in at 2768,320
+   1. coming in: holding nothing, from 2768,320; lands at 2768,321
+      -> [no platform makers' platforms] standing at x 2650-2976, y 321
+   2. standing at 2734,321, presses up at it
+      -> out 2768,320
+how in 2768,320 -> out 2960,288: -
+     [no platform makers' platforms] coming in at 2768,320
+   1. coming in: holding nothing, from 2768,320; lands at 2768,321
+      -> [no platform makers' platforms] standing at x 2650-2976, y 321
+   2. standing at 2958,321, goes into it
+      -> out 2960,288
+how in 48,416 -> out 0,384: -
+     [no platform makers' platforms] coming in at 48,416
+   1. coming in: holding nothing, from 48,416; lands at 48,417
+      -> [no platform makers' platforms] standing at x 0-198, y 417
+   2. standing at 0,417, goes into it
+      -> out 0,384
+how in 48,416 -> out 2768,320: adash,megaman:1
+     [no platform makers' platforms] coming in at 48,416
+   1. coming in: holding nothing, from 48,416; lands at 48,417
+      -> [no platform makers' platforms] standing at x 0-198, y 417
+   2. running right, jump (held 6 ticks), holding right, from 176,417; lands at 338,417
+      -> [no platform makers' platforms] standing at x 330-1126, y 353-417
+   3. shoot the switch at 1184,304 from 864,381 (at the top of a jump): [platform makers' platforms out]   [megaman:1]
+      -> [platform makers' platforms out] standing at x 330-1126, y 353-417
+   4. running right, jump (held 21 ticks), holding right, from 992,353; lands at 1161,297
+      -> [platform makers' platforms out] standing at x 1154-1340, y 297-299
+   5. drop down through the platform, holding right, from 1264,297; lands at 1351,409
+      -> [platform makers' platforms out] standing at x 1284-1497, y 409-411
+   6. running right, jump (held 2 ticks), holding right, from 1360,409; lands at 1457,378
+      -> [platform makers' platforms out] standing at x 1442-1497, y 378-380
+   7. jump (held 21 ticks), holding nothing, from 1446,378; lands at 1446,316
+      -> [platform makers' platforms out] standing at x 1442-1468, y 316-318
+   8. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 1442,316; lands at 1526,257
+      -> [platform makers' platforms out] standing at x 1442-1574, y 255-257
+   9. jump (held 21 ticks), holding right, from 1472,255; lands at 1735,377
+      -> [platform makers' platforms out] standing at x 1714-1974, y 377-380
+  10. step onto moving platform 5 at 1906,380
+      -> [platform makers' platforms out] riding moving platform 5 (waiting for it where it goes)
+  11. ride moving platform 5 and step off at 1906,209
+      -> [platform makers' platforms out] standing at x 1906-1945, y 209-211
+  12. jump (held 9 ticks), holding right, air dash (Jerry) at tick 26, from 1944,209; lands at 2271,257   [adash]
+      -> [platform makers' platforms out] standing at x 2234-2278, y 257
+  13. walk off the edge, holding right, then nothing after 1 ticks in the air, from 2234,257; lands at 2323,345
+      -> [platform makers' platforms out] standing at x 2273-2366, y 345-347
+  14. step onto moving platform 8 at 2273,345
+      -> [platform makers' platforms out] riding moving platform 8 (waiting for it where it goes)
+  15. ride moving platform 8 and step off at 2401,345
+      -> [platform makers' platforms out] standing at x 2401-2454, y 345-347
+  16. jump (held 21 ticks), holding right, air dash (Claire) at tick 16, from 2401,347; lands at 2510,257   [adash]
+      -> [platform makers' platforms out] standing at x 2490-2534, y 257
+  17. walk off the edge, holding right once in the air, air dash (Jerry) at tick 6 or once there's room ahead, from 2490,257; touches it on the way   [adash]
+      -> out 2768,320
+how in 48,416 -> out 2768,320: adash,samus:1
+     [no platform makers' platforms] coming in at 48,416
+   1. coming in: holding nothing, from 48,416; lands at 48,417
+      -> [no platform makers' platforms] standing at x 0-198, y 417
+   2. running right, jump (held 6 ticks), holding right, from 176,417; lands at 338,417
+      -> [no platform makers' platforms] standing at x 330-1126, y 353-417
+   3. shoot the switch at 1184,304 from 864,381 (at the top of a jump): [platform makers' platforms out]   [samus:1]
+      -> [platform makers' platforms out] standing at x 330-1126, y 353-417
+   4. running right, jump (held 21 ticks), holding right, from 992,353; lands at 1161,297
+      -> [platform makers' platforms out] standing at x 1154-1340, y 297-299
+   5. drop down through the platform, holding right, from 1264,297; lands at 1351,409
+      -> [platform makers' platforms out] standing at x 1284-1497, y 409-411
+   6. running right, jump (held 2 ticks), holding right, from 1360,409; lands at 1457,378
+      -> [platform makers' platforms out] standing at x 1442-1497, y 378-380
+   7. jump (held 21 ticks), holding nothing, from 1446,378; lands at 1446,316
+      -> [platform makers' platforms out] standing at x 1442-1468, y 316-318
+   8. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 1442,316; lands at 1526,257
+      -> [platform makers' platforms out] standing at x 1442-1574, y 255-257
+   9. jump (held 21 ticks), holding right, from 1472,255; lands at 1735,377
+      -> [platform makers' platforms out] standing at x 1714-1974, y 377-380
+  10. step onto moving platform 5 at 1906,380
+      -> [platform makers' platforms out] riding moving platform 5 (waiting for it where it goes)
+  11. ride moving platform 5 and step off at 1906,209
+      -> [platform makers' platforms out] standing at x 1906-1945, y 209-211
+  12. jump (held 9 ticks), holding right, air dash (Jerry) at tick 26, from 1944,209; lands at 2271,257   [adash]
+      -> [platform makers' platforms out] standing at x 2234-2278, y 257
+  13. walk off the edge, holding right, then nothing after 1 ticks in the air, from 2234,257; lands at 2323,345
+      -> [platform makers' platforms out] standing at x 2273-2366, y 345-347
+  14. step onto moving platform 8 at 2273,345
+      -> [platform makers' platforms out] riding moving platform 8 (waiting for it where it goes)
+  15. ride moving platform 8 and step off at 2401,345
+      -> [platform makers' platforms out] standing at x 2401-2454, y 345-347
+  16. jump (held 21 ticks), holding right, air dash (Claire) at tick 16, from 2401,347; lands at 2510,257   [adash]
+      -> [platform makers' platforms out] standing at x 2490-2534, y 257
+  17. walk off the edge, holding right once in the air, air dash (Jerry) at tick 6 or once there's room ahead, from 2490,257; touches it on the way   [adash]
+      -> out 2768,320
+how in 48,416 -> out 2768,320: adash,link:1
+     [no platform makers' platforms] coming in at 48,416
+   1. coming in: holding nothing, from 48,416; lands at 48,417
+      -> [no platform makers' platforms] standing at x 0-198, y 417
+   2. running right, jump (held 6 ticks), holding right, from 176,417; lands at 338,417
+      -> [no platform makers' platforms] standing at x 330-1126, y 353-417
+   3. hit the switch at 1184,304 from 1125,353 (jumping if need be): [platform makers' platforms out]   [link:1]
+      -> [platform makers' platforms out] standing at x 330-1126, y 353-417
+   4. running right, jump (held 21 ticks), holding right, from 992,353; lands at 1161,297
+      -> [platform makers' platforms out] standing at x 1154-1340, y 297-299
+   5. drop down through the platform, holding right, from 1264,297; lands at 1351,409
+      -> [platform makers' platforms out] standing at x 1284-1497, y 409-411
+   6. running right, jump (held 2 ticks), holding right, from 1360,409; lands at 1457,378
+      -> [platform makers' platforms out] standing at x 1442-1497, y 378-380
+   7. jump (held 21 ticks), holding nothing, from 1446,378; lands at 1446,316
+      -> [platform makers' platforms out] standing at x 1442-1468, y 316-318
+   8. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 1442,316; lands at 1526,257
+      -> [platform makers' platforms out] standing at x 1442-1574, y 255-257
+   9. jump (held 21 ticks), holding right, from 1472,255; lands at 1735,377
+      -> [platform makers' platforms out] standing at x 1714-1974, y 377-380
+  10. step onto moving platform 5 at 1906,380
+      -> [platform makers' platforms out] riding moving platform 5 (waiting for it where it goes)
+  11. ride moving platform 5 and step off at 1906,209
+      -> [platform makers' platforms out] standing at x 1906-1945, y 209-211
+  12. jump (held 9 ticks), holding right, air dash (Jerry) at tick 26, from 1944,209; lands at 2271,257   [adash]
+      -> [platform makers' platforms out] standing at x 2234-2278, y 257
+  13. walk off the edge, holding right, then nothing after 1 ticks in the air, from 2234,257; lands at 2323,345
+      -> [platform makers' platforms out] standing at x 2273-2366, y 345-347
+  14. step onto moving platform 8 at 2273,345
+      -> [platform makers' platforms out] riding moving platform 8 (waiting for it where it goes)
+  15. ride moving platform 8 and step off at 2401,345
+      -> [platform makers' platforms out] standing at x 2401-2454, y 345-347
+  16. jump (held 21 ticks), holding right, air dash (Claire) at tick 16, from 2401,347; lands at 2510,257   [adash]
+      -> [platform makers' platforms out] standing at x 2490-2534, y 257
+  17. walk off the edge, holding right once in the air, air dash (Jerry) at tick 6 or once there's room ahead, from 2490,257; touches it on the way   [adash]
+      -> out 2768,320
+how in 48,416 -> out 2768,320: adash,belmont:1
+     [no platform makers' platforms] coming in at 48,416
+   1. coming in: holding nothing, from 48,416; lands at 48,417
+      -> [no platform makers' platforms] standing at x 0-198, y 417
+   2. running right, jump (held 6 ticks), holding right, from 176,417; lands at 338,417
+      -> [no platform makers' platforms] standing at x 330-1126, y 353-417
+   3. hit the switch at 1184,304 from 1125,353 (jumping if need be): [platform makers' platforms out]   [belmont:1]
+      -> [platform makers' platforms out] standing at x 330-1126, y 353-417
+   4. running right, jump (held 21 ticks), holding right, from 992,353; lands at 1161,297
+      -> [platform makers' platforms out] standing at x 1154-1340, y 297-299
+   5. drop down through the platform, holding right, from 1264,297; lands at 1351,409
+      -> [platform makers' platforms out] standing at x 1284-1497, y 409-411
+   6. running right, jump (held 2 ticks), holding right, from 1360,409; lands at 1457,378
+      -> [platform makers' platforms out] standing at x 1442-1497, y 378-380
+   7. jump (held 21 ticks), holding nothing, from 1446,378; lands at 1446,316
+      -> [platform makers' platforms out] standing at x 1442-1468, y 316-318
+   8. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 1442,316; lands at 1526,257
+      -> [platform makers' platforms out] standing at x 1442-1574, y 255-257
+   9. jump (held 21 ticks), holding right, from 1472,255; lands at 1735,377
+      -> [platform makers' platforms out] standing at x 1714-1974, y 377-380
+  10. step onto moving platform 5 at 1906,380
+      -> [platform makers' platforms out] riding moving platform 5 (waiting for it where it goes)
+  11. ride moving platform 5 and step off at 1906,209
+      -> [platform makers' platforms out] standing at x 1906-1945, y 209-211
+  12. jump (held 9 ticks), holding right, air dash (Jerry) at tick 26, from 1944,209; lands at 2271,257   [adash]
+      -> [platform makers' platforms out] standing at x 2234-2278, y 257
+  13. walk off the edge, holding right, then nothing after 1 ticks in the air, from 2234,257; lands at 2323,345
+      -> [platform makers' platforms out] standing at x 2273-2366, y 345-347
+  14. step onto moving platform 8 at 2273,345
+      -> [platform makers' platforms out] riding moving platform 8 (waiting for it where it goes)
+  15. ride moving platform 8 and step off at 2401,345
+      -> [platform makers' platforms out] standing at x 2401-2454, y 345-347
+  16. jump (held 21 ticks), holding right, air dash (Claire) at tick 16, from 2401,347; lands at 2510,257   [adash]
+      -> [platform makers' platforms out] standing at x 2490-2534, y 257
+  17. walk off the edge, holding right once in the air, air dash (Jerry) at tick 6 or once there's room ahead, from 2490,257; touches it on the way   [adash]
+      -> out 2768,320
+how in 48,416 -> out 2960,288: adash,megaman:1
+     [no platform makers' platforms] coming in at 48,416
+   1. coming in: holding nothing, from 48,416; lands at 48,417
+      -> [no platform makers' platforms] standing at x 0-198, y 417
+   2. running right, jump (held 6 ticks), holding right, from 176,417; lands at 338,417
+      -> [no platform makers' platforms] standing at x 330-1126, y 353-417
+   3. shoot the switch at 1184,304 from 864,381 (at the top of a jump): [platform makers' platforms out]   [megaman:1]
+      -> [platform makers' platforms out] standing at x 330-1126, y 353-417
+   4. running right, jump (held 21 ticks), holding right, from 992,353; lands at 1161,297
+      -> [platform makers' platforms out] standing at x 1154-1340, y 297-299
+   5. drop down through the platform, holding right, from 1264,297; lands at 1351,409
+      -> [platform makers' platforms out] standing at x 1284-1497, y 409-411
+   6. running right, jump (held 2 ticks), holding right, from 1360,409; lands at 1457,378
+      -> [platform makers' platforms out] standing at x 1442-1497, y 378-380
+   7. jump (held 21 ticks), holding nothing, from 1446,378; lands at 1446,316
+      -> [platform makers' platforms out] standing at x 1442-1468, y 316-318
+   8. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 1442,316; lands at 1526,257
+      -> [platform makers' platforms out] standing at x 1442-1574, y 255-257
+   9. jump (held 21 ticks), holding right, from 1472,255; lands at 1735,377
+      -> [platform makers' platforms out] standing at x 1714-1974, y 377-380
+  10. step onto moving platform 5 at 1906,380
+      -> [platform makers' platforms out] riding moving platform 5 (waiting for it where it goes)
+  11. ride moving platform 5 and step off at 1906,209
+      -> [platform makers' platforms out] standing at x 1906-1945, y 209-211
+  12. jump (held 9 ticks), holding right, air dash (Jerry) at tick 26, from 1944,209; lands at 2271,257   [adash]
+      -> [platform makers' platforms out] standing at x 2234-2278, y 257
+  13. walk off the edge, holding right, then nothing after 1 ticks in the air, from 2234,257; lands at 2323,345
+      -> [platform makers' platforms out] standing at x 2273-2366, y 345-347
+  14. step onto moving platform 8 at 2273,345
+      -> [platform makers' platforms out] riding moving platform 8 (waiting for it where it goes)
+  15. ride moving platform 8 and step off at 2401,345
+      -> [platform makers' platforms out] standing at x 2401-2454, y 345-347
+  16. jump (held 21 ticks), holding right, air dash (Claire) at tick 16, from 2401,347; lands at 2510,257   [adash]
+      -> [platform makers' platforms out] standing at x 2490-2534, y 257
+  17. walk off the edge, holding right once in the air, air dash (Jerry) at tick 6 or once there's room ahead, from 2490,257; lands at 2775,321   [adash]
+      -> [platform makers' platforms out] standing at x 2650-2976, y 321
+  18. standing at 2958,321, goes into it
+      -> out 2960,288
+how in 48,416 -> out 2960,288: adash,samus:1
+     [no platform makers' platforms] coming in at 48,416
+   1. coming in: holding nothing, from 48,416; lands at 48,417
+      -> [no platform makers' platforms] standing at x 0-198, y 417
+   2. running right, jump (held 6 ticks), holding right, from 176,417; lands at 338,417
+      -> [no platform makers' platforms] standing at x 330-1126, y 353-417
+   3. shoot the switch at 1184,304 from 864,381 (at the top of a jump): [platform makers' platforms out]   [samus:1]
+      -> [platform makers' platforms out] standing at x 330-1126, y 353-417
+   4. running right, jump (held 21 ticks), holding right, from 992,353; lands at 1161,297
+      -> [platform makers' platforms out] standing at x 1154-1340, y 297-299
+   5. drop down through the platform, holding right, from 1264,297; lands at 1351,409
+      -> [platform makers' platforms out] standing at x 1284-1497, y 409-411
+   6. running right, jump (held 2 ticks), holding right, from 1360,409; lands at 1457,378
+      -> [platform makers' platforms out] standing at x 1442-1497, y 378-380
+   7. jump (held 21 ticks), holding nothing, from 1446,378; lands at 1446,316
+      -> [platform makers' platforms out] standing at x 1442-1468, y 316-318
+   8. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 1442,316; lands at 1526,257
+      -> [platform makers' platforms out] standing at x 1442-1574, y 255-257
+   9. jump (held 21 ticks), holding right, from 1472,255; lands at 1735,377
+      -> [platform makers' platforms out] standing at x 1714-1974, y 377-380
+  10. step onto moving platform 5 at 1906,380
+      -> [platform makers' platforms out] riding moving platform 5 (waiting for it where it goes)
+  11. ride moving platform 5 and step off at 1906,209
+      -> [platform makers' platforms out] standing at x 1906-1945, y 209-211
+  12. jump (held 9 ticks), holding right, air dash (Jerry) at tick 26, from 1944,209; lands at 2271,257   [adash]
+      -> [platform makers' platforms out] standing at x 2234-2278, y 257
+  13. walk off the edge, holding right, then nothing after 1 ticks in the air, from 2234,257; lands at 2323,345
+      -> [platform makers' platforms out] standing at x 2273-2366, y 345-347
+  14. step onto moving platform 8 at 2273,345
+      -> [platform makers' platforms out] riding moving platform 8 (waiting for it where it goes)
+  15. ride moving platform 8 and step off at 2401,345
+      -> [platform makers' platforms out] standing at x 2401-2454, y 345-347
+  16. jump (held 21 ticks), holding right, air dash (Claire) at tick 16, from 2401,347; lands at 2510,257   [adash]
+      -> [platform makers' platforms out] standing at x 2490-2534, y 257
+  17. walk off the edge, holding right once in the air, air dash (Jerry) at tick 6 or once there's room ahead, from 2490,257; lands at 2775,321   [adash]
+      -> [platform makers' platforms out] standing at x 2650-2976, y 321
+  18. standing at 2958,321, goes into it
+      -> out 2960,288
+how in 48,416 -> out 2960,288: adash,link:1
+     [no platform makers' platforms] coming in at 48,416
+   1. coming in: holding nothing, from 48,416; lands at 48,417
+      -> [no platform makers' platforms] standing at x 0-198, y 417
+   2. running right, jump (held 6 ticks), holding right, from 176,417; lands at 338,417
+      -> [no platform makers' platforms] standing at x 330-1126, y 353-417
+   3. hit the switch at 1184,304 from 1125,353 (jumping if need be): [platform makers' platforms out]   [link:1]
+      -> [platform makers' platforms out] standing at x 330-1126, y 353-417
+   4. running right, jump (held 21 ticks), holding right, from 992,353; lands at 1161,297
+      -> [platform makers' platforms out] standing at x 1154-1340, y 297-299
+   5. drop down through the platform, holding right, from 1264,297; lands at 1351,409
+      -> [platform makers' platforms out] standing at x 1284-1497, y 409-411
+   6. running right, jump (held 2 ticks), holding right, from 1360,409; lands at 1457,378
+      -> [platform makers' platforms out] standing at x 1442-1497, y 378-380
+   7. jump (held 21 ticks), holding nothing, from 1446,378; lands at 1446,316
+      -> [platform makers' platforms out] standing at x 1442-1468, y 316-318
+   8. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 1442,316; lands at 1526,257
+      -> [platform makers' platforms out] standing at x 1442-1574, y 255-257
+   9. jump (held 21 ticks), holding right, from 1472,255; lands at 1735,377
+      -> [platform makers' platforms out] standing at x 1714-1974, y 377-380
+  10. step onto moving platform 5 at 1906,380
+      -> [platform makers' platforms out] riding moving platform 5 (waiting for it where it goes)
+  11. ride moving platform 5 and step off at 1906,209
+      -> [platform makers' platforms out] standing at x 1906-1945, y 209-211
+  12. jump (held 9 ticks), holding right, air dash (Jerry) at tick 26, from 1944,209; lands at 2271,257   [adash]
+      -> [platform makers' platforms out] standing at x 2234-2278, y 257
+  13. walk off the edge, holding right, then nothing after 1 ticks in the air, from 2234,257; lands at 2323,345
+      -> [platform makers' platforms out] standing at x 2273-2366, y 345-347
+  14. step onto moving platform 8 at 2273,345
+      -> [platform makers' platforms out] riding moving platform 8 (waiting for it where it goes)
+  15. ride moving platform 8 and step off at 2401,345
+      -> [platform makers' platforms out] standing at x 2401-2454, y 345-347
+  16. jump (held 21 ticks), holding right, air dash (Claire) at tick 16, from 2401,347; lands at 2510,257   [adash]
+      -> [platform makers' platforms out] standing at x 2490-2534, y 257
+  17. walk off the edge, holding right once in the air, air dash (Jerry) at tick 6 or once there's room ahead, from 2490,257; lands at 2775,321   [adash]
+      -> [platform makers' platforms out] standing at x 2650-2976, y 321
+  18. standing at 2958,321, goes into it
+      -> out 2960,288
+how in 48,416 -> out 2960,288: adash,belmont:1
+     [no platform makers' platforms] coming in at 48,416
+   1. coming in: holding nothing, from 48,416; lands at 48,417
+      -> [no platform makers' platforms] standing at x 0-198, y 417
+   2. running right, jump (held 6 ticks), holding right, from 176,417; lands at 338,417
+      -> [no platform makers' platforms] standing at x 330-1126, y 353-417
+   3. hit the switch at 1184,304 from 1125,353 (jumping if need be): [platform makers' platforms out]   [belmont:1]
+      -> [platform makers' platforms out] standing at x 330-1126, y 353-417
+   4. running right, jump (held 21 ticks), holding right, from 992,353; lands at 1161,297
+      -> [platform makers' platforms out] standing at x 1154-1340, y 297-299
+   5. drop down through the platform, holding right, from 1264,297; lands at 1351,409
+      -> [platform makers' platforms out] standing at x 1284-1497, y 409-411
+   6. running right, jump (held 2 ticks), holding right, from 1360,409; lands at 1457,378
+      -> [platform makers' platforms out] standing at x 1442-1497, y 378-380
+   7. jump (held 21 ticks), holding nothing, from 1446,378; lands at 1446,316
+      -> [platform makers' platforms out] standing at x 1442-1468, y 316-318
+   8. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 1442,316; lands at 1526,257
+      -> [platform makers' platforms out] standing at x 1442-1574, y 255-257
+   9. jump (held 21 ticks), holding right, from 1472,255; lands at 1735,377
+      -> [platform makers' platforms out] standing at x 1714-1974, y 377-380
+  10. step onto moving platform 5 at 1906,380
+      -> [platform makers' platforms out] riding moving platform 5 (waiting for it where it goes)
+  11. ride moving platform 5 and step off at 1906,209
+      -> [platform makers' platforms out] standing at x 1906-1945, y 209-211
+  12. jump (held 9 ticks), holding right, air dash (Jerry) at tick 26, from 1944,209; lands at 2271,257   [adash]
+      -> [platform makers' platforms out] standing at x 2234-2278, y 257
+  13. walk off the edge, holding right, then nothing after 1 ticks in the air, from 2234,257; lands at 2323,345
+      -> [platform makers' platforms out] standing at x 2273-2366, y 345-347
+  14. step onto moving platform 8 at 2273,345
+      -> [platform makers' platforms out] riding moving platform 8 (waiting for it where it goes)
+  15. ride moving platform 8 and step off at 2401,345
+      -> [platform makers' platforms out] standing at x 2401-2454, y 345-347
+  16. jump (held 21 ticks), holding right, air dash (Claire) at tick 16, from 2401,347; lands at 2510,257   [adash]
+      -> [platform makers' platforms out] standing at x 2490-2534, y 257
+  17. walk off the edge, holding right once in the air, air dash (Jerry) at tick 6 or once there's room ahead, from 2490,257; lands at 2775,321   [adash]
+      -> [platform makers' platforms out] standing at x 2650-2976, y 321
+  18. standing at 2958,321, goes into it
+      -> out 2960,288
+how in 2896,64 -> out 2768,320: -
+     [no platform makers' platforms] coming in at 2896,64
+   1. coming in: holding left, from 2896,64; lands at 2814,321
+      -> [no platform makers' platforms] standing at x 2650-2976, y 321
+   2. standing at 2734,321, presses up at it
+      -> out 2768,320
+how in 2896,64 -> out 2880,-16: -
+     [no platform makers' platforms] coming in at 2896,64
+   1. coming in: holding right, from 2896,64; touches it on the way
+      -> out 2880,-16
+how in 2896,64 -> out 2960,288: -
+     [no platform makers' platforms] coming in at 2896,64
+   1. coming in: holding left, from 2896,64; lands at 2814,321
+      -> [no platform makers' platforms] standing at x 2650-2976, y 321
+   2. standing at 2958,321, goes into it
+      -> out 2960,288
+how in 2928,320 -> out 2768,320: -
+     [no platform makers' platforms] coming in at 2928,320
+   1. coming in: holding nothing, from 2928,320; lands at 2928,321
+      -> [no platform makers' platforms] standing at x 2650-2976, y 321
+   2. standing at 2734,321, presses up at it
+      -> out 2768,320
+how in 2928,320 -> out 2960,288: -
+     [no platform makers' platforms] coming in at 2928,320
+   1. coming in: holding nothing, from 2928,320; lands at 2928,321
+      -> [no platform makers' platforms] standing at x 2650-2976, y 321
+   2. standing at 2958,321, goes into it
+      -> out 2960,288

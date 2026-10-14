@@ -1,0 +1,54 @@
+# rMountTemple_J: Begonia - Mountain Temple (area 24), 576x352 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 464,288   # from rMountTemple_A out 72,752
+in 80,288   # from rMountTemple_I out 520,256
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 72,256   # to rMountTemple_I at 528,288; the player presses up at it
+out 456,256   # to rMountTemple_A at 80,784; the player presses up at it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 464,288
+  out 72,256    -
+  out 456,256   -
+from in 80,288
+  out 72,256    -
+  out 456,256   -
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 464,288 -> out 72,256: -
+     coming in at 464,288
+   1. coming in: holding nothing, from 464,288; lands at 464,289
+      -> standing at x 71-505, y 289
+   2. standing at 71,289, presses up at it
+      -> out 72,256
+how in 464,288 -> out 456,256: -
+     coming in at 464,288
+   1. coming in: holding nothing, from 464,288; lands at 464,289
+      -> standing at x 71-505, y 289
+   2. standing at 454,289, presses up at it
+      -> out 456,256
+how in 80,288 -> out 72,256: -
+     coming in at 80,288
+   1. coming in: holding nothing, from 80,288; lands at 80,289
+      -> standing at x 71-505, y 289
+   2. standing at 71,289, presses up at it
+      -> out 72,256
+how in 80,288 -> out 456,256: -
+     coming in at 80,288
+   1. coming in: holding nothing, from 80,288; lands at 80,289
+      -> standing at x 71-505, y 289
+   2. standing at 454,289, presses up at it
+      -> out 456,256

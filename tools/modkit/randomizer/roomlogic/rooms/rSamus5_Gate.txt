@@ -1,0 +1,109 @@
+# rSamus5_Gate: Access Gate 5: Research Facility (area 49), 480x352 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 188,272   # from rMain_48Gate out 384,96
+in 416,288   # from rSamus5_Lv0_A out 0,464
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 152,208   # to rMain_48Gate at 416,160; the player presses up at it
+out 464,256   # to rSamus5_Lv0_A at 64,496; the player goes into it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+loc 5 13   # missile tank 13, at 23,247
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 188,272
+  out 152,208   -
+  out 464,256   link:1 | belmont:1 | megaman:1 | samus:1
+  loc 5 13      samus:6
+from in 416,288
+  out 152,208   -
+  out 464,256   link:1 | belmont:1 | megaman:1 | samus:1
+  loc 5 13      samus:6
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 188,272 -> out 152,208: -
+     coming in at 188,272
+   1. coming in: holding nothing, from 188,272; lands at 188,273
+      -> standing at x 87-449, y 273-289
+   2. standing at 152,274, presses up at it
+      -> out 152,208
+how in 188,272 -> out 464,256: link:1
+     coming in at 188,272
+   1. coming in: holding nothing, from 188,272; lands at 188,273
+      -> standing at x 87-449, y 273-289
+   2. walk off the edge, holding right once in the air, from 87,289, through the Metroid door at 456,224; touches it on the way   [link:1]
+      -> out 464,256
+how in 188,272 -> out 464,256: belmont:1
+     coming in at 188,272
+   1. coming in: holding nothing, from 188,272; lands at 188,273
+      -> standing at x 87-449, y 273-289
+   2. walk off the edge, holding right once in the air, from 87,289, through the Metroid door at 456,224; touches it on the way   [belmont:1]
+      -> out 464,256
+how in 188,272 -> out 464,256: megaman:1
+     coming in at 188,272
+   1. coming in: holding nothing, from 188,272; lands at 188,273
+      -> standing at x 87-449, y 273-289
+   2. walk off the edge, holding right once in the air, from 87,289, through the Metroid door at 456,224; touches it on the way   [megaman:1]
+      -> out 464,256
+how in 188,272 -> out 464,256: samus:1
+     coming in at 188,272
+   1. coming in: holding nothing, from 188,272; lands at 188,273
+      -> standing at x 87-449, y 273-289
+   2. walk off the edge, holding right once in the air, from 87,289, through the Metroid door at 456,224; touches it on the way   [samus:1]
+      -> out 464,256
+how in 188,272 -> loc 5 13: samus:6
+     coming in at 188,272
+   1. coming in: holding nothing, from 188,272; lands at 188,273
+      -> standing at x 87-449, y 273-289
+   2. jump (held 6 ticks), holding left, turn into the Morph Ball where the body meets a wall or ceiling, from 87,289, through the Metroid block at 64,240; lands at 56,257   [samus:6]
+      -> as the Morph Ball at x 23-57, y 257
+   3. as the Morph Ball, standing at 23,257, touches it
+      -> loc 5 13
+how in 416,288 -> out 152,208: -
+     coming in at 416,288
+   1. coming in: holding nothing, from 416,288; lands at 416,289
+      -> standing at x 87-449, y 273-289
+   2. standing at 152,274, presses up at it
+      -> out 152,208
+how in 416,288 -> out 464,256: link:1
+     coming in at 416,288
+   1. coming in: holding nothing, from 416,288; lands at 416,289
+      -> standing at x 87-449, y 273-289
+   2. walk off the edge, holding right once in the air, from 87,289, through the Metroid door at 456,224; touches it on the way   [link:1]
+      -> out 464,256
+how in 416,288 -> out 464,256: belmont:1
+     coming in at 416,288
+   1. coming in: holding nothing, from 416,288; lands at 416,289
+      -> standing at x 87-449, y 273-289
+   2. walk off the edge, holding right once in the air, from 87,289, through the Metroid door at 456,224; touches it on the way   [belmont:1]
+      -> out 464,256
+how in 416,288 -> out 464,256: megaman:1
+     coming in at 416,288
+   1. coming in: holding nothing, from 416,288; lands at 416,289
+      -> standing at x 87-449, y 273-289
+   2. walk off the edge, holding right once in the air, from 87,289, through the Metroid door at 456,224; touches it on the way   [megaman:1]
+      -> out 464,256
+how in 416,288 -> out 464,256: samus:1
+     coming in at 416,288
+   1. coming in: holding nothing, from 416,288; lands at 416,289
+      -> standing at x 87-449, y 273-289
+   2. walk off the edge, holding right once in the air, from 87,289, through the Metroid door at 456,224; touches it on the way   [samus:1]
+      -> out 464,256
+how in 416,288 -> loc 5 13: samus:6
+     coming in at 416,288
+   1. coming in: holding nothing, from 416,288; lands at 416,289
+      -> standing at x 87-449, y 273-289
+   2. jump (held 6 ticks), holding left, turn into the Morph Ball where the body meets a wall or ceiling, from 87,289, through the Metroid block at 64,240; lands at 56,257   [samus:6]
+      -> as the Morph Ball at x 23-57, y 257
+   3. as the Morph Ball, standing at 23,257, touches it
+      -> loc 5 13

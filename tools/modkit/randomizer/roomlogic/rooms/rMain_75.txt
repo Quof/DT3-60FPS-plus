@@ -1,0 +1,270 @@
+# rMain_75: Barrens - Colossal Encroachment (area 75), 4352x512 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 48,208   # from rMain_48 out 2784,192
+in 144,112   # from this room's door out 3864,96
+in 3680,144   # from this room's door out 136,224
+in 4304,288   # from rMain_76 out 0,128
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 0,192   # to rMain_48 at 2752,208; the player goes into it
+out 4336,256   # to rMain_76 at 48,160; the player goes into it
+out 3864,96   # to this room at 144,112; the player presses down at it
+out 136,224   # to this room at 3680,144; the player presses down at it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+loc 2 57   # treasure chest 57, at 1200,83
+loc 5 28   # missile tank 28, at 2215,439
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 48,208
+  out 0,192      samus:2
+  out 4336,256   never
+  out 3864,96    never
+  out 136,224    never
+  loc 2 57       never
+  loc 5 28       never
+from in 144,112
+  out 0,192      samus:2
+  out 4336,256   never
+  out 3864,96    never
+  out 136,224    never
+  loc 2 57       never
+  loc 5 28       never
+from in 3680,144
+  out 0,192      never
+  out 4336,256   -
+  out 3864,96    -
+  out 136,224    never
+  loc 2 57       samus:2
+  loc 5 28       samus:2
+from in 4304,288
+  out 0,192      never
+  out 4336,256   -
+  out 3864,96    -
+  out 136,224    never
+  loc 2 57       samus:2
+  loc 5 28       samus:2
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 48,208 -> out 0,192: samus:2
+     coming in at 48,208
+   1. coming in: as the Morph Ball: holding nothing, from 48,208; lands at 48,209   [samus:2]
+      -> as the Morph Ball at x 0-537, y 209-210
+   2. as the Morph Ball, standing at 0,209, goes into it
+      -> out 0,192
+how in 144,112 -> out 0,192: samus:2
+     coming in at 144,112
+   1. coming in: holding nothing, from 144,112; lands at 144,210
+      -> standing at x 135-153, y 210
+   2. turn into the Morph Ball at 135,210   [samus:2]
+      -> as the Morph Ball at x 0-537, y 209-210
+   3. as the Morph Ball, standing at 0,209, goes into it
+      -> out 0,192
+how in 3680,144 -> out 4336,256: -
+     coming in at 3680,144
+   1. coming in: holding right, from 3680,144; lands at 3789,289
+      -> standing at x 3719-4352, y 289
+   2. standing at 4334,289, goes into it
+      -> out 4336,256
+how in 3680,144 -> out 3864,96: -
+     coming in at 3680,144
+   1. coming in: holding nothing, from 3680,144; lands at 3680,225
+      -> standing at x 3642-3718, y 225
+   2. jump (held 21 ticks), holding right, from 3646,225; lands at 3777,161
+      -> standing at x 3770-3849, y 161
+   3. jump (held 6 ticks), holding right, from 3770,161; touches it on the way
+      -> out 3864,96
+how in 3680,144 -> loc 2 57: samus:2
+     coming in at 3680,144
+   1. coming in: holding nothing, from 3680,144; lands at 3680,225
+      -> standing at x 3642-3718, y 225
+   2. jump (held 2 ticks), holding left, from 3642,225; lands at 3496,289
+      -> standing at x 3450-3545, y 289
+   3. running left, jump (held 6 ticks), holding left, from 3450,289; lands at 3310,257
+      -> standing at x 3210-3318, y 257
+   4. walk off the edge, holding left once in the air, from 3210,257; lands at 3162,289
+      -> standing at x 3146-3174, y 289
+   5. jump (held 21 ticks), holding left, from 3146,289; lands at 3070,225
+      -> standing at x 3018-3142, y 225
+   6. jump (held 21 ticks), holding left, turn into the Morph Ball at tick 8, from 3018,225; lands at 2836,337   [samus:2]
+      -> as the Morph Ball at x 2778-2889, y 337
+   7. turn back from the Morph Ball at 2778,337
+      -> standing at x 2778-2793, y 337
+   8. jump (held 6 ticks), holding left, turn into the Morph Ball where the body meets a wall or ceiling, from 2778,337; lands at 2680,321   [samus:2]
+      -> as the Morph Ball at x 2631-2726, y 321
+   9. turn back from the Morph Ball at 2631,321
+      -> standing at x 2631-2649, y 321
+  10. jump (held 6 ticks), holding left, from 2631,321; lands at 2572,273
+      -> standing at x 2538-2630, y 273
+  11. jump (held 21 ticks), holding left, from 2538,273; lands at 2410,321
+      -> standing at x 2250-2422, y 321
+  12. jump (held 2 ticks), holding left, from 2250,321; lands at 2148,321
+      -> standing at x 2090-2230, y 321
+  13. jump (held 21 ticks), holding left, from 2090,321; lands at 1895,385
+      -> standing at x 1895-1929, y 354-385
+  14. jump (held 21 ticks), holding left, from 1920,362; lands at 1781,305
+      -> standing at x 1767-1830, y 305
+  15. jump (held 6 ticks), holding left, from 1767,305; lands at 1735,257
+      -> standing at x 1735-1766, y 257
+  16. jump (held 6 ticks), holding left, turn into the Morph Ball where the body meets a wall or ceiling, from 1735,257; lands at 1704,225   [samus:2]
+      -> as the Morph Ball at x 1671-1734, y 225
+  17. turn back from the Morph Ball at 1671,225
+      -> standing at x 1671-1721, y 225
+  18. jump (held 21 ticks), holding left, from 1671,225; lands at 1554,177
+      -> standing at x 1498-1574, y 177
+  19. running left, jump (held 2 ticks), holding left, from 1498,177; lands at 1257,337
+      -> standing at x 1162-1270, y 337
+  20. jump (held 6 ticks), holding left, from 1162,337; lands at 1045,305
+      -> standing at x 1018-1078, y 305
+  21. jump (held 21 ticks), holding left, from 1018,305; lands at 942,241
+      -> standing at x 938-1014, y 241
+  22. running right, jump (held 21 ticks), holding right, turn into the Morph Ball where the body meets a wall or ceiling, from 992,241; lands at 1174,209   [samus:2]
+      -> as the Morph Ball at x 1162-1193, y 209
+  23. turn back from the Morph Ball at 1162,209
+      -> standing at x 1162-1193, y 209
+  24. jump (held 6 ticks), holding right, turn into the Morph Ball where the body meets a wall or ceiling, from 1162,209; lands at 1205,177   [samus:2]
+      -> as the Morph Ball at x 1194-1257, y 177
+  25. turn back from the Morph Ball at 1223,177
+      -> standing at x 1223-1257, y 177
+  26. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1223,177; lands at 1289,145
+      -> standing at x 1258-1289, y 145
+  27. jump (held 21 ticks), holding left, turn into the Morph Ball at tick 8, from 1258,145; touches it on the way   [samus:2]
+      -> loc 2 57
+how in 3680,144 -> loc 5 28: samus:2
+     coming in at 3680,144
+   1. coming in: holding nothing, from 3680,144; lands at 3680,225
+      -> standing at x 3642-3718, y 225
+   2. jump (held 2 ticks), holding left, from 3642,225; lands at 3496,289
+      -> standing at x 3450-3545, y 289
+   3. running left, jump (held 6 ticks), holding left, from 3450,289; lands at 3310,257
+      -> standing at x 3210-3318, y 257
+   4. walk off the edge, holding left once in the air, from 3210,257; lands at 3162,289
+      -> standing at x 3146-3174, y 289
+   5. jump (held 21 ticks), holding left, from 3146,289; lands at 3070,225
+      -> standing at x 3018-3142, y 225
+   6. jump (held 21 ticks), holding left, turn into the Morph Ball at tick 8, from 3018,225; lands at 2836,337   [samus:2]
+      -> as the Morph Ball at x 2778-2889, y 337
+   7. turn back from the Morph Ball at 2778,337
+      -> standing at x 2778-2793, y 337
+   8. jump (held 6 ticks), holding left, turn into the Morph Ball where the body meets a wall or ceiling, from 2778,337; lands at 2680,321   [samus:2]
+      -> as the Morph Ball at x 2631-2726, y 321
+   9. turn back from the Morph Ball at 2631,321
+      -> standing at x 2631-2649, y 321
+  10. jump (held 6 ticks), holding left, from 2631,321; lands at 2572,273
+      -> standing at x 2538-2630, y 273
+  11. jump (held 2 ticks), holding left, from 2538,273; lands at 2401,449
+      -> standing at x 2231-2441, y 449
+  12. jump (held 21 ticks), holding nothing, then left after 8 ticks, turn into the Morph Ball at tick 8, from 2231,449; touches it on the way   [samus:2]
+      -> loc 5 28
+how in 4304,288 -> out 4336,256: -
+     coming in at 4304,288
+   1. coming in: holding nothing, from 4304,288; lands at 4304,289
+      -> standing at x 3719-4352, y 289
+   2. standing at 4334,289, goes into it
+      -> out 4336,256
+how in 4304,288 -> out 3864,96: -
+     coming in at 4304,288
+   1. coming in: holding nothing, from 4304,288; lands at 4304,289
+      -> standing at x 3719-4352, y 289
+   2. jump (held 21 ticks), holding left, from 3719,289; lands at 3646,225
+      -> standing at x 3642-3718, y 225
+   3. jump (held 21 ticks), holding right, from 3646,225; lands at 3777,161
+      -> standing at x 3770-3849, y 161
+   4. jump (held 6 ticks), holding right, from 3770,161; touches it on the way
+      -> out 3864,96
+how in 4304,288 -> loc 2 57: samus:2
+     coming in at 4304,288
+   1. coming in: holding nothing, from 4304,288; lands at 4304,289
+      -> standing at x 3719-4352, y 289
+   2. jump (held 21 ticks), holding left, from 3719,289; lands at 3646,225
+      -> standing at x 3642-3718, y 225
+   3. jump (held 2 ticks), holding left, from 3642,225; lands at 3496,289
+      -> standing at x 3450-3545, y 289
+   4. running left, jump (held 6 ticks), holding left, from 3450,289; lands at 3310,257
+      -> standing at x 3210-3318, y 257
+   5. walk off the edge, holding left once in the air, from 3210,257; lands at 3162,289
+      -> standing at x 3146-3174, y 289
+   6. jump (held 21 ticks), holding left, from 3146,289; lands at 3070,225
+      -> standing at x 3018-3142, y 225
+   7. jump (held 21 ticks), holding left, turn into the Morph Ball at tick 8, from 3018,225; lands at 2836,337   [samus:2]
+      -> as the Morph Ball at x 2778-2889, y 337
+   8. turn back from the Morph Ball at 2778,337
+      -> standing at x 2778-2793, y 337
+   9. jump (held 6 ticks), holding left, turn into the Morph Ball where the body meets a wall or ceiling, from 2778,337; lands at 2680,321   [samus:2]
+      -> as the Morph Ball at x 2631-2726, y 321
+  10. turn back from the Morph Ball at 2631,321
+      -> standing at x 2631-2649, y 321
+  11. jump (held 6 ticks), holding left, from 2631,321; lands at 2572,273
+      -> standing at x 2538-2630, y 273
+  12. jump (held 21 ticks), holding left, from 2538,273; lands at 2410,321
+      -> standing at x 2250-2422, y 321
+  13. jump (held 2 ticks), holding left, from 2250,321; lands at 2148,321
+      -> standing at x 2090-2230, y 321
+  14. jump (held 21 ticks), holding left, from 2090,321; lands at 1895,385
+      -> standing at x 1895-1929, y 354-385
+  15. jump (held 21 ticks), holding left, from 1920,362; lands at 1781,305
+      -> standing at x 1767-1830, y 305
+  16. jump (held 6 ticks), holding left, from 1767,305; lands at 1735,257
+      -> standing at x 1735-1766, y 257
+  17. jump (held 6 ticks), holding left, turn into the Morph Ball where the body meets a wall or ceiling, from 1735,257; lands at 1704,225   [samus:2]
+      -> as the Morph Ball at x 1671-1734, y 225
+  18. turn back from the Morph Ball at 1671,225
+      -> standing at x 1671-1721, y 225
+  19. jump (held 21 ticks), holding left, from 1671,225; lands at 1554,177
+      -> standing at x 1498-1574, y 177
+  20. running left, jump (held 2 ticks), holding left, from 1498,177; lands at 1257,337
+      -> standing at x 1162-1270, y 337
+  21. jump (held 6 ticks), holding left, from 1162,337; lands at 1045,305
+      -> standing at x 1018-1078, y 305
+  22. jump (held 21 ticks), holding left, from 1018,305; lands at 942,241
+      -> standing at x 938-1014, y 241
+  23. running right, jump (held 21 ticks), holding right, turn into the Morph Ball where the body meets a wall or ceiling, from 992,241; lands at 1174,209   [samus:2]
+      -> as the Morph Ball at x 1162-1193, y 209
+  24. turn back from the Morph Ball at 1162,209
+      -> standing at x 1162-1193, y 209
+  25. jump (held 6 ticks), holding right, turn into the Morph Ball where the body meets a wall or ceiling, from 1162,209; lands at 1205,177   [samus:2]
+      -> as the Morph Ball at x 1194-1257, y 177
+  26. turn back from the Morph Ball at 1223,177
+      -> standing at x 1223-1257, y 177
+  27. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1223,177; lands at 1289,145
+      -> standing at x 1258-1289, y 145
+  28. jump (held 21 ticks), holding left, turn into the Morph Ball at tick 8, from 1258,145; touches it on the way   [samus:2]
+      -> loc 2 57
+how in 4304,288 -> loc 5 28: samus:2
+     coming in at 4304,288
+   1. coming in: holding nothing, from 4304,288; lands at 4304,289
+      -> standing at x 3719-4352, y 289
+   2. jump (held 21 ticks), holding left, from 3719,289; lands at 3646,225
+      -> standing at x 3642-3718, y 225
+   3. jump (held 2 ticks), holding left, from 3642,225; lands at 3496,289
+      -> standing at x 3450-3545, y 289
+   4. running left, jump (held 6 ticks), holding left, from 3450,289; lands at 3310,257
+      -> standing at x 3210-3318, y 257
+   5. walk off the edge, holding left once in the air, from 3210,257; lands at 3162,289
+      -> standing at x 3146-3174, y 289
+   6. jump (held 21 ticks), holding left, from 3146,289; lands at 3070,225
+      -> standing at x 3018-3142, y 225
+   7. jump (held 21 ticks), holding left, turn into the Morph Ball at tick 8, from 3018,225; lands at 2836,337   [samus:2]
+      -> as the Morph Ball at x 2778-2889, y 337
+   8. turn back from the Morph Ball at 2778,337
+      -> standing at x 2778-2793, y 337
+   9. jump (held 6 ticks), holding left, turn into the Morph Ball where the body meets a wall or ceiling, from 2778,337; lands at 2680,321   [samus:2]
+      -> as the Morph Ball at x 2631-2726, y 321
+  10. turn back from the Morph Ball at 2631,321
+      -> standing at x 2631-2649, y 321
+  11. jump (held 6 ticks), holding left, from 2631,321; lands at 2572,273
+      -> standing at x 2538-2630, y 273
+  12. jump (held 2 ticks), holding left, from 2538,273; lands at 2401,449
+      -> standing at x 2231-2441, y 449
+  13. jump (held 21 ticks), holding nothing, then left after 8 ticks, turn into the Morph Ball at tick 8, from 2231,449; touches it on the way   [samus:2]
+      -> loc 5 28

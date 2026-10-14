@@ -1,0 +1,50 @@
+# rSamus5_Lv2_T: Access Gate 5: Research Facility (area 49), 480x352 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 64,192   # from rSamus5_Lv2_R out 472,32
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out -8,96   # to rSamus5_Lv2_R at 440,64; the player goes into it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+loc 5 9   # missile tank 9, at 359,119
+loc 9 94   # weapon upgrade 94, at 279,247
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 64,192
+  out -8,96   samus:2
+  loc 5 9     samus:2
+  loc 9 94    never
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 64,192 -> out -8,96: samus:2
+     coming in at 64,192
+   1. coming in: holding nothing, from 64,192; lands at 64,193
+      -> standing at x 55-166, y 193
+   2. jump (held 21 ticks), holding left, turn into the Morph Ball at tick 8, from 55,193; touches it on the way   [samus:2]
+      -> out -8,96
+how in 64,192 -> loc 5 9: samus:2
+     coming in at 64,192
+   1. coming in: holding nothing, from 64,192; lands at 64,193
+      -> standing at x 55-166, y 193
+   2. walk off the edge, holding right once in the air, turn into the Morph Ball where the body meets a wall or ceiling, from 55,193; lands at 196,241   [samus:2]
+      -> as the Morph Ball at x 183-361, y 241
+   3. turn back from the Morph Ball at 359,241
+      -> standing at x 359-361, y 241
+   4. jump (held 6 ticks), holding right, turn into the Morph Ball where the body meets a wall or ceiling, from 359,241; lands at 420,193   [samus:2]
+      -> as the Morph Ball at x 378-425, y 193
+   5. turn back from the Morph Ball at 391,193
+      -> standing at x 391-425, y 193
+   6. jump (held 21 ticks), holding left, from 391,193; lands at 295,193
+      -> standing at x 295-329, y 193
+   7. jump (held 21 ticks), holding nothing, then right after 8 ticks, turn into the Morph Ball at tick 8, from 299,193; touches it on the way   [samus:2]
+      -> loc 5 9

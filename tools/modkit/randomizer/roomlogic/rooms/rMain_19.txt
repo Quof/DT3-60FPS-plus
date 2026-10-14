@@ -1,0 +1,52 @@
+# rMain_19: Lost Entrance (area 19), 2112x480 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 2032,80   # from rMain_5 out 1120,1008
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 232,384   # to rSacredTemple at 1024,1552; the player presses up at it
+out 1984,-16   # to rMain_5 at 1088,976; the player goes into it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+loc 2 21   # treasure chest 21, at 1008,147
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 2032,80
+  out 232,384    never
+  out 1984,-16   -
+  loc 2 21       -
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 2032,80 -> out 1984,-16: -
+     coming in at 2032,80
+   1. coming in: holding nothing, from 2032,80; lands at 2032,81
+      -> standing at x 2010-2041, y 81
+   2. jump (held 2 ticks), holding left, from 2010,81; touches it on the way
+      -> out 1984,-16
+how in 2032,80 -> loc 2 21: -
+     coming in at 2032,80
+   1. coming in: holding nothing, from 2032,80; lands at 2032,81
+      -> standing at x 2010-2041, y 81
+   2. walk off the edge, holding left once in the air, from 2010,81; lands at 1926,193
+      -> standing at x 1866-1977, y 193
+   3. walk off the edge, holding left once in the air, from 1866,193; lands at 1808,225
+      -> standing at x 1754-1865, y 225
+   4. running left, jump (held 21 ticks), holding left, from 1754,225; lands at 1526,257
+      -> standing at x 1402-1542, y 257
+   5. jump (held 2 ticks), holding left, from 1402,257; lands at 1300,257
+      -> standing at x 1178-1318, y 257
+   6. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 1200,257; lands at 1124,193
+      -> standing at x 1114-1134, y 193
+   7. jump (held 2 ticks), holding left, from 1114,193; lands at 1052,161
+      -> standing at x 983-1094, y 161
+   8. standing at 998,161, touches it
+      -> loc 2 21

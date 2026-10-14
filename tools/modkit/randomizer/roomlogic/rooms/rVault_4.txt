@@ -1,0 +1,98 @@
+# rVault_4: The Vault (area 40), 3808x352 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+# switches: the room is worked out in each of its states, the player coming in in the first: [blue blocks solid]
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 48,288   # from rVault_1 out 2800,48
+in 3760,208   # from rVault_5 out 0,176
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 0,256   # to rVault_1 at 2808,80; the player goes into it
+out 3792,176   # to rVault_5 at 48,208; the player goes into it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+loc 3 19   # arrow quiver 19, at 3783,70
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 48,288
+  out 0,256      -
+  out 3792,176   -
+  loc 3 19       never
+from in 3760,208
+  out 0,256      -
+  out 3792,176   -
+  loc 3 19       never
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 48,288 -> out 0,256: -
+     [blue blocks solid] coming in at 48,288
+   1. coming in: holding nothing, from 48,288; lands at 48,289
+      -> [blue blocks solid] standing at x 0-230, y 289-316
+   2. standing at 0,289, goes into it
+      -> out 0,256
+how in 48,288 -> out 3792,176: -
+     [blue blocks solid] coming in at 48,288
+   1. coming in: holding nothing, from 48,288; lands at 48,289
+      -> [blue blocks solid] standing at x 0-230, y 289-316
+   2. running right, jump (held 6 ticks), holding right, from 208,291; lands at 349,257
+      -> [blue blocks solid] standing at x 314-890, y 257-289
+   3. jump (held 21 ticks), holding right, from 816,277; lands at 1006,289
+      -> [blue blocks solid] standing at x 964-1350, y 241-289
+   4. running right, jump (held 21 ticks), holding right, from 1216,241; lands at 1452,276
+      -> [blue blocks solid] standing at x 1434-2022, y 209-300
+   5. running right, jump (held 6 ticks), holding right, from 1920,241; lands at 2075,225
+      -> [blue blocks solid] standing at x 2042-2086, y 225-240
+   6. jump (held 21 ticks), holding right, from 2046,238; lands at 2178,172
+      -> [blue blocks solid] standing at x 2170-2214, y 161-176
+   7. running right, jump (held 21 ticks), holding right, from 2208,161; lands at 2436,193
+      -> [blue blocks solid] standing at x 2426-2470, y 193-208
+   8. jump (held 21 ticks), holding right, from 2448,197; lands at 2682,282
+      -> [blue blocks solid] standing at x 2618-3078, y 257-289
+   9. jump (held 21 ticks), holding right, from 3056,261; lands at 3180,193
+      -> [blue blocks solid] standing at x 3130-3465, y 193-257
+  10. running right, jump (held 2 ticks), holding right, from 3424,257; lands at 3512,225
+      -> [blue blocks solid] standing at x 3498-3513, y 225
+  11. jump (held 21 ticks), holding right, from 3509,225; lands at 3684,209
+      -> [blue blocks solid] standing at x 3658-3808, y 209
+  12. standing at 3790,209, goes into it
+      -> out 3792,176
+how in 3760,208 -> out 0,256: -
+     [blue blocks solid] coming in at 3760,208
+   1. coming in: holding nothing, from 3760,208; lands at 3760,209
+      -> [blue blocks solid] standing at x 3658-3808, y 209
+   2. jump (held 2 ticks), holding left, from 3658,209; lands at 3612,177
+      -> [blue blocks solid] standing at x 3546-3654, y 177
+   3. running left, walk off the edge, holding left once in the air, from 3546,177; lands at 3443,257
+      -> [blue blocks solid] standing at x 3130-3465, y 193-257
+   4. walk off the edge, holding left once in the air, from 3130,193; lands at 3043,268
+      -> [blue blocks solid] standing at x 2618-3078, y 257-289
+   5. jump (held 6 ticks), holding left, from 2640,261; lands at 2588,209
+      -> [blue blocks solid] standing at x 2490-2630, y 209
+   6. jump (held 6 ticks), holding left, from 2490,209; lands at 2381,164
+      -> [blue blocks solid] standing at x 2362-2406, y 161-176
+   7. running left, jump (held 6 ticks), holding left, from 2362,161; lands at 2200,161
+      -> [blue blocks solid] standing at x 2170-2214, y 161-176
+   8. jump (held 6 ticks), holding left, from 2170,176; lands at 1987,241
+      -> [blue blocks solid] standing at x 1434-2022, y 209-300
+   9. jump (held 21 ticks), holding left, from 1434,300; lands at 1295,241
+      -> [blue blocks solid] standing at x 964-1350, y 241-289
+  10. jump (held 2 ticks), holding left, from 964,289; lands at 862,289
+      -> [blue blocks solid] standing at x 314-890, y 257-289
+  11. jump (held 2 ticks), holding left, from 314,284; lands at 204,290
+      -> [blue blocks solid] standing at x 0-230, y 289-316
+  12. standing at 0,289, goes into it
+      -> out 0,256
+how in 3760,208 -> out 3792,176: -
+     [blue blocks solid] coming in at 3760,208
+   1. coming in: holding nothing, from 3760,208; lands at 3760,209
+      -> [blue blocks solid] standing at x 3658-3808, y 209
+   2. standing at 3790,209, goes into it
+      -> out 3792,176

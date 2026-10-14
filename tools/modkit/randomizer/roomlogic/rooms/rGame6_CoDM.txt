@@ -1,0 +1,43 @@
+# rGame6_CoDM: Access Gate 6: Prototype Game (area 58), 2400x352 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+# switches: the room is worked out in each of its states, the player coming in in the first: [barrier 342299 shut]
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 48,240   # from rGame6_CoDL out 2384,208
+in 2352,272   # from rGame6_CoDN out 0,208
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 0,208   # to rGame6_CoDL at 2352,240; the player goes into it
+out 2384,240   # to rGame6_CoDN at 48,240; the player goes into it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 48,240
+  out 0,208      -
+  out 2384,240   never
+from in 2352,272
+  out 0,208      never
+  out 2384,240   -
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 48,240 -> out 0,208: -
+     [barrier 342299 shut] coming in at 48,240
+   1. coming in: holding nothing, from 48,240; lands at 48,241
+      -> [barrier 342299 shut] standing at x 0-134, y 241
+   2. standing at 0,241, goes into it
+      -> out 0,208
+how in 2352,272 -> out 2384,240: -
+     [barrier 342299 shut] coming in at 2352,272
+   1. coming in: holding nothing, from 2352,272; lands at 2352,273
+      -> [barrier 342299 shut] standing at x 2087-2400, y 273
+   2. standing at 2382,273, goes into it
+      -> out 2384,240

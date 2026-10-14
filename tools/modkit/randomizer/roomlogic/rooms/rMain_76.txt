@@ -1,0 +1,107 @@
+# rMain_76: Great Colossal Falloff (area 76), 1152x720 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 48,160   # from rMain_75 out 4336,256
+in 1104,160   # from rPttT_01 out 0,272
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 0,128   # to rMain_75 at 4304,288; the player goes into it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+loc 2 76   # treasure chest 76, at 592,611
+loc 2 77   # treasure chest 77, at 656,611
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 48,160
+  out 0,128   -
+  loc 2 76    -
+  loc 2 77    -
+from in 1104,160
+  out 0,128   djump | adash
+  loc 2 76    -
+  loc 2 77    -
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 48,160 -> out 0,128: -
+     coming in at 48,160
+   1. coming in: holding nothing, from 48,160; lands at 48,161
+      -> standing at x 0-198, y 161
+   2. standing at 0,161, goes into it
+      -> out 0,128
+how in 48,160 -> loc 2 76: -
+     coming in at 48,160
+   1. coming in: holding nothing, from 48,160; lands at 48,161
+      -> standing at x 0-198, y 161
+   2. running right, jump (held 21 ticks), holding right, from 96,161; touches it on the way
+      -> loc 2 76
+how in 48,160 -> loc 2 77: -
+     coming in at 48,160
+   1. coming in: holding nothing, from 48,160; lands at 48,161
+      -> standing at x 0-198, y 161
+   2. running right, jump (held 21 ticks), holding right, from 160,161; touches it on the way
+      -> loc 2 77
+how in 1104,160 -> out 0,128: djump
+     coming in at 1104,160
+   1. coming in: holding nothing, from 1104,160; lands at 1104,161
+      -> standing at x 1050-1152, y 161
+   2. walk off the edge, holding left once in the air, from 1050,161; lands at 721,625
+      -> standing at x 199-1049, y 625
+   3. jump (held 21 ticks), holding left, double jump at tick 10, from 304,625; lands at 214,545   [djump]
+      -> standing at x 199-294, y 545
+   4. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 286,545; lands at 199,465   [djump]
+      -> standing at x 199-278, y 465
+   5. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 270,465; lands at 199,385   [djump]
+      -> standing at x 199-262, y 385
+   6. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 254,385; lands at 199,305   [djump]
+      -> standing at x 199-246, y 305
+   7. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 238,305; lands at 199,225   [djump]
+      -> standing at x 199-230, y 225
+   8. jump (held 21 ticks), holding left, from 199,225; lands at 126,161
+      -> standing at x 0-198, y 161
+   9. standing at 0,161, goes into it
+      -> out 0,128
+how in 1104,160 -> out 0,128: adash
+     coming in at 1104,160
+   1. coming in: holding nothing, from 1104,160; lands at 1104,161
+      -> standing at x 1050-1152, y 161
+   2. walk off the edge, holding left once in the air, from 1050,161; lands at 721,625
+      -> standing at x 199-1049, y 625
+   3. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 304,625; lands at 206,545   [adash]
+      -> standing at x 199-294, y 545
+   4. jump (held 21 ticks), holding nothing, then left after 12 ticks, air dash (Jerry) at tick 12, from 286,545; lands at 214,465   [adash]
+      -> standing at x 199-278, y 465
+   5. jump (held 21 ticks), holding nothing, then left after 12 ticks, air dash (Jerry) at tick 12, from 270,465; lands at 199,385   [adash]
+      -> standing at x 199-262, y 385
+   6. jump (held 21 ticks), holding nothing, then left after 12 ticks, air dash (Jerry) at tick 12, from 254,385; lands at 199,305   [adash]
+      -> standing at x 199-246, y 305
+   7. jump (held 21 ticks), holding nothing, then left after 12 ticks, air dash (Jerry) at tick 12, from 238,305; lands at 199,225   [adash]
+      -> standing at x 199-230, y 225
+   8. jump (held 21 ticks), holding left, from 199,225; lands at 126,161
+      -> standing at x 0-198, y 161
+   9. standing at 0,161, goes into it
+      -> out 0,128
+how in 1104,160 -> loc 2 76: -
+     coming in at 1104,160
+   1. coming in: holding nothing, from 1104,160; lands at 1104,161
+      -> standing at x 1050-1152, y 161
+   2. walk off the edge, holding left once in the air, from 1050,161; lands at 721,625
+      -> standing at x 199-1049, y 625
+   3. standing at 582,625, touches it
+      -> loc 2 76
+how in 1104,160 -> loc 2 77: -
+     coming in at 1104,160
+   1. coming in: holding nothing, from 1104,160; lands at 1104,161
+      -> standing at x 1050-1152, y 161
+   2. walk off the edge, holding left once in the air, from 1050,161; lands at 721,625
+      -> standing at x 199-1049, y 625
+   3. standing at 646,625, touches it
+      -> loc 2 77

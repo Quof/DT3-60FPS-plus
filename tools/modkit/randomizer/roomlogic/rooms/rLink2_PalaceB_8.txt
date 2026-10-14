@@ -1,0 +1,146 @@
+# rLink2_PalaceB_8: Access Gate 2: Hyrule (area 10), 1920x352 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 48,128   # from rLink2_PalaceB_7 out 1144,368
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 40,16   # to rLink2_PalaceB_7 at 1152,336; the player goes into it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+loc 3 4   # arrow quiver 4, at 1071,182
+loc 9 21   # weapon upgrade 21, at 1839,183
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 48,128
+  out 40,16   never
+  loc 3 4     djump | adash,gdash,link:3 | adash,gdash,samus:6
+  loc 9 21    adash,link:3 | adash,samus:6 | gdash,link:3 | gdash,samus:6 | djump
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 48,128 -> loc 3 4: djump
+     coming in at 48,128
+   1. coming in: holding nothing, from 48,128; lands at 48,305
+      -> standing at x 39-249, y 305
+   2. jump (held 21 ticks), holding right, double jump at tick 15, from 144,305; lands at 388,305   [djump]
+      -> standing at x 295-473, y 305
+   3. running right, jump (held 21 ticks), holding right, double jump at tick 10, from 352,305; lands at 492,289   [djump]
+      -> standing at x 474-665, y 289
+   4. jump (held 21 ticks), holding right, double jump at tick 15, from 512,289; lands at 797,305   [djump]
+      -> standing at x 711-1305, y 305
+   5. jump (held 21 ticks), holding right, double jump at tick 15, from 768,305; lands at 965,209   [djump]
+      -> standing at x 954-1030, y 209
+   6. jump (held 21 ticks), holding right, double jump at tick 10, from 954,209; touches it on the way   [djump]
+      -> loc 3 4
+how in 48,128 -> loc 3 4: adash,gdash,link:3
+     coming in at 48,128
+   1. coming in: holding nothing, from 48,128; lands at 48,305
+      -> standing at x 39-249, y 305
+   2. running right, jump (held 21 ticks), holding right, from 128,305, through the bombable wall at 256,272, the bombable wall at 256,240, the bombable wall at 256,208, ...; lands at 334,305   [link:3]
+      -> standing at x 295-473, y 305
+   3. running right, jump (held 6 ticks), holding right, from 416,305; lands at 482,289
+      -> standing at x 474-665, y 289
+   4. jump (held 21 ticks), holding nothing, then right after 12 ticks, air dash (Jerry) at tick 12, from 560,289; lands at 690,209   [adash]
+      -> standing at x 666-710, y 209
+   5. dash right (Jerry), jump (held 21 ticks), holding right, air dash (Jerry) at tick 12, from 666,209; lands at 1002,209   [adash,gdash]
+      -> standing at x 954-1030, y 209
+   6. jump (held 21 ticks), holding right, air dash (Claire) at tick 16, from 954,209; touches it on the way   [adash]
+      -> loc 3 4
+how in 48,128 -> loc 3 4: adash,gdash,samus:6
+     coming in at 48,128
+   1. coming in: holding nothing, from 48,128; lands at 48,305
+      -> standing at x 39-249, y 305
+   2. running right, jump (held 21 ticks), holding right, from 128,305, through the bombable wall at 256,272, the bombable wall at 256,240, the bombable wall at 256,208, ...; lands at 334,305   [samus:6]
+      -> standing at x 295-473, y 305
+   3. running right, jump (held 6 ticks), holding right, from 416,305; lands at 482,289
+      -> standing at x 474-665, y 289
+   4. jump (held 21 ticks), holding nothing, then right after 12 ticks, air dash (Jerry) at tick 12, from 560,289; lands at 690,209   [adash]
+      -> standing at x 666-710, y 209
+   5. dash right (Jerry), jump (held 21 ticks), holding right, air dash (Jerry) at tick 12, from 666,209; lands at 1002,209   [adash,gdash]
+      -> standing at x 954-1030, y 209
+   6. jump (held 21 ticks), holding right, air dash (Claire) at tick 16, from 954,209; touches it on the way   [adash]
+      -> loc 3 4
+how in 48,128 -> loc 9 21: adash,link:3
+     coming in at 48,128
+   1. coming in: holding nothing, from 48,128; lands at 48,305
+      -> standing at x 39-249, y 305
+   2. walk off the edge, holding right once in the air, from 39,305, through the bombable wall at 256,272, the bombable wall at 256,240, the bombable wall at 256,208, ...; lands at 537,321   [link:3]
+      -> standing at x 487-665, y 321 (where a gate is)
+   3. running right, jump (held 21 ticks), holding right, from 528,321, through the bombable wall at 256,272, the bombable wall at 256,240, the bombable wall at 256,208, ...; lands at 726,305   [link:3]
+      -> standing at x 711-1305, y 305
+   4. running right, jump (held 21 ticks), holding right, from 1168,305; lands at 1359,273
+      -> standing at x 1338-1561, y 273
+   5. walk from 1561,273 to 1562,273 into the bombable wall at 1568,240, the bombable wall at 1568,208   [link:3]
+      -> standing at x 1562-1638, y 273 (where a gate is)
+   6. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 1616,273, through the bombable wall at 256,272, the bombable wall at 256,240, the bombable wall at 256,208, ...; touches it on the way   [adash,link:3]
+      -> loc 9 21
+how in 48,128 -> loc 9 21: adash,samus:6
+     coming in at 48,128
+   1. coming in: holding nothing, from 48,128; lands at 48,305
+      -> standing at x 39-249, y 305
+   2. walk off the edge, holding right once in the air, from 39,305, through the bombable wall at 256,272, the bombable wall at 256,240, the bombable wall at 256,208, ...; lands at 537,321   [samus:6]
+      -> standing at x 487-665, y 321 (where a gate is)
+   3. running right, jump (held 21 ticks), holding right, from 528,321, through the bombable wall at 256,272, the bombable wall at 256,240, the bombable wall at 256,208, ...; lands at 726,305   [samus:6]
+      -> standing at x 711-1305, y 305
+   4. running right, jump (held 21 ticks), holding right, from 1168,305; lands at 1359,273
+      -> standing at x 1338-1561, y 273
+   5. walk from 1561,273 to 1562,273 into the bombable wall at 1568,240, the bombable wall at 1568,208   [samus:6]
+      -> standing at x 1562-1638, y 273 (where a gate is)
+   6. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 1616,273, through the bombable wall at 256,272, the bombable wall at 256,240, the bombable wall at 256,208, ...; touches it on the way   [adash,samus:6]
+      -> loc 9 21
+how in 48,128 -> loc 9 21: gdash,link:3
+     coming in at 48,128
+   1. coming in: holding nothing, from 48,128; lands at 48,305
+      -> standing at x 39-249, y 305
+   2. walk off the edge, holding right once in the air, from 39,305, through the bombable wall at 256,272, the bombable wall at 256,240, the bombable wall at 256,208, ...; lands at 537,321   [link:3]
+      -> standing at x 487-665, y 321 (where a gate is)
+   3. running right, jump (held 21 ticks), holding right, from 528,321, through the bombable wall at 256,272, the bombable wall at 256,240, the bombable wall at 256,208, ...; lands at 726,305   [link:3]
+      -> standing at x 711-1305, y 305
+   4. running right, jump (held 21 ticks), holding right, from 1168,305; lands at 1359,273
+      -> standing at x 1338-1561, y 273
+   5. running right, jump (held 21 ticks), holding right, from 1440,273, through the bombable wall at 256,272, the bombable wall at 256,240, the bombable wall at 256,208, ...; lands at 1646,273   [link:3]
+      -> standing at x 1639-1766, y 273
+   6. jump (held 2 ticks), holding left, from 1639,273; lands at 1607,241
+      -> standing at x 1607-1638, y 241
+   7. dash right (Jerry), jump (held 21 ticks), holding right, from 1607,241; touches it on the way   [gdash]
+      -> loc 9 21
+how in 48,128 -> loc 9 21: gdash,samus:6
+     coming in at 48,128
+   1. coming in: holding nothing, from 48,128; lands at 48,305
+      -> standing at x 39-249, y 305
+   2. walk off the edge, holding right once in the air, from 39,305, through the bombable wall at 256,272, the bombable wall at 256,240, the bombable wall at 256,208, ...; lands at 537,321   [samus:6]
+      -> standing at x 487-665, y 321 (where a gate is)
+   3. running right, jump (held 21 ticks), holding right, from 528,321, through the bombable wall at 256,272, the bombable wall at 256,240, the bombable wall at 256,208, ...; lands at 726,305   [samus:6]
+      -> standing at x 711-1305, y 305
+   4. running right, jump (held 21 ticks), holding right, from 1168,305; lands at 1359,273
+      -> standing at x 1338-1561, y 273
+   5. running right, jump (held 21 ticks), holding right, from 1440,273, through the bombable wall at 256,272, the bombable wall at 256,240, the bombable wall at 256,208, ...; lands at 1646,273   [samus:6]
+      -> standing at x 1639-1766, y 273
+   6. jump (held 2 ticks), holding left, from 1639,273; lands at 1607,241
+      -> standing at x 1607-1638, y 241
+   7. dash right (Jerry), jump (held 21 ticks), holding right, from 1607,241; touches it on the way   [gdash]
+      -> loc 9 21
+how in 48,128 -> loc 9 21: djump
+     coming in at 48,128
+   1. coming in: holding nothing, from 48,128; lands at 48,305
+      -> standing at x 39-249, y 305
+   2. jump (held 21 ticks), holding right, double jump at tick 15, from 144,305; lands at 388,305   [djump]
+      -> standing at x 295-473, y 305
+   3. running right, jump (held 21 ticks), holding right, double jump at tick 10, from 352,305; lands at 492,289   [djump]
+      -> standing at x 474-665, y 289
+   4. jump (held 21 ticks), holding right, double jump at tick 15, from 512,289; lands at 797,305   [djump]
+      -> standing at x 711-1305, y 305
+   5. jump (held 21 ticks), holding right, double jump at tick 15, from 1088,305; lands at 1351,273   [djump]
+      -> standing at x 1338-1561, y 273
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 1424,273; lands at 1700,273   [djump]
+      -> standing at x 1639-1766, y 273
+   7. jump (held 21 ticks), holding right, double jump at tick 10, from 1680,273; touches it on the way   [djump]
+      -> loc 9 21

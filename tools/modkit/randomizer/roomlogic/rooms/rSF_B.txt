@@ -1,0 +1,122 @@
+# rSF_B: Subconscious Filter (area 91), 6720x1056 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 48,480   # from rSF_A out 3824,416
+in 6672,480   # from rSF_C out 0,448
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 0,448   # to rSF_A at 3792,448; the player goes into it
+out 6704,448   # to rSF_C at 48,480; the player goes into it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 48,480
+  out 0,448      -
+  out 6704,448   djump | adash
+from in 6672,480
+  out 0,448      -
+  out 6704,448   -
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 48,480 -> out 0,448: -
+     coming in at 48,480
+   1. coming in: holding nothing, from 48,480; lands at 48,481
+      -> standing at x 0-1383, y 161-1121
+   2. standing at 0,481, goes into it
+      -> out 0,448
+how in 48,480 -> out 6704,448: djump
+     coming in at 48,480
+   1. coming in: holding nothing, from 48,480; lands at 48,481
+      -> standing at x 0-1383, y 161-1121
+   2. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, double jump at tick 10, from 1383,162; clings to the wall at 2041,898   [djump]
+      -> standing at x 2041-4583, y 481-903
+   3. jump (held 21 ticks), wall-jump up the same wall, from 4448,641; clings to the wall at 5001,896
+      -> standing at x 5001-5031, y 801-967
+   4. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, double jump at tick 10, from 5031,802; clings to the wall at 5337,966   [djump]
+      -> standing at x 5337-5367, y 801-999
+   5. on the wall to the right: kick off it (wall jump), wall-jump up the same wall, from 5337,802; clings to the wall at 5641,912
+      -> standing at x 5641-5671, y 865-1031
+   6. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, double jump at tick 10, from 5671,880; clings to the wall at 5737,830   [djump]
+      -> standing at x 5737-5815, y 769-839
+   7. jump (held 21 ticks), holding right, double jump at tick 15, from 5814,769; clings to the wall at 6233,1017   [djump]
+      -> standing at x 6233-6489, y 616-1121
+   8. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 6489,616; lands at 6430,641
+      -> standing at x 6311-6439, y 456-807
+   9. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 6311,456; lands at 6370,481
+      -> standing at x 6361-6720, y 481-615
+  10. standing at 6702,481, goes into it
+      -> out 6704,448
+how in 48,480 -> out 6704,448: adash
+     coming in at 48,480
+   1. coming in: holding nothing, from 48,480; lands at 48,481
+      -> standing at x 0-1383, y 161-1121
+   2. jump (held 21 ticks), holding right, air dash (Claire) at tick 16, from 1312,161; clings to the wall at 2041,890   [adash]
+      -> standing at x 2041-4583, y 481-903
+   3. jump (held 21 ticks), wall-jump up the same wall, from 4448,641; clings to the wall at 5001,896
+      -> standing at x 5001-5031, y 801-967
+   4. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, air dash back right (Jerry) at tick 5, from 5031,802; clings to the wall at 5337,926   [adash]
+      -> standing at x 5337-5367, y 801-999
+   5. on the wall to the right: kick off it (wall jump), wall-jump up the same wall, from 5337,802; clings to the wall at 5641,912
+      -> standing at x 5641-5671, y 865-1031
+   6. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, air dash back right (Jerry) at tick 5, from 5671,866; clings to the wall at 5737,836   [adash]
+      -> standing at x 5737-5815, y 769-839
+   7. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 5776,769; clings to the wall at 6233,1037   [adash]
+      -> standing at x 6233-6489, y 616-1121
+   8. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 6489,616; lands at 6430,641
+      -> standing at x 6311-6439, y 456-807
+   9. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 6311,456; lands at 6370,481
+      -> standing at x 6361-6720, y 481-615
+  10. standing at 6702,481, goes into it
+      -> out 6704,448
+how in 6672,480 -> out 0,448: -
+     coming in at 6672,480
+   1. coming in: holding nothing, from 6672,480; lands at 6672,481
+      -> standing at x 6361-6720, y 481-615
+   2. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 6361,496; clings to the wall at 6311,463
+      -> standing at x 6311-6439, y 456-807
+   3. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 6439,642; clings to the wall at 6489,632
+      -> standing at x 6233-6489, y 616-1121
+   4. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 6233,864; lands at 6100,833
+      -> standing at x 6089-6119, y 833-935
+   5. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 6089,834; clings to the wall at 6007,782
+      -> standing at x 5929-6007, y 769-839
+   6. running left, jump (held 21 ticks), holding left, from 5930,769; clings to the wall at 5719,793
+      -> standing at x 5641-5719, y 769-839
+   7. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 5641,770; clings to the wall at 5367,973
+      -> standing at x 5337-5367, y 801-999
+   8. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 5337,802; clings to the wall at 5159,912
+      -> standing at x 5129-5159, y 801-967
+   9. on the wall to the left: kick off it (wall jump), wall-jump up the same wall, from 5159,802; clings to the wall at 4727,1027
+      -> standing at x 4697-4727, y 769-1031
+  10. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 4697,784; clings to the wall at 4519,831
+      -> standing at x 2041-4583, y 481-903
+  11. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 2937,482; clings to the wall at 2823,445
+      -> standing at x 2777-2823, y 385-615
+  12. jump (held 21 ticks), holding left, from 2778,385; clings to the wall at 2695,313
+      -> standing at x 2617-2695, y 257-327
+  13. running left, jump (held 21 ticks), holding left, from 2618,257; clings to the wall at 2439,234
+      -> standing at x 2297-2439, y 193-263
+  14. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 2297,194; clings to the wall at 2151,190
+      -> standing at x 2073-2151, y 161-231
+  15. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 2073,162; clings to the wall at 1511,841
+      -> standing at x 1401-1511, y 785-983
+  16. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 1401,786; clings to the wall at 1383,754
+      -> standing at x 0-1383, y 161-1121
+  17. standing at 0,481, goes into it
+      -> out 0,448
+how in 6672,480 -> out 6704,448: -
+     coming in at 6672,480
+   1. coming in: holding nothing, from 6672,480; lands at 6672,481
+      -> standing at x 6361-6720, y 481-615
+   2. standing at 6702,481, goes into it
+      -> out 6704,448

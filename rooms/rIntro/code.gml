@@ -9,6 +9,9 @@ gDeltaDoTicks = 0
 gDeltaTick = 0.0
 
 global.objectIDMap = ds_map_create()
+//mods change (added): the table of mods' versions of some of the game's events (none: they run as they are), set up here
+//before any instance exists since those events check it whenever they run (scrModEvInit)
+if !variable_global_exists("modEvOvr") {scrModEvInit()}
 
 global.paraString[0]="DT3data.dts"
 //saves folder change (added): the save files and the options (DT3Options.dts: loadOptions, saveOptions) go in a Saves

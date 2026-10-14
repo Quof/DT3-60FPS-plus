@@ -1,0 +1,76 @@
+# rNGC_LC_I: Neo Grime City (area 57), 752x704 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 128,640   # from rNGC_LC_H out 320,-16
+in 712,128   # from rNGC_LC_EleA out 0,256
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 32,688   # to rNGC_LC_H at 336,96; the player goes into it
+out 736,96   # to rNGC_LC_EleA at 48,288; the player goes into it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 128,640
+  out 32,688   -
+  out 736,96   -
+from in 712,128
+  out 32,688   -
+  out 736,96   -
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 128,640 -> out 32,688: -
+     coming in at 128,640
+   1. coming in: holding nothing, from 128,640; lands at 128,641
+      -> standing at x 90-457, y 641
+   2. walk off the edge, holding left once in the air, from 90,641; touches it on the way
+      -> out 32,688
+how in 128,640 -> out 736,96: -
+     coming in at 128,640
+   1. coming in: holding nothing, from 128,640; lands at 128,641
+      -> standing at x 90-457, y 641
+   2. running right, jump (held 21 ticks), holding right, from 144,641; lands at 360,481
+      -> standing at x 266-569, y 449-481
+   3. jump (held 21 ticks), holding left, from 266,481; lands at 142,417
+      -> standing at x 39-214, y 417
+   4. running right, jump (held 21 ticks), holding right, from 192,417; lands at 338,353
+      -> standing at x 266-345, y 353
+   5. jump (held 21 ticks), holding right, from 266,353; lands at 377,289
+      -> standing at x 346-377, y 289
+   6. jump (held 21 ticks), holding right, from 346,289; lands at 450,225
+      -> standing at x 378-457, y 225
+   7. jump (held 6 ticks), holding right, from 378,225; lands at 473,177
+      -> standing at x 458-534, y 177
+   8. jump (held 21 ticks), holding right, from 458,177; lands at 626,145
+      -> standing at x 586-662, y 145
+   9. running right, jump (held 2 ticks), holding right, from 624,145; touches it on the way
+      -> out 736,96
+how in 712,128 -> out 32,688: -
+     coming in at 712,128
+   1. coming in: holding nothing, from 712,128; lands at 712,129
+      -> standing at x 698-752, y 129
+   2. walk off the edge, holding left once in the air, from 698,129; lands at 654,145
+      -> standing at x 586-662, y 145
+   3. walk off the edge, holding left once in the air, from 586,145; lands at 521,177
+      -> standing at x 458-534, y 177
+   4. jump (held 2 ticks), holding left, from 458,177; lands at 193,641
+      -> standing at x 90-457, y 641
+   5. walk off the edge, holding left once in the air, from 90,641; touches it on the way
+      -> out 32,688
+how in 712,128 -> out 736,96: -
+     coming in at 712,128
+   1. coming in: holding nothing, from 712,128; lands at 712,129
+      -> standing at x 698-752, y 129
+   2. walk off the edge, holding left once in the air, from 698,129; lands at 654,145
+      -> standing at x 586-662, y 145
+   3. running right, jump (held 2 ticks), holding right, from 624,145; touches it on the way
+      -> out 736,96

@@ -40,6 +40,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
+if global.modEvOvr[1]>=0 {event_perform_object(global.modEvOvr[1],ev_collision,oClaireParryWindow); exit} //mods change (added): a mod's own version of this event runs instead (scrModEvRegister)
 if global.location=58 or global.location=76 or global.location=107
 {
   if bCanBeBlocked=1 and bParryOpp=1 and bCanDealDamage=1

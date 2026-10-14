@@ -1,0 +1,73 @@
+# rHPF_I: Hidden Program Facility (area 59), 3616x416 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 48,352   # from rHPF_H out 3664,320
+in 3568,352   # from rHPF_J out 0,320
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 0,320   # to rHPF_H at 3632,352; the player goes into it
+out 3600,320   # to rHPF_J at 48,352; the player goes into it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+loc 8 16   # internetz mod 16, at 2223,103
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 48,352
+  out 0,320      -
+  out 3600,320   never
+  loc 8 16       never
+from in 3568,352
+  out 0,320      djump,adash
+  out 3600,320   -
+  loc 8 16       never
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 48,352 -> out 0,320: -
+     coming in at 48,352
+   1. coming in: holding nothing, from 48,352; lands at 48,353
+      -> standing at x 0-217, y 353
+   2. standing at 0,353, goes into it
+      -> out 0,320
+how in 3568,352 -> out 0,320: djump,adash
+     coming in at 3568,352
+   1. coming in: holding nothing, from 3568,352; lands at 3568,353
+      -> standing at x 3047-3616, y 353
+   2. jump (held 21 ticks), holding left, from 3047,353; lands at 2974,289
+      -> standing at x 2970-3046, y 289
+   3. jump (held 21 ticks), holding left, double jump at tick 15, from 2970,289; lands at 2893,193   [djump]
+      -> standing at x 2842-2950, y 193
+   4. jump (held 2 ticks), holding left, from 2842,193; lands at 2659,321
+      -> standing at x 2471-2694, y 321
+   5. jump (held 21 ticks), holding left, from 2471,321; lands at 2398,257
+      -> standing at x 2394-2470, y 257
+   6. jump (held 21 ticks), holding left, double jump at tick 15, from 2394,257; lands at 2197,257   [djump]
+      -> standing at x 2074-2246, y 257
+   7. walk off the edge, holding left once in the air, from 2074,257; lands at 1972,353
+      -> standing at x 1511-2073, y 353
+   8. jump (held 21 ticks), holding left, from 1511,353; lands at 1438,289
+      -> standing at x 1434-1510, y 289
+   9. jump (held 21 ticks), holding left, double jump at tick 10, air dash (Jerry) at tick 18, from 1434,289; lands at 1184,193   [djump,adash]
+      -> standing at x 1159-1222, y 193
+  10. jump (held 21 ticks), holding left, double jump at tick 10, from 1159,193; lands at 888,353   [djump]
+      -> standing at x 839-1017, y 353
+  11. jump (held 21 ticks), holding left, double jump at tick 15, from 839,353; lands at 634,321   [djump]
+      -> standing at x 218-646, y 321
+  12. walk off the edge, holding left once in the air, from 218,321; lands at 160,353
+      -> standing at x 0-217, y 353
+  13. standing at 0,353, goes into it
+      -> out 0,320
+how in 3568,352 -> out 3600,320: -
+     coming in at 3568,352
+   1. coming in: holding nothing, from 3568,352; lands at 3568,353
+      -> standing at x 3047-3616, y 353
+   2. standing at 3598,353, goes into it
+      -> out 3600,320

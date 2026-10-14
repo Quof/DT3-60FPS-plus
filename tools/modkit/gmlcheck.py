@@ -20,6 +20,27 @@ KEYWORDS = {"if", "then", "else", "while", "do", "until", "for", "repeat", "with
             "continue", "exit", "return", "var", "globalvar", "begin", "end", "and", "or", "xor", "not", "div", "mod"}
 TWO = {"==", "!=", "<=", ">=", "<>", "&&", "||", "^^", "<<", ">>", "+=", "-=", "*=", "/=", "|=", "&=", "^=", ":=", "++", "--"}
 ASSIGN = {"=", ":=", "+=", "-=", "*=", "/=", "|=", "&=", "^="}
+# GameMaker 8's built-in variables (an instance's and the game's): "var id" doesn't compile ("Cannot redeclare a builtin
+# variable"), and nor does any of these after var or globalvar
+BUILTIN_VARS = set("""
+id object_index x y xprevious yprevious xstart ystart hspeed vspeed direction speed friction gravity gravity_direction
+path_index path_position path_positionprevious path_speed path_scale path_orientation path_endaction solid persistent
+mask_index timeline_index timeline_position timeline_speed timeline_running timeline_loop visible sprite_index
+sprite_width sprite_height sprite_xoffset sprite_yoffset image_number image_index image_speed depth image_xscale
+image_yscale image_angle image_alpha image_blend bbox_left bbox_right bbox_top bbox_bottom alarm
+score lives health show_score show_lives show_health caption_score caption_lives caption_health room room_first
+room_last room_width room_height room_caption room_speed room_persistent background_color background_showcolor
+background_visible background_foreground background_index background_x background_y background_width
+background_height background_htiled background_vtiled background_xscale background_yscale background_hspeed
+background_vspeed background_blend background_alpha view_enabled view_current view_visible view_xview view_yview
+view_wview view_hview view_xport view_yport view_wport view_hport view_angle view_hborder view_vborder view_hspeed
+view_vspeed view_object transition_kind transition_steps transition_time current_time current_year current_month
+current_day current_weekday current_hour current_minute current_second fps mouse_x mouse_y mouse_button
+mouse_lastbutton keyboard_key keyboard_lastkey keyboard_lastchar keyboard_string cursor_sprite instance_count
+instance_id working_directory program_directory temp_directory secure_mode error_occurred error_last
+gamemaker_registered gamemaker_pro gamemaker_version debug_mode event_type event_number event_object event_action
+argument argument_count argument_relative self other all noone global
+""".split()) | set("argument%d" % i for i in range(16))
 
 class Error(Exception):
     def __init__(self, line, msg): self.line, self.msg = line, msg
@@ -80,11 +101,11 @@ class Parser:
             if t in ("var", "globalvar"):
                 self.next()
                 if self.peek()[0] != "id": self.fail("a name expected after " + t)
-                self.next()
+                self.declared(t)
                 while self.at(","):
                     self.next()
                     if self.peek()[0] != "id": break  # (GameMaker allows var a,;)
-                    self.next()
+                    self.declared(t)
                 return self.opt_semi()
             if t == "if":
                 self.next(); self.expr()
@@ -131,6 +152,11 @@ class Parser:
             if t in ("then", "end"): self.fail("unexpected %r" % t)
         self.simple_statement()
         self.opt_semi()
+
+    def declared(self, what):
+        """a name after var or globalvar: not one of GameMaker's built-in variables"""
+        if self.peek()[1] in BUILTIN_VARS: self.fail("%s can't declare %s, one of GameMaker's built-in variables" % (what, self.peek()[1]))
+        self.next()
 
     def body(self, what):
         if self.peek()[0] == "eof" or self.at("}"): self.fail("a statement expected after " + what)
@@ -221,6 +247,8 @@ if __name__ == "__main__":
     assert check("switch x {case 1: a=1; break; default: a=2}") == []
     assert check("do {a+=1} until a>3") == []
     assert check("var a,b; a=b") == []
+    assert check("var id; id=1") != [] and check("var f,l,id,t; f=1") != [] and check("globalvar x;") != []
+    assert check("var tId,idx; tId=1") == []
     assert check("i++") != [] and check("a=b?1:2") != [] and check("a+b") != []
     assert check("return 1") == [] and check("exit") == []
     for f in sys.argv[1:]:

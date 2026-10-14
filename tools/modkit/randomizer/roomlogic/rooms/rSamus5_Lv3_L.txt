@@ -1,0 +1,97 @@
+# rSamus5_Lv3_L: Access Gate 5: Research Facility (area 49), 1120x1200 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 1056,224   # from rSamus5_Lv3_I out 0,1136
+in 1056,1088   # from rSamus5_Lv3_M out 0,400
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 1104,192   # to rSamus5_Lv3_I at 64,1168; the player goes into it
+out 1104,1056   # to rSamus5_Lv3_M at 64,432; the player goes into it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+loc 5 14   # missile tank 14, at 535,903
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 1056,224
+  out 1104,192    link:1 | belmont:1 | megaman:1 | samus:1
+  out 1104,1056   never
+  loc 5 14        never
+from in 1056,1088
+  out 1104,192    never
+  out 1104,1056   link:1 | belmont:1 | megaman:1 | samus:1
+  loc 5 14        hijump:2,samus:6
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 1056,224 -> out 1104,192: link:1
+     coming in at 1056,224
+   1. coming in: holding nothing, from 1056,224; lands at 1056,225
+      -> standing at x 951-1089, y 225
+   2. walk off the edge, holding right once in the air, from 951,225, through the Metroid door at 1096,160, the Metroid door at 1096,1024; touches it on the way   [link:1]
+      -> out 1104,192
+how in 1056,224 -> out 1104,192: belmont:1
+     coming in at 1056,224
+   1. coming in: holding nothing, from 1056,224; lands at 1056,225
+      -> standing at x 951-1089, y 225
+   2. walk off the edge, holding right once in the air, from 951,225, through the Metroid door at 1096,160, the Metroid door at 1096,1024; touches it on the way   [belmont:1]
+      -> out 1104,192
+how in 1056,224 -> out 1104,192: megaman:1
+     coming in at 1056,224
+   1. coming in: holding nothing, from 1056,224; lands at 1056,225
+      -> standing at x 951-1089, y 225
+   2. walk off the edge, holding right once in the air, from 951,225, through the Metroid door at 1096,160, the Metroid door at 1096,1024; touches it on the way   [megaman:1]
+      -> out 1104,192
+how in 1056,224 -> out 1104,192: samus:1
+     coming in at 1056,224
+   1. coming in: holding nothing, from 1056,224; lands at 1056,225
+      -> standing at x 951-1089, y 225
+   2. walk off the edge, holding right once in the air, from 951,225, through the Metroid door at 1096,160, the Metroid door at 1096,1024; touches it on the way   [samus:1]
+      -> out 1104,192
+how in 1056,1088 -> out 1104,1056: link:1
+     coming in at 1056,1088
+   1. coming in: holding nothing, from 1056,1088; lands at 1056,1089
+      -> standing at x 362-1089, y 1057-1089
+   2. walk off the edge, holding right once in the air, from 400,1057, through the Metroid door at 1096,160, the Metroid door at 1096,1024; touches it on the way   [link:1]
+      -> out 1104,1056
+how in 1056,1088 -> out 1104,1056: belmont:1
+     coming in at 1056,1088
+   1. coming in: holding nothing, from 1056,1088; lands at 1056,1089
+      -> standing at x 362-1089, y 1057-1089
+   2. walk off the edge, holding right once in the air, from 400,1057, through the Metroid door at 1096,160, the Metroid door at 1096,1024; touches it on the way   [belmont:1]
+      -> out 1104,1056
+how in 1056,1088 -> out 1104,1056: megaman:1
+     coming in at 1056,1088
+   1. coming in: holding nothing, from 1056,1088; lands at 1056,1089
+      -> standing at x 362-1089, y 1057-1089
+   2. walk off the edge, holding right once in the air, from 400,1057, through the Metroid door at 1096,160, the Metroid door at 1096,1024; touches it on the way   [megaman:1]
+      -> out 1104,1056
+how in 1056,1088 -> out 1104,1056: samus:1
+     coming in at 1056,1088
+   1. coming in: holding nothing, from 1056,1088; lands at 1056,1089
+      -> standing at x 362-1089, y 1057-1089
+   2. walk off the edge, holding right once in the air, from 400,1057, through the Metroid door at 1096,160, the Metroid door at 1096,1024; touches it on the way   [samus:1]
+      -> out 1104,1056
+how in 1056,1088 -> loc 5 14: hijump:2,samus:6
+     coming in at 1056,1088
+   1. coming in: holding nothing, from 1056,1088; lands at 1056,1089
+      -> standing at x 362-1089, y 1057-1089
+   2. walk off the edge, holding left once in the air, from 362,1073; lands at 289,1121
+      -> standing at x 39-361, y 1073-1153
+   3. jump with High Jump Boots 2 (held 40 ticks), holding right, from 39,1073; lands at 122,929   [hijump:2]
+      -> standing at x 106-127, y 923-945
+   4. jump (held 21 ticks), holding right, turn into the Morph Ball at tick 8, from 106,945, through the Metroid block at 144,896; lands at 149,913   [samus:6]
+      -> as the Morph Ball at x 138-166, y 913 (where a gate is)
+   5. walk from 166,913 to 167,913
+      -> as the Morph Ball at x 167-569, y 913
+   6. turn back from the Morph Ball at 503,913
+      -> standing at x 503-569, y 913
+   7. standing at 530,913, touches it
+      -> loc 5 14

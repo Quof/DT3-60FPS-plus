@@ -1,0 +1,290 @@
+# rCCity_NorthB: Central City - North (area 9), 1728x352 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 1680,288   # from rCCity_NorthA out 0,256
+in 592,288   # from rCCity_NB_S1a out 0,480, rCCity_NB_S1b out 336,288
+in 24,288   # from rMain_20 out 3016,304
+in 152,288   # from rTestRoom out 656,256
+in 928,288   # from rBossGallery out 120,1344
+in 760,288   # from rCCity_NAlley out 0,256
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 1712,256   # to rCCity_NorthA at 48,288; the player goes into it
+out 584,256   # to rCCity_NB_S1a at 48,512; the player presses up at it
+out 16,256   # to rMain_20 at 3024,336; the player presses up at it
+out 920,256   # to rBossGallery at 128,1376; the player presses up at it
+out 752,256   # to rCCity_NAlley at 48,288; the player presses up at it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+loc 10 21   # skill point 21, at 927,143
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 1680,288
+  out 1712,256   -
+  out 584,256    -
+  out 16,256     -
+  out 920,256    -
+  out 752,256    -
+  loc 10 21      djump,adash
+from in 592,288
+  out 1712,256   -
+  out 584,256    -
+  out 16,256     -
+  out 920,256    -
+  out 752,256    -
+  loc 10 21      djump,adash
+from in 24,288
+  out 1712,256   -
+  out 584,256    -
+  out 16,256     -
+  out 920,256    -
+  out 752,256    -
+  loc 10 21      djump,adash
+from in 152,288
+  out 1712,256   -
+  out 584,256    -
+  out 16,256     -
+  out 920,256    -
+  out 752,256    -
+  loc 10 21      djump,adash
+from in 928,288
+  out 1712,256   -
+  out 584,256    -
+  out 16,256     -
+  out 920,256    -
+  out 752,256    -
+  loc 10 21      djump,adash
+from in 760,288
+  out 1712,256   -
+  out 584,256    -
+  out 16,256     -
+  out 920,256    -
+  out 752,256    -
+  loc 10 21      djump,adash
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 1680,288 -> out 1712,256: -
+     coming in at 1680,288
+   1. coming in: holding nothing, from 1680,288; lands at 1680,289
+      -> standing at x 0-1728, y 289
+   2. standing at 1710,289, goes into it
+      -> out 1712,256
+how in 1680,288 -> out 584,256: -
+     coming in at 1680,288
+   1. coming in: holding nothing, from 1680,288; lands at 1680,289
+      -> standing at x 0-1728, y 289
+   2. standing at 582,289, presses up at it
+      -> out 584,256
+how in 1680,288 -> out 16,256: -
+     coming in at 1680,288
+   1. coming in: holding nothing, from 1680,288; lands at 1680,289
+      -> standing at x 0-1728, y 289
+   2. standing at 6,289, presses up at it
+      -> out 16,256
+how in 1680,288 -> out 920,256: -
+     coming in at 1680,288
+   1. coming in: holding nothing, from 1680,288; lands at 1680,289
+      -> standing at x 0-1728, y 289
+   2. standing at 918,289, presses up at it
+      -> out 920,256
+how in 1680,288 -> out 752,256: -
+     coming in at 1680,288
+   1. coming in: holding nothing, from 1680,288; lands at 1680,289
+      -> standing at x 0-1728, y 289
+   2. standing at 750,289, presses up at it
+      -> out 752,256
+how in 1680,288 -> loc 10 21: djump,adash
+     coming in at 1680,288
+   1. coming in: holding nothing, from 1680,288; lands at 1680,289
+      -> standing at x 0-1728, y 289
+   2. jump (held 21 ticks), holding right, double jump at tick 10, air dash (Claire) at tick 18, from 720,289; touches it on the way   [djump,adash]
+      -> loc 10 21
+how in 592,288 -> out 1712,256: -
+     coming in at 592,288
+   1. coming in: holding nothing, from 592,288; lands at 592,289
+      -> standing at x 0-1728, y 289
+   2. standing at 1710,289, goes into it
+      -> out 1712,256
+how in 592,288 -> out 584,256: -
+     coming in at 592,288
+   1. coming in: holding nothing, from 592,288; lands at 592,289
+      -> standing at x 0-1728, y 289
+   2. standing at 582,289, presses up at it
+      -> out 584,256
+how in 592,288 -> out 16,256: -
+     coming in at 592,288
+   1. coming in: holding nothing, from 592,288; lands at 592,289
+      -> standing at x 0-1728, y 289
+   2. standing at 6,289, presses up at it
+      -> out 16,256
+how in 592,288 -> out 920,256: -
+     coming in at 592,288
+   1. coming in: holding nothing, from 592,288; lands at 592,289
+      -> standing at x 0-1728, y 289
+   2. standing at 918,289, presses up at it
+      -> out 920,256
+how in 592,288 -> out 752,256: -
+     coming in at 592,288
+   1. coming in: holding nothing, from 592,288; lands at 592,289
+      -> standing at x 0-1728, y 289
+   2. standing at 750,289, presses up at it
+      -> out 752,256
+how in 592,288 -> loc 10 21: djump,adash
+     coming in at 592,288
+   1. coming in: holding nothing, from 592,288; lands at 592,289
+      -> standing at x 0-1728, y 289
+   2. jump (held 21 ticks), holding right, double jump at tick 10, air dash (Claire) at tick 18, from 720,289; touches it on the way   [djump,adash]
+      -> loc 10 21
+how in 24,288 -> out 1712,256: -
+     coming in at 24,288
+   1. coming in: holding nothing, from 24,288; lands at 24,289
+      -> standing at x 0-1728, y 289
+   2. standing at 1710,289, goes into it
+      -> out 1712,256
+how in 24,288 -> out 584,256: -
+     coming in at 24,288
+   1. coming in: holding nothing, from 24,288; lands at 24,289
+      -> standing at x 0-1728, y 289
+   2. standing at 582,289, presses up at it
+      -> out 584,256
+how in 24,288 -> out 16,256: -
+     coming in at 24,288
+   1. coming in: holding nothing, from 24,288; lands at 24,289
+      -> standing at x 0-1728, y 289
+   2. standing at 6,289, presses up at it
+      -> out 16,256
+how in 24,288 -> out 920,256: -
+     coming in at 24,288
+   1. coming in: holding nothing, from 24,288; lands at 24,289
+      -> standing at x 0-1728, y 289
+   2. standing at 918,289, presses up at it
+      -> out 920,256
+how in 24,288 -> out 752,256: -
+     coming in at 24,288
+   1. coming in: holding nothing, from 24,288; lands at 24,289
+      -> standing at x 0-1728, y 289
+   2. standing at 750,289, presses up at it
+      -> out 752,256
+how in 24,288 -> loc 10 21: djump,adash
+     coming in at 24,288
+   1. coming in: holding nothing, from 24,288; lands at 24,289
+      -> standing at x 0-1728, y 289
+   2. jump (held 21 ticks), holding right, double jump at tick 10, air dash (Claire) at tick 18, from 720,289; touches it on the way   [djump,adash]
+      -> loc 10 21
+how in 152,288 -> out 1712,256: -
+     coming in at 152,288
+   1. coming in: holding nothing, from 152,288; lands at 152,289
+      -> standing at x 0-1728, y 289
+   2. standing at 1710,289, goes into it
+      -> out 1712,256
+how in 152,288 -> out 584,256: -
+     coming in at 152,288
+   1. coming in: holding nothing, from 152,288; lands at 152,289
+      -> standing at x 0-1728, y 289
+   2. standing at 582,289, presses up at it
+      -> out 584,256
+how in 152,288 -> out 16,256: -
+     coming in at 152,288
+   1. coming in: holding nothing, from 152,288; lands at 152,289
+      -> standing at x 0-1728, y 289
+   2. standing at 6,289, presses up at it
+      -> out 16,256
+how in 152,288 -> out 920,256: -
+     coming in at 152,288
+   1. coming in: holding nothing, from 152,288; lands at 152,289
+      -> standing at x 0-1728, y 289
+   2. standing at 918,289, presses up at it
+      -> out 920,256
+how in 152,288 -> out 752,256: -
+     coming in at 152,288
+   1. coming in: holding nothing, from 152,288; lands at 152,289
+      -> standing at x 0-1728, y 289
+   2. standing at 750,289, presses up at it
+      -> out 752,256
+how in 152,288 -> loc 10 21: djump,adash
+     coming in at 152,288
+   1. coming in: holding nothing, from 152,288; lands at 152,289
+      -> standing at x 0-1728, y 289
+   2. jump (held 21 ticks), holding right, double jump at tick 10, air dash (Claire) at tick 18, from 720,289; touches it on the way   [djump,adash]
+      -> loc 10 21
+how in 928,288 -> out 1712,256: -
+     coming in at 928,288
+   1. coming in: holding nothing, from 928,288; lands at 928,289
+      -> standing at x 0-1728, y 289
+   2. standing at 1710,289, goes into it
+      -> out 1712,256
+how in 928,288 -> out 584,256: -
+     coming in at 928,288
+   1. coming in: holding nothing, from 928,288; lands at 928,289
+      -> standing at x 0-1728, y 289
+   2. standing at 582,289, presses up at it
+      -> out 584,256
+how in 928,288 -> out 16,256: -
+     coming in at 928,288
+   1. coming in: holding nothing, from 928,288; lands at 928,289
+      -> standing at x 0-1728, y 289
+   2. standing at 6,289, presses up at it
+      -> out 16,256
+how in 928,288 -> out 920,256: -
+     coming in at 928,288
+   1. coming in: holding nothing, from 928,288; lands at 928,289
+      -> standing at x 0-1728, y 289
+   2. standing at 918,289, presses up at it
+      -> out 920,256
+how in 928,288 -> out 752,256: -
+     coming in at 928,288
+   1. coming in: holding nothing, from 928,288; lands at 928,289
+      -> standing at x 0-1728, y 289
+   2. standing at 750,289, presses up at it
+      -> out 752,256
+how in 928,288 -> loc 10 21: djump,adash
+     coming in at 928,288
+   1. coming in: holding nothing, from 928,288; lands at 928,289
+      -> standing at x 0-1728, y 289
+   2. jump (held 21 ticks), holding right, double jump at tick 10, air dash (Claire) at tick 18, from 720,289; touches it on the way   [djump,adash]
+      -> loc 10 21
+how in 760,288 -> out 1712,256: -
+     coming in at 760,288
+   1. coming in: holding nothing, from 760,288; lands at 760,289
+      -> standing at x 0-1728, y 289
+   2. standing at 1710,289, goes into it
+      -> out 1712,256
+how in 760,288 -> out 584,256: -
+     coming in at 760,288
+   1. coming in: holding nothing, from 760,288; lands at 760,289
+      -> standing at x 0-1728, y 289
+   2. standing at 582,289, presses up at it
+      -> out 584,256
+how in 760,288 -> out 16,256: -
+     coming in at 760,288
+   1. coming in: holding nothing, from 760,288; lands at 760,289
+      -> standing at x 0-1728, y 289
+   2. standing at 6,289, presses up at it
+      -> out 16,256
+how in 760,288 -> out 920,256: -
+     coming in at 760,288
+   1. coming in: holding nothing, from 760,288; lands at 760,289
+      -> standing at x 0-1728, y 289
+   2. standing at 918,289, presses up at it
+      -> out 920,256
+how in 760,288 -> out 752,256: -
+     coming in at 760,288
+   1. coming in: holding nothing, from 760,288; lands at 760,289
+      -> standing at x 0-1728, y 289
+   2. standing at 750,289, presses up at it
+      -> out 752,256
+how in 760,288 -> loc 10 21: djump,adash
+     coming in at 760,288
+   1. coming in: holding nothing, from 760,288; lands at 760,289
+      -> standing at x 0-1728, y 289
+   2. jump (held 21 ticks), holding right, double jump at tick 10, air dash (Claire) at tick 18, from 720,289; touches it on the way   [djump,adash]
+      -> loc 10 21

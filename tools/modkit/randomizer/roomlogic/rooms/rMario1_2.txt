@@ -1,0 +1,159 @@
+# rMario1_2: Access Gate 1: Mushroom Kingdom (area 7), 3952x352 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+# switches: the room is worked out in each of its states, the player coming in in the first: [bricks whole]
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 96,48   # from rMario1_1 out 5736,208
+in 3248,256   # from rMario1_3 out 56,248
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 88,256   # to rMario1_1 at 5744,240; the player presses down at it
+out 3240,248   # to rMario1_3 at 64,256; the player presses down at it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+loc 1 3   # heart piece 3, at 3839,167
+loc 2 2   # treasure chest 2, at 1592,67
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 96,48
+  out 88,256     -
+  out 3240,248   -
+  loc 1 3        never
+  loc 2 2        mario,samus:2
+from in 3248,256
+  out 88,256     -
+  out 3240,248   -
+  loc 1 3        never
+  loc 2 2        mario
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 96,48 -> out 88,256: -
+     [bricks whole] coming in at 96,48
+   1. coming in: holding left, from 96,48; lands at 71,305
+      -> [bricks whole] standing at x 71-73, y 305
+   2. jump (held 2 ticks), holding right, from 71,305; touches it on the way
+      -> out 88,256
+how in 96,48 -> out 3240,248: -
+     [bricks whole] coming in at 96,48
+   1. coming in: holding right, from 96,48; lands at 194,305
+      -> [bricks whole] standing at x 119-345, y 305
+   2. running right, jump (held 6 ticks), holding right, from 304,305; lands at 422,257
+      -> [bricks whole] standing at x 410-438, y 257
+   3. running right, jump (held 21 ticks), holding right, from 434,257; lands at 654,305
+      -> [bricks whole] standing at x 631-937, y 305
+   4. jump at 698,305 and hit the block at 704,208 from below: [bricks broken]
+      -> [bricks broken] standing at x 631-937, y 305
+   5. running right, jump (held 21 ticks), holding right, from 848,305; lands at 1054,305
+      -> [bricks broken] standing at x 983-1222, y 305
+   6. running right, jump (held 21 ticks), holding right, from 1072,305; lands at 1285,305
+      -> [bricks broken] standing at x 1274-1542, y 305
+   7. running right, jump (held 21 ticks), holding right, from 1392,305; lands at 1605,305
+      -> [bricks broken] standing at x 1594-1734, y 305
+   8. running right, jump (held 21 ticks), holding right, from 1648,305; lands at 1824,257
+      -> [bricks broken] standing at x 1802-1846, y 257
+   9. jump (held 21 ticks), holding right, from 1802,257; lands at 1999,273
+      -> [bricks broken] standing at x 1978-2009, y 273
+  10. jump (held 21 ticks), holding right, from 1978,273; lands at 2146,241
+      -> [bricks broken] standing at x 2122-2166, y 241
+  11. jump (held 21 ticks), holding right, from 2144,241; lands at 2327,241
+      -> [bricks broken] standing at x 2314-2358, y 241
+  12. running right, jump (held 21 ticks), holding right, from 2350,241; lands at 2600,305
+      -> [bricks broken] standing at x 2570-2742, y 305
+  13. running right, jump (held 21 ticks), holding right, from 2688,305; lands at 2901,305
+      -> [bricks broken] standing at x 2890-3017, y 305
+  14. jump (held 21 ticks), holding right, from 2894,305; lands at 3025,241
+      -> [bricks broken] standing at x 3018-3190, y 241
+  15. walk off the edge, holding right once in the air, from 3022,241; touches it on the way
+      -> out 3240,248
+how in 96,48 -> loc 2 2: mario,samus:2
+     [bricks whole] coming in at 96,48
+   1. coming in: holding right, from 96,48; lands at 194,305
+      -> [bricks whole] standing at x 119-345, y 305
+   2. running right, jump (held 21 ticks), holding right, from 304,305; lands at 458,241
+      -> [bricks whole] standing at x 442-470, y 241
+   3. jump (held 21 ticks), holding right, turn into the Morph Ball at tick 14, from 464,241; lands at 653,305   [samus:2]
+      -> [bricks whole] as the Morph Ball at x 631-1222, y 305
+   4. turn back from the Morph Ball at 983,305
+      -> [bricks whole] standing at x 983-1222, y 305
+   5. jump (held 40 ticks), holding right, bounce off a flying enemy at tick 12 (Mario Ability Set), from 1152,305; lands at 1386,209   [mario]
+      -> [bricks whole] standing at x 1290-1398, y 209
+   6. jump (held 40 ticks), holding right, bounce off a flying enemy at tick 12 (Mario Ability Set), from 1360,209; touches it on the way   [mario]
+      -> loc 2 2
+how in 3248,256 -> out 88,256: -
+     [bricks whole] coming in at 3248,256
+   1. coming in: holding nothing, from 3248,256; lands at 3248,257
+      -> [bricks whole] standing at x 3226-3270, y 257
+   2. jump (held 2 ticks), holding left, from 3226,257; lands at 3139,241
+      -> [bricks whole] standing at x 3018-3190, y 241
+   3. walk off the edge, holding left once in the air, from 3018,241; lands at 2938,305
+      -> [bricks whole] standing at x 2890-3017, y 305
+   4. running left, jump (held 6 ticks), holding left, from 2890,305; lands at 2728,305
+      -> [bricks whole] standing at x 2570-2742, y 305
+   5. running left, jump (held 6 ticks), holding left, from 2570,305; lands at 2408,305
+      -> [bricks whole] standing at x 2359-2422, y 305
+   6. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 2359,305; lands at 2329,241
+      -> [bricks whole] standing at x 2314-2358, y 241
+   7. running left, jump (held 6 ticks), holding left, from 2314,241; lands at 2152,241
+      -> [bricks whole] standing at x 2122-2166, y 241
+   8. jump (held 6 ticks), holding left, from 2122,241; lands at 1947,305
+      -> [bricks whole] standing at x 1914-1977, y 305
+   9. jump (held 21 ticks), holding left, from 1914,305; lands at 1724,305
+      -> [bricks whole] standing at x 1594-1734, y 305
+  10. jump (held 2 ticks), holding left, from 1594,305; lands at 1492,305
+      -> [bricks whole] standing at x 1274-1542, y 305
+  11. jump (held 2 ticks), holding left, from 1274,305; lands at 1172,305
+      -> [bricks whole] standing at x 983-1222, y 305
+  12. jump at 1034,305 and hit the block at 1040,240 from below: [bricks broken]
+      -> [bricks broken] standing at x 983-1222, y 305
+  13. jump (held 21 ticks), holding left, from 983,305; lands at 858,305
+      -> [bricks broken] standing at x 631-937, y 305
+  14. jump (held 6 ticks), holding left, from 631,305; lands at 537,305
+      -> [bricks broken] standing at x 535-569, y 305
+  15. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 535,305; lands at 459,241
+      -> [bricks broken] standing at x 442-470, y 241
+  16. jump (held 2 ticks), holding left, from 442,241; lands at 296,305
+      -> [bricks broken] standing at x 119-345, y 305
+  17. jump (held 2 ticks), holding left, from 119,305; lands at 71,305
+      -> [bricks broken] standing at x 71-73, y 305
+  18. jump (held 2 ticks), holding right, from 71,305; touches it on the way
+      -> out 88,256
+how in 3248,256 -> out 3240,248: -
+     [bricks whole] coming in at 3248,256
+   1. coming in: holding nothing, from 3248,256; lands at 3248,257
+      -> [bricks whole] standing at x 3226-3270, y 257
+   2. jump (held 2 ticks), holding left, from 3226,257; lands at 3139,241
+      -> [bricks whole] standing at x 3018-3190, y 241
+   3. walk off the edge, holding right once in the air, from 3022,241; touches it on the way
+      -> out 3240,248
+how in 3248,256 -> loc 2 2: mario
+     [bricks whole] coming in at 3248,256
+   1. coming in: holding nothing, from 3248,256; lands at 3248,257
+      -> [bricks whole] standing at x 3226-3270, y 257
+   2. jump (held 2 ticks), holding left, from 3226,257; lands at 3139,241
+      -> [bricks whole] standing at x 3018-3190, y 241
+   3. walk off the edge, holding left once in the air, from 3018,241; lands at 2938,305
+      -> [bricks whole] standing at x 2890-3017, y 305
+   4. running left, jump (held 6 ticks), holding left, from 2890,305; lands at 2728,305
+      -> [bricks whole] standing at x 2570-2742, y 305
+   5. running left, jump (held 6 ticks), holding left, from 2570,305; lands at 2408,305
+      -> [bricks whole] standing at x 2359-2422, y 305
+   6. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 2359,305; lands at 2329,241
+      -> [bricks whole] standing at x 2314-2358, y 241
+   7. running left, jump (held 6 ticks), holding left, from 2314,241; lands at 2152,241
+      -> [bricks whole] standing at x 2122-2166, y 241
+   8. jump (held 6 ticks), holding left, from 2122,241; lands at 1947,305
+      -> [bricks whole] standing at x 1914-1977, y 305
+   9. jump (held 21 ticks), holding left, from 1914,305; lands at 1724,305
+      -> [bricks whole] standing at x 1594-1734, y 305
+  10. jump (held 40 ticks), holding left, bounce off a flying enemy at tick 12 (Mario Ability Set), from 1594,305; lands at 1331,209   [mario]
+      -> [bricks whole] standing at x 1290-1398, y 209
+  11. jump (held 40 ticks), holding right, bounce off a flying enemy at tick 12 (Mario Ability Set), from 1360,209; touches it on the way   [mario]
+      -> loc 2 2

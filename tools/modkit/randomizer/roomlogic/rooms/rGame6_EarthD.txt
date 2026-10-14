@@ -1,0 +1,45 @@
+# rGame6_EarthD: Access Gate 6: Prototype Game (area 58), 3392x352 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 48,288   # from rGame6_EarthC out 560,1760
+in 3344,192   # from rGame6_EarthE out 0,160
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 0,256   # to rGame6_EarthC at 528,1792; the player goes into it
+out 3376,160   # to rGame6_EarthE at 48,192; the player goes into it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+loc 6 7   # game power 7, at 3247,39
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 48,288
+  out 0,256      -
+  out 3376,160   never
+  loc 6 7        never
+from in 3344,192
+  out 0,256      never
+  out 3376,160   -
+  loc 6 7        never
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 48,288 -> out 0,256: -
+     coming in at 48,288
+   1. coming in: holding nothing, from 48,288; lands at 48,289
+      -> standing at x 0-569, y 289
+   2. standing at 0,289, goes into it
+      -> out 0,256
+how in 3344,192 -> out 3376,160: -
+     coming in at 3344,192
+   1. coming in: holding nothing, from 3344,192; lands at 3344,193
+      -> standing at x 3271-3392, y 193
+   2. standing at 3374,193, goes into it
+      -> out 3376,160

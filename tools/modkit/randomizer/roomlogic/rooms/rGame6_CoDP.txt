@@ -1,0 +1,71 @@
+# rGame6_CoDP: Access Gate 6: Prototype Game (area 58), 2048x512 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+boss      # going into this room from another is its boss fight: that needs an attack (solve.py adds it)
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 48,368   # from rGame6_CoDO out 2368,336
+in 2000,368   # from rGame6_CoDQ out 0,336
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 0,336   # to rGame6_CoDO at 2336,368; the player goes into it
+out 2032,336   # to rGame6_CoDQ at 48,368; the player goes into it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 48,368
+  out 0,336      -
+  out 2032,336   -
+from in 2000,368
+  out 0,336      -
+  out 2032,336   -
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 48,368 -> out 0,336: -
+     coming in at 48,368
+   1. coming in: holding nothing, from 48,368; lands at 48,369
+      -> standing at x 0-294, y 369
+   2. standing at 0,369, goes into it
+      -> out 0,336
+how in 48,368 -> out 2032,336: -
+     coming in at 48,368
+   1. coming in: holding nothing, from 48,368; lands at 48,369
+      -> standing at x 0-294, y 369
+   2. running right, jump (held 21 ticks), holding right, from 256,369; lands at 469,369
+      -> standing at x 458-694, y 369
+   3. running right, jump (held 21 ticks), holding right, from 656,369; lands at 854,353
+      -> standing at x 842-1270, y 353
+   4. running right, jump (held 21 ticks), holding right, from 1216,353; lands at 1436,369
+      -> standing at x 1418-1654, y 369
+   5. running right, jump (held 21 ticks), holding right, from 1616,369; lands at 1829,369
+      -> standing at x 1818-2048, y 369
+   6. standing at 2030,369, goes into it
+      -> out 2032,336
+how in 2000,368 -> out 0,336: -
+     coming in at 2000,368
+   1. coming in: holding nothing, from 2000,368; lands at 2000,369
+      -> standing at x 1818-2048, y 369
+   2. jump (held 21 ticks), holding left, from 1818,369; lands at 1635,369
+      -> standing at x 1418-1654, y 369
+   3. jump (held 21 ticks), holding left, from 1418,369; lands at 1243,353
+      -> standing at x 842-1270, y 353
+   4. running left, jump (held 6 ticks), holding left, from 842,353; lands at 673,369
+      -> standing at x 458-694, y 369
+   5. jump (held 21 ticks), holding left, from 458,369; lands at 275,369
+      -> standing at x 0-294, y 369
+   6. standing at 0,369, goes into it
+      -> out 0,336
+how in 2000,368 -> out 2032,336: -
+     coming in at 2000,368
+   1. coming in: holding nothing, from 2000,368; lands at 2000,369
+      -> standing at x 1818-2048, y 369
+   2. standing at 2030,369, goes into it
+      -> out 2032,336

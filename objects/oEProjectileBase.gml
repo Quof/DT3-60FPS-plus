@@ -113,6 +113,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
+if global.modEvOvr[2]>=0 {event_perform_object(global.modEvOvr[2],ev_collision,oJMechShield); exit} //mods change (added): a mod's own version of this event runs instead (scrModEvRegister)
 if size=1
 {
   var tEffect;

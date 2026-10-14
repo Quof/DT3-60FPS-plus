@@ -1,9 +1,10 @@
-//Randomizer: a new game (the roomStart hook, in the intro room). The world is the game's endgame world (rndWorld: every
-//area open), without the CHAOS invasion, and with the instrument quest and the Abomination still to do; the player has
-//only walking (initGameVars set everything else to none). The items are placed (rndGenerate), the spoiler log written
-//(rndLog), and the game starts in the first room, where the intro would have taken the player. An Archipelago game
-//(the title screen's code 'ap', with the DT3+ Client connected) has its items in the multiworld instead: none are
-//placed here, its checks go to the client and its items come from it (rndApStart, rndApPoll)
+//Randomizer: a new game (in the intro room: the options window's Start Game, oRndOptions, or the roomStart hook for an
+//Archipelago game). The world is the game's endgame world (rndWorld: every area open), without the CHAOS invasion, and
+//with the instrument quest and the Abomination still to do; the player can walk and jump (initGameVars set everything
+//else to none). The items are placed (rndGenerate), the equipment shops shuffled and the spoiler log written (rndLog) as
+//the options say, and the game starts in Central City - North, where the door from Greatest Stretch comes in. An
+//Archipelago game (the title screen's code 'ap', with the DT3+ Client connected) has its items in the multiworld
+//instead: none are placed here, its checks go to the client and its items come from it (rndApStart, rndApPoll)
 var tTry,tOk;
 rndWorld()
 global.CHAOS_Invasion=0
@@ -58,16 +59,23 @@ if global.rndAP=0
     show_message("Randomizer: the items couldn't be placed for seed "+string(global.rndSeed)+" (its logic.txt asks for more than the locations allow). They're left in their own places.")
     rndVanillaPlace()
   }
-  rndShopShuffle()
+  if global.rndOptShops=1 {rndShopShuffle()}
+  else
+  {
+    global.rndEShopStr=""
+    rndShopFromString()
+  }
 }
 global.rndActive=1
 global.rndWon=0
+//jumping: the player has it from the start (it isn't one of the items)
+global.rndOwn[0]=1
 rndAbilApply()
-if global.rndAP=0 {rndLog()}
+if global.rndAP=0 and global.rndOptLog=1 {rndLog()}
 randomize()
-//where the opening scene leaves the player: on the ground of the first room, not paused (the intro paused the game,
-//and its scene doesn't run past the story)
-global.newMapX=240
-global.newMapY=2048
+//Central City - North, in front of the door from Greatest Stretch, not paused (the intro paused the game, and its scene
+//doesn't run past the story)
+global.newMapX=608
+global.newMapY=320
 global.gamePaused=false
-room_goto(rMain_1)
+room_goto(rCCity_NorthA)

@@ -1,0 +1,741 @@
+# rSamus5_Lv0_H: Access Gate 5: Research Facility (area 49), 1024x960 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 960,928   # from rSamus5_Lv0_A out 0,80
+in 944,192   # from rSamus5_Lv0_F out -8,144
+in 960,528   # from rSamus5_Lv0_F out 0,768
+in 64,128   # from rSamus5_Lv0_Ele3 out 464,240
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 0,96   # to rSamus5_Lv0_Ele3 at 416,272; the player goes into it
+out 1008,496   # to rSamus5_Lv0_F at 64,800; the player goes into it
+out 1008,896   # to rSamus5_Lv0_A at 64,112; the player goes into it
+out 1016,128   # to rSamus5_Lv0_F at 80,208; the player goes into it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+loc 5 22   # missile tank 22, at 887,167
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 960,928
+  out 0,96       djump,link:1 | djump,belmont:1 | djump,megaman:1 | djump,samus:1
+  out 1008,496   djump,link:1 | djump,belmont:1 | djump,megaman:1 | djump,samus:1
+  out 1008,896   link:1 | belmont:1 | megaman:1 | samus:1
+  out 1016,128   never
+  loc 5 22       never
+from in 944,192
+  out 0,96       never
+  out 1008,496   never
+  out 1008,896   never
+  out 1016,128   samus:2
+  loc 5 22       -
+from in 960,528
+  out 0,96       djump,link:1 | djump,belmont:1 | djump,megaman:1 | djump,samus:1 | adash,link:1 | adash,belmont:1 | adash,megaman:1 | adash,samus:1 | hijump:1,link:1 | hijump:1,belmont:1 | hijump:1,megaman:1 | hijump:1,samus:1
+  out 1008,496   link:1 | belmont:1 | megaman:1 | samus:1
+  out 1008,896   link:1 | belmont:1 | megaman:1 | samus:1
+  out 1016,128   never
+  loc 5 22       never
+from in 64,128
+  out 0,96       link:1 | belmont:1 | megaman:1 | samus:1
+  out 1008,496   link:1 | belmont:1 | megaman:1 | samus:1
+  out 1008,896   link:1 | belmont:1 | megaman:1 | samus:1
+  out 1016,128   never
+  loc 5 22       never
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 960,928 -> out 0,96: djump,link:1
+     coming in at 960,928
+   1. coming in: holding nothing, from 960,928; lands at 960,929
+      -> standing at x 647-993, y 929
+   2. jump (held 2 ticks), holding left, from 647,929; lands at 604,897
+      -> standing at x 503-646, y 897
+   3. jump (held 21 ticks), holding left, from 503,897; lands at 430,833
+      -> standing at x 362-502, y 833
+   4. jump (held 21 ticks), holding left, double jump at tick 15, from 362,833; lands at 143,753   [djump]
+      -> standing at x 106-182, y 753
+   5. jump (held 21 ticks), holding right, double jump at tick 15, from 106,753; lands at 227,657   [djump]
+      -> standing at x 170-246, y 657
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 192,657; lands at 389,561   [djump]
+      -> standing at x 378-438, y 561
+   7. jump (held 6 ticks), holding right, from 378,561; lands at 509,545
+      -> standing at x 474-614, y 545
+   8. jump (held 21 ticks), holding right, double jump at tick 15, from 474,545; lands at 693,465   [djump]
+      -> standing at x 666-774, y 465
+   9. jump (held 21 ticks), holding left, double jump at tick 10, from 666,465; lands at 518,385   [djump]
+      -> standing at x 490-598, y 385
+  10. jump (held 21 ticks), holding left, from 490,385; lands at 382,321
+      -> standing at x 346-454, y 321
+  11. jump (held 21 ticks), holding left, from 346,321; lands at 238,257
+      -> standing at x 234-310, y 257
+  12. jump (held 21 ticks), holding left, from 234,257; lands at 126,193
+      -> standing at x 87-198, y 193
+  13. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 87,193, through the Metroid door at 0,64, the Metroid door at 1000,464, the Metroid door at 1000,864, ...; lands at 21,129   [djump,link:1]
+      -> standing at x 0-30, y 129 (where a gate is)
+  14. standing at 0,129, goes into it
+      -> out 0,96
+how in 960,928 -> out 0,96: djump,belmont:1
+     coming in at 960,928
+   1. coming in: holding nothing, from 960,928; lands at 960,929
+      -> standing at x 647-993, y 929
+   2. jump (held 2 ticks), holding left, from 647,929; lands at 604,897
+      -> standing at x 503-646, y 897
+   3. jump (held 21 ticks), holding left, from 503,897; lands at 430,833
+      -> standing at x 362-502, y 833
+   4. jump (held 21 ticks), holding left, double jump at tick 15, from 362,833; lands at 143,753   [djump]
+      -> standing at x 106-182, y 753
+   5. jump (held 21 ticks), holding right, double jump at tick 15, from 106,753; lands at 227,657   [djump]
+      -> standing at x 170-246, y 657
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 192,657; lands at 389,561   [djump]
+      -> standing at x 378-438, y 561
+   7. jump (held 6 ticks), holding right, from 378,561; lands at 509,545
+      -> standing at x 474-614, y 545
+   8. jump (held 21 ticks), holding right, double jump at tick 15, from 474,545; lands at 693,465   [djump]
+      -> standing at x 666-774, y 465
+   9. jump (held 21 ticks), holding left, double jump at tick 10, from 666,465; lands at 518,385   [djump]
+      -> standing at x 490-598, y 385
+  10. jump (held 21 ticks), holding left, from 490,385; lands at 382,321
+      -> standing at x 346-454, y 321
+  11. jump (held 21 ticks), holding left, from 346,321; lands at 238,257
+      -> standing at x 234-310, y 257
+  12. jump (held 21 ticks), holding left, from 234,257; lands at 126,193
+      -> standing at x 87-198, y 193
+  13. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 87,193, through the Metroid door at 0,64, the Metroid door at 1000,464, the Metroid door at 1000,864, ...; lands at 21,129   [djump,belmont:1]
+      -> standing at x 0-30, y 129 (where a gate is)
+  14. standing at 0,129, goes into it
+      -> out 0,96
+how in 960,928 -> out 0,96: djump,megaman:1
+     coming in at 960,928
+   1. coming in: holding nothing, from 960,928; lands at 960,929
+      -> standing at x 647-993, y 929
+   2. jump (held 2 ticks), holding left, from 647,929; lands at 604,897
+      -> standing at x 503-646, y 897
+   3. jump (held 21 ticks), holding left, from 503,897; lands at 430,833
+      -> standing at x 362-502, y 833
+   4. jump (held 21 ticks), holding left, double jump at tick 15, from 362,833; lands at 143,753   [djump]
+      -> standing at x 106-182, y 753
+   5. jump (held 21 ticks), holding right, double jump at tick 15, from 106,753; lands at 227,657   [djump]
+      -> standing at x 170-246, y 657
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 192,657; lands at 389,561   [djump]
+      -> standing at x 378-438, y 561
+   7. jump (held 6 ticks), holding right, from 378,561; lands at 509,545
+      -> standing at x 474-614, y 545
+   8. jump (held 21 ticks), holding right, double jump at tick 15, from 474,545; lands at 693,465   [djump]
+      -> standing at x 666-774, y 465
+   9. jump (held 21 ticks), holding left, double jump at tick 10, from 666,465; lands at 518,385   [djump]
+      -> standing at x 490-598, y 385
+  10. jump (held 21 ticks), holding left, from 490,385; lands at 382,321
+      -> standing at x 346-454, y 321
+  11. jump (held 21 ticks), holding left, from 346,321; lands at 238,257
+      -> standing at x 234-310, y 257
+  12. jump (held 21 ticks), holding left, from 234,257; lands at 126,193
+      -> standing at x 87-198, y 193
+  13. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 87,193, through the Metroid door at 0,64, the Metroid door at 1000,464, the Metroid door at 1000,864, ...; lands at 21,129   [djump,megaman:1]
+      -> standing at x 0-30, y 129 (where a gate is)
+  14. standing at 0,129, goes into it
+      -> out 0,96
+how in 960,928 -> out 0,96: djump,samus:1
+     coming in at 960,928
+   1. coming in: holding nothing, from 960,928; lands at 960,929
+      -> standing at x 647-993, y 929
+   2. jump (held 2 ticks), holding left, from 647,929; lands at 604,897
+      -> standing at x 503-646, y 897
+   3. jump (held 21 ticks), holding left, from 503,897; lands at 430,833
+      -> standing at x 362-502, y 833
+   4. jump (held 21 ticks), holding left, double jump at tick 15, from 362,833; lands at 143,753   [djump]
+      -> standing at x 106-182, y 753
+   5. jump (held 21 ticks), holding right, double jump at tick 15, from 106,753; lands at 227,657   [djump]
+      -> standing at x 170-246, y 657
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 192,657; lands at 389,561   [djump]
+      -> standing at x 378-438, y 561
+   7. jump (held 6 ticks), holding right, from 378,561; lands at 509,545
+      -> standing at x 474-614, y 545
+   8. jump (held 21 ticks), holding right, double jump at tick 15, from 474,545; lands at 693,465   [djump]
+      -> standing at x 666-774, y 465
+   9. jump (held 21 ticks), holding left, double jump at tick 10, from 666,465; lands at 518,385   [djump]
+      -> standing at x 490-598, y 385
+  10. jump (held 21 ticks), holding left, from 490,385; lands at 382,321
+      -> standing at x 346-454, y 321
+  11. jump (held 21 ticks), holding left, from 346,321; lands at 238,257
+      -> standing at x 234-310, y 257
+  12. jump (held 21 ticks), holding left, from 234,257; lands at 126,193
+      -> standing at x 87-198, y 193
+  13. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 87,193, through the Metroid door at 0,64, the Metroid door at 1000,464, the Metroid door at 1000,864, ...; lands at 21,129   [djump,samus:1]
+      -> standing at x 0-30, y 129 (where a gate is)
+  14. standing at 0,129, goes into it
+      -> out 0,96
+how in 960,928 -> out 1008,496: djump,link:1
+     coming in at 960,928
+   1. coming in: holding nothing, from 960,928; lands at 960,929
+      -> standing at x 647-993, y 929
+   2. jump (held 2 ticks), holding left, from 647,929; lands at 604,897
+      -> standing at x 503-646, y 897
+   3. jump (held 21 ticks), holding left, from 503,897; lands at 430,833
+      -> standing at x 362-502, y 833
+   4. jump (held 21 ticks), holding left, double jump at tick 15, from 362,833; lands at 143,753   [djump]
+      -> standing at x 106-182, y 753
+   5. jump (held 21 ticks), holding right, double jump at tick 15, from 106,753; lands at 227,657   [djump]
+      -> standing at x 170-246, y 657
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 192,657; lands at 389,561   [djump]
+      -> standing at x 378-438, y 561
+   7. jump (held 21 ticks), holding right, double jump at tick 15, from 378,561; lands at 685,609   [djump]
+      -> standing at x 615-697, y 609
+   8. jump (held 21 ticks), holding right, double jump at tick 15, from 656,609; lands at 875,529   [djump]
+      -> standing at x 858-993, y 529
+   9. walk off the edge, holding right once in the air, from 858,529, through the Metroid door at 0,64, the Metroid door at 1000,464, the Metroid door at 1000,864, ...; touches it on the way   [link:1]
+      -> out 1008,496
+how in 960,928 -> out 1008,496: djump,belmont:1
+     coming in at 960,928
+   1. coming in: holding nothing, from 960,928; lands at 960,929
+      -> standing at x 647-993, y 929
+   2. jump (held 2 ticks), holding left, from 647,929; lands at 604,897
+      -> standing at x 503-646, y 897
+   3. jump (held 21 ticks), holding left, from 503,897; lands at 430,833
+      -> standing at x 362-502, y 833
+   4. jump (held 21 ticks), holding left, double jump at tick 15, from 362,833; lands at 143,753   [djump]
+      -> standing at x 106-182, y 753
+   5. jump (held 21 ticks), holding right, double jump at tick 15, from 106,753; lands at 227,657   [djump]
+      -> standing at x 170-246, y 657
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 192,657; lands at 389,561   [djump]
+      -> standing at x 378-438, y 561
+   7. jump (held 21 ticks), holding right, double jump at tick 15, from 378,561; lands at 685,609   [djump]
+      -> standing at x 615-697, y 609
+   8. jump (held 21 ticks), holding right, double jump at tick 15, from 656,609; lands at 875,529   [djump]
+      -> standing at x 858-993, y 529
+   9. walk off the edge, holding right once in the air, from 858,529, through the Metroid door at 0,64, the Metroid door at 1000,464, the Metroid door at 1000,864, ...; touches it on the way   [belmont:1]
+      -> out 1008,496
+how in 960,928 -> out 1008,496: djump,megaman:1
+     coming in at 960,928
+   1. coming in: holding nothing, from 960,928; lands at 960,929
+      -> standing at x 647-993, y 929
+   2. jump (held 2 ticks), holding left, from 647,929; lands at 604,897
+      -> standing at x 503-646, y 897
+   3. jump (held 21 ticks), holding left, from 503,897; lands at 430,833
+      -> standing at x 362-502, y 833
+   4. jump (held 21 ticks), holding left, double jump at tick 15, from 362,833; lands at 143,753   [djump]
+      -> standing at x 106-182, y 753
+   5. jump (held 21 ticks), holding right, double jump at tick 15, from 106,753; lands at 227,657   [djump]
+      -> standing at x 170-246, y 657
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 192,657; lands at 389,561   [djump]
+      -> standing at x 378-438, y 561
+   7. jump (held 21 ticks), holding right, double jump at tick 15, from 378,561; lands at 685,609   [djump]
+      -> standing at x 615-697, y 609
+   8. jump (held 21 ticks), holding right, double jump at tick 15, from 656,609; lands at 875,529   [djump]
+      -> standing at x 858-993, y 529
+   9. walk off the edge, holding right once in the air, from 858,529, through the Metroid door at 0,64, the Metroid door at 1000,464, the Metroid door at 1000,864, ...; touches it on the way   [megaman:1]
+      -> out 1008,496
+how in 960,928 -> out 1008,496: djump,samus:1
+     coming in at 960,928
+   1. coming in: holding nothing, from 960,928; lands at 960,929
+      -> standing at x 647-993, y 929
+   2. jump (held 2 ticks), holding left, from 647,929; lands at 604,897
+      -> standing at x 503-646, y 897
+   3. jump (held 21 ticks), holding left, from 503,897; lands at 430,833
+      -> standing at x 362-502, y 833
+   4. jump (held 21 ticks), holding left, double jump at tick 15, from 362,833; lands at 143,753   [djump]
+      -> standing at x 106-182, y 753
+   5. jump (held 21 ticks), holding right, double jump at tick 15, from 106,753; lands at 227,657   [djump]
+      -> standing at x 170-246, y 657
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 192,657; lands at 389,561   [djump]
+      -> standing at x 378-438, y 561
+   7. jump (held 21 ticks), holding right, double jump at tick 15, from 378,561; lands at 685,609   [djump]
+      -> standing at x 615-697, y 609
+   8. jump (held 21 ticks), holding right, double jump at tick 15, from 656,609; lands at 875,529   [djump]
+      -> standing at x 858-993, y 529
+   9. walk off the edge, holding right once in the air, from 858,529, through the Metroid door at 0,64, the Metroid door at 1000,464, the Metroid door at 1000,864, ...; touches it on the way   [samus:1]
+      -> out 1008,496
+how in 960,928 -> out 1008,896: link:1
+     coming in at 960,928
+   1. coming in: holding nothing, from 960,928; lands at 960,929
+      -> standing at x 647-993, y 929
+   2. walk off the edge, holding right once in the air, from 647,929, through the Metroid door at 0,64, the Metroid door at 1000,464, the Metroid door at 1000,864, ...; touches it on the way   [link:1]
+      -> out 1008,896
+how in 960,928 -> out 1008,896: belmont:1
+     coming in at 960,928
+   1. coming in: holding nothing, from 960,928; lands at 960,929
+      -> standing at x 647-993, y 929
+   2. walk off the edge, holding right once in the air, from 647,929, through the Metroid door at 0,64, the Metroid door at 1000,464, the Metroid door at 1000,864, ...; touches it on the way   [belmont:1]
+      -> out 1008,896
+how in 960,928 -> out 1008,896: megaman:1
+     coming in at 960,928
+   1. coming in: holding nothing, from 960,928; lands at 960,929
+      -> standing at x 647-993, y 929
+   2. walk off the edge, holding right once in the air, from 647,929, through the Metroid door at 0,64, the Metroid door at 1000,464, the Metroid door at 1000,864, ...; touches it on the way   [megaman:1]
+      -> out 1008,896
+how in 960,928 -> out 1008,896: samus:1
+     coming in at 960,928
+   1. coming in: holding nothing, from 960,928; lands at 960,929
+      -> standing at x 647-993, y 929
+   2. walk off the edge, holding right once in the air, from 647,929, through the Metroid door at 0,64, the Metroid door at 1000,464, the Metroid door at 1000,864, ...; touches it on the way   [samus:1]
+      -> out 1008,896
+how in 944,192 -> out 1016,128: samus:2
+     coming in at 944,192
+   1. coming in: holding nothing, from 944,192; lands at 944,193
+      -> standing at x 903-953, y 193
+   2. jump (held 21 ticks), holding right, turn into the Morph Ball at tick 8, from 903,193; lands at 964,161   [samus:2]
+      -> as the Morph Ball at x 954-1024, y 161
+   3. as the Morph Ball, standing at 1014,161, goes into it
+      -> out 1016,128
+how in 944,192 -> loc 5 22: -
+     coming in at 944,192
+   1. coming in: holding nothing, from 944,192; lands at 944,193
+      -> standing at x 903-953, y 193
+   2. jump (held 2 ticks), holding left, from 903,193; lands at 887,177
+      -> standing at x 887-902, y 177
+   3. standing at 887,177, touches it
+      -> loc 5 22
+how in 960,528 -> out 0,96: djump,link:1
+     coming in at 960,528
+   1. coming in: holding nothing, from 960,528; lands at 960,529
+      -> standing at x 858-993, y 529
+   2. jump (held 21 ticks), holding left, from 858,529; lands at 727,465
+      -> standing at x 666-774, y 465
+   3. jump (held 21 ticks), holding left, double jump at tick 10, from 666,465; lands at 518,385   [djump]
+      -> standing at x 490-598, y 385
+   4. jump (held 21 ticks), holding left, from 490,385; lands at 382,321
+      -> standing at x 346-454, y 321
+   5. jump (held 21 ticks), holding left, from 346,321; lands at 238,257
+      -> standing at x 234-310, y 257
+   6. jump (held 21 ticks), holding left, from 234,257; lands at 126,193
+      -> standing at x 87-198, y 193
+   7. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 87,193, through the Metroid door at 0,64, the Metroid door at 1000,464, the Metroid door at 1000,864, ...; lands at 21,129   [djump,link:1]
+      -> standing at x 0-30, y 129 (where a gate is)
+   8. standing at 0,129, goes into it
+      -> out 0,96
+how in 960,528 -> out 0,96: djump,belmont:1
+     coming in at 960,528
+   1. coming in: holding nothing, from 960,528; lands at 960,529
+      -> standing at x 858-993, y 529
+   2. jump (held 21 ticks), holding left, from 858,529; lands at 727,465
+      -> standing at x 666-774, y 465
+   3. jump (held 21 ticks), holding left, double jump at tick 10, from 666,465; lands at 518,385   [djump]
+      -> standing at x 490-598, y 385
+   4. jump (held 21 ticks), holding left, from 490,385; lands at 382,321
+      -> standing at x 346-454, y 321
+   5. jump (held 21 ticks), holding left, from 346,321; lands at 238,257
+      -> standing at x 234-310, y 257
+   6. jump (held 21 ticks), holding left, from 234,257; lands at 126,193
+      -> standing at x 87-198, y 193
+   7. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 87,193, through the Metroid door at 0,64, the Metroid door at 1000,464, the Metroid door at 1000,864, ...; lands at 21,129   [djump,belmont:1]
+      -> standing at x 0-30, y 129 (where a gate is)
+   8. standing at 0,129, goes into it
+      -> out 0,96
+how in 960,528 -> out 0,96: djump,megaman:1
+     coming in at 960,528
+   1. coming in: holding nothing, from 960,528; lands at 960,529
+      -> standing at x 858-993, y 529
+   2. jump (held 21 ticks), holding left, from 858,529; lands at 727,465
+      -> standing at x 666-774, y 465
+   3. jump (held 21 ticks), holding left, double jump at tick 10, from 666,465; lands at 518,385   [djump]
+      -> standing at x 490-598, y 385
+   4. jump (held 21 ticks), holding left, from 490,385; lands at 382,321
+      -> standing at x 346-454, y 321
+   5. jump (held 21 ticks), holding left, from 346,321; lands at 238,257
+      -> standing at x 234-310, y 257
+   6. jump (held 21 ticks), holding left, from 234,257; lands at 126,193
+      -> standing at x 87-198, y 193
+   7. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 87,193, through the Metroid door at 0,64, the Metroid door at 1000,464, the Metroid door at 1000,864, ...; lands at 21,129   [djump,megaman:1]
+      -> standing at x 0-30, y 129 (where a gate is)
+   8. standing at 0,129, goes into it
+      -> out 0,96
+how in 960,528 -> out 0,96: djump,samus:1
+     coming in at 960,528
+   1. coming in: holding nothing, from 960,528; lands at 960,529
+      -> standing at x 858-993, y 529
+   2. jump (held 21 ticks), holding left, from 858,529; lands at 727,465
+      -> standing at x 666-774, y 465
+   3. jump (held 21 ticks), holding left, double jump at tick 10, from 666,465; lands at 518,385   [djump]
+      -> standing at x 490-598, y 385
+   4. jump (held 21 ticks), holding left, from 490,385; lands at 382,321
+      -> standing at x 346-454, y 321
+   5. jump (held 21 ticks), holding left, from 346,321; lands at 238,257
+      -> standing at x 234-310, y 257
+   6. jump (held 21 ticks), holding left, from 234,257; lands at 126,193
+      -> standing at x 87-198, y 193
+   7. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 87,193, through the Metroid door at 0,64, the Metroid door at 1000,464, the Metroid door at 1000,864, ...; lands at 21,129   [djump,samus:1]
+      -> standing at x 0-30, y 129 (where a gate is)
+   8. standing at 0,129, goes into it
+      -> out 0,96
+how in 960,528 -> out 0,96: adash,link:1
+     coming in at 960,528
+   1. coming in: holding nothing, from 960,528; lands at 960,529
+      -> standing at x 858-993, y 529
+   2. jump (held 21 ticks), holding left, from 858,529; lands at 727,465
+      -> standing at x 666-774, y 465
+   3. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 666,465; lands at 510,385   [adash]
+      -> standing at x 490-598, y 385
+   4. jump (held 21 ticks), holding left, from 490,385; lands at 382,321
+      -> standing at x 346-454, y 321
+   5. jump (held 21 ticks), holding left, from 346,321; lands at 238,257
+      -> standing at x 234-310, y 257
+   6. jump (held 21 ticks), holding left, from 234,257; lands at 126,193
+      -> standing at x 87-198, y 193
+   7. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 95,193, through the Metroid door at 0,64, the Metroid door at 1000,464, the Metroid door at 1000,864, ...; lands at 19,129   [link:1]
+      -> standing at x 0-30, y 129 (where a gate is)
+   8. standing at 0,129, goes into it
+      -> out 0,96
+how in 960,528 -> out 0,96: adash,belmont:1
+     coming in at 960,528
+   1. coming in: holding nothing, from 960,528; lands at 960,529
+      -> standing at x 858-993, y 529
+   2. jump (held 21 ticks), holding left, from 858,529; lands at 727,465
+      -> standing at x 666-774, y 465
+   3. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 666,465; lands at 510,385   [adash]
+      -> standing at x 490-598, y 385
+   4. jump (held 21 ticks), holding left, from 490,385; lands at 382,321
+      -> standing at x 346-454, y 321
+   5. jump (held 21 ticks), holding left, from 346,321; lands at 238,257
+      -> standing at x 234-310, y 257
+   6. jump (held 21 ticks), holding left, from 234,257; lands at 126,193
+      -> standing at x 87-198, y 193
+   7. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 95,193, through the Metroid door at 0,64, the Metroid door at 1000,464, the Metroid door at 1000,864, ...; lands at 19,129   [belmont:1]
+      -> standing at x 0-30, y 129 (where a gate is)
+   8. standing at 0,129, goes into it
+      -> out 0,96
+how in 960,528 -> out 0,96: adash,megaman:1
+     coming in at 960,528
+   1. coming in: holding nothing, from 960,528; lands at 960,529
+      -> standing at x 858-993, y 529
+   2. jump (held 21 ticks), holding left, from 858,529; lands at 727,465
+      -> standing at x 666-774, y 465
+   3. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 666,465; lands at 510,385   [adash]
+      -> standing at x 490-598, y 385
+   4. jump (held 21 ticks), holding left, from 490,385; lands at 382,321
+      -> standing at x 346-454, y 321
+   5. jump (held 21 ticks), holding left, from 346,321; lands at 238,257
+      -> standing at x 234-310, y 257
+   6. jump (held 21 ticks), holding left, from 234,257; lands at 126,193
+      -> standing at x 87-198, y 193
+   7. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 95,193, through the Metroid door at 0,64, the Metroid door at 1000,464, the Metroid door at 1000,864, ...; lands at 19,129   [megaman:1]
+      -> standing at x 0-30, y 129 (where a gate is)
+   8. standing at 0,129, goes into it
+      -> out 0,96
+how in 960,528 -> out 0,96: adash,samus:1
+     coming in at 960,528
+   1. coming in: holding nothing, from 960,528; lands at 960,529
+      -> standing at x 858-993, y 529
+   2. jump (held 21 ticks), holding left, from 858,529; lands at 727,465
+      -> standing at x 666-774, y 465
+   3. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 666,465; lands at 510,385   [adash]
+      -> standing at x 490-598, y 385
+   4. jump (held 21 ticks), holding left, from 490,385; lands at 382,321
+      -> standing at x 346-454, y 321
+   5. jump (held 21 ticks), holding left, from 346,321; lands at 238,257
+      -> standing at x 234-310, y 257
+   6. jump (held 21 ticks), holding left, from 234,257; lands at 126,193
+      -> standing at x 87-198, y 193
+   7. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 95,193, through the Metroid door at 0,64, the Metroid door at 1000,464, the Metroid door at 1000,864, ...; lands at 19,129   [samus:1]
+      -> standing at x 0-30, y 129 (where a gate is)
+   8. standing at 0,129, goes into it
+      -> out 0,96
+how in 960,528 -> out 0,96: hijump:1,link:1
+     coming in at 960,528
+   1. coming in: holding nothing, from 960,528; lands at 960,529
+      -> standing at x 858-993, y 529
+   2. jump (held 21 ticks), holding left, from 858,529; lands at 727,465
+      -> standing at x 666-774, y 465
+   3. jump with High Jump Boots 1 (held 40 ticks), holding left, from 666,465; lands at 511,385   [hijump:1]
+      -> standing at x 490-598, y 385
+   4. jump (held 21 ticks), holding left, from 490,385; lands at 382,321
+      -> standing at x 346-454, y 321
+   5. jump (held 21 ticks), holding left, from 346,321; lands at 238,257
+      -> standing at x 234-310, y 257
+   6. jump (held 21 ticks), holding left, from 234,257; lands at 126,193
+      -> standing at x 87-198, y 193
+   7. jump with High Jump Boots 1 (held 40 ticks), holding nothing, then left after 12 ticks, from 94,193, through the Metroid door at 0,64, the Metroid door at 1000,464, the Metroid door at 1000,864, ...; lands at 21,129   [hijump:1,link:1]
+      -> standing at x 0-30, y 129 (where a gate is)
+   8. standing at 0,129, goes into it
+      -> out 0,96
+how in 960,528 -> out 0,96: hijump:1,belmont:1
+     coming in at 960,528
+   1. coming in: holding nothing, from 960,528; lands at 960,529
+      -> standing at x 858-993, y 529
+   2. jump (held 21 ticks), holding left, from 858,529; lands at 727,465
+      -> standing at x 666-774, y 465
+   3. jump with High Jump Boots 1 (held 40 ticks), holding left, from 666,465; lands at 511,385   [hijump:1]
+      -> standing at x 490-598, y 385
+   4. jump (held 21 ticks), holding left, from 490,385; lands at 382,321
+      -> standing at x 346-454, y 321
+   5. jump (held 21 ticks), holding left, from 346,321; lands at 238,257
+      -> standing at x 234-310, y 257
+   6. jump (held 21 ticks), holding left, from 234,257; lands at 126,193
+      -> standing at x 87-198, y 193
+   7. jump with High Jump Boots 1 (held 40 ticks), holding nothing, then left after 12 ticks, from 94,193, through the Metroid door at 0,64, the Metroid door at 1000,464, the Metroid door at 1000,864, ...; lands at 21,129   [hijump:1,belmont:1]
+      -> standing at x 0-30, y 129 (where a gate is)
+   8. standing at 0,129, goes into it
+      -> out 0,96
+how in 960,528 -> out 0,96: hijump:1,megaman:1
+     coming in at 960,528
+   1. coming in: holding nothing, from 960,528; lands at 960,529
+      -> standing at x 858-993, y 529
+   2. jump (held 21 ticks), holding left, from 858,529; lands at 727,465
+      -> standing at x 666-774, y 465
+   3. jump with High Jump Boots 1 (held 40 ticks), holding left, from 666,465; lands at 511,385   [hijump:1]
+      -> standing at x 490-598, y 385
+   4. jump (held 21 ticks), holding left, from 490,385; lands at 382,321
+      -> standing at x 346-454, y 321
+   5. jump (held 21 ticks), holding left, from 346,321; lands at 238,257
+      -> standing at x 234-310, y 257
+   6. jump (held 21 ticks), holding left, from 234,257; lands at 126,193
+      -> standing at x 87-198, y 193
+   7. jump with High Jump Boots 1 (held 40 ticks), holding nothing, then left after 12 ticks, from 94,193, through the Metroid door at 0,64, the Metroid door at 1000,464, the Metroid door at 1000,864, ...; lands at 21,129   [hijump:1,megaman:1]
+      -> standing at x 0-30, y 129 (where a gate is)
+   8. standing at 0,129, goes into it
+      -> out 0,96
+how in 960,528 -> out 0,96: hijump:1,samus:1
+     coming in at 960,528
+   1. coming in: holding nothing, from 960,528; lands at 960,529
+      -> standing at x 858-993, y 529
+   2. jump (held 21 ticks), holding left, from 858,529; lands at 727,465
+      -> standing at x 666-774, y 465
+   3. jump with High Jump Boots 1 (held 40 ticks), holding left, from 666,465; lands at 511,385   [hijump:1]
+      -> standing at x 490-598, y 385
+   4. jump (held 21 ticks), holding left, from 490,385; lands at 382,321
+      -> standing at x 346-454, y 321
+   5. jump (held 21 ticks), holding left, from 346,321; lands at 238,257
+      -> standing at x 234-310, y 257
+   6. jump (held 21 ticks), holding left, from 234,257; lands at 126,193
+      -> standing at x 87-198, y 193
+   7. jump with High Jump Boots 1 (held 40 ticks), holding nothing, then left after 12 ticks, from 94,193, through the Metroid door at 0,64, the Metroid door at 1000,464, the Metroid door at 1000,864, ...; lands at 21,129   [hijump:1,samus:1]
+      -> standing at x 0-30, y 129 (where a gate is)
+   8. standing at 0,129, goes into it
+      -> out 0,96
+how in 960,528 -> out 1008,496: link:1
+     coming in at 960,528
+   1. coming in: holding nothing, from 960,528; lands at 960,529
+      -> standing at x 858-993, y 529
+   2. walk off the edge, holding right once in the air, from 858,529, through the Metroid door at 0,64, the Metroid door at 1000,464, the Metroid door at 1000,864, ...; touches it on the way   [link:1]
+      -> out 1008,496
+how in 960,528 -> out 1008,496: belmont:1
+     coming in at 960,528
+   1. coming in: holding nothing, from 960,528; lands at 960,529
+      -> standing at x 858-993, y 529
+   2. walk off the edge, holding right once in the air, from 858,529, through the Metroid door at 0,64, the Metroid door at 1000,464, the Metroid door at 1000,864, ...; touches it on the way   [belmont:1]
+      -> out 1008,496
+how in 960,528 -> out 1008,496: megaman:1
+     coming in at 960,528
+   1. coming in: holding nothing, from 960,528; lands at 960,529
+      -> standing at x 858-993, y 529
+   2. walk off the edge, holding right once in the air, from 858,529, through the Metroid door at 0,64, the Metroid door at 1000,464, the Metroid door at 1000,864, ...; touches it on the way   [megaman:1]
+      -> out 1008,496
+how in 960,528 -> out 1008,496: samus:1
+     coming in at 960,528
+   1. coming in: holding nothing, from 960,528; lands at 960,529
+      -> standing at x 858-993, y 529
+   2. walk off the edge, holding right once in the air, from 858,529, through the Metroid door at 0,64, the Metroid door at 1000,464, the Metroid door at 1000,864, ...; touches it on the way   [samus:1]
+      -> out 1008,496
+how in 960,528 -> out 1008,896: link:1
+     coming in at 960,528
+   1. coming in: holding nothing, from 960,528; lands at 960,529
+      -> standing at x 858-993, y 529
+   2. walk off the edge, holding left once in the air, from 858,529; lands at 785,577
+      -> standing at x 698-857, y 577
+   3. jump (held 6 ticks), holding left, from 698,577; lands at 581,545
+      -> standing at x 474-614, y 545
+   4. walk off the edge, holding left, then right after 1 ticks in the air, from 474,545; lands at 612,897
+      -> standing at x 503-646, y 897
+   5. walk off the edge, holding right once in the air, from 503,897; lands at 708,929
+      -> standing at x 647-993, y 929
+   6. walk off the edge, holding right once in the air, from 647,929, through the Metroid door at 0,64, the Metroid door at 1000,464, the Metroid door at 1000,864, ...; touches it on the way   [link:1]
+      -> out 1008,896
+how in 960,528 -> out 1008,896: belmont:1
+     coming in at 960,528
+   1. coming in: holding nothing, from 960,528; lands at 960,529
+      -> standing at x 858-993, y 529
+   2. walk off the edge, holding left once in the air, from 858,529; lands at 785,577
+      -> standing at x 698-857, y 577
+   3. jump (held 6 ticks), holding left, from 698,577; lands at 581,545
+      -> standing at x 474-614, y 545
+   4. walk off the edge, holding left, then right after 1 ticks in the air, from 474,545; lands at 612,897
+      -> standing at x 503-646, y 897
+   5. walk off the edge, holding right once in the air, from 503,897; lands at 708,929
+      -> standing at x 647-993, y 929
+   6. walk off the edge, holding right once in the air, from 647,929, through the Metroid door at 0,64, the Metroid door at 1000,464, the Metroid door at 1000,864, ...; touches it on the way   [belmont:1]
+      -> out 1008,896
+how in 960,528 -> out 1008,896: megaman:1
+     coming in at 960,528
+   1. coming in: holding nothing, from 960,528; lands at 960,529
+      -> standing at x 858-993, y 529
+   2. walk off the edge, holding left once in the air, from 858,529; lands at 785,577
+      -> standing at x 698-857, y 577
+   3. jump (held 6 ticks), holding left, from 698,577; lands at 581,545
+      -> standing at x 474-614, y 545
+   4. walk off the edge, holding left, then right after 1 ticks in the air, from 474,545; lands at 612,897
+      -> standing at x 503-646, y 897
+   5. walk off the edge, holding right once in the air, from 503,897; lands at 708,929
+      -> standing at x 647-993, y 929
+   6. walk off the edge, holding right once in the air, from 647,929, through the Metroid door at 0,64, the Metroid door at 1000,464, the Metroid door at 1000,864, ...; touches it on the way   [megaman:1]
+      -> out 1008,896
+how in 960,528 -> out 1008,896: samus:1
+     coming in at 960,528
+   1. coming in: holding nothing, from 960,528; lands at 960,529
+      -> standing at x 858-993, y 529
+   2. walk off the edge, holding left once in the air, from 858,529; lands at 785,577
+      -> standing at x 698-857, y 577
+   3. jump (held 6 ticks), holding left, from 698,577; lands at 581,545
+      -> standing at x 474-614, y 545
+   4. walk off the edge, holding left, then right after 1 ticks in the air, from 474,545; lands at 612,897
+      -> standing at x 503-646, y 897
+   5. walk off the edge, holding right once in the air, from 503,897; lands at 708,929
+      -> standing at x 647-993, y 929
+   6. walk off the edge, holding right once in the air, from 647,929, through the Metroid door at 0,64, the Metroid door at 1000,464, the Metroid door at 1000,864, ...; touches it on the way   [samus:1]
+      -> out 1008,896
+how in 64,128 -> out 0,96: link:1
+     coming in at 64,128
+   1. coming in: holding nothing, from 64,128; lands at 64,129
+      -> standing at x 31-86, y 129
+   2. walk from 31,129 to 30,129 into the Metroid door at 0,64   [link:1]
+      -> standing at x 0-30, y 129 (where a gate is)
+   3. standing at 0,129, goes into it
+      -> out 0,96
+how in 64,128 -> out 0,96: belmont:1
+     coming in at 64,128
+   1. coming in: holding nothing, from 64,128; lands at 64,129
+      -> standing at x 31-86, y 129
+   2. walk from 31,129 to 30,129 into the Metroid door at 0,64   [belmont:1]
+      -> standing at x 0-30, y 129 (where a gate is)
+   3. standing at 0,129, goes into it
+      -> out 0,96
+how in 64,128 -> out 0,96: megaman:1
+     coming in at 64,128
+   1. coming in: holding nothing, from 64,128; lands at 64,129
+      -> standing at x 31-86, y 129
+   2. walk from 31,129 to 30,129 into the Metroid door at 0,64   [megaman:1]
+      -> standing at x 0-30, y 129 (where a gate is)
+   3. standing at 0,129, goes into it
+      -> out 0,96
+how in 64,128 -> out 0,96: samus:1
+     coming in at 64,128
+   1. coming in: holding nothing, from 64,128; lands at 64,129
+      -> standing at x 31-86, y 129
+   2. walk from 31,129 to 30,129 into the Metroid door at 0,64   [samus:1]
+      -> standing at x 0-30, y 129 (where a gate is)
+   3. standing at 0,129, goes into it
+      -> out 0,96
+how in 64,128 -> out 1008,496: link:1
+     coming in at 64,128
+   1. coming in: holding nothing, from 64,128; lands at 64,129
+      -> standing at x 31-86, y 129
+   2. walk off the edge, holding right once in the air, from 31,129; lands at 170,193
+      -> standing at x 87-198, y 193
+   3. jump (held 21 ticks), holding right, from 94,193; lands at 357,321
+      -> standing at x 346-454, y 321
+   4. running right, jump (held 21 ticks), holding right, from 400,321; lands at 554,257
+      -> standing at x 538-614, y 257
+   5. running right, jump (held 21 ticks), holding right, from 576,257; lands at 939,529
+      -> standing at x 858-993, y 529
+   6. walk off the edge, holding right once in the air, from 858,529, through the Metroid door at 0,64, the Metroid door at 1000,464, the Metroid door at 1000,864, ...; touches it on the way   [link:1]
+      -> out 1008,496
+how in 64,128 -> out 1008,496: belmont:1
+     coming in at 64,128
+   1. coming in: holding nothing, from 64,128; lands at 64,129
+      -> standing at x 31-86, y 129
+   2. walk off the edge, holding right once in the air, from 31,129; lands at 170,193
+      -> standing at x 87-198, y 193
+   3. jump (held 21 ticks), holding right, from 94,193; lands at 357,321
+      -> standing at x 346-454, y 321
+   4. running right, jump (held 21 ticks), holding right, from 400,321; lands at 554,257
+      -> standing at x 538-614, y 257
+   5. running right, jump (held 21 ticks), holding right, from 576,257; lands at 939,529
+      -> standing at x 858-993, y 529
+   6. walk off the edge, holding right once in the air, from 858,529, through the Metroid door at 0,64, the Metroid door at 1000,464, the Metroid door at 1000,864, ...; touches it on the way   [belmont:1]
+      -> out 1008,496
+how in 64,128 -> out 1008,496: megaman:1
+     coming in at 64,128
+   1. coming in: holding nothing, from 64,128; lands at 64,129
+      -> standing at x 31-86, y 129
+   2. walk off the edge, holding right once in the air, from 31,129; lands at 170,193
+      -> standing at x 87-198, y 193
+   3. jump (held 21 ticks), holding right, from 94,193; lands at 357,321
+      -> standing at x 346-454, y 321
+   4. running right, jump (held 21 ticks), holding right, from 400,321; lands at 554,257
+      -> standing at x 538-614, y 257
+   5. running right, jump (held 21 ticks), holding right, from 576,257; lands at 939,529
+      -> standing at x 858-993, y 529
+   6. walk off the edge, holding right once in the air, from 858,529, through the Metroid door at 0,64, the Metroid door at 1000,464, the Metroid door at 1000,864, ...; touches it on the way   [megaman:1]
+      -> out 1008,496
+how in 64,128 -> out 1008,496: samus:1
+     coming in at 64,128
+   1. coming in: holding nothing, from 64,128; lands at 64,129
+      -> standing at x 31-86, y 129
+   2. walk off the edge, holding right once in the air, from 31,129; lands at 170,193
+      -> standing at x 87-198, y 193
+   3. jump (held 21 ticks), holding right, from 94,193; lands at 357,321
+      -> standing at x 346-454, y 321
+   4. running right, jump (held 21 ticks), holding right, from 400,321; lands at 554,257
+      -> standing at x 538-614, y 257
+   5. running right, jump (held 21 ticks), holding right, from 576,257; lands at 939,529
+      -> standing at x 858-993, y 529
+   6. walk off the edge, holding right once in the air, from 858,529, through the Metroid door at 0,64, the Metroid door at 1000,464, the Metroid door at 1000,864, ...; touches it on the way   [samus:1]
+      -> out 1008,496
+how in 64,128 -> out 1008,896: link:1
+     coming in at 64,128
+   1. coming in: holding nothing, from 64,128; lands at 64,129
+      -> standing at x 31-86, y 129
+   2. walk off the edge, holding right once in the air, from 31,129; lands at 170,193
+      -> standing at x 87-198, y 193
+   3. jump (held 21 ticks), holding right, from 94,193; lands at 357,321
+      -> standing at x 346-454, y 321
+   4. running right, jump (held 21 ticks), holding right, then nothing after 2 ticks, from 432,321; lands at 479,545
+      -> standing at x 474-614, y 545
+   5. walk off the edge, holding left, then right after 1 ticks in the air, from 474,545; lands at 612,897
+      -> standing at x 503-646, y 897
+   6. walk off the edge, holding right once in the air, from 503,897; lands at 708,929
+      -> standing at x 647-993, y 929
+   7. walk off the edge, holding right once in the air, from 647,929, through the Metroid door at 0,64, the Metroid door at 1000,464, the Metroid door at 1000,864, ...; touches it on the way   [link:1]
+      -> out 1008,896
+how in 64,128 -> out 1008,896: belmont:1
+     coming in at 64,128
+   1. coming in: holding nothing, from 64,128; lands at 64,129
+      -> standing at x 31-86, y 129
+   2. walk off the edge, holding right once in the air, from 31,129; lands at 170,193
+      -> standing at x 87-198, y 193
+   3. jump (held 21 ticks), holding right, from 94,193; lands at 357,321
+      -> standing at x 346-454, y 321
+   4. running right, jump (held 21 ticks), holding right, then nothing after 2 ticks, from 432,321; lands at 479,545
+      -> standing at x 474-614, y 545
+   5. walk off the edge, holding left, then right after 1 ticks in the air, from 474,545; lands at 612,897
+      -> standing at x 503-646, y 897
+   6. walk off the edge, holding right once in the air, from 503,897; lands at 708,929
+      -> standing at x 647-993, y 929
+   7. walk off the edge, holding right once in the air, from 647,929, through the Metroid door at 0,64, the Metroid door at 1000,464, the Metroid door at 1000,864, ...; touches it on the way   [belmont:1]
+      -> out 1008,896
+how in 64,128 -> out 1008,896: megaman:1
+     coming in at 64,128
+   1. coming in: holding nothing, from 64,128; lands at 64,129
+      -> standing at x 31-86, y 129
+   2. walk off the edge, holding right once in the air, from 31,129; lands at 170,193
+      -> standing at x 87-198, y 193
+   3. jump (held 21 ticks), holding right, from 94,193; lands at 357,321
+      -> standing at x 346-454, y 321
+   4. running right, jump (held 21 ticks), holding right, then nothing after 2 ticks, from 432,321; lands at 479,545
+      -> standing at x 474-614, y 545
+   5. walk off the edge, holding left, then right after 1 ticks in the air, from 474,545; lands at 612,897
+      -> standing at x 503-646, y 897
+   6. walk off the edge, holding right once in the air, from 503,897; lands at 708,929
+      -> standing at x 647-993, y 929
+   7. walk off the edge, holding right once in the air, from 647,929, through the Metroid door at 0,64, the Metroid door at 1000,464, the Metroid door at 1000,864, ...; touches it on the way   [megaman:1]
+      -> out 1008,896
+how in 64,128 -> out 1008,896: samus:1
+     coming in at 64,128
+   1. coming in: holding nothing, from 64,128; lands at 64,129
+      -> standing at x 31-86, y 129
+   2. walk off the edge, holding right once in the air, from 31,129; lands at 170,193
+      -> standing at x 87-198, y 193
+   3. jump (held 21 ticks), holding right, from 94,193; lands at 357,321
+      -> standing at x 346-454, y 321
+   4. running right, jump (held 21 ticks), holding right, then nothing after 2 ticks, from 432,321; lands at 479,545
+      -> standing at x 474-614, y 545
+   5. walk off the edge, holding left, then right after 1 ticks in the air, from 474,545; lands at 612,897
+      -> standing at x 503-646, y 897
+   6. walk off the edge, holding right once in the air, from 503,897; lands at 708,929
+      -> standing at x 647-993, y 929
+   7. walk off the edge, holding right once in the air, from 647,929, through the Metroid door at 0,64, the Metroid door at 1000,464, the Metroid door at 1000,864, ...; touches it on the way   [samus:1]
+      -> out 1008,896

@@ -1,0 +1,67 @@
+# rGame6_EarthC: Access Gate 6: Prototype Game (area 58), 576x1856 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 48,160   # from rGame6_EarthB out 2544,288
+in 528,1792   # from rGame6_EarthD out 0,256
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 0,128   # to rGame6_EarthB at 2512,320; the player goes into it
+out 560,1760   # to rGame6_EarthD at 48,288; the player goes into it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+loc 1 33   # heart piece 33, at 87,1783
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 48,160
+  out 0,128      -
+  out 560,1760   -
+  loc 1 33       never
+from in 528,1792
+  out 0,128      never
+  out 560,1760   -
+  loc 1 33       never
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 48,160 -> out 0,128: -
+     coming in at 48,160
+   1. coming in: holding nothing, from 48,160; lands at 48,161
+      -> standing at x 0-454, y 161
+   2. standing at 0,161, goes into it
+      -> out 0,128
+how in 48,160 -> out 560,1760: -
+     coming in at 48,160
+   1. coming in: holding nothing, from 48,160; lands at 48,161
+      -> standing at x 0-454, y 161
+   2. walk off the edge, holding right, then left after 1 ticks in the air, from 32,161; lands at 433,289
+      -> standing at x 410-454, y 289
+   3. walk off the edge, holding left once in the air, from 410,289; lands at 352,321
+      -> standing at x 154-409, y 321
+   4. walk off the edge, holding left, then nothing after 1 ticks in the air, from 154,321; lands at 120,545
+      -> standing at x 90-281, y 545
+   5. walk off the edge, holding left, then right after 1 ticks in the air, from 90,545; lands at 111,705
+      -> standing at x 71-134, y 705
+   6. walk off the edge, holding right, then left after 1 ticks in the air, from 71,705; lands at 71,929
+      -> standing at x 71-134, y 929
+   7. jump (held 21 ticks), holding nothing, then right after 14 ticks, from 71,929; lands at 379,1409
+      -> standing at x 346-390, y 1409
+   8. walk off the edge, holding left, then right after 1 ticks in the air, from 346,1409; lands at 462,1697
+      -> standing at x 442-505, y 1697
+   9. walk off the edge, holding left, then nothing after 1 ticks in the air, from 442,1697; lands at 410,1793
+      -> standing at x 391-576, y 1793
+  10. standing at 558,1793, goes into it
+      -> out 560,1760
+how in 528,1792 -> out 560,1760: -
+     coming in at 528,1792
+   1. coming in: holding nothing, from 528,1792; lands at 528,1793
+      -> standing at x 391-576, y 1793
+   2. standing at 558,1793, goes into it
+      -> out 560,1760

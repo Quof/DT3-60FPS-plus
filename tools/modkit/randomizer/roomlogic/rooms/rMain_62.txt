@@ -1,0 +1,1054 @@
+# rMain_62: Starry Skies - Windy Hills (area 62), 896x2048 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+# switches: the room is worked out in each of its states, the player coming in in the first: [no ice platforms]
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 48,1920   # from rMain_61 out 3056,816
+in 848,128   # from rMain_63 out 0,240
+in 48,256   # from rMain_64 out 3056,624
+in 848,1408   # from rMain_79 out 0,256
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 0,1888   # to rMain_61 at 3024,848; the player goes into it
+out 880,96   # to rMain_63 at 48,272; the player goes into it
+out 0,224   # to rMain_64 at 3024,656; the player goes into it
+out 880,1376   # to rMain_79 at 48,288; the player goes into it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+loc 10 59   # skill point 59, at 847,1599
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 48,1920
+  out 0,1888     -
+  out 880,96     djump,adash,megaman:4
+  out 0,224      djump,megaman:2 | djump,belmont:3
+  out 880,1376   djump,megaman:2 | djump,belmont:3
+  loc 10 59      djump,adash | adash,gdash | djump,gdash | adash,megaman:2 | adash,belmont:3 | djump,megaman:2 | djump,belmont:3 | gdash,megaman:2 | gdash,belmont:3
+from in 848,128
+  out 0,1888     -
+  out 880,96     -
+  out 0,224      djump,megaman:2 | adash,megaman:2 | djump,belmont:3
+  out 880,1376   -
+  loc 10 59      djump,adash | adash,gdash | djump,gdash | adash,megaman:2 | adash,belmont:3 | djump,megaman:2 | djump,belmont:3 | gdash,megaman:2 | gdash,belmont:3
+from in 48,256
+  out 0,1888     -
+  out 880,96     djump,adash,megaman:4
+  out 0,224      -
+  out 880,1376   -
+  loc 10 59      djump,adash | adash,gdash | djump,gdash | adash,megaman:2 | adash,belmont:3 | djump,megaman:2 | djump,belmont:3 | gdash,megaman:2 | gdash,belmont:3
+from in 848,1408
+  out 0,1888     -
+  out 880,96     djump,adash,megaman:4
+  out 0,224      djump,megaman:2 | djump,belmont:3
+  out 880,1376   -
+  loc 10 59      djump,adash | adash,gdash | djump,gdash | adash,megaman:2 | adash,belmont:3 | djump,megaman:2 | djump,belmont:3 | gdash,megaman:2 | gdash,belmont:3
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 48,1920 -> out 0,1888: -
+     [no ice platforms] coming in at 48,1920
+   1. coming in: holding nothing, from 48,1920; lands at 48,1921
+      -> [no ice platforms] standing at x 0-896, y 1905-1969
+   2. standing at 0,1921, goes into it
+      -> out 0,1888
+how in 48,1920 -> out 880,96: djump,adash,megaman:4
+     [no ice platforms] coming in at 48,1920
+   1. coming in: holding nothing, from 48,1920; lands at 48,1921
+      -> [no ice platforms] standing at x 0-896, y 1905-1969
+   2. jump (held 21 ticks), holding right, from 672,1905; lands at 726,1828
+      -> [no ice platforms] standing at x 715-870, y 1809-1839
+   3. jump (held 21 ticks), holding left, from 752,1809; lands at 637,1735
+      -> [no ice platforms] standing at x 490-646, y 1713-1744
+   4. shoot the ice block at 384,1648 from 490,1729 (at the top of a jump) with Shotgun Ice: [ice platforms out]   [megaman:2]
+      -> [ice platforms out] standing at x 490-646, y 1713-1744
+   5. jump (held 21 ticks), holding left, from 528,1717; lands at 419,1645
+      -> [ice platforms out] standing at x 386-430, y 1645
+   6. jump (held 6 ticks), holding left, from 386,1645; lands at 291,1597
+      -> [ice platforms out] standing at x 274-318, y 1597
+   7. running left, jump (held 6 ticks), holding left, from 274,1597; lands at 134,1565
+      -> [ice platforms out] standing at x 114-158, y 1565
+   8. jump (held 21 ticks), holding right, double jump at tick 15, from 114,1565; lands at 195,1460   [djump]
+      -> [ice platforms out] standing at x 170-646, y 1345-1473
+   9. jump (held 21 ticks), holding left, double jump at tick 10, from 224,1434; lands at 145,1339   [djump]
+      -> [ice platforms out] standing at x 74-150, y 1329-1344
+  10. jump (held 21 ticks), holding right, double jump at tick 5, from 74,1329; lands at 205,1277   [djump]
+      -> [ice platforms out] standing at x 178-222, y 1277
+  11. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 178,1277; lands at 254,1213
+      -> [ice platforms out] standing at x 242-286, y 1213
+  12. jump (held 21 ticks), holding right, from 242,1213; lands at 345,1137
+      -> [ice platforms out] standing at x 298-438, y 1137-1153
+  13. jump (held 21 ticks), holding right, double jump at tick 15, from 416,1137; lands at 666,1089   [djump]
+      -> [ice platforms out] standing at x 650-806, y 1073-1105
+  14. jump (held 21 ticks), holding left, double jump at tick 15, from 688,1073; lands at 549,968   [djump]
+      -> [ice platforms out] standing at x 154-582, y 945-1057
+  15. jump (held 21 ticks), holding right, double jump at tick 15, from 400,957; lands at 619,877   [djump]
+      -> [ice platforms out] standing at x 610-654, y 877
+  16. running left, jump (held 21 ticks), holding left, from 610,877; lands at 434,829
+      -> [ice platforms out] standing at x 418-462, y 829
+  17. jump (held 21 ticks), holding left, double jump at tick 10, from 418,829; lands at 199,801   [djump]
+      -> [ice platforms out] standing at x 42-214, y 769-801
+  18. jump (held 21 ticks), holding right, double jump at tick 15, from 160,785; lands at 357,689   [djump]
+      -> [ice platforms out] standing at x 346-454, y 673-689
+  19. jump (held 21 ticks), holding right, double jump at tick 15, from 400,685; lands at 605,593   [djump]
+      -> [ice platforms out] standing at x 586-790, y 593-688
+  20. running left, jump (held 14 ticks), holding left, double jump at tick 21, from 588,593; lands at 287,545   [djump]
+      -> [ice platforms out] standing at x 90-294, y 529-545
+  21. jump (held 21 ticks), holding right, double jump at tick 15, from 128,529; lands at 355,449   [djump]
+      -> [ice platforms out] standing at x 346-454, y 433-449
+  22. jump (held 21 ticks), holding right, double jump at tick 15, from 346,449; lands at 595,401   [djump]
+      -> [ice platforms out] standing at x 570-614, y 401
+  23. jump (held 21 ticks), holding right, from 570,401; lands at 723,353
+      -> [ice platforms out] standing at x 698-742, y 353
+  24. jump (held 21 ticks), holding left, double jump at tick 10, from 698,353; lands at 515,285   [djump]
+      -> [ice platforms out] standing at x 482-526, y 285
+  25. jump (held 21 ticks), holding left, from 482,285; lands at 299,273
+      -> [ice platforms out] standing at x 0-310, y 257-273
+  26. jump (held 21 ticks), holding right, double jump at tick 16, air dash (Jerry) at tick 8, from 208,257; fires the Strike Chain at the point at 544,112   [djump,adash,megaman:4]
+      -> [ice platforms out] hanging from the Strike Chain point at 544,112
+  27. off the Strike Chain point: jump (held 21 ticks), holding right, double jump at tick 16, air dash (Jerry) at tick 6, from 544,152; lands at 877,129   [djump,adash]
+      -> [ice platforms out] standing at x 810-896, y 129
+  28. standing at 878,129, goes into it
+      -> out 880,96
+how in 48,1920 -> out 0,224: djump,megaman:2
+     [no ice platforms] coming in at 48,1920
+   1. coming in: holding nothing, from 48,1920; lands at 48,1921
+      -> [no ice platforms] standing at x 0-896, y 1905-1969
+   2. jump (held 21 ticks), holding right, from 672,1905; lands at 726,1828
+      -> [no ice platforms] standing at x 715-870, y 1809-1839
+   3. jump (held 21 ticks), holding left, from 752,1809; lands at 637,1735
+      -> [no ice platforms] standing at x 490-646, y 1713-1744
+   4. shoot the ice block at 384,1648 from 490,1729 (at the top of a jump) with Shotgun Ice: [ice platforms out]   [megaman:2]
+      -> [ice platforms out] standing at x 490-646, y 1713-1744
+   5. jump (held 21 ticks), holding left, from 528,1717; lands at 419,1645
+      -> [ice platforms out] standing at x 386-430, y 1645
+   6. jump (held 6 ticks), holding left, from 386,1645; lands at 291,1597
+      -> [ice platforms out] standing at x 274-318, y 1597
+   7. running left, jump (held 6 ticks), holding left, from 274,1597; lands at 134,1565
+      -> [ice platforms out] standing at x 114-158, y 1565
+   8. jump (held 21 ticks), holding right, double jump at tick 15, from 114,1565; lands at 195,1460   [djump]
+      -> [ice platforms out] standing at x 170-646, y 1345-1473
+   9. jump (held 21 ticks), holding left, double jump at tick 10, from 224,1434; lands at 145,1339   [djump]
+      -> [ice platforms out] standing at x 74-150, y 1329-1344
+  10. jump (held 21 ticks), holding right, double jump at tick 5, from 74,1329; lands at 205,1277   [djump]
+      -> [ice platforms out] standing at x 178-222, y 1277
+  11. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 178,1277; lands at 254,1213
+      -> [ice platforms out] standing at x 242-286, y 1213
+  12. jump (held 21 ticks), holding right, from 242,1213; lands at 345,1137
+      -> [ice platforms out] standing at x 298-438, y 1137-1153
+  13. jump (held 21 ticks), holding right, double jump at tick 15, from 416,1137; lands at 666,1089   [djump]
+      -> [ice platforms out] standing at x 650-806, y 1073-1105
+  14. jump (held 21 ticks), holding left, double jump at tick 15, from 688,1073; lands at 549,968   [djump]
+      -> [ice platforms out] standing at x 154-582, y 945-1057
+  15. jump (held 21 ticks), holding right, double jump at tick 15, from 400,957; lands at 619,877   [djump]
+      -> [ice platforms out] standing at x 610-654, y 877
+  16. running left, jump (held 21 ticks), holding left, from 610,877; lands at 434,829
+      -> [ice platforms out] standing at x 418-462, y 829
+  17. jump (held 21 ticks), holding left, double jump at tick 10, from 418,829; lands at 199,801   [djump]
+      -> [ice platforms out] standing at x 42-214, y 769-801
+  18. jump (held 21 ticks), holding right, double jump at tick 15, from 160,785; lands at 357,689   [djump]
+      -> [ice platforms out] standing at x 346-454, y 673-689
+  19. jump (held 21 ticks), holding right, double jump at tick 15, from 400,685; lands at 605,593   [djump]
+      -> [ice platforms out] standing at x 586-790, y 593-688
+  20. running left, jump (held 14 ticks), holding left, double jump at tick 21, from 588,593; lands at 287,545   [djump]
+      -> [ice platforms out] standing at x 90-294, y 529-545
+  21. jump (held 21 ticks), holding right, double jump at tick 15, from 128,529; lands at 355,449   [djump]
+      -> [ice platforms out] standing at x 346-454, y 433-449
+  22. jump (held 21 ticks), holding right, double jump at tick 15, from 346,449; lands at 595,401   [djump]
+      -> [ice platforms out] standing at x 570-614, y 401
+  23. jump (held 21 ticks), holding right, from 570,401; lands at 723,353
+      -> [ice platforms out] standing at x 698-742, y 353
+  24. jump (held 21 ticks), holding left, double jump at tick 10, from 698,353; lands at 515,285   [djump]
+      -> [ice platforms out] standing at x 482-526, y 285
+  25. jump (held 21 ticks), holding left, from 482,285; lands at 299,273
+      -> [ice platforms out] standing at x 0-310, y 257-273
+  26. standing at 0,257, goes into it
+      -> out 0,224
+how in 48,1920 -> out 0,224: djump,belmont:3
+     [no ice platforms] coming in at 48,1920
+   1. coming in: holding nothing, from 48,1920; lands at 48,1921
+      -> [no ice platforms] standing at x 0-896, y 1905-1969
+   2. jump (held 21 ticks), holding right, from 672,1905; lands at 726,1828
+      -> [no ice platforms] standing at x 715-870, y 1809-1839
+   3. jump (held 21 ticks), holding left, from 752,1809; lands at 637,1735
+      -> [no ice platforms] standing at x 490-646, y 1713-1744
+   4. hit the ice block at 592,1616 from 536,1713 (jumping if need be) with Shotgun Ice or Holy Water: [ice platforms out]   [belmont:3]
+      -> [ice platforms out] standing at x 490-646, y 1713-1744
+   5. jump (held 21 ticks), holding left, from 528,1717; lands at 419,1645
+      -> [ice platforms out] standing at x 386-430, y 1645
+   6. jump (held 6 ticks), holding left, from 386,1645; lands at 291,1597
+      -> [ice platforms out] standing at x 274-318, y 1597
+   7. running left, jump (held 6 ticks), holding left, from 274,1597; lands at 134,1565
+      -> [ice platforms out] standing at x 114-158, y 1565
+   8. jump (held 21 ticks), holding right, double jump at tick 15, from 114,1565; lands at 195,1460   [djump]
+      -> [ice platforms out] standing at x 170-646, y 1345-1473
+   9. jump (held 21 ticks), holding left, double jump at tick 10, from 224,1434; lands at 145,1339   [djump]
+      -> [ice platforms out] standing at x 74-150, y 1329-1344
+  10. jump (held 21 ticks), holding right, double jump at tick 5, from 74,1329; lands at 205,1277   [djump]
+      -> [ice platforms out] standing at x 178-222, y 1277
+  11. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 178,1277; lands at 254,1213
+      -> [ice platforms out] standing at x 242-286, y 1213
+  12. jump (held 21 ticks), holding right, from 242,1213; lands at 345,1137
+      -> [ice platforms out] standing at x 298-438, y 1137-1153
+  13. jump (held 21 ticks), holding right, double jump at tick 15, from 416,1137; lands at 666,1089   [djump]
+      -> [ice platforms out] standing at x 650-806, y 1073-1105
+  14. jump (held 21 ticks), holding left, double jump at tick 15, from 688,1073; lands at 549,968   [djump]
+      -> [ice platforms out] standing at x 154-582, y 945-1057
+  15. jump (held 21 ticks), holding right, double jump at tick 15, from 400,957; lands at 619,877   [djump]
+      -> [ice platforms out] standing at x 610-654, y 877
+  16. running left, jump (held 21 ticks), holding left, from 610,877; lands at 434,829
+      -> [ice platforms out] standing at x 418-462, y 829
+  17. jump (held 21 ticks), holding left, double jump at tick 10, from 418,829; lands at 199,801   [djump]
+      -> [ice platforms out] standing at x 42-214, y 769-801
+  18. jump (held 21 ticks), holding right, double jump at tick 15, from 160,785; lands at 357,689   [djump]
+      -> [ice platforms out] standing at x 346-454, y 673-689
+  19. jump (held 21 ticks), holding right, double jump at tick 15, from 400,685; lands at 605,593   [djump]
+      -> [ice platforms out] standing at x 586-790, y 593-688
+  20. running left, jump (held 14 ticks), holding left, double jump at tick 21, from 588,593; lands at 287,545   [djump]
+      -> [ice platforms out] standing at x 90-294, y 529-545
+  21. jump (held 21 ticks), holding right, double jump at tick 15, from 128,529; lands at 355,449   [djump]
+      -> [ice platforms out] standing at x 346-454, y 433-449
+  22. jump (held 21 ticks), holding right, double jump at tick 15, from 346,449; lands at 595,401   [djump]
+      -> [ice platforms out] standing at x 570-614, y 401
+  23. jump (held 21 ticks), holding right, from 570,401; lands at 723,353
+      -> [ice platforms out] standing at x 698-742, y 353
+  24. jump (held 21 ticks), holding left, double jump at tick 10, from 698,353; lands at 515,285   [djump]
+      -> [ice platforms out] standing at x 482-526, y 285
+  25. jump (held 21 ticks), holding left, from 482,285; lands at 299,273
+      -> [ice platforms out] standing at x 0-310, y 257-273
+  26. standing at 0,257, goes into it
+      -> out 0,224
+how in 48,1920 -> out 880,1376: djump,megaman:2
+     [no ice platforms] coming in at 48,1920
+   1. coming in: holding nothing, from 48,1920; lands at 48,1921
+      -> [no ice platforms] standing at x 0-896, y 1905-1969
+   2. jump (held 21 ticks), holding right, from 672,1905; lands at 726,1828
+      -> [no ice platforms] standing at x 715-870, y 1809-1839
+   3. jump (held 21 ticks), holding left, from 752,1809; lands at 637,1735
+      -> [no ice platforms] standing at x 490-646, y 1713-1744
+   4. shoot the ice block at 384,1648 from 490,1729 (at the top of a jump) with Shotgun Ice: [ice platforms out]   [megaman:2]
+      -> [ice platforms out] standing at x 490-646, y 1713-1744
+   5. jump (held 21 ticks), holding left, from 528,1717; lands at 419,1645
+      -> [ice platforms out] standing at x 386-430, y 1645
+   6. jump (held 6 ticks), holding left, from 386,1645; lands at 291,1597
+      -> [ice platforms out] standing at x 274-318, y 1597
+   7. running left, jump (held 6 ticks), holding left, from 274,1597; lands at 134,1565
+      -> [ice platforms out] standing at x 114-158, y 1565
+   8. jump (held 21 ticks), holding right, double jump at tick 15, from 114,1565; lands at 195,1460   [djump]
+      -> [ice platforms out] standing at x 170-646, y 1345-1473
+   9. walk off the edge, holding right once in the air, from 170,1473; lands at 741,1419
+      -> [ice platforms out] standing at x 714-896, y 1409-1425
+  10. standing at 878,1409, goes into it
+      -> out 880,1376
+how in 48,1920 -> out 880,1376: djump,belmont:3
+     [no ice platforms] coming in at 48,1920
+   1. coming in: holding nothing, from 48,1920; lands at 48,1921
+      -> [no ice platforms] standing at x 0-896, y 1905-1969
+   2. jump (held 21 ticks), holding right, from 672,1905; lands at 726,1828
+      -> [no ice platforms] standing at x 715-870, y 1809-1839
+   3. jump (held 21 ticks), holding left, from 752,1809; lands at 637,1735
+      -> [no ice platforms] standing at x 490-646, y 1713-1744
+   4. hit the ice block at 592,1616 from 536,1713 (jumping if need be) with Shotgun Ice or Holy Water: [ice platforms out]   [belmont:3]
+      -> [ice platforms out] standing at x 490-646, y 1713-1744
+   5. jump (held 21 ticks), holding left, from 528,1717; lands at 419,1645
+      -> [ice platforms out] standing at x 386-430, y 1645
+   6. jump (held 6 ticks), holding left, from 386,1645; lands at 291,1597
+      -> [ice platforms out] standing at x 274-318, y 1597
+   7. running left, jump (held 6 ticks), holding left, from 274,1597; lands at 134,1565
+      -> [ice platforms out] standing at x 114-158, y 1565
+   8. jump (held 21 ticks), holding right, double jump at tick 15, from 114,1565; lands at 195,1460   [djump]
+      -> [ice platforms out] standing at x 170-646, y 1345-1473
+   9. walk off the edge, holding right once in the air, from 170,1473; lands at 741,1419
+      -> [ice platforms out] standing at x 714-896, y 1409-1425
+  10. standing at 878,1409, goes into it
+      -> out 880,1376
+how in 48,1920 -> loc 10 59: djump,adash
+     [no ice platforms] coming in at 48,1920
+   1. coming in: holding nothing, from 48,1920; lands at 48,1921
+      -> [no ice platforms] standing at x 0-896, y 1905-1969
+   2. jump (held 21 ticks), holding right, from 672,1905; lands at 726,1828
+      -> [no ice platforms] standing at x 715-870, y 1809-1839
+   3. jump (held 21 ticks), holding left, from 752,1809; lands at 637,1735
+      -> [no ice platforms] standing at x 490-646, y 1713-1744
+   4. jump (held 21 ticks), holding right, double jump at tick 16, air dash (Jerry) at tick 8, from 544,1713; touches it on the way   [djump,adash]
+      -> loc 10 59
+how in 48,1920 -> loc 10 59: adash,gdash
+     [no ice platforms] coming in at 48,1920
+   1. coming in: holding nothing, from 48,1920; lands at 48,1921
+      -> [no ice platforms] standing at x 0-896, y 1905-1969
+   2. jump (held 21 ticks), holding right, from 672,1905; lands at 726,1828
+      -> [no ice platforms] standing at x 715-870, y 1809-1839
+   3. jump (held 21 ticks), holding left, from 752,1809; lands at 637,1735
+      -> [no ice platforms] standing at x 490-646, y 1713-1744
+   4. dash right (Jerry), jump (held 21 ticks), holding right, air dash (Jerry) at tick 12, from 560,1713; touches it on the way   [adash,gdash]
+      -> loc 10 59
+how in 48,1920 -> loc 10 59: djump,gdash
+     [no ice platforms] coming in at 48,1920
+   1. coming in: holding nothing, from 48,1920; lands at 48,1921
+      -> [no ice platforms] standing at x 0-896, y 1905-1969
+   2. jump (held 21 ticks), holding right, from 672,1905; lands at 726,1828
+      -> [no ice platforms] standing at x 715-870, y 1809-1839
+   3. jump (held 21 ticks), holding left, from 752,1809; lands at 637,1735
+      -> [no ice platforms] standing at x 490-646, y 1713-1744
+   4. dash right (Jerry), jump (held 21 ticks), holding right, double jump at tick 12, from 592,1713; touches it on the way   [djump,gdash]
+      -> loc 10 59
+how in 48,1920 -> loc 10 59: adash,megaman:2
+     [no ice platforms] coming in at 48,1920
+   1. coming in: holding nothing, from 48,1920; lands at 48,1921
+      -> [no ice platforms] standing at x 0-896, y 1905-1969
+   2. jump (held 21 ticks), holding right, from 672,1905; lands at 726,1828
+      -> [no ice platforms] standing at x 715-870, y 1809-1839
+   3. jump (held 21 ticks), holding left, from 752,1809; lands at 637,1735
+      -> [no ice platforms] standing at x 490-646, y 1713-1744
+   4. shoot the ice block at 384,1648 from 490,1729 (at the top of a jump) with Shotgun Ice: [ice platforms out]   [megaman:2]
+      -> [ice platforms out] standing at x 490-646, y 1713-1744
+   5. jump (held 21 ticks), holding left, from 528,1717; lands at 419,1645
+      -> [ice platforms out] standing at x 386-430, y 1645
+   6. jump (held 21 ticks), holding right, from 386,1645; lands at 554,1613
+      -> [ice platforms out] standing at x 546-590, y 1613
+   7. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 546,1613; touches it on the way   [adash]
+      -> loc 10 59
+how in 48,1920 -> loc 10 59: adash,belmont:3
+     [no ice platforms] coming in at 48,1920
+   1. coming in: holding nothing, from 48,1920; lands at 48,1921
+      -> [no ice platforms] standing at x 0-896, y 1905-1969
+   2. jump (held 21 ticks), holding right, from 672,1905; lands at 726,1828
+      -> [no ice platforms] standing at x 715-870, y 1809-1839
+   3. jump (held 21 ticks), holding left, from 752,1809; lands at 637,1735
+      -> [no ice platforms] standing at x 490-646, y 1713-1744
+   4. hit the ice block at 592,1616 from 536,1713 (jumping if need be) with Shotgun Ice or Holy Water: [ice platforms out]   [belmont:3]
+      -> [ice platforms out] standing at x 490-646, y 1713-1744
+   5. jump (held 21 ticks), holding left, from 528,1717; lands at 419,1645
+      -> [ice platforms out] standing at x 386-430, y 1645
+   6. jump (held 21 ticks), holding right, from 386,1645; lands at 554,1613
+      -> [ice platforms out] standing at x 546-590, y 1613
+   7. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 546,1613; touches it on the way   [adash]
+      -> loc 10 59
+how in 48,1920 -> loc 10 59: djump,megaman:2
+     [no ice platforms] coming in at 48,1920
+   1. coming in: holding nothing, from 48,1920; lands at 48,1921
+      -> [no ice platforms] standing at x 0-896, y 1905-1969
+   2. jump (held 21 ticks), holding right, from 672,1905; lands at 726,1828
+      -> [no ice platforms] standing at x 715-870, y 1809-1839
+   3. jump (held 21 ticks), holding left, from 752,1809; lands at 637,1735
+      -> [no ice platforms] standing at x 490-646, y 1713-1744
+   4. shoot the ice block at 384,1648 from 490,1729 (at the top of a jump) with Shotgun Ice: [ice platforms out]   [megaman:2]
+      -> [ice platforms out] standing at x 490-646, y 1713-1744
+   5. jump (held 21 ticks), holding left, from 528,1717; lands at 419,1645
+      -> [ice platforms out] standing at x 386-430, y 1645
+   6. jump (held 21 ticks), holding right, from 386,1645; lands at 554,1613
+      -> [ice platforms out] standing at x 546-590, y 1613
+   7. jump (held 21 ticks), holding right, double jump at tick 15, from 576,1613; touches it on the way   [djump]
+      -> loc 10 59
+how in 48,1920 -> loc 10 59: djump,belmont:3
+     [no ice platforms] coming in at 48,1920
+   1. coming in: holding nothing, from 48,1920; lands at 48,1921
+      -> [no ice platforms] standing at x 0-896, y 1905-1969
+   2. jump (held 21 ticks), holding right, from 672,1905; lands at 726,1828
+      -> [no ice platforms] standing at x 715-870, y 1809-1839
+   3. jump (held 21 ticks), holding left, from 752,1809; lands at 637,1735
+      -> [no ice platforms] standing at x 490-646, y 1713-1744
+   4. hit the ice block at 592,1616 from 536,1713 (jumping if need be) with Shotgun Ice or Holy Water: [ice platforms out]   [belmont:3]
+      -> [ice platforms out] standing at x 490-646, y 1713-1744
+   5. jump (held 21 ticks), holding left, from 528,1717; lands at 419,1645
+      -> [ice platforms out] standing at x 386-430, y 1645
+   6. jump (held 21 ticks), holding right, from 386,1645; lands at 554,1613
+      -> [ice platforms out] standing at x 546-590, y 1613
+   7. jump (held 21 ticks), holding right, double jump at tick 15, from 576,1613; touches it on the way   [djump]
+      -> loc 10 59
+how in 48,1920 -> loc 10 59: gdash,megaman:2
+     [no ice platforms] coming in at 48,1920
+   1. coming in: holding nothing, from 48,1920; lands at 48,1921
+      -> [no ice platforms] standing at x 0-896, y 1905-1969
+   2. jump (held 21 ticks), holding right, from 672,1905; lands at 726,1828
+      -> [no ice platforms] standing at x 715-870, y 1809-1839
+   3. jump (held 21 ticks), holding left, from 752,1809; lands at 637,1735
+      -> [no ice platforms] standing at x 490-646, y 1713-1744
+   4. shoot the ice block at 384,1648 from 490,1729 (at the top of a jump) with Shotgun Ice: [ice platforms out]   [megaman:2]
+      -> [ice platforms out] standing at x 490-646, y 1713-1744
+   5. jump (held 21 ticks), holding left, from 528,1717; lands at 419,1645
+      -> [ice platforms out] standing at x 386-430, y 1645
+   6. jump (held 21 ticks), holding right, from 386,1645; lands at 554,1613
+      -> [ice platforms out] standing at x 546-590, y 1613
+   7. dash right (Jerry), jump (held 21 ticks), holding right, from 576,1613; touches it on the way   [gdash]
+      -> loc 10 59
+how in 48,1920 -> loc 10 59: gdash,belmont:3
+     [no ice platforms] coming in at 48,1920
+   1. coming in: holding nothing, from 48,1920; lands at 48,1921
+      -> [no ice platforms] standing at x 0-896, y 1905-1969
+   2. jump (held 21 ticks), holding right, from 672,1905; lands at 726,1828
+      -> [no ice platforms] standing at x 715-870, y 1809-1839
+   3. jump (held 21 ticks), holding left, from 752,1809; lands at 637,1735
+      -> [no ice platforms] standing at x 490-646, y 1713-1744
+   4. hit the ice block at 592,1616 from 536,1713 (jumping if need be) with Shotgun Ice or Holy Water: [ice platforms out]   [belmont:3]
+      -> [ice platforms out] standing at x 490-646, y 1713-1744
+   5. jump (held 21 ticks), holding left, from 528,1717; lands at 419,1645
+      -> [ice platforms out] standing at x 386-430, y 1645
+   6. jump (held 21 ticks), holding right, from 386,1645; lands at 554,1613
+      -> [ice platforms out] standing at x 546-590, y 1613
+   7. dash right (Jerry), jump (held 21 ticks), holding right, from 576,1613; touches it on the way   [gdash]
+      -> loc 10 59
+how in 848,128 -> out 0,1888: -
+     [no ice platforms] coming in at 848,128
+   1. coming in: holding nothing, from 848,128; lands at 848,129
+      -> [no ice platforms] standing at x 810-896, y 129
+   2. walk off the edge, holding left, then nothing after 1 ticks in the air, from 810,129; lands at 776,674
+      -> [no ice platforms] standing at x 586-790, y 593-688
+   3. walk off the edge, holding right, then left after 1 ticks in the air, from 586,593; lands at 366,1420
+      -> [no ice platforms] standing at x 170-646, y 1345-1473
+   4. walk off the edge, holding left, then nothing after 1 ticks in the air, from 170,1473; lands at 136,1969
+      -> [no ice platforms] standing at x 0-896, y 1905-1969
+   5. standing at 0,1921, goes into it
+      -> out 0,1888
+how in 848,128 -> out 880,96: -
+     [no ice platforms] coming in at 848,128
+   1. coming in: holding nothing, from 848,128; lands at 848,129
+      -> [no ice platforms] standing at x 810-896, y 129
+   2. standing at 878,129, goes into it
+      -> out 880,96
+how in 848,128 -> out 0,224: djump,megaman:2
+     [no ice platforms] coming in at 848,128
+   1. coming in: holding nothing, from 848,128; lands at 848,129
+      -> [no ice platforms] standing at x 810-896, y 129
+   2. walk off the edge, holding left once in the air, from 810,129; lands at 598,401
+      -> [no ice platforms] standing at x 570-614, y 401
+   3. jump (held 21 ticks), holding right, from 570,401; lands at 723,353
+      -> [no ice platforms] standing at x 698-742, y 353
+   4. shoot the ice block at 480,288 from 698,353 (at the top of a jump) with Shotgun Ice: [ice platforms out]   [megaman:2]
+      -> [ice platforms out] standing at x 698-742, y 353
+   5. jump (held 21 ticks), holding left, double jump at tick 10, from 698,353; lands at 515,285   [djump]
+      -> [ice platforms out] standing at x 482-526, y 285
+   6. jump (held 21 ticks), holding left, from 482,285; lands at 299,273
+      -> [ice platforms out] standing at x 0-310, y 257-273
+   7. standing at 0,257, goes into it
+      -> out 0,224
+how in 848,128 -> out 0,224: adash,megaman:2
+     [no ice platforms] coming in at 848,128
+   1. coming in: holding nothing, from 848,128; lands at 848,129
+      -> [no ice platforms] standing at x 810-896, y 129
+   2. walk off the edge, holding left once in the air, from 810,129; lands at 598,401
+      -> [no ice platforms] standing at x 570-614, y 401
+   3. jump (held 21 ticks), holding right, from 570,401; lands at 723,353
+      -> [no ice platforms] standing at x 698-742, y 353
+   4. shoot the ice block at 480,288 from 698,353 (at the top of a jump) with Shotgun Ice: [ice platforms out]   [megaman:2]
+      -> [ice platforms out] standing at x 698-742, y 353
+   5. jump (held 21 ticks), holding left, air dash (Jerry) at tick 10, from 698,353; lands at 500,285   [adash]
+      -> [ice platforms out] standing at x 482-526, y 285
+   6. jump (held 21 ticks), holding left, from 482,285; lands at 299,273
+      -> [ice platforms out] standing at x 0-310, y 257-273
+   7. standing at 0,257, goes into it
+      -> out 0,224
+how in 848,128 -> out 0,224: djump,belmont:3
+     [no ice platforms] coming in at 848,128
+   1. coming in: holding nothing, from 848,128; lands at 848,129
+      -> [no ice platforms] standing at x 810-896, y 129
+   2. walk off the edge, holding left, then nothing after 1 ticks in the air, from 810,129; lands at 776,674
+      -> [no ice platforms] standing at x 586-790, y 593-688
+   3. walk off the edge, holding right, then left after 1 ticks in the air, from 586,593; lands at 366,1420
+      -> [no ice platforms] standing at x 170-646, y 1345-1473
+   4. hit the ice block at 656,1248 from 600,1353 (jumping if need be) with Shotgun Ice or Holy Water: [ice platforms out]   [belmont:3]
+      -> [ice platforms out] standing at x 170-646, y 1345-1473
+   5. jump (held 21 ticks), holding left, from 256,1413; lands at 143,1337
+      -> [ice platforms out] standing at x 74-150, y 1329-1344
+   6. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 96,1329; lands at 187,1277
+      -> [ice platforms out] standing at x 178-222, y 1277
+   7. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 178,1277; lands at 254,1213
+      -> [ice platforms out] standing at x 242-286, y 1213
+   8. jump (held 21 ticks), holding right, from 242,1213; lands at 345,1137
+      -> [ice platforms out] standing at x 298-438, y 1137-1153
+   9. jump (held 21 ticks), holding right, double jump at tick 15, from 416,1137; lands at 666,1089   [djump]
+      -> [ice platforms out] standing at x 650-806, y 1073-1105
+  10. jump (held 21 ticks), holding left, double jump at tick 15, from 688,1073; lands at 549,968   [djump]
+      -> [ice platforms out] standing at x 154-582, y 945-1057
+  11. jump (held 21 ticks), holding right, double jump at tick 15, from 400,957; lands at 619,877   [djump]
+      -> [ice platforms out] standing at x 610-654, y 877
+  12. running left, jump (held 21 ticks), holding left, from 610,877; lands at 434,829
+      -> [ice platforms out] standing at x 418-462, y 829
+  13. jump (held 21 ticks), holding left, double jump at tick 10, from 418,829; lands at 199,801   [djump]
+      -> [ice platforms out] standing at x 42-214, y 769-801
+  14. jump (held 21 ticks), holding right, double jump at tick 15, from 160,785; lands at 357,689   [djump]
+      -> [ice platforms out] standing at x 346-454, y 673-689
+  15. jump (held 21 ticks), holding right, double jump at tick 15, from 400,685; lands at 605,593   [djump]
+      -> [ice platforms out] standing at x 586-790, y 593-688
+  16. running left, jump (held 14 ticks), holding left, double jump at tick 21, from 588,593; lands at 287,545   [djump]
+      -> [ice platforms out] standing at x 90-294, y 529-545
+  17. jump (held 21 ticks), holding right, double jump at tick 15, from 128,529; lands at 355,449   [djump]
+      -> [ice platforms out] standing at x 346-454, y 433-449
+  18. jump (held 21 ticks), holding right, double jump at tick 15, from 346,449; lands at 595,401   [djump]
+      -> [ice platforms out] standing at x 570-614, y 401
+  19. jump (held 21 ticks), holding right, from 570,401; lands at 723,353
+      -> [ice platforms out] standing at x 698-742, y 353
+  20. jump (held 21 ticks), holding left, double jump at tick 10, from 698,353; lands at 515,285   [djump]
+      -> [ice platforms out] standing at x 482-526, y 285
+  21. jump (held 21 ticks), holding left, from 482,285; lands at 299,273
+      -> [ice platforms out] standing at x 0-310, y 257-273
+  22. standing at 0,257, goes into it
+      -> out 0,224
+how in 848,128 -> out 880,1376: -
+     [no ice platforms] coming in at 848,128
+   1. coming in: holding nothing, from 848,128; lands at 848,129
+      -> [no ice platforms] standing at x 810-896, y 129
+   2. walk off the edge, holding left, then nothing after 1 ticks in the air, from 810,129; lands at 776,674
+      -> [no ice platforms] standing at x 586-790, y 593-688
+   3. walk off the edge, holding right, then nothing after 1 ticks in the air, from 586,593; lands at 831,1297
+      -> [no ice platforms] standing at x 810-896, y 1297
+   4. walk off the edge, holding left, then nothing after 1 ticks in the air, from 810,1297; lands at 778,1409
+      -> [no ice platforms] standing at x 714-896, y 1409-1425
+   5. standing at 878,1409, goes into it
+      -> out 880,1376
+how in 848,128 -> loc 10 59: djump,adash
+     [no ice platforms] coming in at 848,128
+   1. coming in: holding nothing, from 848,128; lands at 848,129
+      -> [no ice platforms] standing at x 810-896, y 129
+   2. walk off the edge, holding left, then nothing after 1 ticks in the air, from 810,129; lands at 776,674
+      -> [no ice platforms] standing at x 586-790, y 593-688
+   3. walk off the edge, holding right, then nothing after 1 ticks in the air, from 586,593; lands at 831,1297
+      -> [no ice platforms] standing at x 810-896, y 1297
+   4. walk off the edge, holding left once in the air, from 810,1297; lands at 503,1729
+      -> [no ice platforms] standing at x 490-646, y 1713-1744
+   5. jump (held 21 ticks), holding right, double jump at tick 16, air dash (Jerry) at tick 8, from 544,1713; touches it on the way   [djump,adash]
+      -> loc 10 59
+how in 848,128 -> loc 10 59: adash,gdash
+     [no ice platforms] coming in at 848,128
+   1. coming in: holding nothing, from 848,128; lands at 848,129
+      -> [no ice platforms] standing at x 810-896, y 129
+   2. walk off the edge, holding left, then nothing after 1 ticks in the air, from 810,129; lands at 776,674
+      -> [no ice platforms] standing at x 586-790, y 593-688
+   3. walk off the edge, holding right, then nothing after 1 ticks in the air, from 586,593; lands at 831,1297
+      -> [no ice platforms] standing at x 810-896, y 1297
+   4. walk off the edge, holding left once in the air, from 810,1297; lands at 503,1729
+      -> [no ice platforms] standing at x 490-646, y 1713-1744
+   5. dash right (Jerry), jump (held 21 ticks), holding right, air dash (Jerry) at tick 12, from 560,1713; touches it on the way   [adash,gdash]
+      -> loc 10 59
+how in 848,128 -> loc 10 59: djump,gdash
+     [no ice platforms] coming in at 848,128
+   1. coming in: holding nothing, from 848,128; lands at 848,129
+      -> [no ice platforms] standing at x 810-896, y 129
+   2. walk off the edge, holding left, then nothing after 1 ticks in the air, from 810,129; lands at 776,674
+      -> [no ice platforms] standing at x 586-790, y 593-688
+   3. walk off the edge, holding right, then nothing after 1 ticks in the air, from 586,593; lands at 831,1297
+      -> [no ice platforms] standing at x 810-896, y 1297
+   4. walk off the edge, holding left once in the air, from 810,1297; lands at 503,1729
+      -> [no ice platforms] standing at x 490-646, y 1713-1744
+   5. dash right (Jerry), jump (held 21 ticks), holding right, double jump at tick 12, from 592,1713; touches it on the way   [djump,gdash]
+      -> loc 10 59
+how in 848,128 -> loc 10 59: adash,megaman:2
+     [no ice platforms] coming in at 848,128
+   1. coming in: holding nothing, from 848,128; lands at 848,129
+      -> [no ice platforms] standing at x 810-896, y 129
+   2. walk off the edge, holding left, then nothing after 1 ticks in the air, from 810,129; lands at 776,674
+      -> [no ice platforms] standing at x 586-790, y 593-688
+   3. walk off the edge, holding right, then nothing after 1 ticks in the air, from 586,593; lands at 831,1297
+      -> [no ice platforms] standing at x 810-896, y 1297
+   4. shoot the ice block at 656,1248 from 810,1297 (at the top of a jump) with Shotgun Ice: [ice platforms out]   [megaman:2]
+      -> [ice platforms out] standing at x 810-896, y 1297
+   5. walk off the edge, holding left once in the air, from 810,1297; lands at 576,1613
+      -> [ice platforms out] standing at x 546-590, y 1613
+   6. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 546,1613; touches it on the way   [adash]
+      -> loc 10 59
+how in 848,128 -> loc 10 59: adash,belmont:3
+     [no ice platforms] coming in at 848,128
+   1. coming in: holding nothing, from 848,128; lands at 848,129
+      -> [no ice platforms] standing at x 810-896, y 129
+   2. walk off the edge, holding left, then nothing after 1 ticks in the air, from 810,129; lands at 776,674
+      -> [no ice platforms] standing at x 586-790, y 593-688
+   3. walk off the edge, holding right, then left after 1 ticks in the air, from 586,593; lands at 366,1420
+      -> [no ice platforms] standing at x 170-646, y 1345-1473
+   4. hit the ice block at 656,1248 from 600,1353 (jumping if need be) with Shotgun Ice or Holy Water: [ice platforms out]   [belmont:3]
+      -> [ice platforms out] standing at x 170-646, y 1345-1473
+   5. walk off the edge, holding right once in the air, from 170,1473; lands at 741,1419
+      -> [ice platforms out] standing at x 714-896, y 1409-1425
+   6. walk off the edge, holding left once in the air, from 714,1425; lands at 553,1613
+      -> [ice platforms out] standing at x 546-590, y 1613
+   7. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 546,1613; touches it on the way   [adash]
+      -> loc 10 59
+how in 848,128 -> loc 10 59: djump,megaman:2
+     [no ice platforms] coming in at 848,128
+   1. coming in: holding nothing, from 848,128; lands at 848,129
+      -> [no ice platforms] standing at x 810-896, y 129
+   2. walk off the edge, holding left, then nothing after 1 ticks in the air, from 810,129; lands at 776,674
+      -> [no ice platforms] standing at x 586-790, y 593-688
+   3. walk off the edge, holding right, then nothing after 1 ticks in the air, from 586,593; lands at 831,1297
+      -> [no ice platforms] standing at x 810-896, y 1297
+   4. shoot the ice block at 656,1248 from 810,1297 (at the top of a jump) with Shotgun Ice: [ice platforms out]   [megaman:2]
+      -> [ice platforms out] standing at x 810-896, y 1297
+   5. walk off the edge, holding left once in the air, from 810,1297; lands at 576,1613
+      -> [ice platforms out] standing at x 546-590, y 1613
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 576,1613; touches it on the way   [djump]
+      -> loc 10 59
+how in 848,128 -> loc 10 59: djump,belmont:3
+     [no ice platforms] coming in at 848,128
+   1. coming in: holding nothing, from 848,128; lands at 848,129
+      -> [no ice platforms] standing at x 810-896, y 129
+   2. walk off the edge, holding left, then nothing after 1 ticks in the air, from 810,129; lands at 776,674
+      -> [no ice platforms] standing at x 586-790, y 593-688
+   3. walk off the edge, holding right, then left after 1 ticks in the air, from 586,593; lands at 366,1420
+      -> [no ice platforms] standing at x 170-646, y 1345-1473
+   4. hit the ice block at 656,1248 from 600,1353 (jumping if need be) with Shotgun Ice or Holy Water: [ice platforms out]   [belmont:3]
+      -> [ice platforms out] standing at x 170-646, y 1345-1473
+   5. walk off the edge, holding right once in the air, from 170,1473; lands at 741,1419
+      -> [ice platforms out] standing at x 714-896, y 1409-1425
+   6. walk off the edge, holding left once in the air, from 714,1425; lands at 553,1613
+      -> [ice platforms out] standing at x 546-590, y 1613
+   7. jump (held 21 ticks), holding right, double jump at tick 15, from 576,1613; touches it on the way   [djump]
+      -> loc 10 59
+how in 848,128 -> loc 10 59: gdash,megaman:2
+     [no ice platforms] coming in at 848,128
+   1. coming in: holding nothing, from 848,128; lands at 848,129
+      -> [no ice platforms] standing at x 810-896, y 129
+   2. walk off the edge, holding left, then nothing after 1 ticks in the air, from 810,129; lands at 776,674
+      -> [no ice platforms] standing at x 586-790, y 593-688
+   3. walk off the edge, holding right, then nothing after 1 ticks in the air, from 586,593; lands at 831,1297
+      -> [no ice platforms] standing at x 810-896, y 1297
+   4. shoot the ice block at 656,1248 from 810,1297 (at the top of a jump) with Shotgun Ice: [ice platforms out]   [megaman:2]
+      -> [ice platforms out] standing at x 810-896, y 1297
+   5. walk off the edge, holding left once in the air, from 810,1297; lands at 576,1613
+      -> [ice platforms out] standing at x 546-590, y 1613
+   6. dash right (Jerry), jump (held 21 ticks), holding right, from 576,1613; touches it on the way   [gdash]
+      -> loc 10 59
+how in 848,128 -> loc 10 59: gdash,belmont:3
+     [no ice platforms] coming in at 848,128
+   1. coming in: holding nothing, from 848,128; lands at 848,129
+      -> [no ice platforms] standing at x 810-896, y 129
+   2. walk off the edge, holding left, then nothing after 1 ticks in the air, from 810,129; lands at 776,674
+      -> [no ice platforms] standing at x 586-790, y 593-688
+   3. walk off the edge, holding right, then left after 1 ticks in the air, from 586,593; lands at 366,1420
+      -> [no ice platforms] standing at x 170-646, y 1345-1473
+   4. hit the ice block at 656,1248 from 600,1353 (jumping if need be) with Shotgun Ice or Holy Water: [ice platforms out]   [belmont:3]
+      -> [ice platforms out] standing at x 170-646, y 1345-1473
+   5. walk off the edge, holding right once in the air, from 170,1473; lands at 741,1419
+      -> [ice platforms out] standing at x 714-896, y 1409-1425
+   6. walk off the edge, holding left once in the air, from 714,1425; lands at 553,1613
+      -> [ice platforms out] standing at x 546-590, y 1613
+   7. dash right (Jerry), jump (held 21 ticks), holding right, from 576,1613; touches it on the way   [gdash]
+      -> loc 10 59
+how in 48,256 -> out 0,1888: -
+     [no ice platforms] coming in at 48,256
+   1. coming in: holding nothing, from 48,256; lands at 48,257
+      -> [no ice platforms] standing at x 0-310, y 257-273
+   2. running right, jump (held 21 ticks), holding right, from 176,257; lands at 594,593
+      -> [no ice platforms] standing at x 586-790, y 593-688
+   3. walk off the edge, holding right, then left after 1 ticks in the air, from 586,593; lands at 366,1420
+      -> [no ice platforms] standing at x 170-646, y 1345-1473
+   4. walk off the edge, holding left, then nothing after 1 ticks in the air, from 170,1473; lands at 136,1969
+      -> [no ice platforms] standing at x 0-896, y 1905-1969
+   5. standing at 0,1921, goes into it
+      -> out 0,1888
+how in 48,256 -> out 880,96: djump,adash,megaman:4
+     [no ice platforms] coming in at 48,256
+   1. coming in: holding nothing, from 48,256; lands at 48,257
+      -> [no ice platforms] standing at x 0-310, y 257-273
+   2. jump (held 21 ticks), holding right, double jump at tick 16, air dash (Jerry) at tick 8, from 208,257; fires the Strike Chain at the point at 544,112   [djump,adash,megaman:4]
+      -> [no ice platforms] hanging from the Strike Chain point at 544,112
+   3. off the Strike Chain point: jump (held 21 ticks), holding right, double jump at tick 16, air dash (Jerry) at tick 6, from 544,152; lands at 877,129   [djump,adash]
+      -> [no ice platforms] standing at x 810-896, y 129
+   4. standing at 878,129, goes into it
+      -> out 880,96
+how in 48,256 -> out 0,224: -
+     [no ice platforms] coming in at 48,256
+   1. coming in: holding nothing, from 48,256; lands at 48,257
+      -> [no ice platforms] standing at x 0-310, y 257-273
+   2. standing at 0,257, goes into it
+      -> out 0,224
+how in 48,256 -> out 880,1376: -
+     [no ice platforms] coming in at 48,256
+   1. coming in: holding nothing, from 48,256; lands at 48,257
+      -> [no ice platforms] standing at x 0-310, y 257-273
+   2. walk off the edge, holding right, then nothing after 1 ticks in the air, from 32,257; lands at 359,449
+      -> [no ice platforms] standing at x 346-454, y 433-449
+   3. walk off the edge, holding left, then right after 1 ticks in the air, from 432,442; lands at 705,1073
+      -> [no ice platforms] standing at x 650-806, y 1073-1105
+   4. walk off the edge, holding left, then right after 1 ticks in the air, from 650,1105; lands at 803,1409
+      -> [no ice platforms] standing at x 714-896, y 1409-1425
+   5. standing at 878,1409, goes into it
+      -> out 880,1376
+how in 48,256 -> loc 10 59: djump,adash
+     [no ice platforms] coming in at 48,256
+   1. coming in: holding nothing, from 48,256; lands at 48,257
+      -> [no ice platforms] standing at x 0-310, y 257-273
+   2. running right, jump (held 21 ticks), holding right, from 176,257; lands at 594,593
+      -> [no ice platforms] standing at x 586-790, y 593-688
+   3. walk off the edge, holding right, then nothing after 1 ticks in the air, from 586,593; lands at 831,1297
+      -> [no ice platforms] standing at x 810-896, y 1297
+   4. walk off the edge, holding left once in the air, from 810,1297; lands at 503,1729
+      -> [no ice platforms] standing at x 490-646, y 1713-1744
+   5. jump (held 21 ticks), holding right, double jump at tick 16, air dash (Jerry) at tick 8, from 544,1713; touches it on the way   [djump,adash]
+      -> loc 10 59
+how in 48,256 -> loc 10 59: adash,gdash
+     [no ice platforms] coming in at 48,256
+   1. coming in: holding nothing, from 48,256; lands at 48,257
+      -> [no ice platforms] standing at x 0-310, y 257-273
+   2. running right, jump (held 21 ticks), holding right, from 176,257; lands at 594,593
+      -> [no ice platforms] standing at x 586-790, y 593-688
+   3. walk off the edge, holding right, then nothing after 1 ticks in the air, from 586,593; lands at 831,1297
+      -> [no ice platforms] standing at x 810-896, y 1297
+   4. walk off the edge, holding left once in the air, from 810,1297; lands at 503,1729
+      -> [no ice platforms] standing at x 490-646, y 1713-1744
+   5. dash right (Jerry), jump (held 21 ticks), holding right, air dash (Jerry) at tick 12, from 560,1713; touches it on the way   [adash,gdash]
+      -> loc 10 59
+how in 48,256 -> loc 10 59: djump,gdash
+     [no ice platforms] coming in at 48,256
+   1. coming in: holding nothing, from 48,256; lands at 48,257
+      -> [no ice platforms] standing at x 0-310, y 257-273
+   2. running right, jump (held 21 ticks), holding right, from 176,257; lands at 594,593
+      -> [no ice platforms] standing at x 586-790, y 593-688
+   3. walk off the edge, holding right, then nothing after 1 ticks in the air, from 586,593; lands at 831,1297
+      -> [no ice platforms] standing at x 810-896, y 1297
+   4. walk off the edge, holding left once in the air, from 810,1297; lands at 503,1729
+      -> [no ice platforms] standing at x 490-646, y 1713-1744
+   5. dash right (Jerry), jump (held 21 ticks), holding right, double jump at tick 12, from 592,1713; touches it on the way   [djump,gdash]
+      -> loc 10 59
+how in 48,256 -> loc 10 59: adash,megaman:2
+     [no ice platforms] coming in at 48,256
+   1. coming in: holding nothing, from 48,256; lands at 48,257
+      -> [no ice platforms] standing at x 0-310, y 257-273
+   2. running right, jump (held 21 ticks), holding right, from 176,257; lands at 594,593
+      -> [no ice platforms] standing at x 586-790, y 593-688
+   3. walk off the edge, holding right, then nothing after 1 ticks in the air, from 586,593; lands at 831,1297
+      -> [no ice platforms] standing at x 810-896, y 1297
+   4. shoot the ice block at 656,1248 from 810,1297 (at the top of a jump) with Shotgun Ice: [ice platforms out]   [megaman:2]
+      -> [ice platforms out] standing at x 810-896, y 1297
+   5. walk off the edge, holding left once in the air, from 810,1297; lands at 576,1613
+      -> [ice platforms out] standing at x 546-590, y 1613
+   6. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 546,1613; touches it on the way   [adash]
+      -> loc 10 59
+how in 48,256 -> loc 10 59: adash,belmont:3
+     [no ice platforms] coming in at 48,256
+   1. coming in: holding nothing, from 48,256; lands at 48,257
+      -> [no ice platforms] standing at x 0-310, y 257-273
+   2. running right, jump (held 21 ticks), holding right, from 176,257; lands at 594,593
+      -> [no ice platforms] standing at x 586-790, y 593-688
+   3. walk off the edge, holding right, then left after 1 ticks in the air, from 586,593; lands at 366,1420
+      -> [no ice platforms] standing at x 170-646, y 1345-1473
+   4. hit the ice block at 656,1248 from 600,1353 (jumping if need be) with Shotgun Ice or Holy Water: [ice platforms out]   [belmont:3]
+      -> [ice platforms out] standing at x 170-646, y 1345-1473
+   5. walk off the edge, holding right once in the air, from 170,1473; lands at 741,1419
+      -> [ice platforms out] standing at x 714-896, y 1409-1425
+   6. walk off the edge, holding left once in the air, from 714,1425; lands at 553,1613
+      -> [ice platforms out] standing at x 546-590, y 1613
+   7. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 546,1613; touches it on the way   [adash]
+      -> loc 10 59
+how in 48,256 -> loc 10 59: djump,megaman:2
+     [no ice platforms] coming in at 48,256
+   1. coming in: holding nothing, from 48,256; lands at 48,257
+      -> [no ice platforms] standing at x 0-310, y 257-273
+   2. running right, jump (held 21 ticks), holding right, from 176,257; lands at 594,593
+      -> [no ice platforms] standing at x 586-790, y 593-688
+   3. walk off the edge, holding right, then nothing after 1 ticks in the air, from 586,593; lands at 831,1297
+      -> [no ice platforms] standing at x 810-896, y 1297
+   4. shoot the ice block at 656,1248 from 810,1297 (at the top of a jump) with Shotgun Ice: [ice platforms out]   [megaman:2]
+      -> [ice platforms out] standing at x 810-896, y 1297
+   5. walk off the edge, holding left once in the air, from 810,1297; lands at 576,1613
+      -> [ice platforms out] standing at x 546-590, y 1613
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 576,1613; touches it on the way   [djump]
+      -> loc 10 59
+how in 48,256 -> loc 10 59: djump,belmont:3
+     [no ice platforms] coming in at 48,256
+   1. coming in: holding nothing, from 48,256; lands at 48,257
+      -> [no ice platforms] standing at x 0-310, y 257-273
+   2. running right, jump (held 21 ticks), holding right, from 176,257; lands at 594,593
+      -> [no ice platforms] standing at x 586-790, y 593-688
+   3. walk off the edge, holding right, then left after 1 ticks in the air, from 586,593; lands at 366,1420
+      -> [no ice platforms] standing at x 170-646, y 1345-1473
+   4. hit the ice block at 656,1248 from 600,1353 (jumping if need be) with Shotgun Ice or Holy Water: [ice platforms out]   [belmont:3]
+      -> [ice platforms out] standing at x 170-646, y 1345-1473
+   5. walk off the edge, holding right once in the air, from 170,1473; lands at 741,1419
+      -> [ice platforms out] standing at x 714-896, y 1409-1425
+   6. walk off the edge, holding left once in the air, from 714,1425; lands at 553,1613
+      -> [ice platforms out] standing at x 546-590, y 1613
+   7. jump (held 21 ticks), holding right, double jump at tick 15, from 576,1613; touches it on the way   [djump]
+      -> loc 10 59
+how in 48,256 -> loc 10 59: gdash,megaman:2
+     [no ice platforms] coming in at 48,256
+   1. coming in: holding nothing, from 48,256; lands at 48,257
+      -> [no ice platforms] standing at x 0-310, y 257-273
+   2. running right, jump (held 21 ticks), holding right, from 176,257; lands at 594,593
+      -> [no ice platforms] standing at x 586-790, y 593-688
+   3. walk off the edge, holding right, then nothing after 1 ticks in the air, from 586,593; lands at 831,1297
+      -> [no ice platforms] standing at x 810-896, y 1297
+   4. shoot the ice block at 656,1248 from 810,1297 (at the top of a jump) with Shotgun Ice: [ice platforms out]   [megaman:2]
+      -> [ice platforms out] standing at x 810-896, y 1297
+   5. walk off the edge, holding left once in the air, from 810,1297; lands at 576,1613
+      -> [ice platforms out] standing at x 546-590, y 1613
+   6. dash right (Jerry), jump (held 21 ticks), holding right, from 576,1613; touches it on the way   [gdash]
+      -> loc 10 59
+how in 48,256 -> loc 10 59: gdash,belmont:3
+     [no ice platforms] coming in at 48,256
+   1. coming in: holding nothing, from 48,256; lands at 48,257
+      -> [no ice platforms] standing at x 0-310, y 257-273
+   2. running right, jump (held 21 ticks), holding right, from 176,257; lands at 594,593
+      -> [no ice platforms] standing at x 586-790, y 593-688
+   3. walk off the edge, holding right, then left after 1 ticks in the air, from 586,593; lands at 366,1420
+      -> [no ice platforms] standing at x 170-646, y 1345-1473
+   4. hit the ice block at 656,1248 from 600,1353 (jumping if need be) with Shotgun Ice or Holy Water: [ice platforms out]   [belmont:3]
+      -> [ice platforms out] standing at x 170-646, y 1345-1473
+   5. walk off the edge, holding right once in the air, from 170,1473; lands at 741,1419
+      -> [ice platforms out] standing at x 714-896, y 1409-1425
+   6. walk off the edge, holding left once in the air, from 714,1425; lands at 553,1613
+      -> [ice platforms out] standing at x 546-590, y 1613
+   7. dash right (Jerry), jump (held 21 ticks), holding right, from 576,1613; touches it on the way   [gdash]
+      -> loc 10 59
+how in 848,1408 -> out 0,1888: -
+     [no ice platforms] coming in at 848,1408
+   1. coming in: holding nothing, from 848,1408; lands at 848,1409
+      -> [no ice platforms] standing at x 714-896, y 1409-1425
+   2. walk off the edge, holding left, then nothing after 1 ticks in the air, from 714,1425; lands at 680,1905
+      -> [no ice platforms] standing at x 0-896, y 1905-1969
+   3. standing at 0,1921, goes into it
+      -> out 0,1888
+how in 848,1408 -> out 880,96: djump,adash,megaman:4
+     [no ice platforms] coming in at 848,1408
+   1. coming in: holding nothing, from 848,1408; lands at 848,1409
+      -> [no ice platforms] standing at x 714-896, y 1409-1425
+   2. jump (held 21 ticks), holding left, from 752,1413; lands at 628,1345
+      -> [no ice platforms] standing at x 170-646, y 1345-1473
+   3. jump (held 21 ticks), holding left, from 256,1413; lands at 143,1337
+      -> [no ice platforms] standing at x 74-150, y 1329-1344
+   4. shoot the ice block at 224,1280 from 74,1329 (at the top of a jump) with Shotgun Ice: [ice platforms out]   [megaman:2]
+      -> [ice platforms out] standing at x 74-150, y 1329-1344
+   5. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 96,1329; lands at 187,1277
+      -> [ice platforms out] standing at x 178-222, y 1277
+   6. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 178,1277; lands at 254,1213
+      -> [ice platforms out] standing at x 242-286, y 1213
+   7. jump (held 21 ticks), holding right, from 242,1213; lands at 345,1137
+      -> [ice platforms out] standing at x 298-438, y 1137-1153
+   8. jump (held 21 ticks), holding right, double jump at tick 15, from 416,1137; lands at 666,1089   [djump]
+      -> [ice platforms out] standing at x 650-806, y 1073-1105
+   9. jump (held 21 ticks), holding left, double jump at tick 15, from 688,1073; lands at 549,968   [djump]
+      -> [ice platforms out] standing at x 154-582, y 945-1057
+  10. jump (held 21 ticks), holding right, double jump at tick 15, from 400,957; lands at 619,877   [djump]
+      -> [ice platforms out] standing at x 610-654, y 877
+  11. running left, jump (held 21 ticks), holding left, from 610,877; lands at 434,829
+      -> [ice platforms out] standing at x 418-462, y 829
+  12. jump (held 21 ticks), holding left, double jump at tick 10, from 418,829; lands at 199,801   [djump]
+      -> [ice platforms out] standing at x 42-214, y 769-801
+  13. jump (held 21 ticks), holding right, double jump at tick 15, from 160,785; lands at 357,689   [djump]
+      -> [ice platforms out] standing at x 346-454, y 673-689
+  14. jump (held 21 ticks), holding right, double jump at tick 15, from 400,685; lands at 605,593   [djump]
+      -> [ice platforms out] standing at x 586-790, y 593-688
+  15. running left, jump (held 14 ticks), holding left, double jump at tick 21, from 588,593; lands at 287,545   [djump]
+      -> [ice platforms out] standing at x 90-294, y 529-545
+  16. jump (held 21 ticks), holding right, double jump at tick 15, from 128,529; lands at 355,449   [djump]
+      -> [ice platforms out] standing at x 346-454, y 433-449
+  17. jump (held 21 ticks), holding right, double jump at tick 15, from 346,449; lands at 595,401   [djump]
+      -> [ice platforms out] standing at x 570-614, y 401
+  18. jump (held 21 ticks), holding right, from 570,401; lands at 723,353
+      -> [ice platforms out] standing at x 698-742, y 353
+  19. jump (held 21 ticks), holding left, double jump at tick 10, from 698,353; lands at 515,285   [djump]
+      -> [ice platforms out] standing at x 482-526, y 285
+  20. jump (held 21 ticks), holding left, from 482,285; lands at 299,273
+      -> [ice platforms out] standing at x 0-310, y 257-273
+  21. jump (held 21 ticks), holding right, double jump at tick 16, air dash (Jerry) at tick 8, from 208,257; fires the Strike Chain at the point at 544,112   [djump,adash,megaman:4]
+      -> [ice platforms out] hanging from the Strike Chain point at 544,112
+  22. off the Strike Chain point: jump (held 21 ticks), holding right, double jump at tick 16, air dash (Jerry) at tick 6, from 544,152; lands at 877,129   [djump,adash]
+      -> [ice platforms out] standing at x 810-896, y 129
+  23. standing at 878,129, goes into it
+      -> out 880,96
+how in 848,1408 -> out 0,224: djump,megaman:2
+     [no ice platforms] coming in at 848,1408
+   1. coming in: holding nothing, from 848,1408; lands at 848,1409
+      -> [no ice platforms] standing at x 714-896, y 1409-1425
+   2. jump (held 21 ticks), holding left, from 752,1413; lands at 628,1345
+      -> [no ice platforms] standing at x 170-646, y 1345-1473
+   3. jump (held 21 ticks), holding left, from 256,1413; lands at 143,1337
+      -> [no ice platforms] standing at x 74-150, y 1329-1344
+   4. shoot the ice block at 224,1280 from 74,1329 (at the top of a jump) with Shotgun Ice: [ice platforms out]   [megaman:2]
+      -> [ice platforms out] standing at x 74-150, y 1329-1344
+   5. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 96,1329; lands at 187,1277
+      -> [ice platforms out] standing at x 178-222, y 1277
+   6. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 178,1277; lands at 254,1213
+      -> [ice platforms out] standing at x 242-286, y 1213
+   7. jump (held 21 ticks), holding right, from 242,1213; lands at 345,1137
+      -> [ice platforms out] standing at x 298-438, y 1137-1153
+   8. jump (held 21 ticks), holding right, double jump at tick 15, from 416,1137; lands at 666,1089   [djump]
+      -> [ice platforms out] standing at x 650-806, y 1073-1105
+   9. jump (held 21 ticks), holding left, double jump at tick 15, from 688,1073; lands at 549,968   [djump]
+      -> [ice platforms out] standing at x 154-582, y 945-1057
+  10. jump (held 21 ticks), holding right, double jump at tick 15, from 400,957; lands at 619,877   [djump]
+      -> [ice platforms out] standing at x 610-654, y 877
+  11. running left, jump (held 21 ticks), holding left, from 610,877; lands at 434,829
+      -> [ice platforms out] standing at x 418-462, y 829
+  12. jump (held 21 ticks), holding left, double jump at tick 10, from 418,829; lands at 199,801   [djump]
+      -> [ice platforms out] standing at x 42-214, y 769-801
+  13. jump (held 21 ticks), holding right, double jump at tick 15, from 160,785; lands at 357,689   [djump]
+      -> [ice platforms out] standing at x 346-454, y 673-689
+  14. jump (held 21 ticks), holding right, double jump at tick 15, from 400,685; lands at 605,593   [djump]
+      -> [ice platforms out] standing at x 586-790, y 593-688
+  15. running left, jump (held 14 ticks), holding left, double jump at tick 21, from 588,593; lands at 287,545   [djump]
+      -> [ice platforms out] standing at x 90-294, y 529-545
+  16. jump (held 21 ticks), holding right, double jump at tick 15, from 128,529; lands at 355,449   [djump]
+      -> [ice platforms out] standing at x 346-454, y 433-449
+  17. jump (held 21 ticks), holding right, double jump at tick 15, from 346,449; lands at 595,401   [djump]
+      -> [ice platforms out] standing at x 570-614, y 401
+  18. jump (held 21 ticks), holding right, from 570,401; lands at 723,353
+      -> [ice platforms out] standing at x 698-742, y 353
+  19. jump (held 21 ticks), holding left, double jump at tick 10, from 698,353; lands at 515,285   [djump]
+      -> [ice platforms out] standing at x 482-526, y 285
+  20. jump (held 21 ticks), holding left, from 482,285; lands at 299,273
+      -> [ice platforms out] standing at x 0-310, y 257-273
+  21. standing at 0,257, goes into it
+      -> out 0,224
+how in 848,1408 -> out 0,224: djump,belmont:3
+     [no ice platforms] coming in at 848,1408
+   1. coming in: holding nothing, from 848,1408; lands at 848,1409
+      -> [no ice platforms] standing at x 714-896, y 1409-1425
+   2. jump (held 21 ticks), holding left, from 752,1413; lands at 628,1345
+      -> [no ice platforms] standing at x 170-646, y 1345-1473
+   3. hit the ice block at 656,1248 from 600,1353 (jumping if need be) with Shotgun Ice or Holy Water: [ice platforms out]   [belmont:3]
+      -> [ice platforms out] standing at x 170-646, y 1345-1473
+   4. jump (held 21 ticks), holding left, from 256,1413; lands at 143,1337
+      -> [ice platforms out] standing at x 74-150, y 1329-1344
+   5. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 96,1329; lands at 187,1277
+      -> [ice platforms out] standing at x 178-222, y 1277
+   6. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 178,1277; lands at 254,1213
+      -> [ice platforms out] standing at x 242-286, y 1213
+   7. jump (held 21 ticks), holding right, from 242,1213; lands at 345,1137
+      -> [ice platforms out] standing at x 298-438, y 1137-1153
+   8. jump (held 21 ticks), holding right, double jump at tick 15, from 416,1137; lands at 666,1089   [djump]
+      -> [ice platforms out] standing at x 650-806, y 1073-1105
+   9. jump (held 21 ticks), holding left, double jump at tick 15, from 688,1073; lands at 549,968   [djump]
+      -> [ice platforms out] standing at x 154-582, y 945-1057
+  10. jump (held 21 ticks), holding right, double jump at tick 15, from 400,957; lands at 619,877   [djump]
+      -> [ice platforms out] standing at x 610-654, y 877
+  11. running left, jump (held 21 ticks), holding left, from 610,877; lands at 434,829
+      -> [ice platforms out] standing at x 418-462, y 829
+  12. jump (held 21 ticks), holding left, double jump at tick 10, from 418,829; lands at 199,801   [djump]
+      -> [ice platforms out] standing at x 42-214, y 769-801
+  13. jump (held 21 ticks), holding right, double jump at tick 15, from 160,785; lands at 357,689   [djump]
+      -> [ice platforms out] standing at x 346-454, y 673-689
+  14. jump (held 21 ticks), holding right, double jump at tick 15, from 400,685; lands at 605,593   [djump]
+      -> [ice platforms out] standing at x 586-790, y 593-688
+  15. running left, jump (held 14 ticks), holding left, double jump at tick 21, from 588,593; lands at 287,545   [djump]
+      -> [ice platforms out] standing at x 90-294, y 529-545
+  16. jump (held 21 ticks), holding right, double jump at tick 15, from 128,529; lands at 355,449   [djump]
+      -> [ice platforms out] standing at x 346-454, y 433-449
+  17. jump (held 21 ticks), holding right, double jump at tick 15, from 346,449; lands at 595,401   [djump]
+      -> [ice platforms out] standing at x 570-614, y 401
+  18. jump (held 21 ticks), holding right, from 570,401; lands at 723,353
+      -> [ice platforms out] standing at x 698-742, y 353
+  19. jump (held 21 ticks), holding left, double jump at tick 10, from 698,353; lands at 515,285   [djump]
+      -> [ice platforms out] standing at x 482-526, y 285
+  20. jump (held 21 ticks), holding left, from 482,285; lands at 299,273
+      -> [ice platforms out] standing at x 0-310, y 257-273
+  21. standing at 0,257, goes into it
+      -> out 0,224
+how in 848,1408 -> out 880,1376: -
+     [no ice platforms] coming in at 848,1408
+   1. coming in: holding nothing, from 848,1408; lands at 848,1409
+      -> [no ice platforms] standing at x 714-896, y 1409-1425
+   2. standing at 878,1409, goes into it
+      -> out 880,1376
+how in 848,1408 -> loc 10 59: djump,adash
+     [no ice platforms] coming in at 848,1408
+   1. coming in: holding nothing, from 848,1408; lands at 848,1409
+      -> [no ice platforms] standing at x 714-896, y 1409-1425
+   2. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 784,1409; lands at 513,1725
+      -> [no ice platforms] standing at x 490-646, y 1713-1744
+   3. jump (held 21 ticks), holding right, double jump at tick 16, air dash (Jerry) at tick 8, from 544,1713; touches it on the way   [djump,adash]
+      -> loc 10 59
+how in 848,1408 -> loc 10 59: adash,gdash
+     [no ice platforms] coming in at 848,1408
+   1. coming in: holding nothing, from 848,1408; lands at 848,1409
+      -> [no ice platforms] standing at x 714-896, y 1409-1425
+   2. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 784,1409; lands at 513,1725
+      -> [no ice platforms] standing at x 490-646, y 1713-1744
+   3. dash right (Jerry), jump (held 21 ticks), holding right, air dash (Jerry) at tick 12, from 560,1713; touches it on the way   [adash,gdash]
+      -> loc 10 59
+how in 848,1408 -> loc 10 59: djump,gdash
+     [no ice platforms] coming in at 848,1408
+   1. coming in: holding nothing, from 848,1408; lands at 848,1409
+      -> [no ice platforms] standing at x 714-896, y 1409-1425
+   2. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 784,1409; lands at 513,1725
+      -> [no ice platforms] standing at x 490-646, y 1713-1744
+   3. dash right (Jerry), jump (held 21 ticks), holding right, double jump at tick 12, from 592,1713; touches it on the way   [djump,gdash]
+      -> loc 10 59
+how in 848,1408 -> loc 10 59: adash,megaman:2
+     [no ice platforms] coming in at 848,1408
+   1. coming in: holding nothing, from 848,1408; lands at 848,1409
+      -> [no ice platforms] standing at x 714-896, y 1409-1425
+   2. jump (held 21 ticks), holding left, from 752,1413; lands at 628,1345
+      -> [no ice platforms] standing at x 170-646, y 1345-1473
+   3. running right, jump (held 21 ticks), holding right, from 642,1345; lands at 818,1297
+      -> [no ice platforms] standing at x 810-896, y 1297
+   4. shoot the ice block at 656,1248 from 810,1297 (at the top of a jump) with Shotgun Ice: [ice platforms out]   [megaman:2]
+      -> [ice platforms out] standing at x 810-896, y 1297
+   5. walk off the edge, holding left once in the air, from 810,1297; lands at 576,1613
+      -> [ice platforms out] standing at x 546-590, y 1613
+   6. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 546,1613; touches it on the way   [adash]
+      -> loc 10 59
+how in 848,1408 -> loc 10 59: adash,belmont:3
+     [no ice platforms] coming in at 848,1408
+   1. coming in: holding nothing, from 848,1408; lands at 848,1409
+      -> [no ice platforms] standing at x 714-896, y 1409-1425
+   2. jump (held 21 ticks), holding left, from 752,1413; lands at 628,1345
+      -> [no ice platforms] standing at x 170-646, y 1345-1473
+   3. hit the ice block at 656,1248 from 600,1353 (jumping if need be) with Shotgun Ice or Holy Water: [ice platforms out]   [belmont:3]
+      -> [ice platforms out] standing at x 170-646, y 1345-1473
+   4. running right, jump (held 21 ticks), holding right, from 642,1345; lands at 818,1297
+      -> [ice platforms out] standing at x 810-896, y 1297
+   5. walk off the edge, holding left once in the air, from 810,1297; lands at 576,1613
+      -> [ice platforms out] standing at x 546-590, y 1613
+   6. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 546,1613; touches it on the way   [adash]
+      -> loc 10 59
+how in 848,1408 -> loc 10 59: djump,megaman:2
+     [no ice platforms] coming in at 848,1408
+   1. coming in: holding nothing, from 848,1408; lands at 848,1409
+      -> [no ice platforms] standing at x 714-896, y 1409-1425
+   2. jump (held 21 ticks), holding left, from 752,1413; lands at 628,1345
+      -> [no ice platforms] standing at x 170-646, y 1345-1473
+   3. running right, jump (held 21 ticks), holding right, from 642,1345; lands at 818,1297
+      -> [no ice platforms] standing at x 810-896, y 1297
+   4. shoot the ice block at 656,1248 from 810,1297 (at the top of a jump) with Shotgun Ice: [ice platforms out]   [megaman:2]
+      -> [ice platforms out] standing at x 810-896, y 1297
+   5. walk off the edge, holding left once in the air, from 810,1297; lands at 576,1613
+      -> [ice platforms out] standing at x 546-590, y 1613
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 576,1613; touches it on the way   [djump]
+      -> loc 10 59
+how in 848,1408 -> loc 10 59: djump,belmont:3
+     [no ice platforms] coming in at 848,1408
+   1. coming in: holding nothing, from 848,1408; lands at 848,1409
+      -> [no ice platforms] standing at x 714-896, y 1409-1425
+   2. jump (held 21 ticks), holding left, from 752,1413; lands at 628,1345
+      -> [no ice platforms] standing at x 170-646, y 1345-1473
+   3. hit the ice block at 656,1248 from 600,1353 (jumping if need be) with Shotgun Ice or Holy Water: [ice platforms out]   [belmont:3]
+      -> [ice platforms out] standing at x 170-646, y 1345-1473
+   4. running right, jump (held 21 ticks), holding right, from 642,1345; lands at 818,1297
+      -> [ice platforms out] standing at x 810-896, y 1297
+   5. walk off the edge, holding left once in the air, from 810,1297; lands at 576,1613
+      -> [ice platforms out] standing at x 546-590, y 1613
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 576,1613; touches it on the way   [djump]
+      -> loc 10 59
+how in 848,1408 -> loc 10 59: gdash,megaman:2
+     [no ice platforms] coming in at 848,1408
+   1. coming in: holding nothing, from 848,1408; lands at 848,1409
+      -> [no ice platforms] standing at x 714-896, y 1409-1425
+   2. jump (held 21 ticks), holding left, from 752,1413; lands at 628,1345
+      -> [no ice platforms] standing at x 170-646, y 1345-1473
+   3. running right, jump (held 21 ticks), holding right, from 642,1345; lands at 818,1297
+      -> [no ice platforms] standing at x 810-896, y 1297
+   4. shoot the ice block at 656,1248 from 810,1297 (at the top of a jump) with Shotgun Ice: [ice platforms out]   [megaman:2]
+      -> [ice platforms out] standing at x 810-896, y 1297
+   5. walk off the edge, holding left once in the air, from 810,1297; lands at 576,1613
+      -> [ice platforms out] standing at x 546-590, y 1613
+   6. dash right (Jerry), jump (held 21 ticks), holding right, from 576,1613; touches it on the way   [gdash]
+      -> loc 10 59
+how in 848,1408 -> loc 10 59: gdash,belmont:3
+     [no ice platforms] coming in at 848,1408
+   1. coming in: holding nothing, from 848,1408; lands at 848,1409
+      -> [no ice platforms] standing at x 714-896, y 1409-1425
+   2. jump (held 21 ticks), holding left, from 752,1413; lands at 628,1345
+      -> [no ice platforms] standing at x 170-646, y 1345-1473
+   3. hit the ice block at 656,1248 from 600,1353 (jumping if need be) with Shotgun Ice or Holy Water: [ice platforms out]   [belmont:3]
+      -> [ice platforms out] standing at x 170-646, y 1345-1473
+   4. running right, jump (held 21 ticks), holding right, from 642,1345; lands at 818,1297
+      -> [ice platforms out] standing at x 810-896, y 1297
+   5. walk off the edge, holding left once in the air, from 810,1297; lands at 576,1613
+      -> [ice platforms out] standing at x 546-590, y 1613
+   6. dash right (Jerry), jump (held 21 ticks), holding right, from 576,1613; touches it on the way   [gdash]
+      -> loc 10 59

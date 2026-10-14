@@ -1,0 +1,58 @@
+# rMain_65: Starry Skies - East Great Mountain (area 65), 1824x1440 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+# switches: the room is worked out in each of its states, the player coming in in the first: [no ice platforms]
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 1776,1328   # from rMain_64 out 0,624
+in 48,208   # from rMain_66 out 2064,176
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 1808,1296   # to rMain_64 at 48,656; the player goes into it
+out 0,176   # to rMain_66 at 2032,208; the player goes into it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+loc 9 58   # weapon upgrade 58, at 1583,151
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 1776,1328
+  out 1808,1296   -
+  out 0,176       -
+  loc 9 58        never
+from in 48,208
+  out 1808,1296   -
+  out 0,176       -
+  loc 9 58        never
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 1776,1328 -> out 1808,1296: -
+     [no ice platforms] coming in at 1776,1328
+   1. coming in: holding nothing, from 1776,1328; lands at 1776,1329
+      -> [no ice platforms] standing at x 0-1824, y 209-1329
+   2. standing at 1806,1329, goes into it
+      -> out 1808,1296
+how in 1776,1328 -> out 0,176: -
+     [no ice platforms] coming in at 1776,1328
+   1. coming in: holding nothing, from 1776,1328; lands at 1776,1329
+      -> [no ice platforms] standing at x 0-1824, y 209-1329
+   2. standing at 0,209, goes into it
+      -> out 0,176
+how in 48,208 -> out 1808,1296: -
+     [no ice platforms] coming in at 48,208
+   1. coming in: holding nothing, from 48,208; lands at 48,209
+      -> [no ice platforms] standing at x 0-1824, y 209-1329
+   2. standing at 1806,1329, goes into it
+      -> out 1808,1296
+how in 48,208 -> out 0,176: -
+     [no ice platforms] coming in at 48,208
+   1. coming in: holding nothing, from 48,208; lands at 48,209
+      -> [no ice platforms] standing at x 0-1824, y 209-1329
+   2. standing at 0,209, goes into it
+      -> out 0,176

@@ -1,0 +1,471 @@
+# rMega4_ToxicJungleD: Access Gate 4: Megapolis (area 29), 3904x704 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+# switches: the room is worked out in each of its states, the player coming in in the first: [barrier 225532 shut, barrier 225533 shut]
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 48,592   # from rMega4_ToxicJungleC out 8192,192
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 3888,544   # to rMega4_ToxicJungleE at 144,288; the player goes into it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+loc 1 21   # heart piece 21, at 927,119
+loc 2 31   # treasure chest 31, at 3776,195
+loc 9 84   # weapon upgrade 84, at 1575,103
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 48,592
+  out 3888,544   megaman:1 | samus:1 | link:1 | belmont:1
+  loc 1 21       never
+  loc 2 31       megaman:1 | samus:1 | link:1 | belmont:1
+  loc 9 84       djump,link:1 | adash,link:1 | djump,belmont:1 | adash,belmont:1 | djump,megaman:1 | adash,megaman:1 | djump,samus:1 | adash,samus:1
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 48,592 -> out 3888,544: megaman:1
+     [barrier 225532 shut, barrier 225533 shut] coming in at 48,592
+   1. coming in: holding nothing, from 48,592; lands at 48,593
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 0-809, y 552-657
+   2. on the wall to the right: kick off it (wall jump), wall-jump up the same wall, from 761,578; clings to the wall at 777,506
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 777-825, y 232-551
+   3. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 777,418; lands at 615,417
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 553-695, y 417-471
+   4. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 553,418; clings to the wall at 407,414
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 233-407, y 369-423
+   5. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 233,370; clings to the wall at 151,318
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 55-151, y 88-487
+   6. hit the switch at 64,112 from 55,108 (jumping if need be): [barrier 225532 open, barrier 225533 shut]   [megaman:1]
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 55-151, y 88-487
+   7. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 151,194; lands at 577,625
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 0-1095, y 577-675
+   8. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 999,578; lands at 1168,593
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 1145-2151, y 369-675
+   9. on the wall to the left: holding right, from 2151,370; lands at 2270,657
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 2233-2663, y 657-675
+  10. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2663,658; lands at 2818,654
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 2681-2855, y 641-675
+  11. shoot the switch at 3120,576 from 2799,645 (at the top of a jump): [barrier 225532 open, barrier 225533 open]   [megaman:1]
+      -> [barrier 225532 open, barrier 225533 open] standing at x 2681-2855, y 641-675
+  12. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 2681,658; lands at 2519,657
+      -> [barrier 225532 open, barrier 225533 open] standing at x 2233-2663, y 657-675
+  13. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 2234,657; clings to the wall at 2233,585
+      -> [barrier 225532 open, barrier 225533 open] standing at x 2233-3904, y 145-631
+  14. standing at 3886,593, goes into it
+      -> out 3888,544
+how in 48,592 -> out 3888,544: samus:1
+     [barrier 225532 shut, barrier 225533 shut] coming in at 48,592
+   1. coming in: holding nothing, from 48,592; lands at 48,593
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 0-809, y 552-657
+   2. on the wall to the right: kick off it (wall jump), wall-jump up the same wall, from 761,578; clings to the wall at 777,506
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 777-825, y 232-551
+   3. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 777,418; lands at 615,417
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 553-695, y 417-471
+   4. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 553,418; clings to the wall at 407,414
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 233-407, y 369-423
+   5. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 233,370; clings to the wall at 151,318
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 55-151, y 88-487
+   6. hit the switch at 64,112 from 55,108 (jumping if need be): [barrier 225532 open, barrier 225533 shut]   [samus:1]
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 55-151, y 88-487
+   7. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 151,194; lands at 577,625
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 0-1095, y 577-675
+   8. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 999,578; lands at 1168,593
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 1145-2151, y 369-675
+   9. on the wall to the left: holding right, from 2151,370; lands at 2270,657
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 2233-2663, y 657-675
+  10. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2663,658; lands at 2818,654
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 2681-2855, y 641-675
+  11. shoot the switch at 3120,576 from 2799,645 (at the top of a jump): [barrier 225532 open, barrier 225533 open]   [samus:1]
+      -> [barrier 225532 open, barrier 225533 open] standing at x 2681-2855, y 641-675
+  12. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 2681,658; lands at 2519,657
+      -> [barrier 225532 open, barrier 225533 open] standing at x 2233-2663, y 657-675
+  13. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 2234,657; clings to the wall at 2233,585
+      -> [barrier 225532 open, barrier 225533 open] standing at x 2233-3904, y 145-631
+  14. standing at 3886,593, goes into it
+      -> out 3888,544
+how in 48,592 -> out 3888,544: link:1
+     [barrier 225532 shut, barrier 225533 shut] coming in at 48,592
+   1. coming in: holding nothing, from 48,592; lands at 48,593
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 0-809, y 552-657
+   2. on the wall to the right: kick off it (wall jump), wall-jump up the same wall, from 761,578; clings to the wall at 777,506
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 777-825, y 232-551
+   3. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 777,418; lands at 615,417
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 553-695, y 417-471
+   4. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 553,418; clings to the wall at 407,414
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 233-407, y 369-423
+   5. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 233,370; clings to the wall at 151,318
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 55-151, y 88-487
+   6. hit the switch at 64,112 from 55,108 (jumping if need be): [barrier 225532 open, barrier 225533 shut]   [link:1]
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 55-151, y 88-487
+   7. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 151,194; lands at 577,625
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 0-1095, y 577-675
+   8. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 999,578; lands at 1168,593
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 1145-2151, y 369-675
+   9. on the wall to the left: holding right, from 2151,370; lands at 2270,657
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 2233-2663, y 657-675
+  10. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2663,658; lands at 2818,654
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 2681-2855, y 641-675
+  11. running right, jump (held 21 ticks), holding right, from 2832,657; clings to the wall at 3033,669
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 3033-3129, y 552-675
+  12. hit the switch at 3120,576 from 3064,625 (jumping if need be): [barrier 225532 open, barrier 225533 open]   [link:1]
+      -> [barrier 225532 open, barrier 225533 open] standing at x 3033-3129, y 552-675
+  13. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 3033,626; clings to the wall at 2855,673
+      -> [barrier 225532 open, barrier 225533 open] standing at x 2681-2855, y 641-675
+  14. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 2681,658; lands at 2519,657
+      -> [barrier 225532 open, barrier 225533 open] standing at x 2233-2663, y 657-675
+  15. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 2234,657; clings to the wall at 2233,585
+      -> [barrier 225532 open, barrier 225533 open] standing at x 2233-3904, y 145-631
+  16. standing at 3886,593, goes into it
+      -> out 3888,544
+how in 48,592 -> out 3888,544: belmont:1
+     [barrier 225532 shut, barrier 225533 shut] coming in at 48,592
+   1. coming in: holding nothing, from 48,592; lands at 48,593
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 0-809, y 552-657
+   2. on the wall to the right: kick off it (wall jump), wall-jump up the same wall, from 761,578; clings to the wall at 777,506
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 777-825, y 232-551
+   3. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 777,418; lands at 615,417
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 553-695, y 417-471
+   4. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 553,418; clings to the wall at 407,414
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 233-407, y 369-423
+   5. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 233,370; clings to the wall at 151,318
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 55-151, y 88-487
+   6. hit the switch at 64,112 from 55,108 (jumping if need be): [barrier 225532 open, barrier 225533 shut]   [belmont:1]
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 55-151, y 88-487
+   7. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 151,194; lands at 577,625
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 0-1095, y 577-675
+   8. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 999,578; lands at 1168,593
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 1145-2151, y 369-675
+   9. on the wall to the left: holding right, from 2151,370; lands at 2270,657
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 2233-2663, y 657-675
+  10. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2663,658; lands at 2818,654
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 2681-2855, y 641-675
+  11. running right, jump (held 21 ticks), holding right, from 2832,657; clings to the wall at 3033,669
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 3033-3129, y 552-675
+  12. hit the switch at 3120,576 from 3064,625 (jumping if need be): [barrier 225532 open, barrier 225533 open]   [belmont:1]
+      -> [barrier 225532 open, barrier 225533 open] standing at x 3033-3129, y 552-675
+  13. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 3033,626; clings to the wall at 2855,673
+      -> [barrier 225532 open, barrier 225533 open] standing at x 2681-2855, y 641-675
+  14. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 2681,658; lands at 2519,657
+      -> [barrier 225532 open, barrier 225533 open] standing at x 2233-2663, y 657-675
+  15. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 2234,657; clings to the wall at 2233,585
+      -> [barrier 225532 open, barrier 225533 open] standing at x 2233-3904, y 145-631
+  16. standing at 3886,593, goes into it
+      -> out 3888,544
+how in 48,592 -> loc 2 31: megaman:1
+     [barrier 225532 shut, barrier 225533 shut] coming in at 48,592
+   1. coming in: holding nothing, from 48,592; lands at 48,593
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 0-809, y 552-657
+   2. on the wall to the right: kick off it (wall jump), wall-jump up the same wall, from 761,578; clings to the wall at 777,506
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 777-825, y 232-551
+   3. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 777,418; lands at 615,417
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 553-695, y 417-471
+   4. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 553,418; clings to the wall at 407,414
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 233-407, y 369-423
+   5. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 233,370; clings to the wall at 151,318
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 55-151, y 88-487
+   6. hit the switch at 64,112 from 55,108 (jumping if need be): [barrier 225532 open, barrier 225533 shut]   [megaman:1]
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 55-151, y 88-487
+   7. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 151,194; lands at 577,625
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 0-1095, y 577-675
+   8. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 999,578; lands at 1168,593
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 1145-2151, y 369-675
+   9. on the wall to the left: holding right, from 2151,370; lands at 2270,657
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 2233-2663, y 657-675
+  10. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2663,658; lands at 2818,654
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 2681-2855, y 641-675
+  11. shoot the switch at 3120,576 from 2799,645 (at the top of a jump): [barrier 225532 open, barrier 225533 open]   [megaman:1]
+      -> [barrier 225532 open, barrier 225533 open] standing at x 2681-2855, y 641-675
+  12. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 2681,658; lands at 2519,657
+      -> [barrier 225532 open, barrier 225533 open] standing at x 2233-2663, y 657-675
+  13. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 2234,657; clings to the wall at 2233,585
+      -> [barrier 225532 open, barrier 225533 open] standing at x 2233-3904, y 145-631
+  14. running right, jump (held 21 ticks), holding right, from 3280,145; clings to the wall at 3689,493
+      -> [barrier 225532 open, barrier 225533 open] standing at x 3689-3785, y 152-503
+  15. standing at 3766,209, touches it
+      -> loc 2 31
+how in 48,592 -> loc 2 31: samus:1
+     [barrier 225532 shut, barrier 225533 shut] coming in at 48,592
+   1. coming in: holding nothing, from 48,592; lands at 48,593
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 0-809, y 552-657
+   2. on the wall to the right: kick off it (wall jump), wall-jump up the same wall, from 761,578; clings to the wall at 777,506
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 777-825, y 232-551
+   3. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 777,418; lands at 615,417
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 553-695, y 417-471
+   4. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 553,418; clings to the wall at 407,414
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 233-407, y 369-423
+   5. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 233,370; clings to the wall at 151,318
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 55-151, y 88-487
+   6. hit the switch at 64,112 from 55,108 (jumping if need be): [barrier 225532 open, barrier 225533 shut]   [samus:1]
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 55-151, y 88-487
+   7. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 151,194; lands at 577,625
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 0-1095, y 577-675
+   8. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 999,578; lands at 1168,593
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 1145-2151, y 369-675
+   9. on the wall to the left: holding right, from 2151,370; lands at 2270,657
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 2233-2663, y 657-675
+  10. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2663,658; lands at 2818,654
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 2681-2855, y 641-675
+  11. shoot the switch at 3120,576 from 2799,645 (at the top of a jump): [barrier 225532 open, barrier 225533 open]   [samus:1]
+      -> [barrier 225532 open, barrier 225533 open] standing at x 2681-2855, y 641-675
+  12. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 2681,658; lands at 2519,657
+      -> [barrier 225532 open, barrier 225533 open] standing at x 2233-2663, y 657-675
+  13. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 2234,657; clings to the wall at 2233,585
+      -> [barrier 225532 open, barrier 225533 open] standing at x 2233-3904, y 145-631
+  14. running right, jump (held 21 ticks), holding right, from 3280,145; clings to the wall at 3689,493
+      -> [barrier 225532 open, barrier 225533 open] standing at x 3689-3785, y 152-503
+  15. standing at 3766,209, touches it
+      -> loc 2 31
+how in 48,592 -> loc 2 31: link:1
+     [barrier 225532 shut, barrier 225533 shut] coming in at 48,592
+   1. coming in: holding nothing, from 48,592; lands at 48,593
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 0-809, y 552-657
+   2. on the wall to the right: kick off it (wall jump), wall-jump up the same wall, from 761,578; clings to the wall at 777,506
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 777-825, y 232-551
+   3. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 777,418; lands at 615,417
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 553-695, y 417-471
+   4. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 553,418; clings to the wall at 407,414
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 233-407, y 369-423
+   5. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 233,370; clings to the wall at 151,318
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 55-151, y 88-487
+   6. hit the switch at 64,112 from 55,108 (jumping if need be): [barrier 225532 open, barrier 225533 shut]   [link:1]
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 55-151, y 88-487
+   7. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 151,194; lands at 577,625
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 0-1095, y 577-675
+   8. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 999,578; lands at 1168,593
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 1145-2151, y 369-675
+   9. on the wall to the left: holding right, from 2151,370; lands at 2270,657
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 2233-2663, y 657-675
+  10. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2663,658; lands at 2818,654
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 2681-2855, y 641-675
+  11. running right, jump (held 21 ticks), holding right, from 2832,657; clings to the wall at 3033,669
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 3033-3129, y 552-675
+  12. hit the switch at 3120,576 from 3064,625 (jumping if need be): [barrier 225532 open, barrier 225533 open]   [link:1]
+      -> [barrier 225532 open, barrier 225533 open] standing at x 3033-3129, y 552-675
+  13. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 3033,626; clings to the wall at 2855,673
+      -> [barrier 225532 open, barrier 225533 open] standing at x 2681-2855, y 641-675
+  14. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 2681,658; lands at 2519,657
+      -> [barrier 225532 open, barrier 225533 open] standing at x 2233-2663, y 657-675
+  15. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 2234,657; clings to the wall at 2233,585
+      -> [barrier 225532 open, barrier 225533 open] standing at x 2233-3904, y 145-631
+  16. running right, jump (held 21 ticks), holding right, from 3280,145; clings to the wall at 3689,493
+      -> [barrier 225532 open, barrier 225533 open] standing at x 3689-3785, y 152-503
+  17. standing at 3766,209, touches it
+      -> loc 2 31
+how in 48,592 -> loc 2 31: belmont:1
+     [barrier 225532 shut, barrier 225533 shut] coming in at 48,592
+   1. coming in: holding nothing, from 48,592; lands at 48,593
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 0-809, y 552-657
+   2. on the wall to the right: kick off it (wall jump), wall-jump up the same wall, from 761,578; clings to the wall at 777,506
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 777-825, y 232-551
+   3. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 777,418; lands at 615,417
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 553-695, y 417-471
+   4. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 553,418; clings to the wall at 407,414
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 233-407, y 369-423
+   5. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 233,370; clings to the wall at 151,318
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 55-151, y 88-487
+   6. hit the switch at 64,112 from 55,108 (jumping if need be): [barrier 225532 open, barrier 225533 shut]   [belmont:1]
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 55-151, y 88-487
+   7. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 151,194; lands at 577,625
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 0-1095, y 577-675
+   8. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 999,578; lands at 1168,593
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 1145-2151, y 369-675
+   9. on the wall to the left: holding right, from 2151,370; lands at 2270,657
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 2233-2663, y 657-675
+  10. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2663,658; lands at 2818,654
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 2681-2855, y 641-675
+  11. running right, jump (held 21 ticks), holding right, from 2832,657; clings to the wall at 3033,669
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 3033-3129, y 552-675
+  12. hit the switch at 3120,576 from 3064,625 (jumping if need be): [barrier 225532 open, barrier 225533 open]   [belmont:1]
+      -> [barrier 225532 open, barrier 225533 open] standing at x 3033-3129, y 552-675
+  13. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 3033,626; clings to the wall at 2855,673
+      -> [barrier 225532 open, barrier 225533 open] standing at x 2681-2855, y 641-675
+  14. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 2681,658; lands at 2519,657
+      -> [barrier 225532 open, barrier 225533 open] standing at x 2233-2663, y 657-675
+  15. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 2234,657; clings to the wall at 2233,585
+      -> [barrier 225532 open, barrier 225533 open] standing at x 2233-3904, y 145-631
+  16. running right, jump (held 21 ticks), holding right, from 3280,145; clings to the wall at 3689,493
+      -> [barrier 225532 open, barrier 225533 open] standing at x 3689-3785, y 152-503
+  17. standing at 3766,209, touches it
+      -> loc 2 31
+how in 48,592 -> loc 9 84: djump,link:1
+     [barrier 225532 shut, barrier 225533 shut] coming in at 48,592
+   1. coming in: holding nothing, from 48,592; lands at 48,593
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 0-809, y 552-657
+   2. on the wall to the right: kick off it (wall jump), wall-jump up the same wall, from 761,578; clings to the wall at 777,506
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 777-825, y 232-551
+   3. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 777,418; lands at 615,417
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 553-695, y 417-471
+   4. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 553,418; clings to the wall at 407,414
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 233-407, y 369-423
+   5. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 233,370; clings to the wall at 151,318
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 55-151, y 88-487
+   6. hit the switch at 64,112 from 55,108 (jumping if need be): [barrier 225532 open, barrier 225533 shut]   [link:1]
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 55-151, y 88-487
+   7. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 151,194; lands at 577,625
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 0-1095, y 577-675
+   8. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 999,578; lands at 1168,593
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 1145-2151, y 369-675
+   9. jump (held 21 ticks), holding left, double jump at tick 10, from 1792,445; clings to the wall at 1655,357   [djump]
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 1559-1655, y -24-359
+  10. standing at 1570,113, touches it
+      -> loc 9 84
+how in 48,592 -> loc 9 84: adash,link:1
+     [barrier 225532 shut, barrier 225533 shut] coming in at 48,592
+   1. coming in: holding nothing, from 48,592; lands at 48,593
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 0-809, y 552-657
+   2. on the wall to the right: kick off it (wall jump), wall-jump up the same wall, from 761,578; clings to the wall at 777,506
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 777-825, y 232-551
+   3. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 777,418; lands at 615,417
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 553-695, y 417-471
+   4. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 553,418; clings to the wall at 407,414
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 233-407, y 369-423
+   5. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 233,370; clings to the wall at 151,318
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 55-151, y 88-487
+   6. hit the switch at 64,112 from 55,108 (jumping if need be): [barrier 225532 open, barrier 225533 shut]   [link:1]
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 55-151, y 88-487
+   7. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 151,194; lands at 577,625
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 0-1095, y 577-675
+   8. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 999,578; lands at 1168,593
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 1145-2151, y 369-675
+   9. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 1808,437; clings to the wall at 1655,351   [adash]
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 1559-1655, y -24-359
+  10. standing at 1570,113, touches it
+      -> loc 9 84
+how in 48,592 -> loc 9 84: djump,belmont:1
+     [barrier 225532 shut, barrier 225533 shut] coming in at 48,592
+   1. coming in: holding nothing, from 48,592; lands at 48,593
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 0-809, y 552-657
+   2. on the wall to the right: kick off it (wall jump), wall-jump up the same wall, from 761,578; clings to the wall at 777,506
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 777-825, y 232-551
+   3. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 777,418; lands at 615,417
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 553-695, y 417-471
+   4. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 553,418; clings to the wall at 407,414
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 233-407, y 369-423
+   5. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 233,370; clings to the wall at 151,318
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 55-151, y 88-487
+   6. hit the switch at 64,112 from 55,108 (jumping if need be): [barrier 225532 open, barrier 225533 shut]   [belmont:1]
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 55-151, y 88-487
+   7. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 151,194; lands at 577,625
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 0-1095, y 577-675
+   8. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 999,578; lands at 1168,593
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 1145-2151, y 369-675
+   9. jump (held 21 ticks), holding left, double jump at tick 10, from 1792,445; clings to the wall at 1655,357   [djump]
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 1559-1655, y -24-359
+  10. standing at 1570,113, touches it
+      -> loc 9 84
+how in 48,592 -> loc 9 84: adash,belmont:1
+     [barrier 225532 shut, barrier 225533 shut] coming in at 48,592
+   1. coming in: holding nothing, from 48,592; lands at 48,593
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 0-809, y 552-657
+   2. on the wall to the right: kick off it (wall jump), wall-jump up the same wall, from 761,578; clings to the wall at 777,506
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 777-825, y 232-551
+   3. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 777,418; lands at 615,417
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 553-695, y 417-471
+   4. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 553,418; clings to the wall at 407,414
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 233-407, y 369-423
+   5. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 233,370; clings to the wall at 151,318
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 55-151, y 88-487
+   6. hit the switch at 64,112 from 55,108 (jumping if need be): [barrier 225532 open, barrier 225533 shut]   [belmont:1]
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 55-151, y 88-487
+   7. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 151,194; lands at 577,625
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 0-1095, y 577-675
+   8. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 999,578; lands at 1168,593
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 1145-2151, y 369-675
+   9. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 1808,437; clings to the wall at 1655,351   [adash]
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 1559-1655, y -24-359
+  10. standing at 1570,113, touches it
+      -> loc 9 84
+how in 48,592 -> loc 9 84: djump,megaman:1
+     [barrier 225532 shut, barrier 225533 shut] coming in at 48,592
+   1. coming in: holding nothing, from 48,592; lands at 48,593
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 0-809, y 552-657
+   2. on the wall to the right: kick off it (wall jump), wall-jump up the same wall, from 761,578; clings to the wall at 777,506
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 777-825, y 232-551
+   3. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 777,418; lands at 615,417
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 553-695, y 417-471
+   4. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 553,418; clings to the wall at 407,414
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 233-407, y 369-423
+   5. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 233,370; clings to the wall at 151,318
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 55-151, y 88-487
+   6. hit the switch at 64,112 from 55,108 (jumping if need be): [barrier 225532 open, barrier 225533 shut]   [megaman:1]
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 55-151, y 88-487
+   7. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 151,194; lands at 577,625
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 0-1095, y 577-675
+   8. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 999,578; lands at 1168,593
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 1145-2151, y 369-675
+   9. jump (held 21 ticks), holding left, double jump at tick 10, from 1792,445; clings to the wall at 1655,357   [djump]
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 1559-1655, y -24-359
+  10. standing at 1570,113, touches it
+      -> loc 9 84
+how in 48,592 -> loc 9 84: adash,megaman:1
+     [barrier 225532 shut, barrier 225533 shut] coming in at 48,592
+   1. coming in: holding nothing, from 48,592; lands at 48,593
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 0-809, y 552-657
+   2. on the wall to the right: kick off it (wall jump), wall-jump up the same wall, from 761,578; clings to the wall at 777,506
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 777-825, y 232-551
+   3. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 777,418; lands at 615,417
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 553-695, y 417-471
+   4. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 553,418; clings to the wall at 407,414
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 233-407, y 369-423
+   5. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 233,370; clings to the wall at 151,318
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 55-151, y 88-487
+   6. hit the switch at 64,112 from 55,108 (jumping if need be): [barrier 225532 open, barrier 225533 shut]   [megaman:1]
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 55-151, y 88-487
+   7. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 151,194; lands at 577,625
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 0-1095, y 577-675
+   8. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 999,578; lands at 1168,593
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 1145-2151, y 369-675
+   9. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 1808,437; clings to the wall at 1655,351   [adash]
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 1559-1655, y -24-359
+  10. standing at 1570,113, touches it
+      -> loc 9 84
+how in 48,592 -> loc 9 84: djump,samus:1
+     [barrier 225532 shut, barrier 225533 shut] coming in at 48,592
+   1. coming in: holding nothing, from 48,592; lands at 48,593
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 0-809, y 552-657
+   2. on the wall to the right: kick off it (wall jump), wall-jump up the same wall, from 761,578; clings to the wall at 777,506
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 777-825, y 232-551
+   3. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 777,418; lands at 615,417
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 553-695, y 417-471
+   4. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 553,418; clings to the wall at 407,414
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 233-407, y 369-423
+   5. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 233,370; clings to the wall at 151,318
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 55-151, y 88-487
+   6. hit the switch at 64,112 from 55,108 (jumping if need be): [barrier 225532 open, barrier 225533 shut]   [samus:1]
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 55-151, y 88-487
+   7. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 151,194; lands at 577,625
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 0-1095, y 577-675
+   8. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 999,578; lands at 1168,593
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 1145-2151, y 369-675
+   9. jump (held 21 ticks), holding left, double jump at tick 10, from 1792,445; clings to the wall at 1655,357   [djump]
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 1559-1655, y -24-359
+  10. standing at 1570,113, touches it
+      -> loc 9 84
+how in 48,592 -> loc 9 84: adash,samus:1
+     [barrier 225532 shut, barrier 225533 shut] coming in at 48,592
+   1. coming in: holding nothing, from 48,592; lands at 48,593
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 0-809, y 552-657
+   2. on the wall to the right: kick off it (wall jump), wall-jump up the same wall, from 761,578; clings to the wall at 777,506
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 777-825, y 232-551
+   3. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 777,418; lands at 615,417
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 553-695, y 417-471
+   4. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 553,418; clings to the wall at 407,414
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 233-407, y 369-423
+   5. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 233,370; clings to the wall at 151,318
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 55-151, y 88-487
+   6. hit the switch at 64,112 from 55,108 (jumping if need be): [barrier 225532 open, barrier 225533 shut]   [samus:1]
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 55-151, y 88-487
+   7. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 151,194; lands at 577,625
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 0-1095, y 577-675
+   8. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 999,578; lands at 1168,593
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 1145-2151, y 369-675
+   9. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 1808,437; clings to the wall at 1655,351   [adash]
+      -> [barrier 225532 open, barrier 225533 shut] standing at x 1559-1655, y -24-359
+  10. standing at 1570,113, touches it
+      -> loc 9 84

@@ -1,0 +1,65 @@
+# rDesertedTowerD: Barrens - Deserted Tower (area 50), 640x960 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+boss      # going into this room from another is its boss fight: that needs an attack (solve.py adds it)
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 176,144   # from rDesertedTowerA out 568,816
+in 576,48   # from rDesertedTowerC out 64,336
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 168,112   # to rDesertedTowerA at 576,848; the player presses up at it
+out 312,752   # to rDesertedTowerA at 576,848; the player presses up at it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 176,144
+  out 168,112   -
+  out 312,752   -
+from in 576,48
+  out 168,112   -
+  out 312,752   -
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 176,144 -> out 168,112: -
+     coming in at 176,144
+   1. coming in: holding nothing, from 176,144; lands at 176,145
+      -> standing at x 135-294, y 145
+   2. standing at 158,145, presses up at it
+      -> out 168,112
+how in 176,144 -> out 312,752: -
+     coming in at 176,144
+   1. coming in: holding nothing, from 176,144; lands at 176,145
+      -> standing at x 135-294, y 145
+   2. walk off the edge, holding right, then nothing after 1 ticks in the air, from 135,145; lands at 334,785
+      -> standing at x 282-358, y 785
+   3. jump (held 2 ticks), holding left, from 282,785; lands at 158,817
+      -> standing at x 90-166, y 817
+   4. running right, jump (held 21 ticks), holding right, from 128,817; touches it on the way
+      -> out 312,752
+how in 576,48 -> out 168,112: -
+     coming in at 576,48
+   1. coming in: holding nothing, from 576,48; lands at 576,145
+      -> standing at x 346-601, y 145
+   2. jump (held 2 ticks), holding left, from 346,145; lands at 244,145
+      -> standing at x 135-294, y 145
+   3. standing at 158,145, presses up at it
+      -> out 168,112
+how in 576,48 -> out 312,752: -
+     coming in at 576,48
+   1. coming in: holding nothing, from 576,48; lands at 576,145
+      -> standing at x 346-601, y 145
+   2. walk off the edge, holding left, then nothing after 1 ticks in the air, from 346,145; lands at 312,785
+      -> standing at x 282-358, y 785
+   3. jump (held 2 ticks), holding left, from 282,785; lands at 158,817
+      -> standing at x 90-166, y 817
+   4. running right, jump (held 21 ticks), holding right, from 128,817; touches it on the way
+      -> out 312,752

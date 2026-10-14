@@ -1,0 +1,42 @@
+# rLowFacM: CHAOS Weapons Facility (area 69), 2656x464 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 48,320   # from rLowFacL out 2928,288
+in 2608,320   # from rLowFacN out 0,288
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 0,288   # to rLowFacL at 2896,320; the player goes into it
+out 2640,288   # to rLowFacN at 48,320; the player goes into it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 48,320
+  out 0,288      -
+  out 2640,288   never
+from in 2608,320
+  out 0,288      never
+  out 2640,288   -
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 48,320 -> out 0,288: -
+     coming in at 48,320
+   1. coming in: holding nothing, from 48,320; lands at 48,321
+      -> standing at x 0-262, y 321
+   2. standing at 0,321, goes into it
+      -> out 0,288
+how in 2608,320 -> out 2640,288: -
+     coming in at 2608,320
+   1. coming in: holding nothing, from 2608,320; lands at 2608,321
+      -> standing at x 2439-2656, y 321
+   2. standing at 2638,321, goes into it
+      -> out 2640,288

@@ -1,0 +1,363 @@
+# rMain_17: Magical Hills - East (area 17), 1808x704 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+# switches: the room is worked out in each of its states, the player coming in in the first: [bricks whole]
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 96,224   # from rMain_11 out 3040,1024
+in 1568,608   # from rMain_30 out 64,544
+in 1232,320   # from rCArena_3 out 232,272
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 16,192   # to rMain_11 at 2976,1056; the player goes into it
+out 1632,576   # to rMain_30 at 112,576; the player goes into it
+out 1224,288   # to rCArena_3 at 240,304; the player presses up at it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+loc 4 20   # heart energy 20, at 1735,104
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 96,224
+  out 16,192     -
+  out 1632,576   -
+  out 1224,288   adash | djump,megaman:4 | gdash,megaman:4
+  loc 4 20       djump,megaman:4 | adash | gdash,megaman:4
+from in 1568,608
+  out 16,192     -
+  out 1632,576   -
+  out 1224,288   adash | djump,megaman:4 | gdash,megaman:4
+  loc 4 20       djump,megaman:4 | adash | gdash,megaman:4
+from in 1232,320
+  out 16,192     -
+  out 1632,576   -
+  out 1224,288   -
+  loc 4 20       djump,megaman:4 | adash | gdash,megaman:4
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 96,224 -> out 16,192: -
+     [bricks whole] coming in at 96,224
+   1. coming in: holding nothing, from 96,224; lands at 96,225
+      -> [bricks whole] standing at x 0-422, y 225-289
+   2. standing at 14,225, goes into it
+      -> out 16,192
+how in 96,224 -> out 1632,576: -
+     [bricks whole] coming in at 96,224
+   1. coming in: holding nothing, from 96,224; lands at 96,225
+      -> [bricks whole] standing at x 0-422, y 225-289
+   2. running right, walk off the edge, holding right, then nothing after 1 ticks in the air, from 32,225; lands at 470,600
+      -> [bricks whole] standing at x 423-1110, y 577-609
+   3. running right, jump (held 21 ticks), holding right, from 992,609; lands at 1205,609
+      -> [bricks whole] standing at x 1194-1657, y 609
+   4. standing at 1630,609, goes into it
+      -> out 1632,576
+how in 96,224 -> out 1224,288: adash
+     [bricks whole] coming in at 96,224
+   1. coming in: holding nothing, from 96,224; lands at 96,225
+      -> [bricks whole] standing at x 0-422, y 225-289
+   2. running right, jump (held 21 ticks), holding right, from 288,289; lands at 487,265
+      -> [bricks whole] standing at x 474-550, y 265-267
+   3. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 550,265; lands at 851,236   [adash]
+      -> [bricks whole] standing at x 842-1302, y 209-241
+   4. walk off the edge, holding right, then left after 2 ticks in the air, air dash back left (Jerry) at tick 6 or once there's room ahead, from 848,237; touches it on the way   [adash]
+      -> out 1224,288
+how in 96,224 -> out 1224,288: djump,megaman:4
+     [bricks whole] coming in at 96,224
+   1. coming in: holding nothing, from 96,224; lands at 96,225
+      -> [bricks whole] standing at x 0-422, y 225-289
+   2. running right, jump (held 21 ticks), holding right, from 414,257; fires the Strike Chain at the point at 646,173   [megaman:4]
+      -> [bricks whole] hanging from the Strike Chain point at 646,173
+   3. off the Strike Chain point: jump (held 21 ticks), holding right, double jump at tick 12, from 646,213; lands at 902,225   [djump]
+      -> [bricks whole] standing at x 842-1302, y 209-241
+   4. walk off the edge, holding right, then left after 1 ticks in the air, from 842,241; lands at 1273,321
+      -> [bricks whole] standing at x 1130-1334, y 321-337
+   5. standing at 1214,321, presses up at it
+      -> out 1224,288
+how in 96,224 -> out 1224,288: gdash,megaman:4
+     [bricks whole] coming in at 96,224
+   1. coming in: holding nothing, from 96,224; lands at 96,225
+      -> [bricks whole] standing at x 0-422, y 225-289
+   2. running right, walk off the edge, holding right once in the air, from 32,225; lands at 488,281
+      -> [bricks whole] standing at x 474-550, y 281-283
+   3. dash right (Jerry), jump (held 21 ticks), holding right, from 474,281; fires the Strike Chain at the point at 800,173   [gdash,megaman:4]
+      -> [bricks whole] hanging from the Strike Chain point at 800,173
+   4. off the Strike Chain point: jump (held 21 ticks), holding right, from 800,213; lands at 966,225
+      -> [bricks whole] standing at x 842-1302, y 209-241
+   5. walk off the edge, holding right, then left after 1 ticks in the air, from 842,241; lands at 1273,321
+      -> [bricks whole] standing at x 1130-1334, y 321-337
+   6. standing at 1214,321, presses up at it
+      -> out 1224,288
+how in 96,224 -> loc 4 20: djump,megaman:4
+     [bricks whole] coming in at 96,224
+   1. coming in: holding nothing, from 96,224; lands at 96,225
+      -> [bricks whole] standing at x 0-422, y 225-289
+   2. running right, jump (held 21 ticks), holding right, from 414,257; fires the Strike Chain at the point at 646,173   [megaman:4]
+      -> [bricks whole] hanging from the Strike Chain point at 646,173
+   3. off the Strike Chain point: jump (held 21 ticks), holding right, double jump at tick 12, from 646,213; lands at 902,225   [djump]
+      -> [bricks whole] standing at x 842-1302, y 209-241
+   4. jump (held 21 ticks), holding right, double jump at tick 15, from 1294,220; lands at 1587,236   [djump]
+      -> [bricks whole] standing at x 1578-1657, y 201-241
+   5. jump (held 21 ticks), holding right, double jump at tick 15, from 1632,213; touches it on the way   [djump]
+      -> loc 4 20
+how in 96,224 -> loc 4 20: adash
+     [bricks whole] coming in at 96,224
+   1. coming in: holding nothing, from 96,224; lands at 96,225
+      -> [bricks whole] standing at x 0-422, y 225-289
+   2. running right, jump (held 21 ticks), holding right, from 288,289; lands at 487,265
+      -> [bricks whole] standing at x 474-550, y 265-267
+   3. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 550,265; lands at 851,236   [adash]
+      -> [bricks whole] standing at x 842-1302, y 209-241
+   4. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 1264,209; lands at 1602,228   [adash]
+      -> [bricks whole] standing at x 1578-1657, y 201-241
+   5. jump (held 21 ticks), holding right, air dash (Claire) at tick 16, from 1654,202; touches it on the way   [adash]
+      -> loc 4 20
+how in 96,224 -> loc 4 20: gdash,megaman:4
+     [bricks whole] coming in at 96,224
+   1. coming in: holding nothing, from 96,224; lands at 96,225
+      -> [bricks whole] standing at x 0-422, y 225-289
+   2. running right, walk off the edge, holding right once in the air, from 32,225; lands at 488,281
+      -> [bricks whole] standing at x 474-550, y 281-283
+   3. dash right (Jerry), jump (held 21 ticks), holding right, from 474,281; fires the Strike Chain at the point at 800,173   [gdash,megaman:4]
+      -> [bricks whole] hanging from the Strike Chain point at 800,173
+   4. off the Strike Chain point: jump (held 21 ticks), holding right, from 800,213; lands at 966,225
+      -> [bricks whole] standing at x 842-1302, y 209-241
+   5. dash right (Jerry), jump (held 21 ticks), holding right, from 1152,209; lands at 1424,177   [gdash]
+      -> [bricks whole] standing at x 1402-1462, y 177
+   6. dash right (Jerry), jump (held 21 ticks), holding right, from 1402,177; lands at 1667,161   [gdash]
+      -> [bricks whole] standing at x 1658-1705, y 161
+   7. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1680,161; touches it on the way
+      -> loc 4 20
+how in 1568,608 -> out 16,192: -
+     [bricks whole] coming in at 1568,608
+   1. coming in: holding nothing, from 1568,608; lands at 1568,609
+      -> [bricks whole] standing at x 1194-1657, y 609
+   2. jump (held 2 ticks), holding left, from 1194,609; lands at 1092,609
+      -> [bricks whole] standing at x 423-1110, y 577-609
+   3. jump (held 6 ticks), holding right, from 423,577; lands at 497,521
+      -> [bricks whole] standing at x 474-550, y 521-523
+   4. step onto moving platform 1 at 474,521
+      -> [bricks whole] riding moving platform 1 (waiting for it where it goes)
+   5. ride moving platform 1 and step off at 474,265
+      -> [bricks whole] standing at x 474-550, y 265-267
+   6. jump (held 2 ticks), holding left, from 474,265; lands at 365,279
+      -> [bricks whole] standing at x 0-422, y 225-289
+   7. standing at 14,225, goes into it
+      -> out 16,192
+how in 1568,608 -> out 1632,576: -
+     [bricks whole] coming in at 1568,608
+   1. coming in: holding nothing, from 1568,608; lands at 1568,609
+      -> [bricks whole] standing at x 1194-1657, y 609
+   2. standing at 1630,609, goes into it
+      -> out 1632,576
+how in 1568,608 -> out 1224,288: adash
+     [bricks whole] coming in at 1568,608
+   1. coming in: holding nothing, from 1568,608; lands at 1568,609
+      -> [bricks whole] standing at x 1194-1657, y 609
+   2. jump (held 2 ticks), holding left, from 1194,609; lands at 1092,609
+      -> [bricks whole] standing at x 423-1110, y 577-609
+   3. jump (held 6 ticks), holding right, from 423,577; lands at 497,521
+      -> [bricks whole] standing at x 474-550, y 521-523
+   4. step onto moving platform 1 at 474,521
+      -> [bricks whole] riding moving platform 1 (waiting for it where it goes)
+   5. ride moving platform 1 and step off at 474,265
+      -> [bricks whole] standing at x 474-550, y 265-267
+   6. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 550,265; lands at 851,236   [adash]
+      -> [bricks whole] standing at x 842-1302, y 209-241
+   7. walk off the edge, holding right, then left after 2 ticks in the air, air dash back left (Jerry) at tick 6 or once there's room ahead, from 848,237; touches it on the way   [adash]
+      -> out 1224,288
+how in 1568,608 -> out 1224,288: djump,megaman:4
+     [bricks whole] coming in at 1568,608
+   1. coming in: holding nothing, from 1568,608; lands at 1568,609
+      -> [bricks whole] standing at x 1194-1657, y 609
+   2. jump (held 2 ticks), holding left, from 1194,609; lands at 1092,609
+      -> [bricks whole] standing at x 423-1110, y 577-609
+   3. jump (held 6 ticks), holding right, from 423,577; lands at 497,521
+      -> [bricks whole] standing at x 474-550, y 521-523
+   4. step onto moving platform 1 at 474,521
+      -> [bricks whole] riding moving platform 1 (waiting for it where it goes)
+   5. ride moving platform 1 and step off at 474,265
+      -> [bricks whole] standing at x 474-550, y 265-267
+   6. jump (held 6 ticks), holding right, from 474,265; fires the Strike Chain at the point at 646,173   [megaman:4]
+      -> [bricks whole] hanging from the Strike Chain point at 646,173
+   7. off the Strike Chain point: jump (held 21 ticks), holding right, double jump at tick 12, from 646,213; lands at 902,225   [djump]
+      -> [bricks whole] standing at x 842-1302, y 209-241
+   8. walk off the edge, holding right, then left after 1 ticks in the air, from 842,241; lands at 1273,321
+      -> [bricks whole] standing at x 1130-1334, y 321-337
+   9. standing at 1214,321, presses up at it
+      -> out 1224,288
+how in 1568,608 -> out 1224,288: gdash,megaman:4
+     [bricks whole] coming in at 1568,608
+   1. coming in: holding nothing, from 1568,608; lands at 1568,609
+      -> [bricks whole] standing at x 1194-1657, y 609
+   2. jump (held 2 ticks), holding left, from 1194,609; lands at 1092,609
+      -> [bricks whole] standing at x 423-1110, y 577-609
+   3. jump (held 6 ticks), holding right, from 423,577; lands at 497,521
+      -> [bricks whole] standing at x 474-550, y 521-523
+   4. step onto moving platform 1 at 474,521
+      -> [bricks whole] riding moving platform 1 (waiting for it where it goes)
+   5. ride moving platform 1 and step off at 474,265
+      -> [bricks whole] standing at x 474-550, y 265-267
+   6. dash right (Jerry), jump (held 21 ticks), holding right, from 474,265; fires the Strike Chain at the point at 800,173   [gdash,megaman:4]
+      -> [bricks whole] hanging from the Strike Chain point at 800,173
+   7. off the Strike Chain point: jump (held 21 ticks), holding right, from 800,213; lands at 966,225
+      -> [bricks whole] standing at x 842-1302, y 209-241
+   8. walk off the edge, holding right, then left after 1 ticks in the air, from 842,241; lands at 1273,321
+      -> [bricks whole] standing at x 1130-1334, y 321-337
+   9. standing at 1214,321, presses up at it
+      -> out 1224,288
+how in 1568,608 -> loc 4 20: djump,megaman:4
+     [bricks whole] coming in at 1568,608
+   1. coming in: holding nothing, from 1568,608; lands at 1568,609
+      -> [bricks whole] standing at x 1194-1657, y 609
+   2. jump (held 2 ticks), holding left, from 1194,609; lands at 1092,609
+      -> [bricks whole] standing at x 423-1110, y 577-609
+   3. jump (held 6 ticks), holding right, from 423,577; lands at 497,521
+      -> [bricks whole] standing at x 474-550, y 521-523
+   4. step onto moving platform 1 at 474,521
+      -> [bricks whole] riding moving platform 1 (waiting for it where it goes)
+   5. ride moving platform 1 and step off at 474,265
+      -> [bricks whole] standing at x 474-550, y 265-267
+   6. jump (held 6 ticks), holding right, from 474,265; fires the Strike Chain at the point at 646,173   [megaman:4]
+      -> [bricks whole] hanging from the Strike Chain point at 646,173
+   7. off the Strike Chain point: jump (held 21 ticks), holding right, double jump at tick 12, from 646,213; lands at 902,225   [djump]
+      -> [bricks whole] standing at x 842-1302, y 209-241
+   8. jump (held 21 ticks), holding right, double jump at tick 15, from 1294,220; lands at 1587,236   [djump]
+      -> [bricks whole] standing at x 1578-1657, y 201-241
+   9. jump (held 21 ticks), holding right, double jump at tick 15, from 1632,213; touches it on the way   [djump]
+      -> loc 4 20
+how in 1568,608 -> loc 4 20: adash
+     [bricks whole] coming in at 1568,608
+   1. coming in: holding nothing, from 1568,608; lands at 1568,609
+      -> [bricks whole] standing at x 1194-1657, y 609
+   2. jump (held 2 ticks), holding left, from 1194,609; lands at 1092,609
+      -> [bricks whole] standing at x 423-1110, y 577-609
+   3. jump (held 6 ticks), holding right, from 423,577; lands at 497,521
+      -> [bricks whole] standing at x 474-550, y 521-523
+   4. step onto moving platform 1 at 474,521
+      -> [bricks whole] riding moving platform 1 (waiting for it where it goes)
+   5. ride moving platform 1 and step off at 474,265
+      -> [bricks whole] standing at x 474-550, y 265-267
+   6. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 550,265; lands at 851,236   [adash]
+      -> [bricks whole] standing at x 842-1302, y 209-241
+   7. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 1264,209; lands at 1602,228   [adash]
+      -> [bricks whole] standing at x 1578-1657, y 201-241
+   8. jump (held 21 ticks), holding right, air dash (Claire) at tick 16, from 1654,202; touches it on the way   [adash]
+      -> loc 4 20
+how in 1568,608 -> loc 4 20: gdash,megaman:4
+     [bricks whole] coming in at 1568,608
+   1. coming in: holding nothing, from 1568,608; lands at 1568,609
+      -> [bricks whole] standing at x 1194-1657, y 609
+   2. jump (held 2 ticks), holding left, from 1194,609; lands at 1092,609
+      -> [bricks whole] standing at x 423-1110, y 577-609
+   3. jump (held 6 ticks), holding right, from 423,577; lands at 497,521
+      -> [bricks whole] standing at x 474-550, y 521-523
+   4. step onto moving platform 1 at 474,521
+      -> [bricks whole] riding moving platform 1 (waiting for it where it goes)
+   5. ride moving platform 1 and step off at 474,265
+      -> [bricks whole] standing at x 474-550, y 265-267
+   6. dash right (Jerry), jump (held 21 ticks), holding right, from 474,265; fires the Strike Chain at the point at 800,173   [gdash,megaman:4]
+      -> [bricks whole] hanging from the Strike Chain point at 800,173
+   7. off the Strike Chain point: jump (held 21 ticks), holding right, from 800,213; lands at 966,225
+      -> [bricks whole] standing at x 842-1302, y 209-241
+   8. dash right (Jerry), jump (held 21 ticks), holding right, from 1152,209; lands at 1424,177   [gdash]
+      -> [bricks whole] standing at x 1402-1462, y 177
+   9. dash right (Jerry), jump (held 21 ticks), holding right, from 1402,177; lands at 1667,161   [gdash]
+      -> [bricks whole] standing at x 1658-1705, y 161
+  10. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1680,161; touches it on the way
+      -> loc 4 20
+how in 1232,320 -> out 16,192: -
+     [bricks whole] coming in at 1232,320
+   1. coming in: holding nothing, from 1232,320; lands at 1232,321
+      -> [bricks whole] standing at x 1130-1334, y 321-337
+   2. walk off the edge, holding left once in the air, from 1130,337; lands at 918,609
+      -> [bricks whole] standing at x 423-1110, y 577-609
+   3. jump (held 6 ticks), holding right, from 423,577; lands at 497,521
+      -> [bricks whole] standing at x 474-550, y 521-523
+   4. step onto moving platform 1 at 474,521
+      -> [bricks whole] riding moving platform 1 (waiting for it where it goes)
+   5. ride moving platform 1 and step off at 474,265
+      -> [bricks whole] standing at x 474-550, y 265-267
+   6. jump (held 2 ticks), holding left, from 474,265; lands at 365,279
+      -> [bricks whole] standing at x 0-422, y 225-289
+   7. standing at 14,225, goes into it
+      -> out 16,192
+how in 1232,320 -> out 1632,576: -
+     [bricks whole] coming in at 1232,320
+   1. coming in: holding nothing, from 1232,320; lands at 1232,321
+      -> [bricks whole] standing at x 1130-1334, y 321-337
+   2. walk off the edge, holding left, then right after 1 ticks in the air, from 1130,337; lands at 1268,609
+      -> [bricks whole] standing at x 1194-1657, y 609
+   3. standing at 1630,609, goes into it
+      -> out 1632,576
+how in 1232,320 -> out 1224,288: -
+     [bricks whole] coming in at 1232,320
+   1. coming in: holding nothing, from 1232,320; lands at 1232,321
+      -> [bricks whole] standing at x 1130-1334, y 321-337
+   2. standing at 1214,321, presses up at it
+      -> out 1224,288
+how in 1232,320 -> loc 4 20: djump,megaman:4
+     [bricks whole] coming in at 1232,320
+   1. coming in: holding nothing, from 1232,320; lands at 1232,321
+      -> [bricks whole] standing at x 1130-1334, y 321-337
+   2. walk off the edge, holding left once in the air, from 1130,337; lands at 918,609
+      -> [bricks whole] standing at x 423-1110, y 577-609
+   3. jump (held 6 ticks), holding right, from 423,577; lands at 497,521
+      -> [bricks whole] standing at x 474-550, y 521-523
+   4. step onto moving platform 1 at 474,521
+      -> [bricks whole] riding moving platform 1 (waiting for it where it goes)
+   5. ride moving platform 1 and step off at 474,265
+      -> [bricks whole] standing at x 474-550, y 265-267
+   6. jump (held 6 ticks), holding right, from 474,265; fires the Strike Chain at the point at 646,173   [megaman:4]
+      -> [bricks whole] hanging from the Strike Chain point at 646,173
+   7. off the Strike Chain point: jump (held 21 ticks), holding right, double jump at tick 12, from 646,213; lands at 902,225   [djump]
+      -> [bricks whole] standing at x 842-1302, y 209-241
+   8. jump (held 21 ticks), holding right, double jump at tick 15, from 1294,220; lands at 1587,236   [djump]
+      -> [bricks whole] standing at x 1578-1657, y 201-241
+   9. jump (held 21 ticks), holding right, double jump at tick 15, from 1632,213; touches it on the way   [djump]
+      -> loc 4 20
+how in 1232,320 -> loc 4 20: adash
+     [bricks whole] coming in at 1232,320
+   1. coming in: holding nothing, from 1232,320; lands at 1232,321
+      -> [bricks whole] standing at x 1130-1334, y 321-337
+   2. walk off the edge, holding left once in the air, from 1130,337; lands at 918,609
+      -> [bricks whole] standing at x 423-1110, y 577-609
+   3. jump (held 6 ticks), holding right, from 423,577; lands at 497,521
+      -> [bricks whole] standing at x 474-550, y 521-523
+   4. step onto moving platform 1 at 474,521
+      -> [bricks whole] riding moving platform 1 (waiting for it where it goes)
+   5. ride moving platform 1 and step off at 474,265
+      -> [bricks whole] standing at x 474-550, y 265-267
+   6. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 550,265; lands at 851,236   [adash]
+      -> [bricks whole] standing at x 842-1302, y 209-241
+   7. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 1264,209; lands at 1602,228   [adash]
+      -> [bricks whole] standing at x 1578-1657, y 201-241
+   8. jump (held 21 ticks), holding right, air dash (Claire) at tick 16, from 1654,202; touches it on the way   [adash]
+      -> loc 4 20
+how in 1232,320 -> loc 4 20: gdash,megaman:4
+     [bricks whole] coming in at 1232,320
+   1. coming in: holding nothing, from 1232,320; lands at 1232,321
+      -> [bricks whole] standing at x 1130-1334, y 321-337
+   2. walk off the edge, holding left once in the air, from 1130,337; lands at 918,609
+      -> [bricks whole] standing at x 423-1110, y 577-609
+   3. jump (held 6 ticks), holding right, from 423,577; lands at 497,521
+      -> [bricks whole] standing at x 474-550, y 521-523
+   4. step onto moving platform 1 at 474,521
+      -> [bricks whole] riding moving platform 1 (waiting for it where it goes)
+   5. ride moving platform 1 and step off at 474,265
+      -> [bricks whole] standing at x 474-550, y 265-267
+   6. dash right (Jerry), jump (held 21 ticks), holding right, from 474,265; fires the Strike Chain at the point at 800,173   [gdash,megaman:4]
+      -> [bricks whole] hanging from the Strike Chain point at 800,173
+   7. off the Strike Chain point: jump (held 21 ticks), holding right, from 800,213; lands at 966,225
+      -> [bricks whole] standing at x 842-1302, y 209-241
+   8. dash right (Jerry), jump (held 21 ticks), holding right, from 1152,209; lands at 1424,177   [gdash]
+      -> [bricks whole] standing at x 1402-1462, y 177
+   9. dash right (Jerry), jump (held 21 ticks), holding right, from 1402,177; lands at 1667,161   [gdash]
+      -> [bricks whole] standing at x 1658-1705, y 161
+  10. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1680,161; touches it on the way
+      -> loc 4 20

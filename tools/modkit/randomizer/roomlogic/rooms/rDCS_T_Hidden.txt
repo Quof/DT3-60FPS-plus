@@ -1,0 +1,293 @@
+# rDCS_T_Hidden: Displaced Construction Site (area 90), 3360x352 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+# switches: the room is worked out in each of its states, the player coming in in the first: [barrier 432790 shut]
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 3312,128   # from rDCS_T out 0,1952
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 3344,96   # to rDCS_T at 48,1984; the player goes into it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+loc 9 99   # weapon upgrade 99, at 71,279
+loc 9 59   # weapon upgrade 59, at 3247,199
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 3312,128
+  out 3344,96   -
+  loc 9 99      samus:2
+  loc 9 59      djump,megaman:1 | djump,samus:1 | djump,link:1 | djump,belmont:1
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 3312,128 -> out 3344,96: -
+     [barrier 432790 shut] coming in at 3312,128
+   1. coming in: holding nothing, from 3312,128; lands at 3312,129
+      -> [barrier 432790 shut] standing at x 3194-3360, y 129
+   2. standing at 3342,129, goes into it
+      -> out 3344,96
+how in 3312,128 -> loc 9 99: samus:2
+     [barrier 432790 shut] coming in at 3312,128
+   1. coming in: holding nothing, from 3312,128; lands at 3312,129
+      -> [barrier 432790 shut] standing at x 3194-3360, y 129
+   2. walk off the edge, holding left once in the air, from 3194,129; lands at 3092,225
+      -> [barrier 432790 shut] standing at x 2906-3110, y 225
+   3. jump (held 21 ticks), holding left, from 2906,225; lands at 2782,161
+      -> [barrier 432790 shut] standing at x 2746-2854, y 161
+   4. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 2746,161; lands at 2636,209
+      -> [barrier 432790 shut] standing at x 2618-2662, y 209
+   5. running left, jump (held 21 ticks), holding left, from 2618,209; lands at 2442,161
+      -> [barrier 432790 shut] standing at x 2375-2470, y 161
+   6. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 2375,161; lands at 2302,145
+      -> [barrier 432790 shut] standing at x 2298-2374, y 145
+   7. running left, jump (held 2 ticks), holding left, from 2298,145; lands at 2085,289
+      -> [barrier 432790 shut] standing at x 1799-2169, y 289
+   8. jump (held 21 ticks), holding left, from 1799,289; lands at 1726,225
+      -> [barrier 432790 shut] standing at x 1703-1798, y 225
+   9. jump (held 21 ticks), holding left, from 1703,225; lands at 1630,161
+      -> [barrier 432790 shut] standing at x 1434-1702, y 161
+  10. jump (held 2 ticks), holding left, from 1434,161; lands at 1332,161
+      -> [barrier 432790 shut] standing at x 1287-1382, y 161
+  11. jump (held 21 ticks), holding left, from 1287,161; lands at 1097,193
+      -> [barrier 432790 shut] standing at x 1082-1145, y 193
+  12. jump (held 21 ticks), holding left, from 1082,193; lands at 877,225
+      -> [barrier 432790 shut] standing at x 570-902, y 225
+  13. jump (held 21 ticks), holding left, turn into the Morph Ball at tick 8, from 570,225; lands at 392,289   [samus:2]
+      -> [barrier 432790 shut] as the Morph Ball at x 71-569, y 289
+  14. as the Morph Ball, standing at 71,289, touches it
+      -> loc 9 99
+how in 3312,128 -> loc 9 59: djump,megaman:1
+     [barrier 432790 shut] coming in at 3312,128
+   1. coming in: holding nothing, from 3312,128; lands at 3312,129
+      -> [barrier 432790 shut] standing at x 3194-3360, y 129
+   2. walk off the edge, holding left once in the air, from 3194,129; lands at 3092,225
+      -> [barrier 432790 shut] standing at x 2906-3110, y 225
+   3. jump (held 21 ticks), holding left, from 2906,225; lands at 2782,161
+      -> [barrier 432790 shut] standing at x 2746-2854, y 161
+   4. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 2746,161; lands at 2636,209
+      -> [barrier 432790 shut] standing at x 2618-2662, y 209
+   5. running left, jump (held 21 ticks), holding left, from 2618,209; lands at 2442,161
+      -> [barrier 432790 shut] standing at x 2375-2470, y 161
+   6. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 2375,161; lands at 2302,145
+      -> [barrier 432790 shut] standing at x 2298-2374, y 145
+   7. running left, jump (held 2 ticks), holding left, from 2298,145; lands at 2085,289
+      -> [barrier 432790 shut] standing at x 1799-2169, y 289
+   8. jump (held 21 ticks), holding left, from 1799,289; lands at 1726,225
+      -> [barrier 432790 shut] standing at x 1703-1798, y 225
+   9. jump (held 21 ticks), holding left, from 1703,225; lands at 1630,161
+      -> [barrier 432790 shut] standing at x 1434-1702, y 161
+  10. jump (held 2 ticks), holding left, from 1434,161; lands at 1332,161
+      -> [barrier 432790 shut] standing at x 1287-1382, y 161
+  11. jump (held 21 ticks), holding left, from 1287,161; lands at 1097,193
+      -> [barrier 432790 shut] standing at x 1082-1145, y 193
+  12. jump (held 21 ticks), holding left, from 1082,193; lands at 877,225
+      -> [barrier 432790 shut] standing at x 570-902, y 225
+  13. walk off the edge, holding left once in the air, from 570,225; lands at 490,289
+      -> [barrier 432790 shut] standing at x 167-569, y 289
+  14. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 192,289; lands at 268,225
+      -> [barrier 432790 shut] standing at x 250-294, y 225
+  15. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 272,225; lands at 242,161
+      -> [barrier 432790 shut] standing at x 218-262, y 161
+  16. shoot the switch at 112,112 from 218,161 (at the top of a jump): [barrier 432790 open]   [megaman:1]
+      -> [barrier 432790 open] standing at x 218-262, y 161
+  17. walk off the edge, holding left, then nothing after 1 ticks in the air, from 218,161; lands at 186,289
+      -> [barrier 432790 open] standing at x 167-569, y 289
+  18. running right, jump (held 21 ticks), holding right, from 432,289; lands at 586,225
+      -> [barrier 432790 open] standing at x 570-902, y 225
+  19. running right, jump (held 21 ticks), holding right, from 898,225; lands at 1089,193
+      -> [barrier 432790 open] standing at x 1082-1145, y 193
+  20. jump (held 21 ticks), holding right, from 1082,193; lands at 1213,129
+      -> [barrier 432790 open] standing at x 1146-1286, y 129
+  21. running right, jump (held 6 ticks), holding right, from 1264,129; lands at 1448,161
+      -> [barrier 432790 open] standing at x 1434-1702, y 161
+  22. running right, jump (held 21 ticks), holding right, from 1568,161; lands at 1854,289
+      -> [barrier 432790 open] standing at x 1799-2169, y 289
+  23. jump (held 21 ticks), holding right, double jump at tick 15, from 2080,289; lands at 2227,193   [djump]
+      -> [barrier 432790 open] standing at x 2170-2297, y 193
+  24. jump (held 21 ticks), holding right, double jump at tick 15, from 2224,193; lands at 2561,289   [djump]
+      -> [barrier 432790 open] standing at x 2471-2905, y 289
+  25. running right, jump (held 21 ticks), holding right, from 2768,289; lands at 2922,225
+      -> [barrier 432790 open] standing at x 2906-3110, y 225
+  26. walk off the edge, holding right once in the air, double jump at tick 2, from 2914,225; lands at 3225,225   [djump]
+      -> [barrier 432790 open] standing at x 3130-3225, y 225
+  27. running right, jump (held 2 ticks), holding right, from 3184,225; touches it on the way
+      -> loc 9 59
+how in 3312,128 -> loc 9 59: djump,samus:1
+     [barrier 432790 shut] coming in at 3312,128
+   1. coming in: holding nothing, from 3312,128; lands at 3312,129
+      -> [barrier 432790 shut] standing at x 3194-3360, y 129
+   2. walk off the edge, holding left once in the air, from 3194,129; lands at 3092,225
+      -> [barrier 432790 shut] standing at x 2906-3110, y 225
+   3. jump (held 21 ticks), holding left, from 2906,225; lands at 2782,161
+      -> [barrier 432790 shut] standing at x 2746-2854, y 161
+   4. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 2746,161; lands at 2636,209
+      -> [barrier 432790 shut] standing at x 2618-2662, y 209
+   5. running left, jump (held 21 ticks), holding left, from 2618,209; lands at 2442,161
+      -> [barrier 432790 shut] standing at x 2375-2470, y 161
+   6. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 2375,161; lands at 2302,145
+      -> [barrier 432790 shut] standing at x 2298-2374, y 145
+   7. running left, jump (held 2 ticks), holding left, from 2298,145; lands at 2085,289
+      -> [barrier 432790 shut] standing at x 1799-2169, y 289
+   8. jump (held 21 ticks), holding left, from 1799,289; lands at 1726,225
+      -> [barrier 432790 shut] standing at x 1703-1798, y 225
+   9. jump (held 21 ticks), holding left, from 1703,225; lands at 1630,161
+      -> [barrier 432790 shut] standing at x 1434-1702, y 161
+  10. jump (held 2 ticks), holding left, from 1434,161; lands at 1332,161
+      -> [barrier 432790 shut] standing at x 1287-1382, y 161
+  11. jump (held 21 ticks), holding left, from 1287,161; lands at 1097,193
+      -> [barrier 432790 shut] standing at x 1082-1145, y 193
+  12. jump (held 21 ticks), holding left, from 1082,193; lands at 877,225
+      -> [barrier 432790 shut] standing at x 570-902, y 225
+  13. walk off the edge, holding left once in the air, from 570,225; lands at 490,289
+      -> [barrier 432790 shut] standing at x 167-569, y 289
+  14. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 192,289; lands at 268,225
+      -> [barrier 432790 shut] standing at x 250-294, y 225
+  15. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 272,225; lands at 242,161
+      -> [barrier 432790 shut] standing at x 218-262, y 161
+  16. shoot the switch at 112,112 from 218,161 (at the top of a jump): [barrier 432790 open]   [samus:1]
+      -> [barrier 432790 open] standing at x 218-262, y 161
+  17. walk off the edge, holding left, then nothing after 1 ticks in the air, from 218,161; lands at 186,289
+      -> [barrier 432790 open] standing at x 167-569, y 289
+  18. running right, jump (held 21 ticks), holding right, from 432,289; lands at 586,225
+      -> [barrier 432790 open] standing at x 570-902, y 225
+  19. running right, jump (held 21 ticks), holding right, from 898,225; lands at 1089,193
+      -> [barrier 432790 open] standing at x 1082-1145, y 193
+  20. jump (held 21 ticks), holding right, from 1082,193; lands at 1213,129
+      -> [barrier 432790 open] standing at x 1146-1286, y 129
+  21. running right, jump (held 6 ticks), holding right, from 1264,129; lands at 1448,161
+      -> [barrier 432790 open] standing at x 1434-1702, y 161
+  22. running right, jump (held 21 ticks), holding right, from 1568,161; lands at 1854,289
+      -> [barrier 432790 open] standing at x 1799-2169, y 289
+  23. jump (held 21 ticks), holding right, double jump at tick 15, from 2080,289; lands at 2227,193   [djump]
+      -> [barrier 432790 open] standing at x 2170-2297, y 193
+  24. jump (held 21 ticks), holding right, double jump at tick 15, from 2224,193; lands at 2561,289   [djump]
+      -> [barrier 432790 open] standing at x 2471-2905, y 289
+  25. running right, jump (held 21 ticks), holding right, from 2768,289; lands at 2922,225
+      -> [barrier 432790 open] standing at x 2906-3110, y 225
+  26. walk off the edge, holding right once in the air, double jump at tick 2, from 2914,225; lands at 3225,225   [djump]
+      -> [barrier 432790 open] standing at x 3130-3225, y 225
+  27. running right, jump (held 2 ticks), holding right, from 3184,225; touches it on the way
+      -> loc 9 59
+how in 3312,128 -> loc 9 59: djump,link:1
+     [barrier 432790 shut] coming in at 3312,128
+   1. coming in: holding nothing, from 3312,128; lands at 3312,129
+      -> [barrier 432790 shut] standing at x 3194-3360, y 129
+   2. walk off the edge, holding left once in the air, from 3194,129; lands at 3092,225
+      -> [barrier 432790 shut] standing at x 2906-3110, y 225
+   3. jump (held 21 ticks), holding left, from 2906,225; lands at 2782,161
+      -> [barrier 432790 shut] standing at x 2746-2854, y 161
+   4. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 2746,161; lands at 2636,209
+      -> [barrier 432790 shut] standing at x 2618-2662, y 209
+   5. running left, jump (held 21 ticks), holding left, from 2618,209; lands at 2442,161
+      -> [barrier 432790 shut] standing at x 2375-2470, y 161
+   6. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 2375,161; lands at 2302,145
+      -> [barrier 432790 shut] standing at x 2298-2374, y 145
+   7. running left, jump (held 2 ticks), holding left, from 2298,145; lands at 2085,289
+      -> [barrier 432790 shut] standing at x 1799-2169, y 289
+   8. jump (held 21 ticks), holding left, from 1799,289; lands at 1726,225
+      -> [barrier 432790 shut] standing at x 1703-1798, y 225
+   9. jump (held 21 ticks), holding left, from 1703,225; lands at 1630,161
+      -> [barrier 432790 shut] standing at x 1434-1702, y 161
+  10. jump (held 2 ticks), holding left, from 1434,161; lands at 1332,161
+      -> [barrier 432790 shut] standing at x 1287-1382, y 161
+  11. jump (held 21 ticks), holding left, from 1287,161; lands at 1097,193
+      -> [barrier 432790 shut] standing at x 1082-1145, y 193
+  12. jump (held 21 ticks), holding left, from 1082,193; lands at 877,225
+      -> [barrier 432790 shut] standing at x 570-902, y 225
+  13. walk off the edge, holding left once in the air, from 570,225; lands at 490,289
+      -> [barrier 432790 shut] standing at x 167-569, y 289
+  14. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 192,289; lands at 268,225
+      -> [barrier 432790 shut] standing at x 250-294, y 225
+  15. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 272,225; lands at 242,161
+      -> [barrier 432790 shut] standing at x 218-262, y 161
+  16. jump (held 2 ticks), holding left, from 218,161; lands at 131,145
+      -> [barrier 432790 shut] standing at x 71-166, y 145
+  17. hit the switch at 112,112 from 71,145 (jumping if need be): [barrier 432790 open]   [link:1]
+      -> [barrier 432790 open] standing at x 71-166, y 145
+  18. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 71,145; lands at 257,289
+      -> [barrier 432790 open] standing at x 167-569, y 289
+  19. running right, jump (held 21 ticks), holding right, from 432,289; lands at 586,225
+      -> [barrier 432790 open] standing at x 570-902, y 225
+  20. running right, jump (held 21 ticks), holding right, from 898,225; lands at 1089,193
+      -> [barrier 432790 open] standing at x 1082-1145, y 193
+  21. jump (held 21 ticks), holding right, from 1082,193; lands at 1213,129
+      -> [barrier 432790 open] standing at x 1146-1286, y 129
+  22. running right, jump (held 6 ticks), holding right, from 1264,129; lands at 1448,161
+      -> [barrier 432790 open] standing at x 1434-1702, y 161
+  23. running right, jump (held 21 ticks), holding right, from 1568,161; lands at 1854,289
+      -> [barrier 432790 open] standing at x 1799-2169, y 289
+  24. jump (held 21 ticks), holding right, double jump at tick 15, from 2080,289; lands at 2227,193   [djump]
+      -> [barrier 432790 open] standing at x 2170-2297, y 193
+  25. jump (held 21 ticks), holding right, double jump at tick 15, from 2224,193; lands at 2561,289   [djump]
+      -> [barrier 432790 open] standing at x 2471-2905, y 289
+  26. running right, jump (held 21 ticks), holding right, from 2768,289; lands at 2922,225
+      -> [barrier 432790 open] standing at x 2906-3110, y 225
+  27. walk off the edge, holding right once in the air, double jump at tick 2, from 2914,225; lands at 3225,225   [djump]
+      -> [barrier 432790 open] standing at x 3130-3225, y 225
+  28. running right, jump (held 2 ticks), holding right, from 3184,225; touches it on the way
+      -> loc 9 59
+how in 3312,128 -> loc 9 59: djump,belmont:1
+     [barrier 432790 shut] coming in at 3312,128
+   1. coming in: holding nothing, from 3312,128; lands at 3312,129
+      -> [barrier 432790 shut] standing at x 3194-3360, y 129
+   2. walk off the edge, holding left once in the air, from 3194,129; lands at 3092,225
+      -> [barrier 432790 shut] standing at x 2906-3110, y 225
+   3. jump (held 21 ticks), holding left, from 2906,225; lands at 2782,161
+      -> [barrier 432790 shut] standing at x 2746-2854, y 161
+   4. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 2746,161; lands at 2636,209
+      -> [barrier 432790 shut] standing at x 2618-2662, y 209
+   5. running left, jump (held 21 ticks), holding left, from 2618,209; lands at 2442,161
+      -> [barrier 432790 shut] standing at x 2375-2470, y 161
+   6. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 2375,161; lands at 2302,145
+      -> [barrier 432790 shut] standing at x 2298-2374, y 145
+   7. running left, jump (held 2 ticks), holding left, from 2298,145; lands at 2085,289
+      -> [barrier 432790 shut] standing at x 1799-2169, y 289
+   8. jump (held 21 ticks), holding left, from 1799,289; lands at 1726,225
+      -> [barrier 432790 shut] standing at x 1703-1798, y 225
+   9. jump (held 21 ticks), holding left, from 1703,225; lands at 1630,161
+      -> [barrier 432790 shut] standing at x 1434-1702, y 161
+  10. jump (held 2 ticks), holding left, from 1434,161; lands at 1332,161
+      -> [barrier 432790 shut] standing at x 1287-1382, y 161
+  11. jump (held 21 ticks), holding left, from 1287,161; lands at 1097,193
+      -> [barrier 432790 shut] standing at x 1082-1145, y 193
+  12. jump (held 21 ticks), holding left, from 1082,193; lands at 877,225
+      -> [barrier 432790 shut] standing at x 570-902, y 225
+  13. walk off the edge, holding left once in the air, from 570,225; lands at 490,289
+      -> [barrier 432790 shut] standing at x 167-569, y 289
+  14. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 192,289; lands at 268,225
+      -> [barrier 432790 shut] standing at x 250-294, y 225
+  15. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 272,225; lands at 242,161
+      -> [barrier 432790 shut] standing at x 218-262, y 161
+  16. jump (held 2 ticks), holding left, from 218,161; lands at 131,145
+      -> [barrier 432790 shut] standing at x 71-166, y 145
+  17. hit the switch at 112,112 from 71,145 (jumping if need be): [barrier 432790 open]   [belmont:1]
+      -> [barrier 432790 open] standing at x 71-166, y 145
+  18. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 71,145; lands at 257,289
+      -> [barrier 432790 open] standing at x 167-569, y 289
+  19. running right, jump (held 21 ticks), holding right, from 432,289; lands at 586,225
+      -> [barrier 432790 open] standing at x 570-902, y 225
+  20. running right, jump (held 21 ticks), holding right, from 898,225; lands at 1089,193
+      -> [barrier 432790 open] standing at x 1082-1145, y 193
+  21. jump (held 21 ticks), holding right, from 1082,193; lands at 1213,129
+      -> [barrier 432790 open] standing at x 1146-1286, y 129
+  22. running right, jump (held 6 ticks), holding right, from 1264,129; lands at 1448,161
+      -> [barrier 432790 open] standing at x 1434-1702, y 161
+  23. running right, jump (held 21 ticks), holding right, from 1568,161; lands at 1854,289
+      -> [barrier 432790 open] standing at x 1799-2169, y 289
+  24. jump (held 21 ticks), holding right, double jump at tick 15, from 2080,289; lands at 2227,193   [djump]
+      -> [barrier 432790 open] standing at x 2170-2297, y 193
+  25. jump (held 21 ticks), holding right, double jump at tick 15, from 2224,193; lands at 2561,289   [djump]
+      -> [barrier 432790 open] standing at x 2471-2905, y 289
+  26. running right, jump (held 21 ticks), holding right, from 2768,289; lands at 2922,225
+      -> [barrier 432790 open] standing at x 2906-3110, y 225
+  27. walk off the edge, holding right once in the air, double jump at tick 2, from 2914,225; lands at 3225,225   [djump]
+      -> [barrier 432790 open] standing at x 3130-3225, y 225
+  28. running right, jump (held 2 ticks), holding right, from 3184,225; touches it on the way
+      -> loc 9 59

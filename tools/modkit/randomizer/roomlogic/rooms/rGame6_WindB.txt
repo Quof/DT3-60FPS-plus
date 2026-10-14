@@ -1,0 +1,69 @@
+# rGame6_WindB: Access Gate 6: Prototype Game (area 58), 1920x1056 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 80,800   # from rGame6_WindA out 1736,144
+in 176,256   # from rGame6_WindC out 40,256
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 72,768   # to rGame6_WindA at 1744,176; the player presses up at it
+out 168,224   # to rGame6_WindC at 48,288; the player presses up at it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+loc 6 18   # game power 18, at 575,631
+loc 6 19   # game power 19, at 1487,855
+loc 6 20   # game power 20, at 1007,151
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 80,800
+  out 72,768    -
+  out 168,224   never
+  loc 6 18      never
+  loc 6 19      never
+  loc 6 20      never
+from in 176,256
+  out 72,768    never
+  out 168,224   -
+  loc 6 18      never
+  loc 6 19      -
+  loc 6 20      never
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 80,800 -> out 72,768: -
+     coming in at 80,800
+   1. coming in: holding nothing, from 80,800; lands at 80,801
+      -> standing at x 0-262, y 801
+   2. standing at 62,801, presses up at it
+      -> out 72,768
+how in 176,256 -> out 168,224: -
+     coming in at 176,256
+   1. coming in: holding nothing, from 176,256; lands at 176,257
+      -> standing at x 122-230, y 257
+   2. walk off the edge, holding left once in the air, from 122,257; lands at 64,289
+      -> standing at x 0-121, y 289
+   3. jump (held 21 ticks), holding right, from 0,289; touches it on the way
+      -> out 168,224
+how in 176,256 -> loc 6 19: -
+     coming in at 176,256
+   1. coming in: holding nothing, from 176,256; lands at 176,257
+      -> standing at x 122-230, y 257
+   2. running right, jump (held 2 ticks), holding right, from 176,257; lands at 408,449
+      -> standing at x 327-646, y 449
+   3. walk off the edge, holding right, then left after 1 ticks in the air, from 327,449; lands at 647,481
+      -> standing at x 647-678, y 481
+   4. running right, jump (held 2 ticks), holding right, from 671,481; lands at 869,673
+      -> standing at x 858-966, y 673
+   5. walk off the edge, holding right once in the air, from 858,673; lands at 1129,865
+      -> standing at x 1082-1190, y 865
+   6. running right, jump (held 6 ticks), holding right, from 1184,865; lands at 1346,865
+      -> standing at x 1338-1446, y 865
+   7. jump (held 6 ticks), holding right, from 1342,865; touches it on the way
+      -> loc 6 19

@@ -2,24 +2,36 @@ DT3+ Randomizer (a mod)
 =======================
 
 A new game with the mod on starts in the game's endgame world: every area open, the story done, no CHAOS invasion. The
-player is in the first room (Grand Rising) with nothing but walking. Every collectible the progress page counts (heart
-pieces and containers, chests, quivers, heart energy, missile tanks, Game Power, air upgrades, Internetz mods, weapon
-upgrades, skill points, bomb upgrades, keys, the Item Finder, the X-Special charge, the Spring Ball), every movement
-ability (jump, dash, air dash, double jump, the High Jump Boots) and every ability set (the Mario Ability Set, shown
-as a ? block, and the attacks of Link, Belmont, Mega Man, Samus and the two Gate 6 sets) are shuffled into each other's
-places when the game starts, and three more places are on the ground next to where the player starts. The equipment
-shops' stock is shuffled between the shops. A spoiler log is written to the Saves folder ("Randomizer spoiler log
-<seed>.txt"). As in a new game: tower defense and the Trial Master's cursed trials aren't done (their rewards come
+player is in Central City - North, at the door from Greatest Stretch, able to walk and jump. Every collectible the
+progress page counts (heart pieces and containers, chests, quivers, heart energy, missile tanks, Game Power, air
+upgrades, Internetz mods, weapon upgrades, skill points, bomb upgrades, keys, the Item Finder, the X-Special charge, the
+Spring Ball), the other movement abilities (dash, air dash, double jump, the High Jump Boots) and every ability set (the
+Mario Ability Set, shown as a ? block, and the attacks of Link, Belmont, Mega Man, Samus and the two Gate 6 sets) are
+shuffled into each other's places when the game starts, in layers (see Logic). The equipment shops' stock is shuffled
+between the shops. A spoiler log is written to the Saves folder ("Randomizer spoiler log <seed>.txt"), with the
+options and the abilities and keys by layer. As in a new game: tower defense and the Trial Master's cursed trials aren't done (their rewards come
 from doing them; the 7th trial also gives Central City South's heart container, and the three cursed equipment pieces
 the trials need are never among the trials' rewards), the shortcuts are shut, and there are no program chips, Yoshi
 dolls or game-completed flag (Bubble Tower B and the Gate 6 DLC stay shut).
 
 Win: the 8 instruments (the Nightmare Gates' bosses, then the Sacred Temple) and the Abomination, as the game has them;
-then the CHAOS Warmaster, whose door appears in the first room once the Abomination is beaten. The credits roll.
+then the CHAOS Warmaster, whose door appears in Grand Rising (the game's first room) once the Abomination is beaten.
+The credits roll.
 
 Playing
   Put the built mod in Mods\Randomizer and turn it on. Every new game is then a randomizer game (a save made with it
-  stays one). On the title screen, typing seed and a number (seed1234) makes the next new game use that seed.
+  stays one). A new game opens with its options (oRndOptions, in place of the intro); they're kept for the next one
+  (DT3Options.dts, section Randomizer):
+    Seed                     random, or typed in (Confirm). Typing seed and a number on the title screen (seed1234)
+                             sets it too. The same seed with the same options places the items the same way.
+    Guarantee Early Weapons  every layer has a weapon (an item of the Link, Belmont, Mega Man or Samus set: 17 items,
+                             each set's next level) while there are any left: a new layer's first item is one. Off (the
+                             default): the weapons go anywhere, as the other abilities do.
+    Ability Spread           Near, Normal, Far: the chance that an ability or key goes in the newest layer (3 in 10,
+                             7 in 10, always; see Logic).
+    Shop Equipment           Shuffled (between the equipment shops) or As Normal.
+    Spoiler Log              written or not.
+  An Archipelago game has no options window (its options are the multiworld's).
   - The ability sets' items are progressive: each one is that set's next weapon (Link: Master Sword, Bow & Arrow, Fuse
     Bomb). Swapping characters and sets is always on. The Gate 6 sets only work in Gate 6, as in the game.
   - Each key opens its own locked door (the message says which area it's in); a door without its key says so.
@@ -49,11 +61,17 @@ Archipelago
   The docs for the Archipelago website are in archipelago\dt3plus\docs.
 
 Building
+  python tools\modkit\randomizer\roomlogic\roomlogic.py
+  works out each room's logic from the game's rooms (roomlogic\rooms\ and connections.txt; about seven minutes), then
+  joins the rooms (roomlogic\roomlogic.txt). Run it again after changing the game's rooms. After changing only
+  roomlogic\overrides.txt, python tools\modkit\randomizer\roomlogic\solve.py is enough (seconds); the build runs it too.
+  roomlogic\README.txt explains the logic and its files.
   python tools\modkit\randomizer\rndgen.py <output folder>
   (then copy the output folder to Mods\Randomizer). The build reads the game's rooms and code: the places (locations),
-  their items, the locked doors, the shops and the bosses, and writes the mod's data scripts, the pickups' events (the
-  randomizer's part ahead of the game's own) and, next to rndgen.py, locations.csv and doors.csv. It ends with a check
-  that the placement works for 50 seeds.
+  their items, the locked doors, the shops and the bosses; joins the room logic with overrides.txt (solve.py); and writes
+  the mod's data scripts, the pickups' events (the randomizer's part ahead of the game's own) and, next to rndgen.py,
+  locations.csv and doors.csv. It ends with a check that the placement works for 50 seeds with each option, and how
+  many layers they have.
   python tools\modkit\randomizer\rndgen.py --world-from <save.dts>
   re-reads world.txt (the endgame world's values) from a finished save.
 
@@ -61,26 +79,62 @@ Building
   The build also copies some of the game's own events into the mod, changed (the pickups', oHUD's Draw: rndgen.py's
   SIMPLE_PICKUPS and GAME_PATCHES), so build it again after changing those in the game.
   world.txt    the endgame world state, save file keys and values from a 100% save
-  logic.txt    changes to the logic (see below)
+  roomlogic\   the logic: each room's file, how the rooms join, changes to them (overrides.txt), and the program that
+               makes them (roomlogic\README.txt)
+  logic.txt    last-resort changes to single places (below)
 
 Logic
-  The game can always be finished: abilities and keys are placed so that each can be reached with the ones placed
-  before it. What a place needs is an estimate from the story's order, not a map of the rooms: a place needs everything
-  the story had given by the time it first reached that area (the areas' numbers in locationCheck are in story order;
-  the stages are in rndgen.py, STAGE_ADD), and the keys of every locked door up to that area. locations.csv lists every
-  place with what the estimate says it needs, doors.csv the doors in that order. Places in rooms with no area of their
-  own (rMario1's take Gate 1's), and the heart containers bosses give, can't hold an ability or key.
+  What a place needs comes from the rooms themselves (roomlogic\): a program runs the game's own 30fps movement through
+  every room (walking, jumps, double jumps, air dashes, dashes, the High Jump Boots in Gate 5, wall jumps where the game
+  has them, springs, moving platforms, elevators, the Strike Chain, water, the Morph Ball: rolling, turning into it in
+  the air where the body meets a wall or a ceiling (into a tunnel), and back once out in the open; bouncing off flying
+  enemies with the Mario Ability Set) against the room's solids, platforms and hazards. It writes each room's logic as a
+  file (roomlogic\rooms\<room>.txt): from each way into the room, what each way out and each place needs, with the
+  moves that do it, step by step. solve.py then joins the rooms by their exits (connections.txt) from the start in
+  Central City. Gates on the way count as what opens them: a locked door its key, a breakable
+  wall the attack that breaks it (a sword or whip, bombs, missiles), a Metroid door its beam or missiles, a boss's room
+  an attack to beat it with. So do switches (an attack, standing or at the top of a jump; a shot from further), Starry
+  Skies' ice blocks (Shotgun Ice or Holy Water: their platforms) and the Magical Castle's platform makers (an attack).
+  Each place gets the ways there that need the least (any one of them is enough). Nothing it counts needs pixel-perfect
+  play: its jumps are a little weaker than the game's (95%), a landing on the very edge of a ledge doesn't count, and
+  touching an item or exit has to be more than a brush.
 
-  Where the estimate is wrong, logic.txt changes it: a place that needs less (a heart piece in an early area that only
-  needs jumping) gives more variety; a place that needs more than the estimate (one that needs an ability the story
-  only gives later) can hold an ability the player can't reach yet, and the seed may not be finishable. The spoiler log
-  has where everything is.
+  The placement is in layers. Layer 1 is what jumping alone reaches from Central City. The abilities and keys go one at
+  a time, each to a free place the ones placed before it reach, and each is (when there is one) an item that opens
+  somewhere new: what it opens is the next layer. Of those, an item that opens fewer places is likelier (each kind by 1
+  over how many it opens), so the movement abilities, which open the most, tend to come later. Each goes to the newest
+  layer with a chance of 7 in 10 (Ability Spread: 3 Near, always Far), else the one before with that chance, and so
+  on, so they spread out: a double jump near the start can open the way to a dash, which opens the way to the whip, and
+  so on. With Guarantee Early Weapons, a new layer's first item is a weapon (above). The game can always be finished.
+
+  Places the room logic can't work out (behind puzzles, timed rings or things it doesn't model, and the rewards of
+  bosses, the Trial Master's trials and tower defense) need everything: they never hold an ability or key.
+  locations.csv lists every place with what it needs.
+
+  Why a place needs what it does: python roomlogic\solve.py --explain "skill point 59" lists the rooms on each way
+  there and what each room's part needs; the room's file has the moves.
+
+  Where the logic is wrong, roomlogic\overrides.txt changes it: what a way through a room needs (from a way in to a way
+  out or a place), what going through an exit needs, or where an exit leads. Everything past it is worked out again
+  with it (roomlogic\README.txt). As a last resort, logic.txt replaces what a single place (or every place in a room)
+  needs, with alternatives separated by |, each the items it takes (djump, adash, gdash, hijump 2, mario, link 2,
+  belmont 1, megaman 4, samus 6, gamej 1, gamec 1, key 3: the key of the locked door whose objectNum is 3 in
+  doors.csv), nothing or everything. It only changes that place (or room): the rooms past it aren't changed with it.
 
 Limits
-  - The logic is the estimate above: places needing an ability from later in the story than their area are the risk.
+  - Moving platforms are counted as somewhere the player can stand anywhere along their path (waiting for them), and
+    the part of a block that's there wherever it is as a wall; some kinds aren't modelled at all (crushers, the Gravity
+    Well's platforms, rails). Puzzles of several switches at once, push blocks, timed rings and wind aren't either.
+    What's behind them needs everything.
+  - A room's switches of one kind are one switch to the logic (hitting any of them changes all their blocks), and so
+    are its ice blocks and platform makers (one hit: all their platforms).
+  - A bounce off a flying enemy (a Paratroopa, Lakitu, Bullet Bill, bat...) counts near where one starts (within a
+    screen), once per jump, wherever in its flight it would be needed; the CHAOS soldiers can't be bounced off.
+  - A boss needs any attack; one that only some attacks can hurt could hold the game back.
   - The instruments, the Nightmare Gates' bosses, the Abomination and the Warmaster EX (Fedex) fight are the game's own.
   - The general store (oOtherShopA) sells what it does in the game; only the equipment shops are shuffled.
   - Story-only rooms that the endgame world doesn't reach (Tranquil Serenity and the like) have no places.
   - Not in the boss list: the Nightmare Gates' bosses, the Abomination (58), the Warmaster EX room (65), the Ridley
     tunnel chase (37) and the Leviathan road (41), which aren't fights a room makes, and each room's second boss (Death,
     Sigma, Ridley and the Decimator have two).
+  - A save from an earlier build of the mod doesn't carry over (its items are numbered differently): start a new game.

@@ -1,0 +1,32 @@
+# rBossGallery: Central City - North (area 9), 3136x1536 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 128,1376   # from rCCity_NorthB out 920,256
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 120,1344   # to rCCity_NorthB at 928,288; the player presses up at it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 128,1376
+  out 120,1344   -
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 128,1376 -> out 120,1344: -
+     coming in at 128,1376
+   1. coming in: holding nothing, from 128,1376; lands at 128,1377
+      -> standing at x 71-710, y 1377
+   2. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 71,1377; lands at 41,1313
+      -> standing at x 0-70, y 1313
+   3. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 0,1313; touches it on the way
+      -> out 120,1344

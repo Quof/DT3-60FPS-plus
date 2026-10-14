@@ -29,6 +29,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
+if global.modEvOvr[0]>=0 {event_perform_object(global.modEvOvr[0],ev_collision,oAttackBase); exit} //mods change (added): a mod's own version of this event runs instead (scrModEvRegister)
 if bTakingDamage=false and other.bCanDealDamage=true and bActive=true
 {
   var tempCheck;

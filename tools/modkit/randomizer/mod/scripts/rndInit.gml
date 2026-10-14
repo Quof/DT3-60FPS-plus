@@ -1,19 +1,23 @@
 //Randomizer: its variables, off (the init hook: the title screen, a new game, a save being loaded). Its data (rndData:
 //the locations, items, shops and bosses) is set up once
-var i,p,s;
+var i;
 if !variable_global_exists("rndLocN")
 {
   rndData()
-  //each location's requirements (rndData's strings: a digit for each of the first 12 progression items, then two for
-  //keys) as numbers, and each item's progression item (-1: none)
-  for(i=0;i<global.rndLocN;i+=1)
-  {
-    s=global.rndLocReq[i]
-    for(p=0;p<12;p+=1) {global.rndReqV[i,p]=real(string_char_at(s,p+1))}
-    global.rndReqV[i,12]=real(string_copy(s,13,2))
-  }
+  //each item's progression item (rndProgOf; -1: none)
   for(i=0;i<global.rndItemN;i+=1) {global.rndItemProg[i]=rndProgOf(global.rndItemKind[i],global.rndItemParam[i])}
+  //each location's layer in the placement (rndGenerate; -1 till a new game's placed its items)
+  for(i=0;i<global.rndLocN;i+=1) {global.rndGLayer[i]=-1}
   global.rndNextSeed=-1
+  //the new game's options (oRndOptions), as last chosen (DT3Options.dts, section Randomizer): Guarantee Early Weapons
+  //(rndGenerate), Ability Spread (0 Near, 1 Normal, 2 Far: rndGenerate), the equipment shops shuffled and the spoiler
+  //log written (rndNewGame)
+  ini_open(global.saveDir+"DT3Options.dts")
+  global.rndOptWeapons=ini_read_real("Randomizer","weapons",0)
+  global.rndOptSpread=ini_read_real("Randomizer","spread",1)
+  global.rndOptShops=ini_read_real("Randomizer","shops",1)
+  global.rndOptLog=ini_read_real("Randomizer","log",1)
+  ini_close()
   //Archipelago: the next new game is an Archipelago game (the title screen's code 'ap'), and the folder where the game
   //and the DT3+ Client trade files: %LOCALAPPDATA%\DT3PlusArchipelago\, made if it isn't there
   global.rndApNext=0
@@ -39,7 +43,7 @@ global.rndApDeathCause=""
 global.rndApDying=0
 global.rndApPollT=0
 global.rndApLocLoaded=0
-global.rndVersion=1
+global.rndVersion=2
 global.rndActive=0
 global.rndSeed=0
 global.rndWon=0
@@ -49,13 +53,13 @@ global.rndRoomBoss=-1 //the boss whose room the player is in, not beaten yet (th
 global.rndRoomSide=0
 global.rndFightLastX=0
 global.rndFightLastY=0
-global.rndFightRetRoom=rMain_1
-global.rndInRoom=rMain_1 //where the player came into the room they're in (the roomStart hook): rndBossStart's way back
-global.rndInX=240
-global.rndInY=2048
-global.rndFightLoseRoom=rMain_1
-global.rndFightLoseX=240
-global.rndFightLoseY=2048
+global.rndFightRetRoom=rCCity_NorthA
+global.rndInRoom=rCCity_NorthA //where the player came into the room they're in (the roomStart hook): rndBossStart's way back
+global.rndInX=608
+global.rndInY=320
+global.rndFightLoseRoom=rCCity_NorthA
+global.rndFightLoseX=608
+global.rndFightLoseY=320
 global.rndFightRetX=0
 global.rndFightRetY=0
 for(i=0;i<12;i+=1) {global.rndOwn[i]=0}

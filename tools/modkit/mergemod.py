@@ -38,6 +38,7 @@ import merge3, gmlcheck, gml
 from sources import GmkSplit, Gm82Project
 
 OVR = re.compile(r"^if global\.modOvr\[.*scrModOverride\(")
+EVOVR = re.compile(r"^if global\.modEvOvr\[\d+\]>=0 \{event_perform_object\(")
 YYD = re.compile(r'^/\*"/\*\'/\*\*//\* YYD ACTION\n(?:.*\n)*?\*/\n?', re.M)
 
 def dt3_script(proj, name):
@@ -54,7 +55,10 @@ def dt3_event(proj, obj, ev):
     evs = proj.object_events(obj) if obj in proj.names["Objects"] else {}
     if ev not in evs: return ""
     t = evs[ev].replace("\r\n", "\n")
-    return YYD.sub("", t).strip("\n") + "\n"
+    # without the line that runs a mod's version in place of the event's code (addevoverride.py): a merged version is
+    # a mod's version, which runs through that line, so it mustn't have the line itself (it would run itself again)
+    t = "\n".join(l for l in YYD.sub("", t).split("\n") if not EVOVR.match(l))
+    return t.strip("\n") + "\n"
 
 class Merges:
     def __init__(self, cfgpath):

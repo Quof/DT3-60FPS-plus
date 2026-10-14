@@ -1,0 +1,125 @@
+# rMain_24: Begonia - Mountain Temple (area 24), 800x528 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 768,288   # from rMain_23 out 24,544
+in 320,224   # from rMountTemple_A out 72,512
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 760,256   # to rMain_23 at 32,576; the player presses up at it
+out 312,192   # to rMountTemple_A at 80,544; the player presses up at it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+loc 4 22   # heart energy 22, at 231,440
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 768,288
+  out 760,256   -
+  out 312,192   -
+  loc 4 22      link:1 | belmont:1
+from in 320,224
+  out 760,256   -
+  out 312,192   -
+  loc 4 22      link:1 | belmont:1
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 768,288 -> out 760,256: -
+     coming in at 768,288
+   1. coming in: holding nothing, from 768,288; lands at 768,289
+      -> standing at x 666-800, y 289
+   2. jump (held 21 ticks), holding left, from 666,289; lands at 535,225
+      -> standing at x 375-582, y 225
+   3. running right, jump (held 21 ticks), holding right, from 512,225; touches it on the way
+      -> out 760,256
+how in 768,288 -> out 312,192: -
+     coming in at 768,288
+   1. coming in: holding nothing, from 768,288; lands at 768,289
+      -> standing at x 666-800, y 289
+   2. jump (held 21 ticks), holding left, from 666,289; lands at 535,225
+      -> standing at x 375-582, y 225
+   3. jump (held 2 ticks), holding left, from 375,225; lands at 292,209
+      -> standing at x 266-310, y 209
+   4. walk off the edge, holding left once in the air, from 266,209; lands at 222,225
+      -> standing at x 215-265, y 225
+   5. jump (held 2 ticks), holding right, from 223,225; touches it on the way
+      -> out 312,192
+how in 768,288 -> loc 4 22: link:1
+     coming in at 768,288
+   1. coming in: holding nothing, from 768,288; lands at 768,289
+      -> standing at x 666-800, y 289
+   2. jump (held 21 ticks), holding left, from 666,289; lands at 535,225
+      -> standing at x 375-582, y 225
+   3. jump (held 2 ticks), holding left, from 375,225; lands at 292,209
+      -> standing at x 266-310, y 209
+   4. walk off the edge, holding left once in the air, from 266,209; lands at 222,225
+      -> standing at x 215-265, y 225
+   5. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 215,225; lands at 134,225
+      -> standing at x 122-169, y 225
+   6. walk off the edge, holding left, then right after 1 ticks in the air, from 122,225; lands at 121,449
+      -> standing at x 103-121, y 449
+   7. walk off the edge, holding right once in the air, from 103,449, through the breakable wall at 128,384, the breakable wall at 128,416, the breakable wall at 160,384, ...; touches it on the way   [link:1]
+      -> loc 4 22
+how in 768,288 -> loc 4 22: belmont:1
+     coming in at 768,288
+   1. coming in: holding nothing, from 768,288; lands at 768,289
+      -> standing at x 666-800, y 289
+   2. jump (held 21 ticks), holding left, from 666,289; lands at 535,225
+      -> standing at x 375-582, y 225
+   3. jump (held 2 ticks), holding left, from 375,225; lands at 292,209
+      -> standing at x 266-310, y 209
+   4. walk off the edge, holding left once in the air, from 266,209; lands at 222,225
+      -> standing at x 215-265, y 225
+   5. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 215,225; lands at 134,225
+      -> standing at x 122-169, y 225
+   6. walk off the edge, holding left, then right after 1 ticks in the air, from 122,225; lands at 121,449
+      -> standing at x 103-121, y 449
+   7. walk off the edge, holding right once in the air, from 103,449, through the breakable wall at 128,384, the breakable wall at 128,416, the breakable wall at 160,384, ...; touches it on the way   [belmont:1]
+      -> loc 4 22
+how in 320,224 -> out 760,256: -
+     coming in at 320,224
+   1. coming in: holding nothing, from 320,224; lands at 320,225
+      -> standing at x 311-329, y 225
+   2. jump (held 2 ticks), holding right, from 311,225; lands at 413,225
+      -> standing at x 375-582, y 225
+   3. running right, jump (held 21 ticks), holding right, from 512,225; touches it on the way
+      -> out 760,256
+how in 320,224 -> out 312,192: -
+     coming in at 320,224
+   1. coming in: holding nothing, from 320,224; lands at 320,225
+      -> standing at x 311-329, y 225
+   2. jump (held 2 ticks), holding left, from 311,225; lands at 215,225
+      -> standing at x 215-265, y 225
+   3. jump (held 2 ticks), holding right, from 223,225; touches it on the way
+      -> out 312,192
+how in 320,224 -> loc 4 22: link:1
+     coming in at 320,224
+   1. coming in: holding nothing, from 320,224; lands at 320,225
+      -> standing at x 311-329, y 225
+   2. jump (held 2 ticks), holding left, from 311,225; lands at 215,225
+      -> standing at x 215-265, y 225
+   3. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 215,225; lands at 134,225
+      -> standing at x 122-169, y 225
+   4. walk off the edge, holding left, then right after 1 ticks in the air, from 122,225; lands at 121,449
+      -> standing at x 103-121, y 449
+   5. walk off the edge, holding right once in the air, from 103,449, through the breakable wall at 128,384, the breakable wall at 128,416, the breakable wall at 160,384, ...; touches it on the way   [link:1]
+      -> loc 4 22
+how in 320,224 -> loc 4 22: belmont:1
+     coming in at 320,224
+   1. coming in: holding nothing, from 320,224; lands at 320,225
+      -> standing at x 311-329, y 225
+   2. jump (held 2 ticks), holding left, from 311,225; lands at 215,225
+      -> standing at x 215-265, y 225
+   3. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 215,225; lands at 134,225
+      -> standing at x 122-169, y 225
+   4. walk off the edge, holding left, then right after 1 ticks in the air, from 122,225; lands at 121,449
+      -> standing at x 103-121, y 449
+   5. walk off the edge, holding right once in the air, from 103,449, through the breakable wall at 128,384, the breakable wall at 128,416, the breakable wall at 160,384, ...; touches it on the way   [belmont:1]
+      -> loc 4 22

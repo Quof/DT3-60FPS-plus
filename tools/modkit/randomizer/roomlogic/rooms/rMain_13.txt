@@ -1,0 +1,154 @@
+# rMain_13: Magical Tree Tower (area 13), 480x2048 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 96,1936   # from rMain_12 out 3040,272
+in 384,144   # from rMain_14 out 16,224
+in 112,1936   # from rMain_16 out 96,-32
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 16,1904   # to rMain_12 at 2976,304; the player goes into it
+out 448,112   # to rMain_14 at 96,256; the player goes into it
+out 128,2016   # to rMain_16 at 128,48; the player goes into it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+loc 1 12   # heart piece 12, at 23,1031
+loc 10 6   # skill point 6, at 31,63
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 96,1936
+  out 16,1904    -
+  out 448,112    never
+  out 128,2016   -
+  loc 1 12       never
+  loc 10 6       never
+from in 384,144
+  out 16,1904    -
+  out 448,112    -
+  out 128,2016   -
+  loc 1 12       never
+  loc 10 6       mario | adash | djump
+from in 112,1936
+  out 16,1904    -
+  out 448,112    never
+  out 128,2016   -
+  loc 1 12       never
+  loc 10 6       never
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 96,1936 -> out 16,1904: -
+     coming in at 96,1936
+   1. coming in: holding nothing, from 96,1936; lands at 96,1937
+      -> standing at x 0-134, y 1937
+   2. standing at 14,1937, goes into it
+      -> out 16,1904
+how in 96,1936 -> out 128,2016: -
+     coming in at 96,1936
+   1. coming in: holding nothing, from 96,1936; lands at 96,1937
+      -> standing at x 0-134, y 1937
+   2. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 80,1937; lands at 86,1888
+      -> standing at x 86-91, y 1888-1891
+   3. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 86,1888; lands at 26,1845
+      -> standing at x 11-78, y 1843-1853
+   4. walk off the edge, holding left, then right after 1 ticks in the air, from 11,1844; lands at 10,1869
+      -> standing at x 0-10, y 1869-1877
+   5. jump (held 21 ticks), holding right, from 0,1877; touches it on the way
+      -> out 128,2016
+how in 384,144 -> out 16,1904: -
+     coming in at 384,144
+   1. coming in: holding nothing, from 384,144; lands at 384,145
+      -> standing at x 346-480, y 145-161
+   2. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 368,149; lands at 321,465
+      -> standing at x 186-390, y 465-497
+   3. walk off the edge, holding right, then left after 1 ticks in the air, from 186,497; lands at 127,957
+      -> standing at x 39-313, y 945-977
+   4. running right, jump (held 6 ticks), holding right, from 176,977; lands at 330,961
+      -> standing at x 314-358, y 961
+   5. walk off the edge, holding right, then nothing after 1 ticks in the air, from 358,961; lands at 392,1954
+      -> standing at x 359-480, y 1937-2013
+   6. jump (held 21 ticks), holding left, from 359,1937; lands at 183,1945
+      -> standing at x 135-198, y 1937-1952
+   7. jump (held 2 ticks), holding left, from 135,1946; lands at 77,1937
+      -> standing at x 0-134, y 1937
+   8. standing at 14,1937, goes into it
+      -> out 16,1904
+how in 384,144 -> out 448,112: -
+     coming in at 384,144
+   1. coming in: holding nothing, from 384,144; lands at 384,145
+      -> standing at x 346-480, y 145-161
+   2. standing at 446,145, goes into it
+      -> out 448,112
+how in 384,144 -> out 128,2016: -
+     coming in at 384,144
+   1. coming in: holding nothing, from 384,144; lands at 384,145
+      -> standing at x 346-480, y 145-161
+   2. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 368,149; lands at 321,465
+      -> standing at x 186-390, y 465-497
+   3. walk off the edge, holding right, then left after 1 ticks in the air, from 186,497; lands at 127,957
+      -> standing at x 39-313, y 945-977
+   4. running right, jump (held 6 ticks), holding right, from 176,977; lands at 330,961
+      -> standing at x 314-358, y 961
+   5. walk off the edge, holding right, then nothing after 1 ticks in the air, from 358,961; lands at 392,1954
+      -> standing at x 359-480, y 1937-2013
+   6. jump (held 21 ticks), holding left, from 359,1937; lands at 183,1945
+      -> standing at x 135-198, y 1937-1952
+   7. jump (held 6 ticks), holding left, from 135,1946; lands at 86,1888
+      -> standing at x 86-91, y 1888-1891
+   8. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 86,1888; lands at 26,1845
+      -> standing at x 11-78, y 1843-1853
+   9. walk off the edge, holding left, then right after 1 ticks in the air, from 11,1844; lands at 10,1869
+      -> standing at x 0-10, y 1869-1877
+  10. jump (held 21 ticks), holding right, from 0,1877; touches it on the way
+      -> out 128,2016
+how in 384,144 -> loc 10 6: mario
+     coming in at 384,144
+   1. coming in: holding nothing, from 384,144; lands at 384,145
+      -> standing at x 346-480, y 145-161
+   2. jump (held 40 ticks), holding left, bounce off a flying enemy at tick 12 (Mario Ability Set), from 346,161; lands at 74,82   [mario]
+      -> standing at x 0-102, y 81-96
+   3. standing at 24,81, touches it
+      -> loc 10 6
+how in 384,144 -> loc 10 6: adash
+     coming in at 384,144
+   1. coming in: holding nothing, from 384,144; lands at 384,145
+      -> standing at x 346-480, y 145-161
+   2. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 348,159; lands at 92,91   [adash]
+      -> standing at x 0-102, y 81-96
+   3. standing at 24,81, touches it
+      -> loc 10 6
+how in 384,144 -> loc 10 6: djump
+     coming in at 384,144
+   1. coming in: holding nothing, from 384,144; lands at 384,145
+      -> standing at x 346-480, y 145-161
+   2. walk off the edge, holding left once in the air, from 346,161; lands at 214,296
+      -> standing at x 122-230, y 289-305
+   3. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, double jump at tick 18, from 176,289; lands at 29,81   [djump]
+      -> standing at x 0-102, y 81-96
+   4. standing at 24,81, touches it
+      -> loc 10 6
+how in 112,1936 -> out 16,1904: -
+     coming in at 112,1936
+   1. coming in: holding nothing, from 112,1936; lands at 112,1937
+      -> standing at x 0-134, y 1937
+   2. standing at 14,1937, goes into it
+      -> out 16,1904
+how in 112,1936 -> out 128,2016: -
+     coming in at 112,1936
+   1. coming in: holding nothing, from 112,1936; lands at 112,1937
+      -> standing at x 0-134, y 1937
+   2. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 80,1937; lands at 86,1888
+      -> standing at x 86-91, y 1888-1891
+   3. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 86,1888; lands at 26,1845
+      -> standing at x 11-78, y 1843-1853
+   4. walk off the edge, holding left, then right after 1 ticks in the air, from 11,1844; lands at 10,1869
+      -> standing at x 0-10, y 1869-1877
+   5. jump (held 21 ticks), holding right, from 0,1877; touches it on the way
+      -> out 128,2016

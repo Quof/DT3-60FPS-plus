@@ -1,0 +1,73 @@
+# rDesertedTowerC: Barrens - Deserted Tower (area 50), 3600x352 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+# switches: the room is worked out in each of its states, the player coming in in the first: [barrier 304430 shut, barrier 304431 shut, barrier 304432 shut, barrier 304433 shut]
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 3552,224   # from rDesertedTowerB out 0,2672
+in 3552,272   # from rDesertedTowerB out 0,2736
+in 3520,112   # from rDesertedTowerC_Secret out 440,88
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 3584,192   # to rDesertedTowerB at 48,2704; the player goes into it
+out 3584,256   # to rDesertedTowerB at 48,2752; the player goes into it
+out 64,336   # to rDesertedTowerD at 576,48; the player goes into it
+out 3352,312   # to rDesertedTowerC_Secret at 64,272; the player presses down at it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+loc 3 22   # arrow quiver 22, at 791,54
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 3552,224
+  out 3584,192   -
+  out 3584,256   never
+  out 64,336     never
+  out 3352,312   never
+  loc 3 22       never
+from in 3552,272
+  out 3584,192   never
+  out 3584,256   samus:2
+  out 64,336     never
+  out 3352,312   samus:2
+  loc 3 22       never
+from in 3520,112
+  out 3584,192   -
+  out 3584,256   never
+  out 64,336     never
+  out 3352,312   never
+  loc 3 22       never
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 3552,224 -> out 3584,192: -
+     [barrier 304430 shut, barrier 304431 shut, barrier 304432 shut, barrier 304433 shut] coming in at 3552,224
+   1. coming in: holding nothing, from 3552,224; lands at 3552,225
+      -> [barrier 304430 shut, barrier 304431 shut, barrier 304432 shut, barrier 304433 shut] standing at x 3178-3600, y 225
+   2. standing at 3582,225, goes into it
+      -> out 3584,192
+how in 3552,272 -> out 3584,256: samus:2
+     [barrier 304430 shut, barrier 304431 shut, barrier 304432 shut, barrier 304433 shut] coming in at 3552,272
+   1. coming in: as the Morph Ball: holding nothing, from 3552,272; lands at 3552,273   [samus:2]
+      -> [barrier 304430 shut, barrier 304431 shut, barrier 304432 shut, barrier 304433 shut] as the Morph Ball at x 3370-3600, y 273
+   2. as the Morph Ball, standing at 3582,273, goes into it
+      -> out 3584,256
+how in 3552,272 -> out 3352,312: samus:2
+     [barrier 304430 shut, barrier 304431 shut, barrier 304432 shut, barrier 304433 shut] coming in at 3552,272
+   1. coming in: as the Morph Ball: holding nothing, from 3552,272; lands at 3552,273   [samus:2]
+      -> [barrier 304430 shut, barrier 304431 shut, barrier 304432 shut, barrier 304433 shut] as the Morph Ball at x 3370-3600, y 273
+   2. as the Morph Ball: running left, roll off the edge, holding left once in the air, turn back once there's room, from 3370,273; lands at 3351,321
+      -> [barrier 304430 shut, barrier 304431 shut, barrier 304432 shut, barrier 304433 shut] standing at x 3351-3369, y 321
+   3. standing at 3351,321, presses down at it
+      -> out 3352,312
+how in 3520,112 -> out 3584,192: -
+     [barrier 304430 shut, barrier 304431 shut, barrier 304432 shut, barrier 304433 shut] coming in at 3520,112
+   1. coming in: holding nothing, from 3520,112; lands at 3520,225
+      -> [barrier 304430 shut, barrier 304431 shut, barrier 304432 shut, barrier 304433 shut] standing at x 3178-3600, y 225
+   2. standing at 3582,225, goes into it
+      -> out 3584,192

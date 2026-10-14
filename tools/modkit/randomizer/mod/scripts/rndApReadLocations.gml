@@ -1,7 +1,8 @@
 //Randomizer, Archipelago: what this world's locations hold, from the client's locations.txt when it's this game's (lines
 //"<location id>|<this world's 0/1>|<item id, 0 if another world's>|<item name>|<player it's for>|<flags>"): into
 //global.rndApLocKnown/Own/Item/Name/Player/Flags, by location number. Returns 1 when read
-var f,l,id,t,o,L;
+//var f,l,id,t,o,L;
+var f,l,tId,t,o,L; //bug fix (not a 60fps change): tId, not id: GameMaker's own instance id can't be a var, so the script didn't compile and the game left it out
 if !file_exists(global.rndApPath+"locations.txt") {return 0}
 f=file_text_open_read(global.rndApPath+"locations.txt")
 l=file_text_read_string(f)
@@ -13,9 +14,12 @@ while !file_text_eof(f)
   file_text_readln(f)
   if rndApSplit(l)>=6
   {
-    id=real(global.rndApPart[0])-global.rndApBase
-    t=id div 1000
-    o=id mod 1000
+    //id=real(global.rndApPart[0])-global.rndApBase
+    //t=id div 1000
+    //o=id mod 1000
+    tId=real(global.rndApPart[0])-global.rndApBase //bug fix: tId (see the var line)
+    t=tId div 1000 //bug fix: tId
+    o=tId mod 1000 //bug fix: tId
     if t>=1 and t<=18 and o>=0 and o<=130
     {
       L=global.rndLocOf[t,o]

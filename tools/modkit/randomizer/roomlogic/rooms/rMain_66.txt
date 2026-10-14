@@ -1,0 +1,61 @@
+# rMain_66: Starry Skies - West Great Mountain (area 66), 2080x1440 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 2032,208   # from rMain_65 out 0,176
+in 48,1328   # from rMain_67 out 3056,880
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 2064,176   # to rMain_65 at 48,208; the player goes into it
+out 0,1296   # to rMain_67 at 3024,912; the player goes into it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+loc 10 62   # skill point 62, at 399,767
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 2032,208
+  out 2064,176   -
+  out 0,1296     -
+  loc 10 62      never
+from in 48,1328
+  out 2064,176   djump
+  out 0,1296     -
+  loc 10 62      never
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 2032,208 -> out 2064,176: -
+     coming in at 2032,208
+   1. coming in: holding nothing, from 2032,208; lands at 2032,209
+      -> standing at x 827-2080, y 209-767
+   2. standing at 2062,209, goes into it
+      -> out 2064,176
+how in 2032,208 -> out 0,1296: -
+     coming in at 2032,208
+   1. coming in: holding nothing, from 2032,208; lands at 2032,209
+      -> standing at x 827-2080, y 209-767
+   2. walk off the edge, holding left once in the air, from 827,767; lands at 652,983
+      -> standing at x 0-907, y 792-1329
+   3. standing at 0,1329, goes into it
+      -> out 0,1296
+how in 48,1328 -> out 2064,176: djump
+     coming in at 48,1328
+   1. coming in: holding nothing, from 48,1328; lands at 48,1329
+      -> standing at x 0-907, y 792-1329
+   2. jump (held 21 ticks), holding nothing, then right after 14 ticks, double jump at tick 12, from 816,858; lands at 837,757   [djump]
+      -> standing at x 827-2080, y 209-767
+   3. standing at 2062,209, goes into it
+      -> out 2064,176
+how in 48,1328 -> out 0,1296: -
+     coming in at 48,1328
+   1. coming in: holding nothing, from 48,1328; lands at 48,1329
+      -> standing at x 0-907, y 792-1329
+   2. standing at 0,1329, goes into it
+      -> out 0,1296

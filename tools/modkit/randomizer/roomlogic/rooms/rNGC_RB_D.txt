@@ -1,0 +1,50 @@
+# rNGC_RB_D: Neo Grime City (area 57), 480x1024 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 120,128   # from rNGC_A out 4624,288
+in 120,992   # from rNGC_RB_C out 848,320
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 112,960   # to rNGC_RB_C at 856,352; the player presses up at it
+out 112,96   # to rNGC_A at 4632,320; the player presses up at it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 120,128
+  out 112,960   -
+  out 112,96    -
+from in 120,992
+  out 112,960   -
+  out 112,96    never
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 120,128 -> out 112,960: -
+     coming in at 120,128
+   1. coming in: holding nothing, from 120,128; lands at 120,129
+      -> standing at x 71-326, y 129
+   2. running right, walk off the edge, holding right once in the air, from 176,129; lands at 377,993
+      -> standing at x 71-377, y 993
+   3. standing at 110,993, presses up at it
+      -> out 112,960
+how in 120,128 -> out 112,96: -
+     coming in at 120,128
+   1. coming in: holding nothing, from 120,128; lands at 120,129
+      -> standing at x 71-326, y 129
+   2. standing at 110,129, presses up at it
+      -> out 112,96
+how in 120,992 -> out 112,960: -
+     coming in at 120,992
+   1. coming in: holding nothing, from 120,992; lands at 120,993
+      -> standing at x 71-377, y 993
+   2. standing at 110,993, presses up at it
+      -> out 112,960

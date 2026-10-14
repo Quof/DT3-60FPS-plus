@@ -1,0 +1,86 @@
+# rMain_26ExtA: Begonia - Watery Cave (area 26), 480x2752 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 208,96   # from rMain_26 out 392,112
+in 208,224   # from rMain_26 out 392,384
+in 368,128   # from this room's door out 104,128, this room's door out 312,2624
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 200,192   # to rMain_26 at 400,416; the player presses up at it
+out 200,64   # to rMain_26 at 400,144; the player presses up at it
+out 104,128   # to this room at 368,128; the player presses down at it
+out 312,2624   # to this room at 368,128; the player presses down at it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+loc 8 3   # internetz mod 3, at 159,2679
+loc 10 16   # skill point 16, at 175,1535
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 208,96
+  out 200,192    never
+  out 200,64     -
+  out 104,128    never
+  out 312,2624   never
+  loc 8 3        never
+  loc 10 16      never
+from in 208,224
+  out 200,192    -
+  out 200,64     never
+  out 104,128    -
+  out 312,2624   never
+  loc 8 3        never
+  loc 10 16      never
+from in 368,128
+  out 200,192    never
+  out 200,64     -
+  out 104,128    never
+  out 312,2624   never
+  loc 8 3        never
+  loc 10 16      never
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 208,96 -> out 200,64: -
+     coming in at 208,96
+   1. coming in: holding nothing, from 208,96; lands at 208,97
+      -> standing at x 71-294, y 97
+   2. standing at 198,97, presses up at it
+      -> out 200,64
+how in 208,224 -> out 200,192: -
+     coming in at 208,224
+   1. coming in: holding nothing, from 208,224; lands at 208,225
+      -> standing at x 167-230, y 225
+   2. jump (held 6 ticks), holding left, from 167,225; lands at 137,193
+      -> standing at x 135-166, y 193
+   3. jump (held 6 ticks), holding left, from 135,193; lands at 105,161
+      -> standing at x 71-134, y 161
+   4. walk off the edge, holding right once in the air, from 71,161; touches it on the way
+      -> out 200,192
+how in 208,224 -> out 104,128: -
+     coming in at 208,224
+   1. coming in: holding nothing, from 208,224; lands at 208,225
+      -> standing at x 167-230, y 225
+   2. jump (held 6 ticks), holding left, from 167,225; lands at 137,193
+      -> standing at x 135-166, y 193
+   3. jump (held 6 ticks), holding left, from 135,193; lands at 105,161
+      -> standing at x 71-134, y 161
+   4. standing at 102,161, presses down at it
+      -> out 104,128
+how in 368,128 -> out 200,64: -
+     coming in at 368,128
+   1. coming in: holding nothing, from 368,128; lands at 368,161
+      -> standing at x 327-377, y 161
+   2. jump (held 6 ticks), holding left, from 327,161; lands at 297,129
+      -> standing at x 295-326, y 129
+   3. jump (held 6 ticks), holding left, from 295,129; lands at 265,97
+      -> standing at x 71-294, y 97
+   4. standing at 198,97, presses up at it
+      -> out 200,64

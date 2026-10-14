@@ -1,7 +1,9 @@
 /*
 mods change (added): sets up a mod's objects (objects\<name>\object.ini and an .gml file per event, named as in the
 project: Create_0, Step_0, Collision_oPlayer1...). For one of the game's own objects, only the properties object.ini
-has are changed, and each event the mod has replaces the object's (or is added to it, with events=append).
+has are changed, and each event the mod has replaces the object's (or is added to it, with events=append). The game's
+events in global.modEvList are replaced without clearing them (scrModEvRegister), and a clear or parent change that
+takes long is named in the log (mods change).
 object.ini, section [object]: sprite, solid, visible, depth, persistent, parent, mask, and also
   inherit: the object event_inherited() runs the event of, if not the parent (a 30fps mod's code only)
   block: events (comma separated) the object must not get from its parent; they run inherit's instead
@@ -46,7 +48,10 @@ for(i=0;i<ds_list_size(global.modObjNames[m]);i+=1)
     tPar=scrModFind(scrModKVS(tKV,"parent"),"obj")
     //object_set_parent(tObj,tPar)
     if tPar!=object_get_parent(tObj) {object_set_parent(tObj,tPar)} //mods change: only when it changes (object_set_parent is slow: see the parents time in mod_log.txt)
-    global.modTimeParent+=current_time-tT
+    //global.modTimeParent+=current_time-tT
+    tT=current_time-tT //mods change: one that takes long is named in the log
+    global.modTimeParent+=tT
+    if tT>=100 {scrModLog("  slow: setting the parent of "+tName+" took "+string(tT)+" ms")} //mods change (added)
   }
   tInh=tPar
   if ds_map_exists(tKV,"inherit") {tInh=scrModFind(scrModKVS(tKV,"inherit"),"obj")}
@@ -68,10 +73,19 @@ for(i=0;i<ds_list_size(global.modObjNames[m]);i+=1)
   {
     tEv=ds_list_find_value(tEvs,j)
     if !scrModEvent(tEv) {scrModLog("  ERROR: "+tName+": not an event: "+tEv); continue}
+    //mods change (added): one of the game's events that run a mod's version in place of theirs (global.modEvList) isn't
+    //cleared, which takes long for an object many others inherit from: scrModEvRegister sets the mod's version up
+    if !tNew and !tAppend and string_pos(","+tEv+",",tAppList)=0
+    {
+      if scrModEvRegister(tName,tEv,scrModReadFile(tDir+"objects\"+tName+"\"+tEv+".gml"),tLegObj,tInh) {continue}
+    }
     tT=current_time
     //if (!tNew or tRedef) and !tAppend {object_event_clear(tObj,global.modEvType,global.modEvNum)}
     if (!tNew or tRedef) and !tAppend and string_pos(","+tEv+",",tAppList)=0 {object_event_clear(tObj,global.modEvType,global.modEvNum)} //mods change: not an event object.ini's append names
-    global.modTimeClear+=current_time-tT
+    //global.modTimeClear+=current_time-tT
+    tT=current_time-tT //mods change: a clear that takes long is named in the log
+    global.modTimeClear+=tT
+    if tT>=100 {scrModLog("  slow: clearing "+tName+" "+tEv+" took "+string(tT)+" ms")} //mods change (added)
     scrModAddEvent(tObj,global.modEvType,global.modEvNum,scrModReadFile(tDir+"objects\"+tName+"\"+tEv+".gml"),tLegObj,tInh,tName+" "+tEv)
   }
   //events it must not get from its parent: they run the inherit object's (or nothing)

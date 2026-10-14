@@ -1,0 +1,42 @@
+# rCCity_SAShopA: Central City - South (area 41), 480x416 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 48,368   # from rCCity_SouthA out 568,256
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 0,336   # to rCCity_SouthA at 576,288; the player goes into it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+loc 2 40   # treasure chest 40, at 65,131
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 48,368
+  out 0,336   -
+  loc 2 40    -
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 48,368 -> out 0,336: -
+     coming in at 48,368
+   1. coming in: holding nothing, from 48,368; lands at 48,369
+      -> standing at x 0-441, y 305-369
+   2. standing at 0,369, goes into it
+      -> out 0,336
+how in 48,368 -> loc 2 40: -
+     coming in at 48,368
+   1. coming in: holding nothing, from 48,368; lands at 48,369
+      -> standing at x 0-441, y 305-369
+   2. jump (held 21 ticks), holding right, from 416,305; lands at 441,241
+      -> standing at x 426-441, y 241
+   3. jump (held 21 ticks), holding left, from 426,241; lands at 349,167
+      -> standing at x 39-406, y 145-177
+   4. standing at 55,145, touches it
+      -> loc 2 40

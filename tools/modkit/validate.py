@@ -132,6 +132,26 @@ class Check:
         pd = os.path.join(m, "patches")
         if os.path.isdir(pd):
             for r in sorted(os.listdir(pd)): self.patch_check(r)
+        # ----- the game's events mods can replace without clearing them (scrModEvInit's list, addevoverride.py), and
+        # the events this mod replaces by clearing them that take long to clear (many objects inherit from the object)
+        if os.path.exists(os.path.join(self.proj, "scripts", "scrModEvInit.gml")):
+            import addevoverride
+            for x in addevoverride.check(self.proj): self.e("the game's events mods can replace without clearing them: %s (python addevoverride.py <project> --check)" % x)
+            listed = set(addevoverride.get_list(self.proj)[0])
+            for o in objs:
+                for f in os.listdir(os.path.join(m, "objects", o)):
+                    if f.endswith(".gml") and "global.modEvOvr[" in read(os.path.join(m, "objects", o, f)):
+                        self.e("objects/%s/%s has the game's line that runs a mod's version of an event (global.modEvOvr): a mod's version must not have it (made from the game's event with it? mergemod.dt3_event leaves it out)" % (o, f))
+            kids = self._descendants()
+            for o in objs:
+                if o in self.new_obj or kids.get(o, 0) < 50: continue
+                p = os.path.join(m, "objects", o, "object.ini")
+                kv = dict(l.split("=", 1) for l in read(p).split("\n") if "=" in l) if os.path.exists(p) else {}
+                app = set(x.strip() for x in kv.get("append", "").split(",") if x.strip())
+                for f in os.listdir(os.path.join(m, "objects", o)):
+                    ev = f[:-4]
+                    if not f.endswith(".gml") or kv.get("events") == "append" or ev in app or (o, ev) in listed: continue
+                    self.w("objects/%s/%s replaces the game's event by clearing it, which takes long when the mod loads (%d objects inherit from %s): append to it if it can be (object.ini append), or make it one mods can replace without clearing (addevoverride.py)" % (o, f, kids[o], o))
         # ----- hooks
         hd = os.path.join(m, "hooks")
         if os.path.isdir(hd):
@@ -139,6 +159,21 @@ class Check:
                 if not f.endswith(".gml"): continue
                 if f[:-4] not in HOOKS: self.w("hooks/%s: the game has no hook named %s" % (f, f[:-4]))
                 self.code(read(os.path.join(hd, f)), "hooks/" + f)
+
+    def _descendants(self):
+        """{object: how many of the game's objects inherit from it} (the project's objects' parent= settings)"""
+        par = {}
+        od = os.path.join(self.proj, "objects")
+        for f in os.listdir(od):
+            if f.endswith(".txt"):
+                for l in read(os.path.join(od, f)).split("\n"):
+                    if l.startswith("parent="): par[f[:-4]] = l[7:].strip()
+        out = collections.Counter()
+        for o in par:
+            p, seen = par[o], set()
+            while p and p not in seen:
+                seen.add(p); out[p] += 1; p = par.get(p, "")
+        return out
 
     def _override_list(self):
         """the game's scripts a mod can replace (scrModInit's global.modOvrList)"""

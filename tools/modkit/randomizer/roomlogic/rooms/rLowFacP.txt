@@ -1,0 +1,43 @@
+# rLowFacP: CHAOS Weapons Facility (area 69), 864x352 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 128,48   # from rLowFacO out 6624,400
+in 784,256   # from rLowFacQ out 0,256
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 848,192   # to rLowFacQ at 48,272; the player goes into it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 128,48
+  out 848,192   samus:2
+from in 784,256
+  out 848,192   samus:2
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 128,48 -> out 848,192: samus:2
+     coming in at 128,48
+   1. coming in: holding nothing, from 128,48; lands at 128,257
+      -> standing at x 103-793, y 257
+   2. jump (held 6 ticks), holding right, turn into the Morph Ball where the body meets a wall or ceiling, from 720,257; lands at 800,209   [samus:2]
+      -> as the Morph Ball at x 794-864, y 209
+   3. as the Morph Ball, standing at 846,209, goes into it
+      -> out 848,192
+how in 784,256 -> out 848,192: samus:2
+     coming in at 784,256
+   1. coming in: holding nothing, from 784,256; lands at 784,257
+      -> standing at x 103-793, y 257
+   2. jump (held 6 ticks), holding right, turn into the Morph Ball where the body meets a wall or ceiling, from 720,257; lands at 800,209   [samus:2]
+      -> as the Morph Ball at x 794-864, y 209
+   3. as the Morph Ball, standing at 846,209, goes into it
+      -> out 848,192

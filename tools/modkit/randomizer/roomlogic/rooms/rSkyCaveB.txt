@@ -1,0 +1,1329 @@
+# rSkyCaveB: Highlands - The One Four You (area 96), 6144x352 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+# switches: the room is worked out in each of its states, the player coming in in the first: [barrier 434427 shut, barrier 434428 shut]
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 80,112   # from rSkyCaveA out 1272,112
+in 144,112   # from this room's door out 6088,80
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 72,80   # to rSkyCaveA at 1280,144; the player presses up at it
+out 6088,80   # to this room at 144,112; the player presses down at it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+loc 2 68   # treasure chest 68, at 1008,115
+loc 9 69   # weapon upgrade 69, at 5919,87
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 80,112
+  out 72,80     -
+  out 6088,80   adash,megaman:1 | adash,samus:1 | djump,megaman:1 | djump,samus:1 | adash,link:1 | adash,belmont:1 | djump,link:1 | djump,belmont:1
+  loc 2 68      djump | adash
+  loc 9 69      adash,megaman:1 | adash,samus:1 | adash,link:1 | adash,belmont:1 | djump,megaman:1 | djump,samus:1 | djump,link:1 | djump,belmont:1
+from in 144,112
+  out 72,80     -
+  out 6088,80   adash,megaman:1 | adash,samus:1 | djump,megaman:1 | djump,samus:1 | adash,link:1 | adash,belmont:1 | djump,link:1 | djump,belmont:1
+  loc 2 68      djump | adash
+  loc 9 69      adash,megaman:1 | adash,samus:1 | adash,link:1 | adash,belmont:1 | djump,megaman:1 | djump,samus:1 | djump,link:1 | djump,belmont:1
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 80,112 -> out 72,80: -
+     [barrier 434427 shut, barrier 434428 shut] coming in at 80,112
+   1. coming in: holding nothing, from 80,112; lands at 80,113
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 39-166, y 113
+   2. standing at 62,113, presses up at it
+      -> out 72,80
+how in 80,112 -> out 6088,80: adash,megaman:1
+     [barrier 434427 shut, barrier 434428 shut] coming in at 80,112
+   1. coming in: holding nothing, from 80,112; lands at 80,113
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 39-166, y 113
+   2. walk off the edge, holding right, then nothing after 1 ticks in the air, from 39,113; lands at 210,305
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 167-1337, y 305
+   3. shoot the switch at 1008,208 from 839,305 (at the top of a jump): [barrier 434427 open, barrier 434428 shut]   [megaman:1]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 167-1337, y 305
+   4. running right, jump (held 21 ticks), holding right, from 1200,305; lands at 1353,241
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1338-1353, y 241
+   5. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 1338,241; lands at 1127,209   [adash]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1127-1158, y 209
+   6. jump (held 21 ticks), holding nothing, then right after 12 ticks, air dash (Jerry) at tick 12, from 1155,209; lands at 1285,129   [adash]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1274-1318, y 129
+   7. hit the switch at 1296,80 from 1274,129 (jumping if need be): [barrier 434427 open, barrier 434428 open]   [megaman:1]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1274-1318, y 129
+   8. walk off the edge, holding left, then right after 2 ticks in the air, air dash back right (Jerry) at tick 6 or once there's room ahead, from 1278,129; lands at 1440,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1383-1913, y 305
+   9. running right, jump (held 21 ticks), holding right, air dash (Jerry) at tick 8, from 1760,305; lands at 2047,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1959-3206, y 305
+  10. walk off the edge, holding right once in the air, air dash (Claire) at tick 2, from 2608,305; lands at 3358,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3290-3865, y 305
+  11. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 3680,305; lands at 3895,241   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3866-4262, y 241
+  12. walk off the edge, holding right once in the air, from 3866,241; lands at 4349,305
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4295-4614, y 305
+  13. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 4560,305; lands at 4872,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4858-4966, y 305
+  14. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 4944,305; lands at 5256,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5242-5689, y 305
+  15. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 5456,305; lands at 5710,241   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5690-5753, y 241
+  16. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 5690,241; lands at 5905,177   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5818-6009, y 177
+  17. running right, jump (held 21 ticks), holding right, from 5952,177; touches it on the way
+      -> out 6088,80
+how in 80,112 -> out 6088,80: adash,samus:1
+     [barrier 434427 shut, barrier 434428 shut] coming in at 80,112
+   1. coming in: holding nothing, from 80,112; lands at 80,113
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 39-166, y 113
+   2. walk off the edge, holding right, then nothing after 1 ticks in the air, from 39,113; lands at 210,305
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 167-1337, y 305
+   3. shoot the switch at 1008,208 from 839,305 (at the top of a jump): [barrier 434427 open, barrier 434428 shut]   [samus:1]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 167-1337, y 305
+   4. running right, jump (held 21 ticks), holding right, from 1200,305; lands at 1353,241
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1338-1353, y 241
+   5. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 1338,241; lands at 1127,209   [adash]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1127-1158, y 209
+   6. jump (held 21 ticks), holding nothing, then right after 12 ticks, air dash (Jerry) at tick 12, from 1155,209; lands at 1285,129   [adash]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1274-1318, y 129
+   7. hit the switch at 1296,80 from 1274,129 (jumping if need be): [barrier 434427 open, barrier 434428 open]   [samus:1]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1274-1318, y 129
+   8. walk off the edge, holding left, then right after 2 ticks in the air, air dash back right (Jerry) at tick 6 or once there's room ahead, from 1278,129; lands at 1440,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1383-1913, y 305
+   9. running right, jump (held 21 ticks), holding right, air dash (Jerry) at tick 8, from 1760,305; lands at 2047,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1959-3206, y 305
+  10. walk off the edge, holding right once in the air, air dash (Claire) at tick 2, from 2608,305; lands at 3358,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3290-3865, y 305
+  11. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 3680,305; lands at 3895,241   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3866-4262, y 241
+  12. walk off the edge, holding right once in the air, from 3866,241; lands at 4349,305
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4295-4614, y 305
+  13. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 4560,305; lands at 4872,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4858-4966, y 305
+  14. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 4944,305; lands at 5256,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5242-5689, y 305
+  15. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 5456,305; lands at 5710,241   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5690-5753, y 241
+  16. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 5690,241; lands at 5905,177   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5818-6009, y 177
+  17. running right, jump (held 21 ticks), holding right, from 5952,177; touches it on the way
+      -> out 6088,80
+how in 80,112 -> out 6088,80: djump,megaman:1
+     [barrier 434427 shut, barrier 434428 shut] coming in at 80,112
+   1. coming in: holding nothing, from 80,112; lands at 80,113
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 39-166, y 113
+   2. walk off the edge, holding right, then nothing after 1 ticks in the air, from 39,113; lands at 210,305
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 167-1337, y 305
+   3. shoot the switch at 1008,208 from 839,305 (at the top of a jump): [barrier 434427 open, barrier 434428 shut]   [megaman:1]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 167-1337, y 305
+   4. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 1168,305; lands at 1138,209   [djump]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1127-1158, y 209
+   5. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1127,209; lands at 1213,145
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1178-1222, y 145
+   6. shoot the switch at 1296,80 from 1178,145 (at the top of a jump): [barrier 434427 open, barrier 434428 open]   [megaman:1]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1178-1222, y 145
+   7. walk off the edge, holding right once in the air, double jump at tick 8, from 1178,145; lands at 1427,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1383-1913, y 305
+   8. running right, jump (held 21 ticks), holding right, from 1824,305; lands at 2030,305
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1959-3206, y 305
+   9. walk off the edge, holding right once in the air, double jump at tick 2, from 2656,305; lands at 3367,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3290-3865, y 305
+  10. running right, jump (held 21 ticks), holding right, double jump at tick 10, from 3664,305; lands at 3877,241   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3866-4262, y 241
+  11. walk off the edge, holding right once in the air, from 3866,241; lands at 4349,305
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4295-4614, y 305
+  12. jump (held 21 ticks), holding right, double jump at tick 15, from 4592,305; lands at 4870,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4858-4966, y 305
+  13. jump (held 21 ticks), holding right, double jump at tick 10, from 4858,305; lands at 5092,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5050-5158, y 305
+  14. jump (held 21 ticks), holding right, double jump at tick 10, from 5050,305; lands at 5284,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5242-5689, y 305
+  15. jump (held 21 ticks), holding right, double jump at tick 15, from 5456,305; lands at 5697,241   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5690-5753, y 241
+  16. jump (held 21 ticks), holding right, double jump at tick 10, from 5690,241; lands at 5880,177   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5818-6009, y 177
+  17. running right, jump (held 21 ticks), holding right, from 5952,177; touches it on the way
+      -> out 6088,80
+how in 80,112 -> out 6088,80: djump,samus:1
+     [barrier 434427 shut, barrier 434428 shut] coming in at 80,112
+   1. coming in: holding nothing, from 80,112; lands at 80,113
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 39-166, y 113
+   2. walk off the edge, holding right, then nothing after 1 ticks in the air, from 39,113; lands at 210,305
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 167-1337, y 305
+   3. shoot the switch at 1008,208 from 839,305 (at the top of a jump): [barrier 434427 open, barrier 434428 shut]   [samus:1]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 167-1337, y 305
+   4. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 1168,305; lands at 1138,209   [djump]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1127-1158, y 209
+   5. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1127,209; lands at 1213,145
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1178-1222, y 145
+   6. shoot the switch at 1296,80 from 1178,145 (at the top of a jump): [barrier 434427 open, barrier 434428 open]   [samus:1]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1178-1222, y 145
+   7. walk off the edge, holding right once in the air, double jump at tick 8, from 1178,145; lands at 1427,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1383-1913, y 305
+   8. running right, jump (held 21 ticks), holding right, from 1824,305; lands at 2030,305
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1959-3206, y 305
+   9. walk off the edge, holding right once in the air, double jump at tick 2, from 2656,305; lands at 3367,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3290-3865, y 305
+  10. running right, jump (held 21 ticks), holding right, double jump at tick 10, from 3664,305; lands at 3877,241   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3866-4262, y 241
+  11. walk off the edge, holding right once in the air, from 3866,241; lands at 4349,305
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4295-4614, y 305
+  12. jump (held 21 ticks), holding right, double jump at tick 15, from 4592,305; lands at 4870,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4858-4966, y 305
+  13. jump (held 21 ticks), holding right, double jump at tick 10, from 4858,305; lands at 5092,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5050-5158, y 305
+  14. jump (held 21 ticks), holding right, double jump at tick 10, from 5050,305; lands at 5284,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5242-5689, y 305
+  15. jump (held 21 ticks), holding right, double jump at tick 15, from 5456,305; lands at 5697,241   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5690-5753, y 241
+  16. jump (held 21 ticks), holding right, double jump at tick 10, from 5690,241; lands at 5880,177   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5818-6009, y 177
+  17. running right, jump (held 21 ticks), holding right, from 5952,177; touches it on the way
+      -> out 6088,80
+how in 80,112 -> out 6088,80: adash,link:1
+     [barrier 434427 shut, barrier 434428 shut] coming in at 80,112
+   1. coming in: holding nothing, from 80,112; lands at 80,113
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 39-166, y 113
+   2. walk off the edge, holding right, then nothing after 1 ticks in the air, from 39,113; lands at 210,305
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 167-1337, y 305
+   3. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 848,305; lands at 949,225   [adash]
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 858-1049, y 225
+   4. hit the switch at 1008,208 from 952,225 (jumping if need be): [barrier 434427 open, barrier 434428 shut]   [link:1]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 858-1049, y 225
+   5. walk off the edge, holding left once in the air, from 858,225; lands at 824,305
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 167-1337, y 305
+   6. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 1136,305; lands at 1351,241   [adash]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1338-1353, y 241
+   7. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 1338,241; lands at 1127,209   [adash]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1127-1158, y 209
+   8. jump (held 21 ticks), holding nothing, then right after 12 ticks, air dash (Jerry) at tick 12, from 1155,209; lands at 1285,129   [adash]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1274-1318, y 129
+   9. hit the switch at 1296,80 from 1274,129 (jumping if need be): [barrier 434427 open, barrier 434428 open]   [link:1]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1274-1318, y 129
+  10. walk off the edge, holding left, then right after 2 ticks in the air, air dash back right (Jerry) at tick 6 or once there's room ahead, from 1278,129; lands at 1440,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1383-1913, y 305
+  11. running right, jump (held 21 ticks), holding right, air dash (Jerry) at tick 8, from 1760,305; lands at 2047,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1959-3206, y 305
+  12. walk off the edge, holding right once in the air, air dash (Claire) at tick 2, from 2608,305; lands at 3358,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3290-3865, y 305
+  13. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 3680,305; lands at 3895,241   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3866-4262, y 241
+  14. walk off the edge, holding right once in the air, from 3866,241; lands at 4349,305
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4295-4614, y 305
+  15. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 4560,305; lands at 4872,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4858-4966, y 305
+  16. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 4944,305; lands at 5256,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5242-5689, y 305
+  17. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 5456,305; lands at 5710,241   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5690-5753, y 241
+  18. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 5690,241; lands at 5905,177   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5818-6009, y 177
+  19. running right, jump (held 21 ticks), holding right, from 5952,177; touches it on the way
+      -> out 6088,80
+how in 80,112 -> out 6088,80: adash,belmont:1
+     [barrier 434427 shut, barrier 434428 shut] coming in at 80,112
+   1. coming in: holding nothing, from 80,112; lands at 80,113
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 39-166, y 113
+   2. walk off the edge, holding right, then nothing after 1 ticks in the air, from 39,113; lands at 210,305
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 167-1337, y 305
+   3. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 848,305; lands at 949,225   [adash]
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 858-1049, y 225
+   4. hit the switch at 1008,208 from 952,225 (jumping if need be): [barrier 434427 open, barrier 434428 shut]   [belmont:1]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 858-1049, y 225
+   5. walk off the edge, holding left once in the air, from 858,225; lands at 824,305
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 167-1337, y 305
+   6. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 1136,305; lands at 1351,241   [adash]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1338-1353, y 241
+   7. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 1338,241; lands at 1127,209   [adash]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1127-1158, y 209
+   8. jump (held 21 ticks), holding nothing, then right after 12 ticks, air dash (Jerry) at tick 12, from 1155,209; lands at 1285,129   [adash]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1274-1318, y 129
+   9. hit the switch at 1296,80 from 1274,129 (jumping if need be): [barrier 434427 open, barrier 434428 open]   [belmont:1]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1274-1318, y 129
+  10. walk off the edge, holding left, then right after 2 ticks in the air, air dash back right (Jerry) at tick 6 or once there's room ahead, from 1278,129; lands at 1440,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1383-1913, y 305
+  11. running right, jump (held 21 ticks), holding right, air dash (Jerry) at tick 8, from 1760,305; lands at 2047,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1959-3206, y 305
+  12. walk off the edge, holding right once in the air, air dash (Claire) at tick 2, from 2608,305; lands at 3358,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3290-3865, y 305
+  13. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 3680,305; lands at 3895,241   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3866-4262, y 241
+  14. walk off the edge, holding right once in the air, from 3866,241; lands at 4349,305
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4295-4614, y 305
+  15. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 4560,305; lands at 4872,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4858-4966, y 305
+  16. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 4944,305; lands at 5256,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5242-5689, y 305
+  17. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 5456,305; lands at 5710,241   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5690-5753, y 241
+  18. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 5690,241; lands at 5905,177   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5818-6009, y 177
+  19. running right, jump (held 21 ticks), holding right, from 5952,177; touches it on the way
+      -> out 6088,80
+how in 80,112 -> out 6088,80: djump,link:1
+     [barrier 434427 shut, barrier 434428 shut] coming in at 80,112
+   1. coming in: holding nothing, from 80,112; lands at 80,113
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 39-166, y 113
+   2. walk off the edge, holding right, then nothing after 1 ticks in the air, from 39,113; lands at 210,305
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 167-1337, y 305
+   3. running right, jump (held 21 ticks), holding right, double jump at tick 10, from 832,305; lands at 938,225   [djump]
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 858-1049, y 225
+   4. hit the switch at 1008,208 from 952,225 (jumping if need be): [barrier 434427 open, barrier 434428 shut]   [link:1]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 858-1049, y 225
+   5. walk off the edge, holding left once in the air, from 858,225; lands at 824,305
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 167-1337, y 305
+   6. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 1168,305; lands at 1138,209   [djump]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1127-1158, y 209
+   7. jump (held 21 ticks), holding right, double jump at tick 10, from 1127,209; lands at 1287,129   [djump]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1274-1318, y 129
+   8. hit the switch at 1296,80 from 1274,129 (jumping if need be): [barrier 434427 open, barrier 434428 open]   [link:1]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1274-1318, y 129
+   9. walk off the edge, holding left once in the air, from 1274,129; lands at 1150,305
+      -> [barrier 434427 open, barrier 434428 open] standing at x 167-1337, y 305
+  10. jump (held 21 ticks), holding right, double jump at tick 15, from 1168,305; lands at 1446,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1383-1913, y 305
+  11. running right, jump (held 21 ticks), holding right, from 1824,305; lands at 2030,305
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1959-3206, y 305
+  12. walk off the edge, holding right once in the air, double jump at tick 2, from 2656,305; lands at 3367,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3290-3865, y 305
+  13. running right, jump (held 21 ticks), holding right, double jump at tick 10, from 3664,305; lands at 3877,241   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3866-4262, y 241
+  14. walk off the edge, holding right once in the air, from 3866,241; lands at 4349,305
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4295-4614, y 305
+  15. jump (held 21 ticks), holding right, double jump at tick 15, from 4592,305; lands at 4870,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4858-4966, y 305
+  16. jump (held 21 ticks), holding right, double jump at tick 10, from 4858,305; lands at 5092,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5050-5158, y 305
+  17. jump (held 21 ticks), holding right, double jump at tick 10, from 5050,305; lands at 5284,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5242-5689, y 305
+  18. jump (held 21 ticks), holding right, double jump at tick 15, from 5456,305; lands at 5697,241   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5690-5753, y 241
+  19. jump (held 21 ticks), holding right, double jump at tick 10, from 5690,241; lands at 5880,177   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5818-6009, y 177
+  20. running right, jump (held 21 ticks), holding right, from 5952,177; touches it on the way
+      -> out 6088,80
+how in 80,112 -> out 6088,80: djump,belmont:1
+     [barrier 434427 shut, barrier 434428 shut] coming in at 80,112
+   1. coming in: holding nothing, from 80,112; lands at 80,113
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 39-166, y 113
+   2. walk off the edge, holding right, then nothing after 1 ticks in the air, from 39,113; lands at 210,305
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 167-1337, y 305
+   3. running right, jump (held 21 ticks), holding right, double jump at tick 10, from 832,305; lands at 938,225   [djump]
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 858-1049, y 225
+   4. hit the switch at 1008,208 from 952,225 (jumping if need be): [barrier 434427 open, barrier 434428 shut]   [belmont:1]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 858-1049, y 225
+   5. walk off the edge, holding left once in the air, from 858,225; lands at 824,305
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 167-1337, y 305
+   6. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 1168,305; lands at 1138,209   [djump]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1127-1158, y 209
+   7. jump (held 21 ticks), holding right, double jump at tick 10, from 1127,209; lands at 1287,129   [djump]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1274-1318, y 129
+   8. hit the switch at 1296,80 from 1274,129 (jumping if need be): [barrier 434427 open, barrier 434428 open]   [belmont:1]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1274-1318, y 129
+   9. walk off the edge, holding left once in the air, from 1274,129; lands at 1150,305
+      -> [barrier 434427 open, barrier 434428 open] standing at x 167-1337, y 305
+  10. jump (held 21 ticks), holding right, double jump at tick 15, from 1168,305; lands at 1446,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1383-1913, y 305
+  11. running right, jump (held 21 ticks), holding right, from 1824,305; lands at 2030,305
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1959-3206, y 305
+  12. walk off the edge, holding right once in the air, double jump at tick 2, from 2656,305; lands at 3367,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3290-3865, y 305
+  13. running right, jump (held 21 ticks), holding right, double jump at tick 10, from 3664,305; lands at 3877,241   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3866-4262, y 241
+  14. walk off the edge, holding right once in the air, from 3866,241; lands at 4349,305
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4295-4614, y 305
+  15. jump (held 21 ticks), holding right, double jump at tick 15, from 4592,305; lands at 4870,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4858-4966, y 305
+  16. jump (held 21 ticks), holding right, double jump at tick 10, from 4858,305; lands at 5092,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5050-5158, y 305
+  17. jump (held 21 ticks), holding right, double jump at tick 10, from 5050,305; lands at 5284,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5242-5689, y 305
+  18. jump (held 21 ticks), holding right, double jump at tick 15, from 5456,305; lands at 5697,241   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5690-5753, y 241
+  19. jump (held 21 ticks), holding right, double jump at tick 10, from 5690,241; lands at 5880,177   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5818-6009, y 177
+  20. running right, jump (held 21 ticks), holding right, from 5952,177; touches it on the way
+      -> out 6088,80
+how in 80,112 -> loc 2 68: djump
+     [barrier 434427 shut, barrier 434428 shut] coming in at 80,112
+   1. coming in: holding nothing, from 80,112; lands at 80,113
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 39-166, y 113
+   2. walk off the edge, holding right, then nothing after 1 ticks in the air, from 39,113; lands at 210,305
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 167-1337, y 305
+   3. running right, jump (held 21 ticks), holding right, double jump at tick 10, from 832,305; lands at 938,225   [djump]
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 858-1049, y 225
+   4. jump (held 21 ticks), holding left, double jump at tick 15, from 1040,225; touches it on the way   [djump]
+      -> loc 2 68
+how in 80,112 -> loc 2 68: adash
+     [barrier 434427 shut, barrier 434428 shut] coming in at 80,112
+   1. coming in: holding nothing, from 80,112; lands at 80,113
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 39-166, y 113
+   2. walk off the edge, holding right, then nothing after 1 ticks in the air, from 39,113; lands at 210,305
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 167-1337, y 305
+   3. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 848,305; lands at 949,225   [adash]
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 858-1049, y 225
+   4. running right, jump (held 21 ticks), holding right, from 1008,225; lands at 1081,161
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 1050-1081, y 161
+   5. jump (held 2 ticks), holding left, from 1050,161; lands at 999,129
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 999-1030, y 129
+   6. standing at 999,129, touches it
+      -> loc 2 68
+how in 80,112 -> loc 9 69: adash,megaman:1
+     [barrier 434427 shut, barrier 434428 shut] coming in at 80,112
+   1. coming in: holding nothing, from 80,112; lands at 80,113
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 39-166, y 113
+   2. walk off the edge, holding right, then nothing after 1 ticks in the air, from 39,113; lands at 210,305
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 167-1337, y 305
+   3. shoot the switch at 1008,208 from 839,305 (at the top of a jump): [barrier 434427 open, barrier 434428 shut]   [megaman:1]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 167-1337, y 305
+   4. running right, jump (held 21 ticks), holding right, from 1200,305; lands at 1353,241
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1338-1353, y 241
+   5. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 1338,241; lands at 1127,209   [adash]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1127-1158, y 209
+   6. jump (held 21 ticks), holding nothing, then right after 12 ticks, air dash (Jerry) at tick 12, from 1155,209; lands at 1285,129   [adash]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1274-1318, y 129
+   7. hit the switch at 1296,80 from 1274,129 (jumping if need be): [barrier 434427 open, barrier 434428 open]   [megaman:1]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1274-1318, y 129
+   8. walk off the edge, holding left, then right after 2 ticks in the air, air dash back right (Jerry) at tick 6 or once there's room ahead, from 1278,129; lands at 1440,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1383-1913, y 305
+   9. running right, jump (held 21 ticks), holding right, air dash (Jerry) at tick 8, from 1760,305; lands at 2047,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1959-3206, y 305
+  10. walk off the edge, holding right once in the air, air dash (Claire) at tick 2, from 2608,305; lands at 3358,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3290-3865, y 305
+  11. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 3680,305; lands at 3895,241   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3866-4262, y 241
+  12. walk off the edge, holding right once in the air, from 3866,241; lands at 4349,305
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4295-4614, y 305
+  13. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 4560,305; lands at 4872,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4858-4966, y 305
+  14. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 4944,305; lands at 5256,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5242-5689, y 305
+  15. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 5456,305; lands at 5710,241   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5690-5753, y 241
+  16. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 5690,241; lands at 5905,177   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5818-6009, y 177
+  17. jump (held 21 ticks), holding nothing, then right after 12 ticks, air dash (Jerry) at tick 12, from 5818,177; touches it on the way   [adash]
+      -> loc 9 69
+how in 80,112 -> loc 9 69: adash,samus:1
+     [barrier 434427 shut, barrier 434428 shut] coming in at 80,112
+   1. coming in: holding nothing, from 80,112; lands at 80,113
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 39-166, y 113
+   2. walk off the edge, holding right, then nothing after 1 ticks in the air, from 39,113; lands at 210,305
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 167-1337, y 305
+   3. shoot the switch at 1008,208 from 839,305 (at the top of a jump): [barrier 434427 open, barrier 434428 shut]   [samus:1]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 167-1337, y 305
+   4. running right, jump (held 21 ticks), holding right, from 1200,305; lands at 1353,241
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1338-1353, y 241
+   5. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 1338,241; lands at 1127,209   [adash]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1127-1158, y 209
+   6. jump (held 21 ticks), holding nothing, then right after 12 ticks, air dash (Jerry) at tick 12, from 1155,209; lands at 1285,129   [adash]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1274-1318, y 129
+   7. hit the switch at 1296,80 from 1274,129 (jumping if need be): [barrier 434427 open, barrier 434428 open]   [samus:1]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1274-1318, y 129
+   8. walk off the edge, holding left, then right after 2 ticks in the air, air dash back right (Jerry) at tick 6 or once there's room ahead, from 1278,129; lands at 1440,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1383-1913, y 305
+   9. running right, jump (held 21 ticks), holding right, air dash (Jerry) at tick 8, from 1760,305; lands at 2047,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1959-3206, y 305
+  10. walk off the edge, holding right once in the air, air dash (Claire) at tick 2, from 2608,305; lands at 3358,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3290-3865, y 305
+  11. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 3680,305; lands at 3895,241   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3866-4262, y 241
+  12. walk off the edge, holding right once in the air, from 3866,241; lands at 4349,305
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4295-4614, y 305
+  13. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 4560,305; lands at 4872,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4858-4966, y 305
+  14. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 4944,305; lands at 5256,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5242-5689, y 305
+  15. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 5456,305; lands at 5710,241   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5690-5753, y 241
+  16. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 5690,241; lands at 5905,177   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5818-6009, y 177
+  17. jump (held 21 ticks), holding nothing, then right after 12 ticks, air dash (Jerry) at tick 12, from 5818,177; touches it on the way   [adash]
+      -> loc 9 69
+how in 80,112 -> loc 9 69: adash,link:1
+     [barrier 434427 shut, barrier 434428 shut] coming in at 80,112
+   1. coming in: holding nothing, from 80,112; lands at 80,113
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 39-166, y 113
+   2. walk off the edge, holding right, then nothing after 1 ticks in the air, from 39,113; lands at 210,305
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 167-1337, y 305
+   3. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 848,305; lands at 949,225   [adash]
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 858-1049, y 225
+   4. hit the switch at 1008,208 from 952,225 (jumping if need be): [barrier 434427 open, barrier 434428 shut]   [link:1]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 858-1049, y 225
+   5. walk off the edge, holding left once in the air, from 858,225; lands at 824,305
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 167-1337, y 305
+   6. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 1136,305; lands at 1351,241   [adash]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1338-1353, y 241
+   7. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 1338,241; lands at 1127,209   [adash]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1127-1158, y 209
+   8. jump (held 21 ticks), holding nothing, then right after 12 ticks, air dash (Jerry) at tick 12, from 1155,209; lands at 1285,129   [adash]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1274-1318, y 129
+   9. hit the switch at 1296,80 from 1274,129 (jumping if need be): [barrier 434427 open, barrier 434428 open]   [link:1]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1274-1318, y 129
+  10. walk off the edge, holding left, then right after 2 ticks in the air, air dash back right (Jerry) at tick 6 or once there's room ahead, from 1278,129; lands at 1440,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1383-1913, y 305
+  11. running right, jump (held 21 ticks), holding right, air dash (Jerry) at tick 8, from 1760,305; lands at 2047,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1959-3206, y 305
+  12. walk off the edge, holding right once in the air, air dash (Claire) at tick 2, from 2608,305; lands at 3358,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3290-3865, y 305
+  13. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 3680,305; lands at 3895,241   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3866-4262, y 241
+  14. walk off the edge, holding right once in the air, from 3866,241; lands at 4349,305
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4295-4614, y 305
+  15. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 4560,305; lands at 4872,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4858-4966, y 305
+  16. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 4944,305; lands at 5256,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5242-5689, y 305
+  17. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 5456,305; lands at 5710,241   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5690-5753, y 241
+  18. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 5690,241; lands at 5905,177   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5818-6009, y 177
+  19. jump (held 21 ticks), holding nothing, then right after 12 ticks, air dash (Jerry) at tick 12, from 5818,177; touches it on the way   [adash]
+      -> loc 9 69
+how in 80,112 -> loc 9 69: adash,belmont:1
+     [barrier 434427 shut, barrier 434428 shut] coming in at 80,112
+   1. coming in: holding nothing, from 80,112; lands at 80,113
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 39-166, y 113
+   2. walk off the edge, holding right, then nothing after 1 ticks in the air, from 39,113; lands at 210,305
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 167-1337, y 305
+   3. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 848,305; lands at 949,225   [adash]
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 858-1049, y 225
+   4. hit the switch at 1008,208 from 952,225 (jumping if need be): [barrier 434427 open, barrier 434428 shut]   [belmont:1]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 858-1049, y 225
+   5. walk off the edge, holding left once in the air, from 858,225; lands at 824,305
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 167-1337, y 305
+   6. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 1136,305; lands at 1351,241   [adash]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1338-1353, y 241
+   7. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 1338,241; lands at 1127,209   [adash]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1127-1158, y 209
+   8. jump (held 21 ticks), holding nothing, then right after 12 ticks, air dash (Jerry) at tick 12, from 1155,209; lands at 1285,129   [adash]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1274-1318, y 129
+   9. hit the switch at 1296,80 from 1274,129 (jumping if need be): [barrier 434427 open, barrier 434428 open]   [belmont:1]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1274-1318, y 129
+  10. walk off the edge, holding left, then right after 2 ticks in the air, air dash back right (Jerry) at tick 6 or once there's room ahead, from 1278,129; lands at 1440,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1383-1913, y 305
+  11. running right, jump (held 21 ticks), holding right, air dash (Jerry) at tick 8, from 1760,305; lands at 2047,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1959-3206, y 305
+  12. walk off the edge, holding right once in the air, air dash (Claire) at tick 2, from 2608,305; lands at 3358,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3290-3865, y 305
+  13. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 3680,305; lands at 3895,241   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3866-4262, y 241
+  14. walk off the edge, holding right once in the air, from 3866,241; lands at 4349,305
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4295-4614, y 305
+  15. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 4560,305; lands at 4872,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4858-4966, y 305
+  16. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 4944,305; lands at 5256,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5242-5689, y 305
+  17. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 5456,305; lands at 5710,241   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5690-5753, y 241
+  18. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 5690,241; lands at 5905,177   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5818-6009, y 177
+  19. jump (held 21 ticks), holding nothing, then right after 12 ticks, air dash (Jerry) at tick 12, from 5818,177; touches it on the way   [adash]
+      -> loc 9 69
+how in 80,112 -> loc 9 69: djump,megaman:1
+     [barrier 434427 shut, barrier 434428 shut] coming in at 80,112
+   1. coming in: holding nothing, from 80,112; lands at 80,113
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 39-166, y 113
+   2. walk off the edge, holding right, then nothing after 1 ticks in the air, from 39,113; lands at 210,305
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 167-1337, y 305
+   3. shoot the switch at 1008,208 from 839,305 (at the top of a jump): [barrier 434427 open, barrier 434428 shut]   [megaman:1]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 167-1337, y 305
+   4. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 1168,305; lands at 1138,209   [djump]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1127-1158, y 209
+   5. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1127,209; lands at 1213,145
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1178-1222, y 145
+   6. shoot the switch at 1296,80 from 1178,145 (at the top of a jump): [barrier 434427 open, barrier 434428 open]   [megaman:1]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1178-1222, y 145
+   7. walk off the edge, holding right once in the air, double jump at tick 8, from 1178,145; lands at 1427,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1383-1913, y 305
+   8. running right, jump (held 21 ticks), holding right, from 1824,305; lands at 2030,305
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1959-3206, y 305
+   9. walk off the edge, holding right once in the air, double jump at tick 2, from 2656,305; lands at 3367,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3290-3865, y 305
+  10. running right, jump (held 21 ticks), holding right, double jump at tick 10, from 3664,305; lands at 3877,241   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3866-4262, y 241
+  11. walk off the edge, holding right once in the air, from 3866,241; lands at 4349,305
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4295-4614, y 305
+  12. jump (held 21 ticks), holding right, double jump at tick 15, from 4592,305; lands at 4870,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4858-4966, y 305
+  13. jump (held 21 ticks), holding right, double jump at tick 10, from 4858,305; lands at 5092,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5050-5158, y 305
+  14. jump (held 21 ticks), holding right, double jump at tick 10, from 5050,305; lands at 5284,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5242-5689, y 305
+  15. jump (held 21 ticks), holding right, double jump at tick 15, from 5456,305; lands at 5697,241   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5690-5753, y 241
+  16. jump (held 21 ticks), holding right, double jump at tick 10, from 5690,241; lands at 5880,177   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5818-6009, y 177
+  17. jump (held 21 ticks), holding nothing, then right after 14 ticks, double jump at tick 12, from 5821,177; touches it on the way   [djump]
+      -> loc 9 69
+how in 80,112 -> loc 9 69: djump,samus:1
+     [barrier 434427 shut, barrier 434428 shut] coming in at 80,112
+   1. coming in: holding nothing, from 80,112; lands at 80,113
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 39-166, y 113
+   2. walk off the edge, holding right, then nothing after 1 ticks in the air, from 39,113; lands at 210,305
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 167-1337, y 305
+   3. shoot the switch at 1008,208 from 839,305 (at the top of a jump): [barrier 434427 open, barrier 434428 shut]   [samus:1]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 167-1337, y 305
+   4. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 1168,305; lands at 1138,209   [djump]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1127-1158, y 209
+   5. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1127,209; lands at 1213,145
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1178-1222, y 145
+   6. shoot the switch at 1296,80 from 1178,145 (at the top of a jump): [barrier 434427 open, barrier 434428 open]   [samus:1]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1178-1222, y 145
+   7. walk off the edge, holding right once in the air, double jump at tick 8, from 1178,145; lands at 1427,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1383-1913, y 305
+   8. running right, jump (held 21 ticks), holding right, from 1824,305; lands at 2030,305
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1959-3206, y 305
+   9. walk off the edge, holding right once in the air, double jump at tick 2, from 2656,305; lands at 3367,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3290-3865, y 305
+  10. running right, jump (held 21 ticks), holding right, double jump at tick 10, from 3664,305; lands at 3877,241   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3866-4262, y 241
+  11. walk off the edge, holding right once in the air, from 3866,241; lands at 4349,305
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4295-4614, y 305
+  12. jump (held 21 ticks), holding right, double jump at tick 15, from 4592,305; lands at 4870,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4858-4966, y 305
+  13. jump (held 21 ticks), holding right, double jump at tick 10, from 4858,305; lands at 5092,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5050-5158, y 305
+  14. jump (held 21 ticks), holding right, double jump at tick 10, from 5050,305; lands at 5284,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5242-5689, y 305
+  15. jump (held 21 ticks), holding right, double jump at tick 15, from 5456,305; lands at 5697,241   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5690-5753, y 241
+  16. jump (held 21 ticks), holding right, double jump at tick 10, from 5690,241; lands at 5880,177   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5818-6009, y 177
+  17. jump (held 21 ticks), holding nothing, then right after 14 ticks, double jump at tick 12, from 5821,177; touches it on the way   [djump]
+      -> loc 9 69
+how in 80,112 -> loc 9 69: djump,link:1
+     [barrier 434427 shut, barrier 434428 shut] coming in at 80,112
+   1. coming in: holding nothing, from 80,112; lands at 80,113
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 39-166, y 113
+   2. walk off the edge, holding right, then nothing after 1 ticks in the air, from 39,113; lands at 210,305
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 167-1337, y 305
+   3. running right, jump (held 21 ticks), holding right, double jump at tick 10, from 832,305; lands at 938,225   [djump]
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 858-1049, y 225
+   4. hit the switch at 1008,208 from 952,225 (jumping if need be): [barrier 434427 open, barrier 434428 shut]   [link:1]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 858-1049, y 225
+   5. walk off the edge, holding left once in the air, from 858,225; lands at 824,305
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 167-1337, y 305
+   6. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 1168,305; lands at 1138,209   [djump]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1127-1158, y 209
+   7. jump (held 21 ticks), holding right, double jump at tick 10, from 1127,209; lands at 1287,129   [djump]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1274-1318, y 129
+   8. hit the switch at 1296,80 from 1274,129 (jumping if need be): [barrier 434427 open, barrier 434428 open]   [link:1]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1274-1318, y 129
+   9. walk off the edge, holding left once in the air, from 1274,129; lands at 1150,305
+      -> [barrier 434427 open, barrier 434428 open] standing at x 167-1337, y 305
+  10. jump (held 21 ticks), holding right, double jump at tick 15, from 1168,305; lands at 1446,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1383-1913, y 305
+  11. running right, jump (held 21 ticks), holding right, from 1824,305; lands at 2030,305
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1959-3206, y 305
+  12. walk off the edge, holding right once in the air, double jump at tick 2, from 2656,305; lands at 3367,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3290-3865, y 305
+  13. running right, jump (held 21 ticks), holding right, double jump at tick 10, from 3664,305; lands at 3877,241   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3866-4262, y 241
+  14. walk off the edge, holding right once in the air, from 3866,241; lands at 4349,305
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4295-4614, y 305
+  15. jump (held 21 ticks), holding right, double jump at tick 15, from 4592,305; lands at 4870,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4858-4966, y 305
+  16. jump (held 21 ticks), holding right, double jump at tick 10, from 4858,305; lands at 5092,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5050-5158, y 305
+  17. jump (held 21 ticks), holding right, double jump at tick 10, from 5050,305; lands at 5284,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5242-5689, y 305
+  18. jump (held 21 ticks), holding right, double jump at tick 15, from 5456,305; lands at 5697,241   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5690-5753, y 241
+  19. jump (held 21 ticks), holding right, double jump at tick 10, from 5690,241; lands at 5880,177   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5818-6009, y 177
+  20. jump (held 21 ticks), holding nothing, then right after 14 ticks, double jump at tick 12, from 5821,177; touches it on the way   [djump]
+      -> loc 9 69
+how in 80,112 -> loc 9 69: djump,belmont:1
+     [barrier 434427 shut, barrier 434428 shut] coming in at 80,112
+   1. coming in: holding nothing, from 80,112; lands at 80,113
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 39-166, y 113
+   2. walk off the edge, holding right, then nothing after 1 ticks in the air, from 39,113; lands at 210,305
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 167-1337, y 305
+   3. running right, jump (held 21 ticks), holding right, double jump at tick 10, from 832,305; lands at 938,225   [djump]
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 858-1049, y 225
+   4. hit the switch at 1008,208 from 952,225 (jumping if need be): [barrier 434427 open, barrier 434428 shut]   [belmont:1]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 858-1049, y 225
+   5. walk off the edge, holding left once in the air, from 858,225; lands at 824,305
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 167-1337, y 305
+   6. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 1168,305; lands at 1138,209   [djump]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1127-1158, y 209
+   7. jump (held 21 ticks), holding right, double jump at tick 10, from 1127,209; lands at 1287,129   [djump]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1274-1318, y 129
+   8. hit the switch at 1296,80 from 1274,129 (jumping if need be): [barrier 434427 open, barrier 434428 open]   [belmont:1]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1274-1318, y 129
+   9. walk off the edge, holding left once in the air, from 1274,129; lands at 1150,305
+      -> [barrier 434427 open, barrier 434428 open] standing at x 167-1337, y 305
+  10. jump (held 21 ticks), holding right, double jump at tick 15, from 1168,305; lands at 1446,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1383-1913, y 305
+  11. running right, jump (held 21 ticks), holding right, from 1824,305; lands at 2030,305
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1959-3206, y 305
+  12. walk off the edge, holding right once in the air, double jump at tick 2, from 2656,305; lands at 3367,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3290-3865, y 305
+  13. running right, jump (held 21 ticks), holding right, double jump at tick 10, from 3664,305; lands at 3877,241   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3866-4262, y 241
+  14. walk off the edge, holding right once in the air, from 3866,241; lands at 4349,305
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4295-4614, y 305
+  15. jump (held 21 ticks), holding right, double jump at tick 15, from 4592,305; lands at 4870,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4858-4966, y 305
+  16. jump (held 21 ticks), holding right, double jump at tick 10, from 4858,305; lands at 5092,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5050-5158, y 305
+  17. jump (held 21 ticks), holding right, double jump at tick 10, from 5050,305; lands at 5284,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5242-5689, y 305
+  18. jump (held 21 ticks), holding right, double jump at tick 15, from 5456,305; lands at 5697,241   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5690-5753, y 241
+  19. jump (held 21 ticks), holding right, double jump at tick 10, from 5690,241; lands at 5880,177   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5818-6009, y 177
+  20. jump (held 21 ticks), holding nothing, then right after 14 ticks, double jump at tick 12, from 5821,177; touches it on the way   [djump]
+      -> loc 9 69
+how in 144,112 -> out 72,80: -
+     [barrier 434427 shut, barrier 434428 shut] coming in at 144,112
+   1. coming in: holding nothing, from 144,112; lands at 144,113
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 39-166, y 113
+   2. standing at 62,113, presses up at it
+      -> out 72,80
+how in 144,112 -> out 6088,80: adash,megaman:1
+     [barrier 434427 shut, barrier 434428 shut] coming in at 144,112
+   1. coming in: holding nothing, from 144,112; lands at 144,113
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 39-166, y 113
+   2. walk off the edge, holding right, then nothing after 1 ticks in the air, from 39,113; lands at 210,305
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 167-1337, y 305
+   3. shoot the switch at 1008,208 from 839,305 (at the top of a jump): [barrier 434427 open, barrier 434428 shut]   [megaman:1]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 167-1337, y 305
+   4. running right, jump (held 21 ticks), holding right, from 1200,305; lands at 1353,241
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1338-1353, y 241
+   5. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 1338,241; lands at 1127,209   [adash]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1127-1158, y 209
+   6. jump (held 21 ticks), holding nothing, then right after 12 ticks, air dash (Jerry) at tick 12, from 1155,209; lands at 1285,129   [adash]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1274-1318, y 129
+   7. hit the switch at 1296,80 from 1274,129 (jumping if need be): [barrier 434427 open, barrier 434428 open]   [megaman:1]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1274-1318, y 129
+   8. walk off the edge, holding left, then right after 2 ticks in the air, air dash back right (Jerry) at tick 6 or once there's room ahead, from 1278,129; lands at 1440,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1383-1913, y 305
+   9. running right, jump (held 21 ticks), holding right, air dash (Jerry) at tick 8, from 1760,305; lands at 2047,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1959-3206, y 305
+  10. walk off the edge, holding right once in the air, air dash (Claire) at tick 2, from 2608,305; lands at 3358,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3290-3865, y 305
+  11. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 3680,305; lands at 3895,241   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3866-4262, y 241
+  12. walk off the edge, holding right once in the air, from 3866,241; lands at 4349,305
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4295-4614, y 305
+  13. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 4560,305; lands at 4872,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4858-4966, y 305
+  14. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 4944,305; lands at 5256,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5242-5689, y 305
+  15. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 5456,305; lands at 5710,241   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5690-5753, y 241
+  16. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 5690,241; lands at 5905,177   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5818-6009, y 177
+  17. running right, jump (held 21 ticks), holding right, from 5952,177; touches it on the way
+      -> out 6088,80
+how in 144,112 -> out 6088,80: adash,samus:1
+     [barrier 434427 shut, barrier 434428 shut] coming in at 144,112
+   1. coming in: holding nothing, from 144,112; lands at 144,113
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 39-166, y 113
+   2. walk off the edge, holding right, then nothing after 1 ticks in the air, from 39,113; lands at 210,305
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 167-1337, y 305
+   3. shoot the switch at 1008,208 from 839,305 (at the top of a jump): [barrier 434427 open, barrier 434428 shut]   [samus:1]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 167-1337, y 305
+   4. running right, jump (held 21 ticks), holding right, from 1200,305; lands at 1353,241
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1338-1353, y 241
+   5. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 1338,241; lands at 1127,209   [adash]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1127-1158, y 209
+   6. jump (held 21 ticks), holding nothing, then right after 12 ticks, air dash (Jerry) at tick 12, from 1155,209; lands at 1285,129   [adash]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1274-1318, y 129
+   7. hit the switch at 1296,80 from 1274,129 (jumping if need be): [barrier 434427 open, barrier 434428 open]   [samus:1]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1274-1318, y 129
+   8. walk off the edge, holding left, then right after 2 ticks in the air, air dash back right (Jerry) at tick 6 or once there's room ahead, from 1278,129; lands at 1440,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1383-1913, y 305
+   9. running right, jump (held 21 ticks), holding right, air dash (Jerry) at tick 8, from 1760,305; lands at 2047,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1959-3206, y 305
+  10. walk off the edge, holding right once in the air, air dash (Claire) at tick 2, from 2608,305; lands at 3358,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3290-3865, y 305
+  11. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 3680,305; lands at 3895,241   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3866-4262, y 241
+  12. walk off the edge, holding right once in the air, from 3866,241; lands at 4349,305
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4295-4614, y 305
+  13. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 4560,305; lands at 4872,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4858-4966, y 305
+  14. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 4944,305; lands at 5256,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5242-5689, y 305
+  15. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 5456,305; lands at 5710,241   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5690-5753, y 241
+  16. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 5690,241; lands at 5905,177   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5818-6009, y 177
+  17. running right, jump (held 21 ticks), holding right, from 5952,177; touches it on the way
+      -> out 6088,80
+how in 144,112 -> out 6088,80: djump,megaman:1
+     [barrier 434427 shut, barrier 434428 shut] coming in at 144,112
+   1. coming in: holding nothing, from 144,112; lands at 144,113
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 39-166, y 113
+   2. walk off the edge, holding right, then nothing after 1 ticks in the air, from 39,113; lands at 210,305
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 167-1337, y 305
+   3. shoot the switch at 1008,208 from 839,305 (at the top of a jump): [barrier 434427 open, barrier 434428 shut]   [megaman:1]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 167-1337, y 305
+   4. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 1168,305; lands at 1138,209   [djump]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1127-1158, y 209
+   5. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1127,209; lands at 1213,145
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1178-1222, y 145
+   6. shoot the switch at 1296,80 from 1178,145 (at the top of a jump): [barrier 434427 open, barrier 434428 open]   [megaman:1]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1178-1222, y 145
+   7. walk off the edge, holding right once in the air, double jump at tick 8, from 1178,145; lands at 1427,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1383-1913, y 305
+   8. running right, jump (held 21 ticks), holding right, from 1824,305; lands at 2030,305
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1959-3206, y 305
+   9. walk off the edge, holding right once in the air, double jump at tick 2, from 2656,305; lands at 3367,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3290-3865, y 305
+  10. running right, jump (held 21 ticks), holding right, double jump at tick 10, from 3664,305; lands at 3877,241   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3866-4262, y 241
+  11. walk off the edge, holding right once in the air, from 3866,241; lands at 4349,305
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4295-4614, y 305
+  12. jump (held 21 ticks), holding right, double jump at tick 15, from 4592,305; lands at 4870,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4858-4966, y 305
+  13. jump (held 21 ticks), holding right, double jump at tick 10, from 4858,305; lands at 5092,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5050-5158, y 305
+  14. jump (held 21 ticks), holding right, double jump at tick 10, from 5050,305; lands at 5284,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5242-5689, y 305
+  15. jump (held 21 ticks), holding right, double jump at tick 15, from 5456,305; lands at 5697,241   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5690-5753, y 241
+  16. jump (held 21 ticks), holding right, double jump at tick 10, from 5690,241; lands at 5880,177   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5818-6009, y 177
+  17. running right, jump (held 21 ticks), holding right, from 5952,177; touches it on the way
+      -> out 6088,80
+how in 144,112 -> out 6088,80: djump,samus:1
+     [barrier 434427 shut, barrier 434428 shut] coming in at 144,112
+   1. coming in: holding nothing, from 144,112; lands at 144,113
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 39-166, y 113
+   2. walk off the edge, holding right, then nothing after 1 ticks in the air, from 39,113; lands at 210,305
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 167-1337, y 305
+   3. shoot the switch at 1008,208 from 839,305 (at the top of a jump): [barrier 434427 open, barrier 434428 shut]   [samus:1]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 167-1337, y 305
+   4. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 1168,305; lands at 1138,209   [djump]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1127-1158, y 209
+   5. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1127,209; lands at 1213,145
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1178-1222, y 145
+   6. shoot the switch at 1296,80 from 1178,145 (at the top of a jump): [barrier 434427 open, barrier 434428 open]   [samus:1]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1178-1222, y 145
+   7. walk off the edge, holding right once in the air, double jump at tick 8, from 1178,145; lands at 1427,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1383-1913, y 305
+   8. running right, jump (held 21 ticks), holding right, from 1824,305; lands at 2030,305
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1959-3206, y 305
+   9. walk off the edge, holding right once in the air, double jump at tick 2, from 2656,305; lands at 3367,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3290-3865, y 305
+  10. running right, jump (held 21 ticks), holding right, double jump at tick 10, from 3664,305; lands at 3877,241   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3866-4262, y 241
+  11. walk off the edge, holding right once in the air, from 3866,241; lands at 4349,305
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4295-4614, y 305
+  12. jump (held 21 ticks), holding right, double jump at tick 15, from 4592,305; lands at 4870,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4858-4966, y 305
+  13. jump (held 21 ticks), holding right, double jump at tick 10, from 4858,305; lands at 5092,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5050-5158, y 305
+  14. jump (held 21 ticks), holding right, double jump at tick 10, from 5050,305; lands at 5284,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5242-5689, y 305
+  15. jump (held 21 ticks), holding right, double jump at tick 15, from 5456,305; lands at 5697,241   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5690-5753, y 241
+  16. jump (held 21 ticks), holding right, double jump at tick 10, from 5690,241; lands at 5880,177   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5818-6009, y 177
+  17. running right, jump (held 21 ticks), holding right, from 5952,177; touches it on the way
+      -> out 6088,80
+how in 144,112 -> out 6088,80: adash,link:1
+     [barrier 434427 shut, barrier 434428 shut] coming in at 144,112
+   1. coming in: holding nothing, from 144,112; lands at 144,113
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 39-166, y 113
+   2. walk off the edge, holding right, then nothing after 1 ticks in the air, from 39,113; lands at 210,305
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 167-1337, y 305
+   3. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 848,305; lands at 949,225   [adash]
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 858-1049, y 225
+   4. hit the switch at 1008,208 from 952,225 (jumping if need be): [barrier 434427 open, barrier 434428 shut]   [link:1]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 858-1049, y 225
+   5. walk off the edge, holding left once in the air, from 858,225; lands at 824,305
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 167-1337, y 305
+   6. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 1136,305; lands at 1351,241   [adash]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1338-1353, y 241
+   7. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 1338,241; lands at 1127,209   [adash]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1127-1158, y 209
+   8. jump (held 21 ticks), holding nothing, then right after 12 ticks, air dash (Jerry) at tick 12, from 1155,209; lands at 1285,129   [adash]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1274-1318, y 129
+   9. hit the switch at 1296,80 from 1274,129 (jumping if need be): [barrier 434427 open, barrier 434428 open]   [link:1]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1274-1318, y 129
+  10. walk off the edge, holding left, then right after 2 ticks in the air, air dash back right (Jerry) at tick 6 or once there's room ahead, from 1278,129; lands at 1440,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1383-1913, y 305
+  11. running right, jump (held 21 ticks), holding right, air dash (Jerry) at tick 8, from 1760,305; lands at 2047,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1959-3206, y 305
+  12. walk off the edge, holding right once in the air, air dash (Claire) at tick 2, from 2608,305; lands at 3358,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3290-3865, y 305
+  13. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 3680,305; lands at 3895,241   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3866-4262, y 241
+  14. walk off the edge, holding right once in the air, from 3866,241; lands at 4349,305
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4295-4614, y 305
+  15. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 4560,305; lands at 4872,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4858-4966, y 305
+  16. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 4944,305; lands at 5256,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5242-5689, y 305
+  17. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 5456,305; lands at 5710,241   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5690-5753, y 241
+  18. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 5690,241; lands at 5905,177   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5818-6009, y 177
+  19. running right, jump (held 21 ticks), holding right, from 5952,177; touches it on the way
+      -> out 6088,80
+how in 144,112 -> out 6088,80: adash,belmont:1
+     [barrier 434427 shut, barrier 434428 shut] coming in at 144,112
+   1. coming in: holding nothing, from 144,112; lands at 144,113
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 39-166, y 113
+   2. walk off the edge, holding right, then nothing after 1 ticks in the air, from 39,113; lands at 210,305
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 167-1337, y 305
+   3. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 848,305; lands at 949,225   [adash]
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 858-1049, y 225
+   4. hit the switch at 1008,208 from 952,225 (jumping if need be): [barrier 434427 open, barrier 434428 shut]   [belmont:1]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 858-1049, y 225
+   5. walk off the edge, holding left once in the air, from 858,225; lands at 824,305
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 167-1337, y 305
+   6. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 1136,305; lands at 1351,241   [adash]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1338-1353, y 241
+   7. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 1338,241; lands at 1127,209   [adash]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1127-1158, y 209
+   8. jump (held 21 ticks), holding nothing, then right after 12 ticks, air dash (Jerry) at tick 12, from 1155,209; lands at 1285,129   [adash]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1274-1318, y 129
+   9. hit the switch at 1296,80 from 1274,129 (jumping if need be): [barrier 434427 open, barrier 434428 open]   [belmont:1]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1274-1318, y 129
+  10. walk off the edge, holding left, then right after 2 ticks in the air, air dash back right (Jerry) at tick 6 or once there's room ahead, from 1278,129; lands at 1440,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1383-1913, y 305
+  11. running right, jump (held 21 ticks), holding right, air dash (Jerry) at tick 8, from 1760,305; lands at 2047,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1959-3206, y 305
+  12. walk off the edge, holding right once in the air, air dash (Claire) at tick 2, from 2608,305; lands at 3358,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3290-3865, y 305
+  13. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 3680,305; lands at 3895,241   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3866-4262, y 241
+  14. walk off the edge, holding right once in the air, from 3866,241; lands at 4349,305
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4295-4614, y 305
+  15. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 4560,305; lands at 4872,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4858-4966, y 305
+  16. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 4944,305; lands at 5256,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5242-5689, y 305
+  17. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 5456,305; lands at 5710,241   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5690-5753, y 241
+  18. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 5690,241; lands at 5905,177   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5818-6009, y 177
+  19. running right, jump (held 21 ticks), holding right, from 5952,177; touches it on the way
+      -> out 6088,80
+how in 144,112 -> out 6088,80: djump,link:1
+     [barrier 434427 shut, barrier 434428 shut] coming in at 144,112
+   1. coming in: holding nothing, from 144,112; lands at 144,113
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 39-166, y 113
+   2. walk off the edge, holding right, then nothing after 1 ticks in the air, from 39,113; lands at 210,305
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 167-1337, y 305
+   3. running right, jump (held 21 ticks), holding right, double jump at tick 10, from 832,305; lands at 938,225   [djump]
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 858-1049, y 225
+   4. hit the switch at 1008,208 from 952,225 (jumping if need be): [barrier 434427 open, barrier 434428 shut]   [link:1]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 858-1049, y 225
+   5. walk off the edge, holding left once in the air, from 858,225; lands at 824,305
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 167-1337, y 305
+   6. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 1168,305; lands at 1138,209   [djump]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1127-1158, y 209
+   7. jump (held 21 ticks), holding right, double jump at tick 10, from 1127,209; lands at 1287,129   [djump]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1274-1318, y 129
+   8. hit the switch at 1296,80 from 1274,129 (jumping if need be): [barrier 434427 open, barrier 434428 open]   [link:1]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1274-1318, y 129
+   9. walk off the edge, holding left once in the air, from 1274,129; lands at 1150,305
+      -> [barrier 434427 open, barrier 434428 open] standing at x 167-1337, y 305
+  10. jump (held 21 ticks), holding right, double jump at tick 15, from 1168,305; lands at 1446,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1383-1913, y 305
+  11. running right, jump (held 21 ticks), holding right, from 1824,305; lands at 2030,305
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1959-3206, y 305
+  12. walk off the edge, holding right once in the air, double jump at tick 2, from 2656,305; lands at 3367,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3290-3865, y 305
+  13. running right, jump (held 21 ticks), holding right, double jump at tick 10, from 3664,305; lands at 3877,241   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3866-4262, y 241
+  14. walk off the edge, holding right once in the air, from 3866,241; lands at 4349,305
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4295-4614, y 305
+  15. jump (held 21 ticks), holding right, double jump at tick 15, from 4592,305; lands at 4870,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4858-4966, y 305
+  16. jump (held 21 ticks), holding right, double jump at tick 10, from 4858,305; lands at 5092,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5050-5158, y 305
+  17. jump (held 21 ticks), holding right, double jump at tick 10, from 5050,305; lands at 5284,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5242-5689, y 305
+  18. jump (held 21 ticks), holding right, double jump at tick 15, from 5456,305; lands at 5697,241   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5690-5753, y 241
+  19. jump (held 21 ticks), holding right, double jump at tick 10, from 5690,241; lands at 5880,177   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5818-6009, y 177
+  20. running right, jump (held 21 ticks), holding right, from 5952,177; touches it on the way
+      -> out 6088,80
+how in 144,112 -> out 6088,80: djump,belmont:1
+     [barrier 434427 shut, barrier 434428 shut] coming in at 144,112
+   1. coming in: holding nothing, from 144,112; lands at 144,113
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 39-166, y 113
+   2. walk off the edge, holding right, then nothing after 1 ticks in the air, from 39,113; lands at 210,305
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 167-1337, y 305
+   3. running right, jump (held 21 ticks), holding right, double jump at tick 10, from 832,305; lands at 938,225   [djump]
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 858-1049, y 225
+   4. hit the switch at 1008,208 from 952,225 (jumping if need be): [barrier 434427 open, barrier 434428 shut]   [belmont:1]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 858-1049, y 225
+   5. walk off the edge, holding left once in the air, from 858,225; lands at 824,305
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 167-1337, y 305
+   6. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 1168,305; lands at 1138,209   [djump]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1127-1158, y 209
+   7. jump (held 21 ticks), holding right, double jump at tick 10, from 1127,209; lands at 1287,129   [djump]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1274-1318, y 129
+   8. hit the switch at 1296,80 from 1274,129 (jumping if need be): [barrier 434427 open, barrier 434428 open]   [belmont:1]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1274-1318, y 129
+   9. walk off the edge, holding left once in the air, from 1274,129; lands at 1150,305
+      -> [barrier 434427 open, barrier 434428 open] standing at x 167-1337, y 305
+  10. jump (held 21 ticks), holding right, double jump at tick 15, from 1168,305; lands at 1446,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1383-1913, y 305
+  11. running right, jump (held 21 ticks), holding right, from 1824,305; lands at 2030,305
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1959-3206, y 305
+  12. walk off the edge, holding right once in the air, double jump at tick 2, from 2656,305; lands at 3367,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3290-3865, y 305
+  13. running right, jump (held 21 ticks), holding right, double jump at tick 10, from 3664,305; lands at 3877,241   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3866-4262, y 241
+  14. walk off the edge, holding right once in the air, from 3866,241; lands at 4349,305
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4295-4614, y 305
+  15. jump (held 21 ticks), holding right, double jump at tick 15, from 4592,305; lands at 4870,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4858-4966, y 305
+  16. jump (held 21 ticks), holding right, double jump at tick 10, from 4858,305; lands at 5092,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5050-5158, y 305
+  17. jump (held 21 ticks), holding right, double jump at tick 10, from 5050,305; lands at 5284,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5242-5689, y 305
+  18. jump (held 21 ticks), holding right, double jump at tick 15, from 5456,305; lands at 5697,241   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5690-5753, y 241
+  19. jump (held 21 ticks), holding right, double jump at tick 10, from 5690,241; lands at 5880,177   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5818-6009, y 177
+  20. running right, jump (held 21 ticks), holding right, from 5952,177; touches it on the way
+      -> out 6088,80
+how in 144,112 -> loc 2 68: djump
+     [barrier 434427 shut, barrier 434428 shut] coming in at 144,112
+   1. coming in: holding nothing, from 144,112; lands at 144,113
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 39-166, y 113
+   2. walk off the edge, holding right, then nothing after 1 ticks in the air, from 39,113; lands at 210,305
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 167-1337, y 305
+   3. running right, jump (held 21 ticks), holding right, double jump at tick 10, from 832,305; lands at 938,225   [djump]
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 858-1049, y 225
+   4. jump (held 21 ticks), holding left, double jump at tick 15, from 1040,225; touches it on the way   [djump]
+      -> loc 2 68
+how in 144,112 -> loc 2 68: adash
+     [barrier 434427 shut, barrier 434428 shut] coming in at 144,112
+   1. coming in: holding nothing, from 144,112; lands at 144,113
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 39-166, y 113
+   2. walk off the edge, holding right, then nothing after 1 ticks in the air, from 39,113; lands at 210,305
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 167-1337, y 305
+   3. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 848,305; lands at 949,225   [adash]
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 858-1049, y 225
+   4. running right, jump (held 21 ticks), holding right, from 1008,225; lands at 1081,161
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 1050-1081, y 161
+   5. jump (held 2 ticks), holding left, from 1050,161; lands at 999,129
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 999-1030, y 129
+   6. standing at 999,129, touches it
+      -> loc 2 68
+how in 144,112 -> loc 9 69: adash,megaman:1
+     [barrier 434427 shut, barrier 434428 shut] coming in at 144,112
+   1. coming in: holding nothing, from 144,112; lands at 144,113
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 39-166, y 113
+   2. walk off the edge, holding right, then nothing after 1 ticks in the air, from 39,113; lands at 210,305
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 167-1337, y 305
+   3. shoot the switch at 1008,208 from 839,305 (at the top of a jump): [barrier 434427 open, barrier 434428 shut]   [megaman:1]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 167-1337, y 305
+   4. running right, jump (held 21 ticks), holding right, from 1200,305; lands at 1353,241
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1338-1353, y 241
+   5. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 1338,241; lands at 1127,209   [adash]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1127-1158, y 209
+   6. jump (held 21 ticks), holding nothing, then right after 12 ticks, air dash (Jerry) at tick 12, from 1155,209; lands at 1285,129   [adash]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1274-1318, y 129
+   7. hit the switch at 1296,80 from 1274,129 (jumping if need be): [barrier 434427 open, barrier 434428 open]   [megaman:1]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1274-1318, y 129
+   8. walk off the edge, holding left, then right after 2 ticks in the air, air dash back right (Jerry) at tick 6 or once there's room ahead, from 1278,129; lands at 1440,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1383-1913, y 305
+   9. running right, jump (held 21 ticks), holding right, air dash (Jerry) at tick 8, from 1760,305; lands at 2047,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1959-3206, y 305
+  10. walk off the edge, holding right once in the air, air dash (Claire) at tick 2, from 2608,305; lands at 3358,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3290-3865, y 305
+  11. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 3680,305; lands at 3895,241   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3866-4262, y 241
+  12. walk off the edge, holding right once in the air, from 3866,241; lands at 4349,305
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4295-4614, y 305
+  13. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 4560,305; lands at 4872,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4858-4966, y 305
+  14. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 4944,305; lands at 5256,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5242-5689, y 305
+  15. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 5456,305; lands at 5710,241   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5690-5753, y 241
+  16. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 5690,241; lands at 5905,177   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5818-6009, y 177
+  17. jump (held 21 ticks), holding nothing, then right after 12 ticks, air dash (Jerry) at tick 12, from 5818,177; touches it on the way   [adash]
+      -> loc 9 69
+how in 144,112 -> loc 9 69: adash,samus:1
+     [barrier 434427 shut, barrier 434428 shut] coming in at 144,112
+   1. coming in: holding nothing, from 144,112; lands at 144,113
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 39-166, y 113
+   2. walk off the edge, holding right, then nothing after 1 ticks in the air, from 39,113; lands at 210,305
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 167-1337, y 305
+   3. shoot the switch at 1008,208 from 839,305 (at the top of a jump): [barrier 434427 open, barrier 434428 shut]   [samus:1]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 167-1337, y 305
+   4. running right, jump (held 21 ticks), holding right, from 1200,305; lands at 1353,241
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1338-1353, y 241
+   5. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 1338,241; lands at 1127,209   [adash]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1127-1158, y 209
+   6. jump (held 21 ticks), holding nothing, then right after 12 ticks, air dash (Jerry) at tick 12, from 1155,209; lands at 1285,129   [adash]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1274-1318, y 129
+   7. hit the switch at 1296,80 from 1274,129 (jumping if need be): [barrier 434427 open, barrier 434428 open]   [samus:1]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1274-1318, y 129
+   8. walk off the edge, holding left, then right after 2 ticks in the air, air dash back right (Jerry) at tick 6 or once there's room ahead, from 1278,129; lands at 1440,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1383-1913, y 305
+   9. running right, jump (held 21 ticks), holding right, air dash (Jerry) at tick 8, from 1760,305; lands at 2047,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1959-3206, y 305
+  10. walk off the edge, holding right once in the air, air dash (Claire) at tick 2, from 2608,305; lands at 3358,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3290-3865, y 305
+  11. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 3680,305; lands at 3895,241   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3866-4262, y 241
+  12. walk off the edge, holding right once in the air, from 3866,241; lands at 4349,305
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4295-4614, y 305
+  13. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 4560,305; lands at 4872,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4858-4966, y 305
+  14. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 4944,305; lands at 5256,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5242-5689, y 305
+  15. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 5456,305; lands at 5710,241   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5690-5753, y 241
+  16. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 5690,241; lands at 5905,177   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5818-6009, y 177
+  17. jump (held 21 ticks), holding nothing, then right after 12 ticks, air dash (Jerry) at tick 12, from 5818,177; touches it on the way   [adash]
+      -> loc 9 69
+how in 144,112 -> loc 9 69: adash,link:1
+     [barrier 434427 shut, barrier 434428 shut] coming in at 144,112
+   1. coming in: holding nothing, from 144,112; lands at 144,113
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 39-166, y 113
+   2. walk off the edge, holding right, then nothing after 1 ticks in the air, from 39,113; lands at 210,305
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 167-1337, y 305
+   3. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 848,305; lands at 949,225   [adash]
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 858-1049, y 225
+   4. hit the switch at 1008,208 from 952,225 (jumping if need be): [barrier 434427 open, barrier 434428 shut]   [link:1]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 858-1049, y 225
+   5. walk off the edge, holding left once in the air, from 858,225; lands at 824,305
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 167-1337, y 305
+   6. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 1136,305; lands at 1351,241   [adash]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1338-1353, y 241
+   7. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 1338,241; lands at 1127,209   [adash]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1127-1158, y 209
+   8. jump (held 21 ticks), holding nothing, then right after 12 ticks, air dash (Jerry) at tick 12, from 1155,209; lands at 1285,129   [adash]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1274-1318, y 129
+   9. hit the switch at 1296,80 from 1274,129 (jumping if need be): [barrier 434427 open, barrier 434428 open]   [link:1]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1274-1318, y 129
+  10. walk off the edge, holding left, then right after 2 ticks in the air, air dash back right (Jerry) at tick 6 or once there's room ahead, from 1278,129; lands at 1440,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1383-1913, y 305
+  11. running right, jump (held 21 ticks), holding right, air dash (Jerry) at tick 8, from 1760,305; lands at 2047,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1959-3206, y 305
+  12. walk off the edge, holding right once in the air, air dash (Claire) at tick 2, from 2608,305; lands at 3358,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3290-3865, y 305
+  13. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 3680,305; lands at 3895,241   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3866-4262, y 241
+  14. walk off the edge, holding right once in the air, from 3866,241; lands at 4349,305
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4295-4614, y 305
+  15. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 4560,305; lands at 4872,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4858-4966, y 305
+  16. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 4944,305; lands at 5256,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5242-5689, y 305
+  17. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 5456,305; lands at 5710,241   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5690-5753, y 241
+  18. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 5690,241; lands at 5905,177   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5818-6009, y 177
+  19. jump (held 21 ticks), holding nothing, then right after 12 ticks, air dash (Jerry) at tick 12, from 5818,177; touches it on the way   [adash]
+      -> loc 9 69
+how in 144,112 -> loc 9 69: adash,belmont:1
+     [barrier 434427 shut, barrier 434428 shut] coming in at 144,112
+   1. coming in: holding nothing, from 144,112; lands at 144,113
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 39-166, y 113
+   2. walk off the edge, holding right, then nothing after 1 ticks in the air, from 39,113; lands at 210,305
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 167-1337, y 305
+   3. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 848,305; lands at 949,225   [adash]
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 858-1049, y 225
+   4. hit the switch at 1008,208 from 952,225 (jumping if need be): [barrier 434427 open, barrier 434428 shut]   [belmont:1]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 858-1049, y 225
+   5. walk off the edge, holding left once in the air, from 858,225; lands at 824,305
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 167-1337, y 305
+   6. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 1136,305; lands at 1351,241   [adash]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1338-1353, y 241
+   7. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 1338,241; lands at 1127,209   [adash]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1127-1158, y 209
+   8. jump (held 21 ticks), holding nothing, then right after 12 ticks, air dash (Jerry) at tick 12, from 1155,209; lands at 1285,129   [adash]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1274-1318, y 129
+   9. hit the switch at 1296,80 from 1274,129 (jumping if need be): [barrier 434427 open, barrier 434428 open]   [belmont:1]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1274-1318, y 129
+  10. walk off the edge, holding left, then right after 2 ticks in the air, air dash back right (Jerry) at tick 6 or once there's room ahead, from 1278,129; lands at 1440,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1383-1913, y 305
+  11. running right, jump (held 21 ticks), holding right, air dash (Jerry) at tick 8, from 1760,305; lands at 2047,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1959-3206, y 305
+  12. walk off the edge, holding right once in the air, air dash (Claire) at tick 2, from 2608,305; lands at 3358,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3290-3865, y 305
+  13. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 3680,305; lands at 3895,241   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3866-4262, y 241
+  14. walk off the edge, holding right once in the air, from 3866,241; lands at 4349,305
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4295-4614, y 305
+  15. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 4560,305; lands at 4872,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4858-4966, y 305
+  16. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 4944,305; lands at 5256,305   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5242-5689, y 305
+  17. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 5456,305; lands at 5710,241   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5690-5753, y 241
+  18. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 5690,241; lands at 5905,177   [adash]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5818-6009, y 177
+  19. jump (held 21 ticks), holding nothing, then right after 12 ticks, air dash (Jerry) at tick 12, from 5818,177; touches it on the way   [adash]
+      -> loc 9 69
+how in 144,112 -> loc 9 69: djump,megaman:1
+     [barrier 434427 shut, barrier 434428 shut] coming in at 144,112
+   1. coming in: holding nothing, from 144,112; lands at 144,113
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 39-166, y 113
+   2. walk off the edge, holding right, then nothing after 1 ticks in the air, from 39,113; lands at 210,305
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 167-1337, y 305
+   3. shoot the switch at 1008,208 from 839,305 (at the top of a jump): [barrier 434427 open, barrier 434428 shut]   [megaman:1]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 167-1337, y 305
+   4. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 1168,305; lands at 1138,209   [djump]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1127-1158, y 209
+   5. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1127,209; lands at 1213,145
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1178-1222, y 145
+   6. shoot the switch at 1296,80 from 1178,145 (at the top of a jump): [barrier 434427 open, barrier 434428 open]   [megaman:1]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1178-1222, y 145
+   7. walk off the edge, holding right once in the air, double jump at tick 8, from 1178,145; lands at 1427,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1383-1913, y 305
+   8. running right, jump (held 21 ticks), holding right, from 1824,305; lands at 2030,305
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1959-3206, y 305
+   9. walk off the edge, holding right once in the air, double jump at tick 2, from 2656,305; lands at 3367,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3290-3865, y 305
+  10. running right, jump (held 21 ticks), holding right, double jump at tick 10, from 3664,305; lands at 3877,241   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3866-4262, y 241
+  11. walk off the edge, holding right once in the air, from 3866,241; lands at 4349,305
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4295-4614, y 305
+  12. jump (held 21 ticks), holding right, double jump at tick 15, from 4592,305; lands at 4870,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4858-4966, y 305
+  13. jump (held 21 ticks), holding right, double jump at tick 10, from 4858,305; lands at 5092,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5050-5158, y 305
+  14. jump (held 21 ticks), holding right, double jump at tick 10, from 5050,305; lands at 5284,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5242-5689, y 305
+  15. jump (held 21 ticks), holding right, double jump at tick 15, from 5456,305; lands at 5697,241   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5690-5753, y 241
+  16. jump (held 21 ticks), holding right, double jump at tick 10, from 5690,241; lands at 5880,177   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5818-6009, y 177
+  17. jump (held 21 ticks), holding nothing, then right after 14 ticks, double jump at tick 12, from 5821,177; touches it on the way   [djump]
+      -> loc 9 69
+how in 144,112 -> loc 9 69: djump,samus:1
+     [barrier 434427 shut, barrier 434428 shut] coming in at 144,112
+   1. coming in: holding nothing, from 144,112; lands at 144,113
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 39-166, y 113
+   2. walk off the edge, holding right, then nothing after 1 ticks in the air, from 39,113; lands at 210,305
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 167-1337, y 305
+   3. shoot the switch at 1008,208 from 839,305 (at the top of a jump): [barrier 434427 open, barrier 434428 shut]   [samus:1]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 167-1337, y 305
+   4. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 1168,305; lands at 1138,209   [djump]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1127-1158, y 209
+   5. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1127,209; lands at 1213,145
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1178-1222, y 145
+   6. shoot the switch at 1296,80 from 1178,145 (at the top of a jump): [barrier 434427 open, barrier 434428 open]   [samus:1]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1178-1222, y 145
+   7. walk off the edge, holding right once in the air, double jump at tick 8, from 1178,145; lands at 1427,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1383-1913, y 305
+   8. running right, jump (held 21 ticks), holding right, from 1824,305; lands at 2030,305
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1959-3206, y 305
+   9. walk off the edge, holding right once in the air, double jump at tick 2, from 2656,305; lands at 3367,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3290-3865, y 305
+  10. running right, jump (held 21 ticks), holding right, double jump at tick 10, from 3664,305; lands at 3877,241   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3866-4262, y 241
+  11. walk off the edge, holding right once in the air, from 3866,241; lands at 4349,305
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4295-4614, y 305
+  12. jump (held 21 ticks), holding right, double jump at tick 15, from 4592,305; lands at 4870,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4858-4966, y 305
+  13. jump (held 21 ticks), holding right, double jump at tick 10, from 4858,305; lands at 5092,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5050-5158, y 305
+  14. jump (held 21 ticks), holding right, double jump at tick 10, from 5050,305; lands at 5284,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5242-5689, y 305
+  15. jump (held 21 ticks), holding right, double jump at tick 15, from 5456,305; lands at 5697,241   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5690-5753, y 241
+  16. jump (held 21 ticks), holding right, double jump at tick 10, from 5690,241; lands at 5880,177   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5818-6009, y 177
+  17. jump (held 21 ticks), holding nothing, then right after 14 ticks, double jump at tick 12, from 5821,177; touches it on the way   [djump]
+      -> loc 9 69
+how in 144,112 -> loc 9 69: djump,link:1
+     [barrier 434427 shut, barrier 434428 shut] coming in at 144,112
+   1. coming in: holding nothing, from 144,112; lands at 144,113
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 39-166, y 113
+   2. walk off the edge, holding right, then nothing after 1 ticks in the air, from 39,113; lands at 210,305
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 167-1337, y 305
+   3. running right, jump (held 21 ticks), holding right, double jump at tick 10, from 832,305; lands at 938,225   [djump]
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 858-1049, y 225
+   4. hit the switch at 1008,208 from 952,225 (jumping if need be): [barrier 434427 open, barrier 434428 shut]   [link:1]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 858-1049, y 225
+   5. walk off the edge, holding left once in the air, from 858,225; lands at 824,305
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 167-1337, y 305
+   6. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 1168,305; lands at 1138,209   [djump]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1127-1158, y 209
+   7. jump (held 21 ticks), holding right, double jump at tick 10, from 1127,209; lands at 1287,129   [djump]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1274-1318, y 129
+   8. hit the switch at 1296,80 from 1274,129 (jumping if need be): [barrier 434427 open, barrier 434428 open]   [link:1]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1274-1318, y 129
+   9. walk off the edge, holding left once in the air, from 1274,129; lands at 1150,305
+      -> [barrier 434427 open, barrier 434428 open] standing at x 167-1337, y 305
+  10. jump (held 21 ticks), holding right, double jump at tick 15, from 1168,305; lands at 1446,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1383-1913, y 305
+  11. running right, jump (held 21 ticks), holding right, from 1824,305; lands at 2030,305
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1959-3206, y 305
+  12. walk off the edge, holding right once in the air, double jump at tick 2, from 2656,305; lands at 3367,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3290-3865, y 305
+  13. running right, jump (held 21 ticks), holding right, double jump at tick 10, from 3664,305; lands at 3877,241   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3866-4262, y 241
+  14. walk off the edge, holding right once in the air, from 3866,241; lands at 4349,305
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4295-4614, y 305
+  15. jump (held 21 ticks), holding right, double jump at tick 15, from 4592,305; lands at 4870,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4858-4966, y 305
+  16. jump (held 21 ticks), holding right, double jump at tick 10, from 4858,305; lands at 5092,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5050-5158, y 305
+  17. jump (held 21 ticks), holding right, double jump at tick 10, from 5050,305; lands at 5284,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5242-5689, y 305
+  18. jump (held 21 ticks), holding right, double jump at tick 15, from 5456,305; lands at 5697,241   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5690-5753, y 241
+  19. jump (held 21 ticks), holding right, double jump at tick 10, from 5690,241; lands at 5880,177   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5818-6009, y 177
+  20. jump (held 21 ticks), holding nothing, then right after 14 ticks, double jump at tick 12, from 5821,177; touches it on the way   [djump]
+      -> loc 9 69
+how in 144,112 -> loc 9 69: djump,belmont:1
+     [barrier 434427 shut, barrier 434428 shut] coming in at 144,112
+   1. coming in: holding nothing, from 144,112; lands at 144,113
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 39-166, y 113
+   2. walk off the edge, holding right, then nothing after 1 ticks in the air, from 39,113; lands at 210,305
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 167-1337, y 305
+   3. running right, jump (held 21 ticks), holding right, double jump at tick 10, from 832,305; lands at 938,225   [djump]
+      -> [barrier 434427 shut, barrier 434428 shut] standing at x 858-1049, y 225
+   4. hit the switch at 1008,208 from 952,225 (jumping if need be): [barrier 434427 open, barrier 434428 shut]   [belmont:1]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 858-1049, y 225
+   5. walk off the edge, holding left once in the air, from 858,225; lands at 824,305
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 167-1337, y 305
+   6. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 1168,305; lands at 1138,209   [djump]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1127-1158, y 209
+   7. jump (held 21 ticks), holding right, double jump at tick 10, from 1127,209; lands at 1287,129   [djump]
+      -> [barrier 434427 open, barrier 434428 shut] standing at x 1274-1318, y 129
+   8. hit the switch at 1296,80 from 1274,129 (jumping if need be): [barrier 434427 open, barrier 434428 open]   [belmont:1]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1274-1318, y 129
+   9. walk off the edge, holding left once in the air, from 1274,129; lands at 1150,305
+      -> [barrier 434427 open, barrier 434428 open] standing at x 167-1337, y 305
+  10. jump (held 21 ticks), holding right, double jump at tick 15, from 1168,305; lands at 1446,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1383-1913, y 305
+  11. running right, jump (held 21 ticks), holding right, from 1824,305; lands at 2030,305
+      -> [barrier 434427 open, barrier 434428 open] standing at x 1959-3206, y 305
+  12. walk off the edge, holding right once in the air, double jump at tick 2, from 2656,305; lands at 3367,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3290-3865, y 305
+  13. running right, jump (held 21 ticks), holding right, double jump at tick 10, from 3664,305; lands at 3877,241   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 3866-4262, y 241
+  14. walk off the edge, holding right once in the air, from 3866,241; lands at 4349,305
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4295-4614, y 305
+  15. jump (held 21 ticks), holding right, double jump at tick 15, from 4592,305; lands at 4870,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 4858-4966, y 305
+  16. jump (held 21 ticks), holding right, double jump at tick 10, from 4858,305; lands at 5092,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5050-5158, y 305
+  17. jump (held 21 ticks), holding right, double jump at tick 10, from 5050,305; lands at 5284,305   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5242-5689, y 305
+  18. jump (held 21 ticks), holding right, double jump at tick 15, from 5456,305; lands at 5697,241   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5690-5753, y 241
+  19. jump (held 21 ticks), holding right, double jump at tick 10, from 5690,241; lands at 5880,177   [djump]
+      -> [barrier 434427 open, barrier 434428 open] standing at x 5818-6009, y 177
+  20. jump (held 21 ticks), holding nothing, then right after 14 ticks, double jump at tick 12, from 5821,177; touches it on the way   [djump]
+      -> loc 9 69

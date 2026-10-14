@@ -1,0 +1,1990 @@
+# rMain_8: Greatest Stretch (area 8), 3072x1408 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 80,1344   # from rMain_5 out 1928,896
+in 2512,1296   # from rCCity_NorthA out 600,288
+in 144,160   # from rMain_8Gate out 408,240
+in 2880,1344   # from rMain_11 out 64,1024
+in 944,1344   # from rMain_20 out 1392,-16
+in 2880,176   # from rMain_61 out 0,848
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 72,1312   # to rMain_5 at 1936,928; the player presses up at it
+out 2504,1264   # to rCCity_NorthA at 608,320; the player presses up at it
+out 136,128   # to rMain_8Gate at 416,272; the player presses up at it
+out 2872,1312   # to rMain_11 at 72,1056; the player presses up at it
+out 976,1392   # to rMain_20 at 1440,96; the player goes into it
+out 2872,144   # to rMain_61 at 48,880; the player presses up at it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+loc 1 7   # heart piece 7, at 87,887
+loc 2 6   # treasure chest 6, at 1680,387
+loc 3 1   # arrow quiver 1, at 3039,854
+loc 10 2   # skill point 2, at 1887,1135
+loc 10 23   # skill point 23, at 2655,655
+loc 9 87   # weapon upgrade 87, at 1431,439
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 80,1344
+  out 72,1312     -
+  out 2504,1264   -
+  out 136,128     djump
+  out 2872,1312   -
+  out 976,1392    -
+  out 2872,144    djump
+  loc 1 7         djump
+  loc 2 6         djump
+  loc 3 1         djump
+  loc 10 2        djump | adash
+  loc 10 23       djump,samus:2
+  loc 9 87        djump,samus:6
+from in 2512,1296
+  out 72,1312     -
+  out 2504,1264   -
+  out 136,128     djump
+  out 2872,1312   -
+  out 976,1392    -
+  out 2872,144    djump
+  loc 1 7         djump
+  loc 2 6         djump
+  loc 3 1         djump
+  loc 10 2        djump | adash
+  loc 10 23       djump,samus:2
+  loc 9 87        djump,samus:6
+from in 144,160
+  out 72,1312     -
+  out 2504,1264   -
+  out 136,128     -
+  out 2872,1312   -
+  out 976,1392    -
+  out 2872,144    -
+  loc 1 7         djump | adash
+  loc 2 6         -
+  loc 3 1         -
+  loc 10 2        -
+  loc 10 23       samus:2
+  loc 9 87        samus:6
+from in 2880,1344
+  out 72,1312     -
+  out 2504,1264   -
+  out 136,128     djump
+  out 2872,1312   -
+  out 976,1392    -
+  out 2872,144    djump
+  loc 1 7         djump
+  loc 2 6         djump
+  loc 3 1         djump
+  loc 10 2        djump | adash
+  loc 10 23       djump,samus:2
+  loc 9 87        djump,samus:6
+from in 944,1344
+  out 72,1312     -
+  out 2504,1264   -
+  out 136,128     djump
+  out 2872,1312   -
+  out 976,1392    -
+  out 2872,144    djump
+  loc 1 7         djump
+  loc 2 6         djump
+  loc 3 1         djump
+  loc 10 2        djump | adash
+  loc 10 23       djump,samus:2
+  loc 9 87        djump,samus:6
+from in 2880,176
+  out 72,1312     -
+  out 2504,1264   -
+  out 136,128     -
+  out 2872,1312   -
+  out 976,1392    -
+  out 2872,144    -
+  loc 1 7         djump | adash
+  loc 2 6         -
+  loc 3 1         -
+  loc 10 2        -
+  loc 10 23       samus:2
+  loc 9 87        samus:6
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 80,1344 -> out 72,1312: -
+     coming in at 80,1344
+   1. coming in: holding nothing, from 80,1344; lands at 80,1345
+      -> standing at x 0-982, y 1345
+   2. standing at 70,1345, presses up at it
+      -> out 72,1312
+how in 80,1344 -> out 2504,1264: -
+     coming in at 80,1344
+   1. coming in: holding nothing, from 80,1344; lands at 80,1345
+      -> standing at x 0-982, y 1345
+   2. running right, jump (held 21 ticks), holding right, from 560,1345; lands at 714,1281
+      -> standing at x 698-758, y 1281
+   3. jump (held 6 ticks), holding right, from 698,1281; lands at 815,1249
+      -> standing at x 778-1062, y 1249
+   4. walk off the edge, holding right once in the air, from 778,1249; lands at 1122,1281
+      -> standing at x 1063-1382, y 1281
+   5. walk off the edge, holding right once in the air, from 1063,1281; lands at 1458,1329
+      -> standing at x 1383-2009, y 1329
+   6. running right, jump (held 21 ticks), holding right, from 1824,1329; lands at 2022,1313
+      -> standing at x 2010-2377, y 1313
+   7. running right, jump (held 21 ticks), holding right, from 2304,1313; touches it on the way
+      -> out 2504,1264
+how in 80,1344 -> out 136,128: djump
+     coming in at 80,1344
+   1. coming in: holding nothing, from 80,1344; lands at 80,1345
+      -> standing at x 0-982, y 1345
+   2. running right, jump (held 21 ticks), holding right, from 560,1345; lands at 714,1281
+      -> standing at x 698-758, y 1281
+   3. jump (held 6 ticks), holding right, from 698,1281; lands at 815,1249
+      -> standing at x 778-1062, y 1249
+   4. walk off the edge, holding right once in the air, from 778,1249; lands at 1122,1281
+      -> standing at x 1063-1382, y 1281
+   5. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, double jump at tick 18, from 1168,1281; lands at 1351,1089   [djump]
+      -> standing at x 1242-1478, y 1089
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 1328,1089; lands at 1569,1025   [djump]
+      -> standing at x 1562-1702, y 1025
+   7. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 1562,1025; lands at 1638,961
+      -> standing at x 1594-1670, y 961
+   8. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1594,961; lands at 1630,897
+      -> standing at x 1594-1670, y 897
+   9. jump (held 21 ticks), holding left, from 1594,897; lands at 1463,833
+      -> standing at x 1450-1526, y 833
+  10. jump (held 21 ticks), holding left, double jump at tick 15, from 1450,833; lands at 1253,737   [djump]
+      -> standing at x 394-1302, y 737
+  11. jump (held 21 ticks), holding right, double jump at tick 15, from 560,737; lands at 801,673   [djump]
+      -> standing at x 794-870, y 673
+  12. jump (held 21 ticks), holding right, from 794,673; lands at 905,609
+      -> standing at x 890-905, y 609
+  13. jump (held 21 ticks), holding left, double jump at tick 15, from 890,609; lands at 693,513   [djump]
+      -> standing at x 410-742, y 513
+  14. running left, jump (held 21 ticks), holding left, from 410,513; lands at 256,449
+      -> standing at x 202-278, y 449
+  15. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 202,449; lands at 238,385
+      -> standing at x 202-278, y 385
+  16. jump (held 21 ticks), holding right, double jump at tick 10, from 202,385; lands at 711,401   [djump]
+      -> standing at x 538-713, y 401
+  17. jump (held 21 ticks), holding left, double jump at tick 10, from 538,401; lands at 208,161   [djump]
+      -> standing at x 0-294, y 161
+  18. standing at 126,161, presses up at it
+      -> out 136,128
+how in 80,1344 -> out 2872,1312: -
+     coming in at 80,1344
+   1. coming in: holding nothing, from 80,1344; lands at 80,1345
+      -> standing at x 0-982, y 1345
+   2. running right, jump (held 21 ticks), holding right, from 560,1345; lands at 714,1281
+      -> standing at x 698-758, y 1281
+   3. jump (held 6 ticks), holding right, from 698,1281; lands at 815,1249
+      -> standing at x 778-1062, y 1249
+   4. walk off the edge, holding right once in the air, from 778,1249; lands at 1122,1281
+      -> standing at x 1063-1382, y 1281
+   5. walk off the edge, holding right once in the air, from 1063,1281; lands at 1458,1329
+      -> standing at x 1383-2009, y 1329
+   6. running right, jump (held 21 ticks), holding right, from 1824,1329; lands at 2022,1313
+      -> standing at x 2010-2377, y 1313
+   7. running right, jump (held 21 ticks), holding right, from 2192,1313; lands at 2390,1297
+      -> standing at x 2378-2457, y 1297
+   8. jump (held 21 ticks), holding right, from 2400,1297; lands at 2583,1297
+      -> standing at x 2567-2646, y 1297
+   9. running right, jump (held 21 ticks), holding right, from 2638,1297; touches it on the way
+      -> out 2872,1312
+how in 80,1344 -> out 976,1392: -
+     coming in at 80,1344
+   1. coming in: holding nothing, from 80,1344; lands at 80,1345
+      -> standing at x 0-982, y 1345
+   2. running right, walk off the edge, holding right once in the air, from 336,1345; touches it on the way
+      -> out 976,1392
+how in 80,1344 -> out 2872,144: djump
+     coming in at 80,1344
+   1. coming in: holding nothing, from 80,1344; lands at 80,1345
+      -> standing at x 0-982, y 1345
+   2. running right, jump (held 21 ticks), holding right, from 560,1345; lands at 714,1281
+      -> standing at x 698-758, y 1281
+   3. jump (held 6 ticks), holding right, from 698,1281; lands at 815,1249
+      -> standing at x 778-1062, y 1249
+   4. walk off the edge, holding right once in the air, from 778,1249; lands at 1122,1281
+      -> standing at x 1063-1382, y 1281
+   5. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, double jump at tick 18, from 1168,1281; lands at 1351,1089   [djump]
+      -> standing at x 1242-1478, y 1089
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 1328,1089; lands at 1569,1025   [djump]
+      -> standing at x 1562-1702, y 1025
+   7. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 1562,1025; lands at 1638,961
+      -> standing at x 1594-1670, y 961
+   8. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1594,961; lands at 1630,897
+      -> standing at x 1594-1670, y 897
+   9. jump (held 21 ticks), holding right, double jump at tick 15, from 1594,897; lands at 1828,833   [djump]
+      -> standing at x 1786-1926, y 833
+  10. jump (held 21 ticks), holding right, double jump at tick 15, from 1786,833; lands at 2020,769   [djump]
+      -> standing at x 1978-2118, y 769
+  11. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 1978,769; lands at 2054,705
+      -> standing at x 1994-2102, y 705
+  12. jump (held 21 ticks), holding right, double jump at tick 15, from 1994,705; lands at 2228,641   [djump]
+      -> standing at x 2186-2454, y 641
+  13. jump (held 21 ticks), holding right, double jump at tick 15, from 2432,641; lands at 2629,545   [djump]
+      -> standing at x 2618-2662, y 545
+  14. jump (held 21 ticks), holding right, double jump at tick 15, from 2654,545; lands at 2851,449   [djump]
+      -> standing at x 2842-3046, y 449
+  15. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 2864,449; lands at 2834,353   [djump]
+      -> standing at x 2778-2854, y 353
+  16. jump (held 21 ticks), holding left, double jump at tick 10, from 2778,353; lands at 2625,353   [djump]
+      -> standing at x 2476-2644, y 353-355
+  17. jump (held 21 ticks), holding left, double jump at tick 10, from 2476,353; lands at 2286,287   [djump]
+      -> standing at x 2218-2294, y 287-289
+  18. jump (held 21 ticks), holding right, double jump at tick 15, from 2288,287; lands at 2515,209   [djump]
+      -> standing at x 2506-2537, y 209
+  19. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 2506,209; lands at 2579,177
+      -> standing at x 2570-3072, y 177
+  20. standing at 2870,177, presses up at it
+      -> out 2872,144
+how in 80,1344 -> loc 1 7: djump
+     coming in at 80,1344
+   1. coming in: holding nothing, from 80,1344; lands at 80,1345
+      -> standing at x 0-982, y 1345
+   2. running right, jump (held 21 ticks), holding right, from 560,1345; lands at 714,1281
+      -> standing at x 698-758, y 1281
+   3. jump (held 6 ticks), holding right, from 698,1281; lands at 815,1249
+      -> standing at x 778-1062, y 1249
+   4. walk off the edge, holding right once in the air, from 778,1249; lands at 1122,1281
+      -> standing at x 1063-1382, y 1281
+   5. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, double jump at tick 18, from 1168,1281; lands at 985,1089   [djump]
+      -> standing at x 903-1094, y 1089
+   6. jump (held 21 ticks), holding left, from 903,1089; lands at 830,1025
+      -> standing at x 682-902, y 1025
+   7. jump (held 21 ticks), holding left, double jump at tick 10, from 682,1025; lands at 455,1009   [djump]
+      -> standing at x 42-470, y 1009
+   8. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 160,1009; lands at 130,913   [djump]
+      -> standing at x 103-150, y 913
+   9. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 111,913; lands at 30,913
+      -> standing at x 26-73, y 913
+  10. walk off the edge, holding left, then right after 2 ticks in the air, double jump at tick 3, from 26,913; touches it on the way   [djump]
+      -> loc 1 7
+how in 80,1344 -> loc 2 6: djump
+     coming in at 80,1344
+   1. coming in: holding nothing, from 80,1344; lands at 80,1345
+      -> standing at x 0-982, y 1345
+   2. running right, jump (held 21 ticks), holding right, from 560,1345; lands at 714,1281
+      -> standing at x 698-758, y 1281
+   3. jump (held 6 ticks), holding right, from 698,1281; lands at 815,1249
+      -> standing at x 778-1062, y 1249
+   4. walk off the edge, holding right once in the air, from 778,1249; lands at 1122,1281
+      -> standing at x 1063-1382, y 1281
+   5. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, double jump at tick 18, from 1168,1281; lands at 1351,1089   [djump]
+      -> standing at x 1242-1478, y 1089
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 1328,1089; lands at 1569,1025   [djump]
+      -> standing at x 1562-1702, y 1025
+   7. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 1562,1025; lands at 1638,961
+      -> standing at x 1594-1670, y 961
+   8. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1594,961; lands at 1630,897
+      -> standing at x 1594-1670, y 897
+   9. jump (held 21 ticks), holding right, double jump at tick 15, from 1594,897; lands at 1828,833   [djump]
+      -> standing at x 1786-1926, y 833
+  10. jump (held 21 ticks), holding right, double jump at tick 15, from 1786,833; lands at 2020,769   [djump]
+      -> standing at x 1978-2118, y 769
+  11. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 1978,769; lands at 2054,705
+      -> standing at x 1994-2102, y 705
+  12. jump (held 21 ticks), holding right, double jump at tick 15, from 1994,705; lands at 2228,641   [djump]
+      -> standing at x 2186-2454, y 641
+  13. jump (held 21 ticks), holding right, double jump at tick 15, from 2432,641; lands at 2629,545   [djump]
+      -> standing at x 2618-2662, y 545
+  14. jump (held 21 ticks), holding right, double jump at tick 15, from 2654,545; lands at 2851,449   [djump]
+      -> standing at x 2842-3046, y 449
+  15. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 2864,449; lands at 2834,353   [djump]
+      -> standing at x 2778-2854, y 353
+  16. jump (held 21 ticks), holding left, double jump at tick 10, from 2778,353; lands at 2625,353   [djump]
+      -> standing at x 2476-2644, y 353-355
+  17. jump (held 21 ticks), holding left, double jump at tick 15, from 2476,353; lands at 2279,256   [djump]
+      -> standing at x 2218-2294, y 256-258
+  18. jump (held 21 ticks), holding left, double jump at tick 15, from 2218,256; lands at 2141,161   [djump]
+      -> standing at x 1962-2198, y 161
+  19. jump (held 6 ticks), holding left, from 1962,161; lands at 1845,129
+      -> standing at x 1770-1862, y 129
+  20. jump (held 2 ticks), holding left, from 1770,129; lands at 1668,129
+      -> standing at x 1594-1686, y 129
+  21. walk off the edge, holding right, then left after 1 ticks in the air, from 1594,129; touches it on the way
+      -> loc 2 6
+how in 80,1344 -> loc 3 1: djump
+     coming in at 80,1344
+   1. coming in: holding nothing, from 80,1344; lands at 80,1345
+      -> standing at x 0-982, y 1345
+   2. running right, jump (held 21 ticks), holding right, from 560,1345; lands at 714,1281
+      -> standing at x 698-758, y 1281
+   3. jump (held 6 ticks), holding right, from 698,1281; lands at 815,1249
+      -> standing at x 778-1062, y 1249
+   4. walk off the edge, holding right once in the air, from 778,1249; lands at 1122,1281
+      -> standing at x 1063-1382, y 1281
+   5. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, double jump at tick 18, from 1168,1281; lands at 1351,1089   [djump]
+      -> standing at x 1242-1478, y 1089
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 1328,1089; lands at 1569,1025   [djump]
+      -> standing at x 1562-1702, y 1025
+   7. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 1562,1025; lands at 1638,961
+      -> standing at x 1594-1670, y 961
+   8. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1594,961; lands at 1630,897
+      -> standing at x 1594-1670, y 897
+   9. jump (held 21 ticks), holding right, double jump at tick 15, from 1594,897; lands at 1828,833   [djump]
+      -> standing at x 1786-1926, y 833
+  10. jump (held 21 ticks), holding right, double jump at tick 15, from 1786,833; lands at 2020,769   [djump]
+      -> standing at x 1978-2118, y 769
+  11. walk off the edge, holding right once in the air, double jump at tick 2, from 1978,769; lands at 2381,929   [djump]
+      -> standing at x 2346-2390, y 929
+  12. jump (held 21 ticks), holding right, from 2346,929; lands at 2529,929
+      -> standing at x 2490-2534, y 929
+  13. jump (held 21 ticks), holding right, double jump at tick 15, from 2526,929; lands at 2819,945   [djump]
+      -> standing at x 2810-2854, y 945
+  14. jump (held 21 ticks), holding right, double jump at tick 15, from 2814,945; touches it on the way   [djump]
+      -> loc 3 1
+how in 80,1344 -> loc 10 2: djump
+     coming in at 80,1344
+   1. coming in: holding nothing, from 80,1344; lands at 80,1345
+      -> standing at x 0-982, y 1345
+   2. running right, jump (held 21 ticks), holding right, from 560,1345; lands at 714,1281
+      -> standing at x 698-758, y 1281
+   3. jump (held 6 ticks), holding right, from 698,1281; lands at 815,1249
+      -> standing at x 778-1062, y 1249
+   4. walk off the edge, holding right once in the air, from 778,1249; lands at 1122,1281
+      -> standing at x 1063-1382, y 1281
+   5. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, double jump at tick 18, from 1168,1281; lands at 1351,1089   [djump]
+      -> standing at x 1242-1478, y 1089
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 1328,1089; lands at 1569,1025   [djump]
+      -> standing at x 1562-1702, y 1025
+   7. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 1562,1025; lands at 1638,961
+      -> standing at x 1594-1670, y 961
+   8. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1594,961; lands at 1630,897
+      -> standing at x 1594-1670, y 897
+   9. jump (held 21 ticks), holding left, from 1594,897; lands at 1463,833
+      -> standing at x 1450-1526, y 833
+  10. jump (held 21 ticks), holding right, double jump at tick 10, from 1450,833; touches it on the way   [djump]
+      -> loc 10 2
+how in 80,1344 -> loc 10 2: adash
+     coming in at 80,1344
+   1. coming in: holding nothing, from 80,1344; lands at 80,1345
+      -> standing at x 0-982, y 1345
+   2. running right, jump (held 21 ticks), holding right, from 560,1345; lands at 714,1281
+      -> standing at x 698-758, y 1281
+   3. jump (held 6 ticks), holding right, from 698,1281; lands at 815,1249
+      -> standing at x 778-1062, y 1249
+   4. walk off the edge, holding right once in the air, from 778,1249; lands at 1122,1281
+      -> standing at x 1063-1382, y 1281
+   5. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 1328,1281; lands at 1603,1233   [adash]
+      -> standing at x 1578-1622, y 1233
+   6. jump (held 21 ticks), holding right, air dash (Jerry) at tick 4, from 1578,1233; lands at 1812,1233   [adash]
+      -> standing at x 1802-1846, y 1233
+   7. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 1802,1233; touches it on the way   [adash]
+      -> loc 10 2
+how in 80,1344 -> loc 10 23: djump,samus:2
+     coming in at 80,1344
+   1. coming in: holding nothing, from 80,1344; lands at 80,1345
+      -> standing at x 0-982, y 1345
+   2. running right, jump (held 21 ticks), holding right, from 560,1345; lands at 714,1281
+      -> standing at x 698-758, y 1281
+   3. jump (held 6 ticks), holding right, from 698,1281; lands at 815,1249
+      -> standing at x 778-1062, y 1249
+   4. walk off the edge, holding right once in the air, from 778,1249; lands at 1122,1281
+      -> standing at x 1063-1382, y 1281
+   5. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, double jump at tick 18, from 1168,1281; lands at 1351,1089   [djump]
+      -> standing at x 1242-1478, y 1089
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 1328,1089; lands at 1569,1025   [djump]
+      -> standing at x 1562-1702, y 1025
+   7. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 1562,1025; lands at 1638,961
+      -> standing at x 1594-1670, y 961
+   8. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1594,961; lands at 1630,897
+      -> standing at x 1594-1670, y 897
+   9. jump (held 21 ticks), holding right, double jump at tick 15, from 1594,897; lands at 1828,833   [djump]
+      -> standing at x 1786-1926, y 833
+  10. jump (held 21 ticks), holding right, double jump at tick 15, from 1786,833; lands at 2020,769   [djump]
+      -> standing at x 1978-2118, y 769
+  11. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 1978,769; lands at 2054,705
+      -> standing at x 1994-2102, y 705
+  12. jump (held 21 ticks), holding right, double jump at tick 15, from 1994,705; lands at 2228,641   [djump]
+      -> standing at x 2186-2454, y 641
+  13. walk off the edge, holding right once in the air, turn into the Morph Ball where the body meets a wall or ceiling, from 2186,641; lands at 2484,689   [samus:2]
+      -> as the Morph Ball at x 2442-2742, y 689
+  14. turn back from the Morph Ball at 2615,689
+      -> standing at x 2615-2697, y 689
+  15. standing at 2648,689, touches it
+      -> loc 10 23
+how in 80,1344 -> loc 9 87: djump,samus:6
+     coming in at 80,1344
+   1. coming in: holding nothing, from 80,1344; lands at 80,1345
+      -> standing at x 0-982, y 1345
+   2. running right, jump (held 21 ticks), holding right, from 560,1345; lands at 714,1281
+      -> standing at x 698-758, y 1281
+   3. jump (held 6 ticks), holding right, from 698,1281; lands at 815,1249
+      -> standing at x 778-1062, y 1249
+   4. walk off the edge, holding right once in the air, from 778,1249; lands at 1122,1281
+      -> standing at x 1063-1382, y 1281
+   5. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, double jump at tick 18, from 1168,1281; lands at 1351,1089   [djump]
+      -> standing at x 1242-1478, y 1089
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 1328,1089; lands at 1569,1025   [djump]
+      -> standing at x 1562-1702, y 1025
+   7. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 1562,1025; lands at 1638,961
+      -> standing at x 1594-1670, y 961
+   8. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1594,961; lands at 1630,897
+      -> standing at x 1594-1670, y 897
+   9. jump (held 21 ticks), holding right, double jump at tick 15, from 1594,897; lands at 1828,833   [djump]
+      -> standing at x 1786-1926, y 833
+  10. jump (held 21 ticks), holding right, double jump at tick 15, from 1786,833; lands at 2020,769   [djump]
+      -> standing at x 1978-2118, y 769
+  11. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 1978,769; lands at 2054,705
+      -> standing at x 1994-2102, y 705
+  12. jump (held 21 ticks), holding right, double jump at tick 15, from 1994,705; lands at 2228,641   [djump]
+      -> standing at x 2186-2454, y 641
+  13. jump (held 21 ticks), holding right, double jump at tick 15, from 2432,641; lands at 2629,545   [djump]
+      -> standing at x 2618-2662, y 545
+  14. jump (held 21 ticks), holding right, double jump at tick 15, from 2654,545; lands at 2851,449   [djump]
+      -> standing at x 2842-3046, y 449
+  15. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 2864,449; lands at 2834,353   [djump]
+      -> standing at x 2778-2854, y 353
+  16. jump (held 21 ticks), holding left, double jump at tick 10, from 2778,353; lands at 2625,353   [djump]
+      -> standing at x 2476-2644, y 353-355
+  17. jump (held 21 ticks), holding left, double jump at tick 15, from 2476,353; lands at 2279,256   [djump]
+      -> standing at x 2218-2294, y 256-258
+  18. jump (held 21 ticks), holding left, double jump at tick 15, from 2218,256; lands at 2141,161   [djump]
+      -> standing at x 1962-2198, y 161
+  19. jump (held 6 ticks), holding left, from 1962,161; lands at 1845,129
+      -> standing at x 1770-1862, y 129
+  20. jump (held 2 ticks), holding left, from 1770,129; lands at 1668,129
+      -> standing at x 1594-1686, y 129
+  21. jump (held 21 ticks), holding left, turn into the Morph Ball at tick 8, from 1594,129; lands at 1448,129   [samus:2]
+      -> as the Morph Ball at x 1418-1510, y 129
+  22. as the Morph Ball: roll off the edge, holding left, then nothing after 1 ticks in the air, from 1418,129; lands at 1381,449
+      -> as the Morph Ball at x 1354-1385, y 449
+  23. as the Morph Ball: roll off the edge, holding right once in the air, from 1354,449, through the Metroid block at 1392,432; touches it on the way   [samus:6]
+      -> loc 9 87
+how in 2512,1296 -> out 72,1312: -
+     coming in at 2512,1296
+   1. coming in: holding nothing, from 2512,1296; lands at 2512,1297
+      -> standing at x 2487-2537, y 1297
+   2. jump (held 6 ticks), holding left, from 2487,1297; lands at 2345,1313
+      -> standing at x 2010-2377, y 1313
+   3. walk off the edge, holding left once in the air, from 2010,1313; lands at 1966,1329
+      -> standing at x 1383-2009, y 1329
+   4. jump (held 6 ticks), holding left, from 1383,1329; lands at 1324,1281
+      -> standing at x 1063-1382, y 1281
+   5. jump (held 2 ticks), holding left, from 1063,1281; lands at 1020,1249
+      -> standing at x 778-1062, y 1249
+   6. walk off the edge, holding left, then right after 1 ticks in the air, from 778,1249; lands at 814,1345
+      -> standing at x 0-982, y 1345
+   7. standing at 70,1345, presses up at it
+      -> out 72,1312
+how in 2512,1296 -> out 2504,1264: -
+     coming in at 2512,1296
+   1. coming in: holding nothing, from 2512,1296; lands at 2512,1297
+      -> standing at x 2487-2537, y 1297
+   2. jump (held 6 ticks), holding left, from 2487,1297; lands at 2345,1313
+      -> standing at x 2010-2377, y 1313
+   3. running right, jump (held 21 ticks), holding right, from 2304,1313; touches it on the way
+      -> out 2504,1264
+how in 2512,1296 -> out 136,128: djump
+     coming in at 2512,1296
+   1. coming in: holding nothing, from 2512,1296; lands at 2512,1297
+      -> standing at x 2487-2537, y 1297
+   2. jump (held 6 ticks), holding left, from 2487,1297; lands at 2345,1313
+      -> standing at x 2010-2377, y 1313
+   3. walk off the edge, holding left once in the air, from 2010,1313; lands at 1966,1329
+      -> standing at x 1383-2009, y 1329
+   4. jump (held 6 ticks), holding left, from 1383,1329; lands at 1324,1281
+      -> standing at x 1063-1382, y 1281
+   5. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, double jump at tick 18, from 1168,1281; lands at 1351,1089   [djump]
+      -> standing at x 1242-1478, y 1089
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 1328,1089; lands at 1569,1025   [djump]
+      -> standing at x 1562-1702, y 1025
+   7. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 1562,1025; lands at 1638,961
+      -> standing at x 1594-1670, y 961
+   8. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1594,961; lands at 1630,897
+      -> standing at x 1594-1670, y 897
+   9. jump (held 21 ticks), holding left, from 1594,897; lands at 1463,833
+      -> standing at x 1450-1526, y 833
+  10. jump (held 21 ticks), holding left, double jump at tick 15, from 1450,833; lands at 1253,737   [djump]
+      -> standing at x 394-1302, y 737
+  11. jump (held 21 ticks), holding right, double jump at tick 15, from 560,737; lands at 801,673   [djump]
+      -> standing at x 794-870, y 673
+  12. jump (held 21 ticks), holding right, from 794,673; lands at 905,609
+      -> standing at x 890-905, y 609
+  13. jump (held 21 ticks), holding left, double jump at tick 15, from 890,609; lands at 693,513   [djump]
+      -> standing at x 410-742, y 513
+  14. running left, jump (held 21 ticks), holding left, from 410,513; lands at 256,449
+      -> standing at x 202-278, y 449
+  15. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 202,449; lands at 238,385
+      -> standing at x 202-278, y 385
+  16. jump (held 21 ticks), holding right, double jump at tick 10, from 202,385; lands at 711,401   [djump]
+      -> standing at x 538-713, y 401
+  17. jump (held 21 ticks), holding left, double jump at tick 10, from 538,401; lands at 208,161   [djump]
+      -> standing at x 0-294, y 161
+  18. standing at 126,161, presses up at it
+      -> out 136,128
+how in 2512,1296 -> out 2872,1312: -
+     coming in at 2512,1296
+   1. coming in: holding nothing, from 2512,1296; lands at 2512,1297
+      -> standing at x 2487-2537, y 1297
+   2. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 2487,1297; lands at 2597,1297
+      -> standing at x 2567-2646, y 1297
+   3. running right, jump (held 21 ticks), holding right, from 2638,1297; touches it on the way
+      -> out 2872,1312
+how in 2512,1296 -> out 976,1392: -
+     coming in at 2512,1296
+   1. coming in: holding nothing, from 2512,1296; lands at 2512,1297
+      -> standing at x 2487-2537, y 1297
+   2. jump (held 6 ticks), holding left, from 2487,1297; lands at 2345,1313
+      -> standing at x 2010-2377, y 1313
+   3. walk off the edge, holding left once in the air, from 2010,1313; lands at 1966,1329
+      -> standing at x 1383-2009, y 1329
+   4. jump (held 6 ticks), holding left, from 1383,1329; lands at 1324,1281
+      -> standing at x 1063-1382, y 1281
+   5. jump (held 2 ticks), holding left, from 1063,1281; lands at 1020,1249
+      -> standing at x 778-1062, y 1249
+   6. walk off the edge, holding left, then right after 1 ticks in the air, from 778,1249; lands at 814,1345
+      -> standing at x 0-982, y 1345
+   7. running right, walk off the edge, holding right once in the air, from 336,1345; touches it on the way
+      -> out 976,1392
+how in 2512,1296 -> out 2872,144: djump
+     coming in at 2512,1296
+   1. coming in: holding nothing, from 2512,1296; lands at 2512,1297
+      -> standing at x 2487-2537, y 1297
+   2. jump (held 6 ticks), holding left, from 2487,1297; lands at 2345,1313
+      -> standing at x 2010-2377, y 1313
+   3. walk off the edge, holding left once in the air, from 2010,1313; lands at 1966,1329
+      -> standing at x 1383-2009, y 1329
+   4. jump (held 6 ticks), holding left, from 1383,1329; lands at 1324,1281
+      -> standing at x 1063-1382, y 1281
+   5. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, double jump at tick 18, from 1168,1281; lands at 1351,1089   [djump]
+      -> standing at x 1242-1478, y 1089
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 1328,1089; lands at 1569,1025   [djump]
+      -> standing at x 1562-1702, y 1025
+   7. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 1562,1025; lands at 1638,961
+      -> standing at x 1594-1670, y 961
+   8. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1594,961; lands at 1630,897
+      -> standing at x 1594-1670, y 897
+   9. jump (held 21 ticks), holding right, double jump at tick 15, from 1594,897; lands at 1828,833   [djump]
+      -> standing at x 1786-1926, y 833
+  10. jump (held 21 ticks), holding right, double jump at tick 15, from 1786,833; lands at 2020,769   [djump]
+      -> standing at x 1978-2118, y 769
+  11. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 1978,769; lands at 2054,705
+      -> standing at x 1994-2102, y 705
+  12. jump (held 21 ticks), holding right, double jump at tick 15, from 1994,705; lands at 2228,641   [djump]
+      -> standing at x 2186-2454, y 641
+  13. jump (held 21 ticks), holding right, double jump at tick 15, from 2432,641; lands at 2629,545   [djump]
+      -> standing at x 2618-2662, y 545
+  14. jump (held 21 ticks), holding right, double jump at tick 15, from 2654,545; lands at 2851,449   [djump]
+      -> standing at x 2842-3046, y 449
+  15. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 2864,449; lands at 2834,353   [djump]
+      -> standing at x 2778-2854, y 353
+  16. jump (held 21 ticks), holding left, double jump at tick 10, from 2778,353; lands at 2625,353   [djump]
+      -> standing at x 2476-2644, y 353-355
+  17. jump (held 21 ticks), holding left, double jump at tick 10, from 2476,353; lands at 2286,287   [djump]
+      -> standing at x 2218-2294, y 287-289
+  18. jump (held 21 ticks), holding right, double jump at tick 15, from 2288,287; lands at 2515,209   [djump]
+      -> standing at x 2506-2537, y 209
+  19. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 2506,209; lands at 2579,177
+      -> standing at x 2570-3072, y 177
+  20. standing at 2870,177, presses up at it
+      -> out 2872,144
+how in 2512,1296 -> loc 1 7: djump
+     coming in at 2512,1296
+   1. coming in: holding nothing, from 2512,1296; lands at 2512,1297
+      -> standing at x 2487-2537, y 1297
+   2. jump (held 6 ticks), holding left, from 2487,1297; lands at 2345,1313
+      -> standing at x 2010-2377, y 1313
+   3. walk off the edge, holding left once in the air, from 2010,1313; lands at 1966,1329
+      -> standing at x 1383-2009, y 1329
+   4. jump (held 6 ticks), holding left, from 1383,1329; lands at 1324,1281
+      -> standing at x 1063-1382, y 1281
+   5. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, double jump at tick 18, from 1168,1281; lands at 985,1089   [djump]
+      -> standing at x 903-1094, y 1089
+   6. jump (held 21 ticks), holding left, from 903,1089; lands at 830,1025
+      -> standing at x 682-902, y 1025
+   7. jump (held 21 ticks), holding left, double jump at tick 10, from 682,1025; lands at 455,1009   [djump]
+      -> standing at x 42-470, y 1009
+   8. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 160,1009; lands at 130,913   [djump]
+      -> standing at x 103-150, y 913
+   9. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 111,913; lands at 30,913
+      -> standing at x 26-73, y 913
+  10. walk off the edge, holding left, then right after 2 ticks in the air, double jump at tick 3, from 26,913; touches it on the way   [djump]
+      -> loc 1 7
+how in 2512,1296 -> loc 2 6: djump
+     coming in at 2512,1296
+   1. coming in: holding nothing, from 2512,1296; lands at 2512,1297
+      -> standing at x 2487-2537, y 1297
+   2. jump (held 6 ticks), holding left, from 2487,1297; lands at 2345,1313
+      -> standing at x 2010-2377, y 1313
+   3. walk off the edge, holding left once in the air, from 2010,1313; lands at 1966,1329
+      -> standing at x 1383-2009, y 1329
+   4. jump (held 6 ticks), holding left, from 1383,1329; lands at 1324,1281
+      -> standing at x 1063-1382, y 1281
+   5. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, double jump at tick 18, from 1168,1281; lands at 1351,1089   [djump]
+      -> standing at x 1242-1478, y 1089
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 1328,1089; lands at 1569,1025   [djump]
+      -> standing at x 1562-1702, y 1025
+   7. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 1562,1025; lands at 1638,961
+      -> standing at x 1594-1670, y 961
+   8. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1594,961; lands at 1630,897
+      -> standing at x 1594-1670, y 897
+   9. jump (held 21 ticks), holding right, double jump at tick 15, from 1594,897; lands at 1828,833   [djump]
+      -> standing at x 1786-1926, y 833
+  10. jump (held 21 ticks), holding right, double jump at tick 15, from 1786,833; lands at 2020,769   [djump]
+      -> standing at x 1978-2118, y 769
+  11. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 1978,769; lands at 2054,705
+      -> standing at x 1994-2102, y 705
+  12. jump (held 21 ticks), holding right, double jump at tick 15, from 1994,705; lands at 2228,641   [djump]
+      -> standing at x 2186-2454, y 641
+  13. jump (held 21 ticks), holding right, double jump at tick 15, from 2432,641; lands at 2629,545   [djump]
+      -> standing at x 2618-2662, y 545
+  14. jump (held 21 ticks), holding right, double jump at tick 15, from 2654,545; lands at 2851,449   [djump]
+      -> standing at x 2842-3046, y 449
+  15. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 2864,449; lands at 2834,353   [djump]
+      -> standing at x 2778-2854, y 353
+  16. jump (held 21 ticks), holding left, double jump at tick 10, from 2778,353; lands at 2625,353   [djump]
+      -> standing at x 2476-2644, y 353-355
+  17. jump (held 21 ticks), holding left, double jump at tick 15, from 2476,353; lands at 2279,256   [djump]
+      -> standing at x 2218-2294, y 256-258
+  18. jump (held 21 ticks), holding left, double jump at tick 15, from 2218,256; lands at 2141,161   [djump]
+      -> standing at x 1962-2198, y 161
+  19. jump (held 6 ticks), holding left, from 1962,161; lands at 1845,129
+      -> standing at x 1770-1862, y 129
+  20. jump (held 2 ticks), holding left, from 1770,129; lands at 1668,129
+      -> standing at x 1594-1686, y 129
+  21. walk off the edge, holding right, then left after 1 ticks in the air, from 1594,129; touches it on the way
+      -> loc 2 6
+how in 2512,1296 -> loc 3 1: djump
+     coming in at 2512,1296
+   1. coming in: holding nothing, from 2512,1296; lands at 2512,1297
+      -> standing at x 2487-2537, y 1297
+   2. jump (held 6 ticks), holding left, from 2487,1297; lands at 2345,1313
+      -> standing at x 2010-2377, y 1313
+   3. walk off the edge, holding left once in the air, from 2010,1313; lands at 1966,1329
+      -> standing at x 1383-2009, y 1329
+   4. jump (held 6 ticks), holding left, from 1383,1329; lands at 1324,1281
+      -> standing at x 1063-1382, y 1281
+   5. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, double jump at tick 18, from 1168,1281; lands at 1351,1089   [djump]
+      -> standing at x 1242-1478, y 1089
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 1328,1089; lands at 1569,1025   [djump]
+      -> standing at x 1562-1702, y 1025
+   7. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 1562,1025; lands at 1638,961
+      -> standing at x 1594-1670, y 961
+   8. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1594,961; lands at 1630,897
+      -> standing at x 1594-1670, y 897
+   9. jump (held 21 ticks), holding right, double jump at tick 15, from 1594,897; lands at 1828,833   [djump]
+      -> standing at x 1786-1926, y 833
+  10. jump (held 21 ticks), holding right, double jump at tick 15, from 1786,833; lands at 2020,769   [djump]
+      -> standing at x 1978-2118, y 769
+  11. walk off the edge, holding right once in the air, double jump at tick 2, from 1978,769; lands at 2381,929   [djump]
+      -> standing at x 2346-2390, y 929
+  12. jump (held 21 ticks), holding right, from 2346,929; lands at 2529,929
+      -> standing at x 2490-2534, y 929
+  13. jump (held 21 ticks), holding right, double jump at tick 15, from 2526,929; lands at 2819,945   [djump]
+      -> standing at x 2810-2854, y 945
+  14. jump (held 21 ticks), holding right, double jump at tick 15, from 2814,945; touches it on the way   [djump]
+      -> loc 3 1
+how in 2512,1296 -> loc 10 2: djump
+     coming in at 2512,1296
+   1. coming in: holding nothing, from 2512,1296; lands at 2512,1297
+      -> standing at x 2487-2537, y 1297
+   2. jump (held 6 ticks), holding left, from 2487,1297; lands at 2345,1313
+      -> standing at x 2010-2377, y 1313
+   3. walk off the edge, holding left once in the air, from 2010,1313; lands at 1966,1329
+      -> standing at x 1383-2009, y 1329
+   4. jump (held 6 ticks), holding left, from 1383,1329; lands at 1324,1281
+      -> standing at x 1063-1382, y 1281
+   5. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, double jump at tick 18, from 1168,1281; lands at 1351,1089   [djump]
+      -> standing at x 1242-1478, y 1089
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 1328,1089; lands at 1569,1025   [djump]
+      -> standing at x 1562-1702, y 1025
+   7. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 1562,1025; lands at 1638,961
+      -> standing at x 1594-1670, y 961
+   8. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1594,961; lands at 1630,897
+      -> standing at x 1594-1670, y 897
+   9. jump (held 21 ticks), holding left, from 1594,897; lands at 1463,833
+      -> standing at x 1450-1526, y 833
+  10. jump (held 21 ticks), holding right, double jump at tick 10, from 1450,833; touches it on the way   [djump]
+      -> loc 10 2
+how in 2512,1296 -> loc 10 2: adash
+     coming in at 2512,1296
+   1. coming in: holding nothing, from 2512,1296; lands at 2512,1297
+      -> standing at x 2487-2537, y 1297
+   2. jump (held 6 ticks), holding left, from 2487,1297; lands at 2345,1313
+      -> standing at x 2010-2377, y 1313
+   3. jump (held 21 ticks), holding left, air dash (Claire) at tick 16, from 2010,1313; lands at 1817,1233   [adash]
+      -> standing at x 1802-1846, y 1233
+   4. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 1802,1233; touches it on the way   [adash]
+      -> loc 10 2
+how in 2512,1296 -> loc 10 23: djump,samus:2
+     coming in at 2512,1296
+   1. coming in: holding nothing, from 2512,1296; lands at 2512,1297
+      -> standing at x 2487-2537, y 1297
+   2. jump (held 6 ticks), holding left, from 2487,1297; lands at 2345,1313
+      -> standing at x 2010-2377, y 1313
+   3. walk off the edge, holding left once in the air, from 2010,1313; lands at 1966,1329
+      -> standing at x 1383-2009, y 1329
+   4. jump (held 6 ticks), holding left, from 1383,1329; lands at 1324,1281
+      -> standing at x 1063-1382, y 1281
+   5. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, double jump at tick 18, from 1168,1281; lands at 1351,1089   [djump]
+      -> standing at x 1242-1478, y 1089
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 1328,1089; lands at 1569,1025   [djump]
+      -> standing at x 1562-1702, y 1025
+   7. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 1562,1025; lands at 1638,961
+      -> standing at x 1594-1670, y 961
+   8. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1594,961; lands at 1630,897
+      -> standing at x 1594-1670, y 897
+   9. jump (held 21 ticks), holding right, double jump at tick 15, from 1594,897; lands at 1828,833   [djump]
+      -> standing at x 1786-1926, y 833
+  10. jump (held 21 ticks), holding right, double jump at tick 15, from 1786,833; lands at 2020,769   [djump]
+      -> standing at x 1978-2118, y 769
+  11. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 1978,769; lands at 2054,705
+      -> standing at x 1994-2102, y 705
+  12. jump (held 21 ticks), holding right, double jump at tick 15, from 1994,705; lands at 2228,641   [djump]
+      -> standing at x 2186-2454, y 641
+  13. walk off the edge, holding right once in the air, turn into the Morph Ball where the body meets a wall or ceiling, from 2186,641; lands at 2484,689   [samus:2]
+      -> as the Morph Ball at x 2442-2742, y 689
+  14. turn back from the Morph Ball at 2615,689
+      -> standing at x 2615-2697, y 689
+  15. standing at 2648,689, touches it
+      -> loc 10 23
+how in 2512,1296 -> loc 9 87: djump,samus:6
+     coming in at 2512,1296
+   1. coming in: holding nothing, from 2512,1296; lands at 2512,1297
+      -> standing at x 2487-2537, y 1297
+   2. jump (held 6 ticks), holding left, from 2487,1297; lands at 2345,1313
+      -> standing at x 2010-2377, y 1313
+   3. walk off the edge, holding left once in the air, from 2010,1313; lands at 1966,1329
+      -> standing at x 1383-2009, y 1329
+   4. jump (held 6 ticks), holding left, from 1383,1329; lands at 1324,1281
+      -> standing at x 1063-1382, y 1281
+   5. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, double jump at tick 18, from 1168,1281; lands at 1351,1089   [djump]
+      -> standing at x 1242-1478, y 1089
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 1328,1089; lands at 1569,1025   [djump]
+      -> standing at x 1562-1702, y 1025
+   7. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 1562,1025; lands at 1638,961
+      -> standing at x 1594-1670, y 961
+   8. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1594,961; lands at 1630,897
+      -> standing at x 1594-1670, y 897
+   9. jump (held 21 ticks), holding right, double jump at tick 15, from 1594,897; lands at 1828,833   [djump]
+      -> standing at x 1786-1926, y 833
+  10. jump (held 21 ticks), holding right, double jump at tick 15, from 1786,833; lands at 2020,769   [djump]
+      -> standing at x 1978-2118, y 769
+  11. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 1978,769; lands at 2054,705
+      -> standing at x 1994-2102, y 705
+  12. jump (held 21 ticks), holding right, double jump at tick 15, from 1994,705; lands at 2228,641   [djump]
+      -> standing at x 2186-2454, y 641
+  13. jump (held 21 ticks), holding right, double jump at tick 15, from 2432,641; lands at 2629,545   [djump]
+      -> standing at x 2618-2662, y 545
+  14. jump (held 21 ticks), holding right, double jump at tick 15, from 2654,545; lands at 2851,449   [djump]
+      -> standing at x 2842-3046, y 449
+  15. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 2864,449; lands at 2834,353   [djump]
+      -> standing at x 2778-2854, y 353
+  16. jump (held 21 ticks), holding left, double jump at tick 10, from 2778,353; lands at 2625,353   [djump]
+      -> standing at x 2476-2644, y 353-355
+  17. jump (held 21 ticks), holding left, double jump at tick 15, from 2476,353; lands at 2279,256   [djump]
+      -> standing at x 2218-2294, y 256-258
+  18. jump (held 21 ticks), holding left, double jump at tick 15, from 2218,256; lands at 2141,161   [djump]
+      -> standing at x 1962-2198, y 161
+  19. jump (held 6 ticks), holding left, from 1962,161; lands at 1845,129
+      -> standing at x 1770-1862, y 129
+  20. jump (held 2 ticks), holding left, from 1770,129; lands at 1668,129
+      -> standing at x 1594-1686, y 129
+  21. jump (held 21 ticks), holding left, turn into the Morph Ball at tick 8, from 1594,129; lands at 1448,129   [samus:2]
+      -> as the Morph Ball at x 1418-1510, y 129
+  22. as the Morph Ball: roll off the edge, holding left, then nothing after 1 ticks in the air, from 1418,129; lands at 1381,449
+      -> as the Morph Ball at x 1354-1385, y 449
+  23. as the Morph Ball: roll off the edge, holding right once in the air, from 1354,449, through the Metroid block at 1392,432; touches it on the way   [samus:6]
+      -> loc 9 87
+how in 144,160 -> out 72,1312: -
+     coming in at 144,160
+   1. coming in: holding nothing, from 144,160; lands at 144,161
+      -> standing at x 0-294, y 161
+   2. running right, jump (held 21 ticks), holding right, then nothing after 2 ticks, from 256,161; lands at 303,737
+      -> standing at x 0-310, y 737
+   3. walk off the edge, holding right once in the air, from 32,737; lands at 719,1345
+      -> standing at x 0-982, y 1345
+   4. standing at 70,1345, presses up at it
+      -> out 72,1312
+how in 144,160 -> out 2504,1264: -
+     coming in at 144,160
+   1. coming in: holding nothing, from 144,160; lands at 144,161
+      -> standing at x 0-294, y 161
+   2. walk off the edge, holding right once in the air, from 0,161; lands at 454,337
+      -> standing at x 442-486, y 337
+   3. walk off the edge, holding left, then nothing after 1 ticks in the air, from 442,337; lands at 408,737
+      -> standing at x 394-1302, y 737
+   4. running right, jump (held 21 ticks), holding right, from 1294,737; lands at 1602,897
+      -> standing at x 1594-1670, y 897
+   5. running right, jump (held 21 ticks), holding right, from 1648,897; lands at 1802,833
+      -> standing at x 1786-1926, y 833
+   6. running right, jump (held 21 ticks), holding right, from 1840,833; lands at 1994,769
+      -> standing at x 1978-2118, y 769
+   7. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 1978,769; lands at 2054,705
+      -> standing at x 1994-2102, y 705
+   8. jump (held 21 ticks), holding left, from 1994,705; lands at 1918,641
+      -> standing at x 1722-1990, y 641
+   9. running right, jump (held 21 ticks), holding right, from 1904,641; touches it on the way
+      -> out 2504,1264
+how in 144,160 -> out 136,128: -
+     coming in at 144,160
+   1. coming in: holding nothing, from 144,160; lands at 144,161
+      -> standing at x 0-294, y 161
+   2. standing at 126,161, presses up at it
+      -> out 136,128
+how in 144,160 -> out 2872,1312: -
+     coming in at 144,160
+   1. coming in: holding nothing, from 144,160; lands at 144,161
+      -> standing at x 0-294, y 161
+   2. walk off the edge, holding right once in the air, from 0,161; lands at 454,337
+      -> standing at x 442-486, y 337
+   3. walk off the edge, holding left, then nothing after 1 ticks in the air, from 442,337; lands at 408,737
+      -> standing at x 394-1302, y 737
+   4. running right, jump (held 21 ticks), holding right, from 1294,737; lands at 1602,897
+      -> standing at x 1594-1670, y 897
+   5. jump (held 21 ticks), holding right, from 1594,897; lands at 2033,1313
+      -> standing at x 2010-2377, y 1313
+   6. running right, jump (held 21 ticks), holding right, from 2192,1313; lands at 2390,1297
+      -> standing at x 2378-2457, y 1297
+   7. jump (held 21 ticks), holding right, from 2400,1297; lands at 2583,1297
+      -> standing at x 2567-2646, y 1297
+   8. running right, jump (held 21 ticks), holding right, from 2638,1297; touches it on the way
+      -> out 2872,1312
+how in 144,160 -> out 976,1392: -
+     coming in at 144,160
+   1. coming in: holding nothing, from 144,160; lands at 144,161
+      -> standing at x 0-294, y 161
+   2. running right, jump (held 21 ticks), holding right, then nothing after 2 ticks, from 256,161; lands at 303,737
+      -> standing at x 0-310, y 737
+   3. walk off the edge, holding right once in the air, from 32,737; lands at 719,1345
+      -> standing at x 0-982, y 1345
+   4. running right, walk off the edge, holding right once in the air, from 336,1345; touches it on the way
+      -> out 976,1392
+how in 144,160 -> out 2872,144: -
+     coming in at 144,160
+   1. coming in: holding nothing, from 144,160; lands at 144,161
+      -> standing at x 0-294, y 161
+   2. walk off the edge, holding right once in the air, from 0,161; lands at 454,337
+      -> standing at x 442-486, y 337
+   3. walk off the edge, holding left, then nothing after 1 ticks in the air, from 442,337; lands at 408,737
+      -> standing at x 394-1302, y 737
+   4. running right, jump (held 21 ticks), holding right, from 1294,737; lands at 1602,897
+      -> standing at x 1594-1670, y 897
+   5. running right, jump (held 21 ticks), holding right, from 1648,897; lands at 1802,833
+      -> standing at x 1786-1926, y 833
+   6. running right, jump (held 21 ticks), holding right, from 1840,833; lands at 1994,769
+      -> standing at x 1978-2118, y 769
+   7. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 1978,769; lands at 2054,705
+      -> standing at x 1994-2102, y 705
+   8. running right, jump (held 21 ticks), holding right, from 2048,705; lands at 2202,641
+      -> standing at x 2186-2454, y 641
+   9. running right, jump (held 21 ticks), holding right, from 2432,641; lands at 2586,577
+      -> standing at x 2570-2617, y 577
+  10. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 2570,577; lands at 2643,545
+      -> standing at x 2618-2662, y 545
+  11. running right, jump (held 21 ticks), holding right, from 2654,545; lands at 2845,513
+      -> standing at x 2826-3072, y 513
+  12. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 2826,513; lands at 2862,449
+      -> standing at x 2842-3046, y 449
+  13. jump (held 21 ticks), holding right, from 2842,449; lands at 2973,385
+      -> standing at x 2906-2982, y 385
+  14. jump (held 21 ticks), holding left, from 2906,385; lands at 2738,353
+      -> standing at x 2682-2758, y 353
+  15. jump (held 2 ticks), holding left, from 2682,353; lands at 2580,353
+      -> standing at x 2476-2644, y 353-355
+  16. jump (held 2 ticks), holding left, from 2476,353; lands at 2412,321
+      -> standing at x 2314-2454, y 321
+  17. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 2314,321; lands at 2238,256
+      -> standing at x 2218-2294, y 256-258
+  18. jump (held 21 ticks), holding nothing, then right after 14 ticks, from 2218,256; lands at 2255,195
+      -> standing at x 2218-2294, y 195-197
+  19. running right, jump (held 21 ticks), holding right, from 2294,195; lands at 2514,209
+      -> standing at x 2506-2537, y 209
+  20. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 2506,209; lands at 2579,177
+      -> standing at x 2570-3072, y 177
+  21. standing at 2870,177, presses up at it
+      -> out 2872,144
+how in 144,160 -> loc 1 7: djump
+     coming in at 144,160
+   1. coming in: holding nothing, from 144,160; lands at 144,161
+      -> standing at x 0-294, y 161
+   2. running right, jump (held 21 ticks), holding right, then nothing after 2 ticks, from 272,161; lands at 319,1009
+      -> standing at x 42-470, y 1009
+   3. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 160,1009; lands at 130,913   [djump]
+      -> standing at x 103-150, y 913
+   4. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 111,913; lands at 30,913
+      -> standing at x 26-73, y 913
+   5. walk off the edge, holding left, then right after 2 ticks in the air, double jump at tick 3, from 26,913; touches it on the way   [djump]
+      -> loc 1 7
+how in 144,160 -> loc 1 7: adash
+     coming in at 144,160
+   1. coming in: holding nothing, from 144,160; lands at 144,161
+      -> standing at x 0-294, y 161
+   2. running right, jump (held 21 ticks), holding right, then nothing after 2 ticks, from 256,161; lands at 303,737
+      -> standing at x 0-310, y 737
+   3. walk off the edge, holding right, then left after 2 ticks in the air, air dash back left (Jerry) at tick 6 or once there's room ahead, from 0,737; lands at 105,913   [adash]
+      -> standing at x 103-150, y 913
+   4. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 111,913; lands at 30,913
+      -> standing at x 26-73, y 913
+   5. jump (held 21 ticks), holding nothing, then right after 14 ticks, from 26,913; touches it on the way
+      -> loc 1 7
+how in 144,160 -> loc 2 6: -
+     coming in at 144,160
+   1. coming in: holding nothing, from 144,160; lands at 144,161
+      -> standing at x 0-294, y 161
+   2. walk off the edge, holding right once in the air, from 0,161; lands at 454,337
+      -> standing at x 442-486, y 337
+   3. walk off the edge, holding left, then nothing after 1 ticks in the air, from 442,337; lands at 408,737
+      -> standing at x 394-1302, y 737
+   4. running right, jump (held 21 ticks), holding right, from 1294,737; lands at 1602,897
+      -> standing at x 1594-1670, y 897
+   5. running right, jump (held 21 ticks), holding right, from 1648,897; lands at 1802,833
+      -> standing at x 1786-1926, y 833
+   6. running right, jump (held 21 ticks), holding right, from 1840,833; lands at 1994,769
+      -> standing at x 1978-2118, y 769
+   7. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 1978,769; lands at 2054,705
+      -> standing at x 1994-2102, y 705
+   8. running right, jump (held 21 ticks), holding right, from 2048,705; lands at 2202,641
+      -> standing at x 2186-2454, y 641
+   9. running right, jump (held 21 ticks), holding right, from 2432,641; lands at 2586,577
+      -> standing at x 2570-2617, y 577
+  10. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 2570,577; lands at 2643,545
+      -> standing at x 2618-2662, y 545
+  11. running right, jump (held 21 ticks), holding right, from 2654,545; lands at 2845,513
+      -> standing at x 2826-3072, y 513
+  12. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 2826,513; lands at 2862,449
+      -> standing at x 2842-3046, y 449
+  13. jump (held 21 ticks), holding right, from 2842,449; lands at 2973,385
+      -> standing at x 2906-2982, y 385
+  14. jump (held 21 ticks), holding left, from 2906,385; lands at 2738,353
+      -> standing at x 2682-2758, y 353
+  15. jump (held 2 ticks), holding left, from 2682,353; lands at 2580,353
+      -> standing at x 2476-2644, y 353-355
+  16. jump (held 2 ticks), holding left, from 2476,353; lands at 2412,321
+      -> standing at x 2314-2454, y 321
+  17. jump (held 2 ticks), holding left, from 2314,321; lands at 2256,287
+      -> standing at x 2218-2294, y 287-289
+  18. jump (held 21 ticks), holding nothing, then right after 14 ticks, from 2218,287; lands at 2255,226
+      -> standing at x 2218-2294, y 226-228
+  19. jump (held 21 ticks), holding left, from 2218,226; lands at 2133,161
+      -> standing at x 1962-2198, y 161
+  20. jump (held 6 ticks), holding left, from 1962,161; lands at 1845,129
+      -> standing at x 1770-1862, y 129
+  21. jump (held 2 ticks), holding left, from 1770,129; lands at 1668,129
+      -> standing at x 1594-1686, y 129
+  22. walk off the edge, holding right, then left after 1 ticks in the air, from 1594,129; touches it on the way
+      -> loc 2 6
+how in 144,160 -> loc 3 1: -
+     coming in at 144,160
+   1. coming in: holding nothing, from 144,160; lands at 144,161
+      -> standing at x 0-294, y 161
+   2. walk off the edge, holding right once in the air, from 0,161; lands at 454,337
+      -> standing at x 442-486, y 337
+   3. walk off the edge, holding left, then nothing after 1 ticks in the air, from 442,337; lands at 408,737
+      -> standing at x 394-1302, y 737
+   4. running right, jump (held 21 ticks), holding right, from 1294,737; lands at 1602,897
+      -> standing at x 1594-1670, y 897
+   5. running right, jump (held 21 ticks), holding right, from 1648,897; lands at 1802,833
+      -> standing at x 1786-1926, y 833
+   6. running right, jump (held 21 ticks), holding right, from 1840,833; lands at 1994,769
+      -> standing at x 1978-2118, y 769
+   7. running right, jump (held 6 ticks), holding right, from 2096,769; lands at 2353,929
+      -> standing at x 2346-2390, y 929
+   8. jump (held 21 ticks), holding right, from 2346,929; lands at 2529,929
+      -> standing at x 2490-2534, y 929
+   9. jump (held 21 ticks), holding right, from 2490,929; lands at 2702,977
+      -> standing at x 2666-2809, y 977
+  10. running right, jump (held 21 ticks), holding right, from 2736,977; lands at 2890,913
+      -> standing at x 2874-2902, y 913
+  11. jump (held 21 ticks), holding right, from 2880,913; touches it on the way
+      -> loc 3 1
+how in 144,160 -> loc 10 2: -
+     coming in at 144,160
+   1. coming in: holding nothing, from 144,160; lands at 144,161
+      -> standing at x 0-294, y 161
+   2. walk off the edge, holding right once in the air, from 0,161; lands at 454,337
+      -> standing at x 442-486, y 337
+   3. walk off the edge, holding left, then nothing after 1 ticks in the air, from 442,337; lands at 408,737
+      -> standing at x 394-1302, y 737
+   4. running right, jump (held 21 ticks), holding right, from 1200,737; lands at 1464,833
+      -> standing at x 1450-1526, y 833
+   5. running right, jump (held 21 ticks), holding right, from 1488,833; touches it on the way
+      -> loc 10 2
+how in 144,160 -> loc 10 23: samus:2
+     coming in at 144,160
+   1. coming in: holding nothing, from 144,160; lands at 144,161
+      -> standing at x 0-294, y 161
+   2. walk off the edge, holding right once in the air, from 0,161; lands at 454,337
+      -> standing at x 442-486, y 337
+   3. walk off the edge, holding left, then nothing after 1 ticks in the air, from 442,337; lands at 408,737
+      -> standing at x 394-1302, y 737
+   4. running right, jump (held 21 ticks), holding right, from 1294,737; lands at 1602,897
+      -> standing at x 1594-1670, y 897
+   5. running right, jump (held 21 ticks), holding right, from 1648,897; lands at 1802,833
+      -> standing at x 1786-1926, y 833
+   6. running right, jump (held 21 ticks), holding right, from 1840,833; lands at 1994,769
+      -> standing at x 1978-2118, y 769
+   7. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 1978,769; lands at 2054,705
+      -> standing at x 1994-2102, y 705
+   8. running right, jump (held 21 ticks), holding right, from 2048,705; lands at 2202,641
+      -> standing at x 2186-2454, y 641
+   9. walk off the edge, holding right once in the air, turn into the Morph Ball where the body meets a wall or ceiling, from 2186,641; lands at 2484,689   [samus:2]
+      -> as the Morph Ball at x 2442-2742, y 689
+  10. turn back from the Morph Ball at 2615,689
+      -> standing at x 2615-2697, y 689
+  11. standing at 2648,689, touches it
+      -> loc 10 23
+how in 144,160 -> loc 9 87: samus:6
+     coming in at 144,160
+   1. coming in: holding nothing, from 144,160; lands at 144,161
+      -> standing at x 0-294, y 161
+   2. walk off the edge, holding right once in the air, from 0,161; lands at 454,337
+      -> standing at x 442-486, y 337
+   3. walk off the edge, holding left, then nothing after 1 ticks in the air, from 442,337; lands at 408,737
+      -> standing at x 394-1302, y 737
+   4. running right, jump (held 21 ticks), holding right, from 1294,737; lands at 1602,897
+      -> standing at x 1594-1670, y 897
+   5. running right, jump (held 21 ticks), holding right, from 1648,897; lands at 1802,833
+      -> standing at x 1786-1926, y 833
+   6. running right, jump (held 21 ticks), holding right, from 1840,833; lands at 1994,769
+      -> standing at x 1978-2118, y 769
+   7. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 1978,769; lands at 2054,705
+      -> standing at x 1994-2102, y 705
+   8. running right, jump (held 21 ticks), holding right, from 2048,705; lands at 2202,641
+      -> standing at x 2186-2454, y 641
+   9. running right, jump (held 21 ticks), holding right, from 2432,641; lands at 2586,577
+      -> standing at x 2570-2617, y 577
+  10. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 2570,577; lands at 2643,545
+      -> standing at x 2618-2662, y 545
+  11. running right, jump (held 21 ticks), holding right, from 2654,545; lands at 2845,513
+      -> standing at x 2826-3072, y 513
+  12. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 2826,513; lands at 2862,449
+      -> standing at x 2842-3046, y 449
+  13. jump (held 21 ticks), holding right, from 2842,449; lands at 2973,385
+      -> standing at x 2906-2982, y 385
+  14. jump (held 21 ticks), holding left, from 2906,385; lands at 2738,353
+      -> standing at x 2682-2758, y 353
+  15. jump (held 2 ticks), holding left, from 2682,353; lands at 2580,353
+      -> standing at x 2476-2644, y 353-355
+  16. jump (held 2 ticks), holding left, from 2476,353; lands at 2412,321
+      -> standing at x 2314-2454, y 321
+  17. jump (held 2 ticks), holding left, from 2314,321; lands at 2256,287
+      -> standing at x 2218-2294, y 287-289
+  18. jump (held 21 ticks), holding nothing, then right after 14 ticks, from 2218,287; lands at 2255,226
+      -> standing at x 2218-2294, y 226-228
+  19. jump (held 21 ticks), holding left, from 2218,226; lands at 2133,161
+      -> standing at x 1962-2198, y 161
+  20. jump (held 6 ticks), holding left, from 1962,161; lands at 1845,129
+      -> standing at x 1770-1862, y 129
+  21. jump (held 2 ticks), holding left, from 1770,129; lands at 1668,129
+      -> standing at x 1594-1686, y 129
+  22. jump (held 21 ticks), holding left, turn into the Morph Ball at tick 8, from 1594,129; lands at 1448,129   [samus:2]
+      -> as the Morph Ball at x 1418-1510, y 129
+  23. as the Morph Ball: roll off the edge, holding left, then nothing after 1 ticks in the air, from 1418,129; lands at 1381,449
+      -> as the Morph Ball at x 1354-1385, y 449
+  24. as the Morph Ball: roll off the edge, holding right once in the air, from 1354,449, through the Metroid block at 1392,432; touches it on the way   [samus:6]
+      -> loc 9 87
+how in 2880,1344 -> out 72,1312: -
+     coming in at 2880,1344
+   1. coming in: holding nothing, from 2880,1344; lands at 2880,1345
+      -> standing at x 2647-3072, y 1345
+   2. jump (held 21 ticks), holding left, from 2647,1345; lands at 2552,1281
+      -> standing at x 2538-2566, y 1281
+   3. running left, jump (held 6 ticks), holding left, from 2538,1281; lands at 2354,1313
+      -> standing at x 2010-2377, y 1313
+   4. walk off the edge, holding left once in the air, from 2010,1313; lands at 1966,1329
+      -> standing at x 1383-2009, y 1329
+   5. jump (held 6 ticks), holding left, from 1383,1329; lands at 1324,1281
+      -> standing at x 1063-1382, y 1281
+   6. jump (held 2 ticks), holding left, from 1063,1281; lands at 1020,1249
+      -> standing at x 778-1062, y 1249
+   7. walk off the edge, holding left, then right after 1 ticks in the air, from 778,1249; lands at 814,1345
+      -> standing at x 0-982, y 1345
+   8. standing at 70,1345, presses up at it
+      -> out 72,1312
+how in 2880,1344 -> out 2504,1264: -
+     coming in at 2880,1344
+   1. coming in: holding nothing, from 2880,1344; lands at 2880,1345
+      -> standing at x 2647-3072, y 1345
+   2. jump (held 21 ticks), holding left, from 2647,1345; lands at 2552,1281
+      -> standing at x 2538-2566, y 1281
+   3. running left, jump (held 6 ticks), holding left, from 2538,1281; lands at 2354,1313
+      -> standing at x 2010-2377, y 1313
+   4. running right, jump (held 21 ticks), holding right, from 2304,1313; touches it on the way
+      -> out 2504,1264
+how in 2880,1344 -> out 136,128: djump
+     coming in at 2880,1344
+   1. coming in: holding nothing, from 2880,1344; lands at 2880,1345
+      -> standing at x 2647-3072, y 1345
+   2. jump (held 21 ticks), holding left, from 2647,1345; lands at 2552,1281
+      -> standing at x 2538-2566, y 1281
+   3. running left, jump (held 6 ticks), holding left, from 2538,1281; lands at 2354,1313
+      -> standing at x 2010-2377, y 1313
+   4. walk off the edge, holding left once in the air, from 2010,1313; lands at 1966,1329
+      -> standing at x 1383-2009, y 1329
+   5. jump (held 6 ticks), holding left, from 1383,1329; lands at 1324,1281
+      -> standing at x 1063-1382, y 1281
+   6. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, double jump at tick 18, from 1168,1281; lands at 1351,1089   [djump]
+      -> standing at x 1242-1478, y 1089
+   7. jump (held 21 ticks), holding right, double jump at tick 15, from 1328,1089; lands at 1569,1025   [djump]
+      -> standing at x 1562-1702, y 1025
+   8. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 1562,1025; lands at 1638,961
+      -> standing at x 1594-1670, y 961
+   9. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1594,961; lands at 1630,897
+      -> standing at x 1594-1670, y 897
+  10. jump (held 21 ticks), holding left, from 1594,897; lands at 1463,833
+      -> standing at x 1450-1526, y 833
+  11. jump (held 21 ticks), holding left, double jump at tick 15, from 1450,833; lands at 1253,737   [djump]
+      -> standing at x 394-1302, y 737
+  12. jump (held 21 ticks), holding right, double jump at tick 15, from 560,737; lands at 801,673   [djump]
+      -> standing at x 794-870, y 673
+  13. jump (held 21 ticks), holding right, from 794,673; lands at 905,609
+      -> standing at x 890-905, y 609
+  14. jump (held 21 ticks), holding left, double jump at tick 15, from 890,609; lands at 693,513   [djump]
+      -> standing at x 410-742, y 513
+  15. running left, jump (held 21 ticks), holding left, from 410,513; lands at 256,449
+      -> standing at x 202-278, y 449
+  16. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 202,449; lands at 238,385
+      -> standing at x 202-278, y 385
+  17. jump (held 21 ticks), holding right, double jump at tick 10, from 202,385; lands at 711,401   [djump]
+      -> standing at x 538-713, y 401
+  18. jump (held 21 ticks), holding left, double jump at tick 10, from 538,401; lands at 208,161   [djump]
+      -> standing at x 0-294, y 161
+  19. standing at 126,161, presses up at it
+      -> out 136,128
+how in 2880,1344 -> out 2872,1312: -
+     coming in at 2880,1344
+   1. coming in: holding nothing, from 2880,1344; lands at 2880,1345
+      -> standing at x 2647-3072, y 1345
+   2. jump (held 6 ticks), holding left, from 2647,1345; lands at 2588,1297
+      -> standing at x 2567-2646, y 1297
+   3. running right, jump (held 21 ticks), holding right, from 2638,1297; touches it on the way
+      -> out 2872,1312
+how in 2880,1344 -> out 976,1392: -
+     coming in at 2880,1344
+   1. coming in: holding nothing, from 2880,1344; lands at 2880,1345
+      -> standing at x 2647-3072, y 1345
+   2. jump (held 21 ticks), holding left, from 2647,1345; lands at 2552,1281
+      -> standing at x 2538-2566, y 1281
+   3. running left, jump (held 6 ticks), holding left, from 2538,1281; lands at 2354,1313
+      -> standing at x 2010-2377, y 1313
+   4. walk off the edge, holding left once in the air, from 2010,1313; lands at 1966,1329
+      -> standing at x 1383-2009, y 1329
+   5. jump (held 6 ticks), holding left, from 1383,1329; lands at 1324,1281
+      -> standing at x 1063-1382, y 1281
+   6. jump (held 2 ticks), holding left, from 1063,1281; lands at 1020,1249
+      -> standing at x 778-1062, y 1249
+   7. walk off the edge, holding left, then right after 1 ticks in the air, from 778,1249; lands at 814,1345
+      -> standing at x 0-982, y 1345
+   8. running right, walk off the edge, holding right once in the air, from 336,1345; touches it on the way
+      -> out 976,1392
+how in 2880,1344 -> out 2872,144: djump
+     coming in at 2880,1344
+   1. coming in: holding nothing, from 2880,1344; lands at 2880,1345
+      -> standing at x 2647-3072, y 1345
+   2. jump (held 21 ticks), holding left, from 2647,1345; lands at 2552,1281
+      -> standing at x 2538-2566, y 1281
+   3. running left, jump (held 6 ticks), holding left, from 2538,1281; lands at 2354,1313
+      -> standing at x 2010-2377, y 1313
+   4. walk off the edge, holding left once in the air, from 2010,1313; lands at 1966,1329
+      -> standing at x 1383-2009, y 1329
+   5. jump (held 6 ticks), holding left, from 1383,1329; lands at 1324,1281
+      -> standing at x 1063-1382, y 1281
+   6. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, double jump at tick 18, from 1168,1281; lands at 1351,1089   [djump]
+      -> standing at x 1242-1478, y 1089
+   7. jump (held 21 ticks), holding right, double jump at tick 15, from 1328,1089; lands at 1569,1025   [djump]
+      -> standing at x 1562-1702, y 1025
+   8. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 1562,1025; lands at 1638,961
+      -> standing at x 1594-1670, y 961
+   9. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1594,961; lands at 1630,897
+      -> standing at x 1594-1670, y 897
+  10. jump (held 21 ticks), holding right, double jump at tick 15, from 1594,897; lands at 1828,833   [djump]
+      -> standing at x 1786-1926, y 833
+  11. jump (held 21 ticks), holding right, double jump at tick 15, from 1786,833; lands at 2020,769   [djump]
+      -> standing at x 1978-2118, y 769
+  12. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 1978,769; lands at 2054,705
+      -> standing at x 1994-2102, y 705
+  13. jump (held 21 ticks), holding right, double jump at tick 15, from 1994,705; lands at 2228,641   [djump]
+      -> standing at x 2186-2454, y 641
+  14. jump (held 21 ticks), holding right, double jump at tick 15, from 2432,641; lands at 2629,545   [djump]
+      -> standing at x 2618-2662, y 545
+  15. jump (held 21 ticks), holding right, double jump at tick 15, from 2654,545; lands at 2851,449   [djump]
+      -> standing at x 2842-3046, y 449
+  16. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 2864,449; lands at 2834,353   [djump]
+      -> standing at x 2778-2854, y 353
+  17. jump (held 21 ticks), holding left, double jump at tick 10, from 2778,353; lands at 2625,353   [djump]
+      -> standing at x 2476-2644, y 353-355
+  18. jump (held 21 ticks), holding left, double jump at tick 10, from 2476,353; lands at 2286,287   [djump]
+      -> standing at x 2218-2294, y 287-289
+  19. jump (held 21 ticks), holding right, double jump at tick 15, from 2288,287; lands at 2515,209   [djump]
+      -> standing at x 2506-2537, y 209
+  20. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 2506,209; lands at 2579,177
+      -> standing at x 2570-3072, y 177
+  21. standing at 2870,177, presses up at it
+      -> out 2872,144
+how in 2880,1344 -> loc 1 7: djump
+     coming in at 2880,1344
+   1. coming in: holding nothing, from 2880,1344; lands at 2880,1345
+      -> standing at x 2647-3072, y 1345
+   2. jump (held 21 ticks), holding left, from 2647,1345; lands at 2552,1281
+      -> standing at x 2538-2566, y 1281
+   3. running left, jump (held 6 ticks), holding left, from 2538,1281; lands at 2354,1313
+      -> standing at x 2010-2377, y 1313
+   4. walk off the edge, holding left once in the air, from 2010,1313; lands at 1966,1329
+      -> standing at x 1383-2009, y 1329
+   5. jump (held 6 ticks), holding left, from 1383,1329; lands at 1324,1281
+      -> standing at x 1063-1382, y 1281
+   6. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, double jump at tick 18, from 1168,1281; lands at 985,1089   [djump]
+      -> standing at x 903-1094, y 1089
+   7. jump (held 21 ticks), holding left, from 903,1089; lands at 830,1025
+      -> standing at x 682-902, y 1025
+   8. jump (held 21 ticks), holding left, double jump at tick 10, from 682,1025; lands at 455,1009   [djump]
+      -> standing at x 42-470, y 1009
+   9. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 160,1009; lands at 130,913   [djump]
+      -> standing at x 103-150, y 913
+  10. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 111,913; lands at 30,913
+      -> standing at x 26-73, y 913
+  11. walk off the edge, holding left, then right after 2 ticks in the air, double jump at tick 3, from 26,913; touches it on the way   [djump]
+      -> loc 1 7
+how in 2880,1344 -> loc 2 6: djump
+     coming in at 2880,1344
+   1. coming in: holding nothing, from 2880,1344; lands at 2880,1345
+      -> standing at x 2647-3072, y 1345
+   2. jump (held 21 ticks), holding left, from 2647,1345; lands at 2552,1281
+      -> standing at x 2538-2566, y 1281
+   3. running left, jump (held 6 ticks), holding left, from 2538,1281; lands at 2354,1313
+      -> standing at x 2010-2377, y 1313
+   4. walk off the edge, holding left once in the air, from 2010,1313; lands at 1966,1329
+      -> standing at x 1383-2009, y 1329
+   5. jump (held 6 ticks), holding left, from 1383,1329; lands at 1324,1281
+      -> standing at x 1063-1382, y 1281
+   6. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, double jump at tick 18, from 1168,1281; lands at 1351,1089   [djump]
+      -> standing at x 1242-1478, y 1089
+   7. jump (held 21 ticks), holding right, double jump at tick 15, from 1328,1089; lands at 1569,1025   [djump]
+      -> standing at x 1562-1702, y 1025
+   8. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 1562,1025; lands at 1638,961
+      -> standing at x 1594-1670, y 961
+   9. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1594,961; lands at 1630,897
+      -> standing at x 1594-1670, y 897
+  10. jump (held 21 ticks), holding right, double jump at tick 15, from 1594,897; lands at 1828,833   [djump]
+      -> standing at x 1786-1926, y 833
+  11. jump (held 21 ticks), holding right, double jump at tick 15, from 1786,833; lands at 2020,769   [djump]
+      -> standing at x 1978-2118, y 769
+  12. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 1978,769; lands at 2054,705
+      -> standing at x 1994-2102, y 705
+  13. jump (held 21 ticks), holding right, double jump at tick 15, from 1994,705; lands at 2228,641   [djump]
+      -> standing at x 2186-2454, y 641
+  14. jump (held 21 ticks), holding right, double jump at tick 15, from 2432,641; lands at 2629,545   [djump]
+      -> standing at x 2618-2662, y 545
+  15. jump (held 21 ticks), holding right, double jump at tick 15, from 2654,545; lands at 2851,449   [djump]
+      -> standing at x 2842-3046, y 449
+  16. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 2864,449; lands at 2834,353   [djump]
+      -> standing at x 2778-2854, y 353
+  17. jump (held 21 ticks), holding left, double jump at tick 10, from 2778,353; lands at 2625,353   [djump]
+      -> standing at x 2476-2644, y 353-355
+  18. jump (held 21 ticks), holding left, double jump at tick 15, from 2476,353; lands at 2279,256   [djump]
+      -> standing at x 2218-2294, y 256-258
+  19. jump (held 21 ticks), holding left, double jump at tick 15, from 2218,256; lands at 2141,161   [djump]
+      -> standing at x 1962-2198, y 161
+  20. jump (held 6 ticks), holding left, from 1962,161; lands at 1845,129
+      -> standing at x 1770-1862, y 129
+  21. jump (held 2 ticks), holding left, from 1770,129; lands at 1668,129
+      -> standing at x 1594-1686, y 129
+  22. walk off the edge, holding right, then left after 1 ticks in the air, from 1594,129; touches it on the way
+      -> loc 2 6
+how in 2880,1344 -> loc 3 1: djump
+     coming in at 2880,1344
+   1. coming in: holding nothing, from 2880,1344; lands at 2880,1345
+      -> standing at x 2647-3072, y 1345
+   2. jump (held 21 ticks), holding left, from 2647,1345; lands at 2552,1281
+      -> standing at x 2538-2566, y 1281
+   3. running left, jump (held 6 ticks), holding left, from 2538,1281; lands at 2354,1313
+      -> standing at x 2010-2377, y 1313
+   4. walk off the edge, holding left once in the air, from 2010,1313; lands at 1966,1329
+      -> standing at x 1383-2009, y 1329
+   5. jump (held 6 ticks), holding left, from 1383,1329; lands at 1324,1281
+      -> standing at x 1063-1382, y 1281
+   6. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, double jump at tick 18, from 1168,1281; lands at 1351,1089   [djump]
+      -> standing at x 1242-1478, y 1089
+   7. jump (held 21 ticks), holding right, double jump at tick 15, from 1328,1089; lands at 1569,1025   [djump]
+      -> standing at x 1562-1702, y 1025
+   8. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 1562,1025; lands at 1638,961
+      -> standing at x 1594-1670, y 961
+   9. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1594,961; lands at 1630,897
+      -> standing at x 1594-1670, y 897
+  10. jump (held 21 ticks), holding right, double jump at tick 15, from 1594,897; lands at 1828,833   [djump]
+      -> standing at x 1786-1926, y 833
+  11. jump (held 21 ticks), holding right, double jump at tick 15, from 1786,833; lands at 2020,769   [djump]
+      -> standing at x 1978-2118, y 769
+  12. walk off the edge, holding right once in the air, double jump at tick 2, from 1978,769; lands at 2381,929   [djump]
+      -> standing at x 2346-2390, y 929
+  13. jump (held 21 ticks), holding right, from 2346,929; lands at 2529,929
+      -> standing at x 2490-2534, y 929
+  14. jump (held 21 ticks), holding right, double jump at tick 15, from 2526,929; lands at 2819,945   [djump]
+      -> standing at x 2810-2854, y 945
+  15. jump (held 21 ticks), holding right, double jump at tick 15, from 2814,945; touches it on the way   [djump]
+      -> loc 3 1
+how in 2880,1344 -> loc 10 2: djump
+     coming in at 2880,1344
+   1. coming in: holding nothing, from 2880,1344; lands at 2880,1345
+      -> standing at x 2647-3072, y 1345
+   2. jump (held 21 ticks), holding left, from 2647,1345; lands at 2552,1281
+      -> standing at x 2538-2566, y 1281
+   3. running left, jump (held 6 ticks), holding left, from 2538,1281; lands at 2354,1313
+      -> standing at x 2010-2377, y 1313
+   4. walk off the edge, holding left once in the air, from 2010,1313; lands at 1966,1329
+      -> standing at x 1383-2009, y 1329
+   5. jump (held 6 ticks), holding left, from 1383,1329; lands at 1324,1281
+      -> standing at x 1063-1382, y 1281
+   6. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, double jump at tick 18, from 1168,1281; lands at 1351,1089   [djump]
+      -> standing at x 1242-1478, y 1089
+   7. jump (held 21 ticks), holding right, double jump at tick 15, from 1328,1089; lands at 1569,1025   [djump]
+      -> standing at x 1562-1702, y 1025
+   8. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 1562,1025; lands at 1638,961
+      -> standing at x 1594-1670, y 961
+   9. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1594,961; lands at 1630,897
+      -> standing at x 1594-1670, y 897
+  10. jump (held 21 ticks), holding left, from 1594,897; lands at 1463,833
+      -> standing at x 1450-1526, y 833
+  11. jump (held 21 ticks), holding right, double jump at tick 10, from 1450,833; touches it on the way   [djump]
+      -> loc 10 2
+how in 2880,1344 -> loc 10 2: adash
+     coming in at 2880,1344
+   1. coming in: holding nothing, from 2880,1344; lands at 2880,1345
+      -> standing at x 2647-3072, y 1345
+   2. jump (held 21 ticks), holding left, from 2647,1345; lands at 2552,1281
+      -> standing at x 2538-2566, y 1281
+   3. running left, jump (held 6 ticks), holding left, from 2538,1281; lands at 2354,1313
+      -> standing at x 2010-2377, y 1313
+   4. jump (held 21 ticks), holding left, air dash (Claire) at tick 16, from 2010,1313; lands at 1817,1233   [adash]
+      -> standing at x 1802-1846, y 1233
+   5. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 1802,1233; touches it on the way   [adash]
+      -> loc 10 2
+how in 2880,1344 -> loc 10 23: djump,samus:2
+     coming in at 2880,1344
+   1. coming in: holding nothing, from 2880,1344; lands at 2880,1345
+      -> standing at x 2647-3072, y 1345
+   2. jump (held 21 ticks), holding left, from 2647,1345; lands at 2552,1281
+      -> standing at x 2538-2566, y 1281
+   3. running left, jump (held 6 ticks), holding left, from 2538,1281; lands at 2354,1313
+      -> standing at x 2010-2377, y 1313
+   4. walk off the edge, holding left once in the air, from 2010,1313; lands at 1966,1329
+      -> standing at x 1383-2009, y 1329
+   5. jump (held 6 ticks), holding left, from 1383,1329; lands at 1324,1281
+      -> standing at x 1063-1382, y 1281
+   6. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, double jump at tick 18, from 1168,1281; lands at 1351,1089   [djump]
+      -> standing at x 1242-1478, y 1089
+   7. jump (held 21 ticks), holding right, double jump at tick 15, from 1328,1089; lands at 1569,1025   [djump]
+      -> standing at x 1562-1702, y 1025
+   8. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 1562,1025; lands at 1638,961
+      -> standing at x 1594-1670, y 961
+   9. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1594,961; lands at 1630,897
+      -> standing at x 1594-1670, y 897
+  10. jump (held 21 ticks), holding right, double jump at tick 15, from 1594,897; lands at 1828,833   [djump]
+      -> standing at x 1786-1926, y 833
+  11. jump (held 21 ticks), holding right, double jump at tick 15, from 1786,833; lands at 2020,769   [djump]
+      -> standing at x 1978-2118, y 769
+  12. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 1978,769; lands at 2054,705
+      -> standing at x 1994-2102, y 705
+  13. jump (held 21 ticks), holding right, double jump at tick 15, from 1994,705; lands at 2228,641   [djump]
+      -> standing at x 2186-2454, y 641
+  14. walk off the edge, holding right once in the air, turn into the Morph Ball where the body meets a wall or ceiling, from 2186,641; lands at 2484,689   [samus:2]
+      -> as the Morph Ball at x 2442-2742, y 689
+  15. turn back from the Morph Ball at 2615,689
+      -> standing at x 2615-2697, y 689
+  16. standing at 2648,689, touches it
+      -> loc 10 23
+how in 2880,1344 -> loc 9 87: djump,samus:6
+     coming in at 2880,1344
+   1. coming in: holding nothing, from 2880,1344; lands at 2880,1345
+      -> standing at x 2647-3072, y 1345
+   2. jump (held 21 ticks), holding left, from 2647,1345; lands at 2552,1281
+      -> standing at x 2538-2566, y 1281
+   3. running left, jump (held 6 ticks), holding left, from 2538,1281; lands at 2354,1313
+      -> standing at x 2010-2377, y 1313
+   4. walk off the edge, holding left once in the air, from 2010,1313; lands at 1966,1329
+      -> standing at x 1383-2009, y 1329
+   5. jump (held 6 ticks), holding left, from 1383,1329; lands at 1324,1281
+      -> standing at x 1063-1382, y 1281
+   6. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, double jump at tick 18, from 1168,1281; lands at 1351,1089   [djump]
+      -> standing at x 1242-1478, y 1089
+   7. jump (held 21 ticks), holding right, double jump at tick 15, from 1328,1089; lands at 1569,1025   [djump]
+      -> standing at x 1562-1702, y 1025
+   8. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 1562,1025; lands at 1638,961
+      -> standing at x 1594-1670, y 961
+   9. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1594,961; lands at 1630,897
+      -> standing at x 1594-1670, y 897
+  10. jump (held 21 ticks), holding right, double jump at tick 15, from 1594,897; lands at 1828,833   [djump]
+      -> standing at x 1786-1926, y 833
+  11. jump (held 21 ticks), holding right, double jump at tick 15, from 1786,833; lands at 2020,769   [djump]
+      -> standing at x 1978-2118, y 769
+  12. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 1978,769; lands at 2054,705
+      -> standing at x 1994-2102, y 705
+  13. jump (held 21 ticks), holding right, double jump at tick 15, from 1994,705; lands at 2228,641   [djump]
+      -> standing at x 2186-2454, y 641
+  14. jump (held 21 ticks), holding right, double jump at tick 15, from 2432,641; lands at 2629,545   [djump]
+      -> standing at x 2618-2662, y 545
+  15. jump (held 21 ticks), holding right, double jump at tick 15, from 2654,545; lands at 2851,449   [djump]
+      -> standing at x 2842-3046, y 449
+  16. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 2864,449; lands at 2834,353   [djump]
+      -> standing at x 2778-2854, y 353
+  17. jump (held 21 ticks), holding left, double jump at tick 10, from 2778,353; lands at 2625,353   [djump]
+      -> standing at x 2476-2644, y 353-355
+  18. jump (held 21 ticks), holding left, double jump at tick 15, from 2476,353; lands at 2279,256   [djump]
+      -> standing at x 2218-2294, y 256-258
+  19. jump (held 21 ticks), holding left, double jump at tick 15, from 2218,256; lands at 2141,161   [djump]
+      -> standing at x 1962-2198, y 161
+  20. jump (held 6 ticks), holding left, from 1962,161; lands at 1845,129
+      -> standing at x 1770-1862, y 129
+  21. jump (held 2 ticks), holding left, from 1770,129; lands at 1668,129
+      -> standing at x 1594-1686, y 129
+  22. jump (held 21 ticks), holding left, turn into the Morph Ball at tick 8, from 1594,129; lands at 1448,129   [samus:2]
+      -> as the Morph Ball at x 1418-1510, y 129
+  23. as the Morph Ball: roll off the edge, holding left, then nothing after 1 ticks in the air, from 1418,129; lands at 1381,449
+      -> as the Morph Ball at x 1354-1385, y 449
+  24. as the Morph Ball: roll off the edge, holding right once in the air, from 1354,449, through the Metroid block at 1392,432; touches it on the way   [samus:6]
+      -> loc 9 87
+how in 944,1344 -> out 72,1312: -
+     coming in at 944,1344
+   1. coming in: holding nothing, from 944,1344; lands at 944,1345
+      -> standing at x 0-982, y 1345
+   2. standing at 70,1345, presses up at it
+      -> out 72,1312
+how in 944,1344 -> out 2504,1264: -
+     coming in at 944,1344
+   1. coming in: holding nothing, from 944,1344; lands at 944,1345
+      -> standing at x 0-982, y 1345
+   2. running right, jump (held 21 ticks), holding right, from 560,1345; lands at 714,1281
+      -> standing at x 698-758, y 1281
+   3. jump (held 6 ticks), holding right, from 698,1281; lands at 815,1249
+      -> standing at x 778-1062, y 1249
+   4. walk off the edge, holding right once in the air, from 778,1249; lands at 1122,1281
+      -> standing at x 1063-1382, y 1281
+   5. walk off the edge, holding right once in the air, from 1063,1281; lands at 1458,1329
+      -> standing at x 1383-2009, y 1329
+   6. running right, jump (held 21 ticks), holding right, from 1824,1329; lands at 2022,1313
+      -> standing at x 2010-2377, y 1313
+   7. running right, jump (held 21 ticks), holding right, from 2304,1313; touches it on the way
+      -> out 2504,1264
+how in 944,1344 -> out 136,128: djump
+     coming in at 944,1344
+   1. coming in: holding nothing, from 944,1344; lands at 944,1345
+      -> standing at x 0-982, y 1345
+   2. running right, jump (held 21 ticks), holding right, from 560,1345; lands at 714,1281
+      -> standing at x 698-758, y 1281
+   3. jump (held 6 ticks), holding right, from 698,1281; lands at 815,1249
+      -> standing at x 778-1062, y 1249
+   4. walk off the edge, holding right once in the air, from 778,1249; lands at 1122,1281
+      -> standing at x 1063-1382, y 1281
+   5. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, double jump at tick 18, from 1168,1281; lands at 1351,1089   [djump]
+      -> standing at x 1242-1478, y 1089
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 1328,1089; lands at 1569,1025   [djump]
+      -> standing at x 1562-1702, y 1025
+   7. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 1562,1025; lands at 1638,961
+      -> standing at x 1594-1670, y 961
+   8. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1594,961; lands at 1630,897
+      -> standing at x 1594-1670, y 897
+   9. jump (held 21 ticks), holding left, from 1594,897; lands at 1463,833
+      -> standing at x 1450-1526, y 833
+  10. jump (held 21 ticks), holding left, double jump at tick 15, from 1450,833; lands at 1253,737   [djump]
+      -> standing at x 394-1302, y 737
+  11. jump (held 21 ticks), holding right, double jump at tick 15, from 560,737; lands at 801,673   [djump]
+      -> standing at x 794-870, y 673
+  12. jump (held 21 ticks), holding right, from 794,673; lands at 905,609
+      -> standing at x 890-905, y 609
+  13. jump (held 21 ticks), holding left, double jump at tick 15, from 890,609; lands at 693,513   [djump]
+      -> standing at x 410-742, y 513
+  14. running left, jump (held 21 ticks), holding left, from 410,513; lands at 256,449
+      -> standing at x 202-278, y 449
+  15. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 202,449; lands at 238,385
+      -> standing at x 202-278, y 385
+  16. jump (held 21 ticks), holding right, double jump at tick 10, from 202,385; lands at 711,401   [djump]
+      -> standing at x 538-713, y 401
+  17. jump (held 21 ticks), holding left, double jump at tick 10, from 538,401; lands at 208,161   [djump]
+      -> standing at x 0-294, y 161
+  18. standing at 126,161, presses up at it
+      -> out 136,128
+how in 944,1344 -> out 2872,1312: -
+     coming in at 944,1344
+   1. coming in: holding nothing, from 944,1344; lands at 944,1345
+      -> standing at x 0-982, y 1345
+   2. running right, jump (held 21 ticks), holding right, from 560,1345; lands at 714,1281
+      -> standing at x 698-758, y 1281
+   3. jump (held 6 ticks), holding right, from 698,1281; lands at 815,1249
+      -> standing at x 778-1062, y 1249
+   4. walk off the edge, holding right once in the air, from 778,1249; lands at 1122,1281
+      -> standing at x 1063-1382, y 1281
+   5. walk off the edge, holding right once in the air, from 1063,1281; lands at 1458,1329
+      -> standing at x 1383-2009, y 1329
+   6. running right, jump (held 21 ticks), holding right, from 1824,1329; lands at 2022,1313
+      -> standing at x 2010-2377, y 1313
+   7. running right, jump (held 21 ticks), holding right, from 2192,1313; lands at 2390,1297
+      -> standing at x 2378-2457, y 1297
+   8. jump (held 21 ticks), holding right, from 2400,1297; lands at 2583,1297
+      -> standing at x 2567-2646, y 1297
+   9. running right, jump (held 21 ticks), holding right, from 2638,1297; touches it on the way
+      -> out 2872,1312
+how in 944,1344 -> out 976,1392: -
+     coming in at 944,1344
+   1. coming in: holding nothing, from 944,1344; lands at 944,1345
+      -> standing at x 0-982, y 1345
+   2. running right, walk off the edge, holding right once in the air, from 336,1345; touches it on the way
+      -> out 976,1392
+how in 944,1344 -> out 2872,144: djump
+     coming in at 944,1344
+   1. coming in: holding nothing, from 944,1344; lands at 944,1345
+      -> standing at x 0-982, y 1345
+   2. running right, jump (held 21 ticks), holding right, from 560,1345; lands at 714,1281
+      -> standing at x 698-758, y 1281
+   3. jump (held 6 ticks), holding right, from 698,1281; lands at 815,1249
+      -> standing at x 778-1062, y 1249
+   4. walk off the edge, holding right once in the air, from 778,1249; lands at 1122,1281
+      -> standing at x 1063-1382, y 1281
+   5. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, double jump at tick 18, from 1168,1281; lands at 1351,1089   [djump]
+      -> standing at x 1242-1478, y 1089
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 1328,1089; lands at 1569,1025   [djump]
+      -> standing at x 1562-1702, y 1025
+   7. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 1562,1025; lands at 1638,961
+      -> standing at x 1594-1670, y 961
+   8. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1594,961; lands at 1630,897
+      -> standing at x 1594-1670, y 897
+   9. jump (held 21 ticks), holding right, double jump at tick 15, from 1594,897; lands at 1828,833   [djump]
+      -> standing at x 1786-1926, y 833
+  10. jump (held 21 ticks), holding right, double jump at tick 15, from 1786,833; lands at 2020,769   [djump]
+      -> standing at x 1978-2118, y 769
+  11. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 1978,769; lands at 2054,705
+      -> standing at x 1994-2102, y 705
+  12. jump (held 21 ticks), holding right, double jump at tick 15, from 1994,705; lands at 2228,641   [djump]
+      -> standing at x 2186-2454, y 641
+  13. jump (held 21 ticks), holding right, double jump at tick 15, from 2432,641; lands at 2629,545   [djump]
+      -> standing at x 2618-2662, y 545
+  14. jump (held 21 ticks), holding right, double jump at tick 15, from 2654,545; lands at 2851,449   [djump]
+      -> standing at x 2842-3046, y 449
+  15. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 2864,449; lands at 2834,353   [djump]
+      -> standing at x 2778-2854, y 353
+  16. jump (held 21 ticks), holding left, double jump at tick 10, from 2778,353; lands at 2625,353   [djump]
+      -> standing at x 2476-2644, y 353-355
+  17. jump (held 21 ticks), holding left, double jump at tick 10, from 2476,353; lands at 2286,287   [djump]
+      -> standing at x 2218-2294, y 287-289
+  18. jump (held 21 ticks), holding right, double jump at tick 15, from 2288,287; lands at 2515,209   [djump]
+      -> standing at x 2506-2537, y 209
+  19. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 2506,209; lands at 2579,177
+      -> standing at x 2570-3072, y 177
+  20. standing at 2870,177, presses up at it
+      -> out 2872,144
+how in 944,1344 -> loc 1 7: djump
+     coming in at 944,1344
+   1. coming in: holding nothing, from 944,1344; lands at 944,1345
+      -> standing at x 0-982, y 1345
+   2. running right, jump (held 21 ticks), holding right, from 560,1345; lands at 714,1281
+      -> standing at x 698-758, y 1281
+   3. jump (held 6 ticks), holding right, from 698,1281; lands at 815,1249
+      -> standing at x 778-1062, y 1249
+   4. walk off the edge, holding right once in the air, from 778,1249; lands at 1122,1281
+      -> standing at x 1063-1382, y 1281
+   5. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, double jump at tick 18, from 1168,1281; lands at 985,1089   [djump]
+      -> standing at x 903-1094, y 1089
+   6. jump (held 21 ticks), holding left, from 903,1089; lands at 830,1025
+      -> standing at x 682-902, y 1025
+   7. jump (held 21 ticks), holding left, double jump at tick 10, from 682,1025; lands at 455,1009   [djump]
+      -> standing at x 42-470, y 1009
+   8. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 160,1009; lands at 130,913   [djump]
+      -> standing at x 103-150, y 913
+   9. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 111,913; lands at 30,913
+      -> standing at x 26-73, y 913
+  10. walk off the edge, holding left, then right after 2 ticks in the air, double jump at tick 3, from 26,913; touches it on the way   [djump]
+      -> loc 1 7
+how in 944,1344 -> loc 2 6: djump
+     coming in at 944,1344
+   1. coming in: holding nothing, from 944,1344; lands at 944,1345
+      -> standing at x 0-982, y 1345
+   2. running right, jump (held 21 ticks), holding right, from 560,1345; lands at 714,1281
+      -> standing at x 698-758, y 1281
+   3. jump (held 6 ticks), holding right, from 698,1281; lands at 815,1249
+      -> standing at x 778-1062, y 1249
+   4. walk off the edge, holding right once in the air, from 778,1249; lands at 1122,1281
+      -> standing at x 1063-1382, y 1281
+   5. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, double jump at tick 18, from 1168,1281; lands at 1351,1089   [djump]
+      -> standing at x 1242-1478, y 1089
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 1328,1089; lands at 1569,1025   [djump]
+      -> standing at x 1562-1702, y 1025
+   7. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 1562,1025; lands at 1638,961
+      -> standing at x 1594-1670, y 961
+   8. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1594,961; lands at 1630,897
+      -> standing at x 1594-1670, y 897
+   9. jump (held 21 ticks), holding right, double jump at tick 15, from 1594,897; lands at 1828,833   [djump]
+      -> standing at x 1786-1926, y 833
+  10. jump (held 21 ticks), holding right, double jump at tick 15, from 1786,833; lands at 2020,769   [djump]
+      -> standing at x 1978-2118, y 769
+  11. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 1978,769; lands at 2054,705
+      -> standing at x 1994-2102, y 705
+  12. jump (held 21 ticks), holding right, double jump at tick 15, from 1994,705; lands at 2228,641   [djump]
+      -> standing at x 2186-2454, y 641
+  13. jump (held 21 ticks), holding right, double jump at tick 15, from 2432,641; lands at 2629,545   [djump]
+      -> standing at x 2618-2662, y 545
+  14. jump (held 21 ticks), holding right, double jump at tick 15, from 2654,545; lands at 2851,449   [djump]
+      -> standing at x 2842-3046, y 449
+  15. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 2864,449; lands at 2834,353   [djump]
+      -> standing at x 2778-2854, y 353
+  16. jump (held 21 ticks), holding left, double jump at tick 10, from 2778,353; lands at 2625,353   [djump]
+      -> standing at x 2476-2644, y 353-355
+  17. jump (held 21 ticks), holding left, double jump at tick 15, from 2476,353; lands at 2279,256   [djump]
+      -> standing at x 2218-2294, y 256-258
+  18. jump (held 21 ticks), holding left, double jump at tick 15, from 2218,256; lands at 2141,161   [djump]
+      -> standing at x 1962-2198, y 161
+  19. jump (held 6 ticks), holding left, from 1962,161; lands at 1845,129
+      -> standing at x 1770-1862, y 129
+  20. jump (held 2 ticks), holding left, from 1770,129; lands at 1668,129
+      -> standing at x 1594-1686, y 129
+  21. walk off the edge, holding right, then left after 1 ticks in the air, from 1594,129; touches it on the way
+      -> loc 2 6
+how in 944,1344 -> loc 3 1: djump
+     coming in at 944,1344
+   1. coming in: holding nothing, from 944,1344; lands at 944,1345
+      -> standing at x 0-982, y 1345
+   2. running right, jump (held 21 ticks), holding right, from 560,1345; lands at 714,1281
+      -> standing at x 698-758, y 1281
+   3. jump (held 6 ticks), holding right, from 698,1281; lands at 815,1249
+      -> standing at x 778-1062, y 1249
+   4. walk off the edge, holding right once in the air, from 778,1249; lands at 1122,1281
+      -> standing at x 1063-1382, y 1281
+   5. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, double jump at tick 18, from 1168,1281; lands at 1351,1089   [djump]
+      -> standing at x 1242-1478, y 1089
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 1328,1089; lands at 1569,1025   [djump]
+      -> standing at x 1562-1702, y 1025
+   7. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 1562,1025; lands at 1638,961
+      -> standing at x 1594-1670, y 961
+   8. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1594,961; lands at 1630,897
+      -> standing at x 1594-1670, y 897
+   9. jump (held 21 ticks), holding right, double jump at tick 15, from 1594,897; lands at 1828,833   [djump]
+      -> standing at x 1786-1926, y 833
+  10. jump (held 21 ticks), holding right, double jump at tick 15, from 1786,833; lands at 2020,769   [djump]
+      -> standing at x 1978-2118, y 769
+  11. walk off the edge, holding right once in the air, double jump at tick 2, from 1978,769; lands at 2381,929   [djump]
+      -> standing at x 2346-2390, y 929
+  12. jump (held 21 ticks), holding right, from 2346,929; lands at 2529,929
+      -> standing at x 2490-2534, y 929
+  13. jump (held 21 ticks), holding right, double jump at tick 15, from 2526,929; lands at 2819,945   [djump]
+      -> standing at x 2810-2854, y 945
+  14. jump (held 21 ticks), holding right, double jump at tick 15, from 2814,945; touches it on the way   [djump]
+      -> loc 3 1
+how in 944,1344 -> loc 10 2: djump
+     coming in at 944,1344
+   1. coming in: holding nothing, from 944,1344; lands at 944,1345
+      -> standing at x 0-982, y 1345
+   2. running right, jump (held 21 ticks), holding right, from 560,1345; lands at 714,1281
+      -> standing at x 698-758, y 1281
+   3. jump (held 6 ticks), holding right, from 698,1281; lands at 815,1249
+      -> standing at x 778-1062, y 1249
+   4. walk off the edge, holding right once in the air, from 778,1249; lands at 1122,1281
+      -> standing at x 1063-1382, y 1281
+   5. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, double jump at tick 18, from 1168,1281; lands at 1351,1089   [djump]
+      -> standing at x 1242-1478, y 1089
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 1328,1089; lands at 1569,1025   [djump]
+      -> standing at x 1562-1702, y 1025
+   7. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 1562,1025; lands at 1638,961
+      -> standing at x 1594-1670, y 961
+   8. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1594,961; lands at 1630,897
+      -> standing at x 1594-1670, y 897
+   9. jump (held 21 ticks), holding left, from 1594,897; lands at 1463,833
+      -> standing at x 1450-1526, y 833
+  10. jump (held 21 ticks), holding right, double jump at tick 10, from 1450,833; touches it on the way   [djump]
+      -> loc 10 2
+how in 944,1344 -> loc 10 2: adash
+     coming in at 944,1344
+   1. coming in: holding nothing, from 944,1344; lands at 944,1345
+      -> standing at x 0-982, y 1345
+   2. running right, jump (held 21 ticks), holding right, from 560,1345; lands at 714,1281
+      -> standing at x 698-758, y 1281
+   3. jump (held 6 ticks), holding right, from 698,1281; lands at 815,1249
+      -> standing at x 778-1062, y 1249
+   4. walk off the edge, holding right once in the air, from 778,1249; lands at 1122,1281
+      -> standing at x 1063-1382, y 1281
+   5. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 1328,1281; lands at 1603,1233   [adash]
+      -> standing at x 1578-1622, y 1233
+   6. jump (held 21 ticks), holding right, air dash (Jerry) at tick 4, from 1578,1233; lands at 1812,1233   [adash]
+      -> standing at x 1802-1846, y 1233
+   7. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 1802,1233; touches it on the way   [adash]
+      -> loc 10 2
+how in 944,1344 -> loc 10 23: djump,samus:2
+     coming in at 944,1344
+   1. coming in: holding nothing, from 944,1344; lands at 944,1345
+      -> standing at x 0-982, y 1345
+   2. running right, jump (held 21 ticks), holding right, from 560,1345; lands at 714,1281
+      -> standing at x 698-758, y 1281
+   3. jump (held 6 ticks), holding right, from 698,1281; lands at 815,1249
+      -> standing at x 778-1062, y 1249
+   4. walk off the edge, holding right once in the air, from 778,1249; lands at 1122,1281
+      -> standing at x 1063-1382, y 1281
+   5. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, double jump at tick 18, from 1168,1281; lands at 1351,1089   [djump]
+      -> standing at x 1242-1478, y 1089
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 1328,1089; lands at 1569,1025   [djump]
+      -> standing at x 1562-1702, y 1025
+   7. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 1562,1025; lands at 1638,961
+      -> standing at x 1594-1670, y 961
+   8. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1594,961; lands at 1630,897
+      -> standing at x 1594-1670, y 897
+   9. jump (held 21 ticks), holding right, double jump at tick 15, from 1594,897; lands at 1828,833   [djump]
+      -> standing at x 1786-1926, y 833
+  10. jump (held 21 ticks), holding right, double jump at tick 15, from 1786,833; lands at 2020,769   [djump]
+      -> standing at x 1978-2118, y 769
+  11. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 1978,769; lands at 2054,705
+      -> standing at x 1994-2102, y 705
+  12. jump (held 21 ticks), holding right, double jump at tick 15, from 1994,705; lands at 2228,641   [djump]
+      -> standing at x 2186-2454, y 641
+  13. walk off the edge, holding right once in the air, turn into the Morph Ball where the body meets a wall or ceiling, from 2186,641; lands at 2484,689   [samus:2]
+      -> as the Morph Ball at x 2442-2742, y 689
+  14. turn back from the Morph Ball at 2615,689
+      -> standing at x 2615-2697, y 689
+  15. standing at 2648,689, touches it
+      -> loc 10 23
+how in 944,1344 -> loc 9 87: djump,samus:6
+     coming in at 944,1344
+   1. coming in: holding nothing, from 944,1344; lands at 944,1345
+      -> standing at x 0-982, y 1345
+   2. running right, jump (held 21 ticks), holding right, from 560,1345; lands at 714,1281
+      -> standing at x 698-758, y 1281
+   3. jump (held 6 ticks), holding right, from 698,1281; lands at 815,1249
+      -> standing at x 778-1062, y 1249
+   4. walk off the edge, holding right once in the air, from 778,1249; lands at 1122,1281
+      -> standing at x 1063-1382, y 1281
+   5. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, double jump at tick 18, from 1168,1281; lands at 1351,1089   [djump]
+      -> standing at x 1242-1478, y 1089
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 1328,1089; lands at 1569,1025   [djump]
+      -> standing at x 1562-1702, y 1025
+   7. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 1562,1025; lands at 1638,961
+      -> standing at x 1594-1670, y 961
+   8. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1594,961; lands at 1630,897
+      -> standing at x 1594-1670, y 897
+   9. jump (held 21 ticks), holding right, double jump at tick 15, from 1594,897; lands at 1828,833   [djump]
+      -> standing at x 1786-1926, y 833
+  10. jump (held 21 ticks), holding right, double jump at tick 15, from 1786,833; lands at 2020,769   [djump]
+      -> standing at x 1978-2118, y 769
+  11. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 1978,769; lands at 2054,705
+      -> standing at x 1994-2102, y 705
+  12. jump (held 21 ticks), holding right, double jump at tick 15, from 1994,705; lands at 2228,641   [djump]
+      -> standing at x 2186-2454, y 641
+  13. jump (held 21 ticks), holding right, double jump at tick 15, from 2432,641; lands at 2629,545   [djump]
+      -> standing at x 2618-2662, y 545
+  14. jump (held 21 ticks), holding right, double jump at tick 15, from 2654,545; lands at 2851,449   [djump]
+      -> standing at x 2842-3046, y 449
+  15. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 2864,449; lands at 2834,353   [djump]
+      -> standing at x 2778-2854, y 353
+  16. jump (held 21 ticks), holding left, double jump at tick 10, from 2778,353; lands at 2625,353   [djump]
+      -> standing at x 2476-2644, y 353-355
+  17. jump (held 21 ticks), holding left, double jump at tick 15, from 2476,353; lands at 2279,256   [djump]
+      -> standing at x 2218-2294, y 256-258
+  18. jump (held 21 ticks), holding left, double jump at tick 15, from 2218,256; lands at 2141,161   [djump]
+      -> standing at x 1962-2198, y 161
+  19. jump (held 6 ticks), holding left, from 1962,161; lands at 1845,129
+      -> standing at x 1770-1862, y 129
+  20. jump (held 2 ticks), holding left, from 1770,129; lands at 1668,129
+      -> standing at x 1594-1686, y 129
+  21. jump (held 21 ticks), holding left, turn into the Morph Ball at tick 8, from 1594,129; lands at 1448,129   [samus:2]
+      -> as the Morph Ball at x 1418-1510, y 129
+  22. as the Morph Ball: roll off the edge, holding left, then nothing after 1 ticks in the air, from 1418,129; lands at 1381,449
+      -> as the Morph Ball at x 1354-1385, y 449
+  23. as the Morph Ball: roll off the edge, holding right once in the air, from 1354,449, through the Metroid block at 1392,432; touches it on the way   [samus:6]
+      -> loc 9 87
+how in 2880,176 -> out 72,1312: -
+     coming in at 2880,176
+   1. coming in: holding nothing, from 2880,176; lands at 2880,177
+      -> standing at x 2570-3072, y 177
+   2. jump (held 2 ticks), holding left, from 2570,177; lands at 2380,321
+      -> standing at x 2314-2454, y 321
+   3. running left, jump (held 6 ticks), holding left, from 2314,321; lands at 1954,641
+      -> standing at x 1722-1990, y 641
+   4. walk off the edge, holding left once in the air, from 1722,641; lands at 1407,1089
+      -> standing at x 1242-1478, y 1089
+   5. jump (held 2 ticks), holding left, from 1242,1089; lands at 1037,1249
+      -> standing at x 778-1062, y 1249
+   6. walk off the edge, holding left, then right after 1 ticks in the air, from 778,1249; lands at 814,1345
+      -> standing at x 0-982, y 1345
+   7. standing at 70,1345, presses up at it
+      -> out 72,1312
+how in 2880,176 -> out 2504,1264: -
+     coming in at 2880,176
+   1. coming in: holding nothing, from 2880,176; lands at 2880,177
+      -> standing at x 2570-3072, y 177
+   2. jump (held 2 ticks), holding left, from 2570,177; lands at 2380,321
+      -> standing at x 2314-2454, y 321
+   3. running left, jump (held 6 ticks), holding left, from 2314,321; lands at 1954,641
+      -> standing at x 1722-1990, y 641
+   4. running right, jump (held 21 ticks), holding right, from 1904,641; touches it on the way
+      -> out 2504,1264
+how in 2880,176 -> out 136,128: -
+     coming in at 2880,176
+   1. coming in: holding nothing, from 2880,176; lands at 2880,177
+      -> standing at x 2570-3072, y 177
+   2. walk off the edge, holding left once in the air, from 2570,177; lands at 2512,209
+      -> standing at x 2506-2537, y 209
+   3. running left, jump (held 21 ticks), holding left, from 2506,209; lands at 2286,226
+      -> standing at x 2218-2294, y 226-228
+   4. jump (held 21 ticks), holding left, from 2218,226; lands at 2133,161
+      -> standing at x 1962-2198, y 161
+   5. jump (held 6 ticks), holding left, from 1962,161; lands at 1845,129
+      -> standing at x 1770-1862, y 129
+   6. jump (held 2 ticks), holding left, from 1770,129; lands at 1668,129
+      -> standing at x 1594-1686, y 129
+   7. jump (held 2 ticks), holding left, from 1594,129; lands at 1492,129
+      -> standing at x 1418-1510, y 129
+   8. running left, walk off the edge, holding left once in the air, from 1418,129; lands at 1337,177
+      -> standing at x 1180-1348, y 177-179
+   9. jump (held 2 ticks), holding left, from 1180,177; lands at 1078,177
+      -> standing at x 919-1126, y 177
+  10. jump (held 2 ticks), holding left, from 919,177; lands at 876,145
+      -> standing at x 858-918, y 145
+  11. jump (held 21 ticks), holding left, from 858,145; lands at 573,305
+      -> standing at x 522-598, y 305
+  12. running left, jump (held 2 ticks), holding left, from 522,305; lands at 215,161
+      -> standing at x 0-294, y 161
+  13. standing at 126,161, presses up at it
+      -> out 136,128
+how in 2880,176 -> out 2872,1312: -
+     coming in at 2880,176
+   1. coming in: holding nothing, from 2880,176; lands at 2880,177
+      -> standing at x 2570-3072, y 177
+   2. jump (held 21 ticks), holding left, from 2570,177; lands at 2065,705
+      -> standing at x 1994-2102, y 705
+   3. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 1994,705; lands at 2474,1281
+      -> standing at x 2458-2486, y 1281
+   4. jump (held 6 ticks), holding right, from 2458,1281; lands at 2604,1297
+      -> standing at x 2567-2646, y 1297
+   5. running right, jump (held 21 ticks), holding right, from 2638,1297; touches it on the way
+      -> out 2872,1312
+how in 2880,176 -> out 976,1392: -
+     coming in at 2880,176
+   1. coming in: holding nothing, from 2880,176; lands at 2880,177
+      -> standing at x 2570-3072, y 177
+   2. jump (held 2 ticks), holding left, from 2570,177; lands at 2380,321
+      -> standing at x 2314-2454, y 321
+   3. running left, jump (held 6 ticks), holding left, from 2314,321; lands at 1954,641
+      -> standing at x 1722-1990, y 641
+   4. walk off the edge, holding left once in the air, from 1722,641; lands at 1407,1089
+      -> standing at x 1242-1478, y 1089
+   5. jump (held 2 ticks), holding left, from 1242,1089; lands at 1037,1249
+      -> standing at x 778-1062, y 1249
+   6. walk off the edge, holding left, then right after 1 ticks in the air, from 778,1249; lands at 814,1345
+      -> standing at x 0-982, y 1345
+   7. running right, walk off the edge, holding right once in the air, from 336,1345; touches it on the way
+      -> out 976,1392
+how in 2880,176 -> out 2872,144: -
+     coming in at 2880,176
+   1. coming in: holding nothing, from 2880,176; lands at 2880,177
+      -> standing at x 2570-3072, y 177
+   2. standing at 2870,177, presses up at it
+      -> out 2872,144
+how in 2880,176 -> loc 1 7: djump
+     coming in at 2880,176
+   1. coming in: holding nothing, from 2880,176; lands at 2880,177
+      -> standing at x 2570-3072, y 177
+   2. jump (held 2 ticks), holding left, from 2570,177; lands at 2380,321
+      -> standing at x 2314-2454, y 321
+   3. running left, jump (held 6 ticks), holding left, from 2314,321; lands at 1954,641
+      -> standing at x 1722-1990, y 641
+   4. jump (held 2 ticks), holding left, from 1722,641; lands at 1503,833
+      -> standing at x 1450-1526, y 833
+   5. jump (held 6 ticks), holding left, from 1450,833; lands at 1355,785
+      -> standing at x 1303-1366, y 785
+   6. jump (held 6 ticks), holding left, from 1303,785; lands at 1244,737
+      -> standing at x 394-1302, y 737
+   7. walk off the edge, holding left once in the air, double jump at tick 16, from 394,737; lands at 109,913   [djump]
+      -> standing at x 103-150, y 913
+   8. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 111,913; lands at 30,913
+      -> standing at x 26-73, y 913
+   9. walk off the edge, holding left, then right after 2 ticks in the air, double jump at tick 3, from 26,913; touches it on the way   [djump]
+      -> loc 1 7
+how in 2880,176 -> loc 1 7: adash
+     coming in at 2880,176
+   1. coming in: holding nothing, from 2880,176; lands at 2880,177
+      -> standing at x 2570-3072, y 177
+   2. jump (held 2 ticks), holding left, from 2570,177; lands at 2380,321
+      -> standing at x 2314-2454, y 321
+   3. running left, jump (held 6 ticks), holding left, from 2314,321; lands at 1954,641
+      -> standing at x 1722-1990, y 641
+   4. jump (held 2 ticks), holding left, from 1722,641; lands at 1503,833
+      -> standing at x 1450-1526, y 833
+   5. jump (held 6 ticks), holding left, from 1450,833; lands at 1355,785
+      -> standing at x 1303-1366, y 785
+   6. jump (held 6 ticks), holding left, from 1303,785; lands at 1244,737
+      -> standing at x 394-1302, y 737
+   7. walk off the edge, holding left once in the air, air dash (Jerry) at tick 6 or once there's room ahead, from 394,737; lands at 115,913   [adash]
+      -> standing at x 103-150, y 913
+   8. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 111,913; lands at 30,913
+      -> standing at x 26-73, y 913
+   9. jump (held 21 ticks), holding nothing, then right after 14 ticks, from 26,913; touches it on the way
+      -> loc 1 7
+how in 2880,176 -> loc 2 6: -
+     coming in at 2880,176
+   1. coming in: holding nothing, from 2880,176; lands at 2880,177
+      -> standing at x 2570-3072, y 177
+   2. walk off the edge, holding left once in the air, from 2570,177; lands at 2512,209
+      -> standing at x 2506-2537, y 209
+   3. running left, jump (held 21 ticks), holding left, from 2506,209; lands at 2286,226
+      -> standing at x 2218-2294, y 226-228
+   4. jump (held 21 ticks), holding left, from 2218,226; lands at 2133,161
+      -> standing at x 1962-2198, y 161
+   5. jump (held 6 ticks), holding left, from 1962,161; lands at 1845,129
+      -> standing at x 1770-1862, y 129
+   6. jump (held 2 ticks), holding left, from 1770,129; lands at 1668,129
+      -> standing at x 1594-1686, y 129
+   7. walk off the edge, holding right, then left after 1 ticks in the air, from 1594,129; touches it on the way
+      -> loc 2 6
+how in 2880,176 -> loc 3 1: -
+     coming in at 2880,176
+   1. coming in: holding nothing, from 2880,176; lands at 2880,177
+      -> standing at x 2570-3072, y 177
+   2. jump (held 21 ticks), holding left, from 2570,177; lands at 2065,705
+      -> standing at x 1994-2102, y 705
+   3. walk off the edge, holding left, then right after 1 ticks in the air, from 1994,705; lands at 2031,769
+      -> standing at x 1978-2118, y 769
+   4. running right, jump (held 6 ticks), holding right, from 2096,769; lands at 2353,929
+      -> standing at x 2346-2390, y 929
+   5. jump (held 21 ticks), holding right, from 2346,929; lands at 2529,929
+      -> standing at x 2490-2534, y 929
+   6. jump (held 21 ticks), holding right, from 2490,929; lands at 2702,977
+      -> standing at x 2666-2809, y 977
+   7. running right, jump (held 21 ticks), holding right, from 2736,977; lands at 2890,913
+      -> standing at x 2874-2902, y 913
+   8. jump (held 21 ticks), holding right, from 2880,913; touches it on the way
+      -> loc 3 1
+how in 2880,176 -> loc 10 2: -
+     coming in at 2880,176
+   1. coming in: holding nothing, from 2880,176; lands at 2880,177
+      -> standing at x 2570-3072, y 177
+   2. jump (held 2 ticks), holding left, from 2570,177; lands at 2380,321
+      -> standing at x 2314-2454, y 321
+   3. running left, jump (held 6 ticks), holding left, from 2314,321; lands at 1954,641
+      -> standing at x 1722-1990, y 641
+   4. jump (held 2 ticks), holding left, from 1722,641; lands at 1503,833
+      -> standing at x 1450-1526, y 833
+   5. running right, jump (held 21 ticks), holding right, from 1488,833; touches it on the way
+      -> loc 10 2
+how in 2880,176 -> loc 10 23: samus:2
+     coming in at 2880,176
+   1. coming in: holding nothing, from 2880,176; lands at 2880,177
+      -> standing at x 2570-3072, y 177
+   2. jump (held 21 ticks), holding nothing, then left after 14 ticks, turn into the Morph Ball at tick 14, from 2592,177; lands at 2517,209   [samus:2]
+      -> as the Morph Ball at x 2506-2537, y 209
+   3. as the Morph Ball: roll off the edge, holding left, then nothing after 1 ticks in the air, from 2506,209; lands at 2469,689
+      -> as the Morph Ball at x 2442-2742, y 689
+   4. turn back from the Morph Ball at 2615,689
+      -> standing at x 2615-2697, y 689
+   5. standing at 2648,689, touches it
+      -> loc 10 23
+how in 2880,176 -> loc 9 87: samus:6
+     coming in at 2880,176
+   1. coming in: holding nothing, from 2880,176; lands at 2880,177
+      -> standing at x 2570-3072, y 177
+   2. walk off the edge, holding left once in the air, from 2570,177; lands at 2512,209
+      -> standing at x 2506-2537, y 209
+   3. running left, jump (held 21 ticks), holding left, from 2506,209; lands at 2286,226
+      -> standing at x 2218-2294, y 226-228
+   4. jump (held 21 ticks), holding left, from 2218,226; lands at 2133,161
+      -> standing at x 1962-2198, y 161
+   5. jump (held 6 ticks), holding left, from 1962,161; lands at 1845,129
+      -> standing at x 1770-1862, y 129
+   6. jump (held 2 ticks), holding left, from 1770,129; lands at 1668,129
+      -> standing at x 1594-1686, y 129
+   7. jump (held 21 ticks), holding left, turn into the Morph Ball at tick 8, from 1594,129; lands at 1448,129   [samus:2]
+      -> as the Morph Ball at x 1418-1510, y 129
+   8. as the Morph Ball: roll off the edge, holding left, then nothing after 1 ticks in the air, from 1418,129; lands at 1381,449
+      -> as the Morph Ball at x 1354-1385, y 449
+   9. as the Morph Ball: roll off the edge, holding right once in the air, from 1354,449, through the Metroid block at 1392,432; touches it on the way   [samus:6]
+      -> loc 9 87

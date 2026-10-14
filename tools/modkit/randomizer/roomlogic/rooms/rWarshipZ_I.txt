@@ -1,0 +1,58 @@
+# rWarshipZ_I: CHAOS Warship (area 99), 976x352 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 256,256   # from rWarshipN out 752,224
+in 48,208   # from rWarshipZ_H out 4448,176
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 0,176   # to rWarshipZ_H at 4416,208; the player goes into it
+out 256,256   # to rWarshipN at 752,224; the player presses up at it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 256,256
+  out 0,176     -
+  out 256,256   -
+from in 48,208
+  out 0,176     -
+  out 256,256   -
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 256,256 -> out 0,176: -
+     coming in at 256,256
+   1. coming in: holding nothing, from 256,256; lands at 256,257
+      -> standing at x 199-505, y 257
+   2. jump (held 6 ticks), holding left, from 199,257; lands at 140,209
+      -> standing at x 0-198, y 209
+   3. standing at 0,209, goes into it
+      -> out 0,176
+how in 256,256 -> out 256,256: -
+     coming in at 256,256
+   1. coming in: holding nothing, from 256,256; lands at 256,257
+      -> standing at x 199-505, y 257
+   2. jump (held 6 ticks), holding left, from 199,257; lands at 140,209
+      -> standing at x 0-198, y 209
+   3. walk off the edge, holding right once in the air, from 32,209; touches it on the way
+      -> out 256,256
+how in 48,208 -> out 0,176: -
+     coming in at 48,208
+   1. coming in: holding nothing, from 48,208; lands at 48,209
+      -> standing at x 0-198, y 209
+   2. standing at 0,209, goes into it
+      -> out 0,176
+how in 48,208 -> out 256,256: -
+     coming in at 48,208
+   1. coming in: holding nothing, from 48,208; lands at 48,209
+      -> standing at x 0-198, y 209
+   2. walk off the edge, holding right once in the air, from 32,209; touches it on the way
+      -> out 256,256

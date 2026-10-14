@@ -1,0 +1,216 @@
+# rLink2_PalaceB_4: Access Gate 2: Hyrule (area 10), 2048x352 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 1040,336   # from rLink2_PalaceB_1 out 1800,16
+in 48,304   # from rLink2_PalaceB_5 out 1184,272
+in 2000,304   # from rLink2_PalaceB_6 out 0,272
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 1032,368   # to rLink2_PalaceB_1 at 1808,128; the player goes into it
+out 0,272   # to rLink2_PalaceB_5 at 1152,304; the player goes into it
+out 2032,272   # to rLink2_PalaceB_6 at 48,304; the player goes into it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 1040,336
+  out 1032,368   -
+  out 0,272      never
+  out 2032,272   never
+from in 48,304
+  out 1032,368   -
+  out 0,272      -
+  out 2032,272   link:3 | samus:2
+from in 2000,304
+  out 1032,368   link:3 | samus:2
+  out 0,272      link:3 | samus:2
+  out 2032,272   -
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 1040,336 -> out 1032,368: -
+     coming in at 1040,336
+   1. coming in: holding nothing, from 1040,336; touches it on the way
+      -> out 1032,368
+how in 48,304 -> out 1032,368: -
+     coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> standing at x 0-198, y 305
+   2. running right, jump (held 21 ticks), holding right, from 48,305; lands at 261,305
+      -> standing at x 250-358, y 305
+   3. running right, jump (held 21 ticks), holding right, from 350,305; lands at 526,257
+      -> standing at x 506-537, y 257
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 506,257; lands at 564,209
+      -> standing at x 538-582, y 209
+   5. jump (held 2 ticks), holding right, from 574,209; lands at 676,209
+      -> standing at x 666-710, y 209
+   6. running right, jump (held 2 ticks), holding right, from 702,209; lands at 886,305
+      -> standing at x 858-1030, y 305
+   7. walk off the edge, holding right once in the air, from 858,305; touches it on the way
+      -> out 1032,368
+how in 48,304 -> out 0,272: -
+     coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> standing at x 0-198, y 305
+   2. standing at 0,305, goes into it
+      -> out 0,272
+how in 48,304 -> out 2032,272: link:3
+     coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> standing at x 0-198, y 305
+   2. running right, jump (held 21 ticks), holding right, from 48,305; lands at 261,305
+      -> standing at x 250-358, y 305
+   3. running right, jump (held 21 ticks), holding right, from 350,305; lands at 526,257
+      -> standing at x 506-537, y 257
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 506,257; lands at 564,209
+      -> standing at x 538-582, y 209
+   5. jump (held 2 ticks), holding right, from 574,209; lands at 676,209
+      -> standing at x 666-710, y 209
+   6. running right, jump (held 2 ticks), holding right, from 702,209; lands at 886,305
+      -> standing at x 858-1030, y 305
+   7. running right, jump (held 6 ticks), holding right, from 1008,305; lands at 1060,305
+      -> standing at x 1050-1209, y 305
+   8. walk from 1209,305 to 1210,305 into the bombable wall at 1216,272   [link:3]
+      -> standing at x 1210-1254, y 305 (where a gate is)
+   9. jump (held 6 ticks), holding right, from 1246,305, through the bombable wall at 1216,272; lands at 1363,273   [link:3]
+      -> standing at x 1338-1446, y 273
+  10. jump (held 21 ticks), holding right, from 1338,273; lands at 1521,273
+      -> standing at x 1498-1606, y 273
+  11. jump (held 21 ticks), holding right, from 1498,273; lands at 1681,273
+      -> standing at x 1658-1766, y 273
+  12. jump (held 21 ticks), holding right, from 1658,273; lands at 1863,305
+      -> standing at x 1850-2048, y 305
+  13. standing at 2030,305, goes into it
+      -> out 2032,272
+how in 48,304 -> out 2032,272: samus:2
+     coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> standing at x 0-198, y 305
+   2. running right, jump (held 21 ticks), holding right, from 48,305; lands at 261,305
+      -> standing at x 250-358, y 305
+   3. running right, jump (held 21 ticks), holding right, from 350,305; lands at 526,257
+      -> standing at x 506-537, y 257
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 506,257; lands at 564,209
+      -> standing at x 538-582, y 209
+   5. jump (held 2 ticks), holding right, from 574,209; lands at 676,209
+      -> standing at x 666-710, y 209
+   6. running right, jump (held 2 ticks), holding right, from 702,209; lands at 886,305
+      -> standing at x 858-1030, y 305
+   7. running right, jump (held 6 ticks), holding right, from 1008,305; lands at 1060,305
+      -> standing at x 1050-1209, y 305
+   8. jump (held 6 ticks), holding right, turn into the Morph Ball where the body meets a wall or ceiling, from 1200,305; lands at 1278,305   [samus:2]
+      -> as the Morph Ball at x 1255-1286, y 305
+   9. turn back from the Morph Ball at 1255,305
+      -> standing at x 1255-1286, y 305
+  10. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1255,305; lands at 1378,273
+      -> standing at x 1338-1446, y 273
+  11. jump (held 21 ticks), holding right, from 1338,273; lands at 1521,273
+      -> standing at x 1498-1606, y 273
+  12. jump (held 21 ticks), holding right, from 1498,273; lands at 1681,273
+      -> standing at x 1658-1766, y 273
+  13. jump (held 21 ticks), holding right, from 1658,273; lands at 1863,305
+      -> standing at x 1850-2048, y 305
+  14. standing at 2030,305, goes into it
+      -> out 2032,272
+how in 2000,304 -> out 1032,368: link:3
+     coming in at 2000,304
+   1. coming in: holding nothing, from 2000,304; lands at 2000,305
+      -> standing at x 1850-2048, y 305
+   2. jump (held 6 ticks), holding left, from 1850,305; lands at 1733,273
+      -> standing at x 1658-1766, y 273
+   3. jump (held 2 ticks), holding left, from 1658,273; lands at 1556,273
+      -> standing at x 1498-1606, y 273
+   4. running left, jump (held 21 ticks), holding left, from 1498,273; lands at 1270,305
+      -> standing at x 1255-1286, y 305
+   5. jump (held 2 ticks), holding left, from 1255,305, through the bombable wall at 1216,272; lands at 1204,305   [link:3]
+      -> standing at x 1050-1209, y 305
+   6. running left, jump (held 2 ticks), holding left, from 1050,305; lands at 1006,305
+      -> standing at x 858-1030, y 305
+   7. walk off the edge, holding right once in the air, from 858,305; touches it on the way
+      -> out 1032,368
+how in 2000,304 -> out 1032,368: samus:2
+     coming in at 2000,304
+   1. coming in: holding nothing, from 2000,304; lands at 2000,305
+      -> standing at x 1850-2048, y 305
+   2. jump (held 6 ticks), holding left, from 1850,305; lands at 1733,273
+      -> standing at x 1658-1766, y 273
+   3. jump (held 2 ticks), holding left, from 1658,273; lands at 1556,273
+      -> standing at x 1498-1606, y 273
+   4. jump (held 2 ticks), holding left, from 1498,273; lands at 1396,273
+      -> standing at x 1338-1446, y 273
+   5. jump (held 21 ticks), holding left, turn into the Morph Ball at tick 8, from 1338,273; lands at 1244,273   [samus:2]
+      -> as the Morph Ball at x 1210-1254, y 273
+   6. as the Morph Ball: running left, roll off the edge, holding left once in the air, turn back once there's room, from 1210,273; lands at 1145,305
+      -> standing at x 1050-1209, y 305
+   7. running left, jump (held 2 ticks), holding left, from 1050,305; lands at 1006,305
+      -> standing at x 858-1030, y 305
+   8. walk off the edge, holding right once in the air, from 858,305; touches it on the way
+      -> out 1032,368
+how in 2000,304 -> out 0,272: link:3
+     coming in at 2000,304
+   1. coming in: holding nothing, from 2000,304; lands at 2000,305
+      -> standing at x 1850-2048, y 305
+   2. jump (held 6 ticks), holding left, from 1850,305; lands at 1733,273
+      -> standing at x 1658-1766, y 273
+   3. jump (held 2 ticks), holding left, from 1658,273; lands at 1556,273
+      -> standing at x 1498-1606, y 273
+   4. running left, jump (held 21 ticks), holding left, from 1498,273; lands at 1270,305
+      -> standing at x 1255-1286, y 305
+   5. jump (held 2 ticks), holding left, from 1255,305, through the bombable wall at 1216,272; lands at 1204,305   [link:3]
+      -> standing at x 1050-1209, y 305
+   6. running left, jump (held 2 ticks), holding left, from 1050,305; lands at 1006,305
+      -> standing at x 858-1030, y 305
+   7. jump (held 21 ticks), holding left, from 858,305; lands at 711,257
+      -> standing at x 711-742, y 257
+   8. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 711,257; lands at 702,209
+      -> standing at x 666-710, y 209
+   9. jump (held 2 ticks), holding left, from 666,209; lands at 564,209
+      -> standing at x 538-582, y 209
+  10. running left, jump (held 21 ticks), holding left, from 538,209; lands at 347,305
+      -> standing at x 250-358, y 305
+  11. jump (held 2 ticks), holding left, from 250,305; lands at 148,305
+      -> standing at x 0-198, y 305
+  12. standing at 0,305, goes into it
+      -> out 0,272
+how in 2000,304 -> out 0,272: samus:2
+     coming in at 2000,304
+   1. coming in: holding nothing, from 2000,304; lands at 2000,305
+      -> standing at x 1850-2048, y 305
+   2. jump (held 6 ticks), holding left, from 1850,305; lands at 1733,273
+      -> standing at x 1658-1766, y 273
+   3. jump (held 2 ticks), holding left, from 1658,273; lands at 1556,273
+      -> standing at x 1498-1606, y 273
+   4. jump (held 2 ticks), holding left, from 1498,273; lands at 1396,273
+      -> standing at x 1338-1446, y 273
+   5. jump (held 21 ticks), holding left, turn into the Morph Ball at tick 8, from 1338,273; lands at 1244,273   [samus:2]
+      -> as the Morph Ball at x 1210-1254, y 273
+   6. as the Morph Ball: running left, roll off the edge, holding left once in the air, turn back once there's room, from 1210,273; lands at 1145,305
+      -> standing at x 1050-1209, y 305
+   7. running left, jump (held 2 ticks), holding left, from 1050,305; lands at 1006,305
+      -> standing at x 858-1030, y 305
+   8. jump (held 21 ticks), holding left, from 858,305; lands at 711,257
+      -> standing at x 711-742, y 257
+   9. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 711,257; lands at 702,209
+      -> standing at x 666-710, y 209
+  10. jump (held 2 ticks), holding left, from 666,209; lands at 564,209
+      -> standing at x 538-582, y 209
+  11. running left, jump (held 21 ticks), holding left, from 538,209; lands at 347,305
+      -> standing at x 250-358, y 305
+  12. jump (held 2 ticks), holding left, from 250,305; lands at 148,305
+      -> standing at x 0-198, y 305
+  13. standing at 0,305, goes into it
+      -> out 0,272
+how in 2000,304 -> out 2032,272: -
+     coming in at 2000,304
+   1. coming in: holding nothing, from 2000,304; lands at 2000,305
+      -> standing at x 1850-2048, y 305
+   2. standing at 2030,305, goes into it
+      -> out 2032,272

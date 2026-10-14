@@ -1,0 +1,70 @@
+# rDCS_L: Displaced Construction Site (area 90), 1952x352 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 112,128   # from rDCS_E out 1152,880
+in 1904,288   # from rDCS_M out 0,256
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 64,-16   # to rDCS_E at 1136,816; the player goes into it
+out 1936,256   # to rDCS_M at 48,288; the player goes into it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 112,128
+  out 64,-16     djump | adash
+  out 1936,256   never
+from in 1904,288
+  out 64,-16     djump,samus:2
+  out 1936,256   -
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 112,128 -> out 64,-16: djump
+     coming in at 112,128
+   1. coming in: holding nothing, from 112,128; lands at 112,129
+      -> standing at x 71-134, y 129
+   2. jump (held 21 ticks), holding left, double jump at tick 10, from 71,129; touches it on the way   [djump]
+      -> out 64,-16
+how in 112,128 -> out 64,-16: adash
+     coming in at 112,128
+   1. coming in: holding nothing, from 112,128; lands at 112,129
+      -> standing at x 71-134, y 129
+   2. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 71,129; touches it on the way   [adash]
+      -> out 64,-16
+how in 1904,288 -> out 64,-16: djump,samus:2
+     coming in at 1904,288
+   1. coming in: holding nothing, from 1904,288; lands at 1904,289
+      -> standing at x 1863-1952, y 289
+   2. jump (held 21 ticks), holding left, from 1863,289; lands at 1706,289
+      -> standing at x 1063-1753, y 289
+   3. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 1168,289; lands at 1138,193   [djump]
+      -> standing at x 1063-1158, y 193
+   4. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 1120,193; lands at 1084,129
+      -> standing at x 1063-1126, y 129
+   5. jump (held 6 ticks), holding left, turn into the Morph Ball where the body meets a wall or ceiling, from 1063,129; lands at 920,289   [samus:2]
+      -> as the Morph Ball at x 455-1017, y 289
+   6. turn back from the Morph Ball at 455,289
+      -> standing at x 455-1017, y 289
+   7. jump (held 21 ticks), holding left, double jump at tick 15, from 455,289; lands at 316,289   [djump]
+      -> standing at x 231-409, y 289
+   8. jump (held 21 ticks), holding left, from 231,289; lands at 158,225
+      -> standing at x 135-230, y 225
+   9. jump (held 21 ticks), holding left, double jump at tick 15, from 135,225; lands at 77,129   [djump]
+      -> standing at x 71-134, y 129
+  10. jump (held 21 ticks), holding left, double jump at tick 10, from 71,129; touches it on the way   [djump]
+      -> out 64,-16
+how in 1904,288 -> out 1936,256: -
+     coming in at 1904,288
+   1. coming in: holding nothing, from 1904,288; lands at 1904,289
+      -> standing at x 1863-1952, y 289
+   2. standing at 1934,289, goes into it
+      -> out 1936,256

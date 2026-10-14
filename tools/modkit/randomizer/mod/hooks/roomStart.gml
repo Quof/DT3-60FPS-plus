@@ -1,8 +1,18 @@
 //Randomizer: every room's start (after its own code)
 if global.rndActive=0
 {
-  //a new game: the intro room. The randomizer takes over from here (rndNewGame goes to the first room)
-  if room=rBeginning {rndNewGame()}
+  //a new game: the intro room. The randomizer takes over from here: the new game's options window (oRndOptions), then
+  //rndNewGame, which goes to Central City. Its intro scene is stopped. An Archipelago game has its options in the
+  //multiworld: it starts straight away
+  if room=rBeginning
+  {
+    if global.rndApNext=1 {rndNewGame()}
+    else
+    {
+      with (oIntro) {instance_destroy()}
+      instance_create(0,0,oRndOptions)
+    }
+  }
   exit
 }
 if !instance_exists(oRndWatcher) {instance_create(0,0,oRndWatcher)}
@@ -21,7 +31,7 @@ else if global.bBossGallery=0
   global.rndInRoom=room
   global.rndInX=global.newMapX
   global.rndInY=global.newMapY
-  //the room of a boss not beaten yet (not the final boss: his door is in the first room): walking up to where its fight
+  //the room of a boss not beaten yet (not the final boss: his door is in Grand Rising): walking up to where its fight
   //starts starts it (oRndWatcher), from the side the player came in on (rndRoomSide); so does leaving the room another
   //way than they came in (the exitPlayer hook)
   var b;

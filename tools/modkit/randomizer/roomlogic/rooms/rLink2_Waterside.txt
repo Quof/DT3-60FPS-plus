@@ -1,0 +1,48 @@
+# rLink2_Waterside: Access Gate 2: Hyrule (area 10), 1600x352 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 48,288   # from rLink2_Overworld out 1264,640
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 0,256   # to rLink2_Overworld at 1256,648; the player goes into it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+loc 9 12   # weapon upgrade 12, at 1527,231
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 48,288
+  out 0,256   -
+  loc 9 12    -
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 48,288 -> out 0,256: -
+     coming in at 48,288
+   1. coming in: holding nothing, from 48,288; lands at 48,289
+      -> standing at x 0-454, y 289
+   2. standing at 0,289, goes into it
+      -> out 0,256
+how in 48,288 -> loc 9 12: -
+     coming in at 48,288
+   1. coming in: holding nothing, from 48,288; lands at 48,289
+      -> standing at x 0-454, y 289
+   2. running right, jump (held 21 ticks), holding right, from 400,289; lands at 613,289
+      -> standing at x 602-742, y 289
+   3. running right, jump (held 21 ticks), holding right, from 688,289; lands at 879,257
+      -> standing at x 858-934, y 257
+   4. jump (held 21 ticks), holding right, from 880,257; lands at 1063,257
+      -> standing at x 1050-1094, y 257
+   5. jump (held 6 ticks), holding right, from 1050,257; lands at 1203,273
+      -> standing at x 1194-1222, y 273
+   6. jump (held 21 ticks), holding right, from 1194,273; lands at 1362,241
+      -> standing at x 1338-1478, y 241
+   7. jump (held 21 ticks), holding right, from 1342,241; touches it on the way
+      -> loc 9 12

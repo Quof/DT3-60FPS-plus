@@ -1,0 +1,119 @@
+# rNGC_RB_C: Neo Grime City (area 57), 928x640 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+# switches: the room is worked out in each of its states, the player coming in in the first: [blue blocks solid]
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 88,608   # from rNGC_RB_B out 352,2288
+in 856,352   # from rNGC_RB_D out 112,960
+in 880,544   # from rNGC_RB_EleA out 0,160
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 80,576   # to rNGC_RB_B at 360,2320; the player presses up at it
+out 848,320   # to rNGC_RB_D at 120,992; the player presses up at it
+out 912,512   # to rNGC_RB_EleA at 48,192; the player goes into it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+loc 2 50   # treasure chest 50, at 856,99
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 88,608
+  out 80,576    -
+  out 848,320   never
+  out 912,512   -
+  loc 2 50      never
+from in 856,352
+  out 80,576    -
+  out 848,320   -
+  out 912,512   -
+  loc 2 50      djump,adash,samus:2
+from in 880,544
+  out 80,576    -
+  out 848,320   never
+  out 912,512   -
+  loc 2 50      never
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 88,608 -> out 80,576: -
+     [blue blocks solid] coming in at 88,608
+   1. coming in: holding nothing, from 88,608; lands at 88,609
+      -> [blue blocks solid] standing at x 39-761, y 609
+   2. standing at 78,609, presses up at it
+      -> out 80,576
+how in 88,608 -> out 912,512: -
+     [blue blocks solid] coming in at 88,608
+   1. coming in: holding nothing, from 88,608; lands at 88,609
+      -> [blue blocks solid] standing at x 39-761, y 609
+   2. running right, jump (held 21 ticks), holding right, from 688,609; lands at 834,545
+      -> [blue blocks solid] standing at x 762-928, y 545
+   3. standing at 910,545, goes into it
+      -> out 912,512
+how in 856,352 -> out 80,576: -
+     [blue blocks solid] coming in at 856,352
+   1. coming in: holding nothing, from 856,352; lands at 856,353
+      -> [blue blocks solid] standing at x 474-889, y 353
+   2. walk off the edge, holding left once in the air, from 474,353; lands at 401,609
+      -> [blue blocks solid] standing at x 39-761, y 609
+   3. standing at 78,609, presses up at it
+      -> out 80,576
+how in 856,352 -> out 848,320: -
+     [blue blocks solid] coming in at 856,352
+   1. coming in: holding nothing, from 856,352; lands at 856,353
+      -> [blue blocks solid] standing at x 474-889, y 353
+   2. standing at 846,353, presses up at it
+      -> out 848,320
+how in 856,352 -> out 912,512: -
+     [blue blocks solid] coming in at 856,352
+   1. coming in: holding nothing, from 856,352; lands at 856,353
+      -> [blue blocks solid] standing at x 474-889, y 353
+   2. walk off the edge, holding left once in the air, from 474,353; lands at 401,609
+      -> [blue blocks solid] standing at x 39-761, y 609
+   3. running right, jump (held 21 ticks), holding right, from 688,609; lands at 834,545
+      -> [blue blocks solid] standing at x 762-928, y 545
+   4. standing at 910,545, goes into it
+      -> out 912,512
+how in 856,352 -> loc 2 50: djump,adash,samus:2
+     [blue blocks solid] coming in at 856,352
+   1. coming in: holding nothing, from 856,352; lands at 856,353
+      -> [blue blocks solid] standing at x 474-889, y 353
+   2. jump (held 2 ticks), holding left, from 474,353; lands at 394,353
+      -> [blue blocks solid] standing at x 103-422, y 353
+   3. jump (held 21 ticks), holding left, from 103,353; lands at 39,289
+      -> [blue blocks solid] standing at x 39-102, y 289
+   4. jump (held 21 ticks), holding right, from 39,289; lands at 170,225
+      -> [blue blocks solid] standing at x 154-217, y 225
+   5. jump (held 21 ticks), holding right, from 154,225; lands at 281,161
+      -> [blue blocks solid] standing at x 218-281, y 161
+   6. jump (held 21 ticks), holding right, from 218,161; lands at 297,97
+      -> [blue blocks solid] standing at x 282-297, y 97
+   7. jump (held 6 ticks), holding right, turn into the Morph Ball where the body meets a wall or ceiling, from 282,97; lands at 364,97   [samus:2]
+      -> [blue blocks solid] as the Morph Ball at x 343-422, y 97
+   8. turn back from the Morph Ball at 343,97
+      -> [blue blocks solid] standing at x 343-422, y 97
+   9. running right, jump (held 6 ticks), holding right, from 400,97; lands at 488,97
+      -> [blue blocks solid] standing at x 474-582, y 97
+  10. walk off the edge, holding right once in the air, from 474,97; lands at 687,225
+      -> [blue blocks solid] standing at x 615-793, y 225
+  11. jump (held 14 ticks), holding right, double jump at tick 16, air dash (Jerry) at tick 26, from 792,225; touches it on the way   [djump,adash]
+      -> loc 2 50
+how in 880,544 -> out 80,576: -
+     [blue blocks solid] coming in at 880,544
+   1. coming in: holding nothing, from 880,544; lands at 880,545
+      -> [blue blocks solid] standing at x 762-928, y 545
+   2. walk off the edge, holding left once in the air, from 762,545; lands at 689,609
+      -> [blue blocks solid] standing at x 39-761, y 609
+   3. standing at 78,609, presses up at it
+      -> out 80,576
+how in 880,544 -> out 912,512: -
+     [blue blocks solid] coming in at 880,544
+   1. coming in: holding nothing, from 880,544; lands at 880,545
+      -> [blue blocks solid] standing at x 762-928, y 545
+   2. standing at 910,545, goes into it
+      -> out 912,512

@@ -1,0 +1,46 @@
+# rGame6_WindJ: Access Gate 6: Prototype Game (area 58), 480x352 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 32,288   # from rGame6_WindI out 680,256
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 24,256   # to rGame6_WindI at 688,288; the player presses up at it
+out 352,288   # to rGame6_WindA at 144,992; the player presses up at it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 32,288
+  out 24,256    -
+  out 352,288   djump | adash
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 32,288 -> out 24,256: -
+     coming in at 32,288
+   1. coming in: holding nothing, from 32,288; lands at 32,289
+      -> standing at x 0-185, y 289
+   2. standing at 14,289, presses up at it
+      -> out 24,256
+how in 32,288 -> out 352,288: djump
+     coming in at 32,288
+   1. coming in: holding nothing, from 32,288; lands at 32,289
+      -> standing at x 0-185, y 289
+   2. jump (held 21 ticks), holding right, double jump at tick 15, from 96,289; touches it on the way   [djump]
+      -> out 352,288
+how in 32,288 -> out 352,288: adash
+     coming in at 32,288
+   1. coming in: holding nothing, from 32,288; lands at 32,289
+      -> standing at x 0-185, y 289
+   2. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 64,289; lands at 277,209   [adash]
+      -> standing at x 186-294, y 209
+   3. walk off the edge, holding right once in the air, from 186,209; touches it on the way
+      -> out 352,288

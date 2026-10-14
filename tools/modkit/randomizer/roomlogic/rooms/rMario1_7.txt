@@ -1,0 +1,287 @@
+# rMario1_7: Access Gate 1: Mushroom Kingdom (area 7), 1536x704 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+# switches: the room is worked out in each of its states, the player coming in in the first: [bricks whole, blue blocks solid]
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 48,208   # from rMario1_6 out 4888,216
+in 1296,96   # from rMario1_7Secret out 136,88
+in 1520,384   # from rMario1_8 out 40,248
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 40,280   # to rMario1_6 at 4800,192; the player presses down at it
+out 1448,104   # to rMario1_7Secret at 48,112; the player presses down at it
+out 1512,376   # to rMario1_8 at 48,144; the player presses down at it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 48,208
+  out 40,280     -
+  out 1448,104   gdash,mario | adash,mario | djump,adash | djump,mario
+  out 1512,376   -
+from in 1296,96
+  out 40,280     -
+  out 1448,104   -
+  out 1512,376   -
+from in 1520,384
+  out 40,280     -
+  out 1448,104   gdash,mario | adash,mario | djump,adash | djump,mario
+  out 1512,376   -
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 48,208 -> out 40,280: -
+     [bricks whole, blue blocks solid] coming in at 48,208
+   1. coming in: holding nothing, from 48,208; lands at 48,289
+      -> [bricks whole, blue blocks solid] standing at x 26-70, y 289
+   2. standing at 38,289, presses down at it
+      -> out 40,280
+how in 48,208 -> out 1448,104: gdash,mario
+     [bricks whole, blue blocks solid] coming in at 48,208
+   1. coming in: holding right, from 48,208; lands at 121,289
+      -> [bricks whole, blue blocks solid] standing at x 90-198, y 289
+   2. running right, jump (held 6 ticks), holding right, from 144,289; lands at 328,321
+      -> [bricks whole, blue blocks solid] standing at x 263-390, y 321
+   3. running right, jump (held 6 ticks), holding right, from 368,321; lands at 486,273
+      -> [bricks whole, blue blocks solid] standing at x 474-518, y 273
+   4. dash right (Jerry), jump (held 21 ticks), holding right, from 496,273; lands at 748,241   [gdash]
+      -> [bricks whole, blue blocks solid] standing at x 730-777, y 241
+   5. jump (held 40 ticks), holding right, bounce off a flying enemy at tick 12 (Mario Ability Set), from 768,241; lands at 974,81   [mario]
+      -> [bricks whole, blue blocks solid] standing at x 906-1046, y 81
+   6. walk off the edge, holding right once in the air, from 906,81; lands at 1133,145
+      -> [bricks whole, blue blocks solid] standing at x 1047-1414, y 145
+   7. dash right (Jerry), jump (held 21 ticks), holding right, from 1184,145; touches it on the way   [gdash]
+      -> out 1448,104
+how in 48,208 -> out 1448,104: adash,mario
+     [bricks whole, blue blocks solid] coming in at 48,208
+   1. coming in: holding right, from 48,208; lands at 121,289
+      -> [bricks whole, blue blocks solid] standing at x 90-198, y 289
+   2. running right, jump (held 6 ticks), holding right, from 144,289; lands at 328,321
+      -> [bricks whole, blue blocks solid] standing at x 263-390, y 321
+   3. running right, jump (held 6 ticks), holding right, from 368,321; lands at 486,273
+      -> [bricks whole, blue blocks solid] standing at x 474-518, y 273
+   4. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 474,273; lands at 768,241   [adash]
+      -> [bricks whole, blue blocks solid] standing at x 730-777, y 241
+   5. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 730,241; lands at 803,209
+      -> [bricks whole, blue blocks solid] standing at x 778-905, y 209
+   6. jump (held 40 ticks), holding nothing, then right after 22 ticks, bounce off a flying enemy at tick 12 (Mario Ability Set), air dash (Jerry) at tick 28, from 832,209; lands at 1104,145   [adash,mario]
+      -> [bricks whole, blue blocks solid] standing at x 1047-1414, y 145
+   7. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 1200,145; touches it on the way   [adash]
+      -> out 1448,104
+how in 48,208 -> out 1448,104: djump,adash
+     [bricks whole, blue blocks solid] coming in at 48,208
+   1. coming in: holding right, from 48,208; lands at 121,289
+      -> [bricks whole, blue blocks solid] standing at x 90-198, y 289
+   2. running right, jump (held 6 ticks), holding right, from 144,289; lands at 328,321
+      -> [bricks whole, blue blocks solid] standing at x 263-390, y 321
+   3. running right, jump (held 6 ticks), holding right, from 368,321; lands at 486,273
+      -> [bricks whole, blue blocks solid] standing at x 474-518, y 273
+   4. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 474,273; lands at 768,241   [adash]
+      -> [bricks whole, blue blocks solid] standing at x 730-777, y 241
+   5. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 730,241; lands at 803,209
+      -> [bricks whole, blue blocks solid] standing at x 778-905, y 209
+   6. jump (held 21 ticks), holding left, double jump at tick 10, air dash (Jerry) at tick 18, from 778,209; lands at 577,113   [djump,adash]
+      -> [bricks whole, blue blocks solid] standing at x 551-598, y 113
+   7. jump (held 9 ticks), holding right, double jump at tick 21, air dash (Claire) at tick 14, from 596,113; lands at 985,81   [djump,adash]
+      -> [bricks whole, blue blocks solid] standing at x 906-1046, y 81
+   8. walk off the edge, holding right once in the air, from 906,81; lands at 1133,145
+      -> [bricks whole, blue blocks solid] standing at x 1047-1414, y 145
+   9. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 1200,145; touches it on the way   [adash]
+      -> out 1448,104
+how in 48,208 -> out 1448,104: djump,mario
+     [bricks whole, blue blocks solid] coming in at 48,208
+   1. coming in: holding right, from 48,208; lands at 121,289
+      -> [bricks whole, blue blocks solid] standing at x 90-198, y 289
+   2. running right, jump (held 6 ticks), holding right, from 144,289; lands at 328,321
+      -> [bricks whole, blue blocks solid] standing at x 263-390, y 321
+   3. running right, jump (held 6 ticks), holding right, from 368,321; lands at 486,273
+      -> [bricks whole, blue blocks solid] standing at x 474-518, y 273
+   4. jump (held 21 ticks), holding right, double jump at tick 15, from 478,273; lands at 741,241   [djump]
+      -> [bricks whole, blue blocks solid] standing at x 730-777, y 241
+   5. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 730,241; lands at 803,209
+      -> [bricks whole, blue blocks solid] standing at x 778-905, y 209
+   6. jump (held 40 ticks), holding nothing, then right after 22 ticks, bounce off a flying enemy at tick 12 (Mario Ability Set), double jump at tick 32, from 848,209; lands at 1097,145   [djump,mario]
+      -> [bricks whole, blue blocks solid] standing at x 1047-1414, y 145
+   7. jump (held 21 ticks), holding right, double jump at tick 15, from 1216,145; touches it on the way   [djump]
+      -> out 1448,104
+how in 48,208 -> out 1512,376: -
+     [bricks whole, blue blocks solid] coming in at 48,208
+   1. coming in: holding right, from 48,208; lands at 121,289
+      -> [bricks whole, blue blocks solid] standing at x 90-198, y 289
+   2. running right, jump (held 6 ticks), holding right, from 144,289; lands at 328,321
+      -> [bricks whole, blue blocks solid] standing at x 263-390, y 321
+   3. running right, jump (held 21 ticks), holding right, from 320,321; lands at 658,353
+      -> [bricks whole, blue blocks solid] standing at x 615-854, y 353
+   4. running right, jump (held 21 ticks), holding right, from 850,353; lands at 1026,305
+      -> [bricks whole, blue blocks solid] standing at x 1018-1158, y 305
+   5. walk off the edge, holding right once in the air, from 1018,305; lands at 1274,417
+      -> [bricks whole, blue blocks solid] standing at x 1210-1350, y 417
+   6. running right, jump (held 21 ticks), holding right, from 1328,417; touches it on the way
+      -> out 1512,376
+how in 1296,96 -> out 40,280: -
+     [bricks whole, blue blocks solid] coming in at 1296,96
+   1. coming in: holding nothing, from 1296,96; lands at 1296,145
+      -> [bricks whole, blue blocks solid] standing at x 1047-1414, y 145
+   2. jump (held 21 ticks), holding left, from 1047,145; lands at 974,81
+      -> [bricks whole, blue blocks solid] standing at x 906-1046, y 81
+   3. jump (held 6 ticks), holding left, from 906,81; lands at 606,337
+      -> [bricks whole, blue blocks solid] standing at x 570-614, y 337
+   4. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 570,337; lands at 332,321
+      -> [bricks whole, blue blocks solid] standing at x 263-390, y 321
+   5. jump (held 6 ticks), holding left, from 263,321; lands at 161,289
+      -> [bricks whole, blue blocks solid] standing at x 90-198, y 289
+   6. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 90,289; lands at 43,289
+      -> [bricks whole, blue blocks solid] standing at x 26-70, y 289
+   7. standing at 38,289, presses down at it
+      -> out 40,280
+how in 1296,96 -> out 1448,104: -
+     [bricks whole, blue blocks solid] coming in at 1296,96
+   1. coming in: holding nothing, from 1296,96; lands at 1296,145
+      -> [bricks whole, blue blocks solid] standing at x 1047-1414, y 145
+   2. running right, jump (held 21 ticks), holding right, from 1264,145; touches it on the way
+      -> out 1448,104
+how in 1296,96 -> out 1512,376: -
+     [bricks whole, blue blocks solid] coming in at 1296,96
+   1. coming in: holding nothing, from 1296,96; lands at 1296,145
+      -> [bricks whole, blue blocks solid] standing at x 1047-1414, y 145
+   2. walk off the edge, holding right, then left after 1 ticks in the air, from 1056,145; lands at 1321,417
+      -> [bricks whole, blue blocks solid] standing at x 1210-1350, y 417
+   3. running right, jump (held 21 ticks), holding right, from 1328,417; touches it on the way
+      -> out 1512,376
+how in 1520,384 -> out 40,280: -
+     [bricks whole, blue blocks solid] coming in at 1520,384
+   1. coming in: holding nothing, from 1520,384; lands at 1520,385
+      -> [bricks whole, blue blocks solid] standing at x 1498-1536, y 385
+   2. running left, jump (held 21 ticks), holding left, from 1502,385; lands at 1311,353
+      -> [bricks whole, blue blocks solid] standing at x 1306-1334, y 353
+   3. running left, jump (held 21 ticks), holding left, from 1306,353; lands at 1130,305
+      -> [bricks whole, blue blocks solid] standing at x 1018-1158, y 305
+   4. walk off the edge, holding left once in the air, from 1018,305; lands at 945,353
+      -> [bricks whole, blue blocks solid] standing at x 874-1017, y 353
+   5. jump (held 2 ticks), holding left, from 874,353; lands at 772,353
+      -> [bricks whole, blue blocks solid] standing at x 615-854, y 353
+   6. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 615,353; lands at 589,337
+      -> [bricks whole, blue blocks solid] standing at x 570-614, y 337
+   7. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 570,337; lands at 332,321
+      -> [bricks whole, blue blocks solid] standing at x 263-390, y 321
+   8. jump (held 6 ticks), holding left, from 263,321; lands at 161,289
+      -> [bricks whole, blue blocks solid] standing at x 90-198, y 289
+   9. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 90,289; lands at 43,289
+      -> [bricks whole, blue blocks solid] standing at x 26-70, y 289
+  10. standing at 38,289, presses down at it
+      -> out 40,280
+how in 1520,384 -> out 1448,104: gdash,mario
+     [bricks whole, blue blocks solid] coming in at 1520,384
+   1. coming in: holding nothing, from 1520,384; lands at 1520,385
+      -> [bricks whole, blue blocks solid] standing at x 1498-1536, y 385
+   2. running left, jump (held 21 ticks), holding left, from 1502,385; lands at 1311,353
+      -> [bricks whole, blue blocks solid] standing at x 1306-1334, y 353
+   3. running left, jump (held 21 ticks), holding left, from 1306,353; lands at 1130,305
+      -> [bricks whole, blue blocks solid] standing at x 1018-1158, y 305
+   4. walk off the edge, holding left once in the air, from 1018,305; lands at 945,353
+      -> [bricks whole, blue blocks solid] standing at x 874-1017, y 353
+   5. jump (held 2 ticks), holding left, from 874,353; lands at 772,353
+      -> [bricks whole, blue blocks solid] standing at x 615-854, y 353
+   6. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 615,353; lands at 589,337
+      -> [bricks whole, blue blocks solid] standing at x 570-614, y 337
+   7. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 570,337; lands at 332,321
+      -> [bricks whole, blue blocks solid] standing at x 263-390, y 321
+   8. running right, jump (held 6 ticks), holding right, from 368,321; lands at 486,273
+      -> [bricks whole, blue blocks solid] standing at x 474-518, y 273
+   9. dash right (Jerry), jump (held 21 ticks), holding right, from 496,273; lands at 748,241   [gdash]
+      -> [bricks whole, blue blocks solid] standing at x 730-777, y 241
+  10. jump (held 40 ticks), holding right, bounce off a flying enemy at tick 12 (Mario Ability Set), from 768,241; lands at 974,81   [mario]
+      -> [bricks whole, blue blocks solid] standing at x 906-1046, y 81
+  11. walk off the edge, holding right once in the air, from 906,81; lands at 1133,145
+      -> [bricks whole, blue blocks solid] standing at x 1047-1414, y 145
+  12. dash right (Jerry), jump (held 21 ticks), holding right, from 1184,145; touches it on the way   [gdash]
+      -> out 1448,104
+how in 1520,384 -> out 1448,104: adash,mario
+     [bricks whole, blue blocks solid] coming in at 1520,384
+   1. coming in: holding nothing, from 1520,384; lands at 1520,385
+      -> [bricks whole, blue blocks solid] standing at x 1498-1536, y 385
+   2. running left, jump (held 21 ticks), holding left, from 1502,385; lands at 1311,353
+      -> [bricks whole, blue blocks solid] standing at x 1306-1334, y 353
+   3. running left, jump (held 21 ticks), holding left, from 1306,353; lands at 1130,305
+      -> [bricks whole, blue blocks solid] standing at x 1018-1158, y 305
+   4. walk off the edge, holding left once in the air, from 1018,305; lands at 945,353
+      -> [bricks whole, blue blocks solid] standing at x 874-1017, y 353
+   5. jump (held 2 ticks), holding left, from 874,353; lands at 772,353
+      -> [bricks whole, blue blocks solid] standing at x 615-854, y 353
+   6. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 615,353; lands at 589,337
+      -> [bricks whole, blue blocks solid] standing at x 570-614, y 337
+   7. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 570,337; lands at 332,321
+      -> [bricks whole, blue blocks solid] standing at x 263-390, y 321
+   8. running right, jump (held 6 ticks), holding right, from 368,321; lands at 486,273
+      -> [bricks whole, blue blocks solid] standing at x 474-518, y 273
+   9. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 474,273; lands at 768,241   [adash]
+      -> [bricks whole, blue blocks solid] standing at x 730-777, y 241
+  10. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 730,241; lands at 803,209
+      -> [bricks whole, blue blocks solid] standing at x 778-905, y 209
+  11. jump (held 40 ticks), holding nothing, then right after 22 ticks, bounce off a flying enemy at tick 12 (Mario Ability Set), air dash (Jerry) at tick 28, from 832,209; lands at 1104,145   [adash,mario]
+      -> [bricks whole, blue blocks solid] standing at x 1047-1414, y 145
+  12. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 1200,145; touches it on the way   [adash]
+      -> out 1448,104
+how in 1520,384 -> out 1448,104: djump,adash
+     [bricks whole, blue blocks solid] coming in at 1520,384
+   1. coming in: holding nothing, from 1520,384; lands at 1520,385
+      -> [bricks whole, blue blocks solid] standing at x 1498-1536, y 385
+   2. running left, jump (held 21 ticks), holding left, from 1502,385; lands at 1311,353
+      -> [bricks whole, blue blocks solid] standing at x 1306-1334, y 353
+   3. running left, jump (held 21 ticks), holding left, from 1306,353; lands at 1130,305
+      -> [bricks whole, blue blocks solid] standing at x 1018-1158, y 305
+   4. walk off the edge, holding left once in the air, from 1018,305; lands at 945,353
+      -> [bricks whole, blue blocks solid] standing at x 874-1017, y 353
+   5. jump (held 2 ticks), holding left, from 874,353; lands at 772,353
+      -> [bricks whole, blue blocks solid] standing at x 615-854, y 353
+   6. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 615,353; lands at 589,337
+      -> [bricks whole, blue blocks solid] standing at x 570-614, y 337
+   7. jump (held 21 ticks), holding right, double jump at tick 15, from 570,337; lands at 767,241   [djump]
+      -> [bricks whole, blue blocks solid] standing at x 730-777, y 241
+   8. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 730,241; lands at 803,209
+      -> [bricks whole, blue blocks solid] standing at x 778-905, y 209
+   9. jump (held 21 ticks), holding left, double jump at tick 10, air dash (Jerry) at tick 18, from 778,209; lands at 577,113   [djump,adash]
+      -> [bricks whole, blue blocks solid] standing at x 551-598, y 113
+  10. jump (held 9 ticks), holding right, double jump at tick 21, air dash (Claire) at tick 14, from 596,113; lands at 985,81   [djump,adash]
+      -> [bricks whole, blue blocks solid] standing at x 906-1046, y 81
+  11. walk off the edge, holding right once in the air, from 906,81; lands at 1133,145
+      -> [bricks whole, blue blocks solid] standing at x 1047-1414, y 145
+  12. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 1200,145; touches it on the way   [adash]
+      -> out 1448,104
+how in 1520,384 -> out 1448,104: djump,mario
+     [bricks whole, blue blocks solid] coming in at 1520,384
+   1. coming in: holding nothing, from 1520,384; lands at 1520,385
+      -> [bricks whole, blue blocks solid] standing at x 1498-1536, y 385
+   2. running left, jump (held 21 ticks), holding left, from 1502,385; lands at 1311,353
+      -> [bricks whole, blue blocks solid] standing at x 1306-1334, y 353
+   3. running left, jump (held 21 ticks), holding left, from 1306,353; lands at 1130,305
+      -> [bricks whole, blue blocks solid] standing at x 1018-1158, y 305
+   4. walk off the edge, holding left once in the air, from 1018,305; lands at 945,353
+      -> [bricks whole, blue blocks solid] standing at x 874-1017, y 353
+   5. jump (held 2 ticks), holding left, from 874,353; lands at 772,353
+      -> [bricks whole, blue blocks solid] standing at x 615-854, y 353
+   6. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 615,353; lands at 589,337
+      -> [bricks whole, blue blocks solid] standing at x 570-614, y 337
+   7. jump (held 21 ticks), holding right, double jump at tick 15, from 570,337; lands at 767,241   [djump]
+      -> [bricks whole, blue blocks solid] standing at x 730-777, y 241
+   8. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 730,241; lands at 803,209
+      -> [bricks whole, blue blocks solid] standing at x 778-905, y 209
+   9. jump (held 40 ticks), holding nothing, then right after 22 ticks, bounce off a flying enemy at tick 12 (Mario Ability Set), double jump at tick 32, from 848,209; lands at 1097,145   [djump,mario]
+      -> [bricks whole, blue blocks solid] standing at x 1047-1414, y 145
+  10. jump (held 21 ticks), holding right, double jump at tick 15, from 1216,145; touches it on the way   [djump]
+      -> out 1448,104
+how in 1520,384 -> out 1512,376: -
+     [bricks whole, blue blocks solid] coming in at 1520,384
+   1. coming in: holding nothing, from 1520,384; lands at 1520,385
+      -> [bricks whole, blue blocks solid] standing at x 1498-1536, y 385
+   2. jump (held 6 ticks), holding left, from 1498,385; lands at 1337,417
+      -> [bricks whole, blue blocks solid] standing at x 1210-1350, y 417
+   3. running right, jump (held 21 ticks), holding right, from 1328,417; touches it on the way
+      -> out 1512,376

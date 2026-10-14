@@ -1,0 +1,54 @@
+# rLowFacS: CHAOS Weapons Facility (area 69), 1072x480 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 48,384   # from rLowFacR out 1024,416
+in 176,384   # from rLavaCaveA out 32,192
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 0,352   # to rLowFacR at 992,448; the player goes into it
+out 176,384   # to rLavaCaveA at 32,192; the player presses up at it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 48,384
+  out 0,352     -
+  out 176,384   -
+from in 176,384
+  out 0,352     -
+  out 176,384   -
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 48,384 -> out 0,352: -
+     coming in at 48,384
+   1. coming in: holding nothing, from 48,384; lands at 48,385
+      -> standing at x 0-358, y 385
+   2. standing at 0,385, goes into it
+      -> out 0,352
+how in 48,384 -> out 176,384: -
+     coming in at 48,384
+   1. coming in: holding nothing, from 48,384; lands at 48,385
+      -> standing at x 0-358, y 385
+   2. standing at 142,385, presses up at it
+      -> out 176,384
+how in 176,384 -> out 0,352: -
+     coming in at 176,384
+   1. coming in: holding nothing, from 176,384; lands at 176,385
+      -> standing at x 0-358, y 385
+   2. standing at 0,385, goes into it
+      -> out 0,352
+how in 176,384 -> out 176,384: -
+     coming in at 176,384
+   1. coming in: holding nothing, from 176,384; lands at 176,385
+      -> standing at x 0-358, y 385
+   2. standing at 142,385, presses up at it
+      -> out 176,384

@@ -1,0 +1,48 @@
+# rPttT_01: Great Colossal Falloff (area 76), 1072x560 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 1024,400   # from rPttT_02 out 0,416
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 0,272   # to rMain_76 at 1104,160; the player goes into it
+out 1056,368   # to rPttT_02 at 48,448; the player goes into it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 1024,400
+  out 0,272      djump
+  out 1056,368   -
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 1024,400 -> out 0,272: djump
+     coming in at 1024,400
+   1. coming in: holding nothing, from 1024,400; lands at 1024,401
+      -> standing at x 826-1072, y 401
+   2. jump (held 21 ticks), holding nothing, then right after 14 ticks, double jump at tick 12, from 864,401; lands at 910,305   [djump]
+      -> standing at x 890-934, y 305
+   3. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 890,305; lands at 623,129
+      -> standing at x 618-662, y 129
+   4. running left, jump (held 2 ticks), holding left, from 618,129; lands at 487,145
+      -> standing at x 487-502, y 145
+   5. jump (held 21 ticks), holding left, double jump at tick 15, from 487,145; lands at 257,81   [djump]
+      -> standing at x 234-278, y 81
+   6. jump (held 2 ticks), holding left, from 234,81; lands at 169,49
+      -> standing at x 138-198, y 49
+   7. walk off the edge, holding left once in the air, from 138,49; touches it on the way
+      -> out 0,272
+how in 1024,400 -> out 1056,368: -
+     coming in at 1024,400
+   1. coming in: holding nothing, from 1024,400; lands at 1024,401
+      -> standing at x 826-1072, y 401
+   2. standing at 1054,401, goes into it
+      -> out 1056,368

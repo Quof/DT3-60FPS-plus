@@ -1,0 +1,74 @@
+# rMain_25ExtA: Begonia - Waterway Passage (area 25), 800x512 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 48,480   # from rMain_25 out 264,448
+in 736,128   # from rMain_25 out 1256,112
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 40,448   # to rMain_25 at 272,480; the player presses up at it
+out 728,96   # to rMain_25 at 1264,144; the player presses up at it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+loc 2 25   # treasure chest 25, at 640,115
+loc 10 15   # skill point 15, at 735,351
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 48,480
+  out 40,448   -
+  out 728,96   never
+  loc 2 25     never
+  loc 10 15    never
+from in 736,128
+  out 40,448   -
+  out 728,96   -
+  loc 2 25     -
+  loc 10 15    -
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 48,480 -> out 40,448: -
+     coming in at 48,480
+   1. coming in: holding nothing, from 48,480; lands at 48,481
+      -> standing at x 39-441, y 481
+   2. standing at 39,481, presses up at it
+      -> out 40,448
+how in 736,128 -> out 40,448: -
+     coming in at 736,128
+   1. coming in: holding nothing, from 736,128; lands at 736,129
+      -> standing at x 586-745, y 129
+   2. walk off the edge, holding left once in the air, from 586,129; lands at 348,481
+      -> standing at x 39-441, y 481
+   3. standing at 39,481, presses up at it
+      -> out 40,448
+how in 736,128 -> out 728,96: -
+     coming in at 736,128
+   1. coming in: holding nothing, from 736,128; lands at 736,129
+      -> standing at x 586-745, y 129
+   2. standing at 726,129, presses up at it
+      -> out 728,96
+how in 736,128 -> loc 2 25: -
+     coming in at 736,128
+   1. coming in: holding nothing, from 736,128; lands at 736,129
+      -> standing at x 586-745, y 129
+   2. jump (held 2 ticks), holding left, from 586,129; lands at 513,129
+      -> standing at x 490-566, y 129
+   3. jump (held 21 ticks), holding right, from 512,129; touches it on the way
+      -> loc 2 25
+how in 736,128 -> loc 10 15: -
+     coming in at 736,128
+   1. coming in: holding nothing, from 736,128; lands at 736,129
+      -> standing at x 586-745, y 129
+   2. walk off the edge, holding left, then right after 1 ticks in the air, from 586,129; lands at 692,305
+      -> standing at x 666-710, y 305
+   3. walk off the edge, holding right, then left after 1 ticks in the air, from 666,305; lands at 711,321
+      -> standing at x 711-726, y 321
+   4. walk off the edge, holding right, then nothing after 1 ticks in the air, from 711,321; touches it on the way
+      -> loc 10 15

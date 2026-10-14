@@ -1,0 +1,62 @@
+# rMC_L: Magical Castle (area 93), 960x352 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 288,288   # from rMC_K out 2880,-16
+in 848,320   # from rMC_M out 64,-16
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 208,336   # to rMC_K at 2896,64; the player goes into it
+out 864,336   # to rMC_M at 96,112; the player goes into it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 288,288
+  out 208,336   -
+  out 864,336   -
+from in 848,320
+  out 208,336   -
+  out 864,336   -
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 288,288 -> out 208,336: -
+     coming in at 288,288
+   1. coming in: holding nothing, from 288,288; lands at 288,289
+      -> standing at x 266-838, y 289
+   2. jump (held 2 ticks), holding left, from 266,289; lands at 164,289
+      -> standing at x 0-214, y 289
+   3. walk off the edge, holding right once in the air, from 0,289; touches it on the way
+      -> out 208,336
+how in 288,288 -> out 864,336: -
+     coming in at 288,288
+   1. coming in: holding nothing, from 288,288; lands at 288,289
+      -> standing at x 266-838, y 289
+   2. walk off the edge, holding right once in the air, from 266,289; touches it on the way
+      -> out 864,336
+how in 848,320 -> out 208,336: -
+     coming in at 848,320
+   1. coming in: holding nothing, from 848,320; lands at 848,321
+      -> standing at x 839-870, y 321
+   2. jump (held 2 ticks), holding left, from 839,321; lands at 796,289
+      -> standing at x 266-838, y 289
+   3. jump (held 2 ticks), holding left, from 266,289; lands at 164,289
+      -> standing at x 0-214, y 289
+   4. walk off the edge, holding right once in the air, from 0,289; touches it on the way
+      -> out 208,336
+how in 848,320 -> out 864,336: -
+     coming in at 848,320
+   1. coming in: holding nothing, from 848,320; lands at 848,321
+      -> standing at x 839-870, y 321
+   2. jump (held 2 ticks), holding left, from 839,321; lands at 796,289
+      -> standing at x 266-838, y 289
+   3. walk off the edge, holding right once in the air, from 266,289; touches it on the way
+      -> out 864,336

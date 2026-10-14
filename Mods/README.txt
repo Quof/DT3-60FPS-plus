@@ -174,7 +174,13 @@ new objects: 1 if its code was written for 30fps, 0 if for DT3+ (left out: the m
 can have 30fps objects in it (see DT3+ AND 30FPS MODS).
 
 For one of the game's objects, only the settings object.ini has are changed (the mod's events for it are 30fps code in a
-30fps mod, DT3+ code otherwise). Changing the game's objects changes them everywhere: if a mod only needs a changed
+30fps mod, DT3+ code otherwise).
+
+Replacing one of the game's events means clearing it when the mods load, which takes long (seconds) for an object many
+others inherit from (oDamagableBase, oEnemyBase, oEProjectileBase...): add lines after the event (append) where that
+does the same. A few of the game's events are replaced without clearing them (the list in scripts\scrModEvInit.gml,
+which tools\modkit\addevoverride.py adds to): the game's event runs the mod's version in place of its own code, and
+what other mods add after it still runs. tools\modkit\validate.py warns about a replaced event that takes long. Changing the game's objects changes them everywhere: if a mod only needs a changed
 copy for its own rooms, make a new object with the game's object as its parent (the mod tools call these clones).
 
 When two mods both have a new object of the same name, it's one object: the later mod's events and settings replace

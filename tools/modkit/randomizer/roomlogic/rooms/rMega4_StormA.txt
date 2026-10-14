@@ -1,0 +1,78 @@
+# rMega4_StormA: Access Gate 4: Megapolis (area 29), 3680x720 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 80,192   # from rMega4_Map's menu
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 3664,192   # to rMega4_StormB at 48,416; the player goes into it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+loc 1 19   # heart piece 19, at 87,599
+loc 9 71   # weapon upgrade 71, at 2311,663
+loc 2 36   # treasure chest 36, at 2912,227
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 80,192
+  out 3664,192   -
+  loc 1 19       -
+  loc 9 71       -
+  loc 2 36       never
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 80,192 -> out 3664,192: -
+     coming in at 80,192
+   1. coming in: holding nothing, from 80,192; lands at 80,193
+      -> standing at x 0-327, y 193-264
+   2. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 327,194; lands at 504,225
+      -> standing at x 473-1383, y 225-785
+   3. running right, jump (held 21 ticks), holding right, from 1376,609; lands at 1539,545
+      -> standing at x 1530-1582, y 545-547
+   4. jump (held 21 ticks), holding right, from 1530,545; lands at 1670,481
+      -> standing at x 1658-1710, y 481-483
+   5. running right, jump (held 21 ticks), holding right, from 1696,481; lands at 1910,479
+      -> standing at x 1898-1950, y 479-481
+   6. jump (held 21 ticks), holding right, from 1946,479; clings to the wall at 2041,407
+      -> standing at x 2041-2279, y 273-407
+   7. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2279,274; lands at 2412,241
+      -> standing at x 2393-3225, y 241-785
+   8. jump (held 21 ticks), holding left, from 3136,545; clings to the wall at 2983,512
+      -> on the wall at x 2983, y -24-519
+   9. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2983,-24; lands at 3284,385
+      -> standing at x 3225-3680, y 209-387
+  10. standing at 3662,225, goes into it
+      -> out 3664,192
+how in 80,192 -> loc 1 19: -
+     coming in at 80,192
+   1. coming in: holding nothing, from 80,192; lands at 80,193
+      -> standing at x 0-327, y 193-264
+   2. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 327,194; lands at 504,225
+      -> standing at x 473-1383, y 225-785
+   3. running left, jump (held 21 ticks), holding left, from 512,225; lands at 95,609
+      -> standing at x 39-167, y 488-785
+   4. standing at 81,609, touches it
+      -> loc 1 19
+how in 80,192 -> loc 9 71: -
+     coming in at 80,192
+   1. coming in: holding nothing, from 80,192; lands at 80,193
+      -> standing at x 0-327, y 193-264
+   2. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 327,194; lands at 504,225
+      -> standing at x 473-1383, y 225-785
+   3. running right, jump (held 21 ticks), holding right, from 1376,609; lands at 1539,545
+      -> standing at x 1530-1582, y 545-547
+   4. jump (held 21 ticks), holding right, from 1530,545; lands at 1670,481
+      -> standing at x 1658-1710, y 481-483
+   5. running right, jump (held 21 ticks), holding right, from 1696,481; lands at 1910,479
+      -> standing at x 1898-1950, y 479-481
+   6. jump (held 21 ticks), holding right, from 1946,479; clings to the wall at 2041,407
+      -> standing at x 2041-2279, y 273-407
+   7. on the wall to the left: kick off it (wall jump), holding left, then nothing after 1 ticks, from 2279,274; touches it on the way
+      -> loc 9 71

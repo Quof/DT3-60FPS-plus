@@ -1,0 +1,402 @@
+# rGame6_FireA: Access Gate 6: Prototype Game (area 58), 2464x352 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 48,272   # from rGame6_Overworld out 1360,992
+in 2160,256   # from rGame6_FireB out 80,-16
+in 2416,144   # from rGame6_FireExtra out 0,448
+in 80,272   # from rGame6_FireF out 320,272
+in 944,0   # from rGame6_JDream out 1104,240
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 0,240   # to rGame6_Overworld at 1368,1016; the player goes into it
+out 2192,336   # to rGame6_FireB at 96,64; the player goes into it
+out 2448,112   # to rGame6_FireExtra at 48,480; the player goes into it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 48,272
+  out 0,240      -
+  out 2192,336   -
+  out 2448,112   link:1 | belmont:1
+from in 2160,256
+  out 0,240      -
+  out 2192,336   -
+  out 2448,112   link:1 | belmont:1
+from in 2416,144
+  out 0,240      link:1 | belmont:1
+  out 2192,336   link:1 | belmont:1
+  out 2448,112   -
+from in 80,272
+  out 0,240      -
+  out 2192,336   -
+  out 2448,112   link:1 | belmont:1
+from in 944,0
+  out 0,240      -
+  out 2192,336   -
+  out 2448,112   link:1 | belmont:1
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 48,272 -> out 0,240: -
+     coming in at 48,272
+   1. coming in: holding nothing, from 48,272; lands at 48,273
+      -> standing at x 0-249, y 241-273
+   2. standing at 0,273, goes into it
+      -> out 0,240
+how in 48,272 -> out 2192,336: -
+     coming in at 48,272
+   1. coming in: holding nothing, from 48,272; lands at 48,273
+      -> standing at x 0-249, y 241-273
+   2. jump (held 21 ticks), holding right, from 208,250; lands at 273,177
+      -> standing at x 250-454, y 177-224
+   3. walk off the edge, holding right once in the air, from 250,193; lands at 522,257
+      -> standing at x 455-697, y 194-257
+   4. jump (held 21 ticks), holding right, from 672,218; lands at 721,145
+      -> standing at x 698-854, y 97-161
+   5. running right, jump (held 21 ticks), holding right, from 848,106; lands at 1046,225
+      -> standing at x 1034-1126, y 225
+   6. jump (held 6 ticks), holding right, from 1056,225; lands at 1187,209
+      -> standing at x 1178-1302, y 209
+   7. running right, jump (held 21 ticks), holding right, from 1216,209; lands at 1418,193
+      -> standing at x 1402-1558, y 177-224
+   8. walk off the edge, holding right once in the air, from 1402,209; lands at 1624,249
+      -> standing at x 1559-1958, y 161-257
+   9. walk off the edge, holding right, then left after 1 ticks in the air, from 1559,241; lands at 1959,209
+      -> standing at x 1959-1990, y 209-224
+  10. running right, jump (held 21 ticks), holding right, from 1983,217; touches it on the way
+      -> out 2192,336
+how in 48,272 -> out 2448,112: link:1
+     coming in at 48,272
+   1. coming in: holding nothing, from 48,272; lands at 48,273
+      -> standing at x 0-249, y 241-273
+   2. jump (held 21 ticks), holding right, from 208,250; lands at 273,177
+      -> standing at x 250-454, y 177-224
+   3. walk off the edge, holding right once in the air, from 250,193; lands at 522,257
+      -> standing at x 455-697, y 194-257
+   4. jump (held 21 ticks), holding right, from 672,218; lands at 721,145
+      -> standing at x 698-854, y 97-161
+   5. running right, jump (held 21 ticks), holding right, from 848,106; lands at 1046,225
+      -> standing at x 1034-1126, y 225
+   6. jump (held 6 ticks), holding right, from 1056,225; lands at 1187,209
+      -> standing at x 1178-1302, y 209
+   7. running right, jump (held 21 ticks), holding right, from 1216,209; lands at 1418,193
+      -> standing at x 1402-1558, y 177-224
+   8. walk off the edge, holding right once in the air, from 1402,209; lands at 1624,249
+      -> standing at x 1559-1958, y 161-257
+   9. walk off the edge, holding right once in the air, from 1559,241; lands at 2059,257
+      -> standing at x 1991-2198, y 257-272
+  10. running right, jump (held 2 ticks), holding right, from 2112,257; lands at 2228,246
+      -> standing at x 2218-2297, y 193-257
+  11. jump (held 21 ticks), holding right, from 2256,218; lands at 2321,145
+      -> standing at x 2298-2361, y 145-161
+  12. walk off the edge, holding right once in the air, from 2298,161, through the breakable wall at 2368,80, the breakable wall at 2368,112; touches it on the way   [link:1]
+      -> out 2448,112
+how in 48,272 -> out 2448,112: belmont:1
+     coming in at 48,272
+   1. coming in: holding nothing, from 48,272; lands at 48,273
+      -> standing at x 0-249, y 241-273
+   2. jump (held 21 ticks), holding right, from 208,250; lands at 273,177
+      -> standing at x 250-454, y 177-224
+   3. walk off the edge, holding right once in the air, from 250,193; lands at 522,257
+      -> standing at x 455-697, y 194-257
+   4. jump (held 21 ticks), holding right, from 672,218; lands at 721,145
+      -> standing at x 698-854, y 97-161
+   5. running right, jump (held 21 ticks), holding right, from 848,106; lands at 1046,225
+      -> standing at x 1034-1126, y 225
+   6. jump (held 6 ticks), holding right, from 1056,225; lands at 1187,209
+      -> standing at x 1178-1302, y 209
+   7. running right, jump (held 21 ticks), holding right, from 1216,209; lands at 1418,193
+      -> standing at x 1402-1558, y 177-224
+   8. walk off the edge, holding right once in the air, from 1402,209; lands at 1624,249
+      -> standing at x 1559-1958, y 161-257
+   9. walk off the edge, holding right once in the air, from 1559,241; lands at 2059,257
+      -> standing at x 1991-2198, y 257-272
+  10. running right, jump (held 2 ticks), holding right, from 2112,257; lands at 2228,246
+      -> standing at x 2218-2297, y 193-257
+  11. jump (held 21 ticks), holding right, from 2256,218; lands at 2321,145
+      -> standing at x 2298-2361, y 145-161
+  12. walk off the edge, holding right once in the air, from 2298,161, through the breakable wall at 2368,80, the breakable wall at 2368,112; touches it on the way   [belmont:1]
+      -> out 2448,112
+how in 2160,256 -> out 0,240: -
+     coming in at 2160,256
+   1. coming in: holding nothing, from 2160,256; lands at 2160,257
+      -> standing at x 1991-2198, y 257-272
+   2. jump (held 2 ticks), holding left, from 1991,257; lands at 1982,216
+      -> standing at x 1959-1990, y 209-224
+   3. jump (held 2 ticks), holding left, from 1959,209; lands at 1950,168
+      -> standing at x 1559-1958, y 161-257
+   4. jump (held 2 ticks), holding left, from 1559,241; lands at 1534,200
+      -> standing at x 1402-1558, y 177-224
+   5. jump (held 6 ticks), holding left, from 1402,209; lands at 1263,209
+      -> standing at x 1178-1302, y 209
+   6. jump (held 2 ticks), holding left, from 1178,209; lands at 1061,225
+      -> standing at x 1034-1126, y 225
+   7. running left, jump (held 2 ticks), holding left, from 1034,225; lands at 777,129
+      -> standing at x 698-854, y 97-161
+   8. walk off the edge, holding left once in the air, from 698,161; lands at 616,257
+      -> standing at x 455-697, y 194-257
+   9. jump (held 2 ticks), holding left, from 455,241; lands at 423,201
+      -> standing at x 250-454, y 177-224
+  10. walk off the edge, holding left once in the air, from 250,193; lands at 155,273
+      -> standing at x 0-249, y 241-273
+  11. standing at 0,273, goes into it
+      -> out 0,240
+how in 2160,256 -> out 2192,336: -
+     coming in at 2160,256
+   1. coming in: holding nothing, from 2160,256; lands at 2160,257
+      -> standing at x 1991-2198, y 257-272
+   2. jump (held 2 ticks), holding left, from 1991,257; lands at 1982,216
+      -> standing at x 1959-1990, y 209-224
+   3. running right, jump (held 21 ticks), holding right, from 1983,217; touches it on the way
+      -> out 2192,336
+how in 2160,256 -> out 2448,112: link:1
+     coming in at 2160,256
+   1. coming in: holding nothing, from 2160,256; lands at 2160,257
+      -> standing at x 1991-2198, y 257-272
+   2. running right, jump (held 2 ticks), holding right, from 2112,257; lands at 2228,246
+      -> standing at x 2218-2297, y 193-257
+   3. jump (held 21 ticks), holding right, from 2256,218; lands at 2321,145
+      -> standing at x 2298-2361, y 145-161
+   4. walk off the edge, holding right once in the air, from 2298,161, through the breakable wall at 2368,80, the breakable wall at 2368,112; touches it on the way   [link:1]
+      -> out 2448,112
+how in 2160,256 -> out 2448,112: belmont:1
+     coming in at 2160,256
+   1. coming in: holding nothing, from 2160,256; lands at 2160,257
+      -> standing at x 1991-2198, y 257-272
+   2. running right, jump (held 2 ticks), holding right, from 2112,257; lands at 2228,246
+      -> standing at x 2218-2297, y 193-257
+   3. jump (held 21 ticks), holding right, from 2256,218; lands at 2321,145
+      -> standing at x 2298-2361, y 145-161
+   4. walk off the edge, holding right once in the air, from 2298,161, through the breakable wall at 2368,80, the breakable wall at 2368,112; touches it on the way   [belmont:1]
+      -> out 2448,112
+how in 2416,144 -> out 0,240: link:1
+     coming in at 2416,144
+   1. coming in: holding nothing, from 2416,144; lands at 2416,145
+      -> standing at x 2407-2464, y 145
+   2. walk off the edge, holding left once in the air, from 2407,145, through the breakable wall at 2368,80, the breakable wall at 2368,112; lands at 2179,257   [link:1]
+      -> standing at x 1991-2198, y 257-272
+   3. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1991,257; lands at 2070,193
+      -> standing at x 2058-2118, y 193
+   4. running left, jump (held 2 ticks), holding left, from 2058,193; lands at 1950,168
+      -> standing at x 1559-1958, y 161-257
+   5. jump (held 2 ticks), holding left, from 1559,241; lands at 1534,200
+      -> standing at x 1402-1558, y 177-224
+   6. jump (held 6 ticks), holding left, from 1402,209; lands at 1263,209
+      -> standing at x 1178-1302, y 209
+   7. jump (held 2 ticks), holding left, from 1178,209; lands at 1061,225
+      -> standing at x 1034-1126, y 225
+   8. running left, jump (held 2 ticks), holding left, from 1034,225; lands at 777,129
+      -> standing at x 698-854, y 97-161
+   9. walk off the edge, holding left once in the air, from 698,161; lands at 616,257
+      -> standing at x 455-697, y 194-257
+  10. jump (held 2 ticks), holding left, from 455,241; lands at 423,201
+      -> standing at x 250-454, y 177-224
+  11. walk off the edge, holding left once in the air, from 250,193; lands at 155,273
+      -> standing at x 0-249, y 241-273
+  12. standing at 0,273, goes into it
+      -> out 0,240
+how in 2416,144 -> out 0,240: belmont:1
+     coming in at 2416,144
+   1. coming in: holding nothing, from 2416,144; lands at 2416,145
+      -> standing at x 2407-2464, y 145
+   2. walk off the edge, holding left once in the air, from 2407,145, through the breakable wall at 2368,80, the breakable wall at 2368,112; lands at 2179,257   [belmont:1]
+      -> standing at x 1991-2198, y 257-272
+   3. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1991,257; lands at 2070,193
+      -> standing at x 2058-2118, y 193
+   4. running left, jump (held 2 ticks), holding left, from 2058,193; lands at 1950,168
+      -> standing at x 1559-1958, y 161-257
+   5. jump (held 2 ticks), holding left, from 1559,241; lands at 1534,200
+      -> standing at x 1402-1558, y 177-224
+   6. jump (held 6 ticks), holding left, from 1402,209; lands at 1263,209
+      -> standing at x 1178-1302, y 209
+   7. jump (held 2 ticks), holding left, from 1178,209; lands at 1061,225
+      -> standing at x 1034-1126, y 225
+   8. running left, jump (held 2 ticks), holding left, from 1034,225; lands at 777,129
+      -> standing at x 698-854, y 97-161
+   9. walk off the edge, holding left once in the air, from 698,161; lands at 616,257
+      -> standing at x 455-697, y 194-257
+  10. jump (held 2 ticks), holding left, from 455,241; lands at 423,201
+      -> standing at x 250-454, y 177-224
+  11. walk off the edge, holding left once in the air, from 250,193; lands at 155,273
+      -> standing at x 0-249, y 241-273
+  12. standing at 0,273, goes into it
+      -> out 0,240
+how in 2416,144 -> out 2192,336: link:1
+     coming in at 2416,144
+   1. coming in: holding nothing, from 2416,144; lands at 2416,145
+      -> standing at x 2407-2464, y 145
+   2. walk off the edge, holding left once in the air, from 2407,145, through the breakable wall at 2368,80, the breakable wall at 2368,112; lands at 2179,257   [link:1]
+      -> standing at x 1991-2198, y 257-272
+   3. jump (held 2 ticks), holding left, from 1991,257; lands at 1982,216
+      -> standing at x 1959-1990, y 209-224
+   4. running right, jump (held 21 ticks), holding right, from 1983,217; touches it on the way
+      -> out 2192,336
+how in 2416,144 -> out 2192,336: belmont:1
+     coming in at 2416,144
+   1. coming in: holding nothing, from 2416,144; lands at 2416,145
+      -> standing at x 2407-2464, y 145
+   2. walk off the edge, holding left once in the air, from 2407,145, through the breakable wall at 2368,80, the breakable wall at 2368,112; lands at 2179,257   [belmont:1]
+      -> standing at x 1991-2198, y 257-272
+   3. jump (held 2 ticks), holding left, from 1991,257; lands at 1982,216
+      -> standing at x 1959-1990, y 209-224
+   4. running right, jump (held 21 ticks), holding right, from 1983,217; touches it on the way
+      -> out 2192,336
+how in 2416,144 -> out 2448,112: -
+     coming in at 2416,144
+   1. coming in: holding nothing, from 2416,144; lands at 2416,145
+      -> standing at x 2407-2464, y 145
+   2. standing at 2446,145, goes into it
+      -> out 2448,112
+how in 80,272 -> out 0,240: -
+     coming in at 80,272
+   1. coming in: holding nothing, from 80,272; lands at 80,273
+      -> standing at x 0-249, y 241-273
+   2. standing at 0,273, goes into it
+      -> out 0,240
+how in 80,272 -> out 2192,336: -
+     coming in at 80,272
+   1. coming in: holding nothing, from 80,272; lands at 80,273
+      -> standing at x 0-249, y 241-273
+   2. jump (held 21 ticks), holding right, from 208,250; lands at 273,177
+      -> standing at x 250-454, y 177-224
+   3. walk off the edge, holding right once in the air, from 250,193; lands at 522,257
+      -> standing at x 455-697, y 194-257
+   4. jump (held 21 ticks), holding right, from 672,218; lands at 721,145
+      -> standing at x 698-854, y 97-161
+   5. running right, jump (held 21 ticks), holding right, from 848,106; lands at 1046,225
+      -> standing at x 1034-1126, y 225
+   6. jump (held 6 ticks), holding right, from 1056,225; lands at 1187,209
+      -> standing at x 1178-1302, y 209
+   7. running right, jump (held 21 ticks), holding right, from 1216,209; lands at 1418,193
+      -> standing at x 1402-1558, y 177-224
+   8. walk off the edge, holding right once in the air, from 1402,209; lands at 1624,249
+      -> standing at x 1559-1958, y 161-257
+   9. walk off the edge, holding right, then left after 1 ticks in the air, from 1559,241; lands at 1959,209
+      -> standing at x 1959-1990, y 209-224
+  10. running right, jump (held 21 ticks), holding right, from 1983,217; touches it on the way
+      -> out 2192,336
+how in 80,272 -> out 2448,112: link:1
+     coming in at 80,272
+   1. coming in: holding nothing, from 80,272; lands at 80,273
+      -> standing at x 0-249, y 241-273
+   2. jump (held 21 ticks), holding right, from 208,250; lands at 273,177
+      -> standing at x 250-454, y 177-224
+   3. walk off the edge, holding right once in the air, from 250,193; lands at 522,257
+      -> standing at x 455-697, y 194-257
+   4. jump (held 21 ticks), holding right, from 672,218; lands at 721,145
+      -> standing at x 698-854, y 97-161
+   5. running right, jump (held 21 ticks), holding right, from 848,106; lands at 1046,225
+      -> standing at x 1034-1126, y 225
+   6. jump (held 6 ticks), holding right, from 1056,225; lands at 1187,209
+      -> standing at x 1178-1302, y 209
+   7. running right, jump (held 21 ticks), holding right, from 1216,209; lands at 1418,193
+      -> standing at x 1402-1558, y 177-224
+   8. walk off the edge, holding right once in the air, from 1402,209; lands at 1624,249
+      -> standing at x 1559-1958, y 161-257
+   9. walk off the edge, holding right once in the air, from 1559,241; lands at 2059,257
+      -> standing at x 1991-2198, y 257-272
+  10. running right, jump (held 2 ticks), holding right, from 2112,257; lands at 2228,246
+      -> standing at x 2218-2297, y 193-257
+  11. jump (held 21 ticks), holding right, from 2256,218; lands at 2321,145
+      -> standing at x 2298-2361, y 145-161
+  12. walk off the edge, holding right once in the air, from 2298,161, through the breakable wall at 2368,80, the breakable wall at 2368,112; touches it on the way   [link:1]
+      -> out 2448,112
+how in 80,272 -> out 2448,112: belmont:1
+     coming in at 80,272
+   1. coming in: holding nothing, from 80,272; lands at 80,273
+      -> standing at x 0-249, y 241-273
+   2. jump (held 21 ticks), holding right, from 208,250; lands at 273,177
+      -> standing at x 250-454, y 177-224
+   3. walk off the edge, holding right once in the air, from 250,193; lands at 522,257
+      -> standing at x 455-697, y 194-257
+   4. jump (held 21 ticks), holding right, from 672,218; lands at 721,145
+      -> standing at x 698-854, y 97-161
+   5. running right, jump (held 21 ticks), holding right, from 848,106; lands at 1046,225
+      -> standing at x 1034-1126, y 225
+   6. jump (held 6 ticks), holding right, from 1056,225; lands at 1187,209
+      -> standing at x 1178-1302, y 209
+   7. running right, jump (held 21 ticks), holding right, from 1216,209; lands at 1418,193
+      -> standing at x 1402-1558, y 177-224
+   8. walk off the edge, holding right once in the air, from 1402,209; lands at 1624,249
+      -> standing at x 1559-1958, y 161-257
+   9. walk off the edge, holding right once in the air, from 1559,241; lands at 2059,257
+      -> standing at x 1991-2198, y 257-272
+  10. running right, jump (held 2 ticks), holding right, from 2112,257; lands at 2228,246
+      -> standing at x 2218-2297, y 193-257
+  11. jump (held 21 ticks), holding right, from 2256,218; lands at 2321,145
+      -> standing at x 2298-2361, y 145-161
+  12. walk off the edge, holding right once in the air, from 2298,161, through the breakable wall at 2368,80, the breakable wall at 2368,112; touches it on the way   [belmont:1]
+      -> out 2448,112
+how in 944,0 -> out 0,240: -
+     coming in at 944,0
+   1. coming in: holding nothing, from 944,0; lands at 944,241
+      -> standing at x 855-1014, y 225-272
+   2. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, from 896,241; lands at 824,98
+      -> standing at x 698-854, y 97-161
+   3. walk off the edge, holding left once in the air, from 698,161; lands at 616,257
+      -> standing at x 455-697, y 194-257
+   4. jump (held 2 ticks), holding left, from 455,241; lands at 423,201
+      -> standing at x 250-454, y 177-224
+   5. walk off the edge, holding left once in the air, from 250,193; lands at 155,273
+      -> standing at x 0-249, y 241-273
+   6. standing at 0,273, goes into it
+      -> out 0,240
+how in 944,0 -> out 2192,336: -
+     coming in at 944,0
+   1. coming in: holding right, from 944,0; lands at 1049,225
+      -> standing at x 1034-1126, y 225
+   2. jump (held 6 ticks), holding right, from 1056,225; lands at 1187,209
+      -> standing at x 1178-1302, y 209
+   3. running right, jump (held 21 ticks), holding right, from 1216,209; lands at 1418,193
+      -> standing at x 1402-1558, y 177-224
+   4. walk off the edge, holding right once in the air, from 1402,209; lands at 1624,249
+      -> standing at x 1559-1958, y 161-257
+   5. walk off the edge, holding right, then left after 1 ticks in the air, from 1559,241; lands at 1959,209
+      -> standing at x 1959-1990, y 209-224
+   6. running right, jump (held 21 ticks), holding right, from 1983,217; touches it on the way
+      -> out 2192,336
+how in 944,0 -> out 2448,112: link:1
+     coming in at 944,0
+   1. coming in: holding right, from 944,0; lands at 1049,225
+      -> standing at x 1034-1126, y 225
+   2. jump (held 6 ticks), holding right, from 1056,225; lands at 1187,209
+      -> standing at x 1178-1302, y 209
+   3. running right, jump (held 21 ticks), holding right, from 1216,209; lands at 1418,193
+      -> standing at x 1402-1558, y 177-224
+   4. walk off the edge, holding right once in the air, from 1402,209; lands at 1624,249
+      -> standing at x 1559-1958, y 161-257
+   5. walk off the edge, holding right once in the air, from 1559,241; lands at 2059,257
+      -> standing at x 1991-2198, y 257-272
+   6. running right, jump (held 2 ticks), holding right, from 2112,257; lands at 2228,246
+      -> standing at x 2218-2297, y 193-257
+   7. jump (held 21 ticks), holding right, from 2256,218; lands at 2321,145
+      -> standing at x 2298-2361, y 145-161
+   8. walk off the edge, holding right once in the air, from 2298,161, through the breakable wall at 2368,80, the breakable wall at 2368,112; touches it on the way   [link:1]
+      -> out 2448,112
+how in 944,0 -> out 2448,112: belmont:1
+     coming in at 944,0
+   1. coming in: holding right, from 944,0; lands at 1049,225
+      -> standing at x 1034-1126, y 225
+   2. jump (held 6 ticks), holding right, from 1056,225; lands at 1187,209
+      -> standing at x 1178-1302, y 209
+   3. running right, jump (held 21 ticks), holding right, from 1216,209; lands at 1418,193
+      -> standing at x 1402-1558, y 177-224
+   4. walk off the edge, holding right once in the air, from 1402,209; lands at 1624,249
+      -> standing at x 1559-1958, y 161-257
+   5. walk off the edge, holding right once in the air, from 1559,241; lands at 2059,257
+      -> standing at x 1991-2198, y 257-272
+   6. running right, jump (held 2 ticks), holding right, from 2112,257; lands at 2228,246
+      -> standing at x 2218-2297, y 193-257
+   7. jump (held 21 ticks), holding right, from 2256,218; lands at 2321,145
+      -> standing at x 2298-2361, y 145-161
+   8. walk off the edge, holding right once in the air, from 2298,161, through the breakable wall at 2368,80, the breakable wall at 2368,112; touches it on the way   [belmont:1]
+      -> out 2448,112

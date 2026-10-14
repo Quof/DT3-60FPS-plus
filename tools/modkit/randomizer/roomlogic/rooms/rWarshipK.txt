@@ -1,0 +1,88 @@
+# rWarshipK: CHAOS Warship (area 99), 1232x1232 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 48,1120   # from rWarshipJ out 4240,288
+in 1184,928   # from rWarshipL out 0,224
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 0,1088   # to rWarshipJ at 4208,320; the player goes into it
+out 1216,896   # to rWarshipL at 48,256; the player goes into it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+loc 9 100   # weapon upgrade 100, at 999,663
+loc 9 60   # weapon upgrade 60, at 823,551
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 48,1120
+  out 0,1088     -
+  out 1216,896   djump,adash
+  loc 9 100      never
+  loc 9 60       never
+from in 1184,928
+  out 0,1088     never
+  out 1216,896   -
+  loc 9 100      never
+  loc 9 60       never
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 48,1120 -> out 0,1088: -
+     coming in at 48,1120
+   1. coming in: holding nothing, from 48,1120; lands at 48,1121
+      -> standing at x 0-294, y 1121
+   2. standing at 0,1121, goes into it
+      -> out 0,1088
+how in 48,1120 -> out 1216,896: djump,adash
+     coming in at 48,1120
+   1. coming in: holding nothing, from 48,1120; lands at 48,1121
+      -> standing at x 0-294, y 1121
+   2. running right, jump (held 21 ticks), holding right, double jump at tick 10, from 64,1121; lands at 255,1041   [djump]
+      -> standing at x 234-329, y 1041
+   3. jump (held 21 ticks), holding left, double jump at tick 10, from 234,1041; lands at 118,961   [djump]
+      -> standing at x 103-198, y 961
+   4. jump (held 21 ticks), holding nothing, then right after 14 ticks, double jump at tick 12, from 128,961; lands at 179,865   [djump]
+      -> standing at x 170-230, y 865
+   5. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 222,865; lands at 194,769   [djump]
+      -> standing at x 154-214, y 769
+   6. jump (held 21 ticks), holding right, double jump at tick 10, from 154,769; lands at 322,689   [djump]
+      -> standing at x 282-329, y 689
+   7. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 282,689; lands at 187,609   [djump]
+      -> standing at x 170-246, y 609
+   8. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 170,609; lands at 130,513   [djump]
+      -> standing at x 103-150, y 513
+   9. jump (held 21 ticks), holding right, double jump at tick 16, air dash (Jerry) at tick 8, from 103,513; lands at 271,417   [djump,adash]
+      -> standing at x 218-278, y 417
+  10. jump (held 21 ticks), holding nothing, then left after 12 ticks, air dash (Jerry) at tick 12, from 218,417; lands at 134,337   [adash]
+      -> standing at x 122-198, y 337
+  11. jump (held 21 ticks), holding right, double jump at tick 15, from 122,337; lands at 291,241   [djump]
+      -> standing at x 234-297, y 241
+  12. jump (held 21 ticks), holding right, double jump at tick 10, from 234,241; lands at 569,481   [djump]
+      -> standing at x 442-569, y 481
+  13. walk off the edge, holding left once in the air, from 442,481; lands at 375,577
+      -> standing at x 375-745, y 577
+  14. running right, jump (held 21 ticks), holding right, double jump at tick 10, from 624,577; lands at 761,497   [djump]
+      -> standing at x 746-761, y 497
+  15. jump (held 6 ticks), holding right, from 746,497; lands at 777,449
+      -> standing at x 762-777, y 449
+  16. jump (held 21 ticks), holding right, double jump at tick 15, from 762,449; lands at 809,353   [djump]
+      -> standing at x 794-809, y 353
+  17. jump (held 21 ticks), holding right, double jump at tick 15, from 794,353; lands at 921,497   [djump]
+      -> standing at x 890-921, y 497
+  18. walk off the edge, holding left once in the air, from 890,497; lands at 753,929
+      -> standing at x 711-1232, y 929
+  19. standing at 1214,929, goes into it
+      -> out 1216,896
+how in 1184,928 -> out 1216,896: -
+     coming in at 1184,928
+   1. coming in: holding nothing, from 1184,928; lands at 1184,929
+      -> standing at x 711-1232, y 929
+   2. standing at 1214,929, goes into it
+      -> out 1216,896

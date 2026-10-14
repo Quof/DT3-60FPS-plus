@@ -30,6 +30,7 @@ global.modTextCount=0                //room, instance and patch code kept as tex
 //tools\modkit\addoverride.py adds it and keeps this list)
 global.modOvrList="abilSetRemove,awardAwesome,characterCreateEvent,characterDrawEvent,characterStepEvent,charSwitcher,checkWeaponHit,enemyDefeat,enemyDrawEvent,enemyStepEvent,equipmentInit,hitPlayer,internetzDrop,locationCheck,makeEnemyActive,menuAbilitySet,menuEquipment,menuMap,menuOptions,menuProgress,menuRecognitions,menuSpendAP,npcTrivia,playerHeartDisplay,playerTechStart,playerTechUse,pMoveAirDash,pMoveDashBack,pMoveDashForward,pMoveDoubleJump,pMoveJump,pMoveWallDash,pSwapAbility,pSwapCharacter,scrFullStatRestore,showMessage,storeStatus,takeDamage,weaponDmgMod"
 scrModNameMaps()
+if !variable_global_exists("modEvOvr") {scrModEvInit()} //mods change (added): (rIntro sets it up first; this is in case)
 if !directory_exists(global.modDir) {exit}
 
 //----- the mod folders -----

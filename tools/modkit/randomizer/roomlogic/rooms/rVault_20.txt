@@ -1,0 +1,68 @@
+# rVault_20: The Vault (area 40), 3520x352 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 48,272   # from rVault_19 out 2016,240
+in 128,96   # from this room's door out 3384,272
+in 3472,272   # from rVault_21 out 0,240
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 0,240   # to rVault_19 at 1984,272; the player goes into it
+out 3504,240   # to rVault_21 at 48,272; the player goes into it
+out 3384,272   # to this room at 128,96; the player presses down at it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 48,272
+  out 0,240      -
+  out 3504,240   never
+  out 3384,272   never
+from in 128,96
+  out 0,240      -
+  out 3504,240   never
+  out 3384,272   never
+from in 3472,272
+  out 0,240      never
+  out 3504,240   -
+  out 3384,272   -
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 48,272 -> out 0,240: -
+     coming in at 48,272
+   1. coming in: holding nothing, from 48,272; lands at 48,273
+      -> standing at x 0-73, y 273
+   2. standing at 0,273, goes into it
+      -> out 0,240
+how in 128,96 -> out 0,240: -
+     coming in at 128,96
+   1. coming in: holding nothing, from 128,96; lands at 128,257
+      -> standing at x 74-166, y 257
+   2. walk off the edge, holding left once in the air, from 74,257; lands at 30,273
+      -> standing at x 0-73, y 273
+   3. standing at 0,273, goes into it
+      -> out 0,240
+how in 3472,272 -> out 3504,240: -
+     coming in at 3472,272
+   1. coming in: holding nothing, from 3472,272; lands at 3472,273
+      -> standing at x 3402-3520, y 273
+   2. walk off the edge, holding left once in the air, from 3402,273; lands at 3358,289
+      -> standing at x 3354-3382, y 289
+   3. jump (held 21 ticks), holding right, from 3354,289; touches it on the way
+      -> out 3504,240
+how in 3472,272 -> out 3384,272: -
+     coming in at 3472,272
+   1. coming in: holding nothing, from 3472,272; lands at 3472,273
+      -> standing at x 3402-3520, y 273
+   2. walk off the edge, holding left once in the air, from 3402,273; lands at 3358,289
+      -> standing at x 3354-3382, y 289
+   3. standing at 3382,289, presses down at it
+      -> out 3384,272

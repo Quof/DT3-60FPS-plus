@@ -1,0 +1,196 @@
+# rGame6_CoDF: Access Gate 6: Prototype Game (area 58), 1920x1056 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 736,976   # from rGame6_CoDB out 576,-16
+in 1872,368   # from rGame6_CoDG out 0,336
+in 48,688   # from rGame6_CoDI out 2384,256
+in 896,112   # from rGame6_CoDO out 96,496
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 576,1040   # to rGame6_CoDB at 640,96; the player goes into it
+out 1904,336   # to rGame6_CoDG at 48,368; the player goes into it
+out 0,656   # to rGame6_CoDI at 2352,288; the player goes into it
+out 864,-16   # to rGame6_CoDO at 192,480; the player goes into it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+loc 6 46   # game power 46, at 1543,503
+loc 6 45   # game power 45, at 103,791
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 736,976
+  out 576,1040   -
+  out 1904,336   never
+  out 0,656      never
+  out 864,-16    never
+  loc 6 46       never
+  loc 6 45       never
+from in 1872,368
+  out 576,1040   -
+  out 1904,336   -
+  out 0,656      never
+  out 864,-16    never
+  loc 6 46       never
+  loc 6 45       never
+from in 48,688
+  out 576,1040   djump,key:14
+  out 1904,336   djump,adash,key:14,key:15
+  out 0,656      -
+  out 864,-16    djump,key:14,key:15
+  loc 6 46       never
+  loc 6 45       never
+from in 896,112
+  out 576,1040   -
+  out 1904,336   adash
+  out 0,656      key:14,key:15
+  out 864,-16    -
+  loc 6 46       never
+  loc 6 45       never
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 736,976 -> out 576,1040: -
+     coming in at 736,976
+   1. coming in: holding nothing, from 736,976; lands at 736,977
+      -> standing at x 698-953, y 977
+   2. running left, jump (held 2 ticks), holding left, from 698,977; lands at 573,977
+      -> standing at x 151-582, y 977
+   3. walk off the edge, holding right once in the air, from 151,977; touches it on the way
+      -> out 576,1040
+how in 1872,368 -> out 576,1040: -
+     coming in at 1872,368
+   1. coming in: holding nothing, from 1872,368; lands at 1872,369
+      -> standing at x 1463-1920, y 369
+   2. jump (held 21 ticks), holding left, from 1463,369; lands at 994,897
+      -> standing at x 954-1065, y 897
+   3. walk off the edge, holding left once in the air, from 954,897; lands at 859,977
+      -> standing at x 698-953, y 977
+   4. running left, jump (held 2 ticks), holding left, from 698,977; lands at 573,977
+      -> standing at x 151-582, y 977
+   5. walk off the edge, holding right once in the air, from 151,977; touches it on the way
+      -> out 576,1040
+how in 1872,368 -> out 1904,336: -
+     coming in at 1872,368
+   1. coming in: holding nothing, from 1872,368; lands at 1872,369
+      -> standing at x 1463-1920, y 369
+   2. standing at 1902,369, goes into it
+      -> out 1904,336
+how in 48,688 -> out 576,1040: djump,key:14
+     coming in at 48,688
+   1. coming in: holding nothing, from 48,688; lands at 48,689
+      -> standing at x 0-297, y 689
+   2. jump (held 21 ticks), holding right, double jump at tick 15, from 48,689; lands at 195,593   [djump]
+      -> standing at x 138-214, y 593
+   3. jump (held 21 ticks), holding right, double jump at tick 15, from 138,593; lands at 335,497   [djump]
+      -> standing at x 298-361, y 497
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 298,497; lands at 371,465
+      -> standing at x 362-441, y 465
+   5. jump (held 21 ticks), holding right, double jump at tick 15, from 362,465, through the locked door at 448,304; lands at 499,369   [djump,key:14]
+      -> standing at x 488-598, y 369
+   6. walk off the edge, holding right once in the air, from 488,369; lands at 861,721
+      -> standing at x 842-1001, y 721
+   7. walk off the edge, holding left once in the air, double jump at tick 16, from 842,721; lands at 505,977   [djump]
+      -> standing at x 151-582, y 977
+   8. walk off the edge, holding right once in the air, from 151,977; touches it on the way
+      -> out 576,1040
+how in 48,688 -> out 1904,336: djump,adash,key:14,key:15
+     coming in at 48,688
+   1. coming in: holding nothing, from 48,688; lands at 48,689
+      -> standing at x 0-297, y 689
+   2. jump (held 21 ticks), holding right, double jump at tick 15, from 48,689; lands at 195,593   [djump]
+      -> standing at x 138-214, y 593
+   3. jump (held 21 ticks), holding right, double jump at tick 15, from 138,593; lands at 335,497   [djump]
+      -> standing at x 298-361, y 497
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 298,497; lands at 371,465
+      -> standing at x 362-441, y 465
+   5. jump (held 21 ticks), holding right, double jump at tick 15, from 362,465, through the locked door at 448,304; lands at 499,369   [djump,key:14]
+      -> standing at x 488-598, y 369
+   6. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 528,369; lands at 498,273   [djump]
+      -> standing at x 487-518, y 273
+   7. jump (held 21 ticks), holding right, double jump at tick 15, from 487,273, through the locked door at 640,128; lands at 702,193   [djump,key:15]
+      -> standing at x 680-1110, y 193
+   8. walk off the edge, holding right once in the air, air dash (Jerry) at tick 6 or once there's room ahead, from 704,193; lands at 1365,369   [adash]
+      -> standing at x 1354-1417, y 369
+   9. jump (held 21 ticks), holding right, from 1354,369; lands at 1537,369
+      -> standing at x 1463-1920, y 369
+  10. standing at 1902,369, goes into it
+      -> out 1904,336
+how in 48,688 -> out 0,656: -
+     coming in at 48,688
+   1. coming in: holding nothing, from 48,688; lands at 48,689
+      -> standing at x 0-297, y 689
+   2. standing at 0,689, goes into it
+      -> out 0,656
+how in 48,688 -> out 864,-16: djump,key:14,key:15
+     coming in at 48,688
+   1. coming in: holding nothing, from 48,688; lands at 48,689
+      -> standing at x 0-297, y 689
+   2. jump (held 21 ticks), holding right, double jump at tick 15, from 48,689; lands at 195,593   [djump]
+      -> standing at x 138-214, y 593
+   3. jump (held 21 ticks), holding right, double jump at tick 15, from 138,593; lands at 335,497   [djump]
+      -> standing at x 298-361, y 497
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 298,497; lands at 371,465
+      -> standing at x 362-441, y 465
+   5. jump (held 21 ticks), holding right, double jump at tick 15, from 362,465, through the locked door at 448,304; lands at 499,369   [djump,key:14]
+      -> standing at x 488-598, y 369
+   6. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 528,369; lands at 498,273   [djump]
+      -> standing at x 487-518, y 273
+   7. jump (held 21 ticks), holding right, double jump at tick 10, from 487,273, through the locked door at 640,128; lands at 655,193   [djump,key:15]
+      -> standing at x 634-679, y 193 (where a gate is)
+   8. running right, jump (held 21 ticks), holding right, double jump at tick 10, from 674,193, through the locked door at 640,128; lands at 865,113   [djump,key:15]
+      -> standing at x 858-934, y 113
+   9. jump (held 21 ticks), holding right, from 862,113; touches it on the way
+      -> out 864,-16
+how in 896,112 -> out 576,1040: -
+     coming in at 896,112
+   1. coming in: holding nothing, from 896,112; lands at 896,113
+      -> standing at x 858-934, y 113
+   2. walk off the edge, holding left once in the air, from 858,113; lands at 763,193
+      -> standing at x 680-1110, y 193
+   3. running right, walk off the edge, holding right, then nothing after 1 ticks in the air, from 864,193; lands at 1131,897
+      -> standing at x 1111-1158, y 897
+   4. jump (held 21 ticks), holding left, from 1111,897; lands at 892,977
+      -> standing at x 698-953, y 977
+   5. running left, jump (held 2 ticks), holding left, from 698,977; lands at 573,977
+      -> standing at x 151-582, y 977
+   6. walk off the edge, holding right once in the air, from 151,977; touches it on the way
+      -> out 576,1040
+how in 896,112 -> out 1904,336: adash
+     coming in at 896,112
+   1. coming in: holding nothing, from 896,112; lands at 896,113
+      -> standing at x 858-934, y 113
+   2. walk off the edge, holding left once in the air, from 858,113; lands at 763,193
+      -> standing at x 680-1110, y 193
+   3. walk off the edge, holding right once in the air, air dash (Jerry) at tick 6 or once there's room ahead, from 704,193; lands at 1365,369   [adash]
+      -> standing at x 1354-1417, y 369
+   4. jump (held 21 ticks), holding right, from 1354,369; lands at 1537,369
+      -> standing at x 1463-1920, y 369
+   5. standing at 1902,369, goes into it
+      -> out 1904,336
+how in 896,112 -> out 0,656: key:14,key:15
+     coming in at 896,112
+   1. coming in: holding nothing, from 896,112; lands at 896,113
+      -> standing at x 858-934, y 113
+   2. walk off the edge, holding left once in the air, from 858,113; lands at 763,193
+      -> standing at x 680-1110, y 193
+   3. walk off the edge, holding left once in the air, from 680,193, through the locked door at 640,128; lands at 490,273   [key:15]
+      -> standing at x 487-518, y 273
+   4. walk off the edge, holding right, then left after 1 ticks in the air, from 487,273, through the locked door at 448,304; lands at 483,369   [key:14]
+      -> standing at x 442-487, y 369 (where a gate is)
+   5. running left, jump (held 2 ticks), holding left, from 442,369, through the locked door at 448,304; lands at 178,689   [key:14]
+      -> standing at x 0-297, y 689
+   6. standing at 0,689, goes into it
+      -> out 0,656
+how in 896,112 -> out 864,-16: -
+     coming in at 896,112
+   1. coming in: holding nothing, from 896,112; lands at 896,113
+      -> standing at x 858-934, y 113
+   2. jump (held 21 ticks), holding right, from 862,113; touches it on the way
+      -> out 864,-16

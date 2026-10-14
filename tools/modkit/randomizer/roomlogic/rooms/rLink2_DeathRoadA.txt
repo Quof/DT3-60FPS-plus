@@ -1,0 +1,67 @@
+# rLink2_DeathRoadA: Access Gate 2: Hyrule (area 10), 768x352 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+boss      # going into this room from another is its boss fight: that needs an attack (solve.py adds it)
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 48,304   # from rLink2_Overworld2 out 736,128
+in 720,304   # from rLink2_DeathRoadB out 0,272
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 0,272   # to rLink2_Overworld2 at 760,136; the player goes into it
+out 752,272   # to rLink2_DeathRoadB at 48,304; the player goes into it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 48,304
+  out 0,272     -
+  out 752,272   -
+from in 720,304
+  out 0,272     -
+  out 752,272   -
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 48,304 -> out 0,272: -
+     coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> standing at x 0-233, y 305
+   2. standing at 0,305, goes into it
+      -> out 0,272
+how in 48,304 -> out 752,272: -
+     coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> standing at x 0-233, y 305
+   2. running right, jump (held 6 ticks), holding right, from 176,305; lands at 330,289
+      -> standing at x 314-374, y 289
+   3. running right, jump (held 21 ticks), holding right, from 352,289; lands at 558,289
+      -> standing at x 538-582, y 289
+   4. walk off the edge, holding right once in the air, from 538,289; lands at 633,305
+      -> standing at x 583-768, y 305
+   5. standing at 750,305, goes into it
+      -> out 752,272
+how in 720,304 -> out 0,272: -
+     coming in at 720,304
+   1. coming in: holding nothing, from 720,304; lands at 720,305
+      -> standing at x 583-768, y 305
+   2. jump (held 2 ticks), holding left, from 583,305; lands at 551,289
+      -> standing at x 538-582, y 289
+   3. jump (held 2 ticks), holding left, from 538,289; lands at 436,289
+      -> standing at x 410-486, y 289
+   4. running left, jump (held 21 ticks), holding left, from 410,289; lands at 197,305
+      -> standing at x 0-233, y 305
+   5. standing at 0,305, goes into it
+      -> out 0,272
+how in 720,304 -> out 752,272: -
+     coming in at 720,304
+   1. coming in: holding nothing, from 720,304; lands at 720,305
+      -> standing at x 583-768, y 305
+   2. standing at 750,305, goes into it
+      -> out 752,272

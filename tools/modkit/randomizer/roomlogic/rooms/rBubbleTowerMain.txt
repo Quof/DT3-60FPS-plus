@@ -1,0 +1,131 @@
+# rBubbleTowerMain: Farreaches - Bubble Tower (area 34), 480x352 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 240,304   # from rMain_34 out 1080,1072
+in 96,304   # from rBubbleTowerA1 out 96,976
+in 176,304   # from rBubbleTowerA7 out 240,224
+in 384,304   # from rBT_HUB out 80,272
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 232,272   # to rMain_34 at 1088,1104; the player presses up at it
+out 88,272   # to rBubbleTowerA1 at 104,1008; the player presses up at it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+loc 10 32   # skill point 32, at 415,127
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 240,304
+  out 232,272   -
+  out 88,272    -
+  loc 10 32     djump
+from in 96,304
+  out 232,272   -
+  out 88,272    -
+  loc 10 32     djump
+from in 176,304
+  out 232,272   -
+  out 88,272    -
+  loc 10 32     djump
+from in 384,304
+  out 232,272   -
+  out 88,272    -
+  loc 10 32     djump
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 240,304 -> out 232,272: -
+     coming in at 240,304
+   1. coming in: holding nothing, from 240,304; lands at 240,305
+      -> standing at x 55-425, y 305
+   2. standing at 230,305, presses up at it
+      -> out 232,272
+how in 240,304 -> out 88,272: -
+     coming in at 240,304
+   1. coming in: holding nothing, from 240,304; lands at 240,305
+      -> standing at x 55-425, y 305
+   2. standing at 86,305, presses up at it
+      -> out 88,272
+how in 240,304 -> loc 10 32: djump
+     coming in at 240,304
+   1. coming in: holding nothing, from 240,304; lands at 240,305
+      -> standing at x 55-425, y 305
+   2. jump (held 21 ticks), holding right, double jump at tick 15, from 144,305; lands at 243,209   [djump]
+      -> standing at x 186-294, y 209
+   3. jump (held 21 ticks), holding right, double jump at tick 10, from 186,209; lands at 339,129   [djump]
+      -> standing at x 330-406, y 129
+   4. walk off the edge, holding right, then left after 1 ticks in the air, from 330,129; touches it on the way
+      -> loc 10 32
+how in 96,304 -> out 232,272: -
+     coming in at 96,304
+   1. coming in: holding nothing, from 96,304; lands at 96,305
+      -> standing at x 55-425, y 305
+   2. standing at 230,305, presses up at it
+      -> out 232,272
+how in 96,304 -> out 88,272: -
+     coming in at 96,304
+   1. coming in: holding nothing, from 96,304; lands at 96,305
+      -> standing at x 55-425, y 305
+   2. standing at 86,305, presses up at it
+      -> out 88,272
+how in 96,304 -> loc 10 32: djump
+     coming in at 96,304
+   1. coming in: holding nothing, from 96,304; lands at 96,305
+      -> standing at x 55-425, y 305
+   2. jump (held 21 ticks), holding right, double jump at tick 15, from 144,305; lands at 243,209   [djump]
+      -> standing at x 186-294, y 209
+   3. jump (held 21 ticks), holding right, double jump at tick 10, from 186,209; lands at 339,129   [djump]
+      -> standing at x 330-406, y 129
+   4. walk off the edge, holding right, then left after 1 ticks in the air, from 330,129; touches it on the way
+      -> loc 10 32
+how in 176,304 -> out 232,272: -
+     coming in at 176,304
+   1. coming in: holding nothing, from 176,304; lands at 176,305
+      -> standing at x 55-425, y 305
+   2. standing at 230,305, presses up at it
+      -> out 232,272
+how in 176,304 -> out 88,272: -
+     coming in at 176,304
+   1. coming in: holding nothing, from 176,304; lands at 176,305
+      -> standing at x 55-425, y 305
+   2. standing at 86,305, presses up at it
+      -> out 88,272
+how in 176,304 -> loc 10 32: djump
+     coming in at 176,304
+   1. coming in: holding nothing, from 176,304; lands at 176,305
+      -> standing at x 55-425, y 305
+   2. jump (held 21 ticks), holding right, double jump at tick 15, from 144,305; lands at 243,209   [djump]
+      -> standing at x 186-294, y 209
+   3. jump (held 21 ticks), holding right, double jump at tick 10, from 186,209; lands at 339,129   [djump]
+      -> standing at x 330-406, y 129
+   4. walk off the edge, holding right, then left after 1 ticks in the air, from 330,129; touches it on the way
+      -> loc 10 32
+how in 384,304 -> out 232,272: -
+     coming in at 384,304
+   1. coming in: holding nothing, from 384,304; lands at 384,305
+      -> standing at x 55-425, y 305
+   2. standing at 230,305, presses up at it
+      -> out 232,272
+how in 384,304 -> out 88,272: -
+     coming in at 384,304
+   1. coming in: holding nothing, from 384,304; lands at 384,305
+      -> standing at x 55-425, y 305
+   2. standing at 86,305, presses up at it
+      -> out 88,272
+how in 384,304 -> loc 10 32: djump
+     coming in at 384,304
+   1. coming in: holding nothing, from 384,304; lands at 384,305
+      -> standing at x 55-425, y 305
+   2. jump (held 21 ticks), holding right, double jump at tick 15, from 144,305; lands at 243,209   [djump]
+      -> standing at x 186-294, y 209
+   3. jump (held 21 ticks), holding right, double jump at tick 10, from 186,209; lands at 339,129   [djump]
+      -> standing at x 330-406, y 129
+   4. walk off the edge, holding right, then left after 1 ticks in the air, from 330,129; touches it on the way
+      -> loc 10 32

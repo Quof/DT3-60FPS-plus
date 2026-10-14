@@ -1,0 +1,112 @@
+# rMario1_4: Access Gate 1: Mushroom Kingdom (area 7), 3616x352 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 56,288   # from rMario1_3 out 4080,176
+in 3512,256   # from rMario1_4Boss out 152,224
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 48,256   # to rMario1_3 at 4088,208; the player presses up at it
+out 3504,224   # to rMario1_4Boss at 160,256; the player presses up at it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 56,288
+  out 48,256     -
+  out 3504,224   -
+from in 3512,256
+  out 48,256     -
+  out 3504,224   -
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 56,288 -> out 48,256: -
+     coming in at 56,288
+   1. coming in: holding nothing, from 56,288; lands at 56,289
+      -> standing at x 39-262, y 289
+   2. standing at 46,289, presses up at it
+      -> out 48,256
+how in 56,288 -> out 3504,224: -
+     coming in at 56,288
+   1. coming in: holding nothing, from 56,288; lands at 56,289
+      -> standing at x 39-262, y 289
+   2. running right, jump (held 21 ticks), holding right, from 144,289; lands at 335,257
+      -> standing at x 314-422, y 257
+   3. running right, jump (held 6 ticks), holding right, from 352,257; lands at 514,257
+      -> standing at x 506-582, y 257
+   4. running right, jump (held 21 ticks), holding right, from 544,257; lands at 750,257
+      -> standing at x 727-838, y 257
+   5. running right, jump (held 21 ticks), holding right, from 800,257; lands at 1006,257
+      -> standing at x 983-1158, y 257
+   6. walk off the edge, holding right once in the air, from 983,257; lands at 1231,321
+      -> standing at x 1159-1337, y 321
+   7. running right, jump (held 21 ticks), holding right, from 1264,321; lands at 1410,257
+      -> standing at x 1338-1574, y 257
+   8. running right, jump (held 21 ticks), holding right, from 1392,257; lands at 1605,257
+      -> standing at x 1594-1798, y 257
+   9. running right, jump (held 21 ticks), holding right, from 1632,257; lands at 1838,257
+      -> standing at x 1818-2054, y 257
+  10. running right, jump (held 21 ticks), holding right, from 1872,257; lands at 2085,257
+      -> standing at x 2074-2278, y 257
+  11. walk off the edge, holding right once in the air, from 2074,257; lands at 2337,289
+      -> standing at x 2279-2361, y 289
+  12. running right, jump (held 21 ticks), holding right, from 2320,289; lands at 2511,257
+      -> standing at x 2487-2745, y 257
+  13. running right, jump (held 21 ticks), holding right, from 2592,257; lands at 2798,257
+      -> standing at x 2775-2969, y 257
+  14. running right, jump (held 21 ticks), holding right, from 2960,257; lands at 3167,273
+      -> standing at x 3143-3417, y 273
+  15. running right, jump (held 21 ticks), holding right, from 3232,273; lands at 3430,257
+      -> standing at x 3418-3545, y 257
+  16. standing at 3502,257, presses up at it
+      -> out 3504,224
+how in 3512,256 -> out 48,256: -
+     coming in at 3512,256
+   1. coming in: holding nothing, from 3512,256; lands at 3512,257
+      -> standing at x 3418-3545, y 257
+   2. walk off the edge, holding left once in the air, from 3418,257; lands at 3374,273
+      -> standing at x 3143-3417, y 273
+   3. jump (held 2 ticks), holding left, from 3143,273; lands at 3060,257
+      -> standing at x 2999-3142, y 257
+   4. jump (held 2 ticks), holding left, from 2999,257; lands at 2901,257
+      -> standing at x 2775-2969, y 257
+   5. jump (held 2 ticks), holding left, from 2775,257; lands at 2677,257
+      -> standing at x 2487-2745, y 257
+   6. jump (held 2 ticks), holding left, from 2487,257; lands at 2389,257
+      -> standing at x 2362-2457, y 257
+   7. jump (held 2 ticks), holding left, from 2362,257; lands at 2260,257
+      -> standing at x 2074-2278, y 257
+   8. jump (held 2 ticks), holding left, from 2074,257; lands at 1972,257
+      -> standing at x 1818-2054, y 257
+   9. jump (held 2 ticks), holding left, from 1818,257; lands at 1716,257
+      -> standing at x 1594-1798, y 257
+  10. jump (held 2 ticks), holding left, from 1594,257; lands at 1492,257
+      -> standing at x 1338-1574, y 257
+  11. walk off the edge, holding left once in the air, from 1338,257; lands at 1265,321
+      -> standing at x 1159-1337, y 321
+  12. jump (held 21 ticks), holding left, from 1159,321; lands at 1086,257
+      -> standing at x 983-1158, y 257
+  13. jump (held 21 ticks), holding left, from 983,257; lands at 804,257
+      -> standing at x 727-838, y 257
+  14. jump (held 21 ticks), holding left, from 727,257; lands at 548,257
+      -> standing at x 506-582, y 257
+  15. jump (held 2 ticks), holding left, from 506,257; lands at 404,257
+      -> standing at x 314-422, y 257
+  16. walk off the edge, holding left once in the air, from 314,257; lands at 249,289
+      -> standing at x 39-262, y 289
+  17. standing at 46,289, presses up at it
+      -> out 48,256
+how in 3512,256 -> out 3504,224: -
+     coming in at 3512,256
+   1. coming in: holding nothing, from 3512,256; lands at 3512,257
+      -> standing at x 3418-3545, y 257
+   2. standing at 3502,257, presses up at it
+      -> out 3504,224

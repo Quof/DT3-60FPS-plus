@@ -1,0 +1,106 @@
+# rHPF_G: Hidden Program Facility (area 59), 4064x1472 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 48,160   # from rHPF_F out 3472,320
+in 4016,1376   # from rHPF_H out 0,288
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 0,128   # to rHPF_F at 3440,352; the player goes into it
+out 4048,1344   # to rHPF_H at 48,320; the player goes into it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 48,160
+  out 0,128       -
+  out 4048,1344   -
+from in 4016,1376
+  out 0,128       djump,adash,samus:2
+  out 4048,1344   -
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 48,160 -> out 0,128: -
+     coming in at 48,160
+   1. coming in: holding nothing, from 48,160; lands at 48,161
+      -> standing at x 0-166, y 161
+   2. standing at 0,161, goes into it
+      -> out 0,128
+how in 48,160 -> out 4048,1344: -
+     coming in at 48,160
+   1. coming in: holding nothing, from 48,160; lands at 48,161
+      -> standing at x 0-166, y 161
+   2. running right, jump (held 21 ticks), holding right, from 112,161; lands at 325,321
+      -> standing at x 295-390, y 321
+   3. running right, jump (held 21 ticks), holding right, from 382,321; lands at 588,321
+      -> standing at x 570-614, y 321
+   4. jump (held 21 ticks), holding right, from 570,321; lands at 701,257
+      -> standing at x 666-710, y 257
+   5. running right, jump (held 21 ticks), holding right, from 702,257; lands at 871,353
+      -> standing at x 839-1030, y 353
+   6. walk off the edge, holding right once in the air, from 839,353; lands at 1145,497
+      -> standing at x 1114-1145, y 497
+   7. walk off the edge, holding left once in the air, from 1114,497; lands at 1031,673
+      -> standing at x 1031-2182, y 673
+   8. running right, walk off the edge, holding right once in the air, from 1584,673; lands at 2310,801
+      -> standing at x 2247-2470, y 801
+   9. running right, jump (held 6 ticks), holding right, from 2400,801; lands at 2562,801
+      -> standing at x 2554-2726, y 801
+  10. walk off the edge, holding right, then nothing after 1 ticks in the air, from 2554,801; lands at 2772,1185
+      -> standing at x 2727-2937, y 1185
+  11. running right, jump (held 21 ticks), holding right, from 2864,1185; lands at 3070,1185
+      -> standing at x 2999-3494, y 1185
+  12. walk off the edge, holding right once in the air, from 2999,1185; lands at 3599,1377
+      -> standing at x 3495-4064, y 1377
+  13. standing at 4046,1377, goes into it
+      -> out 4048,1344
+how in 4016,1376 -> out 0,128: djump,adash,samus:2
+     coming in at 4016,1376
+   1. coming in: holding nothing, from 4016,1376; lands at 4016,1377
+      -> standing at x 3495-4064, y 1377
+   2. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, double jump at tick 18, from 3495,1377; lands at 3385,1185   [djump]
+      -> standing at x 2999-3494, y 1185
+   3. jump (held 21 ticks), holding left, from 2999,1185; lands at 2874,1185
+      -> standing at x 2727-2937, y 1185
+   4. jump (held 21 ticks), holding left, double jump at tick 10, from 2912,1185; lands at 2744,1105   [djump]
+      -> standing at x 2727-2758, y 1105
+   5. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, turn into the Morph Ball where the body meets a wall or ceiling, from 2727,1105; lands at 2841,945   [samus:2]
+      -> as the Morph Ball at x 2810-2841, y 945
+   6. turn back from the Morph Ball at 2810,945
+      -> standing at x 2810-2841, y 945
+   7. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, from 2818,945; lands at 2642,801
+      -> standing at x 2554-2726, y 801
+   8. jump (held 2 ticks), holding left, from 2554,801; lands at 2452,801
+      -> standing at x 2247-2470, y 801
+   9. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 2247,801; lands at 2230,769
+      -> standing at x 2202-2246, y 769
+  10. jump (held 21 ticks), holding left, double jump at tick 15, from 2202,769; lands at 2125,673   [djump]
+      -> standing at x 1031-2182, y 673
+  11. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, air dash (Jerry) at tick 16, from 1072,673; lands at 1145,497   [adash]
+      -> standing at x 1114-1145, y 497
+  12. jump (held 2 ticks), holding left, from 1114,497; lands at 914,353
+      -> standing at x 839-1030, y 353
+  13. jump (held 6 ticks), holding left, from 839,353; lands at 679,417
+      -> standing at x 391-793, y 417
+  14. jump (held 21 ticks), holding left, double jump at tick 15, from 391,417; lands at 333,321   [djump]
+      -> standing at x 295-390, y 321
+  15. jump (held 21 ticks), holding left, from 295,321; lands at 179,257
+      -> standing at x 167-198, y 257
+  16. jump (held 21 ticks), holding left, double jump at tick 15, from 167,257; lands at 109,161   [djump]
+      -> standing at x 0-166, y 161
+  17. standing at 0,161, goes into it
+      -> out 0,128
+how in 4016,1376 -> out 4048,1344: -
+     coming in at 4016,1376
+   1. coming in: holding nothing, from 4016,1376; lands at 4016,1377
+      -> standing at x 3495-4064, y 1377
+   2. standing at 4046,1377, goes into it
+      -> out 4048,1344

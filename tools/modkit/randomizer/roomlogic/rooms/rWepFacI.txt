@@ -1,0 +1,57 @@
+# rWepFacI: CHAOS Weapons Facility (area 69), 3136x352 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 3088,256   # from rWepFacH out 0,224
+in 48,288   # from rWepFacJ out 3120,256
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 3120,224   # to rWepFacH at 48,256; the player goes into it
+out 0,256   # to rWepFacJ at 3088,288; the player goes into it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+loc 9 38   # weapon upgrade 38, at 87,151
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 3088,256
+  out 3120,224   -
+  out 0,256      never
+  loc 9 38       never
+from in 48,288
+  out 3120,224   never
+  out 0,256      -
+  loc 9 38       -
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 3088,256 -> out 3120,224: -
+     coming in at 3088,256
+   1. coming in: holding nothing, from 3088,256; lands at 3088,257
+      -> standing at x 2951-3136, y 257
+   2. standing at 3118,257, goes into it
+      -> out 3120,224
+how in 48,288 -> out 0,256: -
+     coming in at 48,288
+   1. coming in: holding nothing, from 48,288; lands at 48,289
+      -> standing at x 0-153, y 289
+   2. standing at 0,289, goes into it
+      -> out 0,256
+how in 48,288 -> loc 9 38: -
+     coming in at 48,288
+   1. coming in: holding nothing, from 48,288; lands at 48,289
+      -> standing at x 0-153, y 289
+   2. running right, jump (held 6 ticks), holding right, from 48,289; lands at 188,257
+      -> standing at x 154-262, y 257
+   3. running right, jump (held 2 ticks), holding right, from 208,257; lands at 296,225
+      -> standing at x 282-313, y 225
+   4. jump (held 21 ticks), holding left, from 282,225; lands at 158,161
+      -> standing at x 71-230, y 161
+   5. standing at 82,161, touches it
+      -> loc 9 38

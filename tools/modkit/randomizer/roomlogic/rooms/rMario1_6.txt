@@ -1,0 +1,249 @@
+# rMario1_6: Access Gate 1: Mushroom Kingdom (area 7), 4976x352 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+# switches: the room is worked out in each of its states, the player coming in in the first: [bricks whole]
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 56,304   # from rMario1_5Hub out 560,384
+in 2656,112   # from rMario1_6Pipe out 1480,312
+in 4800,192   # from rMario1_7 out 40,280
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 48,272   # to rMario1_5Hub at 568,416; the player presses up at it
+out 2440,280   # to rMario1_6Pipe at 80,288; the player presses down at it
+out 4888,216   # to rMario1_7 at 48,208; the player presses down at it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 56,304
+  out 48,272     -
+  out 2440,280   -
+  out 4888,216   -
+from in 2656,112
+  out 48,272     -
+  out 2440,280   -
+  out 4888,216   -
+from in 4800,192
+  out 48,272     -
+  out 2440,280   -
+  out 4888,216   -
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 56,304 -> out 48,272: -
+     [bricks whole] coming in at 56,304
+   1. coming in: holding nothing, from 56,304; lands at 56,305
+      -> [bricks whole] standing at x 39-409, y 305
+   2. standing at 46,305, presses up at it
+      -> out 48,272
+how in 56,304 -> out 2440,280: -
+     [bricks whole] coming in at 56,304
+   1. coming in: holding nothing, from 56,304; lands at 56,305
+      -> [bricks whole] standing at x 39-409, y 305
+   2. running right, jump (held 21 ticks), holding right, from 256,305; lands at 432,257
+      -> [bricks whole] standing at x 410-457, y 257
+   3. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 410,257; lands at 468,209
+      -> [bricks whole] standing at x 458-630, y 209
+   4. walk off the edge, holding right once in the air, from 458,209; lands at 736,305
+      -> [bricks whole] standing at x 631-1094, y 305
+   5. running right, jump (held 21 ticks), holding right, from 1008,305; lands at 1177,273
+      -> [bricks whole] standing at x 1146-1177, y 273
+   6. jump (held 21 ticks), holding right, from 1146,273; lands at 1351,305
+      -> [bricks whole] standing at x 1306-1542, y 305
+   7. running right, jump (held 21 ticks), holding right, from 1472,305; lands at 1678,305
+      -> [bricks whole] standing at x 1626-1766, y 305
+   8. running right, jump (held 6 ticks), holding right, from 1696,305; lands at 1814,257
+      -> [bricks whole] standing at x 1802-1862, y 257
+   9. running right, jump (held 21 ticks), holding right, from 1840,257; lands at 2038,257
+      -> [bricks whole] standing at x 2026-2086, y 257
+  10. running right, jump (held 21 ticks), holding right, from 2064,257; lands at 2270,257
+      -> [bricks whole] standing at x 2250-2390, y 257
+  11. walk off the edge, holding right once in the air, from 2250,257; touches it on the way
+      -> out 2440,280
+how in 56,304 -> out 4888,216: -
+     [bricks whole] coming in at 56,304
+   1. coming in: holding nothing, from 56,304; lands at 56,305
+      -> [bricks whole] standing at x 39-409, y 305
+   2. running right, jump (held 21 ticks), holding right, from 256,305; lands at 432,257
+      -> [bricks whole] standing at x 410-457, y 257
+   3. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 410,257; lands at 468,209
+      -> [bricks whole] standing at x 458-630, y 209
+   4. walk off the edge, holding right once in the air, from 458,209; lands at 736,305
+      -> [bricks whole] standing at x 631-1094, y 305
+   5. running right, jump (held 21 ticks), holding right, from 1008,305; lands at 1177,273
+      -> [bricks whole] standing at x 1146-1177, y 273
+   6. jump (held 21 ticks), holding right, from 1146,273; lands at 1351,305
+      -> [bricks whole] standing at x 1306-1542, y 305
+   7. running right, jump (held 21 ticks), holding right, from 1472,305; lands at 1678,305
+      -> [bricks whole] standing at x 1626-1766, y 305
+   8. running right, jump (held 6 ticks), holding right, from 1696,305; lands at 1814,257
+      -> [bricks whole] standing at x 1802-1862, y 257
+   9. running right, jump (held 21 ticks), holding right, from 1840,257; lands at 2038,257
+      -> [bricks whole] standing at x 2026-2086, y 257
+  10. running right, jump (held 21 ticks), holding right, from 2064,257; lands at 2270,257
+      -> [bricks whole] standing at x 2250-2390, y 257
+  11. walk off the edge, holding right once in the air, from 2250,257; lands at 2455,289
+      -> [bricks whole] standing at x 2426-2470, y 289
+  12. jump (held 21 ticks), holding right, from 2448,289; lands at 2623,273
+      -> [bricks whole] standing at x 2583-2774, y 273
+  13. walk off the edge, holding right once in the air, from 2583,273; lands at 2839,305
+      -> [bricks whole] standing at x 2794-3318, y 305
+  14. running right, jump (held 21 ticks), holding right, from 3200,305; lands at 3391,273
+      -> [bricks whole] standing at x 3370-3414, y 273
+  15. jump (held 21 ticks), holding right, from 3406,273; lands at 3603,289
+      -> [bricks whole] standing at x 3594-3657, y 289
+  16. jump (held 21 ticks), holding right, from 3594,289; lands at 3762,257
+      -> [bricks whole] standing at x 3754-3862, y 257
+  17. running right, jump (held 21 ticks), holding right, from 3840,257; lands at 4053,257
+      -> [bricks whole] standing at x 4042-4086, y 257
+  18. jump (held 21 ticks), holding right, from 4078,257; lands at 4283,289
+      -> [bricks whole] standing at x 4266-4438, y 289
+  19. running right, jump (held 21 ticks), holding right, from 4416,289; lands at 4570,225
+      -> [bricks whole] standing at x 4554-4694, y 225
+  20. walk off the edge, holding right once in the air, from 4554,225; lands at 4759,257
+      -> [bricks whole] standing at x 4746-4873, y 257
+  21. jump (held 6 ticks), holding right, from 4784,257; touches it on the way
+      -> out 4888,216
+how in 2656,112 -> out 48,272: -
+     [bricks whole] coming in at 2656,112
+   1. coming in: holding nothing, from 2656,112; lands at 2656,273
+      -> [bricks whole] standing at x 2583-2774, y 273
+   2. jump (held 6 ticks), holding left, from 2583,273; lands at 2452,289
+      -> [bricks whole] standing at x 2426-2470, y 289
+   3. jump (held 2 ticks), holding left, from 2426,289; lands at 2361,257
+      -> [bricks whole] standing at x 2250-2390, y 257
+   4. jump (held 21 ticks), holding left, from 2250,257; lands at 2067,257
+      -> [bricks whole] standing at x 2026-2086, y 257
+   5. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 2026,257; lands at 1950,193
+      -> [bricks whole] standing at x 1914-1974, y 193
+   6. jump (held 2 ticks), holding left, from 1914,193; lands at 1739,305
+      -> [bricks whole] standing at x 1626-1766, y 305
+   7. jump (held 21 ticks), holding left, from 1626,305; lands at 1482,305
+      -> [bricks whole] standing at x 1306-1542, y 305
+   8. jump (held 6 ticks), holding left, from 1306,305; lands at 1207,273
+      -> [bricks whole] standing at x 1207-1222, y 273
+   9. jump (held 6 ticks), holding left, from 1207,273; lands at 1061,305
+      -> [bricks whole] standing at x 631-1094, y 305
+  10. jump (held 21 ticks), holding left, from 656,305; lands at 631,241
+      -> [bricks whole] standing at x 631-646, y 241
+  11. jump (held 2 ticks), holding left, from 631,241; lands at 588,209
+      -> [bricks whole] standing at x 458-630, y 209
+  12. walk off the edge, holding left once in the air, from 458,209; lands at 356,305
+      -> [bricks whole] standing at x 39-409, y 305
+  13. standing at 46,305, presses up at it
+      -> out 48,272
+how in 2656,112 -> out 2440,280: -
+     [bricks whole] coming in at 2656,112
+   1. coming in: holding nothing, from 2656,112; lands at 2656,273
+      -> [bricks whole] standing at x 2583-2774, y 273
+   2. jump (held 6 ticks), holding left, from 2583,273; lands at 2452,289
+      -> [bricks whole] standing at x 2426-2470, y 289
+   3. jump (held 2 ticks), holding left, from 2426,289; lands at 2361,257
+      -> [bricks whole] standing at x 2250-2390, y 257
+   4. walk off the edge, holding right once in the air, from 2250,257; touches it on the way
+      -> out 2440,280
+how in 2656,112 -> out 4888,216: -
+     [bricks whole] coming in at 2656,112
+   1. coming in: holding nothing, from 2656,112; lands at 2656,273
+      -> [bricks whole] standing at x 2583-2774, y 273
+   2. walk off the edge, holding right once in the air, from 2583,273; lands at 2839,305
+      -> [bricks whole] standing at x 2794-3318, y 305
+   3. running right, jump (held 21 ticks), holding right, from 3200,305; lands at 3391,273
+      -> [bricks whole] standing at x 3370-3414, y 273
+   4. jump (held 21 ticks), holding right, from 3406,273; lands at 3603,289
+      -> [bricks whole] standing at x 3594-3657, y 289
+   5. jump (held 21 ticks), holding right, from 3594,289; lands at 3762,257
+      -> [bricks whole] standing at x 3754-3862, y 257
+   6. running right, jump (held 21 ticks), holding right, from 3840,257; lands at 4053,257
+      -> [bricks whole] standing at x 4042-4086, y 257
+   7. jump (held 21 ticks), holding right, from 4078,257; lands at 4283,289
+      -> [bricks whole] standing at x 4266-4438, y 289
+   8. running right, jump (held 21 ticks), holding right, from 4416,289; lands at 4570,225
+      -> [bricks whole] standing at x 4554-4694, y 225
+   9. walk off the edge, holding right once in the air, from 4554,225; lands at 4759,257
+      -> [bricks whole] standing at x 4746-4873, y 257
+  10. jump (held 6 ticks), holding right, from 4784,257; touches it on the way
+      -> out 4888,216
+how in 4800,192 -> out 48,272: -
+     [bricks whole] coming in at 4800,192
+   1. coming in: holding nothing, from 4800,192; lands at 4800,257
+      -> [bricks whole] standing at x 4746-4873, y 257
+   2. jump (held 2 ticks), holding left, from 4746,257; lands at 4681,225
+      -> [bricks whole] standing at x 4554-4694, y 225
+   3. jump (held 2 ticks), holding left, from 4554,225; lands at 4408,289
+      -> [bricks whole] standing at x 4266-4438, y 289
+   4. running left, jump (held 21 ticks), holding left, from 4266,289; lands at 4075,257
+      -> [bricks whole] standing at x 4042-4086, y 257
+   5. jump (held 21 ticks), holding left, from 4042,257; lands at 3852,257
+      -> [bricks whole] standing at x 3754-3862, y 257
+   6. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 3754,257; lands at 3673,257
+      -> [bricks whole] standing at x 3658-3686, y 257
+   7. jump (held 6 ticks), holding left, from 3658,257; lands at 3497,289
+      -> [bricks whole] standing at x 3466-3510, y 289
+   8. running left, jump (held 6 ticks), holding left, from 3466,289; lands at 3297,305
+      -> [bricks whole] standing at x 2794-3318, y 305
+   9. jump (held 2 ticks), holding left, from 2794,305; lands at 2732,273
+      -> [bricks whole] standing at x 2583-2774, y 273
+  10. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 2583,273; lands at 2566,241
+      -> [bricks whole] standing at x 2554-2582, y 241
+  11. running left, jump (held 6 ticks), holding left, from 2554,241; lands at 2378,257
+      -> [bricks whole] standing at x 2250-2390, y 257
+  12. jump (held 21 ticks), holding left, from 2250,257; lands at 2067,257
+      -> [bricks whole] standing at x 2026-2086, y 257
+  13. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 2026,257; lands at 1950,193
+      -> [bricks whole] standing at x 1914-1974, y 193
+  14. jump (held 2 ticks), holding left, from 1914,193; lands at 1739,305
+      -> [bricks whole] standing at x 1626-1766, y 305
+  15. jump (held 21 ticks), holding left, from 1626,305; lands at 1482,305
+      -> [bricks whole] standing at x 1306-1542, y 305
+  16. jump (held 6 ticks), holding left, from 1306,305; lands at 1207,273
+      -> [bricks whole] standing at x 1207-1222, y 273
+  17. jump (held 6 ticks), holding left, from 1207,273; lands at 1061,305
+      -> [bricks whole] standing at x 631-1094, y 305
+  18. jump (held 21 ticks), holding left, from 656,305; lands at 631,241
+      -> [bricks whole] standing at x 631-646, y 241
+  19. jump (held 2 ticks), holding left, from 631,241; lands at 588,209
+      -> [bricks whole] standing at x 458-630, y 209
+  20. walk off the edge, holding left once in the air, from 458,209; lands at 356,305
+      -> [bricks whole] standing at x 39-409, y 305
+  21. standing at 46,305, presses up at it
+      -> out 48,272
+how in 4800,192 -> out 2440,280: -
+     [bricks whole] coming in at 4800,192
+   1. coming in: holding nothing, from 4800,192; lands at 4800,257
+      -> [bricks whole] standing at x 4746-4873, y 257
+   2. jump (held 2 ticks), holding left, from 4746,257; lands at 4681,225
+      -> [bricks whole] standing at x 4554-4694, y 225
+   3. jump (held 2 ticks), holding left, from 4554,225; lands at 4408,289
+      -> [bricks whole] standing at x 4266-4438, y 289
+   4. running left, jump (held 21 ticks), holding left, from 4266,289; lands at 4075,257
+      -> [bricks whole] standing at x 4042-4086, y 257
+   5. jump (held 21 ticks), holding left, from 4042,257; lands at 3852,257
+      -> [bricks whole] standing at x 3754-3862, y 257
+   6. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 3754,257; lands at 3673,257
+      -> [bricks whole] standing at x 3658-3686, y 257
+   7. jump (held 6 ticks), holding left, from 3658,257; lands at 3497,289
+      -> [bricks whole] standing at x 3466-3510, y 289
+   8. running left, jump (held 6 ticks), holding left, from 3466,289; lands at 3297,305
+      -> [bricks whole] standing at x 2794-3318, y 305
+   9. jump (held 2 ticks), holding left, from 2794,305; lands at 2732,273
+      -> [bricks whole] standing at x 2583-2774, y 273
+  10. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 2583,273; lands at 2566,241
+      -> [bricks whole] standing at x 2554-2582, y 241
+  11. running left, jump (held 6 ticks), holding left, from 2554,241; lands at 2378,257
+      -> [bricks whole] standing at x 2250-2390, y 257
+  12. walk off the edge, holding right once in the air, from 2250,257; touches it on the way
+      -> out 2440,280
+how in 4800,192 -> out 4888,216: -
+     [bricks whole] coming in at 4800,192
+   1. coming in: holding nothing, from 4800,192; lands at 4800,257
+      -> [bricks whole] standing at x 4746-4873, y 257
+   2. jump (held 6 ticks), holding right, from 4784,257; touches it on the way
+      -> out 4888,216

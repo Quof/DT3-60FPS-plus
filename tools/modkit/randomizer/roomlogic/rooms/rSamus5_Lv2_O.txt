@@ -1,0 +1,58 @@
+# rSamus5_Lv2_O: Access Gate 5: Research Facility (area 49), 1920x352 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 1336,64   # from rSamus5_Lv2_G out 1232,352
+in 1856,304   # from rSamus5_Lv2_H out 0,976
+in 64,128   # from rSamus5_Lv2_P out 464,160
+in 1664,304   # from rSamus5_Lv2_S out 336,-16
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 1904,272   # to rSamus5_Lv2_H at 64,1008; the player goes into it
+out 1312,-16   # to rSamus5_Lv2_G at 1232,336; the player goes into it
+out 0,96   # to rSamus5_Lv2_P at 416,192; the player goes into it
+out 1584,352   # to rSamus5_Lv2_S at 368,128; the player goes into it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+loc 5 10   # missile tank 10, at 1687,71
+loc 9 91   # weapon upgrade 91, at 919,327
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 1336,64
+  out 1904,272   never
+  out 1312,-16   never
+  out 0,96       never
+  out 1584,352   never
+  loc 5 10       never
+  loc 9 91       never
+from in 1856,304
+  out 1904,272   never
+  out 1312,-16   never
+  out 0,96       never
+  out 1584,352   never
+  loc 5 10       never
+  loc 9 91       never
+from in 64,128
+  out 1904,272   never
+  out 1312,-16   never
+  out 0,96       never
+  out 1584,352   never
+  loc 5 10       never
+  loc 9 91       never
+from in 1664,304
+  out 1904,272   never
+  out 1312,-16   never
+  out 0,96       never
+  out 1584,352   never
+  loc 5 10       never
+  loc 9 91       never
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
