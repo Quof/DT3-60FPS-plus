@@ -3,12 +3,15 @@
 # Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
 # Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
 # middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+carried crystal3   # the Forest Palace's crystal 3 comes in with the player and goes out with them (0: as at the start, 1: hit, its rooms turned over)
+# switches: the room is worked out in each of its states, the player coming in in the first: [crystal 3 as at the start]
 
 # Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
 in 48,288   # from rLink2_PalaceF_6a out 1424,608, rLink2_PalaceF_6b out 1424,96
 in 432,288   # from rLink2_PalaceF_11 out 0,256
 
 # Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 0,256   # to rLink2_PalaceF_6a at 1392,640 with crystal3 0, to rLink2_PalaceF_6b at 1392,128 with crystal3 1; the player goes into it
 out 464,256   # to rLink2_PalaceF_11 at 48,288; the player goes into it
 
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
@@ -18,24 +21,74 @@ out 464,256   # to rLink2_PalaceF_11 at 48,288; the player goes into it
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
 # link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
 # the locked door whose objectNum is N.
-from in 48,288
-  out 464,256   -
-from in 432,288
-  out 464,256   -
+from in 48,288 [crystal3 0]
+  out 0,256 [crystal3 0]     -
+  out 464,256 [crystal3 0]   -
+from in 48,288 [crystal3 1]
+  out 0,256 [crystal3 1]     -
+  out 464,256 [crystal3 1]   -
+from in 432,288 [crystal3 0]
+  out 0,256 [crystal3 0]     -
+  out 464,256 [crystal3 0]   -
+from in 432,288 [crystal3 1]
+  out 0,256 [crystal3 1]     -
+  out 464,256 [crystal3 1]   -
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
-how in 48,288 -> out 464,256: -
-     coming in at 48,288
+how in 48,288 [crystal3 0] -> out 0,256 [crystal3 0]: -
+     [crystal 3 as at the start] coming in at 48,288
    1. coming in: holding nothing, from 48,288; lands at 48,289
-      -> standing at x 0-185, y 289
+      -> [crystal 3 as at the start] standing at x 0-185, y 289
+   2. standing at 0,289, goes into it
+      -> out 0,256 [crystal3 0]
+how in 48,288 [crystal3 0] -> out 464,256 [crystal3 0]: -
+     [crystal 3 as at the start] coming in at 48,288
+   1. coming in: holding nothing, from 48,288; lands at 48,289
+      -> [crystal 3 as at the start] standing at x 0-185, y 289
    2. running right, jump (held 21 ticks), holding right, from 112,289; lands at 318,289
-      -> standing at x 295-480, y 289
+      -> [crystal 3 as at the start] standing at x 295-480, y 289
    3. standing at 462,289, goes into it
-      -> out 464,256
-how in 432,288 -> out 464,256: -
-     coming in at 432,288
+      -> out 464,256 [crystal3 0]
+how in 48,288 [crystal3 1] -> out 0,256 [crystal3 1]: -
+     [crystal 3 hit (its rooms turned over)] coming in at 48,288
+   1. coming in: holding nothing, from 48,288; lands at 48,289
+      -> [crystal 3 hit (its rooms turned over)] standing at x 0-185, y 289
+   2. standing at 0,289, goes into it
+      -> out 0,256 [crystal3 1]
+how in 48,288 [crystal3 1] -> out 464,256 [crystal3 1]: -
+     [crystal 3 hit (its rooms turned over)] coming in at 48,288
+   1. coming in: holding nothing, from 48,288; lands at 48,289
+      -> [crystal 3 hit (its rooms turned over)] standing at x 0-185, y 289
+   2. running right, jump (held 21 ticks), holding right, from 112,289; lands at 318,289
+      -> [crystal 3 hit (its rooms turned over)] standing at x 295-480, y 289
+   3. standing at 462,289, goes into it
+      -> out 464,256 [crystal3 1]
+how in 432,288 [crystal3 0] -> out 0,256 [crystal3 0]: -
+     [crystal 3 as at the start] coming in at 432,288
    1. coming in: holding nothing, from 432,288; lands at 432,289
-      -> standing at x 295-480, y 289
+      -> [crystal 3 as at the start] standing at x 295-480, y 289
+   2. jump (held 21 ticks), holding left, from 295,289; lands at 127,289
+      -> [crystal 3 as at the start] standing at x 0-185, y 289
+   3. standing at 0,289, goes into it
+      -> out 0,256 [crystal3 0]
+how in 432,288 [crystal3 0] -> out 464,256 [crystal3 0]: -
+     [crystal 3 as at the start] coming in at 432,288
+   1. coming in: holding nothing, from 432,288; lands at 432,289
+      -> [crystal 3 as at the start] standing at x 295-480, y 289
    2. standing at 462,289, goes into it
-      -> out 464,256
+      -> out 464,256 [crystal3 0]
+how in 432,288 [crystal3 1] -> out 0,256 [crystal3 1]: -
+     [crystal 3 hit (its rooms turned over)] coming in at 432,288
+   1. coming in: holding nothing, from 432,288; lands at 432,289
+      -> [crystal 3 hit (its rooms turned over)] standing at x 295-480, y 289
+   2. jump (held 21 ticks), holding left, from 295,289; lands at 127,289
+      -> [crystal 3 hit (its rooms turned over)] standing at x 0-185, y 289
+   3. standing at 0,289, goes into it
+      -> out 0,256 [crystal3 1]
+how in 432,288 [crystal3 1] -> out 464,256 [crystal3 1]: -
+     [crystal 3 hit (its rooms turned over)] coming in at 432,288
+   1. coming in: holding nothing, from 432,288; lands at 432,289
+      -> [crystal 3 hit (its rooms turned over)] standing at x 295-480, y 289
+   2. standing at 462,289, goes into it
+      -> out 464,256 [crystal3 1]

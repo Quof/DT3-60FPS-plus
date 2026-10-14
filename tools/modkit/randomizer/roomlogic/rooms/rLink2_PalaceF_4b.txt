@@ -3,12 +3,17 @@
 # Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
 # Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
 # middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+carried crystal1   # the Forest Palace's crystal 1 comes in with the player and goes out with them (0: as at the start, 1: hit, its rooms turned over)
 carried rb   # the red and blue switches' state comes in with the player and goes out with them (0: the blue blocks solid, 1: the red ones)
-# switches: the room is worked out in each of its states, the player coming in in the first: [blue blocks solid]
+# switches: the room is worked out in each of its states, the player coming in in the first: [crystal 1 as at the start, blue blocks solid]
 
 # Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 48,128   # from rLink2_PalaceF_2a out 1424,96 [crystal2 1], rLink2_PalaceF_2b out 1424,608 [crystal2 1]
+in 1392,640   # from rLink2_PalaceF_5 out 0,224 [crystal2 1]
+in 48,640   # from rLink2_PalaceF_8 out 1008,256 [crystal2 1]
 
 # Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 0,96   # to rLink2_PalaceF_2a at 1392,128 with crystal1 0, to rLink2_PalaceF_2b at 1392,640 with crystal1 1; the player goes into it
 out 1424,608   # to rLink2_PalaceF_5 at 48,256; the player goes into it
 out 0,608   # to rLink2_PalaceF_8 at 976,288; the player goes into it
 
@@ -21,6 +26,1270 @@ loc 2 8   # treasure chest 8, at 880,587
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
 # link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
 # the locked door whose objectNum is N.
+from in 48,128 [crystal1 0, rb 0]
+  out 0,96 [crystal1 0, rb 0]       -
+  out 1424,608 [crystal1 0, rb 0]   -
+  out 0,608 [crystal1 0, rb 0]      djump,key:17 | gdash,key:17 | samus:2,key:17
+  loc 13 10                         never
+  loc 2 8                           -
+from in 48,128 [crystal1 1, rb 0]
+  out 0,96 [crystal1 1, rb 0]       -
+  out 1424,608 [crystal1 1, rb 0]   -
+  out 0,608 [crystal1 1, rb 0]      djump,key:17 | gdash,key:17 | samus:2,key:17
+  loc 13 10                         never
+  loc 2 8                           -
+from in 48,128 [crystal1 0, rb 1]
+  out 0,96 [crystal1 0, rb 1]       -
+  out 1424,608 [crystal1 0, rb 1]   -
+  out 0,608 [crystal1 0, rb 1]      key:17
+  loc 13 10                         never
+  loc 2 8                           -
+from in 48,128 [crystal1 1, rb 1]
+  out 0,96 [crystal1 1, rb 1]       -
+  out 1424,608 [crystal1 1, rb 1]   -
+  out 0,608 [crystal1 1, rb 1]      key:17
+  loc 13 10                         never
+  loc 2 8                           -
+from in 1392,640 [crystal1 0, rb 0]
+  out 0,96 [crystal1 0, rb 0]       -
+  out 1424,608 [crystal1 0, rb 0]   -
+  out 0,608 [crystal1 0, rb 0]      djump,key:17 | gdash,key:17 | samus:2,key:17
+  loc 13 10                         never
+  loc 2 8                           -
+from in 1392,640 [crystal1 1, rb 0]
+  out 0,96 [crystal1 1, rb 0]       -
+  out 1424,608 [crystal1 1, rb 0]   -
+  out 0,608 [crystal1 1, rb 0]      djump,key:17 | gdash,key:17 | samus:2,key:17
+  loc 13 10                         never
+  loc 2 8                           -
+from in 1392,640 [crystal1 0, rb 1]
+  out 0,96 [crystal1 0, rb 1]       -
+  out 1424,608 [crystal1 0, rb 1]   -
+  out 0,608 [crystal1 0, rb 1]      key:17
+  loc 13 10                         never
+  loc 2 8                           -
+from in 1392,640 [crystal1 1, rb 1]
+  out 0,96 [crystal1 1, rb 1]       -
+  out 1424,608 [crystal1 1, rb 1]   -
+  out 0,608 [crystal1 1, rb 1]      key:17
+  loc 13 10                         never
+  loc 2 8                           -
+from in 48,640 [crystal1 0, rb 0]
+  out 0,96 [crystal1 0, rb 0]       key:17
+  out 1424,608 [crystal1 0, rb 0]   key:17
+  out 0,608 [crystal1 0, rb 0]      -
+  loc 13 10                         never
+  loc 2 8                           key:17
+from in 48,640 [crystal1 1, rb 0]
+  out 0,96 [crystal1 1, rb 0]       key:17
+  out 1424,608 [crystal1 1, rb 0]   key:17
+  out 0,608 [crystal1 1, rb 0]      -
+  loc 13 10                         never
+  loc 2 8                           key:17
+from in 48,640 [crystal1 0, rb 1]
+  out 0,96 [crystal1 0, rb 1]       key:17
+  out 1424,608 [crystal1 0, rb 1]   key:17
+  out 0,608 [crystal1 0, rb 1]      -
+  loc 13 10                         never
+  loc 2 8                           key:17
+from in 48,640 [crystal1 1, rb 1]
+  out 0,96 [crystal1 1, rb 1]       key:17
+  out 1424,608 [crystal1 1, rb 1]   key:17
+  out 0,608 [crystal1 1, rb 1]      -
+  loc 13 10                         never
+  loc 2 8                           key:17
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 48,128 [crystal1 0, rb 0] -> out 0,96 [crystal1 0, rb 0]: -
+     [crystal 1 as at the start, blue blocks solid] coming in at 48,128
+   1. coming in: holding nothing, from 48,128; lands at 48,129
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 0-70, y 129
+   2. standing at 0,129, goes into it
+      -> out 0,96 [crystal1 0, rb 0]
+how in 48,128 [crystal1 0, rb 0] -> out 1424,608 [crystal1 0, rb 0]: -
+     [crystal 1 as at the start, blue blocks solid] coming in at 48,128
+   1. coming in: holding nothing, from 48,128; lands at 48,129
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 0-70, y 129
+   2. walk off the edge, holding right once in the air, from 32,129; lands at 134,161
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 122-198, y 161
+   3. running right, jump (held 6 ticks), holding right, from 160,161; lands at 439,353
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 410-441, y 353
+   4. jump (held 2 ticks), holding right, from 410,353; lands at 475,321
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 442-486, y 321
+   5. jump (held 21 ticks), holding right, from 478,321; lands at 609,257
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 602-646, y 257
+   6. jump (held 21 ticks), holding right, from 638,257; lands at 806,225
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 794-902, y 225
+   7. walk off the edge, holding right once in the air, from 794,225; lands at 1033,433
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 1002-1033, y 433
+   8. jump (held 21 ticks), holding right, from 1002,433; lands at 1295,641
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 1178-1440, y 641
+   9. standing at 1422,641, goes into it
+      -> out 1424,608 [crystal1 0, rb 0]
+how in 48,128 [crystal1 0, rb 0] -> out 0,608 [crystal1 0, rb 0]: djump,key:17
+     [crystal 1 as at the start, blue blocks solid] coming in at 48,128
+   1. coming in: holding nothing, from 48,128; lands at 48,129
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 0-70, y 129
+   2. walk off the edge, holding right once in the air, from 32,129; lands at 134,161
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 122-198, y 161
+   3. running right, jump (held 6 ticks), holding right, from 160,161; lands at 439,353
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 410-441, y 353
+   4. jump (held 2 ticks), holding right, from 410,353; lands at 475,321
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 442-486, y 321
+   5. jump (held 21 ticks), holding right, from 478,321; lands at 609,257
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 602-646, y 257
+   6. jump (held 21 ticks), holding right, from 638,257; lands at 806,225
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 794-902, y 225
+   7. walk off the edge, holding right once in the air, from 794,225; lands at 1033,433
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 1002-1033, y 433
+   8. walk off the edge, holding left once in the air, from 1002,433; lands at 881,641
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 826-934, y 641
+   9. jump (held 21 ticks), holding left, double jump at tick 15, from 826,641; lands at 653,545   [djump]
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 634-710, y 545
+  10. jump (held 21 ticks), holding left, double jump at tick 15, from 634,545; lands at 382,609   [djump]
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 346-441, y 609
+  11. jump (held 21 ticks), holding left, from 346,609; lands at 141,641
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 104-166, y 641
+  12. jump (held 2 ticks), holding left, from 104,641, through the locked door at 64,576; lands at 53,641   [key:17]
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 0-57, y 641
+  13. standing at 0,641, goes into it
+      -> out 0,608 [crystal1 0, rb 0]
+how in 48,128 [crystal1 0, rb 0] -> out 0,608 [crystal1 0, rb 0]: gdash,key:17
+     [crystal 1 as at the start, blue blocks solid] coming in at 48,128
+   1. coming in: holding nothing, from 48,128; lands at 48,129
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 0-70, y 129
+   2. walk off the edge, holding right once in the air, from 32,129; lands at 134,161
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 122-198, y 161
+   3. running right, jump (held 6 ticks), holding right, from 160,161; lands at 439,353
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 410-441, y 353
+   4. jump (held 2 ticks), holding right, from 410,353; lands at 475,321
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 442-486, y 321
+   5. jump (held 21 ticks), holding right, from 478,321; lands at 609,257
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 602-646, y 257
+   6. jump (held 21 ticks), holding right, from 638,257; lands at 806,225
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 794-902, y 225
+   7. walk off the edge, holding right once in the air, from 794,225; lands at 1033,433
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 1002-1033, y 433
+   8. dash left (Jerry), jump (held 21 ticks), holding left, from 1002,433; lands at 866,481   [gdash]
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 858-902, y 481
+   9. jump (held 6 ticks), holding left, from 858,481; lands at 780,433
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 762-838, y 433
+  10. walk off the edge, holding left once in the air, from 762,433; lands at 689,545
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 634-710, y 545
+  11. dash left (Jerry), jump (held 21 ticks), holding left, from 656,545; lands at 411,609   [gdash]
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 346-441, y 609
+  12. jump (held 21 ticks), holding left, from 346,609; lands at 141,641
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 104-166, y 641
+  13. jump (held 2 ticks), holding left, from 104,641, through the locked door at 64,576; lands at 53,641   [key:17]
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 0-57, y 641
+  14. standing at 0,641, goes into it
+      -> out 0,608 [crystal1 0, rb 0]
+how in 48,128 [crystal1 0, rb 0] -> out 0,608 [crystal1 0, rb 0]: samus:2,key:17
+     [crystal 1 as at the start, blue blocks solid] coming in at 48,128
+   1. coming in: holding nothing, from 48,128; lands at 48,129
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 0-70, y 129
+   2. walk off the edge, holding right once in the air, from 32,129; lands at 134,161
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 122-198, y 161
+   3. running right, jump (held 6 ticks), holding right, from 160,161; lands at 439,353
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 410-441, y 353
+   4. jump (held 2 ticks), holding right, from 410,353; lands at 475,321
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 442-486, y 321
+   5. jump (held 21 ticks), holding right, from 478,321; lands at 609,257
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 602-646, y 257
+   6. jump (held 21 ticks), holding right, from 638,257; lands at 806,225
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 794-902, y 225
+   7. walk off the edge, holding right once in the air, from 794,225; lands at 1033,433
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 1002-1033, y 433
+   8. running left, jump (held 21 ticks), holding left, turn into the Morph Ball where the body meets a wall or ceiling, from 1002,433; lands at 880,481   [samus:2]
+      -> [crystal 1 as at the start, blue blocks solid] as the Morph Ball at x 858-902, y 481
+   9. turn back from the Morph Ball at 858,481
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 858-902, y 481
+  10. jump (held 6 ticks), holding left, from 858,481; lands at 780,433
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 762-838, y 433
+  11. walk off the edge, holding left once in the air, from 762,433; lands at 689,545
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 634-710, y 545
+  12. jump (held 2 ticks), holding left, from 634,545; lands at 510,577
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 442-550, y 577
+  13. walk off the edge, holding left once in the air, from 442,577; lands at 384,609
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 346-441, y 609
+  14. jump (held 21 ticks), holding left, from 346,609; lands at 141,641
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 104-166, y 641
+  15. jump (held 2 ticks), holding left, from 104,641, through the locked door at 64,576; lands at 53,641   [key:17]
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 0-57, y 641
+  16. standing at 0,641, goes into it
+      -> out 0,608 [crystal1 0, rb 0]
+how in 48,128 [crystal1 0, rb 0] -> loc 2 8: -
+     [crystal 1 as at the start, blue blocks solid] coming in at 48,128
+   1. coming in: holding nothing, from 48,128; lands at 48,129
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 0-70, y 129
+   2. walk off the edge, holding right once in the air, from 32,129; lands at 134,161
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 122-198, y 161
+   3. running right, jump (held 6 ticks), holding right, from 160,161; lands at 439,353
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 410-441, y 353
+   4. jump (held 2 ticks), holding right, from 410,353; lands at 475,321
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 442-486, y 321
+   5. jump (held 21 ticks), holding right, from 478,321; lands at 609,257
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 602-646, y 257
+   6. jump (held 21 ticks), holding right, from 638,257; lands at 806,225
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 794-902, y 225
+   7. walk off the edge, holding right once in the air, from 794,225; lands at 1033,433
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 1002-1033, y 433
+   8. walk off the edge, holding left once in the air, from 1002,433; lands at 881,641
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 826-934, y 641
+   9. standing at 872,641, touches it
+      -> loc 2 8
+how in 48,128 [crystal1 1, rb 0] -> out 0,96 [crystal1 1, rb 0]: -
+     [crystal 1 hit (its rooms turned over), blue blocks solid] coming in at 48,128
+   1. coming in: holding nothing, from 48,128; lands at 48,129
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 0-70, y 129
+   2. standing at 0,129, goes into it
+      -> out 0,96 [crystal1 1, rb 0]
+how in 48,128 [crystal1 1, rb 0] -> out 1424,608 [crystal1 1, rb 0]: -
+     [crystal 1 hit (its rooms turned over), blue blocks solid] coming in at 48,128
+   1. coming in: holding nothing, from 48,128; lands at 48,129
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 0-70, y 129
+   2. walk off the edge, holding right once in the air, from 32,129; lands at 134,161
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 122-198, y 161
+   3. running right, jump (held 6 ticks), holding right, from 160,161; lands at 439,353
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 410-441, y 353
+   4. jump (held 2 ticks), holding right, from 410,353; lands at 475,321
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 442-486, y 321
+   5. jump (held 21 ticks), holding right, from 478,321; lands at 609,257
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 602-646, y 257
+   6. jump (held 21 ticks), holding right, from 638,257; lands at 806,225
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 794-902, y 225
+   7. walk off the edge, holding right once in the air, from 794,225; lands at 1033,433
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 1002-1033, y 433
+   8. jump (held 21 ticks), holding right, from 1002,433; lands at 1295,641
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 1178-1440, y 641
+   9. standing at 1422,641, goes into it
+      -> out 1424,608 [crystal1 1, rb 0]
+how in 48,128 [crystal1 1, rb 0] -> out 0,608 [crystal1 1, rb 0]: djump,key:17
+     [crystal 1 hit (its rooms turned over), blue blocks solid] coming in at 48,128
+   1. coming in: holding nothing, from 48,128; lands at 48,129
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 0-70, y 129
+   2. walk off the edge, holding right once in the air, from 32,129; lands at 134,161
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 122-198, y 161
+   3. running right, jump (held 6 ticks), holding right, from 160,161; lands at 439,353
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 410-441, y 353
+   4. jump (held 2 ticks), holding right, from 410,353; lands at 475,321
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 442-486, y 321
+   5. jump (held 21 ticks), holding right, from 478,321; lands at 609,257
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 602-646, y 257
+   6. jump (held 21 ticks), holding right, from 638,257; lands at 806,225
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 794-902, y 225
+   7. walk off the edge, holding right once in the air, from 794,225; lands at 1033,433
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 1002-1033, y 433
+   8. walk off the edge, holding left once in the air, from 1002,433; lands at 881,641
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 826-934, y 641
+   9. jump (held 21 ticks), holding left, double jump at tick 15, from 826,641; lands at 653,545   [djump]
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 634-710, y 545
+  10. jump (held 21 ticks), holding left, double jump at tick 15, from 634,545; lands at 382,609   [djump]
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 346-441, y 609
+  11. jump (held 21 ticks), holding left, from 346,609; lands at 141,641
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 104-166, y 641
+  12. jump (held 2 ticks), holding left, from 104,641, through the locked door at 64,576; lands at 53,641   [key:17]
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 0-57, y 641
+  13. standing at 0,641, goes into it
+      -> out 0,608 [crystal1 1, rb 0]
+how in 48,128 [crystal1 1, rb 0] -> out 0,608 [crystal1 1, rb 0]: gdash,key:17
+     [crystal 1 hit (its rooms turned over), blue blocks solid] coming in at 48,128
+   1. coming in: holding nothing, from 48,128; lands at 48,129
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 0-70, y 129
+   2. walk off the edge, holding right once in the air, from 32,129; lands at 134,161
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 122-198, y 161
+   3. running right, jump (held 6 ticks), holding right, from 160,161; lands at 439,353
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 410-441, y 353
+   4. jump (held 2 ticks), holding right, from 410,353; lands at 475,321
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 442-486, y 321
+   5. jump (held 21 ticks), holding right, from 478,321; lands at 609,257
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 602-646, y 257
+   6. jump (held 21 ticks), holding right, from 638,257; lands at 806,225
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 794-902, y 225
+   7. walk off the edge, holding right once in the air, from 794,225; lands at 1033,433
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 1002-1033, y 433
+   8. dash left (Jerry), jump (held 21 ticks), holding left, from 1002,433; lands at 866,481   [gdash]
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 858-902, y 481
+   9. jump (held 6 ticks), holding left, from 858,481; lands at 780,433
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 762-838, y 433
+  10. walk off the edge, holding left once in the air, from 762,433; lands at 689,545
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 634-710, y 545
+  11. dash left (Jerry), jump (held 21 ticks), holding left, from 656,545; lands at 411,609   [gdash]
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 346-441, y 609
+  12. jump (held 21 ticks), holding left, from 346,609; lands at 141,641
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 104-166, y 641
+  13. jump (held 2 ticks), holding left, from 104,641, through the locked door at 64,576; lands at 53,641   [key:17]
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 0-57, y 641
+  14. standing at 0,641, goes into it
+      -> out 0,608 [crystal1 1, rb 0]
+how in 48,128 [crystal1 1, rb 0] -> out 0,608 [crystal1 1, rb 0]: samus:2,key:17
+     [crystal 1 hit (its rooms turned over), blue blocks solid] coming in at 48,128
+   1. coming in: holding nothing, from 48,128; lands at 48,129
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 0-70, y 129
+   2. walk off the edge, holding right once in the air, from 32,129; lands at 134,161
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 122-198, y 161
+   3. running right, jump (held 6 ticks), holding right, from 160,161; lands at 439,353
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 410-441, y 353
+   4. jump (held 2 ticks), holding right, from 410,353; lands at 475,321
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 442-486, y 321
+   5. jump (held 21 ticks), holding right, from 478,321; lands at 609,257
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 602-646, y 257
+   6. jump (held 21 ticks), holding right, from 638,257; lands at 806,225
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 794-902, y 225
+   7. walk off the edge, holding right once in the air, from 794,225; lands at 1033,433
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 1002-1033, y 433
+   8. running left, jump (held 21 ticks), holding left, turn into the Morph Ball where the body meets a wall or ceiling, from 1002,433; lands at 880,481   [samus:2]
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] as the Morph Ball at x 858-902, y 481
+   9. turn back from the Morph Ball at 858,481
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 858-902, y 481
+  10. jump (held 6 ticks), holding left, from 858,481; lands at 780,433
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 762-838, y 433
+  11. walk off the edge, holding left once in the air, from 762,433; lands at 689,545
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 634-710, y 545
+  12. jump (held 2 ticks), holding left, from 634,545; lands at 510,577
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 442-550, y 577
+  13. walk off the edge, holding left once in the air, from 442,577; lands at 384,609
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 346-441, y 609
+  14. jump (held 21 ticks), holding left, from 346,609; lands at 141,641
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 104-166, y 641
+  15. jump (held 2 ticks), holding left, from 104,641, through the locked door at 64,576; lands at 53,641   [key:17]
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 0-57, y 641
+  16. standing at 0,641, goes into it
+      -> out 0,608 [crystal1 1, rb 0]
+how in 48,128 [crystal1 1, rb 0] -> loc 2 8: -
+     [crystal 1 hit (its rooms turned over), blue blocks solid] coming in at 48,128
+   1. coming in: holding nothing, from 48,128; lands at 48,129
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 0-70, y 129
+   2. walk off the edge, holding right once in the air, from 32,129; lands at 134,161
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 122-198, y 161
+   3. running right, jump (held 6 ticks), holding right, from 160,161; lands at 439,353
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 410-441, y 353
+   4. jump (held 2 ticks), holding right, from 410,353; lands at 475,321
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 442-486, y 321
+   5. jump (held 21 ticks), holding right, from 478,321; lands at 609,257
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 602-646, y 257
+   6. jump (held 21 ticks), holding right, from 638,257; lands at 806,225
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 794-902, y 225
+   7. walk off the edge, holding right once in the air, from 794,225; lands at 1033,433
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 1002-1033, y 433
+   8. walk off the edge, holding left once in the air, from 1002,433; lands at 881,641
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 826-934, y 641
+   9. standing at 872,641, touches it
+      -> loc 2 8
+how in 48,128 [crystal1 0, rb 1] -> out 0,96 [crystal1 0, rb 1]: -
+     [crystal 1 as at the start, red blocks solid] coming in at 48,128
+   1. coming in: holding nothing, from 48,128; lands at 48,129
+      -> [crystal 1 as at the start, red blocks solid] standing at x 0-70, y 129
+   2. standing at 0,129, goes into it
+      -> out 0,96 [crystal1 0, rb 1]
+how in 48,128 [crystal1 0, rb 1] -> out 1424,608 [crystal1 0, rb 1]: -
+     [crystal 1 as at the start, red blocks solid] coming in at 48,128
+   1. coming in: holding nothing, from 48,128; lands at 48,129
+      -> [crystal 1 as at the start, red blocks solid] standing at x 0-70, y 129
+   2. walk off the edge, holding right once in the air, from 32,129; lands at 134,161
+      -> [crystal 1 as at the start, red blocks solid] standing at x 122-198, y 161
+   3. running right, jump (held 6 ticks), holding right, from 160,161; lands at 439,353
+      -> [crystal 1 as at the start, red blocks solid] standing at x 410-441, y 353
+   4. jump (held 2 ticks), holding right, from 410,353; lands at 475,321
+      -> [crystal 1 as at the start, red blocks solid] standing at x 442-486, y 321
+   5. jump (held 21 ticks), holding right, from 478,321; lands at 609,257
+      -> [crystal 1 as at the start, red blocks solid] standing at x 602-646, y 257
+   6. jump (held 21 ticks), holding right, from 638,257; lands at 806,225
+      -> [crystal 1 as at the start, red blocks solid] standing at x 794-902, y 225
+   7. walk off the edge, holding right once in the air, from 794,225; lands at 1033,433
+      -> [crystal 1 as at the start, red blocks solid] standing at x 1002-1033, y 433
+   8. jump (held 21 ticks), holding right, from 1002,433; lands at 1285,641
+      -> [crystal 1 as at the start, red blocks solid] standing at x 1178-1440, y 641
+   9. standing at 1422,641, goes into it
+      -> out 1424,608 [crystal1 0, rb 1]
+how in 48,128 [crystal1 0, rb 1] -> out 0,608 [crystal1 0, rb 1]: key:17
+     [crystal 1 as at the start, red blocks solid] coming in at 48,128
+   1. coming in: holding nothing, from 48,128; lands at 48,129
+      -> [crystal 1 as at the start, red blocks solid] standing at x 0-70, y 129
+   2. walk off the edge, holding right once in the air, from 32,129; lands at 134,161
+      -> [crystal 1 as at the start, red blocks solid] standing at x 122-198, y 161
+   3. running right, jump (held 6 ticks), holding right, from 160,161; lands at 439,353
+      -> [crystal 1 as at the start, red blocks solid] standing at x 410-441, y 353
+   4. jump (held 2 ticks), holding right, from 410,353; lands at 475,321
+      -> [crystal 1 as at the start, red blocks solid] standing at x 442-486, y 321
+   5. jump (held 21 ticks), holding right, from 478,321; lands at 609,257
+      -> [crystal 1 as at the start, red blocks solid] standing at x 602-646, y 257
+   6. jump (held 21 ticks), holding right, from 638,257; lands at 806,225
+      -> [crystal 1 as at the start, red blocks solid] standing at x 794-902, y 225
+   7. walk off the edge, holding right once in the air, from 794,225; lands at 1033,433
+      -> [crystal 1 as at the start, red blocks solid] standing at x 1002-1033, y 433
+   8. walk off the edge, holding left once in the air, from 1002,433; lands at 929,481
+      -> [crystal 1 as at the start, red blocks solid] standing at x 922-998, y 481
+   9. jump (held 6 ticks), holding left, from 922,481; lands at 827,433
+      -> [crystal 1 as at the start, red blocks solid] standing at x 762-838, y 433
+  10. walk off the edge, holding left once in the air, from 762,433; lands at 689,545
+      -> [crystal 1 as at the start, red blocks solid] standing at x 634-710, y 545
+  11. jump (held 2 ticks), holding left, from 634,545; lands at 510,577
+      -> [crystal 1 as at the start, red blocks solid] standing at x 442-550, y 577
+  12. walk off the edge, holding left once in the air, from 442,577; lands at 384,609
+      -> [crystal 1 as at the start, red blocks solid] standing at x 346-441, y 609
+  13. jump (held 21 ticks), holding left, from 346,609; lands at 141,641
+      -> [crystal 1 as at the start, red blocks solid] standing at x 104-166, y 641
+  14. jump (held 2 ticks), holding left, from 104,641, through the locked door at 64,576; lands at 53,641   [key:17]
+      -> [crystal 1 as at the start, red blocks solid] standing at x 0-57, y 641
+  15. standing at 0,641, goes into it
+      -> out 0,608 [crystal1 0, rb 1]
+how in 48,128 [crystal1 0, rb 1] -> loc 2 8: -
+     [crystal 1 as at the start, red blocks solid] coming in at 48,128
+   1. coming in: holding nothing, from 48,128; lands at 48,129
+      -> [crystal 1 as at the start, red blocks solid] standing at x 0-70, y 129
+   2. walk off the edge, holding right once in the air, from 32,129; lands at 134,161
+      -> [crystal 1 as at the start, red blocks solid] standing at x 122-198, y 161
+   3. running right, jump (held 6 ticks), holding right, from 160,161; lands at 439,353
+      -> [crystal 1 as at the start, red blocks solid] standing at x 410-441, y 353
+   4. jump (held 2 ticks), holding right, from 410,353; lands at 475,321
+      -> [crystal 1 as at the start, red blocks solid] standing at x 442-486, y 321
+   5. jump (held 21 ticks), holding right, from 478,321; lands at 609,257
+      -> [crystal 1 as at the start, red blocks solid] standing at x 602-646, y 257
+   6. jump (held 21 ticks), holding right, from 638,257; lands at 806,225
+      -> [crystal 1 as at the start, red blocks solid] standing at x 794-902, y 225
+   7. walk off the edge, holding right once in the air, from 794,225; lands at 1033,433
+      -> [crystal 1 as at the start, red blocks solid] standing at x 1002-1033, y 433
+   8. walk off the edge, holding left once in the air, from 1002,433; lands at 929,481
+      -> [crystal 1 as at the start, red blocks solid] standing at x 922-998, y 481
+   9. jump (held 6 ticks), holding left, from 922,481; lands at 827,433
+      -> [crystal 1 as at the start, red blocks solid] standing at x 762-838, y 433
+  10. walk off the edge, holding left once in the air, from 762,433; lands at 689,545
+      -> [crystal 1 as at the start, red blocks solid] standing at x 634-710, y 545
+  11. running right, jump (held 2 ticks), holding right, from 688,545; touches it on the way
+      -> loc 2 8
+how in 48,128 [crystal1 1, rb 1] -> out 0,96 [crystal1 1, rb 1]: -
+     [crystal 1 hit (its rooms turned over), red blocks solid] coming in at 48,128
+   1. coming in: holding nothing, from 48,128; lands at 48,129
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 0-70, y 129
+   2. standing at 0,129, goes into it
+      -> out 0,96 [crystal1 1, rb 1]
+how in 48,128 [crystal1 1, rb 1] -> out 1424,608 [crystal1 1, rb 1]: -
+     [crystal 1 hit (its rooms turned over), red blocks solid] coming in at 48,128
+   1. coming in: holding nothing, from 48,128; lands at 48,129
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 0-70, y 129
+   2. walk off the edge, holding right once in the air, from 32,129; lands at 134,161
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 122-198, y 161
+   3. running right, jump (held 6 ticks), holding right, from 160,161; lands at 439,353
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 410-441, y 353
+   4. jump (held 2 ticks), holding right, from 410,353; lands at 475,321
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 442-486, y 321
+   5. jump (held 21 ticks), holding right, from 478,321; lands at 609,257
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 602-646, y 257
+   6. jump (held 21 ticks), holding right, from 638,257; lands at 806,225
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 794-902, y 225
+   7. walk off the edge, holding right once in the air, from 794,225; lands at 1033,433
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 1002-1033, y 433
+   8. jump (held 21 ticks), holding right, from 1002,433; lands at 1285,641
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 1178-1440, y 641
+   9. standing at 1422,641, goes into it
+      -> out 1424,608 [crystal1 1, rb 1]
+how in 48,128 [crystal1 1, rb 1] -> out 0,608 [crystal1 1, rb 1]: key:17
+     [crystal 1 hit (its rooms turned over), red blocks solid] coming in at 48,128
+   1. coming in: holding nothing, from 48,128; lands at 48,129
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 0-70, y 129
+   2. walk off the edge, holding right once in the air, from 32,129; lands at 134,161
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 122-198, y 161
+   3. running right, jump (held 6 ticks), holding right, from 160,161; lands at 439,353
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 410-441, y 353
+   4. jump (held 2 ticks), holding right, from 410,353; lands at 475,321
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 442-486, y 321
+   5. jump (held 21 ticks), holding right, from 478,321; lands at 609,257
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 602-646, y 257
+   6. jump (held 21 ticks), holding right, from 638,257; lands at 806,225
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 794-902, y 225
+   7. walk off the edge, holding right once in the air, from 794,225; lands at 1033,433
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 1002-1033, y 433
+   8. walk off the edge, holding left once in the air, from 1002,433; lands at 929,481
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 922-998, y 481
+   9. jump (held 6 ticks), holding left, from 922,481; lands at 827,433
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 762-838, y 433
+  10. walk off the edge, holding left once in the air, from 762,433; lands at 689,545
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 634-710, y 545
+  11. jump (held 2 ticks), holding left, from 634,545; lands at 510,577
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 442-550, y 577
+  12. walk off the edge, holding left once in the air, from 442,577; lands at 384,609
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 346-441, y 609
+  13. jump (held 21 ticks), holding left, from 346,609; lands at 141,641
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 104-166, y 641
+  14. jump (held 2 ticks), holding left, from 104,641, through the locked door at 64,576; lands at 53,641   [key:17]
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 0-57, y 641
+  15. standing at 0,641, goes into it
+      -> out 0,608 [crystal1 1, rb 1]
+how in 48,128 [crystal1 1, rb 1] -> loc 2 8: -
+     [crystal 1 hit (its rooms turned over), red blocks solid] coming in at 48,128
+   1. coming in: holding nothing, from 48,128; lands at 48,129
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 0-70, y 129
+   2. walk off the edge, holding right once in the air, from 32,129; lands at 134,161
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 122-198, y 161
+   3. running right, jump (held 6 ticks), holding right, from 160,161; lands at 439,353
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 410-441, y 353
+   4. jump (held 2 ticks), holding right, from 410,353; lands at 475,321
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 442-486, y 321
+   5. jump (held 21 ticks), holding right, from 478,321; lands at 609,257
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 602-646, y 257
+   6. jump (held 21 ticks), holding right, from 638,257; lands at 806,225
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 794-902, y 225
+   7. walk off the edge, holding right once in the air, from 794,225; lands at 1033,433
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 1002-1033, y 433
+   8. walk off the edge, holding left once in the air, from 1002,433; lands at 929,481
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 922-998, y 481
+   9. jump (held 6 ticks), holding left, from 922,481; lands at 827,433
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 762-838, y 433
+  10. walk off the edge, holding left once in the air, from 762,433; lands at 689,545
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 634-710, y 545
+  11. running right, jump (held 2 ticks), holding right, from 688,545; touches it on the way
+      -> loc 2 8
+how in 1392,640 [crystal1 0, rb 0] -> out 0,96 [crystal1 0, rb 0]: -
+     [crystal 1 as at the start, blue blocks solid] coming in at 1392,640
+   1. coming in: holding nothing, from 1392,640; lands at 1392,641
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 1178-1440, y 641
+   2. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, from 1232,641; lands at 1143,465
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 1143-1174, y 465
+   3. jump (held 21 ticks), holding right, from 1150,465; lands at 1281,401
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 1274-1305, y 401
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1274,401; lands at 1354,385
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 1306-1369, y 385
+   5. jump (held 21 ticks), holding right, from 1306,385; lands at 1401,321
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 1370-1401, y 321
+   6. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 1370,321; lands at 1340,257
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 1306-1350, y 257
+   7. jump (held 21 ticks), holding left, from 1306,257; lands at 1255,193
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 1255-1286, y 193
+   8. jump (held 6 ticks), holding left, from 1255,193; lands at 1142,161
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 1050-1190, y 161
+   9. walk off the edge, holding left once in the air, from 1050,161; lands at 977,209
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 954-1030, y 209
+  10. jump (held 2 ticks), holding left, from 954,209; lands at 837,225
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 794-902, y 225
+  11. jump (held 2 ticks), holding left, from 794,225; lands at 639,321
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 634-678, y 321
+  12. jump (held 21 ticks), holding left, from 656,321; lands at 522,321
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 506-550, y 321
+  13. running left, jump (held 21 ticks), holding left, from 506,321; lands at 300,321
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 282-326, y 321
+  14. jump (held 6 ticks), holding left, from 282,321; lands at 165,289
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 71-198, y 289
+  15. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, from 112,289; lands at 305,225
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 282-326, y 225
+  16. jump (held 21 ticks), holding left, from 282,225; lands at 151,161
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 122-198, y 161
+  17. jump (held 2 ticks), holding left, from 122,161; lands at 57,129
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 0-70, y 129
+  18. standing at 0,129, goes into it
+      -> out 0,96 [crystal1 0, rb 0]
+how in 1392,640 [crystal1 0, rb 0] -> out 1424,608 [crystal1 0, rb 0]: -
+     [crystal 1 as at the start, blue blocks solid] coming in at 1392,640
+   1. coming in: holding nothing, from 1392,640; lands at 1392,641
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 1178-1440, y 641
+   2. standing at 1422,641, goes into it
+      -> out 1424,608 [crystal1 0, rb 0]
+how in 1392,640 [crystal1 0, rb 0] -> out 0,608 [crystal1 0, rb 0]: djump,key:17
+     [crystal 1 as at the start, blue blocks solid] coming in at 1392,640
+   1. coming in: holding nothing, from 1392,640; lands at 1392,641
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 1178-1440, y 641
+   2. jump (held 2 ticks), holding left, from 1178,641; lands at 1076,641
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 1018-1094, y 641
+   3. jump (held 2 ticks), holding left, from 1018,641; lands at 916,641
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 826-934, y 641
+   4. jump (held 21 ticks), holding left, double jump at tick 15, from 826,641; lands at 653,545   [djump]
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 634-710, y 545
+   5. jump (held 21 ticks), holding left, double jump at tick 15, from 634,545; lands at 382,609   [djump]
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 346-441, y 609
+   6. jump (held 21 ticks), holding left, from 346,609; lands at 141,641
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 104-166, y 641
+   7. jump (held 2 ticks), holding left, from 104,641, through the locked door at 64,576; lands at 53,641   [key:17]
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 0-57, y 641
+   8. standing at 0,641, goes into it
+      -> out 0,608 [crystal1 0, rb 0]
+how in 1392,640 [crystal1 0, rb 0] -> out 0,608 [crystal1 0, rb 0]: gdash,key:17
+     [crystal 1 as at the start, blue blocks solid] coming in at 1392,640
+   1. coming in: holding nothing, from 1392,640; lands at 1392,641
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 1178-1440, y 641
+   2. running left, jump (held 21 ticks), holding left, from 1312,641; lands at 1123,449
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 1079-1142, y 449
+   3. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 1079,449; lands at 1049,385
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 1034-1078, y 385
+   4. walk off the edge, holding left, then right after 1 ticks in the air, from 1034,385; lands at 1033,433
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 1002-1033, y 433
+   5. dash left (Jerry), jump (held 21 ticks), holding left, from 1002,433; lands at 866,481   [gdash]
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 858-902, y 481
+   6. jump (held 6 ticks), holding left, from 858,481; lands at 780,433
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 762-838, y 433
+   7. walk off the edge, holding left once in the air, from 762,433; lands at 689,545
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 634-710, y 545
+   8. dash left (Jerry), jump (held 21 ticks), holding left, from 656,545; lands at 411,609   [gdash]
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 346-441, y 609
+   9. jump (held 21 ticks), holding left, from 346,609; lands at 141,641
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 104-166, y 641
+  10. jump (held 2 ticks), holding left, from 104,641, through the locked door at 64,576; lands at 53,641   [key:17]
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 0-57, y 641
+  11. standing at 0,641, goes into it
+      -> out 0,608 [crystal1 0, rb 0]
+how in 1392,640 [crystal1 0, rb 0] -> out 0,608 [crystal1 0, rb 0]: samus:2,key:17
+     [crystal 1 as at the start, blue blocks solid] coming in at 1392,640
+   1. coming in: holding nothing, from 1392,640; lands at 1392,641
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 1178-1440, y 641
+   2. running left, jump (held 21 ticks), holding left, from 1312,641; lands at 1123,449
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 1079-1142, y 449
+   3. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 1079,449; lands at 1049,385
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 1034-1078, y 385
+   4. walk off the edge, holding left, then right after 1 ticks in the air, from 1034,385; lands at 1033,433
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 1002-1033, y 433
+   5. running left, jump (held 21 ticks), holding left, turn into the Morph Ball where the body meets a wall or ceiling, from 1002,433; lands at 880,481   [samus:2]
+      -> [crystal 1 as at the start, blue blocks solid] as the Morph Ball at x 858-902, y 481
+   6. turn back from the Morph Ball at 858,481
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 858-902, y 481
+   7. jump (held 21 ticks), holding left, turn into the Morph Ball at tick 8, from 858,481; lands at 697,545   [samus:2]
+      -> [crystal 1 as at the start, blue blocks solid] as the Morph Ball at x 634-710, y 545
+   8. turn back from the Morph Ball at 634,545
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 634-710, y 545
+   9. jump (held 2 ticks), holding left, from 634,545; lands at 510,577
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 442-550, y 577
+  10. walk off the edge, holding left once in the air, from 442,577; lands at 384,609
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 346-441, y 609
+  11. jump (held 21 ticks), holding left, from 346,609; lands at 141,641
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 104-166, y 641
+  12. jump (held 2 ticks), holding left, from 104,641, through the locked door at 64,576; lands at 53,641   [key:17]
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 0-57, y 641
+  13. standing at 0,641, goes into it
+      -> out 0,608 [crystal1 0, rb 0]
+how in 1392,640 [crystal1 0, rb 0] -> loc 2 8: -
+     [crystal 1 as at the start, blue blocks solid] coming in at 1392,640
+   1. coming in: holding nothing, from 1392,640; lands at 1392,641
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 1178-1440, y 641
+   2. jump (held 2 ticks), holding left, from 1178,641; lands at 1076,641
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 1018-1094, y 641
+   3. jump (held 2 ticks), holding left, from 1018,641; lands at 916,641
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 826-934, y 641
+   4. standing at 872,641, touches it
+      -> loc 2 8
+how in 1392,640 [crystal1 1, rb 0] -> out 0,96 [crystal1 1, rb 0]: -
+     [crystal 1 hit (its rooms turned over), blue blocks solid] coming in at 1392,640
+   1. coming in: holding nothing, from 1392,640; lands at 1392,641
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 1178-1440, y 641
+   2. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, from 1232,641; lands at 1143,465
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 1143-1174, y 465
+   3. jump (held 21 ticks), holding right, from 1150,465; lands at 1281,401
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 1274-1305, y 401
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1274,401; lands at 1354,385
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 1306-1369, y 385
+   5. jump (held 21 ticks), holding right, from 1306,385; lands at 1401,321
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 1370-1401, y 321
+   6. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 1370,321; lands at 1340,257
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 1306-1350, y 257
+   7. jump (held 21 ticks), holding left, from 1306,257; lands at 1255,193
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 1255-1286, y 193
+   8. jump (held 6 ticks), holding left, from 1255,193; lands at 1142,161
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 1050-1190, y 161
+   9. walk off the edge, holding left once in the air, from 1050,161; lands at 977,209
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 954-1030, y 209
+  10. jump (held 2 ticks), holding left, from 954,209; lands at 837,225
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 794-902, y 225
+  11. jump (held 2 ticks), holding left, from 794,225; lands at 639,321
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 634-678, y 321
+  12. jump (held 21 ticks), holding left, from 656,321; lands at 522,321
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 506-550, y 321
+  13. running left, jump (held 21 ticks), holding left, from 506,321; lands at 300,321
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 282-326, y 321
+  14. jump (held 6 ticks), holding left, from 282,321; lands at 165,289
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 71-198, y 289
+  15. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, from 112,289; lands at 305,225
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 282-326, y 225
+  16. jump (held 21 ticks), holding left, from 282,225; lands at 151,161
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 122-198, y 161
+  17. jump (held 2 ticks), holding left, from 122,161; lands at 57,129
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 0-70, y 129
+  18. standing at 0,129, goes into it
+      -> out 0,96 [crystal1 1, rb 0]
+how in 1392,640 [crystal1 1, rb 0] -> out 1424,608 [crystal1 1, rb 0]: -
+     [crystal 1 hit (its rooms turned over), blue blocks solid] coming in at 1392,640
+   1. coming in: holding nothing, from 1392,640; lands at 1392,641
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 1178-1440, y 641
+   2. standing at 1422,641, goes into it
+      -> out 1424,608 [crystal1 1, rb 0]
+how in 1392,640 [crystal1 1, rb 0] -> out 0,608 [crystal1 1, rb 0]: djump,key:17
+     [crystal 1 hit (its rooms turned over), blue blocks solid] coming in at 1392,640
+   1. coming in: holding nothing, from 1392,640; lands at 1392,641
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 1178-1440, y 641
+   2. jump (held 2 ticks), holding left, from 1178,641; lands at 1076,641
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 1018-1094, y 641
+   3. jump (held 2 ticks), holding left, from 1018,641; lands at 916,641
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 826-934, y 641
+   4. jump (held 21 ticks), holding left, double jump at tick 15, from 826,641; lands at 653,545   [djump]
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 634-710, y 545
+   5. jump (held 21 ticks), holding left, double jump at tick 15, from 634,545; lands at 382,609   [djump]
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 346-441, y 609
+   6. jump (held 21 ticks), holding left, from 346,609; lands at 141,641
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 104-166, y 641
+   7. jump (held 2 ticks), holding left, from 104,641, through the locked door at 64,576; lands at 53,641   [key:17]
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 0-57, y 641
+   8. standing at 0,641, goes into it
+      -> out 0,608 [crystal1 1, rb 0]
+how in 1392,640 [crystal1 1, rb 0] -> out 0,608 [crystal1 1, rb 0]: gdash,key:17
+     [crystal 1 hit (its rooms turned over), blue blocks solid] coming in at 1392,640
+   1. coming in: holding nothing, from 1392,640; lands at 1392,641
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 1178-1440, y 641
+   2. running left, jump (held 21 ticks), holding left, from 1312,641; lands at 1123,449
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 1079-1142, y 449
+   3. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 1079,449; lands at 1049,385
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 1034-1078, y 385
+   4. walk off the edge, holding left, then right after 1 ticks in the air, from 1034,385; lands at 1033,433
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 1002-1033, y 433
+   5. dash left (Jerry), jump (held 21 ticks), holding left, from 1002,433; lands at 866,481   [gdash]
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 858-902, y 481
+   6. jump (held 6 ticks), holding left, from 858,481; lands at 780,433
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 762-838, y 433
+   7. walk off the edge, holding left once in the air, from 762,433; lands at 689,545
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 634-710, y 545
+   8. dash left (Jerry), jump (held 21 ticks), holding left, from 656,545; lands at 411,609   [gdash]
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 346-441, y 609
+   9. jump (held 21 ticks), holding left, from 346,609; lands at 141,641
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 104-166, y 641
+  10. jump (held 2 ticks), holding left, from 104,641, through the locked door at 64,576; lands at 53,641   [key:17]
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 0-57, y 641
+  11. standing at 0,641, goes into it
+      -> out 0,608 [crystal1 1, rb 0]
+how in 1392,640 [crystal1 1, rb 0] -> out 0,608 [crystal1 1, rb 0]: samus:2,key:17
+     [crystal 1 hit (its rooms turned over), blue blocks solid] coming in at 1392,640
+   1. coming in: holding nothing, from 1392,640; lands at 1392,641
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 1178-1440, y 641
+   2. running left, jump (held 21 ticks), holding left, from 1312,641; lands at 1123,449
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 1079-1142, y 449
+   3. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 1079,449; lands at 1049,385
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 1034-1078, y 385
+   4. walk off the edge, holding left, then right after 1 ticks in the air, from 1034,385; lands at 1033,433
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 1002-1033, y 433
+   5. running left, jump (held 21 ticks), holding left, turn into the Morph Ball where the body meets a wall or ceiling, from 1002,433; lands at 880,481   [samus:2]
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] as the Morph Ball at x 858-902, y 481
+   6. turn back from the Morph Ball at 858,481
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 858-902, y 481
+   7. jump (held 21 ticks), holding left, turn into the Morph Ball at tick 8, from 858,481; lands at 697,545   [samus:2]
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] as the Morph Ball at x 634-710, y 545
+   8. turn back from the Morph Ball at 634,545
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 634-710, y 545
+   9. jump (held 2 ticks), holding left, from 634,545; lands at 510,577
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 442-550, y 577
+  10. walk off the edge, holding left once in the air, from 442,577; lands at 384,609
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 346-441, y 609
+  11. jump (held 21 ticks), holding left, from 346,609; lands at 141,641
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 104-166, y 641
+  12. jump (held 2 ticks), holding left, from 104,641, through the locked door at 64,576; lands at 53,641   [key:17]
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 0-57, y 641
+  13. standing at 0,641, goes into it
+      -> out 0,608 [crystal1 1, rb 0]
+how in 1392,640 [crystal1 1, rb 0] -> loc 2 8: -
+     [crystal 1 hit (its rooms turned over), blue blocks solid] coming in at 1392,640
+   1. coming in: holding nothing, from 1392,640; lands at 1392,641
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 1178-1440, y 641
+   2. jump (held 2 ticks), holding left, from 1178,641; lands at 1076,641
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 1018-1094, y 641
+   3. jump (held 2 ticks), holding left, from 1018,641; lands at 916,641
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 826-934, y 641
+   4. standing at 872,641, touches it
+      -> loc 2 8
+how in 1392,640 [crystal1 0, rb 1] -> out 0,96 [crystal1 0, rb 1]: -
+     [crystal 1 as at the start, red blocks solid] coming in at 1392,640
+   1. coming in: holding nothing, from 1392,640; lands at 1392,641
+      -> [crystal 1 as at the start, red blocks solid] standing at x 1178-1440, y 641
+   2. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, from 1232,641; lands at 1143,465
+      -> [crystal 1 as at the start, red blocks solid] standing at x 1143-1174, y 465
+   3. jump (held 21 ticks), holding right, from 1150,465; lands at 1281,401
+      -> [crystal 1 as at the start, red blocks solid] standing at x 1274-1305, y 401
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1274,401; lands at 1354,385
+      -> [crystal 1 as at the start, red blocks solid] standing at x 1306-1369, y 385
+   5. jump (held 21 ticks), holding right, from 1306,385; lands at 1401,321
+      -> [crystal 1 as at the start, red blocks solid] standing at x 1370-1401, y 321
+   6. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 1370,321; lands at 1340,257
+      -> [crystal 1 as at the start, red blocks solid] standing at x 1306-1350, y 257
+   7. jump (held 21 ticks), holding left, from 1306,257; lands at 1255,193
+      -> [crystal 1 as at the start, red blocks solid] standing at x 1255-1286, y 193
+   8. jump (held 6 ticks), holding left, from 1255,193; lands at 1142,161
+      -> [crystal 1 as at the start, red blocks solid] standing at x 1050-1190, y 161
+   9. walk off the edge, holding left once in the air, from 1050,161; lands at 977,209
+      -> [crystal 1 as at the start, red blocks solid] standing at x 954-1030, y 209
+  10. jump (held 2 ticks), holding left, from 954,209; lands at 837,225
+      -> [crystal 1 as at the start, red blocks solid] standing at x 794-902, y 225
+  11. jump (held 2 ticks), holding left, from 794,225; lands at 639,321
+      -> [crystal 1 as at the start, red blocks solid] standing at x 634-678, y 321
+  12. jump (held 21 ticks), holding left, from 656,321; lands at 522,321
+      -> [crystal 1 as at the start, red blocks solid] standing at x 506-550, y 321
+  13. running left, jump (held 21 ticks), holding left, from 506,321; lands at 300,321
+      -> [crystal 1 as at the start, red blocks solid] standing at x 282-326, y 321
+  14. jump (held 6 ticks), holding left, from 282,321; lands at 165,289
+      -> [crystal 1 as at the start, red blocks solid] standing at x 71-198, y 289
+  15. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 96,289; touches it on the way
+      -> out 0,96 [crystal1 0, rb 1]
+how in 1392,640 [crystal1 0, rb 1] -> out 1424,608 [crystal1 0, rb 1]: -
+     [crystal 1 as at the start, red blocks solid] coming in at 1392,640
+   1. coming in: holding nothing, from 1392,640; lands at 1392,641
+      -> [crystal 1 as at the start, red blocks solid] standing at x 1178-1440, y 641
+   2. standing at 1422,641, goes into it
+      -> out 1424,608 [crystal1 0, rb 1]
+how in 1392,640 [crystal1 0, rb 1] -> out 0,608 [crystal1 0, rb 1]: key:17
+     [crystal 1 as at the start, red blocks solid] coming in at 1392,640
+   1. coming in: holding nothing, from 1392,640; lands at 1392,641
+      -> [crystal 1 as at the start, red blocks solid] standing at x 1178-1440, y 641
+   2. running left, jump (held 21 ticks), holding left, from 1312,641; lands at 1123,449
+      -> [crystal 1 as at the start, red blocks solid] standing at x 1079-1142, y 449
+   3. jump (held 21 ticks), holding left, from 1079,449; lands at 932,481
+      -> [crystal 1 as at the start, red blocks solid] standing at x 922-998, y 481
+   4. jump (held 6 ticks), holding left, from 922,481; lands at 827,433
+      -> [crystal 1 as at the start, red blocks solid] standing at x 762-838, y 433
+   5. walk off the edge, holding left once in the air, from 762,433; lands at 689,545
+      -> [crystal 1 as at the start, red blocks solid] standing at x 634-710, y 545
+   6. jump (held 2 ticks), holding left, from 634,545; lands at 510,577
+      -> [crystal 1 as at the start, red blocks solid] standing at x 442-550, y 577
+   7. walk off the edge, holding left once in the air, from 442,577; lands at 384,609
+      -> [crystal 1 as at the start, red blocks solid] standing at x 346-441, y 609
+   8. jump (held 21 ticks), holding left, from 346,609; lands at 141,641
+      -> [crystal 1 as at the start, red blocks solid] standing at x 104-166, y 641
+   9. jump (held 2 ticks), holding left, from 104,641, through the locked door at 64,576; lands at 53,641   [key:17]
+      -> [crystal 1 as at the start, red blocks solid] standing at x 0-57, y 641
+  10. standing at 0,641, goes into it
+      -> out 0,608 [crystal1 0, rb 1]
+how in 1392,640 [crystal1 0, rb 1] -> loc 2 8: -
+     [crystal 1 as at the start, red blocks solid] coming in at 1392,640
+   1. coming in: holding nothing, from 1392,640; lands at 1392,641
+      -> [crystal 1 as at the start, red blocks solid] standing at x 1178-1440, y 641
+   2. running left, jump (held 21 ticks), holding left, from 1312,641; lands at 1123,449
+      -> [crystal 1 as at the start, red blocks solid] standing at x 1079-1142, y 449
+   3. jump (held 21 ticks), holding left, from 1079,449; lands at 932,481
+      -> [crystal 1 as at the start, red blocks solid] standing at x 922-998, y 481
+   4. jump (held 6 ticks), holding left, from 922,481; lands at 827,433
+      -> [crystal 1 as at the start, red blocks solid] standing at x 762-838, y 433
+   5. walk off the edge, holding left once in the air, from 762,433; lands at 689,545
+      -> [crystal 1 as at the start, red blocks solid] standing at x 634-710, y 545
+   6. running right, jump (held 2 ticks), holding right, from 688,545; touches it on the way
+      -> loc 2 8
+how in 1392,640 [crystal1 1, rb 1] -> out 0,96 [crystal1 1, rb 1]: -
+     [crystal 1 hit (its rooms turned over), red blocks solid] coming in at 1392,640
+   1. coming in: holding nothing, from 1392,640; lands at 1392,641
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 1178-1440, y 641
+   2. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, from 1232,641; lands at 1143,465
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 1143-1174, y 465
+   3. jump (held 21 ticks), holding right, from 1150,465; lands at 1281,401
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 1274-1305, y 401
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1274,401; lands at 1354,385
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 1306-1369, y 385
+   5. jump (held 21 ticks), holding right, from 1306,385; lands at 1401,321
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 1370-1401, y 321
+   6. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 1370,321; lands at 1340,257
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 1306-1350, y 257
+   7. jump (held 21 ticks), holding left, from 1306,257; lands at 1255,193
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 1255-1286, y 193
+   8. jump (held 6 ticks), holding left, from 1255,193; lands at 1142,161
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 1050-1190, y 161
+   9. walk off the edge, holding left once in the air, from 1050,161; lands at 977,209
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 954-1030, y 209
+  10. jump (held 2 ticks), holding left, from 954,209; lands at 837,225
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 794-902, y 225
+  11. jump (held 2 ticks), holding left, from 794,225; lands at 639,321
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 634-678, y 321
+  12. jump (held 21 ticks), holding left, from 656,321; lands at 522,321
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 506-550, y 321
+  13. running left, jump (held 21 ticks), holding left, from 506,321; lands at 300,321
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 282-326, y 321
+  14. jump (held 6 ticks), holding left, from 282,321; lands at 165,289
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 71-198, y 289
+  15. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 96,289; touches it on the way
+      -> out 0,96 [crystal1 1, rb 1]
+how in 1392,640 [crystal1 1, rb 1] -> out 1424,608 [crystal1 1, rb 1]: -
+     [crystal 1 hit (its rooms turned over), red blocks solid] coming in at 1392,640
+   1. coming in: holding nothing, from 1392,640; lands at 1392,641
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 1178-1440, y 641
+   2. standing at 1422,641, goes into it
+      -> out 1424,608 [crystal1 1, rb 1]
+how in 1392,640 [crystal1 1, rb 1] -> out 0,608 [crystal1 1, rb 1]: key:17
+     [crystal 1 hit (its rooms turned over), red blocks solid] coming in at 1392,640
+   1. coming in: holding nothing, from 1392,640; lands at 1392,641
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 1178-1440, y 641
+   2. running left, jump (held 21 ticks), holding left, from 1312,641; lands at 1123,449
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 1079-1142, y 449
+   3. jump (held 21 ticks), holding left, from 1079,449; lands at 932,481
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 922-998, y 481
+   4. jump (held 6 ticks), holding left, from 922,481; lands at 827,433
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 762-838, y 433
+   5. walk off the edge, holding left once in the air, from 762,433; lands at 689,545
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 634-710, y 545
+   6. jump (held 2 ticks), holding left, from 634,545; lands at 510,577
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 442-550, y 577
+   7. walk off the edge, holding left once in the air, from 442,577; lands at 384,609
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 346-441, y 609
+   8. jump (held 21 ticks), holding left, from 346,609; lands at 141,641
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 104-166, y 641
+   9. jump (held 2 ticks), holding left, from 104,641, through the locked door at 64,576; lands at 53,641   [key:17]
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 0-57, y 641
+  10. standing at 0,641, goes into it
+      -> out 0,608 [crystal1 1, rb 1]
+how in 1392,640 [crystal1 1, rb 1] -> loc 2 8: -
+     [crystal 1 hit (its rooms turned over), red blocks solid] coming in at 1392,640
+   1. coming in: holding nothing, from 1392,640; lands at 1392,641
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 1178-1440, y 641
+   2. running left, jump (held 21 ticks), holding left, from 1312,641; lands at 1123,449
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 1079-1142, y 449
+   3. jump (held 21 ticks), holding left, from 1079,449; lands at 932,481
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 922-998, y 481
+   4. jump (held 6 ticks), holding left, from 922,481; lands at 827,433
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 762-838, y 433
+   5. walk off the edge, holding left once in the air, from 762,433; lands at 689,545
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 634-710, y 545
+   6. running right, jump (held 2 ticks), holding right, from 688,545; touches it on the way
+      -> loc 2 8
+how in 48,640 [crystal1 0, rb 0] -> out 0,96 [crystal1 0, rb 0]: key:17
+     [crystal 1 as at the start, blue blocks solid] coming in at 48,640
+   1. coming in: holding nothing, from 48,640; lands at 48,641
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 0-57, y 641
+   2. running right, jump (held 2 ticks), holding right, from 32,641, through the locked door at 64,576; lands at 106,641   [key:17]
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 104-166, y 641
+   3. jump (held 6 ticks), holding right, from 128,641; lands at 267,641
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 250-345, y 641
+   4. running right, jump (held 21 ticks), holding right, from 304,641; lands at 458,577
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 442-550, y 577
+   5. jump (held 21 ticks), holding right, from 480,577; lands at 648,545
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 634-710, y 545
+   6. running right, jump (held 21 ticks), holding right, from 672,545; lands at 841,641
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 826-934, y 641
+   7. running right, jump (held 6 ticks), holding right, from 880,641; lands at 1042,641
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 1018-1094, y 641
+   8. jump (held 21 ticks), holding right, from 1018,641; lands at 1201,641
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 1178-1440, y 641
+   9. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, from 1232,641; lands at 1143,465
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 1143-1174, y 465
+  10. jump (held 21 ticks), holding right, from 1150,465; lands at 1281,401
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 1274-1305, y 401
+  11. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1274,401; lands at 1354,385
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 1306-1369, y 385
+  12. jump (held 21 ticks), holding right, from 1306,385; lands at 1401,321
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 1370-1401, y 321
+  13. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 1370,321; lands at 1340,257
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 1306-1350, y 257
+  14. jump (held 21 ticks), holding left, from 1306,257; lands at 1255,193
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 1255-1286, y 193
+  15. jump (held 6 ticks), holding left, from 1255,193; lands at 1142,161
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 1050-1190, y 161
+  16. walk off the edge, holding left once in the air, from 1050,161; lands at 977,209
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 954-1030, y 209
+  17. jump (held 2 ticks), holding left, from 954,209; lands at 837,225
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 794-902, y 225
+  18. jump (held 6 ticks), holding left, from 794,225; lands at 635,257
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 602-646, y 257
+  19. jump (held 2 ticks), holding left, from 602,257; lands at 475,321
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 442-486, y 321
+  20. running left, jump (held 2 ticks), holding left, from 442,321; lands at 317,321
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 282-326, y 321
+  21. jump (held 6 ticks), holding left, from 282,321; lands at 165,289
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 71-198, y 289
+  22. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, from 112,289; lands at 305,225
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 282-326, y 225
+  23. jump (held 21 ticks), holding left, from 282,225; lands at 151,161
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 122-198, y 161
+  24. jump (held 2 ticks), holding left, from 122,161; lands at 57,129
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 0-70, y 129
+  25. standing at 0,129, goes into it
+      -> out 0,96 [crystal1 0, rb 0]
+how in 48,640 [crystal1 0, rb 0] -> out 1424,608 [crystal1 0, rb 0]: key:17
+     [crystal 1 as at the start, blue blocks solid] coming in at 48,640
+   1. coming in: holding nothing, from 48,640; lands at 48,641
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 0-57, y 641
+   2. running right, jump (held 2 ticks), holding right, from 32,641, through the locked door at 64,576; lands at 106,641   [key:17]
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 104-166, y 641
+   3. jump (held 6 ticks), holding right, from 128,641; lands at 267,641
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 250-345, y 641
+   4. running right, jump (held 21 ticks), holding right, from 304,641; lands at 458,577
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 442-550, y 577
+   5. jump (held 21 ticks), holding right, from 480,577; lands at 648,545
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 634-710, y 545
+   6. running right, jump (held 21 ticks), holding right, from 672,545; lands at 841,641
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 826-934, y 641
+   7. running right, jump (held 6 ticks), holding right, from 880,641; lands at 1042,641
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 1018-1094, y 641
+   8. jump (held 21 ticks), holding right, from 1018,641; lands at 1201,641
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 1178-1440, y 641
+   9. standing at 1422,641, goes into it
+      -> out 1424,608 [crystal1 0, rb 0]
+how in 48,640 [crystal1 0, rb 0] -> out 0,608 [crystal1 0, rb 0]: -
+     [crystal 1 as at the start, blue blocks solid] coming in at 48,640
+   1. coming in: holding nothing, from 48,640; lands at 48,641
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 0-57, y 641
+   2. standing at 0,641, goes into it
+      -> out 0,608 [crystal1 0, rb 0]
+how in 48,640 [crystal1 0, rb 0] -> loc 2 8: key:17
+     [crystal 1 as at the start, blue blocks solid] coming in at 48,640
+   1. coming in: holding nothing, from 48,640; lands at 48,641
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 0-57, y 641
+   2. running right, jump (held 2 ticks), holding right, from 32,641, through the locked door at 64,576; lands at 106,641   [key:17]
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 104-166, y 641
+   3. jump (held 6 ticks), holding right, from 128,641; lands at 267,641
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 250-345, y 641
+   4. running right, jump (held 21 ticks), holding right, from 304,641; lands at 458,577
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 442-550, y 577
+   5. jump (held 21 ticks), holding right, from 480,577; lands at 648,545
+      -> [crystal 1 as at the start, blue blocks solid] standing at x 634-710, y 545
+   6. running right, jump (held 2 ticks), holding right, from 688,545; touches it on the way
+      -> loc 2 8
+how in 48,640 [crystal1 1, rb 0] -> out 0,96 [crystal1 1, rb 0]: key:17
+     [crystal 1 hit (its rooms turned over), blue blocks solid] coming in at 48,640
+   1. coming in: holding nothing, from 48,640; lands at 48,641
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 0-57, y 641
+   2. running right, jump (held 2 ticks), holding right, from 32,641, through the locked door at 64,576; lands at 106,641   [key:17]
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 104-166, y 641
+   3. jump (held 6 ticks), holding right, from 128,641; lands at 267,641
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 250-345, y 641
+   4. running right, jump (held 21 ticks), holding right, from 304,641; lands at 458,577
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 442-550, y 577
+   5. jump (held 21 ticks), holding right, from 480,577; lands at 648,545
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 634-710, y 545
+   6. running right, jump (held 21 ticks), holding right, from 672,545; lands at 841,641
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 826-934, y 641
+   7. running right, jump (held 6 ticks), holding right, from 880,641; lands at 1042,641
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 1018-1094, y 641
+   8. jump (held 21 ticks), holding right, from 1018,641; lands at 1201,641
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 1178-1440, y 641
+   9. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, from 1232,641; lands at 1143,465
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 1143-1174, y 465
+  10. jump (held 21 ticks), holding right, from 1150,465; lands at 1281,401
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 1274-1305, y 401
+  11. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1274,401; lands at 1354,385
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 1306-1369, y 385
+  12. jump (held 21 ticks), holding right, from 1306,385; lands at 1401,321
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 1370-1401, y 321
+  13. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 1370,321; lands at 1340,257
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 1306-1350, y 257
+  14. jump (held 21 ticks), holding left, from 1306,257; lands at 1255,193
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 1255-1286, y 193
+  15. jump (held 6 ticks), holding left, from 1255,193; lands at 1142,161
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 1050-1190, y 161
+  16. walk off the edge, holding left once in the air, from 1050,161; lands at 977,209
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 954-1030, y 209
+  17. jump (held 2 ticks), holding left, from 954,209; lands at 837,225
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 794-902, y 225
+  18. jump (held 6 ticks), holding left, from 794,225; lands at 635,257
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 602-646, y 257
+  19. jump (held 2 ticks), holding left, from 602,257; lands at 475,321
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 442-486, y 321
+  20. running left, jump (held 2 ticks), holding left, from 442,321; lands at 317,321
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 282-326, y 321
+  21. jump (held 6 ticks), holding left, from 282,321; lands at 165,289
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 71-198, y 289
+  22. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, from 112,289; lands at 305,225
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 282-326, y 225
+  23. jump (held 21 ticks), holding left, from 282,225; lands at 151,161
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 122-198, y 161
+  24. jump (held 2 ticks), holding left, from 122,161; lands at 57,129
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 0-70, y 129
+  25. standing at 0,129, goes into it
+      -> out 0,96 [crystal1 1, rb 0]
+how in 48,640 [crystal1 1, rb 0] -> out 1424,608 [crystal1 1, rb 0]: key:17
+     [crystal 1 hit (its rooms turned over), blue blocks solid] coming in at 48,640
+   1. coming in: holding nothing, from 48,640; lands at 48,641
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 0-57, y 641
+   2. running right, jump (held 2 ticks), holding right, from 32,641, through the locked door at 64,576; lands at 106,641   [key:17]
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 104-166, y 641
+   3. jump (held 6 ticks), holding right, from 128,641; lands at 267,641
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 250-345, y 641
+   4. running right, jump (held 21 ticks), holding right, from 304,641; lands at 458,577
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 442-550, y 577
+   5. jump (held 21 ticks), holding right, from 480,577; lands at 648,545
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 634-710, y 545
+   6. running right, jump (held 21 ticks), holding right, from 672,545; lands at 841,641
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 826-934, y 641
+   7. running right, jump (held 6 ticks), holding right, from 880,641; lands at 1042,641
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 1018-1094, y 641
+   8. jump (held 21 ticks), holding right, from 1018,641; lands at 1201,641
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 1178-1440, y 641
+   9. standing at 1422,641, goes into it
+      -> out 1424,608 [crystal1 1, rb 0]
+how in 48,640 [crystal1 1, rb 0] -> out 0,608 [crystal1 1, rb 0]: -
+     [crystal 1 hit (its rooms turned over), blue blocks solid] coming in at 48,640
+   1. coming in: holding nothing, from 48,640; lands at 48,641
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 0-57, y 641
+   2. standing at 0,641, goes into it
+      -> out 0,608 [crystal1 1, rb 0]
+how in 48,640 [crystal1 1, rb 0] -> loc 2 8: key:17
+     [crystal 1 hit (its rooms turned over), blue blocks solid] coming in at 48,640
+   1. coming in: holding nothing, from 48,640; lands at 48,641
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 0-57, y 641
+   2. running right, jump (held 2 ticks), holding right, from 32,641, through the locked door at 64,576; lands at 106,641   [key:17]
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 104-166, y 641
+   3. jump (held 6 ticks), holding right, from 128,641; lands at 267,641
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 250-345, y 641
+   4. running right, jump (held 21 ticks), holding right, from 304,641; lands at 458,577
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 442-550, y 577
+   5. jump (held 21 ticks), holding right, from 480,577; lands at 648,545
+      -> [crystal 1 hit (its rooms turned over), blue blocks solid] standing at x 634-710, y 545
+   6. running right, jump (held 2 ticks), holding right, from 688,545; touches it on the way
+      -> loc 2 8
+how in 48,640 [crystal1 0, rb 1] -> out 0,96 [crystal1 0, rb 1]: key:17
+     [crystal 1 as at the start, red blocks solid] coming in at 48,640
+   1. coming in: holding nothing, from 48,640; lands at 48,641
+      -> [crystal 1 as at the start, red blocks solid] standing at x 0-57, y 641
+   2. running right, jump (held 2 ticks), holding right, from 32,641, through the locked door at 64,576; lands at 106,641   [key:17]
+      -> [crystal 1 as at the start, red blocks solid] standing at x 104-166, y 641
+   3. jump (held 6 ticks), holding right, from 128,641; lands at 267,641
+      -> [crystal 1 as at the start, red blocks solid] standing at x 250-345, y 641
+   4. running right, jump (held 21 ticks), holding right, from 304,641; lands at 458,577
+      -> [crystal 1 as at the start, red blocks solid] standing at x 442-550, y 577
+   5. jump (held 21 ticks), holding right, from 480,577; lands at 648,545
+      -> [crystal 1 as at the start, red blocks solid] standing at x 634-710, y 545
+   6. running right, jump (held 21 ticks), holding right, from 672,545; lands at 841,641
+      -> [crystal 1 as at the start, red blocks solid] standing at x 826-934, y 641
+   7. running right, jump (held 6 ticks), holding right, from 880,641; lands at 1042,641
+      -> [crystal 1 as at the start, red blocks solid] standing at x 1018-1094, y 641
+   8. jump (held 21 ticks), holding right, from 1018,641; lands at 1201,641
+      -> [crystal 1 as at the start, red blocks solid] standing at x 1178-1440, y 641
+   9. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, from 1232,641; lands at 1143,465
+      -> [crystal 1 as at the start, red blocks solid] standing at x 1143-1174, y 465
+  10. jump (held 21 ticks), holding right, from 1150,465; lands at 1281,401
+      -> [crystal 1 as at the start, red blocks solid] standing at x 1274-1305, y 401
+  11. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1274,401; lands at 1354,385
+      -> [crystal 1 as at the start, red blocks solid] standing at x 1306-1369, y 385
+  12. jump (held 21 ticks), holding right, from 1306,385; lands at 1401,321
+      -> [crystal 1 as at the start, red blocks solid] standing at x 1370-1401, y 321
+  13. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 1370,321; lands at 1340,257
+      -> [crystal 1 as at the start, red blocks solid] standing at x 1306-1350, y 257
+  14. jump (held 21 ticks), holding left, from 1306,257; lands at 1255,193
+      -> [crystal 1 as at the start, red blocks solid] standing at x 1255-1286, y 193
+  15. jump (held 6 ticks), holding left, from 1255,193; lands at 1142,161
+      -> [crystal 1 as at the start, red blocks solid] standing at x 1050-1190, y 161
+  16. walk off the edge, holding left once in the air, from 1050,161; lands at 977,209
+      -> [crystal 1 as at the start, red blocks solid] standing at x 954-1030, y 209
+  17. jump (held 2 ticks), holding left, from 954,209; lands at 837,225
+      -> [crystal 1 as at the start, red blocks solid] standing at x 794-902, y 225
+  18. jump (held 6 ticks), holding left, from 794,225; lands at 635,257
+      -> [crystal 1 as at the start, red blocks solid] standing at x 602-646, y 257
+  19. jump (held 2 ticks), holding left, from 602,257; lands at 475,321
+      -> [crystal 1 as at the start, red blocks solid] standing at x 442-486, y 321
+  20. running left, jump (held 2 ticks), holding left, from 442,321; lands at 317,321
+      -> [crystal 1 as at the start, red blocks solid] standing at x 282-326, y 321
+  21. jump (held 6 ticks), holding left, from 282,321; lands at 165,289
+      -> [crystal 1 as at the start, red blocks solid] standing at x 71-198, y 289
+  22. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 96,289; touches it on the way
+      -> out 0,96 [crystal1 0, rb 1]
+how in 48,640 [crystal1 0, rb 1] -> out 1424,608 [crystal1 0, rb 1]: key:17
+     [crystal 1 as at the start, red blocks solid] coming in at 48,640
+   1. coming in: holding nothing, from 48,640; lands at 48,641
+      -> [crystal 1 as at the start, red blocks solid] standing at x 0-57, y 641
+   2. running right, jump (held 2 ticks), holding right, from 32,641, through the locked door at 64,576; lands at 106,641   [key:17]
+      -> [crystal 1 as at the start, red blocks solid] standing at x 104-166, y 641
+   3. jump (held 6 ticks), holding right, from 128,641; lands at 267,641
+      -> [crystal 1 as at the start, red blocks solid] standing at x 250-345, y 641
+   4. running right, jump (held 21 ticks), holding right, from 304,641; lands at 458,577
+      -> [crystal 1 as at the start, red blocks solid] standing at x 442-550, y 577
+   5. jump (held 21 ticks), holding right, from 480,577; lands at 648,545
+      -> [crystal 1 as at the start, red blocks solid] standing at x 634-710, y 545
+   6. running right, jump (held 21 ticks), holding right, from 672,545; lands at 841,641
+      -> [crystal 1 as at the start, red blocks solid] standing at x 826-934, y 641
+   7. running right, jump (held 6 ticks), holding right, from 880,641; lands at 1042,641
+      -> [crystal 1 as at the start, red blocks solid] standing at x 1018-1094, y 641
+   8. jump (held 21 ticks), holding right, from 1018,641; lands at 1201,641
+      -> [crystal 1 as at the start, red blocks solid] standing at x 1178-1440, y 641
+   9. standing at 1422,641, goes into it
+      -> out 1424,608 [crystal1 0, rb 1]
+how in 48,640 [crystal1 0, rb 1] -> out 0,608 [crystal1 0, rb 1]: -
+     [crystal 1 as at the start, red blocks solid] coming in at 48,640
+   1. coming in: holding nothing, from 48,640; lands at 48,641
+      -> [crystal 1 as at the start, red blocks solid] standing at x 0-57, y 641
+   2. standing at 0,641, goes into it
+      -> out 0,608 [crystal1 0, rb 1]
+how in 48,640 [crystal1 0, rb 1] -> loc 2 8: key:17
+     [crystal 1 as at the start, red blocks solid] coming in at 48,640
+   1. coming in: holding nothing, from 48,640; lands at 48,641
+      -> [crystal 1 as at the start, red blocks solid] standing at x 0-57, y 641
+   2. running right, jump (held 2 ticks), holding right, from 32,641, through the locked door at 64,576; lands at 106,641   [key:17]
+      -> [crystal 1 as at the start, red blocks solid] standing at x 104-166, y 641
+   3. jump (held 6 ticks), holding right, from 128,641; lands at 267,641
+      -> [crystal 1 as at the start, red blocks solid] standing at x 250-345, y 641
+   4. running right, jump (held 21 ticks), holding right, from 304,641; lands at 458,577
+      -> [crystal 1 as at the start, red blocks solid] standing at x 442-550, y 577
+   5. jump (held 21 ticks), holding right, from 480,577; lands at 648,545
+      -> [crystal 1 as at the start, red blocks solid] standing at x 634-710, y 545
+   6. running right, jump (held 2 ticks), holding right, from 688,545; touches it on the way
+      -> loc 2 8
+how in 48,640 [crystal1 1, rb 1] -> out 0,96 [crystal1 1, rb 1]: key:17
+     [crystal 1 hit (its rooms turned over), red blocks solid] coming in at 48,640
+   1. coming in: holding nothing, from 48,640; lands at 48,641
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 0-57, y 641
+   2. running right, jump (held 2 ticks), holding right, from 32,641, through the locked door at 64,576; lands at 106,641   [key:17]
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 104-166, y 641
+   3. jump (held 6 ticks), holding right, from 128,641; lands at 267,641
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 250-345, y 641
+   4. running right, jump (held 21 ticks), holding right, from 304,641; lands at 458,577
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 442-550, y 577
+   5. jump (held 21 ticks), holding right, from 480,577; lands at 648,545
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 634-710, y 545
+   6. running right, jump (held 21 ticks), holding right, from 672,545; lands at 841,641
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 826-934, y 641
+   7. running right, jump (held 6 ticks), holding right, from 880,641; lands at 1042,641
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 1018-1094, y 641
+   8. jump (held 21 ticks), holding right, from 1018,641; lands at 1201,641
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 1178-1440, y 641
+   9. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, from 1232,641; lands at 1143,465
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 1143-1174, y 465
+  10. jump (held 21 ticks), holding right, from 1150,465; lands at 1281,401
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 1274-1305, y 401
+  11. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 1274,401; lands at 1354,385
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 1306-1369, y 385
+  12. jump (held 21 ticks), holding right, from 1306,385; lands at 1401,321
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 1370-1401, y 321
+  13. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 1370,321; lands at 1340,257
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 1306-1350, y 257
+  14. jump (held 21 ticks), holding left, from 1306,257; lands at 1255,193
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 1255-1286, y 193
+  15. jump (held 6 ticks), holding left, from 1255,193; lands at 1142,161
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 1050-1190, y 161
+  16. walk off the edge, holding left once in the air, from 1050,161; lands at 977,209
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 954-1030, y 209
+  17. jump (held 2 ticks), holding left, from 954,209; lands at 837,225
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 794-902, y 225
+  18. jump (held 6 ticks), holding left, from 794,225; lands at 635,257
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 602-646, y 257
+  19. jump (held 2 ticks), holding left, from 602,257; lands at 475,321
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 442-486, y 321
+  20. running left, jump (held 2 ticks), holding left, from 442,321; lands at 317,321
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 282-326, y 321
+  21. jump (held 6 ticks), holding left, from 282,321; lands at 165,289
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 71-198, y 289
+  22. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 96,289; touches it on the way
+      -> out 0,96 [crystal1 1, rb 1]
+how in 48,640 [crystal1 1, rb 1] -> out 1424,608 [crystal1 1, rb 1]: key:17
+     [crystal 1 hit (its rooms turned over), red blocks solid] coming in at 48,640
+   1. coming in: holding nothing, from 48,640; lands at 48,641
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 0-57, y 641
+   2. running right, jump (held 2 ticks), holding right, from 32,641, through the locked door at 64,576; lands at 106,641   [key:17]
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 104-166, y 641
+   3. jump (held 6 ticks), holding right, from 128,641; lands at 267,641
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 250-345, y 641
+   4. running right, jump (held 21 ticks), holding right, from 304,641; lands at 458,577
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 442-550, y 577
+   5. jump (held 21 ticks), holding right, from 480,577; lands at 648,545
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 634-710, y 545
+   6. running right, jump (held 21 ticks), holding right, from 672,545; lands at 841,641
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 826-934, y 641
+   7. running right, jump (held 6 ticks), holding right, from 880,641; lands at 1042,641
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 1018-1094, y 641
+   8. jump (held 21 ticks), holding right, from 1018,641; lands at 1201,641
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 1178-1440, y 641
+   9. standing at 1422,641, goes into it
+      -> out 1424,608 [crystal1 1, rb 1]
+how in 48,640 [crystal1 1, rb 1] -> out 0,608 [crystal1 1, rb 1]: -
+     [crystal 1 hit (its rooms turned over), red blocks solid] coming in at 48,640
+   1. coming in: holding nothing, from 48,640; lands at 48,641
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 0-57, y 641
+   2. standing at 0,641, goes into it
+      -> out 0,608 [crystal1 1, rb 1]
+how in 48,640 [crystal1 1, rb 1] -> loc 2 8: key:17
+     [crystal 1 hit (its rooms turned over), red blocks solid] coming in at 48,640
+   1. coming in: holding nothing, from 48,640; lands at 48,641
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 0-57, y 641
+   2. running right, jump (held 2 ticks), holding right, from 32,641, through the locked door at 64,576; lands at 106,641   [key:17]
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 104-166, y 641
+   3. jump (held 6 ticks), holding right, from 128,641; lands at 267,641
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 250-345, y 641
+   4. running right, jump (held 21 ticks), holding right, from 304,641; lands at 458,577
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 442-550, y 577
+   5. jump (held 21 ticks), holding right, from 480,577; lands at 648,545
+      -> [crystal 1 hit (its rooms turned over), red blocks solid] standing at x 634-710, y 545
+   6. running right, jump (held 2 ticks), holding right, from 688,545; touches it on the way
+      -> loc 2 8

@@ -5,6 +5,7 @@
 # middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
 
 # Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 640,288   # from rLink2_Overworld's encounters, rLink2_Overworld2's encounters
 
 # Ways out: exits (and, in the game, where they lead), and how they're gone through
 out 0,256   # to rLink2_Overworld at 240,336; the player goes into it
@@ -17,6 +18,25 @@ out 1264,256   # to rLink2_Overworld at 240,336; the player goes into it
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
 # link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
 # the locked door whose objectNum is N.
+from in 640,288
+  out 0,256      -
+  out 1264,256   -
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 640,288 -> out 0,256: -
+     coming in at 640,288
+   1. coming in: holding nothing, from 640,288; lands at 640,289
+      -> standing at x 535-1129, y 289
+   2. jump (held 6 ticks), holding left, from 535,289; lands at 411,289
+      -> standing at x 215-489, y 289
+   3. jump (held 6 ticks), holding left, from 215,289; lands at 91,289
+      -> standing at x 0-169, y 289
+   4. standing at 0,289, goes into it
+      -> out 0,256
+how in 640,288 -> out 1264,256: -
+     coming in at 640,288
+   1. coming in: holding nothing, from 640,288; lands at 640,289
+      -> standing at x 535-1129, y 289
+   2. running right, jump (held 21 ticks), holding right, from 1056,289; touches it on the way
+      -> out 1264,256

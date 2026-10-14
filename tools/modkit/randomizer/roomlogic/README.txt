@@ -101,12 +101,17 @@ rooms\rMain_62.txt (Starry Skies - Windy Hills), shortened:
       out in each of its states (ice platforms out or not, blocks moved, bricks broken...).
 
 Other lines: "boss" (going into the room from another one is its boss fight: that needs an attack), "map" (a map or a
-menu: every way in reaches every way out). A way in whose comment says "can't be come in at" would put the player
-inside a solid: nothing is reached from it (an override can still give it ways).
+menu: every way in reaches every way out), "walkmap" (Zelda II's overworld, walked across as an icon in 16px steps:
+rivers and mountains are in the way, and walking onto a town's, cave's or palace's tile goes into it, so a way in
+reaches only the exits its walk gets to; the encounters, "out encounter:<room>", the fight rooms an enemy touching the
+icon starts, from anywhere on it). A way in whose comment says "can't be come in at" would put the player inside a
+solid: nothing is reached from it (an override can still give it ways).
 
 Carried states. Some of the game's state goes with the player from room to room: the red and blue switches' state
-(rb 0: the blue blocks solid, 1: the red ones), and the Water Palace's water level (water 1 the highest, 2, 3 the
-lowest). A room that has them says "carried rb" (or water); its ways in and out then come with the state:
+(rb 0: the blue blocks solid, 1: the red ones), the Water Palace's water level (water 1 the highest, 2, 3 the
+lowest), and the Forest Palace's crystals (crystal1-3, 0 as at the start, 1 hit: Zelda II's Forest Palace, rooms
+rLink2_PalaceF_3, _5 and _7 have one each; the sword or the whip flips it). A room that has them says "carried rb" (or
+water, crystal1...); its ways in and out then come with the state:
 
   from in 48,480 [water 3]
     out 1392,272 [water 3]   djump,adash | djump,samus:2
@@ -114,7 +119,13 @@ lowest). A room that has them says "carried rb" (or water); its ways in and out 
 
 "resets rb 0" says the room sets it as the player comes in (the Bubble Tower's main room does). solve.py carries the
 states from room to room (connections.txt's "carried" lines give them as a new game starts); a room without them
-passes them on as they are.
+passes them on as they are. A crystal turns the Forest Palace's middle rooms over: an exit that led to room 2a leads
+to 2b (4a/4b, 6a/6b the same). Such an exit has a connections.txt line for each value ("rLink2_PalaceF_1 out 944,256
+[crystal1 1] -> rLink2_PalaceF_2b in 48,128"), and the player goes where the state they leave in says. The crystals
+only matter in the palace ("carried crystal1 0 within rLink2_PalaceF_"): outside it solve.py doesn't tell their values
+apart, and remembers the ones the player left the palace with (and what leaving with them took); going back in, the
+player has one of those. That keeps the solving fast, and it's exact because the palace's ways out and in are next to
+each other on the overworld.
 
 
 ASKING WHY
@@ -214,7 +225,8 @@ roomlogic.py runs three steps:
      an ice block's or a platform maker's platform; bricks; the Water Palace's water), a flying enemy the Mario
      Ability Set bounces off (a Bill Blaster's Bullet Bills), a push rock, a floating platform, a fading platform (a
      jump-through one: there half the time), an exit (or a menu's: Gate 4's stage select), a door within the room, or
-     a place. work\rooms_notes.txt lists what its code left unknown.
+     a place (an exit whose way goes by a Forest Palace crystal is read in both of the crystal's states).
+     work\rooms_notes.txt lists what its code left unknown.
   2. RoomLogic.cs (built to work\RoomLogic.exe with the .NET Framework's C# compiler): draws each room from its
      instances' sprite masks; finds where the player can stand, and joins those places into regions (walking); then
      runs the game's own 30fps movement (characterStepEvent, pMoveToWrapOrig, moveTo30: checked against the game) from
@@ -225,7 +237,8 @@ roomlogic.py runs three steps:
      somewhere joins two regions, with what it took; one that touches a place or an exit reaches it. Then, between
      places near each other that nothing joins yet, a search of jump timings (how long jump is held, when the double
      jump and air dash come, when to steer). A room with switches is worked out in each of its states, joined where a
-     switch can be hit: an attack in reach (at the top of a jump too), a shot along a clear line (and, while it flies,
+     switch can be hit: an attack in reach (at the top of a jump too; a Forest Palace crystal takes only the sword or
+     the whip), a shot along a clear line (and, while it flies,
      the player can jump somewhere else: onto a block the switch is about to move, say), a block that moves carrying
      the player standing on it; red and blue switches near an enemy's shots or a moving trap change by themselves (the
      player waits). Push rocks: the player gets beside one, pushes it where it's needed (left or right, off edges) and
@@ -233,6 +246,8 @@ roomlogic.py runs three steps:
      Begonia's fans blow the player along their stream (224px long), as oBegoniaFan does, unless something solid is in
      the way; a fan switch turns its fans on and off (a state of the room's), and a fan with no switch that starts off
      stays off. Water slows a fall, so a move still falling in water when its time runs out gets more time.
+     Zelda II's overworld isn't platformed: the icon's walk from each way in (16px steps, each blocked by a solid at its
+     point, stopping on an exit's tile) finds the exits it reaches.
      Last, for each way in, the room's ways out and places: the room file, with the moves.
   3. solve.py: the rooms joined (roomlogic.txt), with overrides.txt; and a check that, without overrides, it gets the
      same as RoomLogic.exe's own joining (work\roomlogic_check.txt): a difference means a bug in one of them, and

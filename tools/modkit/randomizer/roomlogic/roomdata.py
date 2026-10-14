@@ -14,8 +14,11 @@ rooms.txt, one line an instance, tab-separated (RoomLogic.cs reads it):
                                                                varia, the Varia Suit)
   G sprite x y xscale yscale angle requirement name            gate: solid until the requirement is met
   J sprite x y xscale yscale angle L|S                         spring (large, small)
-  X sprite x y xscale yscale angle toRoom x y exitType name    exit to another room (exitType 0 up, 1 touch, 2 down,
-                                                               3 stand on it and press up or down)
+  X sprite x y xscale yscale angle toRoom x y exitType name [group state]
+                                                               exit to another room (exitType 0 up, 1 touch, 2 down,
+                                                               3 stand on it and press up or down); with a group, where
+                                                               it leads in that state of a carried group (two lines an
+                                                               exit: the Forest Palace's crystals turn its rooms over)
   D sprite x y xscale yscale angle x y exitType                a door to another place in the same room
   V sprite x y xscale yscale angle                             an elevator (oUseElevator)
   K sprite x y xscale yscale angle                             a Strike Chain point (Mega Man's grapple latches on)
@@ -33,16 +36,18 @@ rooms.txt, one line an instance, tab-separated (RoomLogic.cs reads it):
                                                                brk the bricks the head breaks); ride: a block that
                                                                carries the player standing on it from one state's place
                                                                to the other's (two lines a block, state 0 then 1)
-  SW sprite x y xscale yscale angle group attack|bump|ice [once]
+  SW sprite x y xscale yscale angle group attack|bump|ice|normal [once]
                                                                a switch: hit (an attack, the head from below, an
-                                                               elemental attack), the group's state changes (once: only
-                                                               from the state it starts in)
+                                                               elemental attack, the sword or the whip close up), the
+                                                               group's state changes (once: only from the state it
+                                                               starts in)
   SW sprite x y xscale yscale angle water N                    a Water Palace switch: hit, the water goes to level N
   RS group state                                               the state a group starts in (the room sets it as the
                                                                player comes in: rb, water)
   RG group state                                               the same, in a room that has nothing of the group's
   CG group                                                     a state the player carries from room to room (rb: the
-                                                               red/blue switches'; water: the Water Palace's level)
+                                                               red/blue switches'; water: the Water Palace's level;
+                                                               crystal1-3: the Forest Palace's crystals)
   RBAUTO                                                       enemies' shots or moving traps hit the room's red/blue
                                                                switches by themselves
   TW sprite x y xscale yscale angle N                          water at the Water Palace's level N
@@ -62,9 +67,15 @@ rooms.txt, one line an instance, tab-separated (RoomLogic.cs reads it):
   M object x y                                                 a moving solid left out (for the report)
   B x y                                                        where a boss fight starts (the Randomizer's)
   Q                                                            the room is a map (an overworld): its exits all connect
+  QW                                                           the room is a map the player walks across as an icon
+                                                               (Zelda II's overworld: 16px steps, rivers and mountains
+                                                               in the way): a way in reaches the exits its walk gets to;
+                                                               exits named encounter are reached from anywhere on it
   BV room room                                                 (before the rooms) going from one to the other is a
                                                                boss fight (rndgen.py's BOSS_VIA)
-  CARRY group state                                            (before the rooms) a carried state as a new game starts
+  CARRY group state [scope]                                    (before the rooms) a carried state as a new game starts;
+                                                               with a scope (a room name prefix), it's kept only within
+                                                               those rooms (solve.py)
 Requirements: alternatives separated by |, each a comma-separated list of item:count (link:1,samus:4), key:N for the
 key of locked door N, event:NAME for an event (solve.py's events.txt), attack for any ability set's attack, "-" for
 nothing.
@@ -93,6 +104,14 @@ SWITCH_HITTERS = {"oSparky", "oPlatformFollower", "oZapTrap", "oZapTrapRed", "oM
 TIMED_SWITCH = "megaman:3,link:3,belmont:2,samus:5"
 # the Water Palace's water levels (oWaterSwitch's wLvlTarget): its switches show 1, 2 or 3
 WATER_LEVELS = {1: 176, 2: 368, 3: 640}
+# the Forest Palace (rLink2_PalaceF_*): the crystal in its rooms 3, 5 and 7 (oG2_ForestCrystal), hit with the sword or
+# the whip, flips global.mySegmentCheck[0], [1] or [2], and that turns the palace's middle rooms over: the exits that
+# led to room 2a lead to 2b (and back), 4a/4b and 6a/6b the same. The player carries them from room to room as
+# crystal1-3 (as the red/blue switches' state)
+CRYSTALS = {"rLink2_PalaceF_3": 1, "rLink2_PalaceF_5": 2, "rLink2_PalaceF_7": 3}
+SEGMENTS = "mySegmentCheck"
+# (the rooms they matter in: the palace's, by name)
+CRYSTAL_SCOPE = "rLink2_PalaceF_"
 WORLD_PROGRESS = 5641   # rndInit's rndWorldProg
 
 # ---------------------------------------------------------------- what each object is
@@ -227,6 +246,13 @@ def menu_exits(room, world):
 FALLING_PICKUPS = {"oDoorKey"}
 ELEVATOR = "oUseElevator"
 MAP_EXITS = {"oZeldaMapExit", "oGameMapExit"}
+# Zelda II's overworld (oPlayerZeldaIcon): an encounter enemy that touches the icon starts a fight in the room for the
+# tile under it (oPlayerZeldaIcon's User Event 1: road, grass, desert, forest); the player starts where the room places
+# oPlayer1 (oPlayer1 leaves them there). In the endgame world the enemies only spawn while the icon is on grass, desert
+# or forest, and one can follow it onto a road: reaching the overworld is enough for any of them
+WALK_ICON = "oPlayerZeldaIcon"
+ENCOUNTERS = [("rLink2_EnRoad", 240, 288), ("rLink2_EnGrass", 640, 288), ("rLink2_EnDesert", 640, 288),
+              ("rLink2_EnForest", 640, 304)]
 # the events whose code is run after the creation code and Create (they set the instance up a step later)
 ALARM_OBJECTS = {"oInvisibleSolid", "oMetroidDoorHolder", "oMarioLava", "oMarioLavaRev", "oPlatformBreak1",
                  "oPlatTempFade", "oScaledTrapZone", "oLargeJumper", "oMMWallCrush"}
@@ -306,8 +332,14 @@ def world_state(proj):
         k, v = [s.strip() for s in line.split("=", 1)]
         if k not in keys: continue
         g, kind = keys[k]
-        if "[" in g: continue
-        world[g] = v if kind == "string" else (float(v) if "." in v else int(v))
+        val = v if kind == "string" else (float(v) if "." in v else int(v))
+        if "[" in g:
+            # (an array's element: "mySegmentCheck[0]")
+            name, idx = g[:-1].split("[", 1)
+            if not isinstance(world.get(name), dict): world[name] = {}
+            world[name][int(idx)] = val
+            continue
+        world[g] = val
     world.update({"CHAOS_Invasion": 0, "CHAOS_Upgrade": 0, "eGateProg": "00000000", "gateHProg": 0, "abomAttempts": 0,
                   "gameProgress": WORLD_PROGRESS, "gameCompleted": 0, "bBossGallery": 0, "bNightmareMode": 0,
                   "gamePaused": False})
@@ -339,9 +371,10 @@ class Runner:
                 ways = gmleval.execute(s, ways, ctx)
         return ways
 
-    def instance(self, obj, x, y, code, room_w, room_h, area):
-        """the instance after its creation code, Create event (and Alarm 0 for some): a gmleval Result"""
-        world = dict(self.world); world["location"] = area if area is not None else UNK
+    def instance(self, obj, x, y, code, room_w, room_h, area, world=None):
+        """the instance after its creation code, Create event (and Alarm 0 for some): a gmleval Result (world: other
+        globals than the Randomizer world's)"""
+        world = dict(self.world if world is None else world); world["location"] = area if area is not None else UNK
         ctx = gmleval.Ctx(world, self.proj.resources)
         spr = self.proj.sprite.get(obj, ""); msk = self.proj.mask.get(obj, "")
         start = {"x": x, "y": y, "xstart": x, "ystart": y, "image_xscale": 1, "image_yscale": 1, "image_angle": 0,
@@ -424,6 +457,15 @@ def main():
                                                  gmleval.Ctx(world_r, proj.resources))
         gone_objs = {n for k, n in destroys if k == "obj"}
         gone_gids = {n for k, n in destroys if k == "gid"}
+        # (and what the scene controllers it makes surely destroy in their Step, in this world: Gate 5's Metroid rooms'
+        # oEvCh13MetroidControl takes the room's event barriers away once the story's past the room)
+        for obj, cx, cy, props in created:
+            owner, step = proj.event_inherited(obj, "Step_0")
+            if step is None: continue
+            c2, d2 = gmleval.room_effects(step, {"room": Res(room), "room_width": W, "room_height": H, "x": cx, "y": cy},
+                                          gmleval.Ctx(world_r, proj.resources))
+            gone_objs |= {n for k, n in d2 if k == "obj"}
+            gone_gids |= {n for k, n in d2 if k == "gid"}
         todo = []
         for obj, x, y, hexid, code in rndgen.instances(room) or []:
             m = re.search(r"GID_SET\(\s*(\d+)", code)
@@ -481,6 +523,8 @@ def main():
         for tag, sx, sy, spr in spots:
             if tag in door_of.values(): lines.append("SP\t%s\t%d\t%d\t1\t1\t0\t%s" % (spr, sx, sy, tag))
         water_carried = any(obj == "oWaterVolume" and "wpWaterLevel" in code for obj, x, y, code in todo)
+        # (the Forest Palace's crystals the room's crystal or exits go by: carried, CG)
+        crystals = set()
         # Begonia's fan switches: hit, each turns its fans on or off (a group of the room's for each switch)
         fan_group = {}
         for obj, x, y, code in todo:
@@ -535,6 +579,16 @@ def main():
                 xs, ys = r.vars.get("image_xscale", W), r.vars.get("image_yscale", H)
                 for lv, wy in WATER_LEVELS.items():
                     lines.append("TW\tsScaledCollision\t0\t%d\t%s\t%s\t0\t%d" % (wy, fnum(xs), fnum(ys), lv))
+                continue
+            if obj == "oG2_ForestCrystal":
+                # a Forest Palace crystal: hit with the sword or the whip (damageType NORMAL), it flips its crystal's
+                # state, back and forth (CRYSTALS: which one the room's is)
+                n = CRYSTALS.get(room)
+                r = run.instance(obj, x, y, code, W, H, area)
+                if n and r.destroyed != 1:
+                    spr = r.vars.get("sprite_index")
+                    lines.append("SW\t%s\t%d\t%d\t1\t1\t0\tcrystal%d\tnormal" % (spr if isinstance(spr, Res) else proj.sprite.get(obj), x, y, n))
+                    crystals.add(n); report["Forest Palace crystal"] += 1
                 continue
             if obj == "oWaterSwitch":
                 # a Water Palace switch: hit, it sets the water to its level (wLvlTarget)
@@ -679,6 +733,23 @@ def main():
                 if r.destroyed == 2:
                     report["exit maybe there"] += 1
                     notes.append("%s %s (%d,%d) to %s: there or not depending on something unknown (left out)" % (room, obj, x, y, tr))
+                    continue
+                # an exit whose way goes by a Forest Palace crystal: where it leads in each of its states (a line each)
+                m = re.search(r"global\.%s\[(\d)\]" % SEGMENTS, code)
+                if m and obj == "oExit":
+                    seg = int(m.group(1))
+                    ways = []
+                    for val in (0, 1):
+                        w2 = dict(run.world); w2[SEGMENTS] = dict(w2.get(SEGMENTS) or {}); w2[SEGMENTS][seg] = val
+                        v2 = run.instance(obj, x, y, code, W, H, area, world=w2).vars
+                        tr2, nx2, ny2, et2 = v2.get("toRoom"), v2.get("newMapX"), v2.get("newMapY"), v2.get("exitType", 0)
+                        if isinstance(tr2, Res) and isinstance(nx2, (int, float)) and isinstance(ny2, (int, float)) and et2 in (0, 1, 2):
+                            ways.append("X\t%s\t%s\t%s\t%s\t%d\t%s\tcrystal%d\t%d" % (geo, tr2, fnum(nx2), fnum(ny2), et2, obj, seg + 1, val))
+                    if len(ways) == 2:
+                        lines += ways; crystals.add(seg + 1); report["exit turned by a crystal"] += 1
+                    else:
+                        report["exit unknown"] += 1
+                        notes.append("%s %s (%d,%d): where it goes depends on something unknown (left out)" % (room, obj, x, y))
                     continue
                 if isinstance(tr, Res) and isinstance(nx, (int, float)) and isinstance(ny, (int, float)) and et in (0, 1, 2):
                     lines.append("X\t%s\t%s\t%s\t%s\t%d\t%s" % (geo, tr, fnum(nx), fnum(ny), et, obj))
@@ -829,15 +900,26 @@ def main():
         elif rb_reset is not None:
             lines.append("RG\trb\t%d" % rb_reset)
         if water_carried: lines.append("CG\twater")
+        for n in sorted(crystals): lines.append("CG\tcrystal%d" % n)
         # (a menu's ways out: the room is a map, every one of them from wherever the player comes in)
         for tr, nx, ny in menu_exits(room, world):
             lines.append("X\tsExit\t0\t0\t1\t1\t0\t%s\t%d\t%d\t1\tmenu" % (tr, nx, ny))
             is_map = True
-        if is_map: lines.append("Q")
+        # (a map walked as an icon: its exits are reached where the walk gets to them; its encounters anywhere)
+        if any(obj == WALK_ICON for obj, x, y, code in todo):
+            for tr, nx, ny in ENCOUNTERS:
+                lines.append("X\tsExit\t0\t0\t1\t1\t0\t%s\t%d\t%d\t1\tencounter" % (tr, nx, ny))
+            lines.append("QW")
+        elif is_map: lines.append("Q")
     with open(out_path, "w", encoding="utf-8", newline="\n") as f:
         f.write("START\t%s\t%d\t%d\n" % START)
-        # (the carried states as a new game starts: the red/blue switches off; the water where the world has it)
+        # (the carried states as a new game starts: the red/blue switches off; the water and the Forest Palace's
+        # crystals where the world has them)
         f.write("CARRY\trb\t0\nCARRY\twater\t%d\n" % {wy: l for l, wy in WATER_LEVELS.items()}.get(world.get("wpWaterLevel"), 2))
+        # (the crystals only matter in the Forest Palace: kept within its rooms, CARRY's scope, a room name prefix)
+        segs = world.get(SEGMENTS) if isinstance(world.get(SEGMENTS), dict) else {}
+        for n in sorted(set(CRYSTALS.values())):
+            f.write("CARRY\tcrystal%d\t%d\t%s\n" % (n, 1 if segs.get(n - 1) == 1 else 0, CRYSTAL_SCOPE))
         for t, (a, b) in sorted(rndgen.BOSS_VIA.items()):
             f.write("BV\t%s\t%s\n" % (a, b))
         f.write("\n".join(lines) + "\n")

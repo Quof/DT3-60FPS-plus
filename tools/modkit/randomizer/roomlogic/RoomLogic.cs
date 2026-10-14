@@ -327,6 +327,8 @@ class Inst
 class RoomData
 {
     public string Name, AreaName = ""; public int W, H, Area; public bool IsMap; public bool Boss;
+    // a map the player walks across as an icon (Zelda II's overworld): AnalyzeWalkMap
+    public bool WalkMap;
     public List<Inst> I = new List<Inst>();
     // what the room's switches change: its groups (pb the sliding blocks and gears, rb the red and blue blocks, b<GID> a
     // barrier), and the state it starts in (a bit a group: 1 its other state)
@@ -368,7 +370,17 @@ class RoomData
     public int WithCarry(string g, int s, int v) { return g == "water" ? WithLevel(s, v) : (v == 1 ? s | (1 << Groups.IndexOf(g)) : s & ~(1 << Groups.IndexOf(g))); }
 }
 
-class Exit { public Shape S; public string To; public int NX, NY, Type; public bool InRoom; public int IX, IY; public string Obj; }   // IX,IY: where it's placed
+class Exit
+{
+    public Shape S; public string To; public int NX, NY, Type; public bool InRoom; public int IX, IY; public string Obj;   // IX,IY: where it's placed
+    // an exit whose way goes by a carried group (the Forest Palace's crystals turn its rooms over): the group's number,
+    // and where it leads in its state 1 (To, NX, NY: its state 0)
+    public int Group = -1; public string To1; public int NX1, NY1;
+    // where it leads in a room state (a bit a group)
+    public string ToIn(int s) { return Group >= 0 && ((s >> Group) & 1) == 1 ? To1 : To; }
+    public int NXIn(int s) { return Group >= 0 && ((s >> Group) & 1) == 1 ? NX1 : NX; }
+    public int NYIn(int s) { return Group >= 0 && ((s >> Group) & 1) == 1 ? NY1 : NY; }
+}
 class Loc { public int Type, Num; public Shape S; public string Label; }
 // a spot: somewhere whose reaching opens a way elsewhere (a colored switch the partner holds, a colored key): the room
 // file says what reaching it needs, and solve.py makes it the event <room>/<tag> that the barriers it opens need
@@ -913,9 +925,27 @@ class Analyzer
                     }
                 case 'J': R.Springs.Add(new Spring { S = new Shape(m, it.X, it.Y, it.XS, it.YS, it.A), Large = it.F[0] == "L" }); break;
                 case 'X':
-                    R.Exits.Add(new Exit { S = new Shape(m, it.X, it.Y, it.XS, it.YS, it.A), To = it.F[0], NX = (int)Math.Round(double.Parse(it.F[1], CultureInfo.InvariantCulture)), NY = (int)Math.Round(double.Parse(it.F[2], CultureInfo.InvariantCulture)), Type = int.Parse(it.F[3]),
-                        IX = (int)Math.Round(it.X), IY = (int)Math.Round(it.Y), Obj = it.F.Length > 4 ? it.F[4] : "" });
-                    break;
+                    {
+                        int ix = (int)Math.Round(it.X), iy = (int)Math.Round(it.Y);
+                        int nx = (int)Math.Round(double.Parse(it.F[1], CultureInfo.InvariantCulture)), ny = (int)Math.Round(double.Parse(it.F[2], CultureInfo.InvariantCulture));
+                        // (one whose way goes by a carried group: a line for each of its states, one exit)
+                        if (it.F.Length >= 7)
+                        {
+                            int gi = int.Parse(it.F[5]); bool one = it.F[6] == "1";
+                            var same = R.Exits.FirstOrDefault(e => e.Group == gi && e.IX == ix && e.IY == iy);
+                            if (same == null)
+                            {
+                                same = new Exit { S = new Shape(m, it.X, it.Y, it.XS, it.YS, it.A), Type = int.Parse(it.F[3]), IX = ix, IY = iy, Obj = it.F[4], Group = gi,
+                                    To = it.F[0], NX = nx, NY = ny, To1 = it.F[0], NX1 = nx, NY1 = ny };
+                                R.Exits.Add(same);
+                            }
+                            if (one) { same.To1 = it.F[0]; same.NX1 = nx; same.NY1 = ny; } else { same.To = it.F[0]; same.NX = nx; same.NY = ny; }
+                            break;
+                        }
+                        R.Exits.Add(new Exit { S = new Shape(m, it.X, it.Y, it.XS, it.YS, it.A), To = it.F[0], NX = nx, NY = ny, Type = int.Parse(it.F[3]),
+                            IX = ix, IY = iy, Obj = it.F.Length > 4 ? it.F[4] : "" });
+                        break;
+                    }
                 case 'D':
                     R.Exits.Add(new Exit { S = new Shape(m, it.X, it.Y, it.XS, it.YS, it.A), To = d.Name, NX = (int)Math.Round(double.Parse(it.F[0], CultureInfo.InvariantCulture)), NY = (int)Math.Round(double.Parse(it.F[1], CultureInfo.InvariantCulture)), Type = int.Parse(it.F[2]), InRoom = true,
                         IX = (int)Math.Round(it.X), IY = (int)Math.Round(it.Y), Obj = "oMapDoor" });
@@ -1309,10 +1339,56 @@ class Analyzer
     Dictionary<int, int> normalGates, morphGates;
     int morphBase;
 
+    // a map the player walks across as an icon (Zelda II's overworld, oPlayerZeldaIcon): no platforming, 16px steps up,
+    // down, left or right, each one blocked when its point is in a solid (rivers, mountains). The icon touching an exit
+    // (its box x-4..x+3, y-8..y+7) goes through it, so the walk doesn't go on past one. A way in reaches the exits its
+    // walk gets to, and the encounters (an enemy touching the icon: the fight rooms) from anywhere
+    void AnalyzeWalkMap()
+    {
+        R.NRegions = 0;
+        int node = 0;
+        var steps = new[] { new[] { 16, 0 }, new[] { -16, 0 }, new[] { 0, 16 }, new[] { 0, -16 } };
+        foreach (var e in R.Entries)
+        {
+            long k = Shape.Key(e[0], e[1]);
+            if (R.EntryNode.ContainsKey(k)) continue;
+            R.EntryNode[k] = node;
+            R.NodeName[node] = "coming in at " + e[0] + "," + e[1] + " (the icon on the map)";
+            var seen = new HashSet<long> { k };
+            var q = new Queue<int[]>();
+            q.Enqueue(new[] { e[0], e[1] });
+            while (q.Count > 0)
+            {
+                var p = q.Dequeue();
+                bool onExit = false;
+                for (int i = 0; i < R.Exits.Count; i++)
+                {
+                    var ex = R.Exits[i];
+                    if (ex.Obj == "encounter" || ex.Obj == "menu" || !ex.S.Hits(p[0] - 4, p[1] - 8, p[0] + 3, p[1] + 7)) continue;
+                    onExit = true;
+                    AddTouch(node, 1, i, new Req(), "walk the icon from " + e[0] + "," + e[1] + " to " + p[0] + "," + p[1] + ", onto the exit");
+                }
+                // (the icon going onto an exit goes through it: no further from there, but from where it came in)
+                if (onExit && (p[0] != e[0] || p[1] != e[1])) continue;
+                foreach (var st in steps)
+                {
+                    int nx = p[0] + st[0], ny = p[1] + st[1];
+                    if (nx < 0 || ny < 0 || nx >= R.Data.W || ny >= R.Data.H || R.SolidC.Get(nx, ny)) continue;
+                    if (seen.Add(Shape.Key(nx, ny))) q.Enqueue(new[] { nx, ny });
+                }
+            }
+            for (int i = 0; i < R.Exits.Count; i++)
+                if (R.Exits[i].Obj == "encounter") AddTouch(node, 1, i, new Req(), "wait on the map for an encounter enemy (on grass, desert or forest; walking onto a road with one following for the road's fight)");
+            node++;
+        }
+        R.NNodes = node;
+    }
+
     public void Analyze()
     {
         Build();
         var d = R.Data;
+        if (d.WalkMap) { AnalyzeWalkMap(); return; }
         int nN, nM;
         normal = Standable(40);
         normalReg = MakeRegions(normal, R.PosRegion, 0, out nN, out normalGates);
@@ -1588,6 +1664,8 @@ class Analyzer
     public static string ExitAction(Exit ex)
     {
         if (ex.Obj == "menu") return "chooses it from the menu";
+        if (ex.Obj == "encounter") return "lets an encounter enemy touch the icon on the map (this fight room for the tile under it)";
+        if (ex.Obj == "oZeldaMapExit") return "walks the icon onto it on the map";
         switch (ex.Type)
         {
             case 0: return "presses up at it";
@@ -2311,6 +2389,7 @@ static class Program
     static string StartRoom; static int StartX, StartY;
     static HashSet<string> Via = new HashSet<string>();   // "from>to": going through that exit is a boss fight
     static List<KeyValuePair<string, int>> CarryStart = new List<KeyValuePair<string, int>>();   // the carried states as a new game starts
+    static Dictionary<string, string> CarryScope = new Dictionary<string, string>();   // a carried state kept only within some rooms: their name prefix
 
     static double D(string s) { return double.Parse(s, CultureInfo.InvariantCulture); }
 
@@ -2323,7 +2402,7 @@ static class Program
             var f = line.Split('\t');
             if (f[0] == "START") { StartRoom = f[1]; StartX = int.Parse(f[2]); StartY = int.Parse(f[3]); continue; }
             if (f[0] == "BV") { Via.Add(f[1] + ">" + f[2]); continue; }
-            if (f[0] == "CARRY") { CarryStart.Add(new KeyValuePair<string, int>(f[1], int.Parse(f[2]))); continue; }
+            if (f[0] == "CARRY") { CarryStart.Add(new KeyValuePair<string, int>(f[1], int.Parse(f[2]))); if (f.Length > 3) CarryScope[f[1]] = f[3]; continue; }
             if (f[0] == "R")
             {
                 cur = new RoomData { Name = f[1], W = int.Parse(f[2]), H = int.Parse(f[3]), Area = int.Parse(f[4]), AreaName = f.Length > 5 ? f[5] : "" };
@@ -2331,6 +2410,7 @@ static class Program
             }
             if (cur == null) continue;
             if (f[0] == "Q") { cur.IsMap = true; continue; }
+            if (f[0] == "QW") { cur.WalkMap = true; continue; }
             if (f[0] == "B") { cur.Boss = true; continue; }
             if (f[0] == "M") continue;
             // (a carried state: CG; what the room sets it to as the player comes in: RS, or RG where the room has nothing
@@ -2367,6 +2447,8 @@ static class Program
             if (it.K == 'w' && it.F[0] == "water") { cur.Group("w3"); it.F = new[] { cur.Group("w1").ToString(), "water", it.F[1] }; }
             else if (it.K == 'T' || it.K == 'w' || it.K == 'U') it.F[0] = cur.Group(it.F[0]).ToString();
             else if (it.K == 'n' && it.F.Length >= 3) it.F[1] = cur.Group(it.F[1]).ToString();
+            // (an exit whose way goes by a carried group: its group's number in F[5])
+            else if (it.K == 'X' && it.F.Length >= 7) it.F[5] = cur.Group(it.F[5]).ToString();
             if (it.K == 'y') { cur.Group("w1"); cur.Group("w3"); }
             cur.I.Add(it);
         }
@@ -2599,7 +2681,8 @@ static class Program
             foreach (var it in rd.I)
             {
                 if (it.K == 'X') addEntry(it.F[0], (int)Math.Round(D(it.F[1])), (int)Math.Round(D(it.F[2])),
-                    rd.Name + (it.F.Length > 4 && it.F[4] == "menu" ? "'s menu" : " out " + (int)Math.Round(it.X) + "," + (int)Math.Round(it.Y)));
+                    rd.Name + (it.F.Length > 4 && it.F[4] == "menu" ? "'s menu" : it.F.Length > 4 && it.F[4] == "encounter" ? "'s encounters" : " out " + (int)Math.Round(it.X) + "," + (int)Math.Round(it.Y))
+                    + (it.F.Length >= 7 ? " [" + rd.Groups[int.Parse(it.F[5])] + " " + it.F[6] + "]" : ""));
                 if (it.K == 'D') addEntry(rd.Name, (int)Math.Round(D(it.F[0])), (int)Math.Round(D(it.F[1])),
                     "this room's door out " + (int)Math.Round(it.X) + "," + (int)Math.Round(it.Y));
             }
@@ -2668,7 +2751,8 @@ static class Program
             var r = rooms[ri]; if (r == null) continue;
             int b = baseOf[ri];
             foreach (var e in r.Edges) adj[b + e.From].Add(new KeyValuePair<int, Req>(b + e.To, e.L));
-            for (int k = 0; k < r.Exits.Count; k++) AddExit(rooms, baseOf, adj, exitBase[ri] + k, r, k, new Req(), attack);
+            // (an exit whose way goes by a carried group leads on from where it's touched, in that place's state: below)
+            for (int k = 0; k < r.Exits.Count; k++) if (r.Exits[k].Group < 0) AddExit(rooms, baseOf, adj, exitBase[ri] + k, r, k, 0, new Req(), attack);
             // a map (an overworld): every entry reaches every exit
             if (r.Data.IsMap)
                 foreach (var en in r.EntryNode.Values)
@@ -2676,7 +2760,11 @@ static class Program
             foreach (var t in r.Touches)
             {
                 if (t.Kind == 0) adj[b + t.From].Add(new KeyValuePair<int, Req>(locBase + locIx[r.Locs[t.Index].Type + " " + r.Locs[t.Index].Num], t.L));
-                else if (t.Kind == 1) adj[b + t.From].Add(new KeyValuePair<int, Req>(exitBase[ri] + t.Index, t.L));
+                else if (t.Kind == 1)
+                {
+                    adj[b + t.From].Add(new KeyValuePair<int, Req>(exitBase[ri] + t.Index, t.L));
+                    if (r.Exits[t.Index].Group >= 0) AddExit(rooms, baseOf, adj, b + t.From, r, t.Index, StateOfNode(r, t.From), t.L, attack);
+                }
             }
         }
         // the best ways: from the start, every node's alternatives (none needing more than another)
@@ -2762,14 +2850,14 @@ static class Program
         return true;
     }
 
-    // an exit's name in the room files: where it's placed ("menu:<room>" for a menu's choices); a second one at the
-    // same place gets (2)
+    // an exit's name in the room files: where it's placed ("menu:<room>" for a menu's choices, "encounter:<room>" for a
+    // map's encounters); a second one at the same place gets (2)
     public static List<string> ExitIds(Room r)
     {
         var ids = new List<string>();
         foreach (var e in r.Exits)
         {
-            string id = e.Obj == "menu" ? "menu:" + e.To : e.IX + "," + e.IY;
+            string id = e.Obj == "menu" || e.Obj == "encounter" ? e.Obj + ":" + e.To : e.IX + "," + e.IY;
             string u = id; int n = 2;
             while (ids.Contains(u)) u = id + "(" + n++ + ")";
             ids.Add(u);
@@ -2789,9 +2877,11 @@ static class Program
         sb.AppendLine("# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).");
         if (d.Boss) sb.AppendLine("boss      # going into this room from another is its boss fight: that needs an attack (solve.py adds it)");
         if (d.IsMap) sb.AppendLine("map       # a map or a menu: every way in reaches every way out");
+        if (d.WalkMap) sb.AppendLine("walkmap   # a map walked across as an icon (Zelda II's overworld): a way in reaches the exits its walk gets to (rivers and mountains in the way), and the encounters from anywhere");
         foreach (var g in d.Carried.OrderBy(g => g))
             sb.AppendLine("carried " + g + (g == "water" ? "   # the Water Palace's water level comes in with the player and goes out with them (1 the highest, 2, 3 the lowest)"
-                                                         : "   # the red and blue switches' state comes in with the player and goes out with them (0: the blue blocks solid, 1: the red ones)"));
+                                         : g.StartsWith("crystal") ? "   # the Forest Palace's crystal " + g.Substring(7) + " comes in with the player and goes out with them (0: as at the start, 1: hit, its rooms turned over)"
+                                         : "   # the red and blue switches' state comes in with the player and goes out with them (0: the blue blocks solid, 1: the red ones)"));
         foreach (var kv in d.Resets.OrderBy(k => k.Key))
             sb.AppendLine("resets " + kv.Key + " " + kv.Value + "   # the room sets it to that as the player comes in");
         if (d.Groups.Count > 0)
@@ -2815,6 +2905,12 @@ static class Program
         for (int k = 0; k < r.Exits.Count; k++)
         {
             var e = r.Exits[k];
+            if (e.Group >= 0)
+            {
+                string g = d.Groups[e.Group];
+                sb.AppendLine("out " + exitIds[k] + "   # to " + e.To + " at " + e.NX + "," + e.NY + " with " + g + " 0, to " + e.To1 + " at " + e.NX1 + "," + e.NY1 + " with " + g + " 1; the player " + Analyzer.ExitAction(e));
+                continue;
+            }
             sb.AppendLine("out " + exitIds[k] + "   # to " + (e.InRoom ? "this room" : e.To) + " at " + e.NX + "," + e.NY + "; the player " + Analyzer.ExitAction(e));
         }
         sb.AppendLine();
@@ -2961,13 +3057,18 @@ static class Program
         sb.AppendLine("# joins the rooms (their files in rooms\\) with these. An entrance randomizer would use a different list. Lines:");
         sb.AppendLine("#   start <room> in <x,y>                     where a new game starts");
         sb.AppendLine("#   <room> out <exit> -> <room> in <x,y>      where an exit leads (the exit as its room's file names it)");
+        sb.AppendLine("#   <room> out <exit> [<state> <value>] -> <room> in <x,y>");
+        sb.AppendLine("#                                             where it leads when the player goes through it with a carried state at");
+        sb.AppendLine("#                                             that value (the Forest Palace's crystals turn its rooms over)");
         sb.AppendLine("#   via <room> out <exit>                     going through that exit is a boss fight (it needs an attack); a room");
         sb.AppendLine("#                                             whose file says boss is one when it's come into from another room");
-        sb.AppendLine("#   carried <state> <value>                   a state the player carries from room to room (rooms whose file says");
-        sb.AppendLine("#                                             carried use it; the rest pass it on), and its value as a new game starts");
+        sb.AppendLine("#   carried <state> <value> [within <prefix>] a state the player carries from room to room (rooms whose file says");
+        sb.AppendLine("#                                             carried use it; the rest pass it on), and its value as a new game starts;");
+        sb.AppendLine("#                                             within: kept only in the rooms whose names start so (solve.py remembers");
+        sb.AppendLine("#                                             the values the player leaves them with)");
         sb.AppendLine("# (A way in whose room's file says it can't be come in at reaches nothing: the player would be inside a solid.)");
         sb.AppendLine("start " + StartRoom + " in " + StartX + "," + StartY);
-        foreach (var kv in CarryStart) sb.AppendLine("carried " + kv.Key + " " + kv.Value);
+        foreach (var kv in CarryStart) sb.AppendLine("carried " + kv.Key + " " + kv.Value + (CarryScope.ContainsKey(kv.Key) ? " within " + CarryScope[kv.Key] : ""));
         var via = new StringBuilder();
         foreach (var r in rooms)
         {
@@ -2976,6 +3077,13 @@ static class Program
             for (int k = 0; k < r.Exits.Count; k++)
             {
                 var e = r.Exits[k];
+                if (e.Group >= 0)
+                {
+                    string g = r.Data.Groups[e.Group];
+                    sb.AppendLine(r.Data.Name + " out " + ids[k] + " [" + g + " 0] -> " + e.To + " in " + e.NX + "," + e.NY);
+                    sb.AppendLine(r.Data.Name + " out " + ids[k] + " [" + g + " 1] -> " + e.To1 + " in " + e.NX1 + "," + e.NY1);
+                    continue;
+                }
                 sb.AppendLine(r.Data.Name + " out " + ids[k] + " -> " + e.To + " in " + e.NX + "," + e.NY);
                 if (Via.Contains(r.Data.Name + ">" + e.To)) via.AppendLine("via " + r.Data.Name + " out " + ids[k]);
             }
@@ -2987,12 +3095,13 @@ static class Program
     // a room whose switches change it (RoomData.Groups): each state analysed on its own, with that state's solids, the
     // player coming in in the one it starts in; joined where a switch can be hit: by an attack (within 48px across, at
     // the body's height, or a shot along a clear line), a block by the head from below (within a jump), an ice block by
-    // an elemental attack (its platforms come out). A switch marked once only opens (a barrier; the ice's platforms)
+    // an elemental attack (its platforms come out), a Forest Palace crystal by the sword or the whip (as an attack's
+    // reach, no shots). A switch marked once only opens (a barrier; the ice's platforms)
     // a room in one of its switch states (a bit a group: its solids in that state; groups past the 4th as they start)
     static RoomData StateData(RoomData rd, int s)
     {
         int G = Math.Min(rd.Groups.Count, 4);
-        var d2 = new RoomData { Name = rd.Name, W = rd.W, H = rd.H, Area = rd.Area, IsMap = rd.IsMap, Boss = rd.Boss, Partner = rd.Partner };
+        var d2 = new RoomData { Name = rd.Name, W = rd.W, H = rd.H, Area = rd.Area, IsMap = rd.IsMap, WalkMap = rd.WalkMap, Boss = rd.Boss, Partner = rd.Partner };
         foreach (var it in rd.I)
         {
             if (it.K == 'w') continue;
@@ -3077,6 +3186,7 @@ static class Program
             else if (g == "ice") w.Add(on ? "ice platforms out" : "no ice platforms");
             else if (g == "brk") w.Add(on ? "bricks broken" : "bricks whole");
             else if (g == "cpm") w.Add(on ? "platform makers' platforms out" : "no platform makers' platforms");
+            else if (g.StartsWith("crystal")) w.Add("crystal " + g.Substring(7) + (on ? " hit (its rooms turned over)" : " as at the start"));
             else if (g.StartsWith("b")) w.Add(on ? "barrier " + g.Substring(1) + " open" : "barrier " + g.Substring(1) + " shut");
             else w.Add(g + (on ? " on" : " off"));
         }
@@ -3153,6 +3263,8 @@ static class Program
         // (an ice block takes an elemental attack: Shotgun Ice, a shot; Holy Water, thrown close)
         var iceNear = Req.ParseAlts("megaman:2|belmont:3");
         var iceFar = Req.ParseAlts("megaman:2");
+        // (a Forest Palace crystal takes only a NORMAL attack, close up: the sword, the whip)
+        var normalHit = Req.ParseAlts("link:1|belmont:1");
         // the blocks a switch slides that carry a player standing on one (T lines with ride, a pair a block: its place in
         // its group's state 0, then 1)
         var rides = new List<Shape[]>();
@@ -3174,7 +3286,7 @@ static class Program
             var m = Mask.Get(sw.Spr);
             if (m == null) { parent.Log.Add("no mask for a switch: " + sw.Spr); continue; }
             var shape = new Shape(m, sw.X, sw.Y, sw.XS, sw.YS, sw.A);
-            bool bump = sw.F[1] == "bump", ice = sw.F[1] == "ice", once = sw.F.Length > 2 && sw.F[2] == "once";
+            bool bump = sw.F[1] == "bump", ice = sw.F[1] == "ice", normal = sw.F[1] == "normal", once = sw.F.Length > 2 && sw.F[2] == "once";
             // (a Water Palace switch sets the water to its level)
             bool water = sw.F[1] == "water";
             int wlv = water ? int.Parse(sw.F[2]) : 0;
@@ -3196,7 +3308,7 @@ static class Program
                     bool hit = bump ? (shape.X1 >= x - 7 && shape.X0 <= x + 6 && y - 40 - shape.Y1 >= 1 && y - 40 - shape.Y1 <= 60)
                                     : shape.Hits(x - 48, y - 44 - rise, x + 48, y - 4);
                     bool shot = false;
-                    if (!hit && !bump && cy >= y - 28 - rise - 16 && cy <= y - 28 + 16 && Math.Abs(cx - x) <= 320)
+                    if (!hit && !bump && !normal && cy >= y - 28 - rise - 16 && cy <= y - 28 + 16 && Math.Abs(cx - x) <= 320)
                     {
                         int a = Math.Min(x, cx), b = Math.Max(x, cx);
                         shot = !subs[s].SolidC.Row(cy, a, b);
@@ -3228,14 +3340,14 @@ static class Program
                     {
                         if (!seen.Add(((long)kv.Value << 32) | (uint)tg.Key ^ (hit ? 0L : 1L << 62) ^ (tg.Value == "" ? 0L : 1L << 61))) continue;
                         // (in words: what's hit, how, from where, and what it changes)
-                        string what = ice ? "the ice block" : (bump ? "the block" : "the switch");
+                        string what = ice ? "the ice block" : (bump ? "the block" : (normal ? "the crystal" : "the switch"));
                         string how = bump ? "jump at " + x + "," + y + " and hit " + what + " at " + sw.X + "," + sw.Y + " from below"
                             : (hit ? "hit " + what + " at " + sw.X + "," + sw.Y + " from " + x + "," + y + (rise > 0 ? " (jumping if need be)" : "")
                                    : "shoot " + what + " at " + sw.X + "," + sw.Y + " from " + x + "," + y + (cy < y - 28 - 16 ? " (at the top of a jump)" : ""));
-                        how += ice ? (hit ? " with Shotgun Ice or Holy Water" : " with Shotgun Ice") : "";
+                        how += ice ? (hit ? " with Shotgun Ice or Holy Water" : " with Shotgun Ice") : (normal ? " with the sword or the whip" : "");
                         how += tg.Value + ": [" + StateWords(rd, s2) + "]";
                         if (bump) parent.Edges.Add(new Edge { From = kv.Value + off[s], To = tg.Key + off[s2], L = new Req(), How = how });
-                        else foreach (var a in (ice ? (hit ? iceNear : iceFar) : (hit ? attack : ranged))) parent.Edges.Add(new Edge { From = kv.Value + off[s], To = tg.Key + off[s2], L = a, How = how });
+                        else foreach (var a in (ice ? (hit ? iceNear : iceFar) : normal ? normalHit : (hit ? attack : ranged))) parent.Edges.Add(new Edge { From = kv.Value + off[s], To = tg.Key + off[s2], L = a, How = how });
                     }
                 }
                 // a shot takes a while to get there, and meanwhile the player can jump somewhere else (onto a block the
@@ -3304,17 +3416,27 @@ static class Program
         foreach (var sub in subs) sub.SolidC = sub.SolidO = sub.Plat = sub.Haz = sub.Water = sub.GhostB = sub.HazV = null;
     }
 
-    static void AddExit(Room[] rooms, int[] baseOf, List<KeyValuePair<int, Req>>[] adj, int from, Room r, int k, Req l, List<Req> attack)
+    // (s: the room's state the exit's gone through in, for one whose way goes by a carried group)
+    static void AddExit(Room[] rooms, int[] baseOf, List<KeyValuePair<int, Req>>[] adj, int from, Room r, int k, int s, Req l, List<Req> attack)
     {
         var e = r.Exits[k];
+        string dest = e.ToIn(s);
         int ti;
-        if (!RoomIx.TryGetValue(e.To, out ti) || rooms[ti] == null) return;
+        if (!RoomIx.TryGetValue(dest, out ti) || rooms[ti] == null) return;
         int en;
-        if (!rooms[ti].EntryNode.TryGetValue(Shape.Key(e.NX, e.NY), out en)) return;
+        if (!rooms[ti].EntryNode.TryGetValue(Shape.Key(e.NXIn(s), e.NYIn(s)), out en)) return;
         int to = baseOf[ti] + en;
         // into a boss's room: its fight comes first (the Randomizer starts it), and needs an attack
-        if ((rooms[ti].Data.Boss && rooms[ti] != r) || Via.Contains(r.Data.Name + ">" + e.To))
+        if ((rooms[ti].Data.Boss && rooms[ti] != r) || Via.Contains(r.Data.Name + ">" + dest))
             foreach (var a in attack) adj[from].Add(new KeyValuePair<int, Req>(to, Req.Max(l, a)));
         else adj[from].Add(new KeyValuePair<int, Req>(to, l));
+    }
+
+    // the room state a node of a room is in (a room with switch states: each state's nodes in a row)
+    static int StateOfNode(Room r, int node)
+    {
+        int st = 0;
+        if (r.StateOff != null) for (int i = 0; i < r.StateOff.Length; i++) if (node >= r.StateOff[i]) st = i;
+        return st;
     }
 }

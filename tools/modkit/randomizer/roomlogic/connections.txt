@@ -2,14 +2,22 @@
 # joins the rooms (their files in rooms\) with these. An entrance randomizer would use a different list. Lines:
 #   start <room> in <x,y>                     where a new game starts
 #   <room> out <exit> -> <room> in <x,y>      where an exit leads (the exit as its room's file names it)
+#   <room> out <exit> [<state> <value>] -> <room> in <x,y>
+#                                             where it leads when the player goes through it with a carried state at
+#                                             that value (the Forest Palace's crystals turn its rooms over)
 #   via <room> out <exit>                     going through that exit is a boss fight (it needs an attack); a room
 #                                             whose file says boss is one when it's come into from another room
-#   carried <state> <value>                   a state the player carries from room to room (rooms whose file says
-#                                             carried use it; the rest pass it on), and its value as a new game starts
+#   carried <state> <value> [within <prefix>] a state the player carries from room to room (rooms whose file says
+#                                             carried use it; the rest pass it on), and its value as a new game starts;
+#                                             within: kept only in the rooms whose names start so (solve.py remembers
+#                                             the values the player leaves them with)
 # (A way in whose room's file says it can't be come in at reaches nothing: the player would be inside a solid.)
 start rCCity_NorthA in 608,320
 carried rb 0
 carried water 2
+carried crystal1 0 within rLink2_PalaceF_
+carried crystal2 0 within rLink2_PalaceF_
+carried crystal3 0 within rLink2_PalaceF_
 rMain_1 out 408,2016 -> rMain_2 in 64,400
 rMain_1 out 440,80 -> rMain_72 in 48,1392
 rMain_1 out 8,1536 -> rMain_1 in 280,96
@@ -130,6 +138,10 @@ rLink2_Overworld out 1984,944 -> rLink2_Overworld2 in 56,1112
 rLink2_Overworld out 80,288 -> rLink2_CaveP_C in 912,288
 rLink2_Overworld out 880,336 -> rLink2_SPlace_A in 48,304
 rLink2_Overworld out 1264,640 -> rLink2_Waterside in 48,288
+rLink2_Overworld out encounter:rLink2_EnRoad -> rLink2_EnRoad in 240,288
+rLink2_Overworld out encounter:rLink2_EnGrass -> rLink2_EnGrass in 640,288
+rLink2_Overworld out encounter:rLink2_EnDesert -> rLink2_EnDesert in 640,288
+rLink2_Overworld out encounter:rLink2_EnForest -> rLink2_EnForest in 640,304
 rLink2_EnGrass out 0,256 -> rLink2_Overworld in 240,336
 rLink2_EnGrass out 1264,256 -> rLink2_Overworld in 240,336
 rLink2_EnForest out 0,272 -> rLink2_Overworld in 240,336
@@ -218,6 +230,10 @@ rLink2_Overworld2 out 256,960 -> rLink2_SPlace_B in 48,304
 rLink2_Overworld2 out 736,128 -> rLink2_DeathRoadA in 48,304
 rLink2_Overworld2 out 720,176 -> rLink2_DeathRoadB in 976,144
 rLink2_Overworld2 out 1376,528 -> rLink2_TownC_Ext in 48,304
+rLink2_Overworld2 out encounter:rLink2_EnRoad -> rLink2_EnRoad in 240,288
+rLink2_Overworld2 out encounter:rLink2_EnGrass -> rLink2_EnGrass in 640,288
+rLink2_Overworld2 out encounter:rLink2_EnDesert -> rLink2_EnDesert in 640,288
+rLink2_Overworld2 out encounter:rLink2_EnForest -> rLink2_EnForest in 640,304
 rLink2_HotDesert_A out 0,224 -> rLink2_Overworld2 in 1464,1016
 rLink2_HotDesert_A out 2864,192 -> rLink2_Overworld2 in 1496,1016
 rLink2_SForest_B out 0,272 -> rLink2_Overworld2 in 472,760
@@ -1448,24 +1464,52 @@ rLowFacA out 136,320 -> rWepFacF in 400,304
 rLowFacA out 2768,256 -> rLowFacB in 48,288
 rLowFacA out 64,352 -> rLowFacN in 96,160
 rLink2_PalaceF_1 out 0,256 -> rLink2_Overworld in 136,984
+rLink2_PalaceF_1 out 944,256 [crystal1 0] -> rLink2_PalaceF_2a in 48,640
+rLink2_PalaceF_1 out 944,256 [crystal1 1] -> rLink2_PalaceF_2b in 48,128
 rLink2_PalaceF_2a out 0,608 -> rLink2_PalaceF_1 in 912,288
 rLink2_PalaceF_2a out 1424,512 -> rLink2_PalaceF_3 in 48,256
+rLink2_PalaceF_2a out 1424,96 [crystal2 0] -> rLink2_PalaceF_4a in 48,640
+rLink2_PalaceF_2a out 1424,96 [crystal2 1] -> rLink2_PalaceF_4b in 48,128
+rLink2_PalaceF_2a out 960,688 [crystal3 0] -> rLink2_PalaceF_6a in 1040,96
+rLink2_PalaceF_2a out 960,688 [crystal3 1] -> rLink2_PalaceF_6b in 944,640
 rLink2_PalaceF_2b out 1424,192 -> rLink2_PalaceF_3 in 48,256
 rLink2_PalaceF_2b out 0,96 -> rLink2_PalaceF_1 in 912,288
+rLink2_PalaceF_2b out 1424,608 [crystal2 0] -> rLink2_PalaceF_4a in 48,640
+rLink2_PalaceF_2b out 1424,608 [crystal2 1] -> rLink2_PalaceF_4b in 48,128
+rLink2_PalaceF_2b out 960,-16 [crystal3 0] -> rLink2_PalaceF_6a in 1040,96
+rLink2_PalaceF_2b out 960,-16 [crystal3 1] -> rLink2_PalaceF_6b in 944,640
 rLink2_PalaceF_2b out 392,576 -> rLink2_PalaceF_2b in 560,608
 rLink2_PalaceF_2b out 552,576 -> rLink2_PalaceF_2b in 400,608
+rLink2_PalaceF_3 out 0,224 [crystal1 0] -> rLink2_PalaceF_2a in 1392,544
+rLink2_PalaceF_3 out 0,224 [crystal1 1] -> rLink2_PalaceF_2b in 1392,224
+rLink2_PalaceF_4a out 0,608 [crystal1 0] -> rLink2_PalaceF_2a in 1392,128
+rLink2_PalaceF_4a out 0,608 [crystal1 1] -> rLink2_PalaceF_2b in 1392,640
 rLink2_PalaceF_4a out 1424,96 -> rLink2_PalaceF_5 in 48,256
 rLink2_PalaceF_4a out 0,96 -> rLink2_PalaceF_8 in 976,288
+rLink2_PalaceF_4b out 0,96 [crystal1 0] -> rLink2_PalaceF_2a in 1392,128
+rLink2_PalaceF_4b out 0,96 [crystal1 1] -> rLink2_PalaceF_2b in 1392,640
 rLink2_PalaceF_4b out 1424,608 -> rLink2_PalaceF_5 in 48,256
 rLink2_PalaceF_4b out 0,608 -> rLink2_PalaceF_8 in 976,288
+rLink2_PalaceF_5 out 0,224 [crystal2 0] -> rLink2_PalaceF_4a in 1392,128
+rLink2_PalaceF_5 out 0,224 [crystal2 1] -> rLink2_PalaceF_4b in 1392,640
 rLink2_PalaceF_6a out 0,480 -> rLink2_PalaceF_7 in 432,256
+rLink2_PalaceF_6a out 960,-16 [crystal1 0] -> rLink2_PalaceF_2a in 944,672
+rLink2_PalaceF_6a out 960,-16 [crystal1 1] -> rLink2_PalaceF_2b in 944,176
 rLink2_PalaceF_6a out 1424,608 -> rLink2_PalaceF_10 in 48,288
 rLink2_PalaceF_6a out 200,512 -> rLink2_PalaceF_6a in 1104,576
 rLink2_PalaceF_6a out 1096,544 -> rLink2_PalaceF_6a in 208,544
 rLink2_PalaceF_6b out 0,224 -> rLink2_PalaceF_7 in 432,256
+rLink2_PalaceF_6b out 960,688 [crystal1 0] -> rLink2_PalaceF_2a in 944,672
+rLink2_PalaceF_6b out 960,688 [crystal1 1] -> rLink2_PalaceF_2b in 944,176
 rLink2_PalaceF_6b out 1424,96 -> rLink2_PalaceF_10 in 48,288
+rLink2_PalaceF_7 out 464,224 [crystal3 0] -> rLink2_PalaceF_6a in 48,512
+rLink2_PalaceF_7 out 464,224 [crystal3 1] -> rLink2_PalaceF_6b in 48,256
+rLink2_PalaceF_8 out 1008,256 [crystal2 0] -> rLink2_PalaceF_4a in 48,128
+rLink2_PalaceF_8 out 1008,256 [crystal2 1] -> rLink2_PalaceF_4b in 48,640
 rLink2_PalaceF_8 out 0,256 -> rLink2_PalaceF_9 in 976,288
 rLink2_PalaceF_9 out 1008,256 -> rLink2_PalaceF_8 in 48,288
+rLink2_PalaceF_10 out 0,256 [crystal3 0] -> rLink2_PalaceF_6a in 1392,640
+rLink2_PalaceF_10 out 0,256 [crystal3 1] -> rLink2_PalaceF_6b in 1392,128
 rLink2_PalaceF_10 out 464,256 -> rLink2_PalaceF_11 in 48,288
 rLink2_PalaceF_11 out 0,256 -> rLink2_PalaceF_10 in 432,288
 rLink2_PalaceF_11 out 3056,256 -> rLink2_PalaceF_12 in 48,288

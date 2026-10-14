@@ -23,8 +23,10 @@ ability set's attack: link 1, belmont 1, megaman 1 or samus 1), event NAME (once
 NAME (only with that option on), nothing or - (walking and jumping), never (no way).
 
 States the player carries from room to room (connections.txt's "carried" lines: the red/blue switches' state, the
-Water Palace's level) go with each way in and out of the rooms that have them ("from in 48,480 [water 3]"); events are
-worked out from the rest and put in their place, over and over till nothing changes (solve_events).
+Water Palace's level, the Forest Palace's crystals) go with each way in and out of the rooms that have them ("from in
+48,480 [water 3]"); an exit can lead somewhere else with one at another value (connections.txt's "<room> out <exit>
+[crystal1 1] -> ..."). Events are worked out from the rest and put in their place, over and over till nothing changes
+(solve_events).
 """
 import os, re, sys, collections
 
@@ -197,7 +199,7 @@ def load_room(path):
             continue
         if f[0] == "how": break           # (the rest of the file explains; the solver doesn't need it)
         if f[0] == "boss": r.boss = True
-        elif f[0] == "map": r.map = True
+        elif f[0] in ("map", "walkmap"): r.map = True
         elif f[0] == "carried": r.carried.append(f[1])
         elif f[0] == "resets": r.resets[f[1]] = f[2]
         elif f[0] == "in": r.ins.append(f[1])
@@ -224,9 +226,12 @@ class Connections:
     def __init__(self):
         self.start = None
         self.links = collections.OrderedDict()   # (room, out) -> (room, in)
+        # (room, out) -> [(state, (room, in))]: an exit whose way goes by a carried state (state: (name, value) pairs)
+        self.links_st = collections.OrderedDict()
         self.via = set()                         # (room, out): a boss fight
         self.need = {}                           # (room, out) -> alternatives (overrides' "need")
         self.carried = []                        # [(state, its value as a new game starts)]: what the player carries
+        self.scope = {}                          # state -> room name prefix: kept only within those rooms
 
 
 def load_connections(path=CONNECTIONS):
@@ -237,10 +242,29 @@ def load_connections(path=CONNECTIONS):
         f = line.split()
         if f[0] == "start": c.start = (f[1], f[3])
         elif f[0] == "via": c.via.add((f[1], f[3]))
-        elif f[0] == "carried": c.carried.append((f[1], f[2]))
+        elif f[0] == "carried":
+            c.carried.append((f[1], f[2]))
+            if len(f) == 5 and f[3] == "within": c.scope[f[1]] = f[4]
         elif len(f) == 7 and f[1] == "out" and f[3] == "->" and f[5] == "in": c.links[(f[0], f[2])] = (f[4], f[6])
+        elif len(f) > 7 and f[1] == "out" and f[3].startswith("[") and "->" in f:
+            # "<room> out <exit> [<state> <value>] -> <room> in <x,y>": where it leads with the state at that value
+            st, rest = split_state(f[3:])
+            if len(rest) != 4 or rest[0] != "->" or rest[2] != "in": raise SystemExit("connections.txt line %d: %r" % (ln, raw))
+            c.links_st.setdefault((f[0], f[2]), []).append((st, (rest[1], rest[3])))
         else: raise SystemExit("connections.txt line %d: %r" % (ln, raw))
     return c
+
+
+def link_of(conn, room, out, st=()):
+    """where an exit leads (room, in), the player going through it with the room's carried states st ((name, value)
+    pairs, as the room's file has them), or None"""
+    for cond, to in conn.links_st.get((room, out), []):
+        if set(cond) <= set(st): return to
+    return conn.links.get((room, out))
+
+
+def has_link(conn, room, out):
+    return (room, out) in conn.links or (room, out) in conn.links_st
 
 
 def load_overrides(rooms, conn, path=OVERRIDES):
@@ -314,7 +338,7 @@ def load_overrides(rooms, conn, path=OVERRIDES):
             head, _, req = f[1].partition(":")
             hf = head.split()
             if len(hf) != 3 or hf[1] != "out": raise SystemExit("%s: 'need <room> out <x,y> : <requirements>'" % where)
-            if (hf[0], hf[2]) not in conn.links: raise SystemExit("%s: no exit %s out %s in connections.txt" % (where, hf[0], hf[2]))
+            if not has_link(conn, hf[0], hf[2]): raise SystemExit("%s: no exit %s out %s in connections.txt" % (where, hf[0], hf[2]))
             conn.need[(hf[0], hf[2])] = parse(req, where); n += 1
         elif cmd == "link":
             hf = f[1].split()
@@ -322,7 +346,8 @@ def load_overrides(rooms, conn, path=OVERRIDES):
                 raise SystemExit("%s: 'link <room> out <x,y> -> <room> in <x,y>'" % where)
             if hf[0] not in rooms or hf[2] not in rooms[hf[0]].outs: raise SystemExit("%s: %s has no way out %r" % (where, hf[0], hf[2]))
             if hf[4] not in rooms or hf[6] not in rooms[hf[4]].ins: raise SystemExit("%s: %s has no way in %r" % (where, hf[4], hf[6]))
-            conn.links[(hf[0], hf[2])] = (hf[4], hf[6]); n += 1
+            # (in every state: in place of the ways the connections give it)
+            conn.links[(hf[0], hf[2])] = (hf[4], hf[6]); conn.links_st.pop((hf[0], hf[2]), None); n += 1
         else:
             raise SystemExit("%s: unknown line %r (set, add, room, area, need or link)" % (where, cmd))
     return n
@@ -340,9 +365,10 @@ class Result:
         self.spots = {}          # (room, spot) -> alternatives: what reaching it needs
 
 
-def through_exit(rooms, conn, room, out):
-    """where an exit leads, and what going through it needs on top (a boss fight, overrides' need): (room, in), alts"""
-    link = conn.links.get((room, out))
+def through_exit(rooms, conn, room, out, st=()):
+    """where an exit leads (gone through with the room's carried states st), and what going through it needs on top (a
+    boss fight, overrides' need): (room, in), alts"""
+    link = link_of(conn, room, out, st)
     if not link: return None, None
     extra = [NOTHING]
     r2 = rooms.get(link[0])
@@ -442,7 +468,25 @@ def solve(rooms, conn, options=frozenset(), carry=True, events=None):
         d = dict(st)
         return tuple(d.get(g, v) for g, v in zip(groups, gs))
 
-    start = (conn.start[0], conn.start[1], start_gs)
+    # states kept only within some rooms (connections.txt's "within": the Forest Palace's crystals). Outside those rooms
+    # the player still has them, but nothing there uses them: their values are parked ("*"), and the values the player
+    # left the rooms with are remembered (parked[scope]: values -> what leaving with them needs). Coming back in, the
+    # player has one of those (or the start's). That's exact as long as getting from where they come out to where they
+    # go back in needs nothing (the Forest Palace's ways out and in are next to each other on Hyrule's overworld)
+    scopes = collections.OrderedDict()
+    if carry:
+        for i, g in enumerate(groups):
+            if g in conn.scope: scopes.setdefault(conn.scope[g], []).append(i)
+    parked = {sc: {tuple(start_gs[i] for i in ix): [NOTHING]} for sc, ix in scopes.items()}
+    crossings = {sc: set() for sc in scopes}     # the nodes with a way into the scope's rooms
+
+    def outside(name, gs):
+        """the states with the scopes the room is outside of parked"""
+        for sc, ix in scopes.items():
+            if not name.startswith(sc): gs = tuple("*" if i in ix else v for i, v in enumerate(gs))
+        return gs
+
+    start = (conn.start[0], conn.start[1], outside(conn.start[0], start_gs))
     res.ways_in[start] = [NOTHING]
     queue = collections.deque([start]); queued = {start}
     by_way = {}
@@ -455,18 +499,40 @@ def solve(rooms, conn, options=frozenset(), carry=True, events=None):
         gs1, st = come_in(rooms[room], gs)
         for target, alts in by_way.get((room, (inid, st)), []):
             if target[0] != "out" or not alts: continue
-            to, extra = through_exit(rooms, conn, room, target[1])
+            to, extra = through_exit(rooms, conn, room, target[1], target[2])
             if to is None or to[0] not in rooms or to[1] not in rooms[to[0]].ins: continue
-            nxt = (to[0], to[1], leave(gs1, target[2]))
             part = sub(product(alts, extra))
-            dst = res.ways_in.setdefault(nxt, [])
-            changed = False
-            for a in list(res.ways_in[node]):
-                for p in part:
-                    n = keep(mx(a, p), options)
-                    if n is not None and add(dst, n):
-                        res.back[(nxt, n)] = (node, a, target, p); changed = True
-            if changed and nxt not in queued: queue.append(nxt); queued.add(nxt)
+            # (the states it comes in with, and what each needs on top: a scope's rooms left, its values parked;
+            # come into, each value it's been left with)
+            nexts = [(leave(gs1, target[2]), None)]
+            for sc, ix in scopes.items():
+                a_in, b_in = room.startswith(sc), to[0].startswith(sc)
+                if a_in and not b_in:
+                    lst = parked[sc].setdefault(tuple(nexts[0][0][i] for i in ix), [])
+                    grew = False
+                    for a in list(res.ways_in[node]):
+                        for p in part:
+                            n = keep(mx(a, p), options)
+                            if n is not None and add(lst, n): grew = True
+                    if grew:
+                        for c in crossings[sc]:
+                            if c not in queued: queue.append(c); queued.add(c)
+                    nexts = [(tuple("*" if i in ix else v for i, v in enumerate(g)), pre) for g, pre in nexts]
+                elif b_in and not a_in:
+                    crossings[sc].add(node)
+                    nexts = [(tuple(dict(zip(ix, vals)).get(i, v) for i, v in enumerate(g)), pv if pre is None else product(pre, pv))
+                             for g, pre in nexts for vals, pv in list(parked[sc].items())]
+            for g, pre in nexts:
+                nxt = (to[0], to[1], g)
+                p2 = part if pre is None else product(part, pre)
+                dst = res.ways_in.setdefault(nxt, [])
+                changed = False
+                for a in list(res.ways_in[node]):
+                    for p in p2:
+                        n = keep(mx(a, p), options)
+                        if n is not None and add(dst, n):
+                            res.back[(nxt, n)] = (node, a, target, p); changed = True
+                if changed and nxt not in queued: queue.append(nxt); queued.add(nxt)
     # the places: each from each way in it's reached by
     for r in rooms.values():
         for key in r.locs:
@@ -558,7 +624,7 @@ def explain(rooms, conn, res, key):
         print("\nway %d: %s" % (k, a))
         print("  start: %s in %s" % conn.start)
         for prev, target, pt in chain_to(res, node, nneed):
-            to = conn.links[(prev[0], target[1])]
+            to = link_of(conn, prev[0], target[1], target[2])
             print("  %-22s in %-18s -> out %-20s %-28s (then %s in %s)" % (prev[0], node_text(rooms, conn, prev), target[1] + state_text(target[2]),
                                                                           "[" + str(pt) + "]", to[0], to[1]))
         print("  %-22s in %-18s -> loc %d %d %s" % (node[0], node_text(rooms, conn, node), key[0], key[1], "[" + str(part) + "]"))
@@ -586,7 +652,8 @@ def show_room(rooms, conn, res, name):
                     for a in res.ways_in[nd]:
                         for x in talts: add(best, mx(a, x))
         to = conn.links.get((name, o))
-        print("  out %-12s from the start: %s   (to %s)" % (o, alts_text(best), "%s in %s" % to if to else "nowhere"))
+        tos = ["%s in %s%s" % (t[0], t[1], state_text(c)) for c, t in conn.links_st.get((name, o), [])] or (["%s in %s" % to] if to else ["nowhere"])
+        print("  out %-12s from the start: %s   (to %s)" % (o, alts_text(best), ", ".join(tos)))
     for key in r.locs: print("  loc %d %d %-20s from the start: %s" % (key[0], key[1], r.loc_names.get(key, ""), alts_text(res.places.get(key, []))))
 
 
@@ -647,7 +714,7 @@ def main():
         d = check(res, path) + check_rooms(rooms, res, path)
         print("%d differences" % len(d)); print("\n".join(d[:50])); return
     reached, total = write_result(rooms, res)
-    print("%d rooms, %d connections, %d overrides; places reached %d of %d; written %s" % (len(rooms), len(conn.links), n, reached, total, OUT))
+    print("%d rooms, %d connections, %d overrides; places reached %d of %d; written %s" % (len(rooms), len(conn.links) + len(conn.links_st), n, reached, total, OUT))
 
 
 if __name__ == "__main__":
