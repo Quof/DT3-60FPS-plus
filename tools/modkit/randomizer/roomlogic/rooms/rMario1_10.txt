@@ -22,12 +22,12 @@ loc 3 25   # arrow quiver 25, at 1863,38
 # the locked door whose objectNum is N.
 from in 56,240
   out 48,208     -
-  out 2896,112   djump
-  loc 3 25       djump,samus:2 | adash,samus:2
+  out 2896,112   mario | djump
+  loc 3 25       djump,samus:2 | adash,samus:2 | mario
 from in 2904,144
   out 48,208     -
   out 2896,112   -
-  loc 3 25       djump,samus:2 | adash,samus:2
+  loc 3 25       djump,samus:2 | adash,samus:2 | mario
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
@@ -39,6 +39,40 @@ how in 56,240 -> out 48,208: -
       -> standing at x 0-25, y 257
    3. jump (held 2 ticks), holding right, from 0,257; touches it on the way
       -> out 48,208
+how in 56,240 -> out 2896,112: mario
+     coming in at 56,240
+   1. coming in: holding nothing, from 56,240; lands at 56,241
+      -> standing at x 26-86, y 241
+   2. jump (held 21 ticks), holding right, from 64,241; lands at 238,225
+      -> standing at x 218-345, y 225
+   3. jump (held 6 ticks), holding right, from 240,225; lands at 357,193
+      -> standing at x 346-374, y 193
+   4. jump (held 21 ticks), holding right, from 366,193; lands at 563,209
+      -> standing at x 554-790, y 209
+   5. walk off the edge, holding right once in the air, from 554,209; lands at 869,257
+      -> standing at x 791-982, y 257
+   6. running right, jump (held 6 ticks), holding right, from 880,257; lands at 1049,273
+      -> standing at x 1034-1145, y 273
+   7. jump (held 21 ticks), holding right, from 1034,273; lands at 1217,273
+      -> standing at x 1175-1350, y 273
+   8. walk off the edge, holding right once in the air, from 1175,273; lands at 1460,369
+      -> standing at x 1399-1494, y 369
+   9. running right, jump (held 6 ticks), holding right, from 1456,369; lands at 1559,385
+      -> standing at x 1546-1670, y 385
+  10. jump (held 21 ticks), holding right, from 1584,385; lands at 1737,337
+      -> standing at x 1722-1750, y 337
+  11. jump (held 21 ticks), holding right, from 1722,337; lands at 1897,321
+      -> standing at x 1882-1926, y 321
+  12. jump (held 21 ticks), holding right, from 1888,321; lands at 2115,385
+      -> standing at x 2106-2249, y 385
+  13. running right, jump (held 21 ticks), holding right, from 2144,385; lands at 2342,369
+      -> standing at x 2330-2441, y 369
+  14. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 2352,369; lands at 2450,321
+      -> standing at x 2442-2470, y 321
+  15. jump (held 40 ticks), holding right, bounce off a flying enemy at tick 12 (Mario Ability Set), from 2442,321; lands at 2617,161   [mario]
+      -> standing at x 2554-2617, y 161
+  16. jump (held 40 ticks), holding right, bounce off a flying enemy at tick 12 (Mario Ability Set), from 2592,161; touches it on the way   [mario]
+      -> out 2896,112
 how in 56,240 -> out 2896,112: djump
      coming in at 56,240
    1. coming in: holding nothing, from 56,240; lands at 56,241
@@ -153,6 +187,30 @@ how in 56,240 -> loc 3 25: adash,samus:2
       -> standing at x 1658-1686, y 2
   18. jump (held 21 ticks), holding nothing, then right after 12 ticks, air dash (Jerry) at tick 12, from 1658,2; touches it on the way   [adash]
       -> loc 3 25
+how in 56,240 -> loc 3 25: mario
+     coming in at 56,240
+   1. coming in: holding nothing, from 56,240; lands at 56,241
+      -> standing at x 26-86, y 241
+   2. jump (held 21 ticks), holding right, from 64,241; lands at 238,225
+      -> standing at x 218-345, y 225
+   3. jump (held 6 ticks), holding right, from 240,225; lands at 357,193
+      -> standing at x 346-374, y 193
+   4. jump (held 21 ticks), holding right, from 366,193; lands at 563,209
+      -> standing at x 554-790, y 209
+   5. running right, jump (held 21 ticks), holding right, from 720,209; lands at 874,145
+      -> standing at x 858-905, y 145
+   6. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 858,145; lands at 916,97
+      -> standing at x 906-921, y 97
+   7. jump (held 21 ticks), holding right, from 906,97; lands at 1081,81
+      -> standing at x 1066-1094, y 81
+   8. jump (held 6 ticks), holding right, from 1066,81; lands at 1212,97
+      -> standing at x 1178-1222, y 97
+   9. jump (held 21 ticks), holding right, from 1216,97; lands at 1443,161
+      -> standing at x 1434-1462, y 161
+  10. jump (held 40 ticks), holding right, bounce off a flying enemy at tick 12 (Mario Ability Set), from 1454,161; lands at 1666,2   [mario]
+      -> standing at x 1658-1686, y 2
+  11. jump (held 40 ticks), holding right, bounce off a flying enemy at tick 12 (Mario Ability Set), from 1682,2; touches it on the way   [mario]
+      -> loc 3 25
 how in 2904,144 -> out 48,208: -
      coming in at 2904,144
    1. coming in: holding nothing, from 2904,144; lands at 2904,145
@@ -254,4 +312,36 @@ how in 2904,144 -> loc 3 25: adash,samus:2
   12. jump (held 21 ticks), holding left, from 1818,49; lands at 1665,2
       -> standing at x 1658-1686, y 2
   13. jump (held 21 ticks), holding nothing, then right after 12 ticks, air dash (Jerry) at tick 12, from 1658,2; touches it on the way   [adash]
+      -> loc 3 25
+how in 2904,144 -> loc 3 25: mario
+     coming in at 2904,144
+   1. coming in: holding nothing, from 2904,144; lands at 2904,145
+      -> standing at x 2826-2960, y 145
+   2. running left, jump (held 6 ticks), holding left, from 2826,145; lands at 2664,145
+      -> standing at x 2618-2694, y 145
+   3. jump (held 2 ticks), holding left, from 2618,145; lands at 2391,369
+      -> standing at x 2330-2441, y 369
+   4. running left, jump (held 2 ticks), holding left, from 2330,369; lands at 2190,385
+      -> standing at x 2106-2249, y 385
+   5. jump (held 2 ticks), holding left, from 2106,385; lands at 2019,369
+      -> standing at x 1927-2038, y 369
+   6. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 1927,369; lands at 1918,321
+      -> standing at x 1882-1926, y 321
+   7. jump (held 21 ticks), holding left, from 1882,321; lands at 1655,385
+      -> standing at x 1546-1670, y 385
+   8. jump (held 2 ticks), holding left, from 1546,385; lands at 1459,369
+      -> standing at x 1399-1494, y 369
+   9. jump (held 2 ticks), holding left, from 1399,369; lands at 1356,337
+      -> standing at x 1351-1398, y 337
+  10. jump (held 21 ticks), holding left, from 1351,337; lands at 1278,273
+      -> standing at x 1175-1350, y 273
+  11. running right, jump (held 21 ticks), holding right, from 1264,273; lands at 1455,241
+      -> standing at x 1434-1481, y 241
+  12. running right, jump (held 21 ticks), holding right, then nothing after 2 ticks, from 1472,241; lands at 1490,193
+      -> standing at x 1482-1510, y 193
+  13. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 1482,193; lands at 1446,161
+      -> standing at x 1434-1462, y 161
+  14. jump (held 40 ticks), holding right, bounce off a flying enemy at tick 12 (Mario Ability Set), from 1454,161; lands at 1666,2   [mario]
+      -> standing at x 1658-1686, y 2
+  15. jump (held 40 ticks), holding right, bounce off a flying enemy at tick 12 (Mario Ability Set), from 1682,2; touches it on the way   [mario]
       -> loc 3 25

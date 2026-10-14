@@ -29,6 +29,10 @@ def main():
         subprocess.check_call([csc, "/nologo", "/O+", "/out:" + exe, "/r:System.Drawing.dll", cs])
     started = time.time() - 2
     subprocess.check_call([exe, PROJ, rooms, HERE])
+    # a room whose analysis failed (a bug in RoomLogic.cs): its file is missing ways, so stop here
+    failed = sorted({ln.split(":")[0] for ln in open(os.path.join(WORK, "roomlogic_log.txt"), encoding="utf-8", errors="replace")
+                     if ": failed:" in ln})
+    if failed: raise SystemExit("the analysis failed in %s (work\\roomlogic_log.txt says why)" % ", ".join(failed))
     # a room file this run didn't write (a room the game doesn't have any more) goes to work\stale_rooms
     for fn in os.listdir(ROOMS_DIR):
         p = os.path.join(ROOMS_DIR, fn)
@@ -38,9 +42,10 @@ def main():
             print("not a room any more: rooms\\%s moved to work\\stale_rooms" % fn)
     sys.path.insert(0, HERE)
     import solve
-    # the check: joined without overrides, the same as RoomLogic.exe's own joining
+    # the check: joined without overrides, the same as RoomLogic.exe's own joining (which has each room come into with
+    # the carried states as a new game starts them)
     rms = solve.load_rooms(); conn = solve.load_connections()
-    res = solve.solve(rms, conn)
+    res = solve.solve(rms, conn, carry=False)
     diffs = solve.check(res, os.path.join(WORK, "roomlogic_check.txt")) + solve.check_rooms(rms, res, os.path.join(WORK, "roomlogic_check.txt"))
     if diffs:
         print("solve.py and RoomLogic.exe differ (%d), a bug in one of them:" % len(diffs))
@@ -50,7 +55,7 @@ def main():
     # the result, with overrides
     rms = solve.load_rooms(); conn = solve.load_connections()
     n = solve.load_overrides(rms, conn)
-    reached, total = solve.write_result(rms, solve.solve(rms, conn))
+    reached, total = solve.write_result(rms, solve.solve_events(rms, conn))
     print("overrides %d; places reached %d of %d; written %s" % (n, reached, total, solve.OUT))
     if diffs: raise SystemExit("the check failed: find the bug before building the mod with these room files")
 

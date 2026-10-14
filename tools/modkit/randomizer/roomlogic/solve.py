@@ -18,15 +18,20 @@ usage:
 Requirements, in every file: alternatives separated by |, any one of which is enough; each a list (commas or spaces)
 of: djump, adash, gdash, hijump N, mario, link N, belmont N, megaman N, samus N, gamej N, gamec N (N: that many of the
 item; "megaman:2" is the same as "megaman 2"), key N (the key of the locked door whose objectNum is N), attack (any
-ability set's attack: link 1, belmont 1, megaman 1 or samus 1), option NAME (only with that option on), nothing or -
-(walking and jumping), never (no way).
+ability set's attack: link 1, belmont 1, megaman 1 or samus 1), event NAME (once it's happened: events.txt), option
+NAME (only with that option on), nothing or - (walking and jumping), never (no way).
+
+States the player carries from room to room (connections.txt's "carried" lines: the red/blue switches' state, the
+Water Palace's level) go with each way in and out of the rooms that have them ("from in 48,480 [water 3]"); events are
+worked out from the rest and put in their place, over and over till nothing changes (solve_events).
 """
-import os, sys, collections
+import os, re, sys, collections
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOMS_DIR = os.path.join(HERE, "rooms")
 CONNECTIONS = os.path.join(HERE, "connections.txt")
 OVERRIDES = os.path.join(HERE, "overrides.txt")
+EVENTS = os.path.join(HERE, "events.txt")
 OUT = os.path.join(HERE, "roomlogic.txt")
 
 # the items the logic counts, in RoomLogic.cs's order (Req.Names); djump, adash, gdash and mario are one item each
@@ -45,7 +50,7 @@ class Need(collections.namedtuple("Need", "c k o")):
             if n == 1 and ITEMS[i] in SINGLE: p.append(ITEMS[i])
             elif n > 0: p.append("%s:%d" % (ITEMS[i], n))
         p += ["key:%d" % k for k in sorted(self.k)]
-        p += ["option:%s" % o for o in sorted(self.o)]
+        p += [o if o.startswith("event:") else "option:%s" % o for o in sorted(self.o)]
         return ",".join(p) if p else "-"
 
 
@@ -93,9 +98,9 @@ def parse(text, where=""):
         alts = [NOTHING]
         i = 0
         while i < len(toks):
-            w = toks[i].lower()
-            name, _, cnt = w.partition(":")
-            if not cnt and i + 1 < len(toks) and (toks[i + 1].isdigit() or (name == "option" and toks[i + 1])):
+            name, _, cnt = toks[i].partition(":")
+            name = name.lower()   # (an event's or option's name keeps its case)
+            if not cnt and i + 1 < len(toks) and (toks[i + 1].isdigit() or (name in ("option", "event") and toks[i + 1])):
                 cnt = toks[i + 1]; i += 1
             i += 1
             if name in ("nothing", "-"): continue
@@ -109,7 +114,11 @@ def parse(text, where=""):
                 continue
             if name == "option":
                 if not cnt: raise SystemExit("%s: 'option' needs a name: %r" % (where, text))
-                alts = [mx(a, Need(NOTHING.c, frozenset(), frozenset([cnt]))) for a in alts]
+                alts = [mx(a, Need(NOTHING.c, frozenset(), frozenset([cnt.lower()]))) for a in alts]
+                continue
+            if name == "event":
+                if not cnt: raise SystemExit("%s: 'event' needs a name: %r" % (where, text))
+                alts = [mx(a, Need(NOTHING.c, frozenset(), frozenset(["event:" + cnt]))) for a in alts]
                 continue
             if name not in ITEMS: raise SystemExit("%s: unknown requirement %r in %r" % (where, name, text))
             n = int(cnt) if cnt else 1
@@ -124,16 +133,38 @@ ATTACK = parse("attack")
 
 # ---------------------------------------------------------------- the files
 class RoomLogic:
-    """a room's file: its ways in (ids "x,y"), ways out (ids as the file names them), places ((type, number)), and the
-    table: (way in, target) -> alternatives, a target being ("out", id) or ("loc", type, number)"""
+    """a room's file: its ways in (ids "x,y"), ways out (ids as the file names them), places ((type, number)), the
+    states it carries (carried: "rb", "water") and sets as the player comes in (resets), and the table:
+    (way, target) -> alternatives. A way is (way in, state): the state the carried ones are in as the player comes in,
+    (("rb", "1"),) say, or () in a room that carries none. A target is ("out", id, state: the state the player leaves in)
+    or ("loc", type, number)"""
 
     def __init__(self, name):
-        self.name = name; self.area = ""; self.boss = False; self.map = False
+        self.name = name; self.area = ""; self.area_num = None; self.boss = False; self.map = False
         self.ins, self.outs, self.locs, self.loc_names = [], [], [], {}
+        self.carried, self.resets = [], {}
         self.table = collections.OrderedDict()
 
-    def ways_from(self, inid):
-        return [(t, a) for (i, t), a in self.table.items() if i == inid]
+    def ways(self, inid=None):
+        """its ways (way in, state) that the table has rows for (one way in's, or all)"""
+        seen = []
+        for (w, t) in self.table:
+            if (inid is None or w[0] == inid) and w not in seen: seen.append(w)
+        return seen
+
+
+def split_state(toks):
+    """tokens that may start with a state, "[rb 1, water 2]": (the state as sorted (name, value) pairs, the rest)"""
+    if not toks or not toks[0].startswith("["): return (), toks
+    for i, t in enumerate(toks):
+        if t.endswith("]"):
+            inner = " ".join(toks[:i + 1])[1:-1]
+            return tuple(sorted(tuple(p.split()) for p in inner.split(",") if p.strip())), toks[i + 1:]
+    raise ValueError("no ] in %r" % " ".join(toks))
+
+
+def state_text(st):
+    return " [" + ", ".join("%s %s" % gv for gv in st) + "]" if st else ""
 
 
 def load_room(path):
@@ -141,28 +172,38 @@ def load_room(path):
     cur = None
     for ln, raw in enumerate(open(path, encoding="utf-8"), 1):
         line = raw.rstrip("\n")
-        if line.startswith("# " + r.name + ":"): r.area = line.split(":", 1)[1].strip()
+        if line.startswith("# " + r.name + ":"):
+            r.area = line.split(":", 1)[1].strip()
+            m = re.search(r"\(area (\d+)\)", line)
+            if m: r.area_num = int(m.group(1))
         body = line.split("#", 1)[0].rstrip()
         if not body.strip(): continue
         f = body.split()
+        where = "%s line %d" % (path, ln)
         if line.startswith(" "):
-            # a row of the table under "from in <x,y>": "  out <id> <alternatives>" or "  loc <type> <number> <alternatives>"
+            # a row of the table under "from in <x,y> [state]": "  out <id> [state] <alternatives>" or
+            # "  loc <type> <number> <alternatives>"
             if cur is None or f[0].startswith("("): continue      # (a note, as "(the room has no ways out or places)")
-            if f[0] == "out": target, rest = ("out", f[1]), f[2:]
+            if f[0] == "out":
+                st, rest = split_state(f[2:])
+                target = ("out", f[1], st)
             elif f[0] == "loc": target, rest = ("loc", int(f[1]), int(f[2])), f[3:]
-            else: raise SystemExit("%s line %d: %r" % (path, ln, line))
-            r.table[(cur, target)] = parse(" ".join(rest), "%s line %d" % (path, ln))
+            else: raise SystemExit("%s: %r" % (where, line))
+            r.table[(cur, target)] = parse(" ".join(rest), where)
             continue
         if f[0] == "how": break           # (the rest of the file explains; the solver doesn't need it)
         if f[0] == "boss": r.boss = True
         elif f[0] == "map": r.map = True
+        elif f[0] == "carried": r.carried.append(f[1])
+        elif f[0] == "resets": r.resets[f[1]] = f[2]
         elif f[0] == "in": r.ins.append(f[1])
         elif f[0] == "out": r.outs.append(f[1])
         elif f[0] == "loc":
             key = (int(f[1]), int(f[2])); r.locs.append(key)
             if "#" in line: r.loc_names[key] = line.split("#", 1)[1].split(",")[0].strip()
-        elif f[0] == "from": cur = f[2]
-        else: raise SystemExit("%s line %d: %r" % (path, ln, line))
+        elif f[0] == "from": cur = (f[2], split_state(f[3:])[0])
+        else: raise SystemExit("%s: %r" % (where, line))
+    r.carried.sort()
     return r
 
 
@@ -180,6 +221,7 @@ class Connections:
         self.links = collections.OrderedDict()   # (room, out) -> (room, in)
         self.via = set()                         # (room, out): a boss fight
         self.need = {}                           # (room, out) -> alternatives (overrides' "need")
+        self.carried = []                        # [(state, its value as a new game starts)]: what the player carries
 
 
 def load_connections(path=CONNECTIONS):
@@ -190,6 +232,7 @@ def load_connections(path=CONNECTIONS):
         f = line.split()
         if f[0] == "start": c.start = (f[1], f[3])
         elif f[0] == "via": c.via.add((f[1], f[3]))
+        elif f[0] == "carried": c.carried.append((f[1], f[2]))
         elif len(f) == 7 and f[1] == "out" and f[3] == "->" and f[5] == "in": c.links[(f[0], f[2])] = (f[4], f[6])
         else: raise SystemExit("connections.txt line %d: %r" % (ln, raw))
     return c
@@ -220,20 +263,23 @@ def load_overrides(rooms, conn, path=OVERRIDES):
             r = rooms[room]
             if right[0] == "out" and len(right) == 2:
                 if right[1] not in r.outs: raise SystemExit("%s: %s has no way out %r" % (where, room, right[1]))
-                target = ("out", right[1])
+                target = ("out", right[1], None)   # (left in the state it's come in in: below)
             elif right[0] == "loc" and len(right) == 3 and right[1].isdigit() and right[2].isdigit():
                 target = ("loc", int(right[1]), int(right[2]))
             elif right[0] == "loc" and " ".join(right[1:]).lower() in names:
                 k = names[" ".join(right[1:]).lower()]; target = ("loc",) + k
             else: raise SystemExit("%s: '%s' isn't a way out ('out <x,y>') or a place ('loc <type> <number>' or its name)" % (where, hf[1].strip()))
             if target[0] == "loc" and (target[1], target[2]) not in r.locs: raise SystemExit("%s: %s has no place %s" % (where, room, hf[1].strip()))
-            ins = r.ins if left[2] == "*" else [left[2]]
             if left[2] != "*" and left[2] not in r.ins: raise SystemExit("%s: %s has no way in %r" % (where, room, left[2]))
+            # (each of the way in's states, in a room that carries one; a way out is left in the same state)
+            ways = r.ways(None if left[2] == "*" else left[2])
+            if not ways: ways = [(i, ()) for i in (r.ins if left[2] == "*" else [left[2]])]
             alts = parse(req, where)
-            for i in ins:
-                if cmd == "set": r.table[(i, target)] = list(alts)
+            for w in ways:
+                t = target if target[0] == "loc" else ("out", target[1], w[1])
+                if cmd == "set": r.table[(w, t)] = list(alts)
                 else:
-                    cur = r.table.setdefault((i, target), [])
+                    cur = r.table.setdefault((w, t), [])
                     for a in alts: add(cur, a)
             n += 1
         elif cmd == "need":
@@ -256,12 +302,13 @@ def load_overrides(rooms, conn, path=OVERRIDES):
 
 # ---------------------------------------------------------------- joining the rooms
 class Result:
+    """a node is (room, way in, the carried states' values: in connections.txt's order)"""
     def __init__(self):
-        self.ways_in = {}        # (room, in) -> alternatives from the start
-        self.back = {}           # ((room, in), need) -> ((room, in) before, its need, the exit taken, what the room part needed)
+        self.ways_in = {}        # node -> alternatives from the start
+        self.back = {}           # (node, need) -> (node before, its need, the target taken, what the room part needed)
         self.places = collections.OrderedDict()   # (type, number) -> alternatives
         self.place_room = {}     # (type, number) -> the room (the first that has it)
-        self.place_back = {}     # ((type, number), need) -> ((room, in), its need, what the room part needed)
+        self.place_back = {}     # ((type, number), need) -> (node, its need, what the room part needed)
 
 
 def through_exit(rooms, conn, room, out):
@@ -277,43 +324,126 @@ def through_exit(rooms, conn, room, out):
 
 
 def keep(n, options):
-    """an alternative that holds with these options on (its options dropped), or None"""
+    """an alternative that holds with these options on (its options dropped, its events kept), or None"""
     if not n.o: return n
-    if n.o <= options: return Need(n.c, n.k, frozenset())
+    opts = {o for o in n.o if not o.startswith("event:")}
+    if opts <= options: return Need(n.c, n.k, frozenset(o for o in n.o if o.startswith("event:")))
     return None
 
 
-def solve(rooms, conn, options=frozenset()):
+def with_events(alts, events):
+    """alternatives with each event in them replaced by what the event needs (events: {name: alternatives}; one not
+    there: never)"""
+    out = []
+    for a in alts:
+        evs = [o for o in a.o if o.startswith("event:")]
+        if not evs: add(out, a); continue
+        base = [Need(a.c, a.k, a.o - frozenset(evs))]
+        for e in evs: base = product(base, events.get(e[6:], []))
+        for b in base: add(out, b)
+    return out
+
+
+def load_events(path=EVENTS):
+    """events.txt: {event: [(kind "room" or "area", the room or area number, alternatives)]}"""
+    ev = collections.OrderedDict()
+    if not os.path.exists(path): return ev
+    for ln, raw in enumerate(open(path, encoding="utf-8"), 1):
+        line = raw.split("#", 1)[0].strip()
+        if not line: continue
+        head, _, req = line.partition(":")
+        f = head.split()
+        if len(f) != 3 or f[1] not in ("room", "area"): raise SystemExit("events.txt line %d: '<event> room <room> [: <requirements>]' or '<event> area <number> ...'" % ln)
+        ev.setdefault(f[0], []).append((f[1], f[2], parse(req, "events.txt line %d" % ln) if req.strip() else [NOTHING]))
+    return ev
+
+
+def event_needs(rooms, res, events):
+    """what each event needs, from a result: {event: alternatives}"""
+    out = {}
+    for name, ways in events.items():
+        alts = []
+        for kind, what, extra in ways:
+            if kind == "room": base = room_needs(rooms, res, what) if what in rooms else []
+            else:
+                base = []
+                for rn, r in rooms.items():
+                    if str(r.area_num) == what:
+                        for a in room_needs(rooms, res, rn): add(base, a)
+            for a in product(base, extra): add(alts, a)
+        out[name] = alts
+    return out
+
+
+def solve_events(rooms, conn, options=frozenset(), events=None):
+    """solve, with the events worked out: solved with what each event's been found to need so far, put in its place,
+    till that stops changing"""
+    if events is None: events = load_events()
+    known = {}
+    for _ in range(30):
+        res = solve(rooms, conn, options, events=known)
+        new = event_needs(rooms, res, events)
+        if {k: sorted(map(str, v)) for k, v in new.items()} == {k: sorted(map(str, v)) for k, v in known.items()}: break
+        known = new
+    res.events = known
+    return res
+
+
+def solve(rooms, conn, options=frozenset(), carry=True, events=None):
+    """joins the rooms from the start: what each way in (in each carried state) and each place needs. carry=False: each
+    room as if the player came in with the carried states as a new game starts them (what RoomLogic.exe's own joining
+    does: the check). events: {event: what it needs}, put in each event's place (solve_events works them out); None:
+    events stay in the requirements as they are (the check)"""
     res = Result()
-    start = conn.start
+    sub = (lambda alts: with_events(alts, events)) if events is not None else (lambda alts: alts)
+    groups = [g for g, v in conn.carried]
+    start_gs = tuple(v for g, v in conn.carried)
+
+    def come_in(r, gs):
+        # (the states as the player comes into the room: those it sets, set; and the room's own part of them)
+        if not carry: gs = start_gs
+        if r.resets: gs = tuple(r.resets.get(g, v) for g, v in zip(groups, gs))
+        return gs, tuple(sorted((g, v) for g, v in zip(groups, gs) if g in r.carried))
+
+    def leave(gs, st):
+        if not carry: return start_gs
+        d = dict(st)
+        return tuple(d.get(g, v) for g, v in zip(groups, gs))
+
+    start = (conn.start[0], conn.start[1], start_gs)
     res.ways_in[start] = [NOTHING]
     queue = collections.deque([start]); queued = {start}
-    by_in = {}
+    by_way = {}
     for r in rooms.values():
-        for (i, t), alts in r.table.items(): by_in.setdefault((r.name, i), []).append((t, alts))
+        for (w, t), alts in r.table.items(): by_way.setdefault((r.name, w), []).append((t, sub(alts)))
     while queue:
         node = queue.popleft(); queued.discard(node)
-        room, inid = node
-        for target, alts in by_in.get(node, []):
+        room, inid, gs = node
+        if room not in rooms: continue
+        gs1, st = come_in(rooms[room], gs)
+        for target, alts in by_way.get((room, (inid, st)), []):
             if target[0] != "out" or not alts: continue
             to, extra = through_exit(rooms, conn, room, target[1])
             if to is None or to[0] not in rooms or to[1] not in rooms[to[0]].ins: continue
-            part = product(alts, extra)
-            dst = res.ways_in.setdefault(to, [])
+            nxt = (to[0], to[1], leave(gs1, target[2]))
+            part = sub(product(alts, extra))
+            dst = res.ways_in.setdefault(nxt, [])
             changed = False
             for a in list(res.ways_in[node]):
                 for p in part:
                     n = keep(mx(a, p), options)
                     if n is not None and add(dst, n):
-                        res.back[(to, n)] = (node, a, target[1], p); changed = True
-            if changed and to not in queued: queue.append(to); queued.add(to)
+                        res.back[(nxt, n)] = (node, a, target, p); changed = True
+            if changed and nxt not in queued: queue.append(nxt); queued.add(nxt)
     # the places: each from each way in it's reached by
     for r in rooms.values():
         for key in r.locs:
             res.places.setdefault(key, [])
             res.place_room.setdefault(key, r.name)
     for node, alts in res.ways_in.items():
-        for target, talts in by_in.get(node, []):
+        if node[0] not in rooms: continue
+        gs1, st = come_in(rooms[node[0]], node[2])
+        for target, talts in by_way.get((node[0], (node[1], st)), []):
             if target[0] != "loc": continue
             key = (target[1], target[2])
             for a in alts:
@@ -325,8 +455,9 @@ def solve(rooms, conn, options=frozenset()):
 
 def room_needs(rooms, res, name):
     out = []
-    for i in rooms[name].ins:
-        for a in res.ways_in.get((name, i), []): add(out, a)
+    for node, alts in res.ways_in.items():
+        if node[0] == name:
+            for a in alts: add(out, a)
     return out
 
 
@@ -360,14 +491,22 @@ def find_place(rooms, text):
 
 
 def chain_to(res, node, need):
-    """the rooms' parts from the start to a way in, with that need: [(room, in, exit, what the part needed)]"""
+    """the rooms' parts from the start to a way in, with that need: [(node, the target taken, what the part needed)]"""
     out = []
     while (node, need) in res.back:
-        prev, pneed, out_id, part = res.back[(node, need)]
-        out.append((prev[0], prev[1], out_id, part))
+        prev, pneed, target, part = res.back[(node, need)]
+        out.append((prev, target, part))
         node, need = prev, pneed
     out.reverse()
     return out
+
+
+def node_text(rooms, conn, node):
+    """a way in, with the carried states as the room has them ("48,480 [water 3]")"""
+    r = rooms.get(node[0])
+    st = tuple(sorted((g, v) for (g, s), v in zip(conn.carried, node[2]) if r is not None and g in r.carried))
+    if r is not None and r.resets: st = tuple(sorted((g, r.resets.get(g, v)) for g, v in st))
+    return node[1] + state_text(st)
 
 
 def explain(rooms, conn, res, key):
@@ -379,10 +518,11 @@ def explain(rooms, conn, res, key):
         node, nneed, part = res.place_back[(key, a)]
         print("\nway %d: %s" % (k, a))
         print("  start: %s in %s" % conn.start)
-        for room, inid, out_id, pt in chain_to(res, node, nneed):
-            to = conn.links[(room, out_id)]
-            print("  %-22s in %-10s -> out %-12s %-28s (then %s in %s)" % (room, inid, out_id, "[" + str(pt) + "]", to[0], to[1]))
-        print("  %-22s in %-10s -> loc %d %d %s" % (node[0], node[1], key[0], key[1], "[" + str(part) + "]"))
+        for prev, target, pt in chain_to(res, node, nneed):
+            to = conn.links[(prev[0], target[1])]
+            print("  %-22s in %-18s -> out %-20s %-28s (then %s in %s)" % (prev[0], node_text(rooms, conn, prev), target[1] + state_text(target[2]),
+                                                                          "[" + str(pt) + "]", to[0], to[1]))
+        print("  %-22s in %-18s -> loc %d %d %s" % (node[0], node_text(rooms, conn, node), key[0], key[1], "[" + str(part) + "]"))
     if alts: print("\n(each room's part is in its file, rooms\\<room>.txt: its 'how in <x,y> -> <way out or place>' lines say the moves)")
 
 
@@ -390,12 +530,22 @@ def show_room(rooms, conn, res, name):
     if name not in rooms: raise SystemExit("no room %r" % name)
     r = rooms[name]
     print("%s: %s%s%s" % (name, r.area, " (boss)" if r.boss else "", " (map)" if r.map else ""))
-    for i in r.ins: print("  in  %-12s from the start: %s" % (i, alts_text(res.ways_in.get((name, i), []))))
+    nodes = [nd for nd in res.ways_in if nd[0] == name]
+    for i in r.ins:
+        best = []
+        for nd in nodes:
+            if nd[1] == i:
+                for a in res.ways_in[nd]: add(best, a)
+        print("  in  %-12s from the start: %s" % (i, alts_text(best)))
     for o in r.outs:
         best = []
-        for i in r.ins:
-            for a in res.ways_in.get((name, i), []):
-                for t in r.table.get((i, ("out", o)), []): add(best, mx(a, t))
+        for nd in nodes:
+            st = tuple(sorted((g, v) for (g, s), v in zip(conn.carried, nd[2]) if g in r.carried))
+            if r.resets: st = tuple(sorted((g, r.resets.get(g, v)) for g, v in st))
+            for (w, t), talts in r.table.items():
+                if w == (nd[1], st) and t[0] == "out" and t[1] == o:
+                    for a in res.ways_in[nd]:
+                        for x in talts: add(best, mx(a, x))
         to = conn.links.get((name, o))
         print("  out %-12s from the start: %s   (to %s)" % (o, alts_text(best), "%s in %s" % to if to else "nowhere"))
     for key in r.locs: print("  loc %d %d %-20s from the start: %s" % (key[0], key[1], r.loc_names.get(key, ""), alts_text(res.places.get(key, []))))
@@ -433,7 +583,7 @@ def solve_all(use_overrides=True, options=frozenset(), write=True):
     """what rndgen.py calls: the places' alternatives ({(type, number): [Need]}), roomlogic.txt written"""
     rooms = load_rooms(); conn = load_connections()
     if use_overrides: load_overrides(rooms, conn)
-    res = solve(rooms, conn, options)
+    res = solve_events(rooms, conn, options)
     if write: write_result(rooms, res)
     return res.places
 
@@ -446,13 +596,15 @@ def main():
         i = args.index("--option"); opts.add(args[i + 1].lower()); del args[i:i + 2]
     rooms = load_rooms(); conn = load_connections()
     n = load_overrides(rooms, conn) if use_over else 0
-    res = solve(rooms, conn, frozenset(opts))
+    res = solve_events(rooms, conn, frozenset(opts))
     if "--explain" in args:
         explain(rooms, conn, res, find_place(rooms, args[args.index("--explain") + 1])); return
     if "--room" in args:
         show_room(rooms, conn, res, args[args.index("--room") + 1]); return
     if "--check" in args:
+        # (RoomLogic.exe's own joining has each room come into with the carried states as a new game starts them)
         path = args[args.index("--check") + 1]
+        res = solve(rooms, conn, frozenset(opts), carry=False)
         d = check(res, path) + check_rooms(rooms, res, path)
         print("%d differences" % len(d)); print("\n".join(d[:50])); return
     reached, total = write_result(rooms, res)

@@ -1,0 +1,29 @@
+# Events: things the game remembers that open a way somewhere else. A requirement names one as "event <name>" (the
+# room files show it as event:<name>, on the gate or barrier that waits for it). solve.py works out what each event
+# needs from these lines and puts that in its place, over and over till nothing changes. A line is one way an event
+# happens (several lines for one event: any of them is enough):
+#   <event> room <room> [: <requirements>]     getting into that room (any way in), then what else it takes there
+#   <event> area <number> [: <requirements>]   getting into any room of that area
+# Requirements are as everywhere else (README.txt): djump, megaman 2, attack, key 3...
+
+# a Nightmare Gate's boss beaten (its character in eGateProg goes to 8, then 9 once its instrument's taken): the
+# Sacred Temple's doors, one a gate. (Gate H's instrument comes from its pages, not a boss room: not here yet)
+gateA room rExtGateA_6 : attack
+gateB room rExtGateB_6 : attack
+gateC room rExtGateC_5 : attack
+gateD room rExtGateD_6 : attack
+gateE room rExtGateE_5 : attack
+gateF room rExtGateF_6 : attack
+gateG room rExtGateG_5 : attack
+
+# any instrument (the Lost Entrance's barrier before the Sacred Temple, rMain_19)
+instrument room rExtGateA_6 : attack
+instrument room rExtGateB_6 : attack
+instrument room rExtGateC_5 : attack
+instrument room rExtGateD_6 : attack
+instrument room rExtGateE_5 : attack
+instrument room rExtGateF_6 : attack
+instrument room rExtGateG_5 : attack
+
+# the Great Colossal Falloff visited (area 76): Colossal Encroachment's trapdoor (rMain_75) opens
+area76 area 76

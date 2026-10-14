@@ -23,11 +23,11 @@ out 1800,16   # to rLink2_PalaceB_4 at 1040,336; the player goes into it
 from in 2000,304
   out 0,272      -
   out 2032,272   -
-  out 1800,16    never
+  out 1800,16    -
 from in 1808,128
   out 0,272      -
   out 2032,272   -
-  out 1800,16    never
+  out 1800,16    -
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
@@ -49,6 +49,16 @@ how in 2000,304 -> out 2032,272: -
       -> standing at x 1402-2048, y 305
    2. standing at 2030,305, goes into it
       -> out 2032,272
+how in 2000,304 -> out 1800,16: -
+     coming in at 2000,304
+   1. coming in: holding nothing, from 2000,304; lands at 2000,305
+      -> standing at x 1402-2048, y 305
+   2. step onto the elevator at 1786,305
+      -> riding the elevator at x 1808 (its bar from y -64 to 304)
+   3. ride the elevator to where its bar is at y 80, and step off it to 1786,81
+      -> standing at x 0-1798, y 81
+   4. standing at 1798,81, goes into it
+      -> out 1800,16
 how in 1808,128 -> out 0,272: -
      coming in at 1808,128
    1. coming in: holding nothing, from 1808,128; lands at 1808,305
@@ -67,3 +77,11 @@ how in 1808,128 -> out 2032,272: -
       -> standing at x 1402-2048, y 305
    2. standing at 2030,305, goes into it
       -> out 2032,272
+how in 1808,128 -> out 1800,16: -
+     coming in at 1808,128
+   1. come in on the elevator, at 1808,128
+      -> riding the elevator at x 1808 (its bar from y -64 to 304)
+   2. ride the elevator to where its bar is at y 80, and step off it to 1786,81
+      -> standing at x 0-1798, y 81
+   3. standing at 1798,81, goes into it
+      -> out 1800,16

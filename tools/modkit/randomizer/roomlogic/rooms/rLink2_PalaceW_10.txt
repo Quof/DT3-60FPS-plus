@@ -3,6 +3,8 @@
 # Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
 # Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
 # middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+carried water   # the Water Palace's water level comes in with the player and goes out with them (1 the highest, 2, 3 the lowest)
+# switches: the room is worked out in each of its states, the player coming in in the first: [water at level 2]
 
 # Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
 in 48,304   # from rLink2_PalaceW_9 out 1392,272
@@ -22,79 +24,1207 @@ loc 9 24   # weapon upgrade 24, at 1183,455
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
 # link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
 # the locked door whose objectNum is N.
-from in 48,304
-  out 0,272      -
-  out 0,624      -
-  out 1456,496   adash
-  loc 9 24       -
-from in 48,656
-  out 0,272      never
-  out 0,624      -
-  out 1456,496   never
-  loc 9 24       never
-from in 1424,528
-  out 0,272      never
-  out 0,624      never
-  out 1456,496   -
-  loc 9 24       adash | djump,gdash
+from in 48,304 [water 1]
+  out 0,272 [water 1]      -
+  out 0,272 [water 2]      megaman:1 | samus:1 | link:1 | belmont:1
+  out 0,624 [water 1]      -
+  out 0,624 [water 2]      megaman:1 | samus:1 | link:1 | belmont:1
+  out 1456,496 [water 1]   adash
+  out 1456,496 [water 2]   adash,megaman:1 | adash,samus:1 | adash,link:1 | adash,belmont:1
+  loc 9 24                 megaman:1 | samus:1 | link:1 | belmont:1 | adash
+from in 48,304 [water 2]
+  out 0,272 [water 1]      megaman:1 | samus:1 | link:1 | belmont:1
+  out 0,272 [water 2]      -
+  out 0,624 [water 1]      megaman:1 | samus:1 | link:1 | belmont:1
+  out 0,624 [water 2]      -
+  out 1456,496 [water 1]   adash,megaman:1 | adash,samus:1 | adash,link:1 | adash,belmont:1
+  out 1456,496 [water 2]   adash
+  loc 9 24                 -
+from in 48,304 [water 3]
+  out 0,272 [water 1]      megaman:1 | samus:1 | link:1 | belmont:1
+  out 0,272 [water 2]      megaman:1 | samus:1 | link:1 | belmont:1
+  out 0,272 [water 3]      -
+  out 0,624 [water 1]      megaman:1 | samus:1 | link:1 | belmont:1
+  out 0,624 [water 2]      megaman:1 | samus:1 | link:1 | belmont:1
+  out 0,624 [water 3]      -
+  out 1456,496 [water 1]   adash,megaman:1 | adash,samus:1 | adash,link:1 | adash,belmont:1
+  out 1456,496 [water 2]   adash,megaman:1 | adash,samus:1 | adash,link:1 | adash,belmont:1
+  out 1456,496 [water 3]   djump | adash
+  loc 9 24                 -
+from in 48,656 [water 1]
+  out 0,272             never
+  out 0,624 [water 1]   -
+  out 0,624 [water 2]   megaman:1 | samus:1 | link:1 | belmont:1
+  out 1456,496          never
+  loc 9 24              never
+from in 48,656 [water 2]
+  out 0,272             never
+  out 0,624 [water 2]   -
+  out 1456,496          never
+  loc 9 24              never
+from in 48,656 [water 3]
+  out 0,272             never
+  out 0,624 [water 2]   megaman:1 | samus:1 | link:1 | belmont:1
+  out 0,624 [water 3]   -
+  out 1456,496          never
+  loc 9 24              never
+from in 1424,528 [water 1]
+  out 0,272                never
+  out 0,624                never
+  out 1456,496 [water 1]   -
+  loc 9 24                 adash | djump,gdash
+from in 1424,528 [water 2]
+  out 0,272                never
+  out 0,624                never
+  out 1456,496 [water 2]   -
+  loc 9 24                 adash | djump,gdash
+from in 1424,528 [water 3]
+  out 0,272                never
+  out 0,624                never
+  out 1456,496 [water 3]   -
+  loc 9 24                 never
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
-how in 48,304 -> out 0,272: -
-     coming in at 48,304
+how in 48,304 [water 1] -> out 0,272 [water 1]: -
+     [water at level 1] coming in at 48,304
    1. coming in: holding nothing, from 48,304; lands at 48,305
-      -> standing at x 0-198, y 305
+      -> [water at level 1] standing at x 0-198, y 305
    2. standing at 0,305, goes into it
-      -> out 0,272
-how in 48,304 -> out 0,624: -
-     coming in at 48,304
+      -> out 0,272 [water 1]
+how in 48,304 [water 1] -> out 0,272 [water 2]: megaman:1
+     [water at level 1] coming in at 48,304
    1. coming in: holding nothing, from 48,304; lands at 48,305
-      -> standing at x 0-198, y 305
+      -> [water at level 1] standing at x 0-198, y 305
+   2. shoot the switch at 416,272 from 95,305: [water at level 2]   [megaman:1]
+      -> [water at level 2] standing at x 0-198, y 305
+   3. standing at 0,305, goes into it
+      -> out 0,272 [water 2]
+how in 48,304 [water 1] -> out 0,272 [water 2]: samus:1
+     [water at level 1] coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> [water at level 1] standing at x 0-198, y 305
+   2. shoot the switch at 416,272 from 95,305: [water at level 2]   [samus:1]
+      -> [water at level 2] standing at x 0-198, y 305
+   3. standing at 0,305, goes into it
+      -> out 0,272 [water 2]
+how in 48,304 [water 1] -> out 0,272 [water 2]: link:1
+     [water at level 1] coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> [water at level 1] standing at x 0-198, y 305
+   2. running right, jump (held 6 ticks), holding right, from 160,305; lands at 272,305
+      -> [water at level 1] standing at x 250-518, y 305
+   3. hit the switch at 416,272 from 356,305 (jumping if need be): [water at level 2]   [link:1]
+      -> [water at level 2] standing at x 250-518, y 305
+   4. jump (held 2 ticks), holding left, from 250,305; lands at 154,305
+      -> [water at level 2] standing at x 0-198, y 305
+   5. standing at 0,305, goes into it
+      -> out 0,272 [water 2]
+how in 48,304 [water 1] -> out 0,272 [water 2]: belmont:1
+     [water at level 1] coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> [water at level 1] standing at x 0-198, y 305
+   2. running right, jump (held 6 ticks), holding right, from 160,305; lands at 272,305
+      -> [water at level 1] standing at x 250-518, y 305
+   3. hit the switch at 416,272 from 356,305 (jumping if need be): [water at level 2]   [belmont:1]
+      -> [water at level 2] standing at x 250-518, y 305
+   4. jump (held 2 ticks), holding left, from 250,305; lands at 154,305
+      -> [water at level 2] standing at x 0-198, y 305
+   5. standing at 0,305, goes into it
+      -> out 0,272 [water 2]
+how in 48,304 [water 1] -> out 0,624 [water 1]: -
+     [water at level 1] coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> [water at level 1] standing at x 0-198, y 305
    2. walk off the edge, holding right once in the air, from 32,305; lands at 249,481
-      -> standing at x 122-249, y 481
+      -> [water at level 1] standing at x 122-249, y 481
    3. walk off the edge, holding left, then nothing after 1 ticks in the air, from 122,481; lands at 111,657
-      -> standing at x 0-121, y 657
+      -> [water at level 1] standing at x 0-121, y 657
    4. standing at 0,657, goes into it
-      -> out 0,624
-how in 48,304 -> out 1456,496: adash
-     coming in at 48,304
+      -> out 0,624 [water 1]
+how in 48,304 [water 1] -> out 0,624 [water 2]: megaman:1
+     [water at level 1] coming in at 48,304
    1. coming in: holding nothing, from 48,304; lands at 48,305
-      -> standing at x 0-198, y 305
-   2. running right, jump (held 2 ticks), holding right, from 160,305; lands at 285,305
-      -> standing at x 250-1158, y 305
-   3. walk off the edge, holding right once in the air, air dash (Jerry) at tick 6 or once there's room ahead, from 896,305; lands at 1374,529   [adash]
-      -> standing at x 1274-1472, y 529
-   4. standing at 1454,529, goes into it
-      -> out 1456,496
-how in 48,304 -> loc 9 24: -
-     coming in at 48,304
+      -> [water at level 1] standing at x 0-198, y 305
+   2. walk off the edge, holding right once in the air, from 32,305; lands at 249,481
+      -> [water at level 1] standing at x 122-249, y 481
+   3. walk off the edge, holding left, then nothing after 1 ticks in the air, from 122,481; lands at 111,657
+      -> [water at level 1] standing at x 0-121, y 657
+   4. shoot the switch at 160,592 from 0,657 (at the top of a jump): [water at level 2]   [megaman:1]
+      -> [water at level 2] standing at x 0-121, y 657
+   5. standing at 0,657, goes into it
+      -> out 0,624 [water 2]
+how in 48,304 [water 1] -> out 0,624 [water 2]: samus:1
+     [water at level 1] coming in at 48,304
    1. coming in: holding nothing, from 48,304; lands at 48,305
-      -> standing at x 0-198, y 305
-   2. running right, jump (held 2 ticks), holding right, from 160,305; lands at 285,305
-      -> standing at x 250-1158, y 305
-   3. running right, jump (held 21 ticks), holding right, then nothing after 2 ticks, from 1136,305; touches it on the way
+      -> [water at level 1] standing at x 0-198, y 305
+   2. walk off the edge, holding right once in the air, from 32,305; lands at 249,481
+      -> [water at level 1] standing at x 122-249, y 481
+   3. walk off the edge, holding left, then nothing after 1 ticks in the air, from 122,481; lands at 111,657
+      -> [water at level 1] standing at x 0-121, y 657
+   4. shoot the switch at 160,592 from 0,657 (at the top of a jump): [water at level 2]   [samus:1]
+      -> [water at level 2] standing at x 0-121, y 657
+   5. standing at 0,657, goes into it
+      -> out 0,624 [water 2]
+how in 48,304 [water 1] -> out 0,624 [water 2]: link:1
+     [water at level 1] coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> [water at level 1] standing at x 0-198, y 305
+   2. walk off the edge, holding right once in the air, from 32,305; lands at 249,481
+      -> [water at level 1] standing at x 122-249, y 481
+   3. walk off the edge, holding left, then nothing after 1 ticks in the air, from 122,481; lands at 111,657
+      -> [water at level 1] standing at x 0-121, y 657
+   4. hit the switch at 160,592 from 100,657 (jumping if need be): [water at level 2]   [link:1]
+      -> [water at level 2] standing at x 0-121, y 657
+   5. standing at 0,657, goes into it
+      -> out 0,624 [water 2]
+how in 48,304 [water 1] -> out 0,624 [water 2]: belmont:1
+     [water at level 1] coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> [water at level 1] standing at x 0-198, y 305
+   2. walk off the edge, holding right once in the air, from 32,305; lands at 249,481
+      -> [water at level 1] standing at x 122-249, y 481
+   3. walk off the edge, holding left, then nothing after 1 ticks in the air, from 122,481; lands at 111,657
+      -> [water at level 1] standing at x 0-121, y 657
+   4. hit the switch at 160,592 from 100,657 (jumping if need be): [water at level 2]   [belmont:1]
+      -> [water at level 2] standing at x 0-121, y 657
+   5. standing at 0,657, goes into it
+      -> out 0,624 [water 2]
+how in 48,304 [water 1] -> out 1456,496 [water 1]: adash
+     [water at level 1] coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> [water at level 1] standing at x 0-198, y 305
+   2. running right, jump (held 6 ticks), holding right, from 160,305; lands at 272,305
+      -> [water at level 1] standing at x 250-518, y 305
+   3. running right, jump (held 6 ticks), holding right, from 480,305; lands at 592,305
+      -> [water at level 1] standing at x 570-774, y 305
+   4. running right, jump (held 6 ticks), holding right, from 736,305; lands at 848,305
+      -> [water at level 1] standing at x 826-1158, y 305
+   5. walk off the edge, holding right once in the air, air dash (Jerry) at tick 6 or once there's room ahead, from 1040,305; lands at 1380,529   [adash]
+      -> [water at level 1] standing at x 1274-1472, y 529
+   6. standing at 1454,529, goes into it
+      -> out 1456,496 [water 1]
+how in 48,304 [water 1] -> out 1456,496 [water 2]: adash,megaman:1
+     [water at level 1] coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> [water at level 1] standing at x 0-198, y 305
+   2. running right, jump (held 6 ticks), holding right, from 160,305; lands at 272,305
+      -> [water at level 1] standing at x 250-518, y 305
+   3. running right, jump (held 6 ticks), holding right, from 480,305; lands at 592,305
+      -> [water at level 1] standing at x 570-774, y 305
+   4. shoot the switch at 416,272 from 703,305: [water at level 2]   [megaman:1]
+      -> [water at level 2] standing at x 703-774, y 305
+   5. running right, jump (held 2 ticks), holding right, from 736,305; lands at 861,305
+      -> [water at level 2] standing at x 826-1025, y 305
+   6. running right, jump (held 2 ticks), holding right, from 1008,305; lands at 1110,305
+      -> [water at level 2] standing at x 1087-1158, y 305
+   7. walk off the edge, holding right once in the air, air dash (Jerry) at tick 6 or once there's room ahead, from 1087,305; lands at 1373,529   [adash]
+      -> [water at level 2] standing at x 1274-1472, y 529
+   8. standing at 1454,529, goes into it
+      -> out 1456,496 [water 2]
+how in 48,304 [water 1] -> out 1456,496 [water 2]: adash,samus:1
+     [water at level 1] coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> [water at level 1] standing at x 0-198, y 305
+   2. running right, jump (held 6 ticks), holding right, from 160,305; lands at 272,305
+      -> [water at level 1] standing at x 250-518, y 305
+   3. running right, jump (held 6 ticks), holding right, from 480,305; lands at 592,305
+      -> [water at level 1] standing at x 570-774, y 305
+   4. shoot the switch at 416,272 from 703,305: [water at level 2]   [samus:1]
+      -> [water at level 2] standing at x 703-774, y 305
+   5. running right, jump (held 2 ticks), holding right, from 736,305; lands at 861,305
+      -> [water at level 2] standing at x 826-1025, y 305
+   6. running right, jump (held 2 ticks), holding right, from 1008,305; lands at 1110,305
+      -> [water at level 2] standing at x 1087-1158, y 305
+   7. walk off the edge, holding right once in the air, air dash (Jerry) at tick 6 or once there's room ahead, from 1087,305; lands at 1373,529   [adash]
+      -> [water at level 2] standing at x 1274-1472, y 529
+   8. standing at 1454,529, goes into it
+      -> out 1456,496 [water 2]
+how in 48,304 [water 1] -> out 1456,496 [water 2]: adash,link:1
+     [water at level 1] coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> [water at level 1] standing at x 0-198, y 305
+   2. running right, jump (held 6 ticks), holding right, from 160,305; lands at 272,305
+      -> [water at level 1] standing at x 250-518, y 305
+   3. hit the switch at 416,272 from 356,305 (jumping if need be): [water at level 2]   [link:1]
+      -> [water at level 2] standing at x 250-518, y 305
+   4. running right, jump (held 2 ticks), holding right, from 480,305; lands at 605,305
+      -> [water at level 2] standing at x 570-641, y 305
+   5. running right, jump (held 2 ticks), holding right, from 624,305; lands at 726,305
+      -> [water at level 2] standing at x 703-774, y 305
+   6. running right, jump (held 2 ticks), holding right, from 736,305; lands at 861,305
+      -> [water at level 2] standing at x 826-1025, y 305
+   7. running right, jump (held 2 ticks), holding right, from 1008,305; lands at 1110,305
+      -> [water at level 2] standing at x 1087-1158, y 305
+   8. walk off the edge, holding right once in the air, air dash (Jerry) at tick 6 or once there's room ahead, from 1087,305; lands at 1373,529   [adash]
+      -> [water at level 2] standing at x 1274-1472, y 529
+   9. standing at 1454,529, goes into it
+      -> out 1456,496 [water 2]
+how in 48,304 [water 1] -> out 1456,496 [water 2]: adash,belmont:1
+     [water at level 1] coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> [water at level 1] standing at x 0-198, y 305
+   2. running right, jump (held 6 ticks), holding right, from 160,305; lands at 272,305
+      -> [water at level 1] standing at x 250-518, y 305
+   3. hit the switch at 416,272 from 356,305 (jumping if need be): [water at level 2]   [belmont:1]
+      -> [water at level 2] standing at x 250-518, y 305
+   4. running right, jump (held 2 ticks), holding right, from 480,305; lands at 605,305
+      -> [water at level 2] standing at x 570-641, y 305
+   5. running right, jump (held 2 ticks), holding right, from 624,305; lands at 726,305
+      -> [water at level 2] standing at x 703-774, y 305
+   6. running right, jump (held 2 ticks), holding right, from 736,305; lands at 861,305
+      -> [water at level 2] standing at x 826-1025, y 305
+   7. running right, jump (held 2 ticks), holding right, from 1008,305; lands at 1110,305
+      -> [water at level 2] standing at x 1087-1158, y 305
+   8. walk off the edge, holding right once in the air, air dash (Jerry) at tick 6 or once there's room ahead, from 1087,305; lands at 1373,529   [adash]
+      -> [water at level 2] standing at x 1274-1472, y 529
+   9. standing at 1454,529, goes into it
+      -> out 1456,496 [water 2]
+how in 48,304 [water 1] -> loc 9 24: megaman:1
+     [water at level 1] coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> [water at level 1] standing at x 0-198, y 305
+   2. running right, jump (held 6 ticks), holding right, from 160,305; lands at 272,305
+      -> [water at level 1] standing at x 250-518, y 305
+   3. running right, jump (held 6 ticks), holding right, from 480,305; lands at 592,305
+      -> [water at level 1] standing at x 570-774, y 305
+   4. shoot the switch at 416,272 from 703,305: [water at level 2]   [megaman:1]
+      -> [water at level 2] standing at x 703-774, y 305
+   5. running right, jump (held 2 ticks), holding right, from 736,305; lands at 861,305
+      -> [water at level 2] standing at x 826-1025, y 305
+   6. running right, jump (held 2 ticks), holding right, from 1008,305; lands at 1110,305
+      -> [water at level 2] standing at x 1087-1158, y 305
+   7. running right, jump (held 21 ticks), holding right, then nothing after 2 ticks, from 1136,305; touches it on the way
       -> loc 9 24
-how in 48,656 -> out 0,624: -
-     coming in at 48,656
+how in 48,304 [water 1] -> loc 9 24: samus:1
+     [water at level 1] coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> [water at level 1] standing at x 0-198, y 305
+   2. running right, jump (held 6 ticks), holding right, from 160,305; lands at 272,305
+      -> [water at level 1] standing at x 250-518, y 305
+   3. running right, jump (held 6 ticks), holding right, from 480,305; lands at 592,305
+      -> [water at level 1] standing at x 570-774, y 305
+   4. shoot the switch at 416,272 from 703,305: [water at level 2]   [samus:1]
+      -> [water at level 2] standing at x 703-774, y 305
+   5. running right, jump (held 2 ticks), holding right, from 736,305; lands at 861,305
+      -> [water at level 2] standing at x 826-1025, y 305
+   6. running right, jump (held 2 ticks), holding right, from 1008,305; lands at 1110,305
+      -> [water at level 2] standing at x 1087-1158, y 305
+   7. running right, jump (held 21 ticks), holding right, then nothing after 2 ticks, from 1136,305; touches it on the way
+      -> loc 9 24
+how in 48,304 [water 1] -> loc 9 24: link:1
+     [water at level 1] coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> [water at level 1] standing at x 0-198, y 305
+   2. running right, jump (held 6 ticks), holding right, from 160,305; lands at 272,305
+      -> [water at level 1] standing at x 250-518, y 305
+   3. hit the switch at 416,272 from 356,305 (jumping if need be): [water at level 2]   [link:1]
+      -> [water at level 2] standing at x 250-518, y 305
+   4. running right, jump (held 2 ticks), holding right, from 480,305; lands at 605,305
+      -> [water at level 2] standing at x 570-641, y 305
+   5. running right, jump (held 2 ticks), holding right, from 624,305; lands at 726,305
+      -> [water at level 2] standing at x 703-774, y 305
+   6. running right, jump (held 2 ticks), holding right, from 736,305; lands at 861,305
+      -> [water at level 2] standing at x 826-1025, y 305
+   7. running right, jump (held 2 ticks), holding right, from 1008,305; lands at 1110,305
+      -> [water at level 2] standing at x 1087-1158, y 305
+   8. running right, jump (held 21 ticks), holding right, then nothing after 2 ticks, from 1136,305; touches it on the way
+      -> loc 9 24
+how in 48,304 [water 1] -> loc 9 24: belmont:1
+     [water at level 1] coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> [water at level 1] standing at x 0-198, y 305
+   2. running right, jump (held 6 ticks), holding right, from 160,305; lands at 272,305
+      -> [water at level 1] standing at x 250-518, y 305
+   3. hit the switch at 416,272 from 356,305 (jumping if need be): [water at level 2]   [belmont:1]
+      -> [water at level 2] standing at x 250-518, y 305
+   4. running right, jump (held 2 ticks), holding right, from 480,305; lands at 605,305
+      -> [water at level 2] standing at x 570-641, y 305
+   5. running right, jump (held 2 ticks), holding right, from 624,305; lands at 726,305
+      -> [water at level 2] standing at x 703-774, y 305
+   6. running right, jump (held 2 ticks), holding right, from 736,305; lands at 861,305
+      -> [water at level 2] standing at x 826-1025, y 305
+   7. running right, jump (held 2 ticks), holding right, from 1008,305; lands at 1110,305
+      -> [water at level 2] standing at x 1087-1158, y 305
+   8. running right, jump (held 21 ticks), holding right, then nothing after 2 ticks, from 1136,305; touches it on the way
+      -> loc 9 24
+how in 48,304 [water 1] -> loc 9 24: adash
+     [water at level 1] coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> [water at level 1] standing at x 0-198, y 305
+   2. running right, jump (held 6 ticks), holding right, from 160,305; lands at 272,305
+      -> [water at level 1] standing at x 250-518, y 305
+   3. running right, jump (held 6 ticks), holding right, from 480,305; lands at 592,305
+      -> [water at level 1] standing at x 570-774, y 305
+   4. running right, jump (held 6 ticks), holding right, from 736,305; lands at 848,305
+      -> [water at level 1] standing at x 826-1158, y 305
+   5. walk off the edge, holding right once in the air, air dash (Jerry) at tick 6 or once there's room ahead, from 1040,305; lands at 1380,529   [adash]
+      -> [water at level 1] standing at x 1274-1472, y 529
+   6. running left, jump (held 21 ticks), holding left, air dash (Claire) at tick 8, from 1274,529; touches it on the way   [adash]
+      -> loc 9 24
+how in 48,304 [water 2] -> out 0,272 [water 1]: megaman:1
+     [water at level 2] coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> [water at level 2] standing at x 0-198, y 305
+   2. running right, jump (held 2 ticks), holding right, from 160,305; lands at 285,305
+      -> [water at level 2] standing at x 250-518, y 305
+   3. running right, jump (held 2 ticks), holding right, from 480,305; lands at 605,305
+      -> [water at level 2] standing at x 570-641, y 305
+   4. shoot the switch at 928,272 from 607,305: [water at level 1]   [megaman:1]
+      -> [water at level 1] standing at x 570-774, y 305
+   5. jump (held 2 ticks), holding left, from 570,305; lands at 497,305
+      -> [water at level 1] standing at x 250-518, y 305
+   6. jump (held 2 ticks), holding left, from 250,305; lands at 177,305
+      -> [water at level 1] standing at x 0-198, y 305
+   7. standing at 0,305, goes into it
+      -> out 0,272 [water 1]
+how in 48,304 [water 2] -> out 0,272 [water 1]: samus:1
+     [water at level 2] coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> [water at level 2] standing at x 0-198, y 305
+   2. running right, jump (held 2 ticks), holding right, from 160,305; lands at 285,305
+      -> [water at level 2] standing at x 250-518, y 305
+   3. running right, jump (held 2 ticks), holding right, from 480,305; lands at 605,305
+      -> [water at level 2] standing at x 570-641, y 305
+   4. shoot the switch at 928,272 from 607,305: [water at level 1]   [samus:1]
+      -> [water at level 1] standing at x 570-774, y 305
+   5. jump (held 2 ticks), holding left, from 570,305; lands at 497,305
+      -> [water at level 1] standing at x 250-518, y 305
+   6. jump (held 2 ticks), holding left, from 250,305; lands at 177,305
+      -> [water at level 1] standing at x 0-198, y 305
+   7. standing at 0,305, goes into it
+      -> out 0,272 [water 1]
+how in 48,304 [water 2] -> out 0,272 [water 1]: link:1
+     [water at level 2] coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> [water at level 2] standing at x 0-198, y 305
+   2. running right, jump (held 2 ticks), holding right, from 160,305; lands at 285,305
+      -> [water at level 2] standing at x 250-518, y 305
+   3. running right, jump (held 2 ticks), holding right, from 480,305; lands at 605,305
+      -> [water at level 2] standing at x 570-641, y 305
+   4. running right, jump (held 2 ticks), holding right, from 624,305; lands at 726,305
+      -> [water at level 2] standing at x 703-774, y 305
+   5. running right, jump (held 2 ticks), holding right, from 736,305; lands at 861,305
+      -> [water at level 2] standing at x 826-1025, y 305
+   6. hit the switch at 928,272 from 868,305 (jumping if need be): [water at level 1]   [link:1]
+      -> [water at level 1] standing at x 826-1158, y 305
+   7. jump (held 2 ticks), holding left, from 826,305; lands at 753,305
+      -> [water at level 1] standing at x 570-774, y 305
+   8. jump (held 2 ticks), holding left, from 570,305; lands at 497,305
+      -> [water at level 1] standing at x 250-518, y 305
+   9. jump (held 2 ticks), holding left, from 250,305; lands at 177,305
+      -> [water at level 1] standing at x 0-198, y 305
+  10. standing at 0,305, goes into it
+      -> out 0,272 [water 1]
+how in 48,304 [water 2] -> out 0,272 [water 1]: belmont:1
+     [water at level 2] coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> [water at level 2] standing at x 0-198, y 305
+   2. running right, jump (held 2 ticks), holding right, from 160,305; lands at 285,305
+      -> [water at level 2] standing at x 250-518, y 305
+   3. running right, jump (held 2 ticks), holding right, from 480,305; lands at 605,305
+      -> [water at level 2] standing at x 570-641, y 305
+   4. running right, jump (held 2 ticks), holding right, from 624,305; lands at 726,305
+      -> [water at level 2] standing at x 703-774, y 305
+   5. running right, jump (held 2 ticks), holding right, from 736,305; lands at 861,305
+      -> [water at level 2] standing at x 826-1025, y 305
+   6. hit the switch at 928,272 from 868,305 (jumping if need be): [water at level 1]   [belmont:1]
+      -> [water at level 1] standing at x 826-1158, y 305
+   7. jump (held 2 ticks), holding left, from 826,305; lands at 753,305
+      -> [water at level 1] standing at x 570-774, y 305
+   8. jump (held 2 ticks), holding left, from 570,305; lands at 497,305
+      -> [water at level 1] standing at x 250-518, y 305
+   9. jump (held 2 ticks), holding left, from 250,305; lands at 177,305
+      -> [water at level 1] standing at x 0-198, y 305
+  10. standing at 0,305, goes into it
+      -> out 0,272 [water 1]
+how in 48,304 [water 2] -> out 0,272 [water 2]: -
+     [water at level 2] coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> [water at level 2] standing at x 0-198, y 305
+   2. standing at 0,305, goes into it
+      -> out 0,272 [water 2]
+how in 48,304 [water 2] -> out 0,624 [water 1]: megaman:1
+     [water at level 2] coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> [water at level 2] standing at x 0-198, y 305
+   2. running right, jump (held 2 ticks), holding right, from 160,305; lands at 285,305
+      -> [water at level 2] standing at x 250-518, y 305
+   3. running right, jump (held 2 ticks), holding right, from 480,305; lands at 605,305
+      -> [water at level 2] standing at x 570-641, y 305
+   4. shoot the switch at 928,272 from 607,305: [water at level 1]   [megaman:1]
+      -> [water at level 1] standing at x 570-774, y 305
+   5. jump (held 2 ticks), holding left, from 570,305; lands at 497,305
+      -> [water at level 1] standing at x 250-518, y 305
+   6. walk off the edge, holding left once in the air, from 250,305; lands at 163,481
+      -> [water at level 1] standing at x 122-249, y 481
+   7. walk off the edge, holding left, then nothing after 1 ticks in the air, from 122,481; lands at 111,657
+      -> [water at level 1] standing at x 0-121, y 657
+   8. standing at 0,657, goes into it
+      -> out 0,624 [water 1]
+how in 48,304 [water 2] -> out 0,624 [water 1]: samus:1
+     [water at level 2] coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> [water at level 2] standing at x 0-198, y 305
+   2. running right, jump (held 2 ticks), holding right, from 160,305; lands at 285,305
+      -> [water at level 2] standing at x 250-518, y 305
+   3. running right, jump (held 2 ticks), holding right, from 480,305; lands at 605,305
+      -> [water at level 2] standing at x 570-641, y 305
+   4. shoot the switch at 928,272 from 607,305: [water at level 1]   [samus:1]
+      -> [water at level 1] standing at x 570-774, y 305
+   5. jump (held 2 ticks), holding left, from 570,305; lands at 497,305
+      -> [water at level 1] standing at x 250-518, y 305
+   6. walk off the edge, holding left once in the air, from 250,305; lands at 163,481
+      -> [water at level 1] standing at x 122-249, y 481
+   7. walk off the edge, holding left, then nothing after 1 ticks in the air, from 122,481; lands at 111,657
+      -> [water at level 1] standing at x 0-121, y 657
+   8. standing at 0,657, goes into it
+      -> out 0,624 [water 1]
+how in 48,304 [water 2] -> out 0,624 [water 1]: link:1
+     [water at level 2] coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> [water at level 2] standing at x 0-198, y 305
+   2. running right, jump (held 2 ticks), holding right, from 160,305; lands at 285,305
+      -> [water at level 2] standing at x 250-518, y 305
+   3. running right, jump (held 2 ticks), holding right, from 480,305; lands at 605,305
+      -> [water at level 2] standing at x 570-641, y 305
+   4. running right, jump (held 2 ticks), holding right, from 624,305; lands at 726,305
+      -> [water at level 2] standing at x 703-774, y 305
+   5. running right, jump (held 2 ticks), holding right, from 736,305; lands at 861,305
+      -> [water at level 2] standing at x 826-1025, y 305
+   6. hit the switch at 928,272 from 868,305 (jumping if need be): [water at level 1]   [link:1]
+      -> [water at level 1] standing at x 826-1158, y 305
+   7. jump (held 2 ticks), holding left, from 826,305; lands at 753,305
+      -> [water at level 1] standing at x 570-774, y 305
+   8. jump (held 2 ticks), holding left, from 570,305; lands at 497,305
+      -> [water at level 1] standing at x 250-518, y 305
+   9. walk off the edge, holding left once in the air, from 250,305; lands at 163,481
+      -> [water at level 1] standing at x 122-249, y 481
+  10. walk off the edge, holding left, then nothing after 1 ticks in the air, from 122,481; lands at 111,657
+      -> [water at level 1] standing at x 0-121, y 657
+  11. standing at 0,657, goes into it
+      -> out 0,624 [water 1]
+how in 48,304 [water 2] -> out 0,624 [water 1]: belmont:1
+     [water at level 2] coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> [water at level 2] standing at x 0-198, y 305
+   2. running right, jump (held 2 ticks), holding right, from 160,305; lands at 285,305
+      -> [water at level 2] standing at x 250-518, y 305
+   3. running right, jump (held 2 ticks), holding right, from 480,305; lands at 605,305
+      -> [water at level 2] standing at x 570-641, y 305
+   4. running right, jump (held 2 ticks), holding right, from 624,305; lands at 726,305
+      -> [water at level 2] standing at x 703-774, y 305
+   5. running right, jump (held 2 ticks), holding right, from 736,305; lands at 861,305
+      -> [water at level 2] standing at x 826-1025, y 305
+   6. hit the switch at 928,272 from 868,305 (jumping if need be): [water at level 1]   [belmont:1]
+      -> [water at level 1] standing at x 826-1158, y 305
+   7. jump (held 2 ticks), holding left, from 826,305; lands at 753,305
+      -> [water at level 1] standing at x 570-774, y 305
+   8. jump (held 2 ticks), holding left, from 570,305; lands at 497,305
+      -> [water at level 1] standing at x 250-518, y 305
+   9. walk off the edge, holding left once in the air, from 250,305; lands at 163,481
+      -> [water at level 1] standing at x 122-249, y 481
+  10. walk off the edge, holding left, then nothing after 1 ticks in the air, from 122,481; lands at 111,657
+      -> [water at level 1] standing at x 0-121, y 657
+  11. standing at 0,657, goes into it
+      -> out 0,624 [water 1]
+how in 48,304 [water 2] -> out 0,624 [water 2]: -
+     [water at level 2] coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> [water at level 2] standing at x 0-198, y 305
+   2. walk off the edge, holding right once in the air, from 32,305; lands at 249,481
+      -> [water at level 2] standing at x 122-249, y 481
+   3. walk off the edge, holding left, then nothing after 1 ticks in the air, from 122,481; lands at 111,657
+      -> [water at level 2] standing at x 0-121, y 657
+   4. standing at 0,657, goes into it
+      -> out 0,624 [water 2]
+how in 48,304 [water 2] -> out 1456,496 [water 1]: adash,megaman:1
+     [water at level 2] coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> [water at level 2] standing at x 0-198, y 305
+   2. running right, jump (held 2 ticks), holding right, from 160,305; lands at 285,305
+      -> [water at level 2] standing at x 250-518, y 305
+   3. running right, jump (held 2 ticks), holding right, from 480,305; lands at 605,305
+      -> [water at level 2] standing at x 570-641, y 305
+   4. shoot the switch at 928,272 from 607,305: [water at level 1]   [megaman:1]
+      -> [water at level 1] standing at x 570-774, y 305
+   5. running right, jump (held 6 ticks), holding right, from 736,305; lands at 848,305
+      -> [water at level 1] standing at x 826-1158, y 305
+   6. walk off the edge, holding right once in the air, air dash (Jerry) at tick 6 or once there's room ahead, from 1040,305; lands at 1380,529   [adash]
+      -> [water at level 1] standing at x 1274-1472, y 529
+   7. standing at 1454,529, goes into it
+      -> out 1456,496 [water 1]
+how in 48,304 [water 2] -> out 1456,496 [water 1]: adash,samus:1
+     [water at level 2] coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> [water at level 2] standing at x 0-198, y 305
+   2. running right, jump (held 2 ticks), holding right, from 160,305; lands at 285,305
+      -> [water at level 2] standing at x 250-518, y 305
+   3. running right, jump (held 2 ticks), holding right, from 480,305; lands at 605,305
+      -> [water at level 2] standing at x 570-641, y 305
+   4. shoot the switch at 928,272 from 607,305: [water at level 1]   [samus:1]
+      -> [water at level 1] standing at x 570-774, y 305
+   5. running right, jump (held 6 ticks), holding right, from 736,305; lands at 848,305
+      -> [water at level 1] standing at x 826-1158, y 305
+   6. walk off the edge, holding right once in the air, air dash (Jerry) at tick 6 or once there's room ahead, from 1040,305; lands at 1380,529   [adash]
+      -> [water at level 1] standing at x 1274-1472, y 529
+   7. standing at 1454,529, goes into it
+      -> out 1456,496 [water 1]
+how in 48,304 [water 2] -> out 1456,496 [water 1]: adash,link:1
+     [water at level 2] coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> [water at level 2] standing at x 0-198, y 305
+   2. running right, jump (held 2 ticks), holding right, from 160,305; lands at 285,305
+      -> [water at level 2] standing at x 250-518, y 305
+   3. running right, jump (held 2 ticks), holding right, from 480,305; lands at 605,305
+      -> [water at level 2] standing at x 570-641, y 305
+   4. running right, jump (held 2 ticks), holding right, from 624,305; lands at 726,305
+      -> [water at level 2] standing at x 703-774, y 305
+   5. running right, jump (held 2 ticks), holding right, from 736,305; lands at 861,305
+      -> [water at level 2] standing at x 826-1025, y 305
+   6. hit the switch at 928,272 from 868,305 (jumping if need be): [water at level 1]   [link:1]
+      -> [water at level 1] standing at x 826-1158, y 305
+   7. walk off the edge, holding right once in the air, air dash (Jerry) at tick 6 or once there's room ahead, from 1040,305; lands at 1380,529   [adash]
+      -> [water at level 1] standing at x 1274-1472, y 529
+   8. standing at 1454,529, goes into it
+      -> out 1456,496 [water 1]
+how in 48,304 [water 2] -> out 1456,496 [water 1]: adash,belmont:1
+     [water at level 2] coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> [water at level 2] standing at x 0-198, y 305
+   2. running right, jump (held 2 ticks), holding right, from 160,305; lands at 285,305
+      -> [water at level 2] standing at x 250-518, y 305
+   3. running right, jump (held 2 ticks), holding right, from 480,305; lands at 605,305
+      -> [water at level 2] standing at x 570-641, y 305
+   4. running right, jump (held 2 ticks), holding right, from 624,305; lands at 726,305
+      -> [water at level 2] standing at x 703-774, y 305
+   5. running right, jump (held 2 ticks), holding right, from 736,305; lands at 861,305
+      -> [water at level 2] standing at x 826-1025, y 305
+   6. hit the switch at 928,272 from 868,305 (jumping if need be): [water at level 1]   [belmont:1]
+      -> [water at level 1] standing at x 826-1158, y 305
+   7. walk off the edge, holding right once in the air, air dash (Jerry) at tick 6 or once there's room ahead, from 1040,305; lands at 1380,529   [adash]
+      -> [water at level 1] standing at x 1274-1472, y 529
+   8. standing at 1454,529, goes into it
+      -> out 1456,496 [water 1]
+how in 48,304 [water 2] -> out 1456,496 [water 2]: adash
+     [water at level 2] coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> [water at level 2] standing at x 0-198, y 305
+   2. running right, jump (held 2 ticks), holding right, from 160,305; lands at 285,305
+      -> [water at level 2] standing at x 250-518, y 305
+   3. running right, jump (held 2 ticks), holding right, from 480,305; lands at 605,305
+      -> [water at level 2] standing at x 570-641, y 305
+   4. running right, jump (held 2 ticks), holding right, from 624,305; lands at 726,305
+      -> [water at level 2] standing at x 703-774, y 305
+   5. running right, jump (held 2 ticks), holding right, from 736,305; lands at 861,305
+      -> [water at level 2] standing at x 826-1025, y 305
+   6. running right, jump (held 2 ticks), holding right, from 1008,305; lands at 1110,305
+      -> [water at level 2] standing at x 1087-1158, y 305
+   7. walk off the edge, holding right once in the air, air dash (Jerry) at tick 6 or once there's room ahead, from 1087,305; lands at 1373,529   [adash]
+      -> [water at level 2] standing at x 1274-1472, y 529
+   8. standing at 1454,529, goes into it
+      -> out 1456,496 [water 2]
+how in 48,304 [water 2] -> loc 9 24: -
+     [water at level 2] coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> [water at level 2] standing at x 0-198, y 305
+   2. running right, jump (held 2 ticks), holding right, from 160,305; lands at 285,305
+      -> [water at level 2] standing at x 250-518, y 305
+   3. running right, jump (held 2 ticks), holding right, from 480,305; lands at 605,305
+      -> [water at level 2] standing at x 570-641, y 305
+   4. running right, jump (held 2 ticks), holding right, from 624,305; lands at 726,305
+      -> [water at level 2] standing at x 703-774, y 305
+   5. running right, jump (held 2 ticks), holding right, from 736,305; lands at 861,305
+      -> [water at level 2] standing at x 826-1025, y 305
+   6. running right, jump (held 2 ticks), holding right, from 1008,305; lands at 1110,305
+      -> [water at level 2] standing at x 1087-1158, y 305
+   7. running right, jump (held 21 ticks), holding right, then nothing after 2 ticks, from 1136,305; touches it on the way
+      -> loc 9 24
+how in 48,304 [water 3] -> out 0,272 [water 1]: megaman:1
+     [water at level 3] coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> [water at level 3] standing at x 0-198, y 305
+   2. running right, jump (held 2 ticks), holding right, from 160,305; lands at 285,305
+      -> [water at level 3] standing at x 250-518, y 305
+   3. running right, jump (held 2 ticks), holding right, from 480,305; lands at 605,305
+      -> [water at level 3] standing at x 570-641, y 305
+   4. shoot the switch at 928,272 from 607,305: [water at level 1]   [megaman:1]
+      -> [water at level 1] standing at x 570-774, y 305
+   5. jump (held 2 ticks), holding left, from 570,305; lands at 497,305
+      -> [water at level 1] standing at x 250-518, y 305
+   6. jump (held 2 ticks), holding left, from 250,305; lands at 177,305
+      -> [water at level 1] standing at x 0-198, y 305
+   7. standing at 0,305, goes into it
+      -> out 0,272 [water 1]
+how in 48,304 [water 3] -> out 0,272 [water 1]: samus:1
+     [water at level 3] coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> [water at level 3] standing at x 0-198, y 305
+   2. running right, jump (held 2 ticks), holding right, from 160,305; lands at 285,305
+      -> [water at level 3] standing at x 250-518, y 305
+   3. running right, jump (held 2 ticks), holding right, from 480,305; lands at 605,305
+      -> [water at level 3] standing at x 570-641, y 305
+   4. shoot the switch at 928,272 from 607,305: [water at level 1]   [samus:1]
+      -> [water at level 1] standing at x 570-774, y 305
+   5. jump (held 2 ticks), holding left, from 570,305; lands at 497,305
+      -> [water at level 1] standing at x 250-518, y 305
+   6. jump (held 2 ticks), holding left, from 250,305; lands at 177,305
+      -> [water at level 1] standing at x 0-198, y 305
+   7. standing at 0,305, goes into it
+      -> out 0,272 [water 1]
+how in 48,304 [water 3] -> out 0,272 [water 1]: link:1
+     [water at level 3] coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> [water at level 3] standing at x 0-198, y 305
+   2. running right, jump (held 2 ticks), holding right, from 160,305; lands at 285,305
+      -> [water at level 3] standing at x 250-518, y 305
+   3. running right, jump (held 2 ticks), holding right, from 480,305; lands at 605,305
+      -> [water at level 3] standing at x 570-641, y 305
+   4. running right, jump (held 2 ticks), holding right, from 624,305; lands at 726,305
+      -> [water at level 3] standing at x 703-774, y 305
+   5. running right, jump (held 2 ticks), holding right, from 736,305; lands at 861,305
+      -> [water at level 3] standing at x 826-1025, y 305
+   6. hit the switch at 928,272 from 868,305 (jumping if need be): [water at level 1]   [link:1]
+      -> [water at level 1] standing at x 826-1158, y 305
+   7. jump (held 2 ticks), holding left, from 826,305; lands at 753,305
+      -> [water at level 1] standing at x 570-774, y 305
+   8. jump (held 2 ticks), holding left, from 570,305; lands at 497,305
+      -> [water at level 1] standing at x 250-518, y 305
+   9. jump (held 2 ticks), holding left, from 250,305; lands at 177,305
+      -> [water at level 1] standing at x 0-198, y 305
+  10. standing at 0,305, goes into it
+      -> out 0,272 [water 1]
+how in 48,304 [water 3] -> out 0,272 [water 1]: belmont:1
+     [water at level 3] coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> [water at level 3] standing at x 0-198, y 305
+   2. running right, jump (held 2 ticks), holding right, from 160,305; lands at 285,305
+      -> [water at level 3] standing at x 250-518, y 305
+   3. running right, jump (held 2 ticks), holding right, from 480,305; lands at 605,305
+      -> [water at level 3] standing at x 570-641, y 305
+   4. running right, jump (held 2 ticks), holding right, from 624,305; lands at 726,305
+      -> [water at level 3] standing at x 703-774, y 305
+   5. running right, jump (held 2 ticks), holding right, from 736,305; lands at 861,305
+      -> [water at level 3] standing at x 826-1025, y 305
+   6. hit the switch at 928,272 from 868,305 (jumping if need be): [water at level 1]   [belmont:1]
+      -> [water at level 1] standing at x 826-1158, y 305
+   7. jump (held 2 ticks), holding left, from 826,305; lands at 753,305
+      -> [water at level 1] standing at x 570-774, y 305
+   8. jump (held 2 ticks), holding left, from 570,305; lands at 497,305
+      -> [water at level 1] standing at x 250-518, y 305
+   9. jump (held 2 ticks), holding left, from 250,305; lands at 177,305
+      -> [water at level 1] standing at x 0-198, y 305
+  10. standing at 0,305, goes into it
+      -> out 0,272 [water 1]
+how in 48,304 [water 3] -> out 0,272 [water 2]: megaman:1
+     [water at level 3] coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> [water at level 3] standing at x 0-198, y 305
+   2. shoot the switch at 416,272 from 95,305: [water at level 2]   [megaman:1]
+      -> [water at level 2] standing at x 0-198, y 305
+   3. standing at 0,305, goes into it
+      -> out 0,272 [water 2]
+how in 48,304 [water 3] -> out 0,272 [water 2]: samus:1
+     [water at level 3] coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> [water at level 3] standing at x 0-198, y 305
+   2. shoot the switch at 416,272 from 95,305: [water at level 2]   [samus:1]
+      -> [water at level 2] standing at x 0-198, y 305
+   3. standing at 0,305, goes into it
+      -> out 0,272 [water 2]
+how in 48,304 [water 3] -> out 0,272 [water 2]: link:1
+     [water at level 3] coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> [water at level 3] standing at x 0-198, y 305
+   2. running right, jump (held 2 ticks), holding right, from 160,305; lands at 285,305
+      -> [water at level 3] standing at x 250-518, y 305
+   3. hit the switch at 416,272 from 356,305 (jumping if need be): [water at level 2]   [link:1]
+      -> [water at level 2] standing at x 250-518, y 305
+   4. jump (held 2 ticks), holding left, from 250,305; lands at 154,305
+      -> [water at level 2] standing at x 0-198, y 305
+   5. standing at 0,305, goes into it
+      -> out 0,272 [water 2]
+how in 48,304 [water 3] -> out 0,272 [water 2]: belmont:1
+     [water at level 3] coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> [water at level 3] standing at x 0-198, y 305
+   2. running right, jump (held 2 ticks), holding right, from 160,305; lands at 285,305
+      -> [water at level 3] standing at x 250-518, y 305
+   3. hit the switch at 416,272 from 356,305 (jumping if need be): [water at level 2]   [belmont:1]
+      -> [water at level 2] standing at x 250-518, y 305
+   4. jump (held 2 ticks), holding left, from 250,305; lands at 154,305
+      -> [water at level 2] standing at x 0-198, y 305
+   5. standing at 0,305, goes into it
+      -> out 0,272 [water 2]
+how in 48,304 [water 3] -> out 0,272 [water 3]: -
+     [water at level 3] coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> [water at level 3] standing at x 0-198, y 305
+   2. standing at 0,305, goes into it
+      -> out 0,272 [water 3]
+how in 48,304 [water 3] -> out 0,624 [water 1]: megaman:1
+     [water at level 3] coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> [water at level 3] standing at x 0-198, y 305
+   2. running right, jump (held 2 ticks), holding right, from 160,305; lands at 285,305
+      -> [water at level 3] standing at x 250-518, y 305
+   3. running right, jump (held 2 ticks), holding right, from 480,305; lands at 605,305
+      -> [water at level 3] standing at x 570-641, y 305
+   4. shoot the switch at 928,272 from 607,305: [water at level 1]   [megaman:1]
+      -> [water at level 1] standing at x 570-774, y 305
+   5. jump (held 2 ticks), holding left, from 570,305; lands at 497,305
+      -> [water at level 1] standing at x 250-518, y 305
+   6. walk off the edge, holding left once in the air, from 250,305; lands at 163,481
+      -> [water at level 1] standing at x 122-249, y 481
+   7. walk off the edge, holding left, then nothing after 1 ticks in the air, from 122,481; lands at 111,657
+      -> [water at level 1] standing at x 0-121, y 657
+   8. standing at 0,657, goes into it
+      -> out 0,624 [water 1]
+how in 48,304 [water 3] -> out 0,624 [water 1]: samus:1
+     [water at level 3] coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> [water at level 3] standing at x 0-198, y 305
+   2. running right, jump (held 2 ticks), holding right, from 160,305; lands at 285,305
+      -> [water at level 3] standing at x 250-518, y 305
+   3. running right, jump (held 2 ticks), holding right, from 480,305; lands at 605,305
+      -> [water at level 3] standing at x 570-641, y 305
+   4. shoot the switch at 928,272 from 607,305: [water at level 1]   [samus:1]
+      -> [water at level 1] standing at x 570-774, y 305
+   5. jump (held 2 ticks), holding left, from 570,305; lands at 497,305
+      -> [water at level 1] standing at x 250-518, y 305
+   6. walk off the edge, holding left once in the air, from 250,305; lands at 163,481
+      -> [water at level 1] standing at x 122-249, y 481
+   7. walk off the edge, holding left, then nothing after 1 ticks in the air, from 122,481; lands at 111,657
+      -> [water at level 1] standing at x 0-121, y 657
+   8. standing at 0,657, goes into it
+      -> out 0,624 [water 1]
+how in 48,304 [water 3] -> out 0,624 [water 1]: link:1
+     [water at level 3] coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> [water at level 3] standing at x 0-198, y 305
+   2. running right, jump (held 2 ticks), holding right, from 160,305; lands at 285,305
+      -> [water at level 3] standing at x 250-518, y 305
+   3. running right, jump (held 2 ticks), holding right, from 480,305; lands at 605,305
+      -> [water at level 3] standing at x 570-641, y 305
+   4. running right, jump (held 2 ticks), holding right, from 624,305; lands at 726,305
+      -> [water at level 3] standing at x 703-774, y 305
+   5. running right, jump (held 2 ticks), holding right, from 736,305; lands at 861,305
+      -> [water at level 3] standing at x 826-1025, y 305
+   6. hit the switch at 928,272 from 868,305 (jumping if need be): [water at level 1]   [link:1]
+      -> [water at level 1] standing at x 826-1158, y 305
+   7. jump (held 2 ticks), holding left, from 826,305; lands at 753,305
+      -> [water at level 1] standing at x 570-774, y 305
+   8. jump (held 2 ticks), holding left, from 570,305; lands at 497,305
+      -> [water at level 1] standing at x 250-518, y 305
+   9. walk off the edge, holding left once in the air, from 250,305; lands at 163,481
+      -> [water at level 1] standing at x 122-249, y 481
+  10. walk off the edge, holding left, then nothing after 1 ticks in the air, from 122,481; lands at 111,657
+      -> [water at level 1] standing at x 0-121, y 657
+  11. standing at 0,657, goes into it
+      -> out 0,624 [water 1]
+how in 48,304 [water 3] -> out 0,624 [water 1]: belmont:1
+     [water at level 3] coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> [water at level 3] standing at x 0-198, y 305
+   2. running right, jump (held 2 ticks), holding right, from 160,305; lands at 285,305
+      -> [water at level 3] standing at x 250-518, y 305
+   3. running right, jump (held 2 ticks), holding right, from 480,305; lands at 605,305
+      -> [water at level 3] standing at x 570-641, y 305
+   4. running right, jump (held 2 ticks), holding right, from 624,305; lands at 726,305
+      -> [water at level 3] standing at x 703-774, y 305
+   5. running right, jump (held 2 ticks), holding right, from 736,305; lands at 861,305
+      -> [water at level 3] standing at x 826-1025, y 305
+   6. hit the switch at 928,272 from 868,305 (jumping if need be): [water at level 1]   [belmont:1]
+      -> [water at level 1] standing at x 826-1158, y 305
+   7. jump (held 2 ticks), holding left, from 826,305; lands at 753,305
+      -> [water at level 1] standing at x 570-774, y 305
+   8. jump (held 2 ticks), holding left, from 570,305; lands at 497,305
+      -> [water at level 1] standing at x 250-518, y 305
+   9. walk off the edge, holding left once in the air, from 250,305; lands at 163,481
+      -> [water at level 1] standing at x 122-249, y 481
+  10. walk off the edge, holding left, then nothing after 1 ticks in the air, from 122,481; lands at 111,657
+      -> [water at level 1] standing at x 0-121, y 657
+  11. standing at 0,657, goes into it
+      -> out 0,624 [water 1]
+how in 48,304 [water 3] -> out 0,624 [water 2]: megaman:1
+     [water at level 3] coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> [water at level 3] standing at x 0-198, y 305
+   2. walk off the edge, holding right once in the air, from 32,305; lands at 249,481
+      -> [water at level 3] standing at x 122-249, y 481
+   3. walk off the edge, holding left once in the air, from 122,481; lands at 30,657
+      -> [water at level 3] standing at x 0-121, y 657
+   4. shoot the switch at 160,592 from 0,657 (at the top of a jump): [water at level 2]   [megaman:1]
+      -> [water at level 2] standing at x 0-121, y 657
+   5. standing at 0,657, goes into it
+      -> out 0,624 [water 2]
+how in 48,304 [water 3] -> out 0,624 [water 2]: samus:1
+     [water at level 3] coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> [water at level 3] standing at x 0-198, y 305
+   2. walk off the edge, holding right once in the air, from 32,305; lands at 249,481
+      -> [water at level 3] standing at x 122-249, y 481
+   3. walk off the edge, holding left once in the air, from 122,481; lands at 30,657
+      -> [water at level 3] standing at x 0-121, y 657
+   4. shoot the switch at 160,592 from 0,657 (at the top of a jump): [water at level 2]   [samus:1]
+      -> [water at level 2] standing at x 0-121, y 657
+   5. standing at 0,657, goes into it
+      -> out 0,624 [water 2]
+how in 48,304 [water 3] -> out 0,624 [water 2]: link:1
+     [water at level 3] coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> [water at level 3] standing at x 0-198, y 305
+   2. walk off the edge, holding right once in the air, from 32,305; lands at 249,481
+      -> [water at level 3] standing at x 122-249, y 481
+   3. walk off the edge, holding left once in the air, from 122,481; lands at 30,657
+      -> [water at level 3] standing at x 0-121, y 657
+   4. hit the switch at 160,592 from 100,657 (jumping if need be): [water at level 2]   [link:1]
+      -> [water at level 2] standing at x 0-121, y 657
+   5. standing at 0,657, goes into it
+      -> out 0,624 [water 2]
+how in 48,304 [water 3] -> out 0,624 [water 2]: belmont:1
+     [water at level 3] coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> [water at level 3] standing at x 0-198, y 305
+   2. walk off the edge, holding right once in the air, from 32,305; lands at 249,481
+      -> [water at level 3] standing at x 122-249, y 481
+   3. walk off the edge, holding left once in the air, from 122,481; lands at 30,657
+      -> [water at level 3] standing at x 0-121, y 657
+   4. hit the switch at 160,592 from 100,657 (jumping if need be): [water at level 2]   [belmont:1]
+      -> [water at level 2] standing at x 0-121, y 657
+   5. standing at 0,657, goes into it
+      -> out 0,624 [water 2]
+how in 48,304 [water 3] -> out 0,624 [water 3]: -
+     [water at level 3] coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> [water at level 3] standing at x 0-198, y 305
+   2. walk off the edge, holding right once in the air, from 32,305; lands at 249,481
+      -> [water at level 3] standing at x 122-249, y 481
+   3. walk off the edge, holding left once in the air, from 122,481; lands at 30,657
+      -> [water at level 3] standing at x 0-121, y 657
+   4. standing at 0,657, goes into it
+      -> out 0,624 [water 3]
+how in 48,304 [water 3] -> out 1456,496 [water 1]: adash,megaman:1
+     [water at level 3] coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> [water at level 3] standing at x 0-198, y 305
+   2. running right, jump (held 2 ticks), holding right, from 160,305; lands at 285,305
+      -> [water at level 3] standing at x 250-518, y 305
+   3. running right, jump (held 2 ticks), holding right, from 480,305; lands at 605,305
+      -> [water at level 3] standing at x 570-641, y 305
+   4. shoot the switch at 928,272 from 607,305: [water at level 1]   [megaman:1]
+      -> [water at level 1] standing at x 570-774, y 305
+   5. running right, jump (held 6 ticks), holding right, from 736,305; lands at 848,305
+      -> [water at level 1] standing at x 826-1158, y 305
+   6. walk off the edge, holding right once in the air, air dash (Jerry) at tick 6 or once there's room ahead, from 1040,305; lands at 1380,529   [adash]
+      -> [water at level 1] standing at x 1274-1472, y 529
+   7. standing at 1454,529, goes into it
+      -> out 1456,496 [water 1]
+how in 48,304 [water 3] -> out 1456,496 [water 1]: adash,samus:1
+     [water at level 3] coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> [water at level 3] standing at x 0-198, y 305
+   2. running right, jump (held 2 ticks), holding right, from 160,305; lands at 285,305
+      -> [water at level 3] standing at x 250-518, y 305
+   3. running right, jump (held 2 ticks), holding right, from 480,305; lands at 605,305
+      -> [water at level 3] standing at x 570-641, y 305
+   4. shoot the switch at 928,272 from 607,305: [water at level 1]   [samus:1]
+      -> [water at level 1] standing at x 570-774, y 305
+   5. running right, jump (held 6 ticks), holding right, from 736,305; lands at 848,305
+      -> [water at level 1] standing at x 826-1158, y 305
+   6. walk off the edge, holding right once in the air, air dash (Jerry) at tick 6 or once there's room ahead, from 1040,305; lands at 1380,529   [adash]
+      -> [water at level 1] standing at x 1274-1472, y 529
+   7. standing at 1454,529, goes into it
+      -> out 1456,496 [water 1]
+how in 48,304 [water 3] -> out 1456,496 [water 1]: adash,link:1
+     [water at level 3] coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> [water at level 3] standing at x 0-198, y 305
+   2. running right, jump (held 2 ticks), holding right, from 160,305; lands at 285,305
+      -> [water at level 3] standing at x 250-518, y 305
+   3. running right, jump (held 2 ticks), holding right, from 480,305; lands at 605,305
+      -> [water at level 3] standing at x 570-641, y 305
+   4. running right, jump (held 2 ticks), holding right, from 624,305; lands at 726,305
+      -> [water at level 3] standing at x 703-774, y 305
+   5. running right, jump (held 2 ticks), holding right, from 736,305; lands at 861,305
+      -> [water at level 3] standing at x 826-1025, y 305
+   6. hit the switch at 928,272 from 868,305 (jumping if need be): [water at level 1]   [link:1]
+      -> [water at level 1] standing at x 826-1158, y 305
+   7. walk off the edge, holding right once in the air, air dash (Jerry) at tick 6 or once there's room ahead, from 1040,305; lands at 1380,529   [adash]
+      -> [water at level 1] standing at x 1274-1472, y 529
+   8. standing at 1454,529, goes into it
+      -> out 1456,496 [water 1]
+how in 48,304 [water 3] -> out 1456,496 [water 1]: adash,belmont:1
+     [water at level 3] coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> [water at level 3] standing at x 0-198, y 305
+   2. running right, jump (held 2 ticks), holding right, from 160,305; lands at 285,305
+      -> [water at level 3] standing at x 250-518, y 305
+   3. running right, jump (held 2 ticks), holding right, from 480,305; lands at 605,305
+      -> [water at level 3] standing at x 570-641, y 305
+   4. running right, jump (held 2 ticks), holding right, from 624,305; lands at 726,305
+      -> [water at level 3] standing at x 703-774, y 305
+   5. running right, jump (held 2 ticks), holding right, from 736,305; lands at 861,305
+      -> [water at level 3] standing at x 826-1025, y 305
+   6. hit the switch at 928,272 from 868,305 (jumping if need be): [water at level 1]   [belmont:1]
+      -> [water at level 1] standing at x 826-1158, y 305
+   7. walk off the edge, holding right once in the air, air dash (Jerry) at tick 6 or once there's room ahead, from 1040,305; lands at 1380,529   [adash]
+      -> [water at level 1] standing at x 1274-1472, y 529
+   8. standing at 1454,529, goes into it
+      -> out 1456,496 [water 1]
+how in 48,304 [water 3] -> out 1456,496 [water 2]: adash,megaman:1
+     [water at level 3] coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> [water at level 3] standing at x 0-198, y 305
+   2. running right, jump (held 2 ticks), holding right, from 160,305; lands at 285,305
+      -> [water at level 3] standing at x 250-518, y 305
+   3. running right, jump (held 2 ticks), holding right, from 480,305; lands at 605,305
+      -> [water at level 3] standing at x 570-641, y 305
+   4. running right, jump (held 2 ticks), holding right, from 608,305; lands at 667,289
+      -> [water at level 3] standing at x 642-702, y 289
+   5. shoot (or throw at) the switch at 416,272 from 702,289, and while the shot flies, walk off the edge, holding right once in the air; lands at 746,305 (tick 8): [water at level 2]   [megaman:1]
+      -> [water at level 2] standing at x 703-774, y 305
+   6. running right, jump (held 2 ticks), holding right, from 736,305; lands at 861,305
+      -> [water at level 2] standing at x 826-1025, y 305
+   7. running right, jump (held 2 ticks), holding right, from 1008,305; lands at 1110,305
+      -> [water at level 2] standing at x 1087-1158, y 305
+   8. walk off the edge, holding right once in the air, air dash (Jerry) at tick 6 or once there's room ahead, from 1087,305; lands at 1373,529   [adash]
+      -> [water at level 2] standing at x 1274-1472, y 529
+   9. standing at 1454,529, goes into it
+      -> out 1456,496 [water 2]
+how in 48,304 [water 3] -> out 1456,496 [water 2]: adash,samus:1
+     [water at level 3] coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> [water at level 3] standing at x 0-198, y 305
+   2. running right, jump (held 2 ticks), holding right, from 160,305; lands at 285,305
+      -> [water at level 3] standing at x 250-518, y 305
+   3. running right, jump (held 2 ticks), holding right, from 480,305; lands at 605,305
+      -> [water at level 3] standing at x 570-641, y 305
+   4. running right, jump (held 2 ticks), holding right, from 608,305; lands at 667,289
+      -> [water at level 3] standing at x 642-702, y 289
+   5. shoot (or throw at) the switch at 416,272 from 702,289, and while the shot flies, walk off the edge, holding right once in the air; lands at 746,305 (tick 8): [water at level 2]   [samus:1]
+      -> [water at level 2] standing at x 703-774, y 305
+   6. running right, jump (held 2 ticks), holding right, from 736,305; lands at 861,305
+      -> [water at level 2] standing at x 826-1025, y 305
+   7. running right, jump (held 2 ticks), holding right, from 1008,305; lands at 1110,305
+      -> [water at level 2] standing at x 1087-1158, y 305
+   8. walk off the edge, holding right once in the air, air dash (Jerry) at tick 6 or once there's room ahead, from 1087,305; lands at 1373,529   [adash]
+      -> [water at level 2] standing at x 1274-1472, y 529
+   9. standing at 1454,529, goes into it
+      -> out 1456,496 [water 2]
+how in 48,304 [water 3] -> out 1456,496 [water 2]: adash,link:1
+     [water at level 3] coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> [water at level 3] standing at x 0-198, y 305
+   2. running right, jump (held 2 ticks), holding right, from 160,305; lands at 285,305
+      -> [water at level 3] standing at x 250-518, y 305
+   3. hit the switch at 416,272 from 356,305 (jumping if need be): [water at level 2]   [link:1]
+      -> [water at level 2] standing at x 250-518, y 305
+   4. running right, jump (held 2 ticks), holding right, from 480,305; lands at 605,305
+      -> [water at level 2] standing at x 570-641, y 305
+   5. running right, jump (held 2 ticks), holding right, from 624,305; lands at 726,305
+      -> [water at level 2] standing at x 703-774, y 305
+   6. running right, jump (held 2 ticks), holding right, from 736,305; lands at 861,305
+      -> [water at level 2] standing at x 826-1025, y 305
+   7. running right, jump (held 2 ticks), holding right, from 1008,305; lands at 1110,305
+      -> [water at level 2] standing at x 1087-1158, y 305
+   8. walk off the edge, holding right once in the air, air dash (Jerry) at tick 6 or once there's room ahead, from 1087,305; lands at 1373,529   [adash]
+      -> [water at level 2] standing at x 1274-1472, y 529
+   9. standing at 1454,529, goes into it
+      -> out 1456,496 [water 2]
+how in 48,304 [water 3] -> out 1456,496 [water 2]: adash,belmont:1
+     [water at level 3] coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> [water at level 3] standing at x 0-198, y 305
+   2. running right, jump (held 2 ticks), holding right, from 160,305; lands at 285,305
+      -> [water at level 3] standing at x 250-518, y 305
+   3. hit the switch at 416,272 from 356,305 (jumping if need be): [water at level 2]   [belmont:1]
+      -> [water at level 2] standing at x 250-518, y 305
+   4. running right, jump (held 2 ticks), holding right, from 480,305; lands at 605,305
+      -> [water at level 2] standing at x 570-641, y 305
+   5. running right, jump (held 2 ticks), holding right, from 624,305; lands at 726,305
+      -> [water at level 2] standing at x 703-774, y 305
+   6. running right, jump (held 2 ticks), holding right, from 736,305; lands at 861,305
+      -> [water at level 2] standing at x 826-1025, y 305
+   7. running right, jump (held 2 ticks), holding right, from 1008,305; lands at 1110,305
+      -> [water at level 2] standing at x 1087-1158, y 305
+   8. walk off the edge, holding right once in the air, air dash (Jerry) at tick 6 or once there's room ahead, from 1087,305; lands at 1373,529   [adash]
+      -> [water at level 2] standing at x 1274-1472, y 529
+   9. standing at 1454,529, goes into it
+      -> out 1456,496 [water 2]
+how in 48,304 [water 3] -> out 1456,496 [water 3]: djump
+     [water at level 3] coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> [water at level 3] standing at x 0-198, y 305
+   2. running right, jump (held 2 ticks), holding right, from 160,305; lands at 285,305
+      -> [water at level 3] standing at x 250-518, y 305
+   3. running right, jump (held 2 ticks), holding right, from 480,305; lands at 605,305
+      -> [water at level 3] standing at x 570-641, y 305
+   4. running right, jump (held 2 ticks), holding right, from 624,305; lands at 726,305
+      -> [water at level 3] standing at x 703-774, y 305
+   5. running right, jump (held 2 ticks), holding right, from 736,305; lands at 861,305
+      -> [water at level 3] standing at x 826-1025, y 305
+   6. running right, jump (held 2 ticks), holding right, from 1008,305; lands at 1110,305
+      -> [water at level 3] standing at x 1087-1158, y 305
+   7. walk off the edge, holding right once in the air, double jump at tick 24, from 1087,305; lands at 1356,529   [djump]
+      -> [water at level 3] standing at x 1274-1472, y 529
+   8. standing at 1454,529, goes into it
+      -> out 1456,496 [water 3]
+how in 48,304 [water 3] -> out 1456,496 [water 3]: adash
+     [water at level 3] coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> [water at level 3] standing at x 0-198, y 305
+   2. running right, jump (held 2 ticks), holding right, from 160,305; lands at 285,305
+      -> [water at level 3] standing at x 250-518, y 305
+   3. running right, jump (held 2 ticks), holding right, from 480,305; lands at 605,305
+      -> [water at level 3] standing at x 570-641, y 305
+   4. running right, jump (held 2 ticks), holding right, from 624,305; lands at 726,305
+      -> [water at level 3] standing at x 703-774, y 305
+   5. running right, jump (held 2 ticks), holding right, from 736,305; lands at 861,305
+      -> [water at level 3] standing at x 826-1025, y 305
+   6. running right, jump (held 2 ticks), holding right, from 1008,305; lands at 1110,305
+      -> [water at level 3] standing at x 1087-1158, y 305
+   7. walk off the edge, holding right once in the air, air dash (Jerry) at tick 6 or once there's room ahead, from 1087,305; lands at 1390,529   [adash]
+      -> [water at level 3] standing at x 1274-1472, y 529
+   8. standing at 1454,529, goes into it
+      -> out 1456,496 [water 3]
+how in 48,304 [water 3] -> loc 9 24: -
+     [water at level 3] coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> [water at level 3] standing at x 0-198, y 305
+   2. running right, jump (held 2 ticks), holding right, from 160,305; lands at 285,305
+      -> [water at level 3] standing at x 250-518, y 305
+   3. running right, jump (held 2 ticks), holding right, from 480,305; lands at 605,305
+      -> [water at level 3] standing at x 570-641, y 305
+   4. running right, jump (held 2 ticks), holding right, from 624,305; lands at 726,305
+      -> [water at level 3] standing at x 703-774, y 305
+   5. running right, jump (held 2 ticks), holding right, from 736,305; lands at 861,305
+      -> [water at level 3] standing at x 826-1025, y 305
+   6. running right, jump (held 2 ticks), holding right, from 1008,305; lands at 1110,305
+      -> [water at level 3] standing at x 1087-1158, y 305
+   7. running right, jump (held 21 ticks), holding right, then nothing after 2 ticks, from 1136,305; touches it on the way
+      -> loc 9 24
+how in 48,656 [water 1] -> out 0,624 [water 1]: -
+     [water at level 1] coming in at 48,656
    1. coming in: holding nothing, from 48,656; lands at 48,657
-      -> standing at x 0-121, y 657
+      -> [water at level 1] standing at x 0-121, y 657
    2. standing at 0,657, goes into it
-      -> out 0,624
-how in 1424,528 -> out 1456,496: -
-     coming in at 1424,528
+      -> out 0,624 [water 1]
+how in 48,656 [water 1] -> out 0,624 [water 2]: megaman:1
+     [water at level 1] coming in at 48,656
+   1. coming in: holding nothing, from 48,656; lands at 48,657
+      -> [water at level 1] standing at x 0-121, y 657
+   2. shoot the switch at 160,592 from 0,657 (at the top of a jump): [water at level 2]   [megaman:1]
+      -> [water at level 2] standing at x 0-121, y 657
+   3. standing at 0,657, goes into it
+      -> out 0,624 [water 2]
+how in 48,656 [water 1] -> out 0,624 [water 2]: samus:1
+     [water at level 1] coming in at 48,656
+   1. coming in: holding nothing, from 48,656; lands at 48,657
+      -> [water at level 1] standing at x 0-121, y 657
+   2. shoot the switch at 160,592 from 0,657 (at the top of a jump): [water at level 2]   [samus:1]
+      -> [water at level 2] standing at x 0-121, y 657
+   3. standing at 0,657, goes into it
+      -> out 0,624 [water 2]
+how in 48,656 [water 1] -> out 0,624 [water 2]: link:1
+     [water at level 1] coming in at 48,656
+   1. coming in: holding nothing, from 48,656; lands at 48,657
+      -> [water at level 1] standing at x 0-121, y 657
+   2. hit the switch at 160,592 from 100,657 (jumping if need be): [water at level 2]   [link:1]
+      -> [water at level 2] standing at x 0-121, y 657
+   3. standing at 0,657, goes into it
+      -> out 0,624 [water 2]
+how in 48,656 [water 1] -> out 0,624 [water 2]: belmont:1
+     [water at level 1] coming in at 48,656
+   1. coming in: holding nothing, from 48,656; lands at 48,657
+      -> [water at level 1] standing at x 0-121, y 657
+   2. hit the switch at 160,592 from 100,657 (jumping if need be): [water at level 2]   [belmont:1]
+      -> [water at level 2] standing at x 0-121, y 657
+   3. standing at 0,657, goes into it
+      -> out 0,624 [water 2]
+how in 48,656 [water 2] -> out 0,624 [water 2]: -
+     [water at level 2] coming in at 48,656
+   1. coming in: holding nothing, from 48,656; lands at 48,657
+      -> [water at level 2] standing at x 0-121, y 657
+   2. standing at 0,657, goes into it
+      -> out 0,624 [water 2]
+how in 48,656 [water 3] -> out 0,624 [water 2]: megaman:1
+     [water at level 3] coming in at 48,656
+   1. coming in: holding nothing, from 48,656; lands at 48,657
+      -> [water at level 3] standing at x 0-121, y 657
+   2. shoot the switch at 160,592 from 0,657 (at the top of a jump): [water at level 2]   [megaman:1]
+      -> [water at level 2] standing at x 0-121, y 657
+   3. standing at 0,657, goes into it
+      -> out 0,624 [water 2]
+how in 48,656 [water 3] -> out 0,624 [water 2]: samus:1
+     [water at level 3] coming in at 48,656
+   1. coming in: holding nothing, from 48,656; lands at 48,657
+      -> [water at level 3] standing at x 0-121, y 657
+   2. shoot the switch at 160,592 from 0,657 (at the top of a jump): [water at level 2]   [samus:1]
+      -> [water at level 2] standing at x 0-121, y 657
+   3. standing at 0,657, goes into it
+      -> out 0,624 [water 2]
+how in 48,656 [water 3] -> out 0,624 [water 2]: link:1
+     [water at level 3] coming in at 48,656
+   1. coming in: holding nothing, from 48,656; lands at 48,657
+      -> [water at level 3] standing at x 0-121, y 657
+   2. hit the switch at 160,592 from 100,657 (jumping if need be): [water at level 2]   [link:1]
+      -> [water at level 2] standing at x 0-121, y 657
+   3. standing at 0,657, goes into it
+      -> out 0,624 [water 2]
+how in 48,656 [water 3] -> out 0,624 [water 2]: belmont:1
+     [water at level 3] coming in at 48,656
+   1. coming in: holding nothing, from 48,656; lands at 48,657
+      -> [water at level 3] standing at x 0-121, y 657
+   2. hit the switch at 160,592 from 100,657 (jumping if need be): [water at level 2]   [belmont:1]
+      -> [water at level 2] standing at x 0-121, y 657
+   3. standing at 0,657, goes into it
+      -> out 0,624 [water 2]
+how in 48,656 [water 3] -> out 0,624 [water 3]: -
+     [water at level 3] coming in at 48,656
+   1. coming in: holding nothing, from 48,656; lands at 48,657
+      -> [water at level 3] standing at x 0-121, y 657
+   2. standing at 0,657, goes into it
+      -> out 0,624 [water 3]
+how in 1424,528 [water 1] -> out 1456,496 [water 1]: -
+     [water at level 1] coming in at 1424,528
    1. coming in: holding nothing, from 1424,528; lands at 1424,529
-      -> standing at x 1274-1472, y 529
+      -> [water at level 1] standing at x 1274-1472, y 529
    2. standing at 1454,529, goes into it
-      -> out 1456,496
-how in 1424,528 -> loc 9 24: adash
-     coming in at 1424,528
+      -> out 1456,496 [water 1]
+how in 1424,528 [water 1] -> loc 9 24: adash
+     [water at level 1] coming in at 1424,528
    1. coming in: holding nothing, from 1424,528; lands at 1424,529
-      -> standing at x 1274-1472, y 529
+      -> [water at level 1] standing at x 1274-1472, y 529
    2. running left, jump (held 21 ticks), holding left, air dash (Claire) at tick 8, from 1274,529; touches it on the way   [adash]
       -> loc 9 24
-how in 1424,528 -> loc 9 24: djump,gdash
-     coming in at 1424,528
+how in 1424,528 [water 1] -> loc 9 24: djump,gdash
+     [water at level 1] coming in at 1424,528
    1. coming in: holding nothing, from 1424,528; lands at 1424,529
-      -> standing at x 1274-1472, y 529
+      -> [water at level 1] standing at x 1274-1472, y 529
    2. dash left (Jerry), jump (held 21 ticks), holding left, double jump at tick 12, from 1296,529; touches it on the way   [djump,gdash]
       -> loc 9 24
+how in 1424,528 [water 2] -> out 1456,496 [water 2]: -
+     [water at level 2] coming in at 1424,528
+   1. coming in: holding nothing, from 1424,528; lands at 1424,529
+      -> [water at level 2] standing at x 1274-1472, y 529
+   2. standing at 1454,529, goes into it
+      -> out 1456,496 [water 2]
+how in 1424,528 [water 2] -> loc 9 24: adash
+     [water at level 2] coming in at 1424,528
+   1. coming in: holding nothing, from 1424,528; lands at 1424,529
+      -> [water at level 2] standing at x 1274-1472, y 529
+   2. running left, jump (held 21 ticks), holding left, air dash (Claire) at tick 8, from 1274,529; touches it on the way   [adash]
+      -> loc 9 24
+how in 1424,528 [water 2] -> loc 9 24: djump,gdash
+     [water at level 2] coming in at 1424,528
+   1. coming in: holding nothing, from 1424,528; lands at 1424,529
+      -> [water at level 2] standing at x 1274-1472, y 529
+   2. dash left (Jerry), jump (held 21 ticks), holding left, double jump at tick 12, from 1296,529; touches it on the way   [djump,gdash]
+      -> loc 9 24
+how in 1424,528 [water 3] -> out 1456,496 [water 3]: -
+     [water at level 3] coming in at 1424,528
+   1. coming in: holding nothing, from 1424,528; lands at 1424,529
+      -> [water at level 3] standing at x 1274-1472, y 529
+   2. standing at 1454,529, goes into it
+      -> out 1456,496 [water 3]

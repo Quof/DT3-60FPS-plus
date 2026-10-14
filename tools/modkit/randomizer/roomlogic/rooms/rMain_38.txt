@@ -29,25 +29,25 @@ from in 368,80
   out 0,96       -
   out 360,48     -
   out 360,960    -
-  loc 10 37      never
+  loc 10 37      gdash
 from in 1232,880
   out 1264,848   -
   out 0,96       djump,adash | djump,samus:2
   out 360,48     djump,adash | djump,samus:2
   out 360,960    -
-  loc 10 37      never
+  loc 10 37      gdash
 from in 48,128
   out 1264,848   -
   out 0,96       -
   out 360,48     -
   out 360,960    -
-  loc 10 37      never
+  loc 10 37      gdash
 from in 304,928
   out 1264,848   -
   out 0,96       djump,adash | djump,samus:2
   out 360,48     djump,adash | djump,samus:2
   out 360,960    -
-  loc 10 37      never
+  loc 10 37      gdash
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
@@ -95,6 +95,18 @@ how in 368,80 -> out 360,960: -
       -> standing at x 39-366, y 849-945
    6. walk off the edge, holding right once in the air, from 39,849; touches it on the way
       -> out 360,960
+how in 368,80 -> loc 10 37: gdash
+     coming in at 368,80
+   1. coming in: holding nothing, from 368,80; lands at 368,81
+      -> standing at x 343-446, y 81-97
+   2. walk off the edge, holding right, then left after 1 ticks in the air, from 343,81; lands at 231,641
+      -> standing at x 231-310, y 641
+   3. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 231,641; lands at 407,777
+      -> standing at x 311-526, y 737-817
+   4. jump (held 2 ticks), holding left, from 311,737, through the barrier at 288,672; lands at 259,735   [gdash]
+      -> standing at x 231-281, y 721-737
+   5. standing at 232,721, touches it
+      -> loc 10 37
 how in 1232,880 -> out 1264,848: -
      coming in at 1232,880
    1. coming in: holding nothing, from 1232,880; lands at 1232,881
@@ -197,6 +209,16 @@ how in 1232,880 -> out 360,960: -
       -> standing at x 39-366, y 849-945
    3. walk off the edge, holding right once in the air, from 39,849; touches it on the way
       -> out 360,960
+how in 1232,880 -> loc 10 37: gdash
+     coming in at 1232,880
+   1. coming in: holding nothing, from 1232,880; lands at 1232,881
+      -> standing at x 402-1280, y 849-945
+   2. jump (held 21 ticks), holding left, from 560,885; lands at 503,809
+      -> standing at x 311-526, y 737-817
+   3. jump (held 2 ticks), holding left, from 311,737, through the barrier at 288,672; lands at 259,735   [gdash]
+      -> standing at x 231-281, y 721-737
+   4. standing at 232,721, touches it
+      -> loc 10 37
 how in 48,128 -> out 1264,848: -
      coming in at 48,128
    1. coming in: holding nothing, from 48,128; lands at 48,129
@@ -235,6 +257,18 @@ how in 48,128 -> out 360,960: -
       -> standing at x 39-366, y 849-945
    4. walk off the edge, holding right once in the air, from 39,849; touches it on the way
       -> out 360,960
+how in 48,128 -> loc 10 37: gdash
+     coming in at 48,128
+   1. coming in: holding nothing, from 48,128; lands at 48,129
+      -> standing at x 0-174, y 129-145
+   2. running right, jump (held 2 ticks), holding right, from 96,129; lands at 351,449
+      -> standing at x 306-942, y 449-705
+   3. walk off the edge, holding left, then right after 1 ticks in the air, from 306,513; lands at 400,773
+      -> standing at x 311-526, y 737-817
+   4. jump (held 2 ticks), holding left, from 311,737, through the barrier at 288,672; lands at 259,735   [gdash]
+      -> standing at x 231-281, y 721-737
+   5. standing at 232,721, touches it
+      -> loc 10 37
 how in 304,928 -> out 1264,848: -
      coming in at 304,928
    1. coming in: holding nothing, from 304,928; lands at 304,929
@@ -329,3 +363,15 @@ how in 304,928 -> out 360,960: -
       -> standing at x 39-366, y 849-945
    2. walk off the edge, holding right once in the air, from 39,849; touches it on the way
       -> out 360,960
+how in 304,928 -> loc 10 37: gdash
+     coming in at 304,928
+   1. coming in: holding nothing, from 304,928; lands at 304,929
+      -> standing at x 39-366, y 849-945
+   2. jump (held 21 ticks), holding right, from 224,909; lands at 414,942
+      -> standing at x 402-1280, y 849-945
+   3. jump (held 21 ticks), holding left, from 560,885; lands at 503,809
+      -> standing at x 311-526, y 737-817
+   4. jump (held 2 ticks), holding left, from 311,737, through the barrier at 288,672; lands at 259,735   [gdash]
+      -> standing at x 231-281, y 721-737
+   5. standing at 232,721, touches it
+      -> loc 10 37

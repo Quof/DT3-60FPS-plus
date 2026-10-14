@@ -3,6 +3,7 @@
 # Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
 # Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
 # middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+carried rb   # the red and blue switches' state comes in with the player and goes out with them (0: the blue blocks solid, 1: the red ones)
 # switches: the room is worked out in each of its states, the player coming in in the first: [blue blocks solid]
 
 # Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
@@ -20,20 +21,46 @@ loc 1 40   # heart piece 40, at 1407,759
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
 # link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
 # the locked door whose objectNum is N.
-from in 48,480
-  out 0,448   -
-  loc 6 13    link:1 | belmont:1
-  loc 1 40    never
+from in 48,480 [rb 0]
+  out 0,448 [rb 0]   -
+  out 0,448 [rb 1]   -
+  loc 6 13           link:1 | belmont:1
+  loc 1 40           never
+from in 48,480 [rb 1]
+  out 0,448 [rb 0]   djump
+  out 0,448 [rb 1]   -
+  loc 6 13           link:1 | belmont:1
+  loc 1 40           never
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
-how in 48,480 -> out 0,448: -
+how in 48,480 [rb 0] -> out 0,448 [rb 0]: -
      [blue blocks solid] coming in at 48,480
    1. coming in: holding nothing, from 48,480; lands at 48,481
       -> [blue blocks solid] standing at x 0-454, y 401-481
    2. standing at 0,481, goes into it
-      -> out 0,448
-how in 48,480 -> loc 6 13: link:1
+      -> out 0,448 [rb 0]
+how in 48,480 [rb 0] -> out 0,448 [rb 1]: -
+     [blue blocks solid] coming in at 48,480
+   1. coming in: holding nothing, from 48,480; lands at 48,481
+      -> [blue blocks solid] standing at x 0-454, y 401-481
+   2. running right, jump (held 21 ticks), holding right, from 272,401; lands at 546,504
+      -> [blue blocks solid] standing at x 538-758, y 449-513
+   3. running right, jump (held 21 ticks), holding right, from 624,449; lands at 830,433
+      -> [blue blocks solid] standing at x 810-918, y 433-449
+   4. jump (held 21 ticks), holding right, from 814,444; lands at 945,377
+      -> [blue blocks solid] standing at x 938-1254, y 257-385
+   5. jump at 1162,257 and hit the block at 1168,192 from below: [red blocks solid]
+      -> [red blocks solid] standing at x 983-1254, y 257-369
+   6. jump (held 21 ticks), holding left, from 1136,261; lands at 1012,193
+      -> [red blocks solid] standing at x 522-1062, y 193-209
+   7. jump (held 2 ticks), holding left, from 522,209; lands at 455,177
+      -> [red blocks solid] standing at x 455-470, y 177-192
+   8. jump (held 21 ticks), holding left, from 455,177; lands at 91,481
+      -> [red blocks solid] standing at x 0-454, y 401-481
+   9. standing at 0,481, goes into it
+      -> out 0,448 [rb 1]
+how in 48,480 [rb 0] -> loc 6 13: link:1
      [blue blocks solid] coming in at 48,480
    1. coming in: holding nothing, from 48,480; lands at 48,481
       -> [blue blocks solid] standing at x 0-454, y 401-481
@@ -45,7 +72,7 @@ how in 48,480 -> loc 6 13: link:1
       -> [blue blocks solid] standing at x 551-585, y 849
    5. standing at 561,849, touches it
       -> loc 6 13
-how in 48,480 -> loc 6 13: belmont:1
+how in 48,480 [rb 0] -> loc 6 13: belmont:1
      [blue blocks solid] coming in at 48,480
    1. coming in: holding nothing, from 48,480; lands at 48,481
       -> [blue blocks solid] standing at x 0-454, y 401-481
@@ -56,4 +83,60 @@ how in 48,480 -> loc 6 13: belmont:1
    4. walk from 586,849 to 585,849
       -> [blue blocks solid] standing at x 551-585, y 849
    5. standing at 561,849, touches it
+      -> loc 6 13
+how in 48,480 [rb 1] -> out 0,448 [rb 0]: djump
+     [red blocks solid] coming in at 48,480
+   1. coming in: holding nothing, from 48,480; lands at 48,481
+      -> [red blocks solid] standing at x 0-454, y 401-481
+   2. running right, jump (held 21 ticks), holding right, from 272,401; lands at 546,504
+      -> [red blocks solid] standing at x 538-758, y 449-513
+   3. jump (held 6 ticks), holding right, from 720,469; lands at 832,433
+      -> [red blocks solid] standing at x 810-918, y 433-449
+   4. walk off the edge, holding right once in the air, from 810,449; lands at 982,481
+      -> [red blocks solid] standing at x 919-1014, y 481
+   5. walk off the edge, holding right once in the air, from 919,481; lands at 1091,519
+      -> [red blocks solid] standing at x 1082-1385, y 369-529
+   6. jump (held 21 ticks), holding left, double jump at tick 15, from 1344,389; lands at 1249,283   [djump]
+      -> [red blocks solid] standing at x 983-1254, y 257-369
+   7. jump at 1162,257 and hit the block at 1168,192 from below: [blue blocks solid]
+      -> [blue blocks solid] standing at x 938-1254, y 257-385
+   8. jump (held 2 ticks), holding left, from 938,385; lands at 670,716
+      -> [blue blocks solid] standing at x 455-726, y 641-752
+   9. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, from 496,641; lands at 421,456
+      -> [blue blocks solid] standing at x 0-454, y 401-481
+  10. standing at 0,481, goes into it
+      -> out 0,448 [rb 0]
+how in 48,480 [rb 1] -> out 0,448 [rb 1]: -
+     [red blocks solid] coming in at 48,480
+   1. coming in: holding nothing, from 48,480; lands at 48,481
+      -> [red blocks solid] standing at x 0-454, y 401-481
+   2. standing at 0,481, goes into it
+      -> out 0,448 [rb 1]
+how in 48,480 [rb 1] -> loc 6 13: link:1
+     [red blocks solid] coming in at 48,480
+   1. coming in: holding nothing, from 48,480; lands at 48,481
+      -> [red blocks solid] standing at x 0-454, y 401-481
+   2. running right, jump (held 21 ticks), holding right, from 272,401; lands at 546,504
+      -> [red blocks solid] standing at x 538-758, y 449-513
+   3. running right, walk off the edge, holding right, then nothing after 1 ticks in the air, from 640,449; lands at 807,817
+      -> [red blocks solid] standing at x 727-1257, y 785-849
+   4. walk from 727,849 to 726,849 into the breakable wall at 592,784   [link:1]
+      -> [red blocks solid] standing at x 586-726, y 849 (where a gate is)
+   5. walk from 586,849 to 585,849
+      -> [red blocks solid] standing at x 551-585, y 849
+   6. standing at 561,849, touches it
+      -> loc 6 13
+how in 48,480 [rb 1] -> loc 6 13: belmont:1
+     [red blocks solid] coming in at 48,480
+   1. coming in: holding nothing, from 48,480; lands at 48,481
+      -> [red blocks solid] standing at x 0-454, y 401-481
+   2. running right, jump (held 21 ticks), holding right, from 272,401; lands at 546,504
+      -> [red blocks solid] standing at x 538-758, y 449-513
+   3. running right, walk off the edge, holding right, then nothing after 1 ticks in the air, from 640,449; lands at 807,817
+      -> [red blocks solid] standing at x 727-1257, y 785-849
+   4. walk from 727,849 to 726,849 into the breakable wall at 592,784   [belmont:1]
+      -> [red blocks solid] standing at x 586-726, y 849 (where a gate is)
+   5. walk from 586,849 to 585,849
+      -> [red blocks solid] standing at x 551-585, y 849
+   6. standing at 561,849, touches it
       -> loc 6 13

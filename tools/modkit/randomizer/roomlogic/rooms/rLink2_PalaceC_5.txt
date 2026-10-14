@@ -20,14 +20,20 @@ out 1904,272   # to rLink2_PalaceC_6 at 48,304; the player goes into it
 # link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
 # the locked door whose objectNum is N.
 from in 48,128
-  out 40,16      never
+  out 40,16      -
   out 1904,272   link:3 | samus:6
 from in 1872,304
-  out 40,16      never
+  out 40,16      link:3 | samus:6
   out 1904,272   -
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 48,128 -> out 40,16: -
+     coming in at 48,128
+   1. come in on the elevator, at 48,128
+      -> riding the elevator at x 48 (its bar from y -64 to 304)
+   2. ride the elevator to where its bar is at y 22: goes into it
+      -> out 40,16
 how in 48,128 -> out 1904,272: link:3
      coming in at 48,128
    1. coming in: holding nothing, from 48,128; lands at 48,305
@@ -80,6 +86,66 @@ how in 48,128 -> out 1904,272: samus:6
       -> standing at x 1575-1920, y 305
   12. standing at 1902,305, goes into it
       -> out 1904,272
+how in 1872,304 -> out 40,16: link:3
+     coming in at 1872,304
+   1. coming in: holding nothing, from 1872,304; lands at 1872,305
+      -> standing at x 1575-1920, y 305
+   2. jump (held 21 ticks), holding left, from 1575,305; lands at 1543,241
+      -> standing at x 1543-1574, y 241
+   3. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 1543,241; lands at 1534,209
+      -> standing at x 1498-1542, y 209
+   4. jump (held 21 ticks), holding left, from 1498,209; lands at 1403,273
+      -> standing at x 1370-1414, y 273
+   5. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 1370,273; lands at 1323,273
+      -> standing at x 1306-1350, y 273
+   6. running left, jump (held 21 ticks), holding left, from 1306,273; lands at 1152,209
+      -> standing at x 1018-1222, y 209
+   7. running left, walk off the edge, holding left once in the air, from 1018,209, through the bombable wall at 896,208, the bombable wall at 896,240, the bombable wall at 896,176, ...; lands at 930,273   [link:3]
+      -> standing at x 890-934, y 273 (where a gate is)
+   8. running left, jump (held 21 ticks), holding left, from 890,273, through the bombable wall at 896,208, the bombable wall at 896,240, the bombable wall at 896,176, ...; lands at 736,209   [link:3]
+      -> standing at x 698-774, y 209
+   9. walk off the edge, holding left once in the air, from 698,209; lands at 625,273
+      -> standing at x 455-697, y 273
+  10. jump (held 21 ticks), holding left, from 455,273; lands at 382,209
+      -> standing at x 378-454, y 209
+  11. walk off the edge, holding left once in the air, from 378,209; lands at 298,273
+      -> standing at x 186-377, y 273
+  12. walk off the edge, holding left once in the air, from 186,273; lands at 128,305
+      -> standing at x 39-185, y 305
+  13. step onto the elevator at 39,305
+      -> riding the elevator at x 48 (its bar from y -64 to 304)
+  14. ride the elevator to where its bar is at y 22: goes into it
+      -> out 40,16
+how in 1872,304 -> out 40,16: samus:6
+     coming in at 1872,304
+   1. coming in: holding nothing, from 1872,304; lands at 1872,305
+      -> standing at x 1575-1920, y 305
+   2. jump (held 21 ticks), holding left, from 1575,305; lands at 1543,241
+      -> standing at x 1543-1574, y 241
+   3. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 1543,241; lands at 1534,209
+      -> standing at x 1498-1542, y 209
+   4. jump (held 21 ticks), holding left, from 1498,209; lands at 1403,273
+      -> standing at x 1370-1414, y 273
+   5. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 1370,273; lands at 1323,273
+      -> standing at x 1306-1350, y 273
+   6. running left, jump (held 21 ticks), holding left, from 1306,273; lands at 1152,209
+      -> standing at x 1018-1222, y 209
+   7. running left, walk off the edge, holding left once in the air, from 1018,209, through the bombable wall at 896,208, the bombable wall at 896,240, the bombable wall at 896,176, ...; lands at 930,273   [samus:6]
+      -> standing at x 890-934, y 273 (where a gate is)
+   8. running left, jump (held 21 ticks), holding left, from 890,273, through the bombable wall at 896,208, the bombable wall at 896,240, the bombable wall at 896,176, ...; lands at 736,209   [samus:6]
+      -> standing at x 698-774, y 209
+   9. walk off the edge, holding left once in the air, from 698,209; lands at 625,273
+      -> standing at x 455-697, y 273
+  10. jump (held 21 ticks), holding left, from 455,273; lands at 382,209
+      -> standing at x 378-454, y 209
+  11. walk off the edge, holding left once in the air, from 378,209; lands at 298,273
+      -> standing at x 186-377, y 273
+  12. walk off the edge, holding left once in the air, from 186,273; lands at 128,305
+      -> standing at x 39-185, y 305
+  13. step onto the elevator at 39,305
+      -> riding the elevator at x 48 (its bar from y -64 to 304)
+  14. ride the elevator to where its bar is at y 22: goes into it
+      -> out 40,16
 how in 1872,304 -> out 1904,272: -
      coming in at 1872,304
    1. coming in: holding nothing, from 1872,304; lands at 1872,305

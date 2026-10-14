@@ -23,110 +23,124 @@ loc 6 6   # game power 6, at 1839,175
 # the locked door whose objectNum is N.
 from in 48,352
   out 0,320      -
-  out 2544,288   samus:2
-  loc 6 5        never
-  loc 6 6        djump,samus:2
-from in 2512,320
-  out 0,320      samus:2
   out 2544,288   -
   loc 6 5        never
-  loc 6 6        djump
+  loc 6 6        djump | adash
+from in 2512,320
+  out 0,320      -
+  out 2544,288   -
+  loc 6 5        never
+  loc 6 6        djump | adash
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
 how in 48,352 -> out 0,320: -
      coming in at 48,352
    1. coming in: holding nothing, from 48,352; lands at 48,353
-      -> standing at x 0-233, y 353
+      -> standing at x 0-537, y 353
    2. standing at 0,353, goes into it
       -> out 0,320
-how in 48,352 -> out 2544,288: samus:2
+how in 48,352 -> out 2544,288: -
      coming in at 48,352
    1. coming in: holding nothing, from 48,352; lands at 48,353
-      -> standing at x 0-233, y 353
-   2. running right, jump (held 21 ticks), holding right, from 96,353; lands at 302,353
-      -> standing at x 279-537, y 353
-   3. running right, jump (held 2 ticks), holding right, from 464,353; lands at 552,321
+      -> standing at x 0-537, y 353
+   2. running right, jump (held 2 ticks), holding right, from 464,353; lands at 552,321
       -> standing at x 538-601, y 321
-   4. jump (held 21 ticks), holding right, from 538,321; lands at 669,257
+   3. jump (held 21 ticks), holding right, from 538,321; lands at 669,257
       -> standing at x 602-678, y 257
-   5. walk off the edge, holding right once in the air, from 602,257; lands at 785,353
-      -> standing at x 743-1001, y 353
-   6. running right, jump (held 21 ticks), holding right, turn into the Morph Ball where the body meets a wall or ceiling, from 896,353; lands at 1064,353   [samus:2]
-      -> as the Morph Ball at x 1047-1753, y 353
-   7. turn back from the Morph Ball at 1319,353
-      -> standing at x 1319-1753, y 353
-   8. running right, jump (held 21 ticks), holding right, from 1616,353; lands at 1822,353
-      -> standing at x 1799-2105, y 353
-   9. running right, jump (held 21 ticks), holding right, from 1936,353; lands at 2127,321
-      -> standing at x 2106-2265, y 321
-  10. running right, jump (held 21 ticks), holding right, from 2144,321; lands at 2350,321
-      -> standing at x 2311-2560, y 321
-  11. standing at 2542,321, goes into it
+   4. walk off the edge, holding right once in the air, from 602,257; lands at 785,353
+      -> standing at x 743-1241, y 353
+   5. get beside the push rock (from 1008,320), at 998,353
+      -> beside the push rock (from 1008,320), to push it
+   6. push the rock (from 1008,320) to 1896,320 and climb onto it
+      -> on the push rock (from 1008,320), pushed to 1896,320 (its top at y 320)
+   7. jump (held 21 ticks), holding right, from 1927,321; lands at 2117,321
+      -> standing at x 2106-2560, y 321
+   8. standing at 2542,321, goes into it
       -> out 2544,288
-how in 48,352 -> loc 6 6: djump,samus:2
+how in 48,352 -> loc 6 6: djump
      coming in at 48,352
    1. coming in: holding nothing, from 48,352; lands at 48,353
-      -> standing at x 0-233, y 353
-   2. running right, jump (held 21 ticks), holding right, from 96,353; lands at 302,353
-      -> standing at x 279-537, y 353
-   3. running right, jump (held 2 ticks), holding right, from 464,353; lands at 552,321
+      -> standing at x 0-537, y 353
+   2. running right, jump (held 2 ticks), holding right, from 464,353; lands at 552,321
       -> standing at x 538-601, y 321
-   4. jump (held 21 ticks), holding right, from 538,321; lands at 669,257
+   3. jump (held 21 ticks), holding right, from 538,321; lands at 669,257
       -> standing at x 602-678, y 257
-   5. walk off the edge, holding right once in the air, from 602,257; lands at 785,353
-      -> standing at x 743-1001, y 353
-   6. running right, jump (held 21 ticks), holding right, turn into the Morph Ball where the body meets a wall or ceiling, from 896,353; lands at 1064,353   [samus:2]
-      -> as the Morph Ball at x 1047-1753, y 353
-   7. turn back from the Morph Ball at 1319,353
-      -> standing at x 1319-1753, y 353
-   8. running right, jump (held 21 ticks), holding right, from 1584,353; lands at 1775,321
-      -> standing at x 1754-1798, y 321
-   9. jump (held 21 ticks), holding right, double jump at tick 15, from 1754,321; lands at 1843,225   [djump]
+   4. walk off the edge, holding right once in the air, from 602,257; lands at 785,353
+      -> standing at x 743-1241, y 353
+   5. get beside the push rock (from 1008,320), at 998,353
+      -> beside the push rock (from 1008,320), to push it
+   6. push the rock (from 1008,320) to 1568,320 and climb onto it
+      -> on the push rock (from 1008,320), pushed to 1568,320 (its top at y 320)
+   7. jump (held 21 ticks), holding right, double jump at tick 15, from 1599,321; lands at 1796,225   [djump]
       -> standing at x 1786-1894, y 225
-  10. walk off the edge, holding left, then right after 2 ticks in the air, double jump at tick 3, from 1786,225; touches it on the way   [djump]
+   8. walk off the edge, holding left, then right after 2 ticks in the air, double jump at tick 3, from 1786,225; touches it on the way   [djump]
       -> loc 6 6
-how in 2512,320 -> out 0,320: samus:2
+how in 48,352 -> loc 6 6: adash
+     coming in at 48,352
+   1. coming in: holding nothing, from 48,352; lands at 48,353
+      -> standing at x 0-537, y 353
+   2. running right, jump (held 2 ticks), holding right, from 464,353; lands at 552,321
+      -> standing at x 538-601, y 321
+   3. jump (held 21 ticks), holding right, from 538,321; lands at 669,257
+      -> standing at x 602-678, y 257
+   4. walk off the edge, holding right once in the air, from 602,257; lands at 785,353
+      -> standing at x 743-1241, y 353
+   5. get beside the push rock (from 1008,320), at 998,353
+      -> beside the push rock (from 1008,320), to push it
+   6. push the rock (from 1008,320) to 1896,320 and climb onto it
+      -> on the push rock (from 1008,320), pushed to 1896,320 (its top at y 320)
+   7. jump (held 21 ticks), holding right, from 1927,321; lands at 2117,321
+      -> standing at x 2106-2560, y 321
+   8. get beside the push rock (from 2272,288), at 2262,321
+      -> beside the push rock (from 2272,288), to push it
+   9. push the rock (from 2272,288) to 2081,288 and climb onto it
+      -> on the push rock (from 2272,288), pushed to 2081,288 (its top at y 288)
+  10. jump (held 21 ticks), holding left, air dash (Jerry) at tick 10, from 2081,289; lands at 1874,225   [adash]
+      -> standing at x 1786-1894, y 225
+  11. jump (held 2 ticks), holding right, from 1786,225; touches it on the way
+      -> loc 6 6
+how in 2512,320 -> out 0,320: -
      coming in at 2512,320
    1. coming in: holding nothing, from 2512,320; lands at 2512,321
-      -> standing at x 2311-2560, y 321
-   2. jump (held 6 ticks), holding left, from 2311,321; lands at 2187,321
-      -> standing at x 2106-2265, y 321
-   3. walk off the edge, holding left once in the air, from 2106,321; lands at 2048,353
-      -> standing at x 1799-2105, y 353
-   4. jump (held 21 ticks), holding left, turn into the Morph Ball at tick 8, from 1799,353; lands at 1668,353   [samus:2]
-      -> as the Morph Ball at x 1047-1753, y 353
-   5. turn back from the Morph Ball at 1047,353
-      -> standing at x 1047-1241, y 353
-   6. jump (held 6 ticks), holding left, from 1047,353; lands at 923,353
-      -> standing at x 743-1001, y 353
-   7. jump (held 2 ticks), holding left, from 743,353; lands at 700,321
-      -> standing at x 679-742, y 321
-   8. jump (held 21 ticks), holding left, from 679,321; lands at 606,257
+      -> standing at x 2106-2560, y 321
+   2. get beside the push rock (from 2272,288), at 2262,321
+      -> beside the push rock (from 2272,288), to push it
+   3. push the rock (from 2272,288) to 736,320 and climb onto it
+      -> on the push rock (from 2272,288), pushed to 736,320 (its top at y 320)
+   4. jump (held 21 ticks), holding left, from 736,321; lands at 606,257
       -> standing at x 602-678, y 257
-   9. walk off the edge, holding left once in the air, from 602,257; lands at 500,353
-      -> standing at x 279-537, y 353
-  10. jump (held 6 ticks), holding left, from 279,353; lands at 155,353
-      -> standing at x 0-233, y 353
-  11. standing at 0,353, goes into it
+   5. walk off the edge, holding left once in the air, from 602,257; lands at 500,353
+      -> standing at x 0-537, y 353
+   6. standing at 0,353, goes into it
       -> out 0,320
 how in 2512,320 -> out 2544,288: -
      coming in at 2512,320
    1. coming in: holding nothing, from 2512,320; lands at 2512,321
-      -> standing at x 2311-2560, y 321
+      -> standing at x 2106-2560, y 321
    2. standing at 2542,321, goes into it
       -> out 2544,288
 how in 2512,320 -> loc 6 6: djump
      coming in at 2512,320
    1. coming in: holding nothing, from 2512,320; lands at 2512,321
-      -> standing at x 2311-2560, y 321
-   2. jump (held 6 ticks), holding left, from 2311,321; lands at 2187,321
-      -> standing at x 2106-2265, y 321
-   3. walk off the edge, holding left once in the air, from 2106,321; lands at 2048,353
-      -> standing at x 1799-2105, y 353
-   4. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 1799,353; lands at 1782,321
-      -> standing at x 1754-1798, y 321
-   5. jump (held 21 ticks), holding right, double jump at tick 15, from 1754,321; lands at 1843,225   [djump]
+      -> standing at x 2106-2560, y 321
+   2. get beside the push rock (from 2272,288), at 2262,321
+      -> beside the push rock (from 2272,288), to push it
+   3. push the rock (from 2272,288) to 2081,288 and climb onto it
+      -> on the push rock (from 2272,288), pushed to 2081,288 (its top at y 288)
+   4. jump (held 21 ticks), holding left, double jump at tick 15, from 2081,289; lands at 1847,225   [djump]
       -> standing at x 1786-1894, y 225
-   6. walk off the edge, holding left, then right after 2 ticks in the air, double jump at tick 3, from 1786,225; touches it on the way   [djump]
+   5. walk off the edge, holding left, then right after 2 ticks in the air, double jump at tick 3, from 1786,225; touches it on the way   [djump]
+      -> loc 6 6
+how in 2512,320 -> loc 6 6: adash
+     coming in at 2512,320
+   1. coming in: holding nothing, from 2512,320; lands at 2512,321
+      -> standing at x 2106-2560, y 321
+   2. get beside the push rock (from 2272,288), at 2262,321
+      -> beside the push rock (from 2272,288), to push it
+   3. push the rock (from 2272,288) to 2081,288 and climb onto it
+      -> on the push rock (from 2272,288), pushed to 2081,288 (its top at y 288)
+   4. jump (held 21 ticks), holding left, air dash (Jerry) at tick 10, from 2081,289; lands at 1874,225   [adash]
+      -> standing at x 1786-1894, y 225
+   5. jump (held 2 ticks), holding right, from 1786,225; touches it on the way
       -> loc 6 6

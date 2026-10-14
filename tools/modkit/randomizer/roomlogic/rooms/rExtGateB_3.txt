@@ -3,6 +3,7 @@
 # Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
 # Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
 # middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+carried rb   # the red and blue switches' state comes in with the player and goes out with them (0: the blue blocks solid, 1: the red ones)
 # switches: the room is worked out in each of its states, the player coming in in the first: [blue blocks solid, sliding blocks as placed]
 
 # Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
@@ -18,7 +19,9 @@ out 752,1952   # to rExtGateB_4 at 48,480; the player goes into it
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
 # link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
 # the locked door whose objectNum is N.
-from in 48,128
+from in 48,128 [rb 0]
+  out 752,1952   never
+from in 48,128 [rb 1]
   out 752,1952   never
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step

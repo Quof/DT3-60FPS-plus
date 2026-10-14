@@ -26,17 +26,17 @@ from in 120,64
   out 112,-16    djump
   out 464,976    djump,samus:6 | hijump:2,samus:6
   out 464,1184   link:1 | belmont:1 | megaman:1 | samus:1
-  loc 1 28       never
+  loc 1 28       djump,adash,megaman:4,samus:6
 from in 416,1216
   out 112,-16    never
   out 464,976    djump,samus:6 | hijump:2,samus:6
   out 464,1184   link:1 | belmont:1 | megaman:1 | samus:1
-  loc 1 28       never
+  loc 1 28       djump,adash,megaman:4,samus:6
 from in 416,1008
   out 112,-16    never
   out 464,976    link:1 | belmont:1 | megaman:1 | samus:1
   out 464,1184   samus:6
-  loc 1 28       never
+  loc 1 28       djump,adash,megaman:4
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
@@ -192,6 +192,54 @@ how in 120,64 -> out 464,1184: samus:1
       -> standing at x 103-449, y 1217
   11. walk off the edge, holding right once in the air, from 103,1217, through the Metroid door at 456,944, the Metroid door at 456,1152; touches it on the way   [samus:1]
       -> out 464,1184
+how in 120,64 -> loc 1 28: djump,adash,megaman:4,samus:6
+     coming in at 120,64
+   1. coming in: holding nothing, from 120,64; lands at 120,161
+      -> standing at x 71-182, y 161
+   2. walk off the edge, holding right once in the air, from 71,161; lands at 281,353
+      -> standing at x 90-281, y 353
+   3. walk off the edge, holding left once in the air, from 90,353; lands at 71,465
+      -> standing at x 71-105, y 465
+   4. jump (held 2 ticks), holding right, from 71,465; lands at 173,465
+      -> standing at x 135-201, y 465
+   5. running right, jump (held 2 ticks), holding right, from 160,465; lands at 281,593
+      -> standing at x 90-281, y 593
+   6. walk off the edge, holding left once in the air, from 90,593; lands at 71,737
+      -> standing at x 71-262, y 737
+   7. walk off the edge, holding right, then left after 1 ticks in the air, turn into the Morph Ball where the body meets a wall or ceiling, from 144,737; lands at 135,1121   [samus:2]
+      -> as the Morph Ball at x 122-230, y 1121
+   8. as the Morph Ball: a bomb jump (a morph bomb under the ball), holding right, from 230,1121, through the Metroid block at 288,1088; lands at 289,1105   [samus:6]
+      -> as the Morph Ball at x 282-310, y 1105 (where a gate is)
+   9. walk from 310,1105 to 311,1105
+      -> as the Morph Ball at x 311-425, y 1105
+  10. turn back from the Morph Ball at 311,1105
+      -> standing at x 311-425, y 1105
+  11. jump (held 21 ticks), holding right, double jump at tick 15, from 315,1105; lands at 449,1009   [djump]
+      -> standing at x 394-449, y 1009
+  12. jump (held 21 ticks), holding left, double jump at tick 10, from 394,1009; fires the Strike Chain at the point at 314,880   [djump,megaman:4]
+      -> hanging from the Strike Chain point at 314,880
+  13. off the Strike Chain point: jump (held 21 ticks), holding left, double jump at tick 10, air dash (Claire) at tick 18, from 314,920; fires the Strike Chain at the point at 314,784   [djump,adash,megaman:4]
+      -> hanging from the Strike Chain point at 314,784
+  14. off the Strike Chain point: jump (held 21 ticks), holding nothing, then left after 12 ticks, double jump at tick 12, from 314,824; fires the Strike Chain at the point at 314,704   [djump,megaman:4]
+      -> hanging from the Strike Chain point at 314,704
+  15. off the Strike Chain point: jump (held 21 ticks), holding nothing, then left after 12 ticks, double jump at tick 12, from 314,744; fires the Strike Chain at the point at 314,624   [djump,megaman:4]
+      -> hanging from the Strike Chain point at 314,624
+  16. off the Strike Chain point: jump (held 21 ticks), holding nothing, then left after 12 ticks, double jump at tick 12, from 314,664; fires the Strike Chain at the point at 314,544   [djump,megaman:4]
+      -> hanging from the Strike Chain point at 314,544
+  17. off the Strike Chain point: jump (held 21 ticks), holding nothing, then left after 12 ticks, double jump at tick 12, from 314,584; fires the Strike Chain at the point at 314,464   [djump,megaman:4]
+      -> hanging from the Strike Chain point at 314,464
+  18. off the Strike Chain point: jump (held 21 ticks), holding nothing, then left after 12 ticks, double jump at tick 12, from 314,504; fires the Strike Chain at the point at 314,400   [djump,megaman:4]
+      -> hanging from the Strike Chain point at 314,400
+  19. off the Strike Chain point: jump (held 21 ticks), holding nothing, then left after 12 ticks, double jump at tick 12, from 314,440; fires the Strike Chain at the point at 314,320   [djump,megaman:4]
+      -> hanging from the Strike Chain point at 314,320
+  20. off the Strike Chain point: jump (held 21 ticks), holding nothing, then left after 12 ticks, double jump at tick 12, from 314,360; fires the Strike Chain at the point at 314,256   [djump,megaman:4]
+      -> hanging from the Strike Chain point at 314,256
+  21. off the Strike Chain point: jump (held 21 ticks), holding nothing, then left after 12 ticks, double jump at tick 12, from 314,296; fires the Strike Chain at the point at 314,176   [djump,megaman:4]
+      -> hanging from the Strike Chain point at 314,176
+  22. off the Strike Chain point: jump (held 21 ticks), holding nothing, then right after 12 ticks, double jump at tick 12, from 314,216; lands at 409,161   [djump]
+      -> standing at x 378-409, y 161
+  23. jump (held 2 ticks), holding right, from 378,161; touches it on the way
+      -> loc 1 28
 how in 416,1216 -> out 464,976: djump,samus:6
      coming in at 416,1216
    1. coming in: holding nothing, from 416,1216; lands at 416,1217
@@ -252,6 +300,46 @@ how in 416,1216 -> out 464,1184: samus:1
       -> standing at x 103-449, y 1217
    2. walk off the edge, holding right once in the air, from 103,1217, through the Metroid door at 456,944, the Metroid door at 456,1152; touches it on the way   [samus:1]
       -> out 464,1184
+how in 416,1216 -> loc 1 28: djump,adash,megaman:4,samus:6
+     coming in at 416,1216
+   1. coming in: holding nothing, from 416,1216; lands at 416,1217
+      -> standing at x 103-449, y 1217
+   2. jump (held 2 ticks), holding left, from 103,1217; lands at 71,1185
+      -> standing at x 71-102, y 1185
+   3. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 71,1185; lands at 157,1121
+      -> standing at x 122-230, y 1121
+   4. jump (held 21 ticks), holding right, turn into the Morph Ball where the body meets a wall or ceiling, from 160,1121, through the Metroid block at 288,1088; lands at 292,1105   [samus:6]
+      -> as the Morph Ball at x 282-310, y 1105 (where a gate is)
+   5. walk from 310,1105 to 311,1105
+      -> as the Morph Ball at x 311-425, y 1105
+   6. turn back from the Morph Ball at 311,1105
+      -> standing at x 311-425, y 1105
+   7. jump (held 21 ticks), holding right, double jump at tick 15, from 315,1105; lands at 449,1009   [djump]
+      -> standing at x 394-449, y 1009
+   8. jump (held 21 ticks), holding left, double jump at tick 10, from 394,1009; fires the Strike Chain at the point at 314,880   [djump,megaman:4]
+      -> hanging from the Strike Chain point at 314,880
+   9. off the Strike Chain point: jump (held 21 ticks), holding left, double jump at tick 10, air dash (Claire) at tick 18, from 314,920; fires the Strike Chain at the point at 314,784   [djump,adash,megaman:4]
+      -> hanging from the Strike Chain point at 314,784
+  10. off the Strike Chain point: jump (held 21 ticks), holding nothing, then left after 12 ticks, double jump at tick 12, from 314,824; fires the Strike Chain at the point at 314,704   [djump,megaman:4]
+      -> hanging from the Strike Chain point at 314,704
+  11. off the Strike Chain point: jump (held 21 ticks), holding nothing, then left after 12 ticks, double jump at tick 12, from 314,744; fires the Strike Chain at the point at 314,624   [djump,megaman:4]
+      -> hanging from the Strike Chain point at 314,624
+  12. off the Strike Chain point: jump (held 21 ticks), holding nothing, then left after 12 ticks, double jump at tick 12, from 314,664; fires the Strike Chain at the point at 314,544   [djump,megaman:4]
+      -> hanging from the Strike Chain point at 314,544
+  13. off the Strike Chain point: jump (held 21 ticks), holding nothing, then left after 12 ticks, double jump at tick 12, from 314,584; fires the Strike Chain at the point at 314,464   [djump,megaman:4]
+      -> hanging from the Strike Chain point at 314,464
+  14. off the Strike Chain point: jump (held 21 ticks), holding nothing, then left after 12 ticks, double jump at tick 12, from 314,504; fires the Strike Chain at the point at 314,400   [djump,megaman:4]
+      -> hanging from the Strike Chain point at 314,400
+  15. off the Strike Chain point: jump (held 21 ticks), holding nothing, then left after 12 ticks, double jump at tick 12, from 314,440; fires the Strike Chain at the point at 314,320   [djump,megaman:4]
+      -> hanging from the Strike Chain point at 314,320
+  16. off the Strike Chain point: jump (held 21 ticks), holding nothing, then left after 12 ticks, double jump at tick 12, from 314,360; fires the Strike Chain at the point at 314,256   [djump,megaman:4]
+      -> hanging from the Strike Chain point at 314,256
+  17. off the Strike Chain point: jump (held 21 ticks), holding nothing, then left after 12 ticks, double jump at tick 12, from 314,296; fires the Strike Chain at the point at 314,176   [djump,megaman:4]
+      -> hanging from the Strike Chain point at 314,176
+  18. off the Strike Chain point: jump (held 21 ticks), holding nothing, then right after 12 ticks, double jump at tick 12, from 314,216; lands at 409,161   [djump]
+      -> standing at x 378-409, y 161
+  19. jump (held 2 ticks), holding right, from 378,161; touches it on the way
+      -> loc 1 28
 how in 416,1008 -> out 464,976: link:1
      coming in at 416,1008
    1. coming in: holding nothing, from 416,1008; lands at 416,1009
@@ -286,3 +374,31 @@ how in 416,1008 -> out 464,1184: samus:6
       -> standing at x 103-449, y 1217
    4. walk off the edge, holding right once in the air, from 103,1217, through the Metroid door at 456,944, the Metroid door at 456,1152; touches it on the way   [samus:1]
       -> out 464,1184
+how in 416,1008 -> loc 1 28: djump,adash,megaman:4
+     coming in at 416,1008
+   1. coming in: holding nothing, from 416,1008; lands at 416,1009
+      -> standing at x 394-449, y 1009
+   2. jump (held 21 ticks), holding left, double jump at tick 10, from 394,1009; fires the Strike Chain at the point at 314,880   [djump,megaman:4]
+      -> hanging from the Strike Chain point at 314,880
+   3. off the Strike Chain point: jump (held 21 ticks), holding left, double jump at tick 10, air dash (Claire) at tick 18, from 314,920; fires the Strike Chain at the point at 314,784   [djump,adash,megaman:4]
+      -> hanging from the Strike Chain point at 314,784
+   4. off the Strike Chain point: jump (held 21 ticks), holding nothing, then left after 12 ticks, double jump at tick 12, from 314,824; fires the Strike Chain at the point at 314,704   [djump,megaman:4]
+      -> hanging from the Strike Chain point at 314,704
+   5. off the Strike Chain point: jump (held 21 ticks), holding nothing, then left after 12 ticks, double jump at tick 12, from 314,744; fires the Strike Chain at the point at 314,624   [djump,megaman:4]
+      -> hanging from the Strike Chain point at 314,624
+   6. off the Strike Chain point: jump (held 21 ticks), holding nothing, then left after 12 ticks, double jump at tick 12, from 314,664; fires the Strike Chain at the point at 314,544   [djump,megaman:4]
+      -> hanging from the Strike Chain point at 314,544
+   7. off the Strike Chain point: jump (held 21 ticks), holding nothing, then left after 12 ticks, double jump at tick 12, from 314,584; fires the Strike Chain at the point at 314,464   [djump,megaman:4]
+      -> hanging from the Strike Chain point at 314,464
+   8. off the Strike Chain point: jump (held 21 ticks), holding nothing, then left after 12 ticks, double jump at tick 12, from 314,504; fires the Strike Chain at the point at 314,400   [djump,megaman:4]
+      -> hanging from the Strike Chain point at 314,400
+   9. off the Strike Chain point: jump (held 21 ticks), holding nothing, then left after 12 ticks, double jump at tick 12, from 314,440; fires the Strike Chain at the point at 314,320   [djump,megaman:4]
+      -> hanging from the Strike Chain point at 314,320
+  10. off the Strike Chain point: jump (held 21 ticks), holding nothing, then left after 12 ticks, double jump at tick 12, from 314,360; fires the Strike Chain at the point at 314,256   [djump,megaman:4]
+      -> hanging from the Strike Chain point at 314,256
+  11. off the Strike Chain point: jump (held 21 ticks), holding nothing, then left after 12 ticks, double jump at tick 12, from 314,296; fires the Strike Chain at the point at 314,176   [djump,megaman:4]
+      -> hanging from the Strike Chain point at 314,176
+  12. off the Strike Chain point: jump (held 21 ticks), holding nothing, then right after 12 ticks, double jump at tick 12, from 314,216; lands at 409,161   [djump]
+      -> standing at x 378-409, y 161
+  13. jump (held 2 ticks), holding right, from 378,161; touches it on the way
+      -> loc 1 28

@@ -22,18 +22,634 @@ loc 9 62   # weapon upgrade 62, at 4567,423
 # link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
 # the locked door whose objectNum is N.
 from in 48,416
-  out 4608,128   never
-  out 4600,368   never
-  loc 2 28       never
-  loc 9 62       never
+  out 4608,128   megaman:1 | samus:1 | link:2 | belmont:2
+  out 4600,368   megaman:1 | samus:1 | link:2 | belmont:2
+  loc 2 28       megaman:1 | samus:1 | link:2 | belmont:2
+  loc 9 62       megaman:1 | samus:1 | link:2 | belmont:2
 from in 4112,112
   out 4608,128   -
   out 4600,368   -
-  loc 2 28       never
+  loc 2 28       megaman:1 | samus:1 | link:2 | belmont:2
   loc 9 62       -
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 48,416 -> out 4608,128: megaman:1
+     coming in at 48,416
+   1. coming in: holding nothing, from 48,416; lands at 48,417
+      -> standing at x 0-167, y 417-577
+   2. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 167,418; lands at 278,370
+      -> standing at x 250-302, y 370-372
+   3. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 250,370; lands at 407,416
+      -> standing at x 394-446, y 416-418
+   4. jump (held 6 ticks), holding right, from 432,416; lands at 534,370
+      -> standing at x 522-574, y 370-372
+   5. jump (held 21 ticks), holding right, from 544,370; lands at 675,304
+      -> standing at x 666-718, y 304-306
+   6. running right, jump (held 21 ticks), holding right, from 704,304; clings to the wall at 841,238
+      -> standing at x 841-983, y 177-247
+   7. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 983,178; lands at 1149,449
+      -> standing at x 935-1463, y 81-577
+   8. on the wall to the left: holding right, from 1463,192; lands at 1536,273
+      -> standing at x 1522-1574, y 273-275
+   9. running right, jump (held 21 ticks), holding right, from 1574,275; clings to the wall at 1721,342
+      -> standing at x 1721-2039, y 273-577
+  10. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2039,274; clings to the wall at 2185,270
+      -> standing at x 2121-2393, y -24-375
+  11. walk off the edge, holding right once in the air, from 2122,305, through the oMMFlameCanister at 2192,240, the oMMFlameCanister at 2208,240, the oMMFlameCanister at 2224,240, ...; lands at 2371,353   [megaman:1]
+      -> standing at x 2345-2583, y 353-577
+  12. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2583,418; lands at 2686,368
+      -> standing at x 2666-2718, y 368-370
+  13. jump (held 21 ticks), holding right, from 2666,368; lands at 2805,309
+      -> standing at x 2794-2846, y 309-311
+  14. running right, jump (held 21 ticks), holding right, from 2842,309; lands at 3026,272
+      -> standing at x 3018-3070, y 272-274
+  15. running right, jump (held 21 ticks), holding right, from 3070,272; lands at 3298,302
+      -> standing at x 3290-3342, y 302-304
+  16. jump (held 21 ticks), holding right, from 3298,302; lands at 3554,414
+      -> standing at x 3546-3598, y 414-416
+  17. running right, jump (held 21 ticks), holding right, from 3590,414; clings to the wall at 3817,462
+      -> standing at x 3817-4151, y 369-577
+  18. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 3904,369; clings to the wall at 3943,305
+      -> standing at x 3783-3943, y -24-327
+  19. running right, jump (held 21 ticks), holding right, from 3904,113; lands at 4213,275
+      -> standing at x 4202-4254, y 275-277
+  20. running right, jump (held 21 ticks), holding right, from 4250,275; clings to the wall at 4425,242
+      -> standing at x 4425-4624, y 177-248
+  21. standing at 4606,177, goes into it
+      -> out 4608,128
+how in 48,416 -> out 4608,128: samus:1
+     coming in at 48,416
+   1. coming in: holding nothing, from 48,416; lands at 48,417
+      -> standing at x 0-167, y 417-577
+   2. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 167,418; lands at 278,370
+      -> standing at x 250-302, y 370-372
+   3. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 250,370; lands at 407,416
+      -> standing at x 394-446, y 416-418
+   4. jump (held 6 ticks), holding right, from 432,416; lands at 534,370
+      -> standing at x 522-574, y 370-372
+   5. jump (held 21 ticks), holding right, from 544,370; lands at 675,304
+      -> standing at x 666-718, y 304-306
+   6. running right, jump (held 21 ticks), holding right, from 704,304; clings to the wall at 841,238
+      -> standing at x 841-983, y 177-247
+   7. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 983,178; lands at 1149,449
+      -> standing at x 935-1463, y 81-577
+   8. on the wall to the left: holding right, from 1463,192; lands at 1536,273
+      -> standing at x 1522-1574, y 273-275
+   9. running right, jump (held 21 ticks), holding right, from 1574,275; clings to the wall at 1721,342
+      -> standing at x 1721-2039, y 273-577
+  10. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2039,274; clings to the wall at 2185,270
+      -> standing at x 2121-2393, y -24-375
+  11. walk off the edge, holding right once in the air, from 2122,305, through the oMMFlameCanister at 2192,240, the oMMFlameCanister at 2208,240, the oMMFlameCanister at 2224,240, ...; lands at 2371,353   [samus:1]
+      -> standing at x 2345-2583, y 353-577
+  12. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2583,418; lands at 2686,368
+      -> standing at x 2666-2718, y 368-370
+  13. jump (held 21 ticks), holding right, from 2666,368; lands at 2805,309
+      -> standing at x 2794-2846, y 309-311
+  14. running right, jump (held 21 ticks), holding right, from 2842,309; lands at 3026,272
+      -> standing at x 3018-3070, y 272-274
+  15. running right, jump (held 21 ticks), holding right, from 3070,272; lands at 3298,302
+      -> standing at x 3290-3342, y 302-304
+  16. jump (held 21 ticks), holding right, from 3298,302; lands at 3554,414
+      -> standing at x 3546-3598, y 414-416
+  17. running right, jump (held 21 ticks), holding right, from 3590,414; clings to the wall at 3817,462
+      -> standing at x 3817-4151, y 369-577
+  18. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 3904,369; clings to the wall at 3943,305
+      -> standing at x 3783-3943, y -24-327
+  19. running right, jump (held 21 ticks), holding right, from 3904,113; lands at 4213,275
+      -> standing at x 4202-4254, y 275-277
+  20. running right, jump (held 21 ticks), holding right, from 4250,275; clings to the wall at 4425,242
+      -> standing at x 4425-4624, y 177-248
+  21. standing at 4606,177, goes into it
+      -> out 4608,128
+how in 48,416 -> out 4608,128: link:2
+     coming in at 48,416
+   1. coming in: holding nothing, from 48,416; lands at 48,417
+      -> standing at x 0-167, y 417-577
+   2. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 167,418; lands at 278,370
+      -> standing at x 250-302, y 370-372
+   3. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 250,370; lands at 407,416
+      -> standing at x 394-446, y 416-418
+   4. jump (held 6 ticks), holding right, from 432,416; lands at 534,370
+      -> standing at x 522-574, y 370-372
+   5. jump (held 21 ticks), holding right, from 544,370; lands at 675,304
+      -> standing at x 666-718, y 304-306
+   6. running right, jump (held 21 ticks), holding right, from 704,304; clings to the wall at 841,238
+      -> standing at x 841-983, y 177-247
+   7. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 983,178; lands at 1149,449
+      -> standing at x 935-1463, y 81-577
+   8. on the wall to the left: holding right, from 1463,192; lands at 1536,273
+      -> standing at x 1522-1574, y 273-275
+   9. running right, jump (held 21 ticks), holding right, from 1574,275; clings to the wall at 1721,342
+      -> standing at x 1721-2039, y 273-577
+  10. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2039,274; clings to the wall at 2185,270
+      -> standing at x 2121-2393, y -24-375
+  11. walk off the edge, holding right once in the air, from 2122,305, through the oMMFlameCanister at 2192,240, the oMMFlameCanister at 2208,240, the oMMFlameCanister at 2224,240, ...; lands at 2371,353   [link:2]
+      -> standing at x 2345-2583, y 353-577
+  12. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2583,418; lands at 2686,368
+      -> standing at x 2666-2718, y 368-370
+  13. jump (held 21 ticks), holding right, from 2666,368; lands at 2805,309
+      -> standing at x 2794-2846, y 309-311
+  14. running right, jump (held 21 ticks), holding right, from 2842,309; lands at 3026,272
+      -> standing at x 3018-3070, y 272-274
+  15. running right, jump (held 21 ticks), holding right, from 3070,272; lands at 3298,302
+      -> standing at x 3290-3342, y 302-304
+  16. jump (held 21 ticks), holding right, from 3298,302; lands at 3554,414
+      -> standing at x 3546-3598, y 414-416
+  17. running right, jump (held 21 ticks), holding right, from 3590,414; clings to the wall at 3817,462
+      -> standing at x 3817-4151, y 369-577
+  18. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 3904,369; clings to the wall at 3943,305
+      -> standing at x 3783-3943, y -24-327
+  19. running right, jump (held 21 ticks), holding right, from 3904,113; lands at 4213,275
+      -> standing at x 4202-4254, y 275-277
+  20. running right, jump (held 21 ticks), holding right, from 4250,275; clings to the wall at 4425,242
+      -> standing at x 4425-4624, y 177-248
+  21. standing at 4606,177, goes into it
+      -> out 4608,128
+how in 48,416 -> out 4608,128: belmont:2
+     coming in at 48,416
+   1. coming in: holding nothing, from 48,416; lands at 48,417
+      -> standing at x 0-167, y 417-577
+   2. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 167,418; lands at 278,370
+      -> standing at x 250-302, y 370-372
+   3. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 250,370; lands at 407,416
+      -> standing at x 394-446, y 416-418
+   4. jump (held 6 ticks), holding right, from 432,416; lands at 534,370
+      -> standing at x 522-574, y 370-372
+   5. jump (held 21 ticks), holding right, from 544,370; lands at 675,304
+      -> standing at x 666-718, y 304-306
+   6. running right, jump (held 21 ticks), holding right, from 704,304; clings to the wall at 841,238
+      -> standing at x 841-983, y 177-247
+   7. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 983,178; lands at 1149,449
+      -> standing at x 935-1463, y 81-577
+   8. on the wall to the left: holding right, from 1463,192; lands at 1536,273
+      -> standing at x 1522-1574, y 273-275
+   9. running right, jump (held 21 ticks), holding right, from 1574,275; clings to the wall at 1721,342
+      -> standing at x 1721-2039, y 273-577
+  10. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2039,274; clings to the wall at 2185,270
+      -> standing at x 2121-2393, y -24-375
+  11. walk off the edge, holding right once in the air, from 2122,305, through the oMMFlameCanister at 2192,240, the oMMFlameCanister at 2208,240, the oMMFlameCanister at 2224,240, ...; lands at 2371,353   [belmont:2]
+      -> standing at x 2345-2583, y 353-577
+  12. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2583,418; lands at 2686,368
+      -> standing at x 2666-2718, y 368-370
+  13. jump (held 21 ticks), holding right, from 2666,368; lands at 2805,309
+      -> standing at x 2794-2846, y 309-311
+  14. running right, jump (held 21 ticks), holding right, from 2842,309; lands at 3026,272
+      -> standing at x 3018-3070, y 272-274
+  15. running right, jump (held 21 ticks), holding right, from 3070,272; lands at 3298,302
+      -> standing at x 3290-3342, y 302-304
+  16. jump (held 21 ticks), holding right, from 3298,302; lands at 3554,414
+      -> standing at x 3546-3598, y 414-416
+  17. running right, jump (held 21 ticks), holding right, from 3590,414; clings to the wall at 3817,462
+      -> standing at x 3817-4151, y 369-577
+  18. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 3904,369; clings to the wall at 3943,305
+      -> standing at x 3783-3943, y -24-327
+  19. running right, jump (held 21 ticks), holding right, from 3904,113; lands at 4213,275
+      -> standing at x 4202-4254, y 275-277
+  20. running right, jump (held 21 ticks), holding right, from 4250,275; clings to the wall at 4425,242
+      -> standing at x 4425-4624, y 177-248
+  21. standing at 4606,177, goes into it
+      -> out 4608,128
+how in 48,416 -> out 4600,368: megaman:1
+     coming in at 48,416
+   1. coming in: holding nothing, from 48,416; lands at 48,417
+      -> standing at x 0-167, y 417-577
+   2. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 167,418; lands at 278,370
+      -> standing at x 250-302, y 370-372
+   3. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 250,370; lands at 407,416
+      -> standing at x 394-446, y 416-418
+   4. jump (held 6 ticks), holding right, from 432,416; lands at 534,370
+      -> standing at x 522-574, y 370-372
+   5. jump (held 21 ticks), holding right, from 544,370; lands at 675,304
+      -> standing at x 666-718, y 304-306
+   6. running right, jump (held 21 ticks), holding right, from 704,304; clings to the wall at 841,238
+      -> standing at x 841-983, y 177-247
+   7. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 983,178; lands at 1149,449
+      -> standing at x 935-1463, y 81-577
+   8. on the wall to the left: holding right, from 1463,192; lands at 1536,273
+      -> standing at x 1522-1574, y 273-275
+   9. running right, jump (held 21 ticks), holding right, from 1574,275; clings to the wall at 1721,342
+      -> standing at x 1721-2039, y 273-577
+  10. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2039,274; clings to the wall at 2185,270
+      -> standing at x 2121-2393, y -24-375
+  11. walk off the edge, holding right once in the air, from 2122,305, through the oMMFlameCanister at 2192,240, the oMMFlameCanister at 2208,240, the oMMFlameCanister at 2224,240, ...; lands at 2371,353   [megaman:1]
+      -> standing at x 2345-2583, y 353-577
+  12. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2583,418; lands at 2686,368
+      -> standing at x 2666-2718, y 368-370
+  13. jump (held 21 ticks), holding right, from 2666,368; lands at 2805,309
+      -> standing at x 2794-2846, y 309-311
+  14. running right, jump (held 21 ticks), holding right, from 2842,309; lands at 3026,272
+      -> standing at x 3018-3070, y 272-274
+  15. running right, jump (held 21 ticks), holding right, from 3070,272; lands at 3298,302
+      -> standing at x 3290-3342, y 302-304
+  16. jump (held 21 ticks), holding right, from 3298,302; lands at 3554,414
+      -> standing at x 3546-3598, y 414-416
+  17. running right, jump (held 21 ticks), holding right, from 3590,414; clings to the wall at 3817,462
+      -> standing at x 3817-4151, y 369-577
+  18. running right, jump (held 21 ticks), holding right, from 4000,369; lands at 4214,367
+      -> standing at x 4202-4254, y 367-369
+  19. jump (held 21 ticks), holding right, from 4240,367; clings to the wall at 4489,487
+      -> standing at x 4489-4624, y 401-503
+  20. standing at 4598,401, presses down at it
+      -> out 4600,368
+how in 48,416 -> out 4600,368: samus:1
+     coming in at 48,416
+   1. coming in: holding nothing, from 48,416; lands at 48,417
+      -> standing at x 0-167, y 417-577
+   2. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 167,418; lands at 278,370
+      -> standing at x 250-302, y 370-372
+   3. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 250,370; lands at 407,416
+      -> standing at x 394-446, y 416-418
+   4. jump (held 6 ticks), holding right, from 432,416; lands at 534,370
+      -> standing at x 522-574, y 370-372
+   5. jump (held 21 ticks), holding right, from 544,370; lands at 675,304
+      -> standing at x 666-718, y 304-306
+   6. running right, jump (held 21 ticks), holding right, from 704,304; clings to the wall at 841,238
+      -> standing at x 841-983, y 177-247
+   7. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 983,178; lands at 1149,449
+      -> standing at x 935-1463, y 81-577
+   8. on the wall to the left: holding right, from 1463,192; lands at 1536,273
+      -> standing at x 1522-1574, y 273-275
+   9. running right, jump (held 21 ticks), holding right, from 1574,275; clings to the wall at 1721,342
+      -> standing at x 1721-2039, y 273-577
+  10. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2039,274; clings to the wall at 2185,270
+      -> standing at x 2121-2393, y -24-375
+  11. walk off the edge, holding right once in the air, from 2122,305, through the oMMFlameCanister at 2192,240, the oMMFlameCanister at 2208,240, the oMMFlameCanister at 2224,240, ...; lands at 2371,353   [samus:1]
+      -> standing at x 2345-2583, y 353-577
+  12. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2583,418; lands at 2686,368
+      -> standing at x 2666-2718, y 368-370
+  13. jump (held 21 ticks), holding right, from 2666,368; lands at 2805,309
+      -> standing at x 2794-2846, y 309-311
+  14. running right, jump (held 21 ticks), holding right, from 2842,309; lands at 3026,272
+      -> standing at x 3018-3070, y 272-274
+  15. running right, jump (held 21 ticks), holding right, from 3070,272; lands at 3298,302
+      -> standing at x 3290-3342, y 302-304
+  16. jump (held 21 ticks), holding right, from 3298,302; lands at 3554,414
+      -> standing at x 3546-3598, y 414-416
+  17. running right, jump (held 21 ticks), holding right, from 3590,414; clings to the wall at 3817,462
+      -> standing at x 3817-4151, y 369-577
+  18. running right, jump (held 21 ticks), holding right, from 4000,369; lands at 4214,367
+      -> standing at x 4202-4254, y 367-369
+  19. jump (held 21 ticks), holding right, from 4240,367; clings to the wall at 4489,487
+      -> standing at x 4489-4624, y 401-503
+  20. standing at 4598,401, presses down at it
+      -> out 4600,368
+how in 48,416 -> out 4600,368: link:2
+     coming in at 48,416
+   1. coming in: holding nothing, from 48,416; lands at 48,417
+      -> standing at x 0-167, y 417-577
+   2. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 167,418; lands at 278,370
+      -> standing at x 250-302, y 370-372
+   3. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 250,370; lands at 407,416
+      -> standing at x 394-446, y 416-418
+   4. jump (held 6 ticks), holding right, from 432,416; lands at 534,370
+      -> standing at x 522-574, y 370-372
+   5. jump (held 21 ticks), holding right, from 544,370; lands at 675,304
+      -> standing at x 666-718, y 304-306
+   6. running right, jump (held 21 ticks), holding right, from 704,304; clings to the wall at 841,238
+      -> standing at x 841-983, y 177-247
+   7. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 983,178; lands at 1149,449
+      -> standing at x 935-1463, y 81-577
+   8. on the wall to the left: holding right, from 1463,192; lands at 1536,273
+      -> standing at x 1522-1574, y 273-275
+   9. running right, jump (held 21 ticks), holding right, from 1574,275; clings to the wall at 1721,342
+      -> standing at x 1721-2039, y 273-577
+  10. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2039,274; clings to the wall at 2185,270
+      -> standing at x 2121-2393, y -24-375
+  11. walk off the edge, holding right once in the air, from 2122,305, through the oMMFlameCanister at 2192,240, the oMMFlameCanister at 2208,240, the oMMFlameCanister at 2224,240, ...; lands at 2371,353   [link:2]
+      -> standing at x 2345-2583, y 353-577
+  12. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2583,418; lands at 2686,368
+      -> standing at x 2666-2718, y 368-370
+  13. jump (held 21 ticks), holding right, from 2666,368; lands at 2805,309
+      -> standing at x 2794-2846, y 309-311
+  14. running right, jump (held 21 ticks), holding right, from 2842,309; lands at 3026,272
+      -> standing at x 3018-3070, y 272-274
+  15. running right, jump (held 21 ticks), holding right, from 3070,272; lands at 3298,302
+      -> standing at x 3290-3342, y 302-304
+  16. jump (held 21 ticks), holding right, from 3298,302; lands at 3554,414
+      -> standing at x 3546-3598, y 414-416
+  17. running right, jump (held 21 ticks), holding right, from 3590,414; clings to the wall at 3817,462
+      -> standing at x 3817-4151, y 369-577
+  18. running right, jump (held 21 ticks), holding right, from 4000,369; lands at 4214,367
+      -> standing at x 4202-4254, y 367-369
+  19. jump (held 21 ticks), holding right, from 4240,367; clings to the wall at 4489,487
+      -> standing at x 4489-4624, y 401-503
+  20. standing at 4598,401, presses down at it
+      -> out 4600,368
+how in 48,416 -> out 4600,368: belmont:2
+     coming in at 48,416
+   1. coming in: holding nothing, from 48,416; lands at 48,417
+      -> standing at x 0-167, y 417-577
+   2. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 167,418; lands at 278,370
+      -> standing at x 250-302, y 370-372
+   3. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 250,370; lands at 407,416
+      -> standing at x 394-446, y 416-418
+   4. jump (held 6 ticks), holding right, from 432,416; lands at 534,370
+      -> standing at x 522-574, y 370-372
+   5. jump (held 21 ticks), holding right, from 544,370; lands at 675,304
+      -> standing at x 666-718, y 304-306
+   6. running right, jump (held 21 ticks), holding right, from 704,304; clings to the wall at 841,238
+      -> standing at x 841-983, y 177-247
+   7. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 983,178; lands at 1149,449
+      -> standing at x 935-1463, y 81-577
+   8. on the wall to the left: holding right, from 1463,192; lands at 1536,273
+      -> standing at x 1522-1574, y 273-275
+   9. running right, jump (held 21 ticks), holding right, from 1574,275; clings to the wall at 1721,342
+      -> standing at x 1721-2039, y 273-577
+  10. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2039,274; clings to the wall at 2185,270
+      -> standing at x 2121-2393, y -24-375
+  11. walk off the edge, holding right once in the air, from 2122,305, through the oMMFlameCanister at 2192,240, the oMMFlameCanister at 2208,240, the oMMFlameCanister at 2224,240, ...; lands at 2371,353   [belmont:2]
+      -> standing at x 2345-2583, y 353-577
+  12. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2583,418; lands at 2686,368
+      -> standing at x 2666-2718, y 368-370
+  13. jump (held 21 ticks), holding right, from 2666,368; lands at 2805,309
+      -> standing at x 2794-2846, y 309-311
+  14. running right, jump (held 21 ticks), holding right, from 2842,309; lands at 3026,272
+      -> standing at x 3018-3070, y 272-274
+  15. running right, jump (held 21 ticks), holding right, from 3070,272; lands at 3298,302
+      -> standing at x 3290-3342, y 302-304
+  16. jump (held 21 ticks), holding right, from 3298,302; lands at 3554,414
+      -> standing at x 3546-3598, y 414-416
+  17. running right, jump (held 21 ticks), holding right, from 3590,414; clings to the wall at 3817,462
+      -> standing at x 3817-4151, y 369-577
+  18. running right, jump (held 21 ticks), holding right, from 4000,369; lands at 4214,367
+      -> standing at x 4202-4254, y 367-369
+  19. jump (held 21 ticks), holding right, from 4240,367; clings to the wall at 4489,487
+      -> standing at x 4489-4624, y 401-503
+  20. standing at 4598,401, presses down at it
+      -> out 4600,368
+how in 48,416 -> loc 2 28: megaman:1
+     coming in at 48,416
+   1. coming in: holding nothing, from 48,416; lands at 48,417
+      -> standing at x 0-167, y 417-577
+   2. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 167,418; lands at 278,370
+      -> standing at x 250-302, y 370-372
+   3. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 250,370; lands at 407,416
+      -> standing at x 394-446, y 416-418
+   4. jump (held 6 ticks), holding right, from 432,416; lands at 534,370
+      -> standing at x 522-574, y 370-372
+   5. jump (held 21 ticks), holding right, from 544,370; lands at 675,304
+      -> standing at x 666-718, y 304-306
+   6. running right, jump (held 21 ticks), holding right, from 704,304; clings to the wall at 841,238
+      -> standing at x 841-983, y 177-247
+   7. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 983,178; lands at 1149,449
+      -> standing at x 935-1463, y 81-577
+   8. on the wall to the left: holding right, from 1463,192; lands at 1536,273
+      -> standing at x 1522-1574, y 273-275
+   9. running right, jump (held 21 ticks), holding right, from 1574,275; clings to the wall at 1721,342
+      -> standing at x 1721-2039, y 273-577
+  10. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2039,274; clings to the wall at 2185,270
+      -> standing at x 2121-2393, y -24-375
+  11. jump (held 21 ticks), wall-jump up the same wall, from 2304,49, through the oMMFlameCanister at 2192,240, the oMMFlameCanister at 2208,240, the oMMFlameCanister at 2224,240, ...; lands at 2415,113   [megaman:1]
+      -> standing at x 2394-2454, y 113 (where a gate is)
+  12. walk off the edge, holding right once in the air, from 2394,113, through the oMMFlameCanister at 2192,240, the oMMFlameCanister at 2208,240, the oMMFlameCanister at 2224,240, ...; touches it on the way   [megaman:1]
+      -> loc 2 28
+how in 48,416 -> loc 2 28: samus:1
+     coming in at 48,416
+   1. coming in: holding nothing, from 48,416; lands at 48,417
+      -> standing at x 0-167, y 417-577
+   2. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 167,418; lands at 278,370
+      -> standing at x 250-302, y 370-372
+   3. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 250,370; lands at 407,416
+      -> standing at x 394-446, y 416-418
+   4. jump (held 6 ticks), holding right, from 432,416; lands at 534,370
+      -> standing at x 522-574, y 370-372
+   5. jump (held 21 ticks), holding right, from 544,370; lands at 675,304
+      -> standing at x 666-718, y 304-306
+   6. running right, jump (held 21 ticks), holding right, from 704,304; clings to the wall at 841,238
+      -> standing at x 841-983, y 177-247
+   7. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 983,178; lands at 1149,449
+      -> standing at x 935-1463, y 81-577
+   8. on the wall to the left: holding right, from 1463,192; lands at 1536,273
+      -> standing at x 1522-1574, y 273-275
+   9. running right, jump (held 21 ticks), holding right, from 1574,275; clings to the wall at 1721,342
+      -> standing at x 1721-2039, y 273-577
+  10. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2039,274; clings to the wall at 2185,270
+      -> standing at x 2121-2393, y -24-375
+  11. jump (held 21 ticks), wall-jump up the same wall, from 2304,49, through the oMMFlameCanister at 2192,240, the oMMFlameCanister at 2208,240, the oMMFlameCanister at 2224,240, ...; lands at 2415,113   [samus:1]
+      -> standing at x 2394-2454, y 113 (where a gate is)
+  12. walk off the edge, holding right once in the air, from 2394,113, through the oMMFlameCanister at 2192,240, the oMMFlameCanister at 2208,240, the oMMFlameCanister at 2224,240, ...; touches it on the way   [samus:1]
+      -> loc 2 28
+how in 48,416 -> loc 2 28: link:2
+     coming in at 48,416
+   1. coming in: holding nothing, from 48,416; lands at 48,417
+      -> standing at x 0-167, y 417-577
+   2. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 167,418; lands at 278,370
+      -> standing at x 250-302, y 370-372
+   3. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 250,370; lands at 407,416
+      -> standing at x 394-446, y 416-418
+   4. jump (held 6 ticks), holding right, from 432,416; lands at 534,370
+      -> standing at x 522-574, y 370-372
+   5. jump (held 21 ticks), holding right, from 544,370; lands at 675,304
+      -> standing at x 666-718, y 304-306
+   6. running right, jump (held 21 ticks), holding right, from 704,304; clings to the wall at 841,238
+      -> standing at x 841-983, y 177-247
+   7. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 983,178; lands at 1149,449
+      -> standing at x 935-1463, y 81-577
+   8. on the wall to the left: holding right, from 1463,192; lands at 1536,273
+      -> standing at x 1522-1574, y 273-275
+   9. running right, jump (held 21 ticks), holding right, from 1574,275; clings to the wall at 1721,342
+      -> standing at x 1721-2039, y 273-577
+  10. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2039,274; clings to the wall at 2185,270
+      -> standing at x 2121-2393, y -24-375
+  11. jump (held 21 ticks), wall-jump up the same wall, from 2304,49, through the oMMFlameCanister at 2192,240, the oMMFlameCanister at 2208,240, the oMMFlameCanister at 2224,240, ...; lands at 2415,113   [link:2]
+      -> standing at x 2394-2454, y 113 (where a gate is)
+  12. walk off the edge, holding right once in the air, from 2394,113, through the oMMFlameCanister at 2192,240, the oMMFlameCanister at 2208,240, the oMMFlameCanister at 2224,240, ...; touches it on the way   [link:2]
+      -> loc 2 28
+how in 48,416 -> loc 2 28: belmont:2
+     coming in at 48,416
+   1. coming in: holding nothing, from 48,416; lands at 48,417
+      -> standing at x 0-167, y 417-577
+   2. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 167,418; lands at 278,370
+      -> standing at x 250-302, y 370-372
+   3. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 250,370; lands at 407,416
+      -> standing at x 394-446, y 416-418
+   4. jump (held 6 ticks), holding right, from 432,416; lands at 534,370
+      -> standing at x 522-574, y 370-372
+   5. jump (held 21 ticks), holding right, from 544,370; lands at 675,304
+      -> standing at x 666-718, y 304-306
+   6. running right, jump (held 21 ticks), holding right, from 704,304; clings to the wall at 841,238
+      -> standing at x 841-983, y 177-247
+   7. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 983,178; lands at 1149,449
+      -> standing at x 935-1463, y 81-577
+   8. on the wall to the left: holding right, from 1463,192; lands at 1536,273
+      -> standing at x 1522-1574, y 273-275
+   9. running right, jump (held 21 ticks), holding right, from 1574,275; clings to the wall at 1721,342
+      -> standing at x 1721-2039, y 273-577
+  10. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2039,274; clings to the wall at 2185,270
+      -> standing at x 2121-2393, y -24-375
+  11. jump (held 21 ticks), wall-jump up the same wall, from 2304,49, through the oMMFlameCanister at 2192,240, the oMMFlameCanister at 2208,240, the oMMFlameCanister at 2224,240, ...; lands at 2415,113   [belmont:2]
+      -> standing at x 2394-2454, y 113 (where a gate is)
+  12. walk off the edge, holding right once in the air, from 2394,113, through the oMMFlameCanister at 2192,240, the oMMFlameCanister at 2208,240, the oMMFlameCanister at 2224,240, ...; touches it on the way   [belmont:2]
+      -> loc 2 28
+how in 48,416 -> loc 9 62: megaman:1
+     coming in at 48,416
+   1. coming in: holding nothing, from 48,416; lands at 48,417
+      -> standing at x 0-167, y 417-577
+   2. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 167,418; lands at 278,370
+      -> standing at x 250-302, y 370-372
+   3. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 250,370; lands at 407,416
+      -> standing at x 394-446, y 416-418
+   4. jump (held 6 ticks), holding right, from 432,416; lands at 534,370
+      -> standing at x 522-574, y 370-372
+   5. jump (held 21 ticks), holding right, from 544,370; lands at 675,304
+      -> standing at x 666-718, y 304-306
+   6. running right, jump (held 21 ticks), holding right, from 704,304; clings to the wall at 841,238
+      -> standing at x 841-983, y 177-247
+   7. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 983,178; lands at 1149,449
+      -> standing at x 935-1463, y 81-577
+   8. on the wall to the left: holding right, from 1463,192; lands at 1536,273
+      -> standing at x 1522-1574, y 273-275
+   9. running right, jump (held 21 ticks), holding right, from 1574,275; clings to the wall at 1721,342
+      -> standing at x 1721-2039, y 273-577
+  10. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2039,274; clings to the wall at 2185,270
+      -> standing at x 2121-2393, y -24-375
+  11. walk off the edge, holding right once in the air, from 2122,305, through the oMMFlameCanister at 2192,240, the oMMFlameCanister at 2208,240, the oMMFlameCanister at 2224,240, ...; lands at 2371,353   [megaman:1]
+      -> standing at x 2345-2583, y 353-577
+  12. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2583,418; lands at 2686,368
+      -> standing at x 2666-2718, y 368-370
+  13. jump (held 21 ticks), holding right, from 2666,368; lands at 2805,309
+      -> standing at x 2794-2846, y 309-311
+  14. running right, jump (held 21 ticks), holding right, from 2842,309; lands at 3026,272
+      -> standing at x 3018-3070, y 272-274
+  15. running right, jump (held 21 ticks), holding right, from 3070,272; lands at 3298,302
+      -> standing at x 3290-3342, y 302-304
+  16. jump (held 21 ticks), holding right, from 3298,302; lands at 3554,414
+      -> standing at x 3546-3598, y 414-416
+  17. running right, jump (held 21 ticks), holding right, from 3590,414; clings to the wall at 3817,462
+      -> standing at x 3817-4151, y 369-577
+  18. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 3904,369; clings to the wall at 3943,305
+      -> standing at x 3783-3943, y -24-327
+  19. running right, jump (held 21 ticks), holding right, from 3904,113; lands at 4213,275
+      -> standing at x 4202-4254, y 275-277
+  20. running right, jump (held 21 ticks), holding right, from 4250,276; touches it on the way
+      -> loc 9 62
+how in 48,416 -> loc 9 62: samus:1
+     coming in at 48,416
+   1. coming in: holding nothing, from 48,416; lands at 48,417
+      -> standing at x 0-167, y 417-577
+   2. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 167,418; lands at 278,370
+      -> standing at x 250-302, y 370-372
+   3. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 250,370; lands at 407,416
+      -> standing at x 394-446, y 416-418
+   4. jump (held 6 ticks), holding right, from 432,416; lands at 534,370
+      -> standing at x 522-574, y 370-372
+   5. jump (held 21 ticks), holding right, from 544,370; lands at 675,304
+      -> standing at x 666-718, y 304-306
+   6. running right, jump (held 21 ticks), holding right, from 704,304; clings to the wall at 841,238
+      -> standing at x 841-983, y 177-247
+   7. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 983,178; lands at 1149,449
+      -> standing at x 935-1463, y 81-577
+   8. on the wall to the left: holding right, from 1463,192; lands at 1536,273
+      -> standing at x 1522-1574, y 273-275
+   9. running right, jump (held 21 ticks), holding right, from 1574,275; clings to the wall at 1721,342
+      -> standing at x 1721-2039, y 273-577
+  10. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2039,274; clings to the wall at 2185,270
+      -> standing at x 2121-2393, y -24-375
+  11. walk off the edge, holding right once in the air, from 2122,305, through the oMMFlameCanister at 2192,240, the oMMFlameCanister at 2208,240, the oMMFlameCanister at 2224,240, ...; lands at 2371,353   [samus:1]
+      -> standing at x 2345-2583, y 353-577
+  12. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2583,418; lands at 2686,368
+      -> standing at x 2666-2718, y 368-370
+  13. jump (held 21 ticks), holding right, from 2666,368; lands at 2805,309
+      -> standing at x 2794-2846, y 309-311
+  14. running right, jump (held 21 ticks), holding right, from 2842,309; lands at 3026,272
+      -> standing at x 3018-3070, y 272-274
+  15. running right, jump (held 21 ticks), holding right, from 3070,272; lands at 3298,302
+      -> standing at x 3290-3342, y 302-304
+  16. jump (held 21 ticks), holding right, from 3298,302; lands at 3554,414
+      -> standing at x 3546-3598, y 414-416
+  17. running right, jump (held 21 ticks), holding right, from 3590,414; clings to the wall at 3817,462
+      -> standing at x 3817-4151, y 369-577
+  18. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 3904,369; clings to the wall at 3943,305
+      -> standing at x 3783-3943, y -24-327
+  19. running right, jump (held 21 ticks), holding right, from 3904,113; lands at 4213,275
+      -> standing at x 4202-4254, y 275-277
+  20. running right, jump (held 21 ticks), holding right, from 4250,276; touches it on the way
+      -> loc 9 62
+how in 48,416 -> loc 9 62: link:2
+     coming in at 48,416
+   1. coming in: holding nothing, from 48,416; lands at 48,417
+      -> standing at x 0-167, y 417-577
+   2. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 167,418; lands at 278,370
+      -> standing at x 250-302, y 370-372
+   3. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 250,370; lands at 407,416
+      -> standing at x 394-446, y 416-418
+   4. jump (held 6 ticks), holding right, from 432,416; lands at 534,370
+      -> standing at x 522-574, y 370-372
+   5. jump (held 21 ticks), holding right, from 544,370; lands at 675,304
+      -> standing at x 666-718, y 304-306
+   6. running right, jump (held 21 ticks), holding right, from 704,304; clings to the wall at 841,238
+      -> standing at x 841-983, y 177-247
+   7. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 983,178; lands at 1149,449
+      -> standing at x 935-1463, y 81-577
+   8. on the wall to the left: holding right, from 1463,192; lands at 1536,273
+      -> standing at x 1522-1574, y 273-275
+   9. running right, jump (held 21 ticks), holding right, from 1574,275; clings to the wall at 1721,342
+      -> standing at x 1721-2039, y 273-577
+  10. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2039,274; clings to the wall at 2185,270
+      -> standing at x 2121-2393, y -24-375
+  11. walk off the edge, holding right once in the air, from 2122,305, through the oMMFlameCanister at 2192,240, the oMMFlameCanister at 2208,240, the oMMFlameCanister at 2224,240, ...; lands at 2371,353   [link:2]
+      -> standing at x 2345-2583, y 353-577
+  12. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2583,418; lands at 2686,368
+      -> standing at x 2666-2718, y 368-370
+  13. jump (held 21 ticks), holding right, from 2666,368; lands at 2805,309
+      -> standing at x 2794-2846, y 309-311
+  14. running right, jump (held 21 ticks), holding right, from 2842,309; lands at 3026,272
+      -> standing at x 3018-3070, y 272-274
+  15. running right, jump (held 21 ticks), holding right, from 3070,272; lands at 3298,302
+      -> standing at x 3290-3342, y 302-304
+  16. jump (held 21 ticks), holding right, from 3298,302; lands at 3554,414
+      -> standing at x 3546-3598, y 414-416
+  17. running right, jump (held 21 ticks), holding right, from 3590,414; clings to the wall at 3817,462
+      -> standing at x 3817-4151, y 369-577
+  18. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 3904,369; clings to the wall at 3943,305
+      -> standing at x 3783-3943, y -24-327
+  19. running right, jump (held 21 ticks), holding right, from 3904,113; lands at 4213,275
+      -> standing at x 4202-4254, y 275-277
+  20. running right, jump (held 21 ticks), holding right, from 4250,276; touches it on the way
+      -> loc 9 62
+how in 48,416 -> loc 9 62: belmont:2
+     coming in at 48,416
+   1. coming in: holding nothing, from 48,416; lands at 48,417
+      -> standing at x 0-167, y 417-577
+   2. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 167,418; lands at 278,370
+      -> standing at x 250-302, y 370-372
+   3. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 250,370; lands at 407,416
+      -> standing at x 394-446, y 416-418
+   4. jump (held 6 ticks), holding right, from 432,416; lands at 534,370
+      -> standing at x 522-574, y 370-372
+   5. jump (held 21 ticks), holding right, from 544,370; lands at 675,304
+      -> standing at x 666-718, y 304-306
+   6. running right, jump (held 21 ticks), holding right, from 704,304; clings to the wall at 841,238
+      -> standing at x 841-983, y 177-247
+   7. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 983,178; lands at 1149,449
+      -> standing at x 935-1463, y 81-577
+   8. on the wall to the left: holding right, from 1463,192; lands at 1536,273
+      -> standing at x 1522-1574, y 273-275
+   9. running right, jump (held 21 ticks), holding right, from 1574,275; clings to the wall at 1721,342
+      -> standing at x 1721-2039, y 273-577
+  10. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2039,274; clings to the wall at 2185,270
+      -> standing at x 2121-2393, y -24-375
+  11. walk off the edge, holding right once in the air, from 2122,305, through the oMMFlameCanister at 2192,240, the oMMFlameCanister at 2208,240, the oMMFlameCanister at 2224,240, ...; lands at 2371,353   [belmont:2]
+      -> standing at x 2345-2583, y 353-577
+  12. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2583,418; lands at 2686,368
+      -> standing at x 2666-2718, y 368-370
+  13. jump (held 21 ticks), holding right, from 2666,368; lands at 2805,309
+      -> standing at x 2794-2846, y 309-311
+  14. running right, jump (held 21 ticks), holding right, from 2842,309; lands at 3026,272
+      -> standing at x 3018-3070, y 272-274
+  15. running right, jump (held 21 ticks), holding right, from 3070,272; lands at 3298,302
+      -> standing at x 3290-3342, y 302-304
+  16. jump (held 21 ticks), holding right, from 3298,302; lands at 3554,414
+      -> standing at x 3546-3598, y 414-416
+  17. running right, jump (held 21 ticks), holding right, from 3590,414; clings to the wall at 3817,462
+      -> standing at x 3817-4151, y 369-577
+  18. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 3904,369; clings to the wall at 3943,305
+      -> standing at x 3783-3943, y -24-327
+  19. running right, jump (held 21 ticks), holding right, from 3904,113; lands at 4213,275
+      -> standing at x 4202-4254, y 275-277
+  20. running right, jump (held 21 ticks), holding right, from 4250,276; touches it on the way
+      -> loc 9 62
 how in 4112,112 -> out 4608,128: -
      coming in at 4112,112
    1. coming in: holding right, from 4112,112; lands at 4229,275
@@ -50,6 +666,94 @@ how in 4112,112 -> out 4600,368: -
       -> standing at x 4489-4624, y 401-503
    3. standing at 4598,401, presses down at it
       -> out 4600,368
+how in 4112,112 -> loc 2 28: megaman:1
+     coming in at 4112,112
+   1. coming in: holding nothing, from 4112,112; lands at 4112,369
+      -> standing at x 3817-4151, y 369-577
+   2. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 3817,384; lands at 3699,338
+      -> standing at x 3690-3742, y 338-340
+   3. jump (held 6 ticks), holding left, from 3690,338; lands at 3573,309
+      -> standing at x 3546-3598, y 309-311
+   4. jump (held 6 ticks), holding left, from 3546,309; lands at 3429,276
+      -> standing at x 3386-3438, y 276-278
+   5. running left, jump (held 21 ticks), holding left, from 3386,276; lands at 3188,256
+      -> standing at x 3146-3198, y 256-258
+   6. running left, jump (held 21 ticks), holding left, from 3146,256; lands at 2838,414
+      -> standing at x 2794-2846, y 414-416
+   7. jump (held 21 ticks), holding left, from 2794,414; clings to the wall at 2583,474
+      -> standing at x 2345-2583, y 353-577
+   8. running left, jump (held 21 ticks), holding left, from 2346,353, through the oMMFlameCanister at 2192,240, the oMMFlameCanister at 2208,240, the oMMFlameCanister at 2224,240, ...; lands at 2178,305   [megaman:1]
+      -> standing at x 2121-2393, y -24-375
+   9. jump (held 21 ticks), wall-jump up the same wall, from 2304,49, through the oMMFlameCanister at 2192,240, the oMMFlameCanister at 2208,240, the oMMFlameCanister at 2224,240, ...; lands at 2415,113   [megaman:1]
+      -> standing at x 2394-2454, y 113 (where a gate is)
+  10. walk off the edge, holding right once in the air, from 2394,113, through the oMMFlameCanister at 2192,240, the oMMFlameCanister at 2208,240, the oMMFlameCanister at 2224,240, ...; touches it on the way   [megaman:1]
+      -> loc 2 28
+how in 4112,112 -> loc 2 28: samus:1
+     coming in at 4112,112
+   1. coming in: holding nothing, from 4112,112; lands at 4112,369
+      -> standing at x 3817-4151, y 369-577
+   2. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 3817,384; lands at 3699,338
+      -> standing at x 3690-3742, y 338-340
+   3. jump (held 6 ticks), holding left, from 3690,338; lands at 3573,309
+      -> standing at x 3546-3598, y 309-311
+   4. jump (held 6 ticks), holding left, from 3546,309; lands at 3429,276
+      -> standing at x 3386-3438, y 276-278
+   5. running left, jump (held 21 ticks), holding left, from 3386,276; lands at 3188,256
+      -> standing at x 3146-3198, y 256-258
+   6. running left, jump (held 21 ticks), holding left, from 3146,256; lands at 2838,414
+      -> standing at x 2794-2846, y 414-416
+   7. jump (held 21 ticks), holding left, from 2794,414; clings to the wall at 2583,474
+      -> standing at x 2345-2583, y 353-577
+   8. running left, jump (held 21 ticks), holding left, from 2346,353, through the oMMFlameCanister at 2192,240, the oMMFlameCanister at 2208,240, the oMMFlameCanister at 2224,240, ...; lands at 2178,305   [samus:1]
+      -> standing at x 2121-2393, y -24-375
+   9. jump (held 21 ticks), wall-jump up the same wall, from 2304,49, through the oMMFlameCanister at 2192,240, the oMMFlameCanister at 2208,240, the oMMFlameCanister at 2224,240, ...; lands at 2415,113   [samus:1]
+      -> standing at x 2394-2454, y 113 (where a gate is)
+  10. walk off the edge, holding right once in the air, from 2394,113, through the oMMFlameCanister at 2192,240, the oMMFlameCanister at 2208,240, the oMMFlameCanister at 2224,240, ...; touches it on the way   [samus:1]
+      -> loc 2 28
+how in 4112,112 -> loc 2 28: link:2
+     coming in at 4112,112
+   1. coming in: holding nothing, from 4112,112; lands at 4112,369
+      -> standing at x 3817-4151, y 369-577
+   2. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 3817,384; lands at 3699,338
+      -> standing at x 3690-3742, y 338-340
+   3. jump (held 6 ticks), holding left, from 3690,338; lands at 3573,309
+      -> standing at x 3546-3598, y 309-311
+   4. jump (held 6 ticks), holding left, from 3546,309; lands at 3429,276
+      -> standing at x 3386-3438, y 276-278
+   5. running left, jump (held 21 ticks), holding left, from 3386,276; lands at 3188,256
+      -> standing at x 3146-3198, y 256-258
+   6. running left, jump (held 21 ticks), holding left, from 3146,256; lands at 2838,414
+      -> standing at x 2794-2846, y 414-416
+   7. jump (held 21 ticks), holding left, from 2794,414; clings to the wall at 2583,474
+      -> standing at x 2345-2583, y 353-577
+   8. running left, jump (held 21 ticks), holding left, from 2346,353, through the oMMFlameCanister at 2192,240, the oMMFlameCanister at 2208,240, the oMMFlameCanister at 2224,240, ...; lands at 2178,305   [link:2]
+      -> standing at x 2121-2393, y -24-375
+   9. jump (held 21 ticks), wall-jump up the same wall, from 2304,49, through the oMMFlameCanister at 2192,240, the oMMFlameCanister at 2208,240, the oMMFlameCanister at 2224,240, ...; lands at 2415,113   [link:2]
+      -> standing at x 2394-2454, y 113 (where a gate is)
+  10. walk off the edge, holding right once in the air, from 2394,113, through the oMMFlameCanister at 2192,240, the oMMFlameCanister at 2208,240, the oMMFlameCanister at 2224,240, ...; touches it on the way   [link:2]
+      -> loc 2 28
+how in 4112,112 -> loc 2 28: belmont:2
+     coming in at 4112,112
+   1. coming in: holding nothing, from 4112,112; lands at 4112,369
+      -> standing at x 3817-4151, y 369-577
+   2. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 3817,384; lands at 3699,338
+      -> standing at x 3690-3742, y 338-340
+   3. jump (held 6 ticks), holding left, from 3690,338; lands at 3573,309
+      -> standing at x 3546-3598, y 309-311
+   4. jump (held 6 ticks), holding left, from 3546,309; lands at 3429,276
+      -> standing at x 3386-3438, y 276-278
+   5. running left, jump (held 21 ticks), holding left, from 3386,276; lands at 3188,256
+      -> standing at x 3146-3198, y 256-258
+   6. running left, jump (held 21 ticks), holding left, from 3146,256; lands at 2838,414
+      -> standing at x 2794-2846, y 414-416
+   7. jump (held 21 ticks), holding left, from 2794,414; clings to the wall at 2583,474
+      -> standing at x 2345-2583, y 353-577
+   8. running left, jump (held 21 ticks), holding left, from 2346,353, through the oMMFlameCanister at 2192,240, the oMMFlameCanister at 2208,240, the oMMFlameCanister at 2224,240, ...; lands at 2178,305   [belmont:2]
+      -> standing at x 2121-2393, y -24-375
+   9. jump (held 21 ticks), wall-jump up the same wall, from 2304,49, through the oMMFlameCanister at 2192,240, the oMMFlameCanister at 2208,240, the oMMFlameCanister at 2224,240, ...; lands at 2415,113   [belmont:2]
+      -> standing at x 2394-2454, y 113 (where a gate is)
+  10. walk off the edge, holding right once in the air, from 2394,113, through the oMMFlameCanister at 2192,240, the oMMFlameCanister at 2208,240, the oMMFlameCanister at 2224,240, ...; touches it on the way   [belmont:2]
+      -> loc 2 28
 how in 4112,112 -> loc 9 62: -
      coming in at 4112,112
    1. coming in: holding right, from 4112,112; lands at 4229,275

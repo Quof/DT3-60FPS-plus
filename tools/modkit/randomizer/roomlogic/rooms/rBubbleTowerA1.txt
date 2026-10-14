@@ -3,6 +3,7 @@
 # Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
 # Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
 # middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+carried rb   # the red and blue switches' state comes in with the player and goes out with them (0: the blue blocks solid, 1: the red ones)
 # switches: the room is worked out in each of its states, the player coming in in the first: [blue blocks solid]
 
 # Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
@@ -20,22 +21,210 @@ out 224,144   # to rBubbleTowerA2 at 72,960; the player presses up at it
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
 # link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
 # the locked door whose objectNum is N.
-from in 104,1008
-  out 96,976    -
-  out 224,144   never
-from in 232,176
-  out 96,976    -
-  out 224,144   -
+from in 104,1008 [rb 0]
+  out 96,976 [rb 0]    -
+  out 96,976 [rb 1]    -
+  out 224,144 [rb 0]   -
+  out 224,144 [rb 1]   -
+from in 104,1008 [rb 1]
+  out 96,976 [rb 0]    -
+  out 96,976 [rb 1]    -
+  out 224,144 [rb 0]   -
+  out 224,144 [rb 1]   -
+from in 232,176 [rb 0]
+  out 96,976 [rb 0]    -
+  out 96,976 [rb 1]    -
+  out 224,144 [rb 0]   -
+  out 224,144 [rb 1]   -
+from in 232,176 [rb 1]
+  out 96,976 [rb 0]    -
+  out 96,976 [rb 1]    -
+  out 224,144 [rb 0]   -
+  out 224,144 [rb 1]   -
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
-how in 104,1008 -> out 96,976: -
+how in 104,1008 [rb 0] -> out 96,976 [rb 0]: -
      [blue blocks solid] coming in at 104,1008
    1. coming in: holding nothing, from 104,1008; lands at 104,1009
       -> [blue blocks solid] standing at x 55-281, y 1009
    2. standing at 94,1009, presses up at it
-      -> out 96,976
-how in 232,176 -> out 96,976: -
+      -> out 96,976 [rb 0]
+how in 104,1008 [rb 0] -> out 96,976 [rb 1]: -
+     [blue blocks solid] coming in at 104,1008
+   1. coming in: holding nothing, from 104,1008; lands at 104,1009
+      -> [blue blocks solid] standing at x 55-281, y 1009
+   2. wait at 55,1009 for an enemy's shot or a trap to hit a red or blue switch: [red blocks solid]
+      -> [red blocks solid] standing at x 55-281, y 1009
+   3. standing at 94,1009, presses up at it
+      -> out 96,976 [rb 1]
+how in 104,1008 [rb 0] -> out 224,144 [rb 0]: -
+     [blue blocks solid] coming in at 104,1008
+   1. coming in: holding nothing, from 104,1008; lands at 104,1009
+      -> [blue blocks solid] standing at x 55-281, y 1009
+   2. running right, jump (held 21 ticks), holding right, from 144,1009; lands at 298,945
+      -> [blue blocks solid] standing at x 282-358, y 945
+   3. jump (held 21 ticks), holding left, from 282,945; lands at 158,881
+      -> [blue blocks solid] standing at x 154-230, y 881
+   4. wait at 154,881 for an enemy's shot or a trap to hit a red or blue switch: [red blocks solid]
+      -> [red blocks solid] standing at x 154-230, y 881
+   5. jump (held 21 ticks), holding left, from 154,881; lands at 78,817
+      -> [red blocks solid] standing at x 74-150, y 817
+   6. jump (held 21 ticks), holding right, from 74,817; lands at 205,753
+      -> [red blocks solid] standing at x 186-262, y 753
+   7. jump (held 6 ticks), holding right, from 208,753; lands at 325,721
+      -> [red blocks solid] standing at x 314-390, y 721
+   8. jump (held 21 ticks), holding left, from 314,721; lands at 183,657
+      -> [red blocks solid] standing at x 154-230, y 657
+   9. jump (held 21 ticks), holding right, from 158,657; lands at 289,593
+      -> [red blocks solid] standing at x 266-342, y 593
+  10. jump (held 6 ticks), holding right, from 266,593; lands at 361,545
+      -> [red blocks solid] standing at x 346-409, y 545
+  11. wait at 346,545 for an enemy's shot or a trap to hit a red or blue switch: [blue blocks solid]
+      -> [blue blocks solid] standing at x 346-409, y 545
+  12. jump (held 6 ticks), holding left, from 346,545; lands at 251,497
+      -> [blue blocks solid] standing at x 234-278, y 497
+  13. jump (held 2 ticks), holding left, from 234,497; lands at 183,465
+      -> [blue blocks solid] standing at x 183-214, y 465
+  14. jump (held 6 ticks), holding left, from 183,465; lands at 124,417
+      -> [blue blocks solid] standing at x 55-182, y 417
+  15. running right, jump (held 21 ticks), holding right, from 144,417; lands at 298,353
+      -> [blue blocks solid] standing at x 282-374, y 353
+  16. jump (held 6 ticks), holding left, from 282,353; lands at 187,305
+      -> [blue blocks solid] standing at x 155-261, y 305-307
+  17. jump (held 21 ticks), holding left, from 155,305; lands at 62,241
+      -> [blue blocks solid] standing at x 58-134, y 241
+  18. jump (held 21 ticks), holding right, from 96,241; touches it on the way
+      -> out 224,144 [rb 0]
+how in 104,1008 [rb 0] -> out 224,144 [rb 1]: -
+     [blue blocks solid] coming in at 104,1008
+   1. coming in: holding nothing, from 104,1008; lands at 104,1009
+      -> [blue blocks solid] standing at x 55-281, y 1009
+   2. running right, jump (held 21 ticks), holding right, from 144,1009; lands at 298,945
+      -> [blue blocks solid] standing at x 282-358, y 945
+   3. jump (held 21 ticks), holding left, from 282,945; lands at 158,881
+      -> [blue blocks solid] standing at x 154-230, y 881
+   4. wait at 154,881 for an enemy's shot or a trap to hit a red or blue switch: [red blocks solid]
+      -> [red blocks solid] standing at x 154-230, y 881
+   5. jump (held 21 ticks), holding left, from 154,881; lands at 78,817
+      -> [red blocks solid] standing at x 74-150, y 817
+   6. jump (held 21 ticks), holding right, from 74,817; lands at 205,753
+      -> [red blocks solid] standing at x 186-262, y 753
+   7. jump (held 6 ticks), holding right, from 208,753; lands at 325,721
+      -> [red blocks solid] standing at x 314-390, y 721
+   8. jump (held 21 ticks), holding left, from 314,721; lands at 183,657
+      -> [red blocks solid] standing at x 154-230, y 657
+   9. jump (held 21 ticks), holding right, from 158,657; lands at 289,593
+      -> [red blocks solid] standing at x 266-342, y 593
+  10. jump (held 6 ticks), holding right, from 266,593; lands at 361,545
+      -> [red blocks solid] standing at x 346-409, y 545
+  11. wait at 346,545 for an enemy's shot or a trap to hit a red or blue switch: [blue blocks solid]
+      -> [blue blocks solid] standing at x 346-409, y 545
+  12. jump (held 6 ticks), holding left, from 346,545; lands at 251,497
+      -> [blue blocks solid] standing at x 234-278, y 497
+  13. jump (held 2 ticks), holding left, from 234,497; lands at 183,465
+      -> [blue blocks solid] standing at x 183-214, y 465
+  14. jump (held 6 ticks), holding left, from 183,465; lands at 124,417
+      -> [blue blocks solid] standing at x 55-182, y 417
+  15. running right, jump (held 21 ticks), holding right, from 144,417; lands at 298,353
+      -> [blue blocks solid] standing at x 282-374, y 353
+  16. jump (held 6 ticks), holding left, from 282,353; lands at 187,305
+      -> [blue blocks solid] standing at x 155-261, y 305-307
+  17. jump (held 21 ticks), holding left, from 155,305; lands at 62,241
+      -> [blue blocks solid] standing at x 58-134, y 241
+  18. wait at 58,241 for an enemy's shot or a trap to hit a red or blue switch: [red blocks solid]
+      -> [red blocks solid] standing at x 58-134, y 241
+  19. jump (held 21 ticks), holding right, from 96,241; touches it on the way
+      -> out 224,144 [rb 1]
+how in 104,1008 [rb 1] -> out 96,976 [rb 0]: -
+     [red blocks solid] coming in at 104,1008
+   1. coming in: holding nothing, from 104,1008; lands at 104,1009
+      -> [red blocks solid] standing at x 55-281, y 1009
+   2. wait at 55,1009 for an enemy's shot or a trap to hit a red or blue switch: [blue blocks solid]
+      -> [blue blocks solid] standing at x 55-281, y 1009
+   3. standing at 94,1009, presses up at it
+      -> out 96,976 [rb 0]
+how in 104,1008 [rb 1] -> out 96,976 [rb 1]: -
+     [red blocks solid] coming in at 104,1008
+   1. coming in: holding nothing, from 104,1008; lands at 104,1009
+      -> [red blocks solid] standing at x 55-281, y 1009
+   2. standing at 94,1009, presses up at it
+      -> out 96,976 [rb 1]
+how in 104,1008 [rb 1] -> out 224,144 [rb 0]: -
+     [red blocks solid] coming in at 104,1008
+   1. coming in: holding nothing, from 104,1008; lands at 104,1009
+      -> [red blocks solid] standing at x 55-281, y 1009
+   2. running right, jump (held 21 ticks), holding right, from 144,1009; lands at 298,945
+      -> [red blocks solid] standing at x 282-409, y 945
+   3. jump (held 21 ticks), holding left, from 282,945; lands at 158,881
+      -> [red blocks solid] standing at x 154-230, y 881
+   4. jump (held 21 ticks), holding left, from 154,881; lands at 78,817
+      -> [red blocks solid] standing at x 74-150, y 817
+   5. jump (held 21 ticks), holding right, from 74,817; lands at 205,753
+      -> [red blocks solid] standing at x 186-262, y 753
+   6. jump (held 6 ticks), holding right, from 208,753; lands at 325,721
+      -> [red blocks solid] standing at x 314-390, y 721
+   7. jump (held 21 ticks), holding left, from 314,721; lands at 183,657
+      -> [red blocks solid] standing at x 154-230, y 657
+   8. jump (held 21 ticks), holding right, from 158,657; lands at 289,593
+      -> [red blocks solid] standing at x 266-342, y 593
+   9. jump (held 6 ticks), holding right, from 266,593; lands at 361,545
+      -> [red blocks solid] standing at x 346-409, y 545
+  10. wait at 346,545 for an enemy's shot or a trap to hit a red or blue switch: [blue blocks solid]
+      -> [blue blocks solid] standing at x 346-409, y 545
+  11. jump (held 6 ticks), holding left, from 346,545; lands at 251,497
+      -> [blue blocks solid] standing at x 234-278, y 497
+  12. jump (held 2 ticks), holding left, from 234,497; lands at 183,465
+      -> [blue blocks solid] standing at x 183-214, y 465
+  13. jump (held 6 ticks), holding left, from 183,465; lands at 124,417
+      -> [blue blocks solid] standing at x 55-182, y 417
+  14. running right, jump (held 21 ticks), holding right, from 144,417; lands at 298,353
+      -> [blue blocks solid] standing at x 282-374, y 353
+  15. jump (held 6 ticks), holding left, from 282,353; lands at 187,305
+      -> [blue blocks solid] standing at x 155-261, y 305-307
+  16. jump (held 21 ticks), holding left, from 155,305; lands at 62,241
+      -> [blue blocks solid] standing at x 58-134, y 241
+  17. jump (held 21 ticks), holding right, from 96,241; touches it on the way
+      -> out 224,144 [rb 0]
+how in 104,1008 [rb 1] -> out 224,144 [rb 1]: -
+     [red blocks solid] coming in at 104,1008
+   1. coming in: holding nothing, from 104,1008; lands at 104,1009
+      -> [red blocks solid] standing at x 55-281, y 1009
+   2. running right, jump (held 21 ticks), holding right, from 144,1009; lands at 298,945
+      -> [red blocks solid] standing at x 282-409, y 945
+   3. jump (held 21 ticks), holding left, from 282,945; lands at 158,881
+      -> [red blocks solid] standing at x 154-230, y 881
+   4. jump (held 21 ticks), holding left, from 154,881; lands at 78,817
+      -> [red blocks solid] standing at x 74-150, y 817
+   5. jump (held 21 ticks), holding right, from 74,817; lands at 205,753
+      -> [red blocks solid] standing at x 186-262, y 753
+   6. jump (held 6 ticks), holding right, from 208,753; lands at 325,721
+      -> [red blocks solid] standing at x 314-390, y 721
+   7. jump (held 21 ticks), holding left, from 314,721; lands at 183,657
+      -> [red blocks solid] standing at x 154-230, y 657
+   8. jump (held 21 ticks), holding right, from 158,657; lands at 289,593
+      -> [red blocks solid] standing at x 266-342, y 593
+   9. jump (held 6 ticks), holding right, from 266,593; lands at 361,545
+      -> [red blocks solid] standing at x 346-409, y 545
+  10. wait at 346,545 for an enemy's shot or a trap to hit a red or blue switch: [blue blocks solid]
+      -> [blue blocks solid] standing at x 346-409, y 545
+  11. jump (held 6 ticks), holding left, from 346,545; lands at 251,497
+      -> [blue blocks solid] standing at x 234-278, y 497
+  12. jump (held 2 ticks), holding left, from 234,497; lands at 183,465
+      -> [blue blocks solid] standing at x 183-214, y 465
+  13. jump (held 6 ticks), holding left, from 183,465; lands at 124,417
+      -> [blue blocks solid] standing at x 55-182, y 417
+  14. running right, jump (held 21 ticks), holding right, from 144,417; lands at 298,353
+      -> [blue blocks solid] standing at x 282-374, y 353
+  15. jump (held 6 ticks), holding left, from 282,353; lands at 187,305
+      -> [blue blocks solid] standing at x 155-261, y 305-307
+  16. jump (held 21 ticks), holding left, from 155,305; lands at 62,241
+      -> [blue blocks solid] standing at x 58-134, y 241
+  17. wait at 58,241 for an enemy's shot or a trap to hit a red or blue switch: [red blocks solid]
+      -> [red blocks solid] standing at x 58-134, y 241
+  18. jump (held 21 ticks), holding right, from 96,241; touches it on the way
+      -> out 224,144 [rb 1]
+how in 232,176 [rb 0] -> out 96,976 [rb 0]: -
      [blue blocks solid] coming in at 232,176
    1. coming in: holding nothing, from 232,176; lands at 232,177
       -> [blue blocks solid] standing at x 186-278, y 177
@@ -44,12 +233,74 @@ how in 232,176 -> out 96,976: -
    3. jump (held 21 ticks), holding left, from 346,545; lands at 55,1009
       -> [blue blocks solid] standing at x 55-281, y 1009
    4. standing at 94,1009, presses up at it
-      -> out 96,976
-how in 232,176 -> out 224,144: -
+      -> out 96,976 [rb 0]
+how in 232,176 [rb 0] -> out 96,976 [rb 1]: -
+     [blue blocks solid] coming in at 232,176
+   1. coming in: holding nothing, from 232,176; lands at 232,177
+      -> [blue blocks solid] standing at x 186-278, y 177
+   2. walk off the edge, holding left, then nothing after 1 ticks in the air, from 186,177; lands at 152,417
+      -> [blue blocks solid] standing at x 55-182, y 417
+   3. wait at 55,417 for an enemy's shot or a trap to hit a red or blue switch: [red blocks solid]
+      -> [red blocks solid] standing at x 55-182, y 417
+   4. walk off the edge, holding right, then left after 1 ticks in the air, from 55,417; lands at 55,1009
+      -> [red blocks solid] standing at x 55-281, y 1009
+   5. standing at 94,1009, presses up at it
+      -> out 96,976 [rb 1]
+how in 232,176 [rb 0] -> out 224,144 [rb 0]: -
      [blue blocks solid] coming in at 232,176
    1. coming in: holding nothing, from 232,176; lands at 232,177
       -> [blue blocks solid] standing at x 186-278, y 177
    2. walk off the edge, holding left once in the air, from 186,177; lands at 106,241
       -> [blue blocks solid] standing at x 58-134, y 241
    3. jump (held 21 ticks), holding right, from 96,241; touches it on the way
-      -> out 224,144
+      -> out 224,144 [rb 0]
+how in 232,176 [rb 0] -> out 224,144 [rb 1]: -
+     [blue blocks solid] coming in at 232,176
+   1. coming in: holding nothing, from 232,176; lands at 232,177
+      -> [blue blocks solid] standing at x 186-278, y 177
+   2. walk off the edge, holding left once in the air, from 186,177; lands at 106,241
+      -> [blue blocks solid] standing at x 58-134, y 241
+   3. wait at 58,241 for an enemy's shot or a trap to hit a red or blue switch: [red blocks solid]
+      -> [red blocks solid] standing at x 58-134, y 241
+   4. jump (held 21 ticks), holding right, from 96,241; touches it on the way
+      -> out 224,144 [rb 1]
+how in 232,176 [rb 1] -> out 96,976 [rb 0]: -
+     [red blocks solid] coming in at 232,176
+   1. coming in: holding nothing, from 232,176; lands at 232,177
+      -> [red blocks solid] standing at x 186-278, y 177
+   2. walk off the edge, holding left, then nothing after 1 ticks in the air, from 186,177; lands at 152,417
+      -> [red blocks solid] standing at x 55-182, y 417
+   3. walk off the edge, holding right, then left after 1 ticks in the air, from 55,417; lands at 55,1009
+      -> [red blocks solid] standing at x 55-281, y 1009
+   4. wait at 55,1009 for an enemy's shot or a trap to hit a red or blue switch: [blue blocks solid]
+      -> [blue blocks solid] standing at x 55-281, y 1009
+   5. standing at 94,1009, presses up at it
+      -> out 96,976 [rb 0]
+how in 232,176 [rb 1] -> out 96,976 [rb 1]: -
+     [red blocks solid] coming in at 232,176
+   1. coming in: holding nothing, from 232,176; lands at 232,177
+      -> [red blocks solid] standing at x 186-278, y 177
+   2. walk off the edge, holding left, then nothing after 1 ticks in the air, from 186,177; lands at 152,417
+      -> [red blocks solid] standing at x 55-182, y 417
+   3. walk off the edge, holding right, then left after 1 ticks in the air, from 55,417; lands at 55,1009
+      -> [red blocks solid] standing at x 55-281, y 1009
+   4. standing at 94,1009, presses up at it
+      -> out 96,976 [rb 1]
+how in 232,176 [rb 1] -> out 224,144 [rb 0]: -
+     [red blocks solid] coming in at 232,176
+   1. coming in: holding nothing, from 232,176; lands at 232,177
+      -> [red blocks solid] standing at x 186-278, y 177
+   2. walk off the edge, holding left once in the air, from 186,177; lands at 106,241
+      -> [red blocks solid] standing at x 58-134, y 241
+   3. wait at 58,241 for an enemy's shot or a trap to hit a red or blue switch: [blue blocks solid]
+      -> [blue blocks solid] standing at x 58-134, y 241
+   4. jump (held 21 ticks), holding right, from 96,241; touches it on the way
+      -> out 224,144 [rb 0]
+how in 232,176 [rb 1] -> out 224,144 [rb 1]: -
+     [red blocks solid] coming in at 232,176
+   1. coming in: holding nothing, from 232,176; lands at 232,177
+      -> [red blocks solid] standing at x 186-278, y 177
+   2. walk off the edge, holding left once in the air, from 186,177; lands at 106,241
+      -> [red blocks solid] standing at x 58-134, y 241
+   3. jump (held 21 ticks), holding right, from 96,241; touches it on the way
+      -> out 224,144 [rb 1]

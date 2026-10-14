@@ -17,14 +17,20 @@ rooms.txt, one line an instance, tab-separated (RoomLogic.cs reads it):
   D sprite x y xscale yscale angle x y exitType                a door to another place in the same room
   V sprite x y xscale yscale angle                             an elevator (oUseElevator)
   K sprite x y xscale yscale angle                             a Strike Chain point (Mega Man's grapple latches on)
+  KR sprite x y xscale yscale angle                            a Strike Chain point that flies left and right along its
+                                                               row, turning at walls (a Ripper's)
+  PR sprite x y xscale yscale angle                            a rock the player pushes (it slides when walked into, and
+                                                               falls off edges)
   N sprite x y xscale yscale angle line x1 y1 x2 y2            a moving platform the player rides, and where it goes
   N sprite x y xscale yscale angle circle cx cy r              (along a line, or round a circle)
   L sprite x y xscale yscale angle type number fall label      a location (fall 1: the pickup falls to the ground; label
                                                                its name, "skill point 59")
-  T sprite x y xscale yscale angle group state                 a solid in one state of a group the room's switches
+  T sprite x y xscale yscale angle group state [ride]          a solid in one state of a group the room's switches
                                                                change (rb the red and blue blocks, pb the sliding
                                                                blocks, b<GID> a switch's barrier, ice the ice platforms,
-                                                               brk the bricks the head breaks)
+                                                               brk the bricks the head breaks); ride: a block that
+                                                               carries the player standing on it from one state's place
+                                                               to the other's (two lines a block, state 0 then 1)
   SW sprite x y xscale yscale angle group attack|bump|ice [once]
                                                                a switch: hit (an attack, the head from below, an
                                                                elemental attack), the group's state changes (once: only
@@ -57,6 +63,13 @@ OBJECTS = os.path.join(PROJ, "objects")
 
 # the Randomizer's start: where the player comes out of the door from Greatest Stretch in Central City - North
 START = ("rCCity_NorthA", 608, 320)
+# the red and blue blocks and their switches (the state is the player's, carried from room to room)
+RB_OBJECTS = {"oRBswitch", "oRedBlocker", "oBlueBlocker", "oRedMBlock", "oBlueMBlock", "oMarioRBblock"}
+# what hits red/blue switches by itself (they take enemies' shots and traps as well as the player's attacks): a
+# Sparky's sparks, and traps that move or zap
+SWITCH_HITTERS = {"oSparky", "oPlatformFollower", "oZapTrap", "oZapTrapRed", "oMarioChainBall", "oMovingTrap"}
+# the Water Palace's water levels (oWaterSwitch's wLvlTarget): its switches show 1, 2 or 3
+WATER_LEVELS = {1: 176, 2: 368, 3: 640}
 WORLD_PROGRESS = 5641   # rndInit's rndWorldProg
 
 # ---------------------------------------------------------------- what each object is
@@ -88,9 +101,22 @@ def metroid_door(v):
 def locked_door(v):
     n = v.get("objectNum")
     return "key:%d" % n if isinstance(n, int) else None
+def event_from_code(code):
+    """an event barrier whose code waits for something the game remembers: the event it needs (solve.py's events.txt
+    says what makes each happen), or None: any instrument (eGateProg, every gate's), a Nightmare Gate's boss beaten
+    (eGateProg's character for that gate), an area visited (mapAreas)"""
+    if re.search(r"string_char_at\(\s*global\.eGateProg\s*,\s*i\s*\+\s*1\s*\)", code): return "event:instrument"
+    m = re.search(r"string_char_at\(\s*global\.eGateProg\s*,\s*(\d)\s*\)", code)
+    if m: return "event:gate" + "ABCDEFGH"[int(m.group(1)) - 1]
+    m = re.search(r"string_char_at\(\s*global\.mapAreas\s*,\s*(\d+)\s*\)", code)
+    if m: return "event:area" + m.group(1)
+    return None
 def event_barrier(v):
     sc = v.get("spriteChange", 0)
-    if sc in (1, 3, 4, 5): return None      # opened by something in the room, not the story: stays shut here
+    # a reach ring barrier (the Farreaches): it opens once the player goes through all the room's rings, each within
+    # about a second of the last (oCh9RingManager): counted as needing the dash
+    if sc == 5: return "gdash"
+    if sc in (1, 3, 4): return None         # opened by something in the room, not the story: stays shut here
     pc = v.get("progCheck")
     if isinstance(pc, (int, float)) and pc <= WORLD_PROGRESS: return "open"
     return None
@@ -103,13 +129,16 @@ GATES = {
     "oBreakableExplodeWall": lambda v: EXPLOSION, "oBreakableWExp_Coded": lambda v: EXPLOSION, "oBreakRock": lambda v: EXPLOSION,
     "oEnemyBarrier": lambda v: "-", "oEnemyTestDoor": lambda v: "-",
     "oEventBarrier": event_barrier,
+    # Storm Eagle's flame canisters: any attack but a NORMAL one (the sword, the whip) breaks them, and each blows up the
+    # ones next to it: a shot, an arrow, a dagger...
+    "oMMFlameCanister": lambda v: "megaman:1|samus:1|link:2|belmont:2",
 }
 # moving solids that stay where they're placed till the player does something: solid as placed
 STATIC_MOVING = {"oConveyorA", "oPushRock", "oShakeFallPlat", "oPlatform_CVFall", "oMarioCastleBlock",
                  "oMetroidBlockDisappear", "oCh17SecDoor", "oStepDoorA", "oMetalBlock", "oWrenchBlock", "oPlatformTouch",
                  "oDummyPlat", "oTimerPlatform", "oCh18GeyserPlat", "oSpikePlatformA", "oMMIntroCollA", "oPSF_Cart",
                  "oWaterFloatPlatform", "oSF_Tile2", "oSF_Tile3", "oSF_Tile4", "oWSEs_PlatA", "oPlatformBlock",
-                 "oStepSwitchA", "oMCastle_PlatA"}
+                 "oStepSwitchA", "oMCastle_PlatA", "oMMWallCrush"}
 # moving platforms the player rides: back and forth along a line (xDir, yDir a tick for shiftChange-2 ticks, after a
 # first step in Alarm 0), round a circle, or down while stood on (scales). The rest (crushers, the gravity well's
 # platforms, rails, the Nightmare Gates' platforms) are left out: the logic doesn't use them
@@ -177,7 +206,7 @@ ELEVATOR = "oUseElevator"
 MAP_EXITS = {"oZeldaMapExit", "oGameMapExit"}
 # the events whose code is run after the creation code and Create (they set the instance up a step later)
 ALARM_OBJECTS = {"oInvisibleSolid", "oMetroidDoorHolder", "oMarioLava", "oMarioLavaRev", "oPlatformBreak1",
-                 "oPlatTempFade", "oScaledTrapZone", "oLargeJumper"}
+                 "oPlatTempFade", "oScaledTrapZone", "oLargeJumper", "oMMWallCrush"}
 
 
 def read(p):
@@ -394,9 +423,41 @@ def main():
             holders[int(m.group(1))] = {"on": obj == "oSwitchHolder" and r.vars.get("bSendActive") == 1, "x": x, "y": y,
                                         "spr": spr if isinstance(spr, Res) else Res(proj.sprite.get(obj, ""))}
         switches_used = set()
-        rb_initial = 0
-        m = re.search(r"global\.rbSwitchBlueOn\s*=\s*(true|1)\b", read(rc) if os.path.exists(rc) else "")
-        if m: rb_initial = 1
+        # the red and blue switches' state (global.rbSwitchBlueOn) and the Water Palace's water level (wpWaterLevel) are
+        # the player's, carried from room to room: a room with red/blue blocks or switches carries it (CG rb), and sets
+        # it as the player comes in if its code does (RS; RG where the room has none of them); a Water Palace room whose
+        # water is at wpWaterLevel carries that (CG water). A Sparky's sparks hit the red/blue switches too (SPARKY)
+        m = re.search(r"global\.rbSwitchBlueOn\s*=\s*(true|false|1|0)\b", read(rc) if os.path.exists(rc) else "")
+        rb_reset = None if not m else (1 if m.group(1) in ("true", "1") else 0)
+        objs_here = {obj for obj, x, y, code in todo}
+        has_rb = bool(objs_here & RB_OBJECTS)
+        # colored switches, keys and locks: a colored switch keeps its barriers open while someone stands on it, so in a
+        # party split room (the two characters, one idle where it was left) the partner can be left on it: its barriers
+        # are open once the party reaches it (a spot the room file works out, the barriers needing that spot's event);
+        # a colored key opens the door its color's lock panel names (once the key's reached: the lock's beside the door)
+        split = re.search(r"global\.partySplit\s*=\s*1\b", read(rc) if os.path.exists(rc) else "") is not None
+        door_of = {}      # a barrier's GID -> the spot that opens it
+        spots = []        # (tag, x, y, sprite)
+        for obj, x, y, code in todo:
+            if obj == "oSwitchPanelColor" and split:
+                tag = "switch%d" % (len(spots) + 1)
+                spots.append((tag, x, y, "sSwitchPanelColor"))
+                for g in re.findall(r"idsForTargetDoors\[\d+\]\s*=\s*(\d+)", code): door_of[int(g)] = tag
+        keys = {}
+        for obj, x, y, code in todo:
+            if obj == "oKeyColor":
+                m = re.search(r"image_index\s*=\s*(\d+)", code); keys[int(m.group(1)) if m else 0] = (x, y)
+        for obj, x, y, code in todo:
+            if obj == "oLockPanelColor":
+                m = re.search(r"image_index\s*=\s*(\d+)", code); c = int(m.group(1)) if m else 0
+                g = re.search(r"idForTargetDoor\s*=\s*(\d+)", code)
+                if g and c in keys:
+                    tag = "key%d" % (c + 1)
+                    if tag not in [s[0] for s in spots]: spots.append((tag, keys[c][0], keys[c][1], "sKeyColor"))
+                    door_of[int(g.group(1))] = tag
+        for tag, sx, sy, spr in spots:
+            if tag in door_of.values(): lines.append("SP\t%s\t%d\t%d\t1\t1\t0\t%s" % (spr, sx, sy, tag))
+        water_carried = any(obj == "oWaterVolume" and "wpWaterLevel" in code for obj, x, y, code in todo)
         for obj, x, y, code in todo:
             ch = proj.chain(obj)
             # what a room's switches change: a state of the room (RoomLogic.cs works out each state's places, and goes
@@ -407,6 +468,29 @@ def main():
                 spr = r.vars.get("sprite_index")
                 lines.append("SW\t%s\t%d\t%d\t1\t1\t0\t%s\tattack" % (spr if isinstance(spr, Res) else proj.sprite.get(obj), x, y,
                                                                     "rb" if obj == "oRBswitch" else "pb"))
+                continue
+            if obj == "oWaterVolume" and water_carried:
+                # the Water Palace's water: at the level the player brings in (1 y 176, 2 y 368, 3 y 640), the room's
+                # width and height under it
+                r = run.instance(obj, x, y, code, W, H, area)
+                xs, ys = r.vars.get("image_xscale", W), r.vars.get("image_yscale", H)
+                for lv, wy in WATER_LEVELS.items():
+                    lines.append("TW\tsScaledCollision\t0\t%d\t%s\t%s\t0\t%d" % (wy, fnum(xs), fnum(ys), lv))
+                continue
+            if obj == "oWaterSwitch":
+                # a Water Palace switch: hit, it sets the water to its level (wLvlTarget)
+                r = run.instance(obj, x, y, code, W, H, area)
+                lv = {wy: l for l, wy in WATER_LEVELS.items()}.get(r.vars.get("wLvlTarget"))
+                if r.destroyed != 1 and lv:
+                    lines.append("SW\tsSwitchHolder\t%d\t%d\t1\t1\t0\twater\t%d" % (x, y, lv)); report["water switch"] += 1
+                continue
+            if obj == "oBillBlaster":
+                # a Bill Blaster fires Bullet Bills (flying Mario enemies, 7.5px a tick) from 8px under it: they come by
+                # there to bounce off
+                r = run.instance(obj, x, y, code, W, H, area)
+                if r.destroyed != 1:
+                    lines.append("F\tsNull\t%d\t%d\t1\t1\t0\toBulletBill" % (x, y + 8))
+                    report["Bill Blaster (Bullet Bills to bounce off)"] += 1
                 continue
             if obj in BOUNCERS:
                 r = run.instance(obj, x, y, code, W, H, area)
@@ -465,6 +549,21 @@ def main():
                 for st, bars in ((0, first), (1, second)):
                     for bx, by, bxs, bys in bars:
                         lines.append("T\tsInvisibleSolidMask\t%s\t%s\t%s\t%s\t0\tpb\t%d" % (fnum(bx), fnum(by), fnum(bxs), fnum(bys), st))
+                continue
+            if obj == "oPlayerIdle":
+                # the party split's idle partner: where it starts (and where it's put coming in from the far side)
+                if split:
+                    lines.append("PI\t%d\t%d" % (x, y))
+                    m1, m2 = re.search(r"newX\s*=\s*(\d+)", code), re.search(r"newY\s*=\s*(\d+)", code)
+                    if m1 and m2: lines.append("PI\t%s\t%s" % (m1.group(1), m2.group(1)))
+                continue
+            if obj == "oMetRipper":
+                # a Ripper: it flies left and right along its row, turning at walls, and carries a Strike Chain point
+                # (Mega Man's grapple latches on); RoomLogic.cs puts points along its way
+                r = run.instance(obj, x, y, code, W, H, area)
+                if r.destroyed != 1:
+                    lines.append("KR\tsNull\t%d\t%d\t1\t1\t0" % (x, y))
+                    report["Ripper (a moving Strike Chain point)"] += 1
                 continue
             kind = None
             if obj in MAP_EXITS: kind = "mapexit"
@@ -586,15 +685,27 @@ def main():
                 lines.append("T\t%s\trb\t0" % geo); continue
             if obj == "oMarioRBblock":
                 lines.append("S\t%s" % geo); lines.append("SW\t%s\trb\tbump" % geo); continue
-            # a block a switch slides 64px (and back)
+            # a fading platform (or wall): there for timeTillOff ticks, gone for timeTillOn, over and over (a second or
+            # so each): somewhere to stand, and somewhere to go through, waiting for it: a jump-through platform
+            if obj == "oPlatTempFade":
+                lines.append("P\t%s" % geo); report["fading platform"] += 1; continue
+            # a block a switch slides 64px (and back); it carries a player standing on it (ride: the pair of lines is one
+            # block, in each state)
             if obj == "oPlatformBlock":
                 xsp, ysp = v.get("xSpd"), v.get("ySpd")
                 if isinstance(xsp, (int, float)) and isinstance(ysp, (int, float)):
                     ex = ix + (64 if xsp > 0 else -64 if xsp < 0 else 0)
                     ey = iy + (64 if ysp > 0 else -64 if ysp < 0 else 0)
-                    lines.append("T\t%s\tpb\t0" % geo)
-                    lines.append("T\t%s\t%s\t%s\t%s\t%s\t%s\tpb\t1" % (shape, fnum(ex), fnum(ey), fnum(xs), fnum(ys), fnum(ang)))
+                    lines.append("T\t%s\tpb\t0\tride" % geo)
+                    lines.append("T\t%s\t%s\t%s\t%s\t%s\t%s\tpb\t1\tride" % (shape, fnum(ex), fnum(ey), fnum(xs), fnum(ys), fnum(ang)))
                     continue
+            gm = re.search(r"GID_SET\(\s*(\d+)", code)
+            if gm and int(gm.group(1)) in door_of:
+                lines.append("G\t%s\tevent:%s/%s\t%s" % (geo, room, door_of[int(gm.group(1))], obj)); report["colored barrier"] += 1
+                continue
+            if obj == "oEventBarrier" and event_from_code(code):
+                lines.append("G\t%s\t%s\t%s" % (geo, event_from_code(code), obj)); report["gate waiting for an event"] += 1
+                continue
             if obj in GATES:
                 req = GATES[obj](v)
                 if req == "open": continue
@@ -604,6 +715,14 @@ def main():
                 else:
                     lines.append("G\t%s\t%s\t%s" % (geo, req, obj)); report["gate " + obj] += 1
                 continue
+            # a floating platform: it floats up to the water's top, or falls to what's under it (RoomLogic.cs, at each
+            # water level)
+            if obj == "oWaterFloatPlatform":
+                lines.append("FP\t%s" % geo); report["floating platform"] += 1; continue
+            # a rock the player pushes (oMoveableSolid: walked into, it slides; with nothing under it, it falls):
+            # RoomLogic.cs works out where it can be pushed to, and makes its top somewhere to stand there
+            if obj == "oPushRock":
+                lines.append("PR\t%s" % geo); report["push rock"] += 1; continue
             if "oMovingSolid" in ch or "oMoveableSolid" in ch:
                 if obj not in STATIC_MOVING:
                     path = mover_path(obj, v, W, H)
@@ -619,7 +738,18 @@ def main():
         for g in sorted(switches_used):
             h = holders[g]
             lines.append("SW\t%s\t%d\t%d\t1\t1\t0\tb%d\tattack\tonce" % (h["spr"], h["x"], h["y"], g))
-        if rb_initial: lines.append("RS\trb\t1")
+        if has_rb:
+            lines.append("CG\trb")
+            if rb_reset is not None: lines.append("RS\trb\t%d" % rb_reset)
+            # (an enemy's shots or a moving trap near a red/blue switch hit it by themselves, again and again: a Sparky's
+            # sparks, a platform follower going round its platform, a zap trap, a chain ball)
+            switches = [(x, y) for obj, x, y, code in todo if obj == "oRBswitch"]
+            if any(obj in SWITCH_HITTERS and any(abs(x - sx) <= 160 and abs(y - sy) <= 160 for sx, sy in switches)
+                   for obj, x, y, code in todo):
+                lines.append("RBAUTO"); report["red/blue switches hit by traps or enemies"] += 1
+        elif rb_reset is not None:
+            lines.append("RG\trb\t%d" % rb_reset)
+        if water_carried: lines.append("CG\twater")
         # (a menu's ways out: the room is a map, every one of them from wherever the player comes in)
         for tr, nx, ny in menu_exits(room, world):
             lines.append("X\tsExit\t0\t0\t1\t1\t0\t%s\t%d\t%d\t1\tmenu" % (tr, nx, ny))
@@ -627,6 +757,8 @@ def main():
         if is_map: lines.append("Q")
     with open(out_path, "w", encoding="utf-8", newline="\n") as f:
         f.write("START\t%s\t%d\t%d\n" % START)
+        # (the carried states as a new game starts: the red/blue switches off; the water where the world has it)
+        f.write("CARRY\trb\t0\nCARRY\twater\t%d\n" % {wy: l for l, wy in WATER_LEVELS.items()}.get(world.get("wpWaterLevel"), 2))
         for t, (a, b) in sorted(rndgen.BOSS_VIA.items()):
             f.write("BV\t%s\t%s\n" % (a, b))
         f.write("\n".join(lines) + "\n")

@@ -4,8 +4,12 @@
 #   <room> out <exit> -> <room> in <x,y>      where an exit leads (the exit as its room's file names it)
 #   via <room> out <exit>                     going through that exit is a boss fight (it needs an attack); a room
 #                                             whose file says boss is one when it's come into from another room
+#   carried <state> <value>                   a state the player carries from room to room (rooms whose file says
+#                                             carried use it; the rest pass it on), and its value as a new game starts
 # (A way in whose room's file says it can't be come in at reaches nothing: the player would be inside a solid.)
 start rCCity_NorthA in 608,320
+carried rb 0
+carried water 2
 rMain_1 out 408,2016 -> rMain_2 in 64,400
 rMain_1 out 440,80 -> rMain_72 in 48,1392
 rMain_1 out 8,1536 -> rMain_1 in 280,96

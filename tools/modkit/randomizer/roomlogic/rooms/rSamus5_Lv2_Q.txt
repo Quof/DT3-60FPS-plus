@@ -21,7 +21,7 @@ out 1856,224   # to rSamus5_Lv2_R at 64,1360; the player goes into it
 # the locked door whose objectNum is N.
 from in 64,304
   out 0,272      link:1 | belmont:1 | megaman:1 | samus:1
-  out 1856,224   never
+  out 1856,224   adash,megaman:4,samus:2
 from in 1808,256
   out 0,272      never
   out 1856,224   link:1 | belmont:1 | megaman:1 | samus:1
@@ -60,6 +60,38 @@ how in 64,304 -> out 0,272: samus:1
       -> standing at x 0-30, y 305 (where a gate is)
    3. standing at 0,305, goes into it
       -> out 0,272
+how in 64,304 -> out 1856,224: adash,megaman:4,samus:2
+     coming in at 64,304
+   1. coming in: holding nothing, from 64,304; lands at 64,305
+      -> standing at x 31-217, y 305
+   2. running right, jump (held 21 ticks), holding right, from 64,305; lands at 240,257
+      -> standing at x 218-278, y 257
+   3. jump (held 21 ticks), holding right, from 218,257; lands at 401,257
+      -> standing at x 378-438, y 257
+   4. walk off the edge, holding right once in the air, air dash (Jerry) at tick 2, from 432,257; fires the Strike Chain at the point at 650,232   [adash,megaman:4]
+      -> hanging from the Strike Chain point at 650,232
+   5. hanging there, fire the Strike Chain at the point at 722,232   [megaman:4]
+      -> hanging from the Strike Chain point at 722,232
+   6. off the Strike Chain point: jump (held 21 ticks), holding left, from 722,272; lands at 599,257
+      -> standing at x 599-710, y 257
+   7. walk off the edge, holding right once in the air, air dash (Jerry) at tick 2, from 599,257; fires the Strike Chain at the point at 842,232   [adash,megaman:4]
+      -> hanging from the Strike Chain point at 842,232
+   8. off the Strike Chain point: jump (held 21 ticks), holding nothing, from 842,272; fires the Strike Chain at the point at 866,232   [megaman:4]
+      -> hanging from the Strike Chain point at 866,232
+   9. off the Strike Chain point: jump (held 21 ticks), holding right, air dash (Jerry) at tick 4, from 866,272; fires the Strike Chain at the point at 1058,232   [adash,megaman:4]
+      -> hanging from the Strike Chain point at 1058,232
+  10. off the Strike Chain point: jump (held 21 ticks), holding nothing, then right after 10 ticks, from 1058,272; lands at 1123,241
+      -> standing at x 1114-1142, y 241
+  11. jump (held 6 ticks), holding right, turn into the Morph Ball where the body meets a wall or ceiling, from 1134,241; lands at 1221,193   [samus:2]
+      -> as the Morph Ball at x 1210-1238, y 193
+  12. as the Morph Ball: roll off the edge, holding right once in the air, turn back once there's room, from 1210,193; lands at 1298,225
+      -> standing at x 1274-1334, y 225
+  13. jump (held 21 ticks), holding right, from 1274,225; lands at 1405,161
+      -> standing at x 1386-1414, y 161
+  14. walk off the edge, holding right once in the air, air dash (Jerry) at tick 6 or once there's room ahead, from 1386,161; lands at 1622,257   [adash]
+      -> standing at x 1594-1686, y 257
+  15. walk off the edge, holding right once in the air, air dash (Jerry) at tick 2, from 1600,257, through the Metroid door at 0,240, the Metroid door at 1848,192; touches it on the way   [adash,megaman:1]
+      -> out 1856,224
 how in 1808,256 -> out 1856,224: link:1
      coming in at 1808,256
    1. coming in: holding nothing, from 1808,256; lands at 1808,257

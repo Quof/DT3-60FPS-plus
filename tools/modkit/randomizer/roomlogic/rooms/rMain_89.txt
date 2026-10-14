@@ -23,11 +23,11 @@ loc 10 74   # skill point 74, at 1903,271
 from in 176,80
   out 144,-16    -
   out 2832,176   -
-  loc 10 74      never
+  loc 10 74      gdash
 from in 2800,208
   out 144,-16    -
   out 2832,176   -
-  loc 10 74      never
+  loc 10 74      gdash
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
@@ -57,6 +57,18 @@ how in 176,80 -> out 2832,176: -
       -> standing at x 2407-2848, y 209-273
    9. standing at 2830,209, goes into it
       -> out 2832,176
+how in 176,80 -> loc 10 74: gdash
+     coming in at 176,80
+   1. coming in: holding nothing, from 176,80; lands at 176,81
+      -> standing at x 114-238, y 81-97
+   2. walk off the edge, holding right, then nothing after 1 ticks in the air, from 114,97; lands at 282,289
+      -> standing at x 199-569, y 225-305
+   3. jump (held 21 ticks), holding right, from 480,253; lands at 648,225
+      -> standing at x 615-985, y 209-273
+   4. running right, jump (held 21 ticks), holding right, from 816,209; lands at 1066,274
+      -> standing at x 1031-1801, y 209-305
+   5. dash right (Jerry), jump (held 21 ticks), holding right, from 1712,291, through the barrier at 1808,224; touches it on the way   [gdash]
+      -> loc 10 74
 how in 2800,208 -> out 144,-16: -
      coming in at 2800,208
    1. coming in: holding nothing, from 2800,208; lands at 2800,209
@@ -83,3 +95,15 @@ how in 2800,208 -> out 2832,176: -
       -> standing at x 2407-2848, y 209-273
    2. standing at 2830,209, goes into it
       -> out 2832,176
+how in 2800,208 -> loc 10 74: gdash
+     coming in at 2800,208
+   1. coming in: holding nothing, from 2800,208; lands at 2800,209
+      -> standing at x 2407-2848, y 209-273
+   2. jump (held 2 ticks), holding left, from 2407,273; lands at 2327,249
+      -> standing at x 2119-2361, y 225-266
+   3. jump (held 21 ticks), holding left, from 2119,241; lands at 1970,193
+      -> standing at x 1882-1990, y 193
+   4. jump (held 6 ticks), holding left, from 1882,193; lands at 1692,273
+      -> standing at x 1031-1801, y 209-305
+   5. dash right (Jerry), jump (held 21 ticks), holding right, from 1712,291, through the barrier at 1808,224; touches it on the way   [gdash]
+      -> loc 10 74

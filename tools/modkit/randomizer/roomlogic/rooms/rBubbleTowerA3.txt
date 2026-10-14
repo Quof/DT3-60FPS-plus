@@ -3,6 +3,7 @@
 # Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
 # Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
 # middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+carried rb   # the red and blue switches' state comes in with the player and goes out with them (0: the blue blocks solid, 1: the red ones)
 # switches: the room is worked out in each of its states, the player coming in in the first: [blue blocks solid]
 
 # Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
@@ -21,24 +22,174 @@ out 56,144   # to rBubbleTowerA4 at 360,960; the player presses up at it
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
 # link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
 # the locked door whose objectNum is N.
-from in 360,960
-  out 352,928   -
-  out 240,928   samus:2
-  out 56,144    samus:2
-from in 64,176
-  out 352,928   samus:2
-  out 240,928   -
-  out 56,144    -
+from in 360,960 [rb 0]
+  out 352,928 [rb 0]   -
+  out 352,928 [rb 1]   megaman:1 | samus:1 | link:2 | belmont:2
+  out 240,928 [rb 0]   samus:2
+  out 56,144 [rb 0]    samus:2
+from in 360,960 [rb 1]
+  out 352,928 [rb 0]   djump,adash,megaman:1 | djump,adash,samus:1 | djump,adash,link:2 | djump,adash,belmont:2
+  out 352,928 [rb 1]   -
+  out 240,928 [rb 0]   djump,adash,samus:2
+  out 56,144 [rb 0]    djump,adash,samus:2
+from in 64,176 [rb 0]
+  out 352,928 [rb 0]   samus:2
+  out 352,928 [rb 1]   samus:2
+  out 240,928 [rb 0]   -
+  out 56,144 [rb 0]    -
+from in 64,176 [rb 1]
+  out 352,928 [rb 0]   samus:2
+  out 352,928 [rb 1]   samus:2
+  out 240,928 [rb 0]   samus:2
+  out 240,928 [rb 1]   -
+  out 56,144 [rb 0]    samus:2
+  out 56,144 [rb 1]    -
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
-how in 360,960 -> out 352,928: -
+how in 360,960 [rb 0] -> out 352,928 [rb 0]: -
      [blue blocks solid] coming in at 360,960
    1. coming in: holding nothing, from 360,960; lands at 360,961
       -> [blue blocks solid] standing at x 327-521, y 961
    2. standing at 350,961, presses up at it
-      -> out 352,928
-how in 360,960 -> out 240,928: samus:2
+      -> out 352,928 [rb 0]
+how in 360,960 [rb 0] -> out 352,928 [rb 1]: megaman:1
+     [blue blocks solid] coming in at 360,960
+   1. coming in: holding nothing, from 360,960; lands at 360,961
+      -> [blue blocks solid] standing at x 327-521, y 961
+   2. running right, jump (held 6 ticks), holding right, from 448,961; lands at 569,929
+      -> [blue blocks solid] standing at x 538-569, y 929
+   3. jump (held 21 ticks), holding left, from 538,929; lands at 414,865
+      -> [blue blocks solid] standing at x 410-486, y 865
+   4. jump (held 2 ticks), holding left, from 410,865; lands at 345,833
+      -> [blue blocks solid] standing at x 327-374, y 833
+   5. jump (held 21 ticks), holding right, from 327,833; lands at 457,769
+      -> [blue blocks solid] standing at x 426-457, y 769
+   6. jump (held 21 ticks), holding nothing, then right after 14 ticks, from 426,769; lands at 477,721
+      -> [blue blocks solid] standing at x 458-486, y 721
+   7. jump (held 21 ticks), holding left, from 458,721; lands at 327,657
+      -> [blue blocks solid] standing at x 327-390, y 657
+   8. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 327,657; lands at 422,593
+      -> [blue blocks solid] standing at x 411-457, y 593-595
+   9. step onto moving platform 1 at 411,593
+      -> [blue blocks solid] riding moving platform 1 (waiting for it where it goes)
+  10. ride moving platform 1 and step off at 487,593
+      -> [blue blocks solid] standing at x 487-533, y 593-595
+  11. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 487,593; lands at 569,529
+      -> [blue blocks solid] standing at x 522-569, y 529
+  12. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 522,529; lands at 446,465
+      -> [blue blocks solid] standing at x 442-502, y 465
+  13. jump (held 21 ticks), holding nothing, from 446,465; lands at 446,431
+      -> [blue blocks solid] standing at x 392-452, y 431-433
+  14. shoot the switch at 560,368 from 392,431 (at the top of a jump): [red blocks solid]   [megaman:1]
+      -> [red blocks solid] standing at x 392-452, y 431-433
+  15. drop down through the platform, holding nothing, from 392,431; lands at 392,961
+      -> [red blocks solid] standing at x 327-521, y 961
+  16. standing at 350,961, presses up at it
+      -> out 352,928 [rb 1]
+how in 360,960 [rb 0] -> out 352,928 [rb 1]: samus:1
+     [blue blocks solid] coming in at 360,960
+   1. coming in: holding nothing, from 360,960; lands at 360,961
+      -> [blue blocks solid] standing at x 327-521, y 961
+   2. running right, jump (held 6 ticks), holding right, from 448,961; lands at 569,929
+      -> [blue blocks solid] standing at x 538-569, y 929
+   3. jump (held 21 ticks), holding left, from 538,929; lands at 414,865
+      -> [blue blocks solid] standing at x 410-486, y 865
+   4. jump (held 2 ticks), holding left, from 410,865; lands at 345,833
+      -> [blue blocks solid] standing at x 327-374, y 833
+   5. jump (held 21 ticks), holding right, from 327,833; lands at 457,769
+      -> [blue blocks solid] standing at x 426-457, y 769
+   6. jump (held 21 ticks), holding nothing, then right after 14 ticks, from 426,769; lands at 477,721
+      -> [blue blocks solid] standing at x 458-486, y 721
+   7. jump (held 21 ticks), holding left, from 458,721; lands at 327,657
+      -> [blue blocks solid] standing at x 327-390, y 657
+   8. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 327,657; lands at 422,593
+      -> [blue blocks solid] standing at x 411-457, y 593-595
+   9. step onto moving platform 1 at 411,593
+      -> [blue blocks solid] riding moving platform 1 (waiting for it where it goes)
+  10. ride moving platform 1 and step off at 487,593
+      -> [blue blocks solid] standing at x 487-533, y 593-595
+  11. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 487,593; lands at 569,529
+      -> [blue blocks solid] standing at x 522-569, y 529
+  12. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 522,529; lands at 446,465
+      -> [blue blocks solid] standing at x 442-502, y 465
+  13. jump (held 21 ticks), holding nothing, from 446,465; lands at 446,431
+      -> [blue blocks solid] standing at x 392-452, y 431-433
+  14. shoot the switch at 560,368 from 392,431 (at the top of a jump): [red blocks solid]   [samus:1]
+      -> [red blocks solid] standing at x 392-452, y 431-433
+  15. drop down through the platform, holding nothing, from 392,431; lands at 392,961
+      -> [red blocks solid] standing at x 327-521, y 961
+  16. standing at 350,961, presses up at it
+      -> out 352,928 [rb 1]
+how in 360,960 [rb 0] -> out 352,928 [rb 1]: link:2
+     [blue blocks solid] coming in at 360,960
+   1. coming in: holding nothing, from 360,960; lands at 360,961
+      -> [blue blocks solid] standing at x 327-521, y 961
+   2. running right, jump (held 6 ticks), holding right, from 448,961; lands at 569,929
+      -> [blue blocks solid] standing at x 538-569, y 929
+   3. jump (held 21 ticks), holding left, from 538,929; lands at 414,865
+      -> [blue blocks solid] standing at x 410-486, y 865
+   4. jump (held 2 ticks), holding left, from 410,865; lands at 345,833
+      -> [blue blocks solid] standing at x 327-374, y 833
+   5. jump (held 21 ticks), holding right, from 327,833; lands at 457,769
+      -> [blue blocks solid] standing at x 426-457, y 769
+   6. jump (held 21 ticks), holding nothing, then right after 14 ticks, from 426,769; lands at 477,721
+      -> [blue blocks solid] standing at x 458-486, y 721
+   7. jump (held 21 ticks), holding left, from 458,721; lands at 327,657
+      -> [blue blocks solid] standing at x 327-390, y 657
+   8. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 327,657; lands at 422,593
+      -> [blue blocks solid] standing at x 411-457, y 593-595
+   9. step onto moving platform 1 at 411,593
+      -> [blue blocks solid] riding moving platform 1 (waiting for it where it goes)
+  10. ride moving platform 1 and step off at 487,593
+      -> [blue blocks solid] standing at x 487-533, y 593-595
+  11. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 487,593; lands at 569,529
+      -> [blue blocks solid] standing at x 522-569, y 529
+  12. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 522,529; lands at 446,465
+      -> [blue blocks solid] standing at x 442-502, y 465
+  13. jump (held 21 ticks), holding nothing, from 446,465; lands at 446,431
+      -> [blue blocks solid] standing at x 392-452, y 431-433
+  14. shoot the switch at 560,368 from 392,431 (at the top of a jump): [red blocks solid]   [link:2]
+      -> [red blocks solid] standing at x 392-452, y 431-433
+  15. drop down through the platform, holding nothing, from 392,431; lands at 392,961
+      -> [red blocks solid] standing at x 327-521, y 961
+  16. standing at 350,961, presses up at it
+      -> out 352,928 [rb 1]
+how in 360,960 [rb 0] -> out 352,928 [rb 1]: belmont:2
+     [blue blocks solid] coming in at 360,960
+   1. coming in: holding nothing, from 360,960; lands at 360,961
+      -> [blue blocks solid] standing at x 327-521, y 961
+   2. running right, jump (held 6 ticks), holding right, from 448,961; lands at 569,929
+      -> [blue blocks solid] standing at x 538-569, y 929
+   3. jump (held 21 ticks), holding left, from 538,929; lands at 414,865
+      -> [blue blocks solid] standing at x 410-486, y 865
+   4. jump (held 2 ticks), holding left, from 410,865; lands at 345,833
+      -> [blue blocks solid] standing at x 327-374, y 833
+   5. jump (held 21 ticks), holding right, from 327,833; lands at 457,769
+      -> [blue blocks solid] standing at x 426-457, y 769
+   6. jump (held 21 ticks), holding nothing, then right after 14 ticks, from 426,769; lands at 477,721
+      -> [blue blocks solid] standing at x 458-486, y 721
+   7. jump (held 21 ticks), holding left, from 458,721; lands at 327,657
+      -> [blue blocks solid] standing at x 327-390, y 657
+   8. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 327,657; lands at 422,593
+      -> [blue blocks solid] standing at x 411-457, y 593-595
+   9. step onto moving platform 1 at 411,593
+      -> [blue blocks solid] riding moving platform 1 (waiting for it where it goes)
+  10. ride moving platform 1 and step off at 487,593
+      -> [blue blocks solid] standing at x 487-533, y 593-595
+  11. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 487,593; lands at 569,529
+      -> [blue blocks solid] standing at x 522-569, y 529
+  12. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 522,529; lands at 446,465
+      -> [blue blocks solid] standing at x 442-502, y 465
+  13. jump (held 21 ticks), holding nothing, from 446,465; lands at 446,431
+      -> [blue blocks solid] standing at x 392-452, y 431-433
+  14. shoot the switch at 560,368 from 392,431 (at the top of a jump): [red blocks solid]   [belmont:2]
+      -> [red blocks solid] standing at x 392-452, y 431-433
+  15. drop down through the platform, holding nothing, from 392,431; lands at 392,961
+      -> [red blocks solid] standing at x 327-521, y 961
+  16. standing at 350,961, presses up at it
+      -> out 352,928 [rb 1]
+how in 360,960 [rb 0] -> out 240,928 [rb 0]: samus:2
      [blue blocks solid] coming in at 360,960
    1. coming in: holding nothing, from 360,960; lands at 360,961
       -> [blue blocks solid] standing at x 327-521, y 961
@@ -75,8 +226,8 @@ how in 360,960 -> out 240,928: samus:2
   17. as the Morph Ball: running left, roll off the edge, holding left once in the air, turn back once there's room, from 286,161; lands at 39,833
       -> [blue blocks solid] standing at x 39-134, y 833
   18. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 39,833; touches it on the way
-      -> out 240,928
-how in 360,960 -> out 56,144: samus:2
+      -> out 240,928 [rb 0]
+how in 360,960 [rb 0] -> out 56,144 [rb 0]: samus:2
      [blue blocks solid] coming in at 360,960
    1. coming in: holding nothing, from 360,960; lands at 360,961
       -> [blue blocks solid] standing at x 327-521, y 961
@@ -117,8 +268,170 @@ how in 360,960 -> out 56,144: samus:2
   19. jump (held 6 ticks), holding left, from 234,225; lands at 139,177
       -> [blue blocks solid] standing at x 39-166, y 177
   20. standing at 54,177, presses up at it
-      -> out 56,144
-how in 64,176 -> out 352,928: samus:2
+      -> out 56,144 [rb 0]
+how in 360,960 [rb 1] -> out 352,928 [rb 0]: djump,adash,megaman:1
+     [red blocks solid] coming in at 360,960
+   1. coming in: holding nothing, from 360,960; lands at 360,961
+      -> [red blocks solid] standing at x 327-521, y 961
+   2. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, from 512,961; lands at 414,865
+      -> [red blocks solid] standing at x 410-486, y 865
+   3. jump (held 2 ticks), holding left, from 410,865; lands at 345,833
+      -> [red blocks solid] standing at x 327-374, y 833
+   4. jump (held 21 ticks), holding nothing, then right after 6 ticks, double jump at tick 21, air dash (Claire) at tick 14, from 328,833; lands at 471,721   [djump,adash]
+      -> [red blocks solid] standing at x 458-486, y 721
+   5. jump (held 21 ticks), holding left, from 458,721; lands at 327,657
+      -> [red blocks solid] standing at x 327-390, y 657
+   6. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 327,657; lands at 422,593
+      -> [red blocks solid] standing at x 411-533, y 593-595
+   7. jump (held 21 ticks), holding right, from 411,593; lands at 542,529
+      -> [red blocks solid] standing at x 522-569, y 529
+   8. jump (held 14 ticks), holding nothing, then left after 12 ticks, double jump at tick 16, from 524,529; lands at 415,431   [djump]
+      -> [red blocks solid] standing at x 392-452, y 431-433
+   9. shoot the switch at 560,368 from 392,431 (at the top of a jump): [blue blocks solid]   [megaman:1]
+      -> [blue blocks solid] standing at x 392-452, y 431-433
+  10. drop down through the platform, holding nothing, from 392,431; lands at 392,961
+      -> [blue blocks solid] standing at x 327-521, y 961
+  11. standing at 350,961, presses up at it
+      -> out 352,928 [rb 0]
+how in 360,960 [rb 1] -> out 352,928 [rb 0]: djump,adash,samus:1
+     [red blocks solid] coming in at 360,960
+   1. coming in: holding nothing, from 360,960; lands at 360,961
+      -> [red blocks solid] standing at x 327-521, y 961
+   2. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, from 512,961; lands at 414,865
+      -> [red blocks solid] standing at x 410-486, y 865
+   3. jump (held 2 ticks), holding left, from 410,865; lands at 345,833
+      -> [red blocks solid] standing at x 327-374, y 833
+   4. jump (held 21 ticks), holding nothing, then right after 6 ticks, double jump at tick 21, air dash (Claire) at tick 14, from 328,833; lands at 471,721   [djump,adash]
+      -> [red blocks solid] standing at x 458-486, y 721
+   5. jump (held 21 ticks), holding left, from 458,721; lands at 327,657
+      -> [red blocks solid] standing at x 327-390, y 657
+   6. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 327,657; lands at 422,593
+      -> [red blocks solid] standing at x 411-533, y 593-595
+   7. jump (held 21 ticks), holding right, from 411,593; lands at 542,529
+      -> [red blocks solid] standing at x 522-569, y 529
+   8. jump (held 14 ticks), holding nothing, then left after 12 ticks, double jump at tick 16, from 524,529; lands at 415,431   [djump]
+      -> [red blocks solid] standing at x 392-452, y 431-433
+   9. shoot the switch at 560,368 from 392,431 (at the top of a jump): [blue blocks solid]   [samus:1]
+      -> [blue blocks solid] standing at x 392-452, y 431-433
+  10. drop down through the platform, holding nothing, from 392,431; lands at 392,961
+      -> [blue blocks solid] standing at x 327-521, y 961
+  11. standing at 350,961, presses up at it
+      -> out 352,928 [rb 0]
+how in 360,960 [rb 1] -> out 352,928 [rb 0]: djump,adash,link:2
+     [red blocks solid] coming in at 360,960
+   1. coming in: holding nothing, from 360,960; lands at 360,961
+      -> [red blocks solid] standing at x 327-521, y 961
+   2. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, from 512,961; lands at 414,865
+      -> [red blocks solid] standing at x 410-486, y 865
+   3. jump (held 2 ticks), holding left, from 410,865; lands at 345,833
+      -> [red blocks solid] standing at x 327-374, y 833
+   4. jump (held 21 ticks), holding nothing, then right after 6 ticks, double jump at tick 21, air dash (Claire) at tick 14, from 328,833; lands at 471,721   [djump,adash]
+      -> [red blocks solid] standing at x 458-486, y 721
+   5. jump (held 21 ticks), holding left, from 458,721; lands at 327,657
+      -> [red blocks solid] standing at x 327-390, y 657
+   6. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 327,657; lands at 422,593
+      -> [red blocks solid] standing at x 411-533, y 593-595
+   7. jump (held 21 ticks), holding right, from 411,593; lands at 542,529
+      -> [red blocks solid] standing at x 522-569, y 529
+   8. jump (held 14 ticks), holding nothing, then left after 12 ticks, double jump at tick 16, from 524,529; lands at 415,431   [djump]
+      -> [red blocks solid] standing at x 392-452, y 431-433
+   9. shoot the switch at 560,368 from 392,431 (at the top of a jump): [blue blocks solid]   [link:2]
+      -> [blue blocks solid] standing at x 392-452, y 431-433
+  10. drop down through the platform, holding nothing, from 392,431; lands at 392,961
+      -> [blue blocks solid] standing at x 327-521, y 961
+  11. standing at 350,961, presses up at it
+      -> out 352,928 [rb 0]
+how in 360,960 [rb 1] -> out 352,928 [rb 0]: djump,adash,belmont:2
+     [red blocks solid] coming in at 360,960
+   1. coming in: holding nothing, from 360,960; lands at 360,961
+      -> [red blocks solid] standing at x 327-521, y 961
+   2. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, from 512,961; lands at 414,865
+      -> [red blocks solid] standing at x 410-486, y 865
+   3. jump (held 2 ticks), holding left, from 410,865; lands at 345,833
+      -> [red blocks solid] standing at x 327-374, y 833
+   4. jump (held 21 ticks), holding nothing, then right after 6 ticks, double jump at tick 21, air dash (Claire) at tick 14, from 328,833; lands at 471,721   [djump,adash]
+      -> [red blocks solid] standing at x 458-486, y 721
+   5. jump (held 21 ticks), holding left, from 458,721; lands at 327,657
+      -> [red blocks solid] standing at x 327-390, y 657
+   6. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 327,657; lands at 422,593
+      -> [red blocks solid] standing at x 411-533, y 593-595
+   7. jump (held 21 ticks), holding right, from 411,593; lands at 542,529
+      -> [red blocks solid] standing at x 522-569, y 529
+   8. jump (held 14 ticks), holding nothing, then left after 12 ticks, double jump at tick 16, from 524,529; lands at 415,431   [djump]
+      -> [red blocks solid] standing at x 392-452, y 431-433
+   9. shoot the switch at 560,368 from 392,431 (at the top of a jump): [blue blocks solid]   [belmont:2]
+      -> [blue blocks solid] standing at x 392-452, y 431-433
+  10. drop down through the platform, holding nothing, from 392,431; lands at 392,961
+      -> [blue blocks solid] standing at x 327-521, y 961
+  11. standing at 350,961, presses up at it
+      -> out 352,928 [rb 0]
+how in 360,960 [rb 1] -> out 352,928 [rb 1]: -
+     [red blocks solid] coming in at 360,960
+   1. coming in: holding nothing, from 360,960; lands at 360,961
+      -> [red blocks solid] standing at x 327-521, y 961
+   2. standing at 350,961, presses up at it
+      -> out 352,928 [rb 1]
+how in 360,960 [rb 1] -> out 240,928 [rb 0]: djump,adash,samus:2
+     [red blocks solid] coming in at 360,960
+   1. coming in: holding nothing, from 360,960; lands at 360,961
+      -> [red blocks solid] standing at x 327-521, y 961
+   2. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, from 512,961; lands at 414,865
+      -> [red blocks solid] standing at x 410-486, y 865
+   3. jump (held 2 ticks), holding left, from 410,865; lands at 345,833
+      -> [red blocks solid] standing at x 327-374, y 833
+   4. jump (held 21 ticks), holding nothing, then right after 6 ticks, double jump at tick 21, air dash (Claire) at tick 14, from 328,833; lands at 471,721   [djump,adash]
+      -> [red blocks solid] standing at x 458-486, y 721
+   5. jump (held 21 ticks), holding left, from 458,721; lands at 327,657
+      -> [red blocks solid] standing at x 327-390, y 657
+   6. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 327,657; lands at 422,593
+      -> [red blocks solid] standing at x 411-533, y 593-595
+   7. jump (held 21 ticks), holding right, from 411,593; lands at 542,529
+      -> [red blocks solid] standing at x 522-569, y 529
+   8. jump (held 14 ticks), holding nothing, then left after 12 ticks, double jump at tick 16, air dash (Jerry) at tick 26, from 568,529; lands at 383,411   [djump,adash]
+      -> [red blocks solid] standing at x 372-432, y 411-413
+   9. shoot the switch at 560,368 from 372,411: [blue blocks solid]   [samus:1]
+      -> [blue blocks solid] standing at x 372-432, y 411-413
+  10. jump (held 21 ticks), holding right, double jump at tick 10, from 372,411; lands at 495,321   [djump]
+      -> [blue blocks solid] standing at x 474-550, y 321
+  11. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, from 512,321; lands at 377,177
+      -> [blue blocks solid] standing at x 362-438, y 177
+  12. jump (held 6 ticks), holding left, turn into the Morph Ball where the body meets a wall or ceiling, from 362,177; lands at 317,161   [samus:2]
+      -> [blue blocks solid] as the Morph Ball at x 282-326, y 161
+  13. as the Morph Ball: running left, roll off the edge, holding left once in the air, turn back once there's room, from 286,161; lands at 39,833
+      -> [blue blocks solid] standing at x 39-134, y 833
+  14. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 39,833; touches it on the way
+      -> out 240,928 [rb 0]
+how in 360,960 [rb 1] -> out 56,144 [rb 0]: djump,adash,samus:2
+     [red blocks solid] coming in at 360,960
+   1. coming in: holding nothing, from 360,960; lands at 360,961
+      -> [red blocks solid] standing at x 327-521, y 961
+   2. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, from 512,961; lands at 414,865
+      -> [red blocks solid] standing at x 410-486, y 865
+   3. jump (held 2 ticks), holding left, from 410,865; lands at 345,833
+      -> [red blocks solid] standing at x 327-374, y 833
+   4. jump (held 21 ticks), holding nothing, then right after 6 ticks, double jump at tick 21, air dash (Claire) at tick 14, from 328,833; lands at 471,721   [djump,adash]
+      -> [red blocks solid] standing at x 458-486, y 721
+   5. jump (held 21 ticks), holding left, from 458,721; lands at 327,657
+      -> [red blocks solid] standing at x 327-390, y 657
+   6. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 327,657; lands at 422,593
+      -> [red blocks solid] standing at x 411-533, y 593-595
+   7. jump (held 21 ticks), holding right, from 411,593; lands at 542,529
+      -> [red blocks solid] standing at x 522-569, y 529
+   8. jump (held 14 ticks), holding nothing, then left after 12 ticks, double jump at tick 16, air dash (Jerry) at tick 26, from 568,529; lands at 383,411   [djump,adash]
+      -> [red blocks solid] standing at x 372-432, y 411-413
+   9. shoot the switch at 560,368 from 372,411: [blue blocks solid]   [samus:1]
+      -> [blue blocks solid] standing at x 372-432, y 411-413
+  10. jump (held 21 ticks), holding right, double jump at tick 10, from 372,411; lands at 495,321   [djump]
+      -> [blue blocks solid] standing at x 474-550, y 321
+  11. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, from 512,321; lands at 377,177
+      -> [blue blocks solid] standing at x 362-438, y 177
+  12. jump (held 6 ticks), holding left, turn into the Morph Ball where the body meets a wall or ceiling, from 362,177; lands at 317,161   [samus:2]
+      -> [blue blocks solid] as the Morph Ball at x 282-326, y 161
+  13. as the Morph Ball: running left, roll off the edge, holding left once in the air, turn back once there's room, double jump at tick 6, from 282,161; lands at 105,177   [djump]
+      -> [blue blocks solid] standing at x 39-166, y 177
+  14. standing at 54,177, presses up at it
+      -> out 56,144 [rb 0]
+how in 64,176 [rb 0] -> out 352,928 [rb 0]: samus:2
      [blue blocks solid] coming in at 64,176
    1. coming in: holding nothing, from 64,176; lands at 64,177
       -> [blue blocks solid] standing at x 39-166, y 177
@@ -133,8 +446,26 @@ how in 64,176 -> out 352,928: samus:2
    6. walk off the edge, holding left, then nothing after 1 ticks in the air, from 442,465; lands at 408,961
       -> [blue blocks solid] standing at x 327-521, y 961
    7. standing at 350,961, presses up at it
-      -> out 352,928
-how in 64,176 -> out 240,928: -
+      -> out 352,928 [rb 0]
+how in 64,176 [rb 0] -> out 352,928 [rb 1]: samus:2
+     [blue blocks solid] coming in at 64,176
+   1. coming in: holding nothing, from 64,176; lands at 64,177
+      -> [blue blocks solid] standing at x 39-166, y 177
+   2. walk off the edge, holding right once in the air, from 39,177; lands at 244,225
+      -> [blue blocks solid] standing at x 234-281, y 225
+   3. jump (held 21 ticks), holding nothing, then right after 8 ticks, turn into the Morph Ball at tick 8, from 234,225; lands at 290,161   [samus:2]
+      -> [blue blocks solid] as the Morph Ball at x 282-326, y 161
+   4. as the Morph Ball: roll off the edge, holding right once in the air, turn back once there's room, from 286,161; lands at 370,177
+      -> [blue blocks solid] standing at x 362-438, y 177
+   5. running right, jump (held 21 ticks), holding right, then nothing after 2 ticks, from 400,177; lands at 447,431
+      -> [blue blocks solid] standing at x 392-452, y 431-433
+   6. shoot the switch at 560,368 from 392,431 (at the top of a jump): [red blocks solid]   [samus:1]
+      -> [red blocks solid] standing at x 392-452, y 431-433
+   7. drop down through the platform, holding nothing, from 392,431; lands at 392,961
+      -> [red blocks solid] standing at x 327-521, y 961
+   8. standing at 350,961, presses up at it
+      -> out 352,928 [rb 1]
+how in 64,176 [rb 0] -> out 240,928 [rb 0]: -
      [blue blocks solid] coming in at 64,176
    1. coming in: holding nothing, from 64,176; lands at 64,177
       -> [blue blocks solid] standing at x 39-166, y 177
@@ -143,10 +474,114 @@ how in 64,176 -> out 240,928: -
    3. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 234,225; lands at 39,833
       -> [blue blocks solid] standing at x 39-134, y 833
    4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 39,833; touches it on the way
-      -> out 240,928
-how in 64,176 -> out 56,144: -
+      -> out 240,928 [rb 0]
+how in 64,176 [rb 0] -> out 56,144 [rb 0]: -
      [blue blocks solid] coming in at 64,176
    1. coming in: holding nothing, from 64,176; lands at 64,177
       -> [blue blocks solid] standing at x 39-166, y 177
    2. standing at 54,177, presses up at it
-      -> out 56,144
+      -> out 56,144 [rb 0]
+how in 64,176 [rb 1] -> out 352,928 [rb 0]: samus:2
+     [red blocks solid] coming in at 64,176
+   1. coming in: holding nothing, from 64,176; lands at 64,177
+      -> [red blocks solid] standing at x 39-166, y 177
+   2. walk off the edge, holding right once in the air, from 39,177; lands at 244,225
+      -> [red blocks solid] standing at x 234-281, y 225
+   3. jump (held 21 ticks), holding nothing, then right after 8 ticks, turn into the Morph Ball at tick 8, from 234,225; lands at 290,161   [samus:2]
+      -> [red blocks solid] as the Morph Ball at x 282-326, y 161
+   4. as the Morph Ball: roll off the edge, holding right once in the air, turn back once there's room, from 286,161; lands at 370,177
+      -> [red blocks solid] standing at x 362-438, y 177
+   5. running right, jump (held 21 ticks), holding right, then nothing after 2 ticks, from 400,177; lands at 447,431
+      -> [red blocks solid] standing at x 392-452, y 431-433
+   6. shoot the switch at 560,368 from 392,431 (at the top of a jump): [blue blocks solid]   [samus:1]
+      -> [blue blocks solid] standing at x 392-452, y 431-433
+   7. drop down through the platform, holding nothing, from 392,431; lands at 392,961
+      -> [blue blocks solid] standing at x 327-521, y 961
+   8. standing at 350,961, presses up at it
+      -> out 352,928 [rb 0]
+how in 64,176 [rb 1] -> out 352,928 [rb 1]: samus:2
+     [red blocks solid] coming in at 64,176
+   1. coming in: holding nothing, from 64,176; lands at 64,177
+      -> [red blocks solid] standing at x 39-166, y 177
+   2. walk off the edge, holding right once in the air, from 39,177; lands at 244,225
+      -> [red blocks solid] standing at x 234-281, y 225
+   3. jump (held 21 ticks), holding nothing, then right after 8 ticks, turn into the Morph Ball at tick 8, from 234,225; lands at 290,161   [samus:2]
+      -> [red blocks solid] as the Morph Ball at x 282-326, y 161
+   4. as the Morph Ball: roll off the edge, holding right once in the air, from 288,161; lands at 569,929
+      -> [red blocks solid] as the Morph Ball at x 538-569, y 929
+   5. as the Morph Ball: running left, roll off the edge, holding left once in the air, turn back once there's room, from 538,929; lands at 473,961
+      -> [red blocks solid] standing at x 327-521, y 961
+   6. standing at 350,961, presses up at it
+      -> out 352,928 [rb 1]
+how in 64,176 [rb 1] -> out 240,928 [rb 0]: samus:2
+     [red blocks solid] coming in at 64,176
+   1. coming in: holding nothing, from 64,176; lands at 64,177
+      -> [red blocks solid] standing at x 39-166, y 177
+   2. walk off the edge, holding right once in the air, from 39,177; lands at 244,225
+      -> [red blocks solid] standing at x 234-281, y 225
+   3. jump (held 21 ticks), holding nothing, then right after 8 ticks, turn into the Morph Ball at tick 8, from 234,225; lands at 290,161   [samus:2]
+      -> [red blocks solid] as the Morph Ball at x 282-326, y 161
+   4. as the Morph Ball: roll off the edge, holding right once in the air, turn back once there's room, from 286,161; lands at 370,177
+      -> [red blocks solid] standing at x 362-438, y 177
+   5. walk off the edge, holding right once in the air, from 362,177; lands at 569,353
+      -> [red blocks solid] standing at x 554-569, y 353
+   6. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 554,353; lands at 397,391
+      -> [red blocks solid] standing at x 352-412, y 391-393
+   7. shoot the switch at 560,368 from 352,391: [blue blocks solid]   [samus:1]
+      -> [blue blocks solid] standing at x 352-412, y 391-393
+   8. jump (held 21 ticks), holding right, from 368,391; lands at 485,321
+      -> [blue blocks solid] standing at x 474-550, y 321
+   9. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, from 512,321; lands at 377,177
+      -> [blue blocks solid] standing at x 362-438, y 177
+  10. jump (held 6 ticks), holding left, turn into the Morph Ball where the body meets a wall or ceiling, from 362,177; lands at 317,161   [samus:2]
+      -> [blue blocks solid] as the Morph Ball at x 282-326, y 161
+  11. as the Morph Ball: running left, roll off the edge, holding left once in the air, turn back once there's room, from 286,161; lands at 39,833
+      -> [blue blocks solid] standing at x 39-134, y 833
+  12. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 39,833; touches it on the way
+      -> out 240,928 [rb 0]
+how in 64,176 [rb 1] -> out 240,928 [rb 1]: -
+     [red blocks solid] coming in at 64,176
+   1. coming in: holding nothing, from 64,176; lands at 64,177
+      -> [red blocks solid] standing at x 39-166, y 177
+   2. walk off the edge, holding right, then nothing after 1 ticks in the air, from 39,177; lands at 210,433
+      -> [red blocks solid] standing at x 90-230, y 433
+   3. walk off the edge, holding left once in the air, from 90,433; lands at 39,833
+      -> [red blocks solid] standing at x 39-134, y 833
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 39,833; touches it on the way
+      -> out 240,928 [rb 1]
+how in 64,176 [rb 1] -> out 56,144 [rb 0]: samus:2
+     [red blocks solid] coming in at 64,176
+   1. coming in: holding nothing, from 64,176; lands at 64,177
+      -> [red blocks solid] standing at x 39-166, y 177
+   2. walk off the edge, holding right once in the air, from 39,177; lands at 244,225
+      -> [red blocks solid] standing at x 234-281, y 225
+   3. jump (held 21 ticks), holding nothing, then right after 8 ticks, turn into the Morph Ball at tick 8, from 234,225; lands at 290,161   [samus:2]
+      -> [red blocks solid] as the Morph Ball at x 282-326, y 161
+   4. as the Morph Ball: roll off the edge, holding right once in the air, turn back once there's room, from 286,161; lands at 370,177
+      -> [red blocks solid] standing at x 362-438, y 177
+   5. walk off the edge, holding right once in the air, from 362,177; lands at 569,353
+      -> [red blocks solid] standing at x 554-569, y 353
+   6. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 554,353; lands at 397,391
+      -> [red blocks solid] standing at x 352-412, y 391-393
+   7. shoot the switch at 560,368 from 352,391: [blue blocks solid]   [samus:1]
+      -> [blue blocks solid] standing at x 352-412, y 391-393
+   8. jump (held 21 ticks), holding right, from 368,391; lands at 485,321
+      -> [blue blocks solid] standing at x 474-550, y 321
+   9. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, from 512,321; lands at 377,177
+      -> [blue blocks solid] standing at x 362-438, y 177
+  10. jump (held 6 ticks), holding left, turn into the Morph Ball where the body meets a wall or ceiling, from 362,177; lands at 317,161   [samus:2]
+      -> [blue blocks solid] as the Morph Ball at x 282-326, y 161
+  11. as the Morph Ball: roll off the edge, holding left, then nothing after 1 ticks in the air, from 282,161; lands at 250,225
+      -> [blue blocks solid] as the Morph Ball at x 234-281, y 225
+  12. turn back from the Morph Ball at 234,225
+      -> [blue blocks solid] standing at x 234-281, y 225
+  13. jump (held 6 ticks), holding left, from 234,225; lands at 139,177
+      -> [blue blocks solid] standing at x 39-166, y 177
+  14. standing at 54,177, presses up at it
+      -> out 56,144 [rb 0]
+how in 64,176 [rb 1] -> out 56,144 [rb 1]: -
+     [red blocks solid] coming in at 64,176
+   1. coming in: holding nothing, from 64,176; lands at 64,177
+      -> [red blocks solid] standing at x 39-166, y 177
+   2. standing at 54,177, presses up at it
+      -> out 56,144 [rb 1]

@@ -40,7 +40,7 @@ from in 96,1120
   loc 3 17        adash | djump
   loc 5 8         djump,samus:2 | adash,samus:2
   loc 10 30       djump,samus:2 | adash,samus:2
-  loc 10 31       never
+  loc 10 31       gdash
   loc 2 64        -
 from in 1088,1104
   out 88,1088     -
@@ -51,7 +51,7 @@ from in 1088,1104
   loc 3 17        adash | djump
   loc 5 8         djump,samus:2 | adash,samus:2
   loc 10 30       djump,samus:2 | adash,samus:2
-  loc 10 31       never
+  loc 10 31       gdash
   loc 2 64        -
 from in 2224,1168
   out 88,1088     never
@@ -73,7 +73,7 @@ from in 608,80
   loc 3 17        djump | adash
   loc 5 8         djump,samus:2 | adash,samus:2
   loc 10 30       djump,samus:2 | adash,samus:2
-  loc 10 31       never
+  loc 10 31       gdash
   loc 2 64        -
 from in 2352,416
   out 88,1088     -
@@ -84,7 +84,7 @@ from in 2352,416
   loc 3 17        adash | djump
   loc 5 8         samus:2
   loc 10 30       samus:2
-  loc 10 31       never
+  loc 10 31       gdash
   loc 2 64        -
 from in 1936,0
   out 88,1088     -
@@ -95,7 +95,7 @@ from in 1936,0
   loc 3 17        adash | djump
   loc 5 8         samus:2
   loc 10 30       -
-  loc 10 31       never
+  loc 10 31       gdash
   loc 2 64        -
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
@@ -534,6 +534,16 @@ how in 96,1120 -> loc 10 30: adash,samus:2
       -> standing at x 1842-2030, y 65-81
   30. walk off the edge, holding right once in the air, air dash (Jerry) at tick 2, from 1842,81; touches it on the way   [adash]
       -> loc 10 30
+how in 96,1120 -> loc 10 31: gdash
+     coming in at 96,1120
+   1. coming in: holding nothing, from 96,1120; lands at 96,1121
+      -> standing at x 39-825, y 1057-1153
+   2. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, from 528,1073; lands at 331,961
+      -> standing at x 327-358, y 961
+   3. jump (held 2 ticks), holding left, from 327,961, through the barrier at 304,896; lands at 276,961   [gdash]
+      -> standing at x 231-297, y 961
+   4. standing at 248,961, touches it
+      -> loc 10 31
 how in 96,1120 -> loc 2 64: -
      coming in at 96,1120
    1. coming in: holding nothing, from 96,1120; lands at 96,1121
@@ -984,6 +994,20 @@ how in 1088,1104 -> loc 10 30: adash,samus:2
       -> standing at x 1842-2030, y 65-81
   28. walk off the edge, holding right once in the air, air dash (Jerry) at tick 2, from 1842,81; touches it on the way   [adash]
       -> loc 10 30
+how in 1088,1104 -> loc 10 31: gdash
+     coming in at 1088,1104
+   1. coming in: holding nothing, from 1088,1104; lands at 1088,1105
+      -> standing at x 1031-1145, y 1105
+   2. jump (held 2 ticks), holding left, from 1031,1105; lands at 948,1089
+      -> standing at x 922-966, y 1089
+   3. running left, jump (held 21 ticks), holding left, from 922,1089; lands at 731,1057
+      -> standing at x 39-825, y 1057-1153
+   4. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, from 528,1073; lands at 331,961
+      -> standing at x 327-358, y 961
+   5. jump (held 2 ticks), holding left, from 327,961, through the barrier at 304,896; lands at 276,961   [gdash]
+      -> standing at x 231-297, y 961
+   6. standing at 248,961, touches it
+      -> loc 10 31
 how in 1088,1104 -> loc 2 64: -
      coming in at 1088,1104
    1. coming in: holding nothing, from 1088,1104; lands at 1088,1105
@@ -1414,6 +1438,18 @@ how in 608,80 -> loc 10 30: adash,samus:2
       -> standing at x 1842-2030, y 65-81
   31. walk off the edge, holding right once in the air, air dash (Jerry) at tick 2, from 1842,81; touches it on the way   [adash]
       -> loc 10 30
+how in 608,80 -> loc 10 31: gdash
+     coming in at 608,80
+   1. coming in: holding nothing, from 608,80; lands at 608,81
+      -> standing at x 258-649, y 65-113
+   2. walk off the edge, holding left, then right after 1 ticks in the air, from 448,85; lands at 339,276
+      -> standing at x 306-430, y 273-289
+   3. walk off the edge, holding right, then left after 1 ticks in the air, from 306,289; lands at 211,679
+      -> standing at x 55-462, y 577-705
+   4. walk off the edge, holding right, then left after 1 ticks in the air, from 160,653, through the barrier at 304,896; lands at 297,961   [gdash]
+      -> standing at x 231-297, y 961
+   5. standing at 248,961, touches it
+      -> loc 10 31
 how in 608,80 -> loc 2 64: -
      coming in at 608,80
    1. coming in: holding nothing, from 608,80; lands at 608,81
@@ -1654,6 +1690,26 @@ how in 2352,416 -> loc 10 30: samus:2
       -> standing at x 1842-2030, y 65-81
   18. running right, jump (held 21 ticks), holding right, from 1984,65; touches it on the way
       -> loc 10 30
+how in 2352,416 -> loc 10 31: gdash
+     coming in at 2352,416
+   1. coming in: holding nothing, from 2352,416; lands at 2352,421
+      -> standing at x 2330-2400, y 417-433
+   2. jump (held 21 ticks), holding left, from 2330,433; lands at 2023,225
+      -> standing at x 1562-2110, y 225-257
+   3. walk off the edge, holding left once in the air, from 1562,257; lands at 1236,1089
+      -> standing at x 1210-1254, y 1089
+   4. running left, jump (held 2 ticks), holding left, from 1210,1089; lands at 1122,1105
+      -> standing at x 1031-1145, y 1105
+   5. jump (held 6 ticks), holding left, from 1031,1105; lands at 967,1105
+      -> standing at x 967-985, y 1105
+   6. jump (held 21 ticks), holding left, from 967,1105; lands at 773,1117
+      -> standing at x 39-825, y 1057-1153
+   7. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, from 528,1073; lands at 331,961
+      -> standing at x 327-358, y 961
+   8. jump (held 2 ticks), holding left, from 327,961, through the barrier at 304,896; lands at 276,961   [gdash]
+      -> standing at x 231-297, y 961
+   9. standing at 248,961, touches it
+      -> loc 10 31
 how in 2352,416 -> loc 2 64: -
      coming in at 2352,416
    1. coming in: holding nothing, from 2352,416; lands at 2352,421
@@ -1894,6 +1950,26 @@ how in 1936,0 -> loc 10 30: -
       -> standing at x 1842-2030, y 65-81
    2. running right, jump (held 21 ticks), holding right, from 1984,65; touches it on the way
       -> loc 10 30
+how in 1936,0 -> loc 10 31: gdash
+     coming in at 1936,0
+   1. coming in: holding nothing, from 1936,0; lands at 1936,81
+      -> standing at x 1842-2030, y 65-81
+   2. jump (held 2 ticks), holding left, from 1842,81; lands at 1746,70
+      -> standing at x 1650-1774, y 65-81
+   3. walk off the edge, holding left once in the air, from 1650,81; lands at 1236,1089
+      -> standing at x 1210-1254, y 1089
+   4. running left, jump (held 2 ticks), holding left, from 1210,1089; lands at 1122,1105
+      -> standing at x 1031-1145, y 1105
+   5. jump (held 6 ticks), holding left, from 1031,1105; lands at 967,1105
+      -> standing at x 967-985, y 1105
+   6. jump (held 21 ticks), holding left, from 967,1105; lands at 773,1117
+      -> standing at x 39-825, y 1057-1153
+   7. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, from 528,1073; lands at 331,961
+      -> standing at x 327-358, y 961
+   8. jump (held 2 ticks), holding left, from 327,961, through the barrier at 304,896; lands at 276,961   [gdash]
+      -> standing at x 231-297, y 961
+   9. standing at 248,961, touches it
+      -> loc 10 31
 how in 1936,0 -> loc 2 64: -
      coming in at 1936,0
    1. coming in: holding nothing, from 1936,0; lands at 1936,81

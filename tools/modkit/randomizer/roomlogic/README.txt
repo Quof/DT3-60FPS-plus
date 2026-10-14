@@ -25,6 +25,7 @@ FILES
   connections.txt     which way in each exit leads to, where a new game starts, which exits are boss fights (made by
                       roomlogic.py from the game's exits: don't edit; change them in overrides.txt)
   overrides.txt       hand-made changes: kept when the rest is made again
+  events.txt          what makes each event happen (a Nightmare Gate's boss beaten, an area visited...): EVENTS below
   roomlogic.txt       the result: what each place and each room needs from the start (made by solve.py)
   solve.py            joins the rooms; explains any place (its first lines list its commands; ASKING WHY below)
   roomlogic.py        makes the room files and connections.txt again, then solve.py's result, and checks it
@@ -53,6 +54,7 @@ Requirements are written the same way everywhere: alternatives separated by |, a
                     gamej/gamec Jerry's and Claire's Game Powers (Gate 6 only)
   key N             the key of the locked door whose objectNum is N (..\doors.csv lists them)
   attack            any ability set's attack: link 1, belmont 1, megaman 1 or samus 1 (four alternatives)
+  event NAME        once that event has happened (events.txt says what it takes: EVENTS below)
   option NAME       only with that option on (none exist yet: FOR LATER)
   nothing, -        walking and jumping alone (a new game has the jump)
   never             no way
@@ -98,6 +100,18 @@ Other lines: "boss" (going into the room from another one is its boss fight: tha
 menu: every way in reaches every way out). A way in whose comment says "can't be come in at" would put the player
 inside a solid: nothing is reached from it (an override can still give it ways).
 
+Carried states. Some of the game's state goes with the player from room to room: the red and blue switches' state
+(rb 0: the blue blocks solid, 1: the red ones), and the Water Palace's water level (water 1 the highest, 2, 3 the
+lowest). A room that has them says "carried rb" (or water); its ways in and out then come with the state:
+
+  from in 48,480 [water 3]
+    out 1392,272 [water 3]   djump,adash | djump,samus:2
+      Coming in with the water at level 3, the exit is reached with it still at 3 (the room's switch would set it to 2).
+
+"resets rb 0" says the room sets it as the player comes in (the Bubble Tower's main room does). solve.py carries the
+states from room to room (connections.txt's "carried" lines give them as a new game starts); a room without them
+passes them on as they are.
+
 
 ASKING WHY
 ----------
@@ -142,6 +156,21 @@ Say why in a comment next to each change. Examples:
 ..\logic.txt can replace what a single place needs (or every place in a room) after all this; it doesn't flow on to
 other places, so use it only where overrides.txt can't say it.
 
+
+EVENTS
+------
+
+Some ways open once the game remembers something: the Sacred Temple's doors once a Nightmare Gate's boss is beaten,
+the Lost Entrance's barrier once any instrument is, Colossal Encroachment's trapdoor once the Great Colossal Falloff
+has been visited. The gate or barrier then needs "event <name>", and events.txt says what makes it happen:
+
+  gateA room rExtGateA_6 : attack      getting into Nightmare Gate A's boss room, and beating the boss
+  area76 area 76                       getting into any room of area 76
+
+solve.py works out what each event needs from the rest of the logic, puts that in the event's place, and does it
+again till nothing changes (so an event can open the way to another). A new event: a line here, and the gate's
+requirement (roomdata.py, or an override).
+
 If the simulation itself is wrong (a move the game allows that it doesn't try, a mechanic it doesn't know), change
 roomdata.py or RoomLogic.cs and run roomlogic.py: every room file is made again, and git shows what changed.
 
@@ -155,10 +184,12 @@ roomlogic.py runs three steps:
      run in the Randomizer's world (gmleval.py: a new game's globals, then the endgame world, gameProgress 5641), so
      what that world removes isn't there, and its size, place and exit are what its code makes them. Each object is a
      solid, a jump-through platform, a hazard (spikes, lava: never touched), water, a spring, a gate (solid till
-     something opens it: a key, a sword or whip, bombs, missiles...), a moving platform and its path, an elevator, a
-     Strike Chain point, a switch and what it changes (blocks, barriers; an ice block's or a platform maker's
-     platform; bricks), a flying enemy the Mario Ability Set bounces off, an exit (or a menu's: Gate 4's stage
-     select), a door within the room, or a place. work\rooms_notes.txt lists what its code left unknown.
+     something opens it: a key, a sword or whip, bombs, missiles, an event...), a moving platform and its path, an
+     elevator, a Strike Chain point (a Ripper's flies along its row), a switch and what it changes (blocks, barriers;
+     an ice block's or a platform maker's platform; bricks; the Water Palace's water), a flying enemy the Mario
+     Ability Set bounces off (a Bill Blaster's Bullet Bills), a push rock, a floating platform, a fading platform (a
+     jump-through one: there half the time), an exit (or a menu's: Gate 4's stage select), a door within the room, or
+     a place. work\rooms_notes.txt lists what its code left unknown.
   2. RoomLogic.cs (built to work\RoomLogic.exe with the .NET Framework's C# compiler): draws each room from its
      instances' sprite masks; finds where the player can stand, and joins those places into regions (walking); then
      runs the game's own 30fps movement (characterStepEvent, pMoveToWrapOrig, moveTo30: checked against the game) from
@@ -169,7 +200,12 @@ roomlogic.py runs three steps:
      somewhere joins two regions, with what it took; one that touches a place or an exit reaches it. Then, between
      places near each other that nothing joins yet, a search of jump timings (how long jump is held, when the double
      jump and air dash come, when to steer). A room with switches is worked out in each of its states, joined where a
-     switch can be hit. Last, for each way in, the room's ways out and places: the room file, with the moves.
+     switch can be hit: an attack in reach (at the top of a jump too), a shot along a clear line (and, while it flies,
+     the player can jump somewhere else: onto a block the switch is about to move, say), a block that moves carrying
+     the player standing on it; red and blue switches near an enemy's shots or a moving trap change by themselves (the
+     player waits). Push rocks: the player gets beside one, pushes it where it's needed (left or right, off edges) and
+     moves off it from there. Elevators (Zelda II's): ridden up and down their shafts, got off where a floor is level.
+     Last, for each way in, the room's ways out and places: the room file, with the moves.
   3. solve.py: the rooms joined (roomlogic.txt), with overrides.txt; and a check that, without overrides, it gets the
      same as RoomLogic.exe's own joining (work\roomlogic_check.txt): a difference means a bug in one of them, and
      roomlogic.py ends with an error.
@@ -179,10 +215,12 @@ a landing needs floor (or a wall) 4px to either side, a touch is with the player
 move the timing search finds counts only if it also works with its timings a tick earlier or later.
 
 What it doesn't model (what's behind these needs everything, so it never holds an ability or key, unless an override
-says otherwise): puzzles of several switches at once, push blocks, timed rings, wind, crushers, rails, the Gravity
-Well's platforms; bouncing off enemies other than the Mario Ability Set's flying ones (the CHAOS soldiers can't be);
-the bosses themselves (a boss needs any attack). A room's switches of one kind count as one switch (hitting any changes
-all their blocks), and so do its ice blocks and platform makers (one hit: all their platforms).
+says otherwise): the party split's two characters (the colored switches, keys and locks), wind, moving crushers
+(Sigma's crushing walls count as walls where they start), rails, the Gravity Well's platforms, the bike (overrides
+say what Overdrive Ostrich's rides need); bouncing off enemies other than the Mario Ability Set's flying ones (the
+CHAOS soldiers can't be); the bosses themselves (a boss needs any attack). A room's switches of one kind count as one
+switch (hitting any changes all their blocks), and so do its ice blocks and platform makers (one hit: all their
+platforms). Timed rings count as needing the dash (the Farreaches' ring barriers).
 
 
 CHECKING IT

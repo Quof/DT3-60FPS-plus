@@ -19,8 +19,8 @@ loc 9 61   # weapon upgrade 61, at 207,87
 # link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
 # the locked door whose objectNum is N.
 from in 48,2832
-  out 464,208   djump
-  loc 9 61      djump
+  out 464,208   djump | adash
+  loc 9 61      djump | adash
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
@@ -31,32 +31,40 @@ how in 48,2832 -> out 464,208: djump
    2. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 425,2704; lands at 278,2689
       -> standing at x 185-295, y 2689-2743
    3. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 185,2690; clings to the wall at 135,2639
-      -> standing at x 0-135, y 2353-2647
-   4. running right, jump (held 21 ticks), holding right, from 126,2353; clings to the wall at 345,2389
-      -> standing at x 345-480, y 2225-2391
-   5. running left, jump (held 21 ticks), holding left, from 346,2225; clings to the wall at 135,2249
-      -> standing at x 0-135, y 2097-2263
-   6. running right, jump (held 21 ticks), holding right, from 126,2097; clings to the wall at 345,2133
-      -> standing at x 345-480, y 1969-2135
-   7. running left, jump (held 21 ticks), holding left, from 346,1969; clings to the wall at 135,1993
-      -> on the wall at x 135, y 1708-2007
-   8. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 135,1744; clings to the wall at 233,1697
+      -> on the wall at x 135, y 1708-2647
+   4. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 135,1744; clings to the wall at 233,1697
       -> standing at x 233-263, y 1648-1704
-   9. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 233,1664; clings to the wall at 151,1612
-      -> standing at x 0-151, y 1393-1687
-  10. jump (held 21 ticks), holding nothing, then right after 14 ticks, double jump at tick 12, from 142,1393; clings to the wall at 151,1303   [djump]
-      -> standing at x 149-151, y 945-1303
-  11. on the wall to the left: kick off it (wall jump), wall-jump up the same wall, from 151,946; clings to the wall at 135,874
-      -> standing at x 0-135, y 689-931
-  12. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, double jump at tick 10, from 135,704; clings to the wall at 345,708   [djump]
-      -> on the wall at x 345, y 408-727
-  13. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, double jump at tick 10, from 345,408; clings to the wall at 255,407   [djump]
+   5. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 233,1664; clings to the wall at 151,1612
+      -> standing at x 149-151, y 945-1687
+   6. on the wall to the left: kick off it (wall jump), wall-jump up the same wall, from 151,946; clings to the wall at 135,874
+      -> on the wall at x 135, y 408-931
+   7. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, double jump at tick 10, from 135,408; clings to the wall at 225,407   [djump]
       -> standing at x 225-255, y 367-409
-  14. on the wall to the right: kick off it (wall jump), wall-jump up the same wall, from 225,368; clings to the wall at 297,378
+   8. on the wall to the right: kick off it (wall jump), wall-jump up the same wall, from 225,368; clings to the wall at 297,378
       -> standing at x 297-480, y 241-407
-  15. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 298,241; clings to the wall at 247,146   [djump]
+   9. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 298,241; clings to the wall at 247,146   [djump]
       -> standing at x 183-247, y 88-151
-  16. walk off the edge, holding right once in the air, double jump at tick 16, from 183,97; touches it on the way   [djump]
+  10. walk off the edge, holding right once in the air, double jump at tick 16, from 183,97; touches it on the way   [djump]
+      -> out 464,208
+how in 48,2832 -> out 464,208: adash
+     coming in at 48,2832
+   1. coming in: holding nothing, from 48,2832; lands at 48,2833
+      -> standing at x 0-425, y 2668-2833
+   2. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 425,2704; lands at 278,2689
+      -> standing at x 185-295, y 2689-2743
+   3. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 185,2690; clings to the wall at 135,2639
+      -> on the wall at x 135, y 1708-2647
+   4. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 135,1744; clings to the wall at 233,1697
+      -> standing at x 233-263, y 1648-1704
+   5. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 233,1664; clings to the wall at 151,1612
+      -> standing at x 149-151, y 945-1687
+   6. on the wall to the left: kick off it (wall jump), wall-jump up the same wall, from 151,946; clings to the wall at 135,874
+      -> on the wall at x 135, y 408-931
+   7. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, air dash back right (Jerry) at tick 5, from 135,408; clings to the wall at 225,399   [adash]
+      -> standing at x 225-255, y 367-409
+   8. on the wall to the right: kick off it (wall jump), wall-jump up the same wall, from 225,368; clings to the wall at 297,378
+      -> standing at x 297-480, y 241-407
+   9. standing at 462,241, goes into it
       -> out 464,208
 how in 48,2832 -> loc 9 61: djump
      coming in at 48,2832
@@ -65,30 +73,42 @@ how in 48,2832 -> loc 9 61: djump
    2. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 425,2704; lands at 278,2689
       -> standing at x 185-295, y 2689-2743
    3. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 185,2690; clings to the wall at 135,2639
-      -> standing at x 0-135, y 2353-2647
-   4. running right, jump (held 21 ticks), holding right, from 126,2353; clings to the wall at 345,2389
-      -> standing at x 345-480, y 2225-2391
-   5. running left, jump (held 21 ticks), holding left, from 346,2225; clings to the wall at 135,2249
-      -> standing at x 0-135, y 2097-2263
-   6. running right, jump (held 21 ticks), holding right, from 126,2097; clings to the wall at 345,2133
-      -> standing at x 345-480, y 1969-2135
-   7. running left, jump (held 21 ticks), holding left, from 346,1969; clings to the wall at 135,1993
-      -> on the wall at x 135, y 1708-2007
-   8. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 135,1744; clings to the wall at 233,1697
+      -> on the wall at x 135, y 1708-2647
+   4. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 135,1744; clings to the wall at 233,1697
       -> standing at x 233-263, y 1648-1704
-   9. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 233,1664; clings to the wall at 151,1612
-      -> standing at x 0-151, y 1393-1687
-  10. jump (held 21 ticks), holding nothing, then right after 14 ticks, double jump at tick 12, from 142,1393; clings to the wall at 151,1303   [djump]
-      -> standing at x 149-151, y 945-1303
-  11. on the wall to the left: kick off it (wall jump), wall-jump up the same wall, from 151,946; clings to the wall at 135,874
-      -> standing at x 0-135, y 689-931
-  12. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, double jump at tick 10, from 135,704; clings to the wall at 345,708   [djump]
-      -> on the wall at x 345, y 408-727
-  13. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, double jump at tick 10, from 345,408; clings to the wall at 255,407   [djump]
+   5. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 233,1664; clings to the wall at 151,1612
+      -> standing at x 149-151, y 945-1687
+   6. on the wall to the left: kick off it (wall jump), wall-jump up the same wall, from 151,946; clings to the wall at 135,874
+      -> on the wall at x 135, y 408-931
+   7. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, double jump at tick 10, from 135,408; clings to the wall at 225,407   [djump]
       -> standing at x 225-255, y 367-409
-  14. on the wall to the right: kick off it (wall jump), wall-jump up the same wall, from 225,368; clings to the wall at 297,378
+   8. on the wall to the right: kick off it (wall jump), wall-jump up the same wall, from 225,368; clings to the wall at 297,378
       -> standing at x 297-480, y 241-407
-  15. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 298,241; clings to the wall at 247,146   [djump]
+   9. jump (held 21 ticks), holding nothing, then left after 14 ticks, double jump at tick 12, from 298,241; clings to the wall at 247,146   [djump]
       -> standing at x 183-247, y 88-151
-  16. standing at 202,97, touches it
+  10. standing at 202,97, touches it
+      -> loc 9 61
+how in 48,2832 -> loc 9 61: adash
+     coming in at 48,2832
+   1. coming in: holding nothing, from 48,2832; lands at 48,2833
+      -> standing at x 0-425, y 2668-2833
+   2. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 425,2704; lands at 278,2689
+      -> standing at x 185-295, y 2689-2743
+   3. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 185,2690; clings to the wall at 135,2639
+      -> on the wall at x 135, y 1708-2647
+   4. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 135,1744; clings to the wall at 233,1697
+      -> standing at x 233-263, y 1648-1704
+   5. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 233,1664; clings to the wall at 151,1612
+      -> standing at x 149-151, y 945-1687
+   6. on the wall to the left: kick off it (wall jump), wall-jump up the same wall, from 151,946; clings to the wall at 135,874
+      -> on the wall at x 135, y 408-931
+   7. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, air dash back right (Jerry) at tick 5, from 135,408; clings to the wall at 225,399   [adash]
+      -> standing at x 225-255, y 367-409
+   8. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 225,368; clings to the wall at 183,320
+      -> on the wall at x 183, y 152-407
+   9. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, air dash back right (Jerry) at tick 5, from 183,160; clings to the wall at 393,176   [adash]
+      -> on the wall at x 393, y 88-215
+  10. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, air dash back left (Jerry) at tick 5, from 393,88; clings to the wall at 247,103   [adash]
+      -> standing at x 183-247, y 88-151
+  11. standing at 202,97, touches it
       -> loc 9 61

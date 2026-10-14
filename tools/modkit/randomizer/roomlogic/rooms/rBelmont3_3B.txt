@@ -25,19 +25,19 @@ loc 4 6   # heart energy 6, at 575,952
 # the locked door whose objectNum is N.
 from in 48,1408
   out 0,1376     -
-  out 624,128    never
+  out 624,128    djump,megaman:1 | djump,samus:1 | djump,link:2 | djump,belmont:2
   out 624,1376   adash | djump
-  loc 4 6        samus:2
+  loc 4 6        djump,megaman:1 | djump,samus:1 | djump,link:2 | djump,belmont:2 | samus:2
 from in 592,160
   out 0,1376     link:1 | belmont:1 | megaman:1 | samus:1
   out 624,128    -
   out 624,1376   never
-  loc 4 6        samus:2
+  loc 4 6        samus:2 | djump,link:2 | djump,belmont:2 | djump,megaman:1 | djump,samus:1
 from in 592,1408
   out 0,1376     djump | adash
-  out 624,128    never
+  out 624,128    djump,megaman:1 | djump,samus:1 | djump,link:2 | djump,belmont:2
   out 624,1376   -
-  loc 4 6        adash,samus:2 | djump,samus:2
+  loc 4 6        adash,samus:2 | djump,megaman:1 | djump,samus:1 | djump,link:2 | djump,belmont:2
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
@@ -47,6 +47,238 @@ how in 48,1408 -> out 0,1376: -
       -> [sliding blocks as placed] standing at x 0-358, y 1409
    2. standing at 0,1409, goes into it
       -> out 0,1376
+how in 48,1408 -> out 624,128: djump,megaman:1
+     [sliding blocks as placed] coming in at 48,1408
+   1. coming in: holding nothing, from 48,1408; lands at 48,1409
+      -> [sliding blocks as placed] standing at x 0-358, y 1409
+   2. shoot the switch at 544,1376 from 231,1409: [sliding blocks moved]   [megaman:1]
+      -> [sliding blocks moved] standing at x 0-345, y 1409
+   3. running right, jump (held 21 ticks), holding right, from 208,1409; lands at 362,1345
+      -> [sliding blocks moved] standing at x 346-409, y 1345
+   4. jump (held 21 ticks), holding right, from 350,1345; lands at 473,1281
+      -> [sliding blocks moved] standing at x 410-473, y 1281
+   5. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 410,1281; lands at 483,1249
+      -> [sliding blocks moved] standing at x 474-537, y 1249
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 474,1249; lands at 595,1153   [djump]
+      -> [sliding blocks moved] standing at x 538-601, y 1153
+   7. shoot the switch at 248,1048 from 538,1153 (at the top of a jump): [sliding blocks as placed]   [megaman:1]
+      -> [sliding blocks as placed] standing at x 538-601, y 1153
+   8. jump (held 2 ticks), holding left, from 538,1153; lands at 414,1217
+      -> [sliding blocks as placed] standing at x 359-422, y 1217
+   9. jump (held 21 ticks), holding left, from 359,1217; lands at 295,1153
+      -> [sliding blocks as placed] standing at x 295-358, y 1153
+  10. jump (held 21 ticks), holding left, from 295,1153; lands at 222,1089
+      -> [sliding blocks as placed] standing at x 39-294, y 1089
+  11. shoot the switch at 248,1048 from 39,1089: [sliding blocks moved]   [megaman:1]
+      -> [sliding blocks moved] standing at x 39-153, y 1089
+  12. jump (held 21 ticks), holding right, from 39,1089; lands at 170,1025
+      -> [sliding blocks moved] standing at x 154-217, y 1025
+  13. jump (held 21 ticks), holding right, from 154,1025; lands at 285,961
+      -> [sliding blocks moved] standing at x 218-377, y 961
+  14. jump (held 21 ticks), holding left, from 218,961; lands at 87,897
+      -> [sliding blocks moved] standing at x 39-102, y 897
+  15. jump (held 21 ticks), holding right, double jump at tick 15, from 94,897; lands at 328,833   [djump]
+      -> [sliding blocks moved] standing at x 314-569, y 833
+  16. shoot the switch at 104,808 from 378,833: [sliding blocks as placed]   [megaman:1]
+      -> [sliding blocks as placed] standing at x 378-569, y 833
+  17. jump (held 21 ticks), holding right, double jump at tick 15, from 416,833; lands at 601,769   [djump]
+      -> [sliding blocks as placed] standing at x 570-601, y 769
+  18. jump (held 21 ticks), holding left, from 570,769; lands at 446,705
+      -> [sliding blocks as placed] standing at x 442-518, y 705
+  19. jump (held 21 ticks), holding left, double jump at tick 10, from 442,705; lands at 223,673   [djump]
+      -> [sliding blocks as placed] standing at x 154-230, y 673
+  20. jump (held 21 ticks), holding left, from 154,673; lands at 39,609
+      -> [sliding blocks as placed] standing at x 39-102, y 609
+  21. shoot the switch at 272,512 from 39,609 (at the top of a jump), carried by the block it moves to 39,545: [sliding blocks moved]   [megaman:1]
+      -> [sliding blocks moved] standing at x 39-102, y 545
+  22. jump (held 21 ticks), holding right, double jump at tick 10, from 39,545; lands at 229,481   [djump]
+      -> [sliding blocks moved] standing at x 186-441, y 481
+  23. jump (held 21 ticks), holding right, double jump at tick 15, from 186,481; lands at 449,449   [djump]
+      -> [sliding blocks moved] standing at x 442-486, y 449
+  24. jump (held 21 ticks), holding right, double jump at tick 15, from 442,449; lands at 601,353   [djump]
+      -> [sliding blocks moved] standing at x 570-601, y 353
+  25. jump (held 21 ticks), holding left, from 570,353; lands at 439,289
+      -> [sliding blocks moved] standing at x 359-486, y 289
+  26. jump (held 21 ticks), holding left, double jump at tick 15, from 359,289; lands at 301,193   [djump]
+      -> [sliding blocks moved] standing at x 282-358, y 193
+  27. jump (held 21 ticks), holding right, double jump at tick 15, from 304,193; lands at 523,161   [djump]
+      -> [sliding blocks moved] standing at x 506-640, y 161
+  28. standing at 622,161, goes into it
+      -> out 624,128
+how in 48,1408 -> out 624,128: djump,samus:1
+     [sliding blocks as placed] coming in at 48,1408
+   1. coming in: holding nothing, from 48,1408; lands at 48,1409
+      -> [sliding blocks as placed] standing at x 0-358, y 1409
+   2. shoot the switch at 544,1376 from 231,1409: [sliding blocks moved]   [samus:1]
+      -> [sliding blocks moved] standing at x 0-345, y 1409
+   3. running right, jump (held 21 ticks), holding right, from 208,1409; lands at 362,1345
+      -> [sliding blocks moved] standing at x 346-409, y 1345
+   4. jump (held 21 ticks), holding right, from 350,1345; lands at 473,1281
+      -> [sliding blocks moved] standing at x 410-473, y 1281
+   5. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 410,1281; lands at 483,1249
+      -> [sliding blocks moved] standing at x 474-537, y 1249
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 474,1249; lands at 595,1153   [djump]
+      -> [sliding blocks moved] standing at x 538-601, y 1153
+   7. shoot the switch at 248,1048 from 538,1153 (at the top of a jump): [sliding blocks as placed]   [samus:1]
+      -> [sliding blocks as placed] standing at x 538-601, y 1153
+   8. jump (held 2 ticks), holding left, from 538,1153; lands at 414,1217
+      -> [sliding blocks as placed] standing at x 359-422, y 1217
+   9. jump (held 21 ticks), holding left, from 359,1217; lands at 295,1153
+      -> [sliding blocks as placed] standing at x 295-358, y 1153
+  10. jump (held 21 ticks), holding left, from 295,1153; lands at 222,1089
+      -> [sliding blocks as placed] standing at x 39-294, y 1089
+  11. shoot the switch at 248,1048 from 39,1089: [sliding blocks moved]   [samus:1]
+      -> [sliding blocks moved] standing at x 39-153, y 1089
+  12. jump (held 21 ticks), holding right, from 39,1089; lands at 170,1025
+      -> [sliding blocks moved] standing at x 154-217, y 1025
+  13. jump (held 21 ticks), holding right, from 154,1025; lands at 285,961
+      -> [sliding blocks moved] standing at x 218-377, y 961
+  14. jump (held 21 ticks), holding left, from 218,961; lands at 87,897
+      -> [sliding blocks moved] standing at x 39-102, y 897
+  15. jump (held 21 ticks), holding right, double jump at tick 15, from 94,897; lands at 328,833   [djump]
+      -> [sliding blocks moved] standing at x 314-569, y 833
+  16. shoot the switch at 104,808 from 378,833: [sliding blocks as placed]   [samus:1]
+      -> [sliding blocks as placed] standing at x 378-569, y 833
+  17. jump (held 21 ticks), holding right, double jump at tick 15, from 416,833; lands at 601,769   [djump]
+      -> [sliding blocks as placed] standing at x 570-601, y 769
+  18. jump (held 21 ticks), holding left, from 570,769; lands at 446,705
+      -> [sliding blocks as placed] standing at x 442-518, y 705
+  19. jump (held 21 ticks), holding left, double jump at tick 10, from 442,705; lands at 223,673   [djump]
+      -> [sliding blocks as placed] standing at x 154-230, y 673
+  20. jump (held 21 ticks), holding left, from 154,673; lands at 39,609
+      -> [sliding blocks as placed] standing at x 39-102, y 609
+  21. shoot the switch at 272,512 from 39,609 (at the top of a jump), carried by the block it moves to 39,545: [sliding blocks moved]   [samus:1]
+      -> [sliding blocks moved] standing at x 39-102, y 545
+  22. jump (held 21 ticks), holding right, double jump at tick 10, from 39,545; lands at 229,481   [djump]
+      -> [sliding blocks moved] standing at x 186-441, y 481
+  23. jump (held 21 ticks), holding right, double jump at tick 15, from 186,481; lands at 449,449   [djump]
+      -> [sliding blocks moved] standing at x 442-486, y 449
+  24. jump (held 21 ticks), holding right, double jump at tick 15, from 442,449; lands at 601,353   [djump]
+      -> [sliding blocks moved] standing at x 570-601, y 353
+  25. jump (held 21 ticks), holding left, from 570,353; lands at 439,289
+      -> [sliding blocks moved] standing at x 359-486, y 289
+  26. jump (held 21 ticks), holding left, double jump at tick 15, from 359,289; lands at 301,193   [djump]
+      -> [sliding blocks moved] standing at x 282-358, y 193
+  27. jump (held 21 ticks), holding right, double jump at tick 15, from 304,193; lands at 523,161   [djump]
+      -> [sliding blocks moved] standing at x 506-640, y 161
+  28. standing at 622,161, goes into it
+      -> out 624,128
+how in 48,1408 -> out 624,128: djump,link:2
+     [sliding blocks as placed] coming in at 48,1408
+   1. coming in: holding nothing, from 48,1408; lands at 48,1409
+      -> [sliding blocks as placed] standing at x 0-358, y 1409
+   2. shoot the switch at 544,1376 from 231,1409: [sliding blocks moved]   [link:2]
+      -> [sliding blocks moved] standing at x 0-345, y 1409
+   3. running right, jump (held 21 ticks), holding right, from 208,1409; lands at 362,1345
+      -> [sliding blocks moved] standing at x 346-409, y 1345
+   4. jump (held 21 ticks), holding right, from 350,1345; lands at 473,1281
+      -> [sliding blocks moved] standing at x 410-473, y 1281
+   5. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 410,1281; lands at 483,1249
+      -> [sliding blocks moved] standing at x 474-537, y 1249
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 474,1249; lands at 595,1153   [djump]
+      -> [sliding blocks moved] standing at x 538-601, y 1153
+   7. shoot the switch at 248,1048 from 538,1153 (at the top of a jump): [sliding blocks as placed]   [link:2]
+      -> [sliding blocks as placed] standing at x 538-601, y 1153
+   8. jump (held 2 ticks), holding left, from 538,1153; lands at 414,1217
+      -> [sliding blocks as placed] standing at x 359-422, y 1217
+   9. jump (held 21 ticks), holding left, from 359,1217; lands at 295,1153
+      -> [sliding blocks as placed] standing at x 295-358, y 1153
+  10. jump (held 21 ticks), holding left, from 295,1153; lands at 222,1089
+      -> [sliding blocks as placed] standing at x 39-294, y 1089
+  11. shoot the switch at 248,1048 from 39,1089: [sliding blocks moved]   [link:2]
+      -> [sliding blocks moved] standing at x 39-153, y 1089
+  12. jump (held 21 ticks), holding right, from 39,1089; lands at 170,1025
+      -> [sliding blocks moved] standing at x 154-217, y 1025
+  13. jump (held 21 ticks), holding right, from 154,1025; lands at 285,961
+      -> [sliding blocks moved] standing at x 218-377, y 961
+  14. jump (held 21 ticks), holding left, from 218,961; lands at 87,897
+      -> [sliding blocks moved] standing at x 39-102, y 897
+  15. jump (held 21 ticks), holding right, double jump at tick 15, from 94,897; lands at 328,833   [djump]
+      -> [sliding blocks moved] standing at x 314-569, y 833
+  16. shoot the switch at 104,808 from 378,833: [sliding blocks as placed]   [link:2]
+      -> [sliding blocks as placed] standing at x 378-569, y 833
+  17. jump (held 21 ticks), holding right, double jump at tick 15, from 416,833; lands at 601,769   [djump]
+      -> [sliding blocks as placed] standing at x 570-601, y 769
+  18. jump (held 21 ticks), holding left, from 570,769; lands at 446,705
+      -> [sliding blocks as placed] standing at x 442-518, y 705
+  19. jump (held 21 ticks), holding left, double jump at tick 10, from 442,705; lands at 223,673   [djump]
+      -> [sliding blocks as placed] standing at x 154-230, y 673
+  20. jump (held 21 ticks), holding left, from 154,673; lands at 39,609
+      -> [sliding blocks as placed] standing at x 39-102, y 609
+  21. shoot the switch at 272,512 from 39,609 (at the top of a jump), carried by the block it moves to 39,545: [sliding blocks moved]   [link:2]
+      -> [sliding blocks moved] standing at x 39-102, y 545
+  22. jump (held 21 ticks), holding right, double jump at tick 10, from 39,545; lands at 229,481   [djump]
+      -> [sliding blocks moved] standing at x 186-441, y 481
+  23. jump (held 21 ticks), holding right, double jump at tick 15, from 186,481; lands at 449,449   [djump]
+      -> [sliding blocks moved] standing at x 442-486, y 449
+  24. jump (held 21 ticks), holding right, double jump at tick 15, from 442,449; lands at 601,353   [djump]
+      -> [sliding blocks moved] standing at x 570-601, y 353
+  25. jump (held 21 ticks), holding left, from 570,353; lands at 439,289
+      -> [sliding blocks moved] standing at x 359-486, y 289
+  26. jump (held 21 ticks), holding left, double jump at tick 15, from 359,289; lands at 301,193   [djump]
+      -> [sliding blocks moved] standing at x 282-358, y 193
+  27. jump (held 21 ticks), holding right, double jump at tick 15, from 304,193; lands at 523,161   [djump]
+      -> [sliding blocks moved] standing at x 506-640, y 161
+  28. standing at 622,161, goes into it
+      -> out 624,128
+how in 48,1408 -> out 624,128: djump,belmont:2
+     [sliding blocks as placed] coming in at 48,1408
+   1. coming in: holding nothing, from 48,1408; lands at 48,1409
+      -> [sliding blocks as placed] standing at x 0-358, y 1409
+   2. shoot the switch at 544,1376 from 231,1409: [sliding blocks moved]   [belmont:2]
+      -> [sliding blocks moved] standing at x 0-345, y 1409
+   3. running right, jump (held 21 ticks), holding right, from 208,1409; lands at 362,1345
+      -> [sliding blocks moved] standing at x 346-409, y 1345
+   4. jump (held 21 ticks), holding right, from 350,1345; lands at 473,1281
+      -> [sliding blocks moved] standing at x 410-473, y 1281
+   5. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 410,1281; lands at 483,1249
+      -> [sliding blocks moved] standing at x 474-537, y 1249
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 474,1249; lands at 595,1153   [djump]
+      -> [sliding blocks moved] standing at x 538-601, y 1153
+   7. shoot the switch at 248,1048 from 538,1153 (at the top of a jump): [sliding blocks as placed]   [belmont:2]
+      -> [sliding blocks as placed] standing at x 538-601, y 1153
+   8. jump (held 2 ticks), holding left, from 538,1153; lands at 414,1217
+      -> [sliding blocks as placed] standing at x 359-422, y 1217
+   9. jump (held 21 ticks), holding left, from 359,1217; lands at 295,1153
+      -> [sliding blocks as placed] standing at x 295-358, y 1153
+  10. jump (held 21 ticks), holding left, from 295,1153; lands at 222,1089
+      -> [sliding blocks as placed] standing at x 39-294, y 1089
+  11. shoot the switch at 248,1048 from 39,1089: [sliding blocks moved]   [belmont:2]
+      -> [sliding blocks moved] standing at x 39-153, y 1089
+  12. jump (held 21 ticks), holding right, from 39,1089; lands at 170,1025
+      -> [sliding blocks moved] standing at x 154-217, y 1025
+  13. jump (held 21 ticks), holding right, from 154,1025; lands at 285,961
+      -> [sliding blocks moved] standing at x 218-377, y 961
+  14. jump (held 21 ticks), holding left, from 218,961; lands at 87,897
+      -> [sliding blocks moved] standing at x 39-102, y 897
+  15. jump (held 21 ticks), holding right, double jump at tick 15, from 94,897; lands at 328,833   [djump]
+      -> [sliding blocks moved] standing at x 314-569, y 833
+  16. shoot the switch at 104,808 from 378,833: [sliding blocks as placed]   [belmont:2]
+      -> [sliding blocks as placed] standing at x 378-569, y 833
+  17. jump (held 21 ticks), holding right, double jump at tick 15, from 416,833; lands at 601,769   [djump]
+      -> [sliding blocks as placed] standing at x 570-601, y 769
+  18. jump (held 21 ticks), holding left, from 570,769; lands at 446,705
+      -> [sliding blocks as placed] standing at x 442-518, y 705
+  19. jump (held 21 ticks), holding left, double jump at tick 10, from 442,705; lands at 223,673   [djump]
+      -> [sliding blocks as placed] standing at x 154-230, y 673
+  20. jump (held 21 ticks), holding left, from 154,673; lands at 39,609
+      -> [sliding blocks as placed] standing at x 39-102, y 609
+  21. shoot the switch at 272,512 from 39,609 (at the top of a jump), carried by the block it moves to 39,545: [sliding blocks moved]   [belmont:2]
+      -> [sliding blocks moved] standing at x 39-102, y 545
+  22. jump (held 21 ticks), holding right, double jump at tick 10, from 39,545; lands at 229,481   [djump]
+      -> [sliding blocks moved] standing at x 186-441, y 481
+  23. jump (held 21 ticks), holding right, double jump at tick 15, from 186,481; lands at 449,449   [djump]
+      -> [sliding blocks moved] standing at x 442-486, y 449
+  24. jump (held 21 ticks), holding right, double jump at tick 15, from 442,449; lands at 601,353   [djump]
+      -> [sliding blocks moved] standing at x 570-601, y 353
+  25. jump (held 21 ticks), holding left, from 570,353; lands at 439,289
+      -> [sliding blocks moved] standing at x 359-486, y 289
+  26. jump (held 21 ticks), holding left, double jump at tick 15, from 359,289; lands at 301,193   [djump]
+      -> [sliding blocks moved] standing at x 282-358, y 193
+  27. jump (held 21 ticks), holding right, double jump at tick 15, from 304,193; lands at 523,161   [djump]
+      -> [sliding blocks moved] standing at x 506-640, y 161
+  28. standing at 622,161, goes into it
+      -> out 624,128
 how in 48,1408 -> out 624,1376: adash
      [sliding blocks as placed] coming in at 48,1408
    1. coming in: holding nothing, from 48,1408; lands at 48,1409
@@ -63,6 +295,86 @@ how in 48,1408 -> out 624,1376: djump
       -> [sliding blocks as placed] standing at x 506-640, y 1409
    3. standing at 622,1409, goes into it
       -> out 624,1376
+how in 48,1408 -> loc 4 6: djump,megaman:1
+     [sliding blocks as placed] coming in at 48,1408
+   1. coming in: holding nothing, from 48,1408; lands at 48,1409
+      -> [sliding blocks as placed] standing at x 0-358, y 1409
+   2. shoot the switch at 544,1376 from 231,1409: [sliding blocks moved]   [megaman:1]
+      -> [sliding blocks moved] standing at x 0-345, y 1409
+   3. running right, jump (held 21 ticks), holding right, from 208,1409; lands at 362,1345
+      -> [sliding blocks moved] standing at x 346-409, y 1345
+   4. jump (held 21 ticks), holding right, from 350,1345; lands at 473,1281
+      -> [sliding blocks moved] standing at x 410-473, y 1281
+   5. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 410,1281; lands at 483,1249
+      -> [sliding blocks moved] standing at x 474-537, y 1249
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 474,1249; lands at 595,1153   [djump]
+      -> [sliding blocks moved] standing at x 538-601, y 1153
+   7. jump (held 21 ticks), holding left, from 538,1153; lands at 423,1089
+      -> [sliding blocks moved] standing at x 423-486, y 1089
+   8. shoot the switch at 248,1048 from 423,1089, carried by the block it moves to 423,1025: [sliding blocks as placed]   [megaman:1]
+      -> [sliding blocks as placed] standing at x 423-486, y 1025
+   9. jump (held 21 ticks), holding right, from 448,1025; touches it on the way
+      -> loc 4 6
+how in 48,1408 -> loc 4 6: djump,samus:1
+     [sliding blocks as placed] coming in at 48,1408
+   1. coming in: holding nothing, from 48,1408; lands at 48,1409
+      -> [sliding blocks as placed] standing at x 0-358, y 1409
+   2. shoot the switch at 544,1376 from 231,1409: [sliding blocks moved]   [samus:1]
+      -> [sliding blocks moved] standing at x 0-345, y 1409
+   3. running right, jump (held 21 ticks), holding right, from 208,1409; lands at 362,1345
+      -> [sliding blocks moved] standing at x 346-409, y 1345
+   4. jump (held 21 ticks), holding right, from 350,1345; lands at 473,1281
+      -> [sliding blocks moved] standing at x 410-473, y 1281
+   5. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 410,1281; lands at 483,1249
+      -> [sliding blocks moved] standing at x 474-537, y 1249
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 474,1249; lands at 595,1153   [djump]
+      -> [sliding blocks moved] standing at x 538-601, y 1153
+   7. jump (held 21 ticks), holding left, from 538,1153; lands at 423,1089
+      -> [sliding blocks moved] standing at x 423-486, y 1089
+   8. shoot the switch at 248,1048 from 423,1089, carried by the block it moves to 423,1025: [sliding blocks as placed]   [samus:1]
+      -> [sliding blocks as placed] standing at x 423-486, y 1025
+   9. jump (held 21 ticks), holding right, from 448,1025; touches it on the way
+      -> loc 4 6
+how in 48,1408 -> loc 4 6: djump,link:2
+     [sliding blocks as placed] coming in at 48,1408
+   1. coming in: holding nothing, from 48,1408; lands at 48,1409
+      -> [sliding blocks as placed] standing at x 0-358, y 1409
+   2. shoot the switch at 544,1376 from 231,1409: [sliding blocks moved]   [link:2]
+      -> [sliding blocks moved] standing at x 0-345, y 1409
+   3. running right, jump (held 21 ticks), holding right, from 208,1409; lands at 362,1345
+      -> [sliding blocks moved] standing at x 346-409, y 1345
+   4. jump (held 21 ticks), holding right, from 350,1345; lands at 473,1281
+      -> [sliding blocks moved] standing at x 410-473, y 1281
+   5. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 410,1281; lands at 483,1249
+      -> [sliding blocks moved] standing at x 474-537, y 1249
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 474,1249; lands at 595,1153   [djump]
+      -> [sliding blocks moved] standing at x 538-601, y 1153
+   7. jump (held 21 ticks), holding left, from 538,1153; lands at 423,1089
+      -> [sliding blocks moved] standing at x 423-486, y 1089
+   8. shoot the switch at 248,1048 from 423,1089, carried by the block it moves to 423,1025: [sliding blocks as placed]   [link:2]
+      -> [sliding blocks as placed] standing at x 423-486, y 1025
+   9. jump (held 21 ticks), holding right, from 448,1025; touches it on the way
+      -> loc 4 6
+how in 48,1408 -> loc 4 6: djump,belmont:2
+     [sliding blocks as placed] coming in at 48,1408
+   1. coming in: holding nothing, from 48,1408; lands at 48,1409
+      -> [sliding blocks as placed] standing at x 0-358, y 1409
+   2. shoot the switch at 544,1376 from 231,1409: [sliding blocks moved]   [belmont:2]
+      -> [sliding blocks moved] standing at x 0-345, y 1409
+   3. running right, jump (held 21 ticks), holding right, from 208,1409; lands at 362,1345
+      -> [sliding blocks moved] standing at x 346-409, y 1345
+   4. jump (held 21 ticks), holding right, from 350,1345; lands at 473,1281
+      -> [sliding blocks moved] standing at x 410-473, y 1281
+   5. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 410,1281; lands at 483,1249
+      -> [sliding blocks moved] standing at x 474-537, y 1249
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 474,1249; lands at 595,1153   [djump]
+      -> [sliding blocks moved] standing at x 538-601, y 1153
+   7. jump (held 21 ticks), holding left, from 538,1153; lands at 423,1089
+      -> [sliding blocks moved] standing at x 423-486, y 1089
+   8. shoot the switch at 248,1048 from 423,1089, carried by the block it moves to 423,1025: [sliding blocks as placed]   [belmont:2]
+      -> [sliding blocks as placed] standing at x 423-486, y 1025
+   9. jump (held 21 ticks), holding right, from 448,1025; touches it on the way
+      -> loc 4 6
 how in 48,1408 -> loc 4 6: samus:2
      [sliding blocks as placed] coming in at 48,1408
    1. coming in: holding nothing, from 48,1408; lands at 48,1409
@@ -89,25 +401,15 @@ how in 48,1408 -> loc 4 6: samus:2
       -> [sliding blocks as placed] standing at x 295-358, y 1153
   12. jump (held 21 ticks), holding left, from 295,1153; lands at 222,1089
       -> [sliding blocks as placed] standing at x 39-294, y 1089
-  13. shoot the switch at 248,1048 from 39,1089: [sliding blocks moved]   [samus:1]
-      -> [sliding blocks moved] standing at x 39-153, y 1089
-  14. jump (held 21 ticks), holding right, from 39,1089; lands at 170,1025
-      -> [sliding blocks moved] standing at x 154-217, y 1025
-  15. jump (held 21 ticks), holding right, from 154,1025; lands at 285,961
-      -> [sliding blocks moved] standing at x 218-377, y 961
-  16. jump (held 21 ticks), holding left, from 218,961; lands at 87,897
-      -> [sliding blocks moved] standing at x 39-102, y 897
-  17. hit the switch at 104,808 from 90,897 (jumping if need be): [sliding blocks as placed]   [samus:1]
-      -> [sliding blocks as placed] standing at x 90-166, y 897
-  18. jump (held 21 ticks), holding right, from 128,897; lands at 259,833
-      -> [sliding blocks as placed] standing at x 250-326, y 833
-  19. jump (held 21 ticks), holding nothing, then right after 8 ticks, turn into the Morph Ball at tick 8, from 250,833; lands at 387,953   [samus:2]
-      -> [sliding blocks as placed] as the Morph Ball at x 378-422, y 953
-  20. as the Morph Ball: roll off the edge, holding right, then nothing after 1 ticks in the air, from 378,953; lands at 465,1025
-      -> [sliding blocks as placed] as the Morph Ball at x 423-486, y 1025
-  21. turn back from the Morph Ball at 423,1025
+  13. hit the switch at 248,1048 from 231,1089 (jumping if need be): [sliding blocks moved]   [samus:1]
+      -> [sliding blocks moved] standing at x 231-294, y 1089
+  14. running right, jump (held 21 ticks), holding right, turn into the Morph Ball where the body meets a wall or ceiling, from 286,1089; lands at 390,1073   [samus:2]
+      -> [sliding blocks moved] as the Morph Ball at x 378-422, y 1073
+  15. as the Morph Ball: roll off the edge, holding right once in the air, turn back once there's room, from 378,1073; lands at 468,1089
+      -> [sliding blocks moved] standing at x 423-486, y 1089
+  16. shoot the switch at 248,1048 from 423,1089, carried by the block it moves to 423,1025: [sliding blocks as placed]   [samus:1]
       -> [sliding blocks as placed] standing at x 423-486, y 1025
-  22. jump (held 21 ticks), holding right, from 448,1025; touches it on the way
+  17. jump (held 21 ticks), holding right, from 448,1025; touches it on the way
       -> loc 4 6
 how in 592,160 -> out 0,1376: link:1
      [sliding blocks as placed] coming in at 592,160
@@ -211,6 +513,110 @@ how in 592,160 -> loc 4 6: samus:2
       -> [sliding blocks as placed] standing at x 423-486, y 1025
    7. jump (held 21 ticks), holding right, from 448,1025; touches it on the way
       -> loc 4 6
+how in 592,160 -> loc 4 6: djump,link:2
+     [sliding blocks as placed] coming in at 592,160
+   1. coming in: holding nothing, from 592,160; lands at 592,161
+      -> [sliding blocks as placed] standing at x 506-640, y 161
+   2. walk off the edge, holding left once in the air, from 506,161; lands at 382,289
+      -> [sliding blocks as placed] standing at x 346-486, y 289
+   3. jump (held 2 ticks), holding left, from 346,289; lands at 244,289
+      -> [sliding blocks as placed] standing at x 154-294, y 289
+   4. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 192,289; lands at 145,897
+      -> [sliding blocks as placed] standing at x 90-166, y 897
+   5. walk off the edge, holding left once in the air, from 90,897; lands at 39,1089
+      -> [sliding blocks as placed] standing at x 39-294, y 1089
+   6. hit the switch at 248,1048 from 231,1089 (jumping if need be): [sliding blocks moved]   [link:1]
+      -> [sliding blocks moved] standing at x 231-294, y 1089
+   7. walk off the edge, holding right once in the air, from 231,1089; lands at 458,1281
+      -> [sliding blocks moved] standing at x 410-473, y 1281
+   8. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 410,1281; lands at 483,1249
+      -> [sliding blocks moved] standing at x 474-537, y 1249
+   9. jump (held 21 ticks), holding right, double jump at tick 15, from 474,1249; lands at 595,1153   [djump]
+      -> [sliding blocks moved] standing at x 538-601, y 1153
+  10. jump (held 21 ticks), holding left, from 538,1153; lands at 423,1089
+      -> [sliding blocks moved] standing at x 423-486, y 1089
+  11. shoot the switch at 248,1048 from 423,1089, carried by the block it moves to 423,1025: [sliding blocks as placed]   [link:2]
+      -> [sliding blocks as placed] standing at x 423-486, y 1025
+  12. jump (held 21 ticks), holding right, from 448,1025; touches it on the way
+      -> loc 4 6
+how in 592,160 -> loc 4 6: djump,belmont:2
+     [sliding blocks as placed] coming in at 592,160
+   1. coming in: holding nothing, from 592,160; lands at 592,161
+      -> [sliding blocks as placed] standing at x 506-640, y 161
+   2. walk off the edge, holding left once in the air, from 506,161; lands at 382,289
+      -> [sliding blocks as placed] standing at x 346-486, y 289
+   3. jump (held 2 ticks), holding left, from 346,289; lands at 244,289
+      -> [sliding blocks as placed] standing at x 154-294, y 289
+   4. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 192,289; lands at 145,897
+      -> [sliding blocks as placed] standing at x 90-166, y 897
+   5. walk off the edge, holding left once in the air, from 90,897; lands at 39,1089
+      -> [sliding blocks as placed] standing at x 39-294, y 1089
+   6. hit the switch at 248,1048 from 231,1089 (jumping if need be): [sliding blocks moved]   [belmont:1]
+      -> [sliding blocks moved] standing at x 231-294, y 1089
+   7. walk off the edge, holding right once in the air, from 231,1089; lands at 458,1281
+      -> [sliding blocks moved] standing at x 410-473, y 1281
+   8. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 410,1281; lands at 483,1249
+      -> [sliding blocks moved] standing at x 474-537, y 1249
+   9. jump (held 21 ticks), holding right, double jump at tick 15, from 474,1249; lands at 595,1153   [djump]
+      -> [sliding blocks moved] standing at x 538-601, y 1153
+  10. jump (held 21 ticks), holding left, from 538,1153; lands at 423,1089
+      -> [sliding blocks moved] standing at x 423-486, y 1089
+  11. shoot the switch at 248,1048 from 423,1089, carried by the block it moves to 423,1025: [sliding blocks as placed]   [belmont:2]
+      -> [sliding blocks as placed] standing at x 423-486, y 1025
+  12. jump (held 21 ticks), holding right, from 448,1025; touches it on the way
+      -> loc 4 6
+how in 592,160 -> loc 4 6: djump,megaman:1
+     [sliding blocks as placed] coming in at 592,160
+   1. coming in: holding nothing, from 592,160; lands at 592,161
+      -> [sliding blocks as placed] standing at x 506-640, y 161
+   2. walk off the edge, holding left once in the air, from 506,161; lands at 382,289
+      -> [sliding blocks as placed] standing at x 346-486, y 289
+   3. jump (held 2 ticks), holding left, from 346,289; lands at 244,289
+      -> [sliding blocks as placed] standing at x 154-294, y 289
+   4. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 192,289; lands at 145,897
+      -> [sliding blocks as placed] standing at x 90-166, y 897
+   5. walk off the edge, holding left once in the air, from 90,897; lands at 39,1089
+      -> [sliding blocks as placed] standing at x 39-294, y 1089
+   6. hit the switch at 248,1048 from 231,1089 (jumping if need be): [sliding blocks moved]   [megaman:1]
+      -> [sliding blocks moved] standing at x 231-294, y 1089
+   7. walk off the edge, holding right once in the air, from 231,1089; lands at 458,1281
+      -> [sliding blocks moved] standing at x 410-473, y 1281
+   8. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 410,1281; lands at 483,1249
+      -> [sliding blocks moved] standing at x 474-537, y 1249
+   9. jump (held 21 ticks), holding right, double jump at tick 15, from 474,1249; lands at 595,1153   [djump]
+      -> [sliding blocks moved] standing at x 538-601, y 1153
+  10. jump (held 21 ticks), holding left, from 538,1153; lands at 423,1089
+      -> [sliding blocks moved] standing at x 423-486, y 1089
+  11. shoot the switch at 248,1048 from 423,1089, carried by the block it moves to 423,1025: [sliding blocks as placed]   [megaman:1]
+      -> [sliding blocks as placed] standing at x 423-486, y 1025
+  12. jump (held 21 ticks), holding right, from 448,1025; touches it on the way
+      -> loc 4 6
+how in 592,160 -> loc 4 6: djump,samus:1
+     [sliding blocks as placed] coming in at 592,160
+   1. coming in: holding nothing, from 592,160; lands at 592,161
+      -> [sliding blocks as placed] standing at x 506-640, y 161
+   2. walk off the edge, holding left once in the air, from 506,161; lands at 382,289
+      -> [sliding blocks as placed] standing at x 346-486, y 289
+   3. jump (held 2 ticks), holding left, from 346,289; lands at 244,289
+      -> [sliding blocks as placed] standing at x 154-294, y 289
+   4. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 192,289; lands at 145,897
+      -> [sliding blocks as placed] standing at x 90-166, y 897
+   5. walk off the edge, holding left once in the air, from 90,897; lands at 39,1089
+      -> [sliding blocks as placed] standing at x 39-294, y 1089
+   6. hit the switch at 248,1048 from 231,1089 (jumping if need be): [sliding blocks moved]   [samus:1]
+      -> [sliding blocks moved] standing at x 231-294, y 1089
+   7. walk off the edge, holding right once in the air, from 231,1089; lands at 458,1281
+      -> [sliding blocks moved] standing at x 410-473, y 1281
+   8. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 410,1281; lands at 483,1249
+      -> [sliding blocks moved] standing at x 474-537, y 1249
+   9. jump (held 21 ticks), holding right, double jump at tick 15, from 474,1249; lands at 595,1153   [djump]
+      -> [sliding blocks moved] standing at x 538-601, y 1153
+  10. jump (held 21 ticks), holding left, from 538,1153; lands at 423,1089
+      -> [sliding blocks moved] standing at x 423-486, y 1089
+  11. shoot the switch at 248,1048 from 423,1089, carried by the block it moves to 423,1025: [sliding blocks as placed]   [samus:1]
+      -> [sliding blocks as placed] standing at x 423-486, y 1025
+  12. jump (held 21 ticks), holding right, from 448,1025; touches it on the way
+      -> loc 4 6
 how in 592,1408 -> out 0,1376: djump
      [sliding blocks as placed] coming in at 592,1408
    1. coming in: holding nothing, from 592,1408; lands at 592,1409
@@ -227,6 +633,238 @@ how in 592,1408 -> out 0,1376: adash
       -> [sliding blocks as placed] standing at x 0-358, y 1409
    3. standing at 0,1409, goes into it
       -> out 0,1376
+how in 592,1408 -> out 624,128: djump,megaman:1
+     [sliding blocks as placed] coming in at 592,1408
+   1. coming in: holding nothing, from 592,1408; lands at 592,1409
+      -> [sliding blocks as placed] standing at x 506-640, y 1409
+   2. jump (held 21 ticks), holding left, double jump at tick 15, from 506,1409; lands at 309,1409   [djump]
+      -> [sliding blocks as placed] standing at x 0-358, y 1409
+   3. shoot the switch at 544,1376 from 231,1409: [sliding blocks moved]   [megaman:1]
+      -> [sliding blocks moved] standing at x 0-345, y 1409
+   4. running right, jump (held 21 ticks), holding right, double jump at tick 10, from 160,1409; lands at 358,1345   [djump]
+      -> [sliding blocks moved] standing at x 346-409, y 1345
+   5. jump (held 21 ticks), holding right, double jump at tick 15, from 350,1345; lands at 531,1249   [djump]
+      -> [sliding blocks moved] standing at x 474-537, y 1249
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 474,1249; lands at 595,1153   [djump]
+      -> [sliding blocks moved] standing at x 538-601, y 1153
+   7. shoot the switch at 248,1048 from 538,1153 (at the top of a jump): [sliding blocks as placed]   [megaman:1]
+      -> [sliding blocks as placed] standing at x 538-601, y 1153
+   8. jump (held 2 ticks), holding left, from 538,1153; lands at 414,1217
+      -> [sliding blocks as placed] standing at x 359-422, y 1217
+   9. jump (held 21 ticks), holding left, from 359,1217; lands at 295,1153
+      -> [sliding blocks as placed] standing at x 295-358, y 1153
+  10. jump (held 21 ticks), holding left, from 295,1153; lands at 222,1089
+      -> [sliding blocks as placed] standing at x 39-294, y 1089
+  11. shoot the switch at 248,1048 from 39,1089: [sliding blocks moved]   [megaman:1]
+      -> [sliding blocks moved] standing at x 39-153, y 1089
+  12. jump (held 21 ticks), holding right, from 39,1089; lands at 170,1025
+      -> [sliding blocks moved] standing at x 154-217, y 1025
+  13. jump (held 21 ticks), holding right, from 154,1025; lands at 285,961
+      -> [sliding blocks moved] standing at x 218-377, y 961
+  14. jump (held 21 ticks), holding left, from 218,961; lands at 87,897
+      -> [sliding blocks moved] standing at x 39-102, y 897
+  15. jump (held 21 ticks), holding right, double jump at tick 15, from 94,897; lands at 328,833   [djump]
+      -> [sliding blocks moved] standing at x 314-569, y 833
+  16. shoot the switch at 104,808 from 378,833: [sliding blocks as placed]   [megaman:1]
+      -> [sliding blocks as placed] standing at x 378-569, y 833
+  17. jump (held 21 ticks), holding right, double jump at tick 15, from 416,833; lands at 601,769   [djump]
+      -> [sliding blocks as placed] standing at x 570-601, y 769
+  18. jump (held 21 ticks), holding left, from 570,769; lands at 446,705
+      -> [sliding blocks as placed] standing at x 442-518, y 705
+  19. jump (held 21 ticks), holding left, double jump at tick 10, from 442,705; lands at 223,673   [djump]
+      -> [sliding blocks as placed] standing at x 154-230, y 673
+  20. jump (held 21 ticks), holding left, from 154,673; lands at 39,609
+      -> [sliding blocks as placed] standing at x 39-102, y 609
+  21. shoot the switch at 272,512 from 39,609 (at the top of a jump), carried by the block it moves to 39,545: [sliding blocks moved]   [megaman:1]
+      -> [sliding blocks moved] standing at x 39-102, y 545
+  22. jump (held 21 ticks), holding right, double jump at tick 10, from 39,545; lands at 229,481   [djump]
+      -> [sliding blocks moved] standing at x 186-441, y 481
+  23. jump (held 21 ticks), holding right, double jump at tick 15, from 186,481; lands at 449,449   [djump]
+      -> [sliding blocks moved] standing at x 442-486, y 449
+  24. jump (held 21 ticks), holding right, double jump at tick 15, from 442,449; lands at 601,353   [djump]
+      -> [sliding blocks moved] standing at x 570-601, y 353
+  25. jump (held 21 ticks), holding left, from 570,353; lands at 439,289
+      -> [sliding blocks moved] standing at x 359-486, y 289
+  26. jump (held 21 ticks), holding left, double jump at tick 15, from 359,289; lands at 301,193   [djump]
+      -> [sliding blocks moved] standing at x 282-358, y 193
+  27. jump (held 21 ticks), holding right, double jump at tick 15, from 304,193; lands at 523,161   [djump]
+      -> [sliding blocks moved] standing at x 506-640, y 161
+  28. standing at 622,161, goes into it
+      -> out 624,128
+how in 592,1408 -> out 624,128: djump,samus:1
+     [sliding blocks as placed] coming in at 592,1408
+   1. coming in: holding nothing, from 592,1408; lands at 592,1409
+      -> [sliding blocks as placed] standing at x 506-640, y 1409
+   2. jump (held 21 ticks), holding left, double jump at tick 15, from 506,1409; lands at 309,1409   [djump]
+      -> [sliding blocks as placed] standing at x 0-358, y 1409
+   3. shoot the switch at 544,1376 from 231,1409: [sliding blocks moved]   [samus:1]
+      -> [sliding blocks moved] standing at x 0-345, y 1409
+   4. running right, jump (held 21 ticks), holding right, double jump at tick 10, from 160,1409; lands at 358,1345   [djump]
+      -> [sliding blocks moved] standing at x 346-409, y 1345
+   5. jump (held 21 ticks), holding right, double jump at tick 15, from 350,1345; lands at 531,1249   [djump]
+      -> [sliding blocks moved] standing at x 474-537, y 1249
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 474,1249; lands at 595,1153   [djump]
+      -> [sliding blocks moved] standing at x 538-601, y 1153
+   7. shoot the switch at 248,1048 from 538,1153 (at the top of a jump): [sliding blocks as placed]   [samus:1]
+      -> [sliding blocks as placed] standing at x 538-601, y 1153
+   8. jump (held 2 ticks), holding left, from 538,1153; lands at 414,1217
+      -> [sliding blocks as placed] standing at x 359-422, y 1217
+   9. jump (held 21 ticks), holding left, from 359,1217; lands at 295,1153
+      -> [sliding blocks as placed] standing at x 295-358, y 1153
+  10. jump (held 21 ticks), holding left, from 295,1153; lands at 222,1089
+      -> [sliding blocks as placed] standing at x 39-294, y 1089
+  11. shoot the switch at 248,1048 from 39,1089: [sliding blocks moved]   [samus:1]
+      -> [sliding blocks moved] standing at x 39-153, y 1089
+  12. jump (held 21 ticks), holding right, from 39,1089; lands at 170,1025
+      -> [sliding blocks moved] standing at x 154-217, y 1025
+  13. jump (held 21 ticks), holding right, from 154,1025; lands at 285,961
+      -> [sliding blocks moved] standing at x 218-377, y 961
+  14. jump (held 21 ticks), holding left, from 218,961; lands at 87,897
+      -> [sliding blocks moved] standing at x 39-102, y 897
+  15. jump (held 21 ticks), holding right, double jump at tick 15, from 94,897; lands at 328,833   [djump]
+      -> [sliding blocks moved] standing at x 314-569, y 833
+  16. shoot the switch at 104,808 from 378,833: [sliding blocks as placed]   [samus:1]
+      -> [sliding blocks as placed] standing at x 378-569, y 833
+  17. jump (held 21 ticks), holding right, double jump at tick 15, from 416,833; lands at 601,769   [djump]
+      -> [sliding blocks as placed] standing at x 570-601, y 769
+  18. jump (held 21 ticks), holding left, from 570,769; lands at 446,705
+      -> [sliding blocks as placed] standing at x 442-518, y 705
+  19. jump (held 21 ticks), holding left, double jump at tick 10, from 442,705; lands at 223,673   [djump]
+      -> [sliding blocks as placed] standing at x 154-230, y 673
+  20. jump (held 21 ticks), holding left, from 154,673; lands at 39,609
+      -> [sliding blocks as placed] standing at x 39-102, y 609
+  21. shoot the switch at 272,512 from 39,609 (at the top of a jump), carried by the block it moves to 39,545: [sliding blocks moved]   [samus:1]
+      -> [sliding blocks moved] standing at x 39-102, y 545
+  22. jump (held 21 ticks), holding right, double jump at tick 10, from 39,545; lands at 229,481   [djump]
+      -> [sliding blocks moved] standing at x 186-441, y 481
+  23. jump (held 21 ticks), holding right, double jump at tick 15, from 186,481; lands at 449,449   [djump]
+      -> [sliding blocks moved] standing at x 442-486, y 449
+  24. jump (held 21 ticks), holding right, double jump at tick 15, from 442,449; lands at 601,353   [djump]
+      -> [sliding blocks moved] standing at x 570-601, y 353
+  25. jump (held 21 ticks), holding left, from 570,353; lands at 439,289
+      -> [sliding blocks moved] standing at x 359-486, y 289
+  26. jump (held 21 ticks), holding left, double jump at tick 15, from 359,289; lands at 301,193   [djump]
+      -> [sliding blocks moved] standing at x 282-358, y 193
+  27. jump (held 21 ticks), holding right, double jump at tick 15, from 304,193; lands at 523,161   [djump]
+      -> [sliding blocks moved] standing at x 506-640, y 161
+  28. standing at 622,161, goes into it
+      -> out 624,128
+how in 592,1408 -> out 624,128: djump,link:2
+     [sliding blocks as placed] coming in at 592,1408
+   1. coming in: holding nothing, from 592,1408; lands at 592,1409
+      -> [sliding blocks as placed] standing at x 506-640, y 1409
+   2. jump (held 21 ticks), holding left, double jump at tick 15, from 506,1409; lands at 309,1409   [djump]
+      -> [sliding blocks as placed] standing at x 0-358, y 1409
+   3. shoot the switch at 544,1376 from 231,1409: [sliding blocks moved]   [link:2]
+      -> [sliding blocks moved] standing at x 0-345, y 1409
+   4. running right, jump (held 21 ticks), holding right, double jump at tick 10, from 160,1409; lands at 358,1345   [djump]
+      -> [sliding blocks moved] standing at x 346-409, y 1345
+   5. jump (held 21 ticks), holding right, double jump at tick 15, from 350,1345; lands at 531,1249   [djump]
+      -> [sliding blocks moved] standing at x 474-537, y 1249
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 474,1249; lands at 595,1153   [djump]
+      -> [sliding blocks moved] standing at x 538-601, y 1153
+   7. shoot the switch at 248,1048 from 538,1153 (at the top of a jump): [sliding blocks as placed]   [link:2]
+      -> [sliding blocks as placed] standing at x 538-601, y 1153
+   8. jump (held 2 ticks), holding left, from 538,1153; lands at 414,1217
+      -> [sliding blocks as placed] standing at x 359-422, y 1217
+   9. jump (held 21 ticks), holding left, from 359,1217; lands at 295,1153
+      -> [sliding blocks as placed] standing at x 295-358, y 1153
+  10. jump (held 21 ticks), holding left, from 295,1153; lands at 222,1089
+      -> [sliding blocks as placed] standing at x 39-294, y 1089
+  11. shoot the switch at 248,1048 from 39,1089: [sliding blocks moved]   [link:2]
+      -> [sliding blocks moved] standing at x 39-153, y 1089
+  12. jump (held 21 ticks), holding right, from 39,1089; lands at 170,1025
+      -> [sliding blocks moved] standing at x 154-217, y 1025
+  13. jump (held 21 ticks), holding right, from 154,1025; lands at 285,961
+      -> [sliding blocks moved] standing at x 218-377, y 961
+  14. jump (held 21 ticks), holding left, from 218,961; lands at 87,897
+      -> [sliding blocks moved] standing at x 39-102, y 897
+  15. jump (held 21 ticks), holding right, double jump at tick 15, from 94,897; lands at 328,833   [djump]
+      -> [sliding blocks moved] standing at x 314-569, y 833
+  16. shoot the switch at 104,808 from 378,833: [sliding blocks as placed]   [link:2]
+      -> [sliding blocks as placed] standing at x 378-569, y 833
+  17. jump (held 21 ticks), holding right, double jump at tick 15, from 416,833; lands at 601,769   [djump]
+      -> [sliding blocks as placed] standing at x 570-601, y 769
+  18. jump (held 21 ticks), holding left, from 570,769; lands at 446,705
+      -> [sliding blocks as placed] standing at x 442-518, y 705
+  19. jump (held 21 ticks), holding left, double jump at tick 10, from 442,705; lands at 223,673   [djump]
+      -> [sliding blocks as placed] standing at x 154-230, y 673
+  20. jump (held 21 ticks), holding left, from 154,673; lands at 39,609
+      -> [sliding blocks as placed] standing at x 39-102, y 609
+  21. shoot the switch at 272,512 from 39,609 (at the top of a jump), carried by the block it moves to 39,545: [sliding blocks moved]   [link:2]
+      -> [sliding blocks moved] standing at x 39-102, y 545
+  22. jump (held 21 ticks), holding right, double jump at tick 10, from 39,545; lands at 229,481   [djump]
+      -> [sliding blocks moved] standing at x 186-441, y 481
+  23. jump (held 21 ticks), holding right, double jump at tick 15, from 186,481; lands at 449,449   [djump]
+      -> [sliding blocks moved] standing at x 442-486, y 449
+  24. jump (held 21 ticks), holding right, double jump at tick 15, from 442,449; lands at 601,353   [djump]
+      -> [sliding blocks moved] standing at x 570-601, y 353
+  25. jump (held 21 ticks), holding left, from 570,353; lands at 439,289
+      -> [sliding blocks moved] standing at x 359-486, y 289
+  26. jump (held 21 ticks), holding left, double jump at tick 15, from 359,289; lands at 301,193   [djump]
+      -> [sliding blocks moved] standing at x 282-358, y 193
+  27. jump (held 21 ticks), holding right, double jump at tick 15, from 304,193; lands at 523,161   [djump]
+      -> [sliding blocks moved] standing at x 506-640, y 161
+  28. standing at 622,161, goes into it
+      -> out 624,128
+how in 592,1408 -> out 624,128: djump,belmont:2
+     [sliding blocks as placed] coming in at 592,1408
+   1. coming in: holding nothing, from 592,1408; lands at 592,1409
+      -> [sliding blocks as placed] standing at x 506-640, y 1409
+   2. jump (held 21 ticks), holding left, double jump at tick 15, from 506,1409; lands at 309,1409   [djump]
+      -> [sliding blocks as placed] standing at x 0-358, y 1409
+   3. shoot the switch at 544,1376 from 231,1409: [sliding blocks moved]   [belmont:2]
+      -> [sliding blocks moved] standing at x 0-345, y 1409
+   4. running right, jump (held 21 ticks), holding right, double jump at tick 10, from 160,1409; lands at 358,1345   [djump]
+      -> [sliding blocks moved] standing at x 346-409, y 1345
+   5. jump (held 21 ticks), holding right, double jump at tick 15, from 350,1345; lands at 531,1249   [djump]
+      -> [sliding blocks moved] standing at x 474-537, y 1249
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 474,1249; lands at 595,1153   [djump]
+      -> [sliding blocks moved] standing at x 538-601, y 1153
+   7. shoot the switch at 248,1048 from 538,1153 (at the top of a jump): [sliding blocks as placed]   [belmont:2]
+      -> [sliding blocks as placed] standing at x 538-601, y 1153
+   8. jump (held 2 ticks), holding left, from 538,1153; lands at 414,1217
+      -> [sliding blocks as placed] standing at x 359-422, y 1217
+   9. jump (held 21 ticks), holding left, from 359,1217; lands at 295,1153
+      -> [sliding blocks as placed] standing at x 295-358, y 1153
+  10. jump (held 21 ticks), holding left, from 295,1153; lands at 222,1089
+      -> [sliding blocks as placed] standing at x 39-294, y 1089
+  11. shoot the switch at 248,1048 from 39,1089: [sliding blocks moved]   [belmont:2]
+      -> [sliding blocks moved] standing at x 39-153, y 1089
+  12. jump (held 21 ticks), holding right, from 39,1089; lands at 170,1025
+      -> [sliding blocks moved] standing at x 154-217, y 1025
+  13. jump (held 21 ticks), holding right, from 154,1025; lands at 285,961
+      -> [sliding blocks moved] standing at x 218-377, y 961
+  14. jump (held 21 ticks), holding left, from 218,961; lands at 87,897
+      -> [sliding blocks moved] standing at x 39-102, y 897
+  15. jump (held 21 ticks), holding right, double jump at tick 15, from 94,897; lands at 328,833   [djump]
+      -> [sliding blocks moved] standing at x 314-569, y 833
+  16. shoot the switch at 104,808 from 378,833: [sliding blocks as placed]   [belmont:2]
+      -> [sliding blocks as placed] standing at x 378-569, y 833
+  17. jump (held 21 ticks), holding right, double jump at tick 15, from 416,833; lands at 601,769   [djump]
+      -> [sliding blocks as placed] standing at x 570-601, y 769
+  18. jump (held 21 ticks), holding left, from 570,769; lands at 446,705
+      -> [sliding blocks as placed] standing at x 442-518, y 705
+  19. jump (held 21 ticks), holding left, double jump at tick 10, from 442,705; lands at 223,673   [djump]
+      -> [sliding blocks as placed] standing at x 154-230, y 673
+  20. jump (held 21 ticks), holding left, from 154,673; lands at 39,609
+      -> [sliding blocks as placed] standing at x 39-102, y 609
+  21. shoot the switch at 272,512 from 39,609 (at the top of a jump), carried by the block it moves to 39,545: [sliding blocks moved]   [belmont:2]
+      -> [sliding blocks moved] standing at x 39-102, y 545
+  22. jump (held 21 ticks), holding right, double jump at tick 10, from 39,545; lands at 229,481   [djump]
+      -> [sliding blocks moved] standing at x 186-441, y 481
+  23. jump (held 21 ticks), holding right, double jump at tick 15, from 186,481; lands at 449,449   [djump]
+      -> [sliding blocks moved] standing at x 442-486, y 449
+  24. jump (held 21 ticks), holding right, double jump at tick 15, from 442,449; lands at 601,353   [djump]
+      -> [sliding blocks moved] standing at x 570-601, y 353
+  25. jump (held 21 ticks), holding left, from 570,353; lands at 439,289
+      -> [sliding blocks moved] standing at x 359-486, y 289
+  26. jump (held 21 ticks), holding left, double jump at tick 15, from 359,289; lands at 301,193   [djump]
+      -> [sliding blocks moved] standing at x 282-358, y 193
+  27. jump (held 21 ticks), holding right, double jump at tick 15, from 304,193; lands at 523,161   [djump]
+      -> [sliding blocks moved] standing at x 506-640, y 161
+  28. standing at 622,161, goes into it
+      -> out 624,128
 how in 592,1408 -> out 624,1376: -
      [sliding blocks as placed] coming in at 592,1408
    1. coming in: holding nothing, from 592,1408; lands at 592,1409
@@ -261,25 +899,37 @@ how in 592,1408 -> loc 4 6: adash,samus:2
       -> [sliding blocks as placed] standing at x 295-358, y 1153
   13. jump (held 21 ticks), holding left, from 295,1153; lands at 222,1089
       -> [sliding blocks as placed] standing at x 39-294, y 1089
-  14. shoot the switch at 248,1048 from 39,1089: [sliding blocks moved]   [samus:1]
-      -> [sliding blocks moved] standing at x 39-153, y 1089
-  15. jump (held 21 ticks), holding right, from 39,1089; lands at 170,1025
-      -> [sliding blocks moved] standing at x 154-217, y 1025
-  16. jump (held 21 ticks), holding right, from 154,1025; lands at 285,961
-      -> [sliding blocks moved] standing at x 218-377, y 961
-  17. jump (held 21 ticks), holding left, from 218,961; lands at 87,897
-      -> [sliding blocks moved] standing at x 39-102, y 897
-  18. hit the switch at 104,808 from 90,897 (jumping if need be): [sliding blocks as placed]   [samus:1]
-      -> [sliding blocks as placed] standing at x 90-166, y 897
-  19. jump (held 21 ticks), holding right, turn into the Morph Ball where the body meets a wall or ceiling, air dash (Claire) at tick 10, from 144,897; lands at 387,953   [adash,samus:2]
-      -> [sliding blocks as placed] as the Morph Ball at x 378-422, y 953
-  20. as the Morph Ball: roll off the edge, holding right, then nothing after 1 ticks in the air, from 378,953; lands at 465,1025
-      -> [sliding blocks as placed] as the Morph Ball at x 423-486, y 1025
-  21. turn back from the Morph Ball at 423,1025
+  14. hit the switch at 248,1048 from 231,1089 (jumping if need be): [sliding blocks moved]   [samus:1]
+      -> [sliding blocks moved] standing at x 231-294, y 1089
+  15. running right, jump (held 21 ticks), holding right, turn into the Morph Ball where the body meets a wall or ceiling, from 286,1089; lands at 390,1073   [samus:2]
+      -> [sliding blocks moved] as the Morph Ball at x 378-422, y 1073
+  16. as the Morph Ball: roll off the edge, holding right once in the air, turn back once there's room, from 378,1073; lands at 468,1089
+      -> [sliding blocks moved] standing at x 423-486, y 1089
+  17. shoot the switch at 248,1048 from 423,1089, carried by the block it moves to 423,1025: [sliding blocks as placed]   [samus:1]
       -> [sliding blocks as placed] standing at x 423-486, y 1025
-  22. jump (held 21 ticks), holding nothing, then right after 12 ticks, air dash (Jerry) at tick 12, from 423,1025; touches it on the way   [adash]
+  18. jump (held 21 ticks), holding nothing, then right after 12 ticks, air dash (Jerry) at tick 12, from 423,1025; touches it on the way   [adash]
       -> loc 4 6
-how in 592,1408 -> loc 4 6: djump,samus:2
+how in 592,1408 -> loc 4 6: djump,megaman:1
+     [sliding blocks as placed] coming in at 592,1408
+   1. coming in: holding nothing, from 592,1408; lands at 592,1409
+      -> [sliding blocks as placed] standing at x 506-640, y 1409
+   2. jump (held 21 ticks), holding left, double jump at tick 15, from 506,1409; lands at 309,1409   [djump]
+      -> [sliding blocks as placed] standing at x 0-358, y 1409
+   3. shoot the switch at 544,1376 from 231,1409: [sliding blocks moved]   [megaman:1]
+      -> [sliding blocks moved] standing at x 0-345, y 1409
+   4. running right, jump (held 21 ticks), holding right, double jump at tick 10, from 160,1409; lands at 358,1345   [djump]
+      -> [sliding blocks moved] standing at x 346-409, y 1345
+   5. jump (held 21 ticks), holding right, double jump at tick 15, from 350,1345; lands at 531,1249   [djump]
+      -> [sliding blocks moved] standing at x 474-537, y 1249
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 474,1249; lands at 595,1153   [djump]
+      -> [sliding blocks moved] standing at x 538-601, y 1153
+   7. jump (held 21 ticks), holding left, from 538,1153; lands at 423,1089
+      -> [sliding blocks moved] standing at x 423-486, y 1089
+   8. shoot the switch at 248,1048 from 423,1089, carried by the block it moves to 423,1025: [sliding blocks as placed]   [megaman:1]
+      -> [sliding blocks as placed] standing at x 423-486, y 1025
+   9. jump (held 21 ticks), holding right, from 448,1025; touches it on the way
+      -> loc 4 6
+how in 592,1408 -> loc 4 6: djump,samus:1
      [sliding blocks as placed] coming in at 592,1408
    1. coming in: holding nothing, from 592,1408; lands at 592,1409
       -> [sliding blocks as placed] standing at x 506-640, y 1409
@@ -293,29 +943,49 @@ how in 592,1408 -> loc 4 6: djump,samus:2
       -> [sliding blocks moved] standing at x 474-537, y 1249
    6. jump (held 21 ticks), holding right, double jump at tick 15, from 474,1249; lands at 595,1153   [djump]
       -> [sliding blocks moved] standing at x 538-601, y 1153
-   7. shoot the switch at 248,1048 from 538,1153 (at the top of a jump): [sliding blocks as placed]   [samus:1]
-      -> [sliding blocks as placed] standing at x 538-601, y 1153
-   8. jump (held 2 ticks), holding left, from 538,1153; lands at 414,1217
-      -> [sliding blocks as placed] standing at x 359-422, y 1217
-   9. jump (held 21 ticks), holding left, from 359,1217; lands at 295,1153
-      -> [sliding blocks as placed] standing at x 295-358, y 1153
-  10. jump (held 21 ticks), holding left, from 295,1153; lands at 222,1089
-      -> [sliding blocks as placed] standing at x 39-294, y 1089
-  11. shoot the switch at 248,1048 from 39,1089: [sliding blocks moved]   [samus:1]
-      -> [sliding blocks moved] standing at x 39-153, y 1089
-  12. jump (held 21 ticks), holding right, from 39,1089; lands at 170,1025
-      -> [sliding blocks moved] standing at x 154-217, y 1025
-  13. jump (held 21 ticks), holding right, from 154,1025; lands at 285,961
-      -> [sliding blocks moved] standing at x 218-377, y 961
-  14. jump (held 21 ticks), holding left, from 218,961; lands at 87,897
-      -> [sliding blocks moved] standing at x 39-102, y 897
-  15. hit the switch at 104,808 from 90,897 (jumping if need be): [sliding blocks as placed]   [samus:1]
-      -> [sliding blocks as placed] standing at x 90-166, y 897
-  16. jump (held 21 ticks), holding right, turn into the Morph Ball where the body meets a wall or ceiling, double jump at tick 10, from 144,897; lands at 389,953   [djump,samus:2]
-      -> [sliding blocks as placed] as the Morph Ball at x 378-422, y 953
-  17. as the Morph Ball: roll off the edge, holding right, then nothing after 1 ticks in the air, from 378,953; lands at 465,1025
-      -> [sliding blocks as placed] as the Morph Ball at x 423-486, y 1025
-  18. turn back from the Morph Ball at 423,1025
+   7. jump (held 21 ticks), holding left, from 538,1153; lands at 423,1089
+      -> [sliding blocks moved] standing at x 423-486, y 1089
+   8. shoot the switch at 248,1048 from 423,1089, carried by the block it moves to 423,1025: [sliding blocks as placed]   [samus:1]
       -> [sliding blocks as placed] standing at x 423-486, y 1025
-  19. jump (held 21 ticks), holding right, from 448,1025; touches it on the way
+   9. jump (held 21 ticks), holding right, from 448,1025; touches it on the way
+      -> loc 4 6
+how in 592,1408 -> loc 4 6: djump,link:2
+     [sliding blocks as placed] coming in at 592,1408
+   1. coming in: holding nothing, from 592,1408; lands at 592,1409
+      -> [sliding blocks as placed] standing at x 506-640, y 1409
+   2. jump (held 21 ticks), holding left, double jump at tick 15, from 506,1409; lands at 309,1409   [djump]
+      -> [sliding blocks as placed] standing at x 0-358, y 1409
+   3. shoot the switch at 544,1376 from 231,1409: [sliding blocks moved]   [link:2]
+      -> [sliding blocks moved] standing at x 0-345, y 1409
+   4. running right, jump (held 21 ticks), holding right, double jump at tick 10, from 160,1409; lands at 358,1345   [djump]
+      -> [sliding blocks moved] standing at x 346-409, y 1345
+   5. jump (held 21 ticks), holding right, double jump at tick 15, from 350,1345; lands at 531,1249   [djump]
+      -> [sliding blocks moved] standing at x 474-537, y 1249
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 474,1249; lands at 595,1153   [djump]
+      -> [sliding blocks moved] standing at x 538-601, y 1153
+   7. jump (held 21 ticks), holding left, from 538,1153; lands at 423,1089
+      -> [sliding blocks moved] standing at x 423-486, y 1089
+   8. shoot the switch at 248,1048 from 423,1089, carried by the block it moves to 423,1025: [sliding blocks as placed]   [link:2]
+      -> [sliding blocks as placed] standing at x 423-486, y 1025
+   9. jump (held 21 ticks), holding right, from 448,1025; touches it on the way
+      -> loc 4 6
+how in 592,1408 -> loc 4 6: djump,belmont:2
+     [sliding blocks as placed] coming in at 592,1408
+   1. coming in: holding nothing, from 592,1408; lands at 592,1409
+      -> [sliding blocks as placed] standing at x 506-640, y 1409
+   2. jump (held 21 ticks), holding left, double jump at tick 15, from 506,1409; lands at 309,1409   [djump]
+      -> [sliding blocks as placed] standing at x 0-358, y 1409
+   3. shoot the switch at 544,1376 from 231,1409: [sliding blocks moved]   [belmont:2]
+      -> [sliding blocks moved] standing at x 0-345, y 1409
+   4. running right, jump (held 21 ticks), holding right, double jump at tick 10, from 160,1409; lands at 358,1345   [djump]
+      -> [sliding blocks moved] standing at x 346-409, y 1345
+   5. jump (held 21 ticks), holding right, double jump at tick 15, from 350,1345; lands at 531,1249   [djump]
+      -> [sliding blocks moved] standing at x 474-537, y 1249
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 474,1249; lands at 595,1153   [djump]
+      -> [sliding blocks moved] standing at x 538-601, y 1153
+   7. jump (held 21 ticks), holding left, from 538,1153; lands at 423,1089
+      -> [sliding blocks moved] standing at x 423-486, y 1089
+   8. shoot the switch at 248,1048 from 423,1089, carried by the block it moves to 423,1025: [sliding blocks as placed]   [belmont:2]
+      -> [sliding blocks as placed] standing at x 423-486, y 1025
+   9. jump (held 21 ticks), holding right, from 448,1025; touches it on the way
       -> loc 4 6

@@ -21,7 +21,7 @@ loc 2 51   # treasure chest 51, at 112,235
 # the locked door whose objectNum is N.
 from in 128,448
   out 32,480   -
-  loc 10 36    never
+  loc 10 36    gdash
   loc 2 51     -
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
@@ -32,6 +32,12 @@ how in 128,448 -> out 32,480: -
       -> standing at x 66-441, y 385-465
    2. walk off the edge, holding left once in the air, from 66,465; touches it on the way
       -> out 32,480
+how in 128,448 -> loc 10 36: gdash
+     coming in at 128,448
+   1. coming in: holding nothing, from 128,448; lands at 128,449
+      -> standing at x 66-441, y 385-465
+   2. walk off the edge, holding right once in the air, from 66,465, through the barrier at 448,368; touches it on the way   [gdash]
+      -> loc 10 36
 how in 128,448 -> loc 2 51: -
      coming in at 128,448
    1. coming in: holding nothing, from 128,448; lands at 128,449

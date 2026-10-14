@@ -20,12 +20,20 @@ loc 9 21   # weapon upgrade 21, at 1839,183
 # link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
 # the locked door whose objectNum is N.
 from in 48,128
-  out 40,16   never
+  out 40,16   -
   loc 3 4     djump | adash,gdash,link:3 | adash,gdash,samus:6
   loc 9 21    adash,link:3 | adash,samus:6 | gdash,link:3 | gdash,samus:6 | djump
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 48,128 -> out 40,16: -
+     coming in at 48,128
+   1. come in on the elevator, at 48,128
+      -> riding the elevator at x 48 (its bar from y -64 to 304)
+   2. ride the elevator to where its bar is at y 80, and step off it to 26,81
+      -> standing at x 0-38, y 81
+   3. standing at 38,81, goes into it
+      -> out 40,16
 how in 48,128 -> loc 3 4: djump
      coming in at 48,128
    1. coming in: holding nothing, from 48,128; lands at 48,305
@@ -44,29 +52,25 @@ how in 48,128 -> loc 3 4: adash,gdash,link:3
      coming in at 48,128
    1. coming in: holding nothing, from 48,128; lands at 48,305
       -> standing at x 39-249, y 305
-   2. running right, jump (held 21 ticks), holding right, from 128,305, through the bombable wall at 256,272, the bombable wall at 256,240, the bombable wall at 256,208, ...; lands at 334,305   [link:3]
-      -> standing at x 295-473, y 305
-   3. running right, jump (held 6 ticks), holding right, from 416,305; lands at 482,289
-      -> standing at x 474-665, y 289
-   4. jump (held 21 ticks), holding nothing, then right after 12 ticks, air dash (Jerry) at tick 12, from 560,289; lands at 690,209   [adash]
+   2. jump (held 21 ticks), holding right, air dash (Claire) at tick 16, from 224,305, through the bombable wall at 256,272, the bombable wall at 256,240, the bombable wall at 256,208, ...; lands at 457,225   [adash,link:3]
+      -> standing at x 455-486, y 225
+   3. jump (held 21 ticks), holding right, air dash (Jerry) at tick 4, from 455,225; lands at 680,209   [adash]
       -> standing at x 666-710, y 209
-   5. dash right (Jerry), jump (held 21 ticks), holding right, air dash (Jerry) at tick 12, from 666,209; lands at 1002,209   [adash,gdash]
+   4. dash right (Jerry), jump (held 21 ticks), holding right, air dash (Jerry) at tick 12, from 666,209; lands at 1002,209   [adash,gdash]
       -> standing at x 954-1030, y 209
-   6. jump (held 21 ticks), holding right, air dash (Claire) at tick 16, from 954,209; touches it on the way   [adash]
+   5. jump (held 21 ticks), holding right, air dash (Claire) at tick 16, from 954,209; touches it on the way   [adash]
       -> loc 3 4
 how in 48,128 -> loc 3 4: adash,gdash,samus:6
      coming in at 48,128
    1. coming in: holding nothing, from 48,128; lands at 48,305
       -> standing at x 39-249, y 305
-   2. running right, jump (held 21 ticks), holding right, from 128,305, through the bombable wall at 256,272, the bombable wall at 256,240, the bombable wall at 256,208, ...; lands at 334,305   [samus:6]
-      -> standing at x 295-473, y 305
-   3. running right, jump (held 6 ticks), holding right, from 416,305; lands at 482,289
-      -> standing at x 474-665, y 289
-   4. jump (held 21 ticks), holding nothing, then right after 12 ticks, air dash (Jerry) at tick 12, from 560,289; lands at 690,209   [adash]
+   2. jump (held 21 ticks), holding right, air dash (Claire) at tick 16, from 224,305, through the bombable wall at 256,272, the bombable wall at 256,240, the bombable wall at 256,208, ...; lands at 457,225   [adash,samus:6]
+      -> standing at x 455-486, y 225
+   3. jump (held 21 ticks), holding right, air dash (Jerry) at tick 4, from 455,225; lands at 680,209   [adash]
       -> standing at x 666-710, y 209
-   5. dash right (Jerry), jump (held 21 ticks), holding right, air dash (Jerry) at tick 12, from 666,209; lands at 1002,209   [adash,gdash]
+   4. dash right (Jerry), jump (held 21 ticks), holding right, air dash (Jerry) at tick 12, from 666,209; lands at 1002,209   [adash,gdash]
       -> standing at x 954-1030, y 209
-   6. jump (held 21 ticks), holding right, air dash (Claire) at tick 16, from 954,209; touches it on the way   [adash]
+   5. jump (held 21 ticks), holding right, air dash (Claire) at tick 16, from 954,209; touches it on the way   [adash]
       -> loc 3 4
 how in 48,128 -> loc 9 21: adash,link:3
      coming in at 48,128

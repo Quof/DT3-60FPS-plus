@@ -26,17 +26,17 @@ from in 592,128
   out 624,96   -
   out 0,160    -
   out 0,848    -
-  loc 10 38    never
+  loc 10 38    gdash
 from in 48,192
   out 624,96   -
   out 0,160    -
   out 0,848    -
-  loc 10 38    never
+  loc 10 38    gdash
 from in 48,880
   out 624,96   djump
   out 0,160    djump
   out 0,848    -
-  loc 10 38    never
+  loc 10 38    djump,gdash
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
@@ -66,6 +66,16 @@ how in 592,128 -> out 0,848: -
       -> standing at x 0-153, y 881
    5. standing at 0,881, goes into it
       -> out 0,848
+how in 592,128 -> loc 10 38: gdash
+     coming in at 592,128
+   1. coming in: holding nothing, from 592,128; lands at 592,129
+      -> standing at x 306-640, y 129-209
+   2. walk off the edge, holding left once in the air, from 306,209; lands at 167,369
+      -> standing at x 114-398, y 369-385
+   3. walk off the edge, holding right once in the air, from 114,385, through the barrier at 496,448; lands at 511,513   [gdash]
+      -> standing at x 490-518, y 513 (where a gate is)
+   4. walk off the edge, holding right once in the air, from 490,513, through the barrier at 496,448; touches it on the way   [gdash]
+      -> loc 10 38
 how in 48,192 -> out 624,96: -
      coming in at 48,192
    1. coming in: holding nothing, from 48,192; lands at 48,193
@@ -92,6 +102,16 @@ how in 48,192 -> out 0,848: -
       -> standing at x 0-153, y 881
    5. standing at 0,881, goes into it
       -> out 0,848
+how in 48,192 -> loc 10 38: gdash
+     coming in at 48,192
+   1. coming in: holding nothing, from 48,192; lands at 48,193
+      -> standing at x 0-214, y 193
+   2. walk off the edge, holding right once in the air, from 32,193; lands at 369,374
+      -> standing at x 114-398, y 369-385
+   3. walk off the edge, holding right once in the air, from 114,385, through the barrier at 496,448; lands at 511,513   [gdash]
+      -> standing at x 490-518, y 513 (where a gate is)
+   4. walk off the edge, holding right once in the air, from 490,513, through the barrier at 496,448; touches it on the way   [gdash]
+      -> loc 10 38
 how in 48,880 -> out 624,96: djump
      coming in at 48,880
    1. coming in: holding nothing, from 48,880; lands at 48,881
@@ -132,3 +152,19 @@ how in 48,880 -> out 0,848: -
       -> standing at x 0-153, y 881
    2. standing at 0,881, goes into it
       -> out 0,848
+how in 48,880 -> loc 10 38: djump,gdash
+     coming in at 48,880
+   1. coming in: holding nothing, from 48,880; lands at 48,881
+      -> standing at x 0-153, y 881
+   2. running right, jump (held 2 ticks), holding right, from 80,881; lands at 168,849
+      -> standing at x 154-230, y 849
+   3. jump (held 21 ticks), holding right, from 158,849; lands at 289,785
+      -> standing at x 282-358, y 785
+   4. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then left, double jump at tick 18, from 320,785; lands at 153,593   [djump]
+      -> standing at x 119-262, y 593
+   5. jump (held 2 ticks), holding left, from 119,593; lands at 76,561
+      -> standing at x 55-118, y 561
+   6. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, from 55,561; lands at 139,376
+      -> standing at x 114-398, y 369-385
+   7. walk off the edge, holding right once in the air, double jump at tick 16, from 144,373, through the barrier at 496,448; touches it on the way   [djump,gdash]
+      -> loc 10 38

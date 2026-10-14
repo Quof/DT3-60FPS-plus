@@ -23,8 +23,8 @@ loc 2 34   # treasure chest 34, at 592,179
 from in 656,432
   out 688,400   -
   loc 8 8       never
-  loc 10 29     never
-  loc 2 34      never
+  loc 10 29     gdash
+  loc 2 34      gdash
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
@@ -34,3 +34,27 @@ how in 656,432 -> out 688,400: -
       -> standing at x 487-704, y 401-433
    2. standing at 686,433, goes into it
       -> out 688,400
+how in 656,432 -> loc 10 29: gdash
+     coming in at 656,432
+   1. coming in: holding nothing, from 656,432; lands at 656,433
+      -> standing at x 487-704, y 401-433
+   2. jump (held 2 ticks), holding left, from 487,401; lands at 378,410
+      -> standing at x 295-441, y 369-417
+   3. jump (held 21 ticks), holding left, from 295,369; lands at 171,299
+      -> standing at x 20-190, y 78-305
+   4. jump (held 21 ticks), holding right, from 20,78; lands at 160,189
+      -> standing at x 146-473, y 145-193
+   5. dash right (Jerry), jump (held 21 ticks), holding right, from 384,149, through the barrier at 480,64; touches it on the way   [gdash]
+      -> loc 10 29
+how in 656,432 -> loc 2 34: gdash
+     coming in at 656,432
+   1. coming in: holding nothing, from 656,432; lands at 656,433
+      -> standing at x 487-704, y 401-433
+   2. jump (held 2 ticks), holding left, from 487,401; lands at 378,410
+      -> standing at x 295-441, y 369-417
+   3. jump (held 21 ticks), holding left, from 295,369; lands at 171,299
+      -> standing at x 20-190, y 78-305
+   4. jump (held 21 ticks), holding right, from 20,78; lands at 160,189
+      -> standing at x 146-473, y 145-193
+   5. walk off the edge, holding right, then nothing after 1 ticks in the air, from 272,179, through the barrier at 480,64; touches it on the way   [gdash]
+      -> loc 2 34

@@ -3,6 +3,7 @@
 # Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
 # Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
 # middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+carried rb   # the red and blue switches' state comes in with the player and goes out with them (0: the blue blocks solid, 1: the red ones)
 # switches: the room is worked out in each of its states, the player coming in in the first: [blue blocks solid]
 
 # Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
@@ -20,22 +21,64 @@ out 2160,256   # to rCCity_CCE at 48,288; the player goes into it
 # Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
 # link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
 # the locked door whose objectNum is N.
-from in 48,288
-  out 0,256      -
-  out 2160,256   -
-from in 2128,288
-  out 0,256      -
-  out 2160,256   -
+from in 48,288 [rb 0]
+  out 0,256 [rb 0]      -
+  out 0,256 [rb 1]      -
+  out 2160,256 [rb 0]   -
+  out 2160,256 [rb 1]   -
+from in 48,288 [rb 1]
+  out 0,256 [rb 0]      -
+  out 0,256 [rb 1]      -
+  out 2160,256 [rb 0]   -
+  out 2160,256 [rb 1]   -
+from in 2128,288 [rb 0]
+  out 0,256 [rb 0]      -
+  out 0,256 [rb 1]      -
+  out 2160,256 [rb 0]   -
+  out 2160,256 [rb 1]   -
+from in 2128,288 [rb 1]
+  out 0,256 [rb 0]      -
+  out 0,256 [rb 1]      -
+  out 2160,256 [rb 0]   -
+  out 2160,256 [rb 1]   -
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
-how in 48,288 -> out 0,256: -
+how in 48,288 [rb 0] -> out 0,256 [rb 0]: -
      [blue blocks solid] coming in at 48,288
    1. coming in: holding nothing, from 48,288; lands at 48,289
       -> [blue blocks solid] standing at x 0-134, y 289
    2. standing at 0,289, goes into it
-      -> out 0,256
-how in 48,288 -> out 2160,256: -
+      -> out 0,256 [rb 0]
+how in 48,288 [rb 0] -> out 0,256 [rb 1]: -
+     [blue blocks solid] coming in at 48,288
+   1. coming in: holding nothing, from 48,288; lands at 48,289
+      -> [blue blocks solid] standing at x 0-134, y 289
+   2. walk off the edge, holding right once in the air, from 32,289; lands at 185,305
+      -> [blue blocks solid] standing at x 135-390, y 305
+   3. running right, jump (held 21 ticks), holding right, from 256,305; lands at 454,289
+      -> [blue blocks solid] standing at x 442-550, y 289
+   4. running right, jump (held 21 ticks), holding right, from 496,289; lands at 650,225
+      -> [blue blocks solid] standing at x 634-806, y 225
+   5. walk off the edge, holding right once in the air, from 634,225; lands at 883,273
+      -> [blue blocks solid] standing at x 858-1030, y 273
+   6. jump (held 21 ticks), holding right, from 896,273; lands at 1093,289
+      -> [blue blocks solid] standing at x 1082-1286, y 289
+   7. running right, jump (held 21 ticks), holding right, from 1136,289; lands at 1349,289
+      -> [blue blocks solid] standing at x 1338-1542, y 289
+   8. jump at 1354,289 and hit the block at 1360,192 from below: [red blocks solid]
+      -> [red blocks solid] standing at x 1082-1414, y 289
+   9. jump (held 2 ticks), holding left, from 1082,289; lands at 995,273
+      -> [red blocks solid] standing at x 858-1030, y 273
+  10. jump (held 6 ticks), holding left, from 858,273; lands at 763,225
+      -> [red blocks solid] standing at x 634-806, y 225
+  11. running left, jump (held 21 ticks), holding left, from 634,225; lands at 377,305
+      -> [red blocks solid] standing at x 135-390, y 305
+  12. jump (held 2 ticks), holding left, from 135,305; lands at 52,289
+      -> [red blocks solid] standing at x 0-134, y 289
+  13. standing at 0,289, goes into it
+      -> out 0,256 [rb 1]
+how in 48,288 [rb 0] -> out 2160,256 [rb 0]: -
      [blue blocks solid] coming in at 48,288
    1. coming in: holding nothing, from 48,288; lands at 48,289
       -> [blue blocks solid] standing at x 0-134, y 289
@@ -56,8 +99,110 @@ how in 48,288 -> out 2160,256: -
    9. running right, jump (held 2 ticks), holding right, from 1952,289; lands at 2143,289
       -> [blue blocks solid] standing at x 2042-2176, y 289
   10. standing at 2158,289, goes into it
-      -> out 2160,256
-how in 2128,288 -> out 0,256: -
+      -> out 2160,256 [rb 0]
+how in 48,288 [rb 0] -> out 2160,256 [rb 1]: -
+     [blue blocks solid] coming in at 48,288
+   1. coming in: holding nothing, from 48,288; lands at 48,289
+      -> [blue blocks solid] standing at x 0-134, y 289
+   2. walk off the edge, holding right once in the air, from 32,289; lands at 185,305
+      -> [blue blocks solid] standing at x 135-390, y 305
+   3. running right, jump (held 21 ticks), holding right, from 256,305; lands at 454,289
+      -> [blue blocks solid] standing at x 442-550, y 289
+   4. running right, jump (held 21 ticks), holding right, from 496,289; lands at 650,225
+      -> [blue blocks solid] standing at x 634-806, y 225
+   5. walk off the edge, holding right once in the air, from 634,225; lands at 883,273
+      -> [blue blocks solid] standing at x 858-1030, y 273
+   6. jump (held 21 ticks), holding right, from 896,273; lands at 1093,289
+      -> [blue blocks solid] standing at x 1082-1286, y 289
+   7. running right, jump (held 21 ticks), holding right, from 1136,289; lands at 1349,289
+      -> [blue blocks solid] standing at x 1338-1542, y 289
+   8. jump at 1498,289 and hit the block at 1504,192 from below: [red blocks solid]
+      -> [red blocks solid] standing at x 1466-1606, y 289
+   9. running right, jump (held 21 ticks), holding right, from 1520,289; lands at 1733,289
+      -> [red blocks solid] standing at x 1722-1990, y 289
+  10. running right, jump (held 2 ticks), holding right, from 1952,289; lands at 2143,289
+      -> [red blocks solid] standing at x 2042-2176, y 289
+  11. standing at 2158,289, goes into it
+      -> out 2160,256 [rb 1]
+how in 48,288 [rb 1] -> out 0,256 [rb 0]: -
+     [red blocks solid] coming in at 48,288
+   1. coming in: holding nothing, from 48,288; lands at 48,289
+      -> [red blocks solid] standing at x 0-134, y 289
+   2. walk off the edge, holding right once in the air, from 32,289; lands at 185,305
+      -> [red blocks solid] standing at x 135-390, y 305
+   3. running right, jump (held 21 ticks), holding right, from 256,305; lands at 454,289
+      -> [red blocks solid] standing at x 442-550, y 289
+   4. running right, jump (held 21 ticks), holding right, from 496,289; lands at 650,225
+      -> [red blocks solid] standing at x 634-806, y 225
+   5. walk off the edge, holding right once in the air, from 634,225; lands at 883,273
+      -> [red blocks solid] standing at x 858-1030, y 273
+   6. jump (held 21 ticks), holding right, from 896,273; lands at 1093,289
+      -> [red blocks solid] standing at x 1082-1414, y 289
+   7. jump at 1354,289 and hit the block at 1360,192 from below: [blue blocks solid]
+      -> [blue blocks solid] standing at x 1338-1542, y 289
+   8. jump (held 2 ticks), holding left, from 1338,289; lands at 1236,289
+      -> [blue blocks solid] standing at x 1082-1286, y 289
+   9. jump (held 2 ticks), holding left, from 1082,289; lands at 995,273
+      -> [blue blocks solid] standing at x 858-1030, y 273
+  10. jump (held 6 ticks), holding left, from 858,273; lands at 763,225
+      -> [blue blocks solid] standing at x 634-806, y 225
+  11. running left, jump (held 21 ticks), holding left, from 634,225; lands at 377,305
+      -> [blue blocks solid] standing at x 135-390, y 305
+  12. jump (held 2 ticks), holding left, from 135,305; lands at 52,289
+      -> [blue blocks solid] standing at x 0-134, y 289
+  13. standing at 0,289, goes into it
+      -> out 0,256 [rb 0]
+how in 48,288 [rb 1] -> out 0,256 [rb 1]: -
+     [red blocks solid] coming in at 48,288
+   1. coming in: holding nothing, from 48,288; lands at 48,289
+      -> [red blocks solid] standing at x 0-134, y 289
+   2. standing at 0,289, goes into it
+      -> out 0,256 [rb 1]
+how in 48,288 [rb 1] -> out 2160,256 [rb 0]: -
+     [red blocks solid] coming in at 48,288
+   1. coming in: holding nothing, from 48,288; lands at 48,289
+      -> [red blocks solid] standing at x 0-134, y 289
+   2. walk off the edge, holding right once in the air, from 32,289; lands at 185,305
+      -> [red blocks solid] standing at x 135-390, y 305
+   3. running right, jump (held 21 ticks), holding right, from 256,305; lands at 454,289
+      -> [red blocks solid] standing at x 442-550, y 289
+   4. running right, jump (held 21 ticks), holding right, from 496,289; lands at 650,225
+      -> [red blocks solid] standing at x 634-806, y 225
+   5. walk off the edge, holding right once in the air, from 634,225; lands at 883,273
+      -> [red blocks solid] standing at x 858-1030, y 273
+   6. jump (held 21 ticks), holding right, from 896,273; lands at 1093,289
+      -> [red blocks solid] standing at x 1082-1414, y 289
+   7. jump at 1354,289 and hit the block at 1360,192 from below: [blue blocks solid]
+      -> [blue blocks solid] standing at x 1338-1542, y 289
+   8. running right, jump (held 21 ticks), holding right, from 1472,289; lands at 1604,289
+      -> [blue blocks solid] standing at x 1594-1990, y 289
+   9. running right, jump (held 2 ticks), holding right, from 1952,289; lands at 2143,289
+      -> [blue blocks solid] standing at x 2042-2176, y 289
+  10. standing at 2158,289, goes into it
+      -> out 2160,256 [rb 0]
+how in 48,288 [rb 1] -> out 2160,256 [rb 1]: -
+     [red blocks solid] coming in at 48,288
+   1. coming in: holding nothing, from 48,288; lands at 48,289
+      -> [red blocks solid] standing at x 0-134, y 289
+   2. walk off the edge, holding right once in the air, from 32,289; lands at 185,305
+      -> [red blocks solid] standing at x 135-390, y 305
+   3. running right, jump (held 21 ticks), holding right, from 256,305; lands at 454,289
+      -> [red blocks solid] standing at x 442-550, y 289
+   4. running right, jump (held 21 ticks), holding right, from 496,289; lands at 650,225
+      -> [red blocks solid] standing at x 634-806, y 225
+   5. walk off the edge, holding right once in the air, from 634,225; lands at 883,273
+      -> [red blocks solid] standing at x 858-1030, y 273
+   6. jump (held 21 ticks), holding right, from 896,273; lands at 1093,289
+      -> [red blocks solid] standing at x 1082-1414, y 289
+   7. running right, jump (held 6 ticks), holding right, from 1344,289; lands at 1506,289
+      -> [red blocks solid] standing at x 1466-1606, y 289
+   8. running right, jump (held 21 ticks), holding right, from 1520,289; lands at 1733,289
+      -> [red blocks solid] standing at x 1722-1990, y 289
+   9. running right, jump (held 2 ticks), holding right, from 1952,289; lands at 2143,289
+      -> [red blocks solid] standing at x 2042-2176, y 289
+  10. standing at 2158,289, goes into it
+      -> out 2160,256 [rb 1]
+how in 2128,288 [rb 0] -> out 0,256 [rb 0]: -
      [blue blocks solid] coming in at 2128,288
    1. coming in: holding nothing, from 2128,288; lands at 2128,289
       -> [blue blocks solid] standing at x 2042-2176, y 289
@@ -76,10 +221,110 @@ how in 2128,288 -> out 0,256: -
    8. jump (held 2 ticks), holding left, from 135,305; lands at 52,289
       -> [blue blocks solid] standing at x 0-134, y 289
    9. standing at 0,289, goes into it
-      -> out 0,256
-how in 2128,288 -> out 2160,256: -
+      -> out 0,256 [rb 0]
+how in 2128,288 [rb 0] -> out 0,256 [rb 1]: -
+     [blue blocks solid] coming in at 2128,288
+   1. coming in: holding nothing, from 2128,288; lands at 2128,289
+      -> [blue blocks solid] standing at x 2042-2176, y 289
+   2. jump (held 2 ticks), holding left, from 2042,289; lands at 1944,289
+      -> [blue blocks solid] standing at x 1594-1990, y 289
+   3. jump (held 2 ticks), holding left, from 1594,289; lands at 1492,289
+      -> [blue blocks solid] standing at x 1338-1542, y 289
+   4. jump at 1354,289 and hit the block at 1360,192 from below: [red blocks solid]
+      -> [red blocks solid] standing at x 1082-1414, y 289
+   5. jump (held 2 ticks), holding left, from 1082,289; lands at 995,273
+      -> [red blocks solid] standing at x 858-1030, y 273
+   6. jump (held 6 ticks), holding left, from 858,273; lands at 763,225
+      -> [red blocks solid] standing at x 634-806, y 225
+   7. running left, jump (held 21 ticks), holding left, from 634,225; lands at 377,305
+      -> [red blocks solid] standing at x 135-390, y 305
+   8. jump (held 2 ticks), holding left, from 135,305; lands at 52,289
+      -> [red blocks solid] standing at x 0-134, y 289
+   9. standing at 0,289, goes into it
+      -> out 0,256 [rb 1]
+how in 2128,288 [rb 0] -> out 2160,256 [rb 0]: -
      [blue blocks solid] coming in at 2128,288
    1. coming in: holding nothing, from 2128,288; lands at 2128,289
       -> [blue blocks solid] standing at x 2042-2176, y 289
    2. standing at 2158,289, goes into it
-      -> out 2160,256
+      -> out 2160,256 [rb 0]
+how in 2128,288 [rb 0] -> out 2160,256 [rb 1]: -
+     [blue blocks solid] coming in at 2128,288
+   1. coming in: holding nothing, from 2128,288; lands at 2128,289
+      -> [blue blocks solid] standing at x 2042-2176, y 289
+   2. jump (held 2 ticks), holding left, from 2042,289; lands at 1944,289
+      -> [blue blocks solid] standing at x 1594-1990, y 289
+   3. jump (held 2 ticks), holding left, from 1594,289; lands at 1492,289
+      -> [blue blocks solid] standing at x 1338-1542, y 289
+   4. jump at 1498,289 and hit the block at 1504,192 from below: [red blocks solid]
+      -> [red blocks solid] standing at x 1466-1606, y 289
+   5. running right, jump (held 21 ticks), holding right, from 1520,289; lands at 1733,289
+      -> [red blocks solid] standing at x 1722-1990, y 289
+   6. running right, jump (held 2 ticks), holding right, from 1952,289; lands at 2143,289
+      -> [red blocks solid] standing at x 2042-2176, y 289
+   7. standing at 2158,289, goes into it
+      -> out 2160,256 [rb 1]
+how in 2128,288 [rb 1] -> out 0,256 [rb 0]: -
+     [red blocks solid] coming in at 2128,288
+   1. coming in: holding nothing, from 2128,288; lands at 2128,289
+      -> [red blocks solid] standing at x 2042-2176, y 289
+   2. jump (held 2 ticks), holding left, from 2042,289; lands at 1944,289
+      -> [red blocks solid] standing at x 1722-1990, y 289
+   3. running left, jump (held 2 ticks), holding left, from 1722,289; lands at 1597,289
+      -> [red blocks solid] standing at x 1466-1606, y 289
+   4. jump at 1498,289 and hit the block at 1504,192 from below: [blue blocks solid]
+      -> [blue blocks solid] standing at x 1338-1542, y 289
+   5. jump (held 2 ticks), holding left, from 1338,289; lands at 1236,289
+      -> [blue blocks solid] standing at x 1082-1286, y 289
+   6. jump (held 2 ticks), holding left, from 1082,289; lands at 995,273
+      -> [blue blocks solid] standing at x 858-1030, y 273
+   7. jump (held 6 ticks), holding left, from 858,273; lands at 763,225
+      -> [blue blocks solid] standing at x 634-806, y 225
+   8. running left, jump (held 21 ticks), holding left, from 634,225; lands at 377,305
+      -> [blue blocks solid] standing at x 135-390, y 305
+   9. jump (held 2 ticks), holding left, from 135,305; lands at 52,289
+      -> [blue blocks solid] standing at x 0-134, y 289
+  10. standing at 0,289, goes into it
+      -> out 0,256 [rb 0]
+how in 2128,288 [rb 1] -> out 0,256 [rb 1]: -
+     [red blocks solid] coming in at 2128,288
+   1. coming in: holding nothing, from 2128,288; lands at 2128,289
+      -> [red blocks solid] standing at x 2042-2176, y 289
+   2. jump (held 2 ticks), holding left, from 2042,289; lands at 1944,289
+      -> [red blocks solid] standing at x 1722-1990, y 289
+   3. running left, jump (held 2 ticks), holding left, from 1722,289; lands at 1597,289
+      -> [red blocks solid] standing at x 1466-1606, y 289
+   4. jump (held 2 ticks), holding left, from 1466,289; lands at 1364,289
+      -> [red blocks solid] standing at x 1082-1414, y 289
+   5. jump (held 2 ticks), holding left, from 1082,289; lands at 995,273
+      -> [red blocks solid] standing at x 858-1030, y 273
+   6. jump (held 6 ticks), holding left, from 858,273; lands at 763,225
+      -> [red blocks solid] standing at x 634-806, y 225
+   7. running left, jump (held 21 ticks), holding left, from 634,225; lands at 377,305
+      -> [red blocks solid] standing at x 135-390, y 305
+   8. jump (held 2 ticks), holding left, from 135,305; lands at 52,289
+      -> [red blocks solid] standing at x 0-134, y 289
+   9. standing at 0,289, goes into it
+      -> out 0,256 [rb 1]
+how in 2128,288 [rb 1] -> out 2160,256 [rb 0]: -
+     [red blocks solid] coming in at 2128,288
+   1. coming in: holding nothing, from 2128,288; lands at 2128,289
+      -> [red blocks solid] standing at x 2042-2176, y 289
+   2. jump (held 2 ticks), holding left, from 2042,289; lands at 1944,289
+      -> [red blocks solid] standing at x 1722-1990, y 289
+   3. running left, jump (held 2 ticks), holding left, from 1722,289; lands at 1597,289
+      -> [red blocks solid] standing at x 1466-1606, y 289
+   4. jump at 1498,289 and hit the block at 1504,192 from below: [blue blocks solid]
+      -> [blue blocks solid] standing at x 1338-1542, y 289
+   5. running right, jump (held 21 ticks), holding right, from 1472,289; lands at 1604,289
+      -> [blue blocks solid] standing at x 1594-1990, y 289
+   6. running right, jump (held 2 ticks), holding right, from 1952,289; lands at 2143,289
+      -> [blue blocks solid] standing at x 2042-2176, y 289
+   7. standing at 2158,289, goes into it
+      -> out 2160,256 [rb 0]
+how in 2128,288 [rb 1] -> out 2160,256 [rb 1]: -
+     [red blocks solid] coming in at 2128,288
+   1. coming in: holding nothing, from 2128,288; lands at 2128,289
+      -> [red blocks solid] standing at x 2042-2176, y 289
+   2. standing at 2158,289, goes into it
+      -> out 2160,256 [rb 1]
