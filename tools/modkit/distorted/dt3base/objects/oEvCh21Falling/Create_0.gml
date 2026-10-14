@@ -1,0 +1,46 @@
+event_inherited()
+enemyCount=-1
+fadeColor=c_white
+fadeAlpha=0
+followBack=0
+lockCharacterY=-1
+
+if global.gameProgress=5500 {fadeAlpha=1}
+else if global.gameProgress>=5520
+{
+  tile_layer_hide(1000000)
+  with oInvisibleSolid {instance_destroy()}
+  lockCharacterY=112
+}
+
+metSpd=3
+metDir=90
+setLocation=0
+metSpawnY=room_height+40
+metOffsetY=0
+
+metAlternateA=0
+metAlternateB=0
+metAlternateC=0
+
+skyRingOffset=0
+skyRingAmt=0
+
+cloudBlend=255
+
+//Checkpoints
+if global.newMapX=241
+{
+  background_visible[5]=1
+  sceneProgress=6
+}
+else if global.newMapX=242
+{
+  background_visible[5]=1
+  sceneProgress=9
+}
+else if global.newMapX=243
+{
+  background_visible[5]=1
+  sceneProgress=11
+}

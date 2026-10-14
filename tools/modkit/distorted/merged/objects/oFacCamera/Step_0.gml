@@ -1,0 +1,64 @@
+if global.gamePaused=false
+{
+  makeEnemyActive(0)
+  if bActive=true and stunnedTime=0 and life>0
+  {
+    myDist=point_distance(x,0,oPlayer1.x,0)
+    if x<oPlayer1.x
+    {
+      if myDist<=40 {image_index=0}
+      else {image_index=1}
+      image_xscale=1
+    }
+    else
+    {
+      if myDist<=40 {image_xscale=1; image_index=0}
+      else {image_xscale=-1; image_index=1}
+    }
+
+    if bInfected=1
+    {
+      shotTime+=1*gDeltaTime
+      if shotTime>=shotDelay
+      {
+        tEffect=instance_create(x,y+60*image_yscale,oEffect) //spsp ns inserted yscale factor
+        tEffect.sprite_index=sEfCamMuzzleFlash; tEffect.image_speed=0.5
+        tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+        if image_index=1
+        {
+          if image_xscale=1 {tEffect.image_angle=45}
+          else {tEffect.image_angle=315}
+        }
+        var tNewAttack,tDir;
+        tDir=point_direction(x,y+60*image_yscale,oPlayer1.x,oPlayer1.y-26) //spsp ns (rya
+        if triShot=3 {tDir-=15}
+        for(i=0;i<triShot;i+=1)
+        {
+          tNewAttack=instance_create(x,y+60*image_yscale,oPassBulletRed) //spsp ns inserted yscale factor
+          tNewAttack.sprite_index=sCamBullet; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
+          tNewAttack.decayTime=-100; tNewAttack._direction=tDir
+          tDir+=15
+        }
+        if triShot=1 {triShot=3}
+        else {triShot=1}
+        shotTime=0
+      }
+    }
+  }
+  else if life<=0
+  {
+    deathAnim+=1*gDeltaTime
+    if deathAnim=1
+    {
+      with controlID {instance_destroy()}
+      tEffect=instance_create(x,y+60,oEffect)
+      tEffect.sprite_index=sRobotExplosion; tEffect.image_speed=0.5; tEffect.image_xscale=0.75; tEffect.image_yscale=0.75
+      tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+      image_xscale=1; image_index=2; image_blend=c_white
+      bIsBoss=1
+      jeremyText=""
+      bCanDealDamage=false; bCanTakeDamage=false
+    }
+  }
+  enemyStepEvent()
+}

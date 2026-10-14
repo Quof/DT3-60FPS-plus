@@ -1,0 +1,55 @@
+event_inherited()
+image_speed=0
+
+//Enemy base statistics
+eName="Dracula"
+eLevel=11
+maxLife=4300 //3700
+life=maxLife
+atkPower=6 //5
+resType[1]=3 //4
+resType[2]=2
+resType[4]=2
+resType[5]=2
+stunResist=50
+affiliation=3
+bIsBoss=true
+bNoBonus=true
+dieEffect=0
+bossProgress=0
+activateBoss=0
+xCenter=360
+yGround=288
+//--------------------
+idleTime=0
+idleDelay=45-10 //spsp
+
+teleTime=0
+teleOut=0
+teleMod=1
+teleCur=0
+teleNext=0
+teleSpots[0]=240
+teleSpots[1]=480
+teleSpots[2]=360
+teleSpots[3]=128
+teleSpots[4]=592
+
+atkProg=0
+atkTime=0
+atkSeq=0
+atkAnim=0
+bigFireY=0
+bFirePillar=0
+
+lifeRefill=0
+superFireAmt=4
+superDir=0
+fpTime=150
+//--------------------
+moveSpd=0
+
+deathAnim=0
+
+bBody=instance_create(x,y,oDraculaBody)
+y+=6

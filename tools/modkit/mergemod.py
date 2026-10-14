@@ -11,20 +11,30 @@ finished by hand (conflicts merged, the mod's code made to work at DT3+'s frame 
   python mergemod.py check <config.json>    lists what's left: conflict markers, merges older than DT3+'s code, and
                                             merged versions whose braces or /* */ comments don't close like DT3+'s
                                             (a block of the mod's put in the wrong place)
+  python mergemod.py review <config.json>   writes merged\review.txt: the mod's lines in each merged version (where a
+                                            fresh merge puts them), with what in them a 60fps port may need to change
 
 The config's "merge" section:
   "scripts": [names]                        the game's scripts
-  "objects": {object: [events] or "all"}    events of the game's objects ("all": every event the mod changed)
+  "objects": {object: [events] or "all"}    events of the game's objects ("all": every event the mod changed), or
+                                            "changed": every event of every object the mod changed (a mod that
+                                            changes the whole game), but those of "skip_objects": [names]
   "only_objects": {object: [events]/"all"}  the same, but only the mod's changes matching "only" are merged
   "only": regex
   "leave_out": regex                        the mod's changes whose lines match it are left out (e.g. parts that
                                             belong to something else, or that are done another way)
+  "append_events": true                     an event the mod only added lines to the end of (or one the object
+                                            doesn't have in DT3+) is kept as just those lines, <event>.append.gml,
+                                            which the game adds after the object's own event (object.ini append):
+                                            replacing an event means clearing it first, which is slow. Not when the
+                                            event can end early (exit) or the lines use its var locals: as an action
+                                            of its own, they'd run anyway, or without them
   "merged": folder, "dt3base": folder       (relative to the config)
 A target's name: scripts\<name> or objects\<object>\<event>.
 """
 import os, re, sys, json
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-import merge3, gmlcheck
+import merge3, gmlcheck, gml
 from sources import GmkSplit, Gm82Project
 
 OVR = re.compile(r"^if global\.modOvr\[.*scrModOverride\(")
@@ -35,6 +45,10 @@ def dt3_script(proj, name):
     if t is None: return None
     # without the line that runs a mod's version (the merged version is the mod's version)
     return "\n".join(l for l in t.replace("\r\n", "\n").split("\n") if not OVR.match(l))
+
+def code_only(text):
+    """the code without its comments, spacing and line breaks"""
+    return " ".join(t for k, t in gml.tokens((text or "").replace("\r\n", "\n")) if k not in ("cm1", "cm2", "ws"))
 
 def dt3_event(proj, obj, ev):
     evs = proj.object_events(obj) if obj in proj.names["Objects"] else {}
@@ -56,6 +70,18 @@ class Merges:
         self.keep_only = (lambda o, m: self.keep(o, m) and bool(re.search(only, "\n".join(o + m)))) if only else self.keep
         self.filters = {}
 
+    def changed_objects(self):
+        """the game's objects the mod changed the code (not just the comments) of, but skip_objects"""
+        skip = set(self.cfg["merge"].get("skip_objects", []))
+        out = []
+        for o in sorted(self.mod.names("Objects") & self.van.names("Objects")):
+            if o in skip: continue
+            a, b = self.van.object(o), self.mod.object(o)
+            if any(code_only(a["events"].get(e, "")) != code_only(b["events"].get(e, ""))
+                   for e in set(a["events"]) | set(b["events"])):
+                out.append(o)
+        return out
+
     def targets(self):
         """[(target, original, DT3+'s, the mod's)]"""
         mg = self.cfg["merge"]; out = []
@@ -63,18 +89,40 @@ class Merges:
             out.append(("scripts\\" + s, self.van.script(s), dt3_script(self.proj, s), self.mod.script(s)))
             self.filters["scripts\\" + s] = self.keep
         for key, flt in (("objects", self.keep), ("only_objects", self.keep_only)):
-            for o, evs in mg.get(key, {}).items():
+            objs = mg.get(key, {})
+            if objs == "changed": objs = {o: "all" for o in self.changed_objects()}
+            for o, evs in objs.items():
                 a = self.mod.object(o); v = self.van.object(o) if o in self.van.names("Objects") else {"events": {}}
                 if evs == "all":
+                    # (an event the mod changed only the comments of isn't merged: replacing it would change nothing)
                     evs = sorted(e for e in set(a["events"]) | set(v["events"])
-                                 if merge3.split_lines(a["events"].get(e, "")) != merge3.split_lines(v["events"].get(e, "")))
+                                 if code_only(a["events"].get(e, "")) != code_only(v["events"].get(e, "")))
                 for e in evs:
                     t = "objects\\%s\\%s" % (o, e)
                     out.append((t, v["events"].get(e, ""), dt3_event(self.proj, o, e), a["events"].get(e, "")))
                     self.filters[t] = flt
         return out
 
-    def path(self, folder, target): return os.path.join(folder, target + ".gml")
+    def path(self, folder, target):
+        p = os.path.join(folder, target + ".gml")
+        ap = os.path.join(folder, target + ".append.gml")
+        if folder == self.merged and not os.path.exists(p) and os.path.exists(ap): return ap
+        return p
+
+    def appended_part(self, t, o, d, m):
+        """append_events: the lines that can go after DT3+'s version of an object's event (the mod's whole event when
+        neither the original nor DT3+ has it), or None"""
+        import convert
+        if not self.cfg["merge"].get("append_events") or not t.startswith("objects\\"): return None
+        if not (o or "").strip() and not (d or "").strip(): return m if (m or "").strip() else None
+        if not (d or "").strip(): return None
+        add = convert.appended(o, m)
+        if not add or not add.strip(): return None
+        if gml.ends_early(d) or gml.ends_early(o): return None
+        if (gml.var_locals(d) | gml.var_locals(o)) & gml.identifiers(add): return None
+        # (lines that go on from the event's own code, an "else" after its last "if", aren't code of their own)
+        if gmlcheck.check(add): return None
+        return add
 
     @staticmethod
     def structure(text, dt3):
@@ -96,6 +144,13 @@ class Merges:
         for t, o, d, m in self.targets():
             mp = self.path(self.merged, t)
             if os.path.exists(mp): continue
+            add = self.appended_part(t, o, d, m)
+            if add is not None:
+                self.write(os.path.join(self.merged, t + ".append.gml"), add.rstrip("\n") + "\n")
+                self.write(self.path(self.dt3base, t), d or "")
+                n_new += 1
+                print("%-60s the mod's lines go after DT3+'s event (append)" % t)
+                continue
             text, c, a, s = merge3.merge(o, d or "", m, self.filters[t])
             if a == 0 and c == 0:
                 print("  (nothing of the mod's left in %s: not merged)" % t); continue
@@ -112,6 +167,14 @@ class Merges:
             if not os.path.exists(mp): continue
             old = open(bp, encoding="utf-8").read() if os.path.exists(bp) else ""
             if merge3.split_lines(old) == merge3.split_lines(d or ""): continue
+            if mp.endswith(".append.gml"):
+                # (lines added after DT3+'s event: nothing to merge, as long as they still can be)
+                self.write(bp, d or ""); n += 1
+                add = open(mp, encoding="utf-8").read()
+                if gml.ends_early(d or "") or gml.var_locals(d or "") & gml.identifiers(add):
+                    print("%-60s DT3+ changed it, and its event can now end early or has var locals the lines use: merge it instead" % t)
+                else: print("%-60s DT3+ changed it (the mod's lines still go after it)" % t)
+                continue
             text, c, a, s = merge3.merge(old, d or "", open(mp, encoding="utf-8").read())
             self.write(mp, text); self.write(bp, d or "")
             n += 1
@@ -130,10 +193,37 @@ class Merges:
             k = text.count(merge3.MARK_D)
             if k: print("%-60s %d conflicts to merge" % (t, k)); bad += 1
             else:
-                for w in self.structure(text, d or ""): print("%-60s %s" % (t, w)); bad += 1
+                # (lines added after DT3+'s event stand on their own)
+                for w in self.structure(text, "" if mp.endswith(".append.gml") else (d or "")): print("%-60s %s" % (t, w)); bad += 1
             old = open(bp, encoding="utf-8").read() if os.path.exists(bp) else ""
             if merge3.split_lines(old) != merge3.split_lines(d or ""): print("%-60s DT3+ changed it since: run update" % t); bad += 1
         print("all merged and up to date" if not bad else "%d to see to" % bad)
+
+    def review(self):
+        from portclones import hints
+        R = []
+        for t, o, d, m in self.targets():
+            mp = self.path(self.merged, t)
+            if not os.path.exists(mp): continue
+            if mp.endswith(".append.gml"):
+                lines = [(i + 1, l) for i, l in enumerate(merge3.split_lines(open(mp, encoding="utf-8").read()))]
+                R.append("== %s (append: all of it is the mod's)" % t)
+            else:
+                tr = []
+                text, c, a, s = merge3.merge(o, d or "", m, self.filters[t], trace=tr)
+                M = merge3.split_lines(m); G = merge3.split_lines(text)
+                lines = []
+                for (i1, i2, j1, j2), p in tr:
+                    for k in range(j2 - j1):
+                        if p + k < len(G): lines.append((p + k + 1, G[p + k]))
+                R.append("== %s (%d of the mod's changes%s)" % (t, a, ", %d conflicts" % c if c else ""))
+            for ln, l in lines:
+                if not l.strip() or l.strip().startswith("//"): continue
+                h = hints(l)
+                R.append("   %5d  %-70s %s" % (ln, l.strip()[:70], ", ".join(h)))
+        p = os.path.join(self.merged, "review.txt")
+        open(p, "w", encoding="utf-8", newline="\n").write("\n".join(R) + "\n")
+        print("written:", p)
 
 if __name__ == "__main__":
     getattr(Merges(sys.argv[2]), sys.argv[1])()

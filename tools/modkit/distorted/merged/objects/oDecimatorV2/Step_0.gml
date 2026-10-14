@@ -1,0 +1,307 @@
+if global.gamePaused=false
+{
+  if activateBoss=1
+  {
+    oGlobalEvent.enemyCount=1
+    bActive=true
+    bShowHealthBar=true
+    showBossHP=instance_create(0,0,oBossLifeDisplay); showBossHP.bossID=id; showBossHP.type=0
+    jeremyText="So apparently destroying the Decimator 10000 causes it to upgrade to the Decimator 20000. Huh, who knew? Anyway, this thing is going to start going crazy with its lasers. It has also gained an extremely crazy regeneration rate. At least its Stun Resist has dropped a good amount, though that doesn't seem to affect his ability to act, weird."
+    chaoText="That lightning rod can't be destroyed since it doesn't have a hitbox, so I don't see a way to disable its regeneration. Maybe stunning it works?"
+    devText="In a game made before DT, there was a multi-part boss fight that played out a bit like this. I've been wanting to revisit that idea again, so here we go."
+    activateBoss=2
+  }
+
+  if bActive=true and life>0
+  {
+    //HP Regen
+    //life+=regenRate*gDeltaTime
+    //if stunnedTime=0 {life+=regenRate}
+    if gDeltaDoTicks and stunnedTime<=0 {life+=regenRate} //60fps change: once per 30fps tick, the same rate, in whole points (a fraction every frame left the HP on decimals); Distorted: none while stunned
+    if life>maxLife {life=maxLife}
+
+    if bWave=1
+    {
+      moveWave+=(pi/50)*gDeltaTime
+      y+=(sin(moveWave)/2)*gDeltaTime
+    }
+
+    if bossProgress=0 //---------- Wait till player approaches ----------
+    {
+      if oPlayer1.x>=816
+      {
+        bWave=1
+        bCanTakeDamage=true
+        if prefight=0 {oRm_MC_Camera.progress=2}
+        if prefight=1 //If checkpoint had been reached
+        {
+          firstPhaseTime=999
+        }
+        bossProgress+=1
+      }
+    }
+    else if bossProgress=1 //---------- Before John shows up ----------
+    {
+      laserSpamTime+=1*gDeltaTime
+      //if laserSpamTime>=laserSpamDelay and gDeltaDoTicks
+      if laserSpamTime>=laserSpamDelay and frac(laserSpamTime)=0 //60fps change: shots on this counter's own ticks, so the spread starts/resets on the same ticks as 30fps
+      {
+        playSound(global.snd_CShotB,0,0.9,60000)
+        var tNewAttack;
+        shotDir+=8
+        tNewAttack=instance_create(x,y,oPassBullet)
+        tNewAttack.sprite_index=sDeci_SmallLaser; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
+        tNewAttack.decayTime=-100; tNewAttack._direction=shotDir
+        tNewAttack=instance_create(x,y,oPassBulletRed)
+        tNewAttack.sprite_index=sDeci_SmallLaserRed; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
+        tNewAttack.decayTime=-100; tNewAttack._direction=shotDir+180
+        if laserSpamTime>=laserSpamDelay+90 {shotDir=0; laserSpamTime=0}
+      }
+
+      missileTime+=1*gDeltaTime
+      if missileTime>=missileDelay
+      {
+        var tMissile;
+        tMissile=instance_create(x,y-16,oHomingMissile)
+        tMissile.atkPower=atkPower; tMissile.targetTime=20; tMissile.sprite_index=sDeci_Missile
+        tMissile.bulletSpeed=4; tMissile.seekThres=20; tMissile.minSpd=3; tMissile.maxSpd=7
+        tMissile.turnSpd=3; tMissile.accel=0.3; tMissile._direction=90
+        missileTime=0
+      }
+
+      firstPhaseTime+=1*gDeltaTime
+      if firstPhaseTime=840
+      {
+        msgCreate(0,0,"Claire","We're not getting anywhere with this thing.",0,1,oMessagePerson,0)
+        newMessage.fadingTime=80
+      }
+      else if firstPhaseTime=920
+      {
+        msgCreate(0,0,"Jerry","That regen hurts.",0,1,oMessagePerson,0)
+        newMessage.fadingTime=50
+      }
+      else if firstPhaseTime>=1000 //John appears
+      {
+        if prefight=0
+        {
+          instance_create(0,0,oCheckpointNotice)
+          global.bossTrack=3
+        }
+        var myJohn;
+        myJohn=instance_create(688,0,oJohnMech)
+        myJohn.prefight=prefight
+        missileTime=0
+        bGuns=1
+        bossProgress+=1
+      }
+    }
+    else if bossProgress=3 //---------- Player is assisted by John's mech ----------
+    {
+      //Follow player y
+      if laserCannonTime<=laserCannonDelay+69
+      {
+        if y>oPlayer1.y-26 {if ySpd>-4 {ySpd=scrGravAcc(ySpd,-0.4,1)}}
+        else if y<oPlayer1.y-26 {if ySpd<4 {ySpd=scrGravAcc(ySpd,0.4,1)}}
+        {y+=ySpd*gDeltaTime}
+      }
+    }
+    else if bossProgress=4 //---------- Shoot at John's mech ----------
+    {
+      progTime+=1*gDeltaTime
+      if progTime=20
+      {
+        bAimAtJohn=1
+        gunA_Blend=c_maroon
+        gunB_Blend=c_maroon
+      }
+      else if progTime>=21
+      {
+        gunAngleA=point_direction(x+18,y+6,oJohnMech.x,oJohnMech.y-32)
+        gunAngleB=point_direction(x-18,y+6,oJohnMech.x,oJohnMech.y-32)
+      }
+
+      if progTime>=50
+      {
+        if progTime mod 3=0
+        {
+          playSound(global.snd_CShotB,0,0.9,60000)
+          var tNewAttack;
+          tNewAttack=instance_create(x+18,y+6,oPassBullet)
+          tNewAttack.sprite_index=sDeci_SmallLaser; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
+          tNewAttack.decayTime=-100; tNewAttack._direction=gunAngleA+random_range(-2,2)
+          tNewAttack=instance_create(x-18,y+6,oPassBullet)
+          tNewAttack.sprite_index=sDeci_SmallLaser; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
+          tNewAttack.decayTime=-100; tNewAttack._direction=gunAngleB+random_range(-2,2)
+        }
+      }
+
+      if progTime>=100
+      {
+        gunA_Blend=c_white
+        gunB_Blend=c_white
+      }
+    }
+    else if bossProgress>=6 and bossProgress<=7 //---------- Shoot at player and John ----------
+    {
+      //Follow player y
+      if laserCannonTime<=laserCannonDelay+69
+      {
+        if y>oPlayer1.y-26 {if ySpd>-4 {ySpd=scrGravAcc(ySpd,-0.4,1)}}
+        else if y<oPlayer1.y-26 {if ySpd<4 {ySpd=scrGravAcc(ySpd,0.4,1)}}
+        {y+=ySpd*gDeltaTime}
+      }
+
+      energyBallTime+=1*gDeltaTime
+      if energyBallTime mod energyBallMod=0
+      {
+        playSound(global.snd_CShotA,0,0.9,18000)
+        var tNewAttack;
+        tNewAttack=instance_create(x,y,oDeci_EnergyBall)
+        tNewAttack.bulletSpeed=5
+        tNewAttack._direction=point_direction(x,y,oJohnMech.x,oJohnMech.y-32)
+      }
+
+      rapidFire+=1*gDeltaTime
+      if rapidFire=180
+      {
+        if bossProgress=6 {energyBallMod=10}
+        else {energyBallMod=6}
+      }
+      else if rapidFire=220
+      {
+        if bossProgress=6 {energyBallMod=90}
+        else {energyBallMod=60}
+        rapidFire=0
+      }
+    }
+
+    if bGuns=1 and bossProgress!=4 //Twin guns
+    {
+      gunAngleA=point_direction(x+18,y+6,oPlayer1.x,returnPlayerYCenter())
+      gunAngleB=point_direction(x-18,y+6,oPlayer1.x,returnPlayerYCenter())
+      gunShotTime+=1*gDeltaTime
+      if gunShotTime=gunShotDelay-20 {gunA_Blend=c_maroon}
+      else if gunShotTime=gunShotDelay
+      {
+        playSound(global.snd_CShotB,0,0.9,60000)
+        gunA_Blend=c_white
+        var tNewAttack;
+        tNewAttack=instance_create(x+18,y+6,oPassBullet)
+        tNewAttack.sprite_index=sDeci_SmallLaser; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
+        tNewAttack.decayTime=-100; tNewAttack._direction=gunAngleA
+      }
+      else if gunShotTime=(gunShotDelay*2)-20 {gunB_Blend=c_maroon}
+      else if gunShotTime>=gunShotDelay*2
+      {
+        playSound(global.snd_CShotB,0,0.9,60000)
+        gunB_Blend=c_white
+        var tNewAttack;
+        tNewAttack=instance_create(x-18,y+6,oPassBullet)
+        tNewAttack.sprite_index=sDeci_SmallLaser; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
+        tNewAttack.decayTime=-100; tNewAttack._direction=gunAngleB
+        gunShotTime=0
+      }
+    }
+
+    if bMissiles=1 //Missile Spray
+    {
+      missileTime+=1*gDeltaTime
+      if missileTime>=missileDelay
+      {
+        var tMissile;
+        for(i=0;i<5;i+=1)
+        {
+          tMissile=instance_create(x,y-16,oHomingMissile)
+          tMissile.atkPower=atkPower; tMissile.targetTime=35+(i+3); tMissile.sprite_index=sDeci_Missile
+          tMissile.bulletSpeed=1.5; tMissile.seekThres=20; tMissile.minSpd=3; tMissile.maxSpd=7
+          tMissile.turnSpd=3; tMissile.accel=0.3; tMissile._direction=25-(12.5*i)
+        }
+        missileTime=0
+      }
+    }
+
+    if bCanUseCannon=1 //Big Laser Cannon
+    {
+      laserCannonTime+=1*gDeltaTime
+      if laserCannonTime>=laserCannonDelay
+      {
+        if oGame.time mod (2/gDeltaTime)=0
+        {
+          if cannonBlend=c_white {cannonBlend=c_red}
+          else {cannonBlend=c_white}
+        }
+        if laserCannonTime=laserCannonDelay+1 {playSound(global.snd_Dec_ChargeUp,0,1,1)}
+        if laserCannonTime=laserCannonDelay+70
+        {
+          ySpd=0
+          playSound(global.snd_Dec_Fire,0,1,1)
+          myLaser=instance_create(576,y,oDeci_BigLaser)
+        }
+        else if laserCannonTime>=laserCannonDelay+71 and laserCannonTime<=laserCannonDelay+115
+        {
+          myLaser.y=y+16
+        }
+        else if laserCannonTime>=laserCannonDelay+116
+        {
+          with oDeci_BigLaser {instance_destroy()}
+          cannonBlend=c_white
+          laserCannonTime=0
+        }
+      }
+    }
+
+    //---------- Boss Difficulty Curve ----------
+    /*if lifePercent<=0.5 and lifePercent>=0 and bossProgress=3
+    {
+      if laserCannonTime<laserCannonDelay
+      {
+        bCanUseCannon=0
+        laserCannonTime=0
+        bossProgress+=1
+      }
+    }
+    else if lifePercent<=0.33 and lifePercent>=0 and bossProgress=6
+    {
+      missileDelay-=15
+      energyBallMod=60
+      bossProgress+=1
+    }*/
+  }
+  enemyStepEvent()
+}
+
+if life<=0 //Defeat animation
+{
+  deathAnim+=1*gDeltaTime
+  if deathAnim=1
+  {
+    with oEProjectileBase {instance_destroy()}
+    with oAttackBase {instance_destroy()}
+  }
+  //else if deathAnim>=2 and deathAnim<=60
+  else if deathAnim>1 and deathAnim<=60 //60fps change: covers every frame of ticks 2-60
+  {
+    if deathAnim mod 3=0 {playSound(global.snd_BombExplode,0,0.92,1)}
+    if oGame.time mod (2/gDeltaTime)=0
+    {
+      var tEffect;
+      tEffect=instance_create(x+random_range(-sprite_width,sprite_width),y+random_range(-sprite_height,sprite_height),oEffect)
+      tEffect.sprite_index=sSamusSMissileHit; tEffect.image_speed=0.5; tEffect.image_xscale=0.5; tEffect.image_yscale=0.5
+      tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+    }
+  }
+  else if deathAnim>=61
+  {
+    if global.bBossGallery=1
+    {
+      bossRoomTally(56)
+      global.newMapX=504; global.newMapY=352; room_goto(rBossGallery)
+    }
+    else
+    {
+      oJohnMech.progress=7
+      oEvCh19MainA.sceneProgress=1
+      instance_destroy()
+    }
+  }
+}

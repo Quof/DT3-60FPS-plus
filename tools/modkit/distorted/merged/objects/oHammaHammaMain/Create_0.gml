@@ -1,0 +1,42 @@
+event_inherited()
+makeActive()
+setCollisionBounds(-20,-48,20,-1)
+
+//Enemy base statistics
+eName="Hamma Hamma"
+eLevel=20
+maxLife=590
+life=maxLife
+pointWorth=29
+atkPower=7
+resType[0]=2
+resType[1]=2
+resType[2]=5
+resType[5]=2
+stunResist=6
+baseItemChance=65
+baseDropIndex=75
+moneyWorth=5
+affiliation=4
+hitSound=global.snd_EnemyHitMM
+dieSound=0
+dieEffect=0
+inactiveDist*=1.5
+
+armSeq=30
+armSpd=7
+
+jeremyText="These work pretty much exactly like the original. It will wait a moment and then send a spiked arm toward you, then follow up with the other. Its reach is pretty limited, but the arms do block projectiles."
+chaoText="Jeremy forgot something again. These have very durable armor, but certain weapons can cut through it pretty quick. When you're dodging the arms, be sure you keep your surroundings in mind since you can't safely dash through them."
+devText="The way these arms work is another new thing for the DT series. I'm always surprised at how simple these procedures actually are."
+
+//spsp ns
+if room=rWarshipB {image_yscale=-1; atkPower=10}
+
+offsetLeftX=19; offsetLeftY=-41*image_yscale
+offsetRightX=-1; offsetRightY=-43*image_yscale
+
+leftBall=instance_create(x+offsetLeftX,y+offsetLeftY,oHammaHammaSpike)
+leftBall.ownerID=id; leftBall.atkPower=atkPower-1; leftBall.image_blend=c_ltgray
+rightBall=instance_create(x+offsetRightX,y+offsetRightY,oHammaHammaSpike)
+rightBall.ownerID=id; rightBall.atkPower=atkPower-1

@@ -1,0 +1,183 @@
+if global.gamePaused=false
+{
+  if progress=0 //Fall and land
+  {
+    y+=8*gDeltaTime
+    if y>=320
+    {
+      y=320
+      playSound(global.snd_HardHit1,0,1,15000)
+      var tEffect;
+      for(i=0;i<24;i+=1)
+      {
+        tEffect=instance_create(x+random_range(-sprite_width/2,sprite_width/2),y+random_range(-2,2),oEffect)
+        tEffect.sprite_index=sMMSmokeCloud; tEffect.image_speed=0.25+random(0.25); tEffect.image_alpha=0.66
+        tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=random_range(-2,2); tEffect.ySpd=-random(1)
+      }
+      if prefight=1 //If checkpoint had been reached
+      {
+        progTime=379
+      }
+      progress+=1
+    }
+  }
+  else if progress=1 //Chat for a moment
+  {
+    progTime+=1*gDeltaTime
+    if progTime=1
+    {
+      msgCreate(0,0,"John","Hey there!!",6,1,oMessagePerson,0)
+      newMessage.fadingTime=40
+    }
+    else if progTime=40
+    {
+      msgCreate(0,0,"Jerry","Oh hi! Uh... what?",0,1,oMessagePerson,0)
+      newMessage.fadingTime=70
+    }
+    else if progTime=110
+    {
+      msgCreate(0,0,"John","Looks like you could use some help.",6,1,oMessagePerson,0)
+      newMessage.fadingTime=90
+    }
+    else if progTime=200
+    {
+      msgCreate(0,0,"Jerry","For sure!",0,1,oMessagePerson,0)
+      newMessage.fadingTime=40
+    }
+    else if progTime=240
+    {
+      msgCreate(0,0,"John","Keep your assault going, its regen won't overpower my additional firepower!",6,2,oMessagePerson,0)
+      newMessage.fadingTime=140
+    }
+    else if progTime>=380
+    {
+      if prefight=0
+      {
+        instance_create(0,0,oCheckpointNotice)
+        msgCreate(0,0,"Jerry","All right! Time for an ass kicking then!",0,1,oMessagePerson,0)
+        newMessage.fadingTime=100
+        global.bossTrack=3
+      }
+      oDecimatorV2.bLaserCannon=1; oDecimatorV2.bCanUseCannon=1 oDecimatorV2.bMissiles=1 oDecimatorV2.bossProgress+=1
+      progTime=0; progress+=1;
+    }
+  }
+  else if progress=2 //Shoot at Decimator with Mech
+  {
+    turn_toward_directionUnderscore(point_direction(x-9,y-54,oDecimatorV2.x,oDecimatorV2.y),2)
+    shotTime+=1*gDeltaTime
+    if shotTime mod shotMod=0
+    {
+      playSound(global.snd_Fireball,0,0.95,30000)
+      tNewAtk=instance_create(x-9,y-54,oJohnMechFire)
+      tNewAtk.moveSpd=6; tNewAtk._direction=_direction
+    }
+
+    rapidFire+=1*gDeltaTime
+    //if rapidFire>=190 and rapidFire<=220 and gDeltaDoTicks
+    if rapidFire>=190 and rapidFire<=220 and frac(rapidFire)=0 //60fps change: flashes on this counter's own ticks (31 toggles like 30fps)
+    {
+      if gunBlend=c_white {gunBlend=c_red}
+      else {gunBlend=c_white}
+    }
+    if rapidFire=221 {gunBlend=c_white; shotMod=6}
+    else if rapidFire=250 {shotMod=30; rapidFire=0}
+  }
+  else if progress=3 //Blown out of Mech
+  {
+    if ySpd<8 {ySpd=scrGravAcc(ySpd,0.3,1)}
+    {y+=ySpd*gDeltaTime}
+    if y>=320
+    {
+      y=320
+      sprite_index=sNPC_John_Land
+      image_speed=0; image_index=0
+      oDecimatorV2.regenRate=4
+      progress=4
+    }
+  }
+  else if progress=4 //Landing animation
+  {
+    progTime+=1*gDeltaTime
+    if progTime=4 {image_index=1}
+    else if progTime=8 {image_index=2}
+    else if progTime=12 {sprite_index=sNPC_John_Idle}
+    else if progTime=40
+    {
+      msgCreate(0,0,"Jerry","Well... what now?",0,1,oMessagePerson,0)
+      newMessage.fadingTime=60
+    }
+    else if progTime=100
+    {
+      msgCreate(0,0,"John","I brought something else just in case.",6,1,oMessagePerson,0)
+      newMessage.fadingTime=90
+    }
+    else if progTime=190
+    {
+      msgCreate(0,0,"Jerry","Do tell!",0,1,oMessagePerson,0)
+      newMessage.fadingTime=50
+    }
+    else if progTime=240
+    {
+      msgCreate(0,0,"John","What?! No no Jerry. I'll SHOW you!",6,1,oMessagePerson,0)
+      newMessage.fadingTime=90
+    }
+    else if progTime=320 {sprite_index=sNPC_John_Ready}
+    else if progTime=350
+    {
+      var tEffect;
+      tEffect=instance_create(x-3,y-39,oEffect)
+      tEffect.sprite_index=sMMchargeComplete; tEffect.followID=-1; tEffect.newBlend=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+    }
+    else if progTime=400
+    {
+      sprite_index=sNPC_JohnBattle_Bottom
+      _direction=0
+      progTime=0; progress=5
+    }
+  }
+  else if progress=5 //Gun is ready
+  {
+    progTime+=1*gDeltaTime
+    if progTime=50
+    {
+      msgCreate(0,0,"John","It's on to me now, you guys. Keep that energy projectile away from me.",6,1,oMessagePerson,0)
+      newMessage.fadingTime=150
+    }
+    else if progTime=170 {bShowJohnHP=1}
+    else if progTime=240
+    {
+      msgCreate(0,0,"John","Really Jeremy? Comic Sans?",6,1,oMessagePerson,0)
+      newMessage.fadingTime=80
+    }
+    else if progTime=320
+    {
+      msgCreate(0,0,"Jeremy","It's better that way.",0,1,oMessagePerson,0)
+      newMessage.fadingTime=70
+    }
+    else if progTime>=370
+    {
+      oDecimatorV2.bossProgress=6; oDecimatorV2.bCanUseCannon=1
+      shotMod=70; progTime=0; progress=6
+    }
+  }
+  else if progress=6 //Shoot at Decimator with Bazooka
+  {
+    turn_toward_directionUnderscore(point_direction(x+12,y-32,oDecimatorV2.x,oDecimatorV2.y),2)
+    shotTime+=1*gDeltaTime
+    if shotTime mod shotMod=0
+    {
+      playSound(global.snd_MetMissile,0,1,14000)
+      tNewAtk=instance_create(x+12,y-32,oJohnMissile)
+      tNewAtk.moveSpd=3; tNewAtk._direction=_direction
+    }
+
+    rapidFire+=1*gDeltaTime
+    if rapidFire=240 {gunBlend=c_white; shotMod=20}
+    else if rapidFire=280 {shotMod=70; rapidFire=0}
+  }
+
+  if gDeltaDoTicks and keyPadAlpha=0.4 {keyPadAlpha=0.5}
+  else if gDeltaDoTicks {keyPadAlpha=0.4}
+}
+correctSpeedDirection(self)

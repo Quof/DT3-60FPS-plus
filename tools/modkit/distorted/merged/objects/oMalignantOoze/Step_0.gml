@@ -1,0 +1,369 @@
+if global.gamePaused=false
+{
+  //spsp ns
+  if room=rWarshipI
+  {
+    bCanScream=0
+    bCanDefend=0
+  }
+  
+  makeEnemyActive(0)
+  if bActive=true and stunnedTime=0 and life>0 and instance_exists(myHead)
+  {
+    life=myHead.life
+    image_blend=myHead.image_blend
+
+    imageEffect+=1*gDeltaTime
+    if imageEffect mod 8=0
+    {
+      var tAfterI;
+      tAfterI=instance_create(x,y,oEnemyAfterImage)
+      tAfterI.sprite_index=sprite_index; tAfterI.image_index=image_index; tAfterI.image_blend=c_red
+      tAfterI.image_alpha=0.35; tAfterI.image_xscale=image_xscale; tAfterI.depth=26; tAfterI.imageFade=0.01
+      tAfterI.xScaling=0.03; tAfterI.yScaling=0.03; tAfterI.xShift=0; tAfterI.yShift=0
+      tAfterI.bFollow=1; tAfterI.idFollow=id; tAfterI.xFollow=0; tAfterI.yFollow=0
+    }
+
+    //---------- Movement ----------
+    if waitTime<waitDelay and yVel=0 and scream=0 and defend=0
+    {
+      if x<oPlayer1.x {image_xscale=1}
+      else {image_xscale=-1}
+
+      //if sprite_index=sMO_Idle {image_index+=0.2}
+      if sprite_index=sMO_Idle {image_index+=0.2*gDeltaTime} //60fps change: scaled (the idle animation played 2x/4x as fast)
+
+      if waitTime>5 and waitTime<waitDelay-5
+      {
+        if point_distance(x,y-32,oPlayer1.x,oPlayer1.y-26)<=96 and bCanScream=1
+        {
+          bCanScream=0
+          scream=1
+        }
+        if point_distance(x,y-32,oPlayer1.x,oPlayer1.y-26)>=128 and bCanDefend=1
+        {
+          if instance_exists(oAttackBase)
+          {
+            var tAtkNear;
+            tAtkNear=instance_nearest(x,y-32,oAttackBase)
+            if point_distance(x,y-32,tAtkNear.x,tAtkNear.y)<=96 and tAtkNear.damageType!="NORMAL"
+            {
+              bCanDefend=0
+              defend=1
+            }
+          }
+        }
+      }
+    }
+
+    if defend>=1 //Defend
+    {
+      defend+=1*gDeltaTime
+      if defend=2 {sprite_index=sMO_Defend; image_index=0}
+      else if defend=4 {image_index=1}
+      else if defend=6 {image_index=2}
+      else if defend=8 {image_index=3}
+      else if defend=10
+      {
+        image_index=4
+        myShield=instance_create(x,y,oMO_ArmShield)
+        myShield.ownerID=id; myShield.image_xscale=image_xscale
+      }
+      else if defend>=50
+      {
+        with myShield {instance_destroy()}
+        sprite_index=sMO_Idle
+        myShield=-1
+        defend=0
+      }
+    }
+
+    if scream>=1 //Scream
+    {
+      scream+=1*gDeltaTime
+      if scream=2 {sprite_index=sMO_Scream}
+      else if scream>=5 and scream<=30
+      {
+        if scream mod 4=0
+        {
+          playSound(global.snd_RidleyScreamA,0,0.96,60000)
+          tEfCir=instance_create(x+(14*image_xscale),y-38,oEfCircleSoftFade)
+          tEfCir.image_alpha=0.75; tEfCir.myRad=32; tEfCir.radScl=8; tEfCir.fadeSpeed=0.1
+
+          if global.activeCharacter=2 //Jeremy's mech cannot be pushed back
+          {
+            if jeremyNotice=0
+            {
+              showEmote(oPlayer1,0,-54,sEmQuestion)
+              jeremyNotice=1
+              var tCheckAchieve;
+              tCheckAchieve=string_char_at(global.tokenRecognitions,43)
+              if tCheckAchieve="0"
+              {
+                var tAchievement;
+                tAchievement=instance_create(0,0,oAchievementNotice)
+                tAchievement.myAchievement="Not This Time"; tAchievement.checkNum=43
+              }
+            }
+          }
+          else //Push player back
+          {
+            if point_distance(x+(14*image_xscale),y-38,oPlayer1.x,oPlayer1.y-26)<=128
+            {
+              if x<oPlayer1.x {oPlayer1.extForceX=8.5}
+              else {oPlayer1.extForceX=-8.5}
+            }
+          }
+        }
+        if scream=12 or scream=20 or scream=28
+        {
+          var mDir;
+          if scream=12 {if image_xscale=1 {mDir=10} else {mDir=170}}
+          else if scream=20 {if image_xscale=1 {mDir=0} else {mDir=180}}
+          else if scream=28 {if image_xscale=1 {mDir=-10} else {mDir=190}}
+          var tNewAttack;
+          tNewAttack=instance_create(x+(14*image_xscale),y-38,oPassBullet)
+          tNewAttack.sprite_index=sMOFire; tNewAttack.atkPower=atkPower; tNewAttack.image_speed=0.25
+          tNewAttack.bulletSpeed=7; tNewAttack.decayTime=-100; tNewAttack._direction=mDir
+        }
+      }
+      else if scream>=31
+      {
+        sprite_index=sMO_Idle
+        jeremyNotice=0
+        scream=0
+      }
+    }
+    
+    if point_distance(x,y-32,oPlayer1.x,oPlayer1.y-26)>=144 and scream=0 and defend=0 {waitTime+=0.25*gDeltaTime} //Speed up attacks if player is too far. 60fps change: scaled (the speed-up was 2x/4x as strong at 60/120fps)
+    
+    if scream=0 and defend=0 {waitTime+=1*gDeltaTime}
+    else {waitTime+=0.25*gDeltaTime}
+    
+    if waitTime>=waitDelay and scream=0 and defend=0
+    {
+      if actCheck=0 //---------- Choose an action ----------
+      {
+        actCheck=atkCur
+        atkCur+=1
+        if atkCur=4 {atkCur=1}
+      }
+      else if actCheck=1 //---------- ATTACK: Throw Bounce Weight ----------
+      {
+        //actTime+=1
+        actTime+=1*gDeltaTime //60fps change: scaled like the other attacks (the throw played 2x/4x as fast at 60/120fps)
+        if actTime=1
+        {
+          sprite_index=sMO_Throw; image_index=0
+        }
+        else if actTime=3 {image_index=1}
+        else if actTime=5 {image_index=2}
+        else if actTime=7 {image_index=3}
+        else if actTime=9 {image_index=4}
+        else if actTime=11
+        {
+          tNewAttack=instance_create(x+(36*image_xscale),y-58,oMO_BounceWeight)
+          tNewAttack.atkPower=atkPower; tNewAttack.yVel=-4
+          if enemyProg=0 {tNewAttack.xVel=8*image_xscale; tNewAttack.xFalloff=0.02}
+          else if enemyProg=1 {tNewAttack.xVel=9*image_xscale; tNewAttack.xFalloff=0.0125}
+        }
+        else if actTime=13 {image_index=3}
+        else if actTime=15 {image_index=2}
+        else if actTime=17 {image_index=1}
+        else if actTime=19 {image_index=0}
+        else if actTime>=22
+        {
+          event_user(0)
+        }
+      }
+      else if actCheck=2 //---------- ATTACK: Jump and Dive ----------
+      {
+        actTime+=1*gDeltaTime
+        if actTime=1
+        {
+          sprite_index=sMO_Jump; image_index=0
+          y-=2
+          yVel=-8
+          xVel=6*image_xscale
+          bJumpReady=0
+        }
+        else if actTime=4 {image_index=1}
+        else if actTime=7 {image_index=2}
+        else if actTime>=10 and actTime<=299 //Check distance to player
+        {
+          if point_distance(x,0,oPlayer1.x,0)<8
+          {
+            sprite_index=sMO_SpikeDive
+            if oPlayer1.xVel>2 {xVel=4; image_xscale=1}
+            else if oPlayer1.xVel<-2 {xVel=-4; image_xscale=-1}
+            else {xVel=0}
+            yVel=12
+            actTime=300
+          }
+        }
+        else if actTime>=500 //Hit ground
+        {
+          var tNewAtk;
+          tNewAtk=instance_create(x,y,oDamageExplosion)
+          tNewAtk.atkPower=atkPower; tNewAtk.sprite_index=sGroundBlast
+          tNewAtk.image_xscale=0.65; tNewAtk.image_yscale=1.5; tNewAtk.decayTime=-100
+          sprite_index=sMO_Idle
+          xVel=0
+          event_user(0)
+        }
+      }
+      else if actCheck=3 //---------- ATTACK: Cleaver ----------
+      {
+        actTime+=1*gDeltaTime
+        if actTime=1 {sprite_index=sMO_CleaveReady}
+        if actTime=10
+        {
+          sprite_index=sMO_Cleaver
+          if x<oPlayer1.x {image_xscale=1}
+          else {image_xscale=-1}
+          xVel=12*image_xscale
+        }
+        else if actTime>=20 and actTime<=199
+        {
+          if cleaveNum=1
+          {
+            if actTime mod 5=0
+            {
+              var tNewAttack;
+              tNewAttack=instance_create(x,y,oGravPassBullet)
+              tNewAttack.sprite_index=sDraculaMeteor; tNewAttack.atkPower=atkPower; tNewAttack.yVel=-8
+              tNewAttack.image_xscale=0.75; tNewAttack.image_yscale=0.75
+            }
+          }
+          
+          if image_xscale=1 and x>oPlayer1.x {actTime=200}
+          else if image_xscale=-1 and x<oPlayer1.x {actTime=200}
+        }
+        else if actTime>=200 and actTime<=499
+        {
+          xVel=scrTickAcc(xVel,0.3*((xVel<-0.1)-(xVel>0.1)),0) //slow down toward 0, per 30fps tick (scrTickAcc)
+          
+          if xVel>-1 and xVel<1
+          {
+            SS_StopSound(global.snd_Spark)
+            xVel=0
+            cleaveNum+=1
+            if cleaveNum=2
+            {
+              event_user(0)
+            }
+            else
+            {
+              soundMod=29
+              actTime=0
+            }
+          }
+        }
+        
+        //Spark effect
+        if xVel<-1.5 or xVel>1.5
+        {
+          soundMod+=1*gDeltaTime
+          if soundMod mod 30=0
+          {
+            playSound(global.snd_Spark,0,0.96,33000)
+          }
+          var tEfSpark,tEfSDir;
+          if gDeltaDoTicks //60fps change (added): sparks once per 30fps tick (2x/4x as many were spawned every frame)
+          for(i=0;i<2;i+=1)
+          {
+            tEfSDir=random_range(78,102)
+            tEfSpark=instance_create(x+random_range(-3,3),y,oEffectB)
+            tEfSpark.type=4; tEfSpark.sprite_index=sScaledCollision; tEfSpark.newBlend=-1; tEfSpark.rotation=0
+            tEfSpark.AccelX=0; tEfSpark.AccelY=0; tEfSpark.followID=-1; tEfSpark.friction=0.5; tEfSpark.image_xscale=2+irandom(3)
+            tEfSpark.direction=tEfSDir; tEfSpark.image_angle=tEfSDir; tEfSpark.speed=5+random(2)
+            tEfSpark.image_blend=choose(c_white,c_yellow,c_orange)
+          }
+        }
+      }
+    }
+    
+    yVel=scrGravAcc(yVel,0.3,1)
+    if isCollisionBottom(1)
+    {
+      if bJumpReady=0
+      {
+        actTime=500
+        bJumpReady=1
+      }
+      yVel=0
+    }
+    if isCollisionLeft(1)
+    {
+      var tBufX;
+      tBufX=abs(xVel)
+      xVel=tBufX
+      image_xscale=1
+    }
+    if isCollisionRight(1)
+    {
+      var tBufX;
+      tBufX=abs(xVel)
+      xVel=-tBufX
+      image_xscale=-1
+    }
+    if isCollisionSolid()
+      y-=2
+    
+    moveTo((xVel+scrTickAccB(0))*gDeltaTime,yVel*gDeltaTime)
+    
+    if y>room_height+24
+    {
+      with myHead {instance_destroy()}
+      instance_destroy()
+    }
+  }
+  else if life<=0 or !instance_exists(myHead)
+  {
+    if deathAnim==0 {deathAnim=1-gDeltaTime}
+    deathAnim+=1*gDeltaTime
+    if deathAnim=1
+    {
+      if myShield!=-1
+      {
+        with myShield {instance_destroy()}
+      }
+      myHead.bCanDealDamage=false
+      myHead.bCanTakeDamage=false
+      playSound(global.snd_HardHit1,0,1,1)
+      tEfCir=instance_create(x,y-40,oEfCircleBlast)
+      tEfCir.image_alpha=0.8; tEfCir.myRad=4; tEfCir.radScl=5; tEfCir.fadeSpeed=0.08
+    }
+    
+    if deathAnim mod 4=0
+    {
+      if deathAnim mod 8=0 {playSound(global.snd_BombExplode,0,0.8,1)}
+      tEffect=instance_create(x+random_range(-16,16),y-1-random(74),oEffect)
+      tEffect.sprite_index=sDeathFlameA; tEffect.image_speed=0.33
+      tEffect.image_alpha=0.5+(image_alpha/3)
+      tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+    }
+    image_alpha-=0.04*gDeltaTime
+    if image_alpha<0
+    {
+      if room=rWarshipI{ //spsp ns
+      if questType>0
+        enemyQuest(questType)
+      }
+      with myHead {instance_destroy()}
+      instance_destroy()
+    }
+  }
+  
+  if lifePercent<=0.5 and enemyProg=0
+  {
+    waitDelay-=20
+    var tAtkShield;
+    tAtkShield=instance_create(x,y,oAtkTypeShield); tAtkShield.ownerID=id
+    tAtkShield.xOffset=0; tAtkShield.yOffset=-40; tAtkShield.atkType=0; tAtkShield.atkUp=1
+    resType[0]-=1
+    resType[2]-=1
+    enemyProg=1
+  }
+  enemyStepEvent()
+}

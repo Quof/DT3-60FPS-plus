@@ -1,0 +1,195 @@
+if global.gamePaused=false
+{
+  atkTime+=1*gDeltaTime
+  if ceilingAtk=0
+  {
+    if oEnmity.specialAttack=0
+    {
+      if atkProg=0 //Find player
+      {
+        if y<oPlayer1.y-30 //Go down
+        {
+          y+=moveSpd*gDeltaTime
+        }
+        else if y>oPlayer1.y-22 //Go up
+        {
+          y-=moveSpd*gDeltaTime
+        }
+
+        if atkTime>=atkDelay-45 and atkTime<=atkDelay {image_index=1}
+        else {image_index=0}
+
+        if atkTime>=atkDelay and point_distance(x,0,oPlayer1.x,0)<260 and point_distance(0,y,0,oPlayer1.y-26)<12
+        {
+          atkTime=0
+          atkProg+=1
+        }
+      }
+      else if atkProg=1 //Form fist and get ready
+      {
+        if atkTime=1
+        {
+          var tEffect;
+          tEffect=instance_create(x-(24*image_xscale),y,oEffect)
+          tEffect.sprite_index=sMMchargeComplete; tEffect.image_speed=0.5
+          tEffect.image_xscale=2; tEffect.image_yscale=2
+          tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+          sprite_index=sEnmityHandB
+          image_index=0
+        }
+        //else if atkTime>=41 and atkTime<=70
+        else if atkTime>40 and atkTime<=70 //60fps change: includes every frame of tick 41, so the punch reaches the full 360px (it fell 9px short at 120fps)
+        {
+          if atkTime=41 {playSound(global.snd_ChargeStrike,0,0.94,1)}
+          if atkTime mod 4=0 {playSound(global.snd_Bobomb,0,0.9,1)}
+          if gDeltaDoTicks {var tEffect;
+          tEffect=instance_create(x-((8+random(8))*image_xscale),y-18+random(36),oEffect)
+          tEffect.sprite_index=sSamusSMissileHit
+          tEffect.image_speed=0.5
+          tEffect.image_xscale=0.7; tEffect.image_yscale=0.7
+          tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0}
+
+          if image_xscale=1 {x-=12*gDeltaTime}
+          else {x+=12*gDeltaTime}
+        }
+        else if atkTime>=90 {atkProg+=1; atkTime=0}
+      }
+    }
+
+    if atkProg=2 //Return
+    {
+      if atkTime=1 {sprite_index=sEnmityHandA}
+      else if atkTime>=2 and atkTime<=400
+      {
+        if image_xscale=1
+        {
+          x+=4*gDeltaTime
+          if x>=oEnmity.x+oEnmity.roomSpan {x=oEnmity.x+oEnmity.roomSpan; atkTime=400}
+        }
+        else
+        {
+          x-=4*gDeltaTime
+          if x<=oEnmity.x-oEnmity.roomSpan {x=oEnmity.x-oEnmity.roomSpan; atkTime=400}
+        }
+      }
+      else if atkTime>=410
+      {
+        atkProg=0
+        atkTime=0
+        ceilingAtk=1
+      }
+    }
+  }
+  else if ceilingAtk>=1
+  {
+    if oEnmity.specialAttack=0
+    {
+      if atkProg=0 //Go up wall
+      {
+        y-=moveSpd*2*gDeltaTime
+        if y<=32
+        {
+          y=32
+          if image_xscale=1 {image_angle=90}
+          else {image_angle=270}
+          atkTime=0
+          atkProg+=1
+        }
+      }
+      else if atkProg=1 //Find player
+      {
+        if x<oPlayer1.x-4 //Go right
+        {
+          x+=4*gDeltaTime
+        }
+        else if x>oPlayer1.x+4 //Go left
+        {
+          x-=4*gDeltaTime
+        }
+
+        if atkTime>=45 and point_distance(x,0,oPlayer1.x,0)<12
+        {
+          atkTime=0
+          atkProg+=1
+        }
+      }
+      else if atkProg=2 //Form fist and get ready
+      {
+        if atkTime=1
+        {
+          var tEffect;
+          tEffect=instance_create(x,y-(24*image_xscale),oEffect)
+          tEffect.sprite_index=sMMchargeComplete; tEffect.image_speed=0.5
+          tEffect.image_xscale=2; tEffect.image_yscale=2
+          tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+          sprite_index=sEnmityHandB
+        }
+        //else if atkTime>=41 and atkTime<=90
+        else if atkTime>40 and atkTime<=90 //60fps change: includes every frame of tick 41, so the slam starts on time
+        {
+          if gDeltaDoTicks //60fps change (added): one effect per 30fps tick (was every frame, 4x the effects at 120fps)
+          {
+          var tEffect;
+          tEffect=instance_create(x-18+random(36),y-((8+random(8))*image_xscale),oEffect)
+          tEffect.sprite_index=sSamusSMissileHit
+          tEffect.image_speed=0.5; tEffect.image_xscale=0.7; tEffect.image_yscale=0.7
+          tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+          } //60fps change (added)
+
+          y+=16*gDeltaTime
+          if y>=288
+          {
+            y=288
+            atkTime=100
+          }
+        }
+        else if atkTime>=110 {atkProg+=1; atkTime=0}
+      }
+    }
+
+    if atkProg=3 //Return
+    {
+      if atkTime=1 {sprite_index=sEnmityHandA}
+      else if atkTime>=2 and atkTime<=100
+      {
+        y-=8*gDeltaTime
+        if y<=32
+        {
+          y=32
+          atkTime=100
+        }
+      }
+      else if atkTime>=110
+      {
+        atkTime=0
+        ceilingAtk+=1
+        if ceilingAtk=3 {atkProg+=1}
+        else {atkProg=1}
+      }
+    }
+    else if atkProg=4 //To sides
+    {
+      if atkTime=1 {sprite_index=sEnmityHandA; image_angle=0}
+      else if atkTime>=2 and atkTime<=400
+      {
+        if image_xscale=1
+        {
+          x+=4*gDeltaTime
+          if x>=oEnmity.x+oEnmity.roomSpan {x=oEnmity.x+oEnmity.roomSpan; atkTime=400}
+        }
+        else
+        {
+          x-=4*gDeltaTime
+          if x<=oEnmity.x-oEnmity.roomSpan {x=oEnmity.x-oEnmity.roomSpan; atkTime=400}
+        }
+      }
+      else if atkTime>=410
+      {
+        atkTime=0
+        ceilingAtk=0
+        atkProg=0
+      }
+    }
+  }
+  enemyStepEvent()
+}

@@ -1,0 +1,22 @@
+//Requires: bBlue
+event_inherited()
+bActive=true
+for(i=0;i<6;i+=1)
+{
+  resType[i]=1
+}
+
+//Enemy base statistics
+eName="Skyfall Meteor - Red"
+eLevel=40
+maxLife=60
+life=maxLife
+pointWorth=25
+atkPower=12
+
+jeremyText="... ... ..."
+chaoText="You can shoot the blue versions of these, Claire. So, I think that Jeremy was able to do his undo thing he mentioned in that cave... maybe? I can't tell yet, but things are not normal right now."
+devText="If you're seeing this, then you triggered the not-so-secret true final chapter that I've been working on for some time. Welp, I don't want to spoil what's ahead, so strap in and enjoy. As some have said, this game's mission statement has been to surprise the player at every turn. More of my thoughts come later."
+if true {jeremyText="Jeremy isn't actually here, but pretend he's telling you to kill these things. He also says that it's better to kill from above so you don't block yourself."} //spsp
+
+alarm[0]=1

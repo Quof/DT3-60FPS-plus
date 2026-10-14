@@ -59,9 +59,13 @@ class GmkSplit:
                 evname = "%s_%s" % (prefix, num)
                 parts = []
                 for act in er.iter("action"):
-                    if act.get("id") != "603" or (act.findtext("appliesTo") or ".self") != ".self":
-                        raise ValueError("%s %s: only code actions applied to self are supported" % (name, f))
-                    for a in act.iter("argument"): parts.append(clean_code(a.text))
+                    applies = act.findtext("appliesTo") or ".self"
+                    if act.get("id") != "603" or applies not in (".self", ".other"):
+                        raise ValueError("%s %s: only code actions applied to self or other are supported" % (name, f))
+                    for a in act.iter("argument"):
+                        # a code action applied to other runs as with (other)
+                        if applies == ".other": parts.append("with (other)\n{\n" + clean_code(a.text) + "\n}")
+                        else: parts.append(clean_code(a.text))
                 o["events"][evname] = "\n".join(parts)
         return o
 
@@ -190,11 +194,32 @@ class Gm82Project:
                     if o: out[int(m.group(1))] = (r,) + o
         return out
 
-    def room_instances(self, room):
+    def room_instances(self, room, code=False):
+        """[{object, x, y, name}] of a room's instances in order (code: with "code", each one's creation code)"""
         out = []
-        ip = os.path.join(self.root, "rooms", room, "instances.txt")
+        rd = os.path.join(self.root, "rooms", room)
+        ip = os.path.join(rd, "instances.txt")
         if os.path.exists(ip):
             for l in _read_text(ip).split("\n"):
                 p = l.split(",")
-                if len(p) >= 4: out.append({"object": p[0], "x": int(float(p[1])), "y": int(float(p[2])), "name": p[3]})
+                if len(p) >= 4:
+                    d = {"object": p[0], "x": int(float(p[1])), "y": int(float(p[2])), "name": p[3]}
+                    if code:
+                        cf = os.path.join(rd, p[3] + ".gml")
+                        d["code"] = _read_text(cf).rstrip("\n") if os.path.exists(cf) else ""
+                    out.append(d)
         return out
+
+    def room_code(self, room):
+        p = os.path.join(self.root, "rooms", room, "code.gml")
+        return _read_text(p).rstrip("\n") if os.path.exists(p) else ""
+
+    def room_settings(self, room):
+        """room.txt as {key: value}"""
+        d = {}
+        p = os.path.join(self.root, "rooms", room, "room.txt")
+        if os.path.exists(p):
+            for l in _read_text(p).split("\n"):
+                if "=" in l:
+                    k, v = l.split("=", 1); d[k.strip()] = v.strip()
+        return d

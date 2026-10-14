@@ -7,6 +7,7 @@ D[4]: 6
 E[5]: 7
 F[6]: 6
 */
+if global.modOvr[npcTrivia]>=0 {var __n; __n=0; repeat (argument_count) {global.modArg[__n]=argument[__n]; __n+=1}; return scrModOverride(npcTrivia,argument_count)} //mods change (added): a mod's own version of this script runs instead (scrModOverride)
 
 questionNum=argument0
 

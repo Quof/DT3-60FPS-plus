@@ -1,0 +1,29 @@
+if global.gamePaused=false
+{
+  bulletSpeed=scrTickAcc(bulletSpeed,0.33*(bulletSpeed<8),0) //speed up per 30fps tick (scrTickAcc)
+  _speed=bulletSpeed+scrTickAccB(0)
+  turn_toward_directionUnderscore(point_direction(x,y,oPlayer1.x,oPlayer1.y-26),4.5)
+
+  for(i=0;i<3;i+=1)
+  {
+    myBubble[i].x=x+lengthdir_x(12,(i*120)+bubbleDir)
+    myBubble[i].y=y+lengthdir_y(12,(i*120)+bubbleDir)
+  }
+  bubbleDir+=15*gDeltaTime
+
+  decayTime-=1*gDeltaTime
+  if decayTime<=0
+  {
+    for(i=0;i<3;i+=1)
+    {
+      tEffect=instance_create(myBubble[i].x,myBubble[i].y,oEffect)
+      tEffect.sprite_index=sMMshotgunIceEffect; tEffect.image_speed=0.33
+      tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+      with myBubble[i] {instance_destroy()}
+    }
+    instance_destroy()
+  }
+}
+else {_speed=0}
+
+correctSpeedDirection(self)

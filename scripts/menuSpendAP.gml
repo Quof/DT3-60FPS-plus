@@ -2,6 +2,7 @@
 This script is called in the HUD pause menu and is an extension of it.
 It is used to display the Spend AP submenu.
 */
+if global.modOvr[menuSpendAP]>=0 {var __n; __n=0; repeat (argument_count) {global.modArg[__n]=argument[__n]; __n+=1}; return scrModOverride(menuSpendAP,argument_count)} //mods change (added): a mod's own version of this script runs instead (scrModOverride)
 
 var tAPmenuX,tAPmenuY;
 tAPmenuX=contentMenuX

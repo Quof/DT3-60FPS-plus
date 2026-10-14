@@ -1,0 +1,1 @@
+if bCanDealDamage=true {oneHitKill()}

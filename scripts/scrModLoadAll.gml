@@ -4,7 +4,8 @@ resources: assets; then all new objects, rooms and script slots; then the script
 rooms; then patches and hooks. The loading screen shows how it's going (scrModProgress). Writes Mods\mod_log.txt (with
 how long each pass took), and runs the mods' "init" hooks (initGameVars ran before the mods were loaded).
 */
-var i,tF,tN,j,p,tW,tFrom,tT,tTime,tAll;
+//var i,tF,tN,j,p,tW,tFrom,tT,tTime,tAll;
+var i,tF,tN,j,p,tW,tFrom,tT,tTime,tAll,k; //mods change: k (the title music)
 scrModLog("DT3+ mods, loaded "+date_datetime_string(date_current_datetime()))
 global.modMarkObj=object_add() //an object with no events: placeholders for placed instances with creation code (scrModInstSetup), a marker in patched persistent rooms, and what an instance a patch removes becomes (scrModRoomPatch)
 object_event_add(global.modMarkObj,ev_destroy,0,"modGone=1") //...but a destroy event that says so (a placeholder its creation code destroyed: scrModInstCode)
@@ -73,6 +74,20 @@ for(p=0;p<5;p+=1)
 tAll=tTime[0]+tTime[1]+tTime[2]+tTime[3]+tTime[4]
 scrModLog("done: "+string(global.modLoadedCount)+" mod(s), in "+string(tAll)+" s (assets "+string(tTime[0])+", scripts "+string(tTime[1])
   +", objects "+string(tTime[2])+", rooms "+string(tTime[3])+", patches and hooks "+string(tTime[4])+")")
+//mods change (added): a mod's track 9000 is the title screen music (loadExtFiles loaded the game's; it starts playing
+//once the mods are loaded: oInitializeGame)
+if ds_map_exists(global.modMusic,9000)
+{
+  k=ds_map_find_value(global.modMusic,9000)
+  if global.modMusExists[k]
+  {
+    if SS_IsHandleValid(global.msc_TitleMenu) {SS_FreeSound(global.msc_TitleMenu)}
+    global.msc_TitleMenu=SS_LoadSound(global.modMusFile[k],1)
+    if global.modMusVar[k]="" {global.modMusHandle[k]=global.msc_TitleMenu}
+    else {variable_global_set(global.modMusVar[k],global.msc_TitleMenu)}
+    scrModLog("title music: "+global.modMusFile[k])
+  }
+}
 tF=file_text_open_write(global.modDir+"mod_log.txt")
 file_text_write_string(tF,global.modLog)
 file_text_close(tF)

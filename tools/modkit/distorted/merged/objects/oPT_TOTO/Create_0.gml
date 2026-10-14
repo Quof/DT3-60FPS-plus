@@ -1,0 +1,45 @@
+event_inherited()
+bCanDealDamage=false
+image_xscale=2; image_yscale=2
+image_speed=0
+global.hudGame_WeaponEn[0]=global.hudGame_WeaponEn[1]
+
+//Enemy base statistics
+eName="The Chosen One"
+eLevel=30
+maxLife=24000
+life=maxLife
+atkPower=8
+affiliation=6
+stunResist=50
+bIsBoss=true
+bNoBonus=true
+dieEffect=0
+bossProgress=0
+activateBoss=0
+//--------------------
+bodyFrm=0; bodyAnim=0
+tailFrm=0; tailAnim=0
+
+waitTime=10
+waitDelay=60-50     // spinach special
+attackCycle=1
+attackTime=60
+atkA_Freq=7
+atkB_Freq=12
+atkC_Freq=12
+atkCircleAmt=8
+sideStart=0 //1-Left, 2-Right
+
+specialAttack=0
+specProg=0
+specTime=0
+specX=0
+//--------------------
+
+//Misc Data
+xCenter=240
+yGround=1344
+roomSpan=192
+
+deathAnim=0

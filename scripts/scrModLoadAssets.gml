@@ -89,6 +89,7 @@ for(k=0;k<tN;k+=1)
   }
 }
 tN=ini_read_real("music","count",0)
+var tMiss,tMissName; tMiss=0; tMissName="" //mods change (added)
 for(k=0;k<tN;k+=1)
 {
   tTrack=ini_read_real("music","track"+string(k),0)
@@ -96,13 +97,17 @@ for(k=0;k<tN;k+=1)
   global.modMusVar[global.modMusCount]=tVar
   global.modMusFile[global.modMusCount]=tDir+"music\"+ini_read_string("music","file"+string(k),"")
   global.modMusCredit[global.modMusCount]=ini_read_string("music","credit"+string(k),"")
+  global.modMusGain[global.modMusCount]=ini_read_real("music","gain"+string(k),0) //mods change (added): its loudness adjustment in dB (getReplayGain)
   global.modMusHandle[global.modMusCount]=0
-  if !file_exists(global.modMusFile[global.modMusCount]) {scrModLog("  music file missing: "+global.modMusFile[global.modMusCount])}
+  //if !file_exists(global.modMusFile[global.modMusCount]) {scrModLog("  music file missing: "+global.modMusFile[global.modMusCount])}
+  global.modMusExists[global.modMusCount]=file_exists(global.modMusFile[global.modMusCount]) //mods change (added): a track number the game has plays the game's track while the file isn't there
+  if !global.modMusExists[global.modMusCount] {tMiss+=1; if tMissName="" {tMissName=global.modMusFile[global.modMusCount]}} //mods change: counted, for one line in the log
   if tVar!="" {if !variable_global_exists(tVar) {variable_global_set(tVar,0)}}
   if ds_map_exists(global.modMusic,tTrack) {ds_map_replace(global.modMusic,tTrack,global.modMusCount)}
   else {ds_map_add(global.modMusic,tTrack,global.modMusCount)}
   global.modMusCount+=1
 }
+if tMiss>0 {scrModLog("  music files missing: "+string(tMiss)+" (the first: "+tMissName+")")} //mods change (added)
 tN=ini_read_real("locations","count",0)
 for(k=0;k<tN;k+=1)
 {

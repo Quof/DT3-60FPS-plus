@@ -1,0 +1,36 @@
+event_inherited()
+makeActive()
+setCollisionBounds(-16,-42,16,-1)
+image_speed=0.15
+bCanTakeDamage=false
+
+//Enemy base statistics
+eName="Prototype Slime"
+eLevel=27
+maxLife=120
+life=maxLife
+pointWorth=15
+atkPower=6
+resType[3]=2
+baseItemChance=45
+affiliation=6
+dieSound=5
+dieEffect=0
+
+runAcc=1.5
+biteTime=35
+biteDelay=60
+bCanBeBlocked=1
+bParryOpp=0
+blockCost=50
+bAttacking=0
+_speed=0
+_direction=0
+
+deathAnim=0
+yDeath=0
+
+jeremyText="These out of place slimes don't pose too much of a threat. When you're close enough, it will begin the strike. Watch out for that, because it lunges forward a fair bit."
+chaoText="Slimes, the staple of a good generic rpg. Their behavior code is pretty bad. They often get stuck on things."
+devText="When I removed Gate 7 and decided to turn Gate 6 into a place for both characters, there were two big ideas that came to mind. RPG and arcade. The arcade idea was already present in Chapter 14, and will pop up again later, I felt it a waste to have an entire Gate around the concept."
+alarm[0]=1

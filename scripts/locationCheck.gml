@@ -4,6 +4,7 @@ will display on-screen what the new area is.
 Also updates the locations the player has discovered.
 argument0: location index
 */
+if global.modOvr[locationCheck]>=0 {var __n; __n=0; repeat (argument_count) {global.modArg[__n]=argument[__n]; __n+=1}; return scrModOverride(locationCheck,argument_count)} //mods change (added): a mod's own version of this script runs instead (scrModOverride)
 var tNewLoc,newLocation,mapIndexCheck;
 tNewLoc=argument0
 

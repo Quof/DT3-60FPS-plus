@@ -1,4 +1,5 @@
 //This script swaps abilities
+if global.modOvr[pSwapAbility]>=0 {var __n; __n=0; repeat (argument_count) {global.modArg[__n]=argument[__n]; __n+=1}; return scrModOverride(pSwapAbility,argument_count)} //mods change (added): a mod's own version of this script runs instead (scrModOverride)
 
 idleTime=0
 var tSwapValid;

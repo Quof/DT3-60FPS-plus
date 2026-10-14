@@ -1,0 +1,1 @@
+redDmgHit(0)

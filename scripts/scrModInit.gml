@@ -25,9 +25,10 @@ global.modLegacyMap=ds_map_create()  //object index: 1 for objects run in 30fps 
 global.modNewObj=ds_map_create()     //object index: for objects a mod added (not the game's own), the mod that made it, +1
 global.modLegacyCount=0
 global.modMarkObj=-1                 //see scrModLoadAll
+global.modTextCount=0                //room, instance and patch code kept as text (scrModTextAdd, scrModRunText)
 //the game's scripts a mod can replace with its own version (they start with the line that calls scrModOverride;
 //tools\modkit\addoverride.py adds it and keeps this list)
-global.modOvrList="abilSetRemove,characterCreateEvent,characterDrawEvent,characterStepEvent,charSwitcher,checkWeaponHit,enemyDefeat,enemyDrawEvent,enemyStepEvent,equipmentInit,hitPlayer,internetzDrop,menuAbilitySet,menuEquipment,menuOptions,menuRecognitions,playerHeartDisplay,playerTechStart,playerTechUse,pMoveAirDash,pMoveDashBack,pMoveDashForward,pMoveWallDash,pSwapCharacter,scrFullStatRestore,storeStatus,takeDamage,weaponDmgMod"
+global.modOvrList="abilSetRemove,awardAwesome,characterCreateEvent,characterDrawEvent,characterStepEvent,charSwitcher,checkWeaponHit,enemyDefeat,enemyDrawEvent,enemyStepEvent,equipmentInit,hitPlayer,internetzDrop,locationCheck,makeEnemyActive,menuAbilitySet,menuEquipment,menuMap,menuOptions,menuProgress,menuRecognitions,menuSpendAP,npcTrivia,playerHeartDisplay,playerTechStart,playerTechUse,pMoveAirDash,pMoveDashBack,pMoveDashForward,pMoveDoubleJump,pMoveJump,pMoveWallDash,pSwapAbility,pSwapCharacter,scrFullStatRestore,showMessage,storeStatus,takeDamage,weaponDmgMod"
 scrModNameMaps()
 if !directory_exists(global.modDir) {exit}
 

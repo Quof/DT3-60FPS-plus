@@ -87,10 +87,16 @@ class Check:
             if not os.path.exists(os.path.join(sp, n + ".ini")): self.w("sprite %s has no .ini (1 frame, origin 0,0)" % n)
         for sec, d in (("sounds", "sound"), ("music", "music")):
             if mi.has_section(sec):
+                miss = []
                 for k in range(int(mi.get(sec, "count", fallback="0"))):
                     f = mi.get(sec, "file%d" % k, fallback="")
                     if "#" in f or ";" in f: self.w("[%s] file%d has a # or ; in it: %s" % (sec, k, f))
-                    if not os.path.exists(os.path.join(m, d, f)): self.e("[%s] file%d missing: %s" % (sec, k, f))
+                    if not os.path.exists(os.path.join(m, d, f)):
+                        # a music track whose file isn't there plays the game's track of that number (or nothing), so
+                        # a mod can leave its music for the player to add; a sound effect's variable would be missing
+                        if sec == "music": miss.append(f)
+                        else: self.e("[%s] file%d missing: %s" % (sec, k, f))
+                if miss: self.w("[music] %d file(s) not in music\\ (the first: %s): the game's track plays instead, or nothing for a new track number" % (len(miss), miss[0]))
         fb = mi.get("mod", "fallbackRoom", fallback="")
         if fb and fb not in R: self.e("fallbackRoom %s isn't a room" % fb)
         # ----- objects
@@ -103,6 +109,10 @@ class Check:
                     if v and v not in names: self.e("%s: %s %s isn't a%s %s" % (o, key, v, "n" if what[0] == "o" else "", what))
                 for b in [x for x in oi.get("object", "block", fallback="").split(",") if x]:
                     if not self._event(b, O): self.e("%s: block: not an event: %s" % (o, b))
+                for b in [x.strip() for x in oi.get("object", "append", fallback="").split(",") if x.strip()]:
+                    if not self._event(b, O): self.e("%s: append: not an event: %s" % (o, b))
+                    elif not os.path.exists(os.path.join(od, b + ".gml")): self.w("%s: append names %s, which it has no file for" % (o, b))
+                    if o in self.new_obj: self.w("%s: append is for the game's own objects (a new object's events are its own)" % o)
             elif o in self.new_obj: self.w("%s: no object.ini" % o)
             for f in os.listdir(od):
                 if f.endswith(".gml"):
@@ -191,9 +201,18 @@ class Check:
                 used_files.add(f)
                 if not os.path.exists(os.path.join(pd, f)): self.e("%s: no file %s" % (where, f))
                 else: self.code(read(os.path.join(pd, f)), "patches/%s/%s" % (r, f))
-            if k == "roomcode":
+            if k == "roomcode" or k == "roomcodeset":
                 if len(p) < 2: self.e("%s: bad line" % where); continue
                 codefile(p[1]); continue
+            # lines that change the room itself (scrModLoadPatches)
+            if k == "caption": continue
+            if k == "roomsize" or k == "roomcolor":
+                if len(p) < 3 or not all(re.match(r"^-?\d+(\.\d+)?$", v) for v in p[1:3]): self.e("%s: bad line %r" % (where, l))
+                continue
+            if k == "roombg":
+                if len(p) < 11: self.e("%s: bad line %r" % (where, l))
+                elif p[4] not in ("", "-") and p[4] not in self.B: self.e("%s: no background %s" % (where, p[4]))
+                continue
             if k == "tileadd":
                 if len(p) < 9: self.e("%s: bad line" % where)
                 elif p[1] not in self.B: self.e("%s: no background %s" % (where, p[1]))
@@ -201,7 +220,7 @@ class Check:
             if k == "tileremove":
                 if len(p) < 4: self.e("%s: bad line" % where)
                 continue
-            if k not in ("add", "remove", "move", "code", "gid") or len(p) < 4: self.e("%s: bad line %r" % (where, l)); continue
+            if k not in ("add", "remove", "move", "code", "precode", "gid") or len(p) < 4: self.e("%s: bad line %r" % (where, l)); continue
             if p[1] not in self.O: self.e("%s: no object %s" % (where, p[1])); continue
             x, y = int(p[2]), int(p[3])
             if k == "add":
@@ -214,8 +233,8 @@ class Check:
             elif k == "move":
                 if len(p) < 6: self.e("%s: bad move line" % where); continue
                 for h in hits: h[1], h[2] = int(p[4]), int(p[5])
-            elif k == "code":
-                if len(p) < 5: self.e("%s: bad code line" % where); continue
+            elif k == "code" or k == "precode":
+                if len(p) < 5: self.e("%s: bad %s line" % (where, k)); continue
                 codefile(p[4])
             elif k == "gid":
                 if len(p) < 5: self.e("%s: bad gid line" % where)

@@ -1,0 +1,1137 @@
+{
+  "_about": "Converts Spinach's Distorted mode for DT3 (DTFree 1.0.10, a version of the whole game with its rooms, bosses and equipment changed; decompiled with gm8decompiler and split with gmksplit --preserve-ids all --allow-duplicate-ids tiles,instances) into a DT3+ mod folder. Its changes to the game's objects and to the game's scripts mods can replace are merged into DT3+'s versions by tools/modkit/mergemod.py (python mergemod.py init|update|check distorted/config.json) and finished by hand in merged/ (the mod's lines made to work at 60 and 120fps); its new objects and scripts are ported to DT3+'s 60fps code by hand in ported/. Then: python tools/modkit/convert.py tools/modkit/distorted/config.json, and python tools/modkit/validate.py <out> <project>. Its rooms are patches (patch_mode full: see convert.py, patch_room_full). 'vanilla' is the original game split with gmksplit: the DT3_v1_5_2_4_v120_gmksplit folder of this repository's commit fe70bd6d, unzipped into tools/modkit/_vanilla. Paths are this computer's.",
+  "mod": "D:/Furige/dt3plus mod testing/DT3 Distorted/fAlteredInsanity_gmksplit",
+  "vanilla": "../_vanilla/DT3_v1_5_2_4_v120_gmksplit",
+  "project": "../../..",
+  "out": "C:/Users/diplo/AppData/Local/Temp/claude/D--Furige-dt3-project-file-DT3-60FPS-plus/f5f2808c-879a-408c-a97d-96227aba9f1b/scratchpad/modout/Distorted",
+  "extras": "extras",
+  "merge": {
+    "merged": "merged",
+    "dt3base": "dt3base",
+    "scripts": [
+      "awardAwesome",
+      "charSwitcher",
+      "characterCreateEvent",
+      "equipmentInit",
+      "hitPlayer",
+      "locationCheck",
+      "makeEnemyActive",
+      "menuAbilitySet",
+      "menuEquipment",
+      "menuMap",
+      "menuProgress",
+      "menuRecognitions",
+      "npcTrivia",
+      "pMoveAirDash",
+      "pMoveDoubleJump",
+      "pMoveJump",
+      "pSwapCharacter",
+      "playerTechStart",
+      "playerTechUse",
+      "showMessage",
+      "takeDamage",
+      "weaponDmgMod"
+    ],
+    "objects": "changed",
+    "skip_objects": [],
+    "append_events": true
+  },
+  "select_new": {
+    "code": [
+      "merged",
+      "ported",
+      "extras"
+    ],
+    "rooms": []
+  },
+  "clones": false,
+  "unported": false,
+  "new_objects_legacy": 1,
+  "patch_mode": "full",
+  "captions": true,
+  "patch_skip_objects": [
+    "oPlayer1"
+  ],
+  "instance_code_rules": [
+    {
+      "objects": [
+        "oBTB_LatchCrystal",
+        "oBomberBat",
+        "oBomberCloud",
+        "oColorZone",
+        "oEnergizedTrapSpawner",
+        "oG6WindSpot",
+        "oHexCircle",
+        "oHexFullCircle",
+        "oMovingSpikeR_Proper",
+        "oMovingTrap",
+        "oMovingTrapRed",
+        "oStrikePoint_Ext",
+        "oVaultFingers",
+        "oZapTrapRed",
+        "oBlackHexRing",
+        "oDBlueHexRing",
+        "oDBlueHexTunnel",
+        "oDBlueJeremyRing",
+        "oDColourZone",
+        "oDFollowRing",
+        "oDGreenHexRing",
+        "oDGreenHexTunnel",
+        "oDGreenUDHexRing",
+        "oDHexFullRing",
+        "oDHexFullRingBlue",
+        "oDHexRing",
+        "oDHexTunnel",
+        "oDPHR",
+        "oDWEXring",
+        "oDYellowHexRing",
+        "oDYellowHexTunnel",
+        "oGUDHexTunnel",
+        "oWhiteHexRing"
+      ],
+      "from": "(?<![\\w.])direction(\\s*=)(?!=)",
+      "to": "_direction\\1",
+      "why": "direction -> _direction (DT3+, and this mod's ports of its new ring objects, move these objects by their own _direction)"
+    },
+    {
+      "objects": [
+        "oSwitchBarrier"
+      ],
+      "from": "(?<![\\w.])switchID\\s*=\\s*\\((\\d+)\\)",
+      "to": "switchID=(GID(\\1)); switchCache=\\1",
+      "why": "the switch's id kept in switchCache (DT3+'s oSwitchBarrier looks it up again from it)"
+    },
+    {
+      "objects": [
+        "oTimeSwBarrier"
+      ],
+      "from": "(?<![\\w.])switchID\\[(\\w+)\\]\\s*=\\s*\\((\\d+)\\)",
+      "to": "switchID[\\1]=(GID(\\2)); switchCache[\\1]=\\2",
+      "why": "the switches' ids kept in switchCache (DT3+'s oTimeSwBarrier looks them up again from it)"
+    },
+    {
+      "objects": [
+        "oSwitchPanelColor",
+        "oSwitchPanelCRev"
+      ],
+      "from": "(?<![\\w.])targetDoor\\[(\\w+)\\]\\s*=\\s*\\((\\d+)\\)",
+      "to": "targetDoor[\\1]=(GID(\\2)); idsForTargetDoors[\\1]=\\2",
+      "why": "the doors' ids kept in idsForTargetDoors (DT3+'s switch panels look them up again from it)"
+    },
+    {
+      "objects": [
+        "oLockPanelColor"
+      ],
+      "from": "(?<![\\w.])targetDoor\\s*=\\s*\\((\\d+)\\)",
+      "to": "targetDoor=(GID(\\1)); idForTargetDoor=\\1",
+      "why": "the door's id kept in idForTargetDoor (DT3+'s oLockPanelColor looks it up again from it)"
+    },
+    {
+      "objects": [
+        "oPuzzleReset"
+      ],
+      "from": "(?<![\\w.])myObj\\[(\\w+)\\]\\s*=\\s*\\((\\d+)\\)",
+      "to": "myObj[\\1]=(GID(\\2)); objCache[\\1]=\\2",
+      "why": "the ids kept in objCache (DT3+'s oPuzzleReset looks them up again from it)"
+    },
+    {
+      "objects": [
+        "oPlatBud"
+      ],
+      "from": "(?<![\\w.])myWeight\\s*=\\s*\\((\\d+)\\)",
+      "to": "myWeight=(GID(\\1)); weightCache=\\1",
+      "why": "the weight's id kept in weightCache (DT3+'s oPlatBud looks it up again from it)"
+    },
+    {
+      "objects": [
+        "oStepDoorA"
+      ],
+      "from": "(?<![\\w.])ownerID([12])\\s*=\\s*\\((\\d+)\\)",
+      "to": "ownerID\\1=(GID(\\2)); ownerRawID\\1=\\2",
+      "why": "the ids kept in ownerRawID1/2 (DT3+'s oStepDoorA looks them up again from them)"
+    },
+    {
+      "objects": [
+        "oPlatformString"
+      ],
+      "from": "(?<![\\w.])stringTo\\[(\\w+)\\]\\s*=\\s*\\((\\d+)\\)",
+      "to": "stringTo[\\1]=(GID(\\2)); idsToStringTo[\\1]=\\2",
+      "why": "the ids kept in idsToStringTo (DT3+'s oPlatformString looks them up again from it)"
+    }
+  ],
+  "replace_sprites": [
+    "sTitleText"
+  ],
+  "mod_ini": {
+    "mod": {
+      "name": "Distorted Mode",
+      "author": "Spinach (converted for DT3+)",
+      "version": "1.0.10",
+      "description": "Spinach's Distorted mode: the whole game remixed, harder rooms full of hex rings and traps, changed bosses and equipment, new areas and a DLC. Play it from a new game. Its music isn't included: see README.txt.",
+      "legacy": 0,
+      "order": 2,
+      "fallbackRoom": "rCCity_SGrove",
+      "fallbackX": 48,
+      "fallbackY": 304
+    },
+    "locations": [
+      {
+        "id": 111,
+        "name": "Hexring Hell"
+      }
+    ],
+    "music": [
+      {
+        "track": 1,
+        "var": "",
+        "file": "DT_Main1.ogg",
+        "credit": "Mamomo [Cosmos]"
+      },
+      {
+        "track": 2,
+        "var": "",
+        "file": "DT_CentralCityA.ogg",
+        "credit": "Persona 3 [Blues in Velvet Room]"
+      },
+      {
+        "track": 3,
+        "var": "",
+        "file": "DT_GamerRun.ogg",
+        "credit": "DoDonPachi SaiDaiOuJou [Niji (Stage 2) -Arrange-]"
+      },
+      {
+        "track": 4,
+        "var": "",
+        "file": "DT_Main2.ogg",
+        "credit": "Donkey Kong Country 2 [Stickerbrush Symphony (Restored)]"
+      },
+      {
+        "track": 5,
+        "var": "",
+        "file": "DT_LabyrinthRuins.ogg",
+        "credit": "Tokyo Active NEETs [Subterranean Suite]"
+      },
+      {
+        "track": 6,
+        "var": "",
+        "file": "DT_AncientGateway.ogg",
+        "credit": "La-Mulana Remake [Hell Temple]"
+      },
+      {
+        "track": 7,
+        "var": "",
+        "file": "DT_Main3.ogg",
+        "credit": "Etrian Odyssey III Super Arrange [Labyrinth I - Waterfall Woodlands]"
+      },
+      {
+        "track": 8,
+        "var": "",
+        "file": "DT_BegoniaTemple.ogg",
+        "credit": "La-Mulana Remake [Moon Light Dance]"
+      },
+      {
+        "track": 10,
+        "var": "",
+        "file": "DT_Farreaches.ogg",
+        "credit": "Zelda: The Wind Waker [Dragon Roost Island] (London Philharmonic Orchestra)"
+      },
+      {
+        "track": 13,
+        "var": "",
+        "file": "DT_Barrens.ogg",
+        "credit": "ShibayanRecords [Desert Years]"
+      },
+      {
+        "track": 14,
+        "var": "",
+        "file": "DT_BurningStretch.ogg",
+        "credit": "DoDonPachi SaiDaiOuJou [Michi (Stage 5)]"
+      },
+      {
+        "track": 15,
+        "var": "",
+        "file": "DT_SRDreamer.ogg",
+        "credit": "DoDonPachi SaiDaiOuJou [Michi (Stage 5) ~Arrange~]"
+      },
+      {
+        "track": 16,
+        "var": "",
+        "file": "DT_NGCLowerChamber.ogg",
+        "credit": "-45 [Kouhai no Bi]"
+      },
+      {
+        "track": 17,
+        "var": "",
+        "file": "DT_CityEscape.ogg",
+        "credit": "Sonic Adventure 2 [Escape from the City] (Crush 40)"
+      },
+      {
+        "track": 19,
+        "var": "",
+        "file": "DT_CentralCore.ogg",
+        "credit": "Clean Tears [Intro]"
+      },
+      {
+        "track": 20,
+        "var": "",
+        "file": "DT_VirusInfection.ogg",
+        "credit": "Melodic Taste [Wataru Mono no Todaeta Hashi]"
+      },
+      {
+        "track": 21,
+        "var": "",
+        "file": "DT_StarrySkies.ogg",
+        "credit": "Melodic Taste [Last Remote]"
+      },
+      {
+        "track": 22,
+        "var": "",
+        "file": "DT_WeaponFacility.ogg",
+        "credit": "Koumajou Densetsu II (Touhouvania 2)"
+      },
+      {
+        "track": 24,
+        "var": "",
+        "file": "DT_Main4.ogg",
+        "credit": "Donkey Kong Country 2 [Snakey Chantey (Restored)]"
+      },
+      {
+        "track": 25,
+        "var": "",
+        "file": "DT_NoMain.ogg",
+        "credit": "ELECTROCUTICA [La preghiera]"
+      },
+      {
+        "track": 26,
+        "var": "",
+        "file": "DT_TranquilSerenity.ogg",
+        "credit": "Terranigma"
+      },
+      {
+        "track": 27,
+        "var": "",
+        "file": "DT_HiddenTown.ogg",
+        "credit": "Terranigma"
+      },
+      {
+        "track": 28,
+        "var": "",
+        "file": "DT_Discombobulated.ogg",
+        "credit": "Alstroemeria Records [Bad Apple!! feat. nomico]"
+      },
+      {
+        "track": 30,
+        "var": "",
+        "file": "DT_MagicalCastle.ogg",
+        "credit": "Melodic Taste [Tsuki made Todoke, Fushi no Kemuri]"
+      },
+      {
+        "track": 101,
+        "var": "",
+        "file": "DT_MarioWorld.ogg",
+        "credit": "Super Mario Bros. [Theme] (London Philharmonic Orchestra)"
+      },
+      {
+        "track": 102,
+        "var": "",
+        "file": "DT_MarioCastle1.ogg",
+        "credit": "Yoshi's Island [Castle Theme] (blackrose96)"
+      },
+      {
+        "track": 103,
+        "var": "",
+        "file": "DT_MarioCastle2.ogg",
+        "credit": "Luigi's Mansion [Main Theme] (London Philharmonic Orchestra)"
+      },
+      {
+        "track": 104,
+        "var": "",
+        "file": "DT_MarioUnderground.ogg",
+        "credit": "Hylian Lemon [Your Robe is on Fire]"
+      },
+      {
+        "track": 105,
+        "var": "",
+        "file": "DT_MarioCastle3.ogg",
+        "credit": "Kyocmp [Ghost Banquet]"
+      },
+      {
+        "track": 201,
+        "var": "",
+        "file": "DT_ZeldaWater.ogg",
+        "credit": "Lime of the Season"
+      },
+      {
+        "track": 202,
+        "var": "",
+        "file": "DT_OminousHall.ogg",
+        "credit": "Final Fantasy Crystal Chronicles [Meager Advance]"
+      },
+      {
+        "track": 203,
+        "var": "",
+        "file": "DT_ZeldaOverworld.ogg",
+        "credit": "The Legend of Zelda [Suite] (London Philharmonic Orchestra)"
+      },
+      {
+        "track": 204,
+        "var": "",
+        "file": "DT_ZeldaDunA.ogg",
+        "credit": "Ottiki & Charlotte [Ending]"
+      },
+      {
+        "track": 205,
+        "var": "",
+        "file": "DT_ZeldaDunB.ogg",
+        "credit": "The Eluryahn [Tragically Heroic]"
+      },
+      {
+        "track": 206,
+        "var": "",
+        "file": "DT_ZeldaTown.ogg",
+        "credit": "Zelda: Ocarina of Time [Song of Storms] (remix)"
+      },
+      {
+        "track": 207,
+        "var": "",
+        "file": "DT_ZeldasTheme.ogg",
+        "credit": "Ryuuha Mikaidou [Autumnus Vesper]"
+      },
+      {
+        "track": 208,
+        "var": "",
+        "file": "DT_DeathMountain.ogg",
+        "credit": "Donkey Kong Country [Rockface Rumble (Restored)]"
+      },
+      {
+        "track": 209,
+        "var": "",
+        "file": "DT_ZeldaForest.ogg",
+        "credit": "TAMUSIC [Mistgestalt]"
+      },
+      {
+        "track": 301,
+        "var": "",
+        "file": "DT_CVVampireKiller.ogg",
+        "credit": "Koumajou Densetsu II (Touhouvania 2)"
+      },
+      {
+        "track": 302,
+        "var": "",
+        "file": "DT_CVHeartOfFire.ogg",
+        "credit": "Tokyo Active NEETs [Himeringo Mitsudomoe]"
+      },
+      {
+        "track": 303,
+        "var": "",
+        "file": "DT_CVSimonsTheme.ogg",
+        "credit": "Koumajou Densetsu II (Touhouvania 2)"
+      },
+      {
+        "track": 304,
+        "var": "",
+        "file": "DT_CVMarbleGallery.ogg",
+        "credit": "Touhou arrange"
+      },
+      {
+        "track": 305,
+        "var": "",
+        "file": "DT_CVCastleCourtyard.ogg",
+        "credit": "Koumajou Densetsu II (Touhouvania 2)"
+      },
+      {
+        "track": 306,
+        "var": "",
+        "file": "DT_CVOutOfTime.ogg",
+        "credit": "Koumajou Densetsu II (Touhouvania 2)"
+      },
+      {
+        "track": 307,
+        "var": "",
+        "file": "DT_CVReapersHall.ogg",
+        "credit": "Koumajou Densetsu II (Touhouvania 2)"
+      },
+      {
+        "track": 401,
+        "var": "",
+        "file": "DT_MMIntroStage.ogg",
+        "credit": "HertzDevil [MEGA ZUN]"
+      },
+      {
+        "track": 402,
+        "var": "",
+        "file": "DT_MMBossIntro.ogg",
+        "credit": "HertzDevil [MEGA ZUN]"
+      },
+      {
+        "track": 403,
+        "var": "",
+        "file": "DT_MMVictory.ogg",
+        "credit": "HertzDevil [MEGA ZUN]"
+      },
+      {
+        "track": 404,
+        "var": "",
+        "file": "DT_MMStormEagle.ogg",
+        "credit": "HertzDevil [MEGA ZUN]"
+      },
+      {
+        "track": 405,
+        "var": "",
+        "file": "DT_MMStageSelect.ogg",
+        "credit": "HertzDevil [MEGA ZUN]"
+      },
+      {
+        "track": 406,
+        "var": "",
+        "file": "DT_MMStageIntro.ogg",
+        "credit": "HertzDevil [MEGA ZUN]"
+      },
+      {
+        "track": 407,
+        "var": "",
+        "file": "DT_MMWeaponGet.ogg",
+        "credit": "HertzDevil [MEGA ZUN]"
+      },
+      {
+        "track": 408,
+        "var": "",
+        "file": "DT_MMOverdriveOstrich.ogg",
+        "credit": "HertzDevil [MEGA ZUN]"
+      },
+      {
+        "track": 409,
+        "var": "",
+        "file": "DT_MMToxicJungle.ogg",
+        "credit": "HertzDevil [MEGA ZUN]"
+      },
+      {
+        "track": 410,
+        "var": "",
+        "file": "DT_MMSigmaStage1.ogg",
+        "credit": "HertzDevil [MEGA ZUN]"
+      },
+      {
+        "track": 411,
+        "var": "",
+        "file": "DT_MMSigmaStage2.ogg",
+        "credit": "HertzDevil [MEGA ZUN]"
+      },
+      {
+        "track": 412,
+        "var": "",
+        "file": "DT_MMSigmaStage3.ogg",
+        "credit": "HertzDevil [MEGA ZUN]"
+      },
+      {
+        "track": 501,
+        "var": "",
+        "file": "DT_MetMain.ogg",
+        "credit": "Koumajou Densetsu II (Touhouvania 2)"
+      },
+      {
+        "track": 601,
+        "var": "",
+        "file": "DT_RPGOverworld.ogg",
+        "credit": "Kyocmp [Legend of Sword]"
+      },
+      {
+        "track": 602,
+        "var": "",
+        "file": "DT_RPGPlains.ogg",
+        "credit": "Etrian Odyssey III Super Arrange [Town - Engrave Thy Name]"
+      },
+      {
+        "track": 603,
+        "var": "",
+        "file": "DT_RPGTown.ogg",
+        "credit": "Kitsune no Kousakushitsu [Chocolat-iro no Youkai no Yama]"
+      },
+      {
+        "track": 604,
+        "var": "",
+        "file": "DT_RPGDoomCastle.ogg",
+        "credit": "Koumajou Densetsu II (Touhouvania 2)"
+      },
+      {
+        "track": 605,
+        "var": "",
+        "file": "DT_RPGElementsA.ogg",
+        "credit": "IOSYS [Saturday Night Fish Girl]"
+      },
+      {
+        "track": 606,
+        "var": "",
+        "file": "DT_RPGDreamWoods.ogg",
+        "credit": "lilou-minette [Tenshi no Guuzou]"
+      },
+      {
+        "track": 607,
+        "var": "",
+        "file": "DT_RPGElementsB.ogg",
+        "credit": "Wiz. [Love Will Never Die: Twinkle Star Sprites]"
+      },
+      {
+        "track": 801,
+        "var": "",
+        "file": "DT_BowserFight.ogg",
+        "credit": "La-Mulana Remake [Hell Temple Boss]"
+      },
+      {
+        "track": 802,
+        "var": "",
+        "file": "DT_ZeldaMiniBoss.ogg",
+        "credit": "Final Fantasy Crystal Chronicles [Monster's Dance ~Rondo~]"
+      },
+      {
+        "track": 803,
+        "var": "",
+        "file": "DT_ZeldaBoss.ogg",
+        "credit": "Kyocmp [Saihate no Shitou]"
+      },
+      {
+        "track": 804,
+        "var": "",
+        "file": "DT_CVDanceOfIllusions.ogg",
+        "credit": "AIHISNA [Hakkou]"
+      },
+      {
+        "track": 805,
+        "var": "",
+        "file": "DT_CVPiercingBattleFury.ogg",
+        "credit": "Kyocmp [Taiji suru Maryoku]"
+      },
+      {
+        "track": 806,
+        "var": "",
+        "file": "DT_CVDanceWithDeath.ogg",
+        "credit": "Koumajou Densetsu II (Touhouvania 2)"
+      },
+      {
+        "track": 807,
+        "var": "",
+        "file": "DT_FamiliarFoe.ogg",
+        "credit": "Melodic Taste [Shoujo Satori ~ 3rd eye]"
+      },
+      {
+        "track": 808,
+        "var": "",
+        "file": "DT_FinalNightmare.ogg",
+        "credit": "Ryuuha Mikaidou [Hiems Nox]"
+      },
+      {
+        "track": 809,
+        "var": "",
+        "file": "DT_Encounter.ogg",
+        "credit": "Koukyou Active NEETs [Ware, Tekikidoubutai to Kousen su]"
+      },
+      {
+        "track": 810,
+        "var": "",
+        "file": "DT_MMBossFight.ogg",
+        "credit": "HertzDevil [MEGA ZUN]"
+      },
+      {
+        "track": 812,
+        "var": "",
+        "file": "DT_MMEpsilon.ogg",
+        "credit": "HertzDevil [MEGA ZUN]"
+      },
+      {
+        "track": 813,
+        "var": "",
+        "file": "DT_GiantEnemyRobot.ogg",
+        "credit": "Xenoblade Chronicles [One Who Gets in Our Way]"
+      },
+      {
+        "track": 814,
+        "var": "",
+        "file": "DT_AbominationA.ogg",
+        "credit": "Xenoblade Chronicles [Impatience]"
+      },
+      {
+        "track": 815,
+        "var": "",
+        "file": "DT_MetroidBoss.ogg",
+        "credit": "DoDonPachi SaiDaiOuJou [Taiji (Boss)]"
+      },
+      {
+        "track": 816,
+        "var": "",
+        "file": "DT_MetRidley.ogg",
+        "credit": "Rozovian [Dragonfood]"
+      },
+      {
+        "track": 817,
+        "var": "",
+        "file": "DT_MetNightmare.ogg",
+        "credit": "LEKPHJUNOKIA [Signals]"
+      },
+      {
+        "track": 818,
+        "var": "",
+        "file": "DT_MarioBoss.ogg",
+        "credit": "Terranigma"
+      },
+      {
+        "track": 819,
+        "var": "",
+        "file": "DT_RPGBoss.ogg",
+        "credit": "Etrian Odyssey III Super Arrange [Battlefield - The First Campaign]"
+      },
+      {
+        "track": 820,
+        "var": "",
+        "file": "DT_OWA.ogg",
+        "credit": "ARA [Flandre Scarlet]"
+      },
+      {
+        "track": 821,
+        "var": "",
+        "file": "DT_Sera.ogg",
+        "credit": "Lamberti phil [Aquaphobia]"
+      },
+      {
+        "track": 822,
+        "var": "",
+        "file": "DT_AbominationB.ogg",
+        "credit": "Touhou arrange [Koishi's theme]"
+      },
+      {
+        "track": 823,
+        "var": "",
+        "file": "DT_AbominationC.ogg",
+        "credit": "Powerless [Dominator]"
+      },
+      {
+        "track": 824,
+        "var": "",
+        "file": "DT_CVBoss.ogg",
+        "credit": "AIHISNA [Suikyou no Oboro Kane]"
+      },
+      {
+        "track": 825,
+        "var": "",
+        "file": "DT_ChaosBossA.ogg",
+        "credit": "Tokyo Active NEETs [Reichi no San Shimai Ensou]"
+      },
+      {
+        "track": 826,
+        "var": "",
+        "file": "DT_Defective.ogg",
+        "credit": "Koumajou Densetsu II (Touhouvania 2)"
+      },
+      {
+        "track": 827,
+        "var": "",
+        "file": "DT_DarkShadow.ogg",
+        "credit": "Mizuhashi Yukki [Kurenai Tokeru Machi]"
+      },
+      {
+        "track": 828,
+        "var": "",
+        "file": "DT_TheBattle.ogg",
+        "credit": "Koumajou Densetsu II (Touhouvania 2)"
+      },
+      {
+        "track": 829,
+        "var": "",
+        "file": "DT_ChaosWarmaster.ogg",
+        "credit": "Rengoku Teien [Dark a Liar]"
+      },
+      {
+        "track": 830,
+        "var": "",
+        "file": "DT_Hatred.ogg",
+        "credit": "zts [The Executioner]"
+      },
+      {
+        "track": 831,
+        "var": "",
+        "file": "DT_ParasiticSeed.ogg",
+        "credit": "Brynhildr in the Darkness [BRYNHILDR IN THE DARKNESS -EJECTRO Extended-]"
+      },
+      {
+        "track": 832,
+        "var": "",
+        "file": "DT_VirusParasite.ogg",
+        "credit": "Etrian Odyssey III Super Arrange [Labyrinth VI - The Vengeful God in the Dark Ocean Abyss]"
+      },
+      {
+        "track": 833,
+        "var": "",
+        "file": "DT_DistortedEncounterA.ogg",
+        "credit": "Resonecia [Schmied (bonus track)]"
+      },
+      {
+        "track": 901,
+        "var": "",
+        "file": "DT_EerieFaces.ogg",
+        "credit": "ZUN [A Sacred Lot] (Akyu's Untouched Score)"
+      },
+      {
+        "track": 902,
+        "var": "",
+        "file": "DT_SacredTemple.ogg",
+        "credit": "FMPSG021 -reboot- [SPiCa]"
+      },
+      {
+        "track": 903,
+        "var": "",
+        "file": "DT_CVGhostlyTheatre.ogg",
+        "credit": "Koumajou Densetsu II (Touhouvania 2)"
+      },
+      {
+        "track": 904,
+        "var": "",
+        "file": "DT_MMCityScape.ogg",
+        "credit": "HertzDevil [MEGA ZUN]"
+      },
+      {
+        "track": 905,
+        "var": "",
+        "file": "DT_ForgottenIsles.ogg",
+        "credit": "Powerless [Sky Falls Down]"
+      },
+      {
+        "track": 1001,
+        "var": "",
+        "file": "DT_IFA.ogg",
+        "credit": "Terranigma"
+      },
+      {
+        "track": 1002,
+        "var": "",
+        "file": "DT_IFB.ogg",
+        "credit": "Xenoblade Chronicles [Crisis]"
+      },
+      {
+        "track": 1003,
+        "var": "",
+        "file": "DT_IFC.ogg",
+        "credit": "Ottiki & Charlotte [Theme of the Envoy of the Void]"
+      },
+      {
+        "track": 1004,
+        "var": "",
+        "file": "DT_MonsterRoaming.ogg",
+        "credit": "Donkey Kong Country [Fear Factory (Restored)]"
+      },
+      {
+        "track": 1010,
+        "var": "",
+        "file": "DT_FortressSkyguard.ogg",
+        "credit": "ZUN [Infinite Being] (Akyu's Untouched Score)"
+      },
+      {
+        "track": 1012,
+        "var": "",
+        "file": "DT_Trivia.ogg",
+        "credit": "Fuurin Borukeino [Let's chu?chu]"
+      },
+      {
+        "track": 1013,
+        "var": "",
+        "file": "DT_TD.ogg",
+        "credit": "Koumajou Densetsu II (Touhouvania 2)"
+      },
+      {
+        "track": 1014,
+        "var": "",
+        "file": "DT_DarkAmbience.ogg",
+        "credit": "Terranigma"
+      },
+      {
+        "track": 1015,
+        "var": "",
+        "file": "DT_WarshipA.ogg",
+        "credit": "DoDonPachi SaiDaiOuJou [Hibi (Stage 4)]"
+      },
+      {
+        "track": 1016,
+        "var": "",
+        "file": "DT_WarshipB.ogg",
+        "credit": "Touhou arrange [Bokura no Hisoutensoku]"
+      },
+      {
+        "track": 1018,
+        "var": "",
+        "file": "DT_IntendedPattern.ogg",
+        "credit": "ZUN [The Last Judgement] (Akyu's Untouched Score)"
+      },
+      {
+        "track": 1019,
+        "var": "",
+        "file": "DT_TheInstruments.ogg",
+        "credit": "Touhou arrange [Taishi's theme]"
+      },
+      {
+        "track": 1020,
+        "var": "",
+        "file": "DT_LastRun.ogg",
+        "credit": "Ottiki & Charlotte [To My Beloved Daughters]"
+      },
+      {
+        "track": 1022,
+        "var": "",
+        "file": "DT_NoneChosen.ogg",
+        "credit": "Shippo [Toutatsuten]"
+      },
+      {
+        "track": 1023,
+        "var": "",
+        "file": "DT_BossGallery.ogg",
+        "credit": "Labyrinth of Touhou [wenkamui]"
+      },
+      {
+        "track": 1024,
+        "var": "",
+        "file": "DT_PttT.ogg",
+        "credit": "Kotaro Shirane, Tanawo [Wait for Me]"
+      },
+      {
+        "track": 1026,
+        "var": "",
+        "file": "DT_PtHA.ogg",
+        "credit": "Xenoblade Chronicles [The Spiritual World]"
+      },
+      {
+        "track": 1027,
+        "var": "",
+        "file": "DT_Scrolling.ogg",
+        "credit": "Umeboshi Chazuke + Kuroma [Omoide Note]"
+      },
+      {
+        "track": 1028,
+        "var": "msc_Ultimate",
+        "file": "DT_Ultimate.ogg",
+        "credit": "Jason Becker [Altitudes]"
+      },
+      {
+        "track": 1029,
+        "var": "msc_FinalCurse",
+        "file": "DT_FinalCurse.ogg",
+        "credit": "OverClocked ReMix [The Unholy Wars (Fighting of the Spirit)] (Sixto Sounds, Dhsu)"
+      },
+      {
+        "track": 2000,
+        "var": "msc_Sanctuary",
+        "file": "DT_Sanctuary.ogg",
+        "credit": ""
+      },
+      {
+        "track": 2001,
+        "var": "msc_Gallery",
+        "file": "DT_Gallery.ogg",
+        "credit": "Labyrinth of Touhou [Sangaku Kyuushi Butai]"
+      },
+      {
+        "track": 2010,
+        "var": "msc_WWJD_zero",
+        "file": "DT_WWJD_zero.ogg",
+        "credit": ""
+      },
+      {
+        "track": 2011,
+        "var": "msc_WWJD_one",
+        "file": "DT_WWJD_one.ogg",
+        "credit": ""
+      },
+      {
+        "track": 2012,
+        "var": "msc_WWJD_two",
+        "file": "DT_WWJD_two.ogg",
+        "credit": ""
+      },
+      {
+        "track": 2013,
+        "var": "msc_WWJD_three",
+        "file": "DT_WWJD_three.ogg",
+        "credit": ""
+      },
+      {
+        "track": 2014,
+        "var": "msc_WWJD_four",
+        "file": "DT_WWJD_four.ogg",
+        "credit": ""
+      },
+      {
+        "track": 2015,
+        "var": "msc_WWJD_five",
+        "file": "DT_WWJD_five.ogg",
+        "credit": ""
+      },
+      {
+        "track": 2100,
+        "var": "msc_Hhub",
+        "file": "DT_Hhub.ogg",
+        "credit": "Jason Becker [Blue]"
+      },
+      {
+        "track": 2101,
+        "var": "msc_H_a",
+        "file": "DT_H_a.ogg",
+        "credit": "Pop Candy Wonderland [Magical Musical Master]"
+      },
+      {
+        "track": 2102,
+        "var": "msc_H_b",
+        "file": "DT_H_b.ogg",
+        "credit": "Pop Candy Wonderland [Magical Musical Master]"
+      },
+      {
+        "track": 2103,
+        "var": "msc_H_c",
+        "file": "DT_H_c.ogg",
+        "credit": ""
+      },
+      {
+        "track": 2104,
+        "var": "msc_H_d",
+        "file": "DT_H_d.ogg",
+        "credit": "Ethosphere [Shadow Walker]"
+      },
+      {
+        "track": 2105,
+        "var": "msc_H_e",
+        "file": "DT_H_e.ogg",
+        "credit": "Ethosphere [Shadow Walker]"
+      },
+      {
+        "track": 2106,
+        "var": "msc_H_f",
+        "file": "DT_H_f.ogg",
+        "credit": "Bakemonogatari [Bakarorito]"
+      },
+      {
+        "track": 2107,
+        "var": "msc_H_g",
+        "file": "DT_H_g.ogg",
+        "credit": "CRYSTAR [Chaos]"
+      },
+      {
+        "track": 2108,
+        "var": "msc_H_h",
+        "file": "DT_H_h.ogg",
+        "credit": "Donkey Kong Country [Ice Cave Chant (Restored)]"
+      },
+      {
+        "track": 2110,
+        "var": "msc_H_R",
+        "file": "DT_H_R.ogg",
+        "credit": ""
+      },
+      {
+        "track": 3001,
+        "var": "msc_ns01",
+        "file": "DT_ns01.ogg",
+        "credit": "[Water and Water and Water Water]"
+      },
+      {
+        "track": 3002,
+        "var": "msc_ns02",
+        "file": "DT_ns02.ogg",
+        "credit": ""
+      },
+      {
+        "track": 3003,
+        "var": "msc_ns03",
+        "file": "DT_ns03.ogg",
+        "credit": ""
+      },
+      {
+        "track": 3004,
+        "var": "msc_ns04",
+        "file": "DT_ns04.ogg",
+        "credit": ""
+      },
+      {
+        "track": 3005,
+        "var": "msc_ns05",
+        "file": "DT_ns05.ogg",
+        "credit": ""
+      },
+      {
+        "track": 3006,
+        "var": "msc_ns06",
+        "file": "DT_ns06.ogg",
+        "credit": ""
+      },
+      {
+        "track": 3007,
+        "var": "msc_ns07",
+        "file": "DT_ns07.ogg",
+        "credit": ""
+      },
+      {
+        "track": 3008,
+        "var": "msc_ns08",
+        "file": "DT_ns08.ogg",
+        "credit": ""
+      },
+      {
+        "track": 3009,
+        "var": "msc_ns09",
+        "file": "DT_ns09.ogg",
+        "credit": ""
+      },
+      {
+        "track": 3010,
+        "var": "msc_ns10",
+        "file": "DT_ns10.ogg",
+        "credit": ""
+      },
+      {
+        "track": 9000,
+        "var": "",
+        "file": "DT_TitleMenu.ogg",
+        "credit": "Melodic Taste [Kurumaisu no Mirai Uchuu]"
+      }
+    ]
+  },
+  "patch_rules": {
+    "rIntro": {
+      "skip": true,
+      "why": "the first room, which runs before the mods are loaded: its only change (the window's title) is in the init hook"
+    },
+    "rBT_HUB": {
+      "room_code": "locationCheck(34)\nglobal.mapTeleport=0\nglobal.rbSwitchBlueOn=false\n//SS_SetSoundFreq(global.msc_MarioWorld,22050)\nscrMusicFreq(global.msc_MarioWorld,22050) //remastered music change: scaled to the file's own sample rate (scrMusicFreq)\n\nglobal.currentBoss=\"\"; global.bossTrack=0\nglobal.partySplit=0\nabilSetRemove(0)\n/*\nif global.BTB_ZephSecret=0 //If player finds the secret morph ball room in NZZ's third room\n{\n  tile_layer_hide(1000010)\n}\n\nif global.bossGalleryTime[64]=99999 and global.bossGalleryHitsN[64]=99999 //If player beats WEX\n{\n  tile_layer_hide(1000020)\n}\n*/\nvar tempMplay;\ntempMplay=findMusic(2100) //spsp ns\nplayMusic(tempMplay,0,0)",
+      "why_room_code": "Distorted's room code (it shows all of the hub and plays its own music), with DT3+'s music frequency line"
+    }
+  },
+  "spawner_cleanup": {
+    "oBallChainControl": "var i;\nfor(i=1;i<=maxChain;i+=1) {with (chain[i]) {instance_change(global.modMarkObj,false)}}\nwith (ball) {instance_change(global.modMarkObj,false)}",
+    "oCHAOS_Seeker": "with (myRange) {instance_change(global.modMarkObj,false)}\nwith (myDoorA) {instance_change(global.modMarkObj,false)}\nwith (myDoorB) {instance_change(global.modMarkObj,false)}",
+    "oMetRipper": "with (myGrapplePoint) {instance_change(global.modMarkObj,false)}",
+    "oEventBarrier": "if variable_local_exists(\"myBikeDestroy\") {with (myBikeDestroy) {instance_change(global.modMarkObj,false)}}",
+    "oHammaHammaMain": "with (leftBall) {instance_change(global.modMarkObj,false)}\nwith (rightBall) {instance_change(global.modMarkObj,false)}",
+    "oCV_SwordKnight": "with (mySword) {instance_change(global.modMarkObj,false)}",
+    "oSpinGuard": "var i;\nfor(i=0;i<2;i+=1) {with (shieldPart[i]) {instance_change(global.modMarkObj,false)}}",
+    "oRotatingChainDevice": "var i;\nfor(i=0;i<4;i+=1) {with (myGrapplePoints[i]) {instance_change(global.modMarkObj,false)}}",
+    "oSpikePlatformA": "with (spikeTFol) {instance_change(global.modMarkObj,false)}",
+    "oCV_PeepingEye": "var i;\nfor(i=0;i<5;i+=1) {with (eyePart[i]) {instance_change(global.modMarkObj,false)}}\nwith (eyeTail) {instance_change(global.modMarkObj,false)}",
+    "oFacCamera": "with (myInfectSpot) {instance_change(global.modMarkObj,false)}",
+    "oRailChainDevice": "var i;\nfor(i=0;i<5;i+=1) {with (myGrapplePoints[i]) {instance_change(global.modMarkObj,false)}}",
+    "oWS_ScrewWarTurret": "with (myCollision) {instance_change(global.modMarkObj,false)}",
+    "oPlayerIdle": "with (idleShield) {instance_change(global.modMarkObj,false)}",
+    "oGateF_DoorSwitch": "with (myDoor) {instance_change(global.modMarkObj,false)}",
+    "oJunkBot": "with (myInfectSpot) {instance_change(global.modMarkObj,false)}",
+    "oChaosElevator": "with (myCeiling) {instance_change(global.modMarkObj,false)}\nwith (myLeft) {instance_change(global.modMarkObj,false)}\nwith (myRight) {instance_change(global.modMarkObj,false)}",
+    "oJunkyardCar": "with (mySolid) {instance_change(global.modMarkObj,false)}"
+  },
+  "_about_spawner_cleanup": "a patch takes an instance out without its destroy event (it was never there): what its create event made goes with it, by this code run in it first (the variables it keeps them in)",
+  "instance_code": {
+    "rBT_HUB 470554": "bShowArrow=true\nexitType=0\nnewMapX=128\nnewMapY=96\ntoRoom=rYellowRide",
+    "rBT_HUB 470555": "stringToShow=\"A room with a yellow hex ring that follows you. Neil liked the thing at the end in the previous distorted DLC.\"\nsignSize=3",
+    "rBT_HUB 470553": "image_xscale=4\n//if global.bossGalleryTime[64]=99999 {instance_destroy()}",
+    "rCCity_NB_S1a 162383": "/*maxDoor=1\ntargetDoor[0]=(162382)\nimage_index=2*/\nmaxDoor=1\ntargetDoor[0]=(GID(161461)); idsForTargetDoors[0]=161461",
+    "rGame6_EarthB 320420": "maxResetObj=3\nmyObj[0]=(GID(320208)); objCache[0]=320208\nmyObj[1]=(GID(320209)); objCache[1]=320209\n//myObj[2]=(320210)\nmyObj[2]=(GID(320211)); objCache[2]=320211",
+    "rGame6_FireExtra 326242": "maxResetObj=1\nmyObj[0]=(GID(326086)); objCache[0]=326086",
+    "rMega4_StormD 218634": "bFollow=0\nimage_angle=180; y-=16",
+    "rMega4_StormD 218635": "bFollow=0",
+    "rMega4_StormD 218636": "bFollow=0\nimage_angle=180; y-=16",
+    "rMountTemple_F 207488": "fanMax=2\nfanID[0]=(GID(207486))\nfanID[1]=(GID(207487))\n//fanID[2]=(207490)\nimage_angle=90"
+  },
+  "_about_instance_code": "creation code merged by hand (the original's, DT3+'s and Distorted's changed the same lines): Distorted's, with DT3+'s GID() lookups and the ids its objects keep to look them up again",
+  "_about_left_out": "Distorted's swap type 4 (Thematic: Link with Belmont, Mega Man with Samus) is left out: DT3+'s own swap type 4, Standard (Fixed), links the sets the same way (scrSwapLinkedSet), and its changes to characterStepEvent and pSwapAbility were only that. DT3+ already has Distorted's Restart Music on Death option (optMLoop), so menuOptions isn't replaced"
+}

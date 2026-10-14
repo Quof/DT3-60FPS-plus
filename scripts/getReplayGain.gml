@@ -19,6 +19,7 @@ return value here instead of leaving it uncapped.
 var dB, refOffset;
 //refOffset = -1; //adjust decibles with positive or negative numbers here
 refOffset = 1.5; //adjust decibles with positive or negative numbers here //remastered music change: 2.5dB louder (all music was about 25% too quiet: 2.5dB is what the music slider does between 75% and 100%)
+//mods change (added): scrModMusicGain adds the same offset to a mod's track's gain: keep them the same
 switch (argument0)
 {
   case 1: dB=-5.12; break; //DT_Main1

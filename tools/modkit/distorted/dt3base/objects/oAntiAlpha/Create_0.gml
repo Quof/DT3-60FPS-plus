@@ -1,0 +1,40 @@
+event_inherited()
+makeActive()
+setCollisionBounds(-20,-40,20,-1)
+bCanDealDamage=false; bCanTakeDamage=false
+baseColor=make_color_rgb(200,255,200)
+image_blend=baseColor
+image_speed=0
+
+//Enemy base statistics
+eName="Antipathy Alpha"
+eLevel=31
+maxLife=20000
+life=maxLife
+atkPower=9
+stunResist=50
+bIsBoss=true
+bNoBonus=true
+dieEffect=0
+bossProgress=0
+activateBoss=0
+//--------------------
+//-- Attack Data --
+atkNum=0 //current attack in string
+atkMax=2 //max attacks in a string
+waitTime=30
+waitDelay=80 //idle time between attack strings
+actTime=0 //progress in an action
+actCheck=0 //choosing an action
+
+runAcc=2
+jumpNum=0
+imageEffect=0
+//--------------------
+
+//Misc Data
+xCenter=480
+roomSpan=160
+yGround=272
+
+deathAnim=0

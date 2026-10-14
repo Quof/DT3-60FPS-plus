@@ -1,0 +1,216 @@
+if global.gamePaused=false
+{
+  if activateBoss=1
+  {
+    oBotDoorA.bFunctional=1
+    oCh5CC_CompScr.sequence=1
+    oGlobalEvent.enemyCount=1
+    bActive=true
+    bShowHealthBar=true
+    showBossHP=instance_create(0,0,oBossLifeDisplay); showBossHP.bossID=id; showBossHP.type=0
+    activateBoss=2
+  }
+
+  if bActive=true and life>0
+  {
+    for(i=0;i<3;i+=1) //---------- Create turrets ----------
+    {
+      if !instance_exists(atkTurret[i])
+      {
+        turretSummon[i]+=1*gDeltaTime
+        if turretSummon[i]=turretDelay
+        {
+          var tNX,tNY,tEffect;
+          if i=0 {tNX=416; tNY=192}
+          else if i=1 {tNX=128; tNY=192}
+          else if i=2 {tNX=400; tNY=240}
+          tEffect=instance_create(tNX,tNY,oEffect)
+          tEffect.sprite_index=sEfEnemyAppear; tEffect.image_speed=0.34
+          tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+        }
+        else if turretSummon[i]>=turretDelay+30
+        {
+          if i=0
+          {
+            if false          //spsp
+            {
+            atkTurret[0]=instance_create(416,192,oControlVirusTurret)
+            atkTurret[0].image_xscale=-1
+          }
+            else
+            {
+              atkTurret[0]=instance_create(416,192,oBombDropper)
+            }
+          }
+          else if i=1
+            if false              //spsp
+            {
+            atkTurret[1]=instance_create(128,192,oControlVirusTurret)
+            }
+            else
+            {
+              atkTurret[1]=instance_create(144,192,oEggBot)
+            }
+          else if i=2
+          {
+            atkTurret[2]=instance_create(400,240,oControlVirusTurret)
+            atkTurret[2].image_xscale=-1
+          }
+
+          var tEffect;
+          for(ii=0;ii<4;ii+=1)
+          {
+            tEffect=instance_create(atkTurret[i].x-12+random(8),atkTurret[i].y-12+random(24),oEffect)
+            tEffect.sprite_index=sSamusMissileEffect
+            tEffect.image_xscale=1.5; tEffect.image_yscale=1.5; tEffect.image_speed=0.75
+            tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+          }
+          turretSummon[i]=0
+        }
+      }
+    }
+
+    //---------- Create laser bots ----------
+    laserSummon+=1*gDeltaTime
+    if laserSummon=laserDelay {playSound(global.snd_Alert,0,0.96,8000)}
+    if laserSummon>=1020
+    {
+      with oControlVirusLaserBot
+        instance_destroy()
+
+      for(i=0;i<5;i+=1)
+      {
+        var tEffect;
+        tEffect=instance_create(176+(i*48),176,oEffect)
+        tEffect.sprite_index=sMMchargeComplete; tEffect.image_xscale=1.5; tEffect.image_yscale=1.5
+        tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+        instance_create(176+(i*48),176,oControlVirusLaserBot)
+      }
+      lineA_Length=0
+      lineB_Length=0
+      laserSummon=0
+    }
+
+    if !instance_exists(oWrenchBlock) //---------- Create wrench blocks ----------
+    {
+      wrenchSummon+=1*gDeltaTime
+      if bossProgress!=3
+      {
+        if wrenchSummon=wrenchDelay
+        {
+          var tNX,tNY,tEffect;
+          tNX=400; tNY=272
+          tEffect=instance_create(tNX,tNY,oEffect)
+          tEffect.sprite_index=sEfEnemyAppear; tEffect.image_speed=0.34
+          tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+        }
+        else if wrenchSummon>=wrenchDelay+(30)
+        {
+          instance_create(384,256,oWrenchBlock)
+          var tEffect;
+          for(i=0;i<4;i+=1)
+          {
+            tEffect=instance_create(oWrenchBlock.x+random(32),oWrenchBlock.y+random(32),oEffect)
+            tEffect.sprite_index=sSamusMissileEffect
+            tEffect.image_xscale=1.5; tEffect.image_yscale=1.5; tEffect.image_speed=0.75
+            tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+          }
+          wrenchSummon=0
+        }
+      }
+      else
+      {
+        if wrenchSummon=1
+        {
+          for(i=0;i<4;i+=1)
+          {
+            tEffect=instance_create(304+(i*32),272,oEffect)
+            tEffect.sprite_index=sEfEnemyAppear; tEffect.image_speed=0.34
+            tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+          }
+        }
+        else if wrenchSummon>=30
+        {
+          for(i=0;i<4;i+=1)
+          {
+            instance_create(288+(i*32),256,oWrenchBlock)
+          }
+          wrenchSummon=0
+          bossProgress+=1
+        }
+      }
+    }
+
+    //---------- Boss Difficulty Curve ----------
+    if lifePercent<=0.75 and lifePercent>=0.51 and bossProgress=0
+    {
+      turretDelay-=20
+      laserDelay-=10
+      wrenchDelay-=15
+      bossProgress+=1
+    }
+    else if lifePercent<=0.5 and lifePercent>=0.26 and bossProgress=1
+    {
+      turretDelay-=20
+      laserDelay-=10
+      wrenchDelay-=15
+      bossProgress+=1
+    }
+    else if lifePercent<=0.25 and lifePercent>=0 and bossProgress=2
+    {
+      turretDelay-=20
+      laserDelay-=10
+      wrenchDelay-=15
+      var tFlash;
+      tFlash=instance_create(0,0,oScreenFlash)
+      tFlash.fadeSpeed=0.25
+      with oPincherBot {instance_destroy()}
+      with oWrenchBlock {instance_destroy()}
+      wrenchSummon=0
+      bossProgress+=1
+    }
+  }
+  else if life<=0 //Defeat animation
+  {
+    deathAnim+=1*gDeltaTime
+    if deathAnim=1
+    {
+      with oControlVirusTurret {instance_destroy()}
+      with oControlVirusLaserBot {instance_destroy()}
+      with oPassBullet {instance_destroy()}
+      with oPincherBot {instance_destroy()}
+      with oWrenchBlock {instance_destroy()}
+      oBotDoorA.bFunctional=0
+      if oCh5CC_CompScr.timer>=1000
+      {
+        var tCheckAchieve;
+        tCheckAchieve=string_char_at(global.tokenRecognitions,13)
+        if tCheckAchieve="0"
+        {
+          var tAchievement;
+          tAchievement=instance_create(0,0,oAchievementNotice)
+          tAchievement.myAchievement="Quick Engineer"; tAchievement.checkNum=13
+        }
+      }
+      oCh5CC_CompScr.sequence=2
+    }
+    //if deathAnim mod (5/gDeltaTime)=0
+    if deathAnim mod 5=0 //60fps change: deathAnim already counts 30fps ticks (+=gDeltaTime), so the old divide made the explosions fire every 10 ticks at 60fps and every 20 at 120fps instead of every 5
+    {
+      var tEffect;
+      tEffect=instance_create(x-16+random(32),y-16+random(32),oEffect)
+      tEffect.sprite_index=sRobotExplosion
+      tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+    }
+    if deathAnim>=90
+    {
+      if global.bBossGallery=1
+      {
+        bossRoomTally(9)
+        global.newMapX=2008; global.newMapY=1280; room_goto(rBossGallery)
+      }
+      else {instance_destroy()}
+    }
+  }
+  enemyStepEvent()
+}

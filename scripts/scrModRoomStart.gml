@@ -33,7 +33,8 @@ for(i=0;i<tN;i+=1)
 {
   k=14+i*9
   tC=ds_list_find_value(tInfo,k+8)
-  if tC>=0 {scrModInstCode(tI[i],ds_list_find_value(tInfo,k),tC,tMode)}
+  //if tC>=0 {scrModInstCode(tI[i],ds_list_find_value(tInfo,k),tC,tMode)}
+  if tC>=0 {scrModInstCode(tI[i],ds_list_find_value(tInfo,k),tC,tMode,1)} //mods change: the code is kept as text (scrModRoomRead)
 }
 //backgrounds stretched to fill the room
 for(i=0;i<8;i+=1)
@@ -44,4 +45,5 @@ for(i=0;i<8;i+=1)
     background_yscale[i]=room_height/background_get_height(background_index[i])
   }
 }
-scrModRun(ds_list_find_value(tInfo,2),tMode,0,0)
+//scrModRun(ds_list_find_value(tInfo,2),tMode,0,0)
+scrModRunText(ds_list_find_value(tInfo,2),tMode) //mods change: kept as text (scrModRoomRead)

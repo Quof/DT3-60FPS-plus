@@ -7,16 +7,21 @@ own for that moment (and put back after), so the instance keeps them and its cre
 code destroys it, it stays destroyed (the placeholder's destroy event sets modGone): it never becomes the object.
 argument0: the placeholder
 argument1: object
-argument2: creation code (compiled)
+argument2: creation code (compiled, or kept as text: argument4)
 argument3: its scrModRun mode
+argument4: 1 if the code is kept as text (scrModTextAdd, scrModRunText)
 */
-var tObj,tC,tM,s,ma,d,v,so,p,os,om,od,ov,oso,op;
-tObj=argument1; tC=argument2; tM=argument3
+//var tObj,tC,tM,s,ma,d,v,so,p,os,om,od,ov,oso,op;
+var tObj,tC,tM,tTx,s,ma,d,v,so,p,os,om,od,ov,oso,op; //mods change: tTx (code kept as text)
+//tObj=argument1; tC=argument2; tM=argument3
+tObj=argument1; tC=argument2; tM=argument3; tTx=argument4 //mods change
 if !instance_exists(argument0) {exit}
 with (argument0)
 {
   modGone=0
-  scrModRun(tC,tM,0,0)
+  //scrModRun(tC,tM,0,0)
+  if tTx {scrModRunText(tC,tM)} //mods change: room and patch code is kept as text
+  else {scrModRun(tC,tM,0,0)}
   if modGone=0 and instance_exists(id)
   {
     s=sprite_index; ma=mask_index; d=depth; v=visible; so=solid; p=persistent

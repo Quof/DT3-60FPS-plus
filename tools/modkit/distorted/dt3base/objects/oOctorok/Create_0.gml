@@ -1,0 +1,26 @@
+event_inherited()
+makeActive()
+setCollisionBounds(-6,-14,6,-1)
+image_speed=0.2
+
+//Enemy base statistics
+eName="Octorok"
+eLevel=7
+maxLife=125
+life=maxLife
+pointWorth=9
+atkPower=4
+resType[1]=5
+resType[2]=4
+baseItemChance=50
+affiliation=2
+hitSound=global.snd_EnemyHitZelda
+dieSound=3
+dieEffect=3
+
+shootTime=0
+shootDelay=55
+
+jeremyText="Stays in one place and hops. Once it reaches the height of it's short hop, it fires off a rock. Some of these even moved around. Ugh, this game gave me nightmares."
+chaoText="Ever noticed how Octoroks are vastly different from game to game a lot of times?"
+devText="The story for DT3 was written right after I finished the writing for DT2. There were a lot of things I wanted to do with DT1, but didn't have the skill to do it, or the game's overall design simply disallowed it. In a way, DT3 is what the first game should have been, at least in my eyes."

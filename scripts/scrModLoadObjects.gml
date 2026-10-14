@@ -6,10 +6,13 @@ object.ini, section [object]: sprite, solid, visible, depth, persistent, parent,
   inherit: the object event_inherited() runs the event of, if not the parent (a 30fps mod's code only)
   block: events (comma separated) the object must not get from its parent; they run inherit's instead
   events: replace (default) or append, for the game's own objects
+  append: for the game's own objects, events (comma separated) that are added after the object's own; the others the
+          mod has replace them (unless events=append)
   legacy: 1 for an object written for 30fps, 0 for one written for DT3+ (default: the mod's own legacy setting)
 argument0: the mod (its place in the mod list)
 */
-var m,tDir,tL,i,j,tName,tObj,tNew,tIni,tPar,tInh,tEvs,tEv,tLeg,tBlock,tBl,tAppend,tCode,tLegObj,tRedef,tT,tKV;
+//var m,tDir,tL,i,j,tName,tObj,tNew,tIni,tPar,tInh,tEvs,tEv,tLeg,tBlock,tBl,tAppend,tCode,tLegObj,tRedef,tT,tKV;
+var m,tDir,tL,i,j,tName,tObj,tNew,tIni,tPar,tInh,tEvs,tEv,tLeg,tBlock,tBl,tAppend,tCode,tLegObj,tRedef,tT,tKV,tAppList; //mods change: tAppList (object.ini append)
 m=argument0
 tDir=global.modDir+global.modFolder[m]+"\"
 tLeg=global.modLegacy[m]
@@ -41,13 +44,15 @@ for(i=0;i<ds_list_size(global.modObjNames[m]);i+=1)
   {
     tT=current_time
     tPar=scrModFind(scrModKVS(tKV,"parent"),"obj")
-    object_set_parent(tObj,tPar)
+    //object_set_parent(tObj,tPar)
+    if tPar!=object_get_parent(tObj) {object_set_parent(tObj,tPar)} //mods change: only when it changes (object_set_parent is slow: see the parents time in mod_log.txt)
     global.modTimeParent+=current_time-tT
   }
   tInh=tPar
   if ds_map_exists(tKV,"inherit") {tInh=scrModFind(scrModKVS(tKV,"inherit"),"obj")}
   tBlock=scrModKVS(tKV,"block")
   tAppend=(scrModKVS(tKV,"events")="append")
+  tAppList=","+string_replace_all(scrModKVS(tKV,"append")," ","")+"," //mods change (added): events added after the object's own (object.ini append)
   tLegObj=scrModKV(tKV,"legacy",tLeg)
   ds_map_destroy(tKV)
   if tLegObj=1 and tNew and !tRedef //(the game's own objects a 30fps mod changes keep running as they do; only the mod's events are 30fps)
@@ -64,7 +69,8 @@ for(i=0;i<ds_list_size(global.modObjNames[m]);i+=1)
     tEv=ds_list_find_value(tEvs,j)
     if !scrModEvent(tEv) {scrModLog("  ERROR: "+tName+": not an event: "+tEv); continue}
     tT=current_time
-    if (!tNew or tRedef) and !tAppend {object_event_clear(tObj,global.modEvType,global.modEvNum)}
+    //if (!tNew or tRedef) and !tAppend {object_event_clear(tObj,global.modEvType,global.modEvNum)}
+    if (!tNew or tRedef) and !tAppend and string_pos(","+tEv+",",tAppList)=0 {object_event_clear(tObj,global.modEvType,global.modEvNum)} //mods change: not an event object.ini's append names
     global.modTimeClear+=current_time-tT
     scrModAddEvent(tObj,global.modEvType,global.modEvNum,scrModReadFile(tDir+"objects\"+tName+"\"+tEv+".gml"),tLegObj,tInh,tName+" "+tEv)
   }

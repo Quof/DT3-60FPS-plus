@@ -1,4 +1,5 @@
 //This script allows the player to jump
+if global.modOvr[pMoveJump]>=0 {var __n; __n=0; repeat (argument_count) {global.modArg[__n]=argument[__n]; __n+=1}; return scrModOverride(pMoveJump,argument_count)} //mods change (added): a mod's own version of this script runs instead (scrModOverride)
 
 idleTime=0
 if grappleState=0 {busterAnimStay=0}

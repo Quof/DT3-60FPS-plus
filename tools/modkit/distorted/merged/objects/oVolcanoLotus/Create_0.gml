@@ -1,0 +1,28 @@
+event_inherited()
+makeActive()
+setCollisionBounds(-15,-14,15,-1)
+image_speed=0
+
+//Enemy base statistics
+eName="Volcano Lotus"
+eLevel=4
+maxLife=140
+if true and (room=rLavaCaveA or room=rLavaCaveB)     //spsp
+{
+    maxLife=14000
+    resType[3]=1
+}
+life=maxLife
+pointWorth=9
+atkPower=3
+resType[2]=4
+resType[5]=4
+baseItemChance=50
+affiliation=1
+
+annoyTime=65
+annoyDelay=90
+
+jeremyText="In case you somehow didn't play Super Mario World, which if you didn't, you should be ashamed of yourself, these guys can't move. However, when you see it start to flash, it's going to annoyingly spew out 4 fire particles, which will slowly fall and will most likely annoy the living hell out of you."
+chaoText="So gross and always so annoying in Super Mario World! They were always in the most inconvenient places for me! Even my brother can't stand these!"
+devText="I'm not gonna lie, I put these things in simply to have them in situations that made the playing space limited. They work incredibly well for things like that."

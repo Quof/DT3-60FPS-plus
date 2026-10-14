@@ -1,0 +1,39 @@
+event_inherited()
+makeActive()
+setCollisionBounds(-16,-76,16,-1)
+image_speed=0.15
+global.hudGame_WeaponEn[0]=global.hudGame_WeaponEn[1]
+
+//Enemy base statistics
+eName="Lv.?? The Stone Golem"
+eLevel=28
+maxLife=6500
+life=maxLife
+atkPower=14
+resType[3]=2
+damageType="ELEMENTAL"
+stunResist=50
+bIsBoss=true
+bNoBonus=true
+affiliation=6
+dieEffect=0
+bossProgress=0
+activateBoss=0
+
+hammerTime=10
+hammerDelay=60
+jumpAtk=0
+rockFall=0
+rockDuration=42
+
+bCanBeBlocked=1
+bParryOpp=0
+blockCost=65
+//--------------------
+
+//Misc Data
+xCenter=416
+yGround=288
+roomSpan=224
+
+deathAnim=0

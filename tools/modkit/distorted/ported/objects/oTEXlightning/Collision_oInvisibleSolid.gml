@@ -1,0 +1,1 @@
+bDestroy=1

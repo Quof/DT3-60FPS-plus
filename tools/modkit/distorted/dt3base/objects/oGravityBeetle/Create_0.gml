@@ -1,0 +1,39 @@
+event_inherited()
+makeActive()
+setCollisionBounds(-21,-45,21,-1)
+image_speed=0
+
+//Enemy base statistics
+eName="Gravity Beetle"
+eLevel=17
+maxLife=3000
+life=maxLife
+atkPower=6
+resType[0]=2
+resType[1]=2
+resType[2]=4
+resType[5]=2
+stunResist=50
+affiliation=4
+bIsBoss=true
+bNoBonus=true
+hitSound=global.snd_EnemyHitMM
+dieEffect=0
+bossProgress=0
+activateBoss=0
+//--------------------
+actionState=0
+atkProg=0
+runAcc=8
+bounceMax=5
+
+specialAttack=0
+specProg=0
+notDashable=0
+
+//Misc Data
+xCenter=240
+yGround=288
+roomSpan=176
+
+deathAnim=0

@@ -1,0 +1,51 @@
+event_inherited()
+image_speed=0
+
+//Enemy base statistics
+eName="Wasp Bot"
+eLevel=15
+maxLife=3400
+life=maxLife
+pointWorth=120
+atkPower=5
+resType[1]=2
+if global.location=29 {resType[2]=4}
+resType[4]=4
+stunResist=12
+baseItemChance=80
+moneyWorth=10
+affiliation=4
+hitSound=global.snd_EnemyHitMM
+dieSound=0
+dieEffect=0
+inactiveDist=room_width*2
+propFrame=0
+propScale=1
+
+currHspd=0
+currVspd=0
+maxHspd=3
+maxVspd=1
+
+missileTime=60
+missileDelay=190
+missileType=0
+missileAmt=0
+
+deathAnim=0
+
+if room=rMega4_SigmaC1 //spsp ns
+{
+    yDist=32
+    resType[0]=1
+    resType[1]=1
+    resType[2]=1
+    resType[3]=1
+    resType[4]=1
+    resType[5]=1
+}
+
+jeremyText="These have two types of missiles. The first is a homing missile which you should be familiar with. The other is a scatter missile. If you watch the exhaust, you can tell when it will fire missiles. Throughout its attack, it will cycle through them. Don't worry about the gun from the original, it seems to have been taken out."
+chaoText="On their own, these things are not much of a problem, but they seem to have a behavior that gives it an affinity for assisting other attack type robots. It also has the wrong name tag, it's supposed to be 'Spycopter'. Hmm, outside of the Gate, these don't have an ELEMENTAL weakness."
+devText="I decided from the start that I would be taking liberties with how enemies work. DT plays out much different than these other games, and the AI needs to change accordingly. Originally, I was going to give the Bees a laser, but decided against it."
+extraInfo="Extremely high stun resist."

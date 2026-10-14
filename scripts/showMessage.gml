@@ -14,6 +14,7 @@ argument6: message box size
 -- 2: Large
 -- 3: Super Size
 */
+if global.modOvr[showMessage]>=0 {var __n; __n=0; repeat (argument_count) {global.modArg[__n]=argument[__n]; __n+=1}; return scrModOverride(showMessage,argument_count)} //mods change (added): a mod's own version of this script runs instead (scrModOverride)
 var tXpos,tYpos,tTextDisplay,tCharTalk,tWindowCol,tWindowAlpha,tWindowSize,tColorShown;
 tXpos=argument0
 tYpos=argument1

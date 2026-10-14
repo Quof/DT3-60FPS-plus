@@ -1,0 +1,36 @@
+event_inherited()
+bDestroyOnDeactivate=true
+inactiveDist=128
+
+//Enemy base statistics
+eName="Metal Wing"
+eLevel=17
+maxLife=80
+life=maxLife
+pointWorth=18
+atkPower=5
+if room=rWarshipZ_B {atkPower=14} //spsp ns
+resType[0]=2
+resType[1]=2
+resType[2]=4
+resType[5]=2
+stunResist=1
+baseItemChance=65
+baseDropIndex=70
+pickupDropMod=10
+moneyWorth=1
+affiliation=4
+hitSound=global.snd_EnemyHitMM
+dieSound=0
+dieEffect=0
+initDir=0
+runAcc=3
+inactiveDist*=1.25
+
+flameFrm=0
+flameAng=0
+bSpotted=0
+
+jeremyText="Oh look, it's another standard one-way moving AI type. It has crappy armor and speed. Heck, they only drop green Internetz too."
+chaoText="It's an enemy that's meant to direct you places. They have a habit of surprising you over gaps."
+devText="The fact that this, Overdrive Ostrich, and Storm Eagle are all birds is actually a coincidence."

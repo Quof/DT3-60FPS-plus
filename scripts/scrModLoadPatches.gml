@@ -1,7 +1,15 @@
 /*
 mods change (added): reads a mod's room patches (patches\<room>\patch.txt, with its code files next to it) and its hooks
 (hooks\<hook>.gml). A patch line names objects and backgrounds as the room editor does and gives code as a file name
-(- for none); see scrModRoomPatch for what each line does. Lines starting with # are comments.
+(- for none); see scrModRoomPatch for what each line does. Lines starting with # are comments. These lines change the
+room itself, here, as the mods load:
+  caption|text                                    its caption (all the rest of the line)
+  roomsize|width|height
+  roombg|n|visible|foreground|background|x|y|htiled|vtiled|hspeed|vspeed    background n (room_set_background)
+  roomcolor|colour|draw                           its background colour (as room.txt has it: red+green*256+blue*65536)
+                                                  and whether it's drawn
+  roomcodeset|code                                its creation code: this replaces it, and runs once the rest of the
+                                                  patch is done (scrModRoomPatch), so the instances it adds are there
 argument0: the mod (its place in the mod list)
 */
 var m,tDir,tLeg,tMode,tRooms,i,tRoom,tRm,tPd,tF,tLine,tP,tKind,tOut,tObj,tCode,tL,tHooks,tH,tIdx;
@@ -34,6 +42,36 @@ for(i=0;i<ds_list_size(tRooms);i+=1)
       tCode=scrModPatchCode(tPd,ds_list_find_value(tP,1),tRoom)
       tOut="roomcode|"+string(tCode)+"|"+string(tMode)
     }
+    //----- mods change (added): lines that change the room itself, now -----
+    else if tKind="caption"
+    {
+      room_set_caption(tRm,string_copy(tLine,9,string_length(tLine)))
+    }
+    else if tKind="roomsize" and ds_list_size(tP)>=3
+    {
+      room_set_width(tRm,real(ds_list_find_value(tP,1)))
+      room_set_height(tRm,real(ds_list_find_value(tP,2)))
+    }
+    else if tKind="roombg" and ds_list_size(tP)>=11
+    {
+      room_set_background(tRm,real(ds_list_find_value(tP,1)),real(ds_list_find_value(tP,2)),real(ds_list_find_value(tP,3)),
+        scrModFind(ds_list_find_value(tP,4),"bg"),real(ds_list_find_value(tP,5)),real(ds_list_find_value(tP,6)),
+        real(ds_list_find_value(tP,7)),real(ds_list_find_value(tP,8)),real(ds_list_find_value(tP,9)),real(ds_list_find_value(tP,10)),1)
+    }
+    else if tKind="roomcolor" and ds_list_size(tP)>=3
+    {
+      room_set_background_color(tRm,real(ds_list_find_value(tP,1)),real(ds_list_find_value(tP,2)))
+    }
+    else if tKind="roomcodeset"
+    {
+      tCode=scrModPatchCode(tPd,ds_list_find_value(tP,1),tRoom)
+      if tRm=room {scrModLog("  ERROR: "+tRoom+" patch: can't replace the creation code of the room the game is in")}
+      else
+      {
+        room_set_code(tRm,"")
+        tOut="roomcodeset|"+string(tCode)+"|"+string(tMode)
+      }
+    }
     else if tKind="tileadd" and ds_list_size(tP)>=9
     {
       tObj=scrModFind(ds_list_find_value(tP,1),"bg")
@@ -56,7 +94,8 @@ for(i=0;i<ds_list_size(tRooms);i+=1)
           tCode=scrModPatchCode(tPd,ds_list_find_value(tP,5),tRoom)
           tOut+="|"+ds_list_find_value(tP,4)+"|"+string(tCode)+"|"+string(tMode)
         }
-        else if tKind="code" and ds_list_size(tP)>=5
+        //else if tKind="code" and ds_list_size(tP)>=5
+        else if (tKind="code" or tKind="precode") and ds_list_size(tP)>=5 //mods change: precode too (scrModRoomPatch)
         {
           tCode=scrModPatchCode(tPd,ds_list_find_value(tP,4),tRoom)
           tOut+="|"+string(tCode)+"|"+string(tMode)

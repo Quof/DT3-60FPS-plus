@@ -1,0 +1,62 @@
+event_inherited()
+bCanDealDamage=false
+bCanTakeDamage=false
+image_speed=0
+visible=0
+bump=0
+waterFrm=0
+
+//Enemy base statistics
+eName="Dead Hand"
+eLevel=6
+maxLife=4000
+life=maxLife
+atkPower=4
+stunResist=50
+affiliation=2
+bIsBoss=true
+bNoBonus=true
+dieEffect=0
+bossProgress=0
+activateBoss=0
+hitSound=global.snd_EnemyHitZelda
+
+atkSequence=0
+atkTime=0
+atkDuration=180
+atkCycle=0
+bPoeActive=0
+
+xSpd=0.5
+ySpd=0
+fireRate=12
+bCanSummonHands=0
+baseRate=90
+handRate=baseRate
+handTime=70
+handSpawnX=240
+handTimeout=220
+maxHands=6
+handInterval=24 //spsp ns
+
+bBigHands=0
+bigHandScl=0
+
+xCenter=240
+yGround=288
+yCeiling=96
+roomSpan=144
+
+if room=rDCS_N
+{
+    atkPower=12; maxLife=8000; life=maxLife
+    xCenter=288; yGround=288; yCeiling=96; roomSpan=224
+    maxHands=8; handInterval=72
+} //spsp ns
+
+deathAnim=0
+
+jeremyText="The first thing it does is rise from the ground, and will then slowly creep toward you. If you're on one of the platforms while it's in the ground, it may launch itself out of the ground at you. The other thing to watch for are the hands it summons. There is a limit to the number it can summon, but I wouldn't let them pile up too much."
+chaoText="Dead Hand was a miniboss in Ocarina of Time found at the bottom of the well in Kakariko Village and in the Shadow Temple. Oh yeah, I did see a weakness that I don't think Jeremy found. When it comes from the ceiling periodically, it's weak to your arrows. AND, when it launches out of the ground, it's weak to your sword while it's off the ground!"
+//devText="This is actually the first boss encounter ever made for this engine. While the Displaced Cyborg from DT1 was made before DT was concieved, this one was the first test of a more complex enemy than just move toward player and/or fire at them. It of course had to be altered somewhat to make it work for DT's faster paced gameplay."
+devText="This is actually the first boss encounter ever made for this engine. While the Displaced Cyborg from DT1 was made before DT was conceived, this one was the first test of a more complex enemy than just move toward player and/or fire at them. It of course had to be altered somewhat to make it work for DT's faster paced gameplay." //typo fix

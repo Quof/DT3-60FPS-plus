@@ -1,0 +1,72 @@
+if global.gamePaused=false
+{
+  if bActive=true and life>0
+  {
+    if myProg=0
+    {
+      if image_alpha<1 {image_alpha+=0.05*gDeltaTime}
+      if image_xscale>1 {image_xscale-=0.05*gDeltaTime; image_yscale-=0.05*gDeltaTime}
+      progTime+=1*gDeltaTime
+      if progTime=25
+      {
+        var tEffect;
+        tEffect=instance_create(x,y,oEffect)
+        tEffect.sprite_index=sMMchargeComplete; tEffect.image_xscale=3; tEffect.image_yscale=3
+        tEffect.followID=-1; tEffect.newBlend=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+        bCanTakeDamage=true; bCanDealDamage=true
+      }
+      else if progTime>=30
+      {
+        oDecimator.bCanTakeDamage=false; oDecimator.bCanDealDamage=false
+        oDecimator.bWave=1
+        progTime=0; myProg+=1
+      }
+    }
+    else if myProg=1
+    {
+      followInstance()
+      shotTime+=1*gDeltaTime
+      if shotTime=shotDelay {shotDir=0; warnRad=96; shotTime=1000}
+      //else if shotTime>=1001 and shotTime<=1048 {warnRad-=2*gDeltaTime}
+      else if shotTime>1000 and shotTime<=1048 {warnRad-=2*gDeltaTime} //60fps change: includes every frame of tick 1001, so the warning circle shrinks all the way
+      //else if shotTime>=1050 and shotTime<=1120 and shotTime mod 2 = 0 //spsp ns new condition
+      else if shotTime>1049 and shotTime<=1120 and frac(shotTime)=0 and shotTime mod 2=0 //60fps change: a shot pair every other 30fps tick, counted from shotTime itself (spsp ns new condition)
+      {
+        playSound(global.snd_CShotB,0,0.9,60000)
+        var tNewAttack;
+        shotDir+=8
+        tNewAttack=instance_create(x,y,oPassBullet)
+        tNewAttack.sprite_index=sDeci_SmallLaser; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
+        tNewAttack.decayTime=-100; tNewAttack._direction=shotDir
+        tNewAttack=instance_create(x,y,oPassBulletRed)
+        tNewAttack.sprite_index=sDeci_SmallLaserRed; tNewAttack.atkPower=atkPower; tNewAttack.bulletSpeed=5
+        tNewAttack.decayTime=-100; tNewAttack._direction=shotDir+180
+      }
+      else if shotTime>=1121 {shotTime=0}
+    }
+
+    if checkHP=0
+    {
+      if lifePercent<=0.75
+      {
+        resType[0]=2
+        checkHP=1
+      }
+    }
+  }
+  else if life<=0
+  {
+    deathAnim+=1*gDeltaTime
+    if deathAnim mod 4=0
+    {
+      if deathAnim mod 8=0 {playSound(global.snd_HardHit1,0,0.9,1)}
+      tEffect=instance_create(x+random_range(-30,30),y+random_range(-18,18),oEffect)
+      tEffect.sprite_index=sRobotExplosion; tEffect.image_speed=0.33
+      tEffect.image_alpha=0.5+(image_alpha/3)
+      tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+    }
+    image_alpha-=0.04*gDeltaTime
+    if image_alpha<0 {instance_destroy()}
+  }
+  enemyStepEvent()
+}

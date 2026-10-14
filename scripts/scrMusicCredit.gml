@@ -5,6 +5,9 @@ pages. The jukebox (oJukeboxMenu) shows it for the track playing, and the pause 
 right. "" if there's none.
 argument0: the track's findMusic number (9000: the title music)
 */
+var tModCredit;
+tModCredit=scrModMusicCredit(argument0) //mods change (added): a mod's version of the track plays instead (findMusic): its credit
+if tModCredit!="" {return tModCredit}
 switch (argument0)
 {
   case 9000: return "XayberOptix [Heroic Kingdom]";
@@ -147,4 +150,5 @@ switch (argument0)
   case 1027: return "Wild Arms [Adlehyde Castle]";
 }
 //return "";
-return scrModMusicCredit(argument0); //mods change: a mod's track's credit (mod.ini [music]), or ""
+//return scrModMusicCredit(argument0); //mods change: a mod's track's credit (mod.ini [music]), or ""
+return ""; //mods change: (a mod's track's credit: at the top)

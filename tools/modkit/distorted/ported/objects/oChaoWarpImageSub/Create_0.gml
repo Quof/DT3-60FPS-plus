@@ -1,0 +1,9 @@
+speedON=10
+speedOFF=2
+scale=1
+image_xscale=scale
+image_yscale=scale
+alphaON=0.8
+alphaOFF=0.5
+image_alpha=alphaOFF
+state=1

@@ -1,0 +1,5 @@
+draw_set_color(image_blend)
+draw_set_alpha(innerAlpha)
+//draw_set_font(fnt_Swap)
+//draw_set_alpha(0.9)
+if room!=rCh21_WarshipSkies {draw_rectangle(x,y,x+zoneWidth-1,y+zoneHeight-1,0)}

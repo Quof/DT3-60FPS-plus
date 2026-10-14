@@ -1,0 +1,313 @@
+if global.gamePaused=false
+{
+  if activateBoss=1
+  {
+    oGlobalEvent.enemyCount=1
+    bActive=true
+    bShowHealthBar=true
+    showBossHP=instance_create(0,0,oBossLifeDisplay); showBossHP.bossID=id; showBossHP.type=1; showBossHP.lifeFill=1000
+    jeremyText="The first thing you probably notice is the red outline on the spiked arms, which means your dash invulnerability does not work for it. Don't forget your dash can also be used for quickly getting out of harm's way though. There's a scatter bomb attack that seems to target the field based on where you are. Finally, he can't be hurt except by a fully charged Buster shot." //spsp ns
+    chaoText="This thing has been heavily modified from its original version by the Virus. It still doesn't move though..."
+    devText="Initially Chapter 7 was where red traps would be introduced, but I decided about half way through its development to move it back to this point. Of course the X-Buster and wall jumping are introduced, but those are easy concepts to grasp. The red traps are scarce and also easy to understand."
+    body.jeremyText=jeremyText; body.chaoText=chaoText; body.devText=devText
+    leftSpike.depth=24; rightSpike.depth=24
+    activateBoss=2
+  }
+
+  if bActive=true and life>0
+  {
+    stepCount+=(pi/60)*gDeltaTime
+    y+=(sin(stepCount))*gDeltaTime
+
+    if specialAttack=0
+    {
+      //-------------------- LEFT ARM ATTACK --------------------
+      spikeLeftTime+=1*gDeltaTime
+      if spikeLeftSeq=0 //Wait time
+      {
+        if spikeLeftTime>=armSpikeDelay
+        {
+          spikeLeftTime=0
+          spikeLeftSeq=1
+        }
+      }
+      else if spikeLeftSeq=1 //Warning
+      {
+        if spikeLeftTime=1
+        {
+          var tEffect;
+          for(i=0;i<16;i+=1)
+          {
+            tEffect=instance_create(leftSpike.x,leftSpike.y,oEffect)
+            tEffect.sprite_index=sMMchargeEffect1; tEffect.direction=i*22.5; tEffect.image_angle=i*45
+            tEffect.speed=4.5; tEffect.friction=0.1; tEffect.image_speed=0.2
+            tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+          }
+        }
+        else if spikeLeftTime>=30
+        {
+          findLeftDir=point_direction(leftSpike.x,leftSpike.y,oPlayer1.x,returnPlayerYCenter())
+          spikeLeftSeq=2
+        }
+      }
+      else if spikeLeftSeq=2 //Attack
+      {
+        leftSpike.x+=armSpd*cos(degtorad(findLeftDir))*gDeltaTime
+        leftSpike.y+=-armSpd*sin(degtorad(findLeftDir))*gDeltaTime
+      }
+      else if spikeLeftSeq>=3 and spikeLeftSeq<=4 //Slight wait before pull back
+      {
+        if spikeLeftTime>=40 {spikeLeftSeq=5}
+      }
+      else if spikeLeftSeq=5 //Pull back
+      {
+        findLeftDir=point_direction(leftSpike.x,leftSpike.y,x-spikeOffsetX,y+spikeOffsetY)
+        leftSpike.x+=armSpd*cos(degtorad(findLeftDir))*gDeltaTime
+        leftSpike.y+=-armSpd*sin(degtorad(findLeftDir))*gDeltaTime
+
+        if point_distance(leftSpike.x,leftSpike.y,x-spikeOffsetX,y+spikeOffsetY)<6
+        {
+          leftSpike.x=x-spikeOffsetX; leftSpike.y=y+spikeOffsetY
+          spikeLeftTime=0
+          spikeLeftSeq=0
+        }
+      }
+
+      //-------------------- RIGHT ARM ATTACK --------------------
+      spikeRightTime+=1*gDeltaTime
+      if spikeRightSeq=0 //Wait time
+      {
+        if spikeRightTime>=armSpikeDelay
+        {
+          spikeRightTime=0
+          spikeRightSeq=1
+        }
+      }
+      else if spikeRightSeq=1 //Warning
+      {
+        if spikeRightTime=1
+        {
+          var tEffect;
+          for(i=0;i<16;i+=1)
+          {
+            tEffect=instance_create(rightSpike.x,rightSpike.y,oEffect)
+            tEffect.sprite_index=sMMchargeEffect1; tEffect.direction=i*22.5; tEffect.image_angle=i*45
+            tEffect.speed=4.5; tEffect.friction=0.1; tEffect.image_speed=0.2
+            tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+          }
+        }
+        else if spikeRightTime>=30
+        {
+          findRightDir=point_direction(rightSpike.x,rightSpike.y,oPlayer1.x,returnPlayerYCenter())
+          spikeRightSeq=2
+        }
+      }
+      else if spikeRightSeq=2 //Attack
+      {
+        rightSpike.x+=armSpd*cos(degtorad(findRightDir))*gDeltaTime
+        rightSpike.y+=-armSpd*sin(degtorad(findRightDir))*gDeltaTime
+      }
+      else if spikeRightSeq>=3 and spikeRightSeq<=4 //Slight wait before pull back
+      {
+        if spikeRightTime>=40 {spikeRightSeq=5}
+      }
+      else if spikeRightSeq=5 //Pull back
+      {
+        findRightDir=point_direction(rightSpike.x,rightSpike.y,x+spikeOffsetX,y+spikeOffsetY)
+        rightSpike.x+=armSpd*cos(degtorad(findRightDir))*gDeltaTime
+        rightSpike.y+=-armSpd*sin(degtorad(findRightDir))*gDeltaTime
+
+        if point_distance(rightSpike.x,rightSpike.y,x+spikeOffsetX,y+spikeOffsetY)<6
+        {
+          rightSpike.x=x+spikeOffsetX; rightSpike.y=y+spikeOffsetY
+          spikeRightTime=0
+          spikeRightSeq=0
+        }
+      }
+
+      //-------------------- ATTACK: SYNC BOMB SPAM --------------------
+      bombSpamTime+=1*gDeltaTime
+      if bombSpamTime>=bombSpamDelay and bombSpamTime<=bombSpamDelay+100 //Wait
+      {
+        bombSpamTime=10000
+      }
+      else if bombSpamTime>=10001 and bombSpamTime<=10040 //Smoke effect
+      {
+        if bombSpamTime mod 4=0
+        {
+          var tEffect;
+          tEffect=instance_create(x-81+random(10),y-63+random(10),oEffect)
+          tEffect.sprite_index=sSamusMissileEffect; tEffect.image_speed=0.2+random(0.1)
+          tEffect.xSpd=random_range(-0.5,0.5); tEffect.ySpd=-2-random(2); tEffect.tDecay=-100
+          tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+          tEffect=instance_create(x+71+random(10),y-63+random(10),oEffect)
+          tEffect.sprite_index=sSamusMissileEffect; tEffect.image_speed=0.2+random(0.1)
+          tEffect.xSpd=random_range(-0.5,0.5); tEffect.ySpd=-2-random(2); tEffect.tDecay=-100
+          tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+        }
+      }
+      else if bombSpamTime=10041 //Launch bombs
+      {
+        playSound(global.snd_BombLaunch,0,1,1)
+        for(i=0;i<5;i+=1)
+        {
+          lBomb[i]=instance_create(x-76,y-58,oPassBullet)
+          lBomb[i].sprite_index=sEnmityBomb; lBomb[i].atkPower=atkPower; lBomb[i].bulletSpeed=7
+          lBomb[i].image_speed=0.33; lBomb[i].decayTime=-100; lBomb[i].damageType="EXPLOSION"
+          lBomb[i]._direction=95+(i*20)
+          rBomb[i]=instance_create(x+76,y-58,oPassBullet)
+          rBomb[i].sprite_index=sEnmityBomb; rBomb[i].atkPower=atkPower; rBomb[i].bulletSpeed=7
+          rBomb[i].image_speed=0.33; rBomb[i].decayTime=-100; rBomb[i].damageType="EXPLOSION"
+          rBomb[i]._direction=85-(i*20)
+        }
+      }
+      else if bombSpamTime=10048 //Stop bombs
+      {
+        for(i=0;i<5;i+=1)
+        {
+          lBomb[i].bulletSpeed=0
+          rBomb[i].bulletSpeed=0
+        }
+      }
+      else if bombSpamTime=10090 //Check player position
+      {
+        if oPlayer1.x>=xCenter-80 and oPlayer1.x<=xCenter+80 {bombSpamTime=11000}
+        else {bombSpamTime=12000}
+        bombCheck=0
+      }
+      else if bombSpamTime>=11000 and bombSpamTime<=11100 //Player is under boss
+      {
+        if bombSpamTime mod 7=0
+        {
+          lBomb[bombCheck].bulletSpeed=7
+          lBomb[bombCheck]._direction=310-(bombCheck*10)
+          rBomb[bombCheck].bulletSpeed=7
+          rBomb[bombCheck]._direction=230+(bombCheck*10)
+          bombCheck+=1
+          if bombCheck=5 {bombSpamTime=0}
+        }
+      }
+      else if bombSpamTime>=12000 and bombSpamTime<=12100 //Player is not under boss
+      {
+        if bombSpamTime mod 7=0
+        {
+          lBomb[bombCheck].bulletSpeed=7
+          lBomb[bombCheck]._direction=280-(bombCheck*15)
+          rBomb[bombCheck].bulletSpeed=7
+          rBomb[bombCheck]._direction=260+(bombCheck*15)
+          bombCheck+=1
+          if bombCheck=5 {bombSpamTime=0}
+        }
+      }
+    }
+
+    //-------------------- UTILITY: WALL SPIKES --------------------
+    if wallSpikes>=1 and wallSpikes<=120
+    {
+      wallSpikes+=1*gDeltaTime
+      if wallSpikes=70
+      {
+        var tEffect;
+        for(i=0;i<16;i+=1)
+        {
+          tEffect=instance_create(56,56+(i*16),oEffect)
+          tEffect.sprite_index=sMMSmokeCloud; tEffect.image_speed=0.25
+          tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+          leftSpikes[i]=instance_create(48,48+(i*16),oStaticSpike)
+          rightSpikes[i]=instance_create(608,48+(i*16),oStaticSpike)
+        }
+      }
+      //else if wallSpikes>=71 and wallSpikes<=118
+      else if wallSpikes>70 and wallSpikes<=118 //60fps change: includes every frame of tick 71, so the wall spikes slide out the full 48px (47.25px at 120fps)
+      {
+        for(i=0;i<16;i+=1)
+        {
+          leftSpikes[i].x+=1*gDeltaTime
+          rightSpikes[i].x-=1*gDeltaTime
+
+          if wallSpikes mod 3=0 //Spike smoke effect
+          {
+            var tEffect;
+            tEffect=instance_create(leftSpikes[i].x+4,leftSpikes[i].y+2+random(12),oEffect)
+            tEffect.sprite_index=sMMSmokeCloud
+            tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+            tEffect=instance_create(rightSpikes[i].x+12,rightSpikes[i].y+2+random(12),oEffect)
+            tEffect.sprite_index=sMMSmokeCloud
+            tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+          }
+        }
+      }
+    }
+    //---------- Boss Difficulty Curve ----------
+    if lifePercent<=0.8 and lifePercent>=0.76 and bossProgress=0
+    {
+      bombSpamDelay-=20
+      armSpikeDelay-=10
+      bossProgress+=1
+    }
+    else if lifePercent<=0.75 and lifePercent>=0.61 and bossProgress=1
+    {
+      //wallSpikes=1 //spsp ns
+      //msgCreate(0,0,"Jeremy","Get away from the walls!",0,0,oMessagePerson,0)
+      //newMessage.fadingTime=70
+      // maybe something else?
+      bossProgress+=1
+    }
+    else if lifePercent<=0.6 and lifePercent>=0.41 and bossProgress=2
+    {
+      bombSpamDelay-=20
+      armSpikeDelay-=10
+      bossProgress+=1
+    }
+    else if lifePercent<=0.4 and lifePercent>=0.21 and bossProgress=3
+    {
+      bombSpamDelay-=20
+      armSpikeDelay-=10
+      bossProgress+=1
+    }
+    else if lifePercent<=0.2 and lifePercent>=0 and bossProgress=4
+    {
+      bombSpamDelay-=30
+      armSpikeDelay-=20
+      bossProgress+=1
+    }
+  }
+  else if life<=0 //Defeat animation
+  {
+    deathAnim+=1*gDeltaTime
+    if deathAnim=1
+    {
+      sprite_index=sMaohGiantBody
+      image_yscale=1
+      with oMaohBody {instance_destroy()}
+      with oEProjectileBase {instance_destroy()}
+      with oAttackBase {instance_destroy()}
+    }
+    //else if deathAnim>=2 and deathAnim<=90
+    else if deathAnim>1 and deathAnim<=90 //60fps change: includes every frame of tick 2, not just its last one
+    {
+      if deathAnim mod 6=0 {playSound(global.snd_BombExplode,0,0.92,1)}
+      if oGame.time mod (3/gDeltaTime)=0
+      {
+        var tEffect;
+        tEffect=instance_create((x-sprite_width/2)+random(sprite_width),(y-sprite_height/2)+random(sprite_height),oEffect)
+        tEffect.sprite_index=sMMExplosion; tEffect.image_speed=0.5
+        tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+      }
+    }
+    else if deathAnim>=91
+    {
+      if global.bBossGallery=1
+      {
+        bossRoomTally(17)
+        global.newMapX=2248; global.newMapY=1024; room_goto(rBossGallery)
+      }
+      else {instance_destroy()}
+    }
+  }
+  enemyStepEvent()
+}
+
+oMaohBody.x=x; oMaohBody.y=y
+if spikeLeftSeq<=1 {leftSpike.x=x-spikeOffsetX; leftSpike.y=y+spikeOffsetY}
+if spikeRightSeq<=1 {rightSpike.x=x+spikeOffsetX; rightSpike.y=y+spikeOffsetY}

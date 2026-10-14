@@ -1,0 +1,51 @@
+//Requires: moveType,moveSpd,turnDelay,turnDegree,sightX,sightY
+event_inherited()
+bActive=true
+
+//Enemy base statistics
+eName="CHAOS Seeker"
+eLevel=32
+maxLife=240
+life=maxLife
+pointWorth=40
+atkPower=16
+stunResist=50
+baseItemChance=70
+affiliation=7
+dieSound=0
+dieEffect=0
+
+alertMode=0
+alertTime=0
+alertNotice=0
+alertNScale=0
+movePause=0
+pointX=0
+pointY=0
+turnTime=0
+scanDegree=turnDegree
+moveMod=1
+boostResist=0
+
+deathAnim=0
+
+_speed=0
+_direction=0
+
+jeremyText="A few things to note. If you damage it or get caught on just the edge of its sight, it'll go into a warning mode and seek out the position you are at the moment the event occurred. If it does see you, it goes into an alert mode and will seek out your current position for about 5 seconds. That timer, however, will reset anytime you're within its sights. Keep in mind it cannot see through walls."
+chaoText="You can tell what mode it's in by the sight color.#Blue: Patrol mode - It's calm.#Yellow: Warn mode - It thinks something is out there.#Red: Alert mode - It knows where its target is and will hunt them down.#Note that every time you deal damage to one, its warn mode speed increases. This sprite is from 'Phantasy Star 4' on the Sega Genesis."
+devText="I made them invulnerable. Enjoy." //spsp ns
+
+myPath=path_add()
+pathTickSpd=0; pathFromX=x; pathFromY=y; pathStepX=0; pathStepY=0; pathStepLeft=0 //60fps change (added): see the End Step
+
+_direction=initDir
+myRange=instance_create(x,y,oCS_Range)
+myRange.ownerID=id
+myRange.image_xscale=sightX
+myRange.image_yscale=sightY
+
+myDoorA=instance_create(xstart-512,0,oSeekerDoor)
+myDoorA.seekerID=id
+myDoorB=instance_create(xstart+512,0,oSeekerDoor)
+myDoorB.seekerID=id

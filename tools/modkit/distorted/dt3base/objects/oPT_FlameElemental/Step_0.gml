@@ -1,0 +1,116 @@
+if global.gamePaused=false
+{
+  if activateBoss=1
+  {
+    oGlobalEvent.enemyCount=1
+    bActive=true
+    bShowHealthBar=true
+    showBossHP=instance_create(0,0,oBossLifeDisplay); showBossHP.bossID=id; showBossHP.type=0
+    jeremyText="This isn't really a boss fight, is it? I mean, it's pretty simple."
+    chaoText="This sprite is from the Sega Genesis game, 'Ghostbusters'."
+    devText="Eh?"
+    activateBoss=2
+  }
+
+  if bActive=true and life>0
+  {
+    if firstSpawn=0
+    {
+      if y>=232 {firstSpawn=1}
+      else {y+=8*gDeltaTime}
+    }
+    else
+    {
+      _speed=1.5
+      _direction+=2*gDeltaTime
+      if oGame.time mod (3/gDeltaTime)=0
+      {
+        if image_xscale=1 {image_xscale=-1}
+        else {image_xscale=1}
+      }
+
+      waitTime+=1*gDeltaTime
+      if waitTime>=40
+      {
+        playSound(global.snd_Flame1,0,0.9,29000)
+        var tNewAttack,tDir;
+        tDir=0
+        atkCycle+=1
+        if atkCycle>=5
+        {
+          for(i=0;i<atkAmt*2;i+=1)
+          {
+            tNewAttack=instance_create(x,y,oPassBullet)
+            tNewAttack.sprite_index=sPT_FE_BigFire; tNewAttack.atkPower=atkPower+1; tNewAttack.decayTime=-100
+            tNewAttack.bCanBeBlocked=1; tNewAttack.blockCost=350; tNewAttack.bParryOpp=1; tNewAttack.damageType="ELEMENTAL"
+            tNewAttack._direction=myDir+tDir; tNewAttack.depth=9; tNewAttack.bulletSpeed=4; tNewAttack.image_speed=0.33
+            tDir+=360/atkAmt
+          }
+          atkCycle=0
+        }
+        else
+        {
+          var tAtkSet;
+          atkChange+=1
+          if atkChange>=8
+          {
+            tAtkSet=atkAmt*3
+            atkChange=0
+          }
+          else {tAtkSet=atkAmt}
+          for(i=0;i<tAtkSet;i+=1)
+          {
+            tNewAttack=instance_create(x,y,oPassBullet)
+            tNewAttack.sprite_index=sPT_FE_Fireball; tNewAttack.atkPower=atkPower; tNewAttack.decayTime=-100
+            tNewAttack.bCanBeBlocked=1; tNewAttack.blockCost=300; tNewAttack.bParryOpp=1; tNewAttack.damageType="ELEMENTAL"
+            tNewAttack._direction=myDir+tDir; tNewAttack.depth=9; tNewAttack.bulletSpeed=6; tNewAttack.image_speed=0.33
+            tDir+=360/tAtkSet
+          }
+        }
+        //myDir+=9*gDeltaTime
+        myDir+=9 //60fps change: back to the original value; this runs once per volley (not every frame), so scaling it made each volley rotate only 2.25 degrees at 120fps (4.5 at 60) instead of 9
+        waitTime=0
+      }
+    }
+
+    //---------- Boss Difficulty Curve ----------
+    if lifePercent<=0.75 and lifePercent>=0.51 and bossProgress=0
+    {
+      bossProgress+=1
+    }
+    else if lifePercent<=0.5 and lifePercent>=0.26 and bossProgress=1
+    {
+      bossProgress+=1
+    }
+    else if lifePercent<=0.25 and lifePercent>=0 and bossProgress=2
+    {
+      bossProgress+=1
+    }
+  }
+  else if life<=0
+  {
+    deathAnim+=1*gDeltaTime
+    if deathAnim mod 8=0 {playSound(global.snd_HardHit1,0,0.9,1)}
+    if gDeltaDoTicks {tEffect=instance_create(x+random_range(-14,14),y+random_range(-28,28),oEffect)
+    tEffect.sprite_index=sDeathFlameA; tEffect.image_speed=0.33
+    tEffect.image_alpha=0.5+(image_alpha/3)
+    tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0}
+    image_alpha-=0.02*gDeltaTime
+    if image_alpha<=0
+    {
+      if global.bBossGallery=1
+      {
+        bossRoomTally(42)
+        global.newMapX=2536; global.newMapY=464; room_goto(rBossGallery)
+      }
+      else
+      {
+        oEvCh15MainA.sceneProgress=1
+        instance_destroy()
+      }
+    }
+  }
+  enemyStepEvent()
+}
+else {_speed=0}
+correctSpeedDirection(self)

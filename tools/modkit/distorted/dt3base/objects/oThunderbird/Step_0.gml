@@ -1,0 +1,182 @@
+if global.gamePaused=false
+{
+  if activateBoss=1
+  {
+    global.recBirdsSeen+=1
+    oGlobalEvent.enemyCount=1
+    bActive=true
+    bShowHealthBar=true
+    showBossHP=instance_create(0,0,oBossLifeDisplay); showBossHP.bossID=id; showBossHP.type=0
+    activateBoss=2
+  }
+
+  if bActive=true and life>0
+  {
+    if bFrameUp=0
+    {
+      animFrame+=0.2*gDeltaTime
+      //if animFrame=3.4 {bFrameUp=1}
+      if animFrame>=3.4-0.001 {bFrameUp=1} //60fps change: >= since adding 0.2*gDeltaTime may not land exactly on 3.4
+    }
+    else if bFrameUp=1
+    {
+      animFrame-=0.2*gDeltaTime
+      //if animFrame=0.6 {bFrameUp=0}
+      if animFrame<=0.6+0.001 {bFrameUp=0} //60fps change: <= (see above)
+    }
+
+    //---------- Movement ----------
+    if xSpd>0 and x>=rmBd_Right //Right side
+    {
+      xSpd*=-1
+      if fastMove>=0
+      {
+        fastMove+=1
+        if fastMove>=2 and fastMove<=9
+        {
+          spdMod=3
+          fastMove=10
+        }
+        else if fastMove>=10
+        {
+          spdMod=1
+          fastMove=0
+        }
+      }
+    }
+    else if xSpd<0 and x<=rmBd_Left //Left side
+    {
+      xSpd*=-1
+      if fastMove>=0
+      {
+        fastMove+=1
+        if fastMove>=2 and fastMove<=9
+        {
+          spdMod=3
+          fastMove=10
+        }
+        else if fastMove>=10
+        {
+          spdMod=1
+          fastMove=0
+        }
+      }
+    }
+    if ySpd>0 and y>=rmBd_Bottom //Bottom side
+    {
+      ySpd*=-1
+    }
+    else if ySpd<0 and y<=rmBd_Top //Top side
+    {
+      ySpd*=-1
+    }
+    x+=xSpd*spdMod*gDeltaTime; y+=ySpd*gDeltaTime
+
+    if spdMod>1
+    {
+      if oGame.time mod (5/gDeltaTime)=0
+      {
+        playSound(global.snd_BombLaunch,0,0.82,44100)
+        tNewAttack=instance_create(x,y,oThunderFireball)
+        tNewAttack.atkPower=atkPower; tNewAttack.xVel=0; tNewAttack.yVel=-4
+        tNewAttack.fireType=0; tNewAttack.sprite_index=sFireBroBlueFire
+      }
+    }
+
+    //---------- Normal Attack: Fireball ----------
+    atkTime+=1*gDeltaTime
+    if atkTime mod atkDelay=0 //Spew fireballs
+    {
+      var tNewAttack,tDistCheck;
+      tDistCheck=point_distance(x,0,oPlayer1.x,0)/48*atkDir
+      if atkDir=1 {atkDir=-1}
+      else {atkDir=1}
+      if bossProgress<=3
+      {
+        playSound(global.snd_BombLaunch,0,0.82,44100)
+        tNewAttack=instance_create(x,y,oGravityBullet)
+        tNewAttack.sprite_index=sFireBroFire; tNewAttack.atkPower=atkPower; tNewAttack.damageType="ELEMENTAL"
+        tNewAttack.xVel=tDistCheck; tNewAttack.yVel=-3
+      }
+      else if bossProgress>=4
+      {
+        tNewAttack=instance_create(x,y,oThunderFireball)
+        tNewAttack.atkPower=atkPower; tNewAttack.xVel=tDistCheck; tNewAttack.yVel=-3
+        tNewAttack.fireType=1
+      }
+    }
+
+    //if spikeRise>=1 and spikeRise<=64 //Move spikes up
+    if spikeRise>=1 and spikeRise<65 //Move spikes up. 60fps change: <65 so the last tick's frames count (64 ticks = 64px)
+    {
+      spikeRise+=1*gDeltaTime
+      with oMarioSpikeFloor {y-=1*gDeltaTime}
+    }
+
+    //---------- Boss Difficulty Curve ----------
+    if lifePercent<=0.87 and lifePercent>=0.75 and bossProgress=0
+    {
+      atkDelay-=1
+      bossProgress+=1
+    }
+    else if lifePercent<=0.74 and lifePercent>=0.61 and bossProgress=1
+    {
+      atkDelay-=1
+      fastMove=1
+      bossProgress+=1
+    }
+    else if lifePercent<=0.6 and lifePercent>=0.45 and bossProgress=2
+    {
+      for(i=0;i<9;i+=1)
+      {
+        instance_create(304+(16*i),368,oMarioSpikeFloor)
+        instance_create(640+(16*i),368,oMarioSpikeFloor)
+      }
+      spikeRise=1
+      bossProgress+=1
+    }
+    else if lifePercent<=0.44 and lifePercent>=0.21 and bossProgress=3
+    {
+      bossProgress+=1
+    }
+    else if lifePercent<=0.2 and lifePercent>=0 and bossProgress=4
+    {
+      atkDelay-=1
+      bossProgress+=1
+    }
+  }
+  else if life<=0 //Defeat animation
+  {
+    deathAnim+=1*gDeltaTime
+    if deathAnim=1
+    {
+      with oEProjectileBase {instance_destroy()}
+      with oMarioSpikeFloor {instance_destroy()}
+    }
+    else if deathAnim>=2 and deathAnim<=55
+    {
+      if oGame.time mod (2/gDeltaTime)=0
+      {
+        var tEffect;
+        tEffect=instance_create((x-sprite_width)+random(sprite_width*2),(y-20)+random(sprite_height*4),oEffect)
+        tEffect.sprite_index=sSamusSMissileHit
+        tEffect.image_speed=0.5; tEffect.image_xscale=0.5; tEffect.image_yscale=0.5
+        tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+      }
+    }
+    else if deathAnim>=56
+    {
+      if global.bBossGallery=1
+      {
+        bossRoomTally(6)
+        global.newMapX=1304; global.newMapY=1376; room_goto(rBossGallery)
+      }
+      else
+      {
+        oEvCh4MainA.sceneProgress=1
+        instance_destroy()
+      }
+    }
+  }
+  enemyStepEvent()
+}

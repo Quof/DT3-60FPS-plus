@@ -114,6 +114,22 @@ def assigned_vars(code):
         if s[i + 1][1] in _ASSIGN: out.add(t)
     return sorted(out)
 
+def var_locals(code):
+    """the names the code declares with var"""
+    s = [t for t in tokens(code) if t[0] not in ("ws", "cm1", "cm2")]
+    out = set()
+    for i, (k, t) in enumerate(s):
+        if k == "id" and t == "var":
+            j = i + 1
+            while j < len(s) and (s[j][0] == "id" or s[j][1] == ","):
+                if s[j][0] == "id": out.add(s[j][1])
+                j += 1
+    return out
+
+def ends_early(code):
+    """whether the code can stop before its end (exit, or return)"""
+    return any(k == "id" and t in ("exit", "return") for k, t in tokens(code))
+
 def normalize_event_inherited(code):
     """'event_inherited ( )' -> 'event_inherited()' so the game's loader can find it with a plain text search"""
     return re.sub(r"\bevent_inherited\s*\(\s*\)", "event_inherited()", code)

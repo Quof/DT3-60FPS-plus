@@ -1,0 +1,96 @@
+//global.gateHProg=100; global.eGateProg="99999999"
+viscidTop=1
+makeActive()
+image_xscale=2; image_yscale=2
+bBattleStart=0
+
+sequence=0
+seqTime=0
+damageTaken=0
+backBlend=255
+
+dialogueSeq=0
+dialogueTime=0
+
+//Hit spot HP counts
+myHitCounter=0
+myHitSpotHP[0]=3000
+myHitSpotHP[1]=2500
+myHitSpotHP[2]=3100
+myHitSpotHP[3]=2800
+myHitSpotHP[4]=2500
+myHitSpotHP[5]=1600
+
+//Spawn minions
+bMinionSpawn=0
+minionTime=550
+minionDelay=580
+
+//Attack from bottom
+bContinuousAttackA=0
+conAtkTimeA=0
+conAtkDelayA=125
+//Rain attack from top (First)
+bContinuousAttackB=0
+conAtkTimeB=240
+conAtkDelayB=300
+rainAInc=0
+rainOffset=0
+//Rain attack from top (Second) [Diagonal]
+bContinuousAttackC=0
+conAtkTimeC=280
+conAtkDelayC=320
+//Rain attack from top (Third) [Explode]
+bContinuousAttackD=0
+conAtkTimeD=0
+conAtkDelayD=190
+//Lunge tentacles
+lungeATent=0
+lungeAPullCurr=0
+lungeAPullMax=32
+lungeBTent=0
+lungeBPullCurr=0
+lungeBPullMax=32
+lungeCTent=0
+lungeCPullCurr=0
+lungeCPullMax=32
+lungeDTent=0
+lungeDPullCurr=0
+lungeDPullMax=32
+
+spikeScale=0
+
+bkgPartSeq=0
+bkgPartTime=0
+bkgPartNum=0
+bkgX=0
+bkgY=0
+
+//Hidden ending stuff
+leftWeakTimer=0
+rightWeakTimer=0
+hitHiddenWeakNum=0
+hiddenEndFail=0
+pullInSequence=0
+hiddenTentacles=0
+for(i=0;i<40;i+=1) {hidTentImg[i]=0} //60fps change (added): tentacle frames for the Draw event, picked once per tick
+
+formWeakSpotX=0; formWeakSpotY=0; formWeakSpotDir=0; formWeakSpotHeartOffsetX=0
+if global.gateHProg=102
+{
+  instance_destroy()
+}
+else if global.gateHProg<200 or global.bBossGallery=1 or room=rCh21_Main_76 //spsp ns new top condition
+{
+  //---------- If player goes into this map before conversation in previous map is complete ----------
+  var tNewString;
+  tNewString=string_delete(global.extraFlags,4,1)
+  tNewString=string_insert("1",tNewString,4)
+  global.extraFlags=tNewString
+  //--------------------------------------------------------------------------------------------------
+  instance_create(0,0,oEvAbom)
+}
+else
+{
+  instance_destroy()
+}

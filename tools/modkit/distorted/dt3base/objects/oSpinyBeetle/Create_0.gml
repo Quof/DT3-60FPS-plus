@@ -1,0 +1,29 @@
+event_inherited()
+makeActive()
+setCollisionBounds(-7,-7,7,7)
+image_speed=0.2
+
+//Enemy base statistics
+eName="Spiny Beetle"
+eLevel=4
+maxLife=160
+life=maxLife
+pointWorth=6
+atkPower=3
+resType[2]=4
+resType[3]=1
+resType[4]=5
+resType[5]=4
+baseItemChance=50
+pickupDropMod=50
+moneyWorth=0
+affiliation=1
+bGenEnemy=1
+
+initDir=0
+runAcc=1
+
+jeremyText="Just an annoyance. Unless you have Star Power, you can't fight it. Just avoid these the best you can."
+//chaoText="Aww, Spinys are cute too! I bet they're just misunderstood. They probably don't want to hurt Mario, they're just percieved that way and are unfairly thrown everywhere by Lakitus."
+chaoText="Aww, Spinys are cute too! I bet they're just misunderstood. They probably don't want to hurt Mario, they're just perceived that way and are unfairly thrown everywhere by Lakitus." //typo fix
+devText="From a technical standpoint, these things don't even have any code attached to them for Mario stomping.#Hey, not all of these comments are going to be interesting!"

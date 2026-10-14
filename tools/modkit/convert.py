@@ -70,10 +70,12 @@ def appended(old, new):
     if n[:len(o)] == o: return "\n".join(n[len(o):]).strip("\n")
     return None
 
-# the order a patch's lines are written in (scrModRoomPatch runs them in order): tiles; instances taken out, then moved
-# (later lines find a moved instance at its new place, where the mod has it), then given to GID() and added (so code
-# that refers to them finds them), then extra creation code, then extra room code
-OP_ORDER = ("tileremove", "tileadd", "remove", "move", "gid", "add", "code", "roomcode")
+# the order a patch's lines are written in (scrModRoomPatch runs them in order): the room's own settings (done as the
+# mods load); tiles; instances taken out, then moved (later lines find a moved instance at its new place, where the mod
+# has it), then given to GID() and added (so code that refers to them finds them), then extra creation code, then extra
+# room code, and the room's creation code where the patch replaces it (which runs last in any case)
+OP_ORDER = ("caption", "roomsize", "roombg", "roomcolor", "tileremove", "tileadd", "precode", "remove", "move", "gid", "add",
+            "code", "roomcode", "roomcodeset")
 
 class Converter:
     def __init__(self, cfg):
@@ -106,9 +108,12 @@ class Converter:
         for n in sorted(self.mod.names("Scripts") & self.van.names("Scripts")):
             a, b = self.van.script(n), self.mod.script(n)
             if norm(a) != norm(b): self.changed_scripts[n] = (a, b)
-        # every instance id in the mod's rooms (new and original), for turning instance id literals into GID() lookups
+        # every instance id in the mod's rooms (new and original), for turning instance id literals into GID() lookups.
+        # An id can be in more than one room (a split with duplicate instance ids allowed: a room and the mod's leftover
+        # copy of it, like rWarshipM and rWarshipM_orig): one of DT3+'s rooms wins (the original rooms' GID
+        # registrations go in their patches), in a fixed order
         self.inst_where = {}
-        for r in self.mod.names("Rooms"):
+        for r in sorted(self.mod.names("Rooms"), key=lambda r: (r in self.proj.names["Rooms"], r)):
             for i in self.mod.room(r)["instances"]: self.inst_where[i["id"]] = (r, i["object"], i["x"], i["y"])
         self.project_gid = self.proj.gid_map()
 
@@ -192,7 +197,7 @@ class Converter:
         if sel:
             code = "\n".join(self._folder_text(os.path.join(cfg["_base"], f)) for f in sel.get("code", []))
             pc, pn = self._patch_seed()
-            keep = self.closure(code + "\n" + pc, set(sel.get("rooms", [])) | pn)
+            keep = self.closure(code + "\n" + pc, set(sel.get("rooms", [])) | pn | self._settings_seed())
             for t in self.new: self.new[t] = [n for n in self.new[t] if n in keep]
         other = cfg.get("drop_new_of")
         if other:
@@ -206,6 +211,23 @@ class Converter:
                 if gone:
                     self.new[t] = [n for n in self.new[t] if n not in gone]
                     self.report["left out, as %s has them (%s)" % (oc.cfg["mod_ini"]["mod"]["name"], t)].append(", ".join(gone))
+
+    def _settings_seed(self):
+        """the names the settings of the game's objects in a merged mod name (object.ini sprite=, mask=, parent=, as
+        write_merged writes them: the merged objects', and with merge objects "changed" every changed object's), so a
+        new sprite or object only these name is in the mod too"""
+        mg = self.cfg.get("merge")
+        if not mg: return set()
+        objs = set()
+        od = os.path.join(self.cfg["_base"], mg.get("merged", "merged"), "objects")
+        if os.path.isdir(od): objs |= set(os.listdir(od))
+        if mg.get("objects") == "changed": objs |= set(o for o in self.changed_objects if o not in mg.get("skip_objects", []))
+        out = set()
+        for o in objs:
+            if o not in self.changed_objects: continue
+            a, b = self.changed_objects[o]
+            out |= set(b[k] for k in ("sprite", "mask", "parent") if b[k] and a[k] != b[k])
+        return out
 
     def _obj_legacy(self, name):
         """whether an object's code is 30fps code (not if it's been ported: see ported_dir)"""
@@ -328,7 +350,8 @@ class Converter:
         def gid(n):
             if n >= 100000 and n in self.inst_where:
                 room = self.inst_where[n][0]
-                if room not in self.new["Rooms"] and n not in self.project_gid:
+                # (not for a room DT3+ doesn't have: nothing to patch there)
+                if room not in self.new["Rooms"] and n not in self.project_gid and room in self.proj.names["Rooms"]:
                     self.gid_needed.setdefault(room, set()).add(n)
                 return "GID(%d)" % n
             return None
@@ -436,6 +459,8 @@ class Converter:
                 if re.search(r"\btoRoom\s*=\s*%s\b" % re.escape(br), code or ""):
                     code = norm(code) + "\n//(left out of the conversion: %s)\ninstance_destroy()" % why
                     self.report["doors left out (see config)"].append("%s instance %d (%s) to %s: %s" % (name, i["id"], i["object"], br, why))
+            # DT3+'s ways with the objects' creation code (instance_code_rules) in the mod's own rooms too
+            code = self.icode_rules(i["object"], code, "%s instance %d" % (name, i["id"]))
             # (the last field: 1 when the instance has creation code, as GameMaker 8.2 writes it)
             inst.append("%s,%d,%d,%s,0,1,1,4294967295,0,%d" % (obj, i["x"], i["y"], hexid, 1 if norm(code) else 0))
             if norm(code): wtext(os.path.join(rd, hexid + ".gml"), self.fix_code(code, "%s instance %d" % (name, i["id"])) + "\n")
@@ -563,6 +588,200 @@ class Converter:
         for fn, code in files.items(): wtext(os.path.join(pd, fn), code + "\n")
         self.patch_ops[name] = ops
 
+    # ---------------------------------------------------------------- room patches for a mod that changes the whole game
+    # (config "patch_mode": "full"). A patch can't change an instance's creation code before it runs, nor move it before
+    # its create event: where the mod changed those, the instance is taken out and made again where and how the mod has it
+    # (its creation code: the original's, DT3+'s and the mod's merged); one whose object's create event uses its place
+    # (or makes other instances), or whose creation code does, is made again instead of moved. The room's creation code,
+    # where the mod changed it, replaces the room's (roomcodeset), so it runs after the patch's instances are made, as
+    # it did in the mod; so does DT3+'s own, where it names an object or instance the patch adds, takes out or remakes.
+
+    # names in a create event (or creation code) that mean it uses the instance's place, or makes other instances
+    POS_NAMES = {"x", "y", "xstart", "ystart", "instance_create", "delaySpawn", "place_meeting", "place_free",
+                 "place_empty", "position_meeting", "position_empty", "instance_place", "instance_position",
+                 "collision_point", "collision_rectangle", "collision_circle", "collision_line", "collision_ellipse",
+                 "move_contact_solid", "move_contact_all", "move_outside_solid", "move_outside_all", "bbox_left",
+                 "bbox_right", "bbox_top", "bbox_bottom", "instance_nearest", "distance_to_object", "distance_to_point",
+                 "point_distance", "point_direction"}
+
+    def create_code(self, obj):
+        """the code an instance of obj runs as it's made in DT3+: its create event, and the parents' that it runs
+        (through event_inherited, or the nearest one's when it has none of its own)"""
+        if not hasattr(self, "_create_cache"): self._create_cache = {}
+        if obj in self._create_cache: return self._create_cache[obj]
+        out = []; o = obj; seen = set()
+        while o and o in self.proj.names["Objects"] and o not in seen:
+            seen.add(o)
+            c = self.proj.object_events(o).get("Create_0")
+            par = self.proj.object_props(o).get("parent", "")
+            if c is not None:
+                out.append(c)
+                if "event_inherited" not in c: break
+            o = par
+        self._create_cache[obj] = "\n".join(out)
+        return self._create_cache[obj]
+
+    def spawns(self, obj):
+        return bool(gml.identifiers(self.create_code(obj)) & {"instance_create", "delaySpawn"})
+
+    def icode_rules(self, obj, code, where):
+        """DT3+'s ways with the game's objects' creation code (config instance_code_rules), done to code written for
+        the original"""
+        for r in self.cfg.get("instance_code_rules", []):
+            if obj in r["objects"]:
+                c2 = re.sub(r["from"], r["to"], code or "")
+                if c2 != (code or ""):
+                    self.report["creation code changed as DT3+ has it: %s" % r["why"]].append(where); code = c2
+        return code
+
+    def merged_icode(self, room, iid, obj, vcode, dcode, mcode):
+        """an instance's creation code with the mod's changes in DT3+'s version (config instance_code: {"<room> <id>":
+        code} for one merged by hand)"""
+        key = "%s %d" % (room, iid)
+        hand = self.cfg.get("instance_code", {})
+        if key in hand:
+            self.report["creation code merged by hand (config instance_code)"].append(key)
+            self.instance_code_used.add(key)
+            return hand[key]
+        where = "%s instance %d (%s)" % (room, iid, obj)
+        v, m = self.icode_rules(obj, vcode, where), self.icode_rules(obj, mcode, where)
+        # instance ids as DT3+ has them (GID() lookups), so its having done that isn't a change to merge with the mod's
+        gid = lambda n: "GID(%d)" % n if n >= 100000 and n in self.inst_where else None
+        v = gml.rewrite_paren_numbers(v or "", gid)[0]; m = gml.rewrite_paren_numbers(m or "", gid)[0]
+        if norm(v) == norm(dcode or ""): return m
+        text, c, _, _ = merge3.merge(v, dcode or "", m)
+        if c: self.merge_errors.append("%s: the original's, DT3+'s and the mod's creation code conflict:\n%s" % (key, text))
+        return text.rstrip("\n")
+
+    def patch_room_full(self, name):
+        cfg = self.cfg.get("patch_rules", {}).get(name, {})
+        if cfg.get("skip"):
+            self.report["room changes left out (see config)"].append("%s: %s" % (name, cfg.get("why", ""))); return
+        a, b = self.van.room(name), self.mod.room(name)
+        ops = []; files = {}; check = self.report["room changes to check by hand"]
+        skip_objs = set(self.cfg.get("patch_skip_objects", []))
+        ia = {i["id"]: i for i in a["instances"]}; ib = {i["id"]: i for i in b["instances"]}
+        # DT3+'s instances at each of the original's places, in order (the original's instance there: the same one)
+        dpos = collections.defaultdict(list)
+        for d in self.proj.room_instances(name, code=True): dpos[(d["object"], d["x"], d["y"])].append(d)
+        vpos = collections.defaultdict(list)
+        for i in a["instances"]: vpos[(i["object"], i["x"], i["y"])].append(i)
+        dcode = {}
+        for key, insts in vpos.items():
+            for n, i in enumerate(insts):
+                dl = dpos.get(key, [])
+                dcode[i["id"]] = dl[n]["code"] if n < len(dl) else None
+        # what happens to each of the original's instances
+        act = {}
+        for iid, i in ia.items():
+            if i["object"] in skip_objs or not self._inst_wanted(cfg, iid): act[iid] = ("keep",); continue
+            j = ib.get(iid)
+            if j is None: act[iid] = ("remove",); continue
+            if i["object"] != j["object"]: act[iid] = ("recreate",); continue
+            moved = (i["x"], i["y"]) != (j["x"], j["y"])
+            same = norm(i["code"]) == norm(j["code"])
+            add = None if same else appended(i["code"], j["code"])
+            if not moved and same: act[iid] = ("keep",)
+            elif not moved and add is not None: act[iid] = ("append", add)
+            elif moved and (same or add is not None) and not (gml.identifiers(self.create_code(i["object"]) + "\n" + (j["code"] or "")) & self.POS_NAMES):
+                act[iid] = ("move", add)
+            else: act[iid] = ("recreate",)
+        # a remove, move or code line finds every instance of the object at that place: where there are several, a
+        # change to one is done by making them all again
+        for key, insts in vpos.items():
+            if len(insts) > 1 and any(act[i["id"]][0] != "keep" for i in insts):
+                for i in insts:
+                    if act[i["id"]][0] in ("keep", "append", "move") and i["object"] not in skip_objs: act[i["id"]] = ("recreate",)
+        for iid, i in ia.items():
+            if act[iid][0] != "keep" and dcode.get(iid) is None:
+                self.warn.append("%s: instance %d to change isn't in DT3+ at its place: %s %d,%d" % (name, iid, i["object"], i["x"], i["y"]))
+        removed_places = set(); affected_objs = set(); affected_ids = set(); adds = []
+        cleanup = self.cfg.get("spawner_cleanup", {})
+        for i in a["instances"]:
+            iid = i["id"]; k = act[iid]; key = (i["object"], i["x"], i["y"])
+            if k[0] in ("remove", "recreate"):
+                if key not in removed_places:
+                    # (the parts an instance made as it was made go with it: config spawner_cleanup, run in it first)
+                    if i["object"] in cleanup:
+                        fn = "cleanup_%s.gml" % i["object"]
+                        files[fn] = self.fix_code(cleanup[i["object"]], "spawner_cleanup %s" % i["object"])
+                        ops.append("precode|%s|%d|%d|%s" % (key + (fn,)))
+                    ops.append("remove|%s|%d|%d" % key); removed_places.add(key)
+                affected_objs.add(i["object"]); affected_ids.add(iid)
+                if self.spawns(i["object"]) and i["object"] not in cleanup:
+                    check.append("%s instance %d (%s) %s: its create event makes other instances, which stay" % (name, iid, i["object"], "taken out" if k[0] == "remove" else "made again"))
+            if k[0] == "recreate":
+                j = ib[iid]
+                code = self.merged_icode(name, iid, j["object"], i["code"], dcode.get(iid), j["code"])
+                adds.append((j, code))
+            elif k[0] == "move":
+                ops.append("move|%s|%d|%d|%d|%d" % (i["object"], i["x"], i["y"], ib[iid]["x"], ib[iid]["y"]))
+                if k[1]:
+                    fn = "code_%d.gml" % iid
+                    files[fn] = self.fix_code(self.icode_rules(i["object"], k[1], "%s instance %d" % (name, iid)), "%s instance %d extra code" % (name, iid))
+                    ops.append("code|%s|%d|%d|%s" % (i["object"], ib[iid]["x"], ib[iid]["y"], fn))
+            elif k[0] == "append":
+                fn = "code_%d.gml" % iid
+                files[fn] = self.fix_code(self.icode_rules(i["object"], k[1], "%s instance %d" % (name, iid)), "%s instance %d extra code" % (name, iid))
+                ops.append("code|%s|%d|%d|%s" % (i["object"], i["x"], i["y"], fn))
+        for j in b["instances"]:
+            if j["id"] not in ia and j["object"] not in skip_objs and self._inst_wanted(cfg, j["id"]):
+                adds.append((j, self.icode_rules(j["object"], j["code"], "%s instance %d" % (name, j["id"]))))
+                affected_objs.add(j["object"]); affected_ids.add(j["id"])
+        # (made in the order the mod's room has them)
+        order = {j["id"]: n for n, j in enumerate(b["instances"])}
+        for j, code in sorted(adds, key=lambda x: order[x[0]["id"]]):
+            fn = "-"
+            if norm(code):
+                fn = "add_%d.gml" % j["id"]; files[fn] = self.fix_code(code, "%s instance %d" % (name, j["id"]))
+            ops.append("add|%s|%d|%d|%d|%s" % (self.clone_map.get(j["object"], j["object"]), j["x"], j["y"], j["id"], fn))
+        # the room's creation code
+        vrc, drc, mrc = a["code"], self.proj.room_code(name), b["code"]
+        def refers(code):
+            ids = gml.identifiers(code)
+            return bool(ids & affected_objs) or any(re.search(r"\b%d\b" % n, code) for n in affected_ids)
+        hand = cfg.get("room_code")
+        if hand is not None:
+            if hand: files["room_code.gml"] = hand; ops.append("roomcodeset|room_code.gml")
+            self.report["room code merged by hand (see config)"].append("%s: %s" % (name, cfg.get("why_room_code", "")))
+        elif norm(vrc) != norm(mrc):
+            add = appended(vrc, mrc)
+            if add is not None and add.strip() and not (adds and refers(drc)):
+                files["room_code.gml"] = self.fix_code(add, name + " extra room code"); ops.append("roomcode|room_code.gml")
+            else:
+                text, c, _, _ = merge3.merge(vrc, drc, mrc)
+                if c: self.merge_errors.append("%s: the original's, DT3+'s and the mod's room code conflict:\n%s" % (name, text))
+                files["room_code.gml"] = self.fix_code(text.rstrip("\n"), name + " room code"); ops.append("roomcodeset|room_code.gml")
+        elif adds and norm(drc) and refers(drc):
+            files["room_code.gml"] = self.fix_code(drc, name + " room code (DT3+'s)"); ops.append("roomcodeset|room_code.gml")
+            self.report["room code run after the patch's instances are made (it names what the patch adds or changes)"].append(name)
+        # the room's settings
+        if self.cfg.get("captions") and a["caption"] != b["caption"]: ops.append("caption|" + b["caption"])
+        if (a["width"], a["height"]) != (b["width"], b["height"]): ops.append("roomsize|%d|%d" % (b["width"], b["height"]))
+        for n, (x, y) in enumerate(zip(a["bgs"], b["bgs"])):
+            if x != y:
+                ops.append("roombg|%d|%d|%d|%s|%d|%d|%d|%d|%g|%g" % (n, y["visible"], y["fore"], y["image"], y["x"], y["y"], y["htile"], y["vtile"], y["hspeed"], y["vspeed"]))
+                if x["stretch"] != y["stretch"]: check.append("%s background %d: stretch changed (a patch can't change it)" % (name, n))
+        if (a["bgcolor"], a["drawbg"]) != (b["bgcolor"], b["drawbg"]):
+            col = b["bgcolor"].rjust(6, "0")
+            ops.append("roomcolor|%d|%d" % (int(col[0:2], 16) + int(col[2:4], 16) * 256 + int(col[4:6], 16) * 65536, b["drawbg"]))
+        if a["views"] != b["views"]: check.append("%s: views changed (a patch can't change them)" % name)
+        if (a["speed"], a["persistent"]) != (b["speed"], b["persistent"]): check.append("%s: room speed or persistence changed (not converted)" % name)
+        # tiles
+        ta = {t["id"]: t for t in a["tiles"]}; tb = {t["id"]: t for t in b["tiles"]}
+        for tid, t in tb.items():
+            if (tid not in ta or ta[tid] != t) and self._tile_wanted(cfg, tid):
+                ops.append("tileadd|%s|%d|%d|%d|%d|%d|%d|%d" % (t["bg"], t["x"], t["y"], t["u"], t["v"], t["w"], t["h"], t["depth"]))
+        for tid, t in ta.items():
+            if (tid not in tb or tb[tid] != t) and self._tile_wanted(cfg, tid):
+                ops.append("tileremove|%d|%d|%d" % (t["depth"], t["x"] + t["w"] // 2, t["y"] + t["h"] // 2))
+        for fn, code in cfg.get("extra_files", {}).items(): files[fn] = code
+        for rule in cfg.get("extra_ops", []): ops.append(rule)
+        if not ops: return
+        pd = os.path.join(self.out, "patches", name)
+        for fn, code in files.items(): wtext(os.path.join(pd, fn), code + "\n")
+        self.patch_ops[name] = ops
+
     def write_patches(self):
         # GID registrations for original-room instances that the mod's code refers to by id and DT3+ doesn't register
         # (not those the patch adds: an add line gives its instance to GID() itself)
@@ -602,6 +821,7 @@ class Converter:
         os.makedirs(self.out)
         self.survey(); self.select_new(); self.plan_clones()
         self.gid_needed = {}; self.patch_ops = {}
+        self.merge_errors = []; self.instance_code_used = set()
         # objects
         for n in self.new["Objects"]:
             ob = self.mod.object(n)
@@ -634,9 +854,12 @@ class Converter:
             # (instances in another order only, as when a room is saved again, isn't a change)
             ka = (a["caption"], a["code"], sorted((i["id"], i["object"], i["x"], i["y"], norm(i["code"])) for i in a["instances"]), a["tiles"], a["bgs"], a["views"], a["width"], a["height"])
             kb = (b["caption"], b["code"], sorted((i["id"], i["object"], i["x"], i["y"], norm(i["code"])) for i in b["instances"]), b["tiles"], b["bgs"], b["views"], b["width"], b["height"])
-            if ka != kb:
+            if ka != kb or (a["bgcolor"], a["drawbg"]) != (b["bgcolor"], b["drawbg"]):
                 changed_rooms.append(n)
                 if only is not None and n not in only: continue
+                if n not in self.proj.names["Rooms"]:
+                    self.report["room changes left out: rooms DT3+ doesn't have"].append(n); continue
+                if cfg.get("patch_mode") == "full": self.patch_room_full(n); continue
                 if (a["bgs"], a["views"], a["width"], a["height"]) != (b["bgs"], b["views"], b["width"], b["height"]):
                     self.report["room changes not converted"].append("%s: room settings (size/backgrounds/views) changed" % n)
                 self.patch_room(n)
@@ -659,6 +882,13 @@ class Converter:
                     os.makedirs(os.path.join(self.out, dst), exist_ok=True)
                     shutil.copy2(os.path.join(src, f), os.path.join(self.out, dst, ren.get(f, f)))
                     if f in ren: self.report["files renamed"].append("%s/%s -> %s" % (dst, f, ren[f]))
+        # music files mod.ini names that the mod comes without (the player adds them): the music folder is there for them
+        miss = [e.get("file", "") for e in cfg.get("mod_ini", {}).get("music", [])]
+        miss = [f for f in miss if f and not os.path.exists(os.path.join(self.out, "music", f))]
+        if miss:
+            os.makedirs(os.path.join(self.out, "music"), exist_ok=True)
+            self.report["music files mod.ini names that the mod comes without (music\\ is there for them)"].append(
+                "%d: %s%s" % (len(miss), ", ".join(miss[:5]), ", ..." if len(miss) > 5 else ""))
         # other files from the mod's release, copied as they are ({"path in the mod folder": "source"})
         for dst, src in cfg.get("copy", {}).items():
             p = os.path.join(self.out, dst); os.makedirs(os.path.dirname(p), exist_ok=True)
@@ -690,7 +920,21 @@ class Converter:
         if cfg.get("unported", True) is not False: self.write_unported()
         unused = set(cfg.get("edits", {})) - self.edits_used
         if unused: raise SystemExit("edits: no code was written for %s" % ", ".join(sorted(unused)))
+        unused = set(cfg.get("instance_code", {})) - self.instance_code_used
+        if unused: raise SystemExit("instance_code: no instance %s" % ", ".join(sorted(unused)))
         self.write_report(changed_rooms)
+        if cfg.get("_draft"):
+            # (convert.py <config> --draft: written as far as it goes, with what's left to do listed)
+            wtext(os.path.join(self.out, "draft_todo.txt"), "\n\n".join(
+                ["merge conflicts in code (%d):" % len(self.merge_errors)] + self.merge_errors +
+                ["code that wouldn't compile (%d):" % len(self.compile_errors)] + self.compile_errors +
+                ["calls with too few arguments (%d):" % len(self.arg_errors)] + self.arg_errors) + "\n")
+            print("draft: %d merge conflicts, %d compile errors, %d argument errors (draft_todo.txt)" % (len(self.merge_errors), len(self.compile_errors), len(self.arg_errors)))
+            return
+        if self.merge_errors:
+            p = os.path.join(self.out, "merge_conflicts.txt")
+            wtext(p, "\n\n".join(self.merge_errors) + "\n")
+            raise SystemExit("%d creation codes or room codes to merge by hand (config instance_code, patch_rules room_code): %s" % (len(self.merge_errors), p))
         if self.compile_errors:
             raise SystemExit("code that wouldn't compile (the game would end when loading the mod):\n  " + "\n  ".join(self.compile_errors))
         if self.arg_errors:
@@ -705,6 +949,7 @@ class Converter:
         for dp, dn, fn in os.walk(md):
             for f in fn:
                 if f.endswith(".gml") and merge3.MARK_D in open(os.path.join(dp, f), encoding="utf-8").read():
+                    if cfg.get("_draft"): self.warn.append("conflicts to merge: " + os.path.join(dp, f)); continue
                     raise SystemExit("%s still has conflicts to merge (python mergemod.py check <config>)" % os.path.join(dp, f))
         sd = os.path.join(md, "scripts")
         for f in sorted(os.listdir(sd)) if os.path.isdir(sd) else []:
@@ -714,13 +959,42 @@ class Converter:
             wtext(os.path.join(self.out, "scripts", f), self.fix_code(code, "script " + n, False) + "\n")
             self.report["the game's scripts the mod's versions replace (merged with DT3+'s)"].append(n)
         od = os.path.join(md, "objects")
+        done = set()
         for o in sorted(os.listdir(od)) if os.path.isdir(od) else []:
-            evs = sorted(f[:-4] for f in os.listdir(os.path.join(od, o)) if f.endswith(".gml"))
-            for ev in evs:
-                code = open(os.path.join(od, o, ev + ".gml"), encoding="utf-8").read()
+            evs, apps = [], []
+            for f in sorted(os.listdir(os.path.join(od, o))):
+                if not f.endswith(".gml"): continue
+                # <event>.append.gml: the mod's lines, added after DT3+'s event (mergemod.py, append_events)
+                ev = f[:-len(".append.gml")] if f.endswith(".append.gml") else f[:-4]
+                (apps if f.endswith(".append.gml") else evs).append(ev)
+                code = open(os.path.join(od, o, f), encoding="utf-8").read()
                 wtext(os.path.join(self.out, "objects", o, ev + ".gml"), self.fix_code(code, "%s/%s" % (o, ev), False) + "\n")
-            if o not in self.new["Objects"]: wtext(os.path.join(self.out, "objects", o, "object.ini"), "[object]\nevents=replace\n")
-            self.report["the game's object events the mod's versions replace (merged with DT3+'s)"].append("%s: %s" % (o, ", ".join(evs)))
+            if o not in self.new["Objects"]:
+                lines = ["[object]", "events=replace"] + (["append=" + ",".join(apps)] if apps else []) + self.changed_props(o)
+                wtext(os.path.join(self.out, "objects", o, "object.ini"), "\n".join(lines) + "\n")
+            done.add(o)
+            if evs: self.report["the game's object events the mod's versions replace (merged with DT3+'s)"].append("%s: %s" % (o, ", ".join(evs)))
+            if apps: self.report["the game's object events the mod's lines are added after (merged: append)"].append("%s: %s" % (o, ", ".join(apps)))
+        # the game's objects whose settings (sprite, parent...) alone the mod changed
+        if cfg["merge"].get("objects") == "changed":
+            for o in sorted(self.changed_objects):
+                if o in done or o in cfg["merge"].get("skip_objects", []): continue
+                props = self.changed_props(o)
+                if props:
+                    wtext(os.path.join(self.out, "objects", o, "object.ini"), "\n".join(["[object]"] + props) + "\n")
+                    self.report["the game's objects whose settings the mod changed"].append("%s: %s" % (o, ", ".join(props)))
+
+    def changed_props(self, o):
+        """object.ini lines for the settings of one of the game's objects that the mod changed"""
+        if o not in self.changed_objects: return []
+        a, b = self.changed_objects[o]
+        out = []
+        for k in ("sprite", "solid", "visible", "depth", "persistent", "parent", "mask"):
+            if a[k] != b[k]:
+                v = b[k]
+                if k in ("solid", "visible", "persistent"): v = "1" if v == "true" else "0"
+                out.append("%s=%s" % (k, v))
+        return out
 
     def write_mod_ini(self):
         m = self.cfg["mod_ini"]
@@ -777,4 +1051,6 @@ def load_config(path):
     return cfg
 
 if __name__ == "__main__":
-    Converter(load_config(sys.argv[1])).run()
+    c = load_config(sys.argv[1])
+    if "--draft" in sys.argv[2:]: c["_draft"] = True
+    Converter(c).run()

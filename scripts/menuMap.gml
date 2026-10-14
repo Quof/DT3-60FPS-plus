@@ -5,6 +5,7 @@ argument0: Display type
 -- 0: From pause menu
 -- 1: From teleport menu
 */
+if global.modOvr[menuMap]>=0 {var __n; __n=0; repeat (argument_count) {global.modArg[__n]=argument[__n]; __n+=1}; return scrModOverride(menuMap,argument_count)} //mods change (added): a mod's own version of this script runs instead (scrModOverride)
 var tMenuType; tMenuType=argument0
 
 if tMenuType=1

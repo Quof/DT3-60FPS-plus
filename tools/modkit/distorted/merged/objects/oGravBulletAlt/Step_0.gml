@@ -1,0 +1,63 @@
+if global.gamePaused=false
+{
+  if room=rDistortedAbom //spsp ns
+  {
+    if variable_local_exists("weakTrack")
+    {
+      xGrav=0.07*((oPlayer1.x>x+leeway)-(oPlayer1.x<x-leeway))*weakTrack
+    }
+  }
+  xVel=scrGravAccX(xVel,xGrav,1)
+  yVel=scrGravAcc(yVel,yGrav,1)
+  hspeed=xVel
+  vspeed=yVel
+  image_angle=direction
+
+  if isCollisionTop(1)
+    bDestroy=1
+  if isCollisionBottom(1)
+    bDestroy=1
+  if isCollisionLeft(1)
+    bDestroy=1
+  if isCollisionRight(1)
+    bDestroy=1
+
+  if bDestroy=1
+  {
+    if bExplode=1
+    {
+      if sprite_index=sNotorBangerBomb
+      {
+        newAttack=instance_create(x,y,oDamageExplosion)
+        newAttack.atkPower=atkPower; newAttack.sprite_index=sBombExplosion
+        newAttack.decayTime=-100
+      }
+      else if sprite_index=sAbomRainAtkA
+      {
+        newAttack=instance_create(x,y,oDamageExplosion)
+        newAttack.atkPower=atkPower; newAttack.sprite_index=sBombExplosion
+        newAttack.decayTime=-100
+      }
+      else
+      {
+        newAttack=instance_create(x,y,oDamageExplosion)
+        newAttack.atkPower=atkPower; newAttack.sprite_index=sBombExplosion
+        newAttack.image_xscale=0.75; newAttack.image_yscale=0.75; newAttack.decayTime=-100
+      }
+    }
+    instance_destroy()
+  }
+  if y>room_height+32
+    instance_destroy()
+    _hspeed=hspeed
+    _vspeed=vspeed
+    speed=0
+    x+=_hspeed*gDeltaTime
+    y+=_vspeed*gDeltaTime
+}
+else
+{
+  hspeed=0
+  vspeed=0
+  speed=0
+}

@@ -1,0 +1,82 @@
+event_inherited()
+enemyCount=-1
+fadeColor=c_white
+fadeAlpha=0
+
+if room=rMain_68
+{
+  indexCheck=string_char_at(global.weaponLevels,18)
+  tankEvent=0
+  if indexCheck="1" {tankEvent=2}
+}
+else if room=rMain_71
+{
+  if global.newMapX>256 {geyserProg=0}
+  else {geyserProg=10}
+  geyserTime=0
+}
+else if room=rLowFacI
+{
+  var tZapTrap;
+  for(i=0;i<23;i+=1)
+  {
+    tZapTrap=instance_create(256+(90*i),80+(90*i),oZapTrapRed)
+    tZapTrap.image_angle=315; tZapTrap.image_xscale=4
+    tZapTrap=instance_create(192+(90*i),320+(90*i),oZapTrapRed)
+    tZapTrap.image_angle=315; tZapTrap.image_xscale=4
+  }
+}
+else if room=rLowFacK
+{
+  var tZapTrap;
+  for(i=0;i<18;i+=1)
+  {
+    tZapTrap=instance_create(160+(128*i),392,oZapTrapRed)
+    tZapTrap.image_xscale=4
+  }
+}
+else if room=rLowFacO
+{
+  if global.gameProgress=4440 or global.gameProgress=4450 or global.gameProgress=4451
+  {
+    npcLovelun=instance_create(6336,288,oMisc)
+    npcLovelun.type=0; npcLovelun.sprite_index=sLovelun_Idle
+    npcLovelun.image_xscale=-1; npcLovelun.image_speed=0.1
+    mapMsg=0
+  }
+}
+else if global.gameProgress=4460 and room=rLowFacR
+{
+  blendCol=0
+  bMusicFade=0
+  //musicFade=global.optMusic*100
+  musicFade=scrMusicVolume(getReplayGain(22)) //remastered music change: the counter starts at the volume DT_WeaponFacility (22) plays at (scrMusicVolume), not the old formula's, so the fade ends where it was meant to
+}
+else if global.gameProgress=4470 and room=rLowFacS
+{
+  bMusicFade=0
+  //musicFade=global.optMusic*100
+  musicFade=scrMusicVolume(getReplayGain(22)) //remastered music change: the counter starts at the volume DT_WeaponFacility (22) plays at (scrMusicVolume), not the old formula's, so the fade ends where it was meant to
+  warshipProg=0
+  backSoundLoop=0
+  firePillarX=0
+}
+else if room=rLowFacCutA
+{
+  fadeColor=c_black
+  fadeAlpha=1
+  oPlayer1.visible=0
+  //musicFade=global.optMusic*100
+  musicFade=scrMusicVolume(getReplayGain(1002)) //remastered music change: the counter starts at the volume DT_IFB (1002) plays at (scrMusicVolume), not the old formula's, so the fade ends where it was meant to
+  fadeAmt=10
+  backSoundLoop=0
+}
+else if global.gameProgress=4480 and (room=rLavaCaveA or room=rLavaCaveB) //spsp ns
+{
+  xScrollSpdA=3
+  xScrollSpdB=4
+  autoScroll=instance_create(240,176,oMisc)
+  autoScroll.type=0
+  autoScroll.sprite_index=sNull
+  view_object[0]=autoScroll
+}

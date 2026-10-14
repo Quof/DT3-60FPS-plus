@@ -1,0 +1,1 @@
+touchTime=0

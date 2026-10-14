@@ -1,8 +1,9 @@
 /*
 mods change (added): reads a mod room's contents the first time it's entered (scrModRoomStart), so starting the game
 doesn't read every room of every mod: its instances (instances.txt, and <instance name>.gml for an instance's creation
-code, compiled here), its tiles (layers.txt, with a <depth>.txt per tile layer) and its creation code (code.gml). What's
-read goes in the room's global.modRoomInfo list (scrModLoadRooms has the layout) and is kept for later visits.
+code, kept as text: scrModTextAdd), its tiles (layers.txt, with a <depth>.txt per tile layer) and its creation code
+(code.gml). What's read goes in the room's global.modRoomInfo list (scrModLoadRooms has the layout) and is kept for
+later visits.
 argument0: the room's global.modRoomInfo list
 */
 var tInfo,m,tName,tRd,tF,tLine,tP,tObj,tCode,tCodeFile,tN,tTiles,tLayers,tDepth,tTF,tBlend,tXs,tYs,tLogLen,tLog,tBg,tNoBg;
@@ -39,7 +40,8 @@ if file_exists(tRd+"instances.txt")
     else {ds_list_add(tInfo,1); ds_list_add(tInfo,1); ds_list_add(tInfo,4294967295); ds_list_add(tInfo,0)}
     tCode=-1
     tCodeFile=tRd+ds_list_find_value(tP,3)+".gml"
-    if file_exists(tCodeFile) {tCode=scrModCompile(scrModFixCode(scrModReadFile(tCodeFile)),tName+" instance "+ds_list_find_value(tP,3))}
+    //if file_exists(tCodeFile) {tCode=scrModCompile(scrModFixCode(scrModReadFile(tCodeFile)),tName+" instance "+ds_list_find_value(tP,3))}
+    if file_exists(tCodeFile) {tCode=scrModTextAdd(scrModReadFile(tCodeFile))} //mods change: kept as text (scrModTextAdd says why)
     ds_list_add(tInfo,tCode)
     tN+=1
     ds_list_destroy(tP)
@@ -93,7 +95,8 @@ if tNoBg>0 {scrModLog("  ERROR: "+tName+": "+string(tNoBg)+" tile(s) with a back
 ds_list_replace(tInfo,13,tTiles)
 //----- creation code -----
 tCode=-1
-if file_exists(tRd+"code.gml") {tCode=scrModCompile(scrModFixCode(scrModReadFile(tRd+"code.gml")),tName+" room code")}
+//if file_exists(tRd+"code.gml") {tCode=scrModCompile(scrModFixCode(scrModReadFile(tRd+"code.gml")),tName+" room code")}
+if file_exists(tRd+"code.gml") {tCode=scrModTextAdd(scrModReadFile(tRd+"code.gml"))} //mods change: kept as text (scrModTextAdd says why)
 ds_list_replace(tInfo,2,tCode)
 //(what went wrong, if anything, goes in Mods\mod_log.txt too)
 if string_length(global.modLog)>tLogLen

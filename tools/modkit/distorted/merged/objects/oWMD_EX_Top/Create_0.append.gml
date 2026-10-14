@@ -1,0 +1,1 @@
+if true {jeremyText="It's a spinning turret that simply hovers and fires bullets downward roughly every 2 seconds. These will persist over his form change so if he switches to fire or wind form, you may want to take these out quickly."} //spsp

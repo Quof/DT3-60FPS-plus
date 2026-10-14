@@ -10,8 +10,14 @@ bStream=1
 if global.currentMusic!=tTrackPlay {stopAllMusic()}
 global.currentMusic=tTrackPlay
 global.currentMusicGain=getReplayGain(tTrackPlay) //QWH
+//mods change (added): a mod's track with this number (mod.ini [music]) plays instead of the game's, when the mod has
+//its file (scrModMusicFind), with its own loudness adjustment
+tempFindMusic=0
+if tTrackPlay!=0 {tempFindMusic=scrModMusicFind(tTrackPlay)}
+if tempFindMusic!=0 {global.currentMusicGain=scrModMusicGain(tTrackPlay)}
 
 if tTrackPlay=0 {stopAllMusic()}
+else if tempFindMusic!=0 {} //mods change (added): a mod's track (above)
 else if tTrackPlay=1 //---------- MAIN WORLD ----------
 {
   if !SS_IsHandleValid(global.msc_Main1)
@@ -856,7 +862,8 @@ else if tTrackPlay=9000 //jukebox change (added): the title screen music (loadEx
 {
   tempFindMusic=global.msc_TitleMenu
 }
-else {tempFindMusic=scrModMusicFind(tTrackPlay)} //mods change (added): a track number a mod adds (mod.ini [music]), or 0 (no music) for one nothing has
+//else {tempFindMusic=scrModMusicFind(tTrackPlay)} //mods change (added): a track number a mod adds (mod.ini [music]), or 0 (no music) for one nothing has
+else {tempFindMusic=0} //mods change: a track number neither the game nor a mod has (scrModMusicFind, at the top): no music
 
 if tTrackPlay!=0 {return tempFindMusic}
 else {return 0}

@@ -1,0 +1,34 @@
+event_inherited()
+bActive=1
+image_speed=0.33
+
+//spsp ns
+dDist=5
+mDist=2
+currHspd=0
+currVspd=0
+currAcc=0.2 //orig 0.25
+
+//Enemy base statistics
+eName="Parasite"
+eLevel=39
+maxLife=3800
+life=maxLife
+atkPower=12
+stunResist=50
+affiliation=9
+bIsBoss=true
+bNoBonus=true
+
+scaleWaveA=pi/2
+scaleWaveB=pi/2
+waveBUp=1
+
+seqTime=0
+
+deathAnim=0
+
+jeremyText="It looks like we were able to force this thing out of the creature. The thing here though is we'll need all the instruments playing. The attacks are mostly the same... I think? The big thing you gotta watch out for are the weird worm things that burst out of the parasite itself. They'll stop, and then target you about a second later."
+chaoText="This... parasite that Hex put into the creature has some remnants of the Virus in it. Hex probably used part of it for this since the Virus was able to alter behaviors."
+devText="N/A"
+if true {devText="Spinach here. I didn't realize this thing had scan text until I checked all game objects to remove distorted mode checks."} //spsp

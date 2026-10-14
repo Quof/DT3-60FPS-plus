@@ -1,0 +1,27 @@
+if global.gamePaused=false
+{
+  if atkProg=0 //Go toward wall
+  {
+    //image_angle+=5*image_xscale
+    image_angle+=5*image_xscale*gDeltaTime //60fps change: spun 2x/4x as fast at 60/120fps
+    if isCollisionLeft(1) {atkProg=1}
+    if isCollisionRight(1) {atkProg=1}
+    moveTo(xVel*gDeltaTime,yVel*gDeltaTime)
+  }
+  else if atkProg=1 //Stick to wall
+  {
+    if x<oMMByte.xCenter {x=oMMByte.xCenter-oMMByte.roomSpan}
+    else {x=oMMByte.xCenter+oMMByte.roomSpan}
+    image_angle=0
+    sprite_index=sByteBombSet
+    atkProg=2
+  }
+  else if atkProg=2 //Pull player
+  {
+    if x<oMMByte.xCenter {oPlayer1.extForceX=-xForce}
+    else {oPlayer1.extForceX=xForce}
+
+    if oPlayer1.y<y {oPlayer1.extForceY=yForce}
+    else {oPlayer1.extForceY=-yForce} //0}
+  }
+}

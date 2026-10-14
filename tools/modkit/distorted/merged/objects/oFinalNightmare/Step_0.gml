@@ -1,0 +1,875 @@
+if global.gamePaused=false
+{
+  if activateBoss=1
+  {
+    oGlobalEvent.enemyCount=1
+    bActive=true
+    bShowHealthBar=true
+    showBossHP=instance_create(0,0,oBossLifeDisplay); showBossHP.bossID=id; showBossHP.type=0
+    activateBoss=2
+  }
+
+  if bActive=true and life>0
+  {
+    if transform=0 or transform=1 //-------------------- PHASE 1 --------------------
+    {
+      //---------- ARM CONTROL ----------
+      if armStart=0 //Create arms
+      {
+        for(i=0;i<maxArms;i+=1)
+        {
+          leftArm[i]=instance_create(x,y,oFNightmareSeg)
+          leftArm[i].armSide=0; leftArm[i].segment=i
+          leftArm[i]._direction=190; leftArm[i].circleRad=10-(i/2)
+          leftArm[i].type=0; leftArm[i].bEnd=0
+          rightArm[i]=instance_create(x,y,oFNightmareSeg)
+          rightArm[i].armSide=1; rightArm[i].segment=i
+          rightArm[i]._direction=350; rightArm[i].circleRad=10-(i/2)
+          rightArm[i].type=0; rightArm[i].bEnd=0
+
+          if i=maxArms-1
+          {
+            leftArm[i].bEnd=1
+            rightArm[i].bEnd=1
+          }
+        }
+        armStart+=1
+      }
+      else if armStart=1 //Check position
+      {
+        dropAtk+=1*gDeltaTime
+        if leftArm[0]._direction=180 and dropAtk>=dropMax
+        {
+          for(i=0;i<maxArms;i+=1)
+          {
+            leftArm[i].leftSpd=0
+            rightArm[i].rightSpd=0
+          }
+          dropAtk=0
+          armStart+=1
+        }
+        //spsp ns movement
+        //fixed movement within the dropMax=400 frames
+        if frac(p1move)=0 //60fps change (added): a whole pixel once per 30fps tick, counted from p1move itself
+        {
+        if p1move<p1pathtime
+        {x-=1}
+        else if p1move<2*p1pathtime
+        {y-=1}
+        else if p1move<3*p1pathtime
+        {x+=1}
+        else if p1move<4*p1pathtime
+        {y+=1}
+        else if p1move<5*p1pathtime
+        {y+=1}
+        else if p1move<6*p1pathtime
+        {x+=1}
+        else if p1move<7*p1pathtime
+        {y-=1}
+        else if p1move<8*p1pathtime
+        {x-=1}
+        } //60fps change (added)
+        //p1move+=1
+        p1move+=1*gDeltaTime //60fps change: per frame
+        if p1move>=8*p1pathtime {p1move=0}
+        /*if abs(x-oPlayer1.x)<=p1xrange
+        {
+          if y>yGround-p1maxheight {y-=2}
+        }
+        else
+        {
+          if y<yGround-p1minheight {y+=1}
+          x+=(1)*((x>oPlayer1.x)-(x<oPlayer1.x))
+          if x>p1right {x=p1right}
+          else if x<p1left {x=p1left}
+        }*/
+      }
+      else if armStart=2 //Slight wait 1 and extend arms
+      {
+        dropAtk+=1*gDeltaTime
+        if dropAtk=1 {Lscale=(6*28+x-xCenter)/(6*28); Rscale=(6*28-x+xCenter)/(6*28)}
+        if dropAtk>=30
+        {
+          for(i=0;i<maxArms;i+=1)
+          {
+            //leftArm[i].armDist+=2*Lscale
+            //rightArm[i].armDist+=2*Rscale
+            leftArm[i].armDist+=2*Lscale*gDeltaTime //60fps change: per frame
+            rightArm[i].armDist+=2*Rscale*gDeltaTime //60fps change: per frame
+          }
+          if leftArm[0].armDist>28*Lscale-0.01 {dropAtk=0;armStart+=1}
+        }
+      }
+      else if armStart=3 //Slight wait 2
+      {
+        dropAtk+=1*gDeltaTime
+        if dropAtk>=30
+        {
+          playSound(global.snd_OrbThrow,0,1,1)
+          dropAtk=0;armStart+=1
+          p1dropstart=y //spsp ns
+        }
+      }
+      else if armStart=4 //Drop down
+      {
+        if y>=yGround-48
+        {
+          dropAtk+=1*gDeltaTime
+          if dropAtk>=15 {dropAtk=0;armStart+=1}
+        }
+        else {y+=4*gDeltaTime}
+      }
+      else if armStart=5 //Rise up and end
+      {
+        //if y>yGround-128 {y-=2}
+        //if y>p1dropstart {y-=2} //spsp ns
+        if y>p1dropstart {y-=2*gDeltaTime} //spsp ns. 60fps change: per frame
+        if leftArm[0].armDist>10
+        {
+          for(i=0;i<maxArms;i+=1)
+          {
+            //leftArm[i].armDist-=1*Lscale
+            //rightArm[i].armDist-=1*Rscale
+            leftArm[i].armDist-=1*Lscale*gDeltaTime //60fps change: per frame
+            rightArm[i].armDist-=1*Rscale*gDeltaTime //60fps change: per frame
+          }
+        }
+        else //spsp ns
+        {
+          leftArm[0].armDist=10
+          rightArm[0].armDist=10
+        }
+
+        if y<=p1dropstart and leftArm[0].armDist=10 //end //spsp ns, first comparison used to be "=yGround-128"
+        {
+          y=p1dropstart //spsp ns
+          for(i=0;i<maxArms;i+=1)
+          {
+            leftArm[i].leftSpd=1
+            rightArm[i].rightSpd=1
+          }
+          armStart=1
+        }
+      }
+
+      //---------- ATTACK: ARM BOMB ----------
+      bombTime+=1*gDeltaTime
+      if bombTime>=bombDelay
+      {
+        leftArm[maxArms-1].atkTime=1
+        rightArm[maxArms-1].atkTime=1
+        bombTime=0
+      }
+
+      //---------- ATTACK: SPREAD BOMB ----------
+      spreadTime+=1*gDeltaTime
+      if spreadTime>=spreadDelay
+      {
+        if spreadTime<=spreadDelay+100 //Check updates
+        {
+          spreadCircle=30
+          spreadTime=10000
+        }
+        if spreadTime>=10030 and spreadTime<=10041
+        {
+          var tFire,tSprDir;
+          if spreadTime mod 2=0 {tSprDir=0}
+          else {tSprDir=22}
+
+          if spreadTime mod 3=0
+          {
+            playSound(global.snd_Wave,0,0.94,33075)
+            for(i=0;i<8;i+=1)
+            {
+              tFire=instance_create(x,y,oPassBullet)
+              tFire.sprite_index=sFNBomb; tFire.atkPower=atkPower
+              tFire.bulletSpeed=6; tFire._direction=tSprDir; tFire.decayTime=-100
+              tSprDir+=360/8
+            }
+          }
+        }
+        else if spreadTime>=10042 {spreadTime=0}
+      }
+    }
+    else if transform=3 //-------------------- PHASE 2 --------------------
+    {
+      faceTopImage=bCanTakeDamage
+      if instance_exists(oLinkBomb)
+      {
+        if point_distance(x,y,oLinkBomb.x,oLinkBomb.y)<6 {oLinkBomb.x=x;oLinkBomb.y=y}
+      }
+
+      //---------- MOVEMENT ----------
+      moveTime+=1*gDeltaTime
+      if moveSeq=0 //Wait
+      {
+        if moveTime>=stopTime {bCanTakeDamage=0; moveTime=0; moveSeq+=1}
+      }
+      else if moveSeq=1 //Move left to left
+      {
+        x-=moveSpd*gDeltaTime
+        if x<=496 {x=496; event_user(1); bCanTakeDamage=1; moveTime=0; moveSeq+=1}
+      }
+      else if moveSeq=2 //Wait
+      {
+        if moveTime>=stopTime {bCanTakeDamage=0; moveTime=0; moveSeq+=1}
+      }
+      else if moveSeq=3 //Move right to middle
+      {
+        //x-=moveSpd
+        x-=moveSpd*gDeltaTime //60fps change: per frame
+        if x<=432 {x=432; event_user(1); bCanTakeDamage=1; moveTime=0; moveSeq+=1}
+      }
+      else if moveSeq=4 //Wait
+      {
+        if moveTime>=stopTime {bCanTakeDamage=0; moveTime=0; moveSeq+=1}
+      }
+      else if moveSeq=5 //Move right to right
+      {
+        x+=moveSpd*gDeltaTime
+        if x>=496 {x=496; event_user(1); bCanTakeDamage=1; moveTime=0; moveSeq+=1}
+      }
+      else if moveSeq=6 //Wait
+      {
+        if moveTime>=stopTime {bCanTakeDamage=0; moveTime=0; moveSeq+=1}
+      }
+      else if moveSeq=7 //Move left to middle
+      {
+        //x+=moveSpd
+        x+=moveSpd*gDeltaTime //60fps change: per frame
+        if x>=560 {x=560; event_user(1); bCanTakeDamage=1; moveTime=0; moveSeq+=1}
+      }
+      else if moveSeq=8 //Wait
+      {
+        if moveTime>=stopTime {bCanTakeDamage=0; moveTime=0; moveSeq+=1}
+      }
+      else if moveSeq=9 //Move right to FOUR
+      {
+        //x+=moveSpd
+        x+=moveSpd*gDeltaTime //60fps change: per frame
+        if x>=624 {x=624; event_user(1); bCanTakeDamage=1; moveTime=0; moveSeq+=1}
+      }
+      else if moveSeq=10 //Wait
+      {
+        if moveTime>=stopTime {bCanTakeDamage=0; moveTime=0; moveSeq+=1}
+      }
+      else if moveSeq=11 //Move right to FIVE
+      {
+        //x+=moveSpd
+        x+=moveSpd*gDeltaTime //60fps change: per frame
+        if x>=688 {x=688; event_user(1); bCanTakeDamage=1; moveTime=0; moveSeq+=1}
+      }
+      else if moveSeq=12 //Wait
+      {
+        if moveTime>=stopTime {bCanTakeDamage=0; moveTime=0; moveSeq+=1}
+      }
+      else if moveSeq=13 //Move left to FOUR
+      {
+        //x-=moveSpd
+        x-=moveSpd*gDeltaTime //60fps change: per frame
+        if x<=624 {x=624; event_user(1); bCanTakeDamage=1; moveTime=0; moveSeq+=1}
+      }
+      else if moveSeq=14 //Wait
+      {
+        if moveTime>=stopTime {bCanTakeDamage=0; moveTime=0; moveSeq+=1}
+      }
+      else if moveSeq=15 //Move left to THREE
+      {
+        x-=moveSpd*gDeltaTime
+        if x<=560 {x=560; event_user(1); bCanTakeDamage=1; moveTime=0; moveSeq=0}
+      }
+      //Rotate face
+      event_user(0)
+      //Attack
+      event_user(2)
+
+      collLeft.x=x-15; collLeft.y=y-10
+      collRight.x=x+13; collRight.y=y-10
+      collBottom.x=x-14; collBottom.y=y+10
+      if faceTopImage=0 {collTop.x=x-15; collTop.y=y-10}
+      else {collTop.x=x-15; collTop.y=y-1000}
+    }
+    else if transform=5 //-------------------- PHASE 3 --------------------
+    {
+      //---------- ARM CONTROL ----------
+      if armStart=0 //Create arms
+      {
+        for(i=0;i<maxArms;i+=1)
+        {
+          leftArm[i]=instance_create(x,y,oFNightmareSeg)
+          leftArm[i].armSide=0; leftArm[i].segment=i
+          leftArm[i]._direction=190; leftArm[i].circleRad=11-(i/2)
+          leftArm[i].type=1; leftArm[i].bEnd=0
+          rightArm[i]=instance_create(x,y,oFNightmareSeg)
+          rightArm[i].armSide=1; rightArm[i].segment=i
+          rightArm[i]._direction=350; rightArm[i].circleRad=11-(i/2)
+          rightArm[i].type=1; rightArm[i].bEnd=0
+
+          if i=maxArms-1
+          {
+            leftArm[i].bEnd=1
+            rightArm[i].bEnd=1
+          }
+        }
+        armStart+=1
+      }
+
+      //---------- EYE CONTROL ----------
+      eyeTime+=1*gDeltaTime
+      if eyeState=0 {if eyeTime=70 {eyeTime=0;eyeState=1}}
+      else if eyeState=1
+      {
+        if eyeTime=10 {faceImage+=1}
+        else if eyeTime=20 {faceImage+=1; resType[1]=4; eyeState=2; eyeTime=0}
+        if true {resType[1]=1}       //spsp
+      }
+      else if eyeState=2
+      {
+        if eyeTime=130 {faceImage-=1;resType[1]=1}
+        else if eyeTime=140 {faceImage-=1}
+        else if eyeTime=150 {eyeTime=0;eyeState=0}
+      }
+
+      //---------- MOVEMENT ----------
+      if x<oPlayer1.x {if moveSpd<2 {moveSpd+=0.1*gDeltaTime}}
+      else if x>oPlayer1.x {if moveSpd>-2 {moveSpd-=0.1*gDeltaTime}}
+      x+=moveSpd*gDeltaTime
+
+      //---------- ATTACK: TWIN BOMB ----------
+      bombTime+=1*gDeltaTime
+      if bombTime>=bombDelay
+      {
+        if bombTime<=bombDelay+100 //Check updates
+        {
+          var tAfterI;
+          tAfterI=instance_create(x,y,oEnemyAfterImage)
+          tAfterI.sprite_index=sprite_index; tAfterI.image_index=image_index; tAfterI.image_blend=c_red
+          tAfterI.image_xscale=image_xscale; tAfterI.imageFade=0.05
+          tAfterI.xScaling=0.075; tAfterI.yScaling=0.075; tAfterI.xShift=0; tAfterI.yShift=0
+          tAfterI.bFollow=1; tAfterI.idFollow=id; tAfterI.xFollow=0; tAfterI.yFollow=0
+          bombTime=10000
+        }
+        if bombTime=10030
+        {
+          playSound(global.snd_Wave,0,0.95,12000)
+          var tNewAtk;
+          tNewAtk=instance_create(x-8,y-8,oFNBorderFollow)
+          tNewAtk.atkPower=atkPower; tNewAtk.type=0
+          tNewAtk=instance_create(x-8,y-8,oFNBorderFollow)
+          tNewAtk.atkPower=atkPower; tNewAtk.type=1
+          bombTime=0
+        }
+      }
+
+      //---------- ATTACK: ROCK LASER ----------
+      spreadTime+=1*gDeltaTime
+      if spreadTime>=spreadDelay
+      {
+        if spreadTime<=spreadDelay+100 //Check updates
+        {
+          spreadCircle=30
+          spreadTime=10000
+          playSound(global.snd_OrbThrow,0,1,8000)
+        }
+        if spreadTime>=10121 and spreadTime<=10150
+        {
+        if oGame.time mod (1/gDeltaTime)=0{
+          var tFire;
+          tFire=instance_create(x,y,oPassBullet)
+          tFire.sprite_index=sFNRock; tFire.atkPower=atkPower
+          tFire.bulletSpeed=12; tFire._direction=270; tFire.decayTime=-100}
+        }
+        else if spreadTime>=10162 {spreadTime=0}
+      }
+    }
+    else if transform=7 //-------------------- PHASE 4 --------------------
+    {
+      faceImage+=0.1*gDeltaTime
+      colSeq+=1*gDeltaTime
+      //if colSeq>=1 and colSeq<=50 {colorPhase+=1*gDeltaTime}
+      if colSeq>0 and colSeq<=50 {colorPhase+=1*gDeltaTime} //60fps change: >0 so all frames of the first tick count
+      //else if colSeq>=51 and colSeq<=100
+      else if colSeq>50 and colSeq<=100 //60fps change: >50 (see above)
+      {
+        colorPhase-=1*gDeltaTime
+        if colSeq=100 {colSeq=0}
+      }
+      baseColor=make_color_rgb(colorPhase,colorPhase,colorPhase)
+      if bTakingDamage=0 {image_blend=baseColor}
+
+      //---------- MOVEMENT ----------
+      pDistOrigX=point_distance(x,0,oPlayer1.x,0)
+      pDistX=pDistOrigX/25
+      if x>oPlayer1.x //go left
+      {
+        if moveSpd>=0
+        {
+          moveSpd-=pDistX/5*gDeltaTime
+          if pDistOrigX<16 and moveSpd<3 {moveSpd=0}
+        }
+        else {moveSpd-=pDistX/10*gDeltaTime}
+      }
+      else //go right
+      {
+        if moveSpd<=0
+        {
+          moveSpd+=pDistX/5*gDeltaTime
+          if pDistOrigX<16 and moveSpd>-3 {moveSpd=0}
+        }
+        else {moveSpd+=pDistX/10*gDeltaTime}
+      }
+
+      if moveSpd>maxSpd {moveSpd=maxSpd}
+      else if moveSpd<-maxSpd {moveSpd=-maxSpd}
+      x+=moveSpd*gDeltaTime
+
+      if y>oPlayer1.y+16 {y-=1*gDeltaTime}
+      if y<oPlayer1.y-maxYDist {y+=1*gDeltaTime}
+
+      //Bob up and down
+      sLordMoveTime+=1*gDeltaTime
+      //if sLordMoveTime>=1 and sLordMoveTime<=21 {sLordMove+=0.04*gDeltaTime}
+      //else if sLordMoveTime>=22 and sLordMoveTime<=42 {sLordMove-=0.04*gDeltaTime}
+      //else if sLordMoveTime>=52 and sLordMoveTime<=72 {sLordMove-=0.04*gDeltaTime}
+      //else if sLordMoveTime>=73 and sLordMoveTime<=93 {sLordMove+=0.04*gDeltaTime}
+      //60fps change: windows start just after the previous tick (>0, >21, >51, >72) so all frames of their first tick count
+      if sLordMoveTime>0 and sLordMoveTime<=21 {sLordMove+=0.04*gDeltaTime}
+      else if sLordMoveTime>21 and sLordMoveTime<=42 {sLordMove-=0.04*gDeltaTime}
+      else if sLordMoveTime>51 and sLordMoveTime<=72 {sLordMove-=0.04*gDeltaTime}
+      else if sLordMoveTime>72 and sLordMoveTime<=93 {sLordMove+=0.04*gDeltaTime}
+      else if sLordMoveTime>=103 {sLordMoveTime=0}
+      y+=sLordMove*gDeltaTime
+
+      //---------- ATTACK: SKY LASER ----------
+      spreadTime+=1*gDeltaTime
+      if spreadTime>=spreadDelay and laserXOffset<140
+      {
+        newLaser=instance_create(xCenter-roomSpan+laserXOffset,yGround,oFNSkyLaser)
+        newLaser.atkPower=floor(atkPower/2); newLaser.idleTime=10000; newLaser.bShake=0
+        newLaser=instance_create(xCenter+roomSpan-laserXOffset,yGround,oFNSkyLaser)
+        newLaser.atkPower=floor(atkPower/2); newLaser.idleTime=10000; newLaser.bShake=0
+        laserXOffset+=20
+        spreadTime=0
+      }
+
+      //---------- ATTACK: TARGET LASER ----------
+      targetLaserTime+=1*gDeltaTime
+      if targetLaserTime>=targetLaserDelay
+      {
+        newLaser=instance_create(oPlayer1.x,yGround,oFNSkyLaser)
+        newLaser.atkPower=floor(atkPower/2); newLaser.idleTime=50; newLaser.bShake=1
+        targetLaserTime=0
+      }
+
+      //---------- ATTACK: HAND LASER ----------
+      if life<maxLife
+      {
+        handLaserTime+=1*gDeltaTime
+        if handLaserTime>=handLaserDelay
+        {
+          if handLaserTime<=handLaserDelay+100 //Check updates
+          {
+            handSpr=sShroudLArmUp
+            handLaserTime=10000
+          }
+          if handLaserTime=10040 //Create laser
+          {
+            handLaserL=instance_create(x+100,y-36,oFNHandLaser)
+            handLaserL.atkPower=floor(atkPower/2); handLaserL.image_angle=270; handLaserL.image_yscale=5
+            handLaserR=instance_create(x-100,y-36,oFNHandLaser)
+            handLaserR.atkPower=floor(atkPower/2); handLaserR.image_angle=270; handLaserR.image_yscale=5
+          }
+          else if handLaserTime>10040 //Update lasers (Forever)
+          {
+            if bossProgress=8 {handLaserTime=10050}
+
+            handLaserL.x=x+100; handLaserL.y=y-36
+            handLaserR.x=x-100; handLaserR.y=y-36
+
+            if oGame.time mod (1/gDeltaTime)=0
+            {
+              var tEffect,i;
+              for(i=0;i<2;i+=1)
+              {
+                tEffect=instance_create(x-100+(-8+random(16)),y-36+(-8+random(16)),oEffectB)
+                tEffect.type=3; tEffect.sprite_index=sBelmontWepEffect; tEffect.image_speed=0.33
+                tEffect.direction=random(360); tEffect.speed=random(0.5)+0.5
+                tEffect.friction=random(0.01)+0.01; tEffect.fadeSpd=0.035
+                tEffect.AccelX=0; tEffect.AccelY=0; tEffect.newBlend=-1; tEffect.followID=-1; tEffect.rotation=0
+              }
+              for(i=0;i<2;i+=1)
+              {
+                tEffect=instance_create(x+100+(-8+random(16)),y-36+(-8+random(16)),oEffectB)
+                tEffect.type=3; tEffect.sprite_index=sBelmontWepEffect; tEffect.image_speed=0.33
+                tEffect.direction=random(360); tEffect.speed=random(0.5)+0.5
+                tEffect.friction=random(0.01)+0.01; tEffect.fadeSpd=0.035
+                tEffect.AccelX=0; tEffect.AccelY=0; tEffect.newBlend=-1; tEffect.followID=-1; tEffect.rotation=0
+              }
+            }
+          }
+        }
+      }
+    }
+
+    //-------------------- TRANSFORM --------------------
+    if transform=1 //To phase 2 check
+    {
+      if armStart=1 and spreadTime<spreadDelay
+      {
+        bCanTakeDamage=0
+        for(i=0;i<maxArms;i+=1)
+        {
+          leftArm[i].armDist=10
+          rightArm[i].armDist=10
+        }
+        bombTime=0
+        spreadTime=0
+        tranSize=12
+        transform+=1
+      }
+    }
+    else if transform=2 //To phase 2
+    {
+      if leftArm[0].armDist=0
+      {
+        tranSeq+=1*gDeltaTime
+        //if tranSeq=1 {t1x=x; t1y=y}
+        //if tranSeq<15 {x+=(xCenter-t1x)/14; y+=(ySpawn-t1y)/14} //spsp ns //y+=p2sink/16
+        if tranSeq=1*gDeltaTime {t1x=x; t1y=y} //60fps change: on the first frame (all the frames of tick 1 move)
+        if tranSeq<=14 {x+=(xCenter-t1x)/14*gDeltaTime; y+=(ySpawn-t1y)/14*gDeltaTime} //spsp ns. 60fps change: per frame, over ticks 1-14 as at 30fps
+        else if tranSeq=15
+        {
+          x=xCenter //spsp ns all three
+          y=ySpawn
+          moveSpd=2
+          depth=9
+          sprite_index=sFNFace
+          resType[0]=1; resType[1]=1; resType[4]=4
+          if false {resType[0]=2; resType[1]=1; resType[4]=1}     //spsp ns
+
+          collLeft=instance_create(x-15,y-10,oScaledCollision)
+          collLeft.image_xscale=2;collLeft.image_yscale=25
+          collRight=instance_create(x+13,y-10,oScaledCollision)
+          collRight.image_xscale=2;collRight.image_yscale=25
+          collBottom=instance_create(x-15,y+10,oScaledCollision)
+          collBottom.image_xscale=27;collBottom.image_yscale=5
+          collTop=instance_create(x-15,y-10,oScaledCollision)
+          collTop.image_xscale=29;collTop.image_yscale=5
+        }
+        else if tranSeq>=16
+        {
+          tranSize-=2*gDeltaTime
+          if tranSize<=4
+          {
+            with oFNightmareSeg {instance_destroy()}
+            tranSize=0
+            tranSeq=0
+            transform+=1
+          }
+        }
+      }
+      else
+      {
+        tranSize+=0.5*gDeltaTime
+        for(i=0;i<maxArms;i+=1)
+        {
+          leftArm[i].armDist-=0.25*gDeltaTime
+          rightArm[i].armDist-=0.25*gDeltaTime
+        }
+      }
+    }
+    else if transform=4 //To phase 3
+    {
+      tranSeq+=1*gDeltaTime
+      //if tranSeq>=1 and tranSeq<=100
+      if tranSeq>0 and tranSeq<=100 //60fps change: >0 so all frames of the first tick count
+      {
+        if tranSeq=1 {resType[4]=1; bCanTakeDamage=0}
+        if tranSeq<=60 {tranSize+=0.5*gDeltaTime}
+        //if tranSeq<17 {y-=p2sink/16} //spsp ns
+      }
+      else if tranSeq=101
+      {
+        //moveSpd=1 //spsp ns
+        sprite_index=sFNightmareEyes
+        faceImage=0
+        resType[0]=1; resType[1]=1; resType[4]=3
+        if true {resType[4]=5}       //spsp
+        with oScaledCollision {instance_destroy()}
+      }
+      else if tranSeq>=102
+      {
+        tranSize-=2*gDeltaTime
+        if tranSize<=4
+        {
+          depth=25
+          bombTime=0
+          bombDelay=270
+          spreadTime=0
+          spreadDelay=330
+          atkCircSpd=0.25
+          moveSpd=0
+          maxArms=11
+          armStart=0
+          tranSize=0
+          tranSeq=0
+          bCanTakeDamage=1
+          transform+=1
+        }
+      }
+    }
+    else if transform=6 //To phase 4
+    {
+      tranSeq+=1*gDeltaTime
+      if tranSeq>=1 and tranSeq<=30
+      {
+        for(i=0;i<maxArms;i+=1) //Bring arms in
+        {
+          leftArm[i].armDist-=1*gDeltaTime
+          rightArm[i].armDist-=1*gDeltaTime
+        }
+        if leftArm[0].armDist<=1
+        {
+          bCanDealDamage=0; bCanTakeDamage=0
+          resType[1]=1; resType[4]=1
+          life=1250
+          maxLife=5000
+          lifeRefill=1
+          with oFNightmareSeg {instance_destroy()}
+          playSound(global.snd_PortalCreate,0,0.94,8000)
+          tranSeq=30
+        }
+      }
+      //else if tranSeq>=31 and tranSeq<=210
+      else if tranSeq>30 and tranSeq<=210 //60fps change: >30 so all frames of the first tick count
+      {
+        if tranSeq<=210 {tranSize+=1*gDeltaTime}
+
+        if x<xCenter {x+=1*gDeltaTime}
+        else if x>xCenter {x-=1*gDeltaTime}
+        if y<192 {y+=1*gDeltaTime}
+      }
+      else if tranSeq=261 //Change sprite to Shroud Lord
+      {
+        sprite_index=sShroudLHead
+        image_speed=0.14
+        baseColor=make_color_rgb(colorPhase,colorPhase,colorPhase)
+        image_blend=baseColor
+        faceImage=0
+        life=0; lifeRefill=0 //spsp ns
+      }
+      else if tranSeq>=262 and tranSeq<=999 //Bring black circle back in
+      {
+        tranSize-=3*gDeltaTime
+        if tranSize<=3 {tranSeq=1000}
+      }
+      else if tranSeq=1001
+      {
+        msgCreate(0,0,"Jerry","No way! Jeremy!! ... THAT ISN'T EVEN RIGHT!!",0,1,oMessagePerson,0)
+        newMessage.fadingTime=75
+      }
+      else if tranSeq=1075
+      {
+        msgCreate(0,0,"Nightmare","I know what you fear most.",8,1,oMessagePerson,0)
+        newMessage.fadingTime=65
+      }
+      else if tranSeq>=1150 //To final phase
+      {
+        maxLife=3000; life=maxLife
+        spreadTime=35; spreadDelay=40
+        atkCircSpd=1
+        moveSpd=0
+        armStart=0
+        tranSize=0; tranSeq=0
+        bCanTakeDamage=1
+        bossProgress=0
+        transform+=1
+      }
+    }
+
+    //-------------------- MOVE SIDE PLATFORMS --------------------
+    if platformMove>=1 and platformMove<100 //Move platforms away
+    {
+      if platformMove=1
+      {
+        (GID(196186)).xVel=-1
+        (GID(196187)).xVel=1
+      }
+      if oGame.time mod (1/gDeltaTime)=0{
+      tile_layer_shift(1000001,-1,0)
+      tile_layer_shift(1000002,1,0)}
+      platformMove+=1*gDeltaTime
+      if platformMove=34
+      {
+        oMarioSpikeFloor.visible=1
+        (GID(196186)).xVel=0
+        (GID(196187)).xVel=0
+        platformMove=100
+      }
+    }
+    else if platformMove>=100 and platformMove<200 //Move spikes up
+    {
+      for(i=0;i<4;i+=1)
+      {
+        spikeAnnoy[i].y-=1*gDeltaTime
+        if platformMove mod 3=0 //Spike smoke effect
+        {
+          var tEffect;
+          tEffect=instance_create(spikeAnnoy[i].x-12+random(12),spikeAnnoy[i].y,oEffect)
+          tEffect.sprite_index=sMMSmokeCloud
+          tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+        }
+      }
+      platformMove+=1*gDeltaTime
+      if platformMove=96 {platformMove=200}
+    }
+    else if platformMove>=201 and platformMove<300 //Move platforms back in
+    {
+      if platformMove=201
+      {
+        for(i=0;i<4;i+=1)
+        {
+          var tEffect;
+          tEffect=instance_create(spikeAnnoy[i].x-8,spikeAnnoy[i].y,oEffect)
+          tEffect.sprite_index=sMMchargeComplete
+          tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+        }
+        with oMarioSpikeFloor {instance_destroy()}
+        (GID(196186)).xVel=1
+        (GID(196187)).xVel=-1
+      }
+      if oGame.time mod (1/gDeltaTime)=0{
+      tile_layer_shift(1000001,1,0)
+      tile_layer_shift(1000002,-1,0)}
+      platformMove+=1*gDeltaTime
+      if platformMove=234
+      {
+        (GID(196186)).xVel=0
+        (GID(196187)).xVel=0
+        platformMove=300
+      }
+    }
+
+    if lifeRefill=1 //Recharge life one time
+    {
+      //life+=15*gDeltaTime
+      if gDeltaDoTicks {life+=15} //60fps change: once per 30fps tick, the same rate, in whole points (a fraction every frame left the HP on decimals)
+      if life>=maxLife
+      {
+        resType[0]=3; resType[1]=2; resType[4]=3
+        life=maxLife
+        lifeRefill=1000
+      }
+    }
+
+    //---------- Boss Difficulty Curve ----------
+    if transform>=0 and transform<=6
+    {
+      if lifePercent<=0.88 and lifePercent>=0.76 and bossProgress=0
+      {
+        dropMax-=45
+        bombDelay-=15
+        spreadDelay-=35
+        bossProgress+=1
+      }
+      else if lifePercent<=0.75 and lifePercent>=0.63 and bossProgress=1 //Phase 2 start
+      {
+        transform+=1
+        bossProgress+=1
+      }
+      else if lifePercent<=0.68 and lifePercent>=0.51 and bossProgress=2 //0.62
+      {
+        moveSpd=2
+        stopTime=115 //135
+        atkFollowSpc-=10
+        atkFallSpc-=2 //1
+        atkGravSpc-=6
+        atkSpiralAmt=6 //8
+        platformMove=1
+        spikeAnnoy[0]=instance_create(480,room_height-12,oMarioSpikeFloor)
+        spikeAnnoy[1]=instance_create(496,room_height-12,oMarioSpikeFloor)
+        spikeAnnoy[2]=instance_create(608,room_height-12,oMarioSpikeFloor)
+        spikeAnnoy[3]=instance_create(624,room_height-12,oMarioSpikeFloor)
+        oMarioSpikeFloor.visible=0
+        bossProgress+=1
+        var tAtkShield;
+        tAtkShield=instance_create(x,y,oAtkTypeShield); tAtkShield.ownerID=id
+        tAtkShield.xOffset=0; tAtkShield.yOffset=0; tAtkShield.atkType=2; tAtkShield.atkUp=1
+        resType[4]=3
+      }
+      /*else if lifePercent<=0.59 and lifePercent>=0.51 and bossProgress=2 and resType[4]=4 //spsp na
+      {
+        var tAtkShield;
+        tAtkShield=instance_create(x,y,oAtkTypeShield); tAtkShield.ownerID=id
+        tAtkShield.xOffset=0; tAtkShield.yOffset=0; tAtkShield.atkType=2; tAtkShield.atkUp=1
+        resType[4]=3
+      }*/
+      else if lifePercent<=0.50 and lifePercent>=0.38 and bossProgress=3 //Phase 3 start
+      {
+        transform+=1
+        platformMove=201
+        bossProgress+=1
+      }
+      else if lifePercent<=0.37 and lifePercent>=0.26 and bossProgress=4
+      {
+        bombDelay-=15
+        spreadDelay-=35
+        bossProgress+=1
+      }
+      else if lifePercent<=0.25 and lifePercent>=0.13 and bossProgress=5 //Phase 4 start
+      {
+        transform+=1
+        bossProgress+=1
+      }
+    }
+    else if transform=7 //Phase 4 arc
+    {
+      if lifePercent<=0.75 and lifePercent>=0.51 and bossProgress=0
+      {
+
+        bossProgress+=1
+      }
+      else if lifePercent<=0.5 and lifePercent>=0 and bossProgress=1
+      {
+
+        bossProgress+=1
+      }
+    }
+  }
+  else if life<=0 //Defeat animation
+  {
+    deathAnim+=1*gDeltaTime
+    if deathAnim=1
+    {
+      _speed=0
+      with oEProjectileBase {instance_destroy()}
+    }
+    else if deathAnim>=2 and deathAnim<=55
+    {
+      if oGame.time mod (2/gDeltaTime)=0
+      {
+        var tEffect;
+        tEffect=instance_create((x-sprite_width/2)+random(sprite_width),(y-sprite_height/2)+random(sprite_height),oEffect)
+        tEffect.sprite_index=sSamusSMissileHit
+        tEffect.image_speed=0.5; tEffect.image_xscale=0.5; tEffect.image_yscale=0.5
+        tEffect.newBlend=-1; tEffect.followID=-1; tEffect.decay=-100; tEffect.xSpd=0; tEffect.ySpd=0
+      }
+    }
+    else if deathAnim>=56
+    {
+      if global.bBossGallery=1
+      {
+        bossRoomTally(8)
+        global.newMapX=1864; global.newMapY=1280; room_goto(rBossGallery)
+      }
+      else
+      {
+        oEvExGates.sceneProgress=1
+        instance_destroy()
+      }
+    }
+  }
+  enemyStepEvent()
+}
+else {_speed=0}
+correctSpeedDirection(self)

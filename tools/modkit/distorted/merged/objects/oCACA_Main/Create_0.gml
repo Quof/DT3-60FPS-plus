@@ -1,0 +1,79 @@
+event_inherited()
+bCanDealDamage=false
+fingerFrm=0
+animSpd=0.15
+image_xscale=-1
+
+//Enemy base statistics
+eName="Advanced Combat Apparatus"
+eLevel=34
+maxLife=10400 //11400
+life=maxLife
+atkPower=9
+resType[0]=1 //spsp ns
+resType[1]=1
+resType[2]=3//2//og
+resType[3]=1
+resType[4]=3
+resType[5]=1
+tAim=0
+stunResist=50
+bIsBoss=true
+bNoBonus=true
+affiliation=7
+dieEffect=0
+bossProgress=0
+activateBoss=0
+//--------------------
+bossPhase=1
+phaseTime=0
+moveSpd=1
+bChestLight=0
+bFloorFlame=1
+
+explodeMissileTime=200
+explodeMissileDelay=250
+explodeMissileNum=4
+
+laserMouthTime=160
+laserMouthDelay=270
+
+laserEyeTime=130
+laserEyeDelay=300
+laserWarn=0
+circleAlpha=0
+cirRad=0
+
+skyLaserTime=240
+skyLaserDelay=330
+
+bAtkFloorFire=0
+atkFloorFireTime=340
+atkFloorFireDelay=350
+
+backMissile=0
+
+chestLaserTime=0
+hitsDuringLaser=0
+bombSpacingA=75
+bombSpacingB=100
+bombType=0
+_direction=0
+//--------------------
+
+//Misc Data
+xCenter=624
+yGround=736
+roomSpan=352
+
+deathAnim=0
+
+var tXOff;
+tXOff=-80
+for(i=0;i<9;i+=1)
+{
+  myFloorFire[i]=instance_create(x,y,oCACA_FloorFire)
+  myFloorFire[i].atkPower=atkPower; myFloorFire[i].xOffset=tXOff
+  myFloorFire[i].image_speed=0.3+(0.01*i)
+  tXOff+=20
+}

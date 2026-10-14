@@ -7,10 +7,10 @@ room is entered (scrModRoomRead), so the game doesn't start by reading every roo
 code is set to scrModRoomStart(), which makes the tiles and instances (so their creation code can run before their
 create event, as in a room made in the editor) and runs the room's own creation code. global.modRoomInfo[room] keeps
 what it needs:
-  0 mod, 1 30fps mod, 2 room code (compiled, or -1), 3 name, 4 instance count (-1 until the room's contents are read),
-  5-12 for each background 0-7 whether it's stretched to fill the room, 13 the tiles (a ds_list, -1 until read: 11
-  values a tile, see scrModRoomRead), then for each instance: object, x, y, original id, xscale, yscale, blend, angle,
-  creation code (compiled, or -1)
+  0 mod, 1 30fps mod, 2 room code (its number as text, scrModTextAdd, or -1), 3 name, 4 instance count (-1 until the
+  room's contents are read), 5-12 for each background 0-7 whether it's stretched to fill the room, 13 the tiles (a
+  ds_list, -1 until read: 11 values a tile, see scrModRoomRead), then for each instance: object, x, y, original id,
+  xscale, yscale, blend, angle, creation code (its number as text, or -1)
 argument0: the mod (its place in the mod list)
 */
 var m,tDir,i,k,tName,tRm,tRd,tKV,tInfo,tStretch;

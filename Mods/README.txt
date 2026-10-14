@@ -60,6 +60,7 @@ mod.ini
   var0=msc_MyTheme
   file0=MyTheme.ogg
   credit0=Game [Title]
+  gain0=0
 
   [locations]
   count=1
@@ -73,9 +74,12 @@ rooms goes, and the player's position there, when the mod is off.
 
 [sounds]: sound effects (in sound\), loaded when the game starts: global.<var> gets each one, for playSound.
 
-[music]: music tracks (in music\). findMusic(track) plays them like the game's own: use track numbers the game doesn't
-have. global.<var> gets the track when it's loaded (var is optional). The credit is shown in the pause menu while it
-plays.
+[music]: music tracks (in music\). findMusic(track) plays them like the game's own. A track with a number the game has
+plays instead of the game's track while the mod is on (the game's still plays while the file isn't there, so a mod can
+leave its music files for the player to add); use numbers the game doesn't have for new tracks. Track 9000 is the
+title screen music. global.<var> gets the track when it's loaded (var is optional). The credit is shown in the pause
+menu while it plays. gain is the track's loudness adjustment in dB, as the game has for its own tracks
+(getReplayGain): 0 if left out.
 
 [locations]: location names, for locationCheck(id) and the area name in the pause menu.
 
@@ -124,11 +128,12 @@ own code can't call them; hooks can.
 A script with the name of one of these game scripts is the mod's version of it, and runs instead of it everywhere the
 game calls it (if two mods have one, the later mod's):
 
-  abilSetRemove, charSwitcher, characterCreateEvent, characterDrawEvent, characterStepEvent, checkWeaponHit,
-  enemyDefeat, enemyDrawEvent, enemyStepEvent, equipmentInit, hitPlayer, internetzDrop, menuAbilitySet,
-  menuEquipment, menuOptions, menuRecognitions, pMoveAirDash, pMoveDashBack, pMoveDashForward, pMoveWallDash,
-  pSwapCharacter, playerHeartDisplay, playerTechStart, playerTechUse, scrFullStatRestore, storeStatus, takeDamage,
-  weaponDmgMod
+  abilSetRemove, awardAwesome, charSwitcher, characterCreateEvent, characterDrawEvent, characterStepEvent,
+  checkWeaponHit, enemyDefeat, enemyDrawEvent, enemyStepEvent, equipmentInit, hitPlayer, internetzDrop,
+  locationCheck, makeEnemyActive, menuAbilitySet, menuEquipment, menuMap, menuOptions, menuProgress,
+  menuRecognitions, menuSpendAP, npcTrivia, pMoveAirDash, pMoveDashBack, pMoveDashForward, pMoveDoubleJump,
+  pMoveJump, pMoveWallDash, pSwapAbility, pSwapCharacter, playerHeartDisplay, playerTechStart, playerTechUse,
+  scrFullStatRestore, showMessage, storeStatus, takeDamage, weaponDmgMod
 
 It replaces all of the game's script, so start from the game's version (DT3+'s, with its 60fps code). Its code runs
 as DT3+ code, every frame, even in a 30fps mod. Other game scripts can't be replaced.
@@ -156,12 +161,15 @@ object.ini:
   inherit=
   block=
   events=replace
+  append=
   legacy=
 
 parent is an object, the game's or the mod's. inherit is the object whose events event_inherited() runs (the parent if
 it's left out; empty: none). block lists events the object must not get from its parent, comma separated (e.g.
 Step_2,Draw_0): they run inherit's instead. events is for one of the game's objects: replace (the default: each event
-the mod has replaces the object's) or append (each is added after the object's own). legacy is for one of the mod's
+the mod has replaces the object's) or append (each is added after the object's own). append, also for one of the
+game's objects, lists events (comma separated) that are added after the object's own while the mod's other events
+replace theirs: adding to an event is quicker to load than replacing it. legacy is for one of the mod's
 new objects: 1 if its code was written for 30fps, 0 if for DT3+ (left out: the mod's own legacy setting), so a DT3+ mod
 can have 30fps objects in it (see DT3+ AND 30FPS MODS).
 
@@ -212,10 +220,25 @@ is found by its object (not its children) and where it was placed in the room ed
   remove|object|x|y                   takes the instance out (without its destroy event: it was never there)
   move|object|x|y|new x|new y         moves it; later lines find it at its new place
   code|object|x|y|code.gml            runs code in it, after its own creation code
+  precode|object|x|y|code.gml         the same; the mod tools write these before the lines that take instances out
   gid|object|x|y|id                   lets GID(id) find it
   roomcode|code.gml                   runs code after the room's own creation code
+  roomcodeset|code.gml                replaces the room's creation code: the room's own doesn't run, and this runs
+                                      after all the other lines (so after the instances the patch adds)
   tileadd|background|x|y|left|top|width|height|depth
   tileremove|depth|x|y                deletes the tile in that layer that has the point x,y on it
+
+These change the room itself, when the mods are loaded:
+
+  caption|text                        its caption (the rest of the line)
+  roomsize|width|height
+  roombg|n|visible|foreground|background|x|y|htiled|vtiled|hspeed|vspeed
+                                      background n, as room_set_background takes it (the background by name)
+  roomcolor|colour|draw               its background colour (red+green*256+blue*65536) and whether it's drawn
+
+A patch's code is kept as text and run with execute_string when its line runs, which keeps loading quick for a mod
+with many patches; check that it compiles (tools\modkit\validate.py does). roomcode and roomcodeset code runs in an
+instance of its own, so the plain variables a room's code sets stay out of oGame.
 
 A persistent room is only patched the first time it starts.
 
@@ -288,4 +311,6 @@ hooks, or merged into DT3+'s versions of those scripts and objects:
   python tools\modkit\mergemod.py check <config.json>    what's left to do
   python tools\modkit\mergemod.py update <config.json>   after DT3+ changed those scripts or objects
 
-tools\modkit\altered_beast\config.json does that (and convert.py then builds the mod with the merged versions in it).
+tools\modkit\altered_beast\config.json does that (and convert.py then builds the mod with the merged versions in it),
+and so does tools\modkit\distorted\config.json, for a mod that changes the whole game: most of its rooms are patched,
+and its new objects and scripts are ported to DT3+'s 60fps code by hand (its ported folder).
