@@ -78,7 +78,10 @@ Playing
 Trackers
   The mod's tracker folder (Mods\Randomizer\tracker) has two pages to open in a web browser next to the game, or in a
   stream's browser source. The game writes what the player has and has taken to tracker\state.js whenever it changes
-  (rndTrackWrite), and the pages read it again every second: they follow the randomizer game being played.
+  (rndTrackWrite), and the pages read it again every second: they follow the randomizer game being played. Open
+  Trackers.bat (in the mod folder) opens each in a window of its own, sized to it (Microsoft Edge's app windows;
+  without Edge, the default browser); Open Trackers (Always on Top).bat opens them on top of every other window, the
+  game's too. Both run tracker\open.ps1, which has the windows' sizes.
   - checks.html, the Check Tracker: every place by area (the tabs) and screen; red while the player's items don't reach
     it, green once they do, blue with a tick once it's taken. Its logic is the seed's own: the room logic the items
     were placed with, with the doors and bosses as the seed shuffled them and Instrument Randomization as it was set. A

@@ -88,10 +88,12 @@
         });
       });
       var b = el("button", (ti === sel ? "sel" : "") + (here && here[0] === ti ? " here" : ""));
-      b.appendChild(document.createTextNode(t.name));
+      b.appendChild(el("span", "long", t.name));
+      b.appendChild(el("span", "short", t.name.replace(/^Access Gate (\d+):.*$/, "Gate $1")
+        .replace(" & Neo Grime", "").replace("Nightmare Gates", "Nightmare").replace("CHAOS Warship", "Warship")));
       if (inl) { b.appendChild(el("span", "n in", String(inl))); }
       b.appendChild(el("span", taken === n ? "n done" : "n", taken + "/" + n));
-      b.title = inl + " in logic, " + taken + " of " + n + " taken";
+      b.title = t.name + ": " + inl + " in logic, " + taken + " of " + n + " taken";
       b.onclick = function () { sel = ti; save("tab", sel); render(); };
       tabsEl.appendChild(b);
     });

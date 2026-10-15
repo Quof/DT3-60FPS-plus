@@ -352,7 +352,7 @@ LOCATIONS = {
     'Central City - South - Treasure Chest 39': (4456039, [[('Air Dash', 1), ('Double Jump', 1)]], False),
     'Central City - South - Skill Point 55': (4464055, [[('Double Jump', 1), ('Progressive Samus', 2)]], False),
     'Central City - South - Treasure Chest 40': (4456040, [[]], False),
-    'Central City - South - Heart Container 7': (4468007, [[('Air Dash', 1), ('Double Jump', 1), ('Progressive Samus', 2)], [('Air Dash', 1), ('Double Jump', 1), ('Progressive Mega Man', 2)], [('Air Dash', 1), ('Double Jump', 1), ('Progressive Belmont', 3)], [('Double Jump', 1), ('Progressive Mega Man', 4)]], True),
+    'Central City - South - Heart Container 7': (4468007, [[('Air Dash', 1), ('Double Jump', 1), ('Progressive Samus', 2)], [('Air Dash', 1), ('Double Jump', 1), ('Progressive Mega Man', 2)], [('Double Jump', 1), ('Progressive Mega Man', 4)], [('Air Dash', 1), ('Double Jump', 1), ('Progressive Belmont', 3)]], True),
     'Barrens - Mid Waste - Heart Piece 26': (4455026, [[('Progressive Samus', 2)]], False),
     'Barrens - Mid Waste - Skill Point 41': (4464041, [[('Air Dash', 1), ('Double Jump', 1)]], False),
     'Barrens - Mid Waste - Skill Point 54': (4464054, [[('Air Dash', 1), ('Double Jump', 1)]], False),

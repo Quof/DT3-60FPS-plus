@@ -77,11 +77,11 @@ ITEM_GROUPS = [
         ("samus6", "Bombs", ("own", 9, 6), (WLP, 11, None)),
         ("samus7", "Diffusion Missile", ("own", 9, 7), ("sMetPick_SuperMissile", 0, None)),
     ]),
-    ("Jerry's Game Powers", [
+    ("Jerry", [
         ("jerry1", "Jerry's Game Powers", ("own", 10, 1), ("sGamePower", 0, None)),
         ("jerry2", "Bird Swarm", ("own", 10, 2), ("sJF_Bird", 0, None)),
     ]),
-    ("Claire's Game Powers", [
+    ("Claire", [
         ("claire1", "Claire's Game Powers", ("own", 11, 1), ("sGamePower", 0, None)),
         ("claire2", "Flame Shield", ("own", 11, 2), ("sJCGameFlameBall", 0, None)),
     ]),
