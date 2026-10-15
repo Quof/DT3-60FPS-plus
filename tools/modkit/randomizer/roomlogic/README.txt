@@ -251,6 +251,9 @@ roomlogic.py runs three steps:
      Ability Set bounces off (a Bill Blaster's Bullet Bills), a push rock, a floating platform, a fading platform (a
      jump-through one: there half the time), an exit (or a menu's: Gate 4's stage select), a door within the room, or
      a place (an exit whose way goes by a Forest Palace crystal is read in both of the crystal's states).
+     The enemy traps the Randomizer brings back (..\traps.py: the story's kill rooms, each happening once) add their
+     barriers as gates: walls that open with what beats the trap's enemies (an attack of a damage type they all take,
+     or the Mario Ability Set for Mario's), so a way through one, or to a place behind one, needs that.
      work\rooms_notes.txt lists what its code left unknown.
   2. RoomLogic.cs (built to work\RoomLogic.exe with the .NET Framework's C# compiler): draws each room from its
      instances' sprite masks; finds where the player can stand, and joins those places into regions (walking); then

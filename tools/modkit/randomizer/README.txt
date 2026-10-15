@@ -65,6 +65,19 @@ Playing
     Bomb). Swapping characters and sets is always on. The Gate 6 sets only work in Gate 6, as in the game, and in The
     Executive's fight (the game's own fight gives them; here, the ones the player has found).
   - Each key opens its own locked door (the message says which area it's in); a door without its key says so.
+  - The pause menu's Teleport works anywhere but in a boss fight, and goes to where the game started: Central City -
+    North, at the door from Greatest Stretch (the game's own places for it aren't used). It's the way out of anywhere
+    the player can't get out of on foot.
+  - Enemy traps (traps.py): the story's kill rooms, which shut the player in with barriers till they've beaten waves
+    of enemies, happen again, each once: walking into one's arena closes its barriers and starts the game's own fight
+    (its enemies, waves and counter); beaten, it's gone for good (the save keeps it). The logic counts each one: its
+    barriers are walls that open with what beats its enemies (an attack of a damage type they all take, or the Mario
+    Ability Set for Mario's enemies, which it stomps), so a seed never needs the player to go through one they can't
+    win. 57 of them, in the Vault, Gate 5, Neo Grime City, Gate 6, the Hidden Program Facility, Starry Skies, the CHAOS
+    Weapons Facility and Warship, the Mushroom Kingdom, Greatest Stretch, Hyrule's palaces, Transylvania, the Mountain
+    Temple and Sigma's Fortress. Left out: the story's scenes more than fights, and the Nightmare Gates' (the game runs
+    them every time, as it does in the Randomizer's world; traps.py lists the rest and why). A save from a build
+    before the traps doesn't get them (its seed's items were placed without them).
   - Bosses are fought in their own rooms: walking up to where a boss's fight starts (or leaving its room another way
     than the player came in) starts it, as the room's own fight (the room's code makes the boss), with the player's own
     abilities and the life and ammo they came in with. A boss has to be beaten to go on: given up from the game over
@@ -142,6 +155,8 @@ Building
                makes them (roomlogic\README.txt)
   logic.txt    last-resort changes to single places (below)
   tracker_names.txt  the Check Tracker's tabs and screens, and names for single checks (Trackers, above)
+  traps.py     the enemy traps the Randomizer brings back (Playing, above): which of the game's, and how each is changed;
+               the build makes their mod objects from the game's code, and roomlogic's roomdata.py their barriers
 
 Logic
   What a place needs comes from the rooms themselves (roomlogic\): a program runs the game's own 30fps movement through

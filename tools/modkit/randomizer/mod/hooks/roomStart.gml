@@ -18,6 +18,14 @@ if global.rndActive=0
 if !instance_exists(oRndWatcher) {instance_create(0,0,oRndWatcher)}
 //(the trackers' state written again: the room the player's in, and after a new game, a load or a boss fight)
 global.rndTrackDirty=1
+//the enemy traps of the room not beaten yet: each its own object, which starts it once the player's in its arena
+//(traps.py)
+global.rndTrapActive=-1
+var k;
+for(k=0;k<global.rndTrapN;k+=1)
+{
+  if global.rndTrapRoom[k]=room and string_char_at(global.rndTrapDone,k+1)!="1" {instance_create(0,0,global.rndTrapObj[k])}
+}
 //Entrance Rando: the room's exits that are its doors' ends lead where the shuffle has them (rndERApplyExit)
 if global.rndERMode>0
 {

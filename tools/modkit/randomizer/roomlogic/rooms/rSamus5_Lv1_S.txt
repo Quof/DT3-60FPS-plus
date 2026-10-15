@@ -21,7 +21,7 @@ out 0,272   # to rSamus5_Lv1_Boss at 512,192; the player goes into it
 # the locked door whose objectNum is N.
 from in 1280,304
   out 1328,272   link:1 | belmont:1 | megaman:1 | samus:1
-  out 0,272      djump,hijump:2,link:1 | djump,hijump:2,belmont:1 | djump,hijump:2,megaman:1 | djump,hijump:2,samus:1
+  out 0,272      djump,hijump:2,belmont:1 | djump,hijump:2,link:1 | djump,hijump:2,megaman:1 | djump,hijump:2,samus:1
 from in 64,304
   out 1328,272   hijump:2,link:1 | hijump:2,belmont:1 | hijump:2,megaman:1 | hijump:2,samus:1
   out 0,272      link:1 | belmont:1 | megaman:1 | samus:1
@@ -52,23 +52,23 @@ how in 1280,304 -> out 1328,272: samus:1
       -> standing at x 1223-1313, y 305
    2. walk off the edge, holding right once in the air, from 1223,305, through the Metroid door at 1320,240, the Metroid door at 0,240; touches it on the way   [samus:1]
       -> out 1328,272
-how in 1280,304 -> out 0,272: djump,hijump:2,link:1
-     coming in at 1280,304
-   1. coming in: holding nothing, from 1280,304; lands at 1280,305
-      -> standing at x 1223-1313, y 305
-   2. jump with High Jump Boots 2 (held 40 ticks), holding nothing, then left after 16 ticks, double jump at tick 16, from 1223,305; lands at 1004,289   [djump,hijump:2]
-      -> standing at x 31-1145, y 273-305
-   3. walk from 31,305 to 30,305 into the Metroid door at 0,240   [link:1]
-      -> standing at x 0-30, y 305 (where a gate is)
-   4. standing at 0,305, goes into it
-      -> out 0,272
 how in 1280,304 -> out 0,272: djump,hijump:2,belmont:1
      coming in at 1280,304
    1. coming in: holding nothing, from 1280,304; lands at 1280,305
       -> standing at x 1223-1313, y 305
-   2. jump with High Jump Boots 2 (held 40 ticks), holding nothing, then left after 16 ticks, double jump at tick 16, from 1223,305; lands at 1004,289   [djump,hijump:2]
-      -> standing at x 31-1145, y 273-305
-   3. walk from 31,305 to 30,305 into the Metroid door at 0,240   [belmont:1]
+   2. jump with High Jump Boots 2 (held 40 ticks), holding nothing, then left after 16 ticks, double jump at tick 16, from 1223,305, through the oRndTrap at 72,240, the oRndTrap at 1152,64; lands at 1004,289   [djump,hijump:2,belmont:1]
+      -> standing at x 95-1145, y 273-305
+   3. running left, jump (held 2 ticks), holding left, from 95,305, through the Metroid door at 1320,240, the Metroid door at 0,240, the oRndTrap at 72,240, ...; lands at 21,305   [belmont:1]
+      -> standing at x 0-30, y 305 (where a gate is)
+   4. standing at 0,305, goes into it
+      -> out 0,272
+how in 1280,304 -> out 0,272: djump,hijump:2,link:1
+     coming in at 1280,304
+   1. coming in: holding nothing, from 1280,304; lands at 1280,305
+      -> standing at x 1223-1313, y 305
+   2. jump with High Jump Boots 2 (held 40 ticks), holding nothing, then left after 16 ticks, double jump at tick 16, from 1223,305, through the oRndTrap at 72,240, the oRndTrap at 1152,64; lands at 1004,289   [djump,hijump:2,link:1]
+      -> standing at x 95-1145, y 273-305
+   3. running left, jump (held 2 ticks), holding left, from 95,305, through the Metroid door at 1320,240, the Metroid door at 0,240, the oRndTrap at 72,240, ...; lands at 21,305   [link:1]
       -> standing at x 0-30, y 305 (where a gate is)
    4. standing at 0,305, goes into it
       -> out 0,272
@@ -76,9 +76,9 @@ how in 1280,304 -> out 0,272: djump,hijump:2,megaman:1
      coming in at 1280,304
    1. coming in: holding nothing, from 1280,304; lands at 1280,305
       -> standing at x 1223-1313, y 305
-   2. jump with High Jump Boots 2 (held 40 ticks), holding nothing, then left after 16 ticks, double jump at tick 16, from 1223,305; lands at 1004,289   [djump,hijump:2]
-      -> standing at x 31-1145, y 273-305
-   3. walk from 31,305 to 30,305 into the Metroid door at 0,240   [megaman:1]
+   2. jump with High Jump Boots 2 (held 40 ticks), holding nothing, then left after 16 ticks, double jump at tick 16, from 1223,305, through the oRndTrap at 72,240, the oRndTrap at 1152,64; lands at 1004,289   [djump,hijump:2,megaman:1]
+      -> standing at x 95-1145, y 273-305
+   3. running left, jump (held 2 ticks), holding left, from 95,305, through the Metroid door at 1320,240, the Metroid door at 0,240, the oRndTrap at 72,240, ...; lands at 21,305   [megaman:1]
       -> standing at x 0-30, y 305 (where a gate is)
    4. standing at 0,305, goes into it
       -> out 0,272
@@ -86,56 +86,64 @@ how in 1280,304 -> out 0,272: djump,hijump:2,samus:1
      coming in at 1280,304
    1. coming in: holding nothing, from 1280,304; lands at 1280,305
       -> standing at x 1223-1313, y 305
-   2. jump with High Jump Boots 2 (held 40 ticks), holding nothing, then left after 16 ticks, double jump at tick 16, from 1223,305; lands at 1004,289   [djump,hijump:2]
-      -> standing at x 31-1145, y 273-305
-   3. walk from 31,305 to 30,305 into the Metroid door at 0,240   [samus:1]
+   2. jump with High Jump Boots 2 (held 40 ticks), holding nothing, then left after 16 ticks, double jump at tick 16, from 1223,305, through the oRndTrap at 72,240, the oRndTrap at 1152,64; lands at 1004,289   [djump,hijump:2,samus:1]
+      -> standing at x 95-1145, y 273-305
+   3. running left, jump (held 2 ticks), holding left, from 95,305, through the Metroid door at 1320,240, the Metroid door at 0,240, the oRndTrap at 72,240, ...; lands at 21,305   [samus:1]
       -> standing at x 0-30, y 305 (where a gate is)
    4. standing at 0,305, goes into it
       -> out 0,272
 how in 64,304 -> out 1328,272: hijump:2,link:1
      coming in at 64,304
    1. coming in: holding nothing, from 64,304; lands at 64,305
-      -> standing at x 31-1145, y 273-305
-   2. running right, jump with High Jump Boots 2 (held 40 ticks), holding right, from 928,273; lands at 1163,161   [hijump:2]
-      -> standing at x 1146-1222, y 161
-   3. walk off the edge, holding right once in the air, from 1146,161; lands at 1279,305
+      -> standing at x 31-65, y 305
+   2. jump (held 6 ticks), holding right, from 31,305, through the oRndTrap at 72,240, the oRndTrap at 1152,64; lands at 96,305   [link:1]
+      -> standing at x 95-1145, y 273-305
+   3. running right, jump with High Jump Boots 2 (held 40 ticks), holding right, from 928,273, through the oRndTrap at 72,240, the oRndTrap at 1152,64; lands at 1163,161   [hijump:2,link:1]
+      -> standing at x 1146-1174, y 161 (where a gate is)
+   4. walk off the edge, holding right once in the air, from 1146,161, through the oRndTrap at 72,240, the oRndTrap at 1152,64; lands at 1279,305   [link:1]
       -> standing at x 1223-1313, y 305
-   4. walk off the edge, holding right once in the air, from 1223,305, through the Metroid door at 1320,240, the Metroid door at 0,240; touches it on the way   [link:1]
+   5. walk off the edge, holding right once in the air, from 1223,305, through the Metroid door at 1320,240, the Metroid door at 0,240; touches it on the way   [link:1]
       -> out 1328,272
 how in 64,304 -> out 1328,272: hijump:2,belmont:1
      coming in at 64,304
    1. coming in: holding nothing, from 64,304; lands at 64,305
-      -> standing at x 31-1145, y 273-305
-   2. running right, jump with High Jump Boots 2 (held 40 ticks), holding right, from 928,273; lands at 1163,161   [hijump:2]
-      -> standing at x 1146-1222, y 161
-   3. walk off the edge, holding right once in the air, from 1146,161; lands at 1279,305
+      -> standing at x 31-65, y 305
+   2. jump (held 6 ticks), holding right, from 31,305, through the oRndTrap at 72,240, the oRndTrap at 1152,64; lands at 96,305   [belmont:1]
+      -> standing at x 95-1145, y 273-305
+   3. running right, jump with High Jump Boots 2 (held 40 ticks), holding right, from 928,273, through the oRndTrap at 72,240, the oRndTrap at 1152,64; lands at 1163,161   [hijump:2,belmont:1]
+      -> standing at x 1146-1174, y 161 (where a gate is)
+   4. walk off the edge, holding right once in the air, from 1146,161, through the oRndTrap at 72,240, the oRndTrap at 1152,64; lands at 1279,305   [belmont:1]
       -> standing at x 1223-1313, y 305
-   4. walk off the edge, holding right once in the air, from 1223,305, through the Metroid door at 1320,240, the Metroid door at 0,240; touches it on the way   [belmont:1]
+   5. walk off the edge, holding right once in the air, from 1223,305, through the Metroid door at 1320,240, the Metroid door at 0,240; touches it on the way   [belmont:1]
       -> out 1328,272
 how in 64,304 -> out 1328,272: hijump:2,megaman:1
      coming in at 64,304
    1. coming in: holding nothing, from 64,304; lands at 64,305
-      -> standing at x 31-1145, y 273-305
-   2. running right, jump with High Jump Boots 2 (held 40 ticks), holding right, from 928,273; lands at 1163,161   [hijump:2]
-      -> standing at x 1146-1222, y 161
-   3. walk off the edge, holding right once in the air, from 1146,161; lands at 1279,305
+      -> standing at x 31-65, y 305
+   2. jump (held 6 ticks), holding right, from 31,305, through the oRndTrap at 72,240, the oRndTrap at 1152,64; lands at 96,305   [megaman:1]
+      -> standing at x 95-1145, y 273-305
+   3. running right, jump with High Jump Boots 2 (held 40 ticks), holding right, from 928,273, through the oRndTrap at 72,240, the oRndTrap at 1152,64; lands at 1163,161   [hijump:2,megaman:1]
+      -> standing at x 1146-1174, y 161 (where a gate is)
+   4. walk off the edge, holding right once in the air, from 1146,161, through the oRndTrap at 72,240, the oRndTrap at 1152,64; lands at 1279,305   [megaman:1]
       -> standing at x 1223-1313, y 305
-   4. walk off the edge, holding right once in the air, from 1223,305, through the Metroid door at 1320,240, the Metroid door at 0,240; touches it on the way   [megaman:1]
+   5. walk off the edge, holding right once in the air, from 1223,305, through the Metroid door at 1320,240, the Metroid door at 0,240; touches it on the way   [megaman:1]
       -> out 1328,272
 how in 64,304 -> out 1328,272: hijump:2,samus:1
      coming in at 64,304
    1. coming in: holding nothing, from 64,304; lands at 64,305
-      -> standing at x 31-1145, y 273-305
-   2. running right, jump with High Jump Boots 2 (held 40 ticks), holding right, from 928,273; lands at 1163,161   [hijump:2]
-      -> standing at x 1146-1222, y 161
-   3. walk off the edge, holding right once in the air, from 1146,161; lands at 1279,305
+      -> standing at x 31-65, y 305
+   2. jump (held 6 ticks), holding right, from 31,305, through the oRndTrap at 72,240, the oRndTrap at 1152,64; lands at 96,305   [samus:1]
+      -> standing at x 95-1145, y 273-305
+   3. running right, jump with High Jump Boots 2 (held 40 ticks), holding right, from 928,273, through the oRndTrap at 72,240, the oRndTrap at 1152,64; lands at 1163,161   [hijump:2,samus:1]
+      -> standing at x 1146-1174, y 161 (where a gate is)
+   4. walk off the edge, holding right once in the air, from 1146,161, through the oRndTrap at 72,240, the oRndTrap at 1152,64; lands at 1279,305   [samus:1]
       -> standing at x 1223-1313, y 305
-   4. walk off the edge, holding right once in the air, from 1223,305, through the Metroid door at 1320,240, the Metroid door at 0,240; touches it on the way   [samus:1]
+   5. walk off the edge, holding right once in the air, from 1223,305, through the Metroid door at 1320,240, the Metroid door at 0,240; touches it on the way   [samus:1]
       -> out 1328,272
 how in 64,304 -> out 0,272: link:1
      coming in at 64,304
    1. coming in: holding nothing, from 64,304; lands at 64,305
-      -> standing at x 31-1145, y 273-305
+      -> standing at x 31-65, y 305
    2. walk from 31,305 to 30,305 into the Metroid door at 0,240   [link:1]
       -> standing at x 0-30, y 305 (where a gate is)
    3. standing at 0,305, goes into it
@@ -143,7 +151,7 @@ how in 64,304 -> out 0,272: link:1
 how in 64,304 -> out 0,272: belmont:1
      coming in at 64,304
    1. coming in: holding nothing, from 64,304; lands at 64,305
-      -> standing at x 31-1145, y 273-305
+      -> standing at x 31-65, y 305
    2. walk from 31,305 to 30,305 into the Metroid door at 0,240   [belmont:1]
       -> standing at x 0-30, y 305 (where a gate is)
    3. standing at 0,305, goes into it
@@ -151,7 +159,7 @@ how in 64,304 -> out 0,272: belmont:1
 how in 64,304 -> out 0,272: megaman:1
      coming in at 64,304
    1. coming in: holding nothing, from 64,304; lands at 64,305
-      -> standing at x 31-1145, y 273-305
+      -> standing at x 31-65, y 305
    2. walk from 31,305 to 30,305 into the Metroid door at 0,240   [megaman:1]
       -> standing at x 0-30, y 305 (where a gate is)
    3. standing at 0,305, goes into it
@@ -159,7 +167,7 @@ how in 64,304 -> out 0,272: megaman:1
 how in 64,304 -> out 0,272: samus:1
      coming in at 64,304
    1. coming in: holding nothing, from 64,304; lands at 64,305
-      -> standing at x 31-1145, y 273-305
+      -> standing at x 31-65, y 305
    2. walk from 31,305 to 30,305 into the Metroid door at 0,240   [samus:1]
       -> standing at x 0-30, y 305 (where a gate is)
    3. standing at 0,305, goes into it

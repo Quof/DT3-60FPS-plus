@@ -22,12 +22,12 @@ loc 4 25   # heart energy 25, at 1071,40
 # the locked door whose objectNum is N.
 from in 48,192
   out 0,160      -
-  out 2112,144   -
+  out 2112,144   djump,adash | belmont:1 | link:1 | megaman:1 | samus:1
   loc 4 25       -
 from in 2080,176
-  out 0,160      -
+  out 0,160      belmont:1 | link:1 | megaman:1 | samus:1
   out 2112,144   -
-  loc 4 25       -
+  loc 4 25       belmont:1 | link:1 | megaman:1 | samus:1
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
@@ -37,7 +37,7 @@ how in 48,192 -> out 0,160: -
       -> standing at x 0-134, y 193
    2. standing at 0,193, goes into it
       -> out 0,160
-how in 48,192 -> out 2112,144: -
+how in 48,192 -> out 2112,144: djump,adash
      coming in at 48,192
    1. coming in: holding nothing, from 48,192; lands at 48,193
       -> standing at x 0-134, y 193
@@ -59,9 +59,127 @@ how in 48,192 -> out 2112,144: -
       -> standing at x 1209-1336, y 289
   10. jump (held 21 ticks), holding right, from 1213,289; lands at 1344,241
       -> standing at x 1337-1414, y 241
-  11. running right, jump (held 6 ticks), holding right, from 1376,241; lands at 1538,241
+  11. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 1337,241; lands at 1298,177
+      -> standing at x 1274-1302, y 177
+  12. jump (held 6 ticks), holding left, from 1278,177; lands at 1183,129
+      -> standing at x 1177-1193, y 129
+  13. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 1184,129; lands at 1133,81
+      -> standing at x 1129-1145, y 81
+  14. jump (held 9 ticks), holding right, double jump at tick 16, air dash (Claire) at tick 26, from 1144,81; lands at 1475,1   [djump,adash]
+      -> standing at x 1466-1494, y 1
+  15. jump (held 21 ticks), holding right, double jump at tick 10, air dash (Jerry) at tick 18, from 1466,1; lands at 1754,1   [djump,adash]
+      -> standing at x 1738-1766, y 1
+  16. jump (held 21 ticks), holding right, double jump at tick 10, air dash (Jerry) at tick 18, from 1738,1; touches it on the way   [djump,adash]
+      -> out 2112,144
+how in 48,192 -> out 2112,144: belmont:1
+     coming in at 48,192
+   1. coming in: holding nothing, from 48,192; lands at 48,193
+      -> standing at x 0-134, y 193
+   2. running right, jump (held 6 ticks), holding right, from 112,193; lands at 193,193
+      -> standing at x 186-326, y 193
+   3. running right, jump (held 6 ticks), holding right, from 224,193; lands at 386,193
+      -> standing at x 377-487, y 193
+   4. walk off the edge, holding right, then nothing after 1 ticks in the air, from 377,193; lands at 530,257
+      -> standing at x 488-536, y 257
+   5. running right, jump (held 21 ticks), holding right, from 512,257; lands at 740,113
+      -> standing at x 697-998, y 113
+   6. walk off the edge, holding right, then left after 1 ticks in the air, from 697,113; lands at 962,193
+      -> standing at x 778-1033, y 193
+   7. walk off the edge, holding left, then nothing after 1 ticks in the air, from 778,193; lands at 746,321
+      -> standing at x 714-856, y 321
+   8. jump (held 6 ticks), holding right, from 752,321; lands at 869,289
+      -> standing at x 857-1098, y 289
+   9. running right, jump (held 21 ticks), holding right, from 1008,289; lands at 1221,289
+      -> standing at x 1209-1336, y 289
+  10. jump (held 21 ticks), holding right, from 1213,289; lands at 1344,241
+      -> standing at x 1337-1414, y 241
+  11. running right, jump (held 6 ticks), holding right, from 1376,241, through the oRndTrap at 1472,0, the oRndTrap at 1744,0; lands at 1538,241   [belmont:1]
       -> standing at x 1498-1734, y 241
-  12. running right, jump (held 21 ticks), holding right, from 1664,241; lands at 1818,177
+  12. running right, jump (held 21 ticks), holding right, from 1664,241, through the oRndTrap at 1472,0, the oRndTrap at 1744,0; lands at 1818,177   [belmont:1]
+      -> standing at x 1786-1942, y 177
+  13. running right, jump (held 21 ticks), holding right, from 1904,177; touches it on the way
+      -> out 2112,144
+how in 48,192 -> out 2112,144: link:1
+     coming in at 48,192
+   1. coming in: holding nothing, from 48,192; lands at 48,193
+      -> standing at x 0-134, y 193
+   2. running right, jump (held 6 ticks), holding right, from 112,193; lands at 193,193
+      -> standing at x 186-326, y 193
+   3. running right, jump (held 6 ticks), holding right, from 224,193; lands at 386,193
+      -> standing at x 377-487, y 193
+   4. walk off the edge, holding right, then nothing after 1 ticks in the air, from 377,193; lands at 530,257
+      -> standing at x 488-536, y 257
+   5. running right, jump (held 21 ticks), holding right, from 512,257; lands at 740,113
+      -> standing at x 697-998, y 113
+   6. walk off the edge, holding right, then left after 1 ticks in the air, from 697,113; lands at 962,193
+      -> standing at x 778-1033, y 193
+   7. walk off the edge, holding left, then nothing after 1 ticks in the air, from 778,193; lands at 746,321
+      -> standing at x 714-856, y 321
+   8. jump (held 6 ticks), holding right, from 752,321; lands at 869,289
+      -> standing at x 857-1098, y 289
+   9. running right, jump (held 21 ticks), holding right, from 1008,289; lands at 1221,289
+      -> standing at x 1209-1336, y 289
+  10. jump (held 21 ticks), holding right, from 1213,289; lands at 1344,241
+      -> standing at x 1337-1414, y 241
+  11. running right, jump (held 6 ticks), holding right, from 1376,241, through the oRndTrap at 1472,0, the oRndTrap at 1744,0; lands at 1538,241   [link:1]
+      -> standing at x 1498-1734, y 241
+  12. running right, jump (held 21 ticks), holding right, from 1664,241, through the oRndTrap at 1472,0, the oRndTrap at 1744,0; lands at 1818,177   [link:1]
+      -> standing at x 1786-1942, y 177
+  13. running right, jump (held 21 ticks), holding right, from 1904,177; touches it on the way
+      -> out 2112,144
+how in 48,192 -> out 2112,144: megaman:1
+     coming in at 48,192
+   1. coming in: holding nothing, from 48,192; lands at 48,193
+      -> standing at x 0-134, y 193
+   2. running right, jump (held 6 ticks), holding right, from 112,193; lands at 193,193
+      -> standing at x 186-326, y 193
+   3. running right, jump (held 6 ticks), holding right, from 224,193; lands at 386,193
+      -> standing at x 377-487, y 193
+   4. walk off the edge, holding right, then nothing after 1 ticks in the air, from 377,193; lands at 530,257
+      -> standing at x 488-536, y 257
+   5. running right, jump (held 21 ticks), holding right, from 512,257; lands at 740,113
+      -> standing at x 697-998, y 113
+   6. walk off the edge, holding right, then left after 1 ticks in the air, from 697,113; lands at 962,193
+      -> standing at x 778-1033, y 193
+   7. walk off the edge, holding left, then nothing after 1 ticks in the air, from 778,193; lands at 746,321
+      -> standing at x 714-856, y 321
+   8. jump (held 6 ticks), holding right, from 752,321; lands at 869,289
+      -> standing at x 857-1098, y 289
+   9. running right, jump (held 21 ticks), holding right, from 1008,289; lands at 1221,289
+      -> standing at x 1209-1336, y 289
+  10. jump (held 21 ticks), holding right, from 1213,289; lands at 1344,241
+      -> standing at x 1337-1414, y 241
+  11. running right, jump (held 6 ticks), holding right, from 1376,241, through the oRndTrap at 1472,0, the oRndTrap at 1744,0; lands at 1538,241   [megaman:1]
+      -> standing at x 1498-1734, y 241
+  12. running right, jump (held 21 ticks), holding right, from 1664,241, through the oRndTrap at 1472,0, the oRndTrap at 1744,0; lands at 1818,177   [megaman:1]
+      -> standing at x 1786-1942, y 177
+  13. running right, jump (held 21 ticks), holding right, from 1904,177; touches it on the way
+      -> out 2112,144
+how in 48,192 -> out 2112,144: samus:1
+     coming in at 48,192
+   1. coming in: holding nothing, from 48,192; lands at 48,193
+      -> standing at x 0-134, y 193
+   2. running right, jump (held 6 ticks), holding right, from 112,193; lands at 193,193
+      -> standing at x 186-326, y 193
+   3. running right, jump (held 6 ticks), holding right, from 224,193; lands at 386,193
+      -> standing at x 377-487, y 193
+   4. walk off the edge, holding right, then nothing after 1 ticks in the air, from 377,193; lands at 530,257
+      -> standing at x 488-536, y 257
+   5. running right, jump (held 21 ticks), holding right, from 512,257; lands at 740,113
+      -> standing at x 697-998, y 113
+   6. walk off the edge, holding right, then left after 1 ticks in the air, from 697,113; lands at 962,193
+      -> standing at x 778-1033, y 193
+   7. walk off the edge, holding left, then nothing after 1 ticks in the air, from 778,193; lands at 746,321
+      -> standing at x 714-856, y 321
+   8. jump (held 6 ticks), holding right, from 752,321; lands at 869,289
+      -> standing at x 857-1098, y 289
+   9. running right, jump (held 21 ticks), holding right, from 1008,289; lands at 1221,289
+      -> standing at x 1209-1336, y 289
+  10. jump (held 21 ticks), holding right, from 1213,289; lands at 1344,241
+      -> standing at x 1337-1414, y 241
+  11. running right, jump (held 6 ticks), holding right, from 1376,241, through the oRndTrap at 1472,0, the oRndTrap at 1744,0; lands at 1538,241   [samus:1]
+      -> standing at x 1498-1734, y 241
+  12. running right, jump (held 21 ticks), holding right, from 1664,241, through the oRndTrap at 1472,0, the oRndTrap at 1744,0; lands at 1818,177   [samus:1]
       -> standing at x 1786-1942, y 177
   13. running right, jump (held 21 ticks), holding right, from 1904,177; touches it on the way
       -> out 2112,144
@@ -97,15 +215,99 @@ how in 48,192 -> loc 4 25: -
       -> standing at x 1064-1094, y 49
   15. standing at 1066,49, touches it
       -> loc 4 25
-how in 2080,176 -> out 0,160: -
+how in 2080,176 -> out 0,160: belmont:1
      coming in at 2080,176
    1. coming in: holding nothing, from 2080,176; lands at 2080,177
       -> standing at x 2058-2128, y 177
    2. running left, jump (held 2 ticks), holding left, from 2058,177; lands at 1933,177
       -> standing at x 1786-1942, y 177
-   3. walk off the edge, holding left once in the air, from 1786,177; lands at 1706,241
+   3. walk off the edge, holding left once in the air, from 1786,177, through the oRndTrap at 1472,0, the oRndTrap at 1744,0; lands at 1706,241   [belmont:1]
       -> standing at x 1498-1734, y 241
-   4. running left, jump (held 21 ticks), holding left, from 1498,241; lands at 1263,289
+   4. running left, jump (held 21 ticks), holding left, from 1498,241, through the oRndTrap at 1472,0, the oRndTrap at 1744,0; lands at 1263,289   [belmont:1]
+      -> standing at x 1209-1336, y 289
+   5. running left, jump (held 2 ticks), holding left, from 1209,289; lands at 1084,289
+      -> standing at x 857-1098, y 289
+   6. running left, jump (held 6 ticks), holding left, from 857,289; lands at 732,257
+      -> standing at x 714-742, y 257
+   7. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 714,257; lands at 800,193
+      -> standing at x 778-1033, y 193
+   8. running right, jump (held 2 ticks), holding right, from 960,193; lands at 1046,161
+      -> standing at x 1034-1046, y 161
+   9. jump (held 6 ticks), holding left, from 1034,161; lands at 940,113
+      -> standing at x 697-998, y 113
+  10. walk off the edge, holding left once in the air, from 697,113; lands at 588,225
+      -> standing at x 537-679, y 225
+  11. jump (held 21 ticks), holding left, from 537,225; lands at 332,257
+      -> standing at x 135-376, y 257
+  12. jump (held 21 ticks), holding left, from 135,257; lands at 62,193
+      -> standing at x 0-134, y 193
+  13. standing at 0,193, goes into it
+      -> out 0,160
+how in 2080,176 -> out 0,160: link:1
+     coming in at 2080,176
+   1. coming in: holding nothing, from 2080,176; lands at 2080,177
+      -> standing at x 2058-2128, y 177
+   2. running left, jump (held 2 ticks), holding left, from 2058,177; lands at 1933,177
+      -> standing at x 1786-1942, y 177
+   3. walk off the edge, holding left once in the air, from 1786,177, through the oRndTrap at 1472,0, the oRndTrap at 1744,0; lands at 1706,241   [link:1]
+      -> standing at x 1498-1734, y 241
+   4. running left, jump (held 21 ticks), holding left, from 1498,241, through the oRndTrap at 1472,0, the oRndTrap at 1744,0; lands at 1263,289   [link:1]
+      -> standing at x 1209-1336, y 289
+   5. running left, jump (held 2 ticks), holding left, from 1209,289; lands at 1084,289
+      -> standing at x 857-1098, y 289
+   6. running left, jump (held 6 ticks), holding left, from 857,289; lands at 732,257
+      -> standing at x 714-742, y 257
+   7. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 714,257; lands at 800,193
+      -> standing at x 778-1033, y 193
+   8. running right, jump (held 2 ticks), holding right, from 960,193; lands at 1046,161
+      -> standing at x 1034-1046, y 161
+   9. jump (held 6 ticks), holding left, from 1034,161; lands at 940,113
+      -> standing at x 697-998, y 113
+  10. walk off the edge, holding left once in the air, from 697,113; lands at 588,225
+      -> standing at x 537-679, y 225
+  11. jump (held 21 ticks), holding left, from 537,225; lands at 332,257
+      -> standing at x 135-376, y 257
+  12. jump (held 21 ticks), holding left, from 135,257; lands at 62,193
+      -> standing at x 0-134, y 193
+  13. standing at 0,193, goes into it
+      -> out 0,160
+how in 2080,176 -> out 0,160: megaman:1
+     coming in at 2080,176
+   1. coming in: holding nothing, from 2080,176; lands at 2080,177
+      -> standing at x 2058-2128, y 177
+   2. running left, jump (held 2 ticks), holding left, from 2058,177; lands at 1933,177
+      -> standing at x 1786-1942, y 177
+   3. walk off the edge, holding left once in the air, from 1786,177, through the oRndTrap at 1472,0, the oRndTrap at 1744,0; lands at 1706,241   [megaman:1]
+      -> standing at x 1498-1734, y 241
+   4. running left, jump (held 21 ticks), holding left, from 1498,241, through the oRndTrap at 1472,0, the oRndTrap at 1744,0; lands at 1263,289   [megaman:1]
+      -> standing at x 1209-1336, y 289
+   5. running left, jump (held 2 ticks), holding left, from 1209,289; lands at 1084,289
+      -> standing at x 857-1098, y 289
+   6. running left, jump (held 6 ticks), holding left, from 857,289; lands at 732,257
+      -> standing at x 714-742, y 257
+   7. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 714,257; lands at 800,193
+      -> standing at x 778-1033, y 193
+   8. running right, jump (held 2 ticks), holding right, from 960,193; lands at 1046,161
+      -> standing at x 1034-1046, y 161
+   9. jump (held 6 ticks), holding left, from 1034,161; lands at 940,113
+      -> standing at x 697-998, y 113
+  10. walk off the edge, holding left once in the air, from 697,113; lands at 588,225
+      -> standing at x 537-679, y 225
+  11. jump (held 21 ticks), holding left, from 537,225; lands at 332,257
+      -> standing at x 135-376, y 257
+  12. jump (held 21 ticks), holding left, from 135,257; lands at 62,193
+      -> standing at x 0-134, y 193
+  13. standing at 0,193, goes into it
+      -> out 0,160
+how in 2080,176 -> out 0,160: samus:1
+     coming in at 2080,176
+   1. coming in: holding nothing, from 2080,176; lands at 2080,177
+      -> standing at x 2058-2128, y 177
+   2. running left, jump (held 2 ticks), holding left, from 2058,177; lands at 1933,177
+      -> standing at x 1786-1942, y 177
+   3. walk off the edge, holding left once in the air, from 1786,177, through the oRndTrap at 1472,0, the oRndTrap at 1744,0; lands at 1706,241   [samus:1]
+      -> standing at x 1498-1734, y 241
+   4. running left, jump (held 21 ticks), holding left, from 1498,241, through the oRndTrap at 1472,0, the oRndTrap at 1744,0; lands at 1263,289   [samus:1]
       -> standing at x 1209-1336, y 289
    5. running left, jump (held 2 ticks), holding left, from 1209,289; lands at 1084,289
       -> standing at x 857-1098, y 289
@@ -133,15 +335,69 @@ how in 2080,176 -> out 2112,144: -
       -> standing at x 1786-1942, y 177
    3. running right, jump (held 21 ticks), holding right, from 1904,177; touches it on the way
       -> out 2112,144
-how in 2080,176 -> loc 4 25: -
+how in 2080,176 -> loc 4 25: belmont:1
      coming in at 2080,176
    1. coming in: holding nothing, from 2080,176; lands at 2080,177
       -> standing at x 2058-2128, y 177
    2. running left, jump (held 2 ticks), holding left, from 2058,177; lands at 1933,177
       -> standing at x 1786-1942, y 177
-   3. walk off the edge, holding left once in the air, from 1786,177; lands at 1706,241
+   3. walk off the edge, holding left once in the air, from 1786,177, through the oRndTrap at 1472,0, the oRndTrap at 1744,0; lands at 1706,241   [belmont:1]
       -> standing at x 1498-1734, y 241
-   4. jump (held 21 ticks), holding left, from 1498,241; lands at 1367,177
+   4. jump (held 21 ticks), holding left, from 1498,241, through the oRndTrap at 1472,0, the oRndTrap at 1744,0; lands at 1367,177   [belmont:1]
+      -> standing at x 1362-1390, y 177
+   5. running left, jump (held 21 ticks), holding left, from 1362,177; lands at 1186,129
+      -> standing at x 1177-1193, y 129
+   6. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 1184,129; lands at 1133,81
+      -> standing at x 1129-1145, y 81
+   7. jump (held 2 ticks), holding left, from 1129,81; lands at 1064,49
+      -> standing at x 1064-1094, y 49
+   8. standing at 1066,49, touches it
+      -> loc 4 25
+how in 2080,176 -> loc 4 25: link:1
+     coming in at 2080,176
+   1. coming in: holding nothing, from 2080,176; lands at 2080,177
+      -> standing at x 2058-2128, y 177
+   2. running left, jump (held 2 ticks), holding left, from 2058,177; lands at 1933,177
+      -> standing at x 1786-1942, y 177
+   3. walk off the edge, holding left once in the air, from 1786,177, through the oRndTrap at 1472,0, the oRndTrap at 1744,0; lands at 1706,241   [link:1]
+      -> standing at x 1498-1734, y 241
+   4. jump (held 21 ticks), holding left, from 1498,241, through the oRndTrap at 1472,0, the oRndTrap at 1744,0; lands at 1367,177   [link:1]
+      -> standing at x 1362-1390, y 177
+   5. running left, jump (held 21 ticks), holding left, from 1362,177; lands at 1186,129
+      -> standing at x 1177-1193, y 129
+   6. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 1184,129; lands at 1133,81
+      -> standing at x 1129-1145, y 81
+   7. jump (held 2 ticks), holding left, from 1129,81; lands at 1064,49
+      -> standing at x 1064-1094, y 49
+   8. standing at 1066,49, touches it
+      -> loc 4 25
+how in 2080,176 -> loc 4 25: megaman:1
+     coming in at 2080,176
+   1. coming in: holding nothing, from 2080,176; lands at 2080,177
+      -> standing at x 2058-2128, y 177
+   2. running left, jump (held 2 ticks), holding left, from 2058,177; lands at 1933,177
+      -> standing at x 1786-1942, y 177
+   3. walk off the edge, holding left once in the air, from 1786,177, through the oRndTrap at 1472,0, the oRndTrap at 1744,0; lands at 1706,241   [megaman:1]
+      -> standing at x 1498-1734, y 241
+   4. jump (held 21 ticks), holding left, from 1498,241, through the oRndTrap at 1472,0, the oRndTrap at 1744,0; lands at 1367,177   [megaman:1]
+      -> standing at x 1362-1390, y 177
+   5. running left, jump (held 21 ticks), holding left, from 1362,177; lands at 1186,129
+      -> standing at x 1177-1193, y 129
+   6. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 1184,129; lands at 1133,81
+      -> standing at x 1129-1145, y 81
+   7. jump (held 2 ticks), holding left, from 1129,81; lands at 1064,49
+      -> standing at x 1064-1094, y 49
+   8. standing at 1066,49, touches it
+      -> loc 4 25
+how in 2080,176 -> loc 4 25: samus:1
+     coming in at 2080,176
+   1. coming in: holding nothing, from 2080,176; lands at 2080,177
+      -> standing at x 2058-2128, y 177
+   2. running left, jump (held 2 ticks), holding left, from 2058,177; lands at 1933,177
+      -> standing at x 1786-1942, y 177
+   3. walk off the edge, holding left once in the air, from 1786,177, through the oRndTrap at 1472,0, the oRndTrap at 1744,0; lands at 1706,241   [samus:1]
+      -> standing at x 1498-1734, y 241
+   4. jump (held 21 ticks), holding left, from 1498,241, through the oRndTrap at 1472,0, the oRndTrap at 1744,0; lands at 1367,177   [samus:1]
       -> standing at x 1362-1390, y 177
    5. running left, jump (held 21 ticks), holding left, from 1362,177; lands at 1186,129
       -> standing at x 1177-1193, y 129

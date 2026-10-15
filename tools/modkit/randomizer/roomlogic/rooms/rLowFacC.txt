@@ -21,9 +21,9 @@ out 2768,320   # to rLowFacD at 48,352; the player goes into it
 # the locked door whose objectNum is N.
 from in 48,352
   out 0,320      -
-  out 2768,320   djump | adash
+  out 2768,320   djump,belmont:1 | adash,belmont:1 | djump,link:1 | adash,link:1 | djump,megaman:2 | adash,megaman:2 | djump,samus:4 | adash,samus:4
 from in 2736,352
-  out 0,320      djump | adash
+  out 0,320      djump,belmont:1 | djump,link:1 | djump,megaman:2 | djump,samus:4 | adash,belmont:1 | adash,link:1 | adash,megaman:2 | adash,samus:4
   out 2768,320   -
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
@@ -34,7 +34,7 @@ how in 48,352 -> out 0,320: -
       -> standing at x 0-633, y 353
    2. standing at 0,353, goes into it
       -> out 0,320
-how in 48,352 -> out 2768,320: djump
+how in 48,352 -> out 2768,320: djump,belmont:1
      coming in at 48,352
    1. coming in: holding nothing, from 48,352; lands at 48,353
       -> standing at x 0-633, y 353
@@ -47,12 +47,12 @@ how in 48,352 -> out 2768,320: djump
    5. jump (held 21 ticks), holding right, from 1872,225; lands at 2025,177
       -> standing at x 2010-2054, y 177
    6. jump (held 21 ticks), holding right, double jump at tick 10, from 2010,177; lands at 2215,129   [djump]
-      -> standing at x 2170-2310, y 129
-   7. walk off the edge, holding right, then nothing after 1 ticks in the air, from 2170,129; lands at 2359,353
-      -> standing at x 2311-2784, y 353
-   8. standing at 2766,353, goes into it
+      -> standing at x 2170-2281, y 129
+   7. walk off the edge, holding right, then nothing after 1 ticks in the air, from 2170,129, through the oRndTrap at 2288,32, the oRndTrap at 2712,288; lands at 2359,353   [belmont:1]
+      -> standing at x 2311-2705, y 353
+   8. walk off the edge, holding right once in the air, from 2311,353, through the oRndTrap at 2288,32, the oRndTrap at 2712,288; touches it on the way   [belmont:1]
       -> out 2768,320
-how in 48,352 -> out 2768,320: adash
+how in 48,352 -> out 2768,320: adash,belmont:1
      coming in at 48,352
    1. coming in: holding nothing, from 48,352; lands at 48,353
       -> standing at x 0-633, y 353
@@ -67,22 +67,136 @@ how in 48,352 -> out 2768,320: adash
    6. jump (held 21 ticks), holding nothing, then right after 12 ticks, air dash (Jerry) at tick 12, from 1850,225; lands at 2032,177   [adash]
       -> standing at x 2010-2054, y 177
    7. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 2010,177; lands at 2246,129   [adash]
-      -> standing at x 2170-2310, y 129
-   8. walk off the edge, holding right, then nothing after 1 ticks in the air, from 2170,129; lands at 2359,353
-      -> standing at x 2311-2784, y 353
-   9. standing at 2766,353, goes into it
+      -> standing at x 2170-2281, y 129
+   8. walk off the edge, holding right, then nothing after 1 ticks in the air, from 2170,129, through the oRndTrap at 2288,32, the oRndTrap at 2712,288; lands at 2359,353   [belmont:1]
+      -> standing at x 2311-2705, y 353
+   9. walk off the edge, holding right once in the air, from 2311,353, through the oRndTrap at 2288,32, the oRndTrap at 2712,288; touches it on the way   [belmont:1]
       -> out 2768,320
-how in 2736,352 -> out 0,320: djump
+how in 48,352 -> out 2768,320: djump,link:1
+     coming in at 48,352
+   1. coming in: holding nothing, from 48,352; lands at 48,353
+      -> standing at x 0-633, y 353
+   2. jump (held 21 ticks), holding right, double jump at tick 15, from 544,353; lands at 809,353   [djump]
+      -> standing at x 743-1529, y 353
+   3. running right, jump (held 21 ticks), holding right, double jump at tick 10, from 1456,353; lands at 1610,273   [djump]
+      -> standing at x 1530-1734, y 273
+   4. jump (held 21 ticks), holding right, double jump at tick 15, from 1616,273; lands at 1865,225   [djump]
+      -> standing at x 1850-1894, y 225
+   5. jump (held 21 ticks), holding right, from 1872,225; lands at 2025,177
+      -> standing at x 2010-2054, y 177
+   6. jump (held 21 ticks), holding right, double jump at tick 10, from 2010,177; lands at 2215,129   [djump]
+      -> standing at x 2170-2281, y 129
+   7. walk off the edge, holding right, then nothing after 1 ticks in the air, from 2170,129, through the oRndTrap at 2288,32, the oRndTrap at 2712,288; lands at 2359,353   [link:1]
+      -> standing at x 2311-2705, y 353
+   8. walk off the edge, holding right once in the air, from 2311,353, through the oRndTrap at 2288,32, the oRndTrap at 2712,288; touches it on the way   [link:1]
+      -> out 2768,320
+how in 48,352 -> out 2768,320: adash,link:1
+     coming in at 48,352
+   1. coming in: holding nothing, from 48,352; lands at 48,353
+      -> standing at x 0-633, y 353
+   2. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 416,353; lands at 649,273   [adash]
+      -> standing at x 634-742, y 273
+   3. walk off the edge, holding right once in the air, from 634,273; lands at 839,353
+      -> standing at x 743-1529, y 353
+   4. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 1472,353; lands at 1621,273   [adash]
+      -> standing at x 1530-1734, y 273
+   5. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 1600,273; lands at 1875,225   [adash]
+      -> standing at x 1850-1894, y 225
+   6. jump (held 21 ticks), holding nothing, then right after 12 ticks, air dash (Jerry) at tick 12, from 1850,225; lands at 2032,177   [adash]
+      -> standing at x 2010-2054, y 177
+   7. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 2010,177; lands at 2246,129   [adash]
+      -> standing at x 2170-2281, y 129
+   8. walk off the edge, holding right, then nothing after 1 ticks in the air, from 2170,129, through the oRndTrap at 2288,32, the oRndTrap at 2712,288; lands at 2359,353   [link:1]
+      -> standing at x 2311-2705, y 353
+   9. walk off the edge, holding right once in the air, from 2311,353, through the oRndTrap at 2288,32, the oRndTrap at 2712,288; touches it on the way   [link:1]
+      -> out 2768,320
+how in 48,352 -> out 2768,320: djump,megaman:2
+     coming in at 48,352
+   1. coming in: holding nothing, from 48,352; lands at 48,353
+      -> standing at x 0-633, y 353
+   2. jump (held 21 ticks), holding right, double jump at tick 15, from 544,353; lands at 809,353   [djump]
+      -> standing at x 743-1529, y 353
+   3. running right, jump (held 21 ticks), holding right, double jump at tick 10, from 1456,353; lands at 1610,273   [djump]
+      -> standing at x 1530-1734, y 273
+   4. jump (held 21 ticks), holding right, double jump at tick 15, from 1616,273; lands at 1865,225   [djump]
+      -> standing at x 1850-1894, y 225
+   5. jump (held 21 ticks), holding right, from 1872,225; lands at 2025,177
+      -> standing at x 2010-2054, y 177
+   6. jump (held 21 ticks), holding right, double jump at tick 10, from 2010,177; lands at 2215,129   [djump]
+      -> standing at x 2170-2281, y 129
+   7. walk off the edge, holding right, then nothing after 1 ticks in the air, from 2170,129, through the oRndTrap at 2288,32, the oRndTrap at 2712,288; lands at 2359,353   [megaman:2]
+      -> standing at x 2311-2705, y 353
+   8. walk off the edge, holding right once in the air, from 2311,353, through the oRndTrap at 2288,32, the oRndTrap at 2712,288; touches it on the way   [megaman:2]
+      -> out 2768,320
+how in 48,352 -> out 2768,320: adash,megaman:2
+     coming in at 48,352
+   1. coming in: holding nothing, from 48,352; lands at 48,353
+      -> standing at x 0-633, y 353
+   2. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 416,353; lands at 649,273   [adash]
+      -> standing at x 634-742, y 273
+   3. walk off the edge, holding right once in the air, from 634,273; lands at 839,353
+      -> standing at x 743-1529, y 353
+   4. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 1472,353; lands at 1621,273   [adash]
+      -> standing at x 1530-1734, y 273
+   5. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 1600,273; lands at 1875,225   [adash]
+      -> standing at x 1850-1894, y 225
+   6. jump (held 21 ticks), holding nothing, then right after 12 ticks, air dash (Jerry) at tick 12, from 1850,225; lands at 2032,177   [adash]
+      -> standing at x 2010-2054, y 177
+   7. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 2010,177; lands at 2246,129   [adash]
+      -> standing at x 2170-2281, y 129
+   8. walk off the edge, holding right, then nothing after 1 ticks in the air, from 2170,129, through the oRndTrap at 2288,32, the oRndTrap at 2712,288; lands at 2359,353   [megaman:2]
+      -> standing at x 2311-2705, y 353
+   9. walk off the edge, holding right once in the air, from 2311,353, through the oRndTrap at 2288,32, the oRndTrap at 2712,288; touches it on the way   [megaman:2]
+      -> out 2768,320
+how in 48,352 -> out 2768,320: djump,samus:4
+     coming in at 48,352
+   1. coming in: holding nothing, from 48,352; lands at 48,353
+      -> standing at x 0-633, y 353
+   2. jump (held 21 ticks), holding right, double jump at tick 15, from 544,353; lands at 809,353   [djump]
+      -> standing at x 743-1529, y 353
+   3. running right, jump (held 21 ticks), holding right, double jump at tick 10, from 1456,353; lands at 1610,273   [djump]
+      -> standing at x 1530-1734, y 273
+   4. jump (held 21 ticks), holding right, double jump at tick 15, from 1616,273; lands at 1865,225   [djump]
+      -> standing at x 1850-1894, y 225
+   5. jump (held 21 ticks), holding right, from 1872,225; lands at 2025,177
+      -> standing at x 2010-2054, y 177
+   6. jump (held 21 ticks), holding right, double jump at tick 10, from 2010,177; lands at 2215,129   [djump]
+      -> standing at x 2170-2281, y 129
+   7. walk off the edge, holding right, then nothing after 1 ticks in the air, from 2170,129, through the oRndTrap at 2288,32, the oRndTrap at 2712,288; lands at 2359,353   [samus:4]
+      -> standing at x 2311-2705, y 353
+   8. walk off the edge, holding right once in the air, from 2311,353, through the oRndTrap at 2288,32, the oRndTrap at 2712,288; touches it on the way   [samus:4]
+      -> out 2768,320
+how in 48,352 -> out 2768,320: adash,samus:4
+     coming in at 48,352
+   1. coming in: holding nothing, from 48,352; lands at 48,353
+      -> standing at x 0-633, y 353
+   2. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 416,353; lands at 649,273   [adash]
+      -> standing at x 634-742, y 273
+   3. walk off the edge, holding right once in the air, from 634,273; lands at 839,353
+      -> standing at x 743-1529, y 353
+   4. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 1472,353; lands at 1621,273   [adash]
+      -> standing at x 1530-1734, y 273
+   5. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 1600,273; lands at 1875,225   [adash]
+      -> standing at x 1850-1894, y 225
+   6. jump (held 21 ticks), holding nothing, then right after 12 ticks, air dash (Jerry) at tick 12, from 1850,225; lands at 2032,177   [adash]
+      -> standing at x 2010-2054, y 177
+   7. jump (held 21 ticks), holding right, air dash (Jerry) at tick 10, from 2010,177; lands at 2246,129   [adash]
+      -> standing at x 2170-2281, y 129
+   8. walk off the edge, holding right, then nothing after 1 ticks in the air, from 2170,129, through the oRndTrap at 2288,32, the oRndTrap at 2712,288; lands at 2359,353   [samus:4]
+      -> standing at x 2311-2705, y 353
+   9. walk off the edge, holding right once in the air, from 2311,353, through the oRndTrap at 2288,32, the oRndTrap at 2712,288; touches it on the way   [samus:4]
+      -> out 2768,320
+how in 2736,352 -> out 0,320: djump,belmont:1
      coming in at 2736,352
    1. coming in: holding nothing, from 2736,352; lands at 2736,353
-      -> standing at x 2311-2784, y 353
-   2. jump (held 21 ticks), holding right, double jump at tick 10, from 2311,353; lands at 2442,273   [djump]
-      -> standing at x 2362-2470, y 273
-   3. jump (held 21 ticks), holding right, double jump at tick 10, from 2362,273; lands at 2522,193   [djump]
+      -> standing at x 2735-2784, y 353
+   2. running left, jump (held 21 ticks), holding left, double jump at tick 10, from 2735,353, through the oRndTrap at 2288,32, the oRndTrap at 2712,288; lands at 2582,273   [djump,belmont:1]
+      -> standing at x 2554-2662, y 273
+   3. jump (held 21 ticks), holding left, double jump at tick 10, from 2592,273; lands at 2502,193   [djump]
       -> standing at x 2442-2582, y 193
-   4. running left, jump (held 21 ticks), holding left, from 2442,193; lands at 2288,129
-      -> standing at x 2170-2310, y 129
-   5. walk off the edge, holding left once in the air, from 2170,129; lands at 1987,353
+   4. running left, jump (held 21 ticks), holding left, from 2442,193, through the oRndTrap at 2288,32, the oRndTrap at 2712,288; lands at 2288,129   [belmont:1]
+      -> standing at x 2282-2310, y 129 (where a gate is)
+   5. walk off the edge, holding left once in the air, from 2282,129, through the oRndTrap at 2288,32, the oRndTrap at 2712,288; lands at 1982,353   [belmont:1]
       -> standing at x 1735-2169, y 353
    6. jump (held 21 ticks), holding left, double jump at tick 10, from 1735,353; lands at 1654,273   [djump]
       -> standing at x 1530-1734, y 273
@@ -92,31 +206,165 @@ how in 2736,352 -> out 0,320: djump
       -> standing at x 0-633, y 353
    9. standing at 0,353, goes into it
       -> out 0,320
-how in 2736,352 -> out 0,320: adash
+how in 2736,352 -> out 0,320: djump,link:1
      coming in at 2736,352
    1. coming in: holding nothing, from 2736,352; lands at 2736,353
-      -> standing at x 2311-2784, y 353
-   2. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 2311,353; lands at 2453,273   [adash]
-      -> standing at x 2362-2470, y 273
-   3. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 2362,273; lands at 2533,193   [adash]
+      -> standing at x 2735-2784, y 353
+   2. running left, jump (held 21 ticks), holding left, double jump at tick 10, from 2735,353, through the oRndTrap at 2288,32, the oRndTrap at 2712,288; lands at 2582,273   [djump,link:1]
+      -> standing at x 2554-2662, y 273
+   3. jump (held 21 ticks), holding left, double jump at tick 10, from 2592,273; lands at 2502,193   [djump]
       -> standing at x 2442-2582, y 193
-   4. running left, jump (held 21 ticks), holding left, from 2442,193; lands at 2288,129
-      -> standing at x 2170-2310, y 129
-   5. walk off the edge, holding left once in the air, from 2170,129; lands at 1987,353
+   4. running left, jump (held 21 ticks), holding left, from 2442,193, through the oRndTrap at 2288,32, the oRndTrap at 2712,288; lands at 2288,129   [link:1]
+      -> standing at x 2282-2310, y 129 (where a gate is)
+   5. walk off the edge, holding left once in the air, from 2282,129, through the oRndTrap at 2288,32, the oRndTrap at 2712,288; lands at 1982,353   [link:1]
       -> standing at x 1735-2169, y 353
-   6. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 1735,353; lands at 1646,273   [adash]
+   6. jump (held 21 ticks), holding left, double jump at tick 10, from 1735,353; lands at 1654,273   [djump]
       -> standing at x 1530-1734, y 273
    7. walk off the edge, holding left once in the air, from 1530,273; lands at 1457,353
       -> standing at x 743-1529, y 353
-   8. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 743,353; lands at 654,273   [adash]
-      -> standing at x 634-742, y 273
-   9. walk off the edge, holding left once in the air, from 634,273; lands at 539,353
+   8. jump (held 21 ticks), holding left, double jump at tick 15, from 743,353; lands at 567,353   [djump]
       -> standing at x 0-633, y 353
-  10. standing at 0,353, goes into it
+   9. standing at 0,353, goes into it
+      -> out 0,320
+how in 2736,352 -> out 0,320: djump,megaman:2
+     coming in at 2736,352
+   1. coming in: holding nothing, from 2736,352; lands at 2736,353
+      -> standing at x 2735-2784, y 353
+   2. running left, jump (held 21 ticks), holding left, double jump at tick 10, from 2735,353, through the oRndTrap at 2288,32, the oRndTrap at 2712,288; lands at 2582,273   [djump,megaman:2]
+      -> standing at x 2554-2662, y 273
+   3. jump (held 21 ticks), holding left, double jump at tick 10, from 2592,273; lands at 2502,193   [djump]
+      -> standing at x 2442-2582, y 193
+   4. running left, jump (held 21 ticks), holding left, from 2442,193, through the oRndTrap at 2288,32, the oRndTrap at 2712,288; lands at 2288,129   [megaman:2]
+      -> standing at x 2282-2310, y 129 (where a gate is)
+   5. walk off the edge, holding left once in the air, from 2282,129, through the oRndTrap at 2288,32, the oRndTrap at 2712,288; lands at 1982,353   [megaman:2]
+      -> standing at x 1735-2169, y 353
+   6. jump (held 21 ticks), holding left, double jump at tick 10, from 1735,353; lands at 1654,273   [djump]
+      -> standing at x 1530-1734, y 273
+   7. walk off the edge, holding left once in the air, from 1530,273; lands at 1457,353
+      -> standing at x 743-1529, y 353
+   8. jump (held 21 ticks), holding left, double jump at tick 15, from 743,353; lands at 567,353   [djump]
+      -> standing at x 0-633, y 353
+   9. standing at 0,353, goes into it
+      -> out 0,320
+how in 2736,352 -> out 0,320: djump,samus:4
+     coming in at 2736,352
+   1. coming in: holding nothing, from 2736,352; lands at 2736,353
+      -> standing at x 2735-2784, y 353
+   2. running left, jump (held 21 ticks), holding left, double jump at tick 10, from 2735,353, through the oRndTrap at 2288,32, the oRndTrap at 2712,288; lands at 2582,273   [djump,samus:4]
+      -> standing at x 2554-2662, y 273
+   3. jump (held 21 ticks), holding left, double jump at tick 10, from 2592,273; lands at 2502,193   [djump]
+      -> standing at x 2442-2582, y 193
+   4. running left, jump (held 21 ticks), holding left, from 2442,193, through the oRndTrap at 2288,32, the oRndTrap at 2712,288; lands at 2288,129   [samus:4]
+      -> standing at x 2282-2310, y 129 (where a gate is)
+   5. walk off the edge, holding left once in the air, from 2282,129, through the oRndTrap at 2288,32, the oRndTrap at 2712,288; lands at 1982,353   [samus:4]
+      -> standing at x 1735-2169, y 353
+   6. jump (held 21 ticks), holding left, double jump at tick 10, from 1735,353; lands at 1654,273   [djump]
+      -> standing at x 1530-1734, y 273
+   7. walk off the edge, holding left once in the air, from 1530,273; lands at 1457,353
+      -> standing at x 743-1529, y 353
+   8. jump (held 21 ticks), holding left, double jump at tick 15, from 743,353; lands at 567,353   [djump]
+      -> standing at x 0-633, y 353
+   9. standing at 0,353, goes into it
+      -> out 0,320
+how in 2736,352 -> out 0,320: adash,belmont:1
+     coming in at 2736,352
+   1. coming in: holding nothing, from 2736,352; lands at 2736,353
+      -> standing at x 2735-2784, y 353
+   2. walk from 2735,353 to 2734,353 into the oRndTrap at 2712,288   [belmont:1]
+      -> standing at x 2706-2734, y 353 (where a gate is)
+   3. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 2706,353, through the oRndTrap at 2288,32, the oRndTrap at 2712,288; lands at 2574,273   [adash,belmont:1]
+      -> standing at x 2554-2662, y 273
+   4. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 2592,273; lands at 2494,193   [adash]
+      -> standing at x 2442-2582, y 193
+   5. running left, jump (held 21 ticks), holding left, from 2442,193, through the oRndTrap at 2288,32, the oRndTrap at 2712,288; lands at 2288,129   [belmont:1]
+      -> standing at x 2282-2310, y 129 (where a gate is)
+   6. walk off the edge, holding left once in the air, from 2282,129, through the oRndTrap at 2288,32, the oRndTrap at 2712,288; lands at 1982,353   [belmont:1]
+      -> standing at x 1735-2169, y 353
+   7. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 1735,353; lands at 1646,273   [adash]
+      -> standing at x 1530-1734, y 273
+   8. walk off the edge, holding left once in the air, from 1530,273; lands at 1457,353
+      -> standing at x 743-1529, y 353
+   9. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 743,353; lands at 654,273   [adash]
+      -> standing at x 634-742, y 273
+  10. walk off the edge, holding left once in the air, from 634,273; lands at 539,353
+      -> standing at x 0-633, y 353
+  11. standing at 0,353, goes into it
+      -> out 0,320
+how in 2736,352 -> out 0,320: adash,link:1
+     coming in at 2736,352
+   1. coming in: holding nothing, from 2736,352; lands at 2736,353
+      -> standing at x 2735-2784, y 353
+   2. walk from 2735,353 to 2734,353 into the oRndTrap at 2712,288   [link:1]
+      -> standing at x 2706-2734, y 353 (where a gate is)
+   3. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 2706,353, through the oRndTrap at 2288,32, the oRndTrap at 2712,288; lands at 2574,273   [adash,link:1]
+      -> standing at x 2554-2662, y 273
+   4. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 2592,273; lands at 2494,193   [adash]
+      -> standing at x 2442-2582, y 193
+   5. running left, jump (held 21 ticks), holding left, from 2442,193, through the oRndTrap at 2288,32, the oRndTrap at 2712,288; lands at 2288,129   [link:1]
+      -> standing at x 2282-2310, y 129 (where a gate is)
+   6. walk off the edge, holding left once in the air, from 2282,129, through the oRndTrap at 2288,32, the oRndTrap at 2712,288; lands at 1982,353   [link:1]
+      -> standing at x 1735-2169, y 353
+   7. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 1735,353; lands at 1646,273   [adash]
+      -> standing at x 1530-1734, y 273
+   8. walk off the edge, holding left once in the air, from 1530,273; lands at 1457,353
+      -> standing at x 743-1529, y 353
+   9. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 743,353; lands at 654,273   [adash]
+      -> standing at x 634-742, y 273
+  10. walk off the edge, holding left once in the air, from 634,273; lands at 539,353
+      -> standing at x 0-633, y 353
+  11. standing at 0,353, goes into it
+      -> out 0,320
+how in 2736,352 -> out 0,320: adash,megaman:2
+     coming in at 2736,352
+   1. coming in: holding nothing, from 2736,352; lands at 2736,353
+      -> standing at x 2735-2784, y 353
+   2. walk from 2735,353 to 2734,353 into the oRndTrap at 2712,288   [megaman:2]
+      -> standing at x 2706-2734, y 353 (where a gate is)
+   3. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 2706,353, through the oRndTrap at 2288,32, the oRndTrap at 2712,288; lands at 2574,273   [adash,megaman:2]
+      -> standing at x 2554-2662, y 273
+   4. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 2592,273; lands at 2494,193   [adash]
+      -> standing at x 2442-2582, y 193
+   5. running left, jump (held 21 ticks), holding left, from 2442,193, through the oRndTrap at 2288,32, the oRndTrap at 2712,288; lands at 2288,129   [megaman:2]
+      -> standing at x 2282-2310, y 129 (where a gate is)
+   6. walk off the edge, holding left once in the air, from 2282,129, through the oRndTrap at 2288,32, the oRndTrap at 2712,288; lands at 1982,353   [megaman:2]
+      -> standing at x 1735-2169, y 353
+   7. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 1735,353; lands at 1646,273   [adash]
+      -> standing at x 1530-1734, y 273
+   8. walk off the edge, holding left once in the air, from 1530,273; lands at 1457,353
+      -> standing at x 743-1529, y 353
+   9. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 743,353; lands at 654,273   [adash]
+      -> standing at x 634-742, y 273
+  10. walk off the edge, holding left once in the air, from 634,273; lands at 539,353
+      -> standing at x 0-633, y 353
+  11. standing at 0,353, goes into it
+      -> out 0,320
+how in 2736,352 -> out 0,320: adash,samus:4
+     coming in at 2736,352
+   1. coming in: holding nothing, from 2736,352; lands at 2736,353
+      -> standing at x 2735-2784, y 353
+   2. walk from 2735,353 to 2734,353 into the oRndTrap at 2712,288   [samus:4]
+      -> standing at x 2706-2734, y 353 (where a gate is)
+   3. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 2706,353, through the oRndTrap at 2288,32, the oRndTrap at 2712,288; lands at 2574,273   [adash,samus:4]
+      -> standing at x 2554-2662, y 273
+   4. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 2592,273; lands at 2494,193   [adash]
+      -> standing at x 2442-2582, y 193
+   5. running left, jump (held 21 ticks), holding left, from 2442,193, through the oRndTrap at 2288,32, the oRndTrap at 2712,288; lands at 2288,129   [samus:4]
+      -> standing at x 2282-2310, y 129 (where a gate is)
+   6. walk off the edge, holding left once in the air, from 2282,129, through the oRndTrap at 2288,32, the oRndTrap at 2712,288; lands at 1982,353   [samus:4]
+      -> standing at x 1735-2169, y 353
+   7. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 1735,353; lands at 1646,273   [adash]
+      -> standing at x 1530-1734, y 273
+   8. walk off the edge, holding left once in the air, from 1530,273; lands at 1457,353
+      -> standing at x 743-1529, y 353
+   9. jump (held 21 ticks), holding left, air dash (Jerry) at tick 16, from 743,353; lands at 654,273   [adash]
+      -> standing at x 634-742, y 273
+  10. walk off the edge, holding left once in the air, from 634,273; lands at 539,353
+      -> standing at x 0-633, y 353
+  11. standing at 0,353, goes into it
       -> out 0,320
 how in 2736,352 -> out 2768,320: -
      coming in at 2736,352
    1. coming in: holding nothing, from 2736,352; lands at 2736,353
-      -> standing at x 2311-2784, y 353
+      -> standing at x 2735-2784, y 353
    2. standing at 2766,353, goes into it
       -> out 2768,320

@@ -83,6 +83,10 @@ global.rndFightRetY=0
 for(i=0;i<13;i+=1) {global.rndOwn[i]=0} //(0-11 the abilities and sets, 12 the Varia Suit: rndProgOf)
 global.rndKeyOwn=string_repeat("0",50) //the doors (objectNum) whose keys have been found
 global.rndGot=string_repeat("0",global.rndLocN)
+//the enemy traps beaten (rndData's rndTrap*: each one's room and object, traps.py), and the one going in the room (-1:
+//none)
+global.rndTrapDone=string_repeat("0",global.rndTrapN)
+global.rndTrapActive=-1
 global.rndPlace=""
 global.rndBossDone=string_repeat("0",global.rndBossN)
 global.rndEShopStr=""

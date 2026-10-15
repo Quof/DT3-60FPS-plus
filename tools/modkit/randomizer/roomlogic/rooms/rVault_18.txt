@@ -36,7 +36,7 @@ from in 2144,272
   out 0,176      never
   out 2176,240   -
   out 2056,272   -
-  loc 3 20       djump
+  loc 3 20       djump,belmont:1 | djump,link:1 | djump,megaman:1 | djump,samus:1
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
@@ -56,24 +56,60 @@ how in 2144,272 -> out 2176,240: -
      coming in at 2144,272
    1. coming in: holding nothing, from 2144,272; lands at 2144,273
       -> standing at x 2090-2192, y 273
-   2. jump (held 2 ticks), holding left, from 2090,273; lands at 1988,273
-      -> standing at x 1610-2038, y 273
-   3. running right, jump (held 21 ticks), holding right, from 1968,273; touches it on the way
+   2. walk off the edge, holding left once in the air, from 2090,273; lands at 2039,321
+      -> standing at x 2039-2041, y 321
+   3. jump (held 21 ticks), holding right, from 2039,321; touches it on the way
       -> out 2176,240
 how in 2144,272 -> out 2056,272: -
      coming in at 2144,272
    1. coming in: holding nothing, from 2144,272; lands at 2144,273
       -> standing at x 2090-2192, y 273
-   2. jump (held 2 ticks), holding left, from 2090,273; lands at 1988,273
-      -> standing at x 1610-2038, y 273
-   3. walk off the edge, holding right once in the air, from 1610,273; touches it on the way
+   2. walk off the edge, holding left once in the air, from 2090,273; lands at 2039,321
+      -> standing at x 2039-2041, y 321
+   3. jump (held 2 ticks), holding right, from 2039,321; touches it on the way
       -> out 2056,272
-how in 2144,272 -> loc 3 20: djump
+how in 2144,272 -> loc 3 20: djump,belmont:1
      coming in at 2144,272
    1. coming in: holding nothing, from 2144,272; lands at 2144,273
       -> standing at x 2090-2192, y 273
-   2. jump (held 2 ticks), holding left, from 2090,273; lands at 1988,273
-      -> standing at x 1610-2038, y 273
+   2. jump (held 2 ticks), holding left, from 2090,273, through the oRndTrap at 1616,144, the oRndTrap at 2016,144; lands at 1988,273   [belmont:1]
+      -> standing at x 1639-2009, y 273
+   3. running right, jump (held 21 ticks), holding right, from 1712,273; lands at 1858,209
+      -> standing at x 1786-1862, y 209
+   4. jump (held 21 ticks), holding left, double jump at tick 15, from 1854,209; lands at 1790,103   [djump]
+      -> standing at x 1783-1798, y 97-111
+   5. jump (held 21 ticks), holding nothing, then right after 14 ticks, from 1783,97; touches it on the way
+      -> loc 3 20
+how in 2144,272 -> loc 3 20: djump,link:1
+     coming in at 2144,272
+   1. coming in: holding nothing, from 2144,272; lands at 2144,273
+      -> standing at x 2090-2192, y 273
+   2. jump (held 2 ticks), holding left, from 2090,273, through the oRndTrap at 1616,144, the oRndTrap at 2016,144; lands at 1988,273   [link:1]
+      -> standing at x 1639-2009, y 273
+   3. running right, jump (held 21 ticks), holding right, from 1712,273; lands at 1858,209
+      -> standing at x 1786-1862, y 209
+   4. jump (held 21 ticks), holding left, double jump at tick 15, from 1854,209; lands at 1790,103   [djump]
+      -> standing at x 1783-1798, y 97-111
+   5. jump (held 21 ticks), holding nothing, then right after 14 ticks, from 1783,97; touches it on the way
+      -> loc 3 20
+how in 2144,272 -> loc 3 20: djump,megaman:1
+     coming in at 2144,272
+   1. coming in: holding nothing, from 2144,272; lands at 2144,273
+      -> standing at x 2090-2192, y 273
+   2. jump (held 2 ticks), holding left, from 2090,273, through the oRndTrap at 1616,144, the oRndTrap at 2016,144; lands at 1988,273   [megaman:1]
+      -> standing at x 1639-2009, y 273
+   3. running right, jump (held 21 ticks), holding right, from 1712,273; lands at 1858,209
+      -> standing at x 1786-1862, y 209
+   4. jump (held 21 ticks), holding left, double jump at tick 15, from 1854,209; lands at 1790,103   [djump]
+      -> standing at x 1783-1798, y 97-111
+   5. jump (held 21 ticks), holding nothing, then right after 14 ticks, from 1783,97; touches it on the way
+      -> loc 3 20
+how in 2144,272 -> loc 3 20: djump,samus:1
+     coming in at 2144,272
+   1. coming in: holding nothing, from 2144,272; lands at 2144,273
+      -> standing at x 2090-2192, y 273
+   2. jump (held 2 ticks), holding left, from 2090,273, through the oRndTrap at 1616,144, the oRndTrap at 2016,144; lands at 1988,273   [samus:1]
+      -> standing at x 1639-2009, y 273
    3. running right, jump (held 21 ticks), holding right, from 1712,273; lands at 1858,209
       -> standing at x 1786-1862, y 209
    4. jump (held 21 ticks), holding left, double jump at tick 15, from 1854,209; lands at 1790,103   [djump]

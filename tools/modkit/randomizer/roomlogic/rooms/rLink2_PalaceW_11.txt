@@ -21,15 +21,15 @@ out 0,448   # to rLink2_PalaceW_8 at 1360,480; the player goes into it
 # the locked door whose objectNum is N.
 from in 48,480 [water 1]
   out 0,448 [water 1]   -
-  out 0,448 [water 2]   megaman:1 | samus:1 | link:1 | belmont:1
-  out 0,448 [water 3]   megaman:1 | samus:1 | link:1 | belmont:1
+  out 0,448 [water 2]   belmont:1 | link:1 | megaman:1 | samus:1
+  out 0,448 [water 3]   belmont:1 | link:1 | megaman:1 | samus:1
 from in 48,480 [water 2]
-  out 0,448 [water 1]   megaman:1 | samus:1 | link:1 | belmont:1
+  out 0,448 [water 1]   megaman:1 | samus:1 | belmont:1 | link:1
   out 0,448 [water 2]   -
-  out 0,448 [water 3]   megaman:1 | samus:1 | link:1 | belmont:1
+  out 0,448 [water 3]   belmont:1 | link:1 | megaman:1 | samus:1
 from in 48,480 [water 3]
-  out 0,448 [water 1]   megaman:1 | samus:1 | link:1 | belmont:1
-  out 0,448 [water 2]   megaman:1 | samus:1 | link:1 | belmont:1
+  out 0,448 [water 1]   megaman:1 | samus:1 | belmont:1 | link:1
+  out 0,448 [water 2]   belmont:1 | link:1 | megaman:1 | samus:1
   out 0,448 [water 3]   -
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
@@ -37,398 +37,542 @@ from in 48,480 [water 3]
 how in 48,480 [water 1] -> out 0,448 [water 1]: -
      [water at level 1] coming in at 48,480
    1. coming in: holding nothing, from 48,480; lands at 48,481
-      -> [water at level 1] standing at x 0-390, y 481
+      -> [water at level 1] standing at x 0-297, y 481
    2. standing at 0,481, goes into it
       -> out 0,448 [water 1]
-how in 48,480 [water 1] -> out 0,448 [water 2]: megaman:1
+how in 48,480 [water 1] -> out 0,448 [water 2]: belmont:1
      [water at level 1] coming in at 48,480
    1. coming in: holding nothing, from 48,480; lands at 48,481
-      -> [water at level 1] standing at x 0-390, y 481
-   2. shoot the switch at 464,400 from 327,481 (at the top of a jump): [water at level 2]   [megaman:1]
-      -> [water at level 2] standing at x 0-390, y 481
-   3. standing at 0,481, goes into it
-      -> out 0,448 [water 2]
-how in 48,480 [water 1] -> out 0,448 [water 2]: samus:1
-     [water at level 1] coming in at 48,480
-   1. coming in: holding nothing, from 48,480; lands at 48,481
-      -> [water at level 1] standing at x 0-390, y 481
-   2. shoot the switch at 464,400 from 327,481 (at the top of a jump): [water at level 2]   [samus:1]
-      -> [water at level 2] standing at x 0-390, y 481
-   3. standing at 0,481, goes into it
+      -> [water at level 1] standing at x 0-297, y 481
+   2. walk from 297,481 to 298,481 into the oRndTrap at 304,416   [belmont:1]
+      -> [water at level 1] standing at x 298-326, y 481 (where a gate is)
+   3. hit the switch at 368,432 from 308,481: [water at level 2]   [belmont:1]
+      -> [water at level 2] standing at x 298-326, y 481 (where a gate is)
+   4. walk from 298,481 to 297,481
+      -> [water at level 2] standing at x 0-297, y 481
+   5. standing at 0,481, goes into it
       -> out 0,448 [water 2]
 how in 48,480 [water 1] -> out 0,448 [water 2]: link:1
      [water at level 1] coming in at 48,480
    1. coming in: holding nothing, from 48,480; lands at 48,481
-      -> [water at level 1] standing at x 0-390, y 481
-   2. hit the switch at 368,432 from 308,481 (jumping if need be): [water at level 2]   [link:1]
-      -> [water at level 2] standing at x 0-390, y 481
-   3. standing at 0,481, goes into it
+      -> [water at level 1] standing at x 0-297, y 481
+   2. walk from 297,481 to 298,481 into the oRndTrap at 304,416   [link:1]
+      -> [water at level 1] standing at x 298-326, y 481 (where a gate is)
+   3. hit the switch at 368,432 from 308,481: [water at level 2]   [link:1]
+      -> [water at level 2] standing at x 298-326, y 481 (where a gate is)
+   4. walk from 298,481 to 297,481
+      -> [water at level 2] standing at x 0-297, y 481
+   5. standing at 0,481, goes into it
       -> out 0,448 [water 2]
-how in 48,480 [water 1] -> out 0,448 [water 2]: belmont:1
+how in 48,480 [water 1] -> out 0,448 [water 2]: megaman:1
      [water at level 1] coming in at 48,480
    1. coming in: holding nothing, from 48,480; lands at 48,481
-      -> [water at level 1] standing at x 0-390, y 481
-   2. hit the switch at 368,432 from 308,481 (jumping if need be): [water at level 2]   [belmont:1]
-      -> [water at level 2] standing at x 0-390, y 481
-   3. standing at 0,481, goes into it
+      -> [water at level 1] standing at x 0-297, y 481
+   2. walk from 297,481 to 298,481 into the oRndTrap at 304,416   [megaman:1]
+      -> [water at level 1] standing at x 298-326, y 481 (where a gate is)
+   3. hit the switch at 368,432 from 308,481: [water at level 2]   [megaman:1]
+      -> [water at level 2] standing at x 298-326, y 481 (where a gate is)
+   4. walk from 298,481 to 297,481
+      -> [water at level 2] standing at x 0-297, y 481
+   5. standing at 0,481, goes into it
       -> out 0,448 [water 2]
-how in 48,480 [water 1] -> out 0,448 [water 3]: megaman:1
+how in 48,480 [water 1] -> out 0,448 [water 2]: samus:1
      [water at level 1] coming in at 48,480
    1. coming in: holding nothing, from 48,480; lands at 48,481
-      -> [water at level 1] standing at x 0-390, y 481
-   2. running right, jump (held 21 ticks), holding right, from 368,481; lands at 455,449
-      -> [water at level 1] standing at x 442-473, y 449
-   3. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 442,449; lands at 481,433
-      -> [water at level 1] standing at x 474-550, y 433
-   4. jump (held 21 ticks), holding right, from 474,433; lands at 653,481
-      -> [water at level 1] standing at x 634-838, y 481
-   5. shoot the switch at 992,432 from 671,481 (at the top of a jump): [water at level 3]   [megaman:1]
-      -> [water at level 3] standing at x 634-838, y 481
-   6. jump (held 2 ticks), holding left, from 634,481; lands at 569,449
-      -> [water at level 3] standing at x 551-582, y 449
-   7. jump (held 21 ticks), holding left, from 551,449; lands at 350,481
-      -> [water at level 3] standing at x 0-390, y 481
-   8. standing at 0,481, goes into it
-      -> out 0,448 [water 3]
-how in 48,480 [water 1] -> out 0,448 [water 3]: samus:1
+      -> [water at level 1] standing at x 0-297, y 481
+   2. walk from 297,481 to 298,481 into the oRndTrap at 304,416   [samus:1]
+      -> [water at level 1] standing at x 298-326, y 481 (where a gate is)
+   3. hit the switch at 368,432 from 308,481: [water at level 2]   [samus:1]
+      -> [water at level 2] standing at x 298-326, y 481 (where a gate is)
+   4. walk from 298,481 to 297,481
+      -> [water at level 2] standing at x 0-297, y 481
+   5. standing at 0,481, goes into it
+      -> out 0,448 [water 2]
+how in 48,480 [water 1] -> out 0,448 [water 3]: belmont:1
      [water at level 1] coming in at 48,480
    1. coming in: holding nothing, from 48,480; lands at 48,481
-      -> [water at level 1] standing at x 0-390, y 481
-   2. running right, jump (held 21 ticks), holding right, from 368,481; lands at 455,449
+      -> [water at level 1] standing at x 0-297, y 481
+   2. running right, jump (held 21 ticks), holding right, from 240,481, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 337,481   [belmont:1]
+      -> [water at level 1] standing at x 327-390, y 481
+   3. running right, jump (held 21 ticks), holding right, from 368,481; lands at 455,449
       -> [water at level 1] standing at x 442-473, y 449
-   3. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 442,449; lands at 481,433
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 442,449; lands at 481,433
       -> [water at level 1] standing at x 474-550, y 433
-   4. jump (held 21 ticks), holding right, from 474,433; lands at 653,481
-      -> [water at level 1] standing at x 634-838, y 481
-   5. shoot the switch at 992,432 from 671,481 (at the top of a jump): [water at level 3]   [samus:1]
-      -> [water at level 3] standing at x 634-838, y 481
-   6. jump (held 2 ticks), holding left, from 634,481; lands at 569,449
+   5. jump (held 21 ticks), holding right, from 474,433; lands at 653,481
+      -> [water at level 1] standing at x 634-697, y 481
+   6. walk off the edge, holding right once in the air, from 634,481, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 1031,625   [belmont:1]
+      -> [water at level 1] standing at x 839-1145, y 625
+   7. hit the switch at 992,512 from 932,625 (jumping if need be): [water at level 3]   [belmont:1]
+      -> [water at level 3] standing at x 839-1145, y 625
+   8. jump (held 2 ticks), holding left, from 839,625, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 773,481   [belmont:1]
+      -> [water at level 3] standing at x 727-809, y 481
+   9. running left, jump (held 21 ticks), holding left, from 727,481, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 551,449   [belmont:1]
       -> [water at level 3] standing at x 551-582, y 449
-   7. jump (held 21 ticks), holding left, from 551,449; lands at 350,481
-      -> [water at level 3] standing at x 0-390, y 481
-   8. standing at 0,481, goes into it
+  10. jump (held 21 ticks), holding left, from 551,449; lands at 350,481
+      -> [water at level 3] standing at x 327-390, y 481
+  11. jump (held 2 ticks), holding left, from 327,481, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 276,481   [belmont:1]
+      -> [water at level 3] standing at x 0-297, y 481
+  12. standing at 0,481, goes into it
       -> out 0,448 [water 3]
 how in 48,480 [water 1] -> out 0,448 [water 3]: link:1
      [water at level 1] coming in at 48,480
    1. coming in: holding nothing, from 48,480; lands at 48,481
-      -> [water at level 1] standing at x 0-390, y 481
-   2. running right, jump (held 21 ticks), holding right, from 368,481; lands at 455,449
+      -> [water at level 1] standing at x 0-297, y 481
+   2. running right, jump (held 21 ticks), holding right, from 240,481, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 337,481   [link:1]
+      -> [water at level 1] standing at x 327-390, y 481
+   3. running right, jump (held 21 ticks), holding right, from 368,481; lands at 455,449
       -> [water at level 1] standing at x 442-473, y 449
-   3. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 442,449; lands at 481,433
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 442,449; lands at 481,433
       -> [water at level 1] standing at x 474-550, y 433
-   4. jump (held 21 ticks), holding right, from 474,433; lands at 653,481
-      -> [water at level 1] standing at x 634-838, y 481
-   5. walk off the edge, holding right once in the air, from 634,481; lands at 1031,625
+   5. jump (held 21 ticks), holding right, from 474,433; lands at 653,481
+      -> [water at level 1] standing at x 634-697, y 481
+   6. walk off the edge, holding right once in the air, from 634,481, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 1031,625   [link:1]
       -> [water at level 1] standing at x 839-1145, y 625
-   6. hit the switch at 992,512 from 932,625 (jumping if need be): [water at level 3]   [link:1]
+   7. hit the switch at 992,512 from 932,625 (jumping if need be): [water at level 3]   [link:1]
       -> [water at level 3] standing at x 839-1145, y 625
-   7. jump (held 2 ticks), holding left, from 839,625; lands at 773,481
-      -> [water at level 3] standing at x 634-838, y 481
-   8. jump (held 2 ticks), holding left, from 634,481; lands at 569,449
+   8. jump (held 2 ticks), holding left, from 839,625, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 773,481   [link:1]
+      -> [water at level 3] standing at x 727-809, y 481
+   9. running left, jump (held 21 ticks), holding left, from 727,481, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 551,449   [link:1]
       -> [water at level 3] standing at x 551-582, y 449
-   9. jump (held 21 ticks), holding left, from 551,449; lands at 350,481
-      -> [water at level 3] standing at x 0-390, y 481
-  10. standing at 0,481, goes into it
+  10. jump (held 21 ticks), holding left, from 551,449; lands at 350,481
+      -> [water at level 3] standing at x 327-390, y 481
+  11. jump (held 2 ticks), holding left, from 327,481, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 276,481   [link:1]
+      -> [water at level 3] standing at x 0-297, y 481
+  12. standing at 0,481, goes into it
       -> out 0,448 [water 3]
-how in 48,480 [water 1] -> out 0,448 [water 3]: belmont:1
+how in 48,480 [water 1] -> out 0,448 [water 3]: megaman:1
      [water at level 1] coming in at 48,480
    1. coming in: holding nothing, from 48,480; lands at 48,481
-      -> [water at level 1] standing at x 0-390, y 481
-   2. running right, jump (held 21 ticks), holding right, from 368,481; lands at 455,449
+      -> [water at level 1] standing at x 0-297, y 481
+   2. running right, jump (held 21 ticks), holding right, from 240,481, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 337,481   [megaman:1]
+      -> [water at level 1] standing at x 327-390, y 481
+   3. running right, jump (held 21 ticks), holding right, from 368,481; lands at 455,449
       -> [water at level 1] standing at x 442-473, y 449
-   3. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 442,449; lands at 481,433
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 442,449; lands at 481,433
       -> [water at level 1] standing at x 474-550, y 433
-   4. jump (held 21 ticks), holding right, from 474,433; lands at 653,481
-      -> [water at level 1] standing at x 634-838, y 481
-   5. walk off the edge, holding right once in the air, from 634,481; lands at 1031,625
+   5. jump (held 21 ticks), holding right, from 474,433; lands at 653,481
+      -> [water at level 1] standing at x 634-697, y 481
+   6. walk off the edge, holding right once in the air, from 634,481, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 1031,625   [megaman:1]
       -> [water at level 1] standing at x 839-1145, y 625
-   6. hit the switch at 992,512 from 932,625 (jumping if need be): [water at level 3]   [belmont:1]
+   7. hit the switch at 992,512 from 932,625 (jumping if need be): [water at level 3]   [megaman:1]
       -> [water at level 3] standing at x 839-1145, y 625
-   7. jump (held 2 ticks), holding left, from 839,625; lands at 773,481
-      -> [water at level 3] standing at x 634-838, y 481
-   8. jump (held 2 ticks), holding left, from 634,481; lands at 569,449
+   8. jump (held 2 ticks), holding left, from 839,625, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 773,481   [megaman:1]
+      -> [water at level 3] standing at x 727-809, y 481
+   9. running left, jump (held 21 ticks), holding left, from 727,481, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 551,449   [megaman:1]
       -> [water at level 3] standing at x 551-582, y 449
-   9. jump (held 21 ticks), holding left, from 551,449; lands at 350,481
-      -> [water at level 3] standing at x 0-390, y 481
-  10. standing at 0,481, goes into it
+  10. jump (held 21 ticks), holding left, from 551,449; lands at 350,481
+      -> [water at level 3] standing at x 327-390, y 481
+  11. jump (held 2 ticks), holding left, from 327,481, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 276,481   [megaman:1]
+      -> [water at level 3] standing at x 0-297, y 481
+  12. standing at 0,481, goes into it
+      -> out 0,448 [water 3]
+how in 48,480 [water 1] -> out 0,448 [water 3]: samus:1
+     [water at level 1] coming in at 48,480
+   1. coming in: holding nothing, from 48,480; lands at 48,481
+      -> [water at level 1] standing at x 0-297, y 481
+   2. running right, jump (held 21 ticks), holding right, from 240,481, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 337,481   [samus:1]
+      -> [water at level 1] standing at x 327-390, y 481
+   3. running right, jump (held 21 ticks), holding right, from 368,481; lands at 455,449
+      -> [water at level 1] standing at x 442-473, y 449
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 442,449; lands at 481,433
+      -> [water at level 1] standing at x 474-550, y 433
+   5. jump (held 21 ticks), holding right, from 474,433; lands at 653,481
+      -> [water at level 1] standing at x 634-697, y 481
+   6. walk off the edge, holding right once in the air, from 634,481, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 1031,625   [samus:1]
+      -> [water at level 1] standing at x 839-1145, y 625
+   7. hit the switch at 992,512 from 932,625 (jumping if need be): [water at level 3]   [samus:1]
+      -> [water at level 3] standing at x 839-1145, y 625
+   8. jump (held 2 ticks), holding left, from 839,625, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 773,481   [samus:1]
+      -> [water at level 3] standing at x 727-809, y 481
+   9. running left, jump (held 21 ticks), holding left, from 727,481, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 551,449   [samus:1]
+      -> [water at level 3] standing at x 551-582, y 449
+  10. jump (held 21 ticks), holding left, from 551,449; lands at 350,481
+      -> [water at level 3] standing at x 327-390, y 481
+  11. jump (held 2 ticks), holding left, from 327,481, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 276,481   [samus:1]
+      -> [water at level 3] standing at x 0-297, y 481
+  12. standing at 0,481, goes into it
       -> out 0,448 [water 3]
 how in 48,480 [water 2] -> out 0,448 [water 1]: megaman:1
      [water at level 2] coming in at 48,480
    1. coming in: holding nothing, from 48,480; lands at 48,481
-      -> [water at level 2] standing at x 0-390, y 481
-   2. running right, jump (held 21 ticks), holding right, from 368,481; lands at 455,449
+      -> [water at level 2] standing at x 0-297, y 481
+   2. running right, jump (held 21 ticks), holding right, from 240,481, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 337,481   [megaman:1]
+      -> [water at level 2] standing at x 327-390, y 481
+   3. running right, jump (held 21 ticks), holding right, from 368,481; lands at 455,449
       -> [water at level 2] standing at x 442-473, y 449
-   3. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 442,449; lands at 481,433
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 442,449; lands at 481,433
       -> [water at level 2] standing at x 474-550, y 433
-   4. jump (held 21 ticks), holding right, from 474,433; lands at 653,481
-      -> [water at level 2] standing at x 634-838, y 481
-   5. shoot (or throw at) the switch at 912,464 from 634,481, and while the shot flies, jump (held 6 ticks), holding left; lands at 577,449 (tick 13): [water at level 1]   [megaman:1]
+   5. jump (held 21 ticks), holding right, from 474,433; lands at 653,481
+      -> [water at level 2] standing at x 634-697, y 481
+   6. walk off the edge, holding right, then left after 1 ticks in the air, from 634,481, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 824,481   [megaman:1]
+      -> [water at level 2] standing at x 810-838, y 481 (where a gate is)
+   7. shoot the switch at 912,464 from 832,481: [water at level 1]   [megaman:1]
+      -> [water at level 1] standing at x 810-838, y 481 (where a gate is)
+   8. walk from 810,481 to 809,481
+      -> [water at level 1] standing at x 727-809, y 481
+   9. jump (held 2 ticks), holding left, from 727,481, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 664,481   [megaman:1]
+      -> [water at level 1] standing at x 634-697, y 481
+  10. jump (held 6 ticks), holding left, from 634,481; lands at 577,449
       -> [water at level 1] standing at x 551-582, y 449
-   6. jump (held 2 ticks), holding left, from 551,449; lands at 502,433
+  11. jump (held 2 ticks), holding left, from 551,449; lands at 502,433
       -> [water at level 1] standing at x 474-550, y 433
-   7. jump (held 2 ticks), holding left, from 474,433; lands at 340,481
-      -> [water at level 1] standing at x 0-390, y 481
-   8. standing at 0,481, goes into it
+  12. jump (held 21 ticks), holding left, from 474,433, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 295,481   [megaman:1]
+      -> [water at level 1] standing at x 0-297, y 481
+  13. standing at 0,481, goes into it
       -> out 0,448 [water 1]
 how in 48,480 [water 2] -> out 0,448 [water 1]: samus:1
      [water at level 2] coming in at 48,480
    1. coming in: holding nothing, from 48,480; lands at 48,481
-      -> [water at level 2] standing at x 0-390, y 481
-   2. running right, jump (held 21 ticks), holding right, from 368,481; lands at 455,449
+      -> [water at level 2] standing at x 0-297, y 481
+   2. running right, jump (held 21 ticks), holding right, from 240,481, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 337,481   [samus:1]
+      -> [water at level 2] standing at x 327-390, y 481
+   3. running right, jump (held 21 ticks), holding right, from 368,481; lands at 455,449
       -> [water at level 2] standing at x 442-473, y 449
-   3. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 442,449; lands at 481,433
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 442,449; lands at 481,433
       -> [water at level 2] standing at x 474-550, y 433
-   4. jump (held 21 ticks), holding right, from 474,433; lands at 653,481
-      -> [water at level 2] standing at x 634-838, y 481
-   5. shoot (or throw at) the switch at 912,464 from 634,481, and while the shot flies, jump (held 6 ticks), holding left; lands at 577,449 (tick 13): [water at level 1]   [samus:1]
+   5. jump (held 21 ticks), holding right, from 474,433; lands at 653,481
+      -> [water at level 2] standing at x 634-697, y 481
+   6. walk off the edge, holding right, then left after 1 ticks in the air, from 634,481, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 824,481   [samus:1]
+      -> [water at level 2] standing at x 810-838, y 481 (where a gate is)
+   7. shoot the switch at 912,464 from 832,481: [water at level 1]   [samus:1]
+      -> [water at level 1] standing at x 810-838, y 481 (where a gate is)
+   8. walk from 810,481 to 809,481
+      -> [water at level 1] standing at x 727-809, y 481
+   9. jump (held 2 ticks), holding left, from 727,481, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 664,481   [samus:1]
+      -> [water at level 1] standing at x 634-697, y 481
+  10. jump (held 6 ticks), holding left, from 634,481; lands at 577,449
       -> [water at level 1] standing at x 551-582, y 449
-   6. jump (held 2 ticks), holding left, from 551,449; lands at 502,433
+  11. jump (held 2 ticks), holding left, from 551,449; lands at 502,433
       -> [water at level 1] standing at x 474-550, y 433
-   7. jump (held 2 ticks), holding left, from 474,433; lands at 340,481
-      -> [water at level 1] standing at x 0-390, y 481
-   8. standing at 0,481, goes into it
-      -> out 0,448 [water 1]
-how in 48,480 [water 2] -> out 0,448 [water 1]: link:1
-     [water at level 2] coming in at 48,480
-   1. coming in: holding nothing, from 48,480; lands at 48,481
-      -> [water at level 2] standing at x 0-390, y 481
-   2. running right, jump (held 21 ticks), holding right, from 368,481; lands at 455,449
-      -> [water at level 2] standing at x 442-473, y 449
-   3. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 442,449; lands at 481,433
-      -> [water at level 2] standing at x 474-550, y 433
-   4. jump (held 21 ticks), holding right, from 474,433; lands at 653,481
-      -> [water at level 2] standing at x 634-838, y 481
-   5. walk off the edge, holding right once in the air, from 634,481; lands at 1031,625
-      -> [water at level 2] standing at x 839-1145, y 625
-   6. hit the switch at 912,608 from 852,625 (jumping if need be): [water at level 1]   [link:1]
-      -> [water at level 1] standing at x 839-1145, y 625
-   7. jump (held 2 ticks), holding left, from 839,625; lands at 824,481
-      -> [water at level 1] standing at x 634-838, y 481
-   8. jump (held 6 ticks), holding left, from 634,481; lands at 577,449
-      -> [water at level 1] standing at x 551-582, y 449
-   9. jump (held 2 ticks), holding left, from 551,449; lands at 502,433
-      -> [water at level 1] standing at x 474-550, y 433
-  10. jump (held 2 ticks), holding left, from 474,433; lands at 340,481
-      -> [water at level 1] standing at x 0-390, y 481
-  11. standing at 0,481, goes into it
+  12. jump (held 21 ticks), holding left, from 474,433, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 295,481   [samus:1]
+      -> [water at level 1] standing at x 0-297, y 481
+  13. standing at 0,481, goes into it
       -> out 0,448 [water 1]
 how in 48,480 [water 2] -> out 0,448 [water 1]: belmont:1
      [water at level 2] coming in at 48,480
    1. coming in: holding nothing, from 48,480; lands at 48,481
-      -> [water at level 2] standing at x 0-390, y 481
-   2. running right, jump (held 21 ticks), holding right, from 368,481; lands at 455,449
+      -> [water at level 2] standing at x 0-297, y 481
+   2. running right, jump (held 21 ticks), holding right, from 240,481, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 337,481   [belmont:1]
+      -> [water at level 2] standing at x 327-390, y 481
+   3. running right, jump (held 21 ticks), holding right, from 368,481; lands at 455,449
       -> [water at level 2] standing at x 442-473, y 449
-   3. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 442,449; lands at 481,433
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 442,449; lands at 481,433
       -> [water at level 2] standing at x 474-550, y 433
-   4. jump (held 21 ticks), holding right, from 474,433; lands at 653,481
-      -> [water at level 2] standing at x 634-838, y 481
-   5. walk off the edge, holding right once in the air, from 634,481; lands at 1031,625
+   5. jump (held 21 ticks), holding right, from 474,433; lands at 653,481
+      -> [water at level 2] standing at x 634-697, y 481
+   6. walk off the edge, holding right once in the air, from 634,481, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 1031,625   [belmont:1]
       -> [water at level 2] standing at x 839-1145, y 625
-   6. hit the switch at 912,608 from 852,625 (jumping if need be): [water at level 1]   [belmont:1]
+   7. hit the switch at 912,608 from 852,625 (jumping if need be): [water at level 1]   [belmont:1]
       -> [water at level 1] standing at x 839-1145, y 625
-   7. jump (held 2 ticks), holding left, from 839,625; lands at 824,481
-      -> [water at level 1] standing at x 634-838, y 481
-   8. jump (held 6 ticks), holding left, from 634,481; lands at 577,449
+   8. jump (held 2 ticks), holding left, from 839,625, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 824,481   [belmont:1]
+      -> [water at level 1] standing at x 810-838, y 481 (where a gate is)
+   9. walk from 810,481 to 809,481
+      -> [water at level 1] standing at x 727-809, y 481
+  10. jump (held 2 ticks), holding left, from 727,481, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 664,481   [belmont:1]
+      -> [water at level 1] standing at x 634-697, y 481
+  11. jump (held 6 ticks), holding left, from 634,481; lands at 577,449
       -> [water at level 1] standing at x 551-582, y 449
-   9. jump (held 2 ticks), holding left, from 551,449; lands at 502,433
+  12. jump (held 2 ticks), holding left, from 551,449; lands at 502,433
       -> [water at level 1] standing at x 474-550, y 433
-  10. jump (held 2 ticks), holding left, from 474,433; lands at 340,481
-      -> [water at level 1] standing at x 0-390, y 481
-  11. standing at 0,481, goes into it
+  13. jump (held 21 ticks), holding left, from 474,433, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 295,481   [belmont:1]
+      -> [water at level 1] standing at x 0-297, y 481
+  14. standing at 0,481, goes into it
+      -> out 0,448 [water 1]
+how in 48,480 [water 2] -> out 0,448 [water 1]: link:1
+     [water at level 2] coming in at 48,480
+   1. coming in: holding nothing, from 48,480; lands at 48,481
+      -> [water at level 2] standing at x 0-297, y 481
+   2. running right, jump (held 21 ticks), holding right, from 240,481, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 337,481   [link:1]
+      -> [water at level 2] standing at x 327-390, y 481
+   3. running right, jump (held 21 ticks), holding right, from 368,481; lands at 455,449
+      -> [water at level 2] standing at x 442-473, y 449
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 442,449; lands at 481,433
+      -> [water at level 2] standing at x 474-550, y 433
+   5. jump (held 21 ticks), holding right, from 474,433; lands at 653,481
+      -> [water at level 2] standing at x 634-697, y 481
+   6. walk off the edge, holding right once in the air, from 634,481, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 1031,625   [link:1]
+      -> [water at level 2] standing at x 839-1145, y 625
+   7. hit the switch at 912,608 from 852,625 (jumping if need be): [water at level 1]   [link:1]
+      -> [water at level 1] standing at x 839-1145, y 625
+   8. jump (held 2 ticks), holding left, from 839,625, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 824,481   [link:1]
+      -> [water at level 1] standing at x 810-838, y 481 (where a gate is)
+   9. walk from 810,481 to 809,481
+      -> [water at level 1] standing at x 727-809, y 481
+  10. jump (held 2 ticks), holding left, from 727,481, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 664,481   [link:1]
+      -> [water at level 1] standing at x 634-697, y 481
+  11. jump (held 6 ticks), holding left, from 634,481; lands at 577,449
+      -> [water at level 1] standing at x 551-582, y 449
+  12. jump (held 2 ticks), holding left, from 551,449; lands at 502,433
+      -> [water at level 1] standing at x 474-550, y 433
+  13. jump (held 21 ticks), holding left, from 474,433, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 295,481   [link:1]
+      -> [water at level 1] standing at x 0-297, y 481
+  14. standing at 0,481, goes into it
       -> out 0,448 [water 1]
 how in 48,480 [water 2] -> out 0,448 [water 2]: -
      [water at level 2] coming in at 48,480
    1. coming in: holding nothing, from 48,480; lands at 48,481
-      -> [water at level 2] standing at x 0-390, y 481
+      -> [water at level 2] standing at x 0-297, y 481
    2. standing at 0,481, goes into it
       -> out 0,448 [water 2]
-how in 48,480 [water 2] -> out 0,448 [water 3]: megaman:1
+how in 48,480 [water 2] -> out 0,448 [water 3]: belmont:1
      [water at level 2] coming in at 48,480
    1. coming in: holding nothing, from 48,480; lands at 48,481
-      -> [water at level 2] standing at x 0-390, y 481
-   2. running right, jump (held 21 ticks), holding right, from 368,481; lands at 455,449
+      -> [water at level 2] standing at x 0-297, y 481
+   2. running right, jump (held 21 ticks), holding right, from 240,481, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 337,481   [belmont:1]
+      -> [water at level 2] standing at x 327-390, y 481
+   3. running right, jump (held 21 ticks), holding right, from 368,481; lands at 455,449
       -> [water at level 2] standing at x 442-473, y 449
-   3. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 442,449; lands at 481,433
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 442,449; lands at 481,433
       -> [water at level 2] standing at x 474-550, y 433
-   4. jump (held 21 ticks), holding right, from 474,433; lands at 653,481
-      -> [water at level 2] standing at x 634-838, y 481
-   5. shoot the switch at 992,432 from 671,481 (at the top of a jump): [water at level 3]   [megaman:1]
-      -> [water at level 3] standing at x 634-838, y 481
-   6. jump (held 2 ticks), holding left, from 634,481; lands at 569,449
+   5. jump (held 21 ticks), holding right, from 474,433; lands at 653,481
+      -> [water at level 2] standing at x 634-697, y 481
+   6. walk off the edge, holding right once in the air, from 634,481, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 1031,625   [belmont:1]
+      -> [water at level 2] standing at x 839-1145, y 625
+   7. hit the switch at 992,512 from 932,625 (jumping if need be): [water at level 3]   [belmont:1]
+      -> [water at level 3] standing at x 839-1145, y 625
+   8. jump (held 2 ticks), holding left, from 839,625, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 773,481   [belmont:1]
+      -> [water at level 3] standing at x 727-809, y 481
+   9. running left, jump (held 21 ticks), holding left, from 727,481, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 551,449   [belmont:1]
       -> [water at level 3] standing at x 551-582, y 449
-   7. jump (held 21 ticks), holding left, from 551,449; lands at 350,481
-      -> [water at level 3] standing at x 0-390, y 481
-   8. standing at 0,481, goes into it
-      -> out 0,448 [water 3]
-how in 48,480 [water 2] -> out 0,448 [water 3]: samus:1
-     [water at level 2] coming in at 48,480
-   1. coming in: holding nothing, from 48,480; lands at 48,481
-      -> [water at level 2] standing at x 0-390, y 481
-   2. running right, jump (held 21 ticks), holding right, from 368,481; lands at 455,449
-      -> [water at level 2] standing at x 442-473, y 449
-   3. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 442,449; lands at 481,433
-      -> [water at level 2] standing at x 474-550, y 433
-   4. jump (held 21 ticks), holding right, from 474,433; lands at 653,481
-      -> [water at level 2] standing at x 634-838, y 481
-   5. shoot the switch at 992,432 from 671,481 (at the top of a jump): [water at level 3]   [samus:1]
-      -> [water at level 3] standing at x 634-838, y 481
-   6. jump (held 2 ticks), holding left, from 634,481; lands at 569,449
-      -> [water at level 3] standing at x 551-582, y 449
-   7. jump (held 21 ticks), holding left, from 551,449; lands at 350,481
-      -> [water at level 3] standing at x 0-390, y 481
-   8. standing at 0,481, goes into it
+  10. jump (held 21 ticks), holding left, from 551,449; lands at 350,481
+      -> [water at level 3] standing at x 327-390, y 481
+  11. jump (held 2 ticks), holding left, from 327,481, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 276,481   [belmont:1]
+      -> [water at level 3] standing at x 0-297, y 481
+  12. standing at 0,481, goes into it
       -> out 0,448 [water 3]
 how in 48,480 [water 2] -> out 0,448 [water 3]: link:1
      [water at level 2] coming in at 48,480
    1. coming in: holding nothing, from 48,480; lands at 48,481
-      -> [water at level 2] standing at x 0-390, y 481
-   2. running right, jump (held 21 ticks), holding right, from 368,481; lands at 455,449
+      -> [water at level 2] standing at x 0-297, y 481
+   2. running right, jump (held 21 ticks), holding right, from 240,481, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 337,481   [link:1]
+      -> [water at level 2] standing at x 327-390, y 481
+   3. running right, jump (held 21 ticks), holding right, from 368,481; lands at 455,449
       -> [water at level 2] standing at x 442-473, y 449
-   3. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 442,449; lands at 481,433
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 442,449; lands at 481,433
       -> [water at level 2] standing at x 474-550, y 433
-   4. jump (held 21 ticks), holding right, from 474,433; lands at 653,481
-      -> [water at level 2] standing at x 634-838, y 481
-   5. walk off the edge, holding right once in the air, from 634,481; lands at 1031,625
+   5. jump (held 21 ticks), holding right, from 474,433; lands at 653,481
+      -> [water at level 2] standing at x 634-697, y 481
+   6. walk off the edge, holding right once in the air, from 634,481, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 1031,625   [link:1]
       -> [water at level 2] standing at x 839-1145, y 625
-   6. hit the switch at 992,512 from 932,625 (jumping if need be): [water at level 3]   [link:1]
+   7. hit the switch at 992,512 from 932,625 (jumping if need be): [water at level 3]   [link:1]
       -> [water at level 3] standing at x 839-1145, y 625
-   7. jump (held 2 ticks), holding left, from 839,625; lands at 773,481
-      -> [water at level 3] standing at x 634-838, y 481
-   8. jump (held 2 ticks), holding left, from 634,481; lands at 569,449
+   8. jump (held 2 ticks), holding left, from 839,625, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 773,481   [link:1]
+      -> [water at level 3] standing at x 727-809, y 481
+   9. running left, jump (held 21 ticks), holding left, from 727,481, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 551,449   [link:1]
       -> [water at level 3] standing at x 551-582, y 449
-   9. jump (held 21 ticks), holding left, from 551,449; lands at 350,481
-      -> [water at level 3] standing at x 0-390, y 481
-  10. standing at 0,481, goes into it
+  10. jump (held 21 ticks), holding left, from 551,449; lands at 350,481
+      -> [water at level 3] standing at x 327-390, y 481
+  11. jump (held 2 ticks), holding left, from 327,481, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 276,481   [link:1]
+      -> [water at level 3] standing at x 0-297, y 481
+  12. standing at 0,481, goes into it
       -> out 0,448 [water 3]
-how in 48,480 [water 2] -> out 0,448 [water 3]: belmont:1
+how in 48,480 [water 2] -> out 0,448 [water 3]: megaman:1
      [water at level 2] coming in at 48,480
    1. coming in: holding nothing, from 48,480; lands at 48,481
-      -> [water at level 2] standing at x 0-390, y 481
-   2. running right, jump (held 21 ticks), holding right, from 368,481; lands at 455,449
+      -> [water at level 2] standing at x 0-297, y 481
+   2. running right, jump (held 21 ticks), holding right, from 240,481, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 337,481   [megaman:1]
+      -> [water at level 2] standing at x 327-390, y 481
+   3. running right, jump (held 21 ticks), holding right, from 368,481; lands at 455,449
       -> [water at level 2] standing at x 442-473, y 449
-   3. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 442,449; lands at 481,433
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 442,449; lands at 481,433
       -> [water at level 2] standing at x 474-550, y 433
-   4. jump (held 21 ticks), holding right, from 474,433; lands at 653,481
-      -> [water at level 2] standing at x 634-838, y 481
-   5. walk off the edge, holding right once in the air, from 634,481; lands at 1031,625
+   5. jump (held 21 ticks), holding right, from 474,433; lands at 653,481
+      -> [water at level 2] standing at x 634-697, y 481
+   6. walk off the edge, holding right once in the air, from 634,481, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 1031,625   [megaman:1]
       -> [water at level 2] standing at x 839-1145, y 625
-   6. hit the switch at 992,512 from 932,625 (jumping if need be): [water at level 3]   [belmont:1]
+   7. hit the switch at 992,512 from 932,625 (jumping if need be): [water at level 3]   [megaman:1]
       -> [water at level 3] standing at x 839-1145, y 625
-   7. jump (held 2 ticks), holding left, from 839,625; lands at 773,481
-      -> [water at level 3] standing at x 634-838, y 481
-   8. jump (held 2 ticks), holding left, from 634,481; lands at 569,449
+   8. jump (held 2 ticks), holding left, from 839,625, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 773,481   [megaman:1]
+      -> [water at level 3] standing at x 727-809, y 481
+   9. running left, jump (held 21 ticks), holding left, from 727,481, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 551,449   [megaman:1]
       -> [water at level 3] standing at x 551-582, y 449
-   9. jump (held 21 ticks), holding left, from 551,449; lands at 350,481
-      -> [water at level 3] standing at x 0-390, y 481
-  10. standing at 0,481, goes into it
+  10. jump (held 21 ticks), holding left, from 551,449; lands at 350,481
+      -> [water at level 3] standing at x 327-390, y 481
+  11. jump (held 2 ticks), holding left, from 327,481, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 276,481   [megaman:1]
+      -> [water at level 3] standing at x 0-297, y 481
+  12. standing at 0,481, goes into it
+      -> out 0,448 [water 3]
+how in 48,480 [water 2] -> out 0,448 [water 3]: samus:1
+     [water at level 2] coming in at 48,480
+   1. coming in: holding nothing, from 48,480; lands at 48,481
+      -> [water at level 2] standing at x 0-297, y 481
+   2. running right, jump (held 21 ticks), holding right, from 240,481, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 337,481   [samus:1]
+      -> [water at level 2] standing at x 327-390, y 481
+   3. running right, jump (held 21 ticks), holding right, from 368,481; lands at 455,449
+      -> [water at level 2] standing at x 442-473, y 449
+   4. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 442,449; lands at 481,433
+      -> [water at level 2] standing at x 474-550, y 433
+   5. jump (held 21 ticks), holding right, from 474,433; lands at 653,481
+      -> [water at level 2] standing at x 634-697, y 481
+   6. walk off the edge, holding right once in the air, from 634,481, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 1031,625   [samus:1]
+      -> [water at level 2] standing at x 839-1145, y 625
+   7. hit the switch at 992,512 from 932,625 (jumping if need be): [water at level 3]   [samus:1]
+      -> [water at level 3] standing at x 839-1145, y 625
+   8. jump (held 2 ticks), holding left, from 839,625, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 773,481   [samus:1]
+      -> [water at level 3] standing at x 727-809, y 481
+   9. running left, jump (held 21 ticks), holding left, from 727,481, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 551,449   [samus:1]
+      -> [water at level 3] standing at x 551-582, y 449
+  10. jump (held 21 ticks), holding left, from 551,449; lands at 350,481
+      -> [water at level 3] standing at x 327-390, y 481
+  11. jump (held 2 ticks), holding left, from 327,481, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 276,481   [samus:1]
+      -> [water at level 3] standing at x 0-297, y 481
+  12. standing at 0,481, goes into it
       -> out 0,448 [water 3]
 how in 48,480 [water 3] -> out 0,448 [water 1]: megaman:1
      [water at level 3] coming in at 48,480
    1. coming in: holding nothing, from 48,480; lands at 48,481
-      -> [water at level 3] standing at x 0-390, y 481
-   2. running right, jump (held 21 ticks), holding right, from 304,481; lands at 473,449
-      -> [water at level 3] standing at x 442-473, y 449
-   3. jump (held 21 ticks), holding right, from 442,449; lands at 647,481
-      -> [water at level 3] standing at x 634-838, y 481
-   4. shoot (or throw at) the switch at 912,464 from 634,481, and while the shot flies, jump (held 6 ticks), holding left; lands at 539,433 (tick 15): [water at level 1]   [megaman:1]
+      -> [water at level 3] standing at x 0-297, y 481
+   2. walk from 297,481 to 298,481 into the oRndTrap at 304,416   [megaman:1]
+      -> [water at level 3] standing at x 298-326, y 481 (where a gate is)
+   3. running right, jump (held 21 ticks), holding right, from 322,481, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 498,433   [megaman:1]
+      -> [water at level 3] standing at x 474-550, y 433
+   4. jump (held 21 ticks), holding right, from 496,433, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 708,481   [megaman:1]
+      -> [water at level 3] standing at x 698-726, y 481 (where a gate is)
+   5. running right, jump (held 6 ticks), holding right, from 722,481, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 810,481   [megaman:1]
+      -> [water at level 3] standing at x 810-838, y 481 (where a gate is)
+   6. shoot the switch at 912,464 from 832,481: [water at level 1]   [megaman:1]
+      -> [water at level 1] standing at x 810-838, y 481 (where a gate is)
+   7. walk from 810,481 to 809,481
+      -> [water at level 1] standing at x 727-809, y 481
+   8. jump (held 2 ticks), holding left, from 727,481, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 664,481   [megaman:1]
+      -> [water at level 1] standing at x 634-697, y 481
+   9. jump (held 6 ticks), holding left, from 634,481; lands at 577,449
+      -> [water at level 1] standing at x 551-582, y 449
+  10. jump (held 2 ticks), holding left, from 551,449; lands at 502,433
       -> [water at level 1] standing at x 474-550, y 433
-   5. jump (held 2 ticks), holding left, from 474,433; lands at 340,481
-      -> [water at level 1] standing at x 0-390, y 481
-   6. standing at 0,481, goes into it
+  11. jump (held 21 ticks), holding left, from 474,433, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 295,481   [megaman:1]
+      -> [water at level 1] standing at x 0-297, y 481
+  12. standing at 0,481, goes into it
       -> out 0,448 [water 1]
 how in 48,480 [water 3] -> out 0,448 [water 1]: samus:1
      [water at level 3] coming in at 48,480
    1. coming in: holding nothing, from 48,480; lands at 48,481
-      -> [water at level 3] standing at x 0-390, y 481
-   2. running right, jump (held 21 ticks), holding right, from 304,481; lands at 473,449
-      -> [water at level 3] standing at x 442-473, y 449
-   3. jump (held 21 ticks), holding right, from 442,449; lands at 647,481
-      -> [water at level 3] standing at x 634-838, y 481
-   4. shoot (or throw at) the switch at 912,464 from 634,481, and while the shot flies, jump (held 6 ticks), holding left; lands at 539,433 (tick 15): [water at level 1]   [samus:1]
-      -> [water at level 1] standing at x 474-550, y 433
-   5. jump (held 2 ticks), holding left, from 474,433; lands at 340,481
-      -> [water at level 1] standing at x 0-390, y 481
-   6. standing at 0,481, goes into it
-      -> out 0,448 [water 1]
-how in 48,480 [water 3] -> out 0,448 [water 1]: link:1
-     [water at level 3] coming in at 48,480
-   1. coming in: holding nothing, from 48,480; lands at 48,481
-      -> [water at level 3] standing at x 0-390, y 481
-   2. running right, jump (held 21 ticks), holding right, from 304,481; lands at 473,449
-      -> [water at level 3] standing at x 442-473, y 449
-   3. jump (held 21 ticks), holding right, from 442,449; lands at 647,481
-      -> [water at level 3] standing at x 634-838, y 481
-   4. walk off the edge, holding right once in the air, from 634,481; lands at 971,625
-      -> [water at level 3] standing at x 839-1145, y 625
-   5. hit the switch at 912,608 from 852,625 (jumping if need be): [water at level 1]   [link:1]
-      -> [water at level 1] standing at x 839-1145, y 625
-   6. jump (held 2 ticks), holding left, from 839,625; lands at 824,481
-      -> [water at level 1] standing at x 634-838, y 481
-   7. jump (held 6 ticks), holding left, from 634,481; lands at 577,449
+      -> [water at level 3] standing at x 0-297, y 481
+   2. walk from 297,481 to 298,481 into the oRndTrap at 304,416   [samus:1]
+      -> [water at level 3] standing at x 298-326, y 481 (where a gate is)
+   3. running right, jump (held 21 ticks), holding right, from 322,481, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 498,433   [samus:1]
+      -> [water at level 3] standing at x 474-550, y 433
+   4. jump (held 21 ticks), holding right, from 496,433, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 708,481   [samus:1]
+      -> [water at level 3] standing at x 698-726, y 481 (where a gate is)
+   5. running right, jump (held 6 ticks), holding right, from 722,481, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 810,481   [samus:1]
+      -> [water at level 3] standing at x 810-838, y 481 (where a gate is)
+   6. shoot the switch at 912,464 from 832,481: [water at level 1]   [samus:1]
+      -> [water at level 1] standing at x 810-838, y 481 (where a gate is)
+   7. walk from 810,481 to 809,481
+      -> [water at level 1] standing at x 727-809, y 481
+   8. jump (held 2 ticks), holding left, from 727,481, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 664,481   [samus:1]
+      -> [water at level 1] standing at x 634-697, y 481
+   9. jump (held 6 ticks), holding left, from 634,481; lands at 577,449
       -> [water at level 1] standing at x 551-582, y 449
-   8. jump (held 2 ticks), holding left, from 551,449; lands at 502,433
+  10. jump (held 2 ticks), holding left, from 551,449; lands at 502,433
       -> [water at level 1] standing at x 474-550, y 433
-   9. jump (held 2 ticks), holding left, from 474,433; lands at 340,481
-      -> [water at level 1] standing at x 0-390, y 481
-  10. standing at 0,481, goes into it
+  11. jump (held 21 ticks), holding left, from 474,433, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 295,481   [samus:1]
+      -> [water at level 1] standing at x 0-297, y 481
+  12. standing at 0,481, goes into it
       -> out 0,448 [water 1]
 how in 48,480 [water 3] -> out 0,448 [water 1]: belmont:1
      [water at level 3] coming in at 48,480
    1. coming in: holding nothing, from 48,480; lands at 48,481
-      -> [water at level 3] standing at x 0-390, y 481
-   2. running right, jump (held 21 ticks), holding right, from 304,481; lands at 473,449
+      -> [water at level 3] standing at x 0-297, y 481
+   2. running right, jump (held 21 ticks), holding right, from 297,481, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 473,449   [belmont:1]
       -> [water at level 3] standing at x 442-473, y 449
    3. jump (held 21 ticks), holding right, from 442,449; lands at 647,481
-      -> [water at level 3] standing at x 634-838, y 481
-   4. walk off the edge, holding right once in the air, from 634,481; lands at 971,625
+      -> [water at level 3] standing at x 634-697, y 481
+   4. walk off the edge, holding right once in the air, from 634,481, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 971,625   [belmont:1]
       -> [water at level 3] standing at x 839-1145, y 625
    5. hit the switch at 912,608 from 852,625 (jumping if need be): [water at level 1]   [belmont:1]
       -> [water at level 1] standing at x 839-1145, y 625
-   6. jump (held 2 ticks), holding left, from 839,625; lands at 824,481
-      -> [water at level 1] standing at x 634-838, y 481
-   7. jump (held 6 ticks), holding left, from 634,481; lands at 577,449
+   6. jump (held 2 ticks), holding left, from 839,625, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 824,481   [belmont:1]
+      -> [water at level 1] standing at x 810-838, y 481 (where a gate is)
+   7. walk from 810,481 to 809,481
+      -> [water at level 1] standing at x 727-809, y 481
+   8. jump (held 2 ticks), holding left, from 727,481, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 664,481   [belmont:1]
+      -> [water at level 1] standing at x 634-697, y 481
+   9. jump (held 6 ticks), holding left, from 634,481; lands at 577,449
       -> [water at level 1] standing at x 551-582, y 449
-   8. jump (held 2 ticks), holding left, from 551,449; lands at 502,433
+  10. jump (held 2 ticks), holding left, from 551,449; lands at 502,433
       -> [water at level 1] standing at x 474-550, y 433
-   9. jump (held 2 ticks), holding left, from 474,433; lands at 340,481
-      -> [water at level 1] standing at x 0-390, y 481
-  10. standing at 0,481, goes into it
+  11. jump (held 21 ticks), holding left, from 474,433, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 295,481   [belmont:1]
+      -> [water at level 1] standing at x 0-297, y 481
+  12. standing at 0,481, goes into it
       -> out 0,448 [water 1]
-how in 48,480 [water 3] -> out 0,448 [water 2]: megaman:1
+how in 48,480 [water 3] -> out 0,448 [water 1]: link:1
      [water at level 3] coming in at 48,480
    1. coming in: holding nothing, from 48,480; lands at 48,481
-      -> [water at level 3] standing at x 0-390, y 481
-   2. shoot the switch at 464,400 from 327,481 (at the top of a jump): [water at level 2]   [megaman:1]
-      -> [water at level 2] standing at x 0-390, y 481
-   3. standing at 0,481, goes into it
-      -> out 0,448 [water 2]
-how in 48,480 [water 3] -> out 0,448 [water 2]: samus:1
+      -> [water at level 3] standing at x 0-297, y 481
+   2. running right, jump (held 21 ticks), holding right, from 297,481, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 473,449   [link:1]
+      -> [water at level 3] standing at x 442-473, y 449
+   3. jump (held 21 ticks), holding right, from 442,449; lands at 647,481
+      -> [water at level 3] standing at x 634-697, y 481
+   4. walk off the edge, holding right once in the air, from 634,481, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 971,625   [link:1]
+      -> [water at level 3] standing at x 839-1145, y 625
+   5. hit the switch at 912,608 from 852,625 (jumping if need be): [water at level 1]   [link:1]
+      -> [water at level 1] standing at x 839-1145, y 625
+   6. jump (held 2 ticks), holding left, from 839,625, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 824,481   [link:1]
+      -> [water at level 1] standing at x 810-838, y 481 (where a gate is)
+   7. walk from 810,481 to 809,481
+      -> [water at level 1] standing at x 727-809, y 481
+   8. jump (held 2 ticks), holding left, from 727,481, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 664,481   [link:1]
+      -> [water at level 1] standing at x 634-697, y 481
+   9. jump (held 6 ticks), holding left, from 634,481; lands at 577,449
+      -> [water at level 1] standing at x 551-582, y 449
+  10. jump (held 2 ticks), holding left, from 551,449; lands at 502,433
+      -> [water at level 1] standing at x 474-550, y 433
+  11. jump (held 21 ticks), holding left, from 474,433, through the oRndTrap at 304,416, the oRndTrap at 704,416, the oRndTrap at 816,416, ...; lands at 295,481   [link:1]
+      -> [water at level 1] standing at x 0-297, y 481
+  12. standing at 0,481, goes into it
+      -> out 0,448 [water 1]
+how in 48,480 [water 3] -> out 0,448 [water 2]: belmont:1
      [water at level 3] coming in at 48,480
    1. coming in: holding nothing, from 48,480; lands at 48,481
-      -> [water at level 3] standing at x 0-390, y 481
-   2. shoot the switch at 464,400 from 327,481 (at the top of a jump): [water at level 2]   [samus:1]
-      -> [water at level 2] standing at x 0-390, y 481
-   3. standing at 0,481, goes into it
+      -> [water at level 3] standing at x 0-297, y 481
+   2. walk from 297,481 to 298,481 into the oRndTrap at 304,416   [belmont:1]
+      -> [water at level 3] standing at x 298-326, y 481 (where a gate is)
+   3. hit the switch at 368,432 from 308,481: [water at level 2]   [belmont:1]
+      -> [water at level 2] standing at x 298-326, y 481 (where a gate is)
+   4. walk from 298,481 to 297,481
+      -> [water at level 2] standing at x 0-297, y 481
+   5. standing at 0,481, goes into it
       -> out 0,448 [water 2]
 how in 48,480 [water 3] -> out 0,448 [water 2]: link:1
      [water at level 3] coming in at 48,480
    1. coming in: holding nothing, from 48,480; lands at 48,481
-      -> [water at level 3] standing at x 0-390, y 481
-   2. hit the switch at 368,432 from 308,481 (jumping if need be): [water at level 2]   [link:1]
-      -> [water at level 2] standing at x 0-390, y 481
-   3. standing at 0,481, goes into it
+      -> [water at level 3] standing at x 0-297, y 481
+   2. walk from 297,481 to 298,481 into the oRndTrap at 304,416   [link:1]
+      -> [water at level 3] standing at x 298-326, y 481 (where a gate is)
+   3. hit the switch at 368,432 from 308,481: [water at level 2]   [link:1]
+      -> [water at level 2] standing at x 298-326, y 481 (where a gate is)
+   4. walk from 298,481 to 297,481
+      -> [water at level 2] standing at x 0-297, y 481
+   5. standing at 0,481, goes into it
       -> out 0,448 [water 2]
-how in 48,480 [water 3] -> out 0,448 [water 2]: belmont:1
+how in 48,480 [water 3] -> out 0,448 [water 2]: megaman:1
      [water at level 3] coming in at 48,480
    1. coming in: holding nothing, from 48,480; lands at 48,481
-      -> [water at level 3] standing at x 0-390, y 481
-   2. hit the switch at 368,432 from 308,481 (jumping if need be): [water at level 2]   [belmont:1]
-      -> [water at level 2] standing at x 0-390, y 481
-   3. standing at 0,481, goes into it
+      -> [water at level 3] standing at x 0-297, y 481
+   2. walk from 297,481 to 298,481 into the oRndTrap at 304,416   [megaman:1]
+      -> [water at level 3] standing at x 298-326, y 481 (where a gate is)
+   3. hit the switch at 368,432 from 308,481: [water at level 2]   [megaman:1]
+      -> [water at level 2] standing at x 298-326, y 481 (where a gate is)
+   4. walk from 298,481 to 297,481
+      -> [water at level 2] standing at x 0-297, y 481
+   5. standing at 0,481, goes into it
+      -> out 0,448 [water 2]
+how in 48,480 [water 3] -> out 0,448 [water 2]: samus:1
+     [water at level 3] coming in at 48,480
+   1. coming in: holding nothing, from 48,480; lands at 48,481
+      -> [water at level 3] standing at x 0-297, y 481
+   2. walk from 297,481 to 298,481 into the oRndTrap at 304,416   [samus:1]
+      -> [water at level 3] standing at x 298-326, y 481 (where a gate is)
+   3. hit the switch at 368,432 from 308,481: [water at level 2]   [samus:1]
+      -> [water at level 2] standing at x 298-326, y 481 (where a gate is)
+   4. walk from 298,481 to 297,481
+      -> [water at level 2] standing at x 0-297, y 481
+   5. standing at 0,481, goes into it
       -> out 0,448 [water 2]
 how in 48,480 [water 3] -> out 0,448 [water 3]: -
      [water at level 3] coming in at 48,480
    1. coming in: holding nothing, from 48,480; lands at 48,481
-      -> [water at level 3] standing at x 0-390, y 481
+      -> [water at level 3] standing at x 0-297, y 481
    2. standing at 0,481, goes into it
       -> out 0,448 [water 3]

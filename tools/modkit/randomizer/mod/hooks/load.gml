@@ -12,6 +12,16 @@ if global.rndActive=1
   global.rndKeyOwn=ini_read_string(s,"keys","")
   global.rndEShopStr=ini_read_string(s,"eshop","")
   global.rndWon=ini_read_real(s,"won",0)
+  //the enemy traps beaten, by name. A save from before them has none of them: its seed's items were placed without
+  //them, so they stay away (all counted beaten)
+  var tTraps,k;
+  if ini_key_exists(s,"traps")
+  {
+    tTraps=","+ini_read_string(s,"traps","")
+    global.rndTrapDone=string_repeat("0",global.rndTrapN)
+    for(k=0;k<global.rndTrapN;k+=1) {if string_pos(","+global.rndTrapName[k]+",",tTraps)>0 {global.rndTrapDone=rndSetChar(global.rndTrapDone,k+1,"1")}}
+  }
+  else {global.rndTrapDone=string_repeat("1",global.rndTrapN)}
   //Entrance Rando: the shuffle back (the door data read again: rndERLoad), if this build's doors are the ones it was
   //made with
   global.rndERMode=ini_read_real(s,"er",0)

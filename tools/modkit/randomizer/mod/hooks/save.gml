@@ -13,6 +13,11 @@ if global.rndActive=1
   ini_write_string(s,"keys",global.rndKeyOwn)
   ini_write_string(s,"eshop",global.rndEShopStr)
   ini_write_real(s,"won",global.rndWon)
+  //the enemy traps beaten, by name (a build with other traps keeps the ones it has)
+  var tTraps,k;
+  tTraps=""
+  for(k=0;k<global.rndTrapN;k+=1) {if string_char_at(global.rndTrapDone,k+1)="1" {tTraps+=global.rndTrapName[k]+","}}
+  ini_write_string(s,"traps",tTraps)
   //Entrance Rando: the mode, the door data's hash (a build with other doors can tell) and the shuffle (in pieces of
   //1000 characters)
   ini_write_real(s,"er",global.rndERMode)

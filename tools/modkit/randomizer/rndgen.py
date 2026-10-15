@@ -113,6 +113,31 @@ GAME_PATCHES = [
      "if global.gameProgress<=2850 {redDmgHit(0)}\n",
      "//if global.gameProgress<=2850 {redDmgHit(0)}\n"
      "if global.gameProgress<=2850 or (global.rndActive=1 and global.rndOwn[12]=0) {redDmgHit(0)} //Randomizer change: in a randomizer game, till the Varia Suit's found\n"),
+    # the pause menu's Teleport: in a randomizer game it works anywhere but in a boss fight, and goes to where the game
+    # started (Central City - North, at the door from Greatest Stretch)
+    ("oPauseMenu", "Step_0",
+     "    if global.mapTeleport=0 or global.bBossGallery=1 //Can't use\n",
+     "    //if global.mapTeleport=0 or global.bBossGallery=1 //Can't use\n"
+     "    if (global.mapTeleport=0 and global.rndActive=0) or global.bBossGallery=1 //Randomizer change: in a randomizer game, anywhere but in a boss fight\n"),
+    ("oPauseMenu", "Step_0",
+     "      if global.mapTeleport=1 //Gate A\n",
+     "      if global.rndActive=1 //Randomizer change (added): a randomizer game's teleport goes to where the game started\n"
+     "      {\n"
+     "        global.newMapX=608; global.newMapY=320\n"
+     "        room_goto(rCCity_NorthA)\n"
+     "        exit;\n"
+     "      }\n"
+     "      //if global.mapTeleport=1 //Gate A\n"
+     "      else if global.mapTeleport=1 //Gate A (Randomizer change: after the randomizer's)\n"),
+    ("oPauseMenu", "Draw_0",
+     "  if global.mapTeleport=0 or global.bBossGallery=1 {draw_sprite(sPauseM_NoTeleport,0,mainMenuX+17,mainMenuY+161)}\n",
+     "  //if global.mapTeleport=0 or global.bBossGallery=1 {draw_sprite(sPauseM_NoTeleport,0,mainMenuX+17,mainMenuY+161)}\n"
+     "  if (global.mapTeleport=0 and global.rndActive=0) or global.bBossGallery=1 {draw_sprite(sPauseM_NoTeleport,0,mainMenuX+17,mainMenuY+161)} //Randomizer change: usable anywhere but in a boss fight\n"),
+    ("oPauseMenu", "Draw_0",
+     "      if global.mapTeleport=0 //Not usable\n",
+     "      if global.rndActive=1 {menuInfoText=string(\"Teleport to - Central City - North (where the run started)\")} //Randomizer change (added)\n"
+     "      //if global.mapTeleport=0 //Not usable\n"
+     "      else if global.mapTeleport=0 //Not usable (Randomizer change: after the randomizer's)\n"),
 ]
 
 # bosses: the boss gallery's doors give each boss's type (oBossGalleryDoor's user event 0 sets its fight up), room and
@@ -400,15 +425,18 @@ def build(out, rooms, anames, rarea, locs, doors, shops, door_list, door_order, 
             f.write(ALARM_PREFIX % (lt, ALARM_EXTRA.get(obj, "")) + vanilla_event(obj, "Alarm_0"))
         with open(os.path.join(d, "Collision_oPlayer1.gml"), "w", encoding="utf-8", newline="\n") as f:
             f.write(COLL_PREFIX % COLL_EXTRA.get(obj, "") + vanilla_event(obj, "Collision_oPlayer1"))
+    patched = collections.OrderedDict()
     for obj, ev, old, new in GAME_PATCHES:
-        code = vanilla_event(obj, ev)
+        code = patched.get((obj, ev)) or vanilla_event(obj, ev)
         if code.count(old) != 1: raise SystemExit("%s %s: the line GAME_PATCHES changes isn't there once (the game's code changed)" % (obj, ev))
+        patched[(obj, ev)] = code.replace(old, new)
+    for (obj, ev), code in patched.items():
         d = os.path.join(out, "objects", obj)
         os.makedirs(d, exist_ok=True)
         with open(os.path.join(d, "object.ini"), "w", encoding="utf-8", newline="\n") as f:
             f.write("[object]\nevents=replace\n")
         with open(os.path.join(d, ev + ".gml"), "w", encoding="utf-8", newline="\n") as f:
-            f.write("//(the game's own %s %s, with the Randomizer's change: rndgen.py GAME_PATCHES)\n" % (obj, ev) + code.replace(old, new))
+            f.write("//(the game's own %s %s, with the Randomizer's changes: rndgen.py GAME_PATCHES)\n" % (obj, ev) + code)
     # <event>.prefix.gml (mod\objects): the randomizer's part of one of the game's events, the game's own after it
     for root, ds, fs in os.walk(os.path.join(out, "objects")):
         for f in fs:
@@ -473,6 +501,10 @@ def build(out, rooms, anames, rarea, locs, doors, shops, door_list, door_order, 
         fx, fy, fe = bstart[i]
         L.append("global.rndBossFX[%d]=%d; global.rndBossFY[%d]=%d; global.rndBossOnEntry[%d]=%d; global.rndBossGate[%d]=%d"
                  % (i, fx, i, fy, i, fe, i, boss_gate(room)))
+    # the enemy traps (traps.py): each one's room, its object (made here, from the game's code) and name
+    import traps
+    trap_list = traps.all_traps()
+    L += traps.write_mod(out, trap_list)
     L.append("global.rndApBase=%d //Archipelago: a location's id is this+type*1000+objectNum, an item's this+kind*10000+parameter" % AP_BASE)
     L.append("global.rndBossFinal=%d" % bidx[BOSS_FINAL])
     for n in range(8):
@@ -534,6 +566,8 @@ def build(out, rooms, anames, rarea, locs, doors, shops, door_list, door_order, 
     print("locations: %d need nothing but jumping, %d can hold an ability or key, %d need everything (no ability or key)"
           % (free, some, len(rows) - some))
     print("bosses fought the randomizer's way: %d (%s)" % (len(blist), ", ".join("%d %s" % (t, n) for t, r, x, y, n in blist)))
+    print("enemy traps brought back: %d in %d rooms (traps.py), %d needing nothing more than getting there"
+          % (len(trap_list), len({t.room for t in trap_list}), sum(1 for t in trap_list if t.req in ("-", ""))))
     # the same placement the game makes (rndGenerate), for a few seeds with each option: it must work under the logic
     for label, wpn, spread in (("default options", False, 1), ("Guarantee Early Weapons", True, 1),
                                ("Ability Spread Near", False, 0), ("Ability Spread Far", False, 2)):

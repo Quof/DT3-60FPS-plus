@@ -437,6 +437,8 @@ def main():
     notes = []
     lines = []
     bosses = boss_starts()
+    import traps
+    trap_gates = traps.room_gates()
     for room in rooms:
         rd = os.path.join(ROOMS, room)
         rs = kv(os.path.join(rd, "room.txt"))
@@ -877,6 +879,11 @@ def main():
                         report["moving platform ridden"] += 1
                         continue
             lines.append("S\t%s" % geo)
+        # the enemy traps the Randomizer brings back (..\traps.py): their barriers, walls that open with what beats the
+        # trap's enemies (beaten once, it's gone; the logic never takes the player into one they can't win)
+        for spr, bx, by, bxs, bys, bang, req in trap_gates.get(room, []):
+            lines.append("G\t%s\t%s\t%s\t%s\t%s\t%s\t%s\toRndTrap" % (spr, fnum(bx), fnum(by), fnum(bxs), fnum(bys), fnum(bang), req))
+            report["enemy trap barrier"] += 1
         # the Trial Master's 7th trial's heart container: the room's code makes it only in Nightmare mode, the mod in every
         # Randomizer game once the trial's done (rndHC7), where the code puts it
         m = re.search(r"instance_create\(\s*(\d+)\s*,\s*(\d+)\s*,\s*oHeartContainer\s*\)\s*\n\s*\w+\.objectNum\s*=\s*%d\b" % rndgen.TRIAL_HC,
