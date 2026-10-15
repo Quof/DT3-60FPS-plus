@@ -33,6 +33,7 @@ for(i=0;i<global.rndItemN;i+=1)
   else {tJunk[tJunkN]=i; tJunkN+=1}
 }
 for(i=0;i<global.rndKeyBase+64;i+=1) {global.rndGHave[i]=0; tUseful[i]=0}
+rndChipsHad() //(the Program Chips, had from the start without Chip Randomizer: the Access Gates' rooms need them)
 if global.rndReach=1 {rndERReachStart()}
 //the layers with a weapon (a layer is made by an item placed: there are at most as many as items, and the first)
 for(i=0;i<=tProgN+1;i+=1) {tLayW[i]=0}

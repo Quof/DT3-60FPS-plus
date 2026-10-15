@@ -21,6 +21,7 @@ if !variable_global_exists("rndLocN")
   global.rndOptBR=ini_read_real("Randomizer","br",0)
   global.rndOptIR=ini_read_real("Randomizer","ir",0)
   global.rndOptLog=ini_read_real("Randomizer","log",1)
+  global.rndOptChips=ini_read_real("Randomizer","chips",0) //(Chip Randomizer: 0 Off, 1 On)
   ini_close()
   //Archipelago: the next new game is an Archipelago game (the title screen's code 'ap'), and the folder where the game
   //and the DT3+ Client trade files: %LOCALAPPDATA%\DT3PlusArchipelago\, made if it isn't there
@@ -74,6 +75,19 @@ global.rndWon=0
 global.rndWorldProg=5641 //past every story event (5640 is the Hexor fight's)
 global.rndFight=-1
 global.rndFightSlot=-1
+//(a boss whose fight is several in a row, rndBossChain*: which of them is on, 0 its own; and the player's life and ammo
+//in it, for the next one: rndBossNextLink)
+global.rndFightLink=0
+for(i=0;i<5;i+=1) {global.rndChainSt[i]=0}
+global.rndCharLast=0 //(Jerry or Claire, whichever was played last: the roomStart hook switches back to them)
+//(abilities a room took away: the room whose code did (the mod's abilSetRemove), the area they stay away in, and the
+//ability sets picked before: the roomStart hook)
+global.rndAbilHeldRoom=-1
+global.rndAbilGroup=""
+global.rndActSave[0]=0
+global.rndActSave[1]=0
+global.rndActReg[0]=0 //(each character's last set other than Gate 6's, for leaving Gate 6: rndPickSets)
+global.rndActReg[1]=0
 global.rndRoomWait=-1 //the CHAOS Warmaster's room before the Abomination is beaten (the roomStart hook, oRndWatcher)
 global.rndRoomBoss=-1 //the boss whose room the player is in, not beaten yet (the roomStart hook), or -1
 global.rndRoomSide=0
@@ -97,9 +111,18 @@ global.rndTrapDone=string_repeat("0",global.rndTrapN)
 global.rndTrapActive=-1
 global.rndPlace=""
 global.rndBossDone=string_repeat("0",global.rndBossN)
+global.rndBossSeen=string_repeat("0",global.rndBossN) //(the places whose fight has been started: rndBossPreview, rndBossStart)
 //a boss's AP to give once the player is back from its fight (rndBossAPAward: -1 none, -2 the Abomination), and whether
 //the Abomination's beating has been seen (oRndWatcher: as if so till a new game or a load says otherwise)
 global.rndBossAPPending=-1
 global.rndAbomAPSeen=1
 global.rndEShopStr=""
 for(i=0;i<global.rndEShopN;i+=1) {global.rndEShopNew[i]=global.rndEShopEquip[i]}
+//the Program Chips (Chip Randomizer: rndChipApply puts them in the items or not), which the player has (a character a
+//gate: Access Gate 1-6), the gate of the room they were last in (-1 not known yet: the roomStart hook turns them back
+//at a gate they lack the chip of, rndGateBounce) and the gate a turning back is to be told for (rndLockMsg)
+rndChipApply(0)
+global.rndChipOwn=string_repeat("1",global.rndChipN)
+global.rndLastGate=-1
+global.rndLockMsg=0
+global.rndApSessChips=0

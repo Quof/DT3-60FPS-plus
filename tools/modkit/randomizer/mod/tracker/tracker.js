@@ -82,7 +82,9 @@
         }
         if (xs >= 0) { b = fight[xs]; xf = L.bossReq[2 * b]; xc = L.bossReq[2 * b + 1]; }
         else { xf = L.exitExtra[2 * t]; xc = L.exitExtra[2 * t + 1]; }
-        if (!ok(af, ac) || !ok(bf, bc) || !ok(xf, xc)) { blocked.push(e, gs, q); return; }
+        // (into an Access Gate's rooms from outside it: its Program Chip)
+        var g = L.roomGate[tr], chipOk = !(g && g !== L.roomGate[ri]) || (have[L.chipBase + g] || 0) >= 1;
+        if (!ok(af, ac) || !ok(bf, bc) || !ok(xf, xc) || !chipOk) { blocked.push(e, gs, q); return; }
         done.add(key);
         if (rs >= 0) { fought.add(rs); }
         if (xs >= 0) { fought.add(xs); }
@@ -154,7 +156,8 @@
   function ch(s, i) { return (s || "").charAt(i); }
 
   // the progression the player has, as the logic counts it: {number: count} (rndgen.py's PROG: 1-11 the abilities
-  // and sets, 12 the Varia Suit, 13 the cursed equipment, 14 the instruments; KB+objectNum a door's key)
+  // and sets, 12 the Varia Suit, 13 the cursed equipment, 14 the instruments; KB+objectNum a door's key; chipBase+gate
+  // a Program Chip: a state from before them has them all, as with Chip Randomizer off)
   DT3.haveOf = function (D, S) {
     var have = {}, i, n;
     for (i = 1; i <= 12; i++) {
@@ -170,13 +173,15 @@
     for (i = 0; i < D.doors.length; i++) {
       if (ch(S.keys, D.doors[i] - 1) === "1") { have[D.logic.KB + D.doors[i]] = 1; }
     }
+    var chips = S.chips === undefined ? "111111" : S.chips;
+    for (i = 1; i <= 6; i++) { if (ch(chips, i - 1) === "1") { have[D.logic.chipBase + i] = 1; } }
     return have;
   };
 
   // each check's status (TAKEN, IN_LOGIC, OUT_OF_LOGIC) with the state's items and the seed's shuffles. cache (an
   // object, optional): the reach is worked out again only when what it depends on has changed
   DT3.evaluate = function (D, S, cache) {
-    var key = [S.own, S.equip, S.gate, S.keys, S.boss, S.er, S.erpart, S.br, S.brfight, S.ir].join("|");
+    var key = [S.own, S.equip, S.gate, S.keys, S.chips, S.boss, S.er, S.erpart, S.br, S.brfight, S.ir].join("|");
     if (!cache || cache.key !== key) {
       var r = evalReach(D, S);
       cache = cache || {};
@@ -266,6 +271,7 @@
     if (S.er > 0) { out.push("Entrance Rando: " + (["Off", "Gate Swap", "Overworld", "Chaos"][S.er] || S.er)); }
     if (S.br > 0) { out.push("Boss Rando"); }
     if (S.ir > 0) { out.push("Instrument Randomization"); }
+    if (S.chipmode > 0) { out.push("Chip Randomizer"); }
     if (S.ap > 0) { out.push("Archipelago"); }
     return out;
   };
@@ -277,6 +283,19 @@
         "from the mod folder the game runs (Mods\\Randomizer\\tracker).";
     }
     return "";
+  };
+
+  // the problem to show now: one is shown for its first WARN_SECONDS, then not again (till another one comes). The
+  // pages draw only when the state changes, so redraw is called once its time is up
+  var WARN_SECONDS = 10, warnSeen = {};
+  DT3.mismatchShown = function (D, S, redraw) {
+    var m = S ? DT3.mismatch(D, S) : "";
+    if (!m) { return ""; }
+    if (warnSeen[m] === undefined) {
+      warnSeen[m] = Date.now();
+      setTimeout(redraw, WARN_SECONDS * 1000 + 50);
+    }
+    return Date.now() - warnSeen[m] < WARN_SECONDS * 1000 ? m : "";
   };
 
   // URL options: ?bg=<colour or transparent>&scale=<n>

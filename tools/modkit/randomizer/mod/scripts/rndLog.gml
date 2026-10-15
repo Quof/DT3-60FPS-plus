@@ -24,11 +24,14 @@ tStr+=", Boss Rando "
 if global.rndBRMode=1 {tStr+="On"} else {tStr+="Off"}
 tStr+=", Instrument Randomization "
 if global.rndIRMode=1 {tStr+="On"} else {tStr+="Off"}
+tStr+=", Chip Randomizer "
+if global.rndChipMode=1 {tStr+="On"} else {tStr+="Off"}
 file_text_write_string(f,tStr); file_text_writeln(f)
 file_text_write_string(f,"(this seed with these options places the items the same way again: type seed"+string(global.rndSeed)+" on the title screen, or choose it in the new game's options)"); file_text_writeln(f)
 if global.rndIRMode=1 {file_text_write_string(f,"Win: the 8 instruments (anywhere: they're with the abilities below), the Abomination, then the CHAOS Warmaster at the end of the CHAOS Warship.")}
 else {file_text_write_string(f,"Win: the 8 instruments (each Nightmare Gate's boss, beaten, leaves its instrument), the Abomination, then the CHAOS Warmaster at the end of the CHAOS Warship.")}
 file_text_writeln(f)
+if global.rndChipMode=1 {file_text_write_string(f,"Access Gates: each one's rooms open with its Program Chip (anywhere: they're with the abilities below)"); file_text_writeln(f)}
 file_text_writeln(f)
 file_text_write_string(f,"Abilities and keys, by layer (layer 1: what jumping alone reaches from Central City; each layer after it: what the items in the layers before it open)"); file_text_writeln(f)
 tMax=0
@@ -72,10 +75,14 @@ if global.rndBRMode=1
   {
     if d!=global.rndBossFinal
     {
-      //(Ridley's and the Parasitic Seed's: the exit the story went into their fights by)
+      //(Ridley's and the Parasitic Seed's: the exit the story went into their fights by; a fight of several in a row,
+      //rndBossChainN: Ridley's, says so)
       if global.rndBossViaFrom[d]>=0 {tStr="the way from "+room_get_name(global.rndBossViaFrom[d])+" to "+room_get_name(global.rndBossViaTo[d])}
       else {tStr=room_get_name(global.rndBossRoom[d])}
-      file_text_write_string(f,"  "+global.rndBossName[d]+"'s place ("+tStr+")  -  "+global.rndBossName[global.rndBRFight[d]]); file_text_writeln(f)
+      p=global.rndBRFight[d]
+      if global.rndBossChainN[p]>0 {file_text_write_string(f,"  "+global.rndBossName[d]+"'s place ("+tStr+")  -  "+global.rndBossName[p]+" ("+string(global.rndBossChainN[p]+1)+" fights in a row)")}
+      else {file_text_write_string(f,"  "+global.rndBossName[d]+"'s place ("+tStr+")  -  "+global.rndBossName[p])}
+      file_text_writeln(f)
     }
   }
 }

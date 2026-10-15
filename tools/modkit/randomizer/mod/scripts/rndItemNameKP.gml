@@ -29,6 +29,7 @@ switch (k)
   case 22: return "Double Jump"
   case 23: return "High Jump Boots (progressive)"
   case 25: return "Varia Suit"
+  case 27: return "Program Chip "+string(p)
   case 26:
     if p=1 {return "Full Moon Cello"}
     if p=2 {return "Conch Horn"}

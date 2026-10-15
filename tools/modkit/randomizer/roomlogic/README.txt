@@ -58,6 +58,10 @@ Requirements are written the same way everywhere: alternatives separated by |, a
   cursed N          N of the Trial Master's three cursed equipment pieces (the Cursed Helm, Ring and Pendant): his
                     trials need all three on
   key N             the key of the locked door whose objectNum is N (..\doors.csv lists them)
+  chip N            Program Chip N (Access Gate N). The logic adds it itself to every way into gate N's rooms from a
+                    room outside them (solve.py, and erflat.py and er.py with the doors shuffled; solve.py's
+                    GATE_PREFIX: the rooms whose names start rMario1_ ... rGame6_), so the files needn't say it; a new
+                    game without Chip Randomizer has all six
   attack            any ability set's attack: link 1, belmont 1, megaman 1 or samus 1 (four alternatives)
   event NAME        once that event has happened (events.txt says what it takes: EVENTS below)
   option NAME       only with that option on (none exist yet: FOR LATER)

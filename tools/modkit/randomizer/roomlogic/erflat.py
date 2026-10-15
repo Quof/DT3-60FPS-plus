@@ -66,6 +66,10 @@ def export(w, pairs, rows, bosses=()):
     f.room_carried = [[f.gnames.index(g) for g in w.rooms[n].carried] for n in f.rnames]
     f.room_resets = [[(f.gnames.index(g), f.gvals[f.gnames.index(g)].index(v)) for g, v in sorted(w.rooms[n].resets.items())] for n in f.rnames]
     f.room_scope = [1 if any(n.startswith(s) for s in f.scope) else 0 for n in f.rnames]
+    # (each room's Access Gate, 0 none: going into a gate's rooms from outside it takes its Program Chip, requirement
+    # number CHIP_BASE+gate)
+    f.room_gate = [solve.gate_of(n) for n in f.rnames]
+    f.CHIP_BASE = KB + solve.CHIP_KEY
     # requirements and alternatives (flat)
     f.req_ix, f.req_c, f.alt_first, f.alt_count = [], [], [], []
     evnames = list(w.ev_modes.keys())
@@ -401,7 +405,10 @@ class Reach:
             s = f.exit_slot[t]
             xf, xc = f.boss_req[self.fight[s]] if s >= 0 else f.exit_extra[t]
             l1, l2, l3 = self.lacks(af, ac), self.lacks(bf, bc), self.lacks(xf, xc)
-            parts = [l for l in (l1, l2, l3) if l is not None]
+            # (into an Access Gate's rooms from outside it: its Program Chip)
+            l4, g = None, f.room_gate[tr]
+            if g and g != f.room_gate[ri] and self.have.get(f.CHIP_BASE + g, 0) < 1: l4 = [([f.CHIP_BASE + g], 1)]
+            parts = [l for l in (l1, l2, l3, l4) if l is not None]
             if parts:
                 self.block(inst, [x for l in parts for x in l], len(parts) == 1); return
             self.passed(inst)
@@ -570,18 +577,25 @@ def br_shuffle(f, rng):
 
 
 # ---------------------------------------------------------------- the items (the mod's rndGenerate)
-def fill(f, part, rows, items, rng, weapons=False, newest=0.7, fight=None, ir=False):
+def start_have(f, chips):
+    """what the player has as a new game starts, as the logic counts it: the Program Chips, unless the new game's option
+    Chip Randomizer puts them among the items (chips)"""
+    return {} if chips else {f.CHIP_BASE + g: 1 for g in solve.GATE_PREFIX}
+
+
+def fill(f, part, rows, items, rng, weapons=False, newest=0.7, fight=None, ir=False, chips=False):
     """the progression items placed as the mod's rndGenerate does with the room logic's reach (Entrance Rando, Boss
     Rando, Instrument Randomization: each step as it is there, the reach worked out with the doors, the bosses and the
     instruments): [(layer, location, item)] or None. Without ir the instruments stay at their gates' rewards (places
-    that need everything: never one the items are placed at)"""
+    that need everything: never one the items are placed at). chips: Chip Randomizer (items has the Program Chips:
+    rndgen.items_with_chips); else the player has them from the start"""
     import rndgen
     N = len(rows)
     nreq = rndgen.KEY_BASE + 64
     prog = [i for i, it in enumerate(items) if rndgen.prog_of(it, ir) > 0]
     pix = [rndgen.prog_of(items[i], ir) for i in prog]
     done = [0] * len(prog)
-    reach = Reach(f, part, {}, fight, ir)
+    reach = Reach(f, part, start_have(f, chips), fight, ir)
     layer = [-1] * N
     fill_ = [-1] * N
     layw = set()
@@ -649,11 +663,12 @@ def everything_ok(f, part, hv, base_places, fight=None, ir=False):
     return base_places <= r.places and all(r.have.get(f.EV_BASE + v, 0) for v in f.goal_ev) and all(ri in r.room_in for ri in f.goal_rooms)
 
 
-def playthrough(f, part, placed, rows, items, fight=None, ir=False):
-    """from nothing, take every progression item reachable, over and over: all of them got"""
+def playthrough(f, part, placed, rows, items, fight=None, ir=False, chips=False):
+    """from nothing (but the Program Chips when they aren't items: chips), take every progression item reachable, over
+    and over: all of them got"""
     import rndgen
     at = {loc: items[k] for lay, loc, k in placed}
-    r = Reach(f, part, {}, fight, ir)
+    r = Reach(f, part, start_have(f, chips), fight, ir)
     got = set()
     while True:
         new = [loc for loc in at if loc not in got and loc in r.places]
@@ -685,7 +700,7 @@ def write_data(f, path, base_places, room_label, hv):
         x = f.exits[e["exit"]]
         h.update(("%s|%s|%s|%d|%d;" % (f.rnames[x[0]], x[1], f.entries[e["back"]][1], e["mode"], e["cls"])).encode())
     digest = h.hexdigest()[:12]
-    L.append("RNDER"); put(1); L.append(digest)
+    L.append("RNDER"); put(2); L.append(digest)
     put(len(f.gnames))
     for gi in range(len(f.gnames)): put(len(f.gvals[gi]), f.gmult[gi], 1 if gi in f.scoped else 0)
     put(f.start_gs, f.gs_n, f.KEY_BASE, f.EV_BASE)
@@ -732,6 +747,9 @@ def write_data(f, path, base_places, room_label, hv):
     for i in range(f.boss_n): put(f.boss_req[i][0], f.boss_req[i][1], f.boss_shuf[i])
     for ri in range(len(f.rnames)): put(f.room_slot[ri])
     for xi in range(len(f.exits)): put(f.exit_slot[xi])
+    # the Access Gates: the Program Chips' requirement numbers (CHIP_BASE+gate) and each room's gate (0 none)
+    put(f.CHIP_BASE)
+    for ri in range(len(f.rnames)): put(f.room_gate[ri])
     L.append("END")
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, "w", encoding="ascii", newline="\r\n") as fh: fh.write("\n".join(L) + "\n")
@@ -744,7 +762,7 @@ def build_data(rows, path, bosses=()):
     import rndgen
     w = er.World()
     have = er.all_items()
-    allk = sorted({k for r in w.rooms.values() for alts in r.table.values() for a in alts for k in a.k})
+    allk = er.all_keys(w)
     base = er.reach_with(w, {}, {}, have, allk)
     pairs = er.doors(w.rooms, w.conn, set(base.rooms_in))
     f = export(w, pairs, rows, bosses)
@@ -761,7 +779,7 @@ def main():
     import rndgen
     w = er.World()
     have = er.all_items()
-    allk = sorted({k for r in w.rooms.values() for alts in r.table.values() for a in alts for k in a.k})
+    allk = er.all_keys(w)
     base = er.reach_with(w, {}, {}, have, allk)
     pairs = er.doors(w.rooms, w.conn, set(base.rooms_in))
     rows, items = rndgen.locations_items()[8:10]

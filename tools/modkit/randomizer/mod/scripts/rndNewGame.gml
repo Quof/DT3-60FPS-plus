@@ -12,7 +12,9 @@
 //let through (rndGenerate, with the room logic's reach) and the seed plays through (rndERPlay); else another is tried.
 //An Archipelago game has the DT3+ world's options instead (the client's session, rndApReadSession): the world shuffled
 //its doors and bosses itself (its logic is this build's room logic: the door data's hash and the bosses' types say it
-//is), and they're put in as made
+//is), and they're put in as made.
+//With Chip Randomizer (rndOptChips, or the world's option), the Program Chips are among the items (rndChipApply) and
+//the player starts with none (an Access Gate's rooms turn them back till its chip is found); without, they have all six
 var tTry,tOk,tER,tBR,tIR,tBit,tGo,d,i;
 rndWorld()
 global.CHAOS_Invasion=0
@@ -59,6 +61,7 @@ if global.rndApNext=1
     global.rndERMode=0
     global.rndBRMode=0
     global.rndIRMode=global.rndApSessIR
+    rndChipApply(global.rndApSessChips)
     if global.rndApSessBR=1
     {
       tOk=0
@@ -104,6 +107,7 @@ if global.rndAP=0
   tER=global.rndOptER
   tBR=global.rndOptBR
   tIR=global.rndOptIR
+  rndChipApply(global.rndOptChips)
   if tER>0 or tBR>0 or tIR>0
   {
     if rndERLoad()=0
@@ -163,7 +167,8 @@ if global.rndAP=0
   }
   if tOk=0
   {
-    show_message("Randomizer: the items couldn't be placed for seed "+string(global.rndSeed)+" (its logic.txt asks for more than the locations allow). They're left in their own places.")
+    show_message("Randomizer: the items couldn't be placed for seed "+string(global.rndSeed)+" (its logic.txt asks for more than the locations allow). They're left in their own places, and the Access Gates are open.")
+    rndChipApply(0)
     rndVanillaPlace()
   }
   if global.rndOptShops=1 {rndShopShuffle()}
@@ -175,6 +180,12 @@ if global.rndAP=0
 }
 global.rndActive=1
 global.rndWon=0
+//the Program Chips: none with Chip Randomizer (each is an item), else all six (the pause menu shows them: programChips)
+global.rndChipOwn=string_repeat("1",global.rndChipN)
+if global.rndChipMode=1 {global.rndChipOwn=string_repeat("0",global.rndChipN)}
+global.programChips=global.rndChipN*(1-global.rndChipMode)
+global.rndLastGate=-1
+global.rndLockMsg=0
 //jumping: the player has it from the start (it isn't one of the items)
 global.rndOwn[0]=1
 rndAbilApply()

@@ -9,14 +9,34 @@ if global.rndActive=1
   //(rndBossAPAward: the game gives none for it here, so a level's worth)
   if global.rndAbomAPSeen=0 {if global.gateHProg>=200 {global.rndAbomAPSeen=1; global.rndBossAPPending=-2}}
   if !(global.bBossGallery=1 and global.rndFight<0) {rndAbilClamp()}
+  //(the ability sets the player has picked, outside an area that took them away and outside fights: picked again as
+  //the area's left, the roomStart hook)
+  if global.rndAbilGroup="" and global.rndFight<0 and global.bBossGallery=0 and global.activeCharacter<2
+  {
+    global.rndActSave[0]=global.activeAbility[0]
+    global.rndActSave[1]=global.activeAbility[1]
+    //(and each character's last set other than Gate 6's Game Powers, to go back to as Gate 6 is left: rndPickSets)
+    if global.activeAbility[0]=1 or global.activeAbility[0]=2 {global.rndActReg[0]=global.activeAbility[0]}
+    if global.activeAbility[1]=1 or global.activeAbility[1]=2 {global.rndActReg[1]=global.activeAbility[1]}
+  }
   if room=rCCity_SGrove {rndHC7()}
   if global.rndAP=1 {rndApPoll()}
   if instance_exists(oPlayer1)
   {
-    //in a randomizer boss fight: where the player is (they come back there once the boss is beaten: rndBossEnd)
+    //in a randomizer boss fight: where the player is (they come back there once the boss is beaten: rndBossEnd). In one
+    //with another fight after it (rndBossChainN), their life and ammo, which the next one starts with (rndBossNextLink:
+    //the boss gallery the game goes back to in between refills them)
     if global.rndFight>=0
     {
       if room=global.rndBossRoom[global.rndFight] {global.rndFightLastX=oPlayer1.x; global.rndFightLastY=oPlayer1.y}
+      if global.rndFightLink<global.rndBossChainN[global.rndFight] and room!=rBossGallery
+      {
+        global.rndChainSt[0]=oPlayer1.life
+        global.rndChainSt[1]=global.hudLink_Arrows[0]
+        global.rndChainSt[2]=global.hudBelmont_WeaponEn[0]
+        global.rndChainSt[3]=global.hudSamus_Missiles[0]
+        global.rndChainSt[4]=global.hudGame_WeaponEn[0]
+      }
     }
     //in the room of a boss not beaten yet (the roomStart hook): the player walking up to where its fight starts (level
     //with it, and reaching it from the side they came in on), or one that starts as the room's come into, starts it.

@@ -27,6 +27,9 @@ The Randomizer's own new-game options are the world's options:
   beating the boss whose room it is. The CHAOS Warmaster, The Executive and Hexor stay where they are.
 - **Instrument Randomization**: the 8 instruments are items of the multiworld, and each Nightmare Gate's reward (left
   where its boss is beaten) is a location. Off: each gate's boss leaves its own instrument.
+- **Chip Randomizer**: the 6 Program Chips are items of the multiworld (in the place of six Internetz chests), and each
+  Access Gate's rooms can only be gone into once its own chip is found (Program Chip 1 opens Gate 1, and so on); going
+  in without it turns you back. No chip is ever behind its own gate. Off: you start with all 6.
 - **Shop Equipment** (Shuffled, As Normal): the equipment shops' stock shuffled between the shops, or each shop's own.
 - **Guarantee Early Weapons**: one weapon (the first item of the Link, Belmont, Mega Man or Samus set) is placed in your
   own world, at a place you can get to from the start.

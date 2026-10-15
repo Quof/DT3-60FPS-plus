@@ -19,7 +19,8 @@ usage:
 Requirements, in every file: alternatives separated by |, any one of which is enough; each a list (commas or spaces)
 of: djump, adash, gdash, hijump N, mario, link N, belmont N, megaman N, samus N, gamej N, gamec N, varia (the Varia
 Suit), cursed N (that many of the three cursed equipment pieces) (N: that many of the item; "megaman:2" is the same as
-"megaman 2"), key N (the key of the locked door whose objectNum is N), attack (any
+"megaman 2"), key N (the key of the locked door whose objectNum is N), chip N (Program Chip N: Access Gate N's, which
+going into the gate's rooms from outside it takes), attack (any
 ability set's attack: link 1, belmont 1, megaman 1 or samus 1), event NAME (once it's happened: events.txt), option
 NAME (only with that option on), nothing or - (walking and jumping), never (no way).
 
@@ -46,6 +47,21 @@ ITEMS = ["djump", "adash", "gdash", "hijump", "mario", "link", "belmont", "megam
          "instr"]
 SINGLE = {"djump", "adash", "gdash", "mario", "varia"}
 
+# the Access Gates and their Program Chips (the new game's option Chip Randomizer): gate N's rooms (their names' prefix,
+# each gate's own area in the game) are got into from a room outside that gate only with Program Chip N (through_exit;
+# the Entrance Rando logic, roomlogic\erflat.py's Reach, the same by where an exit leads). A chip is a key of its own
+# here, key CHIP_KEY+N ("chip N" in the files): no locked door's objectNum is that high. With the option off the player
+# has every chip from the start
+GATE_PREFIX = {1: "rMario1_", 2: "rLink2_", 3: "rBelmont3_", 4: "rMega4_", 5: "rSamus5_", 6: "rGame6_"}
+CHIP_KEY = 50
+
+
+def gate_of(room):
+    """the Access Gate a room is in (1-6), or 0"""
+    for g, p in GATE_PREFIX.items():
+        if room.startswith(p): return g
+    return 0
+
 
 # ---------------------------------------------------------------- requirements
 class Need(collections.namedtuple("Need", "c k o")):
@@ -57,7 +73,7 @@ class Need(collections.namedtuple("Need", "c k o")):
         for i, n in enumerate(self.c):
             if n == 1 and ITEMS[i] in SINGLE: p.append(ITEMS[i])
             elif n > 0: p.append("%s:%d" % (ITEMS[i], n))
-        p += ["key:%d" % k for k in sorted(self.k)]
+        p += ["chip:%d" % (k - CHIP_KEY) if k > CHIP_KEY else "key:%d" % k for k in sorted(self.k)]
         p += [o if o.startswith("event:") else "option:%s" % o for o in sorted(self.o)]
         return ",".join(p) if p else "-"
 
@@ -119,6 +135,10 @@ def parse(text, where=""):
             if name == "key":
                 if not cnt.isdigit(): raise SystemExit("%s: 'key' needs a door's objectNum: %r" % (where, text))
                 alts = [mx(a, Need(NOTHING.c, frozenset([int(cnt)]), frozenset())) for a in alts]
+                continue
+            if name == "chip":
+                if not cnt.isdigit() or int(cnt) not in GATE_PREFIX: raise SystemExit("%s: 'chip' needs a gate's number (1-6): %r" % (where, text))
+                alts = [mx(a, Need(NOTHING.c, frozenset([CHIP_KEY + int(cnt)]), frozenset())) for a in alts]
                 continue
             if name == "option":
                 if not cnt: raise SystemExit("%s: 'option' needs a name: %r" % (where, text))
@@ -407,6 +427,9 @@ def through_exit(rooms, conn, room, out, st=()):
     elif r2 is not None and r2.boss and link[0] != room: extra = product(extra, ATTACK)
     if (room, out) in conn.via: extra = product(extra, conn.via_need.get((room, out), ATTACK))
     if (room, out) in conn.need: extra = product(extra, conn.need[(room, out)])
+    # (into an Access Gate's rooms from outside it: its Program Chip)
+    g = gate_of(link[0])
+    if g and g != gate_of(room): extra = product(extra, [Need(NOTHING.c, frozenset([CHIP_KEY + g]), frozenset())])
     return link, extra
 
 

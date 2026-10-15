@@ -16,6 +16,45 @@ if global.rndActive=0
   exit
 }
 if !instance_exists(oRndWatcher) {instance_create(0,0,oRndWatcher)}
+//the party split (the story's rooms where Jerry and Claire are apart: the one not played stands where they were left,
+//oPlayerIdle) only in a room that has that partner. The story's rooms next to a split room turn it off, but the
+//Randomizer's ways between rooms (Entrance Rando, its boss fights and the way back from them) can leave a split room for
+//one that doesn't, where swapping characters (pSwapCharacter) would look for a partner that isn't there
+if global.partySplit=1 and !instance_exists(oPlayerIdle) {global.partySplit=0}
+//a character only some rooms make the player (Jeremy's mech, the Abomination's fights' one: rndCharRoom, the rooms
+//whose code switches to it), carried into a room that doesn't: back to Jerry or Claire, whichever was played last
+//(rndCharLast), with the player's own abilities (those rooms take the sets away). The story's way out of them goes
+//through a room that switches back; the Randomizer's ways between rooms (Entrance Rando, its warps) needn't
+if instance_exists(oPlayer1)
+{
+  if global.activeCharacter>=2
+  {
+    var c,tKeep;
+    tKeep=0
+    for(c=0;c<global.rndCharRoomN;c+=1) {if global.rndCharRoom[c]=room and global.rndCharRoomCh[c]=global.activeCharacter {tKeep=1}}
+    if tKeep=0 {charSwitcher(global.rndCharLast); rndAbilApply()}
+  }
+  if global.activeCharacter<2 {global.rndCharLast=global.activeCharacter}
+}
+//the Access Gates (Chip Randomizer): a gate's rooms come into from outside it without its Program Chip turn the player
+//back at once, out the way they came (rndGateBounce), whatever the way in was. rndLastGate: the gate of the room they
+//were last in (not counting a boss fight's rooms, the Randomizer's warps); -1 after a load, where they were let in
+if global.rndFight<0 and global.bBossGallery=0 and instance_exists(oPlayer1)
+{
+  var tGate;
+  tGate=rndGateOf(room)
+  if global.rndChipMode=1 and tGate>0 and global.rndLastGate>=0 and tGate!=global.rndLastGate
+  {
+    if !rndChipHas(tGate) {rndGateBounce(tGate); exit}
+  }
+  global.rndLastGate=tGate
+  //(turned back from a gate: why, here)
+  if global.rndLockMsg>0
+  {
+    rndMsg(global.rndGateName[global.rndLockMsg]+" is locked.#It opens with Program Chip "+string(global.rndLockMsg)+".",2)
+    global.rndLockMsg=0
+  }
+}
 //(the trackers' state written again: the room the player's in, and after a new game, a load or a boss fight)
 global.rndTrackDirty=1
 //the enemy traps of the room not beaten yet: each its own object, which starts it once the player's in its arena
@@ -56,7 +95,8 @@ else if global.bBossGallery=0
   //the room of a boss not beaten yet: walking up to where its fight starts starts it (oRndWatcher), from the side the
   //player came in on (rndRoomSide); so does leaving the room another way than they came in (the exitPlayer hook). The
   //CHAOS Warmaster's, at the end of the Warship: only once the Abomination is beaten (gateHProg 200: the 8 instruments
-  //and the Abomination, the win's order); before that, walking up to him says so (rndRoomWait)
+  //and the Abomination, the win's order); before that, walking up to him says so (rndRoomWait). Either way the boss's
+  //preview is there till it's beaten (rndBossPreview)
   var b;
   b=rndBossAt(room)
   if b>=0
@@ -71,6 +111,8 @@ else if global.bBossGallery=0
         if global.newMapX<global.rndBossFX[b]-16 {global.rndRoomSide=-1}
         else if global.newMapX>global.rndBossFX[b]+16 {global.rndRoomSide=1}
       }
+      //(in the middle of its arena, the boss fought there, or with Boss Rando smoke till that fight has been seen)
+      rndBossPreview(b)
     }
     //a Nightmare Gate's boss room: the game's own scene that starts its fight doesn't come (the Randomizer's does, as for
     //every boss); once the boss there is beaten, the gate's reward is there (oRndReward)
@@ -84,12 +126,55 @@ else if global.bBossGallery=0
       if string_char_at(global.rndBossDone,b+1)="1" {rndRewardAt(global.rndBossGate[b],global.rndBossFX[b],global.rndBossFY[b]-24)}
     }
   }
+  //the room a boss's fight is gone into by an exit from (rndBossViaFrom: Ridley's hatch in rSamus5_Lv4_N), that boss's
+  //place not beaten yet: a Metroid door the endgame world has sealed in it (the hatch's oMetroidDoorHolder is type 3
+  //from gameProgress 3070, which nothing opens) is a blue one (type 0: any attack opens it). The holder makes its door a
+  //step after the room starts (its alarm), with this type
+  for(b=0;b<global.rndBossN;b+=1)
+  {
+    if global.rndBossViaFrom[b]=room and string_char_at(global.rndBossDone,b+1)="0" {with (oMetroidDoorHolder) {if type=3 {type=0}}}
+  }
 }
 //the abilities the room's code turned on are the ones the player has found (not in the boss gallery's own fights), and
 //swapping characters is on (oRndWatcher keeps the abilities so every frame); not where the room has put the player in
-//another character's place
+//another character's place.
+//A room whose own code took abilities away (the game's abilSetRemove(1): the CHAOS Warship's and Warship Z's rooms,
+//each Nightmare Gate's first room, which then give back the area's own few: the mod's version of the script notes the
+//room, rndAbilHeldRoom) keeps them so while the player stays in its area: the rooms whose names start as its does, up
+//to its last "_" (rndAbilGroup; a Nightmare Gate's other rooms carry its first room's loadout, as in the game). Not
+//Gate 6's gate room: Gate 6's own loadout (its Game Powers and the movement abilities only) isn't kept in a Randomizer
+//game, whose logic counts every ability found there (its Game Powers only work there, rndAbilApply; the mod's
+//pSwapAbility goes round all the sets the player has). Any other room gives back what the player has found, and the
+//ability sets they had picked (rndActSave: oRndWatcher): the story gives them back its own way, which a Randomizer
+//game's ways between rooms don't follow
 if !(global.bBossGallery=1 and global.rndFight<0)
 {
+  if global.rndFight<0 and global.activeCharacter<2
+  {
+    var tName,tHeld,k;
+    tName=room_get_name(room)
+    tHeld=0
+    if global.rndAbilHeldRoom=room and !rndInGate6()
+    {
+      tHeld=1
+      global.rndAbilGroup=tName
+      for(k=string_length(tName);k>=1;k-=1) {if string_char_at(tName,k)="_" {global.rndAbilGroup=string_copy(tName,1,k); break}}
+    }
+    else if global.rndAbilGroup!=""
+    {
+      if string_copy(tName,1,string_length(global.rndAbilGroup))=global.rndAbilGroup {tHeld=1}
+    }
+    if tHeld=0
+    {
+      if global.rndAbilGroup!=""
+      {
+        global.activeAbility[0]=global.rndActSave[0]
+        global.activeAbility[1]=global.rndActSave[1]
+      }
+      global.rndAbilGroup=""
+      rndAbilApply()
+    }
+  }
   rndAbilClamp()
   if global.canCharSwap=1 and global.activeCharacter<2 {global.canCharSwap=2}
 }

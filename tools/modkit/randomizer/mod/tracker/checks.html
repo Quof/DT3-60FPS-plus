@@ -21,14 +21,18 @@
   </div>
 </header>
 <nav id="tabs"></nav>
+<section id="here"></section>
 <main id="panel"></main>
 <script>
 // The Check Tracker: every check by area (tabs) and screen, red out of logic, green in logic (what the player's items
-// reach, with the seed's doors and bosses), blue once taken. The game writes state.js; this reads it every second
+// reach, with the seed's doors and bosses), blue once taken. The screen the player is in has its own space at the top,
+// under the header as the page scrolls ("No Checks" in a room without any); the tab's other screens are below it. The
+// game writes state.js; this reads it every second
 (function () {
   "use strict";
   var D = window.DT3_DATA;
   var tabsEl = document.getElementById("tabs"), panel = document.getElementById("panel");
+  var hereBox = document.getElementById("here"), headerEl = document.querySelector("header");
   var statusEl = document.getElementById("status");
   var hideTaken = document.getElementById("hideTaken"), follow = document.getElementById("follow");
   if (!D || !window.DT3) {
@@ -58,6 +62,9 @@
     if (follow.checked && state && D.roomTab[state.room] !== undefined) { sel = D.roomTab[state.room]; scrollHere = true; }
     render();
   };
+  // (the space for where the player is stays under the header, whatever its height: it wraps in a narrow window)
+  function pin() { hereBox.style.top = headerEl.offsetHeight + "px"; }
+  window.addEventListener("resize", pin);
 
   function showStatus() {
     statusEl.innerHTML = "";
@@ -72,7 +79,7 @@
     parts.push("In logic <b>" + inl + "</b>");
     if (state.won) { parts.push("<b>Won!</b>"); }
     statusEl.innerHTML = parts.join(" &middot; ");
-    var bad = DT3.mismatch(D, state);
+    var bad = DT3.mismatchShown(D, state, showStatus);
     if (bad) { var w = el("div", "warn", bad); statusEl.appendChild(w); }
   }
 
@@ -97,38 +104,63 @@
       b.onclick = function () { sel = ti; save("tab", sel); render(); };
       tabsEl.appendChild(b);
     });
+    // where the player is: its screen's card (all its checks, taken ones too), whichever tab is showing; "No Checks" in
+    // the middle of the space in a room without any, with the room's name over it
+    hereBox.innerHTML = "";
+    if (!state) {
+      hereBox.appendChild(el("div", "none", "Waiting for the game"));
+    } else if (here) {
+      hereBox.appendChild(card(D.tabs[here[0]].screens[here[1]], true, false));
+    } else {
+      var where = el("div", "where");
+      if (D.roomName && D.roomName[state.room]) { where.appendChild(el("span", "", D.roomName[state.room])); }
+      where.appendChild(el("span", "tag", "you are here"));
+      hereBox.appendChild(where);
+      hereBox.appendChild(el("div", "none", "No Checks"));
+    }
+    pin();
+    // the tab's screens (but the player's own, at the top)
     panel.innerHTML = "";
-    var tab = D.tabs[sel], hereEl = null;
+    var tab = D.tabs[sel], hidden = 0, skipped = 0;
     tab.screens.forEach(function (s, si) {
+      if (here && here[0] === sel && here[1] === si) { skipped++; return; }
       var n = s.checks.length, taken = 0;
       s.checks.forEach(function (i) { if (status[i] === DT3.TAKEN) { taken++; } });
-      var isHere = here && here[0] === sel && here[1] === si;
-      if (hideTaken.checked && taken === n && !isHere) { return; }
-      var card = el("section", "screen" + (taken === n ? " done" : "") + (isHere ? " here" : ""));
-      var h = el("h2");
-      h.appendChild(el("span", "", s.name));
-      if (isHere) { h.appendChild(el("span", "tag", "you are here")); }
-      h.appendChild(el("span", "count", taken + "/" + n));
-      card.appendChild(h);
-      var ul = el("ul");
-      s.checks.forEach(function (i) {
-        var st = status[i];
-        if (hideTaken.checked && st === DT3.TAKEN) { return; }
-        var li = el("li", st === DT3.TAKEN ? "taken" : "");
-        li.appendChild(el("span", "box " + (st === DT3.TAKEN ? "taken" : st === DT3.IN_LOGIC ? "in" : "out"),
-          st === DT3.TAKEN ? "✓" : ""));
-        li.appendChild(el("span", "name", D.locs[i].n));
-        li.title = D.locs[i].id + " (" + D.locs[i].room + ")";
-        ul.appendChild(li);
-      });
-      card.appendChild(ul);
-      panel.appendChild(card);
-      if (isHere) { hereEl = card; }
+      if (hideTaken.checked && taken === n) { hidden++; return; }
+      panel.appendChild(card(s, false, hideTaken.checked));
     });
-    if (!panel.children.length) { panel.appendChild(el("div", "empty", "Everything here is taken.")); }
-    if (hereEl && scrollHere && hereEl.scrollIntoView) { hereEl.scrollIntoView({block: "nearest"}); }
+    if (!panel.children.length) {
+      panel.appendChild(el("div", "empty", hidden ? "Everything else here is taken." : "Nothing else in this tab."));
+    }
+    if (scrollHere) { window.scrollTo(0, 0); }
     scrollHere = false;
     showStatus();
+  }
+
+  // a screen's card: its name, how many of its checks are taken, and each check (isHere: the player's, marked so;
+  // hide: taken checks left out)
+  function card(s, isHere, hide) {
+    var n = s.checks.length, taken = 0;
+    s.checks.forEach(function (i) { if (status[i] === DT3.TAKEN) { taken++; } });
+    var c = el("section", "screen" + (taken === n ? " done" : "") + (isHere ? " here" : ""));
+    var h = el("h2");
+    h.appendChild(el("span", "", s.name));
+    if (isHere) { h.appendChild(el("span", "tag", "you are here")); }
+    h.appendChild(el("span", "count", taken + "/" + n));
+    c.appendChild(h);
+    var ul = el("ul");
+    s.checks.forEach(function (i) {
+      var st = status[i];
+      if (hide && st === DT3.TAKEN) { return; }
+      var li = el("li", st === DT3.TAKEN ? "taken" : "");
+      li.appendChild(el("span", "box " + (st === DT3.TAKEN ? "taken" : st === DT3.IN_LOGIC ? "in" : "out"),
+        st === DT3.TAKEN ? "✓" : ""));
+      li.appendChild(el("span", "name", D.locs[i].n));
+      li.title = D.locs[i].id + " (" + D.locs[i].room + ")";
+      ul.appendChild(li);
+    });
+    c.appendChild(ul);
+    return c;
   }
 
   function update(S) {

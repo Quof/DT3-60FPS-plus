@@ -5,6 +5,7 @@
 var i,it,tN,tGotN,tNew,N;
 N=global.rndLocN
 for(i=0;i<global.rndEEvBase;i+=1) {global.rndGHave[i]=0}
+rndChipsHad() //(the Program Chips, had from the start without Chip Randomizer)
 rndERReachStart()
 tN=0
 for(i=0;i<N;i+=1)

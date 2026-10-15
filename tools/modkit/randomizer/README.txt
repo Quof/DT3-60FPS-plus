@@ -13,8 +13,9 @@ the treasure icon in a map with an ability, an ability set's item or a key. The 
 between the shops. A spoiler log is written to the Saves folder's Seeds folder (Saves\Seeds\Randomizer spoiler log
 <seed>.txt), with the options and the abilities and keys by layer. As in a new game: tower defense and the Trial Master's cursed trials aren't
 done (their rewards come from doing them, with the three cursed equipment pieces on; the 7th trial, five of the six
-others done, also gives Central City South's heart container), the shortcuts are shut, and there are no program chips,
-Yoshi dolls or game-completed flag (Bubble Tower B and the Gate 6 DLC stay shut). Nightmare Gate H is left out: its
+others done, also gives Central City South's heart container), the shortcuts are shut, and there are no Yoshi dolls
+or game-completed flag (Bubble Tower B and the Gate 6 DLC stay shut). The six program chips: all had from the start,
+or with Chip Randomizer none (each an item that opens its Access Gate: below). Nightmare Gate H is left out: its
 access gate (there once the other seven gates' bosses are beaten) goes to a blank room (the mod's rRndGateH) that
 counts the gate as beaten, has its reward and goes on to the Sacred Temple.
 
@@ -40,6 +41,8 @@ Playing
     Boss Rando               Off or On: which boss is fought in each boss's room is shuffled (below).
     Instrument Randomization Off or On: the 8 instruments are in the pool, and the Nightmare Gates' rewards hold any
                              item (no ability or key: a fight's reward, as the bosses' heart containers).
+    Chip Randomizer          Off or On: the 6 Program Chips are in the pool, and each Access Gate opens with its own
+                             (below). Off (the default): the player has all six from the start.
     Spoiler Log              written or not.
   An Archipelago game has no options window: its options are the DT3+ world's, in the player's YAML (below,
   Archipelago).
@@ -57,16 +60,37 @@ Playing
     Randomizer's way are shuffled, the Nightmare Gates' seven among them (Kamek, Final Nightmare, Blackmore, Elpizo,
     Shadow Form, Nightmare, Sephiroth); the CHAOS Warmaster stays the last fight, at the end of the CHAOS Warship, The
     Executive stays in his own room (his fight needs nothing: below), and so does Hexor, an optional fight at the
-    Distortion's dead end (fought the gallery's way, his fight ends with his first form). Not in it, as the Randomizer
-    leaves them to the game: the second fights of a room (Death (Legion), Sigma Epsilon, Ridley (Lava), Decimator
-    20000), the Ridley tunnel chase, the Leviathan road, the Abomination's fight (the gallery's Wahfuu, the instrument
-    quest's end) and the CHAOS Warmaster EX. The items are placed with what each place's fight now takes
+    Distortion's dead end (fought the gallery's way, his fight ends with his first form). Ridley's fight is his three
+    (below), and they move together: his fight at Bowser's place is Ridley, Ridley (Lava), then the tunnel chase,
+    walking up to Bowser. Not in it, as the Randomizer leaves them to the game: the second fights of a room (Death
+    (Legion), Sigma Epsilon, Decimator 20000), the Leviathan road, the Abomination's fight (the gallery's Wahfuu, the
+    instrument quest's end) and the CHAOS Warmaster EX. The items are placed with what each place's fight now takes
     (roomlogic\bosses.txt has what each fight takes), and the seed is played through before the game starts. The
     spoiler log lists the fights. A save keeps its shuffle.
+  - Chip Randomizer: the six Program Chips are items, in the places of the six smallest Internetz chests (rndgen.py's
+    chip_slots), and Access Gate N's rooms (their names start rMario1_, rLink2_, rBelmont3_, rMega4_, rSamus5_ and
+    rGame6_: the gate's prefix, rndGateOf) can only be gone into with chip N: coming into one from a room outside that
+    gate without it, whatever the way in (its Access Gate, or a door Entrance Rando joined to it), turns the player back
+    at once, out the way they came, and a message says which chip opens it (the roomStart hook, rndGateBounce). Boss
+    fights and the ways back from them don't count (Boss Rando's fights in a gate's rooms need no chip). The logic has
+    the same rule (roomlogic\solve.py and erflat.py: a room of gate N gone into from a room outside it takes chip N),
+    so every location in a gate needs its chip and no chip is ever placed where its own gate would have to be open to
+    get it; the build checks that for its seeds, and a seed is played through before the game starts. The pause menu
+    shows as many chips as the player has. Off: all six are had from the start, and the logic counts them as had.
   - The ability sets' items are progressive: each one is that set's next weapon (Link: Master Sword, Bow & Arrow, Fuse
     Bomb). Swapping characters and sets is always on. The Gate 6 sets only work in Gate 6, as in the game, and in The
     Executive's fight, which gives both characters both of them whole, as the game's own fight does (his phases are
     made for them), so it needs nothing of the player's: the logic doesn't count him.
+  - Some areas take abilities away as the game does: the CHAOS Warship's last rooms and Warship Z (jumping, the double
+    jump and the Mario Ability Set left) and each Nightmare Gate (its own few, from its first room). That lasts while
+    the player stays in the area (the rooms whose names start as the one that took them away does, up to its last
+    "_"); any other room gives back everything the player has found, and the ability sets they had picked. The mod's
+    own version of the game's abilSetRemove notes which room took them away (mod\scripts\abilSetRemove.gml: it then
+    runs the game's own). Gate 6's own loadout (its Game Powers and the movement abilities only) isn't kept: every
+    ability found works there, as the logic counts them. The ability swap goes round the sets the player has, the
+    Game Powers too in Gate 6 (mod\scripts\pSwapAbility.gml, in place of the game's, which in Gate 6 won't leave the
+    Game Powers and goes from Link only to Mega Man); Gate 6's gate room turns the Game Powers on as the player comes in,
+    and leaving Gate 6 turns back to the set they had before.
   - Each key opens its own locked door (the message says which area it's in); a door without its key says so.
   - The pause menu's Teleport works anywhere but in a boss fight, and goes to where the game started: Central City -
     North, at the door from Greatest Stretch (the game's own places for it aren't used). It's the way out of anywhere
@@ -104,6 +128,21 @@ Playing
     Parasitic Seed, whose rooms the endgame world's exits go past, are fought going through the exit the story used
     to go into them (rndgen.py, BOSS_VIA). A boss's heart container is there once it's beaten. The Nightmare Gates'
     bosses are fought the same way (their rooms' own scenes don't start), and each leaves its gate's reward.
+  - Ridley is three fights in a row, as in the story (rndgen.py's BOSS_CHAIN): Ridley, then Ridley (Lava) in the same
+    room, then the tunnel chase, each starting as soon as the last is won (by way of the boss gallery, which the game
+    goes back to in between: the mod's rndBossNextLink), with the life and ammo the last was won with (the tunnel's
+    room refills them, as the story's does). Only the third won beats his place. Retry from the game over screen starts
+    the fight lost again, with what it started with; given up, the player is back where they came into the room, and
+    the next try starts again from the first. His way in is the hatch at the bottom of rSamus5_Lv4_N's shaft, which the
+    endgame world seals: the mod makes it a blue Metroid door while his place isn't beaten (opened from above: the logic
+    has it needing Samus's bombs, samus 6, as his fight does). Won, the player is back in rSamus5_Lv4_N, by the shaft
+    (rndgen.py's BOSS_VIA_BACK): the hatch leads into the tunnel, whose story chase and escape would start again.
+  - A boss place not beaten yet shows its boss in the middle of its arena (where its fight holds the camera), faint and
+    drifting a little: a preview of the fight (oRndBossPreview; the look is made from the boss's sprites by bosspv.py,
+    as the tracker's head is, but whole). With Boss Rando, the place shows dark smoke instead till its fight has been
+    started once, then the boss fought there (rndBossSeen, kept in the save); a place Boss Rando leaves its own boss
+    in shows it. None where the fight is gone into by an exit (Ridley's, the Parasitic Seed's) or starts as the room
+    is come into (the Virus Parasite's).
 
 Trackers
   The mod's tracker folder (Mods\Randomizer\tracker) has two pages to open in a web browser next to the game, or in a
@@ -118,8 +157,10 @@ Trackers
     Nightmare Gate's reward is green once its boss can be got to (or is beaten), a boss's heart container once its
     place and its fight can; a place the logic doesn't reach (or tower defense's reward) once the player has every
     progression item, as the placement has it. Each tab shows how many of its places are green (the green mark) and
-    taken; the screen the player is in is outlined, and Follow the player goes to its tab as they move. Hide taken
-    leaves out what's taken.
+    taken. The screen the player is in has its own space at the top, under the header however far the page is
+    scrolled, whichever tab is showing ("No Checks" in the middle of it in a room without any, with the room's name
+    over it); Follow the player goes to its tab as they move, its other screens below. Hide taken leaves out what's
+    taken.
   - items.html, the Item Tracker: the progression the player has, lit (the movement abilities, each ability set's
     attacks with their own pictures, the Game Powers, the instruments, the cursed equipment), and how many of each
     upgrade of how many there are (keys, heart pieces and containers, heart energy, quivers, missile tanks, Game
@@ -158,6 +199,9 @@ Archipelago
     boss_rando                true/false: the bosses shuffled the same way, the logic with each place's new fight.
     instrument_randomization  true/false: the instruments are the multiworld's items and the Nightmare Gates' rewards
                               its locations (off: each reward is its gate's own instrument, not a location).
+    chip_randomizer           true/false: the Program Chips are the multiworld's items, in the pool in the place of
+                              six Internetz chests, and each Access Gate needs its own (off: had from the start, not
+                              items; the logic counts them as had).
     shop_equipment            shuffled (from the multiworld's seed) or as_normal.
     guarantee_early_weapons   true/false: one weapon set's first item (Link, Belmont, Mega Man or Samus, at random) in
                               the player's own world, at a place they can get to from the start (Archipelago's local
@@ -167,8 +211,9 @@ Archipelago
                               mostly first (near), as shuffled (normal), or the ones that take the most first (far).
                               About 6, 11 and 15 spheres in the playthrough.
   The client passes the world's options to the game (session.txt, from the world's slot data), and a new Archipelago
-  game puts them in: the shops, Instrument Randomization, Boss Rando's fights and Entrance Rando's doors, the last two
-  only if the world's boss list and door data's hash are this build's (else it says so and leaves them as they are).
+  game puts them in: the shops, Instrument Randomization, Chip Randomizer, Boss Rando's fights and Entrance Rando's
+  doors, the last two only if the world's boss list and door data's hash are this build's (else it says so and leaves
+  them as they are).
   The docs for the Archipelago website are in archipelago\dt3plus\docs.
 
 Building
@@ -182,8 +227,9 @@ Building
   their items, the locked doors, the shops and the bosses; joins the room logic with overrides.txt (solve.py); and writes
   the mod's data scripts, the pickups' events (the randomizer's part ahead of the game's own) and, next to rndgen.py,
   locations.csv and doors.csv. It ends with a check that the placement works for 50 seeds with each option, and how
-  many layers they have; then writes the room logic Entrance Rando and Boss Rando make seeds from (data\rndER.txt,
-  roomlogic\erflat.py) and makes ten seeds of each of their modes (and Chaos with Boss Rando), each played through;
+  many layers they have (with Chip Randomizer, each also played through, with no chip in its own gate); then writes
+  the room logic Entrance Rando and Boss Rando make seeds from (data\rndER.txt, roomlogic\erflat.py) and makes ten
+  seeds of each of their modes (and Chaos with Boss Rando, and some with Chip Randomizer), each played through;
   then the trackers' data (tracker\data.js, with the same room logic, and the items' pictures and the bosses' heads in
   tracker\icons: tracker.py).
   python tools\modkit\randomizer\rndgen.py --world-from <save.dts>
@@ -254,5 +300,5 @@ Limits
   - Story-only rooms that the endgame world doesn't reach (Tranquil Serenity and the like) have no places.
   - Not in the boss list: the Abomination (58), the Warmaster EX room (65), the Ridley tunnel chase (37) and the
     Leviathan road (41), which aren't fights a room makes, and each room's second boss (Death, Sigma, Ridley and the
-    Decimator have two).
+    Decimator have two). Ridley's second and the tunnel chase are fought as part of his (Playing, above).
   - A save from an earlier build of the mod doesn't carry over (its items are numbered differently): start a new game.

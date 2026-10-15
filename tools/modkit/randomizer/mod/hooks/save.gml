@@ -9,6 +9,7 @@ if global.rndActive=1
   ini_write_string(s,"place",global.rndPlace)
   ini_write_string(s,"got",global.rndGot)
   ini_write_string(s,"boss",global.rndBossDone)
+  ini_write_string(s,"bossseen",global.rndBossSeen) //(the places whose fight has been seen: their previews show it)
   //(the boss list's types, in its order: a build with another boss list reads the beaten bosses by type)
   ini_write_string(s,"bosstypes",global.rndBossTypes)
   ini_write_string(s,"own",rndOwnString())
@@ -34,6 +35,9 @@ if global.rndActive=1
   }
   //Instrument Randomization: on or off (where the instruments are is in place, as for every item)
   ini_write_real(s,"ir",global.rndIRMode)
+  //Chip Randomizer: on or off, and the Program Chips found (a character a gate)
+  ini_write_real(s,"chips",global.rndChipMode)
+  ini_write_string(s,"chipown",global.rndChipOwn)
   //Boss Rando: on or off, the boss fought at each boss's place, and the bosses' types (a build with other bosses can
   //tell)
   ini_write_real(s,"br",global.rndBRMode)

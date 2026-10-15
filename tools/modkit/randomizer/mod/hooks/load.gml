@@ -13,6 +13,10 @@ if global.rndActive=1
   var tTypes;
   tTypes=ini_read_string(s,"bosstypes",global.rndBossTypesOld)
   if tTypes!=global.rndBossTypes {global.rndBossDone=rndBossFromTypes(global.rndBossDone,tTypes)}
+  //(the places whose fight has been seen, read the same way; a save from before them: the ones beaten)
+  global.rndBossSeen=ini_read_string(s,"bossseen",ini_read_string(s,"boss",""))
+  if tTypes!=global.rndBossTypes {global.rndBossSeen=rndBossFromTypes(global.rndBossSeen,tTypes)}
+  if string_length(global.rndBossSeen)<global.rndBossN {global.rndBossSeen+=string_repeat("0",global.rndBossN-string_length(global.rndBossSeen))}
   rndOwnFromString(ini_read_string(s,"own",""))
   global.rndKeyOwn=ini_read_string(s,"keys","")
   global.rndEShopStr=ini_read_string(s,"eshop","")
@@ -61,6 +65,13 @@ if global.rndActive=1
   }
   //Instrument Randomization: on or off
   global.rndIRMode=ini_read_real(s,"ir",0)
+  //Chip Randomizer: on or off (the chips among the items or not: rndChipApply), and the Program Chips found; a save from
+  //before it, or with it off, has all six. Where the player is now counts as let in (rndLastGate: the roomStart hook)
+  rndChipApply(ini_read_real(s,"chips",0))
+  global.rndChipOwn=string_repeat("1",global.rndChipN)
+  if global.rndChipMode=1 {global.rndChipOwn=ini_read_string(s,"chipown",global.rndChipOwn)}
+  if string_length(global.rndChipOwn)<global.rndChipN {global.rndChipOwn+=string_repeat("0",global.rndChipN-string_length(global.rndChipOwn))}
+  global.rndLastGate=-1
   //a save from a build with other data: what's missing reads as not got yet (then brought up to this build: rndLoadOld)
   if string_length(global.rndGot)<global.rndLocN {global.rndGot+=string_repeat("0",global.rndLocN-string_length(global.rndGot))}
   if string_length(global.rndBossDone)<global.rndBossN {global.rndBossDone+=string_repeat("0",global.rndBossN-string_length(global.rndBossDone))}

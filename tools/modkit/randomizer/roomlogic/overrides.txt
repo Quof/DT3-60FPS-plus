@@ -128,6 +128,9 @@ add rHPF_O in * -> loc weapon upgrade 29 : djump adash attack
 
 # The CHAOS Warship (area 99): every movement ability and every attack
 area 99 : djump adash gdash mario link 3 belmont 3 megaman 4 samus 7
+# ...but Warship Z's rooms take the dashes and the ability sets away (abilSetRemove(1): jumping, the double jump and the
+# Mario Ability Set are left), so rWarshipZ_G's way west from its east end, which needs the air dash, can't be gone
+set rWarshipZ_G in 4912,256 -> out 0,224 : never
 
 # Rails (the Leaf Cave, the Deserted Tower...): their switches take any weapon but Link's bombs or the Morph Ball's
 add rLeafCaveA in * -> out 1272,160 : attack
@@ -315,6 +318,10 @@ add rSamus5_Lv2_T in * -> loc weapon upgrade 94 : samus 6
 add rSamus5_Lv4_C in * -> loc weapon upgrade 96 : samus 6
 add rSamus5_Lv4_C in * -> out 1600,144 : samus 6
 add rSamus5_Lv2_P in * -> loc weapon upgrade 113 : djump samus 6
+# Ridley's hatch (rSamus5_Lv4_N's way down to his fight: bosses.txt's via): the endgame world seals its Metroid door
+# (type 3 from gameProgress 3070), which the room's file has as never; the mod makes it a blue one while his place isn't
+# beaten (the roomStart hook). It's in the floor at the bottom of a shaft, so it's opened from above: Samus's bombs
+set rSamus5_Lv4_N in * -> out 64,336 : samus 6
 
 # Gate 6, the Lava Cave, the Magical Castle and the Construction Site. (rMC_I's way out to rMC_H may not be possible
 # at all: left as the room file has it)

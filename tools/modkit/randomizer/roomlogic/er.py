@@ -297,7 +297,8 @@ class Reach:
     added lets them"""
     def __init__(self, world, part, ends):
         self.w = world; self.part = part; self.ends = ends
-        self.have = collections.Counter(); self.keys = set(); self.evs = set()
+        # (the Program Chips had from the start, as with the new game's option Chip Randomizer off)
+        self.have = collections.Counter(); self.keys = set(chip_keys()); self.evs = set()
         self.nodes = set(); self.places = set(); self.spots = set(); self.rooms_in = set()
         self.parked = {sc: {tuple(world.start_gs[i] for i in ix)} for sc, ix in world.scopes.items()}
         self.crossings = {sc: set() for sc in world.scopes}
@@ -335,6 +336,9 @@ class Reach:
         elif to[0] != room and self.w.rooms.get(to[0]) is not None and self.w.rooms[to[0]].boss: extra = [self.w.alt(a) for a in solve.ATTACK]
         if (room, out) in conn.via: extra = [self.w.alt(a) for a in conn.via_need.get((room, out), solve.ATTACK)]
         if (room, out) in conn.need: extra = [self.w.alt(a) for a in conn.need[(room, out)]]
+        # (into an Access Gate's rooms from outside it: its Program Chip, a key here: solve.CHIP_KEY)
+        g = solve.gate_of(to[0])
+        if g and g != solve.gate_of(room): extra = [(i, k | {solve.CHIP_KEY + g}, e) for i, k, e in extra]
         return to, extra
 
     def expand(self, node):
@@ -492,6 +496,16 @@ def all_items():
     return have
 
 
+def chip_keys():
+    """the Program Chips, as keys (solve.CHIP_KEY+gate)"""
+    return [solve.CHIP_KEY + g for g in solve.GATE_PREFIX]
+
+
+def all_keys(world):
+    """every key there is: the locked doors' the rooms' logic has, and the Program Chips"""
+    return sorted({k for r in world.rooms.values() for alts in r.table.values() for a in alts for k in a.k} | set(chip_keys()))
+
+
 def reach_with(world, part, ends, have, keys):
     r = Reach(world, part, ends)
     for it, n in have.items():
@@ -508,7 +522,7 @@ def main():
     t0 = time.time()
     w = World()
     import rndgen
-    allk = sorted({k for r in w.rooms.values() for alts in r.table.values() for a in alts for k in a.k})
+    allk = all_keys(w)
     have = all_items()
     base = reach_with(w, {}, {}, have, allk)
     reach_all = set(base.rooms_in)

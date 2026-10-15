@@ -36,6 +36,7 @@ SHOP_EXTRA = {"HP": 1, "AQ": 1, "HE": 1, "MP": 1, "AP": 1}
 #   ("flag", key)         the state's key is 1
 #   ("gate", g)           the instrument g had (eGateProg's place g is 9)
 #   ("equip", p)          equipment p had (equipItems)
+#   ("chip", g)           the Program Chip g had (the state's chips: rndChipOwn; all six without Chip Randomizer)
 # A picture: (sprite, frame, tint (as image_blend) or None)
 INSTRUMENTS = ["Full Moon Cello", "Conch Horn", "Sea Lily's Bell", "Surf Harp", "Wind Marimba", "Coral Triangle",
                "Organ of Evening Calm", "Thunder Drum"]
@@ -87,6 +88,8 @@ ITEM_GROUPS = [
     ]),
     ("Instruments", [("instr%d" % g, INSTRUMENTS[g - 1], ("gate", g), ("sPauseM_Instruments", g - 1, None))
                      for g in range(1, 9)]),
+    ("Program Chips", [("chip%d" % g, "Program Chip %d" % g, ("chip", g), ("sPauseM_Chips", g - 1, None))
+                       for g in range(1, 7)]),
     ("Cursed Equipment", [("cursed%d" % p, n, ("equip", p), ("sEquipItemIcons", p, None))
                           for p, n in ((10, "Cursed Helm"), (11, "Cursed Ring"), (12, "Cursed Pendant"))]),
 ]
@@ -403,6 +406,7 @@ def logic_tables(f):
         "evWays": [[x for kind, what, (af, ac), mode in ways for x in (kind, what, af, ac, mode)] for ways in f.ev_ways],
         "evNames": f.evnames,
         "bossN": f.boss_n, "bossReq": pairs(f.boss_req), "roomSlot": f.room_slot, "exitSlot": f.exit_slot,
+        "roomGate": f.room_gate, "chipBase": f.CHIP_BASE,
     }
 
 
@@ -457,7 +461,9 @@ def build(out, rows, items, f, bp, hv, door_order, blist, anames, rarea, rooms, 
             screen_ix[k] = len(tabs[tab_ix[tab]]["screens"])
             tabs[tab_ix[tab]]["screens"].append({"name": scr, "rooms": [], "checks": []})
         s = tabs[tab_ix[tab]]["screens"][screen_ix[k]]
-        if room not in s["rooms"]: s["rooms"].append(room)
+        # (with the other rooms the same pickup is in, e.g. Forest Palace 4's 4a and 4b: standing there shows this screen)
+        for rm in r["rooms"]:
+            if rm not in s["rooms"]: s["rooms"].append(rm)
         s["checks"].append(i)
     # (screens in the names file's order: the order their rooms are listed in)
     order = {room: n for n, room in enumerate(names)}
@@ -508,6 +514,11 @@ def build(out, rows, items, f, bp, hv, door_order, blist, anames, rarea, rooms, 
         for s_i, s in enumerate(t["screens"]):
             for room in s["rooms"]:
                 room_tab[room] = t_i; room_screen[room] = [t_i, s_i]
+    # (every room's name, for where the player is when it has no checks: its screen's in the names file, else its area's)
+    room_name = {}
+    for room in rooms:
+        if room in names: room_name[room] = names[room][1]
+        elif anames.get(rarea.get(room)): room_name[room] = anames[rarea[room]]
     # ---- the Item Tracker
     pool = collections.Counter(k for k, p in items)
     done = {}
@@ -542,7 +553,7 @@ def build(out, rows, items, f, bp, hv, door_order, blist, anames, rarea, rooms, 
     every = sorted((ix, n) for ix, n in hv.items() if ix != rndgen.INSTR_IX)
     data = {
         "build": build_id,
-        "tabs": tabs, "locs": locs, "roomTab": room_tab, "roomScreen": room_screen,
+        "tabs": tabs, "locs": locs, "roomTab": room_tab, "roomScreen": room_screen, "roomName": room_name,
         "doors": door_order, "everything": every, "everythingIR": [[rndgen.INSTR_IX, hv.get(rndgen.INSTR_IX, 8)]],
         "items": groups, "counters": counters, "bosses": bosses,
         "logic": logic_tables(f),

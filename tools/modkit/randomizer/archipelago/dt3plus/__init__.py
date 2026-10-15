@@ -75,7 +75,7 @@ class DT3PlusWorld(World):
     options: DT3PlusOptions
     topology_present = False
 
-    item_name_to_id = {**{name: item[0] for name, item in data.ITEMS.items()}, **data.INSTRUMENTS}
+    item_name_to_id = {**{name: item[0] for name, item in data.ITEMS.items()}, **data.INSTRUMENTS, **data.CHIPS}
     location_name_to_id = {**{name: loc[0] for name, loc in data.LOCATIONS.items()}, **data.GATE_REWARDS}
     item_name_groups = {
         "Keys": set(data.DOOR_KEYS),
@@ -83,9 +83,11 @@ class DT3PlusWorld(World):
         "Ability Sets": set(data.SET_ITEMS),
         "Cursed Equipment": set(data.CURSED_GEAR),
         "Instruments": set(data.INSTRUMENTS),
+        "Program Chips": set(data.CHIPS),
     }
 
     ir: bool
+    chips: bool
     part: Optional[List[int]]
     fight: Optional[List[int]]
     logic: Optional[ReachLogic]
@@ -94,8 +96,12 @@ class DT3PlusWorld(World):
     def generate_early(self) -> None:
         options = self.options
         self.ir = bool(options.instrument_randomization.value)
+        # Chip Randomizer: the Program Chips are items (each Access Gate's rooms need its own); off, they're had from the
+        # start (rules: the logic counts them as had)
+        self.chips = bool(options.chip_randomizer.value)
         # every progression item (the win, and what a place the logic doesn't reach needs)
-        self.everything = list(data.EVERYTHING) + ([(name, 1) for name in data.INSTRUMENTS] if self.ir else [])
+        self.everything = list(data.EVERYTHING) + ([(name, 1) for name in data.INSTRUMENTS] if self.ir else []) + \
+            ([(name, 1) for name in data.CHIPS] if self.chips else [])
         # Entrance Rando: each door end's new partner (-1: its own); Boss Rando: the boss fought at each boss's place.
         # Either, or Instrument Randomization: the logic is the room logic's with them (rules.ReachLogic)
         self.part, self.fight, self.logic = None, None, None
@@ -114,7 +120,7 @@ class DT3PlusWorld(World):
                 raise Exception("DT3+ (%s): no shuffle of the doors worked out in %d tries"
                                 % (self.player_name, SHUFFLE_TRIES))
             self.part, self.fight = part, fight
-            self.logic = ReachLogic(self.player, f, part, fight, self.ir)
+            self.logic = ReachLogic(self.player, f, part, fight, self.ir, () if self.chips else data.CHIPS)
         # Guarantee Early Weapons: a weapon set's first item among this world's first places
         if options.guarantee_early_weapons.value:
             self.multiworld.local_early_items[self.player][self.random.choice(data.WEAPON_SETS)] = 1
@@ -122,6 +128,8 @@ class DT3PlusWorld(World):
     def create_item(self, name: str) -> DT3PlusItem:
         if name in data.INSTRUMENTS:
             return DT3PlusItem(name, ItemClassification.progression, data.INSTRUMENTS[name], self.player)
+        if name in data.CHIPS:
+            return DT3PlusItem(name, ItemClassification.progression, data.CHIPS[name], self.player)
         item_id, classification, _count = data.ITEMS[name]
         return DT3PlusItem(name, ItemClassification(classification), item_id, self.player)
 
@@ -142,10 +150,17 @@ class DT3PlusWorld(World):
 
     def create_items(self) -> None:
         pool: List[DT3PlusItem] = []
-        for name, (_item_id, _classification, count) in data.ITEMS.items():
+        counts = {name: count for name, (_item_id, _classification, count) in data.ITEMS.items()}
+        # (Chip Randomizer: the chips in the place of the Internetz items the mod puts them in place of)
+        if self.chips:
+            for name in data.CHIP_MONEY:
+                counts[name] -= 1
+        for name, count in counts.items():
             pool += [self.create_item(name) for _ in range(count)]
         if self.ir:
             pool += [self.create_item(name) for name in data.INSTRUMENTS]
+        if self.chips:
+            pool += [self.create_item(name) for name in data.CHIPS]
         unfilled = len(self.multiworld.get_unfilled_locations(self.player))
         while len(pool) < unfilled:
             pool.append(self.create_item(self.get_filler_item_name()))
@@ -193,6 +208,7 @@ class DT3PlusWorld(World):
             "br_fight": "".join("%02d" % b for b in self.fight) if self.fight else "",
             "br_types": data.BOSS_TYPES,
             "instrument_randomization": int(self.ir),
+            "chip_randomizer": int(self.chips),
         }
 
     def write_spoiler(self, spoiler_handle: TextIO) -> None:

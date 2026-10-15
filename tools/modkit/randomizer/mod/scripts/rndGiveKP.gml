@@ -162,6 +162,16 @@ switch (k)
     rndMsg("You obtained the "+rndItemNameKP(k,p)+"!",1)
     if global.eGateProg="99999999" and global.gateHProg<100 {global.gateHProg=100}
     break
+  case 27: //a Program Chip (p: its Access Gate, 1-6, Chip Randomizer): the gate's rooms can be gone into (the roomStart
+    //hook turns the player back from a gate whose chip they lack). The pause menu shows as many chips as they have
+    playSound(global.snd_SkillGet,0,1,1)
+    awardAwesome(10000)
+    global.rndChipOwn=rndSetChar(global.rndChipOwn,p,"1")
+    n=0
+    for(l=1;l<=global.rndChipN;l+=1) {if string_char_at(global.rndChipOwn,l)="1" {n+=1}}
+    global.programChips=n
+    rndMsg("You found Program Chip "+string(p)+"!#"+global.rndGateName[p]+" is open.",2)
+    break
   case 19: case 20: case 21: case 22: case 23: case 24:
     playSound(global.snd_SkillGet,0,1,1)
     awardAwesome(10000)

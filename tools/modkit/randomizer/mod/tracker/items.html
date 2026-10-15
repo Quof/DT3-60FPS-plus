@@ -101,6 +101,7 @@
       case "flag": return S[h[1]] > 0 ? 1 : 0;
       case "gate": return (S.gate || "").charAt(h[1] - 1) === "9" ? 1 : 0;
       case "equip": return (S.equip || "").charAt(h[1] - 1) === "1" ? 1 : 0;
+      case "chip": return (S.chips === undefined ? "111111" : S.chips).charAt(h[1] - 1) === "1" ? 1 : 0;
       case "count": return h.length > 2 ? ones(S[h[1]], h[2], h[3]) : ones(S[h[1]], 1, 1 << 20);
       case "keys":
         var n = 0;
@@ -109,8 +110,10 @@
     }
     return 0;
   }
+  var cur = null;
   function update(S) {
-    var bad = S ? DT3.mismatch(D, S) : "";
+    cur = S;
+    var bad = DT3.mismatchShown(D, S, function () { update(cur); });
     statusEl.textContent = S ? bad : "Waiting for the game: start or load a Randomizer game.";
     cells.forEach(function (c) {
       var h = c.def.have, n = S ? amount(h, S) : 0;

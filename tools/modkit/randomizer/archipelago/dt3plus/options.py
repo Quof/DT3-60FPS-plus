@@ -41,6 +41,16 @@ class InstrumentRandomization(Toggle):
     display_name = "Instrument Randomization"
 
 
+class ChipRandomizer(Toggle):
+    """
+    On: the 6 Program Chips are shuffled into the multiworld (in the place of six Internetz chests), and each Access
+    Gate's rooms can only be gone into once its own chip is found (Program Chip 1 opens Gate 1, and so on): going in
+    without it turns you back. A location in a gate needs its chip in logic, so no chip is ever behind its own gate.
+    Off: you start with all 6.
+    """
+    display_name = "Chip Randomizer"
+
+
 class ShopEquipment(Choice):
     """
     Shuffled: the equipment shops' stock is shuffled between the shops. As Normal: each shop sells its own.
@@ -78,6 +88,7 @@ class DT3PlusOptions(PerGameCommonOptions):
     entrance_rando: EntranceRando
     boss_rando: BossRando
     instrument_randomization: InstrumentRandomization
+    chip_randomizer: ChipRandomizer
     shop_equipment: ShopEquipment
     guarantee_early_weapons: GuaranteeEarlyWeapons
     ability_spread: AbilitySpread
@@ -86,6 +97,6 @@ class DT3PlusOptions(PerGameCommonOptions):
 
 
 option_groups = [
-    OptionGroup("Randomizer", [EntranceRando, BossRando, InstrumentRandomization, ShopEquipment, GuaranteeEarlyWeapons,
-                               AbilitySpread]),
+    OptionGroup("Randomizer", [EntranceRando, BossRando, InstrumentRandomization, ChipRandomizer, ShopEquipment,
+                               GuaranteeEarlyWeapons, AbilitySpread]),
 ]

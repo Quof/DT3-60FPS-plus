@@ -17,8 +17,8 @@
 
 Use the Archipelago Launcher's "Generate Template Options" to make a template for DT3+ (in the Players\Templates
 folder), or the options page. The DT3+ options are the Randomizer's new-game options: Entrance Rando (off, gate_swap,
-overworld, chaos), Boss Rando, Instrument Randomization, Shop Equipment (shuffled, as_normal), Guarantee Early Weapons
-and Ability Spread (near, normal, far), with DeathLink and the standard ones. For example:
+overworld, chaos), Boss Rando, Instrument Randomization, Chip Randomizer, Shop Equipment (shuffled, as_normal),
+Guarantee Early Weapons and Ability Spread (near, normal, far), with DeathLink and the standard ones. For example:
 
 ```yaml
 name: Player
@@ -27,6 +27,7 @@ DT3+:
   entrance_rando: overworld
   boss_rando: true
   instrument_randomization: true
+  chip_randomizer: true
   shop_equipment: shuffled
   guarantee_early_weapons: true
   ability_spread: normal

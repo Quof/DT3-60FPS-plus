@@ -12,7 +12,7 @@ for(i=0;i<global.modCount;i+=1)
 if p="" {return 0}
 f=file_text_open_read(p)
 if rndERReadS(f)!="RNDER" {file_text_close(f); return 0}
-if rndERRead(f)!=1 {file_text_close(f); return 0}
+if rndERRead(f)!=2 {file_text_close(f); return 0}
 global.rndEHash=rndERReadS(f)
 //the carried states (rb, water, crystal1-3): each one's number of values, its place in a state's number, whether it's
 //kept within some rooms (the Forest Palace's crystals: one more value outside them, parked)
@@ -155,6 +155,10 @@ for(i=0;i<global.rndEBN;i+=1)
 }
 for(i=0;i<global.rndERN;i+=1) {global.rndERSlot[i]=rndERRead(f)}
 for(i=0;i<global.rndEXN;i+=1) {global.rndEXSlot[i]=rndERRead(f)}
+//the Access Gates: the Program Chips' requirement numbers (rndEChipBase+gate) and each room's gate (0 none): going into a
+//gate's rooms from outside it takes its chip (rndERTry)
+global.rndEChipBase=rndERRead(f)
+for(i=0;i<global.rndERN;i+=1) {global.rndERGate[i]=rndERRead(f)}
 v=rndERReadS(f)
 file_text_close(f)
 if v!="END" or global.rndELocN!=global.rndLocN or global.rndEBN!=global.rndBossN {return 0}
@@ -188,6 +192,7 @@ global.rndREvNew=ds_list_create()
 global.rndRLk1=ds_list_create()
 global.rndRLk2=ds_list_create()
 global.rndRLk3=ds_list_create()
+global.rndRLk4=ds_list_create()
 global.rndRLkX=ds_list_create()
 for(i=0;i<global.rndEReqN;i+=1)
 {

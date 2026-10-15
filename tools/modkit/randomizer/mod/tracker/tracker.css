@@ -85,6 +85,33 @@ body {
 #tabs .n.in { color: #fff; background: var(--in); border-radius: 8px; padding: 0 6px; }
 #tabs .n.done { color: #9cc0f5; }
 
+/* where the player is: its own space under the header (checks.html keeps its top at the header's height), the screen's
+   card in the middle, or "No Checks" in the middle with the room's name over it */
+#here {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 118px;
+  padding: 12px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+}
+#here .screen { width: 300px; max-width: 100%; margin: 0; }
+#here .none { color: var(--dim); font-size: 17px; font-weight: 600; letter-spacing: 0.02em; }
+#here .where {
+  position: absolute;
+  top: 8px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 12px;
+  color: var(--dim);
+}
+#here .where .tag { color: var(--here); margin-left: 8px; font-size: 11px; }
+
 #panel {
   padding: 12px;
   column-width: 270px;
@@ -127,6 +154,7 @@ body {
   #tabs .long { display: none; }
   #tabs .short { display: inline; }
   #panel { padding: 8px; column-width: 250px; column-gap: 8px; }
+  #here { min-height: 100px; padding: 8px; }
   .screen { margin-bottom: 8px; padding: 5px 8px 6px; }
   .screen li { padding: 1px 0; }
 }

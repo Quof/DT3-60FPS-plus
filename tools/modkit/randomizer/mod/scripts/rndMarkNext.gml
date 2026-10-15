@@ -9,7 +9,7 @@ hi=999
 switch (k)
 {
   case 1: s=global.heartPiece; skip=27; break
-  case 2: case 3: s=global.chestMoney; break
+  case 2: case 3: case 27: s=global.chestMoney; break //(a Program Chip: in an Internetz chest's place, Chip Randomizer)
   case 4: s=global.arrowQuiver; skip=21; break
   case 5: s=global.heartEnergy; skip=26; break
   case 6: s=global.missilePack; skip=12; break

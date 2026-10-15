@@ -4,15 +4,22 @@
 //where they were (rndBossStart's room and place: where they stood in the boss's room, or past it for one the story went
 //into another way); the final boss beaten is the win (rndWin). Given up, the player goes back to where they came into
 //the room they went into the fight from: a boss has to be beaten to go on, and walking up to it again starts it again.
-//What's marked beaten is the boss whose place it was (rndFightSlot: with Boss Rando, another boss is fought there)
+//What's marked beaten is the boss whose place it was (rndFightSlot: with Boss Rando, another boss is fought there).
+//A fight of several in a row (rndBossChainN: Ridley's) won and not the last of them: the next one starts instead
+//(rndBossNextLink); given up, the next try starts from the first
 var b,s,w;
 b=global.rndFight
 s=global.rndFightSlot
 if s<0 {s=b}
 w=(global.bBossResultShow=1)
 if instance_exists(oEvBossGallery) {if oEvBossGallery.bDisplayResults=1 {w=1}}
+if w and b>=0
+{
+  if global.rndFightLink<global.rndBossChainN[b] {rndBossNextLink(); exit}
+}
 global.rndFight=-1
 global.rndFightSlot=-1
+global.rndFightLink=0
 global.bBossGallery=0
 global.bossTrack=0
 global.currentBoss=""

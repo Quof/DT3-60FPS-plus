@@ -181,7 +181,10 @@ class Reach:
             s = f.exit_slot[t]
             xf, xc = f.boss_req[self.fight[s]] if s >= 0 else f.exit_extra[t]
             l1, l2, l3 = self.lacks(af, ac), self.lacks(bf, bc), self.lacks(xf, xc)
-            parts = [l for l in (l1, l2, l3) if l is not None]
+            # (into an Access Gate's rooms from outside it: its Program Chip)
+            l4, g = None, f.room_gate[tr]
+            if g and g != f.room_gate[ri] and self.have.get(f.CHIP_BASE + g, 0) < 1: l4 = [([f.CHIP_BASE + g], 1)]
+            parts = [l for l in (l1, l2, l3, l4) if l is not None]
             if parts:
                 self.block(inst, [x for l in parts for x in l], len(parts) == 1); return
             self.passed(inst)
