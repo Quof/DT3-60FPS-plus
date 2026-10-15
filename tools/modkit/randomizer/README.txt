@@ -33,10 +33,19 @@ Playing
     Ability Spread           Near, Normal, Far: the chance that an ability or key goes in the newest layer (3 in 10,
                              7 in 10, always; see Logic).
     Shop Equipment           Shuffled (between the equipment shops) or As Normal.
+    Entrance Rando           Off, Gate Swap, Overworld or Chaos: where the doors lead is shuffled (below).
     Spoiler Log              written or not.
-  An Archipelago game has no options window (its options are the multiworld's).
+  An Archipelago game has no options window (its options are the multiworld's), and no Entrance Rando.
+  - Entrance Rando: the mode's doors are paired anew, coupled (going back through a door returns the player where they
+    came from). Gate Swap: the Access Gates' and Nightmare Gates' doors. Overworld: those, every door between two areas
+    and every way between a map (Hyrule's, Gate 6's) and a room. Chaos: every door. The seed is made so that with
+    everything, every place the game's own doors reach is reached, and the game can be finished: the items are placed
+    with what the shuffled doors reach, and the seed is played through before the game starts (a shuffle that fails is
+    dropped for another; roomlogic\README.txt, ENTRANCE RANDO). Making it takes a few seconds. The spoiler log lists
+    the doors. A save keeps its shuffle (and needs the same build's door data, data\rndER.txt, to put it back).
   - The ability sets' items are progressive: each one is that set's next weapon (Link: Master Sword, Bow & Arrow, Fuse
-    Bomb). Swapping characters and sets is always on. The Gate 6 sets only work in Gate 6, as in the game.
+    Bomb). Swapping characters and sets is always on. The Gate 6 sets only work in Gate 6, as in the game, and in The
+    Executive's fight (the game's own fight gives them; here, the ones the player has found).
   - Each key opens its own locked door (the message says which area it's in); a door without its key says so.
   - Bosses are fought in their own rooms: walking up to where a boss's fight starts (or leaving its room another way
     than the player came in) starts it, as the room's own fight (the room's code makes the boss), with the player's own
@@ -74,7 +83,8 @@ Building
   their items, the locked doors, the shops and the bosses; joins the room logic with overrides.txt (solve.py); and writes
   the mod's data scripts, the pickups' events (the randomizer's part ahead of the game's own) and, next to rndgen.py,
   locations.csv and doors.csv. It ends with a check that the placement works for 50 seeds with each option, and how
-  many layers they have.
+  many layers they have; then writes Entrance Rando's door data (data\rndER.txt, roomlogic\erflat.py) and makes ten
+  seeds of each of its modes, each played through.
   python tools\modkit\randomizer\rndgen.py --world-from <save.dts>
   re-reads world.txt (the endgame world's values) from a finished save.
 

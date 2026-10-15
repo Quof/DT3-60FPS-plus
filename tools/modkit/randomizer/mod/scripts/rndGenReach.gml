@@ -4,6 +4,8 @@
 var i,a,e,s,tOk;
 i=argument0
 if global.rndLocAltN[i]<0 {return global.rndGAll}
+//(the entrance randomizer: what its reach has got to, rndERReachStart)
+if global.rndERMode>0 {return global.rndRPlace[i]}
 s=global.rndAltStride
 for(a=0;a<global.rndLocAltN[i];a+=1)
 {

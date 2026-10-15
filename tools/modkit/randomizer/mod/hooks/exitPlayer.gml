@@ -1,5 +1,7 @@
 //Randomizer: the player going through an exit (this is the exit)
 var b;
+//Entrance Rando: where the shuffle has it lead (again: an exit the room's code made after it started)
+rndERApplyExit()
 //the story's way into Ridley's or the Parasitic Seed's fight (rndExitBoss)
 b=rndExitBoss(toRoom,newMapX,newMapY)
 if b>=0

@@ -8,6 +8,9 @@
 //instead of all being near it. With the option Guarantee Early Weapons, a new layer's first item is a weapon (an item of
 //the Link, Belmont, Mega Man or Samus set: the sets with an attack) while there are any left: every layer has one. The
 //other items fill the rest at random.
+//With the entrance randomizer (global.rndERMode), what the items reach is worked out from the rooms with the doors as
+//shuffled (rndERReachStart, rndERAdd: global.rndRPlace) instead of rndData's logic, and the items that open something
+//are those one more of which lets a way through (global.rndRSingle).
 //Returns 1, or 0 when a progression item had nowhere to go (try another seed)
 var N,i,j,k,a,e,s,tProgN,tJunkN,tFreeN,tCandN,tCur,tLay,tLast,tPick,tPlaced,tMiss,tMissIx,tShort,tIx,tLoc,tW,tR,tKind,tNewest,tForce,tWpnN;
 N=global.rndLocN
@@ -24,6 +27,7 @@ for(i=0;i<global.rndItemN;i+=1)
   else {tJunk[tJunkN]=i; tJunkN+=1}
 }
 for(i=0;i<global.rndKeyBase+64;i+=1) {global.rndGHave[i]=0; tUseful[i]=0}
+if global.rndERMode>0 {rndERReachStart()}
 //the layers with a weapon (a layer is made by an item placed: there are at most as many as items, and the first)
 for(i=0;i<=tProgN+1;i+=1) {tLayW[i]=0}
 global.rndGAll=0
@@ -31,9 +35,16 @@ rndGenMark(0)
 tCur=0
 for(tPlaced=0;tPlaced<tProgN;tPlaced+=1)
 {
+  //(the entrance randomizer's placement takes a while: the window keeps answering Windows)
+  if global.rndERMode>0 {io_handle()}
   //the items one more of which opens a location: for each location not reached yet, an alternative short of just that
+  //(the entrance randomizer: one more of which lets a way waiting for it through)
   for(i=0;i<global.rndKeyBase+64;i+=1) {tUseful[i]=0}
-  for(i=0;i<N;i+=1)
+  if global.rndERMode>0
+  {
+    for(i=0;i<global.rndKeyBase+64;i+=1) {tUseful[i]=global.rndRSingle[i]}
+  }
+  else for(i=0;i<N;i+=1)
   {
     if global.rndGLayer[i]<0
     {
@@ -147,7 +158,8 @@ for(tPlaced=0;tPlaced<tProgN;tPlaced+=1)
   tFill[tLoc]=tProg[k]
   tDone[k]=1
   tIx=global.rndItemProg[tProg[k]]
-  global.rndGHave[tIx]+=1
+  if global.rndERMode>0 {rndERAdd(tIx,1)}
+  else {global.rndGHave[tIx]+=1}
   if tIx>=6 and tIx<=9 {tLayW[tPick]=1}
   if tPlaced=tProgN-1 {global.rndGAll=1}
   //what it opens: the next layer

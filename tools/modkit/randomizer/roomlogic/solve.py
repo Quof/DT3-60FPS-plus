@@ -3,8 +3,9 @@ solve.py: the Randomizer's logic for the whole game, joined from each room's log
 
 Each room's file (rooms\\<room>.txt, made by roomlogic.py) says, for each way into the room, what each way out and
 each place (Randomizer location) needs, from the moves inside that room alone. connections.txt says which way in each
-exit leads to. overrides.txt holds hand-made changes. This joins them all from the start of a new game, and works out
-what each place needs: its alternatives, any one of which is enough. No simulation runs here: it takes seconds.
+exit leads to. overrides.txt holds hand-made changes, bosses.txt what each boss fight takes. This joins them all from
+the start of a new game, and works out what each place needs: its alternatives, any one of which is enough. No
+simulation runs here: it takes seconds.
 
 usage:
   python solve.py                            solve; write roomlogic.txt; say how many places are reached
@@ -35,6 +36,7 @@ ROOMS_DIR = os.path.join(HERE, "rooms")
 CONNECTIONS = os.path.join(HERE, "connections.txt")
 OVERRIDES = os.path.join(HERE, "overrides.txt")
 EVENTS = os.path.join(HERE, "events.txt")
+BOSSES = os.path.join(HERE, "bosses.txt")
 OUT = os.path.join(HERE, "roomlogic.txt")
 
 # the items the logic counts, in RoomLogic.cs's order (Req.Names); djump, adash, gdash, mario and varia are one item
@@ -230,6 +232,8 @@ class Connections:
         self.links_st = collections.OrderedDict()
         self.via = set()                         # (room, out): a boss fight
         self.need = {}                           # (room, out) -> alternatives (overrides' "need")
+        self.boss = {}                           # room -> alternatives: its boss fight (bosses.txt)
+        self.via_need = {}                       # (room, out) -> alternatives: the fight going through it starts (bosses.txt)
         self.carried = []                        # [(state, its value as a new game starts)]: what the player carries
         self.scope = {}                          # state -> room name prefix: kept only within those rooms
 
@@ -268,8 +272,9 @@ def has_link(conn, room, out):
 
 
 def load_overrides(rooms, conn, path=OVERRIDES):
-    """applies overrides.txt to the rooms' tables and the connections (see the file for its lines). Returns how many"""
-    if not os.path.exists(path): return 0
+    """applies overrides.txt to the rooms' tables and the connections (see the file for its lines), and bosses.txt.
+    Returns how many lines"""
+    if not os.path.exists(path): return load_bosses(rooms, conn)
     names = {}
     for r in rooms.values():
         for key, nm in r.loc_names.items(): names[nm.lower()] = key
@@ -350,6 +355,29 @@ def load_overrides(rooms, conn, path=OVERRIDES):
             conn.links[(hf[0], hf[2])] = (hf[4], hf[6]); conn.links_st.pop((hf[0], hf[2]), None); n += 1
         else:
             raise SystemExit("%s: unknown line %r (set, add, room, area, need or link)" % (where, cmd))
+    return n + load_bosses(rooms, conn)
+
+
+def load_bosses(rooms, conn, path=BOSSES):
+    """bosses.txt: each boss fight's requirements (conn.boss for a room, conn.via_need for an exit whose going through
+    starts the fight). Read with overrides.txt. Returns how many lines"""
+    if not os.path.exists(path): return 0
+    n = 0
+    for ln, raw in enumerate(open(path, encoding="utf-8"), 1):
+        line = raw.split("#", 1)[0].strip()
+        if not line: continue
+        where = "bosses.txt line %d" % ln
+        head, _, req = line.partition(":")
+        if not _: raise SystemExit("%s: '<room> : <requirements>' or 'via <room> out <x,y> : <requirements>'" % where)
+        hf = head.split()
+        if len(hf) == 1:
+            if hf[0] not in rooms: raise SystemExit("%s: no room %r" % (where, hf[0]))
+            conn.boss[hf[0]] = parse(req, where)
+        elif len(hf) == 4 and hf[0] == "via" and hf[2] == "out":
+            if (hf[1], hf[3]) not in conn.via: raise SystemExit("%s: %s out %s isn't a via exit in connections.txt" % (where, hf[1], hf[3]))
+            conn.via_need[(hf[1], hf[3])] = parse(req, where)
+        else: raise SystemExit("%s: '<room> : <requirements>' or 'via <room> out <x,y> : <requirements>'" % where)
+        n += 1
     return n
 
 
@@ -372,8 +400,10 @@ def through_exit(rooms, conn, room, out, st=()):
     if not link: return None, None
     extra = [NOTHING]
     r2 = rooms.get(link[0])
-    if r2 is not None and r2.boss and link[0] != room: extra = product(extra, ATTACK)
-    if (room, out) in conn.via: extra = product(extra, ATTACK)
+    # (into a boss's room from another: its fight, what bosses.txt says it takes, else any attack)
+    if link[0] != room and link[0] in conn.boss: extra = product(extra, conn.boss[link[0]])
+    elif r2 is not None and r2.boss and link[0] != room: extra = product(extra, ATTACK)
+    if (room, out) in conn.via: extra = product(extra, conn.via_need.get((room, out), ATTACK))
     if (room, out) in conn.need: extra = product(extra, conn.need[(room, out)])
     return link, extra
 

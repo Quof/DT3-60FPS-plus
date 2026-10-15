@@ -16,6 +16,17 @@ if global.rndActive=0
   exit
 }
 if !instance_exists(oRndWatcher) {instance_create(0,0,oRndWatcher)}
+//Entrance Rando: the room's exits that are its doors' ends lead where the shuffle has them (rndERApplyExit)
+if global.rndERMode>0
+{
+  with (oExit) {rndERApplyExit()}
+  with (oAccessGate) {rndERApplyExit()}
+  with (oDistortionGate) {rndERApplyExit()}
+  with (oMMBossDoor) {rndERApplyExit()}
+  with (oMetEleExit) {rndERApplyExit()}
+  with (oZeldaMapExit) {rndERApplyExit()}
+  with (oGameMapExit) {rndERApplyExit()}
+}
 //a randomizer boss fight ended: the game went back to the boss gallery (rndBossEnd)
 if global.rndFight>=0 and room=rBossGallery {rndBossEnd(); exit}
 global.rndRoomBoss=-1

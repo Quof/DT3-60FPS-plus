@@ -1,0 +1,117 @@
+# What each boss fight takes. solve.py reads this with overrides.txt: going into a boss's room from another room is its
+# fight, and needs this (a boss room not here needs any attack); a "via" line is an exit whose going through starts the
+# fight (the story's exit goes on past the boss's room in an endgame world). Lines:
+#   <room> : <requirements>                       the fight in that room
+#   via <room> out <x,y> : <requirements>         the fight going through that exit starts
+# Requirements as in overrides.txt ("attack": link 1 | belmont 1 | megaman 1 | samus 1).
+#
+# Worked out from the bosses' damage resistances (takeDamage: each boss's resType for the six damage types; 1 is 0x,
+# 2 0.5x, 4 2x, 5 3x, anything else 1x). The player's weapons and their types:
+#   NORMAL     link 1 (Master Sword), belmont 1 (Hair Whip)
+#   PIERCE     link 2 (arrows), belmont 2 (dagger)
+#   ELEMENTAL  belmont 3 (Holy Water), megaman 2 (Shotgun Ice)
+#   SHOT       megaman 1 (X Buster), samus 1 (Arm Cannon; the Charge Beam and Spazer too)
+#   EXPLOSION  link 3 (Fuse Bomb), samus 6 (Bombs)
+#   SPECIAL    megaman 3 (Gravity Well), samus 4 (Missiles)
+#   and in Gate 6 and The Executive's fight, the only places its sets work: gamec 1 (Blade Strike) NORMAL, gamec 2
+#   (Chainblade Storm) PIERCE, gamej 1 (Spam Gun) SHOT, gamej 2 (Bird Swarm) SPECIAL and EXPLOSION. The Strike Chain
+#   (megaman 4) does no damage.
+# A type counts if the boss takes it at 1x or more as the fight starts and no phase of the fight takes it down to 0x (a
+# moment when nothing at all hurts the boss isn't a phase). A fight with parts (two bosses, a shield to break) needs a
+# weapon for each. Fights that need more than that are written by hand, with why.
+
+# ---- Mario's world (only the Mario Ability Set beats them)
+rMario1_4Boss : mario                       # Bowser
+rMario1_CCBoss : mario                      # Cackletta
+rExtGateA_6 : mario                         # Kamek (Nightmare Gate A)
+
+# ---- Hyrule
+rLink2_PalaceA_11 : attack                  # Helmethead: all but PIERCE (0.5x); its helmets, up for a while, take every type
+rLink2_PalaceF_12 : attack                  # Dead Hand: every type; Dylan the Poe at the end too
+rLink2_DeathRoadA : attack                  # Barba: all but PIERCE (0.5x)
+rLink2_PalaceC_14 : attack                  # Thunderbird: every type
+rLink2_PalaceW_12 : attack                  # Aqua Serpent: every type
+# Final Nightmare (Nightmare Gate B): its eye takes PIERCE only while open, and some phases only EXPLOSION; the Fuse Bomb,
+# and arrows or the dagger (link 3 has link 2: this is link 3)
+rExtGateB_6 : link 3 link 2 | link 3 belmont 2
+
+# ---- Central City
+rCCity_CCE : link 1 | belmont 1 | megaman 2 | samus 4   # Control Virus: NORMAL, ELEMENTAL, EXPLOSION, SPECIAL (PIERCE, SHOT 0.5x)
+
+# ---- Transylvania
+rBelmont3_1C : attack                       # Large Vampire Bat: all but SPECIAL (0.5x)
+rBelmont3_3F : attack                       # Dracula: NORMAL, PIERCE, SHOT
+rBelmont3_6C : attack                       # Menace: every type
+rBelmont3_7G : attack                       # Death: all but EXPLOSION (0.5x); NORMAL 0x only while its pentagram shield is up
+rExtGateC_5 : attack                        # Blackmore (Nightmare Gate C): every type, NORMAL 2x
+rMountTemple_I : attack                     # Enmity: NORMAL, ELEMENTAL, SHOT, EXPLOSION, SPECIAL
+
+# ---- Megapolis
+rMega4_IntroE : link 2 | belmont 2 | megaman 1 | samus 1     # Maoh: all but NORMAL (0.5x)
+rMega4_StormE : megaman 1 | samus 1 | link 3                # Storm Eagle: SHOT, EXPLOSION, SPECIAL (NORMAL, PIERCE, ELEMENTAL 0.5x)
+rMega4_OstrichE : megaman 1 | samus 1 | link 3              # Overdrive Ostrich: SHOT, EXPLOSION, SPECIAL 2x
+rMega4_ToxicJungleE : megaman 1 | samus 1 | belmont 3 | link 3   # Gravity Beetle: ELEMENTAL (2x, later 1x), SHOT, EXPLOSION
+rMega4_SigmaA5 : megaman 1 | samus 1 | belmont 3 | link 3        # Bospider: ELEMENTAL (2x, later 1x), SHOT, EXPLOSION
+rMega4_SigmaB8 : megaman 1 | samus 1 | link 3               # Bit & Byte: both fall; SHOT and EXPLOSION hurt both
+rMega4_SigmaC5 : megaman 1 | samus 1 | link 3               # Sigma: SHOT, EXPLOSION through both forms (ELEMENTAL, SPECIAL go to 0x)
+rExtGateD_6 : megaman 1 | samus 1 | belmont 3 | link 3      # Elpizo (Nightmare Gate D): ELEMENTAL, SHOT, EXPLOSION, SPECIAL
+
+# ---- Starry Skies and the Bubble Tower
+# Army Eye: it takes one type at a time, and moves on only after enough damage of it: NORMAL, EXPLOSION, PIERCE,
+# SPECIAL, ELEMENTAL, SHOT, then all at 0.5x. A weapon of each type, and the Fuse Bomb (link 3, which has the sword and
+# arrows: NORMAL, PIERCE, EXPLOSION)
+rBubbleTowerA7 : link 3 megaman 3 | link 3 belmont 3 samus 4 | link 3 megaman 2 samus 4
+
+# ---- The Vault
+rVault_13 : attack                          # Hex: every type (its chains 0.5x or 1x)
+rMain_47 : link 2 | belmont 2 | megaman 1 | samus 1   # Vault Demon: all but NORMAL (0.5x)
+rExtGateE_5 : link 1 | belmont 1            # Shadow Form (Nightmare Gate E): NORMAL only (PIERCE, SHOT 0.5x)
+
+# ---- The Research Facility (Gate 5)
+rSamus5_Lv1_Boss : megaman 1 | samus 1 | belmont 3 | link 3   # Kraid: ELEMENTAL, SHOT, EXPLOSION, SPECIAL 2x
+rSamus5_Lv2_Boss : megaman 1 | samus 1 | belmont 3 | link 3   # Arachnus: ELEMENTAL, SHOT, EXPLOSION, SPECIAL
+rSamus5_Lv3_Boss : megaman 1 | samus 1 | belmont 3 | link 3   # King Worm: ELEMENTAL, SHOT, EXPLOSION, SPECIAL 2x
+rSamus5_Lv4_Boss : megaman 3 | samus 4      # Mother Brain: its Zebetites take SPECIAL only (NORMAL 0.5x)
+# Ridley: Samus's Morph Ball bombs (samus 6) are needed (SHOT and SPECIAL are 0x till its armor breaks, at 89% of its life)
+rSamus5_Lv4_FinalBoss : samus 6
+via rSamus5_Lv4_N out 64,336 : samus 6
+rExtGateF_6 : megaman 1 | samus 1 | belmont 3   # Nightmare (Nightmare Gate F): ELEMENTAL, SHOT, SPECIAL 2x (EXPLOSION 0x)
+
+# ---- The desert, the Nightmare Gate C caves
+rDesertedTowerD : link 3 | samus 6          # Wahfuu Jr.: EXPLOSION only (3x)
+rNGC_LC_F : attack                          # Malevolence: every type
+
+# ---- Gate 6 (its own sets work here too)
+rGame6_EarthJ : link 1 | belmont 1 | gamec 1 | megaman 2 | samus 4 | gamej 2   # The Stone Golem: all but SHOT (0.5x)
+rGame6_FireE : attack | gamej 1 | gamec 1   # The Flame Elemental: every type
+rGame6_WaterB : link 1 | belmont 1 | gamec 1   # High Heels Girl: NORMAL only
+rGame6_WindI : attack | gamej 1 | gamec 1   # The Unforgotten: every type
+rGame6_CoDP : attack | gamej 1 | gamec 1    # The Chosen One: every type
+rExtGateG_5 : link 1 | belmont 1 | megaman 2 | samus 6   # Sephiroth (Nightmare Gate G): NORMAL, ELEMENTAL, EXPLOSION (PIERCE, SHOT, SPECIAL go to 0x)
+
+# ---- The Hidden Program Facility and the Weapons Facility
+rHPF_B : attack                             # Antipathy: every type
+rHPF_U : attack                             # Sera: all but ELEMENTAL (0x)
+rWepFacK : link 2 | belmont 2 | megaman 1 | samus 1   # Brain Machine: all but NORMAL (0.5x)
+rLowFacG : attack                           # Blade Bot: every type, ELEMENTAL 2x
+rLowFacR : attack                           # Advanced Combat Apparatus: NORMAL, SHOT, EXPLOSION, SPECIAL
+
+# ---- The Lava Cave, the Disco, the Construction Site, the Magical Castle
+rLavaCaveC : belmont 3 | megaman 2          # Giant Blargg: ELEMENTAL only, while its mouth is open
+rDiscoI : attack                            # Defective: one type at a time, changing every few attacks through all six
+# Shadow Eura: every type at times, SHOT only at others; at times its deflector sends projectiles back (till a sword or
+# whip hits it four times): a weapon that hurts it, and a sword or whip, or the Fuse Bomb (link 3). Any of those hurts it
+# too
+rDCS_U : link 1 | belmont 1 | link 3
+rMC_N : attack                              # Decimator: every type
+
+# ---- The CHAOS Warship and the end
+rWarshipQ : attack                          # Hex: every type
+rWarshipZ_E2 : link 3 belmont 3 megaman 3 samus 7   # CHAOS Warmaster: every weapon (his four forms each take different types)
+rPttT_07 : attack                           # Parasitic Seed: every type
+via rPttT_06 out 320,336 : attack
+rAbomF : attack                             # Virus Parasite: every type
+rDistortionF : attack                       # Hexor: every type
+# The Executive: the game's own fight gives both characters Gate 6's sets, and his phases are made for them; here the
+# Gate 6 sets the player has found work in his fight (the mod's rndInGate6): both of them, whole
+rAbomD : gamej 2 gamec 2

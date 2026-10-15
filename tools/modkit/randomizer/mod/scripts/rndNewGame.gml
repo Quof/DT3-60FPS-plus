@@ -4,8 +4,12 @@
 //else to none). The items are placed (rndGenerate), the equipment shops shuffled and the spoiler log written (rndLog) as
 //the options say, and the game starts in Central City - North, where the door from Greatest Stretch comes in. An
 //Archipelago game (the title screen's code 'ap', with the DT3+ Client connected) has its items in the multiworld
-//instead: none are placed here, its checks go to the client and its items come from it (rndApStart, rndApPoll)
-var tTry,tOk;
+//instead: none are placed here, its checks go to the client and its items come from it (rndApStart, rndApPoll).
+//With the option Entrance Rando (global.rndOptER: 1 Gate Swap, 2 Overworld, 3 Chaos), the mode's doors are shuffled
+//first (rndERShuffle), and a shuffle is kept only if with everything it reaches every place the game's own doors do and
+//the goal (rndEREverything), the items can be placed with what it reaches (rndGenerate) and the seed plays through
+//(rndERPlay); else another is tried. Not with Archipelago
+var tTry,tOk,tER,tBit;
 rndWorld()
 global.CHAOS_Invasion=0
 global.CHAOS_Upgrade=0
@@ -49,10 +53,48 @@ if global.rndAP=0
   else {global.rndSeed=irandom(999999)}
   global.rndNextSeed=-1
   tOk=0
-  for(tTry=0;tTry<20 and tOk=0;tTry+=1)
+  //the entrances shuffled, and the items placed with them
+  global.rndERMode=0
+  tER=global.rndOptER
+  if tER>0
   {
-    random_set_seed(global.rndSeed+tTry*7919)
-    tOk=rndGenerate()
+    if rndERLoad()=0
+    {
+      show_message("Randomizer: Entrance Rando needs the mod's door data (data\rndER.txt), which isn't there or doesn't fit this build. The entrances are left as they are.")
+      tER=0
+    }
+  }
+  if tER>0
+  {
+    tBit=1
+    if tER=2 {tBit=2}
+    else if tER=3 {tBit=4}
+    for(tTry=0;tTry<60 and tOk=0;tTry+=1)
+    {
+      random_set_seed(global.rndSeed+tTry*7919)
+      io_handle()
+      if rndERShuffle(tBit)=1
+      {
+        io_handle()
+        if rndEREverything()=1
+        {
+          global.rndERMode=tER
+          if rndGenerate()=1 {tOk=rndERPlay()}
+          if tOk=0 {global.rndERMode=0}
+        }
+      }
+    }
+    rndERFree()
+    if tOk=1 {rndERMapBuild()}
+    else {show_message("Randomizer: no shuffle of the entrances worked out for seed "+string(global.rndSeed)+" (60 were tried). The entrances are left as they are.")}
+  }
+  if tOk=0
+  {
+    for(tTry=0;tTry<20 and tOk=0;tTry+=1)
+    {
+      random_set_seed(global.rndSeed+tTry*7919)
+      tOk=rndGenerate()
+    }
   }
   if tOk=0
   {

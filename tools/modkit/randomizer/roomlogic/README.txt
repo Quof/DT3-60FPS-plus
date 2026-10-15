@@ -31,6 +31,8 @@ FILES
   roomlogic.py        makes the room files and connections.txt again, then solve.py's result, and checks it
   roomdata.py, gmleval.py, RoomLogic.cs
                       the simulation (HOW THE ROOM FILES ARE MADE, below)
+  bosses.txt          what each boss fight takes (BOSSES below)
+  er.py, erflat.py    Entrance Rando's doors and its seeds (ENTRANCE RANDO below)
   work\               the simulation's working files (made again each run; not kept)
 
 The mod's own build reads these (rndgen.py, one folder up), and ..\logic.txt can replace what a single location needs
@@ -182,6 +184,17 @@ Say why in a comment next to each change. Examples:
 other places, so use it only where overrides.txt can't say it.
 
 
+BOSSES
+------
+
+bosses.txt says what each boss fight takes: going into a boss's room from another room is its fight (a "via" line: an
+exit whose going through starts it). It was worked out from the bosses' damage resistances: a weapon counts if its
+damage type hurts the boss at 1x or more and no phase of the fight takes that type to 0x; the file's top lists which
+weapon deals which type, and each line says why. Some are by hand (the Mario bosses need the Mario Ability Set; Army Eye
+needs all six types). Change a line there; solve.py reads it with overrides.txt. A boss room it doesn't name needs any
+attack.
+
+
 EVENTS
 ------
 
@@ -289,15 +302,47 @@ Made with roomlogic.py's runs (work\ has what these read):
   work\RoomLogic.exe --test   jumps on a flat floor (to check the movement against the game's)
 
 
-FOR LATER: OPTIONS AND AN ENTRANCE RANDOMIZER
----------------------------------------------
+ENTRANCE RANDO
+--------------
+
+The new game's option Entrance Rando shuffles where the game's doors lead. The room files don't depend on where exits
+lead, so the same logic works it out with the doors shuffled.
+
+Doors (er.py). Two exits that lead to each other (room A's exit to room B, and B's exit back to next to A's) are a door
+with two ends. An end is an exit and the way into its own room the other end's exit leads to (where the player comes
+back in). A shuffle pairs a mode's ends anew: an exit leads to its new partner's way back in, and going back through
+the partner returns the player where they came from. Left out of every mode: one-way exits, doors within a room, menus
+and encounters, the exits that are boss fights (connections.txt's via), exits whose way goes by a carried state and the
+Forest Palace's rooms (its crystals), the encounter rooms, rooms the logic doesn't reach even with everything, ends
+whose way in reaches nothing, and exits at the same place as another (the game finds an exit by its room and place).
+  Gate Swap   the Access Gates' and Nightmare Gates' doors (oAccessGate, oDistortionGate)
+  Overworld   those, every door between two areas, and every door between a map (Hyrule's, Gate 6's) and a room
+  Chaos       every door
+
+A seed (the mod's rndNewGame, with the same steps in Python in erflat.py):
+  1. The shuffle (rndERShuffle). From the start, with everything: a free end whose exit is reached is joined to an end
+     whose way back in isn't reached yet and leads somewhere new, so everything joined is reached from the start
+     (with only one end left to join to, one that leads on to other free ends first, so the joining doesn't stop at a
+     dead end); the ends left over are paired at random.
+  2. With everything (every ability and key), the shuffle has to reach every place the game's own doors reach, the
+     seven Nightmare Gates' bosses, the Abomination and the Warmaster (rndEREverything).
+  3. The items are placed in layers as without it (rndGenerate), what each layer reaches worked out from the rooms
+     with the shuffled doors (rndERReach*: roomlogic.txt's answers are for the game's own doors).
+  4. The seed is played through from nothing, taking every ability and key reached, over and over: all of them have
+     to be got (rndERPlay).
+  A shuffle that fails a step is dropped and another tried (60 at most; then the doors stay as they are).
+
+erflat.py writes the tables the mod works it out from: the rooms' ways through (from the room files, overrides.txt,
+bosses.txt and events.txt, as solve.py joins them), the exits, the events and the doors' ends, as numbers, in the
+build's data\rndER.txt (rndERLoad reads it; its hash goes in a save, so a build with other doors can tell). Its own
+check (python erflat.py) makes seeds of each mode its way and plays each through; rndgen.py makes ten of each at build
+time. python er.py lists each mode's doors and makes seeds with er.py's own engine (the two must agree). Change the
+doors in er.py (the modes, what's left out), then build the mod again.
+
+
+FOR LATER: OPTIONS
+------------------
 
 Options (harder jumps allowed, a trick counted or not...): a way that only counts with an option on is written with
 "option NAME" (an override, or a room file made with it); solve.py --option NAME counts it. The mod's generator would
 then need the option too (rndgen.py leaves such ways out for now).
-
-An entrance randomizer (each exit leading to a shuffled way in): the room files don't depend on where exits lead, so a
-shuffled connections.txt (or link lines) is all solve.py needs to work the logic out for it. The game can send an
-exit elsewhere already (the mod framework's exitPlayer hook changes toRoom, newMapX and newMapY). To watch for:
-one-way drops (a way out with no way back), boss rooms (their file says boss), maps and menus (every way in reaches
-every way out), doors within a room, elevators, and ways in that only work coming from one side.

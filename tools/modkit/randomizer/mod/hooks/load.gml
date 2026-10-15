@@ -12,6 +12,28 @@ if global.rndActive=1
   global.rndKeyOwn=ini_read_string(s,"keys","")
   global.rndEShopStr=ini_read_string(s,"eshop","")
   global.rndWon=ini_read_real(s,"won",0)
+  //Entrance Rando: the shuffle back (the door data read again: rndERLoad), if this build's doors are the ones it was
+  //made with
+  global.rndERMode=ini_read_real(s,"er",0)
+  if global.rndERMode>0
+  {
+    var t,n,i,h;
+    h=ini_read_string(s,"erhash","")
+    n=ini_read_real(s,"erparts",0)
+    t=""
+    for(i=0;i<n;i+=1) {t+=ini_read_string(s,"erpart"+string(i),"")}
+    if rndERLoad()=0
+    {
+      global.rndERMode=0
+      show_message("Randomizer: this game's entrances are shuffled (Entrance Rando), but the mod's door data (data\rndER.txt) isn't there or doesn't fit this build. The entrances lead where they normally do.")
+    }
+    else if h!=global.rndEHash or rndERFromString(t)=0
+    {
+      global.rndERMode=0
+      show_message("Randomizer: this game's entrances were shuffled (Entrance Rando) with another build's doors, so the shuffle can't be put back. The entrances lead where they normally do.")
+    }
+    else {rndERMapBuild()}
+  }
   //a save from a build with other data: what's missing reads as not got yet
   if string_length(global.rndGot)<global.rndLocN {global.rndGot+=string_repeat("0",global.rndLocN-string_length(global.rndGot))}
   if string_length(global.rndBossDone)<global.rndBossN {global.rndBossDone+=string_repeat("0",global.rndBossN-string_length(global.rndBossDone))}

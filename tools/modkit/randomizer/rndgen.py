@@ -218,6 +218,14 @@ def main():
         return world_from(sys.argv[2])
     if len(sys.argv) < 2: raise SystemExit(__doc__)
     out = sys.argv[1]
+    rooms, anames, rarea, locs, doors, shops, door_list, door_order, rows, items, drop = locations_items()
+    build(out, rooms, anames, rarea, locs, doors, shops, door_list, door_order, rows, items, drop)
+
+
+def locations_items():
+    """the locations (rows: type, num, rooms, area, req: the logic's alternatives or EVERYTHING, item: the game's own,
+    trial) and the items, with the locked doors and the equipment shops: (rooms, area names, room areas, locs, doors,
+    shops, door_list, door_order, rows, items, the money chests left out)"""
     rooms = room_names()
     anames = area_names()
     rarea = room_areas(rooms)
@@ -298,7 +306,11 @@ def main():
     if len(keys) != len(door_order) or len(keys) != PMAX[-1]:
         raise SystemExit("%d keys, %d locked doors (PMAX says %d): each key opens its own door" % (len(keys), len(door_order), PMAX[-1]))
     for i, d in zip(keys, door_order): items[i] = ("KEY", d)
+    return rooms, anames, rarea, locs, doors, shops, door_list, door_order, rows, items, drop
 
+
+def build(out, rooms, anames, rarea, locs, doors, shops, door_list, door_order, rows, items, drop):
+    """the mod, in out, from the locations and items (locations_items)"""
     # ---- bosses (rBossGallery's doors)
     bosses = []
     seen_rooms = set()
@@ -488,7 +500,36 @@ def main():
         depth = [max(p[0] for p in r) + 1 for r in ok]
         print("placement check, %s: %d of 50 seeds placed, layers %d to %d (average %.1f)"
               % (label, len(ok), min(depth), max(depth), sum(depth) / len(depth)))
+    er_check(rows, items, out)
     ap_export(rows, items, door_order, doors, rarea, anames, out)
+
+
+def er_check(rows, items, out):
+    """Entrance Rando: the door data the mod reads (data\\rndER.txt: roomlogic\\erflat.py), and seeds of each mode made
+    as the mod makes them (the doors shuffled, every place and the goal reached with everything, the items placed with
+    what the doors reach, the seed played through), so a mode whose seeds can't be made shows up here"""
+    import random
+    sys.path.insert(0, os.path.join(HERE, "roomlogic"))
+    import erflat
+    f, w, pairs, digest, bp, hv = erflat.build_data(rows, os.path.join(out, "data", "rndER.txt"))
+    print("Entrance Rando: door data written (%d doors, %d rooms; hash %s)" % (len(f.ends) // 2, len(f.rnames), digest))
+    for label, bit in (("Gate Swap", 1), ("Overworld", 2), ("Chaos", 4)):
+        tries = 0
+        for seed in range(10):
+            for t in range(60):
+                tries += 1
+                rng = random.Random(seed * 1000 + t)
+                part = erflat.shuffle(f, bit, rng)
+                if part is None or not erflat.everything_ok(f, part, hv, bp): continue
+                placed = erflat.fill(f, part, rows, items, rng)
+                if placed is None: continue
+                if not erflat.playthrough(f, part, placed, rows, items):
+                    raise SystemExit("Entrance Rando %s: a seed made can't be played through" % label)
+                break
+            else:
+                raise SystemExit("Entrance Rando %s: no shuffle worked out in 60 tries (seed %d)" % (label, seed))
+        print("Entrance Rando check, %s: %d doors shuffled; 10 seeds made in %d tries, each played through"
+              % (label, sum(1 for e in f.ends if e["mode"] & bit) // 2, tries))
 
 
 # ---------------------------------------------------------------- Archipelago
