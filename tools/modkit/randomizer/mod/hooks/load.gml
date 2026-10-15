@@ -68,6 +68,7 @@ if global.rndActive=1
   if string_length(global.rndKeyOwn)<50 {global.rndKeyOwn+=string_repeat("0",50-string_length(global.rndKeyOwn))}
   rndShopFromString()
   global.gameProgress=global.rndWorldProg
+  global.rndAbomAPSeen=(global.gateHProg>=200) //(the Abomination's AP: given once, as it's beaten, oRndWatcher)
   rndAbilApply()
   //Archipelago: its seed line, the items it has given and deaths it has sent, and the client's session; told when the
   //client isn't connected to this game's multiworld (its checks and items wait till it is)

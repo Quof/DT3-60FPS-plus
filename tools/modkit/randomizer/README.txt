@@ -41,8 +41,8 @@ Playing
     Instrument Randomization Off or On: the 8 instruments are in the pool, and the Nightmare Gates' rewards hold any
                              item (no ability or key: a fight's reward, as the bosses' heart containers).
     Spoiler Log              written or not.
-  An Archipelago game has no options window (its options are the multiworld's), and no Entrance Rando, Boss Rando or
-  Instrument Randomization (each gate's reward is its own instrument, not one of the multiworld's locations).
+  An Archipelago game has no options window: its options are the DT3+ world's, in the player's YAML (below,
+  Archipelago).
   - Entrance Rando: the mode's doors are paired anew, coupled (going back through a door returns the player where they
     came from). Gate Swap: the Access Gates' and Nightmare Gates' doors. Overworld: those, every door between two areas
     and every way between a map (Hyrule's, Gate 6's) and a room. Chaos: every door. The seed is made so that with
@@ -55,13 +55,14 @@ Playing
     room, the boss gallery's way; won, the player comes back to where the fight started and the place counts as beaten
     (its heart container is there, a Nightmare Gate's reward too, and it isn't fought again). The 54 bosses fought the
     Randomizer's way are shuffled, the Nightmare Gates' seven among them (Kamek, Final Nightmare, Blackmore, Elpizo,
-    Shadow Form, Nightmare, Sephiroth); the CHAOS Warmaster stays the last fight, at the end of the CHAOS Warship, and
-    The Executive stays in his own room (his fight needs nothing: below). Not in it, as the Randomizer leaves them to
-    the game: the second fights of a room (Death (Legion), Sigma Epsilon, Ridley (Lava), Decimator 20000), the Ridley
-    tunnel chase, the Leviathan road, the Abomination's fight (the gallery's Wahfuu, the instrument quest's end), the
-    CHAOS Warmaster EX and Hexor (the Distortion's last fight: past the story he's in his room, not fighting). The
-    items are placed with what each place's fight now takes (roomlogic\bosses.txt has what each fight takes), and the
-    seed is played through before the game starts. The spoiler log lists the fights. A save keeps its shuffle.
+    Shadow Form, Nightmare, Sephiroth); the CHAOS Warmaster stays the last fight, at the end of the CHAOS Warship, The
+    Executive stays in his own room (his fight needs nothing: below), and so does Hexor, an optional fight at the
+    Distortion's dead end (fought the gallery's way, his fight ends with his first form). Not in it, as the Randomizer
+    leaves them to the game: the second fights of a room (Death (Legion), Sigma Epsilon, Ridley (Lava), Decimator
+    20000), the Ridley tunnel chase, the Leviathan road, the Abomination's fight (the gallery's Wahfuu, the instrument
+    quest's end) and the CHAOS Warmaster EX. The items are placed with what each place's fight now takes
+    (roomlogic\bosses.txt has what each fight takes), and the seed is played through before the game starts. The
+    spoiler log lists the fights. A save keeps its shuffle.
   - The ability sets' items are progressive: each one is that set's next weapon (Link: Master Sword, Bow & Arrow, Fuse
     Bomb). Swapping characters and sets is always on. The Gate 6 sets only work in Gate 6, as in the game, and in The
     Executive's fight, which gives both characters both of them whole, as the game's own fight does (his phases are
@@ -86,8 +87,16 @@ Playing
     Temple and Sigma's Fortress. Left out: the story's scenes more than fights, and the Nightmare Gates' (the game runs
     them every time, as it does in the Randomizer's world; traps.py lists the rest and why). A save from a build
     before the traps doesn't get them (its seed's items were placed without them).
-  - Bosses are fought in their own rooms: walking up to where a boss's fight starts (or leaving its room another way
-    than the player came in) starts it, as the room's own fight (the room's code makes the boss), with the player's own
+  - A boss beaten gives the AP the story gives after its fight (rndgen.py's BOSS_AP: the story's scenes that give it
+    don't run in these fights), and then a level's worth on top: as much AP as the level the player is at then takes
+    (20/100 and a boss's 50: 70/100, then 100 more, 170/100, a level up). The Abomination gives the level's worth
+    once it's beaten. On Normal, as the game's own boss AP (none on Easy).
+  - The Barrens' Sand Crawler (Wahfuu Jr.) comes up under the player on the sand, as in the game, till its fight is
+    beaten (with Boss Rando, wherever it was fought): the mod's oSandCrawlerSpawner. The game's own has it gone by the
+    Deserted Tower's progress, which the endgame world has done.
+  - Bosses are fought in their own rooms: walking up to where a boss's fight starts (or leaving its room past it: by an
+    exit on the other side of the fight from the side the player came in on) starts it, as the room's own fight (the
+    room's code makes the boss), with the player's own
     abilities and the life and ammo they came in with. A boss has to be beaten to go on: given up from the game over
     screen, the player is back where they came into the room, and walking up to it again starts it again. (These fights
     have the boss gallery's flag on underneath, so a beaten boss ends its fight the gallery's way, without the story's
@@ -117,8 +126,8 @@ Trackers
     Power, air upgrades, weapon upgrades, bomb upgrades, skill points, Internetz mods: the progress page's counts, the
     general store's included), and under them the bosses, ten a row in the boss gallery's order, the CHAOS Warmaster
     (the win) last: each one's head (cut out of its sprites: tracker.py's BOSS_ICONS), lit once it's beaten (with Boss
-    Rando, the boss fought, wherever it was), and the Abomination's once it is. The Executive isn't there (the logic
-    doesn't count him). For a stream: items.html?bg=transparent (or a colour: bg=00ff00), and
+    Rando, the boss fought, wherever it was), and the Abomination's once it is. The Executive and Hexor aren't there
+    (the logic doesn't count them). For a stream: items.html?bg=transparent (or a colour: bg=00ff00), and
     scale=2 for bigger pictures (items.html?bg=transparent&scale=2).
   The screens' names (tracker_names.txt) are the game's own where it has them: the area banners, the teleport menu's
   places, Gate 4's stage map, the jukebox's titles; a screen's number is its room's own place in its group (a letter
@@ -129,15 +138,37 @@ Archipelago
   games, and theirs in its places. Three parts:
   - the DT3+ world, archipelago\dt3plus.apworld in the build (made from archipelago\dt3plus: its locations, items and
     logic are the same as the mod's, data.py written by the build). Install it with the Archipelago Launcher's
-    "Install APWorld" (or put it in Archipelago's custom_worlds folder); Archipelago 0.6.4 or later.
+    "Install APWorld" (or put it in Archipelago's custom_worlds folder with the Launcher closed); Archipelago 0.6.4 or
+    later. Use the world and the mod from the same build: the doors and bosses it shuffles are the mod's own.
   - the DT3+ Client (client.py, in the world: the Launcher's "DT3+ Client"). The game can't connect to the server
     itself, so the client does, and the two trade small text files in %LOCALAPPDATA%\DT3PlusArchipelago (client.py
     describes each; every file starts with the multiworld's seed and the slot, so neither side reads another game's).
   - the mod's Archipelago mode: type ap on the title screen, then start a New Game while the client is connected. No
     items are placed in the game: a place taken sends its check to the client (another world's item says whose it is
     and shows as a multicoloured orb), and the items the server sends are given as they come, with who sent them.
-    DeathLink both ways when the multiworld has it on. The equipment shops are shuffled from the multiworld's seed. A
-    save carries on with the client connected again: checks made meanwhile are sent then.
+    DeathLink both ways when the multiworld has it on. A save carries on with the client connected again: checks made
+    meanwhile are sent then.
+  The world's options, in the player's YAML, are the new game's options window's (the seed and the spoiler log are the
+  multiworld's own, and its spoiler lists the shuffled doors and boss fights):
+    entrance_rando            off, gate_swap, overworld, chaos. The world shuffles the doors as the mod does
+                              (archipelago\dt3plus\erlogic.py is roomlogic\erflat.py's own code, copied by the build,
+                              with the room logic's tables, erdata.json), keeping a shuffle only if with everything it
+                              reaches every place the game's own doors do, and the goal; its logic is then the room
+                              logic itself, worked out for each set of items with the doors as shuffled.
+    boss_rando                true/false: the bosses shuffled the same way, the logic with each place's new fight.
+    instrument_randomization  true/false: the instruments are the multiworld's items and the Nightmare Gates' rewards
+                              its locations (off: each reward is its gate's own instrument, not a location).
+    shop_equipment            shuffled (from the multiworld's seed) or as_normal.
+    guarantee_early_weapons   true/false: one weapon set's first item (Link, Belmont, Mega Man or Samus, at random) in
+                              the player's own world, at a place they can get to from the start (Archipelago's local
+                              early items).
+    ability_spread            near, normal, far: the order Archipelago tries the world's locations in for progression
+                              items (it takes the first one it can): the ones that take the fewest items to reach
+                              mostly first (near), as shuffled (normal), or the ones that take the most first (far).
+                              About 6, 11 and 15 spheres in the playthrough.
+  The client passes the world's options to the game (session.txt, from the world's slot data), and a new Archipelago
+  game puts them in: the shops, Instrument Randomization, Boss Rando's fights and Entrance Rando's doors, the last two
+  only if the world's boss list and door data's hash are this build's (else it says so and leaves them as they are).
   The docs for the Archipelago website are in archipelago\dt3plus\docs.
 
 Building
@@ -222,6 +253,6 @@ Limits
   - The general store (oOtherShopA) sells what it does in the game; only the equipment shops are shuffled.
   - Story-only rooms that the endgame world doesn't reach (Tranquil Serenity and the like) have no places.
   - Not in the boss list: the Abomination (58), the Warmaster EX room (65), the Ridley tunnel chase (37) and the
-    Leviathan road (41), which aren't fights a room makes, Hexor (63, the Distortion's last fight), and each room's
-    second boss (Death, Sigma, Ridley and the Decimator have two).
+    Leviathan road (41), which aren't fights a room makes, and each room's second boss (Death, Sigma, Ridley and the
+    Decimator have two).
   - A save from an earlier build of the mod doesn't carry over (its items are numbered differently): start a new game.

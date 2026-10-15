@@ -5,6 +5,9 @@
 if global.rndActive=1
 {
   if global.rndTrackDirty=1 {global.rndTrackDirty=0; rndTrackWrite()}
+  //the Abomination beaten (its fight the game's own: gateHProg 200): its AP once the player is in the next room
+  //(rndBossAPAward: the game gives none for it here, so a level's worth)
+  if global.rndAbomAPSeen=0 {if global.gateHProg>=200 {global.rndAbomAPSeen=1; global.rndBossAPPending=-2}}
   if !(global.bBossGallery=1 and global.rndFight<0) {rndAbilClamp()}
   if room=rCCity_SGrove {rndHC7()}
   if global.rndAP=1 {rndApPoll()}

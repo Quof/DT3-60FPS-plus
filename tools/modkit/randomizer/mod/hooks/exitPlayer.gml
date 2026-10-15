@@ -11,12 +11,18 @@ if b>=0
   newMapY=global.rndBossY[b]
   exit
 }
-//out of the room of a boss not beaten yet some other way than the player came in (not the exit by where they came into
-//the room): the fight instead, so a boss has to be beaten to go on (with Boss Rando, the fight of the boss fought there,
-//in that boss's room)
+//out of the room of a boss not beaten yet past it (an exit on the other side of where its fight starts from the side the
+//player came in on: rndRoomSide): the fight instead, so a boss has to be beaten to go on (with Boss Rando, the fight of
+//the boss fought there, in that boss's room). An exit on the player's own side doesn't, however far from where they
+//came in (Barrens - Great Falloff's two ways out at its west end, the Vault Demon far east); one who came in level
+//with the boss: any exit but the one by where they came in
 if global.rndRoomBoss>=0 and global.rndFight<0 and global.bBossGallery=0
 {
-  if point_distance(x,y,global.rndInX,global.rndInY)>128
+  var tPast;
+  if global.rndRoomSide<0 {tPast=(x>global.rndBossFX[global.rndRoomBoss])}
+  else if global.rndRoomSide>0 {tPast=(x<global.rndBossFX[global.rndRoomBoss])}
+  else {tPast=(point_distance(x,y,global.rndInX,global.rndInY)>128)}
+  if tPast
   {
     rndBossStart(global.rndRoomBoss,room,-1,-1)
     toRoom=global.rndBossRoom[global.rndFight]

@@ -2,7 +2,8 @@
 erflat.py: the entrance randomizer as the mod runs it: the rooms' logic and the doors as flat tables of numbers
 (export: rndgen writes them to the mod as rndER), and the seed maker over those tables (Reach, shuffle, fill), line for
 line the mod's rnd ER scripts (rndERReach*, rndERShuffle, rndGenerateER), so what they do can be checked here (er.py's
-own engine works it out from the room files: the two must agree).
+own engine works it out from the room files: the two must agree). The Archipelago world runs the same code: rndgen
+copies Reach, fy, grow, shuffle, br_shuffle and everything_ok into it (archipelago\\dt3plus\\erlogic.py), with the tables.
 
 The tables (all numbers; "first"/"count" index a flat list):
   groups      the carried states (connections.txt's carried: rb, water, crystal1-3), each with its values; a state of all

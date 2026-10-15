@@ -127,6 +127,8 @@ if room=rSacredTemple
   with (oInstrument) {instance_destroy()}
   with (oEvExGates) {instrStory=-1}
 }
+//a boss just beaten (rndBossEnd, oRndWatcher's Abomination): its AP and a level's worth, the player back in a room
+if global.rndBossAPPending!=-1 and global.rndFight<0 and global.bBossGallery=0 and instance_exists(oPlayer1) {rndBossAPAward()}
 //John, in Central City - North where the run starts, left of the archway: talking to him turns debug mode on or off
 //(oRndJohn), for a seed that has the player stuck
 if room=rCCity_NorthA and global.bBossGallery=0 {instance_create(480,288,oRndJohn)}

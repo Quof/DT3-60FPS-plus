@@ -42,6 +42,14 @@ global.rndApDeaths=0
 global.rndApSession=""
 global.rndApSessDeath=0
 global.rndApShopSeed=0
+global.rndApSessShops=1
+global.rndApSessER=0
+global.rndApSessERHash=""
+global.rndApSessERPart=""
+global.rndApSessBR=0
+global.rndApSessBRFight=""
+global.rndApSessBRTypes=""
+global.rndApSessIR=0
 global.rndApDeathLink=0
 global.rndApDeathSeen=0
 global.rndApDeathGot=0
@@ -89,5 +97,9 @@ global.rndTrapDone=string_repeat("0",global.rndTrapN)
 global.rndTrapActive=-1
 global.rndPlace=""
 global.rndBossDone=string_repeat("0",global.rndBossN)
+//a boss's AP to give once the player is back from its fight (rndBossAPAward: -1 none, -2 the Abomination), and whether
+//the Abomination's beating has been seen (oRndWatcher: as if so till a new game or a load says otherwise)
+global.rndBossAPPending=-1
+global.rndAbomAPSeen=1
 global.rndEShopStr=""
 for(i=0;i<global.rndEShopN;i+=1) {global.rndEShopNew[i]=global.rndEShopEquip[i]}

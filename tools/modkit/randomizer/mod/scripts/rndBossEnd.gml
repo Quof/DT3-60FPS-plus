@@ -26,6 +26,8 @@ if w and global.rndBossGate[s]>0
   if string_char_at(global.eGateProg,global.rndBossGate[s])!="9" {global.eGateProg=rndSetChar(global.eGateProg,global.rndBossGate[s],"8")}
 }
 if b=global.rndBossFinal and w {rndWin(); exit}
+//(the boss's AP and a level's worth, once the player is back in the room: rndBossAPAward)
+if w {global.rndBossAPPending=b}
 transition_kind=0
 if w
 {

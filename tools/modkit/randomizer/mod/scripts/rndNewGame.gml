@@ -10,13 +10,16 @@
 //(rndOptIR), the instruments are in the pool. A shuffle is kept only if with everything it reaches every place the
 //game's own doors do and the goal (rndEREverything: the doors), the items can be placed with what the doors and bosses
 //let through (rndGenerate, with the room logic's reach) and the seed plays through (rndERPlay); else another is tried.
-//Not with Archipelago
+//An Archipelago game has the DT3+ world's options instead (the client's session, rndApReadSession): the world shuffled
+//its doors and bosses itself (its logic is this build's room logic: the door data's hash and the bosses' types say it
+//is), and they're put in as made
 var tTry,tOk,tER,tBR,tIR,tBit,tGo,d,i;
 rndWorld()
 global.CHAOS_Invasion=0
 global.CHAOS_Upgrade=0
 global.eGateProg="00000000"
 global.gateHProg=0
+global.rndAbomAPSeen=0 //(the Abomination not beaten yet: its AP when it is, oRndWatcher)
 global.abomAttempts=0
 global.gameProgress=global.rndWorldProg
 global.activeCharacter=0
@@ -40,9 +43,48 @@ if global.rndApNext=1
     global.rndApDeaths=0
     global.rndSeed=global.rndApShopSeed
     rndVanillaPlace()
-    random_set_seed(global.rndApShopSeed)
-    rndShopShuffle()
-    randomize()
+    //the world's options: the shops shuffled from its seed (or as normal), Instrument Randomization (the gates' rewards
+    //its locations, the instruments its items: rndCollect, rndApGive), Boss Rando's and Entrance Rando's shuffles
+    if global.rndApSessShops=1
+    {
+      random_set_seed(global.rndApShopSeed)
+      rndShopShuffle()
+      randomize()
+    }
+    else
+    {
+      global.rndEShopStr=""
+      rndShopFromString()
+    }
+    global.rndERMode=0
+    global.rndBRMode=0
+    global.rndIRMode=global.rndApSessIR
+    if global.rndApSessBR=1
+    {
+      tOk=0
+      if global.rndApSessBRTypes=rndBRString(1) {tOk=rndBRFromString(global.rndApSessBRFight)}
+      if tOk=1 {global.rndBRMode=1}
+      else
+      {
+        for(i=0;i<global.rndBossN;i+=1) {global.rndBRFight[i]=i}
+        show_message("Archipelago: this multiworld's DT3+ world shuffled the bosses (Boss Rando) with another build's bosses, so its shuffle can't be put in this game: each boss is fought in its own place, and the multiworld's logic won't match it. Use the mod and dt3plus.apworld from the same build.")
+      }
+    }
+    if global.rndApSessER>0
+    {
+      tOk=0
+      if rndERLoad()=1
+      {
+        if global.rndApSessERHash=global.rndEHash {tOk=rndERFromString(global.rndApSessERPart)}
+        if tOk=0 {for(d=0;d<global.rndEDN;d+=1) {global.rndERPart[d]=-1}}
+      }
+      if tOk=1
+      {
+        global.rndERMode=global.rndApSessER
+        rndERMapBuild()
+      }
+      else {show_message("Archipelago: this multiworld's DT3+ world shuffled the entrances (Entrance Rando) with another build's doors, or the mod's door data (data\rndER.txt) isn't there, so its shuffle can't be put in this game: the entrances lead where they normally do, and the multiworld's logic won't match it. Use the mod and dt3plus.apworld from the same build.")}
+    }
     if file_exists(global.rndApPath+"goal.txt") {file_delete(global.rndApPath+"goal.txt")}
     rndApStart()
   }

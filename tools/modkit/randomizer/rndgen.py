@@ -145,18 +145,27 @@ GAME_PATCHES = [
 # Nightmare Gates' bosses (rooms rExtGate*) come after the others (the mod's boss numbers of the others stay as they
 # were for saves); beaten, their gate counts as beaten (eGateProg 8) and its reward is there (rndBossEnd, oRndReward).
 # Left to the game: the Abomination (type 58, the instrument quest's), the Warmaster EX room (type 65: the game's own
-# Fedex fight), the Ridley tunnel chase (37) and the Leviathan road (41), which aren't fights a room makes, and Hexor
-# (63), the Distortion's last fight: past the story he's in his room, not fighting
-BOSS_SKIP = {37, 41, 58, 63, 65}
+# Fedex fight), the Ridley tunnel chase (37) and the Leviathan road (41), which aren't fights a room makes
+BOSS_SKIP = {37, 41, 58, 65}
 BOSS_FINAL = 60          # the Warmaster: the win (at the end of the CHAOS Warship, once the Abomination is beaten)
-# the bosses Boss Rando leaves in their own places: the Warmaster, and The Executive, whose fight gives both characters
-# Gate 6's sets, as the game's own does (the mod's rndExecFight), so it needs nothing (roomlogic\bosses.txt)
-BOSS_FIXED = {BOSS_FINAL, 64}
+# the bosses Boss Rando leaves in their own places: the Warmaster; The Executive, whose fight gives both characters
+# Gate 6's sets, as the game's own does (the mod's rndExecFight), so it needs nothing (roomlogic\bosses.txt); and Hexor,
+# an optional fight at the Distortion's dead end (in the gallery's way his fight ends with his first form)
+BOSS_FIXED = {BOSS_FINAL, 63, 64}
 # the boss list's types in the order saves made before they kept it (the "bosstypes" key) have their bosses in: the
 # load hook reads their beaten bosses by it
 BOSS_TYPES_OLD = "1,2,4,5,6,7,8,10,11,12,13,14,17,18,19,20,21,22,23,24,27,28,30,31,32,33,34,35,39,40,42,43,44,45,46,48," \
                  "49,50,51,52,53,54,55,56,59,60,61,62,63,64,3,9,16,26,29,38,47"
 HC_BOSS = {1: 2, 2: 8, 3: 14, 4: 24, 5: 35, 6: 46}  # heart container (objectNum): the boss type after whose fight the game gives it
+# the AP the story gives after each boss's fight (its awardBossAP: oEvCh*MainA, oEvExGates, oEvDCS), by type; the
+# Randomizer's fights, the gallery's way, don't run those scenes, so the mod gives it (rndBossAPAward), and a level's
+# worth on top. Hex (Vault)'s comes in the room after his (rVault_14), Ridley's in the vent shaft after his; the
+# Warship's and Chapter 21's bosses (59-64) get none from the story
+BOSS_AP = {1: 100, 2: 250, 3: 700, 4: 250, 5: 500, 6: 600, 7: 600, 8: 800, 9: 1500, 10: 900, 11: 1100, 12: 1500,
+           13: 1600, 14: 2000, 16: 2700, 17: 2100, 18: 2200, 19: 2300, 20: 2300, 21: 2300, 22: 2400, 23: 2400, 24: 2700,
+           26: 4300, 27: 3100, 28: 3200, 29: 5000, 30: 4100, 31: 4500, 32: 4500, 33: 4500, 34: 5000, 35: 6000, 38: 8000,
+           39: 5000, 40: 6500, 42: 5500, 43: 5000, 44: 7000, 45: 8500, 46: 8500, 47: 13500, 48: 8500, 49: 10000,
+           50: 11000, 51: 9500, 52: 10000, 53: 8000, 54: 8000, 55: 12000, 56: 17500}
 # bosses whose rooms the story's exit no longer goes to in an endgame world (it goes on past them): going through that
 # exit (from, to) is the way into the fight, and the player goes on to where it leads after it
 BOSS_VIA = {35: ("rSamus5_Lv4_N", "rSamus5_Lv4_RidleyTunnel"), 61: ("rPttT_06", "rPttT_08")}
@@ -507,8 +516,8 @@ def build(out, rooms, anames, rarea, locs, doors, shops, door_list, door_order, 
         vf, vt = BOSS_VIA.get(t, ("-1", "-1"))
         L.append("global.rndBossViaFrom[%d]=%s; global.rndBossViaTo[%d]=%s" % (i, vf, i, vt))
         fx, fy, fe = bstart[i]
-        L.append("global.rndBossFX[%d]=%d; global.rndBossFY[%d]=%d; global.rndBossOnEntry[%d]=%d; global.rndBossGate[%d]=%d"
-                 % (i, fx, i, fy, i, fe, i, boss_gate(room)))
+        L.append("global.rndBossFX[%d]=%d; global.rndBossFY[%d]=%d; global.rndBossOnEntry[%d]=%d; global.rndBossGate[%d]=%d; "
+                 "global.rndBossAP[%d]=%d" % (i, fx, i, fy, i, fe, i, boss_gate(room), i, BOSS_AP.get(t, 0)))
     # the enemy traps (traps.py): each one's room, its object (made here, from the game's code) and name
     import traps
     trap_list = traps.all_traps()
@@ -590,7 +599,7 @@ def build(out, rooms, anames, rarea, locs, doors, shops, door_list, door_order, 
         print("placement check, %s: %d of 50 seeds placed, layers %d to %d (average %.1f)"
               % (label, len(ok), min(depth), max(depth), sum(depth) / len(depth)))
     f, bp, hv = er_check(rows, items, out, boss_slots(blist))
-    ap_export(rows, items, door_order, doors, rarea, anames, out)
+    ap_export(rows, items, door_order, doors, rarea, anames, out, f, bp, hv, blist)
     import tracker
     tracker.build(out, rows, items, f, bp, hv, door_order, blist, anames, rarea, rooms, build_id)
 
@@ -607,6 +616,13 @@ def er_check(rows, items, out, bosses):
     f, w, pairs, digest, bp, hv = erflat.build_data(rows, os.path.join(out, "data", "rndER.txt"), bosses)
     print("room logic data written: Entrance Rando %d doors, %d rooms (hash %s); Boss Rando %d bosses shuffled"
           % (len(f.ends) // 2, len(f.rnames), digest, sum(f.boss_shuf)))
+    # (for the Archipelago world: the data's hash, and each door end as the spoiler log names it, rndERExitName)
+    f.digest = digest
+    label = {n: w.rooms[n].area.split(" (area")[0] for n in w.rooms}
+    f.end_names = []
+    for e in f.ends:
+        ri, o = f.exits[e["exit"]]
+        f.end_names.append("%s (%s) at %d,%d" % (label.get(f.rnames[ri], f.rnames[ri]), f.rnames[ri], *erflat.xy_of(o)))
     for label, bit, br, ir in (("Gate Swap", 1, False, False), ("Overworld", 2, False, False), ("Chaos", 4, False, False),
                                ("Boss Rando", 0, True, False), ("Instrument Randomization", 0, False, True),
                                ("Chaos with Boss Rando and Instrument Randomization", 4, True, True)):
@@ -633,10 +649,12 @@ def er_check(rows, items, out, bosses):
 
 # ---------------------------------------------------------------- Archipelago
 # The DT3+ world (archipelago\dt3plus): its data (data.py, written here from the same locations, items and logic as the
-# mod's) and the packed world, dt3plus.apworld, in the build's archipelago folder. Ids: a location's AP_BASE +
-# type*1000 + objectNum, an item's AP_BASE + kind*10000 + parameter (the mod's rndApBase works them out the same way)
+# mod's), its logic for a shuffled layout (its options Entrance Rando, Boss Rando and Instrument Randomization: the room
+# logic's tables, erdata.json, and erlogic.py, roomlogic\erflat.py's own code copied) and the packed world,
+# dt3plus.apworld, in the build's archipelago folder. Ids: a location's AP_BASE + type*1000 + objectNum, an item's
+# AP_BASE + kind*10000 + parameter (the mod's rndApBase works them out the same way)
 AP_GAME = "DT3+"
-AP_VERSION = 2
+AP_VERSION = 3
 AP_BASE = 4454000
 AP_DIR = os.path.join(HERE, "archipelago", "dt3plus")
 AP_SPRITE = "sRndAPItem"
@@ -690,10 +708,61 @@ def ap_sprite(folder):
     return [(min(xs), min(ys), max(xs), max(ys))]
 
 
-def ap_export(rows, items, door_order, doors, rarea, anames, out):
-    import zipfile
+def instrument_names():
+    """the instruments' names, 1-8, as the mod's rndItemNameKP has them (its kind 26)"""
+    t = read(os.path.join(HERE, "mod", "scripts", "rndItemNameKP.gml"))
+    t = t[t.index("case 26:"):]
+    names = re.findall(r'return "([^"]+)"', t[:t.index("case 24:")])
+    if len(names) != 8: raise SystemExit("rndItemNameKP: %d instrument names, not 8" % len(names))
+    return names
+
+
+# the room logic's code the world runs for a shuffled layout (roomlogic\erflat.py's, copied into erlogic.py) and the
+# tables it takes (erdata.json: the Flat's lists, as the mod's data\rndER.txt has them)
+AP_ER_CODE = ("Reach", "fy", "grow", "shuffle", "br_shuffle", "everything_ok")
+AP_ER_TABLES = ["gmult", "gvals", "scoped", "start_gs", "gs_n", "KEY_BASE", "EV_BASE", "room_area", "room_carried",
+                "room_resets", "room_scope", "room_boss", "entries", "entry_ways", "way_st", "way_rows", "row_kind",
+                "row_target", "row_leave", "row_alts", "alt_first", "alt_count", "req_ix", "req_c", "exit_dest", "exit_sg",
+                "exit_sdest", "exit_extra", "exit_end", "ev_ways", "goal_ev", "goal_rooms", "ends", "start", "loc_n",
+                "ev_outs", "ev_locs", "boss_n", "boss_req", "boss_shuf", "room_slot", "exit_slot", "digest", "end_names"]
+AP_ER_HEAD = '''"""
+The Randomizer's room logic for a shuffled layout (the options Entrance Rando, Boss Rando and Instrument Randomization):
+what a set of items reaches from the start with the doors and the bosses as shuffled (Reach), and the shuffles (shuffle,
+br_shuffle, everything_ok). Copied by tools/modkit/randomizer/rndgen.py from roomlogic/erflat.py, where they're the
+mod's own (its rndERReach scripts, rndERShuffle, rndBRShuffle, rndEREverything): change erflat.py, not this. The tables
+are erdata.json (load)
+"""
+import collections
+
+DOOR_CLASSES = %r
+
+
+class Flat:
+    pass
+
+
+def load(data):
+    """the tables (erdata.json, read) as erflat's Flat"""
+    f = Flat()
+    for k, v in data.items():
+        setattr(f, k, v)
+    f.base_places = set(f.base_places)
+    f.hv = {ix: n for ix, n in f.hv}
+    return f
+'''
+
+
+def ap_export(rows, items, door_order, doors, rarea, anames, out, f, bp, hv, blist):
+    """the DT3+ world: data.py, erlogic.py and erdata.json in archipelago\\dt3plus (from the locations and items, the
+    room logic's tables f with the places the game's own doors reach with everything bp and everything's numbers hv,
+    and the boss list), and the packed world in the build"""
+    import zipfile, json, inspect
+    sys.path.insert(0, os.path.join(HERE, "roomlogic"))
+    import erflat
     equip = equipment_names()
-    # (the Nightmare Gates' rewards keep their own instruments in an Archipelago game: not its locations or items)
+    all_rows = rows
+    # (the Nightmare Gates' rewards and the instruments: the world's only with its option Instrument Randomization; else
+    # each gate's reward is its own instrument)
     rows = [r for r in rows if r["type"] != INSTR_TYPE]
     items = [it for it in items if it[0] != "INSTR"]
     # the keys, by door: named after the door's area (numbered where an area has several)
@@ -736,17 +805,37 @@ def ap_export(rows, items, door_order, doors, rarea, anames, out):
     def ap_need(ix):
         return key_names[ix - KEY_BASE] if ix >= KEY_BASE else AP_PROG[ix]
 
-    ap_locs = collections.OrderedDict()
-    for r in rows:
+    def loc_name(r):
+        if r["type"] == INSTR_TYPE: return "Nightmare Gate %s - Reward" % "ABCDEFGH"[r["num"] - 1]
         a = r["area"]
         where = anames.get(a) if a else None
-        n = "%s - %s %d" % (where or r["rooms"][0], LT_LABEL[r["type"]], r["num"])
+        return "%s - %s %d" % (where or r["rooms"][0], LT_LABEL[r["type"]], r["num"])
+
+    ap_locs = collections.OrderedDict()
+    for r in rows:
+        n = loc_name(r)
         if n in ap_locs: raise SystemExit("two locations named %r" % n)
         # (the cursed equipment a trial's place needs: CURSED_GEAR, by its trial flag)
         need = None if r["req"] is EVERYTHING else [[(ap_need(ix), c) for ix, c in sorted(alt.items()) if ix != CURSED_IX] for alt in r["req"]]
         ap_locs[n] = (AP_BASE + r["type"] * 1000 + r["num"], need, bool(r.get("trial")))
     everything = [(AP_PROG[p], PMAX[p]) for p in range(1, VARIA_IX + 1) if PMAX[p]] + [(c, 1) for c in cursed] + \
                  [(key_names[d], 1) for d in door_order]
+    # Instrument Randomization: the instruments (kind INSTR, the gate's number) and the gates' rewards (location type 18)
+    instr = collections.OrderedDict((n, AP_BASE + IK["INSTR"] * 10000 + g) for g, n in enumerate(instrument_names(), 1))
+    gate_rewards = collections.OrderedDict((loc_name(r), AP_BASE + r["type"] * 1000 + r["num"]) for r in all_rows
+                                           if r["type"] == INSTR_TYPE)
+    for n in list(instr) + list(gate_rewards):
+        if n in ap_items or n in ap_locs: raise SystemExit("an item or location named %r already" % n)
+    # what the room logic's requirement numbers count, as items (erlogic's Reach: an ability or set's items, the Varia
+    # Suit, the three cursed equipment pieces, the instruments, a door's key)
+    req_items = collections.OrderedDict((ix, [AP_PROG[ix]]) for ix in range(1, VARIA_IX + 1))
+    req_items[CURSED_IX] = cursed
+    req_items[INSTR_IX] = list(instr)
+    for d in door_order: req_items[KEY_BASE + d] = [key_names[d]]
+    # the bosses (Boss Rando): each one's name and place (as the spoiler log names them), and their types as the mod
+    # checks them (rndBRString(1): two digits each)
+    boss_places = [("the way from %s to %s" % BOSS_VIA[t]) if t in BOSS_VIA else room for t, room, bx, by, name in blist]
+    boss_types = "".join("%02d" % t for t, room, bx, by, name in blist)
 
     L = ['"""DT3+ Archipelago data, made by tools/modkit/randomizer/rndgen.py from the game (change rndgen.py, not this)"""',
          "GAME = %r" % AP_GAME,
@@ -755,12 +844,15 @@ def ap_export(rows, items, door_order, doors, rarea, anames, out):
          "# the progression items the logic counts (a new game starts with jumping)",
          "PROG_ITEMS = %r" % AP_PROG[1:],
          "SET_ITEMS = %r" % AP_SETS,
+         "# the ability sets with an attack (Guarantee Early Weapons)",
+         "WEAPON_SETS = %r" % AP_SETS[1:5],
          "# the keys, each its own door's",
          "DOOR_KEYS = %r" % [key_names[d] for d in door_order],
          "# what the Trial Master's trials need on",
          "CURSED_GEAR = %r" % cursed,
          "FILLER = %r" % filler,
-         "# every progression item: what a location the logic doesn't reach needs, and the win",
+         "# every progression item: what a location the logic doesn't reach needs, and the win (with Instrument",
+         "# Randomization, the instruments too)",
          "EVERYTHING = %r" % everything,
          "VICTORY_LOCATION = 'Defeat the CHAOS Warmaster'",
          "# name: (id, classification (0 filler, 1 progression, 2 useful), how many in the pool)",
@@ -768,12 +860,39 @@ def ap_export(rows, items, door_order, doors, rarea, anames, out):
     L += ["    %r: (%d, %d, %d)," % (n, v[0], v[1], v[2]) for n, v in ap_items.items()]
     L += ["}",
           "# name: (id, what it needs: alternatives, each [(item, count)], any one of which is enough (None: EVERYTHING),",
-          "#        a Trial Master trial's (needs CURSED_GEAR too))",
+          "#        a Trial Master trial's (needs CURSED_GEAR too)). What they need with the game's own layout: a shuffled",
+          "#        one's logic is the room logic's (erlogic.py)",
           "LOCATIONS = {"]
     L += ["    %r: (%d, %r, %r)," % (n, v[0], v[1], v[2]) for n, v in ap_locs.items()]
-    L += ["}"]
-    with open(os.path.join(AP_DIR, "data.py"), "w", encoding="utf-8", newline="\n") as f:
-        f.write("\n".join(L) + "\n")
+    L += ["}",
+          "# Instrument Randomization: the instruments (progression items) and the Nightmare Gates' rewards (locations",
+          "# that need EVERYTHING: a fight's reward), name: id",
+          "INSTRUMENTS = %r" % dict(instr),
+          "GATE_REWARDS = %r" % dict(gate_rewards),
+          "# the mod's location numbers (the room logic's places): each one's location",
+          "ROW_NAMES = %r" % [loc_name(r) for r in all_rows],
+          "# the room logic's requirement numbers: the items each counts",
+          "REQ_ITEMS = %r" % dict(req_items),
+          "# Entrance Rando: the room logic data's hash (the mod's data\\rndER.txt has the same: rndEHash)",
+          "ER_HASH = %r" % f.digest,
+          "# Boss Rando: the mod's bosses' names, places and types (rndBRString(1))",
+          "BOSS_NAMES = %r" % [name for t, room, bx, by, name in blist],
+          "BOSS_PLACES = %r" % boss_places,
+          "BOSS_TYPES = %r" % boss_types]
+    with open(os.path.join(AP_DIR, "data.py"), "w", encoding="utf-8", newline="\n") as fh:
+        fh.write("\n".join(L) + "\n")
+    # the room logic for a shuffled layout: erflat's code and its tables
+    code = AP_ER_HEAD % (erflat.DOOR_CLASSES,) + "".join("\n\n" + inspect.getsource(getattr(erflat, n)) for n in AP_ER_CODE)
+    with open(os.path.join(AP_DIR, "erlogic.py"), "w", encoding="utf-8", newline="\n") as fh:
+        fh.write(code)
+    tables = {k: getattr(f, k) for k in AP_ER_TABLES}
+    tables["base_places"] = sorted(bp)
+    tables["hv"] = sorted(hv.items())
+    with open(os.path.join(AP_DIR, "erdata.json"), "w", encoding="utf-8", newline="\n") as fh:
+        json.dump(tables, fh, separators=(",", ":"))
+    # (the doors' ends and the bosses as the mod has them: the shuffles the world makes are put in the game by number)
+    if len(f.ends) > 9998 or len(blist) > 99 or any(t > 99 for t, room, bx, by, name in blist):
+        raise SystemExit("Archipelago: the doors' ends or the bosses don't fit the mod's strings (rndERString, rndBRString)")
 
     # the packed world: a zip with the dt3plus folder in it
     os.makedirs(os.path.join(out, "archipelago"), exist_ok=True)
@@ -781,11 +900,12 @@ def ap_export(rows, items, door_order, doors, rarea, anames, out):
     with zipfile.ZipFile(dest, "w", zipfile.ZIP_DEFLATED) as z:
         for root, ds, fs in os.walk(AP_DIR):
             ds[:] = [d for d in ds if d != "__pycache__"]
-            for f in sorted(fs):
-                if f.endswith((".pyc", ".tmp")): continue
-                p = os.path.join(root, f)
+            for fn in sorted(fs):
+                if fn.endswith((".pyc", ".tmp")): continue
+                p = os.path.join(root, fn)
                 z.write(p, os.path.join("dt3plus", os.path.relpath(p, AP_DIR)).replace("\\", "/"))
-    print("Archipelago: %d locations, %d items in %d kinds (filler %r), %s" % (len(ap_locs), len(items), len(ap_items), filler, dest))
+    print("Archipelago: %d locations (and %d with Instrument Randomization), %d items in %d kinds (filler %r), %s"
+          % (len(ap_locs), len(gate_rewards), len(items), len(ap_items), filler, dest))
 
 
 def prog_of(item, ir=False):

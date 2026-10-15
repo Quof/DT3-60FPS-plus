@@ -184,9 +184,10 @@ BOSS_ICONS = [
     (60, "sWarmasterA_Idle", 0, (2, -2, 32), {}),
 ]
 BOSS_ABOMINATION = 58
-# the boss list's bosses the tracker leaves out: The Executive (64), fought in his own place and needing nothing
-# (rndgen.py's BOSS_FIXED, roomlogic\bosses.txt): the Randomizer's logic doesn't count him
-BOSS_UNTRACKED = {64}
+# the boss list's bosses the tracker leaves out, fought in their own places (rndgen.py's BOSS_FIXED) and not counted by
+# the Randomizer's logic: Hexor (63), optional at the Distortion's dead end, and The Executive (64), whose fight needs
+# nothing (roomlogic\bosses.txt)
+BOSS_UNTRACKED = {63, 64}
 
 
 def defective_head():

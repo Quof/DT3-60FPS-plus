@@ -4,7 +4,11 @@ connection itself, so the two trade small text files in a folder both know: %LOC
 Every file starts with a line "seed|<seed name>|<slot name>", so neither side reads another game's files.
 
 Client to game:
-  session.txt    on connecting: the seed line, deathlink|0/1, shopseed|<number>, version|<data version>, connected|0/1
+  session.txt    on connecting: the seed line, deathlink|0/1, then the world's options from its slot data: shopseed|
+                 <number>, shops|0/1 (the shops' stock shuffled), er|<Entrance Rando: 0 off, 1 Gate Swap, 2 Overworld, 3
+                 Chaos>, erhash|<the room logic data's hash>, erpart|<the doors' shuffle, the mod's rndERString>, br|0/1
+                 (Boss Rando), brfight|<its shuffle, rndBRString(0)>, brtypes|<the bosses' types, rndBRString(1)>, ir|0/1
+                 (Instrument Randomization); then version|<data version>, connected|0/1
   locations.txt  what each of this world's locations holds (scouted): <location id>|<own 0/1>|<item id, 0 if not
                  own>|<item name>|<player it's for>|<flags>
   items.txt      every item received, in order: <item id>|<from this world 0/1>|<sender's name>
@@ -104,11 +108,21 @@ class DT3PlusContext(CommonContext):
         return "seed|%s|%s" % (clean(self.room_seed_name), clean(self.auth or ""))
 
     def write_session(self, connected: bool = True) -> None:
+        # (a seed from before the world had its options: the shops shuffled, nothing else)
+        slot = self.slot_data
         write_file("session.txt", [
             self.seed_line(),
             "deathlink|%d" % int(self.death_link),
-            "shopseed|%d" % int(self.slot_data.get("shop_seed", 0)),
-            "version|%d" % int(self.slot_data.get("data_version", 0)),
+            "shopseed|%d" % int(slot.get("shop_seed", 0)),
+            "shops|%d" % int(slot.get("shop_shuffle", 1)),
+            "er|%d" % int(slot.get("entrance_rando", 0)),
+            "erhash|%s" % clean(slot.get("er_hash", "")),
+            "erpart|%s" % clean(slot.get("er_parts", "")),
+            "br|%d" % int(slot.get("boss_rando", 0)),
+            "brfight|%s" % clean(slot.get("br_fight", "")),
+            "brtypes|%s" % clean(slot.get("br_types", "")),
+            "ir|%d" % int(slot.get("instrument_randomization", 0)),
+            "version|%d" % int(slot.get("data_version", 0)),
             "connected|%d" % int(connected),
         ])
 

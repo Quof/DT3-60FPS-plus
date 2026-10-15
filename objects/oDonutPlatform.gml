@@ -40,8 +40,7 @@ if global.gamePaused=false
     //if the character is standing on the platform, subtract one from the timer
     if isCollisionCharacterTop(1,0)
     {
-      //timeUntilFall-=1
-      timeUntilFall-=1*gDeltaTime //60fps change: the countdown while standing on it ran every frame, 2x/4x as fast at 60/120fps, so it dropped sooner
+      timeUntilFall-=1 //60fps note: not scaled: this Step only runs on 30fps ticks (gDeltaDoTicks above); scaled by gDeltaTime it counted down 2x/4x slower at 60/120fps and the donuts stopped dropping under a player crossing them
       //also, check to see if it is <= 0
       if timeUntilFall<=0
         falling=1
@@ -49,8 +48,7 @@ if global.gamePaused=false
     else
     {
       if timeUntilFall<timeUntilFallMax
-        //timeUntilFall+=1
-        timeUntilFall+=1*gDeltaTime //60fps change: see above
+        timeUntilFall+=1 //60fps note: not scaled (see above)
     }
   }
 }
