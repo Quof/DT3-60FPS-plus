@@ -134,7 +134,7 @@ body {
 /* ---- Item Tracker ---- */
 .items { padding: calc(8px * var(--s)); }
 /* (wide enough for: Movement and Mario; Link, Belmont and Mega Man; Samus and the Game Powers; the instruments and the
-   cursed equipment; then the upgrades, seven a row) */
+   cursed equipment; then the upgrades, seven a row, and the bosses, ten a row) */
 .items #grid {
   display: flex;
   flex-wrap: wrap;
@@ -177,5 +177,21 @@ body {
 .ct .num { font-size: calc(11px * var(--s)); font-weight: 600; white-space: nowrap; }
 .ct .num.all { color: #f0c94a; }
 .ct.off .num { color: var(--dim); }
+/* the bosses: ten a row (as wide as the groups above), each head on its own square */
+.bosses .t .n { margin-left: 2px; }
+.bosses .row {
+  display: grid;
+  grid-template-columns: repeat(10, auto);
+  justify-content: start;
+  gap: calc(5px * var(--s));
+}
+.it.boss {
+  width: calc(40px * var(--s));
+  height: calc(40px * var(--s));
+  border-radius: calc(4px * var(--s));
+  background: var(--panel2);
+  overflow: hidden;
+}
+.it.boss.off { background: var(--panel); }
 .items #status { font-size: 11px; color: var(--dim); margin-top: 6px; }
 .items #status:empty { display: none; }

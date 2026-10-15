@@ -145,9 +145,17 @@ GAME_PATCHES = [
 # Nightmare Gates' bosses (rooms rExtGate*) come after the others (the mod's boss numbers of the others stay as they
 # were for saves); beaten, their gate counts as beaten (eGateProg 8) and its reward is there (rndBossEnd, oRndReward).
 # Left to the game: the Abomination (type 58, the instrument quest's), the Warmaster EX room (type 65: the game's own
-# Fedex fight), the Ridley tunnel chase (37) and the Leviathan road (41), which aren't fights a room makes
-BOSS_SKIP = {37, 41, 58, 65}
+# Fedex fight), the Ridley tunnel chase (37) and the Leviathan road (41), which aren't fights a room makes, and Hexor
+# (63), the Distortion's last fight: past the story he's in his room, not fighting
+BOSS_SKIP = {37, 41, 58, 63, 65}
 BOSS_FINAL = 60          # the Warmaster: the win (at the end of the CHAOS Warship, once the Abomination is beaten)
+# the bosses Boss Rando leaves in their own places: the Warmaster, and The Executive, whose fight gives both characters
+# Gate 6's sets, as the game's own does (the mod's rndExecFight), so it needs nothing (roomlogic\bosses.txt)
+BOSS_FIXED = {BOSS_FINAL, 64}
+# the boss list's types in the order saves made before they kept it (the "bosstypes" key) have their bosses in: the
+# load hook reads their beaten bosses by it
+BOSS_TYPES_OLD = "1,2,4,5,6,7,8,10,11,12,13,14,17,18,19,20,21,22,23,24,27,28,30,31,32,33,34,35,39,40,42,43,44,45,46,48," \
+                 "49,50,51,52,53,54,55,56,59,60,61,62,63,64,3,9,16,26,29,38,47"
 HC_BOSS = {1: 2, 2: 8, 3: 14, 4: 24, 5: 35, 6: 46}  # heart container (objectNum): the boss type after whose fight the game gives it
 # bosses whose rooms the story's exit no longer goes to in an endgame world (it goes on past them): going through that
 # exit (from, to) is the way into the fight, and the player goes on to where it leads after it
@@ -381,8 +389,8 @@ def boss_gate(room):
 
 def boss_slots(blist):
     """the bosses as the room logic has them (roomlogic\\erflat.py: Boss Rando's places): [(type, room, (the via exit's
-    room, the room it leads to) or None, whether it's the final boss)]"""
-    return [(t, room, BOSS_VIA.get(t), t == BOSS_FINAL) for t, room, bx, by, name in blist]
+    room, the room it leads to) or None, whether Boss Rando leaves it in its place: BOSS_FIXED)]"""
+    return [(t, room, BOSS_VIA.get(t), t in BOSS_FIXED) for t, room, bx, by, name in blist]
 
 
 def build(out, rooms, anames, rarea, locs, doors, shops, door_list, door_order, rows, items, drop):
@@ -507,6 +515,10 @@ def build(out, rooms, anames, rarea, locs, doors, shops, door_list, door_order, 
     L += traps.write_mod(out, trap_list)
     L.append("global.rndApBase=%d //Archipelago: a location's id is this+type*1000+objectNum, an item's this+kind*10000+parameter" % AP_BASE)
     L.append("global.rndBossFinal=%d" % bidx[BOSS_FINAL])
+    # (the boss list's types, as saves keep them: a save's beaten bosses are read back by type; one from before they
+    # were kept, by the list then)
+    L.append("global.rndBossTypes=%s; global.rndBossTypesOld=%s"
+             % (gml_str("," + ",".join(str(t) for t, room, bx, by, name in blist) + ","), gml_str("," + BOSS_TYPES_OLD + ",")))
     for n in range(8):
         L.append("global.rndHCBoss[%d]=%d" % (n, bidx.get(HC_BOSS.get(n, -1), -1)))
     # the locked doors (by objectNum): their order (the logic's) and where they are

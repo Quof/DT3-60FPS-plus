@@ -38,7 +38,7 @@ class Flat:
 
 def export(w, pairs, rows, bosses=()):
     """the tables, from er.py's World (rooms, connections, overrides, bosses, events), the doors, rndgen's rows and its
-    bosses (rndgen.boss_slots: the mod's boss numbers' type, room, via and whether it's the final boss)"""
+    bosses (rndgen.boss_slots: the mod's boss numbers' type, room, via and whether Boss Rando leaves it in its place)"""
     import rndgen
     f = Flat()
     KB = rndgen.KEY_BASE
@@ -189,7 +189,8 @@ def export(w, pairs, rows, bosses=()):
     # Boss Rando: each of the mod's bosses (its boss numbers), what its fight takes (going into its room from another,
     # bosses.txt), and the places it's fought: its room, and for one the story went into another way its via exit (the
     # fight going through it starts). A shuffled boss's places take the fight of the boss fought there instead (Reach's
-    # fight); the final boss isn't shuffled
+    # fight); the ones Boss Rando leaves in their places (rndgen's BOSS_FIXED: the final boss, The Executive) aren't
+    # shuffled
     def content(fc):
         first, cnt = fc
         return sorted(tuple(sorted((f.req_ix[k], f.req_c[k]) for k in range(f.alt_first[a], f.alt_first[a] + f.alt_count[a])))
@@ -198,7 +199,7 @@ def export(w, pairs, rows, bosses=()):
     f.boss_req, f.boss_shuf = [], []
     f.room_slot = [-1] * len(f.rnames)
     f.exit_slot = [-1] * len(f.exits)
-    for i, (t, room, via, final) in enumerate(bosses):
+    for i, (t, room, via, fixed) in enumerate(bosses):
         req = None
         if room in rix and f.room_boss[rix[room]][0] >= 0: req = f.room_boss[rix[room]]
         vx = None
@@ -214,8 +215,8 @@ def export(w, pairs, rows, bosses=()):
         if req is None:
             raise SystemExit("erflat: boss %d (%s): its room isn't a boss room in the logic and it has no via" % (t, room))
         f.boss_req.append(req)
-        f.boss_shuf.append(0 if final else 1)
-        if not final:
+        f.boss_shuf.append(0 if fixed else 1)
+        if not fixed:
             if room in rix: f.room_slot[rix[room]] = i
             if vx is not None: f.exit_slot[vx] = i
     return f
@@ -558,7 +559,7 @@ def shuffle(f, mode_bit, rng):
 
 # ---------------------------------------------------------------- Boss Rando (the mod's rndBRShuffle)
 def br_shuffle(f, rng):
-    """the bosses shuffled: fight[boss] = the boss fought at its places (the final boss: its own)"""
+    """the bosses shuffled: fight[boss] = the boss fought at its places (one left in its place: its own)"""
     sh = [i for i in range(f.boss_n) if f.boss_shuf[i]]
     order = list(sh)
     fy(order, rng)

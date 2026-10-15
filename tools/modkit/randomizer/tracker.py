@@ -6,9 +6,9 @@ every second.
 
 rndgen.py builds the pages' data here (tracker\\data.js): every check with its name, tab and screen (tracker_names.txt),
 the room logic's tables (roomlogic\\erflat.py's: the same ones the mod's seeds are made with, so the pages work out what
-the player's items reach with the seed's doors, bosses and options as the seed was made), the Item Tracker's items, and
-their pictures (the game's own sprites, written to tracker\\icons). The pages' own files (the HTML, tracker.js,
-tracker.css) are in mod\\tracker, copied as they are.
+the player's items reach with the seed's doors, bosses and options as the seed was made), the Item Tracker's items and
+bosses, and their pictures (the game's own sprites, written to tracker\\icons: the bosses' heads cut out of theirs,
+BOSS_ICONS). The pages' own files (the HTML, tracker.js, tracker.css) are in mod\\tracker, copied as they are.
 
 A check is shown
   taken (blue)          the game has it taken (rndGot)
@@ -107,6 +107,215 @@ COUNTERS = [
     ("sp", "Skill Points", ("count", "sp"), "AP", ("sAPBoost", 0, None)),
     ("wb", "Internetz Mods", ("count", "wb"), "WB", ("sWalletBoost", 0, None)),
 ]
+
+
+# the Item Tracker's bosses, in the boss gallery's order (its types), the CHAOS Warmaster (the win) last: each one's
+# head, from a sprite of its own: (type, sprite, frame, the square cut out (x, y, size: up to 32, made 32 (by whole
+# steps for 16 or 32); 64, 96 or 128, made 32 by averaging), options: layers (sprites drawn together, as the boss's Draw event does,
+# each one's corner at its x, y; a fifth value, true: that one mirrored), tint (multiplied, as image_blend), recolor
+# (its light, as that colour), solid (its
+# pixels made opaque: a sprite the game draws faint), silhouette (made whole after scaling: a black shape full of gaps),
+# flip (mirrored), outline (a colour round it: a dark one on the dark page), special (drawn here: see defective_head,
+# final_nightmare_head)).
+# Type 58 is the Abomination (the gallery's last instrument fight, beaten: gateHProg 200); the rest are the
+# Randomizer's bosses (rndgen.py's boss_list) but those BOSS_UNTRACKED has
+BOSS_ICONS = [
+    (1, "sBowserStand", 0, (13, 1, 20), {}),
+    (2, "sCacklettaIdle", 0, (0, 0, 32), {}),
+    (3, "sKamekIdle", 0, (8, 0, 32), {}),
+    (4, "sHelmetHeadBody", 0, (0, -12, 16), {"layers": [("sHelmetHeadBody", 0, 0, 0), ("sHelmetHeadA", 0, 4, -11)]}),
+    (5, "sDeadHand_Idle", 0, (12, -2, 32), {}),
+    (6, "sBarbaHead", 0, (0, -8, 32), {}),
+    (7, "sThunderbirdFace", 0, (0, 0, 16), {}),
+    (8, "sAquaSer_HeadB", 0, (0, 0, 32), {}),
+    (9, "sFNightmareEyes", 0, None, {"special": "finalnightmare", "outline": (60, 110, 70)}),
+    (10, "sControlVirusCore", 0, (0, 0, 32), {}),
+    (11, "sLargeVampireBat", 0, (64, 30, 32), {}),
+    (12, "sDraculaIdle", 0, (29, -1, 16), {}),
+    (13, "sMenaceHead", 0, (0, 3, 64), {"flip": True}),
+    (14, "sDeathWalk", 0, (3, 44, 32), {}),
+    (16, "sBlackmoorMain", 0, (-4, 16, 64), {"silhouette": True, "outline": (140, 120, 165), "flip": True}),
+    (17, "sEnmityBody", 0, (43, 16, 64), {}),
+    (18, "sMaohGiantBody", 0, (60, 52, 64), {}),
+    (19, "sStormE_Idle", 0, (6, 0, 32), {}),
+    (20, "sOOstrich_Idle", 0, (4, -2, 32), {}),
+    (21, "sGBeetle_Idle", 0, (10, 14, 32), {}),
+    (22, "sBospiderMain", 0, (14, 14, 32), {}),
+    (23, "sBit_ArmUp", 0, (4, -2, 32), {}),
+    (24, "sSigmaA_Head", 0, (0, 1, 16), {}),
+    (26, "sElpizoIdle", 0, (18, 0, 16), {}),
+    (27, "sArmyEyeMain", 0, (22, 0, 32), {}),
+    (28, "sHex_A_Idle", 0, (3, -1, 16), {"solid": True}),
+    (29, "sJerryIdle", 0, (-3, -4, 32), {"tint": (0, 0, 0), "outline": (120, 80, 170)}),
+    (30, "sVaultDemonIdle", 0, (44, 34, 32), {}),
+    (31, "sArachnusIdle", 0, (22, 4, 32), {}),
+    (32, "sKingWormEye", 0, (13, 9, 32), {"layers": [("sKingWormEye", 0, 13, 9), ("sKingWormHead", 0, 0, 0)], "flip": True}),
+    (33, "sKraidHead", 0, (40, 24, 64), {}),
+    (34, "sMotherBrainBrain", 0, (8, 10, 64), {"layers": [("sMotherBrainGun", 0, 19, 44), ("sMotherBrainBrain", 0, 0, 0),
+                                                          ("sMotherBrainEye", 0, 61, 29)]}),
+    (35, "sRidleyHead", 0, (8, 14, 32), {}),
+    # (Nightmare as its Draw makes it: its face always mirrored, the body and arms behind it as they're placed for its
+    # facing, oMetNightmare's End Step; then all of it mirrored: looking right, the body's edge behind it showing that)
+    (38, "sMetNightmareFaceA", 0, (-4, -44, 32), {"layers": [("sMetNightmareRightArm", 0, -27, -3, True),
+                                                              ("sMetNightmareBody", 0, -43, -71, True),
+                                                              ("sMetNightmareLeftArm", 0, 29, -37, True),
+                                                              ("sMetNightmareFaceA", 0, -20, -50, True)], "flip": True}),
+    (39, "sSandCrawlerBite", 0, (64, 24, 64), {}),
+    (40, "sMalevHead", 0, (24, 20, 64), {}),
+    (42, "sPT_StoneGolem_Idle", 0, (10, -4, 32), {}),
+    (43, "sPT_FE_ArmsOut", 0, (16, 0, 32), {}),
+    (44, "sHHG_Idle", 0, (-2, -3, 32), {}),
+    (45, "sPT_Unforgotten", 0, (264, 32, 128), {}),
+    (46, "sTOTO_Head", 0, (6, 6, 96), {}),
+    (47, "sSeph_Idle", 0, (22, 2, 16), {}),
+    (48, "sAntiAlpha_Idle", 0, (16, 2, 32), {}),
+    (49, "sSeraIdle", 0, (1, -2, 32), {}),
+    (50, "sBrainMachineMain", 0, (8, 0, 32), {}),
+    (51, "sBBot_Idle", 0, (24, 6, 32), {}),
+    (52, "sCACA_Body", 0, (128, 20, 96), {}),
+    (53, "sGiantBlarg", 0, (32, 24, 64), {}),
+    (54, "sDefective_Main", 0, None, {"special": "defective", "outline": (150, 40, 40)}),
+    (55, "sShadowEura_Head", 0, (-10, -4, 64), {"layers": [("sShadowEura_Eye", 0, 25, 30), ("sShadowEura_Head", 0, 0, 0)]}),
+    (56, "sDecimatorMain", 0, (-5, -10, 64), {}),
+    (58, "sAbom_Base", 0, (66, 170, 64), {}),
+    (59, "sHex_A_Hang", 0, (4, -1, 16), {"solid": True}),
+    (61, "sAbom_ParasiteA", 0, (10, 14, 64), {}),
+    (62, "sVirusPara_Open", 0, (64, 64, 96), {}),
+    (60, "sWarmasterA_Idle", 0, (2, -2, 32), {}),
+]
+BOSS_ABOMINATION = 58
+# the boss list's bosses the tracker leaves out: The Executive (64), fought in his own place and needing nothing
+# (rndgen.py's BOSS_FIXED, roomlogic\bosses.txt): the Randomizer's logic doesn't count him
+BOSS_UNTRACKED = {64}
+
+
+def defective_head():
+    """Defective, as the game draws it (oDefective: a black blob, wavering, with two rings of twelve thin forked arms
+    going round it): its likeness at 32x32, drawn here, its sprites being too big and thin to scale down"""
+    import math
+    img = [[(0, 0, 0, 0)] * 32 for _ in range(32)]
+    def dot(x, y):
+        x, y = int(round(x)), int(round(y))
+        if 0 <= x < 32 and 0 <= y < 32: img[y][x] = (10, 8, 12, 255)
+    for y in range(32):
+        for x in range(32):
+            a = math.atan2(y - 15.5, x - 15.5)
+            if math.hypot(x - 15.5, y - 15.5) <= 8.2 + 0.9 * math.sin(a * 5): img[y][x] = (10, 8, 12, 255)
+    for i in range(12):
+        a = math.radians(i * 30 + 8)
+        for t in range(70):
+            r = 8 + 7 * t / 69
+            dot(15.5 + r * math.cos(a), 15.5 + r * math.sin(a))
+        for side in (-1, 1):
+            b = a + side * 0.6
+            for t in range(16):
+                r = 2.5 * t / 15
+                dot(15.5 + 12 * math.cos(a) + r * math.cos(b), 15.5 + 12 * math.sin(a) + r * math.sin(b))
+    return img
+
+
+def final_nightmare_head(load):
+    """Final Nightmare in its base form, eye open, as its Draw makes it (oFinalNightmare: phase 3): a black body (a circle,
+    radius 12) with four black circles going round it (radius 7, 8 out: as at one moment of their turning), its eyes
+    (sFNightmareEyes) covered by a black circle (radius 8), and the big eye open on it (sFNBigEye's last frame, 4
+    lower). 32x32, full size"""
+    import math
+    img = [[(0, 0, 0, 0)] * 32 for _ in range(32)]
+    cx, cy = 16, 15
+    def disc(x0, y0, r):
+        for y in range(32):
+            for x in range(32):
+                if (x + 0.5 - x0) ** 2 + (y + 0.5 - y0) ** 2 <= r * r: img[y][x] = (0, 0, 0, 255)
+    def sprite(name, frame, ox, oy):
+        w, h, rows = load(name, frame)
+        for y in range(h):
+            for x in range(w):
+                q = rows[y][x * 4:x * 4 + 4]
+                if q[3] and 0 <= ox + x < 32 and 0 <= oy + y < 32: img[oy + y][ox + x] = tuple(q)
+    disc(cx, cy, 12)
+    for i in range(4):
+        a = math.radians(22 + i * 90)
+        disc(cx + 8 * math.cos(a), cy - 8 * math.sin(a), 7)
+    sprite("sFNightmareEyes", 0, cx - 8, cy - 8)
+    disc(cx, cy, 8)
+    sprite("sFNBigEye", 2, cx - 7, cy + 4 - 6)
+    return img
+
+
+def boss_icon(sprite, frame, crop, opts):
+    """a boss's head: 32x32 RGBA rows (see BOSS_ICONS). opts: layers [(sprite, frame, x, y)] drawn in turn (each one's
+    corner at x, y) in place of the sprite; tint, recolor (its light, as that colour), solid, outline; special"""
+    sys.path.insert(0, os.path.dirname(HERE))
+    import png
+    def load(s, f):
+        p = os.path.join(rndgen.PROJ, "sprites", s, "%d.png" % f)
+        if not os.path.exists(p): raise SystemExit("tracker: the sprite %s has no frame %d" % (s, f))
+        return png.read(p)
+    if opts.get("special") == "defective":
+        src = defective_head()
+        cs = 32
+    elif opts.get("special") == "finalnightmare":
+        src = final_nightmare_head(load)
+        cs = 32
+    else:
+        layers = opts.get("layers") or [(sprite, frame, 0, 0)]
+        # (a layer's fifth value, if true: drawn mirrored, as with image_xscale -1; its corner is still its left edge)
+        parts = [(load(l[0], l[1]), l[2], l[3], len(l) > 4 and l[4]) for l in layers]
+        cx, cy, cs = crop
+        tint, recolor, solid = opts.get("tint"), opts.get("recolor"), opts.get("solid")
+        def px(x, y):
+            out = (0, 0, 0, 0)
+            for (w, h, rows), lx, ly, mirror in parts:
+                if 0 <= x - lx < w and 0 <= y - ly < h:
+                    c = (w - 1 - (x - lx)) if mirror else (x - lx)
+                    q = rows[y - ly][c * 4:c * 4 + 4]
+                    if q[3]: out = tuple(q)
+            r, g, b, a = out
+            if a and solid: a = 255
+            if tint: r, g, b = r * tint[0] // 255, g * tint[1] // 255, b * tint[2] // 255
+            if recolor:
+                l = min(255, int((r * 0.3 + g * 0.59 + b * 0.11) * 1.25))
+                r, g, b = l * recolor[0] // 255, l * recolor[1] // 255, l * recolor[2] // 255
+            return (r, g, b, a)
+        src = [[px(cx + x, cy + y) for x in range(cs)] for y in range(cs)]
+    out = [[(0, 0, 0, 0)] * 32 for _ in range(32)]
+    if cs <= 32 and 32 % cs == 0:
+        k = 32 // cs
+        for y in range(cs):
+            for x in range(cs):
+                for dy in range(k):
+                    for dx in range(k): out[y * k + dy][x * k + dx] = src[y][x]
+    elif cs < 32:
+        # (a size between: each pixel of the icon takes the one under its middle)
+        out = [[src[int((y + 0.5) * cs / 32)][int((x + 0.5) * cs / 32)] for x in range(32)] for y in range(32)]
+    else:
+        k = cs // 32
+        if cs % 32: raise SystemExit("tracker: a boss head of size %d (up to 32, or 64, 96 or 128)" % cs)
+        for y in range(32):
+            for x in range(32):
+                # (the block averaged, its colours by how opaque each pixel is)
+                rs = gs = bs = at = 0
+                for dy in range(k):
+                    for dx in range(k):
+                        r, g, b, a = src[y * k + dy][x * k + dx]
+                        rs += r * a; gs += g * a; bs += b * a; at += a
+                if at: out[y][x] = (rs // at, gs // at, bs // at, at // (k * k))
+    if opts.get("silhouette"):
+        # (a shape full of gaps, as a shape: what is mostly there made whole, the rest gone)
+        out = [[(r, g, b, 255) if a >= 100 else (0, 0, 0, 0) for r, g, b, a in row] for row in out]
+    if opts.get("flip"): out = [row[::-1] for row in out]
+    outline = opts.get("outline")
+    if outline:
+        # (a pixel's outline: the empty ones beside an opaque one)
+        o = [row[:] for row in out]
+        for y in range(32):
+            for x in range(32):
+                if out[y][x][3]: continue
+                if any(0 <= x + dx < 32 and 0 <= y + dy < 32 and out[y + dy][x + dx][3] > 128
+                       for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1))):
+                    o[y][x] = tuple(outline) + (255,)
+        out = o
+    return [bytearray(v for p in row for v in p) for row in out]
 
 
 def check_label(t):
@@ -311,6 +520,22 @@ def build(out, rows, items, f, bp, hv, door_order, blist, anames, rarea, rooms, 
     for ident, name, have, kind, pic in COUNTERS:
         counters.append({"id": ident, "name": name, "have": list(have), "total": pool[kind] + SHOP_EXTRA.get(kind, 0),
                          "icon": icon(out, ident, pic, done)})
+    # ---- the bosses: their heads, in the boss gallery's order (the Warmaster last), each with its place in the boss
+    # list (-1: the Abomination, beaten when gateHProg is 200)
+    sys.path.insert(0, os.path.dirname(HERE))
+    import png
+    bslot = {t: i for i, (t, room, bx, by, name) in enumerate(blist)}
+    types = [b[0] for b in BOSS_ICONS]
+    want = (set(bslot) - BOSS_UNTRACKED) | {BOSS_ABOMINATION}
+    if sorted(types) != sorted(want):
+        raise SystemExit("tracker: BOSS_ICONS has the bosses %s; the boss list (less BOSS_UNTRACKED) and the Abomination "
+                         "are %s" % (sorted(types), sorted(want)))
+    os.makedirs(os.path.join(out, "tracker", "icons"), exist_ok=True)
+    bosses = []
+    for t, spr, fr, crop, opts in BOSS_ICONS:
+        name = "boss%d.png" % t
+        png.write(os.path.join(out, "tracker", "icons", name), 32, 32, boss_icon(spr, fr, crop, opts))
+        bosses.append({"src": "icons/" + name, "slot": bslot.get(t, -1)})
     # ---- every progression item (the 'everything' rule): the logic's, the instruments only with Instrument
     # Randomization
     every = sorted((ix, n) for ix, n in hv.items() if ix != rndgen.INSTR_IX)
@@ -318,7 +543,7 @@ def build(out, rows, items, f, bp, hv, door_order, blist, anames, rarea, rooms, 
         "build": build_id,
         "tabs": tabs, "locs": locs, "roomTab": room_tab, "roomScreen": room_screen,
         "doors": door_order, "everything": every, "everythingIR": [[rndgen.INSTR_IX, hv.get(rndgen.INSTR_IX, 8)]],
-        "items": groups, "counters": counters,
+        "items": groups, "counters": counters, "bosses": bosses,
         "logic": logic_tables(f),
     }
     os.makedirs(os.path.join(out, "tracker"), exist_ok=True)
@@ -326,7 +551,7 @@ def build(out, rows, items, f, bp, hv, door_order, blist, anames, rarea, rooms, 
         fh.write("// the DT3+ Randomizer trackers' data, made by tools/modkit/randomizer/rndgen.py (tracker.py) for this build\n")
         fh.write("window.DT3_DATA=" + json.dumps(data, separators=(",", ":")) + ";\n")
     n_screens = sum(len(t["screens"]) for t in tabs)
-    print("trackers: %d checks in %d tabs, %d screens; %d items, %d counters (tracker\\checks.html, tracker\\items.html)"
-          % (len(rows), len(tabs), n_screens, sum(len(g["items"]) for g in groups), len(counters)))
+    print("trackers: %d checks in %d tabs, %d screens; %d items, %d counters, %d bosses (tracker\\checks.html, tracker\\items.html)"
+          % (len(rows), len(tabs), n_screens, sum(len(g["items"]) for g in groups), len(counters), len(bosses)))
     if unnamed:
         print("trackers: rooms with checks not in tracker_names.txt (shown under 'Other'):", ", ".join(sorted(set(unnamed))))

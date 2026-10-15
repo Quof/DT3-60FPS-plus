@@ -5,7 +5,8 @@ runs this over every piece of a mod's code.
 
 It follows GameMaker 8's grammar: statements (blocks, var/globalvar, if/then/else, while/do, do/until, for, repeat,
 with, switch/case/default, break, continue, exit, return, assignments and calls) and expressions (= compares inside
-them; no ++, --, ?: or += inside an expression). It's a checker, not a compiler: it doesn't know which names exist (see
+them; no ++, --, ?: or += inside an expression). A program that starts with a { } block is that block alone (code after
+it doesn't compile). It's a checker, not a compiler: it doesn't know which names exist (see
 validate.py for that) or how many arguments a function takes.
 
   python gmlcheck.py <file.gml> ...      prints the errors
@@ -83,6 +84,14 @@ class Parser:
 
     # ---------------------------------------------------------------- statements
     def program(self):
+        # (GameMaker 8 takes a program that starts with a { } block as that block alone: anything after it is "Program
+        # ends before end of the code". The mod loader's own check (scrModCanCompile) puts "exit;" in front, so it misses
+        # this, and the game ends when the code is compiled)
+        if self.at("{", "begin"):
+            self.block("}" if self.peek()[1] == "{" else "end")
+            if self.peek()[0] != "eof":
+                self.fail("code after the { } block the program starts with: GameMaker 8 takes a program that starts with a block as that block alone (Program ends before end of the code)")
+            return
         while self.peek()[0] != "eof": self.statement()
 
     def block(self, closer):
@@ -251,6 +260,8 @@ if __name__ == "__main__":
     assert check("var tId,idx; tId=1") == []
     assert check("i++") != [] and check("a=b?1:2") != [] and check("a+b") != []
     assert check("return 1") == [] and check("exit") == []
+    assert check("{a=1}") == [] and check("{a=1}\n// the end") == [] and check("a=1\n{b=2}\nc=3") == []
+    assert check("{}\nif a {b=1}") != [] and check("// a comment first\n{a=1}\nb=2") != [] and check("begin a=1 end b=2") != []
     for f in sys.argv[1:]:
         for line, msg in check(open(f, "rb").read().decode("cp1252", "replace")):
             print("%s:%d: %s" % (f, line, msg))

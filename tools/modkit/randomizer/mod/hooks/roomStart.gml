@@ -127,3 +127,6 @@ if room=rSacredTemple
   with (oInstrument) {instance_destroy()}
   with (oEvExGates) {instrStory=-1}
 }
+//John, in Central City - North where the run starts, left of the archway: talking to him turns debug mode on or off
+//(oRndJohn), for a seed that has the player stuck
+if room=rCCity_NorthA and global.bBossGallery=0 {instance_create(480,288,oRndJohn)}

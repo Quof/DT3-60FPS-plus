@@ -24,8 +24,10 @@ plays with its party split (oPlayerIdle), the Hammer Bros of Stratum Steppe (the
 Metroid rooms (the Metroids are gone past the story), King Worm's map (it waits for every enemy of the room), the
 Nightmare Gates' (the game runs them every time), Bubble Tower B (shut in the Randomizer).
 """
-import os, re, collections
+import os, re, sys, collections
 import rndgen
+sys.path.insert(0, os.path.dirname(rndgen.HERE))
+import gmlcheck
 
 PROJ = rndgen.PROJ
 OBJ_DIR = os.path.join(PROJ, "objects")
@@ -197,11 +199,12 @@ def inner(body, cond):
 
 def drop_statements(code, pat):
     """the statements starting with the pattern (after a line's start, '{' or ';') made an empty block: '{}' (so an if
-    without braces keeps a body); a with (...) {...} statement whole"""
-    def with_block(m):
-        return m.group(1) + m.group(2) + "{}"
-    code = re.sub(r"(^|[{;])([ \t]*)with\s*\(?\s*[^)\n]*%s[^)\n]*\)?\s*\{[^{}]*\}" % pat, with_block, code, flags=re.M)
-    return re.sub(r"(^|[{;])([ \t]*)(?:%s)[^;\n}]*" % pat, lambda m: m.group(1) + m.group(2) + "{}", code, flags=re.M)
+    without braces keeps a body); a with (...) {...} statement whole. One the code starts with is left out instead: to
+    GameMaker 8 a program that starts with a { } block is that block alone (what comes after it doesn't compile)"""
+    def empty(m):
+        return m.group(1) + m.group(2) + ("" if not code[:m.start()].strip() else "{}")
+    code = re.sub(r"(^|[{;])([ \t]*)with\s*\(?\s*[^)\n]*%s[^)\n]*\)?\s*\{[^{}]*\}" % pat, empty, code, flags=re.M)
+    return re.sub(r"(^|[{;])([ \t]*)(?:%s)[^;\n}]*" % pat, empty, code, flags=re.M)
 
 
 def chain(obj):
@@ -363,6 +366,9 @@ def make(ident, obj, cond, opts):
     if "oPlayerIdle" in c or "oMessageCutscene" in c or re.search(r"gamePaused\s*=\s*true", c):
         raise SystemExit("traps: %s has the story's scenes in it" % ident)
     if "rndTrapEnd()" not in c: raise SystemExit("traps: %s: its barriers aren't taken away" % ident)
+    # (code that doesn't compile ends the game as the mod loads: stopped here instead)
+    bad = gmlcheck.check(c)
+    if bad: raise SystemExit("traps: %s's code doesn't compile, line %d of its block: %s" % (ident, bad[0][0], bad[0][1]))
     t.code = c
     # its enemies, and what beats them
     if "enemies" in opts:
@@ -463,7 +469,7 @@ def write_mod(out, traps):
             f.write("//Randomizer: the game's own enemy trap from %s's Step (its block for %s), as traps.py changes it: it\n"
                     "//starts with the player inside its arena (rndTrapIn), ends as its barriers go (rndTrapEnd), and leaves\n"
                     "//the story's own parts out. Made by rndgen.py from the game's code: change traps.py, not this\n"
-                    % (t.obj, t.room) + t.code.strip("\n") + "\n")
+                    % (t.obj, t.room) + re.sub(r"^(?:[ \t]*\n)+", "", t.code).rstrip() + "\n")
         L.append("global.rndTrapRoom[%d]=%s; global.rndTrapObj[%d]=%s; global.rndTrapName[%d]=%s"
                  % (k, t.room, k, name, k, rndgen.gml_str(t.id)))
     return L

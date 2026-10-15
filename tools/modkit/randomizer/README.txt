@@ -10,8 +10,8 @@ hurt once it's found; before, it does) and every ability set (the Mario Ability 
 of Link, Belmont, Mega Man, Samus and the two Gate 6 sets) are shuffled into each other's places when the game starts,
 in layers (see Logic). The Item Finder isn't shuffled: it's where the game has it, and with it Chao shows a ! instead of
 the treasure icon in a map with an ability, an ability set's item or a key. The equipment shops' stock is shuffled
-between the shops. A spoiler log is written to the Saves folder ("Randomizer spoiler log <seed>.txt"), with the
-options and the abilities and keys by layer. As in a new game: tower defense and the Trial Master's cursed trials aren't
+between the shops. A spoiler log is written to the Saves folder's Seeds folder (Saves\Seeds\Randomizer spoiler log
+<seed>.txt), with the options and the abilities and keys by layer. As in a new game: tower defense and the Trial Master's cursed trials aren't
 done (their rewards come from doing them, with the three cursed equipment pieces on; the 7th trial, five of the six
 others done, also gives Central City South's heart container), the shortcuts are shut, and there are no program chips,
 Yoshi dolls or game-completed flag (Bubble Tower B and the Gate 6 DLC stay shut). Nightmare Gate H is left out: its
@@ -53,21 +53,29 @@ Playing
   - Boss Rando: each boss's place (its room; Ridley's and the Parasitic Seed's: the exit the story went into their
     fights by) gets another boss's fight. Walking up to the boss there (as below) starts that boss's fight in its own
     room, the boss gallery's way; won, the player comes back to where the fight started and the place counts as beaten
-    (its heart container is there, a Nightmare Gate's reward too, and it isn't fought again). The 56 bosses fought the
+    (its heart container is there, a Nightmare Gate's reward too, and it isn't fought again). The 54 bosses fought the
     Randomizer's way are shuffled, the Nightmare Gates' seven among them (Kamek, Final Nightmare, Blackmore, Elpizo,
-    Shadow Form, Nightmare, Sephiroth); the CHAOS Warmaster stays the last fight, at the end of the CHAOS Warship. Not in
-    it, as the Randomizer leaves them to the game: the second fights of a room (Death (Legion), Sigma Epsilon, Ridley
-    (Lava), Decimator 20000), the Ridley tunnel chase, the Leviathan road, the Abomination's fight (the gallery's
-    Wahfuu, the instrument quest's end) and the CHAOS Warmaster EX. The items are placed with what each place's fight
-    now takes (roomlogic\bosses.txt has what each fight takes), and the seed is played through before the game starts.
-    The spoiler log lists the fights. A save keeps its shuffle.
+    Shadow Form, Nightmare, Sephiroth); the CHAOS Warmaster stays the last fight, at the end of the CHAOS Warship, and
+    The Executive stays in his own room (his fight needs nothing: below). Not in it, as the Randomizer leaves them to
+    the game: the second fights of a room (Death (Legion), Sigma Epsilon, Ridley (Lava), Decimator 20000), the Ridley
+    tunnel chase, the Leviathan road, the Abomination's fight (the gallery's Wahfuu, the instrument quest's end), the
+    CHAOS Warmaster EX and Hexor (the Distortion's last fight: past the story he's in his room, not fighting). The
+    items are placed with what each place's fight now takes (roomlogic\bosses.txt has what each fight takes), and the
+    seed is played through before the game starts. The spoiler log lists the fights. A save keeps its shuffle.
   - The ability sets' items are progressive: each one is that set's next weapon (Link: Master Sword, Bow & Arrow, Fuse
     Bomb). Swapping characters and sets is always on. The Gate 6 sets only work in Gate 6, as in the game, and in The
-    Executive's fight (the game's own fight gives them; here, the ones the player has found).
+    Executive's fight, which gives both characters both of them whole, as the game's own fight does (his phases are
+    made for them), so it needs nothing of the player's: the logic doesn't count him.
   - Each key opens its own locked door (the message says which area it's in); a door without its key says so.
   - The pause menu's Teleport works anywhere but in a boss fight, and goes to where the game started: Central City -
     North, at the door from Greatest Stretch (the game's own places for it aren't used). It's the way out of anywhere
     the player can't get out of on foot.
+  - John stands in Central City - North, left of the archway (oRndJohn), for a seed that has the player stuck. Talking
+    to him offers the game's debug mode, with a prompt (Turn Debug Mode On / Cancel, in the look of his Turret Defense
+    Game menu; the game waits while it's open). Turned on, he says how to use it: its right-click menu (Activate Mouse
+    Movement: holding the left mouse button, the player goes where Chao is, so anywhere) and its keys (R invincibility).
+    Talking to him again turns it off without asking ("Off it goes."), and what it had turned on (mouse movement,
+    invincibility, always max HP) with it. The game doesn't save it.
   - Enemy traps (traps.py): the story's kill rooms, which shut the player in with barriers till they've beaten waves
     of enemies, happen again, each once: walking into one's arena closes its barriers and starts the game's own fight
     (its enemies, waves and counter); beaten, it's gone for good (the save keeps it). The logic counts each one: its
@@ -107,8 +115,11 @@ Trackers
     attacks with their own pictures, the Game Powers, the instruments, the cursed equipment), and how many of each
     upgrade of how many there are (keys, heart pieces and containers, heart energy, quivers, missile tanks, Game
     Power, air upgrades, weapon upgrades, bomb upgrades, skill points, Internetz mods: the progress page's counts, the
-    general store's included). For a stream: items.html?bg=transparent (or a colour: bg=00ff00), and scale=2 for bigger
-    pictures (items.html?bg=transparent&scale=2).
+    general store's included), and under them the bosses, ten a row in the boss gallery's order, the CHAOS Warmaster
+    (the win) last: each one's head (cut out of its sprites: tracker.py's BOSS_ICONS), lit once it's beaten (with Boss
+    Rando, the boss fought, wherever it was), and the Abomination's once it is. The Executive isn't there (the logic
+    doesn't count him). For a stream: items.html?bg=transparent (or a colour: bg=00ff00), and
+    scale=2 for bigger pictures (items.html?bg=transparent&scale=2).
   The screens' names (tracker_names.txt) are the game's own where it has them: the area banners, the teleport menu's
   places, Gate 4's stage map, the jukebox's titles; a screen's number is its room's own place in its group (a letter
   as its place in the alphabet). Any can be changed there, and a check given a name of its own; then build again.
@@ -142,8 +153,8 @@ Building
   locations.csv and doors.csv. It ends with a check that the placement works for 50 seeds with each option, and how
   many layers they have; then writes the room logic Entrance Rando and Boss Rando make seeds from (data\rndER.txt,
   roomlogic\erflat.py) and makes ten seeds of each of their modes (and Chaos with Boss Rando), each played through;
-  then the trackers' data (tracker\data.js, with the same room logic, and the items' pictures in tracker\icons:
-  tracker.py).
+  then the trackers' data (tracker\data.js, with the same room logic, and the items' pictures and the bosses' heads in
+  tracker\icons: tracker.py).
   python tools\modkit\randomizer\rndgen.py --world-from <save.dts>
   re-reads world.txt (the endgame world's values) from a finished save.
 
@@ -207,10 +218,10 @@ Limits
   - A bounce off a flying enemy (a Paratroopa, Lakitu, Bullet Bill, bat...) counts near where one starts (within a
     screen), once per jump, wherever in its flight it would be needed; the CHAOS soldiers can't be bounced off.
   - A boss needs any attack; one that only some attacks can hurt could hold the game back.
-  - The instruments, the Nightmare Gates' bosses, the Abomination and the Warmaster EX (Fedex) fight are the game's own.
+  - The instruments, the Abomination and the Warmaster EX (Fedex) fight are the game's own.
   - The general store (oOtherShopA) sells what it does in the game; only the equipment shops are shuffled.
   - Story-only rooms that the endgame world doesn't reach (Tranquil Serenity and the like) have no places.
-  - Not in the boss list: the Nightmare Gates' bosses, the Abomination (58), the Warmaster EX room (65), the Ridley
-    tunnel chase (37) and the Leviathan road (41), which aren't fights a room makes, and each room's second boss (Death,
-    Sigma, Ridley and the Decimator have two).
+  - Not in the boss list: the Abomination (58), the Warmaster EX room (65), the Ridley tunnel chase (37) and the
+    Leviathan road (41), which aren't fights a room makes, Hexor (63, the Distortion's last fight), and each room's
+    second boss (Death, Sigma, Ridley and the Decimator have two).
   - A save from an earlier build of the mod doesn't carry over (its items are numbered differently): start a new game.

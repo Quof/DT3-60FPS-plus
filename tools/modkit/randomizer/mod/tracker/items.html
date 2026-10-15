@@ -11,9 +11,9 @@
 <div id="grid"></div>
 <div id="status"></div>
 <script>
-// The Item Tracker: the progression the player has (lit) and hasn't (dark), each ability its own picture, and how many
-// of each upgrade. The game writes state.js; this reads it every second. Options in the address: ?bg=transparent (or
-// a colour: bg=00ff00) for a stream's browser source, ?scale=2 for bigger pictures
+// The Item Tracker: the progression the player has (lit) and hasn't (dark), each ability its own picture, how many
+// of each upgrade, and the bosses beaten (lit). The game writes state.js; this reads it every second. Options in the
+// address: ?bg=transparent (or a colour: bg=00ff00) for a stream's browser source, ?scale=2 for bigger pictures
 (function () {
   "use strict";
   var D = window.DT3_DATA, grid = document.getElementById("grid"), statusEl = document.getElementById("status");
@@ -71,6 +71,22 @@
   });
   cbox.appendChild(crow);
   grid.appendChild(cbox);
+  // the bosses: each one's head, in the boss gallery's order, ten a row (pictures only)
+  var bosses = [], bcount = null;
+  if (D.bosses && D.bosses.length) {
+    var bbox = el("div", "grp bosses"), btitle = el("div", "t", "Bosses "), brow = el("div", "row");
+    bcount = el("span", "n");
+    btitle.appendChild(bcount);
+    bbox.appendChild(btitle);
+    D.bosses.forEach(function (b) {
+      var c = el("div", "it boss off");
+      c.appendChild(img({src: b.src, w: 32, h: 32}, 32, 32));
+      brow.appendChild(c);
+      bosses.push(c);
+    });
+    bbox.appendChild(brow);
+    grid.appendChild(bbox);
+  }
 
   function ones(s, lo, hi) {
     var n = 0;
@@ -113,6 +129,14 @@
         c.lv.style.display = n > 0 ? "" : "none";
       }
     });
+    if (bosses.length) {
+      var beat = S ? DT3.bossesBeaten(D, S) : [], k = 0;
+      bosses.forEach(function (c, i) {
+        c.className = "it boss" + (beat[i] ? "" : " off");
+        if (beat[i]) { k++; }
+      });
+      bcount.textContent = k + "/" + bosses.length;
+    }
   }
   update(null);
   DT3.watch(update);

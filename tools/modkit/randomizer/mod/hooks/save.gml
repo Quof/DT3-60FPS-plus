@@ -9,6 +9,8 @@ if global.rndActive=1
   ini_write_string(s,"place",global.rndPlace)
   ini_write_string(s,"got",global.rndGot)
   ini_write_string(s,"boss",global.rndBossDone)
+  //(the boss list's types, in its order: a build with another boss list reads the beaten bosses by type)
+  ini_write_string(s,"bosstypes",global.rndBossTypes)
   ini_write_string(s,"own",rndOwnString())
   ini_write_string(s,"keys",global.rndKeyOwn)
   ini_write_string(s,"eshop",global.rndEShopStr)

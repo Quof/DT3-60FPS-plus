@@ -423,7 +423,8 @@ def with_events(alts, events):
     there: never)"""
     out = []
     for a in alts:
-        evs = [o for o in a.o if o.startswith("event:")]
+        # (in order by name: a frozenset's order changes from run to run, and the alternatives come out in this order)
+        evs = sorted(o for o in a.o if o.startswith("event:"))
         if not evs: add(out, a); continue
         base = [Need(a.c, a.k, a.o - frozenset(evs))]
         for e in evs: base = product(base, events.get(e[6:], []))
@@ -516,7 +517,9 @@ def solve(rooms, conn, options=frozenset(), carry=True, events=None):
         for i, g in enumerate(groups):
             if g in conn.scope: scopes.setdefault(conn.scope[g], []).append(i)
     parked = {sc: {tuple(start_gs[i] for i in ix): [NOTHING]} for sc, ix in scopes.items()}
-    crossings = {sc: set() for sc in scopes}     # the nodes with a way into the scope's rooms
+    # the nodes with a way into the scope's rooms, in the order found (gone on from again in that order: a set's order
+    # changes from run to run, and with it the order the alternatives come out in)
+    crossings = {sc: collections.OrderedDict() for sc in scopes}
 
     def outside(name, gs):
         """the states with the scopes the room is outside of parked"""
@@ -557,7 +560,7 @@ def solve(rooms, conn, options=frozenset(), carry=True, events=None):
                             if c not in queued: queue.append(c); queued.add(c)
                     nexts = [(tuple("*" if i in ix else v for i, v in enumerate(g)), pre) for g, pre in nexts]
                 elif b_in and not a_in:
-                    crossings[sc].add(node)
+                    crossings[sc][node] = True
                     nexts = [(tuple(dict(zip(ix, vals)).get(i, v) for i, v in enumerate(g)), pv if pre is None else product(pre, pv))
                              for g, pre in nexts for vals, pv in list(parked[sc].items())]
             for g, pre in nexts:

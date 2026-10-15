@@ -1,9 +1,12 @@
-//Randomizer: the spoiler log, in the Saves folder: the seed and options, where each ability and key is (by layer; the
-//instruments too with Instrument Randomization), every location's item, the equipment shops' stock, with Boss Rando the
-//boss fought at each boss's place, and with Entrance Rando where each shuffled door leads
+//Randomizer: the spoiler log, in the Saves folder's Seeds folder (made if it isn't there): the seed and options, where
+//each ability and key is (by layer; the instruments too with Instrument Randomization), every location's item, the
+//equipment shops' stock, with Boss Rando the boss fought at each boss's place, and with Entrance Rando where each
+//shuffled door leads
 var f,i,k,it,dir,tLay,tMax,tAny,tStr,d,p;
 dir=working_directory+"\"
 if variable_global_exists("saveDir") {dir=global.saveDir}
+dir+="Seeds\"
+if !directory_exists(dir) {directory_create(dir)}
 f=file_text_open_write(dir+"Randomizer spoiler log "+string(global.rndSeed)+".txt")
 file_text_write_string(f,"DT3+ Randomizer, seed "+string(global.rndSeed)); file_text_writeln(f)
 tStr="Options: Guarantee Early Weapons "

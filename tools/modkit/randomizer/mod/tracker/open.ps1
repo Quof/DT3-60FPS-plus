@@ -7,7 +7,7 @@ param([switch]$OnTop)
 # the page's own pixels (Windows' display scaling is added). Change the sizes here
 $windows = @(
   @{ Page = 'checks.html'; Title = 'DT3+ Check Tracker'; Width = 620; Height = 560 },
-  @{ Page = 'items.html';  Title = 'DT3+ Item Tracker';  Width = 470; Height = 358 }
+  @{ Page = 'items.html';  Title = 'DT3+ Item Tracker';  Width = 470; Height = 645 }
 )
 
 Add-Type @"

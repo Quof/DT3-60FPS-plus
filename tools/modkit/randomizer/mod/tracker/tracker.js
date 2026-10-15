@@ -1,6 +1,7 @@
 // DT3+ Randomizer trackers: what checks.html and items.html share. The game writes state.js (the mod's rndTrackWrite:
 // window.DT3_STATE, what the player has and has taken, the seed's options and shuffles) whenever it changes; the pages
-// load it again every second. data.js (rndgen.py's tracker.py) has the checks, the room logic's tables and the items.
+// load it again every second. data.js (rndgen.py's tracker.py) has the checks, the room logic's tables, the items and
+// the bosses.
 (function () {
   "use strict";
   var DT3 = window.DT3 = {};
@@ -205,13 +206,7 @@
         part[i] = p >= 0 && p < nEnds ? p : -1;
       }
     }
-    for (i = 0; i < L.bossN; i++) { fight.push(i); }
-    if (S.br > 0 && S.brfight && S.brfight.length === L.bossN * 2) {
-      for (i = 0; i < L.bossN; i++) {
-        var b = parseInt(S.brfight.substr(i * 2, 2), 10);
-        if (b >= 0 && b < L.bossN) { fight[i] = b; }
-      }
-    }
+    fight = DT3.fights(D, S);
     var ir = S.ir > 0;
     var R = DT3.reach(L, part, have, fight, ir);
     // (every progression item: what a check the logic gives no progression to is in logic with)
@@ -219,6 +214,31 @@
     for (i = 0; i < list.length; i++) { if ((have[list[i][0]] || 0) < list[i][1]) { every = false; } }
     return {R: R, every: every};
   }
+
+  // the boss fought at each boss's place (Boss Rando's shuffle; else each its own)
+  DT3.fights = function (D, S) {
+    var n = D.logic.bossN, fight = [], i;
+    for (i = 0; i < n; i++) { fight.push(i); }
+    if (S.br > 0 && S.brfight && S.brfight.length === n * 2) {
+      for (i = 0; i < n; i++) {
+        var b = parseInt(S.brfight.substr(i * 2, 2), 10);
+        if (b >= 0 && b < n) { fight[i] = b; }
+      }
+    }
+    return fight;
+  };
+
+  // whether each of the Item Tracker's bosses (data.js's bosses) is beaten: a boss, when the place it was fought at
+  // is (rndBossDone: the places, the boss fought there by Boss Rando's shuffle); the Abomination, by gateHProg
+  DT3.bossesBeaten = function (D, S) {
+    var fight = DT3.fights(D, S), beaten = {}, out = [], i;
+    for (i = 0; i < fight.length; i++) { if (ch(S.boss, i) === "1") { beaten[fight[i]] = true; } }
+    for (i = 0; i < D.bosses.length; i++) {
+      var slot = D.bosses[i].slot;
+      out.push(slot >= 0 ? !!beaten[slot] : (S.gateh || 0) >= 200);
+    }
+    return out;
+  };
 
   // ---------------------------------------------------------------- the state file
   // onState(state or null) whenever it changes; null while there's none (the game hasn't written one yet)

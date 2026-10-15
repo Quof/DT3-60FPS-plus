@@ -8,6 +8,11 @@ if global.rndActive=1
   global.rndPlace=ini_read_string(s,"place","")
   global.rndGot=ini_read_string(s,"got","")
   global.rndBossDone=ini_read_string(s,"boss","")
+  //(the beaten bosses by type, when the save's boss list isn't this build's; a save from before the list was kept has
+  //the one the builds before it had: rndgen's BOSS_TYPES_OLD)
+  var tTypes;
+  tTypes=ini_read_string(s,"bosstypes",global.rndBossTypesOld)
+  if tTypes!=global.rndBossTypes {global.rndBossDone=rndBossFromTypes(global.rndBossDone,tTypes)}
   rndOwnFromString(ini_read_string(s,"own",""))
   global.rndKeyOwn=ini_read_string(s,"keys","")
   global.rndEShopStr=ini_read_string(s,"eshop","")
