@@ -1,5 +1,6 @@
 //Randomizer: the spoiler log, in the Saves folder: the seed and options, where each ability and key is (by layer), every
-//location's item, the equipment shops' stock, and with Entrance Rando where each shuffled door leads
+//location's item, the equipment shops' stock, with Boss Rando the boss fought at each boss's place, and with Entrance
+//Rando where each shuffled door leads
 var f,i,k,it,dir,tLay,tMax,tAny,tStr,d,p;
 dir=working_directory+"\"
 if variable_global_exists("saveDir") {dir=global.saveDir}
@@ -16,6 +17,8 @@ if global.rndERMode=1 {tStr+="Gate Swap"}
 else if global.rndERMode=2 {tStr+="Overworld"}
 else if global.rndERMode=3 {tStr+="Chaos"}
 else {tStr+="Off"}
+tStr+=", Boss Rando "
+if global.rndBRMode=1 {tStr+="On"} else {tStr+="Off"}
 file_text_write_string(f,tStr); file_text_writeln(f)
 file_text_write_string(f,"(this seed with these options places the items the same way again: type seed"+string(global.rndSeed)+" on the title screen, or choose it in the new game's options)"); file_text_writeln(f)
 file_text_write_string(f,"Win: the 8 instruments (the Nightmare Gates' bosses, then the Sacred Temple), the Abomination, then the Warmaster (his door appears in Grand Rising)."); file_text_writeln(f)
@@ -51,6 +54,22 @@ for(k=0;k<global.rndEShopN;k+=1)
 {
   equipmentInit(2,global.rndEShopNew[k])
   file_text_write_string(f,"  "+global.rndEShopRoom[k]+" slot "+string(global.rndEShopSlot[k]+1)+"  -  "+equipCheck[1]); file_text_writeln(f)
+}
+if global.rndBRMode=1
+{
+  //each boss's place (its room) and the boss fought there
+  file_text_writeln(f)
+  file_text_write_string(f,"Bosses (walking up to a boss in its room starts the fight of the boss listed for it, in that boss's own room)"); file_text_writeln(f)
+  for(d=0;d<global.rndBossN;d+=1)
+  {
+    if d!=global.rndBossFinal
+    {
+      //(Ridley's and the Parasitic Seed's: the exit the story went into their fights by)
+      if global.rndBossViaFrom[d]>=0 {tStr="the way from "+room_get_name(global.rndBossViaFrom[d])+" to "+room_get_name(global.rndBossViaTo[d])}
+      else {tStr=room_get_name(global.rndBossRoom[d])}
+      file_text_write_string(f,"  "+global.rndBossName[d]+"'s place ("+tStr+")  -  "+global.rndBossName[global.rndBRFight[d]]); file_text_writeln(f)
+    }
+  }
 }
 if global.rndERMode>0
 {

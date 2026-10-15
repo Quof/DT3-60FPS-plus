@@ -309,9 +309,9 @@ def locations_items():
     return rooms, anames, rarea, locs, doors, shops, door_list, door_order, rows, items, drop
 
 
-def build(out, rooms, anames, rarea, locs, doors, shops, door_list, door_order, rows, items, drop):
-    """the mod, in out, from the locations and items (locations_items)"""
-    # ---- bosses (rBossGallery's doors)
+def boss_list():
+    """the bosses fought the randomizer's way (rBossGallery's doors): [(type, room, the gallery's x, y, name)], in
+    type order (their place in it: the mod's boss numbers)"""
     bosses = []
     seen_rooms = set()
     for obj, x, y, hexid, code in instances("rBossGallery"):
@@ -328,6 +328,19 @@ def build(out, rooms, anames, rarea, locs, doors, shops, door_list, door_order, 
         if not os.path.exists(rc) or not re.search(r"bossTrack\s*=\s*1", read(rc)): continue
         seen_rooms.add(room)
         blist.append((t, room, bx, by, name))
+    return blist
+
+
+def boss_slots(blist):
+    """the bosses as the room logic has them (roomlogic\\erflat.py: Boss Rando's places): [(type, room, (the via exit's
+    room, the room it leads to) or None, whether it's the final boss)]"""
+    return [(t, room, BOSS_VIA.get(t), t == BOSS_FINAL) for t, room, bx, by, name in blist]
+
+
+def build(out, rooms, anames, rarea, locs, doors, shops, door_list, door_order, rows, items, drop):
+    """the mod, in out, from the locations and items (locations_items)"""
+    # ---- bosses (rBossGallery's doors)
+    blist = boss_list()
     bidx = {t: i for i, (t, room, bx, by, name) in enumerate(blist)}
     if BOSS_FINAL not in bidx: raise SystemExit("the final boss (type %d) isn't in the boss list" % BOSS_FINAL)
     # where each fight starts (the room code's bossTrack part puts the player there; else the gallery's place): the
@@ -500,36 +513,41 @@ def build(out, rooms, anames, rarea, locs, doors, shops, door_list, door_order, 
         depth = [max(p[0] for p in r) + 1 for r in ok]
         print("placement check, %s: %d of 50 seeds placed, layers %d to %d (average %.1f)"
               % (label, len(ok), min(depth), max(depth), sum(depth) / len(depth)))
-    er_check(rows, items, out)
+    er_check(rows, items, out, boss_slots(blist))
     ap_export(rows, items, door_order, doors, rarea, anames, out)
 
 
-def er_check(rows, items, out):
-    """Entrance Rando: the door data the mod reads (data\\rndER.txt: roomlogic\\erflat.py), and seeds of each mode made
-    as the mod makes them (the doors shuffled, every place and the goal reached with everything, the items placed with
-    what the doors reach, the seed played through), so a mode whose seeds can't be made shows up here"""
+def er_check(rows, items, out, bosses):
+    """Entrance Rando and Boss Rando: the room logic the mod works seeds out from (data\\rndER.txt: roomlogic\\erflat.py),
+    and seeds made as the mod makes them (the doors shuffled, every place and the goal reached with everything, the
+    bosses shuffled, the items placed with what the doors and bosses let through, the seed played through), so a mode
+    whose seeds can't be made shows up here"""
     import random
     sys.path.insert(0, os.path.join(HERE, "roomlogic"))
     import erflat
-    f, w, pairs, digest, bp, hv = erflat.build_data(rows, os.path.join(out, "data", "rndER.txt"))
-    print("Entrance Rando: door data written (%d doors, %d rooms; hash %s)" % (len(f.ends) // 2, len(f.rnames), digest))
-    for label, bit in (("Gate Swap", 1), ("Overworld", 2), ("Chaos", 4)):
+    f, w, pairs, digest, bp, hv = erflat.build_data(rows, os.path.join(out, "data", "rndER.txt"), bosses)
+    print("room logic data written: Entrance Rando %d doors, %d rooms (hash %s); Boss Rando %d bosses shuffled"
+          % (len(f.ends) // 2, len(f.rnames), digest, sum(f.boss_shuf)))
+    for label, bit, br in (("Gate Swap", 1, False), ("Overworld", 2, False), ("Chaos", 4, False),
+                           ("Boss Rando", 0, True), ("Chaos with Boss Rando", 4, True)):
         tries = 0
         for seed in range(10):
             for t in range(60):
                 tries += 1
                 rng = random.Random(seed * 1000 + t)
-                part = erflat.shuffle(f, bit, rng)
-                if part is None or not erflat.everything_ok(f, part, hv, bp): continue
-                placed = erflat.fill(f, part, rows, items, rng)
+                part = erflat.shuffle(f, bit, rng) if bit else [-1] * len(f.ends)
+                if part is None: continue
+                fight = erflat.br_shuffle(f, rng) if br else None
+                if bit and not erflat.everything_ok(f, part, hv, bp, fight): continue
+                placed = erflat.fill(f, part, rows, items, rng, fight=fight)
                 if placed is None: continue
-                if not erflat.playthrough(f, part, placed, rows, items):
-                    raise SystemExit("Entrance Rando %s: a seed made can't be played through" % label)
+                if not erflat.playthrough(f, part, placed, rows, items, fight):
+                    raise SystemExit("%s: a seed made can't be played through" % label)
                 break
             else:
-                raise SystemExit("Entrance Rando %s: no shuffle worked out in 60 tries (seed %d)" % (label, seed))
-        print("Entrance Rando check, %s: %d doors shuffled; 10 seeds made in %d tries, each played through"
-              % (label, sum(1 for e in f.ends if e["mode"] & bit) // 2, tries))
+                raise SystemExit("%s: no seed worked out in 60 tries (seed %d)" % (label, seed))
+        what = "%d doors shuffled; " % (sum(1 for e in f.ends if e["mode"] & bit) // 2) if bit else ""
+        print("seed check, %s: %s10 seeds made in %d tries, each played through" % (label, what, tries))
 
 
 # ---------------------------------------------------------------- Archipelago

@@ -1,7 +1,8 @@
 //Randomizer: a row instance tried (argument0: row*rndEGsN+state): gone through if what it takes is had (an exit's way
 //on, a place reached, a spot's event), else filed under what it lacks (rndERFile). An exit's way also takes the fight of
-//the room it goes into (another room's boss) and what going through it takes on top (a via, overrides' need)
-var inst,gs,q,ri,tKind,t,af,ac,g2,tLeave,i,g,n,tTo,tr,bf,bc,ok1,ok2,ok3,nf,c,j,cv;
+//the room it goes into (another room's boss) and what going through it takes on top (a via, overrides' need); a boss's
+//room or via exit, the fight of the boss fought there (Boss Rando: rndBRFight)
+var inst,gs,q,ri,tKind,t,af,ac,g2,tLeave,i,g,n,tTo,tr,bf,bc,xf,xc,s,ok1,ok2,ok3,nf,c,j,cv;
 inst=argument0
 q=inst div global.rndEGsN
 gs=inst mod global.rndEGsN
@@ -31,10 +32,18 @@ if tKind=1
   tr=global.rndEERoom[tTo]
   bf=-1
   bc=0
-  if tr!=ri {bf=global.rndERBossF[tr]; bc=global.rndERBossC[tr]}
+  if tr!=ri
+  {
+    s=global.rndERSlot[tr]
+    if s>=0 {s=global.rndBRFight[s]; bf=global.rndEBReqF[s]; bc=global.rndEBReqC[s]}
+    else {bf=global.rndERBossF[tr]; bc=global.rndERBossC[tr]}
+  }
+  s=global.rndEXSlot[t]
+  if s>=0 {s=global.rndBRFight[s]; xf=global.rndEBReqF[s]; xc=global.rndEBReqC[s]}
+  else {xf=global.rndEXExF[t]; xc=global.rndEXExC[t]}
   ok1=rndERLack(af,ac,global.rndRLk1)
   ok2=rndERLack(bf,bc,global.rndRLk2)
-  ok3=rndERLack(global.rndEXExF[t],global.rndEXExC[t],global.rndRLk3)
+  ok3=rndERLack(xf,xc,global.rndRLk3)
   nf=(ok1=0)+(ok2=0)+(ok3=0)
   if nf>0 {rndERFile(q,gs,nf=1); exit}
   rndERPassed(q,gs)

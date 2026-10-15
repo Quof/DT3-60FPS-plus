@@ -139,9 +139,20 @@ for(i=0;i<global.rndEEN;i+=1)
   global.rndELocsN[i]=rndERRead(f)
   for(j=0;j<global.rndELocsN[i];j+=1) {global.rndELocs[i,j]=rndERRead(f)}
 }
+//Boss Rando: each boss's fight's needs (its alternatives) and whether it's shuffled (the final boss isn't); each room's
+//and exit's boss (its room, its via exit; -1: none). rndERTry takes the fight of the boss fought there (rndBRFight)
+global.rndEBN=rndERRead(f)
+for(i=0;i<global.rndEBN;i+=1)
+{
+  global.rndEBReqF[i]=rndERRead(f)
+  global.rndEBReqC[i]=rndERRead(f)
+  global.rndEBShuf[i]=rndERRead(f)
+}
+for(i=0;i<global.rndERN;i+=1) {global.rndERSlot[i]=rndERRead(f)}
+for(i=0;i<global.rndEXN;i+=1) {global.rndEXSlot[i]=rndERRead(f)}
 v=rndERReadS(f)
 file_text_close(f)
-if v!="END" or global.rndELocN!=global.rndLocN {return 0}
+if v!="END" or global.rndELocN!=global.rndLocN or global.rndEBN!=global.rndBossN {return 0}
 //the requirement numbers there are (items, keys, events)
 global.rndEReqN=global.rndEEvBase+global.rndEVN
 //each row's entry (a row belongs to one way of one entry: a row instance is row*rndEGsN+state)

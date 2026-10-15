@@ -34,6 +34,16 @@ if global.rndActive=1
     }
     else {rndERMapBuild()}
   }
+  //Boss Rando: the shuffle back, if this build's bosses are the ones it was made with
+  global.rndBRMode=ini_read_real(s,"br",0)
+  if global.rndBRMode=1
+  {
+    if ini_read_string(s,"brtypes","")!=rndBRString(1) or rndBRFromString(ini_read_string(s,"brfight",""))=0
+    {
+      global.rndBRMode=0
+      show_message("Randomizer: this game's bosses were shuffled (Boss Rando) with another build's bosses, so the shuffle can't be put back. Each boss is fought in its own place.")
+    }
+  }
   //a save from a build with other data: what's missing reads as not got yet
   if string_length(global.rndGot)<global.rndLocN {global.rndGot+=string_repeat("0",global.rndLocN-string_length(global.rndGot))}
   if string_length(global.rndBossDone)<global.rndBossN {global.rndBossDone+=string_repeat("0",global.rndBossN-string_length(global.rndBossDone))}

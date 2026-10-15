@@ -11,12 +11,13 @@ if !variable_global_exists("rndLocN")
   global.rndNextSeed=-1
   //the new game's options (oRndOptions), as last chosen (DT3Options.dts, section Randomizer): Guarantee Early Weapons
   //(rndGenerate), Ability Spread (0 Near, 1 Normal, 2 Far: rndGenerate), the equipment shops shuffled, Entrance Rando
-  //(0 Off, 1 Gate Swap, 2 Overworld, 3 Chaos) and the spoiler log written (rndNewGame)
+  //(0 Off, 1 Gate Swap, 2 Overworld, 3 Chaos), Boss Rando (0 Off, 1 On) and the spoiler log written (rndNewGame)
   ini_open(global.saveDir+"DT3Options.dts")
   global.rndOptWeapons=ini_read_real("Randomizer","weapons",0)
   global.rndOptSpread=ini_read_real("Randomizer","spread",1)
   global.rndOptShops=ini_read_real("Randomizer","shops",1)
   global.rndOptER=ini_read_real("Randomizer","er",0)
+  global.rndOptBR=ini_read_real("Randomizer","br",0)
   global.rndOptLog=ini_read_real("Randomizer","log",1)
   ini_close()
   //Archipelago: the next new game is an Archipelago game (the title screen's code 'ap'), and the folder where the game
@@ -47,12 +48,18 @@ global.rndApLocLoaded=0
 global.rndVersion=2
 global.rndActive=0
 //the entrance randomizer: off, or the mode the game's doors are shuffled in (1 Gate Swap, 2 Overworld, 3 Chaos: its
-//doors in the game, rndERMapBuild and rndERApplyExit)
+//doors in the game, rndERMapBuild and rndERApplyExit). Boss Rando: off or on, and the boss fought at each boss's place
+//(rndBRFight: its own when off; rndBossStart). rndReach: rndGenerate works out what the items reach from the rooms
+//(rndERReachStart: while a new game's seed with either is made)
 global.rndERMode=0
+global.rndBRMode=0
+global.rndReach=0
+for(i=0;i<global.rndBossN;i+=1) {global.rndBRFight[i]=i}
 global.rndSeed=0
 global.rndWon=0
 global.rndWorldProg=5641 //past every story event (5640 is the Hexor fight's)
 global.rndFight=-1
+global.rndFightSlot=-1
 global.rndRoomBoss=-1 //the boss whose room the player is in, not beaten yet (the roomStart hook), or -1
 global.rndRoomSide=0
 global.rndFightLastX=0

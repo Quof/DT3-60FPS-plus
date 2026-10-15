@@ -15,7 +15,8 @@ if global.rndActive=1
     }
     //in the room of a boss not beaten yet (the roomStart hook): the player walking up to where its fight starts (level
     //with it, and reaching it from the side they came in on), or one that starts as the room's come into, starts it.
-    //The room starts again with the fight in it, the player where it starts
+    //The room starts again with the fight in it, the player where it starts (with Boss Rando, the fight of the boss
+    //fought there: its own room)
     else if global.rndRoomBoss>=0 and global.bBossGallery=0 and global.gamePaused=false
     {
       var b,tGo;
@@ -31,11 +32,12 @@ if global.rndActive=1
       {
         global.rndRoomBoss=-1
         rndBossStart(b,room,-1,-1)
-        global.newMapX=global.rndBossX[b]
-        global.newMapY=global.rndBossY[b]
+        global.newMapX=global.rndBossX[global.rndFight]
+        global.newMapY=global.rndBossY[global.rndFight]
         with (oPlayer1) {writeToPlayerGlobals()}
         transition_kind=0
-        room_restart()
+        if global.rndBossRoom[global.rndFight]=room {room_restart()}
+        else {room_goto(global.rndBossRoom[global.rndFight])}
       }
     }
   }

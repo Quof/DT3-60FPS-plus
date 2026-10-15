@@ -6,10 +6,11 @@
 //Archipelago game (the title screen's code 'ap', with the DT3+ Client connected) has its items in the multiworld
 //instead: none are placed here, its checks go to the client and its items come from it (rndApStart, rndApPoll).
 //With the option Entrance Rando (global.rndOptER: 1 Gate Swap, 2 Overworld, 3 Chaos), the mode's doors are shuffled
-//first (rndERShuffle), and a shuffle is kept only if with everything it reaches every place the game's own doors do and
-//the goal (rndEREverything), the items can be placed with what it reaches (rndGenerate) and the seed plays through
+//first (rndERShuffle); with Boss Rando (rndOptBR), the bosses (rndBRShuffle). A shuffle is kept only if with everything
+//it reaches every place the game's own doors do and the goal (rndEREverything: the doors), the items can be placed with
+//what the doors and bosses let through (rndGenerate, with the room logic's reach) and the seed plays through
 //(rndERPlay); else another is tried. Not with Archipelago
-var tTry,tOk,tER,tBit;
+var tTry,tOk,tER,tBR,tBit,tGo,d,i;
 rndWorld()
 global.CHAOS_Invasion=0
 global.CHAOS_Upgrade=0
@@ -53,18 +54,21 @@ if global.rndAP=0
   else {global.rndSeed=irandom(999999)}
   global.rndNextSeed=-1
   tOk=0
-  //the entrances shuffled, and the items placed with them
+  //the entrances and the bosses shuffled, and the items placed with them
   global.rndERMode=0
+  global.rndBRMode=0
   tER=global.rndOptER
-  if tER>0
+  tBR=global.rndOptBR
+  if tER>0 or tBR>0
   {
     if rndERLoad()=0
     {
-      show_message("Randomizer: Entrance Rando needs the mod's door data (data\rndER.txt), which isn't there or doesn't fit this build. The entrances are left as they are.")
+      show_message("Randomizer: Entrance Rando and Boss Rando need the mod's room logic data (data\rndER.txt), which isn't there or doesn't fit this build. The entrances and the bosses are left as they are.")
       tER=0
+      tBR=0
     }
   }
-  if tER>0
+  if tER>0 or tBR>0
   {
     tBit=1
     if tER=2 {tBit=2}
@@ -73,20 +77,33 @@ if global.rndAP=0
     {
       random_set_seed(global.rndSeed+tTry*7919)
       io_handle()
-      if rndERShuffle(tBit)=1
+      tGo=1
+      if tER>0 {tGo=rndERShuffle(tBit)}
+      else {for(d=0;d<global.rndEDN;d+=1) {global.rndERPart[d]=-1}}
+      if tGo=1
       {
-        io_handle()
-        if rndEREverything()=1
-        {
-          global.rndERMode=tER
-          if rndGenerate()=1 {tOk=rndERPlay()}
-          if tOk=0 {global.rndERMode=0}
-        }
+        if tBR>0 {rndBRShuffle()}
+        if tER>0 {io_handle(); tGo=rndEREverything()}
+      }
+      if tGo=1
+      {
+        global.rndReach=1
+        if rndGenerate()=1 {tOk=rndERPlay()}
+        global.rndReach=0
       }
     }
     rndERFree()
-    if tOk=1 {rndERMapBuild()}
-    else {show_message("Randomizer: no shuffle of the entrances worked out for seed "+string(global.rndSeed)+" (60 were tried). The entrances are left as they are.")}
+    if tOk=1
+    {
+      global.rndERMode=tER
+      global.rndBRMode=tBR
+      if tER>0 {rndERMapBuild()}
+    }
+    else
+    {
+      for(i=0;i<global.rndBossN;i+=1) {global.rndBRFight[i]=i}
+      show_message("Randomizer: no shuffle of the entrances and bosses worked out for seed "+string(global.rndSeed)+" (60 were tried). They're left as they are.")
+    }
   }
   if tOk=0
   {

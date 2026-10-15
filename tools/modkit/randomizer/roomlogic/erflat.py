@@ -15,6 +15,7 @@ The tables (all numbers; "first"/"count" index a flat list):
   events      what makes each happen (a room or an area got into, and what else it takes there)
   ends        the doors' ends (exit, way back in, the modes they're in, the game's own partner)
   everything  from each entry, with everything: the exits and places it gets to (for making a shuffle)
+  bosses      Boss Rando: each of the mod's bosses' fight (what it takes) and places (its room, its via exit)
 Requirements: a list of (number, count): a progression item (rndgen's prog_of numbers), a key (KEY_BASE+objectNum), or
 an event (EV_BASE+event).
 """
@@ -32,8 +33,9 @@ class Flat:
     pass
 
 
-def export(w, pairs, rows):
-    """the tables, from er.py's World (rooms, connections, overrides, bosses, events), the doors and rndgen's rows"""
+def export(w, pairs, rows, bosses=()):
+    """the tables, from er.py's World (rooms, connections, overrides, bosses, events), the doors, rndgen's rows and its
+    bosses (rndgen.boss_slots: the mod's boss numbers' type, room, via and whether it's the final boss)"""
     import rndgen
     f = Flat()
     KB = rndgen.KEY_BASE
@@ -179,6 +181,38 @@ def export(w, pairs, rows):
                 elif target[0] == "loc" and (target[1], target[2]) in loc_index: locs.add(loc_index[(target[1], target[2])])
         f.ev_outs.append(sorted(outs)); f.ev_locs.append(sorted(locs))
     f.loc_n = len(rows)
+    # Boss Rando: each of the mod's bosses (its boss numbers), what its fight takes (going into its room from another,
+    # bosses.txt), and the places it's fought: its room, and for one the story went into another way its via exit (the
+    # fight going through it starts). A shuffled boss's places take the fight of the boss fought there instead (Reach's
+    # fight); the final boss isn't shuffled
+    def content(fc):
+        first, cnt = fc
+        return sorted(tuple(sorted((f.req_ix[k], f.req_c[k]) for k in range(f.alt_first[a], f.alt_first[a] + f.alt_count[a])))
+                      for a in range(first, first + cnt))
+    f.boss_n = len(bosses)
+    f.boss_req, f.boss_shuf = [], []
+    f.room_slot = [-1] * len(f.rnames)
+    f.exit_slot = [-1] * len(f.exits)
+    for i, (t, room, via, final) in enumerate(bosses):
+        req = None
+        if room in rix and f.room_boss[rix[room]][0] >= 0: req = f.room_boss[rix[room]]
+        vx = None
+        if via:
+            for (rm, o), to in w.conn.links.items():
+                if rm == via[0] and to[0] == via[1] and (rm, o) in w.conn.via:
+                    if (rm, o) in w.conn.need: raise SystemExit("erflat: boss %d's via exit (%s out %s) needs more than the fight" % (t, rm, o))
+                    vx = xix[(rm, o)]
+            if vx is None: raise SystemExit("erflat: boss %d's via exit (%s to %s) isn't a via in connections.txt" % (t, via[0], via[1]))
+            if req is None: req = f.exit_extra[vx]
+            elif content(req) != content(f.exit_extra[vx]):
+                raise SystemExit("erflat: boss %d's room and its via exit need different things (bosses.txt)" % t)
+        if req is None:
+            raise SystemExit("erflat: boss %d (%s): its room isn't a boss room in the logic and it has no via" % (t, room))
+        f.boss_req.append(req)
+        f.boss_shuf.append(0 if final else 1)
+        if not final:
+            if room in rix: f.room_slot[rix[room]] = i
+            if vx is not None: f.exit_slot[vx] = i
     return f
 
 
@@ -207,9 +241,11 @@ class Reach:
     """the reach of a set of items with a door shuffle (part: end -> its partner end, -1 for the game's own), from the
     start, worked out as items are added. A row that can't be gone through yet waits under each requirement it lacks
     (wait), and is tried again only when one of them comes (add); single counts the rows one more of a requirement would
-    let through (rndGenerateER's choice of item)"""
-    def __init__(self, f, part, have):
+    let through (rndGenerate's choice of item). fight: Boss Rando's bosses, the boss fought at each boss's places (None:
+    each its own)"""
+    def __init__(self, f, part, have, fight=None):
         self.f = f; self.part = part; self.have = have      # have: {number: count} (items, keys, events)
+        self.fight = fight if fight is not None else list(range(f.boss_n))
         self.seen = set(); self.queue = collections.deque()
         self.room_in = set(); self.places = set(); self.parked = set()
         self.cross = []
@@ -349,8 +385,13 @@ class Reach:
             to = self.dest(t, g2)
             if to < 0: return
             tr = f.entries[to][0]
-            bf, bc = f.room_boss[tr] if tr != ri else (-1, 0)
-            xf, xc = f.exit_extra[t]
+            # (a boss's room come into, or its via exit: the fight of the boss fought there)
+            bf, bc = -1, 0
+            if tr != ri:
+                s = f.room_slot[tr]
+                bf, bc = f.boss_req[self.fight[s]] if s >= 0 else f.room_boss[tr]
+            s = f.exit_slot[t]
+            xf, xc = f.boss_req[self.fight[s]] if s >= 0 else f.exit_extra[t]
             l1, l2, l3 = self.lacks(af, ac), self.lacks(bf, bc), self.lacks(xf, xc)
             parts = [l for l in (l1, l2, l3) if l is not None]
             if parts:
@@ -503,17 +544,29 @@ def shuffle(f, mode_bit, rng):
     return part
 
 
-# ---------------------------------------------------------------- the items (the mod's rndGenerateER)
-def fill(f, part, rows, items, rng, weapons=False, newest=0.7):
-    """the progression items placed as the mod's rndGenerate does with the entrance randomizer on (each step as it is
-    there, the reach worked out with the doors): [(layer, location, item)] or None"""
+# ---------------------------------------------------------------- Boss Rando (the mod's rndBRShuffle)
+def br_shuffle(f, rng):
+    """the bosses shuffled: fight[boss] = the boss fought at its places (the final boss: its own)"""
+    sh = [i for i in range(f.boss_n) if f.boss_shuf[i]]
+    order = list(sh)
+    fy(order, rng)
+    fight = list(range(f.boss_n))
+    for s, b in zip(sh, order): fight[s] = b
+    return fight
+
+
+# ---------------------------------------------------------------- the items (the mod's rndGenerate)
+def fill(f, part, rows, items, rng, weapons=False, newest=0.7, fight=None):
+    """the progression items placed as the mod's rndGenerate does with the room logic's reach (Entrance Rando, Boss
+    Rando: each step as it is there, the reach worked out with the doors and the bosses): [(layer, location, item)] or
+    None"""
     import rndgen
     N = len(rows)
     nreq = rndgen.KEY_BASE + 64
     prog = [i for i, it in enumerate(items) if rndgen.prog_of(it) > 0]
     pix = [rndgen.prog_of(items[i]) for i in prog]
     done = [0] * len(prog)
-    reach = Reach(f, part, {})
+    reach = Reach(f, part, {}, fight)
     layer = [-1] * N
     fill_ = [-1] * N
     layw = set()
@@ -575,17 +628,17 @@ def fill(f, part, rows, items, rng, weapons=False, newest=0.7):
     return [(layer[i], i, fill_[i]) for i in range(N) if fill_[i] >= 0]
 
 
-def everything_ok(f, part, hv, base_places):
+def everything_ok(f, part, hv, base_places, fight=None):
     """with everything, the shuffle reaches every place the game's own doors do, and the goal"""
-    r = Reach(f, part, dict(hv))
+    r = Reach(f, part, dict(hv), fight)
     return base_places <= r.places and all(r.have.get(f.EV_BASE + v, 0) for v in f.goal_ev) and all(ri in r.room_in for ri in f.goal_rooms)
 
 
-def playthrough(f, part, placed, rows, items):
+def playthrough(f, part, placed, rows, items, fight=None):
     """from nothing, take every progression item reachable, over and over: all of them got"""
     import rndgen
     at = {loc: items[k] for lay, loc, k in placed}
-    r = Reach(f, part, {})
+    r = Reach(f, part, {}, fight)
     got = set()
     while True:
         new = [loc for loc in at if loc not in got and loc in r.places]
@@ -659,22 +712,27 @@ def write_data(f, path, base_places, room_label, hv):
     for ix, n in sorted(hv.items()): put(ix, n)
     for e in range(len(f.entries)):
         put(len(f.ev_outs[e]), *f.ev_outs[e]); put(len(f.ev_locs[e]), *f.ev_locs[e])
+    # Boss Rando: each boss's fight's needs and whether it's shuffled; each room's and exit's boss (-1: none)
+    put(f.boss_n)
+    for i in range(f.boss_n): put(f.boss_req[i][0], f.boss_req[i][1], f.boss_shuf[i])
+    for ri in range(len(f.rnames)): put(f.room_slot[ri])
+    for xi in range(len(f.exits)): put(f.exit_slot[xi])
     L.append("END")
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, "w", encoding="ascii", newline="\r\n") as fh: fh.write("\n".join(L) + "\n")
     return digest
 
 
-def build_data(rows, path):
+def build_data(rows, path, bosses=()):
     """everything rndgen needs for the mod: the tables written to path (data\\rndER.txt); returns (Flat, World, the
-    ends' doors, the hash, the base places, everything's numbers)"""
+    ends' doors, the hash, the base places, everything's numbers). bosses: rndgen.boss_slots"""
     import rndgen
     w = er.World()
     have = er.all_items()
     allk = sorted({k for r in w.rooms.values() for alts in r.table.values() for a in alts for k in a.k})
     base = er.reach_with(w, {}, {}, have, allk)
     pairs = er.doors(w.rooms, w.conn, set(base.rooms_in))
-    f = export(w, pairs, rows)
+    f = export(w, pairs, rows, bosses)
     hv = {rndgen.LOGIC_NAMES[it]: n for it, n in have.items()}
     for k in allk: hv[rndgen.KEY_BASE + k] = 1
     bp = Reach(f, [-1] * len(f.ends), dict(hv)).places
@@ -692,7 +750,7 @@ def main():
     base = er.reach_with(w, {}, {}, have, allk)
     pairs = er.doors(w.rooms, w.conn, set(base.rooms_in))
     rows, items = rndgen.locations_items()[8:10]
-    f = export(w, pairs, rows)
+    f = export(w, pairs, rows, rndgen.boss_slots(rndgen.boss_list()))
     print("tables: %d rooms, %d entries, %d ways, %d rows, %d alternatives, %d requirements, %d exits, %d events, %d ends; gs %d"
           % (len(f.rnames), len(f.entries), len(f.way_st), len(f.row_kind), len(f.alt_first), len(f.req_ix), len(f.exits),
              len(f.ev_ways), len(f.ends), f.gs_n))
@@ -742,6 +800,18 @@ def main():
             made += 1
         print("%-10s 10 seeds made the flat way in %d tries (%s), each played through (%.1fs)" % (
             m, tries, ", ".join("%s %d" % kv for kv in sorted(why.items())) or "none failed", time.time() - t0))
+    # Boss Rando, the game's own doors: seeds made, each played through
+    rng = random.Random(13)
+    t0 = time.time()
+    tries, made = 0, 0
+    while made < 10:
+        tries += 1
+        fight = br_shuffle(f, rng)
+        placed = fill(f, [-1] * len(f.ends), rows, items, rng, fight=fight)
+        if placed is None: continue
+        if not playthrough(f, [-1] * len(f.ends), placed, rows, items, fight): raise SystemExit("Boss Rando: a made seed can't be played through")
+        made += 1
+    print("Boss Rando: %d bosses shuffled; 10 seeds made in %d tries, each played through (%.1fs)" % (sum(f.boss_shuf), tries, time.time() - t0))
 
 
 if __name__ == "__main__":

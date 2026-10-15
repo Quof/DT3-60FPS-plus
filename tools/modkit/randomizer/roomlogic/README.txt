@@ -194,6 +194,13 @@ weapon deals which type, and each line says why. Some are by hand (the Mario bos
 needs all six types). Change a line there; solve.py reads it with overrides.txt. A boss room it doesn't name needs any
 attack.
 
+Boss Rando (the new game's option) moves the fights: each boss fought the Randomizer's way (rndgen.py's boss_list; not
+the final boss) is fought at another one's place. A place is the boss's room, and for one whose fight the story went
+into by an exit (rndgen.py's BOSS_VIA: Ridley, the Parasitic Seed) that via exit too; what going into it takes is then
+what the fight of the boss fought there takes (that boss's own line here). erflat.py writes which room and exit is
+whose place and what each boss's fight takes (data\rndER.txt), and the mod works the seed out with them as the
+Entrance Rando's seeds are (ENTRANCE RANDO): roomlogic.txt's answers are for each boss at its own place.
+
 
 EVENTS
 ------
@@ -333,10 +340,10 @@ A seed (the mod's rndNewGame, with the same steps in Python in erflat.py):
   A shuffle that fails a step is dropped and another tried (60 at most; then the doors stay as they are).
 
 erflat.py writes the tables the mod works it out from: the rooms' ways through (from the room files, overrides.txt,
-bosses.txt and events.txt, as solve.py joins them), the exits, the events and the doors' ends, as numbers, in the
-build's data\rndER.txt (rndERLoad reads it; its hash goes in a save, so a build with other doors can tell). Its own
-check (python erflat.py) makes seeds of each mode its way and plays each through; rndgen.py makes ten of each at build
-time. python er.py lists each mode's doors and makes seeds with er.py's own engine (the two must agree). Change the
+bosses.txt and events.txt, as solve.py joins them), the exits, the events, the doors' ends and the bosses' places, as
+numbers, in the build's data\rndER.txt (rndERLoad reads it; its hash goes in a save, so a build with other doors can
+tell). Its own check (python erflat.py) makes seeds of each mode its way, and with Boss Rando, and plays each through;
+rndgen.py makes ten of each at build time (and of Chaos with Boss Rando). python er.py lists each mode's doors and makes seeds with er.py's own engine (the two must agree). Change the
 doors in er.py (the modes, what's left out), then build the mod again.
 
 

@@ -25,6 +25,14 @@ if global.rndActive=1
     ini_write_real(s,"erparts",n)
     for(i=0;i<n;i+=1) {ini_write_string(s,"erpart"+string(i),string_copy(t,i*1000+1,1000))}
   }
+  //Boss Rando: on or off, the boss fought at each boss's place, and the bosses' types (a build with other bosses can
+  //tell)
+  ini_write_real(s,"br",global.rndBRMode)
+  if global.rndBRMode=1
+  {
+    ini_write_string(s,"brfight",rndBRString(0))
+    ini_write_string(s,"brtypes",rndBRString(1))
+  }
   //Archipelago
   ini_write_real(s,"ap",global.rndAP)
   if global.rndAP=1
