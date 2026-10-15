@@ -1,6 +1,6 @@
-//Randomizer: the spoiler log, in the Saves folder: the seed and options, where each ability and key is (by layer), every
-//location's item, the equipment shops' stock, with Boss Rando the boss fought at each boss's place, and with Entrance
-//Rando where each shuffled door leads
+//Randomizer: the spoiler log, in the Saves folder: the seed and options, where each ability and key is (by layer; the
+//instruments too with Instrument Randomization), every location's item, the equipment shops' stock, with Boss Rando the
+//boss fought at each boss's place, and with Entrance Rando where each shuffled door leads
 var f,i,k,it,dir,tLay,tMax,tAny,tStr,d,p;
 dir=working_directory+"\"
 if variable_global_exists("saveDir") {dir=global.saveDir}
@@ -19,9 +19,13 @@ else if global.rndERMode=3 {tStr+="Chaos"}
 else {tStr+="Off"}
 tStr+=", Boss Rando "
 if global.rndBRMode=1 {tStr+="On"} else {tStr+="Off"}
+tStr+=", Instrument Randomization "
+if global.rndIRMode=1 {tStr+="On"} else {tStr+="Off"}
 file_text_write_string(f,tStr); file_text_writeln(f)
 file_text_write_string(f,"(this seed with these options places the items the same way again: type seed"+string(global.rndSeed)+" on the title screen, or choose it in the new game's options)"); file_text_writeln(f)
-file_text_write_string(f,"Win: the 8 instruments (the Nightmare Gates' bosses, then the Sacred Temple), the Abomination, then the Warmaster (his door appears in Grand Rising)."); file_text_writeln(f)
+if global.rndIRMode=1 {file_text_write_string(f,"Win: the 8 instruments (anywhere: they're with the abilities below), the Abomination, then the CHAOS Warmaster at the end of the CHAOS Warship.")}
+else {file_text_write_string(f,"Win: the 8 instruments (each Nightmare Gate's boss, beaten, leaves its instrument), the Abomination, then the CHAOS Warmaster at the end of the CHAOS Warship.")}
+file_text_writeln(f)
 file_text_writeln(f)
 file_text_write_string(f,"Abilities and keys, by layer (layer 1: what jumping alone reaches from Central City; each layer after it: what the items in the layers before it open)"); file_text_writeln(f)
 tMax=0
@@ -34,7 +38,8 @@ for(tLay=0;tLay<=tMax;tLay+=1)
     if global.rndGLayer[i]=tLay
     {
       it=rndPlaced(i)
-      if global.rndItemProg[it]>0
+      //(an instrument is one of these only with Instrument Randomization: else it's at its gate's reward)
+      if global.rndItemProg[it]>0 and !(global.rndItemKind[it]=26 and global.rndIRMode=0)
       {
         if tAny=0 {file_text_write_string(f,"  Layer "+string(tLay+1)); file_text_writeln(f); tAny=1}
         file_text_write_string(f,"    "+rndItemName(it)+"  -  "+global.rndLocName[i]); file_text_writeln(f)

@@ -21,8 +21,8 @@ between the shops.
 
 ## What is the goal of DT3+ when randomized?
 
-Get the 8 instruments (the Nightmare Gates' bosses, then the Sacred Temple), beat the Abomination, then defeat the CHAOS
-Warmaster, whose door appears in Grand Rising once the Abomination is beaten.
+Get the 8 instruments (each Nightmare Gate's boss leaves its own instrument where it's beaten), beat the Abomination,
+then defeat the CHAOS Warmaster at the end of the CHAOS Warship (his fight is there once the Abomination is beaten).
 
 ## What items and locations get shuffled?
 

@@ -194,8 +194,8 @@ weapon deals which type, and each line says why. Some are by hand (the Mario bos
 needs all six types). Change a line there; solve.py reads it with overrides.txt. A boss room it doesn't name needs any
 attack.
 
-Boss Rando (the new game's option) moves the fights: each boss fought the Randomizer's way (rndgen.py's boss_list; not
-the final boss) is fought at another one's place. A place is the boss's room, and for one whose fight the story went
+Boss Rando (the new game's option) moves the fights: each boss fought the Randomizer's way (rndgen.py's boss_list, the
+Nightmare Gates' bosses among them; not the final boss) is fought at another one's place. A place is the boss's room, and for one whose fight the story went
 into by an exit (rndgen.py's BOSS_VIA: Ridley, the Parasitic Seed) that via exit too; what going into it takes is then
 what the fight of the boss fought there takes (that boss's own line here). erflat.py writes which room and exit is
 whose place and what each boss's fight takes (data\rndER.txt), and the mod works the seed out with them as the
@@ -209,12 +209,17 @@ Some ways open once the game remembers something: the Sacred Temple's doors once
 the Lost Entrance's barrier once any instrument is, Colossal Encroachment's trapdoor once the Great Colossal Falloff
 has been visited. The gate or barrier then needs "event <name>", and events.txt says what makes it happen:
 
-  gateA room rExtGateA_6 : attack      getting into Nightmare Gate A's boss room, and beating the boss
+  gateA room rExtGateA_6               getting into Nightmare Gate A's boss room (its fight: bosses.txt)
   area76 area 76                       getting into any room of area 76
 
 solve.py works out what each event needs from the rest of the logic, puts that in the event's place, and does it
 again till nothing changes (so an event can open the way to another). A new event: a line here, and the gate's
 requirement (roomdata.py, or an override).
+
+A line starting "ir+" counts only with the new game's option Instrument Randomization, "ir-" only without it. The
+Lost Entrance's barrier (event instrument) is one: without it, any gate's boss beaten (its reward is its instrument);
+with it, any instrument found ("instr 1": the instruments are items then). solve.py, and roomlogic.txt, are as
+without it; erflat.py writes both, and the mod's seed takes the ones for its option.
 
 Spots are a room's own events: somewhere whose reaching opens a way in the same room. A room file lists them
 ("spot switch1"), says what reaching each needs from each way in, and the barriers they open need
@@ -321,7 +326,12 @@ back in). A shuffle pairs a mode's ends anew: an exit leads to its new partner's
 the partner returns the player where they came from. Left out of every mode: one-way exits, doors within a room, menus
 and encounters, the exits that are boss fights (connections.txt's via), exits whose way goes by a carried state and the
 Forest Palace's rooms (its crystals), the encounter rooms, rooms the logic doesn't reach even with everything, ends
-whose way in reaches nothing, and exits at the same place as another (the game finds an exit by its room and place).
+whose way in reaches nothing or doesn't get back out through the end's own exit (a drop with no way back up), and exits
+at the same place as another (the game finds an exit by its room and place). An end with a Metroid door in front of its
+exit (the Research Facility's hatches: any weapon opens most, missiles the rest) is only paired with one whose Metroid
+door needs the same, and a door whose two ends' Metroid doors need different things isn't shuffled: the player only
+comes in behind a Metroid door by going through one, so has what going back out takes (an ordinary door that led to
+behind one would leave a player without a weapon stuck there).
   Gate Swap   the Access Gates' and Nightmare Gates' doors (oAccessGate, oDistortionGate)
   Overworld   those, every door between two areas, and every door between a map (Hyrule's, Gate 6's) and a room
   Chaos       every door

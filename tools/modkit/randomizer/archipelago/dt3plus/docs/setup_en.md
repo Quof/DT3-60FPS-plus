@@ -21,7 +21,7 @@ folder), or the options page. The DT3+ options are DeathLink and the standard on
 
 1. Open the Archipelago Launcher and start the "DT3+ Client". Connect it to the server (address and slot name).
 2. In DT3+, on the title screen, type `ap` (a message says the next new game is an Archipelago game), then start a New
-   Game. It starts in the first room, its items coming from the multiworld.
+   Game. It starts in Central City, its items coming from the multiworld.
 3. To carry on later, start the DT3+ Client and connect, then load your save.
 
 The client and the game trade small files in `%LOCALAPPDATA%\DT3PlusArchipelago` (the client's `/bridge` command shows

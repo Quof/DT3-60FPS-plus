@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>DT3+ Item Tracker</title>
+<link rel="stylesheet" href="tracker.css">
+<script src="data.js"></script>
+<script src="tracker.js"></script>
+</head>
+<body class="items">
+<div id="grid"></div>
+<div id="status"></div>
+<script>
+// The Item Tracker: the progression the player has (lit) and hasn't (dark), each ability its own picture, and how many
+// of each upgrade. The game writes state.js; this reads it every second. Options in the address: ?bg=transparent (or
+// a colour: bg=00ff00) for a stream's browser source, ?scale=2 for bigger pictures
+(function () {
+  "use strict";
+  var D = window.DT3_DATA, grid = document.getElementById("grid"), statusEl = document.getElementById("status");
+  if (!D || !window.DT3) {
+    statusEl.textContent = "data.js isn't next to this page: the tracker folder comes with the mod (Mods\\Randomizer\\tracker).";
+    return;
+  }
+  var P = DT3.params(), scale = Math.max(0.5, Math.min(6, parseFloat(P.scale) || 1));
+  document.documentElement.style.setProperty("--s", scale);
+  if (P.bg) {
+    document.body.style.background = /^[0-9a-f]{3}([0-9a-f]{3})?$/i.test(P.bg) ? "#" + P.bg : P.bg;
+    document.documentElement.style.background = document.body.style.background;
+  }
+  function el(tag, cls, text) {
+    var e = document.createElement(tag);
+    if (cls) { e.className = cls; }
+    if (text !== undefined) { e.textContent = text; }
+    return e;
+  }
+  // a picture at a whole multiple of its size near the target (small ones larger, if a whole multiple is too small)
+  function img(ic, target, least) {
+    var m = Math.max(ic.w, ic.h), k = Math.floor(target / m);
+    if (k < 1 || k * m < least) { k = target / m; }
+    var e = el("img");
+    e.src = ic.src;
+    e.style.width = (ic.w * k * scale) + "px";
+    e.style.height = (ic.h * k * scale) + "px";
+    e.alt = "";
+    return e;
+  }
+  var cells = [];
+  D.items.forEach(function (g) {
+    var box = el("div", "grp"), row = el("div", "row");
+    box.appendChild(el("div", "t", g.name));
+    g.items.forEach(function (it) {
+      var c = el("div", "it off");
+      c.title = it.name;
+      c.appendChild(img(it.icon, 32, 22));
+      row.appendChild(c);
+      cells.push({def: it, el: c, lv: null});
+    });
+    box.appendChild(row);
+    grid.appendChild(box);
+  });
+  var cbox = el("div", "grp counters"), crow = el("div", "row");
+  cbox.appendChild(el("div", "t", "Upgrades"));
+  D.counters.forEach(function (ct) {
+    var c = el("div", "ct off"), ic = el("div", "it"), num = el("span", "num", "0/" + ct.total);
+    c.title = ct.name;
+    ic.appendChild(img(ct.icon, 26, 18));
+    c.appendChild(ic);
+    c.appendChild(num);
+    crow.appendChild(c);
+    cells.push({def: ct, el: c, num: num});
+  });
+  cbox.appendChild(crow);
+  grid.appendChild(cbox);
+
+  function ones(s, lo, hi) {
+    var n = 0;
+    s = s || "";
+    for (var i = lo - 1; i < Math.min(s.length, hi); i++) { if (s.charAt(i) === "1") { n++; } }
+    return n;
+  }
+  // how much of an item the state says the player has (a level, a count, or 1/0)
+  function amount(h, S) {
+    switch (h[0]) {
+      case "own": return parseInt((S.own || "").charAt(h[1]), 10) || 0;
+      case "flag": return S[h[1]] > 0 ? 1 : 0;
+      case "gate": return (S.gate || "").charAt(h[1] - 1) === "9" ? 1 : 0;
+      case "equip": return (S.equip || "").charAt(h[1] - 1) === "1" ? 1 : 0;
+      case "count": return h.length > 2 ? ones(S[h[1]], h[2], h[3]) : ones(S[h[1]], 1, 1 << 20);
+      case "keys":
+        var n = 0;
+        for (var i = 0; i < D.doors.length; i++) { if ((S.keys || "").charAt(D.doors[i] - 1) === "1") { n++; } }
+        return n;
+    }
+    return 0;
+  }
+  function update(S) {
+    var bad = S ? DT3.mismatch(D, S) : "";
+    statusEl.textContent = S ? bad : "Waiting for the game: start or load a Randomizer game.";
+    cells.forEach(function (c) {
+      var h = c.def.have, n = S ? amount(h, S) : 0;
+      if (c.num) {
+        c.num.textContent = n + "/" + c.def.total;
+        c.num.className = "num" + (n >= c.def.total ? " all" : "");
+        c.el.className = "ct" + (n ? "" : " off");
+        return;
+      }
+      var had = h[0] === "own" ? n >= h[2] : n > 0;
+      c.el.className = "it" + (had ? "" : " off");
+      if (h[0] === "own" && h.length > 3) {
+        // (one picture for several levels: the level on it)
+        if (!c.lv) { c.lv = el("span", "lv"); c.el.appendChild(c.lv); }
+        c.lv.textContent = n > 0 ? String(Math.min(n, h[3])) : "";
+        c.lv.style.display = n > 0 ? "" : "none";
+      }
+    });
+  }
+  update(null);
+  DT3.watch(update);
+})();
+</script>
+</body>
+</html>

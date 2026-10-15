@@ -1,8 +1,8 @@
 //Randomizer: Nightmare Gate H's place. The gate isn't in the Randomizer: its access gate (in the destroyed Hidden
-//Village, there once the other seven gates' instruments are taken) comes here instead (the roomStart hook), a room left
+//Village, there once the other seven gates' bosses are beaten) comes here instead (the roomStart hook), a room left
 //blank for what takes the gate's place later. Coming here counts as beating the gate: its place in eGateProg goes to 8,
-//as the gate's last room (rExtGateH_8) has it, so the Sacred Temple (this room's exit, where that room's goes) gives its
-//instrument, the Thunder Drum
+//as the gate's last room (rExtGateH_8) has it, and the gate's reward is here (the roomStart hook: oRndReward; the
+//Thunder Drum, or any item with Instrument Randomization). The exit goes on to the Sacred Temple
 locationCheck(108)
 global.mapTeleport=0
 

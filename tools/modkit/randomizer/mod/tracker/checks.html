@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DT3+ Check Tracker</title>
+<link rel="stylesheet" href="tracker.css">
+<script src="data.js"></script>
+<script src="tracker.js"></script>
+</head>
+<body class="checks">
+<header>
+  <h1>DT3+ Check Tracker</h1>
+  <div id="status">Waiting for the game...</div>
+  <div class="controls">
+    <label><input type="checkbox" id="hideTaken"> Hide taken</label>
+    <label><input type="checkbox" id="follow"> Follow the player</label>
+  </div>
+  <div class="legend">
+    <span class="box out"></span>Out of logic <span class="box in"></span>In logic <span class="box taken">&#10003;</span>Taken
+  </div>
+</header>
+<nav id="tabs"></nav>
+<main id="panel"></main>
+<script>
+// The Check Tracker: every check by area (tabs) and screen, red out of logic, green in logic (what the player's items
+// reach, with the seed's doors and bosses), blue once taken. The game writes state.js; this reads it every second
+(function () {
+  "use strict";
+  var D = window.DT3_DATA;
+  var tabsEl = document.getElementById("tabs"), panel = document.getElementById("panel");
+  var statusEl = document.getElementById("status");
+  var hideTaken = document.getElementById("hideTaken"), follow = document.getElementById("follow");
+  if (!D || !window.DT3) {
+    panel.innerHTML = '<div class="empty">data.js isn\'t next to this page: the tracker folder comes with the mod ' +
+      '(Mods\\Randomizer\\tracker).</div>';
+    return;
+  }
+  function load(k, d) {
+    try { var v = localStorage.getItem("dt3track." + k); return v === null ? d : JSON.parse(v); } catch (e) { return d; }
+  }
+  function save(k, v) {
+    try { localStorage.setItem("dt3track." + k, JSON.stringify(v)); } catch (e) { /* (not kept) */ }
+  }
+  function el(tag, cls, text) {
+    var e = document.createElement(tag);
+    if (cls) { e.className = cls; }
+    if (text !== undefined) { e.textContent = text; }
+    return e;
+  }
+  var sel = Math.max(0, Math.min(load("tab", 0), D.tabs.length - 1));
+  var state = null, status = null, cache = {}, lastRoom = null, scrollHere = false;
+  hideTaken.checked = load("hideTaken", false);
+  follow.checked = load("follow", true);
+  hideTaken.onchange = function () { save("hideTaken", hideTaken.checked); render(); };
+  follow.onchange = function () {
+    save("follow", follow.checked);
+    if (follow.checked && state && D.roomTab[state.room] !== undefined) { sel = D.roomTab[state.room]; scrollHere = true; }
+    render();
+  };
+
+  function showStatus() {
+    statusEl.innerHTML = "";
+    if (!state) {
+      statusEl.textContent = "Waiting for the game: start or load a Randomizer game (it writes tracker\\state.js).";
+      return;
+    }
+    var n = status.length, taken = 0, inl = 0, i;
+    for (i = 0; i < n; i++) { if (status[i] === DT3.TAKEN) { taken++; } else if (status[i] === DT3.IN_LOGIC) { inl++; } }
+    var parts = ["Seed <b>" + String(state.seed).replace(/[^0-9.\-]/g, "") + "</b>"].concat(DT3.modes(state));
+    parts.push("Taken <b>" + taken + "</b> / " + n);
+    parts.push("In logic <b>" + inl + "</b>");
+    if (state.won) { parts.push("<b>Won!</b>"); }
+    statusEl.innerHTML = parts.join(" &middot; ");
+    var bad = DT3.mismatch(D, state);
+    if (bad) { var w = el("div", "warn", bad); statusEl.appendChild(w); }
+  }
+
+  function render() {
+    var here = state ? D.roomScreen[state.room] : null;
+    tabsEl.innerHTML = "";
+    D.tabs.forEach(function (t, ti) {
+      var n = 0, taken = 0, inl = 0;
+      t.screens.forEach(function (s) {
+        s.checks.forEach(function (i) {
+          n++;
+          if (status[i] === DT3.TAKEN) { taken++; } else if (status[i] === DT3.IN_LOGIC) { inl++; }
+        });
+      });
+      var b = el("button", (ti === sel ? "sel" : "") + (here && here[0] === ti ? " here" : ""));
+      b.appendChild(document.createTextNode(t.name));
+      if (inl) { b.appendChild(el("span", "n in", String(inl))); }
+      b.appendChild(el("span", taken === n ? "n done" : "n", taken + "/" + n));
+      b.title = inl + " in logic, " + taken + " of " + n + " taken";
+      b.onclick = function () { sel = ti; save("tab", sel); render(); };
+      tabsEl.appendChild(b);
+    });
+    panel.innerHTML = "";
+    var tab = D.tabs[sel], hereEl = null;
+    tab.screens.forEach(function (s, si) {
+      var n = s.checks.length, taken = 0;
+      s.checks.forEach(function (i) { if (status[i] === DT3.TAKEN) { taken++; } });
+      var isHere = here && here[0] === sel && here[1] === si;
+      if (hideTaken.checked && taken === n && !isHere) { return; }
+      var card = el("section", "screen" + (taken === n ? " done" : "") + (isHere ? " here" : ""));
+      var h = el("h2");
+      h.appendChild(el("span", "", s.name));
+      if (isHere) { h.appendChild(el("span", "tag", "you are here")); }
+      h.appendChild(el("span", "count", taken + "/" + n));
+      card.appendChild(h);
+      var ul = el("ul");
+      s.checks.forEach(function (i) {
+        var st = status[i];
+        if (hideTaken.checked && st === DT3.TAKEN) { return; }
+        var li = el("li", st === DT3.TAKEN ? "taken" : "");
+        li.appendChild(el("span", "box " + (st === DT3.TAKEN ? "taken" : st === DT3.IN_LOGIC ? "in" : "out"),
+          st === DT3.TAKEN ? "✓" : ""));
+        li.appendChild(el("span", "name", D.locs[i].n));
+        li.title = D.locs[i].id + " (" + D.locs[i].room + ")";
+        ul.appendChild(li);
+      });
+      card.appendChild(ul);
+      panel.appendChild(card);
+      if (isHere) { hereEl = card; }
+    });
+    if (!panel.children.length) { panel.appendChild(el("div", "empty", "Everything here is taken.")); }
+    if (hereEl && scrollHere && hereEl.scrollIntoView) { hereEl.scrollIntoView({block: "nearest"}); }
+    scrollHere = false;
+    showStatus();
+  }
+
+  function update(S) {
+    state = S;
+    status = DT3.evaluate(D, S || {}, cache);
+    if (S && S.room !== lastRoom) {
+      lastRoom = S.room;
+      if (follow.checked && D.roomTab[S.room] !== undefined) { sel = D.roomTab[S.room]; scrollHere = true; }
+    }
+    render();
+  }
+  update(null);
+  DT3.watch(update);
+})();
+</script>
+</body>
+</html>

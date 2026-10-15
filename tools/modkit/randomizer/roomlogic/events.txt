@@ -4,13 +4,15 @@
 # happens (several lines for one event: any of them is enough):
 #   <event> room <room> [: <requirements>]     getting into that room (any way in), then what else it takes there
 #   <event> area <number> [: <requirements>]   getting into any room of that area
+# A line starting "ir+" is one only with the new game's option Instrument Randomization, "ir-" only without it.
 # Requirements are as everywhere else (README.txt): djump, megaman 2, attack, key 3...
 
-# a Nightmare Gate's boss beaten (its character in eGateProg goes to 8, then 9 once its instrument's taken): the
-# Sacred Temple's doors, one a gate. Getting into the boss's room is its fight, which bosses.txt says what it takes.
-# Gate H is cut from the Randomizer: its access gate (in the destroyed Hidden Village, there once the other seven are
-# beaten) goes to the mod's blank room for it (mod\rooms\rRndGateH), which counts the gate as beaten and goes on to the
-# Sacred Temple (where its instrument is)
+# a Nightmare Gate's boss beaten (its character in eGateProg goes to 8, 9 once its instrument is had): the Sacred
+# Temple's doors, one a gate. Getting into the boss's room is its fight, which bosses.txt says what it takes (with Boss
+# Rando, the fight of the boss fought there). Its reward is there right after the fight (rndgen.py's GATE_ROOMS).
+# Gate H is cut from the Randomizer: its access gate (in the destroyed Hidden Village, there once the other seven gates'
+# bosses are beaten: the mod's roomStart hook) goes to the mod's blank room for it (mod\rooms\rRndGateH), which counts
+# the gate as beaten and has its reward, then goes on to the Sacred Temple
 gateH room rHiddenVillage_Destroyed : event gateA event gateB event gateC event gateD event gateE event gateF event gateG
 gateA room rExtGateA_6
 gateB room rExtGateB_6
@@ -20,14 +22,17 @@ gateE room rExtGateE_5
 gateF room rExtGateF_6
 gateG room rExtGateG_5
 
-# any instrument (the Lost Entrance's barrier before the Sacred Temple, rMain_19)
-instrument room rExtGateA_6
-instrument room rExtGateB_6
-instrument room rExtGateC_5
-instrument room rExtGateD_6
-instrument room rExtGateE_5
-instrument room rExtGateF_6
-instrument room rExtGateG_5
+# any instrument had (the Lost Entrance's barrier before the Sacred Temple, rMain_19). Without Instrument
+# Randomization, a gate's boss beaten (its reward is its instrument); with it, an instrument found (the instruments are
+# items, "instr"; the start's room is reached from the beginning)
+ir- instrument room rExtGateA_6
+ir- instrument room rExtGateB_6
+ir- instrument room rExtGateC_5
+ir- instrument room rExtGateD_6
+ir- instrument room rExtGateE_5
+ir- instrument room rExtGateF_6
+ir- instrument room rExtGateG_5
+ir+ instrument room rCCity_NorthA : instr 1
 
 # the Great Colossal Falloff visited (area 76): Colossal Encroachment's trapdoor (rMain_75) opens
 area76 area 76

@@ -44,9 +44,12 @@ if global.rndActive=1
       show_message("Randomizer: this game's bosses were shuffled (Boss Rando) with another build's bosses, so the shuffle can't be put back. Each boss is fought in its own place.")
     }
   }
-  //a save from a build with other data: what's missing reads as not got yet
+  //Instrument Randomization: on or off
+  global.rndIRMode=ini_read_real(s,"ir",0)
+  //a save from a build with other data: what's missing reads as not got yet (then brought up to this build: rndLoadOld)
   if string_length(global.rndGot)<global.rndLocN {global.rndGot+=string_repeat("0",global.rndLocN-string_length(global.rndGot))}
   if string_length(global.rndBossDone)<global.rndBossN {global.rndBossDone+=string_repeat("0",global.rndBossN-string_length(global.rndBossDone))}
+  rndLoadOld()
   if string_length(global.rndKeyOwn)<50 {global.rndKeyOwn+=string_repeat("0",50-string_length(global.rndKeyOwn))}
   rndShopFromString()
   global.gameProgress=global.rndWorldProg

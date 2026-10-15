@@ -29,6 +29,15 @@ switch (k)
   case 22: return "Double Jump"
   case 23: return "High Jump Boots (progressive)"
   case 25: return "Varia Suit"
+  case 26:
+    if p=1 {return "Full Moon Cello"}
+    if p=2 {return "Conch Horn"}
+    if p=3 {return "Sea Lily's Bell"}
+    if p=4 {return "Surf Harp"}
+    if p=5 {return "Wind Marimba"}
+    if p=6 {return "Coral Triangle"}
+    if p=7 {return "Organ of Evening Calm"}
+    return "Thunder Drum"
   case 24:
     if p=0 {return "Mario Ability Set"}
     if p=1 {return "Link ability (progressive)"}

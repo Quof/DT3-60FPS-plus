@@ -15,11 +15,14 @@ options and the abilities and keys by layer. As in a new game: tower defense and
 done (their rewards come from doing them, with the three cursed equipment pieces on; the 7th trial, five of the six
 others done, also gives Central City South's heart container), the shortcuts are shut, and there are no program chips,
 Yoshi dolls or game-completed flag (Bubble Tower B and the Gate 6 DLC stay shut). Nightmare Gate H is left out: its
-access gate goes to a blank room (the mod's rRndGateH) that counts the gate as beaten and goes on to the Sacred Temple.
+access gate (there once the other seven gates' bosses are beaten) goes to a blank room (the mod's rRndGateH) that
+counts the gate as beaten, has its reward and goes on to the Sacred Temple.
 
-Win: the 8 instruments (the Nightmare Gates' bosses, then the Sacred Temple) and the Abomination, as the game has them;
-then the CHAOS Warmaster, whose door appears in Grand Rising (the game's first room) once the Abomination is beaten.
-The credits roll.
+Win: the 8 instruments and the Abomination, then the CHAOS Warmaster at the end of the CHAOS Warship (walking up to
+him there starts his fight once the Abomination is beaten; before, he isn't there yet and a message says so). The
+credits roll. Each Nightmare Gate's boss, beaten, leaves the gate's reward where it was fought: its instrument (the
+Sacred Temple doesn't give them), or with Instrument Randomization any item, the instruments being in the pool. Having
+all eight opens the Abomination's fight (gateHProg 100, which the temple's last instrument scene gives in the game).
 
 Playing
   Put the built mod in Mods\Randomizer and turn it on. Every new game is then a randomizer game (a save made with it
@@ -35,8 +38,11 @@ Playing
     Shop Equipment           Shuffled (between the equipment shops) or As Normal.
     Entrance Rando           Off, Gate Swap, Overworld or Chaos: where the doors lead is shuffled (below).
     Boss Rando               Off or On: which boss is fought in each boss's room is shuffled (below).
+    Instrument Randomization Off or On: the 8 instruments are in the pool, and the Nightmare Gates' rewards hold any
+                             item (no ability or key: a fight's reward, as the bosses' heart containers).
     Spoiler Log              written or not.
-  An Archipelago game has no options window (its options are the multiworld's), and no Entrance Rando or Boss Rando.
+  An Archipelago game has no options window (its options are the multiworld's), and no Entrance Rando, Boss Rando or
+  Instrument Randomization (each gate's reward is its own instrument, not one of the multiworld's locations).
   - Entrance Rando: the mode's doors are paired anew, coupled (going back through a door returns the player where they
     came from). Gate Swap: the Access Gates' and Nightmare Gates' doors. Overworld: those, every door between two areas
     and every way between a map (Hyrule's, Gate 6's) and a room. Chaos: every door. The seed is made so that with
@@ -47,14 +53,14 @@ Playing
   - Boss Rando: each boss's place (its room; Ridley's and the Parasitic Seed's: the exit the story went into their
     fights by) gets another boss's fight. Walking up to the boss there (as below) starts that boss's fight in its own
     room, the boss gallery's way; won, the player comes back to where the fight started and the place counts as beaten
-    (its heart container is there, and it isn't fought again). The 49 bosses fought the Randomizer's way are shuffled;
-    the CHAOS Warmaster stays the last fight, behind his door in Grand Rising. Not in it, as the Randomizer leaves them
-    to the game: the Nightmare Gates' bosses (Kamek, Final Nightmare, Blackmore, Elpizo, Shadow Form, Nightmare,
-    Sephiroth: their instruments come from their own fights), the second fights of a room (Death (Legion), Sigma
-    Epsilon, Ridley (Lava), Decimator 20000), the Ridley tunnel chase, the Leviathan road, the Abomination's fight (the
-    gallery's Wahfuu, the instrument quest's end) and the CHAOS Warmaster EX. The items are placed with what each
-    place's fight now takes (roomlogic\bosses.txt has what each fight takes), and the seed is played through before
-    the game starts. The spoiler log lists the fights. A save keeps its shuffle.
+    (its heart container is there, a Nightmare Gate's reward too, and it isn't fought again). The 56 bosses fought the
+    Randomizer's way are shuffled, the Nightmare Gates' seven among them (Kamek, Final Nightmare, Blackmore, Elpizo,
+    Shadow Form, Nightmare, Sephiroth); the CHAOS Warmaster stays the last fight, at the end of the CHAOS Warship. Not in
+    it, as the Randomizer leaves them to the game: the second fights of a room (Death (Legion), Sigma Epsilon, Ridley
+    (Lava), Decimator 20000), the Ridley tunnel chase, the Leviathan road, the Abomination's fight (the gallery's
+    Wahfuu, the instrument quest's end) and the CHAOS Warmaster EX. The items are placed with what each place's fight
+    now takes (roomlogic\bosses.txt has what each fight takes), and the seed is played through before the game starts.
+    The spoiler log lists the fights. A save keeps its shuffle.
   - The ability sets' items are progressive: each one is that set's next weapon (Link: Master Sword, Bow & Arrow, Fuse
     Bomb). Swapping characters and sets is always on. The Gate 6 sets only work in Gate 6, as in the game, and in The
     Executive's fight (the game's own fight gives them; here, the ones the player has found).
@@ -66,7 +72,30 @@ Playing
     have the boss gallery's flag on underneath, so a beaten boss ends its fight the gallery's way, without the story's
     scenes; the mod's oHUD doesn't show the gallery's timer in them.) Ridley and the
     Parasitic Seed, whose rooms the endgame world's exits go past, are fought going through the exit the story used
-    to go into them (rndgen.py, BOSS_VIA). A boss's heart container is there once it's beaten.
+    to go into them (rndgen.py, BOSS_VIA). A boss's heart container is there once it's beaten. The Nightmare Gates'
+    bosses are fought the same way (their rooms' own scenes don't start), and each leaves its gate's reward.
+
+Trackers
+  The mod's tracker folder (Mods\Randomizer\tracker) has two pages to open in a web browser next to the game, or in a
+  stream's browser source. The game writes what the player has and has taken to tracker\state.js whenever it changes
+  (rndTrackWrite), and the pages read it again every second: they follow the randomizer game being played.
+  - checks.html, the Check Tracker: every place by area (the tabs) and screen; red while the player's items don't reach
+    it, green once they do, blue with a tick once it's taken. Its logic is the seed's own: the room logic the items
+    were placed with, with the doors and bosses as the seed shuffled them and Instrument Randomization as it was set. A
+    Nightmare Gate's reward is green once its boss can be got to (or is beaten), a boss's heart container once its
+    place and its fight can; a place the logic doesn't reach (or tower defense's reward) once the player has every
+    progression item, as the placement has it. Each tab shows how many of its places are green (the green mark) and
+    taken; the screen the player is in is outlined, and Follow the player goes to its tab as they move. Hide taken
+    leaves out what's taken.
+  - items.html, the Item Tracker: the progression the player has, lit (the movement abilities, each ability set's
+    attacks with their own pictures, the Game Powers, the instruments, the cursed equipment), and how many of each
+    upgrade of how many there are (keys, heart pieces and containers, heart energy, quivers, missile tanks, Game
+    Power, air upgrades, weapon upgrades, bomb upgrades, skill points, Internetz mods: the progress page's counts, the
+    general store's included). For a stream: items.html?bg=transparent (or a colour: bg=00ff00), and scale=2 for bigger
+    pictures (items.html?bg=transparent&scale=2).
+  The screens' names (tracker_names.txt) are the game's own where it has them: the area banners, the teleport menu's
+  places, Gate 4's stage map, the jukebox's titles; a screen's number is its room's own place in its group (a letter
+  as its place in the alphabet). Any can be changed there, and a check given a name of its own; then build again.
 
 Archipelago
   The Randomizer can be one game of an Archipelago multiworld (game name "DT3+"): its items can be in other players'
@@ -96,7 +125,9 @@ Building
   the mod's data scripts, the pickups' events (the randomizer's part ahead of the game's own) and, next to rndgen.py,
   locations.csv and doors.csv. It ends with a check that the placement works for 50 seeds with each option, and how
   many layers they have; then writes the room logic Entrance Rando and Boss Rando make seeds from (data\rndER.txt,
-  roomlogic\erflat.py) and makes ten seeds of each of their modes (and Chaos with Boss Rando), each played through.
+  roomlogic\erflat.py) and makes ten seeds of each of their modes (and Chaos with Boss Rando), each played through;
+  then the trackers' data (tracker\data.js, with the same room logic, and the items' pictures in tracker\icons:
+  tracker.py).
   python tools\modkit\randomizer\rndgen.py --world-from <save.dts>
   re-reads world.txt (the endgame world's values) from a finished save.
 
@@ -107,6 +138,7 @@ Building
   roomlogic\   the logic: each room's file, how the rooms join, changes to them (overrides.txt), and the program that
                makes them (roomlogic\README.txt)
   logic.txt    last-resort changes to single places (below)
+  tracker_names.txt  the Check Tracker's tabs and screens, and names for single checks (Trackers, above)
 
 Logic
   What a place needs comes from the rooms themselves (roomlogic\): a program runs the game's own 30fps movement through

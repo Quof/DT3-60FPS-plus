@@ -27,6 +27,9 @@ import solve, er
 
 PARKED = "P"
 MODE_BITS = {"gates": 1, "overworld": 2, "chaos": 4}
+# an end's class: what the Metroid door in front of its exit needs (er.door_class; none, any weapon, missiles). The
+# shuffle pairs only ends of one class
+DOOR_CLASSES = ["", "attack", "samus:4"]
 
 
 class Flat:
@@ -64,7 +67,7 @@ def export(w, pairs, rows, bosses=()):
     f.room_scope = [1 if any(n.startswith(s) for s in f.scope) else 0 for n in f.rnames]
     # requirements and alternatives (flat)
     f.req_ix, f.req_c, f.alt_first, f.alt_count = [], [], [], []
-    evnames = list(w.ev.keys())
+    evnames = list(w.ev_modes.keys())
     for r in w.rooms.values():
         for sp in r.spots: evnames.append(r.name + "/" + sp)
     f.evnames = evnames
@@ -147,13 +150,14 @@ def export(w, pairs, rows, bosses=()):
                 f.row_alts.append(alts(al))
             f.way_rows.append((rfirst, len(f.row_kind) - rfirst))
         f.entry_ways.append((first, len(ws)))
-    # events
+    # events: each way (1 a room got into, 2 an area: which; what else it takes; its mode: 0 always, 1 only without
+    # Instrument Randomization, 2 only with it)
     f.ev_ways = []
     for name in evnames:
-        if name in w.ev:
+        if name in w.ev_modes:
             lst = []
-            for kind, what, ex in w.ev[name]:
-                lst.append((1 if kind == "room" else 2, rix[what] if kind == "room" else int(what), alts(ex)))
+            for kind, what, ex, mode in w.ev_modes[name]:
+                lst.append((1 if kind == "room" else 2, rix[what] if kind == "room" else int(what), alts(ex), mode))
             f.ev_ways.append(lst)
         else:
             f.ev_ways.append([])      # (a spot: its row makes it)
@@ -163,7 +167,8 @@ def export(w, pairs, rows, bosses=()):
     f.ends = []
     for a, b in pairs:
         for e, p in ((a, b), (b, a)):
-            f.ends.append({"exit": xix[(e.room, e.out)], "back": eix[(e.room, e.back)], "mode": 0, "pair": p.i, "obj": e.obj})
+            f.ends.append({"exit": xix[(e.room, e.out)], "back": eix[(e.room, e.back)], "mode": 0, "pair": p.i, "obj": e.obj,
+                           "cls": DOOR_CLASSES.index(e.cls)})
     for m in er.MODES:
         for a, b in er.pool(pairs, m):
             f.ends[a.i]["mode"] |= MODE_BITS[m]; f.ends[b.i]["mode"] |= MODE_BITS[m]
@@ -242,10 +247,11 @@ class Reach:
     start, worked out as items are added. A row that can't be gone through yet waits under each requirement it lacks
     (wait), and is tried again only when one of them comes (add); single counts the rows one more of a requirement would
     let through (rndGenerate's choice of item). fight: Boss Rando's bosses, the boss fought at each boss's places (None:
-    each its own)"""
-    def __init__(self, f, part, have, fight=None):
+    each its own). ir: Instrument Randomization (the events' ways for it)"""
+    def __init__(self, f, part, have, fight=None, ir=False):
         self.f = f; self.part = part; self.have = have      # have: {number: count} (items, keys, events)
         self.fight = fight if fight is not None else list(range(f.boss_n))
+        self.skip_mode = 1 if ir else 2
         self.seen = set(); self.queue = collections.deque()
         self.room_in = set(); self.places = set(); self.parked = set()
         self.cross = []
@@ -428,7 +434,8 @@ class Reach:
             for v, ways in enumerate(f.ev_ways):
                 k = f.EV_BASE + v
                 if self.have.get(k, 0) >= 1 or not ways: continue
-                for kind, what, (af, ac) in ways:
+                for kind, what, (af, ac), mode in ways:
+                    if mode == self.skip_mode: continue
                     hit = (what in self.room_in) if kind == 1 else any(f.room_area[ri] == what for ri in self.room_in)
                     if hit and self.ok(af, ac): self.have[k] = 1; self.ev_new.append(k); break
             if not self.ev_new: break
@@ -475,7 +482,8 @@ def shuffle(f, mode_bit, rng):
     """er.py's shuffle over the tables (the mod's rndERShuffle): part[end] = its new partner (-1: the game's own, an end
     not in the mode's pool), or None. The pool's ends in one random order; each step the first one in it whose way back
     in isn't reached and leads somewhere new (a room not reached, or entries, free ends or places that aren't) is joined
-    to a free end whose exit is reached, chosen at random"""
+    to a free end of its class (DOOR_CLASSES: the Metroid door in front of its exit) whose exit is reached, chosen at
+    random"""
     n = len(f.ends)
     inpool = [1 if f.ends[d]["mode"] & mode_bit else 0 for d in range(n)]
     ends = [d for d in range(n) if inpool[d]]
@@ -513,6 +521,7 @@ def shuffle(f, mode_bit, rng):
                     if v < 0 or v in vis or v in seen: continue
                     vis.add(v); stack.append(v); new_e = 1
         return new_e, new_f, new_p
+    cls = [e["cls"] for e in f.ends]
     while True:
         frl = sorted(d for d in frontier if part[d] == -1)
         u, needy = None, []
@@ -522,14 +531,15 @@ def shuffle(f, mode_bit, rng):
             if f.entries[f.ends[d]["back"]][0] in room_seen and not (ne or nf or npl):
                 covered[d] = 1; continue
             needy.append(d)
-            # (joined to an end to go on from, not itself; with only one of those left, one that leads on to free ends,
-            # so the joining doesn't stop at a dead end with others still to join)
-            if frl and frl != [d] and (len(frl) > 1 or nf): u = d; break
+            # (joined to an end to go on from of its class, not itself; with only one end left to go on from, one that
+            # leads on to free ends, so the joining doesn't stop at a dead end with others still to join)
+            nc = sum(1 for x in frl if x != d and cls[x] == cls[d])
+            if nc > 0 and (len(frl) > 1 or nf): u = d; break
         if u is None:
             if not needy: break
-            if len(needy) == 1 and frl and frl != needy: u = needy[0]
+            if len(needy) == 1 and any(x != needy[0] and cls[x] == cls[needy[0]] for x in frl): u = needy[0]
             else: return None
-        fr2 = sorted(d for d in frl if d != u)
+        fr2 = [d for d in frl if d != u and cls[d] == cls[u]]
         fsel = fr2[int(rng.random() * len(fr2))]
         part[fsel] = u; part[u] = fsel
         frontier.discard(fsel); frontier.discard(u)
@@ -540,7 +550,9 @@ def shuffle(f, mode_bit, rng):
         mark_new(added)
     rest = [d for d in ends if part[d] == -1]
     fy(rest, rng)
-    for k in range(0, len(rest) - 1, 2): part[rest[k]] = rest[k + 1]; part[rest[k + 1]] = rest[k]
+    for c in range(len(DOOR_CLASSES)):
+        rc = [d for d in rest if cls[d] == c]
+        for k in range(0, len(rc) - 1, 2): part[rc[k]] = rc[k + 1]; part[rc[k + 1]] = rc[k]
     return part
 
 
@@ -556,17 +568,18 @@ def br_shuffle(f, rng):
 
 
 # ---------------------------------------------------------------- the items (the mod's rndGenerate)
-def fill(f, part, rows, items, rng, weapons=False, newest=0.7, fight=None):
+def fill(f, part, rows, items, rng, weapons=False, newest=0.7, fight=None, ir=False):
     """the progression items placed as the mod's rndGenerate does with the room logic's reach (Entrance Rando, Boss
-    Rando: each step as it is there, the reach worked out with the doors and the bosses): [(layer, location, item)] or
-    None"""
+    Rando, Instrument Randomization: each step as it is there, the reach worked out with the doors, the bosses and the
+    instruments): [(layer, location, item)] or None. Without ir the instruments stay at their gates' rewards (places
+    that need everything: never one the items are placed at)"""
     import rndgen
     N = len(rows)
     nreq = rndgen.KEY_BASE + 64
-    prog = [i for i, it in enumerate(items) if rndgen.prog_of(it) > 0]
-    pix = [rndgen.prog_of(items[i]) for i in prog]
+    prog = [i for i, it in enumerate(items) if rndgen.prog_of(it, ir) > 0]
+    pix = [rndgen.prog_of(items[i], ir) for i in prog]
     done = [0] * len(prog)
-    reach = Reach(f, part, {}, fight)
+    reach = Reach(f, part, {}, fight, ir)
     layer = [-1] * N
     fill_ = [-1] * N
     layw = set()
@@ -628,24 +641,24 @@ def fill(f, part, rows, items, rng, weapons=False, newest=0.7, fight=None):
     return [(layer[i], i, fill_[i]) for i in range(N) if fill_[i] >= 0]
 
 
-def everything_ok(f, part, hv, base_places, fight=None):
+def everything_ok(f, part, hv, base_places, fight=None, ir=False):
     """with everything, the shuffle reaches every place the game's own doors do, and the goal"""
-    r = Reach(f, part, dict(hv), fight)
+    r = Reach(f, part, dict(hv), fight, ir)
     return base_places <= r.places and all(r.have.get(f.EV_BASE + v, 0) for v in f.goal_ev) and all(ri in r.room_in for ri in f.goal_rooms)
 
 
-def playthrough(f, part, placed, rows, items, fight=None):
+def playthrough(f, part, placed, rows, items, fight=None, ir=False):
     """from nothing, take every progression item reachable, over and over: all of them got"""
     import rndgen
     at = {loc: items[k] for lay, loc, k in placed}
-    r = Reach(f, part, {}, fight)
+    r = Reach(f, part, {}, fight, ir)
     got = set()
     while True:
         new = [loc for loc in at if loc not in got and loc in r.places]
         if not new: break
         for loc in new:
             got.add(loc)
-            r.add(rndgen.prog_of(at[loc]))
+            r.add(rndgen.prog_of(at[loc], ir))
     return len(got) == len(at)
 
 
@@ -668,7 +681,7 @@ def write_data(f, path, base_places, room_label, hv):
     h = hashlib.md5()
     for d, e in enumerate(f.ends):
         x = f.exits[e["exit"]]
-        h.update(("%s|%s|%s|%d;" % (f.rnames[x[0]], x[1], f.entries[e["back"]][1], e["mode"])).encode())
+        h.update(("%s|%s|%s|%d|%d;" % (f.rnames[x[0]], x[1], f.entries[e["back"]][1], e["mode"], e["cls"])).encode())
     digest = h.hexdigest()[:12]
     L.append("RNDER"); put(1); L.append(digest)
     put(len(f.gnames))
@@ -701,10 +714,10 @@ def write_data(f, path, base_places, room_label, hv):
     put(len(f.ev_ways))
     for v, ways in enumerate(f.ev_ways):
         put(len(ways))
-        for kind, what, (af, ac) in ways: put(kind, what, af, ac)
+        for kind, what, (af, ac), mode in ways: put(kind, what, af, ac, mode)
     put(len(f.goal_ev), *f.goal_ev); put(len(f.goal_rooms), *f.goal_rooms)
     put(len(f.ends))
-    for e in f.ends: put(e["exit"], e["back"], e["mode"], e["pair"])
+    for e in f.ends: put(e["exit"], e["back"], e["mode"], e["pair"], e["cls"])
     put(f.start)
     put(f.loc_n)
     for i in range(f.loc_n): put(1 if i in base_places else 0)
@@ -800,18 +813,19 @@ def main():
             made += 1
         print("%-10s 10 seeds made the flat way in %d tries (%s), each played through (%.1fs)" % (
             m, tries, ", ".join("%s %d" % kv for kv in sorted(why.items())) or "none failed", time.time() - t0))
-    # Boss Rando, the game's own doors: seeds made, each played through
-    rng = random.Random(13)
-    t0 = time.time()
-    tries, made = 0, 0
-    while made < 10:
-        tries += 1
-        fight = br_shuffle(f, rng)
-        placed = fill(f, [-1] * len(f.ends), rows, items, rng, fight=fight)
-        if placed is None: continue
-        if not playthrough(f, [-1] * len(f.ends), placed, rows, items, fight): raise SystemExit("Boss Rando: a made seed can't be played through")
-        made += 1
-    print("Boss Rando: %d bosses shuffled; 10 seeds made in %d tries, each played through (%.1fs)" % (sum(f.boss_shuf), tries, time.time() - t0))
+    # Boss Rando, and Instrument Randomization, the game's own doors: seeds made, each played through
+    for label, br, ir in (("Boss Rando", True, False), ("Instrument Randomization", False, True)):
+        rng = random.Random(13)
+        t0 = time.time()
+        tries, made = 0, 0
+        while made < 10:
+            tries += 1
+            fight = br_shuffle(f, rng) if br else None
+            placed = fill(f, [-1] * len(f.ends), rows, items, rng, fight=fight, ir=ir)
+            if placed is None: continue
+            if not playthrough(f, [-1] * len(f.ends), placed, rows, items, fight, ir): raise SystemExit("%s: a made seed can't be played through" % label)
+            made += 1
+        print("%s: 10 seeds made in %d tries, each played through (%.1fs)" % (label, tries, time.time() - t0))
 
 
 if __name__ == "__main__":

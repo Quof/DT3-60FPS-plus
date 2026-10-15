@@ -1,0 +1,165 @@
+/* DT3+ Randomizer trackers (checks.html, items.html) */
+:root {
+  --bg: #16181d;
+  --panel: #1f232a;
+  --panel2: #262b33;
+  --line: #333a45;
+  --text: #e6e8eb;
+  --dim: #8b94a3;
+  --out: #c8473f;
+  --in: #3fa556;
+  --taken: #3b78d8;
+  --here: #e3b341;
+  --s: 1;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font: 14px/1.35 "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
+/* ---- Check Tracker ---- */
+.checks header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 18px;
+  padding: 10px 14px 8px;
+  border-bottom: 1px solid var(--line);
+  background: var(--panel);
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+.checks h1 { font-size: 17px; margin: 0; font-weight: 600; }
+.checks #status { color: var(--dim); font-size: 13px; flex: 1 1 300px; }
+.checks #status b { color: var(--text); font-weight: 600; }
+.checks #status .warn { color: var(--here); }
+.controls { display: flex; gap: 14px; font-size: 13px; }
+.controls label { cursor: pointer; user-select: none; }
+.legend { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--dim); }
+.legend .box { margin-left: 6px; }
+
+.box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 15px;
+  height: 15px;
+  border-radius: 3px;
+  flex: none;
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+}
+.box.out { background: var(--out); }
+.box.in { background: var(--in); }
+.box.taken { background: var(--taken); }
+
+#tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--line);
+}
+#tabs button {
+  font: inherit;
+  font-size: 13px;
+  color: var(--text);
+  background: var(--panel2);
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  padding: 4px 9px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+#tabs button:hover { border-color: #56606e; }
+#tabs button.sel { background: #33404f; border-color: #6b8db5; }
+#tabs button.here { box-shadow: inset 0 -2px 0 var(--here); }
+#tabs .n { font-size: 11px; color: var(--dim); }
+#tabs .n.in { color: #fff; background: var(--in); border-radius: 8px; padding: 0 6px; }
+#tabs .n.done { color: #9cc0f5; }
+
+#panel {
+  padding: 12px;
+  column-width: 270px;
+  column-gap: 12px;
+}
+.screen {
+  break-inside: avoid;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  margin: 0 0 12px;
+  padding: 7px 10px 8px;
+}
+.screen.here { border-color: var(--here); box-shadow: 0 0 0 1px var(--here); }
+.screen h2 {
+  font-size: 13px;
+  font-weight: 600;
+  margin: 0 0 5px;
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+}
+.screen h2 .count { margin-left: auto; font-weight: 400; font-size: 11px; color: var(--dim); white-space: nowrap; }
+.screen h2 .tag { font-weight: 400; font-size: 11px; color: var(--here); }
+.screen ul { list-style: none; margin: 0; padding: 0; }
+.screen li { display: flex; align-items: center; gap: 7px; padding: 2px 0; }
+.screen li.taken .name { color: var(--dim); }
+.screen.done h2 { color: var(--dim); }
+.empty { color: var(--dim); padding: 20px; }
+
+/* ---- Item Tracker ---- */
+.items { padding: calc(8px * var(--s)); }
+/* (wide enough for: Movement and Mario; Link, Belmont and Mega Man; Samus and the Game Powers; the instruments and the
+   cursed equipment; then the upgrades, seven a row) */
+.items #grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(6px * var(--s)) calc(14px * var(--s));
+  max-width: calc(480px * var(--s));
+}
+.grp { display: flex; flex-direction: column; gap: calc(2px * var(--s)); }
+.grp .t { font-size: calc(10px * var(--s)); color: var(--dim); letter-spacing: 0.02em; }
+.grp .row { display: flex; flex-wrap: wrap; gap: calc(3px * var(--s)); }
+.it {
+  position: relative;
+  width: calc(36px * var(--s));
+  height: calc(36px * var(--s));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.it img { image-rendering: pixelated; image-rendering: crisp-edges; }
+.it.off img { filter: grayscale(1) brightness(0.55); opacity: 0.5; }
+.it .lv {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  font-size: calc(11px * var(--s));
+  font-weight: 700;
+  line-height: 1;
+  padding: 1px 3px;
+  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.75);
+  color: #fff;
+}
+.counters .row {
+  display: grid;
+  grid-template-columns: repeat(7, auto);
+  justify-content: start;
+  gap: calc(4px * var(--s)) calc(10px * var(--s));
+}
+.ct { display: flex; flex-direction: column; align-items: center; width: calc(44px * var(--s)); }
+.ct .it { height: calc(30px * var(--s)); }
+.ct .num { font-size: calc(11px * var(--s)); font-weight: 600; white-space: nowrap; }
+.ct .num.all { color: #f0c94a; }
+.ct.off .num { color: var(--dim); }
+.items #status { font-size: 11px; color: var(--dim); margin-top: 6px; }
+.items #status:empty { display: none; }

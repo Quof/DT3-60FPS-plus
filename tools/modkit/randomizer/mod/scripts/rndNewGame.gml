@@ -6,11 +6,12 @@
 //Archipelago game (the title screen's code 'ap', with the DT3+ Client connected) has its items in the multiworld
 //instead: none are placed here, its checks go to the client and its items come from it (rndApStart, rndApPoll).
 //With the option Entrance Rando (global.rndOptER: 1 Gate Swap, 2 Overworld, 3 Chaos), the mode's doors are shuffled
-//first (rndERShuffle); with Boss Rando (rndOptBR), the bosses (rndBRShuffle). A shuffle is kept only if with everything
-//it reaches every place the game's own doors do and the goal (rndEREverything: the doors), the items can be placed with
-//what the doors and bosses let through (rndGenerate, with the room logic's reach) and the seed plays through
-//(rndERPlay); else another is tried. Not with Archipelago
-var tTry,tOk,tER,tBR,tBit,tGo,d,i;
+//first (rndERShuffle); with Boss Rando (rndOptBR), the bosses (rndBRShuffle); with Instrument Randomization
+//(rndOptIR), the instruments are in the pool. A shuffle is kept only if with everything it reaches every place the
+//game's own doors do and the goal (rndEREverything: the doors), the items can be placed with what the doors and bosses
+//let through (rndGenerate, with the room logic's reach) and the seed plays through (rndERPlay); else another is tried.
+//Not with Archipelago
+var tTry,tOk,tER,tBR,tIR,tBit,tGo,d,i;
 rndWorld()
 global.CHAOS_Invasion=0
 global.CHAOS_Upgrade=0
@@ -57,22 +58,26 @@ if global.rndAP=0
   //the entrances and the bosses shuffled, and the items placed with them
   global.rndERMode=0
   global.rndBRMode=0
+  global.rndIRMode=0
   tER=global.rndOptER
   tBR=global.rndOptBR
-  if tER>0 or tBR>0
+  tIR=global.rndOptIR
+  if tER>0 or tBR>0 or tIR>0
   {
     if rndERLoad()=0
     {
-      show_message("Randomizer: Entrance Rando and Boss Rando need the mod's room logic data (data\rndER.txt), which isn't there or doesn't fit this build. The entrances and the bosses are left as they are.")
+      show_message("Randomizer: Entrance Rando, Boss Rando and Instrument Randomization need the mod's room logic data (data\rndER.txt), which isn't there or doesn't fit this build. The entrances, the bosses and the instruments are left as they are.")
       tER=0
       tBR=0
+      tIR=0
     }
   }
-  if tER>0 or tBR>0
+  if tER>0 or tBR>0 or tIR>0
   {
     tBit=1
     if tER=2 {tBit=2}
     else if tER=3 {tBit=4}
+    global.rndIRMode=tIR
     for(tTry=0;tTry<60 and tOk=0;tTry+=1)
     {
       random_set_seed(global.rndSeed+tTry*7919)
@@ -102,7 +107,8 @@ if global.rndAP=0
     else
     {
       for(i=0;i<global.rndBossN;i+=1) {global.rndBRFight[i]=i}
-      show_message("Randomizer: no shuffle of the entrances and bosses worked out for seed "+string(global.rndSeed)+" (60 were tried). They're left as they are.")
+      global.rndIRMode=0
+      show_message("Randomizer: no shuffle of the entrances, bosses and instruments worked out for seed "+string(global.rndSeed)+" (60 were tried). They're left as they are.")
     }
   }
   if tOk=0

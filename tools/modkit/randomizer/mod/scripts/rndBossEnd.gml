@@ -19,6 +19,12 @@ global.currentBoss=""
 global.bBossResultShow=0
 rndAbilApply()
 if w {global.rndBossDone=rndSetChar(global.rndBossDone,s+1,"1")}
+//(a Nightmare Gate boss's place: the gate is beaten, eGateProg 8 unless its instrument is had already, as the gate's own
+//fight leaves it; its reward is there now: the roomStart hook)
+if w and global.rndBossGate[s]>0
+{
+  if string_char_at(global.eGateProg,global.rndBossGate[s])!="9" {global.eGateProg=rndSetChar(global.eGateProg,global.rndBossGate[s],"8")}
+}
 if b=global.rndBossFinal and w {rndWin(); exit}
 transition_kind=0
 if w

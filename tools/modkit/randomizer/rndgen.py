@@ -12,9 +12,11 @@ Inputs next to this file:
   roomlogic\\  what each location needs, worked out from the rooms: each room's logic (rooms\\), the connections and
               the hand-made changes (overrides.txt), joined by solve.py (roomlogic\\README.txt)
   logic.txt   last-resort changes to single locations (see README.txt)
+  tracker_names.txt  the Check Tracker's tabs and screens (tracker.py)
 Outputs:
   <output>\\scripts\\rndData.gml    locations, items and shops
   <output>\\scripts\\rndWorld.gml   the world state
+  <output>\\tracker\\data.js        the trackers' data and pictures (tracker.py; the pages are mod\\tracker's)
   locations.csv (next to this file) every location with its logic, for checking and for logic.txt
 """
 import os, re, sys, csv, shutil, collections
@@ -33,36 +35,45 @@ LTYPES = [
     (16, "oMMBoostedCharge", "X Charge Capsule"), (17, "oMetPick_SpringBall", "Spring Ball")]
 LT_BY_OBJ = {o: c for c, o, l in LTYPES}
 LT_LABEL = {c: l for c, o, l in LTYPES}
+LT_LABEL[18] = "Instrument"
 # location types that stay the game's own, not locations: the Item Finder (its pickup gives it, as in the game; the
 # mod's oIdentifier makes Chao's alert tell the locations' items apart)
 KEEP_TYPES = {15}
 
 # item kinds (the numbers the mod's scripts use)
 IK = dict(HP=1, MONEY=2, EQUIP=3, AQ=4, HE=5, MP=6, GP=7, AU=8, WB=9, WL=10, AP=11, LB=12, MB=13, KEY=14, HC=15, XF=16,
-          XC=17, XS=18, JUMP=19, GDASH=20, ADASH=21, DJUMP=22, HIJUMP=23, SET=24, VARIA=25)
+          XC=17, XS=18, JUMP=19, GDASH=20, ADASH=21, DJUMP=22, HIJUMP=23, SET=24, VARIA=25, INSTR=26)
+# the Nightmare Gates' instruments: each gate's reward (location type 18, its number the gate's, 1-8: A-H), given right
+# after its boss is beaten (the mod's oRndReward; Gate H's in the mod's room for it, rRndGateH). Their item: the
+# instrument (kind INSTR, the instrument's number, eGateProg's place). They need everything (a fight's reward: no
+# ability or key there); with the new game's option Instrument Randomization the instruments are in the pool and these
+# places hold any item, else each holds its own instrument
+INSTR_TYPE = 18
+GATE_ROOMS = ["rExtGateA_6", "rExtGateB_6", "rExtGateC_5", "rExtGateD_6", "rExtGateE_5", "rExtGateF_6", "rExtGateG_5", "rRndGateH"]
 LT_ITEM = {1: "HP", 3: "AQ", 4: "HE", 5: "MP", 6: "GP", 7: "AU", 8: "WB", 10: "AP", 11: "LB", 12: "MB", 13: "KEY",
            14: "HC", 15: "XF", 16: "XC", 17: "XS"}
 
 # progression: the items the logic counts (their index: the mod's rndItemProg, and the logic's numbers in rndData; a
 # key is 20 + its door's objectNum). jump: had from the start (the new game gives it). mario: the Mario Ability Set
 # (hasAbilToken[0]: jumping on Mario enemies, hitting blocks from below). varia: the Varia Suit (Gate 5's lava harmless:
-# the mod's oMetLava). cursed: the Trial Master's three cursed equipment pieces (equipment 10-12), which the trials need on
+# the mod's oMetLava). cursed: the Trial Master's three cursed equipment pieces (equipment 10-12), which the trials need on.
+# instr: the instruments (only with Instrument Randomization: else each is at its gate's reward)
 PROG = ["jump", "gdash", "adash", "djump", "hijump", "mario", "link", "belmont", "megaman", "samus", "gamej", "gamec",
-        "varia", "cursed", "keys"]
+        "varia", "cursed", "instr", "keys"]
 KEY_BASE = 20
-VARIA_IX, CURSED_IX = 12, 13
+VARIA_IX, CURSED_IX, INSTR_IX = 12, 13, 14
 CURSED = (10, 11, 12)
 # how many of each there are. The ability sets' items are progressive: each one is the set's next level (hasAbilToken 2,
 # 3...): Link and Belmont 3 (their three weapons; nothing uses a level 5), Mega Man 4 (the Strike Chain at 5), Samus 7
 # (Arm Cannon, Morph Ball, Charge Beam, Missiles, Spazer Beam, Bombs, Diffusion Missile), the Gate 6 sets 2
-PMAX = [0, 1, 1, 1, 2, 1, 3, 3, 4, 7, 2, 2, 1, 3, 17]
+PMAX = [0, 1, 1, 1, 2, 1, 3, 3, 4, 7, 2, 2, 1, 3, 8, 17]
 # the abilities that aren't at any location in an endgame world (the story gave them): added to the pool (not jumping:
 # a new game starts with it)
 EXTRA = [("GDASH", 0), ("ADASH", 0), ("DJUMP", 0), ("HIJUMP", 0), ("HIJUMP", 0)] + \
         [("SET", s) for s, n in enumerate(PMAX[5:12]) for _ in range(n)] + [("VARIA", 0)]
 # the room logic's names for the progression items
 LOGIC_NAMES = {"gdash": 1, "adash": 2, "djump": 3, "hijump": 4, "mario": 5, "link": 6, "belmont": 7, "megaman": 8,
-               "samus": 9, "gamej": 10, "gamec": 11, "varia": VARIA_IX, "cursed": CURSED_IX}
+               "samus": 9, "gamej": 10, "gamec": 11, "varia": VARIA_IX, "cursed": CURSED_IX, "instr": INSTR_IX}
 # a location that needs everything (the logic doesn't reach it, or it's a fight's or a trial's reward): it gets no
 # ability or key
 EVERYTHING = None
@@ -105,12 +116,13 @@ GAME_PATCHES = [
 ]
 
 # bosses: the boss gallery's doors give each boss's type (oBossGalleryDoor's user event 0 sets its fight up), room and
-# where the player starts it. One boss a room (its first type: Death, Sigma, Ridley and Decimator have a second). Left to
-# the game: the Nightmare Gates' bosses (their instruments: rooms rExtGate*), the Abomination (type 58, the instrument
-# quest's), the Warmaster EX room (type 65: the game's own Fedex fight), the Ridley tunnel chase (37) and the Leviathan
-# road (41), which aren't fights a room makes
+# where the player starts it. One boss a room (its first type: Death, Sigma, Ridley and Decimator have a second). The
+# Nightmare Gates' bosses (rooms rExtGate*) come after the others (the mod's boss numbers of the others stay as they
+# were for saves); beaten, their gate counts as beaten (eGateProg 8) and its reward is there (rndBossEnd, oRndReward).
+# Left to the game: the Abomination (type 58, the instrument quest's), the Warmaster EX room (type 65: the game's own
+# Fedex fight), the Ridley tunnel chase (37) and the Leviathan road (41), which aren't fights a room makes
 BOSS_SKIP = {37, 41, 58, 65}
-BOSS_FINAL = 60          # the Warmaster: the win (his door is in the first room)
+BOSS_FINAL = 60          # the Warmaster: the win (at the end of the CHAOS Warship, once the Abomination is beaten)
 HC_BOSS = {1: 2, 2: 8, 3: 14, 4: 24, 5: 35, 6: 46}  # heart container (objectNum): the boss type after whose fight the game gives it
 # bosses whose rooms the story's exit no longer goes to in an endgame world (it goes on past them): going through that
 # exit (from, to) is the way into the fight, and the player goes on to where it leads after it
@@ -301,6 +313,12 @@ def locations_items():
     drop = set(money[:extra])
     items = [it for i, it in enumerate(items) if i not in drop]
     assert len(items) == len(rows), (len(items), len(rows))
+    # the Nightmare Gates' rewards and their instruments, after the rest (the others' numbers stay as they were: saves
+    # keep their places by number). Location 18 g's own item: the instrument g (rndVanillaPlace gives it it)
+    for g, room in enumerate(GATE_ROOMS, 1):
+        rows.append({"type": INSTR_TYPE, "num": g, "rooms": [room], "area": rarea.get(room), "req": EVERYTHING,
+                     "item": ("INSTR", g), "trial": 0})
+        items.append(("INSTR", g))
     # each key is one door's (its parameter: the door's objectNum)
     keys = [i for i, it in enumerate(items) if it[0] == "KEY"]
     if len(keys) != len(door_order) or len(keys) != PMAX[-1]:
@@ -321,14 +339,19 @@ def boss_list():
         bosses.append((t, tr.group(1), num(code, "newMapX") or 0, num(code, "newMapY") or 0,
                        (re.search(r'bossName="([^"]*)"', code) or [None, "?"])[1]))
     bosses.sort()
-    blist = []
+    blist, gates = [], []
     for t, room, bx, by, name in bosses:
-        if t in BOSS_SKIP or room.startswith("rExtGate") or room in seen_rooms: continue
+        if t in BOSS_SKIP or room in seen_rooms: continue
         rc = os.path.join(ROOMS, room, "code.gml")
         if not os.path.exists(rc) or not re.search(r"bossTrack\s*=\s*1", read(rc)): continue
         seen_rooms.add(room)
-        blist.append((t, room, bx, by, name))
-    return blist
+        (gates if room.startswith("rExtGate") else blist).append((t, room, bx, by, name))
+    return blist + gates
+
+
+def boss_gate(room):
+    """a Nightmare Gate boss's gate (1-7: A-G) by its room, or 0"""
+    return GATE_ROOMS.index(room) + 1 if room in GATE_ROOMS[:7] else 0
 
 
 def boss_slots(blist):
@@ -405,10 +428,12 @@ def build(out, rooms, anames, rarea, locs, doors, shops, door_list, door_order, 
     for i, r in enumerate(rows):
         a = r["area"]
         where = "%s (%s)" % (anames.get(a, "?"), r["rooms"][0]) if a else r["rooms"][0]
+        name = "%s: %s %d" % (where, LT_LABEL[r["type"]], r["num"])
+        if r["type"] == INSTR_TYPE: name = "Nightmare Gate %s (%s): its boss's reward" % ("ABCDEFGH"[r["num"] - 1], r["rooms"][0])
         L.append("global.rndLocType[%d]=%d; global.rndLocNum[%d]=%d; global.rndLocOf[%d,%d]=%d; "
                  "global.rndLocName[%d]=%s; global.rndLocTrial[%d]=%d"
                  % (i, r["type"], i, r["num"], r["type"], r["num"], i,
-                    i, gml_str("%s: %s %d" % (where, LT_LABEL[r["type"]], r["num"])), i, r["trial"]))
+                    i, gml_str(name), i, r["trial"]))
         if r["req"] is EVERYTHING:
             L.append("global.rndLocAltN[%d]=-1" % i)
             continue
@@ -446,7 +471,8 @@ def build(out, rooms, anames, rarea, locs, doors, shops, door_list, door_order, 
         vf, vt = BOSS_VIA.get(t, ("-1", "-1"))
         L.append("global.rndBossViaFrom[%d]=%s; global.rndBossViaTo[%d]=%s" % (i, vf, i, vt))
         fx, fy, fe = bstart[i]
-        L.append("global.rndBossFX[%d]=%d; global.rndBossFY[%d]=%d; global.rndBossOnEntry[%d]=%d" % (i, fx, i, fy, i, fe))
+        L.append("global.rndBossFX[%d]=%d; global.rndBossFY[%d]=%d; global.rndBossOnEntry[%d]=%d; global.rndBossGate[%d]=%d"
+                 % (i, fx, i, fy, i, fe, i, boss_gate(room)))
     L.append("global.rndApBase=%d //Archipelago: a location's id is this+type*1000+objectNum, an item's this+kind*10000+parameter" % AP_BASE)
     L.append("global.rndBossFinal=%d" % bidx[BOSS_FINAL])
     for n in range(8):
@@ -480,6 +506,10 @@ def build(out, rooms, anames, rarea, locs, doors, shops, door_list, door_order, 
             b = b or u
             L.append("global.rndSprFL[%s,%d]=%d; global.rndSprFT[%s,%d]=%d; global.rndSprFR[%s,%d]=%d; global.rndSprFB[%s,%d]=%d"
                      % (s, i, b[0], s, i, b[1], s, i, b[2], s, i, b[3]))
+    # this build's id (the trackers' data has it too: tracker.py), from the data
+    import hashlib
+    build_id = hashlib.md5("\n".join(L).encode("utf-8")).hexdigest()[:12]
+    L.append("global.rndBuildId=%s" % gml_str(build_id))
     os.makedirs(os.path.join(out, "scripts"), exist_ok=True)
     with open(os.path.join(out, "scripts", "rndData.gml"), "w", encoding="utf-8", newline="\n") as f:
         f.write("\n".join(L) + "\n")
@@ -513,23 +543,27 @@ def build(out, rooms, anames, rarea, locs, doors, shops, door_list, door_order, 
         depth = [max(p[0] for p in r) + 1 for r in ok]
         print("placement check, %s: %d of 50 seeds placed, layers %d to %d (average %.1f)"
               % (label, len(ok), min(depth), max(depth), sum(depth) / len(depth)))
-    er_check(rows, items, out, boss_slots(blist))
+    f, bp, hv = er_check(rows, items, out, boss_slots(blist))
     ap_export(rows, items, door_order, doors, rarea, anames, out)
+    import tracker
+    tracker.build(out, rows, items, f, bp, hv, door_order, blist, anames, rarea, rooms, build_id)
 
 
 def er_check(rows, items, out, bosses):
     """Entrance Rando and Boss Rando: the room logic the mod works seeds out from (data\\rndER.txt: roomlogic\\erflat.py),
     and seeds made as the mod makes them (the doors shuffled, every place and the goal reached with everything, the
     bosses shuffled, the items placed with what the doors and bosses let through, the seed played through), so a mode
-    whose seeds can't be made shows up here"""
+    whose seeds can't be made shows up here. Returns the tables, the places the game's own doors reach with everything
+    and everything's numbers (the trackers': tracker.py)"""
     import random
     sys.path.insert(0, os.path.join(HERE, "roomlogic"))
     import erflat
     f, w, pairs, digest, bp, hv = erflat.build_data(rows, os.path.join(out, "data", "rndER.txt"), bosses)
     print("room logic data written: Entrance Rando %d doors, %d rooms (hash %s); Boss Rando %d bosses shuffled"
           % (len(f.ends) // 2, len(f.rnames), digest, sum(f.boss_shuf)))
-    for label, bit, br in (("Gate Swap", 1, False), ("Overworld", 2, False), ("Chaos", 4, False),
-                           ("Boss Rando", 0, True), ("Chaos with Boss Rando", 4, True)):
+    for label, bit, br, ir in (("Gate Swap", 1, False, False), ("Overworld", 2, False, False), ("Chaos", 4, False, False),
+                               ("Boss Rando", 0, True, False), ("Instrument Randomization", 0, False, True),
+                               ("Chaos with Boss Rando and Instrument Randomization", 4, True, True)):
         tries = 0
         for seed in range(10):
             for t in range(60):
@@ -538,16 +572,17 @@ def er_check(rows, items, out, bosses):
                 part = erflat.shuffle(f, bit, rng) if bit else [-1] * len(f.ends)
                 if part is None: continue
                 fight = erflat.br_shuffle(f, rng) if br else None
-                if bit and not erflat.everything_ok(f, part, hv, bp, fight): continue
-                placed = erflat.fill(f, part, rows, items, rng, fight=fight)
+                if bit and not erflat.everything_ok(f, part, hv, bp, fight, ir): continue
+                placed = erflat.fill(f, part, rows, items, rng, fight=fight, ir=ir)
                 if placed is None: continue
-                if not erflat.playthrough(f, part, placed, rows, items, fight):
+                if not erflat.playthrough(f, part, placed, rows, items, fight, ir):
                     raise SystemExit("%s: a seed made can't be played through" % label)
                 break
             else:
                 raise SystemExit("%s: no seed worked out in 60 tries (seed %d)" % (label, seed))
         what = "%d doors shuffled; " % (sum(1 for e in f.ends if e["mode"] & bit) // 2) if bit else ""
         print("seed check, %s: %s10 seeds made in %d tries, each played through" % (label, what, tries))
+    return f, bp, hv
 
 
 # ---------------------------------------------------------------- Archipelago
@@ -612,6 +647,9 @@ def ap_sprite(folder):
 def ap_export(rows, items, door_order, doors, rarea, anames, out):
     import zipfile
     equip = equipment_names()
+    # (the Nightmare Gates' rewards keep their own instruments in an Archipelago game: not its locations or items)
+    rows = [r for r in rows if r["type"] != INSTR_TYPE]
+    items = [it for it in items if it[0] != "INSTR"]
     # the keys, by door: named after the door's area (numbered where an area has several)
     door_area_name = {d: anames.get(rarea.get(sorted(doors[d])[0]), sorted(doors[d])[0]) for d in door_order}
     key_names = {}
@@ -704,14 +742,16 @@ def ap_export(rows, items, door_order, doors, rarea, anames, out):
     print("Archipelago: %d locations, %d items in %d kinds (filler %r), %s" % (len(ap_locs), len(items), len(ap_items), filler, dest))
 
 
-def prog_of(item):
+def prog_of(item, ir=False):
     """an item's progression number (rndProgOf: 1-11 an ability or set, 12 the Varia Suit, 13 a cursed equipment piece,
-    KEY_BASE+objectNum a door's key), or -1"""
+    14 an instrument with Instrument Randomization (ir; else it stays at its gate's reward, not placed), KEY_BASE+objectNum
+    a door's key), or -1"""
     k, p = item
     if k in ("JUMP", "GDASH", "ADASH", "DJUMP", "HIJUMP"): return ["JUMP", "GDASH", "ADASH", "DJUMP", "HIJUMP"].index(k)
     if k == "SET": return 5 + p
     if k == "VARIA": return VARIA_IX
     if k == "EQUIP" and p in CURSED: return CURSED_IX
+    if k == "INSTR": return INSTR_IX if ir else -1
     if k == "KEY": return KEY_BASE + p
     return -1
 

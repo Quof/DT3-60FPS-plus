@@ -154,6 +154,14 @@ switch (k)
     global.rndOwn[12]+=1
     rndMsg("You found the [Varia Suit]!#You no longer take damage from most lava.",2)
     break
+  case 26: //an instrument (p: its place in eGateProg, 1-8): had (9). With all eight, the Abomination can be faced
+    //(gateHProg 100, which the Sacred Temple's last instrument scene gives in the game)
+    playSound(global.snd_SkillGet,0,1,1)
+    awardAwesome(10000)
+    global.eGateProg=rndSetChar(global.eGateProg,p,"9")
+    rndMsg("You obtained the "+rndItemNameKP(k,p)+"!",1)
+    if global.eGateProg="99999999" and global.gateHProg<100 {global.gateHProg=100}
+    break
   case 19: case 20: case 21: case 22: case 23: case 24:
     playSound(global.snd_SkillGet,0,1,1)
     awardAwesome(10000)
@@ -185,3 +193,4 @@ switch (k)
     break
 }
 rndMarkNext(k)
+global.rndTrackDirty=1

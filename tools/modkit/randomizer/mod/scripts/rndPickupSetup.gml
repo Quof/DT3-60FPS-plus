@@ -10,6 +10,8 @@ rndItem=rndPlaced(rndLoc)
 tSpr=sprite_index
 tFrm=floor(image_index)
 if image_speed>0 {tFrm=-1}
-if global.rndAP=1 {rndApLook(rndLoc)}
+//(an Archipelago game's Nightmare Gate reward isn't one of its locations: it's the gate's own instrument)
+if global.rndAP=1 and global.rndLocType[rndLoc]!=18 {rndApLook(rndLoc)}
+else if global.rndAP=1 {rndItemLookKP(26,global.rndLocNum[rndLoc])}
 else {rndItemLook(rndItem)}
 rndItemFit(tSpr,tFrm)

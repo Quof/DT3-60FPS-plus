@@ -1,8 +1,10 @@
 //Randomizer: every frame, the abilities the game turned on are the ones the player has found (rndAbilClamp); not in the
 //boss gallery's own fights, which give their bosses' abilities. In Central City - South, the heart container the 7th
-//trial gives comes as the trial ends (rndHC7). An Archipelago game trades with the DT3+ Client (rndApPoll)
+//trial gives comes as the trial ends (rndHC7). An Archipelago game trades with the DT3+ Client (rndApPoll). The
+//trackers' state is written once something in it has changed (rndTrackWrite)
 if global.rndActive=1
 {
+  if global.rndTrackDirty=1 {global.rndTrackDirty=0; rndTrackWrite()}
   if !(global.bBossGallery=1 and global.rndFight<0) {rndAbilClamp()}
   if room=rCCity_SGrove {rndHC7()}
   if global.rndAP=1 {rndApPoll()}
@@ -38,6 +40,18 @@ if global.rndActive=1
         transition_kind=0
         if global.rndBossRoom[global.rndFight]=room {room_restart()}
         else {room_goto(global.rndBossRoom[global.rndFight])}
+      }
+    }
+    //the CHAOS Warmaster's place before the Abomination is beaten (the roomStart hook): walking up to it says what his
+    //fight waits for, once a visit
+    else if global.rndRoomWait>=0 and global.bBossGallery=0 and global.gamePaused=false
+    {
+      var w;
+      w=global.rndRoomWait
+      if abs(oPlayer1.y-global.rndBossFY[w])<96 and abs(oPlayer1.x-global.rndBossFX[w])<64
+      {
+        global.rndRoomWait=-1
+        rndMsg("The CHAOS Warmaster isn't here yet.#He comes once the Abomination is beaten (all 8 instruments).",2)
       }
     }
   }

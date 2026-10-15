@@ -8,9 +8,11 @@
 //instead of all being near it. With the option Guarantee Early Weapons, a new layer's first item is a weapon (an item of
 //the Link, Belmont, Mega Man or Samus set: the sets with an attack) while there are any left: every layer has one. The
 //other items fill the rest at random.
-//With Entrance Rando or Boss Rando (global.rndReach), what the items reach is worked out from the rooms with the doors
-//and the bosses as shuffled (rndERReachStart, rndERAdd: global.rndRPlace) instead of rndData's logic, and the items
-//that open something are those one more of which lets a way through (global.rndRSingle).
+//With Entrance Rando, Boss Rando or Instrument Randomization (global.rndReach), what the items reach is worked out from
+//the rooms with the doors and the bosses as shuffled (rndERReachStart, rndERAdd: global.rndRPlace) instead of rndData's
+//logic, and the items that open something are those one more of which lets a way through (global.rndRSingle).
+//The instruments are progression items with Instrument Randomization (global.rndIRMode); without it each stays at its
+//Nightmare Gate's reward (location type 18, the gate's number).
 //Returns 1, or 0 when a progression item had nowhere to go (try another seed)
 var N,i,j,k,a,e,s,tProgN,tJunkN,tFreeN,tCandN,tCur,tLay,tLast,tPick,tPlaced,tMiss,tMissIx,tShort,tIx,tLoc,tW,tR,tKind,tNewest,tForce,tWpnN;
 N=global.rndLocN
@@ -23,7 +25,11 @@ tProgN=0
 tJunkN=0
 for(i=0;i<global.rndItemN;i+=1)
 {
-  if global.rndItemProg[i]>0 {tProg[tProgN]=i; tDone[tProgN]=0; tProgN+=1}
+  //(an instrument without Instrument Randomization: at its own gate's reward)
+  tIx=-1
+  if global.rndItemKind[i]=26 and global.rndIRMode=0 {tIx=rndLocFind(18,global.rndItemParam[i])}
+  if tIx>=0 {tFill[tIx]=i}
+  else if global.rndItemProg[i]>0 {tProg[tProgN]=i; tDone[tProgN]=0; tProgN+=1}
   else {tJunk[tJunkN]=i; tJunkN+=1}
 }
 for(i=0;i<global.rndKeyBase+64;i+=1) {global.rndGHave[i]=0; tUseful[i]=0}

@@ -40,8 +40,10 @@ BOSSES = os.path.join(HERE, "bosses.txt")
 OUT = os.path.join(HERE, "roomlogic.txt")
 
 # the items the logic counts, in RoomLogic.cs's order (Req.Names); djump, adash, gdash, mario and varia are one item
-# each (varia: the Varia Suit; cursed: the Trial Master's three cursed equipment pieces)
-ITEMS = ["djump", "adash", "gdash", "hijump", "mario", "link", "belmont", "megaman", "samus", "gamej", "gamec", "varia", "cursed"]
+# each (varia: the Varia Suit; cursed: the Trial Master's three cursed equipment pieces; instr: the Nightmare Gates'
+# instruments, items only with the new game's option Instrument Randomization: events.txt's ir+ lines)
+ITEMS = ["djump", "adash", "gdash", "hijump", "mario", "link", "belmont", "megaman", "samus", "gamej", "gamec", "varia", "cursed",
+         "instr"]
 SINGLE = {"djump", "adash", "gdash", "mario", "varia"}
 
 
@@ -429,17 +431,23 @@ def with_events(alts, events):
     return out
 
 
-def load_events(path=EVENTS):
-    """events.txt: {event: [(kind "room" or "area", the room or area number, alternatives)]}"""
+def load_events(path=EVENTS, modes=False):
+    """events.txt: {event: [(kind "room" or "area", the room or area number, alternatives)]}, as without the new game's
+    option Instrument Randomization (a line starting "ir+" is only with it, "ir-" only without). modes: every line, each
+    (kind, what, alternatives, mode: 0 always, 1 without it, 2 with it)"""
     ev = collections.OrderedDict()
     if not os.path.exists(path): return ev
     for ln, raw in enumerate(open(path, encoding="utf-8"), 1):
         line = raw.split("#", 1)[0].strip()
         if not line: continue
+        mode = 0
+        if line.startswith(("ir+ ", "ir- ")): mode = 2 if line[2] == "+" else 1; line = line[4:].strip()
         head, _, req = line.partition(":")
         f = head.split()
         if len(f) != 3 or f[1] not in ("room", "area"): raise SystemExit("events.txt line %d: '<event> room <room> [: <requirements>]' or '<event> area <number> ...'" % ln)
-        ev.setdefault(f[0], []).append((f[1], f[2], parse(req, "events.txt line %d" % ln) if req.strip() else [NOTHING]))
+        alts = parse(req, "events.txt line %d" % ln) if req.strip() else [NOTHING]
+        if modes: ev.setdefault(f[0], []).append((f[1], f[2], alts, mode))
+        elif mode != 2: ev.setdefault(f[0], []).append((f[1], f[2], alts))
     return ev
 
 

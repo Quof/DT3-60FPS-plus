@@ -97,7 +97,8 @@ for(i=0;i<global.rndEXN;i+=1)
   global.rndEXExC[i]=rndERRead(f)
   global.rndEXEnd[i]=rndERRead(f)
 }
-//events: their ways (1 a room got into, 2 an area: which; what else it takes)
+//events: their ways (1 a room got into, 2 an area: which; what else it takes; its mode: 0 always, 1 only without
+//Instrument Randomization, 2 only with it: rndERRun)
 global.rndEVN=rndERRead(f)
 for(i=0;i<global.rndEVN;i+=1)
 {
@@ -108,6 +109,7 @@ for(i=0;i<global.rndEVN;i+=1)
     global.rndEVWhat[i,j]=rndERRead(f)
     global.rndEVAltF[i,j]=rndERRead(f)
     global.rndEVAltC[i,j]=rndERRead(f)
+    global.rndEVMode[i,j]=rndERRead(f)
   }
 }
 //the goal: the events and rooms the shuffle has to reach with everything
@@ -115,7 +117,9 @@ global.rndEGoalEvN=rndERRead(f)
 for(i=0;i<global.rndEGoalEvN;i+=1) {global.rndEGoalEv[i]=rndERRead(f)}
 global.rndEGoalRmN=rndERRead(f)
 for(i=0;i<global.rndEGoalRmN;i+=1) {global.rndEGoalRm[i]=rndERRead(f)}
-//the doors' ends: exit, way back in, the modes it's shuffled in (1 Gate Swap, 2 Overworld, 4 Chaos), the game's partner
+//the doors' ends: exit, way back in, the modes it's shuffled in (1 Gate Swap, 2 Overworld, 4 Chaos), the game's
+//partner, its class (what the Metroid door in front of its exit needs: 0 none, 1 any weapon, 2 missiles; the shuffle
+//pairs only ends of one class, so the player only comes in behind a Metroid door by going through one)
 global.rndEDN=rndERRead(f)
 for(i=0;i<global.rndEDN;i+=1)
 {
@@ -123,6 +127,7 @@ for(i=0;i<global.rndEDN;i+=1)
   global.rndEDBack[i]=rndERRead(f)
   global.rndEDMode[i]=rndERRead(f)
   global.rndEDPair[i]=rndERRead(f)
+  global.rndEDCls[i]=rndERRead(f)
 }
 global.rndEStart=rndERRead(f)
 //each location: reached with everything through the game's own doors (a shuffle has to reach those too)

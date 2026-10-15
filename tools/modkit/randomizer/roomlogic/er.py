@@ -14,7 +14,9 @@ Modes (the new game's option Entrance Rando):
 Every mode leaves out: one-way exits, doors within a room, menus and encounters, the exits that are boss fights
 (connections.txt's via), exits whose way goes by a carried state and the Forest Palace's rooms (its crystals), the
 encounter rooms, rooms the logic doesn't reach even with everything (story rooms), ends whose way in reaches nothing
-(the player would come in inside a solid), and exits the game can't find by where they are (two at one place).
+(the player would come in inside a solid) or doesn't get back out through the end's own exit (a drop with no way back
+up), and exits the game can't find by where they are (two at one place). An end with a Metroid door in front of its
+exit is only paired with one whose Metroid door needs the same (door_class).
 
 The seed: shuffle, place the items as the game does (rndgen's fill_check: layers, the newest likelier) with what's
 reached worked out from the rooms and the shuffled doors, then check that with everything every place the game's own
@@ -56,27 +58,65 @@ def exit_objects(path=os.path.join(HERE, "work", "rooms.txt")):
     return out
 
 
+# a Metroid door (oMetroidDoorHolder) in front of an exit: going through the exit needs what opens it, from anywhere in
+# the room (the room logic has it on every way there). An end whose exit has one only pairs with an end whose exit has
+# one needing the same: the player only comes in behind one by going through one, so has what going back takes (an
+# ordinary door to behind a Metroid door would leave them stuck there without a weapon)
+METROID_DOOR_DIST = 96
+
+
+def metroid_doors(path=os.path.join(HERE, "work", "rooms.txt")):
+    """{room: [(x, y, what opening it needs)]} from the room data"""
+    out, room = collections.defaultdict(list), None
+    for line in open(path, encoding="utf-8"):
+        f = line.rstrip("\n").split("\t")
+        if f[0] == "R": room = f[1]
+        elif f[0] == "G" and room and f[-1] == "oMetroidDoorHolder": out[room].append((float(f[2]), float(f[3]), f[7]))
+    return out
+
+
+def door_class(mdoors, room, out):
+    """what the Metroid door in front of an exit needs ("attack", "samus:4"), or "" for none"""
+    p = xy(out)
+    if not p: return ""
+    best = None
+    for x, y, req in mdoors.get(room, ()):
+        d = abs(p[0] - x) + abs(p[1] - y)
+        if d <= METROID_DOOR_DIST and (best is None or d < best[0]): best = (d, req)
+    return best[1] if best else ""
+
+
 class End:
-    __slots__ = ("i", "room", "out", "obj", "back", "area", "map")
-    def __init__(self, i, room, out, obj, back, area, is_map):
+    __slots__ = ("i", "room", "out", "obj", "back", "area", "map", "cls")
+    def __init__(self, i, room, out, obj, back, area, is_map, cls=""):
         self.i, self.room, self.out, self.obj, self.back, self.area, self.map = i, room, out, obj, back, area, is_map
+        self.cls = cls      # (door_class: the Metroid door in front of its exit)
     def __repr__(self): return "%s out %s (in %s)" % (self.room, self.out, self.back)
 
 
 def doors(rooms, conn, reach_all):
     """the doors: [(end, end)], each end an End. reach_all: the rooms the logic reaches with everything"""
     objs = exit_objects()
+    mdoors = metroid_doors()
     links = [(rm, out, to[0], to[1]) for (rm, out), to in conn.links.items()]
     stated = set(conn.links_st)
     by_pair = collections.defaultdict(list)
     for l in links: by_pair[(l[0], l[2])].append(l)
     usable_in = {}
+    back_out = set()      # (room, way in, way out): the way out gone through from the way in (with everything)
     for n, r in rooms.items():
         ok = set()
         for (w, t), alts in r.table.items():
-            if alts: ok.add(w[0])
+            if alts:
+                ok.add(w[0])
+                if t[0] == "out": back_out.add((n, w[0], t[1]))
         if r.map: ok |= set(r.ins)
         usable_in[n] = ok
+
+    def returns(rm, back, out):
+        """an end's way back out: from where the player comes in, its own exit can be gone through (not a drop with no
+        way back up: going in by another door would leave them where the shuffle's way back isn't)"""
+        return (rm, back, out) in back_out or rooms[rm].map
 
     def ok_exit(rm, out):
         o = objs.get((rm, out), "")
@@ -103,9 +143,12 @@ def doors(rooms, conn, reach_all):
         if (l1[0], l1[1]) in used or (l2[0], l2[1]) in used: continue
         if not ok_exit(l1[0], l1[1]) or not ok_exit(l2[0], l2[1]): continue
         if l2[3] not in usable_in.get(l1[0], ()) or l1[3] not in usable_in.get(l2[0], ()): continue
+        if not returns(l1[0], l2[3], l1[1]) or not returns(l2[0], l1[3], l2[1]): continue
         used.add((l1[0], l1[1])); used.add((l2[0], l2[1]))
-        a = End(0, l1[0], l1[1], objs.get((l1[0], l1[1]), ""), l2[3], rooms[l1[0]].area_num, rooms[l1[0]].map)
-        b = End(0, l2[0], l2[1], objs.get((l2[0], l2[1]), ""), l1[3], rooms[l2[0]].area_num, rooms[l2[0]].map)
+        a = End(0, l1[0], l1[1], objs.get((l1[0], l1[1]), ""), l2[3], rooms[l1[0]].area_num, rooms[l1[0]].map,
+                door_class(mdoors, l1[0], l1[1]))
+        b = End(0, l2[0], l2[1], objs.get((l2[0], l2[1]), ""), l1[3], rooms[l2[0]].area_num, rooms[l2[0]].map,
+                door_class(mdoors, l2[0], l2[1]))
         pairs.append((a, b))
     k = 0
     for a, b in pairs:
@@ -114,7 +157,9 @@ def doors(rooms, conn, reach_all):
 
 
 def pool(pairs, mode):
-    """the doors a mode shuffles"""
+    """the doors a mode shuffles (not a door whose two ends' Metroid doors need different things: the game's own pairs
+    those, and the shuffle pairs only ends whose Metroid doors need the same: door_class)"""
+    pairs = [p for p in pairs if p[0].cls == p[1].cls]
     if mode == "gates": return [p for p in pairs if p[0].obj in GATE_OBJECTS or p[1].obj in GATE_OBJECTS]
     if mode == "overworld":
         return [p for p in pairs if p[0].obj in GATE_OBJECTS or p[1].obj in GATE_OBJECTS or p[0].area != p[1].area
@@ -185,22 +230,23 @@ def shuffle(doors_, rng, ways, start):
         ways.grow([(e.room, e.back)], s, part, free - {e}, f, pl)
         return len(s) - len(seen) > 1 or bool(f - frontier) or bool(pl - places)
     while True:
-        # (a random end not joined yet whose way in isn't reached: covered ones found as they come up)
+        # (a random end not joined yet whose way in isn't reached: covered ones found as they come up. It's joined to an
+        # end of the frontier whose Metroid door needs the same, door_class)
         pending = [e for e in ends if e in free and (e.room, e.back) not in seen and e not in covered]
         rng.shuffle(pending)
         u = None
         fr = [e for e in frontier if e in free]
         for e in pending:
             if not new_ground(e): covered.add(e); continue
-            if not fr: return None
-            if len(fr) == 1 and fr[0] is not e and any(x is not e and x not in covered for x in pending[pending.index(e) + 1:]) and fanout(e) == 0:
+            frc = [x for x in fr if x is not e and x.cls == e.cls]
+            if not frc: continue
+            if len(fr) == 1 and any(x is not e and x not in covered for x in pending[pending.index(e) + 1:]) and fanout(e) == 0:
                 continue
-            if fr == [e]: continue
             u = e; break
         if u is None:
             if any(e in free and (e.room, e.back) not in seen and e not in covered for e in ends): return None
             break
-        f = rng.choice(sorted([e for e in fr if e is not u], key=lambda x: x.i))
+        f = rng.choice(sorted([e for e in fr if e is not u and e.cls == u.cls], key=lambda x: x.i))
         part[f] = u; part[u] = f; free.discard(f); free.discard(u)
         frontier.discard(f); frontier.discard(u)
         new = [v for v in ((u.room, u.back), (f.room, f.back)) if v not in seen]
@@ -208,7 +254,9 @@ def shuffle(doors_, rng, ways, start):
         ways.grow(new, seen, part, free, frontier, places)
     rest = [e for e in ends if e in free]
     rng.shuffle(rest)
-    for k in range(0, len(rest) - 1, 2): part[rest[k]] = rest[k + 1]; part[rest[k + 1]] = rest[k]
+    for c in sorted({e.cls for e in rest}):
+        rc = [e for e in rest if e.cls == c]
+        for k in range(0, len(rc) - 1, 2): part[rc[k]] = rc[k + 1]; part[rc[k + 1]] = rc[k]
     return part
 
 
@@ -232,8 +280,11 @@ class World:
         self.loc_room = {}
         for r in self.rooms.values():
             for key in r.locs: self.loc_room.setdefault(key, r.name)
-        # events: name -> [(kind, what, [alternative])]
+        # events: name -> [(kind, what, [alternative])] (as without Instrument Randomization); ev_modes: every line, with
+        # its mode (solve.load_events: 0 always, 1 without it, 2 with it), for erflat's tables
         self.ev = {name: [(k, w, [self.alt(a) for a in ex]) for k, w, ex in ways] for name, ways in self.events.items()}
+        self.ev_modes = {name: [(k, w, [self.alt(a) for a in ex], m) for k, w, ex, m in ways]
+                         for name, ways in solve.load_events(modes=True).items()}
 
     def alt(self, need):
         items = {solve.ITEMS[i]: n for i, n in enumerate(need.c) if n}

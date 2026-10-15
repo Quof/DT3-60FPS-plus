@@ -1,7 +1,9 @@
 //Randomizer: the reach goes on from what's queued (rndERExpand); then the events that now happen (an event's room or
-//area got into, and what else it takes) and the spots got to each let the rows waiting for them try again; till
-//nothing new happens
-var v,k,w,hit,j,tL;
+//area got into, and what else it takes; a way only for or only without Instrument Randomization as global.rndIRMode
+//is) and the spots got to each let the rows waiting for them try again; till nothing new happens
+var v,k,w,hit,j,tL,tSkip;
+tSkip=2
+if global.rndIRMode=1 {tSkip=1}
 while true
 {
   while !ds_queue_empty(global.rndRQueue) {rndERExpand(ds_queue_dequeue(global.rndRQueue))}
@@ -14,6 +16,7 @@ while true
       {
         if global.rndEVKind[v,w]=1 {hit=global.rndRRoomIn[global.rndEVWhat[v,w]]}
         else {hit=global.rndRAreaIn[global.rndEVWhat[v,w]]}
+        if global.rndEVMode[v,w]=tSkip {hit=0}
         if hit=1
         {
           ds_list_clear(global.rndRLkX)
