@@ -721,8 +721,27 @@ def show_room(rooms, conn, res, name):
     for key in r.locs: print("  loc %d %d %-20s from the start: %s" % (key[0], key[1], r.loc_names.get(key, ""), alts_text(res.places.get(key, []))))
 
 
+def no_chips(alts):
+    """alternatives' texts without the Program Chips (RoomLogic.exe's own joining, which the check compares with, has no
+    Access Gates' chips), and without any that another needs no more than (as RoomLogic.exe's has them)"""
+    def parse(s):
+        # (an item's count compares as a number, "samus:4"; a key, an event or an option is had or not)
+        d = {}
+        for t in s.split(","):
+            if t == "-": continue
+            k, _, n = t.partition(":")
+            if k in ITEMS and n.isdigit(): d[k] = int(n)
+            else: d[t] = 1
+        return d
+    texts = {",".join(t for t in str(a).split(",") if not t.startswith("chip:")) or "-" for a in alts}
+    parsed = {s: parse(s) for s in texts}
+    return sorted(s for s in texts
+                  if not any(o != s and all(parsed[s].get(k, 0) >= n for k, n in parsed[o].items()) for o in texts))
+
+
 def check(res, path):
-    """compares the places' and rooms' alternatives with another roomlogic.txt: the differences"""
+    """compares the places' and rooms' alternatives with another roomlogic.txt (RoomLogic.exe's own joining: without the
+    Program Chips, no_chips): the differences"""
     other = {}
     for line in open(path, encoding="utf-8"):
         f = line.split()
@@ -731,7 +750,7 @@ def check(res, path):
     diffs = []
     for key, alts in res.places.items():
         o = other.get(("loc",) + key)
-        mine = sorted(str(a) for a in alts) or ["never"]
+        mine = no_chips(alts) or ["never"]
         theirs = sorted(o.split("|")) if o and o != "never" else ["never"]
         if o is not None and mine != theirs: diffs.append("loc %d %d: %s  vs  %s" % (key[0], key[1], "|".join(mine), "|".join(theirs)))
     return diffs
@@ -743,7 +762,7 @@ def check_rooms(rooms, res, path):
     for line in open(path, encoding="utf-8"):
         f = line.split()
         if len(f) >= 3 and f[0] == "room" and f[1] in rooms:
-            mine = sorted(str(a) for a in room_needs(rooms, res, f[1])) or ["never"]
+            mine = no_chips(room_needs(rooms, res, f[1])) or ["never"]
             theirs = sorted(f[2].split("|")) if f[2] != "never" else ["never"]
             if mine != theirs: diffs.append("room %s: %s  vs  %s" % (f[1], "|".join(mine), "|".join(theirs)))
     return diffs

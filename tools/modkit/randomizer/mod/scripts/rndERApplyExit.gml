@@ -1,7 +1,7 @@
 //Randomizer: an exit (this instance: oExit, oAccessGate, oDistortionGate, oMMBossDoor, oMetEleExit, oZeldaMapExit,
-//oGameMapExit) sent where the entrance randomizer's shuffle has it lead, if it's one of its doors' ends (rndERMapBuild:
-//found by its room and where it's placed). The roomStart hook does it to every exit as a room starts, and the exitPlayer
-//hook again as the player goes through an oExit (one a room's code makes later)
+//oGameMapExit) sent where the entrance randomizer's shuffle has it lead, if it's one of its doors' ends or follows one
+//(rndERMapBuild: found by its room and where it's placed). The roomStart hook does it to every exit as a room starts,
+//and the exitPlayer hook again as the player goes through an oExit (one a room's code makes later)
 var k;
 if global.rndERMode=0 {exit}
 k=string(room)+":"+string(round(x))+","+string(round(y))

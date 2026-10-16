@@ -46,4 +46,5 @@ global.rndLockMsg=g
 global.newMapX=tX
 global.newMapY=tY
 transition_kind=0
+rndHLEnter(tRoom) //(a Highlands room is made as before the CHAOS Warship's attack)
 room_goto(tRoom)

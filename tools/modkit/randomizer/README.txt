@@ -2,13 +2,23 @@ DT3+ Randomizer (a mod)
 =======================
 
 A new game with the mod on starts in the game's endgame world: every area open, the story done, no CHAOS invasion. The
+Highlands are as they were before the CHAOS Warship's attack: their own enemies and music, no purple sky, fog or CHAOS
+enemies (their rooms are made with the story just before it, gameProgress 4935: mod\scripts\rndHLEnter.gml; Upper
+Crossroad keeps the attack's rubble and its two story exits as the endgame has them, as the room logic does). The
 player is in Central City - North, at the door from Greatest Stretch, able to walk and jump. Every collectible the
 progress page counts (heart pieces and containers, chests, quivers, heart energy, missile tanks, Game Power, air
 upgrades, Internetz mods, weapon upgrades, skill points, bomb upgrades, keys, the X-Special charge, the Spring Ball),
 the other movement abilities (dash, air dash, double jump, the High Jump Boots), the Varia Suit (Gate 5's lava doesn't
 hurt once it's found; before, it does) and every ability set (the Mario Ability Set, shown as a ? block, and the attacks
 of Link, Belmont, Mega Man, Samus and the two Gate 6 sets) are shuffled into each other's places when the game starts,
-in layers (see Logic). The Item Finder isn't shuffled: it's where the game has it, and with it Chao shows a ! instead of
+in layers (see Logic). The places of the story's ability pickups (17: the Dash Boots, the double jump's, Link's bow and
+bombs, Belmont's dagger and Holy Water, Gate 5's upgrades and suits; rndgen.py's STORY_SPOTS, location type 19 "Story
+Item"), which the endgame world has none of, are locations too, a pickup where the story's was (oRndStory). Four of
+them, at random among those the logic reaches, hold the Nightmare Mode's own abilities, which work as in Nightmare Mode
+once found: Link's Sword Wave (at full life), Mega Man's charge shots stored (up to three), Belmont's Dagger Spam
+(Down, Down, Forward, Forward, then the dagger) and Samus's Power Bomb (the bomb button held in the Morph Ball). The
+game's code for them asks Nightmare Mode: the mod's versions of playerTechStart and playerTechUse, and its oHUD's
+meters, ask the item too (rndgen.py's SCRIPT_PATCHES and GAME_PATCHES, made from the game's own code). The Item Finder isn't shuffled: it's where the game has it, and with it Chao shows a ! instead of
 the treasure icon in a map with an ability, an ability set's item or a key. The equipment shops' stock is shuffled
 between the shops. A spoiler log is written to the Saves folder's Seeds folder (Saves\Seeds\Randomizer spoiler log
 <seed>.txt), with the options and the abilities and keys by layer. As in a new game: tower defense and the Trial Master's cursed trials aren't
@@ -42,7 +52,8 @@ Playing
     Instrument Randomization Off or On: the 8 instruments are in the pool, and the Nightmare Gates' rewards hold any
                              item (no ability or key: a fight's reward, as the bosses' heart containers).
     Chip Randomizer          Off or On: the 6 Program Chips are in the pool, and each Access Gate opens with its own
-                             (below). Off (the default): the player has all six from the start.
+                             (below), as does its section of the skill tree. Off (the default): the player has all
+                             six from the start, and the whole skill tree is open.
     Spoiler Log              written or not.
   An Archipelago game has no options window: its options are the DT3+ world's, in the player's YAML (below,
   Archipelago).
@@ -52,7 +63,18 @@ Playing
     everything, every place the game's own doors reach is reached, and the game can be finished: the items are placed
     with what the shuffled doors reach, and the seed is played through before the game starts (a shuffle that fails is
     dropped for another; roomlogic\README.txt, ENTRANCE RANDO). Making it takes a few seconds. The spoiler log lists
-    the doors. A save keeps its shuffle (and needs the same build's door data, data\rndER.txt, to put it back).
+    the doors. A save keeps its shuffle (and needs the same build's door data, data\rndER.txt, to put it back; a save
+    made with an earlier build's doors that this one still has, roomlogic\erflat.py's ER_LEGACY, loads as it was made).
+    On Hyrule's and Gate 6's maps a tile and its place are a door: the place's exit next to where the tile has the
+    player come in. Its other exits back to the map that come out at the same tile (a town's far side, a palace's way
+    out after its boss, a place of several rooms' last one) follow that door: they lead where it now leads. Forest 1's
+    tile, which has the player come in mid-room, is a door with its exits too. A crossing's far side (a bridge's, a
+    pass's: out on the other side of a river or mountain) still comes out there, as nothing on the map leads into it
+    on that side; the encounter fights and the Forest Palace aren't shuffled.
+    Gate 5's checkpoint (where dying there, and loading a save made there, go back to) is set wherever the player comes
+    into Gate 5 from outside it, as the game sets it at the gate's own way in: Entrance Rando and the Randomizer's warps
+    can come into any of its rooms (the roomStart hook). A save made in Gate 5 by an earlier build with no checkpoint set
+    (it went to the title screen) loads in the room it was made in, at a way into it (the load hook).
   - Boss Rando: each boss's place (its room; Ridley's and the Parasitic Seed's: the exit the story went into their
     fights by) gets another boss's fight. Walking up to the boss there (as below) starts that boss's fight in its own
     room, the boss gallery's way; won, the player comes back to where the fight started and the place counts as beaten
@@ -77,12 +99,20 @@ Playing
     so every location in a gate needs its chip and no chip is ever placed where its own gate would have to be open to
     get it; the build checks that for its seeds, and a seed is played through before the game starts. The pause menu
     shows as many chips as the player has. Off: all six are had from the start, and the logic counts them as had.
+  - The skill tree: its red nodes (the gate locks) open with the Program Chips, section N with chip N, so with Chip
+    Randomizer off the whole tree is open from the start. In the game each section opens with Access Gate N's ability
+    set (1 the Mario Ability Set, 2 Link, 3 Belmont, 4 Mega Man, 5 Samus, 6 Gate 6's), which a Randomizer game finds in
+    any order: with the Mario Ability Set late, every section would stay locked. A section's skills still come after
+    the skills before them (mod\scripts\menuSpendAP.gml: the game's own script, with the sets counted by the chips).
   - The ability sets' items are progressive: each one is that set's next weapon (Link: Master Sword, Bow & Arrow, Fuse
     Bomb). Swapping characters and sets is always on. The Gate 6 sets only work in Gate 6, as in the game, and in The
     Executive's fight, which gives both characters both of them whole, as the game's own fight does (his phases are
     made for them), so it needs nothing of the player's: the logic doesn't count him.
   - Some areas take abilities away as the game does: the CHAOS Warship's last rooms and Warship Z (jumping, the double
-    jump and the Mario Ability Set left) and each Nightmare Gate (its own few, from its first room). That lasts while
+    jump and the Mario Ability Set left; the CHAOS Warmaster's room and the one before it, rWarshipZ_E1 and E2, as
+    before his fight: their code makes the player Jeremy's mech once the story's past him, and he's the Randomizer's
+    last fight, so there the player stays their own character: the roomStart hook) and each Nightmare Gate (its own
+    few, from its first room). That lasts while
     the player stays in the area (the rooms whose names start as the one that took them away does, up to its last
     "_"); any other room gives back everything the player has found, and the ability sets they had picked. The mod's
     own version of the game's abilSetRemove notes which room took them away (mod\scripts\abilSetRemove.gml: it then
@@ -91,6 +121,12 @@ Playing
     Game Powers too in Gate 6 (mod\scripts\pSwapAbility.gml, in place of the game's, which in Gate 6 won't leave the
     Game Powers and goes from Link only to Mega Man); Gate 6's gate room turns the Game Powers on as the player comes in,
     and leaving Gate 6 turns back to the set they had before.
+  - The RPG level (Gate 6's, 1 to 64) makes the four base sets (Link, Mega Man, Belmont, Samus) hit Gate 6's enemies
+    and bosses harder: 1x at level 1, up to 2x at level 64 (each level adds 1/63), on top of the rest (the skill tree,
+    equipment, the enemy's resistances). It counts against the Prototype Game's enemies (affiliation 6: Gate 6's, the
+    same ones in Nightmare Gate G, and The Executive) and nothing else. Gate 6's own two sets, whose attacks grow with
+    the level already, aren't changed (mod\scripts\rndG6Mult.gml, run by the mod's takeDamage: the game's own, changed,
+    rndgen.py's SCRIPT_PATCHES).
   - Each key opens its own locked door (the message says which area it's in); a door without its key says so.
   - The pause menu's Teleport works anywhere but in a boss fight, and goes to where the game started: Central City -
     North, at the door from Greatest Stretch (the game's own places for it aren't used). It's the way out of anywhere
@@ -122,7 +158,9 @@ Playing
     exit on the other side of the fight from the side the player came in on) starts it, as the room's own fight (the
     room's code makes the boss), with the player's own
     abilities and the life and ammo they came in with. A boss has to be beaten to go on: given up from the game over
-    screen, the player is back where they came into the room, and walking up to it again starts it again. (These fights
+    screen, the player is back where they came into the room, and walking up to it again starts it again. Leaving the
+    fight's room by one of its doors (some, like the Blade Bot's in Low Facility G, stay open) gives it up the same way
+    (the exitPlayer hook: the game goes to the boss gallery, as from the game over screen). (These fights
     have the boss gallery's flag on underneath, so a beaten boss ends its fight the gallery's way, without the story's
     scenes; the mod's oHUD doesn't show the gallery's timer in them.) Ridley and the
     Parasitic Seed, whose rooms the endgame world's exits go past, are fought going through the exit the story used

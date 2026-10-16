@@ -75,7 +75,8 @@ class DT3PlusWorld(World):
     options: DT3PlusOptions
     topology_present = False
 
-    item_name_to_id = {**{name: item[0] for name, item in data.ITEMS.items()}, **data.INSTRUMENTS, **data.CHIPS}
+    item_name_to_id = {**{name: item[0] for name, item in data.ITEMS.items()}, **data.INSTRUMENTS, **data.CHIPS,
+                       **data.NIGHTMARE}
     location_name_to_id = {**{name: loc[0] for name, loc in data.LOCATIONS.items()}, **data.GATE_REWARDS}
     item_name_groups = {
         "Keys": set(data.DOOR_KEYS),
@@ -84,6 +85,7 @@ class DT3PlusWorld(World):
         "Cursed Equipment": set(data.CURSED_GEAR),
         "Instruments": set(data.INSTRUMENTS),
         "Program Chips": set(data.CHIPS),
+        "Nightmare Abilities": set(data.NIGHTMARE),
     }
 
     ir: bool
@@ -130,6 +132,8 @@ class DT3PlusWorld(World):
             return DT3PlusItem(name, ItemClassification.progression, data.INSTRUMENTS[name], self.player)
         if name in data.CHIPS:
             return DT3PlusItem(name, ItemClassification.progression, data.CHIPS[name], self.player)
+        if name in data.NIGHTMARE:
+            return DT3PlusItem(name, ItemClassification.useful, data.NIGHTMARE[name], self.player)
         item_id, classification, _count = data.ITEMS[name]
         return DT3PlusItem(name, ItemClassification(classification), item_id, self.player)
 
@@ -161,6 +165,10 @@ class DT3PlusWorld(World):
             pool += [self.create_item(name) for name in data.INSTRUMENTS]
         if self.chips:
             pool += [self.create_item(name) for name in data.CHIPS]
+        # the Nightmare abilities: each at one of the story's ability pickups the logic reaches (STORY_LOCATIONS), at
+        # random, as the mod's own new game puts them (rndGenerate), so not in the pool
+        for location_name, name in zip(self.random.sample(data.STORY_LOCATIONS, len(data.NIGHTMARE)), data.NIGHTMARE):
+            self.get_location(location_name).place_locked_item(self.create_item(name))
         unfilled = len(self.multiworld.get_unfilled_locations(self.player))
         while len(pool) < unfilled:
             pool.append(self.create_item(self.get_filler_item_name()))
@@ -228,3 +236,10 @@ class DT3PlusWorld(World):
             for end, partner in enumerate(self.part):
                 if partner > end:
                     spoiler_handle.write("    %s  <->  %s\n" % (f.end_names[end], f.end_names[partner]))
+            # (a map's room's other ways back to the map that come out where a shuffled end's exit does: they lead where
+            # it now does)
+            fol = [(x, end, xname) for x, end, xname in f.follow_list if self.part[end] >= 0]
+            if fol:
+                spoiler_handle.write("  Exits that lead where a door's exit above does:\n")
+                for x, end, xname in fol:
+                    spoiler_handle.write("    %s  ->  as %s\n" % (xname, f.end_names[end]))

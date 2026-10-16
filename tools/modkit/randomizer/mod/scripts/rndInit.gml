@@ -102,7 +102,7 @@ global.rndFightLoseX=608
 global.rndFightLoseY=320
 global.rndFightRetX=0
 global.rndFightRetY=0
-for(i=0;i<13;i+=1) {global.rndOwn[i]=0} //(0-11 the abilities and sets, 12 the Varia Suit: rndProgOf)
+for(i=0;i<17;i+=1) {global.rndOwn[i]=0} //(0-11 the abilities and sets, 12 the Varia Suit: rndProgOf; 13-16 the Nightmare abilities, rndNM)
 global.rndKeyOwn=string_repeat("0",50) //the doors (objectNum) whose keys have been found
 global.rndGot=string_repeat("0",global.rndLocN)
 //the enemy traps beaten (rndData's rndTrap*: each one's room and object, traps.py), and the one going in the room (-1:
@@ -126,3 +126,9 @@ global.rndChipOwn=string_repeat("1",global.rndChipN)
 global.rndLastGate=-1
 global.rndLockMsg=0
 global.rndApSessChips=0
+//the location (global.location) of the room the player was last in: coming into Gate 5 (location 49) from outside it
+//sets its checkpoint (the roomStart hook)
+global.rndLastLoc=-1
+//1 while a Highlands room is being made as before the CHAOS Warship's attack (rndHLEnter: gameProgress 4935 till the
+//roomStart hook puts the endgame's back)
+global.rndHLProg=0

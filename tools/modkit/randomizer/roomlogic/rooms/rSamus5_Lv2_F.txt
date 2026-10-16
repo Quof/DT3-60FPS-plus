@@ -11,6 +11,7 @@ in 656,304   # from rSamus5_Lv2_E out 0,224
 out 704,272   # to rSamus5_Lv2_E at 64,256; the player goes into it
 
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+loc 19 11   # story item 11, at 77,231
 
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
@@ -19,6 +20,7 @@ out 704,272   # to rSamus5_Lv2_E at 64,256; the player goes into it
 # the locked door whose objectNum is N.
 from in 656,304
   out 704,272   link:1 | belmont:1 | megaman:1 | samus:1
+  loc 19 11     belmont:1 | link:1 | megaman:1 | samus:1
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
@@ -62,3 +64,51 @@ how in 656,304 -> out 704,272: samus:1
       -> standing at x 96-169, y 250-282
    4. walk off the edge, holding right once in the air, from 96,250, through the Metroid door at 696,240, the oRndTrap at 176,224, the oRndTrap at 576,224, ...; touches it on the way   [samus:1]
       -> out 704,272
+how in 656,304 -> loc 19 11: belmont:1
+     coming in at 656,304
+   1. coming in: holding nothing, from 656,304; lands at 656,305
+      -> standing at x 599-689, y 305
+   2. jump (held 2 ticks), holding left, from 599,305, through the oRndTrap at 176,224, the oRndTrap at 576,224; lands at 497,305   [belmont:1]
+      -> standing at x 199-569, y 305
+   3. jump (held 2 ticks), holding left, from 199,305, through the oRndTrap at 176,224, the oRndTrap at 576,224; lands at 143,265   [belmont:1]
+      -> standing at x 96-169, y 250-282
+   4. jump (held 6 ticks), holding left, from 96,250; lands at 51,201
+      -> standing at x 39-80, y 201-216
+   5. walk off the edge, holding right, then left after 1 ticks in the air, from 39,203; touches it on the way
+      -> loc 19 11
+how in 656,304 -> loc 19 11: link:1
+     coming in at 656,304
+   1. coming in: holding nothing, from 656,304; lands at 656,305
+      -> standing at x 599-689, y 305
+   2. jump (held 2 ticks), holding left, from 599,305, through the oRndTrap at 176,224, the oRndTrap at 576,224; lands at 497,305   [link:1]
+      -> standing at x 199-569, y 305
+   3. jump (held 2 ticks), holding left, from 199,305, through the oRndTrap at 176,224, the oRndTrap at 576,224; lands at 143,265   [link:1]
+      -> standing at x 96-169, y 250-282
+   4. jump (held 6 ticks), holding left, from 96,250; lands at 51,201
+      -> standing at x 39-80, y 201-216
+   5. walk off the edge, holding right, then left after 1 ticks in the air, from 39,203; touches it on the way
+      -> loc 19 11
+how in 656,304 -> loc 19 11: megaman:1
+     coming in at 656,304
+   1. coming in: holding nothing, from 656,304; lands at 656,305
+      -> standing at x 599-689, y 305
+   2. jump (held 2 ticks), holding left, from 599,305, through the oRndTrap at 176,224, the oRndTrap at 576,224; lands at 497,305   [megaman:1]
+      -> standing at x 199-569, y 305
+   3. jump (held 2 ticks), holding left, from 199,305, through the oRndTrap at 176,224, the oRndTrap at 576,224; lands at 143,265   [megaman:1]
+      -> standing at x 96-169, y 250-282
+   4. jump (held 6 ticks), holding left, from 96,250; lands at 51,201
+      -> standing at x 39-80, y 201-216
+   5. walk off the edge, holding right, then left after 1 ticks in the air, from 39,203; touches it on the way
+      -> loc 19 11
+how in 656,304 -> loc 19 11: samus:1
+     coming in at 656,304
+   1. coming in: holding nothing, from 656,304; lands at 656,305
+      -> standing at x 599-689, y 305
+   2. jump (held 2 ticks), holding left, from 599,305, through the oRndTrap at 176,224, the oRndTrap at 576,224; lands at 497,305   [samus:1]
+      -> standing at x 199-569, y 305
+   3. jump (held 2 ticks), holding left, from 199,305, through the oRndTrap at 176,224, the oRndTrap at 576,224; lands at 143,265   [samus:1]
+      -> standing at x 96-169, y 250-282
+   4. jump (held 6 ticks), holding left, from 96,250; lands at 51,201
+      -> standing at x 39-80, y 201-216
+   5. walk off the edge, holding right, then left after 1 ticks in the air, from 39,203; touches it on the way
+      -> loc 19 11

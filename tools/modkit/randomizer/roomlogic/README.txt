@@ -339,6 +339,14 @@ exit (the Research Facility's hatches: any weapon opens most, missiles the rest)
 door needs the same, and a door whose two ends' Metroid doors need different things isn't shuffled: the player only
 comes in behind a Metroid door by going through one, so has what going back out takes (an ordinary door that led to
 behind one would leave a player without a weapon stuck there).
+The maps (Hyrule's, Gate 6's): a tile and its place are a door, its end the place's exit next to where the tile has the
+player come in. A tile that has the player come in away from the exits (Forest 1's) is a door too if every exit of the
+room back to the map comes out at one place; those doors come after the others, which keep their order (a save's
+shuffle is by the ends' order: erflat.py's ER_LEGACY, the earlier builds' doors whose saves still load). A room's other
+exits back to a map that come out where an end's exit does follow that end (er.follows: a town's far side, a palace's
+way out after its boss, a place of several rooms' last one): with it shuffled they lead where it now leads, in the
+logic (exit_end) and the game (rndERMapBuild). A crossing's far exit (a bridge's or a pass's, out across a river or a
+mountain) comes out elsewhere on the map, so it stays the game's: nothing leads into the room there to pair it with.
   Gate Swap   the Access Gates' and Nightmare Gates' doors (oAccessGate, oDistortionGate)
   Overworld   those, every door between two areas, and every door between a map (Hyrule's, Gate 6's) and a room
   Chaos       every door
@@ -359,7 +367,8 @@ A seed (the mod's rndNewGame, with the same steps in Python in erflat.py):
 erflat.py writes the tables the mod works it out from: the rooms' ways through (from the room files, overrides.txt,
 bosses.txt and events.txt, as solve.py joins them), the exits, the events, the doors' ends and the bosses' places, as
 numbers, in the build's data\rndER.txt (rndERLoad reads it; its hash goes in a save, so a build with other doors can
-tell). Its own check (python erflat.py) makes seeds of each mode its way, and with Boss Rando, and plays each through;
+tell, and so do an Archipelago world's: a shuffle made with an earlier build's doors in ER_LEGACY is put back as it was
+made, rndERAccept). Its own check (python erflat.py) makes seeds of each mode its way, and with Boss Rando, and plays each through;
 rndgen.py makes ten of each at build time (and of Chaos with Boss Rando). python er.py lists each mode's doors and makes seeds with er.py's own engine (the two must agree). Change the
 doors in er.py (the modes, what's left out), then build the mod again.
 

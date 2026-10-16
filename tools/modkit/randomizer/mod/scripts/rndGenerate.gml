@@ -21,14 +21,33 @@ tNewest=0.7
 if global.rndOptSpread=0 {tNewest=0.3}
 else if global.rndOptSpread=2 {tNewest=1}
 for(i=0;i<N;i+=1) {tFill[i]=-1; global.rndGLayer[i]=-1}
+//the Nightmare abilities (item kind 28: not progression items) first, each at one of the story's ability pickups
+//(location type 19) the logic reaches (not one that needs everything), at random: no progression item goes there then.
+//(roomlogic\erflat.py's fill does the same with the same random numbers)
+tCandN=0
+for(i=0;i<N;i+=1) {if global.rndLocType[i]=19 and global.rndLocAltN[i]>=0 {tCand[tCandN]=i; tCandN+=1}}
+for(i=0;i<global.rndItemN;i+=1)
+{
+  tNMAt[i]=0
+  if global.rndItemKind[i]=28 and tCandN>0
+  {
+    j=irandom(tCandN-1)
+    tFill[tCand[j]]=i
+    tNMAt[i]=1
+    tCandN-=1
+    tCand[j]=tCand[tCandN]
+  }
+}
 tProgN=0
 tJunkN=0
 for(i=0;i<global.rndItemN;i+=1)
 {
-  //(an instrument without Instrument Randomization: at its own gate's reward)
+  //(an instrument without Instrument Randomization: at its own gate's reward; a Nightmare ability: placed above)
   tIx=-1
   if global.rndItemKind[i]=26 and global.rndIRMode=0 {tIx=rndLocFind(18,global.rndItemParam[i])}
+  if tNMAt[i]=1 {tIx=-2}
   if tIx>=0 {tFill[tIx]=i}
+  else if tIx=-2 {}
   else if global.rndItemProg[i]>0 {tProg[tProgN]=i; tDone[tProgN]=0; tProgN+=1}
   else {tJunk[tJunkN]=i; tJunkN+=1}
 }

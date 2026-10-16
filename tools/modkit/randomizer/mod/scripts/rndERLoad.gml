@@ -12,7 +12,7 @@ for(i=0;i<global.modCount;i+=1)
 if p="" {return 0}
 f=file_text_open_read(p)
 if rndERReadS(f)!="RNDER" {file_text_close(f); return 0}
-if rndERRead(f)!=2 {file_text_close(f); return 0}
+if rndERRead(f)!=3 {file_text_close(f); return 0}
 global.rndEHash=rndERReadS(f)
 //the carried states (rb, water, crystal1-3): each one's number of values, its place in a state's number, whether it's
 //kept within some rooms (the Forest Palace's crystals: one more value outside them, parked)
@@ -82,7 +82,7 @@ for(i=0;i<global.rndEAN;i+=1) {global.rndEAReqF[i]=rndERRead(f); global.rndEAReq
 global.rndEKN=rndERRead(f)
 for(i=0;i<global.rndEKN;i+=1) {global.rndEKIx[i]=rndERRead(f); global.rndEKC[i]=rndERRead(f)}
 //exits: room, where it is, where it leads (an entry; one that goes by a group: one a value), what going through takes
-//on top, its door's end (-1: none)
+//on top, its door's end (-1: none; an exit that follows an end has it from rndERLayout)
 global.rndEXN=rndERRead(f)
 for(i=0;i<global.rndEXN;i+=1)
 {
@@ -159,6 +159,23 @@ for(i=0;i<global.rndEXN;i+=1) {global.rndEXSlot[i]=rndERRead(f)}
 //gate's rooms from outside it takes its chip (rndERTry)
 global.rndEChipBase=rndERRead(f)
 for(i=0;i<global.rndERN;i+=1) {global.rndERGate[i]=rndERRead(f)}
+//the exits that follow an end (a map's room's other ways back to the map that come out where the end's exit does: a
+//town's far side, a palace's way out after its boss; rndERLayout): each one and its end. And earlier builds' doors whose
+//shuffles still load (rndERAccept): their hash and how many ends they had (the first ones of these)
+for(i=0;i<global.rndEXN;i+=1) {global.rndEXFollow[i]=-1}
+global.rndEFoN=rndERRead(f)
+for(i=0;i<global.rndEFoN;i+=1)
+{
+  global.rndEFoX[i]=rndERRead(f)
+  global.rndEFoD[i]=rndERRead(f)
+  global.rndEXFollow[global.rndEFoX[i]]=global.rndEFoD[i]
+}
+global.rndELegN=rndERRead(f)
+for(i=0;i<global.rndELegN;i+=1)
+{
+  global.rndELegHash[i]=rndERReadS(f)
+  global.rndELegEnds[i]=rndERRead(f)
+}
 v=rndERReadS(f)
 file_text_close(f)
 if v!="END" or global.rndELocN!=global.rndLocN or global.rndEBN!=global.rndBossN {return 0}
@@ -222,5 +239,7 @@ for(i=0;i<global.rndEDN;i+=1)
   global.rndERPart[i]=-1
 }
 for(i=0;i<global.rndEParkN;i+=1) {global.rndRParked[i]=0}
+//(this build's doors: a new game's; a save or an Archipelago world made with an earlier build's sets that: rndERAccept)
+rndERLayout(-1)
 global.rndELoaded=1
 return 1

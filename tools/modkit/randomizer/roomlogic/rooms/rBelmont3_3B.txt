@@ -17,6 +17,7 @@ out 624,1376   # to rBelmont3_3B_Secret at 48,272; the player goes into it
 
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 loc 4 6   # heart energy 6, at 575,952
+loc 19 2   # story item 2, at 152,1389
 
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
@@ -28,16 +29,19 @@ from in 48,1408
   out 624,128    djump,megaman:1 | djump,samus:1 | djump,link:2 | djump,belmont:2
   out 624,1376   adash | djump
   loc 4 6        djump,megaman:1 | djump,samus:1 | djump,link:2 | djump,belmont:2 | samus:2
+  loc 19 2       -
 from in 592,160
   out 0,1376     link:1 | belmont:1 | megaman:1 | samus:1
   out 624,128    -
   out 624,1376   never
   loc 4 6        samus:2 | djump,link:2 | djump,belmont:2 | djump,megaman:1 | djump,samus:1
+  loc 19 2       link:1 | belmont:1 | megaman:1 | samus:1
 from in 592,1408
   out 0,1376     djump | adash
   out 624,128    djump,megaman:1 | djump,samus:1 | djump,link:2 | djump,belmont:2
   out 624,1376   -
   loc 4 6        adash,samus:2 | djump,megaman:1 | djump,samus:1 | djump,link:2 | djump,belmont:2
+  loc 19 2       djump | adash
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
@@ -411,6 +415,12 @@ how in 48,1408 -> loc 4 6: samus:2
       -> [sliding blocks as placed] standing at x 423-486, y 1025
   17. jump (held 21 ticks), holding right, from 448,1025; touches it on the way
       -> loc 4 6
+how in 48,1408 -> loc 19 2: -
+     [sliding blocks as placed] coming in at 48,1408
+   1. coming in: holding nothing, from 48,1408; lands at 48,1409
+      -> [sliding blocks as placed] standing at x 0-358, y 1409
+   2. standing at 144,1409, touches it
+      -> loc 19 2
 how in 592,160 -> out 0,1376: link:1
      [sliding blocks as placed] coming in at 592,160
    1. coming in: holding nothing, from 592,160; lands at 592,161
@@ -617,6 +627,86 @@ how in 592,160 -> loc 4 6: djump,samus:1
       -> [sliding blocks as placed] standing at x 423-486, y 1025
   12. jump (held 21 ticks), holding right, from 448,1025; touches it on the way
       -> loc 4 6
+how in 592,160 -> loc 19 2: link:1
+     [sliding blocks as placed] coming in at 592,160
+   1. coming in: holding nothing, from 592,160; lands at 592,161
+      -> [sliding blocks as placed] standing at x 506-640, y 161
+   2. walk off the edge, holding left once in the air, from 506,161; lands at 382,289
+      -> [sliding blocks as placed] standing at x 346-486, y 289
+   3. jump (held 2 ticks), holding left, from 346,289; lands at 244,289
+      -> [sliding blocks as placed] standing at x 154-294, y 289
+   4. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 192,289; lands at 145,897
+      -> [sliding blocks as placed] standing at x 90-166, y 897
+   5. walk off the edge, holding left once in the air, from 90,897; lands at 39,1089
+      -> [sliding blocks as placed] standing at x 39-294, y 1089
+   6. walk off the edge, holding right, then nothing after 1 ticks in the air, from 39,1089; lands at 332,1153
+      -> [sliding blocks as placed] standing at x 295-358, y 1153
+   7. hit the switch at 248,1048 from 295,1153 (jumping if need be): [sliding blocks moved]   [link:1]
+      -> [sliding blocks moved] standing at x 295-358, y 1153
+   8. walk off the edge, holding right, then left after 1 ticks in the air, from 295,1153; lands at 301,1409
+      -> [sliding blocks moved] standing at x 0-345, y 1409
+   9. standing at 144,1409, touches it
+      -> loc 19 2
+how in 592,160 -> loc 19 2: belmont:1
+     [sliding blocks as placed] coming in at 592,160
+   1. coming in: holding nothing, from 592,160; lands at 592,161
+      -> [sliding blocks as placed] standing at x 506-640, y 161
+   2. walk off the edge, holding left once in the air, from 506,161; lands at 382,289
+      -> [sliding blocks as placed] standing at x 346-486, y 289
+   3. jump (held 2 ticks), holding left, from 346,289; lands at 244,289
+      -> [sliding blocks as placed] standing at x 154-294, y 289
+   4. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 192,289; lands at 145,897
+      -> [sliding blocks as placed] standing at x 90-166, y 897
+   5. walk off the edge, holding left once in the air, from 90,897; lands at 39,1089
+      -> [sliding blocks as placed] standing at x 39-294, y 1089
+   6. walk off the edge, holding right, then nothing after 1 ticks in the air, from 39,1089; lands at 332,1153
+      -> [sliding blocks as placed] standing at x 295-358, y 1153
+   7. hit the switch at 248,1048 from 295,1153 (jumping if need be): [sliding blocks moved]   [belmont:1]
+      -> [sliding blocks moved] standing at x 295-358, y 1153
+   8. walk off the edge, holding right, then left after 1 ticks in the air, from 295,1153; lands at 301,1409
+      -> [sliding blocks moved] standing at x 0-345, y 1409
+   9. standing at 144,1409, touches it
+      -> loc 19 2
+how in 592,160 -> loc 19 2: megaman:1
+     [sliding blocks as placed] coming in at 592,160
+   1. coming in: holding nothing, from 592,160; lands at 592,161
+      -> [sliding blocks as placed] standing at x 506-640, y 161
+   2. walk off the edge, holding left once in the air, from 506,161; lands at 382,289
+      -> [sliding blocks as placed] standing at x 346-486, y 289
+   3. jump (held 2 ticks), holding left, from 346,289; lands at 244,289
+      -> [sliding blocks as placed] standing at x 154-294, y 289
+   4. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 192,289; lands at 145,897
+      -> [sliding blocks as placed] standing at x 90-166, y 897
+   5. walk off the edge, holding left once in the air, from 90,897; lands at 39,1089
+      -> [sliding blocks as placed] standing at x 39-294, y 1089
+   6. walk off the edge, holding right, then nothing after 1 ticks in the air, from 39,1089; lands at 332,1153
+      -> [sliding blocks as placed] standing at x 295-358, y 1153
+   7. hit the switch at 248,1048 from 295,1153 (jumping if need be): [sliding blocks moved]   [megaman:1]
+      -> [sliding blocks moved] standing at x 295-358, y 1153
+   8. walk off the edge, holding right, then left after 1 ticks in the air, from 295,1153; lands at 301,1409
+      -> [sliding blocks moved] standing at x 0-345, y 1409
+   9. standing at 144,1409, touches it
+      -> loc 19 2
+how in 592,160 -> loc 19 2: samus:1
+     [sliding blocks as placed] coming in at 592,160
+   1. coming in: holding nothing, from 592,160; lands at 592,161
+      -> [sliding blocks as placed] standing at x 506-640, y 161
+   2. walk off the edge, holding left once in the air, from 506,161; lands at 382,289
+      -> [sliding blocks as placed] standing at x 346-486, y 289
+   3. jump (held 2 ticks), holding left, from 346,289; lands at 244,289
+      -> [sliding blocks as placed] standing at x 154-294, y 289
+   4. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 192,289; lands at 145,897
+      -> [sliding blocks as placed] standing at x 90-166, y 897
+   5. walk off the edge, holding left once in the air, from 90,897; lands at 39,1089
+      -> [sliding blocks as placed] standing at x 39-294, y 1089
+   6. walk off the edge, holding right, then nothing after 1 ticks in the air, from 39,1089; lands at 332,1153
+      -> [sliding blocks as placed] standing at x 295-358, y 1153
+   7. hit the switch at 248,1048 from 295,1153 (jumping if need be): [sliding blocks moved]   [samus:1]
+      -> [sliding blocks moved] standing at x 295-358, y 1153
+   8. walk off the edge, holding right, then left after 1 ticks in the air, from 295,1153; lands at 301,1409
+      -> [sliding blocks moved] standing at x 0-345, y 1409
+   9. standing at 144,1409, touches it
+      -> loc 19 2
 how in 592,1408 -> out 0,1376: djump
      [sliding blocks as placed] coming in at 592,1408
    1. coming in: holding nothing, from 592,1408; lands at 592,1409
@@ -989,3 +1079,19 @@ how in 592,1408 -> loc 4 6: djump,belmont:2
       -> [sliding blocks as placed] standing at x 423-486, y 1025
    9. jump (held 21 ticks), holding right, from 448,1025; touches it on the way
       -> loc 4 6
+how in 592,1408 -> loc 19 2: djump
+     [sliding blocks as placed] coming in at 592,1408
+   1. coming in: holding nothing, from 592,1408; lands at 592,1409
+      -> [sliding blocks as placed] standing at x 506-640, y 1409
+   2. jump (held 21 ticks), holding left, double jump at tick 15, from 506,1409; lands at 309,1409   [djump]
+      -> [sliding blocks as placed] standing at x 0-358, y 1409
+   3. standing at 144,1409, touches it
+      -> loc 19 2
+how in 592,1408 -> loc 19 2: adash
+     [sliding blocks as placed] coming in at 592,1408
+   1. coming in: holding nothing, from 592,1408; lands at 592,1409
+      -> [sliding blocks as placed] standing at x 506-640, y 1409
+   2. jump (held 21 ticks), holding left, air dash (Jerry) at tick 4, from 506,1409; lands at 329,1409   [adash]
+      -> [sliding blocks as placed] standing at x 0-358, y 1409
+   3. standing at 144,1409, touches it
+      -> loc 19 2

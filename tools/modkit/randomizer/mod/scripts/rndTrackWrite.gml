@@ -17,7 +17,7 @@ if global.rndTrackDir="" {exit}
 s="window.DT3_STATE={`v`:1,`build`:`"+global.rndBuildId+"`,`seed`:"+string(global.rndSeed)
 s+=",`ap`:"+string(global.rndAP)+",`er`:"+string(global.rndERMode)+",`br`:"+string(global.rndBRMode)+",`ir`:"+string(global.rndIRMode)
 s+=",`won`:"+string(global.rndWon)+",`room`:`"+room_get_name(room)+"`"
-if global.rndERMode>0 {s+=",`erpart`:`"+rndERString()+"`"}
+if global.rndERMode>0 {s+=",`erpart`:`"+rndERString(global.rndEDN)+"`,`erfollow`:"+string(global.rndERFollow)}
 if global.rndBRMode>0 {s+=",`brfight`:`"+rndBRString(0)+"`"}
 s+=",`got`:`"+global.rndGot+"`,`own`:`"+rndOwnString()+"`,`keys`:`"+global.rndKeyOwn+"`,`boss`:`"+global.rndBossDone+"`"
 s+=",`gate`:`"+global.eGateProg+"`,`gateh`:"+string(global.gateHProg)+",`equip`:`"+global.equipItems+"`"

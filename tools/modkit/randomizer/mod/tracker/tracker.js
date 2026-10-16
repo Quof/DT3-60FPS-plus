@@ -11,9 +11,10 @@
   // tools/modkit/randomizer/roomlogic/erflat.py's Reach (the mod's rndERReach scripts) over the same tables: from the
   // start, every way the items let through, the carried states (rb, water, the Forest Palace's crystals) taken along,
   // the events happening as their rooms are got into. part: each door end's partner (Entrance Rando; -1 the game's
-  // own), fight: the boss fought at each boss's places (Boss Rando), ir: Instrument Randomization. Returns the places
-  // got to, the rooms got into, the bosses' places whose fight was got through, and have with the events
-  DT3.reach = function (L, part, have0, fight, ir) {
+  // own), fight: the boss fought at each boss's places (Boss Rando), ir: Instrument Randomization, follow: the exits
+  // that follow an end lead where it does (a shuffle made with this build's doors; the mod's rndERLayout). Returns the
+  // places got to, the rooms got into, the bosses' places whose fight was got through, and have with the events
+  DT3.reach = function (L, part, have0, fight, ir, follow) {
     var have = {}, k;
     for (k in have0) { have[k] = have0[k]; }
     var gN = L.gN, gmult = L.gmult, scoped = L.scoped, gsN = L.gsN, EV = L.EV;
@@ -56,6 +57,7 @@
     }
     function dest(x, gs) {
       var d = L.exitEnd[x];
+      if (d < 0 && follow) { d = L.exitFollow[x]; }
       if (d >= 0 && part[d] >= 0) { return L.endBack[part[d]]; }
       if (L.exitSg[x] >= 0) { return L.exitSdest[x][gval(gs, L.exitSg[x])]; }
       return L.exitDest[x];
@@ -181,7 +183,7 @@
   // each check's status (TAKEN, IN_LOGIC, OUT_OF_LOGIC) with the state's items and the seed's shuffles. cache (an
   // object, optional): the reach is worked out again only when what it depends on has changed
   DT3.evaluate = function (D, S, cache) {
-    var key = [S.own, S.equip, S.gate, S.keys, S.chips, S.boss, S.er, S.erpart, S.br, S.brfight, S.ir].join("|");
+    var key = [S.own, S.equip, S.gate, S.keys, S.chips, S.boss, S.er, S.erpart, S.erfollow, S.br, S.brfight, S.ir].join("|");
     if (!cache || cache.key !== key) {
       var r = evalReach(D, S);
       cache = cache || {};
@@ -213,7 +215,7 @@
     }
     fight = DT3.fights(D, S);
     var ir = S.ir > 0;
-    var R = DT3.reach(L, part, have, fight, ir);
+    var R = DT3.reach(L, part, have, fight, ir, S.er > 0 && S.erfollow > 0);
     // (every progression item: what a check the logic gives no progression to is in logic with)
     var every = true, list = D.everything.concat(ir ? D.everythingIR : []);
     for (i = 0; i < list.length; i++) { if ((have[list[i][0]] || 0) < list[i][1]) { every = false; } }

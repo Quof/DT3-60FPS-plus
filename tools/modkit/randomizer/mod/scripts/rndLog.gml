@@ -100,5 +100,21 @@ if global.rndERMode>0
       file_text_write_string(f,"  "+rndERExitName(d)+"  <->  "+rndERExitName(p)); file_text_writeln(f)
     }
   }
+  //the exits that follow a shuffled end: they lead where it now does (rndERLayout)
+  tAny=0
+  for(k=0;k<global.rndEFoN;k+=1)
+  {
+    d=global.rndEFoD[k]
+    if global.rndERFollow=1 and global.rndERPart[d]>=0
+    {
+      if tAny=0
+      {
+        file_text_writeln(f)
+        file_text_write_string(f,"Exits that lead where a door's exit above does (a room's other ways back to the map that come out at the same place: the far side of a town, a palace's way out after its boss)"); file_text_writeln(f)
+        tAny=1
+      }
+      file_text_write_string(f,"  "+rndERExitNameX(global.rndEFoX[k])+"  ->  as "+rndERExitName(d)); file_text_writeln(f)
+    }
+  }
 }
 file_text_close(f)

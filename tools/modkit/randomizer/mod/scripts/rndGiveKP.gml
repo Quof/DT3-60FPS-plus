@@ -172,6 +172,16 @@ switch (k)
     global.programChips=n
     rndMsg("You found Program Chip "+string(p)+"!#"+global.rndGateName[p]+" is open.",2)
     break
+  case 28: //a Nightmare ability (p: 0 Link's Sword Wave, 1 Mega Man's charge shots stored, 2 Belmont's Dagger Spam, 3
+    //Samus's Power Bomb), as Nightmare Mode has it (rndNM)
+    playSound(global.snd_SkillGet,0,1,1)
+    awardAwesome(10000)
+    global.rndOwn[13+p]+=1
+    if p=0 {rndMsg("You found the Nightmare Sword Wave!#Link's sword sends out a wave while your life is full.",2)}
+    else if p=1 {rndMsg("You found the Nightmare Charge Storage!#Mega Man's buster keeps charging, storing up to three shots.",2)}
+    else if p=2 {rndMsg("You found the Nightmare Dagger Spam!#Belmont: Down, Down, Forward, Forward, then the dagger.",2)}
+    else {rndMsg("You found the Nightmare Power Bomb!#Samus: hold the bomb button in the Morph Ball, then let go.",2)}
+    break
   case 19: case 20: case 21: case 22: case 23: case 24:
     playSound(global.snd_SkillGet,0,1,1)
     awardAwesome(10000)

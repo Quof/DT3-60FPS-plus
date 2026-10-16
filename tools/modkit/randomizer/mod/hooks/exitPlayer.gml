@@ -1,5 +1,17 @@
 //Randomizer: the player going through an exit (this is the exit)
 var b;
+//a randomizer boss fight's room left by one of its exits (not every boss room is shut in the fight: the Blade Bot's,
+//Low Facility G, has its doors open): the fight ends as one given up from the game over screen does, in the boss
+//gallery, where rndBossEnd takes over (the roomStart hook). The player goes back to where they came into the room they
+//went into the fight from, or, with the boss beaten already (bBossResultShow), on from where they were. Otherwise the
+//fight went on where they walked to: no boss's fight could start, and saving and the pause menu's Teleport stayed off
+if global.rndFight>=0 and toRoom!=rBossGallery
+{
+  toRoom=rBossGallery
+  newMapX=1032
+  newMapY=496
+  exit
+}
 //Entrance Rando: where the shuffle has it lead (again: an exit the room's code made after it started)
 rndERApplyExit()
 //the story's way into Ridley's or the Parasitic Seed's fight (rndExitBoss: with Boss Rando, the boss fought there)
@@ -30,3 +42,5 @@ if global.rndRoomBoss>=0 and global.rndFight<0 and global.bBossGallery=0
     newMapY=global.rndBossY[global.rndFight]
   }
 }
+//(a Highlands room is made as before the CHAOS Warship's attack: rndHLEnter)
+rndHLEnter(toRoom)

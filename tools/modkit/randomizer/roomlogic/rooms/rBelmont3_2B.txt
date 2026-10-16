@@ -15,6 +15,7 @@ out 2032,192   # to rBelmont3_2C at 48,224; the player goes into it
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 loc 4 5   # heart energy 5, at 39,248
 loc 9 51   # weapon upgrade 51, at 1455,119
+loc 19 1   # story item 1, at 890,273
 
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
@@ -26,11 +27,13 @@ from in 144,288
   out 2032,192   -
   loc 4 5        link:1 | belmont:1
   loc 9 51       adash | djump | gdash
+  loc 19 1       -
 from in 2000,224
   out 64,336     -
   out 2032,192   -
   loc 4 5        link:1 | belmont:1
   loc 9 51       adash | djump | gdash
+  loc 19 1       -
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
@@ -116,6 +119,16 @@ how in 144,288 -> loc 9 51: gdash
       -> standing at x 1402-1510, y 129
    8. standing at 1450,129, touches it
       -> loc 9 51
+how in 144,288 -> loc 19 1: -
+     coming in at 144,288
+   1. coming in: holding nothing, from 144,288; lands at 144,289
+      -> standing at x 122-249, y 289
+   2. jump (held 21 ticks), holding right, from 122,289; lands at 290,257
+      -> standing at x 250-294, y 257
+   3. jump (held 21 ticks), holding right, from 250,257; lands at 455,289
+      -> standing at x 407-1785, y 289
+   4. standing at 881,289, touches it
+      -> loc 19 1
 how in 2000,224 -> out 64,336: -
      coming in at 2000,224
    1. coming in: holding nothing, from 2000,224; lands at 2000,225
@@ -210,3 +223,11 @@ how in 2000,224 -> loc 9 51: gdash
       -> standing at x 1402-1510, y 129
    9. standing at 1450,129, touches it
       -> loc 9 51
+how in 2000,224 -> loc 19 1: -
+     coming in at 2000,224
+   1. coming in: holding nothing, from 2000,224; lands at 2000,225
+      -> standing at x 1786-2048, y 225
+   2. walk off the edge, holding left once in the air, from 1786,225; lands at 1706,289
+      -> standing at x 407-1785, y 289
+   3. standing at 881,289, touches it
+      -> loc 19 1

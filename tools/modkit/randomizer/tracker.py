@@ -90,6 +90,9 @@ ITEM_GROUPS = [
                      for g in range(1, 9)]),
     ("Program Chips", [("chip%d" % g, "Program Chip %d" % g, ("chip", g), ("sPauseM_Chips", g - 1, None))
                        for g in range(1, 7)]),
+    # (the Nightmare abilities: rndOwn 13-16, the pickups' look, rndItemLookKP's)
+    ("Nightmare", [("nm%d" % p, "Nightmare " + n, ("own", 13 + p, 1), (WLP, f, (205, 110, 255)))
+                   for p, (n, f) in enumerate(zip(rndgen.NIGHTMARE, (0, 6, 4, 11)))]),
     ("Cursed Equipment", [("cursed%d" % p, n, ("equip", p), ("sEquipItemIcons", p, None))
                           for p, n in ((10, "Cursed Helm"), (11, "Cursed Ring"), (12, "Cursed Pendant"))]),
 ]
@@ -402,7 +405,7 @@ def logic_tables(f):
         "rowKind": f.row_kind, "rowTarget": f.row_target, "rowLeave": f.row_leave, "rowAlts": pairs(f.row_alts),
         "altFirst": f.alt_first, "altCount": f.alt_count, "reqIx": f.req_ix, "reqC": f.req_c,
         "exitDest": f.exit_dest, "exitSg": f.exit_sg, "exitSdest": f.exit_sdest, "exitExtra": pairs(f.exit_extra),
-        "exitEnd": f.exit_end, "endBack": [e["back"] for e in f.ends],
+        "exitEnd": f.exit_end_own, "exitFollow": f.exit_follow, "endBack": [e["back"] for e in f.ends],
         "evWays": [[x for kind, what, (af, ac), mode in ways for x in (kind, what, af, ac, mode)] for ways in f.ev_ways],
         "evNames": f.evnames,
         "bossN": f.boss_n, "bossReq": pairs(f.boss_req), "roomSlot": f.room_slot, "exitSlot": f.exit_slot,
@@ -482,6 +485,7 @@ def build(out, rows, items, f, bp, hv, door_order, blist, anames, rarea, rooms, 
                 for i in ixs: loc_name[i] = label + (" (%s)" % hs[i] if i in hs else "")
     for i, r in enumerate(rows):
         if (r["type"], r["num"]) in check_names: loc_name[i] = check_names[(r["type"], r["num"])]
+        elif r["type"] == rndgen.STORY_TYPE: loc_name[i] = "Story Item (%s)" % r["story"]
     # ---- each check's rule
     gate_ev = {}
     for v, n in enumerate(f.evnames):

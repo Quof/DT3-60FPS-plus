@@ -21,14 +21,14 @@ if global.rndActive=1
   tTraps=""
   for(k=0;k<global.rndTrapN;k+=1) {if string_char_at(global.rndTrapDone,k+1)="1" {tTraps+=global.rndTrapName[k]+","}}
   ini_write_string(s,"traps",tTraps)
-  //Entrance Rando: the mode, the door data's hash (a build with other doors can tell) and the shuffle (in pieces of
-  //1000 characters)
+  //Entrance Rando: the mode, the hash of the doors the shuffle was made with (a build with other doors can tell; an
+  //earlier build's that this one still has: rndERLayout) and the shuffle (in pieces of 1000 characters)
   ini_write_real(s,"er",global.rndERMode)
   if global.rndERMode>0
   {
     var t,n,i;
-    ini_write_string(s,"erhash",global.rndEHash)
-    t=rndERString()
+    ini_write_string(s,"erhash",global.rndERGameHash)
+    t=rndERString(global.rndERGameEnds)
     n=ceil(string_length(t)/1000)
     ini_write_real(s,"erparts",n)
     for(i=0;i<n;i+=1) {ini_write_string(s,"erpart"+string(i),string_copy(t,i*1000+1,1000))}

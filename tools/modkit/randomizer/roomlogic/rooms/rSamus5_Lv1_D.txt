@@ -13,6 +13,7 @@ out 976,256   # to rSamus5_Lv1_C at 64,880; the player goes into it
 out 288,336   # to rSamus5_Lv1_E at 120,64; the player goes into it
 
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+loc 19 8   # story item 8, at 109,231
 
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
@@ -22,9 +23,11 @@ out 288,336   # to rSamus5_Lv1_E at 120,64; the player goes into it
 from in 928,288
   out 976,256   link:1 | belmont:1 | megaman:1 | samus:1
   out 288,336   samus:2
+  loc 19 8      -
 from in 240,288
   out 976,256   link:1 | belmont:1 | megaman:1 | samus:1
   out 288,336   samus:2
+  loc 19 8      -
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
@@ -64,6 +67,20 @@ how in 928,288 -> out 288,336: samus:2
       -> as the Morph Ball at x 128-294, y 250-289
    5. as the Morph Ball: roll off the edge, holding right once in the air, turn back once there's room, from 128,250; touches it on the way
       -> out 288,336
+how in 928,288 -> loc 19 8: -
+     coming in at 928,288
+   1. coming in: holding nothing, from 928,288; lands at 928,289
+      -> standing at x 711-961, y 289
+   2. jump (held 21 ticks), holding left, from 711,289; lands at 543,289
+      -> standing at x 391-569, y 289
+   3. jump (held 2 ticks), holding left, from 391,289; lands at 348,257
+      -> standing at x 250-390, y 257
+   4. walk off the edge, holding left once in the air, from 250,257; lands at 191,285
+      -> standing at x 128-249, y 250-289
+   5. jump (held 6 ticks), holding left, from 128,250; lands at 71,203
+      -> standing at x 71-112, y 201-216
+   6. walk off the edge, holding right, then left after 1 ticks in the air, from 71,203; touches it on the way
+      -> loc 19 8
 how in 240,288 -> out 976,256: link:1
      coming in at 240,288
    1. coming in: holding nothing, from 240,288; lands at 240,289
@@ -120,3 +137,11 @@ how in 240,288 -> out 288,336: samus:2
       -> as the Morph Ball at x 128-294, y 250-289
    3. as the Morph Ball: roll off the edge, holding right once in the air, turn back once there's room, from 128,250; touches it on the way
       -> out 288,336
+how in 240,288 -> loc 19 8: -
+     coming in at 240,288
+   1. coming in: holding nothing, from 240,288; lands at 240,289
+      -> standing at x 128-249, y 250-289
+   2. jump (held 6 ticks), holding left, from 128,250; lands at 71,203
+      -> standing at x 71-112, y 201-216
+   3. walk off the edge, holding right, then left after 1 ticks in the air, from 71,203; touches it on the way
+      -> loc 19 8

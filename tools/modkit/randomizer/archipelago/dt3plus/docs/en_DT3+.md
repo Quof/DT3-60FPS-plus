@@ -22,14 +22,23 @@ The Randomizer's own new-game options are the world's options:
 
 - **Entrance Rando** (Off, Gate Swap, Overworld, Chaos): where the doors lead is shuffled. Gate Swap: the Access Gates'
   and Nightmare Gates' doors; Overworld: those, the doors between two areas and the maps' ways in and out; Chaos: every
-  door. Going back through a door returns you where you came from.
+  door. Going back through a door returns you where you came from. On Hyrule's and Gate 6's maps, a place's other ways
+  back out to its tile (a town's far side, a palace's way out after its boss) lead where its shuffled door does; a
+  bridge's or pass's far side still comes out across it.
 - **Boss Rando**: walking up to a boss starts another boss's fight, in that boss's own room; beating it counts as
   beating the boss whose room it is. The CHAOS Warmaster, The Executive and Hexor stay where they are.
 - **Instrument Randomization**: the 8 instruments are items of the multiworld, and each Nightmare Gate's reward (left
   where its boss is beaten) is a location. Off: each gate's boss leaves its own instrument.
 - **Chip Randomizer**: the 6 Program Chips are items of the multiworld (in the place of six Internetz chests), and each
   Access Gate's rooms can only be gone into once its own chip is found (Program Chip 1 opens Gate 1, and so on); going
-  in without it turns you back. No chip is ever behind its own gate. Off: you start with all 6.
+  in without it turns you back. No chip is ever behind its own gate. The skill tree's sections open with the chips too
+  (Program Chip 5 opens section 5). Off: you start with all 6, and the whole skill tree is open.
+
+The places where the story's ability pickups were (17: the Dash Boots, the double jump's, Link's bow and bombs,
+Belmont's dagger and Holy Water, Gate 5's upgrades and suits) are locations ("Story Item"). Four of them always hold the
+Nightmare Mode's own abilities, which work as in Nightmare Mode once found: Nightmare Sword Wave (Link, at full life),
+Nightmare Charge Storage (Mega Man stores up to three charge shots), Nightmare Dagger Spam (Belmont: Down, Down,
+Forward, Forward, then the dagger) and Nightmare Power Bomb (Samus: hold the bomb button in the Morph Ball).
 - **Shop Equipment** (Shuffled, As Normal): the equipment shops' stock shuffled between the shops, or each shop's own.
 - **Guarantee Early Weapons**: one weapon (the first item of the Link, Belmont, Mega Man or Samus set) is placed in your
   own world, at a place you can get to from the start.

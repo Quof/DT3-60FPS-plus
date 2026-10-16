@@ -7,8 +7,8 @@ tFind=0
 tObj[0]=oHeartPiece; tObj[1]=oMoneyChest; tObj[2]=oArrowQuiver; tObj[3]=oHeartEnergy; tObj[4]=oMissilePack
 tObj[5]=oGamePower; tObj[6]=oAirUpgrade; tObj[7]=oWalletBoost; tObj[8]=oWeaponLevelUpgrade; tObj[9]=oAPBoost
 tObj[10]=oLinkBombUpgrade; tObj[11]=oMorphBombUpgrade; tObj[12]=oDoorKey; tObj[13]=oHeartContainer
-tObj[14]=oMMBoostedCharge; tObj[15]=oMetPick_SpringBall
-for(i=0;i<16;i+=1)
+tObj[14]=oMMBoostedCharge; tObj[15]=oMetPick_SpringBall; tObj[16]=oRndStory //(the story's ability pickups' places)
+for(i=0;i<17;i+=1)
 {
   with (tObj[i])
   {

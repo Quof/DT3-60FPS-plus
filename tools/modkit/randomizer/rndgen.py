@@ -38,13 +38,40 @@ LTYPES = [
 LT_BY_OBJ = {o: c for c, o, l in LTYPES}
 LT_LABEL = {c: l for c, o, l in LTYPES}
 LT_LABEL[18] = "Instrument"
+# the story's ability pickups (oStoryObject: what a scene gave, there till the story's past it, so not in the endgame
+# world): each a location of type 19 where it was placed. Its number (its own, kept: saves and the Archipelago world
+# know a location by it), its room, the room editor's id and what it gave. roomlogic\roomdata.py makes each a place as
+# it was placed, and the mod a pickup there (oRndStory: the roomStart hook). Four of them hold the Nightmare abilities
+# (NIGHTMARE: rndGenerate). Not the old Forest Palace's (rLink2_PalaceB_5: the level the new one, rLink2_PalaceF,
+# replaced), nor the Varia Suit's (rSamus5_Lv2_N: at the top of a lava shaft the endgame world has no way up)
+STORY_TYPE = 19
+LT_LABEL[STORY_TYPE] = "Story Item"
+STORY_SPOTS = [
+    (1, "rBelmont3_2B", "002D1A76", "Belmont's Dagger"), (2, "rBelmont3_3B", "003C5011", "Holy Water"),
+    (3, "rBelmont3_4H", "0019F743", "Dash Boots"), (4, "rGame6_CoMB", "00297681", "Double Jump"),
+    (5, "rLink2_PalaceA_6", "0025908E", "Magic Bow"), (6, "rLink2_PalaceF_9", "003D2881", "Link's Bombs"),
+    (7, "rSamus5_Lv1_C", "00088447", "High Jump Boots"), (8, "rSamus5_Lv1_D", "000D09EE", "Morph Ball"),
+    (9, "rSamus5_Lv1_J", "00219ECC", "Charge Beam"), (10, "rSamus5_Lv1_Y", "000B71B8", "Gravity Suit"),
+    (11, "rSamus5_Lv2_F", "000BBBE2", "Dash"), (12, "rSamus5_Lv2_K", "0032E193", "Missiles"),
+    (13, "rSamus5_Lv2_S", "0007C228", "Diffusion Missiles"), (14, "rSamus5_Lv3_E", "000BDDFE", "Spazer Beam"),
+    (15, "rSamus5_Lv3_H", "002A0F4E", "Bombs"), (16, "rSamus5_Lv3_K", "000D4A83", "Air Dash"),
+    (17, "rSamus5_Lv3_M", "00364E7A", "Super High Jump Boots")]
+STORY_DEFAULT_SPRITE = "sHiJumpBoots"   # (oStoryObject's own, for one whose creation code doesn't set its look)
+# the Nightmare Mode's own abilities, items in a Randomizer game (kind NM, the parameter this list's place; the mod's
+# rndOwn 13-16): Link's Sword Wave, Mega Man's charge shots stored, Belmont's Dagger Spam, Samus's Power Bomb. Each is
+# at one of the story's ability pickups (STORY_SPOTS: rndGenerate, the Archipelago world's pre_fill). The game's code
+# for them asks global.bNightmareMode: the mod's copies of it ask the item too (SCRIPT_PATCHES, GAME_PATCHES)
+NIGHTMARE = ["Sword Wave", "Charge Storage", "Dagger Spam", "Power Bomb"]
 # location types that stay the game's own, not locations: the Item Finder (its pickup gives it, as in the game; the
 # mod's oIdentifier makes Chao's alert tell the locations' items apart)
 KEEP_TYPES = {15}
 
 # item kinds (the numbers the mod's scripts use)
 IK = dict(HP=1, MONEY=2, EQUIP=3, AQ=4, HE=5, MP=6, GP=7, AU=8, WB=9, WL=10, AP=11, LB=12, MB=13, KEY=14, HC=15, XF=16,
-          XC=17, XS=18, JUMP=19, GDASH=20, ADASH=21, DJUMP=22, HIJUMP=23, SET=24, VARIA=25, INSTR=26, CHIP=27)
+          XC=17, XS=18, JUMP=19, GDASH=20, ADASH=21, DJUMP=22, HIJUMP=23, SET=24, VARIA=25, INSTR=26, CHIP=27, NM=28,
+          MONEYX=2)
+# (MONEYX: Internetz too, the story's ability pickups' (locations_items), which a Program Chip never takes the place of:
+# chip_slots takes MONEY's)
 # the Program Chips (the new game's option Chip Randomizer): chip N opens Access Gate N (going into the gate's rooms
 # from outside it takes it: roomlogic\solve.py's through_exit, its Reach the same; the mod turns the player back at the
 # gate without it: rndGateBounce). Their item: kind CHIP, the gate's number; the logic's number KEY_BASE+CHIP_KEY+N.
@@ -146,6 +173,53 @@ GAME_PATCHES = [
      "      if global.rndActive=1 {menuInfoText=string(\"Teleport to - Central City - North (where the run started)\")} //Randomizer change (added)\n"
      "      //if global.mapTeleport=0 //Not usable\n"
      "      else if global.mapTeleport=0 //Not usable (Randomizer change: after the randomizer's)\n"),
+] + [
+    # the Nightmare abilities' meters (NIGHTMARE): shown with each ability's item too (rndNM)
+    ("oHUD", "Draw_0",
+     "          if global.bNightmareMode=1 //Nightmare Mode - Display %s meter\n" % meter,
+     "          //if global.bNightmareMode=1 //Nightmare Mode - Display %s meter\n"
+     "          if global.bNightmareMode=1 or rndNM(%d) //Nightmare Mode - Display %s meter (Randomizer change: or with its item)\n"
+     % (meter, k, meter))
+    for k, meter in enumerate(["Sword Wave", "stored charge shots", "Dagger Spam", "Power Bomb"])]
+
+# the game's scripts a mod can replace that the Randomizer changes: the mod's version of each is the game's own (written
+# into the build whole, without its line that hands it to a mod's) with these lines changed. First the Nightmare
+# abilities (NIGHTMARE): a Nightmare Mode check of an ability asks its item too (rndNM: Link's Sword Wave 0, Mega Man's
+# charge shots stored 1, Belmont's Dagger Spam 2, Samus's Power Bomb 3)
+SCRIPT_PATCHES = [
+    ("playerTechUse",
+     "  if global.bNightmareMode=1 and swordWaveCheck=0 and life=maxLife //Nightmare Only - Sword wave if at full health (Hold Down)\n",
+     "  //if global.bNightmareMode=1 and swordWaveCheck=0 and life=maxLife //Nightmare Only - Sword wave if at full health (Hold Down)\n"
+     "  if (global.bNightmareMode=1 or rndNM(0)) and swordWaveCheck=0 and life=maxLife //Nightmare Only - Sword wave if at full health (Hold Down) (Randomizer change: or with its item)\n"),
+    ("playerTechStart",
+     "            if global.bNightmareMode=0\n",
+     "            //if global.bNightmareMode=0\n"
+     "            if global.bNightmareMode=0 and !rndNM(1) //Randomizer change: with its item, Mega Man's charge shots are stored as in Nightmare Mode\n"),
+    ("playerTechUse",
+     "    if global.bNightmareMode=0\n",
+     "    //if global.bNightmareMode=0\n"
+     "    if global.bNightmareMode=0 and !rndNM(1) //Randomizer change: with its item, Mega Man's stored charge shots go as in Nightmare Mode\n"),
+    ("playerTechStart",
+     "    if global.bNightmareMode=1 //Nightmare Mode Only - Dagger Spam (Down - Down - Forward - Forward)\n",
+     "    //if global.bNightmareMode=1 //Nightmare Mode Only - Dagger Spam (Down - Down - Forward - Forward)\n"
+     "    if global.bNightmareMode=1 or rndNM(2) //Nightmare Mode Only - Dagger Spam (Down - Down - Forward - Forward) (Randomizer change: or with its item)\n"),
+    ("playerTechUse",
+     "  if global.bNightmareMode=0 {global.hudBelmont_WeaponEn[0]-=round((8-global.skillTree[3])*tMysticDagger)}\n",
+     "  //if global.bNightmareMode=0 {global.hudBelmont_WeaponEn[0]-=round((8-global.skillTree[3])*tMysticDagger)}\n"
+     "  if global.bNightmareMode=0 and !rndNM(2) {global.hudBelmont_WeaponEn[0]-=round((8-global.skillTree[3])*tMysticDagger)} //Randomizer change: with its item, the Dagger Spam's daggers cost as in Nightmare Mode\n"),
+    ("playerTechStart",
+     "          if global.bNightmareMode=1 //Nightmare Mode Only - Power Bomb (Charge)\n",
+     "          //if global.bNightmareMode=1 //Nightmare Mode Only - Power Bomb (Charge)\n"
+     "          if global.bNightmareMode=1 or rndNM(3) //Nightmare Mode Only - Power Bomb (Charge) (Randomizer change: or with its item)\n"),
+] + [
+    # the RPG level's buff: the four base sets' damage against Gate 6's enemies and bosses, 1x at level 1 up to 2x at
+    # level 64 (rndG6Mult; Gate 6's own sets, whose attacks grow with the level already, as they are)
+    ("takeDamage",
+     "    initialDamage=tObjHit.atkPower //Initial damage\n"
+     "    totalDamage=initialDamage\n",
+     "    initialDamage=tObjHit.atkPower //Initial damage\n"
+     "    totalDamage=initialDamage\n"
+     "    totalDamage*=rndG6Mult(tObjHit) //Randomizer change (added): the RPG level's buff to the base sets against Gate 6's enemies and bosses\n"),
 ]
 
 # bosses: the boss gallery's doors give each boss's type (oBossGalleryDoor's user event 0 sets its fight up), room and
@@ -278,6 +352,15 @@ def instances(room):
         yield f[0], int(float(f[1])), int(float(f[2])), f[3], (read(cp) if os.path.exists(cp) else "")
 
 
+def story_place(room, hexid):
+    """a story pickup (STORY_SPOTS): where it was placed and its look (its creation code's sprite_index)"""
+    for obj, x, y, hid, code in instances(room) or []:
+        if hid == hexid and obj == "oStoryObject":
+            m = re.search(r"sprite_index\s*=\s*(s\w+)", code)
+            return x, y, m.group(1) if m else STORY_DEFAULT_SPRITE
+    raise SystemExit("%s: no story pickup %s there (STORY_SPOTS)" % (room, hexid))
+
+
 def num(code, var):
     m = re.search(r"\b%s\s*=\s*(-?\d+)" % var, code)
     return int(m.group(1)) if m else None
@@ -373,6 +456,7 @@ def locations_items():
     extra = len(items) - len(rows)
     money = sorted((i for i, it in enumerate(items) if it[0] == "MONEY"), key=lambda i: items[i][1])
     drop = set(money[:extra])
+    dropped = sorted((items[i][1] for i in drop), reverse=True)
     items = [it for i, it in enumerate(items) if i not in drop]
     assert len(items) == len(rows), (len(items), len(rows))
     # the Nightmare Gates' rewards and their instruments, after the rest (the others' numbers stay as they were: saves
@@ -381,6 +465,19 @@ def locations_items():
         rows.append({"type": INSTR_TYPE, "num": g, "rooms": [room], "area": rarea.get(room), "req": EVERYTHING,
                      "item": ("INSTR", g), "trial": 0})
         items.append(("INSTR", g))
+    # the story's ability pickups (STORY_SPOTS, location type 19), after those, and their items after the instruments:
+    # the Nightmare abilities (NIGHTMARE: each goes to one of these places, rndGenerate) and as many Internetz as the
+    # rest of them, the biggest of the money chests left out above (MONEYX: Internetz a Program Chip never takes the
+    # place of, chip_slots, so the chips' items are a save's own)
+    if len(dropped) < len(STORY_SPOTS) - len(NIGHTMARE): raise SystemExit("too few money chests left out for the story's places")
+    for n, room, hexid, what in STORY_SPOTS:
+        req = roomlogic.get((STORY_TYPE, n), EVERYTHING)
+        if room in room_over: req = room_over[room]
+        if (STORY_TYPE, n) in overrides: req = overrides[(STORY_TYPE, n)]
+        rows.append({"type": STORY_TYPE, "num": n, "rooms": [room], "area": rarea.get(room), "req": req, "item": None,
+                     "trial": 0, "story": what})
+    items += [("NM", p) for p in range(len(NIGHTMARE))]
+    items += [("MONEYX", amt) for amt in dropped[:len(STORY_SPOTS) - len(NIGHTMARE)]]
     # each key is one door's (its parameter: the door's objectNum)
     keys = [i for i, it in enumerate(items) if it[0] == "KEY"]
     if len(keys) != len(door_order) or len(keys) != PMAX[-1]:
@@ -485,6 +582,22 @@ def build(out, rooms, anames, rarea, locs, doors, shops, door_list, door_order, 
             f.write("[object]\nevents=replace\n")
         with open(os.path.join(d, ev + ".gml"), "w", encoding="utf-8", newline="\n") as f:
             f.write("//(the game's own %s %s, with the Randomizer's changes: rndgen.py GAME_PATCHES)\n" % (obj, ev) + code)
+    # the game's scripts the Randomizer changes: the game's own, changed (SCRIPT_PATCHES), as the mod's version of each
+    script_code = collections.OrderedDict()
+    for script, old, new in SCRIPT_PATCHES:
+        code = script_code.get(script)
+        if code is None:
+            # (without its line that hands it to a mod's version: this is that version)
+            lines = read(os.path.join(PROJ, "scripts", script + ".gml")).split("\n")
+            hand = [l for l in lines if "global.modOvr[%s]" % script in l]
+            if len(hand) != 1: raise SystemExit("%s: its mod line (global.modOvr) isn't there once" % script)
+            code = "\n".join(l for l in lines if l != hand[0])
+        if code.count(old) != 1: raise SystemExit("%s: the line SCRIPT_PATCHES changes isn't there once (the game's code changed)" % script)
+        script_code[script] = code.replace(old, new)
+    for script, code in script_code.items():
+        with open(os.path.join(out, "scripts", script + ".gml"), "w", encoding="utf-8", newline="\n") as f:
+            f.write("//(the game's own %s as the mod's version of it, with the Randomizer's changes: rndgen.py SCRIPT_PATCHES)\n"
+                    % script + code)
     # <event>.prefix.gml (mod\objects): the randomizer's part of one of the game's events, the game's own after it
     for root, ds, fs in os.walk(os.path.join(out, "objects")):
         for f in fs:
@@ -496,7 +609,7 @@ def build(out, rooms, anames, rarea, locs, doors, shops, door_list, door_order, 
     L = ["//Randomizer data: every location, the items and the equipment shops, made by tools/modkit/randomizer/rndgen.py",
          "//from the game's rooms (don't change it here: change rndgen.py or logic.txt and build again)",
          "var i,t;",
-         "for(t=0;t<=18;t+=1) {for(i=0;i<=130;i+=1) {global.rndLocOf[t,i]=-1}}",
+         "for(t=0;t<=%d;t+=1) {for(i=0;i<=130;i+=1) {global.rndLocOf[t,i]=-1}}" % STORY_TYPE,
          "global.rndLocN=%d" % len(rows)]
     # each location's logic: its alternatives (rndLocAltN, -1: it needs everything), each a list (rndLocAltLen long) of
     # what it takes: rndLocAltIx a progression item's number (rndProgOf; KEY_BASE+objectNum for a door's key) and
@@ -506,6 +619,7 @@ def build(out, rooms, anames, rarea, locs, doors, shops, door_list, door_order, 
         where = "%s (%s)" % (anames.get(a, "?"), r["rooms"][0]) if a else r["rooms"][0]
         name = "%s: %s %d" % (where, LT_LABEL[r["type"]], r["num"])
         if r["type"] == INSTR_TYPE: name = "Nightmare Gate %s (%s): its boss's reward" % ("ABCDEFGH"[r["num"] - 1], r["rooms"][0])
+        if r["type"] == STORY_TYPE: name += " (where the story gave %s)" % r["story"]
         L.append("global.rndLocType[%d]=%d; global.rndLocNum[%d]=%d; global.rndLocOf[%d,%d]=%d; "
                  "global.rndLocName[%d]=%s; global.rndLocTrial[%d]=%d"
                  % (i, r["type"], i, r["num"], r["type"], r["num"], i,
@@ -589,10 +703,12 @@ def build(out, rooms, anames, rarea, locs, doors, shops, door_list, door_order, 
         L.append("global.rndHCBoss[%d]=%d" % (n, bidx.get(HC_BOSS.get(n, -1), -1)))
     # the rooms whose code makes the player a character other than Jerry or Claire (2 Jeremy's mech, 3 the Abomination's
     # fights', 4 and 5 the Distortion's end): one carried out of them into another room goes back (the roomStart hook)
+    # (not the CHAOS Warmaster's room or the one before it: their code makes the player Jeremy's mech only once the story's
+    # past the Warmaster, who is the Randomizer's last fight; the roomStart hook keeps the player's own character there)
     char_rooms = []
     for room in rooms:
         cp = os.path.join(ROOMS, room, "code.gml")
-        if not os.path.exists(cp): continue
+        if not os.path.exists(cp) or room in ("rWarshipZ_E1", "rWarshipZ_E2"): continue
         code = read(cp)
         chs = {int(c) for c in re.findall(r"charSwitcher\(\s*([2-9])\s*\)", code)}
         # (an assignment starting a statement: "if global.activeCharacter=2" is a comparison)
@@ -601,6 +717,15 @@ def build(out, rooms, anames, rarea, locs, doors, shops, door_list, door_order, 
     L.append("global.rndCharRoomN=%d" % len(char_rooms))
     for i, (room, c) in enumerate(char_rooms):
         L.append("global.rndCharRoom[%d]=%s; global.rndCharRoomCh[%d]=%d" % (i, room, i, c))
+    # the story's ability pickups (STORY_SPOTS, location type 19): each one's room, where it was placed and its look (its
+    # creation code's sprite), for its pickup (oRndStory, which the roomStart hook makes)
+    # (rndStoryN: the highest number; a number not used has no room)
+    L.append("global.rndStoryN=%d" % max(n for n, room, hexid, what in STORY_SPOTS))
+    L.append("for(i=0;i<=global.rndStoryN;i+=1) {global.rndStoryRoom[i]=-1}")
+    for n, room, hexid, what in STORY_SPOTS:
+        x, y, spr = story_place(room, hexid)
+        L.append("global.rndStoryRoom[%d]=%s; global.rndStoryX[%d]=%d; global.rndStoryY[%d]=%d; global.rndStorySpr[%d]=%s"
+                 % (n, room, n, x, n, y, n, spr))
     # the locked doors (by objectNum): their order (the logic's) and where they are
     L.append("for(i=0;i<=50;i+=1) {global.rndDoorRank[i]=-1; global.rndDoorArea[i]=%s; global.rndDoorPlace[i]=%s}"
              % (gml_str("?"), gml_str("?")))
@@ -613,7 +738,8 @@ def build(out, rooms, anames, rarea, locs, doors, shops, door_list, door_order, 
     # the sprites of the pickups and of the items' looks (rndItemLook): their opaque pixels from the origin, of all frames
     # (rndSprU*) and of each (rndSprF*), for rndItemFit
     sprs = sorted(set(re.findall(r"sprite_index=(s\w+)", read(os.path.join(HERE, "mod", "scripts", "rndItemLookKP.gml")))) |
-                  {object_sprite(o) for c, o, l in LTYPES if object_sprite(o)})
+                  {object_sprite(o) for c, o, l in LTYPES if object_sprite(o)} |
+                  {story_place(room, hexid)[2] for n, room, hexid, what in STORY_SPOTS})
     # the bosses' previews in their rooms (bosspv.py: each boss's look and the smoke, the mod's own sprites, and each boss
     # place's arena middle), and the places Boss Rando leaves their own bosses in (rndBossFixed: no smoke there)
     import bosspv
@@ -699,8 +825,9 @@ def er_check(rows, items, out, bosses):
     sys.path.insert(0, os.path.join(HERE, "roomlogic"))
     import erflat
     f, w, pairs, digest, bp, hv = erflat.build_data(rows, os.path.join(out, "data", "rndER.txt"), bosses)
-    print("room logic data written: Entrance Rando %d doors, %d rooms (hash %s); Boss Rando %d bosses shuffled"
-          % (len(f.ends) // 2, len(f.rnames), digest, sum(f.boss_shuf)))
+    print("room logic data written: Entrance Rando %d doors, %d exits following one, %d rooms (hash %s); Boss Rando %d "
+          "bosses shuffled" % (len(f.ends) // 2, sum(1 for d in f.exit_follow if d >= 0), len(f.rnames), digest,
+                               sum(f.boss_shuf)))
     # (for the Archipelago world: the data's hash, and each door end as the spoiler log names it, rndERExitName)
     f.digest = digest
     label = {n: w.rooms[n].area.split(" (area")[0] for n in w.rooms}
@@ -708,6 +835,12 @@ def er_check(rows, items, out, bosses):
     for e in f.ends:
         ri, o = f.exits[e["exit"]]
         f.end_names.append("%s (%s) at %d,%d" % (label.get(f.rnames[ri], f.rnames[ri]), f.rnames[ri], *erflat.xy_of(o)))
+    # (and the exits that follow an end: [exit, its end, its name], rndERExitNameX)
+    f.follow_list = []
+    for xi, d in enumerate(f.exit_follow):
+        if d >= 0:
+            ri, o = f.exits[xi]
+            f.follow_list.append([xi, d, "%s (%s) at %d,%d" % (label.get(f.rnames[ri], f.rnames[ri]), f.rnames[ri], *erflat.xy_of(o))])
     for label, bit, br, ir, chips in (("Gate Swap", 1, False, False, False), ("Overworld", 2, False, False, False),
                                       ("Chaos", 4, False, False, False), ("Boss Rando", 0, True, False, False),
                                       ("Instrument Randomization", 0, False, True, False),
@@ -771,7 +904,7 @@ def fill_playthrough(rows, items, placed, chips):
 # dt3plus.apworld, in the build's archipelago folder. Ids: a location's AP_BASE + type*1000 + objectNum, an item's
 # AP_BASE + kind*10000 + parameter (the mod's rndApBase works them out the same way)
 AP_GAME = "DT3+"
-AP_VERSION = 4
+AP_VERSION = 5
 AP_BASE = 4454000
 AP_DIR = os.path.join(HERE, "archipelago", "dt3plus")
 AP_SPRITE = "sRndAPItem"
@@ -842,7 +975,7 @@ AP_ER_TABLES = ["gmult", "gvals", "scoped", "start_gs", "gs_n", "KEY_BASE", "EV_
                 "row_target", "row_leave", "row_alts", "alt_first", "alt_count", "req_ix", "req_c", "exit_dest", "exit_sg",
                 "exit_sdest", "exit_extra", "exit_end", "ev_ways", "goal_ev", "goal_rooms", "ends", "start", "loc_n",
                 "ev_outs", "ev_locs", "boss_n", "boss_req", "boss_shuf", "room_slot", "exit_slot", "room_gate",
-                "CHIP_BASE", "digest", "end_names"]
+                "CHIP_BASE", "digest", "end_names", "follow_list"]
 AP_ER_HEAD = '''"""
 The Randomizer's room logic for a shuffled layout (the options Entrance Rando, Boss Rando and Instrument Randomization):
 what a set of items reaches from the start with the doors and the bosses as shuffled (Reach), and the shuffles (shuffle,
@@ -892,7 +1025,8 @@ def ap_export(rows, items, door_order, doors, rarea, anames, out, f, bp, hv, bli
 
     def name_of(kind, p):
         if kind in AP_SIMPLE: return AP_SIMPLE[kind]
-        if kind == "MONEY": return "%d Internetz" % p
+        if kind in ("MONEY", "MONEYX"): return "%d Internetz" % p
+        if kind == "NM": return "Nightmare " + NIGHTMARE[p]
         if kind == "EQUIP": return equip.get(p, "Equipment %d" % p)
         if kind == "WL": return "Weapon Upgrade: " + AP_WEAPONS[p]
         if kind == "KEY": return key_names[p]
@@ -902,11 +1036,12 @@ def ap_export(rows, items, door_order, doors, rarea, anames, out, f, bp, hv, bli
     def classification(kind, p):
         if kind in ("GDASH", "ADASH", "DJUMP", "HIJUMP", "SET", "KEY", "VARIA"): return 1  # progression
         if kind == "EQUIP" and p in AP_CURSED: return 1
-        if kind == "MONEY": return 0                                                       # filler
+        if kind in ("MONEY", "MONEYX"): return 0                                           # filler
         return 2                                                                           # useful
 
     ap_items = collections.OrderedDict()
     for kind, p in items:
+        if kind == "NM": continue   # (the Nightmare abilities: placed at the story's places, NIGHTMARE below)
         n = name_of(kind, p)
         iid = AP_BASE + IK[kind] * 10000 + p
         if n in ap_items:
@@ -934,6 +1069,7 @@ def ap_export(rows, items, door_order, doors, rarea, anames, out, f, bp, hv, bli
         if r["type"] == INSTR_TYPE: return "Nightmare Gate %s - Reward" % "ABCDEFGH"[r["num"] - 1]
         a = r["area"]
         where = anames.get(a) if a else None
+        if r["type"] == STORY_TYPE: return "%s - %s %d (%s)" % (where or r["rooms"][0], LT_LABEL[r["type"]], r["num"], r["story"])
         return "%s - %s %d" % (where or r["rooms"][0], LT_LABEL[r["type"]], r["num"])
 
     ap_locs = collections.OrderedDict()
@@ -949,7 +1085,12 @@ def ap_export(rows, items, door_order, doors, rarea, anames, out, f, bp, hv, bli
     instr = collections.OrderedDict((n, AP_BASE + IK["INSTR"] * 10000 + g) for g, n in enumerate(instrument_names(), 1))
     gate_rewards = collections.OrderedDict((loc_name(r), AP_BASE + r["type"] * 1000 + r["num"]) for r in all_rows
                                            if r["type"] == INSTR_TYPE)
-    for n in list(instr) + list(gate_rewards) + list(chips):
+    # the Nightmare abilities (useful items, NIGHTMARE): the world puts each at one of the story's ability pickups
+    # (location type 19) the logic reaches, as the mod's rndGenerate does
+    nightmare = collections.OrderedDict((name_of("NM", p), AP_BASE + IK["NM"] * 10000 + p) for p in range(len(NIGHTMARE)))
+    story_locs = [loc_name(r) for r in rows if r["type"] == STORY_TYPE and r["req"] is not EVERYTHING]
+    if len(story_locs) < len(nightmare): raise SystemExit("fewer story places the logic reaches than Nightmare abilities")
+    for n in list(instr) + list(gate_rewards) + list(chips) + list(nightmare):
         if n in ap_items or n in ap_locs: raise SystemExit("an item or location named %r already" % n)
     # what the room logic's requirement numbers count, as items (erlogic's Reach: an ability or set's items, the Varia
     # Suit, the three cursed equipment pieces, the instruments, a door's key)
@@ -1000,6 +1141,10 @@ def ap_export(rows, items, door_order, doors, rarea, anames, out, f, bp, hv, bli
           "# and the logic counts them as had from the start",
           "CHIPS = %r" % dict(chips),
           "CHIP_MONEY = %r" % chip_money,
+          "# the Nightmare abilities (useful items), name: id, each placed at one of these story places (location type 19:",
+          "# where the story's ability pickups were) the logic reaches",
+          "NIGHTMARE = %r" % dict(nightmare),
+          "STORY_LOCATIONS = %r" % story_locs,
           "# the mod's location numbers (the room logic's places): each one's location",
           "ROW_NAMES = %r" % [loc_name(r) for r in all_rows],
           "# the room logic's requirement numbers: the items each counts",
@@ -1105,6 +1250,10 @@ def fill_check(rows, items, seed, door_order, weapons=False, newest=NEWEST, chip
     have = collections.Counter(chips_had(chips))
     layer = [-1] * len(rows)
     filled = [False] * len(rows)
+    # (the Nightmare abilities first, each at one of the story's places the logic reaches: rndGenerate)
+    story = [i for i, r in enumerate(rows) if r["type"] == STORY_TYPE and r["req"] is not EVERYTHING]
+    for _ in range(min(sum(1 for k, p in items if k == "NM"), len(story))):
+        filled[story.pop(int(rnd.random() * len(story)))] = True
     armed = set()   # the layers with a weapon
     cur = 0
 

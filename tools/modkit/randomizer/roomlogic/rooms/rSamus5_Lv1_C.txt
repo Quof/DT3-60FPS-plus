@@ -16,6 +16,7 @@ out 464,208   # to rSamus5_Lv1_L at 64,224; the player goes into it
 
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 loc 5 16   # missile tank 16, at 247,711
+loc 19 7   # story item 7, at 91,215
 
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
@@ -27,16 +28,19 @@ from in 416,880
   out 0,848     link:1 | belmont:1 | megaman:1 | samus:1
   out 464,208   never
   loc 5 16      djump,samus:6 | hijump:2,samus:6
+  loc 19 7      never
 from in 64,880
   out 464,848   link:1 | belmont:1 | megaman:1 | samus:1
   out 0,848     link:1 | belmont:1 | megaman:1 | samus:1
   out 464,208   never
   loc 5 16      djump,samus:6 | hijump:2,samus:6
+  loc 19 7      never
 from in 416,240
   out 464,848   samus:6
   out 0,848     samus:6
   out 464,208   link:1 | belmont:1 | megaman:1 | samus:1
   loc 5 16      samus:6
+  loc 19 7      -
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
@@ -290,3 +294,11 @@ how in 416,240 -> loc 5 16: samus:6
       -> standing at x 231-265, y 721
    6. standing at 242,721, touches it
       -> loc 5 16
+how in 416,240 -> loc 19 7: -
+     coming in at 416,240
+   1. coming in: holding nothing, from 416,240; lands at 416,241
+      -> standing at x 110-449, y 234-241
+   2. jump (held 6 ticks), holding left, from 110,234; lands at 55,186
+      -> standing at x 55-94, y 185-200
+   3. walk off the edge, holding right, then left after 1 ticks in the air, from 55,186; touches it on the way
+      -> loc 19 7

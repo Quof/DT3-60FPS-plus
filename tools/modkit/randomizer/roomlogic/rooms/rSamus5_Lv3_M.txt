@@ -15,6 +15,7 @@ out 1104,976   # to rSamus5_Lv3_N at 64,1216; the player goes into it
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 loc 12 9   # morph bomb upgrade 9, at 919,134
 loc 9 105   # weapon upgrade 105, at 295,503
+loc 19 17   # story item 17, at 402,935
 
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
@@ -26,11 +27,13 @@ from in 64,432
   out 1104,976   link:1 | belmont:1 | megaman:1 | samus:1
   loc 12 9       djump,hijump:1,samus:6
   loc 9 105      samus:6
+  loc 19 17      samus:2 | djump,hijump:2
 from in 1056,1008
   out 0,400      never
   out 1104,976   link:1 | belmont:1 | megaman:1 | samus:1
   loc 12 9       never
   loc 9 105      never
+  loc 19 17      djump,hijump:2
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
@@ -144,6 +147,38 @@ how in 64,432 -> loc 9 105: samus:6
       -> standing at x 31-182, y 433-448
    2. jump (held 6 ticks), holding right, turn into the Morph Ball where the body meets a wall or ceiling, from 112,433, through the Metroid block at 256,176, the Metroid block at 144,176, the Metroid block at 288,496, ...; touches it on the way   [samus:6]
       -> loc 9 105
+how in 64,432 -> loc 19 17: samus:2
+     coming in at 64,432
+   1. coming in: holding nothing, from 64,432; lands at 64,433
+      -> standing at x 31-182, y 433-448
+   2. running right, jump (held 6 ticks), holding right, from 128,433; lands at 290,433
+      -> standing at x 282-390, y 433
+   3. jump (held 21 ticks), holding nothing, then right after 8 ticks, turn into the Morph Ball at tick 8, from 304,433; lands at 483,625   [samus:2]
+      -> as the Morph Ball at x 330-630, y 609-657
+   4. as the Morph Ball: roll off the edge, holding left once in the air, turn back once there's room, from 330,657; lands at 223,769
+      -> standing at x 186-329, y 754-801
+   5. walk off the edge, holding left, then right after 1 ticks in the air, from 186,801; lands at 216,929
+      -> standing at x 167-353, y 929-961
+   6. jump (held 6 ticks), holding right, from 320,954; lands at 378,905
+      -> standing at x 354-405, y 905-920
+   7. walk off the edge, holding right, then left after 1 ticks in the air, from 354,919; touches it on the way
+      -> loc 19 17
+how in 64,432 -> loc 19 17: djump,hijump:2
+     coming in at 64,432
+   1. coming in: holding nothing, from 64,432; lands at 64,433
+      -> standing at x 31-182, y 433-448
+   2. running right, jump (held 6 ticks), holding right, from 128,433; lands at 290,433
+      -> standing at x 282-390, y 433
+   3. running right, jump (held 21 ticks), holding right, from 390,433; lands at 757,689
+      -> standing at x 727-838, y 689-736
+   4. walk off the edge, holding right, then left after 1 ticks in the air, from 727,689; lands at 751,1009
+      -> standing at x 615-1089, y 993-1009
+   5. jump with High Jump Boots 2 (held 40 ticks), holding nothing, then left after 16 ticks, double jump at tick 16, from 615,993; lands at 550,849   [djump,hijump:2]
+      -> standing at x 490-614, y 849-865
+   6. walk off the edge, holding left once in the air, double jump at tick 8, from 494,860; lands at 396,908   [djump]
+      -> standing at x 354-405, y 905-920
+   7. walk off the edge, holding right, then left after 1 ticks in the air, from 354,919; touches it on the way
+      -> loc 19 17
 how in 1056,1008 -> out 1104,976: link:1
      coming in at 1056,1008
    1. coming in: holding nothing, from 1056,1008; lands at 1056,1009
@@ -168,3 +203,13 @@ how in 1056,1008 -> out 1104,976: samus:1
       -> standing at x 615-1089, y 993-1009
    2. walk off the edge, holding right once in the air, from 615,993, through the Metroid door at 0,368, the Metroid door at 1096,944, the Metroid block at 432,304, ...; touches it on the way   [samus:1]
       -> out 1104,976
+how in 1056,1008 -> loc 19 17: djump,hijump:2
+     coming in at 1056,1008
+   1. coming in: holding nothing, from 1056,1008; lands at 1056,1009
+      -> standing at x 615-1089, y 993-1009
+   2. jump with High Jump Boots 2 (held 40 ticks), holding nothing, then left after 16 ticks, double jump at tick 16, from 615,993; lands at 550,849   [djump,hijump:2]
+      -> standing at x 490-614, y 849-865
+   3. walk off the edge, holding left once in the air, double jump at tick 8, from 494,860; lands at 396,908   [djump]
+      -> standing at x 354-405, y 905-920
+   4. walk off the edge, holding right, then left after 1 ticks in the air, from 354,919; touches it on the way
+      -> loc 19 17

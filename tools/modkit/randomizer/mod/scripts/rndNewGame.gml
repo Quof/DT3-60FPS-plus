@@ -24,6 +24,9 @@ global.gateHProg=0
 global.rndAbomAPSeen=0 //(the Abomination not beaten yet: its AP when it is, oRndWatcher)
 global.abomAttempts=0
 global.gameProgress=global.rndWorldProg
+global.rndFight=-1 //(no randomizer boss fight going on: rndBossStart)
+global.rndFightSlot=-1
+global.rndFightLink=0
 global.activeCharacter=0
 global.activeAbility[0]=0
 global.activeAbility[1]=0
@@ -76,11 +79,7 @@ if global.rndApNext=1
     if global.rndApSessER>0
     {
       tOk=0
-      if rndERLoad()=1
-      {
-        if global.rndApSessERHash=global.rndEHash {tOk=rndERFromString(global.rndApSessERPart)}
-        if tOk=0 {for(d=0;d<global.rndEDN;d+=1) {global.rndERPart[d]=-1}}
-      }
+      if rndERLoad()=1 {tOk=rndERAccept(global.rndApSessERHash,global.rndApSessERPart)}
       if tOk=1
       {
         global.rndERMode=global.rndApSessER
@@ -117,6 +116,7 @@ if global.rndAP=0
       tBR=0
       tIR=0
     }
+    else {rndERLayout(-1)} //(this build's doors, the exits that follow an end with them: a save loaded before may have had an earlier build's)
   }
   if tER>0 or tBR>0 or tIR>0
   {

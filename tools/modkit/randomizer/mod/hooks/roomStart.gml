@@ -16,6 +16,14 @@ if global.rndActive=0
   exit
 }
 if !instance_exists(oRndWatcher) {instance_create(0,0,oRndWatcher)}
+//a Highlands room made as before the CHAOS Warship's attack (rndHLEnter): the endgame's gameProgress back, and Upper
+//Crossroad's way to rTS_A, which the attack's rubble shuts (from 4940 its exit is gone; the room logic hasn't it), out
+if global.rndHLProg=1
+{
+  global.gameProgress=global.rndWorldProg
+  global.rndHLProg=0
+  if room=rMain_84 {with (oExit) {if toRoom=rTS_A {instance_destroy()}}}
+}
 //the party split (the story's rooms where Jerry and Claire are apart: the one not played stands where they were left,
 //oPlayerIdle) only in a room that has that partner. The story's rooms next to a split room turn it off, but the
 //Randomizer's ways between rooms (Entrance Rando, its boss fights and the way back from them) can leave a split room for
@@ -25,6 +33,16 @@ if global.partySplit=1 and !instance_exists(oPlayerIdle) {global.partySplit=0}
 //whose code switches to it), carried into a room that doesn't: back to Jerry or Claire, whichever was played last
 //(rndCharLast), with the player's own abilities (those rooms take the sets away). The story's way out of them goes
 //through a room that switches back; the Randomizer's ways between rooms (Entrance Rando, its warps) needn't
+//the CHAOS Warmaster's room and the one before it (rWarshipZ_E1, E2): their code makes the player Jeremy's mech once
+//the story's past the Warmaster (gameProgress 5310, as the endgame world is), but he's the Randomizer's last fight:
+//the player's own character there, with what the rooms' own code gives before him (Warship Z's loadout: jumping, the
+//double jump and the Mario Ability Set, as found: rndAbilClamp). His fight (the boss gallery's flag on) gives the
+//player's own abilities, as every randomizer fight does (below)
+if (room=rWarshipZ_E1 or room=rWarshipZ_E2) and global.activeCharacter=2 and instance_exists(oPlayer1)
+{
+  charSwitcher(global.rndCharLast)
+  if global.bBossGallery=0 {global.canCharSwap=2; global.canDoubleJump=2; global.hasAbilToken[0]=2}
+}
 if instance_exists(oPlayer1)
 {
   if global.activeCharacter>=2
@@ -55,6 +73,18 @@ if global.rndFight<0 and global.bBossGallery=0 and instance_exists(oPlayer1)
     global.rndLockMsg=0
   }
 }
+//Gate 5 (location 49, the rSamus5_ rooms): dying there, and a save made there, go back to its checkpoint
+//(global.metCheckpoint: the last one the player used there), which the game sets as the player comes into the gate from
+//outside it by its own way in (rSamus5_Gate's code). Entrance Rando and the Randomizer's warps can come into any of its
+//rooms: where the player comes into it from outside is its checkpoint. Without it, a new game's checkpoint is room 0,
+//the game's intro, which goes to the title screen
+if global.location=49 and global.rndLastLoc!=49 and global.metCheckpoint[0]!=room
+{
+  global.metCheckpoint[0]=room
+  global.metCheckpoint[1]=global.newMapX
+  global.metCheckpoint[2]=global.newMapY
+}
+global.rndLastLoc=global.location
 //(the trackers' state written again: the room the player's in, and after a new game, a load or a boss fight)
 global.rndTrackDirty=1
 //the enemy traps of the room not beaten yet: each its own object, which starts it once the player's in its arena
@@ -64,6 +94,30 @@ var k;
 for(k=0;k<global.rndTrapN;k+=1)
 {
   if global.rndTrapRoom[k]=room and string_char_at(global.rndTrapDone,k+1)!="1" {instance_create(0,0,global.rndTrapObj[k])}
+}
+//the story's ability pickups (location type 19, rndStory*: where the story's own were, gone in the endgame world): each
+//one in this room whose item isn't taken yet, as a pickup there (oRndStory). In an Archipelago game, only one its
+//multiworld has (rndApLocKnown: a world made before these were locations hasn't them)
+if global.bBossGallery=0
+{
+  var n,L,t,tShow;
+  for(n=1;n<=global.rndStoryN;n+=1)
+  {
+    if global.rndStoryRoom[n]=room
+    {
+      L=rndLocFind(19,n)
+      tShow=0
+      if L>=0 {tShow=!rndIsGot(L)}
+      if tShow and global.rndAP=1 {tShow=(global.rndApLocKnown[L]=1)}
+      if tShow
+      {
+        t=instance_create(global.rndStoryX[n],global.rndStoryY[n],oRndStory)
+        t.objectNum=n
+        t.sprite_index=global.rndStorySpr[n]
+        t.mask_index=global.rndStorySpr[n]
+      }
+    }
+  }
 }
 //Entrance Rando: the room's exits that are its doors' ends lead where the shuffle has them (rndERApplyExit)
 if global.rndERMode>0

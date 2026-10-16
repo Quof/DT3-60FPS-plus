@@ -231,6 +231,10 @@ EXITS = {"oExit", "oAccessGate", "oMMBossDoor", "oDistortionGate"}
 FIXED_EXITS = {"oVaultGate": (0, "rVault_1", 160, 288),        # (the Vault, from the Farreaches)
                "oShooter_Start": (0, "rWarshipA", 1072, 416)}  # (the shooter's menu goes on to the Warship once it's done)
 LOCATIONS = {o: c for c, o, l in rndgen.LTYPES if c not in rndgen.KEEP_TYPES}
+# the story's ability pickups (oStoryObject instances: rndgen.STORY_SPOTS), by room and room editor id, and by room and
+# where they were placed (the instances' list below has no ids): their numbers
+STORY_AT = {(room, hexid): n for n, room, hexid, what in rndgen.STORY_SPOTS}
+STORY_POS = {(room,) + rndgen.story_place(room, hexid)[:2]: n for n, room, hexid, what in rndgen.STORY_SPOTS}
 
 
 def menu_exits(room, world):
@@ -471,7 +475,9 @@ def main():
         todo = []
         for obj, x, y, hexid, code in rndgen.instances(room) or []:
             m = re.search(r"GID_SET\(\s*(\d+)", code)
-            if (m and int(m.group(1)) in gone_gids) or any(c in gone_objs for c in proj.chain(obj)):
+            if (room, hexid) in STORY_AT and obj == "oStoryObject":
+                pass   # (a story pickup's place stays, whatever takes the pickup out: STORY_AT below)
+            elif (m and int(m.group(1)) in gone_gids) or any(c in gone_objs for c in proj.chain(obj)):
                 report["destroyed by the room's code"] += 1
                 continue
             todo.append((obj, x, y, code))
@@ -683,6 +689,18 @@ def main():
                 if r.destroyed != 1:
                     lines.append("KR\tsNull\t%d\t%d\t1\t1\t0" % (x, y))
                     report["Ripper (a moving Strike Chain point)"] += 1
+                continue
+            if obj == "oStoryObject" and (room, x, y) in STORY_POS:
+                # one of the story's ability pickups (rndgen.STORY_SPOTS): gone in the endgame world (its creation code
+                # takes it out once the story's past it), a Randomizer place (location type 19) where it was placed, as
+                # it looked (its creation code's sprite)
+                r = run.instance(obj, x, y, code, W, H, area)
+                spr = r.vars.get("sprite_index")
+                if not isinstance(spr, Res): spr = Res(rndgen.STORY_DEFAULT_SPRITE)
+                n = STORY_POS[(room, x, y)]
+                lines.append("L\t%s\t%d\t%d\t1\t1\t0\t%d\t%d\t0\t%s %d"
+                             % (spr, x, y, rndgen.STORY_TYPE, n, rndgen.LT_LABEL[rndgen.STORY_TYPE].lower(), n))
+                report["story pickup (a place)"] += 1
                 continue
             kind = None
             if obj in MAP_EXITS: kind = "mapexit"

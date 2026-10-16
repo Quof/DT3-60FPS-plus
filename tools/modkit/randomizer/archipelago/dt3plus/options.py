@@ -46,7 +46,8 @@ class ChipRandomizer(Toggle):
     On: the 6 Program Chips are shuffled into the multiworld (in the place of six Internetz chests), and each Access
     Gate's rooms can only be gone into once its own chip is found (Program Chip 1 opens Gate 1, and so on): going in
     without it turns you back. A location in a gate needs its chip in logic, so no chip is ever behind its own gate.
-    Off: you start with all 6.
+    The skill tree's sections open with the chips too (Program Chip 5 opens section 5).
+    Off: you start with all 6, and the whole skill tree is open.
     """
     display_name = "Chip Randomizer"
 

@@ -20,7 +20,7 @@ while !file_text_eof(f)
     tId=real(global.rndApPart[0])-global.rndApBase //bug fix: tId (see the var line)
     t=tId div 1000 //bug fix: tId
     o=tId mod 1000 //bug fix: tId
-    if t>=1 and t<=18 and o>=0 and o<=130
+    if t>=1 and t<=19 and o>=0 and o<=130
     {
       L=global.rndLocOf[t,o]
       if L>=0

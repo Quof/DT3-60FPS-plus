@@ -18,6 +18,14 @@ encounter rooms, rooms the logic doesn't reach even with everything (story rooms
 up), and exits the game can't find by where they are (two at one place). An end with a Metroid door in front of its
 exit is only paired with one whose Metroid door needs the same (door_class).
 
+A map's tile (Hyrule's, Gate 6's) and its room are a door even when the tile has the player come in away from the
+room's exits, if every exit of the room back to the map comes out at the tile (Forest 1's: the room's exit nearest
+where the player comes in is the end). Those doors come after the others, so the others keep their order (a save's
+shuffle is by the ends' order: erflat's ER_LEGACY). A room's other exits back to a map that come out where an end's
+exit does (the far side of a town, a palace's way out after its boss) follow that end (follows): shuffled, they lead
+where it now leads. A crossing's far exit (a bridge's, out on the other side of a river) comes out somewhere else, so
+it isn't one of them: nothing on the map leads into the room there, and it stays the way across.
+
 The seed: shuffle, place the items as the game does (rndgen's fill_check: layers, the newest likelier) with what's
 reached worked out from the rooms and the shuffled doors, then check that with everything every place the game's own
 doors reach is reached, and the goal (the seven Nightmare Gates, the Abomination and the Warmaster). A shuffle that
@@ -94,12 +102,23 @@ class End:
     def __repr__(self): return "%s out %s (in %s)" % (self.room, self.out, self.back)
 
 
+def ok_exit(rooms, conn, objs, reach_all, rm, out):
+    """whether an exit can be shuffled: one the game finds by where it is (not a menu's choice, an encounter or one of
+    two at one place), sent by its own variables (not FIXED_OBJECTS), not a way that goes by a carried state, not a
+    boss fight's (via), not in the Forest Palace (a scope), an encounter room or a room the logic doesn't reach"""
+    o = objs.get((rm, out), "")
+    if "(" in out or ":" in out: return False
+    if any(x.startswith(out + "(") for x in rooms[rm].outs): return False
+    if o in FIXED_OBJECTS or (rm, out) in conn.links_st or (rm, out) in conn.via: return False
+    if rm.startswith(tuple(conn.scope.values())) or rm in ENCOUNTER_ROOMS or rm not in reach_all: return False
+    return True
+
+
 def doors(rooms, conn, reach_all):
     """the doors: [(end, end)], each end an End. reach_all: the rooms the logic reaches with everything"""
     objs = exit_objects()
     mdoors = metroid_doors()
     links = [(rm, out, to[0], to[1]) for (rm, out), to in conn.links.items()]
-    stated = set(conn.links_st)
     by_pair = collections.defaultdict(list)
     for l in links: by_pair[(l[0], l[2])].append(l)
     usable_in = {}
@@ -118,30 +137,36 @@ def doors(rooms, conn, reach_all):
         way back up: going in by another door would leave them where the shuffle's way back isn't)"""
         return (rm, back, out) in back_out or rooms[rm].map
 
-    def ok_exit(rm, out):
-        o = objs.get((rm, out), "")
-        # (an exit the game finds by where it is: a menu's choice, or an exit with another at the same place, it can't)
-        if "(" in out or ":" in out: return False
-        if any(o.startswith(out + "(") for o in rooms[rm].outs): return False
-        if o in FIXED_OBJECTS or (rm, out) in stated or (rm, out) in conn.via: return False
-        if rm.startswith(tuple(conn.scope.values())) or rm in ENCOUNTER_ROOMS or rm not in reach_all: return False
-        return True
+    def tile_room(a, b, d1, d2):
+        """a map's tile and its room, the room's exit far from where the tile has the player come in (rooms a and b; d1
+        the distance in a between its exit and where b's exit has the player come in, d2 the same in b): a door if the
+        map's side is near and every exit of the room back to the map comes out at one place (the tile's)"""
+        if rooms[b].map and not rooms[a].map: room_d, map_d, rm, mp = d1, d2, a, b
+        elif rooms[a].map and not rooms[b].map: room_d, map_d, rm, mp = d2, d1, b, a
+        else: return False
+        if map_d > PAIR_DIST: return False
+        back = {l[3] for l in by_pair.get((rm, mp), [])}
+        return len(back) == 1
 
-    cands = []
+    cands, far = [], []
     for (a, b), ls in by_pair.items():
         if a == b or a > b: continue
         for l1 in ls:
             for l2 in by_pair.get((b, a), []):
                 o1, i1, o2, i2 = xy(l1[1]), xy(l2[3]), xy(l2[1]), xy(l1[3])
                 if not (o1 and i1 and o2 and i2): continue
-                d = abs(o1[0] - i1[0]) + abs(o1[1] - i1[1]) + abs(o2[0] - i2[0]) + abs(o2[1] - i2[1])
-                if abs(o1[0] - i1[0]) + abs(o1[1] - i1[1]) > PAIR_DIST or abs(o2[0] - i2[0]) + abs(o2[1] - i2[1]) > PAIR_DIST: continue
-                cands.append((d, l1, l2))
+                d1 = abs(o1[0] - i1[0]) + abs(o1[1] - i1[1])
+                d2 = abs(o2[0] - i2[0]) + abs(o2[1] - i2[1])
+                if d1 <= PAIR_DIST and d2 <= PAIR_DIST: cands.append((d1 + d2, l1, l2))
+                elif tile_room(a, b, d1, d2): far.append((d1 + d2, l1, l2))
     cands.sort()
+    far.sort()
     used, pairs = set(), []
-    for d, l1, l2 in cands:
+    # (the doors near both ways first, then the maps' tiles that have the player come in away from the room's exits:
+    # those after, so the others' order stays)
+    for d, l1, l2 in cands + far:
         if (l1[0], l1[1]) in used or (l2[0], l2[1]) in used: continue
-        if not ok_exit(l1[0], l1[1]) or not ok_exit(l2[0], l2[1]): continue
+        if not ok_exit(rooms, conn, objs, reach_all, l1[0], l1[1]) or not ok_exit(rooms, conn, objs, reach_all, l2[0], l2[1]): continue
         if l2[3] not in usable_in.get(l1[0], ()) or l1[3] not in usable_in.get(l2[0], ()): continue
         if not returns(l1[0], l2[3], l1[1]) or not returns(l2[0], l1[3], l2[1]): continue
         used.add((l1[0], l1[1])); used.add((l2[0], l2[1]))
@@ -154,6 +179,27 @@ def doors(rooms, conn, reach_all):
     for a, b in pairs:
         a.i, b.i = k, k + 1; k += 2
     return pairs
+
+
+def follows(pairs, rooms, conn, reach_all):
+    """the exits that follow a door's end: a room's exit back to a map (Hyrule's, Gate 6's) that isn't an end itself and
+    comes out where one end's exit does (the far side of a town, a palace's way out after its boss): {(room, out): End}.
+    With the end shuffled it leads where the end now leads; else where the game has it"""
+    objs = exit_objects()
+    own = {(e.room, e.out) for p in pairs for e in p}
+    by_dest = collections.defaultdict(list)
+    for p in pairs:
+        for e in p:
+            to = conn.links.get((e.room, e.out))
+            if to: by_dest[to].append(e)
+    out = {}
+    for (rm, o), to in sorted(conn.links.items()):
+        if (rm, o) in own or rm not in rooms or rooms[rm].map: continue
+        if to[0] not in rooms or not rooms[to[0]].map: continue
+        if not ok_exit(rooms, conn, objs, reach_all, rm, o): continue
+        es = by_dest.get(to, [])
+        if len(es) == 1: out[(rm, o)] = es[0]
+    return out
 
 
 def pool(pairs, mode):
@@ -170,9 +216,13 @@ def pool(pairs, mode):
 class Ways:
     """the world with everything, as ways: from each way into a room (room, in), the exits it gets to (any carried
     state), and where the exits the mode doesn't shuffle lead. For making a shuffle (what a door joins), not for the
-    seed's check, which works out the items"""
-    def __init__(self, world, doors_):
-        self.pool_exits = {(e.room, e.out) for p in doors_ for e in p}
+    seed's check, which works out the items. follow: follows' exits (each one as its end, if that's in the mode's)"""
+    def __init__(self, world, doors_, follow=None):
+        self.ends = {(e.room, e.out): e for p in doors_ for e in p}
+        mine = set(self.ends.values())
+        for k, e in (follow or {}).items():
+            if e in mine: self.ends[k] = e
+        self.pool_exits = set(self.ends)
         self.outs = collections.defaultdict(set)
         self.locs = collections.defaultdict(set)
         for r in world.rooms.values():
@@ -183,7 +233,6 @@ class Ways:
         for (rm, out), to in world.conn.links.items(): self.fixed[(rm, out)].add(to)
         for (rm, out), lst in world.conn.links_st.items():
             for st, to in lst: self.fixed[(rm, out)].add(to)
-        self.ends = {(e.room, e.out): e for p in doors_ for e in p}
 
     def grow(self, nodes, seen, part, free, frontier, places=None):
         """reaches on from nodes (added to seen): the free ends whose exits it gets to go in frontier, the places it gets
@@ -528,14 +577,16 @@ def main():
     reach_all = set(base.rooms_in)
     print("the game's own doors, everything: %d rooms, %d places reached (%.1fs)" % (len(reach_all), len(base.places), time.time() - t0))
     pairs = doors(w.rooms, w.conn, reach_all)
-    print("doors: %d" % len(pairs))
+    fol = follows(pairs, w.rooms, w.conn, reach_all)
+    print("doors: %d; exits that follow one: %d" % (len(pairs), len(fol)))
     for m in MODES: print("  %-10s %d doors" % (m, len(pool(pairs, m))))
     ends = {(e.room, e.out): e for p in pairs for e in p}
+    ends.update(fol)
     import rndgen
     rows, items = rndgen.locations_items()[8:10]
     for m in modes:
         pl = pool(pairs, m)
-        ways = Ways(w, pl)
+        ways = Ways(w, pl, fol)
         rng = random.Random(1)
         stats = collections.Counter()
         tries_all, t1 = [], time.time()

@@ -12,9 +12,13 @@ The tables (all numbers; "first"/"count" index a flat list):
   rooms       each room's carried groups, resets, boss fight (what going in from another room takes) and scope
   entries     each way into a room (room, x, y): its ways, one a state of the room's own carried groups
   ways        each way's rows: what it gets to (an exit, a place, a spot) and what that takes (alternatives)
-  exits       where each leads (an entry; one that goes by a crystal: one a value), and what going through takes on top
+  exits       where each leads (an entry; one that goes by a crystal: one a value), and what going through takes on top;
+              its door's end (exit_end: an end's own exit, or an exit that follows the end, er.follows: it leads where
+              the end does; exit_end_own and exit_follow have them apart, as the mod's data does)
   events      what makes each happen (a room or an area got into, and what else it takes there)
   ends        the doors' ends (exit, way back in, the modes they're in, the game's own partner)
+  legacy      earlier builds' doors whose shuffles still load (ER_LEGACY): their hash and how many ends they had, the
+              first ones of these (their shuffles have no exits following an end)
   everything  from each entry, with everything: the exits and places it gets to (for making a shuffle)
   bosses      Boss Rando: each of the mod's bosses' fight (what it takes) and places (its room, its via exit)
 Requirements: a list of (number, count): a progression item (rndgen's prog_of numbers), a key (KEY_BASE+objectNum), or
@@ -28,6 +32,11 @@ import solve, er
 
 PARKED = "P"
 MODE_BITS = {"gates": 1, "overworld": 2, "chaos": 4}
+# earlier builds' doors whose saves (and Archipelago worlds) still load in this one: (their data's hash, how many ends
+# they had). Their ends are this build's first ones, in the same order (write_data checks it); a shuffle made with them
+# is read back with the ends after those not joined and no exit following an end, as it was made (the mod's
+# rndERAccept). The doors of every build up to b50
+ER_LEGACY = [("a0a71eea481c", 1450)]
 # an end's class: what the Metroid door in front of its exit needs (er.door_class; none, any weapon, missiles). The
 # shuffle pairs only ends of one class
 DOOR_CLASSES = ["", "attack", "samus:4"]
@@ -37,9 +46,10 @@ class Flat:
     pass
 
 
-def export(w, pairs, rows, bosses=()):
-    """the tables, from er.py's World (rooms, connections, overrides, bosses, events), the doors, rndgen's rows and its
-    bosses (rndgen.boss_slots: the mod's boss numbers' type, room, via and whether Boss Rando leaves it in its place)"""
+def export(w, pairs, rows, bosses=(), follow=None):
+    """the tables, from er.py's World (rooms, connections, overrides, bosses, events), the doors, rndgen's rows, its
+    bosses (rndgen.boss_slots: the mod's boss numbers' type, room, via and whether Boss Rando leaves it in its place)
+    and the exits that follow an end (er.follows)"""
     import rndgen
     f = Flat()
     KB = rndgen.KEY_BASE
@@ -179,6 +189,14 @@ def export(w, pairs, rows, bosses=()):
             f.ends[a.i]["mode"] |= MODE_BITS[m]; f.ends[b.i]["mode"] |= MODE_BITS[m]
     f.exit_end = [-1] * len(f.exits)
     for d, e in enumerate(f.ends): f.exit_end[e["exit"]] = d
+    # (the exits that follow an end: in exit_end as their end's, which is how the logic and a new game's shuffle have
+    # them; the mod's data has them apart, exit_follow, for a shuffle made before them: ER_LEGACY)
+    f.exit_end_own = list(f.exit_end)
+    f.exit_follow = [-1] * len(f.exits)
+    for (rm, o), e in sorted((follow or {}).items()):
+        x = xix[(rm, o)]
+        if f.exit_end[x] >= 0: raise SystemExit("erflat: %s out %s is an end's exit and follows another" % (rm, o))
+        f.exit_follow[x] = e.i; f.exit_end[x] = e.i
     # with everything, from each entry: the exits and places its ways get to (any state)
     f.ev_outs, f.ev_locs = [], []
     for (ri, inid) in f.entries:
@@ -598,6 +616,16 @@ def fill(f, part, rows, items, rng, weapons=False, newest=0.7, fight=None, ir=Fa
     reach = Reach(f, part, start_have(f, chips), fight, ir)
     layer = [-1] * N
     fill_ = [-1] * N
+    # the Nightmare abilities first (rndgen.NIGHTMARE: not progression items), each at one of the story's ability
+    # pickups (location type 19) the logic reaches, at random, as rndGenerate does (so no progression item goes there)
+    cand = [i for i in range(N) if rows[i]["type"] == rndgen.STORY_TYPE and rows[i]["req"] is not rndgen.EVERYTHING]
+    for i, it in enumerate(items):
+        if it[0] == "NM" and cand:
+            j = int(rng.random() * len(cand))
+            fill_[cand[j]] = i
+            cand[j] = cand[-1]
+            cand.pop()
+    nightmare = {i for i in range(N) if fill_[i] >= 0}
     layw = set()
     every = [False]
     def mark(lay):
@@ -654,7 +682,7 @@ def fill(f, part, rows, items, rng, weapons=False, newest=0.7, fight=None, ir=Fa
         if pix[k] in rndgen.WEAPONS: layw.add(pick)
         if placed == len(prog) - 1: every[0] = True
         if mark(cur + 1) > 0: cur += 1
-    return [(layer[i], i, fill_[i]) for i in range(N) if fill_[i] >= 0]
+    return [(layer[i], i, fill_[i]) for i in range(N) if fill_[i] >= 0 and i not in nightmare]
 
 
 def everything_ok(f, part, hv, base_places, fight=None, ir=False):
@@ -695,12 +723,23 @@ def write_data(f, path, base_places, room_label, hv):
     import hashlib
     L = []
     def put(*vals): L.extend(str(v) for v in vals)
-    h = hashlib.md5()
-    for d, e in enumerate(f.ends):
-        x = f.exits[e["exit"]]
-        h.update(("%s|%s|%s|%d|%d;" % (f.rnames[x[0]], x[1], f.entries[e["back"]][1], e["mode"], e["cls"])).encode())
-    digest = h.hexdigest()[:12]
-    L.append("RNDER"); put(2); L.append(digest)
+    def ends_hash(n, follows):
+        """the hash of the first n ends (and the exits that follow them)"""
+        h = hashlib.md5()
+        for d, e in enumerate(f.ends[:n]):
+            x = f.exits[e["exit"]]
+            h.update(("%s|%s|%s|%d|%d;" % (f.rnames[x[0]], x[1], f.entries[e["back"]][1], e["mode"], e["cls"])).encode())
+        for xi, d in enumerate(follows):
+            if d >= 0: h.update(("F|%s|%s|%d;" % (f.rnames[f.exits[xi][0]], f.exits[xi][1], d)).encode())
+        return h.hexdigest()[:12]
+    digest = ends_hash(len(f.ends), f.exit_follow)
+    # (an earlier build's doors: still this build's first ones, as they were, or its saves' shuffles wouldn't fit)
+    for lh, ln in ER_LEGACY:
+        if ln > len(f.ends) or ends_hash(ln, []) != lh:
+            raise SystemExit("erflat: the doors of an earlier build (hash %s, %d ends) aren't this build's first %d ends as they "
+                             "were, so its saves' shuffles wouldn't load: keep the doors' order (new ones after), or take it "
+                             "out of ER_LEGACY" % (lh, ln, ln))
+    L.append("RNDER"); put(3); L.append(digest)
     put(len(f.gnames))
     for gi in range(len(f.gnames)): put(len(f.gvals[gi]), f.gmult[gi], 1 if gi in f.scoped else 0)
     put(f.start_gs, f.gs_n, f.KEY_BASE, f.EV_BASE)
@@ -727,7 +766,7 @@ def write_data(f, path, base_places, room_label, hv):
     for xi, (ri, o) in enumerate(f.exits):
         x, y = xy_of(o)
         put(ri, x, y, f.exit_dest[xi], f.exit_sg[xi], len(f.exit_sdest[xi]), *f.exit_sdest[xi])
-        put(*f.exit_extra[xi]); put(f.exit_end[xi])
+        put(*f.exit_extra[xi]); put(f.exit_end_own[xi])
     put(len(f.ev_ways))
     for v, ways in enumerate(f.ev_ways):
         put(len(ways))
@@ -750,6 +789,13 @@ def write_data(f, path, base_places, room_label, hv):
     # the Access Gates: the Program Chips' requirement numbers (CHIP_BASE+gate) and each room's gate (0 none)
     put(f.CHIP_BASE)
     for ri in range(len(f.rnames)): put(f.room_gate[ri])
+    # the exits that follow an end (er.follows: each one and its end), and the earlier builds' doors whose shuffles still
+    # load (ER_LEGACY: their hash, how many ends)
+    fo = [(xi, d) for xi, d in enumerate(f.exit_follow) if d >= 0]
+    put(len(fo))
+    for xi, d in fo: put(xi, d)
+    put(len(ER_LEGACY))
+    for lh, ln in ER_LEGACY: L.append(lh); put(ln)
     L.append("END")
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, "w", encoding="ascii", newline="\r\n") as fh: fh.write("\n".join(L) + "\n")
@@ -765,7 +811,7 @@ def build_data(rows, path, bosses=()):
     allk = er.all_keys(w)
     base = er.reach_with(w, {}, {}, have, allk)
     pairs = er.doors(w.rooms, w.conn, set(base.rooms_in))
-    f = export(w, pairs, rows, bosses)
+    f = export(w, pairs, rows, bosses, er.follows(pairs, w.rooms, w.conn, set(base.rooms_in)))
     hv = {rndgen.LOGIC_NAMES[it]: n for it, n in have.items()}
     for k in allk: hv[rndgen.KEY_BASE + k] = 1
     bp = Reach(f, [-1] * len(f.ends), dict(hv)).places
@@ -782,11 +828,13 @@ def main():
     allk = er.all_keys(w)
     base = er.reach_with(w, {}, {}, have, allk)
     pairs = er.doors(w.rooms, w.conn, set(base.rooms_in))
+    fol = er.follows(pairs, w.rooms, w.conn, set(base.rooms_in))
     rows, items = rndgen.locations_items()[8:10]
-    f = export(w, pairs, rows, rndgen.boss_slots(rndgen.boss_list()))
-    print("tables: %d rooms, %d entries, %d ways, %d rows, %d alternatives, %d requirements, %d exits, %d events, %d ends; gs %d"
+    f = export(w, pairs, rows, rndgen.boss_slots(rndgen.boss_list()), fol)
+    print("tables: %d rooms, %d entries, %d ways, %d rows, %d alternatives, %d requirements, %d exits, %d events, %d ends, "
+          "%d exits following one; gs %d"
           % (len(f.rnames), len(f.entries), len(f.way_st), len(f.row_kind), len(f.alt_first), len(f.req_ix), len(f.exits),
-             len(f.ev_ways), len(f.ends), f.gs_n))
+             len(f.ev_ways), len(f.ends), len(fol), f.gs_n))
     # everything, the game's own doors: the same places as er.py's
     hv = {}
     for it, n in have.items(): hv[rndgen.LOGIC_NAMES[it]] = n
@@ -800,8 +848,9 @@ def main():
     # each mode: a few shuffles of er.py's, the same reach with everything
     for m in er.MODES:
         pl = er.pool(pairs, m)
-        ways = er.Ways(w, pl)
+        ways = er.Ways(w, pl, fol)
         ends = {(e.room, e.out): e for p in pairs for e in p}
+        ends.update(fol)
         rng = random.Random(3)
         same, tried = 0, 0
         while tried < 5:

@@ -11,6 +11,7 @@ in 976,288   # from rLink2_PalaceF_8 out 0,256
 out 1008,256   # to rLink2_PalaceF_8 at 48,288; the player goes into it
 
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+loc 19 6   # story item 6, at 166,207
 
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
@@ -19,6 +20,7 @@ out 1008,256   # to rLink2_PalaceF_8 at 48,288; the player goes into it
 # the locked door whose objectNum is N.
 from in 976,288
   out 1008,256   -
+  loc 19 6       belmont:1 | link:1 | megaman:2 | samus:4
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
@@ -28,3 +30,51 @@ how in 976,288 -> out 1008,256: -
       -> standing at x 762-1024, y 289
    2. standing at 1006,289, goes into it
       -> out 1008,256
+how in 976,288 -> loc 19 6: belmont:1
+     coming in at 976,288
+   1. coming in: holding nothing, from 976,288; lands at 976,289
+      -> standing at x 762-1024, y 289
+   2. jump (held 2 ticks), holding left, from 762,289, through the oRndTrap at 352,96, the oRndTrap at 688,96; lands at 660,289   [belmont:1]
+      -> standing at x 375-681, y 289
+   3. jump (held 2 ticks), holding left, from 375,289, through the oRndTrap at 352,96, the oRndTrap at 688,96; lands at 273,289   [belmont:1]
+      -> standing at x 231-294, y 289
+   4. jump (held 21 ticks), holding left, from 231,289; lands at 89,257
+      -> standing at x 71-153, y 257
+   5. jump (held 6 ticks), holding right, from 71,257; touches it on the way
+      -> loc 19 6
+how in 976,288 -> loc 19 6: link:1
+     coming in at 976,288
+   1. coming in: holding nothing, from 976,288; lands at 976,289
+      -> standing at x 762-1024, y 289
+   2. jump (held 2 ticks), holding left, from 762,289, through the oRndTrap at 352,96, the oRndTrap at 688,96; lands at 660,289   [link:1]
+      -> standing at x 375-681, y 289
+   3. jump (held 2 ticks), holding left, from 375,289, through the oRndTrap at 352,96, the oRndTrap at 688,96; lands at 273,289   [link:1]
+      -> standing at x 231-294, y 289
+   4. jump (held 21 ticks), holding left, from 231,289; lands at 89,257
+      -> standing at x 71-153, y 257
+   5. jump (held 6 ticks), holding right, from 71,257; touches it on the way
+      -> loc 19 6
+how in 976,288 -> loc 19 6: megaman:2
+     coming in at 976,288
+   1. coming in: holding nothing, from 976,288; lands at 976,289
+      -> standing at x 762-1024, y 289
+   2. jump (held 2 ticks), holding left, from 762,289, through the oRndTrap at 352,96, the oRndTrap at 688,96; lands at 660,289   [megaman:2]
+      -> standing at x 375-681, y 289
+   3. jump (held 2 ticks), holding left, from 375,289, through the oRndTrap at 352,96, the oRndTrap at 688,96; lands at 273,289   [megaman:2]
+      -> standing at x 231-294, y 289
+   4. jump (held 21 ticks), holding left, from 231,289; lands at 89,257
+      -> standing at x 71-153, y 257
+   5. jump (held 6 ticks), holding right, from 71,257; touches it on the way
+      -> loc 19 6
+how in 976,288 -> loc 19 6: samus:4
+     coming in at 976,288
+   1. coming in: holding nothing, from 976,288; lands at 976,289
+      -> standing at x 762-1024, y 289
+   2. jump (held 2 ticks), holding left, from 762,289, through the oRndTrap at 352,96, the oRndTrap at 688,96; lands at 660,289   [samus:4]
+      -> standing at x 375-681, y 289
+   3. jump (held 2 ticks), holding left, from 375,289, through the oRndTrap at 352,96, the oRndTrap at 688,96; lands at 273,289   [samus:4]
+      -> standing at x 231-294, y 289
+   4. jump (held 21 ticks), holding left, from 231,289; lands at 89,257
+      -> standing at x 71-153, y 257
+   5. jump (held 6 ticks), holding right, from 71,257; touches it on the way
+      -> loc 19 6

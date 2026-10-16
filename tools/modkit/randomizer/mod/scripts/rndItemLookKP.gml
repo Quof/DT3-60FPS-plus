@@ -34,6 +34,13 @@ switch (k)
   case 25: sprite_index=sVariaPickup; image_speed=0.2; break
   case 26: sprite_index=sPauseM_Instruments; image_index=p-1; image_speed=0; break //(the instrument's own picture: oInstrument's)
   case 27: sprite_index=sPauseM_Chips; image_index=p-1; image_speed=0; break //(the chip's own picture: the pause menu's)
+  case 28: //(a Nightmare ability: its set's weapon, the sword, buster, dagger or morph bomb, tinted Nightmare purple)
+    sprite_index=sWeaponLevelPickup; image_speed=0; image_blend=make_color_rgb(205,110,255)
+    if p=0 {image_index=0}
+    else if p=1 {image_index=6}
+    else if p=2 {image_index=4}
+    else {image_index=11}
+    break
   case 24:
     sprite_index=sWeaponLevelPickup; image_speed=0; image_blend=make_color_rgb(255,220,120)
     if p=0 {sprite_index=sMarioQBlockN; image_index=0; image_speed=0.2; image_blend=c_white} //the Mario Ability Set: a ? block

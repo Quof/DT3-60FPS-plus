@@ -11,6 +11,7 @@ in 64,224   # from rSamus5_Lv1_X out 1696,192
 out 0,192   # to rSamus5_Lv1_X at 1648,224; the player goes into it
 
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+loc 19 10   # story item 10, at 627,135
 
 # What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
 # separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
@@ -19,6 +20,7 @@ out 0,192   # to rSamus5_Lv1_X at 1648,224; the player goes into it
 # the locked door whose objectNum is N.
 from in 64,224
   out 0,192   link:1 | belmont:1 | megaman:1 | samus:1
+  loc 19 10   adash | djump | hijump:1
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
@@ -54,3 +56,39 @@ how in 64,224 -> out 0,192: samus:1
       -> standing at x 0-30, y 225 (where a gate is)
    3. standing at 0,225, goes into it
       -> out 0,192
+how in 64,224 -> loc 19 10: adash
+     coming in at 64,224
+   1. coming in: holding nothing, from 64,224; lands at 64,225
+      -> standing at x 31-86, y 225
+   2. walk off the edge, holding right once in the air, from 31,225; lands at 184,305
+      -> standing at x 87-393, y 305
+   3. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 176,305; lands at 409,225   [adash]
+      -> standing at x 394-441, y 225
+   4. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 397,225; lands at 533,145   [adash]
+      -> standing at x 442-550, y 145
+   5. jump (held 21 ticks), holding right, air dash (Jerry) at tick 4, from 442,145; touches it on the way   [adash]
+      -> loc 19 10
+how in 64,224 -> loc 19 10: djump
+     coming in at 64,224
+   1. coming in: holding nothing, from 64,224; lands at 64,225
+      -> standing at x 31-86, y 225
+   2. walk off the edge, holding right once in the air, from 31,225; lands at 184,305
+      -> standing at x 87-393, y 305
+   3. jump (held 21 ticks), holding right, double jump at tick 15, from 176,305; lands at 403,225   [djump]
+      -> standing at x 394-441, y 225
+   4. jump (held 21 ticks), holding right, double jump at tick 10, from 394,225; lands at 522,145   [djump]
+      -> standing at x 442-550, y 145
+   5. walk off the edge, holding right once in the air, double jump at tick 2, from 450,145; touches it on the way   [djump]
+      -> loc 19 10
+how in 64,224 -> loc 19 10: hijump:1
+     coming in at 64,224
+   1. coming in: holding nothing, from 64,224; lands at 64,225
+      -> standing at x 31-86, y 225
+   2. walk off the edge, holding right once in the air, from 31,225; lands at 184,305
+      -> standing at x 87-393, y 305
+   3. running right, jump with High Jump Boots 1 (held 40 ticks), holding right, from 224,305; lands at 408,225   [hijump:1]
+      -> standing at x 394-441, y 225
+   4. jump with High Jump Boots 1 (held 40 ticks), holding right, from 401,225; lands at 529,145   [hijump:1]
+      -> standing at x 442-550, y 145
+   5. running right, jump (held 2 ticks), holding right, from 496,145; touches it on the way
+      -> loc 19 10
