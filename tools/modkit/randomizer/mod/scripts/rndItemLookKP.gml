@@ -34,6 +34,11 @@ switch (k)
   case 25: sprite_index=sVariaPickup; image_speed=0.2; break
   case 26: sprite_index=sPauseM_Instruments; image_index=p-1; image_speed=0; break //(the instrument's own picture: oInstrument's)
   case 27: sprite_index=sPauseM_Chips; image_index=p-1; image_speed=0; break //(the chip's own picture: the pause menu's)
+  case 29: //(a trap item: a Weapon Upgrade, its weapon by where the pickup is, so one stays the same and two differ, as
+    //the real ones do)
+    sprite_index=sWeaponLevelPickup; image_speed=0
+    image_index=(floor(x/16)+floor(y/16)*7) mod 12
+    break
   case 28: //(a Nightmare ability: its set's weapon, the sword, buster, dagger or morph bomb, tinted Nightmare purple)
     sprite_index=sWeaponLevelPickup; image_speed=0; image_blend=make_color_rgb(205,110,255)
     if p=0 {image_index=0}

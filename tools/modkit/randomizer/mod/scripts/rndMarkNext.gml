@@ -9,7 +9,7 @@ hi=999
 switch (k)
 {
   case 1: s=global.heartPiece; skip=27; break
-  case 2: case 3: case 27: s=global.chestMoney; break //(a Program Chip: in an Internetz chest's place, Chip Randomizer)
+  case 2: case 3: case 27: case 29: s=global.chestMoney; break //(a Program Chip or a trap item: in an Internetz chest's place, Chip Randomizer, Traps)
   case 4: s=global.arrowQuiver; skip=21; break
   case 5: s=global.heartEnergy; skip=26; break
   case 6: s=global.missilePack; skip=12; break
@@ -36,7 +36,8 @@ for(i=max(1,lo);i<=min(n,hi);i+=1)
 switch (k)
 {
   case 1: global.heartPiece=s; break
-  case 2: case 3: global.chestMoney=s; break
+  //case 2: case 3: global.chestMoney=s; break
+  case 2: case 3: case 27: case 29: global.chestMoney=s; break //(a Program Chip's place was read above but not kept, so the chests' count came short)
   case 4: global.arrowQuiver=s; break
   case 5: global.heartEnergy=s; break
   case 6: global.missilePack=s; break

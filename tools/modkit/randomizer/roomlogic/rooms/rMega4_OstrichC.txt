@@ -6,9 +6,11 @@
 
 # Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
 in 48,352   # from rMega4_OstrichB out 8352,256
+in 4056,336   # from rMega4_OstrichD out 0,240
 
 # Ways out: exits (and, in the game, where they lead), and how they're gone through
 out 4080,304   # to rMega4_OstrichD at 48,272; the player goes into it
+out 0,320   # to rMega4_OstrichB at 8328,288; the player goes into it
 
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 loc 16 1   # x charge capsule 1, at 2911,127
@@ -21,6 +23,12 @@ loc 9 82   # weapon upgrade 82, at 455,615
 # the locked door whose objectNum is N.
 from in 48,352
   out 4080,304   -
+  out 0,320      -
+  loc 16 1       megaman:4
+  loc 9 82       -
+from in 4056,336
+  out 4080,304   -
+  out 0,320      -
   loc 16 1       megaman:4
   loc 9 82       -
 
@@ -36,6 +44,12 @@ how in 48,352 -> out 4080,304: -
       -> standing at x 1977-4096, y 177-593
    4. standing at 4078,337, goes into it
       -> out 4080,304
+how in 48,352 -> out 0,320: -
+     coming in at 48,352
+   1. coming in: holding nothing, from 48,352; lands at 48,353
+      -> standing at x 0-487, y 353-407
+   2. standing at 0,353, goes into it
+      -> out 0,320
 how in 48,352 -> loc 16 1: megaman:4
      coming in at 48,352
    1. coming in: holding nothing, from 48,352; lands at 48,353
@@ -59,4 +73,44 @@ how in 48,352 -> loc 9 82: -
    1. coming in: holding nothing, from 48,352; lands at 48,353
       -> standing at x 0-487, y 353-407
    2. running right, walk off the edge, holding right, then left after 1 ticks in the air, from 224,353; touches it on the way
+      -> loc 9 82
+how in 4056,336 -> out 4080,304: -
+     coming in at 4056,336
+   1. coming in: holding nothing, from 4056,336; lands at 4056,337
+      -> standing at x 1977-4096, y 177-593
+   2. standing at 4078,337, goes into it
+      -> out 4080,304
+how in 4056,336 -> out 0,320: -
+     coming in at 4056,336
+   1. coming in: holding nothing, from 4056,336; lands at 4056,337
+      -> standing at x 1977-4096, y 177-593
+   2. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 1977,192; clings to the wall at 1831,188
+      -> standing at x 537-1831, y 177-705
+   3. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 537,354; lands at 375,353
+      -> standing at x 0-487, y 353-407
+   4. standing at 0,353, goes into it
+      -> out 0,320
+how in 4056,336 -> loc 16 1: megaman:4
+     coming in at 4056,336
+   1. coming in: holding nothing, from 4056,336; lands at 4056,337
+      -> standing at x 1977-4096, y 177-593
+   2. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2119,178; lands at 2296,209
+      -> standing at x 2169-2439, y 177-519
+   3. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 2375,272; fires the Strike Chain at the point at 2528,200   [megaman:4]
+      -> hanging from the Strike Chain point at 2528,200
+   4. off the Strike Chain point: jump (held 21 ticks), holding right, from 2528,240; fires the Strike Chain at the point at 2720,168   [megaman:4]
+      -> hanging from the Strike Chain point at 2720,168
+   5. off the Strike Chain point: jump (held 21 ticks), holding right, from 2720,208; lands at 2829,161
+      -> standing at x 2809-3001, y 88-247
+   6. standing at 2902,145, touches it
+      -> loc 16 1
+how in 4056,336 -> loc 9 82: -
+     coming in at 4056,336
+   1. coming in: holding nothing, from 4056,336; lands at 4056,337
+      -> standing at x 1977-4096, y 177-593
+   2. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 1977,192; clings to the wall at 1831,188
+      -> standing at x 537-1831, y 177-705
+   3. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 537,354; lands at 375,353
+      -> standing at x 0-487, y 353-407
+   4. running right, walk off the edge, holding right, then left after 1 ticks in the air, from 224,353; touches it on the way
       -> loc 9 82

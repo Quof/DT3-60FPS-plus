@@ -6,9 +6,11 @@
 
 # Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
 in 48,3008   # from rMega4_SigmaA2 out 3040,128
+in 440,192   # from rMega4_SigmaA4 out 0,272
 
 # Ways out: exits (and, in the game, where they lead), and how they're gone through
 out 464,160   # to rMega4_SigmaA4 at 48,304; the player goes into it
+out 0,2976   # to rMega4_SigmaA2 at 3016,160; the player goes into it
 
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 
@@ -19,6 +21,10 @@ out 464,160   # to rMega4_SigmaA4 at 48,304; the player goes into it
 # the locked door whose objectNum is N.
 from in 48,3008
   out 464,160   djump | adash
+  out 0,2976    -
+from in 440,192
+  out 464,160   -
+  out 0,2976    -
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
@@ -82,3 +88,31 @@ how in 48,3008 -> out 464,160: adash
       -> standing at x 313-480, y 193-295
   14. standing at 462,193, goes into it
       -> out 464,160
+how in 48,3008 -> out 0,2976: -
+     coming in at 48,3008
+   1. coming in: holding nothing, from 48,3008; lands at 48,3009
+      -> standing at x 0-329, y 2728-3009
+   2. standing at 0,3009, goes into it
+      -> out 0,2976
+how in 440,192 -> out 464,160: -
+     coming in at 440,192
+   1. coming in: holding nothing, from 440,192; lands at 440,193
+      -> standing at x 313-480, y 193-295
+   2. standing at 462,193, goes into it
+      -> out 464,160
+how in 440,192 -> out 0,2976: -
+     coming in at 440,192
+   1. coming in: holding nothing, from 440,192; lands at 440,193
+      -> standing at x 313-480, y 193-295
+   2. on the wall to the right: holding left, from 313,242; lands at 196,400
+      -> standing at x 178-206, y 400-402
+   3. drop down through the platform, holding nothing, from 206,400; lands at 206,1537
+      -> standing at x 201-329, y 1352-1591
+   4. running left, jump (held 21 ticks), holding left, then nothing after 2 ticks, from 240,1537; lands at 193,2049
+      -> standing at x 135-215, y 2024-2103
+   5. walk off the edge, holding right once in the air, from 135,2049; clings to the wall at 329,2189
+      -> standing at x 265-329, y 2104-2407
+   6. on the wall to the right: kick off it (wall jump), holding right, then nothing after 1 ticks, from 265,2368; lands at 238,3009
+      -> standing at x 0-329, y 2728-3009
+   7. standing at 0,3009, goes into it
+      -> out 0,2976

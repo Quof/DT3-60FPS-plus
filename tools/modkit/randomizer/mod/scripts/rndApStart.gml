@@ -13,6 +13,7 @@ for(i=0;i<global.rndLocN;i+=1)
   global.rndApLocFlags[i]=0
 }
 global.rndApLocLoaded=0
+global.rndApNMSeen=0 //(the Nightmare abilities received before that weren't given: rndApItems gives them, once)
 global.rndApPollT=0
 global.rndApDying=0
 global.rndApDeathGot=0

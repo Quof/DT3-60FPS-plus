@@ -45,8 +45,10 @@
     return e;
   }
   var cells = [];
+  // (groups with a row of their own: the Program Chips, the six beneath the instruments, the upgrades on the next row)
+  var SOLO_GROUPS = {"Program Chips": 1};
   D.items.forEach(function (g) {
-    var box = el("div", "grp"), row = el("div", "row");
+    var box = el("div", "grp" + (SOLO_GROUPS[g.name] ? " solo" : "")), row = el("div", "row");
     box.appendChild(el("div", "t", g.name));
     g.items.forEach(function (it) {
       var c = el("div", "it off");
@@ -110,6 +112,16 @@
     }
     return 0;
   }
+  // the keys' tooltip: each locked door, a line each, by where it is (tracker_names.txt), and its key: Found, Not Found,
+  // or Used (the door opened with it)
+  function keyLines(S) {
+    var keys = (S && S.keys) || "", opened = (S && S.doors) || "", lines = ["Keys"];
+    (D.keyDoors || []).forEach(function (kd) {
+      var d = kd[0];
+      lines.push(kd[1] + " - " + (opened.charAt(d - 1) === "1" ? "Used" : keys.charAt(d - 1) === "1" ? "Found" : "Not Found"));
+    });
+    return lines.join("\n");
+  }
   var cur = null;
   function update(S) {
     cur = S;
@@ -121,6 +133,10 @@
         c.num.textContent = n + "/" + c.def.total;
         c.num.className = "num" + (n >= c.def.total ? " all" : "");
         c.el.className = "ct" + (n ? "" : " off");
+        if (h[0] === "keys") {
+          var tip = keyLines(S);
+          if (c.el.title !== tip) { c.el.title = tip; }
+        }
         return;
       }
       var had = h[0] === "own" ? n >= h[2] : n > 0;

@@ -77,6 +77,16 @@ if global.rndActive=1
   if global.rndChipMode=1 {global.rndChipOwn=ini_read_string(s,"chipown",global.rndChipOwn)}
   if string_length(global.rndChipOwn)<global.rndChipN {global.rndChipOwn+=string_repeat("0",global.rndChipN-string_length(global.rndChipOwn))}
   global.rndLastGate=-1
+  //Traps: on or off (the trap items in the items: rndSnareApply; a save from before them has them off), each trap's
+  //time left, a Teleport Trap waiting, and the ways into rooms kept for one
+  var tk,tH,tN;
+  rndSnareApply(ini_read_real(s,"traps",0))
+  for(tk=1;tk<=4;tk+=1) {global.rndSnareT[tk]=ini_read_real(s,"trapt"+string(tk),0)}
+  global.rndSnarePend=ini_read_real(s,"trappend",0)
+  tN=ini_read_real(s,"traphparts",0)
+  tH=""
+  for(tk=0;tk<tN;tk+=1) {tH+=ini_read_string(s,"traph"+string(tk),"")}
+  rndSnareHistFromString(tH)
   //Gate 5 (location 49): a save made there holds its checkpoint, not the room the player was in (the game's saveData).
   //One made before the roomStart hook set the checkpoint where the player came into the gate from outside it can hold a
   //new game's: room 0, the game's intro, which goes to the title screen. That save loads in the room the player was in
@@ -115,6 +125,27 @@ if global.rndActive=1
   if string_length(global.rndGot)<global.rndLocN {global.rndGot+=string_repeat("0",global.rndLocN-string_length(global.rndGot))}
   if string_length(global.rndBossDone)<global.rndBossN {global.rndBossDone+=string_repeat("0",global.rndBossN-string_length(global.rndBossDone))}
   rndLoadOld()
+  //the Nightmare Gates whose boss's room the player has been in (their first room's way straight to it: the roomStart
+  //hook). A save from before they were kept: the gates whose boss's room was come into (eGateProg 7), whose boss there
+  //is beaten (8, or the place beaten) or whose fight there has been started
+  var g,gb,tR;
+  global.rndGateReach=ini_read_string(s,"gatereach","")
+  if global.rndGateReach=""
+  {
+    global.rndGateReach="00000000"
+    for(g=1;g<=7;g+=1)
+    {
+      tR=(string_char_at(global.eGateProg,g)="7" or string_char_at(global.eGateProg,g)="8")
+      for(gb=0;gb<global.rndBossN;gb+=1)
+      {
+        if global.rndBossGate[gb]=g {if string_char_at(global.rndBossDone,gb+1)="1" or string_char_at(global.rndBossSeen,gb+1)="1" {tR=1}}
+      }
+      if tR {global.rndGateReach=rndSetChar(global.rndGateReach,g,"1")}
+    }
+  }
+  if string_length(global.rndGateReach)<8 {global.rndGateReach+=string_repeat("0",8-string_length(global.rndGateReach))}
+  //(the character the player is: the roomStart hook switches back to it from one a room's code switches to)
+  global.rndCharSeen=global.activeCharacter
   if string_length(global.rndKeyOwn)<50 {global.rndKeyOwn+=string_repeat("0",50-string_length(global.rndKeyOwn))}
   rndShopFromString()
   global.gameProgress=global.rndWorldProg

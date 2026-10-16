@@ -5,7 +5,7 @@
 var k,p,l,n;
 k=argument0
 p=argument1
-if instance_exists(oIdentifier) {if oIdentifier.bChaoActive=1 {showEmote(oIdentifier,0,-6,sEmHappy)}}
+if instance_exists(oIdentifier) and k!=29 {if oIdentifier.bChaoActive=1 {showEmote(oIdentifier,0,-6,sEmHappy)}}
 switch (k)
 {
   case 1: //Heart Piece
@@ -171,6 +171,9 @@ switch (k)
     for(l=1;l<=global.rndChipN;l+=1) {if string_char_at(global.rndChipOwn,l)="1" {n+=1}}
     global.programChips=n
     rndMsg("You found Program Chip "+string(p)+"!#"+global.rndGateName[p]+" is open.",2)
+    break
+  case 29: //a trap item (p: the trap: rndSnareSpring, the option Traps), which looked like a Weapon Upgrade
+    rndSnareSpring(p)
     break
   case 28: //a Nightmare ability (p: 0 Link's Sword Wave, 1 Mega Man's charge shots stored, 2 Belmont's Dagger Spam, 3
     //Samus's Power Bomb), as Nightmare Mode has it (rndNM)

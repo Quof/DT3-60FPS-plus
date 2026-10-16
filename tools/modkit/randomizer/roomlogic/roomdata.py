@@ -484,6 +484,11 @@ def main():
         for obj, x, y, props in created:
             todo.append((obj, x, y, "\n".join("%s=%s" % (k, gml_value(v)) for k, v in props.items())))
             report["made by the room's code"] += 1
+        # (Gate 4's stages' ways back, which a Randomizer game adds: rndgen.py's MM_BACK_EXITS, the roomStart hook)
+        for broom, bx, by, to, tx, ty in rndgen.MM_BACK_EXITS:
+            if broom == room:
+                todo.append(("oExit", bx, by, "exitType=1\nbShowArrow=true\ntoRoom=%s\nnewMapX=%d\nnewMapY=%d" % (to, tx, ty)))
+                report["way back added (Gate 4's stages)"] += 1
         # the switches: which are on already (a switch holder's code turns it on once the story's past it, and its
         # barriers are gone), and where each is (by its GID, for the barriers that name it)
         holders = {}

@@ -30,6 +30,11 @@ switch (k)
   case 23: return "High Jump Boots (progressive)"
   case 25: return "Varia Suit"
   case 27: return "Program Chip "+string(p)
+  case 29:
+    if p=1 {return "Darkness Trap"}
+    if p=2 {return "Rocketeer Trap"}
+    if p=3 {return "Teleport Trap"}
+    return "Achilles Trap"
   case 28:
     if p=0 {return "Nightmare Sword Wave"}
     if p=1 {return "Nightmare Charge Storage"}

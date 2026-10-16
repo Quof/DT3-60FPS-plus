@@ -52,6 +52,19 @@ class ChipRandomizer(Toggle):
     display_name = "Chip Randomizer"
 
 
+class Traps(Toggle):
+    """
+    On: 5% of the items are traps, in the place of as many Internetz chests. In your world they look like Weapon
+    Upgrades (or are in a chest, which sparkles as for any item but Internetz).
+    Darkness Trap: every room is dark (as in Dark Mode) for 5 minutes.
+    Rocketeer Trap: a CHAOS Rocketeer comes after you, and another in every room you go into, for 5 minutes.
+    Teleport Trap: you're taken back to one of the ways into a room you've come in by this run, at random.
+    Achilles Trap: any hit kills you (as in Achilles Mode) for 5 minutes.
+    The traps are items of the multiworld: yours can be in other worlds, and other games' traps in yours.
+    """
+    display_name = "Traps"
+
+
 class ShopEquipment(Choice):
     """
     Shuffled: the equipment shops' stock is shuffled between the shops. As Normal: each shop sells its own.
@@ -90,6 +103,7 @@ class DT3PlusOptions(PerGameCommonOptions):
     boss_rando: BossRando
     instrument_randomization: InstrumentRandomization
     chip_randomizer: ChipRandomizer
+    traps: Traps
     shop_equipment: ShopEquipment
     guarantee_early_weapons: GuaranteeEarlyWeapons
     ability_spread: AbilitySpread
@@ -98,6 +112,6 @@ class DT3PlusOptions(PerGameCommonOptions):
 
 
 option_groups = [
-    OptionGroup("Randomizer", [EntranceRando, BossRando, InstrumentRandomization, ChipRandomizer, ShopEquipment,
+    OptionGroup("Randomizer", [EntranceRando, BossRando, InstrumentRandomization, ChipRandomizer, Traps, ShopEquipment,
                                GuaranteeEarlyWeapons, AbilitySpread]),
 ]

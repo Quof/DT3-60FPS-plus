@@ -65,6 +65,8 @@ if global.rndApNext=1
     global.rndBRMode=0
     global.rndIRMode=global.rndApSessIR
     rndChipApply(global.rndApSessChips)
+    //(Traps: the world's trap items come from the multiworld like its other items, and spring as they come: rndApGive)
+    rndSnareApply(0)
     if global.rndApSessBR=1
     {
       tOk=0
@@ -107,6 +109,7 @@ if global.rndAP=0
   tBR=global.rndOptBR
   tIR=global.rndOptIR
   rndChipApply(global.rndOptChips)
+  rndSnareApply(global.rndOptSnare) //(Traps: in some Internetz chests' places; not progression, so where the rest go is the same)
   if tER>0 or tBR>0 or tIR>0
   {
     if rndERLoad()=0
@@ -169,6 +172,7 @@ if global.rndAP=0
   {
     show_message("Randomizer: the items couldn't be placed for seed "+string(global.rndSeed)+" (its logic.txt asks for more than the locations allow). They're left in their own places, and the Access Gates are open.")
     rndChipApply(0)
+    rndSnareApply(0)
     rndVanillaPlace()
   }
   if global.rndOptShops=1 {rndShopShuffle()}

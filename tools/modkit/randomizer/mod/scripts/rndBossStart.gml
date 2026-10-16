@@ -1,16 +1,16 @@
-//Randomizer: a boss's fight starts. The boss gallery's setup for the boss's type (oBossGalleryDoor's user event 0: its
-//currentBoss and bossTrack, for the boss room's code to make the boss) with the player's own abilities, all on
-//(rndAbilApply), and the gallery's flag on, so the boss, beaten, goes to the gallery, where rndBossEnd takes over (the
-//gallery's timer isn't shown in these fights: the mod's oHUD). argument0: the boss whose place it is (its room, or the
-//exit the story went into its fight by); with Boss Rando the boss fought there is another's (rndBRFight), in that
-//boss's own room. global.rndFight: the boss fought, rndFightSlot: whose place (rndBossEnd marks it beaten). The caller
-//takes the player to the fight: rndBossRoom[rndFight], rndBossX/Y[rndFight]. argument1: the room the player goes to
-//after the fight is won, argument2, argument3: where in it (argument2 -1: where they were when the boss was beaten; for
-//another boss's fight, where this one's starts, or where they came into the room for one that starts as it's come
-//into). Lost or given up, they go back to where they came into the room they went into the fight from (rndInRoom/X/Y).
-//A boss whose fight is several in a row (rndBossChainN: Ridley's three) starts with the first: the others follow it
-//(rndBossNextLink), and a try given up starts again from it
-var s,b,d;
+//Randomizer: a boss's fight starts. The boss gallery's setup for the boss's type (rndBossSetup: its currentBoss and
+//bossTrack, for the boss room's code to make the boss; the player as who they are) with the player's own abilities,
+//all on (rndAbilApply), and the gallery's flag on, so the boss, beaten, goes to the gallery, where rndBossEnd takes
+//over (the gallery's timer isn't shown in these fights: the mod's oHUD). argument0: the boss whose place it is (its
+//room, or the exit the story went into its fight by); with Boss Rando the boss fought there is another's
+//(rndBRFight), in that boss's own room. global.rndFight: the boss fought, rndFightSlot: whose place (rndBossEnd marks
+//it beaten). The caller takes the player to the fight: rndBossRoom[rndFight], rndBossX/Y[rndFight]. argument1: the
+//room the player goes to after the fight is won, argument2, argument3: where in it (argument2 -1: where they were when
+//the boss was beaten; for another boss's fight, where this one's starts, or where they came into the room for one that
+//starts as it's come into). Lost or given up, they go back to where they came into the room they went into the fight
+//from (rndInRoom/X/Y). A boss whose fight is several in a row (rndBossChainN: Ridley's three) starts with the first:
+//the others follow it (rndBossNextLink), and a try given up starts again from it
+var s,b;
 s=argument0
 b=global.rndBRFight[s]
 global.rndFightSlot=s
@@ -32,10 +32,7 @@ global.rndFightLoseRoom=global.rndInRoom
 global.rndFightLoseX=global.rndInX
 global.rndFightLoseY=global.rndInY
 global.bBossResultShow=0
-d=instance_create(0,0,oBossGalleryDoor)
-d.type=global.rndBossType[b]
-with (d) {event_user(0)}
-with (d) {instance_destroy()}
+rndBossSetup(global.rndBossType[b])
 global.rndAbilHeldRoom=-1 //(the setup's abilSetRemove(1) isn't the room's: the roomStart hook)
 global.bBossGallery=1
 //the player's life and ammo now, which the boss room's code puts back as the fight starts (storeStatus(1)), the way the

@@ -57,7 +57,16 @@ add rMega4_SigmaC3 in * -> out 464,128 : gdash
 # (swapping only holds switches: it gives no jump or dash back)
 add rCCity_NB_S1a in * -> spot switch3 : nothing
 
-# The Nightmare Gates (areas 101-107): what each gate needs to get through (the logic doesn't work their gimmicks out)
+# The Discombobulated (area 88): hallways with no places, and its way on to its boss (rDiscoC's exit to rDiscoD) is gone
+# in the endgame world. In a Randomizer game its way in from rMain_87 leads straight to the boss's room (Defective's,
+# rDiscoI), and that room's way out back to where the Discombobulated's own does (the roomStart hook does it in the
+# game); Entrance Rando leaves the area out (er.py's LEFT_OUT)
+link rMain_87 out 0,544 -> rDiscoI in 48,256
+link rDiscoI out 0,224 -> rMain_87 in 512,336
+
+# The Nightmare Gates (areas 101-107): what each gate needs to get through (the logic doesn't work their gimmicks out).
+# The Randomizer doesn't keep a gate's own loadout (everything found works in it), so these are what's needed, not all
+# the player has there
 area 101 : mario
 area 102 : link 3
 area 103 : gdash belmont 3

@@ -76,7 +76,7 @@ class DT3PlusWorld(World):
     topology_present = False
 
     item_name_to_id = {**{name: item[0] for name, item in data.ITEMS.items()}, **data.INSTRUMENTS, **data.CHIPS,
-                       **data.NIGHTMARE}
+                       **data.NIGHTMARE, **data.TRAPS}
     location_name_to_id = {**{name: loc[0] for name, loc in data.LOCATIONS.items()}, **data.GATE_REWARDS}
     item_name_groups = {
         "Keys": set(data.DOOR_KEYS),
@@ -86,6 +86,7 @@ class DT3PlusWorld(World):
         "Instruments": set(data.INSTRUMENTS),
         "Program Chips": set(data.CHIPS),
         "Nightmare Abilities": set(data.NIGHTMARE),
+        "Traps": set(data.TRAPS),
     }
 
     ir: bool
@@ -134,6 +135,8 @@ class DT3PlusWorld(World):
             return DT3PlusItem(name, ItemClassification.progression, data.CHIPS[name], self.player)
         if name in data.NIGHTMARE:
             return DT3PlusItem(name, ItemClassification.useful, data.NIGHTMARE[name], self.player)
+        if name in data.TRAPS:
+            return DT3PlusItem(name, ItemClassification.trap, data.TRAPS[name], self.player)
         item_id, classification, _count = data.ITEMS[name]
         return DT3PlusItem(name, ItemClassification(classification), item_id, self.player)
 
@@ -159,12 +162,19 @@ class DT3PlusWorld(World):
         if self.chips:
             for name in data.CHIP_MONEY:
                 counts[name] -= 1
+        # (Traps: the trap items in the place of the Internetz items the mod puts them in place of: other ones than the
+        # chips')
+        if self.options.traps.value:
+            for name in data.TRAP_MONEY:
+                counts[name] -= 1
         for name, count in counts.items():
             pool += [self.create_item(name) for _ in range(count)]
         if self.ir:
             pool += [self.create_item(name) for name in data.INSTRUMENTS]
         if self.chips:
             pool += [self.create_item(name) for name in data.CHIPS]
+        if self.options.traps.value:
+            pool += [self.create_item(name) for name in data.TRAP_ITEMS]
         # the Nightmare abilities: each at one of the story's ability pickups the logic reaches (STORY_LOCATIONS), at
         # random, as the mod's own new game puts them (rndGenerate), so not in the pool
         for location_name, name in zip(self.random.sample(data.STORY_LOCATIONS, len(data.NIGHTMARE)), data.NIGHTMARE):
@@ -217,6 +227,7 @@ class DT3PlusWorld(World):
             "br_types": data.BOSS_TYPES,
             "instrument_randomization": int(self.ir),
             "chip_randomizer": int(self.chips),
+            "traps": int(options.traps.value),
         }
 
     def write_spoiler(self, spoiler_handle: TextIO) -> None:

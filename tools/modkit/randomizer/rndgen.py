@@ -62,6 +62,37 @@ STORY_DEFAULT_SPRITE = "sHiJumpBoots"   # (oStoryObject's own, for one whose cre
 # at one of the story's ability pickups (STORY_SPOTS: rndGenerate, the Archipelago world's pre_fill). The game's code
 # for them asks global.bNightmareMode: the mod's copies of it ask the item too (SCRIPT_PATCHES, GAME_PATCHES)
 NIGHTMARE = ["Sword Wave", "Charge Storage", "Dagger Spam", "Power Bomb"]
+# Gate 4's stages go one way: each room's exit at its end leads into the next room, and nothing leads back. In a
+# Randomizer game each of those rooms gets a way back, an exit at its edge where the player comes in (as the forward
+# ones are: oExit, walked into, its arrow shown), leading to the end of the room before, beside that room's own exit and
+# on its floor: (the room, where its way back is placed, the room it leads to, where the player comes out there). With
+# the forward exit it makes a door Entrance Rando can shuffle (in Chaos: a stage's rooms are one area). The roomStart
+# hook makes them (rndMMBack*), the room logic has them (roomlogic\roomdata.py) and the build checks each one against
+# the game's own forward exit (mm_back_check). Not the boss rooms (Maoh's, the Mavericks', Bospider's, Bit & Byte's,
+# Sigma's): the way into a boss room stays one way, as its fight is
+MM_BACK_EXITS = [
+    ("rMega4_IntroB", 0, 224, "rMega4_IntroA", 4056, 256), ("rMega4_IntroC", 0, 2800, "rMega4_IntroB", 3752, 288),
+    ("rMega4_IntroD", 0, 272, "rMega4_IntroC", 440, 240),
+    ("rMega4_OstrichB", 0, 208, "rMega4_OstrichA", 2968, 336), ("rMega4_OstrichC", 0, 320, "rMega4_OstrichB", 8328, 288),
+    ("rMega4_OstrichD", 0, 240, "rMega4_OstrichC", 4056, 336),
+    ("rMega4_StormB", 0, 384, "rMega4_StormA", 3640, 224), ("rMega4_StormC", 0, 256, "rMega4_StormB", 3896, 416),
+    ("rMega4_StormD", 0, 384, "rMega4_StormC", 6104, 288),
+    ("rMega4_ToxicJungleB", 0, 256, "rMega4_ToxicJungleA", 6104, 112),
+    ("rMega4_ToxicJungleC", 0, 256, "rMega4_ToxicJungleB", 4056, 304),
+    ("rMega4_ToxicJungleD", 0, 560, "rMega4_ToxicJungleC", 8168, 224),
+    ("rMega4_SigmaA2", 0, 592, "rMega4_SigmaA1", 11480, 400), ("rMega4_SigmaA3", 0, 2976, "rMega4_SigmaA2", 3016, 160),
+    ("rMega4_SigmaA4", 0, 272, "rMega4_SigmaA3", 440, 192),
+    ("rMega4_SigmaB2", 0, 256, "rMega4_SigmaB1", 3928, 192), ("rMega4_SigmaB3", 0, 256, "rMega4_SigmaB2", 3288, 128),
+    ("rMega4_SigmaB4", 0, 2976, "rMega4_SigmaB3", 440, 288), ("rMega4_SigmaB5", 0, 256, "rMega4_SigmaB4", 632, 192),
+    ("rMega4_SigmaB6", 0, 416, "rMega4_SigmaB5", 440, 288), ("rMega4_SigmaB7", 0, 256, "rMega4_SigmaB6", 1880, 192),
+    ("rMega4_SigmaC2", 0, 352, "rMega4_SigmaC1", 2776, 272), ("rMega4_SigmaC3", 0, 2016, "rMega4_SigmaC2", 3800, 384),
+    ("rMega4_SigmaC4", 0, 256, "rMega4_SigmaC3", 440, 160)]
+# the Distortion's rooms (Hexor's, at its end): the story has the player go through them as Jeremy's mech, which a scene
+# before them (rCh21_WastelandB) makes the player; in a Randomizer game the roomStart hook makes the player it as they
+# come into one, and leaving them for another room makes them their own character again (rndCharRoom). Entrance Rando
+# leaves the doors between them as they are (roomlogic\er.py's INSIDE_LEFT_OUT: the logic's ways through them are Jerry's
+# and Claire's), its gate's door shuffled, so it's a dead end with no places behind it
+MECH_ROOMS = ["rDistortionA", "rDistortionB", "rDistortionC", "rDistortionD", "rDistortionE", "rDistortionF"]
 # location types that stay the game's own, not locations: the Item Finder (its pickup gives it, as in the game; the
 # mod's oIdentifier makes Chao's alert tell the locations' items apart)
 KEEP_TYPES = {15}
@@ -69,7 +100,7 @@ KEEP_TYPES = {15}
 # item kinds (the numbers the mod's scripts use)
 IK = dict(HP=1, MONEY=2, EQUIP=3, AQ=4, HE=5, MP=6, GP=7, AU=8, WB=9, WL=10, AP=11, LB=12, MB=13, KEY=14, HC=15, XF=16,
           XC=17, XS=18, JUMP=19, GDASH=20, ADASH=21, DJUMP=22, HIJUMP=23, SET=24, VARIA=25, INSTR=26, CHIP=27, NM=28,
-          MONEYX=2)
+          SNARE=29, MONEYX=2)
 # (MONEYX: Internetz too, the story's ability pickups' (locations_items), which a Program Chip never takes the place of:
 # chip_slots takes MONEY's)
 # the Program Chips (the new game's option Chip Randomizer): chip N opens Access Gate N (going into the gate's rooms
@@ -78,6 +109,16 @@ IK = dict(HP=1, MONEY=2, EQUIP=3, AQ=4, HE=5, MP=6, GP=7, AU=8, WB=9, WL=10, AP=
 # With the option on they're among the items, in the place of the six smallest Internetz chests (chip_slots); off, the
 # player has them all from the start and those chests hold their Internetz
 CHIP_GATES = sorted(solve.GATE_PREFIX)
+# the trap items (the new game's option Traps, the Archipelago world's option traps; not the enemy traps, traps.py):
+# items that look like a Weapon Upgrade (or are in a chest, which sparkles as for any item but Internetz) and spring a
+# trap on the player instead (the mod's rndSnareSpring). Their item: kind SNARE, the trap's number (its place in
+# SNARE_TYPES, 1 on). With the option on, SNARE_SHARE of the items are traps, in the place of as many Internetz chests
+# (snare_slots: the smallest ones after the Program Chips', chip_slots), each trap in turn; off, those chests hold their
+# Internetz. Darkness: Dark Mode's darkness in every room for a while; Rocketeer: a CHAOS Rocketeer now and in every
+# room come into for a while; Teleport: back to one of the ways into a room the player has come in by in the run, at
+# random; Achilles: Achilles Mode (any hit kills) for a while
+SNARE_TYPES = ["Darkness", "Rocketeer", "Teleport", "Achilles"]
+SNARE_SHARE = 0.05
 # the Nightmare Gates' instruments: each gate's reward (location type 18, its number the gate's, 1-8: A-H), given right
 # after its boss is beaten (the mod's oRndReward; Gate H's in the mod's room for it, rRndGateH). Their item: the
 # instrument (kind INSTR, the instrument's number, eGateProg's place). They need everything (a fight's reward: no
@@ -144,6 +185,19 @@ GAME_PATCHES = [
      "    if global.bBossGallery=1 and room!=rBossGallery //Display timer in boss gallery\n",
      "    //if global.bBossGallery=1 and room!=rBossGallery //Display timer in boss gallery\n"
      "    if global.bBossGallery=1 and room!=rBossGallery and global.rndFight<0 //Randomizer change: not in a randomizer boss fight\n"),
+    # Cackletta: only the Mario Ability Set's stomp hurts her (a life of her four each, her own Collision_oPlayer1), as
+    # the logic has it (roomlogic\bosses.txt); in a Randomizer game, where the player has other weapons there, a weapon's
+    # hit takes more than her four lives at once and leaves her fight stuck: every damage type does nothing to her
+    ("oCackletta", "Create_0",
+     "stunResist=50\naffiliation=1\n",
+     "stunResist=50\naffiliation=1\n"
+     "if global.rndActive=1 {for(i=0;i<6;i+=1) {resType[i]=1}} //Randomizer change (added): no damage type hurts her, only the Mario Ability Set's stomp does\n"),
+    # the dash meter: shown with the air dash alone too, which takes the same dash energy (a randomizer game's abilities
+    # come in any order; the story gives the dash first)
+    ("oHUD", "Draw_0",
+     "      if global.hasShoes[2]=2\n",
+     "      //if global.hasShoes[2]=2\n"
+     "      if global.hasShoes[2]=2 or (global.rndActive=1 and global.hasShoes[3]=2) //Randomizer change: with the air dash alone too (it takes the same dash energy)\n"),
     ("oMetLava", "Collision_oPlayer1",
      "if global.gameProgress<=2850 {redDmgHit(0)}\n",
      "//if global.gameProgress<=2850 {redDmgHit(0)}\n"
@@ -220,7 +274,21 @@ SCRIPT_PATCHES = [
      "    initialDamage=tObjHit.atkPower //Initial damage\n"
      "    totalDamage=initialDamage\n"
      "    totalDamage*=rndG6Mult(tObjHit) //Randomizer change (added): the RPG level's buff to the base sets against Gate 6's enemies and bosses\n"),
-]
+    # an Achilles Trap (the option Traps: rndSnareSpring) on: any hit kills, as in Achilles Mode
+    ("takeDamage",
+     "      if global.bOneHitKillMode=1 or global.omenActive=1 {totalDamage=irandom_range(10000,99999)} //one hit kill if playing on one hit kill mode //dark omen change: and with the New Dark Omen on (scrOmenState)\n",
+     "      //if global.bOneHitKillMode=1 or global.omenActive=1 {totalDamage=irandom_range(10000,99999)} //one hit kill if playing on one hit kill mode //dark omen change: and with the New Dark Omen on (scrOmenState)\n"
+     "      if global.bOneHitKillMode=1 or global.omenActive=1 or (global.rndActive=1 and global.rndSnareT[4]>0) {totalDamage=irandom_range(10000,99999)} //one hit kill if playing on one hit kill mode //dark omen change: and with the New Dark Omen on (scrOmenState) //Randomizer change: and with an Achilles Trap on (rndSnareSpring)\n"),
+] + [
+    # swapping between Jerry and Claire in Nightmare Gate F (location 106): the gate's own jump, its 60fps corrections
+    # and its ice running stay, as each of its rooms' code sets them (charSwitcher gives the standard ones: the game
+    # forces Claire there; a Randomizer game, where swapping always works and the player can come in as either, kept
+    # them only till the first swap in a room)
+    ("charSwitcher",
+     "  oPlayer1.frictionDuckingX=%s\n" % fd,
+     "  oPlayer1.frictionDuckingX=%s\n"
+     "  if global.rndActive=1 and global.location=106 {oPlayer1.initialJumpAcc=-9.4; oPlayer1.jumpTimeTotal=35; oPlayer1.jumpBodge60=0.99; oPlayer1.jumpGravComp60=0; oPlayer1.doubleJumpBodge60=0.99; oPlayer1.runAcc=0.8} //Randomizer change (added): Nightmare Gate F's own jump and ice running, as its rooms' code gives them\n" % fd)
+    for fd in ("0.87", "0.9")]
 
 # bosses: the boss gallery's doors give each boss's type (oBossGalleryDoor's user event 0 sets its fight up), room and
 # where the player starts it. One boss a room (its first type: Death, Sigma, Ridley and Decimator have a second). The
@@ -350,6 +418,33 @@ def instances(room):
         if len(f) < 4: continue
         cp = os.path.join(ROOMS, room, f[3] + ".gml")
         yield f[0], int(float(f[1])), int(float(f[2])), f[3], (read(cp) if os.path.exists(cp) else "")
+
+
+def mm_back_check():
+    """each of Gate 4's ways back (MM_BACK_EXITS) against the game's own exit it goes back through, as the room logic
+    has them (roomlogic\\connections.txt: an exit the room's code makes too): the room before has one exit into this
+    one, the way back is near where that one has the player come in (by the edge it comes in at), and where the way back
+    has the player come out is beside that exit, clear of it; and the room logic has the way back (roomlogic.py run
+    since MM_BACK_EXITS changed)"""
+    links = collections.defaultdict(list)
+    for line in open(os.path.join(HERE, "roomlogic", "connections.txt"), encoding="utf-8"):
+        m = re.match(r"^(\w+) out (-?\d+),(-?\d+) -> (\w+) in (-?\d+),(-?\d+)\s*$", line)
+        if m: links[(m.group(1), m.group(4))].append(tuple(int(m.group(k)) for k in (2, 3, 5, 6)))
+    for room, x, y, to, tx, ty in MM_BACK_EXITS:
+        fwd = links.get((to, room), [])
+        if len(fwd) != 1: raise SystemExit("MM_BACK_EXITS: %s has %d exits into %s, not 1" % (to, len(fwd), room))
+        fx, fy, nx, ny = fwd[0]
+        if (x, y, tx, ty) not in links.get((room, to), []):
+            raise SystemExit("MM_BACK_EXITS: the room logic hasn't %s's way back (%d,%d to %s %d,%d): run roomlogic\\"
+                             "roomlogic.py" % (room, x, y, to, tx, ty))
+        # (the way back: an exit 16x32 at x, y, over the feet of a player who walks to it from where they come in)
+        if nx is None or ny is None or abs(nx - (x + 8)) > 64 or not (y <= ny <= y + 48):
+            raise SystemExit("MM_BACK_EXITS: %s's way back (%d,%d) isn't by where %s's exit has the player come in (%s,%s)"
+                             % (room, x, y, to, nx, ny))
+        # (where it comes out: beside the forward exit, not on it, so the player doesn't go straight back through)
+        if not (16 <= abs(tx - (fx + 8)) <= 48) or abs(ty - (fy + 32)) > 32:
+            raise SystemExit("MM_BACK_EXITS: %s's way back comes out at %d,%d, not beside %s's exit (%d,%d)"
+                             % (room, tx, ty, to, fx, fy))
 
 
 def story_place(room, hexid):
@@ -653,6 +748,12 @@ def build(out, rooms, anames, rarea, locs, doors, shops, door_list, door_order, 
         L.append("global.rndChipItem[%d]=%d; global.rndChipMoney[%d]=%d; global.rndGatePrefix[%d]=%s; global.rndGateName[%d]=%s; "
                  "global.rndGateOutRoom[%d]=%s; global.rndGateOutX[%d]=%d; global.rndGateOutY[%d]=%d"
                  % (g, slots[g], g, items[slots[g]][1], g, gml_str(solve.GATE_PREFIX[g]), g, gml_str(gname), g, oroom, g, ox, g, oy))
+    # the trap items (Traps): the items that are them with it on (rndSnareApply; off, their Internetz) and each one's
+    # trap
+    snares = snare_slots(items)
+    L.append("global.rndSnareN=%d; global.rndSnareTypeN=%d" % (len(snares), len(SNARE_TYPES)))
+    for k, (i, t) in enumerate(snares):
+        L.append("global.rndSnareItem[%d]=%d; global.rndSnareType[%d]=%d; global.rndSnareMoney[%d]=%d" % (k, i, k, t, k, items[i][1]))
     L.append("global.rndEShopN=0")
     k = 0
     for sid, s in shops.items():
@@ -714,9 +815,14 @@ def build(out, rooms, anames, rarea, locs, doors, shops, door_list, door_order, 
         # (an assignment starting a statement: "if global.activeCharacter=2" is a comparison)
         chs |= {int(c) for c in re.findall(r"(?:^|[;{])\s*global\.activeCharacter\s*=\s*([2-9])\b", code, re.M)}
         char_rooms += [(room, c) for c in sorted(chs)]
+    # (and the Distortion's rooms, Hexor's: the story has the player go through them as Jeremy's mech, which a scene
+    # before them makes the player; a Randomizer game makes the player it as they come in, the roomStart hook, MECH_ROOMS)
+    char_rooms += [(room, 2) for room in MECH_ROOMS if (room, 2) not in char_rooms]
     L.append("global.rndCharRoomN=%d" % len(char_rooms))
     for i, (room, c) in enumerate(char_rooms):
         L.append("global.rndCharRoom[%d]=%s; global.rndCharRoomCh[%d]=%d" % (i, room, i, c))
+    L.append("global.rndMechRoomN=%d" % len(MECH_ROOMS))
+    for i, room in enumerate(MECH_ROOMS): L.append("global.rndMechRoom[%d]=%s" % (i, room))
     # the story's ability pickups (STORY_SPOTS, location type 19): each one's room, where it was placed and its look (its
     # creation code's sprite), for its pickup (oRndStory, which the roomStart hook makes)
     # (rndStoryN: the highest number; a number not used has no room)
@@ -726,6 +832,24 @@ def build(out, rooms, anames, rarea, locs, doors, shops, door_list, door_order, 
         x, y, spr = story_place(room, hexid)
         L.append("global.rndStoryRoom[%d]=%s; global.rndStoryX[%d]=%d; global.rndStoryY[%d]=%d; global.rndStorySpr[%d]=%s"
                  % (n, room, n, x, n, y, n, spr))
+    # the rooms whose code doesn't set the area (global.location: the game keeps the one before, its rooms before being
+    # in the same area there, as rMario1_1 sets Gate 1's for the rMario1 rooms after it), when every room of their group
+    # that does sets the same one: theirs, which the roomStart hook sets as the player comes into one from another area
+    # (Entrance Rando, the Randomizer's warps: else the area before stays, and what goes by it is that area's)
+    own = {r: room_area(r) for r in rooms}
+    grp = collections.defaultdict(set)
+    for r, a in own.items():
+        if a is not None: grp[r.split("_")[0]].add(a)
+    room_loc = [(r, min(grp[r.split("_")[0]])) for r in rooms if own[r] is None and len(grp[r.split("_")[0]]) == 1]
+    L.append("global.rndRoomLocN=%d" % len(room_loc))
+    for i, (r, a) in enumerate(room_loc):
+        L.append("global.rndRoomLocR[%d]=%s; global.rndRoomLocA[%d]=%d" % (i, r, i, a))
+    # Gate 4's stages' ways back (MM_BACK_EXITS): each one's room and place, and where it leads (the roomStart hook)
+    mm_back_check()
+    L.append("global.rndMMBackN=%d" % len(MM_BACK_EXITS))
+    for i, (room, x, y, to, tx, ty) in enumerate(MM_BACK_EXITS):
+        L.append("global.rndMMBackRoom[%d]=%s; global.rndMMBackX[%d]=%d; global.rndMMBackY[%d]=%d; global.rndMMBackTo[%d]=%s; "
+                 "global.rndMMBackToX[%d]=%d; global.rndMMBackToY[%d]=%d" % (i, room, i, x, i, y, i, to, i, tx, i, ty))
     # the locked doors (by objectNum): their order (the logic's) and where they are
     L.append("for(i=0;i<=50;i+=1) {global.rndDoorRank[i]=-1; global.rndDoorArea[i]=%s; global.rndDoorPlace[i]=%s}"
              % (gml_str("?"), gml_str("?")))
@@ -904,7 +1028,7 @@ def fill_playthrough(rows, items, placed, chips):
 # dt3plus.apworld, in the build's archipelago folder. Ids: a location's AP_BASE + type*1000 + objectNum, an item's
 # AP_BASE + kind*10000 + parameter (the mod's rndApBase works them out the same way)
 AP_GAME = "DT3+"
-AP_VERSION = 5
+AP_VERSION = 6   # (6: the trap items)
 AP_BASE = 4454000
 AP_DIR = os.path.join(HERE, "archipelago", "dt3plus")
 AP_SPRITE = "sRndAPItem"
@@ -1031,6 +1155,7 @@ def ap_export(rows, items, door_order, doors, rarea, anames, out, f, bp, hv, bli
         if kind == "WL": return "Weapon Upgrade: " + AP_WEAPONS[p]
         if kind == "KEY": return key_names[p]
         if kind == "SET": return AP_SETS[p]
+        if kind == "SNARE": return SNARE_TYPES[p - 1] + " Trap"
         raise SystemExit("no Archipelago name for item %s %s" % (kind, p))
 
     def classification(kind, p):
@@ -1060,6 +1185,12 @@ def ap_export(rows, items, door_order, doors, rarea, anames, out, f, bp, hv, bli
     chip_names = {g: "Program Chip %d" % g for g in CHIP_GATES}
     chips = collections.OrderedDict((chip_names[g], AP_BASE + IK["CHIP"] * 10000 + g) for g in CHIP_GATES)
     chip_money = [name_of("MONEY", items[i][1]) for g, i in sorted(chip_slots(items).items())]
+    # the trap items (the option traps): items of their own (classification trap), in the pool in the place of the
+    # Internetz items snare_slots names (trap_money), each the trap trap_items has for it
+    traps = collections.OrderedDict((name_of("SNARE", t), AP_BASE + IK["SNARE"] * 10000 + t)
+                                    for t in range(1, len(SNARE_TYPES) + 1))
+    trap_money = [name_of("MONEY", items[i][1]) for i, t in snare_slots(items)]
+    trap_items = [name_of("SNARE", t) for i, t in snare_slots(items)]
 
     def ap_need(ix):
         if ix > KEY_BASE + solve.CHIP_KEY: return chip_names[ix - KEY_BASE - solve.CHIP_KEY]
@@ -1090,7 +1221,7 @@ def ap_export(rows, items, door_order, doors, rarea, anames, out, f, bp, hv, bli
     nightmare = collections.OrderedDict((name_of("NM", p), AP_BASE + IK["NM"] * 10000 + p) for p in range(len(NIGHTMARE)))
     story_locs = [loc_name(r) for r in rows if r["type"] == STORY_TYPE and r["req"] is not EVERYTHING]
     if len(story_locs) < len(nightmare): raise SystemExit("fewer story places the logic reaches than Nightmare abilities")
-    for n in list(instr) + list(gate_rewards) + list(chips) + list(nightmare):
+    for n in list(instr) + list(gate_rewards) + list(chips) + list(nightmare) + list(traps):
         if n in ap_items or n in ap_locs: raise SystemExit("an item or location named %r already" % n)
     # what the room logic's requirement numbers count, as items (erlogic's Reach: an ability or set's items, the Varia
     # Suit, the three cursed equipment pieces, the instruments, a door's key)
@@ -1141,6 +1272,11 @@ def ap_export(rows, items, door_order, doors, rarea, anames, out, f, bp, hv, bli
           "# and the logic counts them as had from the start",
           "CHIPS = %r" % dict(chips),
           "CHIP_MONEY = %r" % chip_money,
+          "# Traps: the trap items (classification trap: each springs a trap on the player who gets it), name: id, the",
+          "# Internetz items they take the place of in the pool, and the trap each of those is",
+          "TRAPS = %r" % dict(traps),
+          "TRAP_MONEY = %r" % trap_money,
+          "TRAP_ITEMS = %r" % trap_items,
           "# the Nightmare abilities (useful items), name: id, each placed at one of these story places (location type 19:",
           "# where the story's ability pickups were) the logic reaches",
           "NIGHTMARE = %r" % dict(nightmare),
@@ -1205,6 +1341,17 @@ def chip_slots(items):
     money = sorted((p, i) for i, (k, p) in enumerate(items) if k == "MONEY")
     if len(money) < len(CHIP_GATES): raise SystemExit("fewer Internetz chests than Program Chips")
     return {g: money[n][1] for n, g in enumerate(CHIP_GATES)}
+
+
+def snare_slots(items):
+    """the items that are trap items with Traps on: SNARE_SHARE of the items (the instruments not counted, so the
+    Archipelago world's list, which leaves them out, gives the same ones), the smallest Internetz (money) items after
+    chip_slots' six (by amount, then place in the list), each one the next of SNARE_TYPES; [(item index, trap number)]"""
+    money = sorted((p, i) for i, (k, p) in enumerate(items) if k == "MONEY")
+    n = int(round(len([it for it in items if it[0] != "INSTR"]) * SNARE_SHARE))
+    free = money[len(CHIP_GATES):]
+    if len(free) < n: raise SystemExit("fewer Internetz chests than trap items: %d, %d traps" % (len(free), n))
+    return [(i, k % len(SNARE_TYPES) + 1) for k, (p, i) in enumerate(free[:n])]
 
 
 def items_with_chips(items, chips):

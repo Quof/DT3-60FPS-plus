@@ -10,6 +10,7 @@ in 48,592   # from rMega4_ToxicJungleC out 8192,192
 
 # Ways out: exits (and, in the game, where they lead), and how they're gone through
 out 3888,544   # to rMega4_ToxicJungleE at 144,288; the player goes into it
+out 0,560   # to rMega4_ToxicJungleC at 8168,224; the player goes into it
 
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 loc 1 21   # heart piece 21, at 927,119
@@ -23,6 +24,7 @@ loc 9 84   # weapon upgrade 84, at 1575,103
 # the locked door whose objectNum is N.
 from in 48,592
   out 3888,544   megaman:1 | samus:1 | link:1 | belmont:1
+  out 0,560      -
   loc 1 21       never
   loc 2 31       megaman:1 | samus:1 | link:1 | belmont:1
   loc 9 84       djump,link:1 | adash,link:1 | djump,belmont:1 | adash,belmont:1 | djump,megaman:1 | adash,megaman:1 | djump,samus:1 | adash,samus:1
@@ -157,6 +159,12 @@ how in 48,592 -> out 3888,544: belmont:1
       -> [barrier 225532 open, barrier 225533 open] standing at x 2233-3904, y 145-631
   16. standing at 3886,593, goes into it
       -> out 3888,544
+how in 48,592 -> out 0,560: -
+     [barrier 225532 shut, barrier 225533 shut] coming in at 48,592
+   1. coming in: holding nothing, from 48,592; lands at 48,593
+      -> [barrier 225532 shut, barrier 225533 shut] standing at x 0-809, y 552-657
+   2. standing at 0,593, goes into it
+      -> out 0,560
 how in 48,592 -> loc 2 31: megaman:1
      [barrier 225532 shut, barrier 225533 shut] coming in at 48,592
    1. coming in: holding nothing, from 48,592; lands at 48,593

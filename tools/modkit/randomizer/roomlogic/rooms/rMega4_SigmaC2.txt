@@ -6,9 +6,11 @@
 
 # Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
 in 48,384   # from rMega4_SigmaC1 out 2800,240
+in 3800,384   # from rMega4_SigmaC3 out 0,2016
 
 # Ways out: exits (and, in the game, where they lead), and how they're gone through
 out 3824,352   # to rMega4_SigmaC3 at 64,2048; the player goes into it
+out 0,352   # to rMega4_SigmaC1 at 2776,272; the player goes into it
 
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 loc 8 6   # internetz mod 6, at 3079,103
@@ -21,6 +23,12 @@ loc 9 74   # weapon upgrade 74, at 167,55
 # the locked door whose objectNum is N.
 from in 48,384
   out 3824,352   -
+  out 0,352      -
+  loc 8 6        never
+  loc 9 74       -
+from in 3800,384
+  out 3824,352   -
+  out 0,352      -
   loc 8 6        never
   loc 9 74       -
 
@@ -40,6 +48,12 @@ how in 48,384 -> out 3824,352: -
       -> standing at x 3513-3840, y 385-403
    6. standing at 3822,385, goes into it
       -> out 3824,352
+how in 48,384 -> out 0,352: -
+     coming in at 48,384
+   1. coming in: holding nothing, from 48,384; lands at 48,385
+      -> standing at x 0-391, y 385-419
+   2. standing at 0,385, goes into it
+      -> out 0,352
 how in 48,384 -> loc 9 74: -
      coming in at 48,384
    1. coming in: holding nothing, from 48,384; lands at 48,385
@@ -47,4 +61,40 @@ how in 48,384 -> loc 9 74: -
    2. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 48,385; clings to the wall at 71,315
       -> on the wall at x 71, y 72-359
    3. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 71,128; touches it on the way
+      -> loc 9 74
+how in 3800,384 -> out 3824,352: -
+     coming in at 3800,384
+   1. coming in: holding nothing, from 3800,384; lands at 3800,385
+      -> standing at x 3513-3840, y 385-403
+   2. standing at 3822,385, goes into it
+      -> out 3824,352
+how in 3800,384 -> out 0,352: -
+     coming in at 3800,384
+   1. coming in: holding nothing, from 3800,384; lands at 3800,385
+      -> standing at x 3513-3840, y 385-403
+   2. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 3513,400; clings to the wall at 3399,363
+      -> standing at x 3049-3399, y 337-403
+   3. running left, jump (held 21 ticks), holding left, from 3050,369; clings to the wall at 2839,393
+      -> standing at x 2473-2839, y 369-403
+   4. running left, jump (held 21 ticks), holding left, from 2474,369; clings to the wall at 2263,393
+      -> standing at x 505-2263, y 289-419
+   5. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 505,370; lands at 336,385
+      -> standing at x 0-391, y 385-419
+   6. standing at 0,385, goes into it
+      -> out 0,352
+how in 3800,384 -> loc 9 74: -
+     coming in at 3800,384
+   1. coming in: holding nothing, from 3800,384; lands at 3800,385
+      -> standing at x 3513-3840, y 385-403
+   2. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 3513,400; clings to the wall at 3399,363
+      -> standing at x 3049-3399, y 337-403
+   3. running left, jump (held 21 ticks), holding left, from 3050,369; clings to the wall at 2839,393
+      -> standing at x 2473-2839, y 369-403
+   4. running left, jump (held 21 ticks), holding left, from 2474,369; clings to the wall at 2263,393
+      -> standing at x 505-2263, y 289-419
+   5. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 505,370; lands at 336,385
+      -> standing at x 0-391, y 385-419
+   6. running right, jump (held 21 ticks), holding right, then left after 6 ticks, from 48,385; clings to the wall at 71,315
+      -> on the wall at x 71, y 72-359
+   7. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 71,128; touches it on the way
       -> loc 9 74

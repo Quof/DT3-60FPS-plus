@@ -15,6 +15,7 @@ if roGo>0
     ini_write_real("Randomizer","br",global.rndOptBR)
     ini_write_real("Randomizer","ir",global.rndOptIR)
     ini_write_real("Randomizer","chips",global.rndOptChips)
+    ini_write_real("Randomizer","traps",global.rndOptSnare)
     ini_write_real("Randomizer","log",global.rndOptLog)
     ini_close()
     rndNewGame()
@@ -67,5 +68,6 @@ else if roCursor=4 {global.rndOptER=(global.rndOptER+tDir+4) mod 4; playSound(gl
 else if roCursor=5 {global.rndOptBR=1-global.rndOptBR; playSound(global.snd_MenuConfirm,0,0.95,1)}
 else if roCursor=6 {global.rndOptIR=1-global.rndOptIR; playSound(global.snd_MenuConfirm,0,0.95,1)}
 else if roCursor=7 {global.rndOptChips=1-global.rndOptChips; playSound(global.snd_MenuConfirm,0,0.95,1)}
-else if roCursor=8 {global.rndOptLog=1-global.rndOptLog; playSound(global.snd_MenuConfirm,0,0.95,1)}
-else if roCursor=9 and oKeyCodes.kCodePressed[15]=1 {roGo=1; playSound(global.snd_MenuConfirm,0,0.95,1)}
+else if roCursor=8 {global.rndOptSnare=1-global.rndOptSnare; playSound(global.snd_MenuConfirm,0,0.95,1)}
+else if roCursor=9 {global.rndOptLog=1-global.rndOptLog; playSound(global.snd_MenuConfirm,0,0.95,1)}
+else if roCursor=10 and oKeyCodes.kCodePressed[15]=1 {roGo=1; playSound(global.snd_MenuConfirm,0,0.95,1)}

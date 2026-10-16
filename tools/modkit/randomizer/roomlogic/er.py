@@ -15,8 +15,12 @@ Every mode leaves out: one-way exits, doors within a room, menus and encounters,
 (connections.txt's via), exits whose way goes by a carried state and the Forest Palace's rooms (its crystals), the
 encounter rooms, rooms the logic doesn't reach even with everything (story rooms), ends whose way in reaches nothing
 (the player would come in inside a solid) or doesn't get back out through the end's own exit (a drop with no way back
-up), and exits the game can't find by where they are (two at one place). An end with a Metroid door in front of its
-exit is only paired with one whose Metroid door needs the same (door_class).
+up), and exits the game can't find by where they are (two at one place). And the areas in LEFT_OUT, hallways with no
+places (the Subconscious Filter, the Discombobulated): their doors stay ends (a save's shuffle is by the ends' order)
+but no mode shuffles them; nor the doors within INSIDE_LEFT_OUT's areas (the Distortion, played as Jeremy's mech). An end with a Metroid door in front of its exit (Gate 5's hatches) pairs with any other:
+going back through it takes what opens the hatch, as the logic has it, and a player who comes in behind one without
+that and has no other way out has the pause menu's Teleport (every end's class, what the shuffle pairs by, being the
+same: the note above End).
 
 A map's tile (Hyrule's, Gate 6's) and its room are a door even when the tile has the player come in away from the
 room's exits, if every exit of the room back to the map comes out at the tile (Forest 1's: the room's exit nearest
@@ -25,6 +29,10 @@ shuffle is by the ends' order: erflat's ER_LEGACY). A room's other exits back to
 exit does (the far side of a town, a palace's way out after its boss) follow that end (follows): shuffled, they lead
 where it now leads. A crossing's far exit (a bridge's, out on the other side of a river) comes out somewhere else, so
 it isn't one of them: nothing on the map leads into the room there, and it stays the way across.
+
+Gate 4's stages go one way in the game; a Randomizer game adds a way back to each of their rooms but the boss rooms
+(rndgen's MM_BACK_EXITS: in the room logic, roomdata.py), so each room's exit and the next room's way back are a door.
+Their doors come after all the others (each stage's rooms are one area: they're shuffled in Chaos).
 
 The seed: shuffle, place the items as the game does (rndgen's fill_check: layers, the newest likelier) with what's
 reached worked out from the rooms and the shuffled doors, then check that with everything every place the game's own
@@ -45,6 +53,16 @@ MAP_OBJECTS = {"oZeldaMapExit", "oGameMapExit"}
 # exits the game's code (not the exit's own variables) sends somewhere: left as they are
 FIXED_OBJECTS = {"oVaultGate", "oShooter_Start", "menu", "encounter"}
 ENCOUNTER_ROOMS = {"rLink2_EnRoad", "rLink2_EnGrass", "rLink2_EnDesert", "rLink2_EnForest"}
+# areas no mode shuffles (by their rooms' names): hallways with no places. The Subconscious Filter; the Discombobulated,
+# whose way in leads straight to its boss's room in a Randomizer game (overrides.txt's link lines, the roomStart hook:
+# its way on to the boss is gone in the endgame world). Its first rooms' doors stay ends though the logic doesn't
+# reach those rooms now (a save's shuffle is by the ends' order: erflat's ER_LEGACY)
+LEFT_OUT = ("rSF_", "rDisco")
+KEEP_UNREACHED = {"rDiscoA", "rDiscoB", "rDiscoC"}
+# areas whose own doors (both ends in it) no mode shuffles: the Distortion, which a Randomizer game has the player go
+# through as Jeremy's mech, as the story does (rndgen's MECH_ROOMS, the roomStart hook), while the logic's ways through
+# its rooms are Jerry's and Claire's. So it's a dead end with no places behind its gate's door, which stays shuffled
+INSIDE_LEFT_OUT = ("rDistortion",)
 # (a door's two exits: the way in each leads to is this near the other)
 PAIR_DIST = 200
 
@@ -67,38 +85,18 @@ def exit_objects(path=os.path.join(HERE, "work", "rooms.txt")):
 
 
 # a Metroid door (oMetroidDoorHolder) in front of an exit: going through the exit needs what opens it, from anywhere in
-# the room (the room logic has it on every way there). An end whose exit has one only pairs with an end whose exit has
-# one needing the same: the player only comes in behind one by going through one, so has what going back takes (an
-# ordinary door to behind a Metroid door would leave them stuck there without a weapon)
-METROID_DOOR_DIST = 96
-
-
-def metroid_doors(path=os.path.join(HERE, "work", "rooms.txt")):
-    """{room: [(x, y, what opening it needs)]} from the room data"""
-    out, room = collections.defaultdict(list), None
-    for line in open(path, encoding="utf-8"):
-        f = line.rstrip("\n").split("\t")
-        if f[0] == "R": room = f[1]
-        elif f[0] == "G" and room and f[-1] == "oMetroidDoorHolder": out[room].append((float(f[2]), float(f[3]), f[7]))
-    return out
-
-
-def door_class(mdoors, room, out):
-    """what the Metroid door in front of an exit needs ("attack", "samus:4"), or "" for none"""
-    p = xy(out)
-    if not p: return ""
-    best = None
-    for x, y, req in mdoors.get(room, ()):
-        d = abs(p[0] - x) + abs(p[1] - y)
-        if d <= METROID_DOOR_DIST and (best is None or d < best[0]): best = (d, req)
-    return best[1] if best else ""
+# the room (the room logic has it on every way there). Its end pairs with any other: the shuffle used to pair such ends
+# only with ends whose Metroid door needed the same, so that the player only came in behind one by going through one,
+# but that kept Gate 5's doors to each other (no end outside it has one). A player who comes in behind one without what
+# opens it, and has no other way out of the room, has the pause menu's Teleport. (An end's class, cls, is what the
+# shuffle pairs by, erflat's DOOR_CLASSES: every end's is the same, "")
 
 
 class End:
     __slots__ = ("i", "room", "out", "obj", "back", "area", "map", "cls")
     def __init__(self, i, room, out, obj, back, area, is_map, cls=""):
         self.i, self.room, self.out, self.obj, self.back, self.area, self.map = i, room, out, obj, back, area, is_map
-        self.cls = cls      # (door_class: the Metroid door in front of its exit)
+        self.cls = cls      # (the class the shuffle pairs by: the same for every end, the note above)
     def __repr__(self): return "%s out %s (in %s)" % (self.room, self.out, self.back)
 
 
@@ -110,14 +108,15 @@ def ok_exit(rooms, conn, objs, reach_all, rm, out):
     if "(" in out or ":" in out: return False
     if any(x.startswith(out + "(") for x in rooms[rm].outs): return False
     if o in FIXED_OBJECTS or (rm, out) in conn.links_st or (rm, out) in conn.via: return False
-    if rm.startswith(tuple(conn.scope.values())) or rm in ENCOUNTER_ROOMS or rm not in reach_all: return False
+    if rm.startswith(tuple(conn.scope.values())) or rm in ENCOUNTER_ROOMS: return False
+    # (KEEP_UNREACHED's doors stay ends: no mode shuffles them, LEFT_OUT, pool)
+    if rm not in reach_all and rm not in KEEP_UNREACHED: return False
     return True
 
 
 def doors(rooms, conn, reach_all):
     """the doors: [(end, end)], each end an End. reach_all: the rooms the logic reaches with everything"""
     objs = exit_objects()
-    mdoors = metroid_doors()
     links = [(rm, out, to[0], to[1]) for (rm, out), to in conn.links.items()]
     by_pair = collections.defaultdict(list)
     for l in links: by_pair[(l[0], l[2])].append(l)
@@ -148,7 +147,10 @@ def doors(rooms, conn, reach_all):
         back = {l[3] for l in by_pair.get((rm, mp), [])}
         return len(back) == 1
 
-    cands, far = [], []
+    # (the ways back a Randomizer game adds to Gate 4's stages: rndgen.MM_BACK_EXITS)
+    import rndgen
+    added = {(r, "%d,%d" % (x, y)) for r, x, y, to, tx, ty in rndgen.MM_BACK_EXITS}
+    cands, far, new = [], [], []
     for (a, b), ls in by_pair.items():
         if a == b or a > b: continue
         for l1 in ls:
@@ -157,23 +159,26 @@ def doors(rooms, conn, reach_all):
                 if not (o1 and i1 and o2 and i2): continue
                 d1 = abs(o1[0] - i1[0]) + abs(o1[1] - i1[1])
                 d2 = abs(o2[0] - i2[0]) + abs(o2[1] - i2[1])
-                if d1 <= PAIR_DIST and d2 <= PAIR_DIST: cands.append((d1 + d2, l1, l2))
+                if d1 <= PAIR_DIST and d2 <= PAIR_DIST:
+                    (new if (l1[0], l1[1]) in added or (l2[0], l2[1]) in added else cands).append((d1 + d2, l1, l2))
                 elif tile_room(a, b, d1, d2): far.append((d1 + d2, l1, l2))
     cands.sort()
     far.sort()
+    new.sort()
     used, pairs = set(), []
-    # (the doors near both ways first, then the maps' tiles that have the player come in away from the room's exits:
-    # those after, so the others' order stays)
-    for d, l1, l2 in cands + far:
+    # (the doors near both ways first, then the maps' tiles that have the player come in away from the room's exits,
+    # then the ones Gate 4's ways back make: each after the ones before, so their order stays, a save's shuffle being by
+    # the ends' order)
+    for d, l1, l2 in cands + far + new:
         if (l1[0], l1[1]) in used or (l2[0], l2[1]) in used: continue
         if not ok_exit(rooms, conn, objs, reach_all, l1[0], l1[1]) or not ok_exit(rooms, conn, objs, reach_all, l2[0], l2[1]): continue
         if l2[3] not in usable_in.get(l1[0], ()) or l1[3] not in usable_in.get(l2[0], ()): continue
         if not returns(l1[0], l2[3], l1[1]) or not returns(l2[0], l1[3], l2[1]): continue
         used.add((l1[0], l1[1])); used.add((l2[0], l2[1]))
-        a = End(0, l1[0], l1[1], objs.get((l1[0], l1[1]), ""), l2[3], rooms[l1[0]].area_num, rooms[l1[0]].map,
-                door_class(mdoors, l1[0], l1[1]))
-        b = End(0, l2[0], l2[1], objs.get((l2[0], l2[1]), ""), l1[3], rooms[l2[0]].area_num, rooms[l2[0]].map,
-                door_class(mdoors, l2[0], l2[1]))
+        # (every end of one class: a Metroid door in front of an exit doesn't keep its end to ends like it any more, the
+        # note above End)
+        a = End(0, l1[0], l1[1], objs.get((l1[0], l1[1]), ""), l2[3], rooms[l1[0]].area_num, rooms[l1[0]].map, "")
+        b = End(0, l2[0], l2[1], objs.get((l2[0], l2[1]), ""), l1[3], rooms[l2[0]].area_num, rooms[l2[0]].map, "")
         pairs.append((a, b))
     k = 0
     for a, b in pairs:
@@ -203,9 +208,10 @@ def follows(pairs, rooms, conn, reach_all):
 
 
 def pool(pairs, mode):
-    """the doors a mode shuffles (not a door whose two ends' Metroid doors need different things: the game's own pairs
-    those, and the shuffle pairs only ends whose Metroid doors need the same: door_class)"""
-    pairs = [p for p in pairs if p[0].cls == p[1].cls]
+    """the doors a mode shuffles (not a LEFT_OUT area's, nor one within an INSIDE_LEFT_OUT area; not a door whose two
+    ends' classes differ, the shuffle pairing only ends of one class: every end's is the same now, the note above End)"""
+    pairs = [p for p in pairs if p[0].cls == p[1].cls and not p[0].room.startswith(LEFT_OUT) and not p[1].room.startswith(LEFT_OUT)
+             and not (p[0].room.startswith(INSIDE_LEFT_OUT) and p[1].room.startswith(INSIDE_LEFT_OUT))]
     if mode == "gates": return [p for p in pairs if p[0].obj in GATE_OBJECTS or p[1].obj in GATE_OBJECTS]
     if mode == "overworld":
         return [p for p in pairs if p[0].obj in GATE_OBJECTS or p[1].obj in GATE_OBJECTS or p[0].area != p[1].area
@@ -280,7 +286,7 @@ def shuffle(doors_, rng, ways, start):
         return len(s) - len(seen) > 1 or bool(f - frontier) or bool(pl - places)
     while True:
         # (a random end not joined yet whose way in isn't reached: covered ones found as they come up. It's joined to an
-        # end of the frontier whose Metroid door needs the same, door_class)
+        # end of the frontier of its class: every end's is the same, the note above End)
         pending = [e for e in ends if e in free and (e.room, e.back) not in seen and e not in covered]
         rng.shuffle(pending)
         u = None

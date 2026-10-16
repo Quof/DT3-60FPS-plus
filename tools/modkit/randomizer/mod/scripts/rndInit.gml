@@ -22,6 +22,7 @@ if !variable_global_exists("rndLocN")
   global.rndOptIR=ini_read_real("Randomizer","ir",0)
   global.rndOptLog=ini_read_real("Randomizer","log",1)
   global.rndOptChips=ini_read_real("Randomizer","chips",0) //(Chip Randomizer: 0 Off, 1 On)
+  global.rndOptSnare=ini_read_real("Randomizer","traps",0) //(Traps: 0 Off, 1 On: rndSnareApply)
   ini_close()
   //Archipelago: the next new game is an Archipelago game (the title screen's code 'ap'), and the folder where the game
   //and the DT3+ Client trade files: %LOCALAPPDATA%\DT3PlusArchipelago\, made if it isn't there
@@ -32,6 +33,18 @@ if !variable_global_exists("rndLocN")
   if !directory_exists(global.rndApPath) {directory_create(global.rndApPath)}
 }
 global.rndMsgQuiet=0
+//the trap items (the option Traps: rndSnareApply, rndSnareSpring): on in this game or not, each trap's time left
+//(30fps ticks: Darkness 1, Rocketeer 2, Achilles 4; rndSnareTime, 5 minutes, each), a Teleport Trap waiting to take
+//the player (rndSnarePend) or having just done it (rndSnareArrive), the ways into rooms kept for it (rndSnareHist*),
+//and each trap's name on the HUD (the drawHUD hook)
+var k;
+global.rndSnareMode=0
+global.rndSnareTime=9000
+for(k=0;k<=4;k+=1) {global.rndSnareT[k]=0}
+global.rndSnarePend=0
+global.rndSnareArrive=0
+global.rndSnareHistN=0
+global.rndSnareHUD[1]="Darkness"; global.rndSnareHUD[2]="Rocketeers"; global.rndSnareHUD[3]=""; global.rndSnareHUD[4]="Achilles"
 //the trackers' state (tracker\state.js) to be written again: oRndWatcher writes it (rndTrackWrite)
 global.rndTrackDirty=0
 //Archipelago: this game is one (rndAP), its seed line ("seed|<seed>|<slot>": the client's files must start with it),
@@ -39,6 +52,7 @@ global.rndTrackDirty=0
 global.rndAP=0
 global.rndApSeedLine=""
 global.rndApRecv=0
+global.rndApNMSeen=1 //(rndApStart: 0 till rndApItems has looked for Nightmare abilities received before and not given)
 global.rndApDeaths=0
 global.rndApSession=""
 global.rndApSessDeath=0
@@ -80,6 +94,7 @@ global.rndFightSlot=-1
 global.rndFightLink=0
 for(i=0;i<5;i+=1) {global.rndChainSt[i]=0}
 global.rndCharLast=0 //(Jerry or Claire, whichever was played last: the roomStart hook switches back to them)
+global.rndCharSeen=0 //(the character the player was the frame before, oRndWatcher: a room whose code switches it as they come in switches back, the roomStart hook)
 //(abilities a room took away: the room whose code did (the mod's abilSetRemove), the area they stay away in, and the
 //ability sets picked before: the roomStart hook)
 global.rndAbilHeldRoom=-1
@@ -112,6 +127,7 @@ global.rndTrapActive=-1
 global.rndPlace=""
 global.rndBossDone=string_repeat("0",global.rndBossN)
 global.rndBossSeen=string_repeat("0",global.rndBossN) //(the places whose fight has been started: rndBossPreview, rndBossStart)
+global.rndGateReach="00000000" //(the Nightmare Gates whose boss's room the player has been in: their first room's way straight to it, the roomStart hook)
 //a boss's AP to give once the player is back from its fight (rndBossAPAward: -1 none, -2 the Abomination), and whether
 //the Abomination's beating has been seen (oRndWatcher: as if so till a new game or a load says otherwise)
 global.rndBossAPPending=-1

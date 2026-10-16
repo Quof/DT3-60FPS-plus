@@ -9,6 +9,7 @@ in 48,304   # from rMega4_IntroC out 464,208
 
 # Ways out: exits (and, in the game, where they lead), and how they're gone through
 out 1888,208   # to rMega4_IntroE at 48,240; the player goes into it
+out 0,272   # to rMega4_IntroC at 440,240; the player goes into it
 
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 
@@ -19,6 +20,7 @@ out 1888,208   # to rMega4_IntroE at 48,240; the player goes into it
 # the locked door whose objectNum is N.
 from in 48,304
   out 1888,208   -
+  out 0,272      -
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
@@ -38,3 +40,9 @@ how in 48,304 -> out 1888,208: -
       -> standing at x 1561-1904, y 241-417
    7. standing at 1886,241, goes into it
       -> out 1888,208
+how in 48,304 -> out 0,272: -
+     coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> standing at x 0-263, y 305-417
+   2. standing at 0,305, goes into it
+      -> out 0,272

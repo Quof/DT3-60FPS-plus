@@ -86,15 +86,16 @@ ITEM_GROUPS = [
         ("claire1", "Claire's Game Powers", ("own", 11, 1), ("sGamePower", 0, None)),
         ("claire2", "Flame Shield", ("own", 11, 2), ("sJCGameFlameBall", 0, None)),
     ]),
-    ("Instruments", [("instr%d" % g, INSTRUMENTS[g - 1], ("gate", g), ("sPauseM_Instruments", g - 1, None))
-                     for g in range(1, 9)]),
-    ("Program Chips", [("chip%d" % g, "Program Chip %d" % g, ("chip", g), ("sPauseM_Chips", g - 1, None))
-                       for g in range(1, 7)]),
     # (the Nightmare abilities: rndOwn 13-16, the pickups' look, rndItemLookKP's)
     ("Nightmare", [("nm%d" % p, "Nightmare " + n, ("own", 13 + p, 1), (WLP, f, (205, 110, 255)))
                    for p, (n, f) in enumerate(zip(rndgen.NIGHTMARE, (0, 6, 4, 11)))]),
     ("Cursed Equipment", [("cursed%d" % p, n, ("equip", p), ("sEquipItemIcons", p, None))
                           for p, n in ((10, "Cursed Helm"), (11, "Cursed Ring"), (12, "Cursed Pendant"))]),
+    ("Instruments", [("instr%d" % g, INSTRUMENTS[g - 1], ("gate", g), ("sPauseM_Instruments", g - 1, None))
+                     for g in range(1, 9)]),
+    # (the six, a row of their own beneath the instruments: items.html's SOLO_GROUPS)
+    ("Program Chips", [("chip%d" % g, "Program Chip %d" % g, ("chip", g), ("sPauseM_Chips", g - 1, None))
+                       for g in range(1, 7)]),
 ]
 # the counters: (id, name, the state's string (its places 1 to n, or lo to hi), the pool's item kind, picture). How many
 # of the string's places are 1, of how many the pool has (and the general shop: SHOP_EXTRA); the keys: those found
@@ -330,11 +331,12 @@ def check_label(t):
 
 
 def read_names(path=NAMES):
-    """tracker_names.txt: {room: (tab, screen)}, {(type, objectNum): the check's own name}, the tabs in order"""
-    rooms, checks, tabs = {}, {}, []
+    """tracker_names.txt: {room: (tab, screen)}, {(type, objectNum): the check's own name}, the tabs in order, and
+    {objectNum: where the locked door is}, in the file's order"""
+    rooms, checks, tabs, doors = {}, {}, [], collections.OrderedDict()
     labels = {l.lower(): c for c, l in rndgen.LT_LABEL.items()}
     labels["boss reward"] = rndgen.INSTR_TYPE
-    if not os.path.exists(path): return rooms, checks, tabs
+    if not os.path.exists(path): return rooms, checks, tabs, doors
     for ln, line in enumerate(open(path, encoding="utf-8"), 1):
         line = line.strip()
         if not line or line.startswith("#"): continue
@@ -346,11 +348,16 @@ def read_names(path=NAMES):
                 raise SystemExit("tracker_names.txt line %d: unknown check %r" % (ln, left[6:].strip()))
             checks[(labels[m.group(1).lower()], int(m.group(2)))] = right
             continue
+        if left.lower().startswith("door "):
+            if not re.match(r"\d+$", left[5:].strip()):
+                raise SystemExit("tracker_names.txt line %d: a door's number, its objectNum, after 'door'" % ln)
+            doors[int(left[5:].strip())] = right
+            continue
         if "|" not in right: raise SystemExit("tracker_names.txt line %d: no '|' between the tab and the screen" % ln)
         tab, screen = [s.strip() for s in right.split("|", 1)]
         rooms[left] = (tab, screen)
         if tab not in tabs: tabs.append(tab)
-    return rooms, checks, tabs
+    return rooms, checks, tabs, doors
 
 
 def positions(rows):
@@ -444,7 +451,7 @@ def icon(out, ident, pic, done):
 
 def build(out, rows, items, f, bp, hv, door_order, blist, anames, rarea, rooms, build_id):
     """the pages' data (out\\tracker\\data.js) and pictures (out\\tracker\\icons)"""
-    names, check_names, tab_order = read_names()
+    names, check_names, tab_order, door_names = read_names()
     # ---- checks: tabs, screens, names
     tabs = [{"name": t, "screens": []} for t in tab_order]
     tab_ix = {t: i for i, t in enumerate(tab_order)}
@@ -536,6 +543,12 @@ def build(out, rows, items, f, bp, hv, door_order, blist, anames, rarea, rooms, 
     for ident, name, have, kind, pic in COUNTERS:
         counters.append({"id": ident, "name": name, "have": list(have), "total": pool[kind] + SHOP_EXTRA.get(kind, 0),
                          "icon": icon(out, ident, pic, done)})
+    # (the keys' tooltip: each locked door by where it is, in the names file's order; a door it doesn't have last)
+    for d in door_names:
+        if d not in door_order:
+            raise SystemExit("tracker_names.txt: door %d isn't a locked door (doors.csv has %s)" % (d, sorted(door_order)))
+    unnamed_doors = [d for d in door_order if d not in door_names]
+    key_doors = [[d, door_names[d]] for d in door_names] + [[d, "Locked door %d" % d] for d in unnamed_doors]
     # ---- the bosses: their heads, in the boss gallery's order (the Warmaster last), each with its place in the boss
     # list (-1: the Abomination, beaten when gateHProg is 200)
     sys.path.insert(0, os.path.dirname(HERE))
@@ -559,7 +572,7 @@ def build(out, rows, items, f, bp, hv, door_order, blist, anames, rarea, rooms, 
         "build": build_id,
         "tabs": tabs, "locs": locs, "roomTab": room_tab, "roomScreen": room_screen, "roomName": room_name,
         "doors": door_order, "everything": every, "everythingIR": [[rndgen.INSTR_IX, hv.get(rndgen.INSTR_IX, 8)]],
-        "items": groups, "counters": counters, "bosses": bosses,
+        "items": groups, "counters": counters, "keyDoors": key_doors, "bosses": bosses,
         "logic": logic_tables(f),
     }
     os.makedirs(os.path.join(out, "tracker"), exist_ok=True)
@@ -571,3 +584,6 @@ def build(out, rows, items, f, bp, hv, door_order, blist, anames, rarea, rooms, 
           % (len(rows), len(tabs), n_screens, sum(len(g["items"]) for g in groups), len(counters), len(bosses)))
     if unnamed:
         print("trackers: rooms with checks not in tracker_names.txt (shown under 'Other'):", ", ".join(sorted(set(unnamed))))
+    if unnamed_doors:
+        print("trackers: locked doors not in tracker_names.txt (the keys' tooltip lists them by number):",
+              ", ".join(str(d) for d in unnamed_doors))

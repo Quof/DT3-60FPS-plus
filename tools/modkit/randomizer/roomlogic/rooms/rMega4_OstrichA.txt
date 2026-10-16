@@ -6,6 +6,7 @@
 
 # Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
 in 128,160   # from rMega4_Map's menu
+in 2968,336   # from rMega4_OstrichB out 0,208
 
 # Ways out: exits (and, in the game, where they lead), and how they're gone through
 out 2992,304   # to rMega4_OstrichB at 48,240; the player goes into it
@@ -20,6 +21,10 @@ loc 9 75   # weapon upgrade 75, at 163,455
 # link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
 # the locked door whose objectNum is N.
 from in 128,160
+  out 2992,304   -
+  loc 2 29       djump,adash | djump,megaman:4 | adash,megaman:4
+  loc 9 75       -
+from in 2968,336
   out 2992,304   -
   loc 2 29       djump,adash | djump,megaman:4 | adash,megaman:4
   loc 9 75       -
@@ -87,4 +92,56 @@ how in 128,160 -> loc 9 75: -
    2. on the wall to the left: kick off it (wall jump), holding left, then nothing after 1 ticks, from 407,210; lands at 434,641
       -> standing at x 87-663, y 488-769
    3. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 87,544; touches it on the way
+      -> loc 9 75
+how in 2968,336 -> out 2992,304: -
+     coming in at 2968,336
+   1. coming in: holding nothing, from 2968,336; lands at 2968,337
+      -> standing at x 1801-3008, y 289-769
+   2. standing at 2990,337, goes into it
+      -> out 2992,304
+how in 2968,336 -> loc 2 29: djump,adash
+     coming in at 2968,336
+   1. coming in: holding nothing, from 2968,336; lands at 2968,337
+      -> standing at x 1801-3008, y 289-769
+   2. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 1801,610; clings to the wall at 1559,761
+      -> standing at x 713-1559, y 337-769
+   3. jump (held 21 ticks), holding left, double jump at tick 10, air dash (Claire) at tick 18, from 1504,337; clings to the wall at 1319,229   [djump,adash]
+      -> standing at x 615-1319, y -24-231
+   4. standing at 726,113, touches it
+      -> loc 2 29
+how in 2968,336 -> loc 2 29: djump,megaman:4
+     coming in at 2968,336
+   1. coming in: holding nothing, from 2968,336; lands at 2968,337
+      -> standing at x 1801-3008, y 289-769
+   2. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 1801,610; clings to the wall at 1559,761
+      -> standing at x 713-1559, y 337-769
+   3. on the wall to the left: kick off it (wall jump), wall-jump up the same wall, from 1527,338; fires the Strike Chain at the point at 1424,256   [megaman:4]
+      -> hanging from the Strike Chain point at 1424,256
+   4. off the Strike Chain point: jump (held 21 ticks), holding left, double jump at tick 12, from 1424,296; clings to the wall at 1319,221   [djump]
+      -> standing at x 615-1319, y -24-231
+   5. standing at 726,113, touches it
+      -> loc 2 29
+how in 2968,336 -> loc 2 29: adash,megaman:4
+     coming in at 2968,336
+   1. coming in: holding nothing, from 2968,336; lands at 2968,337
+      -> standing at x 1801-3008, y 289-769
+   2. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 1801,610; clings to the wall at 1559,761
+      -> standing at x 713-1559, y 337-769
+   3. jump (held 21 ticks), holding nothing, then left after 12 ticks, air dash (Jerry) at tick 12, from 1312,341; clings to the wall at 1255,260   [adash]
+      -> on the wall at x 1255, y 232-263
+   4. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, air dash back right (Jerry) at tick 5, from 1255,232; fires the Strike Chain at the point at 1424,192   [adash,megaman:4]
+      -> hanging from the Strike Chain point at 1424,192
+   5. off the Strike Chain point: jump (held 21 ticks), holding left, from 1424,232; clings to the wall at 1319,188
+      -> standing at x 615-1319, y -24-231
+   6. standing at 726,113, touches it
+      -> loc 2 29
+how in 2968,336 -> loc 9 75: -
+     coming in at 2968,336
+   1. coming in: holding nothing, from 2968,336; lands at 2968,337
+      -> standing at x 1801-3008, y 289-769
+   2. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 1801,610; clings to the wall at 1559,761
+      -> standing at x 713-1559, y 337-769
+   3. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 713,656; lands at 566,641
+      -> standing at x 87-663, y 488-769
+   4. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 87,544; touches it on the way
       -> loc 9 75

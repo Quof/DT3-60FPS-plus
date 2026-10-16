@@ -6,6 +6,7 @@
 
 # Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
 in 48,304   # from rMega4_Gate out 464,272
+in 4056,256   # from rMega4_IntroB out 0,224
 
 # Ways out: exits (and, in the game, where they lead), and how they're gone through
 out 0,272   # to rMega4_Gate at 432,304; the player goes into it
@@ -19,6 +20,9 @@ out 4080,224   # to rMega4_IntroB at 48,256; the player goes into it
 # link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
 # the locked door whose objectNum is N.
 from in 48,304
+  out 0,272      -
+  out 4080,224   -
+from in 4056,256
   out 0,272      -
   out 4080,224   -
 
@@ -49,4 +53,30 @@ how in 48,304 -> out 4080,224: -
    8. running right, jump (held 21 ticks), holding right, from 3376,273; clings to the wall at 3593,320
       -> standing at x 3593-4096, y 257-417
    9. standing at 4078,257, goes into it
+      -> out 4080,224
+how in 4056,256 -> out 0,272: -
+     coming in at 4056,256
+   1. coming in: holding nothing, from 4056,256; lands at 4056,257
+      -> standing at x 3593-4096, y 257-417
+   2. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 3593,272; lands at 3526,241
+      -> standing at x 3465-3543, y 241-417
+   3. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 3465,256; clings to the wall at 3287,303
+      -> standing at x 3209-3287, y 225-417
+   4. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 3209,240; clings to the wall at 2999,352
+      -> standing at x 2793-2999, y 241-417
+   5. running left, jump (held 21 ticks), holding left, from 2794,241; clings to the wall at 2583,265
+      -> standing at x 2377-2583, y 241-417
+   6. on the wall to the right: holding left, from 2377,242; clings to the wall at 2295,362
+      -> standing at x 2153-2295, y 241-417
+   7. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 2153,274; lands at 2042,225
+      -> standing at x 1769-2071, y 225-417
+   8. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 1769,226; lands at 1563,305
+      -> standing at x 0-1687, y 177-417
+   9. standing at 0,305, goes into it
+      -> out 0,272
+how in 4056,256 -> out 4080,224: -
+     coming in at 4056,256
+   1. coming in: holding nothing, from 4056,256; lands at 4056,257
+      -> standing at x 3593-4096, y 257-417
+   2. standing at 4078,257, goes into it
       -> out 4080,224

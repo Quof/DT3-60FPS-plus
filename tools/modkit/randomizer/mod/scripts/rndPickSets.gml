@@ -1,6 +1,7 @@
 //Randomizer: each character's active ability set is one the player has. Jerry: 1 Link (hasAbilToken 1), 2 Mega Man (3),
 //3 Gate 6's (5); Claire: 1 Belmont (2), 2 Samus (4), 3 Gate 6's (6); 0 is neither (the base attacks). Gate 6's set, on
-//as the player leaves Gate 6 (where only it works), gives way to the set they had on before it (rndActReg: oRndWatcher)
+//as the player leaves Gate 6 or Nightmare Gate G (where only it works: rndInGate6), gives way to the set they had on
+//before it (rndActReg: oRndWatcher)
 var a;
 a=global.activeAbility[0]
 if a=3 and global.hasAbilToken[5]<2 {a=global.rndActReg[0]}

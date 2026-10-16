@@ -78,4 +78,9 @@ if global.rndActive=1
       }
     }
   }
+  //(the trap items' time, and a Teleport Trap waiting: rndSnareTick)
+  rndSnareTick()
+  //(the character the player is: a room whose code switches it as they come in switches back to this, the roomStart
+  //hook)
+  global.rndCharSeen=global.activeCharacter
 }

@@ -6,6 +6,7 @@
 
 # Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
 in 80,640   # from rMega4_Map's menu
+in 3928,192   # from rMega4_SigmaB2 out 0,256
 
 # Ways out: exits (and, in the game, where they lead), and how they're gone through
 out 3952,160   # to rMega4_SigmaB2 at 48,288; the player goes into it
@@ -19,6 +20,14 @@ out 3952,160   # to rMega4_SigmaB2 at 48,288; the player goes into it
 # the locked door whose objectNum is N.
 from in 80,640
   out 3952,160   never
+from in 3928,192
+  out 3952,160   -
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 3928,192 -> out 3952,160: -
+     coming in at 3928,192
+   1. coming in: holding nothing, from 3928,192; lands at 3928,193
+      -> standing at x 3817-3968, y 193-247
+   2. standing at 3950,193, goes into it
+      -> out 3952,160

@@ -24,7 +24,11 @@ The Randomizer's own new-game options are the world's options:
   and Nightmare Gates' doors; Overworld: those, the doors between two areas and the maps' ways in and out; Chaos: every
   door. Going back through a door returns you where you came from. On Hyrule's and Gate 6's maps, a place's other ways
   back out to its tile (a town's far side, a palace's way out after its boss) lead where its shuffled door does; a
-  bridge's or pass's far side still comes out across it.
+  bridge's or pass's far side still comes out across it. Gate 4's stages have a way back between their rooms (not into
+  the boss rooms), so in Chaos their doors are shuffled too, and Gate 5's Metroid-hatch doors pair with any other door
+  (if you come in behind a hatch you can't open, the pause menu's Teleport gets you out). The Subconscious Filter and
+  the Discombobulated aren't shuffled; the Discombobulated's way in leads straight to its boss's room. The Distortion is
+  played as Jeremy's mech, as in the story, and only its gate's door is shuffled.
 - **Boss Rando**: walking up to a boss starts another boss's fight, in that boss's own room; beating it counts as
   beating the boss whose room it is. The CHAOS Warmaster, The Executive and Hexor stay where they are.
 - **Instrument Randomization**: the 8 instruments are items of the multiworld, and each Nightmare Gate's reward (left
@@ -33,6 +37,13 @@ The Randomizer's own new-game options are the world's options:
   Access Gate's rooms can only be gone into once its own chip is found (Program Chip 1 opens Gate 1, and so on); going
   in without it turns you back. No chip is ever behind its own gate. The skill tree's sections open with the chips too
   (Program Chip 5 opens section 5). Off: you start with all 6, and the whole skill tree is open.
+- **Traps**: 5% of the items (28) are traps, in the place of as many Internetz chests. In your world they look like
+  Weapon Upgrades, or are in a chest that sparkles as for any item but Internetz. The Darkness Trap makes every room
+  dark (as in Dark Mode) for 5 minutes. The Rocketeer Trap sends a CHAOS Rocketeer after you, and another in every room
+  you go into, for 5 minutes. The Teleport Trap takes you back to one of the ways into a room you've come in by this
+  run, at random (in a boss fight, once it's over). The Achilles Trap makes any hit kill you (as in Achilles Mode) for
+  5 minutes. A trap that's already on starts its 5 minutes again. The HUD shows how long each one has left. Your traps
+  can be in other worlds, and other games' traps in yours.
 
 The places where the story's ability pickups were (17: the Dash Boots, the double jump's, Link's bow and bombs,
 Belmont's dagger and Holy Water, Gate 5's upgrades and suits) are locations ("Story Item"). Four of them always hold the
@@ -66,11 +77,12 @@ Any of them.
 
 ## What does another world's item look like in DT3+?
 
-A multicoloured Archipelago orb. Touching it sends the item to its player; your own items show as themselves.
+A multicoloured Archipelago orb. Touching it sends the item to its player; your own items show as themselves (your
+own traps as Weapon Upgrades).
 
 ## When the player receives an item, what happens?
 
-It's given at once, with a message saying what it is and who found it.
+It's given at once, with a message saying what it is and who found it. A trap springs at once too.
 
 ## Is the logic exact?
 

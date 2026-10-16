@@ -333,12 +333,14 @@ back in). A shuffle pairs a mode's ends anew: an exit leads to its new partner's
 the partner returns the player where they came from. Left out of every mode: one-way exits, doors within a room, menus
 and encounters, the exits that are boss fights (connections.txt's via), exits whose way goes by a carried state and the
 Forest Palace's rooms (its crystals), the encounter rooms, rooms the logic doesn't reach even with everything, ends
-whose way in reaches nothing or doesn't get back out through the end's own exit (a drop with no way back up), and exits
-at the same place as another (the game finds an exit by its room and place). An end with a Metroid door in front of its
-exit (the Research Facility's hatches: any weapon opens most, missiles the rest) is only paired with one whose Metroid
-door needs the same, and a door whose two ends' Metroid doors need different things isn't shuffled: the player only
-comes in behind a Metroid door by going through one, so has what going back out takes (an ordinary door that led to
-behind one would leave a player without a weapon stuck there).
+whose way in reaches nothing or doesn't get back out through the end's own exit (a drop with no way back up), exits
+at the same place as another (the game finds an exit by its room and place), and the areas in er.py's LEFT_OUT,
+hallways with no places (the Subconscious Filter, the Discombobulated: its way in leads straight to its boss's room in a
+Randomizer game, overrides.txt's link lines; their doors stay ends, unshuffled). An end with a Metroid door in front of
+its exit (the Research Facility's hatches: any weapon opens most, missiles the rest) pairs with any other end: going
+back out through it takes what opens the hatch, as the room logic has it (the shuffle used to pair such ends only with
+ends like them, which kept Gate 5's doors to each other: no end outside it has one). A player who comes in behind one
+without what opens it, and has no other way out, has the pause menu's Teleport.
 The maps (Hyrule's, Gate 6's): a tile and its place are a door, its end the place's exit next to where the tile has the
 player come in. A tile that has the player come in away from the exits (Forest 1's) is a door too if every exit of the
 room back to the map comes out at one place; those doors come after the others, which keep their order (a save's
@@ -347,6 +349,9 @@ exits back to a map that come out where an end's exit does follow that end (er.f
 way out after its boss, a place of several rooms' last one): with it shuffled they lead where it now leads, in the
 logic (exit_end) and the game (rndERMapBuild). A crossing's far exit (a bridge's or a pass's, out across a river or a
 mountain) comes out elsewhere on the map, so it stays the game's: nothing leads into the room there to pair it with.
+Gate 4's stages: a Randomizer game adds a way back to each of their rooms but the boss rooms (rndgen.py's
+MM_BACK_EXITS, which roomdata.py adds to the rooms as exits), so each room's exit and the next one's way back are a
+door; those doors come after the others too.
   Gate Swap   the Access Gates' and Nightmare Gates' doors (oAccessGate, oDistortionGate)
   Overworld   those, every door between two areas, and every door between a map (Hyrule's, Gate 6's) and a room
   Chaos       every door

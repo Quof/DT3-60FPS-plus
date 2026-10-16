@@ -6,9 +6,11 @@
 
 # Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
 in 48,288   # from rMega4_StormB out 3920,384
+in 6104,288   # from rMega4_StormD out 0,384
 
 # Ways out: exits (and, in the game, where they lead), and how they're gone through
 out 6128,256   # to rMega4_StormD at 48,416; the player goes into it
+out 0,256   # to rMega4_StormB at 3896,416; the player goes into it
 
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 loc 9 65   # weapon upgrade 65, at 5855,151
@@ -20,6 +22,11 @@ loc 9 65   # weapon upgrade 65, at 5855,151
 # the locked door whose objectNum is N.
 from in 48,288
   out 6128,256   -
+  out 0,256      -
+  loc 9 65       -
+from in 6104,288
+  out 6128,256   -
+  out 0,256      -
   loc 9 65       -
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
@@ -34,6 +41,12 @@ how in 48,288 -> out 6128,256: -
       -> standing at x 1769-6144, y 81-289
    4. standing at 6126,289, goes into it
       -> out 6128,256
+how in 48,288 -> out 0,256: -
+     coming in at 48,288
+   1. coming in: holding nothing, from 48,288; lands at 48,289
+      -> standing at x 0-1897, y 129-289
+   2. standing at 0,289, goes into it
+      -> out 0,256
 how in 48,288 -> loc 9 65: -
      coming in at 48,288
    1. coming in: holding nothing, from 48,288; lands at 48,289
@@ -43,4 +56,26 @@ how in 48,288 -> loc 9 65: -
    3. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 1719,-24; lands at 1830,81
       -> standing at x 1769-6144, y 81-289
    4. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 5735,210; touches it on the way
+      -> loc 9 65
+how in 6104,288 -> out 6128,256: -
+     coming in at 6104,288
+   1. coming in: holding nothing, from 6104,288; lands at 6104,289
+      -> standing at x 1769-6144, y 81-289
+   2. standing at 6126,289, goes into it
+      -> out 6128,256
+how in 6104,288 -> out 0,256: -
+     coming in at 6104,288
+   1. coming in: holding nothing, from 6104,288; lands at 6104,289
+      -> standing at x 1769-6144, y 81-289
+   2. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 1769,82; clings to the wall at 1719,31
+      -> standing at x 1719-1847, y -24-263
+   3. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 1847,162; clings to the wall at 1897,152
+      -> standing at x 0-1897, y 129-289
+   4. standing at 0,289, goes into it
+      -> out 0,256
+how in 6104,288 -> loc 9 65: -
+     coming in at 6104,288
+   1. coming in: holding nothing, from 6104,288; lands at 6104,289
+      -> standing at x 1769-6144, y 81-289
+   2. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 5735,210; touches it on the way
       -> loc 9 65

@@ -17,8 +17,8 @@ The tables (all numbers; "first"/"count" index a flat list):
               the end does; exit_end_own and exit_follow have them apart, as the mod's data does)
   events      what makes each happen (a room or an area got into, and what else it takes there)
   ends        the doors' ends (exit, way back in, the modes they're in, the game's own partner)
-  legacy      earlier builds' doors whose shuffles still load (ER_LEGACY): their hash and how many ends they had, the
-              first ones of these (their shuffles have no exits following an end)
+  legacy      earlier builds' doors whose shuffles still load (ER_LEGACY): their hash, how many ends they had (the
+              first ones of these) and what their world had (ER_FEATURES's bits); then this build's ER_FEATURES
   everything  from each entry, with everything: the exits and places it gets to (for making a shuffle)
   bosses      Boss Rando: each of the mod's bosses' fight (what it takes) and places (its room, its via exit)
 Requirements: a list of (number, count): a progression item (rndgen's prog_of numbers), a key (KEY_BASE+objectNum), or
@@ -32,14 +32,36 @@ import solve, er
 
 PARKED = "P"
 MODE_BITS = {"gates": 1, "overworld": 2, "chaos": 4}
+# what a shuffle's world has, by the build its doors are from (bits; the mod's rndERFeat, rndERLayout): 1 exits
+# following an end (er.follows), 2 the Discombobulated's way in straight to its boss's room, 4 the Distortion played as
+# Jeremy's mech (its own doors left out). This build's: all of them
+ER_FEATURES = 7
 # earlier builds' doors whose saves (and Archipelago worlds) still load in this one: (their data's hash, how many ends
-# they had). Their ends are this build's first ones, in the same order (write_data checks it); a shuffle made with them
-# is read back with the ends after those not joined and no exit following an end, as it was made (the mod's
-# rndERAccept). The doors of every build up to b50
-ER_LEGACY = [("a0a71eea481c", 1450)]
-# an end's class: what the Metroid door in front of its exit needs (er.door_class; none, any weapon, missiles). The
-# shuffle pairs only ends of one class
+# they had, what their world had: ER_FEATURES's bits, the identity of those ends and of the exits following them:
+# ends_identity). Their ends are this build's first ones, the same exits and ways back in, in the same order, and their
+# exits that followed an end this build's (write_data checks it by the identity: what a new shuffle goes by, the modes
+# and classes, may have changed since); a shuffle made with them is read back with the ends after those not joined and
+# the world as it had it (the mod's rndERAccept): as it was made. The doors of every build to b50; of b51 to b53
+# (Hyrule's and Gate 6's maps' exits following their doors, Forest 1's tile a door); of b54 (Gate 4's stages' ways
+# back); of b55 (the Subconscious Filter and the Discombobulated left out, Gate 5's Metroid doors paired with any)
+ER_LEGACY = [("a0a71eea481c", 1450, 0, "a4fdb26f53a5"), ("ced7dfcf83e3", 1452, 1, "5d79a76132c0"),
+             ("b867e3518338", 1500, 1, "3dd00421ca2d"), ("b49a72cdb1a9", 1500, 3, "3dd00421ca2d")]
+# an end's class: what the shuffle pairs ends by (only ends of one class). Every end's is "" now (er.py's note above End:
+# a Metroid door in front of an exit, "attack" any weapon or "samus:4" missiles, used to keep its end to ends like it)
 DOOR_CLASSES = ["", "attack", "samus:4"]
+
+
+def ends_identity(f, n, follows):
+    """the identity of the first n ends (each one's room, exit and way back in) and of the exits following an end
+    (follows: exit -> end): what a save's shuffle is read back by"""
+    import hashlib
+    h = hashlib.md5()
+    for e in f.ends[:n]:
+        x = f.exits[e["exit"]]
+        h.update(("%s|%s|%s;" % (f.rnames[x[0]], x[1], f.entries[e["back"]][1])).encode())
+    for xi, d in enumerate(follows):
+        if d >= 0: h.update(("F|%s|%s|%d;" % (f.rnames[f.exits[xi][0]], f.exits[xi][1], d)).encode())
+    return h.hexdigest()[:12]
 
 
 class Flat:
@@ -733,13 +755,15 @@ def write_data(f, path, base_places, room_label, hv):
             if d >= 0: h.update(("F|%s|%s|%d;" % (f.rnames[f.exits[xi][0]], f.exits[xi][1], d)).encode())
         return h.hexdigest()[:12]
     digest = ends_hash(len(f.ends), f.exit_follow)
-    # (an earlier build's doors: still this build's first ones, as they were, or its saves' shuffles wouldn't fit)
-    for lh, ln in ER_LEGACY:
-        if ln > len(f.ends) or ends_hash(ln, []) != lh:
+    # (an earlier build's doors: still this build's first ones, the same exits and ways in, with the exits that followed
+    # them, or its saves' shuffles wouldn't fit)
+    for lh, ln, lfe, lid in ER_LEGACY:
+        fo = f.exit_follow if lfe & 1 else []
+        if ln > len(f.ends) or any(d >= ln for d in fo if d >= 0) or ends_identity(f, ln, fo) != lid:
             raise SystemExit("erflat: the doors of an earlier build (hash %s, %d ends) aren't this build's first %d ends as they "
                              "were, so its saves' shuffles wouldn't load: keep the doors' order (new ones after), or take it "
                              "out of ER_LEGACY" % (lh, ln, ln))
-    L.append("RNDER"); put(3); L.append(digest)
+    L.append("RNDER"); put(5); L.append(digest)
     put(len(f.gnames))
     for gi in range(len(f.gnames)): put(len(f.gvals[gi]), f.gmult[gi], 1 if gi in f.scoped else 0)
     put(f.start_gs, f.gs_n, f.KEY_BASE, f.EV_BASE)
@@ -789,13 +813,14 @@ def write_data(f, path, base_places, room_label, hv):
     # the Access Gates: the Program Chips' requirement numbers (CHIP_BASE+gate) and each room's gate (0 none)
     put(f.CHIP_BASE)
     for ri in range(len(f.rnames)): put(f.room_gate[ri])
-    # the exits that follow an end (er.follows: each one and its end), and the earlier builds' doors whose shuffles still
-    # load (ER_LEGACY: their hash, how many ends)
+    # the exits that follow an end (er.follows: each one and its end), the earlier builds' doors whose shuffles still
+    # load (ER_LEGACY: their hash, how many ends, what their world had) and this build's world (ER_FEATURES)
     fo = [(xi, d) for xi, d in enumerate(f.exit_follow) if d >= 0]
     put(len(fo))
     for xi, d in fo: put(xi, d)
     put(len(ER_LEGACY))
-    for lh, ln in ER_LEGACY: L.append(lh); put(ln)
+    for lh, ln, lfe, lid in ER_LEGACY: L.append(lh); put(ln, lfe)
+    put(ER_FEATURES)
     L.append("END")
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, "w", encoding="ascii", newline="\r\n") as fh: fh.write("\n".join(L) + "\n")

@@ -6,9 +6,11 @@
 
 # Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
 in 48,288   # from rMega4_ToxicJungleA out 6128,80
+in 4056,304   # from rMega4_ToxicJungleC out 0,256
 
 # Ways out: exits (and, in the game, where they lead), and how they're gone through
 out 4080,272   # to rMega4_ToxicJungleC at 48,288; the player goes into it
+out 0,256   # to rMega4_ToxicJungleA at 6104,112; the player goes into it
 
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 loc 5 6   # missile tank 6, at 3079,279
@@ -21,6 +23,12 @@ loc 9 85   # weapon upgrade 85, at 3815,55
 # the locked door whose objectNum is N.
 from in 48,288
   out 4080,272   -
+  out 0,256      -
+  loc 5 6        -
+  loc 9 85       -
+from in 4056,304
+  out 4080,272   -
+  out 0,256      -
   loc 5 6        -
   loc 9 85       -
 
@@ -50,6 +58,12 @@ how in 48,288 -> out 4080,272: -
       -> standing at x 3465-4096, y 145-323
   11. standing at 4078,305, goes into it
       -> out 4080,272
+how in 48,288 -> out 0,256: -
+     coming in at 48,288
+   1. coming in: holding nothing, from 48,288; lands at 48,289
+      -> standing at x 0-887, y 225-323
+   2. standing at 0,289, goes into it
+      -> out 0,256
 how in 48,288 -> loc 5 6: -
      coming in at 48,288
    1. coming in: holding nothing, from 48,288; lands at 48,289
@@ -93,4 +107,52 @@ how in 48,288 -> loc 9 85: -
   11. running right, jump (held 21 ticks), holding right, from 3648,209; clings to the wall at 3817,167
       -> on the wall at x 3817, y 88-167
   12. standing at 3817,88, touches it
+      -> loc 9 85
+how in 4056,304 -> out 4080,272: -
+     coming in at 4056,304
+   1. coming in: holding nothing, from 4056,304; lands at 4056,305
+      -> standing at x 3465-4096, y 145-323
+   2. standing at 4078,305, goes into it
+      -> out 4080,272
+how in 4056,304 -> out 0,256: -
+     coming in at 4056,304
+   1. coming in: holding nothing, from 4056,304; lands at 4056,305
+      -> standing at x 3465-4096, y 145-323
+   2. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 3465,160; lands at 3318,145
+      -> standing at x 3305-3383, y 145-323
+   3. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 3305,146; lands at 3179,145
+      -> standing at x 2937-3223, y 145-323
+   4. jump (held 21 ticks), wall-jump up the same wall, from 2942,145; clings to the wall at 2647,183
+      -> standing at x 2441-2647, y 161-323
+   5. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 2441,162; lands at 2272,177
+      -> standing at x 2201-2391, y 177-323
+   6. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 2201,192; lands at 2029,289
+      -> standing at x 1945-2151, y 289-323
+   7. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 1945,290; clings to the wall at 1863,238
+      -> standing at x 1753-1863, y 129-323
+   8. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 1753,130; lands at 1557,257
+      -> standing at x 953-1719, y 257-323
+   9. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 953,258; lands at 784,273
+      -> standing at x 0-887, y 225-323
+  10. standing at 0,289, goes into it
+      -> out 0,256
+how in 4056,304 -> loc 5 6: -
+     coming in at 4056,304
+   1. coming in: holding nothing, from 4056,304; lands at 4056,305
+      -> standing at x 3465-4096, y 145-323
+   2. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 3465,160; lands at 3318,145
+      -> standing at x 3305-3383, y 145-323
+   3. on the wall to the right: kick off it (wall jump), holding right, then left after 1 ticks, from 3305,146; lands at 3179,145
+      -> standing at x 2937-3223, y 145-323
+   4. on the wall to the right: kick off it (wall jump), holding right, then nothing after 1 ticks, from 2937,146; lands at 2910,145
+      -> standing at x 2857-3081, y 145-323
+   5. standing at 3074,289, touches it
+      -> loc 5 6
+how in 4056,304 -> loc 9 85: -
+     coming in at 4056,304
+   1. coming in: holding nothing, from 4056,304; lands at 4056,305
+      -> standing at x 3465-4096, y 145-323
+   2. running right, jump (held 21 ticks), holding right, from 3648,209; clings to the wall at 3817,167
+      -> on the wall at x 3817, y 88-167
+   3. standing at 3817,88, touches it
       -> loc 9 85

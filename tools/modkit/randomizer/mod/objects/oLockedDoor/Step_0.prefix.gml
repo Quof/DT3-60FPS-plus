@@ -10,6 +10,7 @@ if global.rndActive=1
       global.pKeys=max(0,global.pKeys-1)
       playSound(global.snd_DoorUnlock,0,1,1)
       global.lockedDoor=rndSetChar(global.lockedDoor,objectNum,"1")
+      global.rndTrackDirty=1
       indexCheck="1"
     }
     else if !variable_local_exists("rndTold")

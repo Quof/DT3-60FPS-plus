@@ -16,14 +16,41 @@ if global.rndActive=0
   exit
 }
 if !instance_exists(oRndWatcher) {instance_create(0,0,oRndWatcher)}
-//a Highlands room made as before the CHAOS Warship's attack (rndHLEnter): the endgame's gameProgress back, and Upper
-//Crossroad's way to rTS_A, which the attack's rubble shuts (from 4940 its exit is gone; the room logic hasn't it), out
+//a Highlands room made as before the CHAOS Warship's attack (rndHLEnter): the endgame's gameProgress back. Upper
+//Crossroad's way to rTS_A out (from 4940 its exit is gone; the room logic hasn't it), and its way to the Hidden Bot
+//Village to the destroyed village, as the endgame has it (made before 4930, it leads to the village as it was)
 if global.rndHLProg=1
 {
   global.gameProgress=global.rndWorldProg
   global.rndHLProg=0
-  if room=rMain_84 {with (oExit) {if toRoom=rTS_A {instance_destroy()}}}
+  if room=rMain_84
+  {
+    with (oExit) {if toRoom=rTS_A {instance_destroy()}}
+    with (oExit) {if toRoom=rHiddenVillage {toRoom=rHiddenVillage_Destroyed}}
+  }
 }
+//a Highlands room made as the endgame has it, its way in not having called rndHLEnter (a Teleporting Stone's, a boss
+//fight's way back, an Access Gate's or a map's): made again as before the attack, so every way in gives the same
+//Highlands. The area the player came from back first, so the area's name shows as the room's code runs again
+//(locationCheck)
+else if rndHLRoom(room)
+{
+  global.location=global.rndLastLoc
+  rndHLEnter(room)
+  room_restart()
+  exit
+}
+//a room whose code doesn't set the area (global.location: the game keeps the one before, its rooms before being in the
+//same area there, as Gate 1's rooms after rMario1_1 are), come into from another area (Entrance Rando, the Randomizer's
+//warps): its own (rndRoomLoc*), or what goes by the area is the one before's (Gate 6's enemy spawns, Castlevania's
+//chicken hearts). Then what the room's instances set by the area as they were made, before the room's code set it: the
+//water's control (oWaterVolume: in Gate 5 and Gate 6 the rooms' own code moves it, elsewhere it moves itself)
+var k;
+for(k=0;k<global.rndRoomLocN;k+=1)
+{
+  if global.rndRoomLocR[k]=room and global.location!=global.rndRoomLocA[k] {locationCheck(global.rndRoomLocA[k])}
+}
+with (oWaterVolume) {bSelfControl=!(global.location=49 or global.location=58)}
 //the party split (the story's rooms where Jerry and Claire are apart: the one not played stands where they were left,
 //oPlayerIdle) only in a room that has that partner. The story's rooms next to a split room turn it off, but the
 //Randomizer's ways between rooms (Entrance Rando, its boss fights and the way back from them) can leave a split room for
@@ -43,6 +70,28 @@ if (room=rWarshipZ_E1 or room=rWarshipZ_E2) and global.activeCharacter=2 and ins
   charSwitcher(global.rndCharLast)
   if global.bBossGallery=0 {global.canCharSwap=2; global.canDoubleJump=2; global.hasAbilToken[0]=2}
 }
+//a room whose code switches the player between Jerry and Claire as they come in (Nightmare Gates B, C, D and F's first
+//rooms, Cackletta's fight, the Bubble Tower's climb), or to one of them from a character only some rooms make them (the
+//ways out of the CHAOS Warship's and the Abomination's): in a Randomizer game, where swapping characters always works,
+//the player goes on as who they were (rndCharSeen, oRndWatcher's: the last frame before this room), or from such a
+//character as the one they played last (rndCharLast). Not the CHAOS Warship's two-floor rooms (rWarshipA, rWarshipB),
+//whose code puts Jerry and Claire each on their own floor by where the player comes in. The jump the room's code gave
+//the player stays (in Nightmare Gate F the mod's charSwitcher gives the gate's own jump and ice running, as its rooms'
+//code does: rndgen.py's SCRIPT_PATCHES)
+if instance_exists(oPlayer1) and global.activeCharacter<2 and room!=rWarshipA and room!=rWarshipB
+{
+  var tWas,tJ0,tJ1,tJ2,tJ3,tJ4;
+  tWas=global.rndCharSeen
+  if tWas>=2 {tWas=global.rndCharLast}
+  if tWas!=global.activeCharacter
+  {
+    tJ0=oPlayer1.initialJumpAcc; tJ1=oPlayer1.jumpTimeTotal
+    tJ2=oPlayer1.jumpBodge60; tJ3=oPlayer1.jumpGravComp60; tJ4=oPlayer1.doubleJumpBodge60
+    charSwitcher(tWas)
+    oPlayer1.initialJumpAcc=tJ0; oPlayer1.jumpTimeTotal=tJ1
+    oPlayer1.jumpBodge60=tJ2; oPlayer1.jumpGravComp60=tJ3; oPlayer1.doubleJumpBodge60=tJ4
+  }
+}
 if instance_exists(oPlayer1)
 {
   if global.activeCharacter>=2
@@ -53,6 +102,19 @@ if instance_exists(oPlayer1)
     if tKeep=0 {charSwitcher(global.rndCharLast); rndAbilApply()}
   }
   if global.activeCharacter<2 {global.rndCharLast=global.activeCharacter}
+  //the Distortion (Hexor's rooms, rndMechRoom*: rndgen.py's MECH_ROOMS): the story has the player go through it as
+  //Jeremy's mech, which a scene before it makes them (the endgame world hasn't it); a Randomizer game makes them it as
+  //they come in, with its walking and jumping (its rooms keep it: rndCharRoom; any other room makes them their own
+  //character again, above). Not in a Chaos game whose shuffle is from a build before it (rndERFeat), which shuffled the
+  //Distortion's own doors, its logic's ways through them Jerry's and Claire's
+  if global.activeCharacter<2
+  {
+    var tMech,mc;
+    tMech=0
+    for(mc=0;mc<global.rndMechRoomN;mc+=1) {if global.rndMechRoom[mc]=room {tMech=1}}
+    if tMech=1 and global.rndERMode=3 {tMech=((global.rndERFeat & 4)>0)}
+    if tMech=1 {global.hasShoes[0]=2; global.hasShoes[1]=2; charSwitcher(2)}
+  }
 }
 //the Access Gates (Chip Randomizer): a gate's rooms come into from outside it without its Program Chip turn the player
 //back at once, out the way they came (rndGateBounce), whatever the way in was. rndLastGate: the gate of the room they
@@ -119,6 +181,58 @@ if global.bBossGallery=0
     }
   }
 }
+//the Discombobulated (rDisco*): its hallways have no places, and its way on to its boss (rDiscoC's exit to rDiscoD) is
+//gone in the endgame world. Its way in from rMain_87 leads straight to the boss's room (Defective's, rDiscoI), and that
+//room's way out back to where the Discombobulated's own does (the room logic's overrides.txt has the same). Not in a
+//game whose shuffle is from a build before it (rndERFeat), which may go through the hallways
+if room=rMain_87 or room=rDiscoI
+{
+  var tDirect;
+  tDirect=1
+  if global.rndERMode>0 {tDirect=((global.rndERFeat & 2)>0)}
+  if tDirect=1
+  {
+    if room=rMain_87 {with (oExit) {if toRoom=rDiscoA {toRoom=rDiscoI; newMapX=48; newMapY=256}}}
+    if room=rDiscoI {with (oExit) {if toRoom=rDiscoH {toRoom=rMain_87; newMapX=512; newMapY=336}}}
+  }
+}
+//a Nightmare Gate's way from its first room straight to its boss's room (an exit of the first room's, which the game
+//keeps once the boss's room has been come into, eGateProg 7, or the gate's instrument is had, 9): only once the player
+//has been in that room (rndGateReach, below), as the game means it. In a Randomizer game the instrument can be had
+//before the gate's been gone through (Instrument Randomization), and a fight in that room from another place (Boss
+//Rando) sets 7 too. The room logic hasn't the exit (it reads the gate as not got to yet)
+var tGName,tG,tGTo,gb;
+tGName=room_get_name(room)
+if string_length(tGName)=11 and string_copy(tGName,1,8)="rExtGate" and string_copy(tGName,10,2)="_1"
+{
+  tG=ord(string_char_at(tGName,9))-64
+  if tG>=1 and tG<=7 and string_char_at(global.rndGateReach,tG)!="1"
+  {
+    tGTo=-1
+    for(gb=0;gb<global.rndBossN;gb+=1) {if global.rndBossGate[gb]=tG {tGTo=global.rndBossRoom[gb]}}
+    if tGTo>=0 {with (oExit) {if toRoom=tGTo {instance_destroy()}}}
+  }
+}
+//Gate 4's stages' ways back (rndMMBack*: rndgen.py's MM_BACK_EXITS): the game's stages go one way, and a Randomizer
+//game gives each of their rooms but the boss rooms an exit at its edge where the player comes in, to the end of the
+//room before, beside its exit (as the forward ones are: walked into, its arrow shown). With that exit it's a door the
+//shuffle can join anew (below)
+if global.bBossGallery=0
+{
+  var mb,tb;
+  for(mb=0;mb<global.rndMMBackN;mb+=1)
+  {
+    if global.rndMMBackRoom[mb]=room
+    {
+      tb=instance_create(global.rndMMBackX[mb],global.rndMMBackY[mb],oExit)
+      tb.exitType=1
+      tb.bShowArrow=true
+      tb.toRoom=global.rndMMBackTo[mb]
+      tb.newMapX=global.rndMMBackToX[mb]
+      tb.newMapY=global.rndMMBackToY[mb]
+    }
+  }
+}
 //Entrance Rando: the room's exits that are its doors' ends lead where the shuffle has them (rndERApplyExit)
 if global.rndERMode>0
 {
@@ -169,9 +283,11 @@ else if global.bBossGallery=0
       rndBossPreview(b)
     }
     //a Nightmare Gate's boss room: the game's own scene that starts its fight doesn't come (the Randomizer's does, as for
-    //every boss); once the boss there is beaten, the gate's reward is there (oRndReward)
+    //every boss); once the boss there is beaten, the gate's reward is there (oRndReward). The player has been in it
+    //(not in a fight): the gate's way from its first room to it is there from now on (above)
     if global.rndBossGate[b]>0
     {
+      global.rndGateReach=rndSetChar(global.rndGateReach,global.rndBossGate[b],"1")
       with (oEvExGates)
       {
         bossCheck="0"
@@ -193,14 +309,15 @@ else if global.bBossGallery=0
 //swapping characters is on (oRndWatcher keeps the abilities so every frame); not where the room has put the player in
 //another character's place.
 //A room whose own code took abilities away (the game's abilSetRemove(1): the CHAOS Warship's and Warship Z's rooms,
-//each Nightmare Gate's first room, which then give back the area's own few: the mod's version of the script notes the
-//room, rndAbilHeldRoom) keeps them so while the player stays in its area: the rooms whose names start as its does, up
-//to its last "_" (rndAbilGroup; a Nightmare Gate's other rooms carry its first room's loadout, as in the game). Not
-//Gate 6's gate room: Gate 6's own loadout (its Game Powers and the movement abilities only) isn't kept in a Randomizer
-//game, whose logic counts every ability found there (its Game Powers only work there, rndAbilApply; the mod's
-//pSwapAbility goes round all the sets the player has). Any other room gives back what the player has found, and the
-//ability sets they had picked (rndActSave: oRndWatcher): the story gives them back its own way, which a Randomizer
-//game's ways between rooms don't follow
+//which then give back the area's own few: the mod's version of the script notes the room, rndAbilHeldRoom) keeps them
+//so while the player stays in its area: the rooms whose names start as its does, up to its last "_" (rndAbilGroup).
+//Not Gate 6's gate room or a Nightmare Gate's first room: their own loadouts (Gate 6's Game Powers and movement only, a
+//Nightmare Gate's own set and few abilities) aren't kept in a Randomizer game, where everything the player has found
+//works there (Gate 6's Game Powers in Gate 6 and Nightmare Gate G, whose own sets they are: rndInGate6, rndAbilApply;
+//the mod's pSwapAbility goes round all the sets the player has); the room's code still puts its own set on, if found.
+//The logic's needs for each gate (overrides.txt's area lines) stay what they are. Any other room gives back what the
+//player has found, and the ability sets they had picked (rndActSave: oRndWatcher): the story gives them back its own
+//way, which a Randomizer game's ways between rooms don't follow
 if !(global.bBossGallery=1 and global.rndFight<0)
 {
   if global.rndFight<0 and global.activeCharacter<2
@@ -208,7 +325,7 @@ if !(global.bBossGallery=1 and global.rndFight<0)
     var tName,tHeld,k;
     tName=room_get_name(room)
     tHeld=0
-    if global.rndAbilHeldRoom=room and !rndInGate6()
+    if global.rndAbilHeldRoom=room and !rndInGate6() and string_copy(tName,1,8)!="rExtGate"
     {
       tHeld=1
       global.rndAbilGroup=tName
@@ -271,3 +388,6 @@ if global.rndBossAPPending!=-1 and global.rndFight<0 and global.bBossGallery=0 a
 //John, in Central City - North where the run starts, left of the archway: talking to him turns debug mode on or off
 //(oRndJohn), for a seed that has the player stuck
 if room=rCCity_NorthA and global.bBossGallery=0 {instance_create(480,288,oRndJohn)}
+//the trap items (Traps) in the room: a Darkness Trap's darkness, a Rocketeer Trap's Rocketeer, a Teleport Trap's
+//message, and the way in kept for one later (rndSnareRoom)
+rndSnareRoom()

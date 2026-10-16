@@ -3,8 +3,10 @@ DT3+ Randomizer (a mod)
 
 A new game with the mod on starts in the game's endgame world: every area open, the story done, no CHAOS invasion. The
 Highlands are as they were before the CHAOS Warship's attack: their own enemies and music, no purple sky, fog or CHAOS
-enemies (their rooms are made with the story just before it, gameProgress 4935: mod\scripts\rndHLEnter.gml; Upper
-Crossroad keeps the attack's rubble and its two story exits as the endgame has them, as the room logic does). The
+enemies, the Teleporting Stone on and Chao's scan working (their rooms are made with the story before it, gameProgress
+4925: mod\scripts\rndHLEnter.gml; a way in that doesn't do that, a Teleporting Stone's or a boss fight's way back,
+makes the room again with it: the roomStart hook). Upper Crossroad has no rubble then; its way to rTS_A is taken out
+and its way to the Hidden Bot Village leads to the destroyed village, as the endgame and the room logic have them. The
 player is in Central City - North, at the door from Greatest Stretch, able to walk and jump. Every collectible the
 progress page counts (heart pieces and containers, chests, quivers, heart energy, missile tanks, Game Power, air
 upgrades, Internetz mods, weapon upgrades, skill points, bomb upgrades, keys, the X-Special charge, the Spring Ball),
@@ -54,9 +56,22 @@ Playing
     Chip Randomizer          Off or On: the 6 Program Chips are in the pool, and each Access Gate opens with its own
                              (below), as does its section of the skill tree. Off (the default): the player has all
                              six from the start, and the whole skill tree is open.
+    Traps                    Off or On: 5% of the items (28) are trap items, in Internetz chests' places (below).
     Spoiler Log              written or not.
   An Archipelago game has no options window: its options are the DT3+ world's, in the player's YAML (below,
   Archipelago).
+  - Traps: trap items (not the enemy traps below) in the place of 28 Internetz chests (rndgen.py's snare_slots: the
+    smallest after the six the Program Chips take, so both options can be on), the four traps in turn. A trap item
+    looks like a Weapon Upgrade (its weapon by where it is), or is in a chest that sparkles as for any item but
+    Internetz; Chao's Item Finder counts it as an item. Taken, it springs (the mod's rndSnareSpring): Darkness, Dark
+    Mode's darkness (oSurfLightAll) in every room for 5 minutes; Rocketeer, a CHAOS Rocketeer now, and another in every
+    room come into, for 5 minutes (none in boss fights); Teleport, back to a way into a room the player has come in by
+    this run, at random (the newest 400 kept; in a boss fight, once it's over); Achilles, any hit kills for 5 minutes,
+    as in Achilles Mode (the mod's takeDamage, rndgen.py's SCRIPT_PATCHES). The 5 minutes are of play (not counted
+    while paused), and one sprung again while it's on starts them again. The HUD shows each one's time left (the
+    drawHUD hook); the save keeps them, and the ways in. The traps aren't progression items, so where the others go is
+    as without them. In an Archipelago game they're items of the multiworld (classification trap): its own can be in
+    other worlds, and spring when they come (rndApGive).
   - Entrance Rando: the mode's doors are paired anew, coupled (going back through a door returns the player where they
     came from). Gate Swap: the Access Gates' and Nightmare Gates' doors. Overworld: those, every door between two areas
     and every way between a map (Hyrule's, Gate 6's) and a room. Chaos: every door. The seed is made so that with
@@ -71,6 +86,20 @@ Playing
     tile, which has the player come in mid-room, is a door with its exits too. A crossing's far side (a bridge's, a
     pass's: out on the other side of a river or mountain) still comes out there, as nothing on the map leads into it
     on that side; the encounter fights and the Forest Palace aren't shuffled.
+    Gate 4's stages, which go one way in the game (each room's exit leads into the next, nothing back), have a way back
+    in a Randomizer game: each of their rooms but the boss rooms has an exit at its edge where the player comes in (its
+    arrow shown, walked into, as the forward ones are), to the end of the room before, beside that room's exit
+    (rndgen.py's MM_BACK_EXITS; the roomStart hook makes them, and the room logic has them). So each room's exit and the
+    next room's way back are a door, which Chaos shuffles (a stage's rooms are one area, as every Access Gate's are, so
+    Overworld leaves them). The ways into the boss rooms stay one way.
+    Gate 5's Metroid hatches don't keep its doors to each other: a door with a hatch in front of its exit pairs with any
+    other (going back through it takes what opens the hatch, any weapon for most, as the logic has it). A player who
+    comes in behind one without that, with no other way out, has the pause menu's Teleport.
+    Left out of every mode: the Subconscious Filter and the Discombobulated, hallways with no places (roomlogic\er.py's
+    LEFT_OUT). The Discombobulated's way on to its boss is gone in the endgame world, so in a Randomizer game its way in
+    (rMain_87's drop) leads straight to the boss's room (Defective's), and that room's way out back to rMain_87 (the
+    roomStart hook; roomlogic\overrides.txt's link lines), but in a game whose doors were shuffled with an earlier
+    build's (ER_LEGACY), whose shuffle may go through its hallways.
     Gate 5's checkpoint (where dying there, and loading a save made there, go back to) is set wherever the player comes
     into Gate 5 from outside it, as the game sets it at the gate's own way in: Entrance Rando and the Randomizer's warps
     can come into any of its rooms (the roomStart hook). A save made in Gate 5 by an earlier build with no checkpoint set
@@ -104,23 +133,61 @@ Playing
     set (1 the Mario Ability Set, 2 Link, 3 Belmont, 4 Mega Man, 5 Samus, 6 Gate 6's), which a Randomizer game finds in
     any order: with the Mario Ability Set late, every section would stay locked. A section's skills still come after
     the skills before them (mod\scripts\menuSpendAP.gml: the game's own script, with the sets counted by the chips).
+  - The dash meter shows with the air dash alone too (the game shows it with the dash, which the story gives first;
+    both take its energy: rndgen.py's GAME_PATCHES, oHUD's Draw).
+  - The Distortion (Hexor's rooms, his fight too) is played as Jeremy's mech, as the story does: a scene before it makes
+    the player the mech, which the endgame world hasn't, so a Randomizer game makes them it as they come into one of its
+    rooms (rndgen.py's MECH_ROOMS, the roomStart hook), and any other room makes them their own character again. Entrance
+    Rando leaves the doors within it as they are (the logic's ways through its rooms being Jerry's and Claire's), its
+    gate's door shuffled as before: it's a dead end with no places. (Not in a Chaos game whose shuffle is from a build
+    before this, which shuffled its doors.)
+  - A room whose code doesn't set the area (global.location, which the game keeps from the room before: Gate 1's rooms
+    after its first, whose rooms before them are always Gate 1's in the game) gets its own as the player comes into it
+    from another area (rndgen.py's room table, the roomStart hook); else what goes by the area went by the one before's
+    (Gate 6's enemy spawns, Castlevania's chicken hearts). And what the rooms' instances set by the area as they're made,
+    before the room's own code sets it, is set again then: the water's (in Gate 5 and Gate 6 the rooms move it, as in
+    Gate 6's Watery Caves; elsewhere it moves itself).
+  - Cackletta: only the Mario Ability Set's stomp hurts her, as the logic has it; in a Randomizer game, where the player
+    has other weapons there, no damage type does anything to her (a weapon's hit took more than her four lives at once
+    and left her fight stuck: rndgen.py's GAME_PATCHES, her Create).
   - The ability sets' items are progressive: each one is that set's next weapon (Link: Master Sword, Bow & Arrow, Fuse
-    Bomb). Swapping characters and sets is always on. The Gate 6 sets only work in Gate 6, as in the game, and in The
-    Executive's fight, which gives both characters both of them whole, as the game's own fight does (his phases are
-    made for them), so it needs nothing of the player's: the logic doesn't count him.
+    Bomb). Swapping characters and sets is always on. The Gate 6 sets only work in Gate 6 and Nightmare Gate G (whose
+    own sets they are), as in the game, and in The Executive's fight, which gives both characters both of them whole,
+    as the game's own fight does (his phases are made for them), so it needs nothing of the player's: the logic
+    doesn't count him.
   - Some areas take abilities away as the game does: the CHAOS Warship's last rooms and Warship Z (jumping, the double
     jump and the Mario Ability Set left; the CHAOS Warmaster's room and the one before it, rWarshipZ_E1 and E2, as
     before his fight: their code makes the player Jeremy's mech once the story's past him, and he's the Randomizer's
-    last fight, so there the player stays their own character: the roomStart hook) and each Nightmare Gate (its own
-    few, from its first room). That lasts while
+    last fight, so there the player stays their own character: the roomStart hook). That lasts while
     the player stays in the area (the rooms whose names start as the one that took them away does, up to its last
     "_"); any other room gives back everything the player has found, and the ability sets they had picked. The mod's
     own version of the game's abilSetRemove notes which room took them away (mod\scripts\abilSetRemove.gml: it then
-    runs the game's own). Gate 6's own loadout (its Game Powers and the movement abilities only) isn't kept: every
-    ability found works there, as the logic counts them. The ability swap goes round the sets the player has, the
-    Game Powers too in Gate 6 (mod\scripts\pSwapAbility.gml, in place of the game's, which in Gate 6 won't leave the
-    Game Powers and goes from Link only to Mega Man); Gate 6's gate room turns the Game Powers on as the player comes in,
-    and leaving Gate 6 turns back to the set they had before.
+    runs the game's own). Gate 6's and the Nightmare Gates' own loadouts (Gate 6's Game Powers and the movement
+    abilities only; a Nightmare Gate's own set and few abilities, e.g. Gate A's walking, jumping and the Mario Ability
+    Set) aren't kept: every ability found works there. The logic's needs for each gate stay as they are
+    (roomlogic\overrides.txt: Gate A takes the Mario Ability Set, and so on). A Nightmare Gate's first room still puts
+    its own set on as the player comes in, if they have it. The ability swap goes round the sets the player has, the
+    Game Powers too in Gate 6 and Gate G (mod\scripts\pSwapAbility.gml, in place of the game's, which in Gate 6 won't
+    leave the Game Powers and goes from Link only to Mega Man); Gate 6's gate room turns the Game Powers on as the
+    player comes in, and leaving Gate 6 turns back to the set they had before.
+  - The player stays who they are, Jerry or Claire. A boss fight starts with the character the player is (the boss
+    gallery's setup, which the fights use, puts in the one its fight is for: Claire for Metroid's bosses, Jerry for
+    Mega Man's, and so on; the mod's rndBossSetup switches back). A room whose code switches between them as the player
+    comes in (Nightmare Gates B, C, D and F's first rooms, Cackletta's fight, the Bubble Tower's climb), or to one of
+    them from a character only some rooms make the player, is switched back to who they were the frame before
+    (oRndWatcher keeps it), or from such a character to the one played last (the roomStart hook). Swapping in
+    Nightmare Gate F keeps the gate's own jump and ice running, which its rooms' code gives (the game forces Claire
+    there, and the swap gave the standard ones: the mod's charSwitcher, rndgen.py's SCRIPT_PATCHES). Left as they are: the CHAOS Warship's two-floor rooms (rWarshipA, rWarshipB:
+    their code puts Jerry and Claire each on their own floor by where the player comes in), the rooms the player comes
+    into inside a Morph Ball tunnel (Claire in the Morph Ball, as the game has it: oPlayer1), and the characters only
+    some rooms make the player (Jeremy's mech in the Distortion, the Abomination's fights' own). The logic already has
+    swapping characters always working, so seeds are as before.
+  - A Nightmare Gate's first room has a way straight to its boss's room, which the game opens once the boss's room has
+    been come into (eGateProg 7) or the gate's instrument is had (9). In a Randomizer game it's there only once the
+    player has been in the boss's room (rndGateReach, kept in the save; a save from before has it for the gates whose
+    boss's room was come into, whose boss there is beaten or whose fight there was started): the instrument can be had
+    before the gate's been gone through (Instrument Randomization), and a fight in that room from another place (Boss
+    Rando) sets 7 too. The logic hasn't that way (it reads the gates as not got to yet), so seeds are as before.
   - The RPG level (Gate 6's, 1 to 64) makes the four base sets (Link, Mega Man, Belmont, Samus) hit Gate 6's enemies
     and bosses harder: 1x at level 1, up to 2x at level 64 (each level adds 1/63), on top of the rest (the skill tree,
     equipment, the enemy's resistances). It counts against the Prototype Game's enemies (affiliation 6: Gate 6's, the
@@ -176,8 +243,8 @@ Playing
     has it needing Samus's bombs, samus 6, as his fight does). Won, the player is back in rSamus5_Lv4_N, by the shaft
     (rndgen.py's BOSS_VIA_BACK): the hatch leads into the tunnel, whose story chase and escape would start again.
   - A boss place not beaten yet shows its boss in the middle of its arena (where its fight holds the camera), faint and
-    drifting a little: a preview of the fight (oRndBossPreview; the look is made from the boss's sprites by bosspv.py,
-    as the tracker's head is, but whole). With Boss Rando, the place shows dark smoke instead till its fight has been
+    drifting a little, facing left (most arenas are come into from the left): a preview of the fight (oRndBossPreview;
+    the look is made from the boss's sprites by bosspv.py, as the tracker's head is, but whole). With Boss Rando, the place shows dark smoke instead till its fight has been
     started once, then the boss fought there (rndBossSeen, kept in the save); a place Boss Rando leaves its own boss
     in shows it. None where the fight is gone into by an exit (Ridley's, the Parasitic Seed's) or starts as the room
     is come into (the Virus Parasite's).
@@ -203,14 +270,16 @@ Trackers
     attacks with their own pictures, the Game Powers, the instruments, the cursed equipment), and how many of each
     upgrade of how many there are (keys, heart pieces and containers, heart energy, quivers, missile tanks, Game
     Power, air upgrades, weapon upgrades, bomb upgrades, skill points, Internetz mods: the progress page's counts, the
-    general store's included), and under them the bosses, ten a row in the boss gallery's order, the CHAOS Warmaster
+    general store's included; the keys' tooltip lists every locked door, a line each, with its key Found, Not Found
+    or Used), and under them the bosses, ten a row in the boss gallery's order, the CHAOS Warmaster
     (the win) last: each one's head (cut out of its sprites: tracker.py's BOSS_ICONS), lit once it's beaten (with Boss
     Rando, the boss fought, wherever it was), and the Abomination's once it is. The Executive and Hexor aren't there
     (the logic doesn't count them). For a stream: items.html?bg=transparent (or a colour: bg=00ff00), and
     scale=2 for bigger pictures (items.html?bg=transparent&scale=2).
   The screens' names (tracker_names.txt) are the game's own where it has them: the area banners, the teleport menu's
   places, Gate 4's stage map, the jukebox's titles; a screen's number is its room's own place in its group (a letter
-  as its place in the alphabet). Any can be changed there, and a check given a name of its own; then build again.
+  as its place in the alphabet). Any can be changed there, a check given a name of its own, and the locked doors'
+  places (the keys' tooltip) are there too; then build again.
 
 Archipelago
   The Randomizer can be one game of an Archipelago multiworld (game name "DT3+"): its items can be in other players'
@@ -280,7 +349,8 @@ Building
   roomlogic\   the logic: each room's file, how the rooms join, changes to them (overrides.txt), and the program that
                makes them (roomlogic\README.txt)
   logic.txt    last-resort changes to single places (below)
-  tracker_names.txt  the Check Tracker's tabs and screens, and names for single checks (Trackers, above)
+  tracker_names.txt  the Check Tracker's tabs and screens, names for single checks, and the locked doors' places
+                     (Trackers, above)
   traps.py     the enemy traps the Randomizer brings back (Playing, above): which of the game's, and how each is changed;
                the build makes their mod objects from the game's code, and roomlogic's roomdata.py their barriers
 

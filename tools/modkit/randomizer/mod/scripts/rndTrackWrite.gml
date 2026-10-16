@@ -1,7 +1,7 @@
 //Randomizer: the trackers' state, the mod's tracker\state.js (tracker\checks.html and tracker\items.html read it every
 //second): this build, the seed with its options and shuffles, the locations taken, what the player has (the abilities,
-//keys, instruments, equipment, the game's own counts of each upgrade, the Program Chips), the bosses beaten (the
-//Abomination: gateHProg) and the room they're in.
+//keys, instruments, equipment, the game's own counts of each upgrade, the Program Chips), the locked doors opened, the
+//bosses beaten (the Abomination: gateHProg) and the room they're in.
 //Written when any of it has changed (global.rndTrackDirty: oRndWatcher); nothing when the mod has no tracker folder
 var i,f,s;
 if !variable_global_exists("rndTrackDir")
@@ -19,7 +19,8 @@ s+=",`ap`:"+string(global.rndAP)+",`er`:"+string(global.rndERMode)+",`br`:"+stri
 s+=",`won`:"+string(global.rndWon)+",`room`:`"+room_get_name(room)+"`"
 if global.rndERMode>0 {s+=",`erpart`:`"+rndERString(global.rndEDN)+"`,`erfollow`:"+string(global.rndERFollow)}
 if global.rndBRMode>0 {s+=",`brfight`:`"+rndBRString(0)+"`"}
-s+=",`got`:`"+global.rndGot+"`,`own`:`"+rndOwnString()+"`,`keys`:`"+global.rndKeyOwn+"`,`boss`:`"+global.rndBossDone+"`"
+s+=",`got`:`"+global.rndGot+"`,`own`:`"+rndOwnString()+"`,`keys`:`"+global.rndKeyOwn+"`,`doors`:`"+global.lockedDoor+"`"
+s+=",`boss`:`"+global.rndBossDone+"`"
 s+=",`gate`:`"+global.eGateProg+"`,`gateh`:"+string(global.gateHProg)+",`equip`:`"+global.equipItems+"`"
 s+=",`hp`:`"+global.heartPiece+"`,`hc`:`"+global.fullHeartContainer+"`,`he`:`"+global.heartEnergy+"`,`aq`:`"+global.arrowQuiver+"`"
 s+=",`mp`:`"+global.missilePack+"`,`gp`:`"+global.kiEnergy+"`,`au`:`"+global.airUpgrade+"`,`wb`:`"+global.walletBoost+"`"

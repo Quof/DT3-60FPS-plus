@@ -1,12 +1,14 @@
 //Randomizer: the preview. Its look (pvMode 0): faint, rising and falling a little and fading in and out, every 3 to 4
-//seconds. The smoke (pvMode 1): a dark heart, 12 puffs rising out of it, each growing and fading as it goes (a puff's
-//life is 90 ticks, 3 seconds: its phase tP 0 to 1, the 12 a twelfth of it apart), and a dim red glow coming and going
-//(added on: bm_add). Everything from pvT, so at any frame rate it moves the same
+//seconds, facing left, towards where most arenas are come into from (the looks face right, as the game's sprites and
+//the tracker's heads do: bosspv.py; mirrored about the middle, where their origin is). The smoke (pvMode 1): a dark
+//heart, 12 puffs rising out of it, each growing and fading as it goes (a puff's life is 90 ticks, 3 seconds: its phase
+//tP 0 to 1, the 12 a twelfth of it apart), and a dim red glow coming and going (added on: bm_add). Everything from
+//pvT, so at any frame rate it moves the same
 var i,tP,tS,tA;
 if pvMode=0
 {
   tA=0.42+0.12*sin(pvT*0.07)
-  draw_sprite_ext(pvSpr,0,x,y+3*sin(pvT*0.055),1,1,0,c_white,tA)
+  draw_sprite_ext(pvSpr,0,x,y+3*sin(pvT*0.055),-1,1,0,c_white,tA)
   exit
 }
 draw_sprite_ext(sRndBossSmoke,0,x,y+8,1.6+0.1*sin(pvT*0.08),1.2+0.08*sin(pvT*0.08),-pvT*0.5,make_color_rgb(24,12,30),0.75)

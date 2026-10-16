@@ -10,6 +10,7 @@ if global.rndActive=1
   ini_write_string(s,"got",global.rndGot)
   ini_write_string(s,"boss",global.rndBossDone)
   ini_write_string(s,"bossseen",global.rndBossSeen) //(the places whose fight has been seen: their previews show it)
+  ini_write_string(s,"gatereach",global.rndGateReach) //(the Nightmare Gates whose boss's room the player has been in)
   //(the boss list's types, in its order: a build with another boss list reads the beaten bosses by type)
   ini_write_string(s,"bosstypes",global.rndBossTypes)
   ini_write_string(s,"own",rndOwnString())
@@ -38,6 +39,16 @@ if global.rndActive=1
   //Chip Randomizer: on or off, and the Program Chips found (a character a gate)
   ini_write_real(s,"chips",global.rndChipMode)
   ini_write_string(s,"chipown",global.rndChipOwn)
+  //Traps: on or off, each trap's time left, a Teleport Trap waiting, and the ways into rooms kept for one (in pieces
+  //of 1000 characters)
+  var tk,tH,tN;
+  ini_write_real(s,"traps",global.rndSnareMode)
+  for(tk=1;tk<=4;tk+=1) {ini_write_real(s,"trapt"+string(tk),global.rndSnareT[tk])}
+  ini_write_real(s,"trappend",global.rndSnarePend)
+  tH=rndSnareHistString()
+  tN=ceil(string_length(tH)/1000)
+  ini_write_real(s,"traphparts",tN)
+  for(tk=0;tk<tN;tk+=1) {ini_write_string(s,"traph"+string(tk),string_copy(tH,tk*1000+1,1000))}
   //Boss Rando: on or off, the boss fought at each boss's place, and the bosses' types (a build with other bosses can
   //tell)
   ini_write_real(s,"br",global.rndBRMode)

@@ -6,9 +6,11 @@
 
 # Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
 in 64,2048   # from rMega4_SigmaC2 out 3824,352
+in 440,160   # from rMega4_SigmaC4 out 0,256
 
 # Ways out: exits (and, in the game, where they lead), and how they're gone through
 out 464,128   # to rMega4_SigmaC4 at 48,288; the player goes into it
+out 0,2016   # to rMega4_SigmaC2 at 3800,384; the player goes into it
 
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 
@@ -19,6 +21,70 @@ out 464,128   # to rMega4_SigmaC4 at 48,288; the player goes into it
 # the locked door whose objectNum is N.
 from in 64,2048
   out 464,128   never
+  out 0,2016    -
+from in 440,160
+  out 464,128   -
+  out 0,2016    belmont:1 | link:1 | megaman:1 | samus:1
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 64,2048 -> out 0,2016: -
+     coming in at 64,2048
+   1. coming in: holding nothing, from 64,2048; lands at 64,2049
+      -> standing at x 0-377, y 1512-2049
+   2. standing at 0,2049, goes into it
+      -> out 0,2016
+how in 440,160 -> out 464,128: -
+     coming in at 440,160
+   1. coming in: holding nothing, from 440,160; lands at 440,161
+      -> standing at x 265-480, y 161-247
+   2. standing at 462,161, goes into it
+      -> out 464,128
+how in 440,160 -> out 0,2016: belmont:1
+     coming in at 440,160
+   1. coming in: holding nothing, from 440,160; lands at 440,161
+      -> standing at x 265-480, y 161-247
+   2. on the wall to the right: kick off it (wall jump), holding right, then nothing after 1 ticks, from 265,162; lands at 238,497
+      -> standing at x 151-329, y 456-497
+   3. walk off the edge, holding left once in the air, from 151,497, through the oRndTrap at 48,896, the oRndTrap at 144,496; clings to the wall at 55,952   [belmont:1]
+      -> standing at x 55-215, y 952-1187
+   4. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 55,1120; clings to the wall at 377,1547
+      -> standing at x 0-377, y 1512-2049
+   5. standing at 0,2049, goes into it
+      -> out 0,2016
+how in 440,160 -> out 0,2016: link:1
+     coming in at 440,160
+   1. coming in: holding nothing, from 440,160; lands at 440,161
+      -> standing at x 265-480, y 161-247
+   2. on the wall to the right: kick off it (wall jump), holding right, then nothing after 1 ticks, from 265,162; lands at 238,497
+      -> standing at x 151-329, y 456-497
+   3. walk off the edge, holding left once in the air, from 151,497, through the oRndTrap at 48,896, the oRndTrap at 144,496; clings to the wall at 55,952   [link:1]
+      -> standing at x 55-215, y 952-1187
+   4. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 55,1120; clings to the wall at 377,1547
+      -> standing at x 0-377, y 1512-2049
+   5. standing at 0,2049, goes into it
+      -> out 0,2016
+how in 440,160 -> out 0,2016: megaman:1
+     coming in at 440,160
+   1. coming in: holding nothing, from 440,160; lands at 440,161
+      -> standing at x 265-480, y 161-247
+   2. on the wall to the right: kick off it (wall jump), holding right, then nothing after 1 ticks, from 265,162; lands at 238,497
+      -> standing at x 151-329, y 456-497
+   3. walk off the edge, holding left once in the air, from 151,497, through the oRndTrap at 48,896, the oRndTrap at 144,496; clings to the wall at 55,952   [megaman:1]
+      -> standing at x 55-215, y 952-1187
+   4. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 55,1120; clings to the wall at 377,1547
+      -> standing at x 0-377, y 1512-2049
+   5. standing at 0,2049, goes into it
+      -> out 0,2016
+how in 440,160 -> out 0,2016: samus:1
+     coming in at 440,160
+   1. coming in: holding nothing, from 440,160; lands at 440,161
+      -> standing at x 265-480, y 161-247
+   2. on the wall to the right: kick off it (wall jump), holding right, then nothing after 1 ticks, from 265,162; lands at 238,497
+      -> standing at x 151-329, y 456-497
+   3. walk off the edge, holding left once in the air, from 151,497, through the oRndTrap at 48,896, the oRndTrap at 144,496; clings to the wall at 55,952   [samus:1]
+      -> standing at x 55-215, y 952-1187
+   4. on the wall to the left: kick off it (wall jump), holding left, then right after 1 ticks, from 55,1120; clings to the wall at 377,1547
+      -> standing at x 0-377, y 1512-2049
+   5. standing at 0,2049, goes into it
+      -> out 0,2016
