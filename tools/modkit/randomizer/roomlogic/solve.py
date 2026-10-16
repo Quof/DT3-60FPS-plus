@@ -47,11 +47,11 @@ ITEMS = ["djump", "adash", "gdash", "hijump", "mario", "link", "belmont", "megam
          "instr"]
 SINGLE = {"djump", "adash", "gdash", "mario", "varia"}
 
-# the Access Gates and their Program Chips (the new game's option Chip Randomizer): gate N's rooms (their names' prefix,
-# each gate's own area in the game) are got into from a room outside that gate only with Program Chip N (through_exit;
-# the Entrance Rando logic, roomlogic\erflat.py's Reach, the same by where an exit leads). A chip is a key of its own
-# here, key CHIP_KEY+N ("chip N" in the files): no locked door's objectNum is that high. With the option off the player
-# has every chip from the start
+# the Access Gates and their Program Chips (the new game's option Chip Randomizer): each gate's portal, and the Nightmare
+# Gate portal beside it, is gone through only with that gate's Program Chip (overrides.txt's need lines for them, wherever
+# Entrance Rando has the portal lead; nothing else into a gate's rooms takes one). Gate N's rooms are the ones whose names
+# start with its prefix (each gate's own area in the game). A chip is a key of its own here, key CHIP_KEY+N ("chip N" in
+# the files): no locked door's objectNum is that high. With the option off the player has every chip from the start
 GATE_PREFIX = {1: "rMario1_", 2: "rLink2_", 3: "rBelmont3_", 4: "rMega4_", 5: "rSamus5_", 6: "rGame6_"}
 CHIP_KEY = 50
 
@@ -427,9 +427,6 @@ def through_exit(rooms, conn, room, out, st=()):
     elif r2 is not None and r2.boss and link[0] != room: extra = product(extra, ATTACK)
     if (room, out) in conn.via: extra = product(extra, conn.via_need.get((room, out), ATTACK))
     if (room, out) in conn.need: extra = product(extra, conn.need[(room, out)])
-    # (into an Access Gate's rooms from outside it: its Program Chip)
-    g = gate_of(link[0])
-    if g and g != gate_of(room): extra = product(extra, [Need(NOTHING.c, frozenset([CHIP_KEY + g]), frozenset())])
     return link, extra
 
 

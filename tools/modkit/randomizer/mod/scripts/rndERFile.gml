@@ -1,5 +1,5 @@
 //Randomizer: a row instance filed under what it lacks (argument0: the row, argument1: the state; what rndERTry's
-//rndERLack calls put in global.rndRLk1-3, and its Program Chip in rndRLk4), filed afresh each time (its filing number in rndRGQ; the waiting lists'
+//rndERLack calls put in global.rndRLk1-3), filed afresh each time (its filing number in rndRGQ; the waiting lists'
 //entries of an older one are skipped). argument2: only one part of what the row needs lacks something: only then do its
 //"one more is all" entries count in rndRSingle (rndRSing keeps them, to take back off when it's filed again or goes
 //through)
@@ -11,12 +11,11 @@ inst=q*global.rndEGsN+gs
 gen=ds_grid_get(global.rndRGQ,gs,q)+1
 rndERUnfile(q,gs)
 str=""
-for(L=0;L<4;L+=1)
+for(L=0;L<3;L+=1)
 {
   if L=0 {lst=global.rndRLk1}
   else if L=1 {lst=global.rndRLk2}
-  else if L=2 {lst=global.rndRLk3}
-  else {lst=global.rndRLk4}
+  else {lst=global.rndRLk3}
   for(j=0;j<ds_list_size(lst);j+=1)
   {
     v=ds_list_find_value(lst,j)

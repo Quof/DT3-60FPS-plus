@@ -116,25 +116,8 @@ if instance_exists(oPlayer1)
     if tMech=1 {global.hasShoes[0]=2; global.hasShoes[1]=2; charSwitcher(2)}
   }
 }
-//the Access Gates (Chip Randomizer): a gate's rooms come into from outside it without its Program Chip turn the player
-//back at once, out the way they came (rndGateBounce), whatever the way in was. rndLastGate: the gate of the room they
-//were last in (not counting a boss fight's rooms, the Randomizer's warps); -1 after a load, where they were let in
-if global.rndFight<0 and global.bBossGallery=0 and instance_exists(oPlayer1)
-{
-  var tGate;
-  tGate=rndGateOf(room)
-  if global.rndChipMode=1 and tGate>0 and global.rndLastGate>=0 and tGate!=global.rndLastGate
-  {
-    if !rndChipHas(tGate) {rndGateBounce(tGate); exit}
-  }
-  global.rndLastGate=tGate
-  //(turned back from a gate: why, here)
-  if global.rndLockMsg>0
-  {
-    rndMsg(global.rndGateName[global.rndLockMsg]+" is locked.#It opens with Program Chip "+string(global.rndLockMsg)+".",2)
-    global.rndLockMsg=0
-  }
-}
+//(the Access Gates' Program Chips, Chip Randomizer: a portal that takes one the player hasn't found can't be used, the
+//mod's oAccessGate)
 //Gate 5 (location 49, the rSamus5_ rooms): dying there, and a save made there, go back to its checkpoint
 //(global.metCheckpoint: the last one the player used there), which the game sets as the player comes into the gate from
 //outside it by its own way in (rSamus5_Gate's code). Entrance Rando and the Randomizer's warps can come into any of its
@@ -388,6 +371,7 @@ if global.rndBossAPPending!=-1 and global.rndFight<0 and global.bBossGallery=0 a
 //John, in Central City - North where the run starts, left of the archway: talking to him turns debug mode on or off
 //(oRndJohn), for a seed that has the player stuck
 if room=rCCity_NorthA and global.bBossGallery=0 {instance_create(480,288,oRndJohn)}
-//the trap items (Traps) in the room: a Darkness Trap's darkness, a Rocketeer Trap's Rocketeer, a Teleport Trap's
+//the trap items (Traps) in the room: a Darkness Trap's darkness, a Rocketeer Trap's Rocketeer, a Wind Orb Trap's orb, a
+//Teleport Trap's
 //message, and the way in kept for one later (rndSnareRoom)
 rndSnareRoom()

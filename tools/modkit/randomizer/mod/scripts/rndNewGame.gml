@@ -5,7 +5,7 @@
 //the options say, and the game starts in Central City - North, where the door from Greatest Stretch comes in. An
 //Archipelago game (the title screen's code 'ap', with the DT3+ Client connected) has its items in the multiworld
 //instead: none are placed here, its checks go to the client and its items come from it (rndApStart, rndApPoll).
-//With the option Entrance Rando (global.rndOptER: 1 Gate Swap, 2 Overworld, 3 Chaos), the mode's doors are shuffled
+//With the option Entrance Rando (global.rndOptER: 1 Gate Swap, 2 Area, 3 Chaos), the mode's doors are shuffled
 //first (rndERShuffle); with Boss Rando (rndOptBR), the bosses (rndBRShuffle); with Instrument Randomization
 //(rndOptIR), the instruments are in the pool. A shuffle is kept only if with everything it reaches every place the
 //game's own doors do and the goal (rndEREverything: the doors), the items can be placed with what the doors and bosses
@@ -14,7 +14,8 @@
 //its doors and bosses itself (its logic is this build's room logic: the door data's hash and the bosses' types say it
 //is), and they're put in as made.
 //With Chip Randomizer (rndOptChips, or the world's option), the Program Chips are among the items (rndChipApply) and
-//the player starts with none (an Access Gate's rooms turn them back till its chip is found); without, they have all six
+//the player starts with none (an Access Gate's rooms turn them back till its chip is found); without, they have all six.
+//Not with Entrance Rando Chaos, where every door can lead into a gate's rooms: the player has all six there
 var tTry,tOk,tER,tBR,tIR,tBit,tGo,d,i;
 rndWorld()
 global.CHAOS_Invasion=0
@@ -65,8 +66,10 @@ if global.rndApNext=1
     global.rndBRMode=0
     global.rndIRMode=global.rndApSessIR
     rndChipApply(global.rndApSessChips)
-    //(Traps: the world's trap items come from the multiworld like its other items, and spring as they come: rndApGive)
-    rndSnareApply(0)
+    //(Traps: the world's trap items come from the multiworld like its other items, and spring as they come: rndApGive;
+    //they last the world's time, the client's rndApSessTrapMins: 5 minutes from a world before that was an option)
+    rndSnareApply(0,2)
+    global.rndSnareTime=max(1,global.rndApSessTrapMins)*1800
     if global.rndApSessBR=1
     {
       tOk=0
@@ -108,8 +111,9 @@ if global.rndAP=0
   tER=global.rndOptER
   tBR=global.rndOptBR
   tIR=global.rndOptIR
-  rndChipApply(global.rndOptChips)
-  rndSnareApply(global.rndOptSnare) //(Traps: in some Internetz chests' places; not progression, so where the rest go is the same)
+  rndChipApply(global.rndOptChips*(global.rndOptER!=3)) //(not with Entrance Rando Chaos: the options window has it off)
+  rndSnareApply(global.rndOptSnare>0,2) //(Traps: in some Internetz chests' places; not progression, so where the rest go is the same)
+  global.rndSnareTime=max(1,global.rndOptSnare)*1800 //(the option's minutes, 30fps ticks)
   if tER>0 or tBR>0 or tIR>0
   {
     if rndERLoad()=0
@@ -172,7 +176,7 @@ if global.rndAP=0
   {
     show_message("Randomizer: the items couldn't be placed for seed "+string(global.rndSeed)+" (its logic.txt asks for more than the locations allow). They're left in their own places, and the Access Gates are open.")
     rndChipApply(0)
-    rndSnareApply(0)
+    rndSnareApply(0,2)
     rndVanillaPlace()
   }
   if global.rndOptShops=1 {rndShopShuffle()}
@@ -188,8 +192,9 @@ global.rndWon=0
 global.rndChipOwn=string_repeat("1",global.rndChipN)
 if global.rndChipMode=1 {global.rndChipOwn=string_repeat("0",global.rndChipN)}
 global.programChips=global.rndChipN*(1-global.rndChipMode)
-global.rndLastGate=-1
-global.rndLockMsg=0
+//(what takes them: the portals, rndPortalChip; an Archipelago multiworld made before that, as it was made)
+global.rndChipPortals=1
+if global.rndAP=1 {global.rndChipPortals=global.rndApSessChipPortals}
 //jumping: the player has it from the start (it isn't one of the items)
 global.rndOwn[0]=1
 rndAbilApply()

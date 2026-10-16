@@ -31,7 +31,9 @@ sys.path.insert(0, os.path.dirname(HERE))
 import solve, er
 
 PARKED = "P"
-MODE_BITS = {"gates": 1, "overworld": 2, "chaos": 4}
+MODE_BITS = {"gates": 1, "area": 2, "chaos": 4}
+# (the area mode's bit, 2, was the overworld mode's, which it took the place of: a save's shuffle in either keeps its own
+# pairs, and the doors' data of the builds before it is in ER_LEGACY)
 # what a shuffle's world has, by the build its doors are from (bits; the mod's rndERFeat, rndERLayout): 1 exits
 # following an end (er.follows), 2 the Discombobulated's way in straight to its boss's room, 4 the Distortion played as
 # Jeremy's mech (its own doors left out). This build's: all of them
@@ -43,9 +45,12 @@ ER_FEATURES = 7
 # and classes, may have changed since); a shuffle made with them is read back with the ends after those not joined and
 # the world as it had it (the mod's rndERAccept): as it was made. The doors of every build to b50; of b51 to b53
 # (Hyrule's and Gate 6's maps' exits following their doors, Forest 1's tile a door); of b54 (Gate 4's stages' ways
-# back); of b55 (the Subconscious Filter and the Discombobulated left out, Gate 5's Metroid doors paired with any)
+# back); of b55 (the Subconscious Filter and the Discombobulated left out, Gate 5's Metroid doors paired with any); and
+# of the builds with the overworld mode, before the area mode took its place (their doors are these, in the overworld
+# mode's pool instead of the area mode's)
 ER_LEGACY = [("a0a71eea481c", 1450, 0, "a4fdb26f53a5"), ("ced7dfcf83e3", 1452, 1, "5d79a76132c0"),
-             ("b867e3518338", 1500, 1, "3dd00421ca2d"), ("b49a72cdb1a9", 1500, 3, "3dd00421ca2d")]
+             ("b867e3518338", 1500, 1, "3dd00421ca2d"), ("b49a72cdb1a9", 1500, 3, "3dd00421ca2d"),
+             ("bbc776d4e930", 1500, 7, "3dd00421ca2d")]
 # an end's class: what the shuffle pairs ends by (only ends of one class). Every end's is "" now (er.py's note above End:
 # a Metroid door in front of an exit, "attack" any weapon or "samus:4" missiles, used to keep its end to ends like it)
 DOOR_CLASSES = ["", "attack", "samus:4"]
@@ -98,8 +103,10 @@ def export(w, pairs, rows, bosses=(), follow=None):
     f.room_carried = [[f.gnames.index(g) for g in w.rooms[n].carried] for n in f.rnames]
     f.room_resets = [[(f.gnames.index(g), f.gvals[f.gnames.index(g)].index(v)) for g, v in sorted(w.rooms[n].resets.items())] for n in f.rnames]
     f.room_scope = [1 if any(n.startswith(s) for s in f.scope) else 0 for n in f.rnames]
-    # (each room's Access Gate, 0 none: going into a gate's rooms from outside it takes its Program Chip, requirement
-    # number CHIP_BASE+gate)
+    # (each room's Access Gate, 0 none. The Program Chips are requirement numbers CHIP_BASE+gate, which the gates'
+    # portals take (overrides.txt's need lines: in exit_extra). The rooms' gates are for a save made before that, whose
+    # chips the rooms took: going into a gate's rooms from outside it took its chip, as the mod and the trackers still
+    # read such a save: rndChipPortals 0)
     f.room_gate = [solve.gate_of(n) for n in f.rnames]
     f.CHIP_BASE = KB + solve.CHIP_KEY
     # requirements and alternatives (flat)
@@ -200,12 +207,16 @@ def export(w, pairs, rows, bosses=(), follow=None):
             f.ev_ways.append([])      # (a spot: its row makes it)
     f.goal_ev = [evix[e] for e in er.GOAL_EVENTS]
     f.goal_rooms = [rix[n] for n in er.GOAL_ROOMS]
-    # door ends
+    # door ends (akey: what the area mode pairs an end by, its class and its region: er.region_of, regions.txt; the other
+    # modes pair by the class alone)
+    akeys = sorted({(DOOR_CLASSES.index(e.cls), str(er.region_of(e.area))) for a, b in pairs for e in (a, b)})
+    akix = {k: i for i, k in enumerate(akeys)}
+    f.akey_n = len(akeys)
     f.ends = []
     for a, b in pairs:
         for e, p in ((a, b), (b, a)):
             f.ends.append({"exit": xix[(e.room, e.out)], "back": eix[(e.room, e.back)], "mode": 0, "pair": p.i, "obj": e.obj,
-                           "cls": DOOR_CLASSES.index(e.cls)})
+                           "cls": DOOR_CLASSES.index(e.cls), "akey": akix[(DOOR_CLASSES.index(e.cls), str(er.region_of(e.area)))]})
     for m in er.MODES:
         for a, b in er.pool(pairs, m):
             f.ends[a.i]["mode"] |= MODE_BITS[m]; f.ends[b.i]["mode"] |= MODE_BITS[m]
@@ -444,11 +455,9 @@ class Reach:
                 bf, bc = f.boss_req[self.fight[s]] if s >= 0 else f.room_boss[tr]
             s = f.exit_slot[t]
             xf, xc = f.boss_req[self.fight[s]] if s >= 0 else f.exit_extra[t]
+            # (an Access Gate's portal, or the Nightmare Gate's beside it: its Program Chip, in its exit_extra)
             l1, l2, l3 = self.lacks(af, ac), self.lacks(bf, bc), self.lacks(xf, xc)
-            # (into an Access Gate's rooms from outside it: its Program Chip)
-            l4, g = None, f.room_gate[tr]
-            if g and g != f.room_gate[ri] and self.have.get(f.CHIP_BASE + g, 0) < 1: l4 = [([f.CHIP_BASE + g], 1)]
-            parts = [l for l in (l1, l2, l3, l4) if l is not None]
+            parts = [l for l in (l1, l2, l3) if l is not None]
             if parts:
                 self.block(inst, [x for l in parts for x in l], len(parts) == 1); return
             self.passed(inst)
@@ -531,8 +540,9 @@ def shuffle(f, mode_bit, rng):
     """er.py's shuffle over the tables (the mod's rndERShuffle): part[end] = its new partner (-1: the game's own, an end
     not in the mode's pool), or None. The pool's ends in one random order; each step the first one in it whose way back
     in isn't reached and leads somewhere new (a room not reached, or entries, free ends or places that aren't) is joined
-    to a free end of its class (DOOR_CLASSES: the Metroid door in front of its exit) whose exit is reached, chosen at
-    random"""
+    to a free end of its key whose exit is reached, chosen at random. An end's key: its class (DOOR_CLASSES: the Metroid
+    door in front of its exit); in the area mode, its class and its region (akey), so each region's doors are paired
+    among their own"""
     n = len(f.ends)
     inpool = [1 if f.ends[d]["mode"] & mode_bit else 0 for d in range(n)]
     ends = [d for d in range(n) if inpool[d]]
@@ -547,11 +557,12 @@ def shuffle(f, mode_bit, rng):
     mark_new(new0)
     covered = [0] * n
     def local(d):
-        """an end's way back in: whether what it gets to has new entries, free ends of the pool, or places"""
+        """an end's way back in: whether what it gets to has new entries, free ends of the pool (and of the end's own
+        key), or places"""
         b = f.ends[d]["back"]
         vis = {b}
         stack = [b]
-        new_e = new_f = new_p = 0
+        new_e = new_f = new_p = new_fk = 0
         while stack:
             e = stack.pop()
             for p in f.ev_locs[e]:
@@ -562,33 +573,47 @@ def shuffle(f, mode_bit, rng):
                     if dd == d: continue
                     if part[dd] >= 0: nxt = [f.ends[part[dd]]["back"]]
                     else:
-                        if dd not in frontier: new_f = 1
+                        if dd not in frontier:
+                            new_f = 1
+                            if key[dd] == key[d]: new_fk = 1
                         continue
                 else:
                     nxt = [f.exit_dest[x]] if f.exit_sg[x] < 0 else list(f.exit_sdest[x])
                 for v in nxt:
                     if v < 0 or v in vis or v in seen: continue
                     vis.add(v); stack.append(v); new_e = 1
-        return new_e, new_f, new_p
-    cls = [e["cls"] for e in f.ends]
+        return new_e, new_f, new_p, new_fk
+    area = mode_bit == MODE_BITS["area"]
+    if area: key, nkeys = [e["akey"] for e in f.ends], f.akey_n
+    else: key, nkeys = [e["cls"] for e in f.ends], len(DOOR_CLASSES)
     while True:
         frl = sorted(d for d in frontier if part[d] == -1)
-        u, needy = None, []
+        u, needy, dead = None, [], None
         for d in ends:
             if part[d] != -1 or covered[d] or f.ends[d]["back"] in seen: continue
-            ne, nf, npl = local(d)
+            ne, nf, npl, nfk = local(d)
             if f.entries[f.ends[d]["back"]][0] in room_seen and not (ne or nf or npl):
                 covered[d] = 1; continue
             needy.append(d)
+            nc = sum(1 for x in frl if x != d and key[x] == key[d])
+            if area:
+                # (the area mode, its regions' frontiers each small: one whose way back leads on to free ends of its own
+                # region first, so the region's frontier stays as large as it can; one that doesn't, a dead end there,
+                # once none does)
+                if nc > 0 and nfk: u = d; break
+                if nc > 0 and dead is None: dead = d
+                continue
             # (joined to an end to go on from of its class, not itself; with only one end left to go on from, one that
             # leads on to free ends, so the joining doesn't stop at a dead end with others still to join)
-            nc = sum(1 for x in frl if x != d and cls[x] == cls[d])
             if nc > 0 and (len(frl) > 1 or nf): u = d; break
         if u is None:
             if not needy: break
-            if len(needy) == 1 and any(x != needy[0] and cls[x] == cls[needy[0]] for x in frl): u = needy[0]
+            if area:
+                if dead is None: return None
+                u = dead
+            elif len(needy) == 1 and any(x != needy[0] and key[x] == key[needy[0]] for x in frl): u = needy[0]
             else: return None
-        fr2 = [d for d in frl if d != u and cls[d] == cls[u]]
+        fr2 = [d for d in frl if d != u and key[d] == key[u]]
         fsel = fr2[int(rng.random() * len(fr2))]
         part[fsel] = u; part[u] = fsel
         frontier.discard(fsel); frontier.discard(u)
@@ -599,8 +624,8 @@ def shuffle(f, mode_bit, rng):
         mark_new(added)
     rest = [d for d in ends if part[d] == -1]
     fy(rest, rng)
-    for c in range(len(DOOR_CLASSES)):
-        rc = [d for d in rest if cls[d] == c]
+    for c in range(nkeys):
+        rc = [d for d in rest if key[d] == c]
         for k in range(0, len(rc) - 1, 2): part[rc[k]] = rc[k + 1]; part[rc[k + 1]] = rc[k]
     return part
 
@@ -746,11 +771,14 @@ def write_data(f, path, base_places, room_label, hv):
     L = []
     def put(*vals): L.extend(str(v) for v in vals)
     def ends_hash(n, follows):
-        """the hash of the first n ends (and the exits that follow them)"""
+        """the hash of the first n ends (and the exits that follow them). Not the area mode's bit: which of the ends
+        are in its pool is regions.txt's, which only changes the shuffles new games make, not how a made one is put
+        back, so a change there leaves the saves' and Archipelago worlds' shuffles loading"""
         h = hashlib.md5()
         for d, e in enumerate(f.ends[:n]):
             x = f.exits[e["exit"]]
-            h.update(("%s|%s|%s|%d|%d;" % (f.rnames[x[0]], x[1], f.entries[e["back"]][1], e["mode"], e["cls"])).encode())
+            mode = e["mode"] & ~MODE_BITS["area"]
+            h.update(("%s|%s|%s|%d|%d;" % (f.rnames[x[0]], x[1], f.entries[e["back"]][1], mode, e["cls"])).encode())
         for xi, d in enumerate(follows):
             if d >= 0: h.update(("F|%s|%s|%d;" % (f.rnames[f.exits[xi][0]], f.exits[xi][1], d)).encode())
         return h.hexdigest()[:12]
@@ -763,7 +791,7 @@ def write_data(f, path, base_places, room_label, hv):
             raise SystemExit("erflat: the doors of an earlier build (hash %s, %d ends) aren't this build's first %d ends as they "
                              "were, so its saves' shuffles wouldn't load: keep the doors' order (new ones after), or take it "
                              "out of ER_LEGACY" % (lh, ln, ln))
-    L.append("RNDER"); put(5); L.append(digest)
+    L.append("RNDER"); put(6); L.append(digest)
     put(len(f.gnames))
     for gi in range(len(f.gnames)): put(len(f.gvals[gi]), f.gmult[gi], 1 if gi in f.scoped else 0)
     put(f.start_gs, f.gs_n, f.KEY_BASE, f.EV_BASE)
@@ -796,8 +824,8 @@ def write_data(f, path, base_places, room_label, hv):
         put(len(ways))
         for kind, what, (af, ac), mode in ways: put(kind, what, af, ac, mode)
     put(len(f.goal_ev), *f.goal_ev); put(len(f.goal_rooms), *f.goal_rooms)
-    put(len(f.ends))
-    for e in f.ends: put(e["exit"], e["back"], e["mode"], e["pair"], e["cls"])
+    put(len(f.ends), f.akey_n)
+    for e in f.ends: put(e["exit"], e["back"], e["mode"], e["pair"], e["cls"], e["akey"])
     put(f.start)
     put(f.loc_n)
     for i in range(f.loc_n): put(1 if i in base_places else 0)

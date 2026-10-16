@@ -162,8 +162,8 @@ switch (k)
     rndMsg("You obtained the "+rndItemNameKP(k,p)+"!",1)
     if global.eGateProg="99999999" and global.gateHProg<100 {global.gateHProg=100}
     break
-  case 27: //a Program Chip (p: its Access Gate, 1-6, Chip Randomizer): the gate's rooms can be gone into (the roomStart
-    //hook turns the player back from a gate whose chip they lack). The pause menu shows as many chips as they have
+  case 27: //a Program Chip (p: its Access Gate, 1-6, Chip Randomizer): the gate's portal, and the Nightmare Gate portal
+    //beside it, can be used (the mod's oAccessGate, rndPortalChip). The pause menu shows as many chips as they have
     playSound(global.snd_SkillGet,0,1,1)
     awardAwesome(10000)
     global.rndChipOwn=rndSetChar(global.rndChipOwn,p,"1")

@@ -15,7 +15,7 @@ if roGo>0
     ini_write_real("Randomizer","br",global.rndOptBR)
     ini_write_real("Randomizer","ir",global.rndOptIR)
     ini_write_real("Randomizer","chips",global.rndOptChips)
-    ini_write_real("Randomizer","traps",global.rndOptSnare)
+    ini_write_real("Randomizer","trapmins",global.rndOptSnare)
     ini_write_real("Randomizer","log",global.rndOptLog)
     ini_close()
     rndNewGame()
@@ -67,7 +67,16 @@ else if roCursor=3 {global.rndOptShops=1-global.rndOptShops; playSound(global.sn
 else if roCursor=4 {global.rndOptER=(global.rndOptER+tDir+4) mod 4; playSound(global.snd_MenuConfirm,0,0.95,1)}
 else if roCursor=5 {global.rndOptBR=1-global.rndOptBR; playSound(global.snd_MenuConfirm,0,0.95,1)}
 else if roCursor=6 {global.rndOptIR=1-global.rndOptIR; playSound(global.snd_MenuConfirm,0,0.95,1)}
-else if roCursor=7 {global.rndOptChips=1-global.rndOptChips; playSound(global.snd_MenuConfirm,0,0.95,1)}
-else if roCursor=8 {global.rndOptSnare=1-global.rndOptSnare; playSound(global.snd_MenuConfirm,0,0.95,1)}
+//(Chip Randomizer: not with Entrance Rando Chaos, where it's off and can't be changed; the choice is kept for the other
+//modes)
+else if roCursor=7 {if global.rndOptER!=3 {global.rndOptChips=1-global.rndOptChips; playSound(global.snd_MenuConfirm,0,0.95,1)}}
+else if roCursor=8
+{
+  //(Traps: Off, 2, 5 or 10 minutes, in turn)
+  if global.rndOptSnare=0 {i=0} else if global.rndOptSnare=2 {i=1} else if global.rndOptSnare=5 {i=2} else {i=3}
+  i=(i+tDir+4) mod 4
+  if i=0 {global.rndOptSnare=0} else if i=1 {global.rndOptSnare=2} else if i=2 {global.rndOptSnare=5} else {global.rndOptSnare=10}
+  playSound(global.snd_MenuConfirm,0,0.95,1)
+}
 else if roCursor=9 {global.rndOptLog=1-global.rndOptLog; playSound(global.snd_MenuConfirm,0,0.95,1)}
 else if roCursor=10 and oKeyCodes.kCodePressed[15]=1 {roGo=1; playSound(global.snd_MenuConfirm,0,0.95,1)}

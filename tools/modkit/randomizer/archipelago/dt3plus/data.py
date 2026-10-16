@@ -1,6 +1,6 @@
 """DT3+ Archipelago data, made by tools/modkit/randomizer/rndgen.py from the game (change rndgen.py, not this)"""
 GAME = 'DT3+'
-VERSION = 6
+VERSION = 7
 BASE_ID = 4454000
 # the progression items the logic counts (a new game starts with jumping)
 PROG_ITEMS = ['Dash', 'Air Dash', 'Double Jump', 'Progressive High Jump Boots', 'Mario Ability Set', 'Progressive Link', 'Progressive Belmont', 'Progressive Mega Man', 'Progressive Samus', 'Progressive Jerry Game Powers', 'Progressive Claire Game Powers', 'Varia Suit']
@@ -234,20 +234,20 @@ LOCATIONS = {
     'Access Gate 3: Transylvania - Weapon Upgrade 55': (4463055, [[('Air Dash', 1), ('Double Jump', 1), ('Progressive Belmont', 2), ('Program Chip 3', 1)]], False),
     'Access Gate 3: Transylvania - Heart Energy 19': (4458019, [[('Double Jump', 1), ('Progressive Belmont', 2), ('Progressive Mega Man', 4), ('Program Chip 3', 1)]], False),
     'Access Gate 3: Transylvania - Treasure Chest 20': (4456020, [[('Double Jump', 1), ('Progressive Belmont', 2), ('Progressive Mega Man', 4), ('Program Chip 3', 1)]], False),
-    'Sacred Temple - Internetz Mod 2': (4462002, [[('Mario Ability Set', 1)], [('Double Jump', 1), ('Progressive Link', 3)], [('Dash', 1), ('Progressive Belmont', 3)], [('Dash', 1), ('Progressive Mega Man', 3)], [('Dash', 1), ('Air Dash', 1), ('Progressive Belmont', 1)], [('Dash', 1), ('Air Dash', 1), ('Progressive Link', 1)], [('Dash', 1), ('Air Dash', 1), ('Progressive Samus', 7)], [('Dash', 1), ('Air Dash', 1), ('Double Jump', 1), ('Progressive Mega Man', 2), ('Progressive Samus', 2)], [('Dash', 1), ('Air Dash', 1), ('Double Jump', 1), ('Progressive Samus', 6)]], False),
+    'Sacred Temple - Internetz Mod 2': (4462002, [[('Mario Ability Set', 1), ('Program Chip 1', 1)], [('Double Jump', 1), ('Progressive Link', 3), ('Program Chip 2', 1)], [('Dash', 1), ('Progressive Belmont', 3), ('Program Chip 3', 1)], [('Dash', 1), ('Progressive Mega Man', 3), ('Program Chip 4', 1)], [('Dash', 1), ('Air Dash', 1), ('Progressive Belmont', 1)], [('Dash', 1), ('Air Dash', 1), ('Progressive Link', 1)], [('Dash', 1), ('Air Dash', 1), ('Progressive Samus', 7), ('Program Chip 5', 1)], [('Dash', 1), ('Air Dash', 1), ('Double Jump', 1), ('Progressive Mega Man', 2), ('Progressive Samus', 2), ('Program Chip 6', 1)], [('Dash', 1), ('Air Dash', 1), ('Double Jump', 1), ('Progressive Samus', 6), ('Program Chip 6', 1)]], False),
     'Access Gate 3: Transylvania - Heart Container 3': (4468003, None, False),
     "Initiate's Overpass - Skill Point 3": (4464003, [[('Air Dash', 1), ('Mario Ability Set', 1)], [('Dash', 1), ('Mario Ability Set', 1)], [('Double Jump', 1), ('Mario Ability Set', 1)]], False),
     "Initiate's Overpass - Missile Tank 29": (4459029, [[('Air Dash', 1), ('Mario Ability Set', 1), ('Progressive Samus', 2)], [('Dash', 1), ('Mario Ability Set', 1), ('Progressive Samus', 2)], [('Double Jump', 1), ('Mario Ability Set', 1), ('Progressive Samus', 2)]], False),
     "Initiate's Overpass - Missile Tank 3": (4459003, [[('Air Dash', 1), ('Mario Ability Set', 1), ('Progressive Link', 1)], [('Air Dash', 1), ('Mario Ability Set', 1), ('Progressive Belmont', 1)], [('Dash', 1), ('Mario Ability Set', 1), ('Progressive Link', 1)], [('Dash', 1), ('Mario Ability Set', 1), ('Progressive Belmont', 1)], [('Double Jump', 1), ('Mario Ability Set', 1), ('Progressive Link', 1)], [('Double Jump', 1), ('Mario Ability Set', 1), ('Progressive Belmont', 1)]], False),
-    'Nightmare Gate B - Arrow Quiver 14': (4457014, [[('Double Jump', 1), ('Progressive Link', 3)]], False),
-    'Nightmare Gate B - Weapon Upgrade 5': (4463005, [[('Double Jump', 1), ('Progressive Link', 3)]], False),
-    'Nightmare Gate B - Weapon Upgrade 15': (4463015, [[('Double Jump', 1), ('Progressive Link', 3)]], False),
-    'Nightmare Gate B - Weapon Upgrade 25': (4463025, [[('Double Jump', 1), ('Progressive Link', 3)]], False),
+    'Nightmare Gate B - Arrow Quiver 14': (4457014, [[('Double Jump', 1), ('Progressive Link', 3), ('Program Chip 2', 1)]], False),
+    'Nightmare Gate B - Weapon Upgrade 5': (4463005, [[('Double Jump', 1), ('Progressive Link', 3), ('Program Chip 2', 1)]], False),
+    'Nightmare Gate B - Weapon Upgrade 15': (4463015, [[('Double Jump', 1), ('Progressive Link', 3), ('Program Chip 2', 1)]], False),
+    'Nightmare Gate B - Weapon Upgrade 25': (4463025, [[('Double Jump', 1), ('Progressive Link', 3), ('Program Chip 2', 1)]], False),
     'Lost Entrance - Treasure Chest 21': (4456021, [[]], False),
-    'Nightmare Gate C - Heart Energy 21': (4458021, [[('Dash', 1), ('Progressive Belmont', 3)]], False),
-    'Nightmare Gate C - Weapon Upgrade 36': (4463036, [[('Dash', 1), ('Progressive Belmont', 3)]], False),
-    'Nightmare Gate C - Weapon Upgrade 46': (4463046, [[('Dash', 1), ('Progressive Belmont', 3)]], False),
-    'Nightmare Gate C - Weapon Upgrade 56': (4463056, [[('Dash', 1), ('Progressive Belmont', 3)]], False),
+    'Nightmare Gate C - Heart Energy 21': (4458021, [[('Dash', 1), ('Progressive Belmont', 3), ('Program Chip 3', 1)]], False),
+    'Nightmare Gate C - Weapon Upgrade 36': (4463036, [[('Dash', 1), ('Progressive Belmont', 3), ('Program Chip 3', 1)]], False),
+    'Nightmare Gate C - Weapon Upgrade 46': (4463046, [[('Dash', 1), ('Progressive Belmont', 3), ('Program Chip 3', 1)]], False),
+    'Nightmare Gate C - Weapon Upgrade 56': (4463056, [[('Dash', 1), ('Progressive Belmont', 3), ('Program Chip 3', 1)]], False),
     'Begonia - Beach - Air Upgrade 6': (4461006, [[('Double Jump', 1)], [('Dash', 1)], [('Progressive Samus', 2)]], False),
     'Begonia - Beach - Treasure Chest 22': (4456022, [[]], False),
     'Begonia - Beach - Skill Point 9': (4464009, [[('Air Dash', 1), ('Double Jump', 1)], [('Double Jump', 1), ('Progressive Mega Man', 4)], [('Double Jump', 1), ('Progressive Samus', 2)]], False),
@@ -316,10 +316,10 @@ LOCATIONS = {
     'Access Gate 4: Megapolis - Internetz Mod 6': (4462006, [[('Progressive Mega Man', 3), ('Program Chip 4', 1)]], False),
     'Access Gate 4: Megapolis - Weapon Upgrade 74': (4463074, [[('Program Chip 4', 1)]], False),
     'Access Gate 4: Megapolis - Heart Container 4': (4468004, None, False),
-    'Nightmare Gate D - Internetz Mod 7': (4462007, [[('Dash', 1), ('Progressive Mega Man', 3)]], False),
-    'Nightmare Gate D - Weapon Upgrade 66': (4463066, [[('Dash', 1), ('Progressive Mega Man', 3)]], False),
-    'Nightmare Gate D - Weapon Upgrade 76': (4463076, [[('Dash', 1), ('Progressive Mega Man', 3)]], False),
-    'Nightmare Gate D - Weapon Upgrade 86': (4463086, [[('Dash', 1), ('Progressive Mega Man', 3)]], False),
+    'Nightmare Gate D - Internetz Mod 7': (4462007, [[('Dash', 1), ('Progressive Mega Man', 3), ('Program Chip 4', 1)]], False),
+    'Nightmare Gate D - Weapon Upgrade 66': (4463066, [[('Dash', 1), ('Progressive Mega Man', 3), ('Program Chip 4', 1)]], False),
+    'Nightmare Gate D - Weapon Upgrade 76': (4463076, [[('Dash', 1), ('Progressive Mega Man', 3), ('Program Chip 4', 1)]], False),
+    'Nightmare Gate D - Weapon Upgrade 86': (4463086, [[('Dash', 1), ('Progressive Mega Man', 3), ('Program Chip 4', 1)]], False),
     'Magical Hills - Overstep - Skill Point 8': (4464008, [[('Double Jump', 1), ('Progressive Mega Man', 4)], [('Air Dash', 1), ('Progressive Mega Man', 4)]], False),
     'Farreaches - Extrapolate - Skill Point 26': (4464026, [[('Dash', 1)]], False),
     'Farreaches - Extrapolate - Weapon Upgrade 47': (4463047, [[('Air Dash', 1)]], False),
@@ -421,10 +421,10 @@ LOCATIONS = {
     'Access Gate 5: Research Facility - Weapon Upgrade 113': (4463113, [[('Double Jump', 1), ('Progressive High Jump Boots', 2), ('Progressive Samus', 6), ('Varia Suit', 1), ('Program Chip 5', 1)]], False),
     'Access Gate 5: Research Facility - Missile Tank 9': (4459009, [[('Double Jump', 1), ('Progressive Samus', 6), ('Varia Suit', 1), ('Program Chip 5', 1)]], False),
     'Access Gate 5: Research Facility - Weapon Upgrade 94': (4463094, [[('Double Jump', 1), ('Progressive Samus', 6), ('Varia Suit', 1), ('Program Chip 5', 1)]], False),
-    'Nightmare Gate F - Missile Tank 7': (4459007, [[('Dash', 1), ('Air Dash', 1), ('Progressive Samus', 7)]], False),
-    'Nightmare Gate F - Weapon Upgrade 97': (4463097, [[('Dash', 1), ('Air Dash', 1), ('Progressive Samus', 7)]], False),
-    'Nightmare Gate F - Weapon Upgrade 107': (4463107, [[('Dash', 1), ('Air Dash', 1), ('Progressive Samus', 7)]], False),
-    'Nightmare Gate F - Weapon Upgrade 117': (4463117, [[('Dash', 1), ('Air Dash', 1), ('Progressive Samus', 7)]], False),
+    'Nightmare Gate F - Missile Tank 7': (4459007, [[('Dash', 1), ('Air Dash', 1), ('Progressive Samus', 7), ('Program Chip 5', 1)]], False),
+    'Nightmare Gate F - Weapon Upgrade 97': (4463097, [[('Dash', 1), ('Air Dash', 1), ('Progressive Samus', 7), ('Program Chip 5', 1)]], False),
+    'Nightmare Gate F - Weapon Upgrade 107': (4463107, [[('Dash', 1), ('Air Dash', 1), ('Progressive Samus', 7), ('Program Chip 5', 1)]], False),
+    'Nightmare Gate F - Weapon Upgrade 117': (4463117, [[('Dash', 1), ('Air Dash', 1), ('Progressive Samus', 7), ('Program Chip 5', 1)]], False),
     'Barrens - Deserted Tower - Skill Point 48': (4464048, [[('Air Dash', 1), ('Double Jump', 1), ('Progressive Samus', 2)], [('Air Dash', 1), ('Progressive Mega Man', 4), ('Progressive Samus', 2)], [('Double Jump', 1), ('Progressive Mega Man', 4), ('Progressive Samus', 2)]], False),
     'Barrens - Deserted Tower - Skill Point 49': (4464049, [[('Air Dash', 1), ('Double Jump', 1), ('Progressive Samus', 2)]], False),
     'Barrens - Deserted Tower - Treasure Chest 46': (4456046, [[('Air Dash', 1), ('Double Jump', 1), ('Progressive Samus', 2)]], False),
@@ -432,7 +432,7 @@ LOCATIONS = {
     'Barrens - Deserted Tower - Arrow Quiver 22': (4457022, [[('Air Dash', 1), ('Double Jump', 1), ('Progressive Samus', 2)], [('Air Dash', 1), ('Progressive Mega Man', 4), ('Progressive Samus', 2)], [('Double Jump', 1), ('Progressive Mega Man', 4), ('Progressive Samus', 2)]], False),
     'Barrens - Deserted Tower - Treasure Chest 47': (4456047, [[('Air Dash', 1), ('Double Jump', 1), ('Progressive Link', 3), ('Progressive Samus', 2)], [('Air Dash', 1), ('Double Jump', 1), ('Progressive Samus', 6)], [('Air Dash', 1), ('Progressive Link', 3), ('Progressive Mega Man', 4), ('Progressive Samus', 2)], [('Air Dash', 1), ('Progressive Mega Man', 4), ('Progressive Samus', 6)], [('Double Jump', 1), ('Progressive Link', 3), ('Progressive Mega Man', 4), ('Progressive Samus', 2)], [('Double Jump', 1), ('Progressive Mega Man', 4), ('Progressive Samus', 6)]], False),
     'Barrens - Lower Waste - Treasure Chest 48': (4456048, [[('Double Jump', 1), ('Progressive Samus', 2)], [('Air Dash', 1), ('Progressive Samus', 2)], [('Dash', 1), ('Progressive Samus', 2)]], False),
-    'Nightmare Gate A - Heart Piece 15': (4455015, [[('Mario Ability Set', 1)]], False),
+    'Nightmare Gate A - Heart Piece 15': (4455015, [[('Mario Ability Set', 1), ('Program Chip 1', 1)]], False),
     'Burning Stretch - West - Heart Energy 27': (4458027, [[('Air Dash', 1), ('Progressive Samus', 5)], [('Double Jump', 1), ('Progressive Samus', 5)]], False),
     'Burning Stretch - Mid - Internetz Mod 12': (4462012, [[('Air Dash', 1), ('Progressive Samus', 5)]], False),
     'Burning Stretch - Mid - Skill Point 50': (4464050, [[('Double Jump', 1), ('Progressive Samus', 2)]], False),
@@ -507,9 +507,9 @@ LOCATIONS = {
     'Access Gate 2: Hyrule - Bomb Upgrade 3': (4465003, [[('Double Jump', 1), ('Program Chip 2', 1)]], False),
     'Access Gate 6: Prototype Game - Game Power 50': (4460050, [[('Air Dash', 1), ('Progressive Samus', 2), ('Program Chip 6', 1)], [('Double Jump', 1), ('Progressive Samus', 2), ('Program Chip 6', 1)]], False),
     'Access Gate 6: Prototype Game - Heart Container 6': (4468006, None, False),
-    'Nightmare Gate G - Internetz Mod 14': (4462014, [[('Dash', 1), ('Air Dash', 1), ('Double Jump', 1), ('Progressive Link', 1), ('Progressive Samus', 2)], [('Dash', 1), ('Air Dash', 1), ('Double Jump', 1), ('Progressive Belmont', 1), ('Progressive Samus', 2)], [('Dash', 1), ('Air Dash', 1), ('Double Jump', 1), ('Progressive Mega Man', 2), ('Progressive Samus', 2)], [('Dash', 1), ('Air Dash', 1), ('Double Jump', 1), ('Progressive Samus', 6)]], False),
-    'Nightmare Gate G - Skill Point 90': (4464090, [[('Dash', 1), ('Air Dash', 1), ('Double Jump', 1), ('Progressive Link', 1), ('Progressive Samus', 2)], [('Dash', 1), ('Air Dash', 1), ('Double Jump', 1), ('Progressive Belmont', 1), ('Progressive Samus', 2)], [('Dash', 1), ('Air Dash', 1), ('Double Jump', 1), ('Progressive Mega Man', 2), ('Progressive Samus', 2)], [('Dash', 1), ('Air Dash', 1), ('Double Jump', 1), ('Progressive Samus', 6)]], False),
-    'Nightmare Gate G - Skill Point 91': (4464091, [[('Dash', 1), ('Air Dash', 1), ('Double Jump', 1), ('Progressive Link', 1), ('Progressive Samus', 2)], [('Dash', 1), ('Air Dash', 1), ('Double Jump', 1), ('Progressive Belmont', 1), ('Progressive Samus', 2)], [('Dash', 1), ('Air Dash', 1), ('Double Jump', 1), ('Progressive Mega Man', 2), ('Progressive Samus', 2)], [('Dash', 1), ('Air Dash', 1), ('Double Jump', 1), ('Progressive Samus', 6)]], False),
+    'Nightmare Gate G - Internetz Mod 14': (4462014, [[('Dash', 1), ('Air Dash', 1), ('Double Jump', 1), ('Progressive Link', 1), ('Progressive Samus', 2), ('Program Chip 6', 1)], [('Dash', 1), ('Air Dash', 1), ('Double Jump', 1), ('Progressive Belmont', 1), ('Progressive Samus', 2), ('Program Chip 6', 1)], [('Dash', 1), ('Air Dash', 1), ('Double Jump', 1), ('Progressive Mega Man', 2), ('Progressive Samus', 2), ('Program Chip 6', 1)], [('Dash', 1), ('Air Dash', 1), ('Double Jump', 1), ('Progressive Samus', 6), ('Program Chip 6', 1)]], False),
+    'Nightmare Gate G - Skill Point 90': (4464090, [[('Dash', 1), ('Air Dash', 1), ('Double Jump', 1), ('Progressive Link', 1), ('Progressive Samus', 2), ('Program Chip 6', 1)], [('Dash', 1), ('Air Dash', 1), ('Double Jump', 1), ('Progressive Belmont', 1), ('Progressive Samus', 2), ('Program Chip 6', 1)], [('Dash', 1), ('Air Dash', 1), ('Double Jump', 1), ('Progressive Mega Man', 2), ('Progressive Samus', 2), ('Program Chip 6', 1)], [('Dash', 1), ('Air Dash', 1), ('Double Jump', 1), ('Progressive Samus', 6), ('Program Chip 6', 1)]], False),
+    'Nightmare Gate G - Skill Point 91': (4464091, [[('Dash', 1), ('Air Dash', 1), ('Double Jump', 1), ('Progressive Link', 1), ('Progressive Samus', 2), ('Program Chip 6', 1)], [('Dash', 1), ('Air Dash', 1), ('Double Jump', 1), ('Progressive Belmont', 1), ('Progressive Samus', 2), ('Program Chip 6', 1)], [('Dash', 1), ('Air Dash', 1), ('Double Jump', 1), ('Progressive Mega Man', 2), ('Progressive Samus', 2), ('Program Chip 6', 1)], [('Dash', 1), ('Air Dash', 1), ('Double Jump', 1), ('Progressive Samus', 6), ('Program Chip 6', 1)]], False),
     'Hidden Program Facility - Arrow Quiver 26': (4457026, [[('Air Dash', 1), ('Double Jump', 1), ('Progressive Mega Man', 4), ('Progressive Samus', 2)]], False),
     'Hidden Program Facility - Treasure Chest 52': (4456052, [[('Air Dash', 1), ('Double Jump', 1), ('Progressive Mega Man', 4), ('Progressive Samus', 2)]], False),
     'Hidden Program Facility - Heart Piece 35': (4455035, [[('Air Dash', 1), ('Double Jump', 1), ('Progressive Samus', 2)]], False),
@@ -656,16 +656,16 @@ LOCATIONS = {
 # that need EVERYTHING: a fight's reward), name: id
 INSTRUMENTS = {'Full Moon Cello': 4714001, 'Conch Horn': 4714002, "Sea Lily's Bell": 4714003, 'Surf Harp': 4714004, 'Wind Marimba': 4714005, 'Coral Triangle': 4714006, 'Organ of Evening Calm': 4714007, 'Thunder Drum': 4714008}
 GATE_REWARDS = {'Nightmare Gate A - Reward': 4472001, 'Nightmare Gate B - Reward': 4472002, 'Nightmare Gate C - Reward': 4472003, 'Nightmare Gate D - Reward': 4472004, 'Nightmare Gate E - Reward': 4472005, 'Nightmare Gate F - Reward': 4472006, 'Nightmare Gate G - Reward': 4472007, 'Nightmare Gate H - Reward': 4472008}
-# Chip Randomizer: the Program Chips (progression items: chip N opens Access Gate N's rooms, which a location
-# there needs), name: id, and the Internetz items they take the place of in the pool. Off: they aren't items,
-# and the logic counts them as had from the start
+# Chip Randomizer: the Program Chips (progression items: chip N opens Access Gate N's portal and the Nightmare
+# Gate portal beside it), name: id, and the Internetz items they take the place of in the pool. Off: they aren't
+# items, and the logic counts them as had from the start
 CHIPS = {'Program Chip 1': 4724001, 'Program Chip 2': 4724002, 'Program Chip 3': 4724003, 'Program Chip 4': 4724004, 'Program Chip 5': 4724005, 'Program Chip 6': 4724006}
 CHIP_MONEY = ['1200 Internetz', '1200 Internetz', '1200 Internetz', '1200 Internetz', '1200 Internetz', '1200 Internetz']
 # Traps: the trap items (classification trap: each springs a trap on the player who gets it), name: id, the
 # Internetz items they take the place of in the pool, and the trap each of those is
-TRAPS = {'Darkness Trap': 4744001, 'Rocketeer Trap': 4744002, 'Teleport Trap': 4744003, 'Achilles Trap': 4744004}
-TRAP_MONEY = ['1200 Internetz', '1200 Internetz', '1200 Internetz', '1200 Internetz', '1200 Internetz', '1300 Internetz', '1300 Internetz', '1300 Internetz', '1300 Internetz', '1300 Internetz', '1400 Internetz', '1500 Internetz', '1500 Internetz', '1500 Internetz', '1500 Internetz', '1500 Internetz', '1500 Internetz', '1500 Internetz', '1500 Internetz', '1500 Internetz', '1500 Internetz', '1500 Internetz', '1500 Internetz', '1600 Internetz', '1600 Internetz', '1600 Internetz', '1600 Internetz', '1600 Internetz']
-TRAP_ITEMS = ['Darkness Trap', 'Rocketeer Trap', 'Teleport Trap', 'Achilles Trap', 'Darkness Trap', 'Rocketeer Trap', 'Teleport Trap', 'Achilles Trap', 'Darkness Trap', 'Rocketeer Trap', 'Teleport Trap', 'Achilles Trap', 'Darkness Trap', 'Rocketeer Trap', 'Teleport Trap', 'Achilles Trap', 'Darkness Trap', 'Rocketeer Trap', 'Teleport Trap', 'Achilles Trap', 'Darkness Trap', 'Rocketeer Trap', 'Teleport Trap', 'Achilles Trap', 'Darkness Trap', 'Rocketeer Trap', 'Teleport Trap', 'Achilles Trap']
+TRAPS = {'Darkness Trap': 4744001, 'Rocketeer Trap': 4744002, 'Teleport Trap': 4744003, 'Achilles Trap': 4744004, 'Wind Orb Trap': 4744005}
+TRAP_MONEY = ['1200 Internetz', '1200 Internetz', '1200 Internetz', '1200 Internetz', '1200 Internetz', '1300 Internetz', '1300 Internetz', '1300 Internetz', '1300 Internetz', '1300 Internetz', '1400 Internetz', '1500 Internetz', '1500 Internetz', '1500 Internetz', '1500 Internetz', '1500 Internetz', '1500 Internetz', '1500 Internetz', '1500 Internetz', '1500 Internetz', '1500 Internetz', '1500 Internetz', '1500 Internetz', '1600 Internetz', '1600 Internetz', '1600 Internetz', '1600 Internetz', '1600 Internetz', '1700 Internetz', '1800 Internetz']
+TRAP_ITEMS = ['Darkness Trap', 'Rocketeer Trap', 'Teleport Trap', 'Achilles Trap', 'Wind Orb Trap', 'Darkness Trap', 'Rocketeer Trap', 'Teleport Trap', 'Achilles Trap', 'Wind Orb Trap', 'Darkness Trap', 'Rocketeer Trap', 'Teleport Trap', 'Achilles Trap', 'Wind Orb Trap', 'Darkness Trap', 'Rocketeer Trap', 'Teleport Trap', 'Achilles Trap', 'Wind Orb Trap', 'Darkness Trap', 'Rocketeer Trap', 'Teleport Trap', 'Achilles Trap', 'Wind Orb Trap', 'Darkness Trap', 'Rocketeer Trap', 'Teleport Trap', 'Achilles Trap', 'Wind Orb Trap']
 # the Nightmare abilities (useful items), name: id, each placed at one of these story places (location type 19:
 # where the story's ability pickups were) the logic reaches
 NIGHTMARE = {'Nightmare Sword Wave': 4734000, 'Nightmare Charge Storage': 4734001, 'Nightmare Dagger Spam': 4734002, 'Nightmare Power Bomb': 4734003}
@@ -675,7 +675,7 @@ ROW_NAMES = ['Grand Rising - Heart Piece 1', 'Grand Rising - Skill Point 1', "In
 # the room logic's requirement numbers: the items each counts
 REQ_ITEMS = {1: ['Dash'], 2: ['Air Dash'], 3: ['Double Jump'], 4: ['Progressive High Jump Boots'], 5: ['Mario Ability Set'], 6: ['Progressive Link'], 7: ['Progressive Belmont'], 8: ['Progressive Mega Man'], 9: ['Progressive Samus'], 10: ['Progressive Jerry Game Powers'], 11: ['Progressive Claire Game Powers'], 12: ['Varia Suit'], 13: ['Cursed Helm', 'Cursed Ring', 'Cursed Pendant'], 14: ['Full Moon Cello', 'Conch Horn', "Sea Lily's Bell", 'Surf Harp', 'Wind Marimba', 'Coral Triangle', 'Organ of Evening Calm', 'Thunder Drum'], 21: ["Key: Initiate's Pass - West 1"], 22: ["Key: Initiate's Pass - West 2"], 23: ["Key: Initiate's Pass - Central"], 24: ["Key: Initiate's Pass - East 1"], 25: ["Key: Initiate's Pass - East 2"], 26: ["Key: Initiate's Pass - East 3"], 27: ['Key: Access Gate 1: Mushroom Kingdom'], 28: ['Key: Access Gate 2: Hyrule 1'], 29: ['Key: Access Gate 2: Hyrule 2'], 30: ['Key: Access Gate 2: Hyrule 3'], 31: ['Key: Access Gate 2: Hyrule 4'], 32: ['Key: Access Gate 2: Hyrule 5'], 33: ['Key: Access Gate 2: Hyrule 6'], 37: ['Key: Access Gate 2: Hyrule 7'], 34: ['Key: Access Gate 6: Prototype Game 1'], 35: ['Key: Access Gate 6: Prototype Game 2'], 36: ['Key: Access Gate 6: Prototype Game 3'], 71: ['Program Chip 1'], 72: ['Program Chip 2'], 73: ['Program Chip 3'], 74: ['Program Chip 4'], 75: ['Program Chip 5'], 76: ['Program Chip 6']}
 # Entrance Rando: the room logic data's hash (the mod's data\rndER.txt has the same: rndEHash)
-ER_HASH = 'bbc776d4e930'
+ER_HASH = '0d8768d021db'
 # Boss Rando: the mod's bosses' names, places and types (rndBRString(1))
 BOSS_NAMES = ['Bowser', 'Cackletta', 'Helmethead', 'Dead Hand', 'Barba', 'Thunderbird', 'Aqua Serpent', 'Control Virus', 'Large Vampire Bat', 'Dracula', 'Menace', 'Death', 'Enmity', 'Maoh', 'Storm Eagle', 'Overdrive Ostrich', 'Gravity Beetle', 'Bospider', 'Bit & Byte', 'Sigma', 'Army Eye', 'Hex (Vault)', 'Vault Demon', 'Arachnus', 'King Worm', 'Kraid', 'Mother Brain', 'Ridley', 'Wahfuu Jr.', 'Malevolence', 'The Stone Golem', 'The Flame Elemental', 'High Heels Girl', 'The Unforgotten', 'The Chosen One', 'Antipathy', 'Sera', 'Brain Machine', 'Blade Bot', 'Advanced Combat Apparatus', 'Giant Blargg', 'Defective', 'Shadow Eura', 'Decimator 10000', 'Hex (Warship)', 'CHAOS Warmaster', 'Parasitic Seed', 'Virus Parasite', 'Hexor', 'The Executive', 'Kamek', 'Final Nightmare', 'Blackmore', 'Elpizo', 'Shadow Form', 'Nightmare', 'Sephiroth']
 BOSS_PLACES = ['rMario1_4Boss', 'rMario1_CCBoss', 'rLink2_PalaceA_11', 'rLink2_PalaceF_12', 'rLink2_DeathRoadA', 'rLink2_PalaceC_14', 'rLink2_PalaceW_12', 'rCCity_CCE', 'rBelmont3_1C', 'rBelmont3_3F', 'rBelmont3_6C', 'rBelmont3_7G', 'rMountTemple_I', 'rMega4_IntroE', 'rMega4_StormE', 'rMega4_OstrichE', 'rMega4_ToxicJungleE', 'rMega4_SigmaA5', 'rMega4_SigmaB8', 'rMega4_SigmaC5', 'rBubbleTowerA7', 'rVault_13', 'rMain_47', 'rSamus5_Lv2_Boss', 'rSamus5_Lv3_Boss', 'rSamus5_Lv1_Boss', 'rSamus5_Lv4_Boss', 'the way from rSamus5_Lv4_N to rSamus5_Lv4_RidleyTunnel', 'rDesertedTowerD', 'rNGC_LC_F', 'rGame6_EarthJ', 'rGame6_FireE', 'rGame6_WaterB', 'rGame6_WindI', 'rGame6_CoDP', 'rHPF_B', 'rHPF_U', 'rWepFacK', 'rLowFacG', 'rLowFacR', 'rLavaCaveC', 'rDiscoI', 'rDCS_U', 'rMC_N', 'rWarshipQ', 'rWarshipZ_E2', 'the way from rPttT_06 to rPttT_08', 'rAbomF', 'rDistortionF', 'rAbomD', 'rExtGateA_6', 'rExtGateB_6', 'rExtGateC_5', 'rExtGateD_6', 'rExtGateE_5', 'rExtGateF_6', 'rExtGateG_5']

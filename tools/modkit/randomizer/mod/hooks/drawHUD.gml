@@ -2,11 +2,11 @@
 //long each has left, at the top right
 var k,tY,tS,tSec;
 if global.rndActive=0 {exit}
-if global.rndSnareT[1]<=0 and global.rndSnareT[2]<=0 and global.rndSnareT[4]<=0 {exit}
+if global.rndSnareT[1]<=0 and global.rndSnareT[2]<=0 and global.rndSnareT[4]<=0 and global.rndSnareT[5]<=0 {exit}
 draw_set_font(fnt_NES)
 draw_set_halign(fa_right)
 tY=view_yview[0]+24
-for(k=1;k<=4;k+=1)
+for(k=1;k<=5;k+=1)
 {
   if global.rndSnareT[k]>0
   {

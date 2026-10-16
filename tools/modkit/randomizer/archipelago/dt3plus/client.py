@@ -5,10 +5,13 @@ Every file starts with a line "seed|<seed name>|<slot name>", so neither side re
 
 Client to game:
   session.txt    on connecting: the seed line, deathlink|0/1, then the world's options from its slot data: shopseed|
-                 <number>, shops|0/1 (the shops' stock shuffled), er|<Entrance Rando: 0 off, 1 Gate Swap, 2 Overworld, 3
+                 <number>, shops|0/1 (the shops' stock shuffled), er|<Entrance Rando: 0 off, 1 Gate Swap, 2 Area, 3
                  Chaos>, erhash|<the room logic data's hash>, erpart|<the doors' shuffle, the mod's rndERString>, br|0/1
                  (Boss Rando), brfight|<its shuffle, rndBRString(0)>, brtypes|<the bosses' types, rndBRString(1)>, ir|0/1
-                 (Instrument Randomization), chips|0/1 (Chip Randomizer); then version|<data version>, connected|0/1
+                 (Instrument Randomization), chips|0/1 (Chip Randomizer), chipportals|0/1 (1: the gates' portals take
+                 the chips; 0: a world made before that, whose chips the gates' rooms took), trapmins|<how long its
+                 trap items last, minutes: 5 from a world before that was a choice>; then version|<data version>,
+                 connected|0/1
   locations.txt  what each of this world's locations holds (scouted): <location id>|<own 0/1>|<item id, 0 if not
                  own>|<item name>|<player it's for>|<flags>
   items.txt      every item received, in order: <item id>|<from this world 0/1>|<sender's name>
@@ -123,6 +126,8 @@ class DT3PlusContext(CommonContext):
             "brtypes|%s" % clean(slot.get("br_types", "")),
             "ir|%d" % int(slot.get("instrument_randomization", 0)),
             "chips|%d" % int(slot.get("chip_randomizer", 0)),
+            "chipportals|%d" % int(slot.get("chip_portals", 0)),
+            "trapmins|%d" % int(slot.get("trap_minutes", 5) or 5),
             "version|%d" % int(slot.get("data_version", 0)),
             "connected|%d" % int(connected),
         ])

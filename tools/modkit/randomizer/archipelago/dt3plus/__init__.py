@@ -6,6 +6,7 @@ server through the DT3+ Client (client.py), which trades small text files with i
 shuffles go to the game in its slot data, through the client.
 """
 import json
+import logging
 import pkgutil
 from typing import Any, Dict, List, Optional, TextIO
 
@@ -40,7 +41,7 @@ def tables() -> erlogic.Flat:
 # how many tries a shuffle of the doors gets (each one kept only if with everything it reaches every place the game's own
 # doors do, and the goal: erlogic.everything_ok, as the mod's new game does)
 SHUFFLE_TRIES = 500
-ENTRANCE_MODE_BITS = (0, 1, 2, 4)  # the option's Off, Gate Swap, Overworld, Chaos: erlogic's mode bits
+ENTRANCE_MODE_BITS = (0, 1, 2, 4)  # the option's Off, Gate Swap, Area, Chaos: erlogic's mode bits
 # Ability Spread Near: how much a location's place in the order of how many items it takes counts against chance
 # (fill_hook). With 0.3 a playthrough has about 6 spheres (Normal about 11, Far about 15)
 SPREAD_NEAR_WEIGHT = 0.3
@@ -99,8 +100,12 @@ class DT3PlusWorld(World):
     def generate_early(self) -> None:
         options = self.options
         self.ir = bool(options.instrument_randomization.value)
-        # Chip Randomizer: the Program Chips are items (each Access Gate's rooms need its own); off, they're had from the
-        # start (rules: the logic counts them as had)
+        # Chip Randomizer: the Program Chips are items (each Access Gate's portal, and the Nightmare Gate portal beside
+        # it, takes its gate's chip, wherever Entrance Rando has the portal lead); off, they're had from the start (rules:
+        # the logic counts them as had). Not with Entrance Rando chaos: off there, as the mod's options window has it
+        if options.entrance_rando.value == options.entrance_rando.option_chaos and options.chip_randomizer.value:
+            logging.info("DT3+ (%s): Chip Randomizer is off with Entrance Rando chaos" % self.player_name)
+            options.chip_randomizer.value = 0
         self.chips = bool(options.chip_randomizer.value)
         # every progression item (the win, and what a place the logic doesn't reach needs)
         self.everything = list(data.EVERYTHING) + ([(name, 1) for name in data.INSTRUMENTS] if self.ir else []) + \
@@ -227,7 +232,11 @@ class DT3PlusWorld(World):
             "br_types": data.BOSS_TYPES,
             "instrument_randomization": int(self.ir),
             "chip_randomizer": int(self.chips),
-            "traps": int(options.traps.value),
+            # (the chips are the gates' portals', as this world's logic has them: the mod goes by it, rndPortalChip)
+            "chip_portals": 1,
+            "traps": int(options.traps.value > 0),
+            # (how long this world's trap items last: the client gives the mod it, trapmins)
+            "trap_minutes": options.traps.minutes[options.traps.value],
         }
 
     def write_spoiler(self, spoiler_handle: TextIO) -> None:

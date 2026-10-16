@@ -36,14 +36,18 @@ if global.rndActive=1
   }
   //Instrument Randomization: on or off (where the instruments are is in place, as for every item)
   ini_write_real(s,"ir",global.rndIRMode)
-  //Chip Randomizer: on or off, and the Program Chips found (a character a gate)
+  //Chip Randomizer: on or off, the Program Chips found (a character a gate), and what takes them (rndPortalChip)
   ini_write_real(s,"chips",global.rndChipMode)
   ini_write_string(s,"chipown",global.rndChipOwn)
-  //Traps: on or off, each trap's time left, a Teleport Trap waiting, and the ways into rooms kept for one (in pieces
-  //of 1000 characters)
+  ini_write_real(s,"chipportals",global.rndChipPortals)
+  //Traps (the trap items: not "traps", the enemy traps beaten, above): on or off, which (rndSnareSet), how long they
+  //last (minutes), each trap's time left, a Teleport Trap waiting, and the ways into rooms kept for one (in pieces of
+  //1000 characters)
   var tk,tH,tN;
-  ini_write_real(s,"traps",global.rndSnareMode)
-  for(tk=1;tk<=4;tk+=1) {ini_write_real(s,"trapt"+string(tk),global.rndSnareT[tk])}
+  ini_write_real(s,"trapitems",global.rndSnareMode)
+  ini_write_real(s,"trapset",global.rndSnareSet)
+  ini_write_real(s,"trapmins",round(global.rndSnareTime/1800))
+  for(tk=1;tk<=5;tk+=1) {ini_write_real(s,"trapt"+string(tk),global.rndSnareT[tk])}
   ini_write_real(s,"trappend",global.rndSnarePend)
   tH=rndSnareHistString()
   tN=ceil(string_length(tH)/1000)

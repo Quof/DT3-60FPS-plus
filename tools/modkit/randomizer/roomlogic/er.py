@@ -9,7 +9,8 @@ partner's exit back to its own (going back through a door returns the player whe
 
 Modes (the new game's option Entrance Rando):
   gates       the Access Gates' and Nightmare Gates' doors (oAccessGate, oDistortionGate): Gate Swap
-  overworld   those, every door between two areas, and every door between a map (Hyrule's, Gate 6's) and a room
+  area        the doors inside each region (regions.txt: Initiate's Pass, Central City, each Access Gate, ...), each
+              region's paired only among its own; the doors between regions are the game's: Area
   chaos       every door
 Every mode leaves out: one-way exits, doors within a room, menus and encounters, the exits that are boss fights
 (connections.txt's via), exits whose way goes by a carried state and the Forest Palace's rooms (its crystals), the
@@ -47,7 +48,7 @@ sys.path.insert(0, HERE)
 sys.path.insert(0, os.path.dirname(HERE))
 import solve
 
-MODES = ("gates", "overworld", "chaos")
+MODES = ("gates", "area", "chaos")
 GATE_OBJECTS = {"oAccessGate", "oDistortionGate"}
 MAP_OBJECTS = {"oZeldaMapExit", "oGameMapExit"}
 # exits the game's code (not the exit's own variables) sends somewhere: left as they are
@@ -65,6 +66,36 @@ KEEP_UNREACHED = {"rDiscoA", "rDiscoB", "rDiscoC"}
 INSIDE_LEFT_OUT = ("rDistortion",)
 # (a door's two exits: the way in each leads to is this near the other)
 PAIR_DIST = 200
+# Area rando's regions (regions.txt: each a name and the game's areas in it, by number; an area on no line is a region
+# of its own): the area mode shuffles the doors with both ends in one region, each region's among its own (erflat's
+# akey, what the shuffle pairs by in that mode)
+REGIONS = os.path.join(HERE, "regions.txt")
+_regions = None
+
+
+def load_regions(path=REGIONS):
+    """regions.txt: {area number: region name}"""
+    out = {}
+    if not os.path.exists(path): return out
+    for ln, raw in enumerate(open(path, encoding="utf-8"), 1):
+        line = raw.split("#", 1)[0].strip()
+        if not line: continue
+        if not line.startswith("region ") or ":" not in line:
+            raise SystemExit("regions.txt line %d: 'region <name> : <area numbers>'" % ln)
+        name, nums = [s.strip() for s in line[len("region "):].rsplit(":", 1)]
+        for t in nums.replace(",", " ").split():
+            if not t.isdigit(): raise SystemExit("regions.txt line %d: %r isn't an area's number" % (ln, t))
+            if int(t) in out: raise SystemExit("regions.txt line %d: area %s is in two regions (%s, %s)" % (ln, t, out[int(t)], name))
+            out[int(t)] = name
+    return out
+
+
+def region_of(area):
+    """the region an area is in (regions.txt; an area on no line its own), None for a room with no area"""
+    global _regions
+    if _regions is None: _regions = load_regions()
+    if area is None: return None
+    return _regions.get(area, "area %d" % area)
 
 
 def xy(s):
@@ -213,9 +244,8 @@ def pool(pairs, mode):
     pairs = [p for p in pairs if p[0].cls == p[1].cls and not p[0].room.startswith(LEFT_OUT) and not p[1].room.startswith(LEFT_OUT)
              and not (p[0].room.startswith(INSIDE_LEFT_OUT) and p[1].room.startswith(INSIDE_LEFT_OUT))]
     if mode == "gates": return [p for p in pairs if p[0].obj in GATE_OBJECTS or p[1].obj in GATE_OBJECTS]
-    if mode == "overworld":
-        return [p for p in pairs if p[0].obj in GATE_OBJECTS or p[1].obj in GATE_OBJECTS or p[0].area != p[1].area
-                or p[0].map or p[1].map]
+    if mode == "area":
+        return [p for p in pairs if region_of(p[0].area) is not None and region_of(p[0].area) == region_of(p[1].area)]
     return list(pairs)
 
 
@@ -391,9 +421,6 @@ class Reach:
         elif to[0] != room and self.w.rooms.get(to[0]) is not None and self.w.rooms[to[0]].boss: extra = [self.w.alt(a) for a in solve.ATTACK]
         if (room, out) in conn.via: extra = [self.w.alt(a) for a in conn.via_need.get((room, out), solve.ATTACK)]
         if (room, out) in conn.need: extra = [self.w.alt(a) for a in conn.need[(room, out)]]
-        # (into an Access Gate's rooms from outside it: its Program Chip, a key here: solve.CHIP_KEY)
-        g = solve.gate_of(to[0])
-        if g and g != solve.gate_of(room): extra = [(i, k | {solve.CHIP_KEY + g}, e) for i, k, e in extra]
         return to, extra
 
     def expand(self, node):

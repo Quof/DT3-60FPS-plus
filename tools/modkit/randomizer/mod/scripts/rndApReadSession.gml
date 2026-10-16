@@ -3,7 +3,9 @@
 //(rndApShopSeed) and whether they're shuffled (rndApSessShops), Entrance Rando's mode, door data hash and shuffle
 //(rndApSessER, rndApSessERHash, rndApSessERPart: rndERString's), Boss Rando's (rndApSessBR, rndApSessBRFight:
 //rndBRString(0)'s, rndApSessBRTypes: rndBRString(1)'s), Instrument Randomization (rndApSessIR) and Chip Randomizer
-//(rndApSessChips). A session from a world before those options has the shops shuffled and none of the rest. Returns 1
+//(rndApSessChips, and rndApSessChipPortals: 1 the portals take the chips, 0 a world made before that, whose chips the
+//gates' rooms took), and how long its trap items last (rndApSessTrapMins: 5 minutes from a world before that was an
+//option). A session from a world before those options has the shops shuffled and none of the rest. Returns 1
 //when the client is connected to a multiworld. (The client and the game trade files in global.rndApPath;
 //tools/modkit/randomizer/archipelago has the client, client.py, and what each file holds)
 var f,l,n,tConn;
@@ -17,6 +19,8 @@ global.rndApSessBRFight=""
 global.rndApSessBRTypes=""
 global.rndApSessIR=0
 global.rndApSessChips=0
+global.rndApSessChipPortals=0
+global.rndApSessTrapMins=5
 tConn=0
 if !file_exists(global.rndApPath+"session.txt") {return 0}
 f=file_text_open_read(global.rndApPath+"session.txt")
@@ -39,6 +43,8 @@ while !file_text_eof(f)
     else if global.rndApPart[0]="brtypes" {global.rndApSessBRTypes=global.rndApPart[1]}
     else if global.rndApPart[0]="ir" {global.rndApSessIR=real(global.rndApPart[1])}
     else if global.rndApPart[0]="chips" {global.rndApSessChips=real(global.rndApPart[1])}
+    else if global.rndApPart[0]="chipportals" {global.rndApSessChipPortals=real(global.rndApPart[1])}
+    else if global.rndApPart[0]="trapmins" {global.rndApSessTrapMins=real(global.rndApPart[1])}
     else if global.rndApPart[0]="connected" {tConn=real(global.rndApPart[1])}
   }
 }

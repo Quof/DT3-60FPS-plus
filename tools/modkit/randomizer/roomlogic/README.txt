@@ -353,7 +353,10 @@ Gate 4's stages: a Randomizer game adds a way back to each of their rooms but th
 MM_BACK_EXITS, which roomdata.py adds to the rooms as exits), so each room's exit and the next one's way back are a
 door; those doors come after the others too.
   Gate Swap   the Access Gates' and Nightmare Gates' doors (oAccessGate, oDistortionGate)
-  Overworld   those, every door between two areas, and every door between a map (Hyrule's, Gate 6's) and a room
+  Area        the doors inside each region (regions.txt: each a name and the game's areas in it; an area on no line is
+              a region of its own), each region's paired only among its own (erflat.py's akey); the doors between
+              regions are the game's. The regions aren't in the doors' hash (below), so a change to them keeps the
+              saves' and Archipelago worlds' shuffles loading
   Chaos       every door
 
 A seed (the mod's rndNewGame, with the same steps in Python in erflat.py):

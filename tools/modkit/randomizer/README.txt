@@ -49,32 +49,42 @@ Playing
     Ability Spread           Near, Normal, Far: the chance that an ability or key goes in the newest layer (3 in 10,
                              7 in 10, always; see Logic).
     Shop Equipment           Shuffled (between the equipment shops) or As Normal.
-    Entrance Rando           Off, Gate Swap, Overworld or Chaos: where the doors lead is shuffled (below).
+    Entrance Rando           Off, Gate Swap, Area or Chaos: where the doors lead is shuffled (below).
     Boss Rando               Off or On: which boss is fought in each boss's room is shuffled (below).
     Instrument Randomization Off or On: the 8 instruments are in the pool, and the Nightmare Gates' rewards hold any
                              item (no ability or key: a fight's reward, as the bosses' heart containers).
-    Chip Randomizer          Off or On: the 6 Program Chips are in the pool, and each Access Gate opens with its own
-                             (below), as does its section of the skill tree. Off (the default): the player has all
-                             six from the start, and the whole skill tree is open.
-    Traps                    Off or On: 5% of the items (28) are trap items, in Internetz chests' places (below).
+    Chip Randomizer          Off or On: the 6 Program Chips are in the pool, and each Access Gate's portal (and the
+                             Nightmare Gate portal beside it) opens with its own (below), as does its section of the
+                             skill tree. Off (the default): the player has all
+                             six from the start, and the whole skill tree is open. Always off with Entrance Rando
+                             Chaos (greyed out in the window; the choice is kept for the other modes).
+    Traps                    Off, 2 Minutes, 5 Minutes or 10 Minutes: 30 of the items (6 of each of 5 traps) are
+                             trap items, in Internetz chests' places, each lasting that long (below).
     Spoiler Log              written or not.
   An Archipelago game has no options window: its options are the DT3+ world's, in the player's YAML (below,
   Archipelago).
-  - Traps: trap items (not the enemy traps below) in the place of 28 Internetz chests (rndgen.py's snare_slots: the
-    smallest after the six the Program Chips take, so both options can be on), the four traps in turn. A trap item
-    looks like a Weapon Upgrade (its weapon by where it is), or is in a chest that sparkles as for any item but
-    Internetz; Chao's Item Finder counts it as an item. Taken, it springs (the mod's rndSnareSpring): Darkness, Dark
-    Mode's darkness (oSurfLightAll) in every room for 5 minutes; Rocketeer, a CHAOS Rocketeer now, and another in every
-    room come into, for 5 minutes (none in boss fights); Teleport, back to a way into a room the player has come in by
-    this run, at random (the newest 400 kept; in a boss fight, once it's over); Achilles, any hit kills for 5 minutes,
-    as in Achilles Mode (the mod's takeDamage, rndgen.py's SCRIPT_PATCHES). The 5 minutes are of play (not counted
-    while paused), and one sprung again while it's on starts them again. The HUD shows each one's time left (the
-    drawHUD hook); the save keeps them, and the ways in. The traps aren't progression items, so where the others go is
-    as without them. In an Archipelago game they're items of the multiworld (classification trap): its own can be in
-    other worlds, and spring when they come (rndApGive).
+  - Traps: trap items (not the enemy traps below) in the place of 30 Internetz chests (rndgen.py's snare_slots: the
+    smallest after the six the Program Chips take, so both options can be on), the five traps in turn, 6 of each. A
+    trap item looks like a Weapon Upgrade (its weapon by where it is), or is in a chest that sparkles as for any item
+    but Internetz; Chao's Item Finder counts it as an item. Taken, it springs (the mod's rndSnareSpring), the timed ones
+    for the option's time (2, 5 or 10 minutes): Darkness, Dark Mode's darkness (oSurfLightAll) in every room;
+    Rocketeer, a CHAOS Rocketeer now, and another in every room come into (none in boss fights); Teleport, at once, back
+    to a way into a room the player has come in by this run, at random (the newest 400 kept; in a boss fight, once it's
+    over); Achilles, any hit kills, as in Achilles Mode (the mod's takeDamage, rndgen.py's SCRIPT_PATCHES); Wind Orb,
+    the Green Warmaster's seeker orb (his charged supermove, oWMD_SeekerOrb: the mod's oRndSnareOrb, which doesn't run
+    out and which nothing destroys) after the player now and in every room come into (none in boss fights). The time is
+    of play (not counted while paused), and one sprung again while it's on starts it again. The HUD shows each one's
+    time left (the drawHUD hook); the save keeps them, and the ways in. A save from before the Wind Orb has its own trap
+    items (28 of the four before it: rndgen.py's snare_slots_old) and their 5 minutes. The traps aren't progression
+    items, so where the others go is as without them. In an Archipelago game they're items of the multiworld
+    (classification trap): its own can be in other worlds, and spring when they come (rndApGive), for its world's time.
   - Entrance Rando: the mode's doors are paired anew, coupled (going back through a door returns the player where they
-    came from). Gate Swap: the Access Gates' and Nightmare Gates' doors. Overworld: those, every door between two areas
-    and every way between a map (Hyrule's, Gate 6's) and a room. Chaos: every door. The seed is made so that with
+    came from). Gate Swap: the Access Gates' and Nightmare Gates' doors. Area: the doors inside each region of the game
+    (roomlogic\regions.txt: Initiate's Pass, Central City, Begonia, each Access Gate, the CHAOS Warship, ...), each
+    region's paired only among its own, while the doors between regions (the gates' portals, Central City's way to the
+    Greatest Stretch) are the game's; regions.txt can be changed. Chaos: every door. (Area took the place of the
+    overworld mode, which shuffled the doors between areas: a save made with that keeps its own shuffle.) The seed is
+    made so that with
     everything, every place the game's own doors reach is reached, and the game can be finished: the items are placed
     with what the shuffled doors reach, and the seed is played through before the game starts (a shuffle that fails is
     dropped for another; roomlogic\README.txt, ENTRANCE RANDO). Making it takes a few seconds. The spoiler log lists
@@ -118,16 +128,18 @@ Playing
     instrument quest's end) and the CHAOS Warmaster EX. The items are placed with what each place's fight now takes
     (roomlogic\bosses.txt has what each fight takes), and the seed is played through before the game starts. The
     spoiler log lists the fights. A save keeps its shuffle.
-  - Chip Randomizer: the six Program Chips are items, in the places of the six smallest Internetz chests (rndgen.py's
-    chip_slots), and Access Gate N's rooms (their names start rMario1_, rLink2_, rBelmont3_, rMega4_, rSamus5_ and
-    rGame6_: the gate's prefix, rndGateOf) can only be gone into with chip N: coming into one from a room outside that
-    gate without it, whatever the way in (its Access Gate, or a door Entrance Rando joined to it), turns the player back
-    at once, out the way they came, and a message says which chip opens it (the roomStart hook, rndGateBounce). Boss
-    fights and the ways back from them don't count (Boss Rando's fights in a gate's rooms need no chip). The logic has
-    the same rule (roomlogic\solve.py and erflat.py: a room of gate N gone into from a room outside it takes chip N),
-    so every location in a gate needs its chip and no chip is ever placed where its own gate would have to be open to
-    get it; the build checks that for its seeds, and a seed is played through before the game starts. The pause menu
-    shows as many chips as the player has. Off: all six are had from the start, and the logic counts them as had.
+  - Chip Randomizer (not with Entrance Rando Chaos: there the player has all six, as the Archipelago world has it too):
+    the six Program Chips are items, in the places of the six smallest Internetz chests (rndgen.py's chip_slots), and
+    Access Gate N's portal can only be used with chip N, as can the Nightmare Gate portal beside it, made of that gate's
+    game (Nightmare Gate A with chip 1, B 2, C 3, D 4, F 5, G 6; E, in the Vault, and H take none), wherever Entrance
+    Rando has the portal lead. Without the chip, pressing Up at the portal only says which chip opens it (the mod's
+    oAccessGate, rndPortalChip). Nothing else into a gate's rooms takes a chip: a door Entrance Rando joined to them, a
+    boss fight. The logic has the same rule: roomlogic\overrides.txt's need lines for the portals ("chip N"), which the
+    build turns into the mod's list of portals (portal_chips), so no chip is ever placed behind a portal it opens; the
+    build checks that for its seeds without Entrance Rando, and every seed is played through before the game starts.
+    The pause menu shows as many chips as the player has. Off: all six are had from the start, and the logic counts
+    them as had. A save (or a multiworld) from before the portals took the chips has them as its items were placed: a
+    portal into Access Gate N's rooms from outside them takes chip N, by where it leads (rndChipPortals 0).
   - The skill tree: its red nodes (the gate locks) open with the Program Chips, section N with chip N, so with Chip
     Randomizer off the whole tree is open from the start. In the game each section opens with Access Gate N's ability
     set (1 the Mario Ability Set, 2 Link, 3 Belmont, 4 Mega Man, 5 Samus, 6 Gate 6's), which a Randomizer game finds in
@@ -298,7 +310,8 @@ Archipelago
     meanwhile are sent then.
   The world's options, in the player's YAML, are the new game's options window's (the seed and the spoiler log are the
   multiworld's own, and its spoiler lists the shuffled doors and boss fights):
-    entrance_rando            off, gate_swap, overworld, chaos. The world shuffles the doors as the mod does
+    entrance_rando            off, gate_swap, area, chaos (overworld, from before area, is area). The world shuffles
+                              the doors as the mod does
                               (archipelago\dt3plus\erlogic.py is roomlogic\erflat.py's own code, copied by the build,
                               with the room logic's tables, erdata.json), keeping a shuffle only if with everything it
                               reaches every place the game's own doors do, and the goal; its logic is then the room
@@ -308,7 +321,11 @@ Archipelago
                               its locations (off: each reward is its gate's own instrument, not a location).
     chip_randomizer           true/false: the Program Chips are the multiworld's items, in the pool in the place of
                               six Internetz chests, and each Access Gate needs its own (off: had from the start, not
-                              items; the logic counts them as had).
+                              items; the logic counts them as had). Always off with entrance_rando chaos (the world
+                              turns it off as it starts making the seed, and says so).
+    traps                     off, two_minutes, five_minutes, ten_minutes: the trap items (30, 6 of each) are the
+                              multiworld's items, in the place of as many Internetz chests, each lasting that long (the
+                              client gives the mod the time: trapmins). true, from before the times, is five_minutes.
     shop_equipment            shuffled (from the multiworld's seed) or as_normal.
     guarantee_early_weapons   true/false: one weapon set's first item (Link, Belmont, Mega Man or Samus, at random) in
                               the player's own world, at a place they can get to from the start (Archipelago's local
@@ -334,7 +351,7 @@ Building
   their items, the locked doors, the shops and the bosses; joins the room logic with overrides.txt (solve.py); and writes
   the mod's data scripts, the pickups' events (the randomizer's part ahead of the game's own) and, next to rndgen.py,
   locations.csv and doors.csv. It ends with a check that the placement works for 50 seeds with each option, and how
-  many layers they have (with Chip Randomizer, each also played through, with no chip in its own gate); then writes
+  many layers they have (with Chip Randomizer, each also played through, with no chip behind a portal it opens); then writes
   the room logic Entrance Rando and Boss Rando make seeds from (data\rndER.txt, roomlogic\erflat.py) and makes ten
   seeds of each of their modes (and Chaos with Boss Rando, and some with Chip Randomizer), each played through;
   then the trackers' data (tracker\data.js, with the same room logic, and the items' pictures and the bosses' heads in
@@ -346,8 +363,9 @@ Building
   The build also copies some of the game's own events into the mod, changed (the pickups', oHUD's Draw: rndgen.py's
   SIMPLE_PICKUPS and GAME_PATCHES), so build it again after changing those in the game.
   world.txt    the endgame world state, save file keys and values from a 100% save
-  roomlogic\   the logic: each room's file, how the rooms join, changes to them (overrides.txt), and the program that
-               makes them (roomlogic\README.txt)
+  roomlogic\   the logic: each room's file, how the rooms join, changes to them (overrides.txt), the regions the
+               area mode of Entrance Rando shuffles within (regions.txt), and the program that makes them
+               (roomlogic\README.txt)
   logic.txt    last-resort changes to single places (below)
   tracker_names.txt  the Check Tracker's tabs and screens, names for single checks, and the locked doors' places
                      (Trackers, above)

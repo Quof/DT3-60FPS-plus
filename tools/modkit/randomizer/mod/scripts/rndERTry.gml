@@ -1,9 +1,9 @@
 //Randomizer: a row instance tried (argument0: row*rndEGsN+state): gone through if what it takes is had (an exit's way
 //on, a place reached, a spot's event), else filed under what it lacks (rndERFile). An exit's way also takes the fight of
-//the room it goes into (another room's boss) and what going through it takes on top (a via, overrides' need); a boss's
-//room or via exit, the fight of the boss fought there (Boss Rando: rndBRFight); and into an Access Gate's rooms from
-//outside it, its Program Chip
-var inst,gs,q,ri,tKind,t,af,ac,g2,tLeave,i,g,n,tTo,tr,bf,bc,xf,xc,s,ok1,ok2,ok3,ok4,tGate,nf,c,j,cv;
+//the room it goes into (another room's boss) and what going through it takes on top (a via, overrides' need: an Access
+//Gate's portal's Program Chip among them); a boss's room or via exit, the fight of the boss fought there (Boss Rando:
+//rndBRFight)
+var inst,gs,q,ri,tKind,t,af,ac,g2,tLeave,i,g,n,tTo,tr,bf,bc,xf,xc,s,ok1,ok2,ok3,nf,c,j,cv;
 inst=argument0
 q=inst div global.rndEGsN
 gs=inst mod global.rndEGsN
@@ -16,7 +16,6 @@ ac=global.rndEQAltC[q]
 ds_list_clear(global.rndRLk1)
 ds_list_clear(global.rndRLk2)
 ds_list_clear(global.rndRLk3)
-ds_list_clear(global.rndRLk4)
 if tKind=1
 {
   //(the state the player leaves in: the room's own groups as the row has them)
@@ -46,14 +45,7 @@ if tKind=1
   ok1=rndERLack(af,ac,global.rndRLk1)
   ok2=rndERLack(bf,bc,global.rndRLk2)
   ok3=rndERLack(xf,xc,global.rndRLk3)
-  //(into an Access Gate's rooms from outside it: its Program Chip, one more of which is all it takes)
-  ok4=1
-  tGate=global.rndERGate[tr]
-  if tGate>0 and tGate!=global.rndERGate[ri]
-  {
-    if global.rndGHave[global.rndEChipBase+tGate]<1 {ds_list_add(global.rndRLk4,(global.rndEChipBase+tGate)*2+1); ok4=0}
-  }
-  nf=(ok1=0)+(ok2=0)+(ok3=0)+(ok4=0)
+  nf=(ok1=0)+(ok2=0)+(ok3=0)
   if nf>0 {rndERFile(q,gs,nf=1); exit}
   rndERPassed(q,gs)
   //the Forest Palace's crystals: left with, parked; gone back into, each value they were left with

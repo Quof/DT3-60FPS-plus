@@ -23,12 +23,12 @@ import os, re, sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 PROJ = os.path.normpath(os.path.join(HERE, "..", "..", ".."))
 MOD_INI = """[mod]
-name=Timed Sparkles
+name=Adjusted Sparkles
 author=DT3+
 version=1.0
-description=The weapon sparkle of the Gate 6 enemies with parryable attacks (Slime, Skeleton, Sword Armor, the Stone Golem, High Heels Girl) follows the weapon and has gone 7 ticks before the attack's most horizontal hit frame. An attack that starts too late for the whole sparkle shows the end of it, and none when that would be under 3 ticks.
+description=The weapon sparkle of the Gate 6 enemies with parryable attacks now consistently disappears 7 ticks before the attack goes out. If there isn't enough time, it isn't shown.
 legacy=0
-order=0
+order=10
 """
 SHOW_MIN = 3     # ticks of the sparkle that must be left to show it
 SPARK_LEN = 10   # ticks the sparkle lasts (oG6_CounterSpark: image_number+1)

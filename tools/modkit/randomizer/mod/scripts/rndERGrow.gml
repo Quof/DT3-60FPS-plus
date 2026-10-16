@@ -1,6 +1,7 @@
 //Randomizer: making a shuffle (rndERShuffle): with everything, on from the entries on global.rndSStack (each one
 //seen: rndERGrowTo). The places they get to are seen (rndSPlace); an exit of an end in the mode's pool that isn't joined
-//yet puts the end in the frontier (rndSFront: an end to join a new one to; rndSFrontC counts them by class); a joined
+//yet puts the end in the frontier (rndSFront: an end to join a new one to; rndSFrontC counts them by key, rndSKey: the
+//class, or in the area mode the class and region); a joined
 //end goes on to its partner's way back in; any other exit, where the game has it lead
 var e,j,k,tX,d,st;
 st=global.rndSStamp
@@ -20,7 +21,7 @@ while !ds_stack_empty(global.rndSStack)
       {
         global.rndSFrontAt[d]=st
         ds_list_add(global.rndSFront,d)
-        global.rndSFrontC[global.rndEDCls[d]]+=1
+        global.rndSFrontC[global.rndSKey[d]]+=1
       }
     }
     else if global.rndEXSg[tX]<0 {rndERGrowTo(global.rndEXDest[tX])}

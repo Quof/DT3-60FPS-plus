@@ -21,8 +21,9 @@
 # Requirements: alternatives separated by |, any one of which is enough; each a list (spaces or commas) of: djump,
 # adash, gdash, hijump N, mario, link N, belmont N, megaman N, samus N, gamej N, gamec N (that many of the item), varia
 # (the Varia Suit), cursed N (that many of the three cursed equipment pieces), key N (the key of the locked door whose
-# objectNum is N: doors.csv), attack (any ability set's attack), event NAME (events.txt), option NAME (only with that
-# option on), nothing, or never.
+# objectNum is N: doors.csv), chip N (Program Chip N: the new game's option Chip Randomizer; with it off the player has
+# all six), attack (any ability set's attack), event NAME (events.txt), option NAME (only with that option on), nothing,
+# or never.
 #
 # Say why next to a change (a comment), so whoever reads it later knows. Examples (not in effect: they're comments):
 #   set rMain_62 in 48,1920 -> out 0,224 : djump megaman 2 | djump belmont 3
@@ -350,3 +351,23 @@ add rDCS_M in * -> out 1936,256 : samus 1
 add rMC_E in * -> out 688,2976 : djump adash megaman 4
 # rMC_F's heart piece, across the pit with the spikes, chain points and bats: the same, and the Mario Ability Set
 add rMC_F in * -> loc heart piece 39 : mario djump adash megaman 4
+
+# ---- The Access Gates' portals and their Program Chips (Chip Randomizer) ----
+
+# Each Access Gate's portal opens with that gate's Program Chip, and so does the Nightmare Gate portal beside it (made
+# of that gate's game: A Mario's, B Zelda's, C Castlevania's, D Mega Man's, F Metroid's, G Gate 6's), wherever Entrance
+# Rando has the portal lead. Nothing else into a gate's rooms takes a chip. Nightmare Gate E (in the Vault, of its own
+# making) and H take none. The mod's portals (oAccessGate) ask for the chips these lines name (rndgen.py's portal_chips:
+# a portal's line is "chip N" alone)
+need rMain_5Gate out 72,176 : chip 1
+need rMain_5Gate out 176,64 : chip 1
+need rMain_8Gate out 96,224 : chip 2
+need rMain_8Gate out 96,96 : chip 2
+need rMain_14Gate out 192,176 : chip 3
+need rMain_14Gate out 384,128 : chip 3
+need rMain_28Gate out 224,224 : chip 4
+need rMain_28Gate out 224,32 : chip 4
+need rMain_48Gate out 384,96 : chip 5
+need rMain_48Gate out 256,144 : chip 5
+need rMain_56Gate out 384,160 : chip 6
+need rMain_56Gate out 176,208 : chip 6

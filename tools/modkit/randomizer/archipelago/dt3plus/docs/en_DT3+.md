@@ -20,9 +20,11 @@ and the Trial Master's cursed trials have to be done again for their rewards.
 
 The Randomizer's own new-game options are the world's options:
 
-- **Entrance Rando** (Off, Gate Swap, Overworld, Chaos): where the doors lead is shuffled. Gate Swap: the Access Gates'
-  and Nightmare Gates' doors; Overworld: those, the doors between two areas and the maps' ways in and out; Chaos: every
-  door. Going back through a door returns you where you came from. On Hyrule's and Gate 6's maps, a place's other ways
+- **Entrance Rando** (Off, Gate Swap, Area, Chaos): where the doors lead is shuffled. Gate Swap: the Access Gates'
+  and Nightmare Gates' doors; Area: the doors inside each region of the game (Initiate's Pass, Central City, Begonia,
+  each Access Gate, the CHAOS Warship, ...), each region's among its own, while the ways between regions (the gates'
+  portals, Central City's way to the Greatest Stretch) lead where they do in the game; Chaos: every door. Going back
+  through a door returns you where you came from. On Hyrule's and Gate 6's maps, a place's other ways
   back out to its tile (a town's far side, a palace's way out after its boss) lead where its shuffled door does; a
   bridge's or pass's far side still comes out across it. Gate 4's stages have a way back between their rooms (not into
   the boss rooms), so in Chaos their doors are shuffled too, and Gate 5's Metroid-hatch doors pair with any other door
@@ -34,16 +36,20 @@ The Randomizer's own new-game options are the world's options:
 - **Instrument Randomization**: the 8 instruments are items of the multiworld, and each Nightmare Gate's reward (left
   where its boss is beaten) is a location. Off: each gate's boss leaves its own instrument.
 - **Chip Randomizer**: the 6 Program Chips are items of the multiworld (in the place of six Internetz chests), and each
-  Access Gate's rooms can only be gone into once its own chip is found (Program Chip 1 opens Gate 1, and so on); going
-  in without it turns you back. No chip is ever behind its own gate. The skill tree's sections open with the chips too
-  (Program Chip 5 opens section 5). Off: you start with all 6, and the whole skill tree is open.
-- **Traps**: 5% of the items (28) are traps, in the place of as many Internetz chests. In your world they look like
-  Weapon Upgrades, or are in a chest that sparkles as for any item but Internetz. The Darkness Trap makes every room
-  dark (as in Dark Mode) for 5 minutes. The Rocketeer Trap sends a CHAOS Rocketeer after you, and another in every room
-  you go into, for 5 minutes. The Teleport Trap takes you back to one of the ways into a room you've come in by this
-  run, at random (in a boss fight, once it's over). The Achilles Trap makes any hit kill you (as in Achilles Mode) for
-  5 minutes. A trap that's already on starts its 5 minutes again. The HUD shows how long each one has left. Your traps
-  can be in other worlds, and other games' traps in yours.
+  Access Gate's portal opens only once its own chip is found (Program Chip 1 opens Gate 1's, and so on), as does the
+  Nightmare Gate portal beside it (Nightmare Gate A with Gate 1's chip, B with 2's, C 3's, D 4's, F 5's, G 6's; E needs
+  none), wherever Entrance Rando has the portal lead. Without the chip the portal can't be used; nothing else into a
+  gate's rooms needs one. No chip is ever behind a portal it opens. The skill tree's sections open with the chips too
+  (Program Chip 5 opens section 5). Off: you start with all 6, and the whole skill tree is open. Always off with Entrance
+  Rando Chaos.
+- **Traps** (off, two_minutes, five_minutes, ten_minutes: how long each lasts): 30 of the items are traps, 6 of each,
+  in the place of as many Internetz chests. In your world they look like Weapon Upgrades, or are in a chest that
+  sparkles as for any item but Internetz. The Darkness Trap makes every room dark (as in Dark Mode). The Rocketeer Trap
+  sends a CHAOS Rocketeer after you, and another in every room you go into. The Teleport Trap takes you back to one of
+  the ways into a room you've come in by this run, at random (in a boss fight, once it's over). The Achilles Trap makes
+  any hit kill you (as in Achilles Mode). The Wind Orb Trap sends the Green Warmaster's wind orb after you, in every
+  room you go into, and nothing destroys it. A trap that's already on starts its time again. The HUD shows how long
+  each one has left. Your traps can be in other worlds, and other games' traps in yours.
 
 The places where the story's ability pickups were (17: the Dash Boots, the double jump's, Link's bow and bombs,
 Belmont's dagger and Holy Water, Gate 5's upgrades and suits) are locations ("Story Item"). Four of them always hold the

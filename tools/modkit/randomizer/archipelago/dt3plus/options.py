@@ -11,15 +11,18 @@ class EntranceRando(Choice):
     """
     Where the doors lead is shuffled (going back through one returns you where you came from).
     Gate Swap: the Access Gates' and Nightmare Gates' doors.
-    Overworld: those, the doors between two areas and the maps' ways in and out.
+    Area: the doors inside each region of the game (Initiate's Pass, Central City, Begonia, each Access Gate, ...), each
+    region's among its own; the ways between regions lead where they do in the game.
     Chaos: every door.
     Every place stays reachable and the game can be finished. The logic is the rooms' own with the doors as shuffled.
+    (overworld, the mode area took the place of, is area)
     """
     display_name = "Entrance Rando"
     option_off = 0
     option_gate_swap = 1
-    option_overworld = 2
+    option_area = 2
     option_chaos = 3
+    alias_overworld = 2
     default = 0
 
 
@@ -44,25 +47,39 @@ class InstrumentRandomization(Toggle):
 class ChipRandomizer(Toggle):
     """
     On: the 6 Program Chips are shuffled into the multiworld (in the place of six Internetz chests), and each Access
-    Gate's rooms can only be gone into once its own chip is found (Program Chip 1 opens Gate 1, and so on): going in
-    without it turns you back. A location in a gate needs its chip in logic, so no chip is ever behind its own gate.
+    Gate's portal opens only once its own chip is found (Program Chip 1 opens Gate 1's, and so on), as does the
+    Nightmare Gate portal beside it (made of that gate's game; Nightmare Gate E's needs none), wherever Entrance Rando
+    has the portal lead. Without the chip the portal can't be used. No chip is ever behind a portal it opens.
     The skill tree's sections open with the chips too (Program Chip 5 opens section 5).
     Off: you start with all 6, and the whole skill tree is open.
+    Always off with Entrance Rando chaos.
     """
     display_name = "Chip Randomizer"
 
 
-class Traps(Toggle):
+class Traps(Choice):
     """
-    On: 5% of the items are traps, in the place of as many Internetz chests. In your world they look like Weapon
-    Upgrades (or are in a chest, which sparkles as for any item but Internetz).
-    Darkness Trap: every room is dark (as in Dark Mode) for 5 minutes.
-    Rocketeer Trap: a CHAOS Rocketeer comes after you, and another in every room you go into, for 5 minutes.
-    Teleport Trap: you're taken back to one of the ways into a room you've come in by this run, at random.
-    Achilles Trap: any hit kills you (as in Achilles Mode) for 5 minutes.
+    30 of the items are traps (6 of each), in the place of as many Internetz chests, and this is how long each lasts
+    (off: no traps). In your world they look like Weapon Upgrades (or are in a chest, which sparkles as for any item but
+    Internetz).
+    Darkness Trap: every room is dark (as in Dark Mode).
+    Rocketeer Trap: a CHAOS Rocketeer comes after you, and another in every room you go into.
+    Teleport Trap: you're taken back to one of the ways into a room you've come in by this run, at random (at once).
+    Achilles Trap: any hit kills you (as in Achilles Mode).
+    Wind Orb Trap: the Green Warmaster's wind orb, which can't be destroyed, hunts you in every room you go into.
     The traps are items of the multiworld: yours can be in other worlds, and other games' traps in yours.
+    (true, from before the times were a choice, is five_minutes)
     """
     display_name = "Traps"
+    option_off = 0
+    option_five_minutes = 1
+    option_two_minutes = 2
+    option_ten_minutes = 3
+    alias_false = 0
+    alias_true = 1
+    default = 0
+    # (each one's minutes: the world's slot data, trap_minutes)
+    minutes = {0: 0, 1: 5, 2: 2, 3: 10}
 
 
 class ShopEquipment(Choice):

@@ -17,7 +17,7 @@ tStr+=", Shop Equipment "
 if global.rndOptShops=1 {tStr+="Shuffled"} else {tStr+="As Normal"}
 tStr+=", Entrance Rando "
 if global.rndERMode=1 {tStr+="Gate Swap"}
-else if global.rndERMode=2 {tStr+="Overworld"}
+else if global.rndERMode=2 {tStr+="Area"}
 else if global.rndERMode=3 {tStr+="Chaos"}
 else {tStr+="Off"}
 tStr+=", Boss Rando "
@@ -27,13 +27,13 @@ if global.rndIRMode=1 {tStr+="On"} else {tStr+="Off"}
 tStr+=", Chip Randomizer "
 if global.rndChipMode=1 {tStr+="On"} else {tStr+="Off"}
 tStr+=", Traps "
-if global.rndSnareMode=1 {tStr+="On"} else {tStr+="Off"}
+if global.rndSnareMode=1 {tStr+=string(round(global.rndSnareTime/1800))+" Minutes"} else {tStr+="Off"}
 file_text_write_string(f,tStr); file_text_writeln(f)
 file_text_write_string(f,"(this seed with these options places the items the same way again: type seed"+string(global.rndSeed)+" on the title screen, or choose it in the new game's options)"); file_text_writeln(f)
 if global.rndIRMode=1 {file_text_write_string(f,"Win: the 8 instruments (anywhere: they're with the abilities below), the Abomination, then the CHAOS Warmaster at the end of the CHAOS Warship.")}
 else {file_text_write_string(f,"Win: the 8 instruments (each Nightmare Gate's boss, beaten, leaves its instrument), the Abomination, then the CHAOS Warmaster at the end of the CHAOS Warship.")}
 file_text_writeln(f)
-if global.rndChipMode=1 {file_text_write_string(f,"Access Gates: each one's rooms open with its Program Chip (anywhere: they're with the abilities below)"); file_text_writeln(f)}
+if global.rndChipMode=1 {file_text_write_string(f,"Access Gates: each one's portal, and the Nightmare Gate portal beside it, opens with its Program Chip (anywhere: they're with the abilities below)"); file_text_writeln(f)}
 file_text_writeln(f)
 file_text_write_string(f,"Abilities and keys, by layer (layer 1: what jumping alone reaches from Central City; each layer after it: what the items in the layers before it open)"); file_text_writeln(f)
 tMax=0

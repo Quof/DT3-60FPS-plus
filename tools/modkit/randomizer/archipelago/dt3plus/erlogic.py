@@ -8,6 +8,7 @@ are erdata.json (load)
 import collections
 
 DOOR_CLASSES = ['', 'attack', 'samus:4']
+MODE_BITS = {'gates': 1, 'area': 2, 'chaos': 4}
 
 
 class Flat:
@@ -180,11 +181,9 @@ class Reach:
                 bf, bc = f.boss_req[self.fight[s]] if s >= 0 else f.room_boss[tr]
             s = f.exit_slot[t]
             xf, xc = f.boss_req[self.fight[s]] if s >= 0 else f.exit_extra[t]
+            # (an Access Gate's portal, or the Nightmare Gate's beside it: its Program Chip, in its exit_extra)
             l1, l2, l3 = self.lacks(af, ac), self.lacks(bf, bc), self.lacks(xf, xc)
-            # (into an Access Gate's rooms from outside it: its Program Chip)
-            l4, g = None, f.room_gate[tr]
-            if g and g != f.room_gate[ri] and self.have.get(f.CHIP_BASE + g, 0) < 1: l4 = [([f.CHIP_BASE + g], 1)]
-            parts = [l for l in (l1, l2, l3, l4) if l is not None]
+            parts = [l for l in (l1, l2, l3) if l is not None]
             if parts:
                 self.block(inst, [x for l in parts for x in l], len(parts) == 1); return
             self.passed(inst)
@@ -264,8 +263,9 @@ def shuffle(f, mode_bit, rng):
     """er.py's shuffle over the tables (the mod's rndERShuffle): part[end] = its new partner (-1: the game's own, an end
     not in the mode's pool), or None. The pool's ends in one random order; each step the first one in it whose way back
     in isn't reached and leads somewhere new (a room not reached, or entries, free ends or places that aren't) is joined
-    to a free end of its class (DOOR_CLASSES: the Metroid door in front of its exit) whose exit is reached, chosen at
-    random"""
+    to a free end of its key whose exit is reached, chosen at random. An end's key: its class (DOOR_CLASSES: the Metroid
+    door in front of its exit); in the area mode, its class and its region (akey), so each region's doors are paired
+    among their own"""
     n = len(f.ends)
     inpool = [1 if f.ends[d]["mode"] & mode_bit else 0 for d in range(n)]
     ends = [d for d in range(n) if inpool[d]]
@@ -280,11 +280,12 @@ def shuffle(f, mode_bit, rng):
     mark_new(new0)
     covered = [0] * n
     def local(d):
-        """an end's way back in: whether what it gets to has new entries, free ends of the pool, or places"""
+        """an end's way back in: whether what it gets to has new entries, free ends of the pool (and of the end's own
+        key), or places"""
         b = f.ends[d]["back"]
         vis = {b}
         stack = [b]
-        new_e = new_f = new_p = 0
+        new_e = new_f = new_p = new_fk = 0
         while stack:
             e = stack.pop()
             for p in f.ev_locs[e]:
@@ -295,33 +296,47 @@ def shuffle(f, mode_bit, rng):
                     if dd == d: continue
                     if part[dd] >= 0: nxt = [f.ends[part[dd]]["back"]]
                     else:
-                        if dd not in frontier: new_f = 1
+                        if dd not in frontier:
+                            new_f = 1
+                            if key[dd] == key[d]: new_fk = 1
                         continue
                 else:
                     nxt = [f.exit_dest[x]] if f.exit_sg[x] < 0 else list(f.exit_sdest[x])
                 for v in nxt:
                     if v < 0 or v in vis or v in seen: continue
                     vis.add(v); stack.append(v); new_e = 1
-        return new_e, new_f, new_p
-    cls = [e["cls"] for e in f.ends]
+        return new_e, new_f, new_p, new_fk
+    area = mode_bit == MODE_BITS["area"]
+    if area: key, nkeys = [e["akey"] for e in f.ends], f.akey_n
+    else: key, nkeys = [e["cls"] for e in f.ends], len(DOOR_CLASSES)
     while True:
         frl = sorted(d for d in frontier if part[d] == -1)
-        u, needy = None, []
+        u, needy, dead = None, [], None
         for d in ends:
             if part[d] != -1 or covered[d] or f.ends[d]["back"] in seen: continue
-            ne, nf, npl = local(d)
+            ne, nf, npl, nfk = local(d)
             if f.entries[f.ends[d]["back"]][0] in room_seen and not (ne or nf or npl):
                 covered[d] = 1; continue
             needy.append(d)
+            nc = sum(1 for x in frl if x != d and key[x] == key[d])
+            if area:
+                # (the area mode, its regions' frontiers each small: one whose way back leads on to free ends of its own
+                # region first, so the region's frontier stays as large as it can; one that doesn't, a dead end there,
+                # once none does)
+                if nc > 0 and nfk: u = d; break
+                if nc > 0 and dead is None: dead = d
+                continue
             # (joined to an end to go on from of its class, not itself; with only one end left to go on from, one that
             # leads on to free ends, so the joining doesn't stop at a dead end with others still to join)
-            nc = sum(1 for x in frl if x != d and cls[x] == cls[d])
             if nc > 0 and (len(frl) > 1 or nf): u = d; break
         if u is None:
             if not needy: break
-            if len(needy) == 1 and any(x != needy[0] and cls[x] == cls[needy[0]] for x in frl): u = needy[0]
+            if area:
+                if dead is None: return None
+                u = dead
+            elif len(needy) == 1 and any(x != needy[0] and key[x] == key[needy[0]] for x in frl): u = needy[0]
             else: return None
-        fr2 = [d for d in frl if d != u and cls[d] == cls[u]]
+        fr2 = [d for d in frl if d != u and key[d] == key[u]]
         fsel = fr2[int(rng.random() * len(fr2))]
         part[fsel] = u; part[u] = fsel
         frontier.discard(fsel); frontier.discard(u)
@@ -332,8 +347,8 @@ def shuffle(f, mode_bit, rng):
         mark_new(added)
     rest = [d for d in ends if part[d] == -1]
     fy(rest, rng)
-    for c in range(len(DOOR_CLASSES)):
-        rc = [d for d in rest if cls[d] == c]
+    for c in range(nkeys):
+        rc = [d for d in rest if key[d] == c]
         for k in range(0, len(rc) - 1, 2): part[rc[k]] = rc[k + 1]; part[rc[k + 1]] = rc[k]
     return part
 

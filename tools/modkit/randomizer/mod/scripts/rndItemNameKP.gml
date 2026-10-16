@@ -34,6 +34,7 @@ switch (k)
     if p=1 {return "Darkness Trap"}
     if p=2 {return "Rocketeer Trap"}
     if p=3 {return "Teleport Trap"}
+    if p=5 {return "Wind Orb Trap"}
     return "Achilles Trap"
   case 28:
     if p=0 {return "Nightmare Sword Wave"}

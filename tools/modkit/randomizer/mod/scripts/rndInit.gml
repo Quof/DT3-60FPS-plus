@@ -11,7 +11,7 @@ if !variable_global_exists("rndLocN")
   global.rndNextSeed=-1
   //the new game's options (oRndOptions), as last chosen (DT3Options.dts, section Randomizer): Guarantee Early Weapons
   //(rndGenerate), Ability Spread (0 Near, 1 Normal, 2 Far: rndGenerate), the equipment shops shuffled, Entrance Rando
-  //(0 Off, 1 Gate Swap, 2 Overworld, 3 Chaos), Boss Rando (0 Off, 1 On), Instrument Randomization (0 Off, 1 On) and the
+  //(0 Off, 1 Gate Swap, 2 Area, 3 Chaos), Boss Rando (0 Off, 1 On), Instrument Randomization (0 Off, 1 On) and the
   //spoiler log written (rndNewGame)
   ini_open(global.saveDir+"DT3Options.dts")
   global.rndOptWeapons=ini_read_real("Randomizer","weapons",0)
@@ -22,7 +22,9 @@ if !variable_global_exists("rndLocN")
   global.rndOptIR=ini_read_real("Randomizer","ir",0)
   global.rndOptLog=ini_read_real("Randomizer","log",1)
   global.rndOptChips=ini_read_real("Randomizer","chips",0) //(Chip Randomizer: 0 Off, 1 On)
-  global.rndOptSnare=ini_read_real("Randomizer","traps",0) //(Traps: 0 Off, 1 On: rndSnareApply)
+  //(Traps: how long they last, 0 Off, 2, 5 or 10 minutes: rndSnareApply, rndSnareTime; kept before as 0 Off, 1 On, 5
+  //minutes)
+  global.rndOptSnare=ini_read_real("Randomizer","trapmins",5*ini_read_real("Randomizer","traps",0))
   ini_close()
   //Archipelago: the next new game is an Archipelago game (the title screen's code 'ap'), and the folder where the game
   //and the DT3+ Client trade files: %LOCALAPPDATA%\DT3PlusArchipelago\, made if it isn't there
@@ -33,18 +35,22 @@ if !variable_global_exists("rndLocN")
   if !directory_exists(global.rndApPath) {directory_create(global.rndApPath)}
 }
 global.rndMsgQuiet=0
-//the trap items (the option Traps: rndSnareApply, rndSnareSpring): on in this game or not, each trap's time left
-//(30fps ticks: Darkness 1, Rocketeer 2, Achilles 4; rndSnareTime, 5 minutes, each), a Teleport Trap waiting to take
-//the player (rndSnarePend) or having just done it (rndSnareArrive), the ways into rooms kept for it (rndSnareHist*),
-//and each trap's name on the HUD (the drawHUD hook)
+//the trap items (the option Traps: rndSnareApply, rndSnareSpring): on in this game or not and which (rndSnareSet: 2
+//this build's, 1 a save's from before the Wind Orb), each trap's time left (30fps ticks: Darkness 1, Rocketeer 2,
+//Achilles 4, Wind Orb 5; rndSnareTime each, the option's 2, 5 or 10 minutes), a Teleport Trap waiting to take the
+//player (rndSnarePend) or having just done it (rndSnareArrive), the ways into rooms kept for it (rndSnareHist*), and each
+//trap's name on the HUD (the drawHUD hook). An Archipelago world's time for them: rndApSessTrapMins (the client's)
 var k;
 global.rndSnareMode=0
+global.rndSnareSet=2
 global.rndSnareTime=9000
-for(k=0;k<=4;k+=1) {global.rndSnareT[k]=0}
+for(k=0;k<=5;k+=1) {global.rndSnareT[k]=0}
 global.rndSnarePend=0
 global.rndSnareArrive=0
 global.rndSnareHistN=0
 global.rndSnareHUD[1]="Darkness"; global.rndSnareHUD[2]="Rocketeers"; global.rndSnareHUD[3]=""; global.rndSnareHUD[4]="Achilles"
+global.rndSnareHUD[5]="Wind Orb"
+global.rndApSessTrapMins=5
 //the trackers' state (tracker\state.js) to be written again: oRndWatcher writes it (rndTrackWrite)
 global.rndTrackDirty=0
 //Archipelago: this game is one (rndAP), its seed line ("seed|<seed>|<slot>": the client's files must start with it),
@@ -74,7 +80,8 @@ global.rndApPollT=0
 global.rndApLocLoaded=0
 global.rndVersion=2
 global.rndActive=0
-//the entrance randomizer: off, or the mode the game's doors are shuffled in (1 Gate Swap, 2 Overworld, 3 Chaos: its
+//the entrance randomizer: off, or the mode the game's doors are shuffled in (1 Gate Swap, 2 Area, 3 Chaos; a save's 2
+//from before the area mode, Overworld, keeps its own shuffle: its
 //doors in the game, rndERMapBuild and rndERApplyExit). Boss Rando: off or on, and the boss fought at each boss's place
 //(rndBRFight: its own when off; rndBossStart). Instrument Randomization: off (each instrument is its gate's reward) or
 //on (the instruments are in the pool). rndReach: rndGenerate works out what the items reach from the rooms
@@ -135,13 +142,13 @@ global.rndAbomAPSeen=1
 global.rndEShopStr=""
 for(i=0;i<global.rndEShopN;i+=1) {global.rndEShopNew[i]=global.rndEShopEquip[i]}
 //the Program Chips (Chip Randomizer: rndChipApply puts them in the items or not), which the player has (a character a
-//gate: Access Gate 1-6), the gate of the room they were last in (-1 not known yet: the roomStart hook turns them back
-//at a gate they lack the chip of, rndGateBounce) and the gate a turning back is to be told for (rndLockMsg)
+//gate: Access Gate 1-6), and what takes them (rndChipPortals: 1 each Access Gate's portal and the Nightmare Gate portal
+//beside it, a new game's; 0 a portal into an Access Gate's rooms, that gate's chip, a game made before: rndPortalChip)
 rndChipApply(0)
 global.rndChipOwn=string_repeat("1",global.rndChipN)
-global.rndLastGate=-1
-global.rndLockMsg=0
+global.rndChipPortals=1
 global.rndApSessChips=0
+global.rndApSessChipPortals=0
 //the location (global.location) of the room the player was last in: coming into Gate 5 (location 49) from outside it
 //sets its checkpoint (the roomStart hook)
 global.rndLastLoc=-1

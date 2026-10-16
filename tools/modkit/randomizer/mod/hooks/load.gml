@@ -14,8 +14,9 @@ if global.rndActive=1
   global.rndGot=ini_read_string(s,"got","")
   global.rndBossDone=ini_read_string(s,"boss","")
   //(the beaten bosses by type, when the save's boss list isn't this build's; a save from before the list was kept has
-  //the one the builds before it had: rndgen's BOSS_TYPES_OLD)
-  var tTypes;
+  //the one the builds before it had: rndgen's BOSS_TYPES_OLD. How many of its bosses its string has: rndLoadOld)
+  var tTypes,tBossLen;
+  tBossLen=string_length(global.rndBossDone)
   tTypes=ini_read_string(s,"bosstypes",global.rndBossTypesOld)
   if tTypes!=global.rndBossTypes {global.rndBossDone=rndBossFromTypes(global.rndBossDone,tTypes)}
   //(the places whose fight has been seen, read the same way; a save from before them: the ones beaten)
@@ -27,13 +28,18 @@ if global.rndActive=1
   global.rndEShopStr=ini_read_string(s,"eshop","")
   global.rndWon=ini_read_real(s,"won",0)
   //the enemy traps beaten, by name. A save from before them has none of them: its seed's items were placed without
-  //them, so they stay away (all counted beaten)
+  //them, so they stay away (all counted beaten). A save from the builds that kept the trap items' option under the same
+  //key (0 or 1, written over the names, and no "trapitems") has none of them beaten: the names are gone
   var tTraps,k;
   if ini_key_exists(s,"traps")
   {
-    tTraps=","+ini_read_string(s,"traps","")
+    tTraps=ini_read_string(s,"traps","")
     global.rndTrapDone=string_repeat("0",global.rndTrapN)
-    for(k=0;k<global.rndTrapN;k+=1) {if string_pos(","+global.rndTrapName[k]+",",tTraps)>0 {global.rndTrapDone=rndSetChar(global.rndTrapDone,k+1,"1")}}
+    if ini_key_exists(s,"trapitems") or (tTraps!="0" and tTraps!="1")
+    {
+      tTraps=","+tTraps
+      for(k=0;k<global.rndTrapN;k+=1) {if string_pos(","+global.rndTrapName[k]+",",tTraps)>0 {global.rndTrapDone=rndSetChar(global.rndTrapDone,k+1,"1")}}
+    }
   }
   else {global.rndTrapDone=string_repeat("1",global.rndTrapN)}
   //Entrance Rando: the shuffle back (the door data read again: rndERLoad), if this build's doors are the ones it was
@@ -71,17 +77,33 @@ if global.rndActive=1
   //Instrument Randomization: on or off
   global.rndIRMode=ini_read_real(s,"ir",0)
   //Chip Randomizer: on or off (the chips among the items or not: rndChipApply), and the Program Chips found; a save from
-  //before it, or with it off, has all six. Where the player is now counts as let in (rndLastGate: the roomStart hook)
+  //before it, or with it off, has all six. What takes them (rndPortalChip): a save from before the portals took them
+  //has the chip of the Access Gate a portal leads into (0), as its items were placed
   rndChipApply(ini_read_real(s,"chips",0))
   global.rndChipOwn=string_repeat("1",global.rndChipN)
   if global.rndChipMode=1 {global.rndChipOwn=ini_read_string(s,"chipown",global.rndChipOwn)}
   if string_length(global.rndChipOwn)<global.rndChipN {global.rndChipOwn+=string_repeat("0",global.rndChipN-string_length(global.rndChipOwn))}
-  global.rndLastGate=-1
-  //Traps: on or off (the trap items in the items: rndSnareApply; a save from before them has them off), each trap's
-  //time left, a Teleport Trap waiting, and the ways into rooms kept for one
-  var tk,tH,tN;
-  rndSnareApply(ini_read_real(s,"traps",0))
-  for(tk=1;tk<=4;tk+=1) {global.rndSnareT[tk]=ini_read_real(s,"trapt"+string(tk),0)}
+  global.rndChipPortals=ini_read_real(s,"chipportals",0)
+  //Traps: the trap items on or off (rndSnareApply), which (rndSnareSet), how long they last (rndSnareTime), each trap's
+  //time left, a Teleport Trap waiting, and the ways into rooms kept for one. A save from before the trap items has them
+  //off; one from the builds that kept them under "traps" (0 or 1, no "trapitems") has its own trap items (set 1, the
+  //four traps before the Wind Orb), 5 minutes
+  var tk,tH,tN,tMode,tSet,tMins;
+  if ini_key_exists(s,"trapitems")
+  {
+    tMode=ini_read_real(s,"trapitems",0)
+    tSet=ini_read_real(s,"trapset",2)
+    tMins=ini_read_real(s,"trapmins",5)
+  }
+  else
+  {
+    tMode=(ini_read_string(s,"traps","")="1")
+    tSet=1
+    tMins=5
+  }
+  rndSnareApply(tMode,tSet)
+  global.rndSnareTime=max(1,tMins)*1800
+  for(tk=1;tk<=5;tk+=1) {global.rndSnareT[tk]=ini_read_real(s,"trapt"+string(tk),0)}
   global.rndSnarePend=ini_read_real(s,"trappend",0)
   tN=ini_read_real(s,"traphparts",0)
   tH=""
@@ -124,7 +146,7 @@ if global.rndActive=1
   //a save from a build with other data: what's missing reads as not got yet (then brought up to this build: rndLoadOld)
   if string_length(global.rndGot)<global.rndLocN {global.rndGot+=string_repeat("0",global.rndLocN-string_length(global.rndGot))}
   if string_length(global.rndBossDone)<global.rndBossN {global.rndBossDone+=string_repeat("0",global.rndBossN-string_length(global.rndBossDone))}
-  rndLoadOld()
+  rndLoadOld(tTypes,tBossLen)
   //the Nightmare Gates whose boss's room the player has been in (their first room's way straight to it: the roomStart
   //hook). A save from before they were kept: the gates whose boss's room was come into (eGateProg 7), whose boss there
   //is beaten (8, or the place beaten) or whose fight there has been started

@@ -103,22 +103,27 @@ IK = dict(HP=1, MONEY=2, EQUIP=3, AQ=4, HE=5, MP=6, GP=7, AU=8, WB=9, WL=10, AP=
           SNARE=29, MONEYX=2)
 # (MONEYX: Internetz too, the story's ability pickups' (locations_items), which a Program Chip never takes the place of:
 # chip_slots takes MONEY's)
-# the Program Chips (the new game's option Chip Randomizer): chip N opens Access Gate N (going into the gate's rooms
-# from outside it takes it: roomlogic\solve.py's through_exit, its Reach the same; the mod turns the player back at the
-# gate without it: rndGateBounce). Their item: kind CHIP, the gate's number; the logic's number KEY_BASE+CHIP_KEY+N.
-# With the option on they're among the items, in the place of the six smallest Internetz chests (chip_slots); off, the
-# player has them all from the start and those chests hold their Internetz
+# the Program Chips (the new game's option Chip Randomizer): chip N opens Access Gate N's portal, and the Nightmare Gate
+# portal beside it, wherever Entrance Rando has them lead (roomlogic\overrides.txt's need lines for the portals; the
+# mod's portals can't be used without it: portal_chips, rndPortalChip). Their item: kind CHIP, the gate's number; the
+# logic's number KEY_BASE+CHIP_KEY+N. With the option on they're among the items, in the place of the six smallest
+# Internetz chests (chip_slots); off, the player has them all from the start and those chests hold their Internetz
 CHIP_GATES = sorted(solve.GATE_PREFIX)
 # the trap items (the new game's option Traps, the Archipelago world's option traps; not the enemy traps, traps.py):
 # items that look like a Weapon Upgrade (or are in a chest, which sparkles as for any item but Internetz) and spring a
 # trap on the player instead (the mod's rndSnareSpring). Their item: kind SNARE, the trap's number (its place in
-# SNARE_TYPES, 1 on). With the option on, SNARE_SHARE of the items are traps, in the place of as many Internetz chests
+# SNARE_TYPES, 1 on). With the option on, SNARE_EACH of each trap are items, in the place of as many Internetz chests
 # (snare_slots: the smallest ones after the Program Chips', chip_slots), each trap in turn; off, those chests hold their
-# Internetz. Darkness: Dark Mode's darkness in every room for a while; Rocketeer: a CHAOS Rocketeer now and in every
-# room come into for a while; Teleport: back to one of the ways into a room the player has come in by in the run, at
-# random; Achilles: Achilles Mode (any hit kills) for a while
-SNARE_TYPES = ["Darkness", "Rocketeer", "Teleport", "Achilles"]
-SNARE_SHARE = 0.05
+# Internetz. The option is how long the timed ones last (2, 5 or 10 minutes). Darkness: Dark Mode's darkness in every
+# room; Rocketeer: a CHAOS Rocketeer now and in every room come into; Teleport: back to one of the ways into a room the
+# player has come in by in the run, at random; Achilles: Achilles Mode (any hit kills); Wind Orb: the Green Warmaster's
+# seeker orb (his charged supermove), which can't be destroyed, after the player now and in every room come into
+SNARE_TYPES = ["Darkness", "Rocketeer", "Teleport", "Achilles", "Wind Orb"]
+SNARE_EACH = 6
+# (the trap items of the builds before the Wind Orb, 5% of the items with the four traps before it in turn, which their
+# saves have: snare_slots_old)
+SNARE_TYPES_OLD = 4
+SNARE_SHARE_OLD = 0.05
 # the Nightmare Gates' instruments: each gate's reward (location type 18, its number the gate's, 1-8: A-H), given right
 # after its boss is beaten (the mod's oRndReward; Gate H's in the mod's room for it, rRndGateH). Their item: the
 # instrument (kind INSTR, the instrument's number, eGateProg's place). They need everything (a fight's reward: no
@@ -419,6 +424,31 @@ def instances(room):
         cp = os.path.join(ROOMS, room, f[3] + ".gml")
         yield f[0], int(float(f[1])), int(float(f[2])), f[3], (read(cp) if os.path.exists(cp) else "")
 
+
+def portal_chips():
+    """the gates' portals and the Program Chip each takes (Chip Randomizer): roomlogic\\overrides.txt's need lines whose
+    requirement is a chip, each "chip N" alone on an Access Gate portal (oAccessGate) placed where its exit is (the mod
+    finds a portal by its room and that place, rndPortalChip, and asks for that one chip): [(room, x, y, N, where the
+    game's own connection leads)], by room and place"""
+    rooms = solve.load_rooms()
+    conn = solve.load_connections()
+    solve.load_overrides(rooms, conn)
+    out = []
+    for (room, o), alts in sorted(conn.need.items()):
+        chips = {k - solve.CHIP_KEY for a in alts for k in a.k if k > solve.CHIP_KEY}
+        if not chips: continue
+        a = alts[0]
+        if len(alts) != 1 or len(chips) != 1 or len(a.k) != 1 or any(a.c) or a.o:
+            raise SystemExit("overrides.txt: need %s out %s: a Program Chip there must be 'chip N' alone (a gate's portal "
+                             "asks for one chip: the mod's rndPortalChip)" % (room, o))
+        x, y = [int(v) for v in o.split(",")]
+        if not any(obj == "oAccessGate" and (ix, iy) == (x, y) for obj, ix, iy, iid, code in instances(room)):
+            raise SystemExit("overrides.txt: need %s out %s takes a Program Chip, but no Access Gate portal (oAccessGate) "
+                             "is placed there: the mod only stops a portal" % (room, o))
+        to = conn.links.get((room, o))
+        if not to: raise SystemExit("overrides.txt: need %s out %s: connections.txt has no such exit" % (room, o))
+        out.append((room, x, y, chips.pop(), to[0]))
+    return out
 
 def mm_back_check():
     """each of Gate 4's ways back (MM_BACK_EXITS) against the game's own exit it goes back through, as the room logic
@@ -733,27 +763,31 @@ def build(out, rooms, anames, rarea, locs, doors, shops, door_list, door_order, 
     for i, (k, p) in enumerate(items):
         L.append("global.rndItemKind[%d]=%d; global.rndItemParam[%d]=%d" % (i, IK[k], i, p))
     # the Program Chips (Chip Randomizer): the items that are them with it on (rndChipApply; off, their Internetz), the
-    # logic's numbers for them (rndChipBase+gate), each gate's name and its rooms' name prefix (rndGateOf), and where its
-    # own way out leads (without Entrance Rando, where rndGateBounce turns the player back to at a gate they lack the
-    # chip of: in front of the Access Gate)
+    # logic's numbers for them (rndChipBase+gate), each gate's name and its rooms' name prefix (rndGateOf: a save from
+    # before the portals took the chips goes by the gate a portal leads into), and the portals that take them, each by
+    # its room and where it's placed (portal_chips: rndPortalChip)
     slots = chip_slots(items)
-    conn = solve.load_connections()
     L.append("global.rndChipN=%d; global.rndChipBase=%d" % (len(CHIP_GATES), KEY_BASE + solve.CHIP_KEY))
     for g in CHIP_GATES:
         grooms = [r for r in rooms if solve.gate_of(r) == g]
         gname = anames.get(rarea.get(grooms[0]), "Access Gate %d" % g)
-        outs = sorted((rm, o, to) for (rm, o), to in conn.links.items() if solve.gate_of(rm) == g and solve.gate_of(to[0]) != g)
-        if len(outs) != 1: raise SystemExit("Access Gate %d: %d ways out of its rooms, not 1 (rndGateOut)" % (g, len(outs)))
-        oroom, (ox, oy) = outs[0][2][0], [int(v) for v in outs[0][2][1].split(",")]
-        L.append("global.rndChipItem[%d]=%d; global.rndChipMoney[%d]=%d; global.rndGatePrefix[%d]=%s; global.rndGateName[%d]=%s; "
-                 "global.rndGateOutRoom[%d]=%s; global.rndGateOutX[%d]=%d; global.rndGateOutY[%d]=%d"
-                 % (g, slots[g], g, items[slots[g]][1], g, gml_str(solve.GATE_PREFIX[g]), g, gml_str(gname), g, oroom, g, ox, g, oy))
+        L.append("global.rndChipItem[%d]=%d; global.rndChipMoney[%d]=%d; global.rndGatePrefix[%d]=%s; global.rndGateName[%d]=%s"
+                 % (g, slots[g], g, items[slots[g]][1], g, gml_str(solve.GATE_PREFIX[g]), g, gml_str(gname)))
+    portals = portal_chips()
+    L.append("global.rndPortalN=%d" % len(portals))
+    for i, (room, x, y, g, to) in enumerate(portals):
+        L.append("global.rndPortalRoom[%d]=%s; global.rndPortalX[%d]=%d; global.rndPortalY[%d]=%d; global.rndPortalChip[%d]=%d"
+                 % (i, room, i, x, i, y, i, g))
     # the trap items (Traps): the items that are them with it on (rndSnareApply; off, their Internetz) and each one's
-    # trap
+    # trap; and the ones a save from before the Wind Orb has (rndSnareOld*: its own, as its game was made)
     snares = snare_slots(items)
     L.append("global.rndSnareN=%d; global.rndSnareTypeN=%d" % (len(snares), len(SNARE_TYPES)))
     for k, (i, t) in enumerate(snares):
         L.append("global.rndSnareItem[%d]=%d; global.rndSnareType[%d]=%d; global.rndSnareMoney[%d]=%d" % (k, i, k, t, k, items[i][1]))
+    old = snare_slots_old(items)
+    L.append("global.rndSnareOldN=%d" % len(old))
+    for k, (i, t) in enumerate(old):
+        L.append("global.rndSnareOldItem[%d]=%d; global.rndSnareOldType[%d]=%d; global.rndSnareOldMoney[%d]=%d" % (k, i, k, t, k, items[i][1]))
     L.append("global.rndEShopN=0")
     k = 0
     for sid, s in shops.items():
@@ -916,7 +950,7 @@ def build(out, rooms, anames, rarea, locs, doors, shops, door_list, door_order, 
     print("enemy traps brought back: %d in %d rooms (traps.py), %d needing nothing more than getting there"
           % (len(trap_list), len({t.room for t in trap_list}), sum(1 for t in trap_list if t.req in ("-", ""))))
     # the same placement the game makes (rndGenerate), for a few seeds with each option: it must work under the logic.
-    # With Chip Randomizer, each seed is also played through, and no Program Chip may be in its own gate's rooms
+    # With Chip Randomizer, each seed is also played through, and no Program Chip may be behind a portal it opens
     for label, wpn, spread, chips in (("default options", False, 1, False), ("Guarantee Early Weapons", True, 1, False),
                                       ("Ability Spread Near", False, 0, False), ("Ability Spread Far", False, 2, False),
                                       ("Chip Randomizer", False, 1, True),
@@ -931,7 +965,7 @@ def build(out, rooms, anames, rarea, locs, doors, shops, door_list, door_order, 
                 if not fill_playthrough(rows, its, r, chips): raise SystemExit("%s: a seed placed can't be played through" % label)
         depth = [max(p[0] for p in r) + 1 for r in ok]
         print("placement check, %s: %d of 50 seeds placed%s, layers %d to %d (average %.1f)"
-              % (label, len(ok), " and played through, no chip in its own gate" if chips else "", min(depth), max(depth),
+              % (label, len(ok), " and played through, no chip behind a portal it opens" if chips else "", min(depth), max(depth),
                  sum(depth) / len(depth)))
     f, bp, hv = er_check(rows, items, out, boss_slots(blist))
     ap_export(rows, items, door_order, doors, rarea, anames, out, f, bp, hv, blist)
@@ -965,13 +999,15 @@ def er_check(rows, items, out, bosses):
         if d >= 0:
             ri, o = f.exits[xi]
             f.follow_list.append([xi, d, "%s (%s) at %d,%d" % (label.get(f.rnames[ri], f.rnames[ri]), f.rnames[ri], *erflat.xy_of(o))])
-    for label, bit, br, ir, chips in (("Gate Swap", 1, False, False, False), ("Overworld", 2, False, False, False),
+    for label, bit, br, ir, chips in (("Gate Swap", 1, False, False, False), ("Area", 2, False, False, False),
                                       ("Chaos", 4, False, False, False), ("Boss Rando", 0, True, False, False),
                                       ("Instrument Randomization", 0, False, True, False),
                                       ("Chaos with Boss Rando and Instrument Randomization", 4, True, True, False),
                                       ("Chip Randomizer", 0, False, False, True),
                                       ("Gate Swap with Chip Randomizer", 1, False, False, True),
-                                      ("Chaos with Chip Randomizer, Boss Rando and Instrument Randomization", 4, True, True, True)):
+                                      # (not Chaos with it: the Chip Randomizer is off with Entrance Rando Chaos, the
+                                      # options window's and the Archipelago world's)
+                                      ("Area with Chip Randomizer, Boss Rando and Instrument Randomization", 2, True, True, True)):
         its = items_with_chips(items, chips)
         tries = 0
         for seed in range(10):
@@ -986,23 +1022,27 @@ def er_check(rows, items, out, bosses):
                 if placed is None: continue
                 if not erflat.playthrough(f, part, placed, rows, its, fight, ir, chips):
                     raise SystemExit("%s: a seed made can't be played through" % label)
-                if chips: chip_check(rows, its, placed, label)
+                if chips and not bit: chip_check(rows, its, placed, label)
                 break
             else:
                 raise SystemExit("%s: no seed worked out in 60 tries (seed %d)" % (label, seed))
         what = "%d doors shuffled; " % (sum(1 for e in f.ends if e["mode"] & bit) // 2) if bit else ""
         print("seed check, %s: %s10 seeds made in %d tries, each played through%s"
-              % (label, what, tries, ", no chip in its own gate" if chips else ""))
+              % (label, what, tries, ", no chip behind a portal it opens" if chips and not bit else ""))
     return f, bp, hv
 
 
 def chip_check(rows, items, placed, label):
-    """a seed's Program Chips (Chip Randomizer): none in its own gate's rooms (it couldn't be got to: the logic already
-    keeps it out, this says so plainly)"""
+    """a seed's Program Chips (Chip Randomizer), the game's own doors: none behind a portal it opens (in the rooms past it:
+    its Access Gate's, or its Nightmare Gate's, by their names' start). It couldn't be got to: the logic already keeps it
+    out, this says so plainly. (With Entrance Rando a gate's rooms can be got into another way: the seed's playthrough
+    says it can be finished)"""
+    behind = collections.defaultdict(set)
+    for room, x, y, g, to in portal_chips(): behind[g].add(to[:to.index("_") + 1])
     for lay, loc, k in placed:
         kind, g = items[k]
-        if kind == "CHIP" and any(solve.gate_of(room) == g for room in rows[loc]["rooms"]):
-            raise SystemExit("%s: Program Chip %d placed in its own gate (%s)" % (label, g, rows[loc]["rooms"][0]))
+        if kind == "CHIP" and any(room.startswith(p) for room in rows[loc]["rooms"] for p in behind[g]):
+            raise SystemExit("%s: Program Chip %d placed behind a portal it opens (%s)" % (label, g, rows[loc]["rooms"][0]))
 
 
 def fill_playthrough(rows, items, placed, chips):
@@ -1028,7 +1068,7 @@ def fill_playthrough(rows, items, placed, chips):
 # dt3plus.apworld, in the build's archipelago folder. Ids: a location's AP_BASE + type*1000 + objectNum, an item's
 # AP_BASE + kind*10000 + parameter (the mod's rndApBase works them out the same way)
 AP_GAME = "DT3+"
-AP_VERSION = 6   # (6: the trap items)
+AP_VERSION = 7   # (6: the trap items; 7: the Wind Orb Trap, and how long the traps last)
 AP_BASE = 4454000
 AP_DIR = os.path.join(HERE, "archipelago", "dt3plus")
 AP_SPRITE = "sRndAPItem"
@@ -1099,7 +1139,7 @@ AP_ER_TABLES = ["gmult", "gvals", "scoped", "start_gs", "gs_n", "KEY_BASE", "EV_
                 "row_target", "row_leave", "row_alts", "alt_first", "alt_count", "req_ix", "req_c", "exit_dest", "exit_sg",
                 "exit_sdest", "exit_extra", "exit_end", "ev_ways", "goal_ev", "goal_rooms", "ends", "start", "loc_n",
                 "ev_outs", "ev_locs", "boss_n", "boss_req", "boss_shuf", "room_slot", "exit_slot", "room_gate",
-                "CHIP_BASE", "digest", "end_names", "follow_list"]
+                "CHIP_BASE", "digest", "end_names", "follow_list", "akey_n"]
 AP_ER_HEAD = '''"""
 The Randomizer's room logic for a shuffled layout (the options Entrance Rando, Boss Rando and Instrument Randomization):
 what a set of items reaches from the start with the doors and the bosses as shuffled (Reach), and the shuffles (shuffle,
@@ -1110,6 +1150,7 @@ are erdata.json (load)
 import collections
 
 DOOR_CLASSES = %r
+MODE_BITS = %r
 
 
 class Flat:
@@ -1180,8 +1221,9 @@ def ap_export(rows, items, door_order, doors, rarea, anames, out, f, bp, hv, bli
     for c in cursed:
         if c not in ap_items: raise SystemExit("the cursed equipment %r isn't in the pool" % c)
 
-    # the Program Chips (Chip Randomizer): items of their own, chip N opening Access Gate N's rooms, in the pool in the
-    # place of the Internetz items chip_slots names (their names: chip_money); off, the logic counts them as had
+    # the Program Chips (Chip Randomizer): items of their own, chip N opening Access Gate N's portal and the Nightmare
+    # Gate portal beside it, in the pool in the place of the Internetz items chip_slots names (their names: chip_money);
+    # off, the logic counts them as had
     chip_names = {g: "Program Chip %d" % g for g in CHIP_GATES}
     chips = collections.OrderedDict((chip_names[g], AP_BASE + IK["CHIP"] * 10000 + g) for g in CHIP_GATES)
     chip_money = [name_of("MONEY", items[i][1]) for g, i in sorted(chip_slots(items).items())]
@@ -1267,9 +1309,9 @@ def ap_export(rows, items, door_order, doors, rarea, anames, out, f, bp, hv, bli
           "# that need EVERYTHING: a fight's reward), name: id",
           "INSTRUMENTS = %r" % dict(instr),
           "GATE_REWARDS = %r" % dict(gate_rewards),
-          "# Chip Randomizer: the Program Chips (progression items: chip N opens Access Gate N's rooms, which a location",
-          "# there needs), name: id, and the Internetz items they take the place of in the pool. Off: they aren't items,",
-          "# and the logic counts them as had from the start",
+          "# Chip Randomizer: the Program Chips (progression items: chip N opens Access Gate N's portal and the Nightmare",
+          "# Gate portal beside it), name: id, and the Internetz items they take the place of in the pool. Off: they aren't",
+          "# items, and the logic counts them as had from the start",
           "CHIPS = %r" % dict(chips),
           "CHIP_MONEY = %r" % chip_money,
           "# Traps: the trap items (classification trap: each springs a trap on the player who gets it), name: id, the",
@@ -1294,7 +1336,7 @@ def ap_export(rows, items, door_order, doors, rarea, anames, out, f, bp, hv, bli
     with open(os.path.join(AP_DIR, "data.py"), "w", encoding="utf-8", newline="\n") as fh:
         fh.write("\n".join(L) + "\n")
     # the room logic for a shuffled layout: erflat's code and its tables
-    code = AP_ER_HEAD % (erflat.DOOR_CLASSES,) + "".join("\n\n" + inspect.getsource(getattr(erflat, n)) for n in AP_ER_CODE)
+    code = AP_ER_HEAD % (erflat.DOOR_CLASSES, erflat.MODE_BITS) + "".join("\n\n" + inspect.getsource(getattr(erflat, n)) for n in AP_ER_CODE)
     with open(os.path.join(AP_DIR, "erlogic.py"), "w", encoding="utf-8", newline="\n") as fh:
         fh.write(code)
     tables = {k: getattr(f, k) for k in AP_ER_TABLES}
@@ -1344,14 +1386,22 @@ def chip_slots(items):
 
 
 def snare_slots(items):
-    """the items that are trap items with Traps on: SNARE_SHARE of the items (the instruments not counted, so the
-    Archipelago world's list, which leaves them out, gives the same ones), the smallest Internetz (money) items after
-    chip_slots' six (by amount, then place in the list), each one the next of SNARE_TYPES; [(item index, trap number)]"""
+    """the items that are trap items with Traps on: SNARE_EACH of each of SNARE_TYPES, the smallest Internetz (money)
+    items after chip_slots' six (by amount, then place in the list), each one the next trap; [(item index, trap number)]"""
     money = sorted((p, i) for i, (k, p) in enumerate(items) if k == "MONEY")
-    n = int(round(len([it for it in items if it[0] != "INSTR"]) * SNARE_SHARE))
+    n = SNARE_EACH * len(SNARE_TYPES)
     free = money[len(CHIP_GATES):]
     if len(free) < n: raise SystemExit("fewer Internetz chests than trap items: %d, %d traps" % (len(free), n))
     return [(i, k % len(SNARE_TYPES) + 1) for k, (p, i) in enumerate(free[:n])]
+
+
+def snare_slots_old(items):
+    """the trap items of the builds before the Wind Orb (their saves'): SNARE_SHARE_OLD of the items (the instruments
+    not counted), the same Internetz items snare_slots takes from, each one the next of the first SNARE_TYPES_OLD traps"""
+    money = sorted((p, i) for i, (k, p) in enumerate(items) if k == "MONEY")
+    n = int(round(len([it for it in items if it[0] != "INSTR"]) * SNARE_SHARE_OLD))
+    free = money[len(CHIP_GATES):]
+    return [(i, k % SNARE_TYPES_OLD + 1) for k, (p, i) in enumerate(free[:n])]
 
 
 def items_with_chips(items, chips):

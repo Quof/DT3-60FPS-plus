@@ -12,9 +12,12 @@
   // start, every way the items let through, the carried states (rb, water, the Forest Palace's crystals) taken along,
   // the events happening as their rooms are got into. part: each door end's partner (Entrance Rando; -1 the game's
   // own), fight: the boss fought at each boss's places (Boss Rando), ir: Instrument Randomization, follow: the exits
-  // that follow an end lead where it does (a shuffle made with this build's doors; the mod's rndERLayout). Returns the
-  // places got to, the rooms got into, the bosses' places whose fight was got through, and have with the events
-  DT3.reach = function (L, part, have0, fight, ir, follow) {
+  // that follow an end lead where it does (a shuffle made with this build's doors; the mod's rndERLayout). The Program
+  // Chips: each Access Gate's portal (and the Nightmare Gate's beside it) takes its chip, in its exit's extra; roomChips
+  // (a game made before that: the state's chipportals 0) has them as that game was made, going into a gate's rooms from
+  // outside it taking its chip and the portals none. Returns the places got to, the rooms got into, the bosses' places
+  // whose fight was got through, and have with the events
+  DT3.reach = function (L, part, have0, fight, ir, follow, roomChips) {
     var have = {}, k;
     for (k in have0) { have[k] = have0[k]; }
     var gN = L.gN, gmult = L.gmult, scoped = L.scoped, gsN = L.gsN, EV = L.EV;
@@ -37,12 +40,15 @@
       }
       return gs;
     }
-    function ok(first, count) {
+    // (chipsHad: the Program Chips counted as had, for a portal's extra in a roomChips game)
+    function ok(first, count, chipsHad) {
       if (first < 0) { return true; }
       for (var a = first; a < first + count; a++) {
         var good = true, q1 = L.altFirst[a] + L.altCount[a];
         for (var q = L.altFirst[a]; q < q1; q++) {
-          if ((have[L.reqIx[q]] || 0) < L.reqC[q]) { good = false; break; }
+          var r = L.reqIx[q];
+          if (chipsHad && r > L.chipBase && r <= L.chipBase + 6) { continue; }
+          if ((have[r] || 0) < L.reqC[q]) { good = false; break; }
         }
         if (good) { return true; }
       }
@@ -84,9 +90,9 @@
         }
         if (xs >= 0) { b = fight[xs]; xf = L.bossReq[2 * b]; xc = L.bossReq[2 * b + 1]; }
         else { xf = L.exitExtra[2 * t]; xc = L.exitExtra[2 * t + 1]; }
-        // (into an Access Gate's rooms from outside it: its Program Chip)
-        var g = L.roomGate[tr], chipOk = !(g && g !== L.roomGate[ri]) || (have[L.chipBase + g] || 0) >= 1;
-        if (!ok(af, ac) || !ok(bf, bc) || !ok(xf, xc) || !chipOk) { blocked.push(e, gs, q); return; }
+        // (a roomChips game: into an Access Gate's rooms from outside it, its Program Chip)
+        var g = L.roomGate[tr], chipOk = !roomChips || !(g && g !== L.roomGate[ri]) || (have[L.chipBase + g] || 0) >= 1;
+        if (!ok(af, ac) || !ok(bf, bc) || !ok(xf, xc, roomChips) || !chipOk) { blocked.push(e, gs, q); return; }
         done.add(key);
         if (rs >= 0) { fought.add(rs); }
         if (xs >= 0) { fought.add(xs); }
@@ -183,7 +189,8 @@
   // each check's status (TAKEN, IN_LOGIC, OUT_OF_LOGIC) with the state's items and the seed's shuffles. cache (an
   // object, optional): the reach is worked out again only when what it depends on has changed
   DT3.evaluate = function (D, S, cache) {
-    var key = [S.own, S.equip, S.gate, S.keys, S.chips, S.boss, S.er, S.erpart, S.erfollow, S.br, S.brfight, S.ir].join("|");
+    var key = [S.own, S.equip, S.gate, S.keys, S.chips, S.chipportals, S.boss, S.er, S.erpart, S.erfollow, S.br, S.brfight,
+               S.ir].join("|");
     if (!cache || cache.key !== key) {
       var r = evalReach(D, S);
       cache = cache || {};
@@ -215,7 +222,7 @@
     }
     fight = DT3.fights(D, S);
     var ir = S.ir > 0;
-    var R = DT3.reach(L, part, have, fight, ir, S.er > 0 && S.erfollow > 0);
+    var R = DT3.reach(L, part, have, fight, ir, S.er > 0 && S.erfollow > 0, S.chipmode > 0 && S.chipportals !== 1);
     // (every progression item: what a check the logic gives no progression to is in logic with)
     var every = true, list = D.everything.concat(ir ? D.everythingIR : []);
     for (i = 0; i < list.length; i++) { if ((have[list[i][0]] || 0) < list[i][1]) { every = false; } }
@@ -270,7 +277,7 @@
   // the seed's options, as the new game's options window names them
   DT3.modes = function (S) {
     var out = [];
-    if (S.er > 0) { out.push("Entrance Rando: " + (["Off", "Gate Swap", "Overworld", "Chaos"][S.er] || S.er)); }
+    if (S.er > 0) { out.push("Entrance Rando: " + (["Off", "Gate Swap", "Area", "Chaos"][S.er] || S.er)); }
     if (S.br > 0) { out.push("Boss Rando"); }
     if (S.ir > 0) { out.push("Instrument Randomization"); }
     if (S.chipmode > 0) { out.push("Chip Randomizer"); }

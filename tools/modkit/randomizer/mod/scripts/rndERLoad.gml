@@ -12,7 +12,7 @@ for(i=0;i<global.modCount;i+=1)
 if p="" {return 0}
 f=file_text_open_read(p)
 if rndERReadS(f)!="RNDER" {file_text_close(f); return 0}
-if rndERRead(f)!=5 {file_text_close(f); return 0}
+if rndERRead(f)!=6 {file_text_close(f); return 0}
 global.rndEHash=rndERReadS(f)
 //the carried states (rb, water, crystal1-3): each one's number of values, its place in a state's number, whether it's
 //kept within some rooms (the Forest Palace's crystals: one more value outside them, parked)
@@ -117,10 +117,12 @@ global.rndEGoalEvN=rndERRead(f)
 for(i=0;i<global.rndEGoalEvN;i+=1) {global.rndEGoalEv[i]=rndERRead(f)}
 global.rndEGoalRmN=rndERRead(f)
 for(i=0;i<global.rndEGoalRmN;i+=1) {global.rndEGoalRm[i]=rndERRead(f)}
-//the doors' ends: exit, way back in, the modes it's shuffled in (1 Gate Swap, 2 Overworld, 4 Chaos), the game's
-//partner, its class (what the Metroid door in front of its exit needs: 0 none, 1 any weapon, 2 missiles; the shuffle
-//pairs only ends of one class, so the player only comes in behind a Metroid door by going through one)
+//the doors' ends (and how many keys the area mode pairs them by: rndEAKeyN): exit, way back in, the modes it's shuffled
+//in (1 Gate Swap, 2 Area, 4 Chaos), the game's partner, its class (what the Metroid door in front of its exit needs: 0
+//none, 1 any weapon, 2 missiles; the shuffle pairs only ends of one class: every end's is 0 now), and its key in the area
+//mode (rndEDAKey: its class and its region, roomlogic\regions.txt, so each region's doors pair among their own)
 global.rndEDN=rndERRead(f)
+global.rndEAKeyN=rndERRead(f)
 for(i=0;i<global.rndEDN;i+=1)
 {
   global.rndEDExit[i]=rndERRead(f)
@@ -128,6 +130,7 @@ for(i=0;i<global.rndEDN;i+=1)
   global.rndEDMode[i]=rndERRead(f)
   global.rndEDPair[i]=rndERRead(f)
   global.rndEDCls[i]=rndERRead(f)
+  global.rndEDAKey[i]=rndERRead(f)
 }
 global.rndEStart=rndERRead(f)
 //each location: reached with everything through the game's own doors (a shuffle has to reach those too)
@@ -155,8 +158,9 @@ for(i=0;i<global.rndEBN;i+=1)
 }
 for(i=0;i<global.rndERN;i+=1) {global.rndERSlot[i]=rndERRead(f)}
 for(i=0;i<global.rndEXN;i+=1) {global.rndEXSlot[i]=rndERRead(f)}
-//the Access Gates: the Program Chips' requirement numbers (rndEChipBase+gate) and each room's gate (0 none): going into a
-//gate's rooms from outside it takes its chip (rndERTry)
+//the Access Gates: the Program Chips' requirement numbers (rndEChipBase+gate: the gates' portals take them, in their exits'
+//extras), and each room's gate (0 none), which the reach doesn't go by (a save from before the portals took the chips
+//went by it: the mod's portals read that by the rooms' names, rndGateOf)
 global.rndEChipBase=rndERRead(f)
 for(i=0;i<global.rndERN;i+=1) {global.rndERGate[i]=rndERRead(f)}
 //the exits that follow an end (a map's room's other ways back to the map that come out where the end's exit does: a
@@ -213,7 +217,6 @@ global.rndREvNew=ds_list_create()
 global.rndRLk1=ds_list_create()
 global.rndRLk2=ds_list_create()
 global.rndRLk3=ds_list_create()
-global.rndRLk4=ds_list_create()
 global.rndRLkX=ds_list_create()
 for(i=0;i<global.rndEReqN;i+=1)
 {
