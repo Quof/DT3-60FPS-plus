@@ -4,6 +4,8 @@ var i;
 if !variable_global_exists("rndLocN")
 {
   rndData()
+  rndOneWayData() //(the one way exits that show an arrow: their ONE WAY signs, the roomStart hook)
+  rndVisitData() //(the room logic's ways into rooms, by where they put the player: rndVisitArrive)
   //each item's progression item (rndProgOf; -1: none)
   for(i=0;i<global.rndItemN;i+=1) {global.rndItemProg[i]=rndProgOf(global.rndItemKind[i],global.rndItemParam[i])}
   //each location's layer in the placement (rndGenerate; -1 till a new game's placed its items)
@@ -25,6 +27,7 @@ if !variable_global_exists("rndLocN")
   //(Traps: how long they last, 0 Off, 2, 5 or 10 minutes: rndSnareApply, rndSnareTime; kept before as 0 Off, 1 On, 5
   //minutes)
   global.rndOptSnare=ini_read_real("Randomizer","trapmins",5*ini_read_real("Randomizer","traps",0))
+  global.rndOptSkipTD=ini_read_real("Randomizer","skiptd",0) //(Skip Tower Defense: 0 Off, 1 On, rndSkipTDApply)
   ini_close()
   //Archipelago: the next new game is an Archipelago game (the title screen's code 'ap'), and the folder where the game
   //and the DT3+ Client trade files: %LOCALAPPDATA%\DT3PlusArchipelago\, made if it isn't there
@@ -87,6 +90,15 @@ global.rndActive=0
 //on (the instruments are in the pool). rndReach: rndGenerate works out what the items reach from the rooms
 //(rndERReachStart: while a new game's seed with any of them is made)
 global.rndERMode=0
+//(the Check Tracker's Entrance Tracker's: the doors' ends found and the ways in visited, a character each, and the room
+//before this one's number in the door data: rndERSeenArrive; the ways in visited in every game, rndVisitArrive)
+global.rndERSeen=""
+global.rndERVisit=""
+global.rndERPrevRoom=-1
+//the vending machines' hints (oVendingMachine): how many bought (the next one's price: rndHintCost), and the locations
+//hinted (a character each)
+global.rndHintN=0
+global.rndHinted=string_repeat("0",global.rndLocN)
 global.rndBRMode=0
 global.rndIRMode=0
 global.rndReach=0
@@ -149,6 +161,9 @@ global.rndChipOwn=string_repeat("1",global.rndChipN)
 global.rndChipPortals=1
 global.rndApSessChips=0
 global.rndApSessChipPortals=0
+//Skip Tower Defense: off till a new game or a save has it on (rndSkipTDApply: tower defense's rewards in the logic)
+rndSkipTDApply(0)
+global.rndApSessSkipTD=0
 //the location (global.location) of the room the player was last in: coming into Gate 5 (location 49) from outside it
 //sets its checkpoint (the roomStart hook)
 global.rndLastLoc=-1

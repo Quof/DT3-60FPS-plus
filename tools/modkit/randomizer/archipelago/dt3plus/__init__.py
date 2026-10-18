@@ -1,7 +1,7 @@
 """
 DT3+ for Archipelago: the DT3+ Randomizer mod's game as an Archipelago world. The locations, the item pool and the
-logic are the Randomizer's own (data.py, made from the game by tools/modkit/randomizer/rndgen.py; with Entrance Rando,
-Boss Rando or Instrument Randomization, the room logic itself: erlogic.py and erdata.json); the game talks to the
+logic are the Randomizer's own (data.py, made from the game by tools/modkit/randomizer/rndgen.py; the logic, the room
+logic itself, with Entrance Rando's doors and Boss Rando's bosses as shuffled: erlogic.py and erdata.json); the game talks to the
 server through the DT3+ Client (client.py), which trades small text files with it. The doors and bosses the world
 shuffles go to the game in its slot data, through the client.
 """
@@ -92,6 +92,7 @@ class DT3PlusWorld(World):
 
     ir: bool
     chips: bool
+    skip_td: bool
     part: Optional[List[int]]
     fight: Optional[List[int]]
     logic: Optional[ReachLogic]
@@ -107,15 +108,20 @@ class DT3PlusWorld(World):
             logging.info("DT3+ (%s): Chip Randomizer is off with Entrance Rando chaos" % self.player_name)
             options.chip_randomizer.value = 0
         self.chips = bool(options.chip_randomizer.value)
+        # Skip Tower Defense: tower defense's rewards there from the start, their logic the room logic's (rules:
+        # world_locations, data.TOWER_DEFENSE); off, they need everything
+        self.skip_td = bool(options.skip_tower_defense.value)
         # every progression item (the win, and what a place the logic doesn't reach needs)
         self.everything = list(data.EVERYTHING) + ([(name, 1) for name in data.INSTRUMENTS] if self.ir else []) + \
             ([(name, 1) for name in data.CHIPS] if self.chips else [])
         # Entrance Rando: each door end's new partner (-1: its own); Boss Rando: the boss fought at each boss's place.
-        # Either, or Instrument Randomization: the logic is the room logic's with them (rules.ReachLogic)
+        # The logic is the room logic's with them (rules.ReachLogic), in every world, as the mod places its own seeds:
+        # a boss fight also waits for the share of the checks in logic it takes (the mod's roomlogic\bosses.txt, "@ N%"),
+        # which only the room logic's reach counts
         self.part, self.fight, self.logic = None, None, None
         mode_bit = ENTRANCE_MODE_BITS[options.entrance_rando.value]
+        f = tables()
         if mode_bit or options.boss_rando.value or self.ir:
-            f = tables()
             for _ in range(SHUFFLE_TRIES):
                 part = erlogic.shuffle(f, mode_bit, self.random) if mode_bit else [-1] * len(f.ends)
                 if part is None:
@@ -128,7 +134,9 @@ class DT3PlusWorld(World):
                 raise Exception("DT3+ (%s): no shuffle of the doors worked out in %d tries"
                                 % (self.player_name, SHUFFLE_TRIES))
             self.part, self.fight = part, fight
-            self.logic = ReachLogic(self.player, f, part, fight, self.ir, () if self.chips else data.CHIPS)
+        else:
+            part, fight = [-1] * len(f.ends), None
+        self.logic = ReachLogic(self.player, f, part, fight, self.ir, () if self.chips else data.CHIPS)
         # Guarantee Early Weapons: a weapon set's first item among this world's first places
         if options.guarantee_early_weapons.value:
             self.multiworld.local_early_items[self.player][self.random.choice(data.WEAPON_SETS)] = 1
@@ -234,6 +242,8 @@ class DT3PlusWorld(World):
             "chip_randomizer": int(self.chips),
             # (the chips are the gates' portals', as this world's logic has them: the mod goes by it, rndPortalChip)
             "chip_portals": 1,
+            # (Skip Tower Defense: the mod has tower defense won from the start, its rewards there: rndSkipTDApply)
+            "skip_tower_defense": int(self.skip_td),
             "traps": int(options.traps.value > 0),
             # (how long this world's trap items last: the client gives the mod it, trapmins)
             "trap_minutes": options.traps.minutes[options.traps.value],

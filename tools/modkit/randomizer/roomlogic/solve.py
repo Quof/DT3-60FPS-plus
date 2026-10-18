@@ -18,11 +18,13 @@ usage:
 
 Requirements, in every file: alternatives separated by |, any one of which is enough; each a list (commas or spaces)
 of: djump, adash, gdash, hijump N, mario, link N, belmont N, megaman N, samus N, gamej N, gamec N, varia (the Varia
-Suit), cursed N (that many of the three cursed equipment pieces) (N: that many of the item; "megaman:2" is the same as
+Suit), cursed N (that many of the three cursed equipment pieces), air N (that many Air Upgrades) (N: that many of the item; "megaman:2" is the same as
 "megaman 2"), key N (the key of the locked door whose objectNum is N), chip N (Program Chip N: Access Gate N's, which
 going into the gate's rooms from outside it takes), attack (any
 ability set's attack: link 1, belmont 1, megaman 1 or samus 1), event NAME (once it's happened: events.txt), option
-NAME (only with that option on), nothing or - (walking and jumping), never (no way).
+NAME (only with that option on), pct N (N% of all the checks in logic, the event pctN: the room logic's reach counts
+them, er.py's and erflat.py's; joining alternatives of items here, it needs nothing), nothing or - (walking and
+jumping), never (no way).
 
 States the player carries from room to room (connections.txt's "carried" lines: the red/blue switches' state, the
 Water Palace's level, the Forest Palace's crystals) go with each way in and out of the rooms that have them ("from in
@@ -42,9 +44,10 @@ OUT = os.path.join(HERE, "roomlogic.txt")
 
 # the items the logic counts, in RoomLogic.cs's order (Req.Names); djump, adash, gdash, mario and varia are one item
 # each (varia: the Varia Suit; cursed: the Trial Master's three cursed equipment pieces; instr: the Nightmare Gates'
-# instruments, items only with the new game's option Instrument Randomization: events.txt's ir+ lines)
+# instruments, items only with the new game's option Instrument Randomization: events.txt's ir+ lines; air: the Air
+# Upgrades, which only overrides.txt's also lines for the underwater rooms take, not RoomLogic.cs)
 ITEMS = ["djump", "adash", "gdash", "hijump", "mario", "link", "belmont", "megaman", "samus", "gamej", "gamec", "varia", "cursed",
-         "instr"]
+         "instr", "air"]
 SINGLE = {"djump", "adash", "gdash", "mario", "varia"}
 
 # the Access Gates and their Program Chips (the new game's option Chip Randomizer): each gate's portal, and the Nightmare
@@ -147,6 +150,10 @@ def parse(text, where=""):
             if name == "event":
                 if not cnt: raise SystemExit("%s: 'event' needs a name: %r" % (where, text))
                 alts = [mx(a, Need(NOTHING.c, frozenset(), frozenset(["event:" + cnt]))) for a in alts]
+                continue
+            if name == "pct":
+                if not cnt.isdigit() or int(cnt) > 100: raise SystemExit("%s: 'pct' needs a share of the checks, 0-100: %r" % (where, text))
+                if int(cnt) > 0: alts = [mx(a, Need(NOTHING.c, frozenset(), frozenset(["event:pct%d" % int(cnt)]))) for a in alts]
                 continue
             if name not in ITEMS: raise SystemExit("%s: unknown requirement %r in %r" % (where, name, text))
             n = int(cnt) if cnt else 1
@@ -297,10 +304,10 @@ def load_overrides(rooms, conn, path=OVERRIDES):
     """applies overrides.txt to the rooms' tables and the connections (see the file for its lines), and bosses.txt.
     Returns how many lines"""
     if not os.path.exists(path): return load_bosses(rooms, conn)
-    names = {}
-    for r in rooms.values():
-        for key, nm in r.loc_names.items(): names[nm.lower()] = key
+    names = place_names(rooms)
     n = 0
+    gone = []          # (the outoflogic lines' places: put out of logic after the rest, whatever else gives them a way)
+    also = []          # (the also lines: (room, what every way through it needs as well), after the rest too)
     for ln, raw in enumerate(open(path, encoding="utf-8"), 1):
         line = raw.split("#", 1)[0].strip()
         if not line: continue
@@ -375,9 +382,61 @@ def load_overrides(rooms, conn, path=OVERRIDES):
             if hf[4] not in rooms or hf[6] not in rooms[hf[4]].ins: raise SystemExit("%s: %s has no way in %r" % (where, hf[4], hf[6]))
             # (in every state: in place of the ways the connections give it)
             conn.links[(hf[0], hf[2])] = (hf[4], hf[6]); conn.links_st.pop((hf[0], hf[2]), None); n += 1
+        elif cmd == "outoflogic":
+            gone.append(outoflogic_line(rooms, names, f[1] if len(f) > 1 else "", where)[1]); n += 1
+        elif cmd == "also":
+            head, _, req = (f[1] if len(f) > 1 else "").partition(":")
+            if not _ or head.strip() not in rooms: raise SystemExit("%s: 'also <room> : <requirements>' (a room rooms\\ has)" % where)
+            also.append((head.strip(), parse(req, where))); n += 1
         else:
-            raise SystemExit("%s: unknown line %r (set, add, room, area, need or link)" % (where, cmd))
+            raise SystemExit("%s: unknown line %r (set, add, room, area, need, link, also or outoflogic)" % (where, cmd))
+    # (a room's also lines: every way through it needs that as well, on top of what the lines before have it need)
+    for room, extra in also:
+        r = rooms[room]
+        for key in list(r.table): r.table[key] = product(r.table[key], extra)
+    # (a place out of logic: no way to it from any way in of any room it's in)
+    for key in gone:
+        for r in rooms.values():
+            if key not in r.locs: continue
+            for w in (r.ways() or [(i, ()) for i in r.ins]): r.table[(w, ("loc",) + key)] = []
     return n + load_bosses(rooms, conn)
+
+
+def place_names(rooms):
+    """{a place's name, lowercase ("skill point 59"): (type, number)}, from the room files"""
+    names = {}
+    for r in rooms.values():
+        for key, nm in r.loc_names.items(): names[nm.lower()] = key
+    return names
+
+
+def outoflogic_line(rooms, names, text, where):
+    """an outoflogic line's '<room> loc <place> : <why>': (room, (type, number), why)"""
+    head, _, why = text.partition(":")
+    hf = head.split()
+    if not _ or not why.strip() or len(hf) < 3 or hf[1] != "loc":
+        raise SystemExit("%s: 'outoflogic <room> loc <place> : <why>'" % where)
+    room, p = hf[0], hf[2:]
+    if room not in rooms: raise SystemExit("%s: no room %r (rooms\\ has a file a room)" % (where, room))
+    if len(p) == 2 and p[0].isdigit() and p[1].isdigit(): key = (int(p[0]), int(p[1]))
+    elif " ".join(p).lower() in names: key = names[" ".join(p).lower()]
+    else: raise SystemExit("%s: '%s' isn't a place ('loc <type> <number>' or its name)" % (where, " ".join(p)))
+    if key not in rooms[room].locs: raise SystemExit("%s: %s has no place %s" % (where, room, " ".join(p)))
+    return room, key, why.strip()
+
+
+def out_of_logic(rooms=None, path=OVERRIDES):
+    """the places overrides.txt puts out of logic (its outoflogic lines), and why: {(type, number): why}"""
+    if not os.path.exists(path): return {}
+    rooms = rooms if rooms is not None else load_rooms()
+    names = place_names(rooms)
+    out = {}
+    for ln, raw in enumerate(open(path, encoding="utf-8"), 1):
+        f = raw.split("#", 1)[0].strip().split(None, 1)
+        if f and f[0].lower() == "outoflogic":
+            room, key, why = outoflogic_line(rooms, names, f[1] if len(f) > 1 else "", "overrides.txt line %d" % ln)
+            out[key] = why
+    return out
 
 
 def load_bosses(rooms, conn, path=BOSSES):
@@ -391,13 +450,20 @@ def load_bosses(rooms, conn, path=BOSSES):
         where = "bosses.txt line %d" % ln
         head, _, req = line.partition(":")
         if not _: raise SystemExit("%s: '<room> : <requirements>' or 'via <room> out <x,y> : <requirements>'" % where)
+        # (a line's share of the checks, "@ N%": every alternative needs that many of all the checks in logic, pct N)
+        req, at, share = req.partition("@")
+        alts = parse(req, where)
+        if at:
+            s = share.strip()
+            if not s.endswith("%") or not s[:-1].strip().isdigit(): raise SystemExit("%s: '@ N%%' (a share of the checks)" % where)
+            alts = product(alts, parse("pct " + s[:-1].strip(), where))
         hf = head.split()
         if len(hf) == 1:
             if hf[0] not in rooms: raise SystemExit("%s: no room %r" % (where, hf[0]))
-            conn.boss[hf[0]] = parse(req, where)
+            conn.boss[hf[0]] = alts
         elif len(hf) == 4 and hf[0] == "via" and hf[2] == "out":
             if (hf[1], hf[3]) not in conn.via: raise SystemExit("%s: %s out %s isn't a via exit in connections.txt" % (where, hf[1], hf[3]))
-            conn.via_need[(hf[1], hf[3])] = parse(req, where)
+            conn.via_need[(hf[1], hf[3])] = alts
         else: raise SystemExit("%s: '<room> : <requirements>' or 'via <room> out <x,y> : <requirements>'" % where)
         n += 1
     return n
@@ -443,6 +509,10 @@ def with_events(alts, events):
     there: never)"""
     out = []
     for a in alts:
+        # (a share of the checks in logic, pctN: the room logic's reach counts them (er.py, erflat.py); this joins
+        # alternatives of items, which can't count checks: it needs nothing here)
+        pcts = frozenset(o for o in a.o if o.startswith("event:pct"))
+        if pcts: a = Need(a.c, a.k, a.o - pcts)
         # (in order by name: a frozenset's order changes from run to run, and the alternatives come out in this order)
         evs = sorted(o for o in a.o if o.startswith("event:"))
         if not evs: add(out, a); continue

@@ -10,7 +10,7 @@ tColorOn=make_color_rgb(120,232,96)
 tColorOff=make_color_rgb(232,96,96)
 tColorGrey=make_color_rgb(120,124,130) //(an option the others leave no choice in: Chip Randomizer with Entrance Rando Chaos)
 tX=view_xview[0]+64
-tY=view_yview[0]+22
+tY=view_yview[0]+6 //(the window, 339 high, in the middle of the room's 352)
 draw_set_alpha(1)
 draw_set_color(c_black)
 draw_rectangle(view_xview[0]-1,view_yview[0]-1,view_xview[0]+room_width+1,view_yview[0]+room_height+1,0)
@@ -18,13 +18,13 @@ draw_rectangle(view_xview[0]-1,view_yview[0]-1,view_xview[0]+room_width+1,view_y
 //window
 draw_set_alpha(0.85)
 draw_set_color(tColorBack)
-draw_rectangle(tX,tY,tX+351,tY+323,0)
+draw_rectangle(tX,tY,tX+351,tY+339,0)
 draw_set_alpha(1)
 draw_set_color(tColorTop)
 draw_rectangle(tX,tY,tX+351,tY+16,0)
-draw_rectangle(tX,tY,tX+351,tY+323,1)
+draw_rectangle(tX,tY,tX+351,tY+339,1)
 draw_set_color(tColorBorder)
-draw_rectangle(tX+2,tY+2,tX+349,tY+321,1)
+draw_rectangle(tX+2,tY+2,tX+349,tY+337,1)
 draw_set_font(fnt_EnemyName)
 draw_set_halign(fa_left)
 draw_text(tX+8,tY+3,"RANDOMIZER: NEW GAME")
@@ -32,10 +32,10 @@ draw_text(tX+8,tY+3,"RANDOMIZER: NEW GAME")
 //the options
 draw_set_alpha(0.75)
 draw_set_color(tColorInfo)
-draw_rectangle(tX+8,tY+22,tX+343,tY+203,0)
+draw_rectangle(tX+8,tY+22,tX+343,tY+219,0)
 draw_set_alpha(1)
 draw_set_color(tColorTop)
-draw_rectangle(tX+8,tY+22,tX+343,tY+203,1)
+draw_rectangle(tX+8,tY+22,tX+343,tY+219,1)
 draw_set_font(fnt_PauseMenuText)
 for(i=0;i<roRows;i+=1)
 {
@@ -103,6 +103,12 @@ for(i=0;i<roRows;i+=1)
   }
   else if i=9
   {
+    tName="Skip Tower Defense"
+    if global.rndOptSkipTD=1 {tVal="On"; tCol=tColorOn}
+    else {tVal="Off"; tCol=tColorOff}
+  }
+  else if i=10
+  {
     tName="Spoiler Log"
     if global.rndOptLog=1 {tVal="On"; tCol=tColorOn}
     else {tVal="Off"; tCol=tColorOff}
@@ -125,10 +131,10 @@ draw_rectangle(tX+12,tY+24+(roCursor*16),tX+331,tY+39+(roCursor*16),1)
 //the option on the cursor
 draw_set_alpha(0.75)
 draw_set_color(tColorInfo)
-draw_rectangle(tX+8,tY+209,tX+343,tY+290,0)
+draw_rectangle(tX+8,tY+225,tX+343,tY+306,0)
 draw_set_alpha(1)
 draw_set_color(tColorTop)
-draw_rectangle(tX+8,tY+209,tX+343,tY+290,1)
+draw_rectangle(tX+8,tY+225,tX+343,tY+306,1)
 if roCursor=0 {tInfo="The number the items are placed by: the same seed with the same options places them the same way again. Confirm: type one in (leave it empty for a random one). The title screen's code seed and a number sets it too."}
 else if roCursor=1 {tInfo="On: every layer has a weapon (an item of the Link, Belmont, Mega Man or Samus set) while there are any left. Off: the weapons go anywhere, as the other abilities do. Layer 1 is what jumping alone reaches from Central City; the items in it open layer 2, and so on."}
 else if roCursor=2 {tInfo="How far from Central City the abilities and keys tend to be. Each goes in the newest layer (what the items before it opened) with a chance of 3 in 10 (Near) or 7 in 10 (Normal), else in an older one; always in the newest (Far)."}
@@ -138,10 +144,11 @@ else if roCursor=5 {tInfo="On: walking up to a boss starts another boss's fight,
 else if roCursor=6 {tInfo="On: the 8 instruments are shuffled in with the other items, and a Nightmare Gate's boss leaves any item. Off: each gate's boss leaves its own instrument. Either way the Abomination needs all 8, and the Lost Entrance's barrier one."}
 else if roCursor=7 {tInfo="On: the 6 Program Chips are shuffled in with the other items (in six Internetz chests' places). Each Access Gate's portal, and the Nightmare Gate portal beside it, opens only once its gate's chip is found, wherever it leads. No chip is ever behind a portal it opens. Chip N also opens the skill tree's section N. Off: you start with all 6. Always off with Entrance Rando Chaos."}
 else if roCursor=8 {tInfo="30 items are traps, in Internetz chests' places, looking like Weapon Upgrades (or sparkling in a chest); each but Teleport lasts the time chosen here. Darkness: every room dark. Rocketeer: a CHAOS Rocketeer now and in every room. Teleport: back to a way into a room you've used. Achilles: any hit kills. Wind Orb: the Green Warmaster's orb hunts you in every room."}
-else if roCursor=9 {tInfo="On: a list of where every item is goes in the Saves folder's Seeds folder (Randomizer spoiler log, with the seed's number)."}
+else if roCursor=9 {tInfo="On: tower defense's three optional levels are won from the start, so their six rewards (in Central City - North) are there to pick up, and can hold any item, abilities and keys too. Off: they're there once its levels are won, and hold no ability or key."}
+else if roCursor=10 {tInfo="On: a list of where every item is goes in the Saves folder's Seeds folder (Randomizer spoiler log, with the seed's number)."}
 else {tInfo="Start the game with these options. They're kept for the next new game."}
-draw_set_color(tColorTop); draw_text_ext(tX+15,tY+213,tInfo,10,320)
-draw_set_color(tColorTextA); draw_text_ext(tX+14,tY+212,tInfo,10,320)
+draw_set_color(tColorTop); draw_text_ext(tX+15,tY+229,tInfo,10,320)
+draw_set_color(tColorTextA); draw_text_ext(tX+14,tY+228,tInfo,10,320)
 
 //notice and controls
 draw_set_font(fnt_Points)
@@ -149,6 +156,7 @@ if roGo>0
 {
   if global.rndOptER>0 or global.rndOptBR=1 or global.rndOptIR=1 {tInfo="Shuffling and placing the items (a few seconds)..."}
   else {tInfo="Placing the items..."}
-  textDropShadow(tInfo,tX+14,tY+294,tColorTextB,tColorTop,4)
+  textDropShadow(tInfo,tX+14,tY+310,tColorTextB,tColorTop,4)
 }
-textDropShadow("[Up]/[Down] Option     [Left]/[Right] Change     [Confirm] Change/Start",tX+14,tY+307,tColorTextA,tColorTop,4)
+else {textDropShadow("[Cancel] Back to the title screen",tX+14,tY+310,tColorTextA,tColorTop,4)}
+textDropShadow("[Up]/[Down] Option     [Left]/[Right] Change     [Confirm] Change/Start",tX+14,tY+323,tColorTextA,tColorTop,4)

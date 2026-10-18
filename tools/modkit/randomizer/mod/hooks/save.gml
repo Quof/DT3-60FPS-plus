@@ -33,13 +33,31 @@ if global.rndActive=1
     n=ceil(string_length(t)/1000)
     ini_write_real(s,"erparts",n)
     for(i=0;i<n;i+=1) {ini_write_string(s,"erpart"+string(i),string_copy(t,i*1000+1,1000))}
+    //(the Check Tracker's Entrance Tracker's: the doors' ends found, rndERSeenArrive; in pieces of 1000 characters too)
+    t=global.rndERSeen
+    n=ceil(string_length(t)/1000)
+    ini_write_real(s,"erseens",n)
+    for(i=0;i<n;i+=1) {ini_write_string(s,"erseen"+string(i),string_copy(t,i*1000+1,1000))}
   }
+  //the ways into rooms the player has come in by (rndVisitArrive: the Check Tracker counts what they get to as in logic),
+  //in pieces of 1000 characters, with the hash of this build's list of them (a build with others drops them)
+  var tV,tVN,tVi;
+  tV=global.rndERVisit
+  tVN=ceil(string_length(tV)/1000)
+  ini_write_real(s,"ervisits",tVN)
+  for(tVi=0;tVi<tVN;tVi+=1) {ini_write_string(s,"ervisit"+string(tVi),string_copy(tV,tVi*1000+1,1000))}
+  ini_write_string(s,"ervisithash",global.rndVisitHash)
+  //the vending machines' hints: how many bought, and the locations hinted
+  ini_write_real(s,"hintn",global.rndHintN)
+  ini_write_string(s,"hinted",global.rndHinted)
   //Instrument Randomization: on or off (where the instruments are is in place, as for every item)
   ini_write_real(s,"ir",global.rndIRMode)
   //Chip Randomizer: on or off, the Program Chips found (a character a gate), and what takes them (rndPortalChip)
   ini_write_real(s,"chips",global.rndChipMode)
   ini_write_string(s,"chipown",global.rndChipOwn)
   ini_write_real(s,"chipportals",global.rndChipPortals)
+  //Skip Tower Defense: on or off (tower defense's progress is the game's own save's)
+  ini_write_real(s,"skiptd",global.rndSkipTD)
   //Traps (the trap items: not "traps", the enemy traps beaten, above): on or off, which (rndSnareSet), how long they
   //last (minutes), each trap's time left, a Teleport Trap waiting, and the ways into rooms kept for one (in pieces of
   //1000 characters)

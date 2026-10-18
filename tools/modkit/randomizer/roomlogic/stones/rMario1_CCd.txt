@@ -1,0 +1,90 @@
+# rMario1_CCd: Access Gate 1: Mushroom Kingdom (area 7), 1472x528 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 80,144   # from rMario1_CCc out 3560,200
+in 1368,336   # from rMario1_CCBoss out 72,224
+in 64,480   # from warping to Teleporting Stone 104
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 1360,304   # to rMario1_CCBoss at 80,256; the player presses up at it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+loc 98 104   # teleporting stone 104, at 64,442
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 80,144
+  out 1360,304   -
+  loc 98 104     -
+from in 1368,336
+  out 1360,304   -
+  loc 98 104     -
+from in 64,480
+  out 1360,304   -
+  loc 98 104     -
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 80,144 -> out 1360,304: -
+     coming in at 80,144
+   1. coming in: holding nothing, from 80,144; lands at 80,481
+      -> standing at x 39-345, y 481
+   2. running right, jump (held 21 ticks), holding right, from 208,481; lands at 362,417
+      -> standing at x 346-377, y 417
+   3. jump (held 21 ticks), holding right, from 346,417; lands at 450,353
+      -> standing at x 378-473, y 353
+   4. jump (held 21 ticks), holding right, from 378,353; lands at 509,289
+      -> standing at x 474-582, y 289
+   5. walk off the edge, holding right once in the air, from 474,289; lands at 657,337
+      -> standing at x 583-1385, y 337
+   6. standing at 1358,337, presses up at it
+      -> out 1360,304
+how in 80,144 -> loc 98 104: -
+     coming in at 80,144
+   1. coming in: holding nothing, from 80,144; lands at 80,481
+      -> standing at x 39-345, y 481
+   2. standing at 39,481, touches it
+      -> loc 98 104
+how in 1368,336 -> out 1360,304: -
+     coming in at 1368,336
+   1. coming in: holding nothing, from 1368,336; lands at 1368,337
+      -> standing at x 583-1385, y 337
+   2. standing at 1358,337, presses up at it
+      -> out 1360,304
+how in 1368,336 -> loc 98 104: -
+     coming in at 1368,336
+   1. coming in: holding nothing, from 1368,336; lands at 1368,337
+      -> standing at x 583-1385, y 337
+   2. jump (held 6 ticks), holding left, from 583,337; lands at 524,289
+      -> standing at x 474-582, y 289
+   3. jump (held 2 ticks), holding left, from 474,289; lands at 274,481
+      -> standing at x 39-345, y 481
+   4. standing at 39,481, touches it
+      -> loc 98 104
+how in 64,480 -> out 1360,304: -
+     coming in at 64,480
+   1. coming in: holding nothing, from 64,480; lands at 64,481
+      -> standing at x 39-345, y 481
+   2. running right, jump (held 21 ticks), holding right, from 208,481; lands at 362,417
+      -> standing at x 346-377, y 417
+   3. jump (held 21 ticks), holding right, from 346,417; lands at 450,353
+      -> standing at x 378-473, y 353
+   4. jump (held 21 ticks), holding right, from 378,353; lands at 509,289
+      -> standing at x 474-582, y 289
+   5. walk off the edge, holding right once in the air, from 474,289; lands at 657,337
+      -> standing at x 583-1385, y 337
+   6. standing at 1358,337, presses up at it
+      -> out 1360,304
+how in 64,480 -> loc 98 104: -
+     coming in at 64,480
+   1. coming in: holding nothing, from 64,480; lands at 64,481
+      -> standing at x 39-345, y 481
+   2. standing at 39,481, touches it
+      -> loc 98 104

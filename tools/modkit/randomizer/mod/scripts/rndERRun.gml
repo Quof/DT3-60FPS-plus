@@ -15,7 +15,8 @@ while true
       for(w=0;w<global.rndEVWayN[v];w+=1)
       {
         if global.rndEVKind[v,w]=1 {hit=global.rndRRoomIn[global.rndEVWhat[v,w]]}
-        else {hit=global.rndRAreaIn[global.rndEVWhat[v,w]]}
+        else if global.rndEVKind[v,w]=2 {hit=global.rndRAreaIn[global.rndEVWhat[v,w]]}
+        else {hit=(global.rndRPlaceN>=global.rndEVWhat[v,w])} //(a share of the checks: that many places got to)
         if global.rndEVMode[v,w]=tSkip {hit=0}
         if hit=1
         {

@@ -10,13 +10,18 @@
 //(rndOptIR), the instruments are in the pool. A shuffle is kept only if with everything it reaches every place the
 //game's own doors do and the goal (rndEREverything: the doors), the items can be placed with what the doors and bosses
 //let through (rndGenerate, with the room logic's reach) and the seed plays through (rndERPlay); else another is tried.
+//Every game places its items with the room logic's reach (the door data, data\rndER.txt), whatever the options: a boss
+//fight waits for the share of the checks it takes (roomlogic\bosses.txt's "@ N%": rndERRun) as well as for what beats
+//the boss. Without the data, the game's own layout's logic (rndData) places them, with no shares.
 //An Archipelago game has the DT3+ world's options instead (the client's session, rndApReadSession): the world shuffled
 //its doors and bosses itself (its logic is this build's room logic: the door data's hash and the bosses' types say it
 //is), and they're put in as made.
 //With Chip Randomizer (rndOptChips, or the world's option), the Program Chips are among the items (rndChipApply) and
 //the player starts with none (an Access Gate's rooms turn them back till its chip is found); without, they have all six.
-//Not with Entrance Rando Chaos, where every door can lead into a gate's rooms: the player has all six there
-var tTry,tOk,tER,tBR,tIR,tBit,tGo,d,i;
+//Not with Entrance Rando Chaos, where every door can lead into a gate's rooms: the player has all six there.
+//With Skip Tower Defense (rndOptSkipTD, or the world's option), tower defense's levels are won from the start, so its
+//rewards are there to pick up, and they're in the logic like any other location (rndSkipTDApply)
+var tTry,tOk,tER,tBR,tIR,tBit,tGo,tData,d,i;
 rndWorld()
 global.CHAOS_Invasion=0
 global.CHAOS_Upgrade=0
@@ -66,6 +71,7 @@ if global.rndApNext=1
     global.rndBRMode=0
     global.rndIRMode=global.rndApSessIR
     rndChipApply(global.rndApSessChips)
+    rndSkipTDApply(global.rndApSessSkipTD)
     //(Traps: the world's trap items come from the multiworld like its other items, and spring as they come: rndApGive;
     //they last the world's time, the client's rndApSessTrapMins: 5 minutes from a world before that was an option)
     rndSnareApply(0,2)
@@ -112,20 +118,22 @@ if global.rndAP=0
   tBR=global.rndOptBR
   tIR=global.rndOptIR
   rndChipApply(global.rndOptChips*(global.rndOptER!=3)) //(not with Entrance Rando Chaos: the options window has it off)
+  rndSkipTDApply(global.rndOptSkipTD)
   rndSnareApply(global.rndOptSnare>0,2) //(Traps: in some Internetz chests' places; not progression, so where the rest go is the same)
   global.rndSnareTime=max(1,global.rndOptSnare)*1800 //(the option's minutes, 30fps ticks)
-  if tER>0 or tBR>0 or tIR>0
+  //(the room logic's reach places the items in every game: see above)
+  tData=rndERLoad()
+  if tData=0
   {
-    if rndERLoad()=0
-    {
-      show_message("Randomizer: Entrance Rando, Boss Rando and Instrument Randomization need the mod's room logic data (data\rndER.txt), which isn't there or doesn't fit this build. The entrances, the bosses and the instruments are left as they are.")
-      tER=0
-      tBR=0
-      tIR=0
-    }
-    else {rndERLayout(-1)} //(this build's doors, the exits that follow an end with them: a save loaded before may have had an earlier build's)
+    if tER>0 or tBR>0 or tIR>0 {show_message("Randomizer: Entrance Rando, Boss Rando and Instrument Randomization need the mod's room logic data (data\rndER.txt), which isn't there or doesn't fit this build. The entrances, the bosses and the instruments are left as they are.")}
+    tER=0
+    tBR=0
+    tIR=0
   }
-  if tER>0 or tBR>0 or tIR>0
+  else {rndERLayout(-1)} //(this build's doors, the exits that follow an end with them: a save loaded before may have had an earlier build's)
+  //(each boss in its own place, unless Boss Rando shuffles them below: a game started before this one may have)
+  for(i=0;i<global.rndBossN;i+=1) {global.rndBRFight[i]=i}
+  if tData=1
   {
     tBit=1
     if tER=2 {tBit=2}
@@ -161,7 +169,7 @@ if global.rndAP=0
     {
       for(i=0;i<global.rndBossN;i+=1) {global.rndBRFight[i]=i}
       global.rndIRMode=0
-      show_message("Randomizer: no shuffle of the entrances, bosses and instruments worked out for seed "+string(global.rndSeed)+" (60 were tried). They're left as they are.")
+      if tER>0 or tBR>0 or tIR>0 {show_message("Randomizer: no shuffle of the entrances, bosses and instruments worked out for seed "+string(global.rndSeed)+" (60 were tried). They're left as they are.")}
     }
   }
   if tOk=0
@@ -188,6 +196,8 @@ if global.rndAP=0
 }
 global.rndActive=1
 global.rndWon=0
+//Skip Tower Defense: its three optional levels won (their rewards in Central City - North are there)
+if global.rndSkipTD=1 {global.gameOptTowerDef=6}
 //the Program Chips: none with Chip Randomizer (each is an item), else all six (the pause menu shows them: programChips)
 global.rndChipOwn=string_repeat("1",global.rndChipN)
 if global.rndChipMode=1 {global.rndChipOwn=string_repeat("0",global.rndChipN)}

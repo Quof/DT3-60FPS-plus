@@ -1,0 +1,156 @@
+# rLink2_PalaceA_1: Access Gate 2: Hyrule (area 10), 2048x352 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 48,304   # from rLink2_Overworld out 1600,64
+in 2000,304   # from rLink2_PalaceA_2 out 0,272
+in 1520,336   # from rLink2_PalaceA_4 out 1016,16
+in 120,304   # from warping to Teleporting Stone 202
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 0,272   # to rLink2_Overworld at 1608,88; the player goes into it
+out 2032,272   # to rLink2_PalaceA_2 at 48,304; the player goes into it
+out 1512,368   # to rLink2_PalaceA_4 at 1024,128; the player goes into it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+loc 98 202   # teleporting stone 202, at 120,266
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 48,304
+  out 0,272      -
+  out 2032,272   -
+  out 1512,368   -
+  loc 98 202     -
+from in 2000,304
+  out 0,272      -
+  out 2032,272   -
+  out 1512,368   -
+  loc 98 202     -
+from in 1520,336
+  out 0,272      never
+  out 2032,272   never
+  out 1512,368   -
+  loc 98 202     never
+from in 120,304
+  out 0,272      -
+  out 2032,272   -
+  out 1512,368   -
+  loc 98 202     -
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 48,304 -> out 0,272: -
+     coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> standing at x 0-1465, y 305
+   2. standing at 0,305, goes into it
+      -> out 0,272
+how in 48,304 -> out 2032,272: -
+     coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> standing at x 0-1465, y 305
+   2. running right, jump (held 6 ticks), holding right, from 1408,305; lands at 1474,289
+      -> standing at x 1466-1510, y 289
+   3. running right, jump (held 2 ticks), holding right, from 1502,289; lands at 1546,289
+      -> standing at x 1530-1574, y 289
+   4. walk off the edge, holding right once in the air, from 1530,289; lands at 1625,305
+      -> standing at x 1575-2048, y 305
+   5. standing at 2030,305, goes into it
+      -> out 2032,272
+how in 48,304 -> out 1512,368: -
+     coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> standing at x 0-1465, y 305
+   2. running right, jump (held 6 ticks), holding right, from 1408,305; lands at 1474,289
+      -> standing at x 1466-1510, y 289
+   3. walk off the edge, holding right once in the air, from 1466,289; touches it on the way
+      -> out 1512,368
+how in 48,304 -> loc 98 202: -
+     coming in at 48,304
+   1. coming in: holding nothing, from 48,304; lands at 48,305
+      -> standing at x 0-1465, y 305
+   2. standing at 95,305, touches it
+      -> loc 98 202
+how in 2000,304 -> out 0,272: -
+     coming in at 2000,304
+   1. coming in: holding nothing, from 2000,304; lands at 2000,305
+      -> standing at x 1575-2048, y 305
+   2. jump (held 2 ticks), holding left, from 1575,305; lands at 1543,289
+      -> standing at x 1530-1574, y 289
+   3. running left, jump (held 2 ticks), holding left, from 1530,289; lands at 1486,289
+      -> standing at x 1466-1510, y 289
+   4. walk off the edge, holding left once in the air, from 1466,289; lands at 1422,305
+      -> standing at x 0-1465, y 305
+   5. standing at 0,305, goes into it
+      -> out 0,272
+how in 2000,304 -> out 2032,272: -
+     coming in at 2000,304
+   1. coming in: holding nothing, from 2000,304; lands at 2000,305
+      -> standing at x 1575-2048, y 305
+   2. standing at 2030,305, goes into it
+      -> out 2032,272
+how in 2000,304 -> out 1512,368: -
+     coming in at 2000,304
+   1. coming in: holding nothing, from 2000,304; lands at 2000,305
+      -> standing at x 1575-2048, y 305
+   2. jump (held 2 ticks), holding left, from 1575,305; lands at 1543,289
+      -> standing at x 1530-1574, y 289
+   3. running left, jump (held 2 ticks), holding left, from 1530,289; lands at 1486,289
+      -> standing at x 1466-1510, y 289
+   4. walk off the edge, holding right once in the air, from 1466,289; touches it on the way
+      -> out 1512,368
+how in 2000,304 -> loc 98 202: -
+     coming in at 2000,304
+   1. coming in: holding nothing, from 2000,304; lands at 2000,305
+      -> standing at x 1575-2048, y 305
+   2. jump (held 2 ticks), holding left, from 1575,305; lands at 1543,289
+      -> standing at x 1530-1574, y 289
+   3. running left, jump (held 2 ticks), holding left, from 1530,289; lands at 1486,289
+      -> standing at x 1466-1510, y 289
+   4. walk off the edge, holding left once in the air, from 1466,289; lands at 1422,305
+      -> standing at x 0-1465, y 305
+   5. standing at 95,305, touches it
+      -> loc 98 202
+how in 1520,336 -> out 1512,368: -
+     coming in at 1520,336
+   1. coming in: holding nothing, from 1520,336; touches it on the way
+      -> out 1512,368
+how in 120,304 -> out 0,272: -
+     coming in at 120,304
+   1. coming in: holding nothing, from 120,304; lands at 120,305
+      -> standing at x 0-1465, y 305
+   2. standing at 0,305, goes into it
+      -> out 0,272
+how in 120,304 -> out 2032,272: -
+     coming in at 120,304
+   1. coming in: holding nothing, from 120,304; lands at 120,305
+      -> standing at x 0-1465, y 305
+   2. running right, jump (held 6 ticks), holding right, from 1408,305; lands at 1474,289
+      -> standing at x 1466-1510, y 289
+   3. running right, jump (held 2 ticks), holding right, from 1502,289; lands at 1546,289
+      -> standing at x 1530-1574, y 289
+   4. walk off the edge, holding right once in the air, from 1530,289; lands at 1625,305
+      -> standing at x 1575-2048, y 305
+   5. standing at 2030,305, goes into it
+      -> out 2032,272
+how in 120,304 -> out 1512,368: -
+     coming in at 120,304
+   1. coming in: holding nothing, from 120,304; lands at 120,305
+      -> standing at x 0-1465, y 305
+   2. running right, jump (held 6 ticks), holding right, from 1408,305; lands at 1474,289
+      -> standing at x 1466-1510, y 289
+   3. walk off the edge, holding right once in the air, from 1466,289; touches it on the way
+      -> out 1512,368
+how in 120,304 -> loc 98 202: -
+     coming in at 120,304
+   1. coming in: holding nothing, from 120,304; lands at 120,305
+      -> standing at x 0-1465, y 305
+   2. standing at 95,305, touches it
+      -> loc 98 202

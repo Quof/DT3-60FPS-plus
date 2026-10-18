@@ -12,6 +12,19 @@ if global.rndFight>=0 and toRoom!=rBossGallery
   newMapY=496
   exit
 }
+//the same for one of the boss gallery's own fights (its doors' ones, its flag on and no randomizer fight): back to the
+//gallery, as the game's fights there end
+if global.bBossGallery=1 and global.rndFight<0 and room!=rBossGallery and toRoom!=rBossGallery
+{
+  toRoom=rBossGallery
+  newMapX=1032
+  newMapY=496
+  exit
+}
+//the boss gallery left by its way out, not in a randomizer fight: its flag off, as the room that way out leads to in the
+//game turns it off (Central City - North B's code), wherever Entrance Rando has it lead. Otherwise the pause menu's
+//Teleport stayed off for good, and no boss's fight could start
+if room=rBossGallery and global.rndFight<0 {global.bBossGallery=0}
 //Entrance Rando: where the shuffle has it lead (again: an exit the room's code made after it started)
 rndERApplyExit()
 //the story's way into Ridley's or the Parasitic Seed's fight (rndExitBoss: with Boss Rando, the boss fought there)

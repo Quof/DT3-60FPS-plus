@@ -63,7 +63,27 @@ if global.rndActive=1
       show_message("Randomizer: this game's entrances were shuffled (Entrance Rando) with another build's doors, so the shuffle can't be put back. The entrances lead where they normally do.")
     }
     else {rndERMapBuild()}
+    //(the Check Tracker's Entrance Tracker's: the doors' ends found, rndERSeenArrive; a save from before them has none
+    //yet)
+    global.rndERSeen=""
+    n=ini_read_real(s,"erseens",0)
+    for(i=0;i<n;i+=1) {global.rndERSeen+=ini_read_string(s,"erseen"+string(i),"")}
+    global.rndERPrevRoom=-1
   }
+  //the ways into rooms the player has come in by (rndVisitArrive), if this build's list of them is the one they were
+  //kept by (a save from before the list's hash was kept: an Entrance Rando game's, from the builds that had them since);
+  //else none yet
+  var tV,tVN,tVi;
+  global.rndERVisit=""
+  if ini_read_string(s,"ervisithash",global.rndVisitHash)=global.rndVisitHash
+  {
+    tVN=ini_read_real(s,"ervisits",0)
+    for(tVi=0;tVi<tVN;tVi+=1) {global.rndERVisit+=ini_read_string(s,"ervisit"+string(tVi),"")}
+  }
+  //the vending machines' hints (a save from before them: none bought)
+  global.rndHintN=ini_read_real(s,"hintn",0)
+  global.rndHinted=ini_read_string(s,"hinted","")
+  if string_length(global.rndHinted)<global.rndLocN {global.rndHinted+=string_repeat("0",global.rndLocN-string_length(global.rndHinted))}
   //Boss Rando: the shuffle back, if this build's bosses are the ones it was made with
   global.rndBRMode=ini_read_real(s,"br",0)
   if global.rndBRMode=1
@@ -84,6 +104,8 @@ if global.rndActive=1
   if global.rndChipMode=1 {global.rndChipOwn=ini_read_string(s,"chipown",global.rndChipOwn)}
   if string_length(global.rndChipOwn)<global.rndChipN {global.rndChipOwn+=string_repeat("0",global.rndChipN-string_length(global.rndChipOwn))}
   global.rndChipPortals=ini_read_real(s,"chipportals",0)
+  //Skip Tower Defense: on or off (a save from before it: off)
+  rndSkipTDApply(ini_read_real(s,"skiptd",0))
   //Traps: the trap items on or off (rndSnareApply), which (rndSnareSet), how long they last (rndSnareTime), each trap's
   //time left, a Teleport Trap waiting, and the ways into rooms kept for one. A save from before the trap items has them
   //off; one from the builds that kept them under "traps" (0 or 1, no "trapitems") has its own trap items (set 1, the

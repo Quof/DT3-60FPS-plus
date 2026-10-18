@@ -7,14 +7,15 @@
 //before it with that chance, and so on (the oldest if none of them), so the abilities spread out from Central City
 //instead of all being near it. With the option Guarantee Early Weapons, a new layer's first item is a weapon (an item of
 //the Link, Belmont, Mega Man or Samus set: the sets with an attack) while there are any left: every layer has one. The
-//other items fill the rest at random.
+//movement abilities come apart, each at its turn (rndData's global.rndMoveLo/Hi). The other items fill the rest at
+//random.
 //With Entrance Rando, Boss Rando or Instrument Randomization (global.rndReach), what the items reach is worked out from
 //the rooms with the doors and the bosses as shuffled (rndERReachStart, rndERAdd: global.rndRPlace) instead of rndData's
 //logic, and the items that open something are those one more of which lets a way through (global.rndRSingle).
 //The instruments are progression items with Instrument Randomization (global.rndIRMode); without it each stays at its
 //Nightmare Gate's reward (location type 18, the gate's number).
 //Returns 1, or 0 when a progression item had nowhere to go (try another seed)
-var N,i,j,k,a,e,s,tProgN,tJunkN,tFreeN,tCandN,tCur,tLay,tLast,tPick,tPlaced,tMiss,tMissIx,tShort,tIx,tLoc,tW,tR,tKind,tNewest,tForce,tWpnN;
+var N,i,j,k,a,e,s,tProgN,tJunkN,tFreeN,tCandN,tCur,tLay,tLast,tPick,tPlaced,tMiss,tMissIx,tShort,tIx,tLoc,tW,tR,tKind,tNewest,tForce,tWpnN,tAuN,tLo,tMovedN,tMForce,tRestN,tRestUse,tWaitUse;
 N=global.rndLocN
 s=global.rndAltStride
 tNewest=0.7
@@ -38,6 +39,31 @@ for(i=0;i<global.rndItemN;i+=1)
     tCand[j]=tCand[tCandN]
   }
 }
+//then the Air Upgrades (progression number 15: the underwater rooms need some, roomlogic\overrides.txt's also lines),
+//each at a free location the logic reaches (not one that needs everything), at random, as any item but an ability or
+//key goes; left out of the progression items below. With the room logic's reach, it counts the ones at places it's got
+//to (rndERTry, while global.rndRAuOn is 1); without it, they're counted as had. (erflat.py's fill does the same with
+//the same random numbers)
+tCandN=0
+for(i=0;i<N;i+=1)
+{
+  global.rndGAuAt[i]=0
+  if tFill[i]<0 and global.rndLocAltN[i]>=0 {tCand[tCandN]=i; tCandN+=1}
+}
+tAuN=0
+for(i=0;i<global.rndItemN;i+=1)
+{
+  if global.rndItemProg[i]=15 and tCandN>0
+  {
+    j=irandom(tCandN-1)
+    tFill[tCand[j]]=i
+    global.rndGAuAt[tCand[j]]=1
+    tNMAt[i]=1
+    tAuN+=1
+    tCandN-=1
+    tCand[j]=tCand[tCandN]
+  }
+}
 tProgN=0
 tJunkN=0
 for(i=0;i<global.rndItemN;i+=1)
@@ -53,12 +79,23 @@ for(i=0;i<global.rndItemN;i+=1)
 }
 for(i=0;i<global.rndKeyBase+64;i+=1) {global.rndGHave[i]=0; tUseful[i]=0}
 rndChipsHad() //(the Program Chips, had from the start without Chip Randomizer: the Access Gates' rooms need them)
-if global.rndReach=1 {rndERReachStart()}
+if global.rndReach=1 {global.rndRAuOn=1; rndERReachStart()}
+else {global.rndGHave[15]=tAuN}
 //the layers with a weapon (a layer is made by an item placed: there are at most as many as items, and the first)
 for(i=0;i<=tProgN+1;i+=1) {tLayW[i]=0}
 global.rndGAll=0
 rndGenMark(0)
 tCur=0
+//the movement abilities' turns (rndData's global.rndMoveLo/Hi: rndgen.py's MOVE_AT): each a place in the order of
+//placing, at random between its two shares of the progression items (in percent). tMoved: the kinds placed (1-4: the
+//dash, the air dash, the double jump, the High Jump Boots)
+for(j=0;j<global.rndMoveN;j+=1)
+{
+  tLo=(tProgN*global.rndMoveLo[j]) div 100
+  tMoveAt[j]=tLo+irandom((tProgN*global.rndMoveHi[j]) div 100-tLo)
+}
+for(i=1;i<=4;i+=1) {tMoved[i]=0}
+tMovedN=0
 for(tPlaced=0;tPlaced<tProgN;tPlaced+=1)
 {
   //(the room logic's placement takes a while: the window keeps answering Windows)
@@ -118,9 +155,46 @@ for(tPlaced=0;tPlaced<tProgN;tPlaced+=1)
       }
     }
   }
+  //a movement ability not placed yet (tWait: the first of its kind) waits for its turn: another item goes, one that
+  //opens something if there is one (else one that doesn't), unless none but movement abilities are left, or nothing
+  //else opens anything and the free locations reached wouldn't last till its turn. At its turn it's the one placed, if
+  //one opens something (tMForce)
+  tMForce=0
+  if tForce=0 and tMovedN<global.rndMoveN
+  {
+    tRestN=0
+    tRestUse=0
+    tWaitUse=0
+    for(k=0;k<tProgN;k+=1)
+    {
+      tWait[k]=0
+      if tPool[k]=1
+      {
+        tIx=global.rndItemProg[tProg[k]]
+        if tIx>=1 and tIx<=4 {if tMoved[tIx]=0 {tWait[k]=1}}
+        if tWait[k]=1 {if tUseful[tIx]>0 {tWaitUse=1}}
+        else {tRestN+=1; if tUseful[tIx]>0 {tRestUse=1}}
+      }
+    }
+    if tPlaced<tMoveAt[tMovedN]
+    {
+      if tRestN>0 and tRestUse=0
+      {
+        tFreeN=0
+        for(i=0;i<N;i+=1) {if global.rndGLayer[i]>=0 and tFill[i]<0 {tFreeN+=1}}
+        if tFreeN>tMoveAt[tMovedN]-tPlaced {tRestUse=1}
+      }
+      if tRestN>0 and tRestUse=1 {for(k=0;k<tProgN;k+=1) {if tWait[k]=1 {tPool[k]=0}}}
+    }
+    else if tWaitUse=1
+    {
+      tMForce=1
+      for(k=0;k<tProgN;k+=1) {if tWait[k]=0 {tPool[k]=0}}
+    }
+  }
   //which item: one of the pool that opens something, if there is one (else any of the pool). Of those, a kind of item
-  //that opens fewer locations is likelier (each kind by 1 / how many it opens), so the ones that open the most (the
-  //movement abilities) tend to come later and the layers stretch out
+  //that opens fewer locations is likelier (each kind by 1 / how many it opens), so the ones that open the most tend to
+  //come later and the layers stretch out (at a movement ability's turn, each kind alike)
   tCandN=0
   for(k=0;k<tProgN;k+=1)
   {
@@ -133,7 +207,12 @@ for(tPlaced=0;tPlaced<tProgN;tPlaced+=1)
     for(j=0;j<tCandN;j+=1)
     {
       tIx=global.rndItemProg[tProg[tCand[j]]]
-      if tSeen[tIx]=0 {tSeen[tIx]=1; tW+=1/tUseful[tIx]}
+      if tSeen[tIx]=0
+      {
+        tSeen[tIx]=1
+        if tMForce=1 {tW+=1}
+        else {tW+=1/tUseful[tIx]}
+      }
     }
     tR=random(tW)
     tKind=global.rndItemProg[tProg[tCand[tCandN-1]]]
@@ -144,7 +223,8 @@ for(tPlaced=0;tPlaced<tProgN;tPlaced+=1)
       if tSeen[tIx]=0
       {
         tSeen[tIx]=1
-        tR-=1/tUseful[tIx]
+        if tMForce=1 {tR-=1}
+        else {tR-=1/tUseful[tIx]}
         if tR<=0 {tKind=tIx; break}
       }
     }
@@ -175,7 +255,7 @@ for(tPlaced=0;tPlaced<tProgN;tPlaced+=1)
       }
     }
     if tPick<0 {tPick=tLast}
-    if tPick<0 {return 0}
+    if tPick<0 {global.rndRAuOn=0; return 0}
   }
   //a free location in it, at random
   tCandN=0
@@ -187,10 +267,12 @@ for(tPlaced=0;tPlaced<tProgN;tPlaced+=1)
   if global.rndReach=1 {rndERAdd(tIx,1)}
   else {global.rndGHave[tIx]+=1}
   if tIx>=6 and tIx<=9 {tLayW[tPick]=1}
+  if tIx>=1 and tIx<=4 {if tMoved[tIx]=0 {tMoved[tIx]=1; tMovedN+=1}}
   if tPlaced=tProgN-1 {global.rndGAll=1}
   //what it opens: the next layer
   if rndGenMark(tCur+1)>0 {tCur+=1}
 }
+global.rndRAuOn=0 //(the reach after this, rndERPlay's, takes the Air Upgrades as the player would: as they're got)
 //the other items, at random in the locations left. (The cursed equipment, 10-12, which the Trial Master's trials need
 //all three of on, is a progression item, placed above with the logic, which keeps it off the trials' places; the loop
 //below, which puts any not placed yet at free places that aren't a trial's, rndLocTrial, finds none)

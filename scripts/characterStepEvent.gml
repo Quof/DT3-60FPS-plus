@@ -752,9 +752,11 @@ if bTakingDamage=false
             // compensation for fixed gravity integration
             //yVel += gravityIntensity*0.5
             yVel = initialJumpAcc*jumpBodge60*bombAcc + grav*jumpGravComp60 //60fps change: see above
+            if gDeltaTime<0.5 and jumpBodge60=1.07 {yVel = initialJumpAcc*jumpBodge60*bombAcc*0.991 + grav*jumpGravComp60} //60fps change (added): pMoveJump's 120fps correction of the Bomb B boosted jump
             }
 
         bombJump=0
+        ditherCounter=15 //60fps change (added): the pixel rounding starts as pMoveJump's does, so this jump has the standing jump's heights. Without it the height went by where the rounding was: 73-78px at 60fps (boosted 91-97), where 30fps's are 74-77 (91-94)
         //xAcc+=xVel/2
         var tEffect;
         tEffect=instance_create(oPlayer1.x,oPlayer1.y+2,oEffect)
@@ -879,8 +881,15 @@ if doubleJumpAnim>0 {doubleJumpAnim-=gDeltaTime} //Double jump animation
 
 if jumpTime<jumpTimeTotal {jumpTime+=gDeltaTime}
 //Let the character continue to jump
-if kJump=0 and kDashLeft=0 and kDashRight=0 {jumpButtonReleased=1}
-if jumpButtonReleased {jumpTime=jumpTimeTotal}
+//60fps change (added): at 30fps the jump button let go is noticed as a tick starts and the full gravity comes on the next
+//tick, half a tick on in the smooth movement above 30fps; at 60fps the next frame is that half tick, at 120fps a quarter,
+//so a jump let go early came out 2-3px lower than 30fps's. At 120fps the frame that notices it keeps the jump's gravity
+var tRelNow;
+tRelNow=0
+//if kJump=0 and kDashLeft=0 and kDashRight=0 {jumpButtonReleased=1}
+if kJump=0 and kDashLeft=0 and kDashRight=0 {if jumpButtonReleased=0 {tRelNow=1}; jumpButtonReleased=1} //60fps change: see above
+//if jumpButtonReleased {jumpTime=jumpTimeTotal}
+if jumpButtonReleased and !(tRelNow and gDeltaTime<0.5) {jumpTime=jumpTimeTotal} //60fps change: see above
 gravityIntensity=(jumpTime/jumpTimeTotal)*grav
 
 if bTakingDamage=false

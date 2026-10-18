@@ -1,15 +1,16 @@
 """
 The Randomizer's logic as access rules, one of two ways:
-- the game's own layout (no Entrance Rando, Boss Rando or Instrument Randomization): data.LOCATIONS, what each location
-  needs, worked out from the game's rooms. A location's requirement is a list of alternatives, any one of which is
-  enough, each a list of (item, count); None means every progression item (the world's everything: a place the logic
-  doesn't reach, a boss's or a trial's reward). The Trial Master's trials also need the three pieces of cursed equipment
-  they make the player wear. A location in an Access Gate needs its Program Chip, which without Chip Randomizer the
-  player has from the start (not an item then: left out of what's needed).
-- a shuffled layout (any of those options): the room logic itself, the mod's own (erlogic: what a set of items reaches
-  from the start with the doors and the bosses as the world shuffled them). What a state's items reach is worked out
-  once and kept on the state (ReachLogic). A location that needs everything still does (data.LOCATIONS' None, and the
-  Nightmare Gates' rewards), as the mod has it.
+- the room logic itself, the mod's own (erlogic: what a set of items reaches from the start with the doors and the
+  bosses as the world shuffled them, or as the game has them), which every world has (the world's logic: ReachLogic).
+  It counts the checks in logic too, which a boss fight waits for a share of (the mod's roomlogic\\bosses.txt). What a
+  state's items reach is worked out once and kept on the state. A location that needs everything still does
+  (data.LOCATIONS' None, and the Nightmare Gates' rewards), as the mod has it.
+- without it (world.logic None): data.LOCATIONS, what each location needs with the game's own layout, worked out from
+  the game's rooms. A location's requirement is a list of alternatives, any one of which is enough, each a list of
+  (item, count); None means every progression item (the world's everything: a place the logic doesn't reach, a boss's
+  or a trial's reward). The Trial Master's trials also need the three pieces of cursed equipment they make the player
+  wear. A location in an Access Gate needs its Program Chip, which without Chip Randomizer the player has from the start
+  (not an item then: left out of what's needed). No share of the checks there: alternatives of items can't count them.
 """
 import collections
 from typing import TYPE_CHECKING, Callable, Dict, List, Optional, Sequence, Set, Tuple
@@ -86,10 +87,13 @@ class ReachLogic:
 
 
 def world_locations(world: "DT3PlusWorld") -> Dict[str, Tuple[int, Optional[list], bool]]:
-    """the world's locations (as data.LOCATIONS has them): with Instrument Randomization, the gates' rewards too"""
+    """the world's locations (as data.LOCATIONS has them): with Instrument Randomization, the gates' rewards too; with
+    Skip Tower Defense, tower defense's rewards needing what the room logic has them need (data.TOWER_DEFENSE)"""
     locations = dict(data.LOCATIONS)
     if world.ir:
         locations.update({name: (location_id, None, False) for name, location_id in data.GATE_REWARDS.items()})
+    if world.skip_td:
+        locations.update({name: (locations[name][0], needs, False) for name, needs in data.TOWER_DEFENSE.items()})
     return locations
 
 
@@ -103,7 +107,7 @@ def set_location_rules(world: "DT3PlusWorld") -> None:
     victory = world.multiworld.get_location(data.VICTORY_LOCATION, player)
     if world.logic is None:
         had = chips_had(world)
-        for name, (_location_id, requirement, trial) in data.LOCATIONS.items():
+        for name, (_location_id, requirement, trial) in world_locations(world).items():
             rule = make_rule(player, requirement, trial, world.everything, had)
             if rule:
                 set_rule(world.multiworld.get_location(name, player), rule)

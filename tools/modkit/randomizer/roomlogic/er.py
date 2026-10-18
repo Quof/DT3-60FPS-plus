@@ -27,9 +27,11 @@ A map's tile (Hyrule's, Gate 6's) and its room are a door even when the tile has
 room's exits, if every exit of the room back to the map comes out at the tile (Forest 1's: the room's exit nearest
 where the player comes in is the end). Those doors come after the others, so the others keep their order (a save's
 shuffle is by the ends' order: erflat's ER_LEGACY). A room's other exits back to a map that come out where an end's
-exit does (the far side of a town, a palace's way out after its boss) follow that end (follows): shuffled, they lead
-where it now leads. A crossing's far exit (a bridge's, out on the other side of a river) comes out somewhere else, so
-it isn't one of them: nothing on the map leads into the room there, and it stays the way across.
+exit does (the far side of a town, a palace's way out after its boss) lead where the game has them: one way (one_way:
+a game with Entrance Rando signs them ONE WAY). Builds before had them follow that end (follows: shuffled, they led
+where it now leads), and a shuffle made with them keeps that (erflat's ER_FEATURES 1). A crossing's far exit (a
+bridge's, out on the other side of a river) comes out somewhere else, so it isn't one of them: nothing on the map leads
+into the room there, and it stays the way across.
 
 Gate 4's stages go one way in the game; a Randomizer game adds a way back to each of their rooms but the boss rooms
 (rndgen's MM_BACK_EXITS: in the room logic, roomdata.py), so each room's exit and the next room's way back are a door.
@@ -238,6 +240,39 @@ def follows(pairs, rooms, conn, reach_all):
     return out
 
 
+ONE_WAY_NEAR = (200, 256)    # (one_way: how far across and up or down a way back's way in can be from an exit)
+
+
+def one_way(rooms, conn, pairs=()):
+    """the exits that are one way: going through one (in any of its states, links_st), no exit of the room the player
+    comes out in leads back into its room near it (ONE_WAY_NEAR: PAIR_DIST across, and a shaft's top exit's way back has
+    the player come in a little below it). Not a door's end (pairs, doors': with Entrance Rando one leads back through
+    its partner). A map's room's other ways
+    back to the map (a town's far side, a palace's way out after its boss: the tile leads to the room's door), a
+    crossing's far side, a map encounter's ways out, drops, the ways into boss rooms. {(room, out)}: the roomStart
+    hook's ONE WAY signs over their arrows"""
+    dests = collections.defaultdict(list)
+    for k, to in conn.links.items(): dests[k].append(to)
+    for k, alts in conn.links_st.items():
+        for st, to in alts: dests[k].append(to)
+    # (each room, and a room whose exits lead into it: where they have the player come in)
+    into = collections.defaultdict(list)
+    for (rm, o), tos in dests.items():
+        for to in tos: into[(to[0], rm)].append(to[1])
+    ends = {(e.room, e.out) for p in pairs for e in p}
+    out = set()
+    for (rm, o), tos in dests.items():
+        p = xy(o)
+        if rm not in rooms or (rm, o) in ends or not p: continue
+        back = False
+        for to in tos:
+            for i in into.get((rm, to[0]), []):
+                q = xy(i)
+                if q and abs(p[0] - q[0]) <= ONE_WAY_NEAR[0] and abs(p[1] - q[1]) <= ONE_WAY_NEAR[1]: back = True
+        if not back: out.add((rm, o))
+    return out
+
+
 def pool(pairs, mode):
     """the doors a mode shuffles (not a LEFT_OUT area's, nor one within an INSIDE_LEFT_OUT area; not a door whose two
     ends' classes differ, the shuffle pairing only ends of one class: every end's is the same now, the note above End)"""
@@ -347,8 +382,10 @@ def shuffle(doors_, rng, ways, start):
 
 # ---------------------------------------------------------------- what the items reach (with a door shuffle)
 class World:
-    """the rooms, connections, events and the overrides, ready for working out what a set of items reaches"""
-    def __init__(self):
+    """the rooms, connections, events and the overrides, ready for working out what a set of items reaches. checks: how
+    many checks there are, for the shares of them the boss fights take (pct N; rndgen's locations: the room logic's places
+    when not given)"""
+    def __init__(self, checks=None):
         self.rooms = solve.load_rooms(); self.conn = solve.load_connections()
         solve.load_overrides(self.rooms, self.conn)
         self.events = solve.load_events()
@@ -370,6 +407,19 @@ class World:
         self.ev = {name: [(k, w, [self.alt(a) for a in ex]) for k, w, ex in ways] for name, ways in self.events.items()}
         self.ev_modes = {name: [(k, w, [self.alt(a) for a in ex], m) for k, w, ex, m in ways]
                          for name, ways in solve.load_events(modes=True).items()}
+        # the shares of the checks the requirements take (pct N, bosses.txt's "@ N%": solve.parse's event pctN): each an
+        # event of its own, which happens once the reach has got to that many places (kind "places": N% of the checks,
+        # rounded up)
+        self.checks = checks or len(self.loc_room)
+        pct = set()
+        need_lists = list(self.conn.boss.values()) + list(self.conn.via_need.values()) + list(self.conn.need.values())
+        for r in self.rooms.values(): need_lists += list(r.table.values())
+        for alts in need_lists:
+            for a in alts: pct |= {o[6:] for o in a.o if o.startswith("event:pct")}
+        for name in sorted(pct, key=lambda s: int(s[3:])):
+            n = -(-int(name[3:]) * self.checks // 100)
+            self.ev[name] = [("places", n, [({}, frozenset(), frozenset())])]
+            self.ev_modes[name] = [("places", n, [({}, frozenset(), frozenset())], 0)]
 
     def alt(self, need):
         items = {solve.ITEMS[i]: n for i, n in enumerate(need.c) if n}
@@ -461,12 +511,14 @@ class Reach:
     def run(self):
         while True:
             while self.queue: self.expand(self.queue.popleft())
-            # events: an event's room reached and what else it takes there
+            # events: an event's room reached and what else it takes there (or that many places reached: a share of
+            # the checks, World's pct events)
             new = False
             for name, ways in self.w.ev.items():
                 if name in self.evs: continue
                 for kind, what, extra in ways:
                     if kind == "room": hit = what in self.rooms_in
+                    elif kind == "places": hit = len(self.places) >= what
                     else: hit = any(rn in self.rooms_in and str(self.w.rooms[rn].area_num) == what for rn in self.rooms_in)
                     if hit and self.ok(extra): self.evs.add(name); new = True; break
             for (rm, sp) in list(self.spots):
@@ -612,6 +664,9 @@ def main():
     pairs = doors(w.rooms, w.conn, reach_all)
     fol = follows(pairs, w.rooms, w.conn, reach_all)
     print("doors: %d; exits that follow one: %d" % (len(pairs), len(fol)))
+    # (only while this build's world has them, erflat's ER_FEATURES 1: else they lead where the game has them)
+    import erflat
+    if not erflat.ER_FEATURES & 1: fol = {}
     for m in MODES: print("  %-10s %d doors" % (m, len(pool(pairs, m))))
     ends = {(e.room, e.out): e for p in pairs for e in p}
     ends.update(fol)

@@ -16,7 +16,8 @@ A check is shown
                         beaten, or its fight reached (the gate's event); a boss's heart container: its place reached, its
                         boss beaten or its fight reached
   out of logic (red)    not yet. A check the seed gave no progression item because the logic doesn't reach it (or it's
-                        tower defense's reward) is in logic once the player has every progression item
+                        tower defense's reward, without Skip Tower Defense) is in logic once the player has every
+                        progression item
 """
 import os, re, sys, json, collections
 import rndgen
@@ -360,6 +361,34 @@ def read_names(path=NAMES):
     return rooms, checks, tabs, doors
 
 
+def group_names(rooms, names):
+    """names for the rooms the names file doesn't have (rooms without checks), by its own rule: a room's number is its
+    place in its group, a letter as its place in the alphabet. A room <group><letter or number> whose group's rooms in
+    the file (two or more) are each named "<one base> <its own place>" (or a side room of one: "Castle Courtyard 1:
+    Secret") is "<base> <its place>" ("rBelmont3_5D": "Castle Courtyard 4"); a group named otherwise isn't. {room: name}"""
+    def split(room):
+        m = re.match(r"^(.*?)([A-Z]|\d+)$", room)
+        return (m.group(1), int(m.group(2)) if m.group(2).isdigit() else ord(m.group(2)) - 64) if m else None
+    groups = collections.defaultdict(list)
+    for room in rooms:
+        s = split(room)
+        if s: groups[s[0]].append((room, s[1]))
+    out = {}
+    for stem, members in groups.items():
+        named = [(pos, names[room][1]) for room, pos in members if room in names]
+        if len(named) < 2: continue
+        bases = set()
+        for pos, scr in named:
+            m = re.match(r"^(.*\S)\s+(\d+)(:.*)?$", scr)
+            if not m or int(m.group(2)) != pos: bases = None; break
+            bases.add(m.group(1))
+        if not bases or len(bases) != 1: continue
+        base = bases.pop()
+        for room, pos in members:
+            if room not in names: out[room] = "%s %d" % (base, pos)
+    return out
+
+
 def positions(rows):
     """where each check is in its first room (its pickup's instance; a heart container the room's code makes: not
     known): {location: (x, y)}"""
@@ -412,12 +441,95 @@ def logic_tables(f):
         "rowKind": f.row_kind, "rowTarget": f.row_target, "rowLeave": f.row_leave, "rowAlts": pairs(f.row_alts),
         "altFirst": f.alt_first, "altCount": f.alt_count, "reqIx": f.req_ix, "reqC": f.req_c,
         "exitDest": f.exit_dest, "exitSg": f.exit_sg, "exitSdest": f.exit_sdest, "exitExtra": pairs(f.exit_extra),
+        "exitRoom": [ri for ri, o in f.exits],
         "exitEnd": f.exit_end_own, "exitFollow": f.exit_follow, "endBack": [e["back"] for e in f.ends],
         "evWays": [[x for kind, what, (af, ac), mode in ways for x in (kind, what, af, ac, mode)] for ways in f.ev_ways],
         "evNames": f.evnames,
         "bossN": f.boss_n, "bossReq": pairs(f.boss_req), "roomSlot": f.room_slot, "exitSlot": f.exit_slot,
         "roomGate": f.room_gate, "chipBase": f.CHIP_BASE,
     }
+
+
+STONES = os.path.join(HERE, "roomlogic", "stones")
+
+
+def stone_tables(f, rows, T):
+    """the Teleporting Stones, for the Check Tracker's ways there (each stone's room as the room logic has it with its
+    stones in it: roomlogic\\stones, stones.py), into the pages' logic tables T (logic_tables'), after what's there
+    (whose numbers stay as they are): each stone, T["stones"]: [its network (0 the main world, 1-6 a gate), its number
+    in the teleport menu, its room, its own way in], that way in (warping to it: its room's ways from there, as any way
+    in's: entryRoom, entryWays, waySt, wayRows and the rows after the logic's own, T["nEntries"]), and from each of its
+    room's ways in rows of their own kind (4: touching the stone; rowTarget the stone), T["entryStone"]: a way in's
+    [row, the way's state] pairs. With overrides.txt as for the rest. Returns how many stones"""
+    sys.path.insert(0, os.path.join(HERE, "roomlogic"))
+    import solve, erflat, stones as stones_py
+    # (copies: the lists added to are the room logic's own otherwise)
+    for k in ("entryRoom", "entryWays", "waySt", "wayRows", "rowKind", "rowTarget", "rowLeave", "rowAlts", "altFirst",
+              "altCount", "reqIx", "reqC"):
+        T[k] = list(T[k])
+    T["nEntries"] = len(T["entryRoom"])
+    T["stones"], T["entryStone"] = [], {}
+    if not os.path.isdir(STONES):
+        print("tracker: no roomlogic\\stones (stones.py makes it): the ways there leave out the Teleporting Stones")
+        return 0
+    rooms = solve.load_rooms()
+    for fn in sorted(os.listdir(STONES)):
+        if fn.endswith(".txt"):
+            r = solve.load_room(os.path.join(STONES, fn)); rooms[r.name] = r
+    conn = solve.load_connections()
+    solve.load_overrides(rooms, conn)
+    rix = {n: i for i, n in enumerate(f.rnames)}
+    eix = {(f.rnames[ri], i): e for e, (ri, i) in enumerate(f.entries)}
+    xix = {(f.rnames[ri], o): x for x, (ri, o) in enumerate(f.exits)}
+    loc_index = {(r["type"], r["num"]): i for i, r in enumerate(rows)}
+    evix = {n: i for i, n in enumerate(f.evnames)}
+
+    def flat(alts):
+        """alternatives (solve's) into the tables' flat lists, as erflat has them: [first, count]"""
+        first = len(T["altCount"])
+        for need in alts:
+            T["altFirst"].append(len(T["reqIx"]))
+            n = 0
+            for i, c in enumerate(need.c):
+                if c: T["reqIx"].append(rndgen.LOGIC_NAMES[solve.ITEMS[i]]); T["reqC"].append(c); n += 1
+            for k in sorted(need.k): T["reqIx"].append(f.KEY_BASE + k); T["reqC"].append(1); n += 1
+            for o in sorted(need.o):
+                if o.startswith("event:"): T["reqIx"].append(f.EV_BASE + evix[o[6:]]); T["reqC"].append(1); n += 1
+            T["altCount"].append(n)
+        return [first, len(alts)]
+    found = [s for s in stones_py.stones() if s[0] in rix and os.path.exists(os.path.join(STONES, s[0] + ".txt"))]
+    sid = {}
+    # each stone and its own way in (warping to it)
+    for room, x, y, num in found:
+        ri, r, own = rix[room], rooms[room], "%d,%d" % (x, y)
+        if own not in r.ins: raise SystemExit("tracker: %s's stone %d isn't a way in of roomlogic\\stones\\%s.txt" % (room, num, room))
+        sid[(room, num)] = len(T["stones"])
+        T["stones"].append([num // 100, num % 100, ri, len(T["entryRoom"])])
+        T["entryRoom"].append(ri)
+        ways = r.ways(own)
+        T["entryWays"] += [len(T["waySt"]), len(ways)]
+        for wy in ways:
+            T["waySt"].append(erflat.st_code(f, ri, wy[1]))
+            first = len(T["rowKind"])
+            for (w, t), al in r.table.items():
+                if w != wy or not al: continue
+                if t[0] == "out": kind, target, leave = 1, xix[(room, t[1])], erflat.st_code(f, ri, t[2])
+                elif t[0] == "loc" and t[1] == 98: continue
+                elif t[0] == "loc": kind, target, leave = 2, loc_index.get((t[1], t[2]), -1), -1
+                else: kind, target, leave = 3, evix[room + "/" + t[1]], -1
+                T["rowKind"].append(kind); T["rowTarget"].append(target); T["rowLeave"].append(leave)
+                T["rowAlts"] += flat(al)
+            T["wayRows"] += [first, len(T["rowKind"]) - first]
+    # touching each stone from its room's ways in
+    for room, x, y, num in found:
+        ri, r, own = rix[room], rooms[room], "%d,%d" % (x, y)
+        for (w, t), al in r.table.items():
+            if t[:3] != ("loc", 98, num) or not al or (room, w[0]) not in eix: continue
+            q = len(T["rowKind"])
+            T["rowKind"].append(4); T["rowTarget"].append(sid[(room, num)]); T["rowLeave"].append(-1)
+            T["rowAlts"] += flat(al)
+            T["entryStone"].setdefault(eix[(room, w[0])], []).extend([q, erflat.st_code(f, ri, w[1])])
+    return len(T["stones"])
 
 
 def icon(out, ident, pic, done):
@@ -510,6 +622,10 @@ def build(out, rows, items, f, bp, hv, door_order, blist, anames, rarea, rooms, 
             loc["rule"], loc["slot"] = RULE_BOSS_HEART, bidx[rndgen.HC_BOSS[r["num"]]]
         else:
             loc["rule"] = RULE_EVERYTHING
+        # (tower defense's reward: with Skip Tower Defense, a place the room logic gets to, the state's skiptd)
+        if r.get("req_td") is not None and r["req_td"] is not rndgen.EVERYTHING: loc["td"] = 1
+        # (a place overrides.txt puts out of logic: why, shown beside it)
+        if r.get("why"): loc["why"] = r["why"]
         locs.append(loc)
     # ---- the rooms' tabs (the player's room: the tab to show when following them; a room with checks: its screen)
     area_tabs = collections.defaultdict(collections.Counter)
@@ -525,10 +641,13 @@ def build(out, rows, items, f, bp, hv, door_order, blist, anames, rarea, rooms, 
         for s_i, s in enumerate(t["screens"]):
             for room in s["rooms"]:
                 room_tab[room] = t_i; room_screen[room] = [t_i, s_i]
-    # (every room's name, for where the player is when it has no checks: its screen's in the names file, else its area's)
+    # (every room's name, for where the player is when it has no checks and the Entrance Tracker's ways there: its
+    # screen's in the names file, else its group's (group_names), else its area's)
     room_name = {}
+    by_group = group_names(rooms, names)
     for room in rooms:
         if room in names: room_name[room] = names[room][1]
+        elif room in by_group: room_name[room] = by_group[room]
         elif anames.get(rarea.get(room)): room_name[room] = anames[rarea[room]]
     # ---- the Item Tracker
     pool = collections.Counter(k for k, p in items)
@@ -575,13 +694,14 @@ def build(out, rows, items, f, bp, hv, door_order, blist, anames, rarea, rooms, 
         "items": groups, "counters": counters, "keyDoors": key_doors, "bosses": bosses,
         "logic": logic_tables(f),
     }
+    n_stones = stone_tables(f, rows, data["logic"])
     os.makedirs(os.path.join(out, "tracker"), exist_ok=True)
     with open(os.path.join(out, "tracker", "data.js"), "w", encoding="utf-8", newline="\n") as fh:
         fh.write("// the DT3+ Randomizer trackers' data, made by tools/modkit/randomizer/rndgen.py (tracker.py) for this build\n")
         fh.write("window.DT3_DATA=" + json.dumps(data, separators=(",", ":")) + ";\n")
     n_screens = sum(len(t["screens"]) for t in tabs)
-    print("trackers: %d checks in %d tabs, %d screens; %d items, %d counters, %d bosses (tracker\\checks.html, tracker\\items.html)"
-          % (len(rows), len(tabs), n_screens, sum(len(g["items"]) for g in groups), len(counters), len(bosses)))
+    print("trackers: %d checks in %d tabs, %d screens; %d items, %d counters, %d bosses, %d Teleporting Stones (tracker\\checks.html, tracker\\items.html)"
+          % (len(rows), len(tabs), n_screens, sum(len(g["items"]) for g in groups), len(counters), len(bosses), n_stones))
     if unnamed:
         print("trackers: rooms with checks not in tracker_names.txt (shown under 'Other'):", ", ".join(sorted(set(unnamed))))
     if unnamed_doors:

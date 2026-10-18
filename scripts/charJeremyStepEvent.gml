@@ -562,8 +562,14 @@ if doubleJumpAnim>0 {doubleJumpAnim-=gDeltaTime} //Double jump animation //60fps
 //if jumpTime<jumpTimeTotal {jumpTime+=1}
 if jumpTime<jumpTimeTotal {jumpTime+=gDeltaTime} //60fps change
 //Let the character continue to jump
-if kJump=0 and kDashLeft=0 and kDashRight=0 {jumpButtonReleased=1}
-if jumpButtonReleased {jumpTime=jumpTimeTotal}
+//60fps change (added): at 120fps the frame that notices the jump button let go keeps the jump's gravity, as in
+//characterStepEvent (there: why), or a jump let go early came out 2-3px lower than 30fps's
+var tRelNow;
+tRelNow=0
+//if kJump=0 and kDashLeft=0 and kDashRight=0 {jumpButtonReleased=1}
+if kJump=0 and kDashLeft=0 and kDashRight=0 {if jumpButtonReleased=0 {tRelNow=1}; jumpButtonReleased=1} //60fps change: see above
+//if jumpButtonReleased {jumpTime=jumpTimeTotal}
+if jumpButtonReleased and !(tRelNow and gDeltaTime<0.5) {jumpTime=jumpTimeTotal} //60fps change: see above
 gravityIntensity=(jumpTime/jumpTimeTotal)*grav
 
 if bTakingDamage=false

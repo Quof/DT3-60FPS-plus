@@ -75,7 +75,17 @@ if rndERLack(af,ac,global.rndRLk1)=0 {rndERFile(q,gs,1); exit}
 rndERPassed(q,gs)
 if tKind=2
 {
-  if t>=0 {global.rndRPlace[t]=1}
+  //(counted: rndERRun's events of a share of the checks. An Air Upgrade there, rndGenerate placing the items: one more
+  //had, the rows waiting for them tried again, as an event's are, by rndERRun)
+  if t>=0
+  {
+    if global.rndRPlace[t]=0
+    {
+      global.rndRPlace[t]=1
+      global.rndRPlaceN+=1
+      if global.rndRAuOn=1 {if global.rndGAuAt[t]=1 {global.rndGHave[15]+=1; ds_list_add(global.rndREvNew,15)}}
+    }
+  }
 }
 else
 {

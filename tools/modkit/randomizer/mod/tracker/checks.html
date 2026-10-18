@@ -15,6 +15,7 @@
   <div class="controls">
     <label><input type="checkbox" id="hideTaken"> Hide taken</label>
     <label><input type="checkbox" id="follow"> Follow the player</label>
+    <label id="entLabel" title="With Entrance Rando: in logic only what the doors you've been through and the ways in you've come in by get to; hover a room you've been to for the way there; each room shows how many doors you haven't been through you can get to"><input type="checkbox" id="entTrack"> Entrance Tracker</label>
   </div>
   <div class="legend">
     <span class="box out"></span>Out of logic <span class="box in"></span>In logic <span class="box taken">&#10003;</span>Taken
@@ -27,7 +28,11 @@
 // The Check Tracker: every check by area (tabs) and screen, red out of logic, green in logic (what the player's items
 // reach, with the seed's doors and bosses), blue once taken. The screen the player is in has its own space at the top,
 // under the header as the page scrolls ("No Checks" in a room without any); the tab's other screens are below it. The
-// game writes state.js; this reads it every second
+// game writes state.js; this reads it every second.
+// The Entrance Tracker (off at first; only in a game with Entrance Rando): green only what the shuffled doors the player
+// has been through and the ways into rooms they've come in by get to, from the start (DT3.reach's known); a room the
+// player has been to has the way there from Central City - North in its name's tooltip; each screen, and each room
+// without checks that has some, with how many doors not been through yet its visited ways in get to
 (function () {
   "use strict";
   var D = window.DT3_DATA;
@@ -35,6 +40,7 @@
   var hereBox = document.getElementById("here"), headerEl = document.querySelector("header");
   var statusEl = document.getElementById("status");
   var hideTaken = document.getElementById("hideTaken"), follow = document.getElementById("follow");
+  var entTrack = document.getElementById("entTrack"), entLabel = document.getElementById("entLabel");
   if (!D || !window.DT3) {
     panel.innerHTML = '<div class="empty">data.js isn\'t next to this page: the tracker folder comes with the mod ' +
       '(Mods\\Randomizer\\tracker).</div>';
@@ -53,10 +59,15 @@
     return e;
   }
   var sel = Math.max(0, Math.min(load("tab", 0), D.tabs.length - 1));
-  var state = null, status = null, cache = {}, lastRoom = null, scrollHere = false;
+  var state = null, status = null, cache = {}, lastRoom = null, scrollHere = false, unex = null;
+  var hints = {}; // (the vending machines' hints, the state's: {location: what the hint named})
   hideTaken.checked = load("hideTaken", false);
   follow.checked = load("follow", true);
+  entTrack.checked = load("entTrack", false);
   hideTaken.onchange = function () { save("hideTaken", hideTaken.checked); render(); };
+  entTrack.onchange = function () { save("entTrack", entTrack.checked); update(state); };
+  // (the Entrance Tracker at work: on, in a game with Entrance Rando)
+  function entOn() { return entTrack.checked && !!state && state.er > 0; }
   follow.onchange = function () {
     save("follow", follow.checked);
     if (follow.checked && state && D.roomTab[state.room] !== undefined) { sel = D.roomTab[state.room]; scrollHere = true; }
@@ -76,7 +87,8 @@
     for (i = 0; i < n; i++) { if (status[i] === DT3.TAKEN) { taken++; } else if (status[i] === DT3.IN_LOGIC) { inl++; } }
     var parts = ["Seed <b>" + String(state.seed).replace(/[^0-9.\-]/g, "") + "</b>"].concat(DT3.modes(state));
     parts.push("Taken <b>" + taken + "</b> / " + n);
-    parts.push("In logic <b>" + inl + "</b>");
+    parts.push("In logic <b>" + inl + "</b>" + (entOn() ? " (from the entrances you've been to)" : ""));
+    if (entTrack.checked && !entOn()) { parts.push("Entrance Tracker: only with Entrance Rando"); }
     if (state.won) { parts.push("<b>Won!</b>"); }
     statusEl.innerHTML = parts.join(" &middot; ");
     var bad = DT3.mismatchShown(D, state, showStatus);
@@ -112,9 +124,11 @@
     } else if (here) {
       hereBox.appendChild(card(D.tabs[here[0]].screens[here[1]], true, false));
     } else {
-      var where = el("div", "where");
-      if (D.roomName && D.roomName[state.room]) { where.appendChild(el("span", "", D.roomName[state.room])); }
+      var where = el("div", "where"), hereName = (D.roomName && D.roomName[state.room]) || "", hereWay = wayHere([state.room]);
+      if (hereName) { where.appendChild(el("span", "", hereName)); }
       where.appendChild(el("span", "tag", "you are here"));
+      if (unex && unex[state.room]) { where.appendChild(unexTag([state.room])); }
+      if (hereWay) { where.title = (hereName ? hereName + "\n" : "") + hereWay; }
       hereBox.appendChild(where);
       hereBox.appendChild(el("div", "none", "No Checks"));
     }
@@ -126,9 +140,27 @@
       if (here && here[0] === sel && here[1] === si) { skipped++; return; }
       var n = s.checks.length, taken = 0;
       s.checks.forEach(function (i) { if (status[i] === DT3.TAKEN) { taken++; } });
-      if (hideTaken.checked && taken === n) { hidden++; return; }
+      if (hideTaken.checked && taken === n && !unexOf(s.rooms)) { hidden++; return; }
       panel.appendChild(card(s, false, hideTaken.checked));
     });
+    // (the Entrance Tracker: the tab's rooms without checks whose visited ways in get to doors not been through yet,
+    // but the player's own room, at the top)
+    if (unex) {
+      var inScreens = {};
+      tab.screens.forEach(function (s) { s.rooms.forEach(function (r) { inScreens[r] = true; }); });
+      Object.keys(unex).sort(function (a, b) {
+        var na = (D.roomName && D.roomName[a]) || a, nb = (D.roomName && D.roomName[b]) || b;
+        return na < nb ? -1 : na > nb ? 1 : 0;
+      }).forEach(function (r) {
+        if (inScreens[r] || D.roomTab[r] !== sel || (state && r === state.room)) { return; }
+        var c = el("section", "screen rooms"), h = el("h2"), rName = (D.roomName && D.roomName[r]) || r, rWay = wayHere([r]);
+        h.appendChild(el("span", "", rName));
+        h.appendChild(unexTag([r]));
+        if (rWay) { h.title = rName + "\n" + rWay; }
+        c.appendChild(h);
+        panel.appendChild(c);
+      });
+    }
     if (!panel.children.length) {
       panel.appendChild(el("div", "empty", hidden ? "Everything else here is taken." : "Nothing else in this tab."));
     }
@@ -137,16 +169,55 @@
     showStatus();
   }
 
+  // (the Entrance Tracker: how many doors not been through yet some rooms' visited ways in get to, and its tag)
+  function unexOf(rooms) {
+    var n = 0;
+    if (unex) { rooms.forEach(function (r) { n += unex[r] || 0; }); }
+    return n;
+  }
+  function unexTag(rooms) {
+    var n = unexOf(rooms), t = el("span", "unex", n + " unexplored");
+    t.title = n + (n === 1 ? " door" : " doors") + " you haven't been through yet, which you can get to from the ways " +
+      "in you've come in by here, with what you have";
+    return t;
+  }
+  // (the Entrance Tracker: the way into some rooms (a screen's) the player has been to, from Central City - North, a
+  // room a line with "->" between, the room it's from not listed; "" for rooms not been to. One the doors they've been
+  // through don't lead to with what they have is out of logic: said so, with the way the doors they've been through
+  // go there whatever each room takes, cache.K's, if they go there)
+  function wayHere(rooms) {
+    if (!unex) { return ""; }
+    var p = DT3.pathToRooms(D, cache.R, rooms);
+    if (p && p.fromStart) { return p.names.length === 1 ? "Where you start." : steps(p.names); }
+    if (!been(rooms)) { return ""; }
+    var k = cache.K ? DT3.pathToRooms(D, cache.K, rooms) : null;
+    return "You've been here, but it's out of logic and may be difficult to make it back." +
+      (k && k.names.length > 1 ? "\n" + steps(k.names) : "");
+  }
+  function steps(names) { return "Way here from " + names[0] + ":\n" + names.slice(1).join("\n->\n"); }
+  // (whether the player has come into any of the rooms by a way in: the state's ervisit, a character a way in)
+  var roomEntries = null;
+  function been(rooms) {
+    var L = D.logic, v = (state && state.ervisit) || "";
+    if (!roomEntries) {
+      roomEntries = {};
+      L.entryRoom.forEach(function (ri, e) { (roomEntries[L.rooms[ri]] = roomEntries[L.rooms[ri]] || []).push(e); });
+    }
+    return rooms.some(function (r) { return (roomEntries[r] || []).some(function (e) { return v.charAt(e) === "1"; }); });
+  }
+
   // a screen's card: its name, how many of its checks are taken, and each check (isHere: the player's, marked so;
   // hide: taken checks left out)
   function card(s, isHere, hide) {
     var n = s.checks.length, taken = 0;
     s.checks.forEach(function (i) { if (status[i] === DT3.TAKEN) { taken++; } });
     var c = el("section", "screen" + (taken === n ? " done" : "") + (isHere ? " here" : ""));
-    var h = el("h2");
+    var h = el("h2"), way = wayHere(s.rooms);
     h.appendChild(el("span", "", s.name));
     if (isHere) { h.appendChild(el("span", "tag", "you are here")); }
+    if (unexOf(s.rooms)) { h.appendChild(unexTag(s.rooms)); }
     h.appendChild(el("span", "count", taken + "/" + n));
+    if (way) { h.title = s.name + "\n" + way; }
     c.appendChild(h);
     var ul = el("ul");
     s.checks.forEach(function (i) {
@@ -157,6 +228,17 @@
         st === DT3.TAKEN ? "✓" : ""));
       li.appendChild(el("span", "name", D.locs[i].n));
       li.title = D.locs[i].id + " (" + D.locs[i].room + ")";
+      // (a check the logic leaves out: why, beside it, till it's taken)
+      if (D.locs[i].why && st !== DT3.TAKEN) {
+        li.appendChild(el("span", "why", D.locs[i].why));
+        li.title += "\nOut of logic: " + D.locs[i].why;
+      }
+      // (a vending machine's hint about it, not taken yet: what the hint named)
+      if (hints[i] !== undefined && st !== DT3.TAKEN) {
+        var hint = el("span", "hint", hints[i]);
+        hint.title = "A vending machine's hint: " + hints[i] + " is here";
+        li.appendChild(hint);
+      }
       ul.appendChild(li);
     });
     c.appendChild(ul);
@@ -165,7 +247,11 @@
 
   function update(S) {
     state = S;
-    status = DT3.evaluate(D, S || {}, cache);
+    hints = {};
+    ((S && S.hints) || []).forEach(function (h) { hints[h[0]] = String(h[1]); });
+    status = DT3.evaluate(D, S || {}, cache, entTrack.checked);
+    unex = entOn() ? DT3.unexploredByRoom(D, cache.R) : null;
+    entLabel.className = state && !(state.er > 0) ? "off" : "";
     if (S && S.room !== lastRoom) {
       lastRoom = S.room;
       if (follow.checked && D.roomTab[S.room] !== undefined) { sel = D.roomTab[S.room]; scrollHere = true; }

@@ -347,6 +347,10 @@ def world_state(proj):
     world.update({"CHAOS_Invasion": 0, "CHAOS_Upgrade": 0, "eGateProg": "00000000", "gateHProg": 0, "abomAttempts": 0,
                   "gameProgress": WORLD_PROGRESS, "gameCompleted": 0, "bBossGallery": 0, "bNightmareMode": 0,
                   "gamePaused": False})
+    # tower defense won (its optional levels: their rewards in Central City - North are there), as the new game's
+    # option Skip Tower Defense has it, so the rewards are places with ways to them; without the option rndgen.py's
+    # COND_GLOBALS has them need everything
+    world["gameOptTowerDef"] = 6
     world.pop("activeCharacter", None)     # Jerry or Claire
     return world
 

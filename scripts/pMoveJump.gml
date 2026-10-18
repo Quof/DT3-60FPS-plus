@@ -38,6 +38,7 @@ else
     //(jumpBodge60/jumpGravComp60 are set in characterCreateEvent: 1.07 and 0.5 by default, overridden in Gate F)
     ijabodge = initialJumpAcc * jumpBodge60
     if bombJump=0 {yVel+=ijabodge}
+    else if gDeltaTime<0.5 and jumpBodge60=1.07 {yVel+=ijabodge*bombAcc*0.991} //60fps change (added): with the Bomb B boost the held jump peaked at 95px at 120fps, 30fps's at 91-94 (92.4 on average) and 60fps's at 94; 0.991 makes it 94 at 120fps too. Only with the default corrections (with Nightmare Gate F's own the boosted jump already matches 30fps)
     else {yVel+=ijabodge*bombAcc}
     //uses grav, not gravityIntensity: gravityIntensity is still last frame's value here. Standing, that's grav anyway, but a
     //backdash resets jumpTime, so a jump during it (hurricane backdash) got almost no compensation and went ~8px too high.

@@ -1,0 +1,160 @@
+# rLink2_PalaceF_1: Access Gate 2: Hyrule (area 10), 960x352 px
+# The Randomizer's logic for this room, worked out from the room itself by roomlogic.py (RoomLogic.cs).
+# Don't edit this file (it's made again): change ..\overrides.txt instead. ..\README.txt explains it all.
+# Coordinates are the room's pixels, as in the room editor; where the player is, is where their feet are (x the
+# middle of the body, y its bottom). A tick is a 30th of a second (the game's movement steps).
+carried crystal1   # the Forest Palace's crystal 1 comes in with the player and goes out with them (0: as at the start, 1: hit, its rooms turned over)
+# switches: the room is worked out in each of its states, the player coming in in the first: [crystal 1 as at the start]
+
+# Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
+in 48,288   # from rLink2_Overworld out 112,976
+in 912,288   # from rLink2_PalaceF_2a out 0,608, rLink2_PalaceF_2b out 0,96
+in 128,288   # from warping to Teleporting Stone 203
+
+# Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 0,256   # to rLink2_Overworld at 136,984; the player goes into it
+out 944,256   # to rLink2_PalaceF_2a at 48,640 with crystal1 0, to rLink2_PalaceF_2b at 48,128 with crystal1 1; the player goes into it
+
+# Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
+loc 98 203   # teleporting stone 203, at 128,250
+
+# What each way out and place needs, from each way in, with the moves inside this room alone (alternatives
+# separated by |, any one of them is enough; - nothing but walking and jumping; never: not from there).
+# Words: djump double jump, adash air dash, gdash dash, hijump:N High Jump Boots, mario the Mario Ability Set,
+# link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
+# the locked door whose objectNum is N.
+from in 48,288 [crystal1 0]
+  out 0,256 [crystal1 0]     -
+  out 944,256 [crystal1 0]   -
+  loc 98 203                 -
+from in 48,288 [crystal1 1]
+  out 0,256 [crystal1 1]     -
+  out 944,256 [crystal1 1]   -
+  loc 98 203                 -
+from in 912,288 [crystal1 0]
+  out 0,256 [crystal1 0]     -
+  out 944,256 [crystal1 0]   -
+  loc 98 203                 -
+from in 912,288 [crystal1 1]
+  out 0,256 [crystal1 1]     -
+  out 944,256 [crystal1 1]   -
+  loc 98 203                 -
+from in 128,288 [crystal1 0]
+  out 0,256 [crystal1 0]     -
+  out 944,256 [crystal1 0]   -
+  loc 98 203                 -
+from in 128,288 [crystal1 1]
+  out 0,256 [crystal1 1]     -
+  out 944,256 [crystal1 1]   -
+  loc 98 203                 -
+
+# How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
+# that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 48,288 [crystal1 0] -> out 0,256 [crystal1 0]: -
+     [crystal 1 as at the start] coming in at 48,288
+   1. coming in: holding nothing, from 48,288; lands at 48,289
+      -> [crystal 1 as at the start] standing at x 0-960, y 289
+   2. standing at 0,289, goes into it
+      -> out 0,256 [crystal1 0]
+how in 48,288 [crystal1 0] -> out 944,256 [crystal1 0]: -
+     [crystal 1 as at the start] coming in at 48,288
+   1. coming in: holding nothing, from 48,288; lands at 48,289
+      -> [crystal 1 as at the start] standing at x 0-960, y 289
+   2. standing at 942,289, goes into it
+      -> out 944,256 [crystal1 0]
+how in 48,288 [crystal1 0] -> loc 98 203: -
+     [crystal 1 as at the start] coming in at 48,288
+   1. coming in: holding nothing, from 48,288; lands at 48,289
+      -> [crystal 1 as at the start] standing at x 0-960, y 289
+   2. standing at 103,289, touches it
+      -> loc 98 203
+how in 48,288 [crystal1 1] -> out 0,256 [crystal1 1]: -
+     [crystal 1 hit (its rooms turned over)] coming in at 48,288
+   1. coming in: holding nothing, from 48,288; lands at 48,289
+      -> [crystal 1 hit (its rooms turned over)] standing at x 0-960, y 289
+   2. standing at 0,289, goes into it
+      -> out 0,256 [crystal1 1]
+how in 48,288 [crystal1 1] -> out 944,256 [crystal1 1]: -
+     [crystal 1 hit (its rooms turned over)] coming in at 48,288
+   1. coming in: holding nothing, from 48,288; lands at 48,289
+      -> [crystal 1 hit (its rooms turned over)] standing at x 0-960, y 289
+   2. standing at 942,289, goes into it
+      -> out 944,256 [crystal1 1]
+how in 48,288 [crystal1 1] -> loc 98 203: -
+     [crystal 1 hit (its rooms turned over)] coming in at 48,288
+   1. coming in: holding nothing, from 48,288; lands at 48,289
+      -> [crystal 1 hit (its rooms turned over)] standing at x 0-960, y 289
+   2. standing at 103,289, touches it
+      -> loc 98 203
+how in 912,288 [crystal1 0] -> out 0,256 [crystal1 0]: -
+     [crystal 1 as at the start] coming in at 912,288
+   1. coming in: holding nothing, from 912,288; lands at 912,289
+      -> [crystal 1 as at the start] standing at x 0-960, y 289
+   2. standing at 0,289, goes into it
+      -> out 0,256 [crystal1 0]
+how in 912,288 [crystal1 0] -> out 944,256 [crystal1 0]: -
+     [crystal 1 as at the start] coming in at 912,288
+   1. coming in: holding nothing, from 912,288; lands at 912,289
+      -> [crystal 1 as at the start] standing at x 0-960, y 289
+   2. standing at 942,289, goes into it
+      -> out 944,256 [crystal1 0]
+how in 912,288 [crystal1 0] -> loc 98 203: -
+     [crystal 1 as at the start] coming in at 912,288
+   1. coming in: holding nothing, from 912,288; lands at 912,289
+      -> [crystal 1 as at the start] standing at x 0-960, y 289
+   2. standing at 103,289, touches it
+      -> loc 98 203
+how in 912,288 [crystal1 1] -> out 0,256 [crystal1 1]: -
+     [crystal 1 hit (its rooms turned over)] coming in at 912,288
+   1. coming in: holding nothing, from 912,288; lands at 912,289
+      -> [crystal 1 hit (its rooms turned over)] standing at x 0-960, y 289
+   2. standing at 0,289, goes into it
+      -> out 0,256 [crystal1 1]
+how in 912,288 [crystal1 1] -> out 944,256 [crystal1 1]: -
+     [crystal 1 hit (its rooms turned over)] coming in at 912,288
+   1. coming in: holding nothing, from 912,288; lands at 912,289
+      -> [crystal 1 hit (its rooms turned over)] standing at x 0-960, y 289
+   2. standing at 942,289, goes into it
+      -> out 944,256 [crystal1 1]
+how in 912,288 [crystal1 1] -> loc 98 203: -
+     [crystal 1 hit (its rooms turned over)] coming in at 912,288
+   1. coming in: holding nothing, from 912,288; lands at 912,289
+      -> [crystal 1 hit (its rooms turned over)] standing at x 0-960, y 289
+   2. standing at 103,289, touches it
+      -> loc 98 203
+how in 128,288 [crystal1 0] -> out 0,256 [crystal1 0]: -
+     [crystal 1 as at the start] coming in at 128,288
+   1. coming in: holding nothing, from 128,288; lands at 128,289
+      -> [crystal 1 as at the start] standing at x 0-960, y 289
+   2. standing at 0,289, goes into it
+      -> out 0,256 [crystal1 0]
+how in 128,288 [crystal1 0] -> out 944,256 [crystal1 0]: -
+     [crystal 1 as at the start] coming in at 128,288
+   1. coming in: holding nothing, from 128,288; lands at 128,289
+      -> [crystal 1 as at the start] standing at x 0-960, y 289
+   2. standing at 942,289, goes into it
+      -> out 944,256 [crystal1 0]
+how in 128,288 [crystal1 0] -> loc 98 203: -
+     [crystal 1 as at the start] coming in at 128,288
+   1. coming in: holding nothing, from 128,288; lands at 128,289
+      -> [crystal 1 as at the start] standing at x 0-960, y 289
+   2. standing at 103,289, touches it
+      -> loc 98 203
+how in 128,288 [crystal1 1] -> out 0,256 [crystal1 1]: -
+     [crystal 1 hit (its rooms turned over)] coming in at 128,288
+   1. coming in: holding nothing, from 128,288; lands at 128,289
+      -> [crystal 1 hit (its rooms turned over)] standing at x 0-960, y 289
+   2. standing at 0,289, goes into it
+      -> out 0,256 [crystal1 1]
+how in 128,288 [crystal1 1] -> out 944,256 [crystal1 1]: -
+     [crystal 1 hit (its rooms turned over)] coming in at 128,288
+   1. coming in: holding nothing, from 128,288; lands at 128,289
+      -> [crystal 1 hit (its rooms turned over)] standing at x 0-960, y 289
+   2. standing at 942,289, goes into it
+      -> out 944,256 [crystal1 1]
+how in 128,288 [crystal1 1] -> loc 98 203: -
+     [crystal 1 hit (its rooms turned over)] coming in at 128,288
+   1. coming in: holding nothing, from 128,288; lands at 128,289
+      -> [crystal 1 hit (its rooms turned over)] standing at x 0-960, y 289
+   2. standing at 103,289, touches it
+      -> loc 98 203

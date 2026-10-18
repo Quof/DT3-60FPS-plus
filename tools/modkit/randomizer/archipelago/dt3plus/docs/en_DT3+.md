@@ -16,7 +16,13 @@ Ability Set, Link, Belmont, Mega Man, Samus and the two Gate 6 sets, progressive
 Each key opens one locked door of its own.
 
 Bosses are fought in their own rooms with the abilities found so far, and must be beaten to go past them. Tower defense
-and the Trial Master's cursed trials have to be done again for their rewards.
+(unless Skip Tower Defense is on) and the Trial Master's cursed trials have to be done again for their rewards. An
+Internetz item gives twice the amount of the chest it's from in the game (and is named so).
+
+With no empty bottle to fill, a vending machine sells a hint instead (press Up): where a progression item is among
+your world's locations, your own items first, then other players' ("Ye who seek Progressive Link, look to Access Gate
+4: Megapolis - Newtype Airport 1."). The first costs 1000 Internetz, each after it 1000 more, up to 5000. In Gate 5,
+the hatch of the door you came into a room by opens as you come in, so you can always go back the way you came.
 
 The Randomizer's own new-game options are the world's options:
 
@@ -50,6 +56,9 @@ The Randomizer's own new-game options are the world's options:
   any hit kill you (as in Achilles Mode). The Wind Orb Trap sends the Green Warmaster's wind orb after you, in every
   room you go into, and nothing destroys it. A trap that's already on starts its time again. The HUD shows how long
   each one has left. Your traps can be in other worlds, and other games' traps in yours.
+- **Skip Tower Defense**: tower defense's optional levels are won from the start, so their six rewards (in Central
+  City - North) are there to pick up, and they're locations that can hold any item. Off: they're there once its levels
+  are won, and hold nothing the logic needs.
 
 The places where the story's ability pickups were (17: the Dash Boots, the double jump's, Link's bow and bombs,
 Belmont's dagger and Holy Water, Gate 5's upgrades and suits) are locations ("Story Item"). Four of them always hold the
@@ -74,7 +83,9 @@ the CHAOS Warship (his fight is there once the Abomination is beaten).
 ## What items and locations get shuffled?
 
 The Randomizer's locations: every pickup and treasure chest in the game's rooms, and the heart containers the bosses
-and the 7th trial give; with Instrument Randomization, the Nightmare Gates' rewards too. The items are what those hold,
+and the 7th trial give; with Instrument Randomization, the Nightmare Gates' rewards too. Each is named by its area, its
+room as the mod's Check Tracker names it, and its type and number (Access Gate 3: Transylvania - Castle Courtyard 1 -
+Weapon Upgrade 44), so a hint says which room to go to. The items are what those hold,
 plus every ability the story would have given (but jumping), and with Instrument Randomization the instruments.
 
 ## Which items can be in another player's world?

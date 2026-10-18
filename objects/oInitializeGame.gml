@@ -230,14 +230,16 @@ if bCanUseMenu=1
 {
   //-- Title flash --
   titleCTime+=2*gDeltaTime
-  if titleCTime<=80
-    titleRGB-=2*gDeltaTime
-  else if titleCTime>=81
-  {
-    titleRGB+=2*gDeltaTime
-    if titleCTime=160
-      titleCTime=0
-  }
+  //if titleCTime<=80
+  //  titleRGB-=2*gDeltaTime
+  //else if titleCTime>=81
+  //{
+  //  titleRGB+=2*gDeltaTime
+  //  if titleCTime=160
+  //    titleCTime=0
+  //}
+  if titleCTime>=160 {titleCTime-=160} //60fps change: wraps at 160 whatever the step; "=160" was missed after a frame rate change mid-flash (F2 or Options: a half count at 120fps, an odd one at 60), and the colour then rose past 255 for good, where make_color_rgb wraps it (the title snapped dark, then went back to orange, over and over)
+  titleRGB=255-min(titleCTime,160-titleCTime) //60fps change: from the time (255 down to 175 and back, as at 30fps), so it can't drift: added up per frame it lost half a step every flash at 120fps (a count of 80.5 was in neither branch)
   titleCl=make_color_rgb(titleRGB,255,titleRGB)
 
   //title options change (added): the Options menu (oPauseMenu) has the controls while it's open

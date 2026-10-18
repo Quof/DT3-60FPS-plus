@@ -28,6 +28,8 @@ tStr+=", Chip Randomizer "
 if global.rndChipMode=1 {tStr+="On"} else {tStr+="Off"}
 tStr+=", Traps "
 if global.rndSnareMode=1 {tStr+=string(round(global.rndSnareTime/1800))+" Minutes"} else {tStr+="Off"}
+tStr+=", Skip Tower Defense "
+if global.rndSkipTD=1 {tStr+="On"} else {tStr+="Off"}
 file_text_write_string(f,tStr); file_text_writeln(f)
 file_text_write_string(f,"(this seed with these options places the items the same way again: type seed"+string(global.rndSeed)+" on the title screen, or choose it in the new game's options)"); file_text_writeln(f)
 if global.rndIRMode=1 {file_text_write_string(f,"Win: the 8 instruments (anywhere: they're with the abilities below), the Abomination, then the CHAOS Warmaster at the end of the CHAOS Warship.")}
@@ -35,7 +37,7 @@ else {file_text_write_string(f,"Win: the 8 instruments (each Nightmare Gate's bo
 file_text_writeln(f)
 if global.rndChipMode=1 {file_text_write_string(f,"Access Gates: each one's portal, and the Nightmare Gate portal beside it, opens with its Program Chip (anywhere: they're with the abilities below)"); file_text_writeln(f)}
 file_text_writeln(f)
-file_text_write_string(f,"Abilities and keys, by layer (layer 1: what jumping alone reaches from Central City; each layer after it: what the items in the layers before it open)"); file_text_writeln(f)
+file_text_write_string(f,"Abilities, keys and Air Upgrades, by layer (layer 1: what jumping alone reaches from Central City; each layer after it: what the items in the layers before it open; the underwater rooms wait for 3 Air Upgrades at places in logic)"); file_text_writeln(f)
 tMax=0
 for(i=0;i<global.rndLocN;i+=1) {tMax=max(tMax,global.rndGLayer[i])}
 for(tLay=0;tLay<=tMax;tLay+=1)
@@ -56,10 +58,11 @@ for(tLay=0;tLay<=tMax;tLay+=1)
   }
 }
 file_text_writeln(f)
-file_text_write_string(f,"Every location"); file_text_writeln(f)
+file_text_write_string(f,"Every location, with its layer (as above; one that needs everything: the last)"); file_text_writeln(f)
 for(i=0;i<global.rndLocN;i+=1)
 {
-  file_text_write_string(f,"  "+global.rndLocName[i]+"  -  "+rndItemName(rndPlaced(i))); file_text_writeln(f)
+  if global.rndGLayer[i]>=0 {tStr="layer "+string(global.rndGLayer[i]+1)} else {tStr="not in logic"}
+  file_text_write_string(f,"  "+global.rndLocName[i]+"  -  "+rndItemName(rndPlaced(i))+"  ("+tStr+")"); file_text_writeln(f)
 }
 file_text_writeln(f)
 file_text_write_string(f,"Equipment shops"); file_text_writeln(f)

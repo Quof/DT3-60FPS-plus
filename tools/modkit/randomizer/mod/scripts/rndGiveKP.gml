@@ -22,7 +22,8 @@ switch (k)
     }
     else {rndMsg("You found a Heart Piece!#Only "+string(4-global.pHeartPieces)+" more for a full heart!",2)}
     break
-  case 2: //Internetz
+  case 2: //Internetz (p: the chest's amount; it gives rndMoneyOf's, twice that)
+    p=rndMoneyOf(p)
     playSound(global.snd_HeartPiece,0,1,1)
     awardAwesome(3000)
     global.recInterEarnTotal+=p

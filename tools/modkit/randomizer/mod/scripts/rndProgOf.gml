@@ -1,8 +1,9 @@
 //Randomizer: the progression item an item is (argument0: its kind, argument1: its parameter), as the logic counts them:
 //0 jump, 1 ground dash, 2 air dash, 3 double jump, 4 high jump boots, 5-11 ability sets 0-6, 12 the Varia Suit, 13 a
 //cursed equipment piece (equipment 10-12: the Trial Master's trials need all three on), 14 an instrument (placed as one
-//only with Instrument Randomization: rndGenerate), rndKeyBase+its door's objectNum a key, rndChipBase+its gate a
-//Program Chip (Chip Randomizer: rndChipApply); -1 for the rest
+//only with Instrument Randomization: rndGenerate), 15 an Air Upgrade (the underwater rooms need some: placed before
+//the rest, rndGenerate), rndKeyBase+its door's objectNum a key, rndChipBase+its gate a Program Chip (Chip Randomizer:
+//rndChipApply); -1 for the rest
 var k;
 k=argument0
 if k=19 {return 0}
@@ -14,6 +15,7 @@ if k=24 {return 5+argument1}
 if k=25 {return 12}
 if k=3 and argument1>=10 and argument1<=12 {return 13}
 if k=26 {return 14}
+if k=8 {return 15}
 if k=14 {return global.rndKeyBase+argument1}
 if k=27 {return global.rndChipBase+argument1}
 return -1

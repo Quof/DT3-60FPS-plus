@@ -33,6 +33,13 @@ FILES
                       the simulation (HOW THE ROOM FILES ARE MADE, below)
   bosses.txt          what each boss fight takes (BOSSES below)
   er.py, erflat.py    Entrance Rando's doors and its seeds (ENTRANCE RANDO below)
+  perdoor.py          overrides.txt's lines for a whole room (in *) door by door: what the simulation says getting
+                      from each way in to each other way in, and to the space around each place and exit such a line
+                      is for, takes (RoomLogic.exe --probes, about 40 minutes; --report again from the last run), in
+                      perdoor.txt beside the lines. A line for every way in gives each door the same need, as if the
+                      player were already where it was written for; where a way in can't get there, or only with more,
+                      the line belongs to the other ways in only (with Entrance Rando, any way in can be the one the
+                      player first comes into the room by)
   work\               the simulation's working files (made again each run; not kept)
 
 The mod's own build reads these (rndgen.py, one folder up), and ..\logic.txt can replace what a single location needs
@@ -171,11 +178,23 @@ overrides.txt's lines (the file explains them too):
       room file's
   area <number> : <requirements>
       the same for every room of the area (a later room line can still change one of them)
+  outoflogic <room> loc <place> : <why>
+      that place out of logic from every way in, whatever the other lines say (it never holds an ability or key); the
+      Check Tracker shows why beside it
+  also <room> : <requirements>
+      every way through the room needs this as well, on top of the rest (the underwater rooms: "air 3", 3 of the Air
+      Upgrades, which the reach counts at the places it gets to while the mod places the items, rndGenerate)
 
 overrides.txt has these for what the simulation can't work out: the Nightmare Gates (an area line each), the CHAOS
 Warship, the Hidden Program Facility, the bike rides, Gate 6's wind temple (a room line each) and latch crystals, rails
 and the travel cannon. Timed switch barriers (roomdata.py's TIMED_SWITCH) need what the timed
 switches take between them: the Gravity Well, Link's bombs, Belmont's whip and dagger, the Spazer Beam.
+
+What the simulation doesn't see: objects whose creation code reads where the player came in (global.newMapX and
+newMapY), counted as there whichever way in it is. Most are the way back opened for whoever comes from the far side: a
+barrier or block gone (rDCS_F's timed switches' barrier, rVault_9's, rMario1_2's blocks, rCCity_CCC's wrench blocks,
+rGame6_FireA's, rWarshipH's, rWarshipI's), switches on already (rDCS_T, rWepFacI); a way through those needs an
+overrides.txt line (rDCS_F has one).
 
 Say why in a comment next to each change. Examples:
 
@@ -197,6 +216,13 @@ damage type hurts the boss at 1x or more and no phase of the fight takes that ty
 weapon deals which type, and each line says why. Some are by hand (the Mario bosses need the Mario Ability Set; Army Eye
 needs all six types). Change a line there; solve.py reads it with overrides.txt. A boss room it doesn't name needs any
 attack.
+
+A line's "@ N%" is a share of the game the fight also waits for: N% of all the checks in logic (rndgen.py's locations,
+rounded up; "pct N" is the same as a requirement anywhere). It's an event of its own, pctN (er.World makes them: a way
+of the third kind, that many places got to), which the room logic's reach has once it's got to that many places: so a
+seed never has the fight on its way to an item before then, with Boss Rando wherever the boss is fought. solve.py's
+joining (roomlogic.txt), alternatives of items, can't count places: there it needs nothing, so the mod places every
+game's items with the reach (rndNewGame), and so does the Archipelago world.
 
 Boss Rando (the new game's option) moves the fights: each boss fought the Randomizer's way (rndgen.py's boss_list, the
 Nightmare Gates' bosses among them; not the final boss) is fought at another one's place. A place is the boss's room, and for one whose fight the story went
@@ -246,7 +272,9 @@ roomlogic.py runs three steps:
 
   1. roomdata.py: the rooms as the logic sees them (work\rooms.txt). Each instance's creation code and Create event are
      run in the Randomizer's world (gmleval.py: a new game's globals, then the endgame world, gameProgress 5641), so
-     what that world removes isn't there, and its size, place and exit are what its code makes them. Each object is a
+     what that world removes isn't there, and its size, place and exit are what its code makes them. Tower defense is
+     won there (gameOptTowerDef 6, as the new game's option Skip Tower Defense has it), so its rewards in Central City -
+     North are places; without the option the build has them need everything (rndgen.py's COND_GLOBALS). Each object is a
      solid, a jump-through platform, a hazard (spikes, lava: never touched; Gate 5's lava only till the Varia Suit, a
      gate that's never solid), water, a spring, a gate (solid till
      something opens it: a key, a sword or whip, bombs, missiles, an event...), a moving platform and its path, an
@@ -345,9 +373,12 @@ The maps (Hyrule's, Gate 6's): a tile and its place are a door, its end the plac
 player come in. A tile that has the player come in away from the exits (Forest 1's) is a door too if every exit of the
 room back to the map comes out at one place; those doors come after the others, which keep their order (a save's
 shuffle is by the ends' order: erflat.py's ER_LEGACY, the earlier builds' doors whose saves still load). A room's other
-exits back to a map that come out where an end's exit does follow that end (er.follows: a town's far side, a palace's
-way out after its boss, a place of several rooms' last one): with it shuffled they lead where it now leads, in the
-logic (exit_end) and the game (rndERMapBuild). A crossing's far exit (a bridge's or a pass's, out across a river or a
+exits back to a map that come out where an end's exit does (er.follows: a town's far side, a palace's way out after
+its boss, a place of several rooms' last one) lead where the game has them: one way, signed ONE WAY with Entrance Rando
+(er.one_way: every exit that, gone through, has no exit by where the player comes out leading back to it; rndgen.py
+writes the ones that show an arrow, the roomStart hook puts the signs over them). The builds before had them follow
+that end, leading where it now leads, in the logic (exit_end) and the game (rndERMapBuild); a shuffle made with them
+keeps that (erflat.py's ER_FEATURES 1, ER_LEGACY), and the data has them apart for it (exit_follow). A crossing's far exit (a bridge's or a pass's, out across a river or a
 mountain) comes out elsewhere on the map, so it stays the game's: nothing leads into the room there to pair it with.
 Gate 4's stages: a Randomizer game adds a way back to each of their rooms but the boss rooms (rndgen.py's
 MM_BACK_EXITS, which roomdata.py adds to the rooms as exits), so each room's exit and the next one's way back are a

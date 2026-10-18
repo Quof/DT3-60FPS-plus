@@ -23,7 +23,9 @@ game's code for them asks Nightmare Mode: the mod's versions of playerTechStart 
 meters, ask the item too (rndgen.py's SCRIPT_PATCHES and GAME_PATCHES, made from the game's own code). The Item Finder isn't shuffled: it's where the game has it, and with it Chao shows a ! instead of
 the treasure icon in a map with an ability, an ability set's item or a key. The equipment shops' stock is shuffled
 between the shops. A spoiler log is written to the Saves folder's Seeds folder (Saves\Seeds\Randomizer spoiler log
-<seed>.txt), with the options and the abilities and keys by layer. As in a new game: tower defense and the Trial Master's cursed trials aren't
+<seed>.txt), with the options and the abilities and keys by layer. An Internetz chest's Internetz gives twice the
+chest's amount (rndgen.py's MONEY_MUL, the mod's rndMoneyOf), and is named so. As in a new game: tower defense (unless
+Skip Tower Defense, below) and the Trial Master's cursed trials aren't
 done (their rewards come from doing them, with the three cursed equipment pieces on; the 7th trial, five of the six
 others done, also gives Central City South's heart container), the shortcuts are shut, and there are no Yoshi dolls
 or game-completed flag (Bubble Tower B and the Gate 6 DLC stay shut). The six program chips: all had from the start,
@@ -40,7 +42,7 @@ all eight opens the Abomination's fight (gateHProg 100, which the temple's last 
 Playing
   Put the built mod in Mods\Randomizer and turn it on. Every new game is then a randomizer game (a save made with it
   stays one). A new game opens with its options (oRndOptions, in place of the intro); they're kept for the next one
-  (DT3Options.dts, section Randomizer):
+  (DT3Options.dts, section Randomizer). Cancel goes back to the title screen instead:
     Seed                     random, or typed in (Confirm). Typing seed and a number on the title screen (seed1234)
                              sets it too. The same seed with the same options places the items the same way.
     Guarantee Early Weapons  every layer has a weapon (an item of the Link, Belmont, Mega Man or Samus set: 17 items,
@@ -60,6 +62,9 @@ Playing
                              Chaos (greyed out in the window; the choice is kept for the other modes).
     Traps                    Off, 2 Minutes, 5 Minutes or 10 Minutes: 30 of the items (6 of each of 5 traps) are
                              trap items, in Internetz chests' places, each lasting that long (below).
+    Skip Tower Defense       Off or On: tower defense's optional levels are won from the start, so their six rewards
+                             are there to pick up, and can hold an ability or a key (below). Off (the default): they're
+                             there once the levels are won, and hold no ability or key.
     Spoiler Log              written or not.
   An Archipelago game has no options window: its options are the DT3+ world's, in the player's YAML (below,
   Archipelago).
@@ -78,6 +83,23 @@ Playing
     items (28 of the four before it: rndgen.py's snare_slots_old) and their 5 minutes. The traps aren't progression
     items, so where the others go is as without them. In an Archipelago game they're items of the multiworld
     (classification trap): its own can be in other worlds, and spring when they come (rndApGive), for its world's time.
+  - Skip Tower Defense: tower defense's progress (gameOptTowerDef) is 6 from the start, as when its three optional
+    levels are won, so their rewards in Central City - North (a heart piece, three skill points, an arrow quiver and an
+    Internetz mod, as the game has them) are there; its machine still plays every level. The logic has them as the room
+    logic does (rndgen.py's req_td, the mod's rndSkipTDApply), so they can hold an ability or a key; off, they need
+    everything, as a fight's reward does. A save keeps the option (a save from before it has it off).
+  - Vending machines (the Energy Drink and Turbo Smoothie ones): with no empty bottle to fill (none yet, or both full),
+    Up buys a hint instead: where a progression item not found yet is (an ability or set, the Varia Suit, a key, a
+    Program Chip, a cursed equipment piece; an instrument with Instrument Randomization), the item named as the
+    multiworld names it and the place as its location names have it ("Ye who seek Progressive Link, look to Access Gate
+    4: Megapolis - Newtype Airport 1."). The first costs 1000 Internetz, each after it 1000 more, 5000 at most; a place
+    hinted isn't hinted again, and nothing is paid once nothing's left (the mod's oVendingMachine prefixes, rndHintPick,
+    rndHintText). In an Archipelago game, a progression item at one of the world's own places as the client scouted
+    them, the player's own first, then other worlds' ("<player>'s <item>"). The save keeps them, and the Check Tracker
+    shows each by its place.
+  - Gate 5: coming into any of its rooms, the hatch of the door the player came in by opens, whatever it takes (a
+    sealed one too: the mod's oRndHatchOpen, the hatch nearest where the player comes in), so they can always go back
+    the way they came. The logic doesn't count on it: going back through a hatch still takes what opens it.
   - Entrance Rando: the mode's doors are paired anew, coupled (going back through a door returns the player where they
     came from). Gate Swap: the Access Gates' and Nightmare Gates' doors. Area: the doors inside each region of the game
     (roomlogic\regions.txt: Initiate's Pass, Central City, Begonia, each Access Gate, the CHAOS Warship, ...), each
@@ -92,7 +114,11 @@ Playing
     made with an earlier build's doors that this one still has, roomlogic\erflat.py's ER_LEGACY, loads as it was made).
     On Hyrule's and Gate 6's maps a tile and its place are a door: the place's exit next to where the tile has the
     player come in. Its other exits back to the map that come out at the same tile (a town's far side, a palace's way
-    out after its boss, a place of several rooms' last one) follow that door: they lead where it now leads. Forest 1's
+    out after its boss, a place of several rooms' last one) lead where the game has them, back to the map: one way.
+    With Entrance Rando every exit that's one way (going through it, no exit by where the player comes out leads back
+    to it: those, drops, the ways into boss rooms) has a ONE WAY sign above its arrow, to its left (to its right at a
+    room's left side, so it stays in the room). (A save made with the builds that
+    had those exits follow the door, leading where it now leads, keeps that.) Forest 1's
     tile, which has the player come in mid-room, is a door with its exits too. A crossing's far side (a bridge's, a
     pass's: out on the other side of a river or mountain) still comes out there, as nothing on the map leads into it
     on that side; the encounter fights and the Forest Palace aren't shuffled.
@@ -103,8 +129,8 @@ Playing
     next room's way back are a door, which Chaos shuffles (a stage's rooms are one area, as every Access Gate's are, so
     Overworld leaves them). The ways into the boss rooms stay one way.
     Gate 5's Metroid hatches don't keep its doors to each other: a door with a hatch in front of its exit pairs with any
-    other (going back through it takes what opens the hatch, any weapon for most, as the logic has it). A player who
-    comes in behind one without that, with no other way out, has the pause menu's Teleport.
+    other (going back through it takes what opens the hatch, any weapon for most, as the logic has it). Coming into a
+    room opens the hatch of the door the player came in by (above), so they can always go back the way they came.
     Left out of every mode: the Subconscious Filter and the Discombobulated, hallways with no places (roomlogic\er.py's
     LEFT_OUT). The Discombobulated's way on to its boss is gone in the endgame world, so in a Randomizer game its way in
     (rMain_87's drop) leads straight to the boss's room (Defective's), and that room's way out back to rMain_87 (the
@@ -126,7 +152,8 @@ Playing
     walking up to Bowser. Not in it, as the Randomizer leaves them to the game: the second fights of a room (Death
     (Legion), Sigma Epsilon, Decimator 20000), the Leviathan road, the Abomination's fight (the gallery's Wahfuu, the
     instrument quest's end) and the CHAOS Warmaster EX. The items are placed with what each place's fight now takes
-    (roomlogic\bosses.txt has what each fight takes), and the seed is played through before the game starts. The
+    (roomlogic\bosses.txt has what each fight takes, and the share of the checks in logic it waits for: see Logic),
+    and the seed is played through before the game starts. The
     spoiler log lists the fights. A save keeps its shuffle.
   - Chip Randomizer (not with Entrance Rando Chaos: there the player has all six, as the Archipelago world has it too):
     the six Program Chips are items, in the places of the six smallest Internetz chests (rndgen.py's chip_slots), and
@@ -207,9 +234,14 @@ Playing
     the level already, aren't changed (mod\scripts\rndG6Mult.gml, run by the mod's takeDamage: the game's own, changed,
     rndgen.py's SCRIPT_PATCHES).
   - Each key opens its own locked door (the message says which area it's in); a door without its key says so.
-  - The pause menu's Teleport works anywhere but in a boss fight, and goes to where the game started: Central City -
-    North, at the door from Greatest Stretch (the game's own places for it aren't used). It's the way out of anywhere
-    the player can't get out of on foot.
+  - The pause menu's Teleport works anywhere but in a boss fight. In an Access Gate or a Nightmare Gate it goes out of
+    the gate, where walking out of it would (with Entrance Rando's Gate Swap, by the portal the gate is come into by:
+    rndgen.py's TELEPORT_GATES); anywhere else, and anywhere with Entrance Rando Chaos, to where the game started:
+    Central City - North, at the door from Greatest Stretch (the game's own places for it aren't used). It's the way out
+    of anywhere the player can't get out of on foot.
+  - Gate 4's stages end in their bosses' rooms: once a stage's boss is beaten, the game's way from there back to the
+    stage select (unseen, pressed Up at where the boss stood) shows as a portal. The stage select's "Items Obtained"
+    counts the stage's own locations taken (rndMMStageText), whatever the shuffle put there.
   - John stands in Central City - North, left of the archway (oRndJohn), for a seed that has the player stuck. Talking
     to him offers the game's debug mode, with a prompt (Turn Debug Mode On / Cancel, in the look of his Turret Defense
     Game menu; the game waits while it's open). Turned on, he says how to use it: its right-click menu (Activate Mouse
@@ -272,12 +304,29 @@ Trackers
     it, green once they do, blue with a tick once it's taken. Its logic is the seed's own: the room logic the items
     were placed with, with the doors and bosses as the seed shuffled them and Instrument Randomization as it was set. A
     Nightmare Gate's reward is green once its boss can be got to (or is beaten), a boss's heart container once its
-    place and its fight can; a place the logic doesn't reach (or tower defense's reward) once the player has every
-    progression item, as the placement has it. Each tab shows how many of its places are green (the green mark) and
+    place and its fight can; a place the logic doesn't reach (or tower defense's reward, without Skip Tower Defense)
+    once the player has every progression item, as the placement has it. What the player can get to from a way into a
+    room they've come in by is green too, however they got there (the game keeps the ways in used, in every game:
+    rndVisitArrive, the save's ervisit, by the room logic's list of them; from each one the start's reach doesn't get to,
+    with the carried states as a new game has them). A vending machine's hint shows by its place, what it named, till
+    the place is taken, and so does why a place is out of logic where roomlogic\overrides.txt says ("Water level
+    based": Water Palace 6's air upgrade). Each tab shows how many of its places are green (the green mark) and
     taken. The screen the player is in has its own space at the top, under the header however far the page is
     scrolled, whichever tab is showing ("No Checks" in the middle of it in a room without any, with the room's name
     over it); Follow the player goes to its tab as they move, its other screens below. Hide taken leaves out what's
-    taken.
+    taken. Entrance Tracker (off at first; only in a game with Entrance Rando): green only what the player can get to
+    from the start through the shuffled doors they've been through and the ways into rooms they've come in by (the
+    game keeps those: rndERSeenArrive, the save's erseen and ervisit), so the tracker shows no more of the shuffle
+    than they've found; the name of a room they've been to has the way there from Central City - North in its
+    tooltip, a room a line (Central City - North itself left out, and an arrow on a line between). One the doors
+    they've been through don't lead to with what they have says "You've been here, but it's out of logic and may be
+    difficult to make it back.", then the way those doors go there, whatever each room on it takes (tracker.js's
+    knownWays). The ways there warp between the Teleporting Stones the player has activated where that's shorter
+    ("Warp to [9] Barrens - Oasis": the stone's number in the teleport menu), the main world's and each gate's own
+    (getting to a stone and going on from it as the room logic has them: roomlogic\stones.py works out each stone's
+    room with its stone in it, roomlogic\stones\, which only the trackers' data reads). Each screen,
+    and each room without checks that has some, shows how many doors not been through yet ("unexplored") its visited
+    ways in get to with what the player has.
   - items.html, the Item Tracker: the progression the player has, lit (the movement abilities, each ability set's
     attacks with their own pictures, the Game Powers, the instruments, the cursed equipment), and how many of each
     upgrade of how many there are (keys, heart pieces and containers, heart energy, quivers, missile tanks, Game
@@ -291,7 +340,11 @@ Trackers
   The screens' names (tracker_names.txt) are the game's own where it has them: the area banners, the teleport menu's
   places, Gate 4's stage map, the jukebox's titles; a screen's number is its room's own place in its group (a letter
   as its place in the alphabet). Any can be changed there, a check given a name of its own, and the locked doors'
-  places (the keys' tooltip) are there too; then build again.
+  places (the keys' tooltip) are there too; then build again. Its section "Rooms without checks" names every other
+  room of the room logic (where the player is, the Entrance Tracker's ways there and its rooms with unexplored
+  doors): by the same rules, a room a check's pickup is also in by that check's screen, the rest from the rooms'
+  captions. A room the file doesn't have at all is named by its group when the group's rooms in the file follow the
+  numbering rule (rBelmont3_5D: Castle Courtyard 4; tracker.py's group_names), else by its area.
 
 Archipelago
   The Randomizer can be one game of an Archipelago multiworld (game name "DT3+"): its items can be in other players'
@@ -308,6 +361,10 @@ Archipelago
     and shows as a multicoloured orb), and the items the server sends are given as they come, with who sent them.
     DeathLink both ways when the multiworld has it on. A save carries on with the client connected again: checks made
     meanwhile are sent then.
+  The world's locations are named by where they are, so a hint says which room: the area, the screen as the Check
+  Tracker names it (tracker_names.txt; the area left out when the screen's name has it), then the place's type and
+  number ("Access Gate 3: Transylvania - Castle Courtyard 1 - Weapon Upgrade 44", "Mountain Temple 1 - Skill Point
+  56"). The names come with the world: a multiworld made with an earlier one keeps its own.
   The world's options, in the player's YAML, are the new game's options window's (the seed and the spoiler log are the
   multiworld's own, and its spoiler lists the shuffled doors and boss fights):
     entrance_rando            off, gate_swap, area, chaos (overworld, from before area, is area). The world shuffles
@@ -326,7 +383,10 @@ Archipelago
     traps                     off, two_minutes, five_minutes, ten_minutes: the trap items (30, 6 of each) are the
                               multiworld's items, in the place of as many Internetz chests, each lasting that long (the
                               client gives the mod the time: trapmins). true, from before the times, is five_minutes.
-    shop_equipment            shuffled (from the multiworld's seed) or as_normal.
+    skip_tower_defense        true/false: tower defense's six rewards are there from the start, and are locations that
+                              can hold any item (the room logic's, as the mod's option has them; off: they need
+                              everything).
+    shop_equipment           shuffled (from the multiworld's seed) or as_normal.
     guarantee_early_weapons   true/false: one weapon set's first item (Link, Belmont, Mega Man or Samus, at random) in
                               the player's own world, at a place they can get to from the start (Archipelago's local
                               early items).
@@ -335,7 +395,7 @@ Archipelago
                               mostly first (near), as shuffled (normal), or the ones that take the most first (far).
                               About 6, 11 and 15 spheres in the playthrough.
   The client passes the world's options to the game (session.txt, from the world's slot data), and a new Archipelago
-  game puts them in: the shops, Instrument Randomization, Chip Randomizer, Boss Rando's fights and Entrance Rando's
+  game puts them in: the shops, Instrument Randomization, Chip Randomizer, Skip Tower Defense, Boss Rando's fights and Entrance Rando's
   doors, the last two only if the world's boss list and door data's hash are this build's (else it says so and leaves
   them as they are).
   The docs for the Archipelago website are in archipelago\dt3plus\docs.
@@ -388,16 +448,33 @@ Logic
   play: its jumps are a little weaker than the game's (95%), a landing on the very edge of a ledge doesn't count, and
   touching an item or exit has to be more than a brush.
 
+  A boss's fight takes what can hurt it (and for some, more: roomlogic\bosses.txt) and also a share of the game: it's
+  only in logic once that much of all the checks are in logic (green on the Check Tracker; the player needn't have
+  taken them), from 5% (Hyrule's palace bosses) to 75% (the CHAOS Warmaster); Bowser, Cackletta and Kamek need none.
+  So a seed never leaves a boss as the only way on to the next ability or key before that much of the game is open,
+  whichever door or boss shuffle it has; with Boss Rando the share goes with the boss. The room logic's reach counts
+  the checks, so every game's items are placed with it (the door data, data\rndER.txt), shuffled or not.
+
+  The underwater rooms (half or more of the room under water, and Gate 6's Water Caves: roomlogic\overrides.txt's
+  also lines) wait for a quarter of the 10 Air Upgrades (3) to be at places in logic: the player's air lasts 20
+  seconds at first, a second more for each. The Air Upgrades are placed before the abilities and keys, at random (as
+  the other items are), and the logic counts the ones at the places it gets to; the Check Tracker, the ones the player
+  has got. The spoiler log lists them with the abilities and keys, and gives every location's layer.
+
   The placement is in layers. Layer 1 is what jumping alone reaches from Central City. The abilities and keys go one at
   a time, each to a free place the ones placed before it reach, and each is (when there is one) an item that opens
   somewhere new: what it opens is the next layer. Of those, an item that opens fewer places is likelier (each kind by 1
-  over how many it opens), so the movement abilities, which open the most, tend to come later. Each goes to the newest
+  over how many it opens). The movement abilities (the dash, the air dash, the double jump, the first High Jump Boots)
+  come apart: each waits for its turn, a place in the order of placing at random between 0 and 12% of the abilities
+  and keys for the first, 17-37% for the second, 30-50% for the third and 50-70% for the fourth (rndgen.py's
+  MOVE_AT), and is the one placed at it. While one waits, another item goes, one that opens nothing yet if nothing else
+  opens anything (it goes early only if the places in logic wouldn't last). Each goes to the newest
   layer with a chance of 7 in 10 (Ability Spread: 3 Near, always Far), else the one before with that chance, and so
   on, so they spread out: a double jump near the start can open the way to a dash, which opens the way to the whip, and
   so on. With Guarantee Early Weapons, a new layer's first item is a weapon (above). The game can always be finished.
 
   Places the room logic can't work out (behind puzzles, timed rings or things it doesn't model, and the rewards of
-  bosses and tower defense) need everything: they never hold an ability or key. The Trial Master's trials' rewards
+  bosses and tower defense, but with Skip Tower Defense) need everything: they never hold an ability or key. The Trial Master's trials' rewards
   need the three cursed equipment pieces (which are placed with the logic, as the abilities are).
   locations.csv lists every place with what it needs.
 
@@ -405,7 +482,8 @@ Logic
   there and what each room's part needs; the room's file has the moves.
 
   Where the logic is wrong, roomlogic\overrides.txt changes it: what a way through a room needs (from a way in to a way
-  out or a place), what going through an exit needs, or where an exit leads. Everything past it is worked out again
+  out or a place), what going through an exit needs, where an exit leads, or that a place is out of logic (and why: the
+  Check Tracker shows it). Everything past it is worked out again
   with it (roomlogic\README.txt). As a last resort, logic.txt replaces what a single place (or every place in a room)
   needs, with alternatives separated by |, each the items it takes (djump, adash, gdash, hijump 2, mario, link 2,
   belmont 1, megaman 4, samus 6, gamej 1, gamec 1, varia, cursed 3, key 3: the key of the locked door whose objectNum is
@@ -420,7 +498,8 @@ Limits
     are its ice blocks and platform makers (one hit: all their platforms).
   - A bounce off a flying enemy (a Paratroopa, Lakitu, Bullet Bill, bat...) counts near where one starts (within a
     screen), once per jump, wherever in its flight it would be needed; the CHAOS soldiers can't be bounced off.
-  - A boss needs any attack; one that only some attacks can hurt could hold the game back.
+  - A boss needs what can hurt it, from its damage resistances (roomlogic\bosses.txt; a few fights need more, set by
+    hand), and its share of the checks in logic; a boss room bosses.txt doesn't name needs any attack.
   - The instruments, the Abomination and the Warmaster EX (Fedex) fight are the game's own.
   - The general store (oOtherShopA) sells what it does in the game; only the equipment shops are shuffled.
   - Story-only rooms that the endgame world doesn't reach (Tranquil Serenity and the like) have no places.

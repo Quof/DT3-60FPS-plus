@@ -16,6 +16,7 @@ if roGo>0
     ini_write_real("Randomizer","ir",global.rndOptIR)
     ini_write_real("Randomizer","chips",global.rndOptChips)
     ini_write_real("Randomizer","trapmins",global.rndOptSnare)
+    ini_write_real("Randomizer","skiptd",global.rndOptSkipTD)
     ini_write_real("Randomizer","log",global.rndOptLog)
     ini_close()
     rndNewGame()
@@ -24,6 +25,16 @@ if roGo>0
   exit
 }
 if gDeltaDoTicks != 1 { exit; }
+//Cancel: back to the title screen, as the game over screen's Title Screen goes (the title screen's own code starts it
+//afresh). The options stay as they are for the next new game this session; only Start Game writes them down
+if oKeyCodes.kCodePressed[16]=1
+{
+  playSound(global.snd_MenuCancel,0,1,1)
+  resetKeyCodes()
+  instance_destroy()
+  room_goto(rTitle)
+  exit
+}
 if oKeyCodes.kCodePressed[3]=1
 {
   playSound(global.snd_MenuCursor,0,1,1)
@@ -78,5 +89,6 @@ else if roCursor=8
   if i=0 {global.rndOptSnare=0} else if i=1 {global.rndOptSnare=2} else if i=2 {global.rndOptSnare=5} else {global.rndOptSnare=10}
   playSound(global.snd_MenuConfirm,0,0.95,1)
 }
-else if roCursor=9 {global.rndOptLog=1-global.rndOptLog; playSound(global.snd_MenuConfirm,0,0.95,1)}
-else if roCursor=10 and oKeyCodes.kCodePressed[15]=1 {roGo=1; playSound(global.snd_MenuConfirm,0,0.95,1)}
+else if roCursor=9 {global.rndOptSkipTD=1-global.rndOptSkipTD; playSound(global.snd_MenuConfirm,0,0.95,1)}
+else if roCursor=10 {global.rndOptLog=1-global.rndOptLog; playSound(global.snd_MenuConfirm,0,0.95,1)}
+else if roCursor=11 and oKeyCodes.kCodePressed[15]=1 {roGo=1; playSound(global.snd_MenuConfirm,0,0.95,1)}

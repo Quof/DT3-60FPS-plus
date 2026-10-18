@@ -12,7 +12,7 @@ for(i=0;i<global.modCount;i+=1)
 if p="" {return 0}
 f=file_text_open_read(p)
 if rndERReadS(f)!="RNDER" {file_text_close(f); return 0}
-if rndERRead(f)!=6 {file_text_close(f); return 0}
+if rndERRead(f)!=7 {file_text_close(f); return 0}
 global.rndEHash=rndERReadS(f)
 //the carried states (rb, water, crystal1-3): each one's number of values, its place in a state's number, whether it's
 //kept within some rooms (the Forest Palace's crystals: one more value outside them, parked)
@@ -97,8 +97,8 @@ for(i=0;i<global.rndEXN;i+=1)
   global.rndEXExC[i]=rndERRead(f)
   global.rndEXEnd[i]=rndERRead(f)
 }
-//events: their ways (1 a room got into, 2 an area: which; what else it takes; its mode: 0 always, 1 only without
-//Instrument Randomization, 2 only with it: rndERRun)
+//events: their ways (1 a room got into, 2 an area: which, 3 that many places got to: a share of the checks, a boss
+//fight's; what else it takes; its mode: 0 always, 1 only without Instrument Randomization, 2 only with it: rndERRun)
 global.rndEVN=rndERRead(f)
 for(i=0;i<global.rndEVN;i+=1)
 {
@@ -237,6 +237,8 @@ for(i=0;i<global.rndEEN;i+=1) {global.rndSSeen[i]=0; global.rndSLVis[i]=0}
 for(i=0;i<global.rndERN;i+=1) {global.rndSRoom[i]=0; global.rndRRoomIn[i]=0}
 for(i=0;i<global.rndEAreaN;i+=1) {global.rndRAreaIn[i]=0}
 for(i=0;i<global.rndELocN;i+=1) {global.rndSPlace[i]=0; global.rndRPlace[i]=0}
+global.rndRPlaceN=0 //(how many of them the reach has got to: rndERRun's events of the third kind)
+global.rndRAuOn=0 //(1 while rndGenerate's reach counts the Air Upgrades at the places it gets to: rndERTry)
 for(i=0;i<global.rndEDN;i+=1)
 {
   global.rndSFrontAt[i]=0
@@ -248,5 +250,6 @@ for(i=0;i<global.rndEDN;i+=1)
 for(i=0;i<global.rndEParkN;i+=1) {global.rndRParked[i]=0}
 //(this build's doors: a new game's; a save or an Archipelago world made with an earlier build's sets that: rndERAccept)
 rndERLayout(-1)
+rndERSeenMaps() //(the Check Tracker's Entrance Tracker's: rndERSeenArrive)
 global.rndELoaded=1
 return 1

@@ -17,13 +17,20 @@
 #       the room's file says.
 #   area <number> : <requirements>
 #       the same for every room of the area (a later room line can still change one of them).
+#   outoflogic <room> loc <place> : <why>
+#       that place out of logic, from every way in (as a place the logic doesn't reach: it never holds an ability or a
+#       key); the Check Tracker says why beside it ("Water level based").
+#   also <room> : <requirements>
+#       every way through the room needs this as well, on top of what the room's file and the lines here say (the
+#       underwater rooms' Air Upgrades).
 #
 # Requirements: alternatives separated by |, any one of which is enough; each a list (spaces or commas) of: djump,
 # adash, gdash, hijump N, mario, link N, belmont N, megaman N, samus N, gamej N, gamec N (that many of the item), varia
-# (the Varia Suit), cursed N (that many of the three cursed equipment pieces), key N (the key of the locked door whose
+# (the Varia Suit), cursed N (that many of the three cursed equipment pieces), air N (that many of the 10 Air Upgrades
+# got to: the logic counts the ones at places it gets to, as the items are placed), key N (the key of the locked door whose
 # objectNum is N: doors.csv), chip N (Program Chip N: the new game's option Chip Randomizer; with it off the player has
-# all six), attack (any ability set's attack), event NAME (events.txt), option NAME (only with that option on), nothing,
-# or never.
+# all six), attack (any ability set's attack), event NAME (events.txt), option NAME (only with that option on), pct N
+# (N% of all the checks in logic: bosses.txt's shares, which the room logic's reach counts), nothing, or never.
 #
 # Say why next to a change (a comment), so whoever reads it later knows. Examples (not in effect: they're comments):
 #   set rMain_62 in 48,1920 -> out 0,224 : djump megaman 2 | djump belmont 3
@@ -45,10 +52,12 @@ set rMega4_OstrichB in 48,240 -> loc heart energy 24 : djump
 set rMega4_OstrichD in 48,272 -> out 8720,224 : nothing
 set rMega4_OstrichD in 48,272 -> loc weapon upgrade 63 : nothing
 set rMega4_OstrichD in 48,272 -> loc heart piece 20 : djump
-# Sigma's bike room, the same way: the ride needs nothing; its heart piece the double jump
+# Sigma's bike room, the same way: the ride needs nothing; its heart piece the double jump. Its arrow quiver is up by
+# the door down to the room's end (out 7896,56), got to from the ride (the room's start, from the stage map) with the
+# Strike Chain; that door goes one way, so from the room's end (its other ways in) there's no way back to it
 set rMega4_SigmaA1 in * -> out 11504,368 : nothing
 add rMega4_SigmaA1 in * -> loc heart piece 22 : djump
-add rMega4_SigmaA1 in * -> loc arrow quiver 16 : nothing
+add rMega4_SigmaA1 in 80,592 -> loc arrow quiver 16 : megaman 4
 # Sigma's stages: SigmaB1 needs Mega Man's Gravity Well (its Gravity Well platforms); SigmaC3's crushing walls are
 # climbed by wall jumps, some needing the dash to kick off
 add rMega4_SigmaB1 in * -> out 3952,160 : megaman 3
@@ -98,18 +107,45 @@ room rGame6_WindI : djump
 room rGame6_WindJ : djump
 add rGame6_CoDB in * -> out 1904,272 : djump | adash
 add rGame6_CoDB in * -> loc game power 41 : djump | adash
-add rGame6_CoDF in * -> out 1904,336 : djump | adash
-add rGame6_CoDF in * -> out 0,656 : djump | adash
-add rGame6_CoDF in * -> out 864,-16 : djump | adash
-add rGame6_CoDF in * -> loc game power 45 : djump | adash
-add rGame6_CoDF in * -> loc game power 46 : djump | adash
+# rGame6_CoDF, door by door: its locked door 14 (at 448,304) shuts the ledge and steps of the way in from the left
+# (48,688, with the exit there) off from the rest, which the other three ways in are in (locked door 15, at 640,128 on
+# the top platform, is on one of its ways up; the latch crystals' are the others). Its game power 45 is in the lower left
+# cave, on the rest's side. From the left, the steps up to the locked door take the double jump
+add rGame6_CoDF in 736,976 -> out 1904,336 : djump | adash
+add rGame6_CoDF in 896,112 -> out 1904,336 : djump | adash
+add rGame6_CoDF in 48,688 -> out 1904,336 : djump key 14
+add rGame6_CoDF in 736,976 -> out 0,656 : djump key 14 | adash key 14
+add rGame6_CoDF in 1872,368 -> out 0,656 : djump key 14 | adash key 14
+add rGame6_CoDF in 896,112 -> out 0,656 : djump key 14 | adash key 14
+add rGame6_CoDF in 736,976 -> out 864,-16 : djump | adash
+add rGame6_CoDF in 1872,368 -> out 864,-16 : djump | adash
+add rGame6_CoDF in 48,688 -> out 864,-16 : djump key 14
+add rGame6_CoDF in 736,976 -> loc game power 45 : djump | adash
+add rGame6_CoDF in 1872,368 -> loc game power 45 : djump | adash
+add rGame6_CoDF in 896,112 -> loc game power 45 : djump | adash
+add rGame6_CoDF in 48,688 -> loc game power 45 : djump key 14
+add rGame6_CoDF in 736,976 -> loc game power 46 : djump | adash
+add rGame6_CoDF in 1872,368 -> loc game power 46 : djump | adash
+add rGame6_CoDF in 896,112 -> loc game power 46 : djump | adash
+add rGame6_CoDF in 48,688 -> loc game power 46 : djump key 14
 add rGame6_CoDS in * -> out 0,256 : djump | adash
 add rGame6_CoDS in * -> loc game power 50 : djump | adash
 add rGame6_CoDD in * -> out 1792,752 : djump | adash
 add rGame6_CoDG in * -> loc game power 47 : djump | adash
-add rGame6_CoDH in * -> out 1792,192 : djump | adash
-add rGame6_CoDH in * -> loc game power 48 : djump | adash
-add rGame6_CoDH in * -> loc key 16 : djump | adash
+# rGame6_CoDH, door by door: its locked door 16 (at 1680,160) is just inside the way in from the right (1760,224, with
+# the exit there), so everything else is on its other side: the key and the game power by the top left way in
+add rGame6_CoDH in 912,1008 -> out 1792,192 : djump key 16 | adash key 16
+add rGame6_CoDH in 48,128 -> out 1792,192 : djump key 16 | adash key 16
+add rGame6_CoDH in 48,976 -> out 1792,192 : djump key 16 | adash key 16
+add rGame6_CoDH in 912,1008 -> loc game power 48 : djump | adash
+add rGame6_CoDH in 48,128 -> loc game power 48 : djump | adash
+add rGame6_CoDH in 48,976 -> loc game power 48 : djump | adash
+add rGame6_CoDH in 1648,16 -> loc game power 48 : djump | adash
+add rGame6_CoDH in 1760,224 -> loc game power 48 : djump key 16 | adash key 16
+add rGame6_CoDH in 912,1008 -> loc key 16 : djump | adash
+add rGame6_CoDH in 48,976 -> loc key 16 : djump | adash
+add rGame6_CoDH in 1648,16 -> loc key 16 : djump | adash
+add rGame6_CoDH in 1760,224 -> loc key 16 : djump key 16 | adash key 16
 add rGame6_CoDI in * -> out 0,256 : djump | adash
 add rGame6_DreamWoodsE in * -> out 0,240 : djump | adash
 add rGame6_EarthA in * -> out 2544,192 : nothing
@@ -124,7 +160,11 @@ add rGame6_HeroPlainsE in * -> loc game power 4 : djump
 add rMountTemple_A in * -> out 1912,560 : nothing
 add rMountTemple_A in * -> loc internetz mod 1 : nothing
 add rMountTemple_G in * -> out 0,336 : nothing
-add rMountTemple_F in * -> loc air upgrade 7 : attack
+# rMountTemple_F: its air upgrade (between the spikes in the middle) takes Belmont's whip from the way in at the bottom
+# left, and can't be got to from the two at the top
+set rMountTemple_F in 48,928 -> loc air upgrade 7 : belmont 1
+set rMountTemple_F in 48,192 -> loc air upgrade 7 : never
+set rMountTemple_F in 1904,208 -> loc air upgrade 7 : never
 
 # The Hidden Program Facility: the double jump and the air dash, and an attack
 add rHPF_N in * -> out 2032,672 : djump adash attack
@@ -149,7 +189,10 @@ add rLeafCaveB in * -> loc heart piece 41 : attack
 add rLeafCaveB in * -> loc treasure chest 66 : attack
 add rMain_44_Curse in * -> loc treasure chest 48 : attack
 add rDesertedTowerA in * -> loc internetz mod 11 : attack
-add rDesertedTowerC in * -> loc arrow quiver 22 : attack
+# (rDesertedTowerC: from its lower way in on the right, 3552,272, the arrow quiver takes the double jump and Samus's Bombs)
+add rDesertedTowerC in 3552,224 -> loc arrow quiver 22 : attack
+add rDesertedTowerC in 3520,112 -> loc arrow quiver 22 : attack
+add rDesertedTowerC in 3552,272 -> loc arrow quiver 22 : djump samus 6
 
 # Magical Canopy (rMain_14): the sword bounces the player up when it hits an enemy in the air (takeDamage's aerial
 # bounce), so hitting the Bomb Dropper under the upper ledge gets the player back up onto the ledge with the door to
@@ -160,7 +203,8 @@ add rMain_14 in * -> out 8,320 : link 1
 add rMain_72 in * -> out 72,112 : adash attack | djump attack
 add rMain_72 in * -> out 1712,272 : adash attack | djump attack
 add rMain_72 in * -> loc treasure chest 72 : adash attack | djump attack
-add rMain_72 in * -> loc bomb upgrade 5 : adash attack | djump attack
+# (its bomb upgrade, at the room's top: the air dash, the double jump and the Strike Chain)
+add rMain_72 in * -> loc bomb upgrade 5 : adash djump megaman 4
 
 # The Trial Master's trials (the Challenge Arenas, and the last in Central City - South): a trial's reward shows once the
 # trial's done, and the trials need the three cursed equipment pieces on (cursed 3). The last one also takes five of
@@ -193,6 +237,15 @@ add rMC_K_Secret in * -> loc weapon upgrade 89 : djump mario
 add rMC_B in * -> out 1600,288 : samus 1 djump adash | megaman 1 djump adash
 add rMC_K in * -> out 0,384 : samus 1 adash djump
 add rLavaCaveA in * -> out 9584,256 : mario adash
+# Lava Cave 5 (rLavaCaveE): walking right onto the rock over the lava geyser (x 240 on) shuts the way back, and the
+# geyser carries the rock, and the player, up the shaft into its top exit (oEvCh18MainA); the room's file doesn't see
+# a platform the event moves
+add rLavaCaveE in 48,4128 -> out 192,-48 : nothing
+# Lava Peak (rMain_71), come into from that geyser (in 480,704, at the bottom of the pit in its floor): the room's event
+# pushes the player up out of the pit (oEvCh18MainA: 20 ticks at 20px a tick) and they land beside it, where the room's
+# other ways in get to everything with nothing
+set rMain_71 in 480,704 -> out 0,528 : nothing
+set rMain_71 in 480,704 -> out 48,336 : nothing
 # Farreaches - Hypothesis: bouncing off the Winged Melons
 add rMain_97 in * -> loc treasure chest 73 : mario
 add rMain_97 in * -> loc skill point 92 : mario
@@ -207,7 +260,9 @@ add rBubbleTowerA2 in * -> out 168,128 : link 3
 
 # Hyrule. Death Mountain: the blocks broken with bombs (Link's or Samus's) fall
 add rLink2_SPlains_A in * -> loc arrow quiver 6 : link 3 | samus 6
-add rLink2_PalaceW_6 in * -> loc air upgrade 2 : nothing
+# Water Palace 6's air upgrade: whether its nook can be got to goes by where the water is (the palace's water switches,
+# which the logic doesn't follow there), with nothing else needed; not at all from the closed chamber at the bottom left
+outoflogic rLink2_PalaceW_6 loc air upgrade 2 : Water level based
 add rLink2_PalaceA_8 in * -> out 2032,272 : nothing
 add rLink2_DeathMount_B_Secret in * -> loc internetz mod 4 : link 3 | samus 6
 
@@ -218,7 +273,9 @@ add rBelmont3_7B in * -> out 944,288 : belmont 1 djump | belmont 1 adash
 add rBelmont3_7B in * -> out 560,-16 : nothing
 add rBelmont3_6A in * -> loc weapon upgrade 34 : belmont 2
 add rBelmont3_7C in * -> loc weapon upgrade 35 : belmont 1
-add rBelmont3_5A in * -> out 1840,176 : adash megaman 4
+# (rBelmont3_5A: its secret door, at the top right, only from the way in at the top left; the way back out of the secret
+# room comes in beside it)
+add rBelmont3_5A in 48,192 -> out 1840,176 : adash megaman 4
 
 # Megapolis. Toxic Jungle D: the dash and wall jumps (the area has them). SigmaC2: the Gravity Well moves the Gravity
 # Well platform
@@ -232,12 +289,15 @@ add rVault_16 in * -> out 2016,272 : adash
 
 # The Research Facility (Gate 5). Its lava (oMetLava) only hurts up to gameProgress 2850, where the story gives the
 # Varia Suit, so it never hurts in a Randomizer game (the logic's rooms still count it as a hazard). rSamus5_Lv1_O:
-# hitting an enemy gives the air dash back. rSamus5_Lv1_V: the weapon upgrade is fallen onto from above.
-# rSamus5_Lv1_U: from the left, the Morph Ball gets under both pillars (the right one stands on legs) to the drop on the
-# right; the logic takes that pillar as solid to the step and goes over it
+# hitting an enemy gives the air dash back; its missile tank also takes Samus's Bombs. rSamus5_Lv1_V: the weapon upgrade
+# is fallen onto from above. rSamus5_Lv1_U: from the left, the Morph Ball gets under both pillars (the right one stands
+# on legs) to the drop on the right; the logic takes that pillar as solid to the step and goes over it.
+# rSamus5_Lv3_L: its missile tank (Bombs) also takes the air dash from the top way in, the High Jump Boots from the
+# bottom one. rSamus5_Lv3_M: from its bottom right way in, getting up into the rest of the room takes the High Jump Boots
+# and the Morph Ball; its weapon upgrade (in a bomb block) and morph bomb upgrade take the Bombs from either way in
 add rSamus5_Lv1_G in * -> loc treasure chest 43 : adash samus 2
 add rSamus5_Lv1_L in * -> loc treasure chest 44 : samus 2
-add rSamus5_Lv1_O in * -> loc missile tank 4 : gdash adash attack
+add rSamus5_Lv1_O in * -> loc missile tank 4 : gdash adash samus 6
 add rSamus5_Lv1_O in * -> out 1184,224 : gdash adash attack
 add rSamus5_Lv1_V in 360,80 -> loc weapon upgrade 114 : nothing
 add rSamus5_Lv1_U in 64,304 -> out 352,336 : samus 2
@@ -247,9 +307,13 @@ add rSamus5_Lv2_H in * -> out 0,976 : samus 7
 add rSamus5_Lv2_H in * -> out 464,976 : samus 7
 add rSamus5_Lv2_K in * -> loc missile tank 24 : hijump 1 samus 2
 add rSamus5_Lv3_O in * -> loc missile tank 11 : samus 6
-add rSamus5_Lv3_L in * -> loc missile tank 14 : samus 6
-add rSamus5_Lv3_M in * -> loc weapon upgrade 105 : samus 6
-add rSamus5_Lv3_M in * -> loc morph bomb upgrade 9 : samus 6
+add rSamus5_Lv3_L in 1056,224 -> loc missile tank 14 : adash samus 6
+add rSamus5_Lv3_L in 1056,1088 -> loc missile tank 14 : hijump 1 samus 6
+add rSamus5_Lv3_M in 64,432 -> loc morph bomb upgrade 9 : samus 6
+add rSamus5_Lv3_M in 1056,1008 -> out 0,400 : hijump 1 samus 2
+add rSamus5_Lv3_M in 1056,1008 -> loc weapon upgrade 105 : hijump 1 samus 6
+add rSamus5_Lv3_M in 1056,1008 -> loc morph bomb upgrade 9 : hijump 1 samus 6
+add rSamus5_Lv3_M in 1056,1008 -> loc 19 17 : hijump 1 samus 2
 add rSamus5_Lv4_B in * -> out 1904,256 : samus 7
 add rSamus5_EscapeB in * -> out 48,1376 : adash samus 7
 
@@ -261,7 +325,7 @@ add rSandCave in * -> loc arrow quiver 30 : nothing
 add rSandCave in * -> loc treasure chest 71 : adash
 add rMain_46 in * -> loc skill point 44 : link 3 adash
 add rMain_48 in * -> loc weapon upgrade 57 : megaman 4 adash samus 2
-add rMain_51 in * -> loc heart energy 27 : samus 5
+add rMain_51 in * -> loc heart energy 27 : samus 5 djump | samus 5 adash
 add rMain_52 in * -> loc internetz mod 12 : samus 5 adash
 add rMain_55 in * -> loc internetz mod 13 : samus 5 adash
 add rMain_54 in * -> loc skill point 98 : adash | djump
@@ -274,10 +338,15 @@ add rMain_26ExtA in * -> loc skill point 16 : nothing
 add rIceWindCaveA in * -> loc arrow quiver 29 : djump
 add rIceWindCaveA in * -> loc skill point 82 : djump
 add rIceWindCaveA in * -> out 600,160 : djump
-add rMain_61 in * -> loc weapon upgrade 8 : adash
+add rMain_61 in * -> loc weapon upgrade 8 : gdash adash
 add rMain_65 in * -> loc weapon upgrade 58 : megaman 4
-add rMain_66 in * -> loc skill point 62 : gdash
-add rMain_67 in * -> loc weapon upgrade 28 : djump adash
+add rMain_66 in * -> loc skill point 62 : gdash djump | gdash adash
+# (rMain_67, the Windy Slopes: from its bottom right way in, 3024,912, the way up is Shotgun Ice on the ice block, its
+# platforms, and the drop-down door to the room's top, which the room's file has; its weapon upgrade from there is the
+# way in at the top's)
+add rMain_67 in 1136,112 -> loc weapon upgrade 28 : djump adash
+add rMain_67 in 64,848 -> loc weapon upgrade 28 : djump adash
+add rMain_67 in 48,256 -> loc weapon upgrade 28 : djump adash
 add rMain_71 in * -> loc weapon upgrade 108 : link 3 adash djump
 
 # Initiate's Pass, the Grand Lower Cavity and the Highlands. rMain_73: Samus's Bombs (a Spring Ball jump also works, but
@@ -285,15 +354,23 @@ add rMain_71 in * -> loc weapon upgrade 108 : link 3 adash djump
 add rMain_2 in * -> loc skill point 84 : samus 2
 add rMain_73 in * -> loc internetz mod 18 : samus 6
 add rMain_79 in * -> loc skill point 93 : samus 2
-add rMain_80 in * -> loc skill point 71 : link 1 djump megaman 4
+add rMain_80 in * -> loc skill point 71 : link 1 djump adash megaman 4
 add rMain_81 in * -> out 3824,96 : megaman 4 adash
 
-# The Displaced Construction Site
+# The Displaced Construction Site. rDCS_F: its timed switches' barrier (oTimeSwBarrier, 1024,192) is gone when the
+# player comes in from the right (its code: global.newMapX 512 on), which the room's file doesn't see, so from there the
+# way left needs nothing; from the left it takes what the timed switches do. Its weapon upgrade, behind the switch
+# barriers at the top, takes Holy Water and the double jump or the air dash. rDCS_S: the weapon upgrade is in a nook
+# only the Morph Ball fits; from the right way in, the double jump does as well as the air dash. rDCS_T: its weapon
+# upgrade's weapon is Holy Water or Link's bombs
 add rDCS_D in * -> loc weapon upgrade 79 : link 3 djump
-add rDCS_F in * -> loc weapon upgrade 9 : belmont 3
+add rDCS_F in 48,320 -> loc weapon upgrade 9 : link 3 belmont 3 megaman 3 samus 5 adash | link 3 belmont 3 megaman 3 samus 5 djump
+add rDCS_F in 2672,352 -> loc weapon upgrade 9 : belmont 3 adash | belmont 3 djump
+set rDCS_F in 2672,352 -> out 0,288 : nothing
 add rDCS_L in * -> out 1936,256 : adash samus 2 | djump samus 2
-add rDCS_S in * -> loc weapon upgrade 109 : adash samus 2
-add rDCS_T in * -> loc weapon upgrade 49 : djump adash attack
+add rDCS_S in 128,256 -> loc weapon upgrade 109 : adash samus 2
+add rDCS_S in 4272,288 -> loc weapon upgrade 109 : adash samus 2 | djump samus 2
+add rDCS_T in * -> loc weapon upgrade 49 : djump adash belmont 3 | djump adash link 3
 
 # Gate 6 and the CHAOS Weapons Facility
 add rGame6_CoDO in * -> out 2368,336 : adash
@@ -325,9 +402,12 @@ add rMega4_SigmaB6 in * -> out 1904,160 : megaman 3 adash gdash
 # as steps; rSamus5_Lv4_G's weapon upgrade 116 is in a bomb block in a notch the logic doesn't get to: both left out,
 # as the room files have them)
 add rSamus5_Lv2_T in * -> loc weapon upgrade 94 : samus 6
-add rSamus5_Lv4_C in * -> loc weapon upgrade 96 : samus 6
-add rSamus5_Lv4_C in * -> out 1600,144 : samus 6
-add rSamus5_Lv2_P in * -> loc weapon upgrade 113 : djump samus 6
+# (rSamus5_Lv4_C: its weapon upgrade, and its way out on the right from the left, take the Bombs, the double jump and the
+# Super High Jump Boots. rSamus5_Lv2_P: its weapon upgrade takes the Bombs and the High Jump Boots from the top way in,
+# and can't be got to from the bottom one)
+set rSamus5_Lv4_C in * -> loc weapon upgrade 96 : djump hijump 2 samus 6
+set rSamus5_Lv4_C in 64,288 -> out 1600,144 : djump hijump 2 samus 6
+add rSamus5_Lv2_P in 416,192 -> loc weapon upgrade 113 : hijump 1 samus 6
 # Ridley's hatch (rSamus5_Lv4_N's way down to his fight: bosses.txt's via): the endgame world seals its Metroid door
 # (type 3 from gameProgress 3070), which the room's file has as never; the mod makes it a blue one while his place isn't
 # beaten (the roomStart hook). It's in the floor at the bottom of a shaft, so it's opened from above: Samus's bombs
@@ -371,3 +451,27 @@ need rMain_48Gate out 384,96 : chip 5
 need rMain_48Gate out 256,144 : chip 5
 need rMain_56Gate out 384,160 : chip 6
 need rMain_56Gate out 176,208 : chip 6
+
+# ---- The underwater rooms ----
+# Rooms mostly under water (the game's oWater: the player's air goes down while their head is in it, 20 seconds of it
+# at first and a second more for each Air Upgrade; out of air, the player drowns). Every way through one waits for a
+# quarter of the 10 Air Upgrades, 3, to be at places in logic (placed first, at random: rndGenerate counts the ones
+# its reach has got to; the Check Tracker, the ones the player has). By how much of the room the water covers: these
+# half or more, and Gate 6's three Water Caves
+also rMain_25 : air 3                # Begonia - Waterway Passage
+also rMain_25ExtA : air 3
+also rMain_26 : air 3                # Begonia - Watery Cave
+also rMain_26ExtA : air 3
+also rMountTemple_E : air 3          # Begonia - Mountain Temple 5-7
+also rMountTemple_F : air 3
+also rMountTemple_G : air 3
+also rSamus5_Lv3_I : air 3           # Access Gate 5's Maridia
+also rSamus5_Lv3_J : air 3
+also rSamus5_Lv3_K : air 3
+also rSamus5_Lv3_L : air 3
+also rSamus5_Lv3_M : air 3
+also rSamus5_Lv3_N : air 3
+also rSamus5_Lv3_O : air 3
+also rGame6_WaterCaveA : air 3       # Access Gate 6's Water Caves
+also rGame6_WaterCaveB : air 3
+also rGame6_WaterCaveC : air 3

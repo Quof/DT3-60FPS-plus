@@ -35,9 +35,12 @@ MODE_BITS = {"gates": 1, "area": 2, "chaos": 4}
 # (the area mode's bit, 2, was the overworld mode's, which it took the place of: a save's shuffle in either keeps its own
 # pairs, and the doors' data of the builds before it is in ER_LEGACY)
 # what a shuffle's world has, by the build its doors are from (bits; the mod's rndERFeat, rndERLayout): 1 exits
-# following an end (er.follows), 2 the Discombobulated's way in straight to its boss's room, 4 the Distortion played as
-# Jeremy's mech (its own doors left out). This build's: all of them
-ER_FEATURES = 7
+# following an end (er.follows: a map's room's other ways back to the map lead where the end now does), 2 the
+# Discombobulated's way in straight to its boss's room, 4 the Distortion played as Jeremy's mech (its own doors left
+# out). This build's: 2 and 4. The exits that followed an end lead where the game has them again (one way: the
+# roomStart hook's ONE WAY signs, er.one_way); a shuffle made with them keeps them (ER_LEGACY), and the data still has
+# them (exit_follow) for it
+ER_FEATURES = 6
 # earlier builds' doors whose saves (and Archipelago worlds) still load in this one: (their data's hash, how many ends
 # they had, what their world had: ER_FEATURES's bits, the identity of those ends and of the exits following them:
 # ends_identity). Their ends are this build's first ones, the same exits and ways back in, in the same order, and their
@@ -47,10 +50,12 @@ ER_FEATURES = 7
 # (Hyrule's and Gate 6's maps' exits following their doors, Forest 1's tile a door); of b54 (Gate 4's stages' ways
 # back); of b55 (the Subconscious Filter and the Discombobulated left out, Gate 5's Metroid doors paired with any); and
 # of the builds with the overworld mode, before the area mode took its place (their doors are these, in the overworld
-# mode's pool instead of the area mode's)
+# mode's pool instead of the area mode's); and of the builds with the area mode whose exits followed an end (the first
+# with the regions in the hash, then without them)
 ER_LEGACY = [("a0a71eea481c", 1450, 0, "a4fdb26f53a5"), ("ced7dfcf83e3", 1452, 1, "5d79a76132c0"),
              ("b867e3518338", 1500, 1, "3dd00421ca2d"), ("b49a72cdb1a9", 1500, 3, "3dd00421ca2d"),
-             ("bbc776d4e930", 1500, 7, "3dd00421ca2d")]
+             ("bbc776d4e930", 1500, 7, "3dd00421ca2d"), ("83720366892d", 1500, 7, "3dd00421ca2d"),
+             ("0d8768d021db", 1500, 7, "3dd00421ca2d")]
 # an end's class: what the shuffle pairs ends by (only ends of one class). Every end's is "" now (er.py's note above End:
 # a Metroid door in front of an exit, "attack" any weapon or "samus:4" missiles, used to keep its end to ends like it)
 DOOR_CLASSES = ["", "attack", "samus:4"]
@@ -82,6 +87,7 @@ def export(w, pairs, rows, bosses=(), follow=None):
     KB = rndgen.KEY_BASE
     f.KEY_BASE = KB
     f.EV_BASE = KB + 64
+    f.AIR = rndgen.AIR_IX     # (the Air Upgrades' requirement number: Reach's au_at)
     # groups and their values (a scoped group: one more value, parked)
     f.gnames = [g for g, v in w.conn.carried]
     gvals = {"rb": ["0", "1"], "water": ["1", "2", "3"]}
@@ -194,13 +200,14 @@ def export(w, pairs, rows, bosses=(), follow=None):
                 f.row_alts.append(alts(al))
             f.way_rows.append((rfirst, len(f.row_kind) - rfirst))
         f.entry_ways.append((first, len(ws)))
-    # events: each way (1 a room got into, 2 an area: which; what else it takes; its mode: 0 always, 1 only without
-    # Instrument Randomization, 2 only with it)
+    # events: each way (1 a room got into, 2 an area: which, 3 that many places got to: a share of the checks, er.World's
+    # pct events; what else it takes; its mode: 0 always, 1 only without Instrument Randomization, 2 only with it)
     f.ev_ways = []
     for name in evnames:
         if name in w.ev_modes:
             lst = []
             for kind, what, ex, mode in w.ev_modes[name]:
+                if kind == "places": lst.append((3, what, alts(ex), mode)); continue
                 lst.append((1 if kind == "room" else 2, rix[what] if kind == "room" else int(what), alts(ex), mode))
             f.ev_ways.append(lst)
         else:
@@ -222,14 +229,16 @@ def export(w, pairs, rows, bosses=(), follow=None):
             f.ends[a.i]["mode"] |= MODE_BITS[m]; f.ends[b.i]["mode"] |= MODE_BITS[m]
     f.exit_end = [-1] * len(f.exits)
     for d, e in enumerate(f.ends): f.exit_end[e["exit"]] = d
-    # (the exits that follow an end: in exit_end as their end's, which is how the logic and a new game's shuffle have
-    # them; the mod's data has them apart, exit_follow, for a shuffle made before them: ER_LEGACY)
+    # (the exits that follow an end: in exit_end as their end's while this build's world has them, ER_FEATURES 1, which
+    # is how the logic and a new game's shuffle would have them; the mod's data has them apart, exit_follow, for a
+    # shuffle made with them: ER_LEGACY)
     f.exit_end_own = list(f.exit_end)
     f.exit_follow = [-1] * len(f.exits)
     for (rm, o), e in sorted((follow or {}).items()):
         x = xix[(rm, o)]
         if f.exit_end[x] >= 0: raise SystemExit("erflat: %s out %s is an end's exit and follows another" % (rm, o))
-        f.exit_follow[x] = e.i; f.exit_end[x] = e.i
+        f.exit_follow[x] = e.i
+        if ER_FEATURES & 1: f.exit_end[x] = e.i
     # with everything, from each entry: the exits and places its ways get to (any state)
     f.ev_outs, f.ev_locs = [], []
     for (ri, inid) in f.entries:
@@ -304,11 +313,13 @@ class Reach:
     start, worked out as items are added. A row that can't be gone through yet waits under each requirement it lacks
     (wait), and is tried again only when one of them comes (add); single counts the rows one more of a requirement would
     let through (rndGenerate's choice of item). fight: Boss Rando's bosses, the boss fought at each boss's places (None:
-    each its own). ir: Instrument Randomization (the events' ways for it)"""
-    def __init__(self, f, part, have, fight=None, ir=False):
+    each its own). ir: Instrument Randomization (the events' ways for it). au_at: the places a seed's Air Upgrades are
+    at (fill's, placed before the rest): each one got to counts as one more had (f.AIR)"""
+    def __init__(self, f, part, have, fight=None, ir=False, au_at=None):
         self.f = f; self.part = part; self.have = have      # have: {number: count} (items, keys, events)
         self.fight = fight if fight is not None else list(range(f.boss_n))
         self.skip_mode = 1 if ir else 2
+        self.au_at = au_at or frozenset()
         self.seen = set(); self.queue = collections.deque()
         self.room_in = set(); self.places = set(); self.parked = set()
         self.cross = []
@@ -478,7 +489,11 @@ class Reach:
         if l1 is not None: self.block(inst, l1, True); return
         self.passed(inst)
         if kind == 2:
-            if t >= 0: self.places.add(t)
+            if t >= 0:
+                # (an Air Upgrade there: one more had, the rows waiting for them tried again as an event's are)
+                if t in self.au_at and t not in self.places:
+                    self.have[f.AIR] = self.have.get(f.AIR, 0) + 1; self.ev_new.append(f.AIR)
+                self.places.add(t)
         else:
             k = f.EV_BASE + t
             if self.have.get(k, 0) < 1: self.have[k] = 1; self.ev_new.append(k)
@@ -494,7 +509,9 @@ class Reach:
                 if self.have.get(k, 0) >= 1 or not ways: continue
                 for kind, what, (af, ac), mode in ways:
                     if mode == self.skip_mode: continue
-                    hit = (what in self.room_in) if kind == 1 else any(f.room_area[ri] == what for ri in self.room_in)
+                    if kind == 1: hit = what in self.room_in
+                    elif kind == 3: hit = len(self.places) >= what     # (a share of the checks: that many places)
+                    else: hit = any(f.room_area[ri] == what for ri in self.room_in)
                     if hit and self.ok(af, ac): self.have[k] = 1; self.ev_new.append(k); break
             if not self.ev_new: break
             todo, self.ev_new = self.ev_new, []
@@ -657,10 +674,10 @@ def fill(f, part, rows, items, rng, weapons=False, newest=0.7, fight=None, ir=Fa
     import rndgen
     N = len(rows)
     nreq = rndgen.KEY_BASE + 64
-    prog = [i for i, it in enumerate(items) if rndgen.prog_of(it, ir) > 0]
+    # (the Air Upgrades aren't among them: placed before them, below)
+    prog = [i for i, it in enumerate(items) if rndgen.prog_of(it, ir) > 0 and rndgen.prog_of(it, ir) != f.AIR]
     pix = [rndgen.prog_of(items[i], ir) for i in prog]
     done = [0] * len(prog)
-    reach = Reach(f, part, start_have(f, chips), fight, ir)
     layer = [-1] * N
     fill_ = [-1] * N
     # the Nightmare abilities first (rndgen.NIGHTMARE: not progression items), each at one of the story's ability
@@ -673,6 +690,18 @@ def fill(f, part, rows, items, rng, weapons=False, newest=0.7, fight=None, ir=Fa
             cand[j] = cand[-1]
             cand.pop()
     nightmare = {i for i in range(N) if fill_[i] >= 0}
+    # then the Air Upgrades, each at a free place the logic reaches, at random (as any item but an ability or key goes),
+    # as rndGenerate does: the reach counts the ones at places it's got to (au_at), which the underwater rooms need some
+    # of (overrides.txt's also lines)
+    cand = [i for i in range(N) if fill_[i] < 0 and rows[i]["req"] is not rndgen.EVERYTHING]
+    au_at = set()
+    for i, it in enumerate(items):
+        if rndgen.prog_of(it, ir) == f.AIR and cand:
+            j = int(rng.random() * len(cand))
+            fill_[cand[j]] = i; au_at.add(cand[j])
+            cand[j] = cand[-1]
+            cand.pop()
+    reach = Reach(f, part, start_have(f, chips), fight, ir, au_at)
     layw = set()
     every = [False]
     def mark(lay):
@@ -684,6 +713,10 @@ def fill(f, part, rows, items, rng, weapons=False, newest=0.7, fight=None, ir=Fa
         return new
     mark(0)
     cur = 0
+    # the movement abilities' turns (rndgen.MOVE_AT): the place in the order of placing each one waits for
+    n = len(prog)
+    move_at = [n * lo // 100 + int(rng.random() * (n * hi // 100 - n * lo // 100 + 1)) for lo, hi in rndgen.MOVE_AT]
+    moved = set()
     for placed in range(len(prog)):
         useful = [reach.single[ix] for ix in range(nreq)]
         pool_ = [1 - d for d in done]
@@ -695,23 +728,40 @@ def fill(f, part, rows, items, rng, weapons=False, newest=0.7, fight=None, ir=Fa
                 force = True
                 for k in range(len(prog)):
                     if pix[k] not in rndgen.WEAPONS: pool_[k] = 0
+        # a movement ability not placed yet waits for its turn: another item goes, one that opens something if there is one
+        # (else one that doesn't), unless none but movement abilities are left, or nothing else opens anything and the
+        # free places in logic wouldn't last till its turn. At its turn it's the one placed, if one opens something
+        mforce = False
+        if not force and len(moved) < len(move_at):
+            wait = [k for k in range(len(prog)) if pool_[k] == 1 and pix[k] in rndgen.MOVE and pix[k] not in moved]
+            rest = [k for k in range(len(prog)) if pool_[k] == 1 and k not in wait]
+            if placed < move_at[len(moved)]:
+                if rest and (any(useful[pix[k]] > 0 for k in rest) or
+                             sum(1 for i in range(N) if layer[i] >= 0 and fill_[i] < 0) > move_at[len(moved)] - placed):
+                    for k in wait: pool_[k] = 0
+            elif any(useful[pix[k]] > 0 for k in wait):
+                mforce = True
+                for k in range(len(prog)):
+                    if k not in wait: pool_[k] = 0
         cand = [k for k in range(len(prog)) if pool_[k] == 1 and useful[pix[k]] > 0]
         if cand:
+            # (a kind by 1 / how many it opens; at a movement ability's turn, each kind alike)
             seen, w = set(), 0.0
             for k in cand:
-                if pix[k] not in seen: seen.add(pix[k]); w += 1 / useful[pix[k]]
+                if pix[k] not in seen: seen.add(pix[k]); w += 1 if mforce else 1 / useful[pix[k]]
             r = rng.random() * w
             kind = pix[cand[-1]]
             seen = set()
             for k in cand:
                 if pix[k] not in seen:
                     seen.add(pix[k])
-                    r -= 1 / useful[pix[k]]
+                    r -= 1 if mforce else 1 / useful[pix[k]]
                     if r <= 0: kind = pix[k]; break
             cand = [k for k in cand if pix[k] == kind]
         else:
             cand = [k for k in range(len(prog)) if pool_[k] == 1]
         k = cand[int(rng.random() * len(cand))]
+        if pix[k] in rndgen.MOVE: moved.add(pix[k])
         if force: pick = cur
         else:
             pick, last = -1, -1
@@ -771,9 +821,10 @@ def write_data(f, path, base_places, room_label, hv):
     L = []
     def put(*vals): L.extend(str(v) for v in vals)
     def ends_hash(n, follows):
-        """the hash of the first n ends (and the exits that follow them). Not the area mode's bit: which of the ends
-        are in its pool is regions.txt's, which only changes the shuffles new games make, not how a made one is put
-        back, so a change there leaves the saves' and Archipelago worlds' shuffles loading"""
+        """the hash of the first n ends (and the exits that follow them), and what this build's world has
+        (ER_FEATURES: a shuffle made with another world's is put back with that one's, ER_LEGACY). Not the area
+        mode's bit: which of the ends are in its pool is regions.txt's, which only changes the shuffles new games make,
+        not how a made one is put back, so a change there leaves the saves' and Archipelago worlds' shuffles loading"""
         h = hashlib.md5()
         for d, e in enumerate(f.ends[:n]):
             x = f.exits[e["exit"]]
@@ -781,6 +832,7 @@ def write_data(f, path, base_places, room_label, hv):
             h.update(("%s|%s|%s|%d|%d;" % (f.rnames[x[0]], x[1], f.entries[e["back"]][1], mode, e["cls"])).encode())
         for xi, d in enumerate(follows):
             if d >= 0: h.update(("F|%s|%s|%d;" % (f.rnames[f.exits[xi][0]], f.exits[xi][1], d)).encode())
+        h.update(("W|%d;" % ER_FEATURES).encode())
         return h.hexdigest()[:12]
     digest = ends_hash(len(f.ends), f.exit_follow)
     # (an earlier build's doors: still this build's first ones, the same exits and ways in, with the exits that followed
@@ -791,7 +843,8 @@ def write_data(f, path, base_places, room_label, hv):
             raise SystemExit("erflat: the doors of an earlier build (hash %s, %d ends) aren't this build's first %d ends as they "
                              "were, so its saves' shuffles wouldn't load: keep the doors' order (new ones after), or take it "
                              "out of ER_LEGACY" % (lh, ln, ln))
-    L.append("RNDER"); put(6); L.append(digest)
+    # (7: the events' third kind, a share of the checks: a mod built before it can't read it)
+    L.append("RNDER"); put(7); L.append(digest)
     put(len(f.gnames))
     for gi in range(len(f.gnames)): put(len(f.gvals[gi]), f.gmult[gi], 1 if gi in f.scoped else 0)
     put(f.start_gs, f.gs_n, f.KEY_BASE, f.EV_BASE)
@@ -859,7 +912,7 @@ def build_data(rows, path, bosses=()):
     """everything rndgen needs for the mod: the tables written to path (data\\rndER.txt); returns (Flat, World, the
     ends' doors, the hash, the base places, everything's numbers). bosses: rndgen.boss_slots"""
     import rndgen
-    w = er.World()
+    w = er.World(checks=len(rows))
     have = er.all_items()
     allk = er.all_keys(w)
     base = er.reach_with(w, {}, {}, have, allk)
@@ -876,13 +929,13 @@ def build_data(rows, path, bosses=()):
 # ---------------------------------------------------------------- the check: the flat tables against er.py's own engine
 def main():
     import rndgen
-    w = er.World()
+    rows, items = rndgen.locations_items()[8:10]
+    w = er.World(checks=len(rows))
     have = er.all_items()
     allk = er.all_keys(w)
     base = er.reach_with(w, {}, {}, have, allk)
     pairs = er.doors(w.rooms, w.conn, set(base.rooms_in))
     fol = er.follows(pairs, w.rooms, w.conn, set(base.rooms_in))
-    rows, items = rndgen.locations_items()[8:10]
     f = export(w, pairs, rows, rndgen.boss_slots(rndgen.boss_list()), fol)
     print("tables: %d rooms, %d entries, %d ways, %d rows, %d alternatives, %d requirements, %d exits, %d events, %d ends, "
           "%d exits following one; gs %d"

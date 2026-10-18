@@ -6,7 +6,7 @@ p=argument1
 switch (k)
 {
   case 1: return "Heart Piece"
-  case 2: return string(p)+" Internetz"
+  case 2: return string(rndMoneyOf(p))+" Internetz" //(what it gives: rndMoneyOf)
   case 3: equipmentInit(2,p); return equipCheck[1]
   case 4: return "Arrow Quiver"
   case 5: return "Heart Energy Expansion"

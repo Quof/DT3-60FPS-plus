@@ -16,8 +16,20 @@
   // Chips: each Access Gate's portal (and the Nightmare Gate's beside it) takes its chip, in its exit's extra; roomChips
   // (a game made before that: the state's chipportals 0) has them as that game was made, going into a gate's rooms from
   // outside it taking its chip and the portals none. Returns the places got to, the rooms got into, the bosses' places
-  // whose fight was got through, and have with the events
-  DT3.reach = function (L, part, have0, fight, ir, follow, roomChips) {
+  // whose fight was got through, and have with the events.
+  // known (the Check Tracker's Entrance Tracker, or null): {seen, visit}, the state's erseen and ervisit (the mod's
+  // rndERSeenArrive: a character each, "1" the doors' ends found, the ways in visited). Then the reach goes only through
+  // the shuffled doors found and into the ways in visited (the start's too), and also returns, for each way in got to,
+  // the way in and exit it was got to from (parent: e -> [e, x], the start's null), the exits got to that are shuffled
+  // doors not found yet (unexplored) and the ways in got to that haven't been visited (unvisited).
+  // visit (or ""): the state's ervisit, the ways into rooms the player has come in by (the mod's rndVisitArrive, every
+  // game): once the start's reach is done, each of those it didn't get to is gone on from too (the player got there,
+  // however), with the start's carried states (a parent of null: where its way there starts).
+  // warps (or null): the state's Teleporting Stones activated, a string each network (0 the main world, 1-6 a gate:
+  // the game's warpMain, warpGate1-6), a character each stone: one got to (its room's rows of kind 4, tracker.py's
+  // stone_tables) is warped from to each other one of its network activated, into that one's own way in (the ways in
+  // after the logic's own, L.nEntries on: a parent of [e, -2], the way in it was touched from)
+  DT3.reach = function (L, part, have0, fight, ir, follow, roomChips, known, visit, warps) {
     var have = {}, k;
     for (k in have0) { have[k] = have0[k]; }
     var gN = L.gN, gmult = L.gmult, scoped = L.scoped, gsN = L.gsN, EV = L.EV;
@@ -56,15 +68,25 @@
     }
     var seen = new Set(), queue = [], qi = 0, roomIn = new Set(), places = new Set(), parked = new Set(), cross = [];
     var fought = new Set(), done = new Set(), blocked = [], evAdded = false;
-    function go(e, gs) {
+    var parent = new Map(), unexplored = new Set(), unvisited = new Set(), entryIn = new Set();
+    var nE = L.nEntries || L.entryRoom.length;
+    // (from: the way in and exit it's got to by, for known's parent. A stone's own way in needs no visit: the stone
+    // activated, the player has been there)
+    function go(e, gs, from) {
+      if (known && e !== L.start && e < nE && known.visit.charAt(e) !== "1") { unvisited.add(e); return; }
       var node = e * gsN + gs;
       if (seen.has(node)) { return; }
-      seen.add(node); roomIn.add(L.entryRoom[e]); queue.push(node);
+      seen.add(node); entryIn.add(e); roomIn.add(L.entryRoom[e]); queue.push(node);
+      if (known && !parent.has(e)) { parent.set(e, from || null); }
     }
+    // (-2: a shuffled door not found yet, known's)
     function dest(x, gs) {
       var d = L.exitEnd[x];
       if (d < 0 && follow) { d = L.exitFollow[x]; }
-      if (d >= 0 && part[d] >= 0) { return L.endBack[part[d]]; }
+      if (d >= 0 && part[d] >= 0) {
+        if (known && known.seen.charAt(d) !== "1") { return -2; }
+        return L.endBack[part[d]];
+      }
       if (L.exitSg[x] >= 0) { return L.exitSdest[x][gval(gs, L.exitSg[x])]; }
       return L.exitDest[x];
     }
@@ -80,6 +102,12 @@
           g2 = gset(g2, rc[j], leave % n); leave = Math.floor(leave / n);
         }
         var to = dest(t, g2);
+        // (a shuffled door not found yet: unexplored, if what gets to it and through it is had)
+        if (to === -2) {
+          if (ok(af, ac) && ok(L.exitExtra[2 * t], L.exitExtra[2 * t + 1], roomChips)) { done.add(key); unexplored.add(t); }
+          else { blocked.push(e, gs, q); }
+          return;
+        }
         if (to < 0) { return; }
         var tr = L.entryRoom[to], bf = -1, bc = 0, xf, xc, rs = -1, xs = L.exitSlot[t];
         // (a boss's room come into, or its via exit: the fight of the boss fought there)
@@ -96,29 +124,45 @@
         done.add(key);
         if (rs >= 0) { fought.add(rs); }
         if (xs >= 0) { fought.add(xs); }
-        // (the Forest Palace's crystals: left with, parked; gone back into, each value they were left with)
-        var aIn = L.roomScope[ri], bIn = L.roomScope[tr];
-        if (aIn && !bIn) {
-          var c = scode(g2);
-          if (!parked.has(c)) {
-            parked.add(c);
-            for (j = 0; j < cross.length; j += 2) { go(cross[j], unpark(cross[j + 1], c)); }
-          }
-          go(to, park(g2));
-        } else if (bIn && !aIn) {
-          cross.push(to, g2);
-          parked.forEach(function (c2) { go(to, unpark(g2, c2)); });
-        } else {
-          go(to, g2);
-        }
+        enter(to, g2, ri, tr, [e, t]);
         return;
       }
       if (!ok(af, ac)) { blocked.push(e, gs, q); return; }
       done.add(key);
+      if (kind === 4) { warpFrom(t, e, gs); return; }
       if (kind === 2) {
         if (t >= 0) { places.add(t); }
       } else if ((have[EV + t] || 0) < 1) {
         have[EV + t] = 1; evAdded = true;
+      }
+    }
+    // (into way in to of room tr from room ri, in state g2. The Forest Palace's crystals: left with, parked; gone back
+    // into, each value they were left with)
+    function enter(to, g2, ri, tr, from) {
+      var aIn = L.roomScope[ri], bIn = L.roomScope[tr], j;
+      if (aIn && !bIn) {
+        var c = scode(g2);
+        if (!parked.has(c)) {
+          parked.add(c);
+          for (j = 0; j < cross.length; j += 2) { go(cross[j], unpark(cross[j + 1], c)); }
+        }
+        go(to, park(g2), from);
+      } else if (bIn && !aIn) {
+        cross.push(to, g2);
+        parked.forEach(function (c2) { go(to, unpark(g2, c2), from); });
+      } else {
+        go(to, g2, from);
+      }
+    }
+    // (a Teleporting Stone touched from way in e: if activated, warped from to each other one of its network
+    // activated, its own way in)
+    function stoneOn(st) { return !!warps && (warps[st[0]] || "").charAt(st[1] - 1) === "1"; }
+    function warpFrom(s, e, gs) {
+      var st = L.stones[s];
+      if (!stoneOn(st)) { return; }
+      for (var k = 0; k < L.stones.length; k++) {
+        var s2 = L.stones[k];
+        if (k !== s && s2[0] === st[0] && stoneOn(s2)) { enter(s2[3], gs, L.entryRoom[e], s2[2], [e, -2]); }
       }
     }
     function expand(node) {
@@ -132,32 +176,145 @@
         var q1 = L.wayRows[2 * wy] + L.wayRows[2 * wy + 1];
         for (var q = L.wayRows[2 * wy]; q < q1; q++) { tryRow(e, gs, q); }
       }
+      // (the Teleporting Stones its way in gets to: rows of their own, in the same state as its ways')
+      var es = warps && L.entryStone ? L.entryStone[e] : null;
+      if (es) { for (j = 0; j < es.length; j += 2) { if (es[j + 1] === stc) { tryRow(e, gs, es[j]); } } }
+    }
+    // till nothing new: everything queued gone on from, then the events that now happen, then the rows that were
+    // stopped tried again (only an event can let one through now: the items don't change)
+    function run() {
+      for (;;) {
+        while (qi < queue.length) { expand(queue[qi++]); }
+        var areas = new Set();
+        roomIn.forEach(function (r) { areas.add(L.roomArea[r]); });
+        for (var v = 0; v < L.evWays.length; v++) {
+          var ways = L.evWays[v];
+          if (!ways.length || (have[EV + v] || 0) >= 1) { continue; }
+          for (var w = 0; w < ways.length; w += 5) {
+            if (ways[w + 4] === skip) { continue; }
+            // (1 a room got into, 2 an area, 3 that many places got to: a share of the checks, a boss fight's)
+            var hit = ways[w] === 1 ? roomIn.has(ways[w + 1]) : ways[w] === 3 ? places.size >= ways[w + 1] : areas.has(ways[w + 1]);
+            if (hit && ok(ways[w + 2], ways[w + 3])) { have[EV + v] = 1; evAdded = true; break; }
+          }
+        }
+        if (!evAdded) { break; }
+        evAdded = false;
+        var bl = blocked;
+        blocked = [];
+        for (var z = 0; z < bl.length; z += 3) { tryRow(bl[z], bl[z + 1], bl[z + 2]); }
+      }
     }
     // (the start is outside the Forest Palace: its crystals parked)
     parked.add(scode(L.startGs));
     go(L.start, park(L.startGs));
-    // till nothing new: everything queued gone on from, then the events that now happen, then the rows that were
-    // stopped tried again (only an event can let one through now: the items don't change)
-    for (;;) {
-      while (qi < queue.length) { expand(queue[qi++]); }
-      var areas = new Set();
-      roomIn.forEach(function (r) { areas.add(L.roomArea[r]); });
-      for (var v = 0; v < L.evWays.length; v++) {
-        var ways = L.evWays[v];
-        if (!ways.length || (have[EV + v] || 0) >= 1) { continue; }
-        for (var w = 0; w < ways.length; w += 5) {
-          if (ways[w + 4] === skip) { continue; }
-          var hit = ways[w] === 1 ? roomIn.has(ways[w + 1]) : areas.has(ways[w + 1]);
-          if (hit && ok(ways[w + 2], ways[w + 3])) { have[EV + v] = 1; evAdded = true; break; }
+    run();
+    // (the ways in the player has come in by that the start's reach didn't get to: gone on from too, a Forest Palace
+    // one with its crystals as a new game has them)
+    if (visit) {
+      var more = false, n = Math.min(visit.length, nE);
+      for (var e2 = 0; e2 < n; e2++) {
+        if (visit.charAt(e2) !== "1" || entryIn.has(e2)) { continue; }
+        go(e2, L.roomScope[L.entryRoom[e2]] ? L.startGs : park(L.startGs), null);
+        more = true;
+      }
+      if (more) { run(); }
+    }
+    return {places: places, roomIn: roomIn, fought: fought, have: have, parent: parent, unexplored: unexplored,
+            unvisited: unvisited, known: !!known};
+  };
+
+  // the Check Tracker's Entrance Tracker, from a known reach (DT3.reach's known): the way into one of some rooms (a
+  // screen's, by their names), through the ways in it got to, the shortest of them: {names: the rooms' names in order
+  // (where the way starts first, the room got into last; a room's several ways in after each other once; a Teleporting
+  // Stone warped to "Warp to [its number] <its room>"), fromStart: whether it starts at the start (else at a way in the
+  // player has come in by that the start's reach didn't get to)}, or null when it got into none of them
+  DT3.pathToRooms = function (D, R, rooms) {
+    var L = D.logic, want = {}, best = null, bestStart = false;
+    if (!R.parent) { return null; }
+    rooms.forEach(function (r) { want[r] = true; });
+    // (a way from the start before any shorter one from a way in the player has come in by: that one isn't in logic
+    // from the start, and a screen's other room or way in can have one that is)
+    R.parent.forEach(function (p, e) {
+      if (!want[L.rooms[L.entryRoom[e]]]) { return; }
+      var chain = [], x = e, guard = 0;
+      while (x !== null && x !== undefined && guard++ < 10000) {
+        chain.push(x);
+        var q = R.parent.get(x);
+        x = q ? q[0] : null;
+      }
+      var st = chain[chain.length - 1] === L.start;
+      if (!best || (st && !bestStart) || (st === bestStart && chain.length < best.length)) { best = chain; bestStart = st; }
+    });
+    if (!best) { return null; }
+    var names = [], last = null;
+    for (var i = best.length - 1; i >= 0; i--) {
+      var x = best[i], p = R.parent.get(x), rn = L.rooms[L.entryRoom[x]], nm = (D.roomName && D.roomName[rn]) || rn;
+      if (p && p[1] === -2) {
+        var num = "?";
+        (L.stones || []).forEach(function (s) { if (s[3] === x) { num = s[1]; } });
+        names.push("Warp to [" + num + "] " + nm);
+      } else if (last !== nm) { names.push(nm); }
+      last = nm;
+    }
+    return {names: names, fromStart: best[best.length - 1] === L.start};
+  };
+
+  // the Check Tracker's Entrance Tracker: the ways in got to from the start through the doors found and into the ways
+  // in visited (known, as DT3.reach's), whatever getting through each room takes (its ways' needs left out): where the
+  // player has got through once, in logic or not, for a way there out of logic. With the Teleporting Stones activated
+  // (warps, as DT3.reach's): one its room's way in gets to warped from to each other of its network activated.
+  // {parent} as DT3.reach's (DT3.pathToRooms)
+  DT3.knownWays = function (L, part, follow, known, warps) {
+    var parent = new Map(), queue = [L.start], qi = 0, nE = L.nEntries || L.entryRoom.length;
+    parent.set(L.start, null);
+    function stoneOn(st) { return !!warps && (warps[st[0]] || "").charAt(st[1] - 1) === "1"; }
+    // (where an exit leads: a shuffled door only once found; one whose place depends on a carried state, each)
+    function dests(x) {
+      var d = L.exitEnd[x];
+      if (d < 0 && follow) { d = L.exitFollow[x]; }
+      if (d >= 0 && part[d] >= 0) { return known.seen.charAt(d) === "1" ? [L.endBack[part[d]]] : []; }
+      if (L.exitSg[x] >= 0) { return L.exitSdest[x]; }
+      return [L.exitDest[x]];
+    }
+    while (qi < queue.length) {
+      var e = queue[qi++], w0 = L.entryWays[2 * e], w1 = w0 + L.entryWays[2 * e + 1];
+      for (var wy = w0; wy < w1; wy++) {
+        var q1 = L.wayRows[2 * wy] + L.wayRows[2 * wy + 1];
+        for (var q = L.wayRows[2 * wy]; q < q1; q++) {
+          if (L.rowKind[q] !== 1) { continue; }
+          var x = L.rowTarget[q], ds = dests(x);
+          for (var j = 0; j < ds.length; j++) {
+            var to = ds[j];
+            if (to < 0 || parent.has(to) || known.visit.charAt(to) !== "1") { continue; }
+            parent.set(to, [e, x]);
+            queue.push(to);
+          }
         }
       }
-      if (!evAdded) { break; }
-      evAdded = false;
-      var bl = blocked;
-      blocked = [];
-      for (var z = 0; z < bl.length; z += 3) { tryRow(bl[z], bl[z + 1], bl[z + 2]); }
+      var es = warps && L.entryStone && e < nE ? L.entryStone[e] : null;
+      for (var k = 0; es && k < es.length; k += 2) {
+        var st = L.stones[L.rowTarget[es[k]]];
+        if (!stoneOn(st)) { continue; }
+        for (var s = 0; s < L.stones.length; s++) {
+          var s2 = L.stones[s];
+          if (s2 === st || s2[0] !== st[0] || !stoneOn(s2) || parent.has(s2[3])) { continue; }
+          parent.set(s2[3], [e, -2]);
+          queue.push(s2[3]);
+        }
+      }
     }
-    return {places: places, roomIn: roomIn, fought: fought, have: have};
+    return {parent: parent};
+  };
+
+  // and the shuffled doors not found yet that the known reach got to, by room: {room's name: how many}
+  DT3.unexploredByRoom = function (D, R) {
+    var L = D.logic, out = {};
+    if (!R.unexplored) { return out; }
+    R.unexplored.forEach(function (x) {
+      var rn = L.rooms[L.exitRoom[x]];
+      out[rn] = (out[rn] || 0) + 1;
+    });
+    return out;
   };
 
   // ---------------------------------------------------------------- what the state says
@@ -178,6 +335,11 @@
     n = 0;
     for (i = 0; i < 8; i++) { if (ch(S.gate, i) === "9") { n++; } }
     if (n) { have[14] = n; }
+    // (the Air Upgrades got: the underwater rooms need some, requirement 15; the state's au, the game's own string,
+    // marked one a pickup)
+    n = 0;
+    for (i = 0; i < (S.au || "").length; i++) { if (S.au.charAt(i) === "1") { n++; } }
+    if (n) { have[15] = n; }
     for (i = 0; i < D.doors.length; i++) {
       if (ch(S.keys, D.doors[i] - 1) === "1") { have[D.logic.KB + D.doors[i]] = 1; }
     }
@@ -187,20 +349,25 @@
   };
 
   // each check's status (TAKEN, IN_LOGIC, OUT_OF_LOGIC) with the state's items and the seed's shuffles. cache (an
-  // object, optional): the reach is worked out again only when what it depends on has changed
-  DT3.evaluate = function (D, S, cache) {
+  // object, optional): the reach is worked out again only when what it depends on has changed. ent: the Check
+  // Tracker's Entrance Tracker, in a game with Entrance Rando: in logic only what the doors found and the ways in
+  // visited get to (DT3.reach's known; cache.R has the way to each check and the doors not found yet, cache.K the ways
+  // in got to through them whatever each room takes: DT3.knownWays)
+  DT3.evaluate = function (D, S, cache, ent) {
+    ent = !!ent && S.er > 0;
     var key = [S.own, S.equip, S.gate, S.keys, S.chips, S.chipportals, S.boss, S.er, S.erpart, S.erfollow, S.br, S.brfight,
-               S.ir].join("|");
+               S.ir, ent, ent ? S.erseen : "", S.ervisit, (S.warps || []).join("/")].join("|");
     if (!cache || cache.key !== key) {
-      var r = evalReach(D, S);
+      var r = evalReach(D, S, ent);
       cache = cache || {};
-      cache.key = key; cache.R = r.R; cache.every = r.every;
+      cache.key = key; cache.R = r.R; cache.every = r.every; cache.K = r.K;
     }
     var L = D.logic, R = cache.R, status = [], i;
     for (i = 0; i < D.locs.length; i++) {
       var loc = D.locs[i], ok;
       if (ch(S.got, i) === "1") { status.push(DT3.TAKEN); continue; }
-      if (loc.rule === 0) { ok = R.places.has(i); }
+      // (tower defense's reward, with Skip Tower Defense: there from the start, a place the room logic gets to)
+      if (loc.rule === 0 || (loc.td && S.skiptd > 0)) { ok = R.places.has(i); }
       else if (loc.rule === 1) { ok = (R.have[L.EV + loc.ev] || 0) >= 1 || ch(S.gate, loc.gate - 1) >= "8"; }
       else if (loc.rule === 2) { ok = R.places.has(i) && (R.fought.has(loc.slot) || ch(S.boss, loc.slot) === "1"); }
       else { ok = cache.every; }
@@ -209,7 +376,7 @@
     return status;
   };
 
-  function evalReach(D, S) {
+  function evalReach(D, S, ent) {
     var L = D.logic, i, nEnds = L.endBack.length;
     var have = DT3.haveOf(D, S);
     var part = [], fight = [];
@@ -222,11 +389,17 @@
     }
     fight = DT3.fights(D, S);
     var ir = S.ir > 0;
-    var R = DT3.reach(L, part, have, fight, ir, S.er > 0 && S.erfollow > 0, S.chipmode > 0 && S.chipportals !== 1);
+    var known = ent ? {seen: S.erseen || "", visit: S.ervisit || ""} : null;
+    // (and from the ways in the player has come in by: where they've been is in logic; and the Teleporting Stones they've
+    // activated, warped between)
+    var warps = S.warps && S.warps.length ? S.warps : null;
+    var R = DT3.reach(L, part, have, fight, ir, S.er > 0 && S.erfollow > 0, S.chipmode > 0 && S.chipportals !== 1, known,
+                      S.ervisit || "", warps);
     // (every progression item: what a check the logic gives no progression to is in logic with)
     var every = true, list = D.everything.concat(ir ? D.everythingIR : []);
     for (i = 0; i < list.length; i++) { if ((have[list[i][0]] || 0) < list[i][1]) { every = false; } }
-    return {R: R, every: every};
+    var K = known ? DT3.knownWays(L, part, S.er > 0 && S.erfollow > 0, known, warps) : null;
+    return {R: R, every: every, K: K};
   }
 
   // the boss fought at each boss's place (Boss Rando's shuffle; else each its own)
@@ -281,6 +454,7 @@
     if (S.br > 0) { out.push("Boss Rando"); }
     if (S.ir > 0) { out.push("Instrument Randomization"); }
     if (S.chipmode > 0) { out.push("Chip Randomizer"); }
+    if (S.skiptd > 0) { out.push("Skip Tower Defense"); }
     if (S.ap > 0) { out.push("Archipelago"); }
     return out;
   };

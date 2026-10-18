@@ -82,6 +82,15 @@ class Traps(Choice):
     minutes = {0: 0, 1: 5, 2: 2, 3: 10}
 
 
+class SkipTowerDefense(Toggle):
+    """
+    On: tower defense's six rewards (in Central City - North) are there to pick up from the start, as if you had won
+    it, and they're locations that can hold any item (abilities and keys too). Off: they're there once its levels are
+    won, and hold nothing the logic needs.
+    """
+    display_name = "Skip Tower Defense"
+
+
 class ShopEquipment(Choice):
     """
     Shuffled: the equipment shops' stock is shuffled between the shops. As Normal: each shop sells its own.
@@ -121,6 +130,7 @@ class DT3PlusOptions(PerGameCommonOptions):
     instrument_randomization: InstrumentRandomization
     chip_randomizer: ChipRandomizer
     traps: Traps
+    skip_tower_defense: SkipTowerDefense
     shop_equipment: ShopEquipment
     guarantee_early_weapons: GuaranteeEarlyWeapons
     ability_spread: AbilitySpread
@@ -129,6 +139,6 @@ class DT3PlusOptions(PerGameCommonOptions):
 
 
 option_groups = [
-    OptionGroup("Randomizer", [EntranceRando, BossRando, InstrumentRandomization, ChipRandomizer, Traps, ShopEquipment,
-                               GuaranteeEarlyWeapons, AbilitySpread]),
+    OptionGroup("Randomizer", [EntranceRando, BossRando, InstrumentRandomization, ChipRandomizer, Traps, SkipTowerDefense,
+                               ShopEquipment, GuaranteeEarlyWeapons, AbilitySpread]),
 ]

@@ -151,6 +151,19 @@ if global.location=49 //Gate 5 jump upgrades
 {
   if global.metJumpUpgrade=1 {initialJumpAcc=-7.8; jumpTimeTotal=28}
   else if global.metJumpUpgrade=2 {initialJumpAcc=-9.4; jumpTimeTotal=35}
+  //60fps change (added): the upgrades' own 60fps+ jump corrections, one set at 60fps and one at 120fps (the default ones
+  //are tuned for the standard jump: with them the Super High Jump Boots' jump went 3px over 30fps's at 60fps, the Bomb B
+  //boosted jumps 5-7px, the High Jump Boots' double jump 3px under). Also where oEvCh13MainA gives the upgrades
+  if global.metJumpUpgrade=1
+  {
+    if gDeltaTime<0.5 {jumpBodge60=1.077; jumpGravComp60=0.511; doubleJumpBodge60=0.97}
+    else {jumpBodge60=0.943; jumpGravComp60=-0.364; doubleJumpBodge60=1.012}
+  }
+  else if global.metJumpUpgrade=2
+  {
+    if gDeltaTime<0.5 {jumpBodge60=0.876; jumpGravComp60=-1.071; doubleJumpBodge60=0.954}
+    else {jumpBodge60=0.974; jumpGravComp60=-0.187; doubleJumpBodge60=0.992}
+  }
 }
 
 //Set the player in morph mode at map start

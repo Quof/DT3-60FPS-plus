@@ -56,6 +56,11 @@ with (oWaterVolume) {bSelfControl=!(global.location=49 or global.location=58)}
 //Randomizer's ways between rooms (Entrance Rando, its boss fights and the way back from them) can leave a split room for
 //one that doesn't, where swapping characters (pSwapCharacter) would look for a partner that isn't there
 if global.partySplit=1 and !instance_exists(oPlayerIdle) {global.partySplit=0}
+//saving (global.bCanSave) back on in a room the game doesn't keep it off in (rndNoSaveRoom). The game's places without
+//saving turn it back on by their own way out (the Vault's shifting rooms: the pause menu's Teleport to rVault_16), and
+//the Randomizer's other ways out (its Teleport, Entrance Rando's doors) left it off for good. Not in a boss fight (the
+//boss gallery's fights have it off)
+if global.bCanSave=0 and global.rndFight<0 and global.bBossGallery=0 {if !rndNoSaveRoom(room) {global.bCanSave=1}}
 //a character only some rooms make the player (Jeremy's mech, the Abomination's fights' one: rndCharRoom, the rooms
 //whose code switches to it), carried into a room that doesn't: back to Jerry or Claire, whichever was played last
 //(rndCharLast), with the player's own abilities (those rooms take the sets away). The story's way out of them goes
@@ -102,11 +107,12 @@ if instance_exists(oPlayer1)
     if tKeep=0 {charSwitcher(global.rndCharLast); rndAbilApply()}
   }
   if global.activeCharacter<2 {global.rndCharLast=global.activeCharacter}
-  //the Distortion (Hexor's rooms, rndMechRoom*: rndgen.py's MECH_ROOMS): the story has the player go through it as
-  //Jeremy's mech, which a scene before it makes them (the endgame world hasn't it); a Randomizer game makes them it as
-  //they come in, with its walking and jumping (its rooms keep it: rndCharRoom; any other room makes them their own
-  //character again, above). Not in a Chaos game whose shuffle is from a build before it (rndERFeat), which shuffled the
-  //Distortion's own doors, its logic's ways through them Jerry's and Claire's
+  //the rooms the story has the player go through as Jeremy's mech (rndMechRoom*: rndgen.py's MECH_ROOMS: the
+  //Distortion's, Hexor's, the Wasteland's before them, Warship Z's after the Warmaster), which a scene before them makes
+  //them (the endgame world hasn't it, and Entrance Rando and the Randomizer's warps come into them from anywhere); a
+  //Randomizer game makes them it as they come in, with its walking and jumping (its rooms keep it: rndCharRoom; any
+  //other room makes them their own character again, above). Not in a Chaos game whose shuffle is from a build before the
+  //Distortion's own doors were left out (rndERFeat), which shuffled them, its logic's ways through them Jerry's and Claire's
   if global.activeCharacter<2
   {
     var tMech,mc;
@@ -129,6 +135,9 @@ if global.location=49 and global.rndLastLoc!=49 and global.metCheckpoint[0]!=roo
   global.metCheckpoint[1]=global.newMapX
   global.metCheckpoint[2]=global.newMapY
 }
+//Gate 5 (the rSamus5_ rooms, rndGatePrefix): the hatch of the door the player came in by is opened, so they can always
+//go back out the way they came, whatever it takes (oRndHatchOpen: the hatches are made a step after the room starts)
+if string_pos(global.rndGatePrefix[5],room_get_name(room))=1 {instance_create(global.newMapX,global.newMapY,oRndHatchOpen)}
 global.rndLastLoc=global.location
 //(the trackers' state written again: the room the player's in, and after a new game, a load or a boss fight)
 global.rndTrackDirty=1
@@ -226,7 +235,24 @@ if global.rndERMode>0
   with (oMetEleExit) {rndERApplyExit()}
   with (oZeldaMapExit) {rndERApplyExit()}
   with (oGameMapExit) {rndERApplyExit()}
+  //a ONE WAY sign over the arrow of an exit that's one way (rndOneWay: going through it, no exit by where the player
+  //comes out leads back to it: a town's far side or a palace's way out after its boss, back to the map, a drop), so the
+  //shuffle's ways back aren't looked for through it (oRndOneWay)
+  var tOW;
+  with (oExit)
+  {
+    if ds_map_exists(global.rndOneWay,string(room)+":"+string(round(x))+","+string(round(y)))
+    {
+      tOW=instance_create(x,y,oRndOneWay)
+      tOW.exitId=id
+    }
+  }
+  //the way in the player came in by, and the door they came through, for the Check Tracker's Entrance Tracker
+  rndERSeenArrive()
 }
+//the way in the player came in by, in every game: the Check Tracker counts what the ways in they've used get to as in
+//logic (rndVisitArrive)
+rndVisitArrive()
 //a randomizer boss fight ended: the game went back to the boss gallery (rndBossEnd)
 if global.rndFight>=0 and room=rBossGallery {rndBossEnd(); exit}
 global.rndRoomBoss=-1
@@ -277,6 +303,31 @@ else if global.bBossGallery=0
         if variable_local_exists("npcElpizo") {with (npcElpizo) {instance_destroy()}}
       }
       if string_char_at(global.rndBossDone,b+1)="1" {rndRewardAt(global.rndBossGate[b],global.rndBossFX[b],global.rndBossFY[b]-24)}
+    }
+    //Gate 4's stages' ends, their boss rooms: the game's way back to the stage select from one whose stage is done (an
+    //exit its code makes where the boss stood, pressed Up at, unseen; the endgame world has every stage done) shows,
+    //once the boss's place there is beaten, as a portal: a warp gate, as Central City's Control Center has, standing on
+    //the floor below where the exit was (the first solid down from it), the exit's arrow over it
+    if string_char_at(global.rndBossDone,b+1)="1" and string_copy(room_get_name(room),1,7)="rMega4_"
+    {
+      var tFy;
+      with (oExit)
+      {
+        if toRoom=rMega4_Map and sprite_index=sExit
+        {
+          tFy=y-16
+          while tFy<y+96 and !collision_point(x+8,tFy,oSolid,false,true) {tFy+=1}
+          if tFy>=y+96 {tFy=y+32}
+          x+=8
+          y=tFy
+          sprite_index=sWarpGateStand
+          image_alpha=1
+          exitType=0
+          bShowArrow=true
+          arrowX=x
+          arrowY=y-80
+        }
+      }
     }
   }
   //the room a boss's fight is gone into by an exit from (rndBossViaFrom: Ridley's hatch in rSamus5_Lv4_N), that boss's

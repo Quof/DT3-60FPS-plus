@@ -2648,10 +2648,120 @@ static class Program
         Console.WriteLine("log: " + string.Join(" / ", room.Log));
     }
 
+    // RoomLogic.exe --stones <project> <rooms.txt> <out folder> <room>:<x>,<y>:<number>...: the Teleporting Stones'
+    // rooms, each as the main run has it with its stones in it too, each a place (type 98, its number: network*100 +
+    // its number in the teleport menu) and a way in (where warping to it puts the player), written as its room file to
+    // the out folder (the Check Tracker's ways there with the stones: stones.py, tracker.py; the logic doesn't read them)
+    static void Stones(string[] args)
+    {
+        Mask.Root = args[1];
+        Read(args[2]);
+        string outDir = Path.GetFullPath(args[3]);
+        Directory.CreateDirectory(outDir);
+        var byRoom = new Dictionary<string, List<int[]>>();
+        foreach (var a in args.Skip(4))
+        {
+            var p = a.Split(':'); var xy = p[1].Split(',');
+            List<int[]> l;
+            if (!byRoom.TryGetValue(p[0], out l)) { l = new List<int[]>(); byRoom[p[0]] = l; }
+            l.Add(new[] { int.Parse(xy[0]), int.Parse(xy[1]), int.Parse(p[2]) });
+        }
+        foreach (var kv in byRoom)
+        {
+            var rd = Rooms[RoomIx[kv.Key]];
+            foreach (var s in kv.Value)
+                rd.I.Add(new Inst { K = 'L', Spr = "sWarpStatue", X = s[0], Y = s[1], XS = 1, YS = 1, A = 0, F = new[] { "98", s[2].ToString(), "0", "teleporting stone " + s[2] } });
+            var room = new Room(rd);
+            var cf = new Dictionary<long, List<string>>();
+            Action<int, int, string> entry = (x, y, from) =>
+            {
+                room.Entries.Add(new[] { x, y });
+                List<string> l;
+                if (!cf.TryGetValue(Shape.Key(x, y), out l)) { l = new List<string>(); cf[Shape.Key(x, y)] = l; }
+                if (!l.Contains(from)) l.Add(from);
+            };
+            // (its ways in as the main run has them: every exit into it, its doors' and the start; then the stones')
+            foreach (var o in Rooms)
+                foreach (var it in o.I)
+                {
+                    if (it.K == 'X' && it.F[0] == rd.Name)
+                        entry((int)Math.Round(D(it.F[1])), (int)Math.Round(D(it.F[2])), o.Name + (it.F.Length > 4 && it.F[4] == "menu" ? "'s menu" : it.F.Length > 4 && it.F[4] == "encounter" ? "'s encounters" : " out " + (int)Math.Round(it.X) + "," + (int)Math.Round(it.Y)));
+                    if (it.K == 'D' && o == rd) entry((int)Math.Round(D(it.F[0])), (int)Math.Round(D(it.F[1])), "this room's door out " + (int)Math.Round(it.X) + "," + (int)Math.Round(it.Y));
+                }
+            if (rd.Name == StartRoom) entry(StartX, StartY, "the start of a new game");
+            foreach (var s in kv.Value) entry(s[0], s[1], "warping to Teleporting Stone " + s[2]);
+            try { if (rd.Groups.Count > 0) AnalyzeStates(room); else new Analyzer(room).Analyze(); }
+            catch (Exception e) { room.Log.Add("failed: " + e); }
+            string file;
+            try { file = RoomFile(room, cf); }
+            catch (Exception e) { room.Log.Add("failed: the room file: " + e); file = "# " + rd.Name + "\n"; }
+            if (room.Log.Any(l => l.StartsWith("failed"))) file = "# THE ANALYSIS FAILED: this file may be missing ways\n" + file;
+            File.WriteAllText(Path.Combine(outDir, rd.Name + ".txt"), file);
+            Console.WriteLine("{0}: {1} stone(s){2}", rd.Name, kv.Value.Count, room.Log.Any(l => l.StartsWith("failed")) ? ", FAILED: " + string.Join(" / ", room.Log) : "");
+        }
+    }
+
+    // RoomLogic.exe --probes <project> <rooms.txt> <out folder> <room>:<tag>:<x0>,<y0>,<x1>,<y1>...: rooms as the main run
+    // has them, each with boxes in it (spots: reaching one is touching it), written as their room files to the out folder:
+    // what getting from each way in to each box takes (a door's way in, the space around a place: perdoor.py, which checks
+    // overrides.txt's lines for a whole room door by door; the logic doesn't read them)
+    static void Probes(string[] args)
+    {
+        Mask.Root = args[1];
+        Read(args[2]);
+        string outDir = Path.GetFullPath(args[3]);
+        Directory.CreateDirectory(outDir);
+        var byRoom = new Dictionary<string, List<string[]>>();
+        foreach (var a in args.Skip(4))
+        {
+            var p = a.Split(':');
+            List<string[]> l;
+            if (!byRoom.TryGetValue(p[0], out l)) { l = new List<string[]>(); byRoom[p[0]] = l; }
+            l.Add(new[] { p[1], p[2] });
+        }
+        foreach (var kv in byRoom)
+        {
+            var rd = Rooms[RoomIx[kv.Key]];
+            foreach (var s in kv.Value)
+            {
+                var b = s[1].Split(',').Select(int.Parse).ToArray();
+                rd.I.Add(new Inst { K = 's', Spr = "sInvisibleSolidMask", X = b[0], Y = b[1], XS = (b[2] - b[0]) / 16.0, YS = (b[3] - b[1]) / 16.0, A = 0, F = new[] { s[0] } });
+            }
+            var room = new Room(rd);
+            var cf = new Dictionary<long, List<string>>();
+            Action<int, int, string> entry = (x, y, from) =>
+            {
+                room.Entries.Add(new[] { x, y });
+                List<string> l;
+                if (!cf.TryGetValue(Shape.Key(x, y), out l)) { l = new List<string>(); cf[Shape.Key(x, y)] = l; }
+                if (!l.Contains(from)) l.Add(from);
+            };
+            // (its ways in as the main run has them: every exit into it, its doors' and the start)
+            foreach (var o in Rooms)
+                foreach (var it in o.I)
+                {
+                    if (it.K == 'X' && it.F[0] == rd.Name)
+                        entry((int)Math.Round(D(it.F[1])), (int)Math.Round(D(it.F[2])), o.Name + (it.F.Length > 4 && it.F[4] == "menu" ? "'s menu" : it.F.Length > 4 && it.F[4] == "encounter" ? "'s encounters" : " out " + (int)Math.Round(it.X) + "," + (int)Math.Round(it.Y)));
+                    if (it.K == 'D' && o == rd) entry((int)Math.Round(D(it.F[0])), (int)Math.Round(D(it.F[1])), "this room's door out " + (int)Math.Round(it.X) + "," + (int)Math.Round(it.Y));
+                }
+            if (rd.Name == StartRoom) entry(StartX, StartY, "the start of a new game");
+            try { if (rd.Groups.Count > 0) AnalyzeStates(room); else new Analyzer(room).Analyze(); }
+            catch (Exception e) { room.Log.Add("failed: " + e); }
+            string file;
+            try { file = RoomFile(room, cf); }
+            catch (Exception e) { room.Log.Add("failed: the room file: " + e); file = "# " + rd.Name + "\n"; }
+            if (room.Log.Any(l => l.StartsWith("failed"))) file = "# THE ANALYSIS FAILED: this file may be missing ways\n" + file;
+            File.WriteAllText(Path.Combine(outDir, rd.Name + ".txt"), file);
+            Console.WriteLine("{0}: {1} box(es){2}", rd.Name, kv.Value.Count, room.Log.Any(l => l.StartsWith("failed")) ? ", FAILED: " + string.Join(" / ", room.Log) : "");
+        }
+    }
+
     static void Main(string[] args)
     {
         if (args.Length > 0 && args[0] == "--test") { Test(); return; }
+        if (args.Length > 0 && args[0] == "--probes") { Probes(args); return; }
         if (args.Length > 0 && args[0] == "--edges") { Edges(args); return; }
+        if (args.Length > 0 && args[0] == "--stones") { Stones(args); return; }
         if (args.Length > 0 && args[0] == "--draw") { Draw(args); return; }
         if (args.Length > 0 && args[0] == "--trace") { Trace(args); return; }
         Mask.Root = args[0];

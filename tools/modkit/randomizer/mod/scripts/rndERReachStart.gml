@@ -27,6 +27,7 @@ for(i=global.rndEEvBase;i<global.rndEReqN;i+=1) {global.rndGHave[i]=0}
 for(i=0;i<global.rndERN;i+=1) {global.rndRRoomIn[i]=0}
 for(i=0;i<global.rndEAreaN;i+=1) {global.rndRAreaIn[i]=0}
 for(i=0;i<global.rndELocN;i+=1) {global.rndRPlace[i]=0}
+global.rndRPlaceN=0
 for(i=0;i<global.rndEParkN;i+=1) {global.rndRParked[i]=0}
 //(the start is outside the Forest Palace: its crystals parked; their values as a new game starts are a parked set)
 global.rndRParked[rndERScoped(global.rndEStartGs)]=1

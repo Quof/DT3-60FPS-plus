@@ -30,11 +30,13 @@ class Reach:
     start, worked out as items are added. A row that can't be gone through yet waits under each requirement it lacks
     (wait), and is tried again only when one of them comes (add); single counts the rows one more of a requirement would
     let through (rndGenerate's choice of item). fight: Boss Rando's bosses, the boss fought at each boss's places (None:
-    each its own). ir: Instrument Randomization (the events' ways for it)"""
-    def __init__(self, f, part, have, fight=None, ir=False):
+    each its own). ir: Instrument Randomization (the events' ways for it). au_at: the places a seed's Air Upgrades are
+    at (fill's, placed before the rest): each one got to counts as one more had (f.AIR)"""
+    def __init__(self, f, part, have, fight=None, ir=False, au_at=None):
         self.f = f; self.part = part; self.have = have      # have: {number: count} (items, keys, events)
         self.fight = fight if fight is not None else list(range(f.boss_n))
         self.skip_mode = 1 if ir else 2
+        self.au_at = au_at or frozenset()
         self.seen = set(); self.queue = collections.deque()
         self.room_in = set(); self.places = set(); self.parked = set()
         self.cross = []
@@ -204,7 +206,11 @@ class Reach:
         if l1 is not None: self.block(inst, l1, True); return
         self.passed(inst)
         if kind == 2:
-            if t >= 0: self.places.add(t)
+            if t >= 0:
+                # (an Air Upgrade there: one more had, the rows waiting for them tried again as an event's are)
+                if t in self.au_at and t not in self.places:
+                    self.have[f.AIR] = self.have.get(f.AIR, 0) + 1; self.ev_new.append(f.AIR)
+                self.places.add(t)
         else:
             k = f.EV_BASE + t
             if self.have.get(k, 0) < 1: self.have[k] = 1; self.ev_new.append(k)
@@ -220,7 +226,9 @@ class Reach:
                 if self.have.get(k, 0) >= 1 or not ways: continue
                 for kind, what, (af, ac), mode in ways:
                     if mode == self.skip_mode: continue
-                    hit = (what in self.room_in) if kind == 1 else any(f.room_area[ri] == what for ri in self.room_in)
+                    if kind == 1: hit = what in self.room_in
+                    elif kind == 3: hit = len(self.places) >= what     # (a share of the checks: that many places)
+                    else: hit = any(f.room_area[ri] == what for ri in self.room_in)
                     if hit and self.ok(af, ac): self.have[k] = 1; self.ev_new.append(k); break
             if not self.ev_new: break
             todo, self.ev_new = self.ev_new, []
