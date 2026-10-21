@@ -6,6 +6,9 @@ if !variable_global_exists("rndLocN")
   rndData()
   rndOneWayData() //(the one way exits that show an arrow: their ONE WAY signs, the roomStart hook)
   rndVisitData() //(the room logic's ways into rooms, by where they put the player: rndVisitArrive)
+  rndLocData() //(each room's area: rndLocAhead)
+  global.rndLocPre=0
+  global.rndLocOld=0
   //each item's progression item (rndProgOf; -1: none)
   for(i=0;i<global.rndItemN;i+=1) {global.rndItemProg[i]=rndProgOf(global.rndItemKind[i],global.rndItemParam[i])}
   //each location's layer in the placement (rndGenerate; -1 till a new game's placed its items)
@@ -90,11 +93,16 @@ global.rndActive=0
 //on (the instruments are in the pool). rndReach: rndGenerate works out what the items reach from the rooms
 //(rndERReachStart: while a new game's seed with any of them is made)
 global.rndERMode=0
-//(the Check Tracker's Entrance Tracker's: the doors' ends found and the ways in visited, a character each, and the room
-//before this one's number in the door data: rndERSeenArrive; the ways in visited in every game, rndVisitArrive)
+//(the Check Tracker's Entrance Tracker's: the doors' ends found, the ways in visited and the exits that aren't doors'
+//ends gone through, a character each, and the room before this one's number in the door data: rndERSeenArrive; the
+//ways in visited in every game, rndVisitArrive)
 global.rndERSeen=""
 global.rndERVisit=""
+global.rndERExit=""
 global.rndERPrevRoom=-1
+//(the way in the player is in this room by and the states they came in with, rndVisitArrive)
+global.rndVisitIn=-1
+global.rndVisitCarry=""
 //the vending machines' hints (oVendingMachine): how many bought (the next one's price: rndHintCost), and the locations
 //hinted (a character each)
 global.rndHintN=0
@@ -131,6 +139,11 @@ global.rndFightRetRoom=rCCity_NorthA
 global.rndInRoom=rCCity_NorthA //where the player came into the room they're in (the roomStart hook): rndBossStart's way back
 global.rndInX=608
 global.rndInY=320
+global.rndPrevRoom=-1 //where they came into the room before it (-1: none since the game was started or loaded): the way back
+global.rndPrevX=0     //from a fight that would start again at once where they came into its room (rndBossStart)
+global.rndPrevY=0
+global.rndFightGrace=-1 //the boss place whose fight was just given up: it doesn't start again till the player's out of
+global.rndFightGraceNew=0 //where it starts, or in another room (rndBossEnd, oRndWatcher, the roomStart hook)
 global.rndFightLoseRoom=rCCity_NorthA
 global.rndFightLoseX=608
 global.rndFightLoseY=320

@@ -6,6 +6,12 @@ s="Randomizer"
 global.rndFight=-1
 global.rndFightSlot=-1
 global.rndFightLink=0
+//(nor has it a room the player came from, nor a boss's fight to start before the loaded room's start: the roomStart hook)
+global.rndInRoom=-1
+global.rndPrevRoom=-1
+global.rndFightGrace=-1
+global.rndRoomBoss=-1
+global.rndRoomWait=-1
 global.rndActive=ini_read_real(s,"active",0)
 if global.rndActive=1
 {
@@ -68,6 +74,14 @@ if global.rndActive=1
     global.rndERSeen=""
     n=ini_read_real(s,"erseens",0)
     for(i=0;i<n;i+=1) {global.rndERSeen+=ini_read_string(s,"erseen"+string(i),"")}
+    //(and the exits that aren't doors' ends gone through, if this build's list of exits is the one they were kept by; a
+    //save from before them has none yet)
+    global.rndERExit=""
+    if ini_read_string(s,"erexithash","")=global.rndExitHash
+    {
+      n=ini_read_real(s,"erexits",0)
+      for(i=0;i<n;i+=1) {global.rndERExit+=ini_read_string(s,"erexit"+string(i),"")}
+    }
     global.rndERPrevRoom=-1
   }
   //the ways into rooms the player has come in by (rndVisitArrive), if this build's list of them is the one they were

@@ -10,6 +10,7 @@ if global.rndFight>=0 and toRoom!=rBossGallery
   toRoom=rBossGallery
   newMapX=1032
   newMapY=496
+  rndLocAhead(toRoom)
   exit
 }
 //the same for one of the boss gallery's own fights (its doors' ones, its flag on and no randomizer fight): back to the
@@ -19,6 +20,7 @@ if global.bBossGallery=1 and global.rndFight<0 and room!=rBossGallery and toRoom
   toRoom=rBossGallery
   newMapX=1032
   newMapY=496
+  rndLocAhead(toRoom)
   exit
 }
 //the boss gallery left by its way out, not in a randomizer fight: its flag off, as the room that way out leads to in the
@@ -34,6 +36,7 @@ if b>=0
   toRoom=global.rndBossRoom[b]
   newMapX=global.rndBossX[b]
   newMapY=global.rndBossY[b]
+  rndLocAhead(toRoom)
   exit
 }
 //out of the room of a boss not beaten yet past it (an exit on the other side of where its fight starts from the side the
@@ -57,3 +60,5 @@ if global.rndRoomBoss>=0 and global.rndFight<0 and global.bBossGallery=0
 }
 //(a Highlands room is made as before the CHAOS Warship's attack: rndHLEnter)
 rndHLEnter(toRoom)
+//(Entrance Rando: into another area's room, global.location that area's before its instances are made: rndLocAhead)
+rndLocAhead(toRoom)

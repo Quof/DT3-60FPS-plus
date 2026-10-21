@@ -51,11 +51,12 @@ ER_FEATURES = 6
 # back); of b55 (the Subconscious Filter and the Discombobulated left out, Gate 5's Metroid doors paired with any); and
 # of the builds with the overworld mode, before the area mode took its place (their doors are these, in the overworld
 # mode's pool instead of the area mode's); and of the builds with the area mode whose exits followed an end (the first
-# with the regions in the hash, then without them)
+# with the regions in the hash, then without them); and of b75 to b105 (before CHAOS Weapons Facility 1's left door
+# was one, er.py's LATE_DOORS)
 ER_LEGACY = [("a0a71eea481c", 1450, 0, "a4fdb26f53a5"), ("ced7dfcf83e3", 1452, 1, "5d79a76132c0"),
              ("b867e3518338", 1500, 1, "3dd00421ca2d"), ("b49a72cdb1a9", 1500, 3, "3dd00421ca2d"),
              ("bbc776d4e930", 1500, 7, "3dd00421ca2d"), ("83720366892d", 1500, 7, "3dd00421ca2d"),
-             ("0d8768d021db", 1500, 7, "3dd00421ca2d")]
+             ("0d8768d021db", 1500, 7, "3dd00421ca2d"), ("b7a1573f59f3", 1500, 6, "b76d93768d49")]
 # an end's class: what the shuffle pairs ends by (only ends of one class). Every end's is "" now (er.py's note above End:
 # a Metroid door in front of an exit, "attack" any weapon or "samus:4" missiles, used to keep its end to ends like it)
 DOOR_CLASSES = ["", "attack", "samus:4"]

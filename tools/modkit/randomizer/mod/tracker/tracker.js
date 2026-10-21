@@ -17,11 +17,17 @@
   // (a game made before that: the state's chipportals 0) has them as that game was made, going into a gate's rooms from
   // outside it taking its chip and the portals none. Returns the places got to, the rooms got into, the bosses' places
   // whose fight was got through, and have with the events.
-  // known (the Check Tracker's Entrance Tracker, or null): {seen, visit}, the state's erseen and ervisit (the mod's
-  // rndERSeenArrive: a character each, "1" the doors' ends found, the ways in visited). Then the reach goes only through
-  // the shuffled doors found and into the ways in visited (the start's too), and also returns, for each way in got to,
-  // the way in and exit it was got to from (parent: e -> [e, x], the start's null), the exits got to that are shuffled
-  // doors not found yet (unexplored) and the ways in got to that haven't been visited (unvisited).
+  // known (the Check Tracker's Entrance Tracker, or null): {seen, exited}, the state's erseen and erexit (the mod's
+  // rndERSeenArrive: a character each, "1" the doors' ends found, and the exits that aren't doors' ends gone through; ""
+  // from a build before them). Then the reach goes through the shuffled doors found (either way: both ends of one gone
+  // through are found) and every exit that isn't a shuffled door, as the logic does, and stops at the shuffled doors not
+  // found yet: it gets to all the logic does that's on this side of them, and the ones it gets to (unexplored) are every
+  // door that can be gone through but hasn't been, so while the logic has the game won there's always a check got to or
+  // a door unexplored. The exits out of a room it goes through that haven't been gone through are unexplored too (a door
+  // the shuffle left where the game has it: its ends found; another exit, a pipe or a drop: erexit's, or the way in it
+  // leads to visited when nothing else leads there and it isn't the start), but a map's encounters and the ways back
+  // from their fights (data.js's exitNotDoor). It also returns, for each way in got to, the way in and exit it was got
+  // to from (parent: e -> [e, x], the start's null).
   // visit (or ""): the state's ervisit, the ways into rooms the player has come in by (the mod's rndVisitArrive, every
   // game): once the start's reach is done, each of those it didn't get to is gone on from too (the player got there,
   // however), with the start's carried states (a parent of null: where its way there starts).
@@ -29,10 +35,16 @@
   // the game's warpMain, warpGate1-6), a character each stone: one got to (its room's rows of kind 4, tracker.py's
   // stone_tables) is warped from to each other one of its network activated, into that one's own way in (the ways in
   // after the logic's own, L.nEntries on: a parent of [e, -2], the way in it was touched from)
-  DT3.reach = function (L, part, have0, fight, ir, follow, roomChips, known, visit, warps) {
+  // live (or null): {e, gs}, the way in the player is in their room by (the state's erin) and the carried states they
+  // came in with (its carry: the water's level, the red and blue switches', the crystals), as a state: gone on from too
+  // once the rest is done, whatever state the start's reach got there in (it can have got there another way). With
+  // live.only, from there alone and in that room alone (its own exits into itself gone through, the others not): then
+  // unexplored is the doors out of it got to from there that haven't been gone through (known's, as for the rest)
+  DT3.reach = function (L, part, have0, fight, ir, follow, roomChips, known, visit, warps, live) {
     var have = {}, k;
     for (k in have0) { have[k] = have0[k]; }
     var gN = L.gN, gmult = L.gmult, scoped = L.scoped, gsN = L.gsN, EV = L.EV;
+    var only = !!(live && live.only);
     var skip = ir ? 1 : 2;
     function gval(gs, gi) { return Math.floor(gs / gmult[gi]) % gN[gi]; }
     function gset(gs, gi, v) { return gs + (v - gval(gs, gi)) * gmult[gi]; }
@@ -68,12 +80,26 @@
     }
     var seen = new Set(), queue = [], qi = 0, roomIn = new Set(), places = new Set(), parked = new Set(), cross = [];
     var fought = new Set(), done = new Set(), blocked = [], evAdded = false;
-    var parent = new Map(), unexplored = new Set(), unvisited = new Set(), entryIn = new Set();
+    var parent = new Map(), unexplored = new Set(), entryIn = new Set();
     var nE = L.nEntries || L.entryRoom.length;
-    // (from: the way in and exit it's got to by, for known's parent. A stone's own way in needs no visit: the stone
-    // activated, the player has been there)
+    // (known's: whether an exit the reach goes through is a door not gone through yet. Not a map's encounter or the way
+    // back from its fight: L.exitNotDoor)
+    var arrivals = known ? arrivalsOf(L) : null;
+    function notThrough(x) {
+      if (L.exitNotDoor && L.exitNotDoor.charAt(x) === "1") { return false; }
+      var d = L.exitEnd[x];
+      if (d < 0 && follow) { d = L.exitFollow[x]; }
+      if (d >= 0) { return known.seen.charAt(d) !== "1"; }
+      if (known.exited.charAt(x) === "1") { return false; }
+      var ds = L.exitSg[x] >= 0 ? L.exitSdest[x] : [L.exitDest[x]];
+      for (var j = 0; j < ds.length; j++) {
+        var w = ds[j];
+        if (w >= 0 && w !== L.start && arrivals[w] === 1 && (visit || "").charAt(w) === "1") { return false; }
+      }
+      return true;
+    }
+    // (from: the way in and exit it's got to by, for known's parent)
     function go(e, gs, from) {
-      if (known && e !== L.start && e < nE && known.visit.charAt(e) !== "1") { unvisited.add(e); return; }
       var node = e * gsN + gs;
       if (seen.has(node)) { return; }
       seen.add(node); entryIn.add(e); roomIn.add(L.entryRoom[e]); queue.push(node);
@@ -120,6 +146,17 @@
         else { xf = L.exitExtra[2 * t]; xc = L.exitExtra[2 * t + 1]; }
         // (a roomChips game: into an Access Gate's rooms from outside it, its Program Chip)
         var g = L.roomGate[tr], chipOk = !roomChips || !(g && g !== L.roomGate[ri]) || (have[L.chipBase + g] || 0) >= 1;
+        // (known's: an exit out of the room not gone through yet is unexplored too, the reach going on through it; marked
+        // once the door itself can be got to and gone through, as a shuffled door is, whether or not the boss fight past
+        // it is in logic)
+        if (known && tr !== ri && ok(af, ac) && ok(L.exitExtra[2 * t], L.exitExtra[2 * t + 1], roomChips) && chipOk &&
+            notThrough(t)) { unexplored.add(t); }
+        // (live.only: an exit out of the room is marked, not gone through)
+        if (only && tr !== ri) {
+          if (ok(af, ac) && ok(L.exitExtra[2 * t], L.exitExtra[2 * t + 1], roomChips) && chipOk) { done.add(key); }
+          else { blocked.push(e, gs, q); }
+          return;
+        }
         if (!ok(af, ac) || !ok(bf, bc) || !ok(xf, xc, roomChips) || !chipOk) { blocked.push(e, gs, q); return; }
         done.add(key);
         if (rs >= 0) { fought.add(rs); }
@@ -204,13 +241,15 @@
         for (var z = 0; z < bl.length; z += 3) { tryRow(bl[z], bl[z + 1], bl[z + 2]); }
       }
     }
-    // (the start is outside the Forest Palace: its crystals parked)
+    // (the start is outside the Forest Palace: its crystals parked. Not with live.only, from the player's way in alone)
     parked.add(scode(L.startGs));
-    go(L.start, park(L.startGs));
-    run();
+    if (!only) {
+      go(L.start, park(L.startGs));
+      run();
+    }
     // (the ways in the player has come in by that the start's reach didn't get to: gone on from too, a Forest Palace
     // one with its crystals as a new game has them)
-    if (visit) {
+    if (visit && !only) {
       var more = false, n = Math.min(visit.length, nE);
       for (var e2 = 0; e2 < n; e2++) {
         if (visit.charAt(e2) !== "1" || entryIn.has(e2)) { continue; }
@@ -219,9 +258,30 @@
       }
       if (more) { run(); }
     }
+    // (the way in the player is in their room by, in the states they came in with: live's)
+    if (live && live.e >= 0 && live.e < nE) {
+      go(live.e, L.roomScope[L.entryRoom[live.e]] ? live.gs : park(live.gs), null);
+      run();
+    }
     return {places: places, roomIn: roomIn, fought: fought, have: have, parent: parent, unexplored: unexplored,
-            unvisited: unvisited, known: !!known};
+            known: !!known};
   };
+
+  // (how many ways lead into each way in: the exits that aren't doors' ends, into each of the ways in they lead to, and
+  // the doors' ends, into their ways back in; DT3.reach's known)
+  function arrivalsOf(L) {
+    if (L.arrivals) { return L.arrivals; }
+    var n = [], x, j;
+    for (j = 0; j < L.entryRoom.length; j++) { n.push(0); }
+    for (x = 0; x < L.exitRoom.length; x++) {
+      if (L.exitEnd[x] >= 0) { continue; }
+      var ds = L.exitSg[x] >= 0 ? L.exitSdest[x] : [L.exitDest[x]];
+      for (j = 0; j < ds.length; j++) { if (ds[j] >= 0) { n[ds[j]]++; } }
+    }
+    for (j = 0; j < L.endBack.length; j++) { if (L.endBack[j] >= 0) { n[L.endBack[j]]++; } }
+    L.arrivals = n;
+    return n;
+  }
 
   // the Check Tracker's Entrance Tracker, from a known reach (DT3.reach's known): the way into one of some rooms (a
   // screen's, by their names), through the ways in it got to, the shortest of them: {names: the rooms' names in order
@@ -259,9 +319,9 @@
     return {names: names, fromStart: best[best.length - 1] === L.start};
   };
 
-  // the Check Tracker's Entrance Tracker: the ways in got to from the start through the doors found and into the ways
-  // in visited (known, as DT3.reach's), whatever getting through each room takes (its ways' needs left out): where the
-  // player has got through once, in logic or not, for a way there out of logic. With the Teleporting Stones activated
+  // the Check Tracker's Entrance Tracker: the ways in got to from the start through the doors found and the exits that
+  // aren't shuffled doors (known, as DT3.reach's), whatever getting through each room takes (its ways' needs left out):
+  // where the player has got through once, in logic or not, for a way there out of logic. With the Teleporting Stones activated
   // (warps, as DT3.reach's): one its room's way in gets to warped from to each other of its network activated.
   // {parent} as DT3.reach's (DT3.pathToRooms)
   DT3.knownWays = function (L, part, follow, known, warps) {
@@ -285,7 +345,7 @@
           var x = L.rowTarget[q], ds = dests(x);
           for (var j = 0; j < ds.length; j++) {
             var to = ds[j];
-            if (to < 0 || parent.has(to) || known.visit.charAt(to) !== "1") { continue; }
+            if (to < 0 || parent.has(to)) { continue; }
             parent.set(to, [e, x]);
             queue.push(to);
           }
@@ -350,17 +410,20 @@
 
   // each check's status (TAKEN, IN_LOGIC, OUT_OF_LOGIC) with the state's items and the seed's shuffles. cache (an
   // object, optional): the reach is worked out again only when what it depends on has changed. ent: the Check
-  // Tracker's Entrance Tracker, in a game with Entrance Rando: in logic only what the doors found and the ways in
-  // visited get to (DT3.reach's known; cache.R has the way to each check and the doors not found yet, cache.K the ways
-  // in got to through them whatever each room takes: DT3.knownWays)
+  // Tracker's Entrance Tracker, in a game with Entrance Rando: in logic only what the logic gets to without going
+  // through a shuffled door not found yet (DT3.reach's known; cache.R has the way to each check and the doors not found
+  // yet that can be gone through, cache.K the ways in got to through the doors found whatever each room takes:
+  // DT3.knownWays, cache.H the doors of the player's room got to from the way in they came in by and not gone through:
+  // a Set of exits, or null)
   DT3.evaluate = function (D, S, cache, ent) {
     ent = !!ent && S.er > 0;
     var key = [S.own, S.equip, S.gate, S.keys, S.chips, S.chipportals, S.boss, S.er, S.erpart, S.erfollow, S.br, S.brfight,
-               S.ir, ent, ent ? S.erseen : "", S.ervisit, (S.warps || []).join("/")].join("|");
+               S.ir, ent, ent ? S.erseen : "", ent ? S.erexit : "", S.ervisit, (S.warps || []).join("/"), S.erin,
+               JSON.stringify(S.carry || null)].join("|");
     if (!cache || cache.key !== key) {
       var r = evalReach(D, S, ent);
       cache = cache || {};
-      cache.key = key; cache.R = r.R; cache.every = r.every; cache.K = r.K;
+      cache.key = key; cache.R = r.R; cache.every = r.every; cache.K = r.K; cache.H = r.H;
     }
     var L = D.logic, R = cache.R, status = [], i;
     for (i = 0; i < D.locs.length; i++) {
@@ -389,17 +452,39 @@
     }
     fight = DT3.fights(D, S);
     var ir = S.ir > 0;
-    var known = ent ? {seen: S.erseen || "", visit: S.ervisit || ""} : null;
+    var known = ent ? {seen: S.erseen || "", exited: S.erexit || ""} : null;
     // (and from the ways in the player has come in by: where they've been is in logic; and the Teleporting Stones they've
     // activated, warped between)
     var warps = S.warps && S.warps.length ? S.warps : null;
-    var R = DT3.reach(L, part, have, fight, ir, S.er > 0 && S.erfollow > 0, S.chipmode > 0 && S.chipportals !== 1, known,
-                      S.ervisit || "", warps);
+    var follow = S.er > 0 && S.erfollow > 0, roomChips = S.chipmode > 0 && S.chipportals !== 1;
+    var R = DT3.reach(L, part, have, fight, ir, follow, roomChips, known, S.ervisit || "", warps, liveOf(L, S));
+    // (the Entrance Tracker: the doors of the room the player is in that they can get to from the way in they came in
+    // by, in the states they came in with, and haven't been through: DT3.reach's live.only, with what the reach has, its
+    // events too)
+    var H = null, live = liveOf(L, S);
+    if (known && live && L.rooms[L.entryRoom[live.e]] === S.room) {
+      live.only = true;
+      H = DT3.reach(L, part, R.have, fight, ir, follow, roomChips, known, S.ervisit || "", null, live).unexplored;
+    }
     // (every progression item: what a check the logic gives no progression to is in logic with)
     var every = true, list = D.everything.concat(ir ? D.everythingIR : []);
     for (i = 0; i < list.length; i++) { if ((have[list[i][0]] || 0) < list[i][1]) { every = false; } }
     var K = known ? DT3.knownWays(L, part, S.er > 0 && S.erfollow > 0, known, warps) : null;
-    return {R: R, every: every, K: K};
+    return {R: R, every: every, K: K, H: H};
+  }
+
+  // (DT3.reach's live, from the state's erin and carry: the start's carried states with the ones the player came in
+  // with; null without them, from a build before them)
+  function liveOf(L, S) {
+    if (typeof S.erin !== "number" || S.erin < 0 || !S.carry || !L.gNames) { return null; }
+    var gs = L.startGs;
+    for (var gi = 0; gi < L.gNames.length; gi++) {
+      var v = S.carry[L.gNames[gi]];
+      if (v === undefined) { continue; }
+      var k = L.gVals[gi].indexOf(String(v));
+      if (k >= 0) { gs += (k - Math.floor(gs / L.gmult[gi]) % L.gN[gi]) * L.gmult[gi]; }
+    }
+    return {e: S.erin, gs: gs};
   }
 
   // the boss fought at each boss's place (Boss Rando's shuffle; else each its own)

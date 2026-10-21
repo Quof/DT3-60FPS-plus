@@ -1,19 +1,20 @@
 //Randomizer: whether a chest location's item makes the chest sparkle, as the game's equipment chests do (argument0: the
-//location's number): anything but Internetz; in an Archipelago game, another world's item too
-//var id;
-var tId; //bug fix (not a 60fps change): tId, not id: GameMaker's own instance id can't be a var, so the script didn't compile and the game left it out
+//location's number): a progression item (rndProgOf: an ability or set, a key, an Air Upgrade, a cursed piece, a Program
+//Chip...) or a trap item. In an Archipelago game another world's item when
+//it's progression (its flags' bit 1), and one not scouted yet
+var tId,k,p;
 if global.rndAP=1
 {
-  if global.rndApLocKnown[argument0]=1
-  {
-    if global.rndApLocOwn[argument0]=1
-    {
-      //id=global.rndApLocItem[argument0]-global.rndApBase
-      //return (id div 10000)!=2
-      tId=global.rndApLocItem[argument0]-global.rndApBase //bug fix: tId (see the var line)
-      return (tId div 10000)!=2 //bug fix: tId
-    }
-  }
-  return 1
+  if global.rndApLocKnown[argument0]!=1 {return 1}
+  if global.rndApLocOwn[argument0]!=1 {return (global.rndApLocFlags[argument0] & 1)=1}
+  tId=global.rndApLocItem[argument0]-global.rndApBase
+  k=tId div 10000
+  p=tId mod 10000
 }
-return global.rndItemKind[rndPlaced(argument0)]!=2
+else
+{
+  tId=rndPlaced(argument0)
+  k=global.rndItemKind[tId]
+  p=global.rndItemParam[tId]
+}
+return rndProgOf(k,p)>=0 or k=29

@@ -184,17 +184,29 @@ overrides.txt's lines (the file explains them too):
   also <room> : <requirements>
       every way through the room needs this as well, on top of the rest (the underwater rooms: "air 3", 3 of the Air
       Upgrades, which the reach counts at the places it gets to while the mod places the items, rndGenerate)
+  only <room> : <items>
+      the room's code takes the player's other abilities and sets away (the CHAOS Warship's last rooms and Warship Z:
+      "djump mario"), so a way through it that needs any other item isn't one; keys and events stay as they are
 
-overrides.txt has these for what the simulation can't work out: the Nightmare Gates (an area line each), the CHAOS
-Warship, the Hidden Program Facility, the bike rides, Gate 6's wind temple (a room line each) and latch crystals, rails
-and the travel cannon. Timed switch barriers (roomdata.py's TIMED_SWITCH) need what the timed
-switches take between them: the Gravity Well, Link's bombs, Belmont's whip and dagger, the Spazer Beam.
+overrides.txt has these for what the simulation can't work out: the Nightmare Gates (an area line each), the Hidden
+Program Facility, the bike rides, Gate 6's wind temple (a room line each) and latch crystals, rails and the travel
+cannon, and in the CHAOS Warship what its rooms' code changes by the way in (below), the bike, rWarshipM's key
+controller and the rooms that take abilities away; its ways the simulation finds none for need what the whole Warship
+took before (every movement ability and every attack) till they're checked in the game. (The Warship's Screw War
+Turrets make a solid to stand on as they're made: roomdata.py has them, rWarshipG's gap is crossed on them.) Timed switch barriers
+(roomdata.py's TIMED_SWITCH) need what the timed switches take between them: the Gravity Well, Link's bombs, Belmont's
+whip and dagger, the Spazer Beam; one whose creation code turns its switches on once the story's past a point (the
+CHAOS Warship's, Super Falls' rSF_H) is gone in the Randomizer's world.
 
 What the simulation doesn't see: objects whose creation code reads where the player came in (global.newMapX and
 newMapY), counted as there whichever way in it is. Most are the way back opened for whoever comes from the far side: a
 barrier or block gone (rDCS_F's timed switches' barrier, rVault_9's, rMario1_2's blocks, rCCity_CCC's wrench blocks,
-rGame6_FireA's, rWarshipH's, rWarshipI's), switches on already (rDCS_T, rWepFacI); a way through those needs an
-overrides.txt line (rDCS_F has one).
+rGame6_FireA's, rWarshipE's, rWarshipG's, rWarshipK's colored switches and barriers, rWarshipH's bike barrier),
+switches on already (rDCS_T, rWepFacI), and in the CHAOS Warship's two-floor rooms (rWarshipA, rWarshipB) the idle
+partner put on the other floor; a way through those needs an overrides.txt line (rDCS_F and the Warship's have them,
+worked out by running RoomLogic.exe on the room with the objects as that way in has them). Nor a key controller a
+room's code makes (oEvKeyControl), which takes out the room's colored switches, barriers, keys and locks once the
+story's past its progCheck: rWarshipM's has its overrides.txt lines.
 
 Say why in a comment next to each change. Examples:
 
@@ -376,7 +388,8 @@ shuffle is by the ends' order: erflat.py's ER_LEGACY, the earlier builds' doors 
 exits back to a map that come out where an end's exit does (er.follows: a town's far side, a palace's way out after
 its boss, a place of several rooms' last one) lead where the game has them: one way, signed ONE WAY with Entrance Rando
 (er.one_way: every exit that, gone through, has no exit by where the player comes out leading back to it; rndgen.py
-writes the ones that show an arrow, the roomStart hook puts the signs over them). The builds before had them follow
+writes the ones that show an arrow and the pipes, where their creation code moves them to, and the roomStart hook puts
+the signs over them, a pipe's in the middle above it). The builds before had them follow
 that end, leading where it now leads, in the logic (exit_end) and the game (rndERMapBuild); a shuffle made with them
 keeps that (erflat.py's ER_FEATURES 1, ER_LEGACY), and the data has them apart for it (exit_follow). A crossing's far exit (a bridge's or a pass's, out across a river or a
 mountain) comes out elsewhere on the map, so it stays the game's: nothing leads into the room there to pair it with.

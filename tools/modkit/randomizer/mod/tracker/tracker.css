@@ -131,13 +131,20 @@ body {
   font-weight: 600;
   margin: 0 0 5px;
   display: flex;
-  gap: 8px;
+  flex-wrap: wrap;
+  gap: 2px 8px;
   align-items: baseline;
 }
 .screen h2 .count { margin-left: auto; font-weight: 400; font-size: 11px; color: var(--dim); white-space: nowrap; }
-.screen h2 .tag { font-weight: 400; font-size: 11px; color: var(--here); }
+.screen h2 .tag { font-weight: 400; font-size: 11px; color: var(--here); white-space: nowrap; }
 /* the Entrance Tracker's: the doors not found yet that the screen's visited ways in get to */
 .screen h2 .unex, #here .where .unex { font-weight: 400; font-size: 11px; color: var(--here); white-space: nowrap; }
+/* and the player's room's doors not been through yet that they can get to from where they came in */
+.screen h2 .near, #here .where .near {
+  font-weight: 400; font-size: 11px; color: var(--here); white-space: nowrap;
+  border: 1px solid var(--here); border-radius: 8px; padding: 0 6px;
+}
+#here .where .unex, #here .where .near { margin-left: 8px; }
 .screen.rooms h2 { margin: 0; }
 .controls label.off { color: var(--dim); }
 .screen ul { list-style: none; margin: 0; padding: 0; }

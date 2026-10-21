@@ -2,15 +2,17 @@
 //pickup's own sprite; argument1: its frame, -1 when it animates). The sprites' opaque pixels from their origins are in
 //rndData (rndSprU*: all frames, rndSprF*: each). One that falls (setCollisionBounds: the keys, the starting items)
 //lands on its look's bottom. One on the ground, or whose look would reach into it, has its look's bottom where its own
-//sprite's was, centred where it was; one in the air stays as it is. One hidden below the room till a trial is done
+//sprite's was, centred where it was; one under a ceiling whose look would reach up into it has its look's top where
+//its own sprite's was (Motor Desert 1's weapon upgrade spot: a skill point there was in the ceiling, out of reach);
+//one in the air stays as it is. One hidden below the room till a trial is done
 //(its creation code moved it down by room_height; oNPC_ChallengeMaster moves it back) is fitted where it will be
-var os,of,nf,ol,orr,ob,nl,nr,nt,nb,tMid,tMove,ty;
+var os,of,nf,ol,orr,ob,ot,nl,nr,nt,nb,tMid,tMove,ty;
 os=argument0
 of=argument1
 if os<0 or sprite_index<0 or os>global.rndSprMax or sprite_index>global.rndSprMax {exit}
 if global.rndSprK[os]=0 or global.rndSprK[sprite_index]=0 {exit}
-if of<0 or of>=global.rndSprN[os] {ol=global.rndSprUL[os]; orr=global.rndSprUR[os]; ob=global.rndSprUB[os]}
-else {ol=global.rndSprFL[os,of]; orr=global.rndSprFR[os,of]; ob=global.rndSprFB[os,of]}
+if of<0 or of>=global.rndSprN[os] {ol=global.rndSprUL[os]; orr=global.rndSprUR[os]; ob=global.rndSprUB[os]; ot=global.rndSprUT[os]}
+else {ol=global.rndSprFL[os,of]; orr=global.rndSprFR[os,of]; ob=global.rndSprFB[os,of]; ot=global.rndSprFT[os,of]}
 nf=floor(image_index)
 if image_speed>0 or nf>=global.rndSprN[sprite_index]
 {
@@ -37,4 +39,13 @@ if tMove=1
 {
   x+=round((ol+orr)/2-(nl+nr)/2)
   y+=ob-nb
+}
+//(under a ceiling: the look's top where its own sprite's was, when it would reach up into a solid its own didn't)
+else if nt<ot
+{
+  if collision_rectangle(x+nl,ty+nt,x+nr,ty+ot-1,oSolid,1,1)!=noone
+  {
+    x+=round((ol+orr)/2-(nl+nr)/2)
+    y+=ot-nt
+  }
 }

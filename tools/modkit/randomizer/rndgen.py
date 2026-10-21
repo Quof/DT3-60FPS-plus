@@ -554,6 +554,18 @@ def num(code, var):
     return int(m.group(1)) if m else None
 
 
+def code_moved(x, y, code):
+    """where an instance is once its creation code has run its x and y lines (x+=N, y-=N, x=N: what the exits' codes
+    have), as the room logic has it"""
+    for m in re.finditer(r"(?<![\w.])([xy])\s*([+-]?)=(?!=)\s*(-?\d+)\b", code):
+        v = int(m.group(3))
+        old = x if m.group(1) == "x" else y
+        v = old + v if m.group(2) == "+" else old - v if m.group(2) == "-" else v
+        if m.group(1) == "x": x = v
+        else: y = v
+    return x, y
+
+
 def gml_str(s):
     return '"' + s.replace('"', "'") + '"'
 
@@ -1121,36 +1133,64 @@ def er_check(rows, items, out, bosses):
           "bosses shuffled" % (len(f.ends) // 2, sum(1 for d in f.exit_follow if d >= 0), len(f.rnames), digest,
                                sum(f.boss_shuf)))
     # the exits that are one way (er.one_way: going through one, no exit by where the player comes out leads back to it)
-    # and show an arrow (an oExit whose creation code shows it): in a game with Entrance Rando the roomStart hook puts a
-    # ONE WAY sign over the arrow (oRndOneWay). The mod's data script rndOneWayData, "room:x,y" each, as the exits are
-    # found by (rndERApplyExit)
+    # and show an arrow (an oExit whose creation code shows it), or are a pipe (exitType 2, no arrow): in a game with
+    # Entrance Rando the roomStart hook puts a ONE WAY sign over the arrow, or over the pipe (oRndOneWay). The mod's data
+    # script rndOneWayData, "room:x,y" each (where the exit is once its creation code has moved it, as the room logic
+    # has it and the roomStart hook finds it), 1 an arrow's, 2 a pipe's
     import er
     ow = er.one_way(w.rooms, w.conn, pairs)
-    arrows = []
+    arrows, pipes = [], []
     for room in sorted(w.rooms):
         for obj, x, y, iid, code in instances(room):
-            if obj == "oExit" and re.search(r"\bbShowArrow\s*=\s*(true|1)\b", code) and (room, "%d,%d" % (x, y)) in ow:
-                arrows.append((room, x, y))
+            if obj != "oExit": continue
+            x, y = code_moved(x, y, code)
+            if (room, "%d,%d" % (x, y)) not in ow: continue
+            if re.search(r"\bbShowArrow\s*=\s*(true|1)\b", code): arrows.append((room, x, y))
+            elif num(code, "exitType") == 2: pipes.append((room, x, y))
     O = ["//Randomizer data, made by tools/modkit/randomizer/rndgen.py: the exits that are one way (roomlogic\\er.py's",
-         "//one_way: going through one, no exit by where the player comes out leads back to it) and show an arrow, \"room:x,y\"",
-         "//each: in a game with Entrance Rando the roomStart hook puts a ONE WAY sign over the arrow (oRndOneWay)",
+         "//one_way: going through one, no exit by where the player comes out leads back to it) and show an arrow (1) or are",
+         "//a pipe (2), \"room:x,y\" each: in a game with Entrance Rando the roomStart hook puts a ONE WAY sign over the arrow",
+         "//or the pipe (oRndOneWay)",
          "global.rndOneWay=ds_map_create()"]
     O += ["ds_map_add(global.rndOneWay,string(%s)+\":%d,%d\",1)" % (room, x, y) for room, x, y in arrows]
+    O += ["ds_map_add(global.rndOneWay,string(%s)+\":%d,%d\",2)" % (room, x, y) for room, x, y in pipes]
     with open(os.path.join(out, "scripts", "rndOneWayData.gml"), "w", encoding="utf-8", newline="\n") as fh:
         fh.write("\n".join(O) + "\n")
-    print("one way exits: %d, %d of them with an arrow (their ONE WAY signs with Entrance Rando)" % (len(ow), len(arrows)))
+    print("one way exits: %d, %d of them with an arrow and %d pipes (their ONE WAY signs with Entrance Rando)"
+          % (len(ow), len(arrows), len(pipes)))
+    # each room's area, the number its creation code gives locationCheck (a room giving it more than one, by what it
+    # finds, left out): with Entrance Rando an exit into another area's room puts that area in global.location before
+    # the room's instances are made (rndLocAhead), as coming in from the area itself does, since some of them pick
+    # their look and strength by it (a Warship room's lightning is spike balls). The mod's data script rndLocData
+    L = ["//Randomizer data, made by tools/modkit/randomizer/rndgen.py: each room's area, as its creation code gives it to",
+         "//locationCheck (rndLocAhead)",
+         "global.rndLocOf=ds_map_create()"]
+    n_loc = 0
+    for room in sorted(os.listdir(ROOMS)):
+        cp = os.path.join(ROOMS, room, "code.gml")
+        if not os.path.exists(cp): continue
+        locs = set(re.findall(r"\blocationCheck\(\s*(\d+)\s*\)", read(cp)))
+        if len(locs) != 1: continue
+        L.append("ds_map_add(global.rndLocOf,%s,%s)" % (room, locs.pop())); n_loc += 1
+    with open(os.path.join(out, "scripts", "rndLocData.gml"), "w", encoding="utf-8", newline="\n") as fh:
+        fh.write("\n".join(L) + "\n")
+    print("rooms' areas: %d (rndLocData)" % n_loc)
     # the room logic's ways into rooms (f.entries, numbered as data\rndER.txt has them), "room:x,y" each, and their
     # list's hash: in every game the mod's rndVisitArrive marks the one the player comes in by (the Check Tracker counts
     # what the ways in they've used get to as in logic), and a save keeps them with the hash (a build whose ways in are
     # others drops them). The mod's data script rndVisitData
     import hashlib
     keys = ["%s:%d,%d" % ((f.rnames[ri],) + erflat.xy_of(inid)) for ri, inid in f.entries]
+    # (and the hash of the exits' list, numbered the same way: an Entrance Rando game's save keeps the exits that aren't
+    # doors' ends gone through, rndERSeenArrive's rndERExit, with it)
+    xkeys = ["%s:%d,%d" % ((f.rnames[ri],) + erflat.xy_of(o)) for ri, o in f.exits]
     V = ["//Randomizer data, made by tools/modkit/randomizer/rndgen.py: the room logic's ways into rooms (roomlogic\\erflat.py's",
          "//entries, numbered as in data\\rndER.txt), \"room:x,y\" each, and their list's hash: rndVisitArrive marks the one",
-         "//the player comes in by",
+         "//the player comes in by. And the hash of the exits' list (rndERExit's)",
          "global.rndVisitOf=ds_map_create()",
          "global.rndVisitN=%d" % len(keys),
-         "global.rndVisitHash=%s" % gml_str(hashlib.md5("|".join(keys).encode()).hexdigest()[:12])]
+         "global.rndVisitHash=%s" % gml_str(hashlib.md5("|".join(keys).encode()).hexdigest()[:12]),
+         "global.rndExitHash=%s" % gml_str(hashlib.md5("|".join(xkeys).encode()).hexdigest()[:12])]
     done = set()
     for e, k in enumerate(keys):
         if "-99999" in k or k in done: continue

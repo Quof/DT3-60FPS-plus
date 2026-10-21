@@ -70,8 +70,8 @@ Playing
   Archipelago).
   - Traps: trap items (not the enemy traps below) in the place of 30 Internetz chests (rndgen.py's snare_slots: the
     smallest after the six the Program Chips take, so both options can be on), the five traps in turn, 6 of each. A
-    trap item looks like a Weapon Upgrade (its weapon by where it is), or is in a chest that sparkles as for any item
-    but Internetz; Chao's Item Finder counts it as an item. Taken, it springs (the mod's rndSnareSpring), the timed ones
+    trap item looks like a Weapon Upgrade (its weapon by where it is), or is in a chest that sparkles (a chest
+    sparkles only for a progression item or a trap item: rndChestSpecial); Chao's Item Finder counts it as an item. Taken, it springs (the mod's rndSnareSpring), the timed ones
     for the option's time (2, 5 or 10 minutes): Darkness, Dark Mode's darkness (oSurfLightAll) in every room;
     Rocketeer, a CHAOS Rocketeer now, and another in every room come into (none in boss fights); Teleport, at once, back
     to a way into a room the player has come in by this run, at random (the newest 400 kept; in a boss fight, once it's
@@ -117,7 +117,12 @@ Playing
     out after its boss, a place of several rooms' last one) lead where the game has them, back to the map: one way.
     With Entrance Rando every exit that's one way (going through it, no exit by where the player comes out leads back
     to it: those, drops, the ways into boss rooms) has a ONE WAY sign above its arrow, to its left (to its right at a
-    room's left side, so it stays in the room). (A save made with the builds that
+    room's left side, so it stays in the room), and a one way pipe (a secret room's pipe back to its level: it has no
+    arrow) one above it, in the middle. An exit into another area's room puts that area in global.location before the
+    room's instances are made (mod\scripts\rndLocAhead.gml, rndgen.py's rndLocData: each room's locationCheck), as
+    coming in from the area itself does: some pick their look and strength by it (from the CHAOS Warship, Robot
+    Factory 2's lightning was the Warship's spike balls); the mod's locationCheck puts the area left back first, so the
+    new area's name still shows. (A save made with the builds that
     had those exits follow the door, leading where it now leads, keeps that.) Forest 1's
     tile, which has the player come in mid-room, is a door with its exits too. A crossing's far side (a bridge's, a
     pass's: out on the other side of a river or mountain) still comes out there, as nothing on the map leads into it
@@ -172,6 +177,8 @@ Playing
     set (1 the Mario Ability Set, 2 Link, 3 Belmont, 4 Mega Man, 5 Samus, 6 Gate 6's), which a Randomizer game finds in
     any order: with the Mario Ability Set late, every section would stay locked. A section's skills still come after
     the skills before them (mod\scripts\menuSpendAP.gml: the game's own script, with the sets counted by the chips).
+  - The pause menu's Progress page shows each Program Chip the player has in its own slot (the game fills the first
+    slots by how many there are, which shows the wrong ones with Chip Randomizer: mod\scripts\menuProgress.gml).
   - The dash meter shows with the air dash alone too (the game shows it with the dash, which the story gives first;
     both take its energy: rndgen.py's GAME_PATCHES, oHUD's Draw).
   - The Distortion (Hexor's rooms, his fight too) is played as Jeremy's mech, as the story does: a scene before it makes
@@ -197,7 +204,8 @@ Playing
   - Some areas take abilities away as the game does: the CHAOS Warship's last rooms and Warship Z (jumping, the double
     jump and the Mario Ability Set left; the CHAOS Warmaster's room and the one before it, rWarshipZ_E1 and E2, as
     before his fight: their code makes the player Jeremy's mech once the story's past him, and he's the Randomizer's
-    last fight, so there the player stays their own character: the roomStart hook). That lasts while
+    last fight, so there the player stays their own character: the roomStart hook; the logic counts only those
+    there, roomlogic\overrides.txt's only lines). That lasts while
     the player stays in the area (the rooms whose names start as the one that took them away does, up to its last
     "_"); any other room gives back everything the player has found, and the ability sets they had picked. The mod's
     own version of the game's abilSetRemove notes which room took them away (mod\scripts\abilSetRemove.gml: it then
@@ -269,7 +277,11 @@ Playing
     exit on the other side of the fight from the side the player came in on) starts it, as the room's own fight (the
     room's code makes the boss), with the player's own
     abilities and the life and ammo they came in with. A boss has to be beaten to go on: given up from the game over
-    screen, the player is back where they came into the room, and walking up to it again starts it again. Leaving the
+    screen, the player is back where they came into the room, and walking up to it again starts it again (not before
+    they've stepped away from where it starts; out of the fight, the pause menu's Teleport works). Where the fight would
+    start again at once there (one that starts as its room is come into, the Virus Parasite's, or whose way in is where it
+    starts, Gate 4's Overdrive Ostrich's, Gravity Beetle's and Sigma's), they're back where they came into the room
+    before it instead, as the game's own Leave Boss Encounter does. Leaving the
     fight's room by one of its doors (some, like the Blade Bot's in Low Facility G, stay open) gives it up the same way
     (the exitPlayer hook: the game goes to the boss gallery, as from the game over screen). (These fights
     have the boss gallery's flag on underneath, so a beaten boss ends its fight the gallery's way, without the story's
@@ -308,16 +320,28 @@ Trackers
     once the player has every progression item, as the placement has it. What the player can get to from a way into a
     room they've come in by is green too, however they got there (the game keeps the ways in used, in every game:
     rndVisitArrive, the save's ervisit, by the room logic's list of them; from each one the start's reach doesn't get to,
-    with the carried states as a new game has them). A vending machine's hint shows by its place, what it named, till
+    with the carried states as a new game has them; and from the way in the player is in their room by, with the ones
+    they came in with: the Water Palace's water level, the red and blue switches', the Forest Palace's crystals, the
+    state's erin and carry, rndVisitArrive). A vending machine's hint shows by its place, what it named, till
     the place is taken, and so does why a place is out of logic where roomlogic\overrides.txt says ("Water level
     based": Water Palace 6's air upgrade). Each tab shows how many of its places are green (the green mark) and
     taken. The screen the player is in has its own space at the top, under the header however far the page is
     scrolled, whichever tab is showing ("No Checks" in the middle of it in a room without any, with the room's name
     over it); Follow the player goes to its tab as they move, its other screens below. Hide taken leaves out what's
-    taken. Entrance Tracker (off at first; only in a game with Entrance Rando): green only what the player can get to
-    from the start through the shuffled doors they've been through and the ways into rooms they've come in by (the
-    game keeps those: rndERSeenArrive, the save's erseen and ervisit), so the tracker shows no more of the shuffle
-    than they've found; the name of a room they've been to has the way there from Central City - North in its
+    taken. Entrance Tracker (off at first; only in a game with Entrance Rando): green only what the logic gets to
+    from the start without going through a shuffled door the player hasn't been through (the game keeps the doors gone
+    through, both ends of each: rndERSeenArrive, the save's erseen), so the tracker shows no more of the shuffle than
+    they've found; it goes through the doors found either way and every exit that isn't a shuffled door (a room's own
+    doors, its pipes), as the logic does, so the doors it shows unexplored are every one that can be got to but hasn't
+    been gone through: while the logic has the game won, there's always a check in logic or an unexplored door. The
+    exits out of a room that aren't shuffled doors are unexplored too till they've been gone through (it goes on
+    through them all the same; marked once the door can be got to and gone through, as a shuffled door is, whether or
+    not a boss fight past it is in logic): a door the shuffle left where the game has it till its ends are found, a pipe, a drop
+    or a stage on Gate 4's menu till the game has kept it as gone through (rndERSeenArrive: one of the room the player
+    came from leading to where they came in, the save's erexit; a save from before that has it gone through once where
+    it leads has been come into, if nothing else leads there). A map's encounters and the ways back from their fights
+    aren't doors (tracker.py's not_doors). The
+    name of a room they've been to has the way there from Central City - North in its
     tooltip, a room a line (Central City - North itself left out, and an arrow on a line between). One the doors
     they've been through don't lead to with what they have says "You've been here, but it's out of logic and may be
     difficult to make it back.", then the way those doors go there, whatever each room on it takes (tracker.js's
@@ -325,8 +349,10 @@ Trackers
     ("Warp to [9] Barrens - Oasis": the stone's number in the teleport menu), the main world's and each gate's own
     (getting to a stone and going on from it as the room logic has them: roomlogic\stones.py works out each stone's
     room with its stone in it, roomlogic\stones\, which only the trackers' data reads). Each screen,
-    and each room without checks that has some, shows how many doors not been through yet ("unexplored") its visited
-    ways in get to with what the player has.
+    and each room without checks that has some, shows how many doors not been through yet ("unexplored") can be got
+    to there with what the player has, from anywhere the logic gets to; the room the player is in also shows how many
+    of its doors not been through yet they can get to from where they came in ("from here": that room's own ways, its
+    exits into itself too, from the way in they came in by in the states they came in with, tracker.js's live.only).
   - items.html, the Item Tracker: the progression the player has, lit (the movement abilities, each ability set's
     attacks with their own pictures, the Game Powers, the instruments, the cursed equipment), and how many of each
     upgrade of how many there are (keys, heart pieces and containers, heart energy, quivers, missile tanks, Game

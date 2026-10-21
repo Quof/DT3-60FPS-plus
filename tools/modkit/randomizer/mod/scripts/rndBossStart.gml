@@ -8,7 +8,7 @@
 //room the player goes to after the fight is won, argument2, argument3: where in it (argument2 -1: where they were when
 //the boss was beaten; for another boss's fight, where this one's starts, or where they came into the room for one that
 //starts as it's come into). Lost or given up, they go back to where they came into the room they went into the fight
-//from (rndInRoom/X/Y). A boss whose fight is several in a row (rndBossChainN: Ridley's three) starts with the first:
+//from (rndInRoom/X/Y; the room before it, rndPrevRoom, where the fight would start again at once: below). A boss whose fight is several in a row (rndBossChainN: Ridley's three) starts with the first:
 //the others follow it (rndBossNextLink), and a try given up starts again from it
 var s,b;
 s=argument0
@@ -31,6 +31,18 @@ global.rndFightLastY=global.rndBossY[b]
 global.rndFightLoseRoom=global.rndInRoom
 global.rndFightLoseX=global.rndInX
 global.rndFightLoseY=global.rndInY
+//(a fight that would start again at once there, the player having come into its place's room where it starts: one
+//that starts as the room's come into (the Virus Parasite's), or whose way in is level with it within 16px (Gate 4's
+//bosses' rooms): back to where they came into the room before it instead, as the game's own Leave Boss Encounter does)
+if global.rndInRoom=global.rndBossRoom[s] and global.rndPrevRoom>=0
+{
+  if global.rndBossOnEntry[s]=1 or (abs(global.rndInX-global.rndBossFX[s])<=16 and abs(global.rndInY-global.rndBossFY[s])<96)
+  {
+    global.rndFightLoseRoom=global.rndPrevRoom
+    global.rndFightLoseX=global.rndPrevX
+    global.rndFightLoseY=global.rndPrevY
+  }
+}
 global.bBossResultShow=0
 rndBossSetup(global.rndBossType[b])
 global.rndAbilHeldRoom=-1 //(the setup's abilSetRemove(1) isn't the room's: the roomStart hook)

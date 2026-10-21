@@ -38,6 +38,13 @@ if global.rndActive=1
     n=ceil(string_length(t)/1000)
     ini_write_real(s,"erseens",n)
     for(i=0;i<n;i+=1) {ini_write_string(s,"erseen"+string(i),string_copy(t,i*1000+1,1000))}
+    //(and the exits that aren't doors' ends gone through, rndERSeenArrive, with the hash of this build's list of exits:
+    //a build with others drops them)
+    t=global.rndERExit
+    n=ceil(string_length(t)/1000)
+    ini_write_real(s,"erexits",n)
+    for(i=0;i<n;i+=1) {ini_write_string(s,"erexit"+string(i),string_copy(t,i*1000+1,1000))}
+    ini_write_string(s,"erexithash",global.rndExitHash)
   }
   //the ways into rooms the player has come in by (rndVisitArrive: the Check Tracker counts what they get to as in logic),
   //in pieces of 1000 characters, with the hash of this build's list of them (a build with others drops them)

@@ -1,5 +1,6 @@
 //Randomizer: in a randomizer game the chest is a location: opened already, it's the open chest; otherwise it holds its
-//location's item, and sparkles (as the game's equipment chests do) unless that's Internetz. Otherwise as the game's own
+//location's item, and sparkles (as the game's equipment chests do) when that's a progression item or a trap item
+//(rndChestSpecial). Otherwise as the game's own
 if global.rndActive=1
 {
   rndLoc=-1

@@ -1,4 +1,6 @@
 //Randomizer: every room's start (after its own code)
+//(an area put in ahead of this room by the exit, rndLocAhead: its locationCheck has run by now, or it has none)
+global.rndLocPre=0
 if global.rndActive=0
 {
   //a new game: the intro room. The randomizer takes over from here: the new game's options window (oRndOptions), then
@@ -235,16 +237,18 @@ if global.rndERMode>0
   with (oMetEleExit) {rndERApplyExit()}
   with (oZeldaMapExit) {rndERApplyExit()}
   with (oGameMapExit) {rndERApplyExit()}
-  //a ONE WAY sign over the arrow of an exit that's one way (rndOneWay: going through it, no exit by where the player
-  //comes out leads back to it: a town's far side or a palace's way out after its boss, back to the map, a drop), so the
-  //shuffle's ways back aren't looked for through it (oRndOneWay)
-  var tOW;
+  //a ONE WAY sign over the arrow of an exit that's one way, or over the pipe (rndOneWay: going through it, no exit by
+  //where the player comes out leads back to it: a town's far side or a palace's way out after its boss, back to the
+  //map, a drop, a pipe out of a secret room), so the shuffle's ways back aren't looked for through it (oRndOneWay)
+  var tOW,tOWk;
   with (oExit)
   {
-    if ds_map_exists(global.rndOneWay,string(room)+":"+string(round(x))+","+string(round(y)))
+    tOWk=string(room)+":"+string(round(x))+","+string(round(y))
+    if ds_map_exists(global.rndOneWay,tOWk)
     {
       tOW=instance_create(x,y,oRndOneWay)
       tOW.exitId=id
+      tOW.pipe=(ds_map_find_value(global.rndOneWay,tOWk)=2)
     }
   }
   //the way in the player came in by, and the door they came through, for the Check Tracker's Entrance Tracker
@@ -265,10 +269,15 @@ if global.rndFight>=0
 }
 else if global.bBossGallery=0
 {
-  //where the player came into this room: a boss fight started from it and lost goes back there (rndBossStart)
+  //where the player came into this room: a boss fight started from it and lost goes back there (rndBossStart); and
+  //where they came into the room before it, for a fight that would start again at once where they came into this one
+  if room!=global.rndInRoom {global.rndPrevRoom=global.rndInRoom; global.rndPrevX=global.rndInX; global.rndPrevY=global.rndInY}
   global.rndInRoom=room
   global.rndInX=global.newMapX
   global.rndInY=global.newMapY
+  //(a fight just given up, rndBossEnd: held back in the room the player's sent back to, not after it)
+  if global.rndFightGraceNew=1 {global.rndFightGraceNew=0}
+  else {global.rndFightGrace=-1}
   //the room of a boss not beaten yet: walking up to where its fight starts starts it (oRndWatcher), from the side the
   //player came in on (rndRoomSide); so does leaving the room another way than they came in (the exitPlayer hook). The
   //CHAOS Warmaster's, at the end of the Warship: only once the Abomination is beaten (gateHProg 200: the 8 instruments

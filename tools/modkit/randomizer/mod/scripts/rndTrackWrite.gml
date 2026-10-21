@@ -21,13 +21,17 @@ s+=",`won`:"+string(global.rndWon)+",`room`:`"+room_get_name(room)+"`"
 if global.rndERMode>0
 {
   s+=",`erpart`:`"+rndERString(global.rndEDN)+"`,`erfollow`:"+string(global.rndERFollow)
-  //(the Check Tracker's Entrance Tracker: the doors' ends found, rndERSeenArrive)
-  s+=",`erseen`:`"+global.rndERSeen+"`"
+  //(the Check Tracker's Entrance Tracker: the doors' ends found and the exits that aren't doors' ends gone through,
+  //rndERSeenArrive)
+  s+=",`erseen`:`"+global.rndERSeen+"`,`erexit`:`"+global.rndERExit+"`"
 }
 //(the ways into rooms the player has come in by, in every game: the Check Tracker counts what they get to as in logic,
 //rndVisitArrive; and the Teleporting Stones activated, the main world's and each gate's: its ways there warp between
 //them)
 s+=",`ervisit`:`"+global.rndERVisit+"`"
+//(and the way in they're in this room by, and the states they came in with: rndVisitArrive)
+s+=",`erin`:"+string(global.rndVisitIn)
+if global.rndVisitCarry!="" {s+=",`carry`:{"+global.rndVisitCarry+"}"}
 s+=",`warps`:[`"+global.warpMain+"`,`"+global.warpGate1+"`,`"+global.warpGate2+"`,`"+global.warpGate3+"`,`"+global.warpGate4+"`,`"+global.warpGate5+"`,`"+global.warpGate6+"`]"
 //(the vending machines' hints: each location hinted and what its hint named, rndHintName, without the quotes and
 //backslashes the file's strings can't have)

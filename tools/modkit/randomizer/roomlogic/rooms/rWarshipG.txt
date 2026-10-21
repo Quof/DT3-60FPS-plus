@@ -28,13 +28,13 @@ spot switch2   # a colored switch the partner can be left standing on (party spl
 # the locked door whose objectNum is N.
 from in 112,288
   out 112,240    -
-  out 2832,176   never
+  out 2832,176   adash,event:rWarshipG/switch1,event:rWarshipG/switch2 | djump,event:rWarshipG/switch1,event:rWarshipG/switch2 | samus:2,event:rWarshipG/switch1,event:rWarshipG/switch2
   loc 9 30       never
-  loc 9 70       never
-  spot switch1   never
-  spot switch2   never
+  loc 9 70       samus:6
+  spot switch1   samus:2
+  spot switch2   samus:2
 from in 2832,224
-  out 112,240    never
+  out 112,240    event:rWarshipG/switch1,event:rWarshipG/switch2
   out 2832,176   -
   loc 9 30       never
   loc 9 70       samus:6,event:rWarshipG/switch1,event:rWarshipG/switch2
@@ -48,6 +48,142 @@ how in 112,288 -> out 112,240: -
    1. coming in: holding nothing, from 112,288; lands at 112,289
       -> standing at x 0-1062, y 289
    2. standing at 94,289, presses up at it
+      -> out 112,240
+how in 112,288 -> out 2832,176: adash,event:rWarshipG/switch1,event:rWarshipG/switch2
+     coming in at 112,288
+   1. coming in: holding nothing, from 112,288; lands at 112,289
+      -> standing at x 0-1062, y 289
+   2. running right, jump (held 21 ticks), holding right, from 1008,289; lands at 1199,257
+      -> standing at x 1178-1222, y 257
+   3. jump (held 21 ticks), holding right, from 1178,257; lands at 1383,289
+      -> standing at x 1354-1398, y 289
+   4. jump (held 21 ticks), holding right, from 1376,289; lands at 1529,241
+      -> standing at x 1514-1558, y 241
+   5. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 1514,241; lands at 1768,177   [adash]
+      -> standing at x 1754-1830, y 177
+   6. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 1754,177; lands at 2029,129   [adash]
+      -> standing at x 2010-2073, y 129
+   7. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 2010,129; lands at 2083,97
+      -> standing at x 2074-2118, y 97
+   8. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 2110,97, through the oBarrierColor at 2448,32; lands at 2468,161   [adash,event:rWarshipG/switch1]
+      -> standing at x 2458-2470, y 161 (where a gate is)
+   9. jump (held 21 ticks), holding right, air dash (Jerry) at tick 16, from 2458,161, through the oBarrierColor at 2448,32, the oBarrierColor at 2528,32; touches it on the way   [adash,event:rWarshipG/switch1,event:rWarshipG/switch2]
+      -> out 2832,176
+how in 112,288 -> out 2832,176: djump,event:rWarshipG/switch1,event:rWarshipG/switch2
+     coming in at 112,288
+   1. coming in: holding nothing, from 112,288; lands at 112,289
+      -> standing at x 0-1062, y 289
+   2. running right, jump (held 21 ticks), holding right, from 1008,289; lands at 1199,257
+      -> standing at x 1178-1222, y 257
+   3. jump (held 21 ticks), holding right, from 1178,257; lands at 1383,289
+      -> standing at x 1354-1398, y 289
+   4. jump (held 21 ticks), holding right, from 1376,289; lands at 1529,241
+      -> standing at x 1514-1558, y 241
+   5. jump (held 21 ticks), holding right, double jump at tick 15, from 1520,241; lands at 1761,177   [djump]
+      -> standing at x 1754-1830, y 177
+   6. jump (held 21 ticks), holding right, double jump at tick 15, from 1776,177; lands at 2025,129   [djump]
+      -> standing at x 2010-2073, y 129
+   7. jump (held 6 ticks), holding right, from 2010,129; lands at 2149,129
+      -> standing at x 2119-2201, y 129
+   8. jump (held 21 ticks), holding right, double jump at tick 15, from 2176,129, through the oBarrierColor at 2448,32; lands at 2476,161   [djump,event:rWarshipG/switch1]
+      -> standing at x 2471-2521, y 161
+   9. jump (held 21 ticks), holding right, double jump at tick 15, from 2512,161, through the oBarrierColor at 2528,32; touches it on the way   [djump,event:rWarshipG/switch2]
+      -> out 2832,176
+how in 112,288 -> out 2832,176: samus:2,event:rWarshipG/switch1,event:rWarshipG/switch2
+     coming in at 112,288
+   1. coming in: holding nothing, from 112,288; lands at 112,289
+      -> standing at x 0-1062, y 289
+   2. running right, jump (held 21 ticks), holding right, from 1008,289; lands at 1199,257
+      -> standing at x 1178-1222, y 257
+   3. jump (held 21 ticks), holding right, from 1178,257; lands at 1383,289
+      -> standing at x 1354-1398, y 289
+   4. jump (held 21 ticks), holding right, from 1376,289; lands at 1529,241
+      -> standing at x 1514-1558, y 241
+   5. jump (held 21 ticks), holding right, turn into the Morph Ball at tick 14, from 1514,241; lands at 1697,289   [samus:2]
+      -> as the Morph Ball at x 1690-2441, y 289
+   6. turn back from the Morph Ball at 2375,289
+      -> standing at x 2375-2441, y 289
+   7. running right, jump (held 6 ticks), holding right, from 2416,289, through the oBarrierColor at 2448,32, the oBarrierColor at 2528,32; lands at 2578,289   [event:rWarshipG/switch1,event:rWarshipG/switch2]
+      -> standing at x 2551-2598, y 289
+   8. running right, jump (held 21 ticks), holding right, from 2576,289; lands at 2730,225
+      -> standing at x 2714-2912, y 225
+   9. standing at 2814,225, presses up at it
+      -> out 2832,176
+how in 112,288 -> loc 9 70: samus:6
+     coming in at 112,288
+   1. coming in: holding nothing, from 112,288; lands at 112,289
+      -> standing at x 0-1062, y 289
+   2. running right, jump (held 21 ticks), holding right, from 1008,289; lands at 1199,257
+      -> standing at x 1178-1222, y 257
+   3. jump (held 21 ticks), holding right, from 1178,257; lands at 1383,289
+      -> standing at x 1354-1398, y 289
+   4. jump (held 21 ticks), holding right, from 1376,289; lands at 1529,241
+      -> standing at x 1514-1558, y 241
+   5. jump (held 21 ticks), holding right, turn into the Morph Ball at tick 14, from 1514,241; lands at 1697,289   [samus:2]
+      -> as the Morph Ball at x 1690-2441, y 289
+   6. turn back from the Morph Ball at 2087,289
+      -> standing at x 2087-2233, y 289
+   7. running right, jump (held 21 ticks), holding right, turn into the Morph Ball where the body meets a wall or ceiling, from 2112,289, through the Metroid block at 2240,208; touches it on the way   [samus:6]
+      -> loc 9 70
+how in 112,288 -> spot switch1: samus:2
+     coming in at 112,288
+   1. coming in: holding nothing, from 112,288; lands at 112,289
+      -> standing at x 0-1062, y 289
+   2. running right, jump (held 21 ticks), holding right, from 1008,289; lands at 1199,257
+      -> standing at x 1178-1222, y 257
+   3. jump (held 21 ticks), holding right, from 1178,257; lands at 1383,289
+      -> standing at x 1354-1398, y 289
+   4. jump (held 21 ticks), holding right, from 1376,289; lands at 1529,241
+      -> standing at x 1514-1558, y 241
+   5. jump (held 21 ticks), holding right, turn into the Morph Ball at tick 14, from 1514,241; lands at 1697,289   [samus:2]
+      -> as the Morph Ball at x 1690-2441, y 289
+   6. turn back from the Morph Ball at 2087,289
+      -> standing at x 2087-2233, y 289
+   7. standing at 2106,289, on it
+      -> spot switch1
+how in 112,288 -> spot switch2: samus:2
+     coming in at 112,288
+   1. coming in: holding nothing, from 112,288; lands at 112,289
+      -> standing at x 0-1062, y 289
+   2. running right, jump (held 21 ticks), holding right, from 1008,289; lands at 1199,257
+      -> standing at x 1178-1222, y 257
+   3. jump (held 21 ticks), holding right, from 1178,257; lands at 1383,289
+      -> standing at x 1354-1398, y 289
+   4. jump (held 21 ticks), holding right, from 1376,289; lands at 1529,241
+      -> standing at x 1514-1558, y 241
+   5. jump (held 21 ticks), holding right, turn into the Morph Ball at tick 14, from 1514,241; lands at 1697,289   [samus:2]
+      -> as the Morph Ball at x 1690-2441, y 289
+   6. turn back from the Morph Ball at 2087,289
+      -> standing at x 2087-2233, y 289
+   7. standing at 2186,289, on it
+      -> spot switch2
+how in 2832,224 -> out 112,240: event:rWarshipG/switch1,event:rWarshipG/switch2
+     coming in at 2832,224
+   1. coming in: holding nothing, from 2832,224; lands at 2832,225
+      -> standing at x 2714-2912, y 225
+   2. jump (held 2 ticks), holding left, from 2714,225; lands at 2568,289
+      -> standing at x 2551-2598, y 289
+   3. running left, jump (held 2 ticks), holding left, from 2551,289, through the oBarrierColor at 2448,32, the oBarrierColor at 2528,32; lands at 2426,289   [event:rWarshipG/switch1,event:rWarshipG/switch2]
+      -> standing at x 2375-2441, y 289
+   4. jump (held 2 ticks), holding left, from 2375,289; lands at 2332,257
+      -> standing at x 2311-2374, y 257
+   5. jump (held 21 ticks), holding nothing, then right after 8 ticks, from 2336,257; lands at 2412,193
+      -> standing at x 2394-2438, y 193
+   6. jump (held 21 ticks), holding left, from 2394,193; lands at 2263,129
+      -> standing at x 2247-2310, y 129
+   7. jump (held 6 ticks), holding left, from 2247,129; lands at 2123,129
+      -> standing at x 2119-2201, y 129
+   8. jump (held 21 ticks), holding left, from 2119,129; lands at 1849,289
+      -> standing at x 1690-1913, y 289
+   9. jump (held 21 ticks), holding left, from 1690,289; lands at 1537,241
+      -> standing at x 1514-1558, y 241
+  10. jump (held 2 ticks), holding left, from 1514,241; lands at 1383,289
+      -> standing at x 1354-1398, y 289
+  11. running left, jump (held 6 ticks), holding left, from 1354,289; lands at 1214,257
+      -> standing at x 1178-1222, y 257
+  12. jump (held 2 ticks), holding left, from 1178,257; lands at 1054,289
+      -> standing at x 0-1062, y 289
+  13. standing at 94,289, presses up at it
       -> out 112,240
 how in 2832,224 -> out 2832,176: -
      coming in at 2832,224

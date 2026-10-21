@@ -308,6 +308,7 @@ def load_overrides(rooms, conn, path=OVERRIDES):
     n = 0
     gone = []          # (the outoflogic lines' places: put out of logic after the rest, whatever else gives them a way)
     also = []          # (the also lines: (room, what every way through it needs as well), after the rest too)
+    only = []          # (the only lines: (room, the items it leaves the player), after the set and add lines)
     for ln, raw in enumerate(open(path, encoding="utf-8"), 1):
         line = raw.split("#", 1)[0].strip()
         if not line: continue
@@ -388,8 +389,22 @@ def load_overrides(rooms, conn, path=OVERRIDES):
             head, _, req = (f[1] if len(f) > 1 else "").partition(":")
             if not _ or head.strip() not in rooms: raise SystemExit("%s: 'also <room> : <requirements>' (a room rooms\\ has)" % where)
             also.append((head.strip(), parse(req, where))); n += 1
+        elif cmd == "only":
+            head, _, req = (f[1] if len(f) > 1 else "").partition(":")
+            names_ = req.replace(",", " ").lower().split()
+            if not _ or head.strip() not in rooms or not names_:
+                raise SystemExit("%s: 'only <room> : <items>' (a room rooms\\ has)" % where)
+            bad = [nm for nm in names_ if nm not in ITEMS]
+            if bad: raise SystemExit("%s: 'only' takes items (%s), not %s" % (where, ", ".join(ITEMS), ", ".join(bad)))
+            only.append((head.strip(), {ITEMS.index(nm) for nm in names_})); n += 1
         else:
-            raise SystemExit("%s: unknown line %r (set, add, room, area, need, link, also or outoflogic)" % (where, cmd))
+            raise SystemExit("%s: unknown line %r (set, add, room, area, need, link, also, only or outoflogic)" % (where, cmd))
+    # (a room's only lines: the room's code takes the player's other abilities and sets away there, so a way through it
+    # that needs one isn't there; keys and events stay as they are)
+    for room, keep in only:
+        r = rooms[room]
+        for key in list(r.table):
+            r.table[key] = [a for a in r.table[key] if all(c == 0 or i in keep for i, c in enumerate(a.c))]
     # (a room's also lines: every way through it needs that as well, on top of what the lines before have it need)
     for room, extra in also:
         r = rooms[room]

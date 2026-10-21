@@ -53,6 +53,13 @@ if global.rndActive=1
         else if global.rndRoomSide<0 and oPlayer1.x>=global.rndBossFX[b]-16 {tGo=1}
         else if global.rndRoomSide>0 and oPlayer1.x<=global.rndBossFX[b]+16 {tGo=1}
       }
+      //(the fight just given up, rndBossEnd: not again while the player's still where it starts; once they've stepped
+      //out of it, as any other time)
+      if global.rndFightGrace=b
+      {
+        if tGo=1 {tGo=0}
+        else {global.rndFightGrace=-1}
+      }
       if tGo=1
       {
         global.rndRoomBoss=-1

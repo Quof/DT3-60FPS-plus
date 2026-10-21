@@ -59,9 +59,15 @@ ENCOUNTER_ROOMS = {"rLink2_EnRoad", "rLink2_EnGrass", "rLink2_EnDesert", "rLink2
 # areas no mode shuffles (by their rooms' names): hallways with no places. The Subconscious Filter; the Discombobulated,
 # whose way in leads straight to its boss's room in a Randomizer game (overrides.txt's link lines, the roomStart hook:
 # its way on to the boss is gone in the endgame world). Its first rooms' doors stay ends though the logic doesn't
-# reach those rooms now (a save's shuffle is by the ends' order: erflat's ER_LEGACY)
+# reach those rooms now (a save's shuffle is by the ends' order: erflat's ER_LEGACY). Warship Z 6 (rWarshipZ_F) is only
+# got into past the CHAOS Warmaster's door (opened after his fight, the Randomizer's last) or from Warship Z 7's far end
+# with the air dash, which Warship Z takes away: the game's own doors don't reach it, its doors stay ends and shuffled
 LEFT_OUT = ("rSF_", "rDisco")
-KEEP_UNREACHED = {"rDiscoA", "rDiscoB", "rDiscoC"}
+KEEP_UNREACHED = {"rDiscoA", "rDiscoB", "rDiscoC", "rWarshipZ_F"}
+# doors that became doors in a later build (a way in the logic hadn't had ways from: CHAOS Weapons Facility 1's from the
+# left, given them by overrides.txt in b106): they come after all the others, so the others keep their order (a save's
+# shuffle is by the ends' order: erflat's ER_LEGACY), each by one of its exits
+LATE_DOORS = [("rWepFacA", "0,256")]
 # areas whose own doors (both ends in it) no mode shuffles: the Distortion, which a Randomizer game has the player go
 # through as Jeremy's mech, as the story does (rndgen's MECH_ROOMS, the roomStart hook), while the logic's ways through
 # its rooms are Jerry's and Claire's. So it's a dead end with no places behind its gate's door, which stays shuffled
@@ -184,6 +190,7 @@ def doors(rooms, conn, reach_all):
     import rndgen
     added = {(r, "%d,%d" % (x, y)) for r, x, y, to, tx, ty in rndgen.MM_BACK_EXITS}
     cands, far, new = [], [], []
+    late = {k: [] for k in LATE_DOORS}
     for (a, b), ls in by_pair.items():
         if a == b or a > b: continue
         for l1 in ls:
@@ -193,16 +200,18 @@ def doors(rooms, conn, reach_all):
                 d1 = abs(o1[0] - i1[0]) + abs(o1[1] - i1[1])
                 d2 = abs(o2[0] - i2[0]) + abs(o2[1] - i2[1])
                 if d1 <= PAIR_DIST and d2 <= PAIR_DIST:
-                    (new if (l1[0], l1[1]) in added or (l2[0], l2[1]) in added else cands).append((d1 + d2, l1, l2))
+                    k = (l1[0], l1[1]) if (l1[0], l1[1]) in late else (l2[0], l2[1]) if (l2[0], l2[1]) in late else None
+                    if k: late[k].append((d1 + d2, l1, l2))
+                    else: (new if (l1[0], l1[1]) in added or (l2[0], l2[1]) in added else cands).append((d1 + d2, l1, l2))
                 elif tile_room(a, b, d1, d2): far.append((d1 + d2, l1, l2))
     cands.sort()
     far.sort()
     new.sort()
     used, pairs = set(), []
     # (the doors near both ways first, then the maps' tiles that have the player come in away from the room's exits,
-    # then the ones Gate 4's ways back make: each after the ones before, so their order stays, a save's shuffle being by
-    # the ends' order)
-    for d, l1, l2 in cands + far + new:
+    # then the ones Gate 4's ways back make, then LATE_DOORS in their order: each after the ones before, so their order
+    # stays, a save's shuffle being by the ends' order)
+    for d, l1, l2 in cands + far + new + [c for k in LATE_DOORS for c in sorted(late[k])]:
         if (l1[0], l1[1]) in used or (l2[0], l2[1]) in used: continue
         if not ok_exit(rooms, conn, objs, reach_all, l1[0], l1[1]) or not ok_exit(rooms, conn, objs, reach_all, l2[0], l2[1]): continue
         if l2[3] not in usable_in.get(l1[0], ()) or l1[3] not in usable_in.get(l2[0], ()): continue

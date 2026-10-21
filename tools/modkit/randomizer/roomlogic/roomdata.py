@@ -136,10 +136,12 @@ def metroid_wall(v):
     sp, im = v.get("spIndex"), v.get("spImage")
     if sp == "sMetroidBlockBreak": return ATTACK
     if sp == "sMetroidBlockHit":
-        return {0: "samus:6", 1: "samus:4", 2: "samus:4"}.get(im)
+        # (0 Samus's bombs, 1 missiles, 2 a super missile: the Diffusion Missile's charged shot, samus 7)
+        return {0: "samus:6", 1: "samus:4", 2: "samus:7"}.get(im)
     return None
 def metroid_door(v):
-    return {0: ATTACK, 1: "samus:4", 2: "samus:4"}.get(v.get("type"))
+    # (a red door: 5 missiles, or one super missile; a green one: a super missile, the Diffusion Missile's, samus 7)
+    return {0: ATTACK, 1: "samus:4", 2: "samus:7"}.get(v.get("type"))
 def locked_door(v):
     n = v.get("objectNum")
     return "key:%d" % n if isinstance(n, int) else None
@@ -699,6 +701,12 @@ def main():
                     lines.append("KR\tsNull\t%d\t%d\t1\t1\t0" % (x, y))
                     report["Ripper (a moving Strike Chain point)"] += 1
                 continue
+            if obj == "oWS_ScrewWarTurret":
+                # the CHAOS Warship's Screw War Turret: its Create makes a solid under it to stand on (myCollision, 32x16
+                # at x-16,y), which stays when it's beaten (the second one it makes is the one it takes out)
+                lines.append("S\tsInvisibleSolidMask\t%d\t%d\t2\t1\t0" % (x - 16, y))
+                report["Screw War Turret (a solid to stand on)"] += 1
+                continue
             if obj == "oStoryObject" and (room, x, y) in STORY_POS:
                 # one of the story's ability pickups (rndgen.STORY_SPOTS): gone in the endgame world (its creation code
                 # takes it out once the story's past it), a Randomizer place (location type 19) where it was placed, as
@@ -830,8 +838,14 @@ def main():
             if obj in NOT_SOLID: continue
             # a barrier a switch opens: gone if its switch is on already, else shut till it's hit (the room's state b<GID>)
             # a timed switch's barrier (open for a while once the switch is hit): counted as needing what the timed
-            # switches take between them, the Gravity Well, Link's bombs, Belmont's whip and dagger and the Spazer Beam
+            # switches take between them, the Gravity Well, Link's bombs, Belmont's whip and dagger and the Spazer Beam.
+            # One whose creation code turns all its switches on once the story is past a point (the CHAOS Warship's,
+            # Super Falls' rSF_H) is gone on its first step in the Randomizer's world, which is past every story event
             if obj == "oTimeSwBarrier":
+                m = re.search(r"if\s*\(?\s*global\.gameProgress\s*>=\s*(\d+)\s*\)?\s*\{\s*for\s*\([^)]*\)\s*\{\s*switchID\[i\]\.activated\s*=\s*1", code)
+                if m and int(m.group(1)) <= WORLD_PROGRESS:
+                    report["timed switch barrier open (the story's turned its switches on)"] += 1
+                    continue
                 lines.append("G\t%s\t%s\t%s" % (geo, TIMED_SWITCH, obj)); report["timed switch barrier"] += 1
                 continue
             if obj in ("oSwitchBarrier", "oTimeSwBarrier"):

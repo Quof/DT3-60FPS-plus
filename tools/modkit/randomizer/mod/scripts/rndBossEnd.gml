@@ -3,7 +3,8 @@
 //code, has taken it by now) or given up from the game over screen. Beaten, it's marked so and the player goes on from
 //where they were (rndBossStart's room and place: where they stood in the boss's room, or past it for one the story went
 //into another way); the final boss beaten is the win (rndWin). Given up, the player goes back to where they came into
-//the room they went into the fight from: a boss has to be beaten to go on, and walking up to it again starts it again.
+//the room they went into the fight from (or the one before it: rndBossStart): a boss has to be beaten to go on, and
+//walking up to it again starts it again, once they've stepped away from it.
 //What's marked beaten is the boss whose place it was (rndFightSlot: with Boss Rando, another boss is fought there).
 //A fight of several in a row (rndBossChainN: Ridley's) won and not the last of them: the next one starts instead
 //(rndBossNextLink); given up, the next try starts from the first
@@ -43,6 +44,10 @@ if w
   room_goto(global.rndFightRetRoom)
   exit
 }
+//(and the fight given up doesn't start again till the player has stepped out of where it starts, or left the room they're
+//sent back to: oRndWatcher, the roomStart hook; not in a fight there, the pause menu's Teleport works)
+global.rndFightGrace=s
+global.rndFightGraceNew=1
 global.newMapX=global.rndFightLoseX
 global.newMapY=global.rndFightLoseY
 room_goto(global.rndFightLoseRoom)

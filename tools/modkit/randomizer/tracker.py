@@ -425,6 +425,15 @@ def hints(ixs, pos, rows):
     return {i: w for i, w in zip(order, words)}
 
 
+def not_doors(f):
+    """the exits the Check Tracker's Entrance Tracker doesn't count as doors not gone through: the maps' encounters (out
+    encounter:<room>, an encounter enemy touching the icon) and the ways out of their fight rooms (back to the map where
+    the icon was), a character each, "1" one of them"""
+    fights = {f.rnames[f.entries[f.exit_dest[x]][0]] for x, (ri, o) in enumerate(f.exits)
+              if o.startswith("encounter:") and f.exit_dest[x] >= 0}
+    return "".join("1" if o.startswith("encounter:") or f.rnames[ri] in fights else "0" for ri, o in f.exits)
+
+
 def logic_tables(f):
     """the room logic's tables (erflat.export's), as the pages' reach uses them: pairs (first, count) flat"""
     def pairs(lst):
@@ -433,6 +442,7 @@ def logic_tables(f):
         return out
     return {
         "gN": [len(v) for v in f.gvals], "gmult": f.gmult, "scoped": f.scoped, "gsN": f.gs_n, "startGs": f.start_gs,
+        "gNames": f.gnames, "gVals": f.gvals,
         "start": f.start, "EV": f.EV_BASE, "KB": f.KEY_BASE,
         "rooms": f.rnames, "roomArea": f.room_area, "roomScope": f.room_scope, "roomCarried": f.room_carried,
         "roomResets": [[x for gv in rs for x in gv] for rs in f.room_resets], "roomBoss": pairs(f.room_boss),
@@ -441,7 +451,7 @@ def logic_tables(f):
         "rowKind": f.row_kind, "rowTarget": f.row_target, "rowLeave": f.row_leave, "rowAlts": pairs(f.row_alts),
         "altFirst": f.alt_first, "altCount": f.alt_count, "reqIx": f.req_ix, "reqC": f.req_c,
         "exitDest": f.exit_dest, "exitSg": f.exit_sg, "exitSdest": f.exit_sdest, "exitExtra": pairs(f.exit_extra),
-        "exitRoom": [ri for ri, o in f.exits],
+        "exitRoom": [ri for ri, o in f.exits], "exitNotDoor": not_doors(f),
         "exitEnd": f.exit_end_own, "exitFollow": f.exit_follow, "endBack": [e["back"] for e in f.ends],
         "evWays": [[x for kind, what, (af, ac), mode in ways for x in (kind, what, af, ac, mode)] for ways in f.ev_ways],
         "evNames": f.evnames,
