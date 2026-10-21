@@ -20,6 +20,7 @@ else
     // compensate for standard-height full jumps to have the same height despite different pixel rounding
     djabodge = doubleJumpAcc * doubleJumpBodge60 //0.98 by default (characterCreateEvent), overridden in Gate F
     if bombJump=0 {yVel+=djabodge}
+    else if gDeltaTime<0.5 and doubleJumpBodge60=0.98 {yVel+=djabodge*bombAcc*0.994} //60fps change (added): with the Bomb B boost the held double jump rose 45px at 120fps (up to 3.5px over 30fps when let go early), 30fps's 42.4 on average and 60fps's 42; 0.994 makes it 44. Only with the default corrections (not Nightmare Gate F's)
     else {yVel+=djabodge*bombAcc}
     yVel += gravityIntensity*0.5
     //During an air dash, characterStepEvent sets yVel=-2.9 every frame afterwards, which erased this jump completely.

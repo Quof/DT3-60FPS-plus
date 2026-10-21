@@ -73,8 +73,15 @@ if gDeltaTime != 1.0
     var bgi;
     for(bgi=0;bgi<8;bgi+=1)
     {
-        background_x[bgi] -= background_hspeed[bgi] * (1.0 - gDeltaTime)
-        background_y[bgi] -= background_vspeed[bgi] * (1.0 - gDeltaTime)
+        //background_x[bgi] -= background_hspeed[bgi] * (1.0 - gDeltaTime)
+        //background_y[bgi] -= background_vspeed[bgi] * (1.0 - gDeltaTime)
+        //60fps change: a layer slower than a pixel a frame moves its full 30fps step on the frame of each 30fps tick and
+        //not between (whole-pixel steps, as at 30fps: half and quarter pixels showed as uneven 1-pixel jumps, e.g. Storm
+        //Eagle's clouds); faster ones still move a share every frame
+        if abs(background_hspeed[bgi]*gDeltaTime) < 1 {if gDeltaDoTicks=0 {background_x[bgi] -= background_hspeed[bgi]}}
+        else {background_x[bgi] -= background_hspeed[bgi] * (1.0 - gDeltaTime)}
+        if abs(background_vspeed[bgi]*gDeltaTime) < 1 {if gDeltaDoTicks=0 {background_y[bgi] -= background_vspeed[bgi]}}
+        else {background_y[bgi] -= background_vspeed[bgi] * (1.0 - gDeltaTime)}
     }
 }
 

@@ -62,8 +62,17 @@ if oPlayer1.attackState=oPlayer1.ACT_IN_BIKE and bJumpedOut=0
       //so gravity started 3/4 tick early, and the jump out came 11px (60fps) / 16px (120fps) short of 30fps's 111px.
       //For one tick the walk-off is held and the speed gives the same 12px (the slope handling moves 1.075x per frame),
       //then -16 is put back as they leave the ground (characterStepEvent): within 1-2px of 30fps all the way up and down
-      yVel=-12/1.075; yAcc=0
-      bikeLaunchHold=1; bikeLaunchVel=-16
+      //yVel=-12/1.075; yAcc=0
+      //bikeLaunchHold=1; bikeLaunchVel=-16
+      if platformCharacterIs(ON_GROUND) //60fps change: the above only for a launch from the ground
+      {
+        yVel=-12/1.075; yAcc=0
+        bikeLaunchHold=1; bikeLaunchVel=-16
+      }
+      //60fps change (added): in the air at the line (off a ramp) there's no walk-off to give the -16 back, so the launch
+      //rose ~52px of 30fps's ~99. The 30fps launch as a one-off push instead (yVelSetExt: that move uses the 30fps
+      //formula, as springs and fans do): 99.9px at 60fps, 98.9px at 120fps
+      else {yVel=-8; yAcc=-8; yVelSetExt=1}
     }
     maxSlope=4; maxDownSlope=8
   }

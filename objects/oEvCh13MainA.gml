@@ -501,6 +501,8 @@ else if global.gameProgress=2750 and room=rSamus5_Lv1_C //----- [] After grabbin
   {
     global.metJumpUpgrade=1
     oPlayer1.initialJumpAcc=-7.8; oPlayer1.jumpTimeTotal=28
+    if gDeltaTime<0.5 {oPlayer1.jumpBodge60=1.077; oPlayer1.jumpGravComp60=0.511; oPlayer1.doubleJumpBodge60=0.97} //60fps change (added): the upgrade's own 60fps+ jump corrections (oPlayer1's Alarm_0 says more)
+    else {oPlayer1.jumpBodge60=0.943; oPlayer1.jumpGravComp60=-0.364; oPlayer1.doubleJumpBodge60=1.012} //60fps change (added): see above
     global.gameProgress=2760
   }
 }
@@ -777,6 +779,8 @@ else if global.gameProgress=2840 and room=rSamus5_Lv3_M //----- [] Super High Ju
     {
       global.metJumpUpgrade=2
       oPlayer1.initialJumpAcc=-9.4; oPlayer1.jumpTimeTotal=35
+      if gDeltaTime<0.5 {oPlayer1.jumpBodge60=0.876; oPlayer1.jumpGravComp60=-1.071; oPlayer1.doubleJumpBodge60=0.954} //60fps change (added): the upgrade's own 60fps+ jump corrections (oPlayer1's Alarm_0 says more)
+      else {oPlayer1.jumpBodge60=0.974; oPlayer1.jumpGravComp60=-0.187; oPlayer1.doubleJumpBodge60=0.992} //60fps change (added): see above
       global.gameProgress=2850
     }
   }
