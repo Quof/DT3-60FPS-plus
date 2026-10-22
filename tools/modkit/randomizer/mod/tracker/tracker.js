@@ -87,10 +87,20 @@
     var arrivals = known ? arrivalsOf(L) : null;
     function notThrough(x) {
       if (L.exitNotDoor && L.exitNotDoor.charAt(x) === "1") { return false; }
+      // (a Nightmare Gate boss room's way back to the gate's start: gone once its fight is won, L.exitBeaten)
+      if (L.exitBeaten && L.exitBeaten[x] >= 0 && (known.boss || "").charAt(L.exitBeaten[x]) === "1") { return false; }
       var d = L.exitEnd[x];
       if (d < 0 && follow) { d = L.exitFollow[x]; }
       if (d >= 0) { return known.seen.charAt(d) !== "1"; }
       if (known.exited.charAt(x) === "1") { return false; }
+      // (the exit back through it gone through, L.exitTwin: a door the shuffle left where the game has it, gone through
+      // the other way)
+      var y = L.exitTwin ? L.exitTwin[x] : -1;
+      if (y >= 0) {
+        var dy = L.exitEnd[y];
+        if (dy < 0 && follow) { dy = L.exitFollow[y]; }
+        if (dy >= 0 ? known.seen.charAt(dy) === "1" : known.exited.charAt(y) === "1") { return false; }
+      }
       var ds = L.exitSg[x] >= 0 ? L.exitSdest[x] : [L.exitDest[x]];
       for (var j = 0; j < ds.length; j++) {
         var w = ds[j];
@@ -390,7 +400,8 @@
       if (n > 0) { have[i] = n; }
     }
     n = 0;
-    for (i = 10; i <= 12; i++) { if (ch(S.equip, i - 1) === "1") { n++; } }
+    // (equipItems: "1" a piece had, "2" had and worn)
+    for (i = 10; i <= 12; i++) { if (ch(S.equip, i - 1) === "1" || ch(S.equip, i - 1) === "2") { n++; } }
     if (n) { have[13] = n; }
     n = 0;
     for (i = 0; i < 8; i++) { if (ch(S.gate, i) === "9") { n++; } }
@@ -452,7 +463,7 @@
     }
     fight = DT3.fights(D, S);
     var ir = S.ir > 0;
-    var known = ent ? {seen: S.erseen || "", exited: S.erexit || ""} : null;
+    var known = ent ? {seen: S.erseen || "", exited: S.erexit || "", boss: S.boss || ""} : null;
     // (and from the ways in the player has come in by: where they've been is in logic; and the Teleporting Stones they've
     // activated, warped between)
     var warps = S.warps && S.warps.length ? S.warps : null;

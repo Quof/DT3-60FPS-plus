@@ -232,6 +232,11 @@ EXITS = {"oExit", "oAccessGate", "oMMBossDoor", "oDistortionGate"}
 # other ways to another room, the place they go to fixed in their code: (exitType, toRoom, x, y)
 FIXED_EXITS = {"oVaultGate": (0, "rVault_1", 160, 288),        # (the Vault, from the Farreaches)
                "oShooter_Start": (0, "rWarshipA", 1072, 416)}  # (the shooter's menu goes on to the Warship once it's done)
+# exits a room's scene object makes in its Step (not the room's code, which room_effects reads): (room, x, y, the exit's
+# variables). The Sacred Temple's main door to the Lost Entrance's left side (oEvExGates, once the temple's instrument
+# is gone: in a Randomizer game the roomStart hook takes it away as the room starts, so the door is always there)
+EVENT_EXITS = [("rSacredTemple", 1008, 1520,
+                "bShowArrow=true\nimage_xscale=2\nexitType=0\nnewMapX=240\nnewMapY=416\ntoRoom=rMain_19")]
 LOCATIONS = {o: c for c, o, l in rndgen.LTYPES if c not in rndgen.KEEP_TYPES}
 # the story's ability pickups (oStoryObject instances: rndgen.STORY_SPOTS), by room and room editor id, and by room and
 # where they were placed (the instances' list below has no ids): their numbers
@@ -495,6 +500,10 @@ def main():
             if broom == room:
                 todo.append(("oExit", bx, by, "exitType=1\nbShowArrow=true\ntoRoom=%s\nnewMapX=%d\nnewMapY=%d" % (to, tx, ty)))
                 report["way back added (Gate 4's stages)"] += 1
+        for eroom, ex, ey, ecode in EVENT_EXITS:
+            if eroom == room:
+                todo.append(("oExit", ex, ey, ecode))
+                report["made by the room's scene (EVENT_EXITS)"] += 1
         # the switches: which are on already (a switch holder's code turns it on once the story's past it, and its
         # barriers are gone), and where each is (by its GID, for the barriers that name it)
         holders = {}

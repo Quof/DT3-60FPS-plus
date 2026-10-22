@@ -16,6 +16,7 @@ in 144,1296   # from rExtGateG_5 out 752,192
 in 144,624   # from rExtGateH_8 out 1680,272
 
 # Ways out: exits (and, in the game, where they lead), and how they're gone through
+out 1008,1520   # to rMain_19 at 240,416; the player presses up at it
 
 # Places: the Randomizer's locations (type number, as roomlogic.txt and logic.txt name them)
 loc 8 2   # internetz mod 2, at 1023,1319
@@ -26,26 +27,45 @@ loc 8 2   # internetz mod 2, at 1023,1319
 # link:N belmont:N megaman:N samus:N gamej:N gamec:N that many of the ability set's items, key:N the key of
 # the locked door whose objectNum is N.
 from in 1616,176
-  loc 8 2   event:gateB
+  out 1008,1520   event:gateB
+  loc 8 2         event:gateB
 from in 1024,1552
-  loc 8 2   -
+  out 1008,1520   -
+  loc 8 2         -
 from in 1904,624
-  loc 8 2   event:gateC
+  out 1008,1520   event:gateC
+  loc 8 2         event:gateC
 from in 1904,1296
-  loc 8 2   event:gateD
+  out 1008,1520   event:gateD
+  loc 8 2         event:gateD
 from in 1280,1968
-  loc 8 2   event:gateE
+  out 1008,1520   event:gateE
+  loc 8 2         event:gateE
 from in 768,1968
-  loc 8 2   event:gateF
+  out 1008,1520   event:gateF
+  loc 8 2         event:gateF
 from in 432,176
-  loc 8 2   event:gateA
+  out 1008,1520   event:gateA
+  loc 8 2         event:gateA
 from in 144,1296
-  loc 8 2   event:gateG
+  out 1008,1520   event:gateG
+  loc 8 2         event:gateG
 from in 144,624
-  loc 8 2   event:gateH
+  out 1008,1520   event:gateH
+  loc 8 2         event:gateH
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
+how in 1616,176 -> out 1008,1520: event:gateB
+     coming in at 1616,176
+   1. coming in: holding nothing, from 1616,176; lands at 1616,177
+      -> standing at x 1226-1673, y 177
+   2. walk off the edge, holding left, then nothing after 1 ticks in the air, from 1226,177, through the barrier at 1168,528; lands at 1192,1089   [event:gateB]
+      -> standing at x 1162-1238, y 1089
+   3. walk off the edge, holding left once in the air, from 1162,1089; lands at 846,1553
+      -> standing at x 663-1385, y 1553
+   4. standing at 1006,1553, presses up at it
+      -> out 1008,1520
 how in 1616,176 -> loc 8 2: event:gateB
      coming in at 1616,176
    1. coming in: holding nothing, from 1616,176; lands at 1616,177
@@ -58,6 +78,12 @@ how in 1616,176 -> loc 8 2: event:gateB
       -> standing at x 810-886, y 1249
    5. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, from 816,1249; touches it on the way
       -> loc 8 2
+how in 1024,1552 -> out 1008,1520: -
+     coming in at 1024,1552
+   1. coming in: holding nothing, from 1024,1552; lands at 1024,1553
+      -> standing at x 663-1385, y 1553
+   2. standing at 1006,1553, presses up at it
+      -> out 1008,1520
 how in 1024,1552 -> loc 8 2: -
      coming in at 1024,1552
    1. coming in: holding nothing, from 1024,1552; lands at 1024,1553
@@ -70,6 +96,16 @@ how in 1024,1552 -> loc 8 2: -
       -> standing at x 842-918, y 1393
    5. running right, jump (held 21 ticks), holding right, from 880,1393; touches it on the way
       -> loc 8 2
+how in 1904,624 -> out 1008,1520: event:gateC
+     coming in at 1904,624
+   1. coming in: holding nothing, from 1904,624; lands at 1904,625
+      -> standing at x 1450-1961, y 625
+   2. walk off the edge, holding left once in the air, from 1450,625; lands at 1399,785
+      -> standing at x 1399-1449, y 785
+   3. jump (held 21 ticks), holding nothing, then left after 14 ticks, from 1407,785, through the barrier at 1392,784; lands at 846,1553   [event:gateC]
+      -> standing at x 663-1385, y 1553
+   4. standing at 1006,1553, presses up at it
+      -> out 1008,1520
 how in 1904,624 -> loc 8 2: event:gateC
      coming in at 1904,624
    1. coming in: holding nothing, from 1904,624; lands at 1904,625
@@ -86,6 +122,14 @@ how in 1904,624 -> loc 8 2: event:gateC
       -> standing at x 810-886, y 1249
    7. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, from 816,1249; touches it on the way
       -> loc 8 2
+how in 1904,1296 -> out 1008,1520: event:gateD
+     coming in at 1904,1296
+   1. coming in: holding nothing, from 1904,1296; lands at 1904,1297
+      -> standing at x 1479-1961, y 1297
+   2. jump (held 2 ticks), holding left, from 1479,1297, through the barrier at 1456,1232; lands at 1290,1553   [event:gateD]
+      -> standing at x 663-1385, y 1553
+   3. standing at 1006,1553, presses up at it
+      -> out 1008,1520
 how in 1904,1296 -> loc 8 2: event:gateD
      coming in at 1904,1296
    1. coming in: holding nothing, from 1904,1296; lands at 1904,1297
@@ -100,6 +144,30 @@ how in 1904,1296 -> loc 8 2: event:gateD
       -> standing at x 842-918, y 1393
    6. running right, jump (held 21 ticks), holding right, from 880,1393; touches it on the way
       -> loc 8 2
+how in 1280,1968 -> out 1008,1520: event:gateE
+     coming in at 1280,1968
+   1. coming in: holding nothing, from 1280,1968; lands at 1280,1969
+      -> standing at x 1207-1673, y 1969
+   2. running right, jump (held 21 ticks), holding right, from 1536,1969; lands at 1690,1905
+      -> standing at x 1674-1705, y 1905
+   3. jump (held 21 ticks), holding right, from 1674,1905; lands at 1737,1841
+      -> standing at x 1706-1737, y 1841
+   4. jump (held 21 ticks), holding right, from 1706,1841; lands at 1769,1777
+      -> standing at x 1738-1769, y 1777
+   5. jump (held 21 ticks), holding right, from 1738,1777; lands at 1801,1713
+      -> standing at x 1770-1801, y 1713
+   6. jump (held 21 ticks), holding right, from 1770,1713; lands at 1833,1649
+      -> standing at x 1802-1833, y 1649
+   7. jump (held 21 ticks), holding right, from 1802,1649; lands at 1865,1585
+      -> standing at x 1834-1865, y 1585
+   8. jump (held 6 ticks), holding left, from 1834,1585; lands at 1717,1553
+      -> standing at x 1687-1750, y 1553
+   9. jump (held 2 ticks), holding left, from 1687,1553; lands at 1644,1521
+      -> standing at x 1479-1686, y 1521
+  10. walk off the edge, holding left once in the air, from 1479,1521, through the barrier at 1456,1456; lands at 1326,1553   [event:gateE]
+      -> standing at x 663-1385, y 1553
+  11. standing at 1006,1553, presses up at it
+      -> out 1008,1520
 how in 1280,1968 -> loc 8 2: event:gateE
      coming in at 1280,1968
    1. coming in: holding nothing, from 1280,1968; lands at 1280,1969
@@ -130,6 +198,30 @@ how in 1280,1968 -> loc 8 2: event:gateE
       -> standing at x 842-918, y 1393
   14. running right, jump (held 21 ticks), holding right, from 880,1393; touches it on the way
       -> loc 8 2
+how in 768,1968 -> out 1008,1520: event:gateF
+     coming in at 768,1968
+   1. coming in: holding nothing, from 768,1968; lands at 768,1969
+      -> standing at x 375-841, y 1969
+   2. jump (held 21 ticks), holding left, from 375,1969; lands at 343,1905
+      -> standing at x 343-374, y 1905
+   3. jump (held 21 ticks), holding left, from 343,1905; lands at 311,1841
+      -> standing at x 311-342, y 1841
+   4. jump (held 21 ticks), holding left, from 311,1841; lands at 279,1777
+      -> standing at x 279-310, y 1777
+   5. jump (held 21 ticks), holding left, from 279,1777; lands at 247,1713
+      -> standing at x 247-278, y 1713
+   6. jump (held 21 ticks), holding left, from 247,1713; lands at 215,1649
+      -> standing at x 215-246, y 1649
+   7. jump (held 21 ticks), holding left, from 215,1649; lands at 183,1585
+      -> standing at x 183-214, y 1585
+   8. running left, jump (held 21 ticks), holding left, then right after 6 ticks, from 183,1585; lands at 306,1553
+      -> standing at x 298-361, y 1553
+   9. jump (held 6 ticks), holding right, from 298,1553; lands at 415,1521
+      -> standing at x 362-569, y 1521
+  10. walk off the edge, holding right once in the air, from 362,1521, through the barrier at 576,1456; lands at 728,1553   [event:gateF]
+      -> standing at x 663-1385, y 1553
+  11. standing at 1006,1553, presses up at it
+      -> out 1008,1520
 how in 768,1968 -> loc 8 2: event:gateF
      coming in at 768,1968
    1. coming in: holding nothing, from 768,1968; lands at 768,1969
@@ -158,6 +250,18 @@ how in 768,1968 -> loc 8 2: event:gateF
       -> standing at x 842-918, y 1393
   13. running right, jump (held 21 ticks), holding right, from 880,1393; touches it on the way
       -> loc 8 2
+how in 432,176 -> out 1008,1520: event:gateA
+     coming in at 432,176
+   1. coming in: holding nothing, from 432,176; lands at 432,177
+      -> standing at x 375-822, y 177
+   2. walk off the edge, holding right once in the air, from 375,177; lands at 873,529
+      -> standing at x 823-873, y 529
+   3. walk off the edge, holding left, then right after 1 ticks in the air, from 823,529, through the barrier at 816,528; lands at 1174,1089   [event:gateA]
+      -> standing at x 1162-1238, y 1089
+   4. walk off the edge, holding left once in the air, from 1162,1089; lands at 846,1553
+      -> standing at x 663-1385, y 1553
+   5. standing at 1006,1553, presses up at it
+      -> out 1008,1520
 how in 432,176 -> loc 8 2: event:gateA
      coming in at 432,176
    1. coming in: holding nothing, from 432,176; lands at 432,177
@@ -168,6 +272,14 @@ how in 432,176 -> loc 8 2: event:gateA
       -> standing at x 810-886, y 1249
    4. jump (held 2 ticks), onto the spring, holding nothing till it bounces, then right, from 816,1249; touches it on the way
       -> loc 8 2
+how in 144,1296 -> out 1008,1520: event:gateG
+     coming in at 144,1296
+   1. coming in: holding nothing, from 144,1296; lands at 144,1297
+      -> standing at x 87-569, y 1297
+   2. running right, jump (held 21 ticks), holding right, from 512,1297, through the barrier at 576,1232; lands at 766,1553   [event:gateG]
+      -> standing at x 663-1385, y 1553
+   3. standing at 1006,1553, presses up at it
+      -> out 1008,1520
 how in 144,1296 -> loc 8 2: event:gateG
      coming in at 144,1296
    1. coming in: holding nothing, from 144,1296; lands at 144,1297
@@ -178,6 +290,16 @@ how in 144,1296 -> loc 8 2: event:gateG
       -> standing at x 842-918, y 1393
    4. running right, jump (held 21 ticks), holding right, from 880,1393; touches it on the way
       -> loc 8 2
+how in 144,624 -> out 1008,1520: event:gateH
+     coming in at 144,624
+   1. coming in: holding nothing, from 144,624; lands at 144,625
+      -> standing at x 87-598, y 625
+   2. walk off the edge, holding right once in the air, from 87,625; lands at 649,785
+      -> standing at x 599-649, y 785
+   3. jump (held 21 ticks), holding nothing, then right after 14 ticks, from 640,785, through the barrier at 592,784; lands at 1202,1553   [event:gateH]
+      -> standing at x 663-1385, y 1553
+   4. standing at 1006,1553, presses up at it
+      -> out 1008,1520
 how in 144,624 -> loc 8 2: event:gateH
      coming in at 144,624
    1. coming in: holding nothing, from 144,624; lands at 144,625

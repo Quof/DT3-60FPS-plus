@@ -55,19 +55,29 @@ GATE_OBJECTS = {"oAccessGate", "oDistortionGate"}
 MAP_OBJECTS = {"oZeldaMapExit", "oGameMapExit"}
 # exits the game's code (not the exit's own variables) sends somewhere: left as they are
 FIXED_OBJECTS = {"oVaultGate", "oShooter_Start", "menu", "encounter"}
+# exits no mode shuffles, though they and their way back make a door: the Sacred Temple's main door and the Lost
+# Entrance's door into the temple (the temple's door, which its scene makes, only came into the logic in b118, roomdata's
+# EVENT_EXITS; the temple stays where the Nightmare Gates' ways out and the instruments' barrier have it)
+FIXED_EXITS = {("rSacredTemple", "1008,1520"), ("rMain_19", "232,384")}
 ENCOUNTER_ROOMS = {"rLink2_EnRoad", "rLink2_EnGrass", "rLink2_EnDesert", "rLink2_EnForest"}
 # areas no mode shuffles (by their rooms' names): hallways with no places. The Subconscious Filter; the Discombobulated,
 # whose way in leads straight to its boss's room in a Randomizer game (overrides.txt's link lines, the roomStart hook:
 # its way on to the boss is gone in the endgame world). Its first rooms' doors stay ends though the logic doesn't
 # reach those rooms now (a save's shuffle is by the ends' order: erflat's ER_LEGACY). Warship Z 6 (rWarshipZ_F) is only
 # got into past the CHAOS Warmaster's door (opened after his fight, the Randomizer's last) or from Warship Z 7's far end
-# with the air dash, which Warship Z takes away: the game's own doors don't reach it, its doors stay ends and shuffled
+# with the air dash, which Warship Z takes away: the game's own doors don't reach it, its doors stay ends and shuffled.
+# Since b117 (overrides.txt: no way from Warship Z 3's and 8's right doors to their left ones) the game's own doors
+# don't reach Warship Z 7 (rWarshipZ_G) or Tourian: Escape 1 (rSamus5_EscapeA, past Escape 2's way down) either: the
+# same
 LEFT_OUT = ("rSF_", "rDisco")
-KEEP_UNREACHED = {"rDiscoA", "rDiscoB", "rDiscoC", "rWarshipZ_F"}
+KEEP_UNREACHED = {"rDiscoA", "rDiscoB", "rDiscoC", "rWarshipZ_F", "rWarshipZ_G", "rSamus5_EscapeA"}
 # doors that became doors in a later build (a way in the logic hadn't had ways from: CHAOS Weapons Facility 1's from the
-# left, given them by overrides.txt in b106): they come after all the others, so the others keep their order (a save's
-# shuffle is by the ends' order: erflat's ER_LEGACY), each by one of its exits
-LATE_DOORS = [("rWepFacA", "0,256")]
+# left, given them by overrides.txt in b106; Doom Castle 13's way on to 14 and Subconscious Filter 3's and 4's, in b117;
+# The Vault 20's and 21's ways right, past their moving platforms, and so 22's, in b118): they come after all the
+# others, so the others keep their order (a save's shuffle is by the ends' order: erflat's ER_LEGACY), each by one of
+# its exits
+LATE_DOORS = [("rWepFacA", "0,256"), ("rGame6_CoDM", "2384,240"), ("rSF_C", "6224,192"), ("rSF_D", "6224,448"),
+              ("rVault_20", "3504,240"), ("rVault_21", "4432,240"), ("rVault_22", "1520,240")]
 # areas whose own doors (both ends in it) no mode shuffles: the Distortion, which a Randomizer game has the player go
 # through as Jeremy's mech, as the story does (rndgen's MECH_ROOMS, the roomStart hook), while the logic's ways through
 # its rooms are Jerry's and Claire's. So it's a dead end with no places behind its gate's door, which stays shuffled
@@ -146,7 +156,7 @@ def ok_exit(rooms, conn, objs, reach_all, rm, out):
     o = objs.get((rm, out), "")
     if "(" in out or ":" in out: return False
     if any(x.startswith(out + "(") for x in rooms[rm].outs): return False
-    if o in FIXED_OBJECTS or (rm, out) in conn.links_st or (rm, out) in conn.via: return False
+    if o in FIXED_OBJECTS or (rm, out) in FIXED_EXITS or (rm, out) in conn.links_st or (rm, out) in conn.via: return False
     if rm.startswith(tuple(conn.scope.values())) or rm in ENCOUNTER_ROOMS: return False
     # (KEEP_UNREACHED's doors stay ends: no mode shuffles them, LEFT_OUT, pool)
     if rm not in reach_all and rm not in KEEP_UNREACHED: return False

@@ -6,6 +6,7 @@
 
 # Ways in: where the player appears coming into the room (and, in the game, the exits that lead there)
 in 2032,80   # from rMain_5 out 1120,1008
+in 240,416   # from rSacredTemple out 1008,1520
 
 # Ways out: exits (and, in the game, where they lead), and how they're gone through
 out 232,384   # to rSacredTemple at 1024,1552; the player presses up at it
@@ -23,6 +24,10 @@ from in 2032,80
   out 232,384    event:instrument
   out 1984,-16   -
   loc 2 21       -
+from in 240,416
+  out 232,384    -
+  out 1984,-16   event:instrument
+  loc 2 21       event:instrument
 
 # How: for each of those ways, the steps, in order: what the player does, then (->) where it gets them; a step
 # that needs something says what in [ ]. In a room with switches, [the state] it's in comes first.
@@ -61,6 +66,56 @@ how in 2032,80 -> loc 2 21: -
    4. running left, jump (held 21 ticks), holding left, from 1754,225; lands at 1526,257
       -> standing at x 1402-1542, y 257
    5. jump (held 2 ticks), holding left, from 1402,257; lands at 1300,257
+      -> standing at x 1178-1318, y 257
+   6. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 1200,257; lands at 1124,193
+      -> standing at x 1114-1134, y 193
+   7. jump (held 2 ticks), holding left, from 1114,193; lands at 1052,161
+      -> standing at x 983-1094, y 161
+   8. standing at 998,161, touches it
+      -> loc 2 21
+how in 240,416 -> out 232,384: -
+     coming in at 240,416
+   1. coming in: holding nothing, from 240,416; lands at 240,417
+      -> standing at x 151-473, y 417
+   2. standing at 230,417, presses up at it
+      -> out 232,384
+how in 240,416 -> out 1984,-16: event:instrument
+     coming in at 240,416
+   1. coming in: holding nothing, from 240,416; lands at 240,417
+      -> standing at x 151-473, y 417
+   2. running right, jump (held 21 ticks), holding right, from 336,417; lands at 490,353
+      -> standing at x 474-521, y 353
+   3. jump (held 21 ticks), holding right, from 474,353; lands at 594,289
+      -> standing at x 522-841, y 289
+   4. running right, jump (held 6 ticks), holding right, from 784,289, through the barrier at 848,224; lands at 872,289   [event:instrument]
+      -> standing at x 871-1177, y 289
+   5. running right, jump (held 6 ticks), holding right, from 1088,289; lands at 1228,257
+      -> standing at x 1178-1318, y 257
+   6. running right, jump (held 21 ticks), holding right, from 1216,257; lands at 1422,257
+      -> standing at x 1402-1542, y 257
+   7. running right, jump (held 21 ticks), holding right, from 1456,257; lands at 1669,257
+      -> standing at x 1658-1753, y 257
+   8. jump (held 6 ticks), holding right, from 1658,257; lands at 1775,225
+      -> standing at x 1754-1865, y 225
+   9. jump (held 21 ticks), holding right, from 1754,225; lands at 1922,193
+      -> standing at x 1866-1977, y 193
+  10. jump (held 21 ticks), holding right, from 1866,193; lands at 1997,129
+      -> standing at x 1978-2009, y 129
+  11. jump (held 6 ticks), holding right, from 1982,129; lands at 2041,81
+      -> standing at x 2010-2041, y 81
+  12. jump (held 2 ticks), holding left, from 2010,81; touches it on the way
+      -> out 1984,-16
+how in 240,416 -> loc 2 21: event:instrument
+     coming in at 240,416
+   1. coming in: holding nothing, from 240,416; lands at 240,417
+      -> standing at x 151-473, y 417
+   2. running right, jump (held 21 ticks), holding right, from 336,417; lands at 490,353
+      -> standing at x 474-521, y 353
+   3. jump (held 21 ticks), holding right, from 474,353; lands at 594,289
+      -> standing at x 522-841, y 289
+   4. running right, jump (held 6 ticks), holding right, from 784,289, through the barrier at 848,224; lands at 872,289   [event:instrument]
+      -> standing at x 871-1177, y 289
+   5. running right, jump (held 6 ticks), holding right, from 1088,289; lands at 1228,257
       -> standing at x 1178-1318, y 257
    6. jump (held 21 ticks), holding nothing, then left after 8 ticks, from 1200,257; lands at 1124,193
       -> standing at x 1114-1134, y 193

@@ -221,6 +221,18 @@ GAME_PATCHES = [
      "stunResist=50\naffiliation=1\n",
      "stunResist=50\naffiliation=1\n"
      "if global.rndActive=1 {for(i=0;i<6;i+=1) {resType[i]=1}} //Randomizer change (added): no damage type hurts her, only the Mario Ability Set's stomp does\n"),
+    # Kamek (Nightmare Gate A) the same: only the stomp hurts him (his own Collision_oPlayer1), as bosses.txt has it
+    ("oKamek", "Create_0",
+     "stunResist=50\naffiliation=9\n",
+     "stunResist=50\naffiliation=9\n"
+     "if global.rndActive=1 {for(i=0;i<6;i+=1) {resType[i]=1}} //Randomizer change (added): no damage type hurts him, only the Mario Ability Set's stomp does\n"),
+    # Gate 6's overworld: calling the Great Bird moves the bird that's there to the player, and it's made only as the
+    # room starts (its code, by the story's progress) or as the player gets off it; a playtest had the call do nothing
+    # till the game was loaded again, the bird gone: in a Randomizer game the call makes it when there's none
+    ("oPlayerGameIcon", "Step_0",
+     "      oGreatBird.x=global.stCGame_C[1]\n",
+     "      if global.rndActive=1 and !instance_exists(oGreatBird) {instance_create(x,y,oGreatBird)} //Randomizer change (added): the bird made if there's none\n"
+     "      oGreatBird.x=global.stCGame_C[1]\n"),
     # the dash meter: shown with the air dash alone too, which takes the same dash energy (a randomizer game's abilities
     # come in any order; the story gives the dash first)
     ("oHUD", "Draw_0",
@@ -1154,6 +1166,13 @@ def er_check(rows, items, out, bosses):
          "global.rndOneWay=ds_map_create()"]
     O += ["ds_map_add(global.rndOneWay,string(%s)+\":%d,%d\",1)" % (room, x, y) for room, x, y in arrows]
     O += ["ds_map_add(global.rndOneWay,string(%s)+\":%d,%d\",2)" % (room, x, y) for room, x, y in pipes]
+    # (and every one way exit by its number in the room logic's data, rndERLoad's exits, in the rooms' order: the
+    # spoiler log lists them with where each leads, rndLog)
+    xix = {(f.rnames[ri], o): i for i, (ri, o) in enumerate(f.exits)}
+    owx = sorted(xix[k] for k in ow if k in xix)
+    O += ["//(the one way exits by their number in the room logic's data: the spoiler log lists them, rndLog)",
+          "global.rndOneWayN=%d" % len(owx)]
+    O += ["global.rndOneWayX[%d]=%d" % (k, x) for k, x in enumerate(owx)]
     with open(os.path.join(out, "scripts", "rndOneWayData.gml"), "w", encoding="utf-8", newline="\n") as fh:
         fh.write("\n".join(O) + "\n")
     print("one way exits: %d, %d of them with an arrow and %d pipes (their ONE WAY signs with Entrance Rando)"

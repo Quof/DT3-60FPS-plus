@@ -17,6 +17,11 @@ global.recAtkNum+=1
 global.stBelmont_Dagger[2]+=1
 stunTime=7
 
+_speed=0 //60fps change: moved up from below the facing check (as oBelmontDagger has them): set after it, _direction=0 undid the left-facing _direction=180, so facing left the daggers flew right
+_direction=0 //60fps change: see above
+_hspeed=0 //60fps change: see above
+_vspeed=0 //60fps change: see above
+
 if oPlayer1.image_xscale=1
   x+=10
 else
@@ -31,10 +36,10 @@ bCollide=0
 lifeTime=45
 lingerFrame=0
 
-_speed=0
-_direction=0
-_hspeed=0
-_vspeed=0
+//_speed=0
+//_direction=0
+//_hspeed=0
+//_vspeed=0
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

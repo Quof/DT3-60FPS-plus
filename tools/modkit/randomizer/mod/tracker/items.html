@@ -102,7 +102,7 @@
       case "own": return parseInt((S.own || "").charAt(h[1]), 10) || 0;
       case "flag": return S[h[1]] > 0 ? 1 : 0;
       case "gate": return (S.gate || "").charAt(h[1] - 1) === "9" ? 1 : 0;
-      case "equip": return (S.equip || "").charAt(h[1] - 1) === "1" ? 1 : 0;
+      case "equip": return "12".indexOf((S.equip || "").charAt(h[1] - 1) || "0") >= 0 ? 1 : 0;  // ("2": had and worn)
       case "chip": return (S.chips === undefined ? "111111" : S.chips).charAt(h[1] - 1) === "1" ? 1 : 0;
       case "count": return h.length > 2 ? ones(S[h[1]], h[2], h[3]) : ones(S[h[1]], 1, 1 << 20);
       case "keys":

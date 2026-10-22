@@ -434,6 +434,61 @@ def not_doors(f):
     return "".join("1" if o.startswith("encounter:") or f.rnames[ri] in fights else "0" for ri, o in f.exits)
 
 
+def exit_twins(f):
+    """each exit that isn't a door's end: the exit back through it (out of the room it leads to, into this room, the
+    pair nearest its two ends: where it leads in and where it is), or -1 (none within TWIN_NEAR px at both ends: a one
+    way exit). The Check Tracker's Entrance Tracker counts an exit gone through once its twin has been, so a door the
+    shuffle leaves where the game has it is gone through either way, as a shuffled door's ends are"""
+    def xy(s):
+        try:
+            a, b = s.split(",")[:2]
+            return int(a), int(b)
+        except ValueError:
+            return None
+    def dest(x):
+        ds = f.exit_sdest[x] if f.exit_sg[x] >= 0 else [f.exit_dest[x]]
+        return [w for w in ds if w >= 0]
+    def far(p, q):
+        return abs(p[0] - q[0]) + abs(p[1] - q[1])
+    by_room = collections.defaultdict(list)
+    for x, (ri, o) in enumerate(f.exits): by_room[ri].append(x)
+    out = []
+    for x, (ri, o) in enumerate(f.exits):
+        best, bd = -1, None
+        px = xy(o)
+        if f.exit_end_own[x] < 0 and px is not None:
+            for w in dest(x):
+                rb, pw = f.entries[w][0], xy(f.entries[w][1])
+                if rb == ri or pw is None: continue
+                for y in by_room[rb]:
+                    py = xy(f.exits[y][1])
+                    if py is None: continue
+                    for v in dest(y):
+                        pv = xy(f.entries[v][1])
+                        if f.entries[v][0] != ri or pv is None: continue
+                        a, b = far(py, pw), far(pv, px)
+                        if a <= TWIN_NEAR and b <= TWIN_NEAR and (bd is None or a + b < bd): best, bd = y, a + b
+        out.append(best)
+    return out
+
+
+TWIN_NEAR = 256      # (Level 2: its pipe from Level 1 drops the player in 216 px from the pipe back)
+
+
+def exits_beaten(f):
+    """each exit that's gone once its room's fight is won, or -1: the Nightmare Gates' boss rooms' way back to the gate's
+    start (rExtGate?_1), which the room swaps for the way on to the Sacred Temple after the boss: that fight's boss
+    place (its character in the state's boss)"""
+    out = []
+    for x, (ri, o) in enumerate(f.exits):
+        s = f.room_slot[ri]
+        d = f.exit_dest[x]
+        to = f.rnames[f.entries[d][0]] if d >= 0 else ""
+        here = f.rnames[ri]
+        out.append(s if s >= 0 and here.startswith("rExtGate") and to == here[:-1] + "1" else -1)
+    return out
+
+
 def logic_tables(f):
     """the room logic's tables (erflat.export's), as the pages' reach uses them: pairs (first, count) flat"""
     def pairs(lst):
@@ -451,7 +506,8 @@ def logic_tables(f):
         "rowKind": f.row_kind, "rowTarget": f.row_target, "rowLeave": f.row_leave, "rowAlts": pairs(f.row_alts),
         "altFirst": f.alt_first, "altCount": f.alt_count, "reqIx": f.req_ix, "reqC": f.req_c,
         "exitDest": f.exit_dest, "exitSg": f.exit_sg, "exitSdest": f.exit_sdest, "exitExtra": pairs(f.exit_extra),
-        "exitRoom": [ri for ri, o in f.exits], "exitNotDoor": not_doors(f),
+        "exitRoom": [ri for ri, o in f.exits], "exitNotDoor": not_doors(f), "exitTwin": exit_twins(f),
+        "exitBeaten": exits_beaten(f),
         "exitEnd": f.exit_end_own, "exitFollow": f.exit_follow, "endBack": [e["back"] for e in f.ends],
         "evWays": [[x for kind, what, (af, ac), mode in ways for x in (kind, what, af, ac, mode)] for ways in f.ev_ways],
         "evNames": f.evnames,

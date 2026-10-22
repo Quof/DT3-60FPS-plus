@@ -149,7 +149,7 @@ global.rndTrapActive=-1
 var k;
 for(k=0;k<global.rndTrapN;k+=1)
 {
-  if global.rndTrapRoom[k]=room and string_char_at(global.rndTrapDone,k+1)!="1" {instance_create(0,0,global.rndTrapObj[k])}
+  if global.rndTrapRoom[k]=room and string_char_at(global.rndTrapDone,k+1)!="1" and !instance_exists(global.rndTrapObj[k]) {instance_create(0,0,global.rndTrapObj[k])}
 }
 //the story's ability pickups (location type 19, rndStory*: where the story's own were, gone in the endgame world): each
 //one in this room whose item isn't taken yet, as a pickup there (oRndStory). In an Archipelago game, only one its

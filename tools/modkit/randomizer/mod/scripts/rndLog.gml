@@ -121,5 +121,28 @@ if global.rndERMode>0
       file_text_write_string(f,"  "+rndERExitNameX(global.rndEFoX[k])+"  ->  as "+rndERExitName(d)); file_text_writeln(f)
     }
   }
+  //the one way exits (not shuffled, as the game has them: rndOneWayData): where each leads (one that goes by a state
+  //the player carries, each place it can lead)
+  if variable_global_exists("rndOneWayN")
+  {
+    file_text_writeln(f)
+    file_text_write_string(f,"One-way exits (not shuffled, as the game has them: going through one, no exit where it comes out leads back to it; ONE WAY signs mark the ones with an arrow or a pipe)"); file_text_writeln(f)
+    for(k=0;k<global.rndOneWayN;k+=1)
+    {
+      i=global.rndOneWayX[k]
+      if global.rndERFollow=1 and global.rndEXFollow[i]>=0 {continue}
+      tStr=""
+      if global.rndEXSg[i]>=0
+      {
+        for(p=0;p<global.rndEXSdN[i];p+=1)
+        {
+          d=global.rndEXSd[i,p]
+          if d>=0 {if tStr!="" {tStr+=" or "}; tStr+=rndEREntryName(d)}
+        }
+      }
+      else if global.rndEXDest[i]>=0 {tStr=rndEREntryName(global.rndEXDest[i])}
+      if tStr!="" {file_text_write_string(f,"  "+rndERExitNameX(i)+"  ->  "+tStr); file_text_writeln(f)}
+    }
+  }
 }
 file_text_close(f)

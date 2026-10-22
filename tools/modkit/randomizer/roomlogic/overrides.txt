@@ -575,7 +575,8 @@ need rMain_56Gate out 176,208 : chip 6
 # half or more, and Gate 6's three Water Caves
 also rMain_25 : air 3                # Begonia - Waterway Passage
 also rMain_25ExtA : air 3
-also rMain_26 : air 3                # Begonia - Watery Cave
+#also rMain_26 : air 3               # Begonia - Watery Cave: Main Room (b117: no Air Upgrades: playtested, the room's
+                                     # water didn't take the player's air; a small room besides)
 also rMountTemple_E : air 3          # Begonia - Mountain Temple 5-7
 also rMountTemple_F : air 3
 also rMountTemple_G : air 3
@@ -653,4 +654,160 @@ set rMario1_7 in * -> out 1448,104 : nothing
 add rMain_47 in * -> loc skill point 46 : djump adash
 add rMega4_OstrichC in * -> loc 16 1 : megaman 4
 add rMain_73 in * -> loc internetz mod 18 : samus 6
-add rGame6_HeroPlainsE in * -> loc game power 4 : djump
+#add rGame6_HeroPlainsE in * -> loc game power 4 : djump   # (b119: out: playtested, the game power takes a melee hit)
+
+# ---- Playtest corrections (b117) ----
+# Barrens - Deserted Tower's upper skill point: the double jump does as well as the air dash, once up at the tower's
+# door; from the bottom ways in, what getting up there takes (which has one of them)
+set rMain_50 in 864,240 -> loc skill point 49 : adash | djump
+set rMain_50 in 1536,240 -> loc skill point 49 : adash | djump
+set rMain_50 in 1552,880 -> loc skill point 49 : djump adash | adash megaman 4 | djump megaman 4
+set rMain_50 in 48,1088 -> loc skill point 49 : djump adash | adash megaman 4 | djump megaman 4
+# Highlands - Super Falls: its right skill point with the double jump
+add rMain_80 in * -> loc skill point 96 : djump
+# Castle Courtyard 5: the treasure chest with the double jump
+add rBelmont3_5E in * -> loc treasure chest 18 : djump
+# Castle Staircase 1: Secret: both places with the Master Sword and the double jump
+add rBelmont3_3E_Secret in * -> loc heart energy 19 : link 1 djump
+add rBelmont3_3E_Secret in * -> loc treasure chest 20 : link 1 djump
+# Farreaches - Bubble Tower: the ring challenge's skill point with the double jump (from the ways in that get to the
+# room's middle: not the drop in from rMain_35)
+add rMain_34 in 96,1120 -> loc skill point 31 : djump
+add rMain_34 in 1088,1104 -> loc skill point 31 : djump
+add rMain_34 in 608,80 -> loc skill point 31 : djump
+add rMain_34 in 2352,416 -> loc skill point 31 : djump
+add rMain_34 in 1936,0 -> loc skill point 31 : djump
+# Central City - South: the treasure chest with the Morph Ball and the double jump
+add rCCity_SouthA in * -> loc treasure chest 39 : djump samus 2
+# Hidden Program Facility 12: the treasure chest with the double jump and a weapon (for the computer's infection: a
+# strong one helps); from the left door, the right door with nothing
+add rHPF_L in * -> loc treasure chest 54 : djump attack
+set rHPF_L in 48,416 -> out 3056,384 : nothing
+# Doom Castle 8: the key's ledge (boxed in at the top left) only from the top left way in, 48,128
+set rGame6_CoDH in 912,1008 -> loc key 16 : never
+set rGame6_CoDH in 48,976 -> loc key 16 : never
+set rGame6_CoDH in 1648,16 -> loc key 16 : never
+set rGame6_CoDH in 1760,224 -> loc key 16 : never
+# The Vault 12: the treasure chest takes Link's Fuse Bomb or Samus's Bombs
+set rVault_12 in * -> loc treasure chest 38 : link 3 | samus 6
+# Deserted Tower 1: the internetz mod the same
+set rDesertedTowerA in * -> loc internetz mod 11 : link 3 | samus 6
+# Subconscious Filter 3, 4 and 9: from the left door the right one (9: the top right) with the air dash or the double
+# jump (4: and the Morph Ball, which it needs)
+add rSF_C in 48,480 -> out 6224,192 : adash | djump
+set rSF_D in 48,384 -> out 6224,448 : adash samus 2 | djump samus 2
+add rSF_I in 48,1856 -> out 2624,176 : adash | djump
+# Neo Grime City: Tower 2: from the bottom door the top one with the Morph Ball (which it needs)
+set rNGC_RB_B in 360,2320 -> out 64,128 : samus 2
+# Norfair 10: the bottom right door from the other ways in with the High Jump Boots and the double jump
+add rSamus5_Lv2_J in 64,1712 -> out 464,1488 : hijump 1 djump
+add rSamus5_Lv2_J in 416,112 -> out 464,1488 : hijump 1 djump
+add rSamus5_Lv2_J in 64,112 -> out 464,1488 : hijump 1 djump
+# Barrens - Upper Waste: its bottom pipe (down to the Sand Cave) is in the sand, where the Sand Crawler (Wahfuu Jr.)
+# comes up till the fight in its room in the Deserted Tower is won (the mod's oSandCrawlerSpawner): events.txt's
+# sandcrawler
+need rMain_43 out 1592,392 : event sandcrawler
+# Earth Temple 9: from the right door no way to the left one
+set rGame6_EarthI in 1680,288 -> out 0,224 : never
+# Earth Temple 1: from the right door no way to the others (the playtest's path went in from the right and out by the
+# portal on the left)
+set rGame6_EarthA in 2512,224 -> out 0,256 : never
+set rGame6_EarthA in 2512,224 -> out 400,288 : never
+# The Vault 9: from the left door the right one with one of the Arm Cannon, the X-Buster, the Dagger and the Fuse Bomb
+set rVault_9 in 48,224 -> out 3024,160 : samus 1 | megaman 1 | belmont 2 | link 3
+# Hidden Program Facility 16: from the left door the right one with the double jump
+add rHPF_P in 48,768 -> out 2032,224 : djump
+# Brinstar 17: either door from the other takes the Diffusion Missile
+set rSamus5_Lv1_Q in 3008,272 -> out 0,224 : samus 7
+set rSamus5_Lv1_Q in 64,256 -> out 3056,240 : samus 7
+# Sigma's Fortress Inner 4: from the bottom door the top one takes the Gravity Well
+set rMega4_SigmaB4 in 48,3008 -> out 656,160 : megaman 3
+# Begonia - Beach: its top right door (to Central City - North) is got to from every way in with nothing, so every way
+# in gets what that door's way in gets
+set rMain_20 in * -> out 3016,304 : nothing
+add rMain_20 in * -> loc skill point 10 : adash | djump
+add rMain_20 in * -> loc skill point 25 : samus 2
+add rMain_20 in * -> loc skill point 9 : djump adash
+add rMain_20 in * -> loc treasure chest 22 : nothing
+add rMain_20 in * -> loc arrow quiver 18 : adash | djump
+add rMain_20 in * -> loc air upgrade 6 : djump | gdash | samus 2
+add rMain_20 in * -> loc weapon upgrade 26 : djump
+add rMain_20 in * -> out 0,1280 : nothing
+add rMain_20 in * -> out 1392,-16 : nothing
+add rMain_20 in * -> out 1888,1392 : nothing
+add rMain_20 in * -> out 24,512 : nothing
+add rMain_20 in * -> out 2840,1088 : djump adash
+add rMain_20 in * -> out 2880,1392 : nothing
+add rMain_20 in * -> out 3000,960 : djump adash
+# Maridia 3: from the bottom door the weapon upgrade with the High Jump Boots, the double jump, the air dash and Missiles
+add rSamus5_Lv3_C in 416,1120 -> loc weapon upgrade 104 : hijump 1 djump adash samus 4
+# Castle Courtyard 1: from the top two ways in the heart energy with the air dash and the double jump
+add rBelmont3_5A in 48,192 -> loc heart energy 11 : adash djump
+add rBelmont3_5A in 1808,208 -> loc heart energy 11 : adash djump
+# Warship Z 3 and 8: from the right door no way to the left one
+set rWarshipZ_C in 3696,192 -> out 0,160 : never
+set rWarshipZ_H in 4416,208 -> out 0,224 : never
+# Sigma's Fortress Outer 1: from the left (the room's start) the right door takes the Strike Chain
+set rMega4_SigmaA1 in 80,592 -> out 11504,368 : megaman 4
+# Begonia - Watery Cave: Main Room: the bottom door from the other ways in with nothing
+add rMain_26 in 720,208 -> out 392,384 : nothing
+add rMain_26 in 400,144 -> out 392,384 : nothing
+add rMain_26 in 48,192 -> out 392,384 : nothing
+# Doom Castle 13: from the left door the right one with the double jump and Claire's Game Powers, the Master Sword, the
+# Hair Whip or the Arm Cannon
+add rGame6_CoDM in 48,240 -> out 2384,240 : djump gamec 1 | djump link 1 | djump belmont 1 | djump samus 1
+# Nightmare Gate D: from each room's way in, its way on: 1 and 3 with nothing, 2 with a weapon (the Master Sword, the
+# Hair Whip, the X-Buster or the Arm Cannon), 4 with the Strike Chain, 5 with the dash or the air dash
+add rExtGateD_1 in 96,304 -> out 3696,160 : nothing
+add rExtGateD_2 in 48,192 -> out 3136,160 : link 1 | belmont 1 | megaman 1 | samus 1
+add rExtGateD_3 in 80,288 -> out 5872,208 : nothing
+add rExtGateD_4 in 48,128 -> out 2928,416 : megaman 4
+add rExtGateD_5 in 48,2048 -> out 592,96 : gdash | adash
+# Maridia 9: the morph bomb upgrade with the High Jump Boots, the double jump, the air dash and a weapon
+add rSamus5_Lv3_I in * -> loc morph bomb upgrade 8 : hijump 1 djump adash attack
+# Castle Inner Sanctum 5: the top left door from the other ways in with the air dash and the double jump
+add rBelmont3_3E in 48,448 -> out 0,128 : adash djump
+add rBelmont3_3E in 784,160 -> out 0,128 : adash djump
+# Death's Flying Castle 1: the weapon upgrade with the Morph Ball, the Dagger, the double jump or the Fuse Bomb and the
+# air dash, and the Master Sword or the Hair Whip
+add rBelmont3_6A in * -> loc weapon upgrade 34 : samus 2 link 1 | samus 2 belmont 1 | belmont 2 | djump link 1 | djump belmont 1 | link 3 adash
+# CHAOS Weapons Facility 9: the weapon upgrade takes the Strike Chain
+set rWepFacI in 48,288 -> loc weapon upgrade 38 : megaman 4
+# Begonia - Waterfront Blockage: the treasure chest with the dash, the air dash and the double jump
+add rMain_27 in * -> loc treasure chest 35 : gdash adash djump
+# Magical Hills - West: the middle skill point with the air dash and the double jump
+add rMain_11 in * -> loc skill point 24 : adash djump
+# Grand Impediment: from the two bottom ways in, the two top doors and the treasure chest take the Strike Chain
+set rMain_72 in 48,1392 -> out 72,112 : adash megaman 4 | djump megaman 4
+set rMain_72 in 48,1392 -> out 1712,272 : adash megaman 4 | djump megaman 4
+set rMain_72 in 48,1392 -> loc treasure chest 72 : adash megaman 4 | djump megaman 4
+set rMain_72 in 1584,1424 -> out 72,112 : adash megaman 4 | djump megaman 4
+set rMain_72 in 1584,1424 -> out 1712,272 : adash megaman 4 | djump megaman 4
+set rMain_72 in 1584,1424 -> loc treasure chest 72 : adash megaman 4 | djump megaman 4
+# Magical Castle 8: from the left the right door with the Morph Ball and the double jump, or the air dash and the Mario
+# Ability Set
+add rMC_H in 96,48 -> out 2768,224 : samus 2 djump | samus 2 adash mario
+# Tourian: Escape 2: from the top right door no way to the bottom left one
+set rSamus5_EscapeB in 1504,368 -> out 48,1376 : never
+# Mountain Temple 1: from the right door every other door with nothing, the skill point with the Morph Ball
+set rMountTemple_A in 1920,592 -> out 192,-16 : nothing
+set rMountTemple_A in 1920,592 -> out 72,512 : nothing
+set rMountTemple_A in 1920,592 -> out 72,752 : nothing
+add rMountTemple_A in 1920,592 -> loc skill point 56 : samus 2
+# Magical Floating Branches: the skill point with the Mario Ability Set, the double jump and the air dash
+add rMain_77 in * -> loc skill point 100 : mario djump adash
+# Starry Skies - Fierce Skies and Wind Temple 8: from the right door no way to the left one
+set rMain_68 in 4752,240 -> out 56,240 : never
+set rGame6_WindH in 5680,256 -> out 72,256 : never
+# Lost Entrance: come into from the left (the Sacred Temple's main door, roomdata.py's EVENT_EXITS: in an Entrance
+# Rando game the temple is got to from a Nightmare Gate's way out after its boss), the right door and the treasure chest
+# with nothing, as from the right
+set rMain_19 in 240,416 -> out 1984,-16 : nothing
+set rMain_19 in 240,416 -> loc treasure chest 21 : nothing
+# The Vault 20 and 21: from the left, the platform near the left door starts a set of four platforms that carries the
+# player to the right door (the simulation doesn't see them move): Vault 20 with a weapon for its enemies, Vault 21 with
+# nothing (from the ways in from their own doors, which come in on the left side too)
+set rVault_20 in 48,272 -> out 3504,240 : attack
+set rVault_20 in 128,96 -> out 3504,240 : attack
+set rVault_21 in 48,272 -> out 4432,240 : nothing
+set rVault_21 in 96,96 -> out 4432,240 : nothing
