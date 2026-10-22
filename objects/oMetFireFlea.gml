@@ -60,6 +60,10 @@ if global.gamePaused=false
   if bActive=true and stunnedTime=0
   {
     lightFrm+=0.15*gDeltaTime
+    //x+=moveSpd*cos(degtorad(direction))
+    //y-=moveSpd*sin(degtorad(direction))
+    x+=moveSpd*cos(degtorad(_direction))*gDeltaTime //60fps change: these two lines had gone with the switch to _direction, so the fleas only turned in place: their circle, scaled
+    y-=moveSpd*sin(degtorad(_direction))*gDeltaTime //60fps change: see above
     _direction-=moveArc*gDeltaTime
   }
   enemyStepEvent()
