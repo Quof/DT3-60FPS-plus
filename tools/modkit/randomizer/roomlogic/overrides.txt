@@ -632,8 +632,9 @@ add rCCity_SouthA in * -> out 48,64 : adash samus 2
 # Norfair 7: one door to the other, one of the dashes and a weapon
 set rSamus5_Lv2_G in 64,272 -> out 1904,240 : gdash link 1 | gdash belmont 1 | gdash megaman 1 | gdash samus 1 | adash link 1 | adash belmont 1 | adash megaman 1 | adash samus 1
 set rSamus5_Lv2_G in 1856,272 -> out 0,240 : gdash link 1 | gdash belmont 1 | gdash megaman 1 | gdash samus 1 | adash link 1 | adash belmont 1 | adash megaman 1 | adash samus 1
-# Norfair 12: from the right door the left one, falling through the blocks above it
-set rSamus5_Lv2_L in 1856,208 -> out 0,272 : nothing
+# Norfair 12: from the right door the left one, falling through the blocks above it (a weapon for the left door's
+# Metroid hatch, b121)
+set rSamus5_Lv2_L in 1856,208 -> out 0,272 : attack
 # Brinstar 12: the missile tank is behind a bomb block (Samus's Bombs)
 set rSamus5_Lv1_L in * -> loc missile tank 20 : samus 6
 # Castle Courtyard 4: from the right the left door with the air dash or the double jump
@@ -699,10 +700,11 @@ set rSF_D in 48,384 -> out 6224,448 : adash samus 2 | djump samus 2
 add rSF_I in 48,1856 -> out 2624,176 : adash | djump
 # Neo Grime City: Tower 2: from the bottom door the top one with the Morph Ball (which it needs)
 set rNGC_RB_B in 360,2320 -> out 64,128 : samus 2
-# Norfair 10: the bottom right door from the other ways in with the High Jump Boots and the double jump
-add rSamus5_Lv2_J in 64,1712 -> out 464,1488 : hijump 1 djump
-add rSamus5_Lv2_J in 416,112 -> out 464,1488 : hijump 1 djump
-add rSamus5_Lv2_J in 64,112 -> out 464,1488 : hijump 1 djump
+# Norfair 10: the bottom right door from the other ways in with the High Jump Boots and the double jump (and a weapon
+# for its Metroid hatch, b121)
+add rSamus5_Lv2_J in 64,1712 -> out 464,1488 : hijump 1 djump attack
+add rSamus5_Lv2_J in 416,112 -> out 464,1488 : hijump 1 djump attack
+add rSamus5_Lv2_J in 64,112 -> out 464,1488 : hijump 1 djump attack
 # Barrens - Upper Waste: its bottom pipe (down to the Sand Cave) is in the sand, where the Sand Crawler (Wahfuu Jr.)
 # comes up till the fight in its room in the Deserted Tower is won (the mod's oSandCrawlerSpawner): events.txt's
 # sandcrawler
@@ -811,3 +813,15 @@ set rVault_20 in 48,272 -> out 3504,240 : attack
 set rVault_20 in 128,96 -> out 3504,240 : attack
 set rVault_21 in 48,272 -> out 4432,240 : nothing
 set rVault_21 in 96,96 -> out 4432,240 : nothing
+# Hyrule's map encounters (the road, grass, desert and forest fights): their ways out go back to the map the player
+# came from (Map 2 when global.newMapY is 10000 on, else Map 1), where they were, which the room files have as always
+# Map 1 at one place (their exits' creation code's first branch): coming back adds nothing, so the logic doesn't go on
+# through them (b122; a playtest's path went from Map 2 through the road encounter to Map 1)
+set rLink2_EnRoad in * -> out 0,256 : never
+set rLink2_EnRoad in * -> out 464,256 : never
+set rLink2_EnGrass in * -> out 0,256 : never
+set rLink2_EnGrass in * -> out 1264,256 : never
+set rLink2_EnDesert in * -> out 0,256 : never
+set rLink2_EnDesert in * -> out 1264,256 : never
+set rLink2_EnForest in * -> out 0,272 : never
+set rLink2_EnForest in * -> out 1264,272 : never
