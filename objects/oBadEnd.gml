@@ -32,27 +32,33 @@ else if sceneProgress=1
   sceneDelay+=1*gDeltaTime
   if sceneDelay=40
   {
-    createScreenText(240,32,-1,fnt_EnemyName,fa_middle,"After the creature merged with the Warship,#it turned its sights on the world.",3,c_red,1,0)
+    //createScreenText(240,32,-1,fnt_EnemyName,fa_middle,"After the creature merged with the Warship,#it turned its sights on the world.",3,c_red,1,0)
+    createScreenText(240,32,-1,fnt_EnemyName,fa_middle,"After the creature merged with the Warship,#it turned its sights on the world.",4,c_red,1,0) //60fps change: outline on all 8 sides (type 4) like the credits text
   }
   else if sceneDelay=160
   {
-    createScreenText(240,80,-1,fnt_EnemyName,fa_middle,"Already invincible and driven to destroy,#it threw the world into chaos.",3,c_red,1,0)
+    //createScreenText(240,80,-1,fnt_EnemyName,fa_middle,"Already invincible and driven to destroy,#it threw the world into chaos.",3,c_red,1,0)
+    createScreenText(240,80,-1,fnt_EnemyName,fa_middle,"Already invincible and driven to destroy,#it threw the world into chaos.",4,c_red,1,0) //60fps change: outline on all 8 sides (type 4) like the credits text
   }
   else if sceneDelay=280
   {
-    createScreenText(240,128,-1,fnt_EnemyName,fa_middle,"With it backed by Hex's power and rage,#it devastated the lives of those in the program.",3,c_red,1,0)
+    //createScreenText(240,128,-1,fnt_EnemyName,fa_middle,"With it backed by Hex's power and rage,#it devastated the lives of those in the program.",3,c_red,1,0)
+    createScreenText(240,128,-1,fnt_EnemyName,fa_middle,"With it backed by Hex's power and rage,#it devastated the lives of those in the program.",4,c_red,1,0) //60fps change: outline on all 8 sides (type 4) like the credits text
   }
   else if sceneDelay=400
   {
-    createScreenText(240,176,-1,fnt_EnemyName,fa_middle,"With stability quickly collapsing,#the world functions decayed and became corrupt.",3,c_red,1,0)
+    //createScreenText(240,176,-1,fnt_EnemyName,fa_middle,"With stability quickly collapsing,#the world functions decayed and became corrupt.",3,c_red,1,0)
+    createScreenText(240,176,-1,fnt_EnemyName,fa_middle,"With stability quickly collapsing,#the world functions decayed and became corrupt.",4,c_red,1,0) //60fps change: outline on all 8 sides (type 4) like the credits text
   }
   else if sceneDelay=520
   {
-    createScreenText(240,260,-1,fnt_EnemyName,fa_middle,"The world had ended...",3,c_red,1,0)
+    //createScreenText(240,260,-1,fnt_EnemyName,fa_middle,"The world had ended...",3,c_red,1,0)
+    createScreenText(240,260,-1,fnt_EnemyName,fa_middle,"The world had ended...",4,c_red,1,0) //60fps change: outline on all 8 sides (type 4) like the credits text
   }
   else if sceneDelay=640
   {
-    createScreenText(240,304,-1,fnt_EnemyName,fa_middle,"But it could have been prevented.",3,c_red,1,0)
+    //createScreenText(240,304,-1,fnt_EnemyName,fa_middle,"But it could have been prevented.",3,c_red,1,0)
+    createScreenText(240,304,-1,fnt_EnemyName,fa_middle,"But it could have been prevented.",4,c_red,1,0) //60fps change: outline on all 8 sides (type 4) like the credits text
   }
   else if sceneDelay>=761 and sceneDelay<=810
   {
@@ -76,7 +82,8 @@ else if sceneProgress=2
   sceneDelay+=1*gDeltaTime
   if sceneDelay=40
   {
-    createScreenText(240,176,-1,fnt_EnemyName,fa_middle,"Jeremy was all that was left in the darkness...",3,c_red,1,0)
+    //createScreenText(240,176,-1,fnt_EnemyName,fa_middle,"Jeremy was all that was left in the darkness...",3,c_red,1,0)
+    createScreenText(240,176,-1,fnt_EnemyName,fa_middle,"Jeremy was all that was left in the darkness...",4,c_red,1,0) //60fps change: outline on all 8 sides (type 4) like the credits text
   }
   else if sceneDelay>=131 and sceneDelay<=230
   {

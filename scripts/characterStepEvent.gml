@@ -1830,7 +1830,8 @@ else if global.activeCharacter=2 //-------------------- JEREMY - MECH ----------
       else {sprite_index=sJeremyMechIdle}
     }
     else if state=RUNNING {sprite_index=sJeremyMechWalk}
-    else if state=JUMPING or state=FALLING and statePrev=FALLING {sprite_index=sJeremyMechJump}
+    //else if state=JUMPING or state=FALLING and statePrev=FALLING {sprite_index=sJeremyMechJump}
+    else if state=JUMPING or (state=FALLING and statePrev=FALLING) {sprite_index=sJeremyMechJump} //mech sprite fix: GameMaker reads "and" and "or" left to right, so without the brackets this was (JUMPING or FALLING) and statePrev=FALLING: rising, the mech kept its ground sprite (and the footstep sound, which goes by the walk sprite)
 
     if state=JUMPING or bUseFuel=1
     {
